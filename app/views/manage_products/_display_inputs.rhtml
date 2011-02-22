@@ -1,0 +1,33 @@
+<div id='new-product-input'></div>
+
+<div id='display-add-input-button'>
+  <% if @product.inputs.empty? %>
+    <%= edit_ui_button(
+      _('Add the inputs or raw material used by this product'),
+      {:action => 'add_input', :id => @product.id},
+      :id => 'add-input-button',
+      'data-primary-icon' => 'ui-icon-pencil',
+      'data-secondary-icon' => 'ui-icon-triangle-1-s',
+      :title => _('Add inputs or raw materials used by this product and give more transparency to consumers about your enterprise')
+    ) %>
+    <%= javascript_tag("render_jquery_ui_buttons('add-input-button')") %>
+  <% else %>
+    <%= edit_button(:add, _('Add new input or raw material'), {:action => 'add_input', :id => @product.id}, :id => 'add-input-button', :title => _('Add new input or raw material used by this product and give more transparency to consumers about your enterprise')) %>
+    <%= content_tag('span', _('Drag the input with the mouse to change the order'), :class => 'hint', :style => 'display: none') %>
+  <% end %>
+  <span class='loading-area'></span>
+</div>
+
+<div id='display-product-inputs'>
+  <ul class='input-list'>
+    <%= render :partial => 'input', :collection => @inputs %>
+  </ul>
+  <%= edit_link(_('Order inputs'), {:action => 'order_inputs', :id => @product.id}, :class => "order-inputs", :style => 'display:none') %>
+</div>
+
+<% if user && user.has_permission?('manage_products', profile) %>
+  <% if @product.inputs.size > 1 %>
+    <%= javascript_tag "input_javascript_ordering_stuff()" %>
+  <% end %>
+  <%= javascript_tag "display_input_stuff()" %>
+<% end %>

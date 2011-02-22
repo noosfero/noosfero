@@ -48,25 +48,23 @@ if (GBrowserIsCompatible()) {
       baseIcon.shadowSize=new GSize(36,32);
       baseIcon.iconAnchor=new GPoint(16,32);
       baseIcon.infoWindowAnchor=new GPoint(16,0);
-  var icon = new GIcon(baseIcon, "/images/icons-map/enterprise.png", null, "/images/icons-map/enterprise_shadow.png");
+  <%
+    icon = default_or_themed_icon("/images/icons-map/enterprise.png")
+    icon_shadow = default_or_themed_icon("/images/icons-map/enterprise_shadow.png")
+  %>
+  var icon = new GIcon(baseIcon, "<%= icon %>", null, "<%= icon_shadow %>");
 
 <%
-  missed = false
   @results.each do |name,results|
     results.each do |item|
       if item.lat && item.lng
       %>
         putMarker(<%= item.lat.to_json %>, <%= item.lng.to_json %>, <%= item.name.to_json %>, <%= display_item_map_info(item).to_json %>);
       <%
-        else
-          missed = true
-        end
+      end
     end
   end
 %>
-  <% if missed %>
-  <%= "map.openInfoWindowHtml(centerPoint, %s);" % _("One or more items don't have geographical information, and won't be shown in the map. Choose \"Display in list\" to see them.").to_json %>
-  <% end %>
 }
 
   map.setZoom(map.getBoundsZoomLevel(bounds));

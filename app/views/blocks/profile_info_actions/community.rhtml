@@ -3,21 +3,29 @@
 
     <% if profile.members.include?(user) %>
       <li>
-        <%= lightbox_link_to content_tag('span', _('Leave')), profile.leave_url, :class => 'button with-text icon-delete', :title => _('Leave this community') %>
+        <%= button(:delete, content_tag('span', __('Leave')), profile.leave_url, :class => 'leave-community', :title => _("Leave community"), :style => 'position: relative;') %>
+        <%= button(:add, content_tag('span', __('Join')), profile.join_url, :class => 'join-community', :title => _("Join community"), :style => 'position: relative; display: none;') %>
       </li>
     <% else %>
       <% unless profile.already_request_membership?(user) %>
         <li>
-        <%= lightbox_link_to content_tag('span', _('Join')), profile.join_url, :class => 'button with-text icon-add', :title => _('Join this community') %>
+          <%= button(:delete, content_tag('span', __('Leave')), profile.leave_url, :class => 'leave-community', :title => _("Leave community"), :style => 'position: relative; display: none;') %>
+          <%= button(:add, content_tag('span', __('Join')), profile.join_url, :class => 'join-community', :title => _("Join community"), :style => 'position: relative;') %>
         </li>
       <% end %>
     <% end %>
-
     <% if profile.enable_contact? %>
       <li>
-        <%= link_to content_tag('span', _('Contact us')), {:profile => profile.identifier, :controller => 'contact', :action => 'new'}, :class => 'button with-text icon-menu-mail' %>
+        <%= link_to content_tag('span', _('Send an e-mail')), {:profile => profile.identifier, :controller => 'contact', :action => 'new'}, :class => 'button with-text icon-menu-mail' %>
       </li>
     <% end %>
+    <%= render_environment_features(:profile_actions) %>
+
+  <% else %>
+
+    <li>
+      <%= link_to content_tag('span', _('Join')), profile.join_not_logged_url, :class => 'button with-text icon-add', :title => _('Join this community') %>
+    </li>
 
   <% end %>
 </ul>

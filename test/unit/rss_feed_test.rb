@@ -58,7 +58,7 @@ class RssFeedTest < ActiveSupport::TestCase
     feed = RssFeed.new
     feed.expects(:profile).returns(profile).at_least_once
     array = []
-    profile.expects(:recent_documents).returns(array)
+    profile.expects(:last_articles).returns(array)
     feed.data
   end
 
@@ -123,9 +123,7 @@ class RssFeedTest < ActiveSupport::TestCase
     feed.profile = profile
     feed.save!
 
-    profile.environment.expects(:default_hostname).returns('mysite.net').at_least_once
-
-    assert_match "<link>http://mysite.net/testuser</link>", feed.data
+    assert_match "<link>http://#{profile.environment.default_hostname}/testuser</link>", feed.data
   end
 
   should 'provide link to each article' do
@@ -150,11 +148,11 @@ class RssFeedTest < ActiveSupport::TestCase
     feed.profile = profile
     feed.save!
 
-    feed.profile.expects(:recent_documents).with(10).returns([]).once
+    feed.profile.expects(:last_articles).with(10).returns([]).once
     feed.data
 
     feed.limit = 5
-    feed.profile.expects(:recent_documents).with(5).returns([]).once
+    feed.profile.expects(:last_articles).with(5).returns([]).once
     feed.data
   end
 
@@ -192,7 +190,7 @@ class RssFeedTest < ActiveSupport::TestCase
   end
 
   should 'provide the correct icon name' do
-    assert_equal 'rss-feed', RssFeed.new.icon_name
+    assert_equal 'rss-feed', RssFeed.icon_name
   end
 
   should 'advertise is false before create' do
@@ -207,15 +205,59 @@ class RssFeedTest < ActiveSupport::TestCase
     assert_equal false, a.can_display_hits?
   end
 
-  should 'display the referenced body of a PublishedArticle' do
-    article = fast_create(Article, :body => 'This is the content of the Sample Article.')
+  should 'display the referenced body of a article published' do
+    article = fast_create(TextileArticle, :body => 'This is the content of the Sample Article.', :profile_id => fast_create(Person).id)
     profile = fast_create(Profile)
     blog = fast_create(Blog, :profile_id => profile.id)
-    published_article = PublishedArticle.create!(:reference_article => article, :profile => profile)
-    blog.posts << published_article
+    a = ApproveArticle.create!(:name => 'test name', :article => article, :target => profile, :requestor => fast_create(Person))
+    a.finish
+
+    blog.posts << published_article = article.class.last
     feed = RssFeed.new(:parent => blog, :profile => profile)
 
-    assert_match published_article.to_html, feed.data
+    assert_match "This is the content of the Sample Article", feed.data
+  end
+
+  should 'display articles even within a private profile' do
+    profile = create_user('testuser').person
+    profile.public_profile = false
+    profile.save!
+    a1 = profile.articles.build(:name => 'article 1'); a1.save!
+    a2 = profile.articles.build(:name => 'article 2'); a2.save!
+    a3 = profile.articles.build(:name => 'article 3'); a3.save!
+
+    feed = RssFeed.new(:name => 'testfeed')
+    feed.profile = profile
+    feed.save!
+
+    rss = feed.data
+    assert_match /<item><title>article 1<\/title>/, rss
+    assert_match /<item><title>article 2<\/title>/, rss
+    assert_match /<item><title>article 3<\/title>/, rss
+  end
+
+  should 'provide a non-nil to_html' do
+    assert_not_nil RssFeed.new.to_html
+  end
+
+  should 'include posts from all languages' do
+    profile = create_user('testuser').person
+    blog = Blog.create!(:name => 'blog-test', :profile => profile, :language => nil)
+    blog.posts << en_post = fast_create(TextArticle, :name => "English", :profile_id => profile.id, :parent_id => blog.id, :published => true, :language => 'en')
+    blog.posts << es_post = fast_create(TextArticle, :name => "Spanish", :profile_id => profile.id, :parent_id => blog.id, :published => true, :language => 'es')
+
+    assert blog.feed.fetch_articles.include?(en_post)
+    assert blog.feed.fetch_articles.include?(es_post)
+  end
+
+  should 'include only posts from some language' do
+    profile = create_user('testuser').person
+    blog = Blog.create!(:name => 'blog-test', :profile => profile)
+    blog.feed.update_attributes! :language => 'es'
+    blog.posts << en_post = fast_create(TextArticle, :name => "English", :profile_id => profile.id, :parent_id => blog.id, :published => true, :language => 'en')
+    blog.posts << es_post = fast_create(TextArticle, :name => "Spanish", :profile_id => profile.id, :parent_id => blog.id, :published => true, :language => 'es')
+
+    assert_equal [es_post], blog.feed.fetch_articles
   end
 
 end

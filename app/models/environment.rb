@@ -3,6 +3,8 @@
 # domains.
 class Environment < ActiveRecord::Base
 
+  has_many :users
+
   self.partial_updates = false
 
   has_many :tasks, :dependent => :destroy, :as => 'target'
@@ -14,6 +16,7 @@ class Environment < ActiveRecord::Base
     'manage_environment_categories' => N_('Manage environment categories'),
     'manage_environment_roles' => N_('Manage environment roles'),
     'manage_environment_validators' => N_('Manage environment validators'),
+    'manage_environment_users' => N_('Manage environment users'),
   }
 
   module Roles
@@ -42,9 +45,7 @@ class Environment < ActiveRecord::Base
       :name => N_('Member'),
       :environment => self,
       :permissions => [
-        'edit_profile',
-        'post_content',
-        'manage_products'
+        'invite_members',
       ]
     )
     # moderators for enterprises, communities etc
@@ -67,7 +68,7 @@ class Environment < ActiveRecord::Base
   end
 
   def admins
-    self.members_by_role(Environment::Roles.admin(self.id))
+    Person.members_of(self).all(:conditions => ['role_assignments.role_id = ?', Environment::Roles.admin(self).id])
   end
 
   # returns the available features for a Environment, in the form of a
@@ -80,7 +81,7 @@ class Environment < ActiveRecord::Base
       'disable_asset_communities' => __('Disable search for communities'),
       'disable_asset_products' => _('Disable search for products'),
       'disable_asset_events' => _('Disable search for events'),
-      'disable_products_for_enterprises' => _('Disable products for enterprises'),
+      'disable_products_for_enterprises' => __('Disable products for enterprises'),
       'disable_categories' => _('Disable categories'),
       'disable_cms' => _('Disable CMS'),
       'disable_header_and_footer' => _('Disable header/footer editing by users'),
@@ -89,14 +90,12 @@ class Environment < ActiveRecord::Base
       'disable_select_city_for_contact' => _('Disable state/city select for contact form'),
       'disable_contact_person' => _('Disable contact for people'),
       'disable_contact_community' => _('Disable contact for groups/communities'),
-      'enterprise_registration' => _('Enterprise registration'),
-      'join_community_popup' => _('Ask users to join a group/community with a popup'),
+      'enterprise_registration' => __('Enterprise registration'),
 
-      'enterprise_activation' => _('Enable activation of enterprises'),
+      'enterprise_activation' => __('Enable activation of enterprises'),
       'wysiwyg_editor_for_environment_home' => _('Use WYSIWYG editor to edit environment home page'),
       'media_panel' => _('Media panel in WYSIWYG editor'),
       'select_preferred_domain' => _('Select preferred domains per profile'),
-      'display_wizard_signup' => _('Display wizard signup'),
       'use_portal_community' => _('Use the portal as news source for front page'),
       'user_themes' => _('Allow users to create their own themes'),
       'search_in_home' => _("Display search form in home page"),
@@ -107,7 +106,10 @@ class Environment < ActiveRecord::Base
       'organizations_are_moderated_by_default' => _("Organizations have moderated publication by default"),
       'enable_organization_url_change' => _("Allow organizations to change their URL"),
       'admin_must_approve_new_communities' => _("Admin must approve creation of communities"),
-      'enterprises_are_disabled_when_created' => _('Enterprises are disabled when created'),
+      'enterprises_are_disabled_when_created' => __('Enterprises are disabled when created'),
+      'show_balloon_with_profile_links_when_clicked' => _('Show a balloon with profile links when a profile image is clicked'),
+      'xmpp_chat' => _('XMPP/Jabber based chat'),
+      'show_zoom_button_on_article_images' => _('Show a zoom link on all article images')
     }
   end
 
@@ -131,7 +133,8 @@ class Environment < ActiveRecord::Base
     env.boxes[1].blocks << RecentDocumentsBlock.new
 
     # "right" area
-    env.boxes[2].blocks << ProfileListBlock.new
+    env.boxes[2].blocks << CommunitiesBlock.new(:limit => 6)
+    env.boxes[2].blocks << PeopleBlock.new(:limit => 6)
   end
 
   # One Environment can be reached by many domains
@@ -147,9 +150,15 @@ class Environment < ActiveRecord::Base
   has_many :categories
   has_many :display_categories, :class_name => 'Category', :conditions => 'display_color is not null and parent_id is null', :order => 'display_color'
 
+  has_many :product_categories, :conditions => { :type => 'ProductCategory'}
   has_many :regions
 
   has_many :roles
+
+  has_many :qualifiers
+  has_many :certifiers
+
+  has_many :mailings, :class_name => 'EnvironmentMailing', :foreign_key => :source_id, :as => 'source'
 
   acts_as_accessible
 
@@ -198,15 +207,20 @@ class Environment < ActiveRecord::Base
   settings_items :location, :type => String
   settings_items :layout_template, :type => String, :default => 'default'
   settings_items :homepage, :type => String
-  settings_items :description, :type => String
-  settings_items :category_types, :type => Array, :default => ['Category']
+  settings_items :description, :type => String, :default => '<div style="text-align: center"><a href="http://noosfero.org/"><img src="/images/noosfero-network.png" alt="Noosfero"/></a></div>'
   settings_items :enable_ssl
-  settings_items :theme, :type => String, :default => 'default'
-  settings_items :icon_theme, :type => String, :default => 'default'
   settings_items :local_docs, :type => Array, :default => []
   settings_items :news_amount_by_folder, :type => Integer, :default => 4
   settings_items :help_message_to_add_enterprise, :type => String, :default => ''
   settings_items :tip_message_enterprise_activation_question, :type => String, :default => ''
+
+  settings_items :currency_unit, :type => String, :default => '$'
+  settings_items :currency_separator, :type => String, :default => '.'
+  settings_items :currency_delimiter, :type => String, :default => ','
+
+  settings_items :trusted_sites_for_iframe, :type => Array, :default => ['itheora.org', 'tv.softwarelivre.org', 'stream.softwarelivre.org']
+
+  settings_items :enabled_plugins, :type => Array, :default => []
 
   def news_amount_by_folder=(amount)
     settings[:news_amount_by_folder] = amount.to_i
@@ -238,6 +252,29 @@ class Environment < ActiveRecord::Base
       else
         self.disable(feature)
       end
+    end
+  end
+
+  def enabled_features
+    features = self.class.available_features
+    features.delete_if{ |k, v| !self.enabled?(k) }
+  end
+
+  before_create :enable_default_features
+  def enable_default_features
+    %w(
+      disable_asset_products
+      disable_gender_icon
+      disable_products_for_enterprises
+      disable_select_city_for_contact
+      enterprise_registration
+      media_panel
+      organizations_are_moderated_by_default
+      show_balloon_with_profile_links_when_clicked
+      use_portal_community
+      wysiwyg_editor_for_environment_home
+    ).each do |feature|
+      enable(feature)
     end
   end
 
@@ -457,6 +494,10 @@ class Environment < ActiveRecord::Base
 
   xss_terminate :only => [ :message_for_disabled_enterprise ], :with => 'white_list', :on => 'validation'
 
+  validates_presence_of :theme
+
+  include WhiteListFilter
+  filter_iframes :message_for_disabled_enterprise, :whitelist => lambda { trusted_sites_for_iframe }
 
   # #################################################
   # Business logic in general
@@ -525,7 +566,29 @@ class Environment < ActiveRecord::Base
   end
 
   def themes=(values)
-    settings[:themes] = values.map(&:id)
+    settings[:themes] = values
+  end
+
+  def add_themes(values)
+    if settings[:themes].nil?
+      self.themes = values
+    else
+      settings[:themes] += values
+    end
+  end
+
+  before_create do |env|
+    env.settings[:themes] ||= %w[
+      aluminium
+      butter
+      chameleon
+      chocolate
+      noosfero
+      orange
+      plum
+      scarletred
+      skyblue
+    ]
   end
 
   def community_template
@@ -589,7 +652,7 @@ class Environment < ActiveRecord::Base
   end
 
   def portal_folders
-    (settings[:portal_folders] || []).map{|fid| portal_community.articles.find(fid) }
+    (settings[:portal_folders] || []).map{|fid| portal_community.articles.find(:first, :conditions => { :id => fid }) }.compact
   end
 
   def portal_folders=(folders)
@@ -628,4 +691,17 @@ class Environment < ActiveRecord::Base
     end
   end
 
+  def highlighted_products_with_image(options = {})
+    Product.find(:all, {:conditions => {:highlighted => true, :enterprise_id => self.enterprises.find(:all, :select => :id) }, :joins => :image}.merge(options))
+  end
+
+  settings_items :home_cache_in_minutes, :type => :integer, :default => 5
+  settings_items :general_cache_in_minutes, :type => :integer, :default => 15
+  settings_items :profile_cache_in_minutes, :type => :integer, :default => 15
+
+  def image_galleries
+    portal_community ? portal_community.image_galleries : []
+  end
+
 end
+

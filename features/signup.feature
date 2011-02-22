@@ -7,13 +7,14 @@ Feature: signup
     Given I am on the homepage
     When I follow "Login"
     And I follow "New user"
-    And I fill in "e-Mail" with "josesilva@example.com"
-    And I fill in "Username" with "josesilva"
-    And I fill in "Password" with "secret"
-    And I fill in "Password confirmation" with "secret"
-    And I fill in "Name" with "José da Silva"
+    And I fill in the following within ".no-boxes":
+      | e-Mail                | josesilva@example.com |
+      | Username              | josesilva             |
+      | Password              | secret                |
+      | Password confirmation | secret                |
+      | Name                  | José da Silva         |
     And I press "Sign up"
-    Then I should see "Thanks for signing up!"
+    Then I should be logged in as "josesilva"
 
   Scenario: be redirected if user goes to signup page and is logged
     Given the following users

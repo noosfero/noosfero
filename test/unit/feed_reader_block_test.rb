@@ -173,4 +173,10 @@ class FeedReaderBlockTest < ActiveSupport::TestCase
     assert_equal true, reader.enabled, 'must enable when setting to new address'
   end
 
+  should 'kepp enable when address is not changed' do
+    reader = build(:feed_reader_block, :address => 'http://www.example.com/feed')
+    reader.address = 'http://www.example.com/feed'
+    assert_equal true, reader.enabled
+  end
+
 end

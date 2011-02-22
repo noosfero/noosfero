@@ -1,11 +1,11 @@
 <h2><%= _('Add members to %s') % profile.name %></h2>
 
-<% form_remote_tag :url => {:action => 'find_users', :profile => profile.identifier}, :update => 'users-list', :loading => '$("users-list").addClassName("loading")', :complete => '$("users-list").removeClassName("loading")' do %>
+<% form_remote_tag :url => {:action => 'find_users', :profile => profile.identifier, :scope => 'all_users'}, :update => 'users-list', :loading => '$("users-list").addClassName("loading")', :complete => '$("users-list").removeClassName("loading")' do %>
   <%= text_field_tag('query', '', :autocomplete => 'off') %>
   <%= submit_tag(_('Search')) %>
 <% end %>
 
-<%= observe_field('query', :url => {:action => 'find_users', :profile => profile.identifier}, :update => 'users-list', :frequency => 1, :with => 'query', :condition => '$("query").value.length > 2', :loading => '$("users-list").addClassName("loading")', :complete => '$("users-list").removeClassName("loading")') %>
+<%= observe_field('query', :url => {:action => 'find_users', :profile => profile.identifier, :scope => 'all_users'}, :update => 'users-list', :frequency => 1, :with => 'query', :condition => '$("query").value.length > 2', :loading => '$("users-list").addClassName("loading")', :complete => '$("users-list").removeClassName("loading")') %>
 <%= observe_field('query', :frequency => 1, :condition => '$("query").value.length <= 2', :function => '$("users-list").update($("empty-query").innerHTML)') %>
 
 <div id="users-list">

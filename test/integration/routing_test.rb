@@ -138,10 +138,6 @@ class RoutingTest < ActionController::IntegrationTest
     assert_routing('/assets/my-asset/a/b/c', :controller => 'search', :action => 'assets', :asset => 'my-asset', :category_path => ['a', 'b', 'c'])
   end
 
-  def test_directory_routing
-    assert_routing('/directory/my-asset/f/a/b/c', :controller => 'search', :action => 'directory', :asset => 'my-asset', :initial => 'f', :category_path => [ 'a', 'b', 'c'])
-  end
-
   def test_content_view_with_dot
     assert_routing('/ze.withdot', :controller => 'content_viewer', :action => 'view_page', :profile => 'ze.withdot', :page => [])
   end
@@ -160,12 +156,6 @@ class RoutingTest < ActionController::IntegrationTest
 
   def test_catalog_routing
     assert_routing('/catalog/colivre', :controller => 'catalog', :action => 'index', :profile => 'colivre')
-    assert_routing('/catalog/colivre/1234', :controller => 'catalog', :action => 'show', :profile => 'colivre', :id => '1234')
-  end
-
-  def test_catalog_with_dot_routing
-    assert_routing('/catalog/profile.withdot', :controller => 'catalog', :action => 'index', :profile => 'profile.withdot')
-    assert_routing('/catalog/profile.withdot/1234', :controller => 'catalog', :action => 'show', :profile => 'profile.withdot', :id => '1234')
   end
 
   def test_hosted_domain_routing
@@ -220,6 +210,23 @@ class RoutingTest < ActionController::IntegrationTest
   end
   def test_doc_routing_root
     assert_routing('/doc', :controller => 'doc', :action => 'index')
+  end
+
+  # browse controller
+  def test_browse_routing
+    assert_routing('/browse/people', :controller => 'browse', :action => 'people')
+    assert_routing('/browse/people/more_popular', :controller => 'browse', :action => 'people', :filter => 'more_popular')
+    assert_routing('/browse/communities', :controller => 'browse', :action => 'communities')
+    assert_routing('/browse/communities/more_active', :controller => 'browse', :action => 'communities', :filter => 'more_active')
+  end
+
+  def test_invite_routing
+    assert_routing('/profile/colivre/invite/friends', :controller => 'invite', :action => 'select_address_book', :profile => 'colivre')
+  end
+
+  def test_chat_routing
+    assert_routing('/chat', :controller => 'chat', :action => 'index')
+    assert_routing('/chat/avatar/chemical-brothers', :controller => 'chat', :action => 'avatar', :id => 'chemical-brothers')
   end
 
 end

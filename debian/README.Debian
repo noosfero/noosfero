@@ -1,0 +1,13 @@
+Noosfero for Debian
+-------------------
+
+In order to function properly, Noosfero needs a working e-mail setup. You need
+to make sure that your local MTA is able to deliver messages to the internet.
+
+Alternatively, you can also configure Noosfero to use an external SMTP server
+by means of the file /etc/noosfero/local.rb. To do that, follow the
+instructions at the following URL:
+
+http://noosfero.org/Development/SMTPMailSending
+
+ -- Antonio Terceiro <terceiro@softwarelivre.org>  Thu, 27 Jan 2011 19:48:03 -0300

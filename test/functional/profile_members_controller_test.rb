@@ -23,7 +23,7 @@ class ProfileMembersControllerTest < Test::Unit::TestCase
   
   should 'not access index if dont have permission' do
     user = create_user('test_user')
-    Enterprise.create!(:identifier => 'test_enterprise', :name => 'test enterprise')
+    fast_create(Enterprise, :identifier => 'test_enterprise', :name => 'test enterprise')
     login_as :test_user
 
     get 'index', :profile => 'test_enterprise'
@@ -33,7 +33,7 @@ class ProfileMembersControllerTest < Test::Unit::TestCase
   end
 
   should 'access index' do
-    ent = Enterprise.create!(:identifier => 'test_enterprise', :name => 'test enterprise')
+    ent = fast_create(Enterprise, :identifier => 'test_enterprise', :name => 'test enterprise')
     user = create_user_with_permission('test_user', 'manage_memberships', ent)
     login_as :test_user
 
@@ -44,7 +44,7 @@ class ProfileMembersControllerTest < Test::Unit::TestCase
   end
 
   should 'show form to change role' do
-    ent = Enterprise.create!(:identifier => 'test_enterprise', :name => 'test enterprise')
+    ent = fast_create(Enterprise, :identifier => 'test_enterprise', :name => 'test enterprise')
     role = Profile::Roles.member(Environment.default)
 
     member = create_user('test_member').person
@@ -63,7 +63,7 @@ class ProfileMembersControllerTest < Test::Unit::TestCase
   end
 
   should 'not show form to change role if person is not member' do
-    ent = Enterprise.create!(:identifier => 'test_enterprise', :name => 'test enterprise')
+    ent = fast_create(Enterprise, :identifier => 'test_enterprise', :name => 'test enterprise')
     not_member = create_user('test_member').person
     user = create_user_with_permission('test_user', 'manage_memberships', ent)
     login_as :test_user
@@ -76,7 +76,7 @@ class ProfileMembersControllerTest < Test::Unit::TestCase
   end
 
   should 'update roles' do
-    ent = Enterprise.create!(:identifier => 'test_enterprise', :name => 'test enterprise')
+    ent = fast_create(Enterprise, :identifier => 'test_enterprise', :name => 'test enterprise')
     role1 = Role.create!(:name => 'member_role', :permissions => ['edit_profile'], :environment => ent.environment)
     role2 = Role.create!(:name => 'owner_role', :permissions => ['edit_profile', 'destroy_profile'], :environment => ent.environment)
 
@@ -95,7 +95,7 @@ class ProfileMembersControllerTest < Test::Unit::TestCase
   end
 
   should 'not update roles if user is not profile member' do
-    ent = Enterprise.create!(:identifier => 'test_enterprise', :name => 'test enterprise')
+    ent = fast_create(Enterprise, :identifier => 'test_enterprise', :name => 'test enterprise')
     role = Role.create!(:name => 'owner_role', :permissions => ['edit_profile', 'destroy_profile'], :environment => ent.environment)
 
     not_member = create_user('test_member').person
@@ -129,7 +129,7 @@ class ProfileMembersControllerTest < Test::Unit::TestCase
   end
 
   should 'not list roles from other environments' do
-    env2 = Environment.create!(:name => 'new env')
+    env2 = fast_create(Environment, :name => 'new env')
     role = Role.create!(:name => 'some role', :environment => env2, :permissions => ['manage_memberships'])
 
     com = Community.create!(:name => 'test community')
@@ -145,7 +145,7 @@ class ProfileMembersControllerTest < Test::Unit::TestCase
   end
 
   should 'enterprises have a add members button' do
-    ent = Enterprise.create!(:name => 'Test Ent', :identifier => 'test_ent')
+    ent = fast_create(Enterprise, :name => 'Test Ent', :identifier => 'test_ent')
     u = create_user_with_permission('test_user', 'manage_memberships', ent)
     login_as :test_user
 
@@ -177,7 +177,7 @@ class ProfileMembersControllerTest < Test::Unit::TestCase
   end
 
   should 'have a add_members page' do
-    ent = Enterprise.create!(:name => 'Test Ent', :identifier => 'test_ent')
+    ent = fast_create(Enterprise, :name => 'Test Ent', :identifier => 'test_ent')
     u = create_user_with_permission('test_user', 'manage_memberships', ent)
     login_as :test_user
 
@@ -188,7 +188,7 @@ class ProfileMembersControllerTest < Test::Unit::TestCase
   end
 
   should 'list current members when adding new members' do
-    ent = Enterprise.create!(:name => 'Test Ent', :identifier => 'test_ent')
+    ent = fast_create(Enterprise, :name => 'Test Ent', :identifier => 'test_ent')
     p = create_user_with_permission('test_user', 'manage_memberships', ent)
     login_as :test_user
 
@@ -198,12 +198,12 @@ class ProfileMembersControllerTest < Test::Unit::TestCase
   end
 
   should 'add member to profile' do
-    ent = Enterprise.create!(:name => 'Test Ent', :identifier => 'test_ent')
+    ent = fast_create(Enterprise, :name => 'Test Ent', :identifier => 'test_ent')
     p = create_user_with_permission('test_user', 'manage_memberships', ent)
     login_as :test_user
 
     u = create_user('member_wannabe').person
-    post :add_member, :profile => ent.identifier, :id => u.identifier
+    post :add_member, :profile => ent.identifier, :id => u.id
     ent.reload
 
     assert_includes ent.members, p
@@ -211,12 +211,12 @@ class ProfileMembersControllerTest < Test::Unit::TestCase
   end
 
   should 'add member with all roles' do
-    ent = Enterprise.create!(:name => 'Test Ent', :identifier => 'test_ent')
+    ent = fast_create(Enterprise, :name => 'Test Ent', :identifier => 'test_ent')
     p = create_user_with_permission('test_user', 'manage_memberships', ent)
     login_as :test_user
 
     u = create_user('member_wannabe').person
-    post :add_member, :profile => ent.identifier, :id => u.identifier
+    post :add_member, :profile => ent.identifier, :id => u.id
 
     assert_equivalent Profile::Roles.all_roles(ent.environment).compact, u.role_assignments.find_all_by_resource_id(ent.id).map(&:role).compact
   end
@@ -234,42 +234,62 @@ class ProfileMembersControllerTest < Test::Unit::TestCase
   end
 
   should 'find users' do
-    ent = Enterprise.create!(:name => 'Test Ent', :identifier => 'test_ent')
+    ent = fast_create(Enterprise, :name => 'Test Ent', :identifier => 'test_ent')
     user = create_user_full('test_user').person
-    u = create_user_with_permission('ent_user', 'manage_memberships', ent)
+    person = create_user_with_permission('ent_user', 'manage_memberships', ent)
     login_as :ent_user
 
-    get :find_users, :profile => ent.identifier, :query => 'test*'
+    get :find_users, :profile => ent.identifier, :query => 'test*', :scope => 'all_users'
 
     assert_includes assigns(:users_found), user
   end
 
-  should 'not appear add button for member in add members page' do
-    ent = Enterprise.create!(:name => 'Test Ent', :identifier => 'test_ent')
-    p = create_user_with_permission('test_user', 'manage_memberships', ent)
-    login_as :test_user
+  should 'not display members when finding users in all_users scope' do
+    ent = fast_create(Enterprise, :name => 'Test Ent', :identifier => 'test_ent')
+    user = create_user_full('test_user').person
 
-    get :find_users, :profile => ent.identifier, :query => 'test*'
+    person = create_user_with_permission('ent_user', 'manage_memberships', ent)
+    login_as :ent_user
 
-    assert_tag :tag => 'tr', :attributes => {:id => 'tr-test_user', :style => 'display:none'}
+    get :find_users, :profile => ent.identifier, :query => '*user', :scope => 'all_users'
+
+    assert_tag :tag => 'a', :content => /#{user.name}/
+    assert_no_tag :tag => 'a', :content => /#{person.name}/
+  end
+
+  should 'not display admins when finding users in new_admins scope' do
+    ent = fast_create(Enterprise, :name => 'Test Ent', :identifier => 'test_ent')
+
+    person = create_user('admin_user').person
+    ent.add_admin(person)
+
+    user = create_user_full('test_user').person
+    ent.add_member(user).finish
+
+    login_as :admin_user
+
+    get :find_users, :profile => ent.identifier, :query => '*user', :scope => 'new_admins'
+
+    assert_tag :tag => 'a', :content => /#{user.name}/
+    assert_no_tag :tag => 'a', :content => /#{person.name}/
   end
 
   should 'return users with <query> as a prefix' do
     daniel  = create_user_full('daniel').person
     daniela = create_user_full('daniela').person
 
-    ent = Enterprise.create!(:name => 'Test Ent', :identifier => 'test_ent')
-    p = create_user_with_permission('test_user', 'manage_memberships', ent)
+    ent = fast_create(Enterprise, :name => 'Test Ent', :identifier => 'test_ent')
+    person = create_user_with_permission('test_user', 'manage_memberships', ent)
     login_as :test_user
 
-    get :find_users, :profile => ent.identifier, :query => 'daniel'
+    get :find_users, :profile => ent.identifier, :query => 'daniel', :scope => 'all_users'
 
     assert_includes assigns(:users_found), daniel
     assert_includes assigns(:users_found), daniela
   end
 
   should 'ignore roles with id zero' do
-    ent = Enterprise.create!(:name => 'Test Ent', :identifier => 'test_ent')
+    ent = fast_create(Enterprise, :name => 'Test Ent', :identifier => 'test_ent')
     p = create_user_with_permission('test_user', 'manage_memberships', ent)
     login_as :test_user
     r = ent.environment.roles.create!(:name => 'test_role', :permissions => ['some_perm'])
@@ -278,6 +298,61 @@ class ProfileMembersControllerTest < Test::Unit::TestCase
     p_roles = p.find_roles(ent).map(&:role).uniq
 
     assert p_roles, [r]
+  end
+
+  should 'add locale on mailing' do
+    community = fast_create(Community)
+    admin_user = create_user_with_permission('profile_admin_user', 'manage_memberships', community)
+    login_as('profile_admin_user')
+    @controller.stubs(:locale).returns('pt')
+    post :send_mail, :profile => community.identifier, :mailing => {:subject => 'Hello', :body => 'We have some news'}
+    assert_equal 'pt', assigns(:mailing).locale
+  end
+
+  should 'save mailing' do
+    community = fast_create(Community)
+    admin_user = create_user_with_permission('profile_admin_user', 'manage_memberships', community)
+    login_as('profile_admin_user')
+    @controller.stubs(:locale).returns('pt')
+    post :send_mail, :profile => community.identifier, :mailing => {:subject => 'Hello', :body => 'We have some news'}
+    assert_equal ['Hello', 'We have some news'], [assigns(:mailing).subject, assigns(:mailing).body]
+    assert_redirected_to :action => 'index'
+  end
+
+  should 'add the user logged on mailing' do
+    community = fast_create(Community)
+    admin_user = create_user_with_permission('profile_admin_user', 'manage_memberships', community)
+    login_as('profile_admin_user')
+    post :send_mail, :profile => community.identifier, :mailing => {:subject => 'Hello', :body => 'We have some news'}
+    assert_equal Profile['profile_admin_user'], assigns(:mailing).person
+  end
+
+  should 'set a community member as admin' do
+    community = fast_create(Community)
+    admin = create_user_with_permission('admin_user', 'manage_memberships', community)
+    member = create_user('test_member').person
+    community.add_member(member)
+
+    assert_not_includes community.admins, member
+
+    login_as :admin_user
+    get :add_admin, :profile => community.identifier, :id => member.identifier
+
+    assert_includes community.admins, member
+  end
+
+  should 'remove a community admin' do
+    community = fast_create(Community)
+    admin = create_user_with_permission('admin_user', 'manage_memberships', community)
+    member = create_user('test_member').person
+    community.add_admin(member)
+
+    assert_includes community.admins, member
+
+    login_as :admin_user
+    get :remove_admin, :profile => community.identifier, :id => member.identifier
+
+    assert_not_includes community.admins, member
   end
 
 end

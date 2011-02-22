@@ -9,11 +9,17 @@ Given /^I invite email "(.+)" to join community "(.+)"$/ do |email, community|
 end
 
 Given /^I invite email "(.+)" to be my friend$/ do |email|
-  click_link('Control panel')
+  Given "I go to the Control panel"
   click_link('Manage friends')
   click_link('Invite people from my e-mail contacts')
   click_button('Next')
   fill_in('manual_import_addresses', :with => "#{email}")
   fill_in('mail_template', :with => 'Follow this link <url>')
   click_button("Invite my friends!")
+end
+
+Given /^there are no pending jobs$/ do
+  silence_stream(STDOUT) do
+    Delayed::Worker.new.work_off
+  end
 end

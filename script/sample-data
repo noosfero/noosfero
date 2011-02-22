@@ -1,86 +1,19 @@
 #!/usr/bin/env ruby
 require File.dirname(__FILE__) + '/../config/environment'
 
+# turn on autoflush
+STDOUT.sync = true
 
 environment_id = ARGV.first
 environment = nil
 if environment_id
   environment = Environment.find(environment_id)
 else
-  system('rake db:populate')
-  environment = Environment.default
+  environment = Environment.default || Environment.create!(:name => 'Noosfero', :is_default => true)
 end
 
-people = []
-
-NAMES = %w[ José João Antonio Paulo Maria Joana Paula Angela ]
-SURNAMES = %w[ Silva Santos Abreu Oliveira Machado Bonfim  ]
-print "Creating users: "; $stdout.flush
-for name in NAMES
-  for surname in SURNAMES
-    full_name = [name, surname].join(' ')
-    user = User.create!({
-      :login => full_name.to_slug,
-      :email => full_name.to_slug + '@localhost.localdomain',
-      :password => 'test',
-      :password_confirmation => 'test',
-      :environment => environment,
-    })
-    user.person.name = full_name
-    user.person.save!
-    people << user.person
-
-    print '.'; $stdout.flush
-  end
-end
-puts
-
-print "Creating some friendships: "; $stdout.flush
-rand(people.size * 3).times do
-  from = people.rand
-  to = people.rand
-  if from != to && !from.friends.include?(to)
-    AddFriend.create!(:requestor => to, :target => from).finish
-  end
-  print '.'; $stdout.flush
-end
-puts
-
-
-communities = []
-VERBS = ['Save', 'I like', 'I hate', 'Use']
-STUFF = ['Free Software', 'Organic food', 'the wales', 'the environment', 'Barack Obama', 'Osama Bin Laden', 'Lula']
-print "Creating communities: "; $stdout.flush
-for verb in VERBS
-  for stuff in STUFF
-    name = [verb, stuff].join(' ')
-    community = Community.create!(:name => name, :environment => environment)
-    communities << community
-    rand(10).times do
-      community.add_member(people.rand)
-    end
-    print '.'; $stdout.flush
-  end
-end
-puts
-
-EVENTS = ['International Conference on %s', '%s day', '%s World Congress', '%s World Forum', '%s Summit', '%s Week']
-THEMES = ['Sustainability', 'Free Software', 'Climate Change', 'Environment', 'Agile Development', 'Solidarity Economy']
-print "Creating some events: "; $stdout.flush
-for event in EVENTS
-  for theme in THEMES
-    Event.create!(:name => event % theme, :profile => communities.rand, :start_date => Date.today + (-30 + rand(60)).days)
-    print '.'; $stdout.flush
-  end
-end
-puts
-
-
-ze = User.create!({
-  :login => "ze",
-  :email => 'root@localhost.localdomain',
-  :password => 'test',
-  :password_confirmation => 'test',
-  :environment => environment,
-}).person
-environment.add_admin(ze)
+system('./script/sample-profiles')
+system('./script/sample-categories')
+system('./script/sample-enterprises')
+system('./script/sample-products')
+system('./script/sample-articles')

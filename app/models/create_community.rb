@@ -6,25 +6,11 @@ class CreateCommunity < Task
   alias :environment :target
   alias :environment= :target=
 
-  serialize :data, Hash
-  attr_protected :data
-  def data
-    self[:data] ||= Hash.new
-  end
-
   acts_as_having_image
 
   DATA_FIELDS = Community.fields + ['name', 'closed']
-
   DATA_FIELDS.each do |field|
-    # getter
-    define_method(field) do
-      self.data[field.to_sym]
-    end
-    # setter
-    define_method("#{field}=") do |value|
-      self.data[field.to_sym] = value
-    end
+    settings_items field.to_sym
   end
 
   def validate
@@ -48,16 +34,30 @@ class CreateCommunity < Task
     community.add_admin(self.requestor)
   end
 
-  def description
-    _('%s wants to create community %s.') % [requestor.name, self.name]
+  def title
+    _("New community")
   end
 
-  def closing_statement
-    data[:closing_statement]
+  def icon
+    src = image ? image.public_filename(:minor) : '/images/icons-app/community-minor.png'
+    {:type => :defined_image, :src => src, :name => name}
   end
 
-  def closing_statement= value
-    data[:closing_statement] = value
+  def subject
+    name
+  end
+
+  def information
+    if description.blank?
+      { :message => _('%{requestor} wants to create community %{subject} with no description.') }
+    else
+      { :message => _('%{requestor} wants to create community %{subject} with this description:<p><em>%{description}</em></p>'),
+        :variables => {:description => description} }
+    end
+  end
+
+  def reject_details
+    true
   end
 
   # tells if this request was rejected
@@ -70,8 +70,11 @@ class CreateCommunity < Task
     self.status == Task::Status::FINISHED
   end
 
+  def target_notification_description
+    _('%{requestor} wants to create community %{subject}') % {:requestor => requestor.name, :subject => subject}
+  end
+
   def target_notification_message
-    description + "\n\n" +
     _("User \"%{user}\" just requested to create community %{community}. You have to approve or reject it through the \"Pending Validations\" section in your control panel.\n") % { :user => self.requestor.name, :community => self.name }
   end
 
@@ -82,7 +85,7 @@ class CreateCommunity < Task
   end
 
   def task_cancelled_message
-    _("Your request for registering community %{community} at %{environment} was not approved by the environment administrator. The following explanation was given: \n\n%{explanation}") % { :community => self.name, :environment => self.environment, :explanation => self.closing_statement }
+    _("Your request for registering community %{community} at %{environment} was not approved by the environment administrator. The following explanation was given: \n\n%{explanation}") % { :community => self.name, :environment => self.environment, :explanation => self.reject_explanation }
   end
 
   def task_finished_message

@@ -35,4 +35,8 @@ class HighlightsBlock < Block
     end
   end
 
+  def folder_choices
+    owner.image_galleries
+  end
+
 end

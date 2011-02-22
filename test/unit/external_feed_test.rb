@@ -128,4 +128,17 @@ class ExternalFeedTest < ActiveSupport::TestCase
     assert_equal 0, ExternalFeed.new.update_errors
   end
 
+  should 'save hour when feed was fetched' do
+    external_feed = create(:external_feed)
+
+    now = Time.parse('2009-01-23 09:35')
+    Time.stubs(:now).returns(now)
+
+    external_feed.finish_fetch
+    external_feed.reload
+
+    assert_equal 9, external_feed.fetched_at.hour
+    assert_equal 35, external_feed.fetched_at.min
+  end
+
 end

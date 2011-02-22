@@ -24,6 +24,10 @@ class StringCoreExtTest < ActiveSupport::TestCase
     assert_equal 'a.b', 'a.b'.to_slug
   end
 
+  should 'handle multy-byte UTF-8 characters properly' do
+    assert_equal '日本語ローカライズチーム-home', '日本語ローカライズチーム_HOME'.to_slug
+  end
+
   # tests for String#transliterate
   should 'transliterate' do
     assert_equal 'aaaaaaAAAAAeeeeEEOOoocaaaiIIiuuyYnNcC', 'ªáàäâåÁÀÄÂÅéèëêÊËÖÔöôçäàâîÏÎïûüÿŸñÑçÇ'.transliterate

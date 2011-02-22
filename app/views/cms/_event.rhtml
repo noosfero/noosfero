@@ -5,6 +5,8 @@
 
 <%= required f.text_field('name', :size => '64') %>
 
+<%= render :partial => 'translatable' %>
+
 <%= labelled_form_field(_('Start date'), pick_date(:article, :start_date)) %>
 
 <%= labelled_form_field(_('End date'), pick_date(:article, :end_date)) %>
@@ -13,5 +15,5 @@
 
 <%= labelled_form_field(_('Address:'), text_field(:article, :address)) %>
 
-<%= labelled_form_field(_('Information about the event:'), text_area(:article, :description, :cols => 64)) %>
+<%= labelled_form_field(_('Information about the event:'), text_area(:article, :body, :cols => 64, :class => 'mceEditor')) %>
 

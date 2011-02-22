@@ -5,7 +5,7 @@
   <% for image in @block.images do %>
     <tr>
       <td>
-        <%= select_tag 'block[images][][image_id]', content_tag(:option) + option_groups_from_collection_for_select(@block.box.owner.articles.select{|article| article.folder? && article.display_as_gallery? } , :images, :name, :id, :name, image[:image_id].to_i), :style => "width: 100px" %></p>
+        <%= select_tag 'block[images][][image_id]', content_tag(:option) + option_groups_from_collection_for_select(@block.folder_choices, :images, :name, :id, :name, image[:image_id].to_i), :style => "width: 100px" %></p>
       </td>
       <td><%= text_field_tag 'block[images][][address]', image[:address], :class => 'highlight-address', :size => 10 %></td>
       <td><%= text_field_tag 'block[images][][position]', image[:position], :class => 'highlight-position', :size => 3 %></td>
@@ -17,7 +17,7 @@
 
 <%= link_to_function(_('New highlight'), nil, :class => 'button icon-add with-text') do |page|
     page.insert_html :bottom, 'highlights', content_tag('tr',
-                  content_tag('td', select_tag('block[images][][image_id]', content_tag(:option) + option_groups_from_collection_for_select(@block.box.owner.articles.select{|article| article.folder? && article.display_as_gallery? } , :images, :name, :id, :name), :style => "width: 100px")) +
+                  content_tag('td', select_tag('block[images][][image_id]', content_tag(:option) + option_groups_from_collection_for_select(@block.folder_choices, :images, :name, :id, :name), :style => "width: 100px")) +
                   content_tag('td', text_field_tag('block[images][][address]', nil, :class => 'highlight-address', :size => 10)) +
                   content_tag('td', text_field_tag('block[images][][position]', nil, :class => 'highlight-position', :size => 3)) +
                   content_tag('td', text_field_tag('block[images][][title]', nil, :class => 'highlight-position', :size => 10))

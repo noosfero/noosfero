@@ -2,10 +2,10 @@ class Theme
 
   class << self
     def system_themes
-      Dir.glob(File.join(system_themes_dir, '*')).map do |item|
-        File.basename(item)
-      end.map do |item|
-        new(item)
+      Dir.glob(File.join(system_themes_dir, '*')).map do |path|
+        config_file = File.join(path, 'theme.yml')
+        config = File.exists?(config_file) ? YAML.load_file(config_file) : {}
+        new(File.basename(path), config)
       end
     end
 
@@ -61,7 +61,7 @@ class Theme
     @id = id
     load_config
     attributes.each do |k,v|
-      self.send("#{k}=", v)
+      self.send("#{k}=", v) if self.respond_to?("#{k}=")
     end
     config['id'] = id
   end

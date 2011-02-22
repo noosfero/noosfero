@@ -1,0 +1,15 @@
+.icon-menu-chat,
+.icon-menu-online    { background-image: url(pidgin/status/16/available.png); background-repeat: no-repeat }
+.icon-menu-offline   { background-image: url(pidgin/status/16/offline.png); background-repeat: no-repeat }
+.icon-menu-busy,
+.icon-menu-dnd       { background-image: url(pidgin/status/16/busy.png); background-repeat: no-repeat }
+.icon-menu-invisible { background-image: url(pidgin/status/16/invisible.png); background-repeat: no-repeat }
+.icon-menu-away      { background-image: url(pidgin/status/16/away.png); background-repeat: no-repeat }
+
+.icon-menu-chat-11,
+.icon-menu-online-11    { background-image: url(pidgin/status/11/available.png); background-repeat: no-repeat }
+.icon-menu-offline-11   { background-image: url(pidgin/status/11/offline.png); background-repeat: no-repeat }
+.icon-menu-busy-11,
+.icon-menu-dnd-11       { background-image: url(pidgin/status/11/busy.png); background-repeat: no-repeat }
+.icon-menu-invisible-11 { background-image: url(pidgin/status/11/invisible.png); background-repeat: no-repeat }
+.icon-menu-away-11      { background-image: url(pidgin/status/11/away.png); background-repeat: no-repeat }

@@ -1,5 +1,5 @@
 .box-1 {
-  margin: 0 200px 0 0;
+  margin: 0 210px 0 30px;
 }
 
 .box-1 .blocks {
@@ -9,11 +9,22 @@
 
 .box-2 {
   float: right;
-  width: 190px;
+  width: 200px;
 }
 
 .block {
   position: relative;
   padding: 10px 0;
   float: none;
+}
+
+#leave_scrap_content_limit,
+#leave_scrap_content_left {
+  float: none;
+}
+
+#profile-activity ul,
+#profile-network ul,
+#profile-wall ul {
+  width: 620px;
 }

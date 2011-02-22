@@ -4,6 +4,7 @@ colivre_net:
   name: 'Colivre.net'
   contact_email: 'colivre@localhost.localdomain'
   is_default: true
+  theme: 'noosfero'
 anhetegua_net:
   id: 2
   name: 'Anheteguá'

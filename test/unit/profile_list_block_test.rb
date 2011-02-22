@@ -19,23 +19,18 @@ class ProfileListBlockTest < ActiveSupport::TestCase
   end
 
   should 'list people' do
-    User.destroy_all
-    person1 = create_user('testperson1').person
-    person2 = create_user('testperson2').person
-    person3 = create_user('testperson3').person
+    env = fast_create(Environment)
 
-    owner = fast_create(Environment)
-    owner.boxes << Box.new
+    person1 = create_user('testperson1', :environment => env).person
+    person2 = create_user('testperson2', :environment => env).person
+    person3 = create_user('testperson3', :environment => env).person
+
     block = ProfileListBlock.new
-    owner.boxes.first.blocks << block
-    block.save!
+    block.stubs(:owner).returns(env)
 
-    profiles = [person1, person3]
-    block.expects(:profiles).returns(profiles)
-
-    self.expects(:profile_image_link).with(person1).once
-    self.expects(:profile_image_link).with(person2).never
-    self.expects(:profile_image_link).with(person3).once
+    self.expects(:profile_image_link).with(person1, :minor).once
+    self.expects(:profile_image_link).with(person2, :minor).once
+    self.expects(:profile_image_link).with(person3, :minor).once
 
     self.expects(:content_tag).returns('<div></div>').at_least_once
     self.expects(:block_title).returns('block title').at_least_once
@@ -52,9 +47,9 @@ class ProfileListBlockTest < ActiveSupport::TestCase
     env.boxes.first.blocks << block
     block.save!
 
-    ids = block.profile_finder.ids
-    assert_includes ids, profile1.id
-    assert_includes ids, profile2.id
+    profiles = block.profiles
+    assert_includes profiles, profile1
+    assert_includes profiles, profile2
   end
 
   should 'not list invisible profiles' do
@@ -66,21 +61,9 @@ class ProfileListBlockTest < ActiveSupport::TestCase
     env.boxes.first.blocks << block
     block.save!
 
-    ids = block.profile_finder.ids
-    assert_includes ids, profile1.id
-    assert_not_includes ids, profile2.id
-  end
-
-  should 'use finders to find profiles to be listed' do
-    block = ProfileListBlock.new
-    finder = mock
-    block.expects(:profile_finder).returns(finder).once
-    finder.expects(:find)
-    block.profiles
-  end
-
-  should 'provide random numbers' do
-    assert_respond_to ProfileListBlock::Finder.new(nil), :pick_random
+    profiles = block.profile_list
+    assert_includes profiles, profile1
+    assert_not_includes profiles, profile2
   end
 
   should 'provide view_title' do
@@ -137,6 +120,67 @@ class ProfileListBlockTest < ActiveSupport::TestCase
     pub_e = fast_create(Enterprise, :visible => true , :environment_id => env.id)
 
     assert_equal 3, block.profile_count
+  end
+
+  should 'respect limit when listing profiles' do
+    env = fast_create(Environment)
+    p1 = fast_create(Person, :environment_id => env.id)
+    p2 = fast_create(Person, :environment_id => env.id)
+    p3 = fast_create(Person, :environment_id => env.id)
+    p4 = fast_create(Person, :environment_id => env.id)
+
+    block = ProfileListBlock.new(:limit => 3)
+    block.stubs(:owner).returns(env)
+
+    assert_equal 3, block.profile_list.size
+  end
+
+  should 'list random profiles' do
+    env = fast_create(Environment)
+    p1 = fast_create(Person, :environment_id => env.id)
+    p2 = fast_create(Person, :environment_id => env.id)
+    p3 = fast_create(Person, :environment_id => env.id)
+
+    block = ProfileListBlock.new
+    block.stubs(:owner).returns(env)
+
+    # force the "random" function to return something we know
+    block.stubs(:randomizer).returns('-profiles.id')
+
+    assert_equal [p3.id, p2.id, p1.id], block.profile_list.map(&:id)
+  end
+
+  should 'randomize using modulo operator and random number' do
+    block = ProfileListBlock.new
+    block.expects(:profile_count).returns(10)
+    block.expects(:rand).with(10).returns(5)
+    assert_match /profiles.id % 6/, block.randomizer
+  end
+
+  should 'not divide by zero' do
+    block = ProfileListBlock.new
+    block.stubs(:profile_count).returns(0)
+    block.expects(:rand).returns(0)
+    assert_no_match /profiles.id % 0/, block.randomizer
+  end
+
+  should 'prioritize profiles with image if this option is turned on' do
+    env = fast_create(Environment)
+    p1 = fast_create(Person, :environment_id => env.id)
+    img1 = Image.create!(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :owner => p1)
+    p2 = fast_create(Person, :environment_id => env.id)
+    img2 = Image.create!(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :owner => p2)
+
+    p_without_image = fast_create(Person, :environment_id => env.id)
+
+    block = ProfileListBlock.new
+    block.stubs(:owner).returns(env)
+    block.stubs(:prioritize_profiles_with_image).returns(true)
+
+    # force the "random" function to return something we know
+    block.stubs(:randomizer).returns('-profiles.id')
+
+    assert_not_includes block.profile_list[0..1], p_without_image
   end
 
 end

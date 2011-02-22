@@ -1,0 +1,37 @@
+#!/usr/bin/env ruby
+require File.dirname(__FILE__) + '/../config/environment'
+
+# tourn on autoflush
+STDOUT.sync = true
+
+profiles = Profile.all
+SUBJECTS = ['got a new car', 'release a new version of project X', "doesn't like wales no more", "doesn't use free-software no more"]
+TAGS = ['free-software', 'noosfero', 'development', 'rails', 'ruby']
+
+print "Creating some TinyMce articles: "
+for subject in SUBJECTS
+  rand(20).times do |i|
+    profile = profiles.rand
+    profile.articles << TinyMceArticle.new(
+      :name => "%s #{subject}" % profile.name,
+      :body => "%s #{subject}" % profile.name,
+      :tag_list => [TAGS.rand, TAGS.rand]
+    )
+    print '.'
+  end
+end
+puts ' done!'
+
+print "Creating some galleries: "
+for subject in SUBJECTS
+  rand(20).times do |i|
+    profile = profiles.rand
+    profile.articles << Gallery.new(
+      :name => "Gallery %s #{subject}" % profile.name,
+      :body => "Gallery %s #{subject}" % profile.name,
+      :tag_list => [TAGS.rand, TAGS.rand]
+    )
+    print '.'
+  end
+end
+puts ' done!'

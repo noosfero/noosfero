@@ -7,10 +7,10 @@
 
 <% button_bar do %>
   <% if @action == :join && logged_in? %>
-    <%= lightbox_link_to content_tag('span', _('Join')), profile.join_url, :class => 'button with-text icon-add', :title => _('Join this community') %>
+    <%= button(:add, content_tag('span', __('Join')), profile.join_url, :class => 'join-community', :title => _("Join community"), :style => 'position: relative;') %>
   <% end %>
   <% if @action == :add_friend && logged_in? && !user.already_request_friendship?(profile) %>
-    <%= link_to content_tag('span', __('Add friend')), user.url.merge(:controller => 'friends', :action => 'add', :id => profile.id), :class => 'button with-text icon-add' %>
+    <%= button(:add, content_tag('span', __('Add friend')), profile.add_url, :class => 'add-friend', :title => _("Add friend"), :style => 'position: relative;') %>
   <% end %>
   <%= button :back, _('Go back'), :back %>
   <%= button :home, _("Go to %s home page") % environment.name, :controller => 'home' %>

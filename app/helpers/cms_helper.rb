@@ -27,4 +27,34 @@ module CmsHelper
     article_helper.custom_options_for_article(article)
   end
 
+  def link_to_article(article)
+    article_name = short_filename(article.title, 30)
+    if article.folder?
+      link_to article_name, {:action => 'view', :id => article.id}, :class => icon_for_article(article)
+    else
+      if article.image?
+         image_tag(icon_for_article(article)) + link_to(article_name, article.url)
+      else
+        link_to article_name, article.url, :class => icon_for_article(article)
+      end
+    end
+  end
+
+  def display_spread_button(profile, article)
+    if profile.person?
+      button_without_text :spread, _('Spread this'), :action => 'publish', :id => article.id
+    elsif profile.community? && environment.portal_community
+      button_without_text :spread, _('Spread this'), :action => 'publish_on_portal_community', :id => article.id
+    end
+  end
+
+  def display_delete_button(article)
+    confirm_message = if article.folder?
+        _('Are you sure that you want to remove this folder? Note that all the items inside it will also be removed!')
+      else
+        _('Are you sure that you want to remove this item?')
+      end
+
+    button_without_text :delete, _('Delete'), { :action => 'destroy', :id => article.id }, :method => :post, :confirm => confirm_message
+  end
 end

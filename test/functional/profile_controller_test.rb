@@ -76,53 +76,26 @@ class ProfileControllerTest < Test::Unit::TestCase
     assert_kind_of Array, assigns(:favorite_enterprises)
   end
 
-  should 'render join template without layout when called with AJAX' do
+  should 'not render any template when joining community due to Ajax request' do
     community = Community.create!(:name => 'my test community')
     login_as(@profile.identifier)
-    @request.expects(:xhr?).returns(true).at_least_once
 
     get :join, :profile => community.identifier
     assert_response :success
-    assert_template 'join'
+    assert_template nil
     assert_no_tag :tag => 'html'
   end
 
-  should 'render join template with layout in general' do
-    community = Community.create!(:name => 'my test community')
+  should 'actually add friend' do
     login_as(@profile.identifier)
-    @request.expects(:xhr?).returns(false).at_least_once
-
-    get :join, :profile => community.identifier
-    assert_response :success
-    assert_template 'join'
-    assert_tag :tag => 'html'
-  end
-
-  should 'show Join This Community button for non-member users' do
-    login_as(@profile.identifier)
-    community = Community.create!(:name => 'my test community')
-    get :index, :profile => community.identifier
-    assert_tag :tag => 'a', :attributes => { :href => "/profile/#{community.identifier}/join" }
-  end
-
-  should 'not show Join This Community button for member users' do
-    login_as(@profile.identifier)
-    community = Community.create!(:name => 'my test community')
-    community.add_member(@profile)
-    get :index, :profile => community.identifier
-    assert_no_tag :tag => 'a', :attributes => { :href => "/myprofile/#{@profile.identifier}/memberships/join/#{community.id}" }
-
-  end
-
-  should 'not show Join This Community button for non-registered users' do
-    community = Community.create!(:name => 'my test community')
-    get :index, :profile => community.identifier
-    assert_no_tag :tag => 'a', :attributes => { :href => "/myprofile/#{@profile.identifier}/memberships/leave/#{community.id}" }
-
+    person = fast_create(Person)
+    assert_difference AddFriend, :count do
+      post :add, :profile => person.identifier
+    end
   end
 
   should 'not show enterprises link to enterprise' do
-    ent = Enterprise.create!(:identifier => 'test_enterprise1', :name => 'Test enteprise1')
+    ent = fast_create(Enterprise, :identifier => 'test_enterprise1', :name => 'Test enteprise1')
     get :index, :profile => ent.identifier
     assert_no_tag :tag => 'a', :content => 'Enterprises', :attributes => { :href => /profile\/#{ent.identifier}\/enterprises$/ }
   end
@@ -183,7 +156,7 @@ class ProfileControllerTest < Test::Unit::TestCase
     community = Community.create!(:name => 'my test community')
     community.add_admin(@profile)
     get :index, :profile => community.identifier
-    assert_tag :tag => 'a', :attributes => { :href => /\/myprofile\/#{@profile.identifier}/ }, :content => 'Control panel'
+    assert_tag :tag => 'a', :attributes => { :href => /\/myprofile\/\{login\}/ }, :content => 'Control panel'
   end
 
   should 'show create community in own profile' do
@@ -199,26 +172,10 @@ class ProfileControllerTest < Test::Unit::TestCase
     assert_no_tag :tag => 'a', :child => { :tag => 'span', :content => 'Create a new community' }
   end
 
-  should 'not show Leave This Community button for non-member users' do
-    login_as(@profile.identifier)
-    community = Community.create!(:name => 'my test community')
-    get :index, :profile => community.identifier
-    assert_no_tag :tag => 'a', :attributes => { :href => "/myprofile/#{@profile.identifier}/memberships/leave/#{community.id}" }
-  end
-
-  should 'show Leave This Community button for member users' do
-    login_as(@profile.identifier)
-    community = Community.create!(:name => 'my test community')
-    community.add_member(@profile)
-    get :index, :profile => community.identifier
-    assert_tag :tag => 'a',
-      :attributes => { :href => "/profile/#{community.identifier}/leave" }
-  end
-
   should 'not show Leave This Community button for non-registered users' do
     community = Community.create!(:name => 'my test community')
     get :index, :profile => community.identifier
-    assert_no_tag :tag => 'a', :attributes => { :href => "/myprofile/#{@profile.identifier}/memberships/leave/#{community.id}" }
+    assert_no_tag :tag => 'a', :attributes => { :href => "/profile/#{@profile.identifier}/leave" }
   end
 
   should 'check access before displaying profile' do
@@ -257,7 +214,7 @@ class ProfileControllerTest < Test::Unit::TestCase
 
   should 'show message for disabled enterprise' do
     login_as(@profile.identifier)
-    ent = Enterprise.create!(:name => 'my test enterprise', :identifier => 'my-test-enterprise', :enabled => false)
+    ent = fast_create(Enterprise, :name => 'my test enterprise', :identifier => 'my-test-enterprise', :enabled => false)
     get :index, :profile => ent.identifier
     assert_tag :tag => 'div', :attributes => { :id => 'profile-disabled' }, :content => Environment.default.message_for_disabled_enterprise
   end
@@ -271,7 +228,7 @@ class ProfileControllerTest < Test::Unit::TestCase
 
   should 'not show message for disabled enterprise if there is a block for it' do
     login_as(@profile.identifier)
-    ent = Enterprise.create!(:name => 'my test enterprise', :identifier => 'my-test-enterprise', :enabled => false)
+    ent = fast_create(Enterprise, :name => 'my test enterprise', :identifier => 'my-test-enterprise', :enabled => false)
     ent.boxes << Box.new
     ent.boxes[0].blocks << DisabledEnterpriseMessageBlock.new
     ent.save
@@ -280,7 +237,7 @@ class ProfileControllerTest < Test::Unit::TestCase
   end
 
   should 'display "Products" link for enterprise' do
-    ent = Enterprise.create!(:name => 'my test enterprise', :identifier => 'my-test-enterprise', :enabled => false)
+    ent = fast_create(Enterprise, :name => 'my test enterprise', :identifier => 'my-test-enterprise', :enabled => false)
 
     get :index, :profile => 'my-test-enterprise'
     assert_tag :tag => 'a', :attributes => { :href => '/catalog/my-test-enterprise'}, :content => /Products\/Services/
@@ -290,7 +247,7 @@ class ProfileControllerTest < Test::Unit::TestCase
     env = Environment.default
     env.enable('disable_products_for_enterprises')
     env.save!
-    ent = Enterprise.create!(:name => 'my test enterprise', :identifier => 'my-test-enterprise', :enabled => false, :environment => env)
+    ent = fast_create(Enterprise, :name => 'my test enterprise', :identifier => 'my-test-enterprise', :enabled => false, :environment_id => env.id)
 
     get :index, :profile => 'my-test-enterprise'
     assert_no_tag :tag => 'a', :attributes => { :href => '/catalog/my-test-enterprise'}, :content => /Products\/Services/
@@ -337,18 +294,19 @@ class ProfileControllerTest < Test::Unit::TestCase
   should 'display contact us for enterprises' do
     ent = Enterprise.create!(:name => 'my test enterprise', :identifier => 'my-test-enterprise')
     get :index, :profile => 'my-test-enterprise'
-    assert_tag :tag => 'a', :attributes => { :href => "/contact/my-test-enterprise/new" }, :content => 'Contact us'
+    assert_tag :tag => 'a', :attributes => { :href => "/contact/my-test-enterprise/new" }, :content => /Send/
   end
 
   should 'not display contact us for non-enterprises' do
     get :index, :profile => @profile.identifier
-    assert_no_tag :tag => 'a', :attributes => { :href => "/contact/#{@profile.identifier}/new" }, :content => 'Contact us'
+    assert_no_tag :tag => 'a', :attributes => { :href => "/contact/#{@profile.identifier}/new" }, :content => /Send/
   end
 
   should 'display contact us only if enabled' do
-    ent = Enterprise.create!(:name => 'my test enterprise', :identifier => 'my-test-enterprise', :enable_contact_us => false)
+    ent = fast_create(Enterprise, :name => 'my test enterprise', :identifier => 'my-test-enterprise')
+    ent.update_attribute(:enable_contact_us, false)
     get :index, :profile => 'my-test-enterprise'
-    assert_no_tag :tag => 'a', :attributes => { :href => "/contact/my-test-enterprise/new" }, :content => 'Contact us'
+    assert_no_tag :tag => 'a', :attributes => { :href => "/contact/my-test-enterprise/new" }, :content => /Send/
   end
   
   should 'display contact button only if friends' do
@@ -413,44 +371,37 @@ class ProfileControllerTest < Test::Unit::TestCase
     assert_no_tag :tag => 'a', :attributes => { :href => "/contact/#{community.identifier}/new" }
   end
 
-  should 'present confirmation before joining a profile' do
-    community = Community.create!(:name => 'my test community')
-    login_as @profile.identifier
-    get :join, :profile => community.identifier
-
-    assert_response :success
-    assert_template 'join'
-  end
-
   should 'actually join profile' do
     community = Community.create!(:name => 'my test community')
     login_as @profile.identifier
-    post :join, :profile => community.identifier, :confirmation => '1'
+    post :join, :profile => community.identifier
 
-    assert_response :redirect
-    assert_redirected_to community.url
-
-    profile = Profile.find(@profile.id)
-    assert profile.memberships.include?(community), 'profile should be actually added to the community'
-  end
-
-  should 'join profile from wizard' do
-    community = Community.create!(:name => 'my test community')
-    login_as @profile.identifier
-    post :join, :profile => community.identifier, :confirmation => '1', :wizard => true
-
-    assert_response :redirect
-    assert_redirected_to :controller => 'search', :action => 'assets', :asset => 'communities', :wizard => true
+    assert_response :success
+    assert_template nil
 
     profile = Profile.find(@profile.id)
     assert profile.memberships.include?(community), 'profile should be actually added to the community'
   end
 
-  should 'create task when join to closed organization' do
-    community = Community.create!(:name => 'my test community', :closed => true)
-    login_as @profile.identifier
+  should 'create task when join to closed organization with members' do
+    community = fast_create(Community)
+    community.update_attribute(:closed, true)
+    admin = fast_create(Person)
+    community.add_member(admin)
+
+    login_as profile.identifier
     assert_difference AddMember, :count do
-      post :join, :profile => community.identifier, :confirmation => '1'
+      post :join, :profile => community.identifier
+    end
+  end
+
+  should 'not create task when join to closed and empty organization' do
+    community = fast_create(Community)
+    community.update_attribute(:closed, true)
+
+    login_as profile.identifier
+    assert_no_difference AddMember, :count do
+      post :join, :profile => community.identifier
     end
   end
 
@@ -461,105 +412,19 @@ class ProfileControllerTest < Test::Unit::TestCase
     assert_redirected_to :controller => 'account', :action => 'login'
   end
 
-  should 'require login to refuse join community' do
-    community = Community.create!(:name => 'my test community', :closed => true)
-    get :refuse_join, :profile => community.identifier
-
-    assert_redirected_to :controller => 'account', :action => 'login'
-  end
-
-  should 'register join refusal' do
-    community = Community.create!(:name => 'my test community', :closed => true)
-    login_as @profile.identifier
-
-    get :refuse_join, :profile => community.identifier
-
-    p = Person.find(@profile.id)
-    assert_includes p.refused_communities, community
-  end
-
-  should 'register in session join refusal' do
-    community = Community.create!(:name => 'my test community')
-    get :refuse_for_now, :profile => community.identifier
-
-    assert_not_nil session[:no_asking]
-    assert_includes session[:no_asking], community.id
-  end
-
-  should 'record only 10 communities in session' do
-    @request.session[:no_asking] = (1..10).to_a
-    community = Community.create!(:name => 'my test community')
-    get :refuse_for_now, :profile => community.identifier
-
-    assert_equal ((2..10).to_a + [community.id]), @request.session[:no_asking]
-  end
-
-  should 'present confirmation before leaving a profile' do
-    community = Community.create!(:name => 'my test community')
-    community.add_member(profile)
-
-    login_as(profile.identifier)
-    get :leave, :profile => community.identifier
-
-    assert_template 'leave'
-    assert_tag :tag => 'input', :attributes => {:value => 'Yes, I want to leave.', :type => 'submit'}
-  end
-
   should 'actually leave profile' do
-    community = Community.create!(:name => 'my test community')
+    community = fast_create(Community)
+    admin = fast_create(Person)
+    community.add_member(admin)
+
     community.add_member(profile)
     assert_includes profile.memberships, community
 
     login_as(profile.identifier)
-    post :leave, :profile => community.identifier, :confirmation => '1'
+    post :leave, :profile => community.identifier
 
     profile = Profile.find(@profile.id)
     assert_not_includes profile.memberships, community
-  end
-
-  should 'leave profile when on wizard' do
-    community = Community.create!(:name => 'my test community')
-    community.add_member(profile)
-
-    login_as(profile.identifier)
-    post :leave, :profile => community.identifier, :confirmation => '1', :wizard => true
-
-    assert_response :redirect
-    assert_redirected_to :controller => 'search', :action => 'assets', :asset => 'communities', :wizard => true
-
-    profile = Profile.find(@profile.id)
-    assert_not_includes profile.memberships, community
-  end
-
-  should "offer button to close 'leave community' lightbox" do
-    community = Community.create!(:name => 'my test community')
-    community.add_member(profile)
-
-    login_as(profile.identifier)
-    get :index, :profile => community.identifier
-
-    assert_tag :tag => 'a', :content => 'Leave', :attributes => { :href => "/profile/#{community.identifier}/leave", :class => /^lbOn/ }
-  end
-
-  should 'offer button to cancel leaving community' do
-    community = Community.create!(:name => 'my test community')
-    community.add_member(profile)
-
-    login_as(profile.identifier)
-    get :leave, :profile => community.identifier
-
-    assert_tag :tag => 'a', :content => "No, I don't want."
-  end
-
-  should 'render without layout when use lightbox to leave community' do
-    community = Community.create!(:name => 'my test community')
-    community.add_member(profile)
-
-    @request.stubs(:xhr?).returns(true)
-    login_as(profile.identifier)
-    get :leave, :profile => community.identifier
-
-    assert_no_tag :tag => 'body' # e.g. no layout
   end
 
   should 'require login to leave community' do
@@ -569,51 +434,19 @@ class ProfileControllerTest < Test::Unit::TestCase
     assert_redirected_to :controller => 'account', :action => 'login'
   end
 
-  should 'redirect to stored location after leave community' do
-    community = Community.create!(:name => 'my test community')
-    community.add_member(profile)
+  should 'not leave if is last admin' do
+    community = fast_create(Community)
 
-    @request.session[:return_to] = "/profile/#{community.identifier}/to_go"
+    community.add_admin(profile)
+    assert_includes profile.memberships, community
+
     login_as(profile.identifier)
+    post :leave, :profile => community.identifier
 
-    post :leave, :profile => community.identifier, :confirmation => '1'
-
-    assert_redirected_to "/profile/#{community.identifier}/to_go"
-  end
-
-  should 'store referer location when request leave via get' do
-    community = Community.create!(:name => 'my test community')
-    login_as(profile.identifier)
-
-    assert_nil @request.session[:return_to]
-    @request.expects(:referer).returns("/profile/redirect_to")
-
-    get :leave, :profile => community.identifier
-
-    assert_equal '/profile/redirect_to', @request.session[:return_to]
-  end
-
-  should 'store referer location when request join via get' do
-    community = Community.create!(:name => 'my test community')
-    login_as(profile.identifier)
-
-    assert_nil @request.session[:return_to]
-    @request.expects(:referer).returns("/profile/redirect_to").at_least_once
-
-    get :join, :profile => community.identifier
-
-    assert_equal '/profile/redirect_to', @request.session[:return_to]
-  end
-
-  should 'redirect to stored location after join community' do
-    community = Community.create!(:name => 'my test community')
-
-    @request.session[:return_to] = "/profile/#{community.identifier}/to_go"
-    login_as(profile.identifier)
-
-    post :join, :profile => community.identifier, :confirmation => '1'
-
-    assert_redirected_to "/profile/#{community.identifier}/to_go"
+    profile.reload
+    assert_response :success
+    assert_match(/last_admin/, @response.body)
+    assert_includes profile.memberships, community
   end
 
   should 'store location before login when request join via get not logged' do
@@ -629,10 +462,10 @@ class ProfileControllerTest < Test::Unit::TestCase
   should 'redirect to location before login after join community' do
     community = Community.create!(:name => 'my test community')
 
-    @request.session[:return_to] = "/profile/#{community.identifier}/to_go"
+    @request.expects(:referer).returns("/profile/#{community.identifier}/to_go")
     login_as(profile.identifier)
 
-    post :join, :profile => community.identifier, :confirmation => '1'
+    post :join_not_logged, :profile => community.identifier
 
     assert_redirected_to "/profile/#{community.identifier}/to_go"
 
@@ -658,7 +491,7 @@ class ProfileControllerTest < Test::Unit::TestCase
   end
 
   should 'show number of published images in index' do
-    folder = Folder.create!(:name => 'gallery', :profile => profile, :view_as => 'image_gallery')
+    folder = Gallery.create!(:name => 'gallery', :profile => profile)
     published_file = UploadedFile.create!(:profile => profile, :parent => folder, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
     unpublished_file = UploadedFile.create!(:profile => profile, :parent => folder, :uploaded_data => fixture_file_upload('/files/other-pic.jpg', 'image/jpg'), :published => false)
 
@@ -717,6 +550,11 @@ class ProfileControllerTest < Test::Unit::TestCase
     assert_response 302
   end
 
+  should 'escape xss attack in tag feed' do
+    get :content_tagged, :profile => profile.identifier, :id => "<wslite>"
+    assert_no_tag :tag => 'wslite'
+  end
+
   should 'reverse the order of posts in tag feed' do
     TextileArticle.create!(:name => 'First post', :profile => profile, :tag_list => 'tag1', :published_at => Time.now)
     TextileArticle.create!(:name => 'Second post', :profile => profile, :tag_list => 'tag1', :published_at => Time.now + 1.day)
@@ -736,6 +574,589 @@ class ProfileControllerTest < Test::Unit::TestCase
     get :tag_feed, :profile => profile.identifier, :id => 'tag1'
     assert_no_match(/First post/, @response.body) # First post is older than other 20 posts already
     assert_match(/Last post/, @response.body) # Latest post must come in the feed
+  end
+
+  should "be logged in to leave a scrap" do
+    count = Scrap.count
+    post :leave_scrap, :profile => profile.identifier, :scrap => {:content => 'something'}
+    assert_equal count, Scrap.count
+    assert_redirected_to :controller => 'account', :action => 'login'
+  end
+
+  should "leave a scrap in the own profile" do
+    login_as(profile.identifier)
+    count = Scrap.count
+    assert profile.scraps_received.empty?
+    post :leave_scrap, :profile => profile.identifier, :scrap => {:content => 'something'}
+    assert_equal count + 1, Scrap.count
+    assert_response :success
+    assert_equal "Message successfully sent.", assigns(:message)
+    profile.reload
+    assert !profile.scraps_received.empty?
+  end
+
+  should "leave a scrap on another profile" do
+    login_as(profile.identifier)
+    count = Scrap.count
+    another_person = fast_create(Person)
+    assert another_person.scraps_received.empty?
+    post :leave_scrap, :profile => another_person.identifier, :scrap => {:content => 'something'}
+    assert_equal count + 1, Scrap.count
+    assert_response :success
+    assert_equal "Message successfully sent.", assigns(:message)
+    another_person.reload
+    assert !another_person.scraps_received.empty?
+  end
+
+  should "the owner of scrap could remove it" do
+    login_as(profile.identifier)
+    scrap = fast_create(Scrap, :sender_id => profile.id)
+    count = Scrap
+    assert_difference Scrap, :count, -1 do
+      post :remove_scrap, :profile => profile.identifier, :scrap_id => scrap.id
+    end
+  end
+
+  should "the receiver scrap remove it" do
+    login_as(profile.identifier)
+    scrap = fast_create(Scrap, :receiver_id => profile.id)
+    count = Scrap
+    assert_difference Scrap, :count, -1 do
+      post :remove_scrap, :profile => profile.identifier, :scrap_id => scrap.id
+    end
+  end
+
+  should "not remove others scraps" do
+    login_as(profile.identifier)
+    person = fast_create(Person)
+    scrap = fast_create(Scrap, :sender_id => person.id, :receiver_id => person.id)
+    count = Scrap
+    assert_difference Scrap, :count, 0 do
+      post :remove_scrap, :profile => profile.identifier, :scrap_id => scrap.id
+    end
+  end
+
+  should "be logged in to remove a scrap" do
+    count = Scrap.count
+    post :remove_scrap, :profile => profile.identifier, :scrap => {:content => 'something'}
+    assert_equal count, Scrap.count
+    assert_redirected_to :controller => 'account', :action => 'login'
+  end
+
+  should "not remove an scrap of another user" do
+    login_as(profile.identifier)
+    p1 = fast_create(Person)
+    p2 = fast_create(Person)
+    scrap = fast_create(Scrap, :sender_id => p1.id, :receiver_id => p2.id)
+    count = Scrap.count
+    post :remove_scrap, :profile => p2.identifier, :scrap_id => scrap.id
+    assert_equal count, Scrap.count
+  end
+
+  should "the sender be the logged user by default" do
+    login_as(profile.identifier)
+    count = Scrap.count
+    another_person = fast_create(Person)
+    post :leave_scrap, :profile => another_person.identifier, :scrap => {:content => 'something'}
+    last = Scrap.last
+    assert_equal profile, last.sender
+  end
+
+ should "the receiver be the current profile by default" do
+    login_as(profile.identifier)
+    count = Scrap.count
+    another_person = fast_create(Person)
+    post :leave_scrap, :profile => another_person.identifier, :scrap => {:content => 'something'}
+    last = Scrap.last
+    assert_equal another_person, last.receiver
+  end
+
+  should "report to user the scrap errors on creation" do
+    login_as(profile.identifier)
+    count = Scrap.count
+    post :leave_scrap, :profile => profile.identifier, :scrap => {:content => ''}
+    assert_response :success
+    assert_equal "You can't leave an empty message.", assigns(:message)
+  end
+
+  should "display a scrap sent" do
+    another_person = fast_create(Person)
+    Scrap.create!(defaults_for_scrap(:sender => another_person, :receiver => profile, :content => 'A scrap'))
+    login_as(profile.identifier)
+    get :index, :profile => profile.identifier
+    assert_tag :tag => 'p', :content => 'A scrap'
+  end
+
+  should "not display a scrap sent by a removed user" do
+    another_person = fast_create(Person)
+    Scrap.create!(defaults_for_scrap(:sender => another_person, :receiver => profile, :content => 'A scrap'))
+    login_as(profile.identifier)
+    another_person.destroy
+    get :index, :profile => profile.identifier
+    assert_no_tag :tag => 'p', :content => 'A scrap'
+  end
+
+  should 'see all activities of the current profile' do
+    p1= Person.first
+    p2= fast_create(Person)
+    assert !p1.is_a_friend?(p2)
+    p3= fast_create(Person)
+    assert !p1.is_a_friend?(p3)
+    ActionTracker::Record.destroy_all
+    Scrap.create!(defaults_for_scrap(:sender => p1, :receiver => p1))
+    a1 = ActionTracker::Record.last
+    UserStampSweeper.any_instance.stubs(:current_user).returns(p2)
+    Scrap.create!(defaults_for_scrap(:sender => p2, :receiver => p3))
+    a2 = ActionTracker::Record.last
+    UserStampSweeper.any_instance.stubs(:current_user).returns(p3)
+    Scrap.create!(defaults_for_scrap(:sender => p3, :receiver => p1))
+    a3 = ActionTracker::Record.last
+    login_as(profile.identifier)
+    get :index, :profile => p1.identifier
+    assert_not_nil assigns(:activities)
+    assert_equal [a1], assigns(:activities)
+  end
+
+  should 'see the activities_items paginated' do
+    p1= Person.first
+    ActionTracker::Record.destroy_all
+    40.times{Scrap.create!(defaults_for_scrap(:sender => p1, :receiver => p1))}
+    login_as(p1.identifier)
+    get :index, :profile => p1.identifier
+    assert_equal 30, assigns(:activities).count
+  end
+
+  should 'see not see the friends activities in the current profile activity' do
+    p1= Person.first
+    p2= fast_create(Person)
+    assert !p1.is_a_friend?(p2)
+    p3= fast_create(Person)
+    p1.add_friend(p3)
+    assert p1.is_a_friend?(p3)
+    ActionTracker::Record.destroy_all
+    Scrap.create!(defaults_for_scrap(:sender => p1, :receiver => p1))
+    a1 = ActionTracker::Record.last
+    UserStampSweeper.any_instance.stubs(:current_user).returns(p2)
+    Scrap.create!(defaults_for_scrap(:sender => p2, :receiver => p3))
+    a2 = ActionTracker::Record.last
+    UserStampSweeper.any_instance.stubs(:current_user).returns(p3)
+    Scrap.create!(defaults_for_scrap(:sender => p3, :receiver => p1))
+    a3 = ActionTracker::Record.last
+    login_as(profile.identifier)
+    get :index, :profile => p1.identifier
+    assert_not_nil assigns(:activities)
+    assert_equal [a1], assigns(:activities)
+  end
+
+  should 'see all the activities in the current profile network' do
+    p1= Person.first
+    p2= fast_create(Person)
+    assert !p1.is_a_friend?(p2)
+    p3= fast_create(Person)
+    p3.add_friend(p1)
+    assert p3.is_a_friend?(p1)
+    ActionTracker::Record.destroy_all
+    Scrap.create!(defaults_for_scrap(:sender => p1, :receiver => p1))
+    a1 = ActionTracker::Record.last
+    UserStampSweeper.any_instance.stubs(:current_user).returns(p2)
+    Scrap.create!(defaults_for_scrap(:sender => p2, :receiver => p3))
+    a2 = ActionTracker::Record.last
+    UserStampSweeper.any_instance.stubs(:current_user).returns(p3)
+    Scrap.create!(defaults_for_scrap(:sender => p3, :receiver => p1))
+    a3 = ActionTracker::Record.last
+
+
+    @controller.stubs(:logged_in?).returns(true)
+    user = mock()
+    user.stubs(:person).returns(p3)
+    user.stubs(:login).returns('some')
+    @controller.stubs(:current_user).returns(user)
+    Person.any_instance.stubs(:follows?).returns(true)
+
+    process_delayed_job_queue
+    get :index, :profile => p1.identifier
+    assert_not_nil assigns(:network_activities)
+    assert_equal [], [a1,a3] - assigns(:network_activities)
+    assert_equal assigns(:network_activities) - [a1, a3], []
+  end
+
+  should 'the network activity be visible only to profile followers' do
+    p1= Person.first
+    p2= fast_create(Person)
+    assert !p1.is_a_friend?(p2)
+    p3= fast_create(Person)
+    p3.add_friend(p1)
+    assert p3.is_a_friend?(p1)
+    ActionTracker::Record.destroy_all
+    Scrap.create!(defaults_for_scrap(:sender => p1, :receiver => p1))
+    a1 = ActionTracker::Record.last
+    UserStampSweeper.any_instance.stubs(:current_user).returns(p2)
+    Scrap.create!(defaults_for_scrap(:sender => p2, :receiver => p3))
+    a2 = ActionTracker::Record.last
+    UserStampSweeper.any_instance.stubs(:current_user).returns(p3)
+    Scrap.create!(defaults_for_scrap(:sender => p3, :receiver => p1))
+    a3 = ActionTracker::Record.last
+
+    @controller.stubs(:logged_in?).returns(true)
+    user = mock()
+    user.stubs(:person).returns(p2)
+    user.stubs(:login).returns('some')
+    @controller.stubs(:current_user).returns(user)
+    get :index, :profile => p1.identifier
+    assert_equal [], assigns(:network_activities)
+
+    user = mock()
+    user.stubs(:person).returns(p3)
+    user.stubs(:login).returns('some')
+    @controller.stubs(:current_user).returns(user)
+    Person.any_instance.stubs(:follows?).returns(true)
+    process_delayed_job_queue
+    get :index, :profile => p3.identifier
+    assert_equal [], [a1,a3] - assigns(:network_activities)
+    assert_equal assigns(:network_activities) - [a1, a3], []
+  end
+
+  should 'the network activity be paginated' do
+    p1= Person.first
+    40.times{fast_create(ActionTrackerNotification, :action_tracker_id => fast_create(ActionTracker::Record), :profile_id => p1.id)}
+
+    @controller.stubs(:logged_in?).returns(true)
+    user = mock()
+    user.stubs(:person).returns(p1)
+    user.stubs(:login).returns('some')
+    @controller.stubs(:current_user).returns(user)
+    get :index, :profile => p1.identifier
+    assert_equal 30, assigns(:network_activities).count
+  end
+
+  should 'the network activity be visible only to logged users' do
+    p1= ActionTracker::Record.current_user_from_model
+    p2= fast_create(Person)
+    assert !p1.is_a_friend?(p2)
+    p3= fast_create(Person)
+    p3.add_friend(p1)
+    assert p3.is_a_friend?(p1)
+    ActionTracker::Record.destroy_all
+    Scrap.create!(defaults_for_scrap(:sender => p1, :receiver => p1))
+    a1 = ActionTracker::Record.last
+    UserStampSweeper.any_instance.stubs(:current_user).returns(p2)
+    Scrap.create!(defaults_for_scrap(:sender => p2, :receiver => p3))
+    a2 = ActionTracker::Record.last
+    UserStampSweeper.any_instance.stubs(:current_user).returns(p3)
+    Scrap.create!(defaults_for_scrap(:sender => p3, :receiver => p1))
+    a3 = ActionTracker::Record.last
+
+    login_as(profile.identifier)
+    ActionTracker::Record.delete_all
+    get :index, :profile => p1.identifier
+    assert_equal [], assigns(:network_activities)
+    assert_response :success
+    assert_template 'index'
+
+    get :index, :profile => p2.identifier
+    assert_equal [], assigns(:network_activities)
+    assert_response :success
+    assert_template 'index'
+
+    get :index, :profile => p3.identifier
+    assert_equal [], assigns(:network_activities)
+    assert_response :success
+    assert_template 'index'
+  end
+
+  should 'the network activity be visible to uses not logged in on communities and enteprises' do
+    p1= Person.first
+    community = fast_create(Community)
+    p2= fast_create(Person)
+    assert !p1.is_a_friend?(p2)
+    community.add_member(p1)
+    community.add_member(p2)
+    ActionTracker::Record.destroy_all
+    Article.create! :name => 'a', :profile_id => community.id
+    Article.create! :name => 'b', :profile_id => community.id
+    UserStampSweeper.any_instance.stubs(:current_user).returns(p2)
+    Article.create! :name => 'c', :profile_id => community.id
+    process_delayed_job_queue
+
+    get :index, :profile => community.identifier
+    assert_not_equal [], assigns(:network_items)
+    assert_response :success
+    assert_template 'index'
+  end
+
+  should 'the network activity be paginated on communities' do
+    community = fast_create(Community)
+    40.times{ fast_create(ActionTrackerNotification, :profile_id => community.id, :action_tracker_id => fast_create(ActionTracker::Record, :user_id => profile.id)) }
+    get :index, :profile => community.identifier
+    assert_equal 30, assigns(:network_activities).count
+  end
+
+  should 'the self activity not crashes with user not logged in' do
+    p1= Person.first
+    p2= fast_create(Person)
+    assert !p1.is_a_friend?(p2)
+    p3= fast_create(Person)
+    p3.add_friend(p1)
+    assert p3.is_a_friend?(p1)
+    ActionTracker::Record.destroy_all
+    Scrap.create!(defaults_for_scrap(:sender => p1, :receiver => p1))
+    a1 = ActionTracker::Record.last
+    UserStampSweeper.any_instance.stubs(:current_user).returns(p2)
+    Scrap.create!(defaults_for_scrap(:sender => p2, :receiver => p3))
+    a2 = ActionTracker::Record.last
+    UserStampSweeper.any_instance.stubs(:current_user).returns(p3)
+    Scrap.create!(defaults_for_scrap(:sender => p3, :receiver => p1))
+    a3 = ActionTracker::Record.last
+
+    get :index, :profile => p1.identifier
+    assert_response :success
+    assert_template 'index'
+  end
+
+  should 'have wall_itens defined' do
+    p1= ActionTracker::Record.current_user_from_model
+    get :index, :profile => p1.identifier
+    assert_equal [], assigns(:wall_items)
+  end
+
+  should 'the wall_itens be the received scraps in people profile' do
+    p1 = ActionTracker::Record.current_user_from_model
+    p2 = fast_create(Person)
+    p3 = fast_create(Person)
+    s1 = fast_create(Scrap, :sender_id => p1.id, :receiver_id => p2.id)
+    s2 = fast_create(Scrap, :sender_id => p2.id, :receiver_id => p1.id)
+    s3 = fast_create(Scrap, :sender_id => p3.id, :receiver_id => p1.id)
+
+    @controller.stubs(:logged_in?).returns(true)
+    user = mock()
+    user.stubs(:person).returns(p1)
+    user.stubs(:login).returns('some')
+    @controller.stubs(:current_user).returns(user)
+    Person.any_instance.stubs(:follows?).returns(true)
+    get :index, :profile => p1.identifier
+    assert_equal [s2,s3], assigns(:wall_items)
+  end
+
+  should 'the wall_itens be the received scraps in community profile' do
+    c = fast_create(Community)
+    p1 = fast_create(Person)
+    p2 = fast_create(Person)
+    p3 = fast_create(Person)
+    s1 = fast_create(Scrap, :sender_id => p1.id, :receiver_id => p2.id)
+    s2 = fast_create(Scrap, :sender_id => p2.id, :receiver_id => c.id)
+    s3 = fast_create(Scrap, :sender_id => p3.id, :receiver_id => c.id)
+
+    @controller.stubs(:logged_in?).returns(true)
+    user = mock()
+    user.stubs(:person).returns(p1)
+    user.stubs(:login).returns('some')
+    @controller.stubs(:current_user).returns(user)
+    Person.any_instance.stubs(:follows?).returns(true)
+    get :index, :profile => c.identifier
+    assert_equal [s2,s3], assigns(:wall_items)
+  end
+
+  should 'the wall_itens be paginated in people profiles' do
+    p1 = Person.first
+    40.times{fast_create(Scrap, :sender_id => p1.id)}
+
+    @controller.stubs(:logged_in?).returns(true)
+    user = mock()
+    user.stubs(:person).returns(p1)
+    user.stubs(:login).returns('some')
+    @controller.stubs(:current_user).returns(user)
+    Person.any_instance.stubs(:follows?).returns(true)
+    assert_equal 40, p1.scraps_received.not_replies.count
+    get :index, :profile => p1.identifier
+    assert_equal 30, assigns(:wall_items).count
+  end
+
+  should 'the wall_itens be paginated in community profiles' do
+    p1 = Person.first
+    c = fast_create(Community)
+    40.times{fast_create(Scrap, :receiver_id => c.id)}
+
+    @controller.stubs(:logged_in?).returns(true)
+    user = mock()
+    user.stubs(:person).returns(p1)
+    user.stubs(:login).returns('some')
+    @controller.stubs(:current_user).returns(user)
+    Person.any_instance.stubs(:follows?).returns(true)
+    assert_equal 40, c.scraps_received.not_replies.count
+    get :index, :profile => c.identifier
+    assert_equal 30, assigns(:wall_items).count
+  end
+
+  should "the owner of activity could remove it" do
+    login_as(profile.identifier)
+    at = fast_create(ActionTracker::Record, :user_id => profile.id)
+    assert_difference ActionTracker::Record, :count, -1 do
+      post :remove_activity, :profile => profile.identifier, :activity_id => at.id
+    end
+  end
+
+  should "remove the network activities dependent an ActionTracker::Record" do
+    login_as(profile.identifier)
+    person = fast_create(Person)
+    at = fast_create(ActionTracker::Record, :user_id => profile.id)
+    atn = fast_create(ActionTrackerNotification, :profile_id => person.id, :action_tracker_id => at.id)
+    count = ActionTrackerNotification
+    assert_difference ActionTrackerNotification, :count, -1 do
+      post :remove_activity, :profile => profile.identifier, :activity_id => at.id
+    end
+  end
+
+  should "be logged in to remove the activity" do
+    at = fast_create(ActionTracker::Record, :user_id => profile.id)
+    atn = fast_create(ActionTrackerNotification, :profile_id => profile.id, :action_tracker_id => at.id)
+    count = ActionTrackerNotification.count
+    post :remove_activity, :profile => profile.identifier, :activity_id => at.id
+    assert_equal count, ActionTrackerNotification.count
+    assert_redirected_to :controller => 'account', :action => 'login'
+  end
+
+  should "not remove an activity of another user" do
+    login_as(profile.identifier)
+    p1 = fast_create(Person)
+    at = fast_create(ActionTracker::Record, :user_id => p1.id)
+    atn = fast_create(ActionTrackerNotification, :profile_id => p1.id, :action_tracker_id => at.id) 
+    count = ActionTrackerNotification.count
+    post :remove_activity, :profile => profile.identifier, :activity_id => at.id
+    assert_equal count, ActionTrackerNotification.count
+  end
+
+  should "not show the scrap button on network activity if the user don't follow the user" do
+    login_as(profile.identifier)
+    person = fast_create(Person)
+    at = fast_create(ActionTracker::Record, :user_id => person.id)
+    atn = fast_create(ActionTrackerNotification, :profile_id => profile.id, :action_tracker_id => at.id) 
+    get :index, :profile => profile.identifier
+    assert_no_tag :tag => 'p', :attributes => {:class => 'profile-network-send-message'}
+
+    person.add_friend(profile)
+    get :index, :profile => profile.identifier
+    assert_tag :tag => 'p', :attributes => {:class => 'profile-network-send-message'}
+  end
+
+  should "not show the scrap button on network activity if the user is himself" do
+    login_as(profile.identifier)
+    at = fast_create(ActionTracker::Record, :user_id => profile.id)
+    atn = fast_create(ActionTrackerNotification, :profile_id => profile.id, :action_tracker_id => at.id) 
+    get :index, :profile => profile.identifier
+    assert_no_tag :tag => 'p', :attributes => {:class => 'profile-network-send-message'}
+  end
+
+  should "not show the scrap button on wall activity if the user don't follow the user" do
+    login_as(profile.identifier)
+    person = fast_create(Person)
+    scrap = fast_create(Scrap, :sender_id => person.id, :receiver_id => profile.id)
+    get :index, :profile => profile.identifier
+    assert_no_tag :tag => 'p', :attributes => {:class => 'profile-wall-send-message'}
+
+    person.add_friend(profile)
+    get :index, :profile => profile.identifier
+    assert_tag :tag => 'p', :attributes => {:class => 'profile-wall-send-message'}
+  end
+
+  should "not show the scrap button on wall activity if the user is himself" do
+    login_as(profile.identifier)
+    scrap = fast_create(Scrap, :sender_id => profile.id, :receiver_id => profile.id)
+    get :index, :profile => profile.identifier
+    assert_no_tag :tag => 'p', :attributes => {:class => 'profile-wall-send-message'}
+  end
+
+  should "not show the activities to offline users if the profile is private" do
+    at = fast_create(ActionTracker::Record, :user_id => profile.id)
+    profile.public_profile=false
+    profile.save
+    atn = fast_create(ActionTrackerNotification, :profile_id => profile.id, :action_tracker_id => at.id) 
+    get :index, :profile => profile.identifier
+    assert_equal [at], profile.tracked_actions
+    assert_no_tag :tag => 'li', :attributes => {:id => "profile-activity-item-#{atn.id}"}
+  end
+
+  should "view more scraps paginate the scraps in people profiles" do
+    login_as(profile.identifier)
+    40.times{fast_create(Scrap, :receiver_id => profile.id)}
+    get :view_more_scraps, :profile => profile.identifier, :page => 2
+    assert_response :success
+    assert_template '_profile_scraps'
+    assert_equal 10, assigns(:scraps).count
+  end
+
+  should "view more scraps paginate the scraps in community profiles" do
+    login_as(profile.identifier)
+    c = fast_create(Community)
+    40.times{fast_create(Scrap, :receiver_id => c.id)}
+    get :view_more_scraps, :profile => c.identifier, :page => 2
+    assert_response :success
+    assert_template '_profile_scraps'
+    assert_equal 10, assigns(:scraps).count
+  end
+
+  should "be logged in to access the view_more_scraps action in people profiles" do
+    get :view_more_scraps, :profile => profile.identifier
+    assert_redirected_to :controller => 'account', :action => 'login'
+  end
+
+  should "be logged in to access the view_more_scraps action in community profiles" do
+    c = fast_create(Community)
+    get :view_more_scraps, :profile => c.identifier
+    assert_redirected_to :controller => 'account', :action => 'login'
+  end
+
+  should "view more activities paginated" do
+    login_as(profile.identifier)
+    40.times{ fast_create(ActionTracker::Record, :user_id => profile.id)}
+    assert_equal 40, profile.tracked_actions.count
+    get :view_more_activities, :profile => profile.identifier, :page => 2
+    assert_response :success
+    assert_template '_profile_activities'
+    assert_equal 10, assigns(:activities).count
+  end
+
+  should "be logged in to access the view_more_activities action" do
+    get :view_more_activities, :profile => profile.identifier
+    assert_redirected_to :controller => 'account', :action => 'login'
+  end
+
+  should "view more network activities paginated" do
+    login_as(profile.identifier)
+    40.times{fast_create(ActionTrackerNotification, :profile_id => profile.id, :action_tracker_id => fast_create(ActionTracker::Record, :user_id => profile.id)) }
+    assert_equal 40, profile.tracked_notifications.count
+    get :view_more_network_activities, :profile => profile.identifier, :page => 2
+    assert_response :success
+    assert_template '_profile_network_activities'
+    assert_equal 10, assigns(:activities).count
+  end
+
+  should "be logged in to access the view_more_network_activities action" do
+    get :view_more_network_activities, :profile => profile.identifier
+    assert_redirected_to :controller => 'account', :action => 'login'
+  end
+
+  should 'render empty response for not logged in users in check_membership' do
+    get :check_membership
+    assert_equal '', @response.body
+  end
+
+  should 'render empty response for not logged in users in check_friendship' do
+    get :check_friendship
+    assert_equal '', @response.body
+  end
+
+  should 'display plugins tabs' do
+    plugin1_tab = {:title => 'Plugin1 tab', :id => 'plugin1_tab', :content => 'Content from plugin1.'}
+    plugin2_tab = {:title => 'Plugin2 tab', :id => 'plugin2_tab', :content => 'Content from plugin2.'}
+    tabs = [plugin1_tab, plugin2_tab]
+    plugins = mock()
+    plugins.stubs(:map).with(:profile_tabs).returns(tabs)
+    Noosfero::Plugin::Manager.stubs(:new).returns(plugins)
+
+    get :index, :profile => profile.identifier
+
+    assert_tag :tag => 'a', :content => /#{plugin1_tab[:title]}/, :attributes => {:href => /#{plugin1_tab[:id]}/}
+    assert_tag :tag => 'div', :content => /#{plugin1_tab[:content]}/, :attributes => {:id => /#{plugin1_tab[:id]}/}
   end
 
 end

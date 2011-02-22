@@ -1,12 +1,31 @@
 # A person is the profile of an user holding all relationships with the rest of the system
 class Person < Profile
 
+  acts_as_trackable :after_add => Proc.new {|p,t| notify_activity(t)}
   acts_as_accessor
+
+  named_scope :members_of, lambda { |resource| { :select => 'DISTINCT profiles.*', :joins => :role_assignments, :conditions => ['role_assignments.resource_type = ? AND role_assignments.resource_id = ?', resource.class.base_class.name, resource.id ] } }
+
+  def memberships
+    Profile.memberships_of(self)
+  end
 
   has_many :friendships, :dependent => :destroy
   has_many :friends, :class_name => 'Person', :through => :friendships
 
+  named_scope :online, lambda { { :include => :user, :conditions => ["users.chat_status != '' AND users.chat_status_at >= ?", DateTime.now - User.expires_chat_status_every.minutes] } }
+
   has_many :requested_tasks, :class_name => 'Task', :foreign_key => :requestor_id, :dependent => :destroy
+
+  has_many :mailings
+
+  has_many :scraps_sent, :class_name => 'Scrap', :foreign_key => :sender_id, :dependent => :destroy
+
+  named_scope :more_popular,
+       :select => "#{Profile.qualified_column_names}, count(friend_id) as total",
+       :group => Profile.qualified_column_names,
+       :joins => :friendships,
+       :order => "total DESC"
 
   after_destroy do |person|
     Friendship.find(:all, :conditions => { :friend_id => person.id}).each { |friendship| friendship.destroy }
@@ -15,6 +34,22 @@ class Person < Profile
   after_destroy :destroy_user
   def destroy_user
     self.user.destroy if self.user
+  end
+
+  def can_control_scrap?(scrap)
+    begin
+      !self.scraps(scrap).nil?
+    rescue
+      false
+    end
+  end
+
+  def receives_scrap_notification?
+    true
+  end
+
+  def can_control_activity?(activity)
+    self.tracked_notifications.exists?(activity)
   end
 
   # Sets the identifier for this person. Raises an exception when called on a
@@ -126,26 +161,13 @@ class Person < Profile
     new_conditions
   end
 
-  def memberships(conditions = {})
-    # FIXME this should be a proper ActiveRecord relationship!
-    Profile.find(
-      :all, 
-      :conditions => self.class.conditions_for_profiles(conditions, self), 
-      :joins => "LEFT JOIN role_assignments ON profiles.id = role_assignments.resource_id AND role_assignments.resource_type = \'#{Profile.base_class.name}\'",
-      :select => 'profiles.*').uniq
+  def enterprises
+    memberships.enterprises
   end
 
-  def enterprise_memberships(conditions = {})
-    memberships({:type => Enterprise.name}.merge(conditions))
+  def communities
+    memberships.communities
   end
-
-  alias :enterprises :enterprise_memberships
-
-  def community_memberships(conditions = {})
-    memberships({:type => Community.name}.merge(conditions))
-  end
-
-  alias :communities :community_memberships
 
   validates_presence_of :user_id
   validates_uniqueness_of :user_id
@@ -175,7 +197,8 @@ class Person < Profile
     person.user.save!
   end
 
-  def is_admin?(environment)
+  def is_admin?(environment = nil)
+    environment ||= self.environment
     role_assignments.select { |ra| ra.resource == environment }.map{|ra|ra.role.permissions}.any? do |ps|
       ps.any? do |p|
         ActiveRecord::Base::PERMISSIONS['Environment'].keys.include?(p)
@@ -184,10 +207,23 @@ class Person < Profile
   end
 
   def default_set_of_blocks
+    links = [
+      {:name => _('Profile'), :address => '/profile/{profile}', :icon => 'menu-people'},
+      {:name => _('Image gallery'), :address => '/{profile}/gallery', :icon => 'photos'},
+      {:name => _('Agenda'), :address => '/profile/{profile}/events', :icon => 'event'},
+      {:name => _('Blog'), :address => '/{profile}/blog', :icon => 'edit'},
+    ]
     [
-      [MainBlock],
-      [ProfileInfoBlock, RecentDocumentsBlock, TagsBlock],
-      [FriendsBlock, EnterprisesBlock, CommunitiesBlock]
+      [MainBlock.new],
+      [ProfileImageBlock.new(:show_name => true), LinkListBlock.new(:links => links), RecentDocumentsBlock.new],
+      [FriendsBlock.new, CommunitiesBlock.new]
+    ]
+  end
+
+  def default_set_of_articles
+    [
+      Blog.new(:name => _('Blog')),
+      Gallery.new(:name => _('Gallery')),
     ]
   end
 
@@ -213,6 +249,15 @@ class Person < Profile
   def template
     environment.person_template
   end
+
+  def apply_type_specific_template(template)
+    copy_communities_from(template)
+  end
+
+  def copy_communities_from(template)
+    template.communities.each {|community| community.add_member(self)}
+  end
+
 
   def self.with_pending_tasks
     Person.find(:all).select{ |person| !person.tasks.pending.empty? or person.has_organization_pending_tasks? }
@@ -285,5 +330,59 @@ class Person < Profile
 
   def relationships_cache_key
     cache_key + '-profile-relationships'
+  end
+
+  def more_popular_label
+    amount = self.friends.count
+    {
+      0 => _('none'),
+      1 => _('one friend')
+    }[amount] || _("%s friends") % amount
+  end
+
+  def self.notify_activity(tracked_action)
+    Delayed::Job.enqueue NotifyActivityToProfilesJob.new(tracked_action.id)
+  end
+
+  def is_member_of?(profile)
+    profile.members.include?(self)
+  end
+
+  def follows?(profile)
+    profile.followed_by?(self)
+  end
+
+  def each_friend(offset=0)
+    while friend = self.friends.first(:order => :id, :offset => offset)
+      yield friend
+      offset = offset + 1
+    end
+  end
+
+  def wall_url
+    generate_url(:profile => identifier, :controller => 'profile', :action => 'index', :anchor => 'profile-wall')
+  end
+
+  def is_last_admin?(organization)
+    organization.admins == [self]
+  end
+
+  def is_last_admin_leaving?(organization, roles)
+    is_last_admin?(organization) && roles.select {|role| role.key == "profile_admin"}.blank?
+  end
+
+  def leave(profile, reload = false)
+    leave_hash = {:message => _('You just left %s.') % profile.name}
+    if reload
+      leave_hash.merge!({:reload => true})
+    end
+    profile.remove_member(self)
+    leave_hash.to_json
+  end
+
+  protected
+
+  def followed_by?(profile)
+    self == profile || self.is_a_friend?(profile)
   end
 end

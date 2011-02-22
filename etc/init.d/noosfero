@@ -1,6 +1,6 @@
 #! /bin/sh
 ### BEGIN INIT INFO
-# Provides:          skeleton
+# Provides:          noosfero
 # Required-Start:    $remote_fs
 # Required-Stop:     $remote_fs
 # Default-Start:     2 3 4 5
@@ -26,13 +26,17 @@ DESC="Noosfero web platform"
 NAME=noosfero
 SCRIPTNAME=/etc/init.d/$NAME
 
+# default values
+NOOSFERO_DIR=/var/lib/noosfero/current
+NOOSFERO_USER=noosfero
+
 # Read configuration variable file if it is present
 [ -r /etc/default/$NAME ] && . /etc/default/$NAME
 
 # Load the VERBOSE setting and other rcS variables
 . /lib/init/vars.sh
 
-if [ -z $NOOSFERO_DIR ] || [ -z $NOOSFERO_USER ]; then
+if [ -z "$NOOSFERO_DIR" ] || [ -z "$NOOSFERO_USER" ]; then
   echo "NOOSFERO_DIR or NOOSFERO_USER not defined, noosfero not being started."
   echo "Both variables must be defined in /etc/default/noosfero"
   exit 0
@@ -50,14 +54,7 @@ main_script() {
   fi
 }
 
-do_start() {
-
-  # FIXME should not test for ferret only
-  if [ -e $FERRET_PID_FILE ]; then
-    echo 'noosfero already running, cannot start.'
-    exit 2
-  fi
-
+do_setup() {
   # PID directories
   if [ ! -d /var/run/noosfero ]; then
     mkdir /var/run/noosfero
@@ -89,6 +86,17 @@ do_start() {
   if [ ! -e $NOOSFERO_DIR/log ]; then
     ln -s /var/log/noosfero $NOOSFERO_DIR/log
   fi
+}
+
+do_start() {
+
+  # FIXME should not test for ferret only
+  if [ -e $FERRET_PID_FILE ]; then
+    echo 'noosfero already running, cannot start.'
+    exit 2
+  fi
+
+  do_setup
 
   # actually start the service
   main_script start
@@ -111,11 +119,14 @@ do_restart() {
 }
 
 case "$1" in
-  start|stop|restart)
+  start|stop|restart|setup)
     do_$1
     ;;
+  force-reload)
+    do_restart
+    ;;
   *)
-    echo "Usage: $SCRIPTNAME {start|stop|restart}" >&2
+    echo "Usage: $SCRIPTNAME {start|stop|restart|force-reload|setup}" >&2
     exit 3
     ;;
 esac

@@ -8,7 +8,7 @@ class MapsController < MyProfileController
       begin
         Profile.transaction do
           if profile.update_attributes!(params[:profile_data])
-            flash[:notice] = _('Address was updated successfully!')
+            session[:notice] = _('Address was updated successfully!')
             redirect_to :action => 'edit_location'
           end
         end

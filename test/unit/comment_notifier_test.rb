@@ -44,6 +44,27 @@ class CommentNotifierTest < ActiveSupport::TestCase
     end
   end
 
+  should 'include comment title in the e-mail' do
+    @article.comments << Comment.new(:author => @profile, :title => 'comment title', :body => 'comment title')
+    sent = ActionMailer::Base.deliveries.first
+    assert_match /comment title/, sent.body
+  end
+
+  should 'include comment text in the e-mail' do
+    @article.comments << Comment.new(:author => @profile, :title => 'comment title', :body => 'comment body')
+    sent = ActionMailer::Base.deliveries.first
+    assert_match /comment body/, sent.body
+  end
+
+  should 'not deliver mail if has no notification emails' do
+    community = fast_create(Community)
+    assert_equal [], community.notification_emails
+    article = fast_create(Article, :name => 'Article test', :profile_id => community.id, :notify_comments => true)
+    assert_no_difference ActionMailer::Base.deliveries, :size do
+      article.comments << Comment.new(:author => @profile, :title => 'test comment', :body => 'there is no addresses to send notification')
+    end
+  end
+
   private
 
     def read_fixture(action)

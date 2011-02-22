@@ -1,6 +1,9 @@
 #!/usr/bin/env ruby
 require File.dirname(__FILE__) + '/../config/environment'
 
+# turn on autoflush
+STDOUT.sync = true
+
 def rand_position(type)
   range = {
     :lat => [-33.52, 4.6],
@@ -16,6 +19,7 @@ places = ['de Caximbinha do Sul', 'de Bonito', 'de Reviravolta do Serrado']
 
 start_time = Time.now
 
+print "Creating enterprises: "
 groups.each do |group|
   what.each do |production|
     places.each do |place|
@@ -28,13 +32,19 @@ groups.each do |group|
         :lat => rand_position(:lat),
         :lng => rand_position(:lng)
       )
-      print "."; $stdout.flush
+      print "."
     end
   end
 end
-puts
+puts " done!"
 
 EnterpriseActivation.find(:all, :conditions => ['created_at > ?', start_time]).each do |activation|
   enterprise = activation.enterprise
   puts [activation.code, enterprise.name, enterprise.foundation_year].join(';')
 end
+
+ze = Person['ze']
+# give admin rights for 'ze' in some enterprises
+Enterprise.all.rand.add_admin(ze)
+Enterprise.all.rand.add_admin(ze)
+Enterprise.all.rand.add_admin(ze)

@@ -112,7 +112,7 @@ class MailconfControllerTest < Test::Unit::TestCase
   should 'display notice after saving' do
     login_as('ze')
     post :enable, :profile => 'ze'
-    assert_kind_of String, flash[:notice]
+    assert_kind_of String, session[:notice]
   end
 
   should 'link back to control panel' do

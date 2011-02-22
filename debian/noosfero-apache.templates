@@ -1,0 +1,13 @@
+Template: noosfero-apache/enable_apache_site
+Type: boolean
+Default: true
+Description: Enable Noosfero in Apache?
+ If you choose "Yes" here, them Noosfero's apache site will be automatically
+ enabled and Noosfero will be immediately available through Apache using the
+ domain name you choose before.
+ .
+ This option will not interfere with anything besides the domain name you chose
+ for your Noosfero site, so if this is a new server installation, you should
+ probably answer "Yes". If, for any reason, you do not want to enable Noosfero
+ in Apache right now, then you should answer "No". You can enable Noosfero
+ later by running `a2ensite nooosfero`.

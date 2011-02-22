@@ -1,0 +1,78 @@
+@import url(../profile-base/style.css);
+
+/************************** user bar ***************************/
+
+#user a,
+#user a strong {
+  color: #2E3436;
+}
+
+/************************** content ***************************/
+
+#content .block-title,
+#content .main-block h1, #not-found h1, #access-denied h1 {
+  border-bottom:2px solid #2E3436;
+  color: #2E3436;
+}
+
+.profile-image-block p {
+  color: #2E3436;
+}
+
+.block a {
+  color: #2E3436;
+}
+
+.block a:visited {
+  color: #555753;
+}
+
+.control-panel a,
+.control-panel a:visited {
+  color: #000;
+}
+
+.controller-profile_editor .control-panel a:hover {
+  background-color: #2E3436;
+  color: #FFF;
+}
+
+#content .link-list-block li a:hover {
+  background-color: #2E3436;
+}
+
+#content .link-list-block li a.link-this-page {
+  background-color: #555753;
+  border-right:2px solid #2E3436;
+}
+
+.template-rightbar #content .link-list-block li a.link-this-page,
+#content .box-3 .link-list-block li a.link-this-page {
+  border-left: 2px solid #2E3436;
+}
+
+/************** blog **************/
+
+#content .blog-post .title a:hover {
+  color: #2E3436;
+}
+
+/**************************** Comments *******************************/
+
+#content .comments h3 {
+  color: #2E3436;
+  border-bottom: 2px solid #2E3436;
+}
+
+.post_comment_box h4 {
+  background-color: #2E3436;
+  color: #FFF;
+}
+
+/************************** theme footer ***************************/
+
+#footer-content a,
+#footer-content a:hover,
+#footer-content a:visited {
+  color: #2E3436;
+}

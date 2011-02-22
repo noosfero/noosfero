@@ -36,7 +36,7 @@ module DatesHelper
   # formats a datetime for displaying. 
   def show_time(time)
     if time
-      _('%{day} %{month} %{year}, %{hour}:%{minutes}') % { :year => time.year, :month => month_name(time.month), :day => time.day, :hour => time.hour, :minutes => time.min }
+      _('%{day} %{month} %{year}, %{hour}:%{minutes}') % { :year => time.year, :month => month_name(time.month), :day => time.day, :hour => time.hour, :minutes => time.strftime("%M") }
     else
       ''
     end
@@ -46,7 +46,7 @@ module DatesHelper
     if (date1 == date2) || (date2.nil?)
       show_date(date1)
     else
-      _('from %s to %s') % [show_date(date1), show_date(date2)]
+      _('from %{date1} to %{date2}') % {:date1 => show_date(date1), :date2 => show_date(date2)}
     end
   end
 

@@ -41,8 +41,7 @@ module FormsHelper
       the_class << ' ' << html_options[:class]
     end
 
-    # FIXME: should be in stylesheet
-    bt_submit = submit_tag(label, html_options.merge(:style => 'height:28px; cursor:pointer', :class => the_class))
+    bt_submit = submit_tag(label, html_options.merge(:class => the_class))
 
     bt_submit + bt_cancel
   end
@@ -60,6 +59,10 @@ module FormsHelper
     
     state_id = 'state-' + FormsHelper.next_id_number
     city_id = 'city-' + FormsHelper.next_id_number
+
+    if states.length < 1
+      return
+    end
     
     if simple
       states = [State.new(:name => _('Select the State'))] + states
@@ -106,6 +109,18 @@ module FormsHelper
       _("The <label class='pseudoformlabel'>highlighted</label> fields are mandatory."),
       :class => 'required-field'
     ))
+  end
+
+  def options_for_select_with_title(container, selected = nil)
+    container = container.to_a if Hash === container
+
+    options_for_select = container.inject([]) do |options, element|
+      text, value = option_text_and_value(element)
+      selected_attribute = ' selected="selected"' if option_value_selected?(value, selected)
+      options << %(<option title="#{html_escape(text.to_s)}" value="#{html_escape(value.to_s)}"#{selected_attribute}>#{html_escape(text.to_s)}</option>)
+    end
+
+    options_for_select.join("\n")
   end
 
 protected

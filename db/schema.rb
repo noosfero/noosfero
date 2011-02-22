@@ -9,7 +9,31 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100514133346) do
+ActiveRecord::Schema.define(:version => 20110215153624) do
+
+  create_table "action_tracker", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "user_type"
+    t.integer  "target_id"
+    t.string   "target_type"
+    t.text     "params"
+    t.string   "verb"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "action_tracker", ["target_id", "target_type"], :name => "index_action_tracker_on_dispatcher_id_and_dispatcher_type"
+  add_index "action_tracker", ["user_id", "user_type"], :name => "index_action_tracker_on_user_id_and_user_type"
+  add_index "action_tracker", ["verb"], :name => "index_action_tracker_on_verb"
+
+  create_table "action_tracker_notifications", :force => true do |t|
+    t.integer "action_tracker_id"
+    t.integer "profile_id"
+  end
+
+  add_index "action_tracker_notifications", ["action_tracker_id"], :name => "index_action_tracker_notifications_on_action_tracker_id"
+  add_index "action_tracker_notifications", ["profile_id", "action_tracker_id"], :name => "index_action_tracker_notifications_on_profile_id_and_action_tracker_id", :unique => true
+  add_index "action_tracker_notifications", ["profile_id"], :name => "index_action_tracker_notifications_on_profile_id"
 
   create_table "article_versions", :force => true do |t|
     t.integer  "article_id"
@@ -46,6 +70,11 @@ ActiveRecord::Schema.define(:version => 20100514133346) do
     t.string   "source"
     t.boolean  "highlighted",          :default => false
     t.string   "external_link"
+    t.boolean  "thumbnails_processed", :default => false
+    t.boolean  "is_image",             :default => false
+    t.integer  "translation_of_id"
+    t.string   "language"
+    t.string   "source_name"
   end
 
   create_table "articles", :force => true do |t|
@@ -81,7 +110,14 @@ ActiveRecord::Schema.define(:version => 20100514133346) do
     t.string   "source"
     t.boolean  "highlighted",          :default => false
     t.string   "external_link"
+    t.boolean  "thumbnails_processed", :default => false
+    t.boolean  "is_image",             :default => false
+    t.integer  "translation_of_id"
+    t.string   "language"
+    t.string   "source_name"
   end
+
+  add_index "articles", ["translation_of_id"], :name => "index_articles_on_translation_of_id"
 
   create_table "articles_categories", :id => false, :force => true do |t|
     t.integer "article_id"
@@ -129,6 +165,7 @@ ActiveRecord::Schema.define(:version => 20100514133346) do
     t.float   "lng"
     t.boolean "display_in_menu", :default => false
     t.integer "children_count",  :default => 0
+    t.boolean "accept_products", :default => true
   end
 
   create_table "categories_profiles", :id => false, :force => true do |t|
@@ -140,6 +177,15 @@ ActiveRecord::Schema.define(:version => 20100514133346) do
   add_index "categories_profiles", ["category_id"], :name => "index_categories_profiles_on_category_id"
   add_index "categories_profiles", ["profile_id"], :name => "index_categories_profiles_on_profile_id"
 
+  create_table "certifiers", :force => true do |t|
+    t.string   "name",           :null => false
+    t.string   "description"
+    t.string   "link"
+    t.integer  "environment_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "comments", :force => true do |t|
     t.string   "title"
     t.text     "body"
@@ -148,13 +194,31 @@ ActiveRecord::Schema.define(:version => 20100514133346) do
     t.string   "name"
     t.string   "email"
     t.datetime "created_at"
+    t.integer  "reply_of_id"
   end
 
-  create_table "consumptions", :force => true do |t|
-    t.integer "product_category_id"
-    t.integer "profile_id"
-    t.text    "aditional_specifications"
+  create_table "contact_lists", :force => true do |t|
+    t.text     "list"
+    t.string   "error_fetching"
+    t.boolean  "fetched",        :default => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
+
+  create_table "delayed_jobs", :force => true do |t|
+    t.integer  "priority",   :default => 0
+    t.integer  "attempts",   :default => 0
+    t.text     "handler"
+    t.text     "last_error"
+    t.datetime "run_at"
+    t.datetime "locked_at"
+    t.datetime "failed_at"
+    t.string   "locked_by"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
 
   create_table "domains", :force => true do |t|
     t.string  "name"
@@ -172,7 +236,7 @@ ActiveRecord::Schema.define(:version => 20100514133346) do
     t.text     "design_data"
     t.text     "custom_header"
     t.text     "custom_footer"
-    t.string   "theme"
+    t.string   "theme",                        :default => "default", :null => false
     t.text     "terms_of_use_acceptance_text"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -180,7 +244,7 @@ ActiveRecord::Schema.define(:version => 20100514133346) do
 
   create_table "external_feeds", :force => true do |t|
     t.string   "feed_title"
-    t.date     "fetched_at"
+    t.datetime "fetched_at"
     t.string   "address"
     t.integer  "blog_id",                         :null => false
     t.boolean  "enabled",       :default => true, :null => false
@@ -216,6 +280,39 @@ ActiveRecord::Schema.define(:version => 20100514133346) do
     t.integer "size"
     t.integer "width"
     t.integer "height"
+    t.boolean "thumbnails_processed", :default => false
+  end
+
+  create_table "inputs", :force => true do |t|
+    t.integer  "product_id",                                    :null => false
+    t.integer  "product_category_id",                           :null => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "position"
+    t.string   "unit"
+    t.decimal  "price_per_unit"
+    t.decimal  "amount_used"
+    t.boolean  "relevant_to_price",          :default => true
+    t.boolean  "is_from_solidarity_economy", :default => false
+  end
+
+  create_table "mailing_sents", :force => true do |t|
+    t.integer  "mailing_id"
+    t.integer  "person_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "mailings", :force => true do |t|
+    t.string   "type"
+    t.string   "subject"
+    t.text     "body"
+    t.integer  "source_id"
+    t.string   "source_type"
+    t.integer  "person_id"
+    t.string   "locale"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "product_categorizations", :force => true do |t|
@@ -229,6 +326,14 @@ ActiveRecord::Schema.define(:version => 20100514133346) do
   add_index "product_categorizations", ["category_id"], :name => "index_product_categorizations_on_category_id"
   add_index "product_categorizations", ["product_id"], :name => "index_product_categorizations_on_product_id"
 
+  create_table "product_qualifiers", :force => true do |t|
+    t.integer  "product_id"
+    t.integer  "qualifier_id"
+    t.integer  "certifier_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "products", :force => true do |t|
     t.integer  "enterprise_id"
     t.integer  "product_category_id"
@@ -240,6 +345,10 @@ ActiveRecord::Schema.define(:version => 20100514133346) do
     t.datetime "updated_at"
     t.float    "lat"
     t.float    "lng"
+    t.string   "unit"
+    t.float    "discount"
+    t.boolean  "available",           :default => true
+    t.boolean  "highlighted"
   end
 
   add_index "products", ["enterprise_id"], :name => "index_products_on_enterprise_id"
@@ -274,6 +383,18 @@ ActiveRecord::Schema.define(:version => 20100514133346) do
 
   add_index "profiles", ["environment_id"], :name => "index_profiles_on_environment_id"
 
+  create_table "qualifier_certifiers", :force => true do |t|
+    t.integer "qualifier_id"
+    t.integer "certifier_id"
+  end
+
+  create_table "qualifiers", :force => true do |t|
+    t.string   "name",           :null => false
+    t.integer  "environment_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "refused_join_community", :id => false, :force => true do |t|
     t.integer "person_id"
     t.integer "community_id"
@@ -299,6 +420,15 @@ ActiveRecord::Schema.define(:version => 20100514133346) do
     t.boolean "system",         :default => false
     t.text    "permissions"
     t.integer "environment_id"
+  end
+
+  create_table "scraps", :force => true do |t|
+    t.text     "content"
+    t.integer  "sender_id"
+    t.integer  "receiver_id"
+    t.integer  "scrap_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "taggings", :force => true do |t|
@@ -353,6 +483,9 @@ ActiveRecord::Schema.define(:version => 20100514133346) do
     t.integer  "environment_id"
     t.string   "password_type"
     t.boolean  "enable_email",                            :default => false
+    t.string   "last_chat_status",                        :default => ""
+    t.string   "chat_status",                             :default => ""
+    t.datetime "chat_status_at"
   end
 
   create_table "validation_infos", :force => true do |t|

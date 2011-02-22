@@ -1,12 +1,12 @@
 <div class="login-box">
   <% unless logged_in? %>
 
-    <h2><%= _('Login') %></h2>
+    <h2><span><%= _('Login') %></span></h2>
 
     <div class="login-box-content">
 
 <%
-  @user = User.new  if ! @user
+  @user ||= User.new
 %>
     
     <% labelled_form_for :user, @user,

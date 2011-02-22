@@ -51,17 +51,60 @@ class Profile < ActiveRecord::Base
 
   acts_as_accessible
 
+  named_scope :memberships_of, lambda { |person| { :select => 'DISTINCT profiles.*', :joins => :role_assignments, :conditions => ['role_assignments.accessor_type = ? AND role_assignments.accessor_id = ?', person.class.base_class.name, person.id ] } }
+  named_scope :enterprises, :conditions => "profiles.type = 'Enterprise'"
+  named_scope :communities, :conditions => "profiles.type = 'Community'"
+
+  def members
+    Person.members_of(self)
+  end
+
+  def members_count
+    members.count('DISTINCT(profiles.id)')
+  end
+
+  def members_by_role(role)
+    Person.members_of(self).all(:conditions => ['role_assignments.role_id = ?', role.id])
+  end
+
   acts_as_having_boxes
 
   acts_as_searchable :additional_fields => [ :extra_data_for_index ]
 
   acts_as_taggable
 
+  def self.qualified_column_names
+    Profile.column_names.map{|n| [Profile.table_name, n].join('.')}.join(',')
+  end
+
   named_scope :visible, :conditions => { :visible => true }
+  named_scope :more_recent, :order => "created_at DESC"
+  named_scope :more_popular,
+       :select => "#{Profile.qualified_column_names}, count(resource_id) as total",
+       :group => Profile.qualified_column_names,
+       :joins => :role_assignments,
+       :order => "total DESC"
+  named_scope :more_active,
+       :select => "#{Profile.qualified_column_names}, count(articles.id) as total, sum(articles.comments_count) as total_comments",
+       :joins => :articles,
+       :group => Profile.qualified_column_names,
+       :order => "total DESC, total_comments DESC",
+       :conditions => ["articles.created_at BETWEEN ? AND ?", 7.days.ago, DateTime.now]
+
+  acts_as_trackable :dependent => :destroy
+
+  has_many :action_tracker_notifications, :foreign_key => 'profile_id'
+  has_many :tracked_notifications, :through => :action_tracker_notifications, :source => :action_tracker, :order => 'updated_at DESC'
+  has_many :scraps_received, :class_name => 'Scrap', :foreign_key => :receiver_id, :order => "updated_at DESC", :dependent => :destroy
 
   # FIXME ugly workaround
   def self.human_attribute_name(attrib)
       _(self.superclass.human_attribute_name(attrib))
+  end
+
+  def scraps(scrap=nil)
+    scrap = scrap.is_a?(Scrap) ? scrap.id : scrap
+    scrap.nil? ? Scrap.all_scraps(self) : Scrap.all_scraps(self).find(scrap)
   end
 
   class_inheritable_accessor :extra_index_methods
@@ -101,12 +144,14 @@ class Profile < ActiveRecord::Base
   not_found
   cat
   tag
+  tags
   environment
   webmaster
   info
   root
   assets
   doc
+  chat
   ]
 
   belongs_to :user
@@ -119,9 +164,6 @@ class Profile < ActiveRecord::Base
   belongs_to :home_page, :class_name => Article.name, :foreign_key => 'home_page_id'
 
   acts_as_having_image
-
-  has_many :consumptions
-  has_many :consumed_product_categories, :through => :consumptions, :source => :product_category
 
   has_many :tasks, :dependent => :destroy, :as => 'target'
 
@@ -255,7 +297,7 @@ class Profile < ActiveRecord::Base
       if self.respond_to?(:default_set_of_blocks)
         default_set_of_blocks.each_with_index do |blocks,i|
           blocks.each do |block|
-            self.boxes[i].blocks << block.new
+            self.boxes[i].blocks << block
           end
         end
       end
@@ -282,6 +324,7 @@ class Profile < ActiveRecord::Base
   def apply_template(template, options = {:copy_articles => true})
     copy_blocks_from(template)
     copy_articles_from(template) if options[:copy_articles]
+    self.apply_type_specific_template(template)
 
     # copy interesting attributes
     self.layout_template = template.layout_template
@@ -294,8 +337,15 @@ class Profile < ActiveRecord::Base
     self.save_without_validation!
   end
 
+  def apply_type_specific_template(template)
+  end
+
   xss_terminate :only => [ :name, :nickname, :address, :contact_phone, :description ], :on => 'validation'
   xss_terminate :only => [ :custom_footer, :custom_header ], :with => 'white_list', :on => 'validation'
+
+  include WhiteListFilter
+  filter_iframes :custom_header, :custom_footer, :whitelist => lambda { environment && environment.trusted_sites_for_iframe }
+
 
   # returns the contact email for this profile.
   #
@@ -317,6 +367,16 @@ class Profile < ActiveRecord::Base
   # 10.
   def recent_documents(limit = 10, options = {})
     self.articles.recent(limit, options)
+  end
+
+  def last_articles(limit = 10, options = {})
+    options = { :limit => limit,
+                :conditions => ["advertise = ? AND published = ? AND
+                                 ((articles.type != ? and articles.type != ? and articles.type != ?) OR
+                                 articles.type is NULL)",
+                                 true, true, 'UploadedFile', 'RssFeed', 'Blog'],
+                :order => 'articles.published_at desc, articles.id desc' }.merge(options)
+    self.articles.find(:all, options)
   end
 
   class << self
@@ -368,12 +428,28 @@ class Profile < ActiveRecord::Base
     { :profile => identifier, :controller => 'profile_editor', :action => 'index' }
   end
 
-  def leave_url
-    { :profile => identifier, :controller => 'profile', :action => 'leave' }
+  def leave_url(reload = false)
+    { :profile => identifier, :controller => 'profile', :action => 'leave', :reload => reload }
   end
 
   def join_url
     { :profile => identifier, :controller => 'profile', :action => 'join' }
+  end
+
+  def join_not_logged_url
+    { :profile => identifier, :controller => 'profile', :action => 'join_not_logged' }
+  end
+
+  def check_membership_url
+    { :profile => identifier, :controller => 'profile', :action => 'check_membership' }
+  end
+
+  def add_url
+    { :profile => identifier, :controller => 'profile', :action => 'add' }
+  end
+
+  def check_friendship_url
+    { :profile => identifier, :controller => 'profile', :action => 'check_friendship' }
   end
 
   def public_profile_url
@@ -386,7 +462,7 @@ class Profile < ActiveRecord::Base
 
   def url_options
     options = { :host => default_hostname, :profile => (own_hostname ? nil : self.identifier) }
-    Noosfero.url_options.merge(options)
+    options.merge(Noosfero.url_options)
   end
 
 private :generate_url, :url_options
@@ -435,23 +511,30 @@ private :generate_url, :url_options
     if template 
       copy_articles_from template
     else
-      # a default homepage
-      hp = default_homepage(:name => _("My home page"), :body => _("<p>This is a default homepage created for me. It can be changed though the control panel.</p>"), :advertise => false)
-      hp.profile = self
-      hp.save!
-      self.home_page = hp
-
-      # a default rss feed
-      feed = RssFeed.new(:name => 'feed')
-      self.articles << feed
-
-      # a default private folder if public
-      if self.public?
-       folder = Folder.new(:name => _("Intranet"), :published => false)
-       self.articles << folder
+      default_set_of_articles.each do |article|
+        article.profile = self
+        article.advertise = false
+        article.save!
       end
     end
     self.save!
+  end
+
+  # Override this method in subclasses of Profile to create a default article
+  # set upon creation. Note that this method will be called *only* if there is
+  # no template for the type of profile (i.e. if the template was removed or in
+  # the creation of the template itself).
+  #
+  # This method must return an array of pre-populated articles, which will be
+  # associated to the profile before being saved. Example:
+  #
+  #   def default_set_of_articles
+  #     [Blog.new(:name => 'Blog'), Gallery.new(:name => 'Gallery')]
+  #   end
+  #
+  # By default, this method returns an empty array.
+  def default_set_of_articles
+    []
   end
 
   def copy_articles_from other
@@ -484,13 +567,16 @@ private :generate_url, :url_options
   # Adds a person as member of this Profile.
   def add_member(person)
     if self.has_members?
-      if self.closed?
+      if self.closed? && members_count > 0
         AddMember.create!(:person => person, :organization => self) unless self.already_request_membership?(person)
       else
+        if members_count == 0
+          self.affiliate(person, Profile::Roles.admin(environment.id))
+        end
         self.affiliate(person, Profile::Roles.member(environment.id))
       end
     else
-      raise _("%s can't has members") % self.class.name
+      raise _("%s can't have members") % self.class.name
     end
   end
   
@@ -501,6 +587,10 @@ private :generate_url, :url_options
   # adds a person as administrator os this profile
   def add_admin(person)
     self.affiliate(person, Profile::Roles.admin(environment.id))
+  end
+
+  def remove_admin(person)
+    self.disaffiliate(person, Profile::Roles.admin(environment.id))
   end
 
   def add_moderator(person)
@@ -538,14 +628,10 @@ private :generate_url, :url_options
     !forbidden.include?(cat.class)
   end
 
-  def default_homepage(attrs)
-    TinyMceArticle.new(attrs)
-  end
-
   include ActionView::Helpers::TextHelper
-  def short_name
+  def short_name(chars = 40)
     if self[:nickname].blank?
-      truncate self.name, 15, '...'
+      truncate self.name, chars, '...'
     else
       self[:nickname]
     end
@@ -615,6 +701,16 @@ private :generate_url, :url_options
     self.blogs.count.nonzero?
   end
 
+  has_many :forums, :source => 'articles', :class_name => 'Forum'
+
+  def forum
+    self.has_forum? ? self.forums.first(:order => 'id') : nil
+  end
+
+  def has_forum?
+    self.forums.count.nonzero?
+  end
+
   def admins
     self.members_by_role(Profile::Roles.admin(environment.id))
   end
@@ -628,7 +724,7 @@ private :generate_url, :url_options
   end
 
   def image_galleries
-    folders.select { |folder| folder.display_as_gallery?}
+    articles.galleries
   end
 
   def blocks_to_expire_cache
@@ -678,7 +774,43 @@ private :generate_url, :url_options
     cache_key + '-members-page-' + page
   end
 
+  def more_recent_label
+    _("Since: ")
+  end
+
+  def more_active_label
+    amount = self.articles.count
+    {
+      0 => _('none'),
+      1 => _('one article')
+    }[amount] || _("%s articles") % amount
+  end
+
+  def more_popular_label
+    amount = self.members_count
+    {
+      0 => _('none'),
+      1 => _('one member')
+    }[amount] || _("%s members") % amount
+  end
+
+  def profile_custom_icon
+    self.image.public_filename(:icon) unless self.image.blank?
+  end
+
+  def jid(options = {})
+    domain = options[:domain] || environment.default_hostname
+    "#{identifier}@#{domain}"
+  end
+  def full_jid(options = {})
+    "#{jid(options)}/#{short_name}"
+  end
+
   protected
+
+    def followed_by?(person)
+      person.is_member_of?(self)
+    end
 
     def display_private_info_to?(user)
       if user.nil?
@@ -687,4 +819,5 @@ private :generate_url, :url_options
         (user == self) || (user.is_admin?(self.environment)) || user.is_admin?(self) || user.memberships.include?(self)
       end
     end
+
 end

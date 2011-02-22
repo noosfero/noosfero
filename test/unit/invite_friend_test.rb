@@ -70,21 +70,6 @@ class InviteFriendTest < ActiveSupport::TestCase
     ok('must validate with no target') { !task.errors.invalid?(:target_id) }
   end
 
-  should 'require message with <url> tag if no target given' do
-    task = InviteFriend.new
-    task.valid?
-
-    ok('must not validate with no message') { task.errors.invalid?(:message) }
-
-    task.message = 'a simple message'
-    task.valid?
-    ok('must not validate with no <url> tag in message') { task.errors.invalid?(:message) }
-
-    task.message = 'a simple message with <url>'
-    task.valid?
-    ok('must validate when message is given with <url> tag') { !task.errors.invalid?(:message)}
-  end
-
   should 'dont require message if target given (person being invited)' do
     task = InviteFriend.new(:target => create_user('testuser2').person)
     task.valid?
@@ -118,18 +103,6 @@ class InviteFriendTest < ActiveSupport::TestCase
     TaskMailer.expects(:deliver_invitation_notification).never
 
     task = InviteFriend.create!(:person => p1, :friend => p2)
-  end
-
-  should 'provide proper description' do
-    p1 = create_user('testuser1').person
-    p2 = create_user('testuser2').person
-
-    TaskMailer.expects(:deliver_task_finished).never
-    TaskMailer.expects(:deliver_task_created).never
-
-    task = InviteFriend.create!(:person => p1, :friend => p2)
-
-    assert_equal 'testuser1 wants to be your friend.', task.description
   end
 
   should 'has permission to manage friends' do

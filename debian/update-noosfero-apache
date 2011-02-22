@@ -1,0 +1,22 @@
+#!/bin/sh
+
+set -e
+
+# automatically update configuration, but if package noosfero is also installed
+if test -x /usr/share/noosfero/script/apacheconf; then
+  datadir="/etc/noosfero/apache"
+  mongrel_file="$datadir/mongrel.conf"
+  if test -e "$mongrel_file"; then
+    echo "Overwriting $mongrel_file ..."
+  fi
+  /usr/share/noosfero/script/apacheconf mongrel > "$mongrel_file"
+
+  apache_site='/etc/apache2/sites-available/noosfero'
+  if ! test -e "$apache_site"; then
+    echo "Generating apache virtual host ..."
+    cd /usr/share/noosfero && su noosfero -c "RAILS_ENV=production ./script/apacheconf virtualhosts" > "$apache_site"
+  fi
+
+  echo 'Noosfero Apache configuration updated.'
+  echo "Run '/etc/init.d/apache2 reload' to activate new configuration!"
+fi

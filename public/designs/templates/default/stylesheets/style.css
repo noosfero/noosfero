@@ -4,7 +4,7 @@
 }
 
 .box-1 {
-  margin: 0px 230px 0px 260px;
+  margin: 0px 210px 0px 210px;
 }
 .box-1 .blocks {
   width: 100%;
@@ -13,7 +13,7 @@
 
 .box-2 {
   float: left;
-  width: 230px;
+  width: 200px;
 }
 
 .box-3 {
@@ -27,3 +27,8 @@
   float: none;
 }
 
+#profile-activity ul,
+#profile-network ul,
+#profile-wall ul {
+  width: 460px;
+}

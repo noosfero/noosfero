@@ -1,15 +1,12 @@
 class CatalogController < PublicController
   needs_profile
+
   before_filter :check_enterprise_and_environment
 
   def index
-    @products = @profile.products
+    @products = @profile.products.paginate(:per_page => 10, :page => params[:page])
   end
 
-  def show
-    @product = @profile.products.find(params[:id])
-  end
-  
   protected
   def check_enterprise_and_environment
     unless @profile.kind_of?(Enterprise) && !@profile.environment.enabled?('disable_products_for_enterprises')

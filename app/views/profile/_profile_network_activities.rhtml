@@ -1,0 +1,34 @@
+  <% network_activities.each do |activity| %>
+    <li class='profile-network-item <%= activity.verb %>' id='profile-network-item-<%= activity.id %>'>
+      <div class='profile-network-image'>
+        <%= link_to(profile_image(activity.user, :minor), activity.user.url) %>
+        <% if logged_in? && current_person.follows?(activity.user) && current_person != activity.user %>
+          <p class='profile-network-send-message'><%= link_to_function _('Scrap'), "hide_and_show(['#profile-network-message-response-#{activity.id}'],['#profile-network-message-#{activity.id}', '#profile-network-form-#{activity.id}']);$('content_#{activity.id}').value='';return false", :class => "profile-send-message", :title => _("Send a message to %s") % activity.user.name  %></p>
+        <% end %>
+      </div>
+      <div class='profile-network-description'>
+        <p class='profile-network-time'><%= time_ago_as_sentence(activity.created_at) + ' ' + _('ago') %></p>
+        <p class='profile-network-text'><%= link_to activity.user.name, activity.user.url %> <%= describe activity %></p>
+        <p class='profile-network-where'><%= _('In community %s') % link_to(activity.target.name, activity.target.url) if !profile.is_a?(Community) && activity.target.is_a?(Community) %></p>
+      </div>
+        <div id='profile-network-message-<%= activity.id%>' style='display:none;'>
+        <div id='profile-network-form-<%= activity.id%>' style='display:none;'>
+        <p class='profile-network-message'>
+          <% form_remote_tag :url => {:controller => 'profile', :action => 'leave_scrap', :not_load_scraps => true}, :update => "profile-network-message-response-#{activity.id}", :success =>"hide_and_show(['#profile-network-form-#{activity.id}'],['#profile-network-message-response-#{activity.id}'])" do %>
+            <%= limited_text_area :scrap, :content, 420, "content_#{activity.id}", :cols => 50, :rows => 2 %>
+            <%= hidden_field_tag 'receiver_id', activity.user.id %>
+            <%= submit_button :add, _('Leave a message') %>
+            <%= button_to_function :cancel, _('Cancel'), "hide_and_show(['#profile-network-message-#{activity.id}'],[]);return false" %>
+          <% end %>
+        </p>
+        </div>
+        <div id='profile-network-message-response-<%=activity.id%>' class='profile-network-message-response'></div>
+        </div>
+      <hr />  
+    </li>
+  <% end %>
+<% if network_activities.current_page < network_activities.total_pages %>
+  <div id='profile_network_activities_page_<%= network_activities.current_page %>'>
+    <%= button_to_remote :add, _('View more'), :url => {:action => 'view_more_network_activities', :page => (network_activities.current_page + 1)}, :update => "profile_network_activities_page_#{network_activities.current_page}" %>
+  </div>
+<% end %>

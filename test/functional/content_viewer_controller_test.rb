@@ -242,7 +242,7 @@ class ContentViewerControllerTest < Test::Unit::TestCase
 
     get :view_page, :profile => profile.identifier, :page => [ 'myarticle' ]
 
-    assert_tag :tag => 'form', :attributes => { :id => /^comment_form/, :action => '/person/article' }
+    assert_tag :tag => 'form', :attributes => { :class => /^comment_form/, :action => '/person/article' }
   end
 
   should "display current article's tags" do
@@ -308,14 +308,16 @@ class ContentViewerControllerTest < Test::Unit::TestCase
   end
 
   should 'not show private content to members' do
-    community = Community.create!(:name => 'testcomm')
-    Folder.create!(:name => 'test', :profile => community, :published => false)
-    community.add_member(profile)
+    community = fast_create(Community)
+    admin = fast_create(Person)
+    community.add_member(admin)
 
+    folder = fast_create(Folder, :profile_id => community.id, :published => false)
+    community.add_member(profile)
     login_as(profile.identifier)
 
     @request.stubs(:ssl?).returns(true)
-    get :view_page, :profile => community.identifier, :page => [ 'test' ]
+    get :view_page, :profile => community.identifier, :page => [ folder.path ]
 
     assert_template 'access_denied.rhtml'
   end
@@ -342,30 +344,6 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     @request.stubs(:ssl?).returns(true)
     get :view_page, :profile => community.identifier, :page => [ 'test' ]
     assert_response :success
-  end
-
-  should 'show message for disabled enterprises' do
-    login_as(@profile.identifier)
-    ent = Enterprise.create!(:name => 'my test enterprise', :identifier => 'my-test-enterprise', :enabled => false)
-    get :view_page, :profile => ent.identifier, :page => []
-    assert_tag :tag => 'div', :attributes => { :id => 'profile-disabled' }, :content => Environment.default.message_for_disabled_enterprise
-  end
-
-  should 'not show message for disabled enterprise to non-enterprises' do
-    login_as(@profile.identifier)
-    @profile.enabled = false; @profile.save!
-    get :view_page, :profile => @profile.identifier, :page => []
-    assert_no_tag :tag => 'div', :attributes => { :id => 'profile-disabled' }, :content => Environment.default.message_for_disabled_enterprise
-  end
-
-  should 'not show message for disabled enterprise if there is a block for it' do
-    login_as(@profile.identifier)
-    ent = Enterprise.create!(:name => 'my test enterprise', :identifier => 'my-test-enterprise', :enabled => false)
-    ent.boxes << Box.new
-    ent.boxes[0].blocks << DisabledEnterpriseMessageBlock.new
-    ent.save
-    get :view_page, :profile => ent.identifier, :page => []
-    assert_no_tag :tag => 'div', :attributes => {:id => 'article'}, :descendant => { :tag => 'div', :attributes => { :id => 'profile-disabled' }}
   end
 
   should 'load the correct profile when using hosted domain' do
@@ -595,7 +573,7 @@ class ContentViewerControllerTest < Test::Unit::TestCase
   should 'not show a profile in an environment that is not its home environment' do
     p = Profile.create!(:identifier => 'mytestprofile', :name => 'My test profile', :environment => Environment.default)
 
-    current = Environment.create!(:name => 'test environment')
+    current = fast_create(Environment, :name => 'test environment')
     current.domains.create!(:name => 'example.com')
     uses_host 'www.example.com'
 
@@ -631,17 +609,53 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     assert_tag :tag => 'a', :attributes => { :href => "/#{profile.identifier}/#{blog.path}?npage=2", :rel => 'next' }
   end
 
-  should 'display filtered posts' do
-    blog = Blog.create!(:name => 'A blog test', :profile => profile)
-    not_display_post = TextileArticle.new(:name => "Post 1", :profile => profile, :parent => blog)
-    display_post = TextileArticle.new(:name => "Post 2", :profile => profile, :parent => blog)
+  should 'display first page of blog posts' do
+    blog = Blog.create!(:name => 'My blog', :profile => profile, :posts_per_page => 5)
+    for n in 1..10
+      blog.children << TextileArticle.create!(:name => "Post #{n}", :profile => profile, :parent => blog)
+    end
+    assert_equal 10, blog.posts.size
 
-    not_display_post.update_attribute(:published_at, DateTime.parse('2009-09-10'))
-    display_post.update_attribute(:published_at, DateTime.parse('2010-09-10'))
+    get :view_page, :profile => profile.identifier, :page => [blog.path]
+    for n in 1..5
+      assert_no_tag :tag => 'h1', :attributes => { :class => 'title' }, :descendant => {:tag => 'a', :attributes => {:href => /\/#{profile.identifier}\/my-blog\/post-#{n}/}, :content => "Post #{n}"}
+    end
+    for n in 6..10
+      assert_tag :tag => 'h1', :attributes => { :class => 'title' }, :descendant => {:tag => 'a', :attributes => {:href => /\/#{profile.identifier}\/my-blog\/post-#{n}/}, :content => "Post #{n}"}
+    end
+  end
 
-    get :view_page, :profile => profile.identifier, :page => [blog.path], :year => 2010, :month => 9
-    assert_no_tag :tag => 'a', :content => "Post 1"
-    assert_tag :tag => 'a', :content => "Post 2"
+  should 'display others pages of blog posts' do
+    blog = Blog.create!(:name => 'My blog', :profile => profile, :posts_per_page => 5)
+    for n in 1..10
+      blog.children << TextileArticle.create!(:name => "Post #{n}", :profile => profile, :parent => blog)
+    end
+    assert_equal 10, blog.posts.size
+
+    get :view_page, :profile => profile.identifier, :page => [blog.path], :npage => 2
+    for n in 1..5
+      assert_tag :tag => 'h1', :attributes => { :class => 'title' }, :descendant => {:tag => 'a', :attributes => {:href => /\/#{profile.identifier}\/my-blog\/post-#{n}/}, :content => "Post #{n}"}
+    end
+    for n in 6..10
+      assert_no_tag :tag => 'h1', :attributes => { :class => 'title' }, :descendant => {:tag => 'a', :attributes => {:href => /\/#{profile.identifier}\/my-blog\/post-#{n}/}, :content => "Post #{n}"}
+    end
+  end
+
+  should 'set year and month filter from URL params' do
+    blog = Blog.create!(:name => "blog", :profile => profile)
+    profile.articles << blog
+
+    past_post = TextileArticle.create!(:name => "past post", :profile => profile, :parent => blog, :created_at => blog.created_at - 1.year)
+    actual_post = TextileArticle.create!(:name => "actual post", :profile => profile, :parent => blog)
+    blog.children << past_post
+    blog.children << actual_post
+
+    year, month = profile.blog.created_at.year.to_s, '%02d' % profile.blog.created_at.month
+
+    get :view_page, :profile => profile.identifier, :page => [profile.blog.path], :year => year, :month => month
+
+    assert_no_tag :tag => 'a', :content => past_post.title
+    assert_tag :tag => 'a', :content => actual_post.title
   end
 
   should 'give link to create new article inside folder when view child of folder' do
@@ -731,14 +745,14 @@ class ContentViewerControllerTest < Test::Unit::TestCase
 
   should "display 'Upload files' when create children of image gallery" do
     login_as(profile.identifier)
-    f = Folder.create!(:name => 'gallery', :profile => profile, :view_as => 'image_gallery')
+    f = Gallery.create!(:name => 'gallery', :profile => profile)
     get :view_page, :profile => profile.identifier, :page => f.explode_path
     assert_tag :tag => 'a', :content => 'Upload files', :attributes => {:href => /parent_id=#{f.id}/}
   end
 
   should "display 'New article' when showing folder child of image gallery" do
     login_as(profile.identifier)
-    folder1 = Folder.create!(:name => 'gallery1', :profile => profile, :view_as => 'image_gallery')
+    folder1 = Gallery.create!(:name => 'gallery1', :profile => profile)
     folder1.children << folder2 = Folder.new(:name => 'gallery2', :profile => profile)
 
     get :view_page, :profile => profile.identifier, :page => folder2.explode_path
@@ -747,7 +761,7 @@ class ContentViewerControllerTest < Test::Unit::TestCase
 
   should "display 'Upload files' to image gallery when showing its children" do
     login_as(profile.identifier)
-    folder = Folder.create!(:name => 'gallery', :profile => profile, :view_as => 'image_gallery')
+    folder = Gallery.create!(:name => 'gallery', :profile => profile)
     file = UploadedFile.create!(:profile => profile, :parent => folder, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
     get :view_page, :profile => profile.identifier, :page => file.explode_path, :view => true
 
@@ -772,7 +786,7 @@ class ContentViewerControllerTest < Test::Unit::TestCase
 
   should 'display all images from profile in the slideshow' do
     @controller.stubs(:per_page).returns(1)
-    folder = Folder.create!(:name => 'gallery', :profile => profile, :view_as => 'image_gallery')
+    folder = Gallery.create!(:name => 'gallery', :profile => profile)
 
     image1 = UploadedFile.create!(:profile => profile, :parent => folder, :uploaded_data => fixture_file_upload('/files/other-pic.jpg', 'image/jpg'))
     image2 = UploadedFile.create!(:profile => profile, :parent => folder, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
@@ -780,6 +794,52 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     get :view_page, :profile => profile.identifier, :page => folder.explode_path, :slideshow => true
 
     assert_equal 2, assigns(:images).size
+  end
+
+  should 'display default image in the slideshow if thumbnails were not processed' do
+    @controller.stubs(:per_page).returns(1)
+    folder = Gallery.create!(:name => 'gallery', :profile => profile)
+
+    image1 = UploadedFile.create!(:profile => profile, :parent => folder, :uploaded_data => fixture_file_upload('/files/other-pic.jpg', 'image/jpg'))
+
+    get :view_page, :profile => profile.identifier, :page => folder.explode_path, :slideshow => true
+
+    assert_tag :tag => 'img', :attributes => {:src => /\/images\/icons-app\/image-loading-display.png/}
+  end
+
+  should 'display thumbnail image in the slideshow if thumbnails were processed' do
+    @controller.stubs(:per_page).returns(1)
+    folder = Gallery.create!(:name => 'gallery', :profile => profile)
+
+    image1 = UploadedFile.create!(:profile => profile, :parent => folder, :uploaded_data => fixture_file_upload('/files/other-pic.jpg', 'image/jpg'))
+
+    process_delayed_job_queue
+    get :view_page, :profile => profile.identifier, :page => folder.explode_path, :slideshow => true
+
+    assert_tag :tag => 'img', :attributes => {:src => /other-pic_display.jpg/}
+  end
+
+  should 'display default image in gallery if thumbnails were not processed' do
+    @controller.stubs(:per_page).returns(1)
+    folder = Gallery.create!(:name => 'gallery', :profile => profile)
+
+    image1 = UploadedFile.create!(:profile => profile, :parent => folder, :uploaded_data => fixture_file_upload('/files/other-pic.jpg', 'image/jpg'))
+
+    get :view_page, :profile => profile.identifier, :page => folder.explode_path
+
+    assert_tag :tag => 'a', :attributes => {:class => 'image', :style => /background-image: url\(\/images\/icons-app\/image-loading-thumb.png\)/}
+  end
+
+  should 'display thumbnail image in gallery if thumbnails were processed' do
+    @controller.stubs(:per_page).returns(1)
+    folder = Gallery.create!(:name => 'gallery', :profile => profile)
+
+    image1 = UploadedFile.create!(:profile => profile, :parent => folder, :uploaded_data => fixture_file_upload('/files/other-pic.jpg', 'image/jpg'))
+
+    process_delayed_job_queue
+    get :view_page, :profile => profile.identifier, :page => folder.explode_path
+
+    assert_tag :tag => 'a', :attributes => {:class => 'image', :style => /background-image: url\(.*\/other-pic_thumb.jpg\)/}
   end
 
   should 'display source from article' do
@@ -817,7 +877,7 @@ class ContentViewerControllerTest < Test::Unit::TestCase
 
   should 'show only first 40 chars of abstract in image gallery' do
     login_as(profile.identifier)
-    folder = Folder.create!(:name => 'gallery', :profile => profile, :view_as => 'image_gallery')
+    folder = Gallery.create!(:name => 'gallery', :profile => profile)
     file = UploadedFile.create!(:profile => profile, :parent => folder, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
 
     file.abstract = 'a long abstract bigger then 40 chars for testing'
@@ -870,7 +930,7 @@ class ContentViewerControllerTest < Test::Unit::TestCase
 
     get :view_page, :profile => profile.identifier, :page => article.explode_path
 
-    assert_tag :tag => 'span', :content => '(removed user)', :attributes => {:class => 'comment-info'}
+    assert_tag :tag => 'span', :content => '(removed user)', :attributes => {:class => 'comment-user-status icon-user-removed'}
   end
 
   should 'show comment form opened on error' do
@@ -891,6 +951,421 @@ class ContentViewerControllerTest < Test::Unit::TestCase
 
     assert_tag :tag => 'div', :attributes => { :class => 'short-post'}, :content => /Content to be displayed./
     assert_no_tag :tag => 'div', :attributes => { :class => 'short-post'}, :content => /Anything/
+  end
+
+  should 'display link to edit blog for allowed' do
+    blog = fast_create(Blog, :profile_id => profile.id, :path => 'blog')
+    login_as(profile.identifier)
+    get :view_page, :profile => profile.identifier, :page => blog.explode_path
+    assert_tag :tag => 'div', :attributes => { :class => /main-block/ }, :descendant => { :tag => 'a', :attributes => { :href => "/myprofile/testinguser/cms/edit/#{blog.id}" }, :content => 'Configure blog' }
+  end
+
+  # Forum
+
+  should 'list unpublished forum posts to owner with a different class' do
+    login_as('testinguser')
+    forum = Forum.create!(:name => 'A forum test', :profile => profile)
+    forum.posts << TextileArticle.create!(:name => 'Post', :profile => profile, :parent => forum, :published => false)
+
+    get :view_page, :profile => profile.identifier, :page => [forum.path]
+    assert_tag :tag => 'tr', :attributes => {:class => /not-published/}
+  end
+
+  should 'not list unpublished forum posts to a not logged person' do
+    forum = Forum.create!(:name => 'A forum test', :profile => profile)
+    forum.posts << TextileArticle.create!(:name => 'Post', :profile => profile, :parent => forum, :published => false)
+
+    get :view_page, :profile => profile.identifier, :page => [forum.path]
+    assert_no_tag :tag => 'a', :content => "Post"
+  end
+
+  should 'display pagination links of forum' do
+    forum = Forum.create!(:name => 'A forum test', :profile => profile, :posts_per_page => 5)
+    for n in 1..10
+      forum.posts << TextileArticle.create!(:name => "Post #{n}", :profile => profile, :parent => forum)
+    end
+    assert_equal 10, forum.posts.size
+
+    get :view_page, :profile => profile.identifier, :page => [forum.path]
+    assert_tag :tag => 'a', :attributes => { :href => "/#{profile.identifier}/#{forum.path}?npage=2", :rel => 'next' }
+  end
+
+  should 'display first page of forum posts' do
+    forum = Forum.create!(:name => 'My forum', :profile => profile, :posts_per_page => 5)
+    for n in 1..10
+      forum.children << art = TextileArticle.create!(:name => "Post #{n}", :profile => profile, :parent => forum)
+      art.updated_at = (10 - n).days.ago
+      art.send :update_without_callbacks
+    end
+    assert_equal 10, forum.posts.size
+
+    get :view_page, :profile => profile.identifier, :page => [forum.path]
+    for n in 1..5
+      assert_no_tag :tag => 'a', :content => "Post #{n}", :parent => { :tag => 'td', :parent => { :tag => 'tr', :attributes => { :class => /forum-post/ } } }
+    end
+    for n in 6..10
+      assert_tag :tag => 'a', :content => "Post #{n}", :parent => { :tag => 'td', :parent => { :tag => 'tr', :attributes => { :class => /forum-post/ } } }
+    end
+  end
+
+  should 'display others pages of forum posts' do
+    forum = Forum.create!(:name => 'My forum', :profile => profile, :posts_per_page => 5)
+    for n in 1..10
+      forum.children << art = TextileArticle.create!(:name => "Post #{n}", :profile => profile, :parent => forum)
+      art.updated_at = (10 - n).days.ago
+      art.send :update_without_callbacks
+    end
+    assert_equal 10, forum.posts.size
+
+    get :view_page, :profile => profile.identifier, :page => [forum.path], :npage => 2
+    for n in 1..5
+      assert_tag :tag => 'a', :content => "Post #{n}", :parent => { :tag => 'td', :parent => { :tag => 'tr', :attributes => { :class => /forum-post/ } } }
+    end
+    for n in 6..10
+      assert_no_tag :tag => 'a', :content => "Post #{n}", :parent => { :tag => 'td', :parent => { :tag => 'tr', :attributes => { :class => /forum-post/ } } }
+    end
+  end
+
+  should 'set year and month filter from URL params for forum' do
+    forum = Forum.create!(:name => "forum", :profile => profile)
+    profile.articles << forum
+
+    past_post = TextileArticle.create!(:name => "past post", :profile => profile, :parent => forum, :created_at => forum.created_at - 1.year)
+    actual_post = TextileArticle.create!(:name => "actual post", :profile => profile, :parent => forum)
+    forum.children << past_post
+    forum.children << actual_post
+
+    year, month = profile.forum.created_at.year.to_s, '%02d' % profile.forum.created_at.month
+
+    get :view_page, :profile => profile.identifier, :page => [profile.forum.path], :year => year, :month => month
+
+    assert_no_tag :tag => 'a', :content => past_post.title
+    assert_tag :tag => 'a', :content => actual_post.title
+  end
+
+  should "display 'New discussion topic' when create children of forum" do
+    login_as(profile.identifier)
+    a = Forum.create!(:name => 'article folder', :profile => profile)
+    Article.stubs(:short_description).returns('bli')
+    get :view_page, :profile => profile.identifier, :page => [a.path]
+    assert_tag :tag => 'a', :content => 'New discussion topic'
+  end
+
+  should "display same label for new article button of forum parent" do
+    login_as(profile.identifier)
+    a = Forum.create!(:name => 'article folder', :profile => profile)
+    Article.stubs(:short_description).returns('bli')
+    t = TextileArticle.create!(:name => 'first post', :parent => a, :profile => profile)
+    get :view_page, :profile => profile.identifier, :page => [t.path]
+    assert_tag :tag => 'a', :content => 'New discussion topic'
+  end
+
+  should 'add meta tag to rss feed on view forum' do
+    login_as(profile.identifier)
+    profile.articles << Forum.new(:name => 'Forum', :profile => profile)
+    get :view_page, :profile => profile.identifier, :page => ['forum']
+    assert_tag :tag => 'link', :attributes => { :rel => 'alternate', :type => 'application/rss+xml', :title => 'Forum', :href => "http://#{environment.default_hostname}/testinguser/forum/feed" }
+  end
+
+  should 'add meta tag to rss feed on view post forum' do
+    login_as(profile.identifier)
+    profile.articles << Forum.new(:name => 'Forum', :profile => profile)
+    profile.forum.posts << TextileArticle.new(:name => 'first post', :parent => profile.forum, :profile => profile)
+    get :view_page, :profile => profile.identifier, :page => ['forum', 'first-post']
+    assert_tag :tag => 'link', :attributes => { :rel => 'alternate', :type => 'application/rss+xml', :title => 'Forum', :href => "http://#{environment.default_hostname}/testinguser/forum/feed" }
+  end
+
+  should "not display 'Upload files' when viewing forum" do
+    login_as(profile.identifier)
+    b = Forum.create!(:name => 'article folder', :profile => profile)
+    get :view_page, :profile => profile.identifier, :page => b.explode_path
+    assert_no_tag :tag => 'a', :content => 'Upload files', :attributes => {:href => /parent_id=#{b.id}/}
+  end
+
+  should "not display 'Upload files' when viewing post from a forum" do
+    login_as(profile.identifier)
+    b = Forum.create!(:name => 'article folder', :profile => profile)
+    forum_post = TextileArticle.create!(:name => 'children-article', :profile => profile, :parent => b)
+    get :view_page, :profile => profile.identifier, :page => forum_post.explode_path
+    assert_no_tag :tag => 'a', :content => 'Upload files', :attributes => {:href => /parent_id=#{b.id}/}
+  end
+
+  should 'display link to edit forum for allowed' do
+    forum = fast_create(Forum, :profile_id => profile.id, :path => 'forum')
+    login_as(profile.identifier)
+    get :view_page, :profile => profile.identifier, :page => forum.explode_path
+    assert_tag :tag => 'div', :attributes => { :class => /main-block/ }, :descendant => { :tag => 'a', :attributes => { :href => "/myprofile/testinguser/cms/edit/#{forum.id}" }, :content => 'Configure forum' }
+  end
+
+  should 'display add translation link if article is translatable' do
+    login_as @profile.identifier
+    textile = fast_create(TextileArticle, :profile_id => @profile.id, :path => 'textile', :language => 'en')
+    get :view_page, :profile => @profile.identifier, :page => textile.explode_path
+    assert_tag :a, :attributes => { :href => "/myprofile/#{profile.identifier}/cms/new?article%5Btranslation_of_id%5D=#{textile.id}&amp;type=#{TextileArticle}" }
+  end
+
+  should 'not display add translation link if article is not translatable' do
+    login_as @profile.identifier
+    blog = fast_create(Blog, :profile_id => @profile.id, :path => 'blog')
+    get :view_page, :profile => @profile.identifier, :page => blog.explode_path
+    assert_no_tag :a, :attributes => { :content => 'Add translation', :class => /icon-locale/ }
+  end
+
+  should 'not display add translation link if article hasnt a language defined' do
+    login_as @profile.identifier
+    textile = fast_create(TextileArticle, :profile_id => @profile.id, :path => 'textile')
+    get :view_page, :profile => @profile.identifier, :page => textile.explode_path
+    assert_no_tag :a, :attributes => { :content => 'Add translation', :class => /icon-locale/ }
+  end
+
+  should 'diplay translations link if article has translations' do
+    login_as @profile.identifier
+    textile     = fast_create(TextileArticle, :profile_id => @profile.id, :path => 'textile', :language => 'en')
+    translation = fast_create(TextileArticle, :profile_id => @profile.id, :path => 'translation', :language => 'es', :translation_of_id => textile)
+    get :view_page, :profile => @profile.identifier, :page => textile.explode_path
+    assert_tag :a, :attributes => { :class => /article-translations-menu/, :onclick => /toggleSubmenu/ }
+  end
+
+  should 'be redirected to translation if article is a root' do
+    @request.env['HTTP_REFERER'] = 'http://some.path'
+    FastGettext.stubs(:locale).returns('es')
+    en_article = fast_create(TextileArticle, :profile_id => @profile.id, :path => 'en_article', :language => 'en')
+    es_article = fast_create(TextileArticle, :profile_id => @profile.id, :path => 'es_article', :language => 'es', :translation_of_id => en_article)
+    get :view_page, :profile => @profile.identifier, :page => en_article.explode_path
+    assert_redirected_to :profile => @profile.identifier, :page => es_article.explode_path
+    assert_equal es_article, assigns(:page)
+  end
+
+  should 'be redirected to translation' do
+    @request.env['HTTP_REFERER'] = 'http://some.path'
+    FastGettext.stubs(:locale).returns('en')
+    en_article = fast_create(TextileArticle, :profile_id => @profile.id, :path => 'en_article', :language => 'en')
+    es_article = fast_create(TextileArticle, :profile_id => @profile.id, :path => 'es_article', :language => 'es', :translation_of_id => en_article)
+    get :view_page, :profile => @profile.identifier, :page => es_article.explode_path
+    assert_redirected_to :profile => @profile.identifier, :page => en_article.explode_path
+    assert_equal en_article, assigns(:page)
+  end
+
+  should 'not be redirected if already in translation' do
+    en_article = fast_create(TextileArticle, :profile_id => @profile.id, :path => 'en_article', :language => 'en')
+    es_article = fast_create(TextileArticle, :profile_id => @profile.id, :path => 'es_article', :language => 'es', :translation_of_id => en_article)
+    @request.env['HTTP_REFERER'] = "http://localhost:3000/#{@profile.identifier}/#{es_article.path}"
+    FastGettext.stubs(:locale).returns('es')
+    get :view_page, :profile => @profile.identifier, :page => es_article.explode_path
+    assert_response :success
+    assert_equal es_article, assigns(:page)
+  end
+
+  should 'not be redirected if article does not have a language' do
+    FastGettext.stubs(:locale).returns('es')
+    article = fast_create(TextileArticle, :profile_id => @profile.id, :path => 'article')
+    get :view_page, :profile => @profile.identifier, :page => article.explode_path
+    assert_response :success
+    assert_equal article, assigns(:page)
+  end
+
+  should 'not be redirected if http_referer is a translation' do
+    en_article = fast_create(TextileArticle, :profile_id => @profile.id, :path => 'en_article', :language => 'en')
+    es_article = fast_create(TextileArticle, :profile_id => @profile.id, :path => 'es_article', :language => 'es', :translation_of_id => en_article)
+    @request.env['HTTP_REFERER'] = "http://localhost:3000/#{@profile.identifier}/#{es_article.path}"
+    FastGettext.stubs(:locale).returns('es')
+    get :view_page, :profile => @profile.identifier, :page => en_article.explode_path
+    assert_response :success
+    assert_equal en_article, assigns(:page)
+  end
+
+  should 'be redirected if http_referer is nil' do
+    en_article = fast_create(TextileArticle, :profile_id => @profile.id, :path => 'en_article', :language => 'en')
+    es_article = fast_create(TextileArticle, :profile_id => @profile.id, :path => 'es_article', :language => 'es', :translation_of_id => en_article)
+    @request.env['HTTP_REFERER'] = nil
+    FastGettext.stubs(:locale).returns('es')
+    get :view_page, :profile => @profile.identifier, :page => en_article.explode_path
+    assert_redirected_to :profile => @profile.identifier, :page => es_article.explode_path
+    assert_equal es_article, assigns(:page)
+  end
+
+  should 'not be redirected to transition if came from edit' do
+    en_article = fast_create(TextileArticle, :profile_id => @profile.id, :path => 'en_article', :language => 'en')
+    es_article = fast_create(TextileArticle, :profile_id => @profile.id, :path => 'es_article', :language => 'es', :translation_of_id => en_article)
+    FastGettext.stubs(:locale).returns('es')
+    @request.env['HTTP_REFERER'] = "http://localhost/myprofile/#{@profile.identifier}/cms/edit/#{en_article.id}"
+    get :view_page, :profile => @profile.identifier, :page => es_article.explode_path
+    assert_response :success
+    assert_equal es_article, assigns(:page)
+  end
+
+  should 'not be redirected to transition if came from new' do
+    en_article = fast_create(TextileArticle, :profile_id => @profile.id, :path => 'en_article', :language => 'en')
+    es_article = fast_create(TextileArticle, :profile_id => @profile.id, :path => 'es_article', :language => 'es', :translation_of_id => en_article)
+    FastGettext.stubs(:locale).returns('es')
+    @request.env['HTTP_REFERER'] = "http://localhost/myprofile/#{@profile.identifier}/cms/new"
+    get :view_page, :profile => @profile.identifier, :page => es_article.explode_path
+    assert_response :success
+    assert_equal es_article, assigns(:page)
+  end
+
+  should 'replace article for his translation at blog listing if blog option is enabled' do
+    FastGettext.stubs(:locale).returns('es')
+    blog = fast_create(Blog, :profile_id => profile.id, :path => 'blog')
+    blog.stubs(:display_posts_in_current_language).returns(true)
+    en_article = fast_create(TextileArticle, :profile_id => @profile.id, :path => 'en_article', :language => 'en')
+    es_article = fast_create(TextileArticle, :profile_id => @profile.id, :path => 'es_article', :language => 'es', :translation_of_id => en_article)
+    blog.posts = [en_article, es_article]
+
+    get :view_page, :profile => @profile.identifier, :page => blog.explode_path
+    assert_tag :div, :attributes => { :id => "post-#{es_article.id}" }
+    assert_no_tag :div, :attributes => { :id => "post-#{en_article.id}" }
+  end
+
+  should 'list all posts at blog listing if blog option is disabled' do
+    FastGettext.stubs(:locale).returns('es')
+    blog = Blog.create!(:name => 'A blog test', :profile => profile, :display_posts_in_current_language => false)
+    blog.posts << es_post = TextileArticle.create!(:name => 'Spanish Post', :profile => profile, :parent => blog, :language => 'es')
+    blog.posts << en_post = TextileArticle.create!(:name => 'English Post', :profile => profile, :parent => blog, :language => 'en', :translation_of_id => es_post.id)
+    get :view_page, :profile => profile.identifier, :page => [blog.path]
+    assert_equal 2, assigns(:posts).size
+    assert_tag :div, :attributes => { :id => "post-#{es_post.id}" }
+    assert_tag :div, :attributes => { :id => "post-#{en_post.id}" }
+  end
+
+  should 'display only native translations at blog listing if blog option is enabled' do
+    FastGettext.stubs(:locale).returns('es')
+    blog = fast_create(Blog, :profile_id => profile.id, :path => 'blog')
+    blog.stubs(:display_posts_in_current_language).returns(true)
+    en_article = fast_create(TextileArticle, :profile_id => @profile.id, :path => 'en_article', :language => 'en')
+    es_article = fast_create(TextileArticle, :profile_id => @profile.id, :path => 'es_article', :language => 'es', :translation_of_id => en_article)
+    blog.posts = [en_article, es_article]
+
+    get :view_page, :profile => @profile.identifier, :page => blog.explode_path
+    assert_equal [es_article], assigns(:posts)
+  end
+
+  should 'be redirect after posting a comment' do
+    login_as @profile.identifier
+    page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
+    post :view_page, :profile => @profile.identifier, :page => [ 'myarticle' ], :comment => { :title => 'title', :body => 'body' }, :confirm => 'true'
+    assert_redirected_to :profile => @profile.identifier, :page => page.explode_path
+  end
+
+  should 'display reply to comment button if authenticated' do
+    profile = create_user('testuser').person
+    article = profile.articles.build(:name => 'test')
+    article.save!
+    comment = article.comments.build(:author => profile, :title => 'a comment', :body => 'lalala')
+    comment.save!
+    login_as 'testuser'
+    get :view_page, :profile => 'testuser', :page => [ 'test' ]
+    assert_tag :tag => 'a', :attributes => { :class => /comment-reply-link/ }
+  end
+
+  should 'display reply to comment button if not authenticated' do
+    profile = create_user('testuser').person
+    article = profile.articles.build(:name => 'test')
+    article.save!
+    comment = article.comments.build(:author => profile, :title => 'a comment', :body => 'lalala')
+    comment.save!
+    get :view_page, :profile => 'testuser', :page => [ 'test' ]
+    assert_tag :tag => 'a', :attributes => { :class => /comment-reply-link/ }
+  end
+
+  should 'display replies if comment has replies' do
+    profile = create_user('testuser').person
+    article = profile.articles.build(:name => 'test')
+    article.save!
+    comment1 = article.comments.build(:author => profile, :title => 'a comment', :body => 'lalala')
+    comment1.save!
+    comment2 = article.comments.build(:author => profile, :title => 'a comment', :body => 'replying to lalala', :reply_of_id => comment1.id)
+    comment2.save!
+    get :view_page, :profile => 'testuser', :page => [ 'test' ]
+    assert_tag :tag => 'ul', :attributes => { :class => 'comment-replies' }
+  end
+
+  should 'not display replies if comment does not have replies' do
+    profile = create_user('testuser').person
+    article = profile.articles.build(:name => 'test')
+    article.save!
+    comment = article.comments.build(:author => profile, :title => 'a comment', :body => 'lalala')
+    comment.save!
+    get :view_page, :profile => 'testuser', :page => [ 'test' ]
+    assert_no_tag :tag => 'ul', :attributes => { :class => 'comment-replies' }
+  end
+
+  should 'show reply error' do
+    profile = create_user('testuser').person
+    article = profile.articles.build(:name => 'test')
+    article.save!
+    comment = article.comments.build(:author => profile, :title => 'root', :body => 'root')
+    comment.save!
+    login_as 'testuser'
+    post :view_page, :profile => profile.identifier, :page => ['test'], :comment => { :title => '', :body => '', :reply_of_id => comment.id }, :confirm => 'true'
+    assert_tag :tag => 'div', :attributes => { :class => /comment_reply/ }, :descendant => {:tag => 'div', :attributes => {:class => 'errorExplanation'} }
+    assert_no_tag :tag => 'div', :attributes => { :id => 'page-comment-form' }, :descendant => {:tag => 'div', :attributes => {:class => 'errorExplanation'} }
+    assert_tag :tag => 'div', :attributes => { :id => 'page-comment-form' }, :descendant => { :tag => 'div', :attributes => { :class => /post_comment_box closed/ } }
+  end
+
+  should 'show comment error' do
+    profile = create_user('testuser').person
+    article = profile.articles.build(:name => 'test')
+    article.save!
+    comment1 = article.comments.build(:author => profile, :title => 'root', :body => 'root')
+    comment1.save!
+    comment2 = article.comments.build(:author => profile, :title => 'root', :body => 'root', :reply_of_id => comment1.id)
+    comment2.save!
+    login_as 'testuser'
+    post :view_page, :profile => profile.identifier, :page => ['test'], :comment => { :title => '', :body => '' }, :confirm => 'true'
+    assert_no_tag :tag => 'div', :attributes => { :class => /comment_reply/ }, :descendant => {:tag => 'div', :attributes => {:class => 'errorExplanation'} }
+    assert_tag :tag => 'div', :attributes => { :id => 'page-comment-form' }, :descendant => {:tag => 'div', :attributes => {:class => 'errorExplanation'} }
+    assert_tag :tag => 'div', :attributes => { :id => 'page-comment-form' }, :descendant => { :tag => 'div', :attributes => { :class => /post_comment_box opened/ } }
+  end
+
+  should 'add an zero width space every 4 caracters of comment urls' do
+    url = 'www.an.url.to.be.splited.com'
+    a = fast_create(TextileArticle, :profile_id => @profile.id, :path => 'textile', :language => 'en')
+    c = a.comments.create!(:author => @profile, :title => 'An url', :body => url)
+    get :view_page, :profile => @profile.identifier, :page => [ 'textile' ]
+    assert_tag :a, :attributes => { :href => "http://" + url}, :content => url.scan(/.{4}/).join('&#x200B;')
+  end
+
+  should 'not show a post comment button on top if there is only one comment' do
+    profile = create_user('testuser').person
+    article = profile.articles.build(:name => 'test')
+    article.save!
+    comment = article.comments.build(:author => profile, :title => 'hi', :body => 'hello')
+    comment.save!
+    get :view_page, :profile => 'testuser', :page => [ 'test' ]
+    assert_no_tag :tag => 'p', :attributes => { :class => 'post-comment-button' }
+  end
+
+  should 'not show a post comment button on top if there are no comments' do
+    profile = create_user('testuser').person
+    article = profile.articles.build(:name => 'test')
+    article.save!
+    get :view_page, :profile => 'testuser', :page => [ 'test' ]
+    assert_no_tag :tag => 'p', :attributes => { :class => 'post-comment-button' }
+  end
+
+  should 'show a post comment button on top if there are at least two comments' do
+    profile = create_user('testuser').person
+    article = profile.articles.build(:name => 'test')
+    article.save!
+    comment1 = article.comments.build(:author => profile, :title => 'hi', :body => 'hello')
+    comment1.save!
+    comment2 = article.comments.build(:author => profile, :title => 'hi', :body => 'hello', :reply_of_id => comment1.id)
+    comment2.save!
+    get :view_page, :profile => 'testuser', :page => [ 'test' ]
+    assert_tag :tag => 'p', :attributes => { :class => 'post-comment-button' }
+  end
+
+  should 'store number of comments' do
+    profile = create_user('testuser').person
+    article = profile.articles.build(:name => 'test')
+    article.save!
+    comment1 = article.comments.build(:author => profile, :title => 'hi', :body => 'hello')
+    comment1.save!
+    comment2 = article.comments.build(:author => profile, :title => 'hi', :body => 'hello', :reply_of_id => comment1.id)
+    comment2.save!
+    get :view_page, :profile => 'testuser', :page => [ 'test' ]
+    assert_equal 2, assigns(:comments_count)
   end
 
 end

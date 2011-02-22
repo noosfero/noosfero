@@ -11,6 +11,8 @@
 # will need to declare <ttserialize</tt> itself).
 class Task < ActiveRecord::Base
 
+  acts_as_having_settings :field => :data
+
   module Status
     # the status of tasks just created
     ACTIVE = 1
@@ -86,6 +88,14 @@ class Task < ActiveRecord::Base
   def after_finish
   end
 
+  def reject_explanation=(reject_explanation='')
+    self.data[:reject_explanation] = reject_explanation
+  end
+
+  def reject_explanation
+    self.data[:reject_explanation]
+  end
+
   # this method cancels the task. At the end a message (as returned by
   # #cancel_message) is sent to the requestor with #notify_requestor.
   def cancel
@@ -101,13 +111,50 @@ class Task < ActiveRecord::Base
     end
   end
 
+  # Here are the tasks customizable options.
 
-  # Returns the description of the task.
-  #
-  # This method +must+ be overriden in subclasses to return something
-  # meaningful for each kind of task  
-  def description
-    _('Generic task')
+  def title
+    _("Task")
+  end
+
+  def subject
+    nil
+  end
+
+  def linked_subject
+    nil
+  end
+
+  def information
+    {:message => _('%{requestor} sent you a task.')}
+  end
+
+  def accept_details
+    false
+  end
+
+  def reject_details
+    false
+  end
+
+  def icon
+    {:type => :defined_image, :src => "/images/icons-app/user-minor.png", :name => requestor.name, :url => requestor.url}
+  end
+
+  def default_decision
+    'skip'
+  end
+
+  def accept_disabled?
+    false
+  end
+
+  def reject_disabled?
+    false
+  end
+
+  def skip_disabled?
+    false
   end
 
   # The message that will be sent to the requestor of the task when the task is
@@ -139,9 +186,17 @@ class Task < ActiveRecord::Base
     raise NotImplementedError, "#{self} does not implement #target_notification_message"
   end
 
+  def target_notification_description
+    ''
+  end
+
   # What permission is required to perform task?
   def permission
     :perform_task
+  end
+
+  def environment
+    self.target.environment unless self.target.nil?
   end
 
   protected

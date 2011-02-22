@@ -36,7 +36,7 @@ class FeaturesControllerTest < Test::Unit::TestCase
     uses_host 'anhetegua.net'
     post :update, :environment => { :enabled_features => [ 'feature1', 'feature2' ] }
     assert_redirected_to :action => 'index'
-    assert_kind_of String, flash[:notice]
+    assert_kind_of String, session[:notice]
     v = Environment.find(environments(:anhetegua_net).id)
     assert v.enabled?('feature2')
     assert v.enabled?('feature2') 
@@ -47,7 +47,7 @@ class FeaturesControllerTest < Test::Unit::TestCase
     uses_host 'anhetegua.net'
     post :update # no features
     assert_redirected_to :action => 'index'
-    assert_kind_of String, flash[:notice]
+    assert_kind_of String, session[:notice]
     v = Environment.find(environments(:anhetegua_net).id)
     assert !v.enabled?('feature1')
     assert !v.enabled?('feature2')
@@ -64,7 +64,7 @@ class FeaturesControllerTest < Test::Unit::TestCase
     uses_host 'anhetegua.net'
     post :update, :environment => { :organization_approval_method => 'region' }
     assert_redirected_to :action => 'index'
-    assert_kind_of String, flash[:notice]
+    assert_kind_of String, session[:notice]
     v = Environment.find(environments(:anhetegua_net).id)
     assert_equal :region, v.organization_approval_method
   end

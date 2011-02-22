@@ -17,7 +17,7 @@ class TaskMailerTest < ActiveSupport::TestCase
 
     task = Task.new
     task.expects(:task_finished_message).returns('the message')
-    task.expects(:description).returns('the task')
+    task.expects(:information).returns('the task')
 
     requestor = mock()
     requestor.expects(:notification_emails).returns(['requestor@example.com'])
@@ -30,6 +30,7 @@ class TaskMailerTest < ActiveSupport::TestCase
 
     task.expects(:requestor).returns(requestor).at_least_once
     requestor.expects(:environment).returns(environment).at_least_once
+    task.expects(:environment).returns(environment).at_least_once
 
     TaskMailer.deliver_task_finished(task)
     assert !ActionMailer::Base.deliveries.empty?
@@ -39,7 +40,7 @@ class TaskMailerTest < ActiveSupport::TestCase
 
     task = Task.new
     task.expects(:task_cancelled_message).returns('the message')
-    task.expects(:description).returns('the task')
+    task.expects(:information).returns('the task')
 
     requestor = mock()
     requestor.expects(:notification_emails).returns(['requestor@example.com'])
@@ -52,6 +53,7 @@ class TaskMailerTest < ActiveSupport::TestCase
 
     task.expects(:requestor).returns(requestor).at_least_once
     requestor.expects(:environment).returns(environment).at_least_once
+    task.expects(:environment).returns(environment).at_least_once
 
     TaskMailer.deliver_task_cancelled(task)
     assert !ActionMailer::Base.deliveries.empty?
@@ -62,7 +64,7 @@ class TaskMailerTest < ActiveSupport::TestCase
     task = Task.new
 
     task.expects(:task_created_message).returns('the message')
-    task.expects(:description).returns('the task')
+    task.expects(:information).returns('the task')
 
     requestor = mock()
     requestor.expects(:notification_emails).returns(['requestor@example.com'])
@@ -75,6 +77,7 @@ class TaskMailerTest < ActiveSupport::TestCase
 
     task.expects(:requestor).returns(requestor).at_least_once
     requestor.expects(:environment).returns(environment).at_least_once
+    task.expects(:environment).returns(environment).at_least_once
 
     TaskMailer.deliver_task_created(task)
     assert !ActionMailer::Base.deliveries.empty?
@@ -82,10 +85,7 @@ class TaskMailerTest < ActiveSupport::TestCase
 
   should 'be able to send a "target notification" message' do
     task = Task.new
-    task.expects(:description).returns('the task')
-
-    requestor = mock()
-    requestor.expects(:name).returns('my name')
+    task.expects(:target_notification_description).returns('the task')
 
     target = mock()
     target.expects(:notification_emails).returns(['target@example.com'])
@@ -97,26 +97,25 @@ class TaskMailerTest < ActiveSupport::TestCase
     environment.expects(:default_hostname).returns('example.com')
     environment.expects(:name).returns('example').at_least_once
 
-    task.expects(:requestor).returns(requestor).at_least_once
     task.expects(:target).returns(target).at_least_once
-    requestor.expects(:environment).returns(environment).at_least_once
+    task.expects(:environment).returns(environment).at_least_once
 
     TaskMailer.deliver_target_notification(task, 'the message')
     assert !ActionMailer::Base.deliveries.empty?
   end
 
-  should 'be able to send a "invitatiom notification" message' do
+  should 'be able to send a "invitation notification" message' do
 
     task = InviteFriend.new
-    task.expects(:description).returns('the task')
     task.expects(:code).returns('123456')
 
-    task.expects(:message).returns('Hello <friend>, <user> invite you, please follow this link: <url>')
+    task.stubs(:message).returns('Hello <friend>, <user> invite you, please follow this link: <url>')
     task.expects(:friend_email).returns('friend@exemple.com')
     task.expects(:friend_name).returns('friend name').at_least_once
 
     requestor = mock()
-    requestor.expects(:name).returns('my name')
+    requestor.stubs(:name).returns('my name')
+    requestor.stubs(:public_profile_url).returns('requestor_path')
 
     environment = mock()
     environment.expects(:contact_email).returns('sender@example.com')
@@ -126,6 +125,7 @@ class TaskMailerTest < ActiveSupport::TestCase
     task.expects(:requestor).returns(requestor).at_least_once
     task.expects(:person).returns(requestor).at_least_once
     requestor.expects(:environment).returns(environment).at_least_once
+    task.expects(:environment).returns(environment).at_least_once
 
     mail = TaskMailer.create_invitation_notification(task)
 
@@ -137,13 +137,11 @@ class TaskMailerTest < ActiveSupport::TestCase
 
   should 'use environment name and contact email' do
     task = mock
-    requestor = mock
     environment = mock
     environment.expects(:name).returns('My name')
     environment.expects(:contact_email).returns('email@example.com')
 
-    task.expects(:requestor).returns(requestor).at_least_once
-    requestor.expects(:environment).returns(environment).at_least_once
+    task.expects(:environment).returns(environment).at_least_once
 
     assert_equal 'My name <email@example.com>', TaskMailer.generate_from(task)
   end

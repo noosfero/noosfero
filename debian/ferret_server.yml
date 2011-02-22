@@ -1,0 +1,4 @@
+production:
+  host: localhost
+  port: 51000
+  pid_file: tmp/pids/ferret.production.pid

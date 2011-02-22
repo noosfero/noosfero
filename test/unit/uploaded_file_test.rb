@@ -11,14 +11,11 @@ class UploadedFileTest < ActiveSupport::TestCase
     f = UploadedFile.new
     f.expects(:image?).returns(true)
     f.expects(:public_filename).with(:icon).returns('/path/to/file.xyz')
-    assert_equal '/path/to/file.xyz', f.icon_name
+    assert_equal '/path/to/file.xyz', UploadedFile.icon_name(f)
   end
 
-  should 'return mime-type icon for non-image files' do
-    f= UploadedFile.new
-    f.expects(:image?).returns(false)
-    f.expects(:content_type).returns('application/pdf')
-    assert_equal 'application-pdf', f.icon_name
+  should 'return a default icon for uploaded files' do
+    assert_equal 'upload-file', UploadedFile.icon_name
   end
 
   should 'use attachment_fu content_type method to return mime_type' do
@@ -56,6 +53,7 @@ class UploadedFileTest < ActiveSupport::TestCase
     file = UploadedFile.new(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
     file.profile = profile
     assert file.save
+    assert file.is_image
   end
 
   should 'has attachment_fu validation options' do
@@ -90,7 +88,8 @@ class UploadedFileTest < ActiveSupport::TestCase
     f = fast_create(Folder, :name => 'test_folder', :profile_id => p.id)
     file = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :parent_id => f.id, :profile => p)
 
-    assert File.exists?(file.public_filename(:icon))
+    process_delayed_job_queue
+    assert File.exists?(UploadedFile.find(file.id).public_filename(:icon))
     file.destroy
   end
 
@@ -98,7 +97,8 @@ class UploadedFileTest < ActiveSupport::TestCase
     p = create_user('test_user').person
     file = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :profile => p)
 
-    assert File.exists?(file.public_filename(:icon))
+    process_delayed_job_queue
+    assert File.exists?(UploadedFile.find(file.id).public_filename(:icon))
     file.destroy
   end
 
@@ -141,6 +141,138 @@ class UploadedFileTest < ActiveSupport::TestCase
     assert_equal 'My text file', upload.display_title
     upload.title = ''
     assert_equal 'test.txt', upload.display_title
+  end
+
+  should 'use name as title by default' do
+    upload = UploadedFile.new
+    upload.stubs(:name).returns('test.txt')
+
+    assert_equal 'test.txt', upload.title
+  end
+
+  should 'use name as title by default but cut down the title' do
+    upload = UploadedFile.new(:uploaded_data => fixture_file_upload('/files/AGENDA_CULTURA_-_FESTA_DE_VAQUEIROS_PONTO_DE_SERRA_PRETA_BAIXA.txt'))
+    upload.valid?
+    assert_nil upload.errors[:title]
+  end
+
+  should 'create thumbnails after processing jobs' do
+    file = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :profile => profile)
+
+    process_delayed_job_queue
+
+    UploadedFile.attachment_options[:thumbnails].each do |suffix, size|
+      assert File.exists?(UploadedFile.find(file.id).public_filename(suffix))
+    end
+    file.destroy
+  end
+
+  should 'set thumbnails_processed to true after creating thumbnails' do
+    file = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :profile => profile)
+
+    process_delayed_job_queue
+
+    assert UploadedFile.find(file.id).thumbnails_processed
+    file.destroy
+  end
+
+  should 'have thumbnails_processed attribute' do
+    assert UploadedFile.new.respond_to?(:thumbnails_processed)
+  end
+
+  should 'return false by default in thumbnails_processed' do
+    assert !UploadedFile.new.thumbnails_processed
+  end
+
+  should 'set thumbnails_processed to true' do
+    file = UploadedFile.new
+    file.thumbnails_processed = true
+
+    assert file.thumbnails_processed
+  end
+
+  should 'have a default image if thumbnails were not processed' do
+    file = UploadedFile.new
+    file.expects(:thumbnailable?).returns(true)
+    assert_equal '/images/icons-app/image-loading-thumb.png', file.public_filename
+  end
+
+  should 'return image thumbnail if thumbnails were processed' do
+    file = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :profile => profile)
+    process_delayed_job_queue
+
+    assert_match(/rails_thumb.png/, UploadedFile.find(file.id).public_filename(:thumb))
+
+    file.destroy
+  end
+
+  should 'return the default thumbnail image as icon for images ' do
+    f = UploadedFile.new
+    f.expects(:image?).returns(true)
+    f.expects(:public_filename).with(:icon).returns('/path/to/file.xyz')
+    assert_equal '/path/to/file.xyz', UploadedFile.icon_name(f)
+  end
+
+  should 'store width and height after processing' do
+    file = UploadedFile.create!(:profile => @profile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
+    file.create_thumbnails
+
+    file = UploadedFile.find(file.id)
+    assert_equal [50, 64], [file.width, file.height]
+  end
+
+  should 'have a loading image to each size of thumbnails' do
+    UploadedFile.attachment_options[:thumbnails].each do |suffix, size|
+      image = RAILS_ROOT + '/public/images/icons-app/image-loading-%s.png' % suffix
+      assert File.exists?(image)
+    end
+  end
+
+  should 'return a thumbnail for images' do
+    f = UploadedFile.new
+    f.expects(:image?).returns(true)
+    f.expects(:full_filename).with(:thumb).returns(File.join(RAILS_ROOT, 'public', 'images', '0000', '0005', 'x.png'))
+    assert_equal '/images/0000/0005/x.png', f.thumbnail_path
+    f = UploadedFile.new
+    f.stubs(:full_filename).with(:thumb).returns(File.join(RAILS_ROOT, 'public', 'images', '0000', '0005', 'x.png'))
+    f.expects(:image?).returns(false)
+    assert_nil f.thumbnail_path
+  end
+
+  should 'track action when a published image is uploaded in a gallery' do
+    p = fast_create(Gallery, :profile_id => @profile.id)
+    f = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :parent => p, :profile => @profile)
+    ta = ActionTracker::Record.last(:conditions => { :verb => "upload_image" })
+    assert_kind_of String, ta.get_thumbnail_path[0]
+    assert_equal [f.reload.view_url], ta.get_view_url
+    assert_equal [p.reload.url], ta.get_parent_url
+    assert_equal [p.name], ta.get_parent_name
+  end
+
+  should 'not track action when is not image' do
+    ActionTracker::Record.delete_all
+    p = fast_create(Gallery, :profile_id => @profile.id)
+    f = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/test.txt', 'text/plain'), :parent => p, :profile => @profile)
+    assert_nil ActionTracker::Record.last(:conditions => { :verb => "upload_image" })
+  end
+
+  should 'not track action when has no parent' do
+    f = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :parent => nil, :profile => @profile)
+    assert_nil ActionTracker::Record.last(:conditions => { :verb => "upload_image" })
+  end
+
+  should 'not track action when is not published' do
+    ActionTracker::Record.delete_all
+    p = fast_create(Gallery, :profile_id => @profile.id)
+    f = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :parent => p, :profile => @profile, :published => false)
+    assert_nil ActionTracker::Record.last(:conditions => { :verb => "upload_image" })
+  end
+
+  should 'not track action when parent is not gallery' do
+    ActionTracker::Record.delete_all
+    p = fast_create(Folder, :profile_id => @profile.id)
+    f = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :parent => p, :profile => @profile)
+    assert_nil ActionTracker::Record.last(:conditions => { :verb => "upload_image" })
   end
 
 end

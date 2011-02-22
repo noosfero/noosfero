@@ -42,7 +42,7 @@ class RoleControllerTest < Test::Unit::TestCase
     Role.any_instance.stubs(:valid?).returns(true)
     post 'create'
     assert !assigns(:role).new_record?
-    assert_nil flash[:notice]
+    assert_nil session[:notice]
     assert_response :redirect
   end
   
@@ -50,7 +50,7 @@ class RoleControllerTest < Test::Unit::TestCase
     Role.any_instance.stubs(:valid?).returns(false)
     post 'create'
     assert assigns(:role).new_record?
-    assert_not_nil flash[:notice]
+    assert_not_nil session[:notice]
     assert_response :success
   end
 
@@ -65,7 +65,7 @@ class RoleControllerTest < Test::Unit::TestCase
     post 'update', :id => @role.id
     assert_response :redirect
     assert_not_nil assigns(:role)
-    assert_nil flash[:notice]
+    assert_nil session[:notice]
   end
   
   def test_should_not_update_to_invalid_paramters
@@ -73,7 +73,7 @@ class RoleControllerTest < Test::Unit::TestCase
     post 'update', :id => @role.id
     assert_response :success
     assert_not_nil assigns(:role)
-    assert_not_nil flash[:notice]
+    assert_not_nil session[:notice]
   end
 
   def test_should_destroy

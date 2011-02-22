@@ -8,7 +8,7 @@ class FeaturesController < AdminController
   post_only :update
   def update
     if @environment.update_attributes(params[:environment])
-      flash[:notice] = _('Features updated successfully.')
+      session[:notice] = _('Features updated successfully.')
       redirect_to :action => 'index'
     else
       render :action => 'index'
@@ -24,7 +24,7 @@ class FeaturesController < AdminController
   def manage_person_fields
     environment.custom_person_fields = params[:person_fields]
     if environment.save!
-      flash[:notice] = _('Person fields updated successfully.')
+      session[:notice] = _('Person fields updated successfully.')
     else
       flash[:error] = _('Person fields not updated successfully.')
     end
@@ -34,9 +34,9 @@ class FeaturesController < AdminController
   def manage_enterprise_fields
     environment.custom_enterprise_fields = params[:enterprise_fields]
     if environment.save!
-      flash[:notice] = _('Enterprise fields updated successfully.')
+      session[:notice] = __('Enterprise fields updated successfully.')
     else
-      flash[:error] = _('Enterprise fields not updated successfully.')
+      flash[:error] = __('Enterprise fields not updated successfully.')
     end
     redirect_to :action => 'manage_fields'
   end
@@ -44,7 +44,7 @@ class FeaturesController < AdminController
   def manage_community_fields
     environment.custom_community_fields = params[:community_fields]
     if environment.save!
-      flash[:notice] = _('Community fields updated successfully.')
+      session[:notice] = _('Community fields updated successfully.')
     else
       flash[:error] = _('Community fields not updated successfully.')
     end

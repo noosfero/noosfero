@@ -40,6 +40,9 @@ input.button.with-text {
 body {
   background: #EEE;
   font-family: Liberation Sans, Arial, sans-serif;
+}
+
+#wrap-1, #theme-footer {
   width: 960px;
   margin: auto;
 }
@@ -61,7 +64,7 @@ body, th, td, input {
 }
 
 #content {
-  margin-top: 92px;
+  margin-top: 105px;
 }
 
 /*************************** user bar ********************************/
@@ -83,7 +86,7 @@ body, th, td, input {
   color: #555753;
 }
 
-#controlpanel, #logout {
+#controlpanel, #logout, #openchat {
   margin-left: 25px;
 }
 
@@ -94,10 +97,6 @@ body, th, td, input {
   position: absolute;
   left: -17px;
   top: -1px;
-}
-.msie6 #user a i {
-  left: 8px;
-  top: 3px;
 }
 .msie7 #user a i {
   top: 3px;
@@ -138,14 +137,12 @@ body, th, td, input {
   position: absolute;
   top: 20px;
   left: 0px;
-  z-index: 2;
+  z-index: 7;
   overflow: hidden;
   width: 310px;
   height: 90px;
 }
-.msie6 #site-title {
-  left: -10px;
-}
+
 #site-title a {
   display: block;
   width: 300px;
@@ -181,35 +178,25 @@ body, th, td, input {
   background: url(imgs/menu-top-bg-right.png);
 }
 
-.msie6 #navigation {
-  background: none;
-  filter: progid:DXImageTransform.Microsoft.AlphaImageLoader
-          (src='/stylesheets/ng/imgs/menu-top-bg-left.png', sizingMethod='scale');
-}
-.msie6 #navigation-end {
-  right: -1px;
-  background: none;
-  filter: progid:DXImageTransform.Microsoft.AlphaImageLoader
-          (src='/stylesheets/ng/imgs/menu-top-bg-right.png', sizingMethod='scale');
-}
-
 #navigation ul {
   height: 42px;
   margin: 0px;
   padding: 0px 10px 0px 0px;
   float: right;
-  overflow: hidden;
 }
 
 #navigation li {
   list-style: none;
   display: block;
-  height: 54px;
+  height: auto;
+  width: 125px;
   float: left;
-  border-left: 1px solid #888a85;
+  text-align: center;
+  position: relative;
 }
 
 #navigation a {
+  border-left: 1px solid #888a85;
   display: block;
   font-size: 15px;
   line-height: 42px;
@@ -222,9 +209,75 @@ body, th, td, input {
 }
 
 #navigation span {
-  padding: 0px 10px 0px 35px;
-  background-position: 15px 50%;
+  padding: 0px 0px 0px 30px;
+  background-position: 5px 50%;
   background-repeat: no-repeat;
+}
+
+#navigation .menu-submenu ul, #navigation .menu-submenu li{
+  float: none;
+  text-align: right;
+  border-left: 0px;
+}
+
+#navigation .menu-submenu ul{
+  border: 1px solid #888a85;
+  border-top: 0px;
+  background-color: #ccc;
+  padding-right: 2px;
+  height: auto;
+  display: block;
+  padding-top: 20px;
+}
+
+#navigation .menu-submenu{
+  bottom: -75px;
+  width: 126px;
+  top: 0px;
+  right: 0px;
+  position: relative;
+}
+
+#navigation .menu-submenu a{
+  padding: 4px 5px;
+  font-size: 12px;
+  line-height: normal;
+  border-left: 0;
+}
+
+#navigation .menu-submenu-trigger {
+  background: #eee url(/images/down-arrow.png) center center no-repeat;
+  border: 0px;
+  height: 8px;
+  width: 124px;
+}
+#navigation li:hover .menu-submenu-trigger:hover {
+  background: #585858 url(imgs/down-arrow-light.png) center center no-repeat;
+}
+
+#navigation li:hover .menu-submenu-trigger{
+  display: block;
+}
+
+#navigation li .menu-submenu-trigger{
+  display: none;
+  height: 16px;
+  top: 42px;
+  left: 0;
+  border: 1px solid #888A85;
+  outline: none;
+}
+
+#navigation .menu-submenu-header, #navigation .menu-submenu-footer, #navigation .menu-submenu h4{
+  display: none;
+}
+
+#navigation .common-profile-list-block .vcard .menu-submenu-trigger,
+.menu-submenu-trigger {
+  left: 1px;
+  top: 33px;
+  -moz-border-radius: 0px;
+  -webkit-border-radius: 0px;
 }
 
 /***************************** boxes ********************************/
@@ -232,9 +285,6 @@ body, th, td, input {
 .template-default .box-1 { /* Center */
   position: relative;
   margin: 0px 200px 0px 200px;
-}
-.msie6.template-default .box-1 {
-  width: expression( $("wrap-2").offsetWidth - 430 ); 640
 }
 
 .template-default .box-2 { /* Left */
@@ -292,6 +342,7 @@ body, th, td, input {
   padding: 0px;
   font-size: 11px;
   color: #555;
+  margin-bottom: 20px;
 }
 
 #theme-footer a {
@@ -598,7 +649,6 @@ div#notice {
   width: 99%;
   height: auto;
 }
-.msie6 .communities-block .common-profile-list-block .vcard a,
 .msie7 .communities-block .common-profile-list-block .vcard a {
   height: auto;
   width: 99%;
@@ -606,10 +656,6 @@ div#notice {
 }
 
 .communities-block .vcard a .org {
-  padding-top: 5px;
-  font-size: 12px;
-  color: #000;
-  max-height: 30px;
   overflow: hidden;
 }
 .msie .communities-block .vcard a .org {
@@ -639,10 +685,6 @@ div#notice {
 
 /********************* Environment Statistics ************************/
 
-#content .environment-statistics-block .block-title {
-  color: #AAA;
-  border-bottom: 2px solid #AAA;
-}
 #content .environment-statistics-block ul {
   margin: 0px 20px;
   padding: 0px;
@@ -911,18 +953,6 @@ hr.pre-posts, hr.sep-posts {
   margin: 0px -19px;
 }
 
-.main-block .article-body {
-  overflow: visible;
-}
-
-#article .logged-in h1 {
-  margin-top: 25px;
-}
-
-#article-actions {
-  top: -28px;
-}
-
 #article-actions a.button,
 #article-actions a.button:hover {
   border: none;
@@ -933,10 +963,8 @@ hr.pre-posts, hr.sep-posts {
   color: #555753;
 }
 
-#bt_addThis {
-  position: absolute;
-  top: -15px;
-  right: 0px;
+#addThis {
+  text-align: right;
 }
 
 #content .blog-post .title {
@@ -962,7 +990,6 @@ hr.pre-posts, hr.sep-posts {
 }
 
 #article-tags {
-  float: right;
   color: #FFF;
 }
 #article-tags a {
@@ -980,10 +1007,6 @@ hr.pre-posts, hr.sep-posts {
 #article-hits {
   text-align: left;
   color: #AAA;
-}
-
-#article-parent {
-  display: none;
 }
 
 .msie .post_comment_box {
@@ -1064,46 +1087,46 @@ hr.pre-posts, hr.sep-posts {
 }
 
 .comment-from-owner .comment-wrapper-1 {
-  background: #cecece url(imgs/comment-owner-bg-N.png) repeat-x;
+  background: #fbf7b5 url(/images/comment-owner-bg-N.png) repeat-x;
 }
 .comment-from-owner .comment-wrapper-2 {
-  background: url(imgs/comment-owner-bg-S.png)    0% 100% repeat-x;
+  background: url(/images/comment-owner-bg-S.png)    0% 100% repeat-x;
 }
 .comment-from-owner .comment-wrapper-3 {
-  background: url(imgs/comment-owner-bg-L.png)  100%   0% repeat-y;
+  background: url(/images/comment-owner-bg-L.png)  100%   0% repeat-y;
 }
 .comment-from-owner .comment-wrapper-4 {
-  background: url(imgs/comment-owner-bg-O.png)    0%   0% repeat-y;
+  background: url(/images/comment-owner-bg-O.png)    0%   0% repeat-y;
 }
 .comment-from-owner .comment-wrapper-5 {
-  background: url(imgs/comment-owner-bg-SL.png) 100% 100% no-repeat;
+  background: url(/images/comment-owner-bg-SL.png) 100% 100% no-repeat;
 }
 .comment-from-owner .comment-wrapper-6 {
-  background: url(imgs/comment-owner-bg-SO.png)   0% 100% no-repeat;
+  background: url(/images/comment-owner-bg-SO.png)   0% 100% no-repeat;
 }
 .comment-from-owner .comment-wrapper-7 {
-  background: url(imgs/comment-owner-bg-NL.png) 100%   0% no-repeat;
+  background: url(/images/comment-owner-bg-NL.png) 100%   0% no-repeat;
 }
 .comment-from-owner .comment-wrapper-8 {
-  background: url(imgs/comment-owner-bg-NO.png)   0%   0% no-repeat;
+  background: url(/images/comment-owner-bg-NO.png)   0%   0% no-repeat;
 }
-
 
 .comment-created-at {
   position: relative;
-  padding-right: 10px;
+  padding-right: 9px;
 }
+
 .comment-from-owner .comment-created-at {
   color: #333;
 }
 
-
 .article-comment .button-bar {
   position: relative;
-  top: 3px;
-  right: 1px;
+  top: 9px;
+  right: 8px;
   z-index: 10px;
 }
+
 .article-comment .button-bar a {
   position: relative;
 }
@@ -1113,19 +1136,17 @@ hr.pre-posts, hr.sep-posts {
   padding: 7px 12px 3px 26px;
 }
 
-
-
 /* ==> controllers.css <== */
 
 /******** controller-friends action-friends-index ********/
 
 .action-friends-index .profile-list li,
-.common-profile-list-block .vcard a {
+.common-profile-list-block .vcard {
   border: 1px solid transparent;
 }
 
 .action-friends-index .profile-list li:hover,
-.common-profile-list-block .vcard a:hover {
+.common-profile-list-block .vcard:hover {
   border: 1px solid #CCC;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
@@ -1133,6 +1154,11 @@ hr.pre-posts, hr.sep-posts {
   text-decoration: none;
 }
 
+.common-profile-list-block .vcard a,
+.common-profile-list-block .vcard a:hover {
+  background: transparent;
+  border: 0;
+}
 
 /******** controller-profile action-profile-index ********/
 
@@ -1206,4 +1232,77 @@ table.profile th {
   border-bottom: 2px solid black;
 }
 
+/**************************** Browse *******************************/
 
+.controller-browse #content .search_form {
+  background: #DDD;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  padding: 12px 15px 13px 15px;
+  position: relative;
+  text-align: left;
+}
+
+.controller-browse a {
+  color: #555753;
+}
+
+.browse-results-innerbox {
+  margin-top: 10px;
+  border-bottom: none;
+  border: 1px solid #CCC;
+  background: url(imgs/comment-bg-S.png) 0% 100% repeat-x;
+  padding-bottom: 10px;
+
+}
+.browse-results-innerbox ul{
+  padding: 0px;
+}
+
+.browse-results-innerbox .browse-results-type-empty div {
+  text-align: center;
+  color: #DDD;
+  font-weight: bold;
+  font-size: 30px;
+  padding: 70px 10px 0px 0px;
+  border: none;
+
+}
+
+.search-results-type-article.search-results-innerbox {
+  padding: 5px 0px 5px 10px;
+  max-height: 215px;
+  height: 225px;
+}
+
+#content .search-results-type-article li {
+  padding: 5px 0px;
+}
+
+.search-results-type-article a {
+  text-decoration: none;
+}
+.search-results-type-article a:hover {
+  text-decoration: underline;
+}
+
+/* simplemenu */
+
+.simplemenu-submenu {
+  background: #EEE;
+  border: 1px solid #AAA;
+  opacity: 0.9;
+  text-align: left;
+}
+.user-status .simplemenu-item a {
+  color: black;
+}
+
+/* chat */
+
+#chat-window .history .self-name {
+   color: #3F3F90;
+}
+#chat-window .history .other-name {
+   color: #7F1F1F;
+}

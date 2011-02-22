@@ -2,10 +2,14 @@ module DisplayHelper
 
   def link_to_product(product, opts={})
     return _('No product') unless product
-    target = product.enterprise.enabled? ? product.enterprise.public_profile_url.merge(:controller => 'catalog', :action => 'show', :id => product) : product.enterprise.url
+    target = product_path(product)
     link_to content_tag( 'span', product.name ),
             target,
             opts
+  end
+
+  def product_path(product)
+    product.enterprise.enabled? ? product.enterprise.public_profile_url.merge(:controller => 'manage_products', :action => 'show', :id => product) : product.enterprise.url
   end
 
   def link_to_category(category, full = true)
@@ -27,9 +31,10 @@ module DisplayHelper
       gsub( /\n\s*\n/, ' <p/> ' ).
       gsub( /\n/, ' <br/> ' ).
       gsub( /(^|\s)(www\.[^\s])/, '\1http://\2' ).
-      gsub( /(https?:\/\/([^\s]+))/,
-            '<a href="\1" target="_blank" rel="nofolow" onclick="return confirm(\'' +
-            escape_javascript( _('Are you sure you want to visit this web site?') ) +
-            '\n\n\'+this.href)">\2</a>' )
+      gsub( /(https?:\/\/([^\s]+))/ ) do
+        href, content = $1, $2.scan(/.{4}/).join('&#x200B;')
+        content_tag(:a, content, :href => href, :target => '_blank', :rel => 'nofolow',
+                    :onclick => "return confirm('%s')" % escape_javascript(_('Are you sure you want to visit this web site?')))
+      end
   end
 end

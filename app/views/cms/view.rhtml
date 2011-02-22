@@ -5,12 +5,7 @@
 <% button_bar(:style => 'margin-bottom: 1em;') do %>
   <% parent_id = ((@article && @article.allow_children?) ? @article : nil) %>
 
-  <% if !@article or !@article.blog? %>
-    <%= button :newfolder, _('New folder'), :action => 'new', :type => 'Folder', :parent_id => parent_id %>
-    <%= button :newblog, _('New Blog'), :action => 'new', :type => 'Blog', :parent_id => parent_id %>
-    <%= button('upload-file', _('Upload files'), :action => 'upload_files', :parent_id => parent_id) %>
-  <% end %>
-  <%= lightbox_button('new', label_for_new_article(@article), :action => 'new', :parent_id => parent_id) %>
+  <%= lightbox_button('new', _('New content'), :action => 'new', :parent_id => parent_id, :cms => true) %>
   <%= button(:back, _('Back to control panel'), :controller => 'profile_editor', :action => "index") %>
 <% end %>
 
@@ -34,11 +29,10 @@
   <% if @article %>
     <tr>
       <td>
-        <%= image_tag 'icons-mime/gnome-folder.png' %>
         <% if @article.parent %>
-          <%= link_to '.. (' + _('parent folder') + ')', :action => 'view', :id => @article.parent.id %>
+          <%= link_to '.. (' + _('parent folder') + ')', {:action => 'view', :id => @article.parent.id}, :class => 'icon-parent-folder' %>
         <% else %>
-          <%= link_to '.. (' + _('parent folder') + ')', :action => 'index' %>
+          <%= link_to '.. (' + _('parent folder') + ')', {:action => 'index'}, :class => 'icon-parent-folder' %>
         <% end %>
       </td>
       <td><%= Folder.short_description %></td>
@@ -46,49 +40,26 @@
     </tr>
   <% end %>
 
-  <%# folders %>
-  <% for folder in @folders %>
+  <% @articles.each do |article| %>
     <tr>
       <td>
-        <%= image_tag(icon_for_article(folder)) %>
-        <%= link_to folder.name, :action => 'view', :id => folder.id %>
+        <%= link_to_article(article) %>
       </td>
       <td>
-        <%= folder.class.short_description %>
+        <%= article.class.short_description %>
       </td>
       <td class="article-controls">
-        <%= button_without_text :edit, _('Properties'), :action => 'edit', :id => folder.id %>
-        <%= button_without_text :eyes, _('Public view'), folder.url %>
+        <%= button_without_text :edit, _('Edit'), :action => 'edit', :id => article.id %>
+        <%= button_without_text :eyes, _('Public view'), article.url %>
+        <%= display_spread_button(profile, article) unless article.folder? %>
         <% if !environment.enabled?('cant_change_homepage') %>
-          <%= button_without_text :home, _('Use as homepage'), { :action => 'set_home_page', :id => folder.id }, :method => :post %>
+          <%= button_without_text :home, _('Use as homepage'), { :action => 'set_home_page', :id => article.id }, :method => :post %>
         <% end %>
-        <%= button_without_text :delete, _('Delete'), { :action => 'destroy', :id => folder.id }, :method => :post, :confirm => _('Are you sure that you want to remove this folder? Note that all the items inside it will also be removed!') %>
-      </td>
-    </tr>
-  <% end %>
-
-  <%# non-folder subitems %>
-  <% for item in @subitems %>
-    <tr>
-      <td>
-        <%= image_tag(icon_for_article(item)) %>
-        <%= link_to short_filename(item.name,30), :action => 'edit', :id => item.id %>
-      </td>
-      <td>
-        <%= item.class.short_description %>
-      </td>
-      <td class="article-controls">
-        <%= button_without_text :edit, _('Edit'), :action => 'edit', :id => item.id %>
-        <%= button_without_text :eyes, _('Public view'), item.url %>
-        <% if profile.person? %>
-          <%= button_without_text :spread, _('Spread this'), :action => 'publish', :id => item.id %>
-        <% end %>
-        <% if !environment.enabled?('cant_change_homepage') %>
-          <%= button_without_text :home, _('Use as homepage'), { :action => 'set_home_page', :id => item.id }, :method => :post %>
-        <% end %>
-        <%= button_without_text :delete, _('Delete'), { :action => 'destroy', :id => item.id }, :method => :post, :confirm => _('Are you sure that you want to remove this item?') %>
+        <%= display_delete_button(article) %>
       </td>
     </tr>
   <% end %>
 
 </table>
+
+<%= pagination_links @articles, {:param_name => 'npage', :prev_label => '&laquo; ' + _('Previous'), :next_label => _('Next') + ' &raquo;', :page_links => true} %>

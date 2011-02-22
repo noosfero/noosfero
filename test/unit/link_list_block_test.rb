@@ -43,7 +43,7 @@ class LinkListBlockTest < ActiveSupport::TestCase
   should 'display options for icons' do
     l = LinkListBlock.new
     l.icons_options.each do |option|
-      assert_match(/<span class=\"icon-.+\" onclick=\"changeIcon\(this, '.+'\)\"><\/span>/, option)
+      assert_match(/<span title=\".+\" class=\"icon-.+\" onclick=\"changeIcon\(this, '.+'\)\"><\/span>/, option)
     end
   end
 

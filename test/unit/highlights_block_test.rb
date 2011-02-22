@@ -119,12 +119,25 @@ class HighlightsBlockTest < ActiveSupport::TestCase
     i1 = {:image_id => 1, :address => '/address', :position => 3, :title => 'address'}
     i2 = {:image_id => 2, :address => '/address', :position => 1, :title => 'address'}
     i3 = {:image_id => 3, :address => '/address', :position => 2, :title => 'address'}
-    block.images = [i1,i2,i3]
+    i4 = {:image_id => 4, :address => '/address', :position => 5, :title => 'address'}
+    i5 = {:image_id => 5, :address => '/address', :position => 4, :title => 'address'}
+    block.images = [i1,i2,i3,i4,i5]
     block.shuffle = true
     block.save!
     block.reload
-    assert_equal [i1,i2,i3], block.images
-    assert_not_equal [i2,i3,i1], block.featured_images
+    assert_equal [i1,i2,i3,i4,i5], block.images
+    assert_not_equal [i2,i3,i1,i4,i5], block.featured_images
+  end
+
+  [Environment, Profile].each do |klass|
+    should "choose between owner galleries when owner is #{klass.name}" do
+      owner = fast_create(klass)
+
+      block = HighlightsBlock.new
+      block.stubs(:owner).returns(owner)
+
+      assert_kind_of Array, block.folder_choices
+    end
   end
 
 end

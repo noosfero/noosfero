@@ -1,0 +1,18 @@
+<% activities.each do |activity| %>
+  <li class='profile-activity-item <%= activity.verb %>' id='profile-activity-item-<%= activity.id %>'>
+    <div class='profile-activity-image'>
+      <%= link_to(profile_image(activity.user, :minor), activity.user.url) %>
+    </div>
+    <div class='profile-activity-description'>
+      <p class='profile-activity-time'><%= time_ago_as_sentence(activity.created_at) + ' ' + _('ago') %></p>
+      <p class='profile-activity-text'><%= link_to activity.user.name, activity.user.url %> <%= describe activity %></p>
+      <%= button_to_remote(:delete, content_tag(:span, _('Remove')), :url =>{:action => 'remove_activity', :activity_id => activity.id}, :update => "profile-activity-item-#{activity.id}") if logged_in? && current_person == @profile %>
+    </div>
+    <hr />  
+  </li>
+<% end %>
+<% if activities.current_page < activities.total_pages %>
+  <div id='profile_activities_page_<%= activities.current_page %>'>
+    <%= button_to_remote :add, _('View more'), :url => {:action => 'view_more_activities', :page => (activities.current_page + 1)}, :update => "profile_activities_page_#{activities.current_page}" %>
+  </div>
+<% end %>

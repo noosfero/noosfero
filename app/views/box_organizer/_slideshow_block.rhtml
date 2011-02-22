@@ -1,5 +1,4 @@
-<% galleries = @block.box.owner.articles.select {|article| article.folder? && article.display_as_gallery? } %>
-<%= labelled_form_field _('Choose a gallery'), select('block', 'gallery_id', galleries.map { |item|
+<%= labelled_form_field _('Choose a gallery'), select('block', 'gallery_id', @block.folder_choices.map { |item|
   [ _('%{gallery} (%{count} images)') % {:gallery => item.path, :count => item.images.reject{|image| image.folder?}.count}, item.id ]
 }) %>
 

@@ -4,8 +4,25 @@
 # of the file itself is kept. (FIXME?)
 class UploadedFile < Article
 
+  track_actions :upload_image, :after_create, :keep_params => ["view_url", "thumbnail_path", "parent.url", "parent.name"], :if => Proc.new { |a| a.published? && a.image? && !a.parent.nil? && a.parent.gallery? }
+
+  include ShortFilename
+
   settings_items :title, :type => 'string'
+  def title_with_default
+    title_without_default || short_filename(name, 60)
+  end
+  alias_method_chain :title, :default
+
   validates_size_of :title, :maximum => 60, :if => (lambda { |file| !file.title.blank? })
+
+  before_create do |uploaded_file|
+    uploaded_file.is_image = true if uploaded_file.image?
+  end
+
+  def thumbnail_path
+    self.image? ? self.full_filename(:thumb).gsub(File.join(RAILS_ROOT, 'public'), '') : nil
+  end
 
   def display_title
     title.blank? ? name : title
@@ -27,8 +44,14 @@ class UploadedFile < Article
 
   validates_attachment :size => N_("%{fn} of uploaded file was larger than the maximum size of 5.0 MB")
 
-  def icon_name
-    self.image? ? public_filename(:icon) : self.content_type.gsub('/', '-')
+  delay_attachment_fu_thumbnails
+
+  def self.icon_name(article = nil)
+    if article
+      article.image? ? article.public_filename(:icon) : article.mime_type.gsub(/[\/+.]/, '-')
+    else
+      'upload-file'
+    end
   end
   
   def mime_type
@@ -53,12 +76,11 @@ class UploadedFile < Article
     File.read(self.full_filename)
   end
 
-
   def to_html(options = {})
     article = self
     if image?
       lambda do
-        if article.display_as_gallery? && options[:gallery_view]
+        if article.gallery? && options[:gallery_view]
           images = article.parent.images
           current_index = images.index(article)
           total_of_images = images.count
@@ -101,7 +123,7 @@ class UploadedFile < Article
     false
   end
 
-  def display_as_gallery?
-    self.parent && self.parent.folder? && self.parent.display_as_gallery?
+  def gallery?
+    self.parent && self.parent.folder? && self.parent.gallery?
   end
 end

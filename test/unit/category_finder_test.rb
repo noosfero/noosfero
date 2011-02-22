@@ -5,6 +5,7 @@ class CategoryFinderTest < ActiveSupport::TestCase
   def setup
     @category = Category.create!(:name => 'my category', :environment => Environment.default)
     @finder = CategoryFinder.new(@category)
+    @product_category = fast_create(ProductCategory, :name => 'Products')
 
     Profile.rebuild_index
   end
@@ -48,7 +49,7 @@ class CategoryFinderTest < ActiveSupport::TestCase
     ent1 = Enterprise.create!(:name => 'beautiful enterprise 1', :identifier => 'test1', :category_ids => [@category.id])
 
     # not in category
-    ent2 = Enterprise.create!(:name => 'beautiful enterprise 2', :identifier => 'test2')
+    ent2 = fast_create(Enterprise, :name => 'beautiful enterprise 2', :identifier => 'test2')
 
     list = @finder.find(:enterprises, 'beautiful')
     assert_includes list, ent1
@@ -65,8 +66,8 @@ class CategoryFinderTest < ActiveSupport::TestCase
   end
 
   should 'search for communities in a specific category' do
-    c1 = Community.create!(:name => 'a beautiful community', :identifier => 'bea_comm', :environment => Environment.default)
-    c2 = Community.create!(:name => 'another beautiful community', :identifier => 'an_bea_comm', :environment => Environment.default)
+    c1 = fast_create(Community, :name => 'a beautiful community', :identifier => 'bea_comm', :environment_id => Environment.default.id)
+    c2 = fast_create(Community, :name => 'another beautiful community', :identifier => 'an_bea_comm', :environment_id => Environment.default.id)
     c1.add_category(@category); c1.save!
 
     list = @finder.find(:communities, 'beautiful')
@@ -75,10 +76,10 @@ class CategoryFinderTest < ActiveSupport::TestCase
   end
 
   should 'search for products in a specific category' do
-    ent1 = Enterprise.create!(:name => 'teste1', :identifier => 'teste1'); ent1.add_category(@category)
-    ent2 = Enterprise.create!(:name => 'teste2', :identifier => 'teste2')
-    prod1 = ent1.products.create!(:name => 'a beautiful product')
-    prod2 = ent2.products.create!(:name => 'another beautiful product')
+    ent1 = fast_create(Enterprise, :name => 'teste1', :identifier => 'teste1'); ent1.add_category(@category)
+    ent2 = fast_create(Enterprise, :name => 'teste2', :identifier => 'teste2')
+    prod1 = ent1.products.create!(:name => 'a beautiful product', :product_category => @product_category)
+    prod2 = ent2.products.create!(:name => 'another beautiful product', :product_category => @product_category)
 
     list = @finder.find(:products, 'beautiful')
     assert_includes list, prod1
@@ -86,8 +87,8 @@ class CategoryFinderTest < ActiveSupport::TestCase
   end
 
   should 'search people in category hierarchy' do
-    parent = Category.create!(:name => 'parent category', :environment => Environment.default)
-    child  = Category.create!(:name => 'child category', :environment => Environment.default, :parent => parent)
+    parent = fast_create(Category, :name => 'parent category', :environment_id => Environment.default.id)
+    child  = fast_create(Category, :name => 'child category', :environment_id => Environment.default.id, :parent_id => parent.id)
     p1 = create_user('people_1').person
     p1.name = 'a beautiful person'
     p1.add_category(child)
@@ -100,8 +101,8 @@ class CategoryFinderTest < ActiveSupport::TestCase
   end
 
   should 'search article in category hierarchy' do
-    parent = Category.create!(:name => 'parent category', :environment => Environment.default)
-    child  = Category.create!(:name => 'child category', :environment => Environment.default, :parent => parent)
+    parent = fast_create(Category, :name => 'parent category', :environment_id => Environment.default.id)
+    child  = fast_create(Category, :name => 'child category', :environment_id => Environment.default.id, :parent_id => parent.id)
 
     p1 = create_user('people_1').person
 
@@ -174,8 +175,8 @@ class CategoryFinderTest < ActiveSupport::TestCase
   end
 
   should 'not return the same result twice' do
-    parent = Category.create!(:name => 'parent category', :environment => Environment.default)
-    child  = Category.create!(:name => 'child category', :environment => Environment.default, :parent => parent)
+    parent = fast_create(Category, :name => 'parent category', :environment_id => Environment.default.id)
+    child  = fast_create(Category, :name => 'child category', :environment_id => Environment.default.id, :parent_id => parent.id)
     p1 = create_user('people_1').person
     p1.name = 'a beautiful person'
     p1.category_ids = [child.id, parent.id]; p1.save!
@@ -205,7 +206,7 @@ class CategoryFinderTest < ActiveSupport::TestCase
   should 'find person and enterprise by radius and region' do
     finder = CategoryFinder.new(@category)
     
-    region = Region.create!(:name => 'r-test', :environment => Environment.default, :lat => 45.0, :lng => 45.0)
+    region = fast_create(Region, :name => 'r-test', :environment_id => Environment.default.id, :lat => 45.0, :lng => 45.0)
     ent1 = Enterprise.create!(:name => 'test 1', :identifier => 'test1', :lat => 45.0, :lng => 45.0, :category_ids => [@category.id])
     p1 = create_user('test2').person
     p1.name = 'test 2'; p1.lat = 45.0; p1.lng = 45.0; p1.add_category(@category); p1.save!
@@ -229,7 +230,7 @@ class CategoryFinderTest < ActiveSupport::TestCase
     e1 = Event.create!(:name => 'e1', :profile => person, :start_date => Date.new(2008,1,1), :category_ids => [@category.id])
 
     # not in category
-    e2 = Event.create!(:name => 'e2', :profile => person, :start_date => Date.new(2008,1,15))
+    e2 = fast_create(Event, :name => 'e2', :profile_id => person.id, :start_date => Date.new(2008,1,15))
 
     events = finder.current_events(2008, 1)
     assert_includes events, e1
@@ -246,16 +247,16 @@ class CategoryFinderTest < ActiveSupport::TestCase
     # event 2 is created after, but must be listed before (since it happens before)
     upcoming_event_2 = Event.create!(:name => 'upcoming event 2', :profile => person, :start_date => Date.new(2008,1,25), :category_ids => [@category.id])
     upcoming_event_1 = Event.create!(:name => 'upcoming event 1', :profile => person, :start_date => Date.new(2008,1,20), :category_ids => [@category.id])
-    not_in_category = Event.create!(:name => 'e1', :profile => person, :start_date => Date.new(2008,1,20))
+    not_in_category = fast_create(Event, :name => 'e1', :profile_id => person.id, :start_date => Date.new(2008,1,20))
 
     assert_equal [upcoming_event_1, upcoming_event_2], @finder.upcoming_events
   end
 
   should 'find person and enterprise in category by radius and region even without query' do
-    cat = Category.create!(:name => 'test category', :environment => Environment.default)
+    cat = fast_create(Category, :name => 'test category', :environment_id => Environment.default.id)
     finder = CategoryFinder.new(cat)
 
-    region = Region.create!(:name => 'r-test', :environment => Environment.default, :lat => 45.0, :lng => 45.0)
+    region = fast_create(Region, :name => 'r-test', :environment_id => Environment.default.id, :lat => 45.0, :lng => 45.0)
     ent1 = Enterprise.create!(:name => 'test 1', :identifier => 'test1', :lat => 45.0, :lng => 45.0, :category_ids => [cat.id])
     p1 = create_user('test2').person
     p1.name = 'test 2'; p1.lat = 45.0; p1.lng = 45.0; p1.add_category(cat); p1.save!
@@ -273,13 +274,13 @@ class CategoryFinderTest < ActiveSupport::TestCase
   end
 
   should 'find products in category wihin product category' do
-    cat = Category.create!(:name => 'test category', :environment => Environment.default)
+    cat = fast_create(Category, :name => 'test category', :environment_id => Environment.default.id)
     finder = CategoryFinder.new(cat)
 
-    prod_cat = ProductCategory.create!(:name => 'test product category', :environment => Environment.default)
+    prod_cat = fast_create(ProductCategory, :name => 'test product category', :environment_id => Environment.default.id)
     ent = Enterprise.create!(:name => 'test enterprise', :identifier => 'test_ent', :category_ids => [cat.id])
     prod1 = ent.products.create!(:name => 'test product 1', :product_category => prod_cat)
-    prod2 = ent.products.create!(:name => 'test product 2')    
+    prod2 = ent.products.create!(:name => 'test product 2', :product_category => @product_category)
 
     prods = finder.find(:products, nil, :product_category => prod_cat)
 
@@ -288,8 +289,8 @@ class CategoryFinderTest < ActiveSupport::TestCase
   end
 
   should 'find enterprises by its products categories without query' do
-    pc1 = ProductCategory.create!(:name => 'test_cat1', :environment => Environment.default)
-    pc2 = ProductCategory.create!(:name => 'test_cat2', :environment => Environment.default)
+    pc1 = fast_create(ProductCategory, :name => 'test_cat1', :environment_id => Environment.default.id)
+    pc2 = fast_create(ProductCategory, :name => 'test_cat2', :environment_id => Environment.default.id)
 
     ent1 = Enterprise.create!(:name => 'test enterprise 1', :identifier => 'test_ent1', :category_ids => [@category.id])
     ent1.products.create!(:name => 'test product 1', :product_category => pc1)
@@ -303,8 +304,8 @@ class CategoryFinderTest < ActiveSupport::TestCase
   end
   
   should 'find enterprises by its products categories with query' do
-    pc1 = ProductCategory.create!(:name => 'test_cat1', :environment => Environment.default)
-    pc2 = ProductCategory.create!(:name => 'test_cat2', :environment => Environment.default)
+    pc1 = fast_create(ProductCategory, :name => 'test_cat1', :environment_id => Environment.default.id)
+    pc2 = fast_create(ProductCategory, :name => 'test_cat2', :environment_id => Environment.default.id)
 
     ent1 = Enterprise.create!(:name => 'test enterprise 1', :identifier => 'test_ent1', :category_ids => [@category.id])
     ent1.products.create!(:name => 'test product 1', :product_category => pc1)
@@ -318,10 +319,10 @@ class CategoryFinderTest < ActiveSupport::TestCase
   end
 
   should 'count product categories results by products' do
-    pc1 = ProductCategory.create!(:name => 'test cat1', :environment => Environment.default)
-    pc11 = ProductCategory.create!(:name => 'test cat11', :environment => Environment.default, :parent => pc1)
-    pc2 = ProductCategory.create!(:name => 'test cat2', :environment => Environment.default)
-    pc3 = ProductCategory.create!(:name => 'test cat3', :environment => Environment.default)
+    pc1 = fast_create(ProductCategory, :name => 'test cat1', :environment_id => Environment.default.id)
+    pc11 = fast_create(ProductCategory, :name => 'test cat11', :environment_id => Environment.default.id, :parent_id => pc1.id)
+    pc2 = fast_create(ProductCategory, :name => 'test cat2', :environment_id => Environment.default.id)
+    pc3 = fast_create(ProductCategory, :name => 'test cat3', :environment_id => Environment.default.id)
 
     ent = Enterprise.create!(:name => 'test enterprise 1', :identifier => 'test_ent1', :category_ids => [@category.id])
     p1 = ent.products.create!(:name => 'test product 1', :product_category => pc1)
@@ -330,7 +331,7 @@ class CategoryFinderTest < ActiveSupport::TestCase
     p4 = ent.products.create!(:name => 'test product 4', :product_category => pc2) # not in the count
     p5 = ent.products.create!(:name => 'test product 5', :product_category => pc3) # not in the count
 
-    ent2 = Enterprise.create!(:name => 'test enterprise 2', :identifier => 'test_ent2')
+    ent2 = fast_create(Enterprise, :name => 'test enterprise 2', :identifier => 'test_ent2')
     p6 = ent2.products.create!(:name => 'test product 6', :product_category => pc1)
 
     counts = @finder.product_categories_count(:products, [pc1.id, pc11.id, pc2.id], [p1.id, p2.id, p3.id, p5.id, p6.id] )
@@ -342,10 +343,10 @@ class CategoryFinderTest < ActiveSupport::TestCase
   end
   
   should 'count product categories results by all products' do
-    pc1 = ProductCategory.create!(:name => 'test cat1', :environment => Environment.default)
-    pc11 = ProductCategory.create!(:name => 'test cat11', :environment => Environment.default, :parent => pc1)
-    pc2 = ProductCategory.create!(:name => 'test cat2', :environment => Environment.default)
-    pc3 = ProductCategory.create!(:name => 'test cat3', :environment => Environment.default)
+    pc1 = fast_create(ProductCategory, :name => 'test cat1', :environment_id => Environment.default.id)
+    pc11 = fast_create(ProductCategory, :name => 'test cat11', :environment_id => Environment.default.id, :parent_id => pc1.id)
+    pc2 = fast_create(ProductCategory, :name => 'test cat2', :environment_id => Environment.default.id)
+    pc3 = fast_create(ProductCategory, :name => 'test cat3', :environment_id => Environment.default.id)
 
     ent = Enterprise.create!(:name => 'test enterprise 1', :identifier => 'test_ent1', :category_ids => [@category.id])
     p1 = ent.products.create!(:name => 'test product 1', :product_category => pc1)
@@ -353,7 +354,7 @@ class CategoryFinderTest < ActiveSupport::TestCase
     p3 = ent.products.create!(:name => 'test product 3', :product_category => pc2)
     p4 = ent.products.create!(:name => 'test product 4', :product_category => pc3) # not in the count
     
-    ent2 = Enterprise.create!(:name => 'test enterprise 2', :identifier => 'test_ent2')
+    ent2 = fast_create(Enterprise, :name => 'test enterprise 2', :identifier => 'test_ent2')
     p6 = ent2.products.create!(:name => 'test product 6', :product_category => pc1)
 
 
@@ -366,10 +367,10 @@ class CategoryFinderTest < ActiveSupport::TestCase
   end
   
   should 'count product categories results by enterprises' do
-    pc1 = ProductCategory.create!(:name => 'test cat1', :environment => Environment.default)
-    pc11 = ProductCategory.create!(:name => 'test cat11', :environment => Environment.default, :parent => pc1)
-    pc2 = ProductCategory.create!(:name => 'test cat2', :environment => Environment.default)
-    pc3 = ProductCategory.create!(:name => 'test cat3', :environment => Environment.default)
+    pc1 = fast_create(ProductCategory, :name => 'test cat1', :environment_id => Environment.default.id)
+    pc11 = fast_create(ProductCategory, :name => 'test cat11', :environment_id => Environment.default.id, :parent_id => pc1.id)
+    pc2 = fast_create(ProductCategory, :name => 'test cat2', :environment_id => Environment.default.id)
+    pc3 = fast_create(ProductCategory, :name => 'test cat3', :environment_id => Environment.default.id)
 
     ent1 = Enterprise.create!(:name => 'test enterprise 1', :identifier => 'test_ent1', :category_ids => [@category.id])
     ent1.products.create!(:name => 'test product 1', :product_category => pc1)
@@ -384,7 +385,7 @@ class CategoryFinderTest < ActiveSupport::TestCase
     ent5.products.create!(:name => 'test product 5', :product_category => pc2)
     ent5.products.create!(:name => 'test product 6', :product_category => pc3)
 
-    ent6 = Enterprise.create!(:name => 'test enterprise 6', :identifier => 'test_ent6')
+    ent6 = fast_create(Enterprise, :name => 'test enterprise 6', :identifier => 'test_ent6')
     p6 = ent2.products.create!(:name => 'test product 6', :product_category => pc1)
 
     counts = @finder.product_categories_count(:enterprises, [pc1.id, pc11.id, pc2.id], [ent1.id, ent2.id, ent3.id, ent4.id] )
@@ -396,10 +397,10 @@ class CategoryFinderTest < ActiveSupport::TestCase
   end
   
   should 'count product categories results by all enterprises' do
-    pc1 = ProductCategory.create!(:name => 'test cat1', :environment => Environment.default)
-    pc11 = ProductCategory.create!(:name => 'test cat11', :environment => Environment.default, :parent => pc1)
-    pc2 = ProductCategory.create!(:name => 'test cat2', :environment => Environment.default)
-    pc3 = ProductCategory.create!(:name => 'test cat3', :environment => Environment.default)
+    pc1 = fast_create(ProductCategory, :name => 'test cat1', :environment_id => Environment.default.id)
+    pc11 = fast_create(ProductCategory, :name => 'test cat11', :environment_id => Environment.default, :parent_id => pc1.id)
+    pc2 = fast_create(ProductCategory, :name => 'test cat2', :environment_id => Environment.default.id)
+    pc3 = fast_create(ProductCategory, :name => 'test cat3', :environment_id => Environment.default.id)
 
     ent1 = Enterprise.create!(:name => 'test enterprise 1', :identifier => 'test_ent1', :category_ids => [@category.id])
     ent1.products.create!(:name => 'test product 1', :product_category => pc1)
@@ -412,7 +413,7 @@ class CategoryFinderTest < ActiveSupport::TestCase
     ent4.products.create!(:name => 'test product 4', :product_category => pc2)
     ent4.products.create!(:name => 'test product 5', :product_category => pc3)
 
-    ent5 = Enterprise.create!(:name => 'test enterprise 5', :identifier => 'test_ent5')
+    ent5 = fast_create(Enterprise, :name => 'test enterprise 5', :identifier => 'test_ent5')
     p6 = ent2.products.create!(:name => 'test product 6', :product_category => pc1)
 
     counts = @finder.product_categories_count(:enterprises, [pc1.id, pc11.id, pc2.id] )
@@ -438,12 +439,12 @@ class CategoryFinderTest < ActiveSupport::TestCase
     person = create_user('teste').person
 
     # in category
-    art1 = TextileArticle.create!(:name => 'an article to be found', :profile => person)
+    art1 = fast_create(TextileArticle, :name => 'an article to be found', :profile_id => person.id)
     art1.add_category(@category)
     art1.save!
 
     # not in category
-    art2 = TextileArticle.create!(:name => 'another article to be found', :profile => person)
+    art2 = fast_create(TextileArticle, :name => 'another article to be found', :profile_id => person.id)
 
     list = @finder.find(:text_articles, 'found')
     assert_includes list, art1

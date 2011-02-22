@@ -8,12 +8,13 @@ module ArticleHelper
         'div',
         check_box(:article, :published) +
         content_tag('label', _('This article must be published (visible to other people)'), :for => 'article_published')
-      ) +
+      ) + (article.parent && article.parent.forum? && controller.action_name == 'new' ?
+      hidden_field_tag('article[accept_comments]', 1) :
       content_tag(
         'div',
         check_box(:article, :accept_comments) +
-        content_tag('label', _('I want to receive comments about this article'), :for => 'article_accept_comments')
-      ) +
+        content_tag('label', (article.parent && article.parent.forum? ? _('This topic is opened for replies') : _('I want to receive comments about this article')), :for => 'article_accept_comments')
+      )) +
       content_tag(
         'div',
         check_box(:article, :notify_comments) +

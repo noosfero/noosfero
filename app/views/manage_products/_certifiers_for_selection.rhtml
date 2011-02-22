@@ -1,0 +1,5 @@
+<%= select_certifiers(@qualifier) %>
+<%= button_to_function(:delete, '', "jQuery(this).parents('tr').remove()") %>
+<% javascript_tag do %>
+  jQuery('#product-qualifiers-list *').removeClass('small-loading')
+<% end %>

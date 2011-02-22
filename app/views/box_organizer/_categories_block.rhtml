@@ -1,0 +1,5 @@
+<strong><%= _('Category types') %></strong>
+
+<% @block.available_category_types.each do |type_label, type_value| %>
+  <p><%= labelled_check_box(type_label, 'block[category_types][]', type_value.to_s, @block.category_types.include?(type_value.to_s)) %></p>
+<% end %>

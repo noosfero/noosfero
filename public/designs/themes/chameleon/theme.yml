@@ -1,0 +1,3 @@
+name: "Chameleon"
+layout: "application-ng"
+icon_theme: [default, pidgin]

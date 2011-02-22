@@ -1,0 +1,27 @@
+h1(order-456). Answering scraps sent by friends
+
+p.  _When a friend sends a scrap to you, you can answer it._
+
+*  "How to access":#HowAccess
+*  "Description":#Description
+*  "Related Topics":#RelatedTopics
+
+h2(#HowAccess). How to access
+
+# Visit your profile to see the scraps that your friends sent to you. !=/images/doc/other-person-view-profile-link.en.png(Link to view profile)!
+
+h2(#Description). Description
+
+# On you profile, when you click on "Wall" tab, the scraps sent to you will be listed. !=/images/doc/person-wall-scrap-sent.en.png(Wall tab)!
+# When you hover the mouse on the scrap, click on the "Reply" button that will be displayed !=/images/doc/person-wall-scrap-reply-button.en.png(Wall tab)!
+# To answer the scrap, fill in the field and press the "Leave a scrap" button !=/images/doc/person-wall-scrap-reply-form.en.png(Wall tab)!
+# Then, your reply will be listed on your profile's wall !=/images/doc/person-wall-scrap-reply-sent.en.png(Wall tab)!
+
+h2(#RelatedTopics). Related topics
+
+*  "Sending scraps to friends":/doc/user/sending-scraps
+*  "Removing friends":/doc/user/removing-friends
+*  "Accepting friends":/doc/user/accepting-friends
+*  "Finding people":/doc/navigation/searching-people
+
+"Back to top":#online-doc-text

@@ -15,7 +15,7 @@ class FolderTest < ActiveSupport::TestCase
   end
 
   should 'provide own icon name' do
-    assert_not_equal Article.new.icon_name, Folder.new.icon_name
+    assert_not_equal Article.icon_name, Folder.icon_name
   end
 
   should 'identify as folder' do
@@ -26,31 +26,6 @@ class FolderTest < ActiveSupport::TestCase
     profile = create_user('testuser').person
     a = fast_create(Folder, :profile_id => profile.id)
     assert_equal false, a.can_display_hits?
-  end
-
-  should 'be viewed as image gallery' do
-    p = create_user('test_user').person
-    f = fast_create(Folder, :profile_id => p.id)
-    f.view_as = 'image_gallery'; f.save!
-    f.reload
-
-    assert_equal 'image_gallery', f.view_as
-  end
-
-  should 'not allow view as bogus' do
-    p = create_user('test_user').person
-    f = fast_create(Folder, :profile_id => p.id)
-    f.view_as = 'bogus'
-    assert !f.save
-  end
-
-  should 'view as folder by default' do
-    p = create_user('test_user').person
-    f = fast_create(Folder, :profile_id => p.id)
-    f.expects(:folder)
-    f.to_html
-
-    assert_equal 'folder', f.view_as
   end
 
   should 'have images that are only images or other folders' do
@@ -114,14 +89,15 @@ class FolderTest < ActiveSupport::TestCase
   end
 
   should 'return published images as images' do
-    p = create_user('test_user').person
-    i = UploadedFile.create!(:profile => p, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
+    person = create_user('test_user').person
+    image = UploadedFile.create!(:profile => person, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
 
-    c = fast_create(Community)
-    folder = fast_create(Folder, :profile_id => c.id)
-    pi = PublishedArticle.create!(:profile => c, :reference_article => i, :parent => folder)
+    community = fast_create(Community)
+    folder = fast_create(Folder, :profile_id => community.id)
+    a = ApproveArticle.create!(:article => image, :target => community, :requestor => person, :article_parent => folder)
+    a.finish
 
-    assert_includes folder.images(true), pi
+    assert_includes folder.images(true), community.articles.find_by_name('rails.png')
   end
 
   should 'not let pass javascript in the body' do

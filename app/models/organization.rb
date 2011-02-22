@@ -19,6 +19,8 @@ class Organization < Profile
 
   has_many :validations, :class_name => 'CreateEnterprise', :foreign_key => :target_id
 
+  has_many :mailings, :class_name => 'OrganizationMailing', :foreign_key => :source_id, :as => 'source'
+
   def validation_methodology
     self.validation_info ? self.validation_info.validation_methodology : nil
   end
@@ -97,10 +99,24 @@ class Organization < Profile
   end
 
   def default_set_of_blocks
+    links = [
+      {:name => _("Community's profile"), :address => '/profile/{profile}', :icon => 'ok'},
+      {:name => _('Invite Friends'), :address => '/profile/{profile}/invite/friends', :icon => 'send'},
+      {:name => _('Agenda'), :address => '/profile/{profile}/events', :icon => 'event'},
+      {:name => _('Image gallery'), :address => '/{profile}/gallery', :icon => 'photos'},
+      {:name => _('Blog'), :address => '/{profile}/blog', :icon => 'edit'},
+    ]
     [
-      [MainBlock],
-      [ProfileInfoBlock, RecentDocumentsBlock],
-      [MembersBlock, TagsBlock]
+      [MainBlock.new],
+      [ProfileImageBlock.new, LinkListBlock.new(:links => links)],
+      [MembersBlock.new, RecentDocumentsBlock.new]
+    ]
+  end
+
+  def default_set_of_articles
+    [
+      Blog.new(:name => _('Blog')),
+      Gallery.new(:name => _('Gallery')),
     ]
   end
 
@@ -111,4 +127,13 @@ class Organization < Profile
   def already_request_membership?(person)
     self.tasks.pending.find_by_requestor_id(person.id, :conditions => { :type => 'AddMember' })
   end
+
+  def jid(options = {})
+    super({:domain => "conference.#{environment.default_hostname}"}.merge(options))
+  end
+
+  def receives_scrap_notification?
+    false
+  end
+
 end

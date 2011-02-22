@@ -1,20 +1,10 @@
 class ApproveArticle < Task
-  serialize :data, Hash
-
   validates_presence_of :requestor_id, :target_id
-
-  def description
-    _('%{author} wants to publish "%{article}" on %{community}') % { :author => requestor.name, :article => article_title, :community => target.name }
-  end
 
   def article_title
     article ? article.title : _('(The original text was removed)')
   end
   
-  def data
-    self[:data] ||= {} 
-  end
-
   def article
     Article.find_by_id data[:article_id]
   end
@@ -24,28 +14,14 @@ class ApproveArticle < Task
   end
 
   def name
-    data[:name]
+    data[:name].blank? ? (article ? article.name : _("Article removed.")) : data[:name]
   end
 
   def name= value
     data[:name] = value
   end
 
-  def closing_statment
-    data[:closing_statment]
-  end
-  
-  def closing_statment= value
-    data[:closing_statment] = value
-  end
-
-  def article_parent_id= value
-    data[:parent_id] = value
-  end
-
-  def article_parent_id
-    data[:parent_id]
-  end
+  settings_items :closing_statment, :article_parent_id, :highlighted
 
   def article_parent
     Article.find_by_id article_parent_id.to_i
@@ -55,22 +31,80 @@ class ApproveArticle < Task
     self.article_parent_id = value.id
   end
 
-  def highlighted= value
-    data[:highlighted] = value
+  def abstract= value
+    data[:abstract] = value
   end
 
-  def highlighted
-    data[:highlighted]
+  def abstract
+    data[:abstract].blank? ? (article ? article.abstract : '') : data[:abstract]
+  end
+
+  def body= value
+    data[:body] = value
+  end
+
+  def body
+    data[:body].blank? ? (article ? article.body : "") : data[:body]
   end
 
   def perform
-    PublishedArticle.create!(:name => name, :profile => target, :reference_article => article, :parent => article_parent, :highlighted => highlighted)
+     article.copy!(:name => name, :abstract => abstract, :body => body, :profile => target, :reference_article => article, :parent => article_parent, :highlighted => highlighted, :source => article.source)
+  end
+
+  def title
+    _("New article")
+  end
+
+  def icon
+    result = {:type => :defined_image, :src => '/images/icons-app/article-minor.png', :name => name}
+    result.merge({:url => article.url}) if article
+    return result
+  end
+
+  def linked_subject
+    {:text => name, :url => article.url} if article
+  end
+
+  def information
+    if article
+      {:message => _('%{requestor} wants to publish the article: %{linked_subject}.')}
+    else
+      {:message => _("The article was removed.")}
+    end
+  end
+
+  def accept_details
+    true
+  end
+
+  def default_decision
+    if article
+      'skip'
+    else
+      'reject'
+    end
+  end
+
+  def accept_disabled?
+    article.blank?
+  end
+
+  def target_notification_description
+    _('%{requestor} wants to publish the article: %{article}.') % {:requestor => requestor.name, :article => article.name}
   end
 
   def target_notification_message
     return nil if target.organization? && !target.moderated_articles?
-    description + "\n\n" +
+    target_notification_description + "\n\n" +
     _('You need to login on %{system} in order to approve or reject this article.') % { :system => target.environment.name }
+  end
+
+  def task_finished_message
+    if !closing_statment.blank?
+      _("Your request for publishing the article \"%{article}\" was approved. Here is the comment left by the admin who approved your article:\n\n%{comment} ") % {:article => name, :comment => closing_statment}
+    else
+      _('Your request for publishing the article "%{article}" was approved.') % {:article => name}
+    end
   end
 
 end

@@ -89,7 +89,7 @@ class ArticleBlockTest < ActiveSupport::TestCase
     block.expects(:title).returns('')
     block.stubs(:article).returns(article)
 
-    assert_equal "<h3></h3>Article content", instance_eval(&block.content)
+    assert_equal "<h3 class=\"block-title empty\"><span></span></h3>Article content", instance_eval(&block.content)
   end
 
   should "display title if defined" do
@@ -99,7 +99,7 @@ class ArticleBlockTest < ActiveSupport::TestCase
     block.expects(:title).returns('Article title')
     block.stubs(:article).returns(article)
 
-    assert_equal "<h3>Article title</h3>Article content", instance_eval(&block.content)
+    assert_equal "<h3 class=\"block-title\"><span>Article title</span></h3>Article content", instance_eval(&block.content)
   end
 
   should 'display image if article is an image' do
@@ -118,9 +118,7 @@ class ArticleBlockTest < ActiveSupport::TestCase
   should 'not display gallery pages navigation in content' do
     profile = create_user('testuser').person
     block = ArticleBlock.new
-    gallery = fast_create(Folder, :profile_id => profile.id)
-    gallery.view_as = 'image_gallery'
-    gallery.save!
+    gallery = fast_create(Gallery, :profile_id => profile.id)
     image = UploadedFile.create!(:profile => profile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :parent => gallery)
     block.article = image
     block.save!
@@ -142,17 +140,6 @@ class ArticleBlockTest < ActiveSupport::TestCase
   end
 
   protected
+    include NoosferoTestHelper
 
-    def content_tag(tag, text, options = {})
-      "<#{tag}>#{text}</#{tag}>"
-    end
-    def image_tag(arg)
-      arg
-    end
-    def link_to(text, url, options = {})
-      "<a href='#{url.to_s}'>#{text}</a>"
-    end
-    def params
-      {}
-    end
 end

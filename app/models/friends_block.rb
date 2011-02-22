@@ -19,18 +19,8 @@ class FriendsBlock < ProfileListBlock
     end
   end
 
-  class FriendsBlock::Finder < ProfileListBlock::Finder
-    def ids
-      self.block.owner.friend_ids
-    end
-  end
-
-  def profile_finder
-    @profile_finder ||= FriendsBlock::Finder.new(self)
-  end
-
-  def profile_count
-    owner.friends.visible.count
+  def profiles
+    owner.friends
   end
 
 end

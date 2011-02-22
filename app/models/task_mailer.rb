@@ -17,11 +17,10 @@ class TaskMailer < ActionMailer::Base
     url_for_tasks_list = task.target.kind_of?(Environment) ? '' : url_for(task.target.url.merge(:controller => 'tasks', :action => 'index'))
 
     from self.class.generate_from(task)
-    subject '[%s] %s' % [task.requestor.environment.name, task.description]
-    body :requestor => task.requestor.name,
-      :target => task.target.name,
+    subject '[%s] %s' % [task.environment.name, task.target_notification_description]
+    body :target => task.target.name,
       :message => msg,
-      :environment => task.requestor.environment.name,
+      :environment => task.environment.name,
       :url => generate_environment_url(task, :controller => 'home'),
       :tasks_url => url_for_tasks_list
   end
@@ -33,7 +32,7 @@ class TaskMailer < ActionMailer::Base
     recipients task.friend_email
 
     from self.class.generate_from(task)
-    subject '[%s] %s' % [ task.requestor.environment.name, task.description ]
+    subject '[%s] %s' % [ task.requestor.environment.name, task.information ]
     body :message => msg
   end
 
@@ -53,7 +52,7 @@ class TaskMailer < ActionMailer::Base
 
     recipients task.requestor.notification_emails
     from self.class.generate_from(task)
-    subject '[%s] %s' % [task.requestor.environment.name, task.description]
+    subject '[%s] %s' % [task.requestor.environment.name, task.information]
     body :requestor => task.requestor.name,
       :message => text,
       :environment => task.requestor.environment.name,
@@ -61,11 +60,11 @@ class TaskMailer < ActionMailer::Base
   end
 
   def self.generate_from(task)
-    "#{task.requestor.environment.name} <#{task.requestor.environment.contact_email}>"
+    "#{task.environment.name} <#{task.environment.contact_email}>"
   end
 
   def generate_environment_url(task, url = {})
-    url_for(Noosfero.url_options.merge(:host => task.requestor.environment.default_hostname).merge(url))
+    url_for(Noosfero.url_options.merge(:host => task.environment.default_hostname).merge(url))
   end
 
 end

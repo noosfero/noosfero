@@ -1,0 +1,9 @@
+<%= search_page_title( @title, { :query => @query} ) %>
+
+<%= render :partial => 'search_form', :locals => {:action => 'people'} %>
+
+<%= render :partial => 'display_results' %>
+
+<%= pagination_links @results %>
+
+<br style="clear:both" />

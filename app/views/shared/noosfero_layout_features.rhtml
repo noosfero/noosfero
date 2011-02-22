@@ -1,25 +1,3 @@
-    <% unless flash[:notice].nil? %>
-      <div id="notice" onclick="Element.hide('notice');" style="display:none">
-        <%= flash[:notice] %>
-        <%= javascript_tag(
-          visual_effect( :appear,    'notice', :duration => 1.5, :to => 0.8, :queue => :end ) +
-          'setTimeout(function() { %s }, 5000)' % visual_effect( :fade,      'notice', :duration => 1.0, :from => 0.8, :queue => :end )
-        ) %>
-      </div>
-    <% end %>
-
     <% if is_testing_theme %>
       <%= render :file => 'shared/theme_test_panel' %>
     <% end %>
-
-    <% if ask_to_join? %>
-      <%= render :file => 'shared/join_community_popup' %>
-    <% end %>
-
-    <script type="text/javascript">
-      $$("a").each(function(a){
-        if ( a.href == document.location.href ) {
-          a.className += " link-this-page";
-        }
-      });
-    </script>

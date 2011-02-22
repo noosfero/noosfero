@@ -24,7 +24,7 @@ class AdminPanelControllerTest < Test::Unit::TestCase
   end
 
   should 'manage the correct environment' do
-    current = Environment.create!(:name => 'test environment', :is_default => false)
+    current = fast_create(Environment, :name => 'test environment', :is_default => false)
     current.domains.create!(:name => 'example.com')
     
     @request.expects(:host).returns('example.com').at_least_once
@@ -241,7 +241,7 @@ class AdminPanelControllerTest < Test::Unit::TestCase
   should 'not have a portal community from other environment' do
     e = Environment.default
     @controller.stubs(:environment).returns(e)
-    other_e = Environment.create!(:name => 'other environment')
+    other_e = fast_create(Environment, :name => 'other environment')
     c = Community.create!(:name => 'portal community', :environment => other_e)
 
     post :set_portal_community, :portal_community_identifier => c.identifier

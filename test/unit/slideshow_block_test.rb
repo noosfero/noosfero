@@ -8,9 +8,7 @@ class SlideshowBlockTest < ActiveSupport::TestCase
   attr_reader :profile
 
   should 'refer to a gallery' do
-    gallery = fast_create(Folder, :profile_id => profile.id)
-    gallery.view_as = 'image_gallery'
-    gallery.save!
+    gallery = fast_create(Gallery, :profile_id => profile.id)
     slideshow_block = SlideshowBlock.create!(:gallery_id => gallery.id)
     assert_equal gallery, slideshow_block.gallery
   end
@@ -82,6 +80,14 @@ class SlideshowBlockTest < ActiveSupport::TestCase
     assert_equal '/bli/slideshow.png', SlideshowBlock.new(:image_size => 'slideshow').public_filename_for(image)
   end
 
+  should 'display the default slideshow image if thumbnails were not processed' do
+    image = mock
+    image.expects(:public_filename).with('slideshow').returns('/images/icons-app/image-loading-slideshow.png')
+    File.expects(:exists?).with("#{Rails.root}/public/images/icons-app/image-loading-slideshow.png").returns(true)
+
+    assert_equal '/images/icons-app/image-loading-slideshow.png', SlideshowBlock.new(:image_size => 'slideshow').public_filename_for(image)
+  end
+
   should 'fallback to existing size in case the requested size does not exist' do
     block = SlideshowBlock.new(:image_size => 'slideshow')
 
@@ -95,6 +101,16 @@ class SlideshowBlockTest < ActiveSupport::TestCase
     File.expects(:exists?).with("#{Rails.root}/public/bli/thumb.png").returns(true) # <<<<<
 
     assert_equal '/bli/thumb.png', block.public_filename_for(image)
+  end
+
+  should 'choose between owner image galleries' do
+    block = SlideshowBlock.new
+    owner = mock
+    block.stubs(:owner).returns(owner)
+
+    list = []
+    owner.expects(:image_galleries).returns(list)
+    assert_same list, block.folder_choices
   end
 
 end

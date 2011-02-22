@@ -22,6 +22,9 @@ Feature: login
     And the following users
       | login | name |
       | mariasilva | Maria Silva |
+    And the following articles
+      | owner      | name         | homepage |
+      | mariasilva | my home page | true |
     And I go to Maria Silva's homepage
     And I follow "Login"
     And I fill in the following:

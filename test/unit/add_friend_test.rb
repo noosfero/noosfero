@@ -2,31 +2,32 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class AddFriendTest < ActiveSupport::TestCase
 
+  def setup
+    @person1 = create_user('testuser1').person
+    @person2 = create_user('testuser2').person
+  end
+  attr_reader :person1, :person2
+
   should 'be a task' do
     ok { AddFriend.new.kind_of?(Task) }
   end
 
   should 'actually create friendships (two way) when confirmed' do
-    p1 = create_user('testuser1').person
-    p2 = create_user('testuser2').person
 
-    task = fast_create(AddFriend, :requestor_id => p1.id, :target_id => p2.id, :target_type => 'Person')
+    task = fast_create(AddFriend, :requestor_id => person1.id, :target_id => person2.id, :target_type => 'Person')
 
     assert_difference Friendship, :count, 2 do
       task.finish
     end
-    p1.friends.reload
-    p2.friends.reload
+    person1.friends.reload
+    person2.friends.reload
 
-    ok('p1 should have p2 as friend') { p1.friends.include?(p2) }
-    ok('p2 should have p1 as friend') { p2.friends.include?(p1) }
+    ok('person1 should have person2 as friend') { person1.friends.include?(person2) }
+    ok('person2 should have person1 as friend') { person2.friends.include?(person1) }
   end
 
   should 'put friendships in the right groups' do
-    p1 = create_user('testuser1').person
-    p2 = create_user('testuser2').person
-
-    task = fast_create(AddFriend, :requestor_id => p1, :target_id => p2.id, :target_type => 'Person')
+    task = fast_create(AddFriend, :requestor_id => person1, :target_id => person2.id, :target_type => 'Person')
     task.group_for_person = 'friend1'
     task.group_for_friend = 'friend2'
     assert task.save
@@ -35,8 +36,8 @@ class AddFriendTest < ActiveSupport::TestCase
       task.finish
     end
 
-    ok('p1 should list p2 as friend1') { p1.friendships.first.group == 'friend1' }
-    ok('p2 should have p1 as friend2') { p2.friendships.first.group == 'friend2' }
+    ok('person1 should list person2 as friend1') { person1.friendships.first.group == 'friend1' }
+    ok('person2 should have person1 as friend2') { person2.friendships.first.group == 'friend2' }
   end
 
   should 'require requestor (person adding other as friend)' do
@@ -63,21 +64,9 @@ class AddFriendTest < ActiveSupport::TestCase
   end
 
   should 'send e-mails' do
-    p1 = create_user('testuser1').person
-    p2 = create_user('testuser2').person
-
     TaskMailer.expects(:deliver_target_notification).at_least_once
 
-    task = AddFriend.create!(:person => p1, :friend => p2)
-  end
-
-  should 'provide proper description' do
-    p1 = create_user('testuser1').person
-    p2 = create_user('testuser2').person
-
-    task = fast_create(AddFriend, :requestor_id => p1.id, :target_id => p2.id)
-
-    assert_equal 'testuser1 wants to be your friend.', task.description
+    task = AddFriend.create!(:person => person1, :friend => person2)
   end
 
   should 'has permission to manage friends' do
@@ -86,18 +75,14 @@ class AddFriendTest < ActiveSupport::TestCase
   end
 
   should 'not add friend twice' do
-    p1 = create_user('testuser1').person
-    p2 = create_user('testuser2').person
-    fast_create(AddFriend, :requestor_id => p1.id, :target_id => p2.id)
+    fast_create(AddFriend, :requestor_id => person1.id, :target_id => person2.id)
     assert_raise ActiveRecord::RecordInvalid do
-      AddFriend.create!(:person => p1, :friend => p2)
+      AddFriend.create!(:person => person1, :friend => person2)
     end
   end
 
   should 'override target notification message method from Task' do
-    p1 = create_user('testuser1').person
-    p2 = create_user('testuser2').person
-    task = AddFriend.new(:person => p1, :friend => p2)
+    task = AddFriend.new(:person => person1, :friend => person2)
     assert_nothing_raised NotImplementedError do
       task.target_notification_message
     end
@@ -131,5 +116,23 @@ class AddFriendTest < ActiveSupport::TestCase
     assert !task.errors[:group_for_friend]
   end
 
+  should 'have target notification message if is organization and not moderated' do
+    task = AddFriend.new(:person => person1, :friend => person2)
+
+    assert_match(/wants to be your friend.*[\n]*.*to accept/, task.target_notification_message)
+  end
+
+  should 'have target notification description' do
+    task = AddFriend.new(:person => person1, :friend => person2)
+
+    assert_match(/#{task.requestor.name} wants to be your friend/, task.target_notification_description)
+  end
+
+  should 'deliver target notification message' do
+    task = AddFriend.new(:person => person1, :friend => person2)
+
+    email = TaskMailer.deliver_target_notification(task, task.target_notification_message)
+    assert_match(/#{task.requestor.name} wants to be your friend/, email.subject)
+  end
 
 end

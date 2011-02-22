@@ -48,10 +48,13 @@ ActionController::Routing::Routes.draw do |map|
   # categories index
   map.category 'cat/*category_path', :controller => 'search', :action => 'category_index'
   map.assets 'assets/:asset/*category_path', :controller => 'search', :action => 'assets'
-  map.directory 'directory/:asset/:initial/*category_path', :controller => 'search', :action => 'directory'
   # search
   map.connect 'search/:action/*category_path', :controller => 'search'
  
+  # Browse
+  map.connect 'browse/:action/:filter', :controller => 'browse'
+  map.connect 'browse/:action', :controller => 'browse'
+
   # events
   map.events 'profile/:profile/events_by_day', :controller => 'events', :action => 'events_by_day', :profile => /#{Noosfero.identifier_format}/
   map.events 'profile/:profile/events/:year/:month/:day', :controller => 'events', :action => 'events', :year => /\d*/, :month => /\d*/, :day => /\d*/, :profile => /#{Noosfero.identifier_format}/
@@ -60,9 +63,9 @@ ActionController::Routing::Routes.draw do |map|
 
   # catalog
   map.catalog 'catalog/:profile', :controller => 'catalog', :action => 'index', :profile => /#{Noosfero.identifier_format}/
-  map.product 'catalog/:profile/:id', :controller => 'catalog', :action => 'show', :profile => /#{Noosfero.identifier_format}/
 
   # invite
+  map.invite 'profile/:profile/invite/friends', :controller => 'invite', :action => 'select_address_book', :profile => /#{Noosfero.identifier_format}/
   map.invite 'profile/:profile/invite/:action', :controller => 'invite', :profile => /#{Noosfero.identifier_format}/
 
   # feeds per tag
@@ -72,11 +75,18 @@ ActionController::Routing::Routes.draw do |map|
   map.tag 'profile/:profile/tags/:id', :controller => 'profile', :action => 'content_tagged', :id => /.+/, :profile => /#{Noosfero.identifier_format}/
   map.tag 'profile/:profile/tags', :controller => 'profile', :action => 'tags', :profile => /#{Noosfero.identifier_format}/
 
+  # profile search
+  map.profile_search 'profile/:profile/search', :controller => 'profile_search', :action => 'index', :profile => /#{Noosfero.identifier_format}/
+
   # public profile information
   map.profile 'profile/:profile/:action/:id', :controller => 'profile', :action => 'index', :id => /.*/, :profile => /#{Noosfero.identifier_format}/
 
   # contact
   map.contact 'contact/:profile/:action/:id', :controller => 'contact', :action => 'index', :id => /.*/, :profile => /#{Noosfero.identifier_format}/
+
+  # chat
+  map.chat 'chat/:action/:id', :controller => 'chat'
+  map.chat 'chat/:action', :controller => 'chat'
 
   ######################################################
   ## Controllers that are profile-specific (for profile admins )
@@ -91,6 +101,7 @@ ActionController::Routing::Routes.draw do |map|
   ######################################################
   # administrative tasks for a environment
   map.admin 'admin', :controller => 'admin_panel'
+  map.admin 'admin/:controller.:format/:action/:id', :controller => Noosfero.pattern_for_controllers_in_directory('admin')
   map.admin 'admin/:controller/:action/:id', :controller => Noosfero.pattern_for_controllers_in_directory('admin')
 
 
@@ -100,6 +111,12 @@ ActionController::Routing::Routes.draw do |map|
   # administrative tasks for a environment
   map.system 'system', :controller => 'system'
   map.system 'system/:controller/:action/:id', :controller => Noosfero.pattern_for_controllers_in_directory('system')
+
+  ######################################################
+  # plugin routes
+  ######################################################
+  plugins_routes = File.join(Rails.root + '/lib/noosfero/plugin/routes.rb')
+  eval(IO.read(plugins_routes), binding, plugins_routes)
 
   # cache stuff - hack
   map.cache 'public/:action/:id', :controller => 'public'

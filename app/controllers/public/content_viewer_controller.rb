@@ -51,6 +51,8 @@ class ContentViewerController < ApplicationController
       return
     end
 
+    redirect_to_translation
+
     # At this point the page will be showed
     @page.hit
 
@@ -67,9 +69,6 @@ class ContentViewerController < ApplicationController
       return
     end
 
-    # store location if the page is not a download
-    store_location
-
     @form_div = params[:form]
 
     if request.post? && params[:comment] && params[self.icaptcha_field].blank? && params[:confirm] == 'true' && @page.accept_comments?
@@ -80,22 +79,28 @@ class ContentViewerController < ApplicationController
       remove_comment
     end
     
-    if @page.blog?
+    if @page.has_posts?
       posts = if params[:year] and params[:month]
         filter_date = DateTime.parse("#{params[:year]}-#{params[:month]}-01")
-        @page.posts.by_range(filter_date..Article.last_day_of_month(filter_date))
+        @page.posts.by_range(filter_date..filter_date.at_end_of_month)
       else
         @page.posts
       end
-      @posts = available_articles(posts, user).paginate :page => params[:npage], :per_page => @page.posts_per_page
+
+      posts = posts.native_translations if @page.blog? && @page.display_posts_in_current_language?
+
+      @posts = posts.paginate({ :page => params[:npage], :per_page => @page.posts_per_page }.merge(Article.display_filter(user, profile)))
+
+      @posts.map!{ |p| p.get_translation_to(FastGettext.locale) } if @page.blog? && @page.display_posts_in_current_language?
     end
 
-    if @page.folder? && @page.view_as == 'image_gallery'
+    if @page.folder? && @page.gallery?
       @images = @page.images
       @images = @images.paginate(:per_page => per_page, :page => params[:npage]) unless params[:slideshow]
     end
 
-    @comments = @page.comments(true)
+    @comments = @page.comments(true).as_thread
+    @comments_count = @page.comments.count
     if params[:slideshow]
       render :action => 'slideshow', :layout => 'slideshow'
     end
@@ -110,8 +115,9 @@ class ContentViewerController < ApplicationController
     if @comment.save
       @page.touch
       @comment = nil # clear the comment form
+      redirect_to :action => 'view_page', :profile => params[:profile], :page => @page.explode_path, :view => params[:view]
     else
-      @form_div = 'opened'
+      @form_div = 'opened' if params[:comment][:reply_of_id].blank?
     end
   end
 
@@ -119,7 +125,7 @@ class ContentViewerController < ApplicationController
     @comment = @page.comments.find(params[:remove_comment])
     if (user == @comment.author || user == @page.profile || user.has_permission?(:moderate_comments, @page.profile))
       @comment.destroy
-      flash[:notice] = _('Comment succesfully deleted')
+      session[:notice] = _('Comment succesfully deleted')
     end
     redirect_to :action => 'view_page', :profile => params[:profile], :page => @page.explode_path, :view => params[:view]
   end
@@ -127,4 +133,24 @@ class ContentViewerController < ApplicationController
   def per_page
     12
   end
+
+  def redirect_to_translation
+    locale = FastGettext.locale
+    if !@page.language.nil? && @page.language != locale
+      translations = [@page.native_translation] + @page.native_translation.translations
+      urls = translations.map{ |t| URI.parse(url_for(t.url)).path }
+      urls << URI.parse(url_for(profile.admin_url.merge({ :controller => 'cms', :action => 'edit', :id => @page.id }))).path
+      urls << URI.parse(url_for(profile.admin_url.merge(:controller => 'cms', :action => 'new'))).path
+      referer = URI.parse(url_for(request.referer)).path unless request.referer.blank?
+      unless urls.include?(referer)
+        translations.each do |translation|
+          if translation.language == locale
+            @page = translation
+            redirect_to :profile => @page.profile.identifier, :page => @page.explode_path
+          end
+        end
+      end
+    end
+  end
+
 end

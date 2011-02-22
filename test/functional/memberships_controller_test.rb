@@ -50,16 +50,6 @@ class MembershipsControllerTest < Test::Unit::TestCase
     end
   end
 
-  should 'be able to create a new community on wizard' do
-    assert_difference Community, :count do
-      post :new_community, :profile => profile.identifier, :community => { :name => 'My shiny new community', :description => 'This is a community devoted to anything interesting we find in the internet '}, :wizard => true
-      assert_response :redirect
-    assert_redirected_to :controller => 'search', :action => 'assets', :asset => 'communities', :wizard => true
-
-      assert Community.find_by_identifier('my-shiny-new-community').members.include?(profile), "Creator user should be added as member of the community just created"
-    end
-  end
-
   should 'link to new community creation in index' do
     get :index, :profile => profile.identifier
     assert_tag :tag => 'a', :attributes => { :href => "/myprofile/#{profile.identifier}/memberships/new_community" }
@@ -99,17 +89,17 @@ class MembershipsControllerTest < Test::Unit::TestCase
   end
 
   should 'not show description to enterprises on list' do
-    enterprise = Enterprise.create!(:identifier => 'enterprise-test', :name => 'my test enterprise')
+    enterprise = fast_create(Enterprise, :identifier => 'enterprise-test', :name => 'my test enterprise')
     enterprise.add_member(profile)
     get :index, :profile => profile.identifier
     assert_no_tag :tag => 'li', :content => /Description:/
   end
 
-  should 'show link to leave from community' do
+  should 'show link to leave from community with reload' do
     community = Community.create!(:name => 'my test community', :description => 'description test')
     community.add_member(profile)
     get :index, :profile => profile.identifier
-    assert_tag :tag => 'a', :attributes => { :href => "/profile/#{community.identifier}/leave" }, :content => 'Leave'
+    assert_tag :tag => 'a', :attributes => { :href => "/profile/#{community.identifier}/leave?reload=true" }, :content => 'Leave'
   end
 
   should 'current user is added as admin after create new community' do
@@ -122,15 +112,9 @@ class MembershipsControllerTest < Test::Unit::TestCase
     assert_tag :tag => 'a', :attributes => { :href => "/myprofile/testuser/memberships/new_community" }
   end
 
-  should 'render destroy_community template' do
-    community = Community.create!(:name => 'A community to destroy')
-    get :destroy_community, :profile => 'testuser', :id => community.id
-    assert_template 'destroy_community'
-  end
-
   should 'display destroy link only to communities' do
     community = Community.create!(:name => 'A community to destroy')
-    enterprise = Enterprise.create!(:name => 'A enterprise test', :identifier => 'enterprise-test')
+    enterprise = fast_create(Enterprise, :name => 'A enterprise test')
 
     person = Person['testuser']
     community.add_admin(person)
@@ -138,23 +122,14 @@ class MembershipsControllerTest < Test::Unit::TestCase
 
     get :index, :profile => 'testuser'
 
-    assert_tag :tag => 'a', :attributes => { :href => "/myprofile/testuser/memberships/destroy_community/#{community.id}" }
-    assert_no_tag :tag => 'a', :attributes => { :href => "/myprofile/testuser/memberships/destroy_community/#{enterprise.id}" }
-  end
-
-  should 'be able to destroy communities' do
-    community = Community.create!(:name => 'A community to destroy')
-
-    person = Person['testuser']
-    community.add_admin(person)
-
-    assert_difference Community, :count, -1 do
-      post :destroy_community, :profile => 'testuser', :id => community.id
-    end
+    assert_tag :tag => 'a', :attributes => { :href => "/myprofile/#{community.identifier}/profile_editor/destroy_profile" }
+    assert_no_tag :tag => 'a', :attributes => { :href => "/myprofile/#{enterprise.identifier}/profile_editor/destroy_profile" }
   end
 
   should 'not display destroy link to normal members' do
-    community = Community.create!(:name => 'A community to destroy')
+    community = fast_create(Community)
+    admin = fast_create(Person)
+    community.add_member(admin)
 
     person = Person['testuser']
     community.add_member(person)
@@ -163,7 +138,7 @@ class MembershipsControllerTest < Test::Unit::TestCase
     get :index, :profile => 'testuser'
 
     assert_template 'index'
-    assert_no_tag :tag => 'a', :attributes => { :href => "/myprofile/testuser/memberships/destroy_community/#{community.id}" }
+    assert_no_tag :tag => 'a', :attributes => { :href => "/myprofile/#{community.identifier}/profile_editor/destroy_profile" }
   end
 
   should 'use the current environment for the template of user' do
@@ -173,7 +148,7 @@ class MembershipsControllerTest < Test::Unit::TestCase
     template.boxes[0].blocks << Block.new
     template.save!
 
-    env = Environment.create!(:name => 'test_env')
+    env = fast_create(Environment, :name => 'test_env')
     env.settings[:community_template_id] = template.id
     env.save!
 

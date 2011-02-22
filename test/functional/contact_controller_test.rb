@@ -14,7 +14,7 @@ class ContactControllerTest < Test::Unit::TestCase
     @response   = ActionController::TestResponse.new
 
     @profile = create_user('contact_test_user').person
-    @enterprise = Enterprise.create!(:identifier => 'contact_test_enterprise', :name => 'Test contact enteprise')
+    @enterprise = fast_create(Enterprise, :identifier => 'contact_test_enterprise', :name => 'Test contact enteprise')
 
     login_as('contact_test_user')
   end
@@ -27,7 +27,7 @@ class ContactControllerTest < Test::Unit::TestCase
 
   should 'display destinatary name in title' do
     get :new, :profile => enterprise.identifier
-    assert_tag :tag => 'h1', :content => "Contact #{enterprise.name}"
+    assert_tag :tag => 'h1', :content => /Send.*#{enterprise.name}/
   end
 
   should 'add form to create contact via post' do
@@ -64,6 +64,7 @@ class ContactControllerTest < Test::Unit::TestCase
   end
 
   should 'not display select/city select when disable it in environment' do
+    state = State.create!(:name => "Bahia", :environment => Environment.default)
     get :new, :profile => profile.identifier
     assert_tag :tag => 'select', :attributes => {:name => 'state'}
     env = Environment.default

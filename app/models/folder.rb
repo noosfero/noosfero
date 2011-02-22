@@ -2,19 +2,10 @@ class Folder < Article
 
   acts_as_having_settings :field => :setting
 
-  settings_items :view_as, :type => :string, :default => 'folder'
-
   xss_terminate :only => [ :body ], :with => 'white_list', :on => 'validation'
 
-  def self.select_views
-    [[_('Folder'), 'folder'], [_('Image gallery'), 'image_gallery']]
-  end
-
-  def self.views
-    select_views.map(&:last)
-  end
-
-  validates_inclusion_of :view_as, :in => self.views
+  include WhiteListFilter
+  filter_iframes :body, :whitelist => lambda { profile && profile.environment && profile.environment.trusted_sites_for_iframe }
 
   def self.short_description
     _('Folder')
@@ -24,35 +15,20 @@ class Folder < Article
     _('A folder, inside which you can put other articles.')
   end
 
-  def icon_name
+  def self.icon_name(article = nil)
     'folder'
   end
 
-
+  include ActionView::Helpers::TagHelper
   def to_html(options = {})
-    send(view_as)
-  end
-
-  def folder
     folder = self
     lambda do
       render :file => 'content_viewer/folder', :locals => { :folder => folder }
     end
   end
 
-  def image_gallery
-    article = self
-    lambda do
-      render :file => 'content_viewer/image_gallery', :locals => {:article => article}
-    end
-  end
-
   def folder?
     true
-  end
-
-  def display_as_gallery?
-    view_as == 'image_gallery'
   end
 
   def can_display_hits?
@@ -70,7 +46,5 @@ class Folder < Article
   has_many :images, :class_name => 'Article',
                     :foreign_key => 'parent_id',
                     :order => 'articles.type, articles.name',
-                    :include => :reference_article,
-                    :conditions => ["articles.type = 'UploadedFile' and articles.content_type in (?) or articles.type = 'Folder' or (articles.type = 'PublishedArticle' and reference_articles_articles.type = 'UploadedFile' and reference_articles_articles.content_type in (?))", UploadedFile.content_types, UploadedFile.content_types]
-
+                    :conditions => ["articles.type = 'UploadedFile' and articles.content_type in (?) or articles.type in ('Folder','Gallery')", UploadedFile.content_types]
 end

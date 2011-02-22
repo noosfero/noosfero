@@ -1,13 +1,22 @@
 class Event < Article
 
-  acts_as_having_settings :field => :body
-
-  settings_items :description, :type => :string
-  settings_items :link, :type => :string
   settings_items :address, :type => :string
 
+  def link=(value)
+    self.setting[:link] = maybe_add_http(value)
+  end
+
+  def link
+    maybe_add_http(self.setting[:link])
+  end
+
   xss_terminate :only => [ :link ], :on => 'validation'
-  xss_terminate :only => [ :description, :link, :address ], :with => 'white_list', :on => 'validation'
+  xss_terminate :only => [ :body, :link, :address ], :with => 'white_list', :on => 'validation'
+
+  def initialize(*args)
+    super(*args)
+    self.start_date ||= Date.today
+  end
 
   validates_presence_of :title, :start_date
 
@@ -21,6 +30,9 @@ class Event < Article
     {:conditions => ['start_date = :date AND end_date IS NULL OR (start_date <= :date AND end_date >= :date)', {:date => date}]}
   }
 
+  include WhiteListFilter
+  filter_iframes :body, :link, :address, :whitelist => lambda { profile && profile.environment && profile.environment.trusted_sites_for_iframe }
+
   def self.description
     _('A calendar event')
   end
@@ -29,7 +41,7 @@ class Event < Article
     _('Event')
   end
 
-  def icon_name
+  def self.icon_name(article = nil)
     'event'
   end
 
@@ -88,26 +100,27 @@ class Event < Article
         }
       }
 
-      if self.description
+      if self.body
         html.div('_____XXXX_DESCRIPTION_GOES_HERE_XXXX_____', :class => 'event-description') 
       end
     }
 
-    if self.description
-      result.sub!('_____XXXX_DESCRIPTION_GOES_HERE_XXXX_____', self.description)
+    if self.body
+      result.sub!('_____XXXX_DESCRIPTION_GOES_HERE_XXXX_____', self.body)
     end
 
     result
   end
 
-  def link=(value)
-    self.body[:link] = maybe_add_http(value)
+  def event?
+    true
   end
 
-  def link
-    maybe_add_http(self.body[:link])
+  def tiny_mce?
+    true
   end
 
+  include Noosfero::TranslatableContent
   include MaybeAddHttp
 
 end

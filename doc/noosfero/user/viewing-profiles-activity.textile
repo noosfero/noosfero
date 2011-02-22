@@ -1,0 +1,24 @@
+h1(order-462). Viewing profile's activities
+
+p.  _Whenever you want to see what a profile is doing you can visit the profile and view his activities._
+
+*  "How to access":#HowAccess
+*  "Description":#Description
+*  "Related Topics":#RelatedTopics
+
+h2(#HowAccess). How to access
+
+# If you have a friend in this system, you can find her/him with the system search. Use the "search":/doc/navigation/searching-people and click on your friend picture to visite her/his page.
+# In the person page you will see the "View profile" link near her picture. !=/images/doc/person-view-profile-link.en.png(Link to view profile)!
+
+h2(#Description). Description
+
+On profile's page, when you click on "Activity" tab, the most recent activities of the user will be listed !=/images/doc/person-activities-list.pt.png(Activity tab)!
+
+h2(#RelatedTopics). Related topics
+
+*  "Removing friends":/doc/user/removing-friends
+*  "Accepting friends":/doc/user/accepting-friends
+*  "Finding people":/doc/navigation/searching-people
+
+"Back to top":#online-doc-text

@@ -1,10 +1,5 @@
 class ChangePassword < Task
 
-  serialize :data, Hash
-  def data
-    self[:data] ||= {}
-  end
-
   attr_accessor :login, :email, :password, :password_confirmation, :environment_id
 
   def self.human_attribute_name(attrib)
@@ -45,7 +40,7 @@ class ChangePassword < Task
   end
 
   before_validation_on_create do |change_password|
-    change_password.requestor = Person.find_by_identifier(change_password.login)
+    change_password.requestor = Person.find_by_identifier_and_environment_id(change_password.login, change_password.environment_id)
   end
 
   ###################################################
@@ -56,9 +51,16 @@ class ChangePassword < Task
   validates_presence_of :password_confirmation, :on => :update, :if => lambda { |change| change.status != Task::Status::CANCELLED }
   validates_confirmation_of :password, :if => lambda { |change| change.status != Task::Status::CANCELLED }
 
-  def initialize(*args)
-    super(*args)
-    self[:data] = {}
+  def title
+    _("Change password")
+  end
+
+  def information
+    {:message => _('%{requestor} wants to change its password.')}
+  end
+
+  def icon
+    {:type => :profile_image, :profile => requestor, :url => requestor.url}
   end
 
   def perform
@@ -87,8 +89,8 @@ class ChangePassword < Task
     end
   end
 
-  def description
-    _('Password change request')
+  def environment
+    self.requestor.environment
   end
 
 end

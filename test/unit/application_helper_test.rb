@@ -8,17 +8,6 @@ class ApplicationHelperTest < ActiveSupport::TestCase
     self.stubs(:session).returns({})
   end
 
-  should 'retrieve conf from "web2.0" config file' do
-    yml = RAILS_ROOT + '/config/web2.0.yml'
-    conf = {
-      'addthis'=>{'pub'=>'mylogin', 'options'=>'favorites, email'},
-      'gravatar'=>{'default'=>'wavatar'}
-    }
-    File.expects(:exists?).with(yml).returns(true)
-    YAML.expects(:load_file).with(yml).returns(conf)
-    assert_equal conf, web2_conf
-  end
-
   should 'calculate correctly partial for object' do
     self.stubs(:params).returns({:controller => 'test'})
 
@@ -96,11 +85,20 @@ class ApplicationHelperTest < ActiveSupport::TestCase
     assert_equal 'black', role_color('none', Environment.default.id)
   end
 
-  should 'rolename for' do
+  should 'rolename for first organization member' do
     person = create_user('usertest').person
     community = fast_create(Community, :name => 'new community', :identifier => 'new-community', :environment_id => Environment.default.id)
     community.add_member(person)
-    assert_equal 'Profile Member', rolename_for(person, community)
+    assert_equal 'Profile Administrator', rolename_for(person, community)
+  end
+
+  should 'rolename for a member' do
+    member1 = create_user('usertest1').person
+    member2 = create_user('usertest2').person
+    community = fast_create(Community, :name => 'new community', :identifier => 'new-community', :environment_id => Environment.default.id)
+    community.add_member(member1)
+    community.add_member(member2)
+    assert_equal 'Profile Member', rolename_for(member2, community)
   end
 
   should 'get theme from environment by default' do
@@ -152,6 +150,28 @@ class ApplicationHelperTest < ActiveSupport::TestCase
     expects(:render).with(:file => footer).never
 
     assert_nil theme_footer
+  end
+
+  should 'render theme site title' do
+    stubs(:theme_path).returns('/user_themes/mytheme')
+    site_title_path = RAILS_ROOT + '/public/user_themes/mytheme/site_title.rhtml'
+
+    File.expects(:exists?).with(site_title_path).returns(true)
+    expects(:render).with(:file => site_title_path, :use_full_path => false).returns("Site title")
+
+    assert_equal "Site title", theme_site_title
+  end
+
+  should 'ignore unexisting theme site title' do
+    stubs(:theme_path).returns('/user_themes/mytheme')
+    site_title_path = RAILS_ROOT + '/public/user_themes/mytheme/site_title.rhtml'
+    alternate_site_title_path = RAILS_ROOT + '/public/user_themes/mytheme/site_title.html.erb'
+
+    File.expects(:exists?).with(site_title_path).returns(false)
+    File.expects(:exists?).with(alternate_site_title_path).returns(false)
+    expects(:render).with(:file => site_title_path).never
+
+    assert_nil theme_site_title
   end
 
   should 'expose theme owner' do
@@ -368,150 +388,15 @@ class ApplicationHelperTest < ActiveSupport::TestCase
     assert_equal '<span>SIGNUP_FIELD</span>', optional_field(profile, 'field', 'SIGNUP_FIELD')
   end
 
-  should 'not ask_to_join unless profile defined' do
-    stubs(:params).returns({})
-
-    e = Environment.default
-    e.stubs(:enabled?).with(:join_community_popup).returns(true)
-    stubs(:environment).returns(e)
-
-    stubs(:profile).returns(nil)
-    assert ! ask_to_join?
+  should 'base theme uses default icon theme' do
+    stubs(:current_theme).returns('base')
+    assert_equal "/designs/icons/default/style.css", icon_theme_stylesheet_path.first
   end
 
-  should 'not ask_to_join unless profile is community' do
-    stubs(:params).returns({})
-    e = Environment.default
-    e.stubs(:enabled?).with(:join_community_popup).returns(true)
-    stubs(:environment).returns(e)
-
-    p = create_user('test_user').person
-    stubs(:profile).returns(p)
-    assert ! ask_to_join?
-  end
-
-  should 'not ask_to_join if action join' do
-    expects(:params).returns({:action => 'join'})
-
-    e = Environment.default
-    e.stubs(:enabled?).with(:join_community_popup).returns(true)
-    stubs(:environment).returns(e)
-
-    c = fast_create(Community, :name => 'test_comm', :identifier => 'test_comm')
-    stubs(:profile).returns(c)
-    stubs(:logged_in?).returns(false)
-    assert ! ask_to_join?
-  end
-
-  should 'ask_to_join if its not logged and in a community' do
-    stubs(:params).returns({})
-
-    e = Environment.default
-    e.stubs(:enabled?).with(:join_community_popup).returns(true)
-    stubs(:environment).returns(e)
-
-    c = fast_create(Community, :name => 'test_comm', :identifier => 'test_comm')
-    stubs(:profile).returns(c)
-    stubs(:logged_in?).returns(false)
-    assert ask_to_join?
-  end
-
-  should 'ask_to_join if user say so' do
-    stubs(:params).returns({})
-
-    e = Environment.default
-    e.stubs(:enabled?).with(:join_community_popup).returns(true)
-    stubs(:environment).returns(e)
-
-    c = fast_create(Community, :name => 'test_comm', :identifier => 'test_comm')
-    stubs(:profile).returns(c)
-    stubs(:logged_in?).returns(true)
-    p = create_user('test_user').person
-    p.stubs(:ask_to_join?).with(c).returns(true)
-    stubs(:user).returns(p)
-
-    assert ask_to_join?
-  end
-
-  should 'not ask_to_join if user say no' do
-    stubs(:params).returns({})
-
-    e = Environment.default
-    e.stubs(:enabled?).with(:join_community_popup).returns(true)
-    stubs(:environment).returns(e)
-    c = fast_create(Community, :name => 'test_comm', :identifier => 'test_comm')
-    stubs(:profile).returns(c)
-    stubs(:logged_in?).returns(true)
-    p = create_user('test_user').person
-    p.stubs(:ask_to_join?).with(c).returns(false)
-    stubs(:user).returns(p)
-
-    assert !ask_to_join?
-  end
-
-  should 'not ask_to_join if environment say no even if its not logged and in a community' do
-    stubs(:params).returns({})
-
-    e = Environment.default
-    e.stubs(:enabled?).with(:join_community_popup).returns(false)
-    stubs(:environment).returns(e)
-    c = fast_create(Community, :name => 'test_comm', :identifier => 'test_comm')
-    stubs(:profile).returns(c)
-    stubs(:logged_in?).returns(false)
-    assert !ask_to_join?
-  end
-
-  should 'not ask_to_join if environment say no even if user say so' do
-    stubs(:params).returns({})
-
-    e = Environment.default
-    e.stubs(:enabled?).with(:join_community_popup).returns(false)
-    stubs(:environment).returns(e)
-    c = fast_create(Community, :name => 'test_comm', :identifier => 'test_comm')
-    stubs(:profile).returns(c)
-    stubs(:logged_in?).returns(true)
-    p = create_user('test_user').person
-    p.stubs(:ask_to_join?).with(c).returns(true)
-    stubs(:user).returns(p)
-
-    assert !ask_to_join?
-  end
-
-  should 'not ask_to_join if its recorded in the session' do
-    stubs(:params).returns({})
-
-    e = Environment.default
-    e.stubs(:enabled?).with(:join_community_popup).returns(true)
-    stubs(:environment).returns(e)
-
-    c = fast_create(Community, :name => 'test_comm', :identifier => 'test_comm')
-    stubs(:profile).returns(c)
-    stubs(:logged_in?).returns(false)
-    stubs(:session).returns({:no_asking => [c.id]})
-
-    assert !ask_to_join?
-  end
-
-  should 'not ask_to_join if its recorded in the session even for authenticated users' do
-    stubs(:params).returns({})
-
-    e = Environment.default
-    e.stubs(:enabled?).with(:join_community_popup).returns(true)
-    stubs(:environment).returns(e)
-
-    c = fast_create(Community, :name => 'test_comm', :identifier => 'test_comm')
-    stubs(:profile).returns(c)
-    stubs(:logged_in?).returns(true)
-    stubs(:session).returns({:no_asking => [c.id]})
-
-    assert !ask_to_join?
-  end
-
-  should 'use default icon theme when there is no stylesheet file for the current icon theme' do
-    e = Environment.default
-    e.icon_theme = 'something-very-unlikely'
-    stubs(:environment).returns(e)
-    assert_equal "/designs/icons/default/style.css", icon_theme_stylesheet_path
+  should 'base theme uses config to specify more then an icon theme' do
+    stubs(:current_theme).returns('base')
+    assert_includes icon_theme_stylesheet_path, "/designs/icons/default/style.css"
+    assert_includes icon_theme_stylesheet_path, "/designs/icons/pidgin/style.css"
   end
 
   should 'not display active field if only required' do
@@ -523,6 +408,7 @@ class ApplicationHelperTest < ActiveSupport::TestCase
 
   should 'display name on page title if profile doesnt have nickname' do
     stubs(:environment).returns(Environment.default)
+    @controller = ApplicationController.new
 
     c = fast_create(Community, :name => 'Comm name', :identifier => 'test_comm')
     stubs(:profile).returns(c)
@@ -531,32 +417,34 @@ class ApplicationHelperTest < ActiveSupport::TestCase
 
   should 'display nickname on page title if profile has nickname' do
     stubs(:environment).returns(Environment.default)
+    @controller = ApplicationController.new
 
-    c = fast_create(Community, :name => 'Community for tests', :nickname => 'Community nickname', :identifier => 'test_comm')
+    c = fast_create(Community, :name => 'Community for tests', :nickname => 'Community nick', :identifier => 'test_comm')
     stubs(:profile).returns(c)
-    assert_match(/Community nickname/, page_title)
+    assert_match(/Community nick/, page_title)
   end
 
   should 'generate a gravatar url' do
-    stubs(:web2_conf).returns({"gravatar" => {"default" => "wavatar"}})
-    url = str_gravatar_url_for( 'rms@gnu.org', :size => 50 )
-    assert_match(/^http:\/\/www\.gravatar\.com\/avatar\.php\?/, url)
-    assert_match(/(\?|&)gravatar_id=ed5214d4b49154ba0dc397a28ee90eb7(&|$)/, url)
-    assert_match(/(\?|&)d=wavatar(&|$)/, url)
-    assert_match(/(\?|&)size=50(&|$)/, url)
+    with_constants :NOOSFERO_CONF => {'gravatar' => 'crazyvatar'} do
+      url = str_gravatar_url_for( 'rms@gnu.org', :size => 50 )
+      assert_match(/^http:\/\/www\.gravatar\.com\/avatar\.php\?/, url)
+      assert_match(/(\?|&)gravatar_id=ed5214d4b49154ba0dc397a28ee90eb7(&|$)/, url)
+      assert_match(/(\?|&)d=crazyvatar(&|$)/, url)
+      assert_match(/(\?|&)size=50(&|$)/, url)
+    end
   end
 
   should 'use theme passed via param when in development mode' do
     stubs(:environment).returns(Environment.new(:theme => 'environment-theme'))
     ENV.stubs(:[]).with('RAILS_ENV').returns('development')
-    self.stubs(:params).returns({:theme => 'my-theme'})
-    assert_equal 'my-theme', current_theme
+    self.stubs(:params).returns({:theme => 'skyblue'})
+    assert_equal 'skyblue', current_theme
   end
 
   should 'not use theme passed via param when in production mode' do
     stubs(:environment).returns(Environment.new(:theme => 'environment-theme'))
     ENV.stubs(:[]).with('RAILS_ENV').returns('production')
-    self.stubs(:params).returns({:theme => 'my-theme'})
+    self.stubs(:params).returns({:theme => 'skyblue'})
     stubs(:profile).returns(Profile.new(:theme => 'profile-theme'))
     assert_equal 'profile-theme', current_theme
   end
@@ -579,6 +467,146 @@ class ApplicationHelperTest < ActiveSupport::TestCase
     assert_equal 'filename.mp3', short_filename('filename.mp3')
   end
 
+  should 'return nil when :show_balloon_with_profile_links_when_clicked is not enabled in environment' do
+    env = Environment.default
+    env.stubs(:enabled?).with(:show_balloon_with_profile_links_when_clicked).returns(false)
+    stubs(:environment).returns(env)
+    profile = Profile.new
+    assert_nil links_for_balloon(profile)
+  end
+
+  should 'return ordered list of links to balloon to Person' do
+    env = Environment.default
+    env.stubs(:enabled?).with(:show_balloon_with_profile_links_when_clicked).returns(true)
+    stubs(:environment).returns(env)
+    person = Person.new
+    person.stubs(:url).returns('url for person')
+    person.stubs(:public_profile_url).returns('url for person')
+    links = links_for_balloon(person)
+    assert_equal ['Wall', 'Friends', 'Communities', 'Send an e-mail', 'Add'], links.map{|i| i.keys.first}
+  end
+
+  should 'return ordered list of links to balloon to Community' do
+    env = Environment.default
+    env.stubs(:enabled?).with(:show_balloon_with_profile_links_when_clicked).returns(true)
+    stubs(:environment).returns(env)
+    community = Community.new
+    community.stubs(:url).returns('url for community')
+    community.stubs(:public_profile_url).returns('url for community')
+    links = links_for_balloon(community)
+    assert_equal ['Wall', 'Members', 'Agenda', 'Join', 'Leave', 'Send an e-mail'], links.map{|i| i.keys.first}
+  end
+
+  should 'return ordered list of links to balloon to Enterprise' do
+    env = Environment.default
+    env.stubs(:enabled?).with(:show_balloon_with_profile_links_when_clicked).returns(true)
+    stubs(:environment).returns(env)
+    enterprise = Enterprise.new
+    enterprise.stubs(:url).returns('url for enterprise')
+    enterprise.stubs(:public_profile_url).returns('url for enterprise')
+    stubs(:catalog_path)
+    links = links_for_balloon(enterprise)
+    assert_equal ['Products', 'Members', 'Agenda', 'Send an e-mail'], links.map{|i| i.keys.first}
+  end
+
+  should 'use favicon from environment theme if does not have profile' do
+    stubs(:environment).returns(fast_create(Environment, :theme => 'new-theme'))
+    stubs(:profile).returns(nil)
+    assert_equal '/designs/themes/new-theme/favicon.ico', theme_favicon
+  end
+
+  should 'use favicon from environment theme if the profile theme is nil' do
+    stubs(:environment).returns(fast_create(Environment, :theme => 'new-theme'))
+    stubs(:profile).returns(fast_create(Profile))
+    assert_equal '/designs/themes/new-theme/favicon.ico', theme_favicon
+  end
+
+  should 'use favicon from profile theme if the profile has theme' do
+    stubs(:environment).returns(fast_create(Environment, :theme => 'new-theme'))
+    stubs(:profile).returns(fast_create(Profile, :theme => 'profile-theme'))
+    File.expects(:exists?).with(File.join(RAILS_ROOT, 'public', '/designs/themes/profile-theme', 'favicon.ico')).returns(true)
+    assert_equal '/designs/themes/profile-theme/favicon.ico', theme_favicon
+  end
+
+  should 'use favicon from profile articles if the profile theme does not have' do
+    stubs(:environment).returns(fast_create(Environment, :theme => 'new-theme'))
+    stubs(:profile).returns(fast_create(Profile, :theme => 'profile-theme'))
+    file = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/favicon.ico', 'image/x-ico'), :profile => profile)
+    File.expects(:exists?).with(File.join(RAILS_ROOT, 'public', theme_path, 'favicon.ico')).returns(false)
+
+    assert_match /favicon.ico/, theme_favicon
+  end
+
+  should 'use favicon from environment if the profile theme and profile articles do not have' do
+    stubs(:environment).returns(fast_create(Environment, :theme => 'new-theme'))
+    stubs(:profile).returns(fast_create(Profile, :theme => 'profile-theme'))
+    File.expects(:exists?).with(File.join(RAILS_ROOT, 'public', theme_path, 'favicon.ico')).returns(false)
+    assert_equal '/designs/themes/new-theme/favicon.ico', theme_favicon
+  end
+
+  should 'include item in usermenu for environment enabled features' do
+    env = Environment.new
+    env.enable('xmpp_chat')
+    stubs(:environment).returns(env)
+
+    @controller = ApplicationController.new
+    path = File.join(RAILS_ROOT, 'app', 'views')
+    @controller.stubs(:view_paths).returns(path)
+
+    file = path + '/shared/usermenu/xmpp_chat.rhtml'
+    expects(:render).with(:file => file, :use_full_path => false).returns('Open chat')
+
+    assert_equal 'Open chat', render_environment_features(:usermenu)
+  end
+
+  should 'not return mime type of profile icon if not requested' do
+    stubs(:profile).returns(Person.new)
+    stubs(:current_theme).returns('default')
+
+    filename, mime = profile_icon(Person.new, :thumb)
+    assert_not_nil filename
+    assert_nil mime
+  end
+
+  should 'return mime type of profile icon' do
+    stubs(:profile).returns(Person.new)
+    stubs(:current_theme).returns('default')
+
+    filename, mime = profile_icon(Person.new, :thumb, true)
+    assert_not_nil filename
+    assert_not_nil mime
+  end
+
+  should 'pluralize without count' do
+    assert_equal "tests", pluralize_without_count(2, "test")
+    assert_equal "test", pluralize_without_count(1, "test")
+    assert_equal "testes", pluralize_without_count(2, "test", "testes")
+  end
+
+  should 'unique with count' do
+    assert_equal ["1 for b", "2 for c", "3 for a"], unique_with_count(%w(a b c a c a))
+  end
+
+  should 'show task information with the requestor' do
+    person = create_user('usertest').person
+    task = Task.create(:requestor => person)
+    assert_match person.name, task_information(task)
+  end
+
+  should 'return nil when :show_zoom_button_on_article_images is not enabled in environment' do
+    env = Environment.default
+    env.stubs(:enabled?).with(:show_zoom_button_on_article_images).returns(false)
+    stubs(:environment).returns(env)
+    assert_nil add_zoom_to_images
+  end
+
+  should 'return code when :show_zoom_button_on_article_images is enabled in environment' do
+    env = Environment.default
+    env.stubs(:enabled?).with(:show_zoom_button_on_article_images).returns(true)
+    stubs(:environment).returns(env)
+    assert_not_nil add_zoom_to_images
+  end
+
   protected
 
   def url_for(args = {})
@@ -588,6 +616,9 @@ class ApplicationHelperTest < ActiveSupport::TestCase
     content.strip
   end
   def javascript_tag(any)
+    ''
+  end
+  def javascript_include_tag(any)
     ''
   end
   def link_to(label, action, options = {})

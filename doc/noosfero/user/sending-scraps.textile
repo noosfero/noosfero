@@ -1,0 +1,26 @@
+h1(order-454). Sending scraps to friends
+
+p.  _To keep in touch with your friends you can send scraps to them._
+
+*  "How to access":#HowAccess
+*  "Description":#Description
+*  "Related Topics":#RelatedTopics
+
+h2(#HowAccess). How to access
+
+# If you have a friend in this system, you can find her/him with the system search. Use the "search":/doc/navigation/searching-people and click on your friend picture to visite her/his page.
+# In the person page you will see the "View profile" link near her picture. !=/images/doc/other-person-view-profile-link.en.png(Link to view profile)!
+
+h2(#Description). Description
+
+# On profile's page, when you click on "Wall" tab, the scraps sent to the user will be listed. To leave your scrap, fill in the field and press the "Leave a scrap" button !=/images/doc/person-wall-writing-scrap.en.png(Wall tab)!
+# Then, your scrap will be listed on profile's wall !=/images/doc/person-wall-scrap-sent.en.png(Wall tab)!
+
+h2(#RelatedTopics). Related topics
+
+*  "Answering scraps sent by friends":/doc/user/answering-scraps
+*  "Removing friends":/doc/user/removing-friends
+*  "Accepting friends":/doc/user/accepting-friends
+*  "Finding people":/doc/navigation/searching-people
+
+"Back to top":#online-doc-text

@@ -3,7 +3,7 @@ require File.dirname(__FILE__) + '/../test_helper'
 class CommunityTest < ActiveSupport::TestCase
 
   def setup
-    @person = create_user('testuser').person
+    @person = fast_create(Person)
   end
 
   attr_reader :person
@@ -27,22 +27,17 @@ class CommunityTest < ActiveSupport::TestCase
   should 'create default set of blocks' do
     c = Community.create!(:environment => Environment.default, :name => 'my new community')
 
-    assert c.boxes[0].blocks.map(&:class).include?(MainBlock)
-
-    assert c.boxes[1].blocks.map(&:class).include?(ProfileInfoBlock)
-    assert c.boxes[1].blocks.map(&:class).include?(RecentDocumentsBlock)
-
-    assert c.boxes[2].blocks.map(&:class).include?(MembersBlock)
-    assert c.boxes[2].blocks.map(&:class).include?(TagsBlock)
-
-    assert_equal 5,  c.blocks.size
+    assert !c.boxes[0].blocks.empty?, 'person must have blocks in area 1'
+    assert !c.boxes[1].blocks.empty?, 'person must have blocks in area 2'
+    assert !c.boxes[2].blocks.empty?, 'person must have blocks in area 3'
   end
 
-  should 'get a default home page and RSS feed' do
+  should 'create a default set of articles' do
+    Community.any_instance.stubs(:default_set_of_articles).returns([Blog.new(:name => 'blog')])
     community = Community.create!(:environment => Environment.default, :name => 'my new community')
 
-    assert_kind_of Article, community.home_page
-    assert_kind_of RssFeed, community.articles.find_by_path('feed')
+    assert_kind_of Blog, community.articles.find_by_path('blog')
+    assert_kind_of RssFeed, community.articles.find_by_path('blog/feed')
   end
 
   should 'have contact_person' do
@@ -188,10 +183,33 @@ class CommunityTest < ActiveSupport::TestCase
     end
   end
 
+  should 'set as member without task if organization is closed and has no members' do
+    community = fast_create(Community)
+    community.closed = true
+    community.save
+
+    assert_no_difference AddMember, :count do
+      community.add_member(person)
+    end
+    assert person.is_member_of?(community)
+  end
+
+  should 'set as member without task if organization is not closed and has no members' do
+    community = fast_create(Community)
+
+    assert_no_difference AddMember, :count do
+      community.add_member(person)
+    end
+    assert person.is_member_of?(community)
+  end
+
   should 'not create new request membership if it already exists' do
     community = fast_create(Community)
     community.closed = true
     community.save
+
+    community.add_member(fast_create(Person))
+
     assert_difference AddMember, :count do
       community.add_member(person)
     end
@@ -213,6 +231,114 @@ class CommunityTest < ActiveSupport::TestCase
     assert_no_match /[<>]/, community.address
     assert_no_match /[<>]/, community.contact_phone
     assert_no_match /[<>]/, community.description
+  end
+
+  should "the followed_by method be protected and true to the community members by default" do
+    c = fast_create(Community)
+    p1 = fast_create(Person)
+    p2 = fast_create(Person)
+    p3 = fast_create(Person)
+
+    assert !p1.is_member_of?(c)
+    c.add_member(p1)
+    assert p1.is_member_of?(c)
+
+    assert !p3.is_member_of?(c)
+    c.add_member(p3)
+    assert p3.is_member_of?(c)
+
+    assert_equal true, c.send(:followed_by?,p1)
+    assert_equal true, c.send(:followed_by?,p3)
+    assert_equal false, c.send(:followed_by?,p2)
+  end
+
+  should "be created an tracked action when the user is join to the community" do
+    p1 = Person.first
+    community = fast_create(Community)
+    p2 = fast_create(Person)
+    p3 = fast_create(Person)
+
+    RoleAssignment.delete_all
+    ActionTrackerNotification.delete_all
+    assert_difference(ActionTrackerNotification, :count, 5) do
+      community.add_member(p1)
+      process_delayed_job_queue
+      community.add_member(p3)
+      assert p1.is_member_of?(community)
+      assert !p2.is_member_of?(community)
+      assert p3.is_member_of?(community)
+      process_delayed_job_queue
+    end
+    ActionTrackerNotification.all.map{|a|a.profile}.map do |profile|
+      assert [community,p1,p3].include?(profile)
+    end
+  end
+
+  should "be created an tracked action to the community when an community's article is commented" do
+    ActionTrackerNotification.delete_all
+    p1 = Person.first
+    community = fast_create(Community)
+    p2 = fast_create(Person)
+    p3 = fast_create(Person)
+    community.add_member(p3)
+    article = fast_create(Article, :profile_id => community.id)
+    ActionTracker::Record.destroy_all
+    assert_difference(ActionTrackerNotification, :count, 3) do
+      Comment.create!(:article_id => article.id, :title => 'some', :body => 'some', :author_id => p2.id)
+      process_delayed_job_queue
+    end
+    ActionTrackerNotification.all.map{|a|a.profile}.map do |profile|
+      assert [community,p1,p3].include?(profile)
+    end
+  end
+
+  should "see get all received scraps" do
+    c = fast_create(Community)
+    assert_equal [], c.scraps_received
+    fast_create(Scrap, :receiver_id => c.id)
+    fast_create(Scrap, :receiver_id => c.id)
+    assert_equal 2, c.scraps_received.count
+    c2 = fast_create(Community)
+    fast_create(Scrap, :receiver_id => c2.id)
+    assert_equal 2, c.scraps_received.count
+    fast_create(Scrap, :receiver_id => c.id)
+    assert_equal 3, c.scraps_received.count
+  end
+
+  should "see get all received scraps that are not replies" do
+    c = fast_create(Community)
+    s1 = fast_create(Scrap, :receiver_id => c.id)
+    s2 = fast_create(Scrap, :receiver_id => c.id)
+    s3 = fast_create(Scrap, :receiver_id => c.id, :scrap_id => s1.id)
+    assert_equal 3, c.scraps_received.count
+    assert_equal [s1,s2], c.scraps_received.not_replies
+    c2 = fast_create(Community)
+    s4 = fast_create(Scrap, :receiver_id => c2.id)
+    s5 = fast_create(Scrap, :receiver_id => c2.id, :scrap_id => s4.id)
+    assert_equal 2, c2.scraps_received.count
+    assert_equal [s4], c2.scraps_received.not_replies
+  end
+
+  should "the community browse for a scrap with a Scrap object" do
+    c = fast_create(Community)
+    s1 = fast_create(Scrap, :receiver_id => c.id)
+    s2 = fast_create(Scrap, :receiver_id => c.id)
+    s3 = fast_create(Scrap, :receiver_id => c.id)
+    assert_equal s2, c.scraps(s2)
+  end
+
+  should "the person browse for a scrap with an integer and string id" do
+    c = fast_create(Community)
+    s1 = fast_create(Scrap, :receiver_id => c.id)
+    s2 = fast_create(Scrap, :receiver_id => c.id)
+    s3 = fast_create(Scrap, :receiver_id => c.id)
+    assert_equal s2, c.scraps(s2.id)
+    assert_equal s2, c.scraps(s2.id.to_s)
+  end
+
+  should 'receive scrap notification' do
+    community = fast_create(Community)
+    assert_equal false, community.receives_scrap_notification?
   end
 
 end

@@ -6,7 +6,7 @@ class EnvironmentDesignController; def rescue_action(e) raise e end; end
 
 class EnvironmentDesignControllerTest < Test::Unit::TestCase
 
-  ALL_BLOCKS = [ArticleBlock, LoginBlock, EnvironmentStatisticsBlock, RecentDocumentsBlock, EnterprisesBlock, CommunitiesBlock, PeopleBlock, SellersSearchBlock, LinkListBlock, FeedReaderBlock, SlideshowBlock, HighlightsBlock ]
+  ALL_BLOCKS = [ArticleBlock, LoginBlock, EnvironmentStatisticsBlock, RecentDocumentsBlock, EnterprisesBlock, CommunitiesBlock, PeopleBlock, SellersSearchBlock, LinkListBlock, FeedReaderBlock, SlideshowBlock, HighlightsBlock, FeaturedProductsBlock, CategoriesBlock, RawHTMLBlock ]
 
   def setup
     @controller = EnvironmentDesignController.new
@@ -70,7 +70,7 @@ class EnvironmentDesignControllerTest < Test::Unit::TestCase
     article.expects(:path).returns('some_path')
     article.expects(:id).returns(1)
     get :edit, :id => l.id
-    assert_tag :tag => 'select', :attributes => { :id => 'block_article_id' }
+    assert_tag :tag => 'select', :attributes => { :id => 'block[article_id]' }
   end
 
   should 'be able to edit ArticleBlock without portal community' do

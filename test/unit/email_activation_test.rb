@@ -37,7 +37,7 @@ class EmailActivationTest < ActiveSupport::TestCase
     task = EmailActivation.create!(:requestor => ze.person, :target => Environment.default)
     task.finish
 
-    assert_equal ['zezinho@colivre.net'], ActionMailer::Base.deliveries.first.to
+    assert_equal ["zezinho@#{ze.email_domain}"], ActionMailer::Base.deliveries.first.to
   end
 
   should 'create only once pending task by user' do
@@ -47,13 +47,6 @@ class EmailActivationTest < ActiveSupport::TestCase
 
     anothertask = EmailActivation.new(:requestor => ze.person, :target => Environment.default)
     assert !anothertask.save
-  end
-
-  should 'display email address on description of task' do
-    ze = create_user('zezinho', :environment_id => Environment.default.id)
-    Environment.default.domains = [Domain.create!(:name => 'env_test.invalid')]
-    task = EmailActivation.new(:requestor => ze.person, :target => Environment.default)
-    assert_match /zezinho@env_test.invalid/, task.description
   end
 
 end

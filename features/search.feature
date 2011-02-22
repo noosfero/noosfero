@@ -28,13 +28,13 @@ Feature: search
   Scenario: simple search for enterprise
     Given the following enterprises
       | identifier | name |
-      | products-factory | Products factory |
-      | services-provider | Services Provider |
+      | shop1 | Shoes shop |
+      | shop2 | Fruits shop |
     And I go to the search page
-    And I fill in "query" with "services"
+    And I fill in "query" with "shoes"
     And I press "Search"
-    Then I should see "Services Provider"
-    And I should not see "Products factory"
+    Then I should see "Shoes shop"
+    And I should not see "Fruits shop"
 
   Scenario: simple search for content
     Given the following users
@@ -55,10 +55,13 @@ Feature: search
     Given the following enterprises
       | identifier | name |
       | colivre-ent | Colivre |
+    And the following product_categories
+      | name |
+      | Development |
     And the following products
-      | owner | name |
-      | colivre-ent | social networks consultancy |
-      | colivre-ent | wikis consultancy |
+      | owner | category | name |
+      | colivre-ent | development | social networks consultancy |
+      | colivre-ent | development | wikis consultancy |
     When I go to the search page
     And I fill in "query" with "wikis"
     And I press "Search"

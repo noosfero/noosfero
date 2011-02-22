@@ -12,7 +12,7 @@
 
 <h4><%= _('Approve') %></h4>
 
-<p><%= _('If this enterprise passes the criteria to be considered an solidarity enconomy enterprise, you can approve it by click the button below.') %></p>
+<p><%= __('If this enterprise passes the criteria to be considered an solidarity enconomy enterprise, you can approve it by click the button below.') %></p>
 
 <% form_tag :action => 'approve', :id => @pending.code do %>
   <% button_bar do %>
@@ -22,7 +22,7 @@
 
 <h4><%= _('Reject') %></h4>
 
-<p><%= _('If this enterprise does not pass the criteria do be considered, use this form.') %></p>
+<p><%= __('If this enterprise does not pass the criteria do be considered, use this form.') %></p>
 
 <% form_tag :action => 'reject', :id => @pending.code do %>
   <%= labelled_form_field(_('Please provide an explanation for the rejection. This explanation will be sent to the requestor (required).'), text_area_tag('reject_explanation'))%>

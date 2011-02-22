@@ -152,3 +152,5 @@ namespace :noosfero do
     end
   end
 end
+
+task :clean => 'noosfero:doc:clean'

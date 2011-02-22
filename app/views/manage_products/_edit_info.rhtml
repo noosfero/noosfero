@@ -1,0 +1,63 @@
+<% if errors %>
+  <%= render :partial => 'shared/dialog_error_messages', :locals => { :object_name => 'product' } %>
+<% end %>
+
+<% remote_form_for(@product,
+                   :loading => "small_loading('product-info-form')",
+                   :update => 'product-info',
+                   :url => {:controller => 'manage_products', :action => 'edit', :id => @product, :field => 'info'},
+                   :html => {:id => 'product-info-form', :method => 'post'}) do |f| %>
+
+  <table>
+    <tr>
+      <td><%= f.label :price, _('Price (%s)') % environment.currency_unit, :class => 'formlabel' %></td>
+      <td class='formfield'><%= f.text_field(:price, :value => @product.formatted_value(:price), :class => 'numbers-only') %></td>
+    </tr>
+    <tr>
+      <td><%= f.label :discount, _('Discount (%s)') % environment.currency_unit, :class => 'formlabel' %></td>
+      <td class='formfield'><%= f.text_field(:discount, :value => @product.formatted_value(:discount), :class => 'numbers-only', :title => _('If your product is on sale, fill this field with the discount value')) %></td>
+    </tr>
+    <tr>
+      <td class='formlabel'><%= _('Available') %></td>
+      <td class='formfield'><%= labelled_radio_button( _('Yes'), 'product[available]', true, @product.available, :id => 'product_available') + labelled_radio_button( _('No'), 'product[available]', false, !@product.available) %></td>
+    </tr>
+  </table>
+
+  <% if !environment.qualifiers.empty? %>
+    <table id='product-qualifiers-list'>
+      <tr>
+        <th><%= _('Qualifier') %></th>
+        <th><%= _('Certifier') %></th>
+      </tr>
+      <% @product.qualifiers.each_with_index do |qualifier, index| %>
+      <tr>
+        <td>
+          <%= select_qualifiers(@product, qualifier.id) %>
+        </td>
+        <td id='certifier-area-<%= index %>'>
+          <%= select_certifiers(qualifier, @product) %>
+          <%= button_to_function(:delete, content_tag('span', 'Delete qualifier'), "jQuery(this).parents('tr').remove()") %>
+        </td>
+      </tr>
+      <% end %>
+    </table>
+    <%= button_to_function(
+      :add,
+      _('Add new qualifier'),
+      "new_qualifier_row('#product-qualifiers-list', '#{escape_javascript(select_qualifiers(@product))}')"
+    ) %>
+    <%= hidden_field_tag "product[qualifiers_list]" %>
+  <% end %>
+
+  <% button_bar do %>
+    <%= submit_button :save, _('Save') %>
+    <%= cancel_edit_product_link(@product, 'info') %>
+  <% end %>
+<% end %>
+
+<% javascript_tag do %>
+  jQuery(".numbers-only").keypress(function(event) {
+    var separator = "<%= environment.currency_separator %>"
+    return numbersonly(event, separator)
+  });
+<% end %>

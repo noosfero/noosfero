@@ -1,0 +1,35 @@
+app                               usr/share/noosfero
+db                                usr/share/noosfero
+doc                               usr/share/noosfero
+lib                               usr/share/noosfero
+script                            usr/share/noosfero
+util                              usr/share/noosfero
+Rakefile                          usr/share/noosfero
+vendor/cardmagic-contacts-f66219e6589ccaf3ab9e3574fdd41225d0dd5073          usr/share/noosfero/vendor
+vendor/gdata-1.1.1                                                          usr/share/noosfero/vendor
+vendor/plugins                                                              usr/share/noosfero/vendor
+vendor/terceiro-fast_gettext-fe7bb09e30f7b1b5876a3b7a18fe8a254c6f59cb       usr/share/noosfero/vendor
+vendor/ezcrypto-0.7.2                                                       usr/share/noosfero/vendor
+
+config/boot.rb                    usr/share/noosfero/config
+config/environment.rb             usr/share/noosfero/config
+config/environments               usr/share/noosfero/config
+config/initializers               usr/share/noosfero/config
+config/routes.rb                  usr/share/noosfero/config
+
+plugins                           usr/share/noosfero
+
+debian/dbinstall                  usr/lib/noosfero
+debian/dbupgrade                  usr/lib/noosfero
+debian/database.yml.template      usr/share/noosfero/config
+
+public                            usr/share/noosfero
+
+debian/default/noosfero           etc/default
+etc/init.d/noosfero               etc/init.d
+debian/mongrel_cluster.yml        etc/noosfero
+debian/ferret_server.yml          etc/noosfero
+etc/logrotate.d/noosfero          etc/logrotate.d
+
+locale                            usr/share/noosfero
+doc/noosfero                      usr/share/noosfero/doc

@@ -1,0 +1,24 @@
+<%= render :file => 'shared/tiny_mce' %>
+
+<%= labelled_form_field(_('Name for publishing'), f.text_field(:name)) %>
+<%= select_profile_folder(_('Select the folder where the article must be published'), "tasks[#{task.id}][task]", 'article_parent_id', task.target) %>
+<%= labelled_form_field(_('Highlight this article'), f.check_box(:highlighted)) %>
+
+<div>
+  <% if task.article && task.article.tiny_mce? %>
+    <%= labelled_form_field(_('Lead'), f.text_area(:abstract, :style => 'width: 482px; height: 200px;', :class => 'mceEditor')) %>
+  <% else %>
+    <%= labelled_form_field(_('Lead'), f.text_area(:abstract, :style => 'width: 482px; height: 200px;')) %>
+  <% end %>
+</div>
+<em><%= _('Used when a short version your text is needed.') %></em>
+
+<div style="margin-top: 10px;">
+  <% if task.article && task.article.tiny_mce? %>
+    <%= labelled_form_field(_('Text'), f.text_area(:body, :style => 'width:482px; height: 500px;', :class => 'mceEditor')) %>
+  <% else %>
+    <%= labelled_form_field(_('Text'), f.text_area(:body, :style => 'width:482px; height: 500px;')) %>
+  <% end %>
+</div>
+<%= labelled_form_field _('Comment for author'), f.text_field(:closing_statment, :style => 'width: 488px;') %>
+

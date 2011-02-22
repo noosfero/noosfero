@@ -12,7 +12,7 @@ class CategoriesControllerTest < Test::Unit::TestCase
     @request.stubs(:ssl?).returns(true)
     @response   = ActionController::TestResponse.new
    
-    @env = Environment.create!(:name => "My test environment")
+    @env = fast_create(Environment, :name => "My test environment")
     Environment.stubs(:default).returns(env)
     assert (@cat1 = env.categories.create(:name => 'a test category'))
     assert (@cat1 = env.categories.create(:name => 'another category'))
@@ -36,6 +36,8 @@ class CategoriesControllerTest < Test::Unit::TestCase
     assert_response :success
     assert_template 'index'
     assert_kind_of Array, assigns(:categories)
+    assert_kind_of Array, assigns(:product_categories)
+    assert_kind_of Array, assigns(:regions)
     assert_tag :tag => 'a', :attributes => { :href => '/admin/categories/new'}
   end
 
@@ -153,36 +155,16 @@ class CategoriesControllerTest < Test::Unit::TestCase
     assert_tag :tag => 'select', :attributes => { :name => "category[display_color]" }
   end
 
-  should 'not display category_type if only one category is available' do
-    env.category_types = ['Category']
-    get :new
-
-    assert_no_tag :tag => 'select', :attributes => { :name => "type" }
-  end
-
-  should 'have hidden_tag type if only one category is available' do
-    env.category_types = ['Category']
-    env.save!
-    get :new
-
-    assert_tag :tag => 'input', :attributes => { :name => 'type', :value => "Category", :type => 'hidden' }
-  end
-
- should 'display category_type if more than one category is available' do
-    env.category_types = 'Category', 'ProductCategory'
-    get :new
-
-    assert_tag :tag => 'select', :attributes => { :name => "type" }
-  end
-
   should 'not list regions and product categories' do
     Environment.default.categories.destroy_all
     c = Category.create!(:name => 'Regular category', :environment => Environment.default)
-    ProductCategory.create!(:name => 'Product category', :environment => Environment.default)
-    Region.create!(:name => 'Some region', :environment => Environment.default)
+    p = ProductCategory.create!(:name => 'Product category', :environment => Environment.default)
+    r = Region.create!(:name => 'Some region', :environment => Environment.default)
 
     get :index
     assert_equal [c], assigns(:categories)
+    assert_equal [p], assigns(:product_categories)
+    assert_equal [r], assigns(:regions)
   end
 
 end

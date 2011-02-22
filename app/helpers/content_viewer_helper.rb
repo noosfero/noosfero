@@ -1,6 +1,7 @@
 module ContentViewerHelper
 
   include BlogHelper
+  include ForumHelper
 
   def number_of_comments(article)
     n = article.comments.size
@@ -20,7 +21,7 @@ module ContentViewerHelper
         title = content_tag('h1', link_to(article.name, article.url), :class => 'title')
       end
       comments = args[:no_comments] ? '' : (("- %s") % link_to_comments(article))
-      title << content_tag('span', _("%s, by %s %s") % [show_date(article.published_at), link_to(article.author.name, article.author.url), comments], :class => 'created-at')
+      title << content_tag('span', _("%s, by %s %s") % [show_date(article.published_at), link_to(article.author_name, article.author.url), comments], :class => 'created-at')
     end
     title
   end
@@ -30,8 +31,20 @@ module ContentViewerHelper
   end
 
   def image_label(image)
-    text = image.title || image.abstract
+    text = image.abstract || image.title
     text && (text.first(40) + (text.size > 40 ? '…' : ''))
+  end
+
+  def article_translations(article)
+    unless article.native_translation.translations.empty?
+      links = (article.native_translation.translations + [article.native_translation]).map do |translation|
+        { Noosfero.locales[translation.language] => { :href => url_for(translation.url) } }
+      end
+      content_tag(:div, link_to(_('Translations'), '#',
+                                :onclick => "toggleSubmenu(this, '#{_('Translations')}', #{links.to_json}); return false",
+                                :class => 'article-translations-menu simplemenu-trigger up'),
+                  :class => 'article-translations')
+    end
   end
 
 end

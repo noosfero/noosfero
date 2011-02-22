@@ -61,3 +61,26 @@ The above command makes the server available at http://localhost:9999/
 
 The sample-data data scripts creates one administrator user with login "ze" and
 password "test".
+
+Note that some operations, like generating image thumbnails, sending e-mails,
+etc, are done in background in the context of a service independent from the
+Rails application server. To have those tasks performed in a development
+environment, you must run the delayed_job server like this:
+
+ ./script/delayed_job run
+
+This will block your terminal. To stop the delayed_job server, hit Control-C.
+
+== Enabling exceptions notification
+
+By default, exception notifications are disabled in development environment. If
+you want to enable it then you need to change some files:
+
+1) Add in config/environments/development.rb:
+   config.action_controller.consider_all_requests_local = false
+
+2) Add in app/controller/application.rb:
+   local_addresses.clear
+
+3) Add in config/noosfero.yml at development section:
+   exception_recipients: [admin@example.com]

@@ -20,7 +20,7 @@ class DatesHelperTest < ActiveSupport::TestCase
     expects(:show_date).with(date1).returns('XXX')
     date2 = mock
     expects(:show_date).with(date2).returns('YYY')
-    expects(:_).with('from %s to %s').returns('from %s to %s')
+    expects(:_).with('from %{date1} to %{date2}').returns('from %{date1} to %{date2}')
     assert_equal 'from XXX to YYY', show_period(date1, date2)
   end
 
@@ -34,6 +34,18 @@ class DatesHelperTest < ActiveSupport::TestCase
     date1 = mock
     expects(:show_date).with(date1).returns('XXX')
     assert_equal 'XXX', show_period(date1)
+  end
+
+  should 'not crash with events that have start_date and end_date' do
+    FastGettext.default_text_domain = 'noosferofull'
+    assert_nothing_raised do
+      Noosfero.locales.keys.each do |key|
+        Noosfero.with_locale(key) do
+          show_period(Date.today, Date.tomorrow)
+        end
+      end
+    end
+    FastGettext.default_text_domain = 'noosferotest'
   end
 
   should 'show day of week' do
@@ -146,6 +158,10 @@ class DatesHelperTest < ActiveSupport::TestCase
 
   should 'format time' do
     assert_equal '22 November 2008, 15:34', show_time(Time.mktime(2008, 11, 22, 15, 34, 0, 0))
+  end
+
+  should 'format time with 2 digits minutes' do
+    assert_equal '22 November 2008, 15:04', show_time(Time.mktime(2008, 11, 22, 15, 04, 0, 0))
   end
 
   should 'translate time' do

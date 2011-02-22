@@ -20,6 +20,17 @@ namespace :noosfero do
     puts "Not found tag for version #{version}, we can go on."
   end
 
+  desc 'checks the version of the Debian package'
+  task :check_debian_package do
+    debian_version = `dpkg-parsechangelog | grep Version: | cut -d ' ' -f 2`.strip
+    unless debian_version =~ /^#{Noosfero::VERSION}/
+      puts "Version mismatch: Debian version = #{debian_version}, Noosfero upstream version = #{Noosfero::VERSION}"
+      puts "Run `dch -v #{Noosfero::VERSION}` to add a new changelog entry that upgrades the Debian version"
+      raise "Version mismatch between noosfero version and debian package version"
+    end
+  end
+
+
   AUTHORS_HEADER = <<EOF
 If you are not listed here, but should be, please write to the noosfero mailing
 list: http://listas.softwarelivre.org/cgi-bin/mailman/listinfo/noosfero-dev
@@ -57,11 +68,28 @@ EOF
   end
 
   desc 'prepares a release tarball'
-  task :release => [ :check_tag, 'noosfero:doc:translate', 'noosfero:error-pages:translate', :authors, :check_repo ] do
+  task :release => [ :check_tag, :check_debian_package, 'noosfero:error-pages:translate', :authors, :check_repo, :package, :debian_packages ] do
     sh "git tag #{version}"
-    sh 'rake -f Rakefile.pkg'
-    puts "I: please upload the tarball to the website!"
+    puts "I: please upload the tarball and Debian packages to the website!"
     puts "I: please push the tag for version #{version} that was just created!"
+  end
+
+  desc 'Build Debian packages'
+  task :debian_packages => :package do
+    target = "pkg/noosfero-#{Noosfero::VERSION}"
+    mkdir "#{target}/tmp"
+    ln_s '../../../vendor/rails', "#{target}/vendor/rails"
+    cp "#{target}/config/database.yml.sqlite3", "#{target}/config/database.yml"
+    sh "cd #{target} && dpkg-buildpackage -us -uc -b"
+  end
+
+  desc 'Test Debian package'
+  task 'debian:test' => :debian_packages do
+    Dir.chdir 'pkg' do
+      rm_rf "noosfero-#{Noosfero::VERSION}"
+      sh 'apt-ftparchive packages . > Packages'
+      sh 'apt-ftparchive release . > Release'
+    end
   end
     
 end

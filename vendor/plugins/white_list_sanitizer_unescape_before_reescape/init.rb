@@ -11,13 +11,6 @@ HTML::WhiteListSanitizer.module_eval do
       final_text = text.gsub(/&lt;!/, '<!')
       final_text = final_text.gsub(/<!--.*\[if IE\]-->(.*)<!--\[endif\]-->/, '<!–-[if IE]>\1<![endif]-–>') #FIX for itheora comments
 
-      if final_text =~ /iframe/
-        itheora_video = /<iframe(.*)src=(.*)itheora.org(.*)<\/iframe>/
-        sl_video = /<iframe(.*)src=\"http:\/\/stream.softwarelivre.org(.*)<\/iframe>/
-        unless (final_text =~ itheora_video || final_text =~ sl_video)
-          final_text = final_text.gsub(/<iframe(.*)<\/iframe>/, '')
-        end
-      end
       final_text = final_text.gsub(/&amp;quot;/, '&quot;') #FIX problems with archive.org
       final_text
     end

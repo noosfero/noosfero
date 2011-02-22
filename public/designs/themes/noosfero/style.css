@@ -1,10 +1,25 @@
 @import url(../base/style.css);
 
-#site-title {
-  background: url(images/logo-noosfero.png) no-repeat;
+#site-title img {
+  left:-22px;
+  position:absolute;
+  top:-30px;
 }
 
-.docSize-LT-800 #site-title {
-  width: 100px;
-  background: url(images/logo-noosfero-no-text.png) no-repeat;
+#title-bar {
+  background-color: gray;
+}
+#buddy-list .toolbar {
+  background-color: gray;
+  border-top: 1px solid;
+  border-bottom: 1px solid;
+}
+#title-bar h1 {
+  color: white;
+}
+#chat-window {
+  background: white;
+}
+#buddy-list #environment-logo {
+  background-color: #BBB;
 }

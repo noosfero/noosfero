@@ -25,7 +25,12 @@ class LinkListBlock < Block
     ['eyes', N_('Eyes')],
     ['photos', N_('Photos')],
     ['menu-people', N_('Person')],
-    ['menu-events', N_('Event')]
+    ['event', N_('Event')],
+    ['forum', N_('Forum')],
+    ['home', N_('Home')],
+    ['product', N_('Package')],
+    ['todo', N_('To do list')],
+    ['chat', N_('Chat')]
   ]
 
   settings_items :links, Array, :default => []
@@ -52,7 +57,7 @@ class LinkListBlock < Block
   def link_html(link)
     klass = 'icon-' + link[:icon] if link[:icon]
     sanitize_link(
-      link_to(link[:name], expand_address(link[:address]), :class => klass)
+      link_to(_(link[:name]), expand_address(link[:address]), :class => klass)
     )
   end
 
@@ -75,7 +80,7 @@ class LinkListBlock < Block
 
   def icons_options
     ICONS.map do |i|
-      "<span class=\"icon-#{i[0]}\" onclick=\"changeIcon(this, '#{i[0]}')\"></span>"
+      "<span title=\"#{i[1]}\" class=\"icon-#{i[0]}\" onclick=\"changeIcon(this, '#{i[0]}')\"></span>"
     end
   end
 

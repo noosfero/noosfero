@@ -9,7 +9,7 @@ class FavoriteEnterprisesBlock < ProfileListBlock
   end
 
   def self.description
-    __('Favorite enterprises')
+    __('Favorite Enterprises')
   end
 
   def footer
@@ -20,18 +20,8 @@ class FavoriteEnterprisesBlock < ProfileListBlock
     end
   end
 
-  def profile_count
-    owner.favorite_enterprises.count
-  end
-
-  def profile_finder
-    @profile_finder ||= FavoriteEnterprisesBlock::Finder.new(self)
-  end
-
-  class Finder < ProfileListBlock::Finder
-    def ids
-      block.owner.favorite_enterprises.map(&:id)
-    end
+  def profiles
+    owner.favorite_enterprises
   end
 
 end

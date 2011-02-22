@@ -6,9 +6,9 @@ Feature: gallery_navigation
     Given the following users
       | login       |
       | marciopunk  |
-    And the following folders
-      | owner      | name       | view_as       |
-      | marciopunk | my-gallery | image_gallery |
+    And the following galleries
+      | owner      | name       |
+      | marciopunk | my-gallery |
     And the following files
       | owner      | file          | mime       | parent     |
       | marciopunk | rails.png     | image/png  | my-gallery |
@@ -63,3 +63,12 @@ Feature: gallery_navigation
     Then I should see "Go back to my-gallery"
     When I follow "Go back to my-gallery"
     Then I should be on /marciopunk/my-gallery
+
+  Scenario: image title in window title
+    Given I am logged in as "marciopunk"
+    And I go to /marciopunk/my-gallery/rails.png?view=true
+    When I follow "Edit"
+    And I fill in "Title" with "Rails is cool"
+    And I press "Save"
+    And I go to /marciopunk/my-gallery/rails.png?view=true
+    And The page title should contain "Rails is cool"

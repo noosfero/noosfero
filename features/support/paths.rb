@@ -33,6 +33,15 @@ module NavigationHelpers
     when /^(.*)'s profile/
       '/profile/%s' % Profile.find_by_name($1).identifier
 
+    when /^the profile$/
+      '/profile/%s' % User.find_by_id(session[:user]).login
+
+    when /^(.*)'s join page/
+      '/profile/%s/join' % Profile.find_by_name($1).identifier
+
+    when /^(.*)'s leave page/
+      '/profile/%s/leave' % Profile.find_by_name($1).identifier
+
     when /^login page$/
       '/account/login'
 
@@ -42,14 +51,38 @@ module NavigationHelpers
     when /^(.*)'s control panel$/
       '/myprofile/%s' % Profile.find_by_name($1).identifier
 
+    when /^the Control panel$/
+      '/myprofile/%s' % User.find_by_id(session[:user]).login
+
+    when /the environment control panel/
+      '/admin'
+
     when /^the search page$/
       '/search'
 
     when /^(.+)'s cms/
       '/myprofile/%s/cms' % Profile.find_by_name($1).identifier
 
+    when /^"(.+)" edit page/
+      article = Article.find_by_name($1)
+      '/myprofile/%s/cms/edit/%s' % [article.profile.identifier, article.id]
+
     when /^(.+)'s members management/
       '/myprofile/%s/profile_members' % Profile.find_by_name($1).identifier
+
+    when /^(.+)'s new product page/
+      '/myprofile/%s/manage_products/new' % Profile.find_by_name($1).identifier
+
+    when /^(.+)'s page of product (.*)$/
+       enterprise = Profile.find_by_name($1)
+       product = enterprise.products.find_by_name($2)
+      '/myprofile/%s/manage_products/show/%s' % [enterprise.identifier, product.id]
+
+    when /^(.*)'s products page$/
+      '/catalog/%s' % Profile.find_by_name($1).identifier
+
+    when /^chat$/
+      '/chat'
 
     # Add more mappings here.
     # Here is a more fancy example:

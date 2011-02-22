@@ -2,10 +2,16 @@ class Product < ActiveRecord::Base
   belongs_to :enterprise
   belongs_to :product_category
   has_many :product_categorizations
+  has_many :product_qualifiers
+  has_many :qualifiers, :through => :product_qualifiers
+  has_many :inputs, :dependent => :destroy, :order => 'position'
 
-  validates_presence_of :name
-  validates_uniqueness_of :name, :scope => :enterprise_id
+  validates_uniqueness_of :name, :scope => :enterprise_id, :allow_nil => true
+  validates_presence_of :product_category_id
+  validates_associated :product_category
+
   validates_numericality_of :price, :allow_nil => true
+  validates_numericality_of :discount, :allow_nil => true
 
   after_update :save_image
 
@@ -31,10 +37,43 @@ class Product < ActiveRecord::Base
 
   acts_as_searchable :fields => [ :name, :description, :category_full_name ]
 
-  xss_terminate :only => [ :name, :description ], :on => 'validation'
+  xss_terminate :only => [ :name ], :on => 'validation'
+  xss_terminate :only => [ :description ], :with => 'white_list', :on => 'validation'
 
   acts_as_mappable
-  
+
+  include FloatHelper
+
+  UNITS = [
+    [N_('unit'), _('units')],
+    [N_('litre'), _('litres')],
+    [N_('kilo'), _('kilos')],
+    [N_('meter'), _('meters')],
+  ]
+
+  include WhiteListFilter
+  filter_iframes :description, :whitelist => lambda { enterprise && enterprise.environment && enterprise.environment.trusted_sites_for_iframe }
+
+  def name
+    self[:name].blank? ? category_name : self[:name]
+  end
+
+  def name=(value)
+    if (value == category_name)
+      self[:name] = nil
+    else
+      self[:name] = value
+    end
+  end
+
+  def name_is_blank?
+    self[:name].blank?
+  end
+
+  def default_image(size='thumb')
+    '/images/icons-app/product-default-pic-%s.png' % size
+  end
+
   def category_full_name
     product_category ? product_category.full_name.split('/') : nil
   end
@@ -60,43 +99,59 @@ class Product < ActiveRecord::Base
   end
 
   def url
-    enterprise.public_profile_url.merge(:controller => 'catalog', :action => 'show', :id => id)
+    enterprise.public_profile_url.merge(:controller => 'manage_products', :action => 'show', :id => id)
   end
 
   def public?
     enterprise.public_profile
   end
 
+  def formatted_value(value)
+    ("%.2f" % self[value]).to_s.gsub('.', enterprise.environment.currency_separator) if self[value]
+  end
+
+  def price_with_discount
+    price - discount if discount
+  end
+
   def price=(value)
     if value.is_a?(String)
-      super(currency_to_float(value))
+      super(decimal_to_float(value))
     else
       super(value)
     end
   end
 
-  def currency_to_float( num )
-    if num.count('.') == 1 && num.count(',') == 0
-      # number like "12.34"
-      return num.to_f
+  def discount=(value)
+    if value.is_a?(String)
+      super(decimal_to_float(value))
+    else
+      super(value)
     end
+  end
 
-    if num.count('.') == 0 && num.count(',') == 1
-      # number like "12,34"
-      return num.tr(',','.').to_f
+  def has_basic_info?
+    %w[unit price discount].each do |field|
+      return true if !self.send(field).blank?
     end
+    false
+  end
 
-    if num.count('.') > 0 && num.count(',') > 0
-      # number like "12.345.678,90" or "12,345,678.90"
-      dec_sep = num.tr('0-9','')[-1].chr
-      return num.tr('^0-9'+dec_sep,'').tr(dec_sep,'.').to_f
+  def qualifiers_list=(qualifiers)
+    self.product_qualifiers.destroy_all
+    qualifiers.each do |qualifier_id, certifier_id|
+      self.product_qualifiers.create(:qualifier_id => qualifier_id, :certifier_id => certifier_id)
     end
+  end
 
-    # if you are here is because there is only one
-    # separator and this appears 2 times or more.
-    # number like "12.345.678" or "12,345,678"
+  def order_inputs!(order = [])
+    order.each_with_index do |input_id, array_index|
+      self.inputs.find(input_id).update_attributes(:position => array_index + 1)
+    end
+  end
 
-    return num.tr(',.','').to_f
+  def name_with_unit
+    unit.blank? ? name : "#{name} - #{_(unit)}"
   end
 
 end

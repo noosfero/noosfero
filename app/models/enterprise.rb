@@ -4,7 +4,8 @@ class Enterprise < Organization
 
   N_('Enterprise')
 
-  has_many :products, :dependent => :destroy
+  has_many :products, :dependent => :destroy, :order => 'name ASC'
+  has_many :inputs, :through => :products
 
   extra_data_for_index :product_categories
 
@@ -49,6 +50,10 @@ class Enterprise < Organization
 
   def active_fields
     environment ? environment.active_enterprise_fields : []
+  end
+
+  def highlighted_products_with_image(options = {})
+    Product.find(:all, {:conditions => {:highlighted => true}, :joins => :image}.merge(options))
   end
 
   def required_fields
@@ -117,15 +122,26 @@ class Enterprise < Organization
   end
 
   def default_set_of_blocks
+    links = [
+      {:name => _("Enterprises's profile"), :address => '/profile/{profile}', :icon => 'ok'},
+      {:name => _('Blog'), :address => '/{profile}/blog', :icon => 'edit'},
+      {:name => _('Products'), :address => '/catalog/{profile}', :icon => 'new'},
+    ]
     blocks = [
-      [MainBlock],
-      [ProfileInfoBlock, MembersBlock],
-      [RecentDocumentsBlock]
+      [MainBlock.new],
+      [ProfileImageBlock.new, LinkListBlock.new(:links => links)],
+      []
     ]
     if !environment.enabled?('disable_products_for_enterprises')
-      blocks[2].unshift ProductsBlock
+      blocks[2].unshift ProductsBlock.new
     end
     blocks
+  end
+
+  def default_set_of_articles
+    [
+      Blog.new(:name => _('Blog')),
+    ]
   end
 
   before_create do |enterprise|
@@ -147,12 +163,6 @@ class Enterprise < Organization
 
   def enable_contact?
     enable_contact_us
-  end
-
-  protected
-
-  def default_homepage(attrs)
-    EnterpriseHomepage.new(attrs)
   end
 
 end

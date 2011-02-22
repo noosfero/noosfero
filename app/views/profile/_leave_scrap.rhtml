@@ -1,0 +1,4 @@
+<%= @message %>
+<% unless @scraps.nil? %>
+  <%= render :partial => 'profile_scraps', :locals => {:scraps => @scraps} %>
+<% end %>

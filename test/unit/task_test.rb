@@ -87,7 +87,8 @@ class TaskTest < ActiveSupport::TestCase
   end
 
   should 'provide a description method' do
-    assert_kind_of String, Task.new.description
+    requestor = create_user('requestor').person
+    assert_kind_of Hash, Task.new(:requestor => requestor).information
   end
 
   should 'notify just after the task is created' do
@@ -212,6 +213,28 @@ class TaskTest < ActiveSupport::TestCase
     task.stubs(:target_notification_message).returns(nil)
     TaskMailer.expects(:deliver_target_notification).never
     task.save!
+  end
+
+  should 'the environment method be defined' do
+    task = Task.new
+    assert task.method_exists?('environment')
+  end
+
+  should 'the task environment method return the target environment' do
+    task = Task.new
+    target = Profile.new(:environment => Environment.new)
+    task.target = target
+    assert_equal task.environment, target.environment
+  end
+
+  should 'the task environment method return nil if the target task is nil' do
+    task = Task.new
+    assert_equal task.environment, nil
+  end
+
+  should 'have blank string on target_notification_description in Task base class' do
+    task = Task.new
+    assert_equal '', task.target_notification_description
   end
 
   protected

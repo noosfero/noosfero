@@ -1,10 +1,12 @@
 class ManageProductsController < ApplicationController
   needs_profile
 
-  protect 'manage_products', :profile
+  protect 'manage_products', :profile, :except => [:show]
   before_filter :check_environment_feature
+  before_filter :login_required, :except => [:show]
 
   protected  
+
   def check_environment_feature
     if profile.environment.enabled?('disable_products_for_enterprises')
       render_not_found
@@ -13,104 +15,147 @@ class ManageProductsController < ApplicationController
   end
 
   public
+
   def index
-    @products = @profile.products
-    @consumptions = @profile.consumptions
+    @products = @profile.products.paginate(:per_page => 10, :page => params[:page])
   end
 
   def show
     @product = @profile.products.find(params[:id])
+    @inputs = @product.inputs
+    @allowed_user = user && user.has_permission?('manage_products', profile)
+  end
+
+  def categories_for_selection
+    @category = Category.find(params[:category_id]) if params[:category_id]
+    @object_name = params[:object_name]
+    if @category
+      @categories = @category.children
+      @level = @category.leaf? ? @category.level : @categories.first.level
+    else
+      @categories = ProductCategory.top_level_for(environment)
+      @level = 0
+    end
+    render :partial => 'categories_for_selection', :locals => { :categories => @categories, :level => @level }
   end
 
   def new
-    @object = Product.new
-    @categories = @current_category.nil? ? ProductCategory.top_level_for(environment) : @current_category.children
-    @product = @profile.products.build(params[:product])
+    @product = @profile.products.build(:product_category_id => params[:selected_category_id])
+    @category = @product.product_category
+    @categories = ProductCategory.top_level_for(environment)
+    @level = 0
     if request.post?
       if @product.save
-        flash[:notice] = _('Product succesfully created')
-        redirect_to :action => 'show', :id => @product
+        session[:notice] = _('Product succesfully created')
+        render :partial => 'shared/redirect_via_javascript',
+          :locals => { :url => url_for(:controller => 'manage_products', :action => 'show', :id => @product) }
       else
-        flash[:notice] = _('Could not create the product')
+        render :partial => 'shared/dialog_error_messages', :locals => { :object_name => 'product' }
       end
     end
   end
 
   def edit
     @product = @profile.products.find(params[:id])
-    @object = @profile.products.find(params[:id])
-    @current_category = @product.product_category
-    @categories = @current_category.nil? ? [] : @current_category.children
+    field = params[:field]
     if request.post?
-      if @product.update_attributes(params[:product])
-        flash[:notice] = _('Product succesfully updated')
-        redirect_back_or_default :action => 'show', :id => @product
-      else
-        flash[:notice] = _('Could not update the product')
+      begin
+        @product.update_attributes!(params[:product])
+        render :partial => "display_#{field}", :locals => {:product => @product}
+      rescue Exception => e
+        render :partial => "edit_#{field}", :locals => {:product => @product, :errors => true}
       end
+    else
+      render :partial => "edit_#{field}", :locals => {:product => @product, :errors => false}
+    end
+  end
+
+  def edit_category
+    @product = @profile.products.find(params[:id])
+    @category = @product.product_category
+    @categories = ProductCategory.top_level_for(environment)
+    @edit = true
+    @level = @category.level
+    if request.post?
+      if @product.update_attributes(:product_category_id => params[:selected_category_id])
+        render :partial => 'shared/redirect_via_javascript',
+          :locals => { :url => url_for(:controller => 'manage_products', :action => 'show', :id => @product) }
+      else
+        render :partial => 'shared/dialog_error_messages', :locals => { :object_name => 'product' }
+      end
+    end
+  end
+
+  def add_input
+    @product = @profile.products.find(params[:id])
+    @input = @product.inputs.build
+    @categories = ProductCategory.top_level_for(environment)
+    @level = 0
+    if request.post?
+      if @input.update_attributes(:product_category_id => params[:selected_category_id])
+        @inputs = @product.inputs
+        render :partial => 'display_inputs'
+      else
+        render :partial => 'shared/dialog_error_messages', :locals => { :object_name => 'product' }
+      end
+    else
+      render :partial => 'add_input'
     end
   end
 
   def destroy
     @product = @profile.products.find(params[:id])
     if @product.destroy
-      flash[:notice] = _('Product succesfully removed')
+      session[:notice] = _('Product succesfully removed')
       redirect_back_or_default :action => 'index'
     else
-      flash[:notice] = _('Could not remove the product')
+      session[:notice] = _('Could not remove the product')
       redirect_back_or_default :action => 'show', :id => @product
     end
   end
 
-  def update_categories
-    @object = params[:id] ? @profile.products.find(params[:id]) : Product.new
-    if params[:category_id]
-      @current_category = Category.find(params[:category_id])
-      @categories = @current_category.children
-    else
-      @current_category = ProductCategory.top_level_for(environment).first
-      @categories = @current_category.nil? ? [] : @current_category.children
-    end
-    render :partial => 'shared/select_categories', :locals => {:object_name => 'product', :multiple => false}, :layout => false
-  end
-
-  def update_subcategories
-    @current_category = ProductCategory.find(params[:id]) if params[:id]
-    @categories = @current_category ? @current_category.children : ProductCategory.top_level_for(environment)
-    render :partial => 'subcategories'
-  end
-  
-  def new_consumption
-    @consumption = @profile.consumptions.build(params[:consumption])
-    if request.post?
-      if @consumption.save
-        flash[:notice] = _('Raw material succesfully created')
-        redirect_to :action => 'index'
+  def edit_input
+    if request.xhr?
+      @input = @profile.inputs.find_by_id(params[:id])
+      if @input
+        if request.post?
+          if @input.update_attributes(params[:input])
+            render :partial => 'display_input', :locals => {:input => @input}
+          else
+            render :partial => 'edit_input'
+          end
+        else
+          render :partial => 'edit_input'
+        end
       else
-        flash[:notice] = _('Could not create the raw material')
+        render :text => _('The input was not found')
       end
     end
   end
 
-  def destroy_consumption
-    @consumption = @profile.consumptions.find(params[:id])
-    if @consumption.destroy
-      flash[:notice] = _('Raw material succesfully removed')
-    else
-      flash[:notice] = _('Could not remove the raw material')
-    end
-    redirect_back_or_default :action => 'index'
+  def order_inputs
+    @product = @profile.products.find(params[:id])
+    @product.order_inputs!(params[:input]) if params[:input]
+    render :nothing => true
   end
- 
-  def edit_consumption
-    @consumption = @profile.consumptions.find(params[:id])
+
+  def remove_input
+    @input = @profile.inputs.find(params[:id])
+    @product = @input.product
     if request.post?
-      if @consumption.update_attributes(params[:consumption])
-        flash[:notice] = _('Raw material succesfully updated')
-        redirect_back_or_default :action => 'index'
+      if @input.destroy
+        @inputs = @product.inputs
+        render :partial => 'display_inputs'
       else
-        flash[:notice] = _('Could not update the raw material')
+        render :partial => 'shared/dialog_error_messages', :locals => { :object_name => 'input' }
       end
+    end
+  end
+
+  def certifiers_for_selection
+    @qualifier = Qualifier.exists?(params[:id]) ? Qualifier.find(params[:id]) : nil
+    render :update do |page|
+      page.replace_html params[:certifier_area], :partial => 'certifiers_for_selection'
     end
   end
 

@@ -1,6 +1,5 @@
 class Invitation < Task
 
-  acts_as_having_settings :field => :data
   settings_items :message, :friend_name, :friend_email
 
   validates_presence_of :requestor_id
@@ -11,13 +10,18 @@ class Invitation < Task
   validates_format_of :friend_email, :with => Noosfero::Constants::EMAIL_FORMAT, :if => Proc.new{|invite| invite.target_id.blank?}
 
   validates_presence_of :message, :if => Proc.new{|invite| invite.target_id.blank?}
-  validates_format_of :message, :with => /<url>/, :if => Proc.new{|invite| invite.target_id.blank?}
 
   alias :person :requestor
   alias :person= :requestor=
 
   alias :friend :target
   alias :friend= :target=
+
+  before_create do |task|
+    if task.message && !task.message.match(/<url>/)
+      task.message += Invitation.default_message_to_accept_invitation
+    end
+  end
 
   after_create do |task|
     TaskMailer.deliver_invitation_notification(task) unless task.friend
@@ -72,21 +76,26 @@ class Invitation < Task
     end
   end
 
-  def self.get_contacts(source, login, password)
-    contacts = []
+  def self.get_contacts(source, login, password, contact_list_id)
+    contact_list = ContactList.find(contact_list_id)
     case source
     when "gmail"
-      contacts = Contacts::Gmail.new(login, password).contacts
+      email_service = Contacts::Gmail.new(login, password)
     when "yahoo"
-      contacts = Contacts::Yahoo.new(login, password).contacts
+      email_service = Contacts::Yahoo.new(login, password)
     when "hotmail"
-      contacts = Contacts::Hotmail.new(login, password).contacts
+      email_service = Contacts::Hotmail.new(login, password)
     when "manual"
       #do nothing
     else
       raise NotImplementedError, 'Unknown source to get contacts'
     end
-    contacts.map { |contact| contact + ["#{contact[0]} <#{contact[1]}>"] }
+    if email_service
+      contact_list.list = email_service.contacts.map { |contact| contact + ["#{contact[0]} <#{contact[1]}>"] }
+      contact_list.fetched = true
+      contact_list.save
+    end
+    contact_list.list
   end
 
   def self.join_contacts(manual_import_addresses, webmail_import_addresses)
@@ -110,6 +119,14 @@ class Invitation < Task
 
   def mail_template
     raise 'You should implement mail_template in a subclass'
+  end
+
+  def self.default_message_to_accept_invitation
+    "\n\n" + _('To accept invitation, please follow this link: <url>')
+  end
+
+  def environment
+    self.requestor.environment
   end
 
 end

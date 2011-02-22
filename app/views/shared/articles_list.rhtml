@@ -1,0 +1,14 @@
+<table>
+
+  <tr>
+    <th><%= _('Title') %></th>
+    <th><%= _('Last update') %></th>
+  </tr>
+  <% articles.each do |article| %>
+    <% if article.display_to?(user) %>
+      <%= display_article_in_listing(article, recursive, 0) %>
+    <% end %>
+  <% end %>
+</table>
+
+<p><%= pagination_links(articles, {:param_name => 'npage', :prev_label => '&laquo; ' + _('Previous'), :next_label => _('Next') + ' &raquo;', :page_links => true}) %></p>

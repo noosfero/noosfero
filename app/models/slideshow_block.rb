@@ -11,7 +11,7 @@ class SlideshowBlock < Block
   end
 
   def gallery
-    gallery_id ? Folder.find(:first, :conditions => { :id => gallery_id }) : nil
+    gallery_id ? Gallery.find(:first, :conditions => { :id => gallery_id }) : nil
   end
 
   def public_filename_for(image)
@@ -46,6 +46,10 @@ class SlideshowBlock < Block
         render :file => 'blocks/slideshow', :locals => { :block => block, :images => nil }
       end
     end
+  end
+
+  def folder_choices
+    owner.image_galleries
   end
 
 end

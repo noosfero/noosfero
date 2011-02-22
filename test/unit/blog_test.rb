@@ -15,7 +15,11 @@ class BlogTest < ActiveSupport::TestCase
   end
 
   should 'provide own icon name' do
-    assert_not_equal Article.new.icon_name, Blog.new.icon_name
+    assert_not_equal Article.icon_name, Blog.icon_name
+  end
+
+  should 'provide blog as icon name' do
+    assert_equal 'blog', Blog.icon_name
   end
 
   should 'identify as folder' do
@@ -169,6 +173,26 @@ class BlogTest < ActiveSupport::TestCase
     blog.visualization_format = 'full'
     blog.valid?
     assert !blog.errors.invalid?(:visualization_format)
+  end
+
+  should 'have posts' do
+    assert Blog.new.has_posts?
+  end
+
+  should 'display posts in current language by default' do
+    blog = Blog.new
+    assert blog.display_posts_in_current_language
+    assert blog.display_posts_in_current_language?
+  end
+
+  should 'update display posts in current language setting' do
+    p = create_user('testuser').person
+    p.articles << Blog.new(:profile => p, :name => 'Blog test')
+    blog = p.blog
+    blog.display_posts_in_current_language = false
+    assert blog.save! && blog.reload
+    assert !blog.reload.display_posts_in_current_language
+    assert !blog.reload.display_posts_in_current_language?
   end
 
 end

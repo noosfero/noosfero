@@ -1,7 +1,7 @@
 module Noosfero::Factory
 
   def fast_create(name, attrs = {}, options = {})
-    data = defaults_for(name).merge(attrs)
+    data = defaults_for(name.to_s.gsub('::','')).merge(attrs)
     klass = name.to_s.camelize.constantize
     if klass.superclass != ActiveRecord::Base
       data[:type] = klass.to_s
@@ -56,7 +56,7 @@ module Noosfero::Factory
   ###### old stuff to be rearranged
   def create_admin_user(env)
     admin_user = User.find_by_login('adminuser') || create_user('adminuser', :email => 'adminuser@noosfero.org', :password => 'adminuser', :password_confirmation => 'adminuser', :environment => env)
-    admin_role = Role.find_by_name('admin_role') || Role.create!(:name => 'admin_role', :permissions => ['view_environment_admin_panel','edit_environment_features', 'edit_environment_design', 'manage_environment_categories', 'manage_environment_roles', 'manage_environment_validators'])
+    admin_role = Role.find_by_name('admin_role') || Role.create!(:name => 'admin_role', :permissions => ['view_environment_admin_panel','edit_environment_features', 'edit_environment_design', 'manage_environment_categories', 'manage_environment_roles', 'manage_environment_validators', 'manage_environment_users'])
     RoleAssignment.create!(:accessor => admin_user.person, :role => admin_role, :resource => env) unless admin_user.person.role_assignments.map{|ra|[ra.role, ra.accessor, ra.resource]}.include?([admin_role, admin_user, env])
     admin_user.login
   end
@@ -190,7 +190,7 @@ module Noosfero::Factory
 
   def defaults_for_person
     n = factory_num_seq.to_s
-    defaults_for_profile.merge({ :identifier => "person-" + n, :name => 'Person ' + n })
+    defaults_for_profile.merge({ :identifier => "person-" + n, :name => 'Person ' + n, :created_at => DateTime.now })
   end
 
   ###############################################
@@ -212,7 +212,7 @@ module Noosfero::Factory
   end
 
   ###############################################
-  # Article
+  # Article (and friends)
   ###############################################
 
   def defaults_for_article
@@ -220,18 +220,12 @@ module Noosfero::Factory
     { :name => name, :slug => name.to_slug, :path => name.to_slug }
   end
 
-  alias :defaults_for_text_article :defaults_for_article
-  alias :defaults_for_textile_article :defaults_for_article
-  alias :defaults_for_tiny_mce_article :defaults_for_article
-  alias :defaults_for_rss_feed :defaults_for_article
-
-  ###############################################
-  # Folder
-  ###############################################
-
-  def defaults_for_folder
-    defaults_for_article
-  end
+  alias :defaults_for_text_article       :defaults_for_article
+  alias :defaults_for_textile_article    :defaults_for_article
+  alias :defaults_for_tiny_mce_article   :defaults_for_article
+  alias :defaults_for_rss_feed           :defaults_for_article
+  alias :defaults_for_published_article  :defaults_for_article
+  alias :defaults_for_folder             :defaults_for_article
 
   ###############################################
   # Event
@@ -300,6 +294,7 @@ module Noosfero::Factory
   end
 
   alias :defaults_for_region :defaults_for_category
+  alias :defaults_for_product_category :defaults_for_category
 
   ###############################################
   # Box
@@ -326,5 +321,119 @@ module Noosfero::Factory
   alias :defaults_for_add_member :defaults_for_task
   alias :defaults_for_create_community :defaults_for_task
   alias :defaults_for_email_activation :defaults_for_task
+
+  ###############################################
+  # Product
+  ###############################################
+
+  def defaults_for_product
+    { :name => 'Product ' + factory_num_seq.to_s }
+  end
+
+  ###############################################
+  # Input
+  ###############################################
+
+  def defaults_for_input
+    { }
+  end
+
+  ###############################################
+  # Contact
+  ###############################################
+
+  def defaults_for_contact
+    { :subject => 'hello there', :message => 'here I come to SPAM you' }
+  end
+
+  ###############################################
+  # Qualifier
+  ###############################################
+
+  def defaults_for_qualifier
+    { :name => 'Qualifier ' + factory_num_seq.to_s, :environment_id => 1 }
+  end
+
+  ###############################################
+  # Certifier
+  ###############################################
+
+  alias :defaults_for_certifier :defaults_for_qualifier
+
+  ###############################################
+  # Scrap
+  ###############################################
+
+  def defaults_for_scrap(params = {})
+    { :content => 'soment content ', :sender_id => 1, :receiver_id => 1, :created_at => DateTime.now }.merge(params)
+  end
+
+  ###############################################
+  # ActionTrackerNotification
+  ###############################################
+
+  def defaults_for_action_tracker_notification(params = {})
+    { :action_tracker_id => 1, :profile_id => 1 }.merge(params)
+  end
+
+  ###############################################
+  # ActionTracker
+  ###############################################
+
+  def defaults_for_action_tracker_record(params = {})
+    { :created_at => DateTime.now, :verb => 'add_member_in_community', :user_type => 'Profile', :user_id => 1 }.merge(params)
+  end
+
+  ###############################################
+  # Friendship
+  ###############################################
+
+  def defaults_for_friendship(params = {})
+    { :created_at => DateTime.now, :person_id => 1, :friend_id => 2 }.merge(params)
+  end
+
+  ###############################################
+  # RoleAssignment
+  ###############################################
+
+  def defaults_for_role_assignment(params = {})
+    { :role_id => 1, :accessor_id => 1, :accessor_type => 'Profile', :resource_id => 2, :resource_type => 'Profile' }.merge(params)
+  end
+
+  ###############################################
+  # User
+  ###############################################
+
+  def defaults_for_user(params = {})
+    username = "user_#{rand(1000)}"
+    { :login => username, :email => username + '@noosfero.colivre', :crypted_password => 'test'}.merge(params)
+  end
+
+  ###############################################
+  # Forum
+  ###############################################
+
+  def defaults_for_forum(params = {})
+    name = "forum_#{rand(1000)}"
+    { :profile_id => 1, :path => name, :name => name, :slug => name.to_slug }.merge(params)
+  end
+
+  ###############################################
+  # Gallery
+  ###############################################
+
+  def defaults_for_gallery(params = {})
+    name = "gallery_#{rand(1000)}"
+    { :profile_id => 1, :path => name, :name => name, :slug => name.to_slug }.merge(params)
+  end
+
+  def defaults_for_suggest_article
+    { :name => 'Sender', :email => 'sender@example.com', :article_name => 'Some title', :article_body => 'some body text', :article_abstract => 'some abstract text'}
+  end
+
+  def defaults_for_comment(params = {})
+    name = "comment_#{rand(1000)}"
+    { :title => name, :body => "my own comment", :article_id => 1 }.merge(params)
+  end
 
 end

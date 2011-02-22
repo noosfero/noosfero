@@ -1,0 +1,8 @@
+<strong><%= _('Featured Products') %></strong>
+<div id='edit-featured-products-block'>
+  <p><%= label_tag _('Choose some products') %></p>
+  <p><%= select_tag 'block[product_ids][]', options_for_select(@block.products_for_selection.map{|p| [p.name, p.id.to_s]}, @block.product_ids), :multiple => true %></p>
+  <p><%= labelled_form_field check_box(:block, :reflect) + _('Reflect products'), '' %></p>
+  <p><%= labelled_form_field(_('Transition speed (in seconds)'), select('block', 'speed', (1..10).to_a.collect{|i| [i, i*1000] })) %>
+  <p><%= labelled_form_field(_('In groups of'), select('block', 'groups_of', (1..10).to_a)) %>
+</div>

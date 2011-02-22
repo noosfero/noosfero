@@ -142,9 +142,13 @@ Feature: events
     When I follow "31"
     Then I should see "YAPC::Brasil 2010"
 
-  Scenario: provide button to back from profile
-    When I am on /profile/josesilva/events
-    Then I should see "Back to josesilva" link
+  Scenario: provide button to go back to profile homepage
+    Given the following articles
+      | owner     | name        | homepage |
+      | josesilva | my homepage | true     |
+    Given I am on /profile/josesilva/events
+    When I follow "Back to josesilva"
+    Then I should be on josesilva's homepage
 
   Scenario: warn when there is no events
     When I am on /profile/josesilva/events/2020/12/1
@@ -170,3 +174,35 @@ Feature: events
   Scenario: display environment name in global agenda
     When I am on /assets/events
     Then I should see "Colivre.net's events"
+
+  Scenario: published events should be listed in the agenda too
+    Given the following community
+      | identifier | name |
+      | sample-community | Sample Community |
+    And I am logged in as "josesilva"
+    And "josesilva" is a member of "Sample Community"
+    And I am on josesilva's control panel
+    And I follow "Manage content"
+    And I follow "Another Conference"
+    And I follow "Spread"
+    And I check "Sample Community"
+    And I press "Spread this"
+    And I am on /profile/sample-community/events/2009/10/24
+    Then I should see "Another Conference"
+
+  Scenario: events that are not allowed to the user should not be displayed nor listed in the calendar
+    Given the following events
+      | owner     | name               | start_date | published |
+      | josesilva | Unpublished event  | 2009-10-25 | false     |
+    When I am on /profile/josesilva/events/2009/10/25
+    Then I should not see "Unpublished event"
+    And I should not see "25" link
+
+  Scenario: events that are allowed to the user should be displayed and listed in the calendar
+    Given the following events
+      | owner     | name               | start_date | published |
+      | josesilva | Unpublished event  | 2009-10-25 | false     |
+    And I am logged in as "josesilva"
+    When I am on /profile/josesilva/events/2009/10/25
+    Then I should see "Unpublished event"
+    And I should see "25" link

@@ -24,13 +24,23 @@ Feature: publish article
     And I follow "Manage Content"
     And I follow "Spread"
     And I check "Sample Community"
-    And I press "Publish"
-    And I am on Sample Community's homepage
-    And I follow "View profile"
+    And I press "Spread this"
     And I go to Sample Community's sitemap
     When I follow "Sample Article"
     Then I should see "This is the first published article"
 
+  Scenario: publishing an article with a different name
+    Given I am logged in as "joaosilva"
+    And "Joao Silva" is a member of "Sample Community"
+    And I am on Joao Silva's control panel
+    And I follow "Manage Content"
+    And I follow "Spread"
+    And I check "Sample Community"
+    And I fill in "Title" with "Another name"
+    And I press "Spread this"
+    When I go to Sample Community's sitemap
+    Then I should see "Another name"
+    And I should not see "Sample Article"
 
   Scenario: getting an error message when publishing article with same name
     Given I am logged in as "joaosilva"
@@ -39,13 +49,13 @@ Feature: publish article
     And I follow "Manage Content"
     And I follow "Spread"
     And I check "Sample Community"
-    And I press "Publish"
+    And I press "Spread this"
     And I am not logged in
     And I am logged in as "mariasilva"
     And "Maria Silva" is a member of "Sample Community"
     And I am on Maria Silva's control panel
     And I follow "Manage Content"
-    And I follow "New article"
+    And I follow "New content"
     And I follow "Text article with Textile markup language"
     And I fill in the following:
       | Title | Sample Article |
@@ -53,7 +63,7 @@ Feature: publish article
     And I press "Save"
     And I follow "Spread"
     And I check "Sample Community"
-    When I press "Publish"
+    When I press "Spread this"
     Then I should see "The title (article name) is already being used by another article, please use another title."
 
   Scenario: publishing an article in many communities and listing the communities that couldn't publish the article again,
@@ -70,7 +80,7 @@ Feature: publish article
     And I follow "Manage Content"
     And I follow "Spread"
     And I check "Sample Community"
-    And I press "Publish"
+    And I press "Spread this"
     And I should not see "This article name is already in use in the following community(ies):"
     And I am on Joao Silva's control panel
     And I follow "Manage Content"
@@ -78,14 +88,10 @@ Feature: publish article
     And I check "Sample Community"
     And I check "Another Community1"
     And I check "Another Community2"
-    When I press "Publish"
+    When I press "Spread this"
     Then I should see "The title (article name) is already being used by another article, please use another title."
-    And I am on Another Community1's homepage
-    And I follow "View profile"
     When I go to Another Community1's sitemap
     Then I should see "Sample Article"
-    And I am on Another Community2's homepage
-    And I follow "View profile"
     When I go to Another Community2's sitemap
     Then I should see "Sample Article"
 
@@ -101,17 +107,19 @@ Feature: publish article
     And I follow "Manage Content"
     And I follow "Spread"
     And I check "Sample Community"
-    And I press "Publish"
+    And I press "Spread this"
     And I am on Joao Silva's control panel
     And I follow "Manage Content"
     And I follow "Spread"
     And I check "Sample Community"
-    And I press "Publish"
+    And I press "Spread this"
     And I am on Sample Community's control panel
     And I follow "Tasks"
-    And I press "Ok!"
+    And I choose "Accept"
+    And I press "Apply!"
     And I should not see "The title (article name) is already being used by another article, please use another title."
-    When I press "Ok!"
+    And I choose "Accept"
+    When I press "Apply!"
     Then I should see "The title (article name) is already being used by another article, please use another title."
 
   Scenario: ask to publish an article that was deleted before approval
@@ -125,10 +133,10 @@ Feature: publish article
     And I follow "Manage Content"
     And I follow "Spread"
     And I check "Sample Community"
-    And I press "Publish"
+    And I press "Spread this"
     And "joaosilva" has no articles
     And I am on Sample Community's control panel
     When I follow "Tasks"
-    Then I should see /Joao Silva wanted.*deleted/
-    And I press "Ok!"
-    Then I should not see /Joao Silva wanted.*deleted/
+    Then I should see "The article was removed."
+    And I press "Apply!"
+    Then I should not see "The article was removed."

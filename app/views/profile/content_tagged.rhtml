@@ -1,6 +1,6 @@
 <% add_rss_feed_to_head(_("%s's contents tagged with \"%s\"") % [profile.name, @tag], tag_feed_path) %>
 
-<h1><%= _('Content tagged with "%s"') % @tag %></h1>
+<h1><%= _('Content tagged with "%s"') % CGI.escapeHTML(@tag) %></h1>
 
 <p>
 <%= link_to image_tag('icons-mime/rss-feed.png', :alt => _('Feed for this tag'), :title => _('Feed for this tag')), tag_feed_path, :class => 'blog-feed-link'%>
@@ -18,6 +18,6 @@
   <%= pagination_links @tagged, :param_name => 'npage' %>
 
   <div>
-    <%= link_to _('See content tagged with "%s" in the entire site') % @tag, :controller => 'search', :action => 'tag', :tag => @tag %>
+    <%= link_to _('See content tagged with "%s" in the entire site') % CGI.escapeHTML(@tag), :controller => 'search', :action => 'tag', :tag => @tag %>
   </div>
 <% end %>

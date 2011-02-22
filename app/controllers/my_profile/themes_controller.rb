@@ -8,6 +8,11 @@ class ThemesController < MyProfileController
     redirect_to :action => 'index'
   end
 
+  def unset
+    profile.update_theme(nil)
+    redirect_to :action => 'index'
+  end
+
   def index
     @themes = profile.environment.themes + Theme.approved_themes(profile)
     @current_theme = profile.theme
@@ -18,7 +23,7 @@ class ThemesController < MyProfileController
 
   def new
     if !request.xhr?
-      id = params[:name].to_slug
+      id = params[:name] ? params[:name].to_slug : 'my-theme'
       t = Theme.new(id, :name => params[:name], :owner => profile, :public => false)
       t.save
       redirect_to :action => 'index'

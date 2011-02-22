@@ -49,4 +49,39 @@ class NoosferoTest < ActiveSupport::TestCase
     assert_match /^#{Noosfero.identifier_format}$/, '129812startingwithnumber'
   end
 
+  should 'change locale temporarily' do
+    Noosfero.with_locale('pt') do
+      assert_equal 'pt', FastGettext.locale
+    end
+    assert_equal 'en', FastGettext.locale
+  end
+
+  should 'use terminology with ngettext' do
+   Noosfero.stubs(:terminology).returns(UnifreireTerminology.instance)
+
+   Noosfero.with_locale('en') do
+     assert_equal 'One institution', n__('One enterprise', '%{num} enterprises', 1)
+   end
+
+   Noosfero.with_locale('pt') do
+     stubs(:ngettext).with('One institution', '%{num} institutions', 1).returns('Uma instituição')
+     assert_equal 'Uma instituição', n__('One enterprise', '%{num} enterprises', 1)
+   end
+  end
+
+  should "use default hostname of default environment as hostname of Noosfero instance" do
+    Environment.default.domains << Domain.new(:name => 'thisisdefaulthostname.com', :is_default => true)
+    assert_equal 'thisisdefaulthostname.com', Noosfero.default_hostname
+  end
+
+  should "use 'localhost' as default hostname of Noosfero instance when has no environments in database" do
+    Environment.stubs(:default).returns(nil)
+    assert_equal 'localhost', Noosfero.default_hostname
+  end
+
+  should "use 'localhost' as default hostname of Noosfero instance when environments table doesn't exists" do
+    Environment.stubs(:table_exists?).returns(false)
+    assert_equal 'localhost', Noosfero.default_hostname
+  end
+
 end

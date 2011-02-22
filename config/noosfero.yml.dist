@@ -1,0 +1,14 @@
+development:
+  mail_enabled: true
+  webmail_url: "http://localhost.localdomain/"
+  addthis_enabled: true
+  addthis_pub: your-user-name
+  addthis_logo: http://localhost:3000/images/logo-200x50.png
+  addthis_options: favorites, email, digg, delicious, technorati, slashdot, twitter, more
+  gravatar: wavatar
+  googlemaps_initial_zoom: 4
+  exception_recipients: [admin@example.com]
+
+test:
+
+production:

@@ -1,11 +1,9 @@
+<h1><%= h profile.short_name(50) %></h1>
+
+<%= render :partial => 'index_buttons' %>
+
 <div id="members-list">
   <%= render :partial => 'members_list' %>
 </div>
 
-<% button_bar do %>
-  <%= button :back, _('Back'), :controller => 'profile_editor' %>
-  <%= button :add, _('Add members'), :action => 'add_members' if profile.enterprise? %>
-  <% if profile.community? and user.has_permission?(:invite_members, profile) %>
-    <%= button :search, _('Invite your friends to join %s') % profile.name, :controller => 'invite', :action => 'friends' %>
-  <% end %>
-<% end %>
+<%= render :partial => 'index_buttons' %>

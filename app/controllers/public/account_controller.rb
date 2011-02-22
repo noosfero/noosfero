@@ -1,8 +1,10 @@
 class AccountController < ApplicationController
 
+  no_design_blocks
+
   inverse_captcha :field => 'e_mail'
 
-  require_ssl :except => [ :login_popup, :logout_popup, :wizard, :profile_details ]
+  require_ssl :except => [ :login_popup, :logout_popup, :profile_details ]
 
   before_filter :login_required, :only => [:activation_question, :accept_terms, :activate_enterprise]
   before_filter :redirect_if_logged_in, :only => [:login, :signup]
@@ -28,10 +30,10 @@ class AccountController < ApplicationController
       end
       if redirect?
         go_to_initial_page
-        flash[:notice] = _("Logged in successfully")
+        session[:notice] = _("Logged in successfully")
       end
     else
-      flash[:notice] = _('Incorrect username or password') if redirect?
+      session[:notice] = _('Incorrect username or password') if redirect?
       redirect_to :back if redirect?
     end
   end
@@ -48,8 +50,6 @@ class AccountController < ApplicationController
   # action to register an user to the application
   def signup
     @invitation_code = params[:invitation_code]
-    @wizard = params[:wizard].blank? ? false : params[:wizard]
-    @step = 1
     begin
       @user = User.new(params[:user])
       @user.terms_of_use = environment.terms_of_use
@@ -68,36 +68,15 @@ class AccountController < ApplicationController
           invitation.update_attributes!({:friend => @user.person})
           invitation.finish
         end
-        flash[:notice] = _("Thanks for signing up!")
-        if @wizard
-          redirect_to :controller => 'search', :action => 'assets', :asset => 'communities', :wizard => true
-          return
-        else
-          go_to_initial_page if redirect?
-        end
+        session[:notice] = _("Thanks for signing up!")
+        go_to_initial_page if redirect?
       end
-    if @wizard
-      render :layout => 'wizard'
-    end
     rescue ActiveRecord::RecordInvalid
       @person.valid?
       @person.errors.delete(:identifier)
       @person.errors.delete(:user_id)
-      if @wizard
-        render :action => 'signup', :layout => 'wizard'
-      else
-        render :action => 'signup'
-      end
+      render :action => 'signup'
     end
-  end
-
-  def wizard
-    render :layout => false
-  end
-
-  def profile_details
-    @profile = Profile.find_by_identifier(params[:profile])
-    render :partial => 'profile_details', :layout => 'wizard'
   end
 
   # action to perform logout from the application
@@ -107,7 +86,7 @@ class AccountController < ApplicationController
     end
     cookies.delete :auth_token
     reset_session
-    flash[:notice] = _("You have been logged out.")
+    session[:notice] = _("You have been logged out.")
     redirect_to :controller => 'home', :action => 'index'
   end
 
@@ -118,10 +97,10 @@ class AccountController < ApplicationController
         @user.change_password!(params[:current_password],
                                params[:new_password],
                                params[:new_password_confirmation])
-        flash[:notice] = _('Your password has been changed successfully!')
+        session[:notice] = _('Your password has been changed successfully!')
         redirect_to :action => 'index'
       rescue User::IncorrectPassword => e
-        flash[:notice] = _('The supplied current password is incorrect.')
+        session[:notice] = _('The supplied current password is incorrect.')
         render :action => 'change_password'
       end
     else
@@ -231,6 +210,21 @@ class AccountController < ApplicationController
     end
     @url = environment.top_url + '/' + @identifier
     render :partial => 'identifier_status'
+  end
+
+  def user_data
+    user_data =
+      if logged_in?
+        current_user.data_hash
+      else
+        { }
+      end
+    if session[:notice]
+      user_data['notice'] = session[:notice]
+      session[:notice] = nil # consume the notice
+    end
+
+    render :text => user_data.to_json, :layout => false, :content_type => "application/javascript"
   end
 
   protected

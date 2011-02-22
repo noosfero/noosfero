@@ -15,6 +15,8 @@ class SearchControllerTest < Test::Unit::TestCase
     domain = Environment.default.domains.first
     domain.google_maps_key = 'ENVIRONMENT_KEY'
     domain.save!
+
+    @product_category = fast_create(ProductCategory)
   end
 
   def create_article_with_optional_category(name, profile, category = nil)
@@ -46,6 +48,11 @@ class SearchControllerTest < Test::Unit::TestCase
     get 'index', :query => 'a carne da vaca'
 
     assert_equal 'carne vaca', assigns('filtered_query')
+  end
+
+  should 'espape xss attack' do
+    get 'index', :query => '<wslite>'
+    assert_no_tag :tag => 'wslite'
   end
 
   should 'search only in specified types of content' do
@@ -235,16 +242,9 @@ class SearchControllerTest < Test::Unit::TestCase
     assert_equivalent [c3, c1], assigns(:results)[:communities]
   end
 
-  should 'find communities in signup wizard' do
-    c1 = create_profile_with_optional_category(Community, 'a beautiful community')
-    get :index, :query => 'beautiful', :find_in => [ 'communities' ], :wizard => true
-    assert_includes assigns(:results)[:communities], c1
-    assert_equal 'layouts/wizard', @response.layout
-  end
-
   should 'find products' do
     ent = create_profile_with_optional_category(Enterprise, 'teste')
-    prod = ent.products.create!(:name => 'a beautiful product')
+    prod = ent.products.create!(:name => 'a beautiful product', :product_category => @product_category)
     get 'index', :query => 'beautiful', :find_in => ['products']
     assert_includes assigns(:results)[:products], prod
   end
@@ -252,8 +252,8 @@ class SearchControllerTest < Test::Unit::TestCase
   should 'find products in a specific category' do
     ent1 = create_profile_with_optional_category(Enterprise, 'teste1', @category)
     ent2 = create_profile_with_optional_category(Enterprise, 'teste2')
-    prod1 = ent1.products.create!(:name => 'a beautiful product')
-    prod2 = ent2.products.create!(:name => 'another beautiful product')
+    prod1 = ent1.products.create!(:name => 'a beautiful product', :product_category => @product_category)
+    prod2 = ent2.products.create!(:name => 'another beautiful product', :product_category => @product_category)
     get :index, :category_path => @category.path.split('/'), :query => 'beautiful', :find_in => ['products']
     assert_includes assigns(:results)[:products], prod1
     assert_not_includes assigns(:results)[:products], prod2
@@ -265,8 +265,8 @@ class SearchControllerTest < Test::Unit::TestCase
 
     ent1 = create_profile_with_optional_category(Enterprise, 'teste1')
     ent2 = create_profile_with_optional_category(Enterprise, 'teste2')
-    prod1 = ent1.products.create!(:name => 'a beautiful product')
-    prod2 = ent2.products.create!(:name => 'another beautiful product')
+    prod1 = ent1.products.create!(:name => 'a beautiful product', :product_category => @product_category)
+    prod2 = ent2.products.create!(:name => 'another beautiful product', :product_category => @product_category)
 
     get :assets, :asset => 'products'
     assert_equivalent [prod2, prod1], assigns(:results)[:products]
@@ -278,11 +278,11 @@ class SearchControllerTest < Test::Unit::TestCase
 
     # in category
     ent1 = create_profile_with_optional_category(Enterprise, 'teste1', @category)
-    prod1 = ent1.products.create!(:name => 'a beautiful product')
+    prod1 = ent1.products.create!(:name => 'a beautiful product', :product_category => @product_category)
 
     # not in category
     ent2 = create_profile_with_optional_category(Enterprise, 'teste2')
-    prod2 = ent2.products.create!(:name => 'another beautiful product')
+    prod2 = ent2.products.create!(:name => 'another beautiful product', :product_category => @product_category)
 
     get :assets, :asset => 'products', :category_path => [ 'my-category' ]
 
@@ -301,7 +301,7 @@ class SearchControllerTest < Test::Unit::TestCase
 
   should 'display search results' do
     ent = create_profile_with_optional_category(Enterprise, 'display enterprise')
-    product = ent.products.create!(:name => 'display product')
+    product = ent.products.create!(:name => 'display product', :product_category => @product_category)
     person = create_user('displayperson').person; person.name = 'display person'; person.save!
     article = person.articles.create!(:name => 'display article')
     event = Event.new(:name => 'display event', :start_date => Date.today); event.profile = person; event.save!
@@ -358,6 +358,7 @@ class SearchControllerTest < Test::Unit::TestCase
   end
 
   should 'display option to search within a given point and distance' do
+    state = State.create!(:name => "Bahia", :environment => Environment.default)
     get :popup
 
     assert_tag :tag => 'select', :attributes => {:name => 'radius'}
@@ -554,6 +555,8 @@ class SearchControllerTest < Test::Unit::TestCase
     cat = Category.create!(:name => 'category2', :environment => Environment.default, :parent => parent,
       :image_builder => {:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')}
     )
+
+    process_delayed_job_queue
     get :category_index, :category_path => [ 'category1', 'category2' ], :query => 'teste'
     assert_tag :tag => 'img', :attributes => { :src => /rails_thumb\.png/ }
   end
@@ -919,9 +922,9 @@ class SearchControllerTest < Test::Unit::TestCase
   should 'search for products by origin and radius correctly' do
     s = City.create!(:name => 'Salvador', :lat => -12.97, :lng => -38.51, :environment => Environment.default)
     e1 = create_profile_with_optional_category(Enterprise, 'test ent 1', nil, :lat => -12.97, :lng => -38.51)
-    p1 = e1.products.create!(:name => 'test_product1')
+    p1 = e1.products.create!(:name => 'test_product1', :product_category => @product_category)
     e2 = create_profile_with_optional_category(Enterprise, 'test ent 2', nil, :lat => -14.97, :lng => -40.51)
-    p2 = e2.products.create!(:name => 'test_product2')
+    p2 = e2.products.create!(:name => 'test_product2', :product_category => @product_category)
 
     get :assets, :asset => 'products', :city => s.id, :radius => 15
 
@@ -970,25 +973,10 @@ class SearchControllerTest < Test::Unit::TestCase
     end
   end
 
-  should 'display steps when searching on wizard' do
-    c1 = create_profile_with_optional_category(Community, 'a beautiful community')
-    login_as('ze')
-    get :index, :query => 'beautiful', :find_in => [ 'communities' ], :wizard => true
-    assert_equal 'layouts/wizard', @response.layout
-    assert_tag :tag => 'div', :attributes => {:id => 'wizard-steps'}
-  end
-
-  should 'not display steps when searching not on wizard' do
-    c1 = create_profile_with_optional_category(Community, 'a beautiful community')
-    get :index, :query => 'beautiful', :find_in => [ 'communities' ]
-    assert_match 'layouts/application', @response.layout
-    assert_no_tag :tag => 'div', :attributes => {:id => 'wizard-steps'}
-  end
-
   should 'find products when enterprises has own hostname' do
     ent = create_profile_with_optional_category(Enterprise, 'teste')
     ent.domains << Domain.new(:name => 'testent.com'); ent.save!
-    prod = ent.products.create!(:name => 'a beautiful product')
+    prod = ent.products.create!(:name => 'a beautiful product', :product_category => @product_category)
     get 'index', :query => 'beautiful', :find_in => ['products']
     assert_includes assigns(:results)[:products], prod
   end

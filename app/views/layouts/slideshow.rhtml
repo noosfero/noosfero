@@ -2,7 +2,7 @@
 	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
   <head>
-    <link rel="shortcut icon" href="<%= '/designs/themes/' + current_theme + '/images/favicon.ico' %>" type="image/x-icon" />
+    <link rel="shortcut icon" href="<%= image_path(theme_favicon) %>" type="image/x-icon" />
     <title><%=
        (@page ? @page.name + ' - ' : '') +
        (@profile ? @profile.name + ' - ' : '') +

@@ -14,6 +14,14 @@ class RssFeed < Article
   end
   alias :settings :body
 
+  def feed_item_description
+    self.body[:feed_item_description]
+  end
+
+  def feed_item_description=(feed_item_description)
+    self.body[:feed_item_description] = feed_item_description
+  end
+
   # The maximum number of articles to be displayed in the RSS feed. Default: 10
   def limit
     settings[:limit] || 10
@@ -43,6 +51,7 @@ class RssFeed < Article
 
   # TODO
   def to_html(options = {})
+    ""
   end
 
   # RSS feeds have type =text/xml=.
@@ -52,15 +61,16 @@ class RssFeed < Article
 
   include ActionController::UrlWriter
   def fetch_articles
-    if parent && parent.blog?
-      return parent.posts.find(:all, :conditions => ['published = ?', true], :limit => self.limit, :order => 'id desc')
+    if parent && parent.has_posts?
+      language = self.language.blank? ? {} : { :language => self.language }
+      return parent.posts.find(:all, :conditions => { :published => true }.merge(language), :limit => self.limit, :order => 'id desc')
     end
 
     articles =
       if (self.include == 'parent_and_children') && self.parent
         self.parent.map_traversal
       else
-        profile.recent_documents(self.limit)
+        profile.last_articles(self.limit)
       end
   end
   def data
@@ -81,7 +91,7 @@ class RssFeed < Article
     _('Provides a news feed of your more recent articles.')
   end
 
-  def icon_name
+  def self.icon_name(article = nil)
     'rss-feed'
   end
 

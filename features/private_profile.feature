@@ -17,7 +17,6 @@ Feature: private profiles
     When I go to Safernet's homepage
     Then I should see "members only"
     When I follow "Join"
-    And I press "Yes, I want to join"
     And "joao" is accepted on community "Safernet"
     Then "joao" should be a member of "Safernet"
     When I go to Safernet's homepage
@@ -27,5 +26,17 @@ Feature: private profiles
     Given I am logged in as "joao"
     When I go to shygirl's homepage
     Then I should see "friends only"
-    When I follow "Add friend"
-    And I press "Yes, I want"
+    And I follow "Add friend"
+    When I go to shygirl's homepage
+    Then I should not see "Add friend"
+
+  Scenario: viewing a private community profile shouldn't show the news if not logged or not a member
+    Given I am on Safernet's homepage
+    Then I should not see "What's new"
+    And I am logged in as "joao"
+    When I am on Safernet's homepage
+    Then I should not see "What's new"
+    And "joao" is a member of "Safernet"
+    When I am on Safernet's homepage
+    Then I should see "What's new"
+

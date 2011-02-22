@@ -1,12 +1,16 @@
 module FolderHelper
 
+  include ShortFilename
+
   def list_articles(articles, recursive = false)
     if !articles.blank?
-      content_tag(
-        'table',
-        content_tag('tr', content_tag('th', _('Title')) + content_tag('th', _('Last update'))) +
-        articles.map {|item| display_article_in_listing(item, recursive, 0)}.join('')
+      articles = articles.paginate(
+        :order => "updated_at DESC",
+        :per_page => 10,
+        :page => params[:npage]
       )
+
+      render :file => 'shared/articles_list', :locals => {:articles => articles, :recursive => recursive}
     else
       content_tag('em', _('(empty folder)'))
     end
@@ -17,9 +21,14 @@ module FolderHelper
   end
 
   def display_article_in_listing(article, recursive = false, level = 0)
+    article_link = if article.image?
+         link_to('&nbsp;' * (level * 4) + image_tag(icon_for_article(article)) + short_filename(article.name), article.url.merge(:view => true))
+       else
+         link_to('&nbsp;' * (level * 4) + short_filename(article.name), article.url.merge(:view => true), :class => icon_for_article(article))
+       end
     result = content_tag(
       'tr',
-      content_tag('td', link_to(('&nbsp;' * (level * 4) ) + image_tag(icon_for_article(article)) + short_filename(article.name), article.url.merge(:view => true)))+
+      content_tag('td', article_link )+
       content_tag('td', show_date(article.updated_at), :class => 'last-update'),
       :class => 'sitemap-item'
     )
@@ -31,16 +40,20 @@ module FolderHelper
   end
 
   def icon_for_article(article)
-    icon = article.icon_name
+    icon = article.class.icon_name(article)
     if (icon =~ /\//)
       icon
     else
-      if File.exists?(File.join(RAILS_ROOT, 'public', 'images', 'icons-mime', "#{icon}.png"))
-        "icons-mime/#{icon}.png"
-      else
-        "icons-mime/unknown.png"
+      klasses = 'icon icon-' + icon
+      if article.kind_of?(UploadedFile)
+        klasses += ' icon-upload-file'
       end
+      klasses
     end
+  end
+
+  def icon_for_new_article(type)
+    "icon-new icon-new%s" % type.constantize.icon_name
   end
 
   def custom_options_for_article(article)
@@ -69,11 +82,4 @@ module FolderHelper
     _('Edit folder')
   end
 
-  def short_filename(filename, limit_chars = 43)
-    return filename if filename.size <= limit_chars
-    extname = File.extname(filename)
-    basename = File.basename(filename,extname)
-    str_complement = '(...)'
-    return basename[0..(limit_chars - extname.size - str_complement.size - 1)] + str_complement + extname
-  end
 end

@@ -2,7 +2,7 @@
 <table>
   <tr><th><%= _('Name') %></th><th></th></tr>
   <% @users_found.each do |user| %>
-    <tr id="tr-<%= user.identifier %>"<%= profile.members.include?(user) ? 'style="display:none"' : '' %>>
+    <tr id="tr-<%= user.identifier %>">
       <td>
         <div id="<%= user.identifier %>" class="draggable-user">
           <%= image_tag('/images/grip-clue.png') %>
@@ -14,10 +14,10 @@
         <%= draggable_element(user.identifier, :revert => true) %>
       </td>
       <td>
-        <%= button_to_remote_without_text(:add, _('Add member'),
+        <%= button_to_remote_without_text(:add, @button_alt,
                                           { :loading => '$("members-list").addClassName("loading")',
                                             :update => 'members-list',
-                                            :url => {:action => 'add_member', :profile => profile.identifier, :id => user.identifier},
+                                            :url => {:id => user.id, :profile => profile.identifier}.merge(@add_action),
                                             :success => "$('tr-#{user.identifier}').hide()",
                                             :complete => '$("members-list").removeClassName("loading")'}) %>
 

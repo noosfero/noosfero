@@ -49,7 +49,7 @@ class ApplicationControllerTest < Test::Unit::TestCase
     Environment.stubs(:default).returns(default)
     default.stubs(:top_url).returns('http://default.com/')
 
-    current = Environment.create!(:name => 'test environment')
+    current = fast_create(Environment, :name => 'test environment')
     current.domains.create!(:name => 'example.com')
 
     @request.expects(:host).returns('example.com').at_least_once
@@ -201,12 +201,11 @@ class ApplicationControllerTest < Test::Unit::TestCase
     assert_tag :tag => 'option', :attributes => { :value => 'it' }, :content => 'Italiano'
   end
 
-  should 'display link to webmail if enabled for system and for user' do
+  should 'display link to webmail if enabled for system' do
     @controller.stubs(:get_layout).returns('application')
     login_as('ze')
     MailConf.expects(:enabled?).returns(true)
     MailConf.expects(:webmail_url).returns('http://web.mail/')
-    User.any_instance.expects(:enable_email).returns(true)
 
     get :index
     assert_tag :tag => 'div', :attributes => { :id => 'user_box' }, :descendant => { :tag => 'a', :attributes => { :href => 'http://web.mail/' } }
@@ -216,16 +215,6 @@ class ApplicationControllerTest < Test::Unit::TestCase
     @controller.stubs(:get_layout).returns('application')
     login_as('ze')
     MailConf.expects(:enabled?).returns(false)
-
-    get :index
-    assert_no_tag :tag => 'div', :attributes => { :id => 'user_box' }, :descendant => { :tag => 'a', :attributes => { :href => 'http://web.mail/' } }
-  end
-
-  should 'not display link in menu to webmail if not enabled for user' do
-    @controller.stubs(:get_layout).returns('application')
-    login_as('ze')
-    MailConf.expects(:enabled?).returns(true)
-    User.any_instance.expects(:enable_email).returns(false)
 
     get :index
     assert_no_tag :tag => 'div', :attributes => { :id => 'user_box' }, :descendant => { :tag => 'a', :attributes => { :href => 'http://web.mail/' } }
@@ -387,7 +376,7 @@ class ApplicationControllerTest < Test::Unit::TestCase
 
   should 'display menu links for my environment when logged in other environment' do
     @controller.stubs(:get_layout).returns('application')
-    e = Environment.create!(:name => 'other_environment')
+    e = fast_create(Environment, :name => 'other_environment')
     e.domains << Domain.new(:name => 'other.environment')
     e.save!
 
@@ -428,6 +417,28 @@ class ApplicationControllerTest < Test::Unit::TestCase
   should 'diplay name of environment in description' do
     get :index
     assert_tag :tag => 'meta', :attributes => { :name => 'description', :content => assigns(:environment).name }
+  end
+
+  should 'set html lang as the article language if an article is present and has a language' do
+    a = fast_create(Article, :name => 'test article', :language => 'fr')
+    @controller.instance_variable_set('@page', a)
+    FastGettext.stubs(:locale).returns('es')
+    get :index
+    assert_tag :html, :attributes => { :lang => 'fr' }
+  end
+
+  should 'set html lang as locale if no page present' do
+    FastGettext.stubs(:locale).returns('es')
+    get :index
+    assert_tag :html, :attributes => { :lang => 'es' }
+  end
+
+  should 'set html lang as locale if page has no language' do
+    a = fast_create(Article, :name => 'test article', :language => nil)
+    @controller.instance_variable_set('@page', a)
+    FastGettext.stubs(:locale).returns('es')
+    get :index
+    assert_tag :html, :attributes => { :lang => 'es' }
   end
 
 end

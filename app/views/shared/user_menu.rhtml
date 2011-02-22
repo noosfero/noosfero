@@ -1,52 +1,46 @@
 <div id="user_menu" class="top_extra_menu AOM_paddingBottom_6">
 
-  <% if logged_in? %>
+  <div id='user'>
+    <div class='logged-in' style='display: none'>
 
     <div id="user_menu_head">
-      <img src="<%=
-      (current_user.person.image)?
-      current_user.person.image.public_filename(:icon) : "/images/icons-bar/photo.png"
-      %>" alt="<%= current_user.name %> Icon-Photo" title="" height="20" border="0"/>
-      <span><%= _("%s's Menu") % current_user.person.short_name %> </span>
+      <%= image_tag 'icons-app/person-icon.png', :alt => "{login} icon photo", :height => "20", :border => "0" %>
+      <span><%= _("%s's Menu") % '{login}' %> </span>
     </div>
 
     <div id="user_menu_ul">
       <ul>
 
         <li>
-          <%= link_to( '<span class="icon-menu-home"></span>' + __('My Home Page'), user.url)%>
+          <%= link_to( '<span class="icon-menu-home"></span>' + __('My Home Page'), '/{login}')%>
         </li>
 
         <li>
-        <%= link_to('<span class="icon-menu-my-groups"></span>' + _('My groups'), { :controller => 'memberships', :profile => user.identifier, :action => 'index' }) %>
+        <%= link_to('<span class="icon-menu-my-groups"></span>' + _('My groups'), '/myprofile/{login}/memberships') %>
         </li>
 
         <li>
-        <%= lightbox_link_to('<span class="icon-new"></span>' + _('New article'), user.admin_url.merge(:controller => 'cms', :action => 'new')) %>
+        <%= lightbox_link_to('<span class="icon-new"></span>' + _('New article'), '/myprofile/{login}/cms/new') %>
         </li>
 
-        <% for enterprise in user.enterprises %>
-          <li><%= link_to('<span class="icon-menu-enterprise"></span>' + (_('Manage %s') % enterprise.short_name), { :controller => 'profile_editor', :profile => enterprise.identifier, :action => 'index' }) %></li>
-        <% end %>
+        <li id='manage-enterprises-link-template' style='display: none'><a href='/myprofile/{identifier}'><span class="icon-menu-enterprise"></span><%= _('Manage %s') % '{name}' %></a></li>
 
         <!-- li><a href="#"><span class="icon-menu-blog"></span> Meu Blog</a></li -->
 
-        <% if MailConf.enabled? && current_user.enable_email %>
-          <li>
-          <%= link_to '<span class="icon-menu-mail"></span>' + _('Webmail'), MailConf.webmail_url(user.identifier, current_user.email_domain) %>
+        <% if MailConf.enabled? %>
+          <li class='webmail-link' style='display: none'>
+          <%= link_to '<span class="icon-menu-mail"></span>' + _('Webmail'), MailConf.webmail_url('{login}', '{email_domain}') %>
           </li>
         <% end %>
 
         <li>
-        <%= link_to('<span class="icon-menu-ctrl-panel"></span>'+ _('Control panel'), { :controller => 'profile_editor', :action => 'index', :profile => user.identifier }, :id => 'link_edit_profile') %>
+        <%= link_to('<span class="icon-menu-ctrl-panel"></span>'+ _('Control panel'), '/myprofile/{login}', :id => 'link_edit_profile') %>
         </li>
 
-        <% if user.is_admin?(environment) %>
-          <li><%= link_to( '<span class="icon-menu-admin"></span>'+ _('Admin'),
+          <li class='admin-link' style='display: none'><%= link_to( '<span class="icon-menu-admin"></span>'+ _('Admin'),
                              {:controller => 'admin_panel' },
                              :id => 'link_admin_panel' ) %>
           </li>
-        <% end %>
 
         <li><%= link_to( '<span class="icon-menu-logout"></span>'+ _('Logout'),
                                   {:controller => 'account', :action => 'logout'},
@@ -56,7 +50,9 @@
       </ul>
     </div><!-- id="user_menu_ul" -->
 
-  <% else %>
+    </div> <!-- .logged-in -->
+
+    <div class='not-logged-in' style='display: none'>
 
     <% if params[:controller] != 'account' || params[:action] != 'signup' %>
       <% if theme_option( :menu_login ) == 'full_form' %>
@@ -69,9 +65,8 @@
       <% end %>
     <% end %>
 
-  <% end %>
+    </div><!-- #not-logged-in -->
+
+  </div><!-- #user -->
 
 </div><!-- fim id="user_menu" -->
-
-<%= javascript_tag 'setAutoOpenMenu( $("user_menu") )' if theme_option( :menu_login ) != 'full_form' %>
-

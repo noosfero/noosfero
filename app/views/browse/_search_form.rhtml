@@ -1,0 +1,10 @@
+<% form_tag( { :controller => 'browse', :action => action}, :method => 'get', :class => 'search_form' ) do %>
+
+  <div class="search-field">
+    <span class="formfield">
+      <%= text_field_tag 'query', @query, :size => 50 %>
+    </span>
+    <%= submit_button(:search, _('Search')) %>
+  </div>
+
+<% end %>

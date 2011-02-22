@@ -86,6 +86,13 @@ class BlockTest < ActiveSupport::TestCase
     assert_equal false, block.visible?(:article => Article.new)
   end
 
+  should 'be able to be displayed only in the homepage (index) of the environment' do
+    block = Block.new(:display => 'home_page_only')
+
+    assert_equal true, block.visible?(:article => nil, :request_path => '/')
+    assert_equal false, block.visible?(:article => nil)
+  end
+
   should 'be able to save display setting' do
     user = create_user('testinguser').person
     box = fast_create(Box, :owner_id => user.id)
@@ -101,6 +108,32 @@ class BlockTest < ActiveSupport::TestCase
     assert block.update_attributes!(:display => 'always')
     block.reload
     assert_equal 'always', block.display
+  end
+
+  should 'display block in all languages by default' do
+    profile = Profile.new
+    block = Block.new
+    block.stubs(:owner).returns(profile)
+
+    assert_equal 'all', block.language
+  end
+
+  should 'be able to be displayed in all languages' do
+    profile = Profile.new
+    block = Block.new(:language => 'all')
+    block.stubs(:owner).returns(profile)
+
+    assert_equal true, block.visible?(:locale => 'pt')
+    assert_equal true, block.visible?(:locale => 'en')
+  end
+
+  should 'be able to be displayed only in the selected language' do
+    profile = Profile.new
+    block = Block.new(:language => 'pt')
+    block.stubs(:owner).returns(profile)
+
+    assert_equal true, block.visible?(:locale => 'pt')
+    assert_equal false, block.visible?(:locale => 'en')
   end
 
 end

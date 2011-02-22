@@ -1,0 +1,17 @@
+<div id='display-product-info'>
+  <%= display_value(@product) %>
+  <%= display_availability(@product) %>
+  <%= display_qualifiers(@product) %>
+
+  <% if @product.has_basic_info? %>
+    <%= edit_product_button_to_remote(@product, 'info', _('Edit basic information'), :title => _('Click here to edit price, discount and qualifiers/certifiers to make your product more attractive and detailed for the consumers')) %>
+  <% else %>
+    <%= edit_product_ui_button_to_remote(@product, 'info', _('Add price and other basic information'),
+        :title => _('Click here to add price, discount and qualifiers/certifiers to make your product more attractive and detailed for the consumers'),
+        'data-primary-icon' => 'ui-icon-pencil',
+        'data-secondary-icon' => 'ui-icon-triangle-1-s')
+    %>
+    <%= javascript_tag("render_jquery_ui_buttons('edit-product-remote-button-ui-info')") %>
+  <% end%>
+
+</div>

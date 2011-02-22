@@ -5,8 +5,8 @@ Feature: register enterprise
 
   Background:
     Given the following users
-      | login     | name       |
-      | joaosilva | Joao Silva |
+      | login     | name       | email                  |
+      | joaosilva | Joao Silva | joaosilva@example.com  |
 
     And I am logged in as "joaosilva"
     And I am on Joao Silva's control panel
@@ -80,22 +80,25 @@ Feature: register enterprise
   Scenario: a user register an enterprise successfully through the admin
             validator method and the admin accepts
     Given organization_approval_method is "admin" on environment
+    And the mailbox is empty
     And I follow "Manage my groups"
     And the following states
       | name          |
       | Sample State  |
     And I follow "Register a new enterprise"
     And I fill in the following:
-      | Address        | my-enterprise   |
-      | Name              | My Enterprise   |
+      | Address | my-enterprise  |
+      | Name    | My Enterprise  |
     And I press "Next"
     Then I should see "Enterprise registration completed"
     And I am logged in as admin
-    And I follow "Control panel"
-    When I follow "Tasks"
-    Then I should see /Processing task: Enterprise registration: "My Enterprise"/
-    And I choose "Ok"
-    And I press "Ok"
+    And I go to the Control panel
+    When I follow "Tasks" within ".control-panel"
+    Then I should see "Joao Silva wants to create enterprise My Enterprise."
+    And the first mail is to admin_user@example.com
+    And I choose "Accept"
+    And I press "Apply!"
+    Then the last mail is to joaosilva@example.com
     And I am logged in as "joaosilva"
     And I am on Joao Silva's control panel
     When I follow "Manage my groups"
@@ -104,23 +107,26 @@ Feature: register enterprise
   Scenario: a user register an enterprise successfully through the admin
             validator method and the admin rejects
     Given organization_approval_method is "admin" on environment
+    And the mailbox is empty
     And I follow "Manage my groups"
     And the following states
       | name          |
       | Sample State  |
     And I follow "Register a new enterprise"
     And I fill in the following:
-      | Address        | my-enterprise   |
-      | Name              | My Enterprise   |
+      | Address | my-enterprise |
+      | Name    | My Enterprise |
     And I press "Next"
     Then I should see "Enterprise registration completed"
     And I am logged in as admin
-    And I follow "Control panel"
-    When I follow "Tasks"
-    Then I should see /Processing task: Enterprise registration: "My Enterprise"/
-    And I choose "Cancel"
+    And I go to the Control panel
+    When I follow "Tasks" within ".control-panel"
+    Then I should see "Joao Silva wants to create enterprise My Enterprise."
+    And the first mail is to admin_user@example.com
+    And I choose "Reject"
     And I fill in "Rejection explanation" with "This enterprise has some irregularities."
-    And I press "Ok"
+    And I press "Apply!"
+    Then the last mail is to joaosilva@example.com
     And I am logged in as "joaosilva"
     And I am on Joao Silva's control panel
     When I follow "Manage my groups"
@@ -152,9 +158,9 @@ Feature: register enterprise
     Then I should see "Enterprise registration completed"
     And I am on Validator's control panel
     When I follow "Tasks"
-    Then I should see /Processing task: Enterprise registration: "My Enterprise"/
-    And I choose "Ok"
-    And I press "Ok"
+    Then I should see "Joao Silva wants to create enterprise My Enterprise."
+    And I choose "Accept"
+    And I press "Apply!"
     And I am on Joao Silva's control panel
     When I follow "Manage my groups"
     Then I should see "My Enterprise"
@@ -185,10 +191,10 @@ Feature: register enterprise
     Then I should see "Enterprise registration completed"
     And I am on Validator's control panel
     When I follow "Tasks"
-    Then I should see /Processing task: Enterprise registration: "My Enterprise"/
-    And I choose "Cancel"
+    Then I should see "Joao Silva wants to create enterprise My Enterprise."
+    And I choose "Reject"
     And I fill in "Rejection explanation" with "This enterprise has some irregularities."
-    And I press "Ok"
+    And I press "Apply"
     And I am on Joao Silva's control panel
     When I follow "Manage my groups"
     Then I should not see "My Enterprise"

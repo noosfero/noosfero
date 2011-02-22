@@ -10,62 +10,11 @@
       <%= profile.description %>
     </div>
   <% end %>
+  <div id='public-profile-search'>
+    <%= render :partial => 'shared/profile_search_form' %>
+  </div>
 <% end %>
 
 <table class='profile'>
-  <%= render :partial => partial_for_class(profile.class) %>
-
-  <% unless @action %>
-    <% cache_timeout(profile.cache_key + '-profile-general-info', 4.hours.from_now) do %>
-      <tr>
-        <th colspan='2'>
-          <%= _('Content') %>
-        </th>
-      </tr>
-
-      <% profile.blogs.each do |blog| %>
-        <tr>
-          <td><%= blog.name + ':' %></td>
-          <td>
-            <%= link_to(n_('One post', '%{num} posts', blog.posts.published.count) % { :num => blog.posts.published.count }, blog.url) %>
-          </td>
-        </tr>
-      <% end %>
-      <% profile.image_galleries.each do |gallery| %>
-        <tr>
-          <td><%= gallery.name + ':' %></td>
-          <td>
-            <%= link_to(n_('One picture', '%{num} pictures', gallery.images.published.count) % { :num => gallery.images.published.count }, gallery.url) %>
-          </td>
-        </tr>
-      <% end %>
-
-      <tr>
-        <td><%= _('Events:') %></td>
-        <td>
-          <%= link_to profile.events.published.count, :controller => 'events', :action => 'events' %>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <%= _('Tags:') %>
-        </td>
-        <td>
-          <%= tag_cloud @tags, :id, { :action => 'tags' }, :max_size => 18, :min_size => 10%>
-        </td>
-      </tr>
-
-      <% if !environment.enabled?('disable_categories') && !profile.interests.empty? %>
-        <tr>
-          <th colspan='2'><%= _('Interests') %></th>
-        </tr>
-        <% profile.interests.each do |item| %>
-          <tr>
-            <td></td>
-            <td><%= link_to item.name, :controller => 'search', :action => 'category_index', :category_path => item.explode_path %></td>
-          </tr>
-        <% end %>
-      <% end %>
-    <% end %>
-  <% end %>
+  <%= render :partial => 'profile' %>
 </table>

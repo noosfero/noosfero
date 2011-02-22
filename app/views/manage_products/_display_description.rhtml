@@ -1,0 +1,15 @@
+<%= render :file => 'shared/tiny_mce', :locals => {:mode => 'simple'} %>
+<% if !@product.description.blank? %>
+  <%= @product.description %>
+  <%= edit_product_button_to_remote(@product, 'description', _('Edit description'), :title => _('Edit the description of your product and give consumers more information about what you are advertising')) %>
+<% else %>
+  <%= edit_product_ui_button_to_remote(
+    @product,
+    'description',
+    _('Add some description to your product'),
+    'data-primary-icon' => 'ui-icon-pencil',
+    'data-secondary-icon' => 'ui-icon-triangle-1-s',
+    :title => _('Add a description to your product and give consumers more information about what you are advertising')
+  ) %>
+  <%= javascript_tag("render_jquery_ui_buttons('edit-product-remote-button-ui-description')") %>
+<% end%>

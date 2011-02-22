@@ -1,6 +1,6 @@
 module Noosfero
   PROJECT = 'noosfero'
-  VERSION = '0.24.2'
+  VERSION = '0.28.5'
 
   def self.pattern_for_controllers_in_directory(dir)
     disjunction = controllers_in_directory(dir).join('|')
@@ -27,10 +27,20 @@ module Noosfero
         yield(key, locales[key])
       end
     end
+    def with_locale(locale)
+      orig_locale = FastGettext.locale
+      FastGettext.set_locale(locale)
+      yield
+      FastGettext.set_locale(orig_locale)
+    end
   end
 
   def self.identifier_format
     '[a-z0-9][a-z0-9~.]*([_-][a-z0-9~.]+)*'
+  end
+
+  def self.default_hostname
+    Environment.table_exists? && Environment.default ? Environment.default.default_hostname : 'localhost'
   end
 
   private
@@ -55,21 +65,15 @@ module Noosfero
   def self.url_options
     if ENV['RAILS_ENV'] == 'development'
       development_url_options
+    elsif ENV['RAILS_ENV'] == 'cucumber'
+      {:host => ''}
     else
       {}
     end
   end
 
   def self.development_url_options
-    @development_url_options ||=
-      begin
-        options = { :port => 3000 }
-        config = File.join(Rails.root, 'config', 'url_options.yml')
-        if File.exists?(config)
-          options.merge!(YAML.load_file(config).symbolize_keys)
-        end
-        options
-      end
+    @development_url_options || {}
   end
 
 

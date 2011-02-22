@@ -9,7 +9,6 @@
     <%= yield(:feeds) %>
 
     <%= noosfero_javascript %>
-    <%= javascript_include_tag 'menu', 'auto-open-menu', 'menu-config', :cache => 'cache-menu' %>
     <%= theme_javascript %>
 
     <%=
@@ -23,28 +22,27 @@
     %>
     <%= stylesheet_link_tag template_stylesheet_path %>
     <%= stylesheet_link_tag icon_theme_stylesheet_path %>
+    <%= stylesheet_link_tag jquery_ui_theme_stylesheet_path %>
 
     <%# Add custom tags/styles/etc via content_for %>
     <%= yield :head %>
+    <%= javascript_tag('render_all_jquery_ui_widgets()') %>
+    <script type="text/javascript">
+       jQuery(".numbers-only").keypress(function(event) {
+          return numbersonly(event, '<%= environment.currency_separator %>')
+       });
+    </script>
   </head>
 
   <body class='noosfero category<%= category_color %><%=
     # Identify the current controller and action for the CSS:
     " controller-"+ @controller.controller_name() +
-    " action_"+ @controller.controller_name() +"_"+ @controller.action_name() +
-    ' ' + (logged_in? ? 'logged-in' : 'not-logged-in')
+    " action_"+ @controller.controller_name() +"_"+ @controller.action_name()
     %>' onload='noosfero_init();'
     onresize="registerDocumentSize()">
     <script type="text/javascript">
-      /* Adds a class to "msie" to the body element if a Microsoft browser is
-       * detected. This is needed to workaround several of their limitations.
-       */
-      if ( navigator.appVersion.indexOf("MSIE") > -1 ) {
-        document.body.className += " msie msie" +
-          navigator.appVersion.replace(/^.*MSIE\s+([0-9]+).*$/, "$1");
-      }
       function registerDocumentSize() {
-        document.body.className = document.body.className.replace(/(^| )docSize.+( |$)/g, " ");
+        document.body.className = document.body.className.replace(/docSize-(G|L)T-\d+/g, "");
         for ( var x=100; x<=1500; x+=100 ) {
           if ( document.body.clientWidth > x ) {
             document.body.className += " docSize-GT-" + x;
@@ -81,9 +79,6 @@
           <% end %>
           <%= render :file => 'shared/assets_menu' %>
         </div><!-- id='navigation_bar' -->
-        <script type="text/javascript">
-          prepareMenu('navigation_bar', { timeout: 1000 });
-        </script>
 
         <div id="language-selector">
            <%= language_chooser(:element => 'dropdown') %>
@@ -124,6 +119,5 @@
     <%# if you need to add HTML stuff to the layout, include it in
     app/views/shared/noosfero_layout_features.rhtml! %>
     <%= noosfero_layout_features %>
-
   </body>
 </html>

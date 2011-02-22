@@ -26,8 +26,9 @@ class InvitationTest < ActiveSupport::TestCase
   end
 
   should 'raises when try get contacts from unknown source' do
+    contact_list = ContactList.create
     assert_raise NotImplementedError do
-      Invitation.get_contacts('ze', 'ze12', 'bli-mail')
+      Invitation.get_contacts('ze', 'ze12', 'bli-mail', contact_list.id)
     end
   end
 
@@ -71,4 +72,29 @@ class InvitationTest < ActiveSupport::TestCase
     end
   end
 
+  should 'add url on message if user removed it' do
+    person = create_user('testuser1').person
+    friend = create_user('testuser2').person
+    invitation = Invitation.create!(
+      :person => person,
+      :friend => friend,
+      :message => 'Hi <friend>, <user> is inviting you!'
+    )
+    assert_equal "Hi <friend>, <user> is inviting you!#{Invitation.default_message_to_accept_invitation}", invitation.message
+  end
+
+  should 'do nothing with message if user added url' do
+    person = create_user('testuser1').person
+    friend = create_user('testuser2').person
+    invitation = Invitation.create!(
+      :person => person,
+      :friend => friend,
+      :message => 'Hi <friend>, <user> is inviting you to be his friend on <url>!'
+    )
+    assert_equal "Hi <friend>, <user> is inviting you to be his friend on <url>!", invitation.message
+  end
+
+  should 'have a message with url' do
+    assert_equal "\n\nTo accept invitation, please follow this link: <url>", Invitation.default_message_to_accept_invitation
+  end
 end

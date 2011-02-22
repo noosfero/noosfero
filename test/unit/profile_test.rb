@@ -73,8 +73,8 @@ class ProfileTest < ActiveSupport::TestCase
   end
 
   should 'provide access to home page' do
-    profile = create(Profile)
-    assert_kind_of Article, profile.home_page
+    profile = Profile.new
+    assert_nil profile.home_page
   end
 
   def test_name_should_be_mandatory
@@ -125,6 +125,7 @@ class ProfileTest < ActiveSupport::TestCase
     assert_invalid_identifier 'community'
     assert_invalid_identifier 'test'
     assert_invalid_identifier 'tag'
+    assert_invalid_identifier 'tags'
     assert_invalid_identifier 'cat'
     assert_invalid_identifier 'webmaster'
     assert_invalid_identifier 'info'
@@ -192,10 +193,10 @@ class ProfileTest < ActiveSupport::TestCase
 
     list = profile.top_level_articles
     same_list = profile.top_level_articles
-    assert_same list, same_list
+    assert_equal list.object_id, same_list.object_id
 
     other_list = profile.top_level_articles(true)
-    assert_not_same list, other_list
+    assert_not_equal list.object_id, other_list.object_id
   end
 
   should 'be able to find profiles by their names with ferret' do
@@ -334,13 +335,6 @@ class ProfileTest < ActiveSupport::TestCase
     assert_equal false, Profile.new.has_members?
   end
 
-  should 'create a homepage and a feed on creation' do
-    profile = create(Profile)
-
-    assert_kind_of Article, profile.home_page
-    assert_kind_of RssFeed, profile.articles.find_by_path('feed')
-  end
-
   should 'not allow to add members' do
     c = fast_create(Profile)
     p = create_user('mytestuser').person
@@ -428,26 +422,21 @@ class ProfileTest < ActiveSupport::TestCase
     assert_equal [p3,p2], Profile.recent(2)
   end
 
-  should 'advertise false to homepage and feed on creation' do
+  should 'not advertise articles created together with the profile' do
+    Profile.any_instance.stubs(:default_set_of_articles).returns([Article.new(:name => 'home'), RssFeed.new(:name => 'feed')])
     profile = create(Profile)
-    assert !profile.home_page.advertise?
+    assert !profile.articles.find_by_path('home').advertise?
     assert !profile.articles.find_by_path('feed').advertise?
   end
 
-  should 'advertise true to homepage after update' do
+  should 'advertise article after update' do
+    Profile.any_instance.stubs(:default_set_of_articles).returns([Article.new(:name => 'home')])
     profile = create(Profile)
-    assert !profile.home_page.advertise?
-    profile.home_page.name = 'Changed name'
-    assert profile.home_page.save!
-    assert profile.home_page.advertise?
-  end
-
-  should 'advertise true to feed after update' do
-    profile = create(Profile)
-    assert !profile.articles.find_by_path('feed').advertise?
-    profile.articles.find_by_path('feed').name = 'Changed name'
-    assert profile.articles.find_by_path('feed').save!
-    assert profile.articles.find_by_path('feed').advertise?
+    article = profile.articles.find_by_path('home')
+    assert !article.advertise?
+    article.name = 'Changed name'
+    article.save!
+    assert article.advertise?
   end
 
   should 'have latitude and longitude' do
@@ -773,11 +762,6 @@ class ProfileTest < ActiveSupport::TestCase
     end
   end
 
-  should 'default home page is a TinyMceArticle' do
-    profile = create(Profile)
-    assert_kind_of TinyMceArticle, profile.home_page
-  end
-
   should 'not add a category twice to profile' do
     c1 = fast_create(Category)
     c2 = fast_create(Category, :parent_id => c1.id)
@@ -822,9 +806,14 @@ class ProfileTest < ActiveSupport::TestCase
     assert_equal 'code', p.nickname
   end
 
-  should 'return truncated name in short_name if nickname is blank' do
+  should 'return truncated name in short_name with 40 chars by default if nickname is blank' do
+    p = Profile.new(:name => 'a' * 41)
+    assert_equal 'a' * 37 + '...', p.short_name
+  end
+
+  should 'return truncated name in short_name with chars size if nickname is blank' do
     p = Profile.new(:name => 'a123456789abcdefghij')
-    assert_equal 'a123456789ab...', p.short_name
+    assert_equal 'a123456...', p.short_name(10)
   end
 
   should 'provide custom header' do
@@ -917,14 +906,6 @@ class ProfileTest < ActiveSupport::TestCase
     assert !p2.public?
   end
 
-  should 'create a initial private folder when a public profile is created' do
-    p1 = create(Profile)
-    p2 = create(Profile, :public_profile => false)
-
-    assert p1.articles.find(:first, :conditions => {:published => false})
-    assert !p2.articles.find(:first, :conditions => {:published => false})
-  end
-
   should 'remove member with many roles' do
     person = create_user('test_user').person
     community = fast_create(Community)
@@ -951,6 +932,21 @@ class ProfileTest < ActiveSupport::TestCase
     assert_equal 1, top_art.children.size
     child_art = top_art.children[0]
     assert_equal 'some child article', child_art.name
+  end
+
+  should 'copy communities from person template' do
+    template = create_user('test_template').person
+    Environment.any_instance.stubs(:person_template).returns(template)
+
+    c1 = fast_create(Community)
+    c2 = fast_create(Community)
+    c1.add_member(template)
+    c2.add_member(template)
+
+    p = create_user_full('new_user').person
+
+    assert_includes p.communities, c1
+    assert_includes p.communities, c2
   end
 
   should 'copy homepage from template' do
@@ -1398,7 +1394,7 @@ class ProfileTest < ActiveSupport::TestCase
   end
 
   should 'copy header and footer after create a person' do
-    template = fast_create(Profile)
+    template = create_user('test_template').person
     template.custom_footer = "footer customized"
     template.custom_header = "header customized"
     Environment.any_instance.stubs(:person_template).returns(template)
@@ -1410,7 +1406,12 @@ class ProfileTest < ActiveSupport::TestCase
 
   should 'provide URL to leave' do
     profile = build(Profile, :identifier => 'testprofile')
-    assert_equal({ :profile => 'testprofile', :controller => 'profile', :action => 'leave'}, profile.leave_url)
+    assert_equal({ :profile => 'testprofile', :controller => 'profile', :action => 'leave', :reload => false}, profile.leave_url)
+  end
+
+  should 'provide URL to leave with reload' do
+    profile = build(Profile, :identifier => 'testprofile')
+    assert_equal({ :profile => 'testprofile', :controller => 'profile', :action => 'leave', :reload => true}, profile.leave_url(true))
   end
 
   should 'provide URL to join' do
@@ -1561,6 +1562,275 @@ class ProfileTest < ActiveSupport::TestCase
 
     assert_match  /<!-- .* --> <h1> Wellformed html code <\/h1>/, profile.custom_header
     assert_match  /<!-- .* --> <h1> Wellformed html code <\/h1>/, profile.custom_footer
+  end
+
+  should 'find more recent people' do
+    Person.delete_all
+    p1 = fast_create(Person,:created_at => 4.days.ago)
+    p2 = fast_create(Person, :created_at => DateTime.now)
+    p3 = fast_create(Person, :created_at => 2.days.ago)
+
+    assert_equal [p2,p3,p1] , Person.more_recent
+
+    p4 = fast_create(Person, :created_at => 3.days.ago)
+    assert_equal [p2,p3,p4,p1] , Person.more_recent
+  end
+
+  should 'find more active people' do
+    Person.delete_all
+    p1 = fast_create(Person)
+    p2 = fast_create(Person)
+    p3 = fast_create(Person)
+    Article.delete_all
+    fast_create(Article, :profile_id => p1, :created_at => 7.days.ago)
+    fast_create(Article, :profile_id => p1, :created_at => DateTime.now.beginning_of_day)
+    fast_create(Article, :profile_id => p2, :created_at => DateTime.now.beginning_of_day)
+    assert_equal [p1,p2] , Person.more_active
+
+    fast_create(Article, :profile_id => p2, :created_at => 1.day.ago)
+    fast_create(Article, :profile_id => p2, :created_at => 5.days.ago)
+    fast_create(Article, :profile_id => p3, :created_at => 2.days.ago)
+    assert_equal [p2,p1,p3] , Person.more_active
+  end
+
+  should 'the ties on more active people be solved by the number of comments' do
+    Person.delete_all
+    p1 = fast_create(Person)
+    p2 = fast_create(Person)
+    Article.delete_all
+    a1 = fast_create(Article, :profile_id => p1, :created_at => DateTime.now.beginning_of_day)
+    a2 = fast_create(Article, :profile_id => p2, :created_at => DateTime.now.beginning_of_day)
+    assert_equal [], [p1,p2] - Person.more_active
+    assert_equal [], Person.more_active - [p1, p2]
+
+    a2.comments.build(:title => 'test comment', :body => 'anything', :author => p1).save!
+    assert_equal [p2,p1] , Person.more_active
+
+    a1.comments.build(:title => 'test comment', :body => 'anything', :author => p2).save!
+    a1.comments.build(:title => 'test comment', :body => 'anything', :author => p2).save!
+    assert_equal [p1,p2] , Person.more_active
+  end
+
+  should 'more active people take in consideration only articles created current the last week' do
+    Person.delete_all
+    env = fast_create(Environment)
+    p1 = fast_create(Person)
+    p2 = fast_create(Person)
+    p3 = fast_create(Person)
+    Article.delete_all
+    fast_create(Article, :profile_id => p1, :created_at => DateTime.now.beginning_of_day)
+    fast_create(Article, :profile_id => p2, :created_at => 10.days.ago)
+    assert_equal [p1] , Person.more_active
+
+    fast_create(Article, :profile_id => p2, :created_at => DateTime.now.beginning_of_day)
+    fast_create(Article, :profile_id => p2, :created_at => 7.days.ago)
+    fast_create(Article, :profile_id => p3, :created_at => 8.days.ago)
+    assert_equal [p2,p1] , Person.more_active
+  end
+
+  should 'find more recent community' do
+    c1 = fast_create(Community, :created_at => 3.days.ago)
+    c2 = fast_create(Community, :created_at => 1.day.ago)
+    c3 = fast_create(Community, :created_at => DateTime.now)
+
+    assert_equal [c3,c2,c1] , Community.more_recent
+
+    c4 = fast_create(Community, :created_at => 2.days.ago)
+    assert_equal [c3,c2,c4,c1] , Community.more_recent
+  end
+
+  should 'find more active community' do
+    c1 = fast_create(Community)
+    c2 = fast_create(Community)
+    c3 = fast_create(Community)
+
+    Article.delete_all
+    fast_create(Article, :profile_id => c1, :created_at => 1.day.ago)
+    fast_create(Article, :profile_id => c1, :created_at => DateTime.now.beginning_of_day)
+    fast_create(Article, :profile_id => c2, :created_at => DateTime.now.beginning_of_day)
+    assert_equal [c1,c2], Community.more_active
+
+    fast_create(Article, :profile_id => c2, :created_at => 2.days.ago)
+    fast_create(Article, :profile_id => c2, :created_at => 7.days.ago)
+    fast_create(Article, :profile_id => c3, :created_at => 1.day.ago)
+    assert_equal [c2,c1,c3] , Community.more_active
+  end
+
+  should 'the ties on more active communities be solved by the number of comments' do
+    env = create(Environment)
+    Community.delete_all
+    c1 = fast_create(Community)
+    c2 = fast_create(Community)
+    Article.delete_all
+    a1 = fast_create(Article, :profile_id => c1, :created_at => DateTime.now.beginning_of_day)
+    a2 = fast_create(Article, :profile_id => c2, :created_at => DateTime.now.beginning_of_day)
+    assert_equal [c1,c2] , Community.more_active
+
+    p1 = fast_create(Person)
+    a2.comments.build(:title => 'test comment', :body => 'anything', :author => p1).save!
+    assert_equal [c2,c1] , Community.more_active
+
+    a1.comments.build(:title => 'test comment', :body => 'anything', :author => p1).save!
+    a1.comments.build(:title => 'test comment', :body => 'anything', :author => p1).save!
+    assert_equal [c1,c2] , Community.more_active
+  end
+
+  should 'more active communities take in consideration only articles created current the last week' do
+    c1 = fast_create(Community)
+    c2 = fast_create(Community)
+    c3 = fast_create(Community)
+    Article.delete_all
+    fast_create(Article, :profile_id => c1, :created_at => DateTime.now.beginning_of_day)
+    fast_create(Article, :profile_id => c2, :created_at => 10.days.ago)
+    assert_equal [c1] , Community.more_active
+
+    fast_create(Article, :profile_id => c2, :created_at => DateTime.now.beginning_of_day)
+    fast_create(Article, :profile_id => c2, :created_at => 7.days.ago)
+    fast_create(Article, :profile_id => c3, :created_at => 8.days.ago)
+    assert_equal [c2,c1] , Community.more_active
+  end
+
+  should 'find more popular communities' do
+    Community.delete_all
+
+    c1 = fast_create(Community)
+    c2 = fast_create(Community)
+    fast_create(Community)
+
+    p1 = fast_create(Person)
+    p2 = fast_create(Person)
+    c1.add_member(p1)
+    assert_equal [c1] , Community.more_popular
+
+    c2.add_member(p1)
+    c2.add_member(p2)
+    assert_equal [c2,c1] , Community.more_popular
+
+    c2.remove_member(p2)
+    c2.remove_member(p1)
+    assert_equal [c1] , Community.more_popular
+  end
+
+  should "return the more recent label" do
+    p = fast_create(Profile)
+    assert_equal "Since: ", p.more_recent_label
+  end
+
+  should "return none on label if the profile hasn't articles" do
+    p = fast_create(Profile)
+    assert_equal 0, p.articles.count
+    assert_equal "none", p.more_active_label
+  end
+
+  should "return one article on label if the profile has one article" do
+    p = fast_create(Profile)
+    fast_create(Article, :profile_id => p.id)
+    assert_equal 1, p.articles.count
+    assert_equal "one article", p.more_active_label
+  end
+
+  should "return number of artciles on label if the profile has more than one article" do
+    p = fast_create(Profile)
+    fast_create(Article, :profile_id => p.id)
+    fast_create(Article, :profile_id => p.id)
+    assert_equal 2, p.articles.count
+    assert_equal "2 articles", p.more_active_label
+
+    fast_create(Article, :profile_id => p.id)
+    assert_equal 3, p.articles.count
+    assert_equal "3 articles", p.more_active_label
+  end
+
+  should "return none on label if the profile hasn't members" do
+    p = fast_create(Profile)
+    assert_equal 0, p.members_count
+    assert_equal "none", p.more_popular_label
+  end
+
+  should "return one member on label if the profile has one member" do
+    person = fast_create(Person)
+    community = fast_create(Community)
+    community.add_member(person)
+
+    assert_equal "one member", community.more_popular_label
+  end
+
+  should "return the number of members on label if the profile has more than one member" do
+    person1 = fast_create(Person)
+    person2 = fast_create(Person)
+    community = fast_create(Community)
+
+    community.add_member(person1)
+    community.add_member(person2)
+    assert_equal "2 members", community.more_popular_label
+
+    person3 = fast_create(Person)
+    community.add_member(person3)
+    assert_equal "3 members", community.more_popular_label
+  end
+
+  should 'provide list of galleries' do
+    p = fast_create(Profile)
+    f1 = Gallery.create(:profile => p, :name => "folder1")
+    f2 = Folder.create(:profile => p, :name => "folder2")
+
+    assert_equal [f1], p.image_galleries
+  end
+
+  should 'get custom profile icon' do
+    profile = build(Profile, :image_builder => {:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')})
+    assert_kind_of String, profile.profile_custom_icon
+    profile = build(Profile, :image_builder => {:uploaded_data => nil})
+    assert_nil profile.profile_custom_icon
+  end
+
+  should "destroy scrap if receiver was removed" do
+    person = fast_create(Person)
+    scrap = fast_create(Scrap, :receiver_id => person.id)
+    assert_not_nil Scrap.find_by_id(scrap.id)
+    person.destroy
+    assert_nil Scrap.find_by_id(scrap.id)
+  end
+
+  should 'have forum' do
+    p = fast_create(Profile)
+    p.articles << Forum.new(:profile => p, :name => 'forum_feed_test')
+    assert p.has_forum?
+  end
+
+  should 'not have forum' do
+    p = fast_create(Profile)
+    assert !p.has_forum?
+  end
+
+  should 'get nil when no forum' do
+    p = fast_create(Profile)
+    assert_nil p.forum
+  end
+
+  should 'get first forum when has multiple forums' do
+    p = fast_create(Profile)
+    p.forums << Forum.new(:profile => p, :name => 'Forum one')
+    p.forums << Forum.new(:profile => p, :name => 'Forum two')
+    p.forums << Forum.new(:profile => p, :name => 'Forum three')
+    assert_equal 'Forum one', p.forum.name
+    assert_equal 3, p.forums.count
+  end
+
+  should 'return unique members of a community' do
+    person = fast_create(Person)
+    community = fast_create(Community)
+    community.add_member(person)
+
+    assert_equal [person], community.members
+  end
+
+  should 'count unique members of a community' do
+    person = fast_create(Person)
+    community = fast_create(Community)
+    community.add_member(person)
+
+    assert_equal 1, community.members_count
   end
 
   private

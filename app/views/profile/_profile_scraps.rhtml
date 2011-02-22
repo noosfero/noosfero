@@ -1,0 +1,8 @@
+<% scraps.map do |scrap| %>
+  <%= render :partial => 'profile_scrap', :locals => {:scrap => scrap} %>
+<% end %>
+<% if scraps.current_page < scraps.total_pages %>
+  <div id='profile_scraps_page_<%= scraps.current_page %>'>
+    <%= button_to_remote :add, _('View more'), :url => {:action => 'view_more_scraps', :page => (scraps.current_page + 1)}, :update => "profile_scraps_page_#{scraps.current_page}" %>
+  </div>
+<% end %>

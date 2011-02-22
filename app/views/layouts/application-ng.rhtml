@@ -6,15 +6,17 @@
     <!--<meta http-equiv="refresh" content="1"/>-->
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="description" content="<%= @environment.name %>" />
-    <link rel="shortcut icon" href="<%= image_path('/designs/themes/' + current_theme + '/favicon.ico') %>" type="image/x-icon" />
+    <link rel="shortcut icon" href="<%= image_path(theme_favicon) %>" type="image/x-icon" />
     <%= noosfero_javascript %>
     <%= stylesheet_link_tag noosfero_stylesheets, :cache => 'cache' %>
     <%= stylesheet_link_tag template_stylesheet_path %>
     <%= stylesheet_link_tag icon_theme_stylesheet_path %>
     <%= stylesheet_link_tag theme_stylesheet_path %>
+    <%= stylesheet_link_tag jquery_ui_theme_stylesheet_path %>
 
     <%# Add custom tags/styles/etc via content_for %>
     <%= yield :head %>
+    <%= javascript_tag('render_all_jquery_ui_widgets()') %>
   </head>
   <body class="<%=
     # Identify the current controller and action for the CSS:
@@ -22,15 +24,6 @@
     " action-"+ @controller.controller_name() +"-"+ @controller.action_name() +
     " template-"+ ( profile.nil? ? "default" : profile.layout_template )
     %>" >
-    <script type="text/javascript">
-      /* Adds a class to "msie" to the body element if a Microsoft browser is
-       * detected. This is needed to workaround several of their limitations.
-       */
-      if ( navigator.appVersion.indexOf("MSIE") > -1 ) {
-        document.body.className += " msie msie" +
-          navigator.appVersion.replace(/^.*MSIE\s+([0-9]+).*$/, "$1");
-      }
-    </script>
 
     <a href="#content" id="link-go-content"><span><%= _("Go to the content") %></span></a>
 
@@ -40,24 +33,15 @@
       </div>
       <div id="wrap-2">
         <div id="user">
-          <% if logged_in? %>
-            <%= _('Welcome, %s.') % link_to('<i></i><strong>' + user.identifier + '</strong>', user.url, :id => "homepage-link", :title => _('Go to your homepage')) %>
-            <% if user.is_admin?(environment) %>
-              <%= link_to('<i class="icon-menu-admin"></i><strong>' + _('Administration') + '</strong>', { :controller => 'admin_panel', :action => 'index' }, :id => "controlpanel", :title => _("Configure the environment")) %>
-            <% end %>
-            <% if (user.environment == environment) %>
-              <%= link_to('<i class="icon-menu-ctrl-panel"></i><strong>' + _('Control panel') + '</strong>', user.admin_url, :id => "controlpanel", :title => _("Configure your personal account and content")) %>
-            <% end %>
-            <%= link_to('<i class="icon-menu-logout"></i><strong>' + _('Logout') + '</strong>', { :controller => 'account', :action => 'logout'} , :id => "logout", :title => _("Leave the system")) %>
-          <% else %>
-            <% if params[:controller] != 'account' || params[:action] != 'signup' %>
+          <span class='logged-in' style='display: none;'>
+            <%= usermenu_logged_in %>
+          </span>
+          <span class='not-logged-in' style='display: none'>
               <%= _('%s or %s') % [thickbox_inline_popup_link('<i class="icon-menu-login"></i><strong>' + _('Login') + '</strong>', login_url, 'inlineLoginBox', :id => 'link_login'), link_to('<strong>' + _('Register') + '</strong>', :controller => 'account', :action => 'signup') ] %>
               <div id='inlineLoginBox' style='display: none;'>
                 <%= render :file => 'account/login', :locals => { :is_thickbox => true } %>
               </div>
-            <% end %>
-          <% end %>
-
+          </span>
           <form action="/search" class="search_form" method="get" class="clean">
             <input name="query" size="15" value="<%=_('Search...')%>"
                 onfocus="this.form.className='focused';
@@ -72,7 +56,7 @@
         </div><!-- end id="user" -->
 
         <h1 id="site-title">
-          <%= link_to content_tag('span', environment.name), environment.top_url %>
+          <%= theme_site_title %>
         </h1>
         <div id="navigation">
           <ul>
@@ -86,6 +70,7 @@
         </div><!-- end id="content" -->
       </div><!-- end id="wrap-2" -->
     </div><!-- end id="wrap-1" -->
+    <%= render_environment_features(:logged_in) %>
     <div id="theme-footer">
       <%= theme_footer %>
     </div><!-- end id="theme-footer" -->

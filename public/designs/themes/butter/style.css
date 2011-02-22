@@ -1,0 +1,78 @@
+@import url(../profile-base/style.css);
+
+/************************** user bar ***************************/
+
+#user a,
+#user a strong {
+  color: #C4A000;
+}
+
+/************************** content ***************************/
+
+#content .block-title,
+#content .main-block h1, #not-found h1, #access-denied h1 {
+  border-bottom:2px solid #C4A000;
+  color: #C4A000;
+}
+
+.profile-image-block p {
+  color: #C4A000;
+}
+
+.block a {
+  color: #C4A000;
+}
+
+.block a:visited {
+  color: #EDD400;
+}
+
+.control-panel a,
+.control-panel a:visited {
+  color: #000;
+}
+
+.controller-profile_editor .control-panel a:hover {
+  background-color: #C4A000;
+  color: #FFF;
+}
+
+#content .link-list-block li a:hover {
+  background-color: #C4A000;
+}
+
+#content .link-list-block li a.link-this-page {
+  background-color: #EDD400;
+  border-right:2px solid #C4A000;
+}
+
+.template-rightbar #content .link-list-block li a.link-this-page,
+#content .box-3 .link-list-block li a.link-this-page {
+  border-left: 2px solid #C4A000;
+}
+
+/************** blog **************/
+
+#content .blog-post .title a:hover {
+  color: #C4A000;
+}
+
+/**************************** Comments *******************************/
+
+#content .comments h3 {
+  color: #C4A000;
+  border-bottom: 2px solid #C4A000;
+}
+
+.post_comment_box h4 {
+  background-color: #C4A000;
+  color: #FFF;
+}
+
+/************************** theme footer ***************************/
+
+#footer-content a,
+#footer-content a:hover,
+#footer-content a:visited {
+  color: #C4A000;
+}

@@ -30,7 +30,7 @@ class EnvironmentTest < ActiveSupport::TestCase
   end
 
   def test_mock
-    assert_equal ['feature1', 'feature2', 'feature3'], Environment.available_features.keys.sort
+    assert_equal ['feature1', 'feature2', 'feature3', 'xmpp_chat'], Environment.available_features.keys.sort
   end
 
   def test_features
@@ -125,6 +125,22 @@ class EnvironmentTest < ActiveSupport::TestCase
     subcat = fast_create(Category, :name => 'child category', :environment_id => env.id, :parent_id => cat2.id)
 
     cats = env.categories
+    assert_equal 3, cats.size
+    assert cats.include?(cat1)
+    assert cats.include?(cat2)
+    assert cats.include?(subcat)
+  end
+
+  def test_should_list_all_product_categories
+    env = fast_create(Environment)
+    Category.create!(:name => 'first category', :environment_id => env.id)
+    cat = Category.create!(:name => 'second category', :environment_id => env.id)
+    Category.create!(:name => 'child category', :environment_id => env.id, :parent_id => cat.id)
+    cat1 = ProductCategory.create!(:name => 'first product category', :environment_id => env.id)
+    cat2 = ProductCategory.create!(:name => 'second product category', :environment_id => env.id)
+    subcat = ProductCategory.create!(:name => 'child product category', :environment_id => env.id, :parent_id => cat2.id)
+
+    cats = env.product_categories
     assert_equal 3, cats.size
     assert cats.include?(cat1)
     assert cats.include?(cat2)
@@ -367,11 +383,31 @@ class EnvironmentTest < ActiveSupport::TestCase
   end
 
   should 'have products through enterprises' do
+    product_category = fast_create(ProductCategory, :name => 'Products', :environment_id => Environment.default.id)
     env = Environment.default
     e1 = fast_create(Enterprise)
-    p1 = e1.products.create!(:name => 'test_prod1')
+    p1 = e1.products.create!(:name => 'test_prod1', :product_category => product_category)
 
     assert_includes env.products, p1
+  end
+
+  should 'collect the highlighted products with image through enterprises' do
+    env = Environment.default
+    e1 = fast_create(Enterprise)
+    category = fast_create(ProductCategory)
+    p1 = e1.products.create!(:name => 'test_prod1', :product_category_id => category.id)
+    products = []
+    3.times {|n|
+      products.push(Product.create!(:name => "product #{n}", :enterprise_id => e1.id,
+        :product_category_id => category.id, :highlighted => true,
+        :image_builder => { :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png') }
+      ))
+    }
+    Product.create!(:name => "product 4", :enterprise_id => e1.id, :product_category_id => category.id, :highlighted => true)
+    Product.create!(:name => "product 5", :enterprise_id => e1.id, :product_category_id => category.id, :image_builder => {
+        :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')
+      })
+    assert_equal products, env.highlighted_products_with_image
   end
 
   should 'not have person through communities' do
@@ -429,27 +465,40 @@ class EnvironmentTest < ActiveSupport::TestCase
 
   should 'have a list of themes' do
     env = Environment.default
-    t1 = mock
-    t2 = mock
 
-    t1.stubs(:id).returns('theme_1')
-    t2.stubs(:id).returns('theme_2')
+    t1 = 'theme_1'
+    t2 = 'theme_2'
 
-    Theme.expects(:system_themes).returns([t1, t2])
+    Theme.expects(:system_themes).returns([Theme.new(t1), Theme.new(t2)])
     env.themes = [t1, t2]
     env.save!
-    assert_equal  [t1, t2], Environment.default.themes
+    assert_equal  [t1, t2], Environment.default.themes.map(&:id)
   end
 
   should 'set themes to environment' do
     env = Environment.default
-    t1 = mock
 
-    t1.stubs(:id).returns('theme_1')
-
-    env.themes = [t1]
+    env.themes = ['new-theme']
     env.save
-    assert_equal  [t1.id], Environment.default.settings[:themes]
+    assert_equal  ['new-theme'], Environment.default.settings[:themes]
+  end
+
+  should 'return only themes included on system_themes' do
+    Theme.expects(:system_themes).returns([Theme.new('new-theme')])
+    env = Environment.default
+
+    env.themes = ['new-theme', 'other-theme']
+    env.save
+    assert_equal  ['new-theme'], Environment.default.themes.map(&:id)
+  end
+
+  should 'add new themes to environment' do
+    Theme.expects(:system_themes).returns([Theme.new('new-theme'), Theme.new('other-theme')])
+    env = Environment.default
+
+    env.add_themes(['new-theme', 'other-theme'])
+    env.save
+    assert_equal ['new-theme', 'other-theme'], Environment.default.themes.map(&:id)
   end
 
   should 'create templates' do
@@ -682,37 +731,11 @@ class EnvironmentTest < ActiveSupport::TestCase
     assert_equal ['contact_email'], env.required_community_fields
   end
 
-  should 'set category_types' do
-    env = Environment.new
-    env.category_types = ['Category', 'ProductCategory']
-
-    assert_equal ['Category', 'ProductCategory'], env.category_types
-  end
-
-  should 'have type /Category/ on category_types by default' do
-    assert_equal ['Category'], Environment.new.category_types
-  end
-
   should 'has tasks' do
     e = Environment.default
     assert_nothing_raised do
       e.tasks
     end
-  end
-
-  should 'provide icon theme' do
-    assert_equal 'my-icons-theme', Environment.new(:icon_theme => 'my-icons-theme').icon_theme
-  end
-
-  should 'give default icon theme' do
-    assert_equal 'default', Environment.new.icon_theme
-  end
-
-  should 'modify icon theme' do
-    e = Environment.new
-    assert_equal 'default', e.icon_theme
-    e.icon_theme = 'non-default'
-    assert_not_equal 'default', e.icon_theme
   end
 
   should 'have a portal community' do
@@ -765,6 +788,20 @@ class EnvironmentTest < ActiveSupport::TestCase
     e.save!; e.reload
 
     assert_equal [], e.portal_folders
+  end
+
+  should 'not crash when a portal folder is removed' do
+    e = Environment.default
+
+    c = e.portal_community = fast_create(Community)
+    news_folder = fast_create(Folder, :name => 'news folder', :profile_id => c.id)
+
+    e.portal_folders = [news_folder]
+    e.save!; e.reload
+
+    news_folder.destroy
+
+    assert_not_includes e.portal_folders, nil
   end
 
   should 'have roles with names independent of other environments' do
@@ -910,6 +947,165 @@ class EnvironmentTest < ActiveSupport::TestCase
     v.terms_of_use = "   "
     assert v.save!
     assert !v.has_terms_of_use?
+  end
+
+  should 'have currency unit attribute' do
+    env = Environment.new
+    assert_equal env.currency_unit, '$'
+
+    env.currency_unit = 'R$'
+    assert_equal 'R$', env.currency_unit
+  end
+
+  should 'have currency separator attribute' do
+    env = Environment.new
+    assert_equal env.currency_separator, '.'
+
+    env.currency_separator = ','
+    assert_equal ',', env.currency_separator
+  end
+
+  should 'have currency delimiter attribute' do
+    env = Environment.new
+    assert_equal env.currency_delimiter, ','
+
+    env.currency_delimiter = '.'
+    assert_equal '.', env.currency_delimiter
+  end
+
+  should 'set a new theme' do
+    env = fast_create(Environment)
+    env.theme = 'another'
+    env.save! && env.reload
+    assert_equal 'another', env.theme
+  end
+
+  should 'not accept environment without theme' do
+    env = fast_create(Environment)
+    env.theme = nil
+    assert_raise ActiveRecord::RecordInvalid do
+      env.save!
+    end
+  end
+
+  should 'has many users' do
+    user_from_other_environment = create_user('one user from other env', :environment => Environment.default)
+    env = fast_create(Environment)
+    user_from_this_environment1 = create_user('one user', :environment => env)
+    user_from_this_environment2 = create_user('another user', :environment => env)
+    user_from_this_environment3 = create_user('some other user', :environment => env)
+    assert_includes env.users, user_from_this_environment1
+    assert_includes env.users, user_from_this_environment2
+    assert_includes env.users, user_from_this_environment3
+    assert_not_includes env.users, user_from_other_environment
+  end
+
+  should 'provide cache time for home page' do
+    env = Environment.new
+    assert env.respond_to?(:home_cache_in_minutes)
+  end
+
+  should 'store cache time for home page' do
+    env = Environment.new(:home_cache_in_minutes => 99)
+    assert_equal 99, env.home_cache_in_minutes
+  end
+
+  should 'retrieve cache time for home page' do
+    env = fast_create(Environment)
+    env.home_cache_in_minutes = 33
+    env.save!
+
+    assert_equal 33, Environment.find(env.id).home_cache_in_minutes
+  end
+
+  should 'cache home page for 5 minutes by default' do
+    env = Environment.new
+    assert_equal 5, env.home_cache_in_minutes
+  end
+
+  should 'provide cache time for general content' do
+    env = Environment.new
+    assert env.respond_to?(:general_cache_in_minutes)
+  end
+
+  should 'store cache time for general content' do
+    env = Environment.new(:general_cache_in_minutes => 99)
+    assert_equal 99, env.general_cache_in_minutes
+  end
+
+  should 'retrieve cache time for general content' do
+    env = fast_create(Environment)
+    env.general_cache_in_minutes = 33
+    env.save!
+
+    assert_equal 33, Environment.find(env.id).general_cache_in_minutes
+  end
+
+  should 'cache general content for 15 minutes by default' do
+    env = Environment.new
+    assert_equal 15, env.general_cache_in_minutes
+  end
+
+  should 'provide cache time for profile content' do
+    env = Environment.new
+    assert env.respond_to?(:profile_cache_in_minutes)
+  end
+
+  should 'store cache time for profile content' do
+    env = Environment.new(:profile_cache_in_minutes => 99)
+    assert_equal 99, env.profile_cache_in_minutes
+  end
+
+  should 'retrieve cache time for profile content' do
+    env = fast_create(Environment)
+    env.profile_cache_in_minutes = 33
+    env.save!
+
+    assert_equal 33, Environment.find(env.id).profile_cache_in_minutes
+  end
+
+  should 'cache profile content for 15 minutes by default' do
+    env = Environment.new
+    assert_equal 15, env.profile_cache_in_minutes
+  end
+
+  should 'have a list of trusted sites by default' do
+    assert_equal ['itheora.org', 'tv.softwarelivre.org', 'stream.softwarelivre.org'], Environment.new.trusted_sites_for_iframe
+  end
+
+  should 'have a list of trusted sites' do
+    e = Environment.default
+    e.trusted_sites_for_iframe = ['trusted.site.org']
+    e.save!
+
+    assert_equal ['trusted.site.org'], Environment.default.trusted_sites_for_iframe
+  end
+
+  should 'provide list of galleries' do
+    env = Environment.new
+    portal = Community.new
+    env.stubs(:portal_community).returns(portal)
+    list = []
+    portal.expects(:image_galleries).returns(list)
+
+    assert_same list, env.image_galleries
+  end
+
+  should 'profile empty list of image galleries when there is no portal community' do
+    p = Environment.new
+    p.stubs(:portal_community).returns(nil)
+    assert_equal [], p.image_galleries
+  end
+
+  should 'get enabled features' do
+    env = Environment.new
+    env.enable('feature1')
+    env.enable('feature2')
+    env.disable('feature3')
+
+    assert_includes env.enabled_features.keys, 'feature1'
+    assert_includes env.enabled_features.keys, 'feature2'
+    assert_not_includes env.enabled_features.keys, 'feature3'
   end
 
 end

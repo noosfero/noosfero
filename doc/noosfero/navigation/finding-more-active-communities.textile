@@ -1,0 +1,30 @@
+h1(order-615). Finding more active communities
+
+p.  _To find the communities who create more content._
+
+*  "How to access":#HowAccess
+*  "Description":#Description
+*  "Related topics":#RelatedTopics
+
+h2(#HowAccess). How to access
+
+p. Find on top of page the term "communities" and click on the arrow below it:
+  !=/images/doc/menu-more-active-communities.en.png(More active communities on top menu)!
+
+h2(#Description). Description
+# The communities will be listed ordered by number of content created with most active first. Below the profile's picture, you will see the number of articles created by the community !=/images/doc/more-active-communities-detail.en.png(Profile with number of articles)!
+# Fill in the search field with what you want to look for and click on "Search" !=/images/doc/more-active-communities.en.png(More active communities search field)!
+# Then you will see the search results ordered by the number of content created by the community !=/images/doc/more-active-communities-with-example.en.png(More active communities search results with example)!
+# Clicking on one of the search results, you will be redirected to the homepage of choosen community.
+
+h2(#RelatedTopics). Related topics
+
+*  "Searching":/doc/navigation/searching
+*  "Finding more recent communities":/doc/navigation/finding-more-recent-communities
+*  "Finding more popular communities":/doc/navigation/finding-more-popular-communities
+*  "Finding communities":/doc/navigation/searching-communities
+*  "Finding enterprises":/doc/navigation/searching-enterprises
+*  "Finding products and services":/doc/navigation/searching-products-services
+*  "Advanced search":/doc/navigation/advanced-search
+
+"Back to top":#online-doc-text

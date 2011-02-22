@@ -7,8 +7,20 @@ class InviteFriend < Invitation
     friend.add_friend(person, group_for_friend)
   end
 
-  def description
-    _('%s wants to be your friend.') % [person.name]
+  def title
+    _("New friend")
+  end
+
+  def information
+    {:message => _('%{requestor} wants to be your friend.')}
+  end
+
+  def accept_details
+    true
+  end
+
+  def icon
+    {:type => :profile_image, :profile => requestor, :url => requestor.url}
   end
 
   def permission

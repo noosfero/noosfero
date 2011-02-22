@@ -102,7 +102,7 @@ class SearchController < PublicController
 
     if month || year
       date = Date.new(year.to_i, month.to_i, 1)
-      result[:date_range] = (date - 1.month)..Event.last_day_of_month(date + 1.month)
+      result[:date_range] = (date - 1.month)..(date + 1.month).at_end_of_month
     end
 
     result
@@ -148,8 +148,6 @@ class SearchController < PublicController
   end
 
   def index
-    @wizard = params[:wizard].blank? ? false : params[:wizard]
-    @step = 2
     @query = params[:query] || ''
     @filtered_query = remove_stop_words(@query)
     @product_category = ProductCategory.find(params[:product_category]) if params[:product_category]
@@ -174,20 +172,12 @@ class SearchController < PublicController
       if respond_to?(specific_action)
         @asset_name = getterm(@names[@results.keys.first])
         send(specific_action)
-        if @wizard
-          render :action => specific_action, :layout => 'wizard'
-        else
-          render :action => specific_action
-        end
+        render :action => specific_action
         return
       end
     end
 
-    if @wizard
-      render :action => 'index', :layout => 'wizard'
-    else
-      render :action => 'index'
-    end
+    render :action => 'index'
   end
 
   alias :assets :index
@@ -223,10 +213,10 @@ class SearchController < PublicController
   end
 
   def tag
-    @tag = environment.tags.find_by_name(params[:tag])
+    @tag = params[:tag]
     @tag_cache_key = "tag_#{CGI.escape(@tag.to_s)}_env_#{environment.id.to_s}_page_#{params[:npage]}"
     if is_cache_expired?(@tag_cache_key, true)
-      @tagged = environment.articles.find_tagged_with(@tag.name).paginate(:per_page => 10, :page => params[:npage])
+      @tagged = environment.articles.find_tagged_with(@tag).paginate(:per_page => 10, :page => params[:npage])
     end
   end
 

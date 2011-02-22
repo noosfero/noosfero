@@ -1,0 +1,30 @@
+h1(order-614). Finding more active people
+
+p.  _To find the people who create more content._
+
+*  "How to access":#HowAccess
+*  "Description":#Description
+*  "Related topics":#RelatedTopics
+
+h2(#HowAccess). How to access
+
+p. Find on top of page the term "People" and click on the arrow below it:
+  !=/images/doc/menu-more-active-people.en.png(More active people on top menu)!
+
+h2(#Description). Description
+# The people will be listed ordered by number of content created with most active first. Below the profile's picture, you will see the number of articles created by the person !=/images/doc/more-active-people-detail.en.png(Profile with number of articles)!
+# Fill in the search field with what you want to look for and click on "Search" !=/images/doc/more-active-people.en.png(More active people search field)!
+# Then you will see the search results ordered by the number of content created by the person !=/images/doc/more-active-people-with-example.en.png(More active people search results with example)!
+# Clicking on one of the search results, you will be redirected to the homepage of choosen person.
+
+h2(#RelatedTopics). Related topics
+
+*  "Searching":/doc/navigation/searching
+*  "Finding more recent people":/doc/navigation/finding-more-recent-people
+*  "Finding more popular people":/doc/navigation/finding-more-popular-people
+*  "Finding communities":/doc/navigation/searching-communities
+*  "Finding enterprises":/doc/navigation/searching-enterprises
+*  "Finding products and services":/doc/navigation/searching-products-services
+*  "Advanced search":/doc/navigation/advanced-search
+
+"Back to top":#online-doc-text

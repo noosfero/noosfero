@@ -1,0 +1,33 @@
+Source: noosfero
+Section: web
+Priority: extra
+Maintainer: Noosfero developers <noosfero-dev@listas.softwarelivre.org>
+Uploaders: Antonio Terceiro <terceiro@colivre.coop.br>
+Build-Depends: debhelper (>= 7.0.50~), po4a, libgettext-ruby-util, libgettext-ruby1.8, libsqlite3-ruby1.8,
+Standards-Version: 3.8.4
+Homepage: http://noosfero.org/
+Vcs-Git: git://git.colivre.coop.br/noosfero.git
+Vcs-Browser: http://git.colivre.coop.br/?p=noosfero.git
+
+Package: noosfero
+Architecture: all
+Depends: rails, ruby1.8, ruby, rake, libgettext-ruby-data, libsqlite3-ruby, libpgsql-ruby, libmysql-ruby, librmagick-ruby, libredcloth-ruby, libwill-paginate-ruby, iso-codes, libfeedparser-ruby, libferret-ruby, libdaemons-ruby, rcov, mongrel, mongrel-cluster, tango-icon-theme, libhpricot-ruby, iso-codes, memcached, debconf, dbconfig-common, postgresql, adduser, ${misc:Depends}
+Recommends: postgresql-client
+Description: free web-based platform for social networks
+ Noosfero is a web platform for social and solidarity economy networks with
+ blog, e-Porfolios, CMS, RSS, thematic discussion, events agenda and collective
+ inteligence for solidarity economy in the same system.
+ .
+ This package contains the Noosfero application server.
+
+Package: noosfero-apache
+Architecture: all
+Depends: apache2, debconf
+Suggests: noosfero
+Description: free web-based platform for social networks (apache frontend)
+ Noosfero is a web platform for social and solidarity economy networks with
+ blog, e-Porfolios, CMS, RSS, thematic discussion, events agenda and collective
+ inteligence for solidarity economy in the same system.
+ .
+ This package contains the configuration files needed to run Noosfero with the
+ Apache HTTPD server as frontend.

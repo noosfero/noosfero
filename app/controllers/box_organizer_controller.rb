@@ -96,7 +96,7 @@ class BoxOrganizerController < ApplicationController
       expire_timeout_fragment(@block.cache_keys)
       redirect_to :action => 'index'
     else
-      flash[:notice] = _('Failed to remove block')
+      session[:notice] = _('Failed to remove block')
     end
   end
 

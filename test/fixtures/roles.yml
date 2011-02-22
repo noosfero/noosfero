@@ -33,6 +33,7 @@ four:
    - manage_environment_validators
    - moderate_comments
    - perform_task
+   - manage_environment_users
 profile_admin:
   id: 5
   environment_id: 1
@@ -49,6 +50,7 @@ profile_admin:
    - perform_task
    - post_content
    - view_private_content
+   - manage_products
 profile_member:
   id: 6
   environment_id: 1
@@ -83,3 +85,6 @@ environment_administrator:
    - manage_environment_roles
    - manage_environment_validators
    - moderate_comments
+   - manage_environment_users
+   - edit_profile
+   - destroy_profile

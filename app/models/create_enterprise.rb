@@ -11,23 +11,9 @@ class CreateEnterprise < Task
   N_('Economic activity')
   N_('Management information')
 
-  DATA_FIELDS = Enterprise.fields + %w[name identifier region_id reject_explanation]
-
-  serialize :data, Hash
-  attr_protected :data
-  def data
-    self[:data] ||= Hash.new
-  end
-
+  DATA_FIELDS = Enterprise.fields + %w[name identifier region_id]
   DATA_FIELDS.each do |field|
-    # getter
-    define_method(field) do
-      self.data[field.to_sym]
-    end
-    # setter
-    define_method("#{field}=") do |value|
-      self.data[field.to_sym] = value
-    end
+    settings_items field.to_sym
   end
 
   # checks for virtual attributes 
@@ -48,7 +34,6 @@ class CreateEnterprise < Task
 
   # check for explanation when rejecting
   validates_presence_of :reject_explanation, :if => (lambda { |record| record.status == Task::Status::CANCELLED } )
-
   xss_terminate :only => [ :acronym, :address, :contact_person, :contact_phone, :economic_activity, :legal_form, :management_information, :name ], :on => 'validation'
 
   def validate
@@ -59,7 +44,7 @@ class CreateEnterprise < Task
       end
     end
 
-    if self.identifier && Profile.exists?(:identifier => self.identifier)
+    if self.status != Task::Status::CANCELLED && self.identifier && Profile.exists?(:identifier => self.identifier)
       self.errors.add(:identifier, '%{fn} is already being as identifier by another enterprise, organization or person.')
     end
   end
@@ -91,7 +76,7 @@ class CreateEnterprise < Task
   end
 
   def environment
-    region ? region.environment : self.requestor ? self.requestor.environment : Environment.default
+    requestor.environment
   end
 
   def available_regions
@@ -153,8 +138,24 @@ class CreateEnterprise < Task
     enterprise.add_admin(enterprise.user.person)
   end
 
-  def description
-    _('Enterprise registration: "%s"') % self.name
+  def title
+    _("Enterprise registration")
+  end
+
+  def icon
+    {:type => :defined_image, :src => '/images/icons-app/enterprise-minor.png', :name => name}
+  end
+
+  def subject
+    name
+  end
+
+  def information
+    {:message => _('%{requestor} wants to create enterprise %{subject}.')}
+  end
+
+  def reject_details
+    true
   end
 
   def task_created_message
@@ -164,18 +165,18 @@ class CreateEnterprise < Task
   end
 
   def task_finished_message
-    _('Your request for registering the enterprise "%{enterprise}" was approved. You can access %{environment} now and provide start providing all relevant information your new enterprise.') % { :enterprise => self.name, :environment => self.environment }
+    __('Your request for registering the enterprise "%{enterprise}" was approved. You can access %{environment} now and provide start providing all relevant information your new enterprise.') % { :enterprise => self.name, :environment => self.environment }
   end
 
   def task_cancelled_message
-    _("Your request for registering the enterprise %{enterprise} at %{environment} was NOT approved by the validator organization. The following explanation was given: \n\n%{explanation}") % { :enterprise => self.name, :environment => self.environment, :explanation => self.reject_explanation }
+    __("Your request for registering the enterprise %{enterprise} at %{environment} was NOT approved by the validator organization. The following explanation was given: \n\n%{explanation}") % { :enterprise => self.name, :environment => self.environment, :explanation => self.reject_explanation }
   end
 
   def target_notification_message
     msg = ""
-    msg << _("Enterprise \"%{enterprise}\" just requested to enter %{environment}. You have to approve or reject it through the \"Pending Validations\" section in your control panel.\n") % { :enterprise => self.name, :environment => self.environment }
+    msg << __("Enterprise \"%{enterprise}\" just requested to enter %{environment}. You have to approve or reject it through the \"Pending Validations\" section in your control panel.\n") % { :enterprise => self.name, :environment => self.environment }
     msg << "\n"
-    msg << _("The data provided by the enterprise was the following:\n") << "\n"
+    msg << __("The data provided by the enterprise was the following:\n") << "\n"
 
 
     msg << (_("Name: %s") % self.name) << "\n"
@@ -185,14 +186,18 @@ class CreateEnterprise < Task
     msg << (_("Foundation Year: %d") % self.foundation_year) << "\n" unless self.foundation_year.blank?
     msg << (_("Economic activity: %s") % self.economic_activity) << "\n"
 
-    msg << _("Information about enterprise's management:\n") << self.management_information.to_s << "\n"
+    msg << __("Information about enterprise's management:\n") << self.management_information.to_s << "\n"
 
     msg << (_("Contact phone: %s") % self.contact_phone) << "\n"
     msg << (_("Contact person: %s") % self.contact_person) << "\n"
 
-    msg << _('CreateEnterprise|Identifier')
+    msg << __('CreateEnterprise|Identifier')
 
     msg
+  end
+
+  def target_notification_description
+    _('%{requestor} wants to create enterprise %{subject}.') % {:requestor => requestor.name, :subject => subject}
   end
 
   def permission

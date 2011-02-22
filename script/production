@@ -1,13 +1,17 @@
 #!/bin/sh
 
+set -e
+
 export RAILS_ENV=production
 
 ACTION=$1
 shift
 
 clear_cache() {
-  rm -f ./public/javascripts/cache-*.js
-  rm -f ./public/stylesheets/cache.css
+  if test -w ./public; then
+    rm -f ./public/javascripts/cache-*.js
+    rm -f ./public/stylesheets/cache.css
+  fi
 }
 
 do_start() {
@@ -20,11 +24,13 @@ do_start() {
   clear_cache
   ./script/ferret_server -e $RAILS_ENV start
   ./script/feed-updater start
+  ./script/delayed_job start
   mongrel_rails cluster::start
 }
 
 do_stop() {
   mongrel_rails cluster::stop
+  ./script/delayed_job stop
   ./script/feed-updater stop
   ./script/ferret_server -e $RAILS_ENV stop
 }
@@ -34,6 +40,13 @@ case "$ACTION" in
     do_$ACTION
     ;;
 
+  run)
+    do_start
+    echo "=> Running in production mode. Hit ctrl-C to stop."
+    trap do_stop INT TERM
+    tail -n 0 -f log/production.log || true
+    ;;
+
   restart)
     do_stop
     sleep 1
@@ -41,7 +54,7 @@ case "$ACTION" in
     ;;
 
   *)
-    echo "usage: $0 start|stop|restart"
+    echo "usage: $0 start|stop|restart|run"
     exit 1
     ;;
 esac

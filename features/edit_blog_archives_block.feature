@@ -7,6 +7,7 @@ Feature: edit_blog_archives_block
     And the following users
       | login | name |
       | joaosilva | Joao Silva |
+    And "joaosilva" has no articles
     And the following blogs
       | owner     | name     |
       | joaosilva | Blog One |

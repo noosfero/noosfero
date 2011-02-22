@@ -1,0 +1,28 @@
+<h1> <%= _("%s's Mezuro projects") % profile.name %>  </h1>
+
+<% if @projects.blank? %>
+  <%= _("%s has no projects registered.") % profile.name %>
+<% else %>
+  <table>
+    <tr>
+      <th><%= _('Project') %></th>
+      <th><%= _('Actions') %></th>
+    </tr>
+
+    <% @projects.each do |project|   %>
+      <tr>
+        <td><%= project.name %></td>
+        <td class="article-controls">
+          <%= button_without_text :edit, _('Edit'), :action => 'edit', :id => project.id %>
+          <%= button_without_text :delete, _('Delete'), { :action => 'destroy', :id => project.id },
+            :method => :post,
+            :confirm => _("Are you sure you want to remove this project?") %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+<% end %>
+
+<% button_bar do %>
+  <%= button :new, _('Register a new project'), :action => 'new' %>
+<% end %>

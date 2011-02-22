@@ -7,8 +7,6 @@
 
   <%= hidden_field_tag :display, params[:display] %>
 
-  <%= hidden_field_tag :wizard, @wizard %>
-
   <%= hidden_field_tag :asset, params[:asset] %>
 
   <div class="search-field">
@@ -22,7 +20,6 @@
     <% end %>
   </div>
 
-  <% if !@wizard %>
   <div id='advanced-search-options' style="display: <%= simple_search ? 'none' : 'block' %>">  
     <div class="search-options search-within">
       <h4><%= _('Search within:') %></h4>
@@ -56,7 +53,6 @@
       page['advanced_search_link'].hide
       page['advanced-search-options'].toggle
     end %>
-  <% end %>
   <% end %>
 
   <% if lightbox?; button_bar do %>

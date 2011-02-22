@@ -22,7 +22,7 @@ Feature: tags
 
   Scenario: viewing a single tag
     When I go to /tag
-    And I follow "environment"
+    And I follow "environment" within ".no-boxes"
     Then I should see "save the whales"
     And I should see "the Amazon is being destroyed"
 
@@ -40,3 +40,7 @@ Feature: tags
   Scenario: viewing profile's content tagged
     When I go to /profile/joaoaraujo/tags/amazon
     Then I should see "the Amazon is being destroyed"
+
+  Scenario: trying to view a tag not used
+    When I go to /tag/shark
+    Then I should see /Tagged with "shark"/

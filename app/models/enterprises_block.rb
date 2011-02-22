@@ -28,29 +28,8 @@ class EnterprisesBlock < ProfileListBlock
     end
   end
 
-  def profile_count
-    if owner.kind_of?(Environment)
-      owner.enterprises.count(:conditions => { :visible => true })
-    else
-      owner.enterprises(:visible => true).count
-    end
-
-  end
-
-  def profile_finder
-    @profile_finder ||= EnterprisesBlock::Finder.new(self)
-  end
-
-  class Finder < ProfileListBlock::Finder
-    def ids
-      # FIXME when owner is an environment (i.e. listing enterprises globally
-      # this can become SLOW)
-      if block.owner.kind_of?(Environment)
-        block.owner.enterprises.all(:conditions => {:visible => true}, :limit => block.limit, :order => 'random()').map(&:id)
-      else
-        block.owner.enterprises.select(&:visible).map(&:id)
-      end
-    end
+  def profiles
+    owner.enterprises
   end
 
 end

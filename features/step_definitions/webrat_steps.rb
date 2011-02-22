@@ -125,8 +125,12 @@ Then /^I should see "([^\"]*)"$/ do |text|
 end
 
 Then /^I should see "([^\"]*)" within "([^\"]*)"$/ do |text, selector|
-  within(selector) do |content|
-    content.should contain(text)
+  if response.class.to_s == 'Webrat::SeleniumResponse'
+    response.selenium.text('css=' + selector).should include(text)
+  else
+    within(selector) do |content|
+      content.should contain(text)
+    end
   end
 end
 
@@ -147,8 +151,12 @@ Then /^I should not see "([^\"]*)"$/ do |text|
 end
 
 Then /^I should not see "([^\"]*)" within "([^\"]*)"$/ do |text, selector|
-  within(selector) do |content|
-    content.should_not contain(text)
+  if response.class.to_s == 'Webrat::SeleniumResponse'
+    response.selenium.text('css=' + selector).should_not include(text)
+  else
+    within(selector) do |content|
+      content.should_not contain(text)
+    end
   end
 end
 
@@ -187,4 +195,3 @@ end
 Then /^show me the page$/ do
   save_and_open_page
 end
-

@@ -1,0 +1,39 @@
+<table>
+  <tr>
+    <th colspan='2'><%= _('Basic information')%></th>
+  </tr>
+
+  <tr>
+    <td class='field-name'><%= _('Members') %></td>
+    <td>
+      <%= link_to profile.members_count, :controller => 'profile', :action => 'members' %>
+    </td>
+  </tr>
+
+  <%= display_field(_('Type:'), profile, :privacy_setting, true) %>
+
+  <%= display_field(_('Location:'), profile, :location, true) %>
+
+  <tr>
+    <td class='field-name'><%= _('Created at:')  %></td>
+    <td><%= show_date(profile.created_at) %></td>
+  </tr>
+
+  <% if profile.kind_of?(Enterprise) && !profile.environment.enabled?('disable_products_for_enterprises') %>
+    <tr>
+      <td></td>
+      <td>
+        <%= link_to _('Products/Services'), :controller => 'catalog', :action => 'index' %>
+      </td>
+    </tr>
+  <% end %>
+
+  <tr>
+    <td class='field-name'><%= _('Administrators:') %></td>
+    <td>
+      <%= profile.admins.map { |admin| link_to(admin.short_name, admin.url)}.join(', ') %>
+    </td>
+  </tr>
+
+  <%= render :partial => 'common' %>
+</table>

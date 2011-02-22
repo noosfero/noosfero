@@ -268,4 +268,33 @@ class OrganizationTest < ActiveSupport::TestCase
     assert_no_match /[<>]/, organization.management_information
   end
 
+  should "the followed_by? be true only to members" do
+    o = fast_create(Organization)
+    p1 = fast_create(Person)
+    p2 = fast_create(Person)
+    p3 = fast_create(Person)
+
+    assert !p1.is_member_of?(o)
+    o.add_member(p1)
+    assert p1.is_member_of?(o)
+
+    assert !p3.is_member_of?(o)
+    o.add_member(p3)
+    assert p3.is_member_of?(o)
+
+    assert_equal true, o.send(:followed_by?,p1)
+    assert_equal true, o.send(:followed_by?,p3)
+    assert_equal false, o.send(:followed_by?,p2)
+  end
+
+  should "compose bare jabber id by identifier plus 'conference' and default hostname" do
+    org = fast_create(Organization, :identifier => 'online_community')
+    assert_equal "online_community@conference.#{org.environment.default_hostname}", org.jid
+  end
+
+  should "compose full jabber id by identifier plus 'conference.default_hostname' and short_name as resource" do
+    org = fast_create(Organization, :identifier => 'online_community')
+    assert_equal "online_community@conference.#{org.environment.default_hostname}/#{org.short_name}", org.full_jid
+  end
+
 end

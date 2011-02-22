@@ -1,0 +1,21 @@
+  <div class='input-informations input-form-closed'>
+    <div class='input-name'> <%= input.name %> <%= input_icon(input) %> </div>
+    <div class='input-details'>
+      <% button_bar do %>
+        <% if input.has_price_details? %>
+          <%= edit_button(:edit, _('Edit'), {:action => 'edit_input', :id => input}, :class => 'edit-input', :id => "edit-input-#{input.id}") %>
+        <% end %>
+        <%= edit_button(:remove, _('Remove'), {:action => 'remove_input', :id => input}, 'data-confirm' => _('Are you sure that you want to remove this input or raw material?'), :class => 'remove-input', :id => "remove-input-#{input.id}") %>
+      <% end %>
+      <% if input.has_price_details? %>
+        <%= display_unit(input) %>
+      <% else %>
+        <%= edit_link(_('Click here to add price and the amount used'), {:action => 'edit_input', :id => input}, :class => 'add-input-details', :id => "add-input-#{input.id}-details") %>
+      <% end %>
+    </div>
+    <div id='input-<%= input.id %>-form' class='input-details-form'> </div>
+  </div>
+
+  <% if user && user.has_permission?('manage_products', profile) %>
+    <%= javascript_tag "input_javascript_stuff(#{input.id})" %>
+  <% end %>

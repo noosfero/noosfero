@@ -137,14 +137,14 @@ module ActionController::Caching::Fragments
     key = fragment_cache_key_without_fast_gettext(name)
     if key.is_a?(Regexp)
       self.class.benchmark "Expired fragments matching: #{key.source}" do
-        fragment_cache_store.delete_matched(key, options)
+        cache_store.delete_matched(key, options)
       end
     else
       key = key.gsub(/:/, ".")
       self.class.benchmark "Expired fragment: #{key}, lang = #{FastGettext.available_locales.inspect}" do
         if FastGettext.available_locales
           FastGettext.available_locales.each do |lang|
-            fragment_cache_store.delete("#{key}_#{lang}", options)
+            cache_store.delete("#{key}_#{lang}", options)
           end
         end
       end
@@ -153,31 +153,14 @@ module ActionController::Caching::Fragments
   alias_method_chain :expire_fragment, :fast_gettext
 end
 
-FileUtils.mkdir_p(File.join(Rails.root, 'locale'))
-Dir.glob(File.join(Rails.root, 'locale/*')).each do |dir|
-  lang = File.basename(dir)
-  FileUtils.mkdir_p("#{Rails.root}/locale/#{lang}/LC_MESSAGES")
-  ['iso_3166', 'rails'].each do |domain|
-    target = "#{Rails.root}/locale/#{lang}/LC_MESSAGES/#{domain}.mo"
-    if !File.exists?(target)
-      orig = "/usr/share/locale/#{lang}/LC_MESSAGES/#{domain}.mo"
-      if File.exists?(orig)
-        File.symlink(orig, target)
-      else
-        alternatives = Dir.glob("/usr/share/locale/#{lang}_*/LC_MESSAGES/#{domain}.mo")
-        unless alternatives.empty?
-          File.symlink(alternatives.first, target)
-        end
-      end
-    end
-  end
+# translations in place?
+if File.exists?(Rails.root + '/locale')
+  repos = [
+    FastGettext::TranslationRepository.build('noosfero', :type => 'mo', :path => Rails.root + '/locale'),
+    FastGettext::TranslationRepository.build('iso_3166', :type => 'mo', :path => Rails.root + '/locale'),
+    FastGettext::TranslationRepository.build('rails',    :type => 'mo', :path => Rails.root + '/locale'),
+  ]
+
+  FastGettext.add_text_domain 'noosferofull', :type => :chain, :chain => repos
+  FastGettext.default_text_domain = 'noosferofull'
 end
-
-repos = [
-  FastGettext::TranslationRepository.build('noosfero', :type => 'mo', :path => File.join(Rails.root, 'locale')),
-  FastGettext::TranslationRepository.build('iso_3166', :type => 'mo', :path => File.join(Rails.root, 'locale')),
-  FastGettext::TranslationRepository.build('rails',    :type => 'mo', :path => File.join(Rails.root, 'locale')),
-]
-
-FastGettext.add_text_domain 'noosferofull', :type => :chain, :chain => repos
-FastGettext.default_text_domain = 'noosferofull'

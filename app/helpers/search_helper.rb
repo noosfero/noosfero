@@ -98,11 +98,6 @@ module SearchHelper
         ), :class => 'profile-info')
   end
 
-  def pagination_links(collection, options={})
-    options = {:prev_label => '&laquo; ' + _('Previous'), :next_label => _('Next') + ' &raquo;'}.merge(options)
-    will_paginate(collection, options)
-  end
-
   def product_categories_menu(asset, product_category, object_ids = nil)
     cats = ProductCategory.menu_categories(@product_category, environment)
     cats += cats.select { |c| c.children_count > 0 }.map(&:children).flatten

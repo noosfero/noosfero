@@ -1,0 +1,14 @@
+#!/usr/bin/env ruby
+
+## This is the Noosfero delayed job controller script. It starts and stops the
+# delayed job daemon, which is implemented in the DelayedJob plugin.
+#
+# The role of this script is to just start/stop the daemon, write a PID file,
+# etc. The actual feed update logic is DelayedJob plugin.
+
+require File.expand_path(File.join(File.dirname(__FILE__), '..', 'config', 'environment'))
+require 'daemons'
+require 'delayed/command'
+require 'app/models/profile'
+
+Delayed::Command.new(ARGV).daemonize

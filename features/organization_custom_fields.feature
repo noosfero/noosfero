@@ -9,7 +9,7 @@ Feature: organization custom fields
       | joaosilva | Joao Silva |
     And I am logged in as "joaosilva"
     And feature "enterprise_registration" is enabled on environment
-    And I follow "Control panel"
+    And I go to the Control panel
 
   Scenario Outline: organization active fields are not displayed on creation
     Given the following <organization> fields are active fields

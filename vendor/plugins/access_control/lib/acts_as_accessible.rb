@@ -24,13 +24,6 @@ class ActiveRecord::Base
       role_assignments.map{|ra|ra.destroy if roles.include?(ra.role) && ra.accessor == accessor} 
     end
 
-    def members
-      role_assignments.map(&:accessor).uniq
-    end
-    def members_by_role(role)
-      role_assignments.select{|i| i.role.key == role.key}.map(&:accessor).uniq
-    end
-
     def roles
       Role.find_all_by_environment_id(environment.id).select do |r| 
         r.permissions.any?{ |p| PERMISSIONS[self.class.base_class.name].include?(p) }

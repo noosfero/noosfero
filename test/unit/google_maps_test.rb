@@ -4,8 +4,6 @@ class GoogleMapsTest < ActiveSupport::TestCase
 
   def setup
     @domain = fast_create(Domain, :name => 'example-domain', :google_maps_key => 'DOMAIN_KEY')
-    # force loading of config at every test
-    GoogleMaps.erase_config
   end
 
   attr_reader :domain
@@ -19,18 +17,14 @@ class GoogleMapsTest < ActiveSupport::TestCase
     assert !GoogleMaps.enabled?('domain-without-key')
   end
 
-  should 'not crash if config not informed' do
-    GoogleMaps.stubs(:config).returns({})
-    assert_equal({}, GoogleMaps.config)
-  end
-
   should 'point correctly to google maps' do
     assert_equal 'http://maps.google.com/maps?file=api&amp;v=2&amp;key=DOMAIN_KEY', GoogleMaps.api_url(domain.name)
   end
 
   should 'provide initial_zoom setting' do
-    GoogleMaps.stubs(:config).returns({'initial_zoom' => 2})
-    assert_equal 2, GoogleMaps.initial_zoom
+    with_constants :NOOSFERO_CONF => {'googlemaps_initial_zoom' => 2} do
+      assert_equal 2, GoogleMaps.initial_zoom
+    end
   end
 
   should 'use 4 as default initial_zoom' do

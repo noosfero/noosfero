@@ -1,0 +1,29 @@
+h1(order-122). Sending e-mail to members
+
+p.  _If you are a community administrator, you can send e-mail to all members of your community._
+
+*  "How to access":#HowAccess
+*  "Description":#Description
+*  "Related topics":#RelatedTopics
+
+h2(#HowAccess). How to access
+
+# Find your user menu on top bar:  !=/images/doc/system-homepage-top-menu.en.png(Top menu)!
+# In user menu, click on Control Panel:  !=/images/doc/menu-control-panel.en.png(Control panel on menu)!
+# Then, click on "Manage my groups" button:  !=/images/doc/control-panel-manage-groups.en.png(Manage groups in control panel)!
+# You will see the list of groups (communities/enterprises) that you are a member. The groups that you can manage are listed with a link "Manage". Assuming that you are a community administrator, click on "Manage" link.  !=/images/doc/groups-list-with-manage-community.en.png(Groups list with permission to manage enterprise)!
+
+h2(#Description). Description
+
+# In community control panel, click on "Manage members" !=/images/doc/community-control-panel-manage-members.en.png(Manage members in control panel)!
+# You will see the members list of community and the send e-mail button. Click on the button.
+  !=/images/doc/community-members-with-send-mail-button.en.png(Community's members list)!
+# Fill in the "Subject" field with the subject of the e-mail and the "Body" field with the content of the e-mail you want to send. Then, click on "Send" !=/images/doc/community-send-email.en.png(Sending e-mail to community members)!
+
+h2(#RelatedTopics). Related topics
+
+*  "Creating a community":/doc/community/creating-community
+*  "Joining a community":/doc/community/joining-community
+*  "Accepting members":/doc/community/accepting-members
+
+"Back to top":#online-doc-text

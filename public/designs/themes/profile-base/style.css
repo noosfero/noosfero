@@ -1,0 +1,166 @@
+@import url(../base/style.css);
+
+head {
+  margin: 0px;
+  padding: 0px;
+}
+
+body {
+  margin: 0px auto;
+  padding: 0px;
+}
+
+#wrap-1 {
+  position: relative;
+}
+
+#wrap-2 {
+  margin-top: -4px;
+  padding-bottom: 0px;
+}
+
+#navigation,
+#navigation-end {
+  display: none;
+}
+
+#theme-header {
+  height: 30px;
+}
+
+/************************** user bar ***************************/
+
+#user {
+  top: -23px;
+  right: 0px;
+  height: 20px;
+}
+
+/************************** navigation ***************************/
+
+#navigation {
+  background: none;
+}
+
+/************************** content ***************************/
+
+#content {
+  margin-top: 0px;
+}
+
+#boxes {
+  margin-top: 20px;
+}
+
+#profile-header {
+  margin: -10px;
+  margin-bottom: 0px;
+  width: 958px;
+  max-width: none;
+  max-height: none;
+}
+
+#profile-footer {
+  margin-left: -10px;
+  width: 958px;
+  max-width: none;
+}
+
+.template-rightbar #content .link-list-block li a.link-this-page,
+#content .box-3 .link-list-block li a.link-this-page {
+  border-right: none;
+  margin-left: -5px;
+  margin-right: 0px;
+  max-width: 170px;
+  -moz-border-radius: 0px 4px 4px 0px;
+  -webkit-border-radius: 0px 4px 4px 0px;
+}
+
+/************** articles **************/
+
+#content .blog-posts {
+  margin-top: 30px;
+}
+
+#article .blog-feed-link {
+  position: absolute;
+  right: 0px;
+  top: 28px;
+}
+
+#article-tags {
+  margin-right: 30px;
+}
+
+#article-parent {
+  display: block;
+}
+/************** environment bar **************/
+
+#site-title {
+  position: absolute;
+  left: 10px;
+  top: -27px;
+  height: 40px;
+  width: 264px;
+}
+
+#site-title a {
+  display: block;
+  top: 0px;
+  left: 0px;
+  height: 20px;
+}
+
+#assets-menu {
+  display: none;
+  position: absolute;
+  top: 26px;
+  left: 56px;
+  min-width: 140px;
+  z-index: 10;
+  border: 1px solid #D3D7CF;
+  border-top: none;
+  background: #EEE;
+  padding: 0px 4px 6px 4px;
+  -moz-border-radius: 0px 0px 10px 10px;
+  -webkit-border-radius: 0px 0px 10px 10px;
+  border-radius-bottomleft: 10px;
+  border-radius-bottomright: 10px;
+}
+
+#assets-menu ul,
+#assets-menu li {
+  margin: 0px;
+  padding: 0px;
+  list-style: none;
+}
+
+#assets-menu a {
+  text-decoration: none;
+  display: block;
+  padding: 2px 4px 2px 8px;
+  color: #555;
+  border: 1px solid #EEE;
+}
+
+#assets-menu a:hover {
+  background: #FBFBFB;
+  border: 1px solid #F6F6F6;
+  color: #000;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+}
+
+/**************************** Comments *******************************/
+
+.post_comment_box.closed h4 {
+  border: none;
+}
+
+/************************** theme footer ***************************/
+
+#footer-content {
+  text-align: right;
+}

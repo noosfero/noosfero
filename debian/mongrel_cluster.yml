@@ -1,0 +1,10 @@
+---
+address: 127.0.0.1
+cwd: /usr/share/noosfero
+environment: production
+group: noosfero
+log_file: log/mongrel.log
+pid_file: tmp/pids/mongrel.pid
+port: 50000
+servers: 1
+user: noosfero

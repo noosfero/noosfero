@@ -1,6 +1,5 @@
 <li>
-  <%= image_tag 'icons-mime/event.png', :style => 'float: left' %>
-  <strong><%= link_to(event.title, event.url) %></strong>
+  <strong><%= link_to(event.title, event.url, :class => icon_for_article(event)) %></strong>
   <div class="item_meta">
     <%= show_period(event.start_date, event.end_date) %>
   </div>

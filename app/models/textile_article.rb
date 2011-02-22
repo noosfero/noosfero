@@ -12,4 +12,8 @@ class TextileArticle < TextArticle
     RedCloth.new(self.body|| '').to_html
   end
 
+  def notifiable?
+    true
+  end
+
 end

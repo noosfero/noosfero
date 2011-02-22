@@ -11,11 +11,6 @@ class FriendsBlockTest < ActiveSupport::TestCase
     assert_not_equal ProfileListBlock.new.default_title, FriendsBlock.new.default_title
   end
 
-  should 'use its own finder' do
-    assert_not_equal ProfileListBlock::Finder, FriendsBlock::Finder
-    assert_kind_of FriendsBlock::Finder, FriendsBlock.new.profile_finder
-  end
-
   should 'list owner friends' do
     p1 = create_user('testuser1').person
     p2 = create_user('testuser2').person

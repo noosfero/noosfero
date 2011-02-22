@@ -89,12 +89,12 @@ class ArticleTest < ActiveSupport::TestCase
   should 'provide first paragraph of HTML version' do
     profile = create_user('testinguser').person
     a = fast_create(Article, :name => 'my article', :profile_id => profile.id)
-    a.expects(:body).returns('<p>the first paragraph of the article</p> The second paragraph')
+    a.expects(:body).returns('<p>the first paragraph of the article</p><p>The second paragraph</p>')
     assert_equal '<p>the first paragraph of the article</p>', a.first_paragraph
   end
 
   should 'inform the icon to be used' do
-    assert_equal 'text-html', Article.new.icon_name
+    assert_equal 'text-html', Article.icon_name
   end
 
   should 'provide a (translatable) description' do
@@ -796,7 +796,7 @@ class ArticleTest < ActiveSupport::TestCase
   end
 
   should 'update slug from name' do
-    article = create(Article, :name => 'A test article', :profile_id => profile.id)
+    article = Article.create!(:name => 'A test article', :profile_id => profile.id)
     assert_equal 'a-test-article', article.slug
     article.name = 'Changed name'
     assert_equal 'changed-name', article.slug
@@ -862,7 +862,27 @@ class ArticleTest < ActiveSupport::TestCase
     article.name = "<h1 Bla </h1>"
     article.valid?
 
-    assert article.errors.invalid?(:name)
+    assert_no_match /<[^>]*</, article.name
+  end
+
+  should 'not doubly escape quotes in the name' do
+    person = fast_create(Person)
+    community = fast_create(Community)
+    article = fast_create(Article, :name => 'article name', :profile_id => person.id)
+    a = ApproveArticle.create!(:article => article, :target => community, :requestor => profile)
+    a.finish
+
+    published = community.articles.find_by_name('article name')
+    published.name = 'title with "quotes"'
+    published.save
+    assert_equal 'title with "quotes"', published.name
+  end
+
+  should 'remove script tags from name' do
+    a = Article.new(:name => 'hello <script>alert(1)</script>')
+    a.valid?
+
+    assert_no_match(/<script>/, a.name)
   end
 
   should 'escape malformed html tags' do
@@ -871,6 +891,319 @@ class ArticleTest < ActiveSupport::TestCase
     article.valid?
 
     assert_no_match /[<>]/, article.name
+  end
+
+  should 'return truncated title in short_title' do
+    article = Article.new
+    article.name = 'a123456789abcdefghij'
+    assert_equal 'a123456789ab...', article.short_title
+  end
+
+  should 'return abstract as lead' do
+    a = Article.new(:abstract => 'lead')
+    assert_equal 'lead', a.lead
+  end
+
+  should 'return first paragraph as lead by default' do
+    a = Article.new
+    a.stubs(:first_paragraph).returns('<p>first</p>')
+    assert_equal '<p>first</p>', a.lead
+  end
+
+  should 'return first paragraph as lead with empty but non-null abstract' do
+    a = Article.new(:abstract => '')
+    a.stubs(:first_paragraph).returns('<p>first</p>')
+    assert_equal '<p>first</p>', a.lead
+  end
+
+  should 'return blank as lead when article has no paragraphs' do
+    a = Article.new(:body => "<div>an article with content <em>but without</em> a paragraph</div>")
+    assert_equal '', a.lead
+  end
+
+  should 'have short lead' do
+    a = fast_create(TinyMceArticle, :body => '<p>' + ('a' *180) + '</p>')
+    assert_equal 170, a.short_lead.length
+  end
+
+  should 'remove html from short lead' do
+    a = Article.new(:body => "<p>an article with html that should be <em>removed</em></p>")
+    assert_equal 'an article with html that should be removed', a.short_lead
+  end
+
+  should 'track action when a published article is created outside a community' do
+    article = TinyMceArticle.create! :name => 'Tracked Article', :profile_id => profile.id
+    assert article.published?
+    assert_kind_of Person, article.profile
+    ta = ActionTracker::Record.last
+    assert_equal 'Tracked Article', ta.get_name.last
+    assert_equal article.url, ta.get_url.last
+    assert_kind_of Person, ta.user
+    ta.created_at = Time.now.ago(26.hours); ta.save!
+    article = TinyMceArticle.create! :name => 'Another Tracked Article', :profile_id => profile.id
+    ta = ActionTracker::Record.last
+    assert_equal ['Another Tracked Article'], ta.get_name
+    assert_equal [article.url], ta.get_url
+  end
+
+  should 'track action when a published article is created in a community' do
+    community = fast_create(Community)
+    p1 = ActionTracker::Record.current_user_from_model 
+    p2 = fast_create(Person)
+    p3 = fast_create(Person)
+    community.add_member(p1)
+    community.add_member(p2)
+    assert p1.is_member_of?(community)
+    assert p2.is_member_of?(community)
+    assert !p3.is_member_of?(community)
+    Article.destroy_all
+    ActionTracker::Record.destroy_all
+    article = TinyMceArticle.create! :name => 'Tracked Article', :profile_id => community.id
+    assert article.published?
+    assert_kind_of Community, article.profile
+    ta = ActionTracker::Record.last
+    assert_equal 'Tracked Article', ta.get_name.last
+    assert_equal article.url, ta.get_url.last
+    assert_kind_of Person, ta.user
+    process_delayed_job_queue
+    assert_equal 3, ActionTrackerNotification.count
+    ActionTrackerNotification.all.map{|a|a.profile}.map do |profile|
+      assert [p1,p2,community].include?(profile)
+    end
+  end
+
+  should 'track action when a published article is updated' do
+    a = TinyMceArticle.create! :name => 'a', :profile_id => profile.id
+    a.update_attributes! :name => 'b'
+    ta = ActionTracker::Record.last
+    assert_equal ['b'], ta.get_name
+    assert_equal [a.reload.url], ta.get_url
+    a.update_attributes! :name => 'c'
+    ta = ActionTracker::Record.last
+    assert_equal ['b','c'], ta.get_name
+    assert_equal [a.url,a.reload.url], ta.get_url
+    a.update_attributes! :body => 'test'
+    ta = ActionTracker::Record.last
+    assert_equal ['b','c','c'], ta.get_name
+    assert_equal [a.url,a.reload.url,a.reload.url], ta.get_url
+    a.update_attributes! :hits => 50
+    ta = ActionTracker::Record.last
+    assert_equal ['b','c','c'], ta.get_name
+    assert_equal [a.url,a.reload.url,a.reload.url], ta.get_url
+  end
+
+  should 'track action when a published article is removed' do
+    a = TinyMceArticle.create! :name => 'a', :profile_id => profile.id
+    a.destroy
+    ta = ActionTracker::Record.last
+    assert_equal ['a'], ta.get_name
+    a = TinyMceArticle.create! :name => 'b', :profile_id => profile.id
+    a.destroy
+    ta = ActionTracker::Record.last
+    assert_equal ['a','b'], ta.get_name
+    a = TinyMceArticle.create! :name => 'c', :profile_id => profile.id, :published => false
+    a.destroy
+    ta = ActionTracker::Record.last
+    assert_equal ['a','b'], ta.get_name
+  end
+
+  should 'notifiable is false by default' do
+    a = fast_create(Article)
+    assert !a.notifiable?
+  end
+
+  should 'not notify activity by default on create' do
+    ActionTracker::Record.delete_all
+    Article.create! :name => 'test', :profile_id => fast_create(Profile).id, :published => true
+    assert_equal 0, ActionTracker::Record.count
+  end
+
+  should 'not notify activity by default on update' do
+    ActionTracker::Record.delete_all
+    a = Article.create! :name => 'bar', :profile_id => fast_create(Profile).id, :published => true
+    a.name = 'foo'
+    a.save!
+    assert_equal 0, ActionTracker::Record.count
+  end
+
+  should 'not notify activity by default on destroy' do
+    ActionTracker::Record.delete_all
+    a = Article.create! :name => 'bar', :profile_id => fast_create(Profile).id, :published => true
+    a.destroy
+    assert_equal 0, ActionTracker::Record.count
+  end
+
+  should "the action_tracker_target method be defined" do
+    assert Article.method_defined?(:action_tracker_target)
+  end
+
+  should "the action_tracker_target method return the article profile" do
+    profile = fast_create(Person)
+    article = fast_create(Article, :profile_id => profile.id)
+    assert_equal profile, article.action_tracker_target
+
+    profile = fast_create(Community)
+    article = fast_create(Article, :profile_id => profile.id)
+    assert_equal profile, article.action_tracker_target
+  end
+
+  should "have defined the is_trackable method defined" do
+    assert Article.method_defined?(:is_trackable?)
+  end
+
+  should "the common trackable conditions return the correct value" do
+    a =  Article.new
+    a.published = a.advertise = true
+    assert_equal true, a.published?
+    assert_equal false, a.notifiable?
+    assert_equal true, a.advertise?
+    assert_equal false, a.is_trackable?
+   
+    a.published=false
+    assert_equal false, a.published?
+    assert_equal false, a.is_trackable?
+
+    a.published=true
+    a.advertise=false
+    assert_equal false, a.advertise?
+    assert_equal false, a.is_trackable?
+  end
+
+  should 'not create more than one notification track action to community when update more than one artile' do
+    community = fast_create(Community)
+    p1 = Person.first || fast_create(Person)
+    community.add_member(p1)
+    assert p1.is_member_of?(community)
+    Article.destroy_all
+    ActionTracker::Record.destroy_all
+    article = TinyMceArticle.create! :name => 'Tracked Article 1', :profile_id => community.id
+    assert article.published?
+    assert_kind_of Community, article.profile
+    assert_equal 1, ActionTracker::Record.count
+    ta = ActionTracker::Record.last
+    assert_equal 'Tracked Article 1', ta.get_name.last
+    assert_equal article.url, ta.get_url.last
+    assert p1, ta.user
+    assert community, ta.target
+    process_delayed_job_queue
+    assert_equal 2, ActionTrackerNotification.count
+
+    article = TinyMceArticle.create! :name => 'Tracked Article 2', :profile_id => community.id
+    assert article.published?
+    assert_kind_of Community, article.profile
+    assert_equal 1, ActionTracker::Record.count
+    ta = ActionTracker::Record.last
+    assert_equal 'Tracked Article 2', ta.get_name.last
+    assert_equal article.url, ta.get_url.last
+    assert_equal p1, ta.user
+    assert_equal community, ta.target
+    process_delayed_job_queue
+    assert_equal 2, ActionTrackerNotification.count
+  end
+
+  should 'create the notification to the member when one member has the notification and the other no' do
+    community = fast_create(Community)
+    p1 = Person.first || fast_create(Person)
+    community.add_member(p1)
+    assert p1.is_member_of?(community)
+    Article.destroy_all
+    ActionTracker::Record.destroy_all
+    article = TinyMceArticle.create! :name => 'Tracked Article 1', :profile_id => community.id
+    assert article.published?
+    assert_kind_of Community, article.profile
+    assert_equal 1, ActionTracker::Record.count
+    ta = ActionTracker::Record.first
+    assert_equal 'Tracked Article 1', ta.get_name.last
+    assert_equal article.url, ta.get_url.last
+    assert p1, ta.user
+    assert community, ta.target
+    process_delayed_job_queue
+    assert_equal 2, ActionTrackerNotification.count
+
+    p2 = fast_create(Person)
+    community.add_member(p2)
+    process_delayed_job_queue
+    assert_equal 5, ActionTrackerNotification.count
+
+    article = TinyMceArticle.create! :name => 'Tracked Article 2', :profile_id => community.id
+    assert article.published?
+    assert_kind_of Community, article.profile
+    assert_equal 3, ActionTracker::Record.count
+    ta = ActionTracker::Record.first
+    assert_equal 'Tracked Article 2', ta.get_name.last
+    assert_equal article.url, ta.get_url.last
+    assert_equal p1, ta.user
+    assert_equal community, ta.target
+    process_delayed_job_queue
+    assert_equal 6, ActionTrackerNotification.count
+  end
+
+  should 'not create more than one notification track action to friends when update more than one artile' do
+    p1 = Person.first || fast_create(Person)
+    friend = fast_create(Person)
+    p1.add_friend(friend)
+    Article.destroy_all
+    ActionTracker::Record.destroy_all
+    ActionTrackerNotification.destroy_all
+    article = TinyMceArticle.create! :name => 'Tracked Article 1', :profile_id => p1.id
+    assert article.published?
+    assert_kind_of Person, article.profile
+    assert_equal 1, ActionTracker::Record.count
+    ta = ActionTracker::Record.last
+    assert_equal 'Tracked Article 1', ta.get_name.last
+    assert_equal article.url, ta.get_url.last
+    assert p1, ta.user
+    assert p1, ta.target
+    process_delayed_job_queue
+    assert_equal 2, ActionTrackerNotification.count
+
+    article = TinyMceArticle.create! :name => 'Tracked Article 2', :profile_id => p1.id
+    assert article.published?
+    assert_kind_of Person, article.profile
+    assert_equal 1, ActionTracker::Record.count
+    ta = ActionTracker::Record.last
+    assert_equal 'Tracked Article 2', ta.get_name.last
+    assert_equal article.url, ta.get_url.last
+    assert_equal p1, ta.user
+    assert_equal p1, ta.target
+    process_delayed_job_queue
+    assert_equal 2, ActionTrackerNotification.count
+  end
+
+  should 'create the notification to the friend when one friend has the notification and the other no' do
+    p1 = Person.first || fast_create(Person)
+    f1 = fast_create(Person)
+    p1.add_friend(f1)
+    Article.destroy_all
+    ActionTracker::Record.destroy_all
+    ActionTrackerNotification.destroy_all
+    article = TinyMceArticle.create! :name => 'Tracked Article 1', :profile_id => p1.id
+    assert article.published?
+    assert_kind_of Person, article.profile
+    assert_equal 1, ActionTracker::Record.count
+    ta = ActionTracker::Record.first
+    assert_equal 'Tracked Article 1', ta.get_name.last
+    assert_equal article.url, ta.get_url.last
+    assert p1, ta.user
+    assert p1, ta.target
+    process_delayed_job_queue
+    assert_equal 2, ActionTrackerNotification.count
+
+    f2 = fast_create(Person)
+    p1.add_friend(f2)
+    process_delayed_job_queue
+    assert_equal 5, ActionTrackerNotification.count
+    article = TinyMceArticle.create! :name => 'Tracked Article 2', :profile_id => p1.id
+    assert article.published?
+    assert_kind_of Person, article.profile
+    assert_equal 2, ActionTracker::Record.count
+    ta = ActionTracker::Record.first
+    assert_equal 'Tracked Article 2', ta.get_name.last
+    assert_equal article.url, ta.get_url.last
+    assert_equal p1, ta.user
+    assert_equal p1, ta.target
+    process_delayed_job_queue
+    assert_equal 6, ActionTrackerNotification.count
   end
 
   should 'found articles with published date between a range' do
@@ -887,8 +1220,228 @@ class ArticleTest < ActiveSupport::TestCase
   end
 
   should 'calculate first/end day of a month' do
-    assert_equal 1, Article.first_day_of_month(DateTime.parse('2010-07-06')).day
-    assert_equal 31, Article.last_day_of_month(DateTime.parse('2010-07-06')).day
+    assert_equal 1, (DateTime.parse('2010-07-06')).at_beginning_of_month.day
+    assert_equal 31, (DateTime.parse('2010-07-06')).at_end_of_month.day
+  end
+
+  should 'not be a forum by default' do
+    assert !fast_create(Article).forum?
+  end
+
+  should 'not have posts by default' do
+    assert !fast_create(Article).has_posts?
+  end
+
+  should 'get article galleries' do
+    p = fast_create(Profile)
+    a = fast_create(Article, :profile_id => p.id)
+    g = fast_create(Gallery, :profile_id => p.id)
+    assert_equal [g], p.articles.galleries
+  end
+
+  should 'has many translations' do
+    a = build(Article)
+    assert_raises(ActiveRecord::AssociationTypeMismatch) { a.translations << 1 }
+    assert_nothing_raised { a.translations << build(Article) }
+  end
+
+  should 'belongs to translation of' do
+    a = build(Article)
+    assert_raises(ActiveRecord::AssociationTypeMismatch) { a.translation_of = 1 }
+    assert_nothing_raised { a.translation_of = build(Article) }
+  end
+
+  should 'has language' do
+    a = build(Article)
+    assert_nothing_raised { a.language = 'en' }
+  end
+
+  should 'validade inclusion of language' do
+    a = build(Article)
+    a.language = '12'
+    a.valid?
+    assert a.errors.invalid?(:language)
+    a.language = 'en'
+    a.valid?
+    assert !a.errors.invalid?(:language)
+  end
+
+  should 'language can be blank' do
+    a = build(Article)
+    a.valid?
+    assert !a.errors.invalid?(:language)
+    a.language = ''
+    a.valid?
+    assert !a.errors.invalid?(:language)
+  end
+
+  should 'article is not translatable' do
+    a = build(Article)
+    assert !a.translatable?
+  end
+
+  should 'get native translation' do
+    native_article = fast_create(Article)
+    article_translation = fast_create(Article)
+    native_article.translations << article_translation
+    assert_equal native_article, native_article.native_translation
+    assert_equal native_article, article_translation.native_translation
+  end
+
+  should 'list possible translations' do
+    native_article = fast_create(Article, :language => 'pt')
+    article_translation = fast_create(Article, :language => 'en', :translation_of_id => native_article.id)
+    possible_translations = native_article.possible_translations
+    assert !possible_translations.include?('en')
+    assert possible_translations.include?('pt')
+  end
+
+  should 'verify if translation is already in use' do
+    native_article = fast_create(Article, :language => 'pt')
+    article_translation = fast_create(Article, :language => 'en', :translation_of_id => native_article.id)
+    a = build(Article)
+    a.language = 'en'
+    a.translation_of = native_article
+    a.valid?
+    assert a.errors.invalid?(:language)
+    a.language = 'es'
+    a.valid?
+    assert !a.errors.invalid?(:language)
+  end
+
+  should 'verify if native translation is already in use' do
+    native_article = fast_create(Article, :language => 'pt')
+    a = build(Article)
+    a.language = 'pt'
+    a.translation_of = native_article
+    a.valid?
+    assert a.errors.invalid?(:language)
+    a.language = 'es'
+    a.valid?
+    assert !a.errors.invalid?(:language)
+  end
+
+  should 'translation have a language' do
+    native_article = fast_create(Article, :language => 'pt')
+    a = build(Article)
+    a.translation_of = native_article
+    a.valid?
+    assert a.errors.invalid?(:language)
+    a.language = 'en'
+    a.valid?
+    assert !a.errors.invalid?(:language)
+  end
+
+  should 'native translation have a language' do
+    native_article = fast_create(Article)
+    a = build(Article)
+    a.language = 'en'
+    a.translation_of = native_article
+    a.valid?
+    n = a.errors.count
+    native_article.language = 'pt'
+    native_article.save
+    a.valid?
+    assert_equal n - 1, a.errors.count
+  end
+
+  should 'rotate translations when root article is destroyed' do
+    native_article = fast_create(Article, :language => 'pt', :profile_id => @profile.id)
+    translation1 = fast_create(Article, :language => 'en', :translation_of_id => native_article.id, :profile_id => @profile.id)
+    translation2 = fast_create(Article, :language => 'es', :translation_of_id => native_article.id, :profile_id => @profile.id)
+    native_article.destroy
+    assert translation1.translation_of.nil?
+    assert translation1.translations.include?(translation2)
+  end
+
+  should 'rotate one translation when root article is destroyed' do
+    native_article = fast_create(Article, :language => 'pt', :profile_id => @profile.id)
+    translation = fast_create(Article, :language => 'en', :translation_of_id => native_article.id, :profile_id => @profile.id)
+    native_article.destroy
+    assert translation.translation_of.nil?
+    assert translation.translations.empty?
+  end
+
+  should 'get self if article does not a language' do
+    article = fast_create(Article, :profile_id => @profile.id)
+    assert_equal article, article.get_translation_to('en')
+  end
+
+  should 'get self if article is the translation' do
+    article = fast_create(Article, :language => 'pt', :profile_id => @profile.id)
+    assert_equal article, article.get_translation_to('pt')
+  end
+
+  should 'get the native translation if it is the translation' do
+    native_article = fast_create(Article, :language => 'pt', :profile_id => @profile.id)
+    translation = fast_create(Article, :language => 'en', :translation_of_id => native_article.id, :profile_id => @profile.id)
+    assert_equal native_article, translation.get_translation_to('pt')
+  end
+
+  should 'get the translation if article has translation' do
+    native_article = fast_create(Article, :language => 'pt', :profile_id => @profile.id)
+    translation = fast_create(Article, :language => 'en', :translation_of_id => native_article.id, :profile_id => @profile.id)
+    assert_equal translation, native_article.get_translation_to('en')
+  end
+
+  should 'get self if article does not has a translation' do
+    native_article = fast_create(Article, :language => 'pt', :profile_id => @profile.id)
+    assert_equal native_article, native_article.get_translation_to('en')
+  end
+
+  should 'get only non translated articles' do
+    p = fast_create(Profile)
+    native = fast_create(Article, :language => 'pt', :profile_id => p.id)
+    translation = fast_create(Article, :language => 'en', :translation_of_id => native.id, :profile_id => p.id)
+    assert_equal [native], p.articles.native_translations
+  end
+
+  should 'not list own language as a possible translation if language has changed' do
+    a = build(Article, :language => 'pt')
+    assert !a.possible_translations.include?('pt')
+    a = fast_create(Article, :language => 'pt')
+    a.language = 'en'
+    assert !a.possible_translations.include?('en')
+  end
+
+  should 'list own language as a possible translation if language has not changed' do
+    a = fast_create(Article, :language => 'pt')
+    assert a.possible_translations.include?('pt')
+  end
+
+  should 'have the author_name method defined' do
+    assert Article.method_defined?('author_name')
+  end
+
+  should "the author_name returns the name od the article's author" do
+    author = mock()
+    author.expects(:name).returns('author name')
+    a = Article.new
+    a.expects(:author).returns(author)
+    assert_equal 'author name', a.author_name
+    a.author_name = 'some name'
+    assert_equal 'some name', a.author_name
+  end
+
+  should 'retrieve latest info from topic when has no comments' do
+    forum = fast_create(Forum, :name => 'Forum test', :profile_id => profile.id)
+    post = fast_create(TextileArticle, :name => 'First post', :profile_id => profile.id, :parent_id => forum.id, :updated_at => Time.now)
+    assert_equal post.updated_at, post.info_from_last_update[:date]
+    assert_equal profile.name, post.info_from_last_update[:author_name]
+    assert_equal profile.url, post.info_from_last_update[:author_url]
+  end
+
+  should 'retrieve latest info from comment when has comments' do
+    forum = fast_create(Forum, :name => 'Forum test', :profile_id => profile.id)
+    post = fast_create(TextileArticle, :name => 'First post', :profile_id => profile.id, :parent_id => forum.id, :updated_at => Time.now)
+    post.comments << Comment.new(:name => 'Guest', :email => 'guest@example.com', :title => 'test comment', :body => 'hello!')
+    assert_equal post.comments.last.created_at, post.info_from_last_update[:date]
+    assert_equal "Guest", post.info_from_last_update[:author_name]
+    assert_nil post.info_from_last_update[:author_url]
+  end
+
+  should 'tiny mce editor is disabled by default' do
+    assert !Article.new.tiny_mce?
   end
 
 end

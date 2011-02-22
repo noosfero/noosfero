@@ -1,0 +1,25 @@
+=================================================================================
+
+install config/noosfero.yml
+
+how to handle local themes?
+
+create admin user during installation using debconf to prompt for password
+
+the `noosfero` postgres user must have permission to drop and create schemas.
+
+e-mail setup?
+noosfero setup
+
+install varnish conf - create package noosfero-varnish?
+
+remove /etc/noosfero/database.yml in postrm/purge!
+
+remove /etc/noosfero in postrm/purge! in special:
+  /etc/noosfero/apache/mongrel.conf
+
+fix problems reported by lintian (start by removing the overrides)
+
+try to get rid of dependencies that should be needed only in development (such
+as rcov)
+

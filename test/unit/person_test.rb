@@ -32,7 +32,7 @@ class PersonTest < ActiveSupport::TestCase
     e.affiliate(p, member_role)
 
     assert p.memberships.include?(e)
-    assert p.enterprise_memberships.include?(e)
+    assert p.enterprises.include?(e)
   end
 
   should 'belong to communities' do
@@ -41,7 +41,7 @@ class PersonTest < ActiveSupport::TestCase
 
     c.add_member(p)
 
-    assert p.community_memberships.include?(c), "Community should add a new member"
+    assert p.communities.include?(c), "Community should add a new member"
   end
 
   should 'be associated with a user' do
@@ -173,27 +173,29 @@ class PersonTest < ActiveSupport::TestCase
     assert !person.is_admin?(env2)
   end
 
-  should 'get a default home page and a RSS feed' do
+  should 'create a default set of articles' do
+    Person.any_instance.stubs(:default_set_of_articles).returns([Blog.new(:name => 'blog')])
     person = create_user_full('mytestuser').person
 
-    assert_kind_of Article, person.home_page
-    assert_kind_of RssFeed, person.articles.find_by_path('feed')
+    assert_kind_of Blog, person.articles.find_by_path('blog')
+    assert_kind_of RssFeed, person.articles.find_by_path('blog/feed')
   end
 
-  should 'create default set of blocks' do
+  should 'create a default set of blocks' do
     p = create_user_full('testingblocks').person
 
-    assert p.boxes[0].blocks.map(&:class).include?(MainBlock), 'person must have a MainBlock upon creation'
+    assert !p.boxes[0].blocks.empty?, 'person must have blocks in area 1'
+    assert !p.boxes[1].blocks.empty?, 'person must have blocks in area 2'
+    assert !p.boxes[2].blocks.empty?, 'person must have blocks in area 3'
+  end
 
-    assert p.boxes[1].blocks.map(&:class).include?(ProfileInfoBlock), 'person must have a ProfileInfoBlock upon creation'
-    assert p.boxes[1].blocks.map(&:class).include?(RecentDocumentsBlock), 'person must have a RecentDocumentsBlock upon creation'
-    assert p.boxes[1].blocks.map(&:class).include?(TagsBlock), 'person must have a Tags Block upon creation'
-
-    assert p.boxes[2].blocks.map(&:class).include?(CommunitiesBlock), 'person must have a CommunitiesBlock upon creation'
-    assert p.boxes[2].blocks.map(&:class).include?(EnterprisesBlock), 'person must have a EnterprisesBlock upon creation'
-    assert p.boxes[2].blocks.map(&:class).include?(FriendsBlock), 'person must have a FriendsBlock upon creation'
-
-    assert_equal 7,  p.blocks.size
+  should 'link to all articles created by default' do
+    p = create_user_full('testingblocks').person
+    blocks = p.blocks.select { |b| b.is_a?(LinkListBlock) }
+    p.articles.reject { |a| a.is_a?(RssFeed) }.each do |article|
+      path = '/' + p.identifier + '/' + article.path
+      assert blocks.any? { |b| b.links.any? { |link| b.expand_address(link[:address]) == path  }}, "#{path.inspect} must be linked by at least one of the blocks: #{blocks.inspect}"
+    end
   end
 
   should 'have friends' do
@@ -392,12 +394,16 @@ class PersonTest < ActiveSupport::TestCase
   end
 
   should 'not allow simple member to view group pending tasks' do
-    c = fast_create(Community)
-    c.tasks << Task.new
-    p = create_user('user_without_tasks').person
-    c.add_member(p)
+    community = fast_create(Community)
+    member = fast_create(Person)
+    community.add_member(member)
 
-    assert_not_includes Person.with_pending_tasks, p
+    community.tasks << Task.new
+
+    person = fast_create(Person)
+    community.add_member(person)
+
+    assert_not_includes Person.with_pending_tasks, person
   end
 
   should 'person has organization pending tasks' do
@@ -586,6 +592,557 @@ class PersonTest < ActiveSupport::TestCase
     assert_raise ArgumentError do
       p.identifier = 'other_person_name'
     end
+  end
+
+  should "return none on label if the person hasn't friends" do
+    p = fast_create(Person)
+    assert_equal 0, p.friends.count
+    assert_equal "none", p.more_popular_label
+  end
+
+  should "return one friend on label if the profile has one member" do
+    p1 = fast_create(Person)
+    p2 = fast_create(Person)
+    p1.add_friend(p2)
+    assert_equal 1, p1.friends.count
+    assert_equal "one friend", p1.more_popular_label
+  end
+
+  should "return the number of friends on label if the person has more than one friend" do
+    p1 = fast_create(Person)
+    p2 = fast_create(Person)
+    p3 = fast_create(Person)
+    p1.add_friend(p2)
+    p1.add_friend(p3)
+    assert_equal 2, p1.friends.count
+    assert_equal "2 friends", p1.more_popular_label
+
+    p4 = fast_create(Person)
+    p1.add_friend(p4)
+    assert_equal 3, p1.friends.count
+    assert_equal "3 friends", p1.more_popular_label
+  end
+
+  should 'find more popular people' do
+    Person.delete_all
+    env = fast_create(Environment)
+    p1 = fast_create(Person)
+    p2 = fast_create(Person)
+    p3 = fast_create(Person)
+
+    p1.add_friend(p2)
+    assert_equal [p1], Person.more_popular
+
+    p2.add_friend(p1)
+    p2.add_friend(p3)
+    assert_equal [p2,p1] , Person.more_popular
+
+    p2.remove_friend(p3)
+    assert_equal [p1,p2] , Person.more_popular
+  end
+
+  should 'persons has reference to user' do
+    person = Person.new
+    assert_nothing_raised do
+      person.user
+    end
+  end
+
+  should "see get all sent scraps" do
+    p1 = fast_create(Person)
+    assert_equal [], p1.scraps_sent
+    fast_create(Scrap, :sender_id => p1.id)
+    fast_create(Scrap, :sender_id => p1.id)
+    assert_equal 2, p1.scraps_sent.count
+    p2 = fast_create(Person)
+    fast_create(Scrap, :sender_id => p2.id)
+    assert_equal 2, p1.scraps_sent.count
+    fast_create(Scrap, :sender_id => p1.id)
+    assert_equal 3, p1.scraps_sent.count
+    fast_create(Scrap, :receiver_id => p1.id)
+    assert_equal 3, p1.scraps_sent.count
+  end
+
+  should "see get all received scraps" do
+    p1 = fast_create(Person)
+    assert_equal [], p1.scraps_received
+    fast_create(Scrap, :receiver_id => p1.id)
+    fast_create(Scrap, :receiver_id => p1.id)
+    assert_equal 2, p1.scraps_received.count
+    p2 = fast_create(Person)
+    fast_create(Scrap, :receiver_id => p2.id)
+    assert_equal 2, p1.scraps_received.count
+    fast_create(Scrap, :receiver_id => p1.id)
+    assert_equal 3, p1.scraps_received.count
+    fast_create(Scrap, :sender_id => p1.id)
+    assert_equal 3, p1.scraps_received.count
+  end
+
+  should "see get all received scraps that are not replies" do
+    p1 = fast_create(Person)
+    s1 = fast_create(Scrap, :receiver_id => p1.id)
+    s2 = fast_create(Scrap, :receiver_id => p1.id)
+    s3 = fast_create(Scrap, :receiver_id => p1.id, :scrap_id => s1.id)
+    assert_equal 3, p1.scraps_received.count
+    assert_equal [s1,s2], p1.scraps_received.not_replies
+    p2 = fast_create(Person)
+    s4 = fast_create(Scrap, :receiver_id => p2.id)
+    s5 = fast_create(Scrap, :receiver_id => p2.id, :scrap_id => s4.id)
+    assert_equal 2, p2.scraps_received.count
+    assert_equal [s4], p2.scraps_received.not_replies
+  end
+
+  should "the followed_by method be protected and true to the person friends and herself by default" do
+    p1 = fast_create(Person)
+    p2 = fast_create(Person)
+    p3 = fast_create(Person)
+    p4 = fast_create(Person)
+
+    p1.add_friend(p2)
+    assert p1.is_a_friend?(p2)
+    p1.add_friend(p4)
+    assert p1.is_a_friend?(p4)
+
+    assert_equal true, p1.send(:followed_by?,p1)
+    assert_equal true, p1.send(:followed_by?,p2)
+    assert_equal true, p1.send(:followed_by?,p4)
+    assert_equal false, p1.send(:followed_by?,p3)
+  end
+
+  should "the person follows her friends and herself by default" do
+    p1 = fast_create(Person)
+    p2 = fast_create(Person)
+    p3 = fast_create(Person)
+    p4 = fast_create(Person)
+
+    p2.add_friend(p1)
+    assert p2.is_a_friend?(p1)
+    p4.add_friend(p1)
+    assert p4.is_a_friend?(p1)
+
+    assert_equal true, p1.follows?(p1)
+    assert_equal true, p1.follows?(p2)
+    assert_equal true, p1.follows?(p4)
+    assert_equal false, p1.follows?(p3)
+  end
+
+  should "a person member of a community follows the community" do
+    c = fast_create(Community)
+    p1 = fast_create(Person)
+    p2 = fast_create(Person)
+    p3 = fast_create(Person)
+
+    assert !p1.is_member_of?(c)
+    c.add_member(p1)
+    assert p1.is_member_of?(c)
+
+    assert !p3.is_member_of?(c)
+    c.add_member(p3)
+    assert p3.is_member_of?(c)
+
+    assert_equal true, p1.follows?(c)
+    assert_equal true, p3.follows?(c)
+    assert_equal false, p2.follows?(c)
+  end
+
+  should "the person member of a enterprise follows the enterprise" do
+    e = fast_create(Enterprise)
+    e.stubs(:closed?).returns(false)
+    p1 = fast_create(Person)
+    p2 = fast_create(Person)
+    p3 = fast_create(Person)
+
+    assert !p1.is_member_of?(e)
+    e.add_member(p1)
+    assert p1.is_member_of?(e)
+
+    assert !p3.is_member_of?(e)
+    e.add_member(p3)
+    assert p3.is_member_of?(e)
+
+    assert_equal true, p1.follows?(e)
+    assert_equal true, p3.follows?(e)
+    assert_equal false, p2.follows?(e)
+  end
+
+  should "the person see all of your scraps" do
+    person = fast_create(Person)
+    s1 = fast_create(Scrap, :sender_id => person.id)
+    assert_equal [s1], person.scraps
+    s2 = fast_create(Scrap, :sender_id => person.id)
+    assert_equal [s1,s2], person.scraps
+    s3 = fast_create(Scrap, :receiver_id => person.id)
+    assert_equal [s1,s2,s3], person.scraps
+  end
+
+  should "the person browse for a scrap with a Scrap object" do
+    person = fast_create(Person)
+    s1 = fast_create(Scrap, :sender_id => person.id)
+    s2 = fast_create(Scrap, :sender_id => person.id)
+    s3 = fast_create(Scrap, :receiver_id => person.id)
+    assert_equal s2, person.scraps(s2)
+  end
+
+  should "the person browse for a scrap with an integer and string id" do
+    person = fast_create(Person)
+    s1 = fast_create(Scrap, :sender_id => person.id)
+    s2 = fast_create(Scrap, :sender_id => person.id)
+    s3 = fast_create(Scrap, :receiver_id => person.id)
+    assert_equal s2, person.scraps(s2.id)
+    assert_equal s2, person.scraps(s2.id.to_s)
+  end
+
+  should "destroy scrap if sender was removed" do
+    person = fast_create(Person)
+    scrap = fast_create(Scrap, :sender_id => person.id)
+    assert_not_nil Scrap.find_by_id(scrap.id)
+    person.destroy
+    assert_nil Scrap.find_by_id(scrap.id)
+  end
+
+  should "the tracked action be notified to person friends and herself" do
+    p1 = Person.first
+    p2 = fast_create(Person)
+    p3 = fast_create(Person)
+    p4 = fast_create(Person)
+
+    p1.add_friend(p2)
+    assert p1.is_a_friend?(p2)
+    assert !p1.is_a_friend?(p3)
+    p1.add_friend(p4)
+    assert p1.is_a_friend?(p4)
+    
+    action_tracker = fast_create(ActionTracker::Record)
+    ActionTrackerNotification.delete_all
+    count = ActionTrackerNotification.count
+    Delayed::Job.destroy_all
+    Person.notify_activity(action_tracker)
+    process_delayed_job_queue 
+    assert_equal count + 3, ActionTrackerNotification.count
+    ActionTrackerNotification.all.map{|a|a.profile}.map do |profile|
+      [p1,p2,p4].include?(profile)
+    end
+  end
+
+  should "the tracked action be notified to friends with delayed job" do
+    p1 = Person.first
+    p2 = fast_create(Person)
+    p3 = fast_create(Person)
+    p4 = fast_create(Person)
+
+    p1.add_friend(p2)
+    assert p1.is_a_friend?(p2)
+    assert !p1.is_a_friend?(p3)
+    p1.add_friend(p4)
+    assert p1.is_a_friend?(p4)
+    
+    action_tracker = fast_create(ActionTracker::Record)
+
+    assert_difference(Delayed::Job, :count, 1) do
+      Person.notify_activity(action_tracker)
+    end
+  end
+
+  should "the tracked action notify friends with one delayed job process" do
+    p1 = Person.first
+    p2 = fast_create(Person)
+    p3 = fast_create(Person)
+    p4 = fast_create(Person)
+
+    p1.add_friend(p2)
+    assert p1.is_a_friend?(p2)
+    assert !p1.is_a_friend?(p3)
+    p1.add_friend(p4)
+    assert p1.is_a_friend?(p4)
+    
+    action_tracker = fast_create(ActionTracker::Record)
+
+    Delayed::Job.delete_all
+    assert_difference(Delayed::Job, :count, 1) do
+      Person.notify_activity(action_tracker)
+    end
+    assert_difference(ActionTrackerNotification, :count, 3) do
+      process_delayed_job_queue
+    end
+  end
+
+  should "the community tracked action be notified to the author and to community members" do
+    p1 = Person.first
+    community = fast_create(Community)
+    p2 = fast_create(Person)
+    p3 = fast_create(Person)
+
+    community.add_member(p1)
+    assert p1.is_member_of?(community)
+    community.add_member(p3)
+    assert p3.is_member_of?(community)
+    assert !p2.is_member_of?(community)
+    process_delayed_job_queue
+    
+    action_tracker = fast_create(ActionTracker::Record, :verb => 'create_article')
+    action_tracker.target = community
+    action_tracker.save!
+    ActionTrackerNotification.delete_all
+    assert_difference(ActionTrackerNotification, :count, 3) do
+      Person.notify_activity(action_tracker)
+      process_delayed_job_queue
+    end
+    ActionTrackerNotification.all.map{|a|a.profile}.map do |profile|
+      assert [community,p1,p3].include?(profile)
+    end
+  end
+
+  should "the community tracked action be notified to members with delayed job" do
+    p1 = Person.first
+    community = fast_create(Community)
+    p2 = fast_create(Person)
+    p3 = fast_create(Person)
+    p4 = fast_create(Person)
+
+    community.add_member(p1)
+    assert p1.is_member_of?(community)
+    community.add_member(p3)
+    assert p3.is_member_of?(community)
+    community.add_member(p4)
+    assert p4.is_member_of?(community)
+    assert !p2.is_member_of?(community)
+      
+    action_tracker = fast_create(ActionTracker::Record)
+    article = mock()
+    action_tracker.stubs(:target).returns(article)
+    article.stubs(:is_a?).with(Article).returns(true)
+    article.stubs(:is_a?).with(RoleAssignment).returns(false)
+    article.stubs(:is_a?).with(Comment).returns(false)
+    article.stubs(:profile).returns(community)
+    ActionTrackerNotification.delete_all
+
+    assert_difference(Delayed::Job, :count, 1) do
+      Person.notify_activity(action_tracker)
+    end
+    ActionTrackerNotification.all.map{|a|a.profile}.map do |profile|
+      assert [community,p1,p3,p4].include?(profile)
+    end
+  end
+
+  should "remove activities if the person is destroyed" do
+    ActionTracker::Record.destroy_all
+    ActionTrackerNotification.destroy_all
+    person = fast_create(Person)
+    a1 = fast_create(ActionTracker::Record, :user_id => person.id )
+    a2 = fast_create(ActionTracker::Record, :user_id => person.id )
+    a3 = fast_create(ActionTracker::Record)
+    assert_equal 3, ActionTracker::Record.count
+    fast_create(ActionTrackerNotification, :action_tracker_id => a1.id, :profile_id => person.id)
+    fast_create(ActionTrackerNotification, :action_tracker_id => a3.id)
+    fast_create(ActionTrackerNotification, :action_tracker_id => a2.id, :profile_id => person.id)
+    assert_equal 3, ActionTrackerNotification.count
+    person.destroy
+    assert_equal 1, ActionTracker::Record.count
+    assert_equal 1, ActionTrackerNotification.count
+  end
+
+  should "control scrap if is sender or receiver" do
+    p1, p2 = fast_create(Person), fast_create(Person)
+    s = fast_create(Scrap, :sender_id => p1.id, :receiver_id => p2.id)
+    assert p1.can_control_scrap?(s)
+    assert p2.can_control_scrap?(s)
+  end
+
+  should "not control scrap if is not sender or receiver" do
+    p1, p2 = fast_create(Person), fast_create(Person)
+    s = fast_create(Scrap, :sender_id => p1.id, :receiver_id => p1.id)
+    assert p1.can_control_scrap?(s)
+    assert !p2.can_control_scrap?(s)
+  end
+
+  should "control activity or not" do
+    p1, p2 = fast_create(Person), fast_create(Person)
+    a = fast_create(ActionTracker::Record, :user_id => p2.id)
+    n = fast_create(ActionTrackerNotification, :profile_id => p2.id, :action_tracker_id => a.id)
+    assert !p1.reload.can_control_activity?(a)
+    assert p2.reload.can_control_activity?(a)
+  end
+
+  should 'track only one action when a person joins a community' do
+    ActionTracker::Record.delete_all
+    p = create_user('test_user').person
+    c = fast_create(Community, :name => "Foo")
+    c.add_member(p)
+    assert_equal ["Foo"], ActionTracker::Record.last(:conditions => {:verb => 'join_community'}).get_resource_name
+    c.reload.add_moderator(p.reload)
+    assert_equal ["Foo"], ActionTracker::Record.last(:conditions => {:verb => 'join_community'}).get_resource_name
+  end
+
+  should 'the tracker target be Community when a person joins a community' do
+    ActionTracker::Record.delete_all
+    p = create_user('test_user').person
+    c = fast_create(Community, :name => "Foo")
+    c.add_member(p)
+    assert_kind_of Community, ActionTracker::Record.last(:conditions => {:verb => 'join_community'}).target
+  end
+
+  should 'the community be notified specifically when a person joins a community' do
+    ActionTracker::Record.delete_all
+    p = create_user('test_user').person
+    c = fast_create(Community, :name => "Foo")
+    c.add_member(p)
+    assert_not_nil ActionTracker::Record.last(:conditions => {:verb => 'add_member_in_community'})
+  end
+
+  should 'the community specific notification created when a member joins community could not be propagated to members' do
+    ActionTracker::Record.delete_all
+    p1 = create_user('test_user').person
+    p2 = create_user('test_user').person
+    p3 = create_user('test_user').person
+    c = fast_create(Community, :name => "Foo")
+    c.add_member(p1)
+    process_delayed_job_queue
+    c.add_member(p3)
+    process_delayed_job_queue
+    assert_equal 4, ActionTracker::Record.count
+    assert_equal 5, ActionTrackerNotification.count
+    has_add_member_notification = false
+    ActionTrackerNotification.all.map do |notification|
+      if notification.action_tracker.verb == 'add_member_in_community'
+        has_add_member_notification = true
+        assert_equal c, notification.profile
+      end
+    end
+    assert has_add_member_notification
+  end
+
+  should 'track only one action when a person leaves a community' do
+    p = create_user('test_user').person
+    c = fast_create(Community, :name => "Foo")
+    c.add_member(p)
+    c.add_moderator(p)
+    ActionTracker::Record.delete_all
+    c.remove_member(p)
+    assert_equal ["Foo"], ActionTracker::Record.last(:conditions => {:verb => 'leave_community'}).get_resource_name
+  end
+
+  should 'the tracker target be Community when a person leaves a community' do
+    ActionTracker::Record.delete_all
+    p = create_user('test_user').person
+    c = fast_create(Community, :name => "Foo")
+    c.add_member(p)
+    c.add_moderator(p)
+    ActionTracker::Record.delete_all
+    c.remove_member(p)
+    assert_kind_of Community, ActionTracker::Record.last(:conditions => {:verb => 'leave_community'}).target
+  end
+
+  should 'the community be notified specifically when a person leaves a community' do
+    ActionTracker::Record.delete_all
+    p = create_user('test_user').person
+    c = fast_create(Community, :name => "Foo")
+    c.add_member(p)
+    c.add_moderator(p)
+    ActionTracker::Record.delete_all
+    c.remove_member(p)
+    assert_not_nil ActionTracker::Record.last(:conditions => {:verb => 'remove_member_in_community'})
+  end
+
+  should 'the community specific notification created when a member leaves community could not be propagated to members' do
+    ActionTracker::Record.delete_all
+    p1 = Person.first
+    p2 = create_user('test_user').person
+    p3 = create_user('test_user').person
+    c = fast_create(Community, :name => "Foo")
+    process_delayed_job_queue
+    Delayed::Job.delete_all
+    c.add_member(p1)
+    c.add_member(p3)
+    c.add_moderator(p1)
+    c.add_moderator(p3)
+    ActionTracker::Record.delete_all
+    c.remove_member(p1)
+    process_delayed_job_queue
+    c.remove_member(p3)
+    process_delayed_job_queue
+    assert_equal 4, ActionTracker::Record.count
+    assert_equal 5, ActionTrackerNotification.count
+    has_remove_member_notification = false
+    ActionTrackerNotification.all.map do |notification|
+      if notification.action_tracker.verb == 'remove_member_in_community'
+        has_remove_member_notification = true
+        assert_equal c, notification.profile
+      end
+    end
+    assert has_remove_member_notification
+  end
+
+  should 'get all friends online' do
+    now = DateTime.now
+    person_1 = create_user('person_1').person
+    person_2 = create_user('person_2', :chat_status_at => now, :chat_status => 'chat').person
+    person_3 = create_user('person_3', :chat_status_at => now).person
+    person_4 = create_user('person_4', :chat_status_at => now, :chat_status => 'dnd').person
+    person_1.add_friend(person_2)
+    person_1.add_friend(person_3)
+    person_1.add_friend(person_4)
+    assert_equal [person_2, person_3, person_4], person_1.friends
+    assert_equal [person_2, person_4], person_1.friends.online
+  end
+
+  should 'compose bare jabber id by login plus default hostname' do
+    person = create_user('online_user').person
+    assert_equal "online_user@#{person.environment.default_hostname}", person.jid
+  end
+
+  should "compose full jabber id by identifier plus default hostname and short_name as resource" do
+    person = create_user('online_user').person
+    assert_equal "online_user@#{person.environment.default_hostname}/#{person.short_name}", person.full_jid
+  end
+
+  should 'dont get online friends which not updates chat_status in last 15 minutes' do
+    now = DateTime.now
+    one_hour_ago = DateTime.now - 1.hour
+    person = create_user('person_1').person
+    friend_1 = create_user('person_2', :chat_status_at => now, :chat_status => 'chat').person
+    friend_2 = create_user('person_3', :chat_status_at => one_hour_ago, :chat_status => 'chat').person
+    friend_3 = create_user('person_4', :chat_status_at => one_hour_ago, :chat_status => 'dnd').person
+    person.add_friend(friend_1)
+    person.add_friend(friend_2)
+    person.add_friend(friend_3)
+    assert_equal [friend_1, friend_2, friend_3], person.friends
+    assert_equal [friend_1], person.friends.online
+  end
+
+  should 'return url to a person wall' do
+    environment = create_environment('mycolivre.net')
+    profile = build(Person, :identifier => 'testprofile', :environment_id => create_environment('mycolivre.net').id)
+    assert_equal({ :host => "mycolivre.net", :profile => 'testprofile', :controller => 'profile', :action => 'index', :anchor => 'profile-wall' }, profile.wall_url)
+  end
+
+  should 'receive scrap notification' do
+    person = fast_create(Person)
+    assert person.receives_scrap_notification?
+  end
+
+  should 'check if person is the only admin' do
+    person = fast_create(Person)
+    organization = fast_create(Organization)
+    organization.add_admin(person)
+
+    assert person.is_last_admin?(organization)
+  end
+
+  should 'check if person is the last admin leaving the community' do
+    person = fast_create(Person)
+    organization = fast_create(Organization)
+    organization.add_admin(person)
+
+    assert person.is_last_admin_leaving?(organization, [])
+    assert !person.is_last_admin_leaving?(organization, [Role.find_by_key('profile_admin')])
+  end
+
+  should 'return unique members of a community' do
+    person = fast_create(Person)
+    community = fast_create(Community)
+    community.add_member(person)
+
+    assert_equal [person], Person.members_of(community)
   end
 
 end
