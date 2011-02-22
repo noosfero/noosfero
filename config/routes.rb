@@ -115,7 +115,7 @@ ActionController::Routing::Routes.draw do |map|
   ######################################################
   # plugin routes
   ######################################################
-  plugins_routes = File.join(Rails.root + '/lib/noosfero/plugin/routes.rb')
+  plugins_routes = File.join(File.dirname(__FILE__) + '/../lib/noosfero/plugin/routes.rb')
   eval(IO.read(plugins_routes), binding, plugins_routes)
 
   # cache stuff - hack
