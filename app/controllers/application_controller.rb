@@ -83,6 +83,7 @@ class ApplicationController < ActionController::Base
   include NeedsProfile
 
   before_filter :detect_stuff_by_domain
+  before_filter :init_noosfero_plugins
   attr_reader :environment
 
   before_filter :load_terminology
@@ -93,7 +94,15 @@ class ApplicationController < ActionController::Base
     verify :method => :post, :only => actions, :redirect_to => redirect
   end
 
+  helper_method :current_person, :current_person
+
   protected
+
+  def user
+    current_user.person if logged_in?
+  end
+  
+  alias :current_person :user
 
   # TODO: move this logic somewhere else (Domain class?)
   def detect_stuff_by_domain
@@ -106,6 +115,10 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def init_noosfero_plugins
+    @plugins = Noosfero::Plugin::Manager.new(self)
+  end
+
   def load_terminology
     # cache terminology for performance
     @@terminology_cache ||= {}
@@ -116,18 +129,15 @@ class ApplicationController < ActionController::Base
   def render_not_found(path = nil)
     @no_design_blocks = true
     @path ||= request.path
-    render :template => 'shared/not_found.rhtml', :status => 404
+    render :template => 'shared/not_found.rhtml', :status => 404, :layout => get_layout
   end
+  alias :render_404 :render_not_found
 
   def render_access_denied(message = nil, title = nil)
     @no_design_blocks = true
     @message = message
     @title = title
     render :template => 'shared/access_denied.rhtml', :status => 403
-  end
-
-  def user
-    current_user.person if logged_in?
   end
 
   def load_category
