@@ -131,6 +131,7 @@ class ProfileTest < Test::Unit::TestCase
     assert_invalid_identifier 'info'
     assert_invalid_identifier 'root'
     assert_invalid_identifier 'assets'
+    assert_invalid_identifier 'plugin'
   end
 
   should 'provide recent documents' do

@@ -152,6 +152,7 @@ class Profile < ActiveRecord::Base
   assets
   doc
   chat
+  plugin
   ]
 
   belongs_to :user
