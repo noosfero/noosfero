@@ -16,8 +16,8 @@ class CmsHelperTest < ActiveSupport::TestCase
   should 'show custom options for blog' do
     CmsHelperTest.any_instance.stubs(:controller).returns(ActionController::Base.new)
     result = options_for_article(Blog.new)
-    assert_match /id="article\[published\]" name="article\[published\]" type="hidden" value="1"/, result
-    assert_match /id="article\[accept_comments\]" name="article\[accept_comments\]" type="hidden" value="0"/, result
+    assert_tag_in_string result, :tag => 'input', :attributes => { :name => 'article[published]' , :type => "hidden", :value => "1" }
+    assert_tag_in_string result, :tag => 'input', :attributes => { :name => "article[accept_comments]", :type => "hidden", :value => "0" }
   end
 
   should 'display link to folder content if article is folder' do
