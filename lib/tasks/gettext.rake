@@ -39,23 +39,12 @@ end
 
 desc "Update pot/po files to match new version."
 task :updatepo do
-  require 'gettext'
-  require 'gettext/rails'
-  require 'gettext/utils'
+  require 'gettext_rails/tools'
   GetText::RubyParser::ID << '__'
   GetText::RubyParser::PLURAL_ID << 'n__'
   GetText::ActiveRecordParser.init(:use_classname => false)
 
-  module GetText
-    module_function
-    def update_pofiles(textdomain, files, app_version, po_root = "po", refpot = "tmp.pot")
-      rgettext(files, refpot)
-      system("mv tmp.pot tmp2.pot; msguniq -o tmp.pot tmp2.pot; rm -f tmp2.pot")
-      msgmerge_all(textdomain, app_version, po_root, refpot)
-      File.delete(refpot)
-    end
-  end
-
+  puts 'Extracting strings from source. This may take a while ...'
   sources =
     Dir.glob("{app,lib}/**/*.{rb,rhtml,erb}") +
     Dir.glob('config/initializers/*.rb') +
