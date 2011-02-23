@@ -707,9 +707,11 @@ class ArticleTest < ActiveSupport::TestCase
     assert_respond_to Article.new, :published_at
   end
 
-  should 'published_at is same as created_at if not set' do
-    a = fast_create(Article, :name => 'Published at', :profile_id => profile.id)
-    assert_equal a.created_at, a.published_at
+  should 'fill published_at with current date if not set' do
+    now = Time.now
+    Time.stubs(:now).returns(now)
+    a = create(Article, :name => 'Published at', :profile_id => profile.id)
+    assert_equal now, a.published_at
   end
 
   should 'use npage to compose cache key' do

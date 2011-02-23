@@ -34,7 +34,7 @@ class Article < ActiveRecord::Base
   before_destroy :rotate_translations
 
   before_create do |article|
-    article.published_at = article.created_at if article.published_at.nil?
+    article.published_at ||= Time.now
     if article.reference_article && !article.parent
       parent = article.reference_article.parent
       if parent && parent.blog? && article.profile.has_blog?
