@@ -245,8 +245,8 @@ class ApplicationControllerTest < ActionController::TestCase
     env.stubs(:terminology).returns(term)
     env.stubs(:id).returns(-9999)
 
-    Noosfero.expects(:terminology=).with(term)
     get :index
+    assert_equal Noosfero.terminology, term
   end
 
   should 'not display categories menu if categories feature disabled' do
