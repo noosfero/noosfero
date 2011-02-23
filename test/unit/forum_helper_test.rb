@@ -30,8 +30,9 @@ class ForumHelperTest < ActiveSupport::TestCase
 
   should 'list posts with different classes' do
     forum.children << older_post = TextileArticle.create!(:name => 'First post', :profile => profile, :parent => forum, :published => false)
+    one_month_later = Time.now + 1.month
+    Time.stubs(:now).returns(one_month_later)
     forum.children << newer_post = TextileArticle.create!(:name => 'Second post', :profile => profile, :parent => forum, :published => true)
-    older_post.updated_at = Time.now.ago(1.month); older_post.send(:update_without_callbacks)
     assert_match /forum-post position-1 first odd-post.*forum-post position-2 last not-published even-post/, list_forum_posts(forum.posts)
   end
 
