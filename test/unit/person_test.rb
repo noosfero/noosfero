@@ -587,8 +587,9 @@ class PersonTest < ActiveSupport::TestCase
     end
   end
 
-  should 'not rename' do
-    assert_valid p = create_user('test_user').person
+  should 'not be renamed' do
+    p = create_user('test_user').person
+    assert p.valid?
     assert_raise ArgumentError do
       p.identifier = 'other_person_name'
     end

@@ -794,7 +794,7 @@ class EnvironmentTest < ActiveSupport::TestCase
     e2 = fast_create(Environment)
     role2 = Role.new(:name => 'test_role', :environment => e2)
 
-    assert_valid role2
+    assert role2.valid?
   end
 
   should 'have roles with keys independent of other environments' do
@@ -803,7 +803,7 @@ class EnvironmentTest < ActiveSupport::TestCase
     e2 = fast_create(Environment)
     role2 = Role.new(:name => 'test_role', :environment => e2, :key => 'a_member')
 
-    assert_valid role2
+    assert role2.valid?
   end
 
   should 'have a help_message_to_add_enterprise attribute' do
