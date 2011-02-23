@@ -1368,10 +1368,10 @@ class ProfileTest < ActiveSupport::TestCase
     assert !profile.folders.include?(child)
   end
 
-  should 'validates profile image when save' do
+  should 'validate profile image when save' do
     profile = build(Profile, :image_builder => {:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')})
     profile.image.expects(:valid?).returns(false).at_least_once
-    assert !profile.valid?
+    profile.valid?
   end
 
   should 'profile is invalid when image not valid' do
