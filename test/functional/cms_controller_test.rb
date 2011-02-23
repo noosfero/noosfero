@@ -4,7 +4,7 @@ require 'cms_controller'
 # Re-raise errors caught by the controller.
 class CmsController; def rescue_action(e) raise e end; end
 
-class CmsControllerTest < Test::Unit::TestCase
+class CmsControllerTest < ActionController::TestCase
 
   fixtures :environments
 

@@ -3,7 +3,7 @@ require 'profile_design_controller'
 
 class ProfileDesignController; def rescue_action(e) raise e end; end
 
-class ProfileDesignControllerTest < Test::Unit::TestCase
+class ProfileDesignControllerTest < ActionController::TestCase
   
   COMMOM_BLOCKS = [ ArticleBlock, TagsBlock, RecentDocumentsBlock, ProfileInfoBlock, LinkListBlock, MyNetworkBlock, FeedReaderBlock, ProfileImageBlock, LocationBlock, SlideshowBlock, ProfileSearchBlock ]
   PERSON_BLOCKS = COMMOM_BLOCKS + [FriendsBlock, FavoriteEnterprisesBlock, CommunitiesBlock, EnterprisesBlock ]

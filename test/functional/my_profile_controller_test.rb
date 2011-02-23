@@ -11,7 +11,7 @@ class OnlyForPersonTestController < MyProfileController
   end
 end
 
-class MyProfileControllerTest < Test::Unit::TestCase
+class MyProfileControllerTest < ActionController::TestCase
 
   all_fixtures
   def setup

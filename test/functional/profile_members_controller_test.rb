@@ -4,7 +4,7 @@ require 'profile_members_controller'
 # Re-raise errors caught by the controller.
 class ProfileMembersController; def rescue_action(e) raise e end; end
 
-class ProfileMembersControllerTest < Test::Unit::TestCase
+class ProfileMembersControllerTest < ActionController::TestCase
   def setup
     @controller = ProfileMembersController.new
     @request    = ActionController::TestRequest.new

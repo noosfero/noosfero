@@ -4,7 +4,7 @@ require 'features_controller'
 # Re-raise errors caught by the controller.
 class FeaturesController; def rescue_action(e) raise e end; end
 
-class FeaturesControllerTest < Test::Unit::TestCase
+class FeaturesControllerTest < ActionController::TestCase
 
   all_fixtures 
   def setup

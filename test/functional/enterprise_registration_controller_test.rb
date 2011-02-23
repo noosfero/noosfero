@@ -4,7 +4,7 @@ require 'enterprise_registration_controller'
 # Re-raise errors caught by the controller.
 class EnterpriseRegistrationController; def rescue_action(e) raise e end; end
 
-class EnterpriseRegistrationControllerTest < Test::Unit::TestCase
+class EnterpriseRegistrationControllerTest < ActionController::TestCase
 
 #  all_fixtures:users
 all_fixtures

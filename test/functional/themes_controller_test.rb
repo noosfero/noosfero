@@ -3,7 +3,7 @@ require 'themes_controller'
 
 class ThemesController; def rescue_action(e) raise e end; end
 
-class ThemesControllerTest < Test::Unit::TestCase
+class ThemesControllerTest < ActionController::TestCase
 
   def setup
     @controller = ThemesController.new

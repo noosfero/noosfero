@@ -4,7 +4,7 @@ require 'admin_panel_controller'
 # Re-raise errors caught by the controller.
 class AdminPanelController; def rescue_action(e) raise e end; end
 
-class AdminPanelControllerTest < Test::Unit::TestCase
+class AdminPanelControllerTest < ActionController::TestCase
 
   all_fixtures
   def setup

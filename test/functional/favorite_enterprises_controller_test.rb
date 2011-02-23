@@ -3,7 +3,7 @@ require 'favorite_enterprises_controller'
 
 class FavoriteEnterprisesController; def rescue_action(e) raise e end; end
 
-class FavoriteEnterprisesControllerTest < Test::Unit::TestCase
+class FavoriteEnterprisesControllerTest < ActionController::TestCase
 
   noosfero_test :profile => 'testuser'
 

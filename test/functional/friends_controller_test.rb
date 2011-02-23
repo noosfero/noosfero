@@ -3,7 +3,7 @@ require 'friends_controller'
 
 class FriendsController; def rescue_action(e) raise e end; end
 
-class FriendsControllerTest < Test::Unit::TestCase
+class FriendsControllerTest < ActionController::TestCase
 
   noosfero_test :profile => 'testuser'
 

@@ -4,7 +4,7 @@ require 'environment_role_manager_controller'
 # Re-raise errors caught by the controller.
 class EnvironmentRoleManagerController; def rescue_action(e) raise e end; end
 
-class EnvironmentRoleManagerControllerTest < Test::Unit::TestCase
+class EnvironmentRoleManagerControllerTest < ActionController::TestCase
   def setup
     @controller = EnvironmentRoleManagerController.new
     @request    = ActionController::TestRequest.new

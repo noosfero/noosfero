@@ -4,7 +4,7 @@ require 'environment_design_controller'
 # Re-raise errors caught by the controller.
 class EnvironmentDesignController; def rescue_action(e) raise e end; end
 
-class EnvironmentDesignControllerTest < Test::Unit::TestCase
+class EnvironmentDesignControllerTest < ActionController::TestCase
 
   ALL_BLOCKS = [ArticleBlock, LoginBlock, EnvironmentStatisticsBlock, RecentDocumentsBlock, EnterprisesBlock, CommunitiesBlock, PeopleBlock, SellersSearchBlock, LinkListBlock, FeedReaderBlock, SlideshowBlock, HighlightsBlock, FeaturedProductsBlock, CategoriesBlock, RawHTMLBlock ]
 

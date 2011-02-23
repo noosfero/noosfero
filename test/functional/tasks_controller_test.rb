@@ -3,7 +3,7 @@ require 'tasks_controller'
 
 class TasksController; def rescue_action(e) raise e end; end
 
-class TasksControllerTest < Test::Unit::TestCase
+class TasksControllerTest < ActionController::TestCase
 
   noosfero_test :profile => 'testuser' 
 

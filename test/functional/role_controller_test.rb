@@ -4,7 +4,7 @@ require 'role_controller'
 # Re-raise errors caught by the controller.
 class RoleController; def rescue_action(e) raise e end; end
 
-class RoleControllerTest < Test::Unit::TestCase
+class RoleControllerTest < ActionController::TestCase
   all_fixtures
 
   def setup

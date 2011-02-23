@@ -4,7 +4,7 @@ require 'browse_controller'
 # Re-raise errors caught by the controller.
 class BrowseController; def rescue_action(e) raise e end; end
 
-class BrowseControllerTest < Test::Unit::TestCase
+class BrowseControllerTest < ActionController::TestCase
 
   def setup
     @controller = BrowseController.new

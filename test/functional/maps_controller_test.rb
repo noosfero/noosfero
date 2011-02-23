@@ -4,7 +4,7 @@ require 'maps_controller'
 # Re-raise errors caught by the controller.
 class MapsController; def rescue_action(e) raise e end; end
 
-class MapsControllerTest < Test::Unit::TestCase
+class MapsControllerTest < ActionController::TestCase
 
   def setup
     @controller = MapsController.new

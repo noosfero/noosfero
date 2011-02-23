@@ -4,7 +4,7 @@ require 'profile_editor_controller'
 # Re-raise errors caught by the controller.
 class ProfileEditorController; def rescue_action(e) raise e end; end
 
-class ProfileEditorControllerTest < Test::Unit::TestCase
+class ProfileEditorControllerTest < ActionController::TestCase
   all_fixtures
   
   def setup

@@ -5,7 +5,7 @@ require 'memberships_controller'
 # Re-raise errors caught by the controller.
 class MembershipsController; def rescue_action(e) raise e end; end
 
-class MembershipsControllerTest < Test::Unit::TestCase
+class MembershipsControllerTest < ActionController::TestCase
   
   include ApplicationHelper
 

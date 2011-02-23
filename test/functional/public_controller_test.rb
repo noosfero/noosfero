@@ -4,7 +4,7 @@ require 'public_controller'
 # Re-raise errors caught by the controller.
 class PublicController; def rescue_action(e) raise e end; end
 
-class PublicControllerTest < Test::Unit::TestCase
+class PublicControllerTest < ActionController::TestCase
 
   should 'inherit from ApplicationController' do
     assert_kind_of ApplicationController, PublicController.new

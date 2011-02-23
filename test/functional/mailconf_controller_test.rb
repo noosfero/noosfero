@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class MailconfControllerTest < Test::Unit::TestCase
+class MailconfControllerTest < ActionController::TestCase
 
   all_fixtures
 
