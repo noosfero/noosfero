@@ -9,7 +9,6 @@ class RegionValidatorsControllerTest < Test::Unit::TestCase
   def setup
     @controller = RegionValidatorsController.new
     @request    = ActionController::TestRequest.new
-    @request.stubs(:ssl?).returns(true)
     @response   = ActionController::TestResponse.new
     login_as('ze')
   end

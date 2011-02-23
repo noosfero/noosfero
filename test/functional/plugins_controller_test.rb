@@ -10,7 +10,6 @@ class PluginsControllerTest < Test::Unit::TestCase
   def setup
     @controller = PluginsController.new
     @request    = ActionController::TestRequest.new
-    @request.stubs(:ssl?).returns(true)
     @response   = ActionController::TestResponse.new
     @environment = Environment.default
     login_as(create_admin_user(@environment))

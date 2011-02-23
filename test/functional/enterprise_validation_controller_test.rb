@@ -11,7 +11,6 @@ class EnterpriseValidationControllerTest < Test::Unit::TestCase
   def setup
     @controller = EnterpriseValidationController.new
     @request    = ActionController::TestRequest.new
-    @request.stubs(:ssl?).returns(true)
     @response   = ActionController::TestResponse.new
     
     login_as 'ze'

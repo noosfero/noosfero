@@ -199,30 +199,6 @@ class ApplicationHelperTest < ActiveSupport::TestCase
     assert_equal '/designs/templates/mytemplate/stylesheets/style.css', template_stylesheet_path
   end
 
-  should 'use https:// for login_url' do
-    environment = Environment.default
-    environment.update_attribute(:enable_ssl, true)
-    environment.domains << Domain.new(:name => "test.domain.net", :is_default => true)
-    stubs(:environment).returns(environment)
-
-    stubs(:url_for).with(has_entries(:protocol => 'https://', :host => 'test.domain.net')).returns('LALALA')
-
-    assert_equal 'LALALA', login_url
-  end
-
-  should 'not force ssl in login_url when environment has ssl disabled' do
-    environment = mock
-    environment.expects(:enable_ssl).returns(false).at_least_once
-    stubs(:environment).returns(environment)
-    request = mock
-    request.stubs(:host).returns('localhost')
-    stubs(:request).returns(request)
-
-    expects(:url_for).with(has_entries(:protocol => 'https://')).never
-    expects(:url_for).with(has_key(:controller)).returns("LALALA")
-    assert_equal "LALALA", login_url
-  end
-
   should 'return nil if disable_categories is enabled' do
     env = fast_create(Environment, :name => 'env test')
     stubs(:environment).returns(env)

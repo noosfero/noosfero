@@ -11,7 +11,6 @@ class CmsControllerTest < Test::Unit::TestCase
   def setup
     @controller = CmsController.new
     @request    = ActionController::TestRequest.new
-    @request.stubs(:ssl?).returns(true)
     @response   = ActionController::TestResponse.new
 
     @profile = create_user_with_permission('testinguser', 'post_content')
@@ -757,33 +756,6 @@ class CmsControllerTest < Test::Unit::TestCase
         end
       end
     end
-  end
-
-  should 'require ssl in general' do
-    Environment.default.update_attribute(:enable_ssl, true)
-    @request.expects(:ssl?).returns(false).at_least_once
-    get :index, :profile => 'testinguser'
-    assert_redirected_to :protocol => 'https://'
-  end
-
-  should 'accept ajax connections to new action without ssl' do
-    @request.expects(:ssl?).returns(false).at_least_once
-    xml_http_request :get, :new, :profile => 'testinguser'
-    assert_response :success
-  end
-
-  should 'not loose type argument in new action when redirecting to ssl' do
-    Environment.default.update_attribute(:enable_ssl, true)
-    @request.expects(:ssl?).returns(false).at_least_once
-    get :new, :profile => 'testinguser', :type => 'Folder'
-    assert_redirected_to :protocol => 'https://', :action => 'new', :type => 'Folder'
-  end
-
-  should 'not accept non-ajax connections to new action without ssl' do
-    Environment.default.update_attribute(:enable_ssl, true)
-    @request.expects(:ssl?).returns(false).at_least_once
-    get :new, :profile => 'testinguser'
-    assert_redirected_to :protocol => 'https://'
   end
 
   should 'display categories if environment disable_categories disabled' do

@@ -23,15 +23,6 @@ class CmsController < MyProfileController
     profile.articles.find(c.params[:id]).allow_post_content?(user)
   end
 
-  alias :check_ssl_orig :check_ssl
-  # Redefines the SSL checking to avoid requiring SSL when creating the "New
-  # publication" button on article's public view.
-  def check_ssl
-    if ((params[:action] == 'new') && (!request.xhr?)) || (params[:action] != 'new')
-      check_ssl_orig
-    end
-  end
-
   def boxes_holder
     profile
   end
@@ -339,10 +330,6 @@ class CmsController < MyProfileController
     else
       @back_to = params[:back_to] || request.referer
     end
-  end
-
-  def maybe_ssl(url)
-    [url, url.sub('https:', 'http:')]
   end
 
   def valid_article_type?(type)

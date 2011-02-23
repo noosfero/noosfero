@@ -241,12 +241,6 @@ class EnvironmentTest < ActiveSupport::TestCase
     assert_equal 'http://www.lalala.net:9999', env.top_url
   end
 
-  should 'use https when asked for a ssl url' do
-    env = Environment.new
-    env.expects(:default_hostname).returns('www.lalala.net')
-    assert_equal 'https://www.lalala.net', env.top_url(true)
-  end
-
   should 'provide an approval_method setting' do
     env = Environment.new
 
@@ -530,16 +524,6 @@ class EnvironmentTest < ActiveSupport::TestCase
     enterprise = fast_create(Enterprise)
     e.enterprise_template = enterprise
     assert_equal enterprise, e.enterprise_template
-  end
-
-  should 'not enable ssl by default' do
-    e = Environment.new
-    assert !e.enable_ssl
-  end
-
-  should 'be able to enable ssl' do
-    e = Environment.new(:enable_ssl => true)
-    assert_equal true, e.enable_ssl
   end
 
   should 'have a layout template' do

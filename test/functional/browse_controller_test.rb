@@ -9,7 +9,6 @@ class BrowseControllerTest < Test::Unit::TestCase
   def setup
     @controller = BrowseController.new
     @request    = ActionController::TestRequest.new
-    @request.stubs(:ssl?).returns(false)
     @response   = ActionController::TestResponse.new
 
     # By pass user validation on person creation

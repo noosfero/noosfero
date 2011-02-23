@@ -876,18 +876,11 @@ module ApplicationHelper
 
   def login_url
     options = Noosfero.url_options.merge({ :controller => 'account', :action => 'login' })
-    if environment.enable_ssl && (ENV['RAILS_ENV'] != 'development')
-      options.merge!(:protocol => 'https://', :host => ssl_hostname)
-    end
     url_for(options)
   end
 
-  def ssl_hostname
-    environment.default_hostname
-  end
-
   def base_url
-    environment.top_url(request.ssl?)
+    environment.top_url
   end
 
   def helper_for_article(article)

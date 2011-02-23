@@ -9,7 +9,6 @@ class CategoriesControllerTest < Test::Unit::TestCase
   def setup
     @controller = CategoriesController.new
     @request    = ActionController::TestRequest.new
-    @request.stubs(:ssl?).returns(true)
     @response   = ActionController::TestResponse.new
    
     @env = fast_create(Environment, :name => "My test environment")

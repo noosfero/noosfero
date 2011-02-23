@@ -4,7 +4,6 @@ class AccountController < ApplicationController
 
   inverse_captcha :field => 'e_mail'
 
-  require_ssl :except => [ :login_popup, :logout_popup, :profile_details ]
 
   before_filter :login_required, :only => [:activation_question, :accept_terms, :activate_enterprise]
   before_filter :redirect_if_logged_in, :only => [:login, :signup]

@@ -33,14 +33,6 @@ class ContentViewerController < ApplicationController
       end
     end
 
-    if !@page.public? && !request.ssl?
-      return if redirect_to_ssl
-    end
-
-    if @page.public?
-      return unless avoid_ssl
-    end
-
     if !@page.display_to?(user)
       if profile.display_info_to?(user) || !profile.visible?
         message = _('You are not allowed to view this content. You can contact the owner of this profile to request access then.')

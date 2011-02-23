@@ -7,7 +7,6 @@ class MailconfControllerTest < Test::Unit::TestCase
   def setup
     @controller = MailconfController.new
     @request    = ActionController::TestRequest.new
-    @request.stubs(:ssl?).returns(true)
     @response   = ActionController::TestResponse.new
 
     MailConf.stubs(:enabled?).returns(true)

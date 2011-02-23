@@ -2,7 +2,6 @@ class MyProfileController < ApplicationController
 
   needs_profile
 
-  require_ssl
 
   before_filter :login_required
 

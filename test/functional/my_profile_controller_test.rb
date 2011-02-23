@@ -17,7 +17,6 @@ class MyProfileControllerTest < Test::Unit::TestCase
   def setup
     @controller = MyProfileController.new
     @request    = ActionController::TestRequest.new
-    @request.stubs(:ssl?).returns(true)
     @response   = ActionController::TestResponse.new
   end
 

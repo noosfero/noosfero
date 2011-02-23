@@ -10,7 +10,6 @@ class FavoriteEnterprisesControllerTest < Test::Unit::TestCase
   def setup
     @controller = FavoriteEnterprisesController.new
     @request    = ActionController::TestRequest.new
-    @request.stubs(:ssl?).returns(true)
     @response   = ActionController::TestResponse.new
 
     self.profile = create_user('testuser').person

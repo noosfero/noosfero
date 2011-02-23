@@ -316,7 +316,6 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     community.add_member(profile)
     login_as(profile.identifier)
 
-    @request.stubs(:ssl?).returns(true)
     get :view_page, :profile => community.identifier, :page => [ folder.path ]
 
     assert_template 'access_denied.rhtml'
@@ -329,7 +328,6 @@ class ContentViewerControllerTest < Test::Unit::TestCase
 
     login_as(profile.identifier)
 
-    @request.stubs(:ssl?).returns(true)
     get :view_page, :profile => community.identifier, :page => [ 'test' ]
     assert_response :success
   end
@@ -341,7 +339,6 @@ class ContentViewerControllerTest < Test::Unit::TestCase
 
     login_as(profile.identifier)
 
-    @request.stubs(:ssl?).returns(true)
     get :view_page, :profile => community.identifier, :page => [ 'test' ]
     assert_response :success
   end
@@ -400,7 +397,6 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     profile = Profile.create!(:name => 'test profile', :identifier => 'test_profile')
     intranet = Folder.create!(:name => 'my_intranet', :profile => profile, :published => false)
 
-    @request.stubs(:ssl?).returns(true)
     get :view_page, :profile => 'test_profile', :page => [ 'my-intranet' ]
 
     assert_template 'access_denied.rhtml'
@@ -411,7 +407,6 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     profile = Profile.create!(:name => 'test profile', :identifier => 'test_profile')
     intranet = Folder.create!(:name => 'my_intranet', :profile => profile, :published => false)
 
-    @request.stubs(:ssl?).returns(true)
     get :view_page, :profile => 'test_profile', :page => [ 'my-intranet' ]
 
     assert_template 'access_denied.rhtml'
@@ -424,7 +419,6 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     profile.affiliate(person, Profile::Roles.member(profile.environment.id))
     login_as('test_user')
 
-    @request.stubs(:ssl?).returns(true)
     get :view_page, :profile => 'test_profile', :page => [ 'my-intranet' ]
 
     assert_template 'access_denied.rhtml'
@@ -437,7 +431,6 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     profile.affiliate(person, Profile::Roles.moderator(profile.environment.id))
     login_as('test_user')
 
-    @request.stubs(:ssl?).returns(true)
     get :view_page, :profile => 'test_profile', :page => [ 'my-intranet' ]
 
     assert_template 'view_page'
@@ -450,7 +443,6 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     profile.affiliate(person, Profile::Roles.admin(profile.environment.id))
     login_as('test_user')
 
-    @request.stubs(:ssl?).returns(true)
     get :view_page, :profile => 'test_profile', :page => [ 'my-intranet' ]
 
     assert_template 'view_page'
@@ -473,28 +465,6 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     assert_tag :tag => 'a', :attributes => {:href => ('/myprofile/' + profile.identifier + '/cms/publish/' + page.id.to_s)}
   end
 
-  should 'require SSL for viewing non-public articles' do
-    Environment.default.update_attribute(:enable_ssl, true)
-    page = profile.articles.create!(:name => 'myarticle', :body => 'top secret', :published => false)
-    get :view_page, :profile => 'testinguser', :page => [ 'myarticle' ]
-    assert_redirected_to :protocol => 'https://', :profile => 'testinguser', :page => [ 'myarticle' ]
-  end
-
-  should 'avoid SSL for viewing public articles' do
-    @request.expects(:ssl?).returns(true).at_least_once
-    page = profile.articles.create!(:name => 'myarticle', :body => 'top secret', :published => true)
-    get :view_page, :profile => 'testinguser', :page => [ 'myarticle' ]
-    assert_redirected_to :protocol => 'http://', :profile => 'testinguser', :page => [ 'myarticle' ]
-  end
-
-  should 'not redirect to SSL if already on SSL' do
-    @request.expects(:ssl?).returns(true).at_least_once
-    page = profile.articles.create!(:name => 'myarticle', :body => 'top secret', :published => false)
-    login_as('testinguser')
-    get :view_page, :profile => 'testinguser', :page => [ 'myarticle' ]
-    assert_response :success
-  end
-  
   should 'not show link to publication on view if not on person profile' do
     prof = Community.create!(:name => 'test comm', :identifier => 'test_comm')
     page = prof.articles.create!(:name => 'myarticle', :body => 'the body of the text')
@@ -504,14 +474,6 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     get :view_page, :profile => prof.identifier, :page => ['myarticle']
 
     assert_no_tag :tag => 'a', :attributes => {:href => ('/myprofile/' + prof.identifier + '/cms/publish/' + page.id.to_s)}
-  end
-
-  should 'deny access before trying SSL when SSL is disabled' do
-    @controller.expects(:redirect_to_ssl).returns(false)
-    profile = create_user('testuser', {}, :visible => false).person
-
-    get :view_page, :profile => 'testuser', :page => profile.home_page.explode_path
-    assert_response 403
   end
 
   should 'redirect to new article path under an old path' do

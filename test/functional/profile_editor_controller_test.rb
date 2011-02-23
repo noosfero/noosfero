@@ -10,7 +10,6 @@ class ProfileEditorControllerTest < Test::Unit::TestCase
   def setup
     @controller = ProfileEditorController.new
     @request    = ActionController::TestRequest.new
-    @request.stubs(:ssl?).returns(true)
     @response   = ActionController::TestResponse.new
     @profile = create_user('default_user').person
     Environment.default.affiliate(@profile, [Environment::Roles.admin(Environment.default.id)] + Profile::Roles.all_roles(Environment.default.id))
