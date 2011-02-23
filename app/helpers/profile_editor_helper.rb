@@ -137,7 +137,7 @@ module ProfileEditorHelper
       content_tag(
         'div',
         capture(&block) + '<br style="clear:left;"/>&nbsp;',
-        :class => 'control-panel'),
+        :class => 'control-panel')
     )
   end
 
