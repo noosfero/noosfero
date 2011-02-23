@@ -46,18 +46,16 @@ module NoosferoHttpCaching
     end
   end
 
-end
-
-class ActionController::CgiResponse
-
-  def out_with_noosfero_session_check(output = $stdout)
+  # FIXME this method must be called right before the response object is
+  # written to the client.
+  def cleanup_uneeded_session
     if headers['X-Noosfero-Auth'] == 'false'
-      @cgi.send(:instance_variable_set, '@output_cookies', nil)
+      # FIXME
+      # cleanup output cookies!
     end
     headers.delete('X-Noosfero-Auth')
     out_without_noosfero_session_check(output)
   end
-  alias_method_chain :out, :noosfero_session_check
 
 end
 
