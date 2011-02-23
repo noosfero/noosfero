@@ -597,11 +597,11 @@ class AccountControllerTest < ActionController::TestCase
     assert_tag :tag => 'input', :attributes => { :name => "profile_data[contact_phone]" }
   end
 
-  should 'redirect to login when unlogged user try logout' do
+  should 'redirect to login when unlogged user tries to logout' do
     logout
     assert_nothing_raised NoMethodError do
       get :logout
-      assert_redirected_to :action => 'index'
+      assert_redirected_to :action => 'index', :controller => 'home'
     end
   end
 
@@ -609,7 +609,7 @@ class AccountControllerTest < ActionController::TestCase
     Person.any_instance.stubs(:required_fields).returns(['organization'])
     assert_difference User, :count do
       post :signup, :user => { :login => 'testuser', :password => '123456', :password_confirmation => '123456', :email => 'testuser@example.com' }, :profile_data => { :organization => 'example.com' }
-      assert_redirected_to :controller => 'profile_editor', :profile => 'testuser'
+      assert_redirected_to :controller => 'profile_editor', :profile => 'testuser', :action => 'index'
     end
     assert_equal 'example.com', Person['testuser'].organization
   end
