@@ -97,7 +97,7 @@ module ApplicationHelper
     text = content_tag('div', button + content_tag('div', content_tag('div', content) + close_button, :class => 'help_message', :id => help_id, :style => 'display: none;'), :class => 'help_box')
 
     unless block.nil?
-      concat(text, block.binding)
+      concat(text)
     end
 
     text
@@ -254,7 +254,7 @@ module ApplicationHelper
   end
 
   def button_bar(options = {}, &block)
-    concat(content_tag('div', capture(&block) + tag('br', :style => 'clear: left;'), { :class => 'button-bar' }.merge(options)), block.binding)
+    concat(content_tag('div', capture(&block) + tag('br', :style => 'clear: left;'), { :class => 'button-bar' }.merge(options)))
   end
 
   def partial_for_class(klass)
@@ -846,7 +846,7 @@ module ApplicationHelper
     end
 
     if block
-      concat(result, block.binding)
+      concat(result)
     end
 
     result
@@ -1164,7 +1164,7 @@ module ApplicationHelper
     wrapper = content_tag(:div, capture(&block), :class => 'comment-balloon-content')
     (1..8).to_a.reverse.each { |i| wrapper = content_tag(:div, wrapper, :class => "comment-wrapper-#{i}") }
     classes = options.delete(:class) || options.delete("class") || ''
-    concat(content_tag('div', wrapper + tag('br', :style => 'clear: both;'), { :class => 'comment-balloon ' + classes.to_s }.merge(options)), block.binding)
+    concat(content_tag('div', wrapper + tag('br', :style => 'clear: both;'), { :class => 'comment-balloon ' + classes.to_s }.merge(options)))
   end
 
   def display_source_info(page)

@@ -138,7 +138,7 @@ module ProfileEditorHelper
         'div',
         capture(&block) + '<br style="clear:left;"/>&nbsp;',
         :class => 'control-panel'),
-      block.binding)
+    )
   end
 
   def control_panel_button(title, icon, url)
