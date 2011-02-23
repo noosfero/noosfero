@@ -160,16 +160,13 @@ class ApplicationControllerTest < ActionController::TestCase
     assert !DoesNotUsesBlocksTestController.new.uses_design_blocks?
   end
 
-  should 'use design plugin to generate blocks' do
+  should 'generate blocks' do
     get :index
     assert_tag :tag => 'div', :attributes => { :id => 'boxes', :class => 'boxes' }
   end
 
-  should 'not use design plugin when tells so' do
-    class NoDesignBlocksTestController < ApplicationController
-      no_design_blocks
-    end
-    @controller = NoDesignBlocksTestController.new
+  should 'not generate blocks when told not to do so' do
+    @controller.stubs(:uses_design_blocks?).returns(false)
     get :index
     assert_no_tag :tag => 'div', :attributes => { :id => 'boxes', :class => 'boxes'  }
   end
