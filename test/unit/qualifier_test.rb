@@ -30,4 +30,16 @@ class QualifierTest < Test::Unit::TestCase
     assert qualifier.valid?
   end
 
+  should 'clean all ProductQualifier when destroy a Qualifier' do
+    product1 = fast_create(Product)
+    product2 = fast_create(Product)
+    qualifier = fast_create(Qualifier, :name => 'Free Software')
+    certifier = fast_create(Certifier, :name => 'FSF')
+    ProductQualifier.create!(:product => product1, :qualifier => qualifier, :certifier => certifier)
+    ProductQualifier.create!(:product => product2, :qualifier => qualifier, :certifier => certifier)
+    assert_equal [['Free Software', 'FSF']], product1.product_qualifiers.map{|i| [i.qualifier.name, i.certifier.name]}
+    Qualifier.destroy_all
+    assert_equal [], product1.product_qualifiers(true)
+  end
+
 end

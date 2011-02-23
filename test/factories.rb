@@ -358,7 +358,9 @@ module Noosfero::Factory
   # Certifier
   ###############################################
 
-  alias :defaults_for_certifier :defaults_for_qualifier
+  def defaults_for_certifier
+    defaults_for_qualifier.merge({ :name => 'Certifier ' + factory_num_seq.to_s })
+  end
 
   ###############################################
   # Scrap
