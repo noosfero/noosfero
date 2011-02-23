@@ -1159,4 +1159,13 @@ class ProfileControllerTest < Test::Unit::TestCase
     assert_tag :tag => 'div', :content => /#{plugin1_tab[:content]}/, :attributes => {:id => /#{plugin1_tab[:id]}/}
   end
 
+  should 'redirect to profile page when try to request join_not_logged via GET method' do
+    community = Community.create!(:name => 'my test community')
+    login_as(profile.identifier)
+    get :join_not_logged, :profile => community.identifier
+    assert_nothing_raised do
+      assert_redirected_to community.url
+    end
+  end
+
 end
