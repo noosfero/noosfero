@@ -225,7 +225,7 @@ class Article < ActiveRecord::Base
 
   include ActionView::Helpers::TextHelper
   def short_title
-    truncate self.title, 15, '...'
+    truncate self.title, :length => 15, :omission => '...'
   end
 
   def belongs_to_blog?
@@ -487,7 +487,7 @@ class Article < ActiveRecord::Base
   end
 
   def short_lead
-    truncate sanitize_html(self.lead), 170, '...'
+    truncate sanitize_html(self.lead), :length => 170, :omission => '...'
   end
 
   def creator

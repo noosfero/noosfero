@@ -631,7 +631,7 @@ private :generate_url, :url_options
   include ActionView::Helpers::TextHelper
   def short_name(chars = 40)
     if self[:nickname].blank?
-      truncate self.name, chars, '...'
+      truncate self.name, :length => chars, :omission => '...'
     else
       self[:nickname]
     end
