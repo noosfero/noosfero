@@ -134,4 +134,27 @@ class BlogArchivesBlockTest < ActiveSupport::TestCase
     assert_tag_in_string block.content, :tag => 'a', :content => 'January (2)', :attributes => {:href => /^http:\/\/.*\/flatline\/blog-one\?month=01&year=2008$/ }
   end
 
+  should 'not try to load a removed blog' do
+    block = fast_create(BlogArchivesBlock)
+    block.blog_id = profile.blog.id
+    block.save!
+    block.stubs(:owner).returns(profile)
+    profile.blog.destroy
+    assert_nothing_raised do
+      assert_nil block.blog
+    end
+  end
+
+  should 'load next blog if configured blog was removed' do
+    other_blog = fast_create(Blog, :profile_id => profile.id)
+    block = fast_create(BlogArchivesBlock)
+    block.blog_id = profile.blog.id
+    block.save!
+    block.stubs(:owner).returns(profile)
+    profile.blog.destroy
+    assert_nothing_raised do
+      assert_equal other_blog, block.blog
+    end
+  end
+
 end
