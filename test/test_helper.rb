@@ -42,6 +42,9 @@ class ActiveSupport::TestCase
 
   # Add more helper methods to be used by all tests here...
 
+  # for fixture_file_upload
+  include ActionController::TestProcess
+
   include Noosfero::Factory
 
   include AuthenticatedTestHelper
