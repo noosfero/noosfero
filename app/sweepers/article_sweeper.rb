@@ -15,7 +15,7 @@ protected
   def expire_caches(article)
     article.hierarchy.each do |a|
       if a != article
-        a.touch
+        a.update_attribute(:updated_at, Time.now)
       end
     end
     blocks = article.profile.blocks

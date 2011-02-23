@@ -105,7 +105,7 @@ class ContentViewerController < ApplicationController
     @comment.author = user if logged_in?
     @comment.article = @page
     if @comment.save
-      @page.touch
+      @page.update_attribute(:updated_at, Time.now)
       @comment = nil # clear the comment form
       redirect_to :action => 'view_page', :profile => params[:profile], :page => @page.explode_path, :view => params[:view]
     else
