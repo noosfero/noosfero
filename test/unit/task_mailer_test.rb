@@ -17,7 +17,7 @@ class TaskMailerTest < Test::Unit::TestCase
 
     task = Task.new
     task.expects(:task_finished_message).returns('the message')
-    task.expects(:information).returns('the task')
+    task.expects(:target_notification_description).returns('the task')
 
     requestor = mock()
     requestor.expects(:notification_emails).returns(['requestor@example.com'])
@@ -40,7 +40,7 @@ class TaskMailerTest < Test::Unit::TestCase
 
     task = Task.new
     task.expects(:task_cancelled_message).returns('the message')
-    task.expects(:information).returns('the task')
+    task.expects(:target_notification_description).returns('the task')
 
     requestor = mock()
     requestor.expects(:notification_emails).returns(['requestor@example.com'])
@@ -64,7 +64,7 @@ class TaskMailerTest < Test::Unit::TestCase
     task = Task.new
 
     task.expects(:task_created_message).returns('the message')
-    task.expects(:information).returns('the task')
+    task.expects(:target_notification_description).returns('the task')
 
     requestor = mock()
     requestor.expects(:notification_emails).returns(['requestor@example.com'])

@@ -36,4 +36,8 @@ class EnterpriseActivation < Task
     {:type => :profile_image, :profile => requestor, :url => requestor.url}
   end
 
+  def target_notification_description
+    _('%{requestor} wants to activate enterprise %{enterprise}.') % {:requestor => requestor.name, :enterprise => enterprise.name}
+  end
+
 end

@@ -132,4 +132,19 @@ class ChangePasswordTest < Test::Unit::TestCase
     assert_equal c2.requestor, p2
   end
 
+  should 'have target notification description' do
+    person = create_user('testuser', :password => 'test', :password_confirmation => 'test', :email => 'test@example.com').person
+
+    change = ChangePassword.new
+    change.login = 'testuser'
+    change.email = 'test@example.com'
+    change.environment_id = Environment.default.id
+    change.save!
+    change.password = 'newpass'
+    change.password_confirmation = 'newpass'
+    change.finish
+
+    assert_match(/#{change.requestor.name} wants to change its password/, change.target_notification_description)
+  end
+
 end

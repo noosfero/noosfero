@@ -49,4 +49,11 @@ class EmailActivationTest < Test::Unit::TestCase
     assert !anothertask.save
   end
 
+  should 'have target notification description' do
+    ze = create_user('zezinho', :environment_id => Environment.default.id)
+    task = EmailActivation.new(:requestor => ze.person, :target => Environment.default)
+
+    assert_match(/#{task.requestor.name} wants to activate the following email: #{task.subject}/, task.target_notification_description)
+  end
+
 end

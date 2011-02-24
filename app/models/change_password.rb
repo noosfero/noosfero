@@ -78,6 +78,10 @@ class ChangePassword < Task
     user.force_change_password!(self.password, self.password_confirmation)
   end
 
+  def target_notification_description
+    _('%{requestor} wants to change its password.') % {:requestor => requestor.name}
+  end
+
   # overriding messages
   
   def task_cancelled_message

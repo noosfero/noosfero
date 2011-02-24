@@ -23,6 +23,10 @@ class InviteFriend < Invitation
     {:type => :profile_image, :profile => requestor, :url => requestor.url}
   end
 
+  def target_notification_description
+    _('%{requestor} wants to be your friend.') % {:requestor => requestor.name}
+  end
+
   def permission
     :manage_friends
   end

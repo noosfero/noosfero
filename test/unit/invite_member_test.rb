@@ -95,5 +95,14 @@ class InviteMemberTest < ActiveSupport::TestCase
     assert !task2.save
   end
 
+  should 'have target notification description' do
+    p = create_user('testuser1').person
+    community = fast_create(Community)
+
+    task = InviteMember.create!(:person => p, :friend_email => 'test@test.com', :message => '<url>', :community_id => community.id)
+
+    assert_match(/#{task.requestor.name} invited you to join #{community.name}/, task.target_notification_description)
+  end
+
 end
 

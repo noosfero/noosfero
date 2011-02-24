@@ -120,4 +120,12 @@ class InviteFriendTest < ActiveSupport::TestCase
     assert !task2.save
   end
 
+  should 'have target notification description' do
+    p = create_user('testuser1').person
+
+    task = InviteFriend.create!(:person => p, :friend_email => 'test@test.com', :message => '<url>')
+
+    assert_match(/#{task.requestor.name} wants to be your friend./, task.target_notification_description)
+  end
+
 end
