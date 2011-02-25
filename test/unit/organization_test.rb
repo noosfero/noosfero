@@ -297,4 +297,51 @@ class OrganizationTest < Test::Unit::TestCase
     assert_equal "online_community@conference.#{org.environment.default_hostname}/#{org.short_name}", org.full_jid
   end
 
+  should 'find more popular organizations' do
+    Organization.delete_all
+    o1 = fast_create(Organization)
+    o2 = fast_create(Organization)
+
+    p1 = fast_create(Person)
+    p2 = fast_create(Person)
+    o1.add_member(p1)
+    assert_equal [o1,o2] , Organization.more_popular
+
+    o2.add_member(p1)
+    o2.add_member(p2)
+    assert_equal [o2,o1] , Organization.more_popular
+  end
+
+  should 'list organizations that have no members in more popular list' do
+    organization = fast_create(Organization)
+    assert_includes Organization.more_popular, organization
+  end
+
+  should "return no members on label if the organization has no members" do
+    organization = fast_create(Organization)
+    assert_equal 0, organization.members_count
+    assert_equal "no members", organization.more_popular_label
+  end
+
+  should "return one member on label if the organization has one member" do
+    person = fast_create(Person)
+    organization = fast_create(Organization)
+    organization.add_member(person)
+
+    assert_equal "one member", organization.more_popular_label
+  end
+
+  should "return the number of members on label if the organization has more than one member" do
+    person1 = fast_create(Person)
+    person2 = fast_create(Person)
+    organization = fast_create(Organization)
+
+    organization.add_member(person1)
+    organization.add_member(person2)
+    assert_equal "2 members", organization.more_popular_label
+
+    person3 = fast_create(Person)
+    organization.add_member(person3)
+    assert_equal "3 members", organization.more_popular_label
+  end
 end

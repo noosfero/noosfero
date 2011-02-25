@@ -22,10 +22,10 @@ class Person < Profile
   has_many :scraps_sent, :class_name => 'Scrap', :foreign_key => :sender_id, :dependent => :destroy
 
   named_scope :more_popular,
-       :select => "#{Profile.qualified_column_names}, count(friend_id) as total",
-       :group => Profile.qualified_column_names,
-       :joins => :friendships,
-       :order => "total DESC"
+      :select => "#{Profile.qualified_column_names}, count(friend_id) as total",
+      :group => Profile.qualified_column_names,
+      :joins => "LEFT OUTER JOIN friendships on profiles.id = friendships.person_id",
+      :order => "total DESC"
 
   after_destroy do |person|
     Friendship.find(:all, :conditions => { :friend_id => person.id}).each { |friendship| friendship.destroy }

@@ -625,20 +625,20 @@ class PersonTest < Test::Unit::TestCase
 
   should 'find more popular people' do
     Person.delete_all
-    env = fast_create(Environment)
     p1 = fast_create(Person)
     p2 = fast_create(Person)
     p3 = fast_create(Person)
 
     p1.add_friend(p2)
-    assert_equal [p1], Person.more_popular
-
     p2.add_friend(p1)
     p2.add_friend(p3)
-    assert_equal [p2,p1] , Person.more_popular
+    assert_equal p2, Person.more_popular[0]
+    assert_equal p1, Person.more_popular[1]
+  end
 
-    p2.remove_friend(p3)
-    assert_equal [p1,p2] , Person.more_popular
+  should 'list people that have no friends in more popular list' do
+    person = fast_create(Person)
+    assert_includes Person.more_popular, person
   end
 
   should 'persons has reference to user' do

@@ -356,4 +356,10 @@ class ActionTrackerModelTest < ActiveSupport::TestCase
     assert_equal(["foo 1", "bar 2"], t.collect_group_with_index(:test){|x, i| "#{x} #{i+1}" })
   end
 
+  def test_recent_filter_actions
+    ActionTracker::Record.destroy_all
+    t1 = ActionTracker::Record.create!(:user => SomeModel.create!, :verb => :some_verb, :created_at => Time.now)
+    t2 = ActionTracker::Record.create!(:user => SomeModel.create!, :verb => :some_verb, :created_at => ActionTracker::Record::RECENT_DELAY.days.ago - 1.day)
+    assert_equal [t1], ActionTracker::Record.recent.all
+  end
 end

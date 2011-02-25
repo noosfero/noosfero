@@ -89,11 +89,12 @@ class BrowseControllerTest < Test::Unit::TestCase
     p1 = create(Person, :name => 'Testing person 1', :user_id => 1)
     p2 = create(Person, :name => 'Testing person 2', :user_id => 2)
     p3 = create(Person, :name => 'Testing person 3', :user_id => 3)
-    Article.delete_all
-    fast_create(Article, :profile_id => p1, :created_at => 1.day.ago)
-    fast_create(Article, :profile_id => p2, :created_at => DateTime.now.beginning_of_day)
+    ActionTracker::Record.delete_all
+    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => p1, :created_at => Time.now)
+    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => p2, :created_at => Time.now)
+    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => p2, :created_at => Time.now)
     get :people, :filter => 'more_active'
-    assert_equal [p1,p2] , assigns(:results)
+    assert_equal [p2,p1,p3] , assigns(:results)
   end
 
   should 'filter more popular people' do
@@ -106,7 +107,7 @@ class BrowseControllerTest < Test::Unit::TestCase
     p2.add_friend(p1)
     p2.add_friend(p3)
     get :people, :filter => 'more_popular'
-    assert_equal [p2,p1] , assigns(:results)
+    assert_equal [p2,p1,p3] , assigns(:results)
   end
 
   should 'the people filter be only the hardcoded one' do
@@ -203,18 +204,19 @@ class BrowseControllerTest < Test::Unit::TestCase
     c1 = create(Community, :name => 'Testing community 1')
     c2 = create(Community, :name => 'Testing community 2')
     c3 = create(Community, :name => 'Testing community 3')
-    Article.delete_all
-    fast_create(Article, :profile_id => c1, :created_at => 1.day.ago)
-    fast_create(Article, :profile_id => c2, :created_at => DateTime.now.beginning_of_day)
+    ActionTracker::Record.delete_all
+    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => c1, :created_at => Time.now)
+    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => c2, :created_at => Time.now)
+    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => c2, :created_at => Time.now)
     get :communities, :filter => 'more_active'
-    assert_equal [c1,c2] , assigns(:results)
+    assert_equal [c2,c1,c3] , assigns(:results)
   end
 
   should 'filter more popular communities' do
     Person.delete_all
+    Community.delete_all
     c1 = create(Community, :name => 'Testing community 1')
     c2 = create(Community, :name => 'Testing community 2')
-    create(Community, :name => 'Testing community 3')
 
     p1 = create(Person, :name => 'Testing person 1', :user_id => 1)
     p2 = create(Person, :name => 'Testing person 2', :user_id => 2)
