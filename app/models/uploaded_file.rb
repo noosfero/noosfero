@@ -9,6 +9,8 @@ class UploadedFile < Article
   include ShortFilename
 
   settings_items :title, :type => 'string'
+  xss_terminate :only => [ :title ]
+
   def title_with_default
     title_without_default || short_filename(name, 60)
   end

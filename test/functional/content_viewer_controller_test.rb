@@ -875,17 +875,24 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     assert_no_tag :tag => 'a', :content => 'Upload files', :attributes => {:href => /parent_id=#{b.id}/}
   end
 
-  should 'show only first 40 chars of abstract in image gallery' do
+  should 'display title of image on image gallery' do
     login_as(profile.identifier)
-    folder = Gallery.create!(:name => 'gallery', :profile => profile)
-    file = UploadedFile.create!(:profile => profile, :parent => folder, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
-
-    file.abstract = 'a long abstract bigger then 40 chars for testing'
-    file.save!
+    folder = fast_create(Gallery, :profile_id => profile.id)
+    file = UploadedFile.create!(:title => 'my img title', :profile => profile, :parent => folder, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
 
     get :view_page, :profile => profile.identifier, :page => folder.explode_path
 
-    assert_tag :tag => 'li', :attributes => {:class => 'image-gallery-item'}, :child => {:tag => 'span', :content => 'a long abstract bigger then 40 chars for…'}
+    assert_tag :tag => 'li', :attributes => {:title => 'my img title', :class => 'image-gallery-item'}, :child => {:tag => 'span', :content => 'my img title'}
+  end
+
+  should 'not allow html on title of the images' do
+    login_as(profile.identifier)
+    folder = fast_create(Gallery, :profile_id => profile.id)
+    file = UploadedFile.create!(:title => '<b>my img title</b>', :profile => profile, :parent => folder, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
+
+    get :view_page, :profile => profile.identifier, :page => folder.explode_path
+
+    assert_tag :tag => 'li', :attributes => {:title => 'my img title', :class => 'image-gallery-item'}, :child => {:tag => 'span', :content => 'my img title'}
   end
 
   should 'allow publisher owner view private articles' do

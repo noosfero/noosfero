@@ -30,10 +30,6 @@ module ContentViewerHelper
     link_to( number_of_comments(article), article.url.merge(:anchor => 'comments_list') )
   end
 
-  def image_label(image)
-    image.title.first(40) + (image.title.size > 40 ? '…' : '')
-  end
-
   def article_translations(article)
     unless article.native_translation.translations.empty?
       links = (article.native_translation.translations + [article.native_translation]).map do |translation|
