@@ -482,9 +482,9 @@ class ProfileControllerTest < Test::Unit::TestCase
 
   should 'show number of published posts in index' do
     profile.articles << blog = Blog.create(:name => 'Blog', :profile_id => profile.id)
-    blog.posts << TextileArticle.new(:name => 'Published post', :parent => profile.blog, :profile => profile)
-    blog.posts << TextileArticle.new(:name => 'Other published post', :parent => profile.blog, :profile => profile)
-    blog.posts << TextileArticle.new(:name => 'Unpublished post', :parent => profile.blog, :profile => profile, :published => false)
+    fast_create(TextileArticle, :name => 'Published post', :parent_id => profile.blog.id, :profile_id => profile.id)
+    fast_create(TextileArticle, :name => 'Other published post', :parent_id => profile.blog.id, :profile_id => profile.id)
+    fast_create(TextileArticle, :name => 'Unpublished post', :parent_id => profile.blog.id, :profile_id => profile.id, :published => false)
 
     get :index, :profile => profile.identifier
     assert_tag :tag => 'a', :content => '2 posts', :attributes => { :href => /\/testuser\/blog/ }

@@ -1,5 +1,11 @@
 class Folder < Article
 
+  validate :not_belong_to_blog
+
+  def not_belong_to_blog
+    errors.add(:parent, "A folder should not belong to a blog.") if parent && parent.blog?
+  end
+
   acts_as_having_settings :field => :setting
 
   xss_terminate :only => [ :body ], :with => 'white_list', :on => 'validation'

@@ -49,6 +49,9 @@ class CmsController < MyProfileController
     if profile.enterprise?
       articles << EnterpriseHomepage
     end
+    if @parent && @parent.blog?
+      articles -= Article.folder_types.map(&:constantize)
+    end
     articles
   end
 
@@ -109,6 +112,7 @@ class CmsController < MyProfileController
 
     # user must choose an article type first
 
+    @parent = profile.articles.find(params[:parent_id]) if params && params[:parent_id]
     record_coming
     @type = params[:type]
     if @type.blank?
