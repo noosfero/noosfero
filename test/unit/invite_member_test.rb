@@ -104,5 +104,16 @@ class InviteMemberTest < ActiveSupport::TestCase
     assert_match(/#{task.requestor.name} invited you to join #{community.name}/, task.target_notification_description)
   end
 
+  should 'deliver invitation notification' do
+    person = create_user('testuser1').person
+    community = fast_create(Community)
+
+    task = InviteMember.create!(:person => person, :friend_email => 'test@test.com', :message => '<url>', :community_id => community.id)
+
+    email = TaskMailer.deliver_invitation_notification(task)
+
+    assert_match(/#{task.requestor.name} invited you to join #{community.name}/, email.subject)
+  end
+
 end
 

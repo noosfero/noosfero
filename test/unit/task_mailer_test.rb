@@ -129,6 +129,8 @@ class TaskMailerTest < Test::Unit::TestCase
 
     mail = TaskMailer.create_invitation_notification(task)
 
+    assert_match(/#{task.target_notification_description}/, mail.subject)
+
     assert_equal "Hello friend name, my name invite you, please follow this link: http://example.com/account/signup?invitation_code=123456", mail.body
     
     TaskMailer.deliver(mail)

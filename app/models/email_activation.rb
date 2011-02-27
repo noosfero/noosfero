@@ -27,10 +27,6 @@ class EmailActivation < Task
     {:type => :profile_image, :profile => requestor, :url => requestor.url}
   end
 
-  def target_notification_description
-    _("%{requestor} wants to activate the following email: %{subject}.") % {:requestor => requestor.name, :subject => subject }
-  end
-
   def perform
     person.user.enable_email!
   end

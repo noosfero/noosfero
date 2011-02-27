@@ -32,7 +32,7 @@ class TaskMailer < ActionMailer::Base
     recipients task.friend_email
 
     from self.class.generate_from(task)
-    subject '[%s] %s' % [ task.requestor.environment.name, task.information ]
+    subject '[%s] %s' % [ task.requestor.environment.name, task.target_notification_description ]
     body :message => msg
   end
 
