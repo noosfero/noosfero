@@ -81,7 +81,7 @@ class BrowseControllerTest < Test::Unit::TestCase
 
     get :people, :filter => 'more_active'
 
-    assert_equal assigns(:results).total_pages, Person.count/per_page
+    assert_equal Person.count/per_page, assigns(:results).total_pages
   end
 
   should 'list all people filter by more active' do
@@ -195,7 +195,7 @@ class BrowseControllerTest < Test::Unit::TestCase
 
     get :communities, :filter => 'more_active'
 
-    assert_equal assigns(:results).total_pages, Community.count/per_page
+    assert_equal Community.count/per_page, assigns(:results).total_pages
   end
 
 
