@@ -30,6 +30,10 @@ class UploadedFile < Article
     title.blank? ? name : title
   end
 
+  def first_paragraph
+    ''
+  end
+
   def self.max_size
     UploadedFile.attachment_options[:max_size]
   end
