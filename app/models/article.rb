@@ -339,8 +339,13 @@ class Article < ActiveRecord::Base
     end
   end
 
+  def self.folder_types
+    ['Folder', 'Blog', 'Forum', 'Gallery']
+  end
+
   named_scope :published, :conditions => { :published => true }
-  named_scope :folders, :conditions => { :type => ['Folder', 'Blog', 'Forum', 'Gallery'] }
+  named_scope :folders, :conditions => { :type => folder_types}
+  named_scope :no_folders, :conditions => ['type NOT IN (?)', folder_types]
   named_scope :galleries, :conditions => { :type => 'Gallery' }
   named_scope :images, :conditions => { :is_image => true }
 

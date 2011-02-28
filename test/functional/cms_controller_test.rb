@@ -818,6 +818,15 @@ class CmsControllerTest < Test::Unit::TestCase
     assert_no_tag :tag => 'a', :attributes => { :href => "/myprofile/#{profile.identifier}/cms/new?type=Forum"}
   end
 
+  should 'not offer folders if in a blog' do
+    blog = fast_create(Blog, :profile_id => profile.id)
+    get :new, :profile => profile.identifier, :parent_id => blog.id, :cms => true
+    types = assigns(:article_types).map {|t| t[:name]}
+    Article.folder_types.each do |type|
+      assert_not_includes types, type
+    end
+  end
+
   should 'offer to edit a blog' do
     profile.articles << Blog.new(:name => 'blog test', :profile => profile)
 

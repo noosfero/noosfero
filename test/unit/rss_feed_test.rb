@@ -212,7 +212,10 @@ class RssFeedTest < Test::Unit::TestCase
     a = ApproveArticle.create!(:name => 'test name', :article => article, :target => profile, :requestor => fast_create(Person))
     a.finish
 
-    blog.posts << published_article = article.class.last
+    published_article = article.class.last
+    published_article.parent = blog
+    published_article.save
+
     feed = RssFeed.new(:parent => blog, :profile => profile)
 
     assert_match "This is the content of the Sample Article", feed.data

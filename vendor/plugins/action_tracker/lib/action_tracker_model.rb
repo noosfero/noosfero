@@ -12,6 +12,11 @@ module ActionTracker
 
     validates_presence_of :verb
     validates_presence_of :user
+    validate :user_existence
+
+    def user_existence
+      errors.add(:user, "user doesn't exists") if user && !user.class.exists?(user)
+    end
 
     alias_method :subject, :user
 

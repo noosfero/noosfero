@@ -714,8 +714,8 @@ class ContentViewerControllerTest < Test::Unit::TestCase
 
   should 'add meta tag to rss feed on view post blog' do
     login_as(profile.identifier)
-    profile.articles << Blog.new(:name => 'Blog', :profile => profile)
-    profile.blog.posts << TextileArticle.new(:name => 'first post', :parent => profile.blog, :profile => profile)
+    blog = Blog.create!(:name => 'Blog', :profile => profile)
+    TextileArticle.create!(:name => 'first post', :parent => blog, :profile => profile)
     get :view_page, :profile => profile.identifier, :page => ['blog', 'first-post']
     assert_tag :tag => 'link', :attributes => { :rel => 'alternate', :type => 'application/rss+xml', :title => 'Blog', :href => "http://#{environment.default_hostname}/testinguser/blog/feed" }
   end
@@ -1215,9 +1215,8 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     FastGettext.stubs(:locale).returns('es')
     blog = fast_create(Blog, :profile_id => profile.id, :path => 'blog')
     blog.stubs(:display_posts_in_current_language).returns(true)
-    en_article = fast_create(TextileArticle, :profile_id => @profile.id, :path => 'en_article', :language => 'en')
-    es_article = fast_create(TextileArticle, :profile_id => @profile.id, :path => 'es_article', :language => 'es', :translation_of_id => en_article)
-    blog.posts = [en_article, es_article]
+    en_article = fast_create(TextileArticle, :profile_id => @profile.id, :path => 'en_article', :language => 'en', :parent_id => blog.id)
+    es_article = fast_create(TextileArticle, :profile_id => @profile.id, :path => 'es_article', :language => 'es', :parent_id => blog.id, :translation_of_id => en_article)
 
     get :view_page, :profile => @profile.identifier, :page => blog.explode_path
     assert_tag :div, :attributes => { :id => "post-#{es_article.id}" }
@@ -1239,8 +1238,8 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     FastGettext.stubs(:locale).returns('es')
     blog = fast_create(Blog, :profile_id => profile.id, :path => 'blog')
     blog.stubs(:display_posts_in_current_language).returns(true)
-    en_article = fast_create(TextileArticle, :profile_id => @profile.id, :path => 'en_article', :language => 'en')
-    es_article = fast_create(TextileArticle, :profile_id => @profile.id, :path => 'es_article', :language => 'es', :translation_of_id => en_article)
+    en_article = fast_create(TextileArticle, :profile_id => @profile.id, :path => 'en_article', :language => 'en', :parent_id => blog.id)
+    es_article = fast_create(TextileArticle, :profile_id => @profile.id, :path => 'es_article', :language => 'es', :parent_id => blog.id, :translation_of_id => en_article)
     blog.posts = [en_article, es_article]
 
     get :view_page, :profile => @profile.identifier, :page => blog.explode_path

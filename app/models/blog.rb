@@ -2,6 +2,13 @@ class Blog < Folder
 
   acts_as_having_posts
 
+  #FIXME This should be used until there is a migration to fix all blogs that
+  # already have folders inside them
+  def posts_with_no_folders
+    posts_without_no_folders.no_folders
+  end
+  alias_method_chain :posts, :no_folders
+
   def self.short_description
     _('Blog')
   end

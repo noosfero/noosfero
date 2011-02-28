@@ -105,6 +105,8 @@ class ProfileController < PublicController
       end
       if request.xhr?
         render :layout => false
+      else
+        redirect_to profile.url
       end
     end
   end

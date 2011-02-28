@@ -310,6 +310,8 @@ module Noosfero::Factory
     { }
   end
 
+  alias :defaults_for_blog_archives_block :defaults_for_block
+
   ###############################################
   # Task
   ###############################################
@@ -358,7 +360,9 @@ module Noosfero::Factory
   # Certifier
   ###############################################
 
-  alias :defaults_for_certifier :defaults_for_qualifier
+  def defaults_for_certifier
+    defaults_for_qualifier.merge({ :name => 'Certifier ' + factory_num_seq.to_s })
+  end
 
   ###############################################
   # Scrap

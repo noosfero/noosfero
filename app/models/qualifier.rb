@@ -8,6 +8,8 @@ class Qualifier < ActiveRecord::Base
   validates_presence_of :environment_id
   validates_presence_of :name
 
+  has_many :product_qualifiers, :dependent => :destroy
+
   def <=>(b)
     self.name.downcase.transliterate <=> b.name.downcase.transliterate
   end

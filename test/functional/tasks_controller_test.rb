@@ -217,15 +217,17 @@ class TasksControllerTest < Test::Unit::TestCase
     assert_includes c_blog2.children(true), p_article
   end
 
-  should 'raise error if there is an enterprise with the same identifier and keep the task active' do
+  should 'display error if there is an enterprise with the same identifier and keep the task active' do
     e = Environment.default
     e.add_admin(profile)
     task = CreateEnterprise.create!(:name => "My Enterprise", :identifier => "my-enterprise", :requestor => profile, :target => e)
     enterprise = fast_create(Enterprise, :name => "My Enterprise", :identifier => "my-enterprise")
 
-    assert_raise ActiveRecord::RecordInvalid do
-      post :close, :tasks => {task.id => { :task => {:reject_explanation => "Bla bla"}, :decision => "cancel"}}
+    assert_nothing_raised do
+      post :close, :tasks => {task.id => {:decision => "finish"}}
     end
+
+    assert_match /Validation.failed/, @response.body
 
     task.reload
     assert_equal Task::Status::ACTIVE, task.status
@@ -280,4 +282,22 @@ class TasksControllerTest < Test::Unit::TestCase
     assert_equal 'new source', TinyMceArticle.find(:first).source_name
   end
 
+  should "not crash if accessing close without tasks parameter" do
+    assert_nothing_raised do
+      post :close
+    end
+  end
+
+  should 'close create enterprise if trying to cancel even if there is already an existing identifier' do
+    identifier = "common-identifier"
+    task = CreateEnterprise.create!(:identifier => identifier, :name => identifier, :requestor => profile, :target => profile)
+    fast_create(Profile, :identifier => identifier)
+
+    assert_nothing_raised do
+      post :close, :tasks => {task.id => {:task => {:reject_explanation => "Some explanation"}, :decision => 'cancel'}}
+    end
+
+    task.reload
+    assert_equal Task::Status::CANCELLED, task.status
+  end
 end

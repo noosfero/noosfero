@@ -132,4 +132,21 @@ class ChangePasswordTest < Test::Unit::TestCase
     assert_equal c2.requestor, p2
   end
 
+  should 'have target notification description' do
+    person = fast_create(Person, :identifier => 'testuser')
+
+    change = ChangePassword.create(:login => 'testuser', :email => 'test@example.com', :environment_id => Environment.default.id)
+
+    assert_match(/#{change.requestor.name} wants to change its password/, change.target_notification_description)
+  end
+
+  should 'deliver task created message' do
+    person = fast_create(Person, :identifier => 'testuser')
+
+    task = ChangePassword.create(:login => 'testuser', :email => 'test@example.com', :environment_id => Environment.default.id)
+
+    email = TaskMailer.deliver_task_created(task)
+    assert_match(/#{task.requestor.name} wants to change its password/, email.subject)
+  end
+
 end

@@ -8,17 +8,20 @@ class BrowseController < PublicController
     more_popular
   )
 
+  def per_page
+    27
+  end
+
   def people
     @filter = filter
     @title = self.filter_description(params[:action] + '_' + @filter )
 
     @results = @environment.people.visible.send(@filter)
 
-    if params[:query].blank?
-      @results = @results.paginate(:per_page => 27, :page => params[:page])
-    else
-      @results = @results.find_by_contents(params[:query]).paginate(:per_page => 27, :page => params[:page])
+    if !params[:query].blank?
+      @results = @results.find_by_contents(params[:query])
     end
+    @results = @results.compact.paginate(:per_page => per_page, :page => params[:page])
   end
 
   def communities
@@ -27,11 +30,10 @@ class BrowseController < PublicController
 
     @results = @environment.communities.visible.send(@filter)
 
-    if params[:query].blank?
-      @results = @results.paginate(:per_page => 27, :page => params[:page])
-    else
-      @results = @results.find_by_contents(params[:query]).paginate(:per_page => 27, :page => params[:page])
+    if !params[:query].blank?
+      @results = @results.find_by_contents(params[:query])
     end
+    @results = @results.compact.paginate(:per_page => per_page, :page => params[:page])
   end
 
   protected

@@ -17,7 +17,7 @@ class TaskMailerTest < Test::Unit::TestCase
 
     task = Task.new
     task.expects(:task_finished_message).returns('the message')
-    task.expects(:information).returns('the task')
+    task.expects(:target_notification_description).returns('the task')
 
     requestor = mock()
     requestor.expects(:notification_emails).returns(['requestor@example.com'])
@@ -40,7 +40,7 @@ class TaskMailerTest < Test::Unit::TestCase
 
     task = Task.new
     task.expects(:task_cancelled_message).returns('the message')
-    task.expects(:information).returns('the task')
+    task.expects(:target_notification_description).returns('the task')
 
     requestor = mock()
     requestor.expects(:notification_emails).returns(['requestor@example.com'])
@@ -64,7 +64,7 @@ class TaskMailerTest < Test::Unit::TestCase
     task = Task.new
 
     task.expects(:task_created_message).returns('the message')
-    task.expects(:information).returns('the task')
+    task.expects(:target_notification_description).returns('the task')
 
     requestor = mock()
     requestor.expects(:notification_emails).returns(['requestor@example.com'])
@@ -128,6 +128,8 @@ class TaskMailerTest < Test::Unit::TestCase
     task.expects(:environment).returns(environment).at_least_once
 
     mail = TaskMailer.create_invitation_notification(task)
+
+    assert_match(/#{task.target_notification_description}/, mail.subject)
 
     assert_equal "Hello friend name, my name invite you, please follow this link: http://example.com/account/signup?invitation_code=123456", mail.body
     

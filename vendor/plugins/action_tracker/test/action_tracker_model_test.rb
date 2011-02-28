@@ -67,9 +67,32 @@ class ActionTrackerModelTest < ActiveSupport::TestCase
     end
   end
 
+  def test_user_is_mandatory
+    ta = ActionTracker::Record.new :user_type => 'SomeModel', :verb => :some_verb
+    ta.valid?
+    assert ta.errors.on(:user)
+    assert_raise ActiveRecord::RecordInvalid do
+      ta.save!
+    end
+
+    ta = ActionTracker::Record.new :user_id => 2, :verb => :some_verb
+    ta.valid?
+    assert ta.errors.on(:user)
+    assert_raise ActiveRecord::RecordInvalid do
+      ta.save!
+    end
+  end
+
   def test_user_exists_indeed
-    ta = ActionTracker::Record.new(:user_id => -1, :user_type => "SomeModel", :verb => :some_verb)
-    assert !ta.valid?
+    ta = ActionTracker::Record.new(:verb => :some_verb)
+    ta.valid?
+    assert ta.errors.on(:user)
+    user = SomeModel.create!
+    ta.user = user
+    assert ta.valid?
+    user.destroy
+    ta.valid?
+    assert ta.errors.on(:user)
   end
 
   def test_verb_must_be_declared_previously
@@ -331,26 +354,6 @@ class ActionTrackerModelTest < ActiveSupport::TestCase
     ActionTrackerConfig.verbs = { :some => { :description => "Some" }, :type => :groupable }
     t = ActionTracker::Record.create! :user => SomeModel.create!, :verb => :some, :params => { "test" => ["foo", "bar"] }
     assert_equal(["foo 1", "bar 2"], t.collect_group_with_index(:test){|x, i| "#{x} #{i+1}" })
-  end
-
-  def test_user_id_is_mandatory
-    ActionTrackerConfig.verbs = { :some => { :description => "Some" } }
-    ta = ActionTracker::Record.new :user_type => 'SomeModel', :verb => :some
-    ta.valid?
-    assert ta.errors.on(:user_id)
-    assert_raise ActiveRecord::RecordInvalid do
-      ta.save!
-    end
-  end
-
-  def test_user_type_is_mandatory
-    ActionTrackerConfig.verbs = { :some => { :description => "Some" } }
-    ta = ActionTracker::Record.new :user_id => 2, :verb => :some
-    ta.valid?
-    assert ta.errors.on(:user_type)
-    assert_raise ActiveRecord::RecordInvalid do
-      ta.save!
-    end
   end
 
 end

@@ -49,4 +49,13 @@ class EmailActivationTest < Test::Unit::TestCase
     assert !anothertask.save
   end
 
+  should 'deliver activation email notification' do
+    user = create_user('testuser', :environment_id => Environment.default.id)
+
+    task = EmailActivation.new(:requestor => user.person, :target => Environment.default)
+
+    email = User::Mailer.deliver_activation_email_notify(user)
+    assert_match(/Welcome to #{task.requestor.environment.name} mail!/, email.subject)
+  end
+
 end

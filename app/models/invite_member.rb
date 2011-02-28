@@ -35,6 +35,10 @@ class InviteMember < Invitation
     {:type => :profile_image, :profile => community, :url => community.url}
   end
 
+  def target_notification_description
+    _('%{requestor} invited you to join %{community}.') % {:requestor => requestor.name, :community => community.name}
+  end
+
   def expanded_message
     super.gsub /<community>/, community.name
   end

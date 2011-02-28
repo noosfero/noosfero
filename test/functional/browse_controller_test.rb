@@ -65,6 +65,25 @@ class BrowseControllerTest < Test::Unit::TestCase
     assert_tag :a, '', :attributes => {:class => 'next_page'}
   end
 
+  should 'not return nil results in the more_active people list' do
+    Profile.delete_all
+    p1 = fast_create(Person)
+    p2 = fast_create(Person)
+    p3 = fast_create(Person)
+    fast_create(Article, :profile_id => p1, :created_at => 1.day.ago)
+    fast_create(Article, :profile_id => p2, :created_at => 1.day.ago)
+    fast_create(Article, :profile_id => p2, :created_at => 1.day.ago)
+    fast_create(Article, :profile_id => p2, :created_at => 1.day.ago)
+    fast_create(Article, :profile_id => p3, :created_at => 1.day.ago)
+
+    per_page = 1
+    @controller.stubs(:per_page).returns(per_page)
+
+    get :people, :filter => 'more_active'
+
+    assert_equal Person.count/per_page, assigns(:results).total_pages
+  end
+
   should 'list all people filter by more active' do
     Person.delete_all
     p1 = create(Person, :name => 'Testing person 1', :user_id => 1)
@@ -159,6 +178,26 @@ class BrowseControllerTest < Test::Unit::TestCase
     assert_equal 27 , assigns(:results).count
     assert_tag :a, '', :attributes => {:class => 'next_page'}
   end
+
+  should 'not return nil results in the more_active communities list' do
+    Profile.delete_all
+    c1 = fast_create(Community)
+    c2 = fast_create(Community)
+    c3 = fast_create(Community)
+    fast_create(Article, :profile_id => c1, :created_at => 1.day.ago)
+    fast_create(Article, :profile_id => c2, :created_at => 1.day.ago)
+    fast_create(Article, :profile_id => c2, :created_at => 1.day.ago)
+    fast_create(Article, :profile_id => c2, :created_at => 1.day.ago)
+    fast_create(Article, :profile_id => c3, :created_at => 1.day.ago)
+
+    per_page = 1
+    @controller.stubs(:per_page).returns(per_page)
+
+    get :communities, :filter => 'more_active'
+
+    assert_equal Community.count/per_page, assigns(:results).total_pages
+  end
+
 
   should 'list all communities filter by more active' do
     c1 = create(Community, :name => 'Testing community 1')
