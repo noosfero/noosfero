@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110222211802) do
+ActiveRecord::Schema.define(:version => 20110228174632) do
 
   create_table "action_tracker", :force => true do |t|
     t.integer  "user_id"
@@ -31,8 +31,8 @@ ActiveRecord::Schema.define(:version => 20110222211802) do
     t.integer "profile_id"
   end
 
+  add_index "action_tracker_notifications", ["action_tracker_id", "profile_id"], :name => "index_action_tracker_notifications_on_profile_id_and_action_tra", :unique => true
   add_index "action_tracker_notifications", ["action_tracker_id"], :name => "index_action_tracker_notifications_on_action_tracker_id"
-  add_index "action_tracker_notifications", ["profile_id", "action_tracker_id"], :name => "index_action_tracker_notifications_on_profile_id_and_action_tracker_id", :unique => true
   add_index "action_tracker_notifications", ["profile_id"], :name => "index_action_tracker_notifications_on_profile_id"
 
   create_table "article_versions", :force => true do |t|
@@ -179,7 +179,7 @@ ActiveRecord::Schema.define(:version => 20110222211802) do
 
   create_table "certifiers", :force => true do |t|
     t.string   "name",           :null => false
-    t.string   "description"
+    t.text     "description"
     t.string   "link"
     t.integer  "environment_id"
     t.datetime "created_at"
