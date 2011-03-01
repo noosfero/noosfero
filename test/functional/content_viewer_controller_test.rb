@@ -1374,4 +1374,12 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     assert_equal 2, assigns(:comments_count)
   end
 
+  should 'suggest article link displayed into article-actions div' do
+    community = fast_create(Community)
+    blog = fast_create(Blog, :profile_id => community.id, :path => 'blog')
+    get :view_page, :profile => community.identifier, :page => [ 'blog' ]
+    assert_tag :tag => 'div', :attributes => {:id => 'article-actions'},
+      :descendant => {:tag => 'a', :attributes => {:id => 'suggest-article-link'}}
+  end
+
 end
