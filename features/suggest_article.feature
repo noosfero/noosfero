@@ -21,3 +21,24 @@ Feature: suggest article
     And I follow "Process requests"
     And I should see "suggested the publication of the article"
     Then I should see "Highlight this article" within ".task_box"
+
+  Scenario: an article is suggested and the admin approve it
+    Given I am on Sample Community's blog
+    And I follow "Suggest an article"
+    And I fill in the following:
+      | Title     | Suggestion                    |
+      | Your name | Some Guy                      |
+      | Email     | someguy@somewhere.com         |
+      | Lead      | This is my suggestion's lead  |
+      | Text      | I like free software          |
+    And I press "Save"
+    And I am logged in as "joaosilva"
+    And I go to Sample Community's control panel
+    When I follow "Process requests"
+    Then I should see "suggested the publication of the article: Suggestion."
+    When I choose "Accept"
+    And I select "sample-community/Blog" from "Select the folder where the article must be published"
+    And I press "Apply!"
+    And I go to Sample Community's blog
+    Then I should see "Suggestion"
+    Then I should see "I like free software"

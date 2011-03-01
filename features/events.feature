@@ -206,3 +206,27 @@ Feature: events
     When I am on /profile/josesilva/events/2009/10/25
     Then I should see "Unpublished event"
     And I should see "25" link
+
+  Scenario: events have lead field
+    Given I am logged in as "josesilva"
+    And I am on josesilva's Event creation
+    Then I should see "Lead"
+
+  Scenario: events lead should be shown on blogs with short format
+    Given I am logged in as "josesilva"
+    And I am on josesilva's control panel
+    And I follow "Configure blog"
+    And I select "First paragraph" from "How to display posts:"
+    And I press "Save"
+    And I follow "New post"
+    And I follow "Event"
+    And I follow "Lead"
+    And I fill in the following:
+      | Title                         | Leaded event          |
+      | Information about the event   | This is the real text.|
+      | Lead                          | This is the abstract. |
+    And I press "Save"
+    When I am on josesilva's blog
+    Then I should see "Leaded event"
+    And I should see "This is the abstract."
+    And I should not see "This is the real text."

@@ -27,6 +27,12 @@ module NavigationHelpers
     when /^(.*)'s homepage$/
       '/%s' % Profile.find_by_name($1).identifier
 
+    when /^(.*)'s blog$/
+      '/%s/blog' % Profile.find_by_name($1).identifier
+
+    when /^(.*)'s (.+) creation$/
+      '/myprofile/%s/cms/new?type=%s' % [Profile.find_by_name($1).identifier,$2]
+
     when /^(.*)'s sitemap/
       '/profile/%s/sitemap' % Profile.find_by_name($1).identifier
 

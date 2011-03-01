@@ -15,5 +15,4 @@
 
 <%= labelled_form_field(_('Address:'), text_field(:article, :address)) %>
 
-<%= labelled_form_field(_('Information about the event:'), text_area(:article, :body, :cols => 64, :class => 'mceEditor')) %>
-
+<%= render :partial => 'shared/lead_and_body', :locals => {:tiny_mce => true, :body_label => 'Information about the event:'} %>
