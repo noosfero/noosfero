@@ -1,5 +1,6 @@
 <div id='edit-profile-list-block'>
   <%= labelled_form_field _('Limit of items'), text_field(:block, :limit, :size => 3) %>
-  <%= labelled_form_field _('Prioritize profiles with image'), check_box(:block, :prioritize_profiles_with_image) %>
+  <%= check_box(:block, :prioritize_profiles_with_image) %>
+  <label for="block_prioritize_profiles_with_image"><%= _('Prioritize profiles with image') %></label>
 </div>
 
