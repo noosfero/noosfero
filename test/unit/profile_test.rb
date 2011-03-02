@@ -117,21 +117,9 @@ class ProfileTest < Test::Unit::TestCase
   end
 
   def test_should_avoid_reserved_identifiers
-    assert_invalid_identifier 'admin'
-    assert_invalid_identifier 'system'
-    assert_invalid_identifier 'myprofile'
-    assert_invalid_identifier 'profile'
-    assert_invalid_identifier 'cms'
-    assert_invalid_identifier 'community'
-    assert_invalid_identifier 'test'
-    assert_invalid_identifier 'tag'
-    assert_invalid_identifier 'tags'
-    assert_invalid_identifier 'cat'
-    assert_invalid_identifier 'webmaster'
-    assert_invalid_identifier 'info'
-    assert_invalid_identifier 'root'
-    assert_invalid_identifier 'assets'
-    assert_invalid_identifier 'plugin'
+    Profile::RESERVED_IDENTIFIERS.each do |identifier|
+      assert_invalid_identifier identifier
+    end
   end
 
   should 'provide recent documents' do
