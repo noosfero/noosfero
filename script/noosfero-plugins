@@ -93,7 +93,7 @@ _disable(){
 }
 
 _new(){
-  plugin="$1"
+  plugin=$(echo "$1" | tr '[:upper:]' '[:lower:]')
   target="$available_plugins_dir/$plugin"
   if [ -d "$target" ]; then
     _say "There is already a plugin called $plugin"
