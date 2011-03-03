@@ -287,4 +287,10 @@ class UploadedFileTest < Test::Unit::TestCase
     assert_equal '', f.lead
   end
 
+  should 'survive when try to get icon_name from a file with mime_type nil' do
+    f = UploadedFile.new
+    f.expects(:mime_type).returns(nil)
+    assert_equal 'upload-file', UploadedFile.icon_name(f)
+  end
+
 end
