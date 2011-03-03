@@ -1,3 +1,9 @@
+noosfero (0.29.2) unstable; urgency=low
+
+  * Bugfixes Version release. (Closes: AI#1922)
+
+ -- Joenio Costa <joenio@perl.org.br>  Wed, 02 Mar 2011 21:24:48 -0300
+
 noosfero (0.29.1) unstable; urgency=low
 
   * Bugfixes Version release. (Closes: AI#1908)
