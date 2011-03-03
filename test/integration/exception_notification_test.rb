@@ -9,9 +9,9 @@ class ExceptionNotificationTest < ActionController::IntegrationTest
     ActionMailer::Base.delivery_method = :test
     ActionMailer::Base.perform_deliveries = true
     ActionMailer::Base.deliveries = []
-    AccountController.any_instance.stubs(:signup).raises(RuntimeError)
-    AccountController.any_instance.stubs(:local_request?).returns(false)
-    AccountController.any_instance.stubs(:consider_all_requests_local).returns(false)
+    [ProfileController, AccountController].each{|klass| klass.any_instance.stubs(:signup).raises(RuntimeError)}
+    [ProfileController, AccountController].each{|klass| klass.any_instance.stubs(:local_request?).returns(false)}
+    [ProfileController, AccountController].each{|klass| klass.any_instance.stubs(:consider_all_requests_local).returns(false)}
   end
 
   should 'deliver mail notification about exceptions' do
