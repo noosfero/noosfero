@@ -55,6 +55,14 @@ class SearchHelperTest < Test::Unit::TestCase
     assert_tag_in_string result, :tag => 'a', :attributes => {:href => /:id=>#{product2.id}/}, :content => product2.name
   end
 
+  should 'link to manage_products controller on display_profile_info' do
+    enterprise = fast_create(Enterprise)
+    product = fast_create(Product, :enterprise_id => enterprise.id)
+    result = display_profile_info(enterprise)
+    assert_tag_in_string result, :tag => 'a', :attributes => {:href => /:controller=>\"manage_products\"/}, :content => product.name
+    assert_no_tag_in_string result, :tag => 'a', :attributes => {:href => /:id=>\"catalog\"/}, :content => product.name
+  end
+
   protected
   include NoosferoTestHelper
 
