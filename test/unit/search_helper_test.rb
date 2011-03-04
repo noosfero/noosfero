@@ -51,8 +51,8 @@ class SearchHelperTest < Test::Unit::TestCase
     product1 = fast_create(Product, :enterprise_id => enterprise.id)
     product2 = fast_create(Product, :enterprise_id => enterprise.id)
     result = display_profile_info(enterprise)
-    assert_tag_in_string result, :tag => 'a', :attributes => {:href => /:controller=>\"manage_products\", :id=>#{product1.id}/}, :content => product1.name
-    assert_tag_in_string result, :tag => 'a', :attributes => {:href => /:controller=>\"manage_products\", :id=>#{product2.id}/}, :content => product2.name
+    assert_tag_in_string result, :tag => 'a', :attributes => {:href => /:id=>#{product1.id}/}, :content => product1.name
+    assert_tag_in_string result, :tag => 'a', :attributes => {:href => /:id=>#{product2.id}/}, :content => product2.name
   end
 
   protected
