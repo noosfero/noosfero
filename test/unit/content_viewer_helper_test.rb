@@ -46,12 +46,34 @@ class ContentViewerHelperTest < Test::Unit::TestCase
     assert_no_match /a href='#{article.url}'>#{article.name}</, result
   end
 
+  should 'not create link to comments if called with no_comments' do
+    blog = fast_create(Blog, :name => 'Blog test', :profile_id => profile.id)
+    article = fast_create(TextileArticle, :name => 'art test', :profile_id => profile.id, :parent_id => blog.id)
+    result = article_title(article, :no_comments => true)
+    assert_no_match(/a href='.*comments_list.*>No comments yet</, result)
+  end
+
+  should 'not create link to comments if the article doesn\'t allow comments' do
+    blog = fast_create(Blog, :name => 'Blog test', :profile_id => profile.id)
+    article = fast_create(TextileArticle, :name => 'art test', :profile_id => profile.id, :parent_id => blog.id, :accept_comments => false)
+    result = article_title(article)
+    assert_no_match(/a href='.*comments_list.*>No comments yet</, result)
+  end
+
   should 'count total of comments from post' do
     article = TextileArticle.new(:name => 'first post for test', :body => 'first post for test', :profile => profile)
     article.stubs(:url).returns({})
     article.stubs(:comments).returns([Comment.new(:author => profile, :title => 'test', :body => 'test')])
     result = link_to_comments(article)
     assert_match /One comment/, result
+  end
+
+  should 'not display total of comments if the article doesn\'t allow comments' do
+    article = TextileArticle.new(:name => 'first post for test', :body => 'first post for test', :profile => profile, :accept_comments => false)
+    article.stubs(:url).returns({})
+    article.stubs(:comments).returns([Comment.new(:author => profile, :title => 'test', :body => 'test')])
+    result = link_to_comments(article)
+    assert_equal '', result
   end
 
   should 'not list feed article' do
