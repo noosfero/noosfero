@@ -156,7 +156,7 @@ class Person < Profile
   N_('Schooling status')
   settings_items :schooling_status
 
-  N_('Formation'); N_('Custom formation'); N_('Custom area of study');
+  N_('Education'); N_('Custom education'); N_('Custom area of study');
   settings_items :formation, :custom_formation, :custom_area_of_study
 
   N_('Contact information'); N_('City'); N_('State'); N_('Country'); N_('Sex'); N_('Zip code')

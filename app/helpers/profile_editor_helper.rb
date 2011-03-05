@@ -18,7 +18,7 @@ module ProfileEditorHelper
     N_('Science Politics'),
     N_('Accounting and Actuarial Science'),
     N_('Morphologic Sciences'),
-    N_('Computation'),
+    N_('Computer Science'),
     N_('Rural Development'),
     N_('Law'),
     N_('Ecology'),
