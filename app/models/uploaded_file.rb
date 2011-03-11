@@ -30,6 +30,10 @@ class UploadedFile < Article
     title.blank? ? name : title
   end
 
+  def first_paragraph
+    ''
+  end
+
   def self.max_size
     UploadedFile.attachment_options[:max_size]
   end
@@ -50,7 +54,7 @@ class UploadedFile < Article
 
   def self.icon_name(article = nil)
     if article
-      article.image? ? article.public_filename(:icon) : article.mime_type.gsub(/[\/+.]/, '-')
+      article.image? ? article.public_filename(:icon) : (article.mime_type ? article.mime_type.gsub(/[\/+.]/, '-') : 'upload-file')
     else
       'upload-file'
     end

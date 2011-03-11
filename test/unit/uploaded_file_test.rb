@@ -275,4 +275,22 @@ class UploadedFileTest < Test::Unit::TestCase
     assert_nil ActionTracker::Record.last(:conditions => { :verb => "upload_image" })
   end
 
+  should 'not crash if first paragraph called' do
+    f = fast_create(UploadedFile)
+    assert_nothing_raised do
+      f.first_paragraph
+    end
+  end
+
+  should 'return empty string to lead if no abstract given' do
+    f = fast_create(UploadedFile, :abstract => nil)
+    assert_equal '', f.lead
+  end
+
+  should 'survive when try to get icon_name from a file with mime_type nil' do
+    f = UploadedFile.new
+    f.expects(:mime_type).returns(nil)
+    assert_equal 'upload-file', UploadedFile.icon_name(f)
+  end
+
 end

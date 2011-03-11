@@ -1004,7 +1004,7 @@ code input {
   font-weight: normal;
 }
 
-#article-lead,
+.article-lead,
 #article-body-field {
   margin-top: 10px;
   display: none;

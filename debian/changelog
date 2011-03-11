@@ -1,3 +1,9 @@
+noosfero (0.29.3) unstable; urgency=low
+
+  * Bugfixes Version release. (Closes: AI#1760 AI#1907 AI#1899 AI#1891 AI#1904 AI#1888 AI#1869 AI#1900 AI#1914)
+
+ -- Joenio Costa <joenio@colivre.coop.br>  Fri, 11 Mar 2011 13:12:43 -0300
+
 noosfero (0.29.2) unstable; urgency=low
 
   * Bugfixes Version release. (Closes: AI#1922)
