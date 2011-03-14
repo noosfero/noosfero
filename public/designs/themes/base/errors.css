@@ -19,15 +19,24 @@ body {
   background: #ccc url(imgs/menu-top-bg-right.png) top right no-repeat;
   height: 42px;
   margin-top: 48px;
+  position: relative;
 }
 
 #logo {
   background: url(imgs/menu-top-bg-left.png) 0px 29px no-repeat;
   position: absolute;
-  top: 40px;
+  top: -29px;
   height: 92px;
   width: 400px;
   z-index: 2;
+}
+
+#details {
+  position: absolute;
+  bottom: 1px;
+  right: 13px;
+  color: #EEE;
+  Xtext-shadow: 1px 1px 1px #fff;
 }
 
 .message,
