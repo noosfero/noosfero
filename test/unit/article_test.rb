@@ -576,10 +576,10 @@ class ArticleTest < Test::Unit::TestCase
     assert_kind_of Folder, b
   end
 
-  should 'copy slug' do
+  should 'not copy slug' do
     a = fast_create(Article, :slug => 'slug123')
     b = a.copy({})
-    assert_equal a.slug, b.slug
+    assert a.slug != b.slug
   end
 
   should 'load article under an old path' do

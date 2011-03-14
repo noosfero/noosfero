@@ -417,6 +417,7 @@ class Article < ActiveRecord::Base
     :profile_id,
     :parent_id,
     :path,
+    :slug,
     :updated_at,
     :created_at,
     :last_changed_by_id,
