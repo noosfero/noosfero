@@ -206,4 +206,9 @@ class BlogTest < ActiveSupport::TestCase
     assert_includes blog.posts, article
   end
 
+  should 'not accept uploads' do
+    folder = fast_create(Blog)
+    assert !folder.accept_uploads?
+  end
+
 end

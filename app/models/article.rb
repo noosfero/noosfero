@@ -505,6 +505,10 @@ class Article < ActiveRecord::Base
     false
   end
 
+  def accept_uploads?
+    self.parent && self.parent.accept_uploads?
+  end
+
   private
 
   def sanitize_tag_list

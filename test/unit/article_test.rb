@@ -1474,4 +1474,28 @@ class ArticleTest < Test::Unit::TestCase
     end
   end
 
+  should 'accept uploads if parent accept uploads' do
+    folder = fast_create(Folder)
+    child = fast_create(UploadedFile, :parent_id => folder.id)
+    assert folder.accept_uploads?
+    assert child.accept_uploads?
+  end
+
+  should 'not accept uploads if has no parent' do
+    child = fast_create(UploadedFile)
+    assert !child.accept_uploads?
+  end
+
+  should 'not accept uploads if parent is a blog' do
+    folder = fast_create(Blog)
+    child = fast_create(UploadedFile, :parent_id => folder.id)
+    assert !child.accept_uploads?
+  end
+
+  should 'not accept uploads if parent is a forum' do
+    folder = fast_create(Forum)
+    child = fast_create(UploadedFile, :parent_id => folder.id)
+    assert !child.accept_uploads?
+  end
+
 end

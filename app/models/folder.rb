@@ -53,4 +53,9 @@ class Folder < Article
                     :foreign_key => 'parent_id',
                     :order => 'articles.type, articles.name',
                     :conditions => ["articles.type = 'UploadedFile' and articles.content_type in (?) or articles.type in ('Folder','Gallery')", UploadedFile.content_types]
+
+  def accept_uploads?
+    !self.has_posts? || self.gallery?
+  end
+
 end
