@@ -215,6 +215,14 @@ class ProfileController < PublicController
     end
   end
 
+  def profile_info
+    begin
+      @block = profile.blocks.find(params[:block_id])
+    rescue
+      render :text => _('Profile information could not be loaded')
+    end
+  end
+
   protected
 
   def check_access_to_profile

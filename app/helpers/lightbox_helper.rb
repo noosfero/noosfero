@@ -32,4 +32,8 @@ module LightboxHelper
     request.xhr?
   end
 
+  def lightbox_remote_button(type, label, url, options = {})
+    button(type, label, url, lightbox_options(options, 'remote-lbOn'))
+  end
+
 end

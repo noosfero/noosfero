@@ -358,42 +358,42 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     assert_equal profile, assigns(:profile)
   end
 
-  should 'give link to edit the article for owner ' do
+  should 'give link to edit the article for owner' do
     login_as('testinguser')
-    get :view_page, :profile => 'testinguser', :page => []
-    assert_tag :tag => 'div', :attributes => { :class => /main-block/ }, :descendant => { :tag => 'a', :attributes => { :href => "/myprofile/testinguser/cms/edit/#{@profile.home_page.id}" } }
+    xhr :get, :view_page, :profile => 'testinguser', :page => [], :toolbar => true
+    assert_tag :tag => 'div', :attributes => { :id => 'article-actions' }, :descendant => { :tag => 'a', :attributes => { :href => "/myprofile/testinguser/cms/edit/#{@profile.home_page.id}" } }
   end
   should 'not give link to edit the article for non-logged-in people' do
-    get :view_page, :profile => 'testinguser', :page => []
-    assert_no_tag :tag => 'div', :attributes => { :class => /main-block/ }, :descendant => { :tag => 'a', :attributes => { :href => "/myprofile/testinguser/cms/edit/#{@profile.home_page.id}" } }
+    xhr :get, :view_page, :profile => 'testinguser', :page => [], :toolbar => true
+    assert_no_tag :tag => 'div', :attributes => { :id => 'article-actions' }, :descendant => { :tag => 'a', :attributes => { :href => "/myprofile/testinguser/cms/edit/#{@profile.home_page.id}" } }
   end
   should 'not give link to edit article for other people' do
     login_as(create_user('anotheruser').login)
 
-    get :view_page, :profile => 'testinguser', :page => []
-    assert_no_tag :tag => 'div', :attributes => { :class => /main-block/ }, :descendant => { :tag => 'a', :attributes => { :href => "/myprofile/testinguser/cms/edit/#{@profile.home_page.id}" } }
+    xhr :get, :view_page, :profile => 'testinguser', :page => [], :toolbar => true
+    assert_no_tag :tag => 'div', :attributes => { :id => 'article-actions' }, :descendant => { :tag => 'a', :attributes => { :href => "/myprofile/testinguser/cms/edit/#{@profile.home_page.id}" } }
   end
 
   should 'give link to create new article' do
     login_as('testinguser')
-    get :view_page, :profile => 'testinguser', :page => []
-    assert_tag :tag => 'div', :attributes => { :class => /main-block/ }, :descendant => { :tag => 'a', :attributes => { :href => "/myprofile/testinguser/cms/new" } }
+    xhr :get, :view_page, :profile => 'testinguser', :page => [], :toolbar => true
+    assert_tag :tag => 'div', :attributes => { :id => 'article-actions' }, :descendant => { :tag => 'a', :attributes => { :href => "/myprofile/testinguser/cms/new" } }
   end
   should 'give no link to create new article for non-logged in people ' do
-    get :view_page, :profile => 'testinguser', :page => []
-    assert_no_tag :tag => 'div', :attributes => { :class => /main-block/ }, :descendant => { :tag => 'a', :attributes => { :href => "/myprofile/testinguser/cms/new" } }
+    xhr :get, :view_page, :profile => 'testinguser', :page => [], :toolbar => true
+    assert_no_tag :tag => 'div', :attributes => { :id => 'article-actions' }, :descendant => { :tag => 'a', :attributes => { :href => "/myprofile/testinguser/cms/new" } }
   end
   should 'give no link to create new article for other people' do
     login_as(create_user('anotheruser').login)
-    get :view_page, :profile => 'testinguser', :page => []
-    assert_no_tag :tag => 'div', :attributes => { :class => /main-block/ }, :descendant => { :tag => 'a', :attributes => { :href => "/myprofile/testinguser/cms/new" } }
+    xhr :get, :view_page, :profile => 'testinguser', :page => [], :toolbar => true
+    assert_no_tag :tag => 'div', :attributes => { :id => 'article-actions' }, :descendant => { :tag => 'a', :attributes => { :href => "/myprofile/testinguser/cms/new" } }
   end
 
   should 'give link to create new article inside folder' do
     login_as('testinguser')
     folder = Folder.create!(:name => 'myfolder', :profile => @profile)
-    get :view_page, :profile => 'testinguser', :page => [ 'myfolder' ]
-    assert_tag :tag => 'div', :attributes => { :class => /main-block/ }, :descendant => { :tag => 'a', :attributes => { :href => "/myprofile/testinguser/cms/new?parent_id=#{folder.id}" } }
+    xhr :get, :view_page, :profile => 'testinguser', :page => [ 'myfolder' ], :toolbar => true
+    assert_tag :tag => 'div', :attributes => { :id => 'article-actions' }, :descendant => { :tag => 'a', :attributes => { :href => "/myprofile/testinguser/cms/new?parent_id=#{folder.id}" } }
   end
 
   should 'not give access to private articles if logged off' do
@@ -468,7 +468,7 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
     login_as(profile.identifier)
 
-    get :view_page, :profile => profile.identifier, :page => ['myarticle']
+    xhr :get, :view_page, :profile => profile.identifier, :page => ['myarticle'], :toolbar => true
 
     assert_tag :tag => 'a', :attributes => {:href => ('/myprofile/' + profile.identifier + '/cms/publish/' + page.id.to_s)}
   end
@@ -501,7 +501,7 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     prof.affiliate(profile, Profile::Roles.all_roles(prof.environment.id))
     login_as(profile.identifier)
 
-    get :view_page, :profile => prof.identifier, :page => ['myarticle']
+    xhr :get, :view_page, :profile => prof.identifier, :page => ['myarticle'], :toolbar => true
 
     assert_no_tag :tag => 'a', :attributes => {:href => ('/myprofile/' + prof.identifier + '/cms/publish/' + page.id.to_s)}
   end
@@ -662,15 +662,15 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     login_as('testinguser')
     folder = Folder.create!(:name => 'myfolder', :profile => @profile)
     folder.children << TextileArticle.new(:name => 'children-article', :profile => @profile)
-    get :view_page, :profile => 'testinguser', :page => [ 'myfolder', 'children-article' ]
-    assert_tag :tag => 'div', :attributes => { :class => /main-block/ }, :descendant => { :tag => 'a', :attributes => { :href => "/myprofile/testinguser/cms/new?parent_id=#{folder.id}" } }
+    xhr :get, :view_page, :profile => 'testinguser', :page => [ 'myfolder', 'children-article' ], :toolbar => true
+    assert_tag :tag => 'div', :attributes => { :id => 'article-actions' }, :descendant => { :tag => 'a', :attributes => { :href => "/myprofile/testinguser/cms/new?parent_id=#{folder.id}" } }
   end
 
   should "display 'New article' when create children of folder" do
     login_as(profile.identifier)
     a = Folder.new(:name => 'article folder'); profile.articles << a;  a.save!
     Article.stubs(:short_description).returns('bli')
-    get :view_page, :profile => profile.identifier, :page => [a.path]
+    xhr :get, :view_page, :profile => profile.identifier, :page => [a.path], :toolbar => true
     assert_tag :tag => 'a', :content => 'New article'
   end
 
@@ -678,7 +678,7 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     login_as(profile.identifier)
     a = Blog.create!(:name => 'article folder', :profile => profile)
     Article.stubs(:short_description).returns('bli')
-    get :view_page, :profile => profile.identifier, :page => [a.path]
+    xhr :get, :view_page, :profile => profile.identifier, :page => [a.path], :toolbar => true
     assert_tag :tag => 'a', :content => 'New post'
   end
 
@@ -687,21 +687,21 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     a = Blog.create!(:name => 'article folder', :profile => profile)
     Article.stubs(:short_description).returns('bli')
     t = TextileArticle.create!(:name => 'first post', :parent => a, :profile => profile)
-    get :view_page, :profile => profile.identifier, :page => [t.path]
+    xhr :get, :view_page, :profile => profile.identifier, :page => [t.path], :toolbar => true
     assert_tag :tag => 'a', :content => 'New post'
   end
 
   should 'display button to remove article' do
     login_as(profile.identifier)
     t = TextileArticle.create!(:name => 'article to destroy', :profile => profile)
-    get :view_page, :profile => profile.identifier, :page => [t.path]
+    xhr :get, :view_page, :profile => profile.identifier, :page => [t.path], :toolbar => true
     assert_tag :tag => 'a', :content => 'Delete', :attributes => {:href => "/myprofile/#{profile.identifier}/cms/destroy/#{t.id}"}
   end
 
   should 'not display delete button for homepage' do
     login_as(profile.identifier)
     page = profile.home_page
-    get :view_page, :profile => profile.identifier, :page => page.explode_path
+    xhr :get, :view_page, :profile => profile.identifier, :page => page.explode_path, :toolbar => true
     assert_no_tag :tag => 'a', :content => 'Delete', :attributes => { :href => "/myprofile/#{profile.identifier}/cms/destroy/#{page.id}" }
   end
 
@@ -746,7 +746,7 @@ class ContentViewerControllerTest < Test::Unit::TestCase
   should "display 'Upload files' when create children of image gallery" do
     login_as(profile.identifier)
     f = Gallery.create!(:name => 'gallery', :profile => profile)
-    get :view_page, :profile => profile.identifier, :page => f.explode_path
+    xhr :get, :view_page, :profile => profile.identifier, :page => f.explode_path, :toolbar => true
     assert_tag :tag => 'a', :content => 'Upload files', :attributes => {:href => /parent_id=#{f.id}/}
   end
 
@@ -755,7 +755,7 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     folder1 = Gallery.create!(:name => 'gallery1', :profile => profile)
     folder1.children << folder2 = Folder.new(:name => 'gallery2', :profile => profile)
 
-    get :view_page, :profile => profile.identifier, :page => folder2.explode_path
+    xhr :get, :view_page, :profile => profile.identifier, :page => folder2.explode_path, :toolbar => true
     assert_tag :tag => 'a', :content => 'New article', :attributes => {:href =>/parent_id=#{folder2.id}/}
   end
 
@@ -763,7 +763,7 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     login_as(profile.identifier)
     folder = Gallery.create!(:name => 'gallery', :profile => profile)
     file = UploadedFile.create!(:profile => profile, :parent => folder, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
-    get :view_page, :profile => profile.identifier, :page => file.explode_path, :view => true
+    xhr :get, :view_page, :profile => profile.identifier, :page => file.explode_path, :view => true, :toolbar => true
 
     assert_tag :tag => 'a', :content => 'Upload files', :attributes => {:href => /parent_id=#{folder.id}/}
   end
@@ -863,7 +863,7 @@ class ContentViewerControllerTest < Test::Unit::TestCase
   should "not display 'Upload files' when viewing blog" do
     login_as(profile.identifier)
     b = Blog.create!(:name => 'article folder', :profile => profile)
-    get :view_page, :profile => profile.identifier, :page => b.explode_path
+    xhr :get, :view_page, :profile => profile.identifier, :page => b.explode_path, :toolbar => true
     assert_no_tag :tag => 'a', :content => 'Upload files', :attributes => {:href => /parent_id=#{b.id}/}
   end
 
@@ -871,7 +871,7 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     login_as(profile.identifier)
     b = Blog.create!(:name => 'article folder', :profile => profile)
     blog_post = TextileArticle.create!(:name => 'children-article', :profile => profile, :parent => b)
-    get :view_page, :profile => profile.identifier, :page => blog_post.explode_path
+    xhr :get, :view_page, :profile => profile.identifier, :page => blog_post.explode_path, :toolbar => true
     assert_no_tag :tag => 'a', :content => 'Upload files', :attributes => {:href => /parent_id=#{b.id}/}
   end
 
@@ -913,7 +913,7 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     login_as u.identifier
     a = c.articles.create!(:name => 'test-article', :last_changed_by => profile, :published => true)
 
-    get :view_page, :profile => c.identifier, :page => a.explode_path
+    xhr :get, :view_page, :profile => c.identifier, :page => a.explode_path, :toolbar => true
 
     assert_tag :tag => 'a', :content => 'New article'
   end
@@ -963,8 +963,8 @@ class ContentViewerControllerTest < Test::Unit::TestCase
   should 'display link to edit blog for allowed' do
     blog = fast_create(Blog, :profile_id => profile.id, :path => 'blog')
     login_as(profile.identifier)
-    get :view_page, :profile => profile.identifier, :page => blog.explode_path
-    assert_tag :tag => 'div', :attributes => { :class => /main-block/ }, :descendant => { :tag => 'a', :attributes => { :href => "/myprofile/testinguser/cms/edit/#{blog.id}" }, :content => 'Configure blog' }
+    xhr :get, :view_page, :profile => profile.identifier, :page => blog.explode_path, :toolbar => true
+    assert_tag :tag => 'div', :attributes => { :id => 'article-actions' }, :descendant => { :tag => 'a', :attributes => { :href => "/myprofile/testinguser/cms/edit/#{blog.id}" }, :content => 'Configure blog' }
   end
 
   # Forum
@@ -1054,7 +1054,7 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     login_as(profile.identifier)
     a = Forum.create!(:name => 'article folder', :profile => profile)
     Article.stubs(:short_description).returns('bli')
-    get :view_page, :profile => profile.identifier, :page => [a.path]
+    xhr :get, :view_page, :profile => profile.identifier, :page => [a.path], :toolbar => true
     assert_tag :tag => 'a', :content => 'New discussion topic'
   end
 
@@ -1063,7 +1063,7 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     a = Forum.create!(:name => 'article folder', :profile => profile)
     Article.stubs(:short_description).returns('bli')
     t = TextileArticle.create!(:name => 'first post', :parent => a, :profile => profile)
-    get :view_page, :profile => profile.identifier, :page => [t.path]
+    xhr :get, :view_page, :profile => profile.identifier, :page => [t.path], :toolbar => true
     assert_tag :tag => 'a', :content => 'New discussion topic'
   end
 
@@ -1085,7 +1085,7 @@ class ContentViewerControllerTest < Test::Unit::TestCase
   should "not display 'Upload files' when viewing forum" do
     login_as(profile.identifier)
     b = Forum.create!(:name => 'article folder', :profile => profile)
-    get :view_page, :profile => profile.identifier, :page => b.explode_path
+    xhr :get, :view_page, :profile => profile.identifier, :page => b.explode_path, :toolbar => true
     assert_no_tag :tag => 'a', :content => 'Upload files', :attributes => {:href => /parent_id=#{b.id}/}
   end
 
@@ -1093,43 +1093,43 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     login_as(profile.identifier)
     b = Forum.create!(:name => 'article folder', :profile => profile)
     forum_post = TextileArticle.create!(:name => 'children-article', :profile => profile, :parent => b)
-    get :view_page, :profile => profile.identifier, :page => forum_post.explode_path
+    xhr :get, :view_page, :profile => profile.identifier, :page => forum_post.explode_path, :toolbar => true
     assert_no_tag :tag => 'a', :content => 'Upload files', :attributes => {:href => /parent_id=#{b.id}/}
   end
 
   should 'display link to edit forum for allowed' do
     forum = fast_create(Forum, :profile_id => profile.id, :path => 'forum')
     login_as(profile.identifier)
-    get :view_page, :profile => profile.identifier, :page => forum.explode_path
-    assert_tag :tag => 'div', :attributes => { :class => /main-block/ }, :descendant => { :tag => 'a', :attributes => { :href => "/myprofile/testinguser/cms/edit/#{forum.id}" }, :content => 'Configure forum' }
+    xhr :get, :view_page, :profile => profile.identifier, :page => forum.explode_path, :toolbar => true
+    assert_tag :tag => 'div', :attributes => { :id => 'article-actions' }, :descendant => { :tag => 'a', :attributes => { :href => "/myprofile/testinguser/cms/edit/#{forum.id}" }, :content => 'Configure forum' }
   end
 
   should 'display add translation link if article is translatable' do
     login_as @profile.identifier
     textile = fast_create(TextileArticle, :profile_id => @profile.id, :path => 'textile', :language => 'en')
-    get :view_page, :profile => @profile.identifier, :page => textile.explode_path
+    xhr :get, :view_page, :profile => @profile.identifier, :page => textile.explode_path, :toolbar => true
     assert_tag :a, :attributes => { :href => "/myprofile/#{profile.identifier}/cms/new?article%5Btranslation_of_id%5D=#{textile.id}&amp;type=#{TextileArticle}" }
   end
 
   should 'not display add translation link if article is not translatable' do
     login_as @profile.identifier
     blog = fast_create(Blog, :profile_id => @profile.id, :path => 'blog')
-    get :view_page, :profile => @profile.identifier, :page => blog.explode_path
+    xhr :get, :view_page, :profile => @profile.identifier, :page => blog.explode_path, :toolbar => true
     assert_no_tag :a, :attributes => { :content => 'Add translation', :class => /icon-locale/ }
   end
 
   should 'not display add translation link if article hasnt a language defined' do
     login_as @profile.identifier
     textile = fast_create(TextileArticle, :profile_id => @profile.id, :path => 'textile')
-    get :view_page, :profile => @profile.identifier, :page => textile.explode_path
+    xhr :get, :view_page, :profile => @profile.identifier, :page => textile.explode_path, :toolbar => true
     assert_no_tag :a, :attributes => { :content => 'Add translation', :class => /icon-locale/ }
   end
 
-  should 'diplay translations link if article has translations' do
+  should 'display translations link if article has translations' do
     login_as @profile.identifier
     textile     = fast_create(TextileArticle, :profile_id => @profile.id, :path => 'textile', :language => 'en')
     translation = fast_create(TextileArticle, :profile_id => @profile.id, :path => 'translation', :language => 'es', :translation_of_id => textile)
-    get :view_page, :profile => @profile.identifier, :page => textile.explode_path
+    xhr :get, :view_page, :profile => @profile.identifier, :page => textile.explode_path, :toolbar => true
     assert_tag :a, :attributes => { :class => /article-translations-menu/, :onclick => /toggleSubmenu/ }
   end
 
@@ -1377,9 +1377,15 @@ class ContentViewerControllerTest < Test::Unit::TestCase
   should 'suggest article link displayed into article-actions div' do
     community = fast_create(Community)
     blog = fast_create(Blog, :profile_id => community.id, :path => 'blog')
-    get :view_page, :profile => community.identifier, :page => [ 'blog' ]
-    assert_tag :tag => 'div', :attributes => {:id => 'article-actions'},
-      :descendant => {:tag => 'a', :attributes => {:id => 'suggest-article-link'}}
+    xhr :get, :view_page, :profile => community.identifier, :page => [ 'blog' ], :toolbar => true
+    assert_tag :tag => 'a', :attributes => { :id => 'suggest-article-link' }
+  end
+
+  should 'render toolbar when it is an ajax request' do
+    community = fast_create(Community)
+    blog = fast_create(Blog, :profile_id => community.id, :path => 'blog')
+    xhr :get, :view_page, :profile => community.identifier, :page => ['blog'], :toolbar => true
+    assert_tag :tag => 'div', :attributes => { :id => 'article-header' }
   end
 
 end

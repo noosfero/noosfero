@@ -16,20 +16,49 @@ When /^I go to (.+)$/ do |page_name|
   visit path_to(page_name)
 end
 
+When /^I visit "([^\"]*)" and wait$/ do |page_name|
+  visit path_to(page_name)
+  selenium.wait_for_page_to_load(10000)
+end
+
 When /^I press "([^\"]*)"$/ do |button|
   click_button(button)
+end
+
+When /^I press "([^\"]*)" and wait$/ do |button|
+  click_button(button)
+  selenium.wait_for_page_to_load(10000)
 end
 
 When /^I follow "([^\"]*)"$/ do |link|
   click_link(link)
 end
 
+When /^I follow "([^\"]*)" and wait$/ do |link|
+  click_link(link)
+  selenium.wait_for_page_to_load(10000)
+end
+
+When /^I follow "([^\"]*)" and wait until "([^\"]*)" is present$/ do |link, element|
+  click_link(link)
+  selenium.wait_for_element(string_to_element_locator(element))
+end
+
 When /^I follow "([^\"]*)" within "([^\"]*)"$/ do |link, parent|
   click_link_within(parent, link)
 end
 
+When /^I follow "([^\"]*)" within "([^\"]*)" and wait$/ do |link, parent|
+  click_link_within(parent, link)
+  selenium.wait_for_page_to_load(10000)
+end
+
 When /^I fill in "([^\"]*)" with "([^\"]*)"$/ do |field, value|
-  fill_in(field, :with => value)
+  if response.class.to_s == 'Webrat::SeleniumResponse'
+    response.selenium.type("//*[@id=//label[contains(., '#{field}')]/@for]", value)
+  else
+    fill_in(field, :with => value)
+  end
 end
 
 When /^I fill in "([^\"]*)" for "([^\"]*)"$/ do |value, field|
@@ -54,7 +83,11 @@ When /^I fill in the following:$/ do |fields|
 end
 
 When /^I select "([^\"]*)" from "([^\"]*)"$/ do |value, field|
-  select(value, :from => field)
+  if response.class.to_s == 'Webrat::SeleniumResponse'
+    response.selenium.select("//*[@id=//label[contains(., '#{field}')]/@for]", value)
+  else
+    select(value, :from => field)
+  end
 end
 
 # Use this step in conjunction with Rail's datetime_select helper. For example:
@@ -173,7 +206,11 @@ Then /^I should not see \/([^\/]*)\/ within "([^\"]*)"$/ do |regexp, selector|
 end
 
 Then /^the "([^\"]*)" field should contain "([^\"]*)"$/ do |field, value|
-  field_labeled(field).value.should =~ /#{value}/
+  if response.class.to_s == 'Webrat::SeleniumResponse'
+    response.selenium.get_value("//*[@id=//label[contains(., '#{field}')]/@for]").should match(value)
+  else
+    field_labeled(field).value.should =~ /#{value}/
+  end
 end
 
 Then /^the "([^\"]*)" field should not contain "([^\"]*)"$/ do |field, value|
@@ -189,7 +226,11 @@ Then /^the "([^\"]*)" checkbox should not be checked$/ do |label|
 end
 
 Then /^I should be on (.+)$/ do |page_name|
-  URI.parse(current_url).path.should == path_to(page_name)
+  if response.class.to_s == 'Webrat::SeleniumResponse'
+    URI.parse(response.selenium.get_location).path.should == path_to(page_name)
+  else
+    URI.parse(current_url).path.should == path_to(page_name)
+  end
 end
 
 Then /^show me the page$/ do

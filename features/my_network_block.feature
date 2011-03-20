@@ -13,30 +13,32 @@ Feature: my_network_block
       | identifier       | name              | public_profile |
       | public-community | Public Community  | true           |
 
+  @selenium
   Scenario: display how many public/private communities I am member
-    Given the following communities
+    Given I am logged in as "joaosilva"
+    And the following communities
       | identifier              | name                   | owner     | public_profile |
       | other-public-community  | Other Public Community | joaosilva | true           |
       | private-community       | Private Community      | joaosilva | false          |
-    And I am logged in as "joaosilva"
     And I am on Joao Silva's homepage
-    Then I should see "2 communities"
+    And I should see "2 communities"
     When I go to Public Community's homepage
     And I follow "Join"
-    When I go to Joao Silva's homepage
+    And I go to Joao Silva's homepage
     Then I should see "3 communities"
 
+  @selenium
   Scenario: not display how many invisible communities I am member
-    Given the following communities
+    Given I am logged in as "joaosilva"
+    And the following communities
       | identifier            | name                  | owner     | visible |
       | visible-community     | Visible Community     | joaosilva | true    |
       | not-visible-community | Not Visible Community | joaosilva | false   |
-    And I am logged in as "joaosilva"
     And I am on Joao Silva's homepage
-    Then I should see "One community"
+    And I should see "One community"
     When I go to Public Community's homepage
     And I follow "Join"
-    When I go to Joao Silva's homepage
+    And I go to Joao Silva's homepage
     Then I should see "2 communities"
 
   Scenario: display how many public/private friends I have

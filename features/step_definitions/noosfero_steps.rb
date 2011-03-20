@@ -294,7 +294,11 @@ Given /^(.+) is disabled$/ do |enterprise_name|
 end
 
 Then /^The page title should contain "(.*)"$/ do |text|
-  response.should have_selector("title:contains('#{text}')")
+  if response.class.to_s == 'Webrat::SeleniumResponse'
+    response.selenium.text('css=title').should include(text)
+  else
+    response.should have_selector("title:contains('#{text}')")
+  end
 end
 
 Given /^the mailbox is empty$/ do

@@ -85,6 +85,24 @@ Then /^"([^\"]*)" should be (left|right) aligned$/ do |element_class, align|
   response.selenium.get_xpath_count("//*[contains(@class,'#{element_class}') and contains(@style,'float: #{align}')]").to_i.should be(1)
 end
 
+When /^I confirm$/ do
+  selenium.get_confirmation
+end
+
+When /^I type "([^\"]*)" in TinyMCE field "([^\"]*)"$/ do |value, field_id|
+  response.selenium.type("dom=document.getElementById('#{field_id}_ifr').contentDocument.body", value)
+end
+
+When /^I answer the captcha$/ do
+  question = response.selenium.get_text("//label[@for='task_captcha_solution']").match(/What is the result of '(.+) = \?'/)[1]
+  answer = eval(question)
+  response.selenium.type("id=task_captcha_solution", answer)
+end
+
+When /^I refresh the page$/ do
+  response.selenium.refresh
+end
+
 #### Noosfero specific steps ####
 
 Then /^the select for category "([^\"]*)" should be visible$/ do |name|

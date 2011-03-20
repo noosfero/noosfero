@@ -18,18 +18,19 @@ Feature: approve article
     And "Maria Silva" is a member of "Sample Community"
     And "Joao Silva" is admin of "Sample Community"
 
+  @selenium
   Scenario: edit an article before approval
     Given I am logged in as "mariasilva"
     And I am on Maria Silva's homepage
-    And I follow "Spread"
+    When I follow "Spread" and wait
     And I check "Sample Community"
     And I press "Spread this"
-    When I am logged in as "joaosilva"
+    And I am logged in as "joaosilva"
     And I go to Sample Community's control panel
-    And I follow "Process requests"
+    And I follow "Process requests" and wait
     And I fill in "Text" with "This is an article edited"
     And I choose "Accept"
     And I press "Apply!"
     And I go to Sample Community's sitemap
-    When I follow "Sample Article"
+    And I follow "Sample Article"
     Then I should see "This is an article edited"

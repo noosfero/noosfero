@@ -10,13 +10,14 @@ Feature: forum
     And "joaosilva" has no articles
     And I am logged in as "joaosilva"
 
+  @selenium
   Scenario: create a forum
-    Given I go to the Control panel
+    Given I am on Joao Silva's control panel
     And I follow "Manage Content"
     And I follow "New content"
-    When I follow "Forum"
+    When I follow "Forum" and wait
     And I fill in "Title" with "My Forum"
-    And I press "Save"
+    And I press "Save" and wait
     Then I should see "Configure forum"
 
   Scenario: redirect to forum after create forum from cms
@@ -60,12 +61,13 @@ Feature: forum
     When I follow "Cancel" within ".main-block"
     Then I should be on /myprofile/joaosilva/cms
 
+  @selenium
   Scenario: configure forum when viewing it
     Given the following forums
-       | owner     | name     |
+       | owner     | name      |
        | joaosilva | Forum One |
-    And I go to /joaosilva/forum-one
-    When I follow "Configure forum"
+    And I visit "/joaosilva/forum-one" and wait
+    When I follow "Configure forum" and wait
     Then I should be on edit "Forum One" by joaosilva
 
   Scenario: last topic update by unautenticated user should not link
