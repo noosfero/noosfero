@@ -43,6 +43,9 @@ case will need do install hicolor-icon-theme as well bacause tango-icon-theme
 depends on it.  After that you can try the command line above again, but
 without "tango-icon-theme".
 
+More Informations to install the tango-icon-theme on Debian Lenny:
+* http://packages.debian.org/en/lenny/all/tango-icon-theme/download
+
 If you manage to install Noosfero successfully on other systems than Debian,
 please feel free to contact the Noosfero development mailing with the
 instructions for doing so, and we'll include it here.
