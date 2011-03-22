@@ -1564,42 +1564,14 @@ class ProfileTest < Test::Unit::TestCase
     assert_equal [p2,p3,p4,p1] , Profile.more_recent
   end
 
-  should 'find more active profiles' do
-    Profile.destroy_all
-    p1 = fast_create(Profile)
-    p2 = fast_create(Profile)
-    p3 = fast_create(Profile)
-
-    ActionTracker::Record.destroy_all
-    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => p1, :created_at => Time.now)
-    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => p2, :created_at => Time.now)
-    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => p2, :created_at => Time.now)
-    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => p3, :created_at => Time.now)
-    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => p3, :created_at => Time.now)
-    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => p3, :created_at => Time.now)
-
-    assert_equal [p3,p2,p1] , Profile.more_active
-  end
-
-  should 'more active profile take in consideration only actions created only in the recent delay interval' do
-    Profile.delete_all
-    ActionTracker::Record.destroy_all
-    recent_delay = ActionTracker::Record::RECENT_DELAY.days.ago
-
-    p1 = fast_create(Profile)
-    p2 = fast_create(Profile)
-
-    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => p1, :created_at => recent_delay)
-    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => p1, :created_at => recent_delay)
-    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => p2, :created_at => recent_delay)
-    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => p2, :created_at => recent_delay - 1.day)
-
-    assert_equal [p1,p2], Profile.more_active
-  end
-
-  should 'list profiles that have no actions in more active list' do
+  should 'respond to more active' do
     profile = fast_create(Profile)
-    assert_includes Profile.more_active, profile
+    assert_respond_to Profile, :more_active
+  end
+
+  should 'respond to more popular' do
+    profile = fast_create(Profile)
+    assert_respond_to Profile, :more_popular
   end
 
   should "return the more recent label" do
@@ -1607,29 +1579,29 @@ class ProfileTest < Test::Unit::TestCase
     assert_equal "Since: ", p.more_recent_label
   end
 
-  should "return no actions if profile has 0 actions" do
+  should "return no activity if profile has 0 actions" do
     p = fast_create(Profile)
     assert_equal 0, p.recent_actions.count
-    assert_equal "no actions", p.more_active_label
+    assert_equal "no activity", p.more_active_label
   end
 
-  should "return one action on label if the profile has one action" do
+  should "return one activity on label if the profile has one action" do
     p = fast_create(Profile)
     fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => p, :created_at => Time.now)
     assert_equal 1, p.recent_actions.count
-    assert_equal "one action", p.more_active_label
+    assert_equal "one activity", p.more_active_label
   end
 
-  should "return number of actions on label if the profile has more than one action" do
+  should "return number of activities on label if the profile has more than one action" do
     p = fast_create(Profile)
     fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => p, :created_at => Time.now)
     fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => p, :created_at => Time.now)
     assert_equal 2, p.recent_actions.count
-    assert_equal "2 actions", p.more_active_label
+    assert_equal "2 activities", p.more_active_label
 
     fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => p, :created_at => Time.now)
     assert_equal 3, p.recent_actions.count
-    assert_equal "3 actions", p.more_active_label
+    assert_equal "3 activities", p.more_active_label
   end
 
   should 'provide list of galleries' do

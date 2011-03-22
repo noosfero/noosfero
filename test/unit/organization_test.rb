@@ -344,4 +344,46 @@ class OrganizationTest < Test::Unit::TestCase
     organization.add_member(person3)
     assert_equal "3 members", organization.more_popular_label
   end
+
+  should 'find more active organizations' do
+    person = fast_create(Person)
+    Organization.destroy_all
+    p1 = fast_create(Organization)
+    p2 = fast_create(Organization)
+    p3 = fast_create(Organization)
+
+    ActionTracker::Record.destroy_all
+    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => person, :created_at => Time.now, :target_id => p1.id)
+    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => person, :created_at => Time.now, :target_id => p2.id)
+    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => person, :created_at => Time.now, :target_id => p2.id)
+    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => person, :created_at => Time.now, :target_id => p3.id)
+    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => person, :created_at => Time.now, :target_id => p3.id)
+    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => person, :created_at => Time.now, :target_id => p3.id)
+
+    assert_equal [p3,p2,p1] , Organization.more_active
+  end
+
+  should 'more active profile take in consideration only actions created only in the recent delay interval' do
+    ActionTracker::Record.destroy_all
+    recent_delay = ActionTracker::Record::RECENT_DELAY.days.ago
+
+    person = fast_create(Person)
+    Organization.destroy_all
+    p1 = fast_create(Organization)
+    p2 = fast_create(Organization)
+
+    ActionTracker::Record.destroy_all
+    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => person, :created_at => recent_delay, :target_id => p1.id)
+    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => person, :created_at => recent_delay, :target_id => p1.id)
+    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => person, :created_at => recent_delay, :target_id => p2.id)
+    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => person, :created_at => recent_delay - 1.day, :target_id => p2.id)
+
+    assert_equal [p1,p2] , Organization.more_active
+  end
+
+  should 'list profiles that have no actions in more active list' do
+    profile = fast_create(Organization)
+    assert_includes Organization.more_active, profile
+  end
+
 end

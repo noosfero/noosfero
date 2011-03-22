@@ -27,6 +27,13 @@ class Organization < Profile
     :joins => "LEFT OUTER JOIN role_assignments ON profiles.id = role_assignments.resource_id",
     :order => "total DESC"
 
+  named_scope :more_active,
+    :select => "#{Profile.qualified_column_names}, count(action_tracker.id) as total",
+    :joins => "LEFT OUTER JOIN action_tracker ON profiles.id = action_tracker.target_id",
+    :group => Profile.qualified_column_names,
+    :order => 'total DESC',
+    :conditions => ['action_tracker.created_at >= ? OR action_tracker.id IS NULL', ActionTracker::Record::RECENT_DELAY.days.ago]
+
   def validation_methodology
     self.validation_info ? self.validation_info.validation_methodology : nil
   end

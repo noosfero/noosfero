@@ -27,6 +27,13 @@ class Person < Profile
       :joins => "LEFT OUTER JOIN friendships on profiles.id = friendships.person_id",
       :order => "total DESC"
 
+  named_scope :more_active,
+    :select => "#{Profile.qualified_column_names}, count(action_tracker.id) as total",
+    :joins => "LEFT OUTER JOIN action_tracker ON profiles.id = action_tracker.user_id",
+    :group => Profile.qualified_column_names,
+    :order => 'total DESC',
+    :conditions => ['action_tracker.created_at >= ? OR action_tracker.id IS NULL', ActionTracker::Record::RECENT_DELAY.days.ago]
+
   after_destroy do |person|
     Friendship.find(:all, :conditions => { :friend_id => person.id}).each { |friendship| friendship.destroy }
   end

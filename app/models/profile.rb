@@ -78,19 +78,11 @@ class Profile < ActiveRecord::Base
   end
 
   named_scope :visible, :conditions => { :visible => true }
-  # Subclasses must override this method
+  # Subclasses must override these methods
   named_scope :more_popular
+  named_scope :more_active
+
   named_scope :more_recent, :order => "created_at DESC"
-  named_scope :more_active, lambda {
-    {
-      :select => "#{Profile.qualified_column_names}, count(action_tracker.id) as total",
-      :joins => "LEFT OUTER JOIN action_tracker ON profiles.id = action_tracker.user_id" +
-                (self == Person ? '' : ' OR profiles.id = action_tracker.target_id'),
-      :group => Profile.qualified_column_names,
-      :order => 'total DESC',
-      :conditions => ['action_tracker.created_at >= ? OR action_tracker.id IS NULL', ActionTracker::Record::RECENT_DELAY.days.ago]
-    }
-  }
 
   acts_as_trackable :dependent => :destroy
 
@@ -792,9 +784,9 @@ private :generate_url, :url_options
     amount = recent_actions.count
     amount += recent_notifications.count if organization?
     {
-      0 => _('no actions'),
-      1 => _('one action')
-    }[amount] || _("%s actions") % amount
+      0 => _('no activity'),
+      1 => _('one activity')
+    }[amount] || _("%s activities") % amount
   end
 
   def more_popular_label
