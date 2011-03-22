@@ -8,7 +8,7 @@
 
   <%= labelled_form_field(_('Site name'), text_field(:environment, :name)) %>
 
-  <%= labelled_form_field _('Homepage content'), text_area(:environment, :description, :cols => 40, :style => 'width: 90%') %>
+  <%= labelled_form_field _('Homepage content'), text_area(:environment, :description, :cols => 40, :style => 'width: 90%', :class => 'mceEditor') %>
 
   <% button_bar do %>
     <%= submit_button(:save, _('Save')) %>
