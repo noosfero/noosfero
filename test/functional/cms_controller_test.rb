@@ -144,6 +144,14 @@ class CmsControllerTest < Test::Unit::TestCase
     assert_redirected_to '/random_page'
   end
 
+  should 'redirect to profile homepage after setting home page if no referer' do
+    a = profile.articles.build(:name => 'my new home page')
+    a.save!
+
+    post :set_home_page, :profile => profile.identifier, :id => a.id
+    assert_redirected_to profile.url
+  end
+
   should 'set last_changed_by when creating article' do
     login_as(profile.identifier)
 
