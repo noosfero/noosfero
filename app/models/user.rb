@@ -195,7 +195,7 @@ class User < ActiveRecord::Base
   end
 
   def name
-    person.name
+    person ? person.name : login
   end
 
   def enable_email!

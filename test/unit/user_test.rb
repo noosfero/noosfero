@@ -397,6 +397,18 @@ class UserTest < Test::Unit::TestCase
     assert_equal 15, User.expires_chat_status_every
   end
 
+  should 'respond name with related person name' do
+    user = create_user('testuser')
+    user.person.name = 'Test User'
+    assert_equal 'Test User', user.name
+  end
+
+  should 'respond name with login, if there is no person related' do
+    user = create_user('testuser')
+    user.person = nil
+    assert_equal 'testuser', user.name
+  end
+
   protected
     def new_user(options = {})
       user = User.new({ :login => 'quire', :email => 'quire@example.com', :password => 'quire', :password_confirmation => 'quire' }.merge(options))
