@@ -1,8 +1,6 @@
 <h2><%= _('Site info') %></h2>
 
-<% if @environment.enabled?('wysiwyg_editor_for_environment_home') %>
-  <%= render :file => 'shared/tiny_mce' %>
-<% end %>
+<%= render :file => 'shared/tiny_mce' %>
 
 <% labelled_form_for :environment, @environment do |f| %>
 
