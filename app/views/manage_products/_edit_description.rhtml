@@ -6,7 +6,7 @@
                    :url => {:controller => 'manage_products', :action => 'edit', :id => @product, :field => 'description'},
                    :html => {:id => 'product-description-form', :method => 'post'}) do |f| %>
 
-  <%= labelled_form_field(_('Description:'), f.text_area(:description, :rows => 15, :style => 'width: 90%;')) %>
+  <%= labelled_form_field(_('Description:'), f.text_area(:description, :rows => 15, :style => 'width: 90%;', :class => 'mceEditor')) %>
   <% button_bar do %>
     <%= submit_button :save, _('Save') %>
     <%= cancel_edit_product_link(@product, 'description') %>

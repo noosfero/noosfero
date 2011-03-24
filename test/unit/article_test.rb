@@ -576,10 +576,10 @@ class ArticleTest < Test::Unit::TestCase
     assert_kind_of Folder, b
   end
 
-  should 'copy slug' do
+  should 'not copy slug' do
     a = fast_create(Article, :slug => 'slug123')
     b = a.copy({})
-    assert_equal a.slug, b.slug
+    assert a.slug != b.slug
   end
 
   should 'load article under an old path' do
@@ -1472,6 +1472,30 @@ class ArticleTest < Test::Unit::TestCase
       item = fast_create(klass)
       assert_not_includes Article.no_folders, item
     end
+  end
+
+  should 'accept uploads if parent accept uploads' do
+    folder = fast_create(Folder)
+    child = fast_create(UploadedFile, :parent_id => folder.id)
+    assert folder.accept_uploads?
+    assert child.accept_uploads?
+  end
+
+  should 'not accept uploads if has no parent' do
+    child = fast_create(UploadedFile)
+    assert !child.accept_uploads?
+  end
+
+  should 'not accept uploads if parent is a blog' do
+    folder = fast_create(Blog)
+    child = fast_create(UploadedFile, :parent_id => folder.id)
+    assert !child.accept_uploads?
+  end
+
+  should 'not accept uploads if parent is a forum' do
+    folder = fast_create(Forum)
+    child = fast_create(UploadedFile, :parent_id => folder.id)
+    assert !child.accept_uploads?
   end
 
 end

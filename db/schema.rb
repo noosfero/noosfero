@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110302214607) do
+ActiveRecord::Schema.define(:version => 20110316171323) do
 
   create_table "action_tracker", :force => true do |t|
     t.integer  "user_id"
@@ -345,7 +345,7 @@ ActiveRecord::Schema.define(:version => 20110302214607) do
     t.datetime "updated_at"
     t.float    "lat"
     t.float    "lng"
-    t.float    "discount"
+    t.decimal  "discount"
     t.boolean  "available",           :default => true
     t.boolean  "highlighted"
     t.integer  "unit_id"

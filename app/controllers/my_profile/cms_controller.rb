@@ -169,7 +169,7 @@ class CmsController < MyProfileController
     profile.home_page = @article
     profile.save(false)
     session[:notice] = _('"%s" configured as home page.') % @article.name
-    redirect_to :action => 'view', :id => @article.id
+    redirect_to (request.referer || profile.url)
   end
 
   def upload_files

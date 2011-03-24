@@ -378,4 +378,31 @@ class ApproveArticleTest < ActiveSupport::TestCase
     end
   end
 
+  should 'approve same article twice changing its name' do
+    task1 = ApproveArticle.create!(:article => article, :target => community, :requestor => profile)
+    assert_difference article.class, :count do
+      task1.finish
+    end
+    task2 = ApproveArticle.create!(:name => article.name + ' v2', :article => article, :target => community, :requestor => profile)
+    assert_difference article.class, :count do
+      assert_nothing_raised ActiveRecord::RecordInvalid do
+         task2.finish
+      end
+    end
+  end
+
+  should 'not approve same article twice if not changing its name' do
+    task1 = ApproveArticle.create!(:article => article, :target => community, :requestor => profile)
+    assert_difference article.class, :count do
+      task1.finish
+    end
+    task2 = ApproveArticle.create!(:article => article, :target => community, :requestor => profile)
+    assert_no_difference article.class, :count do
+      assert_raises ActiveRecord::RecordInvalid do
+         task2.finish
+      end
+    end
+  end
+
+
 end

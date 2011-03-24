@@ -140,4 +140,9 @@ class FolderTest < ActiveSupport::TestCase
     assert folder.errors.on(:parent)
   end
 
+  should 'accept uploads' do
+    folder = fast_create(Folder)
+    assert folder.accept_uploads?
+  end
+
 end

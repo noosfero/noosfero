@@ -33,6 +33,18 @@
 
 <%= render :partial => 'shared/disabled_enterprise' %>
 
+<% if NOOSFERO_CONF['addthis_enabled'] %>
+<div id="addThis">
+<script type="text/javascript">
+  addthis_brand = '<%= escape_javascript( @environment.name ) %>';
+  addthis_pub = '<%= escape_javascript( NOOSFERO_CONF['addthis_pub'] ) %>';
+  addthis_logo = '<%= escape_javascript( NOOSFERO_CONF['addthis_logo'] ) %>';
+  addthis_options = '<%= escape_javascript( NOOSFERO_CONF['addthis_options'] ) %>';
+</script>
+<a href="http://www.addthis.com/bookmark.php" id="bt_addThis" target="_blank" onmouseover="return addthis_open(this, '', '[URL]')" onmouseout="addthis_close()" onclick="return addthis_sendto()"><img src="/images/bt-bookmark.gif" width="53" height="16" border="0" alt="" /></a><script type="text/javascript" src="http://s7.addthis.com/js/152/addthis_widget.js"></script>
+</div>
+<% end %>
+
 <% cache(@page.cache_key(params, user)) do %>
   <div class="<%="article-body article-body-" + @page.css_class_name %>">
     <% options = @page.image? ? {:gallery_view => true} : {} %>
@@ -49,18 +61,6 @@
 <% end %>
 
 <%= display_source_info(@page) %>
-
-<% if NOOSFERO_CONF['addthis_enabled'] %>
-<div id="addThis">
-<script type="text/javascript">
-  addthis_brand = '<%= escape_javascript( @environment.name ) %>';
-  addthis_pub = '<%= escape_javascript( NOOSFERO_CONF['addthis_pub'] ) %>';
-  addthis_logo = '<%= escape_javascript( NOOSFERO_CONF['addthis_logo'] ) %>';
-  addthis_options = '<%= escape_javascript( NOOSFERO_CONF['addthis_options'] ) %>';
-</script>
-<a href="http://www.addthis.com/bookmark.php" id="bt_addThis" target="_blank" onmouseover="return addthis_open(this, '', '[URL]')" onmouseout="addthis_close()" onclick="return addthis_sendto()"><img src="/images/bt-bookmark.gif" width="53" height="16" border="0" alt="" /></a><script type="text/javascript" src="http://s7.addthis.com/js/152/addthis_widget.js"></script>
-</div>
-<% end %>
 
 <div class="comments" id="comments_list">
   <% if @page.accept_comments? %>

@@ -115,9 +115,7 @@ class CmsControllerTest < Test::Unit::TestCase
 
     post :set_home_page, :profile => profile.identifier, :id => a.id
 
-    assert_redirected_to :action => 'view', :id => a.id
-
-    profile = Profile.find(@profile.id)
+    profile.reload
     assert_equal a, profile.home_page
   end
 
@@ -133,12 +131,26 @@ class CmsControllerTest < Test::Unit::TestCase
 
     post :set_home_page, :profile => profile.identifier, :id => a.id
 
-    assert_redirected_to :action => 'view', :id => a.id
-
-    profile = Profile.find(@profile.id)
+    profile.reload
     assert_equal a, profile.home_page
   end
 
+  should 'redirect to previous page after setting home page' do
+    a = profile.articles.build(:name => 'my new home page')
+    a.save!
+
+    @request.env['HTTP_REFERER'] = '/random_page'
+    post :set_home_page, :profile => profile.identifier, :id => a.id
+    assert_redirected_to '/random_page'
+  end
+
+  should 'redirect to profile homepage after setting home page if no referer' do
+    a = profile.articles.build(:name => 'my new home page')
+    a.save!
+
+    post :set_home_page, :profile => profile.identifier, :id => a.id
+    assert_redirected_to profile.url
+  end
 
   should 'set last_changed_by when creating article' do
     login_as(profile.identifier)

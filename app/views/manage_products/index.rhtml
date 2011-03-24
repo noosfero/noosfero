@@ -22,7 +22,7 @@
   <% end %>
 </table>
 
-<%= will_paginate @products %>
+<%= pagination_links @products %>
 
 <% button_bar do %>
   <%= button :add, _('New product or service'), :action => 'new' %>
