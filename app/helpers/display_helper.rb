@@ -27,14 +27,18 @@ module DisplayHelper
   end
 
   def txt2html(txt)
-    txt.
-      gsub( /\n\s*\n/, ' <p/> ' ).
-      gsub( /\n/, ' <br/> ' ).
-      gsub( /(^|\s)(www\.[^\s])/, '\1http://\2' ).
-      gsub( /(https?:\/\/([^\s]+))/ ) do
-        href, content = $1, $2.scan(/.{4}/).join('&#x200B;')
-        content_tag(:a, content, :href => href, :target => '_blank', :rel => 'nofolow',
-                    :onclick => "return confirm('%s')" % escape_javascript(_('Are you sure you want to visit this web site?')))
+    txt.strip.
+      gsub( /\s*\n\s*\n\s*/, "\r<p/>\r" ).
+      gsub( /\s*\n\s*/, "\n<br/>\n" ).
+      gsub( /\r/, "\n" ).
+      gsub( /(^|\s)(www\.[^\s]+|https?:\/\/[^\s]+)/ ) do
+        pre_char, href = $1, $2
+        href = 'http://'+href  if ! href.match /^https?:/
+        content = href.gsub(/^https?:\/\//, '').scan(/.{1,4}/).join('&#x200B;')
+        pre_char +
+        content_tag(:a, content, :href => href, :target => '_blank',
+                    :rel => 'nofolow', :onclick => "return confirm('%s')" %
+                      _('Are you sure you want to visit this web site?'))
       end
   end
 end
