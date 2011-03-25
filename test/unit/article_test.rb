@@ -1367,6 +1367,11 @@ class ArticleTest < Test::Unit::TestCase
     assert_equal article, article.get_translation_to('en')
   end
 
+  should 'get self if language article is blank' do
+    article = fast_create(Article, :language => '', :profile_id => @profile.id)
+    assert_equal article, article.get_translation_to('en')
+  end
+
   should 'get self if article is the translation' do
     article = fast_create(Article, :language => 'pt', :profile_id => @profile.id)
     assert_equal article, article.get_translation_to('pt')
@@ -1386,7 +1391,7 @@ class ArticleTest < Test::Unit::TestCase
 
   should 'get self if article does not has a translation' do
     native_article = fast_create(Article, :language => 'pt', :profile_id => @profile.id)
-    assert_equal native_article, native_article.get_translation_to('en')
+    assert_nil native_article.get_translation_to('en')
   end
 
   should 'get only non translated articles' do
