@@ -6145,7 +6145,7 @@ msgstr "Tamanho da imagem"
 
 #: app/views/box_organizer/_slideshow_block.rhtml:5
 msgid "Slideshow size"
-msgstr "Temanho para slideshow"
+msgstr "Tamanho para slideshow"
 
 #: app/views/box_organizer/_link_list_block.rhtml:1
 msgid "Links"
