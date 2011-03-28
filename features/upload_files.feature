@@ -8,7 +8,7 @@ Feature: upload files
       | joaosilva | Joao Silva |
     And I am logged in as "joaosilva"
 
-
+  @selenium
   Scenario: provile links to upload files to community's gallery
     Given the following communities
       | identifier | name | owner |
@@ -20,6 +20,7 @@ Feature: upload files
     And I follow "0 pictures"
     And I should see "Upload files"
 
+  @selenium
   Scenario: provile links to upload files to enterprise's gallery
     Given the following enterprises
       | identifier | name | owner |
