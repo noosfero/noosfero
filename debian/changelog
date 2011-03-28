@@ -1,3 +1,9 @@
+noosfero (0.29.5) unstable; urgency=low
+
+  * Bugfix Version release. (Closes: AI#1961)
+
+ -- Daniela Soares Feitosa <daniela@colivre.coop.br>  Fri, 25 Mar 2011 16:45:27 -0300
+
 noosfero (0.29.4) unstable; urgency=low
 
   * Bugfixes Version release. (Closes: AI#1938 AI#1943 AI#1928 AI#1929 AI#1932 AI#1946 AI#1909 AI#1947 AI#1935 AI#1930 AI#1936 AI#1926 AI#1922)

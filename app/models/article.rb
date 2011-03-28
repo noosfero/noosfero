@@ -319,12 +319,12 @@ class Article < ActiveRecord::Base
   end
 
   def get_translation_to(locale)
-    if self.language.nil? || self.language == locale
+    if self.language.nil? || self.language.blank? || self.language == locale
       self
     elsif self.native_translation.language == locale
       self.native_translation
     else
-      self.native_translation.translations.first(:conditions => { :language => locale }) || self
+      self.native_translation.translations.first(:conditions => { :language => locale })
     end
   end
 

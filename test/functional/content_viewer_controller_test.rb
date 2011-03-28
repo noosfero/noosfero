@@ -1223,6 +1223,23 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     assert_no_tag :div, :attributes => { :id => "post-#{en_article.id}" }
   end
 
+  should 'not display article at blog listing if blog option is enabled and there is no translation for the language' do
+    FastGettext.stubs(:locale).returns('pt')
+    blog = fast_create(Blog, :profile_id => profile.id, :path => 'blog')
+    blog.stubs(:display_posts_in_current_language).returns(true)
+    en_article = fast_create(TextileArticle, :profile_id => @profile.id, :path => 'en_article', :language => 'en', :parent_id => blog.id)
+    es_article = fast_create(TextileArticle, :profile_id => @profile.id, :path => 'es_article', :language => 'es', :parent_id => blog.id, :translation_of_id => en_article)
+    pt_article = fast_create(TextileArticle, :profile_id => @profile.id, :path => 'es_article', :language => 'pt', :parent_id => blog.id, :translation_of_id => en_article)
+
+    en_article2 = fast_create(TextileArticle, :profile_id => @profile.id, :path => 'en_article', :language => 'en', :parent_id => blog.id)
+    es_article2 = fast_create(TextileArticle, :profile_id => @profile.id, :path => 'es_article', :language => 'es', :parent_id => blog.id, :translation_of_id => en_article2)
+
+
+    get :view_page, :profile => @profile.identifier, :page => blog.explode_path
+
+    assert_equal [pt_article], assigns(:posts)
+  end
+
   should 'list all posts at blog listing if blog option is disabled' do
     FastGettext.stubs(:locale).returns('es')
     blog = Blog.create!(:name => 'A blog test', :profile => profile, :display_posts_in_current_language => false)
