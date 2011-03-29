@@ -9,21 +9,6 @@ class RoleController < AdminController
     @role = environment.roles.find(params[:id])
   end
 
-  def new
-    @role = Role.new
-  end
-
-  def create
-    @role = Role.new(params[:role])
-    @role.environment = environment
-    if @role.save
-      redirect_to :action => 'show', :id => @role
-    else
-      session[:notice] = _('Failed to create role')
-      render :action => 'new'
-    end
-  end
-
   def edit
     @role = environment.roles.find(params[:id])
   end
@@ -38,13 +23,4 @@ class RoleController < AdminController
     end
   end
 
-  def destroy
-    @role = environment.roles.find(params[:id])
-    if @role.destroy
-      redirect_to :action => 'index'
-    else
-      session[:notice] = _('Failed to edit role')
-      redirect_to :action => 'index'
-    end
-  end
 end

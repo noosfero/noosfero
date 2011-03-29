@@ -38,22 +38,6 @@ class RoleControllerTest < Test::Unit::TestCase
     assert_equal @role.id, assigns(:role).id 
   end
 
-  def test_should_create_with_valid_paramters
-    Role.any_instance.stubs(:valid?).returns(true)
-    post 'create'
-    assert !assigns(:role).new_record?
-    assert_nil session[:notice]
-    assert_response :redirect
-  end
-  
-  def test_should_not_create_with_invalid_paramters
-    Role.any_instance.stubs(:valid?).returns(false)
-    post 'create'
-    assert assigns(:role).new_record?
-    assert_not_nil session[:notice]
-    assert_response :success
-  end
-
   def test_can_edit
     get 'edit', :id => @role.id
     assert_not_nil assigns(:role)
@@ -74,13 +58,6 @@ class RoleControllerTest < Test::Unit::TestCase
     assert_response :success
     assert_not_nil assigns(:role)
     assert_not_nil session[:notice]
-  end
-
-  def test_should_destroy
-    assert_difference Role, :count, -1 do
-      post 'destroy', :id => @role.id
-      assert_not_nil assigns(:role)
-    end
   end
 
   should 'not crash when editing role with no permissions' do
