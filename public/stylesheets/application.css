@@ -1060,6 +1060,16 @@ code input {
   white-space: pre-wrap;
 }
 
+#article .article-body a.icon {
+  padding: 0px 0px 3px 20px;
+  border: none;
+  background-repeat: no-repeat;
+}
+
+#article .article-body a.icon:hover {
+  background-color: transparent;
+}
+
 /* * *  Comments  * * */
 
 .comments {  }
