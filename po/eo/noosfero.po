@@ -1,0 +1,7913 @@
+# translation of noosfero.po to Esperanto
+# Copyright (C) 2011
+# This file is distributed under the same license as noosfero itself.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: noosfero 0.29.5\n"
+"POT-Creation-Date: 2011-03-30 20:58-0300\n"
+"PO-Revision-Date: 2011-03-30 20:52-0300\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: \n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: app/helpers/categories_helper.rb:5
+msgid "Do not display at the menu"
+msgstr ""
+
+#: app/helpers/categories_helper.rb:6
+msgid "Orange"
+msgstr ""
+
+#: app/helpers/categories_helper.rb:7
+msgid "Green"
+msgstr ""
+
+#: app/helpers/categories_helper.rb:8
+msgid "Purple"
+msgstr ""
+
+#: app/helpers/categories_helper.rb:9
+msgid "Red"
+msgstr ""
+
+#: app/helpers/categories_helper.rb:13
+msgid "General Category"
+msgstr ""
+
+#: app/helpers/categories_helper.rb:14
+msgid "Product Category"
+msgstr ""
+
+#: app/helpers/categories_helper.rb:15 app/models/categories_block.rb:5
+#: app/models/profile.rb:-
+#: app/views/enterprise_registration/basic_information.rhtml:25
+msgid "Region"
+msgstr ""
+
+#: app/helpers/categories_helper.rb:20
+msgid "Display at the menu?"
+msgstr ""
+
+#: app/helpers/categories_helper.rb:37
+msgid "Type of category"
+msgstr ""
+
+#: app/helpers/enterprise_validation_helper.rb:6
+msgid "Approved"
+msgstr ""
+
+#: app/helpers/enterprise_validation_helper.rb:11
+msgid "Rejected"
+msgstr ""
+
+#: app/helpers/language_helper.rb:24 app/helpers/language_helper.rb:34
+msgid ""
+"The language you choose here is the language used for options, buttons, etc. "
+"It does not affect the language of the content created by other users."
+msgstr ""
+
+#: app/helpers/folder_helper.rb:15 app/views/content_viewer/folder.rhtml:9
+msgid "(empty folder)"
+msgstr ""
+
+#: app/helpers/folder_helper.rb:61 app/helpers/article_helper.rb:5
+msgid "Options"
+msgstr ""
+
+#: app/helpers/folder_helper.rb:66 app/helpers/article_helper.rb:10
+msgid "This article must be published (visible to other people)"
+msgstr ""
+
+#: app/helpers/folder_helper.rb:71 app/helpers/article_helper.rb:27
+msgid "I want this article to display the number of hits it received"
+msgstr ""
+
+#: app/helpers/folder_helper.rb:78 app/helpers/article_helper.rb:33
+#: app/models/approve_article.rb:55 app/views/shared/user_menu.rhtml:23
+msgid "New article"
+msgstr ""
+
+#: app/helpers/folder_helper.rb:82
+msgid "Edit folder"
+msgstr ""
+
+#: app/helpers/assets_helper.rb:7
+#: app/controllers/public/search_controller.rb:130
+#: app/controllers/public/search_controller.rb:199
+#: app/views/search/articles.rhtml:1
+msgid "Articles"
+msgstr ""
+
+#: app/helpers/assets_helper.rb:8 app/helpers/application_helper.rb:1072
+#: app/controllers/public/search_controller.rb:132
+#: app/controllers/public/search_controller.rb:193
+#: app/models/people_block.rb:4 app/views/search/people.rhtml:1
+msgid "People"
+msgstr ""
+
+#: app/helpers/assets_helper.rb:9 app/helpers/application_helper.rb:513
+#: app/controllers/public/search_controller.rb:134
+#: app/controllers/public/search_controller.rb:195
+#: app/models/enterprise.rb:128 app/models/products_block.rb:8
+#: app/models/products_block.rb:12 app/views/search/_sellers_form.rhtml:8
+msgid "Products"
+msgstr ""
+
+#: app/helpers/assets_helper.rb:10
+#: app/controllers/public/search_controller.rb:131
+#: app/controllers/public/search_controller.rb:194
+#: app/models/enterprises_block.rb:12 app/views/search/_sellers_form.rhtml:7
+#: app/views/search/enterprises.rhtml:5
+#: app/views/profile/_person_profile.rhtml:38
+msgid "Enterprises"
+msgstr ""
+
+#: app/helpers/assets_helper.rb:11 app/helpers/application_helper.rb:498
+#: app/helpers/application_helper.rb:1087
+#: app/controllers/public/search_controller.rb:133
+#: app/controllers/public/search_controller.rb:197
+#: app/models/communities_block.rb:4 app/views/search/communities.rhtml:1
+#: app/views/profile/_person_profile.rhtml:56
+msgid "Communities"
+msgstr ""
+
+#: app/helpers/assets_helper.rb:12
+#: app/controllers/public/search_controller.rb:135
+#: public/designs/themes/base/navigation.rhtml:7
+#: public/designs/themes/noosfero/navigation.rhtml:7
+msgid "Events"
+msgstr ""
+
+#: app/helpers/lightbox_helper.rb:27
+msgid "Please, try again when the page loading completes."
+msgstr ""
+
+#: app/helpers/chat_helper.rb:5 app/views/layouts/chat.rhtml:15
+msgid "Online"
+msgstr ""
+
+#: app/helpers/chat_helper.rb:6 app/views/layouts/chat.rhtml:16
+msgid "Busy"
+msgstr ""
+
+#: app/helpers/chat_helper.rb:7
+msgid "Sign out of chat"
+msgstr ""
+
+#: app/helpers/forms_helper.rb:35 app/helpers/manage_products_helper.rb:163
+#: app/models/link_list_block.rb:9
+#: app/views/shared/_select_categories.rhtml:22
+#: app/views/shared/_change_image.rhtml:2
+#: app/views/cms/suggest_an_article.rhtml:30
+#: app/views/cms/select_article_type.rhtml:16 app/views/cms/edit.rhtml:42
+#: app/views/cms/edit.rhtml:44 app/views/cms/edit.rhtml:46
+#: app/views/profile_editor/header_footer.rhtml:29
+#: app/views/memberships/new_community.rhtml:43
+#: app/views/manage_products/_add_input.rhtml:20
+#: app/views/manage_products/_edit_input.rhtml:33
+#: app/views/content_viewer/_comment_form.rhtml:43
+#: app/views/box_organizer/edit.rhtml:25
+#: app/views/account/accept_terms.rhtml:24
+#: app/views/account/activation_question.rhtml:38
+#: app/views/account/login.rhtml:17 app/views/account/_login_form.rhtml:19
+#: app/views/themes/add_css.rhtml:8 app/views/profile/_profile_scrap.rhtml:29
+#: app/views/profile/_profile_scrap.rhtml:43
+#: app/views/profile/_profile_network_activities.rhtml:21
+#: app/views/admin_panel/message_for_disabled_enterprise.rhtml:11
+#: app/views/admin_panel/set_portal_news_amount.rhtml:9
+#: app/views/admin_panel/terms_of_use.rhtml:11
+#: app/views/admin_panel/site_info.rhtml:13
+msgid "Cancel"
+msgstr ""
+
+#: app/helpers/forms_helper.rb:68
+msgid "Select the State"
+msgstr ""
+
+#: app/helpers/forms_helper.rb:69
+msgid "Select the City"
+msgstr ""
+
+#: app/helpers/forms_helper.rb:92
+msgid "State:"
+msgstr ""
+
+#: app/helpers/forms_helper.rb:95
+msgid "City:"
+msgstr ""
+
+#: app/helpers/forms_helper.rb:109
+msgid ""
+"The <label class='pseudoformlabel'>highlighted</label> fields are mandatory."
+msgstr ""
+
+#: app/helpers/forum_helper.rb:4
+msgid "New discussion topic"
+msgstr ""
+
+#: app/helpers/forum_helper.rb:8
+msgid "Configure forum"
+msgstr ""
+
+#: app/helpers/forum_helper.rb:14 app/helpers/blog_helper.rb:20
+msgid "&laquo; Newer posts"
+msgstr ""
+
+#: app/helpers/forum_helper.rb:15 app/helpers/blog_helper.rb:21
+msgid "Older posts &raquo;"
+msgstr ""
+
+#: app/helpers/forum_helper.rb:18
+msgid "Discussion topic"
+msgstr ""
+
+#: app/helpers/forum_helper.rb:19
+msgid "Posts"
+msgstr ""
+
+#: app/helpers/forum_helper.rb:20
+msgid "Last post"
+msgstr ""
+
+#: app/helpers/forum_helper.rb:45 app/helpers/forum_helper.rb:47
+#: app/views/profile/_profile_scrap.rhtml:10
+#: app/views/profile/_profile_activities.rhtml:7
+#: app/views/profile/_profile_network_activities.rhtml:10
+msgid "ago"
+msgstr ""
+
+#: app/helpers/forum_helper.rb:45 app/helpers/forum_helper.rb:47
+#: app/helpers/manage_products_helper.rb:257
+msgid "by"
+msgstr ""
+
+#: app/helpers/catalog_helper.rb:14 app/views/search/_product.rhtml:15
+msgid "Price: %s"
+msgstr ""
+
+#: app/helpers/catalog_helper.rb:20 app/views/blocks/profile_info.rhtml:21
+#: app/views/profile/_organization_profile.rhtml:26
+msgid "Products/Services"
+msgstr ""
+
+#: app/helpers/catalog_helper.rb:29 app/helpers/display_helper.rb:16
+#: app/helpers/display_helper.rb:25 app/models/product.rb:83
+msgid "Uncategorized product"
+msgstr ""
+
+#: app/helpers/tags_helper.rb:33
+msgid "No tags yet."
+msgstr ""
+
+#: app/helpers/tags_helper.rb:34
+msgid "http://en.wikipedia.org/wiki/Tag_%28metadata%29"
+msgstr ""
+
+#: app/helpers/tags_helper.rb:36
+msgid "What are tags?"
+msgstr ""
+
+#: app/helpers/tags_helper.rb:61
+msgid "one item"
+msgid_plural "%d items"
+msgstr[0] ""
+msgstr[1] ""
+
+#: app/helpers/events_helper.rb:4
+msgid "Select a day on the left to display it's events here"
+msgstr ""
+
+#: app/helpers/events_helper.rb:5
+msgid "Events for %s"
+msgstr ""
+
+#: app/helpers/events_helper.rb:10
+msgid "No events for this date"
+msgstr ""
+
+#: app/helpers/dates_helper.rb:7
+msgid "January"
+msgstr ""
+
+#: app/helpers/dates_helper.rb:8
+msgid "February"
+msgstr ""
+
+#: app/helpers/dates_helper.rb:9
+msgid "March"
+msgstr ""
+
+#: app/helpers/dates_helper.rb:10
+msgid "April"
+msgstr ""
+
+#: app/helpers/dates_helper.rb:11
+msgid "May"
+msgstr ""
+
+#: app/helpers/dates_helper.rb:12
+msgid "June"
+msgstr ""
+
+#: app/helpers/dates_helper.rb:13
+msgid "July"
+msgstr ""
+
+#: app/helpers/dates_helper.rb:14
+msgid "August"
+msgstr ""
+
+#: app/helpers/dates_helper.rb:15
+msgid "September"
+msgstr ""
+
+#: app/helpers/dates_helper.rb:16
+msgid "October"
+msgstr ""
+
+#: app/helpers/dates_helper.rb:17
+msgid "November"
+msgstr ""
+
+#: app/helpers/dates_helper.rb:18
+msgid "December"
+msgstr ""
+
+#: app/helpers/dates_helper.rb:28
+msgid "%{month}/%{day}/%{year}"
+msgstr ""
+
+#: app/helpers/dates_helper.rb:30
+msgid "%{month} %{day}, %{year}"
+msgstr ""
+
+#: app/helpers/dates_helper.rb:39
+msgid "%{day} %{month} %{year}, %{hour}:%{minutes}"
+msgstr ""
+
+#: app/helpers/dates_helper.rb:49
+msgid "from %{date1} to %{date2}"
+msgstr ""
+
+#: app/helpers/dates_helper.rb:55
+msgid "Sun"
+msgstr ""
+
+#: app/helpers/dates_helper.rb:55
+msgid "Mon"
+msgstr ""
+
+#: app/helpers/dates_helper.rb:55
+msgid "Tue"
+msgstr ""
+
+#: app/helpers/dates_helper.rb:55
+msgid "Wed"
+msgstr ""
+
+#: app/helpers/dates_helper.rb:55
+msgid "Thu"
+msgstr ""
+
+#: app/helpers/dates_helper.rb:55
+msgid "Fri"
+msgstr ""
+
+#: app/helpers/dates_helper.rb:55
+msgid "Sat"
+msgstr ""
+
+#: app/helpers/dates_helper.rb:61
+msgid "Sunday"
+msgstr ""
+
+#: app/helpers/dates_helper.rb:62
+msgid "Monday"
+msgstr ""
+
+#: app/helpers/dates_helper.rb:63
+msgid "Tuesday"
+msgstr ""
+
+#: app/helpers/dates_helper.rb:64
+msgid "Wednesday"
+msgstr ""
+
+#: app/helpers/dates_helper.rb:65
+msgid "Thursday"
+msgstr ""
+
+#: app/helpers/dates_helper.rb:66
+msgid "Friday"
+msgstr ""
+
+#: app/helpers/dates_helper.rb:67
+msgid "Saturday"
+msgstr ""
+
+#: app/helpers/dates_helper.rb:79
+msgid "%{month} %{year}"
+msgstr ""
+
+#: app/helpers/boxes_helper.rb:37 app/helpers/boxes_helper.rb:63
+#: app/models/main_block.rb:4
+msgid "Main content"
+msgstr ""
+
+#: app/helpers/boxes_helper.rb:100
+msgid "This block is invisible. Your visitors will not see it."
+msgstr ""
+
+#: app/helpers/boxes_helper.rb:189
+msgid "Can't move up anymore."
+msgstr ""
+
+#: app/helpers/boxes_helper.rb:191
+msgid "Move block up"
+msgstr ""
+
+#: app/helpers/boxes_helper.rb:195
+msgid "Can't move down anymore."
+msgstr ""
+
+#: app/helpers/boxes_helper.rb:197
+msgid "Move block down"
+msgstr ""
+
+#: app/helpers/boxes_helper.rb:205 app/helpers/boxes_helper.rb:207
+msgid "Move to the opposite side"
+msgstr ""
+
+#: app/helpers/boxes_helper.rb:212 app/helpers/article_helper.rb:37
+#: app/models/link_list_block.rb:5 app/views/categories/_category.rhtml:14
+#: app/views/cms/view.rhtml:52
+#: app/views/manage_products/_display_input.rhtml:6
+#: app/views/role/index.rhtml:14 app/views/profile_members/add_admin.rhtml:17
+#: app/views/profile_members/add_member.rhtml:17
+#: app/views/profile_members/remove_admin.rhtml:17
+#: app/views/profile_members/unassociate.rhtml:17
+#: app/views/profile_members/_members_list.rhtml:17
+msgid "Edit"
+msgstr ""
+
+#: app/helpers/boxes_helper.rb:216
+msgid "Remove block"
+msgstr ""
+
+#: app/helpers/boxes_helper.rb:216
+msgid "Are you sure you want to remove this block?"
+msgstr ""
+
+#: app/helpers/boxes_helper.rb:220
+msgid "Help on this block"
+msgstr ""
+
+#: app/helpers/boxes_helper.rb:220 app/helpers/application_helper.rb:73
+#: app/models/link_list_block.rb:23
+msgid "Help"
+msgstr ""
+
+#: app/helpers/boxes_helper.rb:220 app/helpers/application_helper.rb:93
+#: app/views/cms/why_categorize.rhtml:8 app/views/search/_search_form.rhtml:59
+#: app/views/box_organizer/add_block.rhtml:26
+msgid "Close"
+msgstr ""
+
+#: app/helpers/features_helper.rb:4
+msgid "Administrator must approve all new organizations"
+msgstr ""
+
+#: app/helpers/features_helper.rb:5
+msgid "Administrator assigns validator organizations per region."
+msgstr ""
+
+#: app/helpers/features_helper.rb:6
+msgid "All new organizations are approve by default"
+msgstr ""
+
+#: app/helpers/content_viewer_helper.rb:9
+msgid "No comments yet"
+msgstr "Neniu komento"
+
+#: app/helpers/content_viewer_helper.rb:11
+msgid "One comment"
+msgid_plural "%{comments} comments"
+msgstr[0] "Unu komento"
+msgstr[1] "%{comments} komentoj"
+
+#: app/helpers/content_viewer_helper.rb:27
+msgid "%s, by %s %s"
+msgstr ""
+
+#: app/helpers/content_viewer_helper.rb:42
+msgid "Translations"
+msgstr ""
+
+#: app/helpers/profile_editor_helper.rb:5
+msgid "Agrometeorology"
+msgstr ""
+
+#: app/helpers/profile_editor_helper.rb:6
+msgid "Agronomy"
+msgstr ""
+
+#: app/helpers/profile_editor_helper.rb:7
+msgid "Foods"
+msgstr ""
+
+#: app/helpers/profile_editor_helper.rb:8
+msgid "Anthropology"
+msgstr ""
+
+#: app/helpers/profile_editor_helper.rb:9
+msgid "Architecture"
+msgstr ""
+
+#: app/helpers/profile_editor_helper.rb:10
+msgid "Arts"
+msgstr ""
+
+#: app/helpers/profile_editor_helper.rb:11
+msgid "Astronomy"
+msgstr ""
+
+#: app/helpers/profile_editor_helper.rb:12
+msgid "Librarianship"
+msgstr ""
+
+#: app/helpers/profile_editor_helper.rb:13
+msgid "Biosciences"
+msgstr ""
+
+#: app/helpers/profile_editor_helper.rb:14
+msgid "Biophysics"
+msgstr ""
+
+#: app/helpers/profile_editor_helper.rb:15
+msgid "Biology"
+msgstr ""
+
+#: app/helpers/profile_editor_helper.rb:16
+msgid "Biotechnology"
+msgstr ""
+
+#: app/helpers/profile_editor_helper.rb:17
+msgid "Botany"
+msgstr ""
+
+#: app/helpers/profile_editor_helper.rb:18
+msgid "Science Politics"
+msgstr ""
+
+#: app/helpers/profile_editor_helper.rb:19
+msgid "Accounting and Actuarial Science"
+msgstr ""
+
+#: app/helpers/profile_editor_helper.rb:20
+msgid "Morphologic Sciences"
+msgstr ""
+
+#: app/helpers/profile_editor_helper.rb:21
+msgid "Computer Science"
+msgstr ""
+
+#: app/helpers/profile_editor_helper.rb:22
+msgid "Rural Development"
+msgstr ""
+
+#: app/helpers/profile_editor_helper.rb:23
+msgid "Law"
+msgstr ""
+
+#: app/helpers/profile_editor_helper.rb:24
+msgid "Ecology"
+msgstr ""
+
+#: app/helpers/profile_editor_helper.rb:25
+msgid "Economy"
+msgstr ""
+
+#: app/helpers/profile_editor_helper.rb:26 app/models/person.rb:159
+#: app/views/profile_editor/_person_form.rhtml:47
+msgid "Education"
+msgstr ""
+
+#: app/helpers/profile_editor_helper.rb:27
+msgid "Long-distance Education"
+msgstr ""
+
+#: app/helpers/profile_editor_helper.rb:28
+msgid "Physical Education"
+msgstr ""
+
+#: app/helpers/profile_editor_helper.rb:29
+msgid "Professional Education"
+msgstr ""
+
+#: app/helpers/profile_editor_helper.rb:30
+msgid "Nursing"
+msgstr ""
+
+#: app/helpers/profile_editor_helper.rb:31
+msgid "Engineerings"
+msgstr ""
+
+#: app/helpers/profile_editor_helper.rb:32
+msgid "Basic and Average education"
+msgstr ""
+
+#: app/helpers/profile_editor_helper.rb:33
+msgid "Statistics"
+msgstr ""
+
+#: app/helpers/profile_editor_helper.rb:34
+msgid "Stratigraphy"
+msgstr ""
+
+#: app/helpers/profile_editor_helper.rb:35
+msgid "Pharmacy"
+msgstr ""
+
+#: app/helpers/profile_editor_helper.rb:36
+msgid "Pharmacology"
+msgstr ""
+
+#: app/helpers/profile_editor_helper.rb:37
+msgid "Philosophy"
+msgstr ""
+
+#: app/helpers/profile_editor_helper.rb:38
+msgid "Physics"
+msgstr ""
+
+#: app/helpers/profile_editor_helper.rb:39
+msgid "Plant Protection"
+msgstr ""
+
+#: app/helpers/profile_editor_helper.rb:40
+msgid "Genetics"
+msgstr ""
+
+#: app/helpers/profile_editor_helper.rb:41
+msgid "Geosciences"
+msgstr ""
+
+#: app/helpers/profile_editor_helper.rb:42
+msgid "Geography"
+msgstr ""
+
+#: app/helpers/profile_editor_helper.rb:43
+msgid "Geology"
+msgstr ""
+
+#: app/helpers/profile_editor_helper.rb:44
+msgid "Hydrology"
+msgstr ""
+
+#: app/helpers/profile_editor_helper.rb:45
+msgid "Hydromechanics"
+msgstr ""
+
+#: app/helpers/profile_editor_helper.rb:46
+msgid "History"
+msgstr ""
+
+#: app/helpers/profile_editor_helper.rb:47
+msgid "Horticulture"
+msgstr ""
+
+#: app/helpers/profile_editor_helper.rb:48
+msgid "Informatics"
+msgstr ""
+
+#: app/helpers/profile_editor_helper.rb:49
+msgid "Interdisciplinary"
+msgstr ""
+
+#: app/helpers/profile_editor_helper.rb:50
+msgid "Journalism"
+msgstr ""
+
+#: app/helpers/profile_editor_helper.rb:51
+msgid "Letters"
+msgstr ""
+
+#: app/helpers/profile_editor_helper.rb:52
+msgid "Languages"
+msgstr ""
+
+#: app/helpers/profile_editor_helper.rb:53
+msgid "Mathematics"
+msgstr ""
+
+#: app/helpers/profile_editor_helper.rb:54
+msgid "Medicines"
+msgstr ""
+
+#: app/helpers/profile_editor_helper.rb:55
+msgid "Medicine"
+msgstr ""
+
+#: app/helpers/profile_editor_helper.rb:56
+msgid "Metallurgy"
+msgstr ""
+
+#: app/helpers/profile_editor_helper.rb:57
+msgid "Microbiology"
+msgstr ""
+
+#: app/helpers/profile_editor_helper.rb:58
+msgid "Mineralogy"
+msgstr ""
+
+#: app/helpers/profile_editor_helper.rb:59
+msgid "Music"
+msgstr ""
+
+#: app/helpers/profile_editor_helper.rb:60
+msgid "Nutrition"
+msgstr ""
+
+#: app/helpers/profile_editor_helper.rb:61
+msgid "Odontology"
+msgstr ""
+
+#: app/helpers/profile_editor_helper.rb:62
+msgid "Paleontology"
+msgstr ""
+
+#: app/helpers/profile_editor_helper.rb:63
+msgid "Petrology"
+msgstr ""
+
+#: app/helpers/profile_editor_helper.rb:64
+msgid "Production"
+msgstr ""
+
+#: app/helpers/profile_editor_helper.rb:65
+msgid "Psychology"
+msgstr ""
+
+#: app/helpers/profile_editor_helper.rb:66
+msgid "Psychiatry"
+msgstr ""
+
+#: app/helpers/profile_editor_helper.rb:67
+msgid "Quality"
+msgstr ""
+
+#: app/helpers/profile_editor_helper.rb:68
+msgid "Chemistry"
+msgstr ""
+
+#: app/helpers/profile_editor_helper.rb:69
+msgid "Health"
+msgstr ""
+
+#: app/helpers/profile_editor_helper.rb:70
+msgid "Remote Sensing"
+msgstr ""
+
+#: app/helpers/profile_editor_helper.rb:71
+msgid "Forestry"
+msgstr ""
+
+#: app/helpers/profile_editor_helper.rb:72
+msgid "Sociology"
+msgstr ""
+
+#: app/helpers/profile_editor_helper.rb:73
+msgid "Ground"
+msgstr ""
+
+#: app/helpers/profile_editor_helper.rb:74
+msgid "Theater"
+msgstr ""
+
+#: app/helpers/profile_editor_helper.rb:75
+msgid "Transport"
+msgstr ""
+
+#: app/helpers/profile_editor_helper.rb:76
+msgid "Urbanism"
+msgstr ""
+
+#: app/helpers/profile_editor_helper.rb:77
+msgid "Veterinary Medicine"
+msgstr ""
+
+#: app/helpers/profile_editor_helper.rb:78
+msgid "Zoology"
+msgstr ""
+
+#: app/helpers/profile_editor_helper.rb:79
+msgid "Zootecnia"
+msgstr ""
+
+#: app/helpers/profile_editor_helper.rb:80
+msgid "Others"
+msgstr ""
+
+#: app/helpers/profile_editor_helper.rb:84
+msgid "Post-Doctoral"
+msgstr ""
+
+#: app/helpers/profile_editor_helper.rb:85
+msgid "Ph.D."
+msgstr ""
+
+#: app/helpers/profile_editor_helper.rb:86
+msgid "Masters"
+msgstr ""
+
+#: app/helpers/profile_editor_helper.rb:87
+msgid "Undergraduate"
+msgstr ""
+
+#: app/helpers/profile_editor_helper.rb:88
+msgid "Graduate"
+msgstr ""
+
+#: app/helpers/profile_editor_helper.rb:89
+msgid "High School"
+msgstr ""
+
+#: app/helpers/profile_editor_helper.rb:90
+msgid "Elementary School"
+msgstr ""
+
+#: app/helpers/profile_editor_helper.rb:94
+msgid "Concluded"
+msgstr ""
+
+#: app/helpers/profile_editor_helper.rb:95
+msgid "Incomplete"
+msgstr ""
+
+#: app/helpers/profile_editor_helper.rb:96
+msgid "Ongoing"
+msgstr ""
+
+#: app/helpers/profile_editor_helper.rb:100
+#: app/helpers/profile_editor_helper.rb:108
+#: app/helpers/profile_editor_helper.rb:112
+#: app/helpers/profile_editor_helper.rb:116
+msgid "[Select ...]"
+msgstr ""
+
+#: app/helpers/profile_editor_helper.rb:132
+msgid "Preferred domain name:"
+msgstr ""
+
+#: app/helpers/profile_editor_helper.rb:132
+msgid "Select domain"
+msgstr ""
+
+#: app/helpers/enterprise_homepage_helper.rb:6
+msgid "Contact person:"
+msgstr ""
+
+#: app/helpers/enterprise_homepage_helper.rb:7
+#: app/views/profile/_person_profile.rhtml:23
+msgid "e-Mail:"
+msgstr ""
+
+#: app/helpers/enterprise_homepage_helper.rb:8
+msgid "Phone(s):"
+msgstr ""
+
+#: app/helpers/enterprise_homepage_helper.rb:9
+#: app/views/profile/_person_profile.rhtml:7
+#: app/views/profile/_organization_profile.rhtml:15
+msgid "Location:"
+msgstr ""
+
+#: app/helpers/enterprise_homepage_helper.rb:10 app/models/event.rb:98
+#: app/views/cms/_event.rhtml:16 app/views/maps/_google_map.rhtml:66
+#: app/views/profile/_person_profile.rhtml:20
+msgid "Address:"
+msgstr ""
+
+#: app/helpers/enterprise_homepage_helper.rb:11
+msgid "Economic activity:"
+msgstr ""
+
+#: app/helpers/enterprise_homepage_helper.rb:19
+#: app/views/search/_sellers_form.rhtml:17
+#: app/views/search/_search_form.rhtml:32
+msgid "Distance:"
+msgstr ""
+
+#: app/helpers/application_helper.rb:150
+msgid "This is %s, version %s"
+msgstr ""
+
+#: app/helpers/application_helper.rb:460
+msgid "non registered gender"
+msgstr ""
+
+#: app/helpers/application_helper.rb:460
+#: app/views/profile_editor/_person_form.rhtml:18
+#: app/views/profile/_person_profile.rhtml:5
+msgid "Male"
+msgstr ""
+
+#: app/helpers/application_helper.rb:460
+#: app/views/profile_editor/_person_form.rhtml:18
+#: app/views/profile/_person_profile.rhtml:5
+msgid "Female"
+msgstr ""
+
+#: app/helpers/application_helper.rb:485
+msgid "Principal Product Categories"
+msgstr ""
+
+#: app/helpers/application_helper.rb:496 app/helpers/application_helper.rb:504
+#: app/views/profile/_profile.rhtml:9
+msgid "Wall"
+msgstr ""
+
+#: app/helpers/application_helper.rb:497 app/models/friends_block.rb:4
+#: app/views/profile/_person_profile.rhtml:52
+msgid "Friends"
+msgstr ""
+
+#: app/helpers/application_helper.rb:499 app/helpers/application_helper.rb:509
+#: app/helpers/application_helper.rb:516
+#: app/views/blocks/profile_info_actions/community.rhtml:19
+#: app/views/blocks/profile_info_actions/enterprise.rhtml:8
+#: app/views/blocks/profile_info_actions/person.rhtml:11
+msgid "Send an e-mail"
+msgstr ""
+
+#: app/helpers/application_helper.rb:500 app/models/link_list_block.rb:10
+#: app/views/region_validators/_search.rhtml:9
+#: app/views/box_organizer/add_block.rhtml:25 app/views/themes/add_css.rhtml:7
+#: app/views/admin_panel/set_portal_folders.rhtml:27
+msgid "Add"
+msgstr ""
+
+#: app/helpers/application_helper.rb:505 app/helpers/application_helper.rb:514
+#: app/models/members_block.rb:4
+#: app/views/profile/_organization_profile.rhtml:7
+msgid "Members"
+msgstr ""
+
+#: app/helpers/application_helper.rb:506 app/helpers/application_helper.rb:515
+#: app/models/person.rb:220 app/models/organization.rb:118
+msgid "Agenda"
+msgstr ""
+
+#: app/helpers/application_helper.rb:507
+#: app/views/blocks/profile_info_actions/community.rhtml:7
+#: app/views/blocks/profile_info_actions/community.rhtml:13
+#: app/views/blocks/profile_info_actions/community.rhtml:27
+#: app/views/profile/_private_profile.rhtml:10
+msgid "Join"
+msgstr ""
+
+#: app/helpers/application_helper.rb:508
+#: app/views/blocks/profile_info_actions/community.rhtml:6
+#: app/views/blocks/profile_info_actions/community.rhtml:12
+#: app/views/memberships/index.rhtml:26
+msgid "Leave"
+msgstr ""
+
+#: app/helpers/application_helper.rb:543
+msgid "Profile links"
+msgstr ""
+
+#: app/helpers/application_helper.rb:550
+msgid "Click on this icon to go to the <b>%s</b>'s home page"
+msgstr ""
+
+#: app/helpers/application_helper.rb:583 app/views/categories/index.rhtml:1
+#: app/views/content_viewer/view_page.rhtml:58
+msgid "Categories"
+msgstr ""
+
+#: app/helpers/application_helper.rb:606
+msgid "open"
+msgstr ""
+
+#: app/helpers/application_helper.rb:626
+msgid "root"
+msgstr ""
+
+#: app/helpers/application_helper.rb:654
+#: app/views/layouts/application-ng.rhtml:46
+#: app/views/layouts/application-ng.rhtml:48
+#: app/views/layouts/application-ng.rhtml:51
+msgid "Search..."
+msgstr ""
+
+#: app/helpers/application_helper.rb:656
+msgid "This is a search box. Click, write your query, and press enter to find"
+msgstr ""
+
+#: app/helpers/application_helper.rb:657
+msgid "Click, write and press enter to find"
+msgstr ""
+
+#: app/helpers/application_helper.rb:663 app/models/link_list_block.rb:20
+#: app/views/shared/_profile_search_form.rhtml:6
+#: app/views/region_validators/region.rhtml:23
+#: app/views/search/articles.rhtml:10 app/views/search/_sellers_form.rhtml:21
+#: app/views/search/_search_form.rhtml:17 app/views/search/people.rhtml:10
+#: app/views/search/communities.rhtml:9 app/views/home/index.rhtml:61
+#: app/views/profile_members/add_members.rhtml:5
+#: app/views/profile_members/_add_admins.rhtml:5
+#: app/views/browse/_search_form.rhtml:7
+msgid "Search"
+msgstr ""
+
+#: app/helpers/application_helper.rb:855
+msgid "Searched for '%s'"
+msgstr ""
+
+#: app/helpers/application_helper.rb:856
+msgid "In category %s"
+msgstr ""
+
+#: app/helpers/application_helper.rb:857
+msgid "within %d km from %s"
+msgstr ""
+
+#: app/helpers/application_helper.rb:858
+msgid "%d results found"
+msgstr ""
+
+#: app/helpers/application_helper.rb:864
+msgid "In all categories"
+msgstr ""
+
+#: app/helpers/application_helper.rb:939
+msgid "Online Manual"
+msgstr ""
+
+#: app/helpers/application_helper.rb:940 app/models/link_list_block.rb:33
+msgid "Chat"
+msgstr ""
+
+#: app/helpers/application_helper.rb:1063
+msgid "people|More Recent"
+msgstr ""
+
+#: app/helpers/application_helper.rb:1064
+msgid "people|More Active"
+msgstr ""
+
+#: app/helpers/application_helper.rb:1065
+msgid "people|More Popular"
+msgstr ""
+
+#: app/helpers/application_helper.rb:1068
+msgid "My friends"
+msgstr ""
+
+#: app/helpers/application_helper.rb:1069
+msgid "Invite friends"
+msgstr ""
+
+#: app/helpers/application_helper.rb:1073
+msgid "People Menu"
+msgstr ""
+
+#: app/helpers/application_helper.rb:1078
+msgid "communities|More Recent"
+msgstr ""
+
+#: app/helpers/application_helper.rb:1079
+msgid "communities|More Active"
+msgstr ""
+
+#: app/helpers/application_helper.rb:1080
+msgid "communities|More Popular"
+msgstr ""
+
+#: app/helpers/application_helper.rb:1083
+msgid "My communities"
+msgstr ""
+
+#: app/helpers/application_helper.rb:1084 app/models/create_community.rb:38
+#: app/views/search/communities.rhtml:14
+msgid "New community"
+msgstr ""
+
+#: app/helpers/application_helper.rb:1088
+msgid "Communities Menu"
+msgstr ""
+
+#: app/helpers/application_helper.rb:1092 app/views/blocks/slideshow.rhtml:17
+#: app/views/blocks/featured_products.rhtml:3
+#: app/views/shared/articles_list.rhtml:14 app/views/cms/view.rhtml:65
+#: app/views/layouts/slideshow.rhtml:18
+msgid "Previous"
+msgstr ""
+
+#: app/helpers/application_helper.rb:1092 app/views/blocks/slideshow.rhtml:21
+#: app/views/blocks/featured_products.rhtml:29
+#: app/views/shared/articles_list.rhtml:14 app/views/cms/view.rhtml:65
+#: app/views/enterprise_registration/basic_information.rhtml:32
+#: app/views/invite/select_address_book.rhtml:43
+#: app/views/layouts/slideshow.rhtml:18
+msgid "Next"
+msgstr ""
+
+#: app/helpers/application_helper.rb:1110
+msgid "Manage your pending tasks"
+msgstr ""
+
+#: app/helpers/application_helper.rb:1113
+msgid "Welcome, %s"
+msgstr ""
+
+#: app/helpers/application_helper.rb:1113
+msgid "Go to your homepage"
+msgstr ""
+
+#: app/helpers/application_helper.rb:1115
+msgid "Administration"
+msgstr ""
+
+#: app/helpers/application_helper.rb:1115
+msgid "Configure the environment"
+msgstr ""
+
+#: app/helpers/application_helper.rb:1116 app/views/blocks/my_network.rhtml:9
+#: app/views/shared/user_menu.rhtml:37
+msgid "Control panel"
+msgstr ""
+
+#: app/helpers/application_helper.rb:1116
+msgid "Configure your personal account and content"
+msgstr ""
+
+#: app/helpers/application_helper.rb:1118 app/views/blocks/login_block.rhtml:8
+#: app/views/shared/user_menu.rhtml:45
+msgid "Logout"
+msgstr ""
+
+#: app/helpers/application_helper.rb:1118
+msgid "Leave the system"
+msgstr ""
+
+#: app/helpers/application_helper.rb:1124
+msgid " characters left"
+msgstr ""
+
+#: app/helpers/application_helper.rb:1125
+msgid "Limit of characters reached"
+msgstr ""
+
+#: app/helpers/application_helper.rb:1146
+#: app/helpers/application_helper.rb:1152
+msgid "less than a minute"
+msgstr ""
+
+#: app/helpers/application_helper.rb:1146
+#: app/helpers/application_helper.rb:1153
+msgid "1 minute"
+msgstr ""
+
+#: app/helpers/application_helper.rb:1148
+msgid "less than 5 seconds"
+msgstr ""
+
+#: app/helpers/application_helper.rb:1149
+msgid "less than 10 seconds"
+msgstr ""
+
+#: app/helpers/application_helper.rb:1150
+msgid "less than 20 seconds"
+msgstr ""
+
+#: app/helpers/application_helper.rb:1151
+msgid "half a minute"
+msgstr ""
+
+#: app/helpers/application_helper.rb:1156
+msgid "%{distance} minutes"
+msgstr ""
+
+#: app/helpers/application_helper.rb:1157
+msgid "about 1 hour"
+msgstr ""
+
+#: app/helpers/application_helper.rb:1158
+msgid "about %{distance} hours"
+msgstr ""
+
+#: app/helpers/application_helper.rb:1159
+msgid "1 day"
+msgstr ""
+
+#: app/helpers/application_helper.rb:1160
+msgid "%{distance} days"
+msgstr ""
+
+#: app/helpers/application_helper.rb:1161
+msgid "about 1 month"
+msgstr ""
+
+#: app/helpers/application_helper.rb:1162
+msgid "%{distance} months"
+msgstr ""
+
+#: app/helpers/application_helper.rb:1163
+msgid "about 1 year"
+msgstr ""
+
+#: app/helpers/application_helper.rb:1164
+msgid "over %{distance} years"
+msgstr ""
+
+#: app/helpers/application_helper.rb:1181
+msgid "Source: %s"
+msgstr ""
+
+#: app/helpers/application_helper.rb:1210
+msgid "Zoom in"
+msgstr ""
+
+#: app/helpers/display_helper.rb:4
+msgid "No product"
+msgstr ""
+
+#: app/helpers/display_helper.rb:37
+msgid "Are you sure you want to visit this web site?"
+msgstr ""
+
+#: app/helpers/manage_products_helper.rb:171
+#: app/views/manage_products/_display_category.rhtml:3
+msgid "Change category"
+msgstr ""
+
+#: app/helpers/manage_products_helper.rb:179 app/helpers/search_helper.rb:86
+msgid "Price: "
+msgstr ""
+
+#: app/helpers/manage_products_helper.rb:188
+msgid "Product not available!"
+msgstr ""
+
+#: app/helpers/manage_products_helper.rb:198
+msgid "List price: "
+msgstr ""
+
+#: app/helpers/manage_products_helper.rb:199
+msgid "On sale: "
+msgstr ""
+
+#: app/helpers/manage_products_helper.rb:210
+msgid "certified by %s"
+msgstr ""
+
+#: app/helpers/manage_products_helper.rb:212
+msgid "(Self declared)"
+msgstr ""
+
+#: app/helpers/manage_products_helper.rb:220
+msgid "Select..."
+msgstr ""
+
+#: app/helpers/manage_products_helper.rb:223
+msgid "Self declared"
+msgstr ""
+
+#: app/helpers/manage_products_helper.rb:245
+msgid "Select the unit"
+msgstr ""
+
+#: app/helpers/manage_products_helper.rb:250
+msgid "Product from solidarity economy"
+msgstr ""
+
+#: app/helpers/manage_products_helper.rb:263
+msgid "Amount used in this product or service"
+msgstr ""
+
+#: app/helpers/manage_products_helper.rb:265
+msgid "Amount used by %s of this product or service"
+msgstr ""
+
+#: app/helpers/manage_products_helper.rb:272
+msgid "1 %{singular_unit}"
+msgid_plural "%{num} %{plural_unit}"
+msgstr[0] ""
+msgstr[1] ""
+
+#: app/helpers/search_helper.rb:31
+msgid "Display in list"
+msgstr ""
+
+#: app/helpers/search_helper.rb:37
+msgid "Display in map"
+msgstr ""
+
+#: app/helpers/search_helper.rb:56
+msgid "E-Mail: "
+msgstr ""
+
+#: app/helpers/search_helper.rb:59
+msgid "Phone(s): "
+msgstr ""
+
+#: app/helpers/search_helper.rb:62
+msgid "Location: "
+msgstr ""
+
+#: app/helpers/search_helper.rb:65
+msgid "Address: "
+msgstr ""
+
+#: app/helpers/search_helper.rb:68
+msgid "Products/Services: "
+msgstr ""
+
+#: app/helpers/search_helper.rb:71
+msgid "Distance: "
+msgstr ""
+
+#: app/helpers/search_helper.rb:89
+msgid "Provider: "
+msgstr ""
+
+#: app/helpers/search_helper.rb:92
+msgid "Category: "
+msgstr ""
+
+#: app/helpers/cms_helper.rb:5
+msgid "New %s"
+msgstr ""
+
+#: app/helpers/cms_helper.rb:45 app/helpers/cms_helper.rb:47
+#: app/views/cms/publish.rhtml:26
+#: app/views/cms/publish_on_portal_community.rhtml:9
+#: app/views/content_viewer/_article_toolbar.rhtml:16
+#: app/views/content_viewer/_article_toolbar.rhtml:20
+msgid "Spread this"
+msgstr ""
+
+#: app/helpers/cms_helper.rb:53 app/views/cms/destroy.rhtml:9
+msgid ""
+"Are you sure that you want to remove this folder? Note that all the items "
+"inside it will also be removed!"
+msgstr ""
+
+#: app/helpers/cms_helper.rb:55 app/views/cms/destroy.rhtml:11
+msgid "Are you sure that you want to remove this item?"
+msgstr ""
+
+#: app/helpers/cms_helper.rb:58
+#: app/views/content_viewer/_article_toolbar.rhtml:10
+msgid "Delete"
+msgstr ""
+
+#: app/helpers/article_helper.rb:16
+msgid "This topic is opened for replies"
+msgstr ""
+
+#: app/helpers/article_helper.rb:16
+msgid "I want to receive comments about this article"
+msgstr ""
+
+#: app/helpers/article_helper.rb:21
+msgid "I want to receive a notification of each comment written by e-mail"
+msgstr ""
+
+#: app/helpers/blog_helper.rb:10
+msgid "New post"
+msgstr ""
+
+#: app/helpers/blog_helper.rb:14 app/views/profile_editor/index.rhtml:36
+#: app/views/profile_editor/index.rhtml:38
+msgid "Configure blog"
+msgstr ""
+
+#: app/helpers/blog_helper.rb:54 app/views/home/index.rhtml:12
+msgid "Read more"
+msgstr "Legi pli"
+
+#: app/controllers/admin/role_controller.rb:22
+msgid "Failed to create role"
+msgstr ""
+
+#: app/controllers/admin/role_controller.rb:36
+#: app/controllers/admin/role_controller.rb:46
+msgid "Failed to edit role"
+msgstr ""
+
+#: app/controllers/admin/environment_role_manager_controller.rb:17
+#: app/controllers/my_profile/profile_members_controller.rb:22
+msgid "Roles successfuly updated"
+msgstr ""
+
+#: app/controllers/admin/environment_role_manager_controller.rb:19
+#: app/controllers/my_profile/profile_members_controller.rb:24
+msgid "Couldn't change the roles"
+msgstr ""
+
+#: app/controllers/admin/environment_role_manager_controller.rb:45
+#: app/controllers/admin/environment_role_manager_controller.rb:55
+msgid "Member succefully unassociated"
+msgstr ""
+
+#: app/controllers/admin/environment_role_manager_controller.rb:47
+#: app/controllers/admin/environment_role_manager_controller.rb:57
+#: app/controllers/my_profile/profile_members_controller.rb:86
+msgid "Failed to unassociate member"
+msgstr ""
+
+#: app/controllers/admin/plugins_controller.rb:11
+msgid "Plugins updated successfully."
+msgstr ""
+
+#: app/controllers/admin/plugins_controller.rb:13
+msgid "Plugins were not updated successfully."
+msgstr ""
+
+#: app/controllers/admin/admin_panel_controller.rb:43
+msgid ""
+"Community not found. You must insert the identifier of a community from this "
+"environment"
+msgstr ""
+
+#: app/controllers/admin/admin_panel_controller.rb:57
+msgid "Saved the portal folders"
+msgstr ""
+
+#: app/controllers/admin/admin_panel_controller.rb:66
+msgid "Saved the number of news on folders"
+msgstr ""
+
+#: app/controllers/admin/features_controller.rb:11
+msgid "Features updated successfully."
+msgstr ""
+
+#: app/controllers/admin/features_controller.rb:27
+msgid "Person fields updated successfully."
+msgstr ""
+
+#: app/controllers/admin/features_controller.rb:29
+msgid "Person fields not updated successfully."
+msgstr ""
+
+#: app/controllers/admin/features_controller.rb:37
+msgid "Enterprise fields updated successfully."
+msgstr ""
+
+#: app/controllers/admin/features_controller.rb:39
+msgid "Enterprise fields not updated successfully."
+msgstr ""
+
+#: app/controllers/admin/features_controller.rb:47
+msgid "Community fields updated successfully."
+msgstr ""
+
+#: app/controllers/admin/features_controller.rb:49
+msgid "Community fields not updated successfully."
+msgstr ""
+
+#: app/controllers/admin/users_controller.rb:28
+#: app/controllers/my_profile/profile_members_controller.rb:146
+msgid "The e-mails are being sent"
+msgstr ""
+
+#: app/controllers/admin/users_controller.rb:31
+#: app/controllers/my_profile/profile_members_controller.rb:149
+msgid "Could not create the e-mail"
+msgstr ""
+
+#: app/controllers/public/content_viewer_controller.rb:46
+msgid ""
+"You are not allowed to view this content. You can contact the owner of this "
+"profile to request access then."
+msgstr ""
+
+#: app/controllers/public/content_viewer_controller.rb:133
+msgid "Comment succesfully deleted"
+msgstr ""
+
+#: app/controllers/public/browse_controller.rb:51
+msgid "More recent people"
+msgstr ""
+
+#: app/controllers/public/browse_controller.rb:52
+msgid "More active people"
+msgstr ""
+
+#: app/controllers/public/browse_controller.rb:53
+msgid "More popular people"
+msgstr ""
+
+#: app/controllers/public/browse_controller.rb:54
+msgid "More recent communities"
+msgstr ""
+
+#: app/controllers/public/browse_controller.rb:55
+msgid "More active communities"
+msgstr ""
+
+#: app/controllers/public/browse_controller.rb:56
+msgid "More popular communities"
+msgstr ""
+
+#: app/controllers/public/account_controller.rb:33
+msgid "Logged in successfully"
+msgstr ""
+
+#: app/controllers/public/account_controller.rb:36
+msgid "Incorrect username or password"
+msgstr ""
+
+#: app/controllers/public/account_controller.rb:71
+msgid "Thanks for signing up!"
+msgstr ""
+
+#: app/controllers/public/account_controller.rb:89
+msgid "You have been logged out."
+msgstr ""
+
+#: app/controllers/public/account_controller.rb:100
+msgid "Your password has been changed successfully!"
+msgstr ""
+
+#: app/controllers/public/account_controller.rb:103
+msgid "The supplied current password is incorrect."
+msgstr ""
+
+#: app/controllers/public/account_controller.rb:205
+msgid "Available!"
+msgstr ""
+
+#: app/controllers/public/account_controller.rb:208
+msgid "Unavailable!"
+msgstr ""
+
+#: app/controllers/public/search_controller.rb:196
+msgid "Upcoming events"
+msgstr ""
+
+#: app/controllers/public/search_controller.rb:198
+msgid "Most commented articles"
+msgstr ""
+
+#: app/controllers/public/contact_controller.rb:15
+msgid "Contact successfully sent"
+msgstr ""
+
+#: app/controllers/public/contact_controller.rb:18
+msgid "Contact not sent"
+msgstr ""
+
+#: app/controllers/public/invite_controller.rb:26
+msgid "Your invitations are being sent."
+msgstr ""
+
+#: app/controllers/public/invite_controller.rb:34
+msgid "Please enter a valid email address."
+msgstr ""
+
+#: app/controllers/public/profile_controller.rb:45
+#: app/controllers/public/profile_controller.rb:46
+#: app/views/profile/content_tagged.rhtml:1
+msgid "%s's contents tagged with \"%s\""
+msgstr ""
+
+#: app/controllers/public/profile_controller.rb:86
+#: app/controllers/public/profile_controller.rb:98
+msgid "%s administrator still needs to accept you as member."
+msgstr ""
+
+#: app/controllers/public/profile_controller.rb:88
+msgid "You just became a member of %s."
+msgstr ""
+
+#: app/controllers/public/profile_controller.rb:91
+#: app/controllers/public/profile_controller.rb:102
+msgid "You are already a member of %s."
+msgstr ""
+
+#: app/controllers/public/profile_controller.rb:122
+msgid "You are not a member of %s."
+msgstr ""
+
+#: app/controllers/public/profile_controller.rb:142
+msgid "%s still needs to accept being your friend."
+msgstr ""
+
+#: app/controllers/public/profile_controller.rb:144
+msgid "You are already a friend of %s."
+msgstr ""
+
+#: app/controllers/public/profile_controller.rb:163
+msgid "You have unblocked %s successfully. "
+msgstr ""
+
+#: app/controllers/public/profile_controller.rb:166
+msgid "You are not allowed to unblock enterprises in this environment."
+msgstr ""
+
+#: app/controllers/public/profile_controller.rb:178
+msgid "Message successfully sent."
+msgstr ""
+
+#: app/controllers/public/profile_controller.rb:178
+msgid "You can't leave an empty message."
+msgstr ""
+
+#: app/controllers/public/profile_controller.rb:202
+msgid "Scrap successfully removed."
+msgstr ""
+
+#: app/controllers/public/profile_controller.rb:204
+msgid "You could not remove this scrap"
+msgstr ""
+
+#: app/controllers/public/profile_controller.rb:212
+msgid "Activity successfully removed."
+msgstr ""
+
+#: app/controllers/public/profile_controller.rb:214
+msgid "You could not remove this activity"
+msgstr ""
+
+#: app/controllers/public/profile_controller.rb:222
+msgid "Profile information could not be loaded"
+msgstr ""
+
+#: app/controllers/public/profile_controller.rb:253
+msgid "The content here is available to %s's friends only."
+msgstr ""
+
+#: app/controllers/public/profile_controller.rb:256
+msgid "The contents in this community is available to members only."
+msgstr ""
+
+#: app/controllers/public/profile_controller.rb:262
+msgid ""
+"Sorry, this profile was defined as private by its owner. You'll not be able "
+"to view content here unless the profile owner adds adds you."
+msgstr ""
+
+#: app/controllers/public/profile_controller.rb:262
+msgid "Oops ... you cannot go ahead here"
+msgstr ""
+
+#: app/controllers/my_profile_controller.rb:21
+msgid "This action is not available for \"%s\"."
+msgstr ""
+
+#: app/controllers/my_profile/profile_members_controller.rb:38
+#: app/controllers/my_profile/profile_members_controller.rb:104
+#: app/controllers/my_profile/profile_members_controller.rb:115
+msgid "Current admins"
+msgstr ""
+
+#: app/controllers/my_profile/profile_members_controller.rb:84
+msgid "Member succesfully unassociated"
+msgstr ""
+
+#: app/controllers/my_profile/profile_members_controller.rb:130
+#: app/controllers/my_profile/profile_members_controller.rb:134
+msgid "Add member"
+msgstr ""
+
+#: app/controllers/my_profile/manage_products_controller.rb:49
+msgid "Product succesfully created"
+msgstr ""
+
+#: app/controllers/my_profile/manage_products_controller.rb:109
+msgid "Product succesfully removed"
+msgstr ""
+
+#: app/controllers/my_profile/manage_products_controller.rb:112
+msgid "Could not remove the product"
+msgstr ""
+
+#: app/controllers/my_profile/manage_products_controller.rb:131
+msgid "The input was not found"
+msgstr ""
+
+#: app/controllers/my_profile/tasks_controller.rb:36
+msgid "All decisions were applied successfully."
+msgstr ""
+
+#: app/controllers/my_profile/tasks_controller.rb:38
+msgid "Some decisions couldn't be applied."
+msgstr ""
+
+#: app/controllers/my_profile/cms_controller.rb:171
+msgid "\"%s\" configured as home page."
+msgstr ""
+
+#: app/controllers/my_profile/cms_controller.rb:191
+msgid "Could not upload all files"
+msgstr ""
+
+#: app/controllers/my_profile/cms_controller.rb:198
+msgid "All files were uploaded successfully"
+msgstr ""
+
+#: app/controllers/my_profile/cms_controller.rb:260
+#: app/controllers/my_profile/cms_controller.rb:277
+msgid "Your publish request was sent successfully"
+msgstr ""
+
+#: app/controllers/my_profile/cms_controller.rb:279
+msgid "Your publish request couldn't be sent."
+msgstr ""
+
+#: app/controllers/my_profile/cms_controller.rb:282
+msgid "There is no portal community to publish your article."
+msgstr ""
+
+#: app/controllers/my_profile/cms_controller.rb:299
+msgid "Thanks for your suggestion. The community administrators were notified."
+msgstr ""
+
+#: app/controllers/my_profile/mailconf_controller.rb:23
+msgid ""
+"Please fill your personal information below in order to get your mailbox "
+"approved by one of the administrators"
+msgstr ""
+
+#: app/controllers/my_profile/mailconf_controller.rb:26
+msgid "e-Mail was not enabled successfully."
+msgstr ""
+
+#: app/controllers/my_profile/mailconf_controller.rb:33
+msgid "e-Mail disabled successfully."
+msgstr ""
+
+#: app/controllers/my_profile/mailconf_controller.rb:36
+msgid "e-Mail was not disabled successfully."
+msgstr ""
+
+#: app/controllers/my_profile/maps_controller.rb:11
+msgid "Address was updated successfully!"
+msgstr ""
+
+#: app/controllers/my_profile/maps_controller.rb:16
+msgid "Address could not be saved."
+msgstr ""
+
+#: app/controllers/my_profile/profile_editor_controller.rb:29
+msgid "Cannot update profile"
+msgstr ""
+
+#: app/controllers/my_profile/profile_editor_controller.rb:39
+msgid "%s was not enabled."
+msgstr ""
+
+#: app/controllers/my_profile/profile_editor_controller.rb:49
+msgid "%s was not disabled."
+msgstr ""
+
+#: app/controllers/my_profile/profile_editor_controller.rb:80
+msgid "The profile was deleted."
+msgstr ""
+
+#: app/controllers/my_profile/profile_editor_controller.rb:83
+msgid "Could not delete profile"
+msgstr ""
+
+#: app/controllers/box_organizer_controller.rb:99
+msgid "Failed to remove block"
+msgstr ""
+
+#: app/models/article.rb:16
+msgid ""
+"<!-- %{fn} -->The title (article name) is already being used by another "
+"article, please use another title."
+msgstr ""
+
+#: app/models/article.rb:84 app/models/block.rb:- app/models/comment.rb:-
+#: app/views/shared/articles_list.rhtml:4 app/views/cms/_uploaded_file.rhtml:1
+#: app/views/cms/_article.rhtml:8 app/views/cms/_article.rhtml:11
+#: app/views/cms/publish.rhtml:21 app/views/cms/suggest_an_article.rhtml:9
+#: app/views/cms/_textile_article.rhtml:5
+#: app/views/cms/_tiny_mce_article.rhtml:8
+#: app/views/cms/_tiny_mce_article.rhtml:11
+#: app/views/cms/publish_on_portal_community.rhtml:6
+#: app/views/content_viewer/_comment_form.rhtml:39
+#: app/views/box_organizer/_highlights_block.rhtml:4
+#: app/views/tasks/_suggest_article_accept_details.rhtml:5
+msgid "Title"
+msgstr ""
+
+#: app/models/article.rb:122 app/models/organization.rb:98
+msgid "Tag list"
+msgstr ""
+
+#: app/models/article.rb:211
+msgid "HTML Text document"
+msgstr ""
+
+#: app/models/article.rb:290
+msgid "Language not supported by Noosfero"
+msgstr ""
+
+#: app/models/article.rb:296
+msgid "Language is already used"
+msgstr ""
+
+#: app/models/article.rb:302
+msgid "Language must be choosen"
+msgstr ""
+
+#: app/models/article.rb:308
+msgid "A language must be choosen for the native article"
+msgstr ""
+
+#: app/models/communities_block.rb:8
+msgid "{#} community"
+msgid_plural "{#} communities"
+msgstr[0] ""
+msgstr[1] ""
+
+#: app/models/communities_block.rb:12
+msgid "This block displays the communities in which the user is a member."
+msgstr ""
+
+#: app/models/communities_block.rb:20 app/models/communities_block.rb:24
+msgid "communities|View all"
+msgstr ""
+
+#: app/models/enterprise.rb:5 app/models/product.rb:-
+msgid "Enterprise"
+msgstr ""
+
+#: app/models/enterprise.rb:12 app/models/person.rb:153
+msgid "Organization website"
+msgstr ""
+
+#: app/models/enterprise.rb:12
+msgid "Historic and current context"
+msgstr ""
+
+#: app/models/enterprise.rb:12
+msgid "Activities short description"
+msgstr ""
+
+#: app/models/enterprise.rb:12 app/models/person.rb:162
+#: app/models/contact.rb:- app/views/maps/edit_location.rhtml:8
+msgid "City"
+msgstr ""
+
+#: app/models/enterprise.rb:12 app/models/person.rb:162
+#: app/models/contact.rb:- app/views/maps/edit_location.rhtml:7
+msgid "State"
+msgstr ""
+
+#: app/models/enterprise.rb:12 app/models/person.rb:162
+#: app/views/shared/_organization_custom_fields.rhtml:16
+#: app/views/profile_editor/_person_form.rhtml:21
+#: app/views/maps/edit_location.rhtml:6
+msgid "Country"
+msgstr ""
+
+#: app/models/enterprise.rb:12
+#: app/views/shared/_organization_custom_fields.rhtml:13
+#: app/views/profile_editor/_person_form.rhtml:24
+#: app/views/maps/edit_location.rhtml:9
+msgid "ZIP code"
+msgstr ""
+
+#: app/models/enterprise.rb:27
+msgid "Business name"
+msgstr ""
+
+#: app/models/enterprise.rb:46 app/models/create_community.rb:19
+#: app/models/community.rb:37
+msgid "%{fn} can't be blank"
+msgstr ""
+
+#: app/models/enterprise.rb:126
+msgid "Enterprises's profile"
+msgstr ""
+
+#: app/models/enterprise.rb:127 app/models/enterprise.rb:143
+#: app/models/person.rb:221 app/models/person.rb:232
+#: app/models/external_feed.rb:- app/models/blog.rb:13
+#: app/models/organization.rb:120 app/models/organization.rb:131
+msgid "Blog"
+msgstr ""
+
+#: app/models/members_block.rb:8
+msgid "{#} members"
+msgstr ""
+
+#: app/models/members_block.rb:12
+msgid "This block presents the members of a collective."
+msgstr ""
+
+#: app/models/members_block.rb:18 app/models/people_block.rb:21
+#: app/models/favorite_enterprises_block.rb:19
+msgid "View all"
+msgstr ""
+
+#: app/models/profile_search_block.rb:4
+msgid "Display a form to search the profile"
+msgstr ""
+
+#: app/models/organization_mailing.rb:23
+msgid "Sent by community %s."
+msgstr ""
+
+#: app/models/profile_info_block.rb:4
+msgid "Profile information"
+msgstr ""
+
+#: app/models/profile_info_block.rb:8
+msgid ""
+"Basic information about <i>%{user}</i>: how long <i>%{user}</i> is part of "
+"<i>%{env}</i> and useful links."
+msgstr ""
+
+#: app/models/profile_list_block.rb:7
+msgid "Random profiles"
+msgstr ""
+
+#: app/models/profile_list_block.rb:33
+msgid "{#} People or Groups"
+msgstr ""
+
+#: app/models/profile_list_block.rb:37
+msgid "Clicking on the people or groups will take you to their home page."
+msgstr ""
+
+#: app/models/profile_list_block.rb:51
+#: app/views/search/_display_results.rhtml:60
+#: app/views/browse/_display_results.rhtml:6
+msgid "None"
+msgstr ""
+
+#: app/models/box.rb:-
+msgid "box"
+msgstr ""
+
+#: app/models/box.rb:- app/models/image.rb:-
+msgid "Owner type"
+msgstr ""
+
+#: app/models/box.rb:- app/models/image.rb:-
+msgid "Owner"
+msgstr ""
+
+#: app/models/box.rb:- app/models/block.rb:- app/models/unit.rb:-
+#: app/models/input.rb:- app/views/box_organizer/_highlights_block.rhtml:4
+msgid "Position"
+msgstr ""
+
+#: app/models/link_list_block.rb:4
+msgid "(No icon)"
+msgstr ""
+
+#: app/models/link_list_block.rb:6
+msgid "New"
+msgstr ""
+
+#: app/models/link_list_block.rb:7 app/views/categories/_form.rhtml:27
+#: app/views/shared/_select_categories.rhtml:17
+#: app/views/cms/suggest_an_article.rhtml:29 app/views/cms/edit.rhtml:22
+#: app/views/cms/edit.rhtml:40 app/views/profile_editor/header_footer.rhtml:28
+#: app/views/profile_editor/edit.rhtml:80
+#: app/views/manage_products/_edit_description.rhtml:11
+#: app/views/manage_products/_edit_info.rhtml:53
+#: app/views/manage_products/_edit_name.rhtml:10
+#: app/views/manage_products/_edit_input.rhtml:32
+#: app/views/manage_products/_edit_image.rhtml:11
+#: app/views/maps/edit_location.rhtml:13 app/views/maps/edit_location.rhtml:29
+#: app/views/box_organizer/edit.rhtml:24 app/views/themes/css_editor.rhtml:7
+#: app/views/admin_panel/set_portal_community.rhtml:8
+#: app/views/admin_panel/message_for_disabled_enterprise.rhtml:10
+#: app/views/admin_panel/set_portal_news_amount.rhtml:8
+#: app/views/admin_panel/set_portal_folders.rhtml:41
+#: app/views/admin_panel/terms_of_use.rhtml:10
+#: app/views/admin_panel/site_info.rhtml:12
+#: app/views/enterprise_validation/edit_validation_info.rhtml:9
+msgid "Save"
+msgstr ""
+
+#: app/models/link_list_block.rb:8 app/views/contact/new.rhtml:21
+#: app/views/profile_members/send_mail.rhtml:12 app/views/tasks/new.rhtml:15
+#: app/views/users/send_mail.rhtml:10
+msgid "Send"
+msgstr ""
+
+#: app/models/link_list_block.rb:11
+msgid "Up"
+msgstr ""
+
+#: app/models/link_list_block.rb:12
+msgid "Down"
+msgstr ""
+
+#: app/models/link_list_block.rb:13
+msgid "Left"
+msgstr ""
+
+#: app/models/link_list_block.rb:14
+msgid "Right"
+msgstr ""
+
+#: app/models/link_list_block.rb:15
+msgid "Gray Up"
+msgstr ""
+
+#: app/models/link_list_block.rb:16
+msgid "Gray Down"
+msgstr ""
+
+#: app/models/link_list_block.rb:17
+msgid "Gray Left"
+msgstr ""
+
+#: app/models/link_list_block.rb:18
+msgid "Gray Right"
+msgstr ""
+
+#: app/models/link_list_block.rb:19
+msgid "Red Up"
+msgstr ""
+
+#: app/models/link_list_block.rb:21
+msgid "Ok"
+msgstr ""
+
+#: app/models/link_list_block.rb:22 app/views/shared/user_menu.rhtml:61
+#: app/views/account/login.rhtml:3 app/views/account/login_block.rhtml:4
+#: app/views/layouts/application-ng.rhtml:40
+msgid "Login"
+msgstr ""
+
+#: app/models/link_list_block.rb:24
+msgid "Spread"
+msgstr ""
+
+#: app/models/link_list_block.rb:25
+msgid "Eyes"
+msgstr ""
+
+#: app/models/link_list_block.rb:26
+msgid "Photos"
+msgstr ""
+
+#: app/models/link_list_block.rb:27 app/models/mailing.rb:-
+#: app/models/mailing_sent.rb:-
+msgid "Person"
+msgstr ""
+
+#: app/models/link_list_block.rb:28 app/models/event.rb:41
+msgid "Event"
+msgstr ""
+
+#: app/models/link_list_block.rb:29 app/models/forum.rb:6
+msgid "Forum"
+msgstr ""
+
+#: app/models/link_list_block.rb:30
+msgid "Home"
+msgstr ""
+
+#: app/models/link_list_block.rb:31
+msgid "Package"
+msgstr ""
+
+#: app/models/link_list_block.rb:32
+msgid "To do list"
+msgstr ""
+
+#: app/models/link_list_block.rb:43
+msgid "Links (static menu)"
+msgstr ""
+
+#: app/models/link_list_block.rb:47
+msgid ""
+"This block can be used to create a menu of links. You can add, remove and "
+"update the links as you wish."
+msgstr ""
+
+#: app/models/image.rb:-
+msgid "image"
+msgstr ""
+
+#: app/models/image.rb:- app/models/thumbnail.rb:-
+msgid "Parent"
+msgstr ""
+
+#: app/models/image.rb:- app/models/thumbnail.rb:-
+msgid "Content type"
+msgstr ""
+
+#: app/models/image.rb:- app/models/thumbnail.rb:-
+msgid "Filename"
+msgstr ""
+
+#: app/models/image.rb:- app/models/thumbnail.rb:-
+#: app/views/box_organizer/_slideshow_block.rhtml:5
+msgid "Thumbnail"
+msgstr ""
+
+#: app/models/image.rb:- app/models/thumbnail.rb:-
+msgid "Size"
+msgstr ""
+
+#: app/models/image.rb:- app/models/thumbnail.rb:-
+msgid "Width"
+msgstr ""
+
+#: app/models/image.rb:- app/models/thumbnail.rb:-
+msgid "Height"
+msgstr ""
+
+#: app/models/image.rb:-
+msgid "Thumbnails processed"
+msgstr ""
+
+#: app/models/image.rb:19
+msgid "%{fn} of uploaded file was larger than the maximum size of 500.0 KB"
+msgstr ""
+
+#: app/models/people_block.rb:8
+msgid "Clicking a person takes you to his/her homepage"
+msgstr ""
+
+#: app/models/people_block.rb:12
+msgid "Random people"
+msgstr ""
+
+#: app/models/profile_image_block.rb:6
+msgid "Profile Image"
+msgstr ""
+
+#: app/models/profile_image_block.rb:10
+msgid "This block presents the profile image"
+msgstr ""
+
+#: app/models/create_community.rb:52
+msgid "%{requestor} wants to create community %{subject} with no description."
+msgstr ""
+
+#: app/models/create_community.rb:54
+msgid ""
+"%{requestor} wants to create community %{subject} with this description:"
+"<p><em>%{description}</em></p>"
+msgstr ""
+
+#: app/models/create_community.rb:74
+msgid "%{requestor} wants to create community %{subject}"
+msgstr ""
+
+#: app/models/create_community.rb:78
+msgid ""
+"User \"%{user}\" just requested to create community %{community}. You have "
+"to approve or reject it through the \"Pending Validations\" section in your "
+"control panel.\n"
+msgstr ""
+
+#: app/models/create_community.rb:82
+msgid ""
+"Your request for registering community %{community} at %{environment} was "
+"just sent. Environment administrator will receive it and will approve or "
+"reject your request according to his methods and creteria.\n"
+"\n"
+"      You will be notified as soon as environment administrator has a "
+"position about your request."
+msgstr ""
+
+#: app/models/create_community.rb:88
+msgid ""
+"Your request for registering community %{community} at %{environment} was "
+"not approved by the environment administrator. The following explanation was "
+"given: \n"
+"\n"
+"%{explanation}"
+msgstr ""
+
+#: app/models/create_community.rb:92
+msgid ""
+"Your request for registering the community \"%{community}\" was approved. "
+"You can access %{environment} now and start using your new community."
+msgstr ""
+
+#: app/models/block.rb:-
+msgid "block"
+msgstr ""
+
+#: app/models/block.rb:-
+msgid "Box"
+msgstr ""
+
+#: app/models/block.rb:- app/models/mailing.rb:- app/models/task.rb:-
+#: app/models/profile.rb:- app/views/cms/view.rhtml:25
+msgid "Type"
+msgstr ""
+
+#: app/models/block.rb:-
+msgid "Settings"
+msgstr ""
+
+#: app/models/block.rb:- app/models/external_feed.rb:- app/models/profile.rb:-
+msgid "Enabled"
+msgstr ""
+
+#: app/models/block.rb:- app/models/scrap.rb:- app/models/user.rb:-
+#: app/models/qualifier.rb:- app/models/contact_list.rb:-
+#: app/models/input.rb:- app/models/mailing.rb:- app/models/product.rb:-
+#: app/models/task.rb:- app/models/product_qualifier.rb:-
+#: app/models/certifier.rb:- app/models/external_feed.rb:-
+#: app/models/mailing_sent.rb:- app/models/comment.rb:-
+#: app/models/profile.rb:- app/models/product_categorization.rb:-
+msgid "Created at"
+msgstr ""
+
+#: app/models/block.rb:- app/models/scrap.rb:- app/models/user.rb:-
+#: app/models/qualifier.rb:- app/models/contact_list.rb:-
+#: app/models/input.rb:- app/models/mailing.rb:- app/models/product.rb:-
+#: app/models/product_qualifier.rb:- app/models/certifier.rb:-
+#: app/models/external_feed.rb:- app/models/mailing_sent.rb:-
+#: app/models/profile.rb:- app/models/product_categorization.rb:-
+msgid "Updated at"
+msgstr ""
+
+#: app/models/block.rb:- app/models/external_feed.rb:-
+msgid "Fetched at"
+msgstr ""
+
+#: app/models/sellers_search_block.rb:4
+msgid "Search for enterprises and products"
+msgstr ""
+
+#: app/models/sellers_search_block.rb:8
+msgid "Products/Enterprises search"
+msgstr ""
+
+#: app/models/sellers_search_block.rb:12
+msgid "Search for sellers"
+msgstr ""
+
+#: app/models/sellers_search_block.rb:16
+msgid "This block presents a search engine for products."
+msgstr ""
+
+#: app/models/enterprise_activation.rb:23
+#: app/views/account/accept_terms.rhtml:14
+#: app/views/account/activation_question.rhtml:26
+msgid "Enterprise activation"
+msgstr ""
+
+#: app/models/enterprise_activation.rb:31
+msgid "%{requestor} wants to activate enterprise %{linked_subject}."
+msgstr ""
+
+#: app/models/enterprise_activation.rb:39
+msgid "%{requestor} wants to activate enterprise %{enterprise}."
+msgstr ""
+
+#: app/models/qualifier_certifier.rb:-
+msgid "qualifier certifier"
+msgstr ""
+
+#: app/models/qualifier_certifier.rb:- app/models/product_qualifier.rb:-
+#: app/views/manage_products/_edit_info.rhtml:29
+msgid "Qualifier"
+msgstr ""
+
+#: app/models/qualifier_certifier.rb:- app/models/product_qualifier.rb:-
+#: app/views/manage_products/_edit_info.rhtml:30
+msgid "Certifier"
+msgstr ""
+
+#: app/models/event.rb:25
+msgid "%{fn} cannot come before end date."
+msgstr ""
+
+#: app/models/event.rb:37
+msgid "A calendar event"
+msgstr ""
+
+#: app/models/event.rb:90
+msgid "When:"
+msgstr ""
+
+#: app/models/event.rb:94
+msgid "URL:"
+msgstr ""
+
+#: app/models/unit.rb:-
+msgid "unit"
+msgstr ""
+
+#: app/models/unit.rb:-
+msgid "Singular"
+msgstr ""
+
+#: app/models/unit.rb:-
+msgid "Plural"
+msgstr ""
+
+#: app/models/unit.rb:- app/models/user.rb:- app/models/qualifier.rb:-
+#: app/models/certifier.rb:- app/models/profile.rb:-
+msgid "Environment"
+msgstr ""
+
+#: app/models/enterprises_block.rb:4
+msgid "{#} enterprise"
+msgid_plural "{#} enterprises"
+msgstr[0] ""
+msgstr[1] ""
+
+#: app/models/enterprises_block.rb:8
+msgid "This block displays the enterprises where this user works."
+msgstr ""
+
+#: app/models/enterprises_block.rb:20 app/models/enterprises_block.rb:24
+msgid "enterprises|View all"
+msgstr ""
+
+#: app/models/scrap.rb:-
+msgid "scrap"
+msgstr ""
+
+#: app/models/scrap.rb:- app/views/profile/_common.rhtml:15
+msgid "Content"
+msgstr ""
+
+#: app/models/scrap.rb:-
+msgid "Sender"
+msgstr ""
+
+#: app/models/scrap.rb:-
+msgid "Receiver"
+msgstr ""
+
+#: app/models/scrap.rb:- app/views/profile/_profile_scrap.rhtml:5
+#: app/views/profile/_profile_network_activities.rhtml:6
+msgid "Scrap"
+msgstr ""
+
+#: app/models/scrap.rb:51
+msgid "[%s] You received a scrap!"
+msgstr ""
+
+#: app/models/highlights_block.rb:23
+#: app/views/box_organizer/_highlights_block.rhtml:1
+msgid "Highlights"
+msgstr ""
+
+#: app/models/approve_article.rb:5
+msgid "(The original text was removed)"
+msgstr ""
+
+#: app/models/approve_article.rb:17
+msgid "Article removed."
+msgstr ""
+
+#: app/models/approve_article.rb:70
+msgid "%{requestor} wants to publish the article: %{linked_subject}."
+msgstr ""
+
+#: app/models/approve_article.rb:72
+msgid "The article was removed."
+msgstr ""
+
+#: app/models/approve_article.rb:93
+msgid "%{requestor} wants to publish the article: %{article}."
+msgstr ""
+
+#: app/models/approve_article.rb:99 app/models/suggest_article.rb:63
+msgid ""
+"You need to login on %{system} in order to approve or reject this article."
+msgstr ""
+
+#: app/models/approve_article.rb:104
+msgid ""
+"Your request for publishing the article \"%{article}\" was approved. Here is "
+"the comment left by the admin who approved your article:\n"
+"\n"
+"%{comment} "
+msgstr ""
+
+#: app/models/approve_article.rb:106
+msgid "Your request for publishing the article \"%{article}\" was approved."
+msgstr ""
+
+#: app/models/raw_html_block.rb:4
+msgid "Raw HTML"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "user"
+msgstr ""
+
+#: app/models/user.rb:- app/models/user.rb:18 app/models/change_password.rb:8
+#: app/views/invite/select_address_book.rhtml:38
+msgid "Username"
+msgstr ""
+
+#: app/models/user.rb:- app/models/user.rb:19 app/models/change_password.rb:10
+#: app/models/contact.rb:14
+msgid "e-Mail"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "Crypted password"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "Salt"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "Remember token"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "Remember token expires at"
+msgstr ""
+
+#: app/models/user.rb:- app/views/account/_signup_form.rhtml:43
+#: app/views/admin_panel/index.rhtml:18
+#: app/views/admin_panel/terms_of_use.rhtml:1
+msgid "Terms of use"
+msgstr ""
+
+#: app/models/user.rb:- app/models/user.rb:9
+msgid "Terms accepted"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "Password type"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "Enable email"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "Last chat status"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "Chat status"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "Chat status at"
+msgstr ""
+
+#: app/models/user.rb:7 app/models/change_password.rb:12
+#: app/views/invite/select_address_book.rhtml:39
+msgid "Password"
+msgstr ""
+
+#: app/models/user.rb:8
+msgid "Password confirmation"
+msgstr ""
+
+#: app/models/user.rb:51
+msgid "[%{environment}] Welcome to %{environment} mail!"
+msgstr ""
+
+#: app/models/user.rb:85
+msgid "%{fn} must be checked in order to signup."
+msgstr ""
+
+#: app/models/article_categorization.rb:-
+msgid "articles category"
+msgstr ""
+
+#: app/models/article_categorization.rb:-
+msgid "articlecategorization"
+msgstr ""
+
+#: app/models/article_categorization.rb:- app/models/comment.rb:-
+msgid "Article"
+msgstr ""
+
+#: app/models/article_categorization.rb:-
+#: app/models/profile_categorization.rb:-
+#: app/models/product_categorization.rb:-
+msgid "Category"
+msgstr ""
+
+#: app/models/article_categorization.rb:-
+#: app/models/profile_categorization.rb:-
+#: app/models/product_categorization.rb:-
+msgid "Virtual"
+msgstr ""
+
+#: app/models/environment_statistics_block.rb:4
+msgid "Environment stastistics"
+msgstr ""
+
+#: app/models/environment_statistics_block.rb:8
+msgid "Statistics for %s"
+msgstr ""
+
+#: app/models/environment_statistics_block.rb:12
+msgid "This block presents some statistics about your environment."
+msgstr ""
+
+#: app/models/environment_statistics_block.rb:21
+msgid "One user"
+msgid_plural "%{num} users"
+msgstr[0] ""
+msgstr[1] ""
+
+#: app/models/environment_statistics_block.rb:23
+msgid "One enterprise"
+msgid_plural "%{num} enterprises"
+msgstr[0] ""
+msgstr[1] ""
+
+#: app/models/environment_statistics_block.rb:25
+#: app/views/blocks/my_network/person.rhtml:6
+msgid "One community"
+msgid_plural "%{num} communities"
+msgstr[0] ""
+msgstr[1] ""
+
+#: app/models/person.rb:66
+msgid "An existing person cannot be renamed."
+msgstr ""
+
+#: app/models/person.rb:72
+msgid "friends"
+msgstr ""
+
+#: app/models/person.rb:72
+msgid "work"
+msgstr ""
+
+#: app/models/person.rb:72
+msgid "school"
+msgstr ""
+
+#: app/models/person.rb:72
+msgid "family"
+msgstr ""
+
+#: app/models/person.rb:128
+msgid "%{fn} is mandatory"
+msgstr ""
+
+#: app/models/person.rb:153
+msgid "Cell phone"
+msgstr ""
+
+#: app/models/person.rb:153
+msgid "Comercial phone"
+msgstr ""
+
+#: app/models/person.rb:153
+msgid "Nationality"
+msgstr ""
+
+#: app/models/person.rb:153 app/views/profile_editor/_person_form.rhtml:29
+msgid "Schooling"
+msgstr ""
+
+#: app/models/person.rb:153 app/views/profile_editor/_person_form.rhtml:54
+msgid "Area of study"
+msgstr ""
+
+#: app/models/person.rb:153
+msgid "Professional activity"
+msgstr ""
+
+#: app/models/person.rb:153 app/models/validation_info.rb:-
+msgid "Organization"
+msgstr ""
+
+#: app/models/person.rb:156
+msgid "Schooling status"
+msgstr ""
+
+#: app/models/person.rb:159
+msgid "Custom education"
+msgstr ""
+
+#: app/models/person.rb:159
+msgid "Custom area of study"
+msgstr ""
+
+#: app/models/person.rb:162
+msgid "Contact information"
+msgstr ""
+
+#: app/models/person.rb:162
+msgid "Sex"
+msgstr ""
+
+#: app/models/person.rb:162
+msgid "Zip code"
+msgstr ""
+
+#: app/models/person.rb:190
+msgid "%{fn} is already used by other user"
+msgstr ""
+
+#: app/models/person.rb:218 app/models/profile_categorization.rb:-
+#: app/models/action_tracker_notification.rb:-
+#: app/views/profile/_profile.rhtml:16 app/views/profile/_profile.rhtml:26
+msgid "Profile"
+msgstr ""
+
+#: app/models/person.rb:219 app/models/organization.rb:119
+msgid "Image gallery"
+msgstr ""
+
+#: app/models/person.rb:233 app/models/gallery.rb:4
+#: app/models/organization.rb:132
+msgid "Gallery"
+msgstr ""
+
+#: app/models/person.rb:345
+msgid "none"
+msgstr ""
+
+#: app/models/person.rb:346
+msgid "one friend"
+msgstr ""
+
+#: app/models/person.rb:347
+msgid "%s friends"
+msgstr ""
+
+#: app/models/person.rb:382
+msgid "You just left %s."
+msgstr ""
+
+#: app/models/favorite_enterprises_block.rb:4
+#: app/models/favorite_enterprises_block.rb:12
+#: app/views/profile_editor/index.rhtml:55
+msgid "Favorite Enterprises"
+msgstr ""
+
+#: app/models/favorite_enterprises_block.rb:8
+msgid "This block lists your favorite enterprises."
+msgstr ""
+
+#: app/models/qualifier.rb:-
+msgid "qualifier"
+msgstr ""
+
+#: app/models/qualifier.rb:- app/models/product.rb:- app/models/certifier.rb:-
+#: app/models/comment.rb:- app/models/profile.rb:-
+#: app/models/create_enterprise.rb:4 app/models/contact.rb:-
+#: app/models/contact.rb:14 app/views/cms/view.rhtml:24
+#: app/views/enterprise_registration/select_validator.rhtml:12
+#: app/views/content_viewer/_comment_form.rhtml:30
+#: app/views/box_organizer/_link_list_block.rhtml:4
+#: app/views/profile_members/_find_users.rhtml:3
+#: app/views/profile_members/find_users.rhtml:3
+#: app/views/enterprise_validation/_details.rhtml:3
+msgid "Name"
+msgstr ""
+
+#: app/models/contact_list.rb:-
+msgid "contact list"
+msgstr ""
+
+#: app/models/contact_list.rb:-
+msgid "List"
+msgstr ""
+
+#: app/models/contact_list.rb:-
+msgid "Error fetching"
+msgstr ""
+
+#: app/models/contact_list.rb:-
+msgid "Fetched"
+msgstr ""
+
+#: app/models/contact_list.rb:18
+msgid ""
+"There was an error while authenticating. Did you enter correct login and "
+"password?"
+msgstr ""
+
+#: app/models/contact_list.rb:23
+msgid ""
+"There was an error while looking for your contact list. Please, try again"
+msgstr ""
+
+#: app/models/categories_block.rb:4
+msgid "Generic category"
+msgstr ""
+
+#: app/models/categories_block.rb:6 app/models/input.rb:-
+#: app/models/product_qualifier.rb:- app/models/product_categorization.rb:-
+#: app/views/manage_products/index.rhtml:5
+msgid "Product"
+msgstr ""
+
+#: app/models/categories_block.rb:12 app/models/categories_block.rb:16
+msgid "Categories Menu"
+msgstr ""
+
+#: app/models/categories_block.rb:20
+msgid "This block presents the categories like a web site menu."
+msgstr ""
+
+#: app/models/input.rb:-
+msgid "input"
+msgstr ""
+
+#: app/models/input.rb:- app/models/product.rb:-
+msgid "Product category"
+msgstr ""
+
+#: app/models/input.rb:-
+msgid "Price per unit"
+msgstr ""
+
+#: app/models/input.rb:-
+msgid "Amount used"
+msgstr ""
+
+#: app/models/input.rb:-
+msgid "Relevant to price"
+msgstr ""
+
+#: app/models/input.rb:-
+msgid "Is from solidarity economy"
+msgstr ""
+
+#: app/models/input.rb:- app/models/product.rb:-
+msgid "Unit"
+msgstr ""
+
+#: app/models/profile_categorization.rb:-
+msgid "categories profile"
+msgstr ""
+
+#: app/models/profile_categorization.rb:-
+msgid "profilecategorization"
+msgstr ""
+
+#: app/models/tags_block.rb:10
+msgid "Tags"
+msgstr ""
+
+#: app/models/tags_block.rb:14
+msgid "tags"
+msgstr ""
+
+#: app/models/tags_block.rb:18
+msgid ""
+"Tags are created when you add some of them one to your contents. <p/>\n"
+"       Try to add some tags to some articles and you'l see your tag cloud "
+"growing."
+msgstr ""
+
+#: app/models/tags_block.rb:43
+msgid "tags|View all"
+msgstr ""
+
+#: app/models/add_friend.rb:27 app/models/add_friend.rb:40
+#: app/models/invite_friend.rb:15 app/models/invite_friend.rb:27
+msgid "%{requestor} wants to be your friend."
+msgstr ""
+
+#: app/models/add_friend.rb:32
+msgid ""
+"You need to login to %{system} in order to accept %{requestor} as your "
+"friend."
+msgstr ""
+
+#: app/models/add_friend.rb:36 app/models/invite_friend.rb:11
+msgid "New friend"
+msgstr ""
+
+#: app/models/friends_block.rb:8
+msgid "{#} friend"
+msgid_plural "{#} friends"
+msgstr[0] ""
+msgstr[1] ""
+
+#: app/models/friends_block.rb:12
+msgid "This block displays your friends."
+msgstr ""
+
+#: app/models/friends_block.rb:18
+msgid "friends|View all"
+msgstr ""
+
+#: app/models/mailing.rb:-
+msgid "mailing"
+msgstr ""
+
+#: app/models/mailing.rb:- app/models/contact.rb:- app/models/contact.rb:14
+msgid "Subject"
+msgstr ""
+
+#: app/models/mailing.rb:- app/models/comment.rb:-
+msgid "Body"
+msgstr ""
+
+#: app/models/mailing.rb:- app/views/cms/suggest_an_article.rhtml:11
+#: app/views/tasks/_suggest_article_accept_details.rhtml:6
+msgid "Source"
+msgstr ""
+
+#: app/models/mailing.rb:-
+msgid "Source type"
+msgstr ""
+
+#: app/models/mailing.rb:-
+msgid "Locale"
+msgstr ""
+
+#: app/models/mailing.rb:24
+msgid "Sent by Noosfero."
+msgstr ""
+
+#: app/models/location_block.rb:7
+msgid "Location map"
+msgstr ""
+
+#: app/models/location_block.rb:11
+msgid "Shows where the profile is on the material world."
+msgstr ""
+
+#: app/models/location_block.rb:26
+msgid "This profile has no geographical position registered."
+msgstr ""
+
+#: app/models/featured_products_block.rb:17
+#: app/views/box_organizer/_featured_products_block.rhtml:1
+msgid "Featured Products"
+msgstr ""
+
+#: app/models/slideshow_block.rb:10
+msgid "Slideshow"
+msgstr ""
+
+#: app/models/product.rb:-
+msgid "product"
+msgstr ""
+
+#: app/models/product.rb:- app/views/manage_products/index.rhtml:6
+msgid "Price"
+msgstr ""
+
+#: app/models/product.rb:- app/models/certifier.rb:-
+#: app/models/organization.rb:98 app/views/plugins/index.rhtml:9
+#: app/views/cms/_uploaded_file.rhtml:2
+#: app/views/manage_products/show.rhtml:26
+msgid "Description"
+msgstr ""
+
+#: app/models/product.rb:- app/views/box_organizer/_highlights_block.rhtml:4
+msgid "Image"
+msgstr ""
+
+#: app/models/product.rb:- app/models/profile.rb:-
+msgid "Lat"
+msgstr ""
+
+#: app/models/product.rb:- app/models/profile.rb:-
+msgid "Lng"
+msgstr ""
+
+#: app/models/product.rb:-
+msgid "Discount"
+msgstr ""
+
+#: app/models/product.rb:- app/views/manage_products/_edit_info.rhtml:21
+msgid "Available"
+msgstr ""
+
+#: app/models/product.rb:-
+msgid "Highlighted"
+msgstr ""
+
+#: app/models/task.rb:-
+msgid "task"
+msgstr ""
+
+#: app/models/task.rb:- app/models/profile.rb:-
+msgid "Data"
+msgstr ""
+
+#: app/models/task.rb:-
+msgid "Status"
+msgstr ""
+
+#: app/models/task.rb:- app/views/cms/_event.rhtml:12
+msgid "End date"
+msgstr ""
+
+#: app/models/task.rb:-
+msgid "Requestor"
+msgstr ""
+
+#: app/models/task.rb:-
+msgid "Target"
+msgstr ""
+
+#: app/models/task.rb:-
+msgid "Code"
+msgstr ""
+
+#: app/models/task.rb:-
+msgid "Target type"
+msgstr ""
+
+#: app/models/task.rb:27 app/models/profile.rb:-
+#: app/views/features/_manage_community_fields.rhtml:8
+#: app/views/features/_manage_person_fields.rhtml:8
+#: app/views/features/_manage_enterprise_fields.rhtml:8
+msgid "Active"
+msgstr ""
+
+#: app/models/task.rb:27
+msgid "Cancelled"
+msgstr ""
+
+#: app/models/task.rb:27
+msgid "Finished"
+msgstr ""
+
+#: app/models/task.rb:117
+msgid "Task"
+msgstr ""
+
+#: app/models/task.rb:129
+msgid "%{requestor} sent you a task."
+msgstr ""
+
+#: app/models/folder.rb:17
+msgid "Folder"
+msgstr ""
+
+#: app/models/folder.rb:21
+msgid "A folder, inside which you can put other articles."
+msgstr ""
+
+#: app/models/login_block.rb:4
+msgid "Login/logout"
+msgstr ""
+
+#: app/models/login_block.rb:8
+msgid "This block presents a login/logout block."
+msgstr ""
+
+#: app/models/uploaded_file.rb:51
+msgid "%{fn} of uploaded file was larger than the maximum size of 5.0 MB"
+msgstr ""
+
+#: app/models/uploaded_file.rb:68
+msgid "Uploaded file"
+msgstr ""
+
+#: app/models/uploaded_file.rb:72
+msgid "Upload any kind of file you want."
+msgstr ""
+
+#: app/models/uploaded_file.rb:95 app/models/uploaded_file.rb:97
+msgid "&laquo; Previous"
+msgstr ""
+
+#: app/models/uploaded_file.rb:101 app/models/uploaded_file.rb:103
+msgid "Next &raquo;"
+msgstr ""
+
+#: app/models/uploaded_file.rb:108
+msgid "image %d of %d"
+msgstr ""
+
+#: app/models/product_qualifier.rb:-
+msgid "product qualifier"
+msgstr ""
+
+#: app/models/products_block.rb:16
+msgid "This block presents a list of your products."
+msgstr ""
+
+#: app/models/products_block.rb:28
+msgid "View all products"
+msgstr ""
+
+#: app/models/change_password.rb:14
+msgid "Password Confirmation"
+msgstr ""
+
+#: app/models/change_password.rb:33
+msgid "%{fn} is not a valid username."
+msgstr ""
+
+#: app/models/change_password.rb:36
+msgid "%{fn} is invalid."
+msgstr ""
+
+#: app/models/change_password.rb:55 app/views/account/change_password.rhtml:1
+#: app/views/account/change_password.rhtml:14
+#: app/views/account/new_password.rhtml:14
+msgid "Change password"
+msgstr ""
+
+#: app/models/change_password.rb:59 app/models/change_password.rb:72
+msgid "%{requestor} wants to change its password."
+msgstr ""
+
+#: app/models/change_password.rb:78
+msgid "Your password change request was cancelled at %s."
+msgstr ""
+
+#: app/models/change_password.rb:82
+msgid "Your password was changed successfully."
+msgstr ""
+
+#: app/models/change_password.rb:92
+msgid ""
+"In order to change your password, please visit the following address:\n"
+"\n"
+"%s"
+msgstr ""
+
+#: app/models/forum.rb:10
+msgid ""
+"An internet forum, also called message board, where discussions can be held."
+msgstr ""
+
+#: app/models/suggest_article.rb:36
+msgid "Article suggestion"
+msgstr ""
+
+#: app/models/suggest_article.rb:44
+msgid "%{sender} suggested the publication of the article: %{subject}."
+msgstr ""
+
+#: app/models/suggest_article.rb:57
+msgid "%{sender} suggested the publication of the article: %{article}."
+msgstr ""
+
+#: app/models/certifier.rb:-
+msgid "certifier"
+msgstr ""
+
+#: app/models/certifier.rb:-
+msgid "Link"
+msgstr ""
+
+#: app/models/add_member.rb:19
+msgid "New member"
+msgstr ""
+
+#: app/models/add_member.rb:23 app/models/add_member.rb:39
+msgid "%{requestor} wants to be a member of this community."
+msgstr ""
+
+#: app/models/add_member.rb:44
+msgid ""
+"You will need login to %{system} in order to accept or reject %{requestor} "
+"as a member of %{organization}."
+msgstr ""
+
+#: app/models/my_network_block.rb:6 app/models/my_network_block.rb:10
+msgid "My network"
+msgstr ""
+
+#: app/models/my_network_block.rb:14
+msgid "This block displays some info about your networking."
+msgstr ""
+
+#: app/models/external_feed.rb:-
+msgid "external feed"
+msgstr ""
+
+#: app/models/external_feed.rb:-
+msgid "Feed title"
+msgstr ""
+
+#: app/models/external_feed.rb:- app/models/profile.rb:-
+#: app/models/create_enterprise.rb:5 app/views/cms/_blog.rhtml:33
+#: app/views/profile_editor/_organization.rhtml:40
+#: app/views/enterprise_registration/basic_information.rhtml:23
+#: app/views/box_organizer/_feed_reader_block.rhtml:2
+#: app/views/box_organizer/_highlights_block.rhtml:4
+#: app/views/box_organizer/_link_list_block.rhtml:4
+#: app/views/enterprise_validation/index.rhtml:14
+#: app/views/enterprise_validation/_details.rhtml:7
+#: app/views/enterprise_validation/list_processed.rhtml:9
+msgid "Address"
+msgstr ""
+
+#: app/models/external_feed.rb:-
+msgid "Only once"
+msgstr ""
+
+#: app/models/external_feed.rb:-
+msgid "Error message"
+msgstr ""
+
+#: app/models/external_feed.rb:-
+msgid "Update errors"
+msgstr ""
+
+#: app/models/environment_mailing.rb:19
+msgid "Sent by %s."
+msgstr ""
+
+#: app/models/tiny_mce_article.rb:4
+msgid "Text article with visual editor."
+msgstr ""
+
+#: app/models/tiny_mce_article.rb:8
+msgid "Not accessible for visually impaired users."
+msgstr ""
+
+#: app/models/mailing_sent.rb:-
+msgid "mailing sent"
+msgstr ""
+
+#: app/models/mailing_sent.rb:-
+msgid "Mailing"
+msgstr ""
+
+#: app/models/invitation.rb:34
+msgid "You can't invite youself"
+msgstr ""
+
+#: app/models/invitation.rb:46
+msgid "Firstname Lastname <friend@email.com>"
+msgstr ""
+
+#: app/models/invitation.rb:125
+msgid "To accept invitation, please follow this link: <url>"
+msgstr ""
+
+#: app/models/action_tracker_notification.rb:-
+msgid "action tracker notification"
+msgstr ""
+
+#: app/models/action_tracker_notification.rb:-
+msgid "Action tracker"
+msgstr ""
+
+#: app/models/comment.rb:-
+msgid "comment"
+msgstr ""
+
+#: app/models/comment.rb:-
+msgid "Author"
+msgstr ""
+
+#: app/models/comment.rb:- app/models/contact.rb:-
+#: app/views/cms/suggest_an_article.rhtml:17
+msgid "Email"
+msgstr ""
+
+#: app/models/comment.rb:-
+msgid "Reply of"
+msgstr ""
+
+#: app/models/comment.rb:20
+msgid "%{fn} can only be informed for unauthenticated authors"
+msgstr ""
+
+#: app/models/comment.rb:55
+msgid "(removed user)"
+msgstr ""
+
+#: app/models/comment.rb:55
+msgid "(unauthenticated user)"
+msgstr ""
+
+#: app/models/comment.rb:106
+msgid "[%s] you got a new comment!"
+msgstr ""
+
+#: app/models/main_block.rb:8
+msgid "This block presents the main content of your pages."
+msgstr ""
+
+#: app/models/environment.rb:13
+msgid "View environment admin panel"
+msgstr ""
+
+#: app/models/environment.rb:14
+msgid "Edit environment features"
+msgstr ""
+
+#: app/models/environment.rb:15
+msgid "Edit environment design"
+msgstr ""
+
+#: app/models/environment.rb:16
+msgid "Manage environment categories"
+msgstr ""
+
+#: app/models/environment.rb:17
+msgid "Manage environment roles"
+msgstr ""
+
+#: app/models/environment.rb:18
+msgid "Manage environment validators"
+msgstr ""
+
+#: app/models/environment.rb:19
+msgid "Manage environment users"
+msgstr ""
+
+#: app/models/environment.rb:32
+msgid "Environment Administrator"
+msgstr ""
+
+#: app/models/environment.rb:38
+msgid "Profile Administrator"
+msgstr ""
+
+#: app/models/environment.rb:45 app/views/profile_members/add_admin.rhtml:9
+#: app/views/profile_members/add_member.rhtml:9
+#: app/views/profile_members/remove_admin.rhtml:9
+#: app/views/profile_members/unassociate.rhtml:9
+#: app/views/profile_members/_members_list.rhtml:9
+msgid "Member"
+msgstr ""
+
+#: app/models/environment.rb:54
+msgid "Moderator"
+msgstr ""
+
+#: app/models/environment.rb:78
+msgid "Disable search for articles "
+msgstr ""
+
+#: app/models/environment.rb:79
+msgid "Disable search for enterprises"
+msgstr ""
+
+#: app/models/environment.rb:80
+msgid "Disable search for people"
+msgstr ""
+
+#: app/models/environment.rb:81
+msgid "Disable search for communities"
+msgstr ""
+
+#: app/models/environment.rb:82
+msgid "Disable search for products"
+msgstr ""
+
+#: app/models/environment.rb:83
+msgid "Disable search for events"
+msgstr ""
+
+#: app/models/environment.rb:84
+msgid "Disable products for enterprises"
+msgstr ""
+
+#: app/models/environment.rb:85
+msgid "Disable categories"
+msgstr ""
+
+#: app/models/environment.rb:86
+msgid "Disable CMS"
+msgstr ""
+
+#: app/models/environment.rb:87
+msgid "Disable header/footer editing by users"
+msgstr ""
+
+#: app/models/environment.rb:88
+msgid "Disable gender icon"
+msgstr ""
+
+#: app/models/environment.rb:89
+msgid "Disable the categories menu"
+msgstr ""
+
+#: app/models/environment.rb:90
+msgid "Disable state/city select for contact form"
+msgstr ""
+
+#: app/models/environment.rb:91
+msgid "Disable contact for people"
+msgstr ""
+
+#: app/models/environment.rb:92
+msgid "Disable contact for groups/communities"
+msgstr ""
+
+#: app/models/environment.rb:93 app/models/create_enterprise.rb:142
+#: app/views/enterprise_registration/basic_information.rhtml:3
+msgid "Enterprise registration"
+msgstr ""
+
+#: app/models/environment.rb:95
+msgid "Enable activation of enterprises"
+msgstr ""
+
+#: app/models/environment.rb:96
+msgid "Media panel in WYSIWYG editor"
+msgstr ""
+
+#: app/models/environment.rb:97
+msgid "Select preferred domains per profile"
+msgstr ""
+
+#: app/models/environment.rb:98
+msgid "Use the portal as news source for front page"
+msgstr ""
+
+#: app/models/environment.rb:99
+msgid "Allow users to create their own themes"
+msgstr ""
+
+#: app/models/environment.rb:100
+msgid "Display search form in home page"
+msgstr ""
+
+#: app/models/environment.rb:102
+msgid "Don't allow users to change which article to use as homepage"
+msgstr ""
+
+#: app/models/environment.rb:103
+msgid "Display explanation about header and footer"
+msgstr ""
+
+#: app/models/environment.rb:104
+msgid "Articles don't accept comments by default"
+msgstr ""
+
+#: app/models/environment.rb:105
+msgid "Organizations have moderated publication by default"
+msgstr ""
+
+#: app/models/environment.rb:106
+msgid "Allow organizations to change their URL"
+msgstr ""
+
+#: app/models/environment.rb:107
+msgid "Admin must approve creation of communities"
+msgstr ""
+
+#: app/models/environment.rb:108
+msgid "Enterprises are disabled when created"
+msgstr ""
+
+#: app/models/environment.rb:109
+msgid "Show a balloon with profile links when a profile image is clicked"
+msgstr ""
+
+#: app/models/environment.rb:110
+msgid "XMPP/Jabber based chat"
+msgstr ""
+
+#: app/models/environment.rb:111
+msgid "Show a zoom link on all article images"
+msgstr ""
+
+#: app/models/environment.rb:491
+msgid "Only one Virtual Community can be the default one"
+msgstr ""
+
+#: app/models/blog_archives_block.rb:10 app/models/blog_archives_block.rb:14
+msgid "Blog posts"
+msgstr ""
+
+#: app/models/blog_archives_block.rb:37
+msgid "Subscribe RSS Feed"
+msgstr ""
+
+#: app/models/thumbnail.rb:-
+msgid "thumbnail"
+msgstr ""
+
+#: app/models/gallery.rb:8
+msgid "A gallery, inside which you can put images."
+msgstr ""
+
+#: app/models/pending_task_notifier.rb:6
+msgid "[%s] Pending tasks"
+msgstr ""
+
+#: app/models/profile.rb:-
+msgid "profile"
+msgstr ""
+
+#: app/models/profile.rb:- app/models/create_enterprise.rb:3
+#: app/views/enterprise_validation/_details.rhtml:23
+msgid "Identifier"
+msgstr ""
+
+#: app/models/profile.rb:- app/models/create_enterprise.rb:6
+msgid "Contact phone"
+msgstr ""
+
+#: app/models/profile.rb:-
+msgid "Home page"
+msgstr ""
+
+#: app/models/profile.rb:-
+msgid "User"
+msgstr ""
+
+#: app/models/profile.rb:-
+msgid "Geocode precision"
+msgstr ""
+
+#: app/models/profile.rb:-
+msgid "Nickname"
+msgstr ""
+
+#: app/models/profile.rb:-
+msgid "Custom header"
+msgstr ""
+
+#: app/models/profile.rb:-
+msgid "Custom footer"
+msgstr ""
+
+#: app/models/profile.rb:-
+msgid "Theme"
+msgstr ""
+
+#: app/models/profile.rb:- app/models/profile.rb:675
+msgid "Public profile"
+msgstr ""
+
+#: app/models/profile.rb:- app/views/profile_editor/_person_form.rhtml:19
+msgid "Birth date"
+msgstr ""
+
+#: app/models/profile.rb:-
+msgid "Preferred domain"
+msgstr ""
+
+#: app/models/profile.rb:-
+msgid "Visible"
+msgstr ""
+
+#: app/models/profile.rb:36
+msgid "Edit profile"
+msgstr ""
+
+#: app/models/profile.rb:37
+msgid "Destroy profile"
+msgstr ""
+
+#: app/models/profile.rb:38
+msgid "Manage memberships"
+msgstr ""
+
+#: app/models/profile.rb:39
+msgid "Manage content"
+msgstr ""
+
+#: app/models/profile.rb:40
+msgid "Edit profile design"
+msgstr ""
+
+#: app/models/profile.rb:41
+msgid "Manage products"
+msgstr ""
+
+#: app/models/profile.rb:42 app/views/profile_editor/index.rhtml:44
+msgid "Manage friends"
+msgstr ""
+
+#: app/models/profile.rb:43
+msgid "Validate enterprise"
+msgstr ""
+
+#: app/models/profile.rb:44
+msgid "Perform task"
+msgstr ""
+
+#: app/models/profile.rb:45
+msgid "Moderate comments"
+msgstr ""
+
+#: app/models/profile.rb:46
+msgid "Edit appearance"
+msgstr ""
+
+#: app/models/profile.rb:47
+msgid "View private content"
+msgstr ""
+
+#: app/models/profile.rb:48
+msgid "Publish content"
+msgstr ""
+
+#: app/models/profile.rb:49
+msgid "Invite members"
+msgstr ""
+
+#: app/models/profile.rb:573
+msgid "%s can't have members"
+msgstr ""
+
+#: app/models/profile.rb:594
+msgid "%s can't has moderators"
+msgstr ""
+
+#: app/models/profile.rb:675
+msgid "Private profile"
+msgstr ""
+
+#: app/models/profile.rb:772
+msgid "Since: "
+msgstr ""
+
+#: app/models/profile.rb:787
+msgid "no activity"
+msgstr ""
+
+#: app/models/profile.rb:788
+msgid "one activity"
+msgstr ""
+
+#: app/models/profile.rb:789
+msgid "%s activities"
+msgstr ""
+
+#: app/models/profile.rb:795
+msgid "no members"
+msgstr ""
+
+#: app/models/profile.rb:796
+msgid "one member"
+msgstr ""
+
+#: app/models/profile.rb:797
+msgid "%s members"
+msgstr ""
+
+#: app/models/blog.rb:17
+msgid "A blog, inside which you can put other articles."
+msgstr ""
+
+#: app/models/feed_reader_block.rb:36
+msgid "Feed reader"
+msgstr ""
+
+#: app/models/feed_reader_block.rb:40
+msgid ""
+"This block can be used to list the latest new from any site you want. You "
+"just need to inform the address of a RSS feed."
+msgstr ""
+
+#: app/models/feed_reader_block.rb:44
+msgid "Feed Reader"
+msgstr ""
+
+#: app/models/feed_reader_block.rb:59
+msgid "Feed content was not loaded yet"
+msgstr ""
+
+#: app/models/feed_reader_block.rb:61
+msgid "Updated: %s"
+msgstr ""
+
+#: app/models/rss_feed.rb:80
+msgid "%s's RSS feed"
+msgstr ""
+
+#: app/models/rss_feed.rb:81
+msgid "%s's content published at %s"
+msgstr ""
+
+#: app/models/rss_feed.rb:87
+msgid "RSS Feed"
+msgstr ""
+
+#: app/models/rss_feed.rb:91
+msgid "Provides a news feed of your more recent articles."
+msgstr ""
+
+#: app/models/community.rb:2
+msgid "Community"
+msgstr ""
+
+#: app/models/community.rb:3 app/views/cms/_translatable.rhtml:3
+msgid "Language"
+msgstr ""
+
+#: app/models/enterprise_homepage.rb:4
+msgid "Enterprise homepage."
+msgstr ""
+
+#: app/models/enterprise_homepage.rb:8
+msgid "Display the summary of profile."
+msgstr ""
+
+#: app/models/enterprise_homepage.rb:12 app/views/blocks/profile_info.rhtml:18
+#: app/views/blocks/login_block.rhtml:5 app/views/blocks/my_network.rhtml:6
+msgid "Homepage"
+msgstr ""
+
+#: app/models/email_activation.rb:10
+msgid "You have already requested activation of your mailbox."
+msgstr ""
+
+#: app/models/email_activation.rb:15
+msgid "Email activation"
+msgstr ""
+
+#: app/models/email_activation.rb:23
+msgid "%{requestor} wants to activate the following email: %{subject}."
+msgstr ""
+
+#: app/models/invite_member.rb:19
+msgid "Community invitation"
+msgstr ""
+
+#: app/models/invite_member.rb:27
+msgid "%{requestor} invited you to join %{linked_subject}."
+msgstr ""
+
+#: app/models/invite_member.rb:39
+msgid "%{requestor} invited you to join %{community}."
+msgstr ""
+
+#: app/models/invite_member.rb:48 app/models/invite_friend.rb:36
+msgid "Hello <friend>,"
+msgstr ""
+
+#: app/models/invite_member.rb:49
+msgid "<user> is inviting you to join \"<community>\" on <environment>."
+msgstr ""
+
+#: app/models/invite_member.rb:50 app/models/invite_friend.rb:38
+msgid "To accept the invitation, please follow this link:"
+msgstr ""
+
+#: app/models/disabled_enterprise_message_block.rb:4
+msgid "\"Disabled enterprise\" message"
+msgstr ""
+
+#: app/models/disabled_enterprise_message_block.rb:8
+msgid "Shows a message for disabled enterprises."
+msgstr ""
+
+#: app/models/disabled_enterprise_message_block.rb:12 app/models/contact.rb:-
+#: app/models/contact.rb:14
+msgid "Message"
+msgstr ""
+
+#: app/models/textile_article.rb:4
+msgid "Text article with Textile markup language"
+msgstr ""
+
+#: app/models/textile_article.rb:8
+msgid "Accessible alternative for visually impaired users."
+msgstr ""
+
+#: app/models/create_enterprise.rb:7 app/models/organization.rb:98
+msgid "Contact person"
+msgstr ""
+
+#: app/models/create_enterprise.rb:8 app/models/organization.rb:98
+#: app/views/enterprise_validation/_details.rhtml:19
+msgid "Acronym"
+msgstr ""
+
+#: app/models/create_enterprise.rb:9 app/models/organization.rb:98
+msgid "Foundation year"
+msgstr ""
+
+#: app/models/create_enterprise.rb:10 app/models/organization.rb:98
+msgid "Legal form"
+msgstr ""
+
+#: app/models/create_enterprise.rb:11 app/models/organization.rb:98
+msgid "Economic activity"
+msgstr ""
+
+#: app/models/create_enterprise.rb:12 app/models/organization.rb:98
+msgid "Management information"
+msgstr ""
+
+#: app/models/create_enterprise.rb:154 app/models/create_enterprise.rb:200
+msgid "%{requestor} wants to create enterprise %{subject}."
+msgstr ""
+
+#: app/models/create_enterprise.rb:162
+msgid ""
+"Your request for registering enterprise \"%{enterprise}\" at %{environment} "
+"was just received. It will be reviewed by the validator organization of your "
+"choice, according to its methods and criteria.\n"
+"\n"
+"      You will be notified as soon as the validator organization has a "
+"position about your request."
+msgstr ""
+
+#: app/models/create_enterprise.rb:168
+msgid ""
+"Your request for registering the enterprise \"%{enterprise}\" was approved. "
+"You can access %{environment} now and provide start providing all relevant "
+"information your new enterprise."
+msgstr ""
+
+#: app/models/create_enterprise.rb:172
+msgid ""
+"Your request for registering the enterprise %{enterprise} at %{environment} "
+"was NOT approved by the validator organization. The following explanation "
+"was given: \n"
+"\n"
+"%{explanation}"
+msgstr ""
+
+#: app/models/create_enterprise.rb:177
+msgid ""
+"Enterprise \"%{enterprise}\" just requested to enter %{environment}. You "
+"have to approve or reject it through the \"Pending Validations\" section in "
+"your control panel.\n"
+msgstr ""
+
+#: app/models/create_enterprise.rb:179
+msgid "The data provided by the enterprise was the following:\n"
+msgstr ""
+
+#: app/models/create_enterprise.rb:182 app/views/contact/sender/mail.rhtml:1
+msgid "Name: %s"
+msgstr ""
+
+#: app/models/create_enterprise.rb:183
+msgid "Acronym: %s"
+msgstr ""
+
+#: app/models/create_enterprise.rb:184
+msgid "Address: %s"
+msgstr ""
+
+#: app/models/create_enterprise.rb:185
+msgid "Legal form: %s"
+msgstr ""
+
+#: app/models/create_enterprise.rb:186
+msgid "Foundation Year: %d"
+msgstr ""
+
+#: app/models/create_enterprise.rb:187
+msgid "Economic activity: %s"
+msgstr ""
+
+#: app/models/create_enterprise.rb:189
+msgid "Information about enterprise's management:\n"
+msgstr ""
+
+#: app/models/create_enterprise.rb:191
+msgid "Contact phone: %s"
+msgstr ""
+
+#: app/models/create_enterprise.rb:192
+msgid "Contact person: %s"
+msgstr ""
+
+#: app/models/create_enterprise.rb:194
+msgid "CreateEnterprise|Identifier"
+msgstr ""
+
+#: app/models/validation_info.rb:-
+msgid "validation info"
+msgstr ""
+
+#: app/models/validation_info.rb:-
+msgid "Validation methodology"
+msgstr ""
+
+#: app/models/validation_info.rb:-
+msgid "Restrictions"
+msgstr ""
+
+#: app/models/organization.rb:98
+msgid "Display name"
+msgstr ""
+
+#: app/models/organization.rb:98
+msgid "Contact email"
+msgstr ""
+
+#: app/models/organization.rb:98
+msgid "Validated"
+msgstr ""
+
+#: app/models/organization.rb:116
+msgid "Community's profile"
+msgstr ""
+
+#: app/models/organization.rb:117
+msgid "Invite Friends"
+msgstr ""
+
+#: app/models/domain.rb:13
+msgid ""
+"%{fn} must be composed only of lowercase latters (a to z), numbers (0 to 9) "
+"and \"_\""
+msgstr ""
+
+#: app/models/domain.rb:20
+msgid "%{fn} must not start with www."
+msgstr ""
+
+#: app/models/category.rb:3
+msgid "%{fn} cannot be like that."
+msgstr ""
+
+#: app/models/category.rb:5
+msgid "%{fn} is already being used by another category."
+msgstr ""
+
+#: app/models/category.rb:9
+msgid "%{fn} was already assigned to another category."
+msgstr ""
+
+#: app/models/article_block.rb:4
+msgid "Display one of your contents"
+msgstr ""
+
+#: app/models/article_block.rb:8
+msgid ""
+"This block displays one of your articles. You can edit the block to select "
+"which one of your articles is going to be displayed in the block."
+msgstr ""
+
+#: app/models/article_block.rb:15
+msgid "Article not selected yet."
+msgstr ""
+
+#: app/models/recent_documents_block.rb:4
+msgid "Last updates"
+msgstr ""
+
+#: app/models/recent_documents_block.rb:8
+msgid "Recent content"
+msgstr ""
+
+#: app/models/recent_documents_block.rb:12
+msgid "This block lists your content most recently updated."
+msgstr ""
+
+#: app/models/recent_documents_block.rb:31
+msgid "All content"
+msgstr ""
+
+#: app/models/product_categorization.rb:-
+msgid "product categorization"
+msgstr ""
+
+#: app/models/contact.rb:- app/views/friends/index.rhtml:31
+#: app/views/friends/index.rhtml:34
+msgid "contact"
+msgstr ""
+
+#: app/models/contact.rb:-
+msgid "Receive a copy"
+msgstr ""
+
+#: app/models/contact.rb:14 app/views/contact/new.rhtml:15
+msgid "City and state"
+msgstr ""
+
+#: app/models/invite_friend.rb:37
+msgid "<user> is inviting you to participate on <environment>."
+msgstr ""
+
+#: app/views/categories/index.rhtml:7 app/views/categories/index.rhtml:16
+#: app/views/categories/index.rhtml:25 app/views/categories/new.rhtml:1
+msgid "New category"
+msgstr ""
+
+#: app/views/categories/index.rhtml:10
+msgid "Product Categories"
+msgstr ""
+
+#: app/views/categories/index.rhtml:19
+msgid "Regions"
+msgstr ""
+
+#: app/views/categories/_form.rhtml:20
+msgid "Display in the menu"
+msgstr ""
+
+#: app/views/categories/_form.rhtml:23 app/views/profile_editor/edit.rhtml:12
+#: app/views/memberships/new_community.rhtml:22
+#: app/views/manage_products/_form.rhtml:11
+msgid "Image:"
+msgstr ""
+
+#: app/views/categories/_category.rhtml:6
+msgid "Show"
+msgstr ""
+
+#: app/views/categories/_category.rhtml:9
+#: app/views/account/_signup_form.rhtml:49
+msgid "Hide"
+msgstr ""
+
+#: app/views/categories/_category.rhtml:13
+msgid "Add subcategory"
+msgstr ""
+
+#: app/views/categories/_category.rhtml:15
+#: app/views/shared/_select_categories.rhtml:20
+#: app/views/memberships/index.rhtml:28
+#: app/views/manage_products/_display_input.rhtml:8
+#: app/views/profile_members/add_admin.rhtml:18
+#: app/views/profile_members/add_member.rhtml:18
+#: app/views/profile_members/remove_admin.rhtml:18
+#: app/views/profile_members/unassociate.rhtml:18
+#: app/views/profile_members/_members_list.rhtml:18
+#: app/views/profile/_profile_scrap.rhtml:12
+#: app/views/profile/_profile_activities.rhtml:9
+#: app/views/admin_panel/set_portal_community.rhtml:22
+#: app/views/admin_panel/set_portal_folders.rhtml:28
+msgid "Remove"
+msgstr ""
+
+#: app/views/categories/_category.rhtml:15
+msgid "Are you sure you want to remove \"%s\"?"
+msgstr ""
+
+#: app/views/categories/_category.rhtml:15
+msgid "Are you sure you want to remove \"%s\" and all its subcategories?"
+msgstr ""
+
+#: app/views/categories/edit.rhtml:1
+msgid "Editing %s"
+msgstr ""
+
+#: app/views/scrap/notifier/mail.rhtml:1
+#: app/views/comment/notifier/mail.rhtml:1
+msgid "Hi, %{recipient}!"
+msgstr ""
+
+#: app/views/scrap/notifier/mail.rhtml:3
+msgid "%{sender} (%{sender_link}) has left the following scrap for you:"
+msgstr ""
+
+#: app/views/scrap/notifier/mail.rhtml:9
+msgid "View this scrap on the wall"
+msgstr ""
+
+#: app/views/scrap/notifier/mail.rhtml:12
+#: app/views/contact/sender/mail.rhtml:12
+#: app/views/comment/notifier/mail.rhtml:15
+#: app/views/user/mailer/activation_email_notify.rhtml:8
+#: app/views/task_mailer/task_finished.text.plain.rhtml:5
+#: app/views/task_mailer/task_cancelled.text.plain.rhtml:5
+#: app/views/task_mailer/task_created.text.plain.rhtml:5
+#: app/views/pending_task_notifier/notification.rhtml:21
+msgid "Greetings,"
+msgstr ""
+
+#: app/views/scrap/notifier/mail.rhtml:15
+#: app/views/contact/sender/mail.rhtml:15
+#: app/views/comment/notifier/mail.rhtml:18
+#: app/views/user/mailer/activation_email_notify.rhtml:11
+#: app/views/task_mailer/task_finished.text.plain.rhtml:8
+#: app/views/task_mailer/task_cancelled.text.plain.rhtml:8
+#: app/views/task_mailer/task_created.text.plain.rhtml:8
+#: app/views/task_mailer/target_notification.rhtml:9
+#: app/views/pending_task_notifier/notification.rhtml:24
+msgid "%s team."
+msgstr ""
+
+#: app/views/blocks/profile_info.rhtml:19 app/views/blocks/my_network.rhtml:7
+msgid "View profile"
+msgstr ""
+
+#: app/views/blocks/profile_info.rhtml:25
+msgid "Since %{year}/%{month}"
+msgstr ""
+
+#: app/views/blocks/disabled_enterprise_message.rhtml:5
+#: app/views/shared/_disabled_enterprise.rhtml:6
+msgid "Unblock"
+msgstr ""
+
+#: app/views/blocks/login_block.rhtml:2
+msgid "Logged in as %s"
+msgstr ""
+
+#: app/views/blocks/login_block.rhtml:4
+msgid "User since {year}/{month}"
+msgstr ""
+
+#: app/views/blocks/my_network/community.rhtml:2
+#: app/views/blocks/my_network/person.rhtml:2
+msgid "One article published"
+msgid_plural "%s articles published"
+msgstr[0] ""
+msgstr[1] ""
+
+#: app/views/blocks/my_network/community.rhtml:5
+msgid "One member"
+msgid_plural "%s members"
+msgstr[0] ""
+msgstr[1] ""
+
+#: app/views/blocks/my_network/community.rhtml:7
+#: app/views/blocks/my_network/person.rhtml:8
+msgid "One tag"
+msgid_plural "%s tags"
+msgstr[0] ""
+msgstr[1] ""
+
+#: app/views/blocks/my_network/person.rhtml:4
+msgid "One friend"
+msgid_plural "%s friends"
+msgstr[0] ""
+msgstr[1] ""
+
+#: app/views/blocks/profile_info_actions/community.rhtml:6
+#: app/views/blocks/profile_info_actions/community.rhtml:12
+msgid "Leave community"
+msgstr ""
+
+#: app/views/blocks/profile_info_actions/community.rhtml:7
+#: app/views/blocks/profile_info_actions/community.rhtml:13
+#: app/views/profile/_private_profile.rhtml:10
+msgid "Join community"
+msgstr ""
+
+#: app/views/blocks/profile_info_actions/community.rhtml:27
+msgid "Join this community"
+msgstr ""
+
+#: app/views/blocks/profile_info_actions/enterprise.rhtml:4
+msgid "Add as favorite"
+msgstr ""
+
+#: app/views/blocks/profile_info_actions/enterprise.rhtml:4
+msgid "Add enterprise as favorite"
+msgstr ""
+
+#: app/views/blocks/profile_info_actions/person.rhtml:6
+#: app/views/profile/_private_profile.rhtml:13
+msgid "Add friend"
+msgstr ""
+
+#: app/views/blocks/highlights.rhtml:54
+msgid "Please, edit this block and choose some images"
+msgstr ""
+
+#: app/views/blocks/slideshow.rhtml:47
+msgid "Please, edit this block and select an image gallery."
+msgstr ""
+
+#: app/views/blocks/featured_products.rhtml:18
+msgid "See More"
+msgstr ""
+
+#: app/views/blocks/featured_products.rhtml:54
+msgid "Please, edit this block and choose some products"
+msgstr ""
+
+#: app/views/plugins/index.rhtml:1
+msgid "Manage plugins"
+msgstr ""
+
+#: app/views/plugins/index.rhtml:2
+msgid "Here you can enable or disable any plugin of your environment."
+msgstr ""
+
+#: app/views/plugins/index.rhtml:8
+msgid "Plugin"
+msgstr ""
+
+#: app/views/plugins/index.rhtml:10 app/views/features/index.rhtml:16
+msgid "Enabled?"
+msgstr ""
+
+#: app/views/plugins/index.rhtml:24 app/views/manage_products/_form.rhtml:15
+#: app/views/role/_form.rhtml:15
+#: app/views/environment_role_manager/change_role.rhtml:12
+#: app/views/profile_members/change_role.rhtml:12
+#: app/views/features/_manage_community_fields.rhtml:45
+#: app/views/features/index.rhtml:43
+#: app/views/features/_manage_person_fields.rhtml:44
+#: app/views/features/_manage_enterprise_fields.rhtml:45
+msgid "Save changes"
+msgstr ""
+
+#: app/views/plugins/index.rhtml:25 app/views/users/index.rhtml:15
+#: app/views/features/_manage_community_fields.rhtml:46
+#: app/views/features/index.rhtml:44
+#: app/views/features/_manage_person_fields.rhtml:45
+#: app/views/features/_manage_enterprise_fields.rhtml:46
+msgid "Back to admin panel"
+msgstr ""
+
+#: app/views/shared/user_menu.rhtml:8
+msgid "%s's Menu"
+msgstr ""
+
+#: app/views/shared/user_menu.rhtml:15
+msgid "My Home Page"
+msgstr ""
+
+#: app/views/shared/user_menu.rhtml:19 lib/zen3_terminology.rb:68
+msgid "My groups"
+msgstr ""
+
+#: app/views/shared/user_menu.rhtml:26
+msgid "Manage %s"
+msgstr ""
+
+#: app/views/shared/user_menu.rhtml:32
+msgid "Webmail"
+msgstr ""
+
+#: app/views/shared/user_menu.rhtml:40
+#: app/views/environment_role_manager/make_admin.rhtml:4
+msgid "Admin"
+msgstr ""
+
+#: app/views/shared/logged_in/xmpp_chat.rhtml:5
+msgid "None of your friends is online at the moment"
+msgstr ""
+
+#: app/views/shared/logged_in/xmpp_chat.rhtml:9
+msgid "Online friends <span class='amount_of_friends'>(%{amount})</span>"
+msgstr ""
+
+#: app/views/shared/_organization_custom_fields.rhtml:12
+#: app/views/profile_editor/_person_form.rhtml:25
+#: app/views/maps/edit_location.rhtml:10
+msgid "Address (street and number)"
+msgstr ""
+
+#: app/views/shared/usermenu/xmpp_chat.rhtml:1
+msgid "Open chat"
+msgstr ""
+
+#: app/views/shared/_profile_search_form.rhtml:4
+#: app/views/shared/_profile_search_form.rhtml:8
+msgid "Find in %s's content"
+msgstr ""
+
+#: app/views/shared/_profile_search_form.rhtml:9
+msgid "General"
+msgstr ""
+
+#: app/views/shared/_profile_search_form.rhtml:9
+msgid "Search all content"
+msgstr ""
+
+#: app/views/shared/profile_actions/xmpp_chat.rhtml:3
+msgid "Enter chat room"
+msgstr ""
+
+#: app/views/shared/_select_categories.rhtml:3
+msgid "Current category:"
+msgstr ""
+
+#: app/views/shared/_select_categories.rhtml:30
+msgid "Select a category:"
+msgstr ""
+
+#: app/views/shared/_select_categories.rhtml:34
+msgid "Categories:"
+msgstr ""
+
+#: app/views/shared/_show_thumbnail.rhtml:5
+#: app/views/manage_products/_display_image.rhtml:5
+msgid "Change image"
+msgstr ""
+
+#: app/views/shared/access_denied.rhtml:3 lib/authenticated_system.rb:68
+msgid "Access denied"
+msgstr ""
+
+#: app/views/shared/access_denied.rhtml:8
+msgid "You are not allowed to view this page."
+msgstr ""
+
+#: app/views/shared/access_denied.rhtml:9
+msgid ""
+"If you are supposed to have access to this area, you'll probably want to "
+"talk to the people responsible and ask them to give you access."
+msgstr ""
+
+#: app/views/shared/access_denied.rhtml:13 app/views/shared/not_found.rhtml:8
+#: app/views/favorite_enterprises/index.rhtml:30
+#: app/views/memberships/index.rhtml:8
+#: app/views/enterprise_registration/basic_information.rhtml:12
+#: app/views/profile/friends.rhtml:18
+#: app/views/profile/_private_profile.rhtml:15
+#: app/views/profile/favorite_enterprises.rhtml:12
+#: app/views/profile/members.rhtml:18 app/views/profile/communities.rhtml:18
+#: app/views/profile/enterprises.rhtml:12 public/500.html.erb:27
+msgid "Go back"
+msgstr ""
+
+#: app/views/shared/access_denied.rhtml:14 public/500.html.erb:28
+msgid "Go to the site home page"
+msgstr ""
+
+#: app/views/shared/not_found.rhtml:2
+msgid "There is no such page: %s"
+msgstr ""
+
+#: app/views/shared/not_found.rhtml:4
+msgid "You may have clicked an expired link or mistyped the address."
+msgstr ""
+
+#: app/views/shared/not_found.rhtml:5
+msgid ""
+"If you clicked a link that was in another site, or was given to you by "
+"someone else, it would be nice if you tell them that their link is not valid "
+"anymore."
+msgstr ""
+
+#: app/views/shared/not_found.rhtml:9
+#: app/views/profile/_private_profile.rhtml:16
+msgid "Go to %s home page"
+msgstr ""
+
+#: app/views/shared/_lead_and_body.rhtml:11
+msgid "Lead"
+msgstr ""
+
+#: app/views/shared/_lead_and_body.rhtml:12
+msgid "Used when a short version of your text is needed."
+msgstr ""
+
+#: app/views/shared/theme_test_panel.rhtml:3
+msgid "Testing theme \"%s\""
+msgstr ""
+
+#: app/views/shared/theme_test_panel.rhtml:6
+msgid ""
+"You can move this window away to have a better visualization of specific "
+"parts of screen."
+msgstr ""
+
+#: app/views/shared/theme_test_panel.rhtml:9
+msgid "Finished testing"
+msgstr ""
+
+#: app/views/shared/theme_test_panel.rhtml:10
+msgid "Edit theme"
+msgstr ""
+
+#: app/views/shared/_redirect_via_javascript.rhtml:2
+msgid "redirecting..."
+msgstr ""
+
+#: app/views/shared/articles_list.rhtml:5
+msgid "Last update"
+msgstr ""
+
+#: app/views/favorite_enterprises/index.rhtml:3
+#: app/views/profile/favorite_enterprises.rhtml:3
+msgid "%s's favorite enterprises"
+msgstr ""
+
+#: app/views/favorite_enterprises/index.rhtml:12
+#: app/views/favorite_enterprises/index.rhtml:15
+#: app/views/friends/index.rhtml:27 app/views/friends/index.rhtml:30
+msgid "remove"
+msgstr ""
+
+#: app/views/favorite_enterprises/index.rhtml:24
+msgid "You have no favorite enterprises yet."
+msgstr ""
+
+#: app/views/favorite_enterprises/add.rhtml:1
+msgid "Adding %s as a favorite enterprise"
+msgstr ""
+
+#: app/views/favorite_enterprises/add.rhtml:4
+msgid "Are you sure you want to add %s as your favorite enterprise?"
+msgstr ""
+
+#: app/views/favorite_enterprises/add.rhtml:10
+msgid "Yes, I want to add %s as a favorite enterprise"
+msgstr ""
+
+#: app/views/favorite_enterprises/add.rhtml:11
+#: app/views/favorite_enterprises/remove.rhtml:15
+#: app/views/profile/leave.rhtml:12 app/views/profile/join.rhtml:12
+msgid "No, I don't want"
+msgstr ""
+
+#: app/views/favorite_enterprises/remove.rhtml:3
+msgid "Removing favorite enterprise: %s"
+msgstr ""
+
+#: app/views/favorite_enterprises/remove.rhtml:8
+msgid "Are you sure you want to remove %s from your favorite enterprise list?"
+msgstr ""
+
+#: app/views/favorite_enterprises/remove.rhtml:14
+msgid "Yes, I want to remove %s from my favorite enterprise list"
+msgstr ""
+
+#: app/views/region_validators/index.rhtml:1
+msgid "Validators by Region"
+msgstr ""
+
+#: app/views/region_validators/region.rhtml:1
+msgid "Validators for region %s"
+msgstr ""
+
+#: app/views/region_validators/region.rhtml:3
+msgid "Current validators"
+msgstr ""
+
+#: app/views/region_validators/region.rhtml:9
+msgid "Remove validation rights"
+msgstr ""
+
+#: app/views/region_validators/region.rhtml:14
+msgid "Add new validators"
+msgstr ""
+
+#: app/views/region_validators/region.rhtml:17
+msgid ""
+"First search organizations by their name, then use the buttons in the search "
+"result to add them as validators for this region. "
+msgstr ""
+
+#: app/views/region_validators/_region.rhtml:5
+msgid "1 validator"
+msgid_plural "%{num} validators."
+msgstr[0] ""
+msgstr[1] ""
+
+#: app/views/cms/_enterprise_homepage.rhtml:3
+msgid "Text"
+msgstr ""
+
+#: app/views/cms/_forum.rhtml:3
+msgid "My Forum"
+msgstr ""
+
+#: app/views/cms/_forum.rhtml:9 app/views/cms/_blog.rhtml:53
+#: app/views/cms/_folder.rhtml:5 app/views/cms/_gallery.rhtml:5
+#: app/views/manage_products/_edit_description.rhtml:9
+#: app/views/manage_products/_form.rhtml:8
+msgid "Description:"
+msgstr ""
+
+#: app/views/cms/_forum.rhtml:11 app/views/cms/_blog.rhtml:57
+msgid "Posts per page:"
+msgstr ""
+
+#: app/views/cms/view.rhtml:2
+msgid "Content management"
+msgstr ""
+
+#: app/views/cms/view.rhtml:8
+msgid "New content"
+msgstr ""
+
+#: app/views/cms/view.rhtml:9 app/views/profile_editor/edit.rhtml:81
+#: app/views/maps/edit_location.rhtml:14 app/views/maps/edit_location.rhtml:30
+#: app/views/friends/index.rhtml:15 app/views/friends/index.rhtml:44
+#: app/views/box_organizer/index.rhtml:5 app/views/mailconf/index.rhtml:10
+#: app/views/mailconf/index.rhtml:28 app/views/mailconf/index.rhtml:38
+#: app/views/tasks/index.rhtml:29 app/views/tasks/index.rhtml:49
+msgid "Back to control panel"
+msgstr ""
+
+#: app/views/cms/view.rhtml:14
+msgid "Current folder: "
+msgstr ""
+
+#: app/views/cms/view.rhtml:26 app/views/manage_products/index.rhtml:7
+#: app/views/role/index.rhtml:6 app/views/profile_members/add_admin.rhtml:10
+#: app/views/profile_members/add_member.rhtml:10
+#: app/views/profile_members/remove_admin.rhtml:10
+#: app/views/profile_members/unassociate.rhtml:10
+#: app/views/profile_members/_members_list.rhtml:10
+msgid "Actions"
+msgstr ""
+
+#: app/views/cms/view.rhtml:33 app/views/cms/view.rhtml:35
+msgid "parent folder"
+msgstr ""
+
+#: app/views/cms/view.rhtml:53
+msgid "Public view"
+msgstr ""
+
+#: app/views/cms/view.rhtml:56
+msgid "Use as homepage"
+msgstr ""
+
+#: app/views/cms/destroy.rhtml:1
+msgid "Delete: %s"
+msgstr ""
+
+#: app/views/cms/destroy.rhtml:16
+msgid "Yes, I want."
+msgstr ""
+
+#: app/views/cms/destroy.rhtml:17 app/views/profile_editor/enable.rhtml:10
+#: app/views/profile_editor/disable.rhtml:10 app/views/profile/leave.rhtml:14
+#: app/views/profile/join.rhtml:14
+msgid "No, I don't want."
+msgstr ""
+
+#: app/views/cms/_blog.rhtml:3
+msgid "My Blog"
+msgstr ""
+
+#: app/views/cms/_blog.rhtml:39
+#: app/views/profile_editor/_organization.rhtml:46
+msgid "WARNING!"
+msgstr ""
+
+#: app/views/cms/_blog.rhtml:40
+msgid ""
+"You are about to change the address, and this will break external links to "
+"this blog or to posts inside it. Do you really want to change?"
+msgstr ""
+
+#: app/views/cms/_blog.rhtml:42
+#: app/views/profile_editor/_organization.rhtml:49
+#: app/views/profile_editor/edit.rhtml:35
+#: app/views/profile_editor/edit.rhtml:38
+#: app/views/profile_editor/edit.rhtml:41
+#: app/views/profile_editor/edit.rhtml:44
+#: app/views/profile_editor/edit.rhtml:63
+#: app/views/profile_editor/edit.rhtml:66
+#: app/views/profile_editor/edit.rhtml:69
+#: app/views/profile_editor/edit.rhtml:72
+#: app/views/manage_products/_edit_info.rhtml:22
+#: app/views/manage_products/_edit_input.rhtml:16
+#: app/views/manage_products/_edit_input.rhtml:25
+#: app/views/friends/remove.rhtml:20 app/views/account/logout_popup.rhtml:4
+#: app/views/account/activate_enterprise.rhtml:10
+msgid "Yes"
+msgstr ""
+
+#: app/views/cms/_blog.rhtml:43
+#: app/views/profile_editor/_organization.rhtml:50
+#: app/views/profile_editor/edit.rhtml:41
+#: app/views/profile_editor/edit.rhtml:69
+#: app/views/manage_products/_edit_info.rhtml:22
+#: app/views/manage_products/_edit_input.rhtml:18
+#: app/views/manage_products/_edit_input.rhtml:27
+#: app/views/friends/remove.rhtml:21
+#: app/views/account/activate_enterprise.rhtml:11
+msgid "No"
+msgstr ""
+
+#: app/views/cms/_blog.rhtml:55
+msgid "How to display posts:"
+msgstr ""
+
+#: app/views/cms/_blog.rhtml:55
+msgid "Full post"
+msgstr ""
+
+#: app/views/cms/_blog.rhtml:55
+msgid "First paragraph"
+msgstr ""
+
+#: app/views/cms/_blog.rhtml:59
+msgid "List only translated posts"
+msgstr ""
+
+#: app/views/cms/_blog.rhtml:62
+msgid "Limit of posts in RSS Feed"
+msgstr ""
+
+#: app/views/cms/_blog.rhtml:63 app/views/cms/_rss_feed.rhtml:7
+msgid "Include in RSS Feed only posts from language:"
+msgstr ""
+
+#: app/views/cms/_blog.rhtml:63 app/views/cms/_rss_feed.rhtml:7
+msgid "All"
+msgstr ""
+
+#: app/views/cms/_blog.rhtml:70
+msgid "Fetch posts from an external feed"
+msgstr ""
+
+#: app/views/cms/_blog.rhtml:74
+msgid "Feed address"
+msgstr ""
+
+#: app/views/cms/_blog.rhtml:76
+msgid "Fetch posts only once"
+msgstr ""
+
+#: app/views/cms/_blog.rhtml:77
+msgid "Fetch posts periodically"
+msgstr ""
+
+#: app/views/cms/_blog.rhtml:79
+msgid ""
+"Feeds are updated in batches periodically. Please note that your posts will "
+"not be fetched immediately."
+msgstr ""
+
+#: app/views/cms/publish.rhtml:1
+msgid "Select the groups where you want to publish your article"
+msgstr ""
+
+#: app/views/cms/publish.rhtml:5
+msgid "There were errors with the following communities: "
+msgstr ""
+
+#: app/views/cms/_event.rhtml:10
+msgid "Start date"
+msgstr ""
+
+#: app/views/cms/_event.rhtml:14
+msgid "Event website:"
+msgstr ""
+
+#: app/views/cms/_rss_feed.rhtml:5
+msgid "Limit of articles"
+msgstr ""
+
+#: app/views/cms/_rss_feed.rhtml:9
+msgid "Use as item description:"
+msgstr ""
+
+#: app/views/cms/_rss_feed.rhtml:9
+msgid "Article abstract"
+msgstr ""
+
+#: app/views/cms/_rss_feed.rhtml:9
+msgid "Article body"
+msgstr ""
+
+#: app/views/cms/_rss_feed.rhtml:11
+msgid "Include in the feed:"
+msgstr ""
+
+#: app/views/cms/_rss_feed.rhtml:11
+msgid "All articles"
+msgstr ""
+
+#: app/views/cms/_rss_feed.rhtml:11
+msgid "Only articles child of the same article as the feed"
+msgstr ""
+
+#: app/views/cms/_upload_file_form.rhtml:4
+msgid "Choose folder to upload files:"
+msgstr ""
+
+#: app/views/cms/_upload_file_form.rhtml:17
+msgid "More files"
+msgstr ""
+
+#: app/views/cms/_upload_file_form.rhtml:19
+#: app/views/cms/_upload_file_form.rhtml:21
+#: app/views/cms/_upload_file_form.rhtml:23
+msgid "Upload"
+msgstr ""
+
+#: app/views/cms/media_listing.rhtml:32
+msgid ""
+"Include files in some folder or select from the list below to add images and "
+"documents to the text editor beside (max size %s)"
+msgstr ""
+
+#: app/views/cms/media_listing.rhtml:59
+msgid "Folders"
+msgstr ""
+
+#: app/views/cms/media_listing.rhtml:60
+msgid ""
+"Drag images and documents to add them to the text. If needed, resize images "
+"by clicking the tree icon on editor."
+msgstr ""
+
+#: app/views/cms/media_listing.rhtml:63 app/views/themes/edit.rhtml:24
+msgid "Images"
+msgstr ""
+
+#: app/views/cms/media_listing.rhtml:68
+msgid "Documents"
+msgstr ""
+
+#: app/views/cms/suggest_an_article.rhtml:13
+#: app/views/tasks/_suggest_article_accept_details.rhtml:7
+msgid "Source URL"
+msgstr ""
+
+#: app/views/cms/suggest_an_article.rhtml:15
+msgid "Your name"
+msgstr ""
+
+#: app/views/cms/suggest_an_article.rhtml:22
+msgid "What is the result of '%s = ?'"
+msgstr ""
+
+#: app/views/cms/upload_files.rhtml:3
+msgid "This file couldn't be saved"
+msgid_plural "These %{num} files couldn't be saved"
+msgstr[0] ""
+msgstr[1] ""
+
+#: app/views/cms/upload_files.rhtml:4
+msgid "There were problems with the following files:"
+msgstr ""
+
+#: app/views/cms/upload_files.rhtml:15
+msgid "Publish media"
+msgstr ""
+
+#: app/views/cms/upload_files.rhtml:17
+msgid "Select the files you want to upload (max size %s):"
+msgstr ""
+
+#: app/views/cms/upload_files.rhtml:18
+msgid "Documents, Images, Videos, Audio"
+msgstr ""
+
+#: app/views/cms/upload_files.rhtml:20
+msgid "Uploading files to %s"
+msgstr ""
+
+#: app/views/cms/select_article_type.rhtml:1
+msgid "Choose the type of content:"
+msgstr ""
+
+#: app/views/cms/_published_article.rhtml:3
+msgid "This is a republication of \"%s\", by %s."
+msgstr ""
+
+#: app/views/cms/publish_on_portal_community.rhtml:2
+msgid "Publish your article on portal community"
+msgstr ""
+
+#: app/views/cms/publish_on_portal_community.rhtml:14
+msgid "There is no portal community in this environment."
+msgstr ""
+
+#: app/views/cms/publish_on_portal_community.rhtml:18
+#: app/views/manage_products/index.rhtml:29 app/views/role/index.rhtml:23
+#: app/views/role/show.rhtml:10
+#: app/views/environment_role_manager/index.rhtml:13
+#: app/views/profile_members/_index_buttons.rhtml:2
+#: app/views/tasks/ticket_details.rhtml:18 app/views/tasks/processed.rhtml:23
+#: app/views/tasks/list_requested.rhtml:17 app/views/themes/index.rhtml:119
+#: app/views/themes/edit.rhtml:6 app/views/invite/select_friends.rhtml:12
+#: app/views/enterprise_validation/details.rhtml:3
+#: app/views/enterprise_validation/view_processed.rhtml:3
+#: app/views/enterprise_validation/list_processed.rhtml:3
+msgid "Back"
+msgstr ""
+
+#: app/views/cms/edit.rhtml:17
+#: app/views/tasks/_suggest_article_accept_details.rhtml:10
+#: app/views/tasks/_approve_article_accept_details.rhtml:5
+msgid "Highlight this article"
+msgstr ""
+
+#: app/views/cms/edit.rhtml:23 app/views/manage_products/_add_input.rhtml:14
+#: app/views/manage_products/edit_category.rhtml:24
+#: app/views/manage_products/new.rhtml:18
+msgid "Save and continue"
+msgstr ""
+
+#: app/views/cms/edit.rhtml:27 app/views/cms/why_categorize.rhtml:1
+msgid "Why categorize?"
+msgstr ""
+
+#: app/views/cms/edit.rhtml:30
+msgid "Categorize your article"
+msgstr ""
+
+#: app/views/cms/edit.rhtml:33
+msgid "Separate tags with commas"
+msgstr ""
+
+#: app/views/cms/_media_listing.rhtml:2
+msgid "Your browser does not support iframes."
+msgstr ""
+
+#: app/views/cms/why_categorize.rhtml:4
+msgid ""
+"By categorizing your content, you increase the possibility that other people "
+"access it. When they are looking for, say, articles about Bahia and you "
+"categorize your article in \"Regions/Bahia\", then there is a good change "
+"that your article is going to be found."
+msgstr ""
+
+#: app/views/chat/start_session_error.rhtml:3
+msgid "Could not connect to chat"
+msgstr ""
+
+#: app/views/chat/start_session_error.rhtml:3
+msgid "try again"
+msgstr ""
+
+#: app/views/profile_editor/header_footer.rhtml:3
+msgid "Editing header and footer"
+msgstr ""
+
+#: app/views/profile_editor/header_footer.rhtml:9
+msgid ""
+"Using the fields below you can customize the header and footer for your "
+"website:"
+msgstr ""
+
+#: app/views/profile_editor/header_footer.rhtml:11
+msgid ""
+"On header, you can include a personalized banner by first adding in \"Manage "
+"content\", and then referencing it here. A good format is 468 X 60 pixels, "
+"PNG format."
+msgstr ""
+
+#: app/views/profile_editor/header_footer.rhtml:12
+msgid "On footer, you can include a slogan and your contact information etc."
+msgstr ""
+
+#: app/views/profile_editor/header_footer.rhtml:15
+msgid "See existing examples:"
+msgstr ""
+
+#: app/views/profile_editor/header_footer.rhtml:23
+msgid "Content for header "
+msgstr ""
+
+#: app/views/profile_editor/header_footer.rhtml:25
+msgid "Content for footer"
+msgstr ""
+
+#: app/views/profile_editor/enable.rhtml:1
+msgid "Enabling '%s' enterprise"
+msgstr ""
+
+#: app/views/profile_editor/enable.rhtml:4
+msgid "Are you sure you want to enable %s?"
+msgstr ""
+
+#: app/views/profile_editor/enable.rhtml:9
+msgid "Yes, I want to enable."
+msgstr ""
+
+#: app/views/profile_editor/index.rhtml:6
+msgid "Control Panel"
+msgstr ""
+
+#: app/views/profile_editor/index.rhtml:13
+msgid "Profile Info and settings"
+msgstr ""
+
+#: app/views/profile_editor/index.rhtml:14
+msgid "Community Info and settings"
+msgstr ""
+
+#: app/views/profile_editor/index.rhtml:15
+msgid "Enterprise Info and settings"
+msgstr ""
+
+#: app/views/profile_editor/index.rhtml:17
+#: app/views/maps/edit_location.rhtml:1
+msgid "Location"
+msgstr ""
+
+#: app/views/profile_editor/index.rhtml:19
+msgid "Mail settings"
+msgstr ""
+
+#: app/views/profile_editor/index.rhtml:21
+msgid "Tasks"
+msgstr ""
+
+#: app/views/profile_editor/index.rhtml:23
+#: app/views/admin_panel/index.rhtml:10
+msgid "Edit sideboxes"
+msgstr ""
+
+#: app/views/profile_editor/index.rhtml:25
+msgid "Edit Appearance"
+msgstr ""
+
+#: app/views/profile_editor/index.rhtml:27
+msgid "Edit Header and Footer"
+msgstr ""
+
+#: app/views/profile_editor/index.rhtml:29
+msgid "Manage Content"
+msgstr ""
+
+#: app/views/profile_editor/index.rhtml:34
+msgid "Create blog"
+msgstr ""
+
+#: app/views/profile_editor/index.rhtml:42
+msgid "Change Password"
+msgstr ""
+
+#: app/views/profile_editor/index.rhtml:46
+msgid "Manage Members"
+msgstr ""
+
+#: app/views/profile_editor/index.rhtml:48
+msgid "Manage Products and Services"
+msgstr ""
+
+#: app/views/profile_editor/index.rhtml:52
+msgid "Enterprise Validation"
+msgstr ""
+
+#: app/views/profile_editor/index.rhtml:61
+msgid "Disable Enterprise"
+msgstr ""
+
+#: app/views/profile_editor/index.rhtml:63
+msgid "Enable Enterprise"
+msgstr ""
+
+#: app/views/profile_editor/index.rhtml:67 app/views/memberships/index.rhtml:3
+msgid "Manage my groups"
+msgstr ""
+
+#: app/views/profile_editor/index.rhtml:79
+msgid "Activate your enterprise"
+msgstr ""
+
+#: app/views/profile_editor/index.rhtml:80
+msgid ""
+"If you received a letter with information about your enterprise activation, "
+"add here the activation code that was sent."
+msgstr ""
+
+#: app/views/profile_editor/index.rhtml:82
+msgid "Enterprise activation code"
+msgstr ""
+
+#: app/views/profile_editor/index.rhtml:83
+msgid "Activate"
+msgstr ""
+
+#: app/views/profile_editor/_pending_tasks.rhtml:5
+msgid "You have pending requests"
+msgstr ""
+
+#: app/views/profile_editor/_pending_tasks.rhtml:9
+msgid "Process requests"
+msgstr ""
+
+#: app/views/profile_editor/disable.rhtml:1
+msgid "Disabling '%s' enterprise"
+msgstr ""
+
+#: app/views/profile_editor/disable.rhtml:4
+msgid "Are you sure you want to disable %s?"
+msgstr ""
+
+#: app/views/profile_editor/disable.rhtml:9
+msgid "Yes, I want to disable."
+msgstr ""
+
+#: app/views/profile_editor/destroy_profile.rhtml:1
+msgid "Deleting profile %s"
+msgstr ""
+
+#: app/views/profile_editor/destroy_profile.rhtml:3
+msgid "Are you sure you want to delete this profile?"
+msgstr ""
+
+#: app/views/profile_editor/destroy_profile.rhtml:4
+msgid ""
+"You must be aware that all content of this profile (articles, events, files "
+"and pictures) will also be deleted."
+msgstr ""
+
+#: app/views/profile_editor/destroy_profile.rhtml:7
+msgid "Yes, I am sure"
+msgstr ""
+
+#: app/views/profile_editor/destroy_profile.rhtml:8
+msgid "No, I gave up"
+msgstr ""
+
+#: app/views/profile_editor/_organization.rhtml:1
+msgid "General information"
+msgstr ""
+
+#: app/views/profile_editor/_organization.rhtml:47
+msgid ""
+"You are about to change the address, and this will break external links to "
+"the homepage or to content inside it. Do you really want to change?"
+msgstr ""
+
+#: app/views/profile_editor/_organization.rhtml:63
+msgid "Enable \"contact us\""
+msgstr ""
+
+#: app/views/profile_editor/_organization.rhtml:65
+msgid "Moderation options"
+msgstr ""
+
+#: app/views/profile_editor/_organization.rhtml:68
+#: app/views/memberships/new_community.rhtml:26
+msgid "New members must be approved:"
+msgstr ""
+
+#: app/views/profile_editor/_organization.rhtml:73
+#: app/views/memberships/new_community.rhtml:31
+msgid ""
+"<strong>Before</strong> joining this group (a moderator has to accept the "
+"member in pending request before member can access the intranet and/or the "
+"website)."
+msgstr ""
+
+#: app/views/profile_editor/_organization.rhtml:79
+#: app/views/memberships/new_community.rhtml:37
+msgid ""
+"<strong>After</strong> joining this group (a moderator can always "
+"desactivate access for users later)."
+msgstr ""
+
+#: app/views/profile_editor/_organization.rhtml:85
+msgid "New articles posted by members of this group must be approved:"
+msgstr ""
+
+#: app/views/profile_editor/_organization.rhtml:91
+msgid ""
+"<strong>Before</strong> being published in this group (a moderator has to "
+"accept the article in pending request before the article be listed as a "
+"article of this group)."
+msgstr ""
+
+#: app/views/profile_editor/_organization.rhtml:97
+msgid ""
+"<strong>After</strong> being published in this group (a moderator can always "
+"remove publicated articles later)."
+msgstr ""
+
+#: app/views/profile_editor/_person.rhtml:1
+msgid "Personal information"
+msgstr ""
+
+#: app/views/profile_editor/_person_form.rhtml:8
+msgid ""
+"A short name by which you like to be known. Will be used in friends "
+"listings, community member listings etc."
+msgstr ""
+
+#: app/views/profile_editor/_person_form.rhtml:15
+msgid "Home phone"
+msgstr ""
+
+#: app/views/profile_editor/edit.rhtml:1
+msgid "Profile settings for %s"
+msgstr ""
+
+#: app/views/profile_editor/edit.rhtml:10
+msgid "Change picture"
+msgstr ""
+
+#: app/views/profile_editor/edit.rhtml:12
+#: app/views/manage_products/_edit_image.rhtml:8
+msgid "Max size: %s (.jpg, .gif, .png)"
+msgstr ""
+
+#: app/views/profile_editor/edit.rhtml:17
+msgid "Privacy options"
+msgstr ""
+
+#: app/views/profile_editor/edit.rhtml:23
+#: app/views/profile_editor/edit.rhtml:51
+msgid "This profile is:"
+msgstr ""
+
+#: app/views/profile_editor/edit.rhtml:27
+#: app/views/profile_editor/edit.rhtml:55
+msgid "Public"
+msgstr ""
+
+#: app/views/profile_editor/edit.rhtml:31
+#: app/views/profile_editor/edit.rhtml:59
+msgid "Private"
+msgstr ""
+
+#: app/views/profile_editor/edit.rhtml:35
+msgid "Activate Intranet access (restricted area only for me)"
+msgstr ""
+
+#: app/views/profile_editor/edit.rhtml:38
+msgid "Include my contact in directory of people"
+msgstr ""
+
+#: app/views/profile_editor/edit.rhtml:41
+msgid "Show my contents to all internet users"
+msgstr ""
+
+#: app/views/profile_editor/edit.rhtml:44
+msgid "Show my contents to my friends (person)"
+msgstr ""
+
+#: app/views/profile_editor/edit.rhtml:63
+msgid "Activate Intranet access (restricted area only for members)"
+msgstr ""
+
+#: app/views/profile_editor/edit.rhtml:66
+msgid "Include this group directory of groups"
+msgstr ""
+
+#: app/views/profile_editor/edit.rhtml:69
+msgid "Show content of this group to all internet users"
+msgstr ""
+
+#: app/views/profile_editor/edit.rhtml:72
+msgid "Show content of this group to members"
+msgstr ""
+
+#: app/views/profile_editor/edit.rhtml:77
+msgid "Select the categories of your interest"
+msgstr ""
+
+#: app/views/profile_editor/edit.rhtml:86
+msgid "Delete profile"
+msgstr ""
+
+#: app/views/memberships/index.rhtml:6 app/views/profile/communities.rhtml:19
+msgid "Create a new community"
+msgstr ""
+
+#: app/views/memberships/index.rhtml:7 app/views/profile/enterprises.rhtml:13
+msgid "Register a new enterprise"
+msgstr ""
+
+#: app/views/memberships/index.rhtml:19
+msgid "Role: %s"
+msgstr ""
+
+#: app/views/memberships/index.rhtml:20
+msgid "Type: %s"
+msgstr ""
+
+#: app/views/memberships/index.rhtml:21
+#: app/views/tasks/ticket_details.rhtml:10
+msgid "Description: %s"
+msgstr ""
+
+#: app/views/memberships/index.rhtml:22
+msgid "Members: %s"
+msgstr ""
+
+#: app/views/memberships/index.rhtml:23
+msgid "Created at: %s"
+msgstr ""
+
+#: app/views/memberships/index.rhtml:25
+msgid "Control panel of this group"
+msgstr ""
+
+#: app/views/memberships/new_community.rhtml:1
+msgid "Creating new community"
+msgstr ""
+
+#: app/views/memberships/new_community.rhtml:5
+msgid ""
+"Note that the creation of communities in this environment is restricted. "
+"Your request to create this new community will be sent to %{environment} "
+"administrators and will be approved or rejected according to their methods "
+"and criteria."
+msgstr ""
+
+#: app/views/memberships/new_community.rhtml:42 app/views/themes/new.rhtml:8
+msgid "Create"
+msgstr ""
+
+#: app/views/enterprise_registration/creation.rhtml:1
+#: app/views/enterprise_registration/confirmation.rhtml:1
+msgid "Enterprise registration completed"
+msgstr ""
+
+#: app/views/enterprise_registration/creation.rhtml:4
+msgid "Your enterprise (%s) was successfully registered."
+msgstr ""
+
+#: app/views/enterprise_registration/creation.rhtml:8
+msgid "You can manage your enterprise now."
+msgstr ""
+
+#: app/views/enterprise_registration/select_validator.rhtml:1
+msgid "Enterprise registration: validator organization"
+msgstr ""
+
+#: app/views/enterprise_registration/select_validator.rhtml:4
+msgid ""
+"Select one organization to validate your enterprise registration request. "
+"Check the provided information about their validation methodoly and criteria."
+msgstr ""
+
+#: app/views/enterprise_registration/select_validator.rhtml:13
+msgid "Validation Methodology:"
+msgstr ""
+
+#: app/views/enterprise_registration/select_validator.rhtml:14
+msgid "Restrictions (if any):"
+msgstr ""
+
+#: app/views/enterprise_registration/select_validator.rhtml:19
+#: app/views/enterprise_registration/select_validator.rhtml:20
+msgid "(not informed)"
+msgstr ""
+
+#: app/views/enterprise_registration/select_validator.rhtml:26
+msgid "Confirm"
+msgstr ""
+
+#: app/views/enterprise_registration/basic_information.rhtml:8
+msgid ""
+"There are no validators to validate the registration of this new enterprise. "
+"Contact your administrator for instructions."
+msgstr ""
+
+#: app/views/enterprise_registration/basic_information.rhtml:16
+msgid ""
+"To register a new enterprise, fill in the form and hit the Register button. "
+"Then the enterprise will be submitted for evaluation at the validation "
+"entitiy of your choice (within your state) and when the enterprise is "
+"aproved you will be able to activate its profile."
+msgstr ""
+
+#: app/views/enterprise_registration/confirmation.rhtml:4
+msgid ""
+"Your enterprise registration request was successfully registered. The "
+"validator organization you choose (%s) should get in touch with to start the "
+"validation process. As soon as the validators approve (or reject) your "
+"request, you will be notified by e-mail."
+msgstr ""
+
+#: app/views/enterprise_registration/confirmation.rhtml:8
+msgid "You can continue to browse this environment."
+msgstr ""
+
+#: app/views/manage_products/_display_input.rhtml:8
+msgid "Are you sure that you want to remove this input or raw material?"
+msgstr ""
+
+#: app/views/manage_products/_display_input.rhtml:13
+msgid "Click here to add price and the amount used"
+msgstr ""
+
+#: app/views/manage_products/_add_input.rhtml:8
+msgid "Choose an input or raw material to this product:"
+msgstr ""
+
+#: app/views/manage_products/_add_input.rhtml:17
+#: app/views/manage_products/edit_category.rhtml:27
+#: app/views/manage_products/new.rhtml:21
+msgid ""
+"This category does not allow registration of products, select a more "
+"specific category"
+msgstr ""
+
+#: app/views/manage_products/edit_category.rhtml:17
+msgid "Edit category of this product:"
+msgstr ""
+
+#: app/views/manage_products/edit_category.rhtml:22
+msgid "Back to product"
+msgstr ""
+
+#: app/views/manage_products/index.rhtml:1
+msgid "Listing products and services"
+msgstr ""
+
+#: app/views/manage_products/index.rhtml:11
+msgid "(no product registered yet)"
+msgstr ""
+
+#: app/views/manage_products/index.rhtml:19 app/views/role/index.rhtml:15
+msgid "Destroy"
+msgstr ""
+
+#: app/views/manage_products/index.rhtml:28
+#: app/views/manage_products/new.rhtml:1
+msgid "New product or service"
+msgstr ""
+
+#: app/views/manage_products/new.rhtml:11
+msgid "Select the category of the new product or service"
+msgstr ""
+
+#: app/views/manage_products/new.rhtml:16
+#: app/views/manage_products/show.rhtml:44
+msgid "Back to the product listing"
+msgstr ""
+
+#: app/views/manage_products/_edit_info.rhtml:13
+msgid "Price (%s)"
+msgstr ""
+
+#: app/views/manage_products/_edit_info.rhtml:17
+msgid "Discount (%s)"
+msgstr ""
+
+#: app/views/manage_products/_edit_info.rhtml:18
+msgid "If your product is on sale, fill this field with the discount value"
+msgstr ""
+
+#: app/views/manage_products/_edit_info.rhtml:46
+msgid "Add new qualifier"
+msgstr ""
+
+#: app/views/manage_products/show.rhtml:29
+msgid "Inputs and raw material"
+msgstr ""
+
+#: app/views/manage_products/show.rhtml:45
+msgid "Remove product or service"
+msgstr ""
+
+#: app/views/manage_products/_form.rhtml:6
+msgid "Name:"
+msgstr ""
+
+#: app/views/manage_products/_form.rhtml:7
+msgid "Price:"
+msgstr ""
+
+#: app/views/manage_products/_form.rhtml:9
+msgid "Highlight this product"
+msgstr ""
+
+#: app/views/manage_products/_form.rhtml:15
+msgid "Create product"
+msgstr ""
+
+#: app/views/manage_products/_display_description.rhtml:4
+msgid "Edit description"
+msgstr ""
+
+#: app/views/manage_products/_display_description.rhtml:4
+msgid ""
+"Edit the description of your product and give consumers more information "
+"about what you are advertising"
+msgstr ""
+
+#: app/views/manage_products/_display_description.rhtml:9
+msgid "Add some description to your product"
+msgstr ""
+
+#: app/views/manage_products/_display_description.rhtml:12
+msgid ""
+"Add a description to your product and give consumers more information about "
+"what you are advertising"
+msgstr ""
+
+#: app/views/manage_products/_display_info.rhtml:7
+msgid "Edit basic information"
+msgstr ""
+
+#: app/views/manage_products/_display_info.rhtml:7
+msgid ""
+"Click here to edit price, discount and qualifiers/certifiers to make your "
+"product more attractive and detailed for the consumers"
+msgstr ""
+
+#: app/views/manage_products/_display_info.rhtml:9
+msgid "Add price and other basic information"
+msgstr ""
+
+#: app/views/manage_products/_display_info.rhtml:10
+msgid ""
+"Click here to add price, discount and qualifiers/certifiers to make your "
+"product more attractive and detailed for the consumers"
+msgstr ""
+
+#: app/views/manage_products/_display_name.rhtml:3
+msgid "Edit name and unit"
+msgstr ""
+
+#: app/views/manage_products/_display_name.rhtml:3
+msgid "Click here to edit the name of your product and the unit"
+msgstr ""
+
+#: app/views/manage_products/_edit_input.rhtml:9
+msgid "Price %s (%s)"
+msgstr ""
+
+#: app/views/manage_products/_edit_input.rhtml:13
+msgid "This input or raw material inpact on the final price of the product?"
+msgstr ""
+
+#: app/views/manage_products/_edit_input.rhtml:22
+msgid "Is it from solidarity economy?"
+msgstr ""
+
+#: app/views/manage_products/_edit_input.rhtml:32
+msgid "Save changes of this input or raw material"
+msgstr ""
+
+#: app/views/manage_products/_edit_input.rhtml:33
+msgid "Cancel changes of this input or raw material"
+msgstr ""
+
+#: app/views/manage_products/_display_inputs.rhtml:6
+msgid "Add the inputs or raw material used by this product"
+msgstr ""
+
+#: app/views/manage_products/_display_inputs.rhtml:11
+msgid ""
+"Add inputs or raw materials used by this product and give more transparency "
+"to consumers about your enterprise"
+msgstr ""
+
+#: app/views/manage_products/_display_inputs.rhtml:15
+msgid "Add new input or raw material"
+msgstr ""
+
+#: app/views/manage_products/_display_inputs.rhtml:15
+msgid ""
+"Add new input or raw material used by this product and give more "
+"transparency to consumers about your enterprise"
+msgstr ""
+
+#: app/views/manage_products/_display_inputs.rhtml:16
+msgid "Drag the input with the mouse to change the order"
+msgstr ""
+
+#: app/views/manage_products/_display_inputs.rhtml:25
+msgid "Order inputs"
+msgstr ""
+
+#: app/views/manage_products/edit.rhtml:1
+msgid "Editing"
+msgstr ""
+
+#: app/views/contact/new.rhtml:1
+msgid "Send an e-mail to %s"
+msgstr ""
+
+#: app/views/contact/new.rhtml:19
+msgid "I want to receive a copy of the message in my e-mail."
+msgstr ""
+
+#: app/views/contact/sender/mail.rhtml:2
+msgid "e-Mail: %s"
+msgstr ""
+
+#: app/views/contact/sender/mail.rhtml:4
+msgid "City and state: %s/%s"
+msgstr ""
+
+#: app/views/contact/sender/mail.rhtml:7
+msgid "Message:"
+msgstr ""
+
+#: app/views/profile_search/index.rhtml:2
+msgid "Search on %s's profile"
+msgstr ""
+
+#: app/views/profile_search/index.rhtml:8
+msgid "%s results found"
+msgstr ""
+
+#: app/views/comment/notifier/mail.rhtml:3
+msgid ""
+"%{sender} (%{sender_link}) created a new comment on your article \"%"
+"{article_title}\"."
+msgstr ""
+
+#: app/views/comment/notifier/mail.rhtml:5
+msgid "Title: %s"
+msgstr ""
+
+#: app/views/comment/notifier/mail.rhtml:7
+msgid "Comment:"
+msgstr ""
+
+#: app/views/comment/notifier/mail.rhtml:12
+msgid "Access the address below to view this comment:"
+msgstr ""
+
+#: app/views/content_viewer/_article_toolbar.rhtml:29
+msgid "Add translation"
+msgstr ""
+
+#: app/views/content_viewer/_article_toolbar.rhtml:38
+msgid "Upload files"
+msgstr ""
+
+#: app/views/content_viewer/_article_toolbar.rhtml:43
+msgid "Suggest an article"
+msgstr ""
+
+#: app/views/content_viewer/image_gallery.rhtml:7
+msgid "This gallery contains no images yet"
+msgstr ""
+
+#: app/views/content_viewer/image_gallery.rhtml:9
+msgid "View slideshow"
+msgstr ""
+
+#: app/views/content_viewer/view_page.rhtml:17
+msgid "This article's tags:"
+msgstr ""
+
+#: app/views/content_viewer/view_page.rhtml:24
+msgid "Viewed one time"
+msgid_plural "Viewed %{num} times"
+msgstr[0] ""
+msgstr[1] ""
+
+#: app/views/content_viewer/view_page.rhtml:30
+msgid "Go back to %s"
+msgstr ""
+
+#: app/views/content_viewer/view_page.rhtml:71
+#: app/views/content_viewer/_comment_form.rhtml:19
+msgid "Post a comment"
+msgstr ""
+
+#: app/views/content_viewer/_comment_form.rhtml:31
+msgid "e-mail"
+msgstr ""
+
+#: app/views/content_viewer/_comment_form.rhtml:34
+msgid ""
+"If you are a registered user, you can login and be automatically recognized."
+msgstr ""
+
+#: app/views/content_viewer/_comment_form.rhtml:40
+msgid "Enter your comment"
+msgstr ""
+
+#: app/views/content_viewer/_comment_form.rhtml:42
+msgid "Post comment"
+msgstr ""
+
+#: app/views/content_viewer/forum_page.rhtml:10
+#: app/views/content_viewer/blog_page.rhtml:12
+msgid "(no posts)"
+msgstr ""
+
+#: app/views/content_viewer/blog_page.rhtml:3
+msgid "(external feed was not loaded yet)"
+msgstr ""
+
+#: app/views/content_viewer/slideshow.rhtml:1
+msgid "Back to gallery"
+msgstr ""
+
+#: app/views/content_viewer/_comment.rhtml:27
+msgid "Remove this comment and all its replies"
+msgstr ""
+
+#: app/views/content_viewer/_comment.rhtml:27
+msgid "Are you sure you want to remove this comment and all its replies?"
+msgstr ""
+
+#: app/views/content_viewer/_comment.rhtml:52
+#: app/views/profile/_profile_scrap.rhtml:14
+msgid "Reply"
+msgstr ""
+
+#: app/views/role/index.rhtml:1
+msgid "Manage user roles"
+msgstr ""
+
+#: app/views/role/index.rhtml:5
+msgid "Role"
+msgstr ""
+
+#: app/views/role/index.rhtml:22
+msgid "New role"
+msgstr ""
+
+#: app/views/role/new.rhtml:1
+msgid "New Role"
+msgstr ""
+
+#: app/views/role/show.rhtml:3
+msgid "Permissions"
+msgstr ""
+
+#: app/views/role/_form.rhtml:9
+msgid "Permissions:"
+msgstr ""
+
+#: app/views/role/_form.rhtml:15
+msgid "Create role"
+msgstr ""
+
+#: app/views/search/sellers.rhtml:4
+msgid "Listing sellers of %s witin %s km from %s %s"
+msgstr ""
+
+#: app/views/search/sellers.rhtml:6
+msgid "Listing sellers of %s"
+msgstr ""
+
+#: app/views/search/sellers.rhtml:10
+msgid "Listing sellers witin %s km from %s %s"
+msgstr ""
+
+#: app/views/search/sellers.rhtml:12
+msgid "Listing sellers"
+msgstr ""
+
+#: app/views/search/_article.rhtml:6
+msgid "by %s"
+msgstr ""
+
+#: app/views/search/_article.rhtml:9
+msgid "Last update: %s."
+msgstr ""
+
+#: app/views/search/cities.rhtml:6
+msgid "No City"
+msgstr ""
+
+#: app/views/search/articles.rhtml:10 app/views/search/index.rhtml:5
+#: app/views/search/products.rhtml:10 app/views/search/people.rhtml:10
+#: app/views/search/communities.rhtml:9 app/views/search/enterprises.rhtml:16
+msgid "Refine your search"
+msgstr ""
+
+#: app/views/search/index.rhtml:3
+msgid "Search Results"
+msgstr ""
+
+#: app/views/search/_sellers_form.rhtml:5
+msgid "Search in:"
+msgstr ""
+
+#: app/views/search/_display_results.rhtml:23
+#: app/views/search/_display_results.rhtml:29
+msgid "see all (%d)"
+msgstr ""
+
+#: app/views/search/_display_results.rhtml:23
+#: app/views/search/_display_results.rhtml:29
+msgid "see all..."
+msgstr ""
+
+#: app/views/search/products.rhtml:1
+msgid "Products and Services"
+msgstr ""
+
+#: app/views/search/events.rhtml:2 app/views/events/events.rhtml:8
+msgid "%s's events"
+msgstr ""
+
+#: app/views/search/tag.rhtml:2
+msgid "Tagged with \"%s\""
+msgstr ""
+
+#: app/views/search/tag.rhtml:6
+msgid "Back to tag cloud"
+msgstr ""
+
+#: app/views/search/category_index.rhtml:9
+msgid "Sub-categories"
+msgstr ""
+
+#: app/views/search/category_index.rhtml:11
+msgid "No sub-categories"
+msgstr ""
+
+#: app/views/search/_product.rhtml:15
+msgid "Not informed"
+msgstr ""
+
+#: app/views/search/_product.rhtml:17
+msgid "Suplier: %s"
+msgstr ""
+
+#: app/views/search/_product.rhtml:19
+msgid "Category:"
+msgstr ""
+
+#: app/views/search/_search_form.rhtml:19
+msgid "Search in whole site"
+msgstr ""
+
+#: app/views/search/_search_form.rhtml:25
+msgid "Search within:"
+msgstr ""
+
+#: app/views/search/_search_form.rhtml:38
+msgid "Search for:"
+msgstr ""
+
+#: app/views/search/_search_form.rhtml:52 app/views/home/index.rhtml:65
+msgid "More options"
+msgstr ""
+
+#: app/views/search/_comment.rhtml:16
+msgid "by %{author} on \"%{article}\""
+msgstr ""
+
+#: app/views/search/popup.rhtml:3
+msgid "Search %s"
+msgstr ""
+
+#: app/views/search/tags.rhtml:1
+msgid "Tag cloud"
+msgstr ""
+
+#: app/views/search/enterprises.rhtml:3
+msgid "Enterprise results for \"%{query}\" in \"%{category}\""
+msgstr ""
+
+#: app/views/search/enterprises.rhtml:3
+msgid "Enterprise results for \"%s\""
+msgstr ""
+
+#: app/views/search/enterprises.rhtml:5
+msgid "Enterprises in \"%s\""
+msgstr ""
+
+#: app/views/search/enterprises.rhtml:10
+msgid "Within %s km from %s"
+msgstr ""
+
+#: app/views/search/enterprises.rhtml:20
+msgid "New enterprise"
+msgstr ""
+
+#: app/views/search/_product_categories_menu.rhtml:13
+msgid "There is no sub-categories for %s."
+msgstr ""
+
+#: app/views/search/_product_categories_menu.rhtml:15
+msgid "There is no categories."
+msgstr ""
+
+#: app/views/user/mailer/activation_email_notify.rhtml:1
+#: app/views/task_mailer/target_notification.rhtml:1
+msgid "Hello %s,"
+msgstr ""
+
+#: app/views/user/mailer/activation_email_notify.rhtml:3
+msgid "Your email %s was just activated."
+msgstr ""
+
+#: app/views/user/mailer/activation_email_notify.rhtml:5
+msgid "You can access your e-mail from anywhere, using the following address:"
+msgstr ""
+
+#: app/views/environment_role_manager/index.rhtml:1
+msgid "Listing Administrators"
+msgstr ""
+
+#: app/views/environment_role_manager/index.rhtml:3
+#: app/views/environment_role_manager/make_admin.rhtml:1
+msgid "Make new admin"
+msgstr ""
+
+#: app/views/environment_role_manager/index.rhtml:8
+msgid "Edit member role"
+msgstr ""
+
+#: app/views/environment_role_manager/index.rhtml:9
+msgid "Remove member"
+msgstr ""
+
+#: app/views/environment_role_manager/make_admin.rhtml:8
+#: app/views/environment_role_manager/change_role.rhtml:5
+#: app/views/profile_members/change_role.rhtml:5
+#: app/views/tasks/_add_member_accept_details.rhtml:1
+msgid "Roles:"
+msgstr ""
+
+#: app/views/environment_role_manager/make_admin.rhtml:13
+msgid "Make"
+msgstr ""
+
+#: app/views/environment_role_manager/change_role.rhtml:1
+#: app/views/profile_members/change_role.rhtml:1
+msgid "Changing role of %s"
+msgstr ""
+
+#: app/views/environment_role_manager/affiliate.rhtml:7
+#: app/views/profile_members/affiliate.rhtml:7
+msgid "Affiliate"
+msgstr ""
+
+#: app/views/maps/_google_map.rhtml:67 app/views/maps/_google_map.rhtml:74
+msgid "Coordinates:"
+msgstr ""
+
+#: app/views/maps/_google_map.rhtml:68
+msgid "Country code:"
+msgstr ""
+
+#: app/views/maps/_google_map.rhtml:73
+msgid "Address not found"
+msgstr ""
+
+#: app/views/maps/edit_location.rhtml:12
+msgid "Locate in the map"
+msgstr ""
+
+#: app/views/maps/edit_location.rhtml:12
+msgid ""
+"Locate the address informed above in the map below (note that you'll "
+"probably need to adjust the marker to get a precise position)"
+msgstr ""
+
+#: app/views/friends/index.rhtml:3 app/views/profile/friends.rhtml:3
+msgid "%s's friends"
+msgstr ""
+
+#: app/views/friends/index.rhtml:9
+msgid "You have no friends yet."
+msgstr ""
+
+#: app/views/friends/index.rhtml:10
+msgid "Do you want to see other people in this environment?"
+msgstr ""
+
+#: app/views/friends/index.rhtml:16 app/views/friends/index.rhtml:45
+msgid "Find people"
+msgstr ""
+
+#: app/views/friends/index.rhtml:17 app/views/friends/index.rhtml:46
+#: app/views/profile/friends.rhtml:21
+msgid "Invite people from my e-mail contacts"
+msgstr ""
+
+#: app/views/friends/remove.rhtml:3 lib/zen3_terminology.rb:54
+msgid "Removing friend: %s"
+msgstr ""
+
+#: app/views/friends/remove.rhtml:8
+msgid "Are you sure you want to remove %s from your friends list?"
+msgstr ""
+
+#: app/views/friends/remove.rhtml:13
+msgid ""
+"Note that %s will still have you as a friend, unless he/she also wants to "
+"remove you from his/her friend list."
+msgstr ""
+
+#: app/views/box_organizer/_location_block.rhtml:2
+msgid "Zoom Level:"
+msgstr ""
+
+#: app/views/box_organizer/_location_block.rhtml:2
+msgid "World"
+msgstr ""
+
+#: app/views/box_organizer/_location_block.rhtml:4
+msgid "Street"
+msgstr ""
+
+#: app/views/box_organizer/_location_block.rhtml:5
+msgid "Map Type:"
+msgstr ""
+
+#: app/views/box_organizer/_location_block.rhtml:5
+msgid "Road Map"
+msgstr ""
+
+#: app/views/box_organizer/_location_block.rhtml:6
+msgid "Mobile"
+msgstr ""
+
+#: app/views/box_organizer/_location_block.rhtml:7
+msgid "Satellite"
+msgstr ""
+
+#: app/views/box_organizer/_location_block.rhtml:8
+msgid "Terrain"
+msgstr ""
+
+#: app/views/box_organizer/_location_block.rhtml:9
+msgid "Hybrid"
+msgstr ""
+
+#: app/views/box_organizer/_raw_html_block.rhtml:1
+msgid "HTML code"
+msgstr ""
+
+#: app/views/box_organizer/_profile_list_block.rhtml:2
+#: app/views/box_organizer/_recent_documents_block.rhtml:2
+msgid "Limit of items"
+msgstr ""
+
+#: app/views/box_organizer/_profile_list_block.rhtml:4
+msgid "Prioritize profiles with image"
+msgstr ""
+
+#: app/views/box_organizer/index.rhtml:1
+msgid "Editing sideboxes"
+msgstr ""
+
+#: app/views/box_organizer/index.rhtml:4
+msgid "Add a block"
+msgstr ""
+
+#: app/views/box_organizer/add_block.rhtml:3
+msgid "In what area do you want to put your new block?"
+msgstr ""
+
+#: app/views/box_organizer/add_block.rhtml:6
+msgid "Area %d"
+msgstr ""
+
+#: app/views/box_organizer/add_block.rhtml:8
+msgid "Select the type of block you want to add to your page."
+msgstr ""
+
+#: app/views/box_organizer/_tags_block.rhtml:2
+msgid "Limit of tags to display:"
+msgstr ""
+
+#: app/views/box_organizer/_featured_products_block.rhtml:3
+msgid "Choose some products"
+msgstr ""
+
+#: app/views/box_organizer/_featured_products_block.rhtml:5
+msgid "Reflect products"
+msgstr ""
+
+#: app/views/box_organizer/_featured_products_block.rhtml:6
+msgid "Transition speed (in seconds)"
+msgstr ""
+
+#: app/views/box_organizer/_featured_products_block.rhtml:7
+msgid "In groups of"
+msgstr ""
+
+#: app/views/box_organizer/_feed_reader_block.rhtml:3
+msgid "Limit of posts to display"
+msgstr ""
+
+#: app/views/box_organizer/_categories_block.rhtml:1
+msgid "Category types"
+msgstr ""
+
+#: app/views/box_organizer/_highlights_block.rhtml:18
+msgid "New highlight"
+msgstr ""
+
+#: app/views/box_organizer/_highlights_block.rhtml:28
+#: app/views/box_organizer/_slideshow_block.rhtml:7
+msgid "Image transition:"
+msgstr ""
+
+#: app/views/box_organizer/_highlights_block.rhtml:28
+#: app/views/box_organizer/_slideshow_block.rhtml:7
+msgid "No automatic transition"
+msgstr ""
+
+#: app/views/box_organizer/_highlights_block.rhtml:28
+#: app/views/box_organizer/_slideshow_block.rhtml:7
+msgid "Every 1 second"
+msgid_plural "Every %d seconds"
+msgstr[0] ""
+msgstr[1] ""
+
+#: app/views/box_organizer/_highlights_block.rhtml:30
+#: app/views/box_organizer/_slideshow_block.rhtml:9
+msgid "Show images in random order"
+msgstr ""
+
+#: app/views/box_organizer/_highlights_block.rhtml:32
+#: app/views/box_organizer/_slideshow_block.rhtml:11
+msgid "Display navigation buttons"
+msgstr ""
+
+#: app/views/box_organizer/_products_block.rhtml:5
+msgid "Select the products that must be shown."
+msgstr ""
+
+#: app/views/box_organizer/_blog_archives_block.rhtml:3
+msgid "Choose a blog:"
+msgstr ""
+
+#: app/views/box_organizer/_profile_image_block.rhtml:2
+msgid "Show name on block"
+msgstr ""
+
+#: app/views/box_organizer/_article_block.rhtml:4
+msgid ""
+"You don't have an community defined as the portal community. Define it "
+"before use this block properly."
+msgstr ""
+
+#: app/views/box_organizer/_slideshow_block.rhtml:1
+msgid "Choose a gallery"
+msgstr ""
+
+#: app/views/box_organizer/_slideshow_block.rhtml:2
+msgid "%{gallery} (%{count} images)"
+msgstr ""
+
+#: app/views/box_organizer/_slideshow_block.rhtml:5
+msgid "Image size"
+msgstr ""
+
+#: app/views/box_organizer/_slideshow_block.rhtml:5
+msgid "Slideshow size"
+msgstr ""
+
+#: app/views/box_organizer/_link_list_block.rhtml:1
+msgid "Links"
+msgstr ""
+
+#: app/views/box_organizer/_link_list_block.rhtml:4
+msgid "Icon"
+msgstr ""
+
+#: app/views/box_organizer/_link_list_block.rhtml:17
+msgid "New link"
+msgstr ""
+
+#: app/views/box_organizer/edit.rhtml:1
+msgid "Editing block"
+msgstr ""
+
+#: app/views/box_organizer/edit.rhtml:5
+msgid "Custom title for this block: "
+msgstr ""
+
+#: app/views/box_organizer/edit.rhtml:9
+msgid "Display this block:"
+msgstr ""
+
+#: app/views/box_organizer/edit.rhtml:12
+msgid "In all pages"
+msgstr ""
+
+#: app/views/box_organizer/edit.rhtml:15
+msgid "Only in the homepage"
+msgstr ""
+
+#: app/views/box_organizer/edit.rhtml:18
+msgid "Don't display"
+msgstr ""
+
+#: app/views/box_organizer/edit.rhtml:21
+msgid "Show for:"
+msgstr ""
+
+#: app/views/box_organizer/edit.rhtml:21
+msgid "all languages"
+msgstr ""
+
+#: app/views/home/index.rhtml:2
+msgid "News"
+msgstr ""
+
+#: app/views/home/index.rhtml:45 app/views/profile/_profile_scraps.rhtml:6
+#: app/views/profile/_profile_activities.rhtml:16
+#: app/views/profile/_profile_network_activities.rhtml:32
+msgid "View more"
+msgstr ""
+
+#: app/views/profile_members/_index_buttons.rhtml:3
+msgid "Add members"
+msgstr ""
+
+#: app/views/profile_members/_index_buttons.rhtml:5
+#: app/views/profile/members.rhtml:20 app/views/invite/select_friends.rhtml:6
+#: app/views/invite/select_address_book.rhtml:4
+msgid "Invite your friends to join %s"
+msgstr ""
+
+#: app/views/profile_members/_index_buttons.rhtml:7
+#: app/views/profile_members/send_mail.rhtml:3
+msgid "Send e-mail to members"
+msgstr ""
+
+#: app/views/profile_members/_find_users.rhtml:1
+#: app/views/profile_members/find_users.rhtml:1
+msgid "Users"
+msgstr ""
+
+#: app/views/profile_members/_find_users.rhtml:11
+#: app/views/profile_members/find_users.rhtml:11
+msgid "Sex not informed"
+msgstr ""
+
+#: app/views/profile_members/_find_users.rhtml:31
+#: app/views/profile_members/find_users.rhtml:31
+msgid "You must type at least 3 characters"
+msgstr ""
+
+#: app/views/profile_members/last_admin.rhtml:1
+msgid "Last administrator leaving %s"
+msgstr ""
+
+#: app/views/profile_members/last_admin.rhtml:5
+msgid ""
+"Since you are the last administrator, you must choose at least one member to "
+"administer this community."
+msgstr ""
+
+#: app/views/profile_members/last_admin.rhtml:12
+msgid "Leave administration and save"
+msgstr ""
+
+#: app/views/profile_members/last_admin.rhtml:19
+msgid ""
+"Since you are the last administrator and there is no other member in this "
+"community, the next user to join this community will assume the "
+"administrator role."
+msgstr ""
+
+#: app/views/profile_members/last_admin.rhtml:24
+msgid "Ok, I want to leave"
+msgstr ""
+
+#: app/views/profile_members/send_mail.rhtml:10
+#: app/views/users/send_mail.rhtml:8
+msgid "Subject:"
+msgstr ""
+
+#: app/views/profile_members/send_mail.rhtml:11
+#: app/views/users/send_mail.rhtml:9
+msgid "Body:"
+msgstr ""
+
+#: app/views/profile_members/send_mail.rhtml:13
+#: app/views/users/send_mail.rhtml:11
+msgid "Cancel e-mail"
+msgstr ""
+
+#: app/views/profile_members/add_members.rhtml:1
+msgid "Add members to %s"
+msgstr ""
+
+#: app/views/profile_members/_add_admins.rhtml:1
+msgid "Add admins to %s"
+msgstr ""
+
+#: app/views/mailconf/index.rhtml:1
+msgid "e-Mail configuration"
+msgstr ""
+
+#: app/views/mailconf/index.rhtml:7
+msgid ""
+"You already request activation of your mailbox. Please wait until an "
+"administrator approves your request."
+msgstr ""
+
+#: app/views/mailconf/index.rhtml:21
+msgid "Configuration"
+msgstr ""
+
+#: app/views/mailconf/index.rhtml:24
+msgid "Mail configuration for POP and IMAP"
+msgstr ""
+
+#: app/views/mailconf/index.rhtml:33
+msgid "Enable e-Mail account below:"
+msgstr ""
+
+#: app/views/mailconf/index.rhtml:35
+msgid "You'll be able to access a webmail from your user menu."
+msgstr ""
+
+#: app/views/mailconf/index.rhtml:37
+msgid "Enable e-Mail"
+msgstr ""
+
+#: app/views/events/events.rhtml:3
+msgid "Back to %s"
+msgstr ""
+
+#: app/views/events/events.rhtml:5
+msgid "New event"
+msgstr ""
+
+#: app/views/tasks/_invite_friend_accept_details.rhtml:1
+#: app/views/tasks/_add_friend_accept_details.rhtml:1
+msgid "Classify your new friend:"
+msgstr ""
+
+#: app/views/tasks/_invite_friend_accept_details.rhtml:7
+#: app/views/tasks/_add_friend_accept_details.rhtml:7
+msgid "Suggestions: %s"
+msgstr ""
+
+#: app/views/tasks/_task_reject_details.rhtml:1
+#: app/views/tasks/_create_enterprise_reject_details.rhtml:1
+msgid "Rejection explanation"
+msgstr ""
+
+#: app/views/tasks/ticket_details.rhtml:1
+msgid "Ticket: %s"
+msgstr ""
+
+#: app/views/tasks/ticket_details.rhtml:3
+msgid "Created at %s by %s"
+msgstr ""
+
+#: app/views/tasks/ticket_details.rhtml:4
+msgid "Owner: %s"
+msgstr ""
+
+#: app/views/tasks/ticket_details.rhtml:7
+msgid "Status: %s"
+msgstr ""
+
+#: app/views/tasks/ticket_details.rhtml:14
+msgid "Closing statement: %s"
+msgstr ""
+
+#: app/views/tasks/index.rhtml:3
+msgid "%s's pending tasks"
+msgstr ""
+
+#: app/views/tasks/index.rhtml:10
+msgid "This error happened with the following tasks: "
+msgstr ""
+
+#: app/views/tasks/index.rhtml:21
+msgid "No pending tasks for %s"
+msgstr ""
+
+#: app/views/tasks/index.rhtml:27 app/views/tasks/index.rhtml:47
+msgid "Apply!"
+msgstr ""
+
+#: app/views/tasks/index.rhtml:28 app/views/tasks/index.rhtml:48
+msgid "View processed tasks"
+msgstr ""
+
+#: app/views/tasks/index.rhtml:34 app/views/tasks/index.rhtml:40
+msgid "Set all to: "
+msgstr ""
+
+#: app/views/tasks/index.rhtml:34 app/views/tasks/index.rhtml:40
+#: app/views/tasks/_task.rhtml:24
+msgid "Accept"
+msgstr ""
+
+#: app/views/tasks/index.rhtml:34 app/views/tasks/index.rhtml:40
+#: app/views/tasks/_task.rhtml:29
+#: app/views/enterprise_validation/details.rhtml:23
+#: app/views/enterprise_validation/details.rhtml:31
+msgid "Reject"
+msgstr ""
+
+#: app/views/tasks/index.rhtml:34 app/views/tasks/index.rhtml:40
+#: app/views/tasks/_task.rhtml:34
+msgid "Skip"
+msgstr ""
+
+#: app/views/tasks/new.rhtml:1
+msgid "New request for %s"
+msgstr ""
+
+#: app/views/tasks/new.rhtml:1
+msgid "New request"
+msgstr ""
+
+#: app/views/tasks/new.rhtml:8
+msgid "To: "
+msgstr ""
+
+#: app/views/tasks/processed.rhtml:1
+msgid "%s's processed tasks"
+msgstr ""
+
+#: app/views/tasks/processed.rhtml:5
+msgid "No processed tasks."
+msgstr ""
+
+#: app/views/tasks/processed.rhtml:12 app/views/tasks/list_requested.rhtml:8
+msgid "Created:"
+msgstr ""
+
+#: app/views/tasks/processed.rhtml:14
+msgid "Processed:"
+msgstr ""
+
+#: app/views/tasks/_suggest_article_accept_details.rhtml:3
+msgid "Sent by: "
+msgstr ""
+
+#: app/views/tasks/_suggest_article_accept_details.rhtml:4
+msgid "Email: %s"
+msgstr ""
+
+#: app/views/tasks/_suggest_article_accept_details.rhtml:9
+#: app/views/tasks/_approve_article_accept_details.rhtml:4
+msgid "Select the folder where the article must be published"
+msgstr ""
+
+#: app/views/tasks/_approve_article_accept_details.rhtml:3
+msgid "Name for publishing"
+msgstr ""
+
+#: app/views/tasks/_approve_article_accept_details.rhtml:10
+msgid "Comment for author"
+msgstr ""
+
+#: app/views/tasks/list_requested.rhtml:1
+msgid "Tasks that I requested"
+msgstr ""
+
+#: app/views/tasks/list_requested.rhtml:10
+msgid "Status:"
+msgstr ""
+
+#: app/views/account/accept_terms.rhtml:14
+msgid "part 2 of 2"
+msgstr ""
+
+#: app/views/account/accept_terms.rhtml:14
+msgid " part 2 of 3"
+msgstr ""
+
+#: app/views/account/accept_terms.rhtml:22
+msgid "I read the terms of use and accepted them"
+msgstr ""
+
+#: app/views/account/accept_terms.rhtml:25
+#: app/views/account/activation_question.rhtml:39
+msgid "Continue"
+msgstr ""
+
+#: app/views/account/logout_popup.rhtml:1
+msgid "Are you sure you want to get out?"
+msgstr ""
+
+#: app/views/account/logout_popup.rhtml:5
+msgid "No, I want to stay."
+msgstr ""
+
+#: app/views/account/activation_question.rhtml:6
+msgid "The year must be between %d and %d"
+msgstr ""
+
+#: app/views/account/activation_question.rhtml:17
+msgid "A CNPJ have 14 digits"
+msgstr ""
+
+#: app/views/account/activation_question.rhtml:26
+msgid "part 1 of 2"
+msgstr ""
+
+#: app/views/account/activation_question.rhtml:26
+msgid "part 1 of 3"
+msgstr ""
+
+#: app/views/account/activation_question.rhtml:29
+msgid "Pay atention! You have only one chance!"
+msgstr ""
+
+#: app/views/account/activation_question.rhtml:31
+msgid ""
+"This is a question to know if you really are part of this enterprise. Pay "
+"atention because you have only one chance to answer right and activate your "
+"enterprise. If you answer wrong you will not be able to activate the "
+"enterprise automaticaly and must get in touch with the admins of %s by email "
+"or phone."
+msgstr ""
+
+#: app/views/account/activation_question.rhtml:33
+msgid ""
+"What year your enterprise was founded? It must have 4 digits, eg 1990. %s"
+msgstr ""
+
+#: app/views/account/activation_question.rhtml:33
+msgid "What is the CNPJ of your enterprise?"
+msgstr ""
+
+#: app/views/account/blocked.rhtml:2
+msgid "This enterprise can't be activated by the system"
+msgstr ""
+
+#: app/views/account/blocked.rhtml:3
+msgid "Unfortunately this enterprise can't be activated via the system."
+msgstr ""
+
+#: app/views/account/blocked.rhtml:6
+msgid ""
+"There was a failed atempt of activation and the automated activation was "
+"disabled for your security."
+msgstr ""
+
+#: app/views/account/blocked.rhtml:8
+msgid "We don't have enough information about your enterprise to identify you."
+msgstr ""
+
+#: app/views/account/blocked.rhtml:13
+msgid "Your enterprise has been blocked"
+msgstr ""
+
+#: app/views/account/signup.rhtml:1
+msgid "Signup"
+msgstr ""
+
+#: app/views/account/index.rhtml:1
+msgid "Account options"
+msgstr ""
+
+#: app/views/account/index.rhtml:4
+msgid "Change password."
+msgstr ""
+
+#: app/views/account/index.rhtml:5
+msgid "It is a good idea to change your password from times to times."
+msgstr ""
+
+#: app/views/account/index.rhtml:9
+msgid "Edit Personal details."
+msgstr ""
+
+#: app/views/account/index.rhtml:10
+msgid "You can change your personal details."
+msgstr ""
+
+#: app/views/account/index.rhtml:14
+msgid "My home page."
+msgstr ""
+
+#: app/views/account/index.rhtml:15
+msgid "See your homepage."
+msgstr ""
+
+#: app/views/account/index.rhtml:19
+msgid "Manage content."
+msgstr ""
+
+#: app/views/account/index.rhtml:20
+msgid "Manage your content."
+msgstr ""
+
+#: app/views/account/index.rhtml:24
+msgid "Logout."
+msgstr ""
+
+#: app/views/account/index.rhtml:25
+msgid ""
+"It is always a good idea to make a logout when you finish using the "
+"environment."
+msgstr ""
+
+#: app/views/account/login.rhtml:15 app/views/account/login_block.rhtml:20
+#: app/views/account/_login_form.rhtml:18
+msgid "Log in"
+msgstr ""
+
+#: app/views/account/login.rhtml:24 app/views/account/login_block.rhtml:21
+msgid "New user"
+msgstr ""
+
+#: app/views/account/login.rhtml:25 app/views/account/login_block.rhtml:29
+msgid "I forgot my password!"
+msgstr ""
+
+#: app/views/account/forgot_password.rhtml:1
+msgid "Forgot your password?"
+msgstr ""
+
+#: app/views/account/forgot_password.rhtml:16
+msgid "Send instructions"
+msgstr ""
+
+#: app/views/account/forgot_password.rhtml:19
+msgid ""
+"After clicking the button above, you will receive an email with a link to a "
+"page where you will be able to create a new password."
+msgstr ""
+
+#: app/views/account/new_password_ok.rhtml:1
+msgid "Password changed sucessfully"
+msgstr ""
+
+#: app/views/account/new_password_ok.rhtml:4
+msgid "%s, your new password was successfully installed."
+msgstr ""
+
+#: app/views/account/new_password_ok.rhtml:8
+msgid "You can <a href='%s'>login</a> now."
+msgstr ""
+
+#: app/views/account/welcome.rhtml:2
+msgid "Welcome to %s"
+msgstr ""
+
+#: app/views/account/welcome.rhtml:4
+msgid ""
+"%s was successfuly activated. Now you may go to your control panel or to the "
+"control panel of your enterprise"
+msgstr ""
+
+#: app/views/account/welcome.rhtml:7
+msgid "Go to my control panel"
+msgstr ""
+
+#: app/views/account/welcome.rhtml:8
+msgid "Go to my enterprise control panel"
+msgstr ""
+
+#: app/views/account/change_password.rhtml:5
+msgid "Current password"
+msgstr ""
+
+#: app/views/account/change_password.rhtml:8
+msgid "New password"
+msgstr ""
+
+#: app/views/account/change_password.rhtml:11
+msgid "Confirm your new Password"
+msgstr ""
+
+#: app/views/account/invalid_enterprise_code.rhtml:1
+msgid "Invalid enterprise code"
+msgstr ""
+
+#: app/views/account/invalid_enterprise_code.rhtml:4
+msgid ""
+"The code you are using for validate your enterprise is not valid. Please "
+"check if you are typing it correctly."
+msgstr ""
+
+#: app/views/account/_signup_form.rhtml:6
+msgid ""
+"Dear user, welcome to the %s network. To start your participation in this "
+"space, fill in the fields below. After this operation, your login and "
+"password will be registered, allowing you to create %s and %s in this "
+"environment."
+msgstr ""
+
+#: app/views/account/_signup_form.rhtml:6
+msgid "communities"
+msgstr ""
+
+#: app/views/account/_signup_form.rhtml:6
+msgid "enterprises"
+msgstr ""
+
+#: app/views/account/_signup_form.rhtml:19
+msgid "This e-mail address will be used to contact you."
+msgstr ""
+
+#: app/views/account/_signup_form.rhtml:23
+msgid "Insert your login"
+msgstr ""
+
+#: app/views/account/_signup_form.rhtml:30
+msgid ""
+"Choose a password that you can remember easily. It must have at least 4 "
+"characters."
+msgstr ""
+
+#: app/views/account/_signup_form.rhtml:34
+msgid "To confirm, repeat your password."
+msgstr ""
+
+#: app/views/account/_signup_form.rhtml:42
+msgid ""
+"By clicking on 'I accept the terms of use' below you are agreeing to the %s"
+msgstr ""
+
+#: app/views/account/_signup_form.rhtml:53
+msgid "I accept the terms of use"
+msgstr ""
+
+#: app/views/account/_signup_form.rhtml:65
+msgid "Sign up"
+msgstr ""
+
+#: app/views/account/activate_enterprise.rhtml:2
+msgid "Enterprise activation - part 3 of 3"
+msgstr ""
+
+#: app/views/account/activate_enterprise.rhtml:6
+msgid ""
+"Now for you manage your enterprise you have to associate an individual "
+"account to the enterprise."
+msgstr ""
+
+#: app/views/account/activate_enterprise.rhtml:7
+msgid "Do you have a personal user account in the system?"
+msgstr ""
+
+#: app/views/account/activate_enterprise.rhtml:15
+msgid "Personal signup form"
+msgstr ""
+
+#: app/views/account/activate_enterprise.rhtml:17
+msgid ""
+"<b>Warning</b>: this form is for your personal information, not of your "
+"enterprise. So you will have a personal account that can manage your "
+"enterprise."
+msgstr ""
+
+#: app/views/account/activate_enterprise.rhtml:22
+msgid "Enter you user name and password"
+msgstr ""
+
+#: app/views/account/password_recovery_sent.rhtml:1
+msgid "Password recovery"
+msgstr ""
+
+#: app/views/account/password_recovery_sent.rhtml:4
+msgid ""
+"An e-mail was just sent to your e-mail address, with instructions for "
+"changing your password. You should receive it in a few minutes."
+msgstr ""
+
+#: app/views/account/invalid_change_password_code.rhtml:1
+msgid "Invalid change password code"
+msgstr ""
+
+#: app/views/account/invalid_change_password_code.rhtml:4
+msgid ""
+"The code you are using for password change is not valid. Please try to "
+"request password change using the <a href=\"%s\">\"I forgot my password\"</"
+"a> functionality."
+msgstr ""
+
+#: app/views/account/already_activated.rhtml:1
+msgid "This enterprise is already active"
+msgstr ""
+
+#: app/views/account/index_anonymous.rhtml:1
+msgid "Identify yourself"
+msgstr ""
+
+#: app/views/account/index_anonymous.rhtml:4
+msgid "Login."
+msgstr ""
+
+#: app/views/account/index_anonymous.rhtml:6
+msgid ""
+"You need to login to be able to use all the features in this environment."
+msgstr ""
+
+#: app/views/account/index_anonymous.rhtml:10
+msgid "Sign up."
+msgstr ""
+
+#: app/views/account/index_anonymous.rhtml:11
+msgid ""
+"If you are not an user already, you can register now to become a member of "
+"this environment."
+msgstr ""
+
+#: app/views/account/new_password.rhtml:1
+#: app/views/account/new_password.rhtml:11
+msgid "Enter new password"
+msgstr ""
+
+#: app/views/account/new_password.rhtml:4
+msgid "Hello, %s! Please enter your new password in the form below."
+msgstr ""
+
+#: app/views/account/new_password.rhtml:12
+msgid "Confirm the new password"
+msgstr ""
+
+#: app/views/themes/css_editor.rhtml:1
+msgid "CSS code: \"%s\""
+msgstr ""
+
+#: app/views/themes/index.rhtml:1
+msgid "Editing Appearance"
+msgstr ""
+
+#: app/views/themes/index.rhtml:5
+msgid "Select template"
+msgstr ""
+
+#: app/views/themes/index.rhtml:13
+msgid "The \"%s\" template"
+msgstr ""
+
+#: app/views/themes/index.rhtml:20 app/views/themes/index.rhtml:57
+#: app/views/themes/index.rhtml:88
+msgid "(current)"
+msgstr ""
+
+#: app/views/themes/index.rhtml:40
+msgid "Select theme"
+msgstr ""
+
+#: app/views/themes/index.rhtml:41
+msgid "Use the default theme"
+msgstr ""
+
+#: app/views/themes/index.rhtml:41
+msgid "Are you sure you want to use the environment default theme?"
+msgstr ""
+
+#: app/views/themes/index.rhtml:50 app/views/themes/index.rhtml:94
+msgid "The \"%s\" theme."
+msgstr ""
+
+#: app/views/themes/index.rhtml:79
+msgid "My themes"
+msgstr ""
+
+#: app/views/themes/index.rhtml:89
+msgid "Use this theme"
+msgstr ""
+
+#: app/views/themes/index.rhtml:98
+msgid "Edit this theme"
+msgstr ""
+
+#: app/views/themes/index.rhtml:100
+msgid "Test this theme"
+msgstr ""
+
+#: app/views/themes/index.rhtml:117
+msgid "New theme ..."
+msgstr ""
+
+#: app/views/themes/new.rhtml:1
+msgid "Create new theme"
+msgstr ""
+
+#: app/views/themes/new.rhtml:5
+msgid "Name of the new theme:"
+msgstr ""
+
+#: app/views/themes/add_image.rhtml:2
+msgid "Choose the image file"
+msgstr ""
+
+#: app/views/themes/add_image.rhtml:4 app/views/themes/edit.rhtml:31
+msgid "Add image"
+msgstr ""
+
+#: app/views/themes/add_css.rhtml:1
+msgid "Add a CSS file"
+msgstr ""
+
+#: app/views/themes/add_css.rhtml:4
+msgid "File name"
+msgstr ""
+
+#: app/views/themes/edit.rhtml:4
+msgid "Editing theme \"%s\""
+msgstr ""
+
+#: app/views/themes/edit.rhtml:5
+msgid "Preview this theme"
+msgstr ""
+
+#: app/views/themes/edit.rhtml:12
+msgid "CSS files"
+msgstr ""
+
+#: app/views/themes/edit.rhtml:19
+msgid "New CSS"
+msgstr ""
+
+#: app/views/themes/edit.rhtml:37
+msgid "Select a CSS file to edit"
+msgstr ""
+
+#: app/views/task_mailer/task_finished.text.plain.rhtml:1
+#: app/views/task_mailer/task_cancelled.text.plain.rhtml:1
+#: app/views/task_mailer/task_created.text.plain.rhtml:1
+msgid "Dear %s,"
+msgstr ""
+
+#: app/views/task_mailer/target_notification.rhtml:5
+msgid ""
+"Access your list of tasks or your control panel to see this and other "
+"pending actions that need your attention."
+msgstr ""
+
+#: app/views/profile/_profile_scrap.rhtml:5
+#: app/views/profile/_profile_network_activities.rhtml:6
+msgid "Send a message to %s"
+msgstr ""
+
+#: app/views/profile/_profile_scrap.rhtml:28
+#: app/views/profile/_profile_scrap.rhtml:42
+#: app/views/profile/_profile_wall.rhtml:6
+msgid "Leave a scrap"
+msgstr ""
+
+#: app/views/profile/leave.rhtml:1
+msgid "Leaving %s"
+msgstr ""
+
+#: app/views/profile/leave.rhtml:4
+msgid "Are you sure you want to leave %s?"
+msgstr ""
+
+#: app/views/profile/leave.rhtml:10
+msgid "Yes, I want to leave."
+msgstr ""
+
+#: app/views/profile/friends.rhtml:20
+msgid "Manage my friends"
+msgstr ""
+
+#: app/views/profile/_person_profile.rhtml:3
+#: app/views/profile/_organization_profile.rhtml:3
+msgid "Basic information"
+msgstr ""
+
+#: app/views/profile/_person_profile.rhtml:5
+msgid "Sex:"
+msgstr ""
+
+#: app/views/profile/_person_profile.rhtml:6
+msgid "Date of birth:"
+msgstr ""
+
+#: app/views/profile/_person_profile.rhtml:9
+#: app/views/profile/_organization_profile.rhtml:13
+msgid "Type:"
+msgstr ""
+
+#: app/views/profile/_person_profile.rhtml:12
+#: app/views/profile/_organization_profile.rhtml:18
+msgid "Created at:"
+msgstr ""
+
+#: app/views/profile/_person_profile.rhtml:18
+msgid "Contact"
+msgstr ""
+
+#: app/views/profile/_person_profile.rhtml:21
+msgid "ZIP code:"
+msgstr ""
+
+#: app/views/profile/_person_profile.rhtml:22
+msgid "Contact phone:"
+msgstr ""
+
+#: app/views/profile/_person_profile.rhtml:29
+msgid "Work"
+msgstr ""
+
+#: app/views/profile/_person_profile.rhtml:32
+msgid "Organization:"
+msgstr ""
+
+#: app/views/profile/_person_profile.rhtml:33
+msgid "Organization website:"
+msgstr ""
+
+#: app/views/profile/_person_profile.rhtml:49
+#: app/views/profile/_profile.rhtml:19
+msgid "Network"
+msgstr ""
+
+#: app/views/profile/_person_profile.rhtml:62
+#: app/views/profile/_common.rhtml:53
+msgid "Interests"
+msgstr ""
+
+#: app/views/profile/content_tagged.rhtml:3
+msgid "Content tagged with \"%s\""
+msgstr ""
+
+#: app/views/profile/content_tagged.rhtml:6
+msgid "Feed for this tag"
+msgstr ""
+
+#: app/views/profile/content_tagged.rhtml:21
+msgid "See content tagged with \"%s\" in the entire site"
+msgstr ""
+
+#: app/views/profile/sitemap.rhtml:1
+msgid "%s: site map"
+msgstr ""
+
+#: app/views/profile/join.rhtml:1
+msgid "Joining %s"
+msgstr ""
+
+#: app/views/profile/join.rhtml:4
+msgid "Are you sure you want to join %s?"
+msgstr ""
+
+#: app/views/profile/join.rhtml:10
+msgid "Yes, I want to join."
+msgstr ""
+
+#: app/views/profile/_profile_activity.rhtml:2
+msgid "%s's activity"
+msgstr ""
+
+#: app/views/profile/_profile_network.rhtml:1
+msgid "%s's network activity"
+msgstr ""
+
+#: app/views/profile/_profile_wall.rhtml:1
+msgid "%s's wall"
+msgstr ""
+
+#: app/views/profile/_organization_profile.rhtml:32
+msgid "Administrators:"
+msgstr ""
+
+#: app/views/profile/_common.rhtml:23
+msgid "One post"
+msgid_plural "%{num} posts"
+msgstr[0] ""
+msgstr[1] ""
+
+#: app/views/profile/_common.rhtml:31
+msgid "One picture"
+msgid_plural "%{num} pictures"
+msgstr[0] ""
+msgstr[1] ""
+
+#: app/views/profile/_common.rhtml:37
+msgid "Events:"
+msgstr ""
+
+#: app/views/profile/_common.rhtml:44
+msgid "Tags:"
+msgstr ""
+
+#: app/views/profile/members.rhtml:3
+msgid "%s's members"
+msgstr ""
+
+#: app/views/profile/_profile.rhtml:14
+msgid "What's new"
+msgstr ""
+
+#: app/views/profile/_profile.rhtml:23
+msgid "Activity"
+msgstr ""
+
+#: app/views/profile/_profile_network_activities.rhtml:12
+msgid "In community %s"
+msgstr ""
+
+#: app/views/profile/_profile_network_activities.rhtml:20
+msgid "Leave a message"
+msgstr ""
+
+#: app/views/profile/communities.rhtml:3
+msgid "%s's communities"
+msgstr ""
+
+#: app/views/profile/tags.rhtml:1
+msgid "%s's tags"
+msgstr ""
+
+#: app/views/profile/enterprises.rhtml:3
+msgid "%s's enterprises"
+msgstr ""
+
+#: app/views/users/index_csv.rhtml:1
+msgid "name"
+msgstr ""
+
+#: app/views/users/index_csv.rhtml:1
+msgid "email"
+msgstr ""
+
+#: app/views/users/index.rhtml:1 app/views/admin_panel/index.rhtml:13
+msgid "Manage users"
+msgstr ""
+
+#: app/views/users/index.rhtml:5
+msgid "Download users list"
+msgstr ""
+
+#: app/views/users/index.rhtml:10 app/views/users/send_mail.rhtml:1
+msgid "Send e-mail to users"
+msgstr ""
+
+#: app/views/features/_manage_community_fields.rhtml:1
+msgid "Manage community fields"
+msgstr ""
+
+#: app/views/features/_manage_community_fields.rhtml:7
+#: app/views/features/_manage_person_fields.rhtml:7
+#: app/views/features/_manage_enterprise_fields.rhtml:7
+msgid "Field"
+msgstr ""
+
+#: app/views/features/_manage_community_fields.rhtml:9
+#: app/views/features/_manage_person_fields.rhtml:9
+#: app/views/features/_manage_enterprise_fields.rhtml:9
+msgid "Required"
+msgstr ""
+
+#: app/views/features/_manage_community_fields.rhtml:10
+msgid "Display on creation?"
+msgstr ""
+
+#: app/views/features/index.rhtml:1
+msgid "System features"
+msgstr ""
+
+#: app/views/features/index.rhtml:3
+msgid "Enable/Disable features"
+msgstr ""
+
+#: app/views/features/index.rhtml:6
+msgid ""
+"Here you can enable or disable several features of your environment. Each "
+"feature represents some funcionality that your environment can use if you "
+"enable it.\n"
+"\n"
+"Check all the features you want to enable for your environment, uncheck all "
+"the ones you don't want, and use the <em>\"Save changes\" button</em> to "
+"confirm your changes."
+msgstr ""
+
+#: app/views/features/index.rhtml:15
+msgid "Feature"
+msgstr ""
+
+#: app/views/features/index.rhtml:27
+msgid "Configure features"
+msgstr ""
+
+#: app/views/features/index.rhtml:31
+msgid "Option"
+msgstr ""
+
+#: app/views/features/index.rhtml:32
+msgid "Choice"
+msgstr ""
+
+#: app/views/features/index.rhtml:35
+msgid "Organization Approval Method"
+msgstr ""
+
+#: app/views/features/_manage_person_fields.rhtml:1
+msgid "Manage person fields"
+msgstr ""
+
+#: app/views/features/_manage_person_fields.rhtml:10
+msgid "Display on signup?"
+msgstr ""
+
+#: app/views/features/_manage_enterprise_fields.rhtml:1
+msgid "Manage enterprise fields"
+msgstr ""
+
+#: app/views/features/_manage_enterprise_fields.rhtml:10
+msgid "Display on registration?"
+msgstr ""
+
+#: app/views/admin_panel/set_portal_community.rhtml:1
+msgid "Set Environment Portal"
+msgstr ""
+
+#: app/views/admin_panel/set_portal_community.rhtml:5
+msgid "Portal identifier"
+msgstr ""
+
+#: app/views/admin_panel/set_portal_community.rhtml:12
+msgid "Portal identifier: %s"
+msgstr ""
+
+#: app/views/admin_panel/set_portal_community.rhtml:16
+msgid "Disable"
+msgstr ""
+
+#: app/views/admin_panel/set_portal_community.rhtml:18
+msgid "Enable"
+msgstr ""
+
+#: app/views/admin_panel/set_portal_community.rhtml:20
+msgid "Select Portal Folders"
+msgstr ""
+
+#: app/views/admin_panel/set_portal_community.rhtml:21
+msgid "Define Amount by Folder"
+msgstr ""
+
+#: app/views/admin_panel/message_for_disabled_enterprise.rhtml:1
+#: app/views/admin_panel/site_info.rhtml:1
+msgid "Site info"
+msgstr ""
+
+#: app/views/admin_panel/set_portal_news_amount.rhtml:1
+msgid "News amount by folder"
+msgstr ""
+
+#: app/views/admin_panel/set_portal_news_amount.rhtml:5
+msgid "Number of news"
+msgstr ""
+
+#: app/views/admin_panel/index.rhtml:1
+msgid "Administrator Panel"
+msgstr ""
+
+#: app/views/admin_panel/index.rhtml:3
+msgid "You, as an environment administrator, has the following options:"
+msgstr ""
+
+#: app/views/admin_panel/index.rhtml:6
+msgid "Edit site info"
+msgstr ""
+
+#: app/views/admin_panel/index.rhtml:7
+msgid "Edit message for disabled enterprises"
+msgstr ""
+
+#: app/views/admin_panel/index.rhtml:8
+msgid "Enable/disable features"
+msgstr ""
+
+#: app/views/admin_panel/index.rhtml:9
+msgid "Enable/disable plugins"
+msgstr ""
+
+#: app/views/admin_panel/index.rhtml:11
+msgid "Manage Categories"
+msgstr ""
+
+#: app/views/admin_panel/index.rhtml:12
+msgid "Manage User roles"
+msgstr ""
+
+#: app/views/admin_panel/index.rhtml:14
+msgid "Manage Validators by region"
+msgstr ""
+
+#: app/views/admin_panel/index.rhtml:15
+#: app/views/admin_panel/edit_templates.rhtml:1
+msgid "Edit Templates"
+msgstr ""
+
+#: app/views/admin_panel/index.rhtml:16
+msgid "Manage Fields"
+msgstr ""
+
+#: app/views/admin_panel/index.rhtml:17
+msgid "Set Portal"
+msgstr ""
+
+#: app/views/admin_panel/set_portal_folders.rhtml:1
+msgid "Select folders"
+msgstr ""
+
+#: app/views/admin_panel/set_portal_folders.rhtml:3
+msgid ""
+"Select the folders that will hold the news of the initial page of the "
+"environment"
+msgstr ""
+
+#: app/views/admin_panel/set_portal_folders.rhtml:23
+msgid "Available folders"
+msgstr ""
+
+#: app/views/admin_panel/set_portal_folders.rhtml:33
+msgid "Portal folders"
+msgstr ""
+
+#: app/views/admin_panel/set_portal_folders.rhtml:37
+msgid ""
+"The same order in which you arrange the folders here will be used for "
+"arranging the boxes in the environment initial page."
+msgstr ""
+
+#: app/views/admin_panel/edit_templates.rhtml:4
+msgid "Edit Person Template"
+msgstr ""
+
+#: app/views/admin_panel/edit_templates.rhtml:5
+msgid "Edit Community Template"
+msgstr ""
+
+#: app/views/admin_panel/edit_templates.rhtml:6
+msgid "Edit Enterprise Template"
+msgstr ""
+
+#: app/views/admin_panel/site_info.rhtml:7
+msgid "Site name"
+msgstr ""
+
+#: app/views/admin_panel/site_info.rhtml:9
+msgid "Homepage content"
+msgstr ""
+
+#: app/views/invite/_dialog_wait_loading.rhtml:8
+msgid "Please, wait..."
+msgstr ""
+
+#: app/views/invite/_dialog_wait_loading.rhtml:16
+msgid "Your e-mails contacts are being fetched"
+msgstr ""
+
+#: app/views/invite/_dialog_wait_loading.rhtml:17
+msgid ""
+"If it takes too long, you will be redirected to the previous page to try "
+"again. Be sure to fill in the fields with your correct login and password."
+msgstr ""
+
+#: app/views/invite/_dialog_wait_loading.rhtml:19
+msgid "Verify contact list"
+msgstr ""
+
+#: app/views/invite/_dialog_wait_loading.rhtml:20
+msgid "Add contact list"
+msgstr ""
+
+#: app/views/invite/_dialog_wait_loading.rhtml:21
+msgid "Cancel fetching e-mails"
+msgstr ""
+
+#: app/views/invite/select_friends.rhtml:4
+#: app/views/invite/select_address_book.rhtml:2
+msgid "Invite your friends"
+msgstr ""
+
+#: app/views/invite/select_friends.rhtml:10
+msgid "Step 2 of 2: Selecting Friends"
+msgstr ""
+
+#: app/views/invite/select_friends.rhtml:15
+msgid "Indicate which friends you want to invite."
+msgstr ""
+
+#: app/views/invite/select_friends.rhtml:23
+msgid "Enter one e-mail address per line:"
+msgstr ""
+
+#: app/views/invite/select_friends.rhtml:27
+msgid "Check all"
+msgstr ""
+
+#: app/views/invite/select_friends.rhtml:28
+msgid "Uncheck all"
+msgstr ""
+
+#: app/views/invite/select_friends.rhtml:35
+msgid "Personalize invitation mail"
+msgstr ""
+
+#: app/views/invite/select_friends.rhtml:40
+msgid ""
+"Now enter an invitation message. You must keep the <url> code in your "
+"invitation text. When your friends receive the invitation e-mail, <url> will "
+"be replaced by a link that they need to click to activate their account. "
+"<user> and <friend> codes will be replaced by your name and friend name, but "
+"they are optional."
+msgstr ""
+
+#: app/views/invite/select_friends.rhtml:41
+msgid "Invitation text:"
+msgstr ""
+
+#: app/views/invite/select_friends.rhtml:45
+msgid "Invite my friends!"
+msgstr ""
+
+#: app/views/invite/select_address_book.rhtml:7
+msgid "Step 1 of 2: Select address book"
+msgstr ""
+
+#: app/views/invite/select_address_book.rhtml:12
+msgid "Manually (empty field)"
+msgstr ""
+
+#: app/views/invite/select_address_book.rhtml:35
+msgid "Please type your username in the format yourname@example.com"
+msgstr ""
+
+#: app/views/invite/select_address_book.rhtml:45
+msgid "We won't store your password or contact anyone without your permission."
+msgstr ""
+
+#: app/views/enterprise_validation/index.rhtml:1
+msgid "Enterprise validations"
+msgstr ""
+
+#: app/views/enterprise_validation/index.rhtml:4
+msgid "Edit validation info"
+msgstr ""
+
+#: app/views/enterprise_validation/index.rhtml:5
+msgid "Go Back"
+msgstr ""
+
+#: app/views/enterprise_validation/index.rhtml:8
+msgid "Pending enterprise validations"
+msgstr ""
+
+#: app/views/enterprise_validation/index.rhtml:18
+#: app/views/enterprise_validation/_details.rhtml:11
+#: app/views/enterprise_validation/list_processed.rhtml:13
+msgid "Contact Phone"
+msgstr ""
+
+#: app/views/enterprise_validation/index.rhtml:22
+#: app/views/enterprise_validation/_details.rhtml:15
+#: app/views/enterprise_validation/list_processed.rhtml:17
+msgid "Contact Person"
+msgstr ""
+
+#: app/views/enterprise_validation/index.rhtml:27
+msgid "See details/approve/reject"
+msgstr ""
+
+#: app/views/enterprise_validation/index.rhtml:30
+#: app/views/enterprise_validation/list_processed.rhtml:1
+msgid "Processed enterprise validations"
+msgstr ""
+
+#: app/views/enterprise_validation/index.rhtml:32
+msgid "See the list of processed enterprise validations"
+msgstr ""
+
+#: app/views/enterprise_validation/_details.rhtml:27
+msgid "Foundation Year"
+msgstr ""
+
+#: app/views/enterprise_validation/_details.rhtml:31
+msgid "Legal Form"
+msgstr ""
+
+#: app/views/enterprise_validation/_details.rhtml:35
+msgid "Economic Activity"
+msgstr ""
+
+#: app/views/enterprise_validation/_details.rhtml:39
+msgid "Management Information"
+msgstr ""
+
+#: app/views/enterprise_validation/details.rhtml:1
+msgid "%s's validation"
+msgstr ""
+
+#: app/views/enterprise_validation/details.rhtml:7
+msgid "Provided information"
+msgstr ""
+
+#: app/views/enterprise_validation/details.rhtml:11
+msgid "Final decision:"
+msgstr ""
+
+#: app/views/enterprise_validation/details.rhtml:13
+#: app/views/enterprise_validation/details.rhtml:19
+msgid "Approve"
+msgstr ""
+
+#: app/views/enterprise_validation/details.rhtml:15
+msgid ""
+"If this enterprise passes the criteria to be considered an solidarity "
+"enconomy enterprise, you can approve it by click the button below."
+msgstr ""
+
+#: app/views/enterprise_validation/details.rhtml:25
+msgid ""
+"If this enterprise does not pass the criteria do be considered, use this "
+"form."
+msgstr ""
+
+#: app/views/enterprise_validation/details.rhtml:28
+msgid ""
+"Please provide an explanation for the rejection. This explanation will be "
+"sent to the requestor (required)."
+msgstr ""
+
+#: app/views/enterprise_validation/edit_validation_info.rhtml:1
+msgid "Editing the validation info"
+msgstr ""
+
+#: app/views/enterprise_validation/view_processed.rhtml:1
+msgid "Processed validation request for %s "
+msgstr ""
+
+#: app/views/enterprise_validation/list_processed.rhtml:23
+msgid "See details"
+msgstr ""
+
+#: app/views/layouts/application.rhtml:58
+msgid "Go to content"
+msgstr ""
+
+#: app/views/layouts/application.rhtml:92 app/views/doc/_path.html.erb:3
+#: public/designs/themes/base/footer.rhtml:2
+#: public/designs/themes/noosfero/footer.rhtml:2
+msgid "Manual"
+msgstr ""
+
+#: app/views/layouts/chat.rhtml:17 app/views/layouts/chat.rhtml:36
+msgid "Offline"
+msgstr ""
+
+#: app/views/layouts/chat.rhtml:20
+msgid "starting chat with %{name}"
+msgstr ""
+
+#: app/views/layouts/chat.rhtml:22
+msgid ""
+"<strong>ooops!</strong> The message could not be sent because the user is "
+"not online"
+msgstr ""
+
+#: app/views/layouts/chat.rhtml:29
+msgid "%s - Friends in chat (<span id='friends-online'>%d</span>)"
+msgstr ""
+
+#: app/views/layouts/application-ng.rhtml:28
+msgid "Go to the content"
+msgstr ""
+
+#: app/views/layouts/application-ng.rhtml:40
+msgid "%s or %s"
+msgstr ""
+
+#: app/views/layouts/application-ng.rhtml:40
+msgid "Register"
+msgstr ""
+
+#: app/views/layouts/application-ng.rhtml:54
+msgid "Press <strong>Enter</strong> to send the search query."
+msgstr ""
+
+#: app/views/layouts/slideshow.rhtml:18
+msgid "Play"
+msgstr ""
+
+#: app/views/layouts/slideshow.rhtml:18
+msgid "Stop"
+msgstr ""
+
+#: app/views/pending_task_notifier/notification.rhtml:1
+msgid "Dear %s"
+msgstr ""
+
+#: app/views/pending_task_notifier/notification.rhtml:3
+msgid "You have %d pending task(s)."
+msgstr ""
+
+#: app/views/pending_task_notifier/notification.rhtml:7
+#: app/views/pending_task_notifier/notification.rhtml:16
+msgid "Click in address below to process task(s):"
+msgstr ""
+
+#: app/views/pending_task_notifier/notification.rhtml:12
+msgid "%s has %d pending task(s)."
+msgstr ""
+
+#: app/views/doc/_path.html.erb:2
+msgid "You are here:"
+msgstr ""
+
+#: app/views/doc/_toc.html.erb:2
+msgid "Manual sections"
+msgstr ""
+
+#: lib/unifreire_terminology.rb:8
+msgid "Institutions"
+msgstr ""
+
+#: lib/unifreire_terminology.rb:9
+msgid "institutions"
+msgstr ""
+
+#: lib/unifreire_terminology.rb:10
+msgid "The institution where this user belongs."
+msgstr ""
+
+#: lib/unifreire_terminology.rb:11
+msgid "A block that displays your institutions."
+msgstr ""
+
+#: lib/unifreire_terminology.rb:12
+msgid "All institutions"
+msgstr ""
+
+#: lib/unifreire_terminology.rb:13
+msgid "Disable search for institutions"
+msgstr ""
+
+#: lib/unifreire_terminology.rb:14
+msgid "One institution"
+msgstr ""
+
+#: lib/unifreire_terminology.rb:15
+msgid "%{num} institutions"
+msgstr ""
+
+#: lib/unifreire_terminology.rb:16 lib/unifreire_terminology.rb:26
+msgid "Favorite Institutions"
+msgstr ""
+
+#: lib/unifreire_terminology.rb:17
+msgid "This user's favorite institutions"
+msgstr ""
+
+#: lib/unifreire_terminology.rb:18
+msgid "A block that displays your favorite institutions"
+msgstr ""
+
+#: lib/unifreire_terminology.rb:19
+msgid "All favorite institutions"
+msgstr ""
+
+#: lib/unifreire_terminology.rb:20
+msgid "A search for institutions by products selled and local"
+msgstr ""
+
+#: lib/unifreire_terminology.rb:21
+msgid "Edit message for disabled institutions"
+msgstr ""
+
+#: lib/unifreire_terminology.rb:22
+msgid "Add favorite institution"
+msgstr ""
+
+#: lib/unifreire_terminology.rb:23
+msgid ""
+"Validation info is the information the institutions will see about how your "
+"organization processes the institutions validations it receives: validation "
+"methodology, restrictions to the types of institutions the organization "
+"validates etc."
+msgstr ""
+
+#: lib/unifreire_terminology.rb:24
+msgid "Here are all <b>%s</b>'s institutions."
+msgstr ""
+
+#: lib/unifreire_terminology.rb:25
+msgid "Here are all <b>%s</b>'s favorite institutions."
+msgstr ""
+
+#: lib/unifreire_terminology.rb:27
+msgid "Institutions in \"%s\""
+msgstr ""
+
+#: lib/unifreire_terminology.rb:28
+msgid "Register a new Institution"
+msgstr ""
+
+#: lib/unifreire_terminology.rb:29
+msgid "Schedule"
+msgstr ""
+
+#: lib/unifreire_terminology.rb:30
+msgid "Manage institutions fields"
+msgstr ""
+
+#: lib/unifreire_terminology.rb:31
+msgid "%s's institutions"
+msgstr ""
+
+#: lib/unifreire_terminology.rb:32
+msgid "Activate your institution"
+msgstr ""
+
+#: lib/unifreire_terminology.rb:33
+msgid "Institution activation code"
+msgstr ""
+
+#: lib/unifreire_terminology.rb:34
+msgid "Disable activation of institutions"
+msgstr ""
+
+#: lib/unifreire_terminology.rb:35
+msgid "%s's favorite institutions"
+msgstr ""
+
+#: lib/unifreire_terminology.rb:36
+msgid "Disable Institution"
+msgstr ""
+
+#: lib/unifreire_terminology.rb:37
+msgid "Enable Institution"
+msgstr ""
+
+#: lib/unifreire_terminology.rb:38
+msgid "Institution Validation"
+msgstr ""
+
+#: lib/unifreire_terminology.rb:39
+msgid "Institution Info and settings"
+msgstr ""
+
+#: lib/unifreire_terminology.rb:40
+msgid "Institutions are disabled when created"
+msgstr ""
+
+#: lib/feed_writer.rb:12
+msgid "Feed"
+msgstr ""
+
+#: lib/noosfero/plugin.rb:39
+msgid "No description informed."
+msgstr ""
+
+#: lib/zen3_terminology.rb:8
+msgid "My ePortfolio"
+msgstr ""
+
+#: lib/zen3_terminology.rb:9
+msgid "ePortfolio"
+msgstr ""
+
+#: lib/zen3_terminology.rb:10
+msgid "Groups"
+msgstr ""
+
+#: lib/zen3_terminology.rb:11
+msgid "groups"
+msgstr ""
+
+#: lib/zen3_terminology.rb:12
+msgid "A block that displays your groups"
+msgstr ""
+
+#: lib/zen3_terminology.rb:13
+msgid "A block that displays your contacts"
+msgstr ""
+
+#: lib/zen3_terminology.rb:14
+msgid "The groups in which the user is a member"
+msgstr ""
+
+#: lib/zen3_terminology.rb:15
+msgid "All groups"
+msgstr ""
+
+#: lib/zen3_terminology.rb:16
+msgid "Group"
+msgstr ""
+
+#: lib/zen3_terminology.rb:17
+msgid "One group"
+msgstr ""
+
+#: lib/zen3_terminology.rb:18
+msgid "%{num} groups"
+msgstr ""
+
+#: lib/zen3_terminology.rb:19
+msgid "Disable search for groups"
+msgstr ""
+
+#: lib/zen3_terminology.rb:20
+msgid "Organizations"
+msgstr ""
+
+#: lib/zen3_terminology.rb:21
+msgid "organizations"
+msgstr ""
+
+#: lib/zen3_terminology.rb:22
+msgid "The organizations where this user works."
+msgstr ""
+
+#: lib/zen3_terminology.rb:23
+msgid "A block that displays your organizations."
+msgstr ""
+
+#: lib/zen3_terminology.rb:24
+msgid "All organizations"
+msgstr ""
+
+#: lib/zen3_terminology.rb:25
+msgid "Disable search for organizations"
+msgstr ""
+
+#: lib/zen3_terminology.rb:26
+msgid "One organization"
+msgstr ""
+
+#: lib/zen3_terminology.rb:27
+msgid "%{num} organizations"
+msgstr ""
+
+#: lib/zen3_terminology.rb:28 lib/zen3_terminology.rb:38
+msgid "Favorite Organizations"
+msgstr ""
+
+#: lib/zen3_terminology.rb:29
+msgid "This user's favorite organizations"
+msgstr ""
+
+#: lib/zen3_terminology.rb:30
+msgid "A block that displays your favorite organizations"
+msgstr ""
+
+#: lib/zen3_terminology.rb:31
+msgid "All favorite organizations"
+msgstr ""
+
+#: lib/zen3_terminology.rb:32
+msgid "A search for organizations by products selled and local"
+msgstr ""
+
+#: lib/zen3_terminology.rb:33
+msgid "Edit message for disabled organizations"
+msgstr ""
+
+#: lib/zen3_terminology.rb:34
+msgid "Add organization as favorite"
+msgstr ""
+
+#: lib/zen3_terminology.rb:35
+msgid ""
+"Validation info is the information the organizations will see about how your "
+"organization processes the organizations validations it receives: validation "
+"methodology, restrictions to the types of organizations the organization "
+"validates etc."
+msgstr ""
+
+#: lib/zen3_terminology.rb:36
+msgid "Here all all <b>%s</b>'s organizations."
+msgstr ""
+
+#: lib/zen3_terminology.rb:37
+msgid "Here are all <b>%s</b>'s favorite organizations."
+msgstr ""
+
+#: lib/zen3_terminology.rb:39
+msgid "Organizations in \"%s\""
+msgstr ""
+
+#: lib/zen3_terminology.rb:40
+msgid "Register a new organization"
+msgstr ""
+
+#: lib/zen3_terminology.rb:41
+msgid "One contact"
+msgstr ""
+
+#: lib/zen3_terminology.rb:42
+msgid "%s contacts"
+msgstr ""
+
+#: lib/zen3_terminology.rb:43
+msgid "%s groups"
+msgstr ""
+
+#: lib/zen3_terminology.rb:44
+msgid "Are you sure you want to remove %s from your contacts list?"
+msgstr ""
+
+#: lib/zen3_terminology.rb:45
+msgid ""
+"Note that %s will still have you as a contact, unless he/she also wants to "
+"remove you from his/her contact list."
+msgstr ""
+
+#: lib/zen3_terminology.rb:46
+msgid "Yes, I want to remove %s from my contact list"
+msgstr ""
+
+#: lib/zen3_terminology.rb:47
+msgid "Adding %s as a contact"
+msgstr ""
+
+#: lib/zen3_terminology.rb:48
+msgid "Are you sure you want to add %s as your contact?"
+msgstr ""
+
+#: lib/zen3_terminology.rb:49
+msgid "Note that %s will need to accept being added as your contact."
+msgstr ""
+
+#: lib/zen3_terminology.rb:50
+msgid "Classify your new contact %s: "
+msgstr ""
+
+#: lib/zen3_terminology.rb:51
+msgid "Yes, I want to add %s as my contact"
+msgstr ""
+
+#: lib/zen3_terminology.rb:52
+msgid "Manage contacts"
+msgstr ""
+
+#: lib/zen3_terminology.rb:53
+msgid "Add contact"
+msgstr ""
+
+#: lib/zen3_terminology.rb:55
+msgid "Clicking on this button will remove your contact relation with %s."
+msgstr ""
+
+#: lib/zen3_terminology.rb:56
+msgid "You have no contacts yet."
+msgstr ""
+
+#: lib/zen3_terminology.rb:57
+msgid "%s's contacts"
+msgstr ""
+
+#: lib/zen3_terminology.rb:58
+msgid "Here are all <b>%s</b>'s contacts."
+msgstr ""
+
+#: lib/zen3_terminology.rb:59
+msgid "Contacts"
+msgstr ""
+
+#: lib/zen3_terminology.rb:60
+msgid "Creating new group"
+msgstr ""
+
+#: lib/zen3_terminology.rb:61
+msgid "Do you want to join this group?"
+msgstr ""
+
+#: lib/zen3_terminology.rb:62
+msgid "Activate your organization"
+msgstr ""
+
+#: lib/zen3_terminology.rb:63
+msgid "Organization activation code"
+msgstr ""
+
+#: lib/zen3_terminology.rb:64
+msgid "Disable activation of organizations"
+msgstr ""
+
+#: lib/zen3_terminology.rb:65
+msgid "Manage group fields"
+msgstr ""
+
+#: lib/zen3_terminology.rb:66
+msgid "Create a new group"
+msgstr ""
+
+#: lib/zen3_terminology.rb:67
+msgid "Choose your host community:"
+msgstr ""
+
+#: lib/zen3_terminology.rb:69
+msgid "Group Info and Settings"
+msgstr ""
+
+#: lib/zen3_terminology.rb:70
+msgid "{#} group"
+msgstr ""
+
+#: lib/zen3_terminology.rb:71
+msgid "{#} groups"
+msgstr ""
+
+#: lib/zen3_terminology.rb:72
+msgid "{#} organization"
+msgstr ""
+
+#: lib/zen3_terminology.rb:73
+msgid "{#} organizations"
+msgstr ""
+
+#: lib/zen3_terminology.rb:74
+msgid "{#} contact"
+msgstr ""
+
+#: lib/zen3_terminology.rb:75
+msgid "{#} contacts"
+msgstr ""
+
+#: lib/zen3_terminology.rb:76
+msgid "%s's favorite organizations"
+msgstr ""
+
+#: lib/zen3_terminology.rb:77
+msgid "Disable Organization"
+msgstr ""
+
+#: lib/zen3_terminology.rb:78
+msgid "Enable Organization"
+msgstr ""
+
+#: lib/zen3_terminology.rb:79
+msgid "Organization Validation"
+msgstr ""
+
+#: lib/zen3_terminology.rb:80
+msgid "Organization Info and settings"
+msgstr ""
+
+#: lib/zen3_terminology.rb:81
+msgid "Choose the groups you want to join and/or create your own."
+msgstr ""
+
+#: lib/zen3_terminology.rb:82
+msgid "New group"
+msgstr ""
+
+#: lib/zen3_terminology.rb:83
+msgid ""
+"Tags are important to new users, they'll be able to find your new group more "
+"easily."
+msgstr ""
+
+#: lib/zen3_terminology.rb:84
+msgid "Organizations are disabled when created"
+msgstr ""
+
+#: config/initializers/action_tracker.rb:8
+msgid "published 1 article: %{title}"
+msgid_plural "published %{num} articles: %{title}"
+msgstr[0] ""
+msgstr[1] ""
+
+#: config/initializers/action_tracker.rb:8
+#: config/initializers/action_tracker.rb:13
+#: config/initializers/action_tracker.rb:18
+msgid "and"
+msgstr ""
+
+#: config/initializers/action_tracker.rb:13
+msgid "updated 1 article: %{title}"
+msgid_plural "updated %{num} articles: %{title}"
+msgstr[0] ""
+msgstr[1] ""
+
+#: config/initializers/action_tracker.rb:18
+msgid "removed 1 article: %{title}"
+msgid_plural "removed %{num} articles: %{title}"
+msgstr[0] ""
+msgstr[1] ""
+
+#: config/initializers/action_tracker.rb:23
+msgid "has made 1 new friend:<br />%{name}"
+msgid_plural "has made %{num} new friends:<br />%{name}"
+msgstr[0] ""
+msgstr[1] ""
+
+#: config/initializers/action_tracker.rb:28
+msgid "has joined 1 community:<br />%{name}"
+msgid_plural "has joined %{num} communities:<br />%{name}"
+msgstr[0] ""
+msgstr[1] ""
+
+#: config/initializers/action_tracker.rb:33
+msgid "has joined the community."
+msgstr ""
+
+#: config/initializers/action_tracker.rb:37
+msgid "has left the community."
+msgstr ""
+
+#: config/initializers/action_tracker.rb:41
+msgid "has left 1 community:<br />%{name}"
+msgid_plural "has left %{num} communities:<br />%{name}"
+msgstr[0] ""
+msgstr[1] ""
+
+#: config/initializers/action_tracker.rb:46
+msgid "uploaded 1 image:<br />%{thumbnails}<br />%{details}"
+msgid_plural "uploaded %{num} images:<br />%{thumbnails}<br />%{details}"
+msgstr[0] ""
+msgstr[1] ""
+
+#: config/initializers/action_tracker.rb:46
+msgid "in the gallery"
+msgstr ""
+
+#: config/initializers/action_tracker.rb:51
+msgid ""
+"has left a comment entitled \"%{title}\" on the article %{article}: <br /> "
+"\"%{comment}\" (%{read})"
+msgstr ""
+
+#: config/initializers/action_tracker.rb:51
+msgid "read"
+msgstr ""
+
+#: config/initializers/action_tracker.rb:55
+msgid "sent a message to %{receiver}: <br /> \"%{message}\""
+msgstr ""
+
+#: config/initializers/action_tracker.rb:59
+msgid "wrote: <br /> \"%{text}\""
+msgstr ""
+
+#: public/503.html.erb:22
+msgid "System maintainance"
+msgstr ""
+
+#: public/503.html.erb:24
+msgid "This system is under maintainance. It should be back in a few moments."
+msgstr ""
+
+#: public/500.html.erb:22
+msgid "Temporary system problem"
+msgstr ""
+
+#: public/500.html.erb:24
+msgid ""
+"Our technical team is working on it, please try again later. Sorry for the "
+"inconvenience."
+msgstr ""
+
+#: public/designs/themes/base/footer.rhtml:5
+#: public/designs/themes/noosfero/footer.rhtml:5
+msgid ""
+"This social network uses <a href=\"http://noosfero.org/\">Noosfero</a>, "
+"developed by %s and licensed under the <a href=\"http://www.gnu.org/licenses/"
+"agpl.html\">GNU Affero General Public License</a> version 3 or any later "
+"version."
+msgstr ""
+
+#: public/designs/themes/profile-base/footer.rhtml:2
+msgid ""
+"This site uses <a href=\"http://noosfero.org/\">Noosfero</a>, developed by %"
+"s and licensed under the <a href=\"http://www.gnu.org/licenses/agpl.html"
+"\">GNU Affero General Public License</a> version 3 or any later version."
+msgstr ""
