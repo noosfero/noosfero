@@ -966,6 +966,40 @@ code input {
   overflow: hidden;
 }
 
+#manage-enterprises {
+  display: inline-block;
+  margin-right: 5px;
+  position: relative;
+}
+#manage-enterprises .ui-icon {
+  position: absolute;
+  top: 0;
+  right: -20px;
+}
+#manage-enterprises .simplemenu-submenu {
+  text-align: left;
+  left: -20px;
+  width: 200px;
+}
+#manage-enterprises .simplemenu-item {
+  padding: 5px 0;
+}
+#manage-enterprises .simplemenu-item a {
+  background-repeat: no-repeat;
+  padding-left: 20px;
+}
+#manage-enterprises .simplemenu-item a span {
+  display: none;
+}
+.msie8 #manage-enterprises-link { /* IE8 hack */
+   border: 0px solid;
+}
+.msie8 #manage-enterprises .simplemenu-submenu {
+  top: 16px;
+}
+.webkit #manage-enterprises .simplemenu-submenu {
+  top: 20px;
+}
 
 #article {
   position: relative;
@@ -5289,6 +5323,8 @@ h1#agenda-title {
   top: 20px;
   width: 120px;
   margin: 0;
+  display: none;
+  z-index: 100;
 }
 .msie8 .simplemenu-submenu {
   top: 8px;
