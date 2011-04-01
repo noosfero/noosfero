@@ -1,7 +1,7 @@
 <%= error_messages_for 'article' %>
 
 <div class='<%= (environment.enabled?('media_panel') ? 'with_media_panel' : 'no_media_panel') %>'>
-<% labelled_form_for 'article', @article, :html => { :multipart => true } do |f| %>
+<% labelled_form_for 'article', @article, :html => { :multipart => true, :class => @type } do |f| %>
 
   <%= hidden_field_tag("type", @type) if @type %>
 

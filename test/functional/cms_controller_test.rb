@@ -1610,4 +1610,12 @@ class CmsControllerTest < Test::Unit::TestCase
     assert_tag :tag => 'textarea', :attributes => { :class => 'mceEditor' }
   end
 
+  should 'identify form with classname of edited article' do
+    [Blog, TinyMceArticle, Forum].each do |klass|
+      a = fast_create(klass, :profile_id => profile.id)
+      get :edit, :profile => profile.identifier, :id => a.id
+      assert_tag :tag => 'form', :attributes => {:class => klass.to_s}
+    end
+  end
+
 end

@@ -2703,7 +2703,6 @@ div#activation_enterprise div {
   text-align: center;
 }
 
-
 .formfieldline {
   padding: 3px 0px;
 }
@@ -2739,6 +2738,9 @@ div#activation_enterprise div {
 }
 .formfield textarea {
   padding: 2px 0px 0px 5px;
+}
+.Blog .formfield textarea {
+  width: 99%;
 }
 
 .formfield.type-radio input,
