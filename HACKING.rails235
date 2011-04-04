@@ -1,0 +1,14 @@
+This is a draft of how to create a environment to Rails 2.3.5 to Noosfero
+development.
+
+Install dependencies:
+
+gem install rails -v 2.3.5
+gem install ferret
+gem install i18n
+gem install will_paginate
+gem install cucumber
+
+Creating initial environment:
+
+rake db:schema:load

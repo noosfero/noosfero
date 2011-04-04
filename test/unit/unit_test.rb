@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class UnitTest < Test::Unit::TestCase
+class UnitTest < ActiveSupport::TestCase
 
   should 'require singular name' do
     unit = Unit.new; unit.valid?
