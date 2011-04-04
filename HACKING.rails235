@@ -6,7 +6,7 @@ Install dependencies:
 gem install rails -v 2.3.5
 gem install ferret
 gem install i18n
-gem install will_paginate
+gem install will_paginate -v 2.3.12
 gem install cucumber
 
 Creating initial environment:
