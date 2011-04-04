@@ -1503,4 +1503,27 @@ class ArticleTest < Test::Unit::TestCase
     assert !child.accept_uploads?
   end
 
+  should 'index by schema name when database is postgresql' do
+    uses_postgresql 'schema_one'
+    art1 = Article.create!(:name => 'some thing', :profile_id => @profile.id)
+    assert_equal Article.find_by_contents('thing'), [art1]
+    uses_postgresql 'schema_two'
+    art2 = Article.create!(:name => 'another thing', :profile_id => @profile.id)
+    assert_not_includes Article.find_by_contents('thing'), art1
+    assert_includes Article.find_by_contents('thing'), art2
+    uses_postgresql 'schema_one'
+    assert_includes Article.find_by_contents('thing'), art1
+    assert_not_includes Article.find_by_contents('thing'), art2
+    uses_sqlite
+  end
+
+  should 'not index by schema name when database is not postgresql' do
+    uses_sqlite
+    art1 = Article.create!(:name => 'some thing', :profile_id => @profile.id)
+    assert_equal Article.find_by_contents('thing'), [art1]
+    art2 = Article.create!(:name => 'another thing', :profile_id => @profile.id)
+    assert_includes Article.find_by_contents('thing'), art1
+    assert_includes Article.find_by_contents('thing'), art2
+  end
+
 end

@@ -51,14 +51,6 @@ class BlockTest < Test::Unit::TestCase
     assert b.cacheable?
   end
 
-  should 'provide chache keys' do
-     p = create_user('test_user').person
-     box = p.boxes[0]
-     b = fast_create(Block, :box_id => box.id)
-
-     assert_equal( "block-id-#{b.id}", b.cache_keys)
-  end
-
   should 'list enabled blocks' do
     block1 = fast_create(Block, :title => 'test 1')
     block2 = fast_create(Block, :title => 'test 2', :enabled => false)

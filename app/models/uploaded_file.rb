@@ -52,6 +52,8 @@ class UploadedFile < Article
 
   delay_attachment_fu_thumbnails
 
+  postgresql_attachment_fu
+
   def self.icon_name(article = nil)
     if article
       article.image? ? article.public_filename(:icon) : (article.mime_type ? article.mime_type.gsub(/[\/+.]/, '-') : 'upload-file')

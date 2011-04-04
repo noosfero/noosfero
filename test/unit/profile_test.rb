@@ -1668,6 +1668,29 @@ class ProfileTest < Test::Unit::TestCase
     assert_equal 1, community.members_count
   end
 
+  should 'index by schema name when database is postgresql' do
+    uses_postgresql 'schema_one'
+    p1 = Profile.create!(:name => 'some thing', :identifier => 'some-thing')
+    assert_equal Profile.find_by_contents('thing'), [p1]
+    uses_postgresql 'schema_two'
+    p2 = Profile.create!(:name => 'another thing', :identifier => 'another-thing')
+    assert_not_includes Profile.find_by_contents('thing'), p1
+    assert_includes Profile.find_by_contents('thing'), p2
+    uses_postgresql 'schema_one'
+    assert_includes Profile.find_by_contents('thing'), p1
+    assert_not_includes Profile.find_by_contents('thing'), p2
+    uses_sqlite
+  end
+
+  should 'not index by schema name when database is not postgresql' do
+    uses_sqlite
+    p1 = Profile.create!(:name => 'some thing', :identifier => 'some-thing')
+    assert_equal Profile.find_by_contents('thing'), [p1]
+    p2 = Profile.create!(:name => 'another thing', :identifier => 'another-thing')
+    assert_includes Profile.find_by_contents('thing'), p1
+    assert_includes Profile.find_by_contents('thing'), p2
+  end
+
   private
 
   def assert_invalid_identifier(id)

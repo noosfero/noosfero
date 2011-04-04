@@ -2,6 +2,8 @@
 # available in all controllers.
 class ApplicationController < ActionController::Base
 
+  before_filter :change_pg_schema
+
   include ApplicationHelper
   layout :get_layout
   def get_layout
@@ -95,6 +97,12 @@ class ApplicationController < ActionController::Base
   end
 
   helper_method :current_person, :current_person
+
+  def change_pg_schema
+    if Noosfero::MultiTenancy.on? and ActiveRecord::Base.postgresql?
+      Noosfero::MultiTenancy.db_by_host = request.host
+    end
+  end
 
   protected
 

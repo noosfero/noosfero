@@ -20,4 +20,6 @@ class Image < ActiveRecord::Base
 
   delay_attachment_fu_thumbnails
 
+  postgresql_attachment_fu
+
 end

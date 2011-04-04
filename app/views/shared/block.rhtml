@@ -1,5 +1,5 @@
 <% if block.cacheable? && use_cache %>
-  <% cache_timeout(block.cache_keys, block.timeout.from_now) do %>
+  <% cache_timeout(block.cache_key, block.timeout.from_now) do %>
     <%= display_block_content(block, main_content) %>
   <% end %>
 <% else %>

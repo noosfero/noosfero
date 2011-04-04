@@ -119,10 +119,6 @@ class Block < ActiveRecord::Base
     true
   end
 
-  def cache_keys
-    "block-id-#{id}"
-  end
-
   def timeout
     4.hours
   end
