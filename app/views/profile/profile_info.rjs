@@ -1,0 +1,6 @@
+if !user.nil? and user.has_permission?('edit_profile', profile)
+  page.replace_html "profile-admin-url-#{@block.id}", link_to(_('Control panel'), @block.owner.admin_url)
+else
+  page.hide "profile-admin-url-#{@block.id}"
+end
+page.replace_html "profile-info-options-#{@block.id}", :file => 'blocks/profile_info_actions/' + @block.owner.class.name.underscore

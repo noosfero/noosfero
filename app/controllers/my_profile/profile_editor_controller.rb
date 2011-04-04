@@ -22,11 +22,12 @@ class ProfileEditorController < MyProfileController
           end
         end
         end
-      rescue
+      rescue Exception => ex
         if profile.identifier.blank?
           profile.identifier = params[:profile]
         end
         session[:notice] = _('Cannot update profile')
+        logger.error ex.to_s
       end
     end
   end

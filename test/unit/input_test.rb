@@ -78,7 +78,7 @@ class InputTest < ActiveSupport::TestCase
   end
 
   should 'not have price details if only unit is filled' do
-    input = Input.new(:unit => 'unit')
+    input = Input.new(:unit => Unit.new)
     assert !input.has_price_details?
   end
 
@@ -155,6 +155,11 @@ class InputTest < ActiveSupport::TestCase
 
     input.price_per_unit = 1
     assert_equal '1.00', input.formatted_value(:price_per_unit)
+  end
+
+  should 'has relation with unit' do
+    input = Input.new
+    assert_kind_of Unit, input.build_unit
   end
 
 end

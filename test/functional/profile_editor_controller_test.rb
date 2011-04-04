@@ -497,6 +497,12 @@ class ProfileEditorControllerTest < ActionController::TestCase
     assert_tag :tag => 'textarea', :content => 'my custom footer'
   end
 
+  should 'render TinyMce Editor for header and footer' do
+    get :header_footer, :profile => profile.identifier
+    assert_tag :tag => 'textarea', :attributes => { :id => 'custom_header', :class => 'mceEditor' }
+    assert_tag :tag => 'textarea', :attributes => { :id => 'custom_footer', :class => 'mceEditor' }
+  end
+
   should 'save footer and header' do
     person = profile
     post :header_footer, :profile => profile.identifier, :custom_header => 'new header', :custom_footer => 'new footer'

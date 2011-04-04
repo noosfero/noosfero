@@ -20,19 +20,18 @@ module ContentViewerHelper
       unless args[:no_link]
         title = content_tag('h1', link_to(article.name, article.url), :class => 'title')
       end
-      comments = args[:no_comments] ? '' : (("- %s") % link_to_comments(article))
+      comments = ''
+      unless args[:no_comments] || !article.accept_comments
+        comments = ("- %s") % link_to_comments(article)
+      end
       title << content_tag('span', _("%s, by %s %s") % [show_date(article.published_at), link_to(article.author_name, article.author.url), comments], :class => 'created-at')
     end
     title
   end
 
   def link_to_comments(article, args = {})
-    link_to( number_of_comments(article), article.url.merge(:anchor => 'comments_list') )
-  end
-
-  def image_label(image)
-    text = image.abstract || image.title
-    text && (text.first(40) + (text.size > 40 ? '…' : ''))
+    return '' unless article.accept_comments?
+    link_to(number_of_comments(article), article.url.merge(:anchor => 'comments_list') )
   end
 
   def article_translations(article)

@@ -626,20 +626,20 @@ class PersonTest < ActiveSupport::TestCase
 
   should 'find more popular people' do
     Person.delete_all
-    env = fast_create(Environment)
     p1 = fast_create(Person)
     p2 = fast_create(Person)
     p3 = fast_create(Person)
 
     p1.add_friend(p2)
-    assert_equal [p1], Person.more_popular
-
     p2.add_friend(p1)
     p2.add_friend(p3)
-    assert_equal [p2,p1] , Person.more_popular
+    assert_equal p2, Person.more_popular[0]
+    assert_equal p1, Person.more_popular[1]
+  end
 
-    p2.remove_friend(p3)
-    assert_equal [p1,p2] , Person.more_popular
+  should 'list people that have no friends in more popular list' do
+    person = fast_create(Person)
+    assert_includes Person.more_popular, person
   end
 
   should 'persons has reference to user' do
@@ -1144,6 +1144,44 @@ class PersonTest < ActiveSupport::TestCase
     community.add_member(person)
 
     assert_equal [person], Person.members_of(community)
+  end
+
+  should 'find more active people' do
+    Person.destroy_all
+    p1 = fast_create(Person)
+    p2 = fast_create(Person)
+    p3 = fast_create(Person)
+
+    ActionTracker::Record.destroy_all
+    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => p1, :created_at => Time.now)
+    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => p2, :created_at => Time.now)
+    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => p2, :created_at => Time.now)
+    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => p3, :created_at => Time.now)
+    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => p3, :created_at => Time.now)
+    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => p3, :created_at => Time.now)
+
+    assert_equal [p3,p2,p1] , Person.more_active
+  end
+
+  should 'more active profile take in consideration only actions created only in the recent delay interval' do
+    Person.delete_all
+    ActionTracker::Record.destroy_all
+    recent_delay = ActionTracker::Record::RECENT_DELAY.days.ago
+
+    p1 = fast_create(Person)
+    p2 = fast_create(Person)
+
+    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => p1, :created_at => recent_delay)
+    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => p1, :created_at => recent_delay)
+    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => p2, :created_at => recent_delay)
+    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => p2, :created_at => recent_delay - 1.day)
+
+    assert_equal [p1,p2], Person.more_active
+  end
+
+  should 'list profiles that have no actions in more active list' do
+    profile = fast_create(Person)
+    assert_includes Person.more_active, profile
   end
 
 end

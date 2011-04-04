@@ -12,8 +12,18 @@ module ActionTracker
 
     validates_presence_of :verb
     validates_presence_of :user
+    validate :user_existence
+
+    def user_existence
+      errors.add(:user, "user doesn't exists") if user && !user.class.exists?(user)
+    end
 
     alias_method :subject, :user
+
+    # In days
+    RECENT_DELAY = 30
+
+    named_scope :recent, :conditions => ['created_at >= ?', RECENT_DELAY.days.ago]
 
     def self.current_user_from_model
       u = new

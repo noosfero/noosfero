@@ -310,6 +310,8 @@ module Noosfero::Factory
     { }
   end
 
+  alias :defaults_for_blog_archives_block :defaults_for_block
+
   ###############################################
   # Task
   ###############################################
@@ -358,7 +360,9 @@ module Noosfero::Factory
   # Certifier
   ###############################################
 
-  alias :defaults_for_certifier :defaults_for_qualifier
+  def defaults_for_certifier
+    defaults_for_qualifier.merge({ :name => 'Certifier ' + factory_num_seq.to_s })
+  end
 
   ###############################################
   # Scrap
@@ -434,6 +438,14 @@ module Noosfero::Factory
   def defaults_for_comment(params = {})
     name = "comment_#{rand(1000)}"
     { :title => name, :body => "my own comment", :article_id => 1 }.merge(params)
+  end
+
+  ###############################################
+  # Unit
+  ###############################################
+
+  def defaults_for_unit
+    { :singular => 'Litre', :plural => 'Litres', :environment_id => 1 }
   end
 
 end

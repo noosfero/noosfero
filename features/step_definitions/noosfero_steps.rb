@@ -121,7 +121,8 @@ Given /^the following inputs?$/ do |table|
     data = item.dup
     product = Product.find_by_name(data.delete("product"))
     category = Category.find_by_slug(data.delete("category").to_slug)
-    input = Input.create!(data.merge(:product => product, :product_category => category))
+    unit = Unit.find_by_singular(data.delete("unit"))
+    input = Input.create!(data.merge(:product => product, :product_category => category, :unit => unit))
     input.update_attributes!(:position => data['position'])
   end
 end
@@ -293,7 +294,11 @@ Given /^(.+) is disabled$/ do |enterprise_name|
 end
 
 Then /^The page title should contain "(.*)"$/ do |text|
-  response.should have_selector("title:contains('#{text}')")
+  if response.class.to_s == 'Webrat::SeleniumResponse'
+    response.selenium.text('css=title').should include(text)
+  else
+    response.should have_selector("title:contains('#{text}')")
+  end
 end
 
 Given /^the mailbox is empty$/ do
@@ -369,4 +374,8 @@ Given /^someone suggested the following article to be published$/ do |table|
   end
 end
 
-
+Given /^the following units?$/ do |table|
+  table.hashes.each do |row|
+    Unit.create!(row.merge(:environment_id => 1))
+  end
+end

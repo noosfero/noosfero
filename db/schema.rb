@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110215153624) do
+ActiveRecord::Schema.define(:version => 20110316171323) do
 
   create_table "action_tracker", :force => true do |t|
     t.integer  "user_id"
@@ -179,7 +179,7 @@ ActiveRecord::Schema.define(:version => 20110215153624) do
 
   create_table "certifiers", :force => true do |t|
     t.string   "name",           :null => false
-    t.string   "description"
+    t.text     "description"
     t.string   "link"
     t.integer  "environment_id"
     t.datetime "created_at"
@@ -289,11 +289,11 @@ ActiveRecord::Schema.define(:version => 20110215153624) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "position"
-    t.string   "unit"
     t.decimal  "price_per_unit"
     t.decimal  "amount_used"
     t.boolean  "relevant_to_price",          :default => true
     t.boolean  "is_from_solidarity_economy", :default => false
+    t.integer  "unit_id"
   end
 
   create_table "mailing_sents", :force => true do |t|
@@ -345,10 +345,10 @@ ActiveRecord::Schema.define(:version => 20110215153624) do
     t.datetime "updated_at"
     t.float    "lat"
     t.float    "lng"
-    t.string   "unit"
-    t.float    "discount"
+    t.decimal  "discount"
     t.boolean  "available",           :default => true
     t.boolean  "highlighted"
+    t.integer  "unit_id"
   end
 
   add_index "products", ["enterprise_id"], :name => "index_products_on_enterprise_id"
@@ -467,6 +467,13 @@ ActiveRecord::Schema.define(:version => 20110215153624) do
     t.integer "width"
     t.integer "parent_id"
     t.string  "thumbnail"
+  end
+
+  create_table "units", :force => true do |t|
+    t.string  "singular",       :null => false
+    t.string  "plural",         :null => false
+    t.integer "position"
+    t.integer "environment_id", :null => false
   end
 
   create_table "users", :force => true do |t|

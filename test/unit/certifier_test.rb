@@ -39,4 +39,23 @@ class CertifierTest < ActiveSupport::TestCase
     assert certifier.valid?
   end
 
+  should 'sort by name' do
+    last = fast_create(Certifier, :name => "Zumm")
+    first = fast_create(Certifier, :name => "Atum")
+    assert_equal [first, last], Certifier.all.sort
+  end
+
+  should 'sorting is not case sensitive' do
+    first = fast_create(Certifier, :name => "Aaaa")
+    second = fast_create(Certifier, :name => "abbb")
+    last = fast_create(Certifier, :name => "Accc")
+    assert_equal [first, second, last], Certifier.all.sort
+  end
+
+  should 'discard non-ascii char when sorting' do
+    first = fast_create(Certifier, :name => "Áaaa")
+    last = fast_create(Certifier, :name => "Aáab")
+    assert_equal [first, last], Certifier.all.sort
+  end
+
 end

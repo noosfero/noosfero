@@ -14,10 +14,15 @@ Feature: manage categories
     Given I am logged in as admin
 
   @selenium
-  Scenario: admin user could create a category
+  Scenario: admin user could access new category
     Given I follow "Administration"
-    And I follow "Manage Categories"
-    And I follow "New category"
+    When I follow "Manage Categories"
+    And I follow "New category" and wait
+    Then I should be on /admin/categories/new
+
+  @selenium
+  Scenario: admin user could create a category
+    Given I visit "/admin/categories/new" and wait
     When I fill in "Name" with "Category 1"
     And I press "Save"
     Then I should see "Categories"
@@ -47,7 +52,8 @@ Feature: manage categories
     Given the following category
       | parent  | name     | display_in_menu |
       | Steak   | Pig      | true            |
-    And I follow "Administration"
+    And I am on the homepage
+    When I follow "Administration"
     And I follow "Manage Categories"
     Then I should see "Food Show"
     When I follow "Show"

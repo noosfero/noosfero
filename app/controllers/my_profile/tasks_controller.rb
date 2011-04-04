@@ -16,16 +16,18 @@ class TasksController < MyProfileController
   def close
     failed = {}
 
-    params[:tasks].each do |id, value|
-      decision = value[:decision]
-      if request.post? && VALID_DECISIONS.include?(decision) && id && decision != 'skip'
-        task = profile.find_in_all_tasks(id)
-        task.update_attributes!(value[:task])
-        begin
-          task.send(decision)
-        rescue Exception => ex
-          message = "#{task.title} (#{task.requestor ? task.requestor.name : task.author_name})"
-          failed[ex.clean_message] ? failed[ex.clean_message] << message : failed[ex.clean_message] = [message]
+    if params[:tasks]
+      params[:tasks].each do |id, value|
+        decision = value[:decision]
+        if request.post? && VALID_DECISIONS.include?(decision) && id && decision != 'skip'
+          task = profile.find_in_all_tasks(id)
+          begin
+            task.update_attributes(value[:task])
+            task.send(decision)
+          rescue Exception => ex
+            message = "#{task.title} (#{task.requestor ? task.requestor.name : task.author_name})"
+            failed[ex.clean_message] ? failed[ex.clean_message] << message : failed[ex.clean_message] = [message]
+          end
         end
       end
     end

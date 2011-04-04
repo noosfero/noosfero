@@ -175,15 +175,16 @@ Feature: events
     When I am on /assets/events
     Then I should see "Colivre.net's events"
 
+  @selenium
   Scenario: published events should be listed in the agenda too
     Given the following community
       | identifier | name |
       | sample-community | Sample Community |
     And I am logged in as "josesilva"
     And "josesilva" is a member of "Sample Community"
-    And I am on josesilva's control panel
-    And I follow "Manage content"
-    And I follow "Another Conference"
+    And I go to josesilva's control panel
+    And I follow "Manage Content"
+    And I follow "Another Conference" and wait
     And I follow "Spread"
     And I check "Sample Community"
     And I press "Spread this"
@@ -206,3 +207,26 @@ Feature: events
     When I am on /profile/josesilva/events/2009/10/25
     Then I should see "Unpublished event"
     And I should see "25" link
+
+  Scenario: events have lead field
+    Given I am logged in as "josesilva"
+    And I am on josesilva's Event creation
+    Then I should see "Lead"
+
+  @selenium
+  Scenario: events lead should be shown on blogs with short format
+    Given I am logged in as "josesilva"
+    And I am on josesilva's control panel
+    And I follow "Configure blog" and wait
+    And I select "First paragraph" from "How to display posts:"
+    And I press "Save"
+    And I follow "New post"
+    And I follow "A calendar event" and wait
+    And I fill in "Title" with "Leaded event"
+    And I type "This is the abstract." in TinyMCE field "article_abstract"
+    And I type "This is the real text." in TinyMCE field "article_body"
+    And I press "Save"
+    When I am on josesilva's blog
+    Then I should see "Leaded event"
+    And I should see "This is the abstract."
+    And I should not see "This is the real text."

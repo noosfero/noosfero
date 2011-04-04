@@ -137,6 +137,68 @@ class ManageProductsHelperTest < ActiveSupport::TestCase
     assert_equal 'LINK', edit_ui_button('link to edit', {:action => 'add_input', :id => product.id})
   end
 
+  should 'show unit on label of amount selection' do
+    input = Input.new()
+    input.expects(:product).returns(Product.new(:unit => Unit.new(:singular => 'Meter')))
+    assert_equal 'Amount used by meter of this product or service', label_amount_used(input)
+  end
+
+  should 'not show unit on label of amount selection if product has no unit selected' do
+    input = Input.new()
+    input.expects(:product).returns(Product.new)
+    assert_equal 'Amount used in this product or service', label_amount_used(input)
+  end
+
+  should 'sort qualifiers by name' do
+    fast_create(Qualifier, :name => 'Organic')
+    fast_create(Qualifier, :name => 'Non Organic')
+    result = qualifiers_for_select
+    assert_equal ["Select...", "Non Organic", "Organic"], result.map{|i| i[0]}
+  end
+
+  should 'sort certifiers by name' do
+    qualifier = fast_create(Qualifier, :name => 'Organic')
+    fbes = fast_create(Certifier, :name => 'FBES')
+    colivre = fast_create(Certifier, :name => 'Colivre')
+    QualifierCertifier.create!(:qualifier => qualifier, :certifier => colivre)
+    QualifierCertifier.create!(:qualifier => qualifier, :certifier => fbes)
+
+    result = certifiers_for_select(qualifier)
+    assert_equal ["Self declared", "Colivre", "FBES"], result.map{|i| i[0]}
+  end
+
+  should 'list qualifiers and certifiers of a product' do
+    product = fast_create(Product)
+    qualifier = fast_create(Qualifier)
+    certifier = fast_create(Certifier)
+    ProductQualifier.create!(:product => product, :qualifier => qualifier, :certifier => certifier)
+    assert_match /✔ Qualifier \d+ certified by Certifier \d+/, display_qualifiers(product)
+  end
+
+  should 'product survive to a Qualifier deletation' do
+    product = fast_create(Product)
+    qualifier = fast_create(Qualifier)
+    certifier = fast_create(Certifier)
+    ProductQualifier.create!(:product => product, :qualifier => qualifier, :certifier => certifier)
+    qualifier.destroy
+    assert_nothing_raised do
+      assert_no_match /✔ Qualifier \d+ certified by Certifier \d+/, display_qualifiers(product)
+    end
+  end
+
+  should 'product consider its Qualifier self-declared when Certifier is deleted' do
+    product = fast_create(Product)
+    qualifier = fast_create(Qualifier)
+    certifier = fast_create(Certifier)
+    ProductQualifier.create!(:product => product, :qualifier => qualifier, :certifier => certifier)
+    certifier.destroy
+    assert_nothing_raised do
+      result = display_qualifiers(product)
+      assert_match /✔ Qualifier \d+ \(Self declared\)/, result
+      assert_no_match /certified by Certifier \d+/, result
+    end
+  end
+
   protected
   include NoosferoTestHelper
   include ActionView::Helpers::TextHelper

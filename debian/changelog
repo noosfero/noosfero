@@ -1,3 +1,45 @@
+noosfero (0.29.5) unstable; urgency=low
+
+  * Bugfix Version release. (Closes: AI#1961)
+
+ -- Daniela Soares Feitosa <daniela@colivre.coop.br>  Fri, 25 Mar 2011 16:45:27 -0300
+
+noosfero (0.29.4) unstable; urgency=low
+
+  * Bugfixes Version release. (Closes: AI#1938 AI#1943 AI#1928 AI#1929 AI#1932 AI#1946 AI#1909 AI#1947 AI#1935 AI#1930 AI#1936 AI#1926 AI#1922)
+
+ -- Joenio Costa <joenio@colivre.coop.br>  Thu, 24 Mar 2011 10:31:35 -0300
+
+noosfero (0.29.3) unstable; urgency=low
+
+  * Bugfixes Version release. (Closes: AI#1760 AI#1907 AI#1899 AI#1891 AI#1904 AI#1888 AI#1869 AI#1900 AI#1914)
+
+ -- Joenio Costa <joenio@colivre.coop.br>  Fri, 11 Mar 2011 13:12:43 -0300
+
+noosfero (0.29.2) unstable; urgency=low
+
+  * Bugfixes Version release. (Closes: AI#1922)
+
+ -- Joenio Costa <joenio@perl.org.br>  Wed, 02 Mar 2011 21:24:48 -0300
+
+noosfero (0.29.1) unstable; urgency=low
+
+  * Bugfixes Version release. (Closes: AI#1908)
+
+ -- Daniela Soares Feitosa <daniela@colivre.coop.br>  Tue, 01 Mar 2011 17:01:37 -0300
+
+noosfero (0.29.0) unstable; urgency=low
+
+  * Features Version release.
+
+ -- Daniela Soares Feitosa <daniela@colivre.coop.br>  Mon, 28 Feb 2011 17:58:38 -0300
+
+noosfero (0.28.6) unstable; urgency=low
+
+  * Bugfixes Version release. (Closes: AI#1874 AI#1890 AI#1893 AI#1871 AI#1884 AI#1892 AI#1882 AI#1883 AI#1896 AI#1875 AI#1895 AI#1879)
+
+ -- Joenio Costa <joenio@perl.org.br>  Sun, 27 Feb 2011 23:56:51 -0300
+
 noosfero (0.28.5) unstable; urgency=low
 
   * Bugfixes Version release. (Closes: AI#1867 AI#1866 AI#1870 AI#1854 AI#1851 AI#1810 AI#1889 AI#1868 AI#1855 AI#1887)

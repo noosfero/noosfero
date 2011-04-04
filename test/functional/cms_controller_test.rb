@@ -114,9 +114,7 @@ class CmsControllerTest < ActionController::TestCase
 
     post :set_home_page, :profile => profile.identifier, :id => a.id
 
-    assert_redirected_to :action => 'view', :id => a.id
-
-    profile = Profile.find(@profile.id)
+    profile.reload
     assert_equal a, profile.home_page
   end
 
@@ -132,12 +130,26 @@ class CmsControllerTest < ActionController::TestCase
 
     post :set_home_page, :profile => profile.identifier, :id => a.id
 
-    assert_redirected_to :action => 'view', :id => a.id
-
-    profile = Profile.find(@profile.id)
+    profile.reload
     assert_equal a, profile.home_page
   end
 
+  should 'redirect to previous page after setting home page' do
+    a = profile.articles.build(:name => 'my new home page')
+    a.save!
+
+    @request.env['HTTP_REFERER'] = '/random_page'
+    post :set_home_page, :profile => profile.identifier, :id => a.id
+    assert_redirected_to '/random_page'
+  end
+
+  should 'redirect to profile homepage after setting home page if no referer' do
+    a = profile.articles.build(:name => 'my new home page')
+    a.save!
+
+    post :set_home_page, :profile => profile.identifier, :id => a.id
+    assert_redirected_to profile.url
+  end
 
   should 'set last_changed_by when creating article' do
     login_as(profile.identifier)
@@ -788,6 +800,15 @@ class CmsControllerTest < ActionController::TestCase
     get :new, :profile => profile.identifier
     assert_no_tag :tag => 'a', :attributes => { :href => "/myprofile/#{profile.identifier}/cms/new?type=Blog"}
     assert_no_tag :tag => 'a', :attributes => { :href => "/myprofile/#{profile.identifier}/cms/new?type=Forum"}
+  end
+
+  should 'not offer folders if in a blog' do
+    blog = fast_create(Blog, :profile_id => profile.id)
+    get :new, :profile => profile.identifier, :parent_id => blog.id, :cms => true
+    types = assigns(:article_types).map {|t| t[:name]}
+    Article.folder_types.each do |type|
+      assert_not_includes types, type
+    end
   end
 
   should 'offer to edit a blog' do

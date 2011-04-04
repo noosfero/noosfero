@@ -132,4 +132,17 @@ class FolderTest < ActiveSupport::TestCase
     assert_no_match /[<>]/, folder.body
   end
 
+  should 'not have a blog as parent' do
+    folder = Folder.new
+    folder.parent = Blog.new
+    folder.valid?
+
+    assert folder.errors.on(:parent)
+  end
+
+  should 'accept uploads' do
+    folder = fast_create(Folder)
+    assert folder.accept_uploads?
+  end
+
 end

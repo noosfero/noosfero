@@ -362,6 +362,14 @@ class ApproveArticleTest < ActiveSupport::TestCase
     assert_match(/#{task.requestor.name} wants to publish the article: #{article.name}/, email.subject)
   end
 
+  should 'deliver target finished message' do
+    task = ApproveArticle.new(:article => article, :target => community, :requestor => profile)
+
+    email = TaskMailer.deliver_task_finished(task)
+
+    assert_match(/#{task.requestor.name} wants to publish the article: #{article.name}/, email.subject)
+  end
+
   should 'approve an event' do
     event = fast_create(Event, :profile_id => profile.id, :name => 'Event test', :slug => 'event-test', :abstract => 'Lead of article', :body => 'This is my event')
     task = ApproveArticle.create!(:name => 'Event test', :article => event, :target => community, :requestor => profile)
@@ -369,5 +377,32 @@ class ApproveArticleTest < ActiveSupport::TestCase
       task.finish
     end
   end
+
+  should 'approve same article twice changing its name' do
+    task1 = ApproveArticle.create!(:article => article, :target => community, :requestor => profile)
+    assert_difference article.class, :count do
+      task1.finish
+    end
+    task2 = ApproveArticle.create!(:name => article.name + ' v2', :article => article, :target => community, :requestor => profile)
+    assert_difference article.class, :count do
+      assert_nothing_raised ActiveRecord::RecordInvalid do
+         task2.finish
+      end
+    end
+  end
+
+  should 'not approve same article twice if not changing its name' do
+    task1 = ApproveArticle.create!(:article => article, :target => community, :requestor => profile)
+    assert_difference article.class, :count do
+      task1.finish
+    end
+    task2 = ApproveArticle.create!(:article => article, :target => community, :requestor => profile)
+    assert_no_difference article.class, :count do
+      assert_raises ActiveRecord::RecordInvalid do
+         task2.finish
+      end
+    end
+  end
+
 
 end

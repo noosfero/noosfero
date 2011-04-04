@@ -77,52 +77,57 @@ Feature: edit article
     Then I should see "My Article"
     And I should be on /joaosilva/my-article
 
+  @selenium
   Scenario: edit an article
     Given I am on Joao Silva's sitemap
-    And I follow "Save the whales"
-    And I follow "Edit"
+    When I follow "Save the whales" and wait
+    And I follow "Edit" and wait
     And I fill in "Title" with "My Article edited"
-    When I press "Save"
+    And I press "Save" and wait
     Then I should be on /joaosilva/my-article-edited
 
+  @selenium
   Scenario: cancel button back to article when edit
     Given I am on Joao Silva's sitemap
-    And I follow "Save the whales"
-    And I follow "Edit"
-    When I follow "Cancel" within ".main-block"
+    When I follow "Save the whales" and wait
+    And I follow "Edit" and wait
+    And I follow "Cancel" within ".main-block" and wait
     Then I should be on /joaosilva/save-the-whales
 
+  @selenium
   Scenario: create an article inside a folder
     Given I am on Joao Silva's control panel
-    And I follow "Manage Content"
+    When I follow "Manage Content"
     And I follow "New content"
-    And I follow "Folder"
+    And I follow "Folder" and wait
     And I fill in "Title" with "My Folder"
-    And I press "Save"
+    And I press "Save" and wait
     Then I should be on /joaosilva/my-folder
     When I follow "New article"
-    And I follow "Text article with visual editor"
+    And I follow "Text article with visual editor" and wait
     And I fill in "Title" with "My Article"
-    And I press "Save"
+    And I press "Save" and wait
     Then I should see "My Article"
     And I should be on /joaosilva/my-folder/my-article
 
+  @selenium
   Scenario: cancel button back to folder after giving up creating
     Given I am on Joao Silva's control panel
-    And I follow "Manage Content"
+    When I follow "Manage Content"
     And I follow "New content"
-    And I follow "Folder"
+    And I follow "Folder" and wait
     And I fill in "Title" with "My Folder"
-    And I press "Save"
+    And I press "Save" and wait
     Then I should be on /joaosilva/my-folder
     When I follow "New article"
-    And I follow "Text article with visual editor"
-    When I follow "Cancel" within ".no-boxes"
-    And I should be on /joaosilva/my-folder
+    And I follow "Text article with visual editor" and wait
+    And I follow "Cancel" within ".no-boxes" and wait
+    Then I should be on /joaosilva/my-folder
 
+  @selenium
   Scenario: save and continue
     Given I am on /joaosilva/save-the-whales
-    And I follow "Edit"
+    And I follow "Edit" and wait
     When I fill in "Text" with "new text"
     And I press "Save and continue"
     Then the "Text" field should contain "new text"
@@ -140,31 +145,33 @@ Feature: edit article
     And the "Title" field should contain "My new article"
     And the "Text" field should contain "text for the new article"
 
+  @selenium
   Scenario: add a translation to an article
     Given I am on Joao Silva's sitemap
     And I follow "Save the whales"
     Then I should not see "Add translation"
-    And I follow "Edit"
+    And I follow "Edit" and wait
     And I select "English" from "Language"
-    Then I press "Save"
-    And I follow "Add translation"
+    Then I press "Save" and wait
+    And I follow "Add translation" and wait
     And I fill in "Title" with "Mi neuvo artículo"
     And I select "Español" from "Language"
-    When I press "Save"
+    When I press "Save" and wait
     Then I should be on /joaosilva/mi-neuvo-articulo
     And I should see "Translations"
 
+  @selenium
   Scenario: not add a translation without a language
     Given the following articles
       | owner     | name               | language |
       | joaosilva | Article in English | en       |
     And I am on Joao Silva's sitemap
-    And I follow "Article in English"
-    And I follow "Add translation"
+    When I follow "Article in English" and wait
+    And I follow "Add translation" and wait
     And I fill in "Title" with "Article in Portuguese"
-    When I press "Save"
+    And I press "Save" and wait
     Then I should see "Language must be choosen"
-    And I select "Português" from "Language"
-    When I press "Save"
+    When I select "Português" from "Language"
+    And I press "Save" and wait
     Then I should not see "Language must be choosen"
     And I should be on /joaosilva/article-in-portuguese

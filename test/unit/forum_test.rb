@@ -104,4 +104,9 @@ class ForumTest < ActiveSupport::TestCase
     assert Forum.new.has_posts?
   end
 
+  should 'not accept uploads' do
+    folder = fast_create(Forum)
+    assert !folder.accept_uploads?
+  end
+
 end

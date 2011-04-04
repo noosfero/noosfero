@@ -576,10 +576,10 @@ class ArticleTest < ActiveSupport::TestCase
     assert_kind_of Folder, b
   end
 
-  should 'copy slug' do
+  should 'not copy slug' do
     a = fast_create(Article, :slug => 'slug123')
     b = a.copy({})
-    assert_equal a.slug, b.slug
+    assert a.slug != b.slug
   end
 
   should 'load article under an old path' do
@@ -1369,6 +1369,11 @@ class ArticleTest < ActiveSupport::TestCase
     assert_equal article, article.get_translation_to('en')
   end
 
+  should 'get self if language article is blank' do
+    article = fast_create(Article, :language => '', :profile_id => @profile.id)
+    assert_equal article, article.get_translation_to('en')
+  end
+
   should 'get self if article is the translation' do
     article = fast_create(Article, :language => 'pt', :profile_id => @profile.id)
     assert_equal article, article.get_translation_to('pt')
@@ -1388,7 +1393,7 @@ class ArticleTest < ActiveSupport::TestCase
 
   should 'get self if article does not has a translation' do
     native_article = fast_create(Article, :language => 'pt', :profile_id => @profile.id)
-    assert_equal native_article, native_article.get_translation_to('en')
+    assert_nil native_article.get_translation_to('en')
   end
 
   should 'get only non translated articles' do
@@ -1444,6 +1449,60 @@ class ArticleTest < ActiveSupport::TestCase
 
   should 'tiny mce editor is disabled by default' do
     assert !Article.new.tiny_mce?
+  end
+
+  should 'return only folders' do
+    not_folders = [RssFeed, TinyMceArticle, Event, TextileArticle]
+    folders = [Folder, Blog, Gallery, Forum]
+
+    not_folders.each do |klass|
+      item = fast_create(klass)
+      assert_not_includes Article.folders, item
+    end
+
+    folders.each do |klass|
+      item = fast_create(klass)
+      assert_includes Article.folders, item
+    end
+  end
+
+  should 'return no folders' do
+    not_folders = [RssFeed, TinyMceArticle, Event, TextileArticle]
+    folders = [Folder, Blog, Gallery, Forum]
+
+    not_folders.each do |klass|
+      item = fast_create(klass)
+      assert_includes Article.no_folders, item
+    end
+
+    folders.each do |klass|
+      item = fast_create(klass)
+      assert_not_includes Article.no_folders, item
+    end
+  end
+
+  should 'accept uploads if parent accept uploads' do
+    folder = fast_create(Folder)
+    child = fast_create(UploadedFile, :parent_id => folder.id)
+    assert folder.accept_uploads?
+    assert child.accept_uploads?
+  end
+
+  should 'not accept uploads if has no parent' do
+    child = fast_create(UploadedFile)
+    assert !child.accept_uploads?
+  end
+
+  should 'not accept uploads if parent is a blog' do
+    folder = fast_create(Blog)
+    child = fast_create(UploadedFile, :parent_id => folder.id)
+    assert !child.accept_uploads?
+  end
+
+  should 'not accept uploads if parent is a forum' do
+    folder = fast_create(Forum)
+    child = fast_create(UploadedFile, :parent_id => folder.id)
+    assert !child.accept_uploads?
   end
 
 end

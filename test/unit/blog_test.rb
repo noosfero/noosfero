@@ -195,4 +195,20 @@ class BlogTest < ActiveSupport::TestCase
     assert !blog.reload.display_posts_in_current_language?
   end
 
+  #FIXME This should be used until there is a migration to fix all blogs that
+  # already have folders inside them
+  should 'not list folders in posts' do
+    blog = fast_create(Blog)
+    folder = fast_create(Folder, :parent_id => blog.id)
+    article = fast_create(TextileArticle, :parent_id => blog.id)
+
+    assert_not_includes blog.posts, folder
+    assert_includes blog.posts, article
+  end
+
+  should 'not accept uploads' do
+    folder = fast_create(Blog)
+    assert !folder.accept_uploads?
+  end
+
 end

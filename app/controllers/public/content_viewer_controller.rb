@@ -43,6 +43,11 @@ class ContentViewerController < ApplicationController
       return
     end
 
+    if request.xhr? && params[:toolbar]
+      render :partial => 'article_toolbar'
+      return
+    end
+
     redirect_to_translation
 
     # At this point the page will be showed
@@ -79,11 +84,11 @@ class ContentViewerController < ApplicationController
         @page.posts
       end
 
-      posts = posts.native_translations if @page.blog? && @page.display_posts_in_current_language?
+      if @page.blog? && @page.display_posts_in_current_language?
+        posts = posts.native_translations.all(Article.display_filter(user, profile)).map{ |p| p.get_translation_to(FastGettext.locale) }.compact
+      end
 
       @posts = posts.paginate({ :page => params[:npage], :per_page => @page.posts_per_page }.merge(Article.display_filter(user, profile)))
-
-      @posts.map!{ |p| p.get_translation_to(FastGettext.locale) } if @page.blog? && @page.display_posts_in_current_language?
     end
 
     if @page.folder? && @page.gallery?

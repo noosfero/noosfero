@@ -126,14 +126,7 @@ class AdminPanelControllerTest < ActionController::TestCase
     assert_equal "This <strong>is</strong> my new environment", Environment.default.message_for_disabled_enterprise
   end
 
-  should 'not use WYSWYIG if disabled' do
-    e = Environment.default; e.disable('wysiwyg_editor_for_environment_home'); e.save!
-    get :site_info
-    assert_no_tag :tag => "script", :content => /tinyMCE\.init/
-  end
-
-  should 'use WYSWYIG if enabled' do
-    e = Environment.default; e.enable('wysiwyg_editor_for_environment_home'); e.save!
+  should 'always use WYSIWYG' do
     get :site_info
     assert_tag :tag => "script", :content => /tinyMCE\.init/
   end

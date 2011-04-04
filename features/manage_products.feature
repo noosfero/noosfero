@@ -133,7 +133,7 @@ Feature: manage products
     And I am on Rede Moinho's control panel
     And I follow "Manage Products and Services"
     When I follow "New product or service"
-    And I select "Toplevel Product ... »" and wait for jquery
+    And I select "Toplevel Product Categories »" and wait for jquery
     And I select "Category Level 1" and wait for jquery
     Then I should see "Toplevel Product Categories" link
     And I should not see "Category Level 1" link
@@ -149,14 +149,14 @@ Feature: manage products
 
   @selenium
   Scenario: enable save button when select one category
-    Given the following product_category
+    Given I am logged in as "joaosilva"
+    And the following product_category
       | name |
       | Browsers (accept categories) |
-    Given I am logged in as "joaosilva"
     And I am on Rede Moinho's control panel
     And I follow "Manage Products and Services"
     When I follow "New product or service"
-    And I select "Browsers (accept ..." and wait for jquery
+    And I select "Browsers (accept categories)" and wait for jquery
     Then the "Save and continue" button should be enabled
 
   @selenium
@@ -290,7 +290,7 @@ Feature: manage products
     And I am logged in as "joaosilva"
     When I go to Rede Moinho's page of product Bike
     And I follow "Edit name"
-    And I fill in "product_name" with "Red bicycle"
+    And I fill in "Red bicycle" for "product_name"
     And I press "Save"
     Then I should see "Red bicycle"
     And I should be on Rede Moinho's page of product Red bicycle
@@ -453,7 +453,7 @@ Feature: manage products
       | Nanonote nanotech with long long name |
     And the following product_category
       | name | parent |
-      | Netbook Quantum | Super Quantum Computers |
+      | Netbook Quantum | Super Quantum Computers with teraflops |
     And I am logged in as "joaosilva"
     When I go to Rede Moinho's new product page
     Then I should see "Nanonote nanotech with long lo..."
@@ -467,11 +467,14 @@ Feature: manage products
     And the following products
       | owner      | category | name |
       | redemoinho | bicycle  | Bike |
+    And the following units
+      | singular | plural |
+      | Kilo     | Kilos  |
     And I am logged in as "joaosilva"
     When I go to Rede Moinho's page of product Bike
     And I follow "Edit name and unit"
-    And I fill in "product_name" with "Red bicycle"
-    And I select "kilo"
+    And I fill in "Red bicycle" for "product_name"
+    And I select "Kilo"
     And I press "Save"
     Then I should see "Red bicycle - kilo"
 
@@ -486,7 +489,7 @@ Feature: manage products
     And I am logged in as "joaosilva"
     When I go to Rede Moinho's page of product Bike
     And I follow "Add price and other basic information"
-    And I fill in "product_price" with "10"
+    And I fill in "10" for "product_price"
     And I choose "No"
     And I press "Save"
     Then I should see "Product not available!"

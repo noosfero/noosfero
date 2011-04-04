@@ -192,7 +192,7 @@ end
 
 module NoosferoTestHelper
   def link_to(content, url, options = {})
-    "<a href='#{url.to_s}'>#{content}</a>"
+    "<a href='#{url.inspect}'>#{content}</a>"
   end
 
   def content_tag(tag, content, options = {})

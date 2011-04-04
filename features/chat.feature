@@ -43,6 +43,7 @@ Feature: chat
     Given I am on Tame's homepage
     Then I should not see "Open chat" link
 
+  @selenium
   Scenario: not provide the chat online users list when environment not support that
     Given I am logged in as "tame"
     Then I should not see "Online friends "
@@ -63,7 +64,7 @@ Feature: chat
     And I am logged in as "tame"
     When I follow "Open chat"
     And I select window "noosfero_chat"
-    Then I should see "Chat - Colivre.net - Friends online (0)"
+    Then I should see "Chat - Colivre.net - Friends in chat (0)"
 
   @selenium
   Scenario: open chat with an online user in a new window
@@ -74,7 +75,7 @@ Feature: chat
     When I click "#chat-online-users-title"
     And I follow "Maria Silva"
     And I select window "noosfero_chat"
-    Then I should see "Chat - Colivre.net - Friends online (0)"
+    Then I should see "Chat - Colivre.net - Friends in chat (0)"
 
   @selenium
   Scenario: chat starts disconnected by default
@@ -98,6 +99,7 @@ Feature: chat
     And the "#chat-busy" should be visible
     And the "#chat-disconnect" should be visible
 
+  @selenium
   Scenario: link to open chatroom of a community
     Given the following communities
       | identifier | name |
@@ -108,6 +110,7 @@ Feature: chat
     When I go to Autoramas's profile
     Then I should see "Enter chat room" link
 
+  @selenium
   Scenario: not see link to open chatroom of a community if not a member
     Given the following communities
       | identifier | name |
@@ -117,6 +120,7 @@ Feature: chat
     When I go to Autoramas's profile
     Then I should not see "Enter chat room" link
 
+  @selenium
   Scenario: not see link to open chatroom of a community if xmpp_chat disabled
     Given the following communities
       | identifier | name |
@@ -137,4 +141,4 @@ Feature: chat
     When I go to Autoramas's profile
     And I follow "Enter chat room"
     And I select window "noosfero_chat"
-    Then I should see "Chat - Colivre.net - Friends online (0)"
+    Then I should see "Chat - Colivre.net - Friends in chat (0)"

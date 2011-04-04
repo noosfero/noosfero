@@ -1,4 +1,7 @@
 <%= optional_field(profile, 'display_name', f.text_field(:display_name)) %>
+<% if profile.enterprise? %>
+  <%= optional_field(profile, 'business_name', f.text_field(:business_name)) %>
+<% end %>
 <%= optional_field(profile, 'description', f.text_area(:description, :rows => 5)) %> <!-- , :maxlength => 10 -->
 <%= optional_field(profile, 'contact_person', f.text_field(:contact_person)) %>
 <%= optional_field(profile, 'contact_email', f.text_field(:contact_email)) %>
@@ -18,7 +21,6 @@
 <% end %>
 
 <% if profile.enterprise? %>
-  <%= optional_field(profile, 'business_name', f.text_field(:business_name)) %>
   <%= optional_field(profile, 'organization_website', f.text_field(:organization_website)) %>
   <%= optional_field(profile, 'historic_and_current_context', f.text_area(:historic_and_current_context, :rows => 5)) %>
   <%= optional_field(profile, 'activities_short_description', f.text_area(:activities_short_description, :rows => 5)) %>

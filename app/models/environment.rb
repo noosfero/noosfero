@@ -93,7 +93,6 @@ class Environment < ActiveRecord::Base
       'enterprise_registration' => __('Enterprise registration'),
 
       'enterprise_activation' => __('Enable activation of enterprises'),
-      'wysiwyg_editor_for_environment_home' => _('Use WYSIWYG editor to edit environment home page'),
       'media_panel' => _('Media panel in WYSIWYG editor'),
       'select_preferred_domain' => _('Select preferred domains per profile'),
       'use_portal_community' => _('Use the portal as news source for front page'),
@@ -161,6 +160,8 @@ class Environment < ActiveRecord::Base
   has_many :mailings, :class_name => 'EnvironmentMailing', :foreign_key => :source_id, :as => 'source'
 
   acts_as_accessible
+
+  has_many :units, :order => 'position'
 
   def superior_intances
     [self, nil]
@@ -271,7 +272,6 @@ class Environment < ActiveRecord::Base
       organizations_are_moderated_by_default
       show_balloon_with_profile_links_when_clicked
       use_portal_community
-      wysiwyg_editor_for_environment_home
     ).each do |feature|
       enable(feature)
     end

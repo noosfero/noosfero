@@ -9,6 +9,8 @@ class UploadedFile < Article
   include ShortFilename
 
   settings_items :title, :type => 'string'
+  xss_terminate :only => [ :title ]
+
   def title_with_default
     title_without_default || short_filename(name, 60)
   end
@@ -26,6 +28,10 @@ class UploadedFile < Article
 
   def display_title
     title.blank? ? name : title
+  end
+
+  def first_paragraph
+    ''
   end
 
   def self.max_size
@@ -48,7 +54,7 @@ class UploadedFile < Article
 
   def self.icon_name(article = nil)
     if article
-      article.image? ? article.public_filename(:icon) : article.mime_type.gsub(/[\/+.]/, '-')
+      article.image? ? article.public_filename(:icon) : (article.mime_type ? article.mime_type.gsub(/[\/+.]/, '-') : 'upload-file')
     else
       'upload-file'
     end

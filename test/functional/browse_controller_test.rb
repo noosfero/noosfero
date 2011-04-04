@@ -64,16 +64,36 @@ class BrowseControllerTest < ActionController::TestCase
     assert_tag :a, '', :attributes => {:class => 'next_page'}
   end
 
+  should 'not return nil results in the more_active people list' do
+    Profile.delete_all
+    p1 = fast_create(Person)
+    p2 = fast_create(Person)
+    p3 = fast_create(Person)
+    fast_create(Article, :profile_id => p1, :created_at => 1.day.ago)
+    fast_create(Article, :profile_id => p2, :created_at => 1.day.ago)
+    fast_create(Article, :profile_id => p2, :created_at => 1.day.ago)
+    fast_create(Article, :profile_id => p2, :created_at => 1.day.ago)
+    fast_create(Article, :profile_id => p3, :created_at => 1.day.ago)
+
+    per_page = 1
+    @controller.stubs(:per_page).returns(per_page)
+
+    get :people, :filter => 'more_active'
+
+    assert_equal Person.count/per_page, assigns(:results).total_pages
+  end
+
   should 'list all people filter by more active' do
     Person.delete_all
     p1 = create(Person, :name => 'Testing person 1', :user_id => 1)
     p2 = create(Person, :name => 'Testing person 2', :user_id => 2)
     p3 = create(Person, :name => 'Testing person 3', :user_id => 3)
-    Article.delete_all
-    fast_create(Article, :profile_id => p1, :created_at => 1.day.ago)
-    fast_create(Article, :profile_id => p2, :created_at => DateTime.now.beginning_of_day)
+    ActionTracker::Record.delete_all
+    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => p1, :created_at => Time.now)
+    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => p2, :created_at => Time.now)
+    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => p2, :created_at => Time.now)
     get :people, :filter => 'more_active'
-    assert_equal [p1,p2] , assigns(:results)
+    assert_equal [p2,p1,p3] , assigns(:results)
   end
 
   should 'filter more popular people' do
@@ -86,7 +106,7 @@ class BrowseControllerTest < ActionController::TestCase
     p2.add_friend(p1)
     p2.add_friend(p3)
     get :people, :filter => 'more_popular'
-    assert_equal [p2,p1] , assigns(:results)
+    assert_equal [p2,p1,p3] , assigns(:results)
   end
 
   should 'the people filter be only the hardcoded one' do
@@ -159,22 +179,44 @@ class BrowseControllerTest < ActionController::TestCase
     assert_tag :a, '', :attributes => {:class => 'next_page'}
   end
 
+  should 'not return nil results in the more_active communities list' do
+    Profile.delete_all
+    c1 = fast_create(Community)
+    c2 = fast_create(Community)
+    c3 = fast_create(Community)
+    fast_create(Article, :profile_id => c1, :created_at => 1.day.ago)
+    fast_create(Article, :profile_id => c2, :created_at => 1.day.ago)
+    fast_create(Article, :profile_id => c2, :created_at => 1.day.ago)
+    fast_create(Article, :profile_id => c2, :created_at => 1.day.ago)
+    fast_create(Article, :profile_id => c3, :created_at => 1.day.ago)
+
+    per_page = 1
+    @controller.stubs(:per_page).returns(per_page)
+
+    get :communities, :filter => 'more_active'
+
+    assert_equal Community.count/per_page, assigns(:results).total_pages
+  end
+
+
   should 'list all communities filter by more active' do
+    person = fast_create(Person)
     c1 = create(Community, :name => 'Testing community 1')
     c2 = create(Community, :name => 'Testing community 2')
     c3 = create(Community, :name => 'Testing community 3')
-    Article.delete_all
-    fast_create(Article, :profile_id => c1, :created_at => 1.day.ago)
-    fast_create(Article, :profile_id => c2, :created_at => DateTime.now.beginning_of_day)
+    ActionTracker::Record.delete_all
+    fast_create(ActionTracker::Record, :target_id => c1, :user_type => 'Profile', :user_id => person, :created_at => Time.now)
+    fast_create(ActionTracker::Record, :target_id => c2, :user_type => 'Profile', :user_id => person, :created_at => Time.now)
+    fast_create(ActionTracker::Record, :target_id => c2, :user_type => 'Profile', :user_id => person, :created_at => Time.now)
     get :communities, :filter => 'more_active'
-    assert_equal [c1,c2] , assigns(:results)
+    assert_equal [c2,c1,c3] , assigns(:results)
   end
 
   should 'filter more popular communities' do
     Person.delete_all
+    Community.delete_all
     c1 = create(Community, :name => 'Testing community 1')
     c2 = create(Community, :name => 'Testing community 2')
-    create(Community, :name => 'Testing community 3')
 
     p1 = create(Person, :name => 'Testing person 1', :user_id => 1)
     p2 = create(Person, :name => 'Testing person 2', :user_id => 2)

@@ -56,7 +56,7 @@
 
 <%= labelled_form_field(_('Posts per page:'), f.select(:posts_per_page, [5, 10, 20, 50, 100])) %>
 
-<%= labelled_check_box(_("Try listing only translated posts"), 'article[display_posts_in_current_language]', '1', @article.display_posts_in_current_language?) %>
+<%= labelled_check_box(_("List only translated posts"), 'article[display_posts_in_current_language]', '1', @article.display_posts_in_current_language?) %>
 
 <% f.fields_for 'feed', @article.feed do |feed| %>
   <%= labelled_form_field(_('Limit of posts in RSS Feed'), feed.select(:limit, [5, 10, 20, 50])) %>

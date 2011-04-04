@@ -14,9 +14,9 @@ Feature: edit_block_of_links
 
   @selenium
   Scenario: show the icon selector
-    And I follow "Edit sideboxes"
-    Given I follow "Edit" within ".link-list-block"
-    And I follow "New link"
-    And the ".icon-selector" should not be visible
+    Given I follow "Edit sideboxes"
+    And I follow "Edit" within ".link-list-block"
+    When I follow "New link"
+    Then the "css=div.icon-selector" should not be visible
     When I click ".icon"
-    Then the ".icon-selector" should be visible
+    Then the "css=div.icon-selector" should be visible

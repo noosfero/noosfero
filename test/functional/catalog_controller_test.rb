@@ -87,4 +87,10 @@ class CatalogControllerTest < ActionController::TestCase
     assert_tag :a, :attributes => { :href => "http://" + url}, :content => url.scan(/.{4}/).join('&#x200B;')
   end
 
+  should 'show action moved to manage_products controller' do
+    assert_raise ActionController::RoutingError do
+      get :show, :id => 1
+    end
+  end
+
 end

@@ -17,7 +17,7 @@ class BlogArchivesBlock < Block
   settings_items :blog_id, Integer
 
   def blog
-    blog_id ? owner.blogs.find(blog_id) : owner.blog
+    blog_id && owner.blogs.exists?(blog_id) ? owner.blogs.find(blog_id) : owner.blog
   end
 
   def content

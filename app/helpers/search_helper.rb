@@ -65,7 +65,7 @@ module SearchHelper
       data << content_tag('strong', _('Address: ')) + profile.address + '<br/>'
     end
     unless profile.products.empty?
-      data << content_tag('strong', _('Products/Services: ')) + profile.products.map{|i| link_to(i.name, :controller => 'catalog', :profile => profile.identifier, :action => 'show', :id => i)}.join(', ') + '<br/>'
+      data << content_tag('strong', _('Products/Services: ')) + profile.products.map{|i| link_to(i.name, :controller => 'manage_products', :profile => profile.identifier, :action => 'show', :id => i.id)}.join(', ') + '<br/>'
     end
     if profile.respond_to?(:distance) and !profile.distance.nil?
       data << content_tag('strong', _('Distance: ')) + "%.2f%" % profile.distance + '<br/>'

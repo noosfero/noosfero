@@ -1,5 +1,9 @@
 When /^I should see "([^\"]+)" link$/ do |text|
-  response.should have_selector("a:contains('#{text}')")
+  if response.class.to_s == 'Webrat::SeleniumResponse'
+    response.selenium.is_element_present("css=a:contains('#{text}')")
+  else
+    response.should have_selector("a:contains('#{text}')")
+  end
 end
 
 When /^I should not see "([^\"]+)" link$/ do |text|

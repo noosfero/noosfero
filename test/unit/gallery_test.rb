@@ -141,4 +141,9 @@ class GalleryTest < ActiveSupport::TestCase
     assert_no_match /[<>]/, gallery.body
   end
 
+  should 'accept uploads' do
+    folder = fast_create(Gallery)
+    assert folder.accept_uploads?
+  end
+
 end

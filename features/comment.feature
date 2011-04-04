@@ -18,7 +18,7 @@ Feature: comment
   Scenario: not post a comment without javascript
     Given I am on /booking/article-to-comment
     And I fill in "Name" with "Joey Ramone"
-    And I fill in "e-Mail" with "joey@ramones.com"
+    And I fill in "e-mail" with "joey@ramones.com"
     And I fill in "Title" with "Hey ho, let's go!"
     And I fill in "Enter your comment" with "Hey ho, let's go!"
     When I press "Post comment"
@@ -28,7 +28,7 @@ Feature: comment
   Scenario: post a comment while not authenticated
     Given I am on /booking/article-to-comment
     And I fill in "Name" with "Joey Ramone"
-    And I fill in "e-Mail" with "joey@ramones.com"
+    And I fill in "e-mail" with "joey@ramones.com"
     And I fill in "Title" with "Hey ho, let's go!"
     And I fill in "Enter your comment" with "Hey ho, let's go!"
     When I press "Post comment"
@@ -67,7 +67,7 @@ Feature: comment
   Scenario: disable post comment button
     Given I am on /booking/article-to-comment
     And I fill in "Name" with "Joey Ramone"
-    And I fill in "e-Mail" with "joey@ramones.com"
+    And I fill in "e-mail" with "joey@ramones.com"
     And I fill in "Title" with "Hey ho, let's go!"
     And I fill in "Enter your comment" with "Hey ho, let's go!"
     When I press "Post comment"

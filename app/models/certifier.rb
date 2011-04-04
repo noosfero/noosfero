@@ -11,4 +11,9 @@ class Certifier < ActiveRecord::Base
   def link
     self[:link] || ''
   end
+
+  def <=>(b)
+    self.name.downcase.transliterate <=> b.name.downcase.transliterate
+  end
+
 end

@@ -319,12 +319,12 @@ class Article < ActiveRecord::Base
   end
 
   def get_translation_to(locale)
-    if self.language.nil? || self.language == locale
+    if self.language.nil? || self.language.blank? || self.language == locale
       self
     elsif self.native_translation.language == locale
       self.native_translation
     else
-      self.native_translation.translations.first(:conditions => { :language => locale }) || self
+      self.native_translation.translations.first(:conditions => { :language => locale })
     end
   end
 
@@ -339,8 +339,13 @@ class Article < ActiveRecord::Base
     end
   end
 
+  def self.folder_types
+    ['Folder', 'Blog', 'Forum', 'Gallery']
+  end
+
   named_scope :published, :conditions => { :published => true }
-  named_scope :folders, :conditions => { :type => ['Folder', 'Blog', 'Forum', 'Gallery'] }
+  named_scope :folders, :conditions => { :type => folder_types}
+  named_scope :no_folders, :conditions => ['type NOT IN (?)', folder_types]
   named_scope :galleries, :conditions => { :type => 'Gallery' }
   named_scope :images, :conditions => { :is_image => true }
 
@@ -412,6 +417,7 @@ class Article < ActiveRecord::Base
     :profile_id,
     :parent_id,
     :path,
+    :slug,
     :updated_at,
     :created_at,
     :last_changed_by_id,
@@ -497,6 +503,10 @@ class Article < ActiveRecord::Base
 
   def notifiable?
     false
+  end
+
+  def accept_uploads?
+    self.parent && self.parent.accept_uploads?
   end
 
   private

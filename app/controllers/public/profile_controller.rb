@@ -105,6 +105,8 @@ class ProfileController < PublicController
       end
       if request.xhr?
         render :layout => false
+      else
+        redirect_to profile.url
       end
     end
   end
@@ -210,6 +212,14 @@ class ProfileController < PublicController
       render :text => _('Activity successfully removed.')
     rescue
       render :text => _('You could not remove this activity')
+    end
+  end
+
+  def profile_info
+    begin
+      @block = profile.blocks.find(params[:block_id])
+    rescue
+      render :text => _('Profile information could not be loaded')
     end
   end
 
