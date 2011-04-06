@@ -245,6 +245,12 @@ Then /^"(.+)" should be admin of "(.+)"$/ do |person, organization|
   org.admins.should include(user)
 end
 
+Then /^"(.+)" should be moderator of "(.+)"$/ do |person,profile|
+  profile = Profile.find_by_name(profile)
+  person = Person.find_by_name(person)
+  profile.members_by_role(Profile::Roles.moderator(profile.environment.id)).should include(person)
+end
+
 Given /^"([^\"]*)" has no articles$/ do |profile|
   (Profile[profile] || Profile.find_by_name(profile)).articles.delete_all
 end
@@ -375,3 +381,10 @@ Given /^the following units?$/ do |table|
     Unit.create!(row.merge(:environment_id => 1))
   end
 end
+
+Given /^"([^\"]*)" asked to join "([^\"]*)"$/ do |person, organization|
+  person = Person.find_by_name(person)
+  organization = Organization.find_by_name(organization)
+  AddMember.create!(:person => person, :organization => organization)
+end
+
