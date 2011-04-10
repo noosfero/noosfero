@@ -2,7 +2,7 @@ module ActsAsSearchable
 
   module ClassMethods
     def acts_as_searchable(options = {})
-      if ActiveRecord::Base.connection.adapter_name == 'PostgreSQL'
+      if Noosfero::MultiTenancy.on? and ActiveRecord::Base.postgresql?
         options[:additional_fields] ||= {}
         options[:additional_fields] = Hash[*options[:additional_fields].collect{ |v| [v, {}] }.flatten] if options[:additional_fields].is_a?(Array)
         options[:additional_fields].merge!(:schema_name => { :index => :untokenized })
@@ -35,7 +35,7 @@ module ActsAsSearchable
 
         ferret_options[:limit] = :all
 
-        ferret_query = ActiveRecord::Base.connection.adapter_name == 'PostgreSQL' ? "+schema_name:\"#{schema_name}\" AND #{query}" : query
+        ferret_query = (Noosfero::MultiTenancy.on? and ActiveRecord::Base.postgresql?) ? "+schema_name:\"#{schema_name}\" AND #{query}" : query
         # FIXME this is a HORRIBLE HACK
         ids = find_ids_with_ferret(ferret_query, ferret_options)[1][0..8000].map{|r|r[:id].to_i}
 

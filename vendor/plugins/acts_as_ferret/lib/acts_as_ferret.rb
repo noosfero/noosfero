@@ -204,7 +204,7 @@ module ActsAsFerret
     # these properties are somewhat vital to the plugin and shouldn't
     # be overwritten by the user:
     index_definition[:ferret].update(
-      :key               => (ActiveRecord::Base.connection.adapter_name == 'PostgreSQL' ? [:id, :class_name, :schema_name] : [:id, :class_name]),
+      :key               => ((Noosfero::MultiTenancy.on? and ActiveRecord::Base.postgresql?) ? [:id, :class_name, :schema_name] : [:id, :class_name]),
       :path              => index_definition[:index_dir],
       :auto_flush        => true, # slower but more secure in terms of locking problems TODO disable when running in drb mode?
       :create_if_missing => true

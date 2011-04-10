@@ -11,7 +11,7 @@ organization works with a customized virtual application instance.
 
 Today this feature is available only for PostgreSQL databases.
 
-This document assumes that you have a fully PostgresSQL default Noosfero
+This document assumes that you have a new fully PostgresSQL default Noosfero
 installation as explained at the INSTALL file.
 
 == Separated data
@@ -121,11 +121,6 @@ Run Noosfero init file as root:
 It's necessary to run only one instance of ferret_server. Don't worry
 about this, Noosfero initializer had already done this for you.
 
-Build or rebuild the Ferret index by running the following task just
-for your hosting environment, do this as noosfero user:
-
-$ RAILS_ENV=production rake multitenancy:reindex
-
 == Feed updater & Delayed job
 
 Just for your information, a daemon of feed-updater and delayed_job
@@ -137,3 +132,32 @@ relax.
 When running with PostgreSQL, Noosfero uploads stuff to a folder named
 the same way as the running schema. Inside the upload folder root, for
 example, will be public/image_uploads/env2 and public/image_uploads/env3.
+
+== Adding multitenancy support to an existing Noosfero environment
+
+If you already have a Noosfero environment, you can turn it multitenant
+by following the steps below in addition to the previous steps:
+
+1. Reindex your database
+
+Rebuild the Ferret index by running the following task just
+for your hosting environment, do this as noosfero user:
+
+$ RAILS_ENV=production rake multitenancy:reindex
+
+2. Move the uploaded files to the right place
+
+Add a directory with the same name as your schema name (by default this
+name is 'public') in the root of each upload directory, for example,
+public/articles/0000 will be moved to public/articles/public/0000. Do this
+with the directories public/image_uploads, public/articles and public/thumbnails.
+
+3. Fix paths on activities
+
+The profile activities store static paths to the images, so it's necessary to fix
+these paths. You can do this easily by setting an alias on your webserver.
+On Apache you can add the three rules below, where 'public' is the schema name:
+
+  RewriteRule ^/articles(.+) /articles/public$1
+  RewriteRule ^/image_uploads(.+) /image_uploads/public$1
+  RewriteRule ^/thumbnails(.+) /thumbnails/public$1
