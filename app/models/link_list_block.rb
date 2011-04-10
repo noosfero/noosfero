@@ -57,7 +57,7 @@ class LinkListBlock < Block
   def link_html(link)
     klass = 'icon-' + link[:icon] if link[:icon]
     sanitize_link(
-      link_to(_(link[:name]), expand_address(link[:address]), :class => klass)
+      link_to(link[:name], expand_address(link[:address]), :class => klass)
     )
   end
 
