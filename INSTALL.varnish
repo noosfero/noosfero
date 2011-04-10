@@ -53,7 +53,7 @@ apache-compatible format. You should change your statistics generation software
 6) Configure varnish to fit noosfero
 (assuming Noosfero is installed in /var/lib/noosfero)
 
-6a) Configure noosfero specific rotines to varnish
+6a) Configure noosfero to do specific routines to varnish
 
 Add the following line to your /etc/varnish/default.vcl file:
 
@@ -65,7 +65,7 @@ Add the following line to your /etc/varnish/default.vcl file:
 
   include "/var/lib/noosfero/etc/noosfero/varnish-accept-language.vcl";
 
-8) Restart Varnish
+7) Restart Varnish
 
   # invoke-rc.d varnish restart
 
