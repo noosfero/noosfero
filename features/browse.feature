@@ -77,10 +77,10 @@ Feature: browse
 
   Scenario: Browse communities by query
     When I go to /browse/communities
-    And I fill in "Silva" for "query"
+    And I fill in "Neto" for "query"
     And I press "Search"
-    Then I should see "Community Silva"
+    Then I should see "Community Neto"
     And I should not see "Joao Silva"
     And I should not see "Pedro Silva"
     And I should not see "Paulo Neto"
-    And I should not see "Community Neto"
+    And I should not see "Community Silva"
