@@ -5,8 +5,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: noosfero 0.29.5\n"
-"POT-Creation-Date: 2011-03-30 20:58-0300\n"
+"Project-Id-Version: noosfero 0.30.0\n"
+"POT-Creation-Date: 2011-04-12 21:01-0300\n"
 "PO-Revision-Date: 2011-03-30 20:52-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1121,118 +1121,126 @@ msgid "Next"
 msgstr ""
 
 #: app/helpers/application_helper.rb:1110
+msgid "<span>Manage</span> %s"
+msgstr ""
+
+#: app/helpers/application_helper.rb:1110 app/views/shared/user_menu.rhtml:26
+msgid "Manage %s"
+msgstr ""
+
+#: app/helpers/application_helper.rb:1119
 msgid "Manage your pending tasks"
 msgstr ""
 
-#: app/helpers/application_helper.rb:1113
+#: app/helpers/application_helper.rb:1122
 msgid "Welcome, %s"
 msgstr ""
 
-#: app/helpers/application_helper.rb:1113
+#: app/helpers/application_helper.rb:1122
 msgid "Go to your homepage"
 msgstr ""
 
-#: app/helpers/application_helper.rb:1115
+#: app/helpers/application_helper.rb:1124
 msgid "Administration"
 msgstr ""
 
-#: app/helpers/application_helper.rb:1115
+#: app/helpers/application_helper.rb:1124
 msgid "Configure the environment"
 msgstr ""
 
-#: app/helpers/application_helper.rb:1116 app/views/blocks/my_network.rhtml:9
+#: app/helpers/application_helper.rb:1126 app/views/blocks/my_network.rhtml:9
 #: app/views/shared/user_menu.rhtml:37
 msgid "Control panel"
 msgstr ""
 
-#: app/helpers/application_helper.rb:1116
+#: app/helpers/application_helper.rb:1126
 msgid "Configure your personal account and content"
 msgstr ""
 
-#: app/helpers/application_helper.rb:1118 app/views/blocks/login_block.rhtml:8
+#: app/helpers/application_helper.rb:1128 app/views/blocks/login_block.rhtml:8
 #: app/views/shared/user_menu.rhtml:45
 msgid "Logout"
 msgstr ""
 
-#: app/helpers/application_helper.rb:1118
+#: app/helpers/application_helper.rb:1128
 msgid "Leave the system"
 msgstr ""
 
-#: app/helpers/application_helper.rb:1124
+#: app/helpers/application_helper.rb:1134
 msgid " characters left"
 msgstr ""
 
-#: app/helpers/application_helper.rb:1125
+#: app/helpers/application_helper.rb:1135
 msgid "Limit of characters reached"
 msgstr ""
 
-#: app/helpers/application_helper.rb:1146
-#: app/helpers/application_helper.rb:1152
+#: app/helpers/application_helper.rb:1156
+#: app/helpers/application_helper.rb:1162
 msgid "less than a minute"
 msgstr ""
 
-#: app/helpers/application_helper.rb:1146
-#: app/helpers/application_helper.rb:1153
+#: app/helpers/application_helper.rb:1156
+#: app/helpers/application_helper.rb:1163
 msgid "1 minute"
 msgstr ""
 
-#: app/helpers/application_helper.rb:1148
+#: app/helpers/application_helper.rb:1158
 msgid "less than 5 seconds"
 msgstr ""
 
-#: app/helpers/application_helper.rb:1149
+#: app/helpers/application_helper.rb:1159
 msgid "less than 10 seconds"
 msgstr ""
 
-#: app/helpers/application_helper.rb:1150
+#: app/helpers/application_helper.rb:1160
 msgid "less than 20 seconds"
 msgstr ""
 
-#: app/helpers/application_helper.rb:1151
+#: app/helpers/application_helper.rb:1161
 msgid "half a minute"
 msgstr ""
 
-#: app/helpers/application_helper.rb:1156
+#: app/helpers/application_helper.rb:1166
 msgid "%{distance} minutes"
 msgstr ""
 
-#: app/helpers/application_helper.rb:1157
+#: app/helpers/application_helper.rb:1167
 msgid "about 1 hour"
 msgstr ""
 
-#: app/helpers/application_helper.rb:1158
+#: app/helpers/application_helper.rb:1168
 msgid "about %{distance} hours"
 msgstr ""
 
-#: app/helpers/application_helper.rb:1159
+#: app/helpers/application_helper.rb:1169
 msgid "1 day"
 msgstr ""
 
-#: app/helpers/application_helper.rb:1160
+#: app/helpers/application_helper.rb:1170
 msgid "%{distance} days"
 msgstr ""
 
-#: app/helpers/application_helper.rb:1161
+#: app/helpers/application_helper.rb:1171
 msgid "about 1 month"
 msgstr ""
 
-#: app/helpers/application_helper.rb:1162
+#: app/helpers/application_helper.rb:1172
 msgid "%{distance} months"
 msgstr ""
 
-#: app/helpers/application_helper.rb:1163
+#: app/helpers/application_helper.rb:1173
 msgid "about 1 year"
 msgstr ""
 
-#: app/helpers/application_helper.rb:1164
+#: app/helpers/application_helper.rb:1174
 msgid "over %{distance} years"
 msgstr ""
 
-#: app/helpers/application_helper.rb:1181
+#: app/helpers/application_helper.rb:1191
 msgid "Source: %s"
 msgstr ""
 
-#: app/helpers/application_helper.rb:1210
+#: app/helpers/application_helper.rb:1220
 msgid "Zoom in"
 msgstr ""
 
@@ -2968,23 +2976,23 @@ msgstr ""
 msgid "%{fn} of uploaded file was larger than the maximum size of 5.0 MB"
 msgstr ""
 
-#: app/models/uploaded_file.rb:68
+#: app/models/uploaded_file.rb:70
 msgid "Uploaded file"
 msgstr ""
 
-#: app/models/uploaded_file.rb:72
+#: app/models/uploaded_file.rb:74
 msgid "Upload any kind of file you want."
 msgstr ""
 
-#: app/models/uploaded_file.rb:95 app/models/uploaded_file.rb:97
+#: app/models/uploaded_file.rb:97 app/models/uploaded_file.rb:99
 msgid "&laquo; Previous"
 msgstr ""
 
-#: app/models/uploaded_file.rb:101 app/models/uploaded_file.rb:103
+#: app/models/uploaded_file.rb:103 app/models/uploaded_file.rb:105
 msgid "Next &raquo;"
 msgstr ""
 
-#: app/models/uploaded_file.rb:108
+#: app/models/uploaded_file.rb:110
 msgid "image %d of %d"
 msgstr ""
 
@@ -4105,6 +4113,14 @@ msgstr ""
 msgid "Back to admin panel"
 msgstr ""
 
+#: app/views/shared/_manage_enterprises.rhtml:2
+msgid "Manage enterprises"
+msgstr ""
+
+#: app/views/shared/_manage_enterprises.rhtml:2
+msgid "My enterprises"
+msgstr ""
+
 #: app/views/shared/user_menu.rhtml:8
 msgid "%s's Menu"
 msgstr ""
@@ -4115,10 +4131,6 @@ msgstr ""
 
 #: app/views/shared/user_menu.rhtml:19 lib/zen3_terminology.rb:68
 msgid "My groups"
-msgstr ""
-
-#: app/views/shared/user_menu.rhtml:26
-msgid "Manage %s"
 msgstr ""
 
 #: app/views/shared/user_menu.rhtml:32
