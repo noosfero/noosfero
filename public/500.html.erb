@@ -16,7 +16,7 @@
         &nbsp;
       </div>
     </div>
-    <% Noosfero.each_locale do |language_code,language_name| %>
+    <%- Noosfero.each_locale do |language_code,language_name| -%>
       <% FastGettext.set_locale language_code %>
       <div id='<%= language_code %>' style='display: none' class='message'>
         <h1><%= _('Temporary system problem') %></h1>
@@ -30,7 +30,7 @@
       </div>
     <% end %>
     <div id='languages'>
-      <% Noosfero.each_locale do |language_code,language_name| %>
+      <%- Noosfero.each_locale do |language_code,language_name| -%>
         <a href="javascript: display_error_message('<%= language_code %>')"><%= language_name %></a>
       <% end %>
     </div>
