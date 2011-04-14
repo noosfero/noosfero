@@ -83,12 +83,13 @@ Feature: blog
     When I follow "Configure blog"
     Then I should be on edit "Blog One" by joaosilva
 
+  @selenium
   Scenario: configure blog when viewing it
     Given the following blogs
        | owner     | name     |
        | joaosilva | Blog One |
     And I go to /joaosilva/blog-one
-    When I follow "Configure blog"
+    When I follow "Configure blog" and wait
     Then I should be on edit "Blog One" by joaosilva
 
   Scenario: change address of blog

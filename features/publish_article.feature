@@ -42,11 +42,12 @@ Feature: publish article
     Then I should see "Another name"
     And I should not see "Sample Article"
 
+  @selenium
   Scenario: getting an error message when publishing article with same name
     Given I am logged in as "joaosilva"
     And "Joao Silva" is a member of "Sample Community"
     And I am on Joao Silva's control panel
-    And I follow "Manage Content"
+    And I follow "Manage Content" and wait
     And I follow "Spread"
     And I check "Sample Community"
     And I press "Spread this"
@@ -56,11 +57,11 @@ Feature: publish article
     And I am on Maria Silva's control panel
     And I follow "Manage Content"
     And I follow "New content"
-    And I follow "Text article with Textile markup language"
+    And I follow "Text article with Textile markup language" and wait
     And I fill in the following:
       | Title | Sample Article |
       | Text | this is Maria's first published article |
-    And I press "Save"
+    And I press "Save" and wait
     And I follow "Spread"
     And I check "Sample Community"
     When I press "Spread this"

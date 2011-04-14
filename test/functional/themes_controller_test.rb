@@ -145,7 +145,7 @@ class ThemesControllerTest < Test::Unit::TestCase
 
   should 'display dialog for creating new CSS' do
     theme = Theme.create('mytheme', :owner => profile)
-    @request.expects(:xhr?).returns(true)
+    @request.stubs(:xhr?).returns(true)
     get :add_css, :profile => 'testinguser', :id => 'mytheme'
 
     assert_tag :tag => 'form', :attributes => { :action => '/myprofile/testinguser/themes/add_css/mytheme', :method => /post/i}
@@ -204,7 +204,7 @@ class ThemesControllerTest < Test::Unit::TestCase
 
   should 'display the "add image" dialog' do
     theme = Theme.create('mytheme', :owner => profile)
-    @request.expects(:xhr?).returns(true)
+    @request.stubs(:xhr?).returns(true)
 
     get :add_image, :profile => 'testinguser', :id => 'mytheme'
     assert_tag :tag => 'form', :attributes => { :action => '/myprofile/testinguser/themes/add_image/mytheme', :method => /post/i, :enctype => 'multipart/form-data' }, :descendant => { :tag => 'input', :attributes => { :name => 'image', :type => 'file' } }
@@ -212,7 +212,7 @@ class ThemesControllerTest < Test::Unit::TestCase
 
   should 'be able to add new image to theme' do
     theme = Theme.create('mytheme', :owner => profile)
-    @request.expects(:xhr?).returns(false)
+    @request.stubs(:xhr?).returns(false)
 
     post :add_image, :profile => 'testinguser', :id => 'mytheme', :image => fixture_file_upload('/files/rails.png', 'image/png', :binary)
     assert_redirected_to :action => "edit", :id => 'mytheme'

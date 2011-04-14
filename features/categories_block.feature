@@ -61,12 +61,10 @@ Feature: categories_block
     And I follow "Edit" within ".categories-block"
     And I check "Product"
     And I press "Save"
-    Then I should see "Food"
-    And I should not see "Vegetarian"
-    And I should not see "Steak"
+    Then I should see "Book"
+    And I should not see "Literature"
     When I click ".category-link-expand category-root"
-    Then I should see "Vegetarian"
-    And I should see "Steak"
+    Then I should see "Literature"
 
   @selenium
   Scenario: List just general categories

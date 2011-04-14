@@ -117,20 +117,9 @@ class ProfileTest < Test::Unit::TestCase
   end
 
   def test_should_avoid_reserved_identifiers
-    assert_invalid_identifier 'admin'
-    assert_invalid_identifier 'system'
-    assert_invalid_identifier 'myprofile'
-    assert_invalid_identifier 'profile'
-    assert_invalid_identifier 'cms'
-    assert_invalid_identifier 'community'
-    assert_invalid_identifier 'test'
-    assert_invalid_identifier 'tag'
-    assert_invalid_identifier 'tags'
-    assert_invalid_identifier 'cat'
-    assert_invalid_identifier 'webmaster'
-    assert_invalid_identifier 'info'
-    assert_invalid_identifier 'root'
-    assert_invalid_identifier 'assets'
+    Profile::RESERVED_IDENTIFIERS.each do |identifier|
+      assert_invalid_identifier identifier
+    end
   end
 
   should 'provide recent documents' do
@@ -1564,151 +1553,25 @@ class ProfileTest < Test::Unit::TestCase
     assert_match  /<!-- .* --> <h1> Wellformed html code <\/h1>/, profile.custom_footer
   end
 
-  should 'find more recent people' do
-    Person.delete_all
-    p1 = fast_create(Person,:created_at => 4.days.ago)
-    p2 = fast_create(Person, :created_at => DateTime.now)
-    p3 = fast_create(Person, :created_at => 2.days.ago)
+  should 'find more recent profile' do
+    Profile.delete_all
+    p1 = fast_create(Profile, :created_at => 4.days.ago)
+    p2 = fast_create(Profile, :created_at => Time.now)
+    p3 = fast_create(Profile, :created_at => 2.days.ago)
+    assert_equal [p2,p3,p1] , Profile.more_recent
 
-    assert_equal [p2,p3,p1] , Person.more_recent
-
-    p4 = fast_create(Person, :created_at => 3.days.ago)
-    assert_equal [p2,p3,p4,p1] , Person.more_recent
+    p4 = fast_create(Profile, :created_at => 3.days.ago)
+    assert_equal [p2,p3,p4,p1] , Profile.more_recent
   end
 
-  should 'find more active people' do
-    Person.delete_all
-    p1 = fast_create(Person)
-    p2 = fast_create(Person)
-    p3 = fast_create(Person)
-    Article.delete_all
-    fast_create(Article, :profile_id => p1, :created_at => 7.days.ago)
-    fast_create(Article, :profile_id => p1, :created_at => DateTime.now.beginning_of_day)
-    fast_create(Article, :profile_id => p2, :created_at => DateTime.now.beginning_of_day)
-    assert_equal [p1,p2] , Person.more_active
-
-    fast_create(Article, :profile_id => p2, :created_at => 1.day.ago)
-    fast_create(Article, :profile_id => p2, :created_at => 5.days.ago)
-    fast_create(Article, :profile_id => p3, :created_at => 2.days.ago)
-    assert_equal [p2,p1,p3] , Person.more_active
+  should 'respond to more active' do
+    profile = fast_create(Profile)
+    assert_respond_to Profile, :more_active
   end
 
-  should 'the ties on more active people be solved by the number of comments' do
-    Person.delete_all
-    p1 = fast_create(Person)
-    p2 = fast_create(Person)
-    Article.delete_all
-    a1 = fast_create(Article, :profile_id => p1, :created_at => DateTime.now.beginning_of_day)
-    a2 = fast_create(Article, :profile_id => p2, :created_at => DateTime.now.beginning_of_day)
-    assert_equal [], [p1,p2] - Person.more_active
-    assert_equal [], Person.more_active - [p1, p2]
-
-    a2.comments.build(:title => 'test comment', :body => 'anything', :author => p1).save!
-    assert_equal [p2,p1] , Person.more_active
-
-    a1.comments.build(:title => 'test comment', :body => 'anything', :author => p2).save!
-    a1.comments.build(:title => 'test comment', :body => 'anything', :author => p2).save!
-    assert_equal [p1,p2] , Person.more_active
-  end
-
-  should 'more active people take in consideration only articles created current the last week' do
-    Person.delete_all
-    env = fast_create(Environment)
-    p1 = fast_create(Person)
-    p2 = fast_create(Person)
-    p3 = fast_create(Person)
-    Article.delete_all
-    fast_create(Article, :profile_id => p1, :created_at => DateTime.now.beginning_of_day)
-    fast_create(Article, :profile_id => p2, :created_at => 10.days.ago)
-    assert_equal [p1] , Person.more_active
-
-    fast_create(Article, :profile_id => p2, :created_at => DateTime.now.beginning_of_day)
-    fast_create(Article, :profile_id => p2, :created_at => 7.days.ago)
-    fast_create(Article, :profile_id => p3, :created_at => 8.days.ago)
-    assert_equal [p2,p1] , Person.more_active
-  end
-
-  should 'find more recent community' do
-    c1 = fast_create(Community, :created_at => 3.days.ago)
-    c2 = fast_create(Community, :created_at => 1.day.ago)
-    c3 = fast_create(Community, :created_at => DateTime.now)
-
-    assert_equal [c3,c2,c1] , Community.more_recent
-
-    c4 = fast_create(Community, :created_at => 2.days.ago)
-    assert_equal [c3,c2,c4,c1] , Community.more_recent
-  end
-
-  should 'find more active community' do
-    c1 = fast_create(Community)
-    c2 = fast_create(Community)
-    c3 = fast_create(Community)
-
-    Article.delete_all
-    fast_create(Article, :profile_id => c1, :created_at => 1.day.ago)
-    fast_create(Article, :profile_id => c1, :created_at => DateTime.now.beginning_of_day)
-    fast_create(Article, :profile_id => c2, :created_at => DateTime.now.beginning_of_day)
-    assert_equal [c1,c2], Community.more_active
-
-    fast_create(Article, :profile_id => c2, :created_at => 2.days.ago)
-    fast_create(Article, :profile_id => c2, :created_at => 7.days.ago)
-    fast_create(Article, :profile_id => c3, :created_at => 1.day.ago)
-    assert_equal [c2,c1,c3] , Community.more_active
-  end
-
-  should 'the ties on more active communities be solved by the number of comments' do
-    env = create(Environment)
-    Community.delete_all
-    c1 = fast_create(Community)
-    c2 = fast_create(Community)
-    Article.delete_all
-    a1 = fast_create(Article, :profile_id => c1, :created_at => DateTime.now.beginning_of_day)
-    a2 = fast_create(Article, :profile_id => c2, :created_at => DateTime.now.beginning_of_day)
-    assert_equal [c1,c2] , Community.more_active
-
-    p1 = fast_create(Person)
-    a2.comments.build(:title => 'test comment', :body => 'anything', :author => p1).save!
-    assert_equal [c2,c1] , Community.more_active
-
-    a1.comments.build(:title => 'test comment', :body => 'anything', :author => p1).save!
-    a1.comments.build(:title => 'test comment', :body => 'anything', :author => p1).save!
-    assert_equal [c1,c2] , Community.more_active
-  end
-
-  should 'more active communities take in consideration only articles created current the last week' do
-    c1 = fast_create(Community)
-    c2 = fast_create(Community)
-    c3 = fast_create(Community)
-    Article.delete_all
-    fast_create(Article, :profile_id => c1, :created_at => DateTime.now.beginning_of_day)
-    fast_create(Article, :profile_id => c2, :created_at => 10.days.ago)
-    assert_equal [c1] , Community.more_active
-
-    fast_create(Article, :profile_id => c2, :created_at => DateTime.now.beginning_of_day)
-    fast_create(Article, :profile_id => c2, :created_at => 7.days.ago)
-    fast_create(Article, :profile_id => c3, :created_at => 8.days.ago)
-    assert_equal [c2,c1] , Community.more_active
-  end
-
-  should 'find more popular communities' do
-    Community.delete_all
-
-    c1 = fast_create(Community)
-    c2 = fast_create(Community)
-    fast_create(Community)
-
-    p1 = fast_create(Person)
-    p2 = fast_create(Person)
-    c1.add_member(p1)
-    assert_equal [c1] , Community.more_popular
-
-    c2.add_member(p1)
-    c2.add_member(p2)
-    assert_equal [c2,c1] , Community.more_popular
-
-    c2.remove_member(p2)
-    c2.remove_member(p1)
-    assert_equal [c1] , Community.more_popular
+  should 'respond to more popular' do
+    profile = fast_create(Profile)
+    assert_respond_to Profile, :more_popular
   end
 
   should "return the more recent label" do
@@ -1716,57 +1579,29 @@ class ProfileTest < Test::Unit::TestCase
     assert_equal "Since: ", p.more_recent_label
   end
 
-  should "return none on label if the profile hasn't articles" do
+  should "return no activity if profile has 0 actions" do
     p = fast_create(Profile)
-    assert_equal 0, p.articles.count
-    assert_equal "none", p.more_active_label
+    assert_equal 0, p.recent_actions.count
+    assert_equal "no activity", p.more_active_label
   end
 
-  should "return one article on label if the profile has one article" do
+  should "return one activity on label if the profile has one action" do
     p = fast_create(Profile)
-    fast_create(Article, :profile_id => p.id)
-    assert_equal 1, p.articles.count
-    assert_equal "one article", p.more_active_label
+    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => p, :created_at => Time.now)
+    assert_equal 1, p.recent_actions.count
+    assert_equal "one activity", p.more_active_label
   end
 
-  should "return number of artciles on label if the profile has more than one article" do
+  should "return number of activities on label if the profile has more than one action" do
     p = fast_create(Profile)
-    fast_create(Article, :profile_id => p.id)
-    fast_create(Article, :profile_id => p.id)
-    assert_equal 2, p.articles.count
-    assert_equal "2 articles", p.more_active_label
+    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => p, :created_at => Time.now)
+    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => p, :created_at => Time.now)
+    assert_equal 2, p.recent_actions.count
+    assert_equal "2 activities", p.more_active_label
 
-    fast_create(Article, :profile_id => p.id)
-    assert_equal 3, p.articles.count
-    assert_equal "3 articles", p.more_active_label
-  end
-
-  should "return none on label if the profile hasn't members" do
-    p = fast_create(Profile)
-    assert_equal 0, p.members_count
-    assert_equal "none", p.more_popular_label
-  end
-
-  should "return one member on label if the profile has one member" do
-    person = fast_create(Person)
-    community = fast_create(Community)
-    community.add_member(person)
-
-    assert_equal "one member", community.more_popular_label
-  end
-
-  should "return the number of members on label if the profile has more than one member" do
-    person1 = fast_create(Person)
-    person2 = fast_create(Person)
-    community = fast_create(Community)
-
-    community.add_member(person1)
-    community.add_member(person2)
-    assert_equal "2 members", community.more_popular_label
-
-    person3 = fast_create(Person)
-    community.add_member(person3)
-    assert_equal "3 members", community.more_popular_label
+    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => p, :created_at => Time.now)
+    assert_equal 3, p.recent_actions.count
+    assert_equal "3 activities", p.more_active_label
   end
 
   should 'provide list of galleries' do
@@ -1831,6 +1666,29 @@ class ProfileTest < Test::Unit::TestCase
     community.add_member(person)
 
     assert_equal 1, community.members_count
+  end
+
+  should 'index by schema name when database is postgresql' do
+    uses_postgresql 'schema_one'
+    p1 = Profile.create!(:name => 'some thing', :identifier => 'some-thing')
+    assert_equal Profile.find_by_contents('thing'), [p1]
+    uses_postgresql 'schema_two'
+    p2 = Profile.create!(:name => 'another thing', :identifier => 'another-thing')
+    assert_not_includes Profile.find_by_contents('thing'), p1
+    assert_includes Profile.find_by_contents('thing'), p2
+    uses_postgresql 'schema_one'
+    assert_includes Profile.find_by_contents('thing'), p1
+    assert_not_includes Profile.find_by_contents('thing'), p2
+    uses_sqlite
+  end
+
+  should 'not index by schema name when database is not postgresql' do
+    uses_sqlite
+    p1 = Profile.create!(:name => 'some thing', :identifier => 'some-thing')
+    assert_equal Profile.find_by_contents('thing'), [p1]
+    p2 = Profile.create!(:name => 'another thing', :identifier => 'another-thing')
+    assert_includes Profile.find_by_contents('thing'), p1
+    assert_includes Profile.find_by_contents('thing'), p2
   end
 
   private

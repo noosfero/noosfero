@@ -293,4 +293,36 @@ class UploadedFileTest < Test::Unit::TestCase
     assert_equal 'upload-file', UploadedFile.icon_name(f)
   end
 
+  should 'upload to a folder with same name as the schema if database is postgresql' do
+    uses_postgresql 'image_schema_one'
+    file1 = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :profile => @profile)
+    process_delayed_job_queue
+    assert_match(/image_schema_one\/\d{4}\/\d{4}\/rails.png/, UploadedFile.find(file1.id).public_filename)
+    uses_postgresql 'image_schema_two'
+    file2 = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/test.txt', 'text/plain'), :profile => @profile)
+    assert_match(/image_schema_two\/\d{4}\/\d{4}\/test.txt/, UploadedFile.find(file2.id).public_filename)
+    file1.destroy
+    file2.destroy
+    uses_sqlite
+  end
+
+  should 'upload to path prefix folder if database is not postgresql' do
+    uses_sqlite
+    file = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/test.txt', 'text/plain'), :profile => @profile)
+    assert_match(/\/\d{4}\/\d{4}\/test.txt/, UploadedFile.find(file.id).public_filename)
+    assert_no_match(/test_schema\/\d{4}\/\d{4}\/test.txt/, UploadedFile.find(file.id).public_filename)
+    file.destroy
+  end
+
+  should 'upload thumbnails to a folder with same name as the schema if database is postgresql' do
+    uses_postgresql
+    file = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :profile => @profile)
+    process_delayed_job_queue
+    UploadedFile.attachment_options[:thumbnails].each do |suffix, size|
+      assert_match(/test_schema\/\d{4}\/\d{4}\/rails_#{suffix}.png/, UploadedFile.find(file.id).public_filename(suffix))
+    end
+    file.destroy
+    uses_sqlite
+  end
+
 end

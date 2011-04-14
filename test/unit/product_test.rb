@@ -89,7 +89,7 @@ class ProductTest < Test::Unit::TestCase
 
   should 'be indexed by category full name' do
     p = Product.new(:name => 'a test product', :product_category => @product_category)
-    p.expects(:category_full_name).returns('interesting category')
+    p.stubs(:category_full_name).returns('interesting category')
     p.save!
 
     assert_includes Product.find_by_contents('interesting'), p
@@ -350,6 +350,29 @@ class ProductTest < Test::Unit::TestCase
   should 'have relation with unit' do
     product = Product.new
     assert_kind_of Unit, product.build_unit
+  end
+
+  should 'index by schema name when database is postgresql' do
+    uses_postgresql 'schema_one'
+    p1 = Product.create!(:name => 'some thing', :product_category => @product_category)
+    assert_equal Product.find_by_contents('thing'), [p1]
+    uses_postgresql 'schema_two'
+    p2 = Product.create!(:name => 'another thing', :product_category => @product_category)
+    assert_not_includes Product.find_by_contents('thing'), p1
+    assert_includes Product.find_by_contents('thing'), p2
+    uses_postgresql 'schema_one'
+    assert_includes Product.find_by_contents('thing'), p1
+    assert_not_includes Product.find_by_contents('thing'), p2
+    uses_sqlite
+  end
+
+  should 'not index by schema name when database is not postgresql' do
+    uses_sqlite
+    p1 = Product.create!(:name => 'some thing', :product_category => @product_category)
+    assert_equal Product.find_by_contents('thing'), [p1]
+    p2 = Product.create!(:name => 'another thing', :product_category => @product_category)
+    assert_includes Product.find_by_contents('thing'), p1
+    assert_includes Product.find_by_contents('thing'), p2
   end
 
 end

@@ -44,7 +44,7 @@
   }
 </script>
 
-<%= optional_field(@person, 'formation', select_area(_('Formation'), 'profile_data', 'formation', {:class => 'type-select-full-line'})) %>
+<%= optional_field(@person, 'formation', select_area(_('Education'), 'profile_data', 'formation', {:class => 'type-select-full-line'})) %>
 
 <span id='profile_data_custom_formation_span' <%= "style='display:none'" if ! ['Others', nil].include?(@person.formation) %> >
   <%= optional_field(@person, 'custom_formation', f.text_field(:custom_formation)) %>

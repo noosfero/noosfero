@@ -14,14 +14,11 @@
   <p><%= h block.owner.short_name %></p>
 <% end %>
 
-<% if !user.nil? and user.has_permission?('edit_profile', profile) %>
-  <div style='text-align: center; font-size: 75%; clear: both'>
-    <%= link_to _('Control panel'), :controller => 'profile_editor' %>
-  </div>
-<% end %>
+<div style="text-align: center; font-size: 75%; clear: both" id="profile-admin-url-<%= block.id %>"></div>
 
-<div class="profile-info-options">
-  <%= render :file => 'blocks/profile_info_actions/' + block.owner.class.name.underscore %>
-</div>
+<div class="profile-info-options" id="profile-info-options-<%= block.id %>"></div>
 
 </div><!-- end class="vcard" -->
+<script type="text/javascript">
+  <%= remote_function :url => { :controller => 'profile', :action => 'profile_info', :block_id => block.id } %>
+</script>

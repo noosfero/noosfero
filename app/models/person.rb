@@ -22,10 +22,17 @@ class Person < Profile
   has_many :scraps_sent, :class_name => 'Scrap', :foreign_key => :sender_id, :dependent => :destroy
 
   named_scope :more_popular,
-       :select => "#{Profile.qualified_column_names}, count(friend_id) as total",
-       :group => Profile.qualified_column_names,
-       :joins => :friendships,
-       :order => "total DESC"
+      :select => "#{Profile.qualified_column_names}, count(friend_id) as total",
+      :group => Profile.qualified_column_names,
+      :joins => "LEFT OUTER JOIN friendships on profiles.id = friendships.person_id",
+      :order => "total DESC"
+
+  named_scope :more_active,
+    :select => "#{Profile.qualified_column_names}, count(action_tracker.id) as total",
+    :joins => "LEFT OUTER JOIN action_tracker ON profiles.id = action_tracker.user_id",
+    :group => Profile.qualified_column_names,
+    :order => 'total DESC',
+    :conditions => ['action_tracker.created_at >= ? OR action_tracker.id IS NULL', ActionTracker::Record::RECENT_DELAY.days.ago]
 
   after_destroy do |person|
     Friendship.find(:all, :conditions => { :friend_id => person.id}).each { |friendship| friendship.destroy }
@@ -149,7 +156,7 @@ class Person < Profile
   N_('Schooling status')
   settings_items :schooling_status
 
-  N_('Formation'); N_('Custom formation'); N_('Custom area of study');
+  N_('Education'); N_('Custom education'); N_('Custom area of study');
   settings_items :formation, :custom_formation, :custom_area_of_study
 
   N_('Contact information'); N_('City'); N_('State'); N_('Country'); N_('Sex'); N_('Zip code')

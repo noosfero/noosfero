@@ -174,8 +174,9 @@ class ProfileControllerTest < Test::Unit::TestCase
 
   should 'not show Leave This Community button for non-registered users' do
     community = Community.create!(:name => 'my test community')
-    get :index, :profile => community.identifier
-    assert_no_tag :tag => 'a', :attributes => { :href => "/profile/#{@profile.identifier}/leave" }
+    community.boxes.first.blocks << block = ProfileInfoBlock.create!
+    get :profile_info, :profile => community.identifier, :block_id => block.id
+    assert_no_match /\/profile\/#{@profile.identifier}\/leave/, @response.body
   end
 
   should 'check access before displaying profile' do
@@ -190,26 +191,29 @@ class ProfileControllerTest < Test::Unit::TestCase
   should 'display add friend button' do
     login_as(@profile.identifier)
     friend = create_user_full('friendtestuser').person
-    get :index, :profile => friend.identifier
-    assert_tag :tag => 'a', :content => 'Add friend'
+    friend.boxes.first.blocks << block = ProfileInfoBlock.create!
+    get :profile_info, :profile => friend.identifier, :block_id => block.id
+    assert_match /Add friend/, @response.body
   end
 
   should 'not display add friend button if user already request friendship' do
     login_as(@profile.identifier)
     friend = create_user_full('friendtestuser').person
+    friend.boxes.first.blocks << block = ProfileInfoBlock.create!
     AddFriend.create!(:person => @profile, :friend => friend)
-    get :index, :profile => friend.identifier
-    assert_no_tag :tag => 'a', :content => 'Add friend'
+    get :profile_info, :profile => friend.identifier, :block_id => block.id
+    assert_no_match /Add friend/, @response.body
   end
 
   should 'not display add friend button if user already friend' do
     login_as(@profile.identifier)
     friend = create_user_full('friendtestuser').person
+    friend.boxes.first.blocks << block = ProfileInfoBlock.create!
     @profile.add_friend(friend)
     @profile.friends.reload
     assert @profile.is_a_friend?(friend)
-    get :index, :profile => friend.identifier
-    assert_no_tag :tag => 'a', :content => 'Add friend'
+    get :profile_info, :profile => friend.identifier, :block_id => block.id
+    assert_no_match /Add friend/, @response.body
   end
 
   should 'show message for disabled enterprise' do
@@ -293,82 +297,91 @@ class ProfileControllerTest < Test::Unit::TestCase
 
   should 'display contact us for enterprises' do
     ent = Enterprise.create!(:name => 'my test enterprise', :identifier => 'my-test-enterprise')
-    get :index, :profile => 'my-test-enterprise'
-    assert_tag :tag => 'a', :attributes => { :href => "/contact/my-test-enterprise/new" }, :content => /Send/
+    ent.boxes.first.blocks << block = ProfileInfoBlock.create!
+    get :profile_info, :profile => 'my-test-enterprise', :block_id => block.id
+    assert_match /\/contact\/my-test-enterprise\/new/, @response.body
   end
 
   should 'not display contact us for non-enterprises' do
-    get :index, :profile => @profile.identifier
-    assert_no_tag :tag => 'a', :attributes => { :href => "/contact/#{@profile.identifier}/new" }, :content => /Send/
+    @profile.boxes.first.blocks << block = ProfileInfoBlock.create!
+    get :profile_info, :profile => @profile, :block_id => block.id
+    assert_no_match /\/contact\/#{@profile.identifier}\/new/, @response.body
   end
 
   should 'display contact us only if enabled' do
-    ent = fast_create(Enterprise, :name => 'my test enterprise', :identifier => 'my-test-enterprise')
+    ent = Enterprise.create! :name => 'my test enterprise', :identifier => 'my-test-enterprise'
+    ent.boxes.first.blocks << block = ProfileInfoBlock.create!
     ent.update_attribute(:enable_contact_us, false)
-    get :index, :profile => 'my-test-enterprise'
-    assert_no_tag :tag => 'a', :attributes => { :href => "/contact/my-test-enterprise/new" }, :content => /Send/
+    get :profile_info, :profile => 'my-test-enterprise', :block_id => block.id
+    assert_no_match /\/contact\/my-test-enterprise\/new/, @response.body
   end
   
   should 'display contact button only if friends' do
     friend = create_user_full('friend_user').person
+    friend.boxes.first.blocks << block = ProfileInfoBlock.create!
     @profile.add_friend(friend)
     env = Environment.default
     env.disable('disable_contact_person')
     env.save!
     login_as(@profile.identifier)
-    get :index, :profile => friend.identifier
-    assert_tag :tag => 'a', :attributes => { :href => "/contact/#{friend.identifier}/new" }
+    get :profile_info, :profile => friend.identifier, :block_id => block.id
+    assert_match /\/contact\/#{friend.identifier}\/new/, @response.body
   end
 
   should 'not display contact button if no friends' do
     nofriend = create_user_full('no_friend').person
+    nofriend.boxes.first.blocks << block = ProfileInfoBlock.create!
     login_as(@profile.identifier)
-    get :index, :profile => nofriend.identifier
-    assert_no_tag :tag => 'a', :attributes => { :href => "/contact/#{nofriend.identifier}/new" }
+    get :profile_info, :profile => nofriend.identifier, :block_id => block.id
+    assert_no_match /\/contact\/#{nofriend.identifier}\/new/, @response.body
   end
 
   should 'display contact button only if friends and its enable in environment' do
     friend = create_user_full('friend_user').person
+    friend.boxes.first.blocks << block = ProfileInfoBlock.create!
     env = Environment.default
     env.disable('disable_contact_person')
     env.save!
     @profile.add_friend(friend)
     login_as(@profile.identifier)
-    get :index, :profile => friend.identifier
-    assert_tag :tag => 'a', :attributes => { :href => "/contact/#{friend.identifier}/new" }
+    get :profile_info, :profile => friend.identifier, :block_id => block.id
+    assert_match /\/contact\/#{friend.identifier}\/new/, @response.body
   end
 
   should 'not display contact button if friends and its disable in environment' do
     friend = create_user_full('friend_user').person
+    friend.boxes.first.blocks << block = ProfileInfoBlock.create!
     env = Environment.default
     env.enable('disable_contact_person')
     env.save!
     @profile.add_friend(friend)
     login_as(@profile.identifier)
-    get :index, :profile => friend.identifier
-    assert_no_tag :tag => 'a', :attributes => { :href => "/contact/#{friend.identifier}/new" }
+    get :profile_info, :profile => friend.identifier, :block_id => block.id
+    assert_no_match /\/contact\/#{friend.identifier}\/new/, @response.body
   end
 
   should 'display contact button for community if its enable in environment' do
     env = Environment.default
     community = Community.create!(:name => 'my test community', :environment => env)
+    community.boxes.first.blocks << block = ProfileInfoBlock.create!
     env.disable('disable_contact_community')
     env.save!
     community.add_member(@profile)
     login_as(@profile.identifier)
-    get :index, :profile => community.identifier
-    assert_tag :tag => 'a', :attributes => { :href => "/contact/#{community.identifier}/new" }
+    get :profile_info, :profile => community.identifier, :block_id => block.id
+    assert_match /\/contact\/#{community.identifier}\/new/, @response.body
   end
 
   should 'not display contact button for community if its disable in environment' do
     env = Environment.default
     community = Community.create!(:name => 'my test community', :environment => env)
+    community.boxes.first.blocks << block = ProfileInfoBlock.create!
     env.enable('disable_contact_community')
     env.save!
     community.add_member(@profile)
     login_as(@profile.identifier)
-    get :index, :profile => community.identifier
-    assert_no_tag :tag => 'a', :attributes => { :href => "/contact/#{community.identifier}/new" }
+    get :profile_info, :profile => community.identifier, :block_id => block.id
+    assert_no_match /\/contact\/#{community.identifier}\/new/, @response.body
   end
 
   should 'actually join profile' do

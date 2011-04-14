@@ -57,8 +57,8 @@ Feature: manage inputs
     Given I am logged in as "joaosilva"
     When I go to Rede Moinho's page of product Abbey Road
     And I follow "Inputs"
-    And I follow "Add the inputs or raw material used by this product"
-    When I follow "Cancel"
+    And I follow "Add the inputs or raw material used by this product" and wait until "#input-category-form" is present
+    And I click "css=a.cancel-add-input"
     Then I should see "Abbey Road"
     And I should see "Add the inputs or raw material used by this product"
 
@@ -182,12 +182,12 @@ Feature: manage inputs
     And I am logged in as "joaosilva"
     When I go to Rede Moinho's page of product Abbey Road
     And I follow "Inputs"
-    And I follow "Click here to add price and the amount used"
+    And I follow "Click here to add price and the amount used" and wait until ".input-details-form" is present
     Then I should see "Cancel"
     And I should see "Amount used"
     And I should see "Price"
     And I should see "This input or raw material inpact on the final price of the product?"
-    When I follow "Cancel"
+    When I click "css=a.cancel-edit-input"
     Then I should see "Click here to add price and the amount used"
 
   @selenium
@@ -215,6 +215,7 @@ Feature: manage inputs
     Then I should see "Rock"
     And I should not see "Add the inputs or raw material used by this product"
     When I follow "Remove"
+    And I confirm
     Then I should see "Add the inputs or raw material used by this product"
 
   @selenium

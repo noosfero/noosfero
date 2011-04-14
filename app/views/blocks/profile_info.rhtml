@@ -14,15 +14,13 @@
   </div>
 </div>
 
-<ul class="profile-info-data">
+<ul class="profile-info-data" id="profile-info-data-<%= block.id %>">
   <li><%= link_to __('Homepage'), block.owner.url, :class => 'url' %></li>
   <li><%= link_to _('View profile'), block.owner.public_profile_url %></li>
   <% if block.owner.enterprise? && !block.owner.environment.enabled?('disable_products_for_enterprises') %>
     <li><%= link_to(_('Products/Services'), :controller => 'catalog', :profile => block.owner.identifier) %></li>
   <% end %>
-  <% if !user.nil? and user.has_permission?('edit_profile', profile) %>
-    <li><%= link_to _('Control panel'), block.owner.admin_url %></li>
-  <% end %>
+  <li id="profile-admin-url-<%= block.id %>"></li>
   <% if profile.person? %>
     <li><%= _('Since %{year}/%{month}') % { :year => block.owner.created_at.year, :month => block.owner.created_at.month } %></li>
   <% end %>
@@ -39,8 +37,9 @@
 </div>
 <% end %>
 
-<div class="profile-info-options">
-  <%= render :file => 'blocks/profile_info_actions/' + block.owner.class.name.underscore %>
-</div>
+<div class="profile-info-options" id="profile-info-options-<%= block.id %>"></div>
 
 </div><!-- end class="vcard" -->
+<script type="text/javascript">
+  <%= remote_function :url => { :controller => 'profile', :action => 'profile_info', :block_id => block.id } %>
+</script>

@@ -78,18 +78,11 @@ class Profile < ActiveRecord::Base
   end
 
   named_scope :visible, :conditions => { :visible => true }
+  # Subclasses must override these methods
+  named_scope :more_popular
+  named_scope :more_active
+
   named_scope :more_recent, :order => "created_at DESC"
-  named_scope :more_popular,
-       :select => "#{Profile.qualified_column_names}, count(resource_id) as total",
-       :group => Profile.qualified_column_names,
-       :joins => :role_assignments,
-       :order => "total DESC"
-  named_scope :more_active,
-       :select => "#{Profile.qualified_column_names}, count(articles.id) as total, sum(articles.comments_count) as total_comments",
-       :joins => :articles,
-       :group => Profile.qualified_column_names,
-       :order => "total DESC, total_comments DESC",
-       :conditions => ["articles.created_at BETWEEN ? AND ?", 7.days.ago, DateTime.now]
 
   acts_as_trackable :dependent => :destroy
 
@@ -152,6 +145,7 @@ class Profile < ActiveRecord::Base
   assets
   doc
   chat
+  plugin
   ]
 
   belongs_to :user
@@ -778,18 +772,27 @@ private :generate_url, :url_options
     _("Since: ")
   end
 
+  def recent_actions
+    tracked_actions.recent
+  end
+
+  def recent_notifications
+    tracked_notifications.recent
+  end
+
   def more_active_label
-    amount = self.articles.count
+    amount = recent_actions.count
+    amount += recent_notifications.count if organization?
     {
-      0 => _('none'),
-      1 => _('one article')
-    }[amount] || _("%s articles") % amount
+      0 => _('no activity'),
+      1 => _('one activity')
+    }[amount] || _("%s activities") % amount
   end
 
   def more_popular_label
     amount = self.members_count
     {
-      0 => _('none'),
+      0 => _('no members'),
       1 => _('one member')
     }[amount] || _("%s members") % amount
   end

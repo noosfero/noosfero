@@ -62,7 +62,7 @@ class ApplicationControllerTest < Test::Unit::TestCase
   def test_local_files_reference
     assert_local_files_reference
   end
-  
+
   def test_valid_xhtml
     assert_valid_xhtml
   end
@@ -384,7 +384,7 @@ class ApplicationControllerTest < Test::Unit::TestCase
     uses_host 'other.environment'
     get :index
     assert_tag :tag => 'div', :attributes => {:id => 'user_menu_ul'}
-    assert_tag :tag => 'div', :attributes => {:id => 'user_menu_ul'}, 
+    assert_tag :tag => 'div', :attributes => {:id => 'user_menu_ul'},
                 :descendant => {:tag => 'a', :attributes => { :href => 'http://other.environment/adminuser' }},
                 :descendant => {:tag => 'a', :attributes => { :href => 'http://other.environment/myprofile/adminuser' }},
                 :descendant => {:tag => 'a', :attributes => { :href => '/admin' }}
@@ -441,4 +441,22 @@ class ApplicationControllerTest < Test::Unit::TestCase
     assert_tag :html, :attributes => { :lang => 'es' }
   end
 
+  if ActiveRecord::Base.connection.adapter_name == 'PostgreSQL'
+
+    should 'change postgresql schema' do
+      uses_host 'schema1.com'
+      Noosfero::MultiTenancy.expects(:on?).returns(true)
+      Noosfero::MultiTenancy.expects(:mapping).returns({ 'schema1.com' => 'schema1' })
+      exception = assert_raise(ActiveRecord::StatementInvalid) { get :index }
+      assert_match /SET search_path TO schema1/, exception.message
+    end
+
+    should 'not change postgresql schema if multitenancy is off' do
+      uses_host 'schema1.com'
+      Noosfero::MultiTenancy.stubs(:on?).returns(false)
+      Noosfero::MultiTenancy.stubs(:mapping).returns({ 'schema1.com' => 'schema1' })
+      assert_nothing_raised(ActiveRecord::StatementInvalid) { get :index }
+    end
+
+  end
 end

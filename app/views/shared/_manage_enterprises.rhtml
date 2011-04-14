@@ -1,0 +1,8 @@
+<div id='manage-enterprises'>
+  <a href="#" id='manage-enterprises-link' class='simplemenu-trigger' title='<%= _('Manage enterprises') %>'><i class="icon-menu-enterprise"></i><strong><%= ui_icon('ui-icon-triangle-1-s') + _('My enterprises') %></strong></a>
+  <ul class='simplemenu-submenu'>
+    <% enterprises_link.each do |link| %>
+      <li class='simplemenu-item'><%= link %></li>
+    <% end %>
+  </ul>
+</div>

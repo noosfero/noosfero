@@ -82,7 +82,7 @@ class BoxOrganizerController < ApplicationController
   def save
     @block = boxes_holder.blocks.find(params[:id])
     @block.update_attributes(params[:block])
-    expire_timeout_fragment(@block.cache_keys)
+    expire_timeout_fragment(@block.cache_key)
     redirect_to :action => 'index'
   end
 
@@ -93,7 +93,7 @@ class BoxOrganizerController < ApplicationController
   def remove
     @block = Block.find(params[:id])
     if @block.destroy
-      expire_timeout_fragment(@block.cache_keys)
+      expire_timeout_fragment(@block.cache_key)
       redirect_to :action => 'index'
     else
       session[:notice] = _('Failed to remove block')

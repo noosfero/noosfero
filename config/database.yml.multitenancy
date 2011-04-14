@@ -1,0 +1,33 @@
+# Refer to INSTALL.multitenancy for more information on Multitenancy support
+env1_production:
+  adapter: postgresql
+  encoding: unicode
+  database: noosfero
+  schema_search_path: public
+  username: noosfero
+  domains:
+    - env1.com
+    - env1.org
+
+env2_production:
+  adapter: postgresql
+  encoding: unicode
+  database: noosfero
+  schema_search_path: env2
+  username: noosfero
+  domains:
+    - env2.com
+    - env2.org
+
+env3_production:
+  adapter: postgresql
+  encoding: unicode
+  database: noosfero
+  schema_search_path: env3
+  username: noosfero
+  domains:
+    - env3.com
+    - env3.net
+
+production:
+  env1_production

@@ -51,6 +51,11 @@ class ContentViewerController < ApplicationController
       return
     end
 
+    if request.xhr? && params[:toolbar]
+      render :partial => 'article_toolbar'
+      return
+    end
+
     redirect_to_translation
 
     # At this point the page will be showed

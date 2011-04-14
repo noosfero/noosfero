@@ -17,7 +17,7 @@ module NoosferoHttpCaching
       if request.path == '/'
         n = environment.home_cache_in_minutes
       else
-        if params[:controller] != 'account' && request.path !~ /^\/admin/
+        if params[:controller] != 'account' && !request.xhr? && request.path !~ /^\/admin/
           n = environment.general_cache_in_minutes
         end
       end
@@ -28,7 +28,7 @@ module NoosferoHttpCaching
   end
 
   def noosfero_session_check_before
-    return if params[:controller] == 'account'
+    return if params[:controller] == 'account' || request.xhr?
     headers["X-Noosfero-Auth"] = (session[:user] != nil).to_s
   end
 

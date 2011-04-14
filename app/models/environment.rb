@@ -93,7 +93,6 @@ class Environment < ActiveRecord::Base
       'enterprise_registration' => __('Enterprise registration'),
 
       'enterprise_activation' => __('Enable activation of enterprises'),
-      'wysiwyg_editor_for_environment_home' => _('Use WYSIWYG editor to edit environment home page'),
       'media_panel' => _('Media panel in WYSIWYG editor'),
       'select_preferred_domain' => _('Select preferred domains per profile'),
       'use_portal_community' => _('Use the portal as news source for front page'),
@@ -220,7 +219,7 @@ class Environment < ActiveRecord::Base
   settings_items :currency_separator, :type => String, :default => '.'
   settings_items :currency_delimiter, :type => String, :default => ','
 
-  settings_items :trusted_sites_for_iframe, :type => Array, :default => ['itheora.org', 'tv.softwarelivre.org', 'stream.softwarelivre.org']
+  settings_items :trusted_sites_for_iframe, :type => Array, :default => ['itheora.org', 'tv.softwarelivre.org', 'stream.softwarelivre.org', 'www.youtube.com']
 
   settings_items :enabled_plugins, :type => Array, :default => []
 
@@ -274,7 +273,6 @@ class Environment < ActiveRecord::Base
       organizations_are_moderated_by_default
       show_balloon_with_profile_links_when_clicked
       use_portal_community
-      wysiwyg_editor_for_environment_home
     ).each do |feature|
       enable(feature)
     end

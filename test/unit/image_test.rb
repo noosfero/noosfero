@@ -95,4 +95,21 @@ class ImageTest < Test::Unit::TestCase
     end
   end
 
+  should 'upload to a folder with same name as the schema if database is postgresql' do
+    uses_postgresql
+    file = Image.create!(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :owner => profile)
+    process_delayed_job_queue
+    assert_match(/images\/test_schema\/\d{4}\/\d{4}\/rails.png/, Image.find(file.id).public_filename)
+    file.destroy
+    uses_sqlite
+  end
+
+  should 'upload to path prefix folder if database is not postgresql' do
+    uses_sqlite
+    file = Image.create!(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :owner => profile)
+    process_delayed_job_queue
+    assert_match(/images\/\d{4}\/\d{4}\/rails.png/, Image.find(file.id).public_filename)
+    file.destroy
+  end
+
 end

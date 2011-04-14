@@ -35,7 +35,7 @@ protected
     end
 
     blocks = profile.blocks.select{|b| b.kind_of?(FriendsBlock)}
-    blocks.map(&:cache_keys).each{|ck|expire_timeout_fragment(ck)}
+    blocks.map(&:cache_key).each{|ck|expire_timeout_fragment(ck)}
   end
 
 end

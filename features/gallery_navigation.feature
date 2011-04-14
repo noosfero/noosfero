@@ -7,20 +7,23 @@ Feature: gallery_navigation
       | login       |
       | marciopunk  |
     And the following galleries
-      | owner      | name       |
-      | marciopunk | my-gallery |
+      | owner      | name          |
+      | marciopunk | my-gallery    |
+      | marciopunk | other-gallery |
     And the following files
-      | owner      | file          | mime       | parent     |
-      | marciopunk | rails.png     | image/png  | my-gallery |
-      | marciopunk | other-pic.jpg | image/jpeg | my-gallery |
+      | owner      | file          | mime       | parent        |
+      | marciopunk | rails.png     | image/png  | my-gallery    |
+      | marciopunk | rails.png     | image/png  | other-gallery |
+      | marciopunk | other-pic.jpg | image/jpeg | my-gallery    |
 
   Scenario: provide link to go to next image
     Given I am on /marciopunk/my-gallery/other-pic.jpg?view=true
     Then I should see "Next »"
 
+  @selenium
   Scenario: view next image when follow next link
     Given I am on /marciopunk/my-gallery/other-pic.jpg?view=true
-    When I follow "Next »"
+    When I follow "Next »" and wait
     Then I should see "rails.png" within ".title"
 
   Scenario: not link to next when in last image
@@ -32,9 +35,10 @@ Feature: gallery_navigation
     Given I am on /marciopunk/my-gallery/other-pic.jpg?view=true
     Then I should see "« Previous"
 
+  @selenium
   Scenario: view previous image when follow previous link
     Given I am on /marciopunk/my-gallery/rails.png?view=true
-    When I follow "« Previous"
+    When I follow "« Previous" and wait
     Then I should see "other-pic.jpg" within ".title"
 
   Scenario: not link to previous when in first image
@@ -64,11 +68,11 @@ Feature: gallery_navigation
     When I follow "Go back to my-gallery"
     Then I should be on /marciopunk/my-gallery
 
+  @selenium
   Scenario: image title in window title
     Given I am logged in as "marciopunk"
-    And I go to /marciopunk/my-gallery/rails.png?view=true
-    When I follow "Edit"
+    When I visit "/marciopunk/other-gallery/rails.png?view=true" and wait
+    And I follow "Edit" and wait
     And I fill in "Title" with "Rails is cool"
-    And I press "Save"
-    And I go to /marciopunk/my-gallery/rails.png?view=true
-    And The page title should contain "Rails is cool"
+    And I press "Save" and wait
+    Then The page title should contain "Rails is cool"

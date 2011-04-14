@@ -300,7 +300,7 @@ function hideAllSubmenus() {
 
 // Hide visible ballons when clicked outside them
 jQuery(document).ready(function() {
-  jQuery('body').click(function() { hideAllSubmenus(); });
+  jQuery('body').live('click', function() { hideAllSubmenus(); });
   jQuery('.menu-submenu-trigger').click(function(e) { e.stopPropagation(); });
   jQuery('.simplemenu-trigger').click(function(e) { e.stopPropagation(); });
   jQuery('#chat-online-users').click(function(e) { e.stopPropagation(); });
@@ -649,6 +649,10 @@ jQuery(function($) {
       document.location.href = this.href;
     })
   }
+  $('#manage-enterprises-link').live('click', function() {
+    toggleMenu(this);
+    return false;
+  });
 });
 
 function add_comment_reply_form(button, comment_id) {

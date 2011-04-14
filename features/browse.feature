@@ -39,10 +39,9 @@ Feature: browse
     And I should see "Invite friends"
     And I should see "My friends"
 
-  @selenium
   Scenario: Browse people by query
     Given I go to /browse/people
-    When I fill in "query" with "Silva"
+    When I fill in "Silva" for "query"
     And I press "Search"
     Then I should see "Joao Silva"
     And I should see "Pedro Silva"
@@ -53,8 +52,8 @@ Feature: browse
   @selenium
   Scenario: Communities browse menu should add logged information
     Given I am logged in as "joaosilva"
-    And I am on the homepage
-    And I should not see "More Recent"
+    When I go to /joaosilva
+    Then I should not see "More Recent"
     And I should not see "More Active"
     And I should not see "More Popular"
     And I should not see "My communities"
@@ -76,14 +75,12 @@ Feature: browse
     And I should see "More Active"
     And I should see "More Popular"
 
-  @selenium
   Scenario: Browse communities by query
-    Given I go to /browse/communities
-    When I fill in "query" with "Silva"
+    When I go to /browse/communities
+    And I fill in "Neto" for "query"
     And I press "Search"
-    Then I should see "Community Silva"
+    Then I should see "Community Neto"
     And I should not see "Joao Silva"
     And I should not see "Pedro Silva"
     And I should not see "Paulo Neto"
-    And I should not see "Community Neto"
-
+    And I should not see "Community Silva"

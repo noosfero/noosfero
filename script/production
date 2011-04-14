@@ -23,8 +23,7 @@ do_start() {
 
   clear_cache
   ./script/ferret_server -e $RAILS_ENV start
-  ./script/feed-updater start
-  ./script/delayed_job start
+  environments_loop
   mongrel_rails cluster::start
 }
 
@@ -33,6 +32,20 @@ do_stop() {
   ./script/delayed_job stop
   ./script/feed-updater stop
   ./script/ferret_server -e $RAILS_ENV stop
+}
+
+environments_loop() {
+  environments=$(find ./config/environments -name *_$RAILS_ENV.rb)
+  if [ "$environments" ]; then
+    for environment in $environments; do
+      env=$(basename $environment | cut -d. -f1)
+      RAILS_ENV=$env ./script/delayed_job -i $env start
+      RAILS_ENV=$env ./script/feed-updater start -i $env
+    done
+  else
+    ./script/delayed_job start
+    ./script/feed-updater start
+  fi
 }
 
 case "$ACTION" in
@@ -58,4 +71,3 @@ case "$ACTION" in
     exit 1
     ;;
 esac
-
