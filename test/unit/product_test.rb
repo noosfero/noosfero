@@ -3,6 +3,7 @@ require File.dirname(__FILE__) + '/../test_helper'
 class ProductTest < Test::Unit::TestCase
 
   def setup
+    Test::Unit::TestCase::setup
     @product_category = fast_create(ProductCategory, :name => 'Products')
   end
 
@@ -92,7 +93,7 @@ class ProductTest < Test::Unit::TestCase
     p.stubs(:category_full_name).returns('interesting category')
     p.save!
 
-    assert_includes Product.find_by_contents('interesting'), p
+    assert_includes Product.find_by_contents('interesting')[:results], p
   end
 
   should 'have same lat and lng of its enterprise' do
@@ -355,24 +356,24 @@ class ProductTest < Test::Unit::TestCase
   should 'index by schema name when database is postgresql' do
     uses_postgresql 'schema_one'
     p1 = Product.create!(:name => 'some thing', :product_category => @product_category)
-    assert_equal Product.find_by_contents('thing'), [p1]
+    assert_equal Product.find_by_contents('thing')[:results], [p1]
     uses_postgresql 'schema_two'
     p2 = Product.create!(:name => 'another thing', :product_category => @product_category)
-    assert_not_includes Product.find_by_contents('thing'), p1
-    assert_includes Product.find_by_contents('thing'), p2
+    assert_not_includes Product.find_by_contents('thing')[:results], p1
+    assert_includes Product.find_by_contents('thing')[:results], p2
     uses_postgresql 'schema_one'
-    assert_includes Product.find_by_contents('thing'), p1
-    assert_not_includes Product.find_by_contents('thing'), p2
+    assert_includes Product.find_by_contents('thing')[:results], p1
+    assert_not_includes Product.find_by_contents('thing')[:results], p2
     uses_sqlite
   end
 
   should 'not index by schema name when database is not postgresql' do
     uses_sqlite
     p1 = Product.create!(:name => 'some thing', :product_category => @product_category)
-    assert_equal Product.find_by_contents('thing'), [p1]
+    assert_equal Product.find_by_contents('thing')[:results], [p1]
     p2 = Product.create!(:name => 'another thing', :product_category => @product_category)
-    assert_includes Product.find_by_contents('thing'), p1
-    assert_includes Product.find_by_contents('thing'), p2
+    assert_includes Product.find_by_contents('thing')[:results], p1
+    assert_includes Product.find_by_contents('thing')[:results], p2
   end
 
 end

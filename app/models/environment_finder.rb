@@ -48,14 +48,14 @@ class EnvironmentFinder
         end
       end
     else
-      ferret_options = {:page => options.delete(:page), :per_page => options.delete(:per_page)}
+      pg_options = {:page => options.delete(:page), :per_page => options.delete(:per_page)}
       if product_category && asset == :products
         # SECURITY no risk of SQL injection, since product_category_ids comes from trusted source
-        @environment.send(asset).find_by_contents(query, ferret_options, options.merge({:include => 'product_categorizations', :conditions => 'product_categorizations.category_id = (%s)' % product_category.id }))
+        @environment.send(asset).find_by_contents(query, pg_options, {}, options.merge({:include => 'product_categorizations', :conditions => 'product_categorizations.category_id = (%s)' % product_category.id }))[:results]
       elsif product_category && asset == :enterprises
-        @environment.send(asset).find_by_contents(query, ferret_options, options.merge(:joins => 'inner join product_categorizations on (product_categorizations.product_id = products.id)', :include => 'products', :conditions => "product_categorizations.category_id = (#{product_category.id})"))
+        @environment.send(asset).find_by_contents(query, pg_options, {}, options.merge(:joins => 'inner join product_categorizations on (product_categorizations.product_id = products.id)', :include => 'products', :conditions => "product_categorizations.category_id = (#{product_category.id})"))[:results]
       else
-        @environment.send(asset).find_by_contents(query, ferret_options, options)
+        @environment.send(asset).find_by_contents(query, pg_options, {}, options)[:results]
       end
     end
   end
