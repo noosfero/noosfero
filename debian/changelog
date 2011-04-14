@@ -1,3 +1,9 @@
+noosfero (0.30.1) unstable; urgency=low
+
+  * Bugfix Version release.
+
+ -- Joenio Costa <joenio@colivre.coop.br>  Thu, 14 Apr 2011 12:51:12 -0300
+
 noosfero (0.30.0) unstable; urgency=low
 
   * Features Version release.
