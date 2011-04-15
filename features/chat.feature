@@ -23,7 +23,7 @@ Feature: chat
   Scenario: provide the chat online users content
     Given feature "xmpp_chat" is enabled on environment
     And I am logged in as "tame"
-    Then I should see "Online friends "
+    Then I should see "Friends in chat "
 
   @selenium
   Scenario: provide the chat online users list
@@ -46,7 +46,7 @@ Feature: chat
   @selenium
   Scenario: not provide the chat online users list when environment not support that
     Given I am logged in as "tame"
-    Then I should not see "Online friends "
+    Then I should not see "Friends in chat "
 
   Scenario: block access to chat when environment not support that
     Given I am logged in as "tame"
