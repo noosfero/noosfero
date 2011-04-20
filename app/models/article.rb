@@ -509,6 +509,13 @@ class Article < ActiveRecord::Base
     self.parent && self.parent.accept_uploads?
   end
 
+  def body_images_paths
+    require 'uri'
+    Hpricot(self.body.to_s).search('img[@src]').collect do |i|
+      (self.profile && self.profile.environment) ? URI.join(self.profile.environment.top_url, i.attributes['src']).to_s : i.attributes['src']
+    end
+  end
+
   private
 
   def sanitize_tag_list

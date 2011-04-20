@@ -1526,4 +1526,33 @@ class ArticleTest < Test::Unit::TestCase
     assert_includes Article.find_by_contents('thing'), art2
   end
 
+  should 'get images paths in article body' do
+    Environment.any_instance.stubs(:default_hostname).returns('noosfero.org')
+    a = TinyMceArticle.new :profile => @profile
+    a.body = 'Noosfero <img src="http://noosfero.com/test.png" /> test <img src="http://test.com/noosfero.png" />'
+    assert_includes a.body_images_paths, 'http://noosfero.com/test.png'
+    assert_includes a.body_images_paths, 'http://test.com/noosfero.png'
+  end
+
+  should 'get absolute images paths in article body' do
+    Environment.any_instance.stubs(:default_hostname).returns('noosfero.org')
+    a = TinyMceArticle.new :profile => @profile
+    a.body = 'Noosfero <img src="test.png" alt="Absolute" /> test <img src="/relative/path.png" />'
+    assert_includes a.body_images_paths, 'http://noosfero.org/test.png'
+    assert_includes a.body_images_paths, 'http://noosfero.org/relative/path.png'
+  end
+
+  should 'return empty if there are no images in article body' do
+    Environment.any_instance.stubs(:default_hostname).returns('noosfero.org')
+    a = Event.new :profile => @profile
+    a.body = 'Noosfero test'
+    assert_equal [], a.body_images_paths
+  end
+
+  should 'return empty if body is nil' do
+    Environment.any_instance.stubs(:default_hostname).returns('noosfero.org')
+    a = Article.new :profile => @profile
+    assert_equal [], a.body_images_paths
+  end
+
 end
