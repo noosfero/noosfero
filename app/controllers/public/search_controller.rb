@@ -89,7 +89,7 @@ class SearchController < PublicController
     # REFACTOR DUPLICATED CODE inner loop doing the same thing that outter loop
 
     if !@query.blank? || @region && !params[:radius].blank?
-      @result_ids = @noosfero_finder.find(asset, @filtered_query, calculate_find_options(asset, nil, params[:page], @product_category, @region, params[:radius], params[:year], params[:month]).merge({:limit => :all}))
+      @result_ids = @noosfero_finder.find(asset, @query, calculate_find_options(asset, nil, params[:page], @product_category, @region, params[:radius], params[:year], params[:month]).merge({:limit => :all}))
     end
 
   end
@@ -149,7 +149,6 @@ class SearchController < PublicController
 
   def index
     @query = params[:query] || ''
-    @filtered_query = remove_stop_words(@query)
     @product_category = ProductCategory.find(params[:product_category]) if params[:product_category]
 
     @region = City.find_by_id(params[:city]) if !params[:city].blank? && params[:city] =~ /^\d+$/
@@ -163,7 +162,7 @@ class SearchController < PublicController
 
     where_to_search.select { |key,description| @searching[key]  }.each do |key, description|
       @order << key
-      @results[key] = @noosfero_finder.find(key, @filtered_query, calculate_find_options(key, limit, params[:page], @product_category, @region, params[:radius], params[:year], params[:month]))
+      @results[key] = @noosfero_finder.find(key, @query, calculate_find_options(key, limit, params[:page], @product_category, @region, params[:radius], params[:year], params[:month]))
       @names[key] = getterm(description)
     end
 
