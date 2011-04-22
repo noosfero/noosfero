@@ -1,15 +1,19 @@
 module ActsAsSearchable
 
   module ClassMethods
+    ACTS_AS_SEARCHABLE_ENABLED = true unless defined? ACTS_AS_SEARCHABLE_ENABLED
+
     def acts_as_searchable(options = {})
-      if (!options[:fields])
-        options[:additional_fields] |= [{:schema_name => :string}]
-      else
-        options[:fields] << {:schema_name => :string}
+      if ACTS_AS_SEARCHABLE_ENABLED
+        if (!options[:fields])
+          options[:additional_fields] |= [{:schema_name => :string}]
+        else
+          options[:fields] << {:schema_name => :string}
+        end
+        acts_as_solr options
+        extend FindByContents
+        send :include, InstanceMethods
       end
-      acts_as_solr options
-      extend FindByContents
-      send :include, InstanceMethods
     end
 
     module InstanceMethods
