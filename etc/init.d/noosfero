@@ -48,9 +48,9 @@ SOLR_PID_FILE=$NOOSFERO_DIR/tmp/pids/solr.production.pid
 main_script() {
   cd $NOOSFERO_DIR
   if [ "$NOOSFERO_USER" != "$USER" ]; then
-    su $NOOSFERO_USER -l -c "./script/production $1"
+    su $NOOSFERO_USER -l -c "SOLR_DATA_PATH=/var/lib/noosfero/solr ./script/production $1"
   else
-    ./script/production $1
+    SOLR_DATA_PATH=/var/lib/noosfero/solr ./script/production $1
   fi
 }
 
@@ -74,6 +74,13 @@ do_setup() {
     mkdir /var/tmp/noosfero
     chown $NOOSFERO_USER:root /var/tmp/noosfero
     chmod 750 /var/tmp/noosfero
+  fi
+
+  # Solr directory
+  if [ ! -d /var/tmp/noosfero/solr ]; then
+    mkdir -p /var/tmp/noosfero/solr
+    chown $NOOSFERO_USER:root /var/tmp/noosfero/solr
+    chmod 750 /var/tmp/noosfero/solr
   fi
 
   # symlink the directories into Noosfero directory
