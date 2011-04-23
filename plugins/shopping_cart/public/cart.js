@@ -14,7 +14,6 @@ function Cart(config) {
     $(".cart-buy", this.cartElem).colorbox({href: '/profile/' + this.enterprise + '/plugins/shopping_cart/buy'});
     this.listProducts();
   }
-
 }
 
 (function($){
