@@ -1,3 +1,4 @@
+<% enterprise_identifier = !locals[:cart].nil? ? Enterprise.find(locals[:cart][:enterprise_id]).identifier : 'bli'%>
 <div id="cart1" class="cart" style="display:none"
   data-l10nRemoveItem="<%=_('Are you sure you want to remove this item?')%>"
   data-l10nCleanCart="<%=_('Are you sure you want to clean your cart?')%>">
