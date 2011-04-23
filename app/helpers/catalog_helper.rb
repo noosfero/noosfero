@@ -8,7 +8,7 @@ include ManageProductsHelper
     products.each { |product|
       extra_content = @plugins.map(:catalog_item_extras, product).collect { |content| instance_eval(&content) }
       data << content_tag('li',
-        link_to_product(product, :class => 'product-pic', :style => 'background-image:url(%s)' % ( product.image ? product.image.public_filename(:portrait) : '/images/icons-app/product-default-pic-portrait.png' )) +
+        link_to_product(product, :class => 'product-pic', :style => 'background-image:url(%s)' % product.default_image(:portrait) ) +
         content_tag('h3', link_to_product(product)) +
         content_tag('ul',
           (product.price ? content_tag('li', _('Price: %s') % ( "%.2f" % product.price), :class => 'product_price') : '') +

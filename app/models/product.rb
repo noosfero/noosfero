@@ -68,7 +68,7 @@ class Product < ActiveRecord::Base
   end
 
   def default_image(size='thumb')
-    '/images/icons-app/product-default-pic-%s.png' % size
+    image ? image.public_filename(size) : '/images/icons-app/product-default-pic-%s.png' % size
   end
 
   def category_full_name
