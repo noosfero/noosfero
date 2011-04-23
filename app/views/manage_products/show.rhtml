@@ -14,6 +14,8 @@
     </div>
     <div id='product-info'>
       <%= render :partial => 'manage_products/display_info' %>
+      <% extra_content = @plugins.map(:product_info_extras, @product).collect { |content| instance_eval(&content) } %>
+      <%= extra_content.join("\n") %>
     </div>
   </div>
 

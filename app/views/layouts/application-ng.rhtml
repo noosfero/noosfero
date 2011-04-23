@@ -13,10 +13,20 @@
     <%= stylesheet_link_tag icon_theme_stylesheet_path %>
     <%= stylesheet_link_tag theme_stylesheet_path %>
     <%= stylesheet_link_tag jquery_ui_theme_stylesheet_path %>
+    <% @plugins.enabled_plugins.each do |plugin| %>
+      <% if plugin.stylesheet? %>
+        <%= stylesheet_tag plugin.class.public_path('style.css'), {} %>
+      <% end %>
+    <% end %>
 
     <%# Add custom tags/styles/etc via content_for %>
     <%= yield :head %>
     <%= javascript_tag('render_all_jquery_ui_widgets()') %>
+    <% @plugins.enabled_plugins.each do |plugin| %>
+      <% plugin.js_files.each do |js_file| %>
+        <%= javascript_src_tag plugin.class.public_path(js_file), {} %>
+      <% end %>
+    <% end %>
   </head>
   <body class="<%=
     # Identify the current controller and action for the CSS:
@@ -27,6 +37,11 @@
     %>" >
 
     <a href="#content" id="link-go-content"><span><%= _("Go to the content") %></span></a>
+    <%=
+      @plugins.map(:body_beginning).collect do |content|
+        content.respond_to?(:call) ? content.call : content
+      end.join('\n')
+    %>
 
     <div id="wrap-1">
       <div id='theme-header'>

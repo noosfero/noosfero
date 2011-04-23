@@ -32,7 +32,15 @@ class Noosfero::Plugin
     # Here the developer should specify the meta-informations that the plugin can
     # inform.
     def plugin_name
-      self.to_s.underscore.humanize
+      self.name.underscore.humanize
+    end
+
+    def public_name
+      self.name.underscore.gsub('_plugin','')
+    end
+
+    def public_path(file = '')
+      compute_public_path((public_name + '/' + file), 'plugins')
     end
 
     def plugin_description
@@ -41,12 +49,18 @@ class Noosfero::Plugin
 
   end
 
-  def expanded_template(original_path, file_path, locals = {})
-    while(File.basename(File.dirname(original_path)) != 'plugins')
-      original_path = File.dirname(original_path)
-    end
+  def expanded_template(file_path, locals = {})
+    views_path = "#{RAILS_ROOT}/plugins/#{self.class.public_name}/views"
+    ERB.new(File.read("#{views_path}/#{file_path}")).result(binding)
+  end
 
-    ERB.new(File.read("#{original_path}/#{file_path}")).result(binding)
+  # Here the developer may specify the events to which the plugins can
+  # register and must return true or false. The default value must be false.
+
+  # -> If true, noosfero will include plugin_dir/public/style.css into
+  # application
+  def stylesheet?
+    false
   end
 
   # Here the developer should specify the events to which the plugins can
@@ -70,6 +84,30 @@ class Noosfero::Plugin
   #   start   = boolean that specifies if the tab must come before noosfero tabs (optional).
   def profile_tabs
     nil
+  end
+
+  # -> Adds content to calalog item
+  # returns = lambda block that creates a html code
+  def catalog_item_extras(item)
+    nil
+  end
+
+  # -> Adds content to products info
+  # returns = lambda block that creates a html code
+  def product_info_extras(product)
+    nil
+  end
+
+  # -> Adds content to the beginning of the page
+  # returns = lambda block that creates html code or raw rhtml/html.erb
+  def body_beginning
+    nil
+  end
+
+  # -> Add plugins' javascript files to application
+  # returns = ['example1.js', 'javascripts/example2.js', 'example3.js']
+  def js_files
+    []
   end
 
 end
