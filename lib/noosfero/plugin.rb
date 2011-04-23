@@ -31,12 +31,6 @@ class Noosfero::Plugin
       all << subclass.to_s unless all.include?(subclass.to_s)
     end
 
-    # Here the developer should specify the meta-informations that the plugin can
-    # inform.
-    def plugin_name
-      self.name.underscore.humanize
-    end
-
     def public_name
       self.name.underscore.gsub('_plugin','')
     end
@@ -45,6 +39,12 @@ class Noosfero::Plugin
       compute_public_path((public_name + '/' + file), 'plugins')
     end
 
+
+    # Here the developer should specify the meta-informations that the plugin can
+    # inform.
+    def plugin_name
+      self.name.underscore.humanize
+    end
     def plugin_description
       _("No description informed.")
     end
