@@ -72,11 +72,14 @@ _say(){
 _enable(){
   plugin="$1"
   source="$available_plugins_dir/$plugin"
-  target=""$enabled_plugins_dir/$plugin""
+  target="$enabled_plugins_dir/$plugin"
   if [ -h "$target" ]; then
     _say "$plugin already enabled"
   else
     ln -s "$source" "$target"
+    plugins_public_dir="$NOOSFERO_DIR/public/plugins"
+    test -d "$plugins_public_dir" || mkdir -p "$plugins_public_dir"
+    test -d "$target/public/" && ln -s "$target/public" "$plugins_public_dir/$plugin"
     _say "$plugin enabled"
   fi
 }
@@ -84,8 +87,10 @@ _enable(){
 _disable(){
   plugin="$1"
   target="$enabled_plugins_dir/$plugin"
+  plugins_public_dir="$NOOSFERO_DIR/public/plugins"
   if [ -h "$target" ]; then
     rm "$target"
+    rm "$plugins_public_dir/$plugin"
     _say "$plugin disabled"
   else
     _say "$plugin already disabled"
