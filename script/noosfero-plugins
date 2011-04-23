@@ -78,7 +78,6 @@ _enable(){
   else
     ln -s "$source" "$target"
     plugins_public_dir="$NOOSFERO_DIR/public/plugins"
-    test -d "$plugins_public_dir" || mkdir -p "$plugins_public_dir"
     test -d "$target/public/" && ln -s "$target/public" "$plugins_public_dir/$plugin"
     _say "$plugin enabled"
   fi
