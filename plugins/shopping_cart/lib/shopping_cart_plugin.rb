@@ -46,5 +46,4 @@ class ShoppingCartPlugin < Noosfero::Plugin
       { :title => 'Shopping cart', :icon => 'shopping_cart_icon', :url => {:controller => 'shopping_cart_plugin_myprofile', :action => 'edit'} }
     end
   end
-
 end
