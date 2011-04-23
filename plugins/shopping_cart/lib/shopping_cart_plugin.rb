@@ -27,7 +27,7 @@ class ShoppingCartPlugin < Noosfero::Plugin
   end
 
   def js_files
-    ['cart.js']
+    ['cart.js', 'colorbox/jquery.colorbox.js']
   end
 
   def body_beginning

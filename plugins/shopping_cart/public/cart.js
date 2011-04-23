@@ -7,12 +7,14 @@ function Cart(config) {
   this.itemsBox = $("#cart1 .cart-items");
   this.items = {};
   this.visible = false;
+  $(".cart-buy", this.cartElem).button({ icons: { primary: 'ui-icon-cart'} });
   if (config.hasProducts) {
     $(this.cartElem).show();
     this.enterprise = config.enterprise;
+    $(".cart-buy", this.cartElem).colorbox({href: '/profile/' + this.enterprise + '/plugins/shopping_cart/buy'});
     this.listProducts();
   }
-  $(".cart-buy", this.cartElem).button({ icons: { primary: 'ui-icon-cart'} });
+
 }
 
 (function($){
@@ -235,6 +237,43 @@ function Cart(config) {
       cache: false,
       error: function(ajax, status, errorThrown) {
         alert('Remove item - HTTP '+status+': '+errorThrown);
+      }
+    });
+  }
+
+  Cart.send_request = function(button) {
+    var params = {};
+    params['name'] = $('#name', button.parentNode).val();
+    params['email'] = $('#email', button.parentNode).val();
+    params['contact_phone'] = $('#contact_phone', button.parentNode).val();
+    params['address'] = $('#address', button.parentNode).val();
+    Cart.instance.send_request(params);
+  }
+
+  Cart.prototype.send_request = function(p) {
+    params = "?";
+    for( var attribute in p ) {
+      var value = p[attribute];
+      params += attribute+'='+value+'&';
+    }
+    params = params.substring(0, params.length-1);
+    var me = this;
+    $.ajax({
+      url: '/profile/'+ me.enterprise +'/plugins/shopping_cart/send_request'+params,
+      dataType: 'json',
+      success: function(data, status, ajax){
+        if ( !data.ok ) display_notice(data.error.message);
+        else {
+          me.clean();
+          display_notice(data.message);
+        }
+      },
+      cache: false,
+      error: function(ajax, status, errorThrown) {
+        alert('Remove item - HTTP '+status+': '+errorThrown);
+      },
+      complete: function() {
+        $.colorbox.close();
       }
     });
   }

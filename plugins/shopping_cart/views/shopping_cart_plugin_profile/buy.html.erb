@@ -1,0 +1,9 @@
+<% person = user.nil? ? Person.new : user %>
+<% form_tag :action => 'send_request' do %>
+  <%= labelled_form_field( _("Full name"), text_field_tag(:name, person.name) ) %>
+  <%= labelled_form_field( _("Email"), text_field_tag(:email, person.email) ) %>
+  <%= labelled_form_field( _("Phone number"), text_field_tag(:contact_phone, person.contact_phone) ) %>
+  <%= labelled_form_field( _("Delivery address"), text_field_tag(:address, person.address) ) %>
+  <br style='clear: both'/><br style='clear: both'/>
+  <input class="button with-text icon-send" value="<%=_('Send')%>" type="submit" onclick="Cart.send_request(this); return false">
+<% end %>

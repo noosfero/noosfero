@@ -1,3 +1,4 @@
+<% enterprise_identifier = !locals[:cart].nil? ? Enterprise.find(locals[:cart][:enterprise_id]).identifier : 'bli'%>
 <div id="cart1" class="cart" style="display:none"
   data-l10nRemoveItem="<%=_('Are you sure you want to remove this item?')%>"
   data-l10nCleanCart="<%=_('Are you sure you want to clean your cart?')%>">
@@ -7,7 +8,7 @@
       <a href="cart:clean" onclick="Cart.clean(this); return false" class="cart-clean"><%=_('Clean cart')%></a>
       <ul class="cart-items"></ul>
       <div class="cart-total"><%=_('Total:')%> <b></b></div>
-      <a href="cart:buy" class="cart-buy" onclick="alert('foi mô pai!'); return false"><%=_('Shopping checkout')%></a>
+      <a href="cart:buy" class="cart-buy"><%=_('Shopping checkout')%></a>
     </div>
     <a href="#" onclick="Cart.toggle(this); return false" class="cart-toggle">
       <span class="str-show"><%=_('Show cart')%></span>

@@ -1,6 +1,7 @@
 include ActionView::Helpers::NumberHelper
 
 class ShoppingCartPluginProfileController < ProfileController
+  append_view_path File.join(File.dirname(__FILE__) + '/../views')
 
   def add
     session[:cart] = { :enterprise_id => profile.id, :items => {} } if session[:cart].nil?
@@ -79,6 +80,30 @@ class ShoppingCartPluginProfileController < ProfileController
     }.to_json
   end
 
+  def buy
+    render :layout => false
+  end
+
+  def send_request
+    begin
+      #implement send email here
+      render :text => {
+        :ok => true,
+        :message => _('Request sent successfully. Check your email.'),
+        :error => {:code => 0}
+      }.to_json
+    rescue
+      render :text => {
+        :ok => false,
+        :message => _('Your request failed.'),
+        :error => {
+          :code => 6,
+          :message => _('Send request failed.')
+        }
+      }.to_json
+    end
+  end
+
   private
 
   def validate_same_enterprise
@@ -86,9 +111,9 @@ class ShoppingCartPluginProfileController < ProfileController
       render :text => {
         :ok => false,
         :error => {
-          :code => 1,
-          :message => _("Can't join items from different enterprises.")
-        }
+        :code => 1,
+        :message => _("Can't join items from different enterprises.")
+      }
       }.to_json
       return false
     end
@@ -100,9 +125,9 @@ class ShoppingCartPluginProfileController < ProfileController
       render :text => {
         :ok => false,
         :error => {
-          :code => 2,
-          :message => _("There is no cart.")
-        }
+        :code => 2,
+        :message => _("There is no cart.")
+      }
       }.to_json
       return false
     end
@@ -116,9 +141,9 @@ class ShoppingCartPluginProfileController < ProfileController
       render :text => {
         :ok => false,
         :error => {
-          :code => 3,
-          :message => _("This enterprise doesn't have this product.")
-        }
+        :code => 3,
+        :message => _("This enterprise doesn't have this product.")
+      }
       }.to_json
       return nil
     end
@@ -130,9 +155,9 @@ class ShoppingCartPluginProfileController < ProfileController
       render :text => {
         :ok => false,
         :error => {
-          :code => 4,
-          :message => _("The cart doesn't have this product.")
-        }
+        :code => 4,
+        :message => _("The cart doesn't have this product.")
+      }
       }.to_json
       return false
     end
@@ -144,9 +169,9 @@ class ShoppingCartPluginProfileController < ProfileController
       render :text => {
         :ok => false,
         :error => {
-          :code => 5,
-          :message => _("Invalid quantity.")
-        }
+        :code => 5,
+        :message => _("Invalid quantity.")
+      }
       }.to_json
       return false
     end
