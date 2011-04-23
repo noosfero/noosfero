@@ -1,0 +1,12 @@
+<h1> <%= _('Cart options') %> </h1>
+
+<%# form_for :profile, profile, :url => {:action => 'edit'} do %>
+<% form_tag :action => 'edit' do %>
+  <%= labelled_check_box(_('Enabled?'), :shopping_cart, '1', profile.shopping_cart) %>
+  <br style='clear: both'/>
+  <br style='clear: both'/>
+  <div>
+    <%= submit_button(:save, _('Save')) %>
+    <%= button :back, _('Back to control panel'), :controller => 'profile_editor' %>
+  </div>
+<% end%>

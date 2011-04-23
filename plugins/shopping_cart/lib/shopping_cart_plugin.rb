@@ -9,12 +9,14 @@ class ShoppingCartPlugin < Noosfero::Plugin
   end
 
   def add_to_cart_button(item)
-     lambda {
-       link_to(_('Add to cart'), "add:#{item.name}",
-         :class => 'cart-add-item',
-         :onclick => "Cart.addItem('#{profile.identifier}', #{item.id}, this); return false"
-       )
-     }
+    if context.profile.shopping_cart
+       lambda {
+         link_to(_('Add to cart'), "add:#{item.name}",
+           :class => 'cart-add-item',
+           :onclick => "Cart.addItem('#{profile.identifier}', #{item.id}, this); return false"
+         )
+       }
+    end
   end
 
   alias :product_info_extras :add_to_cart_button
@@ -30,6 +32,12 @@ class ShoppingCartPlugin < Noosfero::Plugin
 
   def body_beginning
     expanded_template('cart.html.erb',{:cart => context.session[:cart]})
+  end
+
+  def control_panel_buttons
+    if context.profile.enterprise?
+      { :title => 'Shopping cart', :icon => 'shopping_cart_icon', :url => {:controller => 'shopping_cart_plugin_myprofile', :action => 'edit'} }
+    end
   end
 
 end
