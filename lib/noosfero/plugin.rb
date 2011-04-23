@@ -1,4 +1,6 @@
 require 'noosfero'
+include ActionView::Helpers::AssetTagHelper
+
 class Noosfero::Plugin
 
   attr_accessor :context
