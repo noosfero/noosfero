@@ -29,7 +29,6 @@ module ActsAsSearchable
       end
 
       def find_by_contents(query, pg_options = {}, options = {}, db_options = {})
-        pg_options[:page] ||= 1
         options[:limit] = 1000000;
         options[:scores] = true;
 
@@ -40,7 +39,7 @@ module ActsAsSearchable
         else
           facets = options.include?(:facets) ? solr_result.facets : {}
           if db_options.empty?
-            results = solr_result.results.paginate(pg_options)
+            results = solr_result.results
           else
             ids = solr_result.results.map{|r|r[:id].to_i}
             if ids.empty?
@@ -53,11 +52,14 @@ module ActsAsSearchable
               db_options[:conditions] = "#{table_name}.id in (#{ids.join(', ')})"
             end
 
-            result = find(:all, db_options)
-            results = result.paginate(pg_options)
+            results = find(:all, db_options)
           end
         end
 
+        if !pg_options.empty?
+            pg_options[:page] ||= 1
+            results = results.paginate(pg_options)
+        end
         {:results => results, :facets => facets}
       end
     end
