@@ -20,9 +20,14 @@ Given /^the following (community|communities|enterprises?|organizations?)$/ do |
   klass = kind.singularize.camelize.constantize
   table.hashes.each do |row|
     owner = row.delete("owner")
+    domain = row.delete("domain")
     organization = klass.create!(row)
     if owner
       organization.add_admin(Profile[owner])
+    end
+    if domain
+      d = Domain.new :name => domain, :owner => organization
+      d.save(false)
     end
   end
 end
@@ -392,3 +397,7 @@ Given /^"([^\"]*)" asked to join "([^\"]*)"$/ do |person, organization|
   AddMember.create!(:person => person, :organization => organization)
 end
 
+Given /^the environment domain is "([^\"]*)"$/ do |domain|
+  d = Domain.new :name => domain, :owner => Environment.default
+  d.save(false)
+end
