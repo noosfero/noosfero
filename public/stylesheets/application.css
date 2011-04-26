@@ -3216,6 +3216,85 @@ div#activation_enterprise div {
   font-weight: bold;
 }
 
+/* * * * * * Price details  * * * * * */
+
+#product-price-details {
+  border: 1px solid #AAA;
+  margin-top: 20px;
+  padding: 15px 20px;
+}
+
+#display-price-details .price-details-list {
+  padding-left: 0px;
+}
+
+#display-price-details .price-details-list li {
+  list-style: none;
+}
+
+#display-price-details .price-details-list li .price-detail-name {
+  width: 200px;
+}
+
+#display-price-details .price-details-list li .price-detail-name,
+#display-price-details .price-details-list li .price-detail-price {
+  display: inline-block;
+}
+
+#manage-product-details-form .formlabel,
+#manage-product-details-form .formfield {
+  display: inline-block;
+}
+
+/* * * Progress bar on price details edition * * */
+
+#display-manage-price-details .ui-widget-content {
+  border: 1px solid #DDD;
+}
+
+#display-manage-price-details .ui-progressbar {
+  height: 20px;
+}
+
+#display-manage-price-details .ui-progressbar .ui-progressbar-value {
+  margin: 0px;
+  background-color: #A40000;
+}
+
+#display-manage-price-details .ui-progressbar .ui-progressbar-value.price-described {
+  background-color: #4E9A06;
+}
+
+#display-manage-price-details #price-details-info {
+  margin: 10px 0px;
+}
+
+#display-manage-price-details #details-progressbar {
+  position: relative;
+  width: 410px;
+  display: inline-block;
+}
+
+#display-manage-price-details #progressbar-text {
+  position: absolute;
+  top: 5px;
+  right: 7px;
+  font-size: 11px;
+}
+
+#display-manage-price-details #progressbar-icon {
+  display: inline-block;
+  cursor: pointer;
+}
+
+#display-manage-price-details #details-progressbar .ui-corner-left,
+#display-manage-price-details #details-progressbar .ui-corner-right {
+  -moz-border-radius-bottomleft: 0px;
+  -moz-border-radius-bottomright: 0px;
+  -moz-border-radius-topleft: 0px;
+  -moz-border-radius-topright: 0px;
+}
+
 /* ==> public/stylesheets/controller_cms.css <== */
 
 

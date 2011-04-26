@@ -1,0 +1,13 @@
+<% price_details.each do |price_detail| %>
+  <tr id='<%= "price-detail-#{price_detail.id}" %>'>
+    <td><%= select_production_cost(@product, price_detail.production_cost_id) %></td>
+    <td><%= labelled_form_field(environment.currency_unit, text_field_tag('price_details[][price]', price_detail.formatted_value(:price), :class => 'price-details-price numbers-only')) %></td>
+    <td>
+      <%= button_to_remote(:remove, _('Remove'),
+                           :update => "price-detail-#{price_detail.id}",
+                           :confirm => _('Are you sure that you want to remove this cost?'),
+                           :url => { :action => 'remove_price_detail', :id => price_detail, :product => @product }) %>
+  </tr>
+<% end %>
+
+<%= render :partial => 'shared/numbers_only_javascript' %>

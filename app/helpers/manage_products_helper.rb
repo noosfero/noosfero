@@ -271,4 +271,15 @@ module ManageProductsHelper
     return input_amount_used if input.unit.blank?
     n_('1 %{singular_unit}', '%{num} %{plural_unit}', input.amount_used.to_f) % { :num => input_amount_used, :singular_unit => content_tag('span', input.unit.singular, :class => 'input-unit'), :plural_unit => content_tag('span', input.unit.plural, :class => 'input-unit') }
   end
+
+  def select_production_cost(product,selected=nil)
+    url = url_for( :controller => 'manage_products', :action => 'create_production_cost' )
+    prompt_msg = _('Insert the name of the new cost:')
+    error_msg = _('Something went wrong. Please, try again')
+    select_tag('price_details[][production_cost_id]',
+               options_for_select(product.available_production_costs.map {|item| [truncate(item.name, 10, '...'), item.id]} + [[_('Other cost'), '']], selected),
+               {:include_blank => _('Select the cost'),
+                :class => 'production-cost-selection',
+                :onchange => "productionCostTypeChange(this, '#{url}', '#{prompt_msg}', '#{error_msg}')"})
+  end
 end

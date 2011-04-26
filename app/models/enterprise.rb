@@ -6,6 +6,7 @@ class Enterprise < Organization
 
   has_many :products, :dependent => :destroy, :order => 'name ASC'
   has_many :inputs, :through => :products
+  has_many :production_costs, :as => :owner
 
   extra_data_for_index :product_categories
 
@@ -164,5 +165,4 @@ class Enterprise < Organization
   def enable_contact?
     enable_contact_us
   end
-
 end
