@@ -89,7 +89,8 @@ class SearchController < PublicController
     # REFACTOR DUPLICATED CODE inner loop doing the same thing that outter loop
 
     if !@query.blank? || @region && !params[:radius].blank?
-      @result_ids = @noosfero_finder.find(asset, @query, calculate_find_options(asset, nil, params[:page], @product_category, @region, params[:radius], params[:year], params[:month]).merge({:limit => :all}))
+      ret = @noosfero_finder.find(asset, @query, calculate_find_options(asset, nil, params[:page], @product_category, @region, params[:radius], params[:year], params[:month]).merge({:limit => :all}))
+      @result_ids = ret.is_a?(Hash) ? ret[:results] : ret
     end
 
   end
@@ -157,12 +158,16 @@ class SearchController < PublicController
     number_of_result_assets = @searching.values.select{|v| v}.size
 
     @results = {}
+    @facets = {}
     @order = []
     @names = {}
 
     where_to_search.select { |key,description| @searching[key]  }.each do |key, description|
       @order << key
-      @results[key] = @noosfero_finder.find(key, @query, calculate_find_options(key, limit, params[:page], @product_category, @region, params[:radius], params[:year], params[:month]))
+      find_options = calculate_find_options(key, limit, params[:page], @product_category, @region, params[:radius], params[:year], params[:month]);
+      ret = @noosfero_finder.find(key, @query, find_options)
+      @results[key] = ret.is_a?(Hash) ? ret[:results] : ret
+      @facets[key] = ret.is_a?(Hash) ? ret[:facets] : {}
       @names[key] = getterm(description)
     end
 

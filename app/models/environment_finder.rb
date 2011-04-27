@@ -22,6 +22,8 @@ class EnvironmentFinder
     end
 
     if query.blank?
+      options.delete(:facets)
+
       # FIXME this test is in more than one place
       if finder_method == 'paginate'
         options = {:order => "#{asset_table(asset)}.name"}.merge(options)
