@@ -412,14 +412,14 @@ class ProfileDesignControllerTest < Test::Unit::TestCase
   end
 
   should 'allow admins to add RawHTMLBlock' do
-    profile.stubs(:is_admin?).with(anything).returns(true)
+    profile.stubs(:is_admin?).with(profile.environment).returns(true)
     @controller.stubs(:user).returns(profile)
     get :add_block, :profile => 'designtestuser'
     assert_tag :tag => 'input', :attributes => { :id => 'type_rawhtmlblock', :value => 'RawHTMLBlock' }
   end
 
   should 'not allow normal users to add RawHTMLBlock' do
-    profile.stubs(:is_admin?).with(anything).returns(false)
+    profile.stubs(:is_admin?).with(profile.environment).returns(false)
     @controller.stubs(:user).returns(profile)
     get :add_block, :profile => 'designtestuser'
     assert_no_tag :tag => 'input', :attributes => { :id => 'type_rawhtmlblock', :value => 'RawHTMLBlock' }
