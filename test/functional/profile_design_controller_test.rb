@@ -342,10 +342,12 @@ class ProfileDesignControllerTest < Test::Unit::TestCase
     profile.stubs(:person?).returns(true)
     profile.stubs(:enterprise?).returns(false)
     profile.stubs(:has_blog?).returns(false)
+    profile.stubs(:is_admin?).with(anything).returns(false)
     environment = mock
     profile.stubs(:environment).returns(environment)
     environment.stubs(:enabled?).returns(false)
     @controller.stubs(:profile).returns(profile)
+    @controller.stubs(:user).returns(profile)
     assert_equal PERSON_BLOCKS, @controller.available_blocks
   end
 
@@ -355,10 +357,12 @@ class ProfileDesignControllerTest < Test::Unit::TestCase
     profile.stubs(:person?).returns(true)
     profile.stubs(:enterprise?).returns(false)
     profile.stubs(:has_blog?).returns(false)
+    profile.stubs(:is_admin?).with(anything).returns(false)
     environment = mock
     profile.stubs(:environment).returns(environment)
     environment.stubs(:enabled?).returns(false)
     @controller.stubs(:profile).returns(profile)
+    @controller.stubs(:user).returns(profile)
     assert_equal [], @controller.available_blocks - PERSON_BLOCKS_WITH_MEMBERS
   end
 
@@ -368,10 +372,12 @@ class ProfileDesignControllerTest < Test::Unit::TestCase
     profile.stubs(:person?).returns(true)
     profile.stubs(:enterprise?).returns(false)
     profile.stubs(:has_blog?).returns(true)
+    profile.stubs(:is_admin?).with(anything).returns(false)
     environment = mock
     profile.stubs(:environment).returns(environment)
     environment.stubs(:enabled?).returns(false)
     @controller.stubs(:profile).returns(profile)
+    @controller.stubs(:user).returns(profile)
     assert_equal [], @controller.available_blocks - PERSON_BLOCKS_WITH_BLOG
   end
 
@@ -381,10 +387,12 @@ class ProfileDesignControllerTest < Test::Unit::TestCase
     profile.stubs(:person?).returns(false)
     profile.stubs(:enterprise?).returns(true)
     profile.stubs(:has_blog?).returns(false)
+    profile.stubs(:is_admin?).with(anything).returns(false)
     environment = mock
     profile.stubs(:environment).returns(environment)
     environment.stubs(:enabled?).returns(true)
     @controller.stubs(:profile).returns(profile)
+    @controller.stubs(:user).returns(profile)
     assert_equal [], @controller.available_blocks - ENTERPRISE_BLOCKS
   end
 
@@ -394,11 +402,27 @@ class ProfileDesignControllerTest < Test::Unit::TestCase
     profile.stubs(:person?).returns(false)
     profile.stubs(:enterprise?).returns(true)
     profile.stubs(:has_blog?).returns(false)
+    profile.stubs(:is_admin?).with(anything).returns(false)
     environment = mock
     profile.stubs(:environment).returns(environment)
     environment.stubs(:enabled?).returns(false)
     @controller.stubs(:profile).returns(profile)
+    @controller.stubs(:user).returns(profile)
     assert_equal [], @controller.available_blocks - ENTERPRISE_BLOCKS_WITH_PRODUCTS_ENABLE
+  end
+
+  should 'allow admins to add RawHTMLBlock' do
+    profile.stubs(:is_admin?).with(anything).returns(true)
+    @controller.stubs(:user).returns(profile)
+    get :add_block, :profile => 'designtestuser'
+    assert_tag :tag => 'input', :attributes => { :id => 'type_rawhtmlblock', :value => 'RawHTMLBlock' }
+  end
+
+  should 'not allow normal users to add RawHTMLBlock' do
+    profile.stubs(:is_admin?).with(anything).returns(false)
+    @controller.stubs(:user).returns(profile)
+    get :add_block, :profile => 'designtestuser'
+    assert_no_tag :tag => 'input', :attributes => { :id => 'type_rawhtmlblock', :value => 'RawHTMLBlock' }
   end
 
 end
