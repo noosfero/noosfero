@@ -39,6 +39,9 @@ class Noosfero::Plugin
       compute_public_path((public_name + '/' + file), 'plugins')
     end
 
+    def root_path
+      Rails.root+'/plugins/'+public_name
+    end
 
     # Here the developer should specify the meta-informations that the plugin can
     # inform.

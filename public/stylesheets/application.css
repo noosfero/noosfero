@@ -2979,6 +2979,7 @@ div#activation_enterprise div {
   border: 1px solid #888;
   margin-bottom: 10px;
   padding: 5px 10px;
+  position: relative;
 }
 
 #product_list .product-pic {
