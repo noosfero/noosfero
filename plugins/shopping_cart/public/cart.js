@@ -135,6 +135,7 @@ function Cart(config) {
   Cart.prototype.addItem = function(enterprise, itemId, callback) {
     if(!this.enterprise) {
       this.enterprise = enterprise;
+      $(".cart-buy", this.cartElem).colorbox({href: '/profile/' + this.enterprise + '/plugins/shopping_cart/buy'});
       if( !this.visible ) $(this.cartElem).show();
     }
     var me = this;

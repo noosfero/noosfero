@@ -106,3 +106,50 @@
 .cart-toggle:hover {
   color: #555;
 }
+
+#cart-request-box {
+  width: 690px;
+}
+
+#cart-request-form {
+  width: 274px;
+  float: left;
+}
+
+#cart-form-main {
+  border: 2px solid #FFF;
+  padding: 0px 10px;
+}
+
+#cart-request-form fieldset {
+  clear: left;
+  color: #999;
+  border: 1px solid #BBB;
+  margin-top: 5px;
+}
+
+#cart-request-form input,
+#cart-request-form select {
+  width: 250px;
+}
+
+#cart-form-actions {
+  clear: both;
+  padding-top: 15px;
+  text-align: center;
+}
+
+#cart-items-table {
+  margin-left: 285px;
+  width: 400px
+}
+
+.cart-table-quantity {
+  text-align: center;
+}
+
+.cart-table-price,
+.cart-table-total-label,
+.cart-table-total-value {
+  text-align: right;
+}
