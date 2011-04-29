@@ -3,6 +3,8 @@ include ActionView::Helpers::NumberHelper
 class ShoppingCartPluginProfileController < ProfileController
   append_view_path File.join(File.dirname(__FILE__) + '/../views')
 
+  before_filter :login_required, :only => []
+
   def add
     session[:cart] = { :enterprise_id => profile.id, :items => {} } if session[:cart].nil?
     if validate_same_enterprise && product = validate_enterprise_has_product(params[:id])
