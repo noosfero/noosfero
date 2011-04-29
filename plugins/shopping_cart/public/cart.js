@@ -241,25 +241,17 @@ function Cart(config) {
     });
   }
 
-  Cart.send_request = function(button) {
-    var params = {};
-    params['name'] = $('#name', button.parentNode).val();
-    params['email'] = $('#email', button.parentNode).val();
-    params['contact_phone'] = $('#contact_phone', button.parentNode).val();
-    params['address'] = $('#address', button.parentNode).val();
-    Cart.instance.send_request(params);
+  Cart.send_request = function(form) {
+    Cart.instance.send_request($(form).serialize());
+    return false;
   }
 
-  Cart.prototype.send_request = function(p) {
-    params = "?";
-    for( var attribute in p ) {
-      var value = p[attribute];
-      params += attribute+'='+value+'&';
-    }
-    params = params.substring(0, params.length-1);
+  Cart.prototype.send_request = function(params) {
     var me = this;
     $.ajax({
-      url: '/profile/'+ me.enterprise +'/plugins/shopping_cart/send_request'+params,
+      type: 'POST',
+      url: '/profile/'+ me.enterprise +'/plugins/shopping_cart/send_request',
+      data: params,
       dataType: 'json',
       success: function(data, status, ajax){
         if ( !data.ok ) display_notice(data.error.message);

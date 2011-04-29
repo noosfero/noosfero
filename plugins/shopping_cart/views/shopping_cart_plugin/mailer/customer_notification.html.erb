@@ -1,0 +1,24 @@
+<% environment = @environment %>
+<h4><%= _('Hi %s!') % @customer[:name] %></h4>
+<p>
+<%= _('This is a notification e-mail about your buy request on %s.') % link_to(@supplier.name, @supplier.url) %>
+<%= _('The supplier already received your buy request and may contact you for confirmation.') %>
+<%= _('Please check if your information below is correct:') %>
+</p>
+<ul>
+  <li><b><%= _('Full name') %>: </b><%= @customer[:name] %></li>
+  <li><b><%= _('Phone number') %>: </b><%= @customer[:contact_phone] %></li>
+  <li><b><%= _('Address') %>: </b><%= @customer[:address] %>
+  <br \>
+  <%= @customer[:city]+'-'+@customer[:state]+'-'+@customer[:country] %>
+  <br \>
+  <%= @customer[:zip_code] %></li>
+</ul>
+<p><%=_('Here are the products you bought:')%></p>
+<%= items_table(@items, true) %>
+<p>
+<%=_('Thanks for buying with us!')%>
+<br/>
+<%= link_to @supplier.name, @supplier.url %>
+</p>
+<small style="color: #888"><%= _('A service of %s.') % environment.name %></small>

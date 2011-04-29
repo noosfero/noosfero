@@ -1,9 +1,24 @@
 <% person = user.nil? ? Person.new : user %>
-<% form_tag :action => 'send_request' do %>
-  <%= labelled_form_field( _("Full name"), text_field_tag(:name, person.name) ) %>
-  <%= labelled_form_field( _("Email"), text_field_tag(:email, person.email) ) %>
-  <%= labelled_form_field( _("Phone number"), text_field_tag(:contact_phone, person.contact_phone) ) %>
-  <%= labelled_form_field( _("Delivery address"), text_field_tag(:address, person.address) ) %>
-  <br style='clear: both'/><br style='clear: both'/>
-  <input class="button with-text icon-send" value="<%=_('Send')%>" type="submit" onclick="Cart.send_request(this); return false">
-<% end %>
+<div id='cart-request-box'>
+  <% form_for(:customer, person, :url => {:action => 'send_request'},
+              :html => {:onsubmit => "return Cart.send_request(this)", :id => 'cart-request-form' }) do |f| %>
+    <div id="cart-form-main">
+      <%= labelled_form_field( _("Full name"), f.text_field(:name) ) %>
+      <%= labelled_form_field( _("Email"), f.text_field(:email) ) %>
+      <%= labelled_form_field( _("Phone number"), f.text_field(:contact_phone) ) %>
+    </div>
+    <fieldset><legend><%=_('Delivery Address')%></legend>
+      <%= labelled_form_field(_('Address (street and number)'), f.text_field(:address)) %>
+      <%= labelled_form_field( _("City"), f.text_field(:city)) %>
+      <%= labelled_form_field( _("State"), f.text_field(:state)) %>
+      <%= select_country(_('Country'), :customer, :country, {:class => 'type-select'}, {:selected => person.country}) %>
+      <%= labelled_form_field(_('ZIP code'), f.text_field(:zip_code)) %>
+    </fieldset>
+    <div id="cart-form-actions">
+      <%= tag 'input',  :class => 'button with-text icon-send',
+                        :value => _('Send buy request'),
+                        :type => 'submit'%>
+    </div>
+  <% end %>
+  <%= items_table(session[:cart][:items]) %>
+</div>

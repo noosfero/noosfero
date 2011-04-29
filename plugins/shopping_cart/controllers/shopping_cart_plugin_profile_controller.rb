@@ -1,4 +1,4 @@
-include ActionView::Helpers::NumberHelper
+include ShoppingCartPlugin::CartHelper
 
 class ShoppingCartPluginProfileController < ProfileController
   append_view_path File.join(File.dirname(__FILE__) + '/../views')
@@ -88,19 +88,20 @@ class ShoppingCartPluginProfileController < ProfileController
 
   def send_request
     begin
-      #implement send email here
+      ShoppingCartPlugin::Mailer.deliver_customer_notification(params[:customer], profile, session[:cart][:items])
+      ShoppingCartPlugin::Mailer.deliver_supplier_notification(params[:customer], profile, session[:cart][:items])
       render :text => {
         :ok => true,
         :message => _('Request sent successfully. Check your email.'),
         :error => {:code => 0}
       }.to_json
-    rescue
+    rescue Exception => exception
       render :text => {
         :ok => false,
         :message => _('Your request failed.'),
         :error => {
           :code => 6,
-          :message => _('Send request failed.')
+          :message => exception
         }
       }.to_json
     end
@@ -179,11 +180,6 @@ class ShoppingCartPluginProfileController < ProfileController
     end
     true
   end
-
-  def get_price(product)
-    float_to_currency( product.discount ? product.price_with_discount : product.price )
-  end
-
 
 end
 
