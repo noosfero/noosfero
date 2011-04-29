@@ -25,6 +25,7 @@ class ProfileDesignController < BoxOrganizerController
       blocks << DisabledEnterpriseMessageBlock
       blocks << HighlightsBlock
       blocks << FeaturedProductsBlock
+      blocks << FansBlock
     end
 
     # product block exclusive for enterprises in environments that permits it
