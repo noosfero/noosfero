@@ -280,23 +280,6 @@ body, th, td, input {
   -webkit-border-radius: 0px;
 }
 
-/***************************** boxes ********************************/
-
-.template-default .box-1 { /* Center */
-  position: relative;
-  margin: 0px 200px 0px 200px;
-}
-
-.template-default .box-2 { /* Left */
-  position: relative;
-  width: 190px;
-}
-
-.template-default .box-3 { /* Right */
-  position: relative;
-  width: 190px;
-}
-
 /************************** main content *****************************/
 
 #main-content-wrapper-1, #main-content-wrapper-2,
@@ -323,6 +306,12 @@ body, th, td, input {
   color: #555753;
   text-align: left;
   border-bottom: 2px solid #2e3436;
+}
+
+.block {
+  position: relative;
+  padding: 10px 0;
+  float: none;
 }
 
 /***************************** header ********************************/

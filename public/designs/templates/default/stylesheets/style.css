@@ -1,30 +1,22 @@
-
-#boxes {
-  /* none */
-}
-
 .box-1 {
-  margin: 0px 210px 0px 210px;
+  margin: 0 200px 0 200px;
 }
+
 .box-1 .blocks {
   width: 100%;
   float: left;
 }
 
 .box-2 {
+  position: relative;
   float: left;
-  width: 200px;
+  width: 190px;
 }
 
 .box-3 {
-  float: right;
-  width: 200px;
-}
-
-.block {
   position: relative;
-  padding: 10px 0px;
-  float: none;
+  float: right;
+  width: 190px;
 }
 
 #profile-activity ul,
