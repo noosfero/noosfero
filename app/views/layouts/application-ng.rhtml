@@ -66,8 +66,10 @@
           <div id="navigation-end"></div>
         </div><!-- end id="navigation" -->
         <div id="content">
-          <%= insert_boxes(yield) %>
-          <br style='clear: both'/>
+          <div id="content-inner">
+            <%= insert_boxes(yield) %>
+            <br style='clear: both'/>
+          </div><!-- end id="content-inner" -->
         </div><!-- end id="content" -->
       </div><!-- end id="wrap-2" -->
     </div><!-- end id="wrap-1" -->

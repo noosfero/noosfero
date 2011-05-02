@@ -22,9 +22,14 @@ module ContentViewerHelper
       end
       comments = ''
       unless args[:no_comments] || !article.accept_comments
-        comments = ("- %s") % link_to_comments(article)
+        comments = (" - %s") % link_to_comments(article)
       end
-      title << content_tag('span', _("%s, by %s %s") % [show_date(article.published_at), link_to(article.author_name, article.author.url), comments], :class => 'created-at')
+      title << content_tag('span',
+        content_tag('span', show_date(article.published_at), :class => 'date') +
+        content_tag('span', [_(", by %s") % link_to(article.author_name, article.author.url)], :class => 'author') +
+        content_tag('span', comments, :class => 'comments'),
+        :class => 'created-at'
+      )
     end
     title
   end
