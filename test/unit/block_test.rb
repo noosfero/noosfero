@@ -85,6 +85,26 @@ class BlockTest < Test::Unit::TestCase
     assert_equal false, block.visible?(:article => nil)
   end
 
+  should 'be able to be displayed everywhere except in the homepage' do
+    profile = Profile.new
+    home_page = Article.new
+    profile.home_page = home_page
+    block = Block.new(:display => 'except_home_page')
+    block.stubs(:owner).returns(profile)
+
+    assert_equal false, block.visible?(:article => home_page)
+    assert_equal true, block.visible?(:article => Article.new)
+  end
+
+  should 'be able to be displayed everywhere except on profile index' do
+    profile = Profile.new(:identifier => 'testinguser')
+    block = Block.new(:display => 'except_home_page')
+    block.stubs(:owner).returns(profile)
+
+    assert_equal false, block.visible?(:article => nil, :request_path => '/testinguser')
+    assert_equal true, block.visible?(:article => nil)
+  end
+
   should 'be able to save display setting' do
     user = create_user('testinguser').person
     box = fast_create(Box, :owner_id => user.id)

@@ -14,6 +14,9 @@
     <%= radio_button(:block, :display, 'home_page_only') %>
     <%= label_tag('block_display_home_page_only', _('Only in the homepage')) %>
     <br/>
+    <%= radio_button(:block, :display, 'except_home_page') %>
+    <%= label_tag('block_display_except_home_page', _('In all pages, except in the homepage')) %>
+    <br/>
     <%= radio_button(:block, :display, 'never') %>
     <%= label_tag('block_display_never', _("Don't display")) %>
   </div>

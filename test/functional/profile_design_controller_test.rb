@@ -171,6 +171,13 @@ class ProfileDesignControllerTest < Test::Unit::TestCase
     end
   end
 
+  should 'have options to display blocks' do
+    get :edit, :profile => 'designtestuser', :id => @b1.id
+    %w[always home_page_only except_home_page never].each do |option|
+      assert_tag :input, :attributes => { :type => 'radio', :value => option}
+    end
+  end
+
   ######################################################
   # END - tests for BoxOrganizerController features 
   ######################################################
