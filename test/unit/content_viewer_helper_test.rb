@@ -115,6 +115,20 @@ class ContentViewerHelperTest < Test::Unit::TestCase
     assert_equal "http://www.facebook.com/sharer.php?s=100&p[title]=Some+title&p[summary]=This+is+a+test&p[url]=http%3A%2F%2Fnoosfero.org%2Fblog_helper_test%2Fsome-title&p[images][0]=http%3A%2F%2Fnoosfero.org%2Fimages%2Fx.png", addthis_facebook_url(a)
   end
 
+  should 'theme provides addthis custom icon' do
+    stubs(:session).returns({:theme => 'base'})
+    File.expects(:exists?).with(anything).returns(true)
+    Environment.any_instance.stubs(:default_hostname).returns('noosfero.org')
+    assert_match 'addthis.gif', addthis_image_tag
+  end
+
+  should 'use default addthis icon if theme has no addthis.gif image' do
+    stubs(:session).returns({:theme => 'base'})
+    File.expects(:exists?).with(anything).returns(false)
+    Environment.any_instance.stubs(:default_hostname).returns('noosfero.org')
+    assert_match 'bt-bookmark.gif', addthis_image_tag
+  end
+
   protected
 
   include ActionView::Helpers::TextHelper
@@ -137,4 +151,7 @@ def strip_tags(html)
 end
 def url_for(args = {})
   ['http:/', args[:host], args[:profile], args[:page]].join('/')
+end
+def image_tag(file, args = {})
+  file
 end

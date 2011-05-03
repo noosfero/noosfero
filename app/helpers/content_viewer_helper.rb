@@ -60,4 +60,12 @@ module ContentViewerHelper
     }
   end
 
+  def addthis_image_tag
+    if File.exists?(File.join(Rails.root, 'public', theme_path, 'images', 'addthis.gif'))
+      image_tag(File.join(theme_path, 'images', 'addthis.gif'), :border => 0, :alt => '')
+    else
+      image_tag("/images/bt-bookmark.gif", :width => 53, :height => 16, :border => 0, :alt => '')
+    end
+  end
+
 end
