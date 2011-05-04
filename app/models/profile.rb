@@ -809,6 +809,14 @@ private :generate_url, :url_options
     "#{jid(options)}/#{short_name}"
   end
 
+  def is_on_homepage?(url, page=nil)
+    if page
+      page == self.home_page
+    else
+      url == '/' + self.identifier
+    end
+  end
+
   protected
 
     def followed_by?(person)

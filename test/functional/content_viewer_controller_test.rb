@@ -1405,4 +1405,20 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     assert_tag :tag => 'div', :attributes => { :id => 'article-header' }
   end
 
+  should 'add class to body tag if is on profile homepage' do
+    profile = fast_create(Profile)
+    blog = fast_create(Blog, :profile_id => profile.id, :path => 'blog')
+    profile.home_page = blog
+    profile.save
+    get :view_page, :profile => profile.identifier, :page => ['blog']
+    assert_tag :tag => 'body', :attributes => { :class => /profile-homepage/ }
+  end
+
+  should 'not add class to body tag if is not on profile homepage' do
+    profile = fast_create(Profile)
+    blog = fast_create(Blog, :profile_id => profile.id, :path => 'blog')
+    get :view_page, :profile => profile.identifier, :page => ['blog']
+    assert_no_tag :tag => 'body', :attributes => { :class => /profile-homepage/ }
+  end
+
 end
