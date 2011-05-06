@@ -93,4 +93,24 @@ class CatalogControllerTest < Test::Unit::TestCase
     end
   end
 
+  should 'include extra content supplied by plugins on catalog item extras' do
+    product = fast_create(Product, :enterprise_id => @enterprise.id)
+    plugin1_local_variable = "Plugin1"
+    plugin1_content = lambda {"<span id='plugin1'>This is #{plugin1_local_variable} speaking!</span>"}
+    plugin2_local_variable = "Plugin2"
+    plugin2_content = lambda {"<span id='plugin2'>This is #{plugin2_local_variable} speaking!</span>"}
+    contents = [plugin1_content, plugin2_content]
+
+    plugins = mock()
+    plugins.stubs(:enabled_plugins).returns([])
+    plugins.stubs(:map).with(:body_beginning).returns([])
+    plugins.stubs(:map).with(:catalog_item_extras, product).returns(contents)
+    Noosfero::Plugin::Manager.stubs(:new).returns(plugins)
+
+    get :index, :profile => @enterprise.identifier
+
+    assert_tag :tag => 'span', :content => 'This is ' + plugin1_local_variable + ' speaking!', :attributes => {:id => 'plugin1'}
+    assert_tag :tag => 'span', :content => 'This is ' + plugin2_local_variable + ' speaking!', :attributes => {:id => 'plugin2'}
+  end
+
 end

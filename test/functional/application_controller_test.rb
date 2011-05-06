@@ -441,6 +441,89 @@ class ApplicationControllerTest < Test::Unit::TestCase
     assert_tag :html, :attributes => { :lang => 'es' }
   end
 
+  should 'include stylesheets supplied by plugins' do
+    plugin1 = mock()
+    plugin1.stubs(:stylesheets?).returns(true)
+    plugin1.stubs(:js_files).returns([])
+    plugin1_class = mock()
+    plugin1_path = '/plugin1/style.css'
+    plugin1_class.stubs(:public_path).with('style.css').returns(plugin1_path)
+    plugin1.stubs(:class).returns(plugin1_class)
+
+    plugin2 = mock()
+    plugin2.stubs(:stylesheets?).returns(true)
+    plugin2.stubs(:js_files).returns([])
+    plugin2_class = mock()
+    plugin2_path = '/plugin2/style.css'
+    plugin2_class.stubs(:public_path).with('style.css').returns(plugin2_path)
+    plugin2.stubs(:class).returns(plugin2_class)
+
+    enabled_plugins = [plugin1, plugin2]
+
+    plugins = mock()
+    plugins.stubs(:map).with(:body_beginning).returns([])
+    plugins.stubs(:enabled_plugins).returns(enabled_plugins)
+    Noosfero::Plugin::Manager.stubs(:new).returns(plugins)
+
+    get :index
+
+    assert_tag :tag => 'link', :attributes => {:href => /#{plugin1_path}/, :type => 'text/css', :rel => 'stylesheet'}
+    assert_tag :tag => 'link', :attributes => {:href => /#{plugin2_path}/, :type => 'text/css', :rel => 'stylesheet'}
+  end
+
+  should 'include javascripts supplied by plugins' do
+    js1 = 'js1.js'
+    plugin1 = mock()
+    plugin1.stubs(:stylesheets?).returns(false)
+    plugin1.stubs(:js_files).returns([js1])
+    plugin1_class = mock()
+    plugin1_path = '/plugin1/'+js1
+    plugin1_class.stubs(:public_path).with(js1).returns(plugin1_path)
+    plugin1.stubs(:class).returns(plugin1_class)
+
+    js2 = 'js2.js'
+    js3 = 'js3.js'
+    plugin2 = mock()
+    plugin2.stubs(:stylesheets?).returns(false)
+    plugin2.stubs(:js_files).returns([js2, js3])
+    plugin2_class = mock()
+    plugin2_path2 = '/plugin2/'+js2
+    plugin2_path3 = '/plugin2/'+js3
+    plugin2_class.stubs(:public_path).with(js2).returns(plugin2_path2)
+    plugin2_class.stubs(:public_path).with(js3).returns(plugin2_path3)
+    plugin2.stubs(:class).returns(plugin2_class)
+
+    enabled_plugins = [plugin1, plugin2]
+
+    plugins = mock()
+    plugins.stubs(:map).with(:body_beginning).returns([])
+    plugins.stubs(:enabled_plugins).returns(enabled_plugins)
+    Noosfero::Plugin::Manager.stubs(:new).returns(plugins)
+
+    get :index
+
+    assert_tag :tag => 'script', :attributes => {:src => /#{plugin1_path}/, :type => 'text/javascript'}
+    assert_tag :tag => 'script', :attributes => {:src => /#{plugin2_path2}/, :type => 'text/javascript'}
+    assert_tag :tag => 'script', :attributes => {:src => /#{plugin2_path3}/, :type => 'text/javascript'}
+  end
+
+  should 'include content in the beginning of body supplied by plugins regardless it is a block or html code' do
+    plugin1_local_variable = "Plugin1"
+    plugin1_content = lambda {"<span id='plugin1'>This is #{plugin1_local_variable} speaking!</span>"}
+    plugin2_content = "<span id='plugin2'>This is Plugin2 speaking!</span>"
+    contents = [plugin1_content, plugin2_content]
+
+    plugins = mock()
+    plugins.stubs(:enabled_plugins).returns([])
+    plugins.stubs(:map).with(:body_beginning).returns(contents)
+    Noosfero::Plugin::Manager.stubs(:new).returns(plugins)
+
+    get :index
+
+    assert_tag :tag => 'span', :content => 'This is ' + plugin1_local_variable + ' speaking!', :attributes => {:id => 'plugin1'}
+    assert_tag :tag => 'span', :content => 'This is Plugin2 speaking!', :attributes => {:id => 'plugin2'}
+  end
+
   if ActiveRecord::Base.connection.adapter_name == 'PostgreSQL'
 
     should 'change postgresql schema' do

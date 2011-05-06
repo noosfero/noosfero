@@ -64,7 +64,7 @@ class Noosfero::Plugin
 
   # -> If true, noosfero will include plugin_dir/public/style.css into
   # application
-  def stylesheet?
+  def stylesheets?
     false
   end
 
