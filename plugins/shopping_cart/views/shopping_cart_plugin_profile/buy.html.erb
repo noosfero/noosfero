@@ -3,9 +3,9 @@
   <% form_for(:customer, person, :url => {:action => 'send_request'},
               :html => {:onsubmit => "return Cart.send_request(this)", :id => 'cart-request-form' }) do |f| %>
     <div id="cart-form-main">
-      <%= labelled_form_field( _("Full name"), f.text_field(:name) ) %>
-      <%= labelled_form_field( _("Email"), f.text_field(:email) ) %>
-      <%= labelled_form_field( _("Phone number"), f.text_field(:contact_phone) ) %>
+      <%= labelled_form_field('* ' + _("Full name"), f.text_field(:name, :class => 'required') ) %>
+      <%= labelled_form_field('* ' +  _("Email"), f.text_field(:email, :class => 'required email') ) %>
+      <%= labelled_form_field('* ' +  _("Phone number"), f.text_field(:contact_phone, :class => 'required') ) %>
     </div>
     <fieldset><legend><%=_('Delivery Address')%></legend>
       <%= labelled_form_field(_('Address (street and number)'), f.text_field(:address)) %>
@@ -15,10 +15,16 @@
       <%= labelled_form_field(_('ZIP code'), f.text_field(:zip_code)) %>
     </fieldset>
     <div id="cart-form-actions">
-      <%= tag 'input',  :class => 'button with-text icon-send',
+      <%= tag 'input',  :class => 'submit button with-text icon-send',
                         :value => _('Send buy request'),
                         :type => 'submit'%>
     </div>
   <% end %>
   <%= items_table(session[:cart][:items]) %>
 </div>
+
+<script>
+  jQuery(document).ready(function(){
+    jQuery("#cart-request-form").validate();
+  });
+</script>

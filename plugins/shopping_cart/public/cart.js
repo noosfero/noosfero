@@ -243,7 +243,8 @@ function Cart(config) {
   }
 
   Cart.send_request = function(form) {
-    Cart.instance.send_request($(form).serialize());
+    if($(form).valid())
+      Cart.instance.send_request($(form).serialize());
     return false;
   }
 
