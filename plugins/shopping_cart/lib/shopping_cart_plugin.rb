@@ -8,12 +8,12 @@ class ShoppingCartPlugin < Noosfero::Plugin
     _("A shopping cart feature for enterprises")
   end
 
-  def add_to_cart_button(item)
-    if context.profile.shopping_cart
+  def add_to_cart_button(item, enterprise = context.profile)
+    if enterprise.shopping_cart
        lambda {
          link_to(_('Add to cart'), "add:#{item.name}",
            :class => 'cart-add-item',
-           :onclick => "Cart.addItem('#{profile.identifier}', #{item.id}, this); return false"
+           :onclick => "Cart.addItem('#{enterprise.identifier}', #{item.id}, this); return false"
          )
        }
     end
@@ -21,6 +21,7 @@ class ShoppingCartPlugin < Noosfero::Plugin
 
   alias :product_info_extras :add_to_cart_button
   alias :catalog_item_extras :add_to_cart_button
+  alias :asset_product_extras :add_to_cart_button
 
   def stylesheet?
     true

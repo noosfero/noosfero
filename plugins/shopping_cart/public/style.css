@@ -6,6 +6,10 @@
   top: 5px;
 }
 
+.product-item .cart-add-item {
+   top: 0px;
+}
+
 .cart {
   position: absolute;
   right: 20px;
