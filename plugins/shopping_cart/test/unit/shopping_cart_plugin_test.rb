@@ -26,5 +26,4 @@ class ShoppingCartPluginTest < Test::Unit::TestCase
 
     assert_nil shopping_cart.add_to_cart_button(product, enterprise)
   end
-
 end
