@@ -221,16 +221,19 @@ Note: module proxy_http must be enabled:
 
 # a2enmod proxy_http
 
-
 8. DNS configuration
 
- * /etc/bind/db.colivre:
+For this point, we assume you are using BIND as your DNS server. You need to
+add the following entries to the DNS zone file corresponding to the domain
+of your noosfero site:
 
 _xmpp-client._tcp   SRV   5 100 5222 master
-(...)
 conference   CNAME master
 _xmpp-client._tcp.conference   SRV   5 100 5222 master
 
+If you are running a DNS server other than BIND, you will have to figure out
+how to create equivalente rules for your zone file. Patches to this
+documentation are welcome.
 
 9. Testing this Setup
 
