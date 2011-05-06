@@ -303,7 +303,7 @@ class EnvironmentTest < Test::Unit::TestCase
 
   should 'destroy templates' do
     env = fast_create(Environment)
-    templates = [mock, mock, mock]
+    templates = [mock, mock, mock, mock]
     templates.each do |item|
       item.expects(:destroy)
     end
@@ -311,6 +311,7 @@ class EnvironmentTest < Test::Unit::TestCase
     env.stubs(:person_template).returns(templates[0])
     env.stubs(:community_template).returns(templates[1])
     env.stubs(:enterprise_template).returns(templates[2])
+    env.stubs(:inactive_enterprise_template).returns(templates[3])
 
     env.destroy
   end
@@ -507,11 +508,13 @@ class EnvironmentTest < Test::Unit::TestCase
 
     # the templates must be created
     assert_kind_of Enterprise, e.enterprise_template
+    assert_kind_of Enterprise, e.inactive_enterprise_template
     assert_kind_of Community, e.community_template
     assert_kind_of Person, e.person_template
 
     # the templates must be private
     assert !e.enterprise_template.visible?
+    assert !e.inactive_enterprise_template.visible?
     assert !e.community_template.visible?
     assert !e.person_template.visible?
   end

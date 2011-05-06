@@ -673,13 +673,14 @@ class Environment < ActiveRecord::Base
   def create_templates
     pre = self.name.to_slug + '_'
     ent_id = Enterprise.create!(:name => 'Enterprise template', :identifier => pre + 'enterprise_template', :environment => self, :visible => false).id
+    inactive_enterprise_tmpl = Enterprise.create!(:name => 'Inactive Enterprise template', :identifier => pre + 'inactive_enterprise_template', :environment => self, :visible => false)
     com_id = Community.create!(:name => 'Community template', :identifier => pre + 'community_template', :environment => self, :visible => false).id
     pass = Digest::MD5.hexdigest rand.to_s
     user = User.create!(:login => (pre + 'person_template'), :email => (pre + 'template@template.noo'), :password => pass, :password_confirmation => pass, :environment => self).person
-    user.visible = false
-    user.save!
+    user.update_attributes(:visible => false, :name => "Person template")
     usr_id = user.id
     self.settings[:enterprise_template_id] = ent_id
+    self.inactive_enterprise_template = inactive_enterprise_tmpl
     self.settings[:community_template_id] = com_id
     self.settings[:person_template_id] = usr_id
     self.save!
@@ -687,7 +688,7 @@ class Environment < ActiveRecord::Base
 
   after_destroy :destroy_templates
   def destroy_templates
-    [enterprise_template, community_template, person_template].compact.each do |template|
+    [enterprise_template, inactive_enterprise_template, community_template, person_template].compact.each do |template|
       template.destroy
     end
   end

@@ -411,3 +411,13 @@ end
 And /^I want to add "([^\"]*)" as cost$/ do |string|
   selenium.answer_on_next_prompt(string)
 end
+
+Given /^that the default environment have (.+) templates?$/ do |option|
+  env = Environment.default
+  case option
+    when 'all profile'
+      env.create_templates
+    when 'no Inactive Enterprise'
+      env.inactive_enterprise_template && env.inactive_enterprise_template.destroy
+  end
+end
