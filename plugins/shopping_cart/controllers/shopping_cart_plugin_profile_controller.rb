@@ -27,7 +27,7 @@ class ShoppingCartPluginProfileController < ProfileController
 
   def remove
     id = params[:id].to_i
-    if validate_cart_has_product(id)
+    if validate_cart_presence && validate_cart_has_product(id)
       session[:cart][:items].delete(id)
       session[:cart] = nil if session[:cart][:items].empty?
       render :text => {
