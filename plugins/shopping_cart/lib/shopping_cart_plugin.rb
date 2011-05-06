@@ -23,7 +23,7 @@ class ShoppingCartPlugin < Noosfero::Plugin
   alias :catalog_item_extras :add_to_cart_button
   alias :asset_product_extras :add_to_cart_button
 
-  def stylesheet?
+  def stylesheets?
     true
   end
 
