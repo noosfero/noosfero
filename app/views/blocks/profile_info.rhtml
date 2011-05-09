@@ -41,5 +41,5 @@
 
 </div><!-- end class="vcard" -->
 <script type="text/javascript">
-  <%= remote_function :url => { :controller => 'profile', :action => 'profile_info', :block_id => block.id } %>
+  <%= remote_function :url => { :controller => 'profile', :profile => profile.identifier, :action => 'profile_info', :block_id => block.id } %>
 </script>

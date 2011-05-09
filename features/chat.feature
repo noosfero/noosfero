@@ -23,7 +23,7 @@ Feature: chat
   Scenario: provide the chat online users content
     Given feature "xmpp_chat" is enabled on environment
     And I am logged in as "tame"
-    Then I should see "Online friends "
+    Then I should see "Friends in chat "
 
   @selenium
   Scenario: provide the chat online users list
@@ -46,7 +46,7 @@ Feature: chat
   @selenium
   Scenario: not provide the chat online users list when environment not support that
     Given I am logged in as "tame"
-    Then I should not see "Online friends "
+    Then I should not see "Friends in chat "
 
   Scenario: block access to chat when environment not support that
     Given I am logged in as "tame"
@@ -64,7 +64,7 @@ Feature: chat
     And I am logged in as "tame"
     When I follow "Open chat"
     And I select window "noosfero_chat"
-    Then I should see "Chat - Colivre.net - Friends in chat (0)"
+    Then I should see "Chat - Colivre.net - Friends online (0)"
 
   @selenium
   Scenario: open chat with an online user in a new window
@@ -75,7 +75,7 @@ Feature: chat
     When I click "#chat-online-users-title"
     And I follow "Maria Silva"
     And I select window "noosfero_chat"
-    Then I should see "Chat - Colivre.net - Friends in chat (0)"
+    Then I should see "Chat - Colivre.net - Friends online (0)"
 
   @selenium
   Scenario: chat starts disconnected by default
@@ -141,4 +141,4 @@ Feature: chat
     When I go to Autoramas's profile
     And I follow "Enter chat room"
     And I select window "noosfero_chat"
-    Then I should see "Chat - Colivre.net - Friends in chat (0)"
+    Then I should see "Chat - Colivre.net - Friends online (0)"

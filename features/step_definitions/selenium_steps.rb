@@ -103,6 +103,19 @@ When /^I refresh the page$/ do
   response.selenium.refresh
 end
 
+When /^I click on the logo$/ do
+  selenium.click("css=h1#site-title a")
+  selenium.wait_for_page_to_load(10000)
+end
+
+When /^I open (.*)$/ do |url|
+  selenium.open(URI.join(response.selenium.get_location, url))
+end
+
+Then /^the page title should be "([^"]+)"$/ do |text|
+  selenium.get_text("//title").should == text
+end
+
 #### Noosfero specific steps ####
 
 Then /^the select for category "([^\"]*)" should be visible$/ do |name|
