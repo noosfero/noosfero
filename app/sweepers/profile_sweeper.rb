@@ -25,10 +25,23 @@ protected
     profile.blocks.each do |block|
       expire_timeout_fragment(block.cache_key)
     end
+
+    expire_blogs(profile) if profile.organization?
   end
 
   def expire_statistics_block_cache(profile)
     blocks = profile.environment.blocks.select { |b| b.kind_of?(EnvironmentStatisticsBlock) }
     blocks.map(&:cache_key).each{|ck|expire_timeout_fragment(ck)}
   end
+
+  def expire_blogs(profile)
+    profile.blogs.select{|b| !b.empty?}.each do |blog|
+      pages = blog.posts.count / blog.posts_per_page + 1
+      ([nil] + (1..pages).to_a).each do |i|
+        expire_timeout_fragment(blog.cache_key({:npage => i}))
+        expire_timeout_fragment(blog.cache_key({:npage => i}, profile))
+      end
+    end
+  end
+
 end
