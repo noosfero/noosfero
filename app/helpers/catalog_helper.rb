@@ -5,8 +5,9 @@ include ManageProductsHelper
 
   def display_products_list(profile, products)
     data = ''
+    extra_content = []
     products.each { |product|
-      extra_content = @plugins.map(:catalog_item_extras, product).collect { |content| instance_eval(&content) }
+      extra_content = @plugins.map(:catalog_item_extras, product).collect { |content| instance_eval(&content) } if @plugins
       data << content_tag('li',
         link_to_product(product, :class => 'product-pic', :style => 'background-image:url(%s)' % product.default_image(:portrait) ) +
         content_tag('h3', link_to_product(product)) +

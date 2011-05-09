@@ -870,6 +870,8 @@ class ProfileEditorControllerTest < Test::Unit::TestCase
     buttons = [plugin1_button, plugin2_button]
     plugins = mock()
     plugins.stubs(:map).with(:control_panel_buttons).returns(buttons)
+    plugins.stubs(:enabled_plugins).returns([])
+    plugins.stubs(:map).with(:body_beginning).returns([])
     Noosfero::Plugin::Manager.stubs(:new).returns(plugins)
 
     get :index, :profile => profile.identifier
