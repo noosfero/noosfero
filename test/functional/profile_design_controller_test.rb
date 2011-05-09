@@ -401,4 +401,11 @@ class ProfileDesignControllerTest < Test::Unit::TestCase
     assert_equal [], @controller.available_blocks - ENTERPRISE_BLOCKS_WITH_PRODUCTS_ENABLE
   end
 
+  should 'editing article block displays right selected article' do
+    selected_article = fast_create(Article, :profile_id => profile.id)
+    ArticleBlock.any_instance.stubs(:article).returns(selected_article)
+    get :edit, :profile => 'designtestuser', :id => @b1.id
+    assert_tag :tag => 'option', :attributes => {:value => selected_article.id, :selected => 'selected'}
+  end
+
 end

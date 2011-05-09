@@ -5,6 +5,6 @@
   </p>
 <% else %>
   <% articles = @block.available_articles.select {|article| !article.folder? } %>
-  <%= select_tag('block[article_id]', options_for_select_with_title(articles.map {|item| [item.path, item.id]})) %>
+  <%= select_tag('block[article_id]', options_for_select_with_title(articles.map {|item| [item.path, item.id]}, @block.article ? @block.article.id : nil)) %>
 <% end %>
 </div>
