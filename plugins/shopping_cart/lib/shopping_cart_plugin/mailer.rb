@@ -5,9 +5,9 @@ class ShoppingCartPlugin::Mailer < ActionMailer::Base
   prepend_view_path(ShoppingCartPlugin.root_path+'/views')
 
   def customer_notification(customer, supplier, items)
-    domain = supplier.domains.first || supplier.environment.domains.first
+    domain = supplier.hostname || supplier.environment.default_hostname
     recipients    customer[:email]
-    from          'no-reply@' + domain.name
+    from          'no-reply@' + domain
     reply_to      supplier.contact_email
     subject       _("[%s] Your buy request was performed successfully.") % supplier[:name]
     content_type  'text/html'
@@ -18,9 +18,9 @@ class ShoppingCartPlugin::Mailer < ActionMailer::Base
   end
 
   def supplier_notification(customer, supplier, items)
-    domain = supplier.environment.domains.first
+    domain = supplier.environment.default_hostname
     recipients    supplier.contact_email
-    from          'no-reply@' + domain.name
+    from          'no-reply@' + domain
     reply_to      customer[:email]
     subject       _("[%s] You have a new buy request from %s.") % [supplier.environment.name, customer[:name]]
     content_type  'text/html'

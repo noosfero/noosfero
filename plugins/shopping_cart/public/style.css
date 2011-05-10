@@ -143,6 +143,10 @@
   text-align: center;
 }
 
+#cart-form-actions .submit {
+  cursor: pointer;
+}
+
 #cart-items-table {
   margin-left: 285px;
   width: 400px
