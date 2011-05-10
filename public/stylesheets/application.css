@@ -4451,13 +4451,15 @@ h1#agenda-title {
   padding: 2px 0px 4px 0px;
 }
 
-.controller-search #content .search-results-type-article li {
+.controller-search #content .search-results-type-article li,
+.controller-search #content .search-results-type-event li {
   padding: 0px 0px 4px 20px;
   background-repeat: no-repeat;
   border-color: transparent;
 }
 
-.controller-search #content .search-results-type-article li:hover {
+.controller-search #content .search-results-type-article li:hover,
+.controller-search #content .search-results-type-event li:hover {
   background-color: transparent;
 }
 
