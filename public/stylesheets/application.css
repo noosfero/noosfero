@@ -4590,6 +4590,7 @@ h1#agenda-title {
 }
 
 .search-results-type-product li.product-item {
+  position: relative;
   height: 60px;
   overflow: hidden;
 }

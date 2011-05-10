@@ -5,9 +5,10 @@ product_item_pos = 0  if ! product_item_pos
 product_item_pos += 1
 %>
 
+<% extra_content = @plugins.map(:asset_product_extras, product, product.enterprise).collect { |content| instance_eval(&content) } %>
+
 <li class="product-item <%= ( pos % 2 == 0 ) ? 'odd' : 'even' %>">
-  <%= link_to_product product, :class => 'product-pic', :style => 'background-image:url(%s)' %
-       ( product.image ? product.image.public_filename(:minor) : '/images/icons-app/product-default-pic-minor.png' ) %>
+  <%= link_to_product product, :class => 'product-pic', :style => 'background-image:url(%s)' % product.default_image(:minor) %>
   <strong>
     <%= link_to_product product %>
   </strong> 
@@ -18,4 +19,7 @@ product_item_pos += 1
     <% end %>
     <li> <%=_('Category:') + ' ' + link_to_product_category(product.product_category) %> </li>
   </ul>
+
+  <%= extra_content.join('\n') %>
+
 </li>

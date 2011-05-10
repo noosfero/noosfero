@@ -103,6 +103,12 @@ class Noosfero::Plugin
     nil
   end
 
+  # -> Adds content to products on asset list
+  # returns = lambda block that creates a html code
+  def asset_product_extras(product, enterprise)
+    nil
+  end
+
   # -> Adds content to the beginning of the page
   # returns = lambda block that creates html code or raw rhtml/html.erb
   def body_beginning
