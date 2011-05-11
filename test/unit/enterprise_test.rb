@@ -50,13 +50,12 @@ class EnterpriseTest < Test::Unit::TestCase
   end
 
   should 'have fans' do
-    p = create_user('test_person').person
+    p = fast_create(Person)
     e = fast_create(Enterprise)
 
     p.favorite_enterprises << e
-    e.reload
 
-    assert_includes e.fans, p
+    assert_includes Enterprise.find(e.id).fans, p
   end
 
   should 'remove products when removing enterprise' do
