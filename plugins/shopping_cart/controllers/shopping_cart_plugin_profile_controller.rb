@@ -98,10 +98,9 @@ class ShoppingCartPluginProfileController < ProfileController
     rescue Exception => exception
       render :text => {
         :ok => false,
-        :message => _('Your request failed.'),
         :error => {
           :code => 6,
-          :message => exception
+          :message => exception.message
         }
       }.to_json
     end

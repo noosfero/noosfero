@@ -264,7 +264,7 @@ function Cart(config) {
       },
       cache: false,
       error: function(ajax, status, errorThrown) {
-        alert('Remove item - HTTP '+status+': '+errorThrown);
+        alert('Send request - HTTP '+status+': '+errorThrown);
       },
       complete: function() {
         $.colorbox.close();
