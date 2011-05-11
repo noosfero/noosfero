@@ -73,7 +73,7 @@ class Blog < Folder
   alias :display_posts_in_current_language? :display_posts_in_current_language
 
   def empty?
-    posts.compact.empty?
+    posts.empty?
   end
 
 end
