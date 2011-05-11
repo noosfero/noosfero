@@ -14,7 +14,7 @@
     <%= stylesheet_link_tag theme_stylesheet_path %>
     <%= stylesheet_link_tag jquery_ui_theme_stylesheet_path %>
     <% @plugins.enabled_plugins.each do |plugin| %>
-      <% if plugin.stylesheets? %>
+      <% if plugin.stylesheet? %>
         <%= stylesheet_tag plugin.class.public_path('style.css'), {} %>
       <% end %>
     <% end %>

@@ -443,7 +443,7 @@ class ApplicationControllerTest < Test::Unit::TestCase
 
   should 'include stylesheets supplied by plugins' do
     plugin1 = mock()
-    plugin1.stubs(:stylesheets?).returns(true)
+    plugin1.stubs(:stylesheet?).returns(true)
     plugin1.stubs(:js_files).returns([])
     plugin1_class = mock()
     plugin1_path = '/plugin1/style.css'
@@ -451,7 +451,7 @@ class ApplicationControllerTest < Test::Unit::TestCase
     plugin1.stubs(:class).returns(plugin1_class)
 
     plugin2 = mock()
-    plugin2.stubs(:stylesheets?).returns(true)
+    plugin2.stubs(:stylesheet?).returns(true)
     plugin2.stubs(:js_files).returns([])
     plugin2_class = mock()
     plugin2_path = '/plugin2/style.css'
@@ -474,7 +474,7 @@ class ApplicationControllerTest < Test::Unit::TestCase
   should 'include javascripts supplied by plugins' do
     js1 = 'js1.js'
     plugin1 = mock()
-    plugin1.stubs(:stylesheets?).returns(false)
+    plugin1.stubs(:stylesheet?).returns(false)
     plugin1.stubs(:js_files).returns([js1])
     plugin1_class = mock()
     plugin1_path = '/plugin1/'+js1
@@ -484,7 +484,7 @@ class ApplicationControllerTest < Test::Unit::TestCase
     js2 = 'js2.js'
     js3 = 'js3.js'
     plugin2 = mock()
-    plugin2.stubs(:stylesheets?).returns(false)
+    plugin2.stubs(:stylesheet?).returns(false)
     plugin2.stubs(:js_files).returns([js2, js3])
     plugin2_class = mock()
     plugin2_path2 = '/plugin2/'+js2
