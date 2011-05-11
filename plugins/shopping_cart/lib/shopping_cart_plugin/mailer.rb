@@ -1,6 +1,6 @@
 include ApplicationHelper
 
-class ShoppingCartPlugin::Mailer < ActionMailer::Base
+class ShoppingCartPlugin::Mailer < Noosfero::Plugin::MailerBase
 
   prepend_view_path(ShoppingCartPlugin.root_path+'/views')
 
