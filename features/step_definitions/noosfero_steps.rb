@@ -396,3 +396,18 @@ Given /^"([^\"]*)" asked to join "([^\"]*)"$/ do |person, organization|
   organization = Organization.find_by_name(organization)
   AddMember.create!(:person => person, :organization => organization)
 end
+
+Given /^that the default environment have (.+) templates?$/ do |option|
+  env = Environment.default
+  case option
+    when 'all profile'
+      env.create_templates
+    when 'no Inactive Enterprise'
+      env.inactive_enterprise_template && env.inactive_enterprise_template.destroy
+  end
+end
+
+Given /^the environment domain is "([^\"]*)"$/ do |domain|
+  d = Domain.new :name => domain, :owner => Environment.default
+  d.save(false)
+end
