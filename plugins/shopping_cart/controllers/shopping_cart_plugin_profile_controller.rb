@@ -16,7 +16,7 @@ class ShoppingCartPluginProfileController < ProfileController
         :products => [{
           :id => product.id,
           :name => product.name,
-          :price => get_price(product),
+          :price => get_price(product, profile.environment),
           :description => product.description,
           :picture => product.default_image(:minor),
           :quantity => session[:cart][:items][product.id]
@@ -44,7 +44,7 @@ class ShoppingCartPluginProfileController < ProfileController
         product = Product.find(id)
         { :id => product.id,
           :name => product.name,
-          :price => get_price(product),
+          :price => get_price(product, profile.environment),
           :description => product.description,
           :picture => product.default_image(:minor),
           :quantity => quantity
@@ -83,6 +83,7 @@ class ShoppingCartPluginProfileController < ProfileController
   end
 
   def buy
+    @environment = profile.environment
     render :layout => false
   end
 

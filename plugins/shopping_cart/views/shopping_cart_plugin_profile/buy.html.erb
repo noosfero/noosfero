@@ -18,7 +18,7 @@
       <%= submit_button(:send, _('Send buy request')) %>
     </div>
   <% end %>
-  <%= items_table(session[:cart][:items]) %>
+  <%= items_table(session[:cart][:items], @environment) %>
 </div>
 
 <script type="text/javascript">

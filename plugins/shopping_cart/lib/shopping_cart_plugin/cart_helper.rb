@@ -7,15 +7,15 @@ module ShoppingCartPlugin::CartHelper
     product.discount ? product.price_with_discount : product.price
   end
 
-  def get_price(product)
-    float_to_currency(sell_price(product))
+  def get_price(product, environment)
+    float_to_currency_cart(sell_price(product), environment)
   end
 
-  def get_total(items)
-    float_to_currency(items.map { |id, quantity| sell_price(Product.find(id)) * quantity}.sum)
+  def get_total(items, environment)
+    float_to_currency_cart(items.map { |id, quantity| sell_price(Product.find(id)) * quantity}.sum, environment)
   end
 
-  def items_table(items, by_mail = false)
+  def items_table(items, environment, by_mail = false)
     '<table id="cart-items-table" cellpadding="2" cellspacing="0"
     border="'+(by_mail ? '1' : '0')+'"
     style="'+(by_mail ? 'border-collapse:collapse' : '')+'">' +
@@ -33,12 +33,18 @@ module ShoppingCartPlugin::CartHelper
       content_tag('tr',
                   content_tag('td', product.name) +
                   content_tag('td', quantity, quantity_opts ) +
-                  content_tag('td', get_price(product), price_opts )
+                  content_tag('td', get_price(product, environment), price_opts )
                  )
     end.join("\n") +
     content_tag('th', _('Total:'), :colspan => 2, :class => 'cart-table-total-label') +
-    content_tag('th', get_total(items), :class => 'cart-table-total-value') +
+    content_tag('th', get_total(items, environment), :class => 'cart-table-total-value') +
     '</table>'
+  end
+
+  private
+
+  def float_to_currency_cart(value, environment)
+    number_to_currency(value, :unit => environment.currency_unit, :separator => environment.currency_separator, :delimiter => environment.currency_delimiter, :format => "%u %n")
   end
 
 end

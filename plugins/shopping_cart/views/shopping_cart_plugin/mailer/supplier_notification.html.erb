@@ -4,7 +4,6 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
   </head>
   <body>
-    <% environment = @environment %>
     <h4><%= _('Hi %s!') % @supplier.name %></h4>
 
     <p>
@@ -22,12 +21,12 @@
     </ul>
 
     <p><%=_('And here are the items bought by this customer:')%></p>
-    <%= items_table(@items, true) %>
+    <%= items_table(@items, @environment, true) %>
 
     <p>
       --<br/>
-      <%=_('If there are any problems with this email contact the admin of %s.') % environment.name %>
+      <%=_('If there are any problems with this email contact the admin of %s.') % @environment.name %>
     </p>
-    <small style="color: #888"><%= _('A service of %s.') % environment.name %></small>
+    <small style="color: #888"><%= _('A service of %s.') % @environment.name %></small>
   </body>
 </html>
