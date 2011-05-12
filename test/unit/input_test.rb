@@ -162,19 +162,4 @@ class InputTest < Test::Unit::TestCase
     assert_kind_of Unit, input.build_unit
   end
 
-  should 'calculate cost of input' do
-    input = Input.new(:amount_used => 10, :price_per_unit => 2.00)
-    assert_equal 20.00, input.cost
-  end
-
-  should 'cost 0 if amount not defined' do
-    input = Input.new(:price_per_unit => 2.00)
-    assert_equal 0.00, input.cost
-  end
-
-  should 'cost 0 if price_per_unit is not defined' do
-    input = Input.new(:amount_used => 10)
-    assert_equal 0.00, input.cost
-  end
-
 end

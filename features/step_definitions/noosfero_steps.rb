@@ -180,22 +180,6 @@ Given /^the following certifiers$/ do |table|
   end
 end
 
-Given /^the following production costs?$/ do |table|
-  table.hashes.map{|item| item.dup}.each do |item|
-    owner_type = item.delete('owner')
-    owner = owner_type == 'environment' ? Environment.default : Profile[owner_type]
-    ProductionCost.create!(item.merge(:owner => owner))
-  end
-end
-
-Given /^the following price details?$/ do |table|
-  table.hashes.map{|item| item.dup}.each do |item|
-    product = Product.find_by_name item.delete('product')
-    production_cost = ProductionCost.find_by_name item.delete('production_cost')
-    product.price_details.create!(item.merge(:production_cost => production_cost))
-  end
-end
-
 Given /^I am logged in as "(.+)"$/ do |username|
   visit('/account/logout')
   visit('/account/login')
@@ -411,23 +395,4 @@ Given /^"([^\"]*)" asked to join "([^\"]*)"$/ do |person, organization|
   person = Person.find_by_name(person)
   organization = Organization.find_by_name(organization)
   AddMember.create!(:person => person, :organization => organization)
-end
-
-And /^I want to add "([^\"]*)" as cost$/ do |string|
-  selenium.answer_on_next_prompt(string)
-end
-
-Given /^that the default environment have (.+) templates?$/ do |option|
-  env = Environment.default
-  case option
-    when 'all profile'
-      env.create_templates
-    when 'no Inactive Enterprise'
-      env.inactive_enterprise_template && env.inactive_enterprise_template.destroy
-  end
-end
-
-Given /^the environment domain is "([^\"]*)"$/ do |domain|
-  d = Domain.new :name => domain, :owner => Environment.default
-  d.save(false)
 end

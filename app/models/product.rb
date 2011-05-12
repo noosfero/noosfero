@@ -5,8 +5,6 @@ class Product < ActiveRecord::Base
   has_many :product_qualifiers
   has_many :qualifiers, :through => :product_qualifiers
   has_many :inputs, :dependent => :destroy, :order => 'position'
-  has_many :price_details, :dependent => :destroy
-  has_many :production_costs, :through => :price_details
 
   validates_uniqueness_of :name, :scope => :enterprise_id, :allow_nil => true
   validates_presence_of :product_category_id
@@ -103,9 +101,8 @@ class Product < ActiveRecord::Base
     enterprise.public_profile
   end
 
-  def formatted_value(method)
-    value = self[method] || self.send(method)
-    ("%.2f" % value).to_s.gsub('.', enterprise.environment.currency_separator) if value
+  def formatted_value(value)
+    ("%.2f" % self[value]).to_s.gsub('.', enterprise.environment.currency_separator) if self[value]
   end
 
   def price_with_discount
@@ -150,32 +147,6 @@ class Product < ActiveRecord::Base
 
   def name_with_unit
     unit.blank? ? name : "#{name} - #{unit.name.downcase}"
-  end
-
-  def inputs_cost
-    return 0 if inputs.empty?
-    inputs.map(&:cost).inject { |sum,price| sum + price }
-  end
-
-  def total_production_cost
-    return inputs_cost if price_details.empty?
-    inputs_cost + price_details.map(&:price).inject { |sum,price| sum + price }
-  end
-
-  def price_described?
-    return false if price.nil?
-    (price - total_production_cost).zero?
-  end
-
-  def update_price_details(price_details)
-    self.price_details.destroy_all
-    price_details.each do |price_detail|
-      self.price_details.create(price_detail)
-    end
-  end
-
-  def available_production_costs
-    self.enterprise.environment.production_costs + self.enterprise.production_costs
   end
 
 end

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110403193953) do
+ActiveRecord::Schema.define(:version => 20110316171323) do
 
   create_table "action_tracker", :force => true do |t|
     t.integer  "user_id"
@@ -315,14 +315,6 @@ ActiveRecord::Schema.define(:version => 20110403193953) do
     t.datetime "updated_at"
   end
 
-  create_table "price_details", :force => true do |t|
-    t.decimal  "price",              :default => 0.0
-    t.integer  "product_id"
-    t.integer  "production_cost_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "product_categorizations", :force => true do |t|
     t.integer  "category_id"
     t.integer  "product_id"
@@ -338,14 +330,6 @@ ActiveRecord::Schema.define(:version => 20110403193953) do
     t.integer  "product_id"
     t.integer  "qualifier_id"
     t.integer  "certifier_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "production_costs", :force => true do |t|
-    t.string   "name"
-    t.integer  "owner_id"
-    t.string   "owner_type"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

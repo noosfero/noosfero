@@ -162,7 +162,6 @@ class Environment < ActiveRecord::Base
   acts_as_accessible
 
   has_many :units, :order => 'position'
-  has_many :production_costs, :as => :owner
 
   def superior_intances
     [self, nil]

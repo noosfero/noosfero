@@ -103,26 +103,6 @@ class ManageProductsController < ApplicationController
     end
   end
 
-  def manage_product_details
-    @product = @profile.products.find(params[:id])
-    if request.post?
-      @product.update_price_details(params[:price_details]) if params[:price_details]
-      render :partial => 'display_price_details'
-    else
-      render :partial => 'manage_product_details'
-    end
-  end
-
-  def remove_price_detail
-    @product = @profile.products.find(params[:product])
-    @price_detail = @product.price_details.find(params[:id])
-    @product = @price_detail.product
-    if request.post?
-      @price_detail.destroy
-      render :nothing => true
-    end
-  end
-
   def destroy
     @product = @profile.products.find(params[:id])
     if @product.destroy
@@ -179,18 +159,4 @@ class ManageProductsController < ApplicationController
     end
   end
 
-  def create_production_cost
-    cost = @profile.production_costs.create(:name => params[:id])
-    if cost.valid?
-      cost.save
-      render :text => {:name => cost.name,
-                       :id => cost.id,
-                       :ok => true
-                      }.to_json
-    else
-      render :text => {:ok => false,
-                       :error_msg => _(cost.errors['name']) % {:fn => _('Name')}
-                      }.to_json
-    end
-  end
 end

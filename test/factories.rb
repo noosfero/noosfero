@@ -448,12 +448,4 @@ module Noosfero::Factory
     { :singular => 'Litre', :plural => 'Litres', :environment_id => 1 }
   end
 
-  ###############################################
-  # Production Cost
-  ###############################################
-
-  def defaults_for_production_cost
-    { :name => 'Production cost ' + factory_num_seq.to_s }
-  end
-
 end
