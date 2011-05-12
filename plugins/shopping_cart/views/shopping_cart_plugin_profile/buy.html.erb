@@ -21,8 +21,10 @@
   <%= items_table(session[:cart][:items]) %>
 </div>
 
-<% javascript_tag do %>
+<script type="text/javascript">
+//<![CDATA[
   jQuery(document).ready(function(){
     jQuery("#cart-request-form").validate();
   });
-<% end %>
+//]]>
+</script>

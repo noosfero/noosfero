@@ -17,6 +17,8 @@
   </div>
 </div>
 
-<% javascript_tag do %>
+<script type="text/javascript">
+//<![CDATA[
   new Cart({hasProducts:<%= !locals[:cart].nil? ? "true, enterprise:'#{Enterprise.find(locals[:cart][:enterprise_id]).identifier}'" : "false" %>});
-<% end %>
+//]]>
+</script>
