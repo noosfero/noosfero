@@ -39,11 +39,12 @@ class FeedUpdater
     ['TERM', 'INT'].each do |signal|
       Signal.trap(signal) do
         stop
-        RAILS_DEFAULT_LOGGER.info("Feed updater exiting gracefully ...")
+        puts "Feed updater exiting gracefully ..."
       end
     end
+    puts "Feed updater started."
     run
-    RAILS_DEFAULT_LOGGER.info("Feed updater exited.")
+    puts "Feed updater exited."
   end
 
   def run

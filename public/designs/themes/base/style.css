@@ -915,14 +915,17 @@ X.sep {
   height: 225px;
 }
 
-#content .search-results-type-article li {
+#content .search-results-type-article li,
+#content .search-results-type-event li {
   padding: 5px 0px;
 }
 
-.search-results-type-article a {
+.search-results-type-article a,
+.search-results-type-event a {
   text-decoration: none;
 }
-.search-results-type-article a:hover {
+.search-results-type-article a:hover,
+.search-results-type-event a:hover {
   text-decoration: underline;
 }
 

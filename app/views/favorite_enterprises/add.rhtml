@@ -7,6 +7,6 @@
 <% form_tag do %>
   <%= hidden_field_tag(:confirmation, 1) %>
 
-  <%= submit_button(:ok, __("Yes, I want to add %s as a favorite enterprise") % @favorite_enterprise.name) %>
+  <%= submit_button(:ok, __("Yes, I am sure"), :title => _("I want to add %s as a favorite enterprise") % @favorite_enterprise.name) %>
   <%= button(:cancel, _("No, I don't want"), :action => 'index') %>
 <% end %>

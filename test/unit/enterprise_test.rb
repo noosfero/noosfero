@@ -49,6 +49,15 @@ class EnterpriseTest < Test::Unit::TestCase
     end
   end
 
+  should 'have fans' do
+    p = fast_create(Person)
+    e = fast_create(Enterprise)
+
+    p.favorite_enterprises << e
+
+    assert_includes Enterprise.find(e.id).fans, p
+  end
+
   should 'remove products when removing enterprise' do
     e = fast_create(Enterprise, :name => "My enterprise", :identifier => 'myenterprise')
     e.products.create!(:name => 'One product', :product_category => @product_category)

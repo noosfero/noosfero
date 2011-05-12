@@ -71,6 +71,10 @@ class ProfileController < PublicController
     end
   end
 
+  def fans
+    @fans = profile.fans
+  end
+
   def favorite_enterprises
     @favorite_enterprises = profile.favorite_enterprises
   end
