@@ -116,6 +116,8 @@ class Person < Profile
   description
   ]
 
+  validates_multiparameter_assignments
+
   def self.fields
     FIELDS
   end

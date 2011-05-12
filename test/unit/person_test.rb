@@ -1183,4 +1183,15 @@ class PersonTest < Test::Unit::TestCase
     assert_includes Person.more_active, profile
   end
 
+  should 'handle multiparameter attribute exception on birth date field' do
+    assert_nothing_raised ActiveRecord::MultiparameterAssignmentErrors do
+      p = Person.new(
+        :name => 'birthday', :identifier => 'birthday', :user_id => 999,
+        'birth_date(1i)' => '', 'birth_date(2i)' => '6', 'birth_date(3i)' => '16'
+      )
+      assert !p.valid?
+      assert p.errors.invalid?(:birth_date)
+    end
+  end
+
 end

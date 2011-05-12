@@ -1,0 +1,17 @@
+* validates_multiparameter_assignments plugin
+
+A Ruby on Rails plugin that adds "validates_multiparameter_assignments" method to ActiveRecord::Base.
+Example:
+
+class User < ActiveRecord::Base
+  validates_multiparameter_assignments
+end
+
+This makes multiparameter assignment errors to be added to the model, rather than raising ActiveRecord::MultiparameterAssignmentErrors.
+By default the error message is read from ActiveRecord::Base.default_error_messages[:invalid]. You can change the message by adding an option like this:
+
+validates_multiparameter_assignments :message => " is not entered correctly."
+
+This plugin is especially useful when you use date_select helper method in the view, where the user can enter invalid dates such as "Feb 31, 2006".
+
+- Shinya Kasatani <kasatani at gmail.com>
