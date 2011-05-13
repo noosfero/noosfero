@@ -31,7 +31,7 @@ You can copy and paste the commands below into a terminal (please review the
 commands and make sure you understand what you are doing):
 
  # checkout the code from repository
- git clone git://git.colivre.coop.br/noosfero.git
+ git clone git://gitorious.org/noosfero/noosfero.git
  # enter the directory
  cd noosfero
  # copy a sample config file
