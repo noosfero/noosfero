@@ -4,8 +4,7 @@ class ShoppingCartPluginMyprofileController < MyProfileController
   def edit
     if request.post?
       begin
-        profile.shopping_cart = params[:shopping_cart] == '1' ? true : false
-        profile.save!
+        profile.update_attributes!(params[:profile_attr])
         session[:notice] = _('Option updated successfully.')
       rescue Exception => exception
         session[:notice] = _('Option wasn\'t updated successfully.')

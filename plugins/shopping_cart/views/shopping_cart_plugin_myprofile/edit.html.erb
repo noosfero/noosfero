@@ -1,8 +1,10 @@
 <h1> <%= _('Cart options') %> </h1>
 
-<%# form_for :profile, profile, :url => {:action => 'edit'} do %>
-<% form_tag :action => 'edit' do %>
-  <%= labelled_check_box(_('Enabled?'), :shopping_cart, '1', profile.shopping_cart) %>
+<% form_for(:profile_attr, profile, :url => {:action => 'edit'}, :html => {:method => 'post'}) do |f| %>
+<%# form_tag :action => 'edit' do %>
+  <%= labelled_form_field(_('Enabled?'), f.check_box(:shopping_cart)) %>
+  <%= labelled_form_field(_('Delivery?'), f.check_box(:shopping_cart_delivery)) %>
+  <%= labelled_form_field(_('Delivery price:'), f.text_field(:shopping_cart_delivery_price)) %>
   <br style='clear: both'/>
   <br style='clear: both'/>
   <div>

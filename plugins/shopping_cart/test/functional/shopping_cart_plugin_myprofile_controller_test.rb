@@ -20,7 +20,7 @@ class ShoppingCartPluginMyprofileControllerTest < Test::Unit::TestCase
   should 'be able to enable shopping cart' do
     enterprise.shopping_cart = false
     enterprise.save
-    post :edit, :profile => enterprise.identifier, :shopping_cart => '1'
+    post :edit, :profile => enterprise.identifier, :profile_attr => {:shopping_cart => '1'}
     enterprise.reload
 
     assert enterprise.shopping_cart
@@ -29,9 +29,34 @@ class ShoppingCartPluginMyprofileControllerTest < Test::Unit::TestCase
   should 'be able to disable shopping cart' do
     enterprise.shopping_cart = true
     enterprise.save
-    post :edit, :profile => enterprise.identifier, :shopping_cart => '0'
+    post :edit, :profile => enterprise.identifier, :profile_attr => {:shopping_cart => '0'}
     enterprise.reload
 
     assert !enterprise.shopping_cart
+  end
+
+  should 'be able to enable shopping cart delivery' do
+    enterprise.shopping_cart_delivery = false
+    enterprise.save
+    post :edit, :profile => enterprise.identifier, :profile_attr => {:shopping_cart_delivery => '1'}
+    enterprise.reload
+
+    assert enterprise.shopping_cart_delivery
+  end
+
+  should 'be able to disable shopping cart delivery' do
+    enterprise.shopping_cart_delivery = true
+    enterprise.save
+    post :edit, :profile => enterprise.identifier, :profile_attr => {:shopping_cart_delivery => '0'}
+    enterprise.reload
+
+    assert !enterprise.shopping_cart_delivery
+  end
+
+  should 'be able to choose the delivery price' do
+    price = 4.35
+    post :edit, :profile => enterprise.identifier, :profile_attr => {:shopping_cart_delivery_price => price}
+    enterprise.reload
+    assert enterprise.shopping_cart_delivery_price == price
   end
 end
