@@ -11,7 +11,7 @@
 }
 
 .cart {
-  position: absolute;
+  position: fixed;
   right: 20px;
   top: 0px;
   width: 200px;
