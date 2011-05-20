@@ -1,0 +1,121 @@
+h1(order-750). Shopping Cart
+
+p.  _Buy the products you want._
+
+*  "How to Access":#how-to-access
+*  "Adding new products":#adding-new-products
+*  "Editing quantities":#editing-quantities
+*  "Removing products":#removing-products
+*  "Cleaning the cart":#cleaning-cart
+*  "Show and hide cart":#show-and-hide
+*  "Checking out":#checkout
+
+h2(#how-access). How to access
+
+First of all, you need to be at the page of the enterprise from which you are going to buy your products:
+
+!=/images/doc/shopping-cart-enterprise-homepage.en.png(Enterprise Homepage)!
+
+Now you are going to access the products' page of this enterprise. Most of the enterprises has a link at the side bar directing you to their products' list:
+
+!=/images/doc/shopping-cart-products-side-bar-link.en.png(Link to the products list)!
+
+If there is no link to the products, you can try accessing the list straight through the url:
+
+/catalog/enterprise-identifier.
+
+h2(#adding-new-products). Adding new products
+
+After reaching the products' list, if the enterprise enabled the shopping-cart plugin, you will see the button 'Add to cart' on each product listed. This is how it looks like in the catalog:
+
+!=/images/doc/shopping-cart-catalog.en.png(Catalog)!
+
+And here in the products search:
+
+!=/images/doc/shopping-cart-asset-products.en.png(Search)!
+
+If you press this button, you will see in the up-right corner your cart sliding down with the new product added:
+
+!=/images/doc/shopping-cart-first-product-added.en.png(First product)!
+
+From now on, your cart will always be there until it gets empty or you choose to hide it.
+If you want to add new products just do the same thing. If you try to add a product that's already in your cart, it will add one to the quantity of that product.
+
+!=/images/doc/shopping-cart-some-products.en.png(Cart with some products)!
+
+OBS: you can only add products from the same enterprise in the cart. If you want to buy products from different enterprises, then you should finish the buy with one and then start the new buy with the other.
+
+h2(#editing-quantities). Editing quantities
+
+To edit the quantity of each product you have in your cart is really easy. You just need to click on the quantity and write the quantity you want:
+
+!=/images/doc/shopping-cart-editing-quantity.en.png(Editing quantity)!
+
+After leaving the field, the quantity will be automatically updated:
+
+!=/images/doc/shopping-cart-quantity-updated.en.png(Quantity updated)!
+
+
+h2(#removing-products). Removing products
+
+You can remove any product from your cart simply pressing the 'delete' button (which has a little thrash as icon):
+
+!=/images/doc/shopping-cart-deleting-product.en.png(Deleting product)!
+
+After pressing this button you will be asked for a confirmation:
+
+!=/images/doc/shopping-cart-deleting-confirmation.en.png(Delete confirmation)!
+
+And after confirming, the product will be removed. If the product removed is the last one, the cart will disappear too.
+
+h2(#cleaning-cart). Cleaning the cart
+
+If you changed your mind about the products you added or you did too many mistakes to keep going on, at any time you can clean your cart and start it again. Just follow the link "Clean cart":
+
+!=/images/doc/shopping-cart-cleaning-cart.en.png(Cleaning cart)!
+
+After following this link you will be asked for a confirmation:
+
+!=/images/doc/shopping-cart-cleaning-confirmation.en.png(Cleaning confirmation)!
+
+And after confirming, your carted is empty again.
+
+h2(#show-and-hide). Show and hide cart
+
+The cart is a feature that is always over your page on the top-right corner, so sometimes you might get nervous trying to see something that is under it. Don't worry! In you cart is a "Hide cart" button:
+
+!=/images/doc/shopping-cart-hide-button.en.png(Cart hide)!
+
+This button will slide up your cart when pressed leaving just a little 'Show cart' so that you can slide it down again:
+
+!=/images/doc/shopping-cart-cart-hided.en.png(Cart hided)!
+
+When you hide your cart nothing happens to the products you already added.
+If you miss your beatiful cart again just press 'Show cart' and it will slide down gracefully back to you.  ^^
+
+h2(#checkout). Checking out
+
+So, now you already choosed your products and its quantities and want to checkout your products.
+As you can see in your cart, there is a "Shopping Checkout" button:
+
+!=/images/doc/shopping-cart-shopping-checkout.en.png(Checkout)!
+
+After pressing this button, a box will appear with some fields for you to fill and your cart review:
+
+!=/images/doc/shopping-cart-fields.en.png(Filling informations)!
+
+If you are already a member of the social network your informations will be filled automatically:
+
+!/images/doc/shopping-cart-fields-filled.en.png(Informations automatically filled)!
+
+If due to some reason you fill a field erroneously or do not fill a required field, a little message will appear under the field indicating the problem so that you can fill your informations correctly:
+
+!=/images/doc/shopping-cart-invalid-fields.en.png(Invalid fields)!
+
+After filling your information press the button "Send buy request":
+
+!=/images/doc/shopping-cart-send-buy-request.en.png(Send request)!
+
+This button will send your request to the enterprise and will also send you an email with your request so that you can confirm the products and your informations. Now the enterprise might contact you to discuss further details.
+
+"Back to top":#online-doc-text
