@@ -86,3 +86,7 @@ you want to enable it then you need to change some files:
 
 3) Add in config/noosfero.yml at development section:
    exception_recipients: [admin@example.com]
+
+== Releasing and building Debian package
+
+See RELEASING file.
