@@ -123,6 +123,13 @@ class ManageProductsControllerTest < Test::Unit::TestCase
     assert_template 'shared/_dialog_error_messages'
   end
 
+  should "not crash if product has no category" do
+    product = fast_create(Product, :enterprise_id => @enterprise.id)
+    assert_nothing_raised do
+      post 'edit_category', :profile => @enterprise.identifier, :id => product.id
+    end
+  end
+
   should "destroy product" do
     product = fast_create(Product, :name => 'test product', :enterprise_id => @enterprise.id, :product_category_id => @product_category.id)
     assert_difference Product, :count, -1 do

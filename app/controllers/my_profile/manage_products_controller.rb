@@ -72,7 +72,7 @@ class ManageProductsController < ApplicationController
 
   def edit_category
     @product = @profile.products.find(params[:id])
-    @category = @product.product_category
+    @category = @product.product_category || ProductCategory.first
     @categories = ProductCategory.top_level_for(environment)
     @edit = true
     @level = @category.level
