@@ -17,6 +17,7 @@ var DEFAULT_SETTINGS = {
     deleteText: "&times;",
     searchDelay: 300,
     minChars: 1,
+    permanentDropdown: false,
     tokenLimit: null,
     jsonContainer: null,
     method: "GET",
@@ -27,6 +28,7 @@ var DEFAULT_SETTINGS = {
     prePopulate: null,
     processPrePopulate: false,
     animateDropdown: true,
+    dontAdd: false,
     onResult: null,
     onAdd: null,
     onDelete: null,
@@ -58,6 +60,7 @@ var POSITION = {
 // Keys "enum"
 var KEY = {
     BACKSPACE: 8,
+    DELETE: 46,
     TAB: 9,
     ENTER: 13,
     ESCAPE: 27,
@@ -77,10 +80,8 @@ var KEY = {
 // Additional public (exposed) methods
 var methods = {
     init: function(url_or_data_or_function, options) {
-        var settings = $.extend({}, DEFAULT_SETTINGS, options || {});
-
         return this.each(function () {
-            $(this).data("tokenInputObject", new $.TokenList(this, url_or_data_or_function, settings));
+            $(this).data("tokenInputObject", new $.TokenList(this, url_or_data_or_function, options));
         });
     },
     clear: function() {
@@ -112,6 +113,7 @@ $.TokenList = function (input, url_or_data, settings) {
     //
     // Initialization
     //
+    var settings = $.extend({}, DEFAULT_SETTINGS, options || {});
 
     // Configure the data source
     if(typeof(url_or_data) === "string") {
@@ -172,7 +174,6 @@ $.TokenList = function (input, url_or_data, settings) {
         })
         .blur(function () {
             hide_dropdown();
-            $(this).val("");
         })
         .bind("keyup keydown blur update", resize_input)
         .keydown(function (event) {
@@ -205,7 +206,11 @@ $.TokenList = function (input, url_or_data, settings) {
                     } else {
                         var dropdown_item = null;
 
-                        if(event.keyCode === KEY.DOWN || event.keyCode === KEY.RIGHT) {
+                        if (event.keyCode == KEY.LEFT && (this.selectionStart > 0 || this.selectionStart != this.selectionEnd))
+                            return true;
+                        else if (event.keyCode == KEY.RIGHT && (this.selectionEnd < $(this).val().length || this.selectionStart != this.selectionEnd))
+                            return true;
+                        else if(event.keyCode === KEY.DOWN || event.keyCode === KEY.RIGHT) {
                             dropdown_item = $(selected_dropdown_item).next();
                         } else {
                             dropdown_item = $(selected_dropdown_item).prev();
@@ -219,16 +224,21 @@ $.TokenList = function (input, url_or_data, settings) {
                     break;
 
                 case KEY.BACKSPACE:
+                case KEY.DELETE:
                     previous_token = input_token.prev();
-                    if(!$(this).val().length && settings.backspaceDeleteItem) {
+                    next_token = input_token.next();
+
+                    if(!$(this).val().length) {
                         if(selected_token) {
                             delete_token($(selected_token));
-                        } else if(previous_token.length) {
+                        } else if(KEY.DELETE && next_token.length) {
+                            select_token($(next_token.get(0)));
+                        } else if(KEY.BACKSPACE && previous_token.length) {
                             select_token($(previous_token.get(0)));
                         }
 
                         return false;
-                    } else if($(this).val().length === 1) {
+                    } else if(!settings.permanentDropdown && $(this).val().length === 1) {
                         hide_dropdown();
                     } else {
                         // set a timeout just long enough to let this function finish.
@@ -315,8 +325,14 @@ $.TokenList = function (input, url_or_data, settings) {
     // The list to store the dropdown items in
     var dropdown = $("<div>")
         .addClass(settings.classes.dropdown)
-        .appendTo("body")
         .hide();
+    dropdown.appendTo("body");
+    if (!settings.permanentDropdown)
+        dropdown.appendTo("body");
+    else {
+        $(input).after(dropdown.show());
+        do_search();
+    }
 
     // Magic element to help us resize the text input
     var input_resizer = $("<tester/>")
@@ -447,6 +463,9 @@ $.TokenList = function (input, url_or_data, settings) {
 
     // Add a token to the token list based on user input
     function add_token (item) {
+        if (settings.dontAdd)
+            return;
+
         var callback = settings.onAdd;
 
         // See if the token already exists and select it if we don't want duplicates
@@ -575,19 +594,28 @@ $.TokenList = function (input, url_or_data, settings) {
 
     // Hide and clear the results dropdown
     function hide_dropdown () {
-        dropdown.hide().empty();
-        selected_dropdown_item = null;
+        if (!settings.permanentDropdown) {
+            dropdown.hide().empty();
+            selected_dropdown_item = null;
+        } 
     }
 
     function show_dropdown() {
-        dropdown
-            .css({
-                position: "absolute",
-                top: $(token_list).offset().top + $(token_list).outerHeight(),
-                left: $(token_list).offset().left,
-                zindex: 999
-            })
-            .show();
+        if (!settings.permanentDropdown)
+            dropdown
+                .css({
+                    position: "absolute",
+                    top: $(token_list).offset().top + $(token_list).outerHeight(),
+                    left: $(token_list).offset().left,
+                    zindex: 999
+                })
+                .show();
+        else
+            dropdown
+                .css({
+                    position: "relative",
+                })
+                .show();
     }
 
     function show_dropdown_searching () {
@@ -598,7 +626,7 @@ $.TokenList = function (input, url_or_data, settings) {
     }
 
     function show_dropdown_hint () {
-        if(settings.hintText) {
+        if(!settings.permanentDropdown && settings.hintText) {
             dropdown.html("<p>"+settings.hintText+"</p>");
             show_dropdown();
         }
@@ -694,7 +722,8 @@ $.TokenList = function (input, url_or_data, settings) {
             } else {
                 hide_dropdown();
             }
-        }
+        } else if (settings.permanentDropdown)
+            run_search('');
     }
 
     // Do the actual search
