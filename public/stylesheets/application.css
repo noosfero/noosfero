@@ -3049,6 +3049,22 @@ div#activation_enterprise div {
   margin-top: 0px;
 }
 
+.controller-search #facets-menu {
+  width: 20%;
+  float: left;
+}
+
+.controller-search #facets-menu div {
+  position: relative;
+}
+
+.controller-search .facet-selected {
+  display: block;
+  background-color: #000;
+  color: #fff;
+  float: left;
+}
+
 #product-category,
 .product-category-hierarchy {
   margin-top: 40px;

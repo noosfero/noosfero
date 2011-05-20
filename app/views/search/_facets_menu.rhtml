@@ -1,0 +1,51 @@
+<% more_options = _("+ Options") %>
+<% less_options = _("- Options") %>
+<% less_options_limit = 7 %>
+
+<div id="facets-menu">
+  <% if !@facets["facet_fields"].empty? %>
+    <% @asset_class.each_facet do |facet_id, index| %>
+      <% facet = @asset_class.facets[facet_id] %>
+      <% solr_facet = @asset_class.to_solr_facet_fields[facet_id] %>
+      <% facets_all = @facets["facet_fields"][solr_facet] %>
+      <% facets_found = params[:facet] ? facets_all.reject {|id,c| params[:facet][facet_id.to_s].to_s == id.to_s } : facets_all %>
+
+      <% if facets_found.count > 0 %>
+        <div id="facet-menu-<%= index.to_s %>" class="facet-menu">
+          <div class="facet-menu-label">
+            <%= facet[:label] %>
+          </div><br />
+
+          <% if facets_found.count > less_options_limit %>
+            <div class="facet-menu-options facet-menu-more-options" style="display: none">
+              <% array = [] %>
+              <% @asset_class.each_facet_obj(solr_facet, facets_found, :sort => :alphabetically) do |obj, count| %>
+                <% array << {:id => id, :name => link_to(obj.send(facet[:display_field].to_s), params.merge({"facet[#{facet_id.to_s}]" => obj.id})) + " (#{count})"} %>
+              <% end %>
+
+              <%= text_field :facet, facet_id %>
+              <% javascript_tag do %>
+                jQuery.TokenList($("<%='facet_'+facet_id.to_s%>"), <%=array.to_json%>, {searchDelay: 0, permanentDropdown: true, theme: "facet", dontAdd: true, preventDuplicates: true});
+              <% end %>
+            </div>
+          <% end %>
+
+          <div class="facet-menu-options facet-menu-less-options">
+            <% c = 0; @asset_class.each_facet_obj(solr_facet, facets_found, :sort => :count) do |obj, count| %>
+              <%= link_to(obj.send(facet[:display_field].to_s), params.merge({"facet[#{facet_id.to_s}]" => obj.id})) + " (#{count})" %><br />
+              <% break if (c += 1) > less_options_limit %>
+            <% end %>
+          </div> <br />
+
+          <% if facets_found.count > less_options_limit %>
+            <%= link_to_function more_options, "jQuery('#facet-menu-"+index.to_s+" .facet-menu-options').toggle(200); " + 
+              "jQuery(this).text(jQuery(this).text() == '"+less_options+"' ? '"+more_options+"' : '"+less_options+"');" %>
+              <br />
+          <% end %>
+
+          <br />
+        </div>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>

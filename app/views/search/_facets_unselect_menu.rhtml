@@ -1,0 +1,8 @@
+
+<% if params[:facet] %>
+  <% params[:facet].each do |facet_id, obj_id| %>
+    <% facet = @asset_class.facets[facet_id.to_sym] %>
+    <% obj = facet[:class].find_by_id(obj_id.to_i) %>
+    <%= link_to(obj.send(facet[:display_field]), params.merge(:facet => params[:facet].reject {|k,v| k == facet_id}), :class => 'facet-selected') if obj %>
+  <% end %>
+<% end %>

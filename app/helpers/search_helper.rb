@@ -115,4 +115,23 @@ module SearchHelper
     render(:partial => 'product_categories_menu', :object => product_categories_menu)
   end
 
+  def facets_menu(asset, _facets)
+    @asset_class = asset_class(asset)
+    @facets = _facets
+    render(:partial => 'facets_menu')
+  end
+
+  def facets_unselect_menu(asset)
+    @asset_class = asset_class(asset)
+    render(:partial => 'facets_unselect_menu')
+  end
+
+  def asset_class(asset)
+    asset.to_s.singularize.camelize.constantize
+  end
+  
+  def asset_table(asset)
+    asset_class(asset).table_name
+  end
+
 end
