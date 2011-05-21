@@ -40,8 +40,8 @@ class ManageProductsController < ApplicationController
   end
 
   def new
-    @product = @profile.products.build(:product_category_id => params[:selected_category_id])
-    @category = @product.product_category
+    @category = params[:selected_category_id] ? Category.find(params[:selected_category_id]) : nil
+    @product = @profile.products.build(:product_category => @category)
     @categories = ProductCategory.top_level_for(environment)
     @level = 0
     if request.post?

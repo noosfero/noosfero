@@ -170,6 +170,14 @@ class ManageProductsControllerTest < Test::Unit::TestCase
     end
   end
 
+  should 'not create a new product with an invalid category' do
+    category1 = fast_create(Category, :name => 'Category 1')
+    category2 = fast_create(Category, :name => 'Category 2', :parent_id => category1)
+    assert_raise ActiveRecord::AssociationTypeMismatch do
+      post 'new', :profile => @enterprise.identifier, :product => { :name => 'test product' }, :selected_category_id => category2.id
+    end
+  end
+
   should 'filter html from name of product' do
     category = fast_create(ProductCategory, :name => 'Category 1')
     post 'new', :profile => @enterprise.identifier, :product => { :name => "<b id='html_name'>name bold</b>" }, :selected_category_id => category.id
