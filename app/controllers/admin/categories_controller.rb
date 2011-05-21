@@ -14,7 +14,7 @@ class CategoriesController < AdminController
 
   # posts back
   def new
-    type = (params[:type] || 'Category')
+    type = (params[:type] || params[:parent_type] || 'Category')
     raise 'Type not allowed' unless ALLOWED_TYPES.include?(type)
 
     @category = type.constantize.new(params[:category])
