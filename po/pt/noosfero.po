@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.31.0\n"
 "POT-Creation-Date: 2011-05-23 16:59-0300\n"
-"PO-Revision-Date: 2011-05-12 01:03-0300\n"
+"PO-Revision-Date: 2011-05-23 20:33-0300\n"
 "Last-Translator: Joenio Costa <joenio@colivre.coop.br>\n"
 "Language-Team: LANGUAGE TEAM <E-MAIL@ADDRESS or HOME PAGE>\n"
 "MIME-Version: 1.0\n"
@@ -8162,74 +8162,64 @@ msgstr "Organizações são desabilitadas quando criadas"
 
 #: plugins/shopping_cart/controllers/shopping_cart_plugin_profile_controller.rb:96
 msgid "Request sent successfully. Check your email."
-msgstr ""
+msgstr "Requisição enviada com sucesso. Cheque seu email."
 
 #: plugins/shopping_cart/controllers/shopping_cart_plugin_profile_controller.rb:118
 msgid "Can't join items from different enterprises."
-msgstr ""
+msgstr "Não é possível juntar itens de empreendimentos diferentes."
 
 #: plugins/shopping_cart/controllers/shopping_cart_plugin_profile_controller.rb:132
-#, fuzzy
 msgid "There is no cart."
-msgstr "Não há categorias."
+msgstr "Não há carrinho."
 
 #: plugins/shopping_cart/controllers/shopping_cart_plugin_profile_controller.rb:148
-#, fuzzy
 msgid "This enterprise doesn't have this product."
-msgstr "Este empreendimento não pôde ser ativado pelo sistema"
+msgstr "Este empreendimento não tem esse produto."
 
 #: plugins/shopping_cart/controllers/shopping_cart_plugin_profile_controller.rb:162
 msgid "The cart doesn't have this product."
-msgstr ""
+msgstr "O carrinho não tem esse produto."
 
 #: plugins/shopping_cart/controllers/shopping_cart_plugin_profile_controller.rb:176
 msgid "Invalid quantity."
-msgstr ""
+msgstr "Quantidade inválida."
 
 #: plugins/shopping_cart/controllers/shopping_cart_plugin_myprofile_controller.rb:8
-#, fuzzy
 msgid "Option updated successfully."
-msgstr "Os plugins foram atualizados com sucesso."
+msgstr "Opção foi atualizada com sucesso."
 
 #: plugins/shopping_cart/controllers/shopping_cart_plugin_myprofile_controller.rb:10
-#, fuzzy
 msgid "Option wasn't updated successfully."
-msgstr "Os plugins foram atualizados com sucesso."
+msgstr "Opção não foi atualizada com sucesso."
 
 #: plugins/shopping_cart/lib/shopping_cart_plugin.rb:8
-#, fuzzy
 msgid "A shopping cart feature for enterprises"
-msgstr "Desabilitar busca por empreendimentos"
+msgstr "Funcionalidade de carrinho de compras para empreendimentos"
 
 #: plugins/shopping_cart/lib/shopping_cart_plugin.rb:14
-#, fuzzy
 msgid "Add to cart"
-msgstr "Adicionar contato"
+msgstr "Adicionar ao carrinho"
 
 #: plugins/shopping_cart/lib/shopping_cart_plugin/mailer.rb:10
-#, fuzzy
 msgid "[%s] Your buy request was performed successfully."
-msgstr "Sua requisição de publicação foi enviada com sucesso."
+msgstr "[%s] Sua requisição de compra foi realizada com sucesso."
 
 #: plugins/shopping_cart/lib/shopping_cart_plugin/mailer.rb:23
 msgid "[%s] You have a new buy request from %s."
-msgstr ""
+msgstr "[%s] Você tem uma nova requisição de compra de %s."
 
 #: plugins/shopping_cart/lib/shopping_cart_plugin/cart_helper.rb:22
-#, fuzzy
 msgid "Delivery"
-msgstr "Destinatário"
+msgstr "Entrega"
 
 #: plugins/shopping_cart/lib/shopping_cart_plugin/cart_helper.rb:35
-#, fuzzy
 msgid "Item name"
-msgstr "Nome do site"
+msgstr "Nome do item"
 
 #: plugins/shopping_cart/lib/shopping_cart_plugin/cart_helper.rb:52
 #: plugins/shopping_cart/views/cart.html.erb:10
-#, fuzzy
 msgid "Total:"
-msgstr "Para: "
+msgstr "Total:"
 
 #: plugins/mezuro/controllers/mezuro_plugin_myprofile_controller.rb:15
 #, fuzzy
@@ -8260,134 +8250,120 @@ msgid "A plugin that does this and that."
 msgstr ""
 
 #: plugins/shopping_cart/views/cart.html.erb:3
-#, fuzzy
 msgid "Are you sure you want to remove this item?"
 msgstr "Tem certeza que quer excluir este ítem?"
 
 #: plugins/shopping_cart/views/cart.html.erb:4
-#, fuzzy
 msgid "Are you sure you want to clean your cart?"
-msgstr "Tem certeza que quer sair?"
+msgstr "Tem certeza que quer limpar seu carrinho?"
 
 #: plugins/shopping_cart/views/cart.html.erb:7
-#, fuzzy
 msgid "Cart"
-msgstr "Bate-papo"
+msgstr "Carrinho"
 
 #: plugins/shopping_cart/views/cart.html.erb:8
-#, fuzzy
 msgid "Clean cart"
-msgstr "Abrir bate-papo"
+msgstr "Limpar carrinho"
 
 #: plugins/shopping_cart/views/cart.html.erb:11
-#, fuzzy
 msgid "Shopping checkout"
-msgstr "Carrinho de compras"
+msgstr "Finalizar compra"
 
 #: plugins/shopping_cart/views/cart.html.erb:14
-#, fuzzy
 msgid "Show cart"
-msgstr "Carrinho de compras"
+msgstr "Mostrar carrinho"
 
 #: plugins/shopping_cart/views/cart.html.erb:15
-#, fuzzy
 msgid "Hide cart"
-msgstr "Esconder"
+msgstr "Esconder carrinho"
 
 #: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/edit.html.erb:1
-#, fuzzy
 msgid "Cart options"
-msgstr "Mais opções"
+msgstr "Opçôes do carrinho"
 
 #: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/edit.html.erb:6
 msgid "Delivery?"
-msgstr ""
+msgstr "Entrega?"
 
 #: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/edit.html.erb:7
-#, fuzzy
 msgid "Delivery price:"
-msgstr "Remover perfil"
+msgstr "Preço de entrega:"
 
 #: plugins/shopping_cart/views/shopping_cart_plugin_profile/buy.html.erb:10
-#, fuzzy
 msgid "Delivery Address"
-msgstr "Endereço do feed"
+msgstr "Endereço de Entrega"
 
 #: plugins/shopping_cart/views/shopping_cart_plugin_profile/buy.html.erb:17
-#, fuzzy
 msgid "Send buy request"
-msgstr "Nova solicitação"
+msgstr "Enviar requisição de compra"
 
 #: plugins/shopping_cart/views/shopping_cart_plugin_profile/send_request.html.erb:1
 msgid "Request sent successfully check your email."
-msgstr ""
+msgstr "Requisição enviada com sucesso. Cheque seu email."
 
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:7
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:7
 msgid "Hi %s!"
-msgstr ""
+msgstr "Olá %s!"
 
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:10
 msgid "This is a notification e-mail about your buy request on %s."
-msgstr ""
+msgstr "Esse é um email de notificação sobre a sua requisição de compra em %s."
 
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:11
 msgid ""
 "The supplier already received your buy request and may contact you for "
 "confirmation."
-msgstr ""
+msgstr "O fornecedor já recebou a sua requisição de compra e deve te contactar "
+"para confirmação."
 
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:12
 msgid "Please check if your information below is correct:"
-msgstr ""
+msgstr "Por favof cheque se suas informções abaixo estão corretas:"
 
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:16
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:15
-#, fuzzy
 msgid "Full name"
-msgstr "Nome do arquivo"
+msgstr "Nome completo"
 
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:17
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:17
-#, fuzzy
 msgid "Phone number"
-msgstr "um integrante"
+msgstr "Telefone"
 
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:23
 msgid "Here are the products you bought:"
-msgstr ""
+msgstr "Aqui estão os produtos que você comprou:"
 
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:28
-#, fuzzy
 msgid "Thanks for buying with us!"
-msgstr "Obrigado por se registrar!"
+msgstr "Obrigado por comprar conosco!"
 
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:31
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:30
 msgid "A service of %s."
-msgstr ""
+msgstr "Um serviço de %s."
 
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:10
-#, fuzzy
 msgid "This is a buy request made by %s."
-msgstr "Esta é uma republicação de \"%s\", por %s."
+msgstr "Essa é uma requisição de compra feita por %s."
 
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:11
 msgid "Below follows the customer informations:"
-msgstr ""
+msgstr "Abaixo seguem as informações do consumidor:"
 
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:23
 msgid "And here are the items bought by this customer:"
-msgstr ""
+msgstr "E aqui estão os itens comprados por esse consumidor:"
 
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:28
 msgid "If there are any problems with this email contact the admin of %s."
-msgstr ""
+msgstr "Se houver algum problema com esse email contacte o administrador de %s."
 
 #: plugins/mezuro/views/show.html.erb:19
 #, fuzzy
 msgid "Repository address"
-msgstr "Endereço do feed"
+msgstr ""
 
 #: plugins/mezuro/views/show.html.erb:35
 msgid "Possible causes:"
