@@ -5,8 +5,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: noosfero 0.30.2\n"
-"POT-Creation-Date: 2011-05-12 00:55-0300\n"
+"Project-Id-Version: noosfero 0.31.0\n"
+"POT-Creation-Date: 2011-05-23 16:59-0300\n"
 "PO-Revision-Date: 2010-04-30 20:14-0300\n"
 "Last-Translator: Martín Olivera <molivera@solar.org.ar>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -481,6 +481,7 @@ msgstr "Mover hacia el otro lado"
 #: app/views/profile_members/remove_admin.rhtml:17
 #: app/views/profile_members/unassociate.rhtml:17
 #: app/views/profile_members/_members_list.rhtml:17
+#: plugins/mezuro/views/mezuro_plugin_myprofile/index.html.erb:16
 msgid "Edit"
 msgstr "Editar"
 
@@ -1444,6 +1445,7 @@ msgstr ""
 
 #: app/helpers/cms_helper.rb:58
 #: app/views/content_viewer/_article_toolbar.rhtml:10
+#: plugins/mezuro/views/mezuro_plugin_myprofile/index.html.erb:17
 msgid "Delete"
 msgstr ""
 
@@ -1982,11 +1984,13 @@ msgstr ""
 
 #: app/models/enterprise.rb:14 app/models/person.rb:162
 #: app/models/contact.rb:- app/views/maps/edit_location.rhtml:8
+#: plugins/shopping_cart/views/shopping_cart_plugin_profile/buy.html.erb:12
 msgid "City"
 msgstr "Ciudad"
 
 #: app/models/enterprise.rb:14 app/models/person.rb:162
 #: app/models/contact.rb:- app/views/maps/edit_location.rhtml:7
+#: plugins/shopping_cart/views/shopping_cart_plugin_profile/buy.html.erb:13
 msgid "State"
 msgstr "Provincia"
 
@@ -2001,6 +2005,7 @@ msgstr "País"
 #: app/views/shared/_organization_custom_fields.rhtml:13
 #: app/views/profile_editor/_person_form.rhtml:24
 #: app/views/maps/edit_location.rhtml:9
+#: plugins/shopping_cart/views/shopping_cart_plugin_profile/buy.html.erb:14
 msgid "ZIP code"
 msgstr ""
 
@@ -2089,11 +2094,11 @@ msgstr "Ninguno"
 msgid "box"
 msgstr ""
 
-#: app/models/box.rb:- app/models/image.rb:-
+#: app/models/box.rb:- app/models/image.rb:- app/models/domain.rb:-
 msgid "Owner type"
 msgstr "Tipo de dueño"
 
-#: app/models/box.rb:- app/models/image.rb:-
+#: app/models/box.rb:- app/models/image.rb:- app/models/domain.rb:-
 msgid "Owner"
 msgstr "Dueño"
 
@@ -2130,6 +2135,7 @@ msgstr "Nuevo %s"
 #: app/views/admin_panel/terms_of_use.rhtml:10
 #: app/views/admin_panel/site_info.rhtml:12
 #: app/views/enterprise_validation/edit_validation_info.rhtml:9
+#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/edit.html.erb:11
 msgid "Save"
 msgstr ""
 
@@ -2377,7 +2383,7 @@ msgstr "Caja"
 msgid "Type"
 msgstr "Tipo"
 
-#: app/models/block.rb:-
+#: app/models/block.rb:- app/models/environment.rb:-
 msgid "Settings"
 msgstr "Configuraciones"
 
@@ -2391,7 +2397,8 @@ msgstr "Habilitado"
 #: app/models/task.rb:- app/models/product_qualifier.rb:-
 #: app/models/certifier.rb:- app/models/external_feed.rb:-
 #: app/models/mailing_sent.rb:- app/models/comment.rb:-
-#: app/models/profile.rb:- app/models/product_categorization.rb:-
+#: app/models/environment.rb:- app/models/profile.rb:-
+#: app/models/product_categorization.rb:-
 msgid "Created at"
 msgstr "Creado el"
 
@@ -2400,7 +2407,8 @@ msgstr "Creado el"
 #: app/models/input.rb:- app/models/mailing.rb:- app/models/product.rb:-
 #: app/models/product_qualifier.rb:- app/models/certifier.rb:-
 #: app/models/external_feed.rb:- app/models/mailing_sent.rb:-
-#: app/models/profile.rb:- app/models/product_categorization.rb:-
+#: app/models/environment.rb:- app/models/profile.rb:-
+#: app/models/product_categorization.rb:-
 msgid "Updated at"
 msgstr "Actualizado el"
 
@@ -2856,15 +2864,18 @@ msgid "qualifier"
 msgstr ""
 
 #: app/models/qualifier.rb:- app/models/product.rb:- app/models/certifier.rb:-
-#: app/models/comment.rb:- app/models/profile.rb:-
-#: app/models/create_enterprise.rb:4 app/models/contact.rb:-
-#: app/models/contact.rb:14 app/views/cms/view.rhtml:24
+#: app/models/comment.rb:- app/models/environment.rb:- app/models/profile.rb:-
+#: app/models/create_enterprise.rb:4 app/models/domain.rb:-
+#: app/models/contact.rb:- app/models/contact.rb:14
+#: app/views/cms/view.rhtml:24
 #: app/views/enterprise_registration/select_validator.rhtml:12
 #: app/views/content_viewer/_comment_form.rhtml:30
 #: app/views/box_organizer/_link_list_block.rhtml:4
 #: app/views/profile_members/_find_users.rhtml:3
 #: app/views/profile_members/find_users.rhtml:3
 #: app/views/enterprise_validation/_details.rhtml:3
+#: plugins/shopping_cart/views/shopping_cart_plugin_profile/buy.html.erb:6
+#: plugins/mezuro/views/show.html.erb:9
 msgid "Name"
 msgstr "Nombre"
 
@@ -3095,6 +3106,7 @@ msgid "product"
 msgstr "producto"
 
 #: app/models/product.rb:- app/views/manage_products/index.rhtml:6
+#: plugins/shopping_cart/lib/shopping_cart_plugin/cart_helper.rb:37
 msgid "Price"
 msgstr "Precio"
 
@@ -3102,6 +3114,7 @@ msgstr "Precio"
 #: app/models/organization.rb:98 app/views/plugins/index.rhtml:9
 #: app/views/cms/_uploaded_file.rhtml:2
 #: app/views/manage_products/show.rhtml:30
+#: plugins/mezuro/views/show.html.erb:14
 msgid "Description"
 msgstr "Descripción"
 
@@ -3352,6 +3365,8 @@ msgstr "No se pudo editar el rol"
 #: app/views/enterprise_validation/index.rhtml:14
 #: app/views/enterprise_validation/_details.rhtml:7
 #: app/views/enterprise_validation/list_processed.rhtml:9
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:18
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:18
 msgid "Address"
 msgstr "Dirección"
 
@@ -3423,6 +3438,8 @@ msgstr "Autor"
 
 #: app/models/comment.rb:- app/models/contact.rb:-
 #: app/views/cms/suggest_an_article.rhtml:17
+#: plugins/shopping_cart/views/shopping_cart_plugin_profile/buy.html.erb:7
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:16
 msgid "Email"
 msgstr "Email"
 
@@ -3449,6 +3466,41 @@ msgstr "[%s] tenes un nuevo comentario!"
 #: app/models/main_block.rb:8
 msgid "This block presents the main content of your pages."
 msgstr "Este bloque presenta el contenido principal de tus páginas"
+
+# Entorno o ambiente?
+#: app/models/environment.rb:-
+#, fuzzy
+msgid "environment"
+msgstr "Entorno"
+
+#: app/models/environment.rb:- app/models/organization.rb:98
+msgid "Contact email"
+msgstr ""
+
+#: app/models/environment.rb:- app/models/domain.rb:-
+msgid "Is default"
+msgstr ""
+
+#: app/models/environment.rb:-
+msgid "Design data"
+msgstr ""
+
+#: app/models/environment.rb:- app/models/profile.rb:-
+msgid "Custom header"
+msgstr "Cabecera personalizada"
+
+#: app/models/environment.rb:- app/models/profile.rb:-
+msgid "Custom footer"
+msgstr "Pie de página personalizado"
+
+#: app/models/environment.rb:- app/models/profile.rb:-
+msgid "Theme"
+msgstr "Tema"
+
+#: app/models/environment.rb:-
+#, fuzzy
+msgid "Terms of use acceptance text"
+msgstr "Términos aceptados"
 
 #: app/models/environment.rb:13
 msgid "View environment admin panel"
@@ -3670,6 +3722,7 @@ msgid "Identifier"
 msgstr "Identificador"
 
 #: app/models/profile.rb:- app/models/create_enterprise.rb:6
+#: plugins/shopping_cart/views/shopping_cart_plugin_profile/buy.html.erb:8
 msgid "Contact phone"
 msgstr "Teléfono de contacto"
 
@@ -3689,18 +3742,6 @@ msgstr ""
 msgid "Nickname"
 msgstr "Apodo"
 
-#: app/models/profile.rb:-
-msgid "Custom header"
-msgstr "Cabecera personalizada"
-
-#: app/models/profile.rb:-
-msgid "Custom footer"
-msgstr "Pie de página personalizado"
-
-#: app/models/profile.rb:-
-msgid "Theme"
-msgstr "Tema"
-
 #: app/models/profile.rb:- app/models/profile.rb:675
 msgid "Public profile"
 msgstr "Perfil público"
@@ -3716,11 +3757,6 @@ msgstr ""
 #: app/models/profile.rb:-
 msgid "Visible"
 msgstr ""
-
-#: app/models/profile.rb:-
-#, fuzzy
-msgid "Shopping cart"
-msgstr "Nivel educativo"
 
 #: app/models/profile.rb:36
 msgid "Edit profile"
@@ -4096,10 +4132,6 @@ msgid "Display name"
 msgstr ""
 
 #: app/models/organization.rb:98
-msgid "Contact email"
-msgstr ""
-
-#: app/models/organization.rb:98
 msgid "Validated"
 msgstr ""
 
@@ -4112,6 +4144,14 @@ msgstr "Comunidades"
 #, fuzzy
 msgid "Invite Friends"
 msgstr "amigos"
+
+#: app/models/domain.rb:-
+msgid "domain"
+msgstr "dominio"
+
+#: app/models/domain.rb:-
+msgid "Google maps key"
+msgstr ""
 
 #: app/models/domain.rb:13
 #, fuzzy
@@ -4404,6 +4444,7 @@ msgid "Plugin"
 msgstr ""
 
 #: app/views/plugins/index.rhtml:10 app/views/features/index.rhtml:16
+#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/edit.html.erb:5
 #, fuzzy
 msgid "Enabled?"
 msgstr "Habilitado"
@@ -4470,6 +4511,7 @@ msgstr ""
 #: app/views/shared/_organization_custom_fields.rhtml:12
 #: app/views/profile_editor/_person_form.rhtml:25
 #: app/views/maps/edit_location.rhtml:10
+#: plugins/shopping_cart/views/shopping_cart_plugin_profile/buy.html.erb:11
 msgid "Address (street and number)"
 msgstr ""
 
@@ -4718,6 +4760,7 @@ msgstr "Todo el contenido"
 #: app/views/box_organizer/index.rhtml:5 app/views/mailconf/index.rhtml:10
 #: app/views/mailconf/index.rhtml:28 app/views/mailconf/index.rhtml:38
 #: app/views/tasks/index.rhtml:29 app/views/tasks/index.rhtml:49
+#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/edit.html.erb:12
 msgid "Back to control panel"
 msgstr ""
 
@@ -4731,6 +4774,7 @@ msgstr ""
 #: app/views/profile_members/remove_admin.rhtml:10
 #: app/views/profile_members/unassociate.rhtml:10
 #: app/views/profile_members/_members_list.rhtml:10
+#: plugins/mezuro/views/mezuro_plugin_myprofile/index.html.erb:9
 msgid "Actions"
 msgstr ""
 
@@ -8323,6 +8367,312 @@ msgstr ""
 msgid "Organizations are disabled when created"
 msgstr ""
 
+#: plugins/shopping_cart/controllers/shopping_cart_plugin_profile_controller.rb:96
+msgid "Request sent successfully. Check your email."
+msgstr ""
+
+#: plugins/shopping_cart/controllers/shopping_cart_plugin_profile_controller.rb:118
+msgid "Can't join items from different enterprises."
+msgstr ""
+
+#: plugins/shopping_cart/controllers/shopping_cart_plugin_profile_controller.rb:132
+msgid "There is no cart."
+msgstr ""
+
+#: plugins/shopping_cart/controllers/shopping_cart_plugin_profile_controller.rb:148
+msgid "This enterprise doesn't have this product."
+msgstr ""
+
+#: plugins/shopping_cart/controllers/shopping_cart_plugin_profile_controller.rb:162
+msgid "The cart doesn't have this product."
+msgstr ""
+
+#: plugins/shopping_cart/controllers/shopping_cart_plugin_profile_controller.rb:176
+msgid "Invalid quantity."
+msgstr ""
+
+#: plugins/shopping_cart/controllers/shopping_cart_plugin_myprofile_controller.rb:8
+#, fuzzy
+msgid "Option updated successfully."
+msgstr "Características actualizadas correctamente."
+
+#: plugins/shopping_cart/controllers/shopping_cart_plugin_myprofile_controller.rb:10
+#, fuzzy
+msgid "Option wasn't updated successfully."
+msgstr "Características actualizadas correctamente."
+
+#: plugins/shopping_cart/lib/shopping_cart_plugin.rb:8
+#, fuzzy
+msgid "A shopping cart feature for enterprises"
+msgstr "Una empresa"
+
+#: plugins/shopping_cart/lib/shopping_cart_plugin.rb:14
+#, fuzzy
+msgid "Add to cart"
+msgstr "Añadir contacto"
+
+#: plugins/shopping_cart/lib/shopping_cart_plugin/mailer.rb:10
+#, fuzzy
+msgid "[%s] Your buy request was performed successfully."
+msgstr "¡Tu contraseña fue modificada correctamente!"
+
+#: plugins/shopping_cart/lib/shopping_cart_plugin/mailer.rb:23
+msgid "[%s] You have a new buy request from %s."
+msgstr ""
+
+#: plugins/shopping_cart/lib/shopping_cart_plugin/cart_helper.rb:22
+#, fuzzy
+msgid "Delivery"
+msgstr "Recibir copia"
+
+#: plugins/shopping_cart/lib/shopping_cart_plugin/cart_helper.rb:35
+#, fuzzy
+msgid "Item name"
+msgstr "Nombre de archivo"
+
+#: plugins/shopping_cart/lib/shopping_cart_plugin/cart_helper.rb:52
+#: plugins/shopping_cart/views/cart.html.erb:10
+#, fuzzy
+msgid "Total:"
+msgstr "Para: "
+
+#: plugins/mezuro/controllers/mezuro_plugin_myprofile_controller.rb:15
+#, fuzzy
+msgid "Project successfully registered"
+msgstr "El producto se ha creado correctamente"
+
+#: plugins/mezuro/controllers/mezuro_plugin_myprofile_controller.rb:29
+#, fuzzy
+msgid "Project successfully updated"
+msgstr "El producto se ha actualizado correctamente"
+
+#: plugins/mezuro/controllers/mezuro_plugin_myprofile_controller.rb:47
+#, fuzzy
+msgid "Project successfully removed."
+msgstr "El producto se ha eliminado correctamente"
+
+#: plugins/mezuro/controllers/mezuro_plugin_myprofile_controller.rb:49
+#, fuzzy
+msgid "Project was not successfully removed."
+msgstr "El producto se ha eliminado correctamente"
+
+#: plugins/mezuro/lib/mezuro_plugin.rb:8
+msgid "A metric analizer plugin."
+msgstr ""
+
+#: plugins/template/lib/template_plugin.rb:10
+msgid "A plugin that does this and that."
+msgstr ""
+
+#: plugins/shopping_cart/views/cart.html.erb:3
+#, fuzzy
+msgid "Are you sure you want to remove this item?"
+msgstr "¿Estás seguro de que deseas eliminar \"%s\"?"
+
+# Estás y desea no estan igualmente conjugados.
+#: plugins/shopping_cart/views/cart.html.erb:4
+#, fuzzy
+msgid "Are you sure you want to clean your cart?"
+msgstr "¿Estás seguro de que deseas añadir a %s como uno de tus contactos?"
+
+#: plugins/shopping_cart/views/cart.html.erb:7
+#, fuzzy
+msgid "Cart"
+msgstr "Padre"
+
+#: plugins/shopping_cart/views/cart.html.erb:8
+#, fuzzy
+msgid "Clean cart"
+msgstr "Un contacto"
+
+#: plugins/shopping_cart/views/cart.html.erb:11
+#, fuzzy
+msgid "Shopping checkout"
+msgstr "Nivel educativo"
+
+#: plugins/shopping_cart/views/cart.html.erb:14
+#, fuzzy
+msgid "Show cart"
+msgstr "Nivel educativo"
+
+#: plugins/shopping_cart/views/cart.html.erb:15
+msgid "Hide cart"
+msgstr ""
+
+#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/edit.html.erb:1
+#, fuzzy
+msgid "Cart options"
+msgstr "Opciones"
+
+#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/edit.html.erb:6
+msgid "Delivery?"
+msgstr ""
+
+#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/edit.html.erb:7
+#, fuzzy
+msgid "Delivery price:"
+msgstr "Perfil público"
+
+#: plugins/shopping_cart/views/shopping_cart_plugin_profile/buy.html.erb:10
+#, fuzzy
+msgid "Delivery Address"
+msgstr "Dirección"
+
+#: plugins/shopping_cart/views/shopping_cart_plugin_profile/buy.html.erb:17
+#, fuzzy
+msgid "Send buy request"
+msgstr "Nueva solicitud"
+
+#: plugins/shopping_cart/views/shopping_cart_plugin_profile/send_request.html.erb:1
+msgid "Request sent successfully check your email."
+msgstr ""
+
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:7
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:7
+#, fuzzy
+msgid "Hi %s!"
+msgstr "Accesos"
+
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:10
+msgid "This is a notification e-mail about your buy request on %s."
+msgstr ""
+
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:11
+msgid ""
+"The supplier already received your buy request and may contact you for "
+"confirmation."
+msgstr ""
+
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:12
+msgid "Please check if your information below is correct:"
+msgstr ""
+
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:16
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:15
+#, fuzzy
+msgid "Full name"
+msgstr "Nombre de archivo"
+
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:17
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:17
+#, fuzzy
+msgid "Phone number"
+msgstr "Nuevo miembro"
+
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:23
+msgid "Here are the products you bought:"
+msgstr ""
+
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:28
+#, fuzzy
+msgid "Thanks for buying with us!"
+msgstr "¡Gracias por ingresar!"
+
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:31
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:30
+msgid "A service of %s."
+msgstr ""
+
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:10
+msgid "This is a buy request made by %s."
+msgstr ""
+
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:11
+msgid "Below follows the customer informations:"
+msgstr ""
+
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:23
+msgid "And here are the items bought by this customer:"
+msgstr ""
+
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:28
+msgid "If there are any problems with this email contact the admin of %s."
+msgstr ""
+
+#: plugins/mezuro/views/show.html.erb:19
+#, fuzzy
+msgid "Repository address"
+msgstr "Dirección"
+
+#: plugins/mezuro/views/show.html.erb:35
+msgid "Possible causes:"
+msgstr ""
+
+#: plugins/mezuro/views/show.html.erb:38
+msgid "Server is down"
+msgstr ""
+
+#: plugins/mezuro/views/show.html.erb:41
+msgid ""
+"URL invalid, in this case create another project with the correct URL\n"
+"    (Sorry for the incovenience, we're working for a better solution)"
+msgstr ""
+
+#: plugins/mezuro/views/show.html.erb:47
+#, fuzzy
+msgid "Metric Results"
+msgstr "Buscar"
+
+#: plugins/mezuro/views/show.html.erb:49
+msgid "Total Metrics"
+msgstr ""
+
+#: plugins/mezuro/views/show.html.erb:59
+#, fuzzy
+msgid "Statistical Metrics"
+msgstr "Estadísticas"
+
+#: plugins/mezuro/views/show.html.erb:77
+msgid ""
+"Wait a moment while the metrics are calculated.<br/>\n"
+"      Reload the page manually in a few moment. "
+msgstr ""
+
+#: plugins/mezuro/views/mezuro_plugin_myprofile/new.html.erb:1
+#, fuzzy
+msgid "New project"
+msgstr "Producto nuevo"
+
+#: plugins/mezuro/views/mezuro_plugin_myprofile/new.html.erb:3
+#, fuzzy
+msgid "Register project"
+msgstr "Crear producto"
+
+#: plugins/mezuro/views/mezuro_plugin_myprofile/edit.html.erb:1
+#, fuzzy
+msgid "Edit project"
+msgstr "Editar carpeta"
+
+#: plugins/mezuro/views/mezuro_plugin_myprofile/edit.html.erb:3
+#, fuzzy
+msgid "Update project"
+msgstr "Actualizado el"
+
+#: plugins/mezuro/views/mezuro_plugin_myprofile/index.html.erb:1
+msgid "%s's Mezuro projects"
+msgstr ""
+
+# Le ponemos "no registrado" o "sin registrar"? O no especificado?
+#: plugins/mezuro/views/mezuro_plugin_myprofile/index.html.erb:4
+#, fuzzy
+msgid "%s has no projects registered."
+msgstr "género no registrado"
+
+#: plugins/mezuro/views/mezuro_plugin_myprofile/index.html.erb:8
+#, fuzzy
+msgid "Project"
+msgstr "Producto"
+
+#: plugins/mezuro/views/mezuro_plugin_myprofile/index.html.erb:19
+#, fuzzy
+msgid "Are you sure you want to remove this project?"
+msgstr "¿Estás seguro de que deseas eliminar \"%s\"?"
+
+#: plugins/mezuro/views/mezuro_plugin_myprofile/index.html.erb:27
+#, fuzzy
+msgid "Register a new project"
+msgstr "Registrar una nueva Institución"
+
 #: config/initializers/action_tracker.rb:8
 msgid "published 1 article: %{title}"
 msgid_plural "published %{num} articles: %{title}"
@@ -8448,19 +8798,12 @@ msgstr ""
 #~ msgstr "Educación formal"
 
 #, fuzzy
-#~ msgid "Terms of use acceptance text"
-#~ msgstr "Términos aceptados"
-
-#, fuzzy
 #~ msgid "one article"
 #~ msgstr "Nuevo artículo"
 
 #, fuzzy
 #~ msgid "%s articles"
 #~ msgstr "artículo"
-
-#~ msgid "domain"
-#~ msgstr "dominio"
 
 #~ msgid "from %s to %s"
 #~ msgstr "desde %s hasta %s"
@@ -8618,9 +8961,6 @@ msgstr ""
 #~ msgid "Aditional specifications"
 #~ msgstr "Especificaciones adicionales"
 
-#~ msgid "Product succesfully updated"
-#~ msgstr "El producto se ha actualizado correctamente"
-
 #~ msgid "Raw material succesfully created"
 #~ msgstr "Materia prima creada correctamente"
 
@@ -8644,9 +8984,6 @@ msgstr ""
 
 #~ msgid "Are you sure, you want to remove this raw material from your list"
 #~ msgstr "¿Está seguro, de que desea eliminar esta materia prima de su lista?"
-
-#~ msgid "New product"
-#~ msgstr "Producto nuevo"
 
 #~ msgid "back"
 #~ msgstr "atras"
@@ -8713,9 +9050,6 @@ msgstr ""
 
 #~ msgid "Setting"
 #~ msgstr "Configuración"
-
-#~ msgid "Hits"
-#~ msgstr "Accesos"
 
 #~ msgid "Statistical overview of your environment."
 #~ msgstr "Visión estadística de su entorno."

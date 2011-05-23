@@ -5,8 +5,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: noosfero 0.30.2\n"
-"POT-Creation-Date: 2011-05-12 00:55-0300\n"
+"Project-Id-Version: noosfero 0.31.0\n"
+"POT-Creation-Date: 2011-05-23 16:59-0300\n"
 "PO-Revision-Date: 2010-10-26 09:57-0300\n"
 "Last-Translator: Anton <anton.c@live.com>\n"
 "Language-Team: German <de@li.org>\n"
@@ -456,6 +456,7 @@ msgstr "Переместить на другую сторону"
 #: app/views/profile_members/remove_admin.rhtml:17
 #: app/views/profile_members/unassociate.rhtml:17
 #: app/views/profile_members/_members_list.rhtml:17
+#: plugins/mezuro/views/mezuro_plugin_myprofile/index.html.erb:16
 msgid "Edit"
 msgstr "Редактировать"
 
@@ -1383,6 +1384,7 @@ msgstr "Вы уверены что хотите удалить этот элем
 
 #: app/helpers/cms_helper.rb:58
 #: app/views/content_viewer/_article_toolbar.rhtml:10
+#: plugins/mezuro/views/mezuro_plugin_myprofile/index.html.erb:17
 msgid "Delete"
 msgstr "Удалить"
 
@@ -1884,11 +1886,13 @@ msgstr "Краткое описание занятий"
 
 #: app/models/enterprise.rb:14 app/models/person.rb:162
 #: app/models/contact.rb:- app/views/maps/edit_location.rhtml:8
+#: plugins/shopping_cart/views/shopping_cart_plugin_profile/buy.html.erb:12
 msgid "City"
 msgstr "Город"
 
 #: app/models/enterprise.rb:14 app/models/person.rb:162
 #: app/models/contact.rb:- app/views/maps/edit_location.rhtml:7
+#: plugins/shopping_cart/views/shopping_cart_plugin_profile/buy.html.erb:13
 msgid "State"
 msgstr "Область"
 
@@ -1903,6 +1907,7 @@ msgstr "Страна"
 #: app/views/shared/_organization_custom_fields.rhtml:13
 #: app/views/profile_editor/_person_form.rhtml:24
 #: app/views/maps/edit_location.rhtml:9
+#: plugins/shopping_cart/views/shopping_cart_plugin_profile/buy.html.erb:14
 msgid "ZIP code"
 msgstr "Почтовый индекс"
 
@@ -1983,11 +1988,11 @@ msgstr "Нет"
 msgid "box"
 msgstr "ящик"
 
-#: app/models/box.rb:- app/models/image.rb:-
+#: app/models/box.rb:- app/models/image.rb:- app/models/domain.rb:-
 msgid "Owner type"
 msgstr "Тип владельца"
 
-#: app/models/box.rb:- app/models/image.rb:-
+#: app/models/box.rb:- app/models/image.rb:- app/models/domain.rb:-
 msgid "Owner"
 msgstr "Владелец"
 
@@ -2023,6 +2028,7 @@ msgstr "Новый"
 #: app/views/admin_panel/terms_of_use.rhtml:10
 #: app/views/admin_panel/site_info.rhtml:12
 #: app/views/enterprise_validation/edit_validation_info.rhtml:9
+#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/edit.html.erb:11
 msgid "Save"
 msgstr "Сохранить"
 
@@ -2260,7 +2266,7 @@ msgstr "Ящик"
 msgid "Type"
 msgstr "Тип"
 
-#: app/models/block.rb:-
+#: app/models/block.rb:- app/models/environment.rb:-
 msgid "Settings"
 msgstr "Настройки"
 
@@ -2274,7 +2280,8 @@ msgstr "Разрешено"
 #: app/models/task.rb:- app/models/product_qualifier.rb:-
 #: app/models/certifier.rb:- app/models/external_feed.rb:-
 #: app/models/mailing_sent.rb:- app/models/comment.rb:-
-#: app/models/profile.rb:- app/models/product_categorization.rb:-
+#: app/models/environment.rb:- app/models/profile.rb:-
+#: app/models/product_categorization.rb:-
 msgid "Created at"
 msgstr "Создано"
 
@@ -2283,7 +2290,8 @@ msgstr "Создано"
 #: app/models/input.rb:- app/models/mailing.rb:- app/models/product.rb:-
 #: app/models/product_qualifier.rb:- app/models/certifier.rb:-
 #: app/models/external_feed.rb:- app/models/mailing_sent.rb:-
-#: app/models/profile.rb:- app/models/product_categorization.rb:-
+#: app/models/environment.rb:- app/models/profile.rb:-
+#: app/models/product_categorization.rb:-
 msgid "Updated at"
 msgstr "Обновлено"
 
@@ -2721,15 +2729,18 @@ msgid "qualifier"
 msgstr "определитель"
 
 #: app/models/qualifier.rb:- app/models/product.rb:- app/models/certifier.rb:-
-#: app/models/comment.rb:- app/models/profile.rb:-
-#: app/models/create_enterprise.rb:4 app/models/contact.rb:-
-#: app/models/contact.rb:14 app/views/cms/view.rhtml:24
+#: app/models/comment.rb:- app/models/environment.rb:- app/models/profile.rb:-
+#: app/models/create_enterprise.rb:4 app/models/domain.rb:-
+#: app/models/contact.rb:- app/models/contact.rb:14
+#: app/views/cms/view.rhtml:24
 #: app/views/enterprise_registration/select_validator.rhtml:12
 #: app/views/content_viewer/_comment_form.rhtml:30
 #: app/views/box_organizer/_link_list_block.rhtml:4
 #: app/views/profile_members/_find_users.rhtml:3
 #: app/views/profile_members/find_users.rhtml:3
 #: app/views/enterprise_validation/_details.rhtml:3
+#: plugins/shopping_cart/views/shopping_cart_plugin_profile/buy.html.erb:6
+#: plugins/mezuro/views/show.html.erb:9
 msgid "Name"
 msgstr "Имя"
 
@@ -2938,6 +2949,7 @@ msgid "product"
 msgstr "продукт"
 
 #: app/models/product.rb:- app/views/manage_products/index.rhtml:6
+#: plugins/shopping_cart/lib/shopping_cart_plugin/cart_helper.rb:37
 msgid "Price"
 msgstr "цена"
 
@@ -2945,6 +2957,7 @@ msgstr "цена"
 #: app/models/organization.rb:98 app/views/plugins/index.rhtml:9
 #: app/views/cms/_uploaded_file.rhtml:2
 #: app/views/manage_products/show.rhtml:30
+#: plugins/mezuro/views/show.html.erb:14
 msgid "Description"
 msgstr "Описание"
 
@@ -3191,6 +3204,8 @@ msgstr "Название"
 #: app/views/enterprise_validation/index.rhtml:14
 #: app/views/enterprise_validation/_details.rhtml:7
 #: app/views/enterprise_validation/list_processed.rhtml:9
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:18
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:18
 msgid "Address"
 msgstr "Адрес"
 
@@ -3256,6 +3271,8 @@ msgstr "Автор"
 
 #: app/models/comment.rb:- app/models/contact.rb:-
 #: app/views/cms/suggest_an_article.rhtml:17
+#: plugins/shopping_cart/views/shopping_cart_plugin_profile/buy.html.erb:7
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:16
 msgid "Email"
 msgstr "E-Mail"
 
@@ -3283,6 +3300,38 @@ msgstr "[%s] вы получили новый комментарий"
 #: app/models/main_block.rb:8
 msgid "This block presents the main content of your pages."
 msgstr "Блок, отображающий основной контент ваших страниц"
+
+#: app/models/environment.rb:-
+msgid "environment"
+msgstr "обстановка"
+
+#: app/models/environment.rb:- app/models/organization.rb:98
+msgid "Contact email"
+msgstr "Контактный email"
+
+#: app/models/environment.rb:- app/models/domain.rb:-
+msgid "Is default"
+msgstr "стандартно"
+
+#: app/models/environment.rb:-
+msgid "Design data"
+msgstr "Данные дизайна"
+
+#: app/models/environment.rb:- app/models/profile.rb:-
+msgid "Custom header"
+msgstr "Пользовательский заголовок"
+
+#: app/models/environment.rb:- app/models/profile.rb:-
+msgid "Custom footer"
+msgstr "Пользовательская подпись"
+
+#: app/models/environment.rb:- app/models/profile.rb:-
+msgid "Theme"
+msgstr "Тема"
+
+#: app/models/environment.rb:-
+msgid "Terms of use acceptance text"
+msgstr "Текст принятия условий использования"
 
 #: app/models/environment.rb:13
 msgid "View environment admin panel"
@@ -3499,6 +3548,7 @@ msgid "Identifier"
 msgstr "Идентификатор"
 
 #: app/models/profile.rb:- app/models/create_enterprise.rb:6
+#: plugins/shopping_cart/views/shopping_cart_plugin_profile/buy.html.erb:8
 msgid "Contact phone"
 msgstr "Контактный телефон"
 
@@ -3518,18 +3568,6 @@ msgstr "Точность геокодирования"
 msgid "Nickname"
 msgstr "Ник"
 
-#: app/models/profile.rb:-
-msgid "Custom header"
-msgstr "Пользовательский заголовок"
-
-#: app/models/profile.rb:-
-msgid "Custom footer"
-msgstr "Пользовательская подпись"
-
-#: app/models/profile.rb:-
-msgid "Theme"
-msgstr "Тема"
-
 #: app/models/profile.rb:- app/models/profile.rb:675
 msgid "Public profile"
 msgstr "Публичный пофиль"
@@ -3545,11 +3583,6 @@ msgstr "Предпочтительный домен"
 #: app/models/profile.rb:-
 msgid "Visible"
 msgstr "Видимый"
-
-#: app/models/profile.rb:-
-#, fuzzy
-msgid "Shopping cart"
-msgstr "Учебный статус"
 
 #: app/models/profile.rb:36
 msgid "Edit profile"
@@ -3919,10 +3952,6 @@ msgid "Display name"
 msgstr "Отображаемое имя"
 
 #: app/models/organization.rb:98
-msgid "Contact email"
-msgstr "Контактный email"
-
-#: app/models/organization.rb:98
 msgid "Validated"
 msgstr "Действительность"
 
@@ -3935,6 +3964,14 @@ msgstr "Сообщества"
 #, fuzzy
 msgid "Invite Friends"
 msgstr "Пригласить друзей"
+
+#: app/models/domain.rb:-
+msgid "domain"
+msgstr "домен"
+
+#: app/models/domain.rb:-
+msgid "Google maps key"
+msgstr "Ключ карт Google"
 
 #: app/models/domain.rb:13
 #, fuzzy
@@ -4220,6 +4257,7 @@ msgid "Plugin"
 msgstr ""
 
 #: app/views/plugins/index.rhtml:10 app/views/features/index.rhtml:16
+#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/edit.html.erb:5
 msgid "Enabled?"
 msgstr "Включено?"
 
@@ -4285,6 +4323,7 @@ msgstr "Открыть друзей <span class='amount_of_friends'>(%{amount})<
 #: app/views/shared/_organization_custom_fields.rhtml:12
 #: app/views/profile_editor/_person_form.rhtml:25
 #: app/views/maps/edit_location.rhtml:10
+#: plugins/shopping_cart/views/shopping_cart_plugin_profile/buy.html.erb:11
 msgid "Address (street and number)"
 msgstr "Адрес"
 
@@ -4534,6 +4573,7 @@ msgstr "Весь контент"
 #: app/views/box_organizer/index.rhtml:5 app/views/mailconf/index.rhtml:10
 #: app/views/mailconf/index.rhtml:28 app/views/mailconf/index.rhtml:38
 #: app/views/tasks/index.rhtml:29 app/views/tasks/index.rhtml:49
+#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/edit.html.erb:12
 msgid "Back to control panel"
 msgstr "Назад в панель управления"
 
@@ -4547,6 +4587,7 @@ msgstr "Текущая папка:"
 #: app/views/profile_members/remove_admin.rhtml:10
 #: app/views/profile_members/unassociate.rhtml:10
 #: app/views/profile_members/_members_list.rhtml:10
+#: plugins/mezuro/views/mezuro_plugin_myprofile/index.html.erb:9
 msgid "Actions"
 msgstr "Действия"
 
@@ -8086,6 +8127,314 @@ msgstr "Теги важны для новых пользователей для 
 msgid "Organizations are disabled when created"
 msgstr "Организации отключены при создании"
 
+#: plugins/shopping_cart/controllers/shopping_cart_plugin_profile_controller.rb:96
+msgid "Request sent successfully. Check your email."
+msgstr ""
+
+#: plugins/shopping_cart/controllers/shopping_cart_plugin_profile_controller.rb:118
+msgid "Can't join items from different enterprises."
+msgstr ""
+
+#: plugins/shopping_cart/controllers/shopping_cart_plugin_profile_controller.rb:132
+#, fuzzy
+msgid "There is no cart."
+msgstr "Нет категорий"
+
+#: plugins/shopping_cart/controllers/shopping_cart_plugin_profile_controller.rb:148
+#, fuzzy
+msgid "This enterprise doesn't have this product."
+msgstr "Компания не может быть активирована"
+
+#: plugins/shopping_cart/controllers/shopping_cart_plugin_profile_controller.rb:162
+msgid "The cart doesn't have this product."
+msgstr ""
+
+#: plugins/shopping_cart/controllers/shopping_cart_plugin_profile_controller.rb:176
+msgid "Invalid quantity."
+msgstr ""
+
+#: plugins/shopping_cart/controllers/shopping_cart_plugin_myprofile_controller.rb:8
+#, fuzzy
+msgid "Option updated successfully."
+msgstr "Возможности успешно обновлены"
+
+#: plugins/shopping_cart/controllers/shopping_cart_plugin_myprofile_controller.rb:10
+#, fuzzy
+msgid "Option wasn't updated successfully."
+msgstr "Возможности успешно обновлены"
+
+#: plugins/shopping_cart/lib/shopping_cart_plugin.rb:8
+#, fuzzy
+msgid "A shopping cart feature for enterprises"
+msgstr "Отключить поиск по компаниям"
+
+#: plugins/shopping_cart/lib/shopping_cart_plugin.rb:14
+#, fuzzy
+msgid "Add to cart"
+msgstr "Добавить контакт"
+
+#: plugins/shopping_cart/lib/shopping_cart_plugin/mailer.rb:10
+#, fuzzy
+msgid "[%s] Your buy request was performed successfully."
+msgstr "Ваш запрос на публикацию успешно отправлен"
+
+#: plugins/shopping_cart/lib/shopping_cart_plugin/mailer.rb:23
+msgid "[%s] You have a new buy request from %s."
+msgstr ""
+
+#: plugins/shopping_cart/lib/shopping_cart_plugin/cart_helper.rb:22
+#, fuzzy
+msgid "Delivery"
+msgstr "Получатель"
+
+#: plugins/shopping_cart/lib/shopping_cart_plugin/cart_helper.rb:35
+#, fuzzy
+msgid "Item name"
+msgstr "Имя файла"
+
+#: plugins/shopping_cart/lib/shopping_cart_plugin/cart_helper.rb:52
+#: plugins/shopping_cart/views/cart.html.erb:10
+#, fuzzy
+msgid "Total:"
+msgstr "Получатель:"
+
+#: plugins/mezuro/controllers/mezuro_plugin_myprofile_controller.rb:15
+#, fuzzy
+msgid "Project successfully registered"
+msgstr "Продукт создан"
+
+#: plugins/mezuro/controllers/mezuro_plugin_myprofile_controller.rb:29
+#, fuzzy
+msgid "Project successfully updated"
+msgstr "Продукт добавлен"
+
+#: plugins/mezuro/controllers/mezuro_plugin_myprofile_controller.rb:47
+#, fuzzy
+msgid "Project successfully removed."
+msgstr "Продукт удален"
+
+#: plugins/mezuro/controllers/mezuro_plugin_myprofile_controller.rb:49
+#, fuzzy
+msgid "Project was not successfully removed."
+msgstr "Продукт удален"
+
+#: plugins/mezuro/lib/mezuro_plugin.rb:8
+msgid "A metric analizer plugin."
+msgstr ""
+
+#: plugins/template/lib/template_plugin.rb:10
+msgid "A plugin that does this and that."
+msgstr ""
+
+#: plugins/shopping_cart/views/cart.html.erb:3
+#, fuzzy
+msgid "Are you sure you want to remove this item?"
+msgstr "Вы уверены что хотите удалить этот элемент?"
+
+#: plugins/shopping_cart/views/cart.html.erb:4
+#, fuzzy
+msgid "Are you sure you want to clean your cart?"
+msgstr "Вы уверены что хотите выйти?"
+
+#: plugins/shopping_cart/views/cart.html.erb:7
+#, fuzzy
+msgid "Cart"
+msgstr "Чат"
+
+#: plugins/shopping_cart/views/cart.html.erb:8
+#, fuzzy
+msgid "Clean cart"
+msgstr "Открыть чат"
+
+#: plugins/shopping_cart/views/cart.html.erb:11
+#, fuzzy
+msgid "Shopping checkout"
+msgstr "Учебный статус"
+
+#: plugins/shopping_cart/views/cart.html.erb:14
+#, fuzzy
+msgid "Show cart"
+msgstr "Учебный статус"
+
+#: plugins/shopping_cart/views/cart.html.erb:15
+#, fuzzy
+msgid "Hide cart"
+msgstr "Спрятать"
+
+#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/edit.html.erb:1
+#, fuzzy
+msgid "Cart options"
+msgstr "Еще опции"
+
+#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/edit.html.erb:6
+msgid "Delivery?"
+msgstr ""
+
+#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/edit.html.erb:7
+#, fuzzy
+msgid "Delivery price:"
+msgstr "Уничтожить профиль"
+
+#: plugins/shopping_cart/views/shopping_cart_plugin_profile/buy.html.erb:10
+#, fuzzy
+msgid "Delivery Address"
+msgstr "Адрес ленты"
+
+#: plugins/shopping_cart/views/shopping_cart_plugin_profile/buy.html.erb:17
+#, fuzzy
+msgid "Send buy request"
+msgstr "Новый запрос"
+
+#: plugins/shopping_cart/views/shopping_cart_plugin_profile/send_request.html.erb:1
+msgid "Request sent successfully check your email."
+msgstr ""
+
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:7
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:7
+msgid "Hi %s!"
+msgstr ""
+
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:10
+msgid "This is a notification e-mail about your buy request on %s."
+msgstr ""
+
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:11
+msgid ""
+"The supplier already received your buy request and may contact you for "
+"confirmation."
+msgstr ""
+
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:12
+msgid "Please check if your information below is correct:"
+msgstr ""
+
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:16
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:15
+#, fuzzy
+msgid "Full name"
+msgstr "Имя файла"
+
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:17
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:17
+#, fuzzy
+msgid "Phone number"
+msgstr "один участник"
+
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:23
+msgid "Here are the products you bought:"
+msgstr ""
+
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:28
+#, fuzzy
+msgid "Thanks for buying with us!"
+msgstr "Спасибо за регистрацию!"
+
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:31
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:30
+msgid "A service of %s."
+msgstr ""
+
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:10
+#, fuzzy
+msgid "This is a buy request made by %s."
+msgstr "Это републикация \"%s\", от %s."
+
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:11
+msgid "Below follows the customer informations:"
+msgstr ""
+
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:23
+msgid "And here are the items bought by this customer:"
+msgstr ""
+
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:28
+msgid "If there are any problems with this email contact the admin of %s."
+msgstr ""
+
+#: plugins/mezuro/views/show.html.erb:19
+#, fuzzy
+msgid "Repository address"
+msgstr "Адрес ленты"
+
+#: plugins/mezuro/views/show.html.erb:35
+msgid "Possible causes:"
+msgstr ""
+
+#: plugins/mezuro/views/show.html.erb:38
+msgid "Server is down"
+msgstr ""
+
+#: plugins/mezuro/views/show.html.erb:41
+msgid ""
+"URL invalid, in this case create another project with the correct URL\n"
+"    (Sorry for the incovenience, we're working for a better solution)"
+msgstr ""
+
+#: plugins/mezuro/views/show.html.erb:47
+#, fuzzy
+msgid "Metric Results"
+msgstr "Результаты поиска"
+
+#: plugins/mezuro/views/show.html.erb:49
+msgid "Total Metrics"
+msgstr ""
+
+#: plugins/mezuro/views/show.html.erb:59
+#, fuzzy
+msgid "Statistical Metrics"
+msgstr "Статистический анализ"
+
+#: plugins/mezuro/views/show.html.erb:77
+msgid ""
+"Wait a moment while the metrics are calculated.<br/>\n"
+"      Reload the page manually in a few moment. "
+msgstr ""
+
+#: plugins/mezuro/views/mezuro_plugin_myprofile/new.html.erb:1
+#, fuzzy
+msgid "New project"
+msgstr "Новый продукт"
+
+#: plugins/mezuro/views/mezuro_plugin_myprofile/new.html.erb:3
+#, fuzzy
+msgid "Register project"
+msgstr "Зарегистрировать компанию"
+
+#: plugins/mezuro/views/mezuro_plugin_myprofile/edit.html.erb:1
+#, fuzzy
+msgid "Edit project"
+msgstr "Редактировать профиль"
+
+#: plugins/mezuro/views/mezuro_plugin_myprofile/edit.html.erb:3
+#, fuzzy
+msgid "Update project"
+msgstr "Обновлено"
+
+#: plugins/mezuro/views/mezuro_plugin_myprofile/index.html.erb:1
+#, fuzzy
+msgid "%s's Mezuro projects"
+msgstr "%s: компании"
+
+#: plugins/mezuro/views/mezuro_plugin_myprofile/index.html.erb:4
+#, fuzzy
+msgid "%s has no projects registered."
+msgstr "(продукты не зарегистрированы)"
+
+#: plugins/mezuro/views/mezuro_plugin_myprofile/index.html.erb:8
+#, fuzzy
+msgid "Project"
+msgstr "Продукт"
+
+#: plugins/mezuro/views/mezuro_plugin_myprofile/index.html.erb:19
+#, fuzzy
+msgid "Are you sure you want to remove this project?"
+msgstr "Вы уверены что хотите удалить блок?"
+
+#: plugins/mezuro/views/mezuro_plugin_myprofile/index.html.erb:27
+#, fuzzy
+msgid "Register a new project"
+msgstr "Зарегистрировать новую компанию"
+
 #: config/initializers/action_tracker.rb:8
 msgid "published 1 article: %{title}"
 msgid_plural "published %{num} articles: %{title}"
@@ -8221,18 +8570,6 @@ msgstr ""
 #~ msgid "Formation"
 #~ msgstr "Формирование"
 
-#~ msgid "environment"
-#~ msgstr "обстановка"
-
-#~ msgid "Is default"
-#~ msgstr "стандартно"
-
-#~ msgid "Design data"
-#~ msgstr "Данные дизайна"
-
-#~ msgid "Terms of use acceptance text"
-#~ msgstr "Текст принятия условий использования"
-
 #~ msgid "Use WYSIWYG editor to edit environment home page"
 #~ msgstr "Использовать WYSIWYG-редактор для измерерия вида домашней страницы"
 
@@ -8244,12 +8581,6 @@ msgstr ""
 
 #~ msgid "A collection of photos, logos or other kinds of images."
 #~ msgstr "Коллекция фотографий, логотипов и кругих изображений"
-
-#~ msgid "domain"
-#~ msgstr "домен"
-
-#~ msgid "Google maps key"
-#~ msgstr "Ключ карт Google"
 
 #~ msgid "Information about the event:"
 #~ msgstr "Информация о событии"
@@ -8537,9 +8868,6 @@ msgstr ""
 #~ msgid "Aditional specifications"
 #~ msgstr "Дополнительные спецификации"
 
-#~ msgid "Product succesfully updated"
-#~ msgstr "Продукт добавлен"
-
 #~ msgid "Category: %s "
 #~ msgstr "Категория: %s"
 
@@ -8567,9 +8895,6 @@ msgstr ""
 #~ msgstr ""
 #~ "Теги важны для новых пользователей, они позволяют легче находить новые "
 #~ "сообщества"
-
-#~ msgid "New product"
-#~ msgstr "Новый продукт"
 
 #~ msgid "back"
 #~ msgstr "назад"
@@ -8648,9 +8973,6 @@ msgstr ""
 
 #~ msgid "Clicking on this button will remove your friend relation with %s."
 #~ msgstr "будет удалена дружеская связь с %s."
-
-#~ msgid "Register enterprise"
-#~ msgstr "Зарегистрировать компанию"
 
 #~ msgid "How to proceed"
 #~ msgstr "Как продолжить"

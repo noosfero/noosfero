@@ -5,8 +5,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: noosfero 0.30.2\n"
-"POT-Creation-Date: 2011-05-12 00:55-0300\n"
+"Project-Id-Version: noosfero 0.31.0\n"
+"POT-Creation-Date: 2011-05-23 16:59-0300\n"
 "PO-Revision-Date: 2009-10-26 16:20-0300\n"
 "Last-Translator: Anahit Minassian <anahit.minassian@cooperation.net>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -470,6 +470,7 @@ msgstr ""
 #: app/views/profile_members/remove_admin.rhtml:17
 #: app/views/profile_members/unassociate.rhtml:17
 #: app/views/profile_members/_members_list.rhtml:17
+#: plugins/mezuro/views/mezuro_plugin_myprofile/index.html.erb:16
 msgid "Edit"
 msgstr "Փոփոխել"
 
@@ -1436,6 +1437,7 @@ msgstr "Վստա՞ք եք, որ ցականում եք այն հեռացնել:"
 
 #: app/helpers/cms_helper.rb:58
 #: app/views/content_viewer/_article_toolbar.rhtml:10
+#: plugins/mezuro/views/mezuro_plugin_myprofile/index.html.erb:17
 msgid "Delete"
 msgstr "Հեռացնել"
 
@@ -1964,11 +1966,13 @@ msgstr ""
 
 #: app/models/enterprise.rb:14 app/models/person.rb:162
 #: app/models/contact.rb:- app/views/maps/edit_location.rhtml:8
+#: plugins/shopping_cart/views/shopping_cart_plugin_profile/buy.html.erb:12
 msgid "City"
 msgstr "Քաղաք"
 
 #: app/models/enterprise.rb:14 app/models/person.rb:162
 #: app/models/contact.rb:- app/views/maps/edit_location.rhtml:7
+#: plugins/shopping_cart/views/shopping_cart_plugin_profile/buy.html.erb:13
 msgid "State"
 msgstr "Նահանգ"
 
@@ -1983,6 +1987,7 @@ msgstr "Երկիր"
 #: app/views/shared/_organization_custom_fields.rhtml:13
 #: app/views/profile_editor/_person_form.rhtml:24
 #: app/views/maps/edit_location.rhtml:9
+#: plugins/shopping_cart/views/shopping_cart_plugin_profile/buy.html.erb:14
 msgid "ZIP code"
 msgstr ""
 
@@ -2069,11 +2074,11 @@ msgstr "Չկա"
 msgid "box"
 msgstr "պատուհան"
 
-#: app/models/box.rb:- app/models/image.rb:-
+#: app/models/box.rb:- app/models/image.rb:- app/models/domain.rb:-
 msgid "Owner type"
 msgstr "Սեփականատիրոջ տեսակ"
 
-#: app/models/box.rb:- app/models/image.rb:-
+#: app/models/box.rb:- app/models/image.rb:- app/models/domain.rb:-
 msgid "Owner"
 msgstr "Սեփականատեր"
 
@@ -2110,6 +2115,7 @@ msgstr "Նորություններ"
 #: app/views/admin_panel/terms_of_use.rhtml:10
 #: app/views/admin_panel/site_info.rhtml:12
 #: app/views/enterprise_validation/edit_validation_info.rhtml:9
+#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/edit.html.erb:11
 msgid "Save"
 msgstr "Պահպանել"
 
@@ -2359,7 +2365,7 @@ msgstr "Պատուհան"
 msgid "Type"
 msgstr "Տեսակ"
 
-#: app/models/block.rb:-
+#: app/models/block.rb:- app/models/environment.rb:-
 msgid "Settings"
 msgstr "Պարամետրեր"
 
@@ -2373,7 +2379,8 @@ msgstr "Ակտիվացված է"
 #: app/models/task.rb:- app/models/product_qualifier.rb:-
 #: app/models/certifier.rb:- app/models/external_feed.rb:-
 #: app/models/mailing_sent.rb:- app/models/comment.rb:-
-#: app/models/profile.rb:- app/models/product_categorization.rb:-
+#: app/models/environment.rb:- app/models/profile.rb:-
+#: app/models/product_categorization.rb:-
 msgid "Created at"
 msgstr "Ստեղծված է"
 
@@ -2382,7 +2389,8 @@ msgstr "Ստեղծված է"
 #: app/models/input.rb:- app/models/mailing.rb:- app/models/product.rb:-
 #: app/models/product_qualifier.rb:- app/models/certifier.rb:-
 #: app/models/external_feed.rb:- app/models/mailing_sent.rb:-
-#: app/models/profile.rb:- app/models/product_categorization.rb:-
+#: app/models/environment.rb:- app/models/profile.rb:-
+#: app/models/product_categorization.rb:-
 msgid "Updated at"
 msgstr "Թարմացվել է"
 
@@ -2837,15 +2845,18 @@ msgid "qualifier"
 msgstr ""
 
 #: app/models/qualifier.rb:- app/models/product.rb:- app/models/certifier.rb:-
-#: app/models/comment.rb:- app/models/profile.rb:-
-#: app/models/create_enterprise.rb:4 app/models/contact.rb:-
-#: app/models/contact.rb:14 app/views/cms/view.rhtml:24
+#: app/models/comment.rb:- app/models/environment.rb:- app/models/profile.rb:-
+#: app/models/create_enterprise.rb:4 app/models/domain.rb:-
+#: app/models/contact.rb:- app/models/contact.rb:14
+#: app/views/cms/view.rhtml:24
 #: app/views/enterprise_registration/select_validator.rhtml:12
 #: app/views/content_viewer/_comment_form.rhtml:30
 #: app/views/box_organizer/_link_list_block.rhtml:4
 #: app/views/profile_members/_find_users.rhtml:3
 #: app/views/profile_members/find_users.rhtml:3
 #: app/views/enterprise_validation/_details.rhtml:3
+#: plugins/shopping_cart/views/shopping_cart_plugin_profile/buy.html.erb:6
+#: plugins/mezuro/views/show.html.erb:9
 msgid "Name"
 msgstr "Անվանում"
 
@@ -3067,6 +3078,7 @@ msgid "product"
 msgstr "արտադրանք"
 
 #: app/models/product.rb:- app/views/manage_products/index.rhtml:6
+#: plugins/shopping_cart/lib/shopping_cart_plugin/cart_helper.rb:37
 msgid "Price"
 msgstr "Գին"
 
@@ -3074,6 +3086,7 @@ msgstr "Գին"
 #: app/models/organization.rb:98 app/views/plugins/index.rhtml:9
 #: app/views/cms/_uploaded_file.rhtml:2
 #: app/views/manage_products/show.rhtml:30
+#: plugins/mezuro/views/show.html.erb:14
 msgid "Description"
 msgstr "Նկարագրություն"
 
@@ -3326,6 +3339,8 @@ msgstr "Դերի փոփոխումը ձախողված է"
 #: app/views/enterprise_validation/index.rhtml:14
 #: app/views/enterprise_validation/_details.rhtml:7
 #: app/views/enterprise_validation/list_processed.rhtml:9
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:18
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:18
 msgid "Address"
 msgstr "Հասցե"
 
@@ -3394,6 +3409,8 @@ msgstr "Հեղինակ"
 
 #: app/models/comment.rb:- app/models/contact.rb:-
 #: app/views/cms/suggest_an_article.rhtml:17
+#: plugins/shopping_cart/views/shopping_cart_plugin_profile/buy.html.erb:7
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:16
 msgid "Email"
 msgstr "Էլ. հասցե"
 
@@ -3421,6 +3438,39 @@ msgstr ""
 #: app/models/main_block.rb:8
 msgid "This block presents the main content of your pages."
 msgstr ""
+
+#: app/models/environment.rb:-
+msgid "environment"
+msgstr "համակարգ"
+
+#: app/models/environment.rb:- app/models/organization.rb:98
+msgid "Contact email"
+msgstr "էլ. հասցե"
+
+#: app/models/environment.rb:- app/models/domain.rb:-
+msgid "Is default"
+msgstr "Նախնական արժեքն է"
+
+#: app/models/environment.rb:-
+msgid "Design data"
+msgstr "Արտաքին տեսքի տվյալներ"
+
+#: app/models/environment.rb:- app/models/profile.rb:-
+msgid "Custom header"
+msgstr ""
+
+#: app/models/environment.rb:- app/models/profile.rb:-
+msgid "Custom footer"
+msgstr ""
+
+#: app/models/environment.rb:- app/models/profile.rb:-
+msgid "Theme"
+msgstr ""
+
+#: app/models/environment.rb:-
+#, fuzzy
+msgid "Terms of use acceptance text"
+msgstr "Պայմանները ընդունված են"
 
 #: app/models/environment.rb:13
 msgid "View environment admin panel"
@@ -3645,6 +3695,7 @@ msgid "Identifier"
 msgstr "Որոշիչ"
 
 #: app/models/profile.rb:- app/models/create_enterprise.rb:6
+#: plugins/shopping_cart/views/shopping_cart_plugin_profile/buy.html.erb:8
 msgid "Contact phone"
 msgstr "Հեռախոս"
 
@@ -3664,18 +3715,6 @@ msgstr "Գեոկոդի ճշգրտություն"
 msgid "Nickname"
 msgstr "Կեղծանուն"
 
-#: app/models/profile.rb:-
-msgid "Custom header"
-msgstr ""
-
-#: app/models/profile.rb:-
-msgid "Custom footer"
-msgstr ""
-
-#: app/models/profile.rb:-
-msgid "Theme"
-msgstr ""
-
 #: app/models/profile.rb:- app/models/profile.rb:675
 msgid "Public profile"
 msgstr ""
@@ -3690,10 +3729,6 @@ msgstr ""
 
 #: app/models/profile.rb:-
 msgid "Visible"
-msgstr ""
-
-#: app/models/profile.rb:-
-msgid "Shopping cart"
 msgstr ""
 
 #: app/models/profile.rb:36
@@ -4071,10 +4106,6 @@ msgid "Display name"
 msgstr "Ցուցադրել անունը"
 
 #: app/models/organization.rb:98
-msgid "Contact email"
-msgstr "էլ. հասցե"
-
-#: app/models/organization.rb:98
 msgid "Validated"
 msgstr "Վավերացված է"
 
@@ -4087,6 +4118,14 @@ msgstr "Համայնքներ"
 #, fuzzy
 msgid "Invite Friends"
 msgstr "Կառավարել ընկերներին"
+
+#: app/models/domain.rb:-
+msgid "domain"
+msgstr "տիրույթ"
+
+#: app/models/domain.rb:-
+msgid "Google maps key"
+msgstr ""
 
 #: app/models/domain.rb:13
 #, fuzzy
@@ -4381,6 +4420,7 @@ msgid "Plugin"
 msgstr "Խորագիր"
 
 #: app/views/plugins/index.rhtml:10 app/views/features/index.rhtml:16
+#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/edit.html.erb:5
 #, fuzzy
 msgid "Enabled?"
 msgstr "Ակտիվացված է"
@@ -4448,6 +4488,7 @@ msgstr ""
 #: app/views/shared/_organization_custom_fields.rhtml:12
 #: app/views/profile_editor/_person_form.rhtml:25
 #: app/views/maps/edit_location.rhtml:10
+#: plugins/shopping_cart/views/shopping_cart_plugin_profile/buy.html.erb:11
 msgid "Address (street and number)"
 msgstr ""
 
@@ -4703,6 +4744,7 @@ msgstr "Ամբողջ բովանդակությունը"
 #: app/views/box_organizer/index.rhtml:5 app/views/mailconf/index.rhtml:10
 #: app/views/mailconf/index.rhtml:28 app/views/mailconf/index.rhtml:38
 #: app/views/tasks/index.rhtml:29 app/views/tasks/index.rhtml:49
+#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/edit.html.erb:12
 msgid "Back to control panel"
 msgstr "Վերադառնալ կառավարման վահանակ"
 
@@ -4717,6 +4759,7 @@ msgstr "Ներկայիս կատեգորիա"
 #: app/views/profile_members/remove_admin.rhtml:10
 #: app/views/profile_members/unassociate.rhtml:10
 #: app/views/profile_members/_members_list.rhtml:10
+#: plugins/mezuro/views/mezuro_plugin_myprofile/index.html.erb:9
 msgid "Actions"
 msgstr "Գործողություններ"
 
@@ -8370,6 +8413,308 @@ msgstr ""
 msgid "Organizations are disabled when created"
 msgstr ""
 
+#: plugins/shopping_cart/controllers/shopping_cart_plugin_profile_controller.rb:96
+msgid "Request sent successfully. Check your email."
+msgstr ""
+
+#: plugins/shopping_cart/controllers/shopping_cart_plugin_profile_controller.rb:118
+msgid "Can't join items from different enterprises."
+msgstr ""
+
+#: plugins/shopping_cart/controllers/shopping_cart_plugin_profile_controller.rb:132
+#, fuzzy
+msgid "There is no cart."
+msgstr "Այստեղ կատեգորիաներ չկան:"
+
+#: plugins/shopping_cart/controllers/shopping_cart_plugin_profile_controller.rb:148
+#, fuzzy
+msgid "This enterprise doesn't have this product."
+msgstr "Այս մասնակիցն աշխատում է հետևյալ ձեռնարկություններում"
+
+#: plugins/shopping_cart/controllers/shopping_cart_plugin_profile_controller.rb:162
+msgid "The cart doesn't have this product."
+msgstr ""
+
+#: plugins/shopping_cart/controllers/shopping_cart_plugin_profile_controller.rb:176
+msgid "Invalid quantity."
+msgstr ""
+
+#: plugins/shopping_cart/controllers/shopping_cart_plugin_myprofile_controller.rb:8
+#, fuzzy
+msgid "Option updated successfully."
+msgstr "Առանձնահատկությունները հաջողությամբ թարմացված են:"
+
+#: plugins/shopping_cart/controllers/shopping_cart_plugin_myprofile_controller.rb:10
+#, fuzzy
+msgid "Option wasn't updated successfully."
+msgstr "Առանձնահատկությունները հաջողությամբ թարմացված են:"
+
+#: plugins/shopping_cart/lib/shopping_cart_plugin.rb:8
+#, fuzzy
+msgid "A shopping cart feature for enterprises"
+msgstr "Դիզակտիվացնել ձեռնարկությունների որոնումը"
+
+#: plugins/shopping_cart/lib/shopping_cart_plugin.rb:14
+msgid "Add to cart"
+msgstr ""
+
+#: plugins/shopping_cart/lib/shopping_cart_plugin/mailer.rb:10
+#, fuzzy
+msgid "[%s] Your buy request was performed successfully."
+msgstr "Ձեր գաղտնաբառը բարեհաջող փոխվել է:"
+
+#: plugins/shopping_cart/lib/shopping_cart_plugin/mailer.rb:23
+msgid "[%s] You have a new buy request from %s."
+msgstr ""
+
+#: plugins/shopping_cart/lib/shopping_cart_plugin/cart_helper.rb:22
+#, fuzzy
+msgid "Delivery"
+msgstr "Դեկտեմբեր"
+
+#: plugins/shopping_cart/lib/shopping_cart_plugin/cart_helper.rb:35
+#, fuzzy
+msgid "Item name"
+msgstr "Ֆայլի անուն"
+
+#: plugins/shopping_cart/lib/shopping_cart_plugin/cart_helper.rb:52
+#: plugins/shopping_cart/views/cart.html.erb:10
+msgid "Total:"
+msgstr ""
+
+#: plugins/mezuro/controllers/mezuro_plugin_myprofile_controller.rb:15
+#, fuzzy
+msgid "Project successfully registered"
+msgstr "Արտադրանքը հաջողությամբ ստեղծված է"
+
+#: plugins/mezuro/controllers/mezuro_plugin_myprofile_controller.rb:29
+#, fuzzy
+msgid "Project successfully updated"
+msgstr "Արտադրանքը հաջողությամբ թարմացված է"
+
+#: plugins/mezuro/controllers/mezuro_plugin_myprofile_controller.rb:47
+#, fuzzy
+msgid "Project successfully removed."
+msgstr "Արտադրանքը հաջողությամբ հեռացված է"
+
+#: plugins/mezuro/controllers/mezuro_plugin_myprofile_controller.rb:49
+#, fuzzy
+msgid "Project was not successfully removed."
+msgstr "Արտադրանքը հաջողությամբ հեռացված է"
+
+#: plugins/mezuro/lib/mezuro_plugin.rb:8
+msgid "A metric analizer plugin."
+msgstr ""
+
+#: plugins/template/lib/template_plugin.rb:10
+msgid "A plugin that does this and that."
+msgstr ""
+
+#: plugins/shopping_cart/views/cart.html.erb:3
+#, fuzzy
+msgid "Are you sure you want to remove this item?"
+msgstr "Վստա՞ք եք, որ ցականում եք այն հեռացնել:"
+
+#: plugins/shopping_cart/views/cart.html.erb:4
+#, fuzzy
+msgid "Are you sure you want to clean your cart?"
+msgstr "Վստա՞հ եք, որ ցանկանում եք դուրս գալ:"
+
+#: plugins/shopping_cart/views/cart.html.erb:7
+#, fuzzy
+msgid "Cart"
+msgstr "Ստեղծել"
+
+#: plugins/shopping_cart/views/cart.html.erb:8
+#, fuzzy
+msgid "Clean cart"
+msgstr "Ստեղծված է"
+
+#: plugins/shopping_cart/views/cart.html.erb:11
+msgid "Shopping checkout"
+msgstr ""
+
+#: plugins/shopping_cart/views/cart.html.erb:14
+#, fuzzy
+msgid "Show cart"
+msgstr "Որոնել"
+
+#: plugins/shopping_cart/views/cart.html.erb:15
+msgid "Hide cart"
+msgstr ""
+
+#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/edit.html.erb:1
+#, fuzzy
+msgid "Cart options"
+msgstr "Կառավարման հատկություններ"
+
+#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/edit.html.erb:6
+msgid "Delivery?"
+msgstr ""
+
+#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/edit.html.erb:7
+#, fuzzy
+msgid "Delivery price:"
+msgstr "Վերացնել անհատական էջը"
+
+#: plugins/shopping_cart/views/shopping_cart_plugin_profile/buy.html.erb:10
+#, fuzzy
+msgid "Delivery Address"
+msgstr "Հասցե"
+
+#: plugins/shopping_cart/views/shopping_cart_plugin_profile/buy.html.erb:17
+msgid "Send buy request"
+msgstr ""
+
+#: plugins/shopping_cart/views/shopping_cart_plugin_profile/send_request.html.erb:1
+msgid "Request sent successfully check your email."
+msgstr ""
+
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:7
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:7
+msgid "Hi %s!"
+msgstr ""
+
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:10
+msgid "This is a notification e-mail about your buy request on %s."
+msgstr ""
+
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:11
+msgid ""
+"The supplier already received your buy request and may contact you for "
+"confirmation."
+msgstr ""
+
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:12
+msgid "Please check if your information below is correct:"
+msgstr ""
+
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:16
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:15
+#, fuzzy
+msgid "Full name"
+msgstr "Ֆայլի անուն"
+
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:17
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:17
+#, fuzzy
+msgid "Phone number"
+msgstr "Նոր անդամ"
+
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:23
+msgid "Here are the products you bought:"
+msgstr ""
+
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:28
+#, fuzzy
+msgid "Thanks for buying with us!"
+msgstr "Շնորհակալություն գրանցվելու համար:"
+
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:31
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:30
+msgid "A service of %s."
+msgstr ""
+
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:10
+msgid "This is a buy request made by %s."
+msgstr ""
+
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:11
+msgid "Below follows the customer informations:"
+msgstr ""
+
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:23
+msgid "And here are the items bought by this customer:"
+msgstr ""
+
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:28
+msgid "If there are any problems with this email contact the admin of %s."
+msgstr ""
+
+#: plugins/mezuro/views/show.html.erb:19
+#, fuzzy
+msgid "Repository address"
+msgstr "Հասցե"
+
+#: plugins/mezuro/views/show.html.erb:35
+msgid "Possible causes:"
+msgstr ""
+
+#: plugins/mezuro/views/show.html.erb:38
+msgid "Server is down"
+msgstr ""
+
+#: plugins/mezuro/views/show.html.erb:41
+msgid ""
+"URL invalid, in this case create another project with the correct URL\n"
+"    (Sorry for the incovenience, we're working for a better solution)"
+msgstr ""
+
+#: plugins/mezuro/views/show.html.erb:47
+#, fuzzy
+msgid "Metric Results"
+msgstr "«%s»-ի որոնման արդյունքները"
+
+#: plugins/mezuro/views/show.html.erb:49
+msgid "Total Metrics"
+msgstr ""
+
+#: plugins/mezuro/views/show.html.erb:59
+#, fuzzy
+msgid "Statistical Metrics"
+msgstr "Վիճակագրություն"
+
+#: plugins/mezuro/views/show.html.erb:77
+msgid ""
+"Wait a moment while the metrics are calculated.<br/>\n"
+"      Reload the page manually in a few moment. "
+msgstr ""
+
+#: plugins/mezuro/views/mezuro_plugin_myprofile/new.html.erb:1
+#, fuzzy
+msgid "New project"
+msgstr "Նոր արտադրանք"
+
+#: plugins/mezuro/views/mezuro_plugin_myprofile/new.html.erb:3
+#, fuzzy
+msgid "Register project"
+msgstr "Գրանցել ձեռնարկությունը"
+
+#: plugins/mezuro/views/mezuro_plugin_myprofile/edit.html.erb:1
+#, fuzzy
+msgid "Edit project"
+msgstr "Փոփոխել անհատական էջը"
+
+#: plugins/mezuro/views/mezuro_plugin_myprofile/edit.html.erb:3
+#, fuzzy
+msgid "Update project"
+msgstr "Թարմացվել է"
+
+#: plugins/mezuro/views/mezuro_plugin_myprofile/index.html.erb:1
+#, fuzzy
+msgid "%s's Mezuro projects"
+msgstr "%s-ի բոլոր ձեռնարկությունները"
+
+#: plugins/mezuro/views/mezuro_plugin_myprofile/index.html.erb:4
+#, fuzzy
+msgid "%s has no projects registered."
+msgstr "սեռը գրանցված չէ"
+
+#: plugins/mezuro/views/mezuro_plugin_myprofile/index.html.erb:8
+#, fuzzy
+msgid "Project"
+msgstr "Արտադրանք"
+
+#: plugins/mezuro/views/mezuro_plugin_myprofile/index.html.erb:19
+#, fuzzy
+msgid "Are you sure you want to remove this project?"
+msgstr "Ցանկանո՞ւմ եք արդյոք հեռացնել այս մեկնաբանությունը:"
+
+#: plugins/mezuro/views/mezuro_plugin_myprofile/index.html.erb:27
+#, fuzzy
+msgid "Register a new project"
+msgstr "Գրանցել նոր ձեռնարկություն"
+
 #: config/initializers/action_tracker.rb:8
 msgid "published 1 article: %{title}"
 msgid_plural "published %{num} articles: %{title}"
@@ -8499,19 +8844,6 @@ msgstr ""
 #~ msgid "New Role"
 #~ msgstr "Նոր դեր"
 
-#~ msgid "environment"
-#~ msgstr "համակարգ"
-
-#~ msgid "Is default"
-#~ msgstr "Նախնական արժեքն է"
-
-#~ msgid "Design data"
-#~ msgstr "Արտաքին տեսքի տվյալներ"
-
-#, fuzzy
-#~ msgid "Terms of use acceptance text"
-#~ msgstr "Պայմանները ընդունված են"
-
 #, fuzzy
 #~ msgid "one article"
 #~ msgstr "Նոր հոդված"
@@ -8522,9 +8854,6 @@ msgstr ""
 
 #~ msgid "A collection of photos, logos or other kinds of images."
 #~ msgstr "Լուսանկարների, լոգոների և այլ պատկերների հավաքածու:"
-
-#~ msgid "domain"
-#~ msgstr "տիրույթ"
 
 #~ msgid "Information about the event:"
 #~ msgstr "Տեղեկություններ միջոցառման մասին"
@@ -8733,9 +9062,6 @@ msgstr ""
 #~ msgid "Aditional specifications"
 #~ msgstr "Հավելյալ հատկանիշներ"
 
-#~ msgid "Product succesfully updated"
-#~ msgstr "Արտադրանքը հաջողությամբ թարմացված է"
-
 #~ msgid "Category: %s "
 #~ msgstr "Կատեգորիա %s"
 
@@ -8770,9 +9096,6 @@ msgstr ""
 #~ msgid "Are you sure, you want to remove this raw material from your list"
 #~ msgstr ""
 #~ "Ցանկանում եք արդյոք հեռացնել տվյալ նյութը Ձեր սկզբնական նյութերի ցուցակից:"
-
-#~ msgid "New product"
-#~ msgstr "Նոր արտադրանք"
 
 #~ msgid "back"
 #~ msgstr "վերադարձ"
@@ -8850,9 +9173,6 @@ msgstr ""
 
 #~ msgid "Clicking on this button will remove your friend relation with %s."
 #~ msgstr "Այս կոճակին սեղմելով դուք կվերացնեք Ձեր ընկերական կապը %s-ի հետ:"
-
-#~ msgid "Register enterprise"
-#~ msgstr "Գրանցել ձեռնարկությունը"
 
 #~ msgid "How to proceed"
 #~ msgstr "Ինչպես շարունակել"
@@ -9137,9 +9457,6 @@ msgstr ""
 
 #~ msgid "%d %B %Y"
 #~ msgstr "%d %B %Y"
-
-#~ msgid "The enterprises where this user works."
-#~ msgstr "Այս մասնակիցն աշխատում է հետևյալ ձեռնարկություններում"
 
 #~ msgid "Task|Data"
 #~ msgstr "Առաջադրանք|Տվյալներ"
