@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110520150544) do
+ActiveRecord::Schema.define(:version => 20110524151137) do
 
   create_table "action_tracker", :force => true do |t|
     t.integer  "user_id"
@@ -60,7 +60,6 @@ ActiveRecord::Schema.define(:version => 20110520150544) do
     t.date     "start_date"
     t.date     "end_date"
     t.integer  "children_count",       :default => 0
-    t.boolean  "public_article",       :default => true
     t.boolean  "accept_comments",      :default => true
     t.integer  "reference_article_id"
     t.text     "setting"
