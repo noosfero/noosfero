@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.31.0\n"
 "POT-Creation-Date: 2011-05-23 16:59-0300\n"
-"PO-Revision-Date: 2011-05-23 20:33-0300\n"
+"PO-Revision-Date: 2011-05-24 12:10-0300\n"
 "Last-Translator: Joenio Costa <joenio@colivre.coop.br>\n"
 "Language-Team: LANGUAGE TEAM <E-MAIL@ADDRESS or HOME PAGE>\n"
 "MIME-Version: 1.0\n"
@@ -8202,11 +8202,11 @@ msgstr "Adicionar ao carrinho"
 
 #: plugins/shopping_cart/lib/shopping_cart_plugin/mailer.rb:10
 msgid "[%s] Your buy request was performed successfully."
-msgstr "[%s] Sua requisição de compra foi realizada com sucesso."
+msgstr "[%s] Seu pedido de compra foi realizado com sucesso."
 
 #: plugins/shopping_cart/lib/shopping_cart_plugin/mailer.rb:23
 msgid "[%s] You have a new buy request from %s."
-msgstr "[%s] Você tem uma nova requisição de compra de %s."
+msgstr "[%s] Você tem um novo pedido de compra de %s."
 
 #: plugins/shopping_cart/lib/shopping_cart_plugin/cart_helper.rb:22
 msgid "Delivery"
@@ -8267,7 +8267,7 @@ msgstr "Limpar carrinho"
 
 #: plugins/shopping_cart/views/cart.html.erb:11
 msgid "Shopping checkout"
-msgstr "Finalizar compra"
+msgstr "Finalizar pedido"
 
 #: plugins/shopping_cart/views/cart.html.erb:14
 msgid "Show cart"
@@ -8295,7 +8295,7 @@ msgstr "Endereço de Entrega"
 
 #: plugins/shopping_cart/views/shopping_cart_plugin_profile/buy.html.erb:17
 msgid "Send buy request"
-msgstr "Enviar requisição de compra"
+msgstr "Enviar pedido de compra"
 
 #: plugins/shopping_cart/views/shopping_cart_plugin_profile/send_request.html.erb:1
 msgid "Request sent successfully check your email."
@@ -8308,18 +8308,18 @@ msgstr "Olá %s!"
 
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:10
 msgid "This is a notification e-mail about your buy request on %s."
-msgstr "Esse é um email de notificação sobre a sua requisição de compra em %s."
+msgstr "Esse é um email de notificação sobre o seu pedido de compra em %s."
 
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:11
 msgid ""
 "The supplier already received your buy request and may contact you for "
 "confirmation."
-msgstr "O fornecedor já recebou a sua requisição de compra e deve te contactar "
+msgstr "O fornecedor já recebeu o seu pedido de compra e deve te contactar "
 "para confirmação."
 
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:12
 msgid "Please check if your information below is correct:"
-msgstr "Por favof cheque se suas informções abaixo estão corretas:"
+msgstr "Por favor cheque se suas informações abaixo estão corretas:"
 
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:16
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:15
@@ -8333,7 +8333,7 @@ msgstr "Telefone"
 
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:23
 msgid "Here are the products you bought:"
-msgstr "Aqui estão os produtos que você comprou:"
+msgstr "Aqui estão os produtos que você pediu:"
 
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:28
 msgid "Thanks for buying with us!"
@@ -8346,7 +8346,7 @@ msgstr "Um serviço de %s."
 
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:10
 msgid "This is a buy request made by %s."
-msgstr "Essa é uma requisição de compra feita por %s."
+msgstr "Esse é um pedido de compra feito por %s."
 
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:11
 msgid "Below follows the customer informations:"
@@ -8354,7 +8354,7 @@ msgstr "Abaixo seguem as informações do consumidor:"
 
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:23
 msgid "And here are the items bought by this customer:"
-msgstr "E aqui estão os itens comprados por esse consumidor:"
+msgstr "E aqui estão os itens pedidos por esse consumidor:"
 
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:28
 msgid "If there are any problems with this email contact the admin of %s."
