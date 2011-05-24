@@ -10,7 +10,6 @@
     <fieldset><legend><%=_('Delivery Address')%></legend>
       <%= labelled_form_field(_('Address (street and number)'), f.text_field(:address)) %>
       <%= labelled_form_field( _("City"), f.text_field(:city)) %>
-      <%= labelled_form_field( _("State"), f.text_field(:state)) %>
       <%= labelled_form_field(_('ZIP code'), f.text_field(:zip_code)) %>
     </fieldset>
     <div id="cart-form-actions">

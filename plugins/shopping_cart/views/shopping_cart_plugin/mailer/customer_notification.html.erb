@@ -15,9 +15,21 @@
     <ul>
       <li><b><%= _('Full name') %>: </b><%= @customer[:name] %></li>
       <li><b><%= _('Phone number') %>: </b><%= @customer[:contact_phone] %></li>
-      <li><b><%= _('Address') %>: </b><%= @customer[:address] %><br \>
-      <%= @customer[:city]+'-'+@customer[:state]+'-'+@customer[:country] %><br \>
-      <%= @customer[:zip_code] %></li>
+      <% if !@customer[:address].blank? || !@customer[:city].blank? || !@customer[:zip_code].blank? %>
+        <li><b><%= _('Address') %>:</b>
+      <% end %>
+      <% if !@customer[:address].blank? %>
+        <%= @customer[:address] %><br \>
+      <% end %>
+      <% if !@customer[:city].blank? %>
+        <%= @customer[:city] %><br \>
+      <% end %>
+      <% if !@customer[:zip_code].blank? %>
+        <%= @customer[:zip_code] %>
+      <% end %>
+      <% if !@customer[:address].blank? || !@customer[:city].blank? || !@customer[:zip_code].blank? %>
+        </li>
+      <% end %>
     </ul>
 
     <p><%=_('Here are the products you bought:')%></p>
