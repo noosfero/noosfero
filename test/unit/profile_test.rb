@@ -260,7 +260,7 @@ class ProfileTest < Test::Unit::TestCase
   should 'help developers by adding a suitable port to url' do
     profile = build(Profile)
 
-    Noosfero.expects(:url_options).returns({ :port => 9999 })
+    Noosfero.stubs(:url_options).returns({ :port => 9999 })
 
     assert profile.url[:port] == 9999, 'Profile#url_options must include port option when running in development mode'
   end

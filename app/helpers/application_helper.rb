@@ -1107,7 +1107,7 @@ module ApplicationHelper
   def manage_enterprises
     if user && !user.enterprises.empty?
       enterprises_link = user.enterprises.map do |enterprise|
-        link_to(content_tag('strong', [_('<span>Manage</span> %s') % enterprise.short_name(25)]), "/myprofile/#{enterprise.identifier}", :class => "icon-menu-enterprise", :title => [_('Manage %s') % enterprise.short_name])
+        link_to(content_tag('strong', [_('<span>Manage</span> %s') % enterprise.short_name(25)]), @environment.top_url + "/myprofile/#{enterprise.identifier}", :class => "icon-menu-enterprise", :title => [_('Manage %s') % enterprise.short_name])
       end
       render :partial => 'shared/manage_enterprises', :locals => {:enterprises_link => enterprises_link}
     end
@@ -1116,12 +1116,12 @@ module ApplicationHelper
   def usermenu_logged_in
     pending_tasks_count = ''
     if user && user.all_pending_tasks.count > 0
-      pending_tasks_count = link_to(user.all_pending_tasks.count.to_s, '/myprofile/{login}/tasks', :id => 'pending-tasks-count', :title => _("Manage your pending tasks"))
+      pending_tasks_count = link_to(user.all_pending_tasks.count.to_s, @environment.top_url + '/myprofile/{login}/tasks', :id => 'pending-tasks-count', :title => _("Manage your pending tasks"))
     end
 
     (_('Welcome, %s') % link_to('<i></i><strong>{login}</strong>', @environment.top_url + '/{login}', :id => "homepage-link", :title => _('Go to your homepage'))) +
     render_environment_features(:usermenu) +
-    link_to('<i class="icon-menu-admin"></i><strong>' + _('Administration') + '</strong>', { :controller => 'admin_panel', :action => 'index' }, :id => "controlpanel", :title => _("Configure the environment"), :class => 'admin-link', :style => 'display: none') +
+    link_to('<i class="icon-menu-admin"></i><strong>' + _('Administration') + '</strong>', { :host => @environment.default_hostname, :controller => 'admin_panel', :action => 'index' }, :id => "controlpanel", :title => _("Configure the environment"), :class => 'admin-link', :style => 'display: none') +
     manage_enterprises.to_s +
     link_to('<i class="icon-menu-ctrl-panel"></i><strong>' + _('Control panel') + '</strong>', @environment.top_url + '/myprofile/{login}', :id => "controlpanel", :title => _("Configure your personal account and content")) +
     pending_tasks_count +

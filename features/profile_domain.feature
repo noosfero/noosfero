@@ -64,3 +64,9 @@ Feature: domain for profile
     When I open /something-that-does-not-exist
     And I follow "Go to the home page"
     Then the page title should be "Colivre.net"
+
+  @selenium
+  Scenario: Compose link to administration with environment domain
+    Given I am logged in as "joaosilva"
+    When I visit "/" and wait
+    Then I should see "Administration" linking to "http://127.0.0.1:3001/admin"
