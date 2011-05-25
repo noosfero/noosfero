@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.31.0\n"
-"POT-Creation-Date: 2011-05-23 16:59-0300\n"
+"POT-Creation-Date: 2011-05-25 09:27-0300\n"
 "PO-Revision-Date: 2011-03-15 13:14+0100\n"
 "Last-Translator: Ronny Kursawe <kursawe.ronny@googlemail.com>\n"
 "Language-Team: German <de@li.org>\n"
@@ -1897,7 +1897,6 @@ msgstr "Ort"
 
 #: app/models/enterprise.rb:14 app/models/person.rb:162
 #: app/models/contact.rb:- app/views/maps/edit_location.rhtml:7
-#: plugins/shopping_cart/views/shopping_cart_plugin_profile/buy.html.erb:13
 msgid "State"
 msgstr "Bundesland"
 
@@ -1912,7 +1911,7 @@ msgstr "Land"
 #: app/views/shared/_organization_custom_fields.rhtml:13
 #: app/views/profile_editor/_person_form.rhtml:24
 #: app/views/maps/edit_location.rhtml:9
-#: plugins/shopping_cart/views/shopping_cart_plugin_profile/buy.html.erb:14
+#: plugins/shopping_cart/views/shopping_cart_plugin_profile/buy.html.erb:13
 msgid "ZIP code"
 msgstr "Postleitzahl"
 
@@ -3210,8 +3209,8 @@ msgstr "Titel"
 #: app/views/enterprise_validation/index.rhtml:14
 #: app/views/enterprise_validation/_details.rhtml:7
 #: app/views/enterprise_validation/list_processed.rhtml:9
-#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:18
-#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:18
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:21
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:19
 msgid "Address"
 msgstr "Adresse"
 
@@ -3278,6 +3277,7 @@ msgstr "Autor"
 #: app/models/comment.rb:- app/models/contact.rb:-
 #: app/views/cms/suggest_an_article.rhtml:17
 #: plugins/shopping_cart/views/shopping_cart_plugin_profile/buy.html.erb:7
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:18
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:16
 msgid "Email"
 msgstr "E-Mail"
@@ -8372,7 +8372,7 @@ msgstr "Profile löschen"
 msgid "Delivery Address"
 msgstr "Quelladresse"
 
-#: plugins/shopping_cart/views/shopping_cart_plugin_profile/buy.html.erb:17
+#: plugins/shopping_cart/views/shopping_cart_plugin_profile/buy.html.erb:16
 #, fuzzy
 msgid "Send buy request"
 msgstr "Neue Anfrage"
@@ -8397,32 +8397,37 @@ msgid ""
 msgstr ""
 
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:12
+#, fuzzy
+msgid "If you have any doubts, contact us at: %s"
+msgstr "Sie haben noch keine Kontakte"
+
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:13
 msgid "Please check if your information below is correct:"
 msgstr ""
 
-#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:16
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:17
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:15
 #, fuzzy
 msgid "Full name"
 msgstr "Dateiname"
 
-#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:17
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:19
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:17
 #, fuzzy
 msgid "Phone number"
 msgstr "Ein Mitglied"
 
-#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:23
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:37
 msgid "Here are the products you bought:"
 msgstr ""
 
-#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:28
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:42
 #, fuzzy
 msgid "Thanks for buying with us!"
 msgstr "Vielen Dank für Ihre Anmeldung!"
 
-#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:31
-#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:30
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:45
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:42
 msgid "A service of %s."
 msgstr ""
 
@@ -8435,11 +8440,11 @@ msgstr "Das ist eine neue Veröffentlichung  von \"%s\", durch %s."
 msgid "Below follows the customer informations:"
 msgstr ""
 
-#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:23
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:35
 msgid "And here are the items bought by this customer:"
 msgstr ""
 
-#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:28
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:40
 msgid "If there are any problems with this email contact the admin of %s."
 msgstr ""
 

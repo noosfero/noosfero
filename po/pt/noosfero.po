@@ -12,8 +12,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.31.0\n"
-"POT-Creation-Date: 2011-05-23 16:59-0300\n"
-"PO-Revision-Date: 2011-05-24 12:10-0300\n"
+"POT-Creation-Date: 2011-05-25 09:27-0300\n"
+"PO-Revision-Date: 2011-05-25 09:33-0300\n"
 "Last-Translator: Joenio Costa <joenio@colivre.coop.br>\n"
 "Language-Team: LANGUAGE TEAM <E-MAIL@ADDRESS or HOME PAGE>\n"
 "MIME-Version: 1.0\n"
@@ -1898,7 +1898,6 @@ msgstr "Cidade"
 
 #: app/models/enterprise.rb:14 app/models/person.rb:162
 #: app/models/contact.rb:- app/views/maps/edit_location.rhtml:7
-#: plugins/shopping_cart/views/shopping_cart_plugin_profile/buy.html.erb:13
 msgid "State"
 msgstr "Estado"
 
@@ -1913,7 +1912,7 @@ msgstr "País"
 #: app/views/shared/_organization_custom_fields.rhtml:13
 #: app/views/profile_editor/_person_form.rhtml:24
 #: app/views/maps/edit_location.rhtml:9
-#: plugins/shopping_cart/views/shopping_cart_plugin_profile/buy.html.erb:14
+#: plugins/shopping_cart/views/shopping_cart_plugin_profile/buy.html.erb:13
 msgid "ZIP code"
 msgstr "CEP"
 
@@ -3205,8 +3204,8 @@ msgstr "Título do feed"
 #: app/views/enterprise_validation/index.rhtml:14
 #: app/views/enterprise_validation/_details.rhtml:7
 #: app/views/enterprise_validation/list_processed.rhtml:9
-#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:18
-#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:18
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:21
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:19
 msgid "Address"
 msgstr "Endereço"
 
@@ -3273,6 +3272,7 @@ msgstr "Autor"
 #: app/models/comment.rb:- app/models/contact.rb:-
 #: app/views/cms/suggest_an_article.rhtml:17
 #: plugins/shopping_cart/views/shopping_cart_plugin_profile/buy.html.erb:7
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:18
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:16
 msgid "Email"
 msgstr "E-mail"
@@ -8293,7 +8293,7 @@ msgstr "Preço de entrega:"
 msgid "Delivery Address"
 msgstr "Endereço de Entrega"
 
-#: plugins/shopping_cart/views/shopping_cart_plugin_profile/buy.html.erb:17
+#: plugins/shopping_cart/views/shopping_cart_plugin_profile/buy.html.erb:16
 msgid "Send buy request"
 msgstr "Enviar pedido de compra"
 
@@ -8314,33 +8314,38 @@ msgstr "Esse é um email de notificação sobre o seu pedido de compra em %s."
 msgid ""
 "The supplier already received your buy request and may contact you for "
 "confirmation."
-msgstr "O fornecedor já recebeu o seu pedido de compra e deve te contactar "
-"para confirmação."
+msgstr ""
+"O fornecedor já recebeu o seu pedido de compra e deve te contactar para "
+"confirmação."
 
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:12
+msgid "If you have any doubts, contact us at: %s"
+msgstr "Se você tem alguma dúvida, nos contacte em: %s"
+
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:13
 msgid "Please check if your information below is correct:"
 msgstr "Por favor cheque se suas informações abaixo estão corretas:"
 
-#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:16
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:17
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:15
 msgid "Full name"
 msgstr "Nome completo"
 
-#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:17
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:19
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:17
 msgid "Phone number"
 msgstr "Telefone"
 
-#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:23
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:37
 msgid "Here are the products you bought:"
 msgstr "Aqui estão os produtos que você pediu:"
 
-#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:28
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:42
 msgid "Thanks for buying with us!"
 msgstr "Obrigado por comprar conosco!"
 
-#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:31
-#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:30
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:45
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:42
 msgid "A service of %s."
 msgstr "Um serviço de %s."
 
@@ -8352,16 +8357,16 @@ msgstr "Esse é um pedido de compra feito por %s."
 msgid "Below follows the customer informations:"
 msgstr "Abaixo seguem as informações do consumidor:"
 
-#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:23
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:35
 msgid "And here are the items bought by this customer:"
 msgstr "E aqui estão os itens pedidos por esse consumidor:"
 
-#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:28
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:40
 msgid "If there are any problems with this email contact the admin of %s."
-msgstr "Se houver algum problema com esse email contacte o administrador de %s."
+msgstr ""
+"Se houver algum problema com esse email contacte o administrador de %s."
 
 #: plugins/mezuro/views/show.html.erb:19
-#, fuzzy
 msgid "Repository address"
 msgstr ""
 
