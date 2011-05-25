@@ -19,4 +19,12 @@ class ShoppingCartPluginTest < Test::Unit::TestCase
     assert shopping_cart.stylesheet?
   end
 
+  should 'not add button if product unavailable' do
+    product = fast_create(Product, :available => false)
+    enterprise = mock()
+    enterprise.stubs(:shopping_cart).returns(true)
+
+    assert_nil shopping_cart.add_to_cart_button(product, enterprise)
+  end
+
 end

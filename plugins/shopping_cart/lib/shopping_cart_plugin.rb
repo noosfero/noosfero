@@ -9,7 +9,7 @@ class ShoppingCartPlugin < Noosfero::Plugin
   end
 
   def add_to_cart_button(item, enterprise = context.profile)
-    if enterprise.shopping_cart
+    if enterprise.shopping_cart && item.available
        lambda {
          link_to(_('Add to cart'), "add:#{item.name}",
            :class => 'cart-add-item',
