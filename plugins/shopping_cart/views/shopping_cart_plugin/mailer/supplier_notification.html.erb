@@ -13,6 +13,7 @@
 
     <ul>
       <li><b><%= _('Full name') %>: </b><%= @customer[:name] %></li>
+      <li><b><%= _('Email') %>: </b><%= @customer[:email] %></li>
       <li><b><%= _('Phone number') %>: </b><%= @customer[:contact_phone] %></li>
       <% if !@customer[:address].blank? || !@customer[:city].blank? || !@customer[:zip_code].blank? %>
         <li><b><%= _('Address') %>:</b>
