@@ -411,7 +411,3 @@ Given /^the environment domain is "([^\"]*)"$/ do |domain|
   d = Domain.new :name => domain, :owner => Environment.default
   d.save(false)
 end
-
-Given /^"([^\"]*)" is admin of environment$/ do |id|
-  Environment.default.add_admin(Person[id])
-end
