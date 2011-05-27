@@ -79,18 +79,6 @@ class EventsHelperTest < Test::Unit::TestCase
   end
 
   protected
-
-  def content_tag(tag, text, options = {})
-    "<#{tag}>#{text}</#{tag}>"
-  end
-  def icon_for_article(article)
-    ''
-  end
-  def image_tag(arg)
-    arg
-  end
-  def link_to(text, url, options = {})
-    "<a href='#{url.to_s}'>#{text}</a>"
-  end
+  include NoosferoTestHelper
 
 end

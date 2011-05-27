@@ -112,9 +112,6 @@ class OrganizationMailingTest < ActiveSupport::TestCase
   end
 
   protected
-
-    def url_for(url)
-      url
-    end
+  include NoosferoTestHelper
 
 end

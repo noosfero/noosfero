@@ -30,7 +30,7 @@ class ContentViewerHelperTest < Test::Unit::TestCase
     post = fast_create(TextileArticle, :name => 'post test', :profile_id => profile.id, :parent_id => blog.id)
     assert post.belongs_to_blog?
     result = article_title(post)
-    assert_match /a href='#{post.url}'>#{post.name}</, result
+    assert_tag_in_string result, :tag => 'h1', :child => {:tag => 'a', :content => 'post test', :attributes => { :href => /my-article-\d+/ }}
   end
 
   should 'not create link on title if pass no_link option' do
@@ -130,34 +130,10 @@ class ContentViewerHelperTest < Test::Unit::TestCase
   end
 
   protected
-
+  include NoosferoTestHelper
   include ActionView::Helpers::TextHelper
-
-  def show_date(date)
-    date.to_s
-  end
-
-  def link_to(content, url)
-  "<a href='#{url}'>#{content}</a>"
-  end
-
-  def _(text)
-    text
-  end
-
-  def will_paginate(arg1, arg2)
-  end
-
-  def strip_tags(html)
-    html.gsub(/<[^>]+>/, '')
-  end
-
   def url_for(args = {})
     ['http:/', args[:host], args[:profile], args[:page]].join('/')
-  end
-
-  def image_tag(file, args = {})
-    file
   end
 
 end

@@ -89,7 +89,7 @@ class ApplicationHelperTest < Test::Unit::TestCase
     person = create_user('usertest').person
     community = fast_create(Community, :name => 'new community', :identifier => 'new-community', :environment_id => Environment.default.id)
     community.add_member(person)
-    assert_equal 'Profile Administrator', rolename_for(person, community)
+    assert_tag_in_string rolename_for(person, community), :tag => 'span', :content => 'Profile Administrator'
   end
 
   should 'rolename for a member' do
@@ -98,7 +98,7 @@ class ApplicationHelperTest < Test::Unit::TestCase
     community = fast_create(Community, :name => 'new community', :identifier => 'new-community', :environment_id => Environment.default.id)
     community.add_member(member1)
     community.add_member(member2)
-    assert_equal 'Profile Member', rolename_for(member2, community)
+    assert_tag_in_string rolename_for(member2, community), :tag => 'span', :content => 'Profile Member'
   end
 
   should 'get theme from environment by default' do
@@ -608,27 +608,6 @@ class ApplicationHelperTest < Test::Unit::TestCase
   end
 
   protected
-
-  def url_for(args = {})
-    args
-  end
-  def content_tag(tag, content, options = {})
-    content.strip
-  end
-  def javascript_tag(any)
-    ''
-  end
-  def javascript_include_tag(any)
-    ''
-  end
-  def link_to(label, action, options = {})
-    label
-  end
-  def check_box_tag(name, value = 1, checked = false, options = {})
-    name
-  end
-  def stylesheet_link_tag(arg)
-    arg
-  end
+  include NoosferoTestHelper
 
 end

@@ -27,9 +27,6 @@ class FormsHelperTest < Test::Unit::TestCase
   end
 
   protected
-
-  def _(text)
-    text
-  end
+  include NoosferoTestHelper
 
 end

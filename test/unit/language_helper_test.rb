@@ -38,8 +38,6 @@ class LanguageHelperTest < Test::Unit::TestCase
 
   end
 
-  include ActionView::Helpers::FormOptionsHelper
-  include ActionView::Helpers::FormTagHelper
   should 'generate drodown language chooser correcly' do
     Noosfero.expects(:locales).returns({ 'en' => 'English', 'pt_BR' => 'Português Brasileiro', 'fr' => 'Français', 'it' => 'Italiano' }).at_least_once
 
@@ -55,26 +53,8 @@ class LanguageHelperTest < Test::Unit::TestCase
   end
 
   protected
+  include NoosferoTestHelper
+  include ActionView::Helpers::FormOptionsHelper
+  include ActionView::Helpers::FormTagHelper
 
-  def _(s)
-    s
-  end
-
-  def content_tag(tag, text, options = {})
-    "<#{tag}>#{text}</#{tag}>"
-  end
-
-  def link_to(text, url, options = {})
-    "<a href='?lang=#{url[:lang]}'>#{text}</a>"
-  end
-
-  def params
-    {}
-  end
-
-  def url_for(x)
-    x.inspect
-  end
-  
 end
-

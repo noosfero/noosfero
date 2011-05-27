@@ -233,8 +233,9 @@ module NoosferoTestHelper
     ''
   end
 
-  def tag(tag)
-    "<#{tag}/>"
+  def tag(tag, args = {})
+    attrs = args.map{|k,v| "#{k}='#{v}'"}.join(' ')
+    "<#{tag} #{attrs} />"
   end
 
   def options_from_collection_for_select(collection, value_method, content_method)
@@ -245,7 +246,7 @@ module NoosferoTestHelper
     "<select id='#{id}'>fake content</select>"
   end
 
-  def options_for_select(collection)
+  def options_for_select(collection, selected = nil)
     collection.map{|item| "<option value='#{item[1]}'>#{item[0]}</option>"}.join("\n")
   end
 
@@ -259,6 +260,35 @@ module NoosferoTestHelper
 
   def will_paginate(arg1, arg2)
   end
+
+  def url_for(args = {})
+    args
+  end
+  def javascript_tag(any)
+    ''
+  end
+  def javascript_include_tag(any)
+    ''
+  end
+  def check_box_tag(name, value = 1, checked = false, options = {})
+    name
+  end
+  def stylesheet_link_tag(arg)
+    arg
+  end
+
+  def show_date(date)
+    date.to_s
+  end
+
+  def strip_tags(html)
+    html.gsub(/<[^>]+>/, '')
+  end
+
+  def icon_for_article(article)
+    ''
+  end
+
 end
 
 class ActionController::IntegrationTest
