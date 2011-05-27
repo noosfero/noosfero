@@ -244,6 +244,13 @@ class ProductTest < Test::Unit::TestCase
     assert product.errors.invalid?(:product_category_id)
   end
 
+  should 'not save with a invalid category' do
+    category = Category.new(:name => 'Region', :environment => Environment.default)
+    assert_raise ActiveRecord::AssociationTypeMismatch do
+      Product.new(:name => 'Invalid category product', :product_category => category)
+    end
+  end
+
   should 'format values to float with 2 decimals' do
      ent = fast_create(Enterprise, :name => 'test ent 1', :identifier => 'test_ent1')
      product = fast_create(Product, :enterprise_id => ent.id, :price => 12.994, :discount => 1.994)

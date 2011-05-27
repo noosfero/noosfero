@@ -23,16 +23,17 @@ Feature: edit language of block
   Scenario: display in the selected language
     Given I go to edit LinkListBlock of joaosilva
     And I fill in "Custom title for this block" with "Block displayed"
-    And I select "Português"
+    And I select "English"
     And I press "Save"
-    And my browser prefers Portuguese
+    And my browser prefers English
     When I go to Jose Silva's homepage
     Then I should see "Block displayed"
 
   Scenario: not display in a not selected language
     Given I go to edit LinkListBlock of joaosilva
     And I fill in "Custom title for this block" with "Block not displayed"
-    And I select "Português"
+    And I select "English"
     And I press "Save"
+    And my browser prefers Portuguese
     When I go to Jose Silva's homepage
     Then I should not see "Block displayed"

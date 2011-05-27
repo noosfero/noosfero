@@ -89,7 +89,7 @@ _disable(){
   plugins_public_dir="$NOOSFERO_DIR/public/plugins"
   if [ -h "$target" ]; then
     rm "$target"
-    rm "$plugins_public_dir/$plugin"
+    test -h "$plugins_public_dir/$plugin" && rm "$plugins_public_dir/$plugin"
     _say "$plugin disabled"
   else
     _say "$plugin already disabled"

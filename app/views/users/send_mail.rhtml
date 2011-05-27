@@ -4,7 +4,7 @@
 
 <%= render :file => 'shared/tiny_mce' %>
 
-<% form_for :mailing, :url => {:action => 'send_mail'} do |f| %>
+<% form_for :mailing, :url => {:action => 'send_mail', :host => @environment.default_hostname} do |f| %>
   <%= labelled_form_field(_('Subject:'), f.text_field(:subject)) %>
   <%= labelled_form_field(_('Body:'), f.text_area(:body, :class => 'mceEditor')) %>
   <%= submit_button(:send, _('Send')) %>

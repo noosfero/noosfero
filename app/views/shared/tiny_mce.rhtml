@@ -21,6 +21,7 @@ tinyMCE.init({
         theme : "advanced",
         relative_urls : false,
         remove_script_host : true,
+        document_base_url : <%= environment.top_url.to_json %>,
         plugins: myplugins,
         theme_advanced_toolbar_location : "top",
         theme_advanced_layout_manager: 'SimpleLayout',
@@ -32,7 +33,7 @@ tinyMCE.init({
         paste_insert_word_content_callback : "convertWord",
         paste_use_dialog: false,
         apply_source_formatting : true,
-        extended_valid_elements : "applet[style|archive|codebase|code|height|width],comment,iframe[src|style|allowtransparency|frameborder|width|height|scrolling]",
+        extended_valid_elements : "applet[style|archive|codebase|code|height|width],comment,iframe[src|style|allowtransparency|frameborder|width|height|scrolling],embed[title|src|type|height|width]",
         content_css: '/stylesheets/tinymce.css',
         language: <%= tinymce_language.inspect %>,
         entity_encoding: 'raw'

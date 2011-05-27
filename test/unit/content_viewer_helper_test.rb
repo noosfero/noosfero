@@ -133,25 +133,31 @@ class ContentViewerHelperTest < Test::Unit::TestCase
 
   include ActionView::Helpers::TextHelper
 
-end
+  def show_date(date)
+    date.to_s
+  end
 
-def show_date(date)
-  date.to_s
-end
-def link_to(content, url)
+  def link_to(content, url)
   "<a href='#{url}'>#{content}</a>"
-end
-def _(text)
-  text
-end
-def will_paginate(arg1, arg2)
-end
-def strip_tags(html)
-  html.gsub(/<[^>]+>/, '')
-end
-def url_for(args = {})
-  ['http:/', args[:host], args[:profile], args[:page]].join('/')
-end
-def image_tag(file, args = {})
-  file
+  end
+
+  def _(text)
+    text
+  end
+
+  def will_paginate(arg1, arg2)
+  end
+
+  def strip_tags(html)
+    html.gsub(/<[^>]+>/, '')
+  end
+
+  def url_for(args = {})
+    ['http:/', args[:host], args[:profile], args[:page]].join('/')
+  end
+
+  def image_tag(file, args = {})
+    file
+  end
+
 end

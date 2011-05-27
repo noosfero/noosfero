@@ -472,7 +472,8 @@ div#notice {
 #content .enterprises-block ul,
 #content .members-block ul,
 #content .communities-block ul,
-#content .friends-block ul {
+#content .friends-block ul,
+#content .fans-block ul {
   min-width: 196px;
   width: 192px;
   margin: 0px 0px 0px -3px;

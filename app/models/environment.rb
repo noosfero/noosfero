@@ -518,12 +518,15 @@ class Environment < ActiveRecord::Base
   # If #force_www is true, adds 'www.' at the beginning of the hostname. If the
   # environment has not associated domains, returns 'localhost'.
   def default_hostname(email_hostname = false)
-    if self.domains(true).empty?
-      'localhost'
-    else
+    domain = 'localhost'
+    unless self.domains(true).empty?
       domain = (self.domains.find_by_is_default(true) || self.domains.find(:first, :order => 'id')).name
-      email_hostname ? domain : (force_www ? ('www.' + domain) : domain)
+      domain = email_hostname ? domain : (force_www ? ('www.' + domain) : domain)
     end
+    if Noosfero.url_options.has_key?(:port)
+      domain += ":#{Noosfero.url_options[:port]}"
+    end
+    domain
   end
 
   def top_url(ssl = false)

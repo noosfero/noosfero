@@ -1119,4 +1119,10 @@ class EnvironmentTest < Test::Unit::TestCase
     assert_equal ["Meter", "Kilo", "Litre"], Environment.default.units.map(&:singular)
   end
 
+  should 'include port in default hostname for development environment' do
+    env = Environment.new
+    Noosfero.expects(:url_options).returns({ :port => 9999 }).at_least_once
+    assert_equal 'localhost:9999', env.default_hostname
+  end
+
 end

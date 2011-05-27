@@ -1,7 +1,7 @@
 class FansBlock < ProfileListBlock
 
   def self.description
-    _('Fans')
+    _('Displays the people who like the enterprise')
   end
 
   def default_title
