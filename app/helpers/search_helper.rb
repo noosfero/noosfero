@@ -134,4 +134,11 @@ module SearchHelper
     asset_class(asset).table_name
   end
 
+  def order_by(asset, options)
+    content_tag('div', _('Order by ') +
+                select_tag(asset.to_s + '[order]', options_for_select(options, params[:order_by]),
+                       {:onchange => "window.location=jQuery.param.querystring(window.location.href, { 'order_by' : this.options[this.selectedIndex].value})"}),
+                :class => "search-ordering")
+  end
+
 end

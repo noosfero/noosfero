@@ -23,6 +23,7 @@ class EnvironmentFinder
 
     if query.blank?
       options.delete(:facets)
+      options.delete(:order_by)
 
       # FIXME this test is in more than one place
       if finder_method == 'paginate'
@@ -51,7 +52,8 @@ class EnvironmentFinder
       end
     else
       pg_options = {:page => options.delete(:page), :per_page => options.delete(:per_page)}
-      solr_options = {:facets => options.delete(:facets)}
+      solr_options = {:facets => options.delete(:facets), :order => options.delete(:order_by)}
+
       if product_category && asset == :products
         # SECURITY no risk of SQL injection, since product_category_ids comes from trusted source
         ret = @environment.send(asset).find_by_contents(query, pg_options, solr_options, options.merge({:include => 'product_categorizations', :conditions => 'product_categorizations.category_id = (%s)' % product_category.id }))

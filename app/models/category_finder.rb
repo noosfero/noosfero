@@ -29,10 +29,13 @@ class CategoryFinder
 
     if query.blank?
       options.delete(:facets)
+      options.delete(:order_by)
+
       asset_class(asset).send(finder_method, :all, options_for_find(asset_class(asset), {:order => "#{asset_table(asset)}.name"}.merge(options), date_range))
     else
       pg_options = {:page => options.delete(:page), :per_page => options.delete(:per_page)}
-      solr_options = {:facets => options.delete(:facets)}
+      solr_options = {:facets => options.delete(:facets), :order => options.delete(:order_by)}
+
       asset_class(asset).find_by_contents(query, pg_options, solr_options, options_for_find(asset_class(asset), options, date_range))[:results]
     end
   end

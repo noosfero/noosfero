@@ -1775,6 +1775,10 @@ input.disabled {
   filter-opacity: 50%;
 }
 
+.search-ordering {
+  float: right;
+}
+
 .search-relevance {
   font-size: smaller;
   font-style: italic;

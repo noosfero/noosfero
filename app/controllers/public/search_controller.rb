@@ -89,13 +89,13 @@ class SearchController < PublicController
     # REFACTOR DUPLICATED CODE inner loop doing the same thing that outter loop
 
     if !@query.blank? || @region && !params[:radius].blank?
-      ret = @noosfero_finder.find(asset, @query, calculate_find_options(asset, nil, params[:page], @product_category, @region, params[:radius], params[:year], params[:month]).merge({:limit => :all}))
+      ret = @noosfero_finder.find(asset, @query, calculate_find_options(asset, nil, params[:page], @product_category, @region, params[:radius], params[:year], params[:month], params[:order_by]).merge({:limit => :all}))
       @result_ids = ret.is_a?(Hash) ? ret[:results] : ret
     end
 
   end
 
-  def calculate_find_options(asset, limit, page, product_category, region, radius, year, month)
+  def calculate_find_options(asset, limit, page, product_category, region, radius, year, month, solr_order)
     result = { :product_category => product_category, :per_page => limit, :page => page }
     if [:enterprises, :people, :products].include?(asset) && region
       result.merge!(:within => radius, :region => region.id)
@@ -110,6 +110,8 @@ class SearchController < PublicController
       result.merge!(:facets => {:zeros => false, :sort => :count, :fields => asset_class(asset).facets.keys,
                     :browse => params[:facet] ? params[:facet].map{ |k,v| k.to_s+':'+v.to_s} : ''})
     end
+
+    result[:order_by] = solr_order
 
     result
   end
@@ -169,7 +171,7 @@ class SearchController < PublicController
 
     where_to_search.select { |key,description| @searching[key]  }.each do |key, description|
       @order << key
-      find_options = calculate_find_options(key, limit, params[:page], @product_category, @region, params[:radius], params[:year], params[:month]);
+      find_options = calculate_find_options(key, limit, params[:page], @product_category, @region, params[:radius], params[:year], params[:month], params[:order_by]);
       ret = @noosfero_finder.find(key, @query, find_options)
       @results[key] = ret.is_a?(Hash) ? ret[:results] : ret
       @facets[key] = ret.is_a?(Hash) ? ret[:facets] : {}
