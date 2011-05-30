@@ -35,8 +35,6 @@ class Product < ActiveRecord::Base
     end
   end
 
-  acts_as_searchable :fields => [ :name, :description, :category_full_name ]
-
   xss_terminate :only => [ :name ], :on => 'validation'
   xss_terminate :only => [ :description ], :with => 'white_list', :on => 'validation'
 
@@ -152,5 +150,42 @@ class Product < ActiveRecord::Base
   def display_supplier_on_search?
     true
   end
+
+  private
+  def name_or_category
+    name ? name : product_category.name
+  end
+  def f_category_id
+    #def childs(id)
+      #ret = ProductCategory.find(:all, :conditions => {:parent_id => id}).collect(&:id)
+      #([id, ret.map { |i| childs(i) }])
+    #end
+    #childs(self.product_category.id).flatten
+    [self.product_category.id]
+  end
+  def f_region_id
+    if self.enterprise.region
+      self.enterprise.region.id
+    else
+      nil
+    end
+  end
+  def f_qualifier_id
+    product_qualifiers.collect(&:qualifier_id)
+  end
+  def f_certifier_id
+    product_qualifiers.collect(&:certifier_id)
+  end
+  public
+
+  acts_as_faceted :fields => {:f_category_id => {:class => ProductCategory, :display_field => :name, :label => _('Related products')},
+    :f_region_id => {:class => Region, :display_field => :name, :label => _('Region')},
+    :f_qualifier_id => {:class => Qualifier, :display_field => :name, :label => _('Qualifiers')},
+    :f_certifier_id => {:class => Certifier, :display_field => :name, :label => _('Certifiers')}},
+    :order => [:f_category_id, :f_region_id, :f_qualifier_id, :f_certifier_id]
+
+  acts_as_searchable :fields => [{:name_or_category => {:type => :text, :as => :name}},
+    {:name_or_category => {:type => :string, :as => :name_sort}}, :description, {:price => :float}, :category_full_name ] | facets.keys.map{|i| {i => :facet}},
+    :facets => facets.keys
 
 end

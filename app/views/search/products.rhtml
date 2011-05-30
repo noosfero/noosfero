@@ -14,8 +14,16 @@
 <% end %>
 
 <% cache(:action => 'assets', :asset => 'products', :category_path => params[:category_path], :query => @query, :product_category => @product_category, :region => @region, :radius => params[:radius]) do %>
-  <%= product_categories_menu(:products, @product_category, @result_ids)  %>
+  <% if @query.empty? %>
+    <%= product_categories_menu(:products, @product_category, @result_ids)  %>
+  <% else %>
+    <%= facets_menu(:products, @facets[:products])  %>
+  <% end %>
 <% end %>
+
+<%= facets_unselect_menu(:products) %>
+
+<%= order_by(:products, [[_('Best match'), ''], [_('Name'), 'name_sort asc'], [_('Lower price'), 'price asc'], [_('Higher price'), 'price desc']]) %>
 
 <%= display_results %>
 
