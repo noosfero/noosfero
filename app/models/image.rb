@@ -1,5 +1,4 @@
 class Image < ActiveRecord::Base
-  belongs_to :owner, :polymorphic => true
 
   def self.max_size
     Image.attachment_options[:max_size]

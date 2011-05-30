@@ -1357,12 +1357,6 @@ class ProfileTest < Test::Unit::TestCase
     assert !profile.folders.include?(child)
   end
 
-  should 'validates profile image when save' do
-    profile = build(Profile, :image_builder => {:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')})
-    profile.image.expects(:valid?).returns(false).at_least_once
-    assert !profile.valid?
-  end
-
   should 'profile is invalid when image not valid' do
     profile = build(Profile, :image_builder => {:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')})
     profile.image.expects(:valid?).returns(false).at_least_once
@@ -1708,6 +1702,28 @@ class ProfileTest < Test::Unit::TestCase
 
     assert !profile.is_on_homepage?("/#{profile.identifier}/#{not_homepage.slug}",not_homepage)
     assert profile.is_on_homepage?("/#{profile.identifier}/#{homepage.slug}", homepage)
+  end
+
+  should 'find profiles with image' do
+    env = fast_create(Environment)
+    2.times do |n|
+      img = Image.create!(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
+      fast_create(Person, :name => "with_image_#{n}", :environment_id => env.id, :image_id => img.id)
+    end
+    without_image = fast_create(Person, :name => 'without_image', :environment_id => env.id)
+    assert_equal 2, env.profiles.with_image.count
+    assert_not_includes env.profiles.with_image, without_image
+  end
+
+  should 'find profiles withouth image' do
+    env = fast_create(Environment)
+    2.times do |n|
+      fast_create(Person, :name => "without_image_#{n}", :environment_id => env.id)
+    end
+    img = Image.create!(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
+    with_image = fast_create(Person, :name => 'with_image', :environment_id => env.id, :image_id => img.id)
+    assert_equal 2, env.profiles.without_image.count
+    assert_not_includes env.profiles.without_image, with_image
   end
 
   private

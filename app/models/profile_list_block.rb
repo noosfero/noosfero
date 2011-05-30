@@ -1,7 +1,7 @@
 class ProfileListBlock < Block
 
   settings_items :limit, :type => :integer, :default => 6
-  settings_items :prioritize_profiles_with_image, :type => :boolean, :default => false
+  settings_items :prioritize_profiles_with_image, :type => :boolean, :default => true
 
   def self.description
     _('Random profiles')
@@ -13,19 +13,19 @@ class ProfileListBlock < Block
   end
 
   def profile_list
-    profiles.visible.all(:limit => limit, :select => 'DISTINCT profiles.*, ' + image_prioritizer + randomizer, :joins => "LEFT OUTER JOIN images ON images.owner_id = profiles.id", :order => image_prioritizer + randomizer)
+    result = nil
+    if !prioritize_profiles_with_image
+      result = profiles.visible.all(:limit => limit, :order => 'updated_at DESC').sort_by{ rand }
+    elsif profiles.visible.with_image.count >= limit
+      result = profiles.visible.with_image.all(:limit => limit * 5, :order => 'updated_at DESC').sort_by{ rand }
+    else
+      result = profiles.visible.with_image.sort_by{ rand } + profiles.visible.without_image.all(:limit => limit * 5, :order => 'updated_at DESC').sort_by{ rand }
+    end
+    result.slice(0..limit-1)
   end
 
   def profile_count
     profiles.visible.count('DISTINCT(profiles.id)')
-  end
-
-  def randomizer
-    @randomizer ||= "(profiles.id % #{rand(profile_count) + 1})"
-  end
-
-  def image_prioritizer
-    prioritize_profiles_with_image ? '(images.id is null),' : ''
   end
 
   # the title of the block. Probably will be overriden in subclasses.
