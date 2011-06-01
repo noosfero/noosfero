@@ -523,9 +523,6 @@ class Environment < ActiveRecord::Base
       domain = (self.domains.find_by_is_default(true) || self.domains.find(:first, :order => 'id')).name
       domain = email_hostname ? domain : (force_www ? ('www.' + domain) : domain)
     end
-    if Noosfero.url_options.has_key?(:port)
-      domain += ":#{Noosfero.url_options[:port]}"
-    end
     domain
   end
 
