@@ -868,7 +868,7 @@ module ApplicationHelper
 
   def template_stylesheet_path
     if profile.nil?
-      '/designs/templates/default/stylesheets/style.css'
+      "/designs/templates/#{environment.layout_template}/stylesheets/style.css"
     else
       "/designs/templates/#{profile.layout_template}/stylesheets/style.css"
     end
