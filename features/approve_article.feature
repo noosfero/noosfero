@@ -5,9 +5,9 @@ Feature: approve article
 
   Background:
     Given the following users
-      | login | name |
-      | joaosilva | Joao Silva |
-      | mariasilva | Maria Silva |
+      | login      | name        | email                  |
+      | joaosilva  | Joao Silva  | joaosilva@example.com  |
+      | mariasilva | Maria Silva | mariasilva@example.com |
     And the following articles
       | owner | name | body | homepage |
       | mariasilva | Sample Article | This is an article | true |
@@ -34,3 +34,20 @@ Feature: approve article
     And I go to Sample Community's sitemap
     And I follow "Sample Article"
     Then I should see "This is an article edited"
+
+  @selenium
+  Scenario: reject an article with explanation
+    Given I am logged in as "mariasilva"
+    And I go to Maria Silva's cms
+    And I follow "Sample Article"
+    And I follow "Spread" and wait
+    And I check "Sample Community"
+    And I press "Spread this"
+    And I am logged in as "joaosilva"
+    And I go to Sample Community's control panel
+    And I follow "Process requests" and wait
+    And I choose "Reject"
+    And I fill in "Rejection explanation" with "This is not an appropriate article for this community."
+    And I press "Apply!"
+    When I go to Sample Community's sitemap
+    Then I should not see "Sample Article"
