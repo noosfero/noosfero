@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110524151137) do
+ActiveRecord::Schema.define(:version => 20110527042608) do
 
   create_table "action_tracker", :force => true do |t|
     t.integer  "user_id"
@@ -165,6 +165,7 @@ ActiveRecord::Schema.define(:version => 20110524151137) do
     t.boolean "display_in_menu", :default => false
     t.integer "children_count",  :default => 0
     t.boolean "accept_products", :default => true
+    t.integer "image_id"
   end
 
   create_table "categories_profiles", :id => false, :force => true do |t|
@@ -270,8 +271,6 @@ ActiveRecord::Schema.define(:version => 20110524151137) do
   end
 
   create_table "images", :force => true do |t|
-    t.string  "owner_type"
-    t.integer "owner_id"
     t.integer "parent_id"
     t.string  "content_type"
     t.string  "filename"
@@ -339,7 +338,6 @@ ActiveRecord::Schema.define(:version => 20110524151137) do
     t.string   "name"
     t.decimal  "price"
     t.text     "description"
-    t.string   "image"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.float    "lat"
@@ -348,6 +346,7 @@ ActiveRecord::Schema.define(:version => 20110524151137) do
     t.boolean  "available",           :default => true
     t.boolean  "highlighted"
     t.integer  "unit_id"
+    t.integer  "image_id"
   end
 
   add_index "products", ["enterprise_id"], :name => "index_products_on_enterprise_id"
@@ -378,6 +377,7 @@ ActiveRecord::Schema.define(:version => 20110524151137) do
     t.integer  "preferred_domain_id"
     t.datetime "updated_at"
     t.boolean  "visible",                           :default => true
+    t.integer  "image_id"
   end
 
   add_index "profiles", ["environment_id"], :name => "index_profiles_on_environment_id"
@@ -456,6 +456,7 @@ ActiveRecord::Schema.define(:version => 20110524151137) do
     t.string   "type"
     t.datetime "created_at"
     t.string   "target_type"
+    t.integer  "image_id"
   end
 
   create_table "thumbnails", :force => true do |t|
