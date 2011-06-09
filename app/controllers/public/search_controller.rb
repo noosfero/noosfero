@@ -108,7 +108,7 @@ class SearchController < PublicController
 
     if asset_class(asset).methods.include?('facets')
       result.merge!(:facets => {:zeros => false, :sort => :count, :fields => asset_class(asset).facets.keys,
-                    :browse => params[:facet] ? params[:facet].map{ |k,v| k.to_s+':'+v.to_s} : ''})
+                    :browse => params[:facet] ? params[:facet].map{ |k,v| k.to_s+':"'+v.to_s+'"'} : ''})
     end
 
     result[:order_by] = solr_order
