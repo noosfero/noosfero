@@ -21,9 +21,7 @@
   <% end %>
 <% end %>
 
-<%= facets_unselect_menu(:products) %>
-
-<%= order_by(:products, [[_('Best match'), ''], [_('Name'), 'name_sort asc'], [_('Lower price'), 'price asc'], [_('Higher price'), 'price desc']]) %>
+<%= render :partial => 'results_header', :locals => { :asset => :products, :results => @results[:products] } %>
 
 <%= display_results %>
 

@@ -1,31 +1,48 @@
-<%# FIXME add more information %>
-
-<%
-product_item_pos = 0  if ! product_item_pos
-product_item_pos += 1
-%>
-
 <% extra_content = @plugins.map(:asset_product_extras, product, product.enterprise).collect { |content| instance_eval(&content) } %>
 <% extra_properties = @plugins.map(:asset_product_properties, product)%>
 
-<li class="product-item <%= ( pos % 2 == 0 ) ? 'odd' : 'even' %>">
-  <%= link_to_product product, :class => 'product-pic', :style => 'background-image:url(%s)' % product.default_image(:minor) %>
-  <strong>
-    <%= link_to_product product %>
-  </strong> 
-  <ul>
-    <li> <%= _('Price: %s') % (product.price ? product.price : _('Not informed')) %> </li>
-    <% if product.enterprise && product.display_supplier_on_search? %>
-      <li> <%= _('Supplier: %s') % link_to_homepage(product.enterprise.name, product.enterprise.identifier) %> </li>
-    <% end %>
-
-    <li> <%= _('Category:') + ' ' + link_to_product_category(product.product_category) %> </li>
-
-    <% extra_properties.each do |property| %>
-      <li><%= property[:name] + ': ' + instance_eval(&property[:content]) %></li>
-    <% end %>
-  </ul>
+<li class="product-item">
+  <div class="product-item-first-column">
+    <%= link_to_product product, :class => 'product-pic', :style => 'background-image:url(%s)' % product.default_image(:minor) %>
+    <%= product.price if product.price %>
+  </div>
+  <div class="product-item-second-column">
+   <span class='product-title-link'><%= link_to_product product %></span>
+    <div class="product-supplier">
+      <span class="product-item-topic"><%= _('SUPPLIER') %>  </span><%= link_to_homepage(product.enterprise.name, product.enterprise.identifier) %>
+    </div>
+    <div class="product-description">
+      <% if product.description %>
+        <span class="product-item-topic"><%= _('DESCRIPTION') %>  </span><%= product.description %>
+      <% end %>
+    </div>
+  </div>
+  <div class="product-item-third-column">
+    <div class="product-region">
+      <% if product.enterprise.region %>
+        <span class="product-item-topic"><%= _('REGION') %></span>
+        <br /><%= product.enterprise.region.name %>
+      <% end %>
+    </div>
+    <div class="product-qualifiers">
+      <% if product.product_qualifiers.count > 0 %>
+        <span class="product-item-topic"><%= _('QUALIFIERS') %></span>
+        <% product.product_qualifiers.each do |pq| %>
+          <% if pq.qualifier %>
+            <br /><%= pq.qualifier.name %>
+          <% end %>
+          <% if pq.certifier %>
+            <br /><%= pq.certifier.name %>
+          <% end %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
 
   <%= extra_content.join('\n') %>
+  <% extra_properties.each do |property| %>
+    <div><%= property[:name] + ': ' + instance_eval(&property[:content]) %></div>
+  <% end %>
 
+  <hr size=1>
 </li>

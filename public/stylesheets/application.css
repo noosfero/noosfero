@@ -1777,6 +1777,11 @@ input.disabled {
 
 .search-ordering {
   float: right;
+  width: 11%;
+  margin: 0 0 5px
+}
+.search-ordering select {
+  display: block;
 }
 
 .search-relevance {
@@ -1824,6 +1829,7 @@ input.disabled {
 
 #search-popup .search-field, .search-form {
   text-align: center;
+  float: right;
 }
 
 #content .search-options ul, .search-options ul,
@@ -2405,7 +2411,7 @@ div#activation_enterprise div {
 .slideshow-block .slideshow-block-navigation .icon-media-next {
   padding-right: 18px;
   background-position: right;
-  
+
 }
 .slideshow-block .slideshow-block-navigation .icon-media-pause,
 .slideshow-block .slideshow-block-navigation .icon-media-play {
@@ -2782,6 +2788,7 @@ div#activation_enterprise div {
 .formfield input {
   text-indent: 5px;
   padding: 2px 0px;
+  background: #fff;
 }
 .msie5 .formfield input,
 .msie6 .formfield input {
@@ -3056,17 +3063,42 @@ div#activation_enterprise div {
 .controller-search #facets-menu {
   width: 20%;
   float: left;
+  min-height: 300px;
 }
 
 .controller-search #facets-menu div {
   position: relative;
 }
-
+.facets-applied {
+  float: left;
+  margin: 0 0 0 27px;
+  padding: 5px 0;
+  width: 65%;
+}
+span.appliedFilters {
+  display: block;
+  font-size: 0.8em;
+  font-style: italic;
+  margin: 0 0 0 5px;
+}
 .controller-search .facet-selected {
   display: block;
-  background-color: #000;
-  color: #fff;
+  color: #000;
+  font-style:italic;
+  font-size:0.8em;
   float: left;
+  padding:4px 24px 4px 4px;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  -o-border-radius: 4px;
+  -khtml-border-radius: 4px;
+  border-radius: 4px;
+  margin: 5px;
+  background: #B1DFEF url("../images/ico_filtro_exclui.png") right 7px no-repeat;
+  text-decoration: none;
+}
+.controller-search a:hover.facet-selected {
+  text-decoration: underline;
 }
 
 #product-category,
@@ -4343,7 +4375,9 @@ h1#agenda-title {
 
 .controller-search #search-results {
   margin-top: 10px;
-  width: 100%;
+  width: 76.5%;
+  float: right;
+  border-top:1px dotted #000;
   /* none by default, but... Who knows the future?  :-) */
 }
 
@@ -4383,18 +4417,18 @@ h1#agenda-title {
 #search-results li .icon:hover {
   background-color: transparent;
 }
-
+/*
 .controller-search .has_cat_list #map,
 .controller-search .msie .has_cat_list #map,
 .controller-search .has_cat_list .only-one-result-box .search-results-box,
 .controller-search .msie .has_cat_list .only-one-result-box .search-results-box {
-  width: 80%;
-  float: right;
-}
+width: 80%;
+float: right;
+}*/
 
-.controller-search .has_cat_list #product-categories-menu {
-  width: 20%;
-  float: left;
+  .controller-search .has_cat_list #product-categories-menu {
+    width: 20%;
+    float: left;
 }
 
 .controller-search #product-categories-menu a {
@@ -4451,9 +4485,6 @@ h1#agenda-title {
   background-color: #FF0;
 }
 
-.controller-search .search-results-box.odd {
-  margin-left: 1%;
-}
 .controller-search .msie .search-results-box.odd {
   float: right;
 }
@@ -4584,15 +4615,15 @@ h1#agenda-title {
   overflow: auto;
 }
 
-.search-results-type-product .odd,
-.search-results-type-product .even {
-  float: none;
-}
-
 .search-results-type-product li.product-item {
   position: relative;
   height: 60px;
   overflow: hidden;
+  clear: both;
+}
+
+.product-item-topic {
+  font-weight: bold;
 }
 
 #content #search-results .common-profile-list-block li a.profile_link {
@@ -4647,14 +4678,10 @@ h1#agenda-title {
 }
 
 .controller-search #content .only-one-result-box .search-results-type-product .product-item {
-  width: 50%;
   height: 80px;
   max-height: 70px;
   overflow: hidden;
   float: left;
-}
-.controller-search .msie #content .only-one-result-box .search-results-type-product .product-item {
-  width: 49%;
 }
 
 .controller-search .product-pic {
@@ -6079,7 +6106,7 @@ h1#agenda-title {
 }
 
 .msie7 #leave_scrap {
-	overflow: hidden;
+  overflow: hidden;
 }
 
 .msie7 #profile-activity hr, .msie7 #profile-network hr, .msie7 #profile-wall hr {
@@ -6102,7 +6129,7 @@ h1#agenda-title {
 .msie7 .leave_scrap_to_self .profile-activity-image,
 .msie7 .leave_scrap .profile-activity-image {
   z-index: 3;
-	left: 2px;
+  left: 2px;
 }
 
 .msie7 #profile-activity .profile-activity-send-message,
@@ -6118,40 +6145,40 @@ h1#agenda-title {
 
 .msie7 .ui-tabs .ui-tabs-nav li {
   top: 1px;
-	margin: 0;
-	margin-right: 4px;
+  margin: 0;
+  margin-right: 4px;
 }
 
 .msie7 .profile-wall-scrap-replies {
   float: none;
-	margin-top: 10px;
+  margin-top: 10px;
 }
 
 .article-translations-menu {
-    bottom: 17px;
+  bottom: 17px;
 }
 
 .article-translations-menu {
-    text-decoration: none !important;
-    height: 0;
-    float: right;
+  text-decoration: none !important;
+  height: 0;
+  float: right;
 }
 
 .article-translations .menu-submenu-header,
 .article-translations .menu-submenu-content,
 .article-translations .menu-submenu-footer {
-    background: none;
+  background: none;
 }
 
 .article-translations .menu-submenu {
-    bottom: auto;
-    right: 0;
-    border: 1px solid;
-    background: #fff;
+  bottom: auto;
+  right: 0;
+  border: 1px solid;
+  background: #fff;
 }
 
 .article-translations .menu-submenu-list {
-    list-style: none;
+  list-style: none;
 }
 
 /* Forum */
@@ -6229,4 +6256,122 @@ h1#agenda-title {
 
 #cboxClose {
   display: none !important;
+}
+/* Alterações */
+.controller-search #content .search_form {
+  background: transparent !important;
+  padding:0 !important;
+}
+.formfield input {
+  border: 1px solid #231F20;
+  height: 28px;
+  width: 558px;
+}
+.search-field .formfield {
+  height: 34px;
+  display: inline-block
+}
+
+#content form .search-field input.button.submit {
+  width: 152px;
+  background: #000;
+  overflow: visible;
+  color:#fff;
+  text-align: left;
+  padding:0;
+  border: none;
+  height:34px;
+  display:inline-block;
+  max-height:none;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -khtml-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px;
+}
+#content form .search-field input:hover.button.submit {
+  background-color:#444;
+}
+#content #public-profile-search form .search-field input.button.submit {
+  margin: 0;
+  width: 116px;
+}
+#facets-menu .facet-menu {
+  border-bottom: 1px solid #333;
+  margin-bottom: 15px;
+}
+#facets-menu .facet-menu-label {
+  background:#E8F5FB;
+  text-transform:uppercase;
+  padding:10px 10px 2px 10px;
+}
+#facets-menu .facet-menu-options {
+  color: #959595;
+  font-size: 0.8em
+}
+#facets-menu .facet-menu-options a {
+  color: #007788;
+  font-size: 1.2em;
+}
+.controller-search #content #search-results .search-results-type-product li.product-item {
+  display:block;
+  float:none
+  overflow:visible;
+  padding:10px 0;
+  margin:10px 0;
+  border-bottom:1px solid #000;
+  height:auto;
+  max-height:none;
+}
+.controller-search .search-results-innerbox li.product-item hr {
+  display:block;
+  margin:0;
+  clear: both;
+  border: none;
+  background: none;
+}
+.product-item-first-column, .product-item-second-column, .product-item-third-column {
+  float: left;
+  margin:0 !important;
+}
+.product-item-first-column, .product-item-third-column {
+  width: 20%;
+}
+.product-item-second-column {
+  width:60%;
+}
+#content h1.page-title.no-boxes {
+  left:230px !important;
+}
+#main-content-wrapper-8 {
+  padding: 0 !important;
+}
+.product-item-second-column span.product-title-link {
+  display:block;
+  margin:0 0 15px 0;
+}
+.product-item-second-column span.product-title-link a {
+  color: #006577;
+  font-weight:bold;
+  font-size:1.2em;
+}
+.results-header {
+  border-bottom: 1px solid #000;
+  float: right;
+  font-size: 0.9em;
+  padding: 10px 0;
+  width: 76.5%;
+  margin:0 0 5px 0;
+}
+.total-pages-found {
+  float: left;
+  width: 50%;
+}
+.current-page {
+  float: right;
+  width: 50%;
+  text-align: right;
+}
+#advanced_search_link {
+  display: none;
 }
