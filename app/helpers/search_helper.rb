@@ -134,11 +134,36 @@ module SearchHelper
     asset_class(asset).table_name
   end
 
-  def order_by(asset, options)
+  def order_by(asset)
+    options = {
+      :products => [[_('Best match'), ''], [_('Name'), 'name_sort asc'], [_('Lower price'), 'price asc'], [_('Higher price'), 'price desc']],
+      :events => [[_('Best match'), ''], [_('Name'), 'name_sort asc']],
+      :articles => [[_('Best match'), ''], [_('Name'), 'name_sort asc'], [_('Most recent'), 'updated_at desc']],
+      :enterprises => [[_('Best match'), ''], [_('Name'), 'name_sort asc']],
+      :people => [[_('Best match'), ''], [_('Name'), 'name_sort asc']],
+      :communities  => [[_('Best match'), ''], [_('Name'), 'name_sort asc']],
+    }
+
     content_tag('div', _('Order by ') +
-                select_tag(asset.to_s + '[order]', options_for_select(options, params[:order_by]),
-                       {:onchange => "window.location=jQuery.param.querystring(window.location.href, { 'order_by' : this.options[this.selectedIndex].value})"}),
+                select_tag(asset.to_s + '[order]', options_for_select(options[asset], params[:order_by]),
+                           {:onchange => "window.location=jQuery.param.querystring(window.location.href, { 'order_by' : this.options[this.selectedIndex].value})"}),
                 :class => "search-ordering")
   end
 
+  def label_total_found(asset, total_found)
+    labels = {
+      :products => _("%s products offers found"),
+      :articles => _("%s articles found"),
+      :events => _("%s events found"),
+      :people => _("%s people found"),
+      :enterprises => _("%s enterprises found"),
+      :communities => _("%s communities found"),
+    }
+    if labels[asset]
+      content_tag('span', labels[asset] % total_found,
+                  :class => "total-pages-found")
+    else
+      ''
+    end
+  end
 end
