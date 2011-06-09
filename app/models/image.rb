@@ -4,6 +4,8 @@ class Image < ActiveRecord::Base
     Image.attachment_options[:max_size]
   end
 
+  before_create { |file| file.filename = Environment.verify_filename(file.filename) }
+
   has_attachment :content_type => :image, 
                  :storage => :file_system, 
                  :path_prefix => 'public/image_uploads',

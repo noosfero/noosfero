@@ -20,6 +20,7 @@ class UploadedFile < Article
 
   before_create do |uploaded_file|
     uploaded_file.is_image = true if uploaded_file.image?
+    uploaded_file.filename = Environment.verify_filename(uploaded_file.filename)
   end
 
   def thumbnail_path
