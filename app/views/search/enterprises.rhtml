@@ -26,8 +26,14 @@
 <% end %>
 
 <% cache(:action => 'assets', :asset => 'enterprises', :category_path => params[:category_path], :query => @query, :product_category => @product_category, :region => @region, :radius => params[:radius]) do %>
-  <%= product_categories_menu(:enterprises, @product_category, @result_ids) %>
+  <% if @query.blank? %>
+    <%= product_categories_menu(:enterprises, @product_category, @result_ids) %>
+  <% else %>
+    <%= facets_menu(:enterprises, @facets[:enterprises]) %>
+  <% end %>
 <% end %>
+
+<%= render :partial => 'results_header', :locals => { :asset => :enterprises, :results => @results[:enterprises] } %>
 
 <%= display_results %>
 

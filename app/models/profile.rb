@@ -70,8 +70,6 @@ class Profile < ActiveRecord::Base
 
   acts_as_having_boxes
 
-  acts_as_searchable :additional_fields => [ :extra_data_for_index ]
-
   acts_as_taggable
 
   def self.qualified_column_names
@@ -176,6 +174,15 @@ class Profile < ActiveRecord::Base
   has_many :categories, :through => :profile_categorizations
 
   has_many :abuse_complaints, :foreign_key => 'requestor_id'
+
+  def top_level_categorization
+    ret = {}
+    self.profile_categorizations.each do |c|
+      p = c.category.root_parent
+      ret[p] = (ret[p] || []) + [c.category]
+    end
+    ret
+  end
 
   def interests
     categories.select {|item| !item.is_a?(Region)}

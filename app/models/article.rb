@@ -125,8 +125,6 @@ class Article < ActiveRecord::Base
 
   acts_as_versioned
 
-  acts_as_searchable :additional_fields => [ :comment_data ]
-
   def comment_data
     comments.map {|item| [item.title, item.body].join(' ') }.join(' ')
   end
@@ -558,6 +556,32 @@ class Article < ActiveRecord::Base
   def more_recent_label
     _('Created at: ')
   end
+
+  private
+  def f_type
+    self.class.to_s
+  end
+  def f_publish_date
+    self.published_at
+  end
+  def f_profile_type
+    self.profile.class.to_s
+  end
+  def f_category
+    self.categories.collect(&:name)
+  end
+  public
+
+  acts_as_faceted :fields => {
+    :f_type => {:label => _('Type')},
+    :f_publish_date => {:label => _('Published')},
+    :f_profile_type => {:label => _('Type of profile')},
+    :f_category => {:label => _('Categories')}},
+    :order => [:f_type, :f_publish_date, :f_profile_type, :f_category]
+
+  acts_as_searchable :additional_fields => [ :comment_data, {:name => {:type => :string, :as => :name_sort, :boost => 5.0}} ] + facets.keys.map{|i| {i => :facet}},
+    :include => [:profile],
+    :facets => facets.keys
 
   private
 

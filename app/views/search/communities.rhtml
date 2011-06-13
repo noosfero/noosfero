@@ -15,6 +15,11 @@
   <% end %>
 <% end %>
 
+<% if !@query.blank? %>
+  <%= facets_menu(:communities, @facets[:communities]) %>
+<% end %>
+<%= render :partial => 'results_header', :locals => { :asset => :communities, :results => @results[:communities] } %>
+
 <div id='search-results-and-pages'>
   <%# FIXME ARMENGUE %>
   <%= display_results(false) %>

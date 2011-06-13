@@ -9,6 +9,12 @@
 
 <%= render :partial => 'search_form', :locals => { :form_title => @query.blank? ? _('Search') : _("Refine your search"), :simple_search => true } %>
 
+<% if !@query.blank? %>
+  <%= facets_menu(:articles, @facets[:articles]) %>
+<% end %>
+
+<%= render :partial => 'results_header', :locals => { :asset => :articles, :results => @results[:articles] } %>
+
 <%# FIXME ARMENGUE %>
 <%= display_results(false) %>
 

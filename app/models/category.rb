@@ -64,6 +64,10 @@ class Category < ActiveRecord::Base
     results
   end
 
+  def root_parent
+    parent_id.nil? ? self : Category.find_by_id(parent_id).root_parent
+  end
+
   def is_leaf_displayable_in_menu?
     return false if self.display_in_menu == false
     self.children.find(:all, :conditions => {:display_in_menu => true}).empty?

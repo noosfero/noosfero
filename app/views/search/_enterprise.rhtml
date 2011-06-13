@@ -1,0 +1,17 @@
+<% if params[:query].blank? %>
+  <%= profile_image_link enterprise, :portrait %>
+<% else %>
+  <div class="enterprise-result">
+    <%= profile_image_link enterprise, :portrait %>
+    <span><%= enterprise.name %></span>
+    <span><%= _("Region: ") + enterprise.region.name if enterprise.region %></span>
+    <span><%= enterprise.description %></span>
+
+    <div class="enterprise-categorization">
+      <% enterprise.top_level_categorization.each do |parent, children| %>
+        <span class="enterprise-categorization-parent"><%= parent.name + ':' %></span>
+        <span class="enterprise-categorization-children"><%= children.collect(&:name).join(', ')  %></span>
+    <% end %>
+  </div>
+  </div>
+<% end %>
