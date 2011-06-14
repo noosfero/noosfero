@@ -69,4 +69,4 @@ Feature: domain for profile
   Scenario: Compose link to administration with environment domain
     Given I am logged in as "joaosilva"
     When I visit "/" and wait
-    Then I should see "Administration" linking to "http://127.0.0.1:3001/admin"
+    Then I should see "Administration" linking to "http://127.0.0.1/admin"
