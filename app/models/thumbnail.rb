@@ -3,5 +3,7 @@ class Thumbnail < ActiveRecord::Base
     :content_type => :image, :max_size => 5.megabytes
   validates_as_attachment
 
+  sanitize_filename
+
   postgresql_attachment_fu
 end

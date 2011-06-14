@@ -1123,4 +1123,21 @@ class EnvironmentTest < Test::Unit::TestCase
     assert_no_match /9999/, env.default_hostname
   end
 
+  should 'identify scripts with regex' do
+    scripts_extensions = %w[php php1 php4 phps php.bli cgi shtm phtm shtml phtml pl py rb]
+    name = 'uploaded_file'
+    scripts_extensions.each do |extension|
+      assert_not_nil name+'.'+extension =~ Environment::IDENTIFY_SCRIPTS
+    end
+  end
+
+  should 'verify filename and append .txt if script' do
+    scripts_extensions = %w[php php1 php4 phps php.bli cgi shtm phtm shtml phtml pl py rb]
+    name = 'uploaded_file'
+    scripts_extensions.each do |extension|
+      filename = name+'.'+extension
+      assert_equal filename+'.txt', Environment.verify_filename(filename)
+    end
+  end
+
 end

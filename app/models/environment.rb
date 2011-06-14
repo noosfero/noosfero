@@ -9,6 +9,13 @@ class Environment < ActiveRecord::Base
 
   has_many :tasks, :dependent => :destroy, :as => 'target'
 
+  IDENTIFY_SCRIPTS = /(?:php[0-9s]?(\..*)?|[sp]htm[l]?(\..*)?|pl|py|cgi|rb)/
+
+  def self.verify_filename(filename)
+    filename += '.txt' if filename =~ IDENTIFY_SCRIPTS
+    return filename
+  end
+
   PERMISSIONS['Environment'] = {
     'view_environment_admin_panel' => N_('View environment admin panel'),
     'edit_environment_features' => N_('Edit environment features'),
