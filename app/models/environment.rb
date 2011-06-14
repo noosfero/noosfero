@@ -13,7 +13,7 @@ class Environment < ActiveRecord::Base
 
   def self.verify_filename(filename)
     filename += '.txt' if filename =~ IDENTIFY_SCRIPTS
-    return filename
+    filename
   end
 
   PERMISSIONS['Environment'] = {
