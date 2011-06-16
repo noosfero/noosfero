@@ -1,4 +1,10 @@
-noosfero (0.31.2) lucid; urgency=low
+noosfero (0.31.3) unstable; urgency=low
+
+  * Bugfix Version release.
+
+ -- Rodrigo <rodrigo@colivre.coop.br>  Thu, 16 Jun 2011 11:13:42 -0300
+
+noosfero (0.31.2) unstable; urgency=low
 
   * Bugfix Version release.
 
