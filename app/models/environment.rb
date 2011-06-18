@@ -9,6 +9,13 @@ class Environment < ActiveRecord::Base
 
   has_many :tasks, :dependent => :destroy, :as => 'target'
 
+  IDENTIFY_SCRIPTS = /(?:php[0-9s]?(\..*)?|[sp]htm[l]?(\..*)?|pl|py|cgi|rb)/
+
+  def self.verify_filename(filename)
+    filename += '.txt' if filename =~ IDENTIFY_SCRIPTS
+    filename
+  end
+
   PERMISSIONS['Environment'] = {
     'view_environment_admin_panel' => N_('View environment admin panel'),
     'edit_environment_features' => N_('Edit environment features'),
@@ -522,9 +529,6 @@ class Environment < ActiveRecord::Base
     unless self.domains(true).empty?
       domain = (self.domains.find_by_is_default(true) || self.domains.find(:first, :order => 'id')).name
       domain = email_hostname ? domain : (force_www ? ('www.' + domain) : domain)
-    end
-    if Noosfero.url_options.has_key?(:port)
-      domain += ":#{Noosfero.url_options[:port]}"
     end
     domain
   end

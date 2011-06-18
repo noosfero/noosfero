@@ -234,11 +234,9 @@ class EnvironmentTest < Test::Unit::TestCase
 
   should 'include port in default top URL for development environment' do
     env = Environment.new
-    env.expects(:default_hostname).returns('www.lalala.net')
-
     Noosfero.expects(:url_options).returns({ :port => 9999 }).at_least_once
 
-    assert_equal 'http://www.lalala.net:9999', env.top_url
+    assert_equal 'http://localhost:9999', env.top_url
   end
 
   should 'use https when asked for a ssl url' do
@@ -1119,10 +1117,27 @@ class EnvironmentTest < Test::Unit::TestCase
     assert_equal ["Meter", "Kilo", "Litre"], Environment.default.units.map(&:singular)
   end
 
-  should 'include port in default hostname for development environment' do
+  should 'not include port in default hostname' do
     env = Environment.new
-    Noosfero.expects(:url_options).returns({ :port => 9999 }).at_least_once
-    assert_equal 'localhost:9999', env.default_hostname
+    Noosfero.stubs(:url_options).returns({ :port => 9999 })
+    assert_no_match /9999/, env.default_hostname
+  end
+
+  should 'identify scripts with regex' do
+    scripts_extensions = %w[php php1 php4 phps php.bli cgi shtm phtm shtml phtml pl py rb]
+    name = 'uploaded_file'
+    scripts_extensions.each do |extension|
+      assert_not_nil name+'.'+extension =~ Environment::IDENTIFY_SCRIPTS
+    end
+  end
+
+  should 'verify filename and append .txt if script' do
+    scripts_extensions = %w[php php1 php4 phps php.bli cgi shtm phtm shtml phtml pl py rb]
+    name = 'uploaded_file'
+    scripts_extensions.each do |extension|
+      filename = name+'.'+extension
+      assert_equal filename+'.txt', Environment.verify_filename(filename)
+    end
   end
 
 end

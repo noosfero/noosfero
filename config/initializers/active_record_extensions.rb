@@ -1,0 +1,1 @@
+require 'upload_sanitizer'

@@ -325,4 +325,9 @@ class UploadedFileTest < Test::Unit::TestCase
     uses_sqlite
   end
 
+  should 'not allow script files to be uploaded without append .txt in the end' do
+    file = UploadedFile.create!(:uploaded_data => fixture_file_upload('files/hello_world.php', 'application/x-php'), :profile => @profile)
+    assert_equal 'hello_world.php.txt', file.filename
+  end
+
 end

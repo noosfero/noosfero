@@ -1121,7 +1121,7 @@ module ApplicationHelper
 
     (_('Welcome, %s') % link_to('<i></i><strong>{login}</strong>', @environment.top_url + '/{login}', :id => "homepage-link", :title => _('Go to your homepage'))) +
     render_environment_features(:usermenu) +
-    link_to('<i class="icon-menu-admin"></i><strong>' + _('Administration') + '</strong>', { :host => @environment.default_hostname, :controller => 'admin_panel', :action => 'index' }, :id => "controlpanel", :title => _("Configure the environment"), :class => 'admin-link', :style => 'display: none') +
+    link_to('<i class="icon-menu-admin"></i><strong>' + _('Administration') + '</strong>', @environment.top_url + '/admin', :id => "controlpanel", :title => _("Configure the environment"), :class => 'admin-link', :style => 'display: none') +
     manage_enterprises.to_s +
     link_to('<i class="icon-menu-ctrl-panel"></i><strong>' + _('Control panel') + '</strong>', @environment.top_url + '/myprofile/{login}', :id => "controlpanel", :title => _("Configure your personal account and content")) +
     pending_tasks_count +

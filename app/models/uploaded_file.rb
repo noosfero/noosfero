@@ -18,6 +18,8 @@ class UploadedFile < Article
 
   validates_size_of :title, :maximum => 60, :if => (lambda { |file| !file.title.blank? })
 
+  sanitize_filename
+
   before_create do |uploaded_file|
     uploaded_file.is_image = true if uploaded_file.image?
   end
