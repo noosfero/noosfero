@@ -1140,4 +1140,21 @@ class EnvironmentTest < Test::Unit::TestCase
     end
   end
 
+  should 'not conflict to save classes with namespace on sti' do
+    class School; end;
+    class Work; end;
+    class School::Project < Article; end
+    class Work::Project < Article; end
+
+    title1 = "Sample Article1"
+    title2 = "Sample Article2"
+    profile = fast_create(Profile)
+
+    p1 = School::Project.new(:name => title1, :profile => profile)
+    p2 = Work::Project.new(:name => title2, :profile => profile)
+
+    p1.save!
+    p2.save!
+  end
+
 end
