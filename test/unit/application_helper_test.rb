@@ -8,16 +8,49 @@ class ApplicationHelperTest < Test::Unit::TestCase
     self.stubs(:session).returns({})
   end
 
-  should 'calculate correctly partial for object' do
+  should 'calculate correctly partial for models' do
+    p1 = 'path1/'
+    p2 = 'path2/'
+    @controller = mock()
+    @controller.stubs(:view_paths).returns([p1,p2])
+
     self.stubs(:params).returns({:controller => 'test'})
 
-    File.expects(:exists?).with("#{RAILS_ROOT}/app/views/test/_float.rhtml").returns(false)
-    File.expects(:exists?).with("#{RAILS_ROOT}/app/views/test/_numeric.rhtml").returns(true).times(2)
-    File.expects(:exists?).with("#{RAILS_ROOT}/app/views/test/_runtime_error.rhtml").returns(true).at_least_once
+    File.expects(:exists?).with(p1+"test/_integer.rhtml").returns(true)
 
+    File.expects(:exists?).with(p1+"test/_float.rhtml").returns(false)
+    File.expects(:exists?).with(p1+"test/_float.html.erb").returns(false)
+    File.expects(:exists?).with(p2+"test/_float.rhtml").returns(false)
+    File.expects(:exists?).with(p2+"test/_float.html.erb").returns(false)
+    File.expects(:exists?).with(p1+"test/_numeric.rhtml").returns(false)
+    File.expects(:exists?).with(p1+"test/_object.rhtml").returns(false)
+    File.expects(:exists?).with(p1+"test/_object.html.erb").returns(false)
+    File.expects(:exists?).with(p1+"test/_numeric.html.erb").returns(false)
+    File.expects(:exists?).with(p2+"test/_numeric.rhtml").returns(true)
+
+    File.expects(:exists?).with(p1+"test/_object.rhtml").returns(false)
+    File.expects(:exists?).with(p1+"test/_object.html.erb").returns(false)
+    File.expects(:exists?).with(p2+"test/_object.rhtml").returns(false)
+    File.expects(:exists?).with(p2+"test/_object.html.erb").returns(false)
+
+    assert_equal 'integer', partial_for_class(Integer)
     assert_equal 'numeric', partial_for_class(Float)
-    assert_equal 'numeric', partial_for_class(Numeric)
-    assert_equal 'runtime_error', partial_for_class(RuntimeError)
+    assert_raises ArgumentError do
+      partial_for_class(Object)
+    end
+  end
+
+  should 'calculate correctly partial for namespaced models' do
+    p = 'path/'
+    @controller = mock()
+    @controller.stubs(:view_paths).returns([p])
+    self.stubs(:params).returns({:controller => 'test'})
+
+    class School; class Project; end; end
+
+    File.expects(:exists?).with(p+"test/application_helper_test/school/_project.rhtml").returns(true)
+
+    assert_equal 'test/application_helper_test/school/project', partial_for_class(School::Project)
   end
 
   should 'give error when there is no partial for class' do
