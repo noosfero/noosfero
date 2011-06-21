@@ -10,6 +10,11 @@ class CategoriesController < AdminController
     @product_categories = environment.product_categories.find(:all, :conditions => {:parent_id => nil})
   end
 
+  def get_children
+    children = Category.find(params[:id]).children
+    render :partial => 'category_children', :locals => {:children => children}
+  end
+
   ALLOWED_TYPES = CategoriesHelper::TYPES.map {|item| item[1] }
 
   # posts back
