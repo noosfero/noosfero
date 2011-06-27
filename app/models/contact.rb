@@ -32,14 +32,15 @@ class Contact < ActiveRecord::Base #WithoutTable
       if contact.receive_a_copy
         cc "#{contact.name} <#{contact.email}>"
       end
-      subject contact.subject
+      subject "[#{contact.dest.short_name(30)}] " + contact.subject
       body :name => contact.name,
         :email => contact.email,
         :city => contact.city,
         :state => contact.state,
         :message => contact.message,
         :environment => contact.dest.environment.name,
-        :url => url_for(:host => contact.dest.environment.default_hostname, :controller => 'home')
+        :url => url_for(:host => contact.dest.environment.default_hostname, :controller => 'home'),
+        :target => contact.dest.name
     end
   end
 

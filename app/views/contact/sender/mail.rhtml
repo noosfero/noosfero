@@ -1,8 +1,13 @@
-<%= _('Name: %s') % @name  %>
-<%= _('e-Mail: %s') % @email %>
-<% if @city || @state %>
-  <%= _('City and state: %s/%s') % [@city || '?', @state || '?'] %>
-<% end %>
+<%= _('This message was sent by %{sender} to %{target} on %{environment}.') %
+  {:sender => @name, :target => @target, :environment => @environment} %>
+<%= _('Below here are the informations about the user who sent this message:')%>
+<ul>
+  <li><%= content_tag('b', _('Name')+': ') + @name%></li>
+  <li><%= content_tag('b', _('Email')+': ') + @email%></li>
+  <% if @city || @state %>
+    <li><%= content_tag('b', _('City and state')+': ') + (@city || '?')+'/'+(@state || '?') %></li>
+  <% end %>
+</ul>
 
 <%= _('Message:') %>
 -------------------------------------------------------------------------------
