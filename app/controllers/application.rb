@@ -166,14 +166,4 @@ class ApplicationController < ActionController::Base
     render :template => 'shared/access_denied.rhtml', :status => 403
   end
 
-  def load_category
-    unless params[:category_path].blank?
-      path = params[:category_path].join('/')
-      @category = environment.categories.find_by_path(path)
-      if @category.nil?
-        render_not_found(path)
-      end
-    end
-  end
-
 end

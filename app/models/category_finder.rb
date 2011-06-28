@@ -40,15 +40,6 @@ class CategoryFinder
     end
   end
 
-  def recent(asset, limit = nil)
-    find(asset, nil, :limit => limit, :order => 'created_at DESC, id DESC')
-  end
-
-  def most_commented_articles(limit=10, options={})
-    options = {:page => 1, :per_page => limit, :order => 'comments_count DESC'}.merge(options)
-    Article.paginate(:all, options_for_find(Article, options))
-  end
-
   def current_events(year, month, options={})
     options.delete(:page)
     options.delete(:per_page)
