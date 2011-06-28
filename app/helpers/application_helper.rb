@@ -572,7 +572,7 @@ module ApplicationHelper
     end
     extra_info = extra_info.nil? ? '' : content_tag( 'span', extra_info, :class => 'extra_info' )
     links = links_for_balloon(profile)
-    content_tag tag,
+    content_tag('div', content_tag(tag,
         (environment.enabled?(:show_balloon_with_profile_links_when_clicked) ? link_to( content_tag( 'span', _('Profile links')), '#', :onclick => "toggleSubmenu(this, '#{profile.short_name}', #{links.to_json}); return false", :class => "menu-submenu-trigger #{trigger_class}", :url => url) : "") +
         link_to(
             content_tag( 'span', profile_image( profile, size ), :class => 'profile-image' ) +
@@ -582,7 +582,7 @@ module ApplicationHelper
             :class => 'profile_link url',
             :help => _('Click on this icon to go to the <b>%s</b>\'s home page') % profile.name,
             :title => profile.name ),
-        :class => 'vcard'
+        :class => 'vcard'), :class => 'common-profile-list-block')
   end
 
   def gravatar_url_for(email, options = {})
@@ -887,9 +887,6 @@ module ApplicationHelper
   def search_page_title(title, options={})
     title = "<h1>" + title + "</h1>"
     title += "<h2 class='query'>" + _("Searched for '%s'") % options[:query] + "</h2>" if !options[:query].blank?
-    title += "<h2 class='query'>" + _("In category %s") % options[:category] + "</h2>" if !options[:category].blank?
-    title += "<h2 class='query'>" + _("within %d km from %s") % [options[:distance], options[:region]] + "</h2>" if !options[:distance].blank? && !options[:region].blank?
-    title += "<h2 class='query'>" + _("%d results found") % options[:total_results] + "</h2>" if !options[:total_results].blank?
     title
   end
 
@@ -1105,33 +1102,46 @@ module ApplicationHelper
     ") : '')
   end
 
-  def browse_people_menu
+  def search_contents_menu
+    links = [
+      {s_('contents|More Recent') => {:href => url_for({:controller => 'search', :action => 'contents', :filter => 'more_recent'})}},
+      #{s_('contents|More Popular') => {:href => url_for({:controller => 'search', :action => 'contents', :filter => 'more_popular'})}}
+    ]
+    if logged_in?
+      links.push(_('New Content') => lightbox_options({:href => url_for({:controller => 'cms', :action => 'new', :profile => current_user.login, :cms => true})}))
+    end
+
+    link_to(content_tag(:span, _('Contents'), :class => 'icon-menu-contents'), {:controller => "search", :action => 'contents'}, :id => 'submenu-contents') +
+    link_to(content_tag(:span, _('Contents Menu')), '#', :onclick => "toggleSubmenu(this,'',#{links.to_json}); return false", :class => 'menu-submenu-trigger up', :id => 'submenu-contents-trigger')
+  end
+
+  def search_people_menu
      links = [
-       {s_('people|More Recent') => {:href => url_for({:controller => 'browse', :action => 'people', :filter => 'more_recent'})}},
-       {s_('people|More Active') => {:href => url_for({:controller => 'browse', :action => 'people', :filter => 'more_active'})}},
-       {s_('people|More Popular') => {:href => url_for({:controller => 'browse', :action => 'people', :filter => 'more_popular'})}}
+       {s_('people|More Recent') => {:href => url_for({:controller => 'search', :action => 'people', :filter => 'more_recent'})}},
+       {s_('people|More Active') => {:href => url_for({:controller => 'search', :action => 'people', :filter => 'more_active'})}},
+       {s_('people|More Popular') => {:href => url_for({:controller => 'search', :action => 'people', :filter => 'more_popular'})}}
      ]
      if logged_in?
        links.push(_('My friends') => {:href => url_for({:profile => current_user.login, :controller => 'friends'})})
        links.push(_('Invite friends') => {:href => url_for({:profile => current_user.login, :controller => 'invite', :action => 'friends'})})
      end
 
-    link_to(content_tag(:span, _('People'), :class => 'icon-menu-people'), {:controller => "browse", :action => 'people'}, :id => 'submenu-people') +
+    link_to(content_tag(:span, _('People'), :class => 'icon-menu-people'), {:controller => "search", :action => 'people'}, :id => 'submenu-people') +
     link_to(content_tag(:span, _('People Menu')), '#', :onclick => "toggleSubmenu(this,'',#{links.to_json}); return false", :class => 'menu-submenu-trigger up', :id => 'submenu-people-trigger')
   end
 
-  def browse_communities_menu
+  def search_communities_menu
      links = [
-       {s_('communities|More Recent') => {:href => url_for({:controller => 'browse', :action => 'communities', :filter => 'more_recent'})}},
-       {s_('communities|More Active') => {:href => url_for({:controller => 'browse', :action => 'communities', :filter => 'more_active'})}},
-       {s_('communities|More Popular') => {:href => url_for({:controller => 'browse', :action => 'communities', :filter => 'more_popular'})}}
+       {s_('communities|More Recent') => {:href => url_for({:controller => 'search', :action => 'communities', :filter => 'more_recent'})}},
+       {s_('communities|More Active') => {:href => url_for({:controller => 'search', :action => 'communities', :filter => 'more_active'})}},
+       {s_('communities|More Popular') => {:href => url_for({:controller => 'search', :action => 'communities', :filter => 'more_popular'})}}
      ]
      if logged_in?
        links.push(_('My communities') => {:href => url_for({:profile => current_user.login, :controller => 'memberships'})})
        links.push(_('New community') => {:href => url_for({:profile => current_user.login, :controller => 'memberships', :action => 'new_community'})})
      end
 
-    link_to(content_tag(:span, _('Communities'), :class => 'icon-menu-community'), {:controller => "browse", :action => 'communities'}, :id => 'submenu-communities') +
+    link_to(content_tag(:span, _('Communities'), :class => 'icon-menu-community'), {:controller => "search", :action => 'communities'}, :id => 'submenu-communities') +
     link_to(content_tag(:span, _('Communities Menu')), '#', :onclick => "toggleSubmenu(this,'',#{links.to_json}); return false", :class => 'menu-submenu-trigger up', :id => 'submenu-communities-trigger')
   end
 

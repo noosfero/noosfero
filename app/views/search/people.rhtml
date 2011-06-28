@@ -1,8 +1,5 @@
 <%= search_page_title( _('People'), { :query => @query, 
-                                      :category => @category ? @category.name : nil, 
-                                      :total_results => @total_results, 
-                                      :region => @region ? @region.name : nil, 
-                                      :distance => @radius } ) %>
+                      :total_results => @total_results } ) %>
 
 <%= search_page_link_to_all( { :asset => params[:asset],
                                :category => @category }) %>
@@ -10,7 +7,7 @@
 <%= render :partial => 'search_form', :locals => { :form_title => @query.blank? ? _('Search') : _("Refine your search"), :simple_search => true } %>
 
 <% if !@query.blank? %>
-  <%= facets_menu(:people, @facets[:people]) %>
+  <%= facets_menu(:people, @facets) %>
 <% end %>
 
 <%= render :partial => 'results_header', :locals => { :asset => :people, :results => @results[:people] } %>

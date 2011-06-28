@@ -1,8 +1,5 @@
 <%= search_page_title( _('Products and Services'), { :query => @query, 
-                                                     :category => @category ? @category.name : nil, 
-                                                     :total_results => @total_results, 
-                                                     :region => @region ? @region.name : nil, 
-                                                     :distance => @radius } ) %>
+                      :total_results => @total_results } ) %>
 
 <%= search_page_link_to_all( { :asset => params[:asset],
                                :category => @category }) %>
@@ -13,11 +10,9 @@
 <div class="has_cat_list">
 <% end %>
 
-<% cache(:action => 'assets', :asset => 'products', :category_path => params[:category_path], :query => @query, :product_category => @product_category, :region => @region, :radius => params[:radius]) do %>
-  <% if @query.empty? %>
-    <%= product_categories_menu(:products, @product_category, @result_ids)  %>
-  <% else %>
-    <%= facets_menu(:products, @facets[:products])  %>
+<% cache(:action => 'assets', :asset => 'products', :query => @query) do %>
+  <% if !@query.blank? %>
+    <%= facets_menu(:products, @facets)  %>
   <% end %>
 <% end %>
 

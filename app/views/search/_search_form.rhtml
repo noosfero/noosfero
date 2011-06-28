@@ -1,7 +1,7 @@
 <div class='search-form'>
 <% simple_search = false unless defined? simple_search %>
 
-<% form_tag( { :controller => 'search', :action => 'index', :asset => nil, :category_path => ( @category ? @category.explode_path : [] ) },
+<% form_tag( { :controller => 'search', :action => @asset ? @asset : 'index', :asset => nil, :category_path => ( @category ? @category.explode_path : [] ) },
                :method => 'get', :class => 'search_form' ) do %>
   <%= '<h3>%s</h3>' % form_title if defined? form_title %>
 
@@ -19,41 +19,6 @@
       <%= submit_button(:search, _('Search in whole site'), :name => :search_whole_site_yes) %>
     <% end %>
   </div>
-
-  <div id='advanced-search-options' style="display: <%= simple_search ? 'none' : 'block' %>">  
-    <div class="search-options search-within">
-      <h4><%= _('Search within:') %></h4>
-      <br style='clear:left'/>
-      <div>
-        <span class="formfield">
-          <%= select_city %>
-        </span>
-        <span class="formfield">
-          <%= labelled_select(_('Distance:'), 'radius', :first, :last, nil, [15, 30, 50, 100, 150, 200, 300, 400, 500, 1000].map{|n|[n, n.to_s + 'km']}) %>
-        </span>
-      </div>
-    </div><!-- fim class="search-options" -->
-
-    <div class="search-options search-for">
-      <h4><%= _('Search for:') %></h4>
-      <ul>
-        <% @search_in.map { |t,n| [t,getterm(n)] } .
-          sort_by(&:last).each do |thing, name| %>
-            <li>
-            <%= labelled_check_box name, 'find_in[]', thing.to_s, @searching[thing.to_sym] %>
-            </li>
-          <% end %>
-        </ul>
-        <br style="clear:both" />
-      </div><!-- fim class="search-options" -->
-    </div><!-- end id="advanced-search-options" -->
-
-  <% if simple_search %>
-    <%= link_to_function(_('More options'), nil, :id => 'advanced_search_link') do |page|
-      page['advanced_search_link'].hide
-      page['advanced-search-options'].toggle
-    end %>
-  <% end %>
 
   <% if lightbox?; button_bar do %>
   <%= lightbox_close_button _('Close') %>

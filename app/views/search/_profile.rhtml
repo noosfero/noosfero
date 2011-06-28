@@ -1,1 +1,20 @@
-<%= profile_image_link profile, :portrait %>
+<% if @query.blank? || !profile.enterprise?  %>
+  <%= profile_image_link profile, :portrait %>
+<% else %>
+  <div class="enterprise-result">
+    <%= profile_image_link profile, :portrait %>
+    <span><%= profile.name %></span>
+    <span><%= _("Region: ") + profile.region.name if profile.region %></span><br />
+    <% if !profile.description.blank? %>
+      <span><%= profile.description %></span><br />
+    <% end %>
+
+    <div class="enterprise-categorization">
+      <% profile.top_level_categorization.each do |parent, children| %>
+        <span class="enterprise-categorization-parent"><%= parent.name + ':' %></span>
+        <span class="enterprise-categorization-children"><%= children.collect(&:name).join(', ')  %></span>
+        <br />
+    <% end %>
+  </div>
+  </div>
+<% end %>
