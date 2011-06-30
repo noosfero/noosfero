@@ -13,7 +13,8 @@
     </div>
     <div class="product-description">
       <% if product.description %>
-        <span class="product-item-topic"><%= _('DESCRIPTION') %>  </span><%= product.description %>
+        <% desc_stripped = strip_tags(product.description) %>
+        <span class="product-item-topic"><%= _('DESCRIPTION') %>  </span><%= excerpt(desc_stripped, desc_stripped.first(3), 100) %>
       <% end %>
     </div>
   </div>

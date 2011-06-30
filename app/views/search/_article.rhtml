@@ -3,7 +3,7 @@
   <div class="article-item-meta">
     <% if article.body %>
       <% body_stripped = strip_tags(article.body.to_s) %>
-      <br /><span class="article-item-body"><%= excerpt(body_stripped, body_stripped.first(3), 300) %></span><br />
+      <br /><span class="article-item-body"><%= excerpt(body_stripped, body_stripped.first(3), 200) %></span><br />
     <% end %>
 
     <br /><span><%= _('Tags: ') + article.tags.join(', ') if !article.tags.empty? %></span>
