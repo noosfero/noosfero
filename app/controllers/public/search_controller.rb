@@ -1,5 +1,9 @@
 class SearchController < PublicController
 
+  MAP_SEARCH_LIMIT = 2000
+  SINGLE_SEARCH_LIMIT = 20
+  MULTIPLE_SEARCH_LIMIT = 6
+
   helper TagsHelper
   include SearchHelper
 
@@ -178,13 +182,15 @@ class SearchController < PublicController
 
   # view the summary of one category
   def category_index
+    @searching
     @results = {}
     @order = []
     @names = {}
+    limit = MULTIPLE_SEARCH_LIMIT
     [
-      [ :people, _('People'), recent('people') ],
-      [ :enterprises, __('Enterprises'), recent('enterprises') ],
-      [ :products, _('Products'), recent('products') ],
+      [ :people, _('People'), recent('people', limit) ],
+      [ :enterprises, __('Enterprises'), recent('enterprises', limit) ],
+      [ :products, _('Products'), recent('products', limit) ],
       [ :events, _('Upcoming events'), upcoming_events({:per_page => limit}) ],
       [ :communities, __('Communities'), recent('communities', limit) ],
       [ :most_commented_articles, _('Most commented articles'), most_commented_articles(limit) ],
@@ -200,12 +206,24 @@ class SearchController < PublicController
   protected
 
   def recent(asset, limit = nil)
-    find(asset, nil, :limit => limit, :order => 'created_at DESC, id DESC')
+    options = {:page => 1, :per_page => limit, :order => 'created_at DESC, id DESC'}
+
+    @region = Region.find_by_id(options.delete(:region)) if options.has_key?(:region)
+
+    if asset == :events
+      finder_method = 'find'
+      options.delete(:page)
+      options.delete(:per_page)
+    else
+      finder_method = 'paginate'
+    end
+
+    asset_class(asset).send(finder_method, :all, category_options_for_find(asset_class(asset), {:order => "#{asset_table(asset)}.name"}.merge(options)))
   end
 
   def most_commented_articles(limit=10, options={})
     options = {:page => 1, :per_page => limit, :order => 'comments_count DESC'}.merge(options)
-    Article.paginate(:all, options_for_find(Article, options))
+    Article.paginate(:all, category_options_for_find(Article, options))
   end
 
   def upcoming_events(options = {})
@@ -347,9 +365,46 @@ class SearchController < PublicController
   def limit
     searching = @searching.values.select{|v|v}
     if params[:display] == 'map'
-      2000
+      MAP_SEARCH_LIMIT
     else
-      (searching.size == 1) ? 20 : 6
+      (searching.size == 1) ? SINGLE_SEARCH_LIMIT : MULTIPLE_SEARCH_LIMIT
+    end
+  end
+
+  def category_options_for_find(klass, options={}, date_range = nil)
+    if defined? options[:product_category]
+      prod_cat = options.delete(:product_category)
+    end
+    
+    case klass.name
+    when 'Comment'
+      {:joins => 'inner join articles_categories on articles_categories.article_id = comments.article_id', :conditions => ['articles_categories.category_id = (?)', category_id]}.merge!(options)
+    when 'Product'
+      if prod_cat
+        {:joins => 'inner join categories_profiles on products.enterprise_id = categories_profiles.profile_id inner join product_categorizations on (product_categorizations.product_id = products.id)', :conditions => ['categories_profiles.category_id = (?) and product_categorizations.category_id = (?)', category_id, prod_cat.id]}.merge!(options)
+      else
+        {:joins => 'inner join categories_profiles on products.enterprise_id = categories_profiles.profile_id', :conditions => ['categories_profiles.category_id = (?)', category_id]}.merge!(options)
+      end
+    when 'Article', 'TextArticle'
+      {:joins => 'inner join articles_categories on (articles_categories.article_id = articles.id)', :conditions => ['articles_categories.category_id = (?)', category_id]}.merge!(options)
+    when 'Event'
+      conditions =
+        if date_range
+          ['articles_categories.category_id = (:category_id) and (start_date BETWEEN :start_day AND :end_day OR end_date BETWEEN :start_day AND :end_day)', {:category_id => category_id, :start_day => date_range.first, :end_day => date_range.last} ]
+        else
+          ['articles_categories.category_id = (?) ', category_id ]
+        end
+      {:joins => 'inner join articles_categories on (articles_categories.article_id = articles.id)', :conditions => conditions}.merge!(options)
+    when 'Enterprise'
+      if prod_cat
+        {:joins => 'inner join categories_profiles on (categories_profiles.profile_id = profiles.id) inner join products on (products.enterprise_id = profiles.id) inner join product_categorizations on (product_categorizations.product_id = products.id)', :conditions => ['categories_profiles.category_id = (?) and product_categorizations.category_id = (?)', category_id, prod_cat.id]}.merge!(options)
+      else
+        {:joins => 'inner join categories_profiles on (categories_profiles.profile_id = profiles.id)', :conditions => ['categories_profiles.category_id = (?)', category_id]}.merge!(options)
+      end    
+    when 'Person', 'Community'
+      {:joins => 'inner join categories_profiles on (categories_profiles.profile_id = profiles.id)', :conditions => ['categories_profiles.category_id = (?)', category_id]}.merge!(options)
+    else
+      raise "unreconized class #{klass.name}"
     end
   end
 
