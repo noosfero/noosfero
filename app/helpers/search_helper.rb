@@ -85,7 +85,7 @@ module SearchHelper
     content_tag('table',
       content_tag('tr',
         content_tag('td', content_tag('div', image_tag(product.image ? product.image.public_filename(:thumb) : '/images/icons-app/product-default-pic-portrait.png'), :class => 'profile-info-picture')) +
-        content_tag('td', content_tag('strong', link_to(product.name, :controller => 'catalog', :profile => product.enterprise.identifier, :action => 'show', :id => product)) + '<br/>' + data)
+        content_tag('td', content_tag('strong', link_to(product.name, :controller => 'catalog', :profile => product.enterprise.identifier, :id => product.id)) + '<br/>' + data)
         ), :class => 'profile-info')
   end
 

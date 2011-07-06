@@ -1890,6 +1890,9 @@ input.disabled {
 #map {
   height: 500px;
 }
+.map {
+  clear: both;
+}
 /***********************************************************
  * style for blocks 
  ***********************************************************/
@@ -4615,7 +4618,7 @@ float: right;
   overflow: auto;
 }
 
-.search-results-type-product li.product-item {
+li.product-item {
   position: relative;
   height: 60px;
   overflow: hidden;
@@ -6313,7 +6316,7 @@ float: right;
   color: #007788;
   font-size: 1.2em;
 }
-.controller-search #content #search-results .search-results-type-product li.product-item {
+li.product-item {
   display:block;
   float:none
   overflow:visible;
@@ -6323,7 +6326,7 @@ float: right;
   height:auto;
   max-height:none;
 }
-.controller-search .search-results-innerbox li.product-item hr {
+li.product-item hr {
   display:block;
   margin:0;
   clear: both;

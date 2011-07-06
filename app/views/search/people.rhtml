@@ -15,6 +15,8 @@
 <%# FIXME ARMENGUE %>
 <%= display_results(false) %>
 
-<%= pagination_links @results.values.first %>
+<% if params[:display] != 'map' %>
+  <%= pagination_links @results.values.first %>
+<% end %>
 
 <br style="clear:both" />

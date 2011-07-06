@@ -24,6 +24,8 @@
 </div><!-- class="has_cat_list" -->
 <% end %>
 
-<%= pagination_links @results[:products] %>
+<% if params[:display] != 'map' %>
+  <%= pagination_links @results[:products] %>
+<% end %>
 
 <br style="clear:both" />

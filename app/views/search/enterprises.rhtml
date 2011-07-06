@@ -34,6 +34,8 @@
 </div><!-- class="has_cat_list" -->
 <% end %>
 
-<%= pagination_links @results[:enterprises] %>
+<% if params[:display] != 'map' %>
+  <%= pagination_links @results[:enterprises] %>
+<% end %>
 
 <br style="clear:both" />

@@ -1,6 +1,10 @@
 <div class="results-header">
   <%= label_total_found(asset, results.total_entries) %>
-  <span class="current-page"><%= _("Showing page %s of %s") % [results.current_page, results.total_pages] %></div>
+  <% if params[:display] != 'map' %>
+    <span class="current-page"><%= _("Showing page %s of %s") % [results.current_page, results.total_pages] %></span>
+  <% end %>
+
   <%= facets_unselect_menu(asset) %>
-  <%= order_by(asset) %>
+
+  <%= order_by(asset) if params[:display] != 'map' %>
 </div>
