@@ -8,7 +8,6 @@ class SearchController < PublicController
   include SearchHelper
 
   before_filter :load_category
-  before_filter :check_search_whole_site
   before_filter :load_search_assets
 
   no_design_blocks
@@ -159,7 +158,7 @@ class SearchController < PublicController
     @order = []
     @names = {}
 
-    where_to_search.select { |key,description| @searching[key]  }.each do |key, description|
+    @enabled_searchs.select { |key,description| @searching[key] }.each do |key, description|
       send(key)
       @order << key
       @names[key] = getterm(description)
@@ -182,7 +181,6 @@ class SearchController < PublicController
 
   # view the summary of one category
   def category_index
-    @searching
     @results = {}
     @order = []
     @names = {}
@@ -203,12 +201,36 @@ class SearchController < PublicController
     @facets = {}
   end
 
+  def tags
+    @tags_cache_key = "tags_env_#{environment.id.to_s}"
+    if is_cache_expired?(@tags_cache_key, true)
+      @tags = environment.tag_counts
+    end
+  end
+
+  def tag
+    @tag = params[:tag]
+    @tag_cache_key = "tag_#{CGI.escape(@tag.to_s)}_env_#{environment.id.to_s}_page_#{params[:npage]}"
+    if is_cache_expired?(@tag_cache_key, true)
+      @tagged = environment.articles.find_tagged_with(@tag).paginate(:per_page => 10, :page => params[:npage])
+    end
+  end
+
+  def events_by_day
+    @selected_day = build_date(params[:year], params[:month], params[:day])
+    if params[:category_id] and Category.exists?(params[:category_id])
+      @events_of_the_day = environment.events.by_day(@selected_day).in_category(Category.find(params[:category_id]))
+    else
+      @events_of_the_day = environment.events.by_day(@selected_day)
+    end
+    render :partial => 'events/events_by_day'
+  end
+
+  #######################################################
   protected
 
   def recent(asset, limit = nil)
     options = {:page => 1, :per_page => limit, :order => 'created_at DESC, id DESC'}
-
-    @region = Region.find_by_id(options.delete(:region)) if options.has_key?(:region)
 
     if asset == :events
       finder_method = 'find'
@@ -233,66 +255,6 @@ class SearchController < PublicController
     Event.find(:all, {:include => :categories, :conditions => [ 'categories.id = ? and start_date >= ?', category_id, Date.today ], :order => 'start_date' }.merge(options))
   end
 
-
-  attr_reader :category
-  attr_reader :category_id
-
-  def load_category
-    unless params[:category_path].blank?
-      path = params[:category_path].join('/')
-      @category = environment.categories.find_by_path(path)
-      if @category.nil?
-        render_not_found(path)
-      end
-      @category_id = @category.id
-    end
-  end
-
-  def where_to_search
-    [
-      [ :articles, N_('Articles') ],
-      [ :enterprises, N_('Enterprises') ],
-      [ :people, N_('People') ],
-      [ :communities, N_('Communities') ],
-      [ :products, N_('Products') ],
-      [ :events, N_('Events') ]
-    ].select {|key, name| !environment.enabled?('disable_asset_' + key.to_s) }
-  end
-
-  #######################################################
-
-  def tags
-    @tags_cache_key = "tags_env_#{environment.id.to_s}"
-    if is_cache_expired?(@tags_cache_key, true)
-      @tags = environment.tag_counts
-    end
-  end
-
-  def tag
-    @tag = params[:tag]
-    @tag_cache_key = "tag_#{CGI.escape(@tag.to_s)}_env_#{environment.id.to_s}_page_#{params[:npage]}"
-    if is_cache_expired?(@tag_cache_key, true)
-      @tagged = environment.articles.find_tagged_with(@tag).paginate(:per_page => 10, :page => params[:npage])
-    end
-  end
-
-  #######################################################
-
-  def popup
-    @regions = Region.find(:all).select{|r|r.lat && r.lng}
-    render :action => 'popup', :layout => false
-  end
-
-  def events_by_day
-    @selected_day = build_date(params[:year], params[:month], params[:day])
-    if params[:category_id] and Category.exists?(params[:category_id])
-      @events_of_the_day = environment.events.by_day(@selected_day).in_category(Category.find(params[:category_id]))
-    else
-      @events_of_the_day = environment.events.by_day(@selected_day)
-    end
-    render :partial => 'events/events_by_day'
-  end
-
   def current_events(year, month, options={})
     options.delete(:page)
     options.delete(:per_page)
@@ -302,6 +264,11 @@ class SearchController < PublicController
     Event.find(:all, {:include => :categories, :conditions => { 'categories.id' => category_id, :start_date => range }}.merge(options))
   end
 
+  FILTERS = %w(
+    more_recent
+    more_active
+    more_popular
+  )
   def filter
     if FILTERS.include?(params[:filter])
       params[:filter]
@@ -323,25 +290,35 @@ class SearchController < PublicController
     }[str] || str
   end
 
+  attr_reader :category
+  attr_reader :category_id
+
+  def load_category
+    unless params[:category_path].blank?
+      path = params[:category_path].join('/')
+      @category = environment.categories.find_by_path(path)
+      if @category.nil?
+        render_not_found(path)
+      end
+      @category_id = @category.id
+    end
+  end
+
   def load_search_assets
-    @search_in = where_to_search
+    @enabled_searchs = [
+      [ :articles, N_('Articles') ],
+      [ :enterprises, N_('Enterprises') ],
+      [ :people, N_('People') ],
+      [ :communities, N_('Communities') ],
+      [ :products, N_('Products') ],
+      [ :events, N_('Events') ]
+    ].select {|key, name| !environment.enabled?('disable_asset_' + key.to_s) }
+
     @searching = {}
-    @search_in.each do |key, name|
-      @searching[key] = (params[:asset].blank? && (params[:find_in].nil? || params[:find_in].empty? || params[:find_in].include?(key.to_s))) || (params[:asset] == key.to_s)
+    @enabled_searchs.each do |key, name|
+      @searching[key] = params[:action] == 'index' || params[:action] == key.to_s
     end
   end
-
-  def check_search_whole_site
-    if params[:search_whole_site_yes] or params[:search_whole_site] == 'yes'
-      redirect_to params.merge(:category_path => [], :search_whole_site => nil, :search_whole_site_yes => nil)
-    end
-  end
-
-  FILTERS = %w(
-    more_recent
-    more_active
-    more_popular
-  )
 
   def paginate_options(asset, limit, page)
     result = { :per_page => limit, :page => page }
@@ -367,7 +344,7 @@ class SearchController < PublicController
     if params[:display] == 'map'
       MAP_SEARCH_LIMIT
     else
-      (searching.size == 1) ? SINGLE_SEARCH_LIMIT : MULTIPLE_SEARCH_LIMIT
+      (searching.size <= 1) ? SINGLE_SEARCH_LIMIT : MULTIPLE_SEARCH_LIMIT
     end
   end
 
