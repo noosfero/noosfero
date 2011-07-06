@@ -3,7 +3,7 @@ ul.token-input-list-facet {
     overflow: hidden; 
     height: auto !important; 
     height: 1%;
-    width: 130px;
+    width: 100%;
     border: 1px solid #999;
     cursor: text;
     font-size: 12px;
@@ -64,7 +64,7 @@ li.token-input-selected-token-facet span {
 
 div.token-input-dropdown-facet {
     position: relative;
-    width: 130px;
+    width: 100%;
     height: 150px;
     max-height: 200px;
     background-color: #E5F4FB;
