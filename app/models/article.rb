@@ -559,10 +559,16 @@ class Article < ActiveRecord::Base
 
   private
   def f_type
-    self.class.to_s
+    self.class.short_description
   end
   def f_publish_date
-    self.published_at
+    today = Date.today
+    range = ''
+    range = _('Last year') if (today-1.year..today).include?(self.published_at)
+    range = _('Last month') if (today-1.month..today).include?(self.published_at)
+    range = _('Last week') if (today-1.week..today).include?(self.published_at)
+    range = _('Last day') if (today-1.day..today).include?(self.published_at)
+    range
   end
   def f_profile_type
     self.profile.class.to_s
@@ -581,7 +587,8 @@ class Article < ActiveRecord::Base
 
   acts_as_searchable :additional_fields => [ :comment_data, {:name => {:type => :string, :as => :name_sort, :boost => 5.0}} ] + facets.keys.map{|i| {i => :facet}},
     :include => [:profile],
-    :facets => facets.keys
+    :facets => facets.keys,
+    :if => proc{|a| ! ['Feed'].include?(a.type)}
 
   private
 
