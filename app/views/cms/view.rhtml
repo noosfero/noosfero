@@ -50,7 +50,7 @@
       </td>
       <td class="article-controls">
         <%= button_without_text :edit, _('Edit'), :action => 'edit', :id => article.id %>
-        <%= button_without_text :eyes, _('Public view'), article.url %>
+        <%= button_without_text :eyes, _('Public view'), article.view_url %>
         <%= display_spread_button(profile, article) unless article.folder? %>
         <% if !environment.enabled?('cant_change_homepage') %>
           <%= button_without_text :home, _('Use as homepage'), { :action => 'set_home_page', :id => article.id }, :method => :post %>
