@@ -33,62 +33,6 @@ module SearchHelper
     content_tag('div', data[:toggle] + (render :partial => data[:partial]), :class => "map-or-list-search-results #{data[:class]}")
   end
 
-  def display_item_map_info(item)
-    if item.kind_of?(Profile)
-      display_profile_info(item)
-    elsif item.kind_of?(Product)
-      display_product_info(item)
-    end
-  end
-  
-  def display_profile_info(profile)
-    data = ''
-    unless profile.contact_email.nil?
-      data << content_tag('strong', _('E-Mail: ')) + profile.contact_email + '<br/>'
-    end
-    unless profile.contact_phone.nil?
-      data << content_tag('strong', _('Phone(s): ')) + profile.contact_phone + '<br/>'
-    end
-    unless profile.region.nil?
-      data << content_tag('strong', _('Location: ')) + profile.region.name + '<br/>'
-    end
-    unless profile.address.nil?
-      data << content_tag('strong', _('Address: ')) + profile.address + '<br/>'
-    end
-    unless profile.products.empty?
-      data << content_tag('strong', _('Products/Services: ')) + profile.products.map{|i| link_to(i.name, :controller => 'manage_products', :profile => profile.identifier, :action => 'show', :id => i.id)}.join(', ') + '<br/>'
-    end
-    if profile.respond_to?(:distance) and !profile.distance.nil?
-      data << content_tag('strong', _('Distance: ')) + "%.2f%" % profile.distance + '<br/>'
-    end
-    content_tag('table',
-      content_tag('tr',
-        content_tag('td', content_tag('div', profile_image(profile, :thumb), :class => 'profile-info-picture')) +
-        content_tag('td', content_tag('strong', link_to(profile.name, url_for(profile.url))) + '<br/>' + data
-        )
-      ),
-      :class => 'profile-info'
-    )
-  end
-
-  def display_product_info(product)
-    data = ''
-    unless product.price.nil?
-      data << content_tag('strong', _('Price: ')) + product.price + '<br/>'
-    end
-    unless product.enterprise.nil?
-      data << content_tag('strong', _('Provider: ')) + link_to_profile(product.enterprise.name, product.enterprise.identifier)
-    end
-    unless product.product_category.nil?
-      data << content_tag('strong', _('Category: ')) + link_to(product.product_category.name, :controller => 'search', :action => 'assets', :asset => 'products', :product_category => product.product_category.id)
-    end
-    content_tag('table',
-      content_tag('tr',
-        content_tag('td', content_tag('div', image_tag(product.image ? product.image.public_filename(:thumb) : '/images/icons-app/product-default-pic-portrait.png'), :class => 'profile-info-picture')) +
-        content_tag('td', content_tag('strong', link_to(product.name, :controller => 'catalog', :profile => product.enterprise.identifier, :id => product.id)) + '<br/>' + data)
-        ), :class => 'profile-info')
-  end
-
   def product_categories_menu(asset, product_category, object_ids = nil)
     cats = ProductCategory.menu_categories(@product_category, environment)
     cats += cats.select { |c| c.children_count > 0 }.map(&:children).flatten

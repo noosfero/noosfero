@@ -80,6 +80,9 @@ ActionController::Routing::Routes.draw do |map|
   # contact
   map.contact 'contact/:profile/:action/:id', :controller => 'contact', :action => 'index', :id => /.*/, :profile => /#{Noosfero.identifier_format}/
 
+  # map balloon
+  map.contact 'map_balloon/:action/:id', :controller => 'map_balloon', :id => /.*/
+
   # chat
   map.chat 'chat/:action/:id', :controller => 'chat'
   map.chat 'chat/:action', :controller => 'chat'
