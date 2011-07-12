@@ -1157,4 +1157,12 @@ class EnvironmentTest < Test::Unit::TestCase
     p2.save!
   end
 
+  should 'always store setting keys as symbol' do
+    env = Environment.default
+    env.settings['string_key'] = 'new value'
+    env.save!; env.reload
+    assert_nil env.settings['string_key']
+    assert_equal env.settings[:string_key], 'new value'
+  end
+
 end
