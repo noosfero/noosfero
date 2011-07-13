@@ -36,12 +36,18 @@ class FixMisunderstoodScriptFilename < ActiveRecord::Migration
       image.create_thumbnails
     end
 
-    UploadedFile.all.select { |u| u.content_type != 'text/plain' && File.extname(u.filename) == '.txt' }.map do |uploaded_file|
+    UploadedFile.all.select { |u| u.image? && File.extname(u.filename) == '.txt' }.map do |uploaded_file|
       uploaded_file.thumbnails.destroy_all
       uploaded_file.filename = fixed_name(uploaded_file)
       uploaded_file.save!
       uploaded_file.create_thumbnails
     end
+
+    Thumbnail.all.select { |u| u.image? && File.extname(u.filename) == '.txt' }.map do |thumbnail|
+      thumbnail.filename = fixed_name(thumbnail)
+      thumbnail.save!
+    end
+
   end
 
   def self.down
