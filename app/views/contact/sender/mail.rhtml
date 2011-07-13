@@ -8,8 +8,8 @@
     {:sender => @name, :target => @target, :environment => @environment} %></p>
     <%= _('Information about the user who sent this message:')%>
     <ul>
-      <li><%= content_tag('b', _('Name')+': ') + @name%></li>
-      <li><%= content_tag('b', _('Email')+': ') + @email%></li>
+      <li><%= content_tag('b', _('Name')+': ') + @name.to_s %></li>
+      <li><%= content_tag('b', _('Email')+': ') + @email.to_s %></li>
       <% if @city || @state %>
         <li><%= content_tag('b', _('City and state')+': ') + (@city || '?')+'/'+(@state || '?') %></li>
       <% end %>
