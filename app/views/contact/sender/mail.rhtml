@@ -1,21 +1,27 @@
-<%= _('This message was sent by %{sender} to %{target} on %{environment}.') %
-  {:sender => @name, :target => @target, :environment => @environment} %>
-<%= _('Below here are the informations about the user who sent this message:')%>
-<ul>
-  <li><%= content_tag('b', _('Name')+': ') + @name%></li>
-  <li><%= content_tag('b', _('Email')+': ') + @email%></li>
-  <% if @city || @state %>
-    <li><%= content_tag('b', _('City and state')+': ') + (@city || '?')+'/'+(@state || '?') %></li>
-  <% end %>
-</ul>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  </head>
+  <body>
+    <p><%= _('This message was sent by %{sender} to %{target} on %{environment}.') %
+    {:sender => @name, :target => @target, :environment => @environment} %></p>
+    <%= _('Information about the user who sent this message:')%>
+    <ul>
+      <li><%= content_tag('b', _('Name')+': ') + @name%></li>
+      <li><%= content_tag('b', _('Email')+': ') + @email%></li>
+      <% if @city || @state %>
+        <li><%= content_tag('b', _('City and state')+': ') + (@city || '?')+'/'+(@state || '?') %></li>
+      <% end %>
+    </ul>
+    <hr/>
+    <%= content_tag('b', _('Message:')) %>
+    <p><%= word_wrap(@message) %></p>
 
-<%= _('Message:') %>
--------------------------------------------------------------------------------
-<%= word_wrap(@message) %>
--------------------------------------------------------------------------------
+    --<br/>
+    <%= _('Greetings,') %><br/>
+    <%= _('%s team.') % @environment %><br/>
+    <%= @url %>
+  </body>
+</html>
 
-<%= _('Greetings,') %>
-
---
-<%= _('%s team.') % @environment %>
-<%= @url %>
