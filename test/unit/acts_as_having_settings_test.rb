@@ -74,4 +74,10 @@ class ActsAsHavingSettingsTest < Test::Unit::TestCase
     assert_equal true, obj.flag
   end
 
+  should 'symbolize keys when save' do
+    obj = TestClass.new
+    obj.settings.expects(:symbolize_keys!).once
+    assert obj.save
+  end
+
 end

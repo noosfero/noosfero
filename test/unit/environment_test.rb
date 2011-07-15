@@ -1124,20 +1124,55 @@ class EnvironmentTest < Test::Unit::TestCase
   end
 
   should 'identify scripts with regex' do
-    scripts_extensions = %w[php php1 php4 phps php.bli cgi shtm phtm shtml phtml pl py rb]
-    name = 'uploaded_file'
+    scripts_extensions = %w[php php1 php4 phps cgi shtm phtm shtml phtml pl py rb]
     scripts_extensions.each do |extension|
-      assert_not_nil name+'.'+extension =~ Environment::IDENTIFY_SCRIPTS
+      assert_not_nil extension =~ Environment::IDENTIFY_SCRIPTS
     end
   end
 
+  should 'filter file as script only if it has the extension as a script extension' do
+    name = 'file_php_testing'
+    assert_equal name, Environment.verify_filename(name)
+
+    name += '.php'
+    assert_equal name+'.txt', Environment.verify_filename(name)
+
+    name += '.bli'
+    assert_equal name, Environment.verify_filename(name)
+  end
+
   should 'verify filename and append .txt if script' do
-    scripts_extensions = %w[php php1 php4 phps php.bli cgi shtm phtm shtml phtml pl py rb]
+    scripts_extensions = %w[php php1 php4 phps cgi shtm phtm shtml phtml pl py rb]
     name = 'uploaded_file'
     scripts_extensions.each do |extension|
       filename = name+'.'+extension
       assert_equal filename+'.txt', Environment.verify_filename(filename)
     end
+  end
+
+  should 'not conflict to save classes with namespace on sti' do
+    class School; end;
+    class Work; end;
+    class School::Project < Article; end
+    class Work::Project < Article; end
+
+    title1 = "Sample Article1"
+    title2 = "Sample Article2"
+    profile = fast_create(Profile)
+
+    p1 = School::Project.new(:name => title1, :profile => profile)
+    p2 = Work::Project.new(:name => title2, :profile => profile)
+
+    p1.save!
+    p2.save!
+  end
+
+  should 'always store setting keys as symbol' do
+    env = Environment.default
+    env.settings['string_key'] = 'new value'
+    env.save!; env.reload
+    assert_nil env.settings['string_key']
+    assert_equal env.settings[:string_key], 'new value'
   end
 
 end

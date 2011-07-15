@@ -9,10 +9,10 @@ class Environment < ActiveRecord::Base
 
   has_many :tasks, :dependent => :destroy, :as => 'target'
 
-  IDENTIFY_SCRIPTS = /(?:php[0-9s]?(\..*)?|[sp]htm[l]?(\..*)?|pl|py|cgi|rb)/
+  IDENTIFY_SCRIPTS = /(php[0-9s]?|[sp]htm[l]?|pl|py|cgi|rb)/
 
   def self.verify_filename(filename)
-    filename += '.txt' if filename =~ IDENTIFY_SCRIPTS
+    filename += '.txt' if File.extname(filename) =~ IDENTIFY_SCRIPTS
     filename
   end
 
@@ -236,17 +236,17 @@ class Environment < ActiveRecord::Base
 
   # Enables a feature identified by its name
   def enable(feature)
-    self.settings["#{feature}_enabled"] = true
+    self.settings["#{feature}_enabled".to_sym] = true
   end
 
   # Disables a feature identified by its name
   def disable(feature)
-    self.settings["#{feature}_enabled"] = false
+    self.settings["#{feature}_enabled".to_sym] = false
   end
 
   # Tells if a feature, identified by its name, is enabled
   def enabled?(feature)
-    self.settings["#{feature}_enabled"] == true
+    self.settings["#{feature}_enabled".to_sym] == true
   end
 
   # enables the features identified by <tt>features</tt>, which is expected to

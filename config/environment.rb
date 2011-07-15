@@ -106,7 +106,7 @@ end
 
 # Include your application configuration below
 
-
+ActiveRecord::Base.store_full_sti_class = true
 
 Noosfero.locales = {
   'en' => 'English',
