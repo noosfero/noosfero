@@ -86,12 +86,12 @@ The cart is a feature that is always over your page on the top-right corner, so 
 
 !=/images/doc/shopping-cart-hide-button.en.png(Cart hide)!
 
-This button will slide up your cart when pressed leaving just a little 'Show cart' so that you can slide it down again:
+This button will slide up your cart when pressed leaving just a little "Show cart" so that you can slide it down again:
 
 !=/images/doc/shopping-cart-cart-hided.en.png(Cart hided)!
 
 When you hide your cart nothing happens to the products you already added.
-If you miss your beatiful cart again just press 'Show cart' and it will slide down gracefully back to you.  ^^
+If you miss your beatiful cart again just press "Show cart" and it will slide down gracefully back to you.  ^^
 
 h2(#checkout). Checking out
 

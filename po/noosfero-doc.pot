@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2011-05-23 10:40-0300\n"
+"POT-Creation-Date: 2011-07-22 17:20-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -294,7 +294,7 @@ msgstr ""
 #: doc/noosfero/plugins/shopping_cart.en.xhtml:50
 msgid ""
 "This button will slide up your cart when pressed leaving just a little "
-"&#8216;Show cart&#8217; so that you can slide it down again:"
+"&#8220;Show cart&#8221; so that you can slide it down again:"
 msgstr ""
 
 #. type: Attribute 'alt' of: <p><img>
@@ -310,7 +310,7 @@ msgstr ""
 #. type: Content of: <p>
 #: doc/noosfero/plugins/shopping_cart.en.xhtml:53
 msgid ""
-"If you miss your beatiful cart again just press &#8216;Show cart&#8217; and "
+"If you miss your beatiful cart again just press &#8220;Show cart&#8221; and "
 "it will slide down gracefully back to you.  ^^"
 msgstr ""
 

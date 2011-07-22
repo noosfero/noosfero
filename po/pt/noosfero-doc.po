@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2011-05-23 10:40-0300\n"
-"PO-Revision-Date: 2011-05-23 11:00-0300\n"
+"PO-Revision-Date: 2011-07-22 17:19-0300\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
 "Language: \n"
@@ -123,7 +123,7 @@ msgstr ""
 #. type: Content of: <p>
 #: doc/noosfero/plugins/shopping_cart.en.xhtml:18
 msgid "/catalog/enterprise-identifier."
-msgstr "/catalog/enterprise-identifier."
+msgstr "/catalog/identificador-do-empreendimento."
 
 # type: Content of: <h1>
 #. type: Content of: <h2>
@@ -140,12 +140,12 @@ msgid ""
 msgstr ""
 "Depois de alcançar a lista de produtos, caso a o empreendimento habilitou o "
 "plugin shopping-cart, você irá ver o botão &#8216;Adicionar ao "
-"carrinho&#8217; em cada produto listado. Aqui como ele aparece no catalogo:"
+"carrinho&#8217; em cada produto listado. Aqui como ele aparece no catálogo:"
 
 #. type: Attribute 'alt' of: <p><img>
 #: doc/noosfero/plugins/shopping_cart.en.xhtml:21
 msgid "Catalog"
-msgstr "Catalogo"
+msgstr "Catálogo"
 
 #. type: Content of: <p>
 #: doc/noosfero/plugins/shopping_cart.en.xhtml:22
@@ -190,7 +190,7 @@ msgid ""
 msgstr ""
 "Se você quer adicionar novos produtos basta fazer a mesma coisa. Se você "
 "tentar adicionar um produto que já está no seu carrinho, ele irá aumentar em "
-"a quantidade desse produto."
+"um a quantidade desse produto."
 
 # type: Attribute 'alt' of: <ol><li><p><img>
 #. type: Attribute 'alt' of: <p><img>
@@ -208,7 +208,7 @@ msgid ""
 msgstr ""
 "<span class=\"caps\">OBS</span>: você só pode adicionar produtos de um mesmo "
 "empreendimento no carrinho. Se você quer comprar produtos de um "
-"empreendimento diferente, então você deve finalizar sua compra com um e "
+"empreendimento diferente, você deve finalizar sua compra com um e "
 "então começar a nova compra com o outro."
 
 # type: Content of: <h1>
@@ -337,7 +337,7 @@ msgstr ""
 "O carrinho é uma funcionalidade que está sempre sobre a página no canto "
 "superior direito, então em alguns momentos você pode ficar nervoso tentando "
 "ver algo que pode estar embaixo dele. Não se preocupe! No seu carrinho tem "
-"um botão &#8220;Esconder carrinho&#8220;:"
+"um botão &#8220;Esconder carrinho&#8221;:"
 
 #. type: Attribute 'alt' of: <p><img>
 #: doc/noosfero/plugins/shopping_cart.en.xhtml:49
@@ -348,10 +348,10 @@ msgstr "Esconder carrinho"
 #: doc/noosfero/plugins/shopping_cart.en.xhtml:50
 msgid ""
 "This button will slide up your cart when pressed leaving just a little "
-"&#8216;Show cart&#8217; so that you can slide it down again:"
+"&#8220;Show cart&#8221; so that you can slide it down again:"
 msgstr ""
 "Quando clicado, esse botão irá deslizar para cima o seu carrinho deixando "
-"apenas um pequeno &#8216;Mostar carrinho&#8217; para que você possa desliza-"
+"apenas um pequeno &#8220;Mostrar carrinho&#8221; para que você possa desliza-"
 "lo para baixo novamente:"
 
 #. type: Attribute 'alt' of: <p><img>
@@ -370,11 +370,11 @@ msgstr ""
 #. type: Content of: <p>
 #: doc/noosfero/plugins/shopping_cart.en.xhtml:53
 msgid ""
-"If you miss your beatiful cart again just press &#8216;Show cart&#8217; and "
+"If you miss your beatiful cart again just press &#8220;Show cart&#8221; and "
 "it will slide down gracefully back to you.  ^^"
 msgstr ""
-"Se você sente falta do seu lindo carrinho novamente, basta apertar &#8216;"
-"&#8217;"
+"Se você sente falta do seu lindo carrinho novamente, basta apertar &#8220;"
+"Mostrar carrinho&#8221;."
 
 #. type: Content of: <h2>
 #: doc/noosfero/plugins/shopping_cart.en.xhtml:54
@@ -388,7 +388,7 @@ msgid ""
 "checkout your products."
 msgstr ""
 "Então, agora você já escolheu os seus produtos e as respectivas quantidades "
-"e você quer finalizar a sua compra."
+"e você quer finalizar o seu pedido."
 
 # type: Content of: <ol><li>
 #. type: Content of: <p>
@@ -398,7 +398,7 @@ msgid ""
 "button:"
 msgstr ""
 "Como você pode ver no seu carrinho, tem um botão &#8220;Finalizar "
-"Compra&#8221;:"
+"Pedido&#8221;:"
 
 #. type: Attribute 'alt' of: <p><img>
 #: doc/noosfero/plugins/shopping_cart.en.xhtml:57
@@ -475,7 +475,7 @@ msgstr ""
 "Esse botão irá enviar a sua requisição para o empreendimento e também irá "
 "lhe mandar um email com o seu pedido para que você possa confirmar os seus "
 "produtos e as suas informações. Agora o empreendimento deve te contactar "
-"para discutir demais detalhes.i"
+"para discutir demais detalhes."
 
 # type: Content of: <ul><li>
 #. type: Content of: <p>
