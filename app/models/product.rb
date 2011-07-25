@@ -104,7 +104,7 @@ class Product < ActiveRecord::Base
   end
 
   def price_with_discount
-    price - discount if discount
+    discount ? price - discount : price
   end
 
   def price=(value)
