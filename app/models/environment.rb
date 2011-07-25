@@ -247,6 +247,9 @@ class Environment < ActiveRecord::Base
 
   settings_items :enabled_plugins, :type => Array, :default => []
 
+  settings_items :search_products_hint, :type => String, :default => ''
+  settings_items :search_contents_hint, :type => String, :default => ''
+
   def news_amount_by_folder=(amount)
     settings[:news_amount_by_folder] = amount.to_i
   end
