@@ -49,6 +49,7 @@ class Test::Unit::TestCase
   fixtures :environments, :roles
 
   def self.setup
+    # clean up index db before each test
     ActsAsSolr::Post.execute(Solr::Request::Delete.new(:query => '*:*'))
   end
   
