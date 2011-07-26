@@ -48,9 +48,9 @@ SOLR_PID_FILE=$NOOSFERO_DIR/tmp/pids/solr.production.pid
 main_script() {
   cd $NOOSFERO_DIR
   if [ "$NOOSFERO_USER" != "$USER" ]; then
-    su $NOOSFERO_USER -l -c "SOLR_DATA_PATH=/var/lib/noosfero/solr ./script/production $1"
+    su $NOOSFERO_USER -l -c "SOLR_DATA_PATH=/var/lib/noosfero-data/index ./script/production $1"
   else
-    SOLR_DATA_PATH=/var/lib/noosfero/solr ./script/production $1
+    SOLR_DATA_PATH=/var/lib/noosfero-data/index ./script/production $1
   fi
 }
 
