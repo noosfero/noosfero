@@ -6,6 +6,7 @@ class ProfileSearchController; def rescue_action(e) raise e end; end
 
 class ProfileSearchControllerTest < Test::Unit::TestCase
   def setup
+    Test::Unit::TestCase::setup
     @controller = ProfileSearchController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
@@ -13,14 +14,6 @@ class ProfileSearchControllerTest < Test::Unit::TestCase
     @person = fast_create(Person)
   end
   attr_reader :person
-
-  should 'filter stop words' do
-    @controller.expects(:locale).returns('en').at_least_once
-    get 'index', :profile => person.identifier, :q => 'an article about something'
-    assert_response :success
-    assert_template 'index'
-    assert_equal 'article something', assigns('filtered_query')
-  end
 
   should 'espape xss attack' do
     @controller.expects(:profile).returns(person).at_least_once
@@ -41,8 +34,8 @@ class ProfileSearchControllerTest < Test::Unit::TestCase
   end
 
   should 'display search results' do
-    article1 = fast_create(Article, :body => '<p>Article to test profile search</p>', :profile_id => person.id)
-    article2 = fast_create(Article, :body => '<p>Another article to test profile search</p>', :profile_id => person.id)
+    article1 = fast_create(Article, {:body => '<p>Article to test profile search</p>', :profile_id => person.id}, :search => true)
+    article2 = fast_create(Article, {:body => '<p>Another article to test profile search</p>', :profile_id => person.id}, :search => true)
 
     get 'index', :profile => person.identifier, :q => 'article'
 

@@ -388,7 +388,7 @@ class Article < ActiveRecord::Base
   end
 
   def comments_updated
-    ferret_update
+    solr_save
   end
 
   def accept_category?(cat)
