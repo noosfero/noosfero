@@ -65,7 +65,7 @@ Given /^the following (articles|events|blogs|folders|forums|galleries)$/ do |con
       result.parent = Article.find_by_name(parent)
     end
     result.save!
-    if home
+    if home == 'true'
       owner.home_page = result
       owner.save!
     end
