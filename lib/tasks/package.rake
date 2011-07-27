@@ -9,7 +9,7 @@ task :package => 'package:clobber' do
     fail
   end
   begin
-    sh 'test -f vendor/plugins/acts_as_solr/solr/start.jar'
+    sh 'test -f vendor/plugins/acts_as_solr_reloaded/solr/start.jar'
   rescue
     puts "** The `package` task needs Solr installed within #{Noosfero::PROJECT}. Run 'rake solr:download'."
     fail
@@ -20,9 +20,9 @@ task :package => 'package:clobber' do
   sh "git archive HEAD | (cd #{target} && tar x)"
 
   #solr inclusion
-  cp_r "vendor/plugins/acts_as_solr/solr", "#{target}/vendor/plugins/acts_as_solr", :verbose => true
-  rm_r "#{target}/vendor/plugins/acts_as_solr/solr/work"
-  mkdir_p "#{target}/vendor/plugins/acts_as_solr/solr/work"
+  cp_r "vendor/plugins/acts_as_solr_reloaded/solr", "#{target}/vendor/plugins/acts_as_solr_reloaded", :verbose => true
+  rm_r "#{target}/vendor/plugins/acts_as_solr_reloaded/solr/work"
+  mkdir_p "#{target}/vendor/plugins/acts_as_solr_reloaded/solr/work"
 
   sh "cd pkg && tar czf #{release}.tar.gz #{release}"
 end
