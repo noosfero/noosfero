@@ -7,6 +7,7 @@ class BrowseController; def rescue_action(e) raise e end; end
 class BrowseControllerTest < Test::Unit::TestCase
 
   def setup
+    Test::Unit::TestCase::setup
     @controller = BrowseController.new
     @request    = ActionController::TestRequest.new
     @request.stubs(:ssl?).returns(false)
