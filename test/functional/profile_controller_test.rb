@@ -1183,4 +1183,13 @@ class ProfileControllerTest < Test::Unit::TestCase
     end
   end
 
+  should 'redirect to profile domain if it has one' do
+    community = fast_create(Community, :name => 'community with domain')
+    community.domains << Domain.new(:name => 'community.example.net')
+    @request.stubs(:host).returns(community.environment.default_hostname)
+    get :index, :profile => community.identifier
+    assert_response :redirect
+    assert_redirected_to :host => 'community.example.net'
+  end
+
 end
