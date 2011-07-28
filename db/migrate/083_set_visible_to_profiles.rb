@@ -1,8 +1,3 @@
-class Environment < ActiveRecord::Base
-  set_table_name 'environments'
-  serialize :settings, Hash
-end
-
 class SetVisibleToProfiles < ActiveRecord::Migration
   def self.up
     templates = []

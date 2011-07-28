@@ -1,4 +1,3 @@
-class Environment < ActiveRecord::Base; end
 class Role < ActiveRecord::Base; end
 class RoleWithEnvironment < ActiveRecord::Base
   set_table_name 'roles'

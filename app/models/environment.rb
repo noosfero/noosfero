@@ -226,7 +226,19 @@ class Environment < ActiveRecord::Base
   settings_items :currency_separator, :type => String, :default => '.'
   settings_items :currency_delimiter, :type => String, :default => ','
 
-  settings_items :trusted_sites_for_iframe, :type => Array, :default => ['itheora.org', 'tv.softwarelivre.org', 'stream.softwarelivre.org', 'www.youtube.com', 'player.vimeo.com']
+  settings_items :trusted_sites_for_iframe, :type => Array, :default => %w[
+    developer.myspace.com
+    itheora.org
+    maps.google.com
+    platform.twitter.com
+    player.vimeo.com
+    stream.softwarelivre.org
+    tv.softwarelivre.org
+    www.facebook.com
+    www.flickr.com
+    www.gmodules.com
+    www.youtube.com
+  ] + ('a' .. 'z').map{|i| "#{i}.yimg.com"}
 
   settings_items :enabled_plugins, :type => Array, :default => []
 
