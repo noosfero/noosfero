@@ -108,6 +108,48 @@ class ShoppingCartPluginProfileController < ProfileController
     end
   end
 
+  def visibility
+    render :text => session[:cart].has_key?(:visibility) ? session[:cart][:visibility].to_json : true.to_json
+  end
+
+  def show
+    begin
+      session[:cart][:visibility] = true
+      render :text => {
+        :ok => true,
+        :message => _('Cart displayed.'),
+        :error => {:code => 0}
+      }.to_json
+    rescue Exception => exception
+      render :text => {
+        :ok => false,
+        :error => {
+          :code => 7,
+          :message => exception.message
+        }
+      }.to_json
+    end
+  end
+
+  def hide
+    begin
+      session[:cart][:visibility] = false
+      render :text => {
+        :ok => true,
+        :message => _('Cart Hidden.'),
+        :error => {:code => 0}
+      }.to_json
+    rescue Exception => exception
+      render :text => {
+        :ok => false,
+        :error => {
+          :code => 8,
+          :message => exception.message
+        }
+      }.to_json
+    end
+  end
+
   private
 
   def validate_same_enterprise
