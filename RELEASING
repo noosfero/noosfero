@@ -12,7 +12,7 @@ This file documents release-related activities.
 
 == Releasing noosfero
 
-Considering you are on Debian GNU/Linux or Debian-bases system
+Considering you are on a Debian GNU/Linux or Debian-based system
  # apt-get install devscripts debhelper
 
 To prepare a release of noosfero, you must follow the steps below:
@@ -25,8 +25,8 @@ To prepare a release of noosfero, you must follow the steps below:
 * Generate packages with <tt>rake noosfero:release</tt>. Your tarball and deb
   pkg will be under the pkg/ directory. This task will create a git tag too.
 * Test that the tarball and deb package are ok
-* Go to the version's wiki topic and edit it to reflect the new reality and
-  edit WebPreferences and update DEBIAN_REPOSITORY_TOPICS setting
+* Go to the version's wiki topic and edit it to reflect the new reality
+* Edit the topic WebPreferences and update DEBIAN_REPOSITORY_TOPICS setting
 * Attach the generated packages to that topic. Before attaching calculate the
   sha1 of the package (with sha1sum and paste the SHA1 hash as comment in the
   attachment form)
