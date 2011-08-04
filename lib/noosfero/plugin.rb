@@ -121,4 +121,10 @@ class Noosfero::Plugin
     []
   end
 
+  # -> Adds stuff in user data hash
+  # returns = { :some_data => some_value, :another_data => another_value }
+  def user_data_extras
+    {}
+  end
+
 end

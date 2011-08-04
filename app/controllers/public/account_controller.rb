@@ -224,6 +224,8 @@ class AccountController < ApplicationController
       session[:notice] = nil # consume the notice
     end
 
+    @plugins.enabled_plugins.each { |plugin| user_data.merge!(plugin.user_data_extras) }
+
     render :text => user_data.to_json, :layout => false, :content_type => "application/javascript"
   end
 

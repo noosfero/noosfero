@@ -670,6 +670,25 @@ class AccountControllerTest < Test::Unit::TestCase
     assert_equal 'unavailable', assigns(:status_class)
   end
 
+  should 'merge user data with extra stuff from plugins' do
+    plugin1 = mock()
+    plugin1.stubs(:user_data_extras).returns({ :foo => 'bar' })
+
+    plugin2 = mock()
+    plugin2.stubs(:user_data_extras).returns({ :test => 5 })
+
+    enabled_plugins = [plugin1, plugin2]
+
+    plugins = mock()
+    plugins.stubs(:enabled_plugins).returns(enabled_plugins)
+    Noosfero::Plugin::Manager.stubs(:new).returns(plugins)
+
+    login_as 'ze'
+
+    xhr :get, :user_data
+    assert_equal User.find_by_login('ze').data_hash.merge({ 'foo' => 'bar', 'test' => 5 }), ActiveSupport::JSON.decode(@response.body)
+  end
+
   protected
     def new_user(options = {}, extra_options ={})
       data = {:profile_data => person_data}
