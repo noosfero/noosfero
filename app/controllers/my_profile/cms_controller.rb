@@ -383,5 +383,9 @@ class CmsController < MyProfileController
     @selected_locale = @article.language || FastGettext.locale
   end
 
+  def content_editor?
+    true
+  end
+
 end
 

@@ -980,7 +980,10 @@ module ApplicationHelper
   def article_to_html(article, options = {})
     options.merge!(:page => params[:npage])
     content = article.to_html(options)
-    return self.instance_eval(&content) if content.kind_of?(Proc)
+    content = content.kind_of?(Proc) ? self.instance_eval(&content) : content
+    @plugins && @plugins.enabled_plugins.each do |plugin|
+      content = plugin.parse_content(content)
+    end
     content
   end
 
@@ -1219,6 +1222,10 @@ module ApplicationHelper
         });
       });" % _('Zoom in'))
     end
+  end
+
+  def render_dialog_error_messages(instance_name)
+    render :partial => 'shared/dialog_error_messages', :locals => { :object_name => instance_name }
   end
 
 end

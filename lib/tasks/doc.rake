@@ -1,5 +1,8 @@
 namespace :noosfero do
   namespace :doc do
+    Dir.glob('plugins/**/doc/*.textile').each do |file|
+      ln_sf File.join(RAILS_ROOT, file), 'doc/noosfero/plugins/'
+    end
     input = Dir.glob('doc/noosfero/**/*.textile')
     topics_xhtml = input.map { |item| item.sub('.textile', '.en.xhtml') }
     sections = Dir.glob('doc/noosfero/*').select {|item| File.directory?(item) }
