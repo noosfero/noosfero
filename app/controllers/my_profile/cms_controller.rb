@@ -52,6 +52,9 @@ class CmsController < MyProfileController
     if @parent && @parent.blog?
       articles -= Article.folder_types.map(&:constantize)
     end
+    if user.is_admin?(profile.environment)
+      articles << RawHTMLArticle
+    end
     articles
   end
 

@@ -1618,4 +1618,11 @@ class CmsControllerTest < Test::Unit::TestCase
     end
   end
 
+  should 'make RawHTMLArticle available only to environment admins' do
+    @controller.stubs(:profile).returns(profile)
+    assert_not_includes @controller.available_article_types, RawHTMLArticle
+    profile.environment.add_admin(profile)
+    assert_includes @controller.available_article_types, RawHTMLArticle
+  end
+
 end
