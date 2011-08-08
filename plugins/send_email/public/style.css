@@ -1,0 +1,22 @@
+.sendemail-plugin-message-sent {
+  width: 100%;
+  background-color: #F0F0F0;
+  border: 1px solid #CFCFCF;
+}
+.sendemail-plugin-message-sent td {
+  border: 0;
+}
+.sendemail-plugin-message-sent tr:hover,
+.sendemail-plugin-message-sent td:hover,
+.sendemail-plugin-message-sent tr:hover td {
+  background-color: auto;
+}
+.sendemail-plugin-message-sent pre {
+  margin: 0 auto;
+}
+.sendemail-plugin-message-sent td {
+  vertical-align: top;
+}
+.sendemail-plugin-message-sent .value {
+  width: 100%;
+}

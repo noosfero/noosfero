@@ -1,0 +1,61 @@
+h1. SendEmailPlugin
+
+Allows to send e-mails through an e-mail form.
+
+h2. Usage
+
+* Create a HTML form using RawHTMLBlock or RawHTMLArticle that invokes the {sendemail} action
+* Add a "to" and "message" field and a submit button
+* Make sure to fill in allowed 'to' addresses in plugin settings
+
+h2. HTML form
+
+h3. Form action
+
+You should use {sendemail} macro as form action, it will be expanded as:
+
+* */profile/&lt;identifier&gt;/plugins/send_email/deliver* in profile context
+* */plugin/send_email/deliver* in environment context
+
+h3. 'Subject' field
+
+Subject of message.
+
+(default: 'New mail')
+
+h3. 'Message' field
+
+Body of message.
+
+(required)
+
+h3. 'To' field
+
+Target address. Accepts multiple addresses separated by comma.
+
+(required)
+
+h3. extra fields
+
+Each other params in HTML form will compose message body in a format "key: value"
+
+h2. Options
+
+h3. Using ajax
+
+Ajax is supported using #ajax-form as id of HTML form.
+
+Example:
+
+<pre>
+<form action='{sendemail}' id='ajax-form'>
+   <input type='text' name='to'/>
+   <input type='text' name='subject'/>
+   <input type='text' name='message'/>
+   <input type='subject'/>
+</form>
+</pre>
+
+h2. Info
+
+This plugin was inspired by "Foswiki SendEmailPlugin":http://foswiki.org/Extensions/SendEmailPlugin
