@@ -25,6 +25,7 @@ class AdminControllerTest < Test::Unit::TestCase
   end
 
   should 'detect ssl' do
+    login_as 'ze'
     @request.expects(:ssl?).returns(true).at_least_once
     get :index
     assert_response :success
