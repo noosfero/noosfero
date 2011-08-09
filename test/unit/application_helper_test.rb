@@ -18,6 +18,18 @@ class ApplicationHelperTest < Test::Unit::TestCase
 
     File.expects(:exists?).with(p1+"test/_integer.rhtml").returns(true)
 
+    assert_equal 'integer', partial_for_class(Integer)
+  end
+
+
+  should 'calculate correctly partial for models recursively' do
+    p1 = 'path1/'
+    p2 = 'path2/'
+    @controller = mock()
+    @controller.stubs(:view_paths).returns([p1,p2])
+
+    self.stubs(:params).returns({:controller => 'test'})
+
     File.expects(:exists?).with(p1+"test/_float.rhtml").returns(false)
     File.expects(:exists?).with(p1+"test/_float.html.erb").returns(false)
     File.expects(:exists?).with(p2+"test/_float.rhtml").returns(false)
@@ -28,13 +40,22 @@ class ApplicationHelperTest < Test::Unit::TestCase
     File.expects(:exists?).with(p1+"test/_numeric.html.erb").returns(false)
     File.expects(:exists?).with(p2+"test/_numeric.rhtml").returns(true)
 
+    assert_equal 'numeric', partial_for_class(Float)
+  end
+
+  should 'raise error when partial is missing' do
+    p1 = 'path1/'
+    p2 = 'path2/'
+    @controller = mock()
+    @controller.stubs(:view_paths).returns([p1,p2])
+
+    self.stubs(:params).returns({:controller => 'test'})
+
     File.expects(:exists?).with(p1+"test/_object.rhtml").returns(false)
     File.expects(:exists?).with(p1+"test/_object.html.erb").returns(false)
     File.expects(:exists?).with(p2+"test/_object.rhtml").returns(false)
     File.expects(:exists?).with(p2+"test/_object.html.erb").returns(false)
 
-    assert_equal 'integer', partial_for_class(Integer)
-    assert_equal 'numeric', partial_for_class(Float)
     assert_raises ArgumentError do
       partial_for_class(Object)
     end
