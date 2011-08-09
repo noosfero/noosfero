@@ -3,11 +3,12 @@ require File.dirname(__FILE__) + '/../test_helper'
 class CategoryFinderTest < ActiveSupport::TestCase
 
   def setup
+    Test::Unit::TestCase::setup
     @category = Category.create!(:name => 'my category', :environment => Environment.default)
     @finder = CategoryFinder.new(@category)
     @product_category = fast_create(ProductCategory, :name => 'Products')
 
-    Profile.rebuild_index
+    Profile.rebuild_solr_index
   end
 	
   should 'search for articles in a specific category' do

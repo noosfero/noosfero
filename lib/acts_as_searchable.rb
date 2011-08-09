@@ -1,57 +1,67 @@
 module ActsAsSearchable
 
   module ClassMethods
+    ACTS_AS_SEARCHABLE_ENABLED = true unless defined? ACTS_AS_SEARCHABLE_ENABLED
+
     def acts_as_searchable(options = {})
-      if Noosfero::MultiTenancy.on? and ActiveRecord::Base.postgresql?
-        options[:additional_fields] ||= {}
-        options[:additional_fields] = Hash[*options[:additional_fields].collect{ |v| [v, {}] }.flatten] if options[:additional_fields].is_a?(Array)
-        options[:additional_fields].merge!(:schema_name => { :index => :untokenized })
+      if ACTS_AS_SEARCHABLE_ENABLED
+        if (!options[:fields])
+          options[:additional_fields] |= [{:schema_name => :string}]
+        else
+          options[:fields] << {:schema_name => :string}
+        end
+        acts_as_solr options
+        extend FindByContents
+        send :include, InstanceMethods
       end
-      acts_as_ferret({ :remote => true }.merge(options))
-      extend FindByContents
-      send :include, InstanceMethods
     end
 
     module InstanceMethods
       def schema_name
-        ActiveRecord::Base.connection.schema_search_path
+        (Noosfero::MultiTenancy.on? and ActiveRecord::Base.postgresql?) ? ActiveRecord::Base.connection.schema_search_path : ''
       end
     end
 
     module FindByContents
 
       def schema_name
-        ActiveRecord::Base.connection.schema_search_path
+        (Noosfero::MultiTenancy.on? and ActiveRecord::Base.postgresql?) ? ActiveRecord::Base.connection.schema_search_path : ''
       end
 
-      def find_by_contents(query, ferret_options = {}, db_options = {})
-        pg_options = {}
-        if ferret_options[:page]
-          pg_options[:page] = ferret_options.delete(:page)
-        end
-        if ferret_options[:per_page]
-          pg_options[:per_page] = ferret_options.delete(:per_page)
-        end
-
-        ferret_options[:limit] = :all
-
-        ferret_query = (Noosfero::MultiTenancy.on? and ActiveRecord::Base.postgresql?) ? "+schema_name:\"#{schema_name}\" AND #{query}" : query
-        # FIXME this is a HORRIBLE HACK
-        ids = find_ids_with_ferret(ferret_query, ferret_options)[1][0..8000].map{|r|r[:id].to_i}
-
-        if ids.empty?
-          ids << -1
-        end
-
-        if db_options[:conditions]
-          db_options[:conditions] = sanitize_sql_for_conditions(db_options[:conditions]) + " and #{table_name}.id in (#{ids.join(', ')})"
-        else
-          db_options[:conditions] = "#{table_name}.id in (#{ids.join(', ')})"
-        end
-
+      def find_by_contents(query, pg_options = {}, options = {}, db_options = {})
         pg_options[:page] ||= 1
-        result = find(:all, db_options)
-        result.paginate(pg_options)
+        pg_options[:per_page] ||= 20
+        options[:limit] = pg_options[:per_page].to_i*pg_options[:page].to_i
+        options[:scores] = true;
+
+        query = !schema_name.empty? ? "+schema_name:\"#{schema_name}\" AND #{query}" : query
+        solr_result = find_by_solr(query, options)
+        if solr_result.nil?
+          results = facets = []
+        else
+          facets = options.include?(:facets) ? solr_result.facets : []
+
+          if db_options.empty?
+            results = solr_result.results
+          else
+            ids = solr_result.results.map{|r|r[:id].to_i}
+            if ids.empty?
+              ids << -1
+            end
+
+            if db_options[:conditions]
+              db_options[:conditions] = sanitize_sql_for_conditions(db_options[:conditions]) + " and #{table_name}.id in (#{ids.join(', ')})"
+            else
+              db_options[:conditions] = "#{table_name}.id in (#{ids.join(', ')})"
+            end
+
+            results = find(:all, db_options)
+          end
+
+          results = results.paginate(pg_options.merge(:total_entries => solr_result.total))
+        end
+
+        {:results => results, :facets => facets}
       end
     end
   end

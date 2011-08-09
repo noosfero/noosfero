@@ -50,14 +50,14 @@ class ForumHelperTest < Test::Unit::TestCase
     some_post.comments << Comment.new(:title => 'test', :body => 'test', :author => a2)
     c = Comment.last
     assert_equal 2, some_post.comments.count
-    assert_match /#{c.created_at.to_s} ago by <a href='[^']+'>a2<\/a>/, last_topic_update(some_post)
+    assert_match(/#{Regexp.escape(c.created_at.to_s)} ago by <a href='[^']+'>a2<\/a>/, last_topic_update(some_post))
   end
 
   should "return last comment author's name from unauthenticated user" do
     some_post = TextileArticle.create!(:name => 'First post', :profile => profile, :parent => forum, :published => true)
     some_post.comments << Comment.new(:name => 'John', :email => 'lenon@example.com', :title => 'test', :body => 'test')
     c = Comment.last
-    assert_match /#{c.created_at.to_s} ago by John/m, last_topic_update(some_post)
+    assert_match(/#{Regexp.escape(c.created_at.to_s)} ago by John/m, last_topic_update(some_post))
   end
 
   protected
