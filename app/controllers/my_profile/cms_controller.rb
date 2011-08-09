@@ -335,6 +335,12 @@ class CmsController < MyProfileController
     end
   end
 
+  def search
+    query = params[:q]
+    results = query.blank? ? [] : profile.articles.published.find_by_contents(query)
+    render :text => results.map { |item| { 'title' => item.title, 'url' => url_for(item.url), :icon => icon_for_article(item), :content_type => item.mime_type }}.to_json, :content_type => 'application/json'
+  end
+
   protected
 
   def record_coming

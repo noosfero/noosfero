@@ -1618,4 +1618,17 @@ class CmsControllerTest < Test::Unit::TestCase
     end
   end
 
+  should 'search for content for inclusion in articles' do
+    file = UploadedFile.create!(:profile => @profile, :uploaded_data => fixture_file_upload('files/test.txt', 'text/plain'))
+    get :search, :profile => @profile.identifier, :q => 'test.txt'
+    assert_match /test.txt/, @response.body
+    assert_equal 'application/json', @response.content_type
+
+    data = eval(@response.body.gsub('":', '"=>'))
+    assert_equal 'test.txt', data.first['title']
+    assert_match /\/testinguser\/test.txt$/, data.first['url']
+    assert_match /text/, data.first['icon']
+    assert_match /text/, data.first['content_type']
+  end
+
 end

@@ -1,0 +1,55 @@
+<div class='textile-editor-sidebar'>
+  <div class='textile-editor-sidebar-box'>
+    <p>
+      <strong><%= _('Textile markup quick reference') %></strong>
+      <%= link_to(_('(show)'), '#', :id => 'textile-quickref-show') %>
+      <%= link_to(_('(hide)'), '#', :id => 'textile-quickref-hide', :style => 'display: none') %>
+    </p>
+    <div id='textile-quickref' style='display: none;'>
+      <p><%= _('Simple formatting:') %> <code>_<%= _('italics') %>_</code> <code>*<%= _('bold') %>*</code>, <code>-<%= _('striked')%>-</code>.</p>
+      <p><%= _('Links:') %> <code>"Noosfero":http://noosfero.org/</code></p>
+      <p><%= _('Images:') %> <code>!http://example.com/image.png!</code></p>
+      <p><%= _('Bullet lists:') %></p>
+      <pre>* <%= _('first item') %>
+* <%= _('second item') %></pre>
+      <p><%= _('Numbered lists:') %></p>
+      <pre># <%= _('first item') %>
+# <%= _('second item') %></pre>
+      <p><%= _('See also a more complete <a href="%s">Textile Reference</a>') % 'http://redcloth.org/hobix.com/textile/' %></p>
+    </div>
+  </div>
+  <div class='textile-editor-sidebar-box'>
+    <p><strong>Media upload</strong></p>
+    <% @folders = profile.folders %>
+    <% form_tag({ :action => 'media_upload' }, :multipart => true) do |f| %>
+      <%= render :partial => 'upload_file_form', :locals => { :size => 30 } %>
+    <% end %>
+    <div id='media-upload-results' style='display: none'>
+      <ul>
+      </ul>
+      <p>
+      <em><%= _('Drag item names to the text to add their URL') %></em>
+      </p>
+      <p><%= link_to('#', _('Upload more files'), :id => 'media-upload-more-files') %></p>
+    </div>
+  </div>
+  <div class='textile-editor-sidebar-box'>
+    <p><strong>Media search</strong></p>
+    <% form_tag({ :action => 'search' }) do %>
+      <span class='formfield'>
+        <input name='q' type='text' id='media-search-query' style='width: 250px;'/>
+      </span>
+      <%= submit_button :search, _('Search'), :id => 'media-search-button' %>
+    <% end %>
+    </form>
+    <div id='media-search-results' style='display: none'>
+      <ul>
+      </ul>
+      <p>
+      <em><%= _('Drag item names to the text to add their URL') %></em>
+      </p>
+    </div>
+  </div>
+</div>
+
+
