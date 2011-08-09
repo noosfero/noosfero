@@ -3344,21 +3344,7 @@ table.cms-articles .icon:hover {
   display: block;
 }
 
-/* Media listing */
-
-.controller-cms #media-listing-iframe {
-  float: right;
-  width: 380px;
-  height: 630px;
-  border: none;
-  margin-top: 104px;
-  padding: 0px;
-  overflow: hidden;
-}
-
-.controller-cms .msie #media-listing-iframe {
-  height: 610px;
-}
+/* Text editors sidebar */
 
 .controller-cms div.with_media_panel {
   float: left;
@@ -3368,8 +3354,6 @@ table.cms-articles .icon:hover {
 div.with_media_panel .formfield input {
   width: 100%;
 }
-
-/* Textile sidebar */
 
 .text-editor-sidebar {
   position: absolute;

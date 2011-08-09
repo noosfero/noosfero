@@ -1064,7 +1064,7 @@ class CmsControllerTest < Test::Unit::TestCase
     assert_tag :tag => 'input', :attributes => { :name => 'article[external_feed_builder][only_once]', :checked => 'checked', :value => 'true' }
   end
 
-  should 'display iframe for media listing when it is TinyMceArticle and enabled on environment' do
+  should 'display media listing when it is TinyMceArticle and enabled on environment' do
     e = Environment.default
     e.enable('media_panel')
     e.save!
@@ -1076,10 +1076,10 @@ class CmsControllerTest < Test::Unit::TestCase
     file = UploadedFile.create!(:profile => profile, :parent => non_image_folder, :uploaded_data => fixture_file_upload('/files/test.txt', 'text/plain'))
 
     get :new, :profile => profile.identifier, :type => 'TinyMceArticle'
-    assert_tag :tag => 'iframe', :attributes => { :src => "/myprofile/#{profile.identifier}/cms/media_listing?type=TinyMceArticle" }
+    assert_tag :div, :attributes => { :class => "text-editor-sidebar" }
   end
 
-  should 'not display iframe for media listing when it is Folder' do
+  should 'not display media listing when it is Folder' do
     image_folder = Folder.create(:profile => profile, :name => 'Image folder')
     non_image_folder = Folder.create(:profile => profile, :name => 'Non image folder')
 
@@ -1087,145 +1087,7 @@ class CmsControllerTest < Test::Unit::TestCase
     file = UploadedFile.create!(:profile => profile, :parent => non_image_folder, :uploaded_data => fixture_file_upload('/files/test.txt', 'text/plain'))
 
     get :new, :profile => profile.identifier, :type => 'Folder'
-    assert_no_tag :tag => 'iframe', :attributes => { :src => "/myprofile/#{profile.identifier}/cms/media_listing" }
-  end
-
-  should 'display list of images' do
-    file = UploadedFile.create!(:profile => profile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
-    process_delayed_job_queue
-    get :media_listing, :profile => profile.identifier
-
-    assert_tag :tag => 'div', :attributes => { :id => 'media-listing-images' }, :descendant => { :tag => 'img', :attributes => {:src => /rails.png/}}
-  end
-
-  should 'display loading image if not processed yet' do
-    file = UploadedFile.create!(:profile => profile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
-    get :media_listing, :profile => profile.identifier
-
-    assert_tag :tag => 'div', :attributes => { :id => 'media-listing-images' }, :descendant => { :tag => 'img', :attributes => {:src => /image-loading-thumb.png/}}
-  end
-
-
-  should 'display list of documents' do
-    file = UploadedFile.create!(:profile => profile, :uploaded_data => fixture_file_upload('/files/test.txt', 'text/plain'))
-    get :media_listing, :profile => profile.identifier
-    assert_tag :tag => 'div', :attributes => { :id => 'media-listing-documents' }, :descendant => { :tag => 'a', :attributes => {:href => /#{file.name}/}}
-  end
-
-  should 'list image folders to select' do
-    image_folder = Folder.create(:profile => profile, :name => 'Image folder')
-    non_image_folder = Folder.create(:profile => profile, :name => 'Non image folder')
-
-    image = UploadedFile.create!(:profile => profile, :parent => image_folder, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
-    file = UploadedFile.create!(:profile => profile, :parent => non_image_folder, :uploaded_data => fixture_file_upload('/files/test.txt', 'text/plain'))
-
-    get :media_listing, :profile => profile.identifier
-    assert_tag :tag => 'div', :attributes => { :id => 'media-listing-images' }, :descendant => { :tag => 'option', :content => /#{image_folder.name}/, :attributes => { :value => image_folder.id}}
-    assert_no_tag :tag => 'div', :attributes => { :id => 'media-listing-images' }, :descendant => { :tag => 'option', :content => /#{non_image_folder.name}/, :attributes => { :value => non_image_folder.id}}
-  end
-
-  should 'list documents folders to select' do
-    image_folder = Folder.create(:profile => profile, :name => 'Image folder')
-    non_image_folder = Folder.create(:profile => profile, :name => 'Non image folder')
-
-    image = UploadedFile.create!(:profile => profile, :parent => image_folder, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
-    file = UploadedFile.create!(:profile => profile, :parent => non_image_folder, :uploaded_data => fixture_file_upload('/files/test.txt', 'text/plain'))
-
-    get :media_listing, :profile => profile.identifier
-    assert_no_tag :tag => 'div', :attributes => { :id => 'media-listing-documents' }, :descendant => { :tag => 'option', :content => /#{image_folder.name}/, :attributes => { :value => image_folder.id}}
-    assert_tag :tag => 'div', :attributes => { :id => 'media-listing-documents' }, :descendant => { :tag => 'option', :content => /#{non_image_folder.name}/, :attributes => { :value => non_image_folder.id}}
-  end
-
-  should 'get a list of images from a image folder' do
-    folder = Folder.create(:profile => profile, :name => 'Image folder')
-    other_folder = Folder.create(:profile => profile, :name => 'Non image folder')
-    image = UploadedFile.create!(:profile => profile, :parent => folder, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
-    file_in_folder = UploadedFile.create!(:profile => profile, :parent => folder, :uploaded_data => fixture_file_upload('/files/test.txt', 'text/plain'))
-    image_in_other_folder = UploadedFile.create!(:profile => profile, :parent => other_folder, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
-
-    get :media_listing, :profile => profile.identifier, :image_folder_id => folder.id, :format => 'js'
-
-    assert_includes assigns(:images), image
-    assert_not_includes assigns(:images), file_in_folder
-    assert_not_includes assigns(:images), image_in_other_folder
-  end
-
-  should 'get a list of images from profile' do
-    image = UploadedFile.create!(:profile => profile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
-    folder = Folder.create(:profile => profile, :name => 'Image folder')
-    image_in_folder = UploadedFile.create!(:profile => profile, :parent => folder, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
-    get :media_listing, :profile => profile.identifier, :image_folder_id => '', :format => 'js'
-
-    assert_includes assigns(:images), image
-    assert_not_includes assigns(:images), image_in_folder
-  end
-
-  should 'get a list of documents from a document folder' do
-    folder = Folder.create(:profile => profile, :name => 'Non images folder')
-    other_folder = Folder.create(:profile => profile, :name => 'Image folder')
-    file = UploadedFile.create!(:profile => profile, :parent => folder, :uploaded_data => fixture_file_upload('/files/test.txt', 'text/plain'))
-    image = UploadedFile.create!(:profile => profile, :parent => folder, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
-    file_in_other_folder = UploadedFile.create!(:profile => profile, :parent => other_folder, :uploaded_data => fixture_file_upload('/files/test.txt', 'text/plain'))
-
-    get :media_listing, :profile => profile.identifier, :document_folder_id => folder.id, :format => 'js'
-
-    assert_includes assigns(:documents), file
-    assert_not_includes assigns(:documents), image
-    assert_not_includes assigns(:documents), file_in_other_folder
-  end
-
-  should 'get a list of documents from profile' do
-    file = UploadedFile.create!(:profile => profile, :uploaded_data => fixture_file_upload('/files/test.txt', 'text/plain'))
-    folder = Folder.create(:profile => profile, :name => 'Image folder')
-    file_in_folder = UploadedFile.create!(:profile => profile, :parent => folder, :uploaded_data => fixture_file_upload('/files/test.txt', 'text/plain'))
-
-    get :media_listing, :profile => profile.identifier, :document_folder_id => '', :format => 'js'
-
-    assert_includes assigns(:documents), file
-    assert_not_includes assigns(:documents), file_in_folder
-  end
-
-  should 'display pagination links of images' do
-    @controller.stubs(:per_page).returns(1)
-
-    image = UploadedFile.create!(:profile => profile, :uploaded_data => fixture_file_upload('/files/other-pic.jpg', 'image/jpg'))
-    image2 = UploadedFile.create!(:profile => profile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :created_at => 1.day.ago)
-    image2.updated_at = 1.day.ago
-    image2.send :update_without_callbacks
-
-    get :media_listing, :profile => profile.identifier
-
-    assert_includes assigns(:images), image
-    assert_not_includes assigns(:images), image2
-  end
-
-  should 'display pagination links of documents' do
-    @controller.stubs(:per_page).returns(1)
-    profile.articles.destroy_all
-    file = UploadedFile.create!(:profile => profile, :uploaded_data => fixture_file_upload('/files/feed.xml', 'text/xml'))
-    file2 = UploadedFile.create!(:profile => profile, :uploaded_data => fixture_file_upload('/files/test.txt', 'text/plain'))
-    file2.created_at = 1.day.ago
-    file2.save!
-
-    get :media_listing, :profile => profile.identifier
-
-    assert_includes assigns(:documents), file
-    assert_not_includes assigns(:documents), file2
-  end
-
-
-  should 'redirect to media listing when upload files from there' do
-    post :upload_files, :profile => profile.identifier, :media_listing => true, :uploaded_files => [fixture_file_upload('files/rails.png', 'image/png')]
-    assert_template nil
-    assert_redirected_to :action => 'media_listing'
-  end
-
-  should 'redirect to media listing when occur errors when upload files from there' do
-    file = UploadedFile.create!(:profile => profile, :uploaded_data => fixture_file_upload('files/rails.png', 'image/png'))
-
-    post :upload_files, :profile => profile.identifier, :media_listing => true, :uploaded_files => [fixture_file_upload('files/rails.png', 'image/png')]
-    assert_template nil
-    assert_redirected_to :action => 'media_listing'
+    assert_no_tag :div, :attributes => { :id => "text-editor-sidebar" }
   end
 
   should "display 'Publish' when profile is a person" do

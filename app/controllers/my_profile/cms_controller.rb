@@ -177,8 +177,7 @@ class CmsController < MyProfileController
     @article = @parent = check_parent(params[:parent_id])
     @target = @parent ? ('/%s/%s' % [profile.identifier, @parent.full_name]) : '/%s' % profile.identifier
     @folders = Folder.find(:all, :conditions => { :profile_id => profile })
-    @media_listing = params[:media_listing]
-    if @article && !@media_listing
+    if @article
       record_coming
     end
     if request.post? && params[:uploaded_files]
@@ -187,27 +186,16 @@ class CmsController < MyProfileController
       end
       @errors = @uploaded_files.select { |f| f.errors.any? }
       if @errors.any?
-        if @media_listing
-          flash[:notice] = _('Could not upload all files')
-          redirect_to :action => 'media_listing'
-        else
-          render :action => 'upload_files', :parent_id => @parent_id
-        end
+        render :action => 'upload_files', :parent_id => @parent_id
       else
-        if @media_listing
-          flash[:notice] = _('All files were uploaded successfully')
-          redirect_to :action => 'media_listing'
+        if @back_to
+          redirect_to @back_to
+        elsif @parent
+          redirect_to :action => 'view', :id => @parent.id
         else
-          if @back_to
-            redirect_to @back_to
-          else
-            redirect_to( if @parent
-              {:action => 'view', :id => @parent.id}
-            else
-              {:action => 'index'}
-            end)
-          end
+          redirect_to :action => 'index'
         end
+      end
       end
     end
   end
@@ -299,39 +287,6 @@ class CmsController < MyProfileController
         session[:notice] = _('Thanks for your suggestion. The community administrators were notified.')
         redirect_to @back_to
       end
-    end
-  end
-
-  def media_listing
-    if params[:image_folder_id]
-      folder = profile.articles.find(params[:image_folder_id]) if !params[:image_folder_id].blank?
-      @images = (folder ? folder.children : profile.top_level_articles).images
-    elsif params[:document_folder_id]
-      folder = profile.articles.find(params[:document_folder_id]) if !params[:document_folder_id].blank?
-      @documents = (folder ? folder.children : profile.top_level_articles)
-    else
-      @documents = profile.articles
-      @images = @documents.images
-      @documents -= @images
-    end
-
-    @images = @images.paginate(:per_page => per_page, :page => params[:ipage], :order => "updated_at desc") if @images
-    @documents = @documents.paginate(:per_page => per_page, :page => params[:dpage], :order => "updated_at desc", :conditions => {:is_image => false}) if @documents
-
-    @folders = profile.folders
-    @image_folders = @folders.select {|f| f.children.any? {|c| c.image?} }
-    @document_folders = @folders.select {|f| f.children.any? {|c| !c.image? && c.kind_of?(UploadedFile) } }
-
-    @media_listing = true
-
-    respond_to do |format|
-      format.html { render :layout => false}
-      format.js {
-        render :update do |page|
-          page.replace_html 'media-listing-folder-images', :partial => 'image_thumb', :locals => {:images => @images } if !@images.blank?
-          page.replace_html 'media-listing-folder-documents', :partial => 'document_link', :locals => {:documents => @documents } if !@documents.blank?
-        end
-      }
     end
   end
 

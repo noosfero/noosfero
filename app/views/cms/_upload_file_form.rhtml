@@ -14,9 +14,7 @@
 
 <% button_bar do %>
   <%= add_upload_file_field(_('More files'), {:size => size}) %>
-  <% if @media_listing %>
-    <%= submit_button :save, _('Upload') %>
-  <% elsif @back_to %>
+  <% if @back_to %>
     <%= submit_button :save, _('Upload'), :cancel => @back_to %>
   <% else %>
     <%= submit_button :save, _('Upload'), :cancel => {:action => (@parent ? 'view' : 'index'), :id => @parent } %>

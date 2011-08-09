@@ -1,1 +1,0 @@
-<%= select('folder', 'folder_id', @image_folders.collect {|f| [ f.name, f.id ] }, {:include_blank => "#{profile.identifier}"}, :onchange => remote_function(:update => 'media-listing-folder-images', :with => "'folder_id=' + value", :url => { :action => :get_images }) ) %>

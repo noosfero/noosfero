@@ -3,7 +3,7 @@
   <div class='text-editor-sidebar-box' id='media-upload-box'>
     <p><strong>Media upload</strong></p>
     <div id='media-upload-form'>
-      <% form_tag({ :action => 'media_upload' }, :multipart => true) do |f| %>
+      <% form_tag({ :action => 'media_upload' }, :multipart => true) do %>
         <div class='formfield'>
           <%# TODO duplicated from partial upload_file_form %>
           <%= labelled_form_field(_('Choose folder to upload files:'), select_tag('parent_id', options_for_select([[profile.identifier, '']] + profile.folders.collect {|f| [ profile.identifier + '/' +  f.full_name, f.id ] }))) %>
@@ -35,7 +35,6 @@
       <%= submit_button :search, _('Search'), :id => 'media-search-button' %>
     <% end %>
     </p>
-    </form>
     <div id='media-search-results' class='media-list-results' style='display: none'>
       <ul>
       </ul>
