@@ -2768,6 +2768,7 @@ div#activation_enterprise div {
   border-top: none;
   border-left: none;
   color: #585858;
+  font-size: 11px;
 }
 .formfield input {
   text-indent: 5px;
