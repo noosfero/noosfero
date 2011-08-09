@@ -343,7 +343,7 @@ class CmsController < MyProfileController
   def media_upload
     files_uploaded = []
     parent = check_parent(params[:parent_id])
-    files = [:file1,:file2, :file3].map { |f| params[f] }
+    files = [:file1,:file2, :file3].map { |f| params[f] }.compact
     if request.post?
       files.each do |file|
         files_uploaded << UploadedFile.create(:uploaded_data => file, :profile => profile, :parent => parent) unless file == ''
@@ -401,7 +401,7 @@ class CmsController < MyProfileController
     list.map do |item|
       {
         'title' => item.title,
-        'url' => url_for(item.url),
+        'url' => item.image? ? item.public_filename(:uploaded) : url_for(item.url),
         :icon => icon_for_article(item),
         :content_type => item.mime_type
       }

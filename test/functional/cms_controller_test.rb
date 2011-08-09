@@ -1632,7 +1632,7 @@ class CmsControllerTest < Test::Unit::TestCase
   end
 
   should 'upload media by AJAX' do
-    post :media_upload, :profile => profile.identifier, :uploaded_files => [fixture_file_upload('/files/test.txt', 'text/plain'), fixture_file_upload('/files/rails.png', 'image/png')]
+    post :media_upload, :profile => profile.identifier, :file1 => fixture_file_upload('/files/test.txt', 'text/plain'), :file2 => fixture_file_upload('/files/rails.png', 'image/png'), :file3 => ''
     assert_match 'test.txt', @response.body
     assert_equal 'application/json', @response.content_type
 
@@ -1644,10 +1644,14 @@ class CmsControllerTest < Test::Unit::TestCase
     assert_match /text/, data[0]['content_type']
 
     assert_equal 'rails.png', data[1]['title']
-    assert_match /\/testinguser\/rails.png$/, data[1]['url']
+    assert_no_match /\/public\/articles\/.*\/rails.png$/, data[1]['url']
     assert_match /png$/, data[1]['icon']
     assert_match /image/, data[1]['content_type']
 
+  end
+
+  should 'not when media upload via AJAX contains empty files' do
+    post :media_upload, :profile => @profile.identifier
   end
 
 end
