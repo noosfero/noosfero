@@ -15,6 +15,7 @@ class ContentViewerControllerTest < Test::Unit::TestCase
 
     @profile = create_user('testinguser').person
     @environment = @profile.environment
+    Comment.skip_captcha!
   end
   attr_reader :profile, :environment
 

@@ -359,6 +359,7 @@ Given /^the articles of "(.+)" are moderated$/ do |organization|
 end
 
 Given /^the following comments?$/ do |table|
+  Comment.skip_captcha!
   table.hashes.each do |item|
     data = item.dup
     article = Article.find_by_name(data.delete("article"))
@@ -416,4 +417,6 @@ Given /^the search index is empty$/ do
   ActsAsSolr::Post.execute(Solr::Request::Delete.new(:query => '*:*'))
 end
 
-
+Given /^skip comments captcha$/ do
+  Comment.any_instance.stubs(:skip_captcha?).returns(true)
+end

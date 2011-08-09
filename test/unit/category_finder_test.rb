@@ -8,7 +8,8 @@ class CategoryFinderTest < ActiveSupport::TestCase
     @finder = CategoryFinder.new(@category)
     @product_category = fast_create(ProductCategory, :name => 'Products')
 
-    Profile.rebuild_solr_index
+    Profile.rebuild_index
+    Comment.skip_captcha!
   end
 	
   should 'search for articles in a specific category' do

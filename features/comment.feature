@@ -81,3 +81,16 @@ Feature: comment
     Then I should see "Enter your comment" within "div#page-comment-form div.post_comment_box.opened"
     And I should be exactly on /booking/article-with-comment
     And I should be moved to anchor "comment_form"
+
+  Scenario: ask captcha question
+    Given I am on /booking/article-with-comment
+    When I follow "Post a comment" within ".post-comment-button"
+    Then I should see "What is the result of "
+
+  @selenium
+  Scenario: keep comments field filled while trying to do a comment
+    Given I am on /booking/article-with-comment
+    And I fill in "Name" with "Joey Ramone"
+    When I press "Post comment"
+    Then the "Name" field should contain "Joey Ramone"
+    And I should see "errors prohibited"

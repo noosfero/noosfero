@@ -76,8 +76,13 @@ class ContentViewerController < ApplicationController
 
     @form_div = params[:form]
 
-    if request.post? && params[:comment] && params[self.icaptcha_field].blank? && params[:confirm] == 'true' && @page.accept_comments?
-      add_comment
+    if params[:comment] && params[self.icaptcha_field].blank? && params[:confirm] == 'true'
+      @comment = Comment.new(params[:comment])
+      if request.post? && @page.accept_comments?
+        add_comment
+      end
+    else
+      @comment = Comment.new
     end
 
     if request.post? && params[:remove_comment]
@@ -114,7 +119,6 @@ class ContentViewerController < ApplicationController
   protected
 
   def add_comment
-    @comment = Comment.new(params[:comment])
     @comment.author = user if logged_in?
     @comment.article = @page
     if @comment.save

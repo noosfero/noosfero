@@ -7,6 +7,7 @@ class ArticleTest < Test::Unit::TestCase
   def setup
     Test::Unit::TestCase::setup
     @profile = create_user('testing').person
+    Comment.skip_captcha!
   end
   attr_reader :profile
 

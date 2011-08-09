@@ -18,6 +18,7 @@ class SearchControllerTest < Test::Unit::TestCase
     domain.save!
 
     @product_category = fast_create(ProductCategory)
+    Comment.skip_captcha!
   end
 
   def create_article_with_optional_category(name, profile, category = nil)

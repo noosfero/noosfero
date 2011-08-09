@@ -38,6 +38,10 @@
 
   <%= required labelled_form_field(_('Title'), text_field(:comment, :title)) %>
   <%= required labelled_form_field(_('Enter your comment'), text_area(:comment, :body, :rows => 5)) %>
+
+  <%= required labelled_form_field(_("What is the result of '%s = ?'") % @comment.captcha.task, text_field(:comment, :captcha_solution)) %>
+  <%= hidden_field(:comment, :captcha_secret) %>
+
   <% button_bar do %>
     <%= submit_button('add', _('Post comment'), :onclick => "this.form.confirm.value = 'true'; this.disabled = true; this.form.submit(); return true;") %>
     <%= button_to_function :cancel, _('Cancel'), "f=jQuery(this).parents('.post_comment_box'); f.removeClass('opened'); f.addClass('closed'); return false" %>
