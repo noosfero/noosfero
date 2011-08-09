@@ -41,13 +41,13 @@ jQuery(function($) {
   $('#media-search-button').click(function() {
     var query = '*' + $('#media-search-query').val() + '*';
     var $button = $(this);
-    $button.toggleClass('icon-loading');
+    $('#media-search-box').toggleClass('icon-loading');
     $.get($(this).parent().attr('action'), { 'q': query }, function(data) {
       insert_items(data, '#media-search-results ul');
       if (data.length && data.length > 0) {
         $('#media-search-results').slideDown();
       }
-      $button.toggleClass('icon-loading');
+    $('#media-search-box').toggleClass('icon-loading');
     });
     return false;
   });

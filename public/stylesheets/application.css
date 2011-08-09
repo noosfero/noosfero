@@ -3397,7 +3397,8 @@ div.with_media_panel .formfield input {
   background-color: transparent;
   border: none;
 }
-.text-editor-sidebar #media-upload-box {
+.text-editor-sidebar #media-upload-box,
+.text-editor-sidebar #media-search-box {
   background-repeat: no-repeat;
   background-position: top right ;
 }
