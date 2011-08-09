@@ -196,7 +196,6 @@ class CmsController < MyProfileController
           redirect_to :action => 'index'
         end
       end
-      end
     end
   end
 
