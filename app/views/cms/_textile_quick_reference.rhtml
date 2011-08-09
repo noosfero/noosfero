@@ -1,0 +1,20 @@
+<div class='text-editor-sidebar-box'>
+  <p>
+  <strong><%= _('Textile markup quick reference') %></strong>
+  <%= link_to(_('(show)'), '#', :id => 'textile-quickref-show') %>
+  <%= link_to(_('(hide)'), '#', :id => 'textile-quickref-hide', :style => 'display: none') %>
+  </p>
+  <div id='textile-quickref' style='display: none;'>
+    <p><%= _('Simple formatting:') %> <code>_<%= _('italics') %>_</code> <code>*<%= _('bold') %>*</code>, <code>-<%= _('striked')%>-</code>.</p>
+    <p><%= _('Links:') %> <code>"Noosfero":http://noosfero.org/</code></p>
+    <p><%= _('Images:') %> <code>!http://example.com/image.png!</code></p>
+    <p><%= _('Bullet lists:') %></p>
+    <pre>* <%= _('first item') %>
+* <%= _('second item') %></pre>
+    <p><%= _('Numbered lists:') %></p>
+    <pre># <%= _('first item') %>
+# <%= _('second item') %></pre>
+    <p><%= _('See also a more complete <a href="%s">Textile Reference</a>') % 'http://redcloth.org/hobix.com/textile/' %></p>
+  </div>
+</div>
+

@@ -27,7 +27,7 @@ jQuery(function($) {
     var html_for_items = '';
     $.each(items, function(i, item) {
       if (item.content_type && item.content_type.match(/^image/)) {
-        html_for_items += '<li class="icon-photos"><img src="' + item.url + '" style="max-height: 96px; max-width: 96px; border: 1px solid #d3d7cf;" alt="' + item.url + '"/><br/><a href="' + item.url + '">' + item.title + '</a></li>';
+        html_for_items += '<li class="icon-photos"><img src="' + item.url + '"/><br/><a href="' + item.url + '">' + item.title + '</a></li>';
       } else {
         html_for_items += '<li class="' + item.icon + '"><a href="' + item.url + '">' + item.title + '</a></li>';
       }

@@ -3417,6 +3417,11 @@ div.with_media_panel .formfield input {
   background-repeat: no-repeat;
   background-position: top right ;
 }
+.text-editor-sidebar img {
+ max-height: 96px;
+ max-width: 96px;
+ border: 1px solid #d3d7cf;
+}
 
 /* ==> public/stylesheets/controller_contact.css <== */
 /*** SELECT CITY ***/
