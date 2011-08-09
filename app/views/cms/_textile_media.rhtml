@@ -46,12 +46,10 @@
   <div class='textile-editor-sidebar-box'>
     <p><strong>Media search</strong></p>
     <% form_tag({ :action => 'search' }) do %>
-      <% button_bar do %>
-        <span class='formfield'>
-          <input name='q' type='text' id='media-search-query' style='width: 250px;'/>
-        </span>
-        <%= submit_button :search, _('Search'), :id => 'media-search-button' %>
-      <% end %>
+      <span class='formfield'>
+        <input name='q' type='text' id='media-search-query' style='width: 250px;'/>
+      </span>
+      <%= submit_button :search, _('Search'), :id => 'media-search-button' %>
     <% end %>
     </form>
     <div id='media-search-results' class='media-list-results' style='display: none'>
