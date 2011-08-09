@@ -17,11 +17,9 @@
       <% end %>
     </div>
     <div id='media-upload-results' class='media-list-results' style='display: none'>
+      <%= render :partial => 'drag_and_drop_note' %>
       <ul>
       </ul>
-      <p>
-      <em><%= _('Drag item names to the text to add their URL') %></em>
-      </p>
       <p><%= link_to(_('Upload more files ...'), '#', :id => 'media-upload-more-files')%></p>
     </div>
   </div>
@@ -36,11 +34,9 @@
     <% end %>
     </p>
     <div id='media-search-results' class='media-list-results' style='display: none'>
+      <%= render :partial => 'drag_and_drop_note' %>
       <ul>
       </ul>
-      <p>
-      <em><%= _('Drag item names to the text to add their URL') %></em>
-      </p>
     </div>
   </div>
 </div>
