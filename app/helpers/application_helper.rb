@@ -255,30 +255,47 @@ module ApplicationHelper
     concat(content_tag('div', capture(&block) + tag('br', :style => 'clear: left;'), { :class => 'button-bar' }.merge(options)), block.binding)
   end
 
-  def partial_for_class(klass)
-    if klass.nil?
-      raise ArgumentError, 'No partial for object. Is there a partial for any class in the inheritance hierarchy?'
+  VIEW_EXTENSIONS = %w[.rhtml .html.erb]
+
+  def partial_for_class_in_view_path(klass, view_path)
+    return nil if klass.nil?
+    name = klass.name.underscore
+
+    search_name = String.new(name)
+    if search_name.include?("/")
+      search_name.gsub!(/(\/)([^\/]*)$/,'\1_\2')
+      name = File.join(params[:controller], name)
+    else
+      search_name = "_" + search_name
     end
 
-    name = klass.name.underscore
-    if File.exists?(File.join(RAILS_ROOT, 'app', 'views', params[:controller], "_#{name}.rhtml"))
-      name
-    else
-      partial_for_class(klass.superclass)
+    VIEW_EXTENSIONS.each do |ext|
+      return name if File.exists?(File.join(view_path, params[:controller], search_name+ext))
     end
+
+    partial_for_class_in_view_path(klass.superclass, view_path)
+  end
+
+  def partial_for_class(klass)
+    raise ArgumentError, 'No partial for object. Is there a partial for any class in the inheritance hierarchy?' if klass.nil?
+    name = klass.name.underscore
+    @controller.view_paths.each do |view_path|
+      partial = partial_for_class_in_view_path(klass, view_path)
+      return partial if partial
+    end
+
+    raise ArgumentError, 'No partial for object. Is there a partial for any class in the inheritance hierarchy?'
   end
 
   def partial_for_task_class(klass, action)
-    if klass.nil?
-      raise ArgumentError, 'No partial for object. Is there a partial for any class in the inheritance hierarchy?'
-    end
+    raise ArgumentError, 'No partial for object. Is there a partial for any class in the inheritance hierarchy?' if klass.nil?
 
     name = "#{klass.name.underscore}_#{action.to_s}"
-    if File.exists?(File.join(RAILS_ROOT, 'app', 'views', params[:controller], "_#{name}.rhtml"))
-      name
-    else
-      partial_for_task_class(klass.superclass, action)
+    VIEW_EXTENSIONS.each do |ext|
+      return name if File.exists?(File.join(RAILS_ROOT, 'app', 'views', params[:controller], '_'+name+ext))
     end
+
+    partial_for_task_class(klass.superclass, action)
   end
 
   def user
