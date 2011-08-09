@@ -1486,7 +1486,7 @@ class CmsControllerTest < Test::Unit::TestCase
     assert_match /test.txt/, @response.body
     assert_equal 'application/json', @response.content_type
 
-    data = eval(@response.body.gsub('":', '"=>'))
+    data = parse_json_response
     assert_equal 'test.txt', data.first['title']
     assert_match /\/testinguser\/test.txt$/, data.first['url']
     assert_match /text/, data.first['icon']
@@ -1498,22 +1498,49 @@ class CmsControllerTest < Test::Unit::TestCase
     assert_match 'test.txt', @response.body
     assert_equal 'application/json', @response.content_type
 
-    data = eval(@response.body.gsub('":', '"=>'))
+    data = parse_json_response
 
     assert_equal 'test.txt', data[0]['title']
     assert_match /\/testinguser\/test.txt$/, data[0]['url']
     assert_match /text/, data[0]['icon']
     assert_match /text/, data[0]['content_type']
+    assert_nil data[0]['error']
 
     assert_equal 'rails.png', data[1]['title']
     assert_no_match /\/public\/articles\/.*\/rails.png$/, data[1]['url']
     assert_match /png$/, data[1]['icon']
     assert_match /image/, data[1]['content_type']
+    assert_nil data[1]['error']
 
   end
 
   should 'not when media upload via AJAX contains empty files' do
     post :media_upload, :profile => @profile.identifier
+  end
+
+  should 'mark unsuccessfull uploads' do
+    file = UploadedFile.create!(:profile => profile, :uploaded_data => fixture_file_upload('files/rails.png', 'image/png'))
+
+    post :media_upload, :profile => profile.identifier, :media_listing => true, :file1 => fixture_file_upload('files/rails.png', 'image/png'), :file2 => fixture_file_upload('/files/test.txt', 'text/plain')
+
+    assert_equal 'application/json', @response.content_type
+    data = parse_json_response
+
+    assert_equal 'rails.png', data[0]['title']
+    assert_not_nil data[0]['error']
+    assert_match /rails.png/, data[0]['error']
+
+    assert_equal 'test.txt', data[1]['title']
+    assert_nil data[1]['error']
+  end
+
+  protected
+
+  # FIXME this is to avoid adding an extra dependency for a proper JSON parser.
+  # For now we are assuming that the JSON is close enough to Ruby and just
+  # making some adjustments.
+  def parse_json_response
+    eval(@response.body.gsub('":', '"=>').gsub('null', 'nil'))
   end
 
 end

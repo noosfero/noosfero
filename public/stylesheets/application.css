@@ -3406,6 +3406,9 @@ div.with_media_panel .formfield input {
  max-width: 96px;
  border: 1px solid #d3d7cf;
 }
+.text-editor-sidebar .media-upload-error {
+  color: red;
+}
 
 /* ==> public/stylesheets/controller_contact.css <== */
 /*** SELECT CITY ***/

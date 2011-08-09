@@ -357,7 +357,8 @@ class CmsController < MyProfileController
         'title' => item.title,
         'url' => item.image? ? item.public_filename(:uploaded) : url_for(item.url),
         :icon => icon_for_article(item),
-        :content_type => item.mime_type
+        :content_type => item.mime_type,
+        :error => item.errors.any? ? _('%s could not be uploaded') % item.title : nil,
       }
     end.to_json
   end

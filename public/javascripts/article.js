@@ -26,6 +26,10 @@ jQuery(function($) {
   function insert_items(items, selector) {
     var html_for_items = '';
     $.each(items, function(i, item) {
+      if (item.error) {
+        html_for_items += '<li class="media-upload-error">' + item.error + '</li>';
+        return;
+      }
       if (item.content_type && item.content_type.match(/^image/)) {
         html_for_items += '<li class="icon-photos"><img src="' + item.url + '"/><br/><a href="' + item.url + '">' + item.title + '</a></li>';
       } else {
