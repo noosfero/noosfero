@@ -39,13 +39,34 @@ jQuery(function($) {
     var $button = $(this);
     $button.toggleClass('icon-loading');
     $.get($(this).parent().attr('action'), { 'q': query }, function(data) {
-      $button.toggleClass('icon-loading');
       insert_items(data, '#media-search-results ul');
       if (data.length && data.length > 0) {
         $('#media-search-results').slideDown();
       }
+      $button.toggleClass('icon-loading');
     });
     return false;
+  });
+  $('#media-upload-form form').ajaxForm({
+    dataType: 'json',
+    resetForm: true,
+    beforeSubmit:
+      function() {
+        $('#media-upload-form').slideUp();
+        $('#media-upload-box').toggleClass('icon-loading');
+      },
+    success:
+      function(data) {
+        insert_items(data, '#media-upload-results ul');
+        if (data.length && data.length > 0) {
+          $('#media-upload-results').slideDown();
+        }
+        $('#media-upload-box').toggleClass('icon-loading');
+      }
+  });
+  $('#media-upload-more-files').click(function() {
+    $('#media-upload-results').hide();
+    $('#media-upload-form').show();
   });
 
 });

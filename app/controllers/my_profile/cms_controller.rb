@@ -338,7 +338,18 @@ class CmsController < MyProfileController
   def search
     query = params[:q]
     results = query.blank? ? [] : profile.articles.published.find_by_contents(query)
-    render :text => results.map { |item| { 'title' => item.title, 'url' => url_for(item.url), :icon => icon_for_article(item), :content_type => item.mime_type }}.to_json, :content_type => 'application/json'
+    render :text => article_list_to_json(results), :content_type => 'application/json'
+  end
+  def media_upload
+    files_uploaded = []
+    parent = check_parent(params[:parent_id])
+    files = [:file1,:file2, :file3].map { |f| params[f] }
+    if request.post?
+      files.each do |file|
+        files_uploaded << UploadedFile.create(:uploaded_data => file, :profile => profile, :parent => parent) unless file == ''
+      end
+    end
+    render :text => article_list_to_json(files_uploaded), :content_type => 'application/json'
   end
 
   protected
@@ -384,6 +395,17 @@ class CmsController < MyProfileController
   def translations
     @locales = Noosfero.locales.invert.reject { |name, lang| !@article.possible_translations.include?(lang) }
     @selected_locale = @article.language || FastGettext.locale
+  end
+
+  def article_list_to_json(list)
+    list.map do |item|
+      {
+        'title' => item.title,
+        'url' => url_for(item.url),
+        :icon => icon_for_article(item),
+        :content_type => item.mime_type
+      }
+    end.to_json
   end
 
 end

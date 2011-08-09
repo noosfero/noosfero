@@ -1631,4 +1631,23 @@ class CmsControllerTest < Test::Unit::TestCase
     assert_match /text/, data.first['content_type']
   end
 
+  should 'upload media by AJAX' do
+    post :media_upload, :profile => profile.identifier, :uploaded_files => [fixture_file_upload('/files/test.txt', 'text/plain'), fixture_file_upload('/files/rails.png', 'image/png')]
+    assert_match 'test.txt', @response.body
+    assert_equal 'application/json', @response.content_type
+
+    data = eval(@response.body.gsub('":', '"=>'))
+
+    assert_equal 'test.txt', data[0]['title']
+    assert_match /\/testinguser\/test.txt$/, data[0]['url']
+    assert_match /text/, data[0]['icon']
+    assert_match /text/, data[0]['content_type']
+
+    assert_equal 'rails.png', data[1]['title']
+    assert_match /\/testinguser\/rails.png$/, data[1]['url']
+    assert_match /png$/, data[1]['icon']
+    assert_match /image/, data[1]['content_type']
+
+  end
+
 end
