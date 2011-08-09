@@ -3400,7 +3400,7 @@ div.with_media_panel .formfield input {
 .text-editor-sidebar #media-upload-box,
 .text-editor-sidebar #media-search-box {
   background-repeat: no-repeat;
-  background-position: top right ;
+  background-position: 98% 10px;
 }
 .text-editor-sidebar img {
  max-height: 96px;
