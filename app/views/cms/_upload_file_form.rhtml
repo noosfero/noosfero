@@ -1,8 +1,7 @@
 <% if @parent %>
   <%= hidden_field_tag('parent_id', @parent.id) %>
 <% else %>
-  <h4><%= _('Choose folder to upload files:') %></h4>
-  <%= select_tag('parent_id', options_for_select([[profile.identifier, '']] + @folders.collect {|f| [ profile.identifier + '/' +  f.full_name, f.id ] })) %>
+  <%= labelled_form_field(_('Choose folder to upload files:'), select_tag('parent_id', options_for_select([[profile.identifier, '']] + @folders.collect {|f| [ profile.identifier + '/' +  f.full_name, f.id ] }))) %>
 <% end %>
 
 <div id='uploaded_files'>
