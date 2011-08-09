@@ -74,6 +74,10 @@ class Environment < ActiveRecord::Base
     self.affiliate(user, Environment::Roles.admin(self.id))
   end
 
+  def remove_admin(user)
+    self.disaffiliate(user, Environment::Roles.admin(self.id))
+  end
+
   def admins
     Person.members_of(self).all(:conditions => ['role_assignments.role_id = ?', Environment::Roles.admin(self).id])
   end
