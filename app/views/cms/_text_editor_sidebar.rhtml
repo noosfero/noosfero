@@ -16,10 +16,10 @@
         <% end %>
       <% end %>
     </div>
-    <div id='media-upload-results' class='media-list-results' style='display: none'>
+    <div id='media-upload-results' style='display: none'>
       <%= render :partial => 'drag_and_drop_note' %>
-      <ul>
-      </ul>
+      <div class='items'>
+      </div>
       <p><%= link_to(_('Upload more files ...'), '#', :id => 'media-upload-more-files')%></p>
     </div>
   </div>
@@ -33,10 +33,10 @@
       <%= submit_button :search, _('Search'), :id => 'media-search-button' %>
     <% end %>
     </p>
-    <div id='media-search-results' class='media-list-results' style='display: none'>
+    <div id='media-search-results' style='display: none'>
       <%= render :partial => 'drag_and_drop_note' %>
-      <ul>
-      </ul>
+      <div class='items'>
+      </div>
     </div>
   </div>
 </div>

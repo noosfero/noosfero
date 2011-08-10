@@ -3380,11 +3380,10 @@ div.with_media_panel .formfield input {
 .text-editor-sidebar .icon-loading {
   background-image: url(../images/loading-small.gif);
 }
-.text-editor-sidebar .media-list-results ul {
-  padding: 0px;
-  list-style: none;
+.text-editor-sidebar .items {
+  margin-bottom: 10px;
 }
-.text-editor-sidebar .media-list-results li {
+.text-editor-sidebar .items div {
   background-repeat: no-repeat;
   background-position: 0px 0px;
   padding-left: 20px;
@@ -3393,7 +3392,7 @@ div.with_media_panel .formfield input {
   border: none;
   margin-bottom: 2px;
 }
-.text-editor-sidebar .media-list-results li:hover {
+.text-editor-sidebar .items :hover {
   background-color: transparent;
   border: none;
 }
