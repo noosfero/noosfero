@@ -21,12 +21,6 @@ class ArticleSweeper < ActiveRecord::Observer
   end
 end
 
-class Environment < ActiveRecord::Base
-  def self.verify_filename(filename)
-    filename
-  end
-end
-
 class FixMisunderstoodScriptFilename < ActiveRecord::Migration
   def self.up
     Image.all.select { |i| !i.thumbnail? && File.extname(i.filename) == '.txt'}.map do |image|
