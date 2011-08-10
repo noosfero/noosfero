@@ -1496,7 +1496,7 @@ class CmsControllerTest < Test::Unit::TestCase
   should 'upload media by AJAX' do
     post :media_upload, :profile => profile.identifier, :file1 => fixture_file_upload('/files/test.txt', 'text/plain'), :file2 => fixture_file_upload('/files/rails.png', 'image/png'), :file3 => ''
     assert_match 'test.txt', @response.body
-    assert_equal 'application/json', @response.content_type
+    assert_equal 'text/plain', @response.content_type
 
     data = parse_json_response
 
@@ -1523,7 +1523,7 @@ class CmsControllerTest < Test::Unit::TestCase
 
     post :media_upload, :profile => profile.identifier, :media_listing => true, :file1 => fixture_file_upload('files/rails.png', 'image/png'), :file2 => fixture_file_upload('/files/test.txt', 'text/plain')
 
-    assert_equal 'application/json', @response.content_type
+    assert_equal 'text/plain', @response.content_type
     data = parse_json_response
 
     assert_equal 'rails.png', data[0]['title']

@@ -303,7 +303,7 @@ class CmsController < MyProfileController
         files_uploaded << UploadedFile.create(:uploaded_data => file, :profile => profile, :parent => parent) unless file == ''
       end
     end
-    render :text => article_list_to_json(files_uploaded), :content_type => 'application/json'
+    render :text => article_list_to_json(files_uploaded), :content_type => 'text/plain'
   end
 
   protected
