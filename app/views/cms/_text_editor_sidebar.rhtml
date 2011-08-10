@@ -1,0 +1,44 @@
+<div class='text-editor-sidebar'>
+  <%= render(:partial => 'textile_quick_reference') if @article.is_a?(TextileArticle) %>
+  <div class='text-editor-sidebar-box' id='media-upload-box'>
+    <p><strong><%= _('Media upload') %></strong></p>
+    <div id='media-upload-form'>
+      <% form_tag({ :action => 'media_upload' }, :multipart => true) do %>
+        <div class='formfield'>
+          <%# TODO duplicated from partial upload_file_form %>
+          <%= labelled_form_field(_('Choose folder to upload files:'), select_tag('parent_id', options_for_select([[profile.identifier, '']] + profile.folders.collect {|f| [ profile.identifier + '/' +  f.full_name, f.id ] }))) %>
+        </div>
+        <p><%= file_field_tag('file1') %></p>
+        <p><%= file_field_tag('file2') %></p>
+        <p><%= file_field_tag('file3') %></p>
+        <% button_bar do %>
+          <%= submit_button(:save, _('Upload')) %>
+        <% end %>
+      <% end %>
+    </div>
+    <div id='media-upload-results' style='display: none'>
+      <%= render :partial => 'drag_and_drop_note' %>
+      <div class='items'>
+      </div>
+      <p><%= link_to(_('Upload more files ...'), '#', :id => 'media-upload-more-files')%></p>
+    </div>
+  </div>
+  <div id='media-search-box' class='text-editor-sidebar-box'>
+    <p><strong><%= _('Media search') %></strong></p>
+    <p>
+    <% form_tag({ :action => 'search' }) do %>
+      <span class='formfield'>
+        <input name='q' type='text' id='media-search-query' style='width: 250px;'/>
+      </span>
+      <%= submit_button :search, _('Search'), :id => 'media-search-button' %>
+    <% end %>
+    </p>
+    <div id='media-search-results' style='display: none'>
+      <%= render :partial => 'drag_and_drop_note' %>
+      <div class='items'>
+      </div>
+    </div>
+  </div>
+</div>
+
+
