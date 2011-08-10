@@ -11,6 +11,11 @@ begin
   vendored_cucumber_binary = Dir["#{RAILS_ROOT}/vendor/{gems,plugins}/cucumber*/bin/cucumber"].first
 
   namespace :cucumber do
+    Cucumber::Rake::Task.new({:solr_start => 'solr:start'}, 'Run solr before') do |t|
+      Rake::Task['solr:start'].invoke
+#      ENV['RAILS_ENV'] = 'cucumber'
+    end
+
     Cucumber::Rake::Task.new({:ok => 'db:test:prepare'}, 'Run features that should pass') do |t|
       t.binary = vendored_cucumber_binary
       t.fork = true # You may get faster startup if you set this to false
@@ -29,8 +34,12 @@ begin
       t.cucumber_opts = "--color -p selenium --format #{ENV['CUCUMBER_FORMAT'] || 'pretty'}"
     end
 
+    Cucumber::Rake::Task.new({:solr_stop => 'solr:stop'}, 'Run solr after') do |t|
+    end
+
     desc 'Run all features'
-    task :all => [:ok, :wip]
+    task :all => [:solr_start, :ok, :wip, :solr_stop] do
+    end
   end
   desc 'Alias for cucumber:ok'
   task :cucumber => 'cucumber:ok'
