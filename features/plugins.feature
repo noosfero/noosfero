@@ -56,4 +56,3 @@ Feature: plugins
     Then I should not see "Test plugin button"
     When I go to the profile
     Then I should not see "Test plugin tab"
-

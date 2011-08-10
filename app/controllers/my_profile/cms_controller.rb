@@ -52,6 +52,9 @@ class CmsController < MyProfileController
     if @parent && @parent.blog?
       articles -= Article.folder_types.map(&:constantize)
     end
+    if user.is_admin?(profile.environment)
+      articles << RawHTMLArticle
+    end
     articles
   end
 
@@ -378,6 +381,10 @@ class CmsController < MyProfileController
   def translations
     @locales = Noosfero.locales.invert.reject { |name, lang| !@article.possible_translations.include?(lang) }
     @selected_locale = @article.language || FastGettext.locale
+  end
+
+  def content_editor?
+    true
   end
 
 end

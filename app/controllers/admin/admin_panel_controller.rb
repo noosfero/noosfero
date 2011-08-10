@@ -1,7 +1,5 @@
 class AdminPanelController < AdminController
 
-  before_filter :login_required
-  
   protect 'view_environment_admin_panel', :environment
 
   def boxes_holder

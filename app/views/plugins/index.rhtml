@@ -12,7 +12,7 @@
   <%= hidden_field_tag('environment[enabled_plugins][]', '') %>
   <% @active_plugins.each do |plugin|   %>
     <tr>
-      <td><%= plugin.plugin_name %></td>
+      <td><%= plugin.has_admin_url? ? link_to(plugin.plugin_name, plugin.admin_url) : plugin.plugin_name %></td>
       <td><%= plugin.plugin_description %></td>
       <td><%= check_box_tag "environment[enabled_plugins][]", plugin, @environment.enabled_plugins.include?(plugin.to_s), :id => plugin.plugin_name %></td>
     </tr>

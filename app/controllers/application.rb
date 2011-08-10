@@ -25,11 +25,6 @@ class ApplicationController < ActionController::Base
   helper :document
   helper :language
 
-  def boxes_editor?
-    false
-  end
-  protected :boxes_editor?
-
   def self.no_design_blocks
     @no_design_blocks = true
   end
@@ -105,6 +100,14 @@ class ApplicationController < ActionController::Base
   end
 
   protected
+
+  def boxes_editor?
+    false
+  end
+
+  def content_editor?
+    false
+  end
 
   def user
     current_user.person if logged_in?

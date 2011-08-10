@@ -52,6 +52,13 @@ class Noosfero::Plugin
       _("No description informed.")
     end
 
+    def admin_url
+      {:controller => "#{name.underscore}_admin", :action => 'index'}
+    end
+
+    def has_admin_url?
+      File.exists?(File.join(root_path, 'controllers', "#{name.underscore}_admin_controller.rb"))
+    end
   end
 
   def expanded_template(file_path, locals = {})
@@ -119,6 +126,12 @@ class Noosfero::Plugin
   # returns = ['example1.js', 'javascripts/example2.js', 'example3.js']
   def js_files
     []
+  end
+
+  # -> Parse and possibly make changes of content (article, block, etc) during HTML rendering
+  # returns = content as string after parser and changes
+  def parse_content(raw_content)
+    raw_content
   end
 
 end
