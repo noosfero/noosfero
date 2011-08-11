@@ -3,15 +3,18 @@
 # If you change the host or port number here, make sure you update 
 # them in your Solr config file
 
-development:
-  url: http://0.0.0.0:8982/solr
-  jvm_options: -server -Xmx64M -Xms16M
-  
 production:
   url: http://127.0.0.1:8983/solr
   jvm_options: -server -Xmx512M -Xms64M
+
+development:
+  url: http://0.0.0.0:8982/solr
+  jvm_options: -server -Xmx64M -Xms16M
 
 test:
   url: http://0.0.0.0:8981/solr
   jvm_options: -server -Xmx32M -Xms16M
 
+cucumber:
+  url: http://0.0.0.0:8980/solr
+  jvm_options: -server -Xmx32M -Xms16M
