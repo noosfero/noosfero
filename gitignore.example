@@ -8,6 +8,7 @@ config/session.secret
 config/noosfero.yml
 config/ferret_server.yml
 config/mongrel_cluster.yml
+config/solr.yml
 config/plugins
 index
 locale
@@ -28,5 +29,6 @@ doc/noosfero/*.xhtml
 doc/noosfero/*/*.xhtml
 tags
 pkg
+solr
 *~
 *.swp
