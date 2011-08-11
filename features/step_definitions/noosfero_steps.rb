@@ -411,3 +411,9 @@ Given /^the environment domain is "([^\"]*)"$/ do |domain|
   d = Domain.new :name => domain, :owner => Environment.default
   d.save(false)
 end
+
+Given /^the search index is empty$/ do
+  ActsAsSolr::Post.execute(Solr::Request::Delete.new(:query => '*:*'))
+end
+
+

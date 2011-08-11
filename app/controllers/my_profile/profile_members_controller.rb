@@ -126,11 +126,11 @@ class ProfileMembersController < MyProfileController
     if !params[:query] || params[:query].length <= 2
       @users_found = []
     elsif params[:scope] == 'all_users'
-      @users_found = Person.find_by_contents(params[:query] + '*').select {|user| !profile.members.include?(user)}
+      @users_found = Person.find_by_contents(params[:query] + '*')[:results].select {|user| !profile.members.include?(user)}
       @button_alt = _('Add member')
       @add_action = {:action => 'add_member'}
     elsif params[:scope] == 'new_admins'
-      @users_found = Person.find_by_contents(params[:query] + '*').select {|user| profile.members.include?(user) && !profile.admins.include?(user)}
+      @users_found = Person.find_by_contents(params[:query] + '*')[:results].select {|user| profile.members.include?(user) && !profile.admins.include?(user)}
       @button_alt = _('Add member')
       @add_action = {:action => 'add_admin'}
     end

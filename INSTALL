@@ -13,7 +13,7 @@ You need to install some packages Noosfero depends on.  On Debian GNU/Linux or
 Debian-based systems, all of these packages are available through the Debian
 archive. You can install them with the following command:
 
- # apt-get install ruby rake po4a libgettext-ruby-util libgettext-ruby-data libgettext-ruby1.8 libsqlite3-ruby rcov librmagick-ruby libredcloth-ruby libwill-paginate-ruby iso-codes libfeedparser-ruby libferret-ruby libdaemons-ruby mongrel mongrel-cluster tango-icon-theme libhpricot-ruby
+ # apt-get install ruby rake po4a libgettext-ruby-util libgettext-ruby-data libgettext-ruby1.8 libsqlite3-ruby rcov librmagick-ruby libredcloth-ruby libwill-paginate-ruby iso-codes libfeedparser-ruby openjdk-6-jre libdaemons-ruby mongrel mongrel-cluster tango-icon-theme libhpricot-ruby
 
 On other systems, they may or may not be available through your regular package
 management system. Below are the links to their homepages.
@@ -24,7 +24,7 @@ management system. Below are the links to their homepages.
 * Ruby-GetText: http://www.yotabanana.com/hiki/ruby-gettext.html?ruby-gettext (at least version 1.9.0)
 * Ruby-sqlite3: http://rubyforge.org/projects/sqlite-ruby
 * rcov: http://eigenclass.org/hiki/rcov
-* Ferret: http://ferret.davebalmain.com/trac
+* Solr: http://lucene.apache.org/solr
 * RMagick: http://rmagick.rubyforge.org/
 * RedCloth: http://redcloth.org/
 * will_paginate: http://github.com/mislav/will_paginate/wikis
@@ -115,8 +115,11 @@ $ tar -zxvf noosfero-0.27.1.tar.gz
 $ ln -s noosfero-0.27.1 current
 $ cd current
 
-Copy config/ferret_server.yml.dist to config/ferret_server.yml. You will
+Copy config/solr.yml.dist to config/solr.yml. You will
 probably not need to customize this configuration, but have a look at it.
+Then you'll need to download Solr into noosfero:
+
+$ rake solr:download
 
 Create the mongrel configuration file:
 
@@ -236,6 +239,10 @@ message, then you have to check your database configuration.
 Create the database structure:
 
 $ RAILS_ENV=production rake db:schema:load
+
+Run Solr:
+
+$ rake solr:start
 
 Now we have to create some initial data. To create your default environment
 (the first one), run the command below:

@@ -19,9 +19,10 @@ class BrowseController < PublicController
     @results = @environment.people.visible.send(@filter)
 
     if !params[:query].blank?
-      @results = @results.find_by_contents(params[:query])
+      @results = @results.find_by_contents(params[:query], {:per_page => per_page, :page => params[:page]})[:results]
+    else
+      @results = @results.compact.paginate(:per_page => per_page, :page => params[:page])
     end
-    @results = @results.compact.paginate(:per_page => per_page, :page => params[:page])
   end
 
   def communities
@@ -31,9 +32,10 @@ class BrowseController < PublicController
     @results = @environment.communities.visible.send(@filter)
 
     if !params[:query].blank?
-      @results = @results.find_by_contents(params[:query])
+      @results = @results.find_by_contents(params[:query], {:per_page => per_page, :page => params[:page]})[:results]
+    else
+      @results = @results.compact.paginate(:per_page => per_page, :page => params[:page])
     end
-    @results = @results.compact.paginate(:per_page => per_page, :page => params[:page])
   end
 
   protected
