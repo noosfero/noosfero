@@ -50,7 +50,7 @@ class ManageProductsController < ApplicationController
         render :partial => 'shared/redirect_via_javascript',
           :locals => { :url => url_for(:controller => 'manage_products', :action => 'show', :id => @product) }
       else
-        render :partial => 'shared/dialog_error_messages', :locals => { :object_name => 'product' }
+        render_dialog_error_messages 'product'
       end
     end
   end
@@ -81,7 +81,7 @@ class ManageProductsController < ApplicationController
         render :partial => 'shared/redirect_via_javascript',
           :locals => { :url => url_for(:controller => 'manage_products', :action => 'show', :id => @product) }
       else
-        render :partial => 'shared/dialog_error_messages', :locals => { :object_name => 'product' }
+        render_dialog_error_messages 'product'
       end
     end
   end
@@ -96,7 +96,7 @@ class ManageProductsController < ApplicationController
         @inputs = @product.inputs
         render :partial => 'display_inputs'
       else
-        render :partial => 'shared/dialog_error_messages', :locals => { :object_name => 'product' }
+        render_dialog_error_messages 'product'
       end
     else
       render :partial => 'add_input'
@@ -147,7 +147,7 @@ class ManageProductsController < ApplicationController
         @inputs = @product.inputs
         render :partial => 'display_inputs'
       else
-        render :partial => 'shared/dialog_error_messages', :locals => { :object_name => 'input' }
+        render_dialog_error_messages 'input'
       end
     end
   end

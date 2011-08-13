@@ -15,6 +15,8 @@ class UsersControllerTest < Test::Unit::TestCase
   end
 
   should 'not access without right permission' do
+    create_user('guest')
+    login_as 'guest'
     get :index
     assert_response 403 # forbidden
   end

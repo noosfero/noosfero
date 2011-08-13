@@ -17,6 +17,7 @@ class CmsControllerTest < Test::Unit::TestCase
 
     @profile = create_user_with_permission('testinguser', 'post_content')
     login_as :testinguser
+    @controller.stubs(:user).returns(@profile)
   end
 
   attr_reader :profile
@@ -615,7 +616,7 @@ class CmsControllerTest < Test::Unit::TestCase
   end
 
   should 'not make enterprise homepage available to person' do
-    @controller.stubs(:profile).returns(create_user('test_user').person)
+    @controller.stubs(:profile).returns(profile)
     assert_not_includes @controller.available_article_types, EnterpriseHomepage
   end
 
@@ -1141,6 +1142,7 @@ class CmsControllerTest < Test::Unit::TestCase
     c = Community.create!(:name => 'test_comm', :identifier => 'test_comm')
     u = create_user_with_permission('test_user', 'publish_content', c)
     login_as :test_user
+    @controller.stubs(:user).returns(u)
 
     get :new, :profile => c.identifier, :type => 'TinyMceArticle'
     assert_response :success
@@ -1174,6 +1176,7 @@ class CmsControllerTest < Test::Unit::TestCase
     u = create_user_with_permission('test_user', 'publish_content', c)
     a = c.articles.create!(:name => 'test_article', :last_changed_by => u)
     login_as :test_user
+    @controller.stubs(:user).returns(u)
 
     get :edit, :profile => c.identifier, :id => a.id
 
@@ -1542,6 +1545,13 @@ class CmsControllerTest < Test::Unit::TestCase
   # making some adjustments.
   def parse_json_response
     eval(@response.body.gsub('":', '"=>').gsub('null', 'nil'))
+    ed
+
+  should 'make RawHTMLArticle available only to environment admins' do
+    @controller.stubs(:profile).returns(profile)
+    assert_not_includes @controller.available_article_types, RawHTMLArticle
+    profile.environment.add_admin(profile)
+    assert_includes @controller.available_article_types, RawHTMLArticle
   end
 
 end

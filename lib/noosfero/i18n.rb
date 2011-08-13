@@ -71,7 +71,9 @@ module ActionView::Helpers::ActiveRecordHelper
         end
       end
 
-      if options[:message_title]
+      if options[:header_message]
+        header_message = options[:header_message]
+      elsif options[:message_title]
         header_message = instance.error_message(options[:message_title], count) % {:num => count, :record => record}
       else
         header_message = ((count == 1) ? _(@error_message_title[0]) : _(@error_message_title[1])) % {:num => count, :record => record}

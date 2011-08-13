@@ -52,6 +52,9 @@ class CmsController < MyProfileController
     if @parent && @parent.blog?
       articles -= Article.folder_types.map(&:constantize)
     end
+    if user.is_admin?(profile.environment)
+      articles << RawHTMLArticle
+    end
     articles
   end
 
@@ -361,6 +364,10 @@ class CmsController < MyProfileController
         :error => item.errors.any? ? _('%s could not be uploaded') % item.title : nil,
       }
     end.to_json
+  end
+  
+  def content_editor?
+    true
   end
 
 end
