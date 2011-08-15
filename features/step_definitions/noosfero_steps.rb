@@ -359,6 +359,7 @@ Given /^the articles of "(.+)" are moderated$/ do |organization|
 end
 
 Given /^the following comments?$/ do |table|
+  Comment.skip_captcha!
   table.hashes.each do |item|
     data = item.dup
     article = Article.find_by_name(data.delete("article"))
@@ -410,4 +411,8 @@ end
 Given /^the environment domain is "([^\"]*)"$/ do |domain|
   d = Domain.new :name => domain, :owner => Environment.default
   d.save(false)
+end
+
+Given /^skip comments captcha$/ do
+  Comment.any_instance.stubs(:skip_captcha?).returns(true)
 end

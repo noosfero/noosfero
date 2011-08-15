@@ -10,6 +10,7 @@ class CommentNotifierTest < Test::Unit::TestCase
     ActionMailer::Base.deliveries = []
     @profile = create_user('user_comment_test').person
     @article = fast_create(Article, :name => 'Article test', :profile_id => @profile.id, :notify_comments => true)
+    Comment.skip_captcha!
   end
 
   should 'deliver mail after make aarticle commment' do

@@ -327,4 +327,11 @@ class CommentTest < Test::Unit::TestCase
     assert_nil Comment.new(:email => 'my@email.com').author_url
   end
 
+  should 'have the captcha_solution be solved' do
+    c = Comment.new
+    assert !c.valid? && c.errors.invalid?(:captcha_solution)
+    c.skip_captcha!
+    assert !c.valid? && !c.errors.invalid?(:captcha_solution)
+  end
+
 end
