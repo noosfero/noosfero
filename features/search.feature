@@ -3,9 +3,6 @@ Feature: search
   I want to search
   In order to find stuff
 
-  Background:
-    Given the search index is empty
-
   Scenario: simple search for person
     Given the following users
       | login | name |

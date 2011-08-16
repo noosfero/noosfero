@@ -3,8 +3,7 @@ require File.dirname(__FILE__) + '/../test_helper'
 class TinyMceArticleTest < Test::Unit::TestCase
 
   def setup
-    Test::Unit::TestCase::setup
-    Article.rebuild_solr_index
+    Article.rebuild_index
     @profile = create_user('zezinho').person
   end
   attr_reader :profile
@@ -24,8 +23,8 @@ class TinyMceArticleTest < Test::Unit::TestCase
 
   should 'be found when searching for articles by query' do
     tma = TinyMceArticle.create!(:name => 'test tinymce article', :body => '---', :profile => profile)
-    assert_includes TinyMceArticle.find_by_contents('article')[:results], tma
-    assert_includes Article.find_by_contents('article')[:results], tma
+    assert_includes TinyMceArticle.find_by_contents('article'), tma
+    assert_includes Article.find_by_contents('article'), tma
   end
 
   should 'not sanitize target attribute' do

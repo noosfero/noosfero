@@ -3,10 +3,6 @@ require File.dirname(__FILE__) + '/../test_helper'
 class EnvironmentTest < Test::Unit::TestCase
   fixtures :environments
 
-  def setup
-    Test::Unit::TestCase::setup
-  end
-
   def test_exists_default_and_it_is_unique
     Environment.delete_all
     vc = Environment.new(:name => 'Test Community')
@@ -454,7 +450,7 @@ class EnvironmentTest < Test::Unit::TestCase
   should 'find by contents from articles' do
     environment = fast_create(Environment)
     assert_nothing_raised do
-      environment.articles.find_by_contents('')[:results]
+      environment.articles.find_by_contents('')
     end
   end
 
@@ -571,7 +567,7 @@ class EnvironmentTest < Test::Unit::TestCase
       Enterprise.create!(:name => 'test ' + n, :identifier => 'test_' + n)
     end
 
-    assert_equal 20, env.enterprises.find_by_contents('test')[:results].total_entries
+    assert_equal 20, env.enterprises.find_by_contents('test').total_entries
   end
 
   should 'set replace_enterprise_template_when_enable on environment' do

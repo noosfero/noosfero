@@ -413,10 +413,6 @@ Given /^the environment domain is "([^\"]*)"$/ do |domain|
   d.save(false)
 end
 
-Given /^the search index is empty$/ do
-  ActsAsSolr::Post.execute(Solr::Request::Delete.new(:query => '*:*'))
-end
-
 Given /^skip comments captcha$/ do
   Comment.any_instance.stubs(:skip_captcha?).returns(true)
 end

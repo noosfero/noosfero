@@ -4,7 +4,6 @@ class EnterpriseTest < Test::Unit::TestCase
   fixtures :profiles, :environments, :users
 
   def setup
-    Test::Unit::TestCase::setup
     @product_category = fast_create(ProductCategory, :name => 'Products')
   end
 
@@ -92,7 +91,7 @@ class EnterpriseTest < Test::Unit::TestCase
 
     ent2 = fast_create(Enterprise, :name => 'test2', :identifier => 'test2')
 
-    result = Enterprise.find_by_contents(prod_cat.name)[:results]
+    result = Enterprise.find_by_contents(prod_cat.name)
 
     assert_includes result, ent1
     assert_not_includes result, ent2
@@ -106,7 +105,7 @@ class EnterpriseTest < Test::Unit::TestCase
 
     ent2 = fast_create(Enterprise, :name => 'test2', :identifier => 'test2')
 
-    result = Enterprise.find_by_contents(prod_cat.name)[:results]
+    result = Enterprise.find_by_contents(prod_cat.name)
 
     assert_includes result, ent1
     assert_not_includes result, ent2
@@ -406,12 +405,6 @@ class EnterpriseTest < Test::Unit::TestCase
     product.inputs << Input.new(:product_category => @product_category)
 
     assert_equal product.inputs, enterprise.inputs
-  end
-  
-  should 'reindex when products are changed' do
-    a = Enterprise.new
-    a.expects(:solr_save)
-    a.product_updated
   end
 
   should "the followed_by? be true only to members" do

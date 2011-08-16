@@ -8,10 +8,11 @@ class ProfileSearchController < PublicController
   def index
     @q = params[:q]
     unless @q.blank?
+      @filtered_query = remove_stop_words(@q)
       if params[:where] == 'environment'
         redirect_to :controller => 'search', :query => @q
       else
-        @results = Article.find_by_contents(@q + "  profile_id:#{profile.id} published:true")[:results].paginate(:per_page => 10, :page => params[:page])
+        @results = profile.articles.published.find_by_contents(@filtered_query).paginate(:per_page => 10, :page => params[:page])
       end
     end
   end

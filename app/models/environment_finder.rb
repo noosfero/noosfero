@@ -22,8 +22,6 @@ class EnvironmentFinder
     end
 
     if query.blank?
-      options.delete(:facets)
-
       # FIXME this test is in more than one place
       if finder_method == 'paginate'
         options = {:order => "#{asset_table(asset)}.name"}.merge(options)
@@ -50,20 +48,14 @@ class EnvironmentFinder
         end
       end
     else
-      pg_options = {:page => options.delete(:page), :per_page => options.delete(:per_page)}
-      solr_options = {:facets => options.delete(:facets)}
+      ferret_options = {:page => options.delete(:page), :per_page => options.delete(:per_page)}
       if product_category && asset == :products
         # SECURITY no risk of SQL injection, since product_category_ids comes from trusted source
-        ret = @environment.send(asset).find_by_contents(query, pg_options, solr_options, options.merge({:include => 'product_categorizations', :conditions => 'product_categorizations.category_id = (%s)' % product_category.id }))
+        @environment.send(asset).find_by_contents(query, ferret_options, options.merge({:include => 'product_categorizations', :conditions => 'product_categorizations.category_id = (%s)' % product_category.id }))
       elsif product_category && asset == :enterprises
-        ret = @environment.send(asset).find_by_contents(query, pg_options, solr_options, options.merge(:joins => 'inner join product_categorizations on (product_categorizations.product_id = products.id)', :include => 'products', :conditions => "product_categorizations.category_id = (#{product_category.id})"))
+        @environment.send(asset).find_by_contents(query, ferret_options, options.merge(:joins => 'inner join product_categorizations on (product_categorizations.product_id = products.id)', :include => 'products', :conditions => "product_categorizations.category_id = (#{product_category.id})"))
       else
-        ret = @environment.send(asset).find_by_contents(query, pg_options, solr_options, options)
-      end
-      if solr_options[:facets].nil?
-        ret[:results]
-      else
-        ret
+        @environment.send(asset).find_by_contents(query, ferret_options, options)
       end
     end
   end

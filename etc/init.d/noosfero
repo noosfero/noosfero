@@ -43,14 +43,14 @@ if [ -z "$NOOSFERO_DIR" ] || [ -z "$NOOSFERO_USER" ]; then
 fi
 
 ######################
-SOLR_PID_FILE=$NOOSFERO_DIR/tmp/pids/solr.production.pid
+FERRET_PID_FILE=$NOOSFERO_DIR/tmp/pids/ferret.production.pid
 
 main_script() {
   cd $NOOSFERO_DIR
   if [ "$NOOSFERO_USER" != "$USER" ]; then
-    su $NOOSFERO_USER -l -c "SOLR_DATA_PATH=/var/lib/noosfero-data/index ./script/production $1"
+    su $NOOSFERO_USER -l -c "./script/production $1"
   else
-    SOLR_DATA_PATH=/var/lib/noosfero-data/index ./script/production $1
+    ./script/production $1
   fi
 }
 
@@ -76,13 +76,6 @@ do_setup() {
     chmod 750 /var/tmp/noosfero
   fi
 
-  # Solr directory
-  if [ ! -d /var/tmp/noosfero/solr ]; then
-    mkdir -p /var/tmp/noosfero/solr
-    chown $NOOSFERO_USER:root /var/tmp/noosfero/solr
-    chmod 750 /var/tmp/noosfero/solr
-  fi
-
   # symlink the directories into Noosfero directory
   if [ ! -e $NOOSFERO_DIR/tmp ]; then
     ln -s /var/tmp/noosfero $NOOSFERO_DIR/tmp
@@ -97,8 +90,8 @@ do_setup() {
 
 do_start() {
 
-  # FIXME should not test for solr only
-  if [ -e $SOLR_PID_FILE ]; then
+  # FIXME should not test for ferret only
+  if [ -e $FERRET_PID_FILE ]; then
     echo 'noosfero already running, cannot start.'
     exit 2
   fi
@@ -111,8 +104,8 @@ do_start() {
 
 do_stop() {
 
-  # FIXME should not test for solr only
-  if [ ! -e $SOLR_PID_FILE ]; then
+  # FIXME should not test for ferret only
+  if [ ! -e $FERRET_PID_FILE ]; then
     echo 'noosfero not running, cannot stop'
     exit 2
   fi

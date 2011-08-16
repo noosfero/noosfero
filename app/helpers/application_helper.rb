@@ -2,7 +2,7 @@
 # application.
 module ApplicationHelper
 
-  include PermissionNameHelper
+  include PermissionName
 
   include LightboxHelper
 

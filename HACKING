@@ -38,9 +38,6 @@ commands and make sure you understand what you are doing):
  cp config/database.yml.sqlite3 config/database.yml
  # create tmp directory if it doesn't exist
  mkdir tmp
- # download and start Solr
- rake solr:download
- rake solr:start
  # create the development database
  rake db:schema:load
  # run pending migrations

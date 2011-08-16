@@ -6,7 +6,6 @@ class ProfileMembersController; def rescue_action(e) raise e end; end
 
 class ProfileMembersControllerTest < Test::Unit::TestCase
   def setup
-    Test::Unit::TestCase::setup
     @controller = ProfileMembersController.new
     @request    = ActionController::TestRequest.new
     @request.stubs(:ssl?).returns(true)
@@ -235,12 +234,12 @@ class ProfileMembersControllerTest < Test::Unit::TestCase
   end
 
   should 'find users' do
-    ent = fast_create(Enterprise, {:name => 'Test Ent', :identifier => 'test_ent'}, :search => true)
+    ent = fast_create(Enterprise, :name => 'Test Ent', :identifier => 'test_ent')
     user = create_user_full('test_user').person
     person = create_user_with_permission('ent_user', 'manage_memberships', ent)
     login_as :ent_user
 
-    get :find_users, :profile => ent.identifier, :query => 'test', :scope => 'all_users'
+    get :find_users, :profile => ent.identifier, :query => 'test*', :scope => 'all_users'
 
     assert_includes assigns(:users_found), user
   end

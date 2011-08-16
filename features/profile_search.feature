@@ -4,8 +4,7 @@ Feature: search inside a profile
   In order to find stuff from a profile
 
   Background:
-    Given the search index is empty
-    And the following users
+    Given the following users
       | login     | name       |
       | joaosilva | Joao Silva |
     And the following articles

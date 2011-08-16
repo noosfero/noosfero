@@ -22,7 +22,7 @@ do_start() {
   fi
 
   clear_cache
-  rake -s solr:start
+  ./script/ferret_server -e $RAILS_ENV start
   environments_loop
   mongrel_rails cluster::start
 }
@@ -31,7 +31,7 @@ do_stop() {
   mongrel_rails cluster::stop
   ./script/delayed_job stop
   ./script/feed-updater stop
-  rake -s solr:stop
+  ./script/ferret_server -e $RAILS_ENV stop
 }
 
 environments_loop() {

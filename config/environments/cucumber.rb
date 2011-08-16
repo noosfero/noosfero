@@ -26,3 +26,4 @@ config.gem 'rspec-rails', :lib => 'spec/rails',        :version => '>=1.2.7.1' u
 config.gem 'Selenium',    :lib => 'selenium',      :version => '>= 1.1.14' unless File.directory?(File.join(Rails.root, 'vendor/plugins/selenium'))
 config.gem 'selenium-client',    :lib => 'selenium/client',      :version => '>= 1.2.17' unless File.directory?(File.join(Rails.root, 'vendor/plugins/selenium-client'))
 config.gem 'database_cleaner', :lib => 'database_cleaner'
+

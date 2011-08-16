@@ -7,10 +7,6 @@ else
 end
 
 task :test do
-  ENV['RAILS_ENV'] = 'test'
-  Rake::Task['solr:stop'].invoke
-  Rake::Task['solr:download'].invoke
-  Rake::Task['solr:start'].invoke
   errors = %w(test:units test:functionals test:integration cucumber selenium).collect do |task|
     begin
       Rake::Task[task].invoke
@@ -19,7 +15,6 @@ task :test do
       task
     end
   end.compact
-  Rake::Task['solr:stop'].invoke
   abort "Errors running #{errors.to_sentence}!" if errors.any?
 end
 
