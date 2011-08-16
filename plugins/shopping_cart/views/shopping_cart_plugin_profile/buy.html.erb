@@ -1,0 +1,28 @@
+<% person = user.nil? ? Person.new : user %>
+<div id='cart-request-box'>
+  <% form_for(:customer, person, :url => {:action => 'send_request'},
+              :html => {:onsubmit => "return Cart.send_request(this)", :id => 'cart-request-form' }) do |f| %>
+    <div id="cart-form-main">
+      <%= labelled_form_field('* ' + _("Name"), f.text_field(:name, :class => 'required') ) %>
+      <%= labelled_form_field('* ' +  _("Email"), f.text_field(:email, :class => 'required email') ) %>
+      <%= labelled_form_field('* ' +  _("Contact phone"), f.text_field(:contact_phone, :class => 'required') ) %>
+    </div>
+    <fieldset><legend><%=_('Delivery Address')%></legend>
+      <%= labelled_form_field(_('Address (street and number)'), f.text_field(:address)) %>
+      <%= labelled_form_field( _("City"), f.text_field(:city)) %>
+      <%= labelled_form_field(_('ZIP code'), f.text_field(:zip_code)) %>
+    </fieldset>
+    <div id="cart-form-actions">
+      <%= submit_button(:send, _('Send buy request')) %>
+    </div>
+  <% end %>
+  <%= items_table(session[:cart][:items], profile) %>
+</div>
+
+<script type="text/javascript">
+//<![CDATA[
+  jQuery(document).ready(function(){
+    jQuery("#cart-request-form").validate();
+  });
+//]]>
+</script>
