@@ -66,19 +66,13 @@ namespace :solr do
     require File.expand_path("#{File.dirname(__FILE__)}/../../config/solr_environment")
     fork do
       if File.exists?(SOLR_PID_FILE)
-        killed = false
         File.open(SOLR_PID_FILE, "r") do |f| 
           pid = f.readline
-          begin
-            Process.kill('TERM', pid.to_i)
-            killed = true
-          rescue
-            puts "Solr could not be found at pid #{pid.to_i}. Removing pid file."
-          end
+          Process.kill('TERM', pid.to_i)
         end
         File.unlink(SOLR_PID_FILE)
         Rake::Task["solr:destroy_index"].invoke if ENV['RAILS_ENV'] == 'test'
-        puts "Solr shutdown successfully." if killed
+        puts "Solr shutdown successfully."
       else
         puts "PID file not found at #{SOLR_PID_FILE}. Either Solr is not running or no PID file was written."
       end
