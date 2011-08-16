@@ -25,7 +25,7 @@ namespace :multitenancy do
           m.rebuild_index
           puts "Rebuilt index for #{m}" if Rake.application.options.trace
         end
-        m.paginated_each(:per_page => 50) { |i| i.solr_save }
+        m.paginated_each(:per_page => 50) { |i| i.ferret_update }
         puts "Reindexed all instances of #{m}" if Rake.application.options.trace
       end
     end
