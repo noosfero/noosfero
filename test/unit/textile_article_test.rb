@@ -145,4 +145,49 @@ class TextileArticleTest < Test::Unit::TestCase
     assert_equal false, a.advertise?
     assert_equal false, a.is_trackable?
   end
+
+  should 'generate proper HTML for links' do
+    assert_tag_in_string build_article('"Noosfero":http://noosfero.org/').to_html, :tag => 'a', :attributes => { :href => 'http://noosfero.org/' }
+  end
+
+  should 'generate proper HTML for > symbols' do
+    assert_match /^sqlite&gt;$/, build_article('  sqlite>').to_html
+  end
+
+  should 'not mess up with textile markup' do
+    assert_equal '  sqlite> stuff', build_article('  sqlite> stuff').body
+    noosfero_cool = '"Noosfero":http://noosfero.org/ is a very cool project'
+    assert_equal noosfero_cool, build_article(noosfero_cool).body
+  end
+
+  should 'not allow arbitrary HTML' do
+    assert_not_equal '<script>alert(1)</script>', build_article('<script>alert(1)</script>').to_html
+  end
+
+  should 'not allow Javascript on links' do
+    assert_no_tag_in_string build_article('<a href="javascript: alert(\'BOOM\')" onclick="javascript: alert(\'BOOM\')"></a>').to_html, :tag => 'a', :attributes => { :href => /./, :onclick => /./ }
+  end
+
+  should 'allow harmless HTML' do
+    code = "<pre><code>  code example\n</code></pre>"
+    assert_equal code, build_article(code).body
+    assert_equal code, build_article(code).to_html
+  end
+
+  should 'use Textile markup for lead as well' do
+    assert_tag_in_string build_article(nil, :abstract => '"Noosfero":http://noosfero.org/').lead, :tag => 'a', :attributes => { :href => 'http://noosfero.org/' }
+  end
+
+  should 'not allow arbitrary HTML in the lead' do
+    assert_not_equal '<script>alert(1)</script>', build_article(nil, :abstract => '<script>alert(1)</script>').lead
+  end
+
+  protected
+
+  def build_article(input = nil, options = {})
+    article = TextileArticle.new({:body => input}.merge(options))
+    article.valid? # trigger the xss terminate thingy
+    article
+  end
+
 end

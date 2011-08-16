@@ -9,11 +9,26 @@ class TextileArticle < TextArticle
   end
 
   def to_html(options ={})
-    RedCloth.new(self.body|| '').to_html
+    convert_to_html(body)
+  end
+
+  def lead
+    if abstract.blank?
+      super
+    else
+      convert_to_html(abstract)
+    end
   end
 
   def notifiable?
     true
+  end
+
+  protected
+
+  def convert_to_html(textile)
+    @@sanitizer ||= HTML::WhiteListSanitizer.new
+    @@sanitizer.sanitize(RedCloth.new(textile|| '').to_html)
   end
 
 end
