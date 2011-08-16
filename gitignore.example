@@ -1,7 +1,7 @@
 .gitignore
 vendor/rails
 doc/api
-doc/plugins
+doc/noosfero/plugins
 tmp
 config/database.yml
 config/session.secret
