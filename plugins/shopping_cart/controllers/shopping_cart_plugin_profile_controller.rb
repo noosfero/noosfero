@@ -223,8 +223,4 @@ class ShoppingCartPluginProfileController < ProfileController
     end
     true
   end
-
-  def get_price(product)
-    float_to_currency( product.discount ? product.price_with_discount : product.price )
-  end
 end
