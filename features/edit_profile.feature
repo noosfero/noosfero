@@ -64,9 +64,9 @@ Feature: edit profile
     And feature "enable_organization_url_change" is enabled on environment
     When I go to O Rappa's control panel
     And I follow "Community Info and settings" and wait
-    Then I should not see "WARNING! You are about to change the address"
+    Then the "#identifier-change-confirmation" should not be visible
     When I fill in "Address" with "banda-o-rappa"
-    Then I should see "WARNING! You are about to change the address"
+    Then the "#identifier-change-confirmation" should be visible
 
   @selenium
   Scenario: Confirm url change
@@ -77,9 +77,9 @@ Feature: edit profile
     When I go to O Rappa's control panel
     And I follow "Community Info and settings" and wait
     When I fill in "Address" with "banda-o-rappa"
-    Then I should see "WARNING! You are about to change the address"
+    Then the "#identifier-change-confirmation" should be visible
     When I follow "Yes"
-    Then I should not see "WARNING! You are about to change the address"
+    Then the "#identifier-change-confirmation" should not be visible
 
   @selenium
   Scenario: Cancel url change
@@ -90,6 +90,6 @@ Feature: edit profile
     When I go to O Rappa's control panel
     And I follow "Community Info and settings" and wait
     When I fill in "Address" with "banda-o-rappa"
-    Then I should see "WARNING! You are about to change the address"
+    Then the "#identifier-change-confirmation" should be visible
     When I follow "No"
-    Then I should not see "WARNING! You are about to change the address"
+    Then the "#identifier-change-confirmation" should not be visible
