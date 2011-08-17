@@ -1544,7 +1544,7 @@ class CmsControllerTest < Test::Unit::TestCase
   # making some adjustments.
   def parse_json_response
     eval(@response.body.gsub('":', '"=>').gsub('null', 'nil'))
-    ed
+  end
 
   should 'make RawHTMLArticle available only to environment admins' do
     @controller.stubs(:profile).returns(profile)

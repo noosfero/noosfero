@@ -2,6 +2,10 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class CommentTest < Test::Unit::TestCase
 
+  def setup
+    Comment.skip_captcha!
+  end
+
   should 'have a name and require it' do
     assert_mandatory(Comment.new, :title)
   end
@@ -328,6 +332,7 @@ class CommentTest < Test::Unit::TestCase
   end
 
   should 'have the captcha_solution be solved' do
+    Comment.dont_skip_captcha!
     c = Comment.new
     assert !c.valid? && c.errors.invalid?(:captcha_solution)
     c.skip_captcha!
