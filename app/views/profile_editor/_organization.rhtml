@@ -17,7 +17,7 @@
 <% if @environment.enabled?('enable_organization_url_change') %>
   <script type="text/javascript">
     function submit_button() {
-       return $("profile_data_identifier").form.select("input.submit")[0];
+       return $("profile-data").select("input.submit")[0];
     }
     function warn_value_change() {
        show_warning('profile-identifier-formitem', "identifier-change-confirmation");
