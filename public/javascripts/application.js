@@ -475,6 +475,8 @@ jQuery(function($) {
     if (data.notice) {
       display_notice(data.notice);
     }
+    // Bind this event to do more actions with the user data (for example, inside plugins)
+    $(window).trigger("userDataLoaded", data);
   });
 
   function loggedInDataCallBack(data) {
