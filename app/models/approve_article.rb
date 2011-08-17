@@ -94,7 +94,11 @@ class ApproveArticle < Task
   end
 
   def target_notification_description
-    _('%{requestor} wants to publish the article: %{article}.') % {:requestor => requestor.name, :article => article.name}
+    if article
+      _('%{requestor} wants to publish the article: %{article}.') % {:requestor => requestor.name, :article => article.name}
+    else
+      _('%{requestor} wants to publish an article that was removed.') % {:requestor => requestor.name}
+    end
   end
 
   def target_notification_message

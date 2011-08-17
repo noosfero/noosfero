@@ -120,3 +120,15 @@ admin = User.create!({
   :environment => environment,
 }).person
 environment.add_admin(admin)
+
+guest = User.create!({
+  :login => "guest",
+  :email => 'guest@localhost.localdomain',
+  :password => 'guest',
+  :password_confirmation => 'guest',
+  :environment => environment,
+}).person
+5.times do
+  communities.rand.add_admin(guest)
+  communities.rand.add_member(guest)
+end

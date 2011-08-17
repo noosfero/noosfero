@@ -11,6 +11,7 @@ Feature: approve article
     And the following articles
       | owner | name | body | homepage |
       | mariasilva | Sample Article | This is an article | true |
+      | mariasilva | Dub Wars | This is an article | false |
     And the following communities
       | identifier | name |
       | sample-community | Sample Community |
@@ -51,3 +52,21 @@ Feature: approve article
     And I press "Apply!"
     When I go to Sample Community's sitemap
     Then I should not see "Sample Article"
+
+  @selenium
+  Scenario: reject an article that was removed
+    Given I am logged in as "mariasilva"
+    And I follow "Dub Wars"
+    And I follow "Spread" and wait
+    And I check "Sample Community"
+    And I press "Spread this"
+    And I follow "Delete"
+    And I press "Yes, I want."
+    When I am logged in as "joaosilva"
+    And I go to Sample Community's control panel
+    And I follow "Process requests" and wait
+    And I choose "Reject"
+    And I fill in "Rejection explanation" with "Article was removed."
+    And I press "Apply!"
+    Then I should see "No pending tasks"
+    And I should not see "You have a nil object when you didn't expect it"
