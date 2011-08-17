@@ -376,7 +376,7 @@ class ApproveArticleTest < ActiveSupport::TestCase
 
     email = TaskMailer.deliver_task_finished(task)
 
-    assert_match(/#{task.requestor.name} wants to publish an article that was removed/, email.subject)
+    assert_match(/#{task.requestor.name} wanted to publish an article but it was removed/, email.subject)
   end
 
   should 'approve an event' do

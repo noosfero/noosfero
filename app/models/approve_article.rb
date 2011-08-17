@@ -97,7 +97,7 @@ class ApproveArticle < Task
     if article
       _('%{requestor} wants to publish the article: %{article}.') % {:requestor => requestor.name, :article => article.name}
     else
-      _('%{requestor} wants to publish an article that was removed.') % {:requestor => requestor.name}
+      _('%{requestor} wanted to publish an article but it was removed.') % {:requestor => requestor.name}
     end
   end
 
