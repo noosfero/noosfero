@@ -1,19 +1,10 @@
 #!/usr/bin/env ruby
 require File.dirname(__FILE__) + '/../config/environment'
+include Noosfero::SampleDataHelper
 
-# turn on autoflush
-STDOUT.sync = true
-
-environment_id = ARGV.first
-environment = nil
-if environment_id
-  environment = Environment.find(environment_id)
-else
-  environment = Environment.default || Environment.create!(:name => 'Noosfero', :is_default => true)
-end
-
-system('./script/sample-profiles')
-system('./script/sample-categories')
-system('./script/sample-enterprises')
-system('./script/sample-products')
-system('./script/sample-articles')
+id = ARGV.first || ''
+system('./script/sample-categories', id)
+system('./script/sample-profiles', id)
+system('./script/sample-enterprises', id)
+system('./script/sample-products', id)
+system('./script/sample-articles', id)

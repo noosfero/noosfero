@@ -1,8 +1,8 @@
 #!/usr/bin/env ruby
 require File.dirname(__FILE__) + '/../config/environment'
+include Noosfero::SampleDataHelper
 
-# turn on autoflush
-STDOUT.sync = true
+categories = $environment.categories
 
 def rand_position(type)
   range = {
@@ -23,8 +23,8 @@ print "Creating enterprises: "
 groups.each do |group|
   what.each do |production|
     places.each do |place|
-      name = [group, production, place].join(' ')
-      Enterprise.create!(
+      name = [group, production, place].join(' ') + " - #{$environment.name}"
+      enterprise = Enterprise.new(
         :name => name,
         :identifier => name.to_slug,
         :enabled => false,
@@ -32,11 +32,14 @@ groups.each do |group|
         :lat => rand_position(:lat),
         :lng => rand_position(:lng)
       )
-      print "."
+      save enterprise do
+        categories.rand.enterprises << enterprise
+        categories.rand.enterprises << enterprise
+      end
     end
   end
 end
-puts " done!"
+done
 
 EnterpriseActivation.find(:all, :conditions => ['created_at > ?', start_time]).each do |activation|
   enterprise = activation.enterprise
@@ -45,6 +48,6 @@ end
 
 ze = Person['ze']
 # give admin rights for 'ze' in some enterprises
-Enterprise.all.rand.add_admin(ze)
-Enterprise.all.rand.add_admin(ze)
-Enterprise.all.rand.add_admin(ze)
+$environment.enterprises.rand.add_admin(ze)
+$environment.enterprises.rand.add_admin(ze)
+$environment.enterprises.rand.add_admin(ze)

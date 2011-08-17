@@ -1,33 +1,21 @@
 #!/usr/bin/env ruby
 require File.dirname(__FILE__) + '/../config/environment'
-
-# turn on autoflush
-STDOUT.sync = true
-
-$environment_default = Environment.default
+include Noosfero::SampleDataHelper
 
 def new_category(parent, name, color = nil)
-  print '.'
-  $environment_default.categories.create(:name => name, :display_color => color, :parent_id => (parent ? parent.id: nil), :display_in_menu => true)
+  save $environment.categories.build(:name => name, :display_color => color, :parent_id => (parent ? parent.id: nil), :display_in_menu => true)
 end
 
 def new_region(parent, name, color = nil)
-  print '.'
-  $environment_default.regions.create(:name => name, :display_color => color, :parent_id => (parent ? parent.id: nil), :display_in_menu => true)
+  save $environment.regions.build(:name => name, :display_color => color, :parent_id => (parent ? parent.id: nil), :display_in_menu => true)
 end
 
 def new_state(parent, name)
-  print '.'
-  State.create(:name => name, :parent => parent, :environment => $environment_default)
+  save State.new(:name => name, :parent => parent, :environment => $environment)
 end
 
 def new_productcategory(parent, name)
-  print '.'
-  ProductCategory.create(:name => name, :environment => $environment_default, :parent => parent)
-end
-
-def done
-  puts ' done!'
+  save ProductCategory.new(:name => name, :environment => $environment, :parent => parent)
 end
 
 print "Creating categories: "

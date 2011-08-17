@@ -1,11 +1,9 @@
 #!/usr/bin/env ruby
 require File.dirname(__FILE__) + '/../config/environment'
+include Noosfero::SampleDataHelper
 
-# tourn on autoflush
-STDOUT.sync = true
-
-enterprises = Enterprise.all
-categories = ProductCategory.all
+enterprises = $environment.enterprises
+categories = $environment.product_categories
 
 print "Creating products: "
 THINGS = %w[ Car House Bicycle Book Pen Computer Webcam ]
@@ -14,35 +12,29 @@ for thing in THINGS
   for color in COLORS
     name = [color, thing].join(' ')
     rand(10).times do |i|
-      Product.create(
+      save Product.new(
         :name => name,
         :enterprise_id => enterprises.rand.id, :price => (i * 13.7),
         :product_category_id => categories.rand.id
       )
-      print '.'
     end
   end
 end
-puts ' done!'
-
-environment = Environment.default
+done
 
 print "Creating qualifiers and certifier: "
 QUALIFIERS = ['Organic', 'Free as in Freedom', 'Regional']
 CERTIFIERS = ['FBES', 'Colivre', 'Institute Paulo Freire', 'Fora do Eixo']
 for qualifier in QUALIFIERS
-  environment.qualifiers << Qualifier.new(:name => qualifier)
-  print '.'
+  save Qualifier.new(:name => qualifier, :environment => $environment)
 end
 for certifier in CERTIFIERS
-  environment.certifiers << Certifier.new(:name => certifier)
-  print '.'
+  save Certifier.new(:name => certifier, :environment => $environment)
 end
-puts ' done!'
+done
 
 print "Creating units: "
 [['Litre', 'Litres'], ['Kilo', 'Kilos'], ['Meter', 'Meters']].each do |unit|
-  Unit.create!(:singular => unit[0], :plural => unit[1], :environment => environment)
-  print '.'
+  save Unit.new(:singular => unit[0], :plural => unit[1], :environment => $environment)
 end
-puts ' done!'
+done

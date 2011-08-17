@@ -1,10 +1,8 @@
 #!/usr/bin/env ruby
 require File.dirname(__FILE__) + '/../config/environment'
+include Noosfero::SampleDataHelper
 
-# turn on autoflush
-STDOUT.sync = true
-
-environment = Environment.default
+categories = $environment.categories
 
 places = [
   { :country=>'BR', :city=>'Salvador',
@@ -42,37 +40,77 @@ print "Creating users: "
 for name in NAMES
   for surname in SURNAMES
     full_name = [name, surname].join(' ')
-    user = User.create!({
+    user = User.new({
       :login => full_name.to_slug,
       :email => full_name.to_slug + '@localhost.localdomain',
       :password => 'test',
       :password_confirmation => 'test',
-      :environment => environment,
+      :environment => $environment,
     })
-    user.person.name = full_name
-    place = places[rand(places.length)]
-    user.person.data[:country] = place[:country]
-    user.person.city = place[:city]
-    user.person.lat = place[:lat] + (rand/100)-0.005
-    user.person.lng = place[:lng] + (rand/100)-0.005
-    user.person.save!
-    people << user.person
-
-    print '.'
+    save user do
+      user.person.name = full_name
+      place = places[rand(places.length)]
+      user.person.data[:country] = place[:country]
+      user.person.city = place[:city]
+      user.person.lat = place[:lat] + (rand/100)-0.005
+      user.person.lng = place[:lng] + (rand/100)-0.005
+      user.person.save!
+      categories.rand.people << user.person
+      categories.rand.people << user.person
+    end
   end
 end
-puts ' done!'
+ze = User.new({
+  :login => "ze",
+  :email => 'root@localhost.localdomain',
+  :password => 'test',
+  :password_confirmation => 'test',
+  :environment => $environment,
+})
+save ze do
+  $environment.add_admin(ze.person)
+end
 
+admin = User.new({
+  :login => "adminuser",
+  :email => 'adminuser@localhost.localdomain',
+  :password => 'admin',
+  :password_confirmation => 'admin',
+  :environment => $environment,
+})
+save admin do
+  $environment.add_admin(admin.person)
+end
+
+guest = User.new({
+  :login => "guest",
+  :email => 'guest@localhost.localdomain',
+  :password => 'test',
+  :password_confirmation => 'test',
+  :environment => $environment,
+})
+save guest do
+  5.times do
+    communities.rand.add_admin(guest.person)
+    communities.rand.add_member(guest.person)
+  end
+end
+done
+
+people = $environment.people
 print "Creating some friendships: "
 rand(people.size * 3).times do
   from = people.rand
   to = people.rand
   if from != to && !from.friends.include?(to)
-    AddFriend.create!(:requestor => to, :target => from).finish
+    task = AddFriend.new(:requestor => to, :target => from)
+    save task do
+      task.finish
+    end
   end
   print '.'
 end
-puts ' done!'
+done
 
 
 communities = []
@@ -82,53 +120,15 @@ print "Creating communities: "
 for verb in VERBS
   for stuff in STUFF
     name = [verb, stuff].join(' ')
-    community = Community.create!(:name => name, :environment => environment)
-    communities << community
-    rand(10).times do
-      community.add_member(people.rand)
+    community = Community.new(:name => name, :environment => $environment)
+    save community do
+      communities << community
+      rand(10).times do
+        community.add_member(people.rand)
+      end
+      categories.rand.communities << community
+      categories.rand.communities << community
     end
-    print '.'
   end
 end
-puts ' done!'
-
-EVENTS = ['International Conference on %s', '%s day', '%s World Congress', '%s World Forum', '%s Summit', '%s Week']
-THEMES = ['Sustainability', 'Free Software', 'Climate Change', 'Environment', 'Agile Development', 'Solidarity Economy']
-print "Creating some events: "
-for event in EVENTS
-  for theme in THEMES
-    Event.create!(:name => event % theme, :profile => communities.rand, :start_date => Date.today + (-30 + rand(60)).days)
-    print '.'
-  end
-end
-puts ' done!'
-
-ze = User.create!({
-  :login => "ze",
-  :email => 'root@localhost.localdomain',
-  :password => 'test',
-  :password_confirmation => 'test',
-  :environment => environment,
-}).person
-environment.add_admin(ze)
-
-admin = User.create!({
-  :login => "adminuser",
-  :email => 'adminuser@localhost.localdomain',
-  :password => 'admin',
-  :password_confirmation => 'admin',
-  :environment => environment,
-}).person
-environment.add_admin(admin)
-
-guest = User.create!({
-  :login => "guest",
-  :email => 'guest@localhost.localdomain',
-  :password => 'guest',
-  :password_confirmation => 'guest',
-  :environment => environment,
-}).person
-5.times do
-  communities.rand.add_admin(guest)
-  communities.rand.add_member(guest)
-end
+done
