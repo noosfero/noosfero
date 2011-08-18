@@ -182,6 +182,10 @@ class TextileArticleTest < Test::Unit::TestCase
     assert_not_equal '<script>alert(1)</script>', build_article(nil, :abstract => '<script>alert(1)</script>').lead
   end
 
+  should 'not add hard breaks for single line breaks' do
+    assert_equal "<p>one\nparagraph</p>", build_article("one\nparagraph").to_html
+  end
+
   protected
 
   def build_article(input = nil, options = {})

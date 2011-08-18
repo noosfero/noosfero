@@ -28,7 +28,9 @@ class TextileArticle < TextArticle
 
   def convert_to_html(textile)
     @@sanitizer ||= HTML::WhiteListSanitizer.new
-    @@sanitizer.sanitize(RedCloth.new(textile|| '').to_html)
+    converter = RedCloth.new(textile|| '')
+    converter.hard_breaks = false
+    @@sanitizer.sanitize(converter.to_html)
   end
 
 end
