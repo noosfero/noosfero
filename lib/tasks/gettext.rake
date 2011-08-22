@@ -58,6 +58,7 @@ task :updatepo do
 
   sources =
     Dir.glob("{app,lib}/**/*.{rb,rhtml,erb}") +
+    Dir.glob("plugins/**/*.{rb,rhtml,erb}") +
     Dir.glob('config/initializers/*.rb') +
     Dir.glob('public/*.html.erb') +
     Dir.glob('public/designs/themes/{base,noosfero,profile-base}/*.{rhtml,html.erb}') +

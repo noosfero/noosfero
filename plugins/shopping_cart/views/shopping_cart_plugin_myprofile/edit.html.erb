@@ -1,0 +1,13 @@
+<h1> <%= _('Cart options') %> </h1>
+
+<% form_for(:profile_attr, profile, :url => {:action => 'edit'}, :html => {:method => 'post'}) do |f| %>
+  <%= labelled_form_field(_('Enabled?'), f.check_box(:shopping_cart)) %>
+  <%= labelled_form_field(_('Delivery?'), f.check_box(:shopping_cart_delivery)) %>
+  <%= labelled_form_field(_('Delivery price:'), f.text_field(:shopping_cart_delivery_price)) %>
+  <br style='clear: both'/>
+  <br style='clear: both'/>
+  <div>
+    <%= submit_button(:save, _('Save')) %>
+    <%= button :back, _('Back to control panel'), :controller => 'profile_editor' %>
+  </div>
+<% end%>

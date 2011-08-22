@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2010-10-26 18:39-0300\n"
-"PO-Revision-Date: 2010-10-26 19:02-0300\n"
+"POT-Creation-Date: 2011-08-16 16:18-0300\n"
+"PO-Revision-Date: 2011-08-16 16:40-0300\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -164,6 +164,7 @@ msgstr "<a href=\"#Description\">Descrição</a>"
 # type: Content of: <h2>
 #: doc/noosfero/admin/send-email-members.en.xhtml:10
 #: doc/noosfero/admin/export-users-list.en.xhtml:10
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:15
 #: doc/noosfero/cms/posting-on-blog.en.xhtml:11
 #: doc/noosfero/cms/adding-images-to-gallery.en.xhtml:11
 #: doc/noosfero/cms/writing-advanced-article.en.xhtml:16
@@ -430,6 +431,7 @@ msgstr "Enviando e-mail para os membros do ambiente"
 # type: Content of: <ul><li>
 #: doc/noosfero/admin/send-email-members.en.xhtml:25
 #: doc/noosfero/admin/export-users-list.en.xhtml:24
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:167
 #: doc/noosfero/cms/posting-on-blog.en.xhtml:35
 #: doc/noosfero/cms/adding-images-to-gallery.en.xhtml:34
 #: doc/noosfero/cms/writing-advanced-article.en.xhtml:80
@@ -524,6 +526,581 @@ msgstr "Clique no link do formato que você escolheu e baixe a lista:"
 #: doc/noosfero/admin/export-users-list.en.xhtml:22
 msgid "Download list of users link on manage users"
 msgstr "Link para download da lista de usuários em gerenciar usuários"
+
+# type: Content of: <h1>
+#: doc/noosfero/plugins/index.en.xhtml:1
+msgid "Plugins"
+msgstr "Plugins"
+
+# type: Content of: <h1>
+#: doc/noosfero/plugins/send_email.en.xhtml:1
+msgid "SendEmailPlugin"
+msgstr ""
+
+# type: Content of: <p>
+#: doc/noosfero/plugins/send_email.en.xhtml:3
+msgid "Allows to send e-mails through an e-mail form."
+msgstr ""
+
+# type: Content of: <h2>
+#: doc/noosfero/plugins/send_email.en.xhtml:6
+msgid "Usage"
+msgstr ""
+
+# type: Content of: <ul><li>
+#: doc/noosfero/plugins/send_email.en.xhtml:9
+msgid ""
+"Create a <span class=\"caps\">HTML</span> form using RawHTMLBlock or "
+"RawHTMLArticle that invokes the {sendemail} action"
+msgstr ""
+
+# type: Content of: <ul><li>
+#: doc/noosfero/plugins/send_email.en.xhtml:10
+msgid ""
+"Add a &#8220;to&#8221; and &#8220;message&#8221; field and a submit button"
+msgstr ""
+
+# type: Content of: <ul><li>
+#: doc/noosfero/plugins/send_email.en.xhtml:11
+msgid ""
+"Make sure to fill in allowed &#8216;to&#8217; addresses in plugin settings"
+msgstr ""
+
+# type: Content of: <h2>
+#: doc/noosfero/plugins/send_email.en.xhtml:14
+msgid "HTML form"
+msgstr ""
+
+# type: Content of: <h3>
+#: doc/noosfero/plugins/send_email.en.xhtml:16
+#, fuzzy
+msgid "Form action"
+msgstr "Mais opções"
+
+# type: Content of: <p>
+#: doc/noosfero/plugins/send_email.en.xhtml:18
+msgid ""
+"You should use {sendemail} macro as form action, it will be expanded as:"
+msgstr ""
+
+# type: Content of: <ul><li>
+#: doc/noosfero/plugins/send_email.en.xhtml:22
+msgid ""
+"<strong>/profile/&lt;identifier&gt;/plugins/send_email/deliver</strong> in "
+"profile context"
+msgstr ""
+
+# type: Content of: <ul><li>
+#: doc/noosfero/plugins/send_email.en.xhtml:23
+msgid "<strong>/plugin/send_email/deliver</strong> in environment context"
+msgstr ""
+
+# type: Content of: <h3>
+#: doc/noosfero/plugins/send_email.en.xhtml:26
+msgid "&#8216;Subject&#8217; field"
+msgstr ""
+
+#: doc/noosfero/plugins/send_email.en.xhtml:28
+#, fuzzy
+msgid "Subject of message."
+msgstr "Enviar mensagem"
+
+# type: Content of: <p>
+#: doc/noosfero/plugins/send_email.en.xhtml:31
+msgid "(default: &#8216;New mail&#8217;)"
+msgstr ""
+
+# type: Content of: <h3>
+#: doc/noosfero/plugins/send_email.en.xhtml:34
+msgid "&#8216;Message&#8217; field"
+msgstr ""
+
+#: doc/noosfero/plugins/send_email.en.xhtml:36
+#, fuzzy
+msgid "Body of message."
+msgstr "Enviar mensagem"
+
+# type: Content of: <p>
+#: doc/noosfero/plugins/send_email.en.xhtml:39
+#: doc/noosfero/plugins/send_email.en.xhtml:47
+msgid "(required)"
+msgstr ""
+
+# type: Content of: <h3>
+#: doc/noosfero/plugins/send_email.en.xhtml:42
+msgid "&#8216;To&#8217; field"
+msgstr ""
+
+# type: Content of: <p>
+#: doc/noosfero/plugins/send_email.en.xhtml:44
+msgid "Target address. Accepts multiple addresses separated by comma."
+msgstr ""
+
+# type: Content of: <h3>
+#: doc/noosfero/plugins/send_email.en.xhtml:50
+msgid "extra fields"
+msgstr ""
+
+# type: Content of: <p>
+#: doc/noosfero/plugins/send_email.en.xhtml:52
+msgid ""
+"Each other params in <span class=\"caps\">HTML</span> form will compose "
+"message body in a format &#8220;key: value&#8221;"
+msgstr ""
+
+# type: Content of: <h3>
+#: doc/noosfero/plugins/send_email.en.xhtml:55
+#, fuzzy
+msgid "Options"
+msgstr "Mais opções"
+
+# type: Content of: <h3>
+#: doc/noosfero/plugins/send_email.en.xhtml:57
+msgid "Using ajax"
+msgstr ""
+
+# type: Content of: <p>
+#: doc/noosfero/plugins/send_email.en.xhtml:59
+msgid ""
+"Ajax is supported using #ajax-form as id of <span class=\"caps\">HTML</span> "
+"form."
+msgstr ""
+
+# type: Content of: <p>
+#: doc/noosfero/plugins/send_email.en.xhtml:62
+msgid "Example:"
+msgstr ""
+
+# type: Content of: <pre>
+#: doc/noosfero/plugins/send_email.en.xhtml:66
+msgid ""
+"&lt;form action='{sendemail}' id='ajax-form'&gt; &lt;input type='text' "
+"name='to'/&gt; &lt;input type='text' name='subject'/&gt; &lt;input "
+"type='text' name='message'/&gt; &lt;input type='subject'/&gt; &lt;/form&gt;"
+msgstr ""
+
+# type: Content of: <h2>
+#: doc/noosfero/plugins/send_email.en.xhtml:73
+msgid "Info"
+msgstr ""
+
+# type: Content of: <p>
+#: doc/noosfero/plugins/send_email.en.xhtml:75
+msgid ""
+"This plugin was inspired by <a href=\"http://foswiki.org/Extensions/"
+"SendEmailPlugin\">Foswiki SendEmailPlugin</a>"
+msgstr ""
+
+# type: Content of: <h1>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:1
+msgid "Shopping Cart"
+msgstr "Carrinhos de Compras"
+
+# type: Content of: <p>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:3
+msgid "<em>Buy the products you want.</em>"
+msgstr "<em>Compre os produtos que você deseja.</em>"
+
+# type: Content of: <ul><li>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:6
+msgid "<a href=\"#how-to-access\">How to Access</a>"
+msgstr "<a href=\"#how-to-access\">Como acessar</a>"
+
+# type: Content of: <ul><li>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:7
+msgid "<a href=\"#adding-new-products\">Adding new products</a>"
+msgstr "<a href=\"#adding-new-products\">Adcionando novos produtos</a>"
+
+# type: Content of: <ul><li>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:8
+msgid "<a href=\"#editing-quantities\">Editing quantities</a>"
+msgstr "<a href=\"#editinr-quantities\">Editando quantidades</a>"
+
+# type: Content of: <ul><li>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:9
+msgid "<a href=\"#removing-products\">Removing products</a>"
+msgstr "<a href=\"#removing-products\">Removendo produtos</a>"
+
+# type: Content of: <ul><li>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:10
+msgid "<a href=\"#cleaning-cart\">Cleaning the cart</a>"
+msgstr "<a href=\"#cleaning-cart\">Limpando o carrinho</a>"
+
+# type: Content of: <ul><li>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:11
+msgid "<a href=\"#show-and-hide\">Show and hide cart</a>"
+msgstr "<a href=\"#show-and-hide\">Mostrar e esconder o carrinho</a>"
+
+# type: Content of: <ul><li>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:12
+msgid "<a href=\"#checkout\">Checking out</a>"
+msgstr "<a href=\"#checkout\">Finalizando compra</a>"
+
+# type: Content of: <p>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:17
+msgid ""
+"First of all, you need to be at the page of the enterprise from which you "
+"are going to buy your products:"
+msgstr ""
+"Antes de mais nada, você precisa estar na página do empreendimento do qual "
+"vocêirá comprar seus produtos:"
+
+# type: Content of: <h1>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:20
+msgid "Enterprise Homepage"
+msgstr "Homepage do Empreendimento"
+
+# type: Content of: <p>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:23
+msgid ""
+"Now you are going to access the products&#8217; page of this enterprise. "
+"Most of the enterprises has a link at the side bar directing you to their "
+"products&#8217; list:"
+msgstr ""
+"Agora você irá acessar a página dos produtos desse empreendimento. A maioria "
+"dos empreendimentos tem um link na barra lateral direcionando para a sua "
+"lista de produtos:"
+
+# type: Attribute 'alt' of: <ol><li><div><img>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:26
+msgid "Link to the products list"
+msgstr "Link para a lista de produtos"
+
+# type: Content of: <p>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:29
+msgid ""
+"If there is no link to the products, you can try accessing the list straight "
+"through the url:"
+msgstr ""
+"Se não houver um link para os produtos, você pode tentar acessar a lista "
+"diretamente através da url:"
+
+# type: Content of: <p>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:32
+msgid "/catalog/enterprise-identifier."
+msgstr "/catalog/identificador-do-empreendimento."
+
+# type: Content of: <h1>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:35
+msgid "Adding new products"
+msgstr "Adicionando novos produtos"
+
+# type: Content of: <p>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:37
+msgid ""
+"After reaching the products&#8217; list, if the enterprise enabled the "
+"shopping-cart plugin, you will see the button &#8216;Add to cart&#8217; on "
+"each product listed. This is how it looks like in the catalog:"
+msgstr ""
+"Depois de alcançar a lista de produtos, caso a o empreendimento habilitou o "
+"plugin shopping-cart, você irá ver o botão &#8216;Adicionar ao "
+"carrinho&#8217; em cada produto listado. Aqui como ele aparece no catálogo:"
+
+# type: Content of: <h1>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:40
+msgid "Catalog"
+msgstr "Catálogo"
+
+# type: Content of: <p>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:43
+msgid "And here in the products search:"
+msgstr "E aqui na busca de produtos:"
+
+# type: Attribute 'alt' of: <p><img>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:46
+msgid "Search"
+msgstr "Busca"
+
+# type: Content of: <p>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:49
+msgid ""
+"If you press this button, you will see in the up-right corner your cart "
+"sliding down with the new product added:"
+msgstr ""
+"Se você apertar esse botão você verá seu carrinho deslizando para baixo no "
+"topo direito com o novo produto adicionado:"
+
+# type: Attribute 'alt' of: <ol><li><div><img>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:52
+msgid "First product"
+msgstr "Primeiro produto"
+
+# type: Content of: <p>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:55
+msgid ""
+"From now on, your cart will always be there until it gets empty or you "
+"choose to hide it.  If you want to add new products just do the same thing. "
+"If you try to add a product that&#8217;s already in your cart, it will add "
+"one to the quantity of that product."
+msgstr ""
+"De agora em diante, o seu carrinho estará sempre lá até que ele se esvazie "
+"ou você decida esconder ele. Se você quiser adicionar novos produtos basta "
+"fazer a mesma coisa. Se você tentar adicionar um produto que já está no seu "
+"carrinho, ele irá acrescentar em um a quantidade do produto."
+
+# type: Attribute 'alt' of: <ol><li><p><img>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:59
+msgid "Cart with some products"
+msgstr "Carrinho com alguns produtos"
+
+# type: Content of: <p>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:62
+msgid ""
+"<span class=\"caps\">OBS</span>: you can only add products from the same "
+"enterprise in the cart. If you want to buy products from different "
+"enterprises, then you should finish the buy with one and then start the new "
+"buy with the other."
+msgstr ""
+"<span class=\"caps\">OBS</span>: você só pode adicionar produtos de um mesmo "
+"empreendimento no carrinho. Se você quer comprar produtos de um "
+"empreendimento diferente, você deve finalizar sua compra com um e "
+"então começar a nova compra com o outro."
+
+# type: Content of: <h1>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:65
+msgid "Editing quantities"
+msgstr "Editando quantidades"
+
+# type: Content of: <p>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:67
+msgid ""
+"To edit the quantity of each product you have in your cart is really easy. "
+"You just need to click on the quantity and write the quantity you want:"
+msgstr ""
+"Alterar a quantidade de cada produto que você tem no carrinho é muito fácil. "
+"Você só precisa clicar na quantidade e escrever a quantidade que você quer:"
+
+# type: Attribute 'alt' of: <p><img>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:70
+msgid "Editing quantity"
+msgstr "Editando a quantidade"
+
+# type: Content of: <p>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:73
+msgid "After leaving the field, the quantity will be automatically updated:"
+msgstr ""
+"Depois de deixar o campo, a quantidade sera atualizada automaticamente:"
+
+# type: Attribute 'alt' of: <p><img>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:76
+msgid "Quantity updated"
+msgstr "Quantidade atualizada"
+
+# type: Content of: <h1>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:79
+msgid "Removing products"
+msgstr "Removendo produtos"
+
+# type: Content of: <p>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:81
+msgid ""
+"You can remove any product from your cart simply pressing the &#8216;"
+"delete&#8217; button (which has a little thrash as icon):"
+msgstr ""
+"Você pode remover qualquer produto do carrinho simplesmente pressionando o "
+"botão de deletar (que tem o pequeno ícone de uma lixeira):"
+
+# type: Content of: <h1>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:84
+msgid "Deleting product"
+msgstr "Deletando produto"
+
+# type: Content of: <p>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:87
+msgid "After pressing this button you will be asked for a confirmation:"
+msgstr "Depois de apertar o botão, você deverá realizar a confirmação:"
+
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:90
+msgid "Delete confirmation"
+msgstr "Confirmação de remoção"
+
+# type: Content of: <p>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:93
+msgid ""
+"And after confirming, the product will be removed. If the product removed is "
+"the last one, the cart will disappear too."
+msgstr ""
+"E após confirmar, o produto será removido. Se o produto removido for o "
+"último, o carrinho irá desaparecer."
+
+# type: Content of: <h1>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:96
+msgid "Cleaning the cart"
+msgstr "Limpando o carriho"
+
+# type: Content of: <p>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:98
+msgid ""
+"If you changed your mind about the products you added or you did too many "
+"mistakes to keep going on, at any time you can clean your cart and start it "
+"again. Just follow the link &#8220;Clean cart&#8221;:"
+msgstr ""
+"Se você mudou de ideia sobre os produtos que você adicionou ou você "
+"cometeuerros demais para continuar, a qualquer momento você pode limpar o "
+"seu carrinho e começar de novo. Basta clicar no link &#8220;Limpar "
+"carrinho&#8220;:"
+
+# type: Content of: <h1>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:101
+msgid "Cleaning cart"
+msgstr "Limpando carrinho"
+
+# type: Content of: <p>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:104
+msgid "After following this link you will be asked for a confirmation:"
+msgstr "Após clicar nesse link você precisa dar a sua confirmação:"
+
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:107
+msgid "Cleaning confirmation"
+msgstr "Confirmação de limpeza"
+
+# type: Content of: <p>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:110
+msgid "And after confirming, your carted is empty again."
+msgstr "E depois de confirmar, seu carrinho estará limpo de novo."
+
+# type: Content of: <h2>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:113
+msgid "Show and hide cart"
+msgstr "Mostra e esconder o carrinho"
+
+# type: Content of: <p>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:115
+msgid ""
+"The cart is a feature that is always over your page on the top-right corner, "
+"so sometimes you might get nervous trying to see something that is under it. "
+"Don&#8217;t worry! In you cart is a &#8220;Hide cart&#8221; button:"
+msgstr ""
+"O carrinho é uma funcionalidade que está sempre sobre a página no canto "
+"superior direito, então em alguns momentos você pode ficar nervoso tentando "
+"ver algo que pode estar embaixo dele. Não se preocupe! No seu carrinho tem "
+"um botão &#8220;Esconder carrinho&#8221;:"
+
+# type: Attribute 'alt' of: <p><img>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:118
+msgid "Cart hide"
+msgstr "Esconder carrinho"
+
+# type: Content of: <p>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:121
+msgid ""
+"This button will slide up your cart when pressed leaving just a little "
+"&#8220;Show cart&#8221; so that you can slide it down again:"
+msgstr ""
+"Quando clicado, esse botão irá deslizar para cima o seu carrinho deixando "
+"apenas um pequeno &#8220;Mostrar carrinho&#8221; para que você possa desliza-"
+"lo para baixo novamente:"
+
+# type: Attribute 'alt' of: <p><img>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:124
+msgid "Cart hided"
+msgstr "Carrinho escondido"
+
+# type: Content of: <p>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:127
+msgid ""
+"When you hide your cart nothing happens to the products you already added.  "
+"If you miss your beatiful cart again just press &#8220;Show cart&#8221; and "
+"it will slide down gracefully back to you.  ^^"
+msgstr ""
+"Quando você esconder o carrinho nada irá acontecer com os produtos que você "
+"já adcionou."
+"Se você sente falta do seu lindo carrinho novamente, basta apertar &#8220;"
+"Mostrar carrinho&#8221; e ele irá deslizar graciosamente de volta para você."
+
+# type: Content of: <h2>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:131
+msgid "Checking out"
+msgstr "Finzalizando a compra"
+
+# type: Content of: <p>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:133
+msgid ""
+"So, now you already choosed your products and its quantities and want to "
+"checkout your products.  As you can see in your cart, there is a &#8220;"
+"Shopping Checkout&#8221; button:"
+msgstr ""
+"Então, agora você já escolheu os seus produtos e as respectivas quantidades "
+"e você quer finalizar o seu pedido."
+"Como você pode ver no seu carrinho, tem um botão &#8220;Finalizar "
+"Pedido&#8221;:"
+
+# type: Attribute 'alt' of: <p><img>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:137
+msgid "Checkout"
+msgstr "Finalizando compra"
+
+# type: Content of: <p>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:140
+msgid ""
+"After pressing this button, a box will appear with some fields for you to "
+"fill and your cart review:"
+msgstr ""
+"Depois de apertar esse botão, uma caixa irá aparecer com alguns campos para "
+"você preencher e uma revisão do seu carrinho:"
+
+# type: Attribute 'alt' of: <p><img>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:143
+msgid "Filling informations"
+msgstr "Preenchendo informações"
+
+# type: Content of: <p>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:146
+msgid ""
+"If you are already a member of the social network your informations will be "
+"filled automatically:"
+msgstr ""
+"Se você já é um membro da rede social suas informações serão preenchidas "
+"automaticamente:"
+
+# type: Attribute 'alt' of: <p><img>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:149
+msgid "Informations automatically filled"
+msgstr "Informações automaticamente preenchidas"
+
+# type: Content of: <p>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:152
+msgid ""
+"If due to some reason you fill a field erroneously or do not fill a required "
+"field, a little message will appear under the field indicating the problem "
+"so that you can fill your informations correctly:"
+msgstr ""
+"Se por alguma razão você preencher um campo erroneamente ou não preencher um "
+"campo obrigatório, uma pequena mensagem irá aparecer embaixo do campo "
+"indicando o problema para que você possa preencher suas informações "
+"corretamente:"
+
+# type: Attribute 'alt' of: <p><img>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:155
+msgid "Invalid fields"
+msgstr "Campos inválidos"
+
+# type: Content of: <p>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:158
+msgid ""
+"After filling your information press the button &#8220;Send buy "
+"request&#8221;:"
+msgstr ""
+"Depois de preencher suas informações aperte o botão &#8220;Enviar pedido de "
+"compra&#8221;:"
+
+# type: Attribute 'alt' of: <p><img>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:161
+msgid "Send request"
+msgstr "Enviar requisição"
+
+# type: Content of: <p>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:164
+msgid ""
+"This button will send your request to the enterprise and will also send you "
+"an email with your request so that you can confirm the products and your "
+"informations. Now the enterprise might contact you to discuss further "
+"details."
+msgstr ""
+"Esse botão irá enviar a sua requisição para o empreendimento e também irá "
+"lhe mandar um email com o seu pedido para que você possa confirmar os seus "
+"produtos e as suas informações. Agora o empreendimento deve te contactar "
+"para discutir demais detalhes."
 
 # type: Content of: <h1>
 #: doc/noosfero/cms/posting-on-blog.en.xhtml:1
@@ -4946,9 +5523,9 @@ msgid ""
 "searching-enterprises\">search</a> and click on the enterprise you want to "
 "add a product."
 msgstr ""
-"Vá para a página do empreendimento. Utilize a <a href=\"/"
-"doc/navigation/searching-enterprises\">busca</a> e clique no empreendimento "
-"que deseja adicionar um produto."
+"Vá para a página do empreendimento. Utilize a <a href=\"/doc/navigation/"
+"searching-enterprises\">busca</a> e clique no empreendimento que deseja "
+"adicionar um produto."
 
 # type: Content of: <ol><li>
 #: doc/noosfero/enterprise/adding-product.en.xhtml:20
@@ -5491,8 +6068,9 @@ msgstr "<a href=\"/doc/navigation/searching\">Busca</a>"
 msgid ""
 "<a href=\"/doc/navigation/finding-more-recent-people\">Finding more recent "
 "people</a>"
-msgstr "<a href=\"/doc/navigation/finding-more-recent-people\">Encontrar "
-"pessoas mais recentes</a>"
+msgstr ""
+"<a href=\"/doc/navigation/finding-more-recent-people\">Encontrar pessoas "
+"mais recentes</a>"
 
 # type: Content of: <ul><li>
 #: doc/noosfero/navigation/finding-more-active-people.en.xhtml:29
@@ -5501,8 +6079,9 @@ msgstr "<a href=\"/doc/navigation/finding-more-recent-people\">Encontrar "
 msgid ""
 "<a href=\"/doc/navigation/finding-more-popular-people\">Finding more popular "
 "people</a>"
-msgstr "<a href=\"/doc/navigation/finding-more-popular-people\">Encontrar "
-"pessoas mais populares</a>"
+msgstr ""
+"<a href=\"/doc/navigation/finding-more-popular-people\">Encontrar pessoas "
+"mais populares</a>"
 
 # type: Content of: <ul><li>
 #: doc/noosfero/navigation/finding-more-active-people.en.xhtml:31
@@ -5567,8 +6146,7 @@ msgstr "Encontrar comunidades mais ativas"
 # type: Content of: <p>
 #: doc/noosfero/navigation/finding-more-active-communities.en.xhtml:3
 msgid "<em>To find the communities who create more content.</em>"
-msgstr ""
-"<em>Para encontrar comunidades que criaram mais conteúdo.</em>"
+msgstr "<em>Para encontrar comunidades que criaram mais conteúdo.</em>"
 
 # type: Content of: <p>
 #: doc/noosfero/navigation/finding-more-active-communities.en.xhtml:13
@@ -6094,8 +6672,8 @@ msgid ""
 "Join: if you are not a member of community, you can quickly join it clicking "
 "on this link"
 msgstr ""
-"Entrar: se você não é membro da comunidade, você rapidamente poderá requisitar"
-" a entrada clicando nesse link"
+"Entrar: se você não é membro da comunidade, você rapidamente poderá "
+"requisitar a entrada clicando nesse link"
 
 # type: Content of: <ol><li>
 #: doc/noosfero/navigation/community-balloon.en.xhtml:23
@@ -6112,8 +6690,8 @@ msgid ""
 "Send an e-mail: if you are a member of community, you can send an e-mail to "
 "the community admins clicking on this link"
 msgstr ""
-"Enviar um e-mail: se você é um membro da comunidade, você poderá enviar um "
-"e-mail para os administradores da comunidade clicando nesse link"
+"Enviar um e-mail: se você é um membro da comunidade, você poderá enviar um e-"
+"mail para os administradores da comunidade clicando nesse link"
 
 # type: Content of: <h1>
 #: doc/noosfero/navigation/finding-more-recent-people.en.xhtml:1
@@ -6138,9 +6716,9 @@ msgid ""
 "Below the profile&#8217;s picture, you will see the date that the person "
 "joined the network"
 msgstr ""
-"As pessoas serão listadas ordenadas pela data de criação com os mais recentes"
-" primeiro. Abaixo da imagem do perfil, você verá a data que a pessoa entrou "
-"na rede"
+"As pessoas serão listadas ordenadas pela data de criação com os mais "
+"recentes primeiro. Abaixo da imagem do perfil, você verá a data que a pessoa "
+"entrou na rede"
 
 # type: Attribute 'alt' of: <ol><li><div><img>
 #: doc/noosfero/navigation/finding-more-recent-people.en.xhtml:18
@@ -6157,8 +6735,7 @@ msgstr "Campo de busca de pessoas mais recentes"
 #: doc/noosfero/navigation/finding-more-recent-people.en.xhtml:20
 #: doc/noosfero/navigation/finding-more-recent-communities.en.xhtml:20
 msgid "Then you will see the search results ordered by creation date"
-msgstr ""
-"Então você verá o resultado da busca ordenado pela data de criação."
+msgstr "Então você verá o resultado da busca ordenado pela data de criação."
 
 # type: Attribute 'alt' of: <ol><li><p><img>
 #: doc/noosfero/navigation/finding-more-recent-people.en.xhtml:20
@@ -6170,8 +6747,9 @@ msgstr "Resultado da busca por pessoas mais recentes com exemplo"
 msgid ""
 "<a href=\"/doc/navigation/finding-more-active-people\">Finding more recent "
 "people</a>"
-msgstr "<a href=\"/doc/navigation/finding-more-active-people\">Encontrar "
-"pessoas mais recentes</a>"
+msgstr ""
+"<a href=\"/doc/navigation/finding-more-active-people\">Encontrar pessoas "
+"mais recentes</a>"
 
 # type: Content of: <h1>
 #: doc/noosfero/navigation/searching-communities.en.xhtml:1
@@ -6257,8 +6835,7 @@ msgstr "Encontrar comunidades mais populares"
 # type: Content of: <p>
 #: doc/noosfero/navigation/finding-more-popular-communities.en.xhtml:3
 msgid "<em>To find the communities who has more members.</em>"
-msgstr ""
-"<em>Para encontrar as comunidades que possuem mais membros.</em>"
+msgstr "<em>Para encontrar as comunidades que possuem mais membros.</em>"
 
 # type: Attribute 'alt' of: <p><img>
 #: doc/noosfero/navigation/finding-more-popular-communities.en.xhtml:14
@@ -6272,9 +6849,9 @@ msgid ""
 "popular first. Below the profile&#8217;s picture, you will see the number of "
 "members the community has"
 msgstr ""
-"As comunidades serão listadas ordenadas pelo número de membros com as mais"
-" populares primeiro. Abaixo da imagem do perfil, você verá o número de membros"
-" que a comunidade tem"
+"As comunidades serão listadas ordenadas pelo número de membros com as mais "
+"populares primeiro. Abaixo da imagem do perfil, você verá o número de "
+"membros que a comunidade tem"
 
 # type: Attribute 'alt' of: <ol><li><p><img>
 #: doc/noosfero/navigation/finding-more-popular-communities.en.xhtml:18
@@ -6292,8 +6869,8 @@ msgid ""
 "Then you will see the search results ordered by the number of members the "
 "community has"
 msgstr ""
-"Então você verá o resultado da busca ordenado pelo número de membros que "
-"a comunidade tem"
+"Então você verá o resultado da busca ordenado pelo número de membros que a "
+"comunidade tem"
 
 # type: Attribute 'alt' of: <ol><li><p><img>
 #: doc/noosfero/navigation/finding-more-popular-communities.en.xhtml:20
@@ -6419,7 +6996,20 @@ msgstr ""
 # type: Content of: <ul><li>
 #: doc/noosfero/admin/toc.en.xhtml:4
 msgid "<a href=\"/doc/admin/export-users-list\">Export the list of users</a>"
-msgstr "<a href=\"/doc/admin/export-users-list\">Exportar lista de usuários</a>"
+msgstr ""
+"<a href=\"/doc/admin/export-users-list\">Exportar lista de usuários</a>"
+
+# type: Content of: <ul><li>
+#: doc/noosfero/plugins/toc.en.xhtml:3
+#, fuzzy
+msgid "<a href=\"/doc/plugins/send_email\">SendEmailPlugin</a>"
+msgstr ""
+"<a href=\"/doc/admin/send-email-members\">Enviar e-mail para os membros</a>"
+
+# type: Content of: <ul><li>
+#: doc/noosfero/plugins/toc.en.xhtml:4
+msgid "<a href=\"/doc/plugins/shopping_cart\">Shopping Cart</a>"
+msgstr "<a href=\"/doc/plugins/shopping_cart\">Carrinho de Compras</a>"
 
 # type: Content of: <ul><li>
 #: doc/noosfero/cms/toc.en.xhtml:4
@@ -6454,7 +7044,8 @@ msgstr ""
 msgid ""
 "<a href=\"/doc/community/send-email-members\">Sending e-mail to members</a>"
 msgstr ""
-"<a href=\"/doc/community/send-email-members\">Enviar e-mail para os membros</a>"
+"<a href=\"/doc/community/send-email-members\">Enviar e-mail para os membros</"
+"a>"
 
 # type: Content of: <ul><li>
 #: doc/noosfero/community/toc.en.xhtml:7
@@ -6501,8 +7092,8 @@ msgid ""
 "<a href=\"/doc/user/viewing-profiles-activity\">Viewing profile&#8217;s "
 "activities</a>"
 msgstr ""
-"<a href=\"/doc/user/viewing-profiles-activity\">Visualizando atividades do"
-" perfil</a>"
+"<a href=\"/doc/user/viewing-profiles-activity\">Visualizando atividades do "
+"perfil</a>"
 
 # type: Content of: <ul><li>
 #: doc/noosfero/user/toc.en.xhtml:14
@@ -6601,26 +7192,32 @@ msgstr "<a href=\"/doc/admin\">Funcionalidade de administração</a>"
 
 # type: Content of: <ul><li>
 #: doc/noosfero/toc.en.xhtml:4
+#, fuzzy
+msgid "<a href=\"/doc/plugins\">Plugins</a>"
+msgstr "<a href=\"/doc/navigation\">Navegação</a>"
+
+# type: Content of: <ul><li>
+#: doc/noosfero/toc.en.xhtml:5
 msgid "<a href=\"/doc/cms\">Content Management</a>"
 msgstr "<a href=\"/doc/cms\">Gerenciamento de conteúdo</a>"
 
 # type: Content of: <ul><li>
-#: doc/noosfero/toc.en.xhtml:5
+#: doc/noosfero/toc.en.xhtml:6
 msgid "<a href=\"/doc/community\">Community features</a>"
 msgstr "<a href=\"/doc/community\">Funcionalidades da comunidade</a>"
 
 # type: Content of: <ul><li>
-#: doc/noosfero/toc.en.xhtml:6
+#: doc/noosfero/toc.en.xhtml:7
 msgid "<a href=\"/doc/user\">User features</a>"
 msgstr "<a href=\"/doc/user\">Funcionalidades do usuário</a>"
 
 # type: Content of: <ul><li>
-#: doc/noosfero/toc.en.xhtml:7
+#: doc/noosfero/toc.en.xhtml:8
 msgid "<a href=\"/doc/enterprise\">Enterprise features</a>"
 msgstr "<a href=\"/doc/enterprise\">Funcionalidades do empreendimento</a>"
 
 # type: Content of: <ul><li>
-#: doc/noosfero/toc.en.xhtml:8
+#: doc/noosfero/toc.en.xhtml:9
 msgid "<a href=\"/doc/navigation\">Navigation</a>"
 msgstr "<a href=\"/doc/navigation\">Navegação</a>"
 
