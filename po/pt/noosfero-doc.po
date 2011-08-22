@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2011-08-16 16:18-0300\n"
-"PO-Revision-Date: 2011-08-16 16:40-0300\n"
+"PO-Revision-Date: 2011-08-22 17:56-0300\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -540,12 +540,12 @@ msgstr ""
 # type: Content of: <p>
 #: doc/noosfero/plugins/send_email.en.xhtml:3
 msgid "Allows to send e-mails through an e-mail form."
-msgstr ""
+msgstr "Permite enviar e-mails por um formulário"
 
 # type: Content of: <h2>
 #: doc/noosfero/plugins/send_email.en.xhtml:6
 msgid "Usage"
-msgstr ""
+msgstr "Utilização"
 
 # type: Content of: <ul><li>
 #: doc/noosfero/plugins/send_email.en.xhtml:9
@@ -553,35 +553,41 @@ msgid ""
 "Create a <span class=\"caps\">HTML</span> form using RawHTMLBlock or "
 "RawHTMLArticle that invokes the {sendemail} action"
 msgstr ""
+"Crie um formulário <span class=\"caps\">HTML</span> utilizando using RawHTMLBlock ou "
+"RawHTMLArticle que invoca a 'action' {sendemail}"
 
 # type: Content of: <ul><li>
 #: doc/noosfero/plugins/send_email.en.xhtml:10
 msgid ""
 "Add a &#8220;to&#8221; and &#8220;message&#8221; field and a submit button"
 msgstr ""
+"Adicione os campos &#8220;to&#8221; e &#8220;message&#8221; e um botão de submit"
 
 # type: Content of: <ul><li>
 #: doc/noosfero/plugins/send_email.en.xhtml:11
 msgid ""
 "Make sure to fill in allowed &#8216;to&#8217; addresses in plugin settings"
 msgstr ""
+"Tenha certeza de preencher o campo &#8216;to&#8217; com endereços permitidos"
+" nas configurações do plugin"
 
 # type: Content of: <h2>
 #: doc/noosfero/plugins/send_email.en.xhtml:14
 msgid "HTML form"
-msgstr ""
+msgstr "Formulário HTML"
 
 # type: Content of: <h3>
 #: doc/noosfero/plugins/send_email.en.xhtml:16
-#, fuzzy
 msgid "Form action"
-msgstr "Mais opções"
+msgstr "Atributo 'action' do formulário"
 
 # type: Content of: <p>
 #: doc/noosfero/plugins/send_email.en.xhtml:18
 msgid ""
 "You should use {sendemail} macro as form action, it will be expanded as:"
 msgstr ""
+"Você deve utilizar a macro {sendemail} como 'action' do formulário, ela"
+" será expandida como:"
 
 # type: Content of: <ul><li>
 #: doc/noosfero/plugins/send_email.en.xhtml:22
@@ -589,57 +595,58 @@ msgid ""
 "<strong>/profile/&lt;identifier&gt;/plugins/send_email/deliver</strong> in "
 "profile context"
 msgstr ""
+"<strong>/profile/&lt;identifier&gt;/plugins/send_email/deliver</strong> no "
+"contexto do perfil"
 
 # type: Content of: <ul><li>
 #: doc/noosfero/plugins/send_email.en.xhtml:23
 msgid "<strong>/plugin/send_email/deliver</strong> in environment context"
-msgstr ""
+msgstr "<strong>/plugin/send_email/deliver</strong> no contexto do ambiente"
 
 # type: Content of: <h3>
 #: doc/noosfero/plugins/send_email.en.xhtml:26
 msgid "&#8216;Subject&#8217; field"
-msgstr ""
+msgstr "Campo &#8216;Subject&#8217;"
 
 #: doc/noosfero/plugins/send_email.en.xhtml:28
-#, fuzzy
 msgid "Subject of message."
-msgstr "Enviar mensagem"
+msgstr "Assunto da mensagem."
 
 # type: Content of: <p>
 #: doc/noosfero/plugins/send_email.en.xhtml:31
 msgid "(default: &#8216;New mail&#8217;)"
-msgstr ""
+msgstr "(padrão: &#8216;Novo e-mail&#8217;)"
 
 # type: Content of: <h3>
 #: doc/noosfero/plugins/send_email.en.xhtml:34
 msgid "&#8216;Message&#8217; field"
-msgstr ""
+msgstr "Campo &#8216;Messagem&#8217;"
 
 #: doc/noosfero/plugins/send_email.en.xhtml:36
-#, fuzzy
 msgid "Body of message."
-msgstr "Enviar mensagem"
+msgstr "Corpo da mensagem"
 
 # type: Content of: <p>
 #: doc/noosfero/plugins/send_email.en.xhtml:39
 #: doc/noosfero/plugins/send_email.en.xhtml:47
 msgid "(required)"
-msgstr ""
+msgstr "(obrigatório)"
 
 # type: Content of: <h3>
 #: doc/noosfero/plugins/send_email.en.xhtml:42
 msgid "&#8216;To&#8217; field"
-msgstr ""
+msgstr "Campo &#8216;To&#8217;"
 
 # type: Content of: <p>
 #: doc/noosfero/plugins/send_email.en.xhtml:44
 msgid "Target address. Accepts multiple addresses separated by comma."
-msgstr ""
+msgstr "Endereço do destinatário. Aceita múltiplos endereços separados "
+"por vírgula."
 
 # type: Content of: <h3>
 #: doc/noosfero/plugins/send_email.en.xhtml:50
 msgid "extra fields"
-msgstr ""
+msgstr "campos extras"
 
 # type: Content of: <p>
 #: doc/noosfero/plugins/send_email.en.xhtml:52
@@ -647,17 +654,18 @@ msgid ""
 "Each other params in <span class=\"caps\">HTML</span> form will compose "
 "message body in a format &#8220;key: value&#8221;"
 msgstr ""
+"Os outros parâmetros no formulário <span class=\"caps\">HTML</span> irão compor "
+"o corpo da mensagem no formato &#8220;chave: valor&#8221;"
 
 # type: Content of: <h3>
 #: doc/noosfero/plugins/send_email.en.xhtml:55
-#, fuzzy
 msgid "Options"
-msgstr "Mais opções"
+msgstr "Opções"
 
 # type: Content of: <h3>
 #: doc/noosfero/plugins/send_email.en.xhtml:57
 msgid "Using ajax"
-msgstr ""
+msgstr "Utilizando ajax"
 
 # type: Content of: <p>
 #: doc/noosfero/plugins/send_email.en.xhtml:59
@@ -665,11 +673,13 @@ msgid ""
 "Ajax is supported using #ajax-form as id of <span class=\"caps\">HTML</span> "
 "form."
 msgstr ""
+"Ajax é suportado utilizando #ajax-form como 'id' do formulário "
+"<span class=\"caps\">HTML</span> "
 
 # type: Content of: <p>
 #: doc/noosfero/plugins/send_email.en.xhtml:62
 msgid "Example:"
-msgstr ""
+msgstr "Exemplo"
 
 # type: Content of: <pre>
 #: doc/noosfero/plugins/send_email.en.xhtml:66
@@ -682,7 +692,7 @@ msgstr ""
 # type: Content of: <h2>
 #: doc/noosfero/plugins/send_email.en.xhtml:73
 msgid "Info"
-msgstr ""
+msgstr "Informações"
 
 # type: Content of: <p>
 #: doc/noosfero/plugins/send_email.en.xhtml:75
@@ -690,6 +700,8 @@ msgid ""
 "This plugin was inspired by <a href=\"http://foswiki.org/Extensions/"
 "SendEmailPlugin\">Foswiki SendEmailPlugin</a>"
 msgstr ""
+"Esseplugin foi inspirado pelo <a href=\"http://foswiki.org/Extensions/"
+"SendEmailPlugin\">Foswiki SendEmailPlugin</a>"
 
 # type: Content of: <h1>
 #: doc/noosfero/plugins/shopping_cart.en.xhtml:1
@@ -7001,10 +7013,8 @@ msgstr ""
 
 # type: Content of: <ul><li>
 #: doc/noosfero/plugins/toc.en.xhtml:3
-#, fuzzy
 msgid "<a href=\"/doc/plugins/send_email\">SendEmailPlugin</a>"
-msgstr ""
-"<a href=\"/doc/admin/send-email-members\">Enviar e-mail para os membros</a>"
+msgstr "<a href=\"/doc/plugins/send_email\">SendEmailPlugin</a>"
 
 # type: Content of: <ul><li>
 #: doc/noosfero/plugins/toc.en.xhtml:4
@@ -7192,9 +7202,8 @@ msgstr "<a href=\"/doc/admin\">Funcionalidade de administração</a>"
 
 # type: Content of: <ul><li>
 #: doc/noosfero/toc.en.xhtml:4
-#, fuzzy
 msgid "<a href=\"/doc/plugins\">Plugins</a>"
-msgstr "<a href=\"/doc/navigation\">Navegação</a>"
+msgstr "<a href=\"/doc/plugins\">Plugins</a>"
 
 # type: Content of: <ul><li>
 #: doc/noosfero/toc.en.xhtml:5
