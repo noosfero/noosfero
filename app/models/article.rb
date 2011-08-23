@@ -152,7 +152,7 @@ class Article < ActiveRecord::Base
   # Only includes articles where advertise == true
   def self.recent(limit = nil, extra_conditions = {})
     # FIXME this method is a horrible hack
-    options = { :limit => limit,
+    options = { :page => 1, :per_page => limit,
                 :conditions => [
                   "advertise = ? AND
                   published = ? AND
@@ -170,10 +170,10 @@ class Article < ActiveRecord::Base
       options.delete(:include)
     end
     if extra_conditions == {}
-      self.find(:all, options)
+      self.paginate(options)
     else
       with_scope :find => {:conditions => extra_conditions} do
-        self.find(:all, options)
+        self.paginate(options)
       end
     end
   end
@@ -181,7 +181,7 @@ class Article < ActiveRecord::Base
   # retrives the most commented articles, sorted by the comment count (largest
   # first)
   def self.most_commented(limit)
-    find(:all, :order => 'comments_count DESC', :limit => limit)
+    paginate(:order => 'comments_count DESC', :page => 1, :per_page => limit)
   end
 
   # produces the HTML code that is to be displayed as this article's contents.

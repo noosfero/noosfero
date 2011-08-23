@@ -1,5 +1,4 @@
 <div class='search-form'>
-<% simple_search = false unless defined? simple_search %>
 
 <% form_tag( { :controller => 'search', :action => @asset ? @asset : 'index', :asset => nil, :category_path => ( @category ? @category.explode_path : [] ) },
                :method => 'get', :class => 'search_form' ) do %>

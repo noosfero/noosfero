@@ -3,10 +3,17 @@ module SearchHelper
   # FIXME remove it after search_controler refactored
   include EventsHelper
 
-  def relevance_for(hit)
-    n = (hit.ferret_score if hit.respond_to?(:ferret_score))
-    n ||= 1.0
-    (n * 100.0).round
+  def search_page_title(title, category = nil)
+    title = "<h1>" + title
+    title += '<small>' + category.name + '</small>' if category
+    title + "</h1>"
+  end
+
+  def category_context(category, url)
+    content_tag('div', category.full_name + _(', ') +
+        link_to(_('search in all categories'),
+          url.merge(:category_path => [], :action => (params[:action] == 'category_index' ? 'index' : params[:action]) )),
+      :align => 'center', :class => 'search-category-context') if category
   end
 
   def display_results(use_map = false)
@@ -24,7 +31,7 @@ module SearchHelper
   def display_map_list_button
     button(:search, params[:display] == 'map' ? _('Display in list') : _('Display in map'),
            params.merge(:display => (params[:display] == 'map' ? 'list' : 'map')),
-           :class => "map-toggle-button" )
+           :class => "map-toggle-button" ) if GoogleMaps.enabled?(environment.default_hostname)
   end
 
   def city_with_state(city)
@@ -115,14 +122,6 @@ module SearchHelper
     end.join
   end
 
-  def asset_class(asset)
-    asset.to_s.singularize.camelize.constantize
-  end
-  
-  def asset_table(asset)
-    asset_class(asset).table_name
-  end
-
   def order_by(asset)
     options = {
       :products => [[_('Relevance'), ''], [_('Name'), 'name_or_category_sort asc'], [_('Lower price'), 'price_sort asc'], [_('Higher price'), 'price_sort desc']],
@@ -134,9 +133,9 @@ module SearchHelper
     }
 
     content_tag('div', _('Sort results by ') +
-                select_tag(asset.to_s + '[order]', options_for_select(options[asset], params[:order_by]),
-                           {:onchange => "window.location=jQuery.param.querystring(window.location.href, { 'order_by' : this.options[this.selectedIndex].value})"}),
-                :class => "search-ordering")
+      select_tag(asset.to_s + '[order]', options_for_select(options[asset], params[:order_by]),
+        {:onchange => "window.location=jQuery.param.querystring(window.location.href, { 'order_by' : this.options[this.selectedIndex].value})"}),
+      :class => "search-ordering")
   end
 
   def label_total_found(asset, total_found)
@@ -148,12 +147,16 @@ module SearchHelper
       :enterprises => _("%s enterprises found"),
       :communities => _("%s communities found"),
     }
-    if labels[asset]
-      content_tag('span', labels[asset] % total_found,
-                  :class => "total-pages-found")
-    else
-      ''
-    end
+    content_tag('span', labels[asset] % total_found,
+      :class => "total-pages-found") if labels[asset]
+  end
+
+  def asset_class(asset)
+    asset.to_s.singularize.camelize.constantize
+  end
+  
+  def asset_table(asset)
+    asset_class(asset).table_name
   end
 
 end

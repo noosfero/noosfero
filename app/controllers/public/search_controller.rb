@@ -123,6 +123,8 @@ class SearchController < PublicController
     @results_only = true
 
     @enabled_searchs.select { |key,description| @searching[key] }.each do |key, description|
+      load_query
+      @asset = key
       send(key)
       @order << key
       @names[key] = getterm(description)
@@ -204,8 +206,9 @@ class SearchController < PublicController
       @category = environment.categories.find_by_path(path)
       if @category.nil?
         render_not_found(path)
+      else 
+        @category_id = @category.id
       end
-      @category_id = @category.id
     end
   end
 
@@ -299,14 +302,6 @@ class SearchController < PublicController
     result[:order] = solr_order if solr_order
 
     result
-  end
-
-  def asset_class(asset)
-    asset.to_s.singularize.camelize.constantize
-  end
-  
-  def asset_table(asset)
-    asset_class(asset).table_name
   end
 
 end

@@ -7,9 +7,8 @@
 </div>
 
 <div id='search-column-right'>
-  <%= render :partial => 'search_form', :locals => { :form_title => _('Search'), :simple_search => true,
-    :hint => _("Type words about the person you're looking for") } %>
-  <%= render :partial => 'results_header', :locals => { :asset => :people, :results => @results[:people] } %>
+  <%= render :partial => 'search_form', :locals => { :hint => _("Type words about the person you're looking for") } %>
+  <%= render :partial => 'results_header' %>
 
   <%= display_results %>
   <% if params[:display] != 'map' %>

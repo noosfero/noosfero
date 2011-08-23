@@ -219,6 +219,62 @@ class CategoryTest < Test::Unit::TestCase
   ################################################################
   # category filter stuff
   ################################################################
+  
+  should 'should paginate recent-like methods' do
+    c = @env.categories.build(:name => 'my category'); c.save!
+    assert c.recent_people.respond_to? 'total_entries'
+    assert c.recent_enterprises.respond_to? 'total_entries'
+    assert c.recent_communities.respond_to? 'total_entries'
+    assert c.recent_products.respond_to? 'total_entries'
+    assert c.recent_articles.respond_to? 'total_entries'
+    assert c.recent_comments.respond_to? 'total_entries'
+    assert c.most_commented_articles.respond_to? 'total_entries'
+  end
+
+  should 'list recent people' do
+    c = @env.categories.build(:name => 'my category'); c.save!
+    p1 = create_user('testuser').person
+    p1.add_category c
+    p1.save!
+
+    p2 = create_user('testuser2').person
+    p2.add_category c
+    p2.save!
+
+    assert_equal [p2, p1], c.recent_people
+  end
+
+  should 'list recent enterprises' do
+    c = @env.categories.build(:name => 'my category'); c.save!
+    ent1 = fast_create(Enterprise, :identifier => 'enterprise_1', :name => 'Enterprise one')
+    ent1.add_category c
+    ent2 = fast_create(Enterprise, :identifier => 'enterprise_2', :name => 'Enterprise one')
+    ent2.add_category c
+
+    assert_equal [ent2, ent1], c.recent_enterprises
+  end
+
+  should 'list recent communities' do
+    c = @env.categories.build(:name => 'my category'); c.save!
+    c1 = fast_create(Community, :name => 'testcommunity_1')
+    c1.add_category c
+    c2 = fast_create(Community, :name => 'testcommunity_2')
+    c2.add_category c
+
+    assert_equal [c2, c1], c.recent_communities
+  end
+
+  should 'list recent products' do
+    product_category = fast_create(ProductCategory, :name => 'Products', :environment_id => Environment.default.id)
+    c = @env.categories.build(:name => 'my category'); c.save!
+    ent1 = fast_create(Enterprise, :identifier => 'enterprise_1', :name => 'Enterprise one')
+    ent1.add_category c
+    ent2 = fast_create(Enterprise, :identifier => 'enterprise_2', :name => 'Enterprise one')
+    ent2.add_category c
+    prod1 = ent1.products.create!(:name => 'test_prod1', :product_category => product_category)
+    prod2 = ent2.products.create!(:name => 'test_prod2', :product_category => product_category)
+    assert_equal [prod2, prod1], c.recent_products
+  end
 
   should 'list recent articles' do
     c = @env.categories.build(:name => 'my category'); c.save!
@@ -232,7 +288,7 @@ class CategoryTest < Test::Unit::TestCase
     a2.add_category c
     a2.save!
 
-    assert_equivalent [a1, a2], c.recent_articles
+    assert_equal [a2, a1], c.recent_articles
   end
 
   should 'list recent comments' do
@@ -249,7 +305,7 @@ class CategoryTest < Test::Unit::TestCase
     a2.save!
     c2 = a2.comments.build(:title => 'comm1', :body => 'khdkashd ', :author => person); c2.save!
 
-    assert_equivalent [c1, c2], c.recent_comments
+    assert_equal [c2, c1], c.recent_comments
   end
 
   should 'list most commented articles' do
@@ -267,6 +323,7 @@ class CategoryTest < Test::Unit::TestCase
 
     assert_equal [a3, a2], c.most_commented_articles(2)
   end
+
   should 'have comments' do
     c = @env.categories.build(:name => 'my category'); c.save!
     person = create_user('testuser').person

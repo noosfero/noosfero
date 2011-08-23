@@ -884,19 +884,6 @@ module ApplicationHelper
     result
   end
 
-  def search_page_title(title, category = nil)
-    title = "<h1>" + title
-    title += '<small>' + category.name + '</small>' if category
-    title + "</h1>"
-  end
-
-  def search_page_link_to_all(options={})
-    if options[:category]
-      title = "<div align='center'>" + _('In all categories') + "</div>"
-      link_to title, :action => 'assets', :asset => options[:asset], :category_path => []
-    end
-  end
-
   def template_stylesheet_path
     if profile.nil?
       "/designs/templates/#{environment.layout_template}/stylesheets/style.css"

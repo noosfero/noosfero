@@ -10,9 +10,8 @@
 </div>
 
 <div id="search-column-right">
-  <%= render :partial => 'search_form', :locals => { :form_title => _("Search"), :simple_search => true,
-    :hint => _('Type the product, service, city or qualifier desired') } %>
-  <%= render :partial => 'results_header', :locals => { :asset => :products, :results => @results[:products] } %>
+  <%= render :partial => 'search_form', :locals => { :hint => _('Type the product, service, city or qualifier desired') } %>
+  <%= render :partial => 'results_header' %>
 
   <% if !@empty_query %>
     <%= display_results(true) %>

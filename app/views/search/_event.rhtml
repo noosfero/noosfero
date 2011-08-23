@@ -4,12 +4,6 @@
     <%= render :partial => 'image', :object => event %>
   </div>
   <div class="search-content-second-column">
-    <% if event.body %>
-      <% body_stripped = strip_tags(event.body.to_s) %>
-      <div class="searc-article-event-date">
-        <span class="article-item-body"><%= excerpt(body_stripped, body_stripped.first(3), 200) %></span>
-      </div>
-    <% end %>
     <% if event.start_date %>
       <div class="searc-article-event-date">
         <span class="search-field-label"><%= _('Start date') %></span>
