@@ -663,11 +663,6 @@ li.search-product-item hr {
   background: transparent !important;
   padding:0 !important;
 }
-.formfield input {
-  border: 1px solid #231F20;
-  height: 28px;
-  width: 558px;
-}
 .search-field .formfield {
   height: 34px;
   display: inline-block
@@ -730,3 +725,10 @@ li.search-product-item hr {
 .facet-menu a.facet-options-toggle.facet-less-options {
 	background-position: 0 -32px;
 }
+.controller-search .formfield input {
+  border: 1px solid #231F20;
+  height: 28px;
+  width: 558px;
+  background: none;
+}
+

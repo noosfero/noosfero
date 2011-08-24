@@ -2454,7 +2454,6 @@ div#activation_enterprise label, div#activation_enterprise input, div#activation
 .formfield input {
   text-indent: 5px;
   padding: 2px 0px;
-  background: #fff;
 }
 .msie5 .formfield input, .msie6 .formfield input {
   background-attachment: fixed;
