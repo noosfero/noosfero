@@ -66,6 +66,7 @@ div.token-input-dropdown-facet {
     position: relative;
     width: 130px;
     height: 150px;
+    max-height: 200px;
     background-color: #E5F4FB;
     overflow: auto;
     border-left: 1px solid #ccc;
