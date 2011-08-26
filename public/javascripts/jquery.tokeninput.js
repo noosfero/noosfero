@@ -47,7 +47,8 @@ var DEFAULT_CLASSES = {
     dropdownItem: "token-input-dropdown-item",
     dropdownItem2: "token-input-dropdown-item2",
     selectedDropdownItem: "token-input-selected-dropdown-item",
-    inputToken: "token-input-input-token"
+    inputToken: "token-input-input-token",
+    blurText: "token-input-blur-text",
 };
 
 // Input box position "enum"
@@ -159,7 +160,7 @@ $.TokenList = function (input, url_or_data, settings) {
 
     // Keep track of the timeout, old vals
     var timeout;
-    var input_val;
+    var input_val = '';
 
     // Create a new text input an attach keyup events
     var input_box = $("<input type=\"text\"  autocomplete=\"off\">")
@@ -169,11 +170,17 @@ $.TokenList = function (input, url_or_data, settings) {
         .attr("id", settings.idPrefix + input.id)
         .focus(function () {
             if (settings.tokenLimit === null || settings.tokenLimit !== token_count) {
+              if(settings.permanentDropdown)
+                hide_dropdown_hint();
+              else
                 show_dropdown_hint();
             }
         })
         .blur(function () {
-            hide_dropdown();
+            if(settings.permanentDropdown)
+              show_dropdown_hint();
+            else
+              hide_dropdown();
         })
         .bind("keyup keydown blur update", resize_input)
         .keydown(function (event) {
@@ -334,6 +341,10 @@ $.TokenList = function (input, url_or_data, settings) {
         do_search();
     }
 
+    // Hint for permanentDropdown
+    if(settings.permanentDropdown)
+      show_dropdown_hint();
+
     // Magic element to help us resize the text input
     var input_resizer = $("<tester/>")
         .insertAfter(input_box)
@@ -418,6 +429,9 @@ $.TokenList = function (input, url_or_data, settings) {
         var escaped = input_val.replace(/&/g, '&amp;').replace(/\s/g,' ').replace(/</g, '&lt;').replace(/>/g, '&gt;');
         input_resizer.html(escaped);
         input_box.width(input_resizer.width() + 30);
+
+        if(settings.permanentDropdown && input_box.hasClass(settings.classes.blurText))
+          input_val = '';
     }
 
     function is_printable_character(keycode) {
@@ -626,10 +640,24 @@ $.TokenList = function (input, url_or_data, settings) {
     }
 
     function show_dropdown_hint () {
-        if(!settings.permanentDropdown && settings.hintText) {
+        if(settings.hintText) {
+          if(settings.permanentDropdown) {
+            if (input_val == '') {
+              input_box.val(settings.hintText);
+              input_box.toggleClass(settings.classes.blurText);
+            }
+          } else {
             dropdown.html("<p>"+settings.hintText+"</p>");
             show_dropdown();
+          }
         }
+    }
+
+    function hide_dropdown_hint () {
+      if (input_box.hasClass(settings.classes.blurText)) {
+        input_box.val('');
+        input_box.toggleClass(settings.classes.blurText);
+      }
     }
 
     // Highlight the query part of the search term
