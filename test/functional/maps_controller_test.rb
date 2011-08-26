@@ -22,6 +22,31 @@ class MapsControllerTest < ActionController::TestCase
     assert_equal 'new address', Profile['test_profile'].address
   end
 
+  should 'save profile national_region_code' do
+
+    national_region_code = '355030'
+    city = 'Santo Afonso'
+    state = 'Mato Grosso'
+
+    parent_region = fast_create(NationalRegion, :name => state,
+                                :national_region_code => '35',
+                                :national_region_type_id => NationalRegionType::STATE)
+
+    fast_create(NationalRegion, :name =>  city,
+                                :national_region_code => national_region_code,
+                                :national_region_type_id => NationalRegionType::CITY,
+                                :parent_national_region_code => parent_region.national_region_code)
+
+    post :edit_location, :profile => profile.identifier, :profile_data => { 
+    :address => 'new address',
+    :country => 'BR',
+    :city => city,
+    :state => state
+    }
+
+    assert_equal national_region_code, Profile['test_profile'].national_region_code
+  end
+
   should 'back when update address fail' do
     Profile.any_instance.stubs(:update_attributes!).returns(false)
     post :edit_location, :profile => profile.identifier, :profile_data => { 'address' => 'new address' }
@@ -45,13 +70,47 @@ class MapsControllerTest < ActionController::TestCase
     assert_tag :tag => 'input', :attributes => { :name => 'profile_data[city]' }
   end
 
-  should 'add script tag for google maps' do
-    domain = fast_create(Domain, :name => 'domain-with-key', :google_maps_key => 'DOMAIN_KEY')
-    profile.preferred_domain = domain
-    profile.save!
+  should 'autocomplete search_city' do
 
-    get 'edit_location', :profile => profile.identifier
+    city = 'Santo Afonso'
+    state = 'Mato Grosso'
 
-    assert_tag :tag => 'script', :attributes => { :src => 'http://maps.google.com/maps?file=api&amp;v=2&amp;key=DOMAIN_KEY'}
+    parent_region = fast_create(NationalRegion, :name => state,
+                                :national_region_code => '35',
+                                :national_region_type_id => NationalRegionType::STATE)
+
+    fast_create(NationalRegion, :name =>  city,
+                                :national_region_code => '355030',
+                                :national_region_type_id => NationalRegionType::CITY,
+                                :parent_national_region_code => parent_region.national_region_code)
+
+    get :search_city, :term => "San", :profile => profile.identifier
+
+    json_response = ActiveSupport::JSON.decode(@response.body)
+
+    label =  json_response[0]['label']
+    category =  json_response[0]['category']
+
+    assert_equal city, label
+    assert_equal state, category
+  end
+
+  should 'autocomplete search_state' do
+
+    state = 'Mato Grosso do Sul'
+
+
+    fast_create(NationalRegion, :name => state,
+                                :national_region_code => '36',
+                                :national_region_type_id => NationalRegionType::STATE)
+
+
+    get :search_state, :term => "Mat", :profile => profile.identifier
+
+    json_response = ActiveSupport::JSON.decode(@response.body)
+
+    label =  json_response[0]['label']
+
+    assert_equal state, label
   end
 end

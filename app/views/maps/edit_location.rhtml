@@ -1,5 +1,7 @@
 <h1><%= _('Location') %></h1>
-
+<div class="error">
+  <%= flash[:error] %>
+</div>
 <% form_for :profile_data, :url => {:action => 'edit_location'} do |f| %>
 
   <div id='location-fields'>
@@ -9,12 +11,11 @@
     <%= optional_field(profile, 'zip_code', labelled_form_field(_('ZIP code'), text_field(:profile_data, :zip_code))) %>
     <%= optional_field(profile, 'address', labelled_form_field(_('Address (street and number)'), text_field(:profile_data, :address))) %>
     <% button_bar do %>
-      <%= button_to_function :search, _('Locate in the map'), "getAddress(null, getAddressData())", :title => _("Locate the address informed above in the map below (note that you'll probably need to adjust the marker to get a precise position)")  %>
+      <%= button_to_function :search, _('Locate in the map'), "codeAddress()", :title => _("Locate the address informed above in the map below (note that you'll probably need to adjust the marker to get a precise position)")  %>
       <%= submit_button 'save', _('Save') %>
       <%= button(:back, _('Back to control panel'), :controller => 'profile_editor') %>
     <% end %>
   </div>
-
 
   <div style='overflow: hidden'>
     <p><div id="location-map"></div></p>
@@ -22,13 +23,13 @@
 
   <%= f.hidden_field(:lat) %>
   <%= f.hidden_field(:lng) %>
-
-
+  
 
   <% button_bar do %>
     <%= submit_button 'save', _('Save') %>
     <%= button(:back, _('Back to control panel'), :controller => 'profile_editor') %>
   <% end %>
+ 
 
 <% end %>
 
