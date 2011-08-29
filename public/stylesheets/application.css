@@ -5211,3 +5211,32 @@ h1.page-title.no-boxes small {
     margin: .8em 0 .2em;
     line-height: 1.5;
 }
+
+
+/* clear float elements */
+.clear {
+  clear: both;
+  display: block;
+  overflow: hidden;
+  visibility: hidden;
+  width: 0;
+  height: 0;
+  margin:0;
+  padding:0;
+  border: none;
+}
+.clearfix:before,
+.clearfix:after {
+  content: '\0020';
+  display: block;
+  overflow: hidden;
+  visibility: hidden;
+  width: 0;
+  height: 0;
+  margin:0;
+  padding:0;
+}
+.clearfix:after {
+  clear: both;
+}
+
