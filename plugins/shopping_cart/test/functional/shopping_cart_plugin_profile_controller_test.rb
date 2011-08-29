@@ -144,6 +144,25 @@ class ShoppingCartPluginProfileControllerTest < Test::Unit::TestCase
     assert_nothing_raised {  get :clean, :profile => enterprise.identifier }
   end
 
+  should 'register order on send request' do
+    product1 = fast_create(Product, :enterprise_id => enterprise.id, :price => 1.99)
+    product2 = fast_create(Product, :enterprise_id => enterprise.id, :price => 2.23)
+    @controller.stubs(:session).returns({:cart => {:items => {product1.id => 1, product2.id => 2}}})
+    assert_difference ShoppingCartPlugin::PurchaseOrder, :count, 1 do
+      post :send_request,
+        :customer => {:name => "Manuel", :email => "manuel@ceu.com"},
+        :profile => enterprise.identifier
+    end
+
+    order = ShoppingCartPlugin::PurchaseOrder.last
+
+    assert_equal 1.99, order.products_list[product1.id][:price]
+    assert_equal 1, order.products_list[product1.id][:quantity]
+    assert_equal 2.23, order.products_list[product2.id][:price]
+    assert_equal 2, order.products_list[product2.id][:quantity]
+    assert_equal ShoppingCartPlugin::PurchaseOrder::Status::OPENED, order.status
+  end
+
   private
 
   def json_response
