@@ -773,3 +773,17 @@ jQuery('a[title]').live('mouseout', function (e) {
   altBeautify.hide();
 });
 
+
+function facet_options_toggle(id, url) {
+  jQuery('#facet-menu-'+id+' .facet-menu-options').toggle('fast' , function () {
+    more = jQuery('#facet-menu-'+id+' .facet-menu-more-options');
+    console.log(more);
+    if (more.is(':visible') && more.children().length == 0) {
+      more.addClass('small-loading');
+      more.load(url, function () {
+        more.removeClass('small-loading');
+      });
+    }
+  });
+}
+

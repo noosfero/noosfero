@@ -1,6 +1,5 @@
 /* ==> button.css <== */
 
-
 .button {
   -moz-border-radius: 3px;
   -webkit-border-radius: 3px;
@@ -502,11 +501,11 @@ div#notice {
 }
 
 #content .profile-list li a,
-#content .common-profile-list-block li a {
+#content .common-profile-list-block .vcard li a {
   color: #555;
 }
 #content .profile-list li a:hover,
-#content .common-profile-list-block li a:hover {
+#content .common-profile-list-block .vcard li a:hover {
   color: #000;
   text-decoration: none;
 }

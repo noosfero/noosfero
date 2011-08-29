@@ -1,115 +1,80 @@
 class SearchController < PublicController
 
   MAP_SEARCH_LIMIT = 2000
-  SINGLE_SEARCH_LIMIT = 20
-  MULTIPLE_SEARCH_LIMIT = 6
+  LIST_SEARCH_LIMIT = 20
+  BLOCKS_SEARCH_LIMIT = 18
+  MULTIPLE_SEARCH_LIMIT = 8
 
   helper TagsHelper
   include SearchHelper
+  include ActionView::Helpers::NumberHelper
 
   before_filter :load_category
   before_filter :load_search_assets
+  before_filter :load_query
 
   no_design_blocks
 
-  def articles
-    @asset = :articles
-    @query = params[:query] || ''
-    @order ||= [@asset]
-    @results ||= {}
-    @filter = filter
+  def facets_browse
+    @asset = params[:asset]
+    @asset_class = asset_class(@asset)
 
-    pg_options = paginate_options(@asset, limit, params[:per_page])
-    if !@query.blank?
-      ret = asset_class(@asset).find_by_contents(@query, pg_options, solr_options(@asset, params[:facet], params[:order_by]))
-      @results[@asset] = ret[:results]
-      @facets = ret[:facets]
-    else
-      @results[@asset] = asset_class(@asset).send('paginate', :all, pg_options)
-      @facets = {}
+    @facets_only = true
+    send(@asset)
+
+    @facet = @asset_class.map_facets_for(environment).find { |facet| facet[:id] == params[:facet_id] }
+    raise 'Facet not found' if @facet.nil?
+
+    render :layout => false
+  end
+
+  def articles
+    @filter = params[:filter] ? filter : nil
+    @filter_title = params[:filter] ? filter_description(@asset, @filter) : nil
+    if !@empty_query
+      full_text_search
+    elsif params[:filter]
+      @results[@asset] = @environment.articles.more_recent.paginate(paginate_options)
     end
   end
 
-  alias :contents :articles 
+  def contents
+    redirect_to params.merge(:action => :articles)
+  end
 
   def people
-    @asset = :people
-    @query = params[:query] || ''
-    @order ||= [@asset]
-    @results ||= {}
-    @filter = filter
-    @title = self.filter_description(params[:action] + '_' + @filter )
-
-    @results[@asset] = @environment.people.visible.send(@filter)
-    if !@query.blank?
-      ret = @results[@asset].find_by_contents(@query, {}, solr_options(@asset, params[:facet], params[:order_by]))
-      @results[@asset] = ret[:results]
-      @facets = ret[:facets]
+    if !@empty_query
+      full_text_search
     else
+      @results[@asset] = @environment.people.visible.send(@filter).paginate(paginate_options)
       @facets = {}
     end
-    @results[@asset] = @results[@asset].compact.paginate(:per_page => limit, :page => params[:page])
   end
 
   def products
-    @asset = :products
-    @query = params[:query] || ''
-    @order ||= [@asset]
-    @results ||= {}
-
-    pg_options = paginate_options(@asset, limit, params[:per_page])
-    if !@query.blank?
-      ret = asset_class(@asset).find_by_contents(@query, pg_options, solr_options(@asset, params[:facet], params[:order_by]))
-      @results[@asset] = ret[:results]
-      @facets = ret[:facets]
-    else
-      @results[@asset] = asset_class(@asset).send('paginate', :all, pg_options)
-      @facets = {}
+    if !@empty_query
+      full_text_search
     end
   end
 
   def enterprises
-    @asset = :enterprises
-    @query = params[:query] || ''
-    @order ||= [@asset]
-    @results ||= {}
-
-    pg_options = paginate_options(@asset, limit, params[:per_page])
-    if !@query.blank?
-      ret = asset_class(@asset).find_by_contents(@query, pg_options, solr_options(@asset, params[:facet], params[:order_by]))
-      @results[@asset] = ret[:results]
-      @facets = ret[:facets]
+    if !@empty_query
+      full_text_search
     else
-      @results[@asset] = asset_class(@asset).send('paginate', :all, pg_options)
-      @facets = {}
+      @filter_title = _('Enterprises from network')
+      @results[@asset] = asset_class(@asset).paginate(paginate_options)
     end
   end
 
   def communities
-    @asset = :communities
-    @query = params[:query] || ''
-    @order ||= [@asset]
-    @results ||= {}
-    @filter = filter
-    @title = self.filter_description(params[:action] + '_' + @filter )
-
-    @results[@asset] = @environment.communities.visible.send(@filter)
-    if !@query.blank?
-      ret = @results[@asset].find_by_contents(@query, {}, solr_options(@asset, params[:facet], params[:order_by]))
-      @results[@asset] = ret[:results]
-      @facets = ret[:facets]
+    if !@empty_query
+      full_text_search
     else
-      @facets = {}
+      @results[@asset] = @environment.communities.visible.send(@filter).paginate(paginate_options)
     end
-    @results[@asset] = @results[@asset].compact.paginate(:per_page => limit, :page => params[:page])
   end
 
   def events
-    @asset = :events
-    params[:asset] |= [@asset]
-    @query = params[:query] || ''
-    @order ||= [@asset]
-    @results ||= {}
     @category_id = @category ? @category.id : nil
 
     if params[:year] || params[:month]
@@ -129,9 +94,7 @@ class SearchController < PublicController
         @results[@asset] = Event.send('find', :all)
       end
     else
-      pg_options = paginate_options(@asset, limit, params[:per_page])
-      solr_options = solr_options(@asset, params[:facet], params[:per_page])
-      @results[@asset] = Event.find_by_contents(@query, pg_options, solr_options)[:results]
+      full_text_search
     end
 
     @selected_day = nil
@@ -157,6 +120,7 @@ class SearchController < PublicController
     @results = {}
     @order = []
     @names = {}
+    @results_only = true
 
     @enabled_searchs.select { |key,description| @searching[key] }.each do |key, description|
       send(key)
@@ -186,19 +150,17 @@ class SearchController < PublicController
     @names = {}
     limit = MULTIPLE_SEARCH_LIMIT
     [
-      [ :people, _('People'), recent('people', limit) ],
-      [ :enterprises, __('Enterprises'), recent('enterprises', limit) ],
-      [ :products, _('Products'), recent('products', limit) ],
-      [ :events, _('Upcoming events'), upcoming_events({:per_page => limit}) ],
-      [ :communities, __('Communities'), recent('communities', limit) ],
-      [ :most_commented_articles, _('Most commented articles'), most_commented_articles(limit) ],
-      [ :articles, _('Articles'), recent('text_articles', limit) ]
-    ].each do |key, name, list|
-      @order << key
-      @results[key] = list
-      @names[key] = name
+      [ :people, _('People'), :recent_people ],
+      [ :enterprises, _('Enterprises'), :recent_enterprises ],
+      [ :products, _('Products'), :recent_products ],
+      [ :events, _('Upcoming events'), :upcoming_events ],
+      [ :communities, _('Communities'), :recent_communities ],
+      [ :articles, _('Contents'), :recent_articles ]
+    ].each do |asset, name, filter|
+      @order << asset
+      @results[asset] = @category.send(filter, limit)
+      @names[asset] = name
     end
-    @facets = {}
   end
 
   def tags
@@ -218,50 +180,33 @@ class SearchController < PublicController
 
   def events_by_day
     @selected_day = build_date(params[:year], params[:month], params[:day])
-    if params[:category_id] and Category.exists?(params[:category_id])
-      @events_of_the_day = environment.events.by_day(@selected_day).in_category(Category.find(params[:category_id]))
-    else
-      @events_of_the_day = environment.events.by_day(@selected_day)
-    end
+    @events_of_the_day = environment.events.by_day(@selected_day)
     render :partial => 'events/events_by_day'
   end
 
   #######################################################
   protected
 
-  def recent(asset, limit = nil)
-    options = {:page => 1, :per_page => limit, :order => 'created_at DESC, id DESC'}
+  def load_query
+    @asset = params[:action].to_sym
+    @order ||= [@asset]
+    @results ||= {}
+    @filter = filter 
+    @filter_title = filter_description(@asset, @filter)
 
-    if asset == :events
-      finder_method = 'find'
-      options.delete(:page)
-      options.delete(:per_page)
-    else
-      finder_method = 'paginate'
+    @query = params[:query] || ''
+    @empty_query = @category.nil? && @query.blank?
+  end
+
+  def load_category
+    unless params[:category_path].blank?
+      path = params[:category_path].join('/')
+      @category = environment.categories.find_by_path(path)
+      if @category.nil?
+        render_not_found(path)
+      end
+      @category_id = @category.id
     end
-
-    asset_class(asset).send(finder_method, :all, category_options_for_find(asset_class(asset), {:order => "#{asset_table(asset)}.name"}.merge(options)))
-  end
-
-  def most_commented_articles(limit=10, options={})
-    options = {:page => 1, :per_page => limit, :order => 'comments_count DESC'}.merge(options)
-    Article.paginate(:all, category_options_for_find(Article, options))
-  end
-
-  def upcoming_events(options = {})
-    options.delete(:page)
-    options.delete(:per_page)
-
-    Event.find(:all, {:include => :categories, :conditions => [ 'categories.id = ? and start_date >= ?', category_id, Date.today ], :order => 'start_date' }.merge(options))
-  end
-
-  def current_events(year, month, options={})
-    options.delete(:page)
-    options.delete(:per_page)
-
-    range = Event.date_range(year, month)
-
-    Event.find(:all, {:include => :categories, :conditions => { 'categories.id' => category_id, :start_date => range }}.merge(options))
   end
 
   FILTERS = %w(
@@ -277,112 +222,83 @@ class SearchController < PublicController
     end
   end
 
-  def filter_description(str)
+  def filter_description(asset, filter)
     {
-      'contents_more_recent' => _('More recent contents'),
-      'contents_more_popular' => _('More popular contents'),
-      'people_more_recent' => _('More recent people'),
-      'people_more_active' => _('More active people'),
-      'people_more_popular' => _('More popular people'),
-      'communities_more_recent' => _('More recent communities'),  
-      'communities_more_active' => _('More active communities'),  
-      'communities_more_popular' => _('More popular communities'),
-    }[str] || str
-  end
-
-  attr_reader :category
-  attr_reader :category_id
-
-  def load_category
-    unless params[:category_path].blank?
-      path = params[:category_path].join('/')
-      @category = environment.categories.find_by_path(path)
-      if @category.nil?
-        render_not_found(path)
-      end
-      @category_id = @category.id
-    end
+      'articles_more_recent' => _('More recent contents from network'),
+      'articles_more_popular' => _('More popular contents from network'),
+      'people_more_recent' => _('More recent people from network'),
+      'people_more_active' => _('More active people from network'),
+      'people_more_popular' => _('More popular people from network'),
+      'communities_more_recent' => _('More recent communities from network'),  
+      'communities_more_active' => _('More active communities from network'),  
+      'communities_more_popular' => _('More popular communities from network'),
+    }[asset.to_s + '_' + filter]
   end
 
   def load_search_assets
     @enabled_searchs = [
-      [ :articles, N_('Articles') ],
-      [ :enterprises, N_('Enterprises') ],
-      [ :people, N_('People') ],
-      [ :communities, N_('Communities') ],
-      [ :products, N_('Products') ],
-      [ :events, N_('Events') ]
+      [ :articles, _('Contents') ],
+      [ :enterprises, _('Enterprises') ],
+      [ :people, _('People') ],
+      [ :communities, _('Communities') ],
+      [ :products, _('Products and Services') ],
+      [ :events, _('Events') ]
     ].select {|key, name| !environment.enabled?('disable_asset_' + key.to_s) }
 
     @searching = {}
+    @titles = {}
     @enabled_searchs.each do |key, name|
+      @titles[key] = name
       @searching[key] = params[:action] == 'index' || params[:action] == key.to_s
     end
   end
 
-  def paginate_options(asset, limit, page)
-    result = { :per_page => limit, :page => page }
-  end
-
-  def solr_options(asset, facet, solr_order)
-    result = {}
-
-    if asset_class(asset).methods.include?('facets')
-      result.merge!(:facets => {:zeros => false, :sort => :count, :fields => asset_class(asset).facets.keys,
-                    :browse => facet ? facet.map{ |k,v| k.to_s+':"'+v.to_s+'"'} : ''})
-    end
-
-    if solr_order
-      result[:order_by] = solr_order
-    end
-
-    result
-  end
-
   def limit
-    searching = @searching.values.select{|v|v}
+    searching = @searching.values.select{ |v| v }
     if params[:display] == 'map'
       MAP_SEARCH_LIMIT
+    elsif searching.size <= 1
+      if [:people, :communities].include? @asset
+        BLOCKS_SEARCH_LIMIT
+      elsif @asset == :enterprises and @empty_query
+        BLOCKS_SEARCH_LIMIT
+      else
+        LIST_SEARCH_LIMIT
+      end
     else
-      (searching.size <= 1) ? SINGLE_SEARCH_LIMIT : MULTIPLE_SEARCH_LIMIT
+      MULTIPLE_SEARCH_LIMIT
     end
   end
 
-  def category_options_for_find(klass, options={}, date_range = nil)
-    if defined? options[:product_category]
-      prod_cat = options.delete(:product_category)
+  def paginate_options(page = params[:page])
+    { :per_page => limit, :page => page }
+  end
+
+  def full_text_search(paginate_options = nil)
+    paginate_options ||= paginate_options(params[:page])
+    solr_options = solr_options(@asset, params[:facet], params[:order_by])
+
+    ret = asset_class(@asset).find_by_contents(@query, paginate_options, solr_options)
+    @results[@asset] = ret[:results]
+    @facets = ret[:facets]
+    @all_facets = ret[:all_facets]
+  end
+
+  def solr_options(asset, facets_selected, solr_order = nil)
+    result = {}
+
+    asset_class = asset_class(asset)
+    if !@results_only and asset_class.methods.include?('facets')
+      result.merge! asset_class.facets_find_options(facets_selected)
+      result[:all_facets] = true
+      result[:limit] = 0 if @facets_only
+      result[:facets][:browse] << asset_class.facet_category_query.call(@category) if @category
+      puts result[:facets][:browse]
     end
-    
-    case klass.name
-    when 'Comment'
-      {:joins => 'inner join articles_categories on articles_categories.article_id = comments.article_id', :conditions => ['articles_categories.category_id = (?)', category_id]}.merge!(options)
-    when 'Product'
-      if prod_cat
-        {:joins => 'inner join categories_profiles on products.enterprise_id = categories_profiles.profile_id inner join product_categorizations on (product_categorizations.product_id = products.id)', :conditions => ['categories_profiles.category_id = (?) and product_categorizations.category_id = (?)', category_id, prod_cat.id]}.merge!(options)
-      else
-        {:joins => 'inner join categories_profiles on products.enterprise_id = categories_profiles.profile_id', :conditions => ['categories_profiles.category_id = (?)', category_id]}.merge!(options)
-      end
-    when 'Article', 'TextArticle'
-      {:joins => 'inner join articles_categories on (articles_categories.article_id = articles.id)', :conditions => ['articles_categories.category_id = (?)', category_id]}.merge!(options)
-    when 'Event'
-      conditions =
-        if date_range
-          ['articles_categories.category_id = (:category_id) and (start_date BETWEEN :start_day AND :end_day OR end_date BETWEEN :start_day AND :end_day)', {:category_id => category_id, :start_day => date_range.first, :end_day => date_range.last} ]
-        else
-          ['articles_categories.category_id = (?) ', category_id ]
-        end
-      {:joins => 'inner join articles_categories on (articles_categories.article_id = articles.id)', :conditions => conditions}.merge!(options)
-    when 'Enterprise'
-      if prod_cat
-        {:joins => 'inner join categories_profiles on (categories_profiles.profile_id = profiles.id) inner join products on (products.enterprise_id = profiles.id) inner join product_categorizations on (product_categorizations.product_id = products.id)', :conditions => ['categories_profiles.category_id = (?) and product_categorizations.category_id = (?)', category_id, prod_cat.id]}.merge!(options)
-      else
-        {:joins => 'inner join categories_profiles on (categories_profiles.profile_id = profiles.id)', :conditions => ['categories_profiles.category_id = (?)', category_id]}.merge!(options)
-      end    
-    when 'Person', 'Community'
-      {:joins => 'inner join categories_profiles on (categories_profiles.profile_id = profiles.id)', :conditions => ['categories_profiles.category_id = (?)', category_id]}.merge!(options)
-    else
-      raise "unreconized class #{klass.name}"
-    end
+
+    result[:order] = solr_order if solr_order
+
+    result
   end
 
   def asset_class(asset)

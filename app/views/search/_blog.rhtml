@@ -1,0 +1,23 @@
+<li class="search-blog article-item">
+  <%= link_to blog.title, blog.view_url, :class => 'search-result-title' %>
+  <div class="search-content-first-column">
+    <%= render :partial => 'image', :object => blog %>
+  </div>
+  <div class="search-content-second-column">
+    <div class="search-blog-items">
+      <span class="search-field-label"><%= _("Last posts") %></span>
+      <% r = blog.children.find(:all, :order => :updated_at, :conditions => ['type != ?', 'RssFeed']).last(3) %>
+      <% r.each do |a| %>
+        <%= link_to a.title, a.view_url, :class => 'search-blog-sample-item '+icon_for_article(a) %>
+      <% end %>
+      <span class="search-field-none"><%= _('None') if r.empty? %></span>
+    </div>
+    
+    <%= render :partial => 'article_author', :object => blog %>
+    <%= render :partial => 'article_tags', :object => blog.tags %>
+    <%= render :partial => 'article_categories', :object => blog.categories %>
+    <%= render :partial => 'article_last_change', :object => blog %>
+  </div>
+
+  <br class="clear"/>
+</li>

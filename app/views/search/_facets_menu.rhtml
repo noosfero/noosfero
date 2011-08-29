@@ -1,51 +1,36 @@
-<% more_options = _("+ Options") %>
-<% less_options = _("- Options") %>
-<% less_options_limit = 7 %>
+<% less_options_limit = 8 %>
 
 <div id="facets-menu">
-  <% if !@facets["facet_fields"].empty? %>
-    <% @asset_class.each_facet do |facet_id, index| %>
-      <% facet = @asset_class.facets[facet_id] %>
-      <% solr_facet = @asset_class.to_solr_facet_fields[facet_id] %>
-      <% facets_all = @facets["facet_fields"][solr_facet] %>
-      <% facets_found = params[:facet] ? facets_all.reject {|name, count| params[:facet][facet_id.to_s].to_s == name.to_s } : facets_all %>
+  <% @asset_class.map_facets_for(environment).each do |facet| %>
 
-      <% if facets_found and facets_found.count > 0 %>
-        <div id="facet-menu-<%= index.to_s %>" class="facet-menu">
-          <div class="facet-menu-label">
-            <%= facet[:label] %>
-          </div><br />
+    <div id="facet-menu-<%= facet[:id].to_s %>" class="facet-menu">
+      <div class="facet-menu-label">
+        <%= facet[:label] %>
+      </div>
 
-          <% if facets_found.count > less_options_limit %>
-            <div class="facet-menu-options facet-menu-more-options" style="display: none">
-              <% array = [] %>
-              <% @asset_class.each_facet_name(solr_facet, facets_found, :sort => :alphabetically) do |name, count| %>
-                <% array << {:id => name, :name => link_to(name, params.merge({"facet[#{facet_id.to_s}]" => name})) + " (#{count})"} %>
-              <% end %>
+      <% results = @asset_class.map_facet_results(facet, params[:facet], @facets, @all_facets, :limit => less_options_limit) %>
+      <% facet_count = results.total_entries %>
 
-              <%= text_field :facet, facet_id %>
-              <% javascript_tag do %>
-                jQuery.TokenList($("<%='facet_'+facet_id.to_s%>"), <%=array.to_json%>, {searchDelay: 0, permanentDropdown: true, theme: "facet", dontAdd: true, preventDuplicates: true});
-              <% end %>
-            </div>
-          <% end %>
-
-          <div class="facet-menu-options facet-menu-less-options">
-            <% c = 0; @asset_class.each_facet_name(solr_facet, facets_found, :sort => :count) do |name, count| %>
-              <%= link_to(name, params.merge({"facet[#{facet_id.to_s}]" => name})) + " (#{count})" %><br />
-              <% break if (c += 1) > less_options_limit %>
-            <% end %>
-          </div> <br />
-
-          <% if facets_found.count > less_options_limit %>
-            <%= link_to_function more_options, "jQuery('#facet-menu-"+index.to_s+" .facet-menu-options').toggle(200); " + 
-              "jQuery(this).text(jQuery(this).text() == '"+less_options+"' ? '"+more_options+"' : '"+less_options+"');" %>
-              <br />
-          <% end %>
-
-          <br />
+      <% if facet_count > 0 %>
+        <div class="facet-menu-options facet-menu-more-options" style="display: none">
         </div>
+
+        <div class="facet-menu-options facet-menu-less-options">
+          <% results.each do |id, label, count| %>
+            <%= facet_link_html(facet, params, id, label, count) %><br />
+          <% end %>
+        </div> <br />
+
+        <% if facet_count > less_options_limit %>
+          <%= link_to_function _("Options"),
+            "facet_options_toggle('#{facet[:id].to_s}', '#{url_for(params.merge(:action => 'facets_browse', :facet_id => facet[:id], :asset => @asset, :escape => false))}'); " + 
+            "jQuery(this).toggleClass('facet-less-options')", :class => "facet-options-toggle" %>
+          <br />
         <% end %>
+
+      <% else %>
+        <span class="facet-any-result-found"><%= _("No filter available") %></span>
       <% end %>
-    <% end %>
-  </div>
+    </div>
+  <% end %>
+</div>

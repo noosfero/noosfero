@@ -1,0 +1,8 @@
+<% article = article_author %>
+
+<div class="search-article-author">
+  <div class="search-article-author-name">
+    <span class="search-field-label"><%= _("Author") %></span>
+    <%= link_to_profile article.profile.name, article.profile.identifier %>
+  </div>
+</div>

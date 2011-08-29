@@ -1,20 +1,20 @@
-<%= search_page_title( _('Articles'), { :query => @query, 
-                      :total_results => @total_results } ) %>
+<%= search_page_title( @titles[:articles], @category ) %>
 
-<%= search_page_link_to_all( { :asset => params[:asset],
-                               :category => @category }) %>
+<div id="search-column-left">
+  <% if !@empty_query %>
+    <%= facets_menu(:articles, @facets) %>
+  <% end %>
+</div>
 
-<%= render :partial => 'search_form', :locals => { :form_title => @query.blank? ? _('Search') : _("Refine your search"), :simple_search => true } %>
+<div id="search-column-right">
+  <%= render :partial => 'search_form', :locals => { :form_title => _('Search'), :simple_search => true,
+    :hint => _('Type the title, author or content desired') } %>
+  <%= render :partial => 'results_header', :locals => { :asset => :articles, :results => @results[:articles] } %>
 
-<% if !@query.blank? %>
-  <%= facets_menu(:articles, @facets) %>
-<% end %>
-
-<%= render :partial => 'results_header', :locals => { :asset => :articles, :results => @results[:articles] } %>
-
-<%# FIXME ARMENGUE %>
-<%= display_results(false) %>
-
-<%= pagination_links @results.values.first %>
+  <% if !@empty_query or @filter %>
+    <%= display_results %>
+    <%= pagination_links @results.values.first %>
+  <% end %>
+</div>
 
 <br style="clear:both" />

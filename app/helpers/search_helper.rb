@@ -9,54 +9,31 @@ module SearchHelper
     (n * 100.0).round
   end
 
-  def display_results(use_map = true)
-
-    unless use_map && GoogleMaps.enabled?(environment.default_hostname)
-      return render(:partial => 'display_results')
+  def display_results(use_map = false)
+    if params[:display] == 'map' && use_map && GoogleMaps.enabled?(environment.default_hostname)
+      partial = 'google_maps'
+      klass = 'map'
+    else
+      partial = 'display_results'
+      klass = 'list'
     end
 
-    data =
-      if params[:display] == 'map'
-        {
-          :partial => 'google_maps',
-          :toggle => button(:search, _('Display in list'), params.merge(:display => 'list'), :class => "map-toggle-button" ),
-          :class => 'map' ,
-        }
-      else
-        {
-          :partial => 'display_results',
-          :toggle => button(:search, _('Display in map'), params.merge(:display => 'map'), :class => "map-toggle-button" ),
-          :class => 'list' ,
-        }
-      end
-
-    content_tag('div', data[:toggle] + (render :partial => data[:partial]), :class => "map-or-list-search-results #{data[:class]}")
+    content_tag('div', render(:partial => partial), :class => "map-or-list-search-results #{klass}")
   end
 
-  def product_categories_menu(asset, product_category, object_ids = nil)
-    cats = ProductCategory.menu_categories(@product_category, environment)
-    cats += cats.select { |c| c.children_count > 0 }.map(&:children).flatten
-    product_categories_ids = cats.map(&:id)
+  def display_map_list_button
+    button(:search, params[:display] == 'map' ? _('Display in list') : _('Display in map'),
+           params.merge(:display => (params[:display] == 'map' ? 'list' : 'map')),
+           :class => "map-toggle-button" )
+  end
 
-    counts = @noosfero_finder.product_categories_count(asset, product_categories_ids, object_ids)
-
-    product_categories_menu = ProductCategory.menu_categories(product_category, environment).map do |cat|
-      hits = counts[cat.id]
-      childs = []
-      if hits
-        if cat.children_count > 0
-          childs = cat.children.map do |child|
-            child_hits = counts[child.id]
-            [child, child_hits]
-          end.select{|child, child_hits| child_hits }
-        else
-          childs = []
-        end
-      end
-      [cat, hits, childs]
-    end.select{|cat, hits| hits }
-
-    render(:partial => 'product_categories_menu', :object => product_categories_menu)
+  def city_with_state(city)
+    s = city.parent
+    if city and city.kind_of?(City) and s and s.kind_of?(State) and s.acronym 
+      city.name + ', ' + s.acronym
+    else
+      city.name
+    end
   end
 
   def facets_menu(asset, _facets)
@@ -148,15 +125,15 @@ module SearchHelper
 
   def order_by(asset)
     options = {
-      :products => [[_('Best match'), ''], [_('Name'), 'name_sort asc'], [_('Lower price'), 'price asc'], [_('Higher price'), 'price desc']],
-      :events => [[_('Best match'), ''], [_('Name'), 'name_sort asc']],
-      :articles => [[_('Best match'), ''], [_('Name'), 'name_sort asc'], [_('Most recent'), 'updated_at desc']],
-      :enterprises => [[_('Best match'), ''], [_('Name'), 'name_sort asc']],
-      :people => [[_('Best match'), ''], [_('Name'), 'name_sort asc']],
-      :communities  => [[_('Best match'), ''], [_('Name'), 'name_sort asc']],
+      :products => [[_('Relevance'), ''], [_('Name'), 'name_or_category_sort asc'], [_('Lower price'), 'price_sort asc'], [_('Higher price'), 'price_sort desc']],
+      :events => [[_('Relevance'), ''], [_('Name'), 'name_sort asc']],
+      :articles => [[_('Relevance'), ''], [_('Name'), 'name_sort asc'], [_('Most recent'), 'updated_at desc']],
+      :enterprises => [[_('Relevance'), ''], [_('Name'), 'name_sort asc']],
+      :people => [[_('Relevance'), ''], [_('Name'), 'name_sort asc']],
+      :communities  => [[_('Relevance'), ''], [_('Name'), 'name_sort asc']],
     }
 
-    content_tag('div', _('Order by ') +
+    content_tag('div', _('Sort results by ') +
                 select_tag(asset.to_s + '[order]', options_for_select(options[asset], params[:order_by]),
                            {:onchange => "window.location=jQuery.param.querystring(window.location.href, { 'order_by' : this.options[this.selectedIndex].value})"}),
                 :class => "search-ordering")
@@ -178,4 +155,5 @@ module SearchHelper
       ''
     end
   end
+
 end

@@ -139,11 +139,18 @@ class Article < ActiveRecord::Base
     {:conditions => [ 'parent_id is null and profile_id = ?', profile.id ]}
   }
 
+  named_scope :more_recent,
+    :conditions => [ "advertise = ? AND published = ? AND profiles.visible = ? AND profiles.public_profile = ? AND
+      ((articles.type != ?) OR articles.type is NULL)",
+      true, true, true, true, 'RssFeed'
+    ],
+    :order => 'articles.published_at desc, articles.id desc'
+
   # retrieves the latest +limit+ articles, sorted from the most recent to the
   # oldest.
   #
   # Only includes articles where advertise == true
-  def self.recent(limit, extra_conditions = {})
+  def self.recent(limit = nil, extra_conditions = {})
     # FIXME this method is a horrible hack
     options = { :limit => limit,
                 :conditions => [
@@ -558,17 +565,53 @@ class Article < ActiveRecord::Base
   end
 
   private
-  def f_type
-    self.class.short_description
+
+  def self.f_type_proc(klass)
+    klass.constantize 
+    h = {
+      'UploadedFile' => _("Uploaded File"), 
+      'TextArticle' => _("Text"),
+      'Folder' => _("Folder"),
+      'Event' => _("Event"),
+      'EnterpriseHomepage' => ("Homepage"),
+      'Gallery' => ("Gallery"),
+      'Blog' => ("Blog"),
+      'Forum' => ("Forum")
+    }
+    h[klass]
   end
-  def f_publish_date
-    today = Date.today
-    range = ''
-    range = _('Last year') if (today-1.year..today).include?(self.published_at)
-    range = _('Last month') if (today-1.month..today).include?(self.published_at)
-    range = _('Last week') if (today-1.week..today).include?(self.published_at)
-    range = _('Last day') if (today-1.day..today).include?(self.published_at)
-    range
+  def self.f_profile_type_proc(klass)
+    h = {
+      'Enterprise' => _("Enterprise"), 
+      'Community' => _("Community"),
+      'Person' => ("Person"),
+      'BscPlugin::Bsc' => ("BSC")
+    }
+    h[klass]
+  end
+
+  UploadedFile
+  TextArticle
+  TinyMceArticle
+  TextileArticle
+  Folder
+  EnterpriseHomepage
+  Gallery
+  Blog
+  Forum
+  Event
+  #excludes RssFeed
+
+  def f_type
+    case self.class.to_s
+    when 'TinyMceArticle', 'TextileArticle'
+      'TextArticle'
+    else
+      self.class.to_s
+    end
+  end
+  def f_published_at
+    self.published_at
   end
   def f_profile_type
     self.profile.class.to_s
@@ -579,16 +622,21 @@ class Article < ActiveRecord::Base
   public
 
   acts_as_faceted :fields => {
-    :f_type => {:label => _('Type')},
-    :f_publish_date => {:label => _('Published')},
-    :f_profile_type => {:label => _('Type of profile')},
-    :f_category => {:label => _('Categories')}},
-    :order => [:f_type, :f_publish_date, :f_profile_type, :f_category]
+      :f_type => {:label => _('Type'), :proc => proc{|klass| f_type_proc(klass)}},
+      :f_published_at => {:type => :date, :label => _('Published date'), :queries => {'[* TO NOW-1YEARS/DAY]' => _("Older than one year"), 
+        '[NOW-1YEARS TO NOW/DAY]' => _("Last year"), '[NOW-1MONTHS TO NOW/DAY]' => _("Last month"), '[NOW-7DAYS TO NOW/DAY]' => _("Last week"), '[NOW-1DAYS TO NOW/DAY]' => _("Last day")},
+        :queries_order => ['[NOW-1DAYS TO NOW/DAY]', '[NOW-7DAYS TO NOW/DAY]', '[NOW-1MONTHS TO NOW/DAY]', '[NOW-1YEARS TO NOW/DAY]', '[* TO NOW-1YEARS/DAY]']},
+      :f_profile_type => {:label => _('Profile'), :proc => proc{|klass| f_profile_type_proc(klass)}},
+      :f_category => {:label => _('Categories')}},
+    :category_query => proc { |c| "f_category:\"#{c.name}\"" },
+    :order => [:f_type, :f_published_at, :f_profile_type, :f_category]
 
-  acts_as_searchable :additional_fields => [ :comment_data, {:name => {:type => :string, :as => :name_sort, :boost => 5.0}} ] + facets.keys.map{|i| {i => :facet}},
+  acts_as_searchable :additional_fields => [ {:name => {:type => :string, :as => :name_sort, :boost => 5.0}} ] + facets_fields_for_solr,
+    :exclude_fields => [:setting],
     :include => [:profile],
-    :facets => facets.keys,
-    :if => proc{|a| ! ['Feed'].include?(a.type)}
+    :facets => facets_option_for_solr,
+    :boost => proc {|a| 10 if a.profile.enabled},
+    :if => proc{|a| ! ['RssFeed'].include?(a.class.name)}
 
   private
 

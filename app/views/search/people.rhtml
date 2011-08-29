@@ -1,22 +1,20 @@
-<%= search_page_title( _('People'), { :query => @query, 
-                      :total_results => @total_results } ) %>
+<%= search_page_title( @titles[:people], @category ) %>
 
-<%= search_page_link_to_all( { :asset => params[:asset],
-                               :category => @category }) %>
+<div id='search-column-left'>
+  <% if !@empty_query %>
+    <%= facets_menu(:people, @facets) %>
+  <% end %>
+</div>
 
-<%= render :partial => 'search_form', :locals => { :form_title => @query.blank? ? _('Search') : _("Refine your search"), :simple_search => true } %>
+<div id='search-column-right'>
+  <%= render :partial => 'search_form', :locals => { :form_title => _('Search'), :simple_search => true,
+    :hint => _("Type words about the person you're looking for") } %>
+  <%= render :partial => 'results_header', :locals => { :asset => :people, :results => @results[:people] } %>
 
-<% if !@query.blank? %>
-  <%= facets_menu(:people, @facets) %>
-<% end %>
-
-<%= render :partial => 'results_header', :locals => { :asset => :people, :results => @results[:people] } %>
-
-<%# FIXME ARMENGUE %>
-<%= display_results(false) %>
-
-<% if params[:display] != 'map' %>
-  <%= pagination_links @results.values.first %>
-<% end %>
+  <%= display_results %>
+  <% if params[:display] != 'map' %>
+    <%= pagination_links @results.values.first %>
+  <% end %>
+</div>
 
 <br style="clear:both" />

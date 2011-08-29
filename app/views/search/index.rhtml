@@ -1,7 +1,6 @@
 <div id="search-page">
 
-<%= search_page_title(_('Search Results'), :query => CGI.escapeHTML(@query),
-                      :total_results => @total_results) %>
+<%= search_page_title(_('Search Results'), @category) %>
 
 <%= render :partial => 'search_form', :locals => { :form_title => _("Refine your search"), :simple_search => true } %>
 
