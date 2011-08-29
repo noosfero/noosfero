@@ -1,3 +1,6 @@
+require_dependency 'ext/enterprise'
+require_dependency 'ext/person'
+
 class ShoppingCartPlugin < Noosfero::Plugin
 
   def self.plugin_name
