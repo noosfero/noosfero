@@ -372,45 +372,6 @@ class SearchControllerTest < Test::Unit::TestCase
     assert_tag :tag => 'div', :attributes => { :class => /search-results-people/ }, :descendant => { :tag => 'h3', :content => /People/ }
   end
 
-  should 'present options of where to search' do
-    get :popup
-    names = {
-        :articles => 'Articles',
-        :people => 'People',
-        :enterprises => 'Enterprises',
-        :communities => 'Communities',
-        :products => 'Products',
-        :events => 'Events',
-    }
-    names.each do |thing,description|
-      assert_tag :tag => 'input', :attributes => { :type => 'checkbox', :name => "find_in[]", :value => thing.to_s, :checked => 'checked' }
-      assert_tag :tag => 'label', :content => description
-    end
-  end
-
-  should 'not display option to choose where to search when not inside filter' do
-    get :popup
-    assert_no_tag :tag => 'input', :attributes => { :type => 'radio', :name => 'search_whole_site', :value => 'yes' }
-  end
-
-  should 'display option to choose searching in whole site or in current category' do
-    parent = Category.create!(:name => 'cat', :environment => Environment.default)
-    Category.create!(:name => 'sub', :environment => Environment.default, :parent => parent)
-
-    get :popup, :category_path => [ 'cat', 'sub']
-    assert_tag :tag => 'input', :attributes => { :type => 'submit', :name => 'search_whole_site_yes' }
-    assert_tag :tag => 'input', :attributes => { :type => 'submit', :name => 'search_whole_site_no' }
-  end
-
-  should 'display option to search within a given point and distance' do
-    state = State.create!(:name => "Bahia", :environment => Environment.default)
-    get :popup
-
-    assert_tag :tag => 'select', :attributes => {:name => 'radius'}
-    assert_tag :tag => 'select', :attributes => {:name => 'state'}
-    assert_tag :tag => 'select', :attributes => {:name => 'city'}
-  end
-
   should 'search in whole site when told so' do
     parent = Category.create!(:name => 'randomcat', :environment => Environment.default)
     Category.create!(:name => 'randomchild', :environment => Environment.default, :parent => parent)
@@ -419,21 +380,6 @@ class SearchControllerTest < Test::Unit::TestCase
 
     # search_whole_site must be removed to precent a infinite redirect loop
     assert_redirected_to :action => 'index', :category_path => [], :query => 'some random query', :search_whole_site => nil
-  end
-
-  should 'submit form to root when not inside a filter' do
-    get :popup
-    assert_tag :tag => 'form', :attributes => { :action => '/search' }
-  end
-
-  should 'submit form to category path when inside a filter' do
-    get :popup, :category_path => Category.create!(:name => 'mycat', :environment => Environment.default).explode_path
-    assert_tag :tag => 'form', :attributes => { :action => '/search/index/mycat' }
-  end
-
-  should 'use GET method to search' do
-    get :popup
-    assert_tag :tag => 'form' , :attributes => { :method => 'get' }
   end
 
   should 'display a given category' do
