@@ -5162,3 +5162,52 @@ h1.page-title.no-boxes small {
 #advanced_search_link {
   display: none;
 }
+
+#alt-beautify {
+  background-color:#EDEDED;
+  border:1px solid #666666;
+  margin:10px auto;
+  padding:5px;
+  position:relative;
+  z-index: 99999;
+  -moz-border-radius:5px;
+  -o-border-radius:5px;
+  -webkit-border-radius:5px;
+  -khtml-border-radius:5px;
+  border-radius:5px;
+  -moz-box-shadow: 2px 2px 5px #555555;
+  -webkit-box-shadow: 2px 2px 5px #555555;
+  box-shadow: 2px 2px 5px #555555;
+}
+
+.alt-beautify-arrow-border {
+  border-color: transparent transparent #666666 transparent;
+  border-style: solid;
+  border-width: 6px;
+  height:0;
+  width:0;
+  position:absolute;
+  top:-13px;
+  left:20px;
+}
+
+.alt-beautify-arrow {
+  border-color: transparent transparent #EDEDED transparent;
+  border-style: solid;
+  border-width: 6px;
+  height:0;
+  width:0;
+  position:absolute;
+  top:-12px;
+  left:20px;
+}
+
+/* AutoComplete*/
+.formfield input.ui-autocomplete-loading { background: url('/images/loading-small.gif') right center no-repeat, url("../images/input-bg.gif") no-repeat left top;  }
+
+.ui-autocomplete-category {
+    font-weight: bold;
+    padding: .2em .4em;
+    margin: .8em 0 .2em;
+    line-height: 1.5;
+}
