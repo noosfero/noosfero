@@ -54,8 +54,6 @@ module ShoppingCartPlugin::CartHelper
     '</table>'
   end
 
-  private
-
   def float_to_currency_cart(value, environment)
     number_to_currency(value, :unit => environment.currency_unit, :separator => environment.currency_separator, :delimiter => environment.currency_delimiter, :format => "%u %n")
   end

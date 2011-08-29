@@ -6,6 +6,8 @@ class ShoppingCartPluginMyprofileController; def rescue_action(e) raise e end; e
 
 class ShoppingCartPluginMyprofileControllerTest < Test::Unit::TestCase
 
+  TIME_FORMAT = '%Y-%m-%d'
+
   def setup
     @controller = ShoppingCartPluginMyprofileController.new
     @request    = ActionController::TestRequest.new
@@ -58,5 +60,37 @@ class ShoppingCartPluginMyprofileControllerTest < Test::Unit::TestCase
     post :edit, :profile => enterprise.identifier, :profile_attr => {:shopping_cart_delivery_price => price}
     enterprise.reload
     assert enterprise.shopping_cart_delivery_price == price
+  end
+
+  should 'filter the reports correctly' do
+    another_enterprise = fast_create(Enterprise)
+    po1 = ShoppingCartPlugin::PurchaseOrder.create!(:seller => enterprise, :status => ShoppingCartPlugin::PurchaseOrder::Status::OPENED)
+    po2 = ShoppingCartPlugin::PurchaseOrder.create!(:seller => enterprise, :status => ShoppingCartPlugin::PurchaseOrder::Status::SHIPPED)
+    po3 = ShoppingCartPlugin::PurchaseOrder.create!(:seller => enterprise, :status => ShoppingCartPlugin::PurchaseOrder::Status::OPENED)
+    po3.created_at = 1.year.ago
+    po3.save!
+    po4 = ShoppingCartPlugin::PurchaseOrder.create!(:seller => another_enterprise, :status => ShoppingCartPlugin::PurchaseOrder::Status::OPENED)
+
+    post :reports,
+      :profile => enterprise.identifier,
+      :from => (Time.now - 1.day).strftime(TIME_FORMAT),
+      :to => (Time.now + 1.day).strftime(TIME_FORMAT),
+      :filter_status => ShoppingCartPlugin::PurchaseOrder::Status::OPENED
+
+    assert_includes assigns(:orders), po1
+    assert_not_includes assigns(:orders), po2
+    assert_not_includes assigns(:orders), po3
+    assert_not_includes assigns(:orders), po4
+  end
+
+  should 'be able to update the order status' do
+    po = ShoppingCartPlugin::PurchaseOrder.create!(:seller => enterprise, :status => ShoppingCartPlugin::PurchaseOrder::Status::OPENED)
+
+    post :update_order_status,
+      :profile => enterprise.identifier,
+      :order_id => po.id,
+      :order_status => ShoppingCartPlugin::PurchaseOrder::Status::CONFIRMED
+    po.reload
+    assert_equal ShoppingCartPlugin::PurchaseOrder::Status::CONFIRMED, po.status
   end
 end

@@ -45,8 +45,14 @@ class ShoppingCartPlugin < Noosfero::Plugin
   end
 
   def control_panel_buttons
+    buttons = []
     if context.profile.enterprise?
-      { :title => 'Shopping cart', :icon => 'shopping_cart_icon', :url => {:controller => 'shopping_cart_plugin_myprofile', :action => 'edit'} }
+      buttons << { :title => 'Shopping cart', :icon => 'shopping_cart_icon', :url => {:controller => 'shopping_cart_plugin_myprofile', :action => 'edit'} }
     end
+    if context.profile.enterprise? && context.profile.shopping_cart
+      buttons << { :title => 'Purchase reports', :icon => 'shopping-cart-purchase-report', :url => {:controller => 'shopping_cart_plugin_myprofile', :action => 'reports'} }
+    end
+
+    buttons
   end
 end
