@@ -1,10 +1,14 @@
 class Product < ActiveRecord::Base
   belongs_to :enterprise
+  has_one :region, :through => :enterprise
+
   belongs_to :product_category
-  has_many :product_categorizations
-  has_many :product_qualifiers
-  has_many :qualifiers, :through => :product_qualifiers
+
   has_many :inputs, :dependent => :destroy, :order => 'position'
+
+  has_many :product_qualifiers, :dependent => :destroy
+  has_many :qualifiers, :through => :product_qualifiers
+  has_many :certifiers, :through => :product_qualifiers
 
   validates_uniqueness_of :name, :scope => :enterprise_id, :allow_nil => true
   validates_presence_of :product_category_id
@@ -24,15 +28,6 @@ class Product < ActiveRecord::Base
 
   after_save do |p|
     p.enterprise.product_updated if p.enterprise
-  end
-
-  after_save do |p|
-    if (p.product_category && !ProductCategorization.find(:first, :conditions => {:category_id => p.product_category.id, :product_id => p.id})) || (!p.product_category)
-      ProductCategorization.remove_all_for(p)
-      if p.product_category
-        ProductCategorization.add_category_to_product(p.product_category, p)
-      end
-    end
   end
 
   xss_terminate :only => [ :name ], :on => 'validation'
@@ -86,9 +81,11 @@ class Product < ActiveRecord::Base
   end
 
   def enterprise_updated(e)
-    self.lat = e.lat
-    self.lng = e.lng
-    save!
+    if self.lat != e.lat or self.lng != e.lng
+      self.lat = e.lat
+      self.lng = e.lng
+      save!
+    end
   end
 
   def url
@@ -155,31 +152,51 @@ class Product < ActiveRecord::Base
   def name_or_category
     name ? name : product_category.name
   end
+  def price_sort
+    (price.nil? or price.zero?) ? 999999999.9 : price
+  end
   def f_category
-    #def childs(id)
-      #ret = ProductCategory.find(:all, :conditions => {:parent_id => id}).collect(&:id)
-      #([id, ret.map { |i| childs(i) }])
-    #end
-    #childs(self.product_category.id).flatten
     self.product_category.name
   end
   def f_region
-    self.enterprise.region.name if self.enterprise.region
+    self.enterprise.region.id if self.enterprise.region
+  end
+  def self.f_region_proc(id)
+    c = Region.find(id)
+    s = c.parent
+    if c and c.kind_of?(City) and s and s.kind_of?(State) and s.acronym 
+      [c.name, ', ' + s.acronym]
+    else
+      c.name
+    end
+  end
+  def self.f_qualifier_proc(id)
+    pq = ProductQualifier.find(id)
+    if pq.certifier
+      [pq.qualifier.name, _(' cert. ') + pq.certifier.name]
+    else
+      pq.qualifier.name
+    end
   end
   def f_qualifier
-    product_qualifiers.collect{|i| i.qualifier.name if i.qualifier} + 
-      product_qualifiers.collect{|i| i.certifier.name if i.certifier}
+    product_qualifier_ids
   end
   public
 
   acts_as_faceted :fields => {
     :f_category => {:label => _('Related products')},
-    :f_region => {:label => _('Region')},
-    :f_qualifier => {:label => _('Qualifiers')}},
+    :f_region => {:label => _('City'), :proc => proc { |id| f_region_proc(id) }},
+    :f_qualifier => {:label => _('Qualifiers'), :proc => proc { |id| f_qualifier_proc(id) }}},
+    :category_query => proc { |c| "f_category:\"#{c.name}\"" },
     :order => [:f_category, :f_region, :f_qualifier]
 
-  acts_as_searchable :fields => [{:name_or_category => {:type => :text, :as => :name, :boost => 2.0}},
-    {:name_or_category => {:type => :string, :as => :name_sort}}, :description, {:price => :float}, :category_full_name ] + facets.keys.map{|i| {i => :facet}},
+  acts_as_searchable :additional_fields => [
+      {:name => {:type => :text, :boost => 5.0}},
+      {:price_sort => {:type => :decimal}},
+      {:name_or_category => {:type => :string, :as => :name_or_category_sort, :boost => 2.0}},
+      :category_full_name ] + facets.keys.map{|i| {i => :facet}},
+    :include => [:enterprise, :qualifiers, :certifiers, :product_category],
+    :boost => proc {|p| 10 if p.enterprise.enabled},
     :facets => facets.keys
 
 end
