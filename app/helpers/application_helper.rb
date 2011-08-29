@@ -884,10 +884,10 @@ module ApplicationHelper
     result
   end
 
-  def search_page_title(title, options={})
-    title = "<h1>" + title + "</h1>"
-    title += "<h2 class='query'>" + _("Searched for '%s'") % options[:query] + "</h2>" if !options[:query].blank?
-    title
+  def search_page_title(title, category = nil)
+    title = "<h1>" + title
+    title += '<small>' + category.name + '</small>' if category
+    title + "</h1>"
   end
 
   def search_page_link_to_all(options={})
@@ -980,6 +980,7 @@ module ApplicationHelper
   def noosfero_stylesheets
     [
       'application',
+      'search',
       'thickbox',
       'lightbox',
       'colorpicker',
@@ -1111,7 +1112,7 @@ module ApplicationHelper
       links.push(_('New Content') => lightbox_options({:href => url_for({:controller => 'cms', :action => 'new', :profile => current_user.login, :cms => true})}))
     end
 
-    link_to(content_tag(:span, _('Contents'), :class => 'icon-menu-contents'), {:controller => "search", :action => 'contents'}, :id => 'submenu-contents') +
+    link_to(content_tag(:span, _('Contents'), :class => 'icon-menu-contents'), {:controller => "search", :action => 'contents', :category_path => ''}, :id => 'submenu-contents') +
     link_to(content_tag(:span, _('Contents Menu')), '#', :onclick => "toggleSubmenu(this,'',#{links.to_json}); return false", :class => 'menu-submenu-trigger up', :id => 'submenu-contents-trigger')
   end
 
@@ -1126,7 +1127,7 @@ module ApplicationHelper
        links.push(_('Invite friends') => {:href => url_for({:profile => current_user.login, :controller => 'invite', :action => 'friends'})})
      end
 
-    link_to(content_tag(:span, _('People'), :class => 'icon-menu-people'), {:controller => "search", :action => 'people'}, :id => 'submenu-people') +
+    link_to(content_tag(:span, _('People'), :class => 'icon-menu-people'), {:controller => "search", :action => 'people', :category_path => ''}, :id => 'submenu-people') +
     link_to(content_tag(:span, _('People Menu')), '#', :onclick => "toggleSubmenu(this,'',#{links.to_json}); return false", :class => 'menu-submenu-trigger up', :id => 'submenu-people-trigger')
   end
 
@@ -1325,4 +1326,9 @@ module ApplicationHelper
       ) + content_tag('span', ' | ', :class => 'comment-footer comment-footer-hide')
     end
   end
+
+  def jquery_token_input_messages_json(hintText = _('Type in an keyword'), noResultsText = _('No results'), searchingText = _('Searching...'))
+    "hintText: '#{hintText}', noResultsText: '#{noResultsText}', searchingText: '#{searchingText}'"
+  end
+
 end
