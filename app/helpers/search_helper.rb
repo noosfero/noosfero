@@ -69,6 +69,74 @@ module SearchHelper
     @asset_class = asset_class(asset)
     render(:partial => 'facets_unselect_menu')
   end
+  
+  def facet_javascript(input_id, facet, array)
+    hintText = _('Type in an option')
+    text_field_tag('facet['+input_id+']', '', :id => input_id) +
+      javascript_tag("jQuery.TokenList(jQuery('##{input_id}'), #{array.to_json},
+        {searchDelay: 0, permanentDropdown: true, theme: 'facet', dontAdd: true, preventDuplicates: true,
+        #{jquery_token_input_messages_json(hintText)}});")
+  end
+
+  def facet_link_html(facet, params, value, label, count)
+    params = params.dup
+    has_extra = label.kind_of?(Array)
+    link_label = has_extra ? label[0] : label
+    id = facet[:solr_field].to_s
+    params[:facet] ||= {}
+    params[:facet][id] ||= {}
+
+    selected = facet[:label_id].nil? ? params[:facet][id] == value : params[:facet][id][facet[:label_id]].to_a.include?(value)
+
+    if count > 0
+      url = params.merge(:facet => params[:facet].merge(
+        id => facet[:label_id].nil? ? value : params[:facet][id].merge( facet[:label_id] => params[:facet][id][facet[:label_id]].to_a.push(value) )
+      ))
+    else
+      url = params.merge(:facet => {
+        id => facet[:label_id].nil? ? value : { facet[:label_id] => value }
+      })
+    end
+
+    content_tag 'div', link_to(link_label, url, :class => 'facet-result-link-label') +
+        content_tag('span', (has_extra ? label[1] : ''), :class => 'facet-result-extra-label') +
+        (count > 0 ? content_tag('span', " (#{count})", :class => 'facet-result-count') : ''),
+      :class => 'facet-menu-item' + (selected ? ' facet-result-link-selected' : '')
+  end
+
+  def facet_selecteds_html_for(environment, klass, params)
+    def name_with_extra(klass, facet, value)
+      name = klass.facet_result_name(facet, value)
+      name = name[0] + name[1] if name.kind_of?(Array) 
+      name
+    end
+
+    ret = []
+    params = params.dup
+    params[:facet].each do |id, value|
+      facet = klass.facet_by_id(id.to_sym)
+      if value.kind_of?(Hash)
+        label_hash = facet[:label].call(environment)
+        value.each do |label_id, value|
+          facet[:label_id] = label_id
+          facet[:label] = label_hash[label_id]
+          value.to_a.each do |value|
+            ret << [facet[:label], name_with_extra(klass, facet, value),
+              params.merge(:facet => params[:facet].merge(id => params[:facet][id].merge(label_id => params[:facet][id][label_id].to_a.reject{ |v| v == value })))]
+          end
+        end
+      else
+        ret << [facet[:label], name_with_extra(klass, facet, value),
+          params.merge(:facet => params[:facet].reject{ |k,v| k == id })]
+      end
+    end
+
+    ret.map do |label, name, url|
+      content_tag('div', content_tag('span', label, :class => 'facet-selected-label') + 
+        content_tag('span', name, :class => 'facet-selected-name') +
+        link_to('', url, :class => 'facet-selected-remove'), :class => 'facet-selected')
+    end.join
+  end
 
   def asset_class(asset)
     asset.to_s.singularize.camelize.constantize
