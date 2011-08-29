@@ -414,27 +414,6 @@ class Person < Profile
     user.save!
   end
 
-  private
-  def f_territory
-    categories.find(:all, :conditions => {:parent_id => 5}).collect(&:name)
-  end
-  def f_topic
-    categories.find(:all, :conditions => {:parent_id => 1}).collect(&:name)
-  end
-  def f_network
-    categories.find(:all, :conditions => {:parent_id => 9}).collect(&:name)
-  end
-  public
-
-  acts_as_faceted :fields => {
-    :f_territory => {:label => _('Territories')},
-    :f_topic => {:label => _('Thematics')},
-    :f_network => {:label => _('Networks')}},
-    :order => [:f_territory, :f_topic, :f_network]
-
-  acts_as_searchable :additional_fields => [ :extra_data_for_index, {:name => {:type => :string, :as => :name_sort, :boost => 5.0}} ] + facets.keys.map{|i| {i => :facet}},
-    :facets => facets.keys
-
   protected
 
   def followed_by?(profile)

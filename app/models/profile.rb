@@ -178,7 +178,7 @@ class Profile < ActiveRecord::Base
   def top_level_categorization
     ret = {}
     self.profile_categorizations.each do |c|
-      p = c.category.root_parent
+      p = c.category.top_ancestor
       ret[p] = (ret[p] || []) + [c.category]
     end
     ret
@@ -823,18 +823,59 @@ private :generate_url, :url_options
     name
   end
 
-  protected
+  private
+  def self.f_categories_label_proc(environment)
+    ids = environment.top_level_category_as_facet_ids
+    r = Category.find(ids)
+    map = {}
+    ids.map{ |id| map[id.to_s] = r.detect{|c| c.id == id}.name }
+    map
+  end
+  def self.f_categories_proc(facet, id)
+    id = id.to_i
+    c = Category.find(id)
+    c.name if c.top_ancestor.id == facet[:label_id].to_i or facet[:label_id] == 0
+  end
+  def f_categories
+    category_ids
+  end
 
-    def followed_by?(person)
-      person.is_member_of?(self)
-    end
+  def f_type
+    self.class.name
+  end
+  def self.f_type_proc(id)
+    {'Enterprise' => _('Enterprise'),
+     'BscPlugin::Bsc' => _('BSC')
+    }[id]
+  end
+  public
 
-    def display_private_info_to?(user)
-      if user.nil?
-        false
-      else
-        (user == self) || (user.is_admin?(self.environment)) || user.is_admin?(self) || user.memberships.include?(self)
-      end
+  acts_as_faceted :fields => {
+      :f_type => {:label => _('Type'), :type_if => proc { |klass| klass.kind_of?(Enterprise) }, :proc => proc { |id| f_type_proc(id) }},
+      :f_categories => {:multi => true, :proc => proc {|facet, id| f_categories_proc(facet, id)},
+        :label => proc { |env| f_categories_label_proc(env) }, :label_abbrev => proc { |env| f_categories_label_abbrev_proc(env) }}},
+    :category_query => proc { |c| "f_categories:#{c.id}" },
+    :order => [:f_type, :f_categories]
+
+  acts_as_searchable :additional_fields => [
+      :extra_data_for_index, {:name => {:type => :string, :as => :name_sort, :boost => 5.0}} ] + facets.keys.map{|i| {i => :facet}},
+    :boost => proc {|p| 10 if p.enabled},
+    :facets => facets.keys
+
+  def control_panel_settings_button                                                                                                                                                             
+    {:title => _('Profile Info and settings'), :icon => 'edit-profile'}                                                                                                                         
+  end 
+
+  def followed_by?(person)
+    person.is_member_of?(self)
+  end
+
+  def display_private_info_to?(user)
+    if user.nil?
+      false
+    else
+      (user == self) || (user.is_admin?(self.environment)) || user.is_admin?(self) || user.memberships.include?(self)
     end
+  end
 
 end
