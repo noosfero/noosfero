@@ -619,6 +619,9 @@ class Article < ActiveRecord::Base
   def f_category
     self.categories.collect(&:name)
   end
+  def name_sort
+    name
+  end
   public
 
   acts_as_faceted :fields => {
@@ -631,7 +634,7 @@ class Article < ActiveRecord::Base
     :category_query => proc { |c| "f_category:\"#{c.name}\"" },
     :order => [:f_type, :f_published_at, :f_profile_type, :f_category]
 
-  acts_as_searchable :additional_fields => [ {:name => {:type => :string, :as => :name_sort, :boost => 5.0}} ] + facets_fields_for_solr,
+  acts_as_searchable :additional_fields => [ {:name => {:type => :string}} ] + facets_fields_for_solr,
     :exclude_fields => [:setting],
     :include => [:profile],
     :facets => facets_option_for_solr,

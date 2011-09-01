@@ -848,6 +848,9 @@ private :generate_url, :url_options
      'BscPlugin::Bsc' => _('BSC')
     }[id]
   end
+  def name_sort
+    name
+  end
   public
 
   acts_as_faceted :fields => {
@@ -858,7 +861,7 @@ private :generate_url, :url_options
     :order => [:f_type, :f_categories]
 
   acts_as_searchable :additional_fields => [
-      :extra_data_for_index, {:name => {:type => :string, :as => :name_sort, :boost => 5.0}} ] + facets.keys.map{|i| {i => :facet}},
+      :extra_data_for_index, {:name_sort => {:type => :string}} ] + facets.keys.map{|i| {i => :facet}},
     :boost => proc {|p| 10 if p.enabled},
     :facets => facets.keys
 
