@@ -15,6 +15,7 @@ class NationalRegion < ActiveRecord::Base
       adtional_contions = " AND nr.name = :state "
     end
 
+
     conditions  = ["national_regions.name #{operator} :name AND
                     national_regions.national_region_type_id = :type" + adtional_contions,
                   {:name => city_name ,
@@ -54,7 +55,11 @@ class NationalRegion < ActiveRecord::Base
 
   def self.validate!(city, state, country)
 
-    if(country  == "BR")
+    coutry_region = NationalRegion.find_by_national_region_code(country,
+                                                :conditions => ["national_region_type_id = :type",
+                                                               {:type => NationalRegionType::COUNTRY}])
+
+    if(coutry_region)
 
       nregion = NationalRegion.search_city(city, false, state);
 
