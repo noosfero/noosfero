@@ -590,6 +590,9 @@ class Article < ActiveRecord::Base
     h[klass]
   end
 
+  # FIXME: workaround for development env.
+  # Subclasses aren't (re)loaded, and acts_as_solr
+  # depends on subclasses method to search
   UploadedFile
   TextArticle
   TinyMceArticle
@@ -600,7 +603,6 @@ class Article < ActiveRecord::Base
   Blog
   Forum
   Event
-  #excludes RssFeed
 
   def f_type
     case self.class.to_s
