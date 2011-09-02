@@ -68,31 +68,30 @@ module ActsAsFaceted
         facets_data ||= {}
         solr_facet = to_solr_fields_names[facet[:solr_field]]
 
-        if unfiltered_facets_data
-          facets_data = unfiltered_facets_data.mash do |container, value|
-            [container, value.mash do |field, value|
-              facets_data[container] = {} if facets_data[container].nil? or facets_data[container] == []
-              f = Hash[Array(facets_data[container][field])]
-              zeros = []
-              [field, Array(value).map do |id, count|
-                count = f[id]
-                if count.nil?
-                  zeros.push [id, 0]
-                  nil
-                else
-                  [id, count]
-                end
-              end.compact + zeros]
-            end]
-          end
-        end
-
         if facet[:queries]
           container = facets_data[facets_results_containers[:queries]]
           facet_data = (container.nil? or container.empty?) ? [] : container.select{ |k,v| k.starts_with? solr_facet }
+          container = unfiltered_facets_data[facets_results_containers[:queries]]
+          unfiltered_facet_data = (container.nil? or container.empty?) ? [] : container.select{ |k,v| k.starts_with? solr_facet }
         else
           container = facets_data[facets_results_containers[:fields]]
           facet_data = (container.nil? or container.empty?) ? [] : container[solr_facet] || []
+          container = unfiltered_facets_data[facets_results_containers[:fields]]
+          unfiltered_facet_data = (container.nil? or container.empty?) ? [] : container[solr_facet] || []
+        end
+
+        if !unfiltered_facets_data.blank? and !facet_params.blank?
+          f = Hash[Array(facet_data)]
+          zeros = []
+          facet_data = unfiltered_facet_data.map do |id, count|
+            count = f[id]
+            if count.nil?
+              zeros.push [id, 0]
+              nil
+            else
+              [id, count]
+            end
+          end.compact + zeros
         end
 
         facet_count = facet_data.length
@@ -158,6 +157,10 @@ module ActsAsFaceted
         end
       end
 
+      def facet_label(facet)
+        _ facet[:label]
+      end
+
       def facets_find_options(facets_selected = {}, options = {})
         browses = []
         facets_selected ||= {}
@@ -176,7 +179,7 @@ module ActsAsFaceted
         {:facets => {:zeros => false, :sort => :count,
             :fields => facets_option_for_solr,
             :browse => browses,
-            :query => facets.map { |f, options| options[:queries].keys.map { |q| f.to_s + ':' + q } if options[:queries]}.compact.flatten,
+            :query => facets.map { |f, options| options[:queries].keys.map { |q| f.to_s + ':' + q } if options[:queries] }.compact.flatten,
           }
         }
       end
