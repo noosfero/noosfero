@@ -35,7 +35,7 @@ module ActsAsSolr #:nodoc:
         query = add_relevance query, options[:relevance]
 
         raise "Expecting and array of strings for :filter_queries" unless options[:filter_queries].nil? or options[:filter_queries].kind_of?(Array)
-        query_options[:filter_queries] = replace_types([*options[:filter_queries]].collect{|k| "#{k.sub!(/ *: */,"_t:")}"}) if options[:filter_queries]
+        query_options[:filter_queries] = replace_types([*options[:filter_queries]].collect{|k| "#{k.dup.sub!(/ *: */,"_t:")}"}) if options[:filter_queries]
 
         # first steps on the facet parameter processing
         if options[:facets]
@@ -47,8 +47,8 @@ module ActsAsSolr #:nodoc:
           # override the :zeros (it's deprecated anyway) if :mincount exists
           query_options[:facets][:mincount] = options[:facets][:mincount] if options[:facets][:mincount]
           query_options[:facets][:fields] = options[:facets][:fields].collect{|k| "#{k}_facet"} if options[:facets][:fields]
-          query_options[:filter_queries] += replace_types([*options[:facets][:browse]].collect{|k| "#{k.sub!(/ *: */,"_t:")}"}) if options[:facets][:browse]
-          query_options[:facets][:queries] = replace_types(options[:facets][:query].collect{|k| "#{k.sub!(/ *: */,"_t:")}"}) if options[:facets][:query]
+          query_options[:filter_queries] += replace_types([*options[:facets][:browse]].collect{|k| "#{k.dup.sub!(/ *: */,"_t:")}"}) if options[:facets][:browse]
+          query_options[:facets][:queries] = replace_types(options[:facets][:query].collect{|k| "#{k.dup.sub!(/ *: */,"_t:")}"}) if options[:facets][:query]
 
 
           if options[:facets][:dates]
@@ -72,7 +72,7 @@ module ActsAsSolr #:nodoc:
             query_options[:date_facets][:end]     = options[:facets][:dates][:end] if options[:facets][:dates][:end]
             query_options[:date_facets][:gap]     = options[:facets][:dates][:gap] if options[:facets][:dates][:gap]
             query_options[:date_facets][:hardend] = options[:facets][:dates][:hardend] if options[:facets][:dates][:hardend]
-            query_options[:date_facets][:filter]  = replace_types([*options[:facets][:dates][:filter]].collect{|k| "#{k.sub!(/ *:(?!\d) */,"_d:")}"}) if options[:facets][:dates][:filter]
+            query_options[:date_facets][:filter]  = replace_types([*options[:facets][:dates][:filter]].collect{|k| "#{k.dup.sub!(/ *:(?!\d) */,"_d:")}"}) if options[:facets][:dates][:filter]
 
             if options[:facets][:dates][:other]
               validate_date_facet_other_options(options[:facets][:dates][:other])
