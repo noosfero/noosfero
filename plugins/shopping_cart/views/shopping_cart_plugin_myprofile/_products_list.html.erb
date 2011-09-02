@@ -1,0 +1,17 @@
+<% if @products.empty? %>
+  <p><i><%= _("No results.") %></i></p>
+<% else %>
+  <table>
+    <tr>
+      <th><%= _('Product') %></th>
+      <th><%= _('Quantity') %></th>
+    </tr>
+    <% @products.each do |id, quantity|%>
+      <tr>
+        <td><%= Product.find(id).name %></td>
+        <td style="text-align: center"><%= quantity %></td>
+      </tr>
+    <% end %>
+  </table>
+<% end %>
+

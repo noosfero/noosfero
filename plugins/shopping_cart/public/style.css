@@ -196,3 +196,19 @@ label.error {
 .action-shopping_cart_plugin_myprofile-reports .order-products li {
   padding-left: 5px;
 }
+
+#order-filter {
+  background-color: #ccc;
+  border: 1px solid #aaa;
+  border-radius: 5px;
+  padding: 3px 8px;
+  margin-bottom: 10px;
+}
+
+th {
+  text-align: center;
+}
+
+td {
+  text-align: left;
+}

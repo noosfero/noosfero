@@ -30,6 +30,14 @@ class ShoppingCartPluginMyprofileController < MyProfileController
 
     conditions = [condition] + condition_parameters
     @orders = profile.orders.find(:all, :conditions => conditions)
+
+    @products = {}
+    @orders.each do |order|
+      order.products_list.each do |id, qp| 
+        @products[id] ||= 0
+        @products[id] += qp[:quantity]
+      end
+    end
   end
 
   def update_order_status

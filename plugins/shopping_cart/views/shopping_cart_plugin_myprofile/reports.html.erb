@@ -1,76 +1,23 @@
 <h1> <%= _('Purchase Reports') %> </h1>
 
+<% extend ProfileHelper %>
+
 <% status = ShoppingCartPlugin::PurchaseOrder::Status.name; pos=-1 %>
 <% status_collection = [[nil, _('All')]] %>
 <% status_collection += status.map{|s| [pos+=1, s] } %>
 
-<% form_tag do %>
+<% form_tag({}, {:id => 'order-filter'}) do %>
   <%= labelled_text_field(_('From')+' ', :from, @from.strftime("%Y-%m-%d"), :id => 'from', :size => 9) %>
   <%= labelled_text_field(_('to')+' ', :to, @to.strftime("%Y-%m-%d"), :id => 'to', :size => 9) %>
-  <%= labelled_select(_('Status')+' ', :filter_status, :first, :last, @status,  status_collection)%>
+  <span style="white-space:nowrap"><%= labelled_select(_('Status')+' ', :filter_status, :first, :last, @status,  status_collection)%></span>
   &nbsp;
   <%= submit_button('save',  _('Filter')) %>
 <% end %>
 
-<% if @orders.empty? %>
-  <p><i><%= _("No results.") %></i></p>
-<% else %>
-  <table>
-    <tr>
-      <th><%= _('Date') %></th>
-      <th><%= _('Customer') %></th>
-      <th><%= _('Purchase value') %></th>
-      <th><%= _('Status')%></th>
-      <th>&nbsp;</th>
-    </tr>
-    <% status_collection.delete_at(0) %>
-    <% @orders.each do |order|%>
-      <tr>
-        <td><%= order.created_at.strftime("%Y-%m-%d")%></td>
-        <td><%= order.customer_name %></td>
-        <td><%= float_to_currency_cart(order.products_list.sum {|id, qp| qp[:price]*qp[:quantity]}, environment) %></td>
-        <td>
-          <% form_tag :action => 'update_order_status' do %>
-            <%= hidden_field_tag(:order_id, order.id) +
-              hidden_field_tag(:context_from, @from) +
-              hidden_field_tag(:context_to, @to) +
-              hidden_field_tag(:context_status, @status) +
-              select_tag( :order_status, options_from_collection_for_select(status_collection, :first, :last, order.status),
-                         :onchange => "if(confirm(#{_('Are you sure about changing this order status?').to_json}))" +
-                                      " this.form.submit(); else this.selectedIndex = #{order.status}" )
-            %>
-          <% end %>
-        </td>
-        <td><button class="view-order-details" data-order="<%=order.id%>"><%=_('View details')%></button></td>
-      </tr>
-      <tr id="order-details-<%=order.id%>" style="display:none">
-        <td class="order-info" colspan="5">
-          <div style="display:none">
-            <ul class="customer-details">
-              <% { 'name' =>_('Name'), 'email' => _('E-mail'), 'contact_phone' => _('Contact phone'), 'address' => _('Address'), 'city' => _('City'), 'zip_code' => _('Zip code')}.each do |attribute, name| %>
-                <%= content_tag('li', content_tag('strong', name+': ') + order.send('customer_'+attribute)) if order.send('customer_'+attribute) %>
-              <% end %>
-            </ul>
-            <ul class="order-products">
-              <% order.products_list.each do |id, qp| %>
-                <% 
-                  begin
-                    product = Product.find(id)
-                  rescue
-                    product = nil
-                  end
-                %>
-                <li><%= product ? link_to(product.name, product.url) : _("Pruduct unavailable")%>
-                &times; <%= qp[:quantity] %> = <%= float_to_currency_cart( qp[:quantity] * qp[:price], environment ) %></li>
-              <% end %>
-            </ul>
-            <br style="clear:both"/>
-          </div>
-        </td>
-      </tr>
-    <% end %>
-  </table>
-<% end %>
+<% tabs = [] %>
+<% tabs << {:title => _('Products list'), :id => 'products_list', :content => (render :partial => 'products_list')} %>
+<% tabs << {:title => _('Orders list'), :id => 'orders_list', :content => (render :partial => 'orders_list', :locals => {:status_collection => status_collection})} %>
+<%= render_tabs(tabs) %>
 
 <script>
 	var dates = jQuery( "#from, #to" ).datepicker({
