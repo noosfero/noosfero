@@ -226,14 +226,15 @@ class ShoppingCartPluginProfileController < ProfileController
   end
 
   def register_order(custumer, items)
+    new_items = {}
     items.each do |id, quantity|
-      items[id] = {:quantity => quantity, :price => Product.find(id).price}
+      new_items[id] = {:quantity => quantity, :price => Product.find(id).price}
     end
     ShoppingCartPlugin::PurchaseOrder.create!(
       :seller => profile,
       :customer => user,
       :status => ShoppingCartPlugin::PurchaseOrder::Status::OPENED,
-      :products_list => items,
+      :products_list => new_items,
       :customer_name => params[:customer][:name],
       :customer_email => params[:customer][:email],
       :customer_contact_phone => params[:customer][:contact_phone],
