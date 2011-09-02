@@ -110,7 +110,7 @@ module SearchHelper
           end
         end
       else
-        ret << [facet[:label], name_with_extra(klass, facet, value),
+        ret << [klass.facet_label(facet), name_with_extra(klass, facet, value),
           params.merge(:facet => params[:facet].reject{ |k,v| k == id })]
       end
     end

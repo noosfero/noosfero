@@ -5,7 +5,7 @@
 
     <div id="facet-menu-<%= facet[:id].to_s %>" class="facet-menu">
       <div class="facet-menu-label">
-        <%= facet[:label] %>
+        <%= @asset_class.facet_label(facet) %>
       </div>
 
       <% results = @asset_class.map_facet_results(facet, params[:facet], @facets, @all_facets, :limit => less_options_limit) %>
