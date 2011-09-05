@@ -65,7 +65,6 @@ lightbox.prototype = {
 		if (ctrl.id != '') {
 		    this.lightbox_className = ctrl.id;
 		}
-		Event.observe(ctrl, 'click', this.activate.bindAsEventListener(this), false);
 		ctrl.onclick = function(){return false;};
                 ctrl.lightbox = this;
 	},
