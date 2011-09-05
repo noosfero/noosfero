@@ -16,7 +16,6 @@
         <div class="search-results-innerbox2"><!-- the innerbox2 is a workarround for MSIE -->
           <ul>
             <% results.each do |hit| %>
-              <% next if hit.respond_to?(:visible) && !hit.visible? %>
               <%= render :partial => partial_for_class(hit.class), :object => hit %>
             <% end %>
           </ul>

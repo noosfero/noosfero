@@ -32,7 +32,7 @@ class SearchController < PublicController
     @filter = params[:filter] ? filter : nil
     @filter_title = params[:filter] ? filter_description(@asset, @filter) : nil
     if !@empty_query
-      full_text_search
+      full_text_search ['public:true']
     elsif params[:filter]
       @results[@asset] = @environment.articles.more_recent.paginate(paginate_options)
     end
@@ -44,7 +44,7 @@ class SearchController < PublicController
 
   def people
     if !@empty_query
-      full_text_search
+      full_text_search ['visible:true']
     else
       @results[@asset] = @environment.people.visible.send(@filter).paginate(paginate_options)
       @facets = {}
@@ -53,22 +53,22 @@ class SearchController < PublicController
 
   def products
     if !@empty_query
-      full_text_search
+      full_text_search ['visible:true']
     end
   end
 
   def enterprises
     if !@empty_query
-      full_text_search
+      full_text_search ['visible:true']
     else
       @filter_title = _('Enterprises from network')
-      @results[@asset] = asset_class(@asset).paginate(paginate_options)
+      @results[@asset] = @environment.enterprises.visible.paginate(paginate_options)
     end
   end
 
   def communities
     if !@empty_query
-      full_text_search
+      full_text_search ['visible:true']
     else
       @results[@asset] = @environment.communities.visible.send(@filter).paginate(paginate_options)
     end
@@ -277,31 +277,25 @@ class SearchController < PublicController
     { :per_page => limit, :page => page }
   end
 
-  def full_text_search(paginate_options = nil)
-    paginate_options ||= paginate_options(params[:page])
-    solr_options = solr_options(@asset, params[:facet], params[:order_by])
+  def full_text_search(filters = [])
+    paginate_options = paginate_options(params[:page])
+    asset_class = asset_class(@asset)
 
-    ret = asset_class(@asset).find_by_contents(@query, paginate_options, solr_options)
+    solr_options = {}
+    if !@results_only and asset_class.methods.include?('facets')
+      solr_options.merge! asset_class.facets_find_options(params[:facet])
+      solr_options[:all_facets] = true
+      solr_options[:limit] = 0 if @facets_only
+      solr_options[:facets][:browse] << asset_class.facet_category_query.call(@category) if @category and asset_class.facet_category_query
+    end
+    solr_options[:order] = params[:order_by] if params[:order_by]
+    solr_options[:filter_queries] ||= []
+    solr_options[:filter_queries] += filters
+
+    ret = asset_class.find_by_contents(@query, paginate_options, solr_options)
     @results[@asset] = ret[:results]
     @facets = ret[:facets]
     @all_facets = ret[:all_facets]
-  end
-
-  def solr_options(asset, facets_selected, solr_order = nil)
-    result = {}
-
-    asset_class = asset_class(asset)
-    if !@results_only and asset_class.methods.include?('facets')
-      result.merge! asset_class.facets_find_options(facets_selected)
-      result[:all_facets] = true
-      result[:limit] = 0 if @facets_only
-      result[:facets][:browse] << asset_class.facet_category_query.call(@category) if @category
-      puts result[:facets][:browse]
-    end
-
-    result[:order] = solr_order if solr_order
-
-    result
   end
 
 end
