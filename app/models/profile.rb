@@ -864,6 +864,7 @@ private :generate_url, :url_options
       :extra_data_for_index, {:name_sort => {:type => :string}} ] + facets.keys.map{|i| {i => :facet}},
     :boost => proc {|p| 10 if p.enabled},
     :facets => facets.keys
+  handle_asynchronously :solr_save
 
   def control_panel_settings_button                                                                                                                                                             
     {:title => _('Profile Info and settings'), :icon => 'edit-profile'}                                                                                                                         

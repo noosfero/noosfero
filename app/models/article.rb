@@ -642,6 +642,7 @@ class Article < ActiveRecord::Base
     :facets => facets_option_for_solr,
     :boost => proc {|a| 10 if a.profile.enabled},
     :if => proc{|a| ! ['RssFeed'].include?(a.class.name)}
+  handle_asynchronously :solr_save
 
   private
 

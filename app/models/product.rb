@@ -198,5 +198,6 @@ class Product < ActiveRecord::Base
     :include => [:enterprise, :qualifiers, :certifiers, :product_category],
     :boost => proc {|p| 10 if p.enterprise.enabled},
     :facets => facets.keys
+  handle_asynchronously :solr_save
 
 end

@@ -14,8 +14,6 @@ module ActsAsSearchable
       acts_as_solr options
       extend FindByContents
       send :include, InstanceMethods
-
-      handle_asynchronously :solr_save
     end
 
     module InstanceMethods
