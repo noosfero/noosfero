@@ -34,7 +34,7 @@
           <div style="display:none">
             <ul class="customer-details">
               <% { 'name' =>_('Name'), 'email' => _('E-mail'), 'contact_phone' => _('Contact phone'), 'address' => _('Address'), 'city' => _('City'), 'zip_code' => _('Zip code')}.each do |attribute, name| %>
-                <%= content_tag('li', content_tag('strong', name+': ') + order.send('customer_'+attribute)) if order.send('customer_'+attribute) %>
+                <%= content_tag('li', content_tag('strong', name+': ') + order.send('customer_'+attribute)) if !order.send('customer_'+attribute).blank? %>
               <% end %>
             </ul>
             <ul class="order-products">

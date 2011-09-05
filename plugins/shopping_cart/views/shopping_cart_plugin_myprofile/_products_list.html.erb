@@ -8,7 +8,7 @@
     </tr>
     <% @products.each do |id, quantity|%>
       <tr>
-        <td><%= Product.find(id).name %></td>
+        <td><%= link_to(Product.find(id).name, Product.find(id).url) %></td>
         <td style="text-align: center"><%= quantity %></td>
       </tr>
     <% end %>

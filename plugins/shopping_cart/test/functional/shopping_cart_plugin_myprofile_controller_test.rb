@@ -83,6 +83,26 @@ class ShoppingCartPluginMyprofileControllerTest < Test::Unit::TestCase
     assert_not_includes assigns(:orders), po4
   end
 
+  should 'group filtered orders products and quantities' do
+    p1 = fast_create(Product, :enterprise_id => enterprise.id, :price => 1)
+    p2 = fast_create(Product, :enterprise_id => enterprise.id, :price => 2)
+    p3 = fast_create(Product, :enterprise_id => enterprise.id, :price => 3)
+    po1_products = {p1.id => {:quantity => 1, :price => p1.price}, p2.id => {:quantity => 2, :price => p2.price }}
+    po2_products = {p2.id => {:quantity => 1, :price => p2.price}, p3.id => {:quantity => 2, :price => p3.price }}
+    po1 = ShoppingCartPlugin::PurchaseOrder.create!(:seller => enterprise, :products_list => po1_products, :status => ShoppingCartPlugin::PurchaseOrder::Status::OPENED)
+    po2 = ShoppingCartPlugin::PurchaseOrder.create!(:seller => enterprise, :products_list => po2_products, :status => ShoppingCartPlugin::PurchaseOrder::Status::OPENED)
+
+    post :reports,
+      :profile => enterprise.identifier,
+      :from => (Time.now - 1.day).strftime(TIME_FORMAT),
+      :to => (Time.now + 1.day).strftime(TIME_FORMAT),
+      :filter_status => ShoppingCartPlugin::PurchaseOrder::Status::OPENED
+
+    hash = {p1.id => 1, p2.id => 3, p3.id => 2}
+
+    assert_equal hash, assigns(:products)
+  end
+
   should 'be able to update the order status' do
     po = ShoppingCartPlugin::PurchaseOrder.create!(:seller => enterprise, :status => ShoppingCartPlugin::PurchaseOrder::Status::OPENED)
 
