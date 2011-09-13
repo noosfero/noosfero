@@ -1093,7 +1093,7 @@ module ApplicationHelper
   def search_contents_menu
     links = [
       {s_('contents|More Recent') => {:href => url_for({:controller => 'search', :action => 'contents', :filter => 'more_recent'})}},
-      #{s_('contents|More Popular') => {:href => url_for({:controller => 'search', :action => 'contents', :filter => 'more_popular'})}}
+      {s_('contents|More Read') => {:href => url_for({:controller => 'search', :action => 'contents', :filter => 'more_popular'})}}
     ]
     if logged_in?
       links.push(_('New Content') => lightbox_options({:href => url_for({:controller => 'cms', :action => 'new', :profile => current_user.login, :cms => true})}))

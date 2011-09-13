@@ -139,12 +139,23 @@ class Article < ActiveRecord::Base
     {:conditions => [ 'parent_id is null and profile_id = ?', profile.id ]}
   }
 
+  named_scope :public,
+    :conditions => [ "advertise = ? AND published = ? AND profiles.visible = ? AND profiles.public_profile = ?", true, true, true, true ]
+
   named_scope :more_recent,
     :conditions => [ "advertise = ? AND published = ? AND profiles.visible = ? AND profiles.public_profile = ? AND
       ((articles.type != ?) OR articles.type is NULL)",
       true, true, true, true, 'RssFeed'
     ],
     :order => 'articles.published_at desc, articles.id desc'
+
+  # retrives the most commented articles, sorted by the comment count (largest
+  # first)
+  def self.most_commented(limit)
+    paginate(:order => 'comments_count DESC', :page => 1, :per_page => limit)
+  end
+
+  named_scope :more_popular, :order => 'hits DESC'
 
   # retrieves the latest +limit+ articles, sorted from the most recent to the
   # oldest.
@@ -176,12 +187,6 @@ class Article < ActiveRecord::Base
         self.paginate(options)
       end
     end
-  end
-
-  # retrives the most commented articles, sorted by the comment count (largest
-  # first)
-  def self.most_commented(limit)
-    paginate(:order => 'comments_count DESC', :page => 1, :per_page => limit)
   end
 
   # produces the HTML code that is to be displayed as this article's contents.

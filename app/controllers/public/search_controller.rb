@@ -34,7 +34,7 @@ class SearchController < PublicController
     if !@empty_query
       full_text_search ['public:true']
     elsif params[:filter]
-      @results[@asset] = @environment.articles.more_recent.paginate(paginate_options)
+      @results[@asset] = @environment.articles.public.send(@filter).paginate(paginate_options)
     end
   end
 
@@ -228,7 +228,7 @@ class SearchController < PublicController
   def filter_description(asset, filter)
     {
       'articles_more_recent' => _('More recent contents from network'),
-      'articles_more_popular' => _('More popular contents from network'),
+      'articles_more_popular' => _('More read contents from network'),
       'people_more_recent' => _('More recent people from network'),
       'people_more_active' => _('More active people from network'),
       'people_more_popular' => _('More popular people from network'),
