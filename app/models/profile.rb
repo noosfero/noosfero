@@ -851,6 +851,9 @@ private :generate_url, :url_options
   def name_sort
     name
   end
+  def public
+    self.public?
+  end
   public
 
   acts_as_faceted :fields => {
@@ -861,7 +864,9 @@ private :generate_url, :url_options
     :order => [:f_type, :f_categories]
 
   acts_as_searchable :additional_fields => [
-      :extra_data_for_index, {:name_sort => {:type => :string}} ] + facets.keys.map{|i| {i => :facet}},
+      {:name_sort => {:type => :string}},
+      {:public => {:type => :boolean}},
+      :extra_data_for_index ] + facets.keys.map{|i| {i => :facet}},
     :boost => proc {|p| 10 if p.enabled},
     :facets => facets.keys
   handle_asynchronously :solr_save

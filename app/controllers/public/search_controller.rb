@@ -44,7 +44,7 @@ class SearchController < PublicController
 
   def people
     if !@empty_query
-      full_text_search ['visible:true']
+      full_text_search ['public:true']
     else
       @results[@asset] = @environment.people.visible.send(@filter).paginate(paginate_options)
       @facets = {}
@@ -53,13 +53,13 @@ class SearchController < PublicController
 
   def products
     if !@empty_query
-      full_text_search ['visible:true']
+      full_text_search ['public:true']
     end
   end
 
   def enterprises
     if !@empty_query
-      full_text_search ['visible:true']
+      full_text_search ['public:true']
     else
       @filter_title = _('Enterprises from network')
       @results[@asset] = @environment.enterprises.visible.paginate(paginate_options)
@@ -68,7 +68,7 @@ class SearchController < PublicController
 
   def communities
     if !@empty_query
-      full_text_search ['visible:true']
+      full_text_search ['public:true']
     else
       @results[@asset] = @environment.communities.visible.send(@filter).paginate(paginate_options)
     end
@@ -291,6 +291,7 @@ class SearchController < PublicController
     solr_options[:order] = params[:order_by] if params[:order_by]
     solr_options[:filter_queries] ||= []
     solr_options[:filter_queries] += filters
+    solr_options[:filter_queries] << "environment_id:#{environment.id}"
 
     ret = asset_class.find_by_contents(@query, paginate_options, solr_options)
     @results[@asset] = ret[:results]

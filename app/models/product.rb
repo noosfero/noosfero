@@ -93,7 +93,7 @@ class Product < ActiveRecord::Base
   end
 
   def public?
-    enterprise.public_profile
+    enterprise.public?
   end
 
   def formatted_value(value)
@@ -181,6 +181,12 @@ class Product < ActiveRecord::Base
   def f_qualifier
     product_qualifier_ids
   end
+  def public
+    self.public?
+  end
+  def environment_id
+    enterprise.environment_id
+  end
   public
 
   acts_as_faceted :fields => {
@@ -193,6 +199,8 @@ class Product < ActiveRecord::Base
   acts_as_searchable :additional_fields => [
       {:name => {:type => :text, :boost => 5.0}},
       {:price_sort => {:type => :decimal}},
+      {:public => {:type => :boolean}},
+      {:environment_id => {:type => :integer}},
       {:name_or_category => {:type => :string, :as => :name_or_category_sort, :boost => 2.0}},
       :category_full_name ] + facets.keys.map{|i| {i => :facet}},
     :include => [:enterprise, :qualifiers, :certifiers, :product_category],
