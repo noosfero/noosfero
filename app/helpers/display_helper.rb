@@ -30,7 +30,7 @@ module DisplayHelper
 
   def link_to_product_category(category)
     if category
-      link_to(category.name, :controller => 'search', :action => 'assets', :asset => 'products', :product_category => category.id, :host => category.environment.default_hostname)
+      link_to(category.name, :controller => 'search', :action => 'products', :category_path => category.explode_path)
     else
       _('Uncategorized product')
     end
