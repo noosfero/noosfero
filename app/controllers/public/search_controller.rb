@@ -143,7 +143,10 @@ class SearchController < PublicController
     end
   end
 
-  alias :assets :index
+  def assets
+    params[:action] = params[:asset].is_a?(Array) ? :index : params.delete(:asset)
+    redirect_to params
+  end
 
   # view the summary of one category
   def category_index
