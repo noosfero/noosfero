@@ -742,8 +742,8 @@ $.fn.hint = function (blurClass) {
 
 var altBeautify = jQuery('<div id="alt-beautify" style="display:none; position: absolute"/>')
   .append('<div class="alt-beautify-content"/>')
-  .append('<div class="alt-beautify-arrow-border"/>')
-  .append('<div class="alt-beautify-arrow"/>');
+  .append('<div class="alt-beautify-arrow-border alt-beautify-arrow"/>')
+  .append('<div class="alt-beautify-arrow-inner alt-beautify-arrow"/>');
 var altTarget;
 jQuery(document).ready(function () {
   jQuery('body').append(altBeautify);
@@ -758,6 +758,11 @@ function altTimeout() {
   altBeautify.show();
 }
 
+function altHide() {
+  altTarget = null;
+  altBeautify.hide();
+}
+
 jQuery('a[title]').live('mouseover', function (e) {
   alt = jQuery(this).attr('title');
   if (alt != '') {
@@ -766,12 +771,10 @@ jQuery('a[title]').live('mouseover', function (e) {
   }
 
   altTarget = this;
-  setTimeout("altTimeout()", 300);
+  setTimeout("altTimeout()", 500);
 });
-jQuery('a[title]').live('mouseout', function (e) {
-  altTarget = null;
-  altBeautify.hide();
-});
+jQuery('a[title]').live('mouseout', altHide);
+jQuery('a[title]').live('click', altHide);
 
 
 function facet_options_toggle(id, url) {

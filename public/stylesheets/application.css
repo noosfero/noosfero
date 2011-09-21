@@ -5164,42 +5164,37 @@ h1.page-title.no-boxes small {
 }
 
 #alt-beautify {
-  background-color:#EDEDED;
-  border:1px solid #666666;
-  margin:10px auto;
-  padding:5px;
-  position:relative;
+  background-color: #EDEDED;
+  border: 1px solid #666666;
+  margin: 10px auto;
+  padding: 5px;
+  position: relative;
   z-index: 99999;
-  -moz-border-radius:5px;
-  -o-border-radius:5px;
-  -webkit-border-radius:5px;
-  -khtml-border-radius:5px;
-  border-radius:5px;
+  border-radius: 5px;
+  box-shadow: 2px 2px 5px #555555;
+  -moz-border-radius: 5px;
+  -o-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -khtml-border-radius: 5px;
   -moz-box-shadow: 2px 2px 5px #555555;
   -webkit-box-shadow: 2px 2px 5px #555555;
-  box-shadow: 2px 2px 5px #555555;
-}
-
-.alt-beautify-arrow-border {
-  border-color: transparent transparent #666666 transparent;
-  border-style: solid;
-  border-width: 6px;
-  height:0;
-  width:0;
-  position:absolute;
-  top:-13px;
-  left:20px;
 }
 
 .alt-beautify-arrow {
-  border-color: transparent transparent #EDEDED transparent;
   border-style: solid;
   border-width: 6px;
-  height:0;
-  width:0;
-  position:absolute;
-  top:-12px;
-  left:20px;
+  height: 0;
+  width: 0;
+  position: absolute;
+  left: 6px;
+}
+.alt-beautify-arrow-border {
+  border-color: transparent transparent #666666 transparent;
+  top: -13px;
+}
+.alt-beautify-arrow-inner {
+  border-color: transparent transparent #EDEDED transparent;
+  top: -12px;
 }
 
 /* AutoComplete*/
