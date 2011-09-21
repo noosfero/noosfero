@@ -211,6 +211,11 @@ li.article-item .search-result-title {
 .search-article-description {
   clear: both;
 }
+.search-article-body {
+  float: right;
+  width: 80%;
+  margin-bottom: 7px;
+}
 .search-field-none {
   color: #ccc;
 }
