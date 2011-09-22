@@ -22,8 +22,7 @@
               hidden_field_tag(:context_to, @to) +
               hidden_field_tag(:context_status, @status) +
               select_tag( :order_status, options_from_collection_for_select(status_collection, :first, :last, order.status),
-                         :onchange => "if(confirm(#{_('Are you sure about changing this order status?').to_json}))" +
-                                      " this.form.submit(); else this.selectedIndex = #{order.status}" )
+                         :onchange => "this.form.submit()" )
             %>
           <% end %>
         </td>
