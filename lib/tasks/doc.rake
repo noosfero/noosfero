@@ -1,9 +1,18 @@
 namespace :noosfero do
   namespace :doc do
-    Dir.glob('plugins/**/doc/*.textile').each do |file|
-      ln_sf File.join(RAILS_ROOT, file), 'doc/noosfero/plugins/'
+    def plugins_textiles
+      Dir.glob('plugins/**/doc/*.textile')
     end
-    input = Dir.glob('doc/noosfero/**/*.textile')
+    task :link_plugins_textiles do
+      plugins_textiles.each do |file|
+        ln_sf File.join(RAILS_ROOT, file), 'doc/noosfero/plugins/'
+      end
+    end
+    task :unlink_plugins_textiles do
+      rm_f Dir.glob(File.join(RAILS_ROOT, 'doc/noosfero/plugins/*.textile')) -
+        [File.join(RAILS_ROOT, 'doc/noosfero/plugins/index.textile')]
+    end
+    input = Dir.glob('doc/noosfero/**/*.textile') + plugins_textiles.map{|i| "doc/noosfero/plugins/#{File.basename(i)}"}
     topics_xhtml = input.map { |item| item.sub('.textile', '.en.xhtml') }
     sections = Dir.glob('doc/noosfero/*').select {|item| File.directory?(item) }
     toc_sections = sections.map {|item| File.join(item, 'toc.en.xhtml')}
@@ -93,8 +102,9 @@ namespace :noosfero do
     end
 
     desc "Build Noosfero online documentation"
-    task :build => po4a_conf do
+    task :build => [:link_plugins_textiles, po4a_conf] do
       sh "po4a #{po4a_conf}"
+      Rake::Task['noosfero:doc:unlink_plugins_textiles'].invoke
     end
 
     desc "Cleans Noosfero online documentation"
@@ -121,7 +131,8 @@ namespace :noosfero do
     end
 
     desc "Translates Noosfero online documentation (does not touch PO files)"
-    task :translate => english_xhtml do
+    task :translate => [:link_plugins_textiles, :do_translation]
+    task :do_translation => english_xhtml do
       languages = Noosfero.locales.keys - ['en']
       languages.each do |lang|
         po = "po/#{lang}/noosfero-doc.po"
