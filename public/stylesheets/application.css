@@ -3217,9 +3217,7 @@ div#article-parent {
   height: 90%;
 }
 #agenda-toolbar {
-  position: absolute;
-  right: 0;
-  top: -10px;
+  float: right;
   font-variant: normal;
   font-weight: normal;
 }
