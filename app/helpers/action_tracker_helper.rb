@@ -67,4 +67,22 @@ module ActionTrackerHelper
     }
   end
 
+  def create_product_description
+    _('created the product %{title}') % {
+      title: link_to(truncate(ta.get_name), ta.get_url),
+    }
+  end
+
+  def update_product_description
+    _('updated the product %{title}') % {
+      title: link_to(truncate(ta.get_name), ta.get_url),
+    }
+  end
+
+  def remove_product_description
+    _('removed the product %{title}') % {
+      title: truncate(ta.get_name),
+    }
+  end
+
 end
