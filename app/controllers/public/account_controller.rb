@@ -18,8 +18,13 @@ class AccountController < ApplicationController
 
   def activate
     @user = User.find_by_activation_code(params[:activation_code]) if params[:activation_code]
-    session[:notice] = (@user and @user.activate) ? _("Your account has been activated, now you can log in!") : _("It looks like you're trying to activate an account. Perhaps have already activated this account?")
-    redirect_back_or_default(:controller => 'home')
+    if @user and @user.activate
+      session[:notice] = _("Your account has been activated, now you can log in!")
+      redirect_to :action => 'login', :userlogin => @user.login
+    else
+      session[:notice] = _("It looks like you're trying to activate an account. Perhaps have already activated this account?")
+      redirect_back_or_default(:controller => 'home')
+    end
   end
 
   # action to perform login to the application

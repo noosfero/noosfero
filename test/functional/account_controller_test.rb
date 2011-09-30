@@ -692,6 +692,7 @@ class AccountControllerTest < Test::Unit::TestCase
   should 'activate user when activation code is present and correct' do
     user = User.create! :login => 'testuser', :password => 'test123', :password_confirmation => 'test123', :email => 'test@test.org'
     get :activate, :activation_code => user.activation_code
+    assert_redirected_to :action => :login, :userlogin => user.login
     post :login, :user => {:login => 'testuser', :password => 'test123'}
     assert_not_nil session[:user]
     assert_redirected_to :controller => 'profile_editor', :profile => 'testuser'
