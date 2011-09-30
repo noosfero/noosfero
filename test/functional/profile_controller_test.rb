@@ -189,8 +189,10 @@ class ProfileControllerTest < Test::Unit::TestCase
   end
 
   should 'display add friend button' do
+    @profile.user.activate
     login_as(@profile.identifier)
     friend = create_user_full('friendtestuser').person
+    friend.user.activate
     friend.boxes.first.blocks << block = ProfileInfoBlock.create!
     get :profile_info, :profile => friend.identifier, :block_id => block.id
     assert_match /Add friend/, @response.body
@@ -318,6 +320,7 @@ class ProfileControllerTest < Test::Unit::TestCase
   
   should 'display contact button only if friends' do
     friend = create_user_full('friend_user').person
+    friend.user.activate
     friend.boxes.first.blocks << block = ProfileInfoBlock.create!
     @profile.add_friend(friend)
     env = Environment.default
@@ -338,6 +341,7 @@ class ProfileControllerTest < Test::Unit::TestCase
 
   should 'display contact button only if friends and its enable in environment' do
     friend = create_user_full('friend_user').person
+    friend.user.activate
     friend.boxes.first.blocks << block = ProfileInfoBlock.create!
     env = Environment.default
     env.disable('disable_contact_person')
