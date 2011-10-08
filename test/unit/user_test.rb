@@ -472,6 +472,12 @@ class UserTest < Test::Unit::TestCase
     assert user.activated?
   end
 
+  should 'delay activation check' do
+    assert_difference Delayed::Job, :count, 1 do
+      user = new_user
+    end
+  end
+
   protected
     def new_user(options = {})
       user = User.new({ :login => 'quire', :email => 'quire@example.com', :password => 'quire', :password_confirmation => 'quire' }.merge(options))

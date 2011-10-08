@@ -19,11 +19,11 @@ class AccountController < ApplicationController
   def activate
     @user = User.find_by_activation_code(params[:activation_code]) if params[:activation_code]
     if @user and @user.activate
-      session[:notice] = _("Your account has been activated, now you can log in!")
-      redirect_to :action => 'login', :userlogin => @user.login
+      @message = _("Your account has been activated, now you can log in!")
+      render :action => 'login', :userlogin => @user.login
     else
       session[:notice] = _("It looks like you're trying to activate an account. Perhaps have already activated this account?")
-      redirect_back_or_default(:controller => 'home')
+      redirect_to :controller => :home
     end
   end
 
@@ -78,8 +78,7 @@ class AccountController < ApplicationController
           invitation.update_attributes!({:friend => @user.person})
           invitation.finish
         end
-        session[:notice] = _("Thanks for signing up! Now go to your e-mail and activate your account.")
-        redirect_back_or_default(:controller => 'home')
+        @register_pending = true
       end
     rescue ActiveRecord::RecordInvalid
       @person.valid?

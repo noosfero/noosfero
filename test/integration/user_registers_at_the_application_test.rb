@@ -13,9 +13,8 @@ class UserRegistersAtTheApplicationTest < ActionController::IntegrationTest
     assert_response :success
     
     post '/account/signup', :user => { :login => 'mylogin', :password => 'mypassword', :password_confirmation => 'mypassword', :email => 'mylogin@example.com' }
-    assert_response :redirect
+    assert_response :success
 
-    follow_redirect!
     assert_tag :tag => 'a', :attributes => { :href => /^\/account\/login/ }
   end
 

@@ -24,10 +24,8 @@ class SignupTest < ActionController::IntegrationTest
     assert_equal mail_count, ActionMailer::Base.deliveries.count
 
     post '/account/signup', :user => { :login => 'shouldaccepterms', :password => 'test', :password_confirmation => 'test', :email => 'shouldaccepterms@example.com', :terms_accepted => '1' }, :profile_data => person_data
-    assert_response :redirect
+    assert_response :success
 
-    follow_redirect!
-    assert_response :redirect
     assert_equal count + 1, User.count
     assert_equal mail_count + 1, ActionMailer::Base.deliveries.count
 

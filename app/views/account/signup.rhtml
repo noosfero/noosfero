@@ -1,2 +1,7 @@
 <h1><%= _('Signup') %></h1>
-<%= render :partial => 'signup_form' %>
+<% if @register_pending %>
+  <%= _('Thanks for signing up! Now check your e-mail to activate your account!') %>
+  <p style="text-align: center"><%= link_to(_('Go to the homepage'), '/') %></p>
+<% else %>
+  <%= render :partial => 'signup_form' %>
+<% end %>

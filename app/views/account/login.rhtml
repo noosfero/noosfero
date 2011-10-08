@@ -5,6 +5,8 @@
 <% @user ||= User.new %>
 <% is_thickbox ||= false %>
 
+<%= @message %>
+
 <% labelled_form_for :user, @user, :url => login_url do |f| %>
 
      <%= f.text_field :login, :id => 'main_user_login', :onchange => 'this.value = convToValidLogin( this.value )', :value => params[:userlogin] %>

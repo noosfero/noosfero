@@ -37,6 +37,7 @@ class User < ActiveRecord::Base
     user.person.save!
   end
   after_create :deliver_activation_code
+  after_create :delay_activation_check
 
   attr_writer :person_data
   def person_data
@@ -289,5 +290,9 @@ class User < ActiveRecord::Base
 
     def deliver_activation_code
       User::Mailer.deliver_activation_code(self) unless self.activation_code.blank?
+    end
+
+    def delay_activation_check
+      Delayed::Job.enqueue(UserActivationJob.new(self.id), 0, 72.hours.from_now)
     end
 end
