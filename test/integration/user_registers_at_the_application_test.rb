@@ -13,13 +13,9 @@ class UserRegistersAtTheApplicationTest < ActionController::IntegrationTest
     assert_response :success
     
     post '/account/signup', :user => { :login => 'mylogin', :password => 'mypassword', :password_confirmation => 'mypassword', :email => 'mylogin@example.com' }
-    assert_response :redirect
-    assert_redirected_to '/myprofile/mylogin'
+    assert_response :success
 
-    # user is logged in right after the registration
-    follow_redirect!
-    assert_no_tag :tag => 'a', :attributes => { :href => '/account/login_popup' }
-    assert_tag :tag => 'a', :attributes => { :href => '/account/logout'  }
+    assert_tag :tag => 'a', :attributes => { :href => /^\/account\/login/ }
   end
 
   def test_trying_an_existing_login_name

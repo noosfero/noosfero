@@ -7,8 +7,12 @@ Given /^the following users?$/ do |table|
   table.hashes.each do |item|
     person_data = item.dup
     person_data.delete("login")
-    User.create!(:login => item[:login], :password => '123456', :password_confirmation => '123456', :email => item[:login] + "@example.com", :person_data => person_data)
+    User.create!(:login => item[:login], :password => '123456', :password_confirmation => '123456', :email => item[:login] + "@example.com", :person_data => person_data).activate
   end
+end
+
+Given /^"(.+)" is (invisible|visible)$/ do |user, visibility|
+  User.find_by_login(user).person.update_attributes(:visible => (visibility == 'visible'))
 end
 
 Given /^"(.+)" is (online|offline|busy) in chat$/ do |user, status|
@@ -195,6 +199,7 @@ end
 Given /^I am logged in as admin$/ do
   visit('/account/logout')
   user = User.create!(:login => 'admin_user', :password => '123456', :password_confirmation => '123456', :email => 'admin_user@example.com')
+  user.activate
   e = Environment.default
   e.add_admin(user.person)
   visit('/account/login')
@@ -345,6 +350,10 @@ Then /^I should be logged in as "(.+)"$/ do |login|
   User.find(session[:user]).login.should == login
 end
 
+Then /^I should not be logged in$/ do
+  session[:user].nil?
+end
+
 Given /^the profile "(.+)" has no blocks$/ do |profile|
   profile = Profile[profile]
   profile.boxes.map do |box|
@@ -415,4 +424,13 @@ end
 
 Given /^skip comments captcha$/ do
   Comment.any_instance.stubs(:skip_captcha?).returns(true)
+end
+
+When /^([^\']*)'s account is activated$/ do |person|
+  Person.find_by_name(person).user.activate
+end
+
+Then /^I should receive an e-mail on (.*)$/ do |address|
+  last_mail = ActionMailer::Base.deliveries.last
+  last_mail['to'].to_s.should == address
 end

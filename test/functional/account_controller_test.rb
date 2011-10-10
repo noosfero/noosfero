@@ -70,7 +70,8 @@ class AccountControllerTest < Test::Unit::TestCase
   def test_should_allow_signup
     assert_difference User, :count do
       new_user
-      assert_response :redirect
+      assert_response :success
+      assert_not_nil assigns(:register_pending)
     end
   end
 
@@ -79,6 +80,7 @@ class AccountControllerTest < Test::Unit::TestCase
       new_user(:login => nil)
       assert assigns(:user).errors.on(:login)
       assert_response :success
+      assert_nil assigns(:register_pending)
     end
   end
 
@@ -87,6 +89,7 @@ class AccountControllerTest < Test::Unit::TestCase
       new_user(:password => nil)
       assert assigns(:user).errors.on(:password)
       assert_response :success
+      assert_nil assigns(:register_pending)
     end
   end
 
@@ -95,6 +98,7 @@ class AccountControllerTest < Test::Unit::TestCase
       new_user(:password_confirmation => nil)
       assert assigns(:user).errors.on(:password_confirmation)
       assert_response :success
+      assert_nil assigns(:register_pending)
     end
   end
 
@@ -103,6 +107,7 @@ class AccountControllerTest < Test::Unit::TestCase
       new_user(:email => nil)
       assert assigns(:user).errors.on(:email)
       assert_response :success
+      assert_nil assigns(:register_pending)
     end
   end
 
@@ -111,6 +116,7 @@ class AccountControllerTest < Test::Unit::TestCase
       Environment.default.update_attributes(:terms_of_use => 'some terms ...')
       new_user
       assert_response :success
+      assert_nil assigns(:register_pending)
     end
   end
 
@@ -118,7 +124,8 @@ class AccountControllerTest < Test::Unit::TestCase
     assert_difference User, :count do
       Environment.default.update_attributes(:terms_of_use => 'some terms ...')      
       new_user(:terms_accepted => '1')
-      assert_response :redirect
+      assert_response :success
+      assert_not_nil assigns(:register_pending)
     end
   end
 
@@ -643,7 +650,7 @@ class AccountControllerTest < Test::Unit::TestCase
     Person.any_instance.stubs(:required_fields).returns(['organization'])
     assert_difference User, :count do
       post :signup, :user => { :login => 'testuser', :password => '123456', :password_confirmation => '123456', :email => 'testuser@example.com' }, :profile_data => { :organization => 'example.com' }
-      assert_redirected_to :controller => 'profile_editor', :profile => 'testuser'
+      assert_response :success
     end
     assert_equal 'example.com', Person['testuser'].organization
   end
@@ -687,6 +694,36 @@ class AccountControllerTest < Test::Unit::TestCase
 
     xhr :get, :user_data
     assert_equal User.find_by_login('ze').data_hash.merge({ 'foo' => 'bar', 'test' => 5 }), ActiveSupport::JSON.decode(@response.body)
+  end
+
+  should 'activate user when activation code is present and correct' do
+    user = User.create! :login => 'testuser', :password => 'test123', :password_confirmation => 'test123', :email => 'test@test.org'
+    get :activate, :activation_code => user.activation_code
+    assert_not_nil assigns(:message)
+    assert_response :success
+    post :login, :user => {:login => 'testuser', :password => 'test123'}
+    assert_not_nil session[:user]
+    assert_redirected_to :controller => 'profile_editor', :profile => 'testuser'
+  end
+
+  should 'not activate user when activation code is missing' do
+    @request.env["HTTP_REFERER"] = '/bli'
+    user = User.create! :login => 'testuser', :password => 'test123', :password_confirmation => 'test123', :email => 'test@test.org'
+    get :activate
+    assert_nil assigns(:message)
+    post :login, :user => {:login => 'testuser', :password => 'test123'}
+    assert_nil session[:user]
+    assert_redirected_to '/bli'
+  end
+
+  should 'not activate user when activation code is incorrect' do
+    @request.env["HTTP_REFERER"] = '/bli'
+    user = User.create! :login => 'testuser', :password => 'test123', :password_confirmation => 'test123', :email => 'test@test.org'
+    get :activate, :activation_code => 'wrongcode'
+    assert_nil assigns(:message)
+    post :login, :user => {:login => 'testuser', :password => 'test123'}
+    assert_nil session[:user]
+    assert_redirected_to '/bli'
   end
 
   protected

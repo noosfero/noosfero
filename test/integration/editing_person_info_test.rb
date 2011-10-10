@@ -8,6 +8,8 @@ class EditingPersonInfoTest < ActionController::IntegrationTest
 
     profile = create_user('user_ze', :password => 'test', :password_confirmation => 'test').person
 
+    profile.user.activate
+
     login(profile.identifier, 'test')
 
     get "/myprofile/#{profile.identifier}"

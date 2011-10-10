@@ -11,6 +11,7 @@ class SignupTest < ActionController::IntegrationTest
     Environment.default.update_attributes(:terms_of_use => 'You agree to not be annoying.')
 
     count = User.count
+    mail_count = ActionMailer::Base.deliveries.count
 
     get '/account/signup'
     assert_response :success
@@ -20,13 +21,13 @@ class SignupTest < ActionController::IntegrationTest
     assert_response :success
     assert_template 'signup'
     assert_equal count, User.count
+    assert_equal mail_count, ActionMailer::Base.deliveries.count
 
     post '/account/signup', :user => { :login => 'shouldaccepterms', :password => 'test', :password_confirmation => 'test', :email => 'shouldaccepterms@example.com', :terms_accepted => '1' }, :profile_data => person_data
-    assert_response :redirect
-
-    follow_redirect!
     assert_response :success
+
     assert_equal count + 1, User.count
+    assert_equal mail_count + 1, ActionMailer::Base.deliveries.count
 
   end
 
