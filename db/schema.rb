@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110728173905) do
+ActiveRecord::Schema.define(:version => 20110824192153) do
 
   create_table "action_tracker", :force => true do |t|
     t.integer  "user_id"
@@ -493,6 +493,8 @@ ActiveRecord::Schema.define(:version => 20110728173905) do
     t.string   "last_chat_status",                        :default => ""
     t.string   "chat_status",                             :default => ""
     t.datetime "chat_status_at"
+    t.string   "activation_code",           :limit => 40
+    t.datetime "activated_at"
   end
 
   create_table "validation_infos", :force => true do |t|
