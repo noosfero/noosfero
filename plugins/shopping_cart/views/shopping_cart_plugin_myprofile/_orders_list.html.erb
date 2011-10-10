@@ -1,0 +1,59 @@
+<% if @orders.empty? %>
+  <p><i><%= _("No results.") %></i></p>
+<% else %>
+  <table>
+    <tr>
+      <th><%= _('Date') %></th>
+      <th><%= _('Customer') %></th>
+      <th><%= _('Purchase value') %></th>
+      <th><%= _('Status')%></th>
+      <th>&nbsp;</th>
+    </tr>
+    <% status_collection.delete_at(0) %>
+    <% @orders.each do |order|%>
+      <tr>
+        <td><%= order.created_at.strftime("%Y-%m-%d")%></td>
+        <td><%= order.customer_name %></td>
+        <td style="text-align: right"><%= float_to_currency_cart(order.products_list.sum {|id, qp| qp[:price]*qp[:quantity]}, environment) %></td>
+        <td>
+          <% form_tag :action => 'update_order_status' do %>
+            <%= hidden_field_tag(:order_id, order.id) +
+              hidden_field_tag(:context_from, @from) +
+              hidden_field_tag(:context_to, @to) +
+              hidden_field_tag(:context_status, @status) +
+              select_tag( :order_status, options_from_collection_for_select(status_collection, :first, :last, order.status),
+                         :onchange => "this.form.submit()" )
+            %>
+          <% end %>
+        </td>
+        <td><button class="view-order-details" data-order="<%=order.id%>"><%=_('View details')%></button></td>
+      </tr>
+      <tr id="order-details-<%=order.id%>" style="display:none">
+        <td class="order-info" colspan="5">
+          <div style="display:none">
+            <ul class="customer-details">
+              <% { 'name' =>_('Name'), 'email' => _('E-mail'), 'contact_phone' => _('Contact phone'), 'address' => _('Address'), 'city' => _('City'), 'zip_code' => _('Zip code')}.each do |attribute, name| %>
+                <%= content_tag('li', content_tag('strong', name+': ') + order.send('customer_'+attribute)) if !order.send('customer_'+attribute).blank? %>
+              <% end %>
+            </ul>
+            <ul class="order-products">
+              <% order.products_list.each do |id, qp| %>
+                <% 
+                  begin
+                    product = Product.find(id)
+                  rescue
+                    product = nil
+                  end
+                %>
+                <li><%= product ? link_to(product.name, product.url) : _("Pruduct unavailable")%>
+                &times; <%= qp[:quantity] %> = <%= float_to_currency_cart( qp[:quantity] * qp[:price], environment ) %></li>
+              <% end %>
+            </ul>
+            <br style="clear:both"/>
+          </div>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+<% end %>
+

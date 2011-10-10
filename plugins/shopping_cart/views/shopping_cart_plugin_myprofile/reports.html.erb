@@ -1,0 +1,56 @@
+<h1> <%= _('Purchase Reports') %> </h1>
+
+<% extend ProfileHelper %>
+
+<% status = ShoppingCartPlugin::PurchaseOrder::Status.name; pos=-1 %>
+<% status_collection = [[nil, _('All')]] %>
+<% status_collection += status.map{|s| [pos+=1, s] } %>
+
+<% form_tag({}, {:id => 'order-filter'}) do %>
+  <%= labelled_text_field(_('From')+' ', :from, @from.strftime("%Y-%m-%d"), :id => 'from', :size => 9) %>
+  <%= labelled_text_field(_('to')+' ', :to, @to.strftime("%Y-%m-%d"), :id => 'to', :size => 9) %>
+  <span style="white-space:nowrap"><%= labelled_select(_('Status')+' ', :filter_status, :first, :last, @status,  status_collection)%></span>
+  &nbsp;
+  <%= submit_button('save',  _('Filter')) %>
+<% end %>
+
+<% tabs = [] %>
+<% tabs << {:title => _('Products list'), :id => 'products_list', :content => (render :partial => 'products_list')} %>
+<% tabs << {:title => _('Orders list'), :id => 'orders_list', :content => (render :partial => 'orders_list', :locals => {:status_collection => status_collection})} %>
+<%= render_tabs(tabs) %>
+
+<script>
+	var dates = jQuery( "#from, #to" ).datepicker({
+		defaultDate: "+1w",
+		changeMonth: true,
+    dateFormat: 'yy-mm-dd',
+		onSelect: function( selectedDate ) {
+			var option = this.id == "from" ? "minDate" : "maxDate",
+				instance = jQuery( this ).data( "datepicker" ),
+				date = jQuery.datepicker.parseDate(
+					instance.settings.dateFormat ||
+					jQuery.datepicker._defaults.dateFormat,
+					selectedDate, instance.settings );
+			dates.not( this ).datepicker( "option", option, date );
+		}
+	});
+  jQuery(".view-order-details").each(function(index, bt){
+    jQuery(bt).button({
+      icons: {
+        primary: "ui-icon-info"
+      },
+      text: false
+    });
+    bt.onclick = function(){
+      var orderId = this.getAttribute("data-order");
+      var tr = jQuery("#order-details-"+orderId);
+      var div = jQuery("#order-details-"+orderId+" div");
+      if ( tr[0].style.display == "none" ) {
+        tr.show();
+        div.slideDown('fast');
+      } else {
+        div.slideUp("fast", function(){tr.hide()});
+      }
+    }
+  });
+</script>

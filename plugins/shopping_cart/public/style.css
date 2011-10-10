@@ -168,3 +168,47 @@ label.error {
   padding-left: .5em;
   vertical-align: top;
 }
+
+.controller-profile_editor a.control-panel-shopping-cart-purchase-report {background-image: url(images/control-panel/purchase-report.png)}
+.controller-profile_editor .msie6 a.control-panel-shopping-cart-purchase-report {background-image: url(images/control-panel/purchase-report.gif)}
+.controller-profile_editor a.control-panel-shopping-cart {background-image: url(/images/control-panel/shopping-cart.png)}
+.controller-profile_editor .msie6 a.control-panel-shopping-cart {background-image: url(/images/control-panel/shopping-cart.gif)}
+
+.action-shopping_cart_plugin_myprofile-reports td.order-info {
+  padding: 0px;
+  height: auto;
+}
+
+.action-shopping_cart_plugin_myprofile-reports .customer-details,
+.action-shopping_cart_plugin_myprofile-reports .order-products {
+  list-style-position: inside;
+  float: left;
+  width: 49%;
+  margin: 0px;
+  padding: 10px 0px;
+}
+
+.action-shopping_cart_plugin_myprofile-reports .order-products {
+  float: right;
+}
+
+.action-shopping_cart_plugin_myprofile-reports .customer-details li,
+.action-shopping_cart_plugin_myprofile-reports .order-products li {
+  padding-left: 5px;
+}
+
+#order-filter {
+  background-color: #ccc;
+  border: 1px solid #aaa;
+  border-radius: 5px;
+  padding: 3px 8px;
+  margin-bottom: 10px;
+}
+
+th {
+  text-align: center;
+}
+
+td {
+  text-align: left;
+}

@@ -89,6 +89,7 @@ class ShoppingCartPluginProfileController < ProfileController
   end
 
   def send_request
+      register_order(params[:customer], session[:cart][:items])
     begin
       ShoppingCartPlugin::Mailer.deliver_customer_notification(params[:customer], profile, session[:cart][:items])
       ShoppingCartPlugin::Mailer.deliver_supplier_notification(params[:customer], profile, session[:cart][:items])
@@ -222,5 +223,24 @@ class ShoppingCartPluginProfileController < ProfileController
       return false
     end
     true
+  end
+
+  def register_order(custumer, items)
+    new_items = {}
+    items.each do |id, quantity|
+      new_items[id] = {:quantity => quantity, :price => Product.find(id).price}
+    end
+    ShoppingCartPlugin::PurchaseOrder.create!(
+      :seller => profile,
+      :customer => user,
+      :status => ShoppingCartPlugin::PurchaseOrder::Status::OPENED,
+      :products_list => new_items,
+      :customer_name => params[:customer][:name],
+      :customer_email => params[:customer][:email],
+      :customer_contact_phone => params[:customer][:contact_phone],
+      :customer_address => params[:customer][:address],
+      :customer_city => params[:customer][:city],
+      :customer_zip_code => params[:customer][:zip_code]
+    )
   end
 end
