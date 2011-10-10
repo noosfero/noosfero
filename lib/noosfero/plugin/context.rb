@@ -30,4 +30,8 @@ class Noosfero::Plugin::Context
     @session ||= @controller.send(:session)
   end
 
+  def user
+    @user ||= @controller.send(:user)
+  end
+
 end

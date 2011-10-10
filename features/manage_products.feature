@@ -11,6 +11,12 @@ Feature: manage products
       | redemoinho | joaosilva | Rede Moinho | true |
     And feature "disable_products_for_enterprises" is disabled on environment
 
+  Scenario: display "create new product" button
+    Given I am logged in as "joaosilva"
+    And I am on Rede Moinho's control panel
+    When I follow "Manage Products and Services"
+    Then I should see "New product or service"
+
   Scenario: paginate public listing products and services
     Given the following product_category
       | name |

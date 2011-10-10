@@ -667,17 +667,21 @@ class AccountControllerTest < Test::Unit::TestCase
   end
 
   should 'merge user data with extra stuff from plugins' do
-    plugin1 = mock()
-    plugin1.stubs(:user_data_extras).returns({ :foo => 'bar' })
+    class Plugin1 < Noosfero::Plugin
+      def user_data_extras
+        {:foo => 'bar'}
+      end
+    end
 
-    plugin2 = mock()
-    plugin2.stubs(:user_data_extras).returns({ :test => 5 })
+    class Plugin2 < Noosfero::Plugin
+      def user_data_extras
+        {:test => 5}
+      end
+    end
 
-    enabled_plugins = [plugin1, plugin2]
-
-    plugins = mock()
-    plugins.stubs(:enabled_plugins).returns(enabled_plugins)
-    Noosfero::Plugin::Manager.stubs(:new).returns(plugins)
+    e = User.find_by_login('ze').environment
+    e.enable_plugin(Plugin1.name)
+    e.enable_plugin(Plugin2.name)
 
     login_as 'ze'
 

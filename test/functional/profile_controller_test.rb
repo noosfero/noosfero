@@ -1163,19 +1163,31 @@ class ProfileControllerTest < Test::Unit::TestCase
   end
 
   should 'display plugins tabs' do
-    plugin1_tab = {:title => 'Plugin1 tab', :id => 'plugin1_tab', :content => 'Content from plugin1.'}
-    plugin2_tab = {:title => 'Plugin2 tab', :id => 'plugin2_tab', :content => 'Content from plugin2.'}
-    tabs = [plugin1_tab, plugin2_tab]
-    plugins = mock()
-    plugins.stubs(:map).with(:profile_tabs).returns(tabs)
-    plugins.stubs(:enabled_plugins).returns([])
-    plugins.stubs(:map).with(:body_beginning).returns([])
-    Noosfero::Plugin::Manager.stubs(:new).returns(plugins)
+    class Plugin1 < Noosfero::Plugin
+      def profile_tabs
+        {:title => 'Plugin1 tab', :id => 'plugin1_tab', :content => lambda { 'Content from plugin1.' }}
+      end
+    end
+
+    class Plugin2 < Noosfero::Plugin
+      def profile_tabs
+        {:title => 'Plugin2 tab', :id => 'plugin2_tab', :content => lambda { 'Content from plugin2.' }}
+      end
+    end
+
+    e = profile.environment
+    e.enable_plugin(Plugin1.name)
+    e.enable_plugin(Plugin2.name)
 
     get :index, :profile => profile.identifier
 
-    assert_tag :tag => 'a', :content => /#{plugin1_tab[:title]}/, :attributes => {:href => /#{plugin1_tab[:id]}/}
-    assert_tag :tag => 'div', :content => /#{plugin1_tab[:content]}/, :attributes => {:id => /#{plugin1_tab[:id]}/}
+    plugin1 = Plugin1.new
+    plugin2 = Plugin2.new
+
+    assert_tag :tag => 'a', :content => /#{plugin1.profile_tabs[:title]}/, :attributes => {:href => /#{plugin1.profile_tabs[:id]}/}
+    assert_tag :tag => 'div', :content => /#{instance_eval(&plugin1.profile_tabs[:content])}/, :attributes => {:id => /#{plugin1.profile_tabs[:id]}/}
+    assert_tag :tag => 'a', :content => /#{plugin2.profile_tabs[:title]}/, :attributes => {:href => /#{plugin2.profile_tabs[:id]}/}
+    assert_tag :tag => 'div', :content => /#{instance_eval(&plugin2.profile_tabs[:content])}/, :attributes => {:id => /#{plugin2.profile_tabs[:id]}/}
   end
 
   should 'redirect to profile page when try to request join_not_logged via GET method' do

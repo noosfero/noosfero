@@ -1,4 +1,4 @@
-<% @project = locals[:current_project] %>
+<% @project = current_project %>
 <% @total_metrics = @project.total_metrics if @project != nil %>
 <% @statistical_metrics = @project.statistical_metrics if @project != nil %>
 <% @svn_error = @project.svn_error if (@project != nil && @project.svn_error) %>

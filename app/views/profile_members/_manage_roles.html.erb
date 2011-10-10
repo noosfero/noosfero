@@ -1,0 +1,42 @@
+<% form_tag :action => 'save_associations' do %>
+  <% @roles.each do |role|%>
+    <%= content_tag('p', content_tag('b', role.name.pluralize+':'), :style => 'margin-top: 30px; margin-bottom: 0px;') %>
+    <%= text_field_tag('q_'+role.key, nil, :id => 'search_'+role.key) %>
+    <%= hidden_field_tag(:last_admin, true) if from == 'last_admin'%>
+  <% end %>
+
+  <% button_bar(:style => 'margin-top: 30px;') do %>
+    <%= submit_button('save', _('Save'))%>
+    <%= button('cancel', _('Cancel'), {:controller => 'profile_editor'})%>
+  <% end %>
+<% end %>
+
+<% @roles.each do |role| %>
+  <% search_url = url_for(:action => 'search_user', :profile => profile.identifier, :role => role.id) %>
+  <% @pre_population ||= profile.members_by_role_to_json(role) %>
+  <script type="text/javascript">
+    jQuery(<%= ('#search_' + role.key).to_json %>)
+    .tokenInput("<%= search_url %>", {
+      prePopulate: <%= @pre_population %>,
+      hintText: <%= _('Type in a search term for users').to_json %>,
+      noResultsText: <%= _('No results').to_json %>,
+      searchingText: <%= _('Searching...').to_json %>,
+      searchDelay: 500,
+      backspaceDeleteItem: false,
+      preventDuplicates: true,
+      queryParam: <%= ('q_'+role.key).to_json %>
+    });
+
+    jQuery("#token-input-search-enterprises")
+    .live("keydown", function(event){
+      if(event.keyCode == "13") return false;
+    });
+  </script>
+<% end %>
+
+<script>
+  jQuery(function(){
+    jQuery('.token-input-input-token input').blur();
+    jQuery('.token-input-input-token input')[0].focus();
+  });
+</script>

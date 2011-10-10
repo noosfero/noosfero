@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110824192153) do
+ActiveRecord::Schema.define(:version => 20111004184104) do
 
   create_table "action_tracker", :force => true do |t|
     t.integer  "user_id"
@@ -378,6 +378,8 @@ ActiveRecord::Schema.define(:version => 20110824192153) do
     t.datetime "updated_at"
     t.boolean  "visible",                           :default => true
     t.integer  "image_id"
+    t.boolean  "validated",                         :default => true
+    t.string   "cnpj"
   end
 
   add_index "profiles", ["environment_id"], :name => "index_profiles_on_environment_id"

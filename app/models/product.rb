@@ -149,4 +149,8 @@ class Product < ActiveRecord::Base
     unit.blank? ? name : "#{name} - #{unit.name.downcase}"
   end
 
+  def display_supplier_on_search?
+    true
+  end
+
 end

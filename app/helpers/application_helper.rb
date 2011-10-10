@@ -298,6 +298,17 @@ module ApplicationHelper
     partial_for_task_class(klass.superclass, action)
   end
 
+  def view_for_profile_actions(klass)
+    raise ArgumentError, 'No profile actions view for this class.' if klass.nil?
+
+    name = klass.name.underscore
+    VIEW_EXTENSIONS.each do |ext|
+      return "blocks/profile_info_actions/"+name+ext if File.exists?(File.join(RAILS_ROOT, 'app', 'views', 'blocks', 'profile_info_actions', name+ext))
+    end
+
+    view_for_profile_actions(klass.superclass)
+  end
+
   def user
     @controller.send(:user)
   end
@@ -970,7 +981,8 @@ module ApplicationHelper
       'lightbox',
       'colorpicker',
       pngfix_stylesheet_path,
-    ]
+    ] +
+    tokeninput_stylesheets
   end
 
   # DEPRECATED. Do not use this·
@@ -980,6 +992,10 @@ module ApplicationHelper
 
   def pngfix_stylesheet_path
     'iepngfix/iepngfix.css'
+  end
+
+  def tokeninput_stylesheets
+    ['token-input', 'token-input-facebook', 'token-input-mac']
   end
 
   def noosfero_layout_features
@@ -1127,7 +1143,7 @@ module ApplicationHelper
   def manage_enterprises
     if user && !user.enterprises.empty?
       enterprises_link = user.enterprises.map do |enterprise|
-        link_to(content_tag('strong', [_('<span>Manage</span> %s') % enterprise.short_name(25)]), @environment.top_url + "/myprofile/#{enterprise.identifier}", :class => "icon-menu-enterprise", :title => [_('Manage %s') % enterprise.short_name])
+        link_to(content_tag('strong', [_('<span>Manage</span> %s') % enterprise.short_name(25)]), @environment.top_url + "/myprofile/#{enterprise.identifier}", :class => "icon-menu-"+enterprise.class.identification.underscore, :title => [_('Manage %s') % enterprise.short_name])
       end
       render :partial => 'shared/manage_enterprises', :locals => {:enterprises_link => enterprises_link}
     end

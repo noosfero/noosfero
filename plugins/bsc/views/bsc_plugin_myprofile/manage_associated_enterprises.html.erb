@@ -1,0 +1,43 @@
+<h1><%= _('Manage associated enterprises') %></h1>
+
+<% if !@pending_enterprises.blank? %>
+  <%= _('Associations awaiting approval:') %>
+  <ul>
+    <% @pending_enterprises.each do |enterprise| %>
+      <li><%= enterprise.name %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<% form_tag :action => 'save_associations' do %>
+  <%= text_field_tag(:q, nil, :id => 'search-enterprises') %>
+
+  <%= button('add', _('Add new enterprise'), {:action => 'create_enterprise'}) %>
+
+  <% button_bar do %>
+    <%= submit_button('save', _('Save'))%>
+    <%= button('cancel', _('Cancel'), {:controller => 'profile_editor'})%>
+  <% end %>
+
+<% end %>
+<%= javascript_include_tag '/plugins/bsc/jquery_tokeninput/src/jquery.tokeninput.js' %>
+<% stylesheet('/plugins/bsc/jquery_tokeninput/styles/token-input.css') %>
+<% search_url = url_for(:action => 'search_enterprise', :profile => profile.identifier) %>
+<script type="text/javascript">
+  jQuery("#search-enterprises")
+  .tokenInput("<%= search_url %>", {
+    minChars: 3,
+    prePopulate: <%= profile.enterprises_to_json %>,
+    hintText: <%= _('Type in a search term for enterprise').to_json %>,
+    noResultsText: <%= _('No results').to_json %>,
+    searchingText: <%= _('Searching...').to_json %>,
+    searchDelay: 500,
+    backspaceDeleteItem: false
+  })
+  .focus();
+
+  jQuery("#token-input-search-enterprises")
+  .live("keydown", function(event){
+    if(event.keyCode == "13") return false;
+  });
+</script>

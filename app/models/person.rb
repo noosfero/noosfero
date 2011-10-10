@@ -389,6 +389,10 @@ class Person < Profile
     leave_hash.to_json
   end
 
+  def control_panel_settings_button
+    {:title => _('Profile Info and settings'), :icon => 'edit-profile'}
+  end
+
   protected
 
   def followed_by?(profile)

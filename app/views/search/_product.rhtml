@@ -6,6 +6,7 @@ product_item_pos += 1
 %>
 
 <% extra_content = @plugins.map(:asset_product_extras, product, product.enterprise).collect { |content| instance_eval(&content) } %>
+<% extra_properties = @plugins.map(:asset_product_properties, product)%>
 
 <li class="product-item <%= ( pos % 2 == 0 ) ? 'odd' : 'even' %>">
   <%= link_to_product product, :class => 'product-pic', :style => 'background-image:url(%s)' % product.default_image(:minor) %>
@@ -14,10 +15,15 @@ product_item_pos += 1
   </strong> 
   <ul>
     <li> <%= _('Price: %s') % (product.price ? product.price : _('Not informed')) %> </li>
-    <% if product.enterprise %>
-      <li> <%= _('Suplier: %s') % link_to_homepage(product.enterprise.name, product.enterprise.identifier) %> </li>
+    <% if product.enterprise && product.display_supplier_on_search? %>
+      <li> <%= _('Supplier: %s') % link_to_homepage(product.enterprise.name, product.enterprise.identifier) %> </li>
     <% end %>
-    <li> <%=_('Category:') + ' ' + link_to_product_category(product.product_category) %> </li>
+
+    <li> <%= _('Category:') + ' ' + link_to_product_category(product.product_category) %> </li>
+
+    <% extra_properties.each do |property| %>
+      <li><%= property[:name] + ': ' + instance_eval(&property[:content]) %></li>
+    <% end %>
   </ul>
 
   <%= extra_content.join('\n') %>

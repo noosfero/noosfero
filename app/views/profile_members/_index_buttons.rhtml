@@ -5,4 +5,7 @@
     <%= button :search, _('Invite your friends to join %s') % profile.short_name, :controller => 'invite', :action => 'select_address_book' %>
   <% end %>
   <%= button :send, _('Send e-mail to members'), :action => 'send_mail' %>
+  <% @plugins.map(:manage_members_extra_buttons).each do |plugin_button| %>
+    <%= button plugin_button[:icon], plugin_button[:title], plugin_button[:url] %>
+  <% end %>
 <% end %>

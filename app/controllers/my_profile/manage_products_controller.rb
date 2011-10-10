@@ -4,12 +4,20 @@ class ManageProductsController < ApplicationController
   protect 'manage_products', :profile, :except => [:show]
   before_filter :check_environment_feature
   before_filter :login_required, :except => [:show]
+  before_filter :create_product?, :only => [:new]
 
   protected  
 
   def check_environment_feature
     if profile.environment.enabled?('disable_products_for_enterprises')
       render_not_found
+      return
+    end
+  end
+
+  def create_product?
+    if !profile.create_product?
+      render_access_denied
       return
     end
   end

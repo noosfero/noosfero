@@ -1,0 +1,54 @@
+<h1><%= _('Transfer Ownership') %></h1>
+
+<div id='last-admin-message' style="margin-bottom: 20px;">
+  <%= _('This option allows you to transfer this enterprise\'s management to another user. This action will remove all the current administrators. Be careful when confirming this procedure.') %>
+</div>
+
+<% if !profile.admins.blank? %>
+  <%= _('Current administrators:') %>
+  <ul style="list-style-type: none;">
+    <% profile.admins.each do |admin| %>
+      <li><%= link_to(profile_image(admin, :icon, :style => 'margin-right: 3px;'), admin.url) + link_to(admin.name, admin.url, :style => 'margin-top: -3px;') %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<% form_tag do %>
+  <% @roles.each do |role|%>
+    <%= content_tag('b', _('Administrator:')) %>
+    <%= text_field_tag('q_'+role.key, nil, :id => 'search_'+role.key) %>
+  <% end %>
+
+  <% button_bar do %>
+    <%= submit_button('save', _('Save'))%>
+    <%= button('cancel', _('Cancel'), {:controller => 'profile_editor'})%>
+  <% end %>
+<% end %>
+
+<%= javascript_include_tag '/plugins/bsc/jquery_tokeninput/src/jquery.tokeninput.js' %>
+<% stylesheet('/plugins/bsc/jquery_tokeninput/styles/token-input.css') %>
+
+<% @roles.each do |role| %>
+  <% search_url = url_for(:controller => 'profile_members', :action => 'search_user', :role => role.id, :profile => profile.identifier) %>
+  <script type="text/javascript">
+    jQuery(<%= ('#search_' + role.key).to_json %>)
+    .tokenInput("<%= search_url %>", {
+      hintText: <%= _('Type in a search term for the new administrator').to_json %>,
+      noResultsText: <%= _('No results').to_json %>,
+      searchingText: <%= _('Searching...').to_json %>,
+      searchDelay: 500,
+      backspaceDeleteItem: false,
+      preventDuplicates: true,
+      tokenLimit: 1,
+      queryParam: <%= ('q_'+role.key).to_json %>
+    })
+    .focus();
+
+    jQuery("#token-input-search-enterprises")
+    .live("keydown", function(event){
+      if(event.keyCode == "13") return false;
+    });
+  </script>
+<% end %>
+
+

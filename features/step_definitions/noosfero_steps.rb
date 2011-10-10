@@ -36,6 +36,36 @@ Given /^the following (community|communities|enterprises?|organizations?)$/ do |
   end
 end
 
+Given /^"([^\"]*)" is associated with "([^\"]*)"$/ do |enterprise, bsc|
+  enterprise = Enterprise.find_by_name(enterprise) || Enterprise[enterprise]
+  bsc = BscPlugin::Bsc.find_by_name(bsc) || BscPlugin::Bsc[bsc]
+
+  bsc.enterprises << enterprise
+end
+
+Then /^"([^\"]*)" should be associated with "([^\"]*)"$/ do |enterprise, bsc|
+  enterprise = Enterprise.find_by_name(enterprise) || Enterprise[enterprise]
+  bsc = BscPlugin::Bsc.find_by_name(bsc) || BscPlugin::Bsc[bsc]
+
+  bsc.enterprises.should include(enterprise)
+end
+
+Given /^the folllowing "([^\"]*)" from "([^\"]*)"$/ do |kind, plugin, table|
+  klass = (plugin.camelize+'::'+kind.singularize.camelize).constantize
+  table.hashes.each do |row|
+    owner = row.delete("owner")
+    domain = row.delete("domain")
+    organization = klass.create!(row)
+    if owner
+      organization.add_admin(Profile[owner])
+    end
+    if domain
+      d = Domain.new :name => domain, :owner => organization
+      d.save(false)
+    end
+  end
+end
+
 Given /^the following blocks$/ do |table|
   table.hashes.map{|item| item.dup}.each do |item|
     klass = item.delete('type')
@@ -298,12 +328,12 @@ Given /^"(.+)" is friend of "(.+)"$/ do |person, friend|
   Person[person].add_friend(Person[friend])
 end
 
-Given /^(.+) is blocked$/ do |enterprise_name|
+Given /^enterprise "([^\"]*)" is blocked$/ do |enterprise_name|
   enterprise = Enterprise.find_by_name(enterprise_name)
   enterprise.block
 end
 
-Given /^(.+) is disabled$/ do |enterprise_name|
+Given /^enterprise "([^\"]*)" is disabled$/ do |enterprise_name|
   enterprise = Enterprise.find_by_name(enterprise_name)
   enterprise.enabled = false
   enterprise.save
@@ -427,4 +457,34 @@ end
 Then /^I should receive an e-mail on (.*)$/ do |address|
   last_mail = ActionMailer::Base.deliveries.last
   last_mail['to'].to_s.should == address
+end
+
+Given /^"([^\"]*)" plugin is (enabled|disabled)$/ do |plugin_name, status|
+  environment = Environment.default
+  environment.send(status.chop + '_plugin', plugin_name+'Plugin')
+end
+
+Then /^there should be an? (.+) named "([^\"]*)"$/ do |klass_name, profile_name|
+  klass = klass_name.camelize.constantize
+  klass.find_by_name(profile_name).nil?.should be_false
+end
+
+Then /^"([^\"]*)" profile should exist$/ do |profile_selector|
+  profile = nil
+  begin
+    profile = Profile.find_by_name(profile_selector)
+    profile.nil?.should be_false
+  rescue
+    profile.nil?.should be_false
+  end
+end
+
+Then /^"([^\"]*)" profile should not exist$/ do |profile_selector|
+  profile = nil
+  begin
+    profile = Profile.find_by_name(profile_selector)
+    profile.nil?.should be_true
+  rescue
+    profile.nil?.should be_true
+  end
 end

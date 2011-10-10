@@ -147,6 +147,7 @@ class Enterprise < Organization
   end
 
   before_create do |enterprise|
+    enterprise.validated = enterprise.environment.enabled?('enterprises_are_validated_when_created')
     if enterprise.environment.enabled?('enterprises_are_disabled_when_created')
       enterprise.enabled = false
     end
@@ -165,6 +166,14 @@ class Enterprise < Organization
 
   def enable_contact?
     enable_contact_us
+  end
+
+  def control_panel_settings_button
+    {:title => __('Enterprise Info and settings'), :icon => 'edit-profile-enterprise'}
+  end
+
+  def create_product?
+    true
   end
 
 end

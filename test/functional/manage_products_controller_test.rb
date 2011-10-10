@@ -455,4 +455,16 @@ class ManageProductsControllerTest < Test::Unit::TestCase
     assert_tag :tag => 'span', :content => 'This is ' + plugin1_local_variable + ' speaking!', :attributes => {:id => 'plugin1'}
     assert_tag :tag => 'span', :content => 'This is ' + plugin2_local_variable + ' speaking!', :attributes => {:id => 'plugin2'}
   end
+
+  should 'not allow product creation for profiles that can\'t do it' do
+    class SpecialEnterprise < Enterprise
+      def create_product?
+        false
+      end
+    end
+    enterprise = SpecialEnterprise.create!(:identifier => 'special-enterprise', :name => 'Special Enterprise')
+    get 'new', :profile => enterprise.identifier
+    assert_response 403
+  end
+
 end

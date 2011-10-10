@@ -1,0 +1,12 @@
+.controller-profile_editor a.control-panel-bsc-enterprises {background-image: url(images/manage-bsc-enterprises.png)}
+.controller-profile_editor .msie6 a.control-panel-bsc-enterprises {background-image: url(images/manage-bsc-enterprises.gif)}
+
+.controller-profile_editor a.control-panel-transfer-enterprise-ownership {background-image: url(images/transfer-ownership.png)}
+
+.icon-menu-bsc {
+  background-image: url(images/manage-bsc-enterprises-icon.png);
+}
+
+#content .token-input-list {
+  margin-bottom: 30px;
+}

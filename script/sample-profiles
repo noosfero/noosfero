@@ -95,6 +95,7 @@ save guest do
     communities.rand.add_member(guest.person)
   end
 end
+User.all(:conditions => ['login NOT LIKE "%%_template"']).each(&:activate)
 done
 
 people = $environment.people

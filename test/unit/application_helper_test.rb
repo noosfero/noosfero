@@ -18,18 +18,6 @@ class ApplicationHelperTest < Test::Unit::TestCase
 
     File.expects(:exists?).with(p1+"test/_integer.rhtml").returns(true)
 
-    assert_equal 'integer', partial_for_class(Integer)
-  end
-
-
-  should 'calculate correctly partial for models recursively' do
-    p1 = 'path1/'
-    p2 = 'path2/'
-    @controller = mock()
-    @controller.stubs(:view_paths).returns([p1,p2])
-
-    self.stubs(:params).returns({:controller => 'test'})
-
     File.expects(:exists?).with(p1+"test/_float.rhtml").returns(false)
     File.expects(:exists?).with(p1+"test/_float.html.erb").returns(false)
     File.expects(:exists?).with(p2+"test/_float.rhtml").returns(false)
@@ -40,22 +28,13 @@ class ApplicationHelperTest < Test::Unit::TestCase
     File.expects(:exists?).with(p1+"test/_numeric.html.erb").returns(false)
     File.expects(:exists?).with(p2+"test/_numeric.rhtml").returns(true)
 
-    assert_equal 'numeric', partial_for_class(Float)
-  end
-
-  should 'raise error when partial is missing' do
-    p1 = 'path1/'
-    p2 = 'path2/'
-    @controller = mock()
-    @controller.stubs(:view_paths).returns([p1,p2])
-
-    self.stubs(:params).returns({:controller => 'test'})
-
     File.expects(:exists?).with(p1+"test/_object.rhtml").returns(false)
     File.expects(:exists?).with(p1+"test/_object.html.erb").returns(false)
     File.expects(:exists?).with(p2+"test/_object.rhtml").returns(false)
     File.expects(:exists?).with(p2+"test/_object.html.erb").returns(false)
 
+    assert_equal 'integer', partial_for_class(Integer)
+    assert_equal 'numeric', partial_for_class(Float)
     assert_raises ArgumentError do
       partial_for_class(Object)
     end
@@ -72,6 +51,15 @@ class ApplicationHelperTest < Test::Unit::TestCase
     File.expects(:exists?).with(p+"test/application_helper_test/school/_project.rhtml").returns(true)
 
     assert_equal 'test/application_helper_test/school/project', partial_for_class(School::Project)
+  end
+
+  should 'look for superclasses on view_for_profile actions' do
+    File.expects(:exists?).with("#{RAILS_ROOT}/app/views/blocks/profile_info_actions/float.rhtml").returns(false)
+    File.expects(:exists?).with("#{RAILS_ROOT}/app/views/blocks/profile_info_actions/float.html.erb").returns(false)
+    File.expects(:exists?).with("#{RAILS_ROOT}/app/views/blocks/profile_info_actions/numeric.rhtml").returns(false)
+    File.expects(:exists?).with("#{RAILS_ROOT}/app/views/blocks/profile_info_actions/numeric.html.erb").returns(true)
+
+    assert_equal 'blocks/profile_info_actions/numeric.html.erb', view_for_profile_actions(Float)
   end
 
   should 'give error when there is no partial for class' do

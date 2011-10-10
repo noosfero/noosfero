@@ -442,28 +442,23 @@ class ApplicationControllerTest < Test::Unit::TestCase
   end
 
   should 'include stylesheets supplied by plugins' do
-    plugin1 = mock()
-    plugin1.stubs(:stylesheet?).returns(true)
-    plugin1.stubs(:js_files).returns([])
-    plugin1_class = mock()
+    class Plugin1 < Noosfero::Plugin
+      def stylesheet?
+        true
+      end
+    end
     plugin1_path = '/plugin1/style.css'
-    plugin1_class.stubs(:public_path).with('style.css').returns(plugin1_path)
-    plugin1.stubs(:class).returns(plugin1_class)
 
-    plugin2 = mock()
-    plugin2.stubs(:stylesheet?).returns(true)
-    plugin2.stubs(:js_files).returns([])
-    plugin2_class = mock()
+    class Plugin2 < Noosfero::Plugin
+      def stylesheet?
+        true
+      end
+    end
     plugin2_path = '/plugin2/style.css'
-    plugin2_class.stubs(:public_path).with('style.css').returns(plugin2_path)
-    plugin2.stubs(:class).returns(plugin2_class)
 
-    enabled_plugins = [plugin1, plugin2]
-
-    plugins = mock()
-    plugins.stubs(:map).with(:body_beginning).returns([])
-    plugins.stubs(:enabled_plugins).returns(enabled_plugins)
-    Noosfero::Plugin::Manager.stubs(:new).returns(plugins)
+    environment = Environment.default
+    environment.enable_plugin(Plugin1.name)
+    environment.enable_plugin(Plugin2.name)
 
     get :index
 
@@ -472,33 +467,29 @@ class ApplicationControllerTest < Test::Unit::TestCase
   end
 
   should 'include javascripts supplied by plugins' do
+    class Plugin1 < Noosfero::Plugin
+      def js_files
+        ['js1.js']
+      end
+    end
+
     js1 = 'js1.js'
-    plugin1 = mock()
-    plugin1.stubs(:stylesheet?).returns(false)
-    plugin1.stubs(:js_files).returns([js1])
-    plugin1_class = mock()
     plugin1_path = '/plugin1/'+js1
-    plugin1_class.stubs(:public_path).with(js1).returns(plugin1_path)
-    plugin1.stubs(:class).returns(plugin1_class)
+
+    class Plugin2 < Noosfero::Plugin
+      def js_files
+        ['js2.js', 'js3.js']
+      end
+    end
 
     js2 = 'js2.js'
     js3 = 'js3.js'
-    plugin2 = mock()
-    plugin2.stubs(:stylesheet?).returns(false)
-    plugin2.stubs(:js_files).returns([js2, js3])
-    plugin2_class = mock()
     plugin2_path2 = '/plugin2/'+js2
     plugin2_path3 = '/plugin2/'+js3
-    plugin2_class.stubs(:public_path).with(js2).returns(plugin2_path2)
-    plugin2_class.stubs(:public_path).with(js3).returns(plugin2_path3)
-    plugin2.stubs(:class).returns(plugin2_class)
 
-    enabled_plugins = [plugin1, plugin2]
-
-    plugins = mock()
-    plugins.stubs(:map).with(:body_beginning).returns([])
-    plugins.stubs(:enabled_plugins).returns(enabled_plugins)
-    Noosfero::Plugin::Manager.stubs(:new).returns(plugins)
+    environment = Environment.default
+    environment.enable_plugin(Plugin1.name)
+    environment.enable_plugin(Plugin2.name)
 
     get :index
 

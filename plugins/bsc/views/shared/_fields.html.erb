@@ -1,0 +1,66 @@
+<!-- This line should be uncommented when bsc is merged with the former plugin -->
+<%# extend FormerPlugin::FieldHelper %>
+
+<fieldset>
+  <legend><%= _('Basic information')%></legend>
+  <%= required f.text_field(:business_name, :onchange => "updateUrlField(this, 'profile_data_identifier')") %>
+  <%= required f.text_field(:company_name) %>
+  <%= required f.text_field(:cnpj) %>
+  <!-- This line should be uncommented when bsc is merged with the former plugin -->
+  <%#= widgets_for_form(f, :bsc_fields) %>
+
+  <script type="text/javascript">
+    function submit_button(index) {
+       return $("profile_data_identifier").form.select("input.submit")[index];
+    }
+    function warn_value_change() {
+       show_warning('bsc-formitem', "identifier-change-confirmation");
+       disable_button(submit_button(0));
+    }
+    function confirm_change() {
+       enable_button(submit_button(0));
+       hide_warning('identifier-change-confirmation');
+    }
+    function no_change() {
+       $("profile_data_identifier").value = $("old_bsc_identifier").value;
+       enable_button(submit_button(0));
+       hide_warning('identifier-change-confirmation');
+    }
+  </script>
+
+  <%= hidden_field_tag 'old_bsc_identifier', profile.identifier %>
+  <div id="bsc-formitem">
+    <%=   content_tag('code',
+            environment.top_url + '/ ' +
+            text_field(:profile_data, :identifier, :onchange => "warn_value_change()", :size => 25)
+          ) +
+          content_tag('div',
+            content_tag('strong', _('WARNING!')) + '&nbsp;' +
+              _("You are about to change the address, and this will break external links to this bsc or to posts inside it. Do you really want to change?") +
+            content_tag('div',
+              button_to_function(:ok, _("Yes"), "confirm_change()") + ' ' +
+              button_to_function(:cancel, _('No'), 'no_change()')
+            ),
+            :id => 'identifier-change-confirmation',
+            :class => 'change-confirmation',
+            :style => 'display: none;'
+          )
+    %>
+  </div>
+</fieldset>
+
+<fieldset>
+  <legend><%= _('Contact')%></legend>
+  <%= f.text_field(:contact_email) %>
+  <%= f.text_field(:organization_website) %>
+  <%= f.text_field(:contact_phone) %>
+</fieldset>
+
+<fieldset>
+  <legend><%= _('Location')%></legend>
+  <%= f.text_field(:address) %>
+  <%= f.text_field(:zip_code) %>
+  <%= f.text_field(:city) %>
+  <%= f.text_field(:state) %>
+  <%= select_country(_('Country'), :profile_data, 'country', {:class => 'type-select'}) %>
+</fieldset>

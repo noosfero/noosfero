@@ -1183,4 +1183,17 @@ class EnvironmentTest < Test::Unit::TestCase
     assert_equal env.settings[:string_key], 'new value'
   end
 
+  should 'be able to enable or disable a plugin' do
+    environment = Environment.default
+    plugin = 'Plugin'
+
+    environment.enable_plugin(plugin)
+    environment.reload
+    assert_includes environment.enabled_plugins, plugin
+
+    environment.disable_plugin(plugin)
+    environment.reload
+    assert_not_includes environment.enabled_plugins, plugin
+  end
+
 end

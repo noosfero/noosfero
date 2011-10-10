@@ -1726,6 +1726,20 @@ class ProfileTest < Test::Unit::TestCase
     assert_not_includes env.profiles.without_image, with_image
   end
 
+  should 'return enterprises subclasses too on namedscope enterprises' do
+    class EnterpriseSubclass < Enterprise; end
+    child = EnterpriseSubclass.create!(:identifier => 'child', :name => 'Child')
+
+    assert_includes Profile.enterprises, child
+  end
+
+  should 'return communities subclasses too on namedscope communities' do
+    class CommunitySubclass < Community; end
+    child = CommunitySubclass.create!(:identifier => 'child', :name => 'Child')
+
+    assert_includes Profile.communities, child
+  end
+
   private
 
   def assert_invalid_identifier(id)

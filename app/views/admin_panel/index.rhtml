@@ -16,4 +16,7 @@
   <tr><td><%= link_to _('Manage Fields'), :controller => 'features', :action => 'manage_fields' %></td></tr>
   <tr><td><%= link_to _('Set Portal'), :action => 'set_portal_community' %></td></tr>
   <tr><td><%= link_to _('Terms of use'), :action => 'terms_of_use' %></td></tr>
+  <% @plugins.map(:admin_panel_links).each do |link| %>
+    <tr><td><%= link_to link[:title], link[:url] %></td></tr>
+  <% end %>
 </table>

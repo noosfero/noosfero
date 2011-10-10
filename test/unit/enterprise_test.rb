@@ -350,6 +350,20 @@ class EnterpriseTest < Test::Unit::TestCase
     assert_equal false, Enterprise['test_ent'].enabled?
   end
 
+  should 'enterprise is validated according to feature enterprises_are_validated_when_created' do
+    e = Environment.default
+
+    e.enable('enterprises_are_validated_when_created')
+    e.save
+    enterprise = Enterprise.create(:name => 'test enteprise', :identifier => 'test_ent1')
+    assert enterprise.validated
+
+    e.disable('enterprises_are_validated_when_created')
+    e.save
+    enterprise = Enterprise.create(:name => 'test enteprise', :identifier => 'test_ent2')
+    assert !enterprise.validated
+  end
+
   should 'have inactive_template when creating enterprise and feature is enabled' do
     inactive_template = fast_create(Enterprise, :name => 'inactive enteprise template', :identifier => 'inactive_enterprise_template')
     inactive_template.boxes.destroy_all

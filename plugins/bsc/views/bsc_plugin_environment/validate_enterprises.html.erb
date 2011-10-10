@@ -1,0 +1,31 @@
+<h1><%= _('Validate enterprises') %></h1>
+
+<% form_tag :action => 'save_validations' do %>
+  <%= text_field_tag(:q, nil, :id => 'search-enterprises') %>
+
+  <% button_bar do %>
+    <%= submit_button('save', _('Save'))%>
+    <%= button('cancel', _('Cancel'), {:controller => 'admin_panel'})%>
+  <% end %>
+<% end %>
+
+<%= javascript_include_tag '/plugins/bsc/jquery_tokeninput/src/jquery.tokeninput.js' %>
+<% stylesheet('/plugins/bsc/jquery_tokeninput/styles/token-input.css') %>
+<% search_url = url_for(:action => 'search_enterprise') %>
+<script type="text/javascript">
+  jQuery("#search-enterprises")
+  .tokenInput("<%= search_url %>", {
+    hintText: <%= _('Type in a search term for enterprise').to_json %>,
+    noResultsText: <%= _('No results').to_json %>,
+    searchingText: <%= _('Searching...').to_json %>,
+    searchDelay: 500,
+    backspaceDeleteItem: false
+  })
+  .focus();
+
+  jQuery("#token-input-search-enterprises")
+  .live("keydown", function(event){
+    if(event.keyCode == "13") return false;
+  });
+</script>
+
