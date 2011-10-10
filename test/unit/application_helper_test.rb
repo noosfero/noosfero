@@ -240,9 +240,10 @@ class ApplicationHelperTest < Test::Unit::TestCase
     assert_equal 'sampleuser', theme_owner
   end
 
-  should 'use default template when there is no profile' do
+  should 'use environment´s template when there is no profile' do
     stubs(:profile).returns(nil)
-    assert_equal "/designs/templates/default/stylesheets/style.css", template_stylesheet_path
+    environment.expects(:layout_template).returns('sometemplate')
+    assert_equal "/designs/templates/sometemplate/stylesheets/style.css", template_stylesheet_path
   end
 
   should 'use template from profile' do
