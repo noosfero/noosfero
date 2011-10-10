@@ -7,7 +7,7 @@ else
 end
 
 task :test do
-  errors = %w(test:units test:functionals test:integration cucumber selenium).collect do |task|
+  errors = %w(test:units test:functionals test:integration cucumber selenium test:noosfero_plugins).collect do |task|
     begin
       Rake::Task[task].invoke
       nil
