@@ -31,7 +31,6 @@ Feature: suggest article
     And I fill in "Email" with "someguy@somewhere.com"
     And I type "This is my suggestion's lead" in TinyMCE field "task_article_abstract"
     And I type "I like free software" in TinyMCE field "task_article_body"
-    And I answer the captcha
     And I press "Save"
     And I am logged in as "joaosilva"
     And I go to Sample Community's control panel

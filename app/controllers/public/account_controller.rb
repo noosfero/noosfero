@@ -2,8 +2,6 @@ class AccountController < ApplicationController
 
   no_design_blocks
 
-  inverse_captcha :field => 'e_mail'
-
   require_ssl :except => [ :login_popup, :logout_popup, :profile_details ]
 
   before_filter :login_required, :only => [:activation_question, :accept_terms, :activate_enterprise]
@@ -69,7 +67,7 @@ class AccountController < ApplicationController
       @user.person_data = params[:profile_data]
       @person = Person.new(params[:profile_data])
       @person.environment = @user.environment
-      if request.post? && params[self.icaptcha_field].blank?
+      if request.post?
         @user.signup!
         owner_role = Role.find_by_name('owner')
         @user.person.affiliate(@user.person, [owner_role]) if owner_role

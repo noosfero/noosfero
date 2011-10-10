@@ -368,7 +368,6 @@ Given /^the articles of "(.+)" are moderated$/ do |organization|
 end
 
 Given /^the following comments?$/ do |table|
-  Comment.skip_captcha!
   table.hashes.each do |item|
     data = item.dup
     article = Article.find_by_name(data.delete("article"))
@@ -388,7 +387,6 @@ Given /^the community "(.+)" is closed$/ do |community|
 end
 
 Given /^someone suggested the following article to be published$/ do |table|
-  SuggestArticle.skip_captcha!
   table.hashes.map{|item| item.dup}.each do |item|
     target = Community[item.delete('target')]
     task = SuggestArticle.create!(:target => target, :data => item)
@@ -420,10 +418,6 @@ end
 Given /^the environment domain is "([^\"]*)"$/ do |domain|
   d = Domain.new :name => domain, :owner => Environment.default
   d.save(false)
-end
-
-Given /^skip comments captcha$/ do
-  Comment.any_instance.stubs(:skip_captcha?).returns(true)
 end
 
 When /^([^\']*)'s account is activated$/ do |person|

@@ -5,7 +5,6 @@ class CategoryTest < Test::Unit::TestCase
 
   def setup
     @env = fast_create(Environment)
-    Comment.skip_captcha!
   end
 
   def test_mandatory_field_name

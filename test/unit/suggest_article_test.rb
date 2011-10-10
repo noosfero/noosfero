@@ -45,18 +45,6 @@ class SuggestArticleTest < ActiveSupport::TestCase
     assert t.errors.invalid?(:target_id)
   end
 
-  should 'have the captcha_solution be solved' do
-    t = SuggestArticle.new
-    assert !t.errors.invalid?(:captcha_solution)
-    t.valid?
-    assert t.errors.invalid?(:captcha_solution)
-
-    t.skip_captcha!
-    assert t.skip_captcha?
-    t.valid?
-    assert !t.errors.invalid?(:captcha_solution)
-  end
-
   should 'have the article_abstract' do
     t = SuggestArticle.new
     assert t.respond_to?(:article_abstract)

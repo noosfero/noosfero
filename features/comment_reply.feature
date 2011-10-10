@@ -64,8 +64,7 @@ Feature: comment
 
   @selenium
   Scenario: reply a comment
-    Given skip comments captcha
-    And I go to /booking/another-article
+    Given I go to /booking/another-article
     And I follow "Reply" within ".comment-balloon"
     And I fill in "Name" within "comment-balloon" with "Joey"
     And I fill in "e-mail" within "comment-balloon" with "joey@ramones.com"

@@ -12,7 +12,6 @@ class ForumHelperTest < Test::Unit::TestCase
     @environment = Environment.default
     @profile = create_user('forum_helper_test').person
     @forum = fast_create(Forum, :profile_id => profile.id, :name => 'Forum test')
-    Comment.skip_captcha!
   end
 
   attr :profile

@@ -93,12 +93,6 @@ When /^I type "([^\"]*)" in TinyMCE field "([^\"]*)"$/ do |value, field_id|
   response.selenium.type("dom=document.getElementById('#{field_id}_ifr').contentDocument.body", value)
 end
 
-When /^I answer the captcha$/ do
-  question = response.selenium.get_text("//label[@for='task_captcha_solution']").match(/What is the result of '(.+) = \?'/)[1]
-  answer = eval(question)
-  response.selenium.type("id=task_captcha_solution", answer)
-end
-
 When /^I refresh the page$/ do
   response.selenium.refresh
 end

@@ -18,13 +18,10 @@
 
   <%= render :partial => 'shared/lead_and_body', :locals => {:tiny_mce => true, :object => :task, :abstract_method => 'article_abstract', :body_method => 'article_body'} %>
 
-  <div id="captcha">
-    <%= labelled_form_field(_("What is the result of '%s = ?'") % @task.captcha.task, text_field(:task, 'captcha_solution')) %>
-    <%= hidden_field :task, :captcha_secret %>
-    <br style="clear: both;">
-  </div>
-
   <%= hidden_field_tag('back_to', @back_to) %>
+
+  <%= recaptcha_tags(:display => { :theme => 'clean' }, :ajax => true) %>
+
   <% button_bar do %>
     <%= submit_button :save, _('Save') %>
     <%= button :cancel, _('Cancel'), @back_to %>

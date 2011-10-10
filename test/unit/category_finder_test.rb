@@ -7,7 +7,6 @@ class CategoryFinderTest < ActiveSupport::TestCase
     @finder = CategoryFinder.new(@category)
     @product_category = fast_create(ProductCategory, :name => 'Products')
 
-    Comment.skip_captcha!
   end
 	
   should 'search for articles in a specific category' do

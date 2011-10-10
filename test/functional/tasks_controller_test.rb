@@ -238,7 +238,6 @@ class TasksControllerTest < Test::Unit::TestCase
     c = fast_create(Community)
     c.add_admin profile
     @controller.stubs(:profile).returns(c)
-    SuggestArticle.skip_captcha!
     t = SuggestArticle.create!(:article_name => 'test name', :article_abstract => 'test abstract', :article_body => 'test body', :name => 'some name', :email => 'test@localhost.com', :target => c)
 
     get :index
@@ -251,7 +250,6 @@ class TasksControllerTest < Test::Unit::TestCase
     c = fast_create(Community)
     c.affiliate(profile, Profile::Roles.all_roles(profile.environment.id))
     @controller.stubs(:profile).returns(c)
-    SuggestArticle.skip_captcha!
     t = SuggestArticle.create!(:article_name => 'test name', :article_body => 'test body', :name => 'some name', :email => 'test@localhost.com', :target => c)
 
     post :close, :tasks => {t.id => { :task => {}, :decision => "finish"}}
@@ -263,7 +261,6 @@ class TasksControllerTest < Test::Unit::TestCase
     c = fast_create(Community)
     c.affiliate(profile, Profile::Roles.all_roles(profile.environment.id))
     @controller.stubs(:profile).returns(c)
-    SuggestArticle.skip_captcha!
     t = SuggestArticle.new
     t.article_name = 'test name' 
     t.article_body = 'test body'

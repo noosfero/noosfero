@@ -4,7 +4,6 @@ class CommunityTest < Test::Unit::TestCase
 
   def setup
     @person = fast_create(Person)
-    Comment.skip_captcha!
   end
 
   attr_reader :person

@@ -571,17 +571,6 @@ class AccountControllerTest < Test::Unit::TestCase
 
 # end of enterprise activation tests
 
-  should 'not be able to signup while inverse captcha field filled' do
-    assert_no_difference User, :count do
-      new_user({}, @controller.icaptcha_field => 'bli@bla.email.foo')
-    end
-  end
-
-  should 'render inverse captcha field' do
-    get :signup
-    assert_tag :tag => 'input', :attributes => { :type => 'text', :name => @controller.icaptcha_field }
-  end
-
   should 'use the current environment for the template of user' do
     template = create_user('test_template', :email => 'test@bli.com', :password => 'pass', :password_confirmation => 'pass').person
     template.boxes.destroy_all

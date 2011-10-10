@@ -1320,7 +1320,6 @@ class CmsControllerTest < Test::Unit::TestCase
   should 'create a task suggest task to a profile' do
     c = Community.create!(:name => 'test comm', :identifier => 'test_comm', :moderated_articles => true)
 
-    SuggestArticle.any_instance.stubs(:skip_captcha?).returns(true)
     assert_difference SuggestArticle, :count do
       post :suggest_an_article, :profile => c.identifier, :back_to => 'action_view', :task => {:article_name => 'some name', :article_body => 'some body', :email => 'some@localhost.com', :name => 'some name'}
     end

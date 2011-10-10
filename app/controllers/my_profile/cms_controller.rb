@@ -285,7 +285,7 @@ class CmsController < MyProfileController
     @task = SuggestArticle.new(params[:task])
     if request.post?
        @task.target = profile
-      if @task.save
+      if verify_recaptcha(:model => @task, :message => _('Please type the words correctly')) && @task.save
         session[:notice] = _('Thanks for your suggestion. The community administrators were notified.')
         redirect_to @back_to
       end

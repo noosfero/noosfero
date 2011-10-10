@@ -20,7 +20,6 @@
 </h4>
 
 <% form_tag( url_for(@page.view_url.merge({:only_path => true})), { :class => 'comment_form' } ) do %>
-  <%= icaptcha_field() %>
   <%= hidden_field_tag(:confirm, 'false') %>
 
   <%= required_fields_message %>
@@ -29,7 +28,6 @@
 
     <%= required labelled_form_field(_('Name'), text_field(:comment, :name)) %>
     <%= required labelled_form_field(_('e-mail'), text_field(:comment, :email)) %>
-
     <p>
     <%= _('If you are a registered user, you can login and be automatically recognized.') %>
     </p>
@@ -39,8 +37,7 @@
   <%= required labelled_form_field(_('Title'), text_field(:comment, :title)) %>
   <%= required labelled_form_field(_('Enter your comment'), text_area(:comment, :body, :rows => 5)) %>
 
-  <%= required labelled_form_field(_("What is the result of '%s = ?'") % @comment.captcha.task, text_field(:comment, :captcha_solution)) %>
-  <%= hidden_field(:comment, :captcha_secret) %>
+  <%= recaptcha_tags(:display => { :theme => 'clean' }, :ajax => true) unless logged_in? %>
 
   <% button_bar do %>
     <%= submit_button('add', _('Post comment'), :onclick => "this.form.confirm.value = 'true'; this.disabled = true; this.form.submit(); return true;") %>
