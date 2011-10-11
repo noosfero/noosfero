@@ -1,4 +1,4 @@
-<h2><%= _('Ticket: %s') % @ticket.title %></h2>
+<h2><%= _('Ticket: %s') % @ticket.name %></h2>
 <p><small>
   <%= _('Created at %s by %s') % [@ticket.created_at.to_date, link_to(@ticket.requestor.name, @ticket.requestor.url)] %><br/>
   <%= _('Owner: %s') %  link_to(@ticket.target.name, @ticket.target.url) %>

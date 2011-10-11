@@ -6,8 +6,6 @@ class TaskTest < Test::Unit::TestCase
     ActionMailer::Base.delivery_method = :test
     ActionMailer::Base.perform_deliveries = true
     ActionMailer::Base.deliveries = []
-
-    TaskMailer.stubs(:deliver_task_created)
   end
 
   def test_relationship_with_requestor
@@ -99,6 +97,14 @@ class TaskTest < Test::Unit::TestCase
     task.save!
   end
 
+  should 'not notify if the task is hidden' do
+    task = Task.new(:status => Task::Status::HIDDEN)
+    task.requestor = sample_user
+
+    TaskMailer.expects(:deliver_task_created).never
+    task.save!
+  end
+
   should 'generate a random code before validation' do
     Task.expects(:generate_code)
     Task.new.valid?
@@ -156,6 +162,13 @@ class TaskTest < Test::Unit::TestCase
     task = Task.new
     task.stubs(:target_notification_message).returns('some non nil message to be sent to target')
     TaskMailer.expects(:deliver_target_notification).once
+    task.save!
+  end
+
+  should 'not send notification to target if the task is hidden' do
+    task = Task.new(:status => Task::Status::HIDDEN)
+    task.stubs(:target_notification_message).returns('some non nil message to be sent to target')
+    TaskMailer.expects(:deliver_target_notification).never
     task.save!
   end
 
@@ -235,6 +248,75 @@ class TaskTest < Test::Unit::TestCase
   should 'have blank string on target_notification_description in Task base class' do
     task = Task.new
     assert_equal '', task.target_notification_description
+  end
+
+  should 'activate task' do
+    task = Task.new(:status => Task::Status::HIDDEN)
+    task.activate
+    assert_equal Task::Status::ACTIVE, task.status
+  end
+
+  should 'notify just after the task is activated' do
+    task = Task.new(:status => Task::Status::HIDDEN)
+    task.requestor = sample_user
+
+    TaskMailer.expects(:deliver_task_activated).with(task)
+    task.activate
+  end
+
+  should 'send notification message to target just after task activation' do
+    task = Task.new(:status => Task::Status::HIDDEN)
+    task.save!
+    task.stubs(:target_notification_message).returns('some non nil message to be sent to target')
+    TaskMailer.expects(:deliver_target_notification).once
+    task.activate
+  end
+
+  should 'filter tasks to a profile' do
+    requestor = fast_create(Person)
+    person = fast_create(Person)
+    another_person = fast_create(Person)
+    environment = Environment.default
+    environment.add_admin(person)
+    t1 = Task.create(:requestor => requestor, :target => person)
+    t2 = Task.create(:requestor => requestor, :target => person)
+    t3 = Task.create(:requestor => requestor, :target => environment)
+    t4 = Task.create(:requestor => requestor, :target => another_person)
+
+    assert_includes Task.to(person), t1
+    assert_includes Task.to(person), t2
+    assert_includes Task.to(person), t3
+    assert_not_includes Task.to(person), t4
+    assert_includes Task.to(another_person), t4
+  end
+
+  should 'filter tasks by type with named_scope' do
+    class CleanHouse < Task; end
+    class FeedDog < Task; end
+    requestor = fast_create(Person)
+    target = fast_create(Person)
+    t1 = CleanHouse.create(:requestor => requestor, :target => target)
+    t2 = CleanHouse.create(:requestor => requestor, :target => target)
+    t3 = FeedDog.create(:requestor => requestor, :target => target)
+    type = t1.type
+
+    assert_includes Task.of(type), t1
+    assert_includes Task.of(type), t2
+    assert_not_includes Task.of(type), t3
+    assert_includes Task.of(nil), t3
+  end
+
+  should 'order tasks by some attribute correctly' do
+    Task.destroy_all
+    t1 = fast_create(Task, :status => 4, :created_at => 1)
+    t2 = fast_create(Task, :status => 3, :created_at => 2)
+    t3 = fast_create(Task, :status => 2, :created_at => 3)
+    t4 = fast_create(Task, :status => 1, :created_at => 4)
+
+    assert_equal [t1,t2,t3,t4], Task.order_by('created_at', 'asc')
+    assert_equal [t4,t3,t2,t1], Task.order_by('created_at', 'desc')
+    assert_equal [t1,t2,t3,t4], Task.order_by('status', 'desc')
+    assert_equal [t4,t3,t2,t1], Task.order_by('status', 'asc')
   end
 
   protected

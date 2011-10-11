@@ -120,18 +120,18 @@ class TasksControllerTest < Test::Unit::TestCase
 
   should 'create a ticket' do
     assert_difference Ticket, :count do
-      post :new, :profile => profile.identifier, :ticket => {:title => 'test ticket'}
+      post :new, :profile => profile.identifier, :ticket => {:name => 'test ticket'}
     end
   end
 
   should 'create a ticket with profile requestor' do
-    post :new, :profile => profile.identifier, :ticket => {:title => 'new task'} 
+    post :new, :profile => profile.identifier, :ticket => {:name => 'new task'}
     
     assert_equal profile, assigns(:ticket).requestor
   end
 
   should 'list tasks that this profile created' do
-    task = Ticket.create!(:title => 'test', :requestor => profile)
+    task = Ticket.create!(:name => 'test', :requestor => profile)
     get :list_requested, :profile => profile.identifier
 
     assert_includes assigns(:tasks), task
@@ -141,7 +141,7 @@ class TasksControllerTest < Test::Unit::TestCase
      f = create_user('friend').person
      profile.add_friend f
 
-     post :new, :profile => profile.identifier, :ticket => {:title => 'test ticket', :target_id => f.id, :target_type => 'Profile'}
+     post :new, :profile => profile.identifier, :ticket => {:name => 'test ticket', :target_id => f.id, :target_type => 'Profile'}
      assert_response :redirect
 
      assert_equal f, assigns(:ticket).target
@@ -296,5 +296,45 @@ class TasksControllerTest < Test::Unit::TestCase
 
     task.reload
     assert_equal Task::Status::CANCELLED, task.status
+  end
+
+  should 'filter tasks by type' do
+    class CleanHouse < Task; end
+    class FeedDog < Task; end
+    Task.stubs(:per_page).returns(3)
+    requestor = fast_create(Person)
+    t1 = CleanHouse.create!(:requestor => requestor, :target => profile)
+    t2 = CleanHouse.create!(:requestor => requestor, :target => profile)
+    t3 = FeedDog.create!(:requestor => requestor, :target => profile)
+
+    post :index, :filter_type => t1.type
+
+    assert_includes assigns(:tasks), t1
+    assert_includes assigns(:tasks), t2
+    assert_not_includes assigns(:tasks), t3
+
+    post :index
+
+    assert_includes assigns(:tasks), t1
+    assert_includes assigns(:tasks), t2
+    assert_includes assigns(:tasks), t3
+  end
+
+  should 'return tasks ordered accordingly and limited by pages' do
+    time = Time.now
+    person = fast_create(Person)
+    t1 = Task.create!(:status => Task::Status::ACTIVE, :target => profile, :requestor => person, :created_at => time)
+    t2 = Task.create!(:status => Task::Status::ACTIVE, :target => profile, :requestor => person, :created_at => time + 1.second)
+    t3 = Task.create!(:status => Task::Status::ACTIVE, :target => profile, :requestor => person, :created_at => time + 2.seconds)
+    t4 = Task.create!(:status => Task::Status::ACTIVE, :target => profile, :requestor => person, :created_at => time + 3.seconds)
+
+    Task.stubs(:per_page).returns(2)
+
+    post :index, :page => 1
+    assert_equal [t1,t2], assigns(:tasks)
+
+    Task.stubs(:per_page).returns(3)
+    post :index, :page => 2
+    assert_equal [t4], assigns(:tasks)
   end
 end

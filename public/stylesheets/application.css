@@ -152,7 +152,7 @@ div#notice {
 
   width: 300px;
   min-height: 60px;
-  position: absolute;
+  position: fixed;
   top: 30px;
   right: 30px;
 }
@@ -1009,6 +1009,11 @@ code input {
 #article-actions {
   margin-bottom: 5px;
   width: 100%;
+  text-align: left;
+}
+
+#article-actions a{
+  white-space: nowrap;
 }
 
 #article-tags {
@@ -1259,19 +1264,19 @@ a.comment-picture {
   padding: 7px 1px 3px 5px;
 }
 
-#article .comment-reply-link {
+#article .comment-footer {
   font-size: 10px;
   text-decoration: none;
   color: #000;
 }
 
 #profile-activity .profile-activity-send-message a:hover, #profile-network .profile-network-send-message a:hover, #profile-wall .profile-wall-send-message a:hover,
-#article .comment-reply-link:hover {
+#article .comment-footer-link:hover {
   text-decoration: underline;
 }
 
-#article .opened .comment-reply-link {
-  visibility: hidden;
+#article .opened .comment-footer-hide {
+  display: none;
 }
 
 .comment_form div.fieldWithErrors input {
@@ -4763,12 +4768,9 @@ h1#agenda-title {
   padding: 0px;
 }
 
-.controller-tasks #content .task-list li {
-  margin: 10px 0px;
-  list-style: none;
-  border: 1px solid #BFC2BC;
-  padding-left:1em;
-  padding-right:1em;
+.controller-tasks #content .task-list ul {
+  padding-left: 0px;
+  list-style-type: none;
 }
 
 /* ==> public/stylesheets/controller_themes.css <== */
@@ -6135,6 +6137,38 @@ h1#agenda-title {
 
 #user a#pending-tasks-count {
   color: #FFFFFF;
+}
+
+/* Abuse report */
+
+.abuse-report-details {
+  background-color: #fff;
+  border-radius: 15px;
+  padding: 10px;
+  margin-top: 5px;
+}
+
+.display-abuse-report-details {
+  float: right;
+  margin-top: -30px;
+}
+
+#content a.report-abuse-action.disabled {
+  cursor: default;
+  text-decoration: none;
+  color: #999;
+}
+
+#content a.button.report-abuse-action.disabled:hover {
+  background-color: #eee;
+  color: #999;
+  border: solid 1px #ccc;
+}
+
+#article-actions a.button.report-abuse-action.disabled:hover {
+  border: none;
+  background-color: transparent;
+  color: #999;
 }
 
 /* Captcha */

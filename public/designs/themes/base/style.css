@@ -1299,3 +1299,9 @@ table.profile th {
 #chat-window .history .other-name {
    color: #7F1F1F;
 }
+
+/* recaptcha*/
+
+table#recaptcha_table tr:hover td {
+  background-color: #fff;
+}

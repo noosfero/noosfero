@@ -3,12 +3,13 @@ class TasksController < MyProfileController
   protect 'perform_task', :profile
   
   def index
-    @tasks = profile.all_pending_tasks.sort_by(&:created_at)
+    @filter = params[:filter_type].blank? ? nil : params[:filter_type]
+    @tasks = Task.to(profile).pending.of(@filter).order_by('created_at', 'asc').paginate(:per_page => Task.per_page, :page => params[:page])
     @failed = params ? params[:failed] : {}
   end
 
   def processed
-    @tasks = profile.all_finished_tasks.sort_by(&:created_at)
+    @tasks = Task.to(profile).finished.sort_by(&:created_at)
   end
 
   VALID_DECISIONS = [ 'finish', 'cancel', 'skip' ]

@@ -9,6 +9,7 @@ class AdminPanelController < AdminController
   def site_info
     if request.post?
       if @environment.update_attributes(params[:environment])
+        session[:notice] = _('Environment settings updated')
         redirect_to :action => 'index'
       end
     end

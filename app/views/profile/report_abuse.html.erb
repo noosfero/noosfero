@@ -1,0 +1,47 @@
+<% form_for @abuse_report, :url => {:action => 'register_report'},
+                           :html => {:onsubmit => "return send_request(this)", :id => 'report-abuse-form'} do |f| %>
+  <%= labelled_form_field('* ' + _('Report reasons'), f.text_area(:reason, :rows => 6, :cols => 60, :class => 'required')) %>
+  <%= hidden_field_tag(:content_type, params[:content_type]) %>
+  <%= hidden_field_tag(:content_id, params[:content_id]) %>
+
+  <p><%= recaptcha_tags :ajax => true, :display => {:theme => 'clean'} %> </p>
+
+  <%= submit_button(:ok, _('Report profile'), :style => 'margin-top: 10px; float: left; cursor: pointer;', :id => 'report-abuse-submit-button', :onclick => "jQuery('#form-submit-loading').show()") %>
+  <div id="form-submit-loading" class="small-loading" style="width: 16px; height: 16px; margin-top: 13px; float: left; display: none;"></div>
+<% end %>
+
+<script type="text/javascript">
+//<![CDATA[
+  var $ = jQuery;
+  $(document).ready(function(){
+    $("#report-abuse-form").validate();
+  });
+
+  var send_request = function(form){
+    $('#report-abuse-submit-button').css('cursor', 'progress');
+    $.ajax({
+      type: 'POST',
+      url: <%= url_for({:controller => 'profile', :action => 'register_report', :profile => profile.identifier}).to_json %>,
+      data: $(form).serialize(),
+      dataType: 'json',
+      success: function(data, status, ajax){
+        if ( !data.ok ) display_notice(data.error.message);
+        else {
+          $.colorbox.close();
+          display_notice(data.message);
+          window.location.reload();
+        }
+      },
+      cache: false,
+      error: function(ajax, status, errorThrown) {
+        alert('Send request - HTTP '+status+': '+errorThrown);
+      },
+      complete: function(){
+        $('#report-abuse-submit-button').css('cursor', 'pointer');
+        $('#form-submit-loading').hide();
+      }
+    });
+    return false;
+  }
+//]]>
+</script>

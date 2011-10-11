@@ -98,6 +98,7 @@
 .icon-locale           { background-image: url(Tango/16x16/apps/preferences-desktop-locale.png) }
 .icon-user-removed           { background-image: url(Tango/16x16/actions/gtk-cancel.png) }
 .icon-user-unknown           { background-image: url(Tango/16x16/status/dialog-error.png) }
+.icon-alert           { background-image: url(Tango/16x16/status/dialog-warning.png) }
 
 /******************LARGE ICONS********************/
 .image-gallery-item .folder { background-image: url(mod/96x96/places/folder.png) }

@@ -1,0 +1,10 @@
+<script>
+  jQuery(function($){
+    $("#task-<%= task.id %> input.task_reject_radio").unbind('click').click(function(){
+      task_id = this.getAttribute("task_id");
+      $('#on-accept-information-' + task_id).show('fast');
+      $('#on-reject-information-' + task_id).hide('fast');
+      $('#on-skip-information-'   + task_id).hide('fast');
+    });
+  }); 
+</script>

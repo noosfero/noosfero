@@ -1258,7 +1258,7 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     comment.save!
     login_as 'testuser'
     get :view_page, :profile => 'testuser', :page => [ 'test' ]
-    assert_tag :tag => 'a', :attributes => { :class => /comment-reply-link/ }
+    assert_tag :tag => 'a', :attributes => { :class => /comment-footer-link/ }, :content => 'Reply'
   end
 
   should 'display reply to comment button if not authenticated' do
@@ -1268,7 +1268,7 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     comment = article.comments.build(:author => profile, :title => 'a comment', :body => 'lalala')
     comment.save!
     get :view_page, :profile => 'testuser', :page => [ 'test' ]
-    assert_tag :tag => 'a', :attributes => { :class => /comment-reply-link/ }
+    assert_tag :tag => 'a', :attributes => { :class => /comment-footer-link/ }, :content => 'Reply'
   end
 
   should 'display replies if comment has replies' do

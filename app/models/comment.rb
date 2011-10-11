@@ -98,6 +98,16 @@ class Comment < ActiveRecord::Base
     root
   end
 
+  include ApplicationHelper
+  def reported_version(options = {})
+    comment = self
+    lambda { render_to_string(:partial => 'shared/reported_versions/comment', :locals => {:comment => comment}) }
+  end
+
+  def to_html(option={})
+    body || ''
+  end
+
   class Notifier < ActionMailer::Base
     def mail(comment)
       profile = comment.article.profile

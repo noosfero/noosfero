@@ -164,33 +164,18 @@ class Profile < ActiveRecord::Base
 
   has_many :events, :source => 'articles', :class_name => 'Event', :order => 'name'
 
-  %w[ pending finished ].each do |status|
-    class_eval <<-CODE
-      def all_#{status}_tasks
-        env_tasks = []
-        if self.person?
-          env_tasks = Environment.find(:all).select{ |env| self.is_admin?(env) }.map{ |env| env.tasks.#{status} }.flatten
-        end
-        tasks.#{status} + env_tasks
-      end
-    CODE
-  end
-
   def find_in_all_tasks(task_id)
-    if tasks.exists?(task_id)
-      return tasks.find(task_id)
-    else
-      if self.person?
-        environments_admin = Environment.find(:all).select{ |env| self.is_admin?(env) }
-        task = environments_admin.select{ |env| env.tasks.exists?(task_id) }.map{ |i| i.tasks.find(task_id) }
-        return task.first unless task.empty?
-      end
+    begin
+      Task.to(self).find(task_id)
+    rescue
+      nil
     end
-    return nil
   end
 
   has_many :profile_categorizations, :conditions => [ 'categories_profiles.virtual = ?', false ]
   has_many :categories, :through => :profile_categorizations
+
+  has_many :abuse_complaints, :foreign_key => 'requestor_id'
 
   def interests
     categories.select {|item| !item.is_a?(Region)}
@@ -814,6 +799,18 @@ private :generate_url, :url_options
     else
       url == '/' + self.identifier
     end
+  end
+
+  def opened_abuse_complaint
+    abuse_complaints.opened.first
+  end
+
+  def disable
+    self.visible = false
+    user.password = Digest::SHA1.hexdigest("--#{Time.now.to_s}--#{identifier}--")
+    user.password_confirmation = user.password
+    save!
+    user.save!
   end
 
   def control_panel_settings_button

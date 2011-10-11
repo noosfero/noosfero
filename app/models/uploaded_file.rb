@@ -136,4 +136,8 @@ class UploadedFile < Article
   def gallery?
     self.parent && self.parent.folder? && self.parent.gallery?
   end
+
+  def uploaded_file?
+    true
+  end
 end

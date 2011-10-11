@@ -11,6 +11,15 @@
 
 ActiveRecord::Schema.define(:version => 20111004184104) do
 
+  create_table "abuse_reports", :force => true do |t|
+    t.integer  "reporter_id"
+    t.integer  "abuse_complaint_id"
+    t.text     "content"
+    t.text     "reason"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "action_tracker", :force => true do |t|
     t.integer  "user_id"
     t.string   "user_type"
@@ -240,6 +249,7 @@ ActiveRecord::Schema.define(:version => 20111004184104) do
     t.text     "terms_of_use_acceptance_text"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "reports_lower_bound",          :default => 0,         :null => false
   end
 
   create_table "external_feeds", :force => true do |t|
@@ -404,6 +414,15 @@ ActiveRecord::Schema.define(:version => 20111004184104) do
   create_table "region_validators", :id => false, :force => true do |t|
     t.integer "region_id"
     t.integer "organization_id"
+  end
+
+  create_table "reported_images", :force => true do |t|
+    t.integer "size"
+    t.string  "content_type"
+    t.string  "filename"
+    t.integer "height"
+    t.integer "width"
+    t.integer "abuse_report_id"
   end
 
   create_table "role_assignments", :force => true do |t|

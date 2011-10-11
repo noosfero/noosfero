@@ -1183,6 +1183,26 @@ class EnvironmentTest < Test::Unit::TestCase
     assert_equal env.settings[:string_key], 'new value'
   end
 
+  should 'validate reports_lower_bound' do
+    environment = Environment.new
+
+    environment.reports_lower_bound = nil
+    environment.valid?
+    assert environment.errors.invalid?(:reports_lower_bound)
+
+    environment.reports_lower_bound = -3
+    environment.valid?
+    assert environment.errors.invalid?(:reports_lower_bound)
+
+    environment.reports_lower_bound = 1.5
+    environment.valid?
+    assert environment.errors.invalid?(:reports_lower_bound)
+
+    environment.reports_lower_bound = 5
+    environment.valid?
+    assert !environment.errors.invalid?(:reports_lower_bound)
+  end
+
   should 'be able to enable or disable a plugin' do
     environment = Environment.default
     plugin = 'Plugin'

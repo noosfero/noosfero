@@ -207,7 +207,11 @@ module ApplicationHelper
       the_class << ' ' << html_options[:class]
     end
     the_title = html_options[:title] || label
-    link_to('&nbsp;'+content_tag('span', label), url, html_options.merge(:class => the_class, :title => the_title))
+    if html_options[:disabled]
+      content_tag('a', '&nbsp;'+content_tag('span', label), html_options.merge(:class => the_class, :title => the_title))
+    else
+      link_to('&nbsp;'+content_tag('span', label), url, html_options.merge(:class => the_class, :title => the_title))
+    end
   end
 
   def button_to_function(type, label, js_code, html_options = {}, &block)
@@ -264,13 +268,14 @@ module ApplicationHelper
     search_name = String.new(name)
     if search_name.include?("/")
       search_name.gsub!(/(\/)([^\/]*)$/,'\1_\2')
-      name = File.join(params[:controller], name)
+      name = File.join(params[:controller], name) if defined?(params) && params[:controller]
     else
       search_name = "_" + search_name
     end
 
     VIEW_EXTENSIONS.each do |ext|
-      return name if File.exists?(File.join(view_path, params[:controller], search_name+ext))
+      path = defined?(params) && params[:controller] ? File.join(view_path, params[:controller], search_name+ext) : File.join(view_path, search_name+ext)
+      return name if File.exists?(File.join(path))
     end
 
     partial_for_class_in_view_path(klass.superclass, view_path)
@@ -980,6 +985,7 @@ module ApplicationHelper
       'thickbox',
       'lightbox',
       'colorpicker',
+      colorbox_stylesheet_path,
       pngfix_stylesheet_path,
     ] +
     tokeninput_stylesheets
@@ -992,6 +998,10 @@ module ApplicationHelper
 
   def pngfix_stylesheet_path
     'iepngfix/iepngfix.css'
+  end
+
+  def colorbox_stylesheet_path
+    'colorbox/colorbox.css'
   end
 
   def tokeninput_stylesheets
@@ -1151,8 +1161,9 @@ module ApplicationHelper
 
   def usermenu_logged_in
     pending_tasks_count = ''
-    if user && user.all_pending_tasks.count > 0
-      pending_tasks_count = link_to(user.all_pending_tasks.count.to_s, @environment.top_url + '/myprofile/{login}/tasks', :id => 'pending-tasks-count', :title => _("Manage your pending tasks"))
+    count = user ? Task.to(user).pending.count : -1
+    if count > 0
+      pending_tasks_count = link_to(count.to_s, @environment.top_url + '/myprofile/{login}/tasks', :id => 'pending-tasks-count', :title => _("Manage your pending tasks"))
     end
 
     (_('Welcome, %s') % link_to('<i></i><strong>{login}</strong>', @environment.top_url + '/{login}', :id => "homepage-link", :title => _('Go to your homepage'))) +
@@ -1261,4 +1272,35 @@ module ApplicationHelper
     render :partial => 'shared/dialog_error_messages', :locals => { :object_name => instance_name }
   end
 
+  def report_abuse(profile, type, content=nil)
+    return if !user || user == profile
+
+    url = { :controller => 'profile',
+            :action => 'report_abuse',
+            :profile => profile.identifier }
+    url.merge!({:content_type => content.class.name, :content_id => content.id}) if content
+    text = content_tag('span', _('Report abuse'))
+    klass = 'report-abuse-action'
+    already_reported_message = _('You already reported this profile.')
+    report_profile_message = _('Report this profile for abusive behaviour')
+
+    if type == :button
+      if user.already_reported?(profile)
+        button(:alert, text, url, :class => klass+' disabled', :disabled => true, :title => already_reported_message)
+      else
+        button(:alert, text, url, :class => klass, :title => report_profile_message)
+      end
+    elsif type == :link
+      if user.already_reported?(profile)
+        content_tag('a', text, :class => klass + ' disabled button with-text icon-alert', :title => already_reported_message)
+      else
+        link_to(text, url, :class => klass + ' button with-text icon-alert', :title => report_profile_message)
+      end
+    elsif type == :comment_link
+      (user.already_reported?(profile) ?
+        content_tag('a', text, :class => klass + ' disabled comment-footer comment-footer-link', :title => already_reported_message) :
+        link_to(text, url, :class => klass + ' comment-footer comment-footer-link', :title => report_profile_message)
+      ) + content_tag('span', ' | ', :class => 'comment-footer comment-footer-hide')
+    end
+  end
 end

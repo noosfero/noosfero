@@ -1259,7 +1259,7 @@ class ProfileTest < Test::Unit::TestCase
     task = Task.create!(:requestor => person, :target => env)
 
     Person.any_instance.stubs(:is_admin?).returns(true)
-    assert_equal [task], person.all_pending_tasks
+    assert_equal [task], Task.to(person).pending
   end
 
   should 'find task from environment if is admin' do
@@ -1283,7 +1283,7 @@ class ProfileTest < Test::Unit::TestCase
 
     Person.any_instance.stubs(:is_admin?).returns(true)
 
-    assert_equal [task1, task2], person.all_pending_tasks
+    assert_equal [task1, task2], Task.to(person).pending
   end
 
   should 'find task by id on all environments' do
