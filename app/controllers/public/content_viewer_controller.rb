@@ -119,7 +119,7 @@ class ContentViewerController < ApplicationController
   def add_comment
     @comment.author = user if logged_in?
     @comment.article = @page
-    if (@comment.reply_of_id || verify_recaptcha(:model => @comment, :message => _('Please type the words correctly'))) && @comment.save
+    if (logged_in? || @comment.reply_of_id || verify_recaptcha(:model => @comment, :message => _('Please type the words correctly'))) && @comment.save
       @page.touch
       @comment = nil # clear the comment form
       redirect_to :action => 'view_page', :profile => params[:profile], :page => @page.explode_path, :view => params[:view]
