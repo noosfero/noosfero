@@ -150,10 +150,6 @@ class TextileArticleTest < Test::Unit::TestCase
     assert_tag_in_string build_article('"Noosfero":http://noosfero.org/').to_html, :tag => 'a', :attributes => { :href => 'http://noosfero.org/' }
   end
 
-  should 'generate proper HTML for > symbols' do
-    assert_match /^sqlite&gt;$/, build_article('  sqlite>').to_html
-  end
-
   should 'not mess up with textile markup' do
     assert_equal '  sqlite> stuff', build_article('  sqlite> stuff').body
     noosfero_cool = '"Noosfero":http://noosfero.org/ is a very cool project'
