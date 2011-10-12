@@ -25,9 +25,11 @@ class ProfileMembersController < MyProfileController
         session[:notice] = _('Couldn\'t change the roles')
         redirect_to :action => 'index'
       end
+    else
+      redirect_to :action => 'index'
     end
   end
-  
+
   def last_admin
     @roles = [Profile::Roles.admin(environment.id)]
     @pre_population = [].to_json
