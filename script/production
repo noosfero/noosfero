@@ -2,6 +2,10 @@
 
 set -e
 
+if [ -e /etc/default/noosfero ]; then
+  . /etc/default/noosfero
+fi
+
 export RAILS_ENV=production
 
 ACTION=$1
@@ -9,8 +13,13 @@ shift
 
 clear_cache() {
   if test -w ./public; then
+    echo "Cleaning cache files"
     rm -f ./public/javascripts/cache-*.js
     rm -f ./public/stylesheets/cache.css
+  elif [ ! -z "$NOOSFERO_DATA_DIR" ] && [ -w "$NOOSFERO_DATA_DIR" ]; then
+    echo "Cleaning cache files"
+    rm -f $NOOSFERO_DATA_DIR/cache/cache-*.js
+    rm -f $NOOSFERO_DATA_DIR/cache/cache.css
   fi
 }
 
