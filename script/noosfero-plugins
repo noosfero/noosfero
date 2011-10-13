@@ -5,7 +5,7 @@ set -e
 program_name=$(basename $0)
 
 if [ -e /etc/default/noosfero ]; then
-  . /etc/default/noosfero_dir
+  . /etc/default/noosfero
 else
   NOOSFERO_DIR=$(readlink -f `dirname $0`/..)
 fi
