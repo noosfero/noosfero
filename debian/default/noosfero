@@ -1,2 +1,3 @@
 NOOSFERO_DIR="/usr/share/noosfero"
 NOOSFERO_USER="noosfero"
+NOOSFERO_DATA_DIR="/var/lib/noosfero-data"
