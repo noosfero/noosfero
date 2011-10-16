@@ -1,3 +1,9 @@
+noosfero (0.33.1) unstable; urgency=low
+
+  * Bugfixes version release.
+
+ -- Joenio Costa <joenio@perl.org.br>  Sun, 16 Oct 2011 15:34:25 -0300
+
 noosfero (0.33.0) unstable; urgency=low
 
   * Features version release
