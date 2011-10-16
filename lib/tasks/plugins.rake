@@ -2,7 +2,7 @@ ActiveRecord::SchemaDumper.ignore_tables << /_plugin_/
 
 namespace :noosfero do
   namespace :plugins do
-    plugin_migration_dirs = Dir.glob(File.join(Rails.root, 'config', 'plugins', '*', 'db', 'migrate'))
+    plugin_migration_dirs = Dir.glob(File.join(Rails.root, 'plugins', '*', 'db', 'migrate'))
     task :migrate do
       plugin_migration_dirs.each do |path|
         ActiveRecord::Migrator.migrate(path, ENV["VERSION"] ? ENV["VERSION"].to_i : nil)
