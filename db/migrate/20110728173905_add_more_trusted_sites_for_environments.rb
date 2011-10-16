@@ -4,7 +4,7 @@ class AddMoreTrustedSitesForEnvironments < ActiveRecord::Migration
     Environment.all.each do |env|
       env.trusted_sites_for_iframe += default_sites
       env.trusted_sites_for_iframe.uniq!
-      env.save!
+      env.save_without_validation
     end
   end
 
