@@ -84,6 +84,17 @@ class BscPlugin < Noosfero::Plugin
     end
   end
 
+  def manage_products_controller_filters
+    if bsc?(profile)
+      [{  :type => 'before_filter',
+          :method_name => 'manage_products_bsc_destroy_access',
+          :options => {:only => :destroy},
+          :block => lambda { render_access_denied } }]
+    else
+      []
+    end
+  end
+
   def asset_product_properties(product)
     properties = []
     properties << { :name => _('Bsc'), :content => lambda { link_to(product.bsc.name, product.bsc.url) } } if product.bsc
