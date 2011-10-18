@@ -31,13 +31,7 @@ class ShoppingCartPlugin < Noosfero::Plugin
   end
 
   def js_files
-    language = FastGettext.locale
-    [ 'cart.js',
-      'colorbox/jquery.colorbox.js',
-      'jquery-validation/jquery.validate.js',
-      'jquery-validation/localization/messages_'+language+'.js',
-      'jquery-validation/localization/methods_'+language+'.js'
-    ]
+    'cart.js'
   end
 
   def body_beginning
