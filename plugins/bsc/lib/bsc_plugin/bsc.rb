@@ -2,6 +2,7 @@ class BscPlugin::Bsc < Enterprise
 
   has_many :enterprises
   has_many :enterprise_requests, :class_name => 'BscPlugin::AssociateEnterprise'
+  has_many :products, :finder_sql => 'select * from products where enterprise_id in (#{enterprises.map(&:id).join(",")})'
 
   validates_presence_of :nickname
   validates_presence_of :company_name
@@ -24,11 +25,6 @@ class BscPlugin::Bsc < Enterprise
 
   def control_panel_settings_button
     {:title => _('Bsc info and settings'), :icon => 'edit-profile-enterprise'}
-  end
-
-  def products(reload_flag=false)
-    reload if reload_flag
-    enterprises.map { |enterprise| enterprise.products }.flatten
   end
 
   def create_product?
