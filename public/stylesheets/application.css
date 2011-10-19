@@ -6197,3 +6197,9 @@ h1#agenda-title {
 .comment_reply .recaptcha_image_cell {
   background: transparent !important;
 }
+
+/* Colorbox */
+
+#cboxClose {
+  display: none !important;
+}

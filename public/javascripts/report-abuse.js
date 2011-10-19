@@ -3,7 +3,7 @@ jQuery(function($) {
     if($(this).attr('href')){
       $.fn.colorbox({
         href: $(this).attr('href'),
-        innerHeight: '310px',
+        innerHeight: '300px',
         innerWidth: '445px'
       });
     }

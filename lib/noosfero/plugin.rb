@@ -65,6 +65,11 @@ class Noosfero::Plugin
     end
   end
 
+  def expanded_template(file_path, locals = {})
+    views_path = "#{RAILS_ROOT}/plugins/#{self.class.public_name}/views"
+    ERB.new(File.read("#{views_path}/#{file_path}")).result(binding)
+  end
+
   # Here the developer may specify the events to which the plugins can
   # register and must return true or false. The default value must be false.
 

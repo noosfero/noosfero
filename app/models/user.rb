@@ -114,7 +114,7 @@ class User < ActiveRecord::Base
     self.activated_at = Time.now.utc
     self.activation_code = nil
     self.person.visible = true
-    self.person.save && self.save
+    self.person.save! && self.save
   end
 
   def activated?
