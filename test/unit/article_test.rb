@@ -1562,4 +1562,78 @@ class ArticleTest < Test::Unit::TestCase
     end
   end
 
+  should 'find more recent contents' do
+    Article.delete_all
+
+    c1 = fast_create(TinyMceArticle, :name => 'Testing article 1', :body => 'Article body 1', :profile_id => profile.id, :created_at => DateTime.now - 4)
+    c2 = fast_create(TinyMceArticle, :name => 'Testing article 2', :body => 'Article body 2', :profile_id => profile.id, :created_at => DateTime.now - 1)
+    c3 = fast_create(TinyMceArticle, :name => 'Testing article 3', :body => 'Article body 3', :profile_id => profile.id, :created_at => DateTime.now - 3)
+
+    assert_equal [c2,c3,c1] , Article.more_recent
+
+    c4 = fast_create(TinyMceArticle, :name => 'Testing article 4', :body => 'Article body 4', :profile_id => profile.id, :created_at => DateTime.now - 2)
+    assert_equal [c2,c4,c3,c1] , Article.more_recent
+  end
+
+  should 'respond to more comments' do
+    assert_respond_to Article, :more_comments
+  end
+
+  should 'respond to more views' do
+    assert_respond_to Article, :more_views
+  end
+
+  should "return the more recent label" do
+    a = Article.new
+    assert_equal "Created at: ", a.more_recent_label
+  end
+
+  should "return no comments if profile has 0 comments" do
+    a = Article.new
+    assert_equal 0, a.comments_count
+    assert_equal "no comments", a.more_comments_label
+  end
+
+  should "return 1 comment on label if the content has 1 comment" do
+    a = Article.new(:comments_count => 1)
+    assert_equal 1, a.comments_count
+    assert_equal "one comment", a.more_comments_label
+  end
+
+  should "return number of comments on label if the content has more than one comment" do
+    a = Article.new(:comments_count => 4)
+    assert_equal 4, a.comments_count
+    assert_equal "4 comments", a.more_comments_label
+  end
+
+  should "return no views if profile has 0 views" do
+    a = Article.new
+    assert_equal 0, a.hits
+    assert_equal "no views", a.more_views_label
+  end
+
+  should "return 1 view on label if the content has 1 view" do
+    a = Article.new(:hits => 1)
+    assert_equal 1, a.hits
+    assert_equal "one view", a.more_views_label
+  end
+
+  should "return number of views on label if the content has more than one view" do
+    a = Article.new(:hits => 4)
+    assert_equal 4, a.hits
+    assert_equal "4 views", a.more_views_label
+  end
+
+  should 'return only text articles' do
+    Article.delete_all
+
+    c1 = fast_create(TinyMceArticle, :name => 'Testing article 1', :body => 'Article body 1', :profile_id => profile.id)
+    c2 = fast_create(TextArticle, :name => 'Testing article 2', :body => 'Article body 2', :profile_id => profile.id)
+    c3 = fast_create(Event, :name => 'Testing article 3', :body => 'Article body 3', :profile_id => profile.id)
+    c4 = fast_create(RssFeed, :name => 'Testing article 4', :body => 'Article body 4', :profile_id => profile.id)
+    c5 = fast_create(TextileArticle, :name => 'Testing article 5', :body => 'Article body 5', :profile_id => profile.id)
+
+    assert_equal [c1,c2,c5], Article.text_articles
+  end
+
 end

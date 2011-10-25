@@ -1134,6 +1134,17 @@ module ApplicationHelper
     link_to(content_tag(:span, _('Communities Menu')), '#', :onclick => "toggleSubmenu(this,'',#{links.to_json}); return false", :class => 'menu-submenu-trigger up', :id => 'submenu-communities-trigger')
   end
 
+  def browse_contents_menu
+     links = [
+       {s_('contents|More Comments') => {:href => url_for({:controller => 'browse', :action => 'contents', :filter => 'more_comments'})}},
+       {s_('contents|More Views') => {:href => url_for({:controller => 'browse', :action => 'contents', :filter => 'more_views'})}},
+       {s_('contents|More Recent') => {:href => url_for({:controller => 'browse', :action => 'contents', :filter => 'more_recent'})}}
+     ]
+
+    link_to(content_tag(:span, _('Contents'), :class => 'icon-blog'), {:controller => "browse", :action => 'contents'}, :id => 'submenu-contents') +
+    link_to(content_tag(:span, _('Contents Menu')), '#', :onclick => "toggleSubmenu(this,'',#{links.to_json}); return false", :class => 'menu-submenu-trigger up', :id => 'submenu-contents-trigger')
+  end
+
   def pagination_links(collection, options={})
     options = {:prev_label => '&laquo; ' + _('Previous'), :next_label => _('Next') + ' &raquo;'}.merge(options)
     will_paginate(collection, options)

@@ -4503,21 +4503,28 @@ h1#agenda-title {
 }
 
 .controller-search #content .search-results-type-article li,
-.controller-search #content .search-results-type-event li {
+.controller-search #content .search-results-type-event li,
+.controller-browse #content li.browse-results-type-content {
   padding: 0px 0px 4px 20px;
   background-repeat: no-repeat;
   border-color: transparent;
 }
 
 .controller-search #content .search-results-type-article li:hover,
-.controller-search #content .search-results-type-event li:hover {
+.controller-search #content .search-results-type-event li:hover,
+.controller-browse #content li.browse-results-type-content:hover {
   background-color: transparent;
 }
 
 .controller-search .search-results-type-article .item_meta,
-.controller-search .search-results-type-event .item_meta {
+.controller-search .search-results-type-event .item_meta,
+.controller-browse .browse-results-type-content .item_meta {
   font-size: 10px;
   color: #888;
+}
+
+.controller-browse .browse-results-type-content .item_meta span {
+  width: auto;
 }
 
 .search-results-type-article.search-results-innerbox {

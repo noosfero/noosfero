@@ -19,7 +19,10 @@ class BrowseControllerTest < Test::Unit::TestCase
     user.stubs(:email).returns('some@test.com')
     user.stubs(:save!).returns(true)
     Person.any_instance.stubs(:user).returns(user)
+    @profile = create_user('testinguser').person
+    Article.destroy_all
   end
+  attr_reader :profile
 
   should 'search for people' do
     Person.delete_all
@@ -272,6 +275,100 @@ class BrowseControllerTest < Test::Unit::TestCase
     p1 = fast_create(Community, :visible => false)
     get :communities, :filter => 'more_recent'
     assert_not_includes assigns(:results), p1
+  end
+
+  should 'search for contents' do
+    small = create(TinyMceArticle, :name => 'Testing article', :body => 'A small article for testing', :profile => profile)
+    create(TinyMceArticle, :name => 'Testing article 2', :body => 'A big article for testing', :profile => profile)
+
+    get :contents, :query => 'small'
+    assert_equal [small], assigns(:results)
+  end
+
+  should 'list all contents ordered by more recent by default' do
+    c1 = create(TinyMceArticle, :name => 'Testing article 1', :body => 'Article body 1', :profile => profile, :created_at => DateTime.now - 2)
+    c2 = create(TinyMceArticle, :name => 'Testing article 2', :body => 'Article body 2', :profile => profile, :created_at => DateTime.now - 1)
+    c3 = create(TinyMceArticle, :name => 'Testing article 3', :body => 'Article body 3', :profile => profile)
+
+    get :contents
+    assert_equal [c3,c2,c1], assigns(:results)
+  end
+
+  should 'paginate search of contents in groups of 27' do
+    1.upto(30).map do |n|
+      create(TinyMceArticle, :name => "Testing article #{n}", :body => "Article body #{n}", :profile => profile)
+    end
+
+    get :contents
+    assert_equal 27 , assigns(:results).count
+    assert_tag :a, '', :attributes => {:class => 'next_page'}
+  end
+
+  should 'paginate ferret search of contents in groups of 27' do
+    1.upto(30).map do |n|
+      create(TinyMceArticle, :name => "Testing article #{n}", :body => "Article body #{n}", :profile => profile)
+    end
+
+    get :contents, :query => 'Testing'
+    assert_equal 27 , assigns(:results).count
+    assert_tag :a, '', :attributes => {:class => 'next_page'}
+  end
+
+  should 'list all contents filter by more comments' do
+    article1 = fast_create(TinyMceArticle, :body => '<p>Article to test browse contents', :profile_id => profile.id, :comments_count => 5)
+    article2 = fast_create(TinyMceArticle, :body => '<p>Another article to test browse contents</p>', :profile_id => profile.id, :comments_count => 10)
+    article3 = fast_create(TinyMceArticle, :body => '<p>Another article to test browse contents</p>', :profile_id => profile.id, :comments_count => 1)
+
+    get :contents, :filter => 'more_comments'
+    assert_equal [article2,article1,article3] , assigns(:results)
+  end
+
+  should 'list all contents filter by more views' do
+    article1 = fast_create(TinyMceArticle, :body => '<p>Article to test browse contents', :profile_id => profile.id, :hits => 5)
+    article2 = fast_create(TinyMceArticle, :body => '<p>Another article to test browse contents</p>', :profile_id => profile.id, :hits => 10)
+    article3 = fast_create(TinyMceArticle, :body => '<p>Another article to test browse contents</p>', :profile_id => profile.id, :hits => 1)
+
+    get :contents, :filter => 'more_views'
+    assert_equal [article2,article1,article3], assigns(:results)
+  end
+
+  should 'have the more_recent filter by default' do
+    get :contents, :filter => 'more_recent'
+    assert_equal 'more_recent' , assigns(:filter)
+
+    get :contents, :filter => 'more_comments'
+    assert_equal 'more_comments' , assigns(:filter)
+
+    get :contents, :filter => 'more_views'
+    assert_equal 'more_views' , assigns(:filter)
+
+    get :contents, :filter => 'more_anything'
+    assert_equal 'more_recent' , assigns(:filter)
+  end
+
+  should 'the contents filter define the title' do
+    get :contents, :filter => 'more_recent'
+    assert_equal 'More recent contents' , assigns(:title)
+    assert_tag :h1, :content => 'More recent contents'
+
+    get :contents, :filter => 'more_views'
+    assert_equal 'Most viewed contents' , assigns(:title)
+    assert_tag :h1, :content => 'Most viewed contents'
+
+    get :contents, :filter => 'more_comments'
+    assert_equal 'Most commented contents' , assigns(:title)
+    assert_tag :h1, :content => 'Most commented contents'
+
+    get :contents, :filter => 'more_anything'
+    assert_equal 'More recent contents' , assigns(:title)
+    assert_tag :h1, :content => 'More recent contents'
+  end
+
+  should "only include published contents in more_recent filter" do
+    # assuming that all filters behave the same!
+    article = fast_create(TinyMceArticle, :body => '<p>Article to test browse contents', :profile_id => profile.id, :published => false)
+    get :contents, :filter => 'more_recent'
+    assert_not_includes assigns(:results), article
   end
 
 end
