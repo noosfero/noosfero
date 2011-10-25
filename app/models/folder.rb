@@ -1,5 +1,9 @@
 class Folder < Article
 
+  def self.type_name
+    _('Folder')
+  end
+
   validate :not_belong_to_blog
 
   def not_belong_to_blog

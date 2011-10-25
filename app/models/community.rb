@@ -1,4 +1,9 @@
 class Community < Organization
+
+  def self.type_name
+    _('Community')
+  end
+
   N_('Community')
   N_('Language')
 

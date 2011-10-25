@@ -1,5 +1,9 @@
 class RssFeed < Article
 
+  def self.type_name
+    _('RssFeed')
+  end
+
   # i dont know why before filter dont work here
   def initialize(*args)
     super(*args)

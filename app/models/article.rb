@@ -2,6 +2,12 @@ require 'hpricot'
 
 class Article < ActiveRecord::Base
 
+  # use for internationalizable human type names in search facets
+  # reimplement on subclasses
+  def self.type_name
+    _('Content')
+  end
+
   track_actions :create_article, :after_create, :keep_params => [:name, :url], :if => Proc.new { |a| a.is_trackable? && !a.image? }, :custom_target => :action_tracker_target
   track_actions :update_article, :before_update, :keep_params => [:name, :url], :if => Proc.new { |a| a.is_trackable? && (a.body_changed? || a.name_changed?) }, :custom_target => :action_tracker_target
   track_actions :remove_article, :before_destroy, :keep_params => [:name], :if => Proc.new { |a| a.is_trackable? }, :custom_target => :action_tracker_target
@@ -571,33 +577,10 @@ class Article < ActiveRecord::Base
 
   private
 
-  def self.f_type_proc(klass)
-    klass.constantize 
-    h = {
-      'UploadedFile' => _("Uploaded File"), 
-      'TextArticle' => _("Text"),
-      'Folder' => _("Folder"),
-      'Event' => _("Event"),
-      'EnterpriseHomepage' => ("Homepage"),
-      'Gallery' => ("Gallery"),
-      'Blog' => ("Blog"),
-      'Forum' => ("Forum")
-    }
-    h[klass]
-  end
-  def self.f_profile_type_proc(klass)
-    h = {
-      'Enterprise' => _("Enterprise"), 
-      'Community' => _("Community"),
-      'Person' => ("Person"),
-      'BscPlugin::Bsc' => ("BSC")
-    }
-    h[klass]
-  end
-
   # FIXME: workaround for development env.
   # Subclasses aren't (re)loaded, and acts_as_solr
   # depends on subclasses method to search
+  # see http://stackoverflow.com/questions/4138957/activerecordsubclassnotfound-error-when-using-sti-in-rails/4139245
   UploadedFile
   TextArticle
   TinyMceArticle
@@ -609,19 +592,27 @@ class Article < ActiveRecord::Base
   Forum
   Event
 
+  def self.f_type_proc(klass)
+    klass.constantize.type_name
+  end
+  def self.f_profile_type_proc(klass)
+    klass.constantize.type_name
+  end
+
   def f_type
-    case self.class.to_s
+    #join common types
+    case self.class.name
     when 'TinyMceArticle', 'TextileArticle'
-      'TextArticle'
+      TextArticle.name
     else
-      self.class.to_s
+      self.class.name
     end
+  end
+  def f_profile_type
+    self.profile.class.name
   end
   def f_published_at
     self.published_at
-  end
-  def f_profile_type
-    self.profile.class.to_s
   end
   def f_category
     self.categories.collect(&:name)

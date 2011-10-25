@@ -1,6 +1,10 @@
 # A person is the profile of an user holding all relationships with the rest of the system
 class Person < Profile
 
+  def self.type_name
+    _('Person')
+  end
+
   acts_as_trackable :after_add => Proc.new {|p,t| notify_activity(t)}
   acts_as_accessor
 

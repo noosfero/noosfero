@@ -1,5 +1,9 @@
 class Event < Article
 
+  def self.type_name
+    _('Event')
+  end
+
   settings_items :address, :type => :string
 
   def link=(value)

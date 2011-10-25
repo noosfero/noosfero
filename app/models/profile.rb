@@ -3,6 +3,12 @@
 # which by default is the one returned by Environment:default.
 class Profile < ActiveRecord::Base
 
+  # use for internationalizable human type names in search facets
+  # reimplement on subclasses
+  def self.type_name
+    _('Profile')
+  end
+
   module Roles
     def self.admin(env_id)
       find_role('admin', env_id)
@@ -843,10 +849,8 @@ private :generate_url, :url_options
   def f_type
     self.class.name
   end
-  def self.f_type_proc(id)
-    {'Enterprise' => _('Enterprise'),
-     'BscPlugin::Bsc' => _('BSC')
-    }[id]
+  def self.f_type_proc(klass)
+    klass.constantize.type_name
   end
   def name_sort
     name

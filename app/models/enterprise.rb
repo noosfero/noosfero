@@ -2,6 +2,10 @@
 # only enterprises can offer products and services.
 class Enterprise < Organization
 
+  def self.type_name
+    _('Enterprise')
+  end
+
   N_('Enterprise')
 
   has_many :products, :dependent => :destroy, :order => 'name ASC'

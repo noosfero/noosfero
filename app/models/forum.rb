@@ -2,6 +2,10 @@ class Forum < Folder
 
   acts_as_having_posts :order => 'updated_at DESC'
 
+  def self.type_name
+    _('Forum')
+  end
+
   def self.short_description
     _('Forum')
   end
