@@ -1,38 +1,37 @@
 <div class='search-form'>
 
-<% form_tag( { :controller => 'search', :action => @asset ? @asset : 'index', :asset => nil, :category_path => ( @category ? @category.explode_path : [] ) },
-               :method => 'get', :class => 'search_form' ) do %>
-
-  <%= hidden_field_tag :display, params[:display] %>
-
-  <div class="search-field">
-    <span class="formfield">
-      <%= text_field_tag 'query', @query, :id => 'search-input', :size => 50 %>
-      <%= javascript_tag "jQuery('#search-input').attr('title', \"#{hint}\").hint()" if defined?(hint) %>
-      <%= javascript_tag "jQuery('.search_form').submit(function() {
-        if (jQuery('#search-input').val().length < 3) {
-          jQuery('#search-empty-query-error').slideDown(200).delay(2500).slideUp(200);
-          return false;
-        }
-      });" %>
-    </span>
-
-    <%= submit_button(:search, _('Search')) %>
-
-    <div id="search-empty-query-error">
-      <%= _("Type more than 2 characters to start a search") %>
+  <% form_tag( { :controller => 'search', :action => @asset ? @asset : 'index', :asset => nil, :category_path => ( @category ? @category.explode_path : [] ) },
+                 :method => 'get', :class => 'search_form' ) do %>
+  
+    <%= hidden_field_tag :display, params[:display] %>
+  
+    <div class="search-field">
+      <span class="formfield">
+        <%= text_field_tag 'query', @query, :id => 'search-input', :size => 50 %>
+        <%= javascript_tag "jQuery('#search-input').attr('title', \"#{hint}\").hint()" if defined?(hint) %>
+        <%= javascript_tag "jQuery('.search_form').submit(function() {
+          if (jQuery('#search-input').val().length < 3) {
+            jQuery('#search-empty-query-error').slideDown(200).delay(2500).slideUp(200);
+            return false;
+          }
+        });" %>
+      </span>
+  
+      <%= submit_button(:search, _('Search')) %>
+  
+      <div id="search-empty-query-error">
+        <%= _("Type more than 2 characters to start a search") %>
+      </div>
     </div>
-  </div>
-
-  <% if @empty_query %>
-    <% hint = environment.search_hints[@asset] %>
-    <% if hint and !hint.blank? %>
-      <span class="search-hint"><%= hint %></span>
+  
+    <% if @empty_query %>
+      <% hint = environment.search_hints[@asset] %>
+      <% if hint and !hint.blank? %>
+        <span class="search-hint"><%= hint %></span>
+      <% end %>
     <% end %>
+
   <% end %>
 
   <div style="clear: both"></div>
-
-<% end %>
-
-</div> <!-- id="search-form" -->
+</div>
