@@ -6173,31 +6173,6 @@ h1#agenda-title {
 
 /* Captcha */
 
-.comment_reply #recaptcha_area {
-  margin-bottom: 3px !important;
-}
-
-.comment_reply .recaptchatable tr td + td + td {
-  display: none !important;
-}
-
-.comment_reply .recaptcha-container {
-  width: 100%;
-  overflow: hidden;
-}
-
-.comment_reply .recaptcha-container:hover {
-  overflow: visible;
-}
-
-.comment_reply .recaptcha-container tr:hover td {
-  background: transparent;
-}
-
-.comment_reply .recaptcha_image_cell {
-  background: transparent !important;
-}
-
 /* Colorbox */
 
 #cboxClose {
