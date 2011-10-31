@@ -681,6 +681,12 @@ function original_image_dimensions(src) {
   return { 'width' : img.width, 'height' : img.height };
 }
 
+function gravatarCommentFailback(img) {
+  var link = img.parentNode;
+  link.href = "http://www.gravatar.com";
+  img.src = img.getAttribute("data-gravatar");
+}
+
 jQuery(function() {
   jQuery("#ajax-form").before("<div id='ajax-form-loading-area' style='display:block;width:16px;height:16px;'></div>");
   jQuery("#ajax-form").before("<div id='ajax-form-message-area'></div>");

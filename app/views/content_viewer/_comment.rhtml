@@ -11,14 +11,21 @@
         :title => comment.author_name
     %>
   <% else %>
-    <%# unauthenticated user: display gravatar icon %>
-    <% url_image, status_class = comment.author_id ? [comment.removed_user_image, 'icon-user-removed'] : [str_gravatar_url_for( comment.email, :size => 50 ), 'icon-user-unknown'] %>
-    <%= content_tag 'span', image_tag(url_image) +
-                            content_tag('span', comment.author_name, :class => 'comment-info') +
-                            content_tag('span', comment.message, :class => 'comment-user-status ' + status_class),
+    <% url_image, status_class = comment.author_id ?
+       [comment.removed_user_image, 'icon-user-removed'] :
+       [str_gravatar_url_for( comment.email, :size => 50, :d=>404 ), 'icon-user-unknown'] %>
+
+    <%= link_to(
+          image_tag(url_image, :onerror=>'gravatarCommentFailback(this)',
+                   'data-gravatar'=>str_gravatar_url_for(comment.email, :size=>50)) +
+          content_tag('span', comment.author_name, :class => 'comment-info') +
+          content_tag('span', comment.message,
+                             :class => 'comment-user-status ' + status_class),
+        gravatar_profile_url(comment.email),
+        :target => '_blank',
         :class => 'comment-picture',
         :title => '%s %s' % [comment.author_name, comment.message]
-    %>
+    )%>
   <% end %>
 
   <% comment_balloon do %>

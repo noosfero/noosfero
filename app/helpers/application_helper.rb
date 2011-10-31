@@ -609,6 +609,10 @@ module ApplicationHelper
     url
   end
 
+  def gravatar_profile_url(email)
+    'http://www.gravatar.com/'+ Digest::MD5.hexdigest(email)
+  end
+
   attr_reader :environment
   def select_categories(object_name, title=nil, title_size=4)
     return nil if environment.enabled?(:disable_categories)
