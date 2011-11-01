@@ -1227,4 +1227,14 @@ class PersonTest < Test::Unit::TestCase
     assert person.already_reported?(profile)
   end
 
+  should 'disable person' do
+    person = create_user('some-user').person
+    password = person.user.password
+    assert person.visible
+
+    person.disable
+
+    assert !person.visible
+    assert_not_equal password, person.user.password
+  end
 end
