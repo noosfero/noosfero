@@ -1,3 +1,5 @@
+include BscPlugin::BscHelper
+
 class BscPluginMyprofileController < MyProfileController
 
   def manage_associated_enterprises
@@ -85,4 +87,129 @@ class BscPluginMyprofileController < MyProfileController
     end
   end
 
+  def manage_contracts
+    self.class.no_design_blocks
+    @sorting = params[:sorting] || 'created_at asc'
+    sorted_by = @sorting.split(' ').first
+    sort_direction = @sorting.split(' ').last
+    @status = params[:status] || BscPlugin::Contract::Status.types.map { |s| s.to_s }
+    @contracts =  profile.contracts.
+      status(@status).
+      sorted_by(sorted_by, sort_direction).
+      paginate(:per_page => contracts_per_page, :page => params[:page])
+  end
+
+  def new_contract
+    if !request.post?
+      @contract = BscPlugin::Contract.new
+    else
+      @contract = BscPlugin::Contract.new(params[:contract])
+      @contract.bsc = profile
+      sales = params[:sales] ? params[:sales].map {|key, value| value} : []
+      sales.reject! {|sale| sale[:product_id].blank?}
+
+      if @contract.save!
+        enterprises_ids = params[:enterprises] || ''
+        enterprises_ids.split(',').each { |id| @contract.enterprises << Enterprise.find(id) }
+        @failed_sales = @contract.save_sales(sales)
+
+        if @failed_sales.blank?
+          session[:notice] = _('Contract created.')
+          redirect_to :action => 'manage_contracts'
+        else
+          session[:notice] = _('Contract created but some products could not be added.')
+          redirect_to :action => 'edit_contract', :contract_id => @contract.id
+        end
+      end
+    end
+  end
+
+  def view_contract
+    begin
+      @contract = BscPlugin::Contract.find(params[:contract_id])
+    rescue
+      session[:notice] = _('Contract doesn\'t exists! Maybe it was already removed.')
+      redirect_to :action => 'manage_contracts'
+    end
+  end
+
+  def edit_contract
+    begin
+      @contract = BscPlugin::Contract.find(params[:contract_id])
+    rescue
+      session[:notice] = _('Could not edit such contract.')
+      redirect_to :action => 'manage_contracts'
+    end
+    if request.post? && @contract.update_attributes(params[:contract])
+
+      # updating associated enterprises
+      enterprises_ids = params[:enterprises] || ''
+      enterprises = [Enterprise.find(enterprises_ids.split(','))].flatten
+      to_remove = @contract.enterprises - enterprises
+      to_add = enterprises - @contract.enterprises
+      to_remove.each { |enterprise| @contract.enterprises.delete(enterprise)}
+      to_add.each { |enterprise| @contract.enterprises << enterprise }
+
+      # updating sales
+      sales = params[:sales] ? params[:sales].map {|key, value| value} : []
+      sales.reject! {|sale| sale[:product_id].blank?}
+      products = [Product.find(sales.map { |sale| sale[:product_id] })].flatten
+      to_remove = @contract.products - products
+      to_keep = sales.select { |sale| @contract.products.include?(Product.find(sale[:product_id])) }
+
+      to_keep.each do |sale_attrs|
+        sale = @contract.sales.find_by_product_id(sale_attrs[:product_id])
+        sale.update_attributes!(sale_attrs)
+        sales.delete(sale_attrs)
+      end
+
+      to_remove.each { |product| @contract.sales.find_by_product_id(product.id).destroy }
+      @failed_sales = @contract.save_sales(sales)
+
+      if @failed_sales.blank?
+        session[:notice] = _('Contract edited.')
+        redirect_to :action => 'manage_contracts'
+      else
+        session[:notice] = _('Contract edited but some products could not be added.')
+        redirect_to :action => 'edit_contract', :contract_id => @contract.id
+      end
+    end
+  end
+
+  def destroy_contract
+    begin
+      contract = BscPlugin::Contract.find(params[:contract_id])
+      contract.destroy
+      session[:notice] = _('Contract removed.')
+    rescue
+      session[:notice] = _('Contract could not be removed. Sorry! ^^')
+    end
+    redirect_to :action => 'manage_contracts'
+  end
+
+  def search_contract_enterprises
+    render :text => profile.enterprises.find(:all, :conditions => ["(LOWER(name) LIKE ? OR LOWER(identifier) LIKE ?)", "%#{params[:enterprises]}%", "%#{params[:enterprises]}%"]).
+      map {|enterprise| {:id => enterprise.id, :name => enterprise.short_name(60)} }.
+      to_json
+  end
+
+  def search_sale_product
+    query = params[:sales].map {|key, value| value}[0][:product_id]
+    enterprises = (params[:enterprises] || []).split(',')
+    enterprises = enterprises.blank? ? '' : enterprises
+    added_products = (params[:added_products] || []).split(',')
+    added_products = added_products.blank? ? '' : added_products
+    render :text => Product.find(:all, :conditions => ["LOWER(name) LIKE ? AND enterprise_id IN (?) AND id NOT IN (?)", "%#{query}%", enterprises, added_products]).
+      map {|product| { :id => product.id,
+                       :name => short_text(product_display_name(product), 60),
+                       :sale_id => params[:sale_id],
+                       :product_price => product.price || 0 }}.
+      to_json
+  end
+
+  private
+
+  def contracts_per_page
+    15
+  end
 end

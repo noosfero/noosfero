@@ -1,3 +1,5 @@
+include BscPlugin::BscHelper
+
 class BscPluginEnvironmentController < AdminController
 
   def new
