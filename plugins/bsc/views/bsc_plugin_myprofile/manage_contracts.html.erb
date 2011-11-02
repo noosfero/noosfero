@@ -1,0 +1,49 @@
+<h1><%= _('Manage contracts') %></h1>
+
+<% form_tag({}, {:id => "bsc-plugin-contracts-form"}) do %>
+  <div id="bsc-plugin-contracts-filter">
+    <h2><%= _('Status') %></h2>
+    <% BscPlugin::Contract::Status.types.each do |status| %>
+      <%= check_box_tag('status[]', status, @status.include?(status.to_s), :id => 'status-checkbox-'+status.to_s) %>
+      <%= content_tag('label', BscPlugin::Contract::Status.names[status], :for => 'status-checkbox-'+status.to_s) %>
+      <br style="clear:both" />
+    <% end %>
+    <br style="clear:both" />
+    <%= submit_button(:save, _('Filter')) %>
+  </div>
+
+  <div id='bsc-plugin-contracts-results'>
+    <div id="bsc-plugin-sorter">
+      <%= labelled_select(_('Sort by')+' ', :sorting, :first, :last, @sorting, 
+        [['created_at asc', _('Date(newest first)')], ['created_at desc', _('Date(oldest first)')],
+         ['client_name asc', _('Client name(A-Z)')], ['client_name desc', _('Client name(Z-A)')]],
+        :onchange => "jQuery('#bsc-plugin-contracts-form').submit()") %>
+    </div>
+    
+    <% if @contracts.blank? %>
+      <%= content_tag('em', _('There are no contracts at all.'))%>
+    <% else %>
+      <table id="bsc-plugin-manage-contracts-table" class="alternate-colors">
+        <% @contracts.each do |contract| %>
+          <tr>
+            <td>
+              <%= link_to(content_tag('b', contract.client_name ), :action => 'view_contract', :contract_id => contract.id) %> <br />
+              <%= content_tag('i', show_date(contract.created_at)) %>
+            </td>
+            <td class="links">
+              <%= link_to(_('Edit'), :action => 'edit_contract', :contract_id => contract.id)%>
+              <%= link_to(_('Remove'), {:action => 'destroy_contract', :contract_id => contract.id}, :confirm => _('Are you sure?'))%>
+            </td>
+          </tr>
+        <% end %>
+      </table>
+      <%= pagination_links @contracts %>
+    <% end %>
+    
+    <% button_bar do %>
+      <%= button(:back, _('Go back'), :controller => 'profile_editor') %>
+      <%= button(:new, _('Create new contract'), :action => 'new_contract')%>
+    <% end %>
+  </div>
+<% end %>
+<br style="clear:both" />
