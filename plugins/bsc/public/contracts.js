@@ -47,7 +47,7 @@ var BSCContracts = {};
     input.keydown(function(event){ if(event.keyCode == '13') return false })
          .tokenInput(searchUrl, opts);
     $('#bsc-plugin-contract-total-row').before(tr);
-    $('<input id="bsc-plugin-sale-'+id+'-quantity" class="bsc-plugin-sales-quantity '+required+' digits" name="sales['+id+'][quantity]" align="center" size="7" value="'+quantity+'"/>').appendTo(tds[1]);
+    $('<input id="bsc-plugin-sale-'+id+'-quantity" class="bsc-plugin-sales-quantity '+required+' digits" name="sales['+id+'][quantity]" align="center" size="8" value="'+quantity+'"/>').appendTo(tds[1]);
     $('<input id="bsc-plugin-sale-'+id+'-price" class="bsc-plugin-sales-price '+required+' number" name="sales['+id+'][price]" value="'+price+'"/>').appendTo(tds[2]);
   };
 
