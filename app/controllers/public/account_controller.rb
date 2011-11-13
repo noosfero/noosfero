@@ -60,6 +60,10 @@ class AccountController < ApplicationController
   def signup
     @invitation_code = params[:invitation_code]
     begin
+      if params[:user]
+        params[:user].delete(:password_confirmation_clear)
+        params[:user].delete(:password_clear)
+      end
       @user = User.new(params[:user])
       @user.terms_of_use = environment.terms_of_use
       @user.environment = environment
@@ -209,14 +213,24 @@ class AccountController < ApplicationController
     @identifier = params[:identifier]
     valid = Person.is_available?(@identifier, environment)
     if valid
-      @status = _('Available!')
+      @status = _('This login name is available')
       @status_class = 'available'
     else
-      @status = _('Unavailable!')
+      @status = _('This login name is unavailable')
       @status_class = 'unavailable'
     end
-    @url = environment.top_url + '/' + @identifier
     render :partial => 'identifier_status'
+  end
+
+  def check_email
+    if User.find_by_email_and_environment_id(params[:address], environment.id).nil?
+      @status = _('This e-mail address is available')
+      @status_class = 'available'
+    else
+      @status = _('This e-mail address is taken')
+      @status_class = 'unavailable'
+    end
+    render :partial => 'email_status'
   end
 
   def user_data
