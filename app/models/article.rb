@@ -355,11 +355,20 @@ class Article < ActiveRecord::Base
     ['Folder', 'Blog', 'Forum', 'Gallery']
   end
 
+  def self.text_article_types
+    ['TextArticle', 'TextileArticle', 'TinyMceArticle']
+  end
+
   named_scope :published, :conditions => { :published => true }
   named_scope :folders, :conditions => { :type => folder_types}
   named_scope :no_folders, :conditions => ['type NOT IN (?)', folder_types]
   named_scope :galleries, :conditions => { :type => 'Gallery' }
   named_scope :images, :conditions => { :is_image => true }
+  named_scope :text_articles, :conditions => [ 'articles.type IN (?)', text_article_types ]
+
+  named_scope :more_comments, :order => "comments_count DESC"
+  named_scope :more_views, :order => "hits DESC"
+  named_scope :more_recent, :order => "created_at DESC"
 
   def self.display_filter(user, profile)
     return {:conditions => ['published = ?', true]} if !user
@@ -526,6 +535,28 @@ class Article < ActiveRecord::Base
     Hpricot(self.body.to_s).search('img[@src]').collect do |i|
       (self.profile && self.profile.environment) ? URI.join(self.profile.environment.top_url, URI.escape(i.attributes['src'])).to_s : i.attributes['src']
     end
+  end
+
+  def more_comments_label
+    amount = self.comments_count
+    {
+      0 => _('no comments'),
+      1 => _('one comment')
+    }[amount] || _("%s comments") % amount
+
+  end
+
+  def more_views_label
+    amount = self.hits
+    {
+      0 => _('no views'),
+      1 => _('one view')
+    }[amount] || _("%s views") % amount
+
+  end
+
+  def more_recent_label
+    _('Created at: ')
   end
 
   private
