@@ -53,7 +53,7 @@
             <%= usermenu_logged_in %>
           </span>
           <span class='not-logged-in' style='display: none'>
-              <%= _('%s or %s') % [thickbox_inline_popup_link('<i class="icon-menu-login"></i><strong>' + _('Login') + '</strong>', login_url, 'inlineLoginBox', :id => 'link_login'), link_to('<strong>' + _('Register') + '</strong>', :controller => 'account', :action => 'signup') ] %>
+              <%= _("<span class='login'>%s</span> <span class='or'>or</span> <span class='signup'>%s</span>") % [thickbox_inline_popup_link('<i class="icon-menu-login"></i><strong>' + _('Login') + '</strong>', login_url, 'inlineLoginBox', :id => 'link_login'), link_to('<strong>' + _('Register') + '</strong>', :controller => 'account', :action => 'signup') ] %>
               <div id='inlineLoginBox' style='display: none;'>
                 <%= render :file => 'account/login', :locals => { :is_thickbox => true } %>
               </div>
