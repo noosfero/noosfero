@@ -662,7 +662,6 @@ function add_comment_reply_form(button, comment_id) {
   var f = container.find('.comment_form');
   if (f.length == 0) {
     f = jQuery('#page-comment-form .comment_form').clone();
-    f.find('#dynamic_recaptcha').remove();
     f.find('.fieldWithErrors').map(function() { jQuery(this).replaceWith(jQuery(this).contents()); });
     f.prepend('<input type="hidden" name="comment[reply_of_id]" value="' + comment_id + '" />');
     container.append(f);

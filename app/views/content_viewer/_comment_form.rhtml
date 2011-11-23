@@ -1,3 +1,26 @@
+<script type="text/javascript">
+function submit_comment_form(button) {
+  <% if logged_in? %>
+  button.form.confirm.value = 'true';
+  button.disabled = true;
+  button.form.submit();
+  return true;
+  <% else %>
+  jQuery('#recaptcha-container').show();
+  jQuery.colorbox({ inline : true, href : '#recaptcha-container', maxWidth : '600px', maxHeight : '300px' });
+  jQuery('#confirm-captcha').unbind('click');
+  jQuery('#confirm-captcha').bind('click', function() {
+    jQuery.colorbox.close();
+    button.form.recaptcha_response_field.value = jQuery('#recaptcha_response_field').val();
+    button.form.recaptcha_challenge_field.value = jQuery('#recaptcha_challenge_field').val();
+    button.form.confirm.value = 'true';
+    button.disabled = true;
+    button.form.submit();
+  });
+  <% end %>
+}
+</script>
+
 <% focus_on = logged_in? ? 'title' : 'name' %>
 
 <% if @comment && @comment.errors.any? && @comment.reply_of_id.blank? %>
@@ -19,6 +42,23 @@
   <%= content_tag('a', '', :name => 'comment_form') + _('Post a comment') %>
 </h4>
 
+<% unless logged_in? %>
+  <div id="recaptcha-container" style="display: none">
+    <h3><%= _('Please type the two words below') %></h3>
+    <%= recaptcha_tags(:display => { :theme => 'clean' }, :ajax => true) %>
+    <% button_bar do %>
+      <%= button_to_function :add, _('Confirm'), "return false", :id => "confirm-captcha" %>
+      <%= button_to_function :cancel, _('Cancel'), "jQuery.colorbox.close()" %>
+    <% end %>
+  </div>
+
+  <script type="text/javascript">
+    jQuery(document).bind('cbox_cleanup', function() {
+      jQuery('#recaptcha-container').hide();
+    });
+  </script>
+<% end %>
+
 <% form_tag( url_for(@page.view_url.merge({:only_path => true})), { :class => 'comment_form' } ) do %>
   <%= hidden_field_tag(:confirm, 'false') %>
 
@@ -32,15 +72,16 @@
     <%= _('If you are a registered user, you can login and be automatically recognized.') %>
     </p>
 
+    <%= hidden_field_tag(:recaptcha_response_field, nil, :id => nil) %>
+    <%= hidden_field_tag(:recaptcha_challenge_field, nil, :id => nil) %>
+
   <% end %>
 
-  <%= required labelled_form_field(_('Title'), text_field(:comment, :title)) %>
+  <%= labelled_form_field(_('Title'), text_field(:comment, :title)) %>
   <%= required labelled_form_field(_('Enter your comment'), text_area(:comment, :body, :rows => 5)) %>
 
-  <%= recaptcha_tags(:display => { :theme => 'clean' }, :ajax => true) unless logged_in? %>
-
   <% button_bar do %>
-    <%= submit_button('add', _('Post comment'), :onclick => "this.form.confirm.value = 'true'; this.disabled = true; this.form.submit(); return true;") %>
+    <%= submit_button('add', _('Post comment'), :onclick => "submit_comment_form(this); return false") %>
     <%= button_to_function :cancel, _('Cancel'), "f=jQuery(this).parents('.post_comment_box'); f.removeClass('opened'); f.addClass('closed'); return false" %>
   <% end %>
 <% end %>
