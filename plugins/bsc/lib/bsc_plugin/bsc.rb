@@ -3,6 +3,7 @@ class BscPlugin::Bsc < Enterprise
   has_many :enterprises
   has_many :enterprise_requests, :class_name => 'BscPlugin::AssociateEnterprise'
   has_many :products, :finder_sql => 'select * from products where enterprise_id in (#{enterprises.map(&:id).join(",")})'
+  has_many :contracts, :class_name => 'BscPlugin::Contract'
 
   validates_presence_of :nickname
   validates_presence_of :company_name
@@ -19,8 +20,8 @@ class BscPlugin::Bsc < Enterprise
     enterprise_requests.pending.map(&:enterprise).include?(enterprise)
   end
 
-  def enterprises_to_json
-    enterprises.map { |enterprise| {:id => enterprise.id, :name => enterprise.name} }.to_json
+  def enterprises_to_token_input
+    enterprises.map { |enterprise| {:id => enterprise.id, :name => enterprise.name} }
   end
 
   def control_panel_settings_button

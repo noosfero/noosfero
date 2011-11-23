@@ -10,7 +10,11 @@
 <% end %>
 
 <% form_tag :action => 'save_associations' do %>
-  <%= text_field_tag(:q, nil, :id => 'search-enterprises') %>
+  <% search_action = {:action => 'search_enterprise', :profile => profile.identifier} %>
+  <%= token_input_field_tag(:q, 'search-enterprises', search_action, 
+                            { :pre_populate => profile.enterprises_to_token_input,
+                              :hint_text => _('Type in a search term for enterprise'),
+                              :focus => true }) %>
 
   <%= button('add', _('Add new enterprise'), {:action => 'create_enterprise'}) %>
 
@@ -20,24 +24,3 @@
   <% end %>
 
 <% end %>
-<%= javascript_include_tag '/plugins/bsc/jquery_tokeninput/src/jquery.tokeninput.js' %>
-<% stylesheet('/plugins/bsc/jquery_tokeninput/styles/token-input.css') %>
-<% search_url = url_for(:action => 'search_enterprise', :profile => profile.identifier) %>
-<script type="text/javascript">
-  jQuery("#search-enterprises")
-  .tokenInput("<%= search_url %>", {
-    minChars: 3,
-    prePopulate: <%= profile.enterprises_to_json %>,
-    hintText: <%= _('Type in a search term for enterprise').to_json %>,
-    noResultsText: <%= _('No results').to_json %>,
-    searchingText: <%= _('Searching...').to_json %>,
-    searchDelay: 500,
-    backspaceDeleteItem: false
-  })
-  .focus();
-
-  jQuery("#token-input-search-enterprises")
-  .live("keydown", function(event){
-    if(event.keyCode == "13") return false;
-  });
-</script>

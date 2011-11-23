@@ -11,4 +11,15 @@ class ProductTest < Test::Unit::TestCase
 
     assert_equal bsc, product.bsc
   end
+
+  should 'have contracts through sales' do
+    product = fast_create(Product)
+    contract1 = BscPlugin::Contract.create!(:bsc => BscPlugin::Bsc.new, :client_name => 'Marvin')
+    contract2 = BscPlugin::Contract.create!(:bsc => BscPlugin::Bsc.new, :client_name => 'Marvin')
+    sale1 = BscPlugin::Sale.create!(:product => product, :contract => contract1, :quantity => 3)
+    sale2 = BscPlugin::Sale.create!(:product => product, :contract => contract2, :quantity => 5)
+
+    assert_includes product.contracts, contract1
+    assert_includes product.contracts, contract2
+  end
 end
