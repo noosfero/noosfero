@@ -468,11 +468,20 @@ class ApplicationHelperTest < Test::Unit::TestCase
   end
 
   should 'generate a gravatar url' do
+    stubs(:theme_option).returns({})
     with_constants :NOOSFERO_CONF => {'gravatar' => 'crazyvatar'} do
       url = str_gravatar_url_for( 'rms@gnu.org', :size => 50 )
       assert_match(/^http:\/\/www\.gravatar\.com\/avatar\.php\?/, url)
       assert_match(/(\?|&)gravatar_id=ed5214d4b49154ba0dc397a28ee90eb7(&|$)/, url)
       assert_match(/(\?|&)d=crazyvatar(&|$)/, url)
+      assert_match(/(\?|&)size=50(&|$)/, url)
+    end
+    stubs(:theme_option).returns('gravatar' => 'nicevatar')
+    with_constants :NOOSFERO_CONF => {'gravatar' => 'crazyvatar'} do
+      url = str_gravatar_url_for( 'rms@gnu.org', :size => 50 )
+      assert_match(/^http:\/\/www\.gravatar\.com\/avatar\.php\?/, url)
+      assert_match(/(\?|&)gravatar_id=ed5214d4b49154ba0dc397a28ee90eb7(&|$)/, url)
+      assert_match(/(\?|&)d=nicevatar(&|$)/, url)
       assert_match(/(\?|&)size=50(&|$)/, url)
     end
   end
