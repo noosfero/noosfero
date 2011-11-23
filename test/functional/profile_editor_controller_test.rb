@@ -878,22 +878,4 @@ class ProfileEditorControllerTest < Test::Unit::TestCase
     assert_tag :tag => 'a', :content => plugin2_button[:title], :attributes => {:class => /#{plugin2_button[:icon]}/, :href => /#{plugin2_button[:url]}/}
   end
 
-  should 'show image upload field from environment person fields' do
-    env = Environment.default
-    env.custom_person_fields = { 'image' => {'active' => 'true', 'required' => 'true'} }
-    env.save!
-    get :edit, :profile => profile.identifier
-    assert_tag :tag => 'input', :attributes => { :name => 'profile_data[image_builder][uploaded_data]' }
-    assert_no_tag :tag => 'div', :attributes => { :id => 'profile_change_picture' }
-  end
-
-  should 'show image upload field from profile editor' do
-    env = Environment.default
-    env.custom_person_fields = { }
-    env.save!
-    get :edit, :profile => profile.identifier
-    assert_tag :tag => 'input', :attributes => { :name => 'profile_data[image_builder][uploaded_data]' }
-    assert_tag :tag => 'div', :attributes => { :id => 'profile_change_picture' }
-  end
-
 end

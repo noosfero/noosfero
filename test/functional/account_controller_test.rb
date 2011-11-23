@@ -666,22 +666,6 @@ class AccountControllerTest < Test::Unit::TestCase
     assert_equal 'unavailable', assigns(:status_class)
   end
 
-  should 'check if e-mail is available on environment' do
-    env = fast_create(Environment, :name => 'Environment test')
-    @controller.expects(:environment).returns(env).at_least_once
-    profile = create_user('mylogin', :email => 'mylogin@noosfero.org', :environment_id => fast_create(Environment).id)
-    get :check_email, :address => 'mylogin@noosfero.org'
-    assert_equal 'available', assigns(:status_class)
-  end
-
-  should 'check if e-mail is not available on environment' do
-    env = fast_create(Environment, :name => 'Environment test')
-    @controller.expects(:environment).returns(env).at_least_once
-    profile = create_user('mylogin', :email => 'mylogin@noosfero.org', :environment_id => env)
-    get :check_email, :address => 'mylogin@noosfero.org'
-    assert_equal 'unavailable', assigns(:status_class)
-  end
-
   should 'merge user data with extra stuff from plugins' do
     class Plugin1 < Noosfero::Plugin
       def user_data_extras
@@ -733,42 +717,6 @@ class AccountControllerTest < Test::Unit::TestCase
     post :login, :user => {:login => 'testuser', :password => 'test123'}
     assert_nil session[:user]
     assert_redirected_to '/bli'
-  end
-
-  should 'be able to upload an image' do
-    new_user({}, :profile_data => { :image_builder => { :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png') } })
-    assert_not_nil Person.last.image
-  end
-
-  should 'not be able to upload an image bigger than max size' do
-    Image.any_instance.stubs(:size).returns(Image.attachment_options[:max_size] + 1024)
-    new_user({}, :profile_data => { :image_builder => { :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png') } })
-    assert_nil Person.last.image
-  end
-
-  should 'display error message when image has more than max size' do
-    Image.any_instance.stubs(:size).returns(Image.attachment_options[:max_size] + 1024)
-    new_user({}, :profile_data => { :image_builder => { :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png') } })
-    assert_tag :tag => 'div', :attributes => { :class => 'errorExplanation', :id => 'errorExplanation' }
-  end
-
-  should 'not display error message when image has less than max size' do
-    Image.any_instance.stubs(:size).returns(Image.attachment_options[:max_size] - 1024)
-    new_user({}, :profile_data => { :image_builder => { :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png') } })
-    assert_no_tag :tag => 'div', :attributes => { :class => 'errorExplanation', :id => 'errorExplanation' }
-  end
-
-  should 'not redirect when some file has errors' do
-    Image.any_instance.stubs(:size).returns(Image.attachment_options[:max_size] + 1024)
-    new_user({}, :profile_data => { :image_builder => { :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png') } })
-    assert_response :success
-    assert_template 'signup'
-  end
-
-  should 'remove useless user data on signup' do
-    assert_nothing_raised do
-      new_user :password_clear => 'nothing', :password_confirmation_clear => 'nothing'
-    end
   end
 
   protected
