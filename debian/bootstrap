@@ -1,4 +1,5 @@
 #!/bin/sh
 
-dependencies=$(sed -e '/^Depends:.*rails/!d;  s/Depends: //; s/([^)]*)//g; s/,\s*/\n/g' debian/control | grep -v 'memcached\|debconf\|mongrel-cluster\|dbconfig-common\|postgresql\|misc:Depends\|adduser')
-apt-get install $dependencies
+runtime_dependencies=$(sed -e '/^Depends:.*rails/!d;  s/Depends: //; s/([^)]*)//g; s/,\s*/\n/g' debian/control | grep -v 'memcached\|debconf\|mongrel-cluster\|dbconfig-common\|postgresql\|misc:Depends\|adduser')
+test_dependencies="libtidy-ruby libhpricot-ruby libmocha-ruby imagemagick po4a xvfb"
+apt-get -y install $runtime_dependencies $test_dependencies
