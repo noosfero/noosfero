@@ -1,0 +1,4 @@
+#!/bin/sh
+
+dependencies=$(sed -e '/^Depends:.*rails/!d;  s/Depends: //; s/([^)]*)//g; s/,\s*/\n/g' debian/control | grep -v 'memcached\|debconf\|mongrel-cluster\|dbconfig-common\|postgresql\|misc:Depends\|adduser')
+apt-get install $dependencies
