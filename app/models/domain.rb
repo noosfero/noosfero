@@ -10,7 +10,7 @@ class Domain < ActiveRecord::Base
 
   # <tt>name</tt> must be a sequence of word characters (a to z, plus 0 to 9,
   # plus '_'). Letters must be lowercase
-  validates_format_of :name, :with => /^([a-z0-9_]+\.)+[a-z0-9_]+$/, :message => N_('%{fn} must be composed only of lowercase latters (a to z), numbers (0 to 9) and "_"')
+  validates_format_of :name, :with => /^([a-z0-9_-]+\.)+[a-z0-9_-]+$/, :message => N_('%{fn} must be composed only of lowercase latters (a to z), numbers (0 to 9), "_" and "-"')
 
   # checks validations that could not be expressed using Rails' predefined
   # validations. In particular:

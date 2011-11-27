@@ -52,8 +52,9 @@ class Profile < ActiveRecord::Base
   acts_as_accessible
 
   named_scope :memberships_of, lambda { |person| { :select => 'DISTINCT profiles.*', :joins => :role_assignments, :conditions => ['role_assignments.accessor_type = ? AND role_assignments.accessor_id = ?', person.class.base_class.name, person.id ] } }
-  named_scope :enterprises, :conditions => "profiles.type = 'Enterprise'"
-  named_scope :communities, :conditions => "profiles.type = 'Community'"
+  #FIXME: these will work only if the subclass is already loaded
+  named_scope :enterprises, lambda { {:conditions => (Enterprise.send(:subclasses).map(&:name) << 'Enterprise').map { |klass| "profiles.type = '#{klass}'"}.join(" OR ")} }
+  named_scope :communities, lambda { {:conditions => (Community.send(:subclasses).map(&:name) << 'Community').map { |klass| "profiles.type = '#{klass}'"}.join(" OR ")} }
 
   def members
     Person.members_of(self)
@@ -163,33 +164,18 @@ class Profile < ActiveRecord::Base
 
   has_many :events, :source => 'articles', :class_name => 'Event', :order => 'name'
 
-  %w[ pending finished ].each do |status|
-    class_eval <<-CODE
-      def all_#{status}_tasks
-        env_tasks = []
-        if self.person?
-          env_tasks = Environment.find(:all).select{ |env| self.is_admin?(env) }.map{ |env| env.tasks.#{status} }.flatten
-        end
-        tasks.#{status} + env_tasks
-      end
-    CODE
-  end
-
   def find_in_all_tasks(task_id)
-    if tasks.exists?(task_id)
-      return tasks.find(task_id)
-    else
-      if self.person?
-        environments_admin = Environment.find(:all).select{ |env| self.is_admin?(env) }
-        task = environments_admin.select{ |env| env.tasks.exists?(task_id) }.map{ |i| i.tasks.find(task_id) }
-        return task.first unless task.empty?
-      end
+    begin
+      Task.to(self).find(task_id)
+    rescue
+      nil
     end
-    return nil
   end
 
   has_many :profile_categorizations, :conditions => [ 'categories_profiles.virtual = ?', false ]
   has_many :categories, :through => :profile_categorizations
+
+  has_many :abuse_complaints, :foreign_key => 'requestor_id'
 
   def interests
     categories.select {|item| !item.is_a?(Region)}
@@ -564,9 +550,7 @@ private :generate_url, :url_options
       if self.closed? && members_count > 0
         AddMember.create!(:person => person, :organization => self) unless self.already_request_membership?(person)
       else
-        if members_count == 0
-          self.affiliate(person, Profile::Roles.admin(environment.id))
-        end
+        self.affiliate(person, Profile::Roles.admin(environment.id)) if members_count == 0
         self.affiliate(person, Profile::Roles.member(environment.id))
       end
     else
@@ -807,6 +791,34 @@ private :generate_url, :url_options
   end
   def full_jid(options = {})
     "#{jid(options)}/#{short_name}"
+  end
+
+  def is_on_homepage?(url, page=nil)
+    if page
+      page == self.home_page
+    else
+      url == '/' + self.identifier
+    end
+  end
+
+  def opened_abuse_complaint
+    abuse_complaints.opened.first
+  end
+
+  def disable
+    self.visible = false
+    user.password = Digest::SHA1.hexdigest("--#{Time.now.to_s}--#{identifier}--")
+    user.password_confirmation = user.password
+    save!
+    user.save!
+  end
+
+  def control_panel_settings_button
+    {:title => _('Profile Info and settings'), :icon => 'edit-profile'}
+  end
+
+  def self.identification
+    name
   end
 
   protected

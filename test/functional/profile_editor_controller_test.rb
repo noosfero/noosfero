@@ -35,13 +35,11 @@ class ProfileEditorControllerTest < ActionController::TestCase
   def test_should_present_pending_tasks_in_index
     ze = Profile['ze'] # a fixture >:-(
     @controller.expects(:profile).returns(ze).at_least_once
-    tasks = mock
-    pending = []
-    pending.expects(:select).returns(pending)
-    pending.expects(:empty?).returns(false) # force the display of the pending tasks list
-    ze.expects(:all_pending_tasks).returns(pending)
+    t1 = ze.tasks.build; t1.save!
+    t2 = ze.tasks.build; t2.save!
     get :index, :profile => ze.identifier
-    assert_same pending, assigns(:pending_tasks)
+    assert_includes assigns(:pending_tasks), t1
+    assert_includes assigns(:pending_tasks), t2
     assert_tag :tag => 'div', :attributes => { :class => 'pending-tasks' }, :descendant => { :tag => 'a', :attributes =>  { :href => '/myprofile/ze/tasks' } }
   end
 
@@ -869,6 +867,8 @@ class ProfileEditorControllerTest < ActionController::TestCase
     buttons = [plugin1_button, plugin2_button]
     plugins = mock()
     plugins.stubs(:map).with(:control_panel_buttons).returns(buttons)
+    plugins.stubs(:enabled_plugins).returns([])
+    plugins.stubs(:map).with(:body_beginning).returns([])
     Noosfero::Plugin::Manager.stubs(:new).returns(plugins)
 
     get :index, :profile => profile.identifier

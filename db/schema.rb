@@ -9,7 +9,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110316171323) do
+ActiveRecord::Schema.define(:version => 20111004184104) do
+
+  create_table "abuse_reports", :force => true do |t|
+    t.integer  "reporter_id"
+    t.integer  "abuse_complaint_id"
+    t.text     "content"
+    t.text     "reason"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "action_tracker", :force => true do |t|
     t.integer  "user_id"
@@ -32,7 +41,7 @@ ActiveRecord::Schema.define(:version => 20110316171323) do
   end
 
   add_index "action_tracker_notifications", ["action_tracker_id"], :name => "index_action_tracker_notifications_on_action_tracker_id"
-  add_index "action_tracker_notifications", ["profile_id", "action_tracker_id"], :name => "index_action_tracker_notifications_on_profile_id_and_action_tracker_id", :unique => true
+  add_index "action_tracker_notifications", ["profile_id", "action_tracker_id"], :name => "index_action_tracker_notifications_on_profile_id_and_action_trac", :unique => true
   add_index "action_tracker_notifications", ["profile_id"], :name => "index_action_tracker_notifications_on_profile_id"
 
   create_table "article_versions", :force => true do |t|
@@ -60,7 +69,6 @@ ActiveRecord::Schema.define(:version => 20110316171323) do
     t.date     "start_date"
     t.date     "end_date"
     t.integer  "children_count",       :default => 0
-    t.boolean  "public_article",       :default => true
     t.boolean  "accept_comments",      :default => true
     t.integer  "reference_article_id"
     t.text     "setting"
@@ -166,6 +174,7 @@ ActiveRecord::Schema.define(:version => 20110316171323) do
     t.boolean "display_in_menu", :default => false
     t.integer "children_count",  :default => 0
     t.boolean "accept_products", :default => true
+    t.integer "image_id"
   end
 
   create_table "categories_profiles", :id => false, :force => true do |t|
@@ -240,6 +249,7 @@ ActiveRecord::Schema.define(:version => 20110316171323) do
     t.text     "terms_of_use_acceptance_text"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "reports_lower_bound",          :default => 0,         :null => false
   end
 
   create_table "external_feeds", :force => true do |t|
@@ -271,8 +281,6 @@ ActiveRecord::Schema.define(:version => 20110316171323) do
   end
 
   create_table "images", :force => true do |t|
-    t.string  "owner_type"
-    t.integer "owner_id"
     t.integer "parent_id"
     t.string  "content_type"
     t.string  "filename"
@@ -340,7 +348,6 @@ ActiveRecord::Schema.define(:version => 20110316171323) do
     t.string   "name"
     t.decimal  "price"
     t.text     "description"
-    t.string   "image"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.float    "lat"
@@ -349,6 +356,7 @@ ActiveRecord::Schema.define(:version => 20110316171323) do
     t.boolean  "available",           :default => true
     t.boolean  "highlighted"
     t.integer  "unit_id"
+    t.integer  "image_id"
   end
 
   add_index "products", ["enterprise_id"], :name => "index_products_on_enterprise_id"
@@ -379,6 +387,9 @@ ActiveRecord::Schema.define(:version => 20110316171323) do
     t.integer  "preferred_domain_id"
     t.datetime "updated_at"
     t.boolean  "visible",                           :default => true
+    t.integer  "image_id"
+    t.boolean  "validated",                         :default => true
+    t.string   "cnpj"
   end
 
   add_index "profiles", ["environment_id"], :name => "index_profiles_on_environment_id"
@@ -403,6 +414,15 @@ ActiveRecord::Schema.define(:version => 20110316171323) do
   create_table "region_validators", :id => false, :force => true do |t|
     t.integer "region_id"
     t.integer "organization_id"
+  end
+
+  create_table "reported_images", :force => true do |t|
+    t.integer "size"
+    t.string  "content_type"
+    t.string  "filename"
+    t.integer "height"
+    t.integer "width"
+    t.integer "abuse_report_id"
   end
 
   create_table "role_assignments", :force => true do |t|
@@ -457,6 +477,7 @@ ActiveRecord::Schema.define(:version => 20110316171323) do
     t.string   "type"
     t.datetime "created_at"
     t.string   "target_type"
+    t.integer  "image_id"
   end
 
   create_table "thumbnails", :force => true do |t|
@@ -493,6 +514,8 @@ ActiveRecord::Schema.define(:version => 20110316171323) do
     t.string   "last_chat_status",                        :default => ""
     t.string   "chat_status",                             :default => ""
     t.datetime "chat_status_at"
+    t.string   "activation_code",           :limit => 40
+    t.datetime "activated_at"
   end
 
   create_table "validation_infos", :force => true do |t|

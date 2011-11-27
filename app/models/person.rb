@@ -17,6 +17,8 @@ class Person < Profile
 
   has_many :requested_tasks, :class_name => 'Task', :foreign_key => :requestor_id, :dependent => :destroy
 
+  has_many :abuse_reports, :foreign_key => 'reporter_id', :dependent => :destroy
+
   has_many :mailings
 
   has_many :scraps_sent, :class_name => 'Scrap', :foreign_key => :sender_id, :dependent => :destroy
@@ -115,6 +117,8 @@ class Person < Profile
   contact_information
   description
   ]
+
+  validates_multiparameter_assignments
 
   def self.fields
     FIELDS
@@ -385,6 +389,21 @@ class Person < Profile
     end
     profile.remove_member(self)
     leave_hash.to_json
+  end
+
+  def already_reported?(profile)
+    abuse_reports.any? { |report| report.abuse_complaint.reported == profile && report.abuse_complaint.opened? }
+  end
+
+  def register_report(abuse_report, profile)
+    AbuseComplaint.create!(:reported => profile, :target => profile.environment) if !profile.opened_abuse_complaint
+    abuse_report.abuse_complaint = profile.opened_abuse_complaint
+    abuse_report.reporter = self
+    abuse_report.save!
+  end
+
+  def control_panel_settings_button
+    {:title => _('Profile Info and settings'), :icon => 'edit-profile'}
   end
 
   protected

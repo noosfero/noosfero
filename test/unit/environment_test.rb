@@ -234,11 +234,9 @@ class EnvironmentTest < ActiveSupport::TestCase
 
   should 'include port in default top URL for development environment' do
     env = Environment.new
-    env.expects(:default_hostname).returns('www.lalala.net')
-
     Noosfero.expects(:url_options).returns({ :port => 9999 }).at_least_once
 
-    assert_equal 'http://www.lalala.net:9999', env.top_url
+    assert_equal 'http://localhost:9999', env.top_url
   end
 
   should 'provide an approval_method setting' do
@@ -297,7 +295,7 @@ class EnvironmentTest < ActiveSupport::TestCase
 
   should 'destroy templates' do
     env = fast_create(Environment)
-    templates = [mock, mock, mock]
+    templates = [mock, mock, mock, mock]
     templates.each do |item|
       item.expects(:destroy)
     end
@@ -305,6 +303,7 @@ class EnvironmentTest < ActiveSupport::TestCase
     env.stubs(:person_template).returns(templates[0])
     env.stubs(:community_template).returns(templates[1])
     env.stubs(:enterprise_template).returns(templates[2])
+    env.stubs(:inactive_enterprise_template).returns(templates[3])
 
     env.destroy
   end
@@ -367,13 +366,21 @@ class EnvironmentTest < ActiveSupport::TestCase
   end
 
   should 'be able to add admins easily' do
-    Environment.any_instance.stubs(:create_templates) # avoid creating templates, it's expensive
-    env = Environment.create!(:name => 'bli')
+    env = Environment.default
     user = create_user('testuser').person
     env.add_admin(user)
-    env.reload
 
-    assert_includes env.admins, user
+    assert_includes Environment.default.admins, user
+  end
+
+  should 'be able to remove admins easily' do
+    env = Environment.default
+    user = create_user('testuser').person
+    env.affiliate(user, Environment::Roles.admin(env.id))
+    assert_includes Environment.default.admins, user
+
+    env.remove_admin(user)
+    assert_not_includes Environment.default.admins, user
   end
 
   should 'have products through enterprises' do
@@ -501,11 +508,13 @@ class EnvironmentTest < ActiveSupport::TestCase
 
     # the templates must be created
     assert_kind_of Enterprise, e.enterprise_template
+    assert_kind_of Enterprise, e.inactive_enterprise_template
     assert_kind_of Community, e.community_template
     assert_kind_of Person, e.person_template
 
     # the templates must be private
     assert !e.enterprise_template.visible?
+    assert !e.inactive_enterprise_template.visible?
     assert !e.community_template.visible?
     assert !e.person_template.visible?
   end
@@ -1054,7 +1063,7 @@ class EnvironmentTest < ActiveSupport::TestCase
   end
 
   should 'have a list of trusted sites by default' do
-    assert_equal ['itheora.org', 'tv.softwarelivre.org', 'stream.softwarelivre.org'], Environment.new.trusted_sites_for_iframe
+    assert_equal ['developer.myspace.com', 'itheora.org', 'maps.google.com', 'platform.twitter.com', 'player.vimeo.com', 'stream.softwarelivre.org', 'tv.softwarelivre.org', 'www.facebook.com', 'www.flickr.com', 'www.gmodules.com', 'www.youtube.com', 'a.yimg.com', 'b.yimg.com', 'c.yimg.com', 'd.yimg.com', 'e.yimg.com', 'f.yimg.com', 'g.yimg.com', 'h.yimg.com', 'i.yimg.com', 'j.yimg.com', 'k.yimg.com', 'l.yimg.com', 'm.yimg.com', 'n.yimg.com', 'o.yimg.com', 'p.yimg.com', 'q.yimg.com', 'r.yimg.com', 's.yimg.com', 't.yimg.com', 'u.yimg.com', 'v.yimg.com', 'w.yimg.com', 'x.yimg.com', 'y.yimg.com', 'z.yimg.com'], Environment.new.trusted_sites_for_iframe
   end
 
   should 'have a list of trusted sites' do
@@ -1098,6 +1107,97 @@ class EnvironmentTest < ActiveSupport::TestCase
     kilo  = Unit.create!(:singular => 'Kilo',  :plural => 'Kilo',   :environment => Environment.default)
     litre.move_to_bottom
     assert_equal ["Meter", "Kilo", "Litre"], Environment.default.units.map(&:singular)
+  end
+
+  should 'not include port in default hostname' do
+    env = Environment.new
+    Noosfero.stubs(:url_options).returns({ :port => 9999 })
+    assert_no_match /9999/, env.default_hostname
+  end
+
+  should 'identify scripts with regex' do
+    scripts_extensions = %w[php php1 php4 phps cgi shtm phtm shtml phtml pl py rb]
+    scripts_extensions.each do |extension|
+      assert_not_nil extension =~ Environment::IDENTIFY_SCRIPTS
+    end
+  end
+
+  should 'filter file as script only if it has the extension as a script extension' do
+    name = 'file_php_testing'
+    assert_equal name, Environment.verify_filename(name)
+
+    name += '.php'
+    assert_equal name+'.txt', Environment.verify_filename(name)
+
+    name += '.bli'
+    assert_equal name, Environment.verify_filename(name)
+  end
+
+  should 'verify filename and append .txt if script' do
+    scripts_extensions = %w[php php1 php4 phps cgi shtm phtm shtml phtml pl py rb]
+    name = 'uploaded_file'
+    scripts_extensions.each do |extension|
+      filename = name+'.'+extension
+      assert_equal filename+'.txt', Environment.verify_filename(filename)
+    end
+  end
+
+  should 'not conflict to save classes with namespace on sti' do
+    class School; end;
+    class Work; end;
+    class School::Project < Article; end
+    class Work::Project < Article; end
+
+    title1 = "Sample Article1"
+    title2 = "Sample Article2"
+    profile = fast_create(Profile)
+
+    p1 = School::Project.new(:name => title1, :profile => profile)
+    p2 = Work::Project.new(:name => title2, :profile => profile)
+
+    p1.save!
+    p2.save!
+  end
+
+  should 'always store setting keys as symbol' do
+    env = Environment.default
+    env.settings['string_key'] = 'new value'
+    env.save!; env.reload
+    assert_nil env.settings['string_key']
+    assert_equal env.settings[:string_key], 'new value'
+  end
+
+  should 'validate reports_lower_bound' do
+    environment = Environment.new
+
+    environment.reports_lower_bound = nil
+    environment.valid?
+    assert environment.errors.invalid?(:reports_lower_bound)
+
+    environment.reports_lower_bound = -3
+    environment.valid?
+    assert environment.errors.invalid?(:reports_lower_bound)
+
+    environment.reports_lower_bound = 1.5
+    environment.valid?
+    assert environment.errors.invalid?(:reports_lower_bound)
+
+    environment.reports_lower_bound = 5
+    environment.valid?
+    assert !environment.errors.invalid?(:reports_lower_bound)
+  end
+
+  should 'be able to enable or disable a plugin' do
+    environment = Environment.default
+    plugin = 'Plugin'
+
+    environment.enable_plugin(plugin)
+    environment.reload
+    assert_includes environment.enabled_plugins, plugin
+
+    environment.disable_plugin(plugin)
+    environment.reload
+    assert_not_includes environment.enabled_plugins, plugin
   end
 
 end

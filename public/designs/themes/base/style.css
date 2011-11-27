@@ -86,7 +86,7 @@ body, th, td, input {
   color: #555753;
 }
 
-#controlpanel, #logout, #openchat {
+#controlpanel, #logout, #openchat, #manage-enterprises {
   margin-left: 25px;
 }
 
@@ -280,23 +280,6 @@ body, th, td, input {
   -webkit-border-radius: 0px;
 }
 
-/***************************** boxes ********************************/
-
-.template-default .box-1 { /* Center */
-  position: relative;
-  margin: 0px 200px 0px 200px;
-}
-
-.template-default .box-2 { /* Left */
-  position: relative;
-  width: 190px;
-}
-
-.template-default .box-3 { /* Right */
-  position: relative;
-  width: 190px;
-}
-
 /************************** main content *****************************/
 
 #main-content-wrapper-1, #main-content-wrapper-2,
@@ -323,6 +306,12 @@ body, th, td, input {
   color: #555753;
   text-align: left;
   border-bottom: 2px solid #2e3436;
+}
+
+.block {
+  position: relative;
+  padding: 10px 0;
+  float: none;
 }
 
 /***************************** header ********************************/
@@ -483,7 +472,8 @@ div#notice {
 #content .enterprises-block ul,
 #content .members-block ul,
 #content .communities-block ul,
-#content .friends-block ul {
+#content .friends-block ul,
+#content .fans-block ul {
   min-width: 196px;
   width: 192px;
   margin: 0px 0px 0px -3px;
@@ -676,6 +666,7 @@ div#notice {
 
 .tag_cloud a {
   text-decoration: none;
+  white-space: nowrap;
 }
 
 .tag_cloud a small {
@@ -926,14 +917,17 @@ X.sep {
   height: 225px;
 }
 
-#content .search-results-type-article li {
+#content .search-results-type-article li,
+#content .search-results-type-event li {
   padding: 5px 0px;
 }
 
-.search-results-type-article a {
+.search-results-type-article a,
+.search-results-type-event a {
   text-decoration: none;
 }
-.search-results-type-article a:hover {
+.search-results-type-article a:hover,
+.search-results-type-event a:hover {
   text-decoration: underline;
 }
 
@@ -1249,9 +1243,6 @@ table.profile th {
 
 .browse-results-innerbox {
   margin-top: 10px;
-  border-bottom: none;
-  border: 1px solid #CCC;
-  background: url(imgs/comment-bg-S.png) 0% 100% repeat-x;
   padding-bottom: 10px;
 
 }
@@ -1305,4 +1296,10 @@ table.profile th {
 }
 #chat-window .history .other-name {
    color: #7F1F1F;
+}
+
+/* recaptcha*/
+
+table#recaptcha_table tr:hover td {
+  background-color: #fff;
 }

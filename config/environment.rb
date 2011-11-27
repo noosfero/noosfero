@@ -106,7 +106,7 @@ end
 
 # Include your application configuration below
 
-
+ActiveRecord::Base.store_full_sti_class = true
 
 Noosfero.locales = {
   'en' => 'English',
@@ -116,6 +116,7 @@ Noosfero.locales = {
   'de' => 'Deutsch',
   'ru' => 'русский язык',
   'es' => 'Español',
+  'eo' => 'Esperanto'
 }
 # if you want to override this, do it in config/local.rb !
 Noosfero.default_locale = nil

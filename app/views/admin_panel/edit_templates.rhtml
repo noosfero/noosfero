@@ -1,7 +1,10 @@
 <h1><%= _('Edit Templates') %></h1>
 
 <ul>
-<li><%= link_to _('Edit Person Template'), :controller => 'profile_editor', :profile => environment.person_template.identifier %></li>
-<li><%= link_to _('Edit Community Template'), :controller => 'profile_editor', :profile => environment.community_template.identifier %></li>
-<li><%= link_to __('Edit Enterprise Template'), :controller => 'profile_editor', :profile => environment.enterprise_template.identifier %></li>
+<% [[_('Edit Person Template'), environment.person_template],
+    [_('Edit Community Template'), environment.community_template],
+    [__('Edit Enterprise Template'), environment.enterprise_template],
+    [__('Edit Inactive Enterprise Template'), environment.inactive_enterprise_template]].select{|i| i[1]}.each do |row| %>
+<li><%= link_to row[0], :controller => 'profile_editor', :profile => row[1].identifier %></li>
+<% end %>
 </ul>

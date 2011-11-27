@@ -56,9 +56,10 @@ Feature: my_network_block
 
   Scenario: not display how many invisible friends I have
     Given the following users
-      | login      | name        | visible |
-      | mariasilva | Maria Silva | true    |
-      | josesilva  | Jose Silva  | false   |
+      | login      | name        |
+      | mariasilva | Maria Silva |
+      | josesilva  | Jose Silva  |
+    And "josesilva" is invisible
     And "joaosilva" is friend of "mariasilva"
     And I am logged in as "joaosilva"
     When I go to Joao Silva's homepage

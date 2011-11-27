@@ -5,10 +5,11 @@ class ManageDocumentsTest < ActionController::IntegrationTest
   all_fixtures
 
   def test_creation_of_a_new_article
-    create_user('myuser')
+    user = create_user('myuser')
+    user.activate
 
     login('myuser', 'myuser')
-    assert_tag :tag => 'a', :attributes => { :href => '/myprofile/{login}'  }
+    assert_tag :tag => 'a', :attributes => { :href => "#{user.environment.top_url}/myprofile\/{login}"  }
 
     get '/myprofile/myuser'
     assert_response :success
@@ -34,11 +35,12 @@ class ManageDocumentsTest < ActionController::IntegrationTest
 
   def test_update_of_an_existing_article
     profile = create_user('myuser').person
+    profile.user.activate
     article = create_article(profile, :name => 'my-article')
     article.save!
 
     login('myuser', 'myuser')
-    assert_tag :tag => 'a', :attributes => { :href => '/myprofile/{login}'  }
+    assert_tag :tag => 'a', :attributes => { :href => "#{profile.environment.top_url}\/myprofile\/{login}"  }
 
     get '/myprofile/myuser'
     assert_response :success
@@ -67,12 +69,13 @@ class ManageDocumentsTest < ActionController::IntegrationTest
 
   def test_removing_an_article
     profile = create_user('myuser').person
+    profile.user.activate
     article = create_article(profile, :name => 'my-article')
     article.save!
 
     login('myuser', 'myuser')
 
-    assert_tag :tag => 'a', :attributes => { :href => '/myprofile/{login}'  }
+    assert_tag :tag => 'a', :attributes => { :href => "#{profile.environment.top_url}\/myprofile\/{login}"  }
     get '/myprofile/myuser'
     assert_response :success
     

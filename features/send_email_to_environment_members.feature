@@ -5,7 +5,7 @@ Feature: send emails to environment members users
   Scenario: Cant access if not logged in
     Given I am not logged in
     When I go to /admin/users/send_mail
-    Then I should see "Access denied"
+    Then I should be on login page
 
   Scenario: Cant access as normal user
     Given the following user

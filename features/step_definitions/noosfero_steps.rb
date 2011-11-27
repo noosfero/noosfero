@@ -7,8 +7,12 @@ Given /^the following users?$/ do |table|
   table.hashes.each do |item|
     person_data = item.dup
     person_data.delete("login")
-    User.create!(:login => item[:login], :password => '123456', :password_confirmation => '123456', :email => item[:login] + "@example.com", :person_data => person_data)
+    User.create!(:login => item[:login], :password => '123456', :password_confirmation => '123456', :email => item[:login] + "@example.com", :person_data => person_data).activate
   end
+end
+
+Given /^"(.+)" is (invisible|visible)$/ do |user, visibility|
+  User.find_by_login(user).person.update_attributes(:visible => (visibility == 'visible'))
 end
 
 Given /^"(.+)" is (online|offline|busy) in chat$/ do |user, status|
@@ -20,9 +24,44 @@ Given /^the following (community|communities|enterprises?|organizations?)$/ do |
   klass = kind.singularize.camelize.constantize
   table.hashes.each do |row|
     owner = row.delete("owner")
+    domain = row.delete("domain")
     organization = klass.create!(row)
     if owner
       organization.add_admin(Profile[owner])
+    end
+    if domain
+      d = Domain.new :name => domain, :owner => organization
+      d.save(false)
+    end
+  end
+end
+
+Given /^"([^\"]*)" is associated with "([^\"]*)"$/ do |enterprise, bsc|
+  enterprise = Enterprise.find_by_name(enterprise) || Enterprise[enterprise]
+  bsc = BscPlugin::Bsc.find_by_name(bsc) || BscPlugin::Bsc[bsc]
+
+  bsc.enterprises << enterprise
+end
+
+Then /^"([^\"]*)" should be associated with "([^\"]*)"$/ do |enterprise, bsc|
+  enterprise = Enterprise.find_by_name(enterprise) || Enterprise[enterprise]
+  bsc = BscPlugin::Bsc.find_by_name(bsc) || BscPlugin::Bsc[bsc]
+
+  bsc.enterprises.should include(enterprise)
+end
+
+Given /^the folllowing "([^\"]*)" from "([^\"]*)"$/ do |kind, plugin, table|
+  klass = (plugin.camelize+'::'+kind.singularize.camelize).constantize
+  table.hashes.each do |row|
+    owner = row.delete("owner")
+    domain = row.delete("domain")
+    organization = klass.create!(row)
+    if owner
+      organization.add_admin(Profile[owner])
+    end
+    if domain
+      d = Domain.new :name => domain, :owner => organization
+      d.save(false)
     end
   end
 end
@@ -60,7 +99,7 @@ Given /^the following (articles|events|blogs|folders|forums|galleries)$/ do |con
       result.parent = Article.find_by_name(parent)
     end
     result.save!
-    if home
+    if home == 'true'
       owner.home_page = result
       owner.save!
     end
@@ -111,8 +150,8 @@ Given /^the following products?$/ do |table|
     data = item.dup
     owner = Enterprise[data.delete("owner")]
     category = Category.find_by_slug(data.delete("category").to_slug)
-    product = Product.create!(data.merge(:enterprise => owner, :product_category => category))
-    image = Image.create!(:owner => product, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
+    img = Image.create!(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
+    product = Product.create!(data.merge(:enterprise => owner, :product_category => category, :image_id => img.id))
   end
 end
 
@@ -190,6 +229,7 @@ end
 Given /^I am logged in as admin$/ do
   visit('/account/logout')
   user = User.create!(:login => 'admin_user', :password => '123456', :password_confirmation => '123456', :email => 'admin_user@example.com')
+  user.activate
   e = Environment.default
   e.add_admin(user.person)
   visit('/account/login')
@@ -245,6 +285,12 @@ Then /^"(.+)" should be admin of "(.+)"$/ do |person, organization|
   org.admins.should include(user)
 end
 
+Then /^"(.+)" should be moderator of "(.+)"$/ do |person,profile|
+  profile = Profile.find_by_name(profile)
+  person = Person.find_by_name(person)
+  profile.members_by_role(Profile::Roles.moderator(profile.environment.id)).should include(person)
+end
+
 Given /^"([^\"]*)" has no articles$/ do |profile|
   (Profile[profile] || Profile.find_by_name(profile)).articles.delete_all
 end
@@ -282,12 +328,12 @@ Given /^"(.+)" is friend of "(.+)"$/ do |person, friend|
   Person[person].add_friend(Person[friend])
 end
 
-Given /^(.+) is blocked$/ do |enterprise_name|
+Given /^enterprise "([^\"]*)" is blocked$/ do |enterprise_name|
   enterprise = Enterprise.find_by_name(enterprise_name)
   enterprise.block
 end
 
-Given /^(.+) is disabled$/ do |enterprise_name|
+Given /^enterprise "([^\"]*)" is disabled$/ do |enterprise_name|
   enterprise = Enterprise.find_by_name(enterprise_name)
   enterprise.enabled = false
   enterprise.save
@@ -334,6 +380,10 @@ Then /^I should be logged in as "(.+)"$/ do |login|
   User.find(session[:user]).login.should == login
 end
 
+Then /^I should not be logged in$/ do
+  session[:user].nil?
+end
+
 Given /^the profile "(.+)" has no blocks$/ do |profile|
   profile = Profile[profile]
   profile.boxes.map do |box|
@@ -367,7 +417,6 @@ Given /^the community "(.+)" is closed$/ do |community|
 end
 
 Given /^someone suggested the following article to be published$/ do |table|
-  SuggestArticle.skip_captcha!
   table.hashes.map{|item| item.dup}.each do |item|
     target = Community[item.delete('target')]
     task = SuggestArticle.create!(:target => target, :data => item)
@@ -377,5 +426,65 @@ end
 Given /^the following units?$/ do |table|
   table.hashes.each do |row|
     Unit.create!(row.merge(:environment_id => 1))
+  end
+end
+
+Given /^"([^\"]*)" asked to join "([^\"]*)"$/ do |person, organization|
+  person = Person.find_by_name(person)
+  organization = Organization.find_by_name(organization)
+  AddMember.create!(:person => person, :organization => organization)
+end
+
+Given /^that the default environment have (.+) templates?$/ do |option|
+  env = Environment.default
+  case option
+    when 'all profile'
+      env.create_templates
+    when 'no Inactive Enterprise'
+      env.inactive_enterprise_template && env.inactive_enterprise_template.destroy
+  end
+end
+
+Given /^the environment domain is "([^\"]*)"$/ do |domain|
+  d = Domain.new :name => domain, :owner => Environment.default
+  d.save(false)
+end
+
+When /^([^\']*)'s account is activated$/ do |person|
+  Person.find_by_name(person).user.activate
+end
+
+Then /^I should receive an e-mail on (.*)$/ do |address|
+  last_mail = ActionMailer::Base.deliveries.last
+  last_mail['to'].to_s.should == address
+end
+
+Given /^"([^\"]*)" plugin is (enabled|disabled)$/ do |plugin_name, status|
+  environment = Environment.default
+  environment.send(status.chop + '_plugin', plugin_name+'Plugin')
+end
+
+Then /^there should be an? (.+) named "([^\"]*)"$/ do |klass_name, profile_name|
+  klass = klass_name.camelize.constantize
+  klass.find_by_name(profile_name).nil?.should be_false
+end
+
+Then /^"([^\"]*)" profile should exist$/ do |profile_selector|
+  profile = nil
+  begin
+    profile = Profile.find_by_name(profile_selector)
+    profile.nil?.should be_false
+  rescue
+    profile.nil?.should be_false
+  end
+end
+
+Then /^"([^\"]*)" profile should not exist$/ do |profile_selector|
+  profile = nil
+  begin
+    profile = Profile.find_by_name(profile_selector)
+    profile.nil?.should be_true
+  rescue
+    profile.nil?.should be_true
   end
 end

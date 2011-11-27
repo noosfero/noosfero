@@ -1,0 +1,26 @@
+<h1><%= _('Manage associated enterprises') %></h1>
+
+<% if !@pending_enterprises.blank? %>
+  <%= _('Associations awaiting approval:') %>
+  <ul>
+    <% @pending_enterprises.each do |enterprise| %>
+      <li><%= enterprise.name %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<% form_tag :action => 'save_associations' do %>
+  <% search_action = {:action => 'search_enterprise', :profile => profile.identifier} %>
+  <%= token_input_field_tag(:q, 'search-enterprises', search_action, 
+                            { :pre_populate => profile.enterprises_to_token_input,
+                              :hint_text => _('Type in a search term for enterprise'),
+                              :focus => true }) %>
+
+  <%= button('add', _('Add new enterprise'), {:action => 'create_enterprise'}) %>
+
+  <% button_bar do %>
+    <%= submit_button('save', _('Save'))%>
+    <%= button('cancel', _('Cancel'), {:controller => 'profile_editor'})%>
+  <% end %>
+
+<% end %>

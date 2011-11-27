@@ -1,9 +1,10 @@
 class Image < ActiveRecord::Base
-  belongs_to :owner, :polymorphic => true
 
   def self.max_size
     Image.attachment_options[:max_size]
   end
+
+  sanitize_filename
 
   has_attachment :content_type => :image, 
                  :storage => :file_system, 
@@ -19,5 +20,7 @@ class Image < ActiveRecord::Base
   validates_attachment :size => N_("%{fn} of uploaded file was larger than the maximum size of 500.0 KB")
 
   delay_attachment_fu_thumbnails
+
+  postgresql_attachment_fu
 
 end

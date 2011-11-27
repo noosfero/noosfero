@@ -1,37 +1,59 @@
 #!/usr/bin/env ruby
 require File.dirname(__FILE__) + '/../config/environment'
+include Noosfero::SampleDataHelper
 
-# tourn on autoflush
-STDOUT.sync = true
-
-profiles = Profile.all
+profiles = $environment.profiles
+categories = $environment.categories
 SUBJECTS = ['got a new car', 'release a new version of project X', "doesn't like wales no more", "doesn't use free-software no more"]
 TAGS = ['free-software', 'noosfero', 'development', 'rails', 'ruby']
+EVENT_SUBJECTS = ['International Conference on %s', '%s day', '%s World Congress', '%s World Forum', '%s Summit', '%s Week']
+THEMES = ['Sustainability', 'Free Software', 'Climate Change', 'Environment', 'Agile Development', 'Solidarity Economy', 'Debian', 'Perl']
 
 print "Creating some TinyMce articles: "
 for subject in SUBJECTS
   rand(20).times do |i|
     profile = profiles.rand
-    profile.articles << TinyMceArticle.new(
+    article = TinyMceArticle.new(
       :name => "%s #{subject}" % profile.name,
       :body => "%s #{subject}" % profile.name,
-      :tag_list => [TAGS.rand, TAGS.rand]
+      :tag_list => [TAGS.rand, TAGS.rand],
+      :profile => profile
     )
-    print '.'
+    save article do
+      categories.rand.articles << article
+    end
   end
 end
-puts ' done!'
+done
 
 print "Creating some galleries: "
 for subject in SUBJECTS
   rand(20).times do |i|
     profile = profiles.rand
-    profile.articles << Gallery.new(
+    save Gallery.new(
       :name => "Gallery %s #{subject}" % profile.name,
       :body => "Gallery %s #{subject}" % profile.name,
-      :tag_list => [TAGS.rand, TAGS.rand]
+      :tag_list => [TAGS.rand, TAGS.rand],
+      :profile => profile
     )
-    print '.'
   end
 end
-puts ' done!'
+done
+
+print "Creating some events: "
+for subject in EVENT_SUBJECTS
+  for theme in THEMES
+    event = Event.new(
+      :name => subject % theme,
+      :profile => profiles.rand,
+      :start_date => Date.today + (-30 + rand(60)).days,
+      :tag_list => [TAGS.rand, TAGS.rand]
+    )
+    save event do
+      categories.rand.events << event
+      categories.rand.events << event
+      categories.rand.events << event
+    end
+  end
+end
+done

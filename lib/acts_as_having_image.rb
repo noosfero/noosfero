@@ -2,7 +2,9 @@ module ActsAsHavingImage
 
   module ClassMethods
     def acts_as_having_image
-      has_one :image, :as => 'owner'
+      belongs_to :image
+      named_scope :with_image, :conditions => [ "#{table_name}.image_id IS NOT NULL" ]
+      named_scope :without_image, :conditions => [ "#{table_name}.image_id IS NULL" ]
       self.send(:include, ActsAsHavingImage)
     end
   end

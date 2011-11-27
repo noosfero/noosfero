@@ -7,7 +7,6 @@ class CategoryFinderTest < ActiveSupport::TestCase
     @finder = CategoryFinder.new(@category)
     @product_category = fast_create(ProductCategory, :name => 'Products')
 
-    Profile.rebuild_index
   end
 	
   should 'search for articles in a specific category' do

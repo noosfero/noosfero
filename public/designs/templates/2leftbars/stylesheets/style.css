@@ -1,0 +1,27 @@
+.box-1 {
+  margin: 0 0 0 400px;
+}
+
+.box-1 .blocks {
+  width: 100%;
+  float: left;
+}
+
+.box-2 {
+  position: relative;
+  float: left;
+  width: 190px;
+  padding-left: 10px;
+}
+
+.box-3 {
+  position: relative;
+  float: left;
+  width: 190px;
+}
+
+#profile-activity ul,
+#profile-network ul,
+#profile-wall ul {
+  width: 460px;
+}

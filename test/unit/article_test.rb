@@ -1505,4 +1505,137 @@ class ArticleTest < ActiveSupport::TestCase
     assert !child.accept_uploads?
   end
 
+  should 'index by schema name when database is postgresql' do
+    uses_postgresql 'schema_one'
+    art1 = Article.create!(:name => 'some thing', :profile_id => @profile.id)
+    assert_equal Article.find_by_contents('thing'), [art1]
+    uses_postgresql 'schema_two'
+    art2 = Article.create!(:name => 'another thing', :profile_id => @profile.id)
+    assert_not_includes Article.find_by_contents('thing'), art1
+    assert_includes Article.find_by_contents('thing'), art2
+    uses_postgresql 'schema_one'
+    assert_includes Article.find_by_contents('thing'), art1
+    assert_not_includes Article.find_by_contents('thing'), art2
+    uses_sqlite
+  end
+
+  should 'not index by schema name when database is not postgresql' do
+    uses_sqlite
+    art1 = Article.create!(:name => 'some thing', :profile_id => @profile.id)
+    assert_equal Article.find_by_contents('thing'), [art1]
+    art2 = Article.create!(:name => 'another thing', :profile_id => @profile.id)
+    assert_includes Article.find_by_contents('thing'), art1
+    assert_includes Article.find_by_contents('thing'), art2
+  end
+
+  should 'get images paths in article body' do
+    Environment.any_instance.stubs(:default_hostname).returns('noosfero.org')
+    a = TinyMceArticle.new :profile => @profile
+    a.body = 'Noosfero <img src="http://noosfero.com/test.png" /> test <img src="http://test.com/noosfero.png" />'
+    assert_includes a.body_images_paths, 'http://noosfero.com/test.png'
+    assert_includes a.body_images_paths, 'http://test.com/noosfero.png'
+  end
+
+  should 'get absolute images paths in article body' do
+    Environment.any_instance.stubs(:default_hostname).returns('noosfero.org')
+    a = TinyMceArticle.new :profile => @profile
+    a.body = 'Noosfero <img src="test.png" alt="Absolute" /> test <img src="/relative/path.png" />'
+    assert_includes a.body_images_paths, 'http://noosfero.org/test.png'
+    assert_includes a.body_images_paths, 'http://noosfero.org/relative/path.png'
+  end
+
+  should 'return empty if there are no images in article body' do
+    Environment.any_instance.stubs(:default_hostname).returns('noosfero.org')
+    a = Event.new :profile => @profile
+    a.body = 'Noosfero test'
+    assert_equal [], a.body_images_paths
+  end
+
+  should 'return empty if body is nil' do
+    Environment.any_instance.stubs(:default_hostname).returns('noosfero.org')
+    a = Article.new :profile => @profile
+    assert_equal [], a.body_images_paths
+  end
+
+  should 'survive to a invalid src attribute while looking for images in body' do
+    article = Article.new(:body => "An article with invalid src in img tag <img src='path with spaces.png' />", :profile => @profile)
+    assert_nothing_raised URI::InvalidURIError do
+      assert_equal ['http://localhost/path%20with%20spaces.png'], article.body_images_paths
+    end
+  end
+
+  should 'find more recent contents' do
+    Article.delete_all
+
+    c1 = fast_create(TinyMceArticle, :name => 'Testing article 1', :body => 'Article body 1', :profile_id => profile.id, :created_at => DateTime.now - 4)
+    c2 = fast_create(TinyMceArticle, :name => 'Testing article 2', :body => 'Article body 2', :profile_id => profile.id, :created_at => DateTime.now - 1)
+    c3 = fast_create(TinyMceArticle, :name => 'Testing article 3', :body => 'Article body 3', :profile_id => profile.id, :created_at => DateTime.now - 3)
+
+    assert_equal [c2,c3,c1] , Article.more_recent
+
+    c4 = fast_create(TinyMceArticle, :name => 'Testing article 4', :body => 'Article body 4', :profile_id => profile.id, :created_at => DateTime.now - 2)
+    assert_equal [c2,c4,c3,c1] , Article.more_recent
+  end
+
+  should 'respond to more comments' do
+    assert_respond_to Article, :more_comments
+  end
+
+  should 'respond to more views' do
+    assert_respond_to Article, :more_views
+  end
+
+  should "return the more recent label" do
+    a = Article.new
+    assert_equal "Created at: ", a.more_recent_label
+  end
+
+  should "return no comments if profile has 0 comments" do
+    a = Article.new
+    assert_equal 0, a.comments_count
+    assert_equal "no comments", a.more_comments_label
+  end
+
+  should "return 1 comment on label if the content has 1 comment" do
+    a = Article.new(:comments_count => 1)
+    assert_equal 1, a.comments_count
+    assert_equal "one comment", a.more_comments_label
+  end
+
+  should "return number of comments on label if the content has more than one comment" do
+    a = Article.new(:comments_count => 4)
+    assert_equal 4, a.comments_count
+    assert_equal "4 comments", a.more_comments_label
+  end
+
+  should "return no views if profile has 0 views" do
+    a = Article.new
+    assert_equal 0, a.hits
+    assert_equal "no views", a.more_views_label
+  end
+
+  should "return 1 view on label if the content has 1 view" do
+    a = Article.new(:hits => 1)
+    assert_equal 1, a.hits
+    assert_equal "one view", a.more_views_label
+  end
+
+  should "return number of views on label if the content has more than one view" do
+    a = Article.new(:hits => 4)
+    assert_equal 4, a.hits
+    assert_equal "4 views", a.more_views_label
+  end
+
+  should 'return only text articles' do
+    Article.delete_all
+
+    c1 = fast_create(TinyMceArticle, :name => 'Testing article 1', :body => 'Article body 1', :profile_id => profile.id)
+    c2 = fast_create(TextArticle, :name => 'Testing article 2', :body => 'Article body 2', :profile_id => profile.id)
+    c3 = fast_create(Event, :name => 'Testing article 3', :body => 'Article body 3', :profile_id => profile.id)
+    c4 = fast_create(RssFeed, :name => 'Testing article 4', :body => 'Article body 4', :profile_id => profile.id)
+    c5 = fast_create(TextileArticle, :name => 'Testing article 5', :body => 'Article body 5', :profile_id => profile.id)
+
+    assert_equal [c1,c2,c5], Article.text_articles
+  end
+
 end

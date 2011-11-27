@@ -79,7 +79,7 @@ ActionController::Routing::Routes.draw do |map|
   map.profile_search 'profile/:profile/search', :controller => 'profile_search', :action => 'index', :profile => /#{Noosfero.identifier_format}/
 
   # public profile information
-  map.profile 'profile/:profile/:action/:id', :controller => 'profile', :action => 'index', :id => /.*/, :profile => /#{Noosfero.identifier_format}/
+  map.profile 'profile/:profile/:action/:id', :controller => 'profile', :action => 'index', :id => /[^\/]*/, :profile => /#{Noosfero.identifier_format}/
 
   # contact
   map.contact 'contact/:profile/:action/:id', :controller => 'contact', :action => 'index', :id => /.*/, :profile => /#{Noosfero.identifier_format}/

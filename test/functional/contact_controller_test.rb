@@ -74,13 +74,6 @@ class ContactControllerTest < ActionController::TestCase
     assert_no_tag :tag => 'select', :attributes => {:name => 'state'}
   end
 
-  should 'not be able to post contact while inverse captcha field filled' do
-    post :new, :profile => enterprise.identifier, @controller.icaptcha_field => 'filled', :contact => {:subject => 'Hi', :message => 'Hi, all', :state => '', :city => ''}
-
-    assert_response :success
-    assert_template 'new'
-  end
-
   should 'not allow if not logged' do
     logout
     get :new, :profile => profile.identifier
@@ -91,12 +84,6 @@ class ContactControllerTest < ActionController::TestCase
   should 'identify sender' do
     post :new, :profile => enterprise.identifier, :contact => {:subject => 'Hi', :message => 'Hi, all', :state => '', :city => ''}
     assert_equal Person['contact_test_user'], assigns(:contact).sender
-  end
-
-  should 'send contact while inverse captcha field not filled' do
-    post :new, :profile => enterprise.identifier, :contact => {:subject => 'Hi', :message => 'Hi, all', :state => '', :city => ''}, :confirm => 'true'
-    assert_response :redirect
-    assert_redirected_to :action => 'new'
   end
 
   should 'deliver contact if subject and message are filled' do

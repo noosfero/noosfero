@@ -23,23 +23,26 @@ class Contact < ActiveRecord::Base #WithoutTable
 
   class Sender < ActionMailer::Base
     def mail(contact)
+      content_type 'text/html'
       emails = contact.dest.notification_emails
       recipients emails
-      from "#{contact.name} <#{contact.email}>"
+      from "#{contact.name} <#{contact.dest.environment.contact_email}>"
+      reply_to contact.email
       if contact.sender
         headers 'X-Noosfero-Sender' => contact.sender.identifier
       end
       if contact.receive_a_copy
         cc "#{contact.name} <#{contact.email}>"
       end
-      subject contact.subject
+      subject "[#{contact.dest.short_name(30)}] " + contact.subject
       body :name => contact.name,
         :email => contact.email,
         :city => contact.city,
         :state => contact.state,
         :message => contact.message,
         :environment => contact.dest.environment.name,
-        :url => url_for(:host => contact.dest.environment.default_hostname, :controller => 'home')
+        :url => url_for(:host => contact.dest.environment.default_hostname, :controller => 'home'),
+        :target => contact.dest.name
     end
   end
 

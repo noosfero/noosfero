@@ -188,6 +188,34 @@ class ActiveSupport::TestCase
     end
   end
 
+  def uses_postgresql(schema_name = 'test_schema')
+    adapter = ActiveRecord::Base.connection.class
+    adapter.any_instance.stubs(:adapter_name).returns('PostgreSQL')
+    adapter.any_instance.stubs(:schema_search_path).returns(schema_name)
+    Noosfero::MultiTenancy.stubs(:on?).returns(true)
+    reload_for_ferret
+  end
+
+  def uses_sqlite
+    adapter = ActiveRecord::Base.connection.class
+    adapter.any_instance.stubs(:adapter_name).returns('SQLite')
+    Noosfero::MultiTenancy.stubs(:on?).returns(false)
+  end
+
+  def reload_for_ferret
+    ActsAsFerret.send(:remove_const, :DEFAULT_FIELD_OPTIONS)
+    load File.join(RAILS_ROOT, 'lib', 'acts_as_searchable.rb')
+    load File.join(RAILS_ROOT, 'vendor', 'plugins', 'acts_as_ferret', 'lib', 'acts_as_ferret.rb')
+    [Article, Profile, Product].each do |clazz|
+      inst_meth = clazz.instance_methods.reject{ |m| m =~ /_to_ferret$/ }
+      clazz.stubs(:instance_methods).returns(inst_meth)
+    end
+    #FIXME Is there a way to avoid this replication from model code?
+    Article.acts_as_searchable :additional_fields => [ :comment_data ]
+    Profile.acts_as_searchable :additional_fields => [ :extra_data_for_index ]
+    Product.acts_as_searchable :fields => [ :name, :description, :category_full_name ]
+  end
+
 end
 
 module NoosferoTestHelper
@@ -208,8 +236,9 @@ module NoosferoTestHelper
     ''
   end
 
-  def tag(tag)
-    "<#{tag}/>"
+  def tag(tag, args = {})
+    attrs = args.map{|k,v| "#{k}='#{v}'"}.join(' ')
+    "<#{tag} #{attrs} />"
   end
 
   def options_from_collection_for_select(collection, value_method, content_method)
@@ -220,7 +249,7 @@ module NoosferoTestHelper
     "<select id='#{id}'>fake content</select>"
   end
 
-  def options_for_select(collection)
+  def options_for_select(collection, selected = nil)
     collection.map{|item| "<option value='#{item[1]}'>#{item[0]}</option>"}.join("\n")
   end
 
@@ -234,6 +263,35 @@ module NoosferoTestHelper
 
   def will_paginate(arg1, arg2)
   end
+
+  def url_for(args = {})
+    args
+  end
+  def javascript_tag(any)
+    ''
+  end
+  def javascript_include_tag(any)
+    ''
+  end
+  def check_box_tag(name, value = 1, checked = false, options = {})
+    name
+  end
+  def stylesheet_link_tag(arg)
+    arg
+  end
+
+  def show_date(date)
+    date.to_s
+  end
+
+  def strip_tags(html)
+    html.gsub(/<[^>]+>/, '')
+  end
+
+  def icon_for_article(article)
+    ''
+  end
+
 end
 
 class ActionController::IntegrationTest

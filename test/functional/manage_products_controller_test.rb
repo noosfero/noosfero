@@ -122,6 +122,13 @@ class ManageProductsControllerTest < ActionController::TestCase
     assert_template 'shared/_dialog_error_messages'
   end
 
+  should "not crash if product has no category" do
+    product = fast_create(Product, :enterprise_id => @enterprise.id)
+    assert_nothing_raised do
+      post 'edit_category', :profile => @enterprise.identifier, :id => product.id
+    end
+  end
+
   should "destroy product" do
     product = fast_create(Product, :name => 'test product', :enterprise_id => @enterprise.id, :product_category_id => @product_category.id)
     assert_difference Product, :count, -1 do
@@ -159,6 +166,14 @@ class ManageProductsControllerTest < ActionController::TestCase
     assert_difference Product, :count do
       post 'new', :profile => @enterprise.identifier, :product => { :name => 'test product' }, :selected_category_id => category2.id
       assert_equal category2, assigns(:product).product_category
+    end
+  end
+
+  should 'not create a new product with an invalid category' do
+    category1 = fast_create(Category, :name => 'Category 1')
+    category2 = fast_create(Category, :name => 'Category 2', :parent_id => category1)
+    assert_raise ActiveRecord::AssociationTypeMismatch do
+      post 'new', :profile => @enterprise.identifier, :product => { :name => 'test product' }, :selected_category_id => category2.id
     end
   end
 
@@ -418,6 +433,37 @@ class ManageProductsControllerTest < ActionController::TestCase
     get :show, :id => product.id, :profile => @enterprise.identifier
     assert_tag :tag => 'div', :attributes => { :id => "product-#{product.id}-tabs" }, :descendant => {:tag => 'a', :attributes => {:href => '#product-description'}, :content => 'Description'}
     assert_tag :tag => 'div', :attributes => { :id => "product-#{product.id}-tabs" }, :descendant => {:tag => 'a', :attributes => {:href => '#product-inputs'}, :content => 'Inputs and raw material'}
+  end
+
+  should 'include extra content supplied by plugins on products info extras' do
+    product = fast_create(Product, :enterprise_id => @enterprise.id)
+    plugin1_local_variable = "Plugin1"
+    plugin1_content = lambda {"<span id='plugin1'>This is #{plugin1_local_variable} speaking!</span>"}
+    plugin2_local_variable = "Plugin2"
+    plugin2_content = lambda {"<span id='plugin2'>This is #{plugin2_local_variable} speaking!</span>"}
+    contents = [plugin1_content, plugin2_content]
+
+    plugins = mock()
+    plugins.stubs(:enabled_plugins).returns([])
+    plugins.stubs(:map).with(:body_beginning).returns([])
+    plugins.stubs(:map).with(:product_info_extras, product).returns(contents)
+    Noosfero::Plugin::Manager.stubs(:new).returns(plugins)
+
+    get :show, :id => product.id, :profile => @enterprise.identifier
+
+    assert_tag :tag => 'span', :content => 'This is ' + plugin1_local_variable + ' speaking!', :attributes => {:id => 'plugin1'}
+    assert_tag :tag => 'span', :content => 'This is ' + plugin2_local_variable + ' speaking!', :attributes => {:id => 'plugin2'}
+  end
+
+  should 'not allow product creation for profiles that can\'t do it' do
+    class SpecialEnterprise < Enterprise
+      def create_product?
+        false
+      end
+    end
+    enterprise = SpecialEnterprise.create!(:identifier => 'special-enterprise', :name => 'Special Enterprise')
+    get 'new', :profile => enterprise.identifier
+    assert_response 403
   end
 
 end

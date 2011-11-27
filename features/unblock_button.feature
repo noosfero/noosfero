@@ -10,11 +10,11 @@ Feature: unblock button
     And the following blocks
       | owner             | type                           |
       | sample-enterprise | DisabledEnterpriseMessageBlock |
-    And Sample Enterprise is disabled
+    And enterprise "Sample Enterprise" is disabled
 
   Scenario: the environment administrator unblocks a blocked enterprise
     Given I am logged in as admin
-    And Sample Enterprise is blocked
+    And enterprise "Sample Enterprise" is blocked
     And I am on Sample Enterprise's homepage
     When I follow "Unblock"
     Then I should not see "Unblock"
@@ -24,7 +24,7 @@ Feature: unblock button
       | login     | name       |
       | joaosilva | Joao Silva |
     And I am logged in as "joaosilva"
-    And Sample Enterprise is blocked
+    And enterprise "Sample Enterprise" is blocked
     When I am on Sample Enterprise's homepage
     Then I should not see "Unblock"
 

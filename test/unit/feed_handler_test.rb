@@ -114,4 +114,11 @@ class FeedHandlerTest < ActiveSupport::TestCase
     end
   end
 
+  should 'not crash even when finish fetch fails' do
+    container.stubs(:finish_fetch).raises(Exception.new("crash"))
+    assert_nothing_raised do
+      handler.process(container)
+    end
+  end
+
 end

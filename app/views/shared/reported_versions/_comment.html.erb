@@ -1,0 +1,10 @@
+<ul>
+  <li><%= (content_tag('strong', _('Title') + ': ') + comment.title)  if comment.title %> </li>
+  <li><%= content_tag('strong', _('Type') + ': ') + _('Comment') %> </li>
+  <li>
+    <%= (content_tag('strong', _('Original content') + ': ') + link_to(comment.title || url_for(comment.url), comment.url)) %> <br />
+    <%= content_tag('small', _('This link might be unavailable if the content is removed')) %>
+  </li>
+</ul>
+
+<p><%= article_to_html(comment) %></p>

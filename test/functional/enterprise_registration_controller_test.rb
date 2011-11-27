@@ -178,5 +178,4 @@ all_fixtures
     get :index
     assert_equal assigns(:create_enterprise).target, environment
   end
-
 end

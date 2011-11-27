@@ -1,3 +1,88 @@
+noosfero (0.34.0) unstable; urgency=low
+
+  * Features version release.
+
+ -- Joenio Costa <joenio@colivre.coop.br>  Thu, 24 Nov 2011 13:07:12 -0200
+
+noosfero (0.33.1) unstable; urgency=low
+
+  * Bugfixes version release.
+
+ -- Joenio Costa <joenio@perl.org.br>  Sun, 16 Oct 2011 15:34:25 -0300
+
+noosfero (0.33.0) unstable; urgency=low
+
+  * Features version release
+
+ -- Joenio Costa <joenio@perl.org.br>  Mon, 10 Oct 2011 09:30:36 -0300
+
+noosfero (0.32.1) unstable; urgency=low
+
+  * Bugfix version release.
+
+ -- Joenio Costa <joenio@perl.org.br>  Tue, 27 Sep 2011 11:24:07 -0300
+
+noosfero (0.32.0) unstable; urgency=low
+
+  * Features version release
+
+ -- Daniela Soares Feitosa <daniela@colivre.coop.br>  Mon, 22 Aug 2011 19:17:40 -0300
+
+noosfero (0.31.5) unstable; urgency=low
+
+  * Bugfix version release
+
+ -- Daniela Soares Feitosa <daniela@colivre.coop.br>  Mon, 15 Aug 2011 18:20:13 -0300
+
+noosfero (0.31.4) unstable; urgency=low
+
+  * Bugfix Version release
+
+ -- Rodrigo Souto <rodrigo@colivre.coop.br>  Fri, 15 Jul 2011 16:40:05 -0300
+
+
+noosfero (0.31.3) unstable; urgency=low
+
+  * Bugfix Version release.
+
+ -- Rodrigo <rodrigo@colivre.coop.br>  Thu, 16 Jun 2011 11:13:42 -0300
+
+noosfero (0.31.2) unstable; urgency=low
+
+  * Bugfix Version release.
+
+ -- Rodrigo Souto <rodrigo@colivre.coop.br>  Fri, 03 Jun 2011 13:35:36 -0300
+
+noosfero (0.31.1) unstable; urgency=low
+
+  * Bugfix Version release.
+
+ -- Rodrigo Souto <rodrigo@colivre.coop.br>  Fri, 27 May 2011 13:12:19 -0300
+
+noosfero (0.31.0) unstable; urgency=low
+
+  * Features Version release.
+
+ -- Daniela Soares Feitosa <daniela@colivre.coop.br>  Thu, 12 May 2011 01:06:39 -0300
+
+noosfero (0.30.2) unstable; urgency=low
+
+  * Bugfix Version release.
+
+ -- Joenio Costa <joenio@colivre.coop.br>  Wed, 11 May 2011 21:48:31 -0300
+
+noosfero (0.30.1) unstable; urgency=low
+
+  * Bugfix Version release.
+
+ -- Joenio Costa <joenio@colivre.coop.br>  Thu, 14 Apr 2011 12:51:12 -0300
+
+noosfero (0.30.0) unstable; urgency=low
+
+  * Features Version release.
+
+ -- Daniela Soares Feitosa <daniela@colivre.coop.br>  Tue, 12 Apr 2011 09:40:10 -0300
+
 noosfero (0.29.5) unstable; urgency=low
 
   * Bugfix Version release. (Closes: AI#1961)

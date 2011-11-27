@@ -8,7 +8,7 @@
   <% comment_balloon :class => 'profile-wall-description' do %>
     <p class='profile-wall-sender'><%= link_to scrap.sender.name, scrap.sender.url %></p>
     <p class='profile-wall-time'><%= time_ago_as_sentence(scrap.created_at) + ' ' + _('ago') %></p>
-    <p class='profile-wall-text'><%= auto_link_urls scrap.content %></p>
+    <p class='profile-wall-text'><%= txt2html scrap.content %></p>
     <%= button_to_remote(:delete, content_tag(:span, _('Remove')), :url =>{:action => 'remove_scrap', :scrap_id => scrap.id}, :update => "profile-wall-item-#{scrap.id}") if logged_in? && user.can_control_scrap?(scrap) %>
     <% if logged_in? && current_person.follows?(scrap.sender) && scrap.root.nil? %>
       <p class='profile-wall-send-reply'><%= link_to_function _('Reply'), "hide_and_show(['#profile-wall-reply-response-#{scrap.id}'],['#profile-wall-reply-#{scrap.id}', '#profile-wall-reply-form-#{scrap.id}']);$('reply_content_#{scrap.id}').value='';$('scrap_id_#{scrap.id}').value='#{scrap.id}';return false", :class => "profile-send-reply icon-reply" %></p>

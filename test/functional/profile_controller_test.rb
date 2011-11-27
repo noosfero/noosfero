@@ -189,8 +189,10 @@ class ProfileControllerTest < ActionController::TestCase
   end
 
   should 'display add friend button' do
+    @profile.user.activate
     login_as(@profile.identifier)
     friend = create_user_full('friendtestuser').person
+    friend.user.activate
     friend.boxes.first.blocks << block = ProfileInfoBlock.create!
     get :profile_info, :profile => friend.identifier, :block_id => block.id
     assert_match /Add friend/, @response.body
@@ -318,6 +320,7 @@ class ProfileControllerTest < ActionController::TestCase
   
   should 'display contact button only if friends' do
     friend = create_user_full('friend_user').person
+    friend.user.activate
     friend.boxes.first.blocks << block = ProfileInfoBlock.create!
     @profile.add_friend(friend)
     env = Environment.default
@@ -338,6 +341,7 @@ class ProfileControllerTest < ActionController::TestCase
 
   should 'display contact button only if friends and its enable in environment' do
     friend = create_user_full('friend_user').person
+    friend.user.activate
     friend.boxes.first.blocks << block = ProfileInfoBlock.create!
     env = Environment.default
     env.disable('disable_contact_person')
@@ -469,7 +473,7 @@ class ProfileControllerTest < ActionController::TestCase
 
     get :join, :profile => community.identifier
 
-    assert_equal "/profile/#{community.identifier}", @request.session[:before_join]
+    assert_equal "/profile/#{community.identifier}", @request.session[:previous_location]
   end
 
   should 'redirect to location before login after join community' do
@@ -482,7 +486,7 @@ class ProfileControllerTest < ActionController::TestCase
 
     assert_redirected_to "/profile/#{community.identifier}/to_go"
 
-    assert_nil @request.session[:before_join]
+    assert_nil @request.session[:previous_location]
   end
 
   should 'show number of published events in index' do
@@ -1159,17 +1163,31 @@ class ProfileControllerTest < ActionController::TestCase
   end
 
   should 'display plugins tabs' do
-    plugin1_tab = {:title => 'Plugin1 tab', :id => 'plugin1_tab', :content => 'Content from plugin1.'}
-    plugin2_tab = {:title => 'Plugin2 tab', :id => 'plugin2_tab', :content => 'Content from plugin2.'}
-    tabs = [plugin1_tab, plugin2_tab]
-    plugins = mock()
-    plugins.stubs(:map).with(:profile_tabs).returns(tabs)
-    Noosfero::Plugin::Manager.stubs(:new).returns(plugins)
+    class Plugin1 < Noosfero::Plugin
+      def profile_tabs
+        {:title => 'Plugin1 tab', :id => 'plugin1_tab', :content => lambda { 'Content from plugin1.' }}
+      end
+    end
+
+    class Plugin2 < Noosfero::Plugin
+      def profile_tabs
+        {:title => 'Plugin2 tab', :id => 'plugin2_tab', :content => lambda { 'Content from plugin2.' }}
+      end
+    end
+
+    e = profile.environment
+    e.enable_plugin(Plugin1.name)
+    e.enable_plugin(Plugin2.name)
 
     get :index, :profile => profile.identifier
 
-    assert_tag :tag => 'a', :content => /#{plugin1_tab[:title]}/, :attributes => {:href => /#{plugin1_tab[:id]}/}
-    assert_tag :tag => 'div', :content => /#{plugin1_tab[:content]}/, :attributes => {:id => /#{plugin1_tab[:id]}/}
+    plugin1 = Plugin1.new
+    plugin2 = Plugin2.new
+
+    assert_tag :tag => 'a', :content => /#{plugin1.profile_tabs[:title]}/, :attributes => {:href => /#{plugin1.profile_tabs[:id]}/}
+    assert_tag :tag => 'div', :content => /#{instance_eval(&plugin1.profile_tabs[:content])}/, :attributes => {:id => /#{plugin1.profile_tabs[:id]}/}
+    assert_tag :tag => 'a', :content => /#{plugin2.profile_tabs[:title]}/, :attributes => {:href => /#{plugin2.profile_tabs[:id]}/}
+    assert_tag :tag => 'div', :content => /#{instance_eval(&plugin2.profile_tabs[:content])}/, :attributes => {:id => /#{plugin2.profile_tabs[:id]}/}
   end
 
   should 'redirect to profile page when try to request join_not_logged via GET method' do
@@ -1181,4 +1199,22 @@ class ProfileControllerTest < ActionController::TestCase
     end
   end
 
+  should 'redirect to profile domain if it has one' do
+    community = fast_create(Community, :name => 'community with domain')
+    community.domains << Domain.new(:name => 'community.example.net')
+    @request.stubs(:host).returns(community.environment.default_hostname)
+    get :index, :profile => community.identifier
+    assert_response :redirect
+    assert_redirected_to :host => 'community.example.net'
+  end
+
+  should 'register abuse report' do
+    reported = fast_create(Profile)
+    login_as(profile.identifier)
+    @controller.stubs(:verify_recaptcha).returns(true)
+
+    assert_difference AbuseReport, :count, 1 do
+      post :register_report, :profile => reported.identifier, :abuse_report => {:reason => 'some reason'}
+    end
+  end
 end

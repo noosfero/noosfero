@@ -1,3 +1,7 @@
 class Ticket < Task
-  settings_items :title, :message
+  settings_items :name, :message
+
+  def title
+    _('Ticket') + (name ? ': '+name : '')
+  end
 end

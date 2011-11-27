@@ -1,0 +1,21 @@
+<%= error_messages_for 'create_enterprise' %>
+
+<h1><%= __('Enterprise registration') %></h1>
+
+<%= required_fields_message %>
+
+<% labelled_form_for(:create_enterprise, @create_enterprise) do |f| %>
+
+  <%= required f.text_field 'name', :onchange => "updateUrlField(this, 'create_enterprise_identifier')", :size => 40 %>
+  <%= render :partial => 'shared/organization_custom_fields', :locals => { :f => f, :object_name => :create_enterprise, :profile => @create_enterprise } %>
+  <p style="border-bottom: 2px solid #babdb6"></p>
+  <%= required labelled_form_field(_('Address'), content_tag('code', environment.top_url + "/" + text_field(:create_enterprise, 'identifier', :size => 26))) %>
+  <p style="border-bottom: 2px solid #babdb6"></p>
+  <%= render :partial => 'similar_enterprises', :locals => {:bsc => profile}%>
+
+  <% button_bar do %>
+    <%= submit_button('save', _('Save'), :cancel => {:controller => 'profile_editor', :profile => profile.identifier}) %>
+  <% end %>
+<% end %>
+
+

@@ -62,7 +62,7 @@ class ApplicationControllerTest < ActionController::TestCase
   def test_local_files_reference
     assert_local_files_reference
   end
-  
+
   def test_valid_xhtml
     assert_valid_xhtml
   end
@@ -288,7 +288,7 @@ class ApplicationControllerTest < ActionController::TestCase
     uses_host 'other.environment'
     get :index
     assert_tag :tag => 'div', :attributes => {:id => 'user_menu_ul'}
-    assert_tag :tag => 'div', :attributes => {:id => 'user_menu_ul'}, 
+    assert_tag :tag => 'div', :attributes => {:id => 'user_menu_ul'},
                 :descendant => {:tag => 'a', :attributes => { :href => 'http://other.environment/adminuser' }},
                 :descendant => {:tag => 'a', :attributes => { :href => 'http://other.environment/myprofile/adminuser' }},
                 :descendant => {:tag => 'a', :attributes => { :href => '/admin' }}
@@ -334,4 +334,96 @@ class ApplicationControllerTest < ActionController::TestCase
     assert_tag :html, :attributes => { :lang => 'es' }
   end
 
+  should 'include stylesheets supplied by plugins' do
+    class Plugin1 < Noosfero::Plugin
+      def stylesheet?
+        true
+      end
+    end
+    plugin1_path = '/plugin1/style.css'
+
+    class Plugin2 < Noosfero::Plugin
+      def stylesheet?
+        true
+      end
+    end
+    plugin2_path = '/plugin2/style.css'
+
+    environment = Environment.default
+    environment.enable_plugin(Plugin1.name)
+    environment.enable_plugin(Plugin2.name)
+
+    get :index
+
+    assert_tag :tag => 'link', :attributes => {:href => /#{plugin1_path}/, :type => 'text/css', :rel => 'stylesheet'}
+    assert_tag :tag => 'link', :attributes => {:href => /#{plugin2_path}/, :type => 'text/css', :rel => 'stylesheet'}
+  end
+
+  should 'include javascripts supplied by plugins' do
+    class Plugin1 < Noosfero::Plugin
+      def js_files
+        ['js1.js']
+      end
+    end
+
+    js1 = 'js1.js'
+    plugin1_path = '/plugin1/'+js1
+
+    class Plugin2 < Noosfero::Plugin
+      def js_files
+        ['js2.js', 'js3.js']
+      end
+    end
+
+    js2 = 'js2.js'
+    js3 = 'js3.js'
+    plugin2_path2 = '/plugin2/'+js2
+    plugin2_path3 = '/plugin2/'+js3
+
+    environment = Environment.default
+    environment.enable_plugin(Plugin1.name)
+    environment.enable_plugin(Plugin2.name)
+
+    get :index
+
+    assert_tag :tag => 'script', :attributes => {:src => /#{plugin1_path}/, :type => 'text/javascript'}
+    assert_tag :tag => 'script', :attributes => {:src => /#{plugin2_path2}/, :type => 'text/javascript'}
+    assert_tag :tag => 'script', :attributes => {:src => /#{plugin2_path3}/, :type => 'text/javascript'}
+  end
+
+  should 'include content in the beginning of body supplied by plugins regardless it is a block or html code' do
+    plugin1_local_variable = "Plugin1"
+    plugin1_content = lambda {"<span id='plugin1'>This is #{plugin1_local_variable} speaking!</span>"}
+    plugin2_content = "<span id='plugin2'>This is Plugin2 speaking!</span>"
+    contents = [plugin1_content, plugin2_content]
+
+    plugins = mock()
+    plugins.stubs(:enabled_plugins).returns([])
+    plugins.stubs(:map).with(:body_beginning).returns(contents)
+    Noosfero::Plugin::Manager.stubs(:new).returns(plugins)
+
+    get :index
+
+    assert_tag :tag => 'span', :content => 'This is ' + plugin1_local_variable + ' speaking!', :attributes => {:id => 'plugin1'}
+    assert_tag :tag => 'span', :content => 'This is Plugin2 speaking!', :attributes => {:id => 'plugin2'}
+  end
+
+  if ActiveRecord::Base.connection.adapter_name == 'PostgreSQL'
+
+    should 'change postgresql schema' do
+      uses_host 'schema1.com'
+      Noosfero::MultiTenancy.expects(:on?).returns(true)
+      Noosfero::MultiTenancy.expects(:mapping).returns({ 'schema1.com' => 'schema1' })
+      exception = assert_raise(ActiveRecord::StatementInvalid) { get :index }
+      assert_match /SET search_path TO schema1/, exception.message
+    end
+
+    should 'not change postgresql schema if multitenancy is off' do
+      uses_host 'schema1.com'
+      Noosfero::MultiTenancy.stubs(:on?).returns(false)
+      Noosfero::MultiTenancy.stubs(:mapping).returns({ 'schema1.com' => 'schema1' })
+      assert_nothing_raised(ActiveRecord::StatementInvalid) { get :index }
+    end
+
+  end
 end

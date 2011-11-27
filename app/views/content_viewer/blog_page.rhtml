@@ -9,5 +9,5 @@
 </div>
 <hr class="pre-posts"/>
 <div class="blog-posts">
-  <%= (@posts.compact.empty? ? content_tag('em', _('(no posts)')) : list_posts(@posts, @page.visualization_format)) %>
+  <%= (@page.empty? ? content_tag('em', _('(no posts)')) : list_posts(@posts, @page.visualization_format)) %>
 </div>

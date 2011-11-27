@@ -8,7 +8,7 @@ class InviteFriend < Invitation
   end
 
   def title
-    _("New friend")
+    _("Friend invitation")
   end
 
   def information

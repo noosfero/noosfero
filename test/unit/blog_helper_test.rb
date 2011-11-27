@@ -113,20 +113,6 @@ class BlogHelperTest < ActiveSupport::TestCase
   end
 
   protected
+  include NoosferoTestHelper
 
-  def will_paginate(arg1, arg2)
-  end
-
-  def link_to(content, url)
-    content
-  end
-
-  def tag(tag, args = {})
-    attrs = args.map{|k,v| "#{k}='#{v}'"}.join(' ')
-    "<#{tag} #{attrs} />"
-  end
-
-  def content_tag(tag, content, options = {})
-    "<#{tag}>#{content}</#{tag}>"
-  end
 end

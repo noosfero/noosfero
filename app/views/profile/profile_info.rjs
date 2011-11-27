@@ -3,4 +3,4 @@ if !user.nil? and user.has_permission?('edit_profile', profile)
 else
   page.hide "profile-admin-url-#{@block.id}"
 end
-page.replace_html "profile-info-options-#{@block.id}", :file => 'blocks/profile_info_actions/' + @block.owner.class.name.underscore
+page.replace_html "profile-info-options-#{@block.id}", :file => view_for_profile_actions(@block.owner.class)

@@ -6,8 +6,12 @@ class Noosfero::Plugin::Manager
     @context = Noosfero::Plugin::Context.new(controller)
   end
 
-  def map(event)
-    enabled_plugins.map { |plugin| plugin.send(event) }.compact.flatten
+  def map(event, *args)
+    enabled_plugins.map { |plugin| plugin.send(event, *args) }.compact.flatten
+  end
+
+  def collect(&block)
+    enabled_plugins.collect(&block)
   end
 
   def enabled_plugins

@@ -26,4 +26,12 @@ class Noosfero::Plugin::Context
     @params ||= @controller.send(:params)
   end
 
+  def session
+    @session ||= @controller.send(:session)
+  end
+
+  def user
+    @user ||= @controller.send(:user)
+  end
+
 end

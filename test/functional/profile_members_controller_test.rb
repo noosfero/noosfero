@@ -232,59 +232,87 @@ class ProfileMembersControllerTest < ActionController::TestCase
     assert_not_includes com.members, u
   end
 
-  should 'find users' do
-    ent = fast_create(Enterprise, :name => 'Test Ent', :identifier => 'test_ent')
-    user = create_user_full('test_user').person
-    person = create_user_with_permission('ent_user', 'manage_memberships', ent)
-    login_as :ent_user
-
-    get :find_users, :profile => ent.identifier, :query => 'test*', :scope => 'all_users'
-
-    assert_includes assigns(:users_found), user
-  end
-
-  should 'not display members when finding users in all_users scope' do
-    ent = fast_create(Enterprise, :name => 'Test Ent', :identifier => 'test_ent')
-    user = create_user_full('test_user').person
-
-    person = create_user_with_permission('ent_user', 'manage_memberships', ent)
-    login_as :ent_user
-
-    get :find_users, :profile => ent.identifier, :query => '*user', :scope => 'all_users'
-
-    assert_tag :tag => 'a', :content => /#{user.name}/
-    assert_no_tag :tag => 'a', :content => /#{person.name}/
-  end
-
-  should 'not display admins when finding users in new_admins scope' do
-    ent = fast_create(Enterprise, :name => 'Test Ent', :identifier => 'test_ent')
-
-    person = create_user('admin_user').person
-    ent.add_admin(person)
-
-    user = create_user_full('test_user').person
-    ent.add_member(user).finish
-
-    login_as :admin_user
-
-    get :find_users, :profile => ent.identifier, :query => '*user', :scope => 'new_admins'
-
-    assert_tag :tag => 'a', :content => /#{user.name}/
-    assert_no_tag :tag => 'a', :content => /#{person.name}/
-  end
-
-  should 'return users with <query> as a prefix' do
-    daniel  = create_user_full('daniel').person
-    daniela = create_user_full('daniela').person
-
-    ent = fast_create(Enterprise, :name => 'Test Ent', :identifier => 'test_ent')
-    person = create_user_with_permission('test_user', 'manage_memberships', ent)
+  should 'list users on search by role' do
+    e = Enterprise.create!(:name => 'Sample Enterprise', :identifier => 'sample-enterprise')
+    user = create_user_with_permission('test_user', 'manage_memberships', e)
     login_as :test_user
 
-    get :find_users, :profile => ent.identifier, :query => 'daniel', :scope => 'all_users'
+    # Should list if match name
+    p1 = create_user('person_1').person
+    p2 = create_user('person_2').person
+    # Should not list if don't match name
+    p3 = create_user('blo').person
+    r1 = Profile::Roles.organization_member_roles(e.environment.id).first
+    r2 = Profile::Roles.organization_member_roles(e.environment.id).last
 
-    assert_includes assigns(:users_found), daniel
-    assert_includes assigns(:users_found), daniela
+    p4 = create_user('person_4').person
+    e.affiliate(p4, r1)
+    p5 = create_user('person_5').person
+    e.affiliate(p5, r2)
+
+    # Should be case insensitive
+    p6 = create_user('PeRsOn_2').person
+    # Should list if match identifier
+    p7 = create_user('person_7').person
+    p7.name = 'Bli'
+    p7.save!
+
+    get :search_user, :profile => e.identifier, 'q_'+r1.key => 'per', :role => r1.id
+    assert_match /#{p1.name}/, @response.body
+    assert_match /#{p2.name}/, @response.body
+    assert_no_match /#{p3.name}/, @response.body
+    assert_no_match /#{p4.name}/, @response.body
+    assert_match /#{p5.name}/, @response.body
+    assert_match /#{p6.name}/, @response.body
+    assert_match /#{p7.name}/, @response.body
+
+    get :search_user, :profile => e.identifier, 'q_'+r2.key => 'per', :role => r2.id
+    assert_match /#{p1.name}/, @response.body
+    assert_match /#{p2.name}/, @response.body
+    assert_no_match /#{p3.name}/, @response.body
+    assert_match /#{p4.name}/, @response.body
+    assert_no_match /#{p5.name}/, @response.body
+    assert_match /#{p6.name}/, @response.body
+    assert_match /#{p7.name}/, @response.body
+  end
+
+  should 'save associations' do
+    e = Enterprise.create!(:name => 'Sample Enterprise', :identifier => 'sample-enterprise')
+    user = create_user_with_permission('test_user', 'manage_memberships', e)
+    login_as :test_user
+
+    p1 = create_user('person-1').person
+    p2 = create_user('person-2').person
+    p3 = create_user('person-3').person
+    roles = Profile::Roles.organization_member_roles(e.environment.id)
+    r1 = roles.first
+    r2 = roles.last
+    roles.delete(r1)
+    roles.delete(r2)
+
+    roles_params = roles.inject({}) { |result, role| result.merge({'q_'+role.key => ''})}
+
+    post  :save_associations,
+          {:profile => e.identifier,
+          'q_'+r1.key => "#{p1.id},#{p2.id},#{user.id}",
+          'q_'+r2.key => "#{p2.id},#{p3.id}"}.merge(roles_params)
+    assert_includes e.members_by_role(r1), p1
+    assert_includes e.members_by_role(r1), p2
+    assert_not_includes e.members_by_role(r1), p3
+    assert_not_includes e.members_by_role(r2), p1
+    assert_includes e.members_by_role(r2), p2
+    assert_includes e.members_by_role(r2), p3
+
+    post  :save_associations,
+          {:profile => e.identifier,
+          'q_'+r1.key => "#{p2.id},#{p3.id},#{user.id}",
+          'q_'+r2.key => "#{p1.id},#{p2.id}"}.merge(roles_params)
+    assert_not_includes e.members_by_role(r1), p1
+    assert_includes e.members_by_role(r1), p2
+    assert_includes e.members_by_role(r1), p3
+    assert_includes e.members_by_role(r2), p1
+    assert_includes e.members_by_role(r2), p2
+    assert_not_includes e.members_by_role(r2), p3
   end
 
   should 'ignore roles with id zero' do

@@ -25,7 +25,7 @@ protected
 
     profile.blocks_to_expire_cache.each { |block|
       blocks = profile.blocks.select{|b| b.kind_of?(block)}
-      blocks.map(&:cache_keys).each{|ck|expire_timeout_fragment(ck)}
+      blocks.map(&:cache_key).each{|ck|expire_timeout_fragment(ck)}
     }
   end
 

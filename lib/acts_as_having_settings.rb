@@ -14,6 +14,11 @@ module ActsAsHavingSettings
         def #{settings_field}
           self[:#{settings_field}] ||= Hash.new
         end
+        before_save :symbolize_settings_keys
+        private
+        def symbolize_settings_keys
+          self[:#{settings_field}] && self[:#{settings_field}].symbolize_keys!
+        end
       CODE
       settings_items(*args)
     end

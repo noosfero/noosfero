@@ -1184,4 +1184,48 @@ class PersonTest < ActiveSupport::TestCase
     assert_includes Person.more_active, profile
   end
 
+  should 'handle multiparameter attribute exception on birth date field' do
+    assert_nothing_raised ActiveRecord::MultiparameterAssignmentErrors do
+      p = Person.new(
+        :name => 'birthday', :identifier => 'birthday', :user_id => 999,
+        'birth_date(1i)' => '', 'birth_date(2i)' => '6', 'birth_date(3i)' => '16'
+      )
+      assert !p.valid?
+      assert p.errors.invalid?(:birth_date)
+    end
+  end
+
+  should 'associate report with the correct complaint' do
+    p1 = create_user('user1').person
+    p2 = create_user('user2').person
+    profile = fast_create(Profile)
+
+    abuse_report1 = AbuseReport.new(:reason => 'some reason')
+    assert_difference AbuseComplaint, :count, 1 do
+      p1.register_report(abuse_report1, profile)
+    end
+
+    abuse_report2 = AbuseReport.new(:reason => 'some reason')
+    assert_no_difference AbuseComplaint, :count do
+      p2.register_report(abuse_report2, profile)
+    end
+
+    abuse_report1.reload
+    abuse_report2.reload
+
+    assert_equal abuse_report1.abuse_complaint, abuse_report2.abuse_complaint
+    assert_equal abuse_report1.reporter, p1
+    assert_equal abuse_report2.reporter, p2
+  end
+
+  should 'check if person already reported profile' do
+    person = create_user('some-user').person
+    profile = fast_create(Profile)
+    assert !person.already_reported?(profile)
+
+    person.register_report(AbuseReport.new(:reason => 'some reason'), profile)
+    person.reload
+    assert person.already_reported?(profile)
+  end
+
 end

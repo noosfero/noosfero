@@ -22,7 +22,8 @@ class ImageTest < ActiveSupport::TestCase
   end
 
   should 'create thumbnails after processing jobs' do
-    file = Image.create!(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :owner => profile)
+    file = Image.create!(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
+    profile.update_attribute(:image_id, file.id)
 
     process_delayed_job_queue
     Image.attachment_options[:thumbnails].each do |suffix, size|
@@ -32,7 +33,8 @@ class ImageTest < ActiveSupport::TestCase
   end
 
   should 'set thumbnails_processed to true after creating thumbnails' do
-    file = Image.create!(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :owner => profile)
+    file = Image.create!(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
+    profile.update_attribute(:image_id, file.id)
 
     process_delayed_job_queue
 
@@ -62,7 +64,8 @@ class ImageTest < ActiveSupport::TestCase
   end
 
   should 'return image thumbnail if thumbnails were processed' do
-    file = Image.create!(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :owner => profile)
+    file = Image.create!(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
+    profile.update_attribute(:image_id, file.id)
     process_delayed_job_queue
 
     assert_match(/rails_thumb.png/, Image.find(file.id).public_filename(:thumb))
@@ -71,7 +74,8 @@ class ImageTest < ActiveSupport::TestCase
   end
 
   should 'store width and height after processing' do
-    file = Image.create!(:owner => profile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
+    file = Image.create!(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
+    profile.update_attribute(:image_id, file.id)
     file.create_thumbnails
 
     file = Image.find(file.id)
@@ -89,10 +93,34 @@ class ImageTest < ActiveSupport::TestCase
     # this test verifies whether it created background jobs also for the
     # thumbnails!
     assert_no_difference Delayed::Job, :count do
-      image = Image.new(:owner => profile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
+      image = Image.new(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
       image.stubs(:is_thumbnail?).returns(true)
       image.save!
     end
+  end
+
+  should 'upload to a folder with same name as the schema if database is postgresql' do
+    uses_postgresql
+    file = Image.create!(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
+    profile.update_attribute(:image_id, file.id)
+    process_delayed_job_queue
+    assert_match(/images\/test_schema\/\d{4}\/\d{4}\/rails.png/, Image.find(file.id).public_filename)
+    file.destroy
+    uses_sqlite
+  end
+
+  should 'upload to path prefix folder if database is not postgresql' do
+    uses_sqlite
+    file = Image.create!(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
+    profile.update_attribute(:image_id, file.id)
+    process_delayed_job_queue
+    assert_match(/images\/\d{4}\/\d{4}\/rails.png/, Image.find(file.id).public_filename)
+    file.destroy
+  end
+
+  should 'not allow script files to be uploaded without append .txt in the end' do
+    file = Image.create!(:uploaded_data => fixture_file_upload('files/hello_world.php', 'image/png'))
+    assert_equal 'hello_world.php.txt', file.filename
   end
 
 end

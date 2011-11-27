@@ -13,19 +13,35 @@
     <%= stylesheet_link_tag icon_theme_stylesheet_path %>
     <%= stylesheet_link_tag theme_stylesheet_path %>
     <%= stylesheet_link_tag jquery_ui_theme_stylesheet_path %>
+    <% @plugins.enabled_plugins.each do |plugin| %>
+      <% if plugin.stylesheet? %>
+        <%= stylesheet_tag plugin.class.public_path('style.css'), {} %>
+      <% end %>
+    <% end %>
 
     <%# Add custom tags/styles/etc via content_for %>
     <%= yield :head %>
     <%= javascript_tag('render_all_jquery_ui_widgets()') %>
+    <% @plugins.enabled_plugins.each do |plugin| %>
+      <% plugin.js_files.each do |js_file| %>
+        <%= javascript_src_tag plugin.class.public_path(js_file), {} %>
+      <% end %>
+    <% end %>
   </head>
   <body class="<%=
     # Identify the current controller and action for the CSS:
     " controller-"+ @controller.controller_name() +
     " action-"+ @controller.controller_name() +"-"+ @controller.action_name() +
-    " template-"+ ( profile.nil? ? "default" : profile.layout_template )
+    " template-"+ ( profile.nil? ? "default" : profile.layout_template ) +
+    (!profile.nil? && profile.is_on_homepage?(request.path,@page) ? " profile-homepage" : "")
     %>" >
 
     <a href="#content" id="link-go-content"><span><%= _("Go to the content") %></span></a>
+    <%=
+      @plugins.map(:body_beginning).collect do |content|
+        content.respond_to?(:call) ? content.call : content
+      end.join('\n')
+    %>
 
     <div id="wrap-1">
       <div id='theme-header'>
@@ -37,7 +53,7 @@
             <%= usermenu_logged_in %>
           </span>
           <span class='not-logged-in' style='display: none'>
-              <%= _('%s or %s') % [thickbox_inline_popup_link('<i class="icon-menu-login"></i><strong>' + _('Login') + '</strong>', login_url, 'inlineLoginBox', :id => 'link_login'), link_to('<strong>' + _('Register') + '</strong>', :controller => 'account', :action => 'signup') ] %>
+              <%= _("<span class='login'>%s</span> <span class='or'>or</span> <span class='signup'>%s</span>") % [thickbox_inline_popup_link('<i class="icon-menu-login"></i><strong>' + _('Login') + '</strong>', login_url, 'inlineLoginBox', :id => 'link_login'), link_to('<strong>' + _('Register') + '</strong>', :controller => 'account', :action => 'signup') ] %>
               <div id='inlineLoginBox' style='display: none;'>
                 <%= render :file => 'account/login', :locals => { :is_thickbox => true } %>
               </div>
@@ -65,8 +81,10 @@
           <div id="navigation-end"></div>
         </div><!-- end id="navigation" -->
         <div id="content">
-          <%= insert_boxes(yield) %>
-          <br style='clear: both'/>
+          <div id="content-inner">
+            <%= insert_boxes(yield) %>
+            <br style='clear: both'/>
+          </div><!-- end id="content-inner" -->
         </div><!-- end id="content" -->
       </div><!-- end id="wrap-2" -->
     </div><!-- end id="wrap-1" -->

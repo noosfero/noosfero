@@ -20,23 +20,13 @@ class TextArticleTest < ActiveSupport::TestCase
     assert_equal TextileArticle.find_by_contents('found'), TextArticle.find_by_contents('found')
   end
 
-  should 'remove comments from TextArticle body' do
-    person = create_user('testuser').person
-    article = TextArticle.create!(:profile => person, :name => 'article', :body => "the <!-- comment --> article ...")
-    assert_equal "the  article ...", article.body
-  end
-
-  should 'escape malformed html tags' do
+  should 'remove HTML from name' do
     person = create_user('testuser').person
     article = TextArticle.new(:profile => person)
     article.name = "<h1 Malformed >> html >>></a>< tag"
-    article.abstract = "<h1 Malformed <<h1>>< html >< tag"
-    article.body = "<h1><</h2< Malformed >> html >< tag"
     article.valid?
 
     assert_no_match /[<>]/, article.name
-    assert_no_match /[<>]/, article.abstract
-    assert_no_match /[<>]/, article.body
   end
 
   should 'be translatable' do

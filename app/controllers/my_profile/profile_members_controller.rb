@@ -1,6 +1,5 @@
 class ProfileMembersController < MyProfileController
   protect 'manage_memberships', :profile
-  no_design_blocks
 
   def index
     @members = profile.members
@@ -15,29 +14,25 @@ class ProfileMembersController < MyProfileController
     rescue ActiveRecord::RecordNotFound
       @person = nil
     end
-    if !params[:confirmation] && @person && @person.is_last_admin_leaving?(profile, @roles)
-      redirect_to :action => :last_admin, :roles => params[:roles], :person => @person
-    else
-      if @person && @person.define_roles(@roles, profile)
+
+    if @person
+      if@person.is_last_admin_leaving?(profile, @roles)
+        redirect_to :action => :last_admin
+      elsif @person.define_roles(@roles, profile)
         session[:notice] = _('Roles successfuly updated')
+        redirect_to :controller => 'profile_editor'
       else
         session[:notice] = _('Couldn\'t change the roles')
+        redirect_to :action => 'index'
       end
-      if params[:confirmation]
-        redirect_to profile.url
-      else
-        redirect_to :action => :index
-      end
+    else
+      redirect_to :action => 'index'
     end
   end
-  
+
   def last_admin
-    @person = params[:person]
-    @roles = params[:roles] || []
-    @members = profile.members.select {|member| !profile.admins.include?(member)}
-    @title = _('Current admins')
-    @collection = :profile_admins
-    @remove_action = {:action => 'remove_admin'}
+    @roles = [Profile::Roles.admin(environment.id)]
+    @pre_population = [].to_json
   end
 
   def add_role
@@ -90,6 +85,7 @@ class ProfileMembersController < MyProfileController
   end
 
   def add_members
+    @roles = Profile::Roles.organization_member_roles(environment.id)
   end
 
   def add_member
@@ -122,19 +118,42 @@ class ProfileMembersController < MyProfileController
     render :layout => false
   end
 
-  def find_users
-    if !params[:query] || params[:query].length <= 2
-      @users_found = []
-    elsif params[:scope] == 'all_users'
-      @users_found = Person.find_by_contents(params[:query] + '*').select {|user| !profile.members.include?(user)}
-      @button_alt = _('Add member')
-      @add_action = {:action => 'add_member'}
-    elsif params[:scope] == 'new_admins'
-      @users_found = Person.find_by_contents(params[:query] + '*').select {|user| profile.members.include?(user) && !profile.admins.include?(user)}
-      @button_alt = _('Add member')
-      @add_action = {:action => 'add_admin'}
+  def search_user
+    role = Role.find(params[:role])
+    render :text => environment.people.find(:all, :conditions => ['LOWER(name) LIKE ? OR LOWER(identifier) LIKE ?', "%#{params['q_'+role.key]}%", "%#{params['q_'+role.key]}%"]).
+      select { |person| !profile.members_by_role(role).include?(person) }.
+      map {|person| {:id => person.id, :name => person.name} }.
+      to_json
+  end
+
+  def save_associations
+    error = false
+    roles = Profile::Roles.organization_member_roles(environment.id)
+    roles.select { |role| params['q_'+role.key] }.each do |role|
+      people = [Person.find(params['q_'+role.key].split(','))].flatten
+      to_remove = profile.members_by_role(role) - people
+      to_add = people - profile.members_by_role(role)
+
+      begin
+        to_remove.each { |person| profile.disaffiliate(person, role) }
+        to_add.each { |person| profile.affiliate(person, role) }
+      rescue Exception => ex
+        logger.info ex
+        error = true
+      end
     end
-    render :layout => false
+
+    if error
+      session[:notice] = _('The members list couldn\'t be updated. Please contact the administrator.')
+      redirect_to :action => 'add_members'
+    else
+      if profile.admins.blank? && !params[:last_admin]
+        redirect_to :action => 'last_admin'
+      else
+        session[:notice] = _('The members list was updated.')
+        redirect_to :controller => 'profile_editor'
+      end
+    end
   end
 
   def send_mail

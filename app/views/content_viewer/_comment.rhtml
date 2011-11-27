@@ -49,9 +49,10 @@
           });
         </script>
       <% end %>
+      <%= report_abuse(comment.author, :comment_link, comment) if comment.author %>
       <%= link_to_function _('Reply'),
           "var f = add_comment_reply_form(this, %s); f.find('input[name=comment[title]], textarea').val(''); return false" % comment.id,
-          :class => 'comment-reply-link',
+          :class => 'comment-footer comment-footer-link comment-footer-hide',
           :id => 'comment-reply-to-' + comment.id.to_s
       %>
     </div>

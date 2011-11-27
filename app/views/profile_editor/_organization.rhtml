@@ -17,7 +17,7 @@
 <% if @environment.enabled?('enable_organization_url_change') %>
   <script type="text/javascript">
     function submit_button() {
-       return $("profile_data_identifier").form.select("input.submit")[0];
+       return $("profile-data").select("input.submit")[0];
     }
     function warn_value_change() {
        show_warning('profile-identifier-formitem', "identifier-change-confirmation");
@@ -58,42 +58,8 @@
     </div>
 <% end %>
 
-  <%= render :partial => 'shared/organization_custom_fields', :locals => { :f => f, :object_name => 'profile_data', :profile => @profile } %>
+<%= render :partial => 'shared/organization_custom_fields', :locals => { :f => f, :object_name => 'profile_data', :profile => @profile } %>
 
-  <%= labelled_check_box(_('Enable "contact us"'), 'profile_data[enable_contact_us]', "1", @profile.enable_contact_us) if @profile.enterprise? %>
+<%= labelled_check_box(_('Enable "contact us"'), 'profile_data[enable_contact_us]', "1", @profile.enable_contact_us) if @profile.enterprise? %>
 
-  <h1><%= _('Moderation options') %></h1>
-  <% if profile.community? %>
-    <div style='margin-bottom: 1em'>
-    <%= _('New members must be approved:')%>
-    </div>
-    <div style='margin-bottom: 0.5em'>
-      <%= radio_button 'profile_data', 'closed', 'true', :style => 'float: left' %>
-      <div style='margin-left: 30px'>
-        <%= _('<strong>Before</strong> joining this group (a moderator has to accept the member in pending request before member can access the intranet and/or the website).') %>
-      </div>
-    </div>
-    <div>
-      <%= radio_button 'profile_data', 'closed', 'false', :style => 'float: left' %>
-      <div style='margin-left: 30px'>
-        <%= _('<strong>After</strong> joining this group (a moderator can always desactivate access for users later).') %>
-      </div>
-    </div>
-    <br>
-  <% end %>
-  <div style='margin-bottom: 1em'>
-  <%= _('New articles posted by members of this group must be approved:')%>
-
-  </div>
-  <div style='margin-bottom: 0.5em'>
-    <%= radio_button 'profile_data', 'moderated_articles', 'true', :style => 'float: left' %>
-    <div style='margin-left: 30px'>
-      <%= _('<strong>Before</strong> being published in this group (a moderator has to accept the article in pending request before the article be listed as a article of this group).') %>
-    </div>
-  </div>
-  <div>
-    <%= radio_button 'profile_data', 'moderated_articles', 'false', :style => 'float: left' %>
-    <div style='margin-left: 30px'>
-      <%= _('<strong>After</strong> being published in this group (a moderator can always remove publicated articles later).') %>
-    </div>
-  </div>
+<%= render :partial => 'moderation', :locals => { :profile => @profile } %>

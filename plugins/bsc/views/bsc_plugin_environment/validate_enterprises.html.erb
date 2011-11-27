@@ -1,0 +1,12 @@
+<h1><%= _('Validate enterprises') %></h1>
+
+<% form_tag :action => 'save_validations' do %>
+  <%= token_input_field_tag(:q, 'search-enterprises', {:action => 'search_enterprise'}, 
+                              { :hint_text => _('Type in a search term for enterprise'),
+                                :focus => true }) %>
+
+  <% button_bar do %>
+    <%= submit_button('save', _('Save'))%>
+    <%= button('cancel', _('Cancel'), {:controller => 'admin_panel'})%>
+  <% end %>
+<% end %>

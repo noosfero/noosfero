@@ -1,5 +1,5 @@
 .box-1 {
-  margin: 0 210px 0 30px;
+  margin: 0 200px 0 0;
 }
 
 .box-1 .blocks {
@@ -8,14 +8,9 @@
 }
 
 .box-2 {
-  float: right;
-  width: 200px;
-}
-
-.block {
   position: relative;
-  padding: 10px 0;
-  float: none;
+  float: right;
+  width: 190px;
 }
 
 #leave_scrap_content_limit,

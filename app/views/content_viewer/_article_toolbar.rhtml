@@ -1,6 +1,6 @@
 <div<%= " class='logged-in'" if user %>>
-  <% if @page.allow_post_content?(user) || @page.allow_publish_content?(user) %>
-    <div id="article-actions">
+  <div id="article-actions">
+    <% if @page.allow_post_content?(user) || @page.allow_publish_content?(user) %>
       <% if @page.allow_post_content?(user) %>
         <%= link_to content_tag( 'span', label_for_edit_article(@page) ),
             profile.admin_url.merge({ :controller => 'cms', :action => 'edit', :id => @page.id }),
@@ -37,12 +37,14 @@
       <% if @page.accept_uploads? %>
         <%= button('upload-file', _('Upload files'), profile.admin_url.merge(:controller => 'cms', :action => 'upload_files', :parent_id => (@page.folder? ? @page : @page.parent))) %>
       <% end %>
-    </div>
-  <% elsif profile.community? && (@page.blog? || @page.parent && @page.parent.blog?) %>
-    <div id="article-actions">
+
+    <% elsif profile.community? && (@page.blog? || @page.parent && @page.parent.blog?) %>
       <%= link_to content_tag( 'span', _('Suggest an article') ), profile.admin_url.merge({ :controller => 'cms', :action => 'suggest_an_article'}), :id => 'suggest-article-link', :class => 'button with-text icon-new' %>
-    </div>
-  <% end %>
+    <% end %>
+
+    <%= report_abuse(profile, :link, @page) %>
+
+  </div>
   <div id="article-header">
     <%= link_to(image_tag('icons-mime/rss-feed.png'), @page.feed.url, :class => 'blog-feed-link') if @page.has_posts? && @page.feed %>
     <%= article_title(@page, :no_link => true) %>

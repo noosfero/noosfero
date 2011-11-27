@@ -300,7 +300,7 @@ function hideAllSubmenus() {
 
 // Hide visible ballons when clicked outside them
 jQuery(document).ready(function() {
-  jQuery('body').click(function() { hideAllSubmenus(); });
+  jQuery('body').live('click', function() { hideAllSubmenus(); });
   jQuery('.menu-submenu-trigger').click(function(e) { e.stopPropagation(); });
   jQuery('.simplemenu-trigger').click(function(e) { e.stopPropagation(); });
   jQuery('#chat-online-users').click(function(e) { e.stopPropagation(); });
@@ -475,6 +475,8 @@ jQuery(function($) {
     if (data.notice) {
       display_notice(data.notice);
     }
+    // Bind this event to do more actions with the user data (for example, inside plugins)
+    $(window).trigger("userDataLoaded", data);
   });
 
   function loggedInDataCallBack(data) {
@@ -649,6 +651,10 @@ jQuery(function($) {
       document.location.href = this.href;
     })
   }
+  $('#manage-enterprises-link').live('click', function() {
+    toggleMenu(this);
+    return false;
+  });
 });
 
 function add_comment_reply_form(button, comment_id) {
@@ -673,3 +679,18 @@ function original_image_dimensions(src) {
   img.src = src;
   return { 'width' : img.width, 'height' : img.height };
 }
+
+jQuery(function() {
+  jQuery("#ajax-form").before("<div id='ajax-form-loading-area' style='display:block;width:16px;height:16px;'></div>");
+  jQuery("#ajax-form").before("<div id='ajax-form-message-area'></div>");
+  jQuery("#ajax-form").ajaxForm({
+    beforeSubmit: function(a,f,o) {
+      jQuery('#ajax-form-message-area').html('');
+      o.loading = small_loading('ajax-form-loading-area');
+    },
+    success: function() {
+      loading_done('ajax-form-loading-area');
+    },
+    target: "#ajax-form-message-area"
+  })
+});

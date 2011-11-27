@@ -47,9 +47,11 @@ task :updatepo do
   puts 'Extracting strings from source. This may take a while ...'
   sources =
     Dir.glob("{app,lib}/**/*.{rb,rhtml,erb}") +
+    Dir.glob("plugins/**/*.{rb,rhtml,erb}") +
     Dir.glob('config/initializers/*.rb') +
     Dir.glob('public/*.html.erb') +
-    Dir.glob('public/designs/themes/{base,noosfero,profile-base}/*.{rhtml,html.erb}')
+    Dir.glob('public/designs/themes/{base,noosfero,profile-base}/*.{rhtml,html.erb}') +
+    Dir.glob('plugins/**/{controllers,lib,views}/**/*.{rhtml,html.erb,rb}')
   GetText.update_pofiles(Noosfero::PROJECT, sources, "#{Noosfero::PROJECT} #{Noosfero::VERSION}")
 end
 

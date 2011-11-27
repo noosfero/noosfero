@@ -7,19 +7,27 @@
 # etc. The actual feed update logic is in FeedUpdater.
 
 require 'daemons'
+require 'optparse'
 
 NOOSFERO_ROOT = File.expand_path(File.dirname(__FILE__) + '/../')
 
 options = {
+  :app_name   => 'feed-updater.default',
   :dir_mode   => :normal,
   :dir        => File.dirname(__FILE__) + '/../tmp/pids',
   :multiple   => false,
   :backtrace  => true,
-  :monitor    => true,
+  :log_output => true,
+  :monitor    => false
 }
 
-Daemons.run_proc('feed-updater', options) do
+OptionParser.new do |opts|
+  opts.on("-i", "--identifier=i", "Id") do |i|
+    options[:app_name] = "feed-updater.#{i}"
+  end
+end.parse!(ARGV)
+
+Daemons.run_proc(options[:app_name], options) do
   require NOOSFERO_ROOT + '/config/environment'
   FeedUpdater.new.start
 end
-

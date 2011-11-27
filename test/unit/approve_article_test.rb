@@ -370,6 +370,15 @@ class ApproveArticleTest < ActiveSupport::TestCase
     assert_match(/#{task.requestor.name} wants to publish the article: #{article.name}/, email.subject)
   end
 
+  should 'deliver target finished message about article deleted' do
+    task = ApproveArticle.new(:article => article, :target => community, :requestor => profile)
+    article.destroy
+
+    email = TaskMailer.deliver_task_finished(task)
+
+    assert_match(/#{task.requestor.name} wanted to publish an article but it was removed/, email.subject)
+  end
+
   should 'approve an event' do
     event = fast_create(Event, :profile_id => profile.id, :name => 'Event test', :slug => 'event-test', :abstract => 'Lead of article', :body => 'This is my event')
     task = ApproveArticle.create!(:name => 'Event test', :article => event, :target => community, :requestor => profile)

@@ -42,11 +42,11 @@ module DatesHelper
     end
   end
 
-  def show_period(date1, date2 = nil)
+  def show_period(date1, date2 = nil, use_numbers = false)
     if (date1 == date2) || (date2.nil?)
-      show_date(date1)
+      show_date(date1, use_numbers)
     else
-      _('from %{date1} to %{date2}') % {:date1 => show_date(date1), :date2 => show_date(date2)}
+      _('from %{date1} to %{date2}') % {:date1 => show_date(date1, use_numbers), :date2 => show_date(date2, use_numbers)}
     end
   end
 

@@ -7,8 +7,7 @@
 </div>
 <% end %>
 
-<% labelled_form_for :user, @user do |f| %>
-<%= icaptcha_field() %>
+<% labelled_form_for :user, @user, :html => { :multipart => true } do |f| %>
 
 <%= hidden_field_tag :invitation_code, @invitation_code %>
 

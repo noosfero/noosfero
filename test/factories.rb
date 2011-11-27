@@ -311,6 +311,7 @@ module Noosfero::Factory
   end
 
   alias :defaults_for_blog_archives_block :defaults_for_block
+  alias :defaults_for_profile_list_block :defaults_for_block
 
   ###############################################
   # Task

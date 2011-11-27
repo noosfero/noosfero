@@ -8,16 +8,58 @@ class ApplicationHelperTest < ActiveSupport::TestCase
     self.stubs(:session).returns({})
   end
 
-  should 'calculate correctly partial for object' do
+  should 'calculate correctly partial for models' do
+    p1 = 'path1/'
+    p2 = 'path2/'
+    @controller = mock()
+    @controller.stubs(:view_paths).returns([p1,p2])
+
     self.stubs(:params).returns({:controller => 'test'})
 
-    File.expects(:exists?).with("#{RAILS_ROOT}/app/views/test/_float.rhtml").returns(false)
-    File.expects(:exists?).with("#{RAILS_ROOT}/app/views/test/_numeric.rhtml").returns(true).times(2)
-    File.expects(:exists?).with("#{RAILS_ROOT}/app/views/test/_runtime_error.rhtml").returns(true).at_least_once
+    File.expects(:exists?).with(p1+"test/_integer.rhtml").returns(true)
 
+    File.expects(:exists?).with(p1+"test/_float.rhtml").returns(false)
+    File.expects(:exists?).with(p1+"test/_float.html.erb").returns(false)
+    File.expects(:exists?).with(p2+"test/_float.rhtml").returns(false)
+    File.expects(:exists?).with(p2+"test/_float.html.erb").returns(false)
+    File.expects(:exists?).with(p1+"test/_numeric.rhtml").returns(false)
+    File.expects(:exists?).with(p1+"test/_object.rhtml").returns(false)
+    File.expects(:exists?).with(p1+"test/_object.html.erb").returns(false)
+    File.expects(:exists?).with(p1+"test/_numeric.html.erb").returns(false)
+    File.expects(:exists?).with(p2+"test/_numeric.rhtml").returns(true)
+
+    File.expects(:exists?).with(p1+"test/_object.rhtml").returns(false)
+    File.expects(:exists?).with(p1+"test/_object.html.erb").returns(false)
+    File.expects(:exists?).with(p2+"test/_object.rhtml").returns(false)
+    File.expects(:exists?).with(p2+"test/_object.html.erb").returns(false)
+
+    assert_equal 'integer', partial_for_class(Integer)
     assert_equal 'numeric', partial_for_class(Float)
-    assert_equal 'numeric', partial_for_class(Numeric)
-    assert_equal 'runtime_error', partial_for_class(RuntimeError)
+    assert_raises ArgumentError do
+      partial_for_class(Object)
+    end
+  end
+
+  should 'calculate correctly partial for namespaced models' do
+    p = 'path/'
+    @controller = mock()
+    @controller.stubs(:view_paths).returns([p])
+    self.stubs(:params).returns({:controller => 'test'})
+
+    class School; class Project; end; end
+
+    File.expects(:exists?).with(p+"test/application_helper_test/school/_project.rhtml").returns(true)
+
+    assert_equal 'test/application_helper_test/school/project', partial_for_class(School::Project)
+  end
+
+  should 'look for superclasses on view_for_profile actions' do
+    File.expects(:exists?).with("#{RAILS_ROOT}/app/views/blocks/profile_info_actions/float.rhtml").returns(false)
+    File.expects(:exists?).with("#{RAILS_ROOT}/app/views/blocks/profile_info_actions/float.html.erb").returns(false)
+    File.expects(:exists?).with("#{RAILS_ROOT}/app/views/blocks/profile_info_actions/numeric.rhtml").returns(false)
+    File.expects(:exists?).with("#{RAILS_ROOT}/app/views/blocks/profile_info_actions/numeric.html.erb").returns(true)
+
+    assert_equal 'blocks/profile_info_actions/numeric.html.erb', view_for_profile_actions(Float)
   end
 
   should 'give error when there is no partial for class' do
@@ -89,7 +131,7 @@ class ApplicationHelperTest < ActiveSupport::TestCase
     person = create_user('usertest').person
     community = fast_create(Community, :name => 'new community', :identifier => 'new-community', :environment_id => Environment.default.id)
     community.add_member(person)
-    assert_equal 'Profile Administrator', rolename_for(person, community)
+    assert_tag_in_string rolename_for(person, community), :tag => 'span', :content => 'Profile Administrator'
   end
 
   should 'rolename for a member' do
@@ -98,7 +140,7 @@ class ApplicationHelperTest < ActiveSupport::TestCase
     community = fast_create(Community, :name => 'new community', :identifier => 'new-community', :environment_id => Environment.default.id)
     community.add_member(member1)
     community.add_member(member2)
-    assert_equal 'Profile Member', rolename_for(member2, community)
+    assert_tag_in_string rolename_for(member2, community), :tag => 'span', :content => 'Profile Member'
   end
 
   should 'get theme from environment by default' do
@@ -186,9 +228,10 @@ class ApplicationHelperTest < ActiveSupport::TestCase
     assert_equal 'sampleuser', theme_owner
   end
 
-  should 'use default template when there is no profile' do
+  should 'use environment´s template when there is no profile' do
     stubs(:profile).returns(nil)
-    assert_equal "/designs/templates/default/stylesheets/style.css", template_stylesheet_path
+    environment.expects(:layout_template).returns('sometemplate')
+    assert_equal "/designs/templates/sometemplate/stylesheets/style.css", template_stylesheet_path
   end
 
   should 'use template from profile' do
@@ -401,11 +444,20 @@ class ApplicationHelperTest < ActiveSupport::TestCase
   end
 
   should 'generate a gravatar url' do
+    stubs(:theme_option).returns({})
     with_constants :NOOSFERO_CONF => {'gravatar' => 'crazyvatar'} do
       url = str_gravatar_url_for( 'rms@gnu.org', :size => 50 )
       assert_match(/^http:\/\/www\.gravatar\.com\/avatar\.php\?/, url)
       assert_match(/(\?|&)gravatar_id=ed5214d4b49154ba0dc397a28ee90eb7(&|$)/, url)
       assert_match(/(\?|&)d=crazyvatar(&|$)/, url)
+      assert_match(/(\?|&)size=50(&|$)/, url)
+    end
+    stubs(:theme_option).returns('gravatar' => 'nicevatar')
+    with_constants :NOOSFERO_CONF => {'gravatar' => 'crazyvatar'} do
+      url = str_gravatar_url_for( 'rms@gnu.org', :size => 50 )
+      assert_match(/^http:\/\/www\.gravatar\.com\/avatar\.php\?/, url)
+      assert_match(/(\?|&)gravatar_id=ed5214d4b49154ba0dc397a28ee90eb7(&|$)/, url)
+      assert_match(/(\?|&)d=nicevatar(&|$)/, url)
       assert_match(/(\?|&)size=50(&|$)/, url)
     end
   end
@@ -584,27 +636,6 @@ class ApplicationHelperTest < ActiveSupport::TestCase
   end
 
   protected
-
-  def url_for(args = {})
-    args
-  end
-  def content_tag(tag, content, options = {})
-    content.strip
-  end
-  def javascript_tag(any)
-    ''
-  end
-  def javascript_include_tag(any)
-    ''
-  end
-  def link_to(label, action, options = {})
-    label
-  end
-  def check_box_tag(name, value = 1, checked = false, options = {})
-    name
-  end
-  def stylesheet_link_tag(arg)
-    arg
-  end
+  include NoosferoTestHelper
 
 end

@@ -43,6 +43,9 @@ class CmsController < MyProfileController
     if @parent && @parent.blog?
       articles -= Article.folder_types.map(&:constantize)
     end
+    if user.is_admin?(profile.environment)
+      articles << RawHTMLArticle
+    end
     articles
   end
 
@@ -168,8 +171,7 @@ class CmsController < MyProfileController
     @article = @parent = check_parent(params[:parent_id])
     @target = @parent ? ('/%s/%s' % [profile.identifier, @parent.full_name]) : '/%s' % profile.identifier
     @folders = Folder.find(:all, :conditions => { :profile_id => profile })
-    @media_listing = params[:media_listing]
-    if @article && !@media_listing
+    if @article
       record_coming
     end
     if request.post? && params[:uploaded_files]
@@ -178,26 +180,14 @@ class CmsController < MyProfileController
       end
       @errors = @uploaded_files.select { |f| f.errors.any? }
       if @errors.any?
-        if @media_listing
-          flash[:notice] = _('Could not upload all files')
-          redirect_to :action => 'media_listing'
-        else
-          render :action => 'upload_files', :parent_id => @parent_id
-        end
+        render :action => 'upload_files', :parent_id => @parent_id
       else
-        if @media_listing
-          flash[:notice] = _('All files were uploaded successfully')
-          redirect_to :action => 'media_listing'
+        if @back_to
+          redirect_to @back_to
+        elsif @parent
+          redirect_to :action => 'view', :id => @parent.id
         else
-          if @back_to
-            redirect_to @back_to
-          else
-            redirect_to( if @parent
-              {:action => 'view', :id => @parent.id}
-            else
-              {:action => 'index'}
-            end)
-          end
+          redirect_to :action => 'index'
         end
       end
     end
@@ -286,44 +276,28 @@ class CmsController < MyProfileController
     @task = SuggestArticle.new(params[:task])
     if request.post?
        @task.target = profile
-      if @task.save
+      if verify_recaptcha(:model => @task, :message => _('Please type the words correctly')) && @task.save
         session[:notice] = _('Thanks for your suggestion. The community administrators were notified.')
         redirect_to @back_to
       end
     end
   end
 
-  def media_listing
-    if params[:image_folder_id]
-      folder = profile.articles.find(params[:image_folder_id]) if !params[:image_folder_id].blank?
-      @images = (folder ? folder.children : profile.top_level_articles).images
-    elsif params[:document_folder_id]
-      folder = profile.articles.find(params[:document_folder_id]) if !params[:document_folder_id].blank?
-      @documents = (folder ? folder.children : profile.top_level_articles)
-    else
-      @documents = profile.articles
-      @images = @documents.images
-      @documents -= @images
+  def search
+    query = params[:q]
+    results = query.blank? ? [] : profile.articles.published.find_by_contents(query)
+    render :text => article_list_to_json(results), :content_type => 'application/json'
+  end
+  def media_upload
+    files_uploaded = []
+    parent = check_parent(params[:parent_id])
+    files = [:file1,:file2, :file3].map { |f| params[f] }.compact
+    if request.post?
+      files.each do |file|
+        files_uploaded << UploadedFile.create(:uploaded_data => file, :profile => profile, :parent => parent) unless file == ''
+      end
     end
-
-    @images = @images.paginate(:per_page => per_page, :page => params[:ipage], :order => "updated_at desc") if @images
-    @documents = @documents.paginate(:per_page => per_page, :page => params[:dpage], :order => "updated_at desc", :conditions => {:is_image => false}) if @documents
-
-    @folders = profile.folders
-    @image_folders = @folders.select {|f| f.children.any? {|c| c.image?} }
-    @document_folders = @folders.select {|f| f.children.any? {|c| !c.image? && c.kind_of?(UploadedFile) } }
-
-    @media_listing = true
-
-    respond_to do |format|
-      format.html { render :layout => false}
-      format.js {
-        render :update do |page|
-          page.replace_html 'media-listing-folder-images', :partial => 'image_thumb', :locals => {:images => @images } if !@images.blank?
-          page.replace_html 'media-listing-folder-documents', :partial => 'document_link', :locals => {:documents => @documents } if !@documents.blank?
-        end
-      }
-    end
+    render :text => article_list_to_json(files_uploaded), :content_type => 'text/plain'
   end
 
   protected
@@ -353,7 +327,7 @@ class CmsController < MyProfileController
   end
 
   def refuse_blocks
-    if ['TinyMceArticle', 'Event', 'EnterpriseHomepage'].include?(@type)
+    if ['TinyMceArticle', 'TextileArticle', 'Event', 'EnterpriseHomepage'].include?(@type)
       @no_design_blocks = true
     end
   end
@@ -365,6 +339,22 @@ class CmsController < MyProfileController
   def translations
     @locales = Noosfero.locales.invert.reject { |name, lang| !@article.possible_translations.include?(lang) }
     @selected_locale = @article.language || FastGettext.locale
+  end
+
+  def article_list_to_json(list)
+    list.map do |item|
+      {
+        'title' => item.title,
+        'url' => item.image? ? item.public_filename(:uploaded) : url_for(item.url),
+        :icon => icon_for_article(item),
+        :content_type => item.mime_type,
+        :error => item.errors.any? ? _('%s could not be uploaded') % item.title : nil,
+      }
+    end.to_json
+  end
+  
+  def content_editor?
+    true
   end
 
 end

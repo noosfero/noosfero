@@ -77,10 +77,33 @@ Feature: browse
 
   Scenario: Browse communities by query
     When I go to /browse/communities
-    And I fill in "Silva" for "query"
+    And I fill in "Neto" for "query"
     And I press "Search"
-    Then I should see "Community Silva"
+    Then I should see "Community Neto"
     And I should not see "Joao Silva"
     And I should not see "Pedro Silva"
     And I should not see "Paulo Neto"
-    And I should not see "Community Neto"
+    And I should not see "Community Silva"
+
+  @selenium
+  Scenario: Show contents browse menu
+    Given I should not see "More Comments"
+    And I should not see "More Views"
+    And I should not see "More Recent"
+    When I click "#submenu-contents-trigger"
+    Then I should see "More Comments"
+    And I should see "More Views"
+    And I should see "More Recent"
+
+  Scenario: Browse contents by query
+    Given the following articles
+      | owner     | name                      | body                    |
+      | joaosilva | Bees can fly              | this is an article      |
+      | joaosilva | Bees and ants are insects | this is another article |
+      | joaosilva | Ants are small            | this is another article |
+    When I go to /browse/contents
+    And I fill in "bees" for "query"
+    And I press "Search"
+    Then I should see "Bees can fly"
+    And I should see "Bees and ants are insects"
+    And I should not see "Ants are small"

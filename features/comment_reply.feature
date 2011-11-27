@@ -64,9 +64,10 @@ Feature: comment
 
   @selenium
   Scenario: reply a comment
-    Given I am logged in as "booking"
-    And I go to /booking/another-article
+    Given I go to /booking/another-article
     And I follow "Reply" within ".comment-balloon"
+    And I fill in "Name" within "comment-balloon" with "Joey"
+    And I fill in "e-mail" within "comment-balloon" with "joey@ramones.com"
     And I fill in "Title" within "comment-balloon" with "Hey ho, let's go!"
     And I fill in "Enter your comment" within "comment-balloon" with "Hey ho, let's go!"
     When I press "Post comment" within ".comment-balloon"

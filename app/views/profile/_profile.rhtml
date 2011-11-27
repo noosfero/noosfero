@@ -1,7 +1,8 @@
 <tr>
   <td colspan='2'>
 
-    <% plugins_tabs = @plugins.map(:profile_tabs) %>
+    <% plugins_tabs = @plugins.map(:profile_tabs).
+      map { |tab| {:title => tab[:title], :id => tab[:id], :content => instance_eval(&tab[:content]), :start => tab[:title]} }%>
 
     <% tabs = plugins_tabs.select { |tab| tab[:start] } %>
 

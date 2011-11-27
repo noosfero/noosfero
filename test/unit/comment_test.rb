@@ -2,8 +2,11 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class CommentTest < ActiveSupport::TestCase
 
-  should 'have a name and require it' do
-    assert_mandatory(Comment.new, :title)
+  def setup
+  end
+
+  should 'have a name but not require it' do
+    assert_optional(Comment.new, :title)
   end
 
   should 'have a body and require it' do
@@ -194,7 +197,6 @@ class CommentTest < ActiveSupport::TestCase
     comment.valid?
 
     assert comment.errors.invalid?(:name)
-    assert comment.errors.invalid?(:title)
     assert comment.errors.invalid?(:body)
   end
 

@@ -25,6 +25,7 @@ class ProfileDesignController < BoxOrganizerController
       blocks << DisabledEnterpriseMessageBlock
       blocks << HighlightsBlock
       blocks << FeaturedProductsBlock
+      blocks << FansBlock
     end
 
     # product block exclusive for enterprises in environments that permits it
@@ -35,6 +36,10 @@ class ProfileDesignController < BoxOrganizerController
     # block exclusive to profile has blog
     if profile.has_blog?
       blocks << BlogArchivesBlock
+    end
+
+    if user.is_admin?(profile.environment)
+      blocks << RawHTMLBlock
     end
 
     blocks

@@ -2,8 +2,8 @@ class ProfileController < PublicController
 
   needs_profile
   before_filter :check_access_to_profile, :except => [:join, :join_not_logged, :index, :add]
-  before_filter :store_before_join, :only => [:join, :join_not_logged]
-  before_filter :login_required, :only => [:add, :join, :join_not_logged, :leave, :unblock, :leave_scrap, :remove_scrap, :remove_activity, :view_more_scraps, :view_more_activities, :view_more_network_activities]
+  before_filter :store_location, :only => [:join, :join_not_logged, :report_abuse]
+  before_filter :login_required, :only => [:add, :join, :join_not_logged, :leave, :unblock, :leave_scrap, :remove_scrap, :remove_activity, :view_more_scraps, :view_more_activities, :view_more_network_activities, :report_abuse, :register_report]
 
   helper TagsHelper
 
@@ -44,7 +44,7 @@ class ProfileController < PublicController
       tagged,
       :title => _("%s's contents tagged with \"%s\"") % [profile.name, @tag],
       :description => _("%s's contents tagged with \"%s\"") % [profile.name, @tag],
-      :link => url_for(:action => 'tags')
+      :link => url_for(profile.url)
     )
     render :text => data, :content_type => "text/xml"
   end
@@ -69,6 +69,10 @@ class ProfileController < PublicController
     if is_cache_expired?(profile.members_cache_key(params))
       @members = profile.members.paginate(:per_page => members_per_page, :page => params[:npage])
     end
+  end
+
+  def fans
+    @fans = profile.fans
   end
 
   def favorite_enterprises
@@ -96,7 +100,7 @@ class ProfileController < PublicController
     if request.post?
       profile.add_member(user)
       session[:notice] = _('%s administrator still needs to accept you as member.') % profile.name if profile.closed?
-      redirect_to_before_join
+      redirect_to_previous_location
     else
       if user.memberships.include?(profile)
         session[:notice] = _('You are already a member of %s.') % profile.name
@@ -223,6 +227,52 @@ class ProfileController < PublicController
     end
   end
 
+  def report_abuse
+    @abuse_report = AbuseReport.new
+    render :layout => false
+  end
+
+  def register_report
+    if !verify_recaptcha
+      render :text => {
+        :ok => false,
+        :error => {
+          :code => 1,
+          :message => _('You could not answer the captcha.')
+        }
+      }.to_json
+    else
+      begin
+        abuse_report = AbuseReport.new(params[:abuse_report])
+        if !params[:content_type].blank?
+          article = params[:content_type].constantize.find(params[:content_id])
+          abuse_report.content = instance_eval(&article.reported_version)
+        end
+
+        user.register_report(abuse_report, profile)
+
+        if !params[:content_type].blank?
+          abuse_report = AbuseReport.find_by_reporter_id_and_abuse_complaint_id(user.id, profile.opened_abuse_complaint.id)
+          Delayed::Job.enqueue DownloadReportedImagesJob.new(abuse_report, article)
+        end
+
+        render :text => {
+          :ok => true,
+          :message => _('Your abuse report was registered. The administrators are reviewing your report.'),
+        }.to_json
+      rescue Exception => exception
+        logger.error(exception.to_s)
+        render :text => {
+          :ok => false,
+          :error => {
+            :code => 2,
+            :message => _('Your report couldn\'t be saved due to some problem. Please contact the administrator.')
+          }
+        }.to_json
+      end
+    end
+  end
+
   protected
 
   def check_access_to_profile
@@ -231,16 +281,16 @@ class ProfileController < PublicController
     end
   end
 
-  def store_before_join
-    if session[:before_join].nil?
-      session[:before_join] = request.referer
+  def store_location
+    if session[:previous_location].nil?
+      session[:previous_location] = request.referer
     end
   end
 
-  def redirect_to_before_join
-    back = session[:before_join]
+  def redirect_to_previous_location
+    back = session[:previous_location]
     if back
-      session[:before_join] = nil
+      session[:previous_location] = nil
       redirect_to back
     else
       redirect_to profile.url
@@ -259,7 +309,7 @@ class ProfileController < PublicController
   end
 
   def invisible_profile
-    render_access_denied(_("Sorry, this profile was defined as private by its owner. You'll not be able to view content here unless the profile owner adds adds you."), _("Oops ... you cannot go ahead here"))
+    render_access_denied(_("This profile is inaccessible. You don't have the permission to view the content here."), _("Oops ... you cannot go ahead here"))
   end
 
   def per_page

@@ -211,4 +211,11 @@ class BlogTest < ActiveSupport::TestCase
     assert !folder.accept_uploads?
   end
 
+  should 'know when blog has or when has no posts' do
+    blog = fast_create(Blog)
+    assert blog.empty?
+    fast_create(TextileArticle, :parent_id => blog.id)
+    assert ! blog.empty?
+  end
+
 end

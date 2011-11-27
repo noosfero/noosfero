@@ -1,0 +1,32 @@
+<h1><%= _('Transfer Ownership') %></h1>
+
+<div id='last-admin-message' style="margin-bottom: 20px;">
+  <%= _('This option allows you to transfer this enterprise\'s management to another user. This action will remove all the current administrators. Be careful when confirming this procedure.') %>
+</div>
+
+<% if !profile.admins.blank? %>
+  <%= _('Current administrators:') %>
+  <ul style="list-style-type: none;">
+    <% profile.admins.each do |admin| %>
+      <li><%= link_to(profile_image(admin, :icon, :style => 'margin-right: 3px;'), admin.url) + link_to(admin.name, admin.url, :style => 'margin-top: -3px;') %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+
+<% form_tag do %>
+  <% @roles.each do |role|%>
+    <%= content_tag('b', _('Administrator:')) %>
+    <% search_action = {:controller => 'profile_members', :action => 'search_user', :role => role.id, :profile => profile.identifier} %>
+    <%= token_input_field_tag('q_'+role.key, 'search_'+role.key, search_action, 
+                              { :hint_text => _('Type in a search term for the new administrator'),
+                                :focus => true,
+                                :token_limit => 1}) %>
+
+  <% end %>
+
+  <% button_bar do %>
+    <%= submit_button('save', _('Save'))%>
+    <%= button('cancel', _('Cancel'), {:controller => 'profile_editor'})%>
+  <% end %>
+<% end %>

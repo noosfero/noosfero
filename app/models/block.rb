@@ -34,6 +34,12 @@ class Block < ActiveRecord::Base
         else
           return context[:request_path] == '/'
         end
+      elsif display == 'except_home_page'
+        if context[:article]
+          return context[:article] != owner.home_page
+        else
+          return context[:request_path] != '/' + owner.identifier
+        end
       end
     end
     true
@@ -45,6 +51,8 @@ class Block < ActiveRecord::Base
   # * <tt>'never'</tt>: the block is hidden (it does not appear for visitors)
   # * <tt>'home_page_only'</tt> the block is displayed only when viewing the
   #   homepage of its owner.
+  # * <tt>'except_home_page'</tt> the block is displayed only when viewing
+  #   the homepage of its owner.
   settings_items :display, :type => :string, :default => 'always'
 
   # The block can be configured to be displayed in all languages or in just one language. It can assume any locale of the environment:
@@ -117,10 +125,6 @@ class Block < ActiveRecord::Base
 
   def cacheable?
     true
-  end
-
-  def cache_keys
-    "block-id-#{id}"
   end
 
   def timeout

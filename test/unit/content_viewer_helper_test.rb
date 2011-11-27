@@ -16,13 +16,13 @@ class ContentViewerHelperTest < ActiveSupport::TestCase
     blog = fast_create(Blog, :name => 'Blog test', :profile_id => profile.id)
     post = TextileArticle.create!(:name => 'post test', :profile => profile, :parent => blog)
     result = article_title(post)
-    assert_match /#{show_date(post.published_at)}, by .*#{profile.identifier}/, result
+    assert_match /<span class="date">#{show_date(post.published_at)}<\/span><span class="author">, by .*#{profile.identifier}/, result
   end
 
   should 'not display published-at for non-blog posts' do
     article = TextileArticle.create!(:name => 'article for test', :profile => profile)
     result = article_title(article)
-    assert_no_match /#{show_date(article.published_at)}, by .*#{profile.identifier}/, result
+    assert_no_match /<span class="date">#{show_date(article.published_at)}<\/span><span class="author">, by .*#{profile.identifier}/, result
   end
 
   should 'create link on title of blog posts' do
@@ -30,7 +30,7 @@ class ContentViewerHelperTest < ActiveSupport::TestCase
     post = fast_create(TextileArticle, :name => 'post test', :profile_id => profile.id, :parent_id => blog.id)
     assert post.belongs_to_blog?
     result = article_title(post)
-    assert_match /a href='#{post.url}'>#{post.name}</, result
+    assert_tag_in_string result, :tag => 'h1', :child => {:tag => 'a', :content => 'post test', :attributes => { :href => /my-article-\d+/ }}
   end
 
   should 'not create link on title if pass no_link option' do
@@ -83,16 +83,57 @@ class ContentViewerHelperTest < ActiveSupport::TestCase
     assert_no_match /feed/, result
   end
 
-end
+  should 'generate facebook addthis url for article' do
+    Environment.any_instance.stubs(:default_hostname).returns('noosfero.org')
+    [TextileArticle, Blog, Folder, Gallery, UploadedFile, Forum, Event, TextArticle, TinyMceArticle].each do |model|
+      a = model.new(:name => 'Some title', :body => 'Some text here.', :profile => profile)
+      assert_equal "http://www.facebook.com/sharer.php?s=100&p[title]=Some+title&p[summary]=Some+text+here.&p[url]=http%3A%2F%2Fnoosfero.org%2Fblog_helper_test%2Fsome-title&p[images][0]=", addthis_facebook_url(a)
+    end
+  end
 
-def show_date(date)
-  date.to_s
-end
-def link_to(content, url)
-  "<a href='#{url}'>#{content}</a>"
-end
-def _(text)
-  text
-end
-def will_paginate(arg1, arg2)
+  should 'generate facebook addthis url without body' do
+    Environment.any_instance.stubs(:default_hostname).returns('noosfero.org')
+    a = TinyMceArticle.new(:name => 'Test', :body => nil, :profile => profile)
+    assert_equal "http://www.facebook.com/sharer.php?s=100&p[title]=Test&p[summary]=&p[url]=http%3A%2F%2Fnoosfero.org%2Fblog_helper_test%2Ftest&p[images][0]=", addthis_facebook_url(a)
+  end
+
+  should 'generate facebook addthis url without tags in body' do
+    Environment.any_instance.stubs(:default_hostname).returns('noosfero.org')
+    a = TinyMceArticle.new(:name => 'Some title', :body => '<p>This <b class="bold">is</b> a test</p>', :profile => profile)
+    assert_equal "http://www.facebook.com/sharer.php?s=100&p[title]=Some+title&p[summary]=This+is+a+test&p[url]=http%3A%2F%2Fnoosfero.org%2Fblog_helper_test%2Fsome-title&p[images][0]=", addthis_facebook_url(a)
+  end
+
+  should 'generate facebook addthis url with truncated body' do
+    Environment.any_instance.stubs(:default_hostname).returns('noosfero.org')
+    a = TinyMceArticle.new(:name => 'Some title', :body => 'test' * 76, :profile => profile)
+    assert_equal "http://www.facebook.com/sharer.php?s=100&p[title]=Some+title&p[summary]=#{'test' * 74}t...&p[url]=http%3A%2F%2Fnoosfero.org%2Fblog_helper_test%2Fsome-title&p[images][0]=", addthis_facebook_url(a)
+  end
+
+  should 'generate facebook addthis url for tinymce article with images' do
+    Environment.any_instance.stubs(:default_hostname).returns('noosfero.org')
+    a = TinyMceArticle.new(:name => 'Some title', :body => '<p>This <b class="bold">is</b> a <img src="/images/x.png" />test</p>', :profile => profile)
+    assert_equal "http://www.facebook.com/sharer.php?s=100&p[title]=Some+title&p[summary]=This+is+a+test&p[url]=http%3A%2F%2Fnoosfero.org%2Fblog_helper_test%2Fsome-title&p[images][0]=http%3A%2F%2Fnoosfero.org%2Fimages%2Fx.png", addthis_facebook_url(a)
+  end
+
+  should 'theme provides addthis custom icon' do
+    stubs(:session).returns({:theme => 'base'})
+    File.expects(:exists?).with(anything).returns(true)
+    Environment.any_instance.stubs(:default_hostname).returns('noosfero.org')
+    assert_match 'addthis.gif', addthis_image_tag
+  end
+
+  should 'use default addthis icon if theme has no addthis.gif image' do
+    stubs(:session).returns({:theme => 'base'})
+    File.expects(:exists?).with(anything).returns(false)
+    Environment.any_instance.stubs(:default_hostname).returns('noosfero.org')
+    assert_match 'bt-bookmark.gif', addthis_image_tag
+  end
+
+  protected
+  include NoosferoTestHelper
+  include ActionView::Helpers::TextHelper
+  def url_for(args = {})
+    ['http:/', args[:host], args[:profile], args[:page]].join('/')
+  end
+
 end

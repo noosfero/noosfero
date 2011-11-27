@@ -5,7 +5,7 @@ set -e
 program_name=$(basename $0)
 
 if [ -e /etc/default/noosfero ]; then
-  . /etc/default/noosfero_dir
+  . /etc/default/noosfero
 else
   NOOSFERO_DIR=$(readlink -f `dirname $0`/..)
 fi
@@ -72,11 +72,13 @@ _say(){
 _enable(){
   plugin="$1"
   source="$available_plugins_dir/$plugin"
-  target=""$enabled_plugins_dir/$plugin""
+  target="$enabled_plugins_dir/$plugin"
   if [ -h "$target" ]; then
     _say "$plugin already enabled"
   else
     ln -s "$source" "$target"
+    plugins_public_dir="$NOOSFERO_DIR/public/plugins"
+    test -d "$target/public/" && ln -s "$target/public" "$plugins_public_dir/$plugin"
     _say "$plugin enabled"
   fi
 }
@@ -84,8 +86,10 @@ _enable(){
 _disable(){
   plugin="$1"
   target="$enabled_plugins_dir/$plugin"
+  plugins_public_dir="$NOOSFERO_DIR/public/plugins"
   if [ -h "$target" ]; then
     rm "$target"
+    test -h "$plugins_public_dir/$plugin" && rm "$plugins_public_dir/$plugin"
     _say "$plugin disabled"
   else
     _say "$plugin already disabled"

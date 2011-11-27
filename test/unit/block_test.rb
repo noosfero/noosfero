@@ -51,14 +51,6 @@ class BlockTest < ActiveSupport::TestCase
     assert b.cacheable?
   end
 
-  should 'provide chache keys' do
-     p = create_user('test_user').person
-     box = p.boxes[0]
-     b = fast_create(Block, :box_id => box.id)
-
-     assert_equal( "block-id-#{b.id}", b.cache_keys)
-  end
-
   should 'list enabled blocks' do
     block1 = fast_create(Block, :title => 'test 1')
     block2 = fast_create(Block, :title => 'test 2', :enabled => false)
@@ -91,6 +83,26 @@ class BlockTest < ActiveSupport::TestCase
 
     assert_equal true, block.visible?(:article => nil, :request_path => '/')
     assert_equal false, block.visible?(:article => nil)
+  end
+
+  should 'be able to be displayed everywhere except in the homepage' do
+    profile = Profile.new
+    home_page = Article.new
+    profile.home_page = home_page
+    block = Block.new(:display => 'except_home_page')
+    block.stubs(:owner).returns(profile)
+
+    assert_equal false, block.visible?(:article => home_page)
+    assert_equal true, block.visible?(:article => Article.new)
+  end
+
+  should 'be able to be displayed everywhere except on profile index' do
+    profile = Profile.new(:identifier => 'testinguser')
+    block = Block.new(:display => 'except_home_page')
+    block.stubs(:owner).returns(profile)
+
+    assert_equal false, block.visible?(:article => nil, :request_path => '/testinguser')
+    assert_equal true, block.visible?(:article => nil)
   end
 
   should 'be able to save display setting' do

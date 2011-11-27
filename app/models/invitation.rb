@@ -27,6 +27,10 @@ class Invitation < Task
     TaskMailer.deliver_invitation_notification(task) unless task.friend
   end
 
+  def title
+    _('Invitation')
+  end
+
   def validate
     super
     email = friend ? friend.user.email : friend_email

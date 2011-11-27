@@ -18,6 +18,8 @@ class UploadedFile < Article
 
   validates_size_of :title, :maximum => 60, :if => (lambda { |file| !file.title.blank? })
 
+  sanitize_filename
+
   before_create do |uploaded_file|
     uploaded_file.is_image = true if uploaded_file.image?
   end
@@ -51,6 +53,8 @@ class UploadedFile < Article
   validates_attachment :size => N_("%{fn} of uploaded file was larger than the maximum size of 5.0 MB")
 
   delay_attachment_fu_thumbnails
+
+  postgresql_attachment_fu
 
   def self.icon_name(article = nil)
     if article
@@ -131,5 +135,9 @@ class UploadedFile < Article
 
   def gallery?
     self.parent && self.parent.folder? && self.parent.gallery?
+  end
+
+  def uploaded_file?
+    true
   end
 end

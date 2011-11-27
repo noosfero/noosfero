@@ -1,4 +1,5 @@
 class PluginsController < AdminController
+  protect 'edit_environment_features', :environment
 
   def index
     @active_plugins = Noosfero::Plugin.all.map {|plugin_name| plugin_name.constantize }.compact

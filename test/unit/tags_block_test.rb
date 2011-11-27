@@ -37,4 +37,8 @@ class TagsBlockTest < ActiveSupport::TestCase
     assert_match /profile\/testinguser\/tags\/first-tag/, block.content
   end
 
+  should 'order tags alphabetically' do
+    assert /\/first-tag".*\/second-tag".*\/third-tag"/m =~  block.content
+  end
+
 end

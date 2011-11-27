@@ -4,12 +4,20 @@ class ManageProductsController < ApplicationController
   protect 'manage_products', :profile, :except => [:show]
   before_filter :check_environment_feature
   before_filter :login_required, :except => [:show]
+  before_filter :create_product?, :only => [:new]
 
   protected  
 
   def check_environment_feature
     if profile.environment.enabled?('disable_products_for_enterprises')
       render_not_found
+      return
+    end
+  end
+
+  def create_product?
+    if !profile.create_product?
+      render_access_denied
       return
     end
   end
@@ -40,8 +48,8 @@ class ManageProductsController < ApplicationController
   end
 
   def new
-    @product = @profile.products.build(:product_category_id => params[:selected_category_id])
-    @category = @product.product_category
+    @category = params[:selected_category_id] ? Category.find(params[:selected_category_id]) : nil
+    @product = @profile.products.build(:product_category => @category)
     @categories = ProductCategory.top_level_for(environment)
     @level = 0
     if request.post?
@@ -50,7 +58,7 @@ class ManageProductsController < ApplicationController
         render :partial => 'shared/redirect_via_javascript',
           :locals => { :url => url_for(:controller => 'manage_products', :action => 'show', :id => @product) }
       else
-        render :partial => 'shared/dialog_error_messages', :locals => { :object_name => 'product' }
+        render_dialog_error_messages 'product'
       end
     end
   end
@@ -72,7 +80,7 @@ class ManageProductsController < ApplicationController
 
   def edit_category
     @product = @profile.products.find(params[:id])
-    @category = @product.product_category
+    @category = @product.product_category || ProductCategory.first
     @categories = ProductCategory.top_level_for(environment)
     @edit = true
     @level = @category.level
@@ -81,7 +89,7 @@ class ManageProductsController < ApplicationController
         render :partial => 'shared/redirect_via_javascript',
           :locals => { :url => url_for(:controller => 'manage_products', :action => 'show', :id => @product) }
       else
-        render :partial => 'shared/dialog_error_messages', :locals => { :object_name => 'product' }
+        render_dialog_error_messages 'product'
       end
     end
   end
@@ -96,7 +104,7 @@ class ManageProductsController < ApplicationController
         @inputs = @product.inputs
         render :partial => 'display_inputs'
       else
-        render :partial => 'shared/dialog_error_messages', :locals => { :object_name => 'product' }
+        render_dialog_error_messages 'product'
       end
     else
       render :partial => 'add_input'
@@ -147,7 +155,7 @@ class ManageProductsController < ApplicationController
         @inputs = @product.inputs
         render :partial => 'display_inputs'
       else
-        render :partial => 'shared/dialog_error_messages', :locals => { :object_name => 'input' }
+        render_dialog_error_messages 'input'
       end
     end
   end

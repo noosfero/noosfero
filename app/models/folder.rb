@@ -29,7 +29,7 @@ class Folder < Article
   def to_html(options = {})
     folder = self
     lambda do
-      render :file => 'content_viewer/folder', :locals => { :folder => folder }
+      render :file => 'content_viewer/folder', :locals => {:folder => folder}
     end
   end
 

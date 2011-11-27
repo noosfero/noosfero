@@ -346,7 +346,7 @@ class UserTest < ActiveSupport::TestCase
     Person.any_instance.stubs(:profile_custom_icon).returns('/custom_icon')
     expected_hash = {
       'coldplayfriend' => {
-        'avatar' => '/custom_icon', 'name' => 'coldplayfriend', 'jid' => 'coldplayfriend@colivre.net/coldplayfriend', 'status' => 'chat'
+        'avatar' => '/custom_icon', 'name' => 'coldplayfriend', 'jid' => 'coldplayfriend@' + Environment.default.default_hostname + '/coldplayfriend', 'status' => 'chat'
       }
     }
     assert_equal expected_hash, person.user.data_hash['friends_list']
@@ -395,6 +395,87 @@ class UserTest < ActiveSupport::TestCase
 
   should 'update chat status every 15 minutes' do
     assert_equal 15, User.expires_chat_status_every
+  end
+
+  should 'respond name with related person name' do
+    user = create_user('testuser')
+    user.person.name = 'Test User'
+    assert_equal 'Test User', user.name
+  end
+
+  should 'respond name with login, if there is no person related' do
+    user = create_user('testuser')
+    user.person = nil
+    assert_equal 'testuser', user.name
+  end
+
+  should 'have activation code' do
+    user = create_user('testuser')
+    assert_respond_to user, :activation_code
+  end
+
+  should 'have activated at' do
+    user = create_user('testuser')
+    assert_respond_to user, :activated_at
+  end
+
+  should 'make activation code before creation' do
+    assert_not_nil new_user.activation_code
+  end
+
+  should 'deliver e-mail with activation code after creation' do
+    assert_difference(ActionMailer::Base.deliveries, :size, 1) do
+      new_user :email => 'pending@activation.com'
+    end
+    assert_equal 'pending@activation.com', ActionMailer::Base.deliveries.last['to'].to_s
+  end
+
+  should 'not mass assign activated at' do
+    user = User.new :activated_at => 5.days.ago
+    assert_nil user.activated_at
+    user.attributes = { :activated_at => 5.days.ago }
+    assert_nil user.activated_at
+    user.activated_at = 5.days.ago
+    assert_not_nil user.activated_at
+  end
+
+  should 'authenticate an activated user' do
+    user = new_user :login => 'testuser', :password => 'test123', :password_confirmation => 'test123'
+    user.activate
+    assert_equal user, User.authenticate('testuser', 'test123')
+  end
+
+  should 'not authenticate a not activated user' do
+    user = new_user :login => 'testuser', :password => 'test123', :password_confirmation => 'test123'
+    assert_nil User.authenticate('testuser', 'test123')
+  end
+
+  should 'have activation code but no activated at when created' do
+    user = new_user
+    assert_not_nil user.activation_code
+    assert_nil user.activated_at
+    assert !user.person.visible
+  end
+
+  should 'activate an user' do
+    user = new_user
+    assert user.activate
+    assert_nil user.activation_code
+    assert_not_nil user.activated_at
+    assert user.person.visible
+  end
+
+  should 'return if the user is activated' do
+    user = new_user
+    assert !user.activated?
+    user.activate
+    assert user.activated?
+  end
+
+  should 'delay activation check' do
+    assert_difference Delayed::Job, :count, 1 do
+      user = new_user
+    end
   end
 
   protected

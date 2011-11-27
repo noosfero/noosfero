@@ -7,4 +7,6 @@
   <% if profile.enable_contact? %>
     <li> <%= link_to content_tag('span', _('Send an e-mail')), {:profile => profile.identifier, :controller => 'contact', :action => 'new'}, {:id => 'enterprise-contact-button', :class => 'button with-text icon-menu-mail'} %> </li>
   <% end %>
+
+  <li><%= report_abuse(profile, :button) %></li>
 </ul>

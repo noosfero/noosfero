@@ -5,7 +5,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="description" content="<%= @environment.name %>" />
     <link rel="shortcut icon" href="<%= image_path(theme_favicon) %>" type="image/x-icon" />
-    <%= javascript_include_tag 'prototype', 'jquery-latest', 'jquery.noconflict', 'jquery-ui-1.8.2.custom.min', 'jquery.scrollTo', 'jquery.scrollabletab', 'strophejs-1.0.1/strophe', 'jquery.emoticon', '/designs/icons/pidgin/emoticons.js', 'ba-linkify', 'jquery.ba-hashchange', 'jquery.sound', 'application', 'chat', :cache => 'cache-chat' %>
+    <%= noosfero_javascript %>
+    <%= javascript_include_tag 'prototype', 'jquery.scrollabletab', 'strophejs-1.0.1/strophe', 'jquery.emoticon', '/designs/icons/pidgin/emoticons.js', 'ba-linkify', 'jquery.ba-hashchange', 'jquery.sound', 'chat', :cache => 'cache-chat' %>
     <%= stylesheet_link_tag noosfero_stylesheets, :cache => 'cache' %>
     <%= stylesheet_link_tag icon_theme_stylesheet_path %>
     <%= stylesheet_link_tag theme_stylesheet_path %>
@@ -26,7 +27,7 @@
   </head>
   <body id='chat'>
     <div id='title-bar'>
-      <h1 class='title'><%= _("%s - Friends in chat (<span id='friends-online'>%d</span>)") % [h(page_title), 0] %></h1>
+      <h1 class='title'><%= _("%s - Friends online (<span id='friends-online'>%d</span>)") % [h(page_title), 0] %></h1>
     </div>
     <div id='buddy-list'>
       <div id='environment-logo'>

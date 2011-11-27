@@ -22,9 +22,14 @@ module ContentViewerHelper
       end
       comments = ''
       unless args[:no_comments] || !article.accept_comments
-        comments = ("- %s") % link_to_comments(article)
+        comments = (" - %s") % link_to_comments(article)
       end
-      title << content_tag('span', _("%s, by %s %s") % [show_date(article.published_at), link_to(article.author_name, article.author.url), comments], :class => 'created-at')
+      title << content_tag('span',
+        content_tag('span', show_date(article.published_at), :class => 'date') +
+        content_tag('span', [_(", by %s") % link_to(article.author_name, article.author.url)], :class => 'author') +
+        content_tag('span', comments, :class => 'comments'),
+        :class => 'created-at'
+      )
     end
     title
   end
@@ -43,6 +48,23 @@ module ContentViewerHelper
                                 :onclick => "toggleSubmenu(this, '#{_('Translations')}', #{links.to_json}); return false",
                                 :class => 'article-translations-menu simplemenu-trigger up'),
                   :class => 'article-translations')
+    end
+  end
+
+  def addthis_facebook_url(article)
+    "http://www.facebook.com/sharer.php?s=100&p[title]=%{title}&p[summary]=%{summary}&p[url]=%{url}&p[images][0]=%{image}" % {
+      :title => CGI.escape(article.title),
+      :url => CGI.escape(url_for(article.url)),
+      :summary => CGI.escape(truncate(strip_tags(article.body.to_s), 300)),
+      :image => CGI.escape(article.body_images_paths.first.to_s)
+    }
+  end
+
+  def addthis_image_tag
+    if File.exists?(File.join(Rails.root, 'public', theme_path, 'images', 'addthis.gif'))
+      image_tag(File.join(theme_path, 'images', 'addthis.gif'), :border => 0, :alt => '')
+    else
+      image_tag("/images/bt-bookmark.gif", :width => 53, :height => 16, :border => 0, :alt => '')
     end
   end
 

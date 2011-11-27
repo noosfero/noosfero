@@ -77,6 +77,10 @@ class ApproveArticle < Task
     true
   end
 
+  def reject_details
+    true
+  end
+
   def default_decision
     if article
       'skip'
@@ -90,7 +94,11 @@ class ApproveArticle < Task
   end
 
   def target_notification_description
-    _('%{requestor} wants to publish the article: %{article}.') % {:requestor => requestor.name, :article => article.name}
+    if article
+      _('%{requestor} wants to publish the article: %{article}.') % {:requestor => requestor.name, :article => article.name}
+    else
+      _('%{requestor} wanted to publish an article but it was removed.') % {:requestor => requestor.name}
+    end
   end
 
   def target_notification_message
@@ -104,6 +112,13 @@ class ApproveArticle < Task
       _("Your request for publishing the article \"%{article}\" was approved. Here is the comment left by the admin who approved your article:\n\n%{comment} ") % {:article => name, :comment => closing_statment}
     else
       _('Your request for publishing the article "%{article}" was approved.') % {:article => name}
+    end
+  end
+
+  def task_cancelled_message
+    message = _('Your request for publishing the article "{article}" was rejected.')
+    if !reject_explanation.blank?
+      message += " " + _("Here is the reject explanation left by the administrator who rejected your article: \n\n%{reject_explanation}") % {:reject_explanation => reject_explanation}
     end
   end
 

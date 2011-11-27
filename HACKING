@@ -31,11 +31,13 @@ You can copy and paste the commands below into a terminal (please review the
 commands and make sure you understand what you are doing):
 
  # checkout the code from repository
- git clone git://git.colivre.coop.br/noosfero.git
+ git clone git://gitorious.org/noosfero/noosfero.git
  # enter the directory
  cd noosfero
  # copy a sample config file
  cp config/database.yml.sqlite3 config/database.yml
+ # create tmp directory if it doesn't exist
+ mkdir tmp
  # create the development database
  rake db:schema:load
  # run pending migrations
@@ -59,8 +61,8 @@ another port than 3000, you can use the -p option of ./script/server:
 
 The above command makes the server available at http://localhost:9999/
 
-The sample-data data scripts creates one administrator user with login "ze" and
-password "test".
+The sample-data data scripts creates two administrator users with login "ze" and
+password "test" and login "adminuser" and password "admin".
 
 Note that some operations, like generating image thumbnails, sending e-mails,
 etc, are done in background in the context of a service independent from the
@@ -84,3 +86,7 @@ you want to enable it then you need to change some files:
 
 3) Add in config/noosfero.yml at development section:
    exception_recipients: [admin@example.com]
+
+== Releasing and building Debian package
+
+See RELEASING file.

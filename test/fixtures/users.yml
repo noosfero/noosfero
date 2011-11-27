@@ -6,7 +6,7 @@ johndoe:
   crypted_password: 00742970dc9e6319f8019fd54864d3ea740f04b1 # test
   #crypted_password: "ce2/iFrNtQ8=\n" # johndoe, use only if you're using 2-way encryption
   created_at: <%= 5.days.ago.to_s :db %>
-  # activated_at: <%= 5.days.ago.to_s :db %> # only if you're activating new signups
+  activated_at: <%= 5.days.ago.to_s :db %> # only if you're activating new signups
   environment_id: 1
 joerandomhacker:
   id: 2
@@ -14,7 +14,7 @@ joerandomhacker:
   email: joerandomhacker@localhost.localdomain
   salt: 7e3041ebc2fc05a40c60028e2c4901a81035d3cd
   crypted_password: 00742970dc9e6319f8019fd54864d3ea740f04b1 # test
-  # activation_code: aaronscode # only if you're activating new signups
+  activated_at: <%= 5.days.ago.to_s :db %> # only if you're activating new signups
   created_at: <%= 1.days.ago.to_s :db %>
   environment_id: 1
 ze:
@@ -23,7 +23,7 @@ ze:
   email: ze@localhost.localdomain
   salt: 7e3041ebc2fc05a40c60028e2c4901a81035d3cd
   crypted_password: 00742970dc9e6319f8019fd54864d3ea740f04b1 # test
-  # activation_code: aaronscode # only if you're activating new signups
+  activated_at: <%= 5.days.ago.to_s :db %> # only if you're activating new signups
   created_at: <%= 1.days.ago.to_s :db %>
   environment_id: 1
 other_ze:
@@ -32,6 +32,6 @@ other_ze:
   email: ze@localhost.localdomain
   salt: 7e3041ebc2fc05a40c60028e2c4901a81035d3cd
   crypted_password: 00742970dc9e6319f8019fd54864d3ea740f04b1 # test
-  # activation_code: aaronscode # only if you're activating new signups
+  activated_at: <%= 5.days.ago.to_s :db %> # only if you're activating new signups
   created_at: <%= 1.days.ago.to_s :db %>
   environment_id: 2

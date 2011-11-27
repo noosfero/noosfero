@@ -55,7 +55,7 @@ Feature: activate enterprise
     Given feature "enterprise_activation" is enabled on environment
     And the following enterprises
       | identifier | name | enabled | cnpj |
-      | services-provider | Services Provider | false | 00000000000000 |
+      | services-provider | Services Provider | false | 94.132.024/0001-48 |
     And I am on Joao Silva's control panel
     And I fill in "Enterprise activation code" with code of "Services Provider"
     And I press "Activate"

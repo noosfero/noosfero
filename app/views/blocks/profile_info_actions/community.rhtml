@@ -1,31 +1,49 @@
 <ul>
   <% if logged_in? %>
-
     <% if profile.members.include?(user) %>
       <li>
-        <%= button(:delete, content_tag('span', __('Leave')), profile.leave_url, :class => 'leave-community', :title => _("Leave community"), :style => 'position: relative;') %>
-        <%= button(:add, content_tag('span', __('Join')), profile.join_url, :class => 'join-community', :title => _("Join community"), :style => 'position: relative; display: none;') %>
+        <%= button(:delete, content_tag('span', __('Leave')), profile.leave_url,
+          :class => 'leave-community',
+          :title => _("Leave community"),
+          :style => 'position: relative;') %>
+        <%= button(:add, content_tag('span', __('Join')), profile.join_url,
+          :class => 'join-community',
+          :title => _("Join community"),
+          :style => 'position: relative; display: none;') %>
       </li>
     <% else %>
       <% unless profile.already_request_membership?(user) %>
         <li>
-          <%= button(:delete, content_tag('span', __('Leave')), profile.leave_url, :class => 'leave-community', :title => _("Leave community"), :style => 'position: relative; display: none;') %>
-          <%= button(:add, content_tag('span', __('Join')), profile.join_url, :class => 'join-community', :title => _("Join community"), :style => 'position: relative;') %>
+        <%= button(:delete, content_tag('span', __('Leave')), profile.leave_url,
+          :class => 'leave-community',
+          :title => _("Leave community"),
+          :style => 'position: relative; display: none;') %>
+        <%= button(:add, content_tag('span', __('Join')), profile.join_url,
+          :class => 'join-community',
+          :title => _("Join community"),
+          :style => 'position: relative;') %>
         </li>
       <% end %>
     <% end %>
+
     <% if profile.enable_contact? %>
       <li>
-        <%= link_to content_tag('span', _('Send an e-mail')), {:profile => profile.identifier, :controller => 'contact', :action => 'new'}, :class => 'button with-text icon-menu-mail' %>
+      <%= link_to content_tag('span', _('Send an e-mail')),
+        { :profile => profile.identifier,
+          :controller => 'contact',
+          :action => 'new' },
+        :class => 'button with-text icon-menu-mail' %>
       </li>
     <% end %>
+
+    <li><%= report_abuse(profile, :button) %></li>
+
     <%= render_environment_features(:profile_actions) %>
-
   <% else %>
-
     <li>
-      <%= link_to content_tag('span', _('Join')), profile.join_not_logged_url, :class => 'button with-text icon-add', :title => _('Join this community') %>
+    <%= link_to content_tag('span', _('Join')), profile.join_not_logged_url,
+      :class => 'button with-text icon-add',
+      :title => _('Join this community') %>
     </li>
-
   <% end %>
 </ul>

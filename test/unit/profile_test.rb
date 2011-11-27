@@ -260,7 +260,7 @@ class ProfileTest < ActiveSupport::TestCase
   should 'help developers by adding a suitable port to url' do
     profile = build(Profile)
 
-    Noosfero.expects(:url_options).returns({ :port => 9999 })
+    Noosfero.stubs(:url_options).returns({ :port => 9999 })
 
     assert profile.url[:port] == 9999, 'Profile#url_options must include port option when running in development mode'
   end
@@ -1259,7 +1259,7 @@ class ProfileTest < ActiveSupport::TestCase
     task = Task.create!(:requestor => person, :target => env)
 
     Person.any_instance.stubs(:is_admin?).returns(true)
-    assert_equal [task], person.all_pending_tasks
+    assert_equal [task], Task.to(person).pending
   end
 
   should 'find task from environment if is admin' do
@@ -1283,7 +1283,7 @@ class ProfileTest < ActiveSupport::TestCase
 
     Person.any_instance.stubs(:is_admin?).returns(true)
 
-    assert_equal [task1, task2], person.all_pending_tasks
+    assert_equal [task1, task2], Task.to(person).pending
   end
 
   should 'find task by id on all environments' do
@@ -1355,12 +1355,6 @@ class ProfileTest < ActiveSupport::TestCase
     profile.reload
     assert_equivalent [p1, p2], profile.folders
     assert !profile.folders.include?(child)
-  end
-
-  should 'validate profile image when save' do
-    profile = build(Profile, :image_builder => {:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')})
-    profile.image.expects(:valid?).returns(false).at_least_once
-    profile.valid?
   end
 
   should 'profile is invalid when image not valid' do
@@ -1666,6 +1660,84 @@ class ProfileTest < ActiveSupport::TestCase
     community.add_member(person)
 
     assert_equal 1, community.members_count
+  end
+
+  should 'index by schema name when database is postgresql' do
+    uses_postgresql 'schema_one'
+    p1 = Profile.create!(:name => 'some thing', :identifier => 'some-thing')
+    assert_equal Profile.find_by_contents('thing'), [p1]
+    uses_postgresql 'schema_two'
+    p2 = Profile.create!(:name => 'another thing', :identifier => 'another-thing')
+    assert_not_includes Profile.find_by_contents('thing'), p1
+    assert_includes Profile.find_by_contents('thing'), p2
+    uses_postgresql 'schema_one'
+    assert_includes Profile.find_by_contents('thing'), p1
+    assert_not_includes Profile.find_by_contents('thing'), p2
+    uses_sqlite
+  end
+
+  should 'not index by schema name when database is not postgresql' do
+    uses_sqlite
+    p1 = Profile.create!(:name => 'some thing', :identifier => 'some-thing')
+    assert_equal Profile.find_by_contents('thing'), [p1]
+    p2 = Profile.create!(:name => 'another thing', :identifier => 'another-thing')
+    assert_includes Profile.find_by_contents('thing'), p1
+    assert_includes Profile.find_by_contents('thing'), p2
+  end
+
+  should 'know if url is the profile homepage' do
+    profile = fast_create(Profile)
+
+    assert !profile.is_on_homepage?("/#{profile.identifier}/any_page")
+    assert profile.is_on_homepage?("/#{profile.identifier}")
+  end
+
+  should 'know if page is the profile homepage' do
+    profile = fast_create(Profile)
+    not_homepage = fast_create(Article, :profile_id => profile.id)
+
+    homepage = fast_create(Article, :profile_id => profile.id)
+    profile.home_page = homepage
+    profile.save
+
+    assert !profile.is_on_homepage?("/#{profile.identifier}/#{not_homepage.slug}",not_homepage)
+    assert profile.is_on_homepage?("/#{profile.identifier}/#{homepage.slug}", homepage)
+  end
+
+  should 'find profiles with image' do
+    env = fast_create(Environment)
+    2.times do |n|
+      img = Image.create!(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
+      fast_create(Person, :name => "with_image_#{n}", :environment_id => env.id, :image_id => img.id)
+    end
+    without_image = fast_create(Person, :name => 'without_image', :environment_id => env.id)
+    assert_equal 2, env.profiles.with_image.count
+    assert_not_includes env.profiles.with_image, without_image
+  end
+
+  should 'find profiles withouth image' do
+    env = fast_create(Environment)
+    2.times do |n|
+      fast_create(Person, :name => "without_image_#{n}", :environment_id => env.id)
+    end
+    img = Image.create!(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
+    with_image = fast_create(Person, :name => 'with_image', :environment_id => env.id, :image_id => img.id)
+    assert_equal 2, env.profiles.without_image.count
+    assert_not_includes env.profiles.without_image, with_image
+  end
+
+  should 'return enterprises subclasses too on namedscope enterprises' do
+    class EnterpriseSubclass < Enterprise; end
+    child = EnterpriseSubclass.create!(:identifier => 'child', :name => 'Child')
+
+    assert_includes Profile.enterprises, child
+  end
+
+  should 'return communities subclasses too on namedscope communities' do
+    class CommunitySubclass < Community; end
+    child = CommunitySubclass.create!(:identifier => 'child', :name => 'Child')
+
+    assert_includes Profile.communities, child
   end
 
   private

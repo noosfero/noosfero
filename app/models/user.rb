@@ -21,6 +21,8 @@ class User < ActiveRecord::Base
     end
   end
 
+  before_create :make_activation_code
+
   before_create do |user|
     if user.environment.nil?
       user.environment = Environment.default
@@ -31,8 +33,11 @@ class User < ActiveRecord::Base
     user.person ||= Person.new
     user.person.attributes = user.person_data.merge(:identifier => user.login, :user_id => user.id, :environment_id => user.environment_id)
     user.person.name ||= user.login
+    user.person.visible = false unless user.activated?
     user.person.save!
   end
+  after_create :deliver_activation_code
+  after_create :delay_activation_check
 
   attr_writer :person_data
   def person_data
@@ -55,6 +60,17 @@ class User < ActiveRecord::Base
         :environment => user.environment.name,
         :url => url_for(:host => user.environment.default_hostname, :controller => 'home')
     end
+
+    def activation_code(user)
+      recipients user.email
+
+      from "#{user.environment.name} <#{user.environment.contact_email}>"
+      subject _("[%s] Activate your account") % [user.environment.name]
+      body :recipient => user.name,
+        :activation_code => user.activation_code,
+        :environment => user.environment.name,
+        :url => user.environment.top_url
+    end
   end
 
   def signup!
@@ -66,6 +82,8 @@ class User < ActiveRecord::Base
   
   has_one :person, :dependent => :destroy
   belongs_to :environment
+
+  attr_protected :activated_at
 
   # Virtual attribute for the unencrypted password
   attr_accessor :password
@@ -87,8 +105,20 @@ class User < ActiveRecord::Base
   # Authenticates a user by their login name and unencrypted password.  Returns the user or nil.
   def self.authenticate(login, password, environment = nil)
     environment ||= Environment.default
-    u = find_by_login_and_environment_id(login, environment.id) # need to get the salt
+    u = first :conditions => ['login = ? AND environment_id = ? AND activated_at IS NOT NULL', login, environment.id] # need to get the salt
     u && u.authenticated?(password) ? u : nil
+  end
+
+  # Activates the user in the database.
+  def activate
+    self.activated_at = Time.now.utc
+    self.activation_code = nil
+    self.person.visible = true
+    self.person.save! && self.save
+  end
+
+  def activated?
+    self.activation_code.nil? && !self.activated_at.nil?
   end
 
   class UnsupportedEncryptionType < Exception; end
@@ -195,7 +225,7 @@ class User < ActiveRecord::Base
   end
 
   def name
-    person.name
+    person ? person.name : login
   end
 
   def enable_email!
@@ -252,5 +282,17 @@ class User < ActiveRecord::Base
     
     def password_required?
       crypted_password.blank? || !password.blank?
+    end
+
+    def make_activation_code
+      self.activation_code = Digest::SHA1.hexdigest(Time.now.to_s.split(//).sort_by{rand}.join)
+    end
+
+    def deliver_activation_code
+      User::Mailer.deliver_activation_code(self) unless self.activation_code.blank?
+    end
+
+    def delay_activation_check
+      Delayed::Job.enqueue(UserActivationJob.new(self.id), 0, 72.hours.from_now)
     end
 end

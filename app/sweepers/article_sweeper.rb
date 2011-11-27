@@ -21,7 +21,7 @@ protected
     blocks = article.profile.blocks
     blocks += article.profile.environment.blocks if article.profile.environment
     blocks = blocks.select{|b|[RecentDocumentsBlock, BlogArchivesBlock].any?{|c| b.kind_of?(c)}}
-    blocks.map(&:cache_keys).each{|ck|expire_timeout_fragment(ck)}
+    blocks.map(&:cache_key).each{|ck|expire_timeout_fragment(ck)}
     env = article.profile.environment
     if env && (env.portal_community == article.profile)
       expire_fragment(env.portal_news_cache_key)

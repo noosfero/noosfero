@@ -3,8 +3,8 @@
     <table class='noborder current-month'>
       <caption>
         <h2><%= show_month(params[:year], params[:month]) %></h2>
-        <%= link_to_previous_month(params[:year], params[:month], '&laquo; previous') %>
-        <%= link_to_next_month(params[:year], params[:month], 'next &raquo;') %>
+        <%= link_to_previous_month(params[:year], params[:month], '&laquo; %s' % _('previous')) %>
+        <%= link_to_next_month(params[:year], params[:month], '%s &raquo;' % _('next')) %>
       </caption>
       <%= render :partial => 'events/month', :locals => {:calendar => @calendar, :abbreviated => true} %>
     </table>

@@ -1,5 +1,5 @@
 <div id='display-product-image'>
-  <%= image_tag (@product.reload.image ? @product.image.public_filename : @product.default_image('thumb')), :class => 'product-pic' %>
+  <%= image_tag (@product.reload.default_image('thumb')), :class => 'product-pic' %>
 </div>
 
 <% form_for(:product, :url => { :controller => 'manage_products', :action => 'edit', :id => @product, :field => 'image' }, :html => { :method => 'post', :id => 'uploadForm', :multipart => true}) do |f| %>
@@ -22,5 +22,5 @@
 </script>
 
 <% if errors %>
-  <%= render :partial => 'shared/dialog_error_messages', :locals => { :object_name => 'product' } %>
+  <%= render_dialog_error_messages 'product' %>
 <% end %>

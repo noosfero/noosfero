@@ -6,7 +6,7 @@
   <li><%= link_to(__('Homepage'), owner.url, :class => 'url') %></li>
   <li><%= link_to(_('View profile'), owner.public_profile_url) %></li>
   <% if !user.nil? and owner.organization? and user.has_permission?('edit_profile', profile) %>
-    <li><%= link_to _('Control panel'), :controller => 'profile_editor' %></li>
+    <li><%= link_to _('Control panel'), :controller => 'profile_editor', :profile => profile.identifier %></li>
   <% end %>
 </ul>
 

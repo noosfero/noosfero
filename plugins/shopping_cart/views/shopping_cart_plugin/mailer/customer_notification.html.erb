@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  </head>
+  <body>
+    <h4><%= _('Hi %s!') % @customer[:name] %></h4>
+
+    <p>
+      <%= _('This is a notification e-mail about your buy request on %s.') % link_to(@supplier.name, @supplier.url) %>
+      <%= _('The supplier already received your buy request and may contact you for confirmation.') %>
+      <%= _('If you have any doubts, contact us at: %s') % @supplier.contact_email %>
+      <%= _('Please check if your information below is correct:') %>
+    </p>
+
+    <ul>
+      <li><b><%= _('Full name') %>: </b><%= @customer[:name] %></li>
+      <li><b><%= _('Email') %>: </b><%= @customer[:email] %></li>
+      <li><b><%= _('Phone number') %>: </b><%= @customer[:contact_phone] %></li>
+      <% if !@customer[:address].blank? || !@customer[:city].blank? || !@customer[:zip_code].blank? %>
+        <li><b><%= _('Address') %>:</b>
+      <% end %>
+      <% if !@customer[:address].blank? %>
+        <%= @customer[:address] %><br \>
+      <% end %>
+      <% if !@customer[:city].blank? %>
+        <%= @customer[:city] %><br \>
+      <% end %>
+      <% if !@customer[:zip_code].blank? %>
+        <%= @customer[:zip_code] %>
+      <% end %>
+      <% if !@customer[:address].blank? || !@customer[:city].blank? || !@customer[:zip_code].blank? %>
+        </li>
+      <% end %>
+    </ul>
+
+    <p><%=_('Here are the products you bought:')%></p>
+    <%= items_table(@items, @supplier, true) %>
+
+    <p>
+      --<br/>
+      <%=_('Thanks for buying with us!')%><br/>
+      <%= link_to @supplier.name, @supplier.url %>
+    </p>
+    <small style="color: #888"><%= _('A service of %s.') % @environment.name %></small>
+  </body>
+</html>

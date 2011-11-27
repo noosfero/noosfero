@@ -4,7 +4,6 @@
 
 
 <% labelled_form_for :contact, @contact do |f| %>
-  <%= icaptcha_field() %>
   <%= hidden_field_tag(:confirm, 'false') %>
 
   <%= required_fields_message %>

@@ -49,6 +49,15 @@ class EnterpriseTest < ActiveSupport::TestCase
     end
   end
 
+  should 'have fans' do
+    p = fast_create(Person)
+    e = fast_create(Enterprise)
+
+    p.favorite_enterprises << e
+
+    assert_includes Enterprise.find(e.id).fans, p
+  end
+
   should 'remove products when removing enterprise' do
     e = fast_create(Enterprise, :name => "My enterprise", :identifier => 'myenterprise')
     e.products.create!(:name => 'One product', :product_category => @product_category)
@@ -339,6 +348,20 @@ class EnterpriseTest < ActiveSupport::TestCase
 
     ent = Enterprise.create!(:name => 'test enteprise', :identifier => 'test_ent')
     assert_equal false, Enterprise['test_ent'].enabled?
+  end
+
+  should 'enterprise is validated according to feature enterprises_are_validated_when_created' do
+    e = Environment.default
+
+    e.enable('enterprises_are_validated_when_created')
+    e.save
+    enterprise = Enterprise.create(:name => 'test enteprise', :identifier => 'test_ent1')
+    assert enterprise.validated
+
+    e.disable('enterprises_are_validated_when_created')
+    e.save
+    enterprise = Enterprise.create(:name => 'test enteprise', :identifier => 'test_ent2')
+    assert !enterprise.validated
   end
 
   should 'have inactive_template when creating enterprise and feature is enabled' do

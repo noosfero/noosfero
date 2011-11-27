@@ -187,17 +187,6 @@ class ContentViewerControllerTest < ActionController::TestCase
     end
   end
 
-  should 'not be able to post comment while inverse captcha field filled' do
-    profile = create_user('popstar').person
-    page = profile.articles.build(:name => 'myarticle', :body => 'the body of the text')
-    page.save!
-    profile.home_page = page; profile.save!
-
-    assert_no_difference Comment, :count do
-      post :view_page, :profile => profile.identifier, :page => [ 'myarticle' ], @controller.icaptcha_field => 'filled', :comment => { :title => 'crap!', :body => 'I think that this article is crap', :name => 'Anonymous coward', :email => 'coward@anonymous.com' }
-    end
-  end
-
   should 'be able to remove comments if is moderator' do
     commenter = create_user('commenter_user').person
     community = Community.create!(:name => 'Community test', :identifier => 'community-test')
@@ -209,15 +198,6 @@ class ContentViewerControllerTest < ActionController::TestCase
       post :view_page, :profile => community.identifier, :page => [ 'test' ], :remove_comment => comment.id
       assert_response :redirect
     end
-  end
-
-  should 'render inverse captcha field' do
-    profile = create_user('popstar').person
-    page = profile.articles.build(:name => 'myarticle', :body => 'the body of the text')
-    page.save!
-    profile.home_page = page; profile.save!
-    get :view_page, :profile => profile.identifier, :page => [ 'myarticle' ]
-    assert_tag :tag => 'input', :attributes => { :type => 'text', :name => @controller.icaptcha_field }
   end
 
   should 'filter html content from body' do
@@ -1240,7 +1220,7 @@ class ContentViewerControllerTest < ActionController::TestCase
     comment.save!
     login_as 'testuser'
     get :view_page, :profile => 'testuser', :page => [ 'test' ]
-    assert_tag :tag => 'a', :attributes => { :class => /comment-reply-link/ }
+    assert_tag :tag => 'a', :attributes => { :class => /comment-footer-link/ }, :content => 'Reply'
   end
 
   should 'display reply to comment button if not authenticated' do
@@ -1250,7 +1230,7 @@ class ContentViewerControllerTest < ActionController::TestCase
     comment = article.comments.build(:author => profile, :title => 'a comment', :body => 'lalala')
     comment.save!
     get :view_page, :profile => 'testuser', :page => [ 'test' ]
-    assert_tag :tag => 'a', :attributes => { :class => /comment-reply-link/ }
+    assert_tag :tag => 'a', :attributes => { :class => /comment-footer-link/ }, :content => 'Reply'
   end
 
   should 'display replies if comment has replies' do
@@ -1365,6 +1345,22 @@ class ContentViewerControllerTest < ActionController::TestCase
     blog = fast_create(Blog, :profile_id => community.id, :path => 'blog')
     xhr :get, :view_page, :profile => community.identifier, :page => ['blog'], :toolbar => true
     assert_tag :tag => 'div', :attributes => { :id => 'article-header' }
+  end
+
+  should 'add class to body tag if is on profile homepage' do
+    profile = fast_create(Profile)
+    blog = fast_create(Blog, :profile_id => profile.id, :path => 'blog')
+    profile.home_page = blog
+    profile.save
+    get :view_page, :profile => profile.identifier, :page => ['blog']
+    assert_tag :tag => 'body', :attributes => { :class => /profile-homepage/ }
+  end
+
+  should 'not add class to body tag if is not on profile homepage' do
+    profile = fast_create(Profile)
+    blog = fast_create(Blog, :profile_id => profile.id, :path => 'blog')
+    get :view_page, :profile => profile.identifier, :page => ['blog']
+    assert_no_tag :tag => 'body', :attributes => { :class => /profile-homepage/ }
   end
 
 end

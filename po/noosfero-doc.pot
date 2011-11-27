@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2010-10-26 18:39-0300\n"
+"POT-Creation-Date: 2011-08-16 16:18-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -43,7 +43,7 @@ msgid "<a href=\"#Description\">Description</a>"
 msgstr ""
 
 # type: Content of: <h2>
-#: doc/noosfero/admin/send-email-members.en.xhtml:10 doc/noosfero/admin/export-users-list.en.xhtml:10 doc/noosfero/cms/posting-on-blog.en.xhtml:11 doc/noosfero/cms/adding-images-to-gallery.en.xhtml:11 doc/noosfero/cms/writing-advanced-article.en.xhtml:16 doc/noosfero/cms/managing-content.en.xhtml:15 doc/noosfero/cms/spreading-articles.en.xhtml:11 doc/noosfero/cms/creating-blog.en.xhtml:11 doc/noosfero/cms/writing-article.en.xhtml:11 doc/noosfero/community/editing-header-footer.en.xhtml:11 doc/noosfero/community/editing-appearance.en.xhtml:11 doc/noosfero/community/send-email-members.en.xhtml:11 doc/noosfero/community/creating-community.en.xhtml:11 doc/noosfero/community/invite-contacts.en.xhtml:11 doc/noosfero/community/editing-sideboxes.en.xhtml:11 doc/noosfero/community/moderating-articles.en.xhtml:11 doc/noosfero/community/joining-community.en.xhtml:11 doc/noosfero/community/accepting-members.en.xhtml:11 doc/noosfero/user/logout.en.xhtml:11 doc/noosfero/user/changing-password.en.xhtml:11 doc/noosfero/user/viewing-profiles-activity.en.xhtml:11 doc/noosfero/user/removing-friends.en.xhtml:11 doc/noosfero/user/sending-messages.en.xhtml:11 doc/noosfero/user/editing-header-footer.en.xhtml:11 doc/noosfero/user/deleting-profile.en.xhtml:11 doc/noosfero/user/answering-scraps.en.xhtml:11 doc/noosfero/user/removing-comments.en.xhtml:11 doc/noosfero/user/editing-appearance.en.xhtml:11 doc/noosfero/user/accepting-friends.en.xhtml:11 doc/noosfero/user/invite-contacts.en.xhtml:11 doc/noosfero/user/editing-sideboxes.en.xhtml:11 doc/noosfero/user/editing-person-info.en.xhtml:11 doc/noosfero/user/commenting.en.xhtml:13 doc/noosfero/user/adding-friends.en.xhtml:11 doc/noosfero/user/registering-new-user.en.xhtml:11 doc/noosfero/user/sending-scraps.en.xhtml:11 doc/noosfero/user/login.en.xhtml:11 doc/noosfero/enterprise/disabling-enterprise.en.xhtml:11 doc/noosfero/enterprise/editing-header-footer.en.xhtml:11 doc/noosfero/enterprise/editing-appearance.en.xhtml:11 doc/noosfero/enterprise/editing-sideboxes.en.xhtml:11 doc/noosfero/enterprise/activating-enterprise.en.xhtml:13 doc/noosfero/enterprise/adding-product.en.xhtml:11 doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:11 doc/noosfero/enterprise/editing-enterprise-info.en.xhtml:11 doc/noosfero/navigation/finding-more-active-people.en.xhtml:11 doc/noosfero/navigation/finding-more-active-communities.en.xhtml:11 doc/noosfero/navigation/searching.en.xhtml:11 doc/noosfero/navigation/searching-people.en.xhtml:11 doc/noosfero/navigation/finding-more-popular-people.en.xhtml:11 doc/noosfero/navigation/searching-products-services.en.xhtml:11 doc/noosfero/navigation/searching-enterprises.en.xhtml:11 doc/noosfero/navigation/person-balloon.en.xhtml:11 doc/noosfero/navigation/community-balloon.en.xhtml:11 doc/noosfero/navigation/finding-more-recent-people.en.xhtml:11 doc/noosfero/navigation/searching-communities.en.xhtml:11 doc/noosfero/navigation/finding-more-recent-communities.en.xhtml:11 doc/noosfero/navigation/finding-more-popular-communities.en.xhtml:11 doc/noosfero/navigation/advanced-search.en.xhtml:11
+#: doc/noosfero/admin/send-email-members.en.xhtml:10 doc/noosfero/admin/export-users-list.en.xhtml:10 doc/noosfero/plugins/shopping_cart.en.xhtml:15 doc/noosfero/cms/posting-on-blog.en.xhtml:11 doc/noosfero/cms/adding-images-to-gallery.en.xhtml:11 doc/noosfero/cms/writing-advanced-article.en.xhtml:16 doc/noosfero/cms/managing-content.en.xhtml:15 doc/noosfero/cms/spreading-articles.en.xhtml:11 doc/noosfero/cms/creating-blog.en.xhtml:11 doc/noosfero/cms/writing-article.en.xhtml:11 doc/noosfero/community/editing-header-footer.en.xhtml:11 doc/noosfero/community/editing-appearance.en.xhtml:11 doc/noosfero/community/send-email-members.en.xhtml:11 doc/noosfero/community/creating-community.en.xhtml:11 doc/noosfero/community/invite-contacts.en.xhtml:11 doc/noosfero/community/editing-sideboxes.en.xhtml:11 doc/noosfero/community/moderating-articles.en.xhtml:11 doc/noosfero/community/joining-community.en.xhtml:11 doc/noosfero/community/accepting-members.en.xhtml:11 doc/noosfero/user/logout.en.xhtml:11 doc/noosfero/user/changing-password.en.xhtml:11 doc/noosfero/user/viewing-profiles-activity.en.xhtml:11 doc/noosfero/user/removing-friends.en.xhtml:11 doc/noosfero/user/sending-messages.en.xhtml:11 doc/noosfero/user/editing-header-footer.en.xhtml:11 doc/noosfero/user/deleting-profile.en.xhtml:11 doc/noosfero/user/answering-scraps.en.xhtml:11 doc/noosfero/user/removing-comments.en.xhtml:11 doc/noosfero/user/editing-appearance.en.xhtml:11 doc/noosfero/user/accepting-friends.en.xhtml:11 doc/noosfero/user/invite-contacts.en.xhtml:11 doc/noosfero/user/editing-sideboxes.en.xhtml:11 doc/noosfero/user/editing-person-info.en.xhtml:11 doc/noosfero/user/commenting.en.xhtml:13 doc/noosfero/user/adding-friends.en.xhtml:11 doc/noosfero/user/registering-new-user.en.xhtml:11 doc/noosfero/user/sending-scraps.en.xhtml:11 doc/noosfero/user/login.en.xhtml:11 doc/noosfero/enterprise/disabling-enterprise.en.xhtml:11 doc/noosfero/enterprise/editing-header-footer.en.xhtml:11 doc/noosfero/enterprise/editing-appearance.en.xhtml:11 doc/noosfero/enterprise/editing-sideboxes.en.xhtml:11 doc/noosfero/enterprise/activating-enterprise.en.xhtml:13 doc/noosfero/enterprise/adding-product.en.xhtml:11 doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:11 doc/noosfero/enterprise/editing-enterprise-info.en.xhtml:11 doc/noosfero/navigation/finding-more-active-people.en.xhtml:11 doc/noosfero/navigation/finding-more-active-communities.en.xhtml:11 doc/noosfero/navigation/searching.en.xhtml:11 doc/noosfero/navigation/searching-people.en.xhtml:11 doc/noosfero/navigation/finding-more-popular-people.en.xhtml:11 doc/noosfero/navigation/searching-products-services.en.xhtml:11 doc/noosfero/navigation/searching-enterprises.en.xhtml:11 doc/noosfero/navigation/person-balloon.en.xhtml:11 doc/noosfero/navigation/community-balloon.en.xhtml:11 doc/noosfero/navigation/finding-more-recent-people.en.xhtml:11 doc/noosfero/navigation/searching-communities.en.xhtml:11 doc/noosfero/navigation/finding-more-recent-communities.en.xhtml:11 doc/noosfero/navigation/finding-more-popular-communities.en.xhtml:11 doc/noosfero/navigation/advanced-search.en.xhtml:11
 msgid "How to access"
 msgstr ""
 
@@ -108,7 +108,7 @@ msgid "Sending e-mail to environment members"
 msgstr ""
 
 # type: Content of: <p>
-#: doc/noosfero/admin/send-email-members.en.xhtml:25 doc/noosfero/admin/export-users-list.en.xhtml:24 doc/noosfero/cms/posting-on-blog.en.xhtml:35 doc/noosfero/cms/adding-images-to-gallery.en.xhtml:34 doc/noosfero/cms/writing-advanced-article.en.xhtml:80 doc/noosfero/cms/managing-content.en.xhtml:64 doc/noosfero/cms/spreading-articles.en.xhtml:46 doc/noosfero/cms/creating-blog.en.xhtml:42 doc/noosfero/cms/writing-article.en.xhtml:89 doc/noosfero/community/editing-header-footer.en.xhtml:66 doc/noosfero/community/editing-appearance.en.xhtml:42 doc/noosfero/community/send-email-members.en.xhtml:37 doc/noosfero/community/creating-community.en.xhtml:40 doc/noosfero/community/invite-contacts.en.xhtml:50 doc/noosfero/community/editing-sideboxes.en.xhtml:75 doc/noosfero/community/moderating-articles.en.xhtml:45 doc/noosfero/community/joining-community.en.xhtml:31 doc/noosfero/community/accepting-members.en.xhtml:36 doc/noosfero/user/logout.en.xhtml:28 doc/noosfero/user/changing-password.en.xhtml:36 doc/noosfero/user/viewing-profiles-activity.en.xhtml:31 doc/noosfero/user/removing-friends.en.xhtml:36 doc/noosfero/user/sending-messages.en.xhtml:34 doc/noosfero/user/editing-header-footer.en.xhtml:65 doc/noosfero/user/deleting-profile.en.xhtml:33 doc/noosfero/user/answering-scraps.en.xhtml:35 doc/noosfero/user/removing-comments.en.xhtml:29 doc/noosfero/user/editing-appearance.en.xhtml:40 doc/noosfero/user/accepting-friends.en.xhtml:34 doc/noosfero/user/invite-contacts.en.xhtml:47 doc/noosfero/user/editing-sideboxes.en.xhtml:76 doc/noosfero/user/editing-person-info.en.xhtml:39 doc/noosfero/user/commenting.en.xhtml:34 doc/noosfero/user/adding-friends.en.xhtml:30 doc/noosfero/user/registering-new-user.en.xhtml:39 doc/noosfero/user/sending-scraps.en.xhtml:34 doc/noosfero/user/login.en.xhtml:29 doc/noosfero/enterprise/disabling-enterprise.en.xhtml:36 doc/noosfero/enterprise/editing-header-footer.en.xhtml:66 doc/noosfero/enterprise/editing-appearance.en.xhtml:42 doc/noosfero/enterprise/editing-sideboxes.en.xhtml:77 doc/noosfero/enterprise/activating-enterprise.en.xhtml:38 doc/noosfero/enterprise/adding-product.en.xhtml:47 doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:45 doc/noosfero/enterprise/editing-enterprise-info.en.xhtml:49 doc/noosfero/navigation/finding-more-active-people.en.xhtml:36 doc/noosfero/navigation/finding-more-active-communities.en.xhtml:36 doc/noosfero/navigation/searching.en.xhtml:34 doc/noosfero/navigation/searching-people.en.xhtml:38 doc/noosfero/navigation/finding-more-popular-people.en.xhtml:36 doc/noosfero/navigation/searching-products-services.en.xhtml:42 doc/noosfero/navigation/searching-enterprises.en.xhtml:42 doc/noosfero/navigation/person-balloon.en.xhtml:32 doc/noosfero/navigation/community-balloon.en.xhtml:33 doc/noosfero/navigation/finding-more-recent-people.en.xhtml:36 doc/noosfero/navigation/searching-communities.en.xhtml:38 doc/noosfero/navigation/finding-more-recent-communities.en.xhtml:36 doc/noosfero/navigation/finding-more-popular-communities.en.xhtml:36 doc/noosfero/navigation/advanced-search.en.xhtml:40
+#: doc/noosfero/admin/send-email-members.en.xhtml:25 doc/noosfero/admin/export-users-list.en.xhtml:24 doc/noosfero/plugins/shopping_cart.en.xhtml:167 doc/noosfero/cms/posting-on-blog.en.xhtml:35 doc/noosfero/cms/adding-images-to-gallery.en.xhtml:34 doc/noosfero/cms/writing-advanced-article.en.xhtml:80 doc/noosfero/cms/managing-content.en.xhtml:64 doc/noosfero/cms/spreading-articles.en.xhtml:46 doc/noosfero/cms/creating-blog.en.xhtml:42 doc/noosfero/cms/writing-article.en.xhtml:89 doc/noosfero/community/editing-header-footer.en.xhtml:66 doc/noosfero/community/editing-appearance.en.xhtml:42 doc/noosfero/community/send-email-members.en.xhtml:37 doc/noosfero/community/creating-community.en.xhtml:40 doc/noosfero/community/invite-contacts.en.xhtml:50 doc/noosfero/community/editing-sideboxes.en.xhtml:75 doc/noosfero/community/moderating-articles.en.xhtml:45 doc/noosfero/community/joining-community.en.xhtml:31 doc/noosfero/community/accepting-members.en.xhtml:36 doc/noosfero/user/logout.en.xhtml:28 doc/noosfero/user/changing-password.en.xhtml:36 doc/noosfero/user/viewing-profiles-activity.en.xhtml:31 doc/noosfero/user/removing-friends.en.xhtml:36 doc/noosfero/user/sending-messages.en.xhtml:34 doc/noosfero/user/editing-header-footer.en.xhtml:65 doc/noosfero/user/deleting-profile.en.xhtml:33 doc/noosfero/user/answering-scraps.en.xhtml:35 doc/noosfero/user/removing-comments.en.xhtml:29 doc/noosfero/user/editing-appearance.en.xhtml:40 doc/noosfero/user/accepting-friends.en.xhtml:34 doc/noosfero/user/invite-contacts.en.xhtml:47 doc/noosfero/user/editing-sideboxes.en.xhtml:76 doc/noosfero/user/editing-person-info.en.xhtml:39 doc/noosfero/user/commenting.en.xhtml:34 doc/noosfero/user/adding-friends.en.xhtml:30 doc/noosfero/user/registering-new-user.en.xhtml:39 doc/noosfero/user/sending-scraps.en.xhtml:34 doc/noosfero/user/login.en.xhtml:29 doc/noosfero/enterprise/disabling-enterprise.en.xhtml:36 doc/noosfero/enterprise/editing-header-footer.en.xhtml:66 doc/noosfero/enterprise/editing-appearance.en.xhtml:42 doc/noosfero/enterprise/editing-sideboxes.en.xhtml:77 doc/noosfero/enterprise/activating-enterprise.en.xhtml:38 doc/noosfero/enterprise/adding-product.en.xhtml:47 doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:45 doc/noosfero/enterprise/editing-enterprise-info.en.xhtml:49 doc/noosfero/navigation/finding-more-active-people.en.xhtml:36 doc/noosfero/navigation/finding-more-active-communities.en.xhtml:36 doc/noosfero/navigation/searching.en.xhtml:34 doc/noosfero/navigation/searching-people.en.xhtml:38 doc/noosfero/navigation/finding-more-popular-people.en.xhtml:36 doc/noosfero/navigation/searching-products-services.en.xhtml:42 doc/noosfero/navigation/searching-enterprises.en.xhtml:42 doc/noosfero/navigation/person-balloon.en.xhtml:32 doc/noosfero/navigation/community-balloon.en.xhtml:33 doc/noosfero/navigation/finding-more-recent-people.en.xhtml:36 doc/noosfero/navigation/searching-communities.en.xhtml:38 doc/noosfero/navigation/finding-more-recent-communities.en.xhtml:36 doc/noosfero/navigation/finding-more-popular-communities.en.xhtml:36 doc/noosfero/navigation/advanced-search.en.xhtml:40
 msgid "<a href=\"#online-doc-text\">Back to top</a>"
 msgstr ""
 
@@ -140,6 +140,519 @@ msgstr ""
 # type: Attribute 'alt' of: <p><div><img>
 #: doc/noosfero/admin/export-users-list.en.xhtml:22 doc/noosfero/admin/export-users-list.en.xhtml:22
 msgid "Download list of users link on manage users"
+msgstr ""
+
+# type: Content of: <h1>
+#: doc/noosfero/plugins/index.en.xhtml:1
+msgid "Plugins"
+msgstr ""
+
+# type: Content of: <h1>
+#: doc/noosfero/plugins/send_email.en.xhtml:1
+msgid "SendEmailPlugin"
+msgstr ""
+
+# type: Content of: <p>
+#: doc/noosfero/plugins/send_email.en.xhtml:3
+msgid "Allows to send e-mails through an e-mail form."
+msgstr ""
+
+# type: Content of: <h2>
+#: doc/noosfero/plugins/send_email.en.xhtml:6
+msgid "Usage"
+msgstr ""
+
+# type: Content of: <ul><li>
+#: doc/noosfero/plugins/send_email.en.xhtml:9
+msgid ""
+"Create a <span class=\"caps\">HTML</span> form using RawHTMLBlock or "
+"RawHTMLArticle that invokes the {sendemail} action"
+msgstr ""
+
+# type: Content of: <ul><li>
+#: doc/noosfero/plugins/send_email.en.xhtml:10
+msgid "Add a &#8220;to&#8221; and &#8220;message&#8221; field and a submit button"
+msgstr ""
+
+# type: Content of: <ul><li>
+#: doc/noosfero/plugins/send_email.en.xhtml:11
+msgid "Make sure to fill in allowed &#8216;to&#8217; addresses in plugin settings"
+msgstr ""
+
+# type: Content of: <h2>
+#: doc/noosfero/plugins/send_email.en.xhtml:14
+msgid "HTML form"
+msgstr ""
+
+# type: Content of: <h3>
+#: doc/noosfero/plugins/send_email.en.xhtml:16
+msgid "Form action"
+msgstr ""
+
+# type: Content of: <p>
+#: doc/noosfero/plugins/send_email.en.xhtml:18
+msgid "You should use {sendemail} macro as form action, it will be expanded as:"
+msgstr ""
+
+# type: Content of: <ul><li>
+#: doc/noosfero/plugins/send_email.en.xhtml:22
+msgid ""
+"<strong>/profile/&lt;identifier&gt;/plugins/send_email/deliver</strong> in "
+"profile context"
+msgstr ""
+
+# type: Content of: <ul><li>
+#: doc/noosfero/plugins/send_email.en.xhtml:23
+msgid "<strong>/plugin/send_email/deliver</strong> in environment context"
+msgstr ""
+
+# type: Content of: <h3>
+#: doc/noosfero/plugins/send_email.en.xhtml:26
+msgid "&#8216;Subject&#8217; field"
+msgstr ""
+
+# type: Content of: <p>
+#: doc/noosfero/plugins/send_email.en.xhtml:28
+msgid "Subject of message."
+msgstr ""
+
+# type: Content of: <p>
+#: doc/noosfero/plugins/send_email.en.xhtml:31
+msgid "(default: &#8216;New mail&#8217;)"
+msgstr ""
+
+# type: Content of: <h3>
+#: doc/noosfero/plugins/send_email.en.xhtml:34
+msgid "&#8216;Message&#8217; field"
+msgstr ""
+
+# type: Content of: <p>
+#: doc/noosfero/plugins/send_email.en.xhtml:36
+msgid "Body of message."
+msgstr ""
+
+# type: Content of: <p>
+#: doc/noosfero/plugins/send_email.en.xhtml:39 doc/noosfero/plugins/send_email.en.xhtml:47
+msgid "(required)"
+msgstr ""
+
+# type: Content of: <h3>
+#: doc/noosfero/plugins/send_email.en.xhtml:42
+msgid "&#8216;To&#8217; field"
+msgstr ""
+
+# type: Content of: <p>
+#: doc/noosfero/plugins/send_email.en.xhtml:44
+msgid "Target address. Accepts multiple addresses separated by comma."
+msgstr ""
+
+# type: Content of: <h3>
+#: doc/noosfero/plugins/send_email.en.xhtml:50
+msgid "extra fields"
+msgstr ""
+
+# type: Content of: <p>
+#: doc/noosfero/plugins/send_email.en.xhtml:52
+msgid ""
+"Each other params in <span class=\"caps\">HTML</span> form will compose "
+"message body in a format &#8220;key: value&#8221;"
+msgstr ""
+
+# type: Content of: <h2>
+#: doc/noosfero/plugins/send_email.en.xhtml:55
+msgid "Options"
+msgstr ""
+
+# type: Content of: <h3>
+#: doc/noosfero/plugins/send_email.en.xhtml:57
+msgid "Using ajax"
+msgstr ""
+
+# type: Content of: <p>
+#: doc/noosfero/plugins/send_email.en.xhtml:59
+msgid ""
+"Ajax is supported using #ajax-form as id of <span class=\"caps\">HTML</span> "
+"form."
+msgstr ""
+
+# type: Content of: <p>
+#: doc/noosfero/plugins/send_email.en.xhtml:62
+msgid "Example:"
+msgstr ""
+
+# type: Content of: <pre>
+#: doc/noosfero/plugins/send_email.en.xhtml:66
+msgid ""
+"&lt;form action='{sendemail}' id='ajax-form'&gt; &lt;input type='text' "
+"name='to'/&gt; &lt;input type='text' name='subject'/&gt; &lt;input "
+"type='text' name='message'/&gt; &lt;input type='subject'/&gt; &lt;/form&gt;"
+msgstr ""
+
+# type: Content of: <h2>
+#: doc/noosfero/plugins/send_email.en.xhtml:73
+msgid "Info"
+msgstr ""
+
+# type: Content of: <p>
+#: doc/noosfero/plugins/send_email.en.xhtml:75
+msgid ""
+"This plugin was inspired by <a "
+"href=\"http://foswiki.org/Extensions/SendEmailPlugin\">Foswiki "
+"SendEmailPlugin</a>"
+msgstr ""
+
+# type: Content of: <h1>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:1
+msgid "Shopping Cart"
+msgstr ""
+
+# type: Content of: <p>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:3
+msgid "<em>Buy the products you want.</em>"
+msgstr ""
+
+# type: Content of: <ul><li>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:6
+msgid "<a href=\"#how-to-access\">How to Access</a>"
+msgstr ""
+
+# type: Content of: <ul><li>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:7
+msgid "<a href=\"#adding-new-products\">Adding new products</a>"
+msgstr ""
+
+# type: Content of: <ul><li>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:8
+msgid "<a href=\"#editing-quantities\">Editing quantities</a>"
+msgstr ""
+
+# type: Content of: <ul><li>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:9
+msgid "<a href=\"#removing-products\">Removing products</a>"
+msgstr ""
+
+# type: Content of: <ul><li>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:10
+msgid "<a href=\"#cleaning-cart\">Cleaning the cart</a>"
+msgstr ""
+
+# type: Content of: <ul><li>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:11
+msgid "<a href=\"#show-and-hide\">Show and hide cart</a>"
+msgstr ""
+
+# type: Content of: <ul><li>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:12
+msgid "<a href=\"#checkout\">Checking out</a>"
+msgstr ""
+
+# type: Content of: <p>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:17
+msgid ""
+"First of all, you need to be at the page of the enterprise from which you "
+"are going to buy your products:"
+msgstr ""
+
+# type: Attribute 'alt' of: <p><img>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:20 doc/noosfero/plugins/shopping_cart.en.xhtml:20
+msgid "Enterprise Homepage"
+msgstr ""
+
+# type: Content of: <p>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:23
+msgid ""
+"Now you are going to access the products&#8217; page of this "
+"enterprise. Most of the enterprises has a link at the side bar directing you "
+"to their products&#8217; list:"
+msgstr ""
+
+# type: Attribute 'alt' of: <p><img>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:26 doc/noosfero/plugins/shopping_cart.en.xhtml:26
+msgid "Link to the products list"
+msgstr ""
+
+# type: Content of: <p>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:29
+msgid ""
+"If there is no link to the products, you can try accessing the list straight "
+"through the url:"
+msgstr ""
+
+# type: Content of: <p>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:32
+msgid "/catalog/enterprise-identifier."
+msgstr ""
+
+# type: Content of: <h2>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:35
+msgid "Adding new products"
+msgstr ""
+
+# type: Content of: <p>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:37
+msgid ""
+"After reaching the products&#8217; list, if the enterprise enabled the "
+"shopping-cart plugin, you will see the button &#8216;Add to cart&#8217; on "
+"each product listed. This is how it looks like in the catalog:"
+msgstr ""
+
+# type: Attribute 'alt' of: <p><img>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:40 doc/noosfero/plugins/shopping_cart.en.xhtml:40
+msgid "Catalog"
+msgstr ""
+
+# type: Content of: <p>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:43
+msgid "And here in the products search:"
+msgstr ""
+
+# type: Attribute 'alt' of: <p><img>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:46 doc/noosfero/plugins/shopping_cart.en.xhtml:46
+msgid "Search"
+msgstr ""
+
+# type: Content of: <p>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:49
+msgid ""
+"If you press this button, you will see in the up-right corner your cart "
+"sliding down with the new product added:"
+msgstr ""
+
+# type: Attribute 'alt' of: <p><img>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:52 doc/noosfero/plugins/shopping_cart.en.xhtml:52
+msgid "First product"
+msgstr ""
+
+# type: Content of: <p>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:55
+msgid ""
+"From now on, your cart will always be there until it gets empty or you "
+"choose to hide it.  If you want to add new products just do the same "
+"thing. If you try to add a product that&#8217;s already in your cart, it "
+"will add one to the quantity of that product."
+msgstr ""
+
+# type: Attribute 'alt' of: <p><img>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:59 doc/noosfero/plugins/shopping_cart.en.xhtml:59
+msgid "Cart with some products"
+msgstr ""
+
+# type: Content of: <p>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:62
+msgid ""
+"<span class=\"caps\">OBS</span>: you can only add products from the same "
+"enterprise in the cart. If you want to buy products from different "
+"enterprises, then you should finish the buy with one and then start the new "
+"buy with the other."
+msgstr ""
+
+# type: Content of: <h2>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:65
+msgid "Editing quantities"
+msgstr ""
+
+# type: Content of: <p>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:67
+msgid ""
+"To edit the quantity of each product you have in your cart is really "
+"easy. You just need to click on the quantity and write the quantity you "
+"want:"
+msgstr ""
+
+# type: Attribute 'alt' of: <p><img>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:70 doc/noosfero/plugins/shopping_cart.en.xhtml:70
+msgid "Editing quantity"
+msgstr ""
+
+# type: Content of: <p>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:73
+msgid "After leaving the field, the quantity will be automatically updated:"
+msgstr ""
+
+# type: Attribute 'alt' of: <p><img>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:76 doc/noosfero/plugins/shopping_cart.en.xhtml:76
+msgid "Quantity updated"
+msgstr ""
+
+# type: Content of: <h2>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:79
+msgid "Removing products"
+msgstr ""
+
+# type: Content of: <p>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:81
+msgid ""
+"You can remove any product from your cart simply pressing the "
+"&#8216;delete&#8217; button (which has a little thrash as icon):"
+msgstr ""
+
+# type: Attribute 'alt' of: <p><img>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:84 doc/noosfero/plugins/shopping_cart.en.xhtml:84
+msgid "Deleting product"
+msgstr ""
+
+# type: Content of: <p>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:87
+msgid "After pressing this button you will be asked for a confirmation:"
+msgstr ""
+
+# type: Attribute 'alt' of: <p><img>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:90 doc/noosfero/plugins/shopping_cart.en.xhtml:90
+msgid "Delete confirmation"
+msgstr ""
+
+# type: Content of: <p>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:93
+msgid ""
+"And after confirming, the product will be removed. If the product removed is "
+"the last one, the cart will disappear too."
+msgstr ""
+
+# type: Content of: <h2>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:96
+msgid "Cleaning the cart"
+msgstr ""
+
+# type: Content of: <p>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:98
+msgid ""
+"If you changed your mind about the products you added or you did too many "
+"mistakes to keep going on, at any time you can clean your cart and start it "
+"again. Just follow the link &#8220;Clean cart&#8221;:"
+msgstr ""
+
+# type: Attribute 'alt' of: <p><img>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:101 doc/noosfero/plugins/shopping_cart.en.xhtml:101
+msgid "Cleaning cart"
+msgstr ""
+
+# type: Content of: <p>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:104
+msgid "After following this link you will be asked for a confirmation:"
+msgstr ""
+
+# type: Attribute 'alt' of: <p><img>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:107 doc/noosfero/plugins/shopping_cart.en.xhtml:107
+msgid "Cleaning confirmation"
+msgstr ""
+
+# type: Content of: <p>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:110
+msgid "And after confirming, your carted is empty again."
+msgstr ""
+
+# type: Content of: <h2>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:113
+msgid "Show and hide cart"
+msgstr ""
+
+# type: Content of: <p>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:115
+msgid ""
+"The cart is a feature that is always over your page on the top-right corner, "
+"so sometimes you might get nervous trying to see something that is under "
+"it. Don&#8217;t worry! In you cart is a &#8220;Hide cart&#8221; button:"
+msgstr ""
+
+# type: Attribute 'alt' of: <p><img>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:118 doc/noosfero/plugins/shopping_cart.en.xhtml:118
+msgid "Cart hide"
+msgstr ""
+
+# type: Content of: <p>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:121
+msgid ""
+"This button will slide up your cart when pressed leaving just a little "
+"&#8220;Show cart&#8221; so that you can slide it down again:"
+msgstr ""
+
+# type: Attribute 'alt' of: <p><img>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:124 doc/noosfero/plugins/shopping_cart.en.xhtml:124
+msgid "Cart hided"
+msgstr ""
+
+# type: Content of: <p>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:127
+msgid ""
+"When you hide your cart nothing happens to the products you already added.  "
+"If you miss your beatiful cart again just press &#8220;Show cart&#8221; and "
+"it will slide down gracefully back to you.  ^^"
+msgstr ""
+
+# type: Content of: <h2>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:131
+msgid "Checking out"
+msgstr ""
+
+# type: Content of: <p>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:133
+msgid ""
+"So, now you already choosed your products and its quantities and want to "
+"checkout your products.  As you can see in your cart, there is a "
+"&#8220;Shopping Checkout&#8221; button:"
+msgstr ""
+
+# type: Attribute 'alt' of: <p><img>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:137 doc/noosfero/plugins/shopping_cart.en.xhtml:137
+msgid "Checkout"
+msgstr ""
+
+# type: Content of: <p>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:140
+msgid ""
+"After pressing this button, a box will appear with some fields for you to "
+"fill and your cart review:"
+msgstr ""
+
+# type: Attribute 'alt' of: <p><img>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:143 doc/noosfero/plugins/shopping_cart.en.xhtml:143
+msgid "Filling informations"
+msgstr ""
+
+# type: Content of: <p>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:146
+msgid ""
+"If you are already a member of the social network your informations will be "
+"filled automatically:"
+msgstr ""
+
+# type: Attribute 'alt' of: <p><img>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:149 doc/noosfero/plugins/shopping_cart.en.xhtml:149
+msgid "Informations automatically filled"
+msgstr ""
+
+# type: Content of: <p>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:152
+msgid ""
+"If due to some reason you fill a field erroneously or do not fill a required "
+"field, a little message will appear under the field indicating the problem "
+"so that you can fill your informations correctly:"
+msgstr ""
+
+# type: Attribute 'alt' of: <p><img>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:155 doc/noosfero/plugins/shopping_cart.en.xhtml:155
+msgid "Invalid fields"
+msgstr ""
+
+# type: Content of: <p>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:158
+msgid ""
+"After filling your information press the button &#8220;Send buy "
+"request&#8221;:"
+msgstr ""
+
+# type: Attribute 'alt' of: <p><img>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:161 doc/noosfero/plugins/shopping_cart.en.xhtml:161
+msgid "Send request"
+msgstr ""
+
+# type: Content of: <p>
+#: doc/noosfero/plugins/shopping_cart.en.xhtml:164
+msgid ""
+"This button will send your request to the enterprise and will also send you "
+"an email with your request so that you can confirm the products and your "
+"informations. Now the enterprise might contact you to discuss further "
+"details."
 msgstr ""
 
 # type: Content of: <h1>
@@ -4575,6 +5088,16 @@ msgid "<a href=\"/doc/admin/export-users-list\">Export the list of users</a>"
 msgstr ""
 
 # type: Content of: <ul><li>
+#: doc/noosfero/plugins/toc.en.xhtml:3
+msgid "<a href=\"/doc/plugins/send_email\">SendEmailPlugin</a>"
+msgstr ""
+
+# type: Content of: <ul><li>
+#: doc/noosfero/plugins/toc.en.xhtml:4
+msgid "<a href=\"/doc/plugins/shopping_cart\">Shopping Cart</a>"
+msgstr ""
+
+# type: Content of: <ul><li>
 #: doc/noosfero/cms/toc.en.xhtml:4
 msgid "<a href=\"/doc/cms/spreading-articles\">Spreading articles</a>"
 msgstr ""
@@ -4728,25 +5251,30 @@ msgstr ""
 
 # type: Content of: <ul><li>
 #: doc/noosfero/toc.en.xhtml:4
-msgid "<a href=\"/doc/cms\">Content Management</a>"
+msgid "<a href=\"/doc/plugins\">Plugins</a>"
 msgstr ""
 
 # type: Content of: <ul><li>
 #: doc/noosfero/toc.en.xhtml:5
-msgid "<a href=\"/doc/community\">Community features</a>"
+msgid "<a href=\"/doc/cms\">Content Management</a>"
 msgstr ""
 
 # type: Content of: <ul><li>
 #: doc/noosfero/toc.en.xhtml:6
-msgid "<a href=\"/doc/user\">User features</a>"
+msgid "<a href=\"/doc/community\">Community features</a>"
 msgstr ""
 
 # type: Content of: <ul><li>
 #: doc/noosfero/toc.en.xhtml:7
-msgid "<a href=\"/doc/enterprise\">Enterprise features</a>"
+msgid "<a href=\"/doc/user\">User features</a>"
 msgstr ""
 
 # type: Content of: <ul><li>
 #: doc/noosfero/toc.en.xhtml:8
+msgid "<a href=\"/doc/enterprise\">Enterprise features</a>"
+msgstr ""
+
+# type: Content of: <ul><li>
+#: doc/noosfero/toc.en.xhtml:9
 msgid "<a href=\"/doc/navigation\">Navigation</a>"
 msgstr ""

@@ -65,7 +65,12 @@ class FeedHandler
       if container.update_errors > FeedHandler.max_errors
         container.enabled = false
       end
-      container.finish_fetch
+      begin
+        container.finish_fetch
+      rescue Exception => finish_fetch_exception
+        RAILS_DEFAULT_LOGGER.warn("Unable to finish fetch from %s ID %d\n%s" % [container.class.name, container.id, finish_fetch_exception.to_s])
+        RAILS_DEFAULT_LOGGER.warn("Backtrace:\n%s" % finish_fetch_exception.backtrace.join("\n"))
+      end
     end
   end
 

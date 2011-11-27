@@ -45,8 +45,6 @@ class PeopleBlockTest < ActiveSupport::TestCase
   end
 
   protected
+  include NoosferoTestHelper
 
-  def content_tag(tag, text, options = {})
-    text
-  end
 end

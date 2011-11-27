@@ -209,7 +209,11 @@ module ApplicationHelper
       the_class << ' ' << html_options[:class]
     end
     the_title = html_options[:title] || label
-    link_to('&nbsp;'+content_tag('span', label), url, html_options.merge(:class => the_class, :title => the_title))
+    if html_options[:disabled]
+      content_tag('a', '&nbsp;'+content_tag('span', label), html_options.merge(:class => the_class, :title => the_title))
+    else
+      link_to('&nbsp;'+content_tag('span', label), url, html_options.merge(:class => the_class, :title => the_title))
+    end
   end
 
   def button_to_function(type, label, js_code, html_options = {}, &block)
@@ -257,30 +261,59 @@ module ApplicationHelper
     concat(content_tag('div', capture(&block) + tag('br', :style => 'clear: left;'), { :class => 'button-bar' }.merge(options)))
   end
 
-  def partial_for_class(klass)
-    if klass.nil?
-      raise ArgumentError, 'No partial for object. Is there a partial for any class in the inheritance hierarchy?'
+  VIEW_EXTENSIONS = %w[.rhtml .html.erb]
+
+  def partial_for_class_in_view_path(klass, view_path)
+    return nil if klass.nil?
+    name = klass.name.underscore
+
+    search_name = String.new(name)
+    if search_name.include?("/")
+      search_name.gsub!(/(\/)([^\/]*)$/,'\1_\2')
+      name = File.join(params[:controller], name) if defined?(params) && params[:controller]
+    else
+      search_name = "_" + search_name
     end
 
-    name = klass.name.underscore
-    if File.exists?(File.join(RAILS_ROOT, 'app', 'views', params[:controller], "_#{name}.rhtml"))
-      name
-    else
-      partial_for_class(klass.superclass)
+    VIEW_EXTENSIONS.each do |ext|
+      path = defined?(params) && params[:controller] ? File.join(view_path, params[:controller], search_name+ext) : File.join(view_path, search_name+ext)
+      return name if File.exists?(File.join(path))
     end
+
+    partial_for_class_in_view_path(klass.superclass, view_path)
+  end
+
+  def partial_for_class(klass)
+    raise ArgumentError, 'No partial for object. Is there a partial for any class in the inheritance hierarchy?' if klass.nil?
+    name = klass.name.underscore
+    @controller.view_paths.each do |view_path|
+      partial = partial_for_class_in_view_path(klass, view_path)
+      return partial if partial
+    end
+
+    raise ArgumentError, 'No partial for object. Is there a partial for any class in the inheritance hierarchy?'
   end
 
   def partial_for_task_class(klass, action)
-    if klass.nil?
-      raise ArgumentError, 'No partial for object. Is there a partial for any class in the inheritance hierarchy?'
-    end
+    raise ArgumentError, 'No partial for object. Is there a partial for any class in the inheritance hierarchy?' if klass.nil?
 
     name = "#{klass.name.underscore}_#{action.to_s}"
-    if File.exists?(File.join(RAILS_ROOT, 'app', 'views', params[:controller], "_#{name}.rhtml"))
-      name
-    else
-      partial_for_task_class(klass.superclass, action)
+    VIEW_EXTENSIONS.each do |ext|
+      return name if File.exists?(File.join(RAILS_ROOT, 'app', 'views', params[:controller], '_'+name+ext))
     end
+
+    partial_for_task_class(klass.superclass, action)
+  end
+
+  def view_for_profile_actions(klass)
+    raise ArgumentError, 'No profile actions view for this class.' if klass.nil?
+
+    name = klass.name.underscore
+    VIEW_EXTENSIONS.each do |ext|
+      return "blocks/profile_info_actions/"+name+ext if File.exists?(File.join(RAILS_ROOT, 'app', 'views', 'blocks', 'profile_info_actions', name+ext))
+    end
+
+    view_for_profile_actions(klass.superclass)
   end
 
   def user
@@ -556,17 +589,18 @@ module ApplicationHelper
 
   def gravatar_url_for(email, options = {})
     # Ta dando erro de roteamento
+    default = theme_option['gravatar'] || NOOSFERO_CONF['gravatar'] || nil
     url_for( { :gravatar_id => Digest::MD5.hexdigest(email),
                :host => 'www.gravatar.com',
                :protocol => 'http://',
                :only_path => false,
                :controller => 'avatar.php',
-               :d => NOOSFERO_CONF['gravatar'] ? NOOSFERO_CONF['gravatar'] : nil
+               :d => default
              }.merge(options) )
   end
 
   def str_gravatar_url_for(email, options = {})
-    default = NOOSFERO_CONF['gravatar'] ? NOOSFERO_CONF['gravatar'] : nil
+    default = theme_option['gravatar'] || NOOSFERO_CONF['gravatar'] || nil
     url = 'http://www.gravatar.com/avatar.php?gravatar_id=' +
            Digest::MD5.hexdigest(email)
     {
@@ -870,7 +904,7 @@ module ApplicationHelper
 
   def template_stylesheet_path
     if profile.nil?
-      '/designs/templates/default/stylesheets/style.css'
+      "/designs/templates/#{environment.layout_template}/stylesheets/style.css"
     else
       "/designs/templates/#{profile.layout_template}/stylesheets/style.css"
     end
@@ -947,8 +981,10 @@ module ApplicationHelper
       'thickbox',
       'lightbox',
       'colorpicker',
+      colorbox_stylesheet_path,
       pngfix_stylesheet_path,
-    ]
+    ] +
+    tokeninput_stylesheets
   end
 
   # DEPRECATED. Do not use this·
@@ -958,6 +994,14 @@ module ApplicationHelper
 
   def pngfix_stylesheet_path
     'iepngfix/iepngfix.css'
+  end
+
+  def colorbox_stylesheet_path
+    'colorbox/colorbox.css'
+  end
+
+  def tokeninput_stylesheets
+    ['token-input', 'token-input-facebook', 'token-input-mac']
   end
 
   def noosfero_layout_features
@@ -975,7 +1019,10 @@ module ApplicationHelper
   def article_to_html(article, options = {})
     options.merge!(:page => params[:npage])
     content = article.to_html(options)
-    return self.instance_eval(&content) if content.kind_of?(Proc)
+    content = content.kind_of?(Proc) ? self.instance_eval(&content) : content
+    @plugins && @plugins.enabled_plugins.each do |plugin|
+      content = plugin.parse_content(content)
+    end
     content
   end
 
@@ -1083,6 +1130,17 @@ module ApplicationHelper
     link_to(content_tag(:span, _('Communities Menu')), '#', :onclick => "toggleSubmenu(this,'',#{links.to_json}); return false", :class => 'menu-submenu-trigger up', :id => 'submenu-communities-trigger')
   end
 
+  def browse_contents_menu
+     links = [
+       {s_('contents|More Comments') => {:href => url_for({:controller => 'browse', :action => 'contents', :filter => 'more_comments'})}},
+       {s_('contents|More Views') => {:href => url_for({:controller => 'browse', :action => 'contents', :filter => 'more_views'})}},
+       {s_('contents|More Recent') => {:href => url_for({:controller => 'browse', :action => 'contents', :filter => 'more_recent'})}}
+     ]
+
+    link_to(content_tag(:span, _('Contents'), :class => 'icon-blog'), {:controller => "browse", :action => 'contents'}, :id => 'submenu-contents') +
+    link_to(content_tag(:span, _('Contents Menu')), '#', :onclick => "toggleSubmenu(this,'',#{links.to_json}); return false", :class => 'menu-submenu-trigger up', :id => 'submenu-contents-trigger')
+  end
+
   def pagination_links(collection, options={})
     options = {:prev_label => '&laquo; ' + _('Previous'), :next_label => _('Next') + ' &raquo;'}.merge(options)
     will_paginate(collection, options)
@@ -1099,16 +1157,27 @@ module ApplicationHelper
     result
   end
 
+  def manage_enterprises
+    if user && !user.enterprises.empty?
+      enterprises_link = user.enterprises.map do |enterprise|
+        link_to(content_tag('strong', [_('<span>Manage</span> %s') % enterprise.short_name(25)]), @environment.top_url + "/myprofile/#{enterprise.identifier}", :class => "icon-menu-"+enterprise.class.identification.underscore, :title => [_('Manage %s') % enterprise.short_name])
+      end
+      render :partial => 'shared/manage_enterprises', :locals => {:enterprises_link => enterprises_link}
+    end
+  end
+
   def usermenu_logged_in
     pending_tasks_count = ''
-    if user && user.all_pending_tasks.count > 0
-      pending_tasks_count = link_to(user.all_pending_tasks.count.to_s, '/myprofile/{login}/tasks', :id => 'pending-tasks-count', :title => _("Manage your pending tasks"))
+    count = user ? Task.to(user).pending.count : -1
+    if count > 0
+      pending_tasks_count = link_to(count.to_s, @environment.top_url + '/myprofile/{login}/tasks', :id => 'pending-tasks-count', :title => _("Manage your pending tasks"))
     end
 
-    (_('Welcome, %s') % link_to('<i></i><strong>{login}</strong>', '/{login}', :id => "homepage-link", :title => _('Go to your homepage'))) +
+    (_("<span class='welcome'>Welcome,</span> %s") % link_to('<i></i><strong>{login}</strong>', @environment.top_url + '/{login}', :id => "homepage-link", :title => _('Go to your homepage'))) +
     render_environment_features(:usermenu) +
-    link_to('<i class="icon-menu-admin"></i><strong>' + _('Administration') + '</strong>', { :controller => 'admin_panel', :action => 'index' }, :id => "controlpanel", :title => _("Configure the environment"), :class => 'admin-link', :style => 'display: none') +
-    link_to('<i class="icon-menu-ctrl-panel"></i><strong>' + _('Control panel') + '</strong>', '/myprofile/{login}', :id => "controlpanel", :title => _("Configure your personal account and content")) +
+    link_to('<i class="icon-menu-admin"></i><strong>' + _('Administration') + '</strong>', @environment.top_url + '/admin', :id => "controlpanel", :title => _("Configure the environment"), :class => 'admin-link', :style => 'display: none') +
+    manage_enterprises.to_s +
+    link_to('<i class="icon-menu-ctrl-panel"></i><strong>' + _('Control panel') + '</strong>', @environment.top_url + '/myprofile/{login}', :id => "controlpanel", :title => _("Configure your personal account and content")) +
     pending_tasks_count +
     link_to('<i class="icon-menu-logout"></i><strong>' + _('Logout') + '</strong>', { :controller => 'account', :action => 'logout'} , :id => "logout", :title => _("Leave the system"))
   end
@@ -1206,4 +1275,39 @@ module ApplicationHelper
     end
   end
 
+  def render_dialog_error_messages(instance_name)
+    render :partial => 'shared/dialog_error_messages', :locals => { :object_name => instance_name }
+  end
+
+  def report_abuse(profile, type, content=nil)
+    return if !user || user == profile
+
+    url = { :controller => 'profile',
+            :action => 'report_abuse',
+            :profile => profile.identifier }
+    url.merge!({:content_type => content.class.name, :content_id => content.id}) if content
+    text = content_tag('span', _('Report abuse'))
+    klass = 'report-abuse-action'
+    already_reported_message = _('You already reported this profile.')
+    report_profile_message = _('Report this profile for abusive behaviour')
+
+    if type == :button
+      if user.already_reported?(profile)
+        button(:alert, text, url, :class => klass+' disabled', :disabled => true, :title => already_reported_message)
+      else
+        button(:alert, text, url, :class => klass, :title => report_profile_message)
+      end
+    elsif type == :link
+      if user.already_reported?(profile)
+        content_tag('a', text, :class => klass + ' disabled button with-text icon-alert', :title => already_reported_message)
+      else
+        link_to(text, url, :class => klass + ' button with-text icon-alert', :title => report_profile_message)
+      end
+    elsif type == :comment_link
+      (user.already_reported?(profile) ?
+        content_tag('a', text, :class => klass + ' disabled comment-footer comment-footer-link', :title => already_reported_message) :
+        link_to(text, url, :class => klass + ' comment-footer comment-footer-link', :title => report_profile_message)
+      ) + content_tag('span', ' | ', :class => 'comment-footer comment-footer-hide')
+    end
+  end
 end

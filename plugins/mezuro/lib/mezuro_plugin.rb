@@ -19,7 +19,7 @@ class MezuroPlugin < Noosfero::Plugin
       MezuroPlugin::Project.by_profile(context.profile).with_tab.map do |project|
        { :title => 'Mezuro ' + project.name,
          :id => 'mezuro-project-'+project.identifier,
-         :content => expanded_template(__FILE__,"views/show.html.erb",{:current_project => project}) }
+         :content => lambda { render :partial => 'project_tab', :locals => {:current_project => project} } }
       end
     end
   end

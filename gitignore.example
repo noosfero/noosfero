@@ -1,13 +1,14 @@
 .gitignore
 vendor/rails
 doc/api
-doc/plugins
+doc/noosfero/plugins
 tmp
 config/database.yml
 config/session.secret
 config/noosfero.yml
 config/ferret_server.yml
 config/mongrel_cluster.yml
+config/plugins
 index
 locale
 log
@@ -19,6 +20,7 @@ public/designs/themes/default
 public/designs/icons/default
 public/javascripts/cache*.js
 public/stylesheets/cache*.css
+public/plugins
 db/development.db
 db/production.db
 db/test.db

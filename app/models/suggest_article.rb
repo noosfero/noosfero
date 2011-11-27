@@ -1,7 +1,5 @@
 class SuggestArticle < Task
 
-  has_captcha  
-
   validates_presence_of :target_id, :article_name, :email, :name, :article_body
 
   settings_items :email, :type => String
