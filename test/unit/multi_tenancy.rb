@@ -1,7 +1,7 @@
 require File.dirname(__FILE__) + '/../test_helper'
 require 'noosfero/multi_tenancy'
 
-class MultiTenancyTest < Test::Unit::TestCase
+class MultiTenancyTest < ActiveSupport::TestCase
 
   def test_get_mapping_if_is_set
     mapping = { :env => {} }

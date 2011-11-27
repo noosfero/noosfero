@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class AbuseComplaintTest < Test::Unit::TestCase
+class AbuseComplaintTest < ActiveSupport::TestCase
 
   should 'be related with a reported' do
     reported = fast_create(Profile)

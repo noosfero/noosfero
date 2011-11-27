@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class AbuseReportTest < Test::Unit::TestCase
+class AbuseReportTest < ActiveSupport::TestCase
 
   def setup
     @reported = fast_create(Profile)
