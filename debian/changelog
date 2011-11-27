@@ -1,3 +1,14 @@
+noosfero (0.35.0~1) unstable; urgency=low
+
+  * Features version release.
+  * From this release until we say otherwise, this package is designed for
+    Debian 6 (Squeeze). Attempts to upgrade from 0.34.0 on Debian 5 (Lenny)
+    without also upgrading the system to Debian 6 (Squeeze), as well as
+    attemps to install this version on Debian 5 (Lenny), will probably fail
+    miserably (YMMV, though).
+
+ -- Antonio Terceiro <terceiro@colivre.coop.br>  Sun, 27 Nov 2011 14:11:33 -0200
+
 noosfero (0.34.0) unstable; urgency=low
 
   * Features version release.
