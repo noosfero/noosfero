@@ -52,7 +52,7 @@ class ProfileEditorControllerTest < ActionController::TestCase
   should 'saving profile info' do
     person = profile 
     post :edit, :profile => profile.identifier, :profile_data => { 'name' => 'new person', 'contact_information' => 'new contact information', 'address' => 'new address', 'sex' => 'female' }
-    assert_redirected_to :action => 'index'
+    assert_redirected_to :controller => 'profile_editor', :action => 'index'
     person = Person.find(person.id)
     assert_equal 'new person', person.name
     assert_equal 'new contact information', person.contact_information
@@ -82,7 +82,7 @@ class ProfileEditorControllerTest < ActionController::TestCase
     person = profile
     post :edit, :profile => profile.identifier, :profile_data => {:category_ids => [cat2.id]}
     assert_response :redirect
-    assert_redirected_to :action => 'index'
+    assert_redirected_to :controller => 'profile_editor', :action => 'index'
     assert_includes person.categories, cat2
   end
 
