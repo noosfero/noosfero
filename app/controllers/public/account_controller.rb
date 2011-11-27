@@ -2,8 +2,6 @@ class AccountController < ApplicationController
 
   no_design_blocks
 
-  inverse_captcha :field => 'e_mail'
-
   before_filter :login_required, :only => [:activation_question, :accept_terms, :activate_enterprise]
   before_filter :redirect_if_logged_in, :only => [:login, :signup]
 
