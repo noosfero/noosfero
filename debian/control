@@ -11,7 +11,7 @@ Vcs-Browser: http://git.colivre.coop.br/?p=noosfero.git
 
 Package: noosfero
 Architecture: all
-Depends: rails (>= 2.3.5-1~), rails-ruby1.8 (>= 2.3.5-1~), ruby1.8, ruby, rake, libgettext-rails-ruby1.8, libsqlite3-ruby, libpgsql-ruby, libmysql-ruby, librmagick-ruby, libredcloth-ruby, libwill-paginate-ruby, iso-codes, libfeedparser-ruby, libferret-ruby, libdaemons-ruby, rcov, mongrel, mongrel-cluster, tango-icon-theme, libhpricot-ruby, iso-codes, memcached, debconf, dbconfig-common, postgresql, adduser, ${misc:Depends}
+Depends: rails (>= 2.3.5-1~), rails-ruby1.8 (>= 2.3.5-1~), ruby1.8, ruby, rake, libgettext-rails-ruby1.8, libsqlite3-ruby, libpgsql-ruby, libmysql-ruby, librmagick-ruby, libredcloth-ruby, libwill-paginate-ruby (>= 2.3.12-1~), iso-codes, libfeedparser-ruby, libferret-ruby, libdaemons-ruby, rcov, mongrel, mongrel-cluster, tango-icon-theme, libhpricot-ruby, iso-codes, memcached, debconf, dbconfig-common, postgresql, adduser, ${misc:Depends}
 Recommends: postgresql-client
 Description: free web-based platform for social networks
  Noosfero is a web platform for social and solidarity economy networks with
