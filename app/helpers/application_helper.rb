@@ -756,7 +756,7 @@ module ApplicationHelper
 
   # Should be on the forms_helper file but when its there the translation of labels doesn't work
   class NoosferoFormBuilder < ActionView::Helpers::FormBuilder
-  extend ActionView::Helpers::TagHelper
+    extend ActionView::Helpers::TagHelper
 
     def self.output_field(text, field_html, field_id = nil)
       # try to guess an id if none given
