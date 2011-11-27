@@ -1,6 +1,6 @@
-# his is the application's main controller. Features defined here are
-# available in all controllers.
 class ApplicationController < ActionController::Base
+
+  before_filter :change_pg_schema
 
   include ApplicationHelper
   layout :get_layout
@@ -22,11 +22,6 @@ class ApplicationController < ActionController::Base
 
   helper :document
   helper :language
-
-  def boxes_editor?
-    false
-  end
-  protected :boxes_editor?
 
   def self.no_design_blocks
     @no_design_blocks = true
@@ -70,6 +65,21 @@ class ApplicationController < ActionController::Base
 
   protected
 
+  def change_pg_schema
+    if Noosfero::MultiTenancy.on? and ActiveRecord::Base.postgresql?
+      Noosfero::MultiTenancy.db_by_host = request.host
+    end
+  end
+
+  def boxes_editor?
+    false
+  end
+
+  def content_editor?
+    false
+  end
+
+
   def user
     current_user.person if logged_in?
   end
@@ -89,6 +99,21 @@ class ApplicationController < ActionController::Base
 
   def init_noosfero_plugins
     @plugins = Noosfero::Plugin::Manager.new(self)
+    @plugins.enabled_plugins.map(&:class).each do |plugin|
+      prepend_view_path(plugin.view_path)
+    end
+    init_noosfero_plugins_controller_filters
+  end
+
+  # This is a generic method that initialize any possible filter defined by a
+  # plugin to the current controller being initialized.
+  def init_noosfero_plugins_controller_filters
+    @plugins.enabled_plugins.each do |plugin|
+      plugin.send(self.class.name.underscore + '_filters').each do |plugin_filter|
+        self.class.send(plugin_filter[:type], plugin.class.name.underscore + '_' + plugin_filter[:method_name], (plugin_filter[:options] || {}))
+        self.class.send(:define_method, plugin.class.name.underscore + '_' + plugin_filter[:method_name], plugin_filter[:block])
+      end
+    end
   end
 
   def load_terminology
