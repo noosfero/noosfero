@@ -20,3 +20,5 @@ config.action_controller.allow_forgery_protection    = false
 # The :test delivery method accumulates sent emails in the
 # ActionMailer::Base.deliveries array.
 config.action_mailer.delivery_method = :test
+
+config.gem 'exception_notification', :lib => 'exception_notification', :version => '1.0.20090728'
