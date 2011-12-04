@@ -17,22 +17,22 @@ class DatesHelperTest < ActiveSupport::TestCase
 
   should 'generate period with two dates' do
     date1 = mock
-    expects(:show_date).with(date1).returns('XXX')
+    expects(:show_date).with(date1, false).returns('XXX')
     date2 = mock
-    expects(:show_date).with(date2).returns('YYY')
+    expects(:show_date).with(date2, false).returns('YYY')
     expects(:_).with('from %{date1} to %{date2}').returns('from %{date1} to %{date2}')
     assert_equal 'from XXX to YYY', show_period(date1, date2)
   end
 
   should 'generate period with two equal dates' do
     date1 = mock
-    expects(:show_date).with(date1).returns('XXX')
+    expects(:show_date).with(date1, false).returns('XXX')
     assert_equal 'XXX', show_period(date1, date1)
   end
 
   should 'generate period with one date only' do
     date1 = mock
-    expects(:show_date).with(date1).returns('XXX')
+    expects(:show_date).with(date1, false).returns('XXX')
     assert_equal 'XXX', show_period(date1)
   end
 
