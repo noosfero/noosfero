@@ -16,7 +16,7 @@ class ContentViewerHelperTest < ActiveSupport::TestCase
     blog = fast_create(Blog, :name => 'Blog test', :profile_id => profile.id)
     post = TextileArticle.create!(:name => 'post test', :profile => profile, :parent => blog)
     result = article_title(post)
-    assert_match /<span class="date">#{show_date(post.published_at)}<\/span><span class="author">, by .*#{profile.identifier}/, result
+    assert_tag_in_string result, :tag => 'span', :content => show_date(post.published_at)
   end
 
   should 'not display published-at for non-blog posts' do
