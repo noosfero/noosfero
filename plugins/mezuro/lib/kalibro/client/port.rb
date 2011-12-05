@@ -2,7 +2,7 @@ require 'savon'
 
 class Kalibro::Client::Port
 
-  @@service_address = 'http://valinhos.ime.usp.br:50688/KalibroService/'
+  @@service_address = 'http://localhost:8080/KalibroService/'
 
   def self.service_address
     @@service_address
