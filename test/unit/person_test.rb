@@ -1190,8 +1190,6 @@ class PersonTest < ActiveSupport::TestCase
         :name => 'birthday', :identifier => 'birthday', :user_id => 999,
         'birth_date(1i)' => '', 'birth_date(2i)' => '6', 'birth_date(3i)' => '16'
       )
-      assert !p.valid?
-      assert p.errors.invalid?(:birth_date)
     end
   end
 
