@@ -41,7 +41,9 @@ class ForumHelperTest < ActiveSupport::TestCase
     some_post = TextileArticle.create!(:name => 'First post', :profile => profile, :parent => forum, :published => true)
     some_post.expects(:author).returns(author).times(2)
     assert some_post.comments.empty?
-    assert_match /#{some_post.updated_at.to_s} ago by <a href='[^']+'>forum test author<\/a>/, last_topic_update(some_post)
+    out = last_topic_update(some_post)
+    assert_match some_post.updated_at.to_s, out
+    assert_match /forum test author/, out
   end
 
   should 'return last comment date if it has comments' do
@@ -51,14 +53,18 @@ class ForumHelperTest < ActiveSupport::TestCase
     some_post.comments << Comment.new(:title => 'test', :body => 'test', :author => a2)
     c = Comment.last
     assert_equal 2, some_post.comments.count
-    assert_match /#{c.created_at.to_s} ago by <a href='[^']+'>a2<\/a>/, last_topic_update(some_post)
+    out = last_topic_update(some_post)
+    assert_match c.created_at.to_s, out
+    assert_match 'a2', out
   end
 
   should "return last comment author's name from unauthenticated user" do
     some_post = TextileArticle.create!(:name => 'First post', :profile => profile, :parent => forum, :published => true)
     some_post.comments << Comment.new(:name => 'John', :email => 'lenon@example.com', :title => 'test', :body => 'test')
     c = Comment.last
-    assert_match /#{c.created_at.to_s} ago by John/m, last_topic_update(some_post)
+    out = last_topic_update(some_post)
+    assert_match "#{c.created_at.to_s} ago by John", out
+    assert_match 'John', out
   end
 
   protected
