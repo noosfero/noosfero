@@ -1,0 +1,16 @@
+.d0 {
+    background-color: #EEEEEE
+}
+
+.d1 {
+    background-color: white
+}
+
+.collapsable {
+    cursor: pointer;
+}
+
+.metric_box {
+  width: 40px;
+  text-align: right;
+}
