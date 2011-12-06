@@ -406,6 +406,14 @@ class Person < Profile
     {:title => _('Profile Info and settings'), :icon => 'edit-profile'}
   end
 
+  def disable
+    self.visible = false
+    user.password = Digest::SHA1.hexdigest("--#{Time.now.to_s}--#{identifier}--")
+    user.password_confirmation = user.password
+    save!
+    user.save!
+  end
+
   protected
 
   def followed_by?(profile)
