@@ -50,7 +50,7 @@ class CmsController < MyProfileController
   end
 
   def special_article_types
-    [Folder, Blog, UploadedFile, Forum, Gallery, RssFeed]
+    [Folder, Blog, UploadedFile, Forum, Gallery, RssFeed] + @plugins.map(:content_types)
   end
 
   def view
@@ -79,6 +79,7 @@ class CmsController < MyProfileController
   end
 
   def edit
+	  plugins_prepend_view_paths
     @article = profile.articles.find(params[:id])
     @parent_id = params[:parent_id]
     @type = params[:type] || @article.class.to_s
@@ -102,6 +103,7 @@ class CmsController < MyProfileController
   end
 
   def new
+	  plugins_prepend_view_paths
     # FIXME this method should share some logic wirh edit !!!
 
     # user must choose an article type first
@@ -351,6 +353,12 @@ class CmsController < MyProfileController
         :error => item.errors.any? ? _('%s could not be uploaded') % item.title : nil,
       }
     end.to_json
+  end
+
+  def plugins_prepend_view_paths
+    @plugins.map(:view_path).each do |view_path|
+      prepend_view_path(view_path)
+    end
   end
   
   def content_editor?
