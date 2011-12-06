@@ -224,7 +224,7 @@ msgstr ""
 
 #: app/helpers/forum_helper.rb:4
 msgid "New discussion topic"
-msgstr "Novo tópido de discussão"
+msgstr "Novo tópico de discussão"
 
 #: app/helpers/forum_helper.rb:8
 msgid "Configure forum"
