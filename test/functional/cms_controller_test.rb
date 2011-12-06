@@ -1509,4 +1509,30 @@ class CmsControllerTest < ActionController::TestCase
     assert_includes @controller.available_article_types, RawHTMLArticle
   end
 
+  should 'include new contents special types from plugins' do
+    types = [Integer, Float]
+    plugins = mock()
+    plugins.stubs(:map).with(:content_types).returns(types)
+    plugins.stubs(:map).with(:body_beginning).returns([])
+    plugins.stubs(:enabled_plugins).returns([])
+    Noosfero::Plugin::Manager.expects(:new).returns(plugins) 
+
+    get :index, :profile => profile.identifier
+
+    assert_includes @controller.special_article_types, Integer
+    assert_includes @controller.special_article_types, Float 
+  end
+
+  should 'include plugins view paths on partial search' do
+    view_path = '/example/view_path'
+    plugins = mock()
+    plugins.stubs(:map).with(:view_path).returns(view_path)
+    plugins.stubs(:enabled_plugins).returns([])
+    Noosfero::Plugin::Manager.expects(:new).returns(plugins)
+
+    get :new, :profile => profile.identifier
+
+		assert_equal view_path, @controller.view_paths[0]
+  end
+
 end
