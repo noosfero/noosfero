@@ -538,7 +538,7 @@ module ApplicationHelper
           {_('Members') => {:href => url_for(:controller => :profile, :action => :members, :profile => profile.identifier)}},
           {_('Agenda') => {:href => url_for(:controller => :profile, :action => :events, :profile => profile.identifier)}},
           {_('Join') => {:href => url_for(profile.join_url), :class => 'join-community', :style => 'display: none'}},
-          {_('Leave') => {:href => url_for(profile.leave_url), :class => 'leave-community', :style => 'display:  none'}},
+          {_('Leave community') => {:href => url_for(profile.leave_url), :class => 'leave-community', :style => 'display:  none'}},
           {_('Send an e-mail') => {:href => url_for(:profile => profile.identifier, :controller => 'contact', :action => 'new'), :class => 'send-an-email', :style => 'display: none'}}
         ]
       elsif profile.kind_of?(Enterprise)

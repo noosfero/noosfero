@@ -4431,11 +4431,11 @@ msgstr "Sair da comunidade"
 #: app/views/blocks/profile_info_actions/community.rhtml:23
 #: app/views/profile/_private_profile.rhtml:10
 msgid "Join community"
-msgstr "Entrar em comunidade"
+msgstr "Entrar na comunidade"
 
 #: app/views/blocks/profile_info_actions/community.rhtml:46
 msgid "Join this community"
-msgstr "Entrar nessa comunidade"
+msgstr "Entrar nesta comunidade"
 
 #: app/views/blocks/profile_info_actions/enterprise.rhtml:4
 msgid "Add as favorite"
