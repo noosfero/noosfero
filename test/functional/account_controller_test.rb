@@ -148,7 +148,7 @@ class AccountControllerTest < ActionController::TestCase
   def test_should_delete_token_on_logout
     login_as :johndoe
     get :logout
-    assert_equal @response.cookies["auth_token"], []
+    assert_nil @response.cookies["auth_token"]
   end
 
   # "remember_me" feature is disabled; uncommend this if it is enabled again.
@@ -662,7 +662,7 @@ class AccountControllerTest < ActionController::TestCase
     assert_response :success
     post :login, :user => {:login => 'testuser', :password => 'test123'}
     assert_not_nil session[:user]
-    assert_redirected_to :controller => 'profile_editor', :profile => 'testuser'
+    assert_redirected_to :controller => 'profile_editor', :profile => 'testuser', :action => 'index'
   end
 
   should 'not activate user when activation code is missing' do
