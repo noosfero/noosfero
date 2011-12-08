@@ -7,8 +7,8 @@ class PortTest < Test::Unit::TestCase
     @port = Kalibro::Client::Port.new('PortTest')
   end
 
-  should 'default address be valinhos' do
-    assert_equal 'http://valinhos.ime.usp.br:50688/KalibroService/', @service_address
+  should 'default address be localhost' do
+    assert_equal 'http://localhost:8080/KalibroService/', @service_address
   end
 
   should 'request action and return response' do
