@@ -49,14 +49,4 @@ class MyProfileControllerTest < ActionController::TestCase
     assert_response 403 # forbidden
   end
 
-  should 'require ssl' do
-    Environment.default.update_attribute(:enable_ssl, true)
-    @controller = OnlyForPersonTestController.new
-    org = Organization.create!(:identifier => 'hacking_institute', :name => 'Hacking Institute')
-
-    @request.expects(:ssl?).returns(false).at_least_once
-    get :index, :profile => 'hacking_institute'
-    assert_redirected_to :protocol => 'https://'
-  end
-
 end
