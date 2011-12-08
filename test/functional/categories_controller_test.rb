@@ -92,7 +92,7 @@ class CategoriesControllerTest < ActionController::TestCase
 
   should 'expire categories menu cache when some menu category is updated' do
     cat = Category.create!(:name => 'test category in menu', :environment => Environment.default, :display_in_menu => true)
-    @controller.expects(:expire_fragment).with(:controller => 'public', :action => 'categories_menu').once
+    @controller.expects(:expire_fragment).with(:controller => 'public', :action => 'categories_menu').at_least_once
     post :edit, :id => cat.id, :category => { :name => 'new name for category in menu' }
   end
 
@@ -103,7 +103,7 @@ class CategoriesControllerTest < ActionController::TestCase
   end
 
   should 'expire categories menu cache when new category is created for the menu' do
-    @controller.expects(:expire_fragment).with(:controller => 'public', :action => 'categories_menu').once
+    @controller.expects(:expire_fragment).with(:controller => 'public', :action => 'categories_menu').at_least_once
     post :new, :category => { :name => 'my new category for the menu', :display_in_menu => '1' }
   end
 
