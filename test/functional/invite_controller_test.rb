@@ -155,7 +155,6 @@ class InviteControllerTest < ActionController::TestCase
     contact_list = ContactList.create
     assert_difference Delayed::Job, :count, 1 do
       post :select_address_book, :profile => community.identifier, :contact_list => contact_list.id, :import_from => 'gmail'
-      assert_redirected_to :action => 'select_friends'
     end
   end
 
@@ -190,7 +189,7 @@ class InviteControllerTest < ActionController::TestCase
     get :invitation_data, :profile => profile.identifier, :contact_list => contact_list.id
 
     assert_equal 'application/javascript', @response.content_type
-    assert_equal "{\"fetched\": true, \"contact_list\": #{contact_list.id}, \"error\": null}", @response.body
+    assert_match /\{\"fetched\":\s*true,\s*\"contact_list\":\s*#{contact_list.id},\s*\"error\":\s*null\}/, @response.body
   end
 
   should 'render empty list of contacts' do
