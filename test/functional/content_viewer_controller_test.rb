@@ -131,7 +131,7 @@ class ContentViewerControllerTest < ActionController::TestCase
     login_as 'testuser'
     assert_difference Comment, :count, -1 do
       post :view_page, :profile => profile.identifier, :page => [ 'test' ], :remove_comment => comment.id
-      assert_redirected_to :profile => 'testuser', :action => 'view_page', :page => [ 'test' ]
+      assert_redirected_to :controller => 'content_viewer', :profile => 'testuser', :action => 'view_page', :page => [ 'test' ]
     end
   end
 
@@ -183,7 +183,7 @@ class ContentViewerControllerTest < ActionController::TestCase
       post :view_page, :profile => profile.identifier, :page => [ image.filename ], :remove_comment => comment.id, :view => true
 
       assert_response :redirect
-      assert_redirected_to :profile => profile.identifier, :page => image.explode_path, :view => true
+      assert_redirected_to :controller => 'content_viewer', :action => 'view_page', :profile => profile.identifier, :page => image.explode_path, :view => true
     end
   end
 
@@ -587,17 +587,17 @@ class ContentViewerControllerTest < ActionController::TestCase
     blog = Blog.create!(:name => "blog", :profile => profile)
     profile.articles << blog
 
-    past_post = TextileArticle.create!(:name => "past post", :profile => profile, :parent => blog, :created_at => blog.created_at - 1.year)
-    actual_post = TextileArticle.create!(:name => "actual post", :profile => profile, :parent => blog)
+    past_post = TextileArticle.create!(:name => "past post", :profile => profile, :parent => blog, :published_at => blog.created_at - 1.year)
+    current_post = TextileArticle.create!(:name => "current post", :profile => profile, :parent => blog)
     blog.children << past_post
-    blog.children << actual_post
+    blog.children << current_post
 
     year, month = profile.blog.created_at.year.to_s, '%02d' % profile.blog.created_at.month
 
     get :view_page, :profile => profile.identifier, :page => [profile.blog.path], :year => year, :month => month
 
     assert_no_tag :tag => 'a', :content => past_post.title
-    assert_tag :tag => 'a', :content => actual_post.title
+    assert_tag :tag => 'a', :content => current_post.title
   end
 
   should 'give link to create new article inside folder when view child of folder' do
@@ -942,9 +942,10 @@ class ContentViewerControllerTest < ActionController::TestCase
   should 'display first page of forum posts' do
     forum = Forum.create!(:name => 'My forum', :profile => profile, :posts_per_page => 5)
     for n in 1..10
-      forum.children << art = TextileArticle.create!(:name => "Post #{n}", :profile => profile, :parent => forum)
+      art = TextileArticle.create!(:name => "Post #{n}", :profile => profile, :parent => forum)
       art.updated_at = (10 - n).days.ago
-      art.send :update_without_callbacks
+      art.stubs(:record_timestamps).returns(false)
+      art.save!
     end
     assert_equal 10, forum.posts.size
 
@@ -979,17 +980,17 @@ class ContentViewerControllerTest < ActionController::TestCase
     forum = Forum.create!(:name => "forum", :profile => profile)
     profile.articles << forum
 
-    past_post = TextileArticle.create!(:name => "past post", :profile => profile, :parent => forum, :created_at => forum.created_at - 1.year)
-    actual_post = TextileArticle.create!(:name => "actual post", :profile => profile, :parent => forum)
+    past_post = TextileArticle.create!(:name => "past post", :profile => profile, :parent => forum, :published_at => forum.created_at - 1.year)
+    current_post = TextileArticle.create!(:name => "current post", :profile => profile, :parent => forum)
     forum.children << past_post
-    forum.children << actual_post
+    forum.children << current_post
 
-    year, month = profile.forum.created_at.year.to_s, '%02d' % profile.forum.created_at.month
+    year, month = forum.created_at.year.to_s, '%02d' % forum.created_at.month
 
     get :view_page, :profile => profile.identifier, :page => [profile.forum.path], :year => year, :month => month
 
     assert_no_tag :tag => 'a', :content => past_post.title
-    assert_tag :tag => 'a', :content => actual_post.title
+    assert_tag :tag => 'a', :content => current_post.title
   end
 
   should "display 'New discussion topic' when create children of forum" do
@@ -1209,7 +1210,7 @@ class ContentViewerControllerTest < ActionController::TestCase
     login_as @profile.identifier
     page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
     post :view_page, :profile => @profile.identifier, :page => [ 'myarticle' ], :comment => { :title => 'title', :body => 'body' }, :confirm => 'true'
-    assert_redirected_to :profile => @profile.identifier, :page => page.explode_path
+    assert_redirected_to :controller => 'content_viewer', :action => 'view_page', :profile => @profile.identifier, :page => page.explode_path
   end
 
   should 'display reply to comment button if authenticated' do
