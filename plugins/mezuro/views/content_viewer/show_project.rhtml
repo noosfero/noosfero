@@ -1,6 +1,5 @@
 <% @project = Kalibro::Client::ProjectClient.new.project(@page.name) %>
 
-<h1> <%= @project.name %>'s Info</h1>
 <table id="show_info">
   <tr>
     <td><%= _("Name") %></td>
@@ -15,99 +14,30 @@
     <td><%= @project.description %></td>
   </tr>
   <tr>
-    <td><%=   _("Repository type") %></td>
+    <td><%= _("Repository type") %></td>
     <td><%= @project.repository.type %></td>
   </tr>
   <tr>
-    <td><%=   _("Repository address") %></td>
+    <td><%= _("Repository address") %></td>
     <td><%= @project.repository.address %></td>
   </tr>
   <tr>
-    <td><%=   _("Configuration") %></td>
+    <td><%= _("Configuration") %></td>
     <td><%= @project.configuration_name %></td>
   </tr>
 </table>
 
 <br />
 
-<% if @project.state == 'ERROR' %>
+<% if ! @project.error.nil? %>
   <h3>ERROR</h3>
-  <br />
-  <br />
+  <% @error = @project.error %>
   <p>
-    <%= _("Possible causes:") %>
-  <ul>
-    <li><%= _("Server is down") %></li>
-    <li><%= _("Invalid URL") %> </li>
-    <li><%= _("Incorrect language") %> </li>
-  </ul>
+    <%=  "State when error ocurred: #{@project.state}" %>
+    <br/>
+    <%= @error.message %>
+    <ul><% @error.stack_trace.each do |trace| %>
+      <li><%= "#{trace.declaring_class}.#{trace.method_name}(#{trace.file_name}:#{trace.line_number})" %></li>
+    <% end %></ul>
   </p>
-<% end %>
-
-<% if @project.state.end_with? 'ING' %>
-  <div id="progress_message">
-    <%= _("The server is calculating metric results.<br/>Reload the page manually in a few moments.") %>
-  </div>
-<% end %>
-
-
-<% if @project.state == 'READY' %>
-
-  <% if @project.configuration.nil? %>
-    <% metric_results = @client.last_module_result(@project.name).metric_results %>
-
-    <h3> <%= _("Total Metrics") %> </h3>
-    <table id="total_metrics">
-      <% total_results = metric_results.each.select {|result| result.native_metric.scope == 'APPLICATION'} %>
-      <% total_results.each_with_index do |result, index| %>
-        <tr id="tr_<%= result.native_metric.code %>" class="d<%= index % 2 %>">
-          <td> <%= result.native_metric.name %> </td>
-          <td class="metric_box"> <%= result.value %> </td>
-        </tr>
-      <% end %>
-    </table>
-
-    <h3> <%= _("Statistical Metrics") %> </h3>
-    <% statistical_results = metric_results.each.select {|result| result.native_metric.scope == 'CLASS'} %>
-    <% statistical_results.each do |result| %>
-      <div id="statistical_metrics">
-
-        <table id="<%= @project.name %>_<%= result.native_metric.code %>_list">
-          <thead>
-          <th>
-            <img id="<%= @project.name %>_<%= result.native_metric.code %>_plus"
-                 onclick="collapse('<%= @project.name %>_<%= result.native_metric.code %>')"
-                 alt="+" src="/plugins/mezuro/images/plus.png" class="collapsable"/>
-            <img id="<%= @project.name %>_<%= result.native_metric.code %>_minus" style="display: none"
-                 onclick="collapse('<%= @project.name %>_<%= result.native_metric.code %>')"
-                 alt="-" src="/plugins/mezuro/images/minus.png" class="collapsable"/>
-                 <%= "#{result.native_metric.name}" %>
-          </th>
-          <th class="metric_box">
-            <%= "#{result.average}"%>
-          </th>
-          </thead>
-          <% result.available_statistics.each_with_index do |statistic, index| %>
-            <tr class="d<%= index % 2 %> statistic" style="display: none">
-              <td><%= statistic %></td>
-              <td class="metric_box"><%= result.statistic(statistic) %></td>
-            </tr>
-          <% end %>
-        </table>
-      </div>
-    <% end %>
-
-  <% else %>
-    <% metric_results = @client.last_module_result(@project.name).compiled_metric_results %>
-
-    <h3> <%= _("Metrics") %> </h3>
-    <table id="metrics">
-      <% metric_results.each do |result| %>
-        <tr id="tr_<%= result.native_metric.code %>">
-          <td> <%= result.native_metric.name %> </td>
-          <td class="metric_box"> <%= result.value %> </td>
-        </tr>
-      <% end %>
-    </table>
-  <% end %>
 <% end %>
