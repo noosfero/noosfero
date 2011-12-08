@@ -63,14 +63,22 @@ class ChatControllerTest < ActionController::TestCase
     assert_template 'auto_connect_busy'
   end
 
-  should 'try to start xmpp session' do
-    login_as 'testuser'
+  begin
+    require 'ruby_bosh'
+    should 'try to start xmpp session' do
+      login_as 'testuser'
 
-    RubyBOSH.expects(:initialize_session).raises("Error trying to connect...")
+      RubyBOSH.expects(:initialize_session).raises("Error trying to connect...")
 
-    get :start_session
-    assert_response 500
-    assert_template 'start_session_error'
+      get :start_session
+      assert_response 500
+      assert_template 'start_session_error'
+    end
+  rescue LoadError
+    puts 'W: could not load RubyBOSH; skipping some chat tests'
+    should 'skip the above test if the chat dependencies are not installed' do
+      print '*'
+    end
   end
 
   should 'render not found if chat feature disabled' do
