@@ -70,7 +70,7 @@ class EnvironmentDesignControllerTest < ActionController::TestCase
     article.expects(:path).returns('some_path')
     article.expects(:id).returns(1)
     get :edit, :id => l.id
-    assert_tag :tag => 'select', :attributes => { :id => 'block[article_id]' }
+    assert_tag :tag => 'select', :attributes => { :name => 'block[article_id]' }
   end
 
   should 'be able to edit ArticleBlock without portal community' do
