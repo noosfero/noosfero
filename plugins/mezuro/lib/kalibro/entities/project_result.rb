@@ -19,7 +19,7 @@ class Kalibro::Entities::ProjectResult < Kalibro::Entities::Entity
   end
 
   def format_milliseconds(value)
-    seconds = value/1000
+    seconds = value.to_i/1000
     hours = seconds/3600
     seconds -= hours * 3600
     minutes = seconds/60

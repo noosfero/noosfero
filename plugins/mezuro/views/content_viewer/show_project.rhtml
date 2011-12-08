@@ -1,6 +1,6 @@
 <% @project = Kalibro::Client::ProjectClient.new.project(@page.name) %>
 
-<table id="show_info">
+<table id="project_info">
   <tr>
     <td><%= _("Name") %></td>
     <td><%= @project.name %></td>
@@ -30,14 +30,117 @@
 <br />
 
 <% if ! @project.error.nil? %>
-  <h3>ERROR</h3>
+  <h3><%= _('ERROR') %></h3>
   <% @error = @project.error %>
   <p>
-    <%=  "State when error ocurred: #{@project.state}" %>
+    <%= "State when error ocurred: #{@project.state}" %>
     <br/>
     <%= @error.message %>
     <ul><% @error.stack_trace.each do |trace| %>
       <li><%= "#{trace.declaring_class}.#{trace.method_name}(#{trace.file_name}:#{trace.line_number})" %></li>
     <% end %></ul>
   </p>
+<% elsif @project.state.end_with? 'ING' %>
+  <p>
+    <%= _("Kalibro Service is #{@project.state.downcase} the source code.") %>
+    <br/>
+    <%= _("Reload the page manually in a few moments.") %>
+  </p>
+<% elsif @project.state == 'READY' %>
+  <h3><%= _('LAST RESULT') %></h3>
+  <% @project_result = Kalibro::Client::ProjectResultClient.new.last_result(@project.name) %>
+  <table id="project_result_info">
+    <tr>
+      <td><%= _("Date") %></td>
+      <td><%= @project_result.date %></td>
+    </tr>
+    <tr>
+      <td><%= _("Load time") %></td>
+      <td><%= @project_result.formatted_load_time %></td>
+    </tr>
+    <tr>
+      <td><%= _("Analysis time") %></td>
+      <td><%= @project_result.formatted_analysis_time %></td>
+    </tr>
+  </table>
 <% end %>
+
+
+<%# if @project.state == 'READY' %>
+
+  <%# if @project.configuration.nil? %>
+    <%# metric_results = @client.last_module_result(@project.name).metric_results %>
+
+    <%#*<h3>%>
+      <%#= _("Total Metrics") %>
+    <%#*</h3>%>
+    <%#*<table id="total_metrics">%>
+      <%# total_results = metric_results.each.select {|result| result.native_metric.scope == 'APPLICATION'} %>
+      <%# total_results.each_with_index do |result, index| %>
+        <%#*<tr id="tr_<%= result.native_metric.code >" class="d<%= index % 2 >">%>
+          <%#*<td>%>
+            <%#= result.native_metric.name %>
+          <%#*</td>%>
+          <%#*<td class="metric_box">%>
+            <%#= result.value %>
+          <%#*</td>%>
+        <%#*</tr>%>
+      <%# end %>
+    <%#*</table>%>
+
+    <%#*<h3>%>
+      <%#= _("Statistical Metrics") %>
+    <%#*</h3>%>
+    <%# statistical_results = metric_results.each.select {|result| result.native_metric.scope == 'CLASS'} %>
+    <%# statistical_results.each do |result| %>
+      <%#*<div id="statistical_metrics">%>
+
+        <%#*<table id="<%= @project.name >_<%= result.native_metric.code >_list">%>
+          <%#*<thead>%>
+          <%#*<th>%>
+            <%#*<img id="<%= @project.name >_<%= result.native_metric.code >_plus"%>
+                 <%#*onclick="collapse('<%= @project.name >_<%= result.native_metric.code >')"%>
+                 <%#*alt="+" src="/plugins/mezuro/images/plus.png" class="collapsable"/>%>
+            <%#*<img id="<%= @project.name >_<%= result.native_metric.code >_minus" style="display: none"%>
+                 <%#*onclick="collapse('<%= @project.name >_<%= result.native_metric.code >')"%>
+                 <%#*alt="-" src="/plugins/mezuro/images/minus.png" class="collapsable"/>%>
+                 <%#= "#{result.native_metric.name}" %>
+          <%#*</th>%>
+          <%#*<th class="metric_box">%>
+            <%#= "#{result.average}"%>
+          <%#*</th>%>
+          <%#*</thead>%>
+          <%# result.available_statistics.each_with_index do |statistic, index| %>
+            <%#*<tr class="d<%= index % 2 > statistic" style="display: none">%>
+              <%#*<td>%>
+                <%#= statistic %>
+              <%#*</td>%>
+              <%#*<td class="metric_box">%>
+                <%#= result.statistic(statistic) %>
+              <%#*</td>%>
+            <%#*</tr>%>
+          <%# end %>
+        <%#*</table>%>
+      <%#*</div>%>
+    <%# end %>
+
+  <%# else %>
+    <%# metric_results = @client.last_module_result(@project.name).compiled_metric_results %>
+
+    <%#*<h3>%>
+      <%#= _("Metrics") %>
+    <%#*</h3>%>
+    <%#*<table id="metrics">%>
+      <%# metric_results.each do |result| %>
+        <%#*<tr id="tr_<%= result.native_metric.code >">%>
+          <%#*<td>%>
+            <%#= result.native_metric.name %>
+          <%#*</td>%>
+          <%#*<td class="metric_box">%>
+            <%#= result.value %>
+          <%#*</td>%>
+        <%#*</tr>%>
+      <%# end %>
+    <%#*</table>%>
+  <%# end %>
+<%# end %>
