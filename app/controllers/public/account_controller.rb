@@ -89,7 +89,6 @@ class AccountController < ApplicationController
     if logged_in?
       self.current_user.forget_me
     end
-    cookies.delete :auth_token
     reset_session
     session[:notice] = _("You have been logged out.")
     redirect_to :controller => 'home', :action => 'index'
