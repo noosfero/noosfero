@@ -22,7 +22,13 @@
 <script type="text/javascript">
 //<![CDATA[
   jQuery(document).ready(function(){
-    jQuery("#cart-request-form").validate();
+    jQuery("#cart-request-form").validate({
+      submitHandler: function(form) {
+        jQuery(form).find('input.submit').attr('disabled', true);
+        jQuery('#cboxLoadingOverlay').show().addClass('loading');
+        jQuery('#cboxLoadingGraphic').show().addClass('loading');
+      }
+    });
   });
 //]]>
 </script>

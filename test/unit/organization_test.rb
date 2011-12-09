@@ -408,4 +408,12 @@ class OrganizationTest < ActiveSupport::TestCase
     assert_match [{:id => p1.id, :name => p1.name}, {:id => p2.id, :name => p2.name}].to_json, organization.members_by_role_to_json(role)
   end
 
+  should 'disable organization' do
+    organization = fast_create(Organization, :visible => true)
+    assert organization.visible
+
+    organization.disable
+    assert !organization.visible
+  end
+
 end

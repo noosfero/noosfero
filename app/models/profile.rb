@@ -806,11 +806,6 @@ private :generate_url, :url_options
   end
 
   def disable
-    self.visible = false
-    user.password = Digest::SHA1.hexdigest("--#{Time.now.to_s}--#{identifier}--")
-    user.password_confirmation = user.password
-    save!
-    user.save!
   end
 
   def control_panel_settings_button
