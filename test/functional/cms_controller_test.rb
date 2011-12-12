@@ -959,7 +959,7 @@ class CmsControllerTest < ActionController::TestCase
 
     post :upload_files, :profile => profile.identifier, :parent_id => folder.id, :back_to => @request.referer, :uploaded_files => [fixture_file_upload('files/rails.png', 'image/png')]
     assert_template nil
-    assert_redirected_to 'http://localhost/testinguser/test-folder'
+    assert_redirected_to 'http://colivre.net/testinguser/test-folder'
   end
 
   should 'record when coming from public view on edit files with view true' do
