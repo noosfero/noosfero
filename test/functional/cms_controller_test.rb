@@ -202,7 +202,7 @@ class CmsControllerTest < ActionController::TestCase
 
     assert_difference Article, :count, -1 do
       post :destroy, :profile => profile.identifier, :id => a.id
-      assert_redirected_to :action => 'index'
+      assert_redirected_to :controller => 'cms', :profile => profile.identifier, :action => 'index'
     end
   end
 
@@ -959,7 +959,7 @@ class CmsControllerTest < ActionController::TestCase
 
     post :upload_files, :profile => profile.identifier, :parent_id => folder.id, :back_to => @request.referer, :uploaded_files => [fixture_file_upload('files/rails.png', 'image/png')]
     assert_template nil
-    assert_redirected_to folder.view_url
+    assert_redirected_to 'http://localhost/testinguser/test-folder'
   end
 
   should 'record when coming from public view on edit files with view true' do
@@ -1416,7 +1416,7 @@ class CmsControllerTest < ActionController::TestCase
   should 'update file and be redirect to cms' do
     file = UploadedFile.create!(:profile => @profile, :uploaded_data => fixture_file_upload('files/test.txt', 'text/plain'))
     post :edit, :profile => @profile.identifier, :id => file.id, :article => { }
-    assert_redirected_to :action => 'index'
+    assert_redirected_to :controller => 'cms', :profile => profile.identifier, :action => 'index'
   end
 
   should 'update file and be redirect to cms folder' do

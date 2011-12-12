@@ -18,6 +18,10 @@ class TasksControllerTest < ActionController::TestCase
   end
   attr_accessor :profile
 
+  def assert_redirected_to(options)
+    super({ :controller => 'tasks', :profile => profile.identifier }.merge(options))
+  end
+
   def test_local_files_reference
     assert_local_files_reference
   end

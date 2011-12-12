@@ -33,12 +33,14 @@ class TasksController < MyProfileController
       end
     end
 
+    url = { :action => 'index' }
     if failed.blank?
       session[:notice] = _("All decisions were applied successfully.")
     else
       session[:notice] = _("Some decisions couldn't be applied.")
+      url[:failed] = failed
     end
-    redirect_to params.merge!(:action => 'index', :failed => failed)
+    redirect_to url
   end
 
   def new

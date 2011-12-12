@@ -1205,7 +1205,7 @@ class ProfileControllerTest < ActionController::TestCase
     @request.stubs(:host).returns(community.environment.default_hostname)
     get :index, :profile => community.identifier
     assert_response :redirect
-    assert_redirected_to :host => 'community.example.net'
+    assert_redirected_to :host => 'community.example.net', :controller => 'profile', :action => 'index'
   end
 
   should 'register abuse report' do

@@ -234,7 +234,7 @@ class ThemesControllerTest < ActionController::TestCase
     post :start_test, :profile => 'testinguser', :id => 'theme-under-test'
 
     assert_equal 'theme-under-test', session[:theme]
-    assert_redirected_to :controller => 'content_viewer', :profile => 'testinguser'
+    assert_redirected_to :controller => 'content_viewer', :profile => 'testinguser', :action => 'view_page'
   end
 
   should 'stop testing theme' do

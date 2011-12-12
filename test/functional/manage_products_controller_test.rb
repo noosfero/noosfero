@@ -146,10 +146,10 @@ class ManageProductsControllerTest < ActionController::TestCase
     assert_no_difference Product, :count do
       post 'destroy', :profile => @enterprise.identifier, :id => product.id
       assert_response :redirect
-      assert_redirected_to :action => 'show'
+      assert_redirected_to :controller => "manage_products", :profile => @enterprise.identifier, :action => 'show', :id => product.id
       assert assigns(:product)
-      assert Product.find_by_name('test product')      
-    end    
+      assert Product.find_by_name('test product')
+    end
   end
 
   should 'show categories selection' do
