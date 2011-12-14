@@ -507,12 +507,31 @@ class ApplicationControllerTest < Test::Unit::TestCase
     plugins = mock()
     plugins.stubs(:enabled_plugins).returns([])
     plugins.stubs(:map).with(:body_beginning).returns(contents)
+    plugins.stubs(:map).with(:head_ending).returns([])
     Noosfero::Plugin::Manager.stubs(:new).returns(plugins)
 
     get :index
 
     assert_tag :tag => 'span', :content => 'This is ' + plugin1_local_variable + ' speaking!', :attributes => {:id => 'plugin1'}
     assert_tag :tag => 'span', :content => 'This is Plugin2 speaking!', :attributes => {:id => 'plugin2'}
+  end
+
+  should 'include content in the ending of head supplied by plugins regardless it is a block or html code' do
+    plugin1_local_variable = "Plugin1"
+    plugin1_content = lambda {"<script>alert('This is #{plugin1_local_variable} speaking!')</script>"}
+    plugin2_content = "<style>This is Plugin2 speaking!</style>"
+    contents = [plugin1_content, plugin2_content]
+
+    plugins = mock()
+    plugins.stubs(:enabled_plugins).returns([])
+    plugins.stubs(:map).with(:head_ending).returns(contents)
+    plugins.stubs(:map).with(:body_beginning).returns([])
+    Noosfero::Plugin::Manager.stubs(:new).returns(plugins)
+
+    get :index
+
+    assert_tag :tag => 'script', :content => "alert('This is #{plugin1_local_variable} speaking!')"
+    assert_tag :tag => 'style', :content => 'This is Plugin2 speaking!'
   end
 
   if ActiveRecord::Base.connection.adapter_name == 'PostgreSQL'

@@ -1,0 +1,28 @@
+h1. Google Analytics
+
+Tracking and web analytics to people and communities.
+
+h2. Usage
+
+* Create a "Google Analytics":http://www.google.com/analytics/ account
+* Configure your Google Analytics account following these steps
+
+!=/plugins/google_analytics/images/doc/google-analytics-setup-step1.en.png(Google Setup - Step 1)!
+
+!=/plugins/google_analytics/images/doc/google-analytics-setup-step2.en.png(Google Setup - Step 2)!
+
+!=/plugins/google_analytics/images/doc/google-analytics-setup-step3.en.png(Google Setup - Step 3)!
+
+!=/plugins/google_analytics/images/doc/google-analytics-setup-step4.en.png(Google Setup - Step 4)!
+
+!=/plugins/google_analytics/images/doc/google-analytics-setup-step5.en.png(Google Setup - Step 5)!
+
+!=/plugins/google_analytics/images/doc/google-analytics-setup-step6.en.png(Google Setup - Step 6)!
+
+* Take note of your Google Analytics Profile ID
+* Login to Noosfero and go to your control panel
+* Follow Profile Info and Settings and fill in Google Analytics Profile ID
+
+h2. Info
+
+* "Google Analytics Support":http://support.google.com/analytics
