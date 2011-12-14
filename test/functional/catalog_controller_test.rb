@@ -72,14 +72,6 @@ class CatalogControllerTest < Test::Unit::TestCase
     assert_tag :tag => 'span', :attributes => { :class => 'product-price with-discount' }, :content => /50.00/
   end
 
-#  should 'link to assets products with product category in the link to product category on index' do
-#    pc = ProductCategory.create!(:name => 'some product', :environment => enterprise.environment)
-#    prod = enterprise.products.create!(:name => 'Product test', :price => 50.00, :product_category => pc)
-#    
-#    get :index, :profile => enterprise.identifier
-#    assert_tag :tag => 'a', :attributes => {:href => /assets\/products\?product_category=#{pc.id}/}
-#  end
-
   should 'add an zero width space every 4 caracters of comment urls' do
     url = 'www.an.url.to.be.splited.com'
     prod = @enterprise.products.create!(:name => 'Product test', :price => 50.00, :product_category => @product_category, :description => url)

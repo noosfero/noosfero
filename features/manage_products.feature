@@ -392,22 +392,21 @@ Feature: manage products
  #   And I should see "An used red bicycle"
  #   And I should be on Rede Moinho's page of product Bike
 
-# FIXME Not working -- 'cancel' is not clicked for some reason
-#  @selenium
-#  Scenario: cancel edition of a product description
-#    Given the following product_category
-#      | name |
-#      | Bicycle |
-#    And the following products
-#      | owner      | category | name | description       |
-#      | redemoinho | bicycle  | Bike | A new red bicycle |
-#    And I am logged in as "joaosilva"
-#    When I go to Rede Moinho's page of product Bike
-#    Then I should see "A new red bicycle"
-#    And I follow "Edit description"
-#    When I follow "Cancel"
-#    Then I should see "A new red bicycle"
-#    And I should be on Rede Moinho's page of product Bike
+  @selenium
+  Scenario: cancel edition of a product description
+    Given the following product_category
+      | name |
+      | Bicycle |
+    And the following products
+      | owner      | category | name | description       |
+      | redemoinho | bicycle  | Bike | A new red bicycle |
+    And I am logged in as "joaosilva"
+    When I go to Rede Moinho's page of product Bike
+    Then I should see "A new red bicycle"
+    And I follow "Edit description"
+    When I follow "Cancel"
+    Then I should see "A new red bicycle"
+    And I should be on Rede Moinho's page of product Bike
 
   @selenium
   Scenario: Edit product category and save without select any category

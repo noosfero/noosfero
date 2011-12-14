@@ -37,26 +37,22 @@
         <% if product.description %>
           <li class="product-description expand-box">
             <span id="product-description-button"><%= _('description') %></span>
-            <div>
-              <div class="arrow"></div>
-              <div class="content" id="product-description"><%= txt2html(product.description || '') %></div>
-            </div>
+            <div class="arrow"></div>
+            <div class="content" id="product-description"><%= txt2html(product.description || '') %></div>
           </li>
         <% end %>
 
         <% if product.is_open_price? %>
           <li class="product-price-composition expand-box">
             <span id="product-price-composition-button"><%= _('price composition') %></span>
-            <div>
-              <div class="arrow"></div>
-              <div class="content" id="product-price-composition">
-                <% product.inputs.each do |i| %>
-                  <div class="search-product-input-dots-to-price">
-                    <div class="search-product-input-name"><%= i.product_category.name %></div>  
-                    <%= price_span i.price_per_unit * i.amount_used, :class => 'search-product-input-price' %>
-                  </div>
-                <% end %>
-              </div>
+            <div class="arrow"></div>
+            <div class="content" id="product-price-composition">
+              <% product.inputs.each do |i| %>
+                <div class="search-product-input-dots-to-price">
+                  <div class="search-product-input-name"><%= i.product_category.name %></div>
+                  <%= price_span i.price_per_unit * i.amount_used, :class => 'search-product-input-price' %>
+                </div>
+              <% end %>
             </div>
           </li>
         <% end %>
@@ -64,13 +60,11 @@
         <% if product.any_inputs_details? %>
           <li class="product-inputs expand-box">
             <span id="inputs-button"><%= _('inputs and raw materials') %></span>
-            <div>
-              <div class="arrow"></div>
-              <div class="content" id="inputs-description">
-                <% product.inputs.each do |i| %>
-                  <div><%= "#{i.amount_used} #{i.unit.singular} #{_('of')} #{i.product_category.name}" if i.has_all_price_details? %></div>
-                <% end %>
-              </div>
+            <div class="arrow"></div>
+            <div class="content" id="inputs-description">
+              <% product.inputs.each do |i| %>
+                <div><%= "#{i.amount_used} #{i.unit.singular} #{_('of')} #{i.product_category.name}" if i.has_all_price_details? %></div>
+              <% end %>
             </div>
           </li>
         <% end %>
@@ -80,10 +74,6 @@
             <span><%= _('qualifiers') if product.product_qualifiers.count > 0 %></span>
             <div><%= render :partial => 'shared/product/qualifiers', :locals => {:product => product} %></div>
         <% end %>
-
-        <li class="product-category">
-          <%# profile.enabled? ? link_to_product_category(product.product_category) : (product.product_category ? product.product_category.full_name(' &rarr; ') : _('Uncategorized product')) %>
-        </li>
 
         <% extra_content_list.map do |content| %>
           <li><%= content %></li>
@@ -98,4 +88,3 @@
 </ul>
 
 <%= pagination_links @products, :params => {:controller => :catalog, :action => :index, :profile => profile.identifier} %>
-

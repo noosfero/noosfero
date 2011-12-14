@@ -14,16 +14,16 @@ Feature: browse catalogs
       | name   |
       | categ1 |
       | food   |
+    And I am on /catalog/artebonito
 
   Scenario: display titles
-    Given I am on /catalog/artebonito
     Then I should see "Associação de Artesanato de Bonito"
     And I should see "Products/Services" within "#product-list"
 
   Scenario: display the simplest possible product
-    Given the following simple products
-      | owner      | category |  
-      | artebonito | categ1   | 
+    Given the following products
+      | owner      | category |
+      | artebonito | categ1   |
     And I am on /catalog/artebonito
     Then I should see "categ1" within "li.product-link"
     And I should see "No image" within "li.product-big"
@@ -34,8 +34,8 @@ Feature: browse catalogs
     And I should not see "price composition"
 
   Scenario: display a simple product without price
-    Given the following simple products
-      | owner      | category | name     | 
+    Given the following products
+      | owner      | category | name     |
       | artebonito | categ1   | Produto1 |
     And I am on /catalog/artebonito
     Then I should see "Produto1" within "li.product-link"
@@ -47,8 +47,8 @@ Feature: browse catalogs
     And I should not see "price composition"
 
   Scenario: display a simple product without details
-    Given the following simple products
-      | owner      | category | name     | price | 
+    Given the following products
+      | owner      | category | name     | price |
       | artebonito | categ1   | Produto1 | 50.00 |
     And I am on /catalog/artebonito
     Then I should see "Produto1" within "li.product-link"
@@ -60,19 +60,17 @@ Feature: browse catalogs
     And I should not see "qualifiers"
     And I should not see "price composition"
 
-#FIXME: test different units
-
   Scenario: product name links to product page
-    Given the following simple products
-      | owner      | category | name     | price | 
+    Given the following products
+      | owner      | category | name     | price |
       | artebonito | categ1   | Produto1 | 50.00 |
     And I am on /catalog/artebonito
     When I follow "Produto1" within "li.product-link"
     Then I should be taken to "Produto1" product page
 
   Scenario: display product with custom image
-    Given the following simple products
-      | owner      | category | name    | price | img     | 
+    Given the following products
+      | owner      | category | name    | price | img     |
       | artebonito | categ1   | Agrotox | 12.34 | agrotox |
     And I am on /catalog/artebonito
     Then I should see "Agrotox" within "li.product-link"
@@ -85,16 +83,16 @@ Feature: browse catalogs
     And I should not see "price composition"
 
   Scenario: image links to product page
-    Given the following simple products
-      | owner      | category | name    | price | img     | 
+    Given the following products
+      | owner      | category | name    | price | img     |
       | artebonito | categ1   | Agrotox | 12.34 | agrotox |
     And I am on /catalog/artebonito
     When I follow "Agrotox" within "#product-image-link"
     Then I should be taken to "Agrotox" product page
 
   Scenario: display product with discount
-    Given the following simple products
-      | owner      | category | name        | price | discount | img         | 
+    Given the following products
+      | owner      | category | name        | price | discount | img         |
       | artebonito | categ1   | Semterrinha | 99.99 | 12.34    | semterrinha |
     And I am on /catalog/artebonito
     Then I should see "Semterrinha" within "li.product-link"
@@ -107,23 +105,22 @@ Feature: browse catalogs
 
   @selenium
   Scenario: display description button when needed (but not the description)
-    Given the following simple products
-      | owner      | category | name     | price | description | 
-      | artebonito | categ1   | Produto2 | 12.34 | A small description for a product that doesn't exist. | 
+    Given the following products
+      | owner      | category | name     | price | description                                           |
+      | artebonito | categ1   | Produto2 | 12.34 | A small description for a product that doesn't exist. |
     And I am on /catalog/artebonito
     Then I should see "Produto2" within "li.product-link"
     And I should see "12.34" within "span.product-price"
     And I should see "description" within "#product-description-button"
     And the "product-description-button" should be visible
-# Doesn't make a lot of sense, but I have to check the text and the visibility separately
     And I should see "A small description" within "#product-description"
     And the "product-description" should not be visible
 
   @selenium
   Scenario: display description when button is clicked
-    Given the following simple products
-      | owner      | category | name     | price | description | 
-      | artebonito | categ1   | Produto3 | 12.34 | A small description for a product that doesn't exist. | 
+    Given the following products
+      | owner      | category | name     | price | description                                           |
+      | artebonito | categ1   | Produto3 | 12.34 | A small description for a product that doesn't exist. |
     And I am on /catalog/artebonito
     And I reload and wait for the page
     When I click "product-description-button"
@@ -131,8 +128,8 @@ Feature: browse catalogs
     And the "product-description" should be visible
 
   Scenario: display unavailable product
-    Given the following simple products
-      | owner      | category | name  | price | available | 
+    Given the following products
+      | owner      | category | name  | price | available |
       | artebonito | categ1   | Prod3 | 12.34 | false     |
     And I am on /catalog/artebonito
     Then I should see "Prod3" within "li.not-available"
@@ -148,8 +145,8 @@ Feature: browse catalogs
     And the following certifiers
       | name    | qualifiers |
       | Colivre | Organic    |
-    And the following simple products
-      | owner      | category | name   | price | qualifier | 
+    And the following products
+      | owner      | category | name   | price | qualifier |
       | artebonito | categ1   | Banana | 0.99  | Organic   |
     And I am on /catalog/artebonito
     Then I should see "Banana" within "li.product-link"
@@ -161,9 +158,9 @@ Feature: browse catalogs
 #FIXME: this will only be available after AI1413
 #  @selenium
 #  Scenario: display price composition button (but not inputs)
-#    Given the following simple product
-#      | owner      | category | name     | price |  
-#      | artebonito | food     | Bananada | 10.00 | 
+#    Given the following product
+#      | owner      | category | name     | price |
+#      | artebonito | food     | Bananada | 10.00 |
 #    And the following input
 #      | product  | category | price_per_unit | amount_used |
 #      | Bananada | food     | 0.99           | 5           |
@@ -180,9 +177,9 @@ Feature: browse catalogs
 #FIXME: this will only be available after AI1413
 #  @selenium
 #  Scenario: display price composition when button is clicked
-#    Given the following simple product
-#      | owner      | category | name     | price |  
-#      | artebonito | food     | Bananada | 10.00 | 
+#    Given the following product
+#      | owner      | category | name     | price |
+#      | artebonito | food     | Bananada | 10.00 |
 #    And the following input
 #      | product  | category | price_per_unit | amount_used |
 #      | Bananada | food     | 0.99           | 5           |
@@ -195,14 +192,14 @@ Feature: browse catalogs
 
   @selenium
   Scenario: display inputs and raw materials button
-    Given the following simple product
-      | owner      | category | name     | price |  
-      | artebonito | food     | Vitamina | 17.99 | 
+    Given the following product
+      | owner      | category | name     | price |
+      | artebonito | food     | Vitamina | 17.99 |
     And the following unit
       | name  | plural |
       | Liter | Liters |
     And the following input
-      | product  | category | price_per_unit | amount_used | unit  | 
+      | product  | category | price_per_unit | amount_used | unit  |
       | Vitamina | food     | 1.45           | 7           | Liter |
     And I am on /catalog/artebonito
     And I reload and wait for the page
@@ -215,25 +212,17 @@ Feature: browse catalogs
 
   @selenium
   Scenario: display inputs and raw materials description
-    Given the following simple product
-      | owner      | category | name     | price |  
-      | artebonito | food     | Vitamina | 17.99 | 
+    Given the following product
+      | owner      | category | name     | price |
+      | artebonito | food     | Vitamina | 17.99 |
     And the following unit
       | name  | plural |
       | Liter | Liters |
     And the following input
-      | product  | category | price_per_unit | amount_used | unit  | 
+      | product  | category | price_per_unit | amount_used | unit  |
       | Vitamina | food     | 1.45           | 7           | Liter |
     And I am on /catalog/artebonito
     And I reload and wait for the page
     When I click "#inputs-button"
     Then the "#inputs-description" should be visible
     And I should see "7.0 Liter of food" within "#inputs-description"
-
-#FIXME: pagination tests are on manage_products featuRe
-#FIXME: check unit and functional tests for possible wrong-placed 'features
-#FIXME: test unavailable product with more details
-#FIXME: test more than one qualifier
-#FIXME: put And I am on /catalog/artebonito on the Background
-#FIXME: test more than one input and different units
-#FIXME: test the product order

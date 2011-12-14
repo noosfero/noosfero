@@ -1,4 +1,5 @@
 Feature: domain for profile
+
   As a user
   I want access a profile by its own domain
 
@@ -65,9 +66,8 @@ Feature: domain for profile
     And I follow "Go to the home page"
     Then the page title should be "Colivre.net"
 
-# FIXME: the administration link doesn't appear
-#  @selenium
-#  Scenario: Compose link to administration with environment domain
-#    Given I am logged in as "joaosilva"
-#    When I visit "/" and wait
-#    Then I should see "Administration" linking to "http://127.0.0.1/admin"
+  @selenium
+  Scenario: Compose link to administration with environment domain
+    Given I am logged in as "joaosilva"
+    When I visit "/" and wait
+    Then I should see "Administration" linking to "http://127.0.0.1/admin"

@@ -14,15 +14,14 @@ Scenario: show all enterprises
     | identifier | name        |
     | shop2      | Fruits Shop |
   Given I am on /assets/enterprises
-  Then I should see "Enterprises" 
+  Then I should see "Enterprises"
   And I should see "Shoes Shop"
   And I should see "Fruits Shop"
 
 Scenario: show profile links button
   Given I am on /assets/enterprises
   Then I should see "Profile links" within "a.enterprise-trigger"
-#  And I should not see "Products"
-  And I should not see "Members" 
+  And I should not see "Members"
   And I should not see "Agenda"
 
 @selenium
@@ -37,8 +36,5 @@ Scenario: show profile links when clicked
 Scenario: go to catalog when click on products link
   Given I am on /assets/enterprises
   When I follow "Profile links"
-#  And I follow "Products" within "ul.menu-submenu-list"
-# FIXME: 'Products' is a common link, may end up following the wrong one
   And I follow "Products" and wait
   Then I should be exactly on /catalog/shop1
-  

@@ -1,3 +1,36 @@
+(function($) {
+
+$('#product-list .product .expand-box').hover(hover, hover).live('click', function () {
+  this.clicked = !this.clicked;
+  click(this);
+  $.each($(this).siblings('.expand-box'), function(index, value) { value.clicked = false; click(value); });
+
+  return false;
+});
+
+$(document).live('click', function() {
+  $.each($('#product-list .product .expand-box'), function(index, value) { value.clicked = false; click(value); });
+});
+
+var rows = {};
+$('#product-list .product').each(function (index, element) {
+  obj = rows[$(element).offset().top] || {};
+
+  obj.heights = obj.heights || [];
+  obj.elements = obj.elements || [];
+  obj.heights.push($(element).height());
+  obj.elements.push(element);
+
+  rows[$(element).offset().top] = obj;
+});
+
+$.each(rows, function(top, obj) {
+  maxWidth = Array.max(obj.heights);
+  $(obj.elements).height(maxWidth);
+});
+
+})(jQuery);
+
 function open() {
   if (this.clicked) return;
   jQuery(this).addClass('open');
@@ -16,33 +49,3 @@ function click(e) {
 function hover() {
   jQuery(this).toggleClass('hover');
 }
-
-jQuery('#product-list .product .expand-box').hover(hover, hover).click(function () {
-  this.clicked = !this.clicked;
-  click(this);
-  jQuery.each(jQuery(this).siblings('.expand-box'), function(index, value) { value.clicked = false; click(value); });
-
-  return false;
-});
-
-jQuery(document).click(function() {
-  jQuery.each(jQuery('#product-list .product .expand-box'), function(index, value) { value.clicked = false; click(value); });
-});
-
-var rows = {};
-jQuery('#product-list .product').each(function (index, element) {
-  obj = rows[jQuery(element).offset().top] || {};
-
-  obj.heights = obj.heights || [];
-  obj.elements = obj.elements || [];
-  obj.heights.push(jQuery(element).height());
-  obj.elements.push(element);
-
-  rows[jQuery(element).offset().top] = obj;
-});
-
-jQuery.each(rows, function(top, obj) {
-  maxWidth = Array.max(obj.heights);
-  jQuery(obj.elements).height(maxWidth);
-});
-

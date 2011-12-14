@@ -150,16 +150,6 @@ Given /^the following products?$/ do |table|
     data = item.dup
     owner = Enterprise[data.delete("owner")]
     category = Category.find_by_slug(data.delete("category").to_slug)
-    img = Image.create!(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
-    product = Product.create!(data.merge(:enterprise => owner, :product_category => category, :image_id => img.id))
-  end
-end
-
-Given /^the following simple products?$/ do |table|
-  table.hashes.each do |item|
-    data = item.dup
-    owner = Enterprise[data.delete("owner")]
-    category = Category.find_by_slug(data.delete("category").to_slug)
     data.merge!(:enterprise => owner, :product_category => category)
     if data[:img]
       img = Image.create!(:uploaded_data => fixture_file_upload('/files/'+data.delete("img")+'.png', 'image/png'))
@@ -167,7 +157,7 @@ Given /^the following simple products?$/ do |table|
     end
     if data[:qualifier]
       qualifier = Qualifier.find_by_name(data.delete("qualifier"))
-      data.merge!(:qualifiers => [qualifier]) 
+      data.merge!(:qualifiers => [qualifier])
     end
     product = Product.create!(data)
   end

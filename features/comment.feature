@@ -24,16 +24,15 @@ Feature: comment
     When I press "Post comment"
     Then I should not see "Hey ho, let's go"
 
-# This fails because of the captcha
-#  @selenium
-#  Scenario: post a comment while not authenticated
-#    Given I am on /booking/article-to-comment
-#    And I fill in "Name" with "Joey Ramone"
-#    And I fill in "e-mail" with "joey@ramones.com"
-#    And I fill in "Title" with "Hey ho, let's go!"
-#    And I fill in "Enter your comment" with "Hey ho, let's go!"
-#    When I press "Post comment"
-#    Then I should see "Hey ho, let's go"
+  @selenium
+  Scenario: post a comment while not authenticated
+    Given I am on /booking/article-to-comment
+    And I fill in "Name" with "Joey Ramone"
+    And I fill in "e-mail" with "joey@ramones.com"
+    And I fill in "Title" with "Hey ho, let's go!"
+    And I fill in "Enter your comment" with "Hey ho, let's go!"
+    When I press "Post comment"
+    Then I should see "Hey ho, let's go"
 
   @selenium
   Scenario: post comment while authenticated
@@ -56,26 +55,24 @@ Feature: comment
     When I press "Post comment"
     Then I should be exactly on /booking/rails.png?view=true
 
-#FIXME: only one error comes up at a time, not both
-#  @selenium
-#  Scenario: show error messages when make a blank comment
-#    Given I am logged in as "booking"
-#    And I am on /booking/article-to-comment
-#    When I press "Post comment"
-#    Then I should see "Title can't be blank"
-#    And I should see "Body can't be blank"
+  @selenium
+  Scenario: show error messages when make a blank comment
+    Given I am logged in as "booking"
+    And I am on /booking/article-to-comment
+    When I press "Post comment"
+    Then I should see "Title can't be blank"
+    And I should see "Body can't be blank"
 
-#FIXME: fails because of the captcha
-#  @selenium
-#  Scenario: disable post comment button
-#    Given I am on /booking/article-to-comment
-#    And I fill in "Name" with "Joey Ramone"
-#    And I fill in "e-mail" with "joey@ramones.com"
-#    And I fill in "Title" with "Hey ho, let's go!"
-#    And I fill in "Enter your comment" with "Hey ho, let's go!"
-#    When I press "Post comment"
-#    Then the "value.Post comment" button should not be enabled
-#    And I should see "Hey ho, let's go"
+  @selenium
+  Scenario: disable post comment button
+    Given I am on /booking/article-to-comment
+    And I fill in "Name" with "Joey Ramone"
+    And I fill in "e-mail" with "joey@ramones.com"
+    And I fill in "Title" with "Hey ho, let's go!"
+    And I fill in "Enter your comment" with "Hey ho, let's go!"
+    When I press "Post comment"
+    Then the "value.Post comment" button should not be enabled
+    And I should see "Hey ho, let's go"
 
   @selenium
   Scenario: render comment form and go to bottom
@@ -85,11 +82,10 @@ Feature: comment
     And I should be exactly on /booking/article-with-comment
     And I should be moved to anchor "comment_form"
 
-#FIXME: fails because of the captcha
-#  @selenium
-#  Scenario: keep comments field filled while trying to do a comment
-#    Given I am on /booking/article-with-comment
-#    And I fill in "Name" with "Joey Ramone"
-#    When I press "Post comment"
-#    Then the "Name" field should contain "Joey Ramone"
-#    And I should see "errors prohibited"
+  @selenium
+  Scenario: keep comments field filled while trying to do a comment
+    Given I am on /booking/article-with-comment
+    And I fill in "Name" with "Joey Ramone"
+    When I press "Post comment"
+    Then the "Name" field should contain "Joey Ramone"
+    And I should see "errors prohibited"
