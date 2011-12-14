@@ -117,3 +117,13 @@ Then /^the select for category "([^\"]*)" should be visible$/ do |name|
   category = Category.find_by_name(name)
   selenium.is_visible(string_to_element_locator("option=#{category.id}")).should be_true
 end
+
+When /^I follow "([^\"]*)" and sleep ([^\"]*) seconds?$/ do |link, time|
+  click_link(link)
+  sleep time.to_i
+end
+
+When /^I follow "([^\"]*)" and wait for jquery$/ do |link|
+  click_link(link)
+  selenium.wait_for(:wait_for => :ajax, :javascript_framework => framework)
+end

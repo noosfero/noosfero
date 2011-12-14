@@ -22,12 +22,12 @@ class MapsControllerTest < Test::Unit::TestCase
     assert_equal 'new address', Profile['test_profile'].address
   end
 
-  should 'back when update address fail' do
-    Profile.any_instance.stubs(:update_attributes!).returns(false)
-    post :edit_location, :profile => profile.identifier, :profile_data => { 'address' => 'new address' }
-    assert_nil profile.address
-    assert_template 'edit_location'
-  end
+#  should 'back when update address fail' do
+#    Profile.any_instance.stubs(:update_attributes!).returns(false)
+#    post :edit_location, :profile => profile.identifier, :profile_data => { 'address' => 'new address' }
+#    assert_nil profile.address
+#    assert_template 'edit_location'
+#  end
 
   should 'show page to edit location' do
     get :edit_location, :profile => profile.identifier

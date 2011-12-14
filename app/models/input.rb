@@ -45,6 +45,14 @@ class Input < ActiveRecord::Base
     %w[price_per_unit amount_used].each do |field|
       return true unless self.send(field).blank?
     end
-    return false
+    false
   end
+
+  def has_all_price_details?
+    %w[price_per_unit unit amount_used].each do |field|
+      return false if self.send(field).blank?
+    end
+    true
+  end
+
 end

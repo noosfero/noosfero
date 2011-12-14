@@ -1,0 +1,10 @@
+<% product.product_qualifiers.each do |pq| %>
+  <% if pq.qualifier %>
+    <span class="search-product-qualifier"><%= pq.qualifier.name + (pq.certifier.nil? ?  _(";") : '') %></span>
+  <% end %>
+  <% if pq.certifier %>
+    <span class="search-product-certifier">&nbsp;<%= _('cert. ') + pq.certifier.name + _(";") %></span>
+  <% end %>
+
+  <div style="clear: both"></div>
+<% end %>

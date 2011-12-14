@@ -8,6 +8,12 @@ module DisplayHelper
             opts
   end
 
+  def price_span(price, options = {})
+    content_tag 'span',
+      number_to_currency(price, :unit => environment.currency_unit, :delimiter => environment.currency_delimiter, :separator => environment.currency_separator),
+      options
+  end
+
   def product_path(product)
     product.enterprise.enabled? ? product.enterprise.public_profile_url.merge(:controller => 'manage_products', :action => 'show', :id => product) : product.enterprise.url
   end

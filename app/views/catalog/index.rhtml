@@ -1,3 +1,101 @@
-<%= display_products_list @profile, @products %>
+<% extra_content = [] %>
+<% extra_content_list = [] %>
 
-<%= pagination_links @products %>
+<ul id="product-list">
+  <li><h1><%= _('Products/Services') %></h1></li>
+
+  <% @products.each do |product| %>
+    <% extra_content = @plugins.map(:catalog_item_extras, product).collect { |content| instance_eval(&content) } %>
+    <% extra_content_list = @plugins.map(:catalog_list_item_extras, product).collect { |content| instance_eval(&content) } %>
+
+    <li class="product <%= "not-available" unless product.available %>">
+      <ul>
+        <% if product.image %>
+          <li id="product-image-link"><%= link_to_product product, :class => 'product-big', :style => 'background-image:url(%s)' % product.default_image(:big) %></li>
+        <% else %>
+          <li class="product-big no-image"><%= _('No image') %></li>
+        <% end %>
+
+        <li class="product-link"><%= link_to_product product %></li>
+
+        <li class="product-price-line">
+          <% unless product.discount.blank? or product.discount == 0 %>
+            <span class="product-discount">
+              <span><%= _('from ') + price_span(product.price) %></span>
+              <span class="product-discount-by"><%= _('by ') %></span>
+            </span>
+          <% end %>
+          <% unless product.price.blank? %>
+            <span class="product-price">
+              <%= price_span product.price_with_discount, :class => "product-price #{'with-discount' unless product.discount}" %>
+              <span class="product-unit"><%= _(' / ') + (product.unit ? product.unit.singular : _('unit')) %></span>
+            </span>
+          <% end %>
+          <div style="clear: both"></div>
+        </li>
+
+        <% if product.description %>
+          <li class="product-description expand-box">
+            <span id="product-description-button"><%= _('description') %></span>
+            <div>
+              <div class="arrow"></div>
+              <div class="content" id="product-description"><%= txt2html(product.description || '') %></div>
+            </div>
+          </li>
+        <% end %>
+
+        <% if product.is_open_price? %>
+          <li class="product-price-composition expand-box">
+            <span id="product-price-composition-button"><%= _('price composition') %></span>
+            <div>
+              <div class="arrow"></div>
+              <div class="content" id="product-price-composition">
+                <% product.inputs.each do |i| %>
+                  <div class="search-product-input-dots-to-price">
+                    <div class="search-product-input-name"><%= i.product_category.name %></div>  
+                    <%= price_span i.price_per_unit * i.amount_used, :class => 'search-product-input-price' %>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          </li>
+        <% end %>
+
+        <% if product.any_inputs_details? %>
+          <li class="product-inputs expand-box">
+            <span id="inputs-button"><%= _('inputs and raw materials') %></span>
+            <div>
+              <div class="arrow"></div>
+              <div class="content" id="inputs-description">
+                <% product.inputs.each do |i| %>
+                  <div><%= "#{i.amount_used} #{i.unit.singular} #{_('of')} #{i.product_category.name}" if i.has_all_price_details? %></div>
+                <% end %>
+              </div>
+            </div>
+          </li>
+        <% end %>
+
+        <% unless product.qualifiers.blank? %>
+          <li class="product-qualifiers">
+            <span><%= _('qualifiers') if product.product_qualifiers.count > 0 %></span>
+            <div><%= render :partial => 'shared/product/qualifiers', :locals => {:product => product} %></div>
+        <% end %>
+
+        <li class="product-category">
+          <%# profile.enabled? ? link_to_product_category(product.product_category) : (product.product_category ? product.product_category.full_name(' &rarr; ') : _('Uncategorized product')) %>
+        </li>
+
+        <% extra_content_list.map do |content| %>
+          <li><%= content %></li>
+        <% end %>
+
+        <li><%= extra_content.join("\n") %></li>
+
+        <li class="product-unavailable"><%= _('product unavailable') unless product.available %></li>
+      </ul>
+    </li>
+  <% end %>
+</ul>
+
+<%= pagination_links @products, :params => {:controller => :catalog, :action => :index, :profile => profile.identifier} %>
+

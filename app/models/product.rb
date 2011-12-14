@@ -106,7 +106,7 @@ class Product < ActiveRecord::Base
   end
 
   def price_with_discount
-    price - discount if discount
+    discount ? (price - discount) : price
   end
 
   def price=(value)
@@ -123,6 +123,28 @@ class Product < ActiveRecord::Base
     else
       super(value)
     end
+  end
+
+  # Note: will probably be completely overhauled for AI1413
+  def inputs_prices?
+    return false if self.inputs.count <= 0
+    self.inputs.each do |input|
+      return false if input.has_price_details? == false
+    end
+    true
+  end
+
+  def any_inputs_details?
+    return false if self.inputs.count <= 0
+    self.inputs.each do |input|
+      return true if input.has_all_price_details? == true
+    end
+    false
+  end
+
+  # FIXME this will check the validity of price composition with inputs and other costs
+  def is_open_price?
+    false
   end
 
   def has_basic_info?

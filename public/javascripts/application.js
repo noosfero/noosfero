@@ -694,3 +694,14 @@ jQuery(function() {
     target: "#ajax-form-message-area"
   })
 });
+
+// from http://jsfiddle.net/naveen/HkxJg/
+// Function to get the Max value in Array
+Array.max = function(array) {
+  return Math.max.apply(Math, array);
+};
+// Function to get the Min value in Array
+Array.min = function(array) {
+  return Math.min.apply(Math, array);
+};
+

@@ -155,6 +155,24 @@ Given /^the following products?$/ do |table|
   end
 end
 
+Given /^the following simple products?$/ do |table|
+  table.hashes.each do |item|
+    data = item.dup
+    owner = Enterprise[data.delete("owner")]
+    category = Category.find_by_slug(data.delete("category").to_slug)
+    data.merge!(:enterprise => owner, :product_category => category)
+    if data[:img]
+      img = Image.create!(:uploaded_data => fixture_file_upload('/files/'+data.delete("img")+'.png', 'image/png'))
+      data.merge!(:image_id => img.id)
+    end
+    if data[:qualifier]
+      qualifier = Qualifier.find_by_name(data.delete("qualifier"))
+      data.merge!(:qualifiers => [qualifier]) 
+    end
+    product = Product.create!(data)
+  end
+end
+
 Given /^the following inputs?$/ do |table|
   table.hashes.each do |item|
     data = item.dup
@@ -486,5 +504,30 @@ Then /^"([^\"]*)" profile should not exist$/ do |profile_selector|
     profile.nil?.should be_true
   rescue
     profile.nil?.should be_true
+  end
+end
+
+Then /^I should be taken to "([^\"]*)" product page$/ do |product_name|
+  product = Product.find_by_name(product_name)
+  path = url_for(product.enterprise.public_profile_url.merge(:controller => 'manage_products', :action => 'show', :id => product, :only_path => true))
+  if response.class.to_s == 'Webrat::SeleniumResponse'
+    URI.parse(response.selenium.get_location).path.should == path_to(path)
+  else
+    URI.parse(current_url).path.should == path_to(path)
+  end
+end
+
+When /^I reload and wait for the page$/ do
+  response.selenium.refresh
+  selenium.wait_for_page
+end
+
+Given /^the following enterprise homepages?$/ do |table|
+  # table is a Cucumber::Ast::Table
+  table.hashes.each do |item|
+    data = item.dup
+    home = EnterpriseHomepage.new(:name => data[:name])
+    ent = Enterprise.find_by_identifier(data[:enterprise])
+    ent.articles << home
   end
 end
