@@ -1704,6 +1704,7 @@ class ProfileTest < ActiveSupport::TestCase
     assert profile.is_on_homepage?("/#{profile.identifier}/#{homepage.slug}", homepage)
   end
 
+  
   should 'find profiles with image' do
     env = fast_create(Environment)
     2.times do |n|
@@ -1762,9 +1763,14 @@ class ProfileTest < ActiveSupport::TestCase
     assert_raise NoMethodError do
       Profile::Roles.invalid_role(env.id)
     end
+
+  should 'return empty array as activities' do
+    profile = Profile.new
+    assert_equal [], profile.activities
   end
 
   private
+
 
   def assert_invalid_identifier(id)
     profile = Profile.new(:identifier => id)

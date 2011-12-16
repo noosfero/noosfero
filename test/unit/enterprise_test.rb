@@ -450,4 +450,6 @@ class EnterpriseTest < ActiveSupport::TestCase
     e = fast_create(Enterprise)
     assert_respond_to e, :production_costs
   end
+
+  should 'return tracked_actions and scraps as activities'
 end

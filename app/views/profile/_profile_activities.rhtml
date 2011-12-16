@@ -1,18 +1,28 @@
-<% activities.each do |activity| %>
-  <li class='profile-activity-item <%= activity.verb %>' id='profile-activity-item-<%= activity.id %>'>
-    <div class='profile-activity-image'>
-      <%= link_to(profile_image(activity.user, :minor), activity.user.url) %>
+<li class='profile-activity-item <%= activity.verb %>' id='profile-activity-item-<%= activity.id %>'>
+  <%= render :partial => activity.verb, :locals => { :activity => activity }%>
+  <hr />  
+
+  <%# if logged_in? && current_person.follows?(activity.sender) && activity.root.nil? %>
+    <span class='profile-wall-send-reply'><%= link_to_function _('Comment'), "hide_and_show(['#profile-wall-reply-response-#{activity.id}'],['#profile-wall-reply-#{activity.id}', '#profile-wall-reply-form-#{activity.id}']);$('reply_content_#{activity.id}').value='';$('activity_id_#{activity.id}').value='#{activity.id}';return false", :class => "profile-send-reply" %></span>
+  <%# end %>
+
+  <ul class="profile-wall-activities-comments" style='padding-left: 50px;width:auto'>
+    <%= render :partial => 'comment', :collection => activity.comments %>
+  </ul>
+
+  <div id='profile-wall-reply-<%= activity.id%>' style='display:none;width:auto;'>
+    <div id='profile-wall-reply-form-<%= activity.id%>' style='display:none;'>
+      <p class='profile-wall-reply'>
+        <% form_remote_tag :url => {:controller => 'profile', :action => 'leave_comment_on_activity'}, :update => "profile_activities", :success =>"hide_and_show(['#profile-wall-reply-form-#{activity.id}'],['#profile-wall-reply-response-#{activity.id}'])" do %>
+          <%= limited_text_area :comment, :body, 420, "reply_content_#{activity.id}", :cols => 50, :rows => 2 %>
+          <%= hidden_field :comment, :source_id, :id => "activity_id_#{activity.id}" %>
+          <%= hidden_field :comment, :author_id, :value => user.id %>
+          <%= submit_button :add, _('Leave a comment') %>
+          <%= button_to_function :cancel, _('Cancel'), "hide_and_show(['#profile-wall-reply-#{activity.id}'],[]);return false" %>
+        <% end %>
+      </p>
     </div>
-    <div class='profile-activity-description'>
-      <p class='profile-activity-time'><%= time_ago_as_sentence(activity.created_at) + ' ' + _('ago') %></p>
-      <p class='profile-activity-text'><%= link_to activity.user.name, activity.user.url %> <%= describe activity %></p>
-      <%= button_to_remote(:delete, content_tag(:span, _('Remove')), :url =>{:action => 'remove_activity', :activity_id => activity.id}, :update => "profile-activity-item-#{activity.id}") if can_edit_profile %>
-    </div>
-    <hr />  
-  </li>
-<% end %>
-<% if activities.current_page < activities.total_pages %>
-  <div id='profile_activities_page_<%= activities.current_page %>'>
-    <%= button_to_remote :add, _('View more'), :url => {:action => 'view_more_activities', :page => (activities.current_page + 1)}, :update => "profile_activities_page_#{activities.current_page}" %>
+    <div id='profile-wall-message-response-<%=activity.id%>' class='profile-wall-message-response'></div>
   </div>
-<% end %>
+
+</li>

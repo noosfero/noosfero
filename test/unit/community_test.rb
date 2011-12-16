@@ -341,4 +341,5 @@ class CommunityTest < ActiveSupport::TestCase
     assert_equal false, community.receives_scrap_notification?
   end
 
+  should 'return tracked_actions and scraps as activities'
 end

@@ -1053,53 +1053,53 @@ hr.pre-posts, hr.sep-posts {
 
 .comment-wrapper-1 {
   margin-left: 60px;
-  background: url(imgs/comment-bg-N.png)    0%   0% repeat-x;
+  Xbackground: url(imgs/comment-bg-N.png)    0%   0% repeat-x;
 }
 .comment-wrapper-2 {
-  background: url(imgs/comment-bg-S.png)    0% 100% repeat-x;
+  Xbackground: url(imgs/comment-bg-S.png)    0% 100% repeat-x;
 }
 .comment-wrapper-3 {
-  background: url(imgs/comment-bg-L.png)  100%   0% repeat-y;
+  Xbackground: url(imgs/comment-bg-L.png)  100%   0% repeat-y;
 }
 .comment-wrapper-4 {
-  background: url(imgs/comment-bg-O.png)    0%   0% repeat-y;
+  Xbackground: url(imgs/comment-bg-O.png)    0%   0% repeat-y;
 }
 .comment-wrapper-5 {
-  background: url(imgs/comment-bg-SL.png) 100% 100% no-repeat;
+  Xbackground: url(imgs/comment-bg-SL.png) 100% 100% no-repeat;
 }
 .comment-wrapper-6 {
-  background: url(imgs/comment-bg-SO.png)   0% 100% no-repeat;
+  Xbackground: url(imgs/comment-bg-SO.png)   0% 100% no-repeat;
 }
 .comment-wrapper-7 {
-  background: url(imgs/comment-bg-NL.png) 100%   0% no-repeat;
+  Xbackground: url(imgs/comment-bg-NL.png) 100%   0% no-repeat;
 }
 .comment-wrapper-8 {
-  background: url(imgs/comment-bg-NO.png)   0%   0% no-repeat;
+  Xbackground: url(imgs/comment-bg-NO.png)   0%   0% no-repeat;
 }
 
 .comment-from-owner .comment-wrapper-1 {
-  background: #fbf7b5 url(/images/comment-owner-bg-N.png) repeat-x;
+  Xbackground: #fbf7b5 url(/images/comment-owner-bg-N.png) repeat-x;
 }
 .comment-from-owner .comment-wrapper-2 {
-  background: url(/images/comment-owner-bg-S.png)    0% 100% repeat-x;
+  Xbackground: url(/images/comment-owner-bg-S.png)    0% 100% repeat-x;
 }
 .comment-from-owner .comment-wrapper-3 {
-  background: url(/images/comment-owner-bg-L.png)  100%   0% repeat-y;
+  Xbackground: url(/images/comment-owner-bg-L.png)  100%   0% repeat-y;
 }
 .comment-from-owner .comment-wrapper-4 {
-  background: url(/images/comment-owner-bg-O.png)    0%   0% repeat-y;
+  Xbackground: url(/images/comment-owner-bg-O.png)    0%   0% repeat-y;
 }
 .comment-from-owner .comment-wrapper-5 {
-  background: url(/images/comment-owner-bg-SL.png) 100% 100% no-repeat;
+  Xbackground: url(/images/comment-owner-bg-SL.png) 100% 100% no-repeat;
 }
 .comment-from-owner .comment-wrapper-6 {
-  background: url(/images/comment-owner-bg-SO.png)   0% 100% no-repeat;
+  Xbackground: url(/images/comment-owner-bg-SO.png)   0% 100% no-repeat;
 }
 .comment-from-owner .comment-wrapper-7 {
-  background: url(/images/comment-owner-bg-NL.png) 100%   0% no-repeat;
+  Xbackground: url(/images/comment-owner-bg-NL.png) 100%   0% no-repeat;
 }
 .comment-from-owner .comment-wrapper-8 {
-  background: url(/images/comment-owner-bg-NO.png)   0%   0% no-repeat;
+  Xbackground: url(/images/comment-owner-bg-NO.png)   0%   0% no-repeat;
 }
 
 .comment-created-at {

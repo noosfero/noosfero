@@ -1314,7 +1314,7 @@ a.comment-picture {
 }
 
 .comment-balloon-content {
-  margin-left: 15px;
+  Xmargin-left: 15px;
 }
 
 /* * * Comment Replies * * */
@@ -5883,7 +5883,15 @@ h1#agenda-title {
 #profile-activity li, #profile-network li, #profile-wall li {
   display: block;
   padding: 0;
-  margin-bottom: 8px;
+  Xmargin-bottom: 8px;
+  background-color: #E8E8E8;
+  border-bottom: 5px double #f2f2f2;
+}
+
+#profile-activity .profile-wall-scrap-replies li,
+#profile-network .profile-wall-scrap-replies li,
+#profile-wall .profile-wall-scrap-replies li {
+  border-bottom: none;
 }
 
 #profile-activity .profile-activity-image, #profile-network .profile-network-image, #profile-wall .profile-wall-image {
@@ -5897,12 +5905,12 @@ h1#agenda-title {
 
 #profile-activity .profile-activity-description, #profile-network .profile-network-description, #profile-wall .profile-wall-description {
   float: left;
-  min-height: 60px;
+  Xmin-height: 60px;
   margin: 0;
   padding: 0;
   border: 1px solid #ccc;
   overflow: hidden;
-  background-color: #fff;
+  Xbackground-color: #fff;
   position: relative;
 }
 
@@ -5931,17 +5939,18 @@ h1#agenda-title {
 
 #profile-activity .profile-activity-text, #profile-network .profile-network-text, #profile-wall .profile-wall-text {
   font-size: 13px;
-  margin: 5px;
+  margin: 2px 5px;
 }
 
 #profile-wall .profile-wall-text {
   padding-top: 0;
 }
 
-#profile-activity .profile-activity-time, #profile-network .profile-network-time, #profile-wall .profile-wall-time {
+#profile_activities .profile-activity-time, #profile-network .profile-network-time, #profile-wall .profile-wall-time {
   font-size: 11px;
   margin: 5px;
   color: #babdb6;
+  text-align: right;
 }
 
 #profile-activity hr, #profile-network hr, #profile-wall hr {
@@ -6083,19 +6092,28 @@ h1#agenda-title {
 }
 
 .profile-send-reply {
-  background-color: #eee;
-  border: 1px solid #aaa;
-  padding: 2px;
-  padding-left: 20px;
-  background-repeat: no-repeat;
-  background-position: 2px center;
+  xbackground-color: #eee;
+  xborder: 1px solid #aaa;
+  xpadding: 2px;
+  xpadding-left: 20px;
+  xbackground-repeat: no-repeat;
+  xbackground-position: 2px center;
   color: #aaa;
-  text-decoration: none;
-  margin-left: 8px;
+  Xtext-decoration: none;
+  Xmargin-left: 8px;
 }
 
 #content .profile-send-reply:hover {
   text-decoration: none;
+}
+
+#profile-wall .profile-wall-actions {
+  text-align: right;
+}
+
+#profile-wall .profile-wall-send-reply {
+  display: inline-block;
+
 }
 
 #profile-wall .profile-wall-scrap-replies .profile-wall-description {
@@ -6244,7 +6262,7 @@ h1#agenda-title {
 }
 
 #profile-wall .comment-balloon-content {
-  padding: 3px 0 3px 15px;
+  padding: 3px 0px;
 }
 
 .profile-wall-reply {
@@ -6266,8 +6284,9 @@ h1#agenda-title {
   width: 98%;
 }
 
-#profile-activity .profile-activity-image, #profile-network .profile-network-image, #profile-wall .profile-wall-image {
-  width: 19%;
+#profile_activities .profile-activity-image, #profile-network .profile-network-image, #profile-wall .profile-wall-image {
+  width: 50px;
+  margin: 5px;
 }
 
 #profile-activity .profile-activity-description, #profile-network .profile-network-description, #profile-wall .profile-wall-description {

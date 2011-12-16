@@ -76,4 +76,12 @@ class ActionTrackerNotificationTest < ActiveSupport::TestCase
     assert_equal [last_notification], at.action_tracker_notifications
   end
 
+  should "have comments through action_tracker" do
+    action = fast_create(ActionTracker::Record)
+    notification = fast_create(ActionTrackerNotification, :action_tracker_id => action.id, :profile_id => 1)
+
+    comment = fast_create(Comment, :source_id => action.id)
+    assert_equal action.comments, notification.comments
+  end
+
 end

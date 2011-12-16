@@ -5,13 +5,7 @@ require 'noosfero/i18n'
 ActionTrackerConfig.verbs = {
 
   :create_article => { 
-    :description => lambda { n_('published 1 article: %{title}', 'published %{num} articles: %{title}', get_name.size) % { :num => get_name.size, :title => '{{ta.collect_group_with_index(:name){ |n,i| link_to(truncate(n), ta.get_url[i]) }.to_sentence(:connector => "%s")}}' % _("and") } },
-    :type => :groupable
-  },
-
-  :update_article => { 
-    :description => lambda { n_('updated 1 article: %{title}', 'updated %{num} articles: %{title}', get_name.uniq.size) % { :num => get_name.uniq.size, :title => '{{ta.collect_group_with_index(:name){ |n,i| link_to(truncate(n), ta.get_url[i]) }.uniq.to_sentence(:connector => "%s")}}' % _("and") } },
-    :type => :groupable
+    :description => lambda { _('published an article: %{title}') % { :title => '{{link_to(truncate(ta.get_name), ta.get_url)}}' } }
   },
 
   :remove_article => { 

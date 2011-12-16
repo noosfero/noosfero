@@ -1,12 +1,28 @@
 <h3><%= _("%s's wall") % @profile.name %></h3>
 <div id='leave_scrap'>
   <%= flash[:error] %>
-  <% form_remote_tag :url => {:controller => 'profile', :action => 'leave_scrap', :tab_action => 'wall' }, :update => 'profile_scraps', :success => "$('leave_scrap_content').value=''" do %>
+  <% form_remote_tag :url => {:controller => 'profile', :action => 'leave_scrap', :tab_action => 'wall' }, :update => 'profile_activities', :success => "$('leave_scrap_content').value=''" do %>
     <%= limited_text_area :scrap, :content, 420, 'leave_scrap_content', :cols => 50, :rows => 2 %>
     <%= submit_button :scrap, _('Leave a scrap') %>
   <% end %>
 </div>
 <div id='leave_scrap_response'></div>
-<ul id='profile_scraps'>
-  <%= render :partial => 'profile_scraps', :locals => {:scraps => @wall_items} %>
+<ul id='profile_activities'>
+  <%= render :partial => 'profile_activities_scraps', :locals => {:activities => @activities} %>
 </ul>
+
+<% if @activities.current_page < @activities.total_pages %>
+  <div id='profile_activities_page_<%= @activities.current_page %>'>
+    <%= button_to_remote :add, _('View more'), :url => {:action => 'view_more_activities', :page => (@activities.current_page + 1)}, :update => "profile_activities_page_#{@activities.current_page}" %>
+  </div>
+<% end %>
+
+<!--
+<ul id='profile_scraps'>
+  <%#= render :partial => 'profile_scraps', :locals => {:scraps => @wall_items} %>
+</ul>
+
+<% if @profile.person? %>
+  <%#= render :partial => 'profile_activity' %>
+<% end %>
+-->

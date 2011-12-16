@@ -1,0 +1,8 @@
+<% activities.each do |a| %>
+  <% activity = a.klass.constantize.find(a.id) %>
+  <% if activity.kind_of?(ActionTracker::Record) && @profile.person? %>
+    <%= render :partial => 'profile_activities', :locals => {:activity => activity} %>
+  <% else %>
+    <%= render :partial => 'profile_scrap', :locals => {:scrap => activity } %>
+  <% end %>
+<% end %>

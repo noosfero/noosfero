@@ -1243,4 +1243,34 @@ class PersonTest < ActiveSupport::TestCase
     assert !person.visible
     assert_not_equal password, person.user.password
   end
+
+  should 'return tracked_actions and scraps as activities' do
+    person = fast_create(Person)
+    another_person = fast_create(Person)
+
+    scrap = Scrap.create!(defaults_for_scrap(:sender => another_person, :receiver => person, :content => 'A scrap'))
+    UserStampSweeper.any_instance.expects(:current_user).returns(person).at_least_once
+    TinyMceArticle.create!(:profile => person, :name => 'An article about free software')
+    activity = ActionTracker::Record.last
+
+    assert_equal 'An article about free software', activity.get_name.last
+    assert_equal [scrap,activity], person.activities.map { |a| a.klass.constantize.find(a.id) }
+  end
+
+  should 'not return tracked_actions and scraps from others as activities' do
+    person = fast_create(Person)
+    another_person = fast_create(Person)
+
+    person_scrap = Scrap.create!(defaults_for_scrap(:sender => person, :receiver => person, :content => 'A scrap from person'))
+    another_person_scrap = Scrap.create!(defaults_for_scrap(:sender => another_person, :receiver => another_person, :content => 'A scrap from another person'))
+
+    TinyMceArticle.create!(:profile => another_person, :name => 'An article about free software from another person')
+    another_person_activity = ActionTracker::Record.last
+
+    UserStampSweeper.any_instance.stubs(:current_user).returns(person)
+    TinyMceArticle.create!(:profile => person, :name => 'An article about free software')
+    person_activity = ActionTracker::Record.last
+
+    assert_equal [person_scrap,person_activity], person.activities.map { |a| a.klass.constantize.find(a.id) }
+  end
 end

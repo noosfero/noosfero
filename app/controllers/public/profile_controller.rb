@@ -14,6 +14,7 @@ class ProfileController < PublicController
     if logged_in? && current_person.follows?(@profile)
       @network_activities = @profile.tracked_notifications.paginate(:per_page => 30, :page => params[:page]) if @network_activities.empty?
       @wall_items = @profile.scraps_received.not_replies.paginate(:per_page => 30, :page => params[:page])
+      @activities = @profile.activities.paginate(:per_page => 30, :page => params[:page])
     end
     @tags = profile.article_tags
     unless profile.display_info_to?(user)
@@ -180,8 +181,18 @@ class ProfileController < PublicController
     @scrap.receiver= receiver
     @tab_action = params[:tab_action]
     @message = @scrap.save ? _("Message successfully sent.") : _("You can't leave an empty message.")
-    @scraps = @profile.scraps_received.not_replies.paginate(:per_page => 30, :page => params[:page]) if params[:not_load_scraps].nil?
+    @activities = @profile.activities.paginate(:per_page => 30, :page => params[:page]) if params[:not_load_scraps].nil?
     render :partial => 'leave_scrap'
+  end
+
+  def leave_comment_on_activity
+    @comment = Comment.new(params[:comment])
+    @comment.author = user #'if logged_in?
+    @comment.source = ActionTracker::Record.find(params[:comment][:source_id])
+    @tab_action = params[:tab_action]
+    @message = @comment.save ? _("Comment successfully added.") : _("You can't leave an empty comment.")
+    @activities = @profile.activities.paginate(:per_page => 30, :page => params[:page]) if params[:not_load_scraps].nil?
+    render :partial => 'leave_comment_on_activity'
   end
 
   def view_more_scraps
@@ -190,8 +201,9 @@ class ProfileController < PublicController
   end
 
   def view_more_activities
-    @activities = @profile.tracked_actions.paginate(:per_page => 30, :page => params[:page])
-    render :partial => 'profile_activities', :locals => {:activities => @activities}
+#    @activities = @profile.tracked_actions.paginate(:per_page => 30, :page => params[:page])
+    @activities = @profile.activities.paginate(:per_page => 30, :page => params[:page])
+    render :partial => 'profile_activities_scraps', :locals => {:activities => @activities}
   end
 
   def view_more_network_activities

@@ -2,9 +2,7 @@ require 'hpricot'
 
 class Article < ActiveRecord::Base
 
-  track_actions :create_article, :after_create, :keep_params => [:name, :url], :if => Proc.new { |a| a.is_trackable? && !a.image? }, :custom_target => :action_tracker_target
-  track_actions :update_article, :before_update, :keep_params => [:name, :url], :if => Proc.new { |a| a.is_trackable? && (a.body_changed? || a.name_changed?) }, :custom_target => :action_tracker_target
-  track_actions :remove_article, :before_destroy, :keep_params => [:name], :if => Proc.new { |a| a.is_trackable? }, :custom_target => :action_tracker_target
+  track_actions :create_article, :after_create, :keep_params => [:name, :url, :lead], :if => Proc.new { |a| a.is_trackable? && !a.image? }, :custom_target => :action_tracker_target
 
   # xss_terminate plugin can't sanitize array fields
   before_save :sanitize_tag_list
@@ -17,7 +15,7 @@ class Article < ActiveRecord::Base
 
   belongs_to :last_changed_by, :class_name => 'Person', :foreign_key => 'last_changed_by_id'
 
-  has_many :comments, :dependent => :destroy, :order => 'created_at asc'
+  has_many :comments, :dependent => :destroy, :order => 'created_at asc', :as => :source
 
   has_many :article_categorizations, :conditions => [ 'articles_categories.virtual = ?', false ]
   has_many :categories, :through => :article_categorizations
@@ -134,7 +132,11 @@ class Article < ActiveRecord::Base
   before_update do |article|
     article.advertise = true
   end
-  
+
+  after_update do |article|
+    #update article's activity
+  end
+
   # retrieves all articles belonging to the given +profile+ that are not
   # sub-articles of any other article.
   named_scope :top_level_for, lambda { |profile|

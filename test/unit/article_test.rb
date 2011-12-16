@@ -1009,6 +1009,28 @@ class ArticleTest < ActiveSupport::TestCase
     assert_equal ['a','b'], ta.get_name
   end
 
+  should 'update action when article is updated' do
+    article = create(TinyMceArticle, :profile => profile)
+    action = ActionTracker::Record.last
+    time = action.updated_at
+
+    Time.stubs(:now).returns(time + 1.day)
+    article.name = 'New name'
+    article.save
+    assert_not_equal time, ActionTracker::Record.last.updated_at
+  end
+
+  should 'update action when comment is created' do
+    article = create(TinyMceArticle, :profile => profile)
+    action = ActionTracker::Record.last
+    time = action.updated_at
+
+    Time.stubs(:now).returns(time + 1.day)
+
+    article.comments << Comment.create(:name => 'Guest', :email => 'guest@example.com', :title => 'test comment', :body => 'hello!')
+    assert_not_equal time, ActionTracker::Record.last.updated_at
+  end
+
   should 'notifiable is false by default' do
     a = fast_create(Article)
     assert !a.notifiable?
@@ -1638,4 +1660,23 @@ class ArticleTest < ActiveSupport::TestCase
     assert_equal [c1,c2,c5], Article.text_articles
   end
 
+  should 'filter articles by date of creation' do
+    from = Date.today - 2.days
+    to = Date.today - 1.day
+    article1 = fast_create(Article, :created_at => from - 1.day)
+    article2 = fast_create(Article, :created_at => from + 6.hours)
+    article3 = fast_create(Article, :created_at => to + 1.day)
+
+    assert_not_includes Article.created_between(from, nil), article1
+    assert_includes Article.created_between(from, nil), article2
+    assert_includes Article.created_between(from, nil), article3
+
+    assert_includes Article.created_between(nil, to), article1
+    assert_includes Article.created_between(nil, to), article2
+    assert_not_includes Article.created_between(nil, to), article3
+
+    assert_not_includes Article.created_between(from, to), article1
+    assert_includes Article.created_between(from, to), article2
+    assert_not_includes Article.created_between(from, to), article3
+  end
 end

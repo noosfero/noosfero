@@ -7,13 +7,15 @@
   </div>
   <% comment_balloon :class => 'profile-wall-description' do %>
     <p class='profile-wall-sender'><%= link_to scrap.sender.name, scrap.sender.url %></p>
-    <p class='profile-wall-time'><%= time_ago_as_sentence(scrap.created_at) + ' ' + _('ago') %></p>
     <p class='profile-wall-text'><%= txt2html scrap.content %></p>
-    <%= button_to_remote(:delete, content_tag(:span, _('Remove')), :url =>{:action => 'remove_scrap', :scrap_id => scrap.id}, :update => "profile-wall-item-#{scrap.id}") if logged_in? && user.can_control_scrap?(scrap) %>
+    <p class='profile-wall-time'><%= time_ago_as_sentence(scrap.created_at) + ' ' + _('ago') %></p>
+    <div class='profile-wall-actions'>
     <% if logged_in? && current_person.follows?(scrap.sender) && scrap.root.nil? %>
-      <p class='profile-wall-send-reply'><%= link_to_function _('Reply'), "hide_and_show(['#profile-wall-reply-response-#{scrap.id}'],['#profile-wall-reply-#{scrap.id}', '#profile-wall-reply-form-#{scrap.id}']);$('reply_content_#{scrap.id}').value='';$('scrap_id_#{scrap.id}').value='#{scrap.id}';return false", :class => "profile-send-reply icon-reply" %></p>
+      <span class='profile-wall-send-reply'><%= link_to_function _('Comment'), "hide_and_show(['#profile-wall-reply-response-#{scrap.id}'],['#profile-wall-reply-#{scrap.id}', '#profile-wall-reply-form-#{scrap.id}']);$('reply_content_#{scrap.id}').value='';$('scrap_id_#{scrap.id}').value='#{scrap.id}';return false", :class => "profile-send-reply" %></span>
     <% end %>
+    <%= link_to_remote(content_tag(:span, _('Remove')), :url =>{:action => 'remove_scrap', :scrap_id => scrap.id}, :update => "profile-wall-item-#{scrap.id}") if logged_in? && user.can_control_scrap?(scrap) %>
   <% end %>
+  </div>
   <ul class="profile-wall-scrap-replies">
     <% scrap.replies.map do |reply| %>
       <%= render :partial => 'profile_scrap', :locals => {:scrap => reply} %>
@@ -35,7 +37,7 @@
   <div id='profile-wall-reply-<%= scrap.id%>' style='display:none;'>
     <div id='profile-wall-reply-form-<%= scrap.id%>' style='display:none;'>
       <p class='profile-wall-reply'>
-        <% form_remote_tag :url => {:controller => 'profile', :action => 'leave_scrap'}, :update => "profile_scraps", :success =>"hide_and_show(['#profile-wall-reply-form-#{scrap.id}'],['#profile-wall-reply-response-#{scrap.id}'])" do %>
+        <% form_remote_tag :url => {:controller => 'profile', :action => 'leave_scrap'}, :update => "profile_activities", :success =>"hide_and_show(['#profile-wall-reply-form-#{scrap.id}'],['#profile-wall-reply-response-#{scrap.id}'])" do %>
           <%= limited_text_area :scrap, :content, 420, "reply_content_#{scrap.id}", :cols => 50, :rows => 2 %>
           <%= hidden_field :scrap, :scrap_id, :id => "scrap_id_#{scrap.id}" %>
           <%= hidden_field_tag 'receiver_id', scrap.sender.id %>

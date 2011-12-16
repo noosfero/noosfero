@@ -13,13 +13,13 @@ class CommentTest < ActiveSupport::TestCase
     assert_mandatory(Comment.new, :body)
   end
 
-  should 'belong to an article' do
+  should 'have a polymorphic relationship with source' do
     c = Comment.new
-    assert_raise ActiveRecord::AssociationTypeMismatch do
-      c.article = 1
+    assert_nothing_raised do
+      c.source = Article.new
     end
     assert_nothing_raised do
-      c.article = Article.new
+      c.source = ActionTracker::Record.new
     end
   end
 
@@ -69,8 +69,9 @@ class CommentTest < ActiveSupport::TestCase
 
     cc = art.comments_count
     art.comments.build(:title => 'test comment', :body => 'anything', :author => owner).save!
-    art.reload
-    assert_equal cc + 1, art.comments_count
+    art = Article.find(art.id)
+
+    assert_equal cc + 1, Article.find(art.id).comments_count
   end
 
   should 'provide author name for authenticated authors' do
@@ -217,28 +218,8 @@ class CommentTest < ActiveSupport::TestCase
     assert File.exists?(File.join(Rails.root, 'public', image)), "#{image} does not exist."
   end
 
-  should 'track action when comment is created' do
-    owner = create_user('testuser').person
-    article = owner.articles.create!(:name => 'test', :body => '...')
-    comment = article.comments.create!(:article => article, :name => 'foo', :title => 'bar', :body => 'my comment', :email => 'cracker@test.org')
-    ta = ActionTracker::Record.last
-    assert_equal 'bar', ta.get_title
-    assert_equal 'my comment', ta.get_body
-    assert_equal 'test', ta.get_article_title
-    assert_equal article.url, ta.get_article_url
-    assert_equal comment.url, ta.get_url
-  end
-
   should 'have the action_tracker_target defined' do
     assert Comment.method_defined?(:action_tracker_target)
-  end
-
-  should "have the action_tracker_target be the articles's profile" do
-    owner = create_user('testuser').person
-    article = owner.articles.create!(:name => 'test', :body => '...')
-    comment = article.comments.create!(:article => article, :name => 'foo', :title => 'bar', :body => 'my comment', :email => 'cracker@test.org')
-    ta = ActionTracker::Record.last
-    assert_equal owner, ta.target
   end
 
   should "get children of a comment" do
@@ -307,11 +288,11 @@ class CommentTest < ActiveSupport::TestCase
 
   should "return comments as a thread" do
     a = fast_create(Article)
-    c0 = fast_create(Comment, :article_id => a.id)
-    c1 = fast_create(Comment, :reply_of_id => c0.id, :article_id => a.id)
-    c2 = fast_create(Comment, :reply_of_id => c1.id, :article_id => a.id)
-    c3 = fast_create(Comment, :reply_of_id => c0.id, :article_id => a.id)
-    c4 = fast_create(Comment, :article_id => a.id)
+    c0 = fast_create(Comment, :source_id => a.id)
+    c1 = fast_create(Comment, :reply_of_id => c0.id, :source_id => a.id)
+    c2 = fast_create(Comment, :reply_of_id => c1.id, :source_id => a.id)
+    c3 = fast_create(Comment, :reply_of_id => c0.id, :source_id => a.id)
+    c4 = fast_create(Comment, :source_id => a.id)
     result = a.comments.as_thread
     assert_equal c0.id, result[0].id
     assert_equal [c1.id, c3.id], result[0].replies.map(&:id)
