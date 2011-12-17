@@ -960,10 +960,10 @@ class ContentViewerControllerTest < ActionController::TestCase
 
   should 'display others pages of forum posts' do
     forum = Forum.create!(:name => 'My forum', :profile => profile, :posts_per_page => 5)
+    now = Time.now
     for n in 1..10
+      Time.stubs(:now).returns(now - 10.days + n.days)
       forum.children << art = TextileArticle.create!(:name => "Post #{n}", :profile => profile, :parent => forum)
-      art.updated_at = (10 - n).days.ago
-      art.send :update_without_callbacks
     end
     assert_equal 10, forum.posts.size
 
