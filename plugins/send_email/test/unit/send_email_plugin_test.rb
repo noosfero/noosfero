@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../../../../test/test_helper'
 
-class SendEmailPluginTest < Test::Unit::TestCase
+class SendEmailPluginTest < ActiveSupport::TestCase
 
   def setup
     @plugin = SendEmailPlugin.new

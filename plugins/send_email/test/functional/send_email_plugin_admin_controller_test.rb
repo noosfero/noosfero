@@ -4,7 +4,7 @@ require File.dirname(__FILE__) + '/../../controllers/send_email_plugin_admin_con
 # Re-raise errors caught by the controller.
 class SendEmailPluginAdminController; def rescue_action(e) raise e end; end
 
-class SendEmailPluginAdminControllerTest < Test::Unit::TestCase
+class SendEmailPluginAdminControllerTest < ActiveSupport::TestCase
 
   def setup
     @controller = SendEmailPluginAdminController.new

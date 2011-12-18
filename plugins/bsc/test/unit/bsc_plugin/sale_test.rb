@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../../../../../test/test_helper'
 
-class BscPlugin::SaleTest < Test::Unit::TestCase
+class BscPlugin::SaleTest < ActiveSupport::TestCase
   def setup
     @sale = BscPlugin::Sale.new
   end

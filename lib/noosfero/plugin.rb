@@ -12,8 +12,8 @@ class Noosfero::Plugin
         File.directory?(entry)
       end.each do |dir|
         Rails.configuration.controller_paths << File.join(dir, 'controllers')
-        Dependencies.load_paths << File.join(dir, 'controllers')
-        [ Dependencies.load_paths, $:].each do |path|
+        ActiveSupport::Dependencies.load_paths << File.join(dir, 'controllers')
+        [ ActiveSupport::Dependencies.load_paths, $:].each do |path|
           path << File.join(dir, 'models')
           path << File.join(dir, 'lib')
         end

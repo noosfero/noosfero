@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../../../../../test/test_helper'
 
-class ShoppingCartPlugin::CartHelperTest < Test::Unit::TestCase
+class ShoppingCartPlugin::CartHelperTest < ActiveSupport::TestCase
 
   include ShoppingCartPlugin::CartHelper
 

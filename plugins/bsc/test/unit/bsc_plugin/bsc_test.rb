@@ -2,7 +2,7 @@ require File.dirname(__FILE__) + '/../../../../../test/test_helper'
 require File.dirname(__FILE__) + '/../../../../../app/models/uploaded_file'
 require File.dirname(__FILE__) + '/../../../lib/ext/enterprise'
 
-class BscPlugin::BscTest < Test::Unit::TestCase
+class BscPlugin::BscTest < ActiveSupport::TestCase
   VALID_CNPJ = '94.132.024/0001-48'
 
   def setup

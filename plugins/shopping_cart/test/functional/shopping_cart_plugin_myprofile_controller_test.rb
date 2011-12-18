@@ -4,7 +4,7 @@ require File.dirname(__FILE__) + '/../../controllers/shopping_cart_plugin_myprof
 # Re-raise errors caught by the controller.
 class ShoppingCartPluginMyprofileController; def rescue_action(e) raise e end; end
 
-class ShoppingCartPluginMyprofileControllerTest < Test::Unit::TestCase
+class ShoppingCartPluginMyprofileControllerTest < ActiveSupport::TestCase
 
   TIME_FORMAT = '%Y-%m-%d'
 

@@ -4,7 +4,7 @@ require File.dirname(__FILE__) + '/../../controllers/shopping_cart_plugin_profil
 # Re-raise errors caught by the controller.
 class ShoppingCartPluginProfileController; def rescue_action(e) raise e end; end
 
-class ShoppingCartPluginProfileControllerTest < Test::Unit::TestCase
+class ShoppingCartPluginProfileControllerTest < ActiveSupport::TestCase
 
   def setup
     @controller = ShoppingCartPluginProfileController.new
