@@ -1,5 +1,5 @@
-require_dependency 'ext/enterprise'
-require_dependency 'ext/product'
+require_dependency 'bsc_plugin/ext/enterprise'
+require_dependency 'bsc_plugin/ext/product'
 
 class BscPlugin < Noosfero::Plugin
 

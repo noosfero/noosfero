@@ -1,5 +1,5 @@
-require_dependency 'ext/enterprise'
-require_dependency 'ext/person'
+require_dependency 'shopping_cart_plugin/ext/enterprise'
+require_dependency 'shopping_cart_plugin/ext/person'
 
 class ShoppingCartPlugin < Noosfero::Plugin
 
