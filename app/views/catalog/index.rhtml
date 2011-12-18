@@ -25,7 +25,7 @@
               <span class="product-discount-by"><%= _('by ') %></span>
             </span>
           <% end %>
-          <% unless product.price.blank? %>
+          <% unless product.price.blank? or product.price == 0 %>
             <span class="product-price">
               <%= price_span product.price_with_discount, :class => "product-price #{'with-discount' unless product.discount}" %>
               <span class="product-unit"><%= _(' / ') + (product.unit ? product.unit.singular : _('unit')) %></span>
