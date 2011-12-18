@@ -11,7 +11,12 @@
     <li class="product <%= "not-available" unless product.available %>">
       <ul>
         <% if product.image %>
-          <li id="product-image-link"><%= link_to_product product, :class => 'product-big', :style => 'background-image:url(%s)' % product.default_image(:big) %></li>
+          <li id="product-image-link">
+            <div class="zoomable-image">
+	    <%= image_link_to_product product, :class => 'product-big' %>
+            <a href='<%= product.default_image(:big).gsub('_big','') %>' class="zoomify-image"><span><%= _('Zoom in') %></span></a>
+            </div>
+	  </li>
         <% else %>
           <li class="product-big no-image"><%= _('No image') %></li>
         <% end %>
@@ -88,3 +93,13 @@
 </ul>
 
 <%= pagination_links @products, :params => {:controller => :catalog, :action => :index, :profile => profile.identifier} %>
+
+<link href="/stylesheets/fancybox.css?1323903734" media="screen" rel="stylesheet" type="text/css" /><script src="/javascripts/jquery.fancybox-1.3.4.pack.js?1323903734" type="text/javascript"></script><script type="text/javascript">
+//<![CDATA[
+jQuery(function($) {
+        $(window).load( function() {
+          $('.zoomify-image').fancybox();
+        });
+      });
+//]]>
+</script>

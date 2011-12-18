@@ -8,6 +8,14 @@ module DisplayHelper
             opts
   end
 
+  def image_link_to_product(product, opts={})
+    return _('No product') unless product
+    target = product_path(product)
+    link_to image_tag(product.default_image(:big), :alt => product.name),
+            target,
+            opts
+  end
+
   def price_span(price, options = {})
     content_tag 'span',
       number_to_currency(price, :unit => environment.currency_unit, :delimiter => environment.currency_delimiter, :separator => environment.currency_separator),

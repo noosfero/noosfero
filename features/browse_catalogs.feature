@@ -95,6 +95,14 @@ Feature: browse catalogs
     And I should not see "qualifiers"
     And I should not see "price composition"
 
+  Scenario: display "zoom in" button
+    Given the following products
+      | owner      | category | name    | price | img     |
+      | artebonito | categ1   | Agrotox | 12.34 | agrotox |
+    And I am on /catalog/artebonito
+    And I should not see "No image"
+    And I should see "Zoom in" within ".zoomify-image"
+
   Scenario: image links to product page
     Given the following products
       | owner      | category | name    | price | img     |
@@ -122,6 +130,7 @@ Feature: browse catalogs
       | owner      | category | name     | price | description                                           |
       | artebonito | categ1   | Produto2 | 12.34 | A small description for a product that doesn't exist. |
     And I am on /catalog/artebonito
+    And I reload and wait for the page
     Then I should see "Produto2" within "li.product-link"
     And I should see "12.34" within "span.product-price"
     And I should see "description" within "#product-description-button"

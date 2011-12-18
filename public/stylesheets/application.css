@@ -1075,10 +1075,12 @@ code input {
   text-align: left;
   background: transparent url(/images/black-alpha-pixel.png);
   border-bottom: 1px solid #333;
+  text-decoration: none;
 }
 
 .zoomable-image:hover .zoomify-image {
   display: block;
+  text-decoration: none;
 }
 
 #article .zoomify-image {
@@ -1093,6 +1095,7 @@ code input {
   border-bottom: 1px solid #eee;
   display: block;
   background: transparent url(/images/zoom.png) left center no-repeat;
+  color: #fff;
 }
 
 #article pre {
@@ -2980,7 +2983,7 @@ div#activation_enterprise div {
 }
 #product-list li.product {
   width: 200px;
-  min-height: 260px;
+  min-height: 280px;
   float: left;
   padding: 10px 30px 10px 0;
   margin-bottom: 10px;
@@ -3122,11 +3125,14 @@ div#activation_enterprise div {
 #product-list .product-big {
   display: block;
   width: 200px;
-  height: 140px;
+  height: 160px;
   border: 1px solid #BFBFBF;
-  background-repeat: no-repeat;
-  background-position: 50% 50%;
+/*  background-repeat: no-repeat;
+  background-position: 50% 50%; */
   position: relative; /* work arround msie bug */
+  text-align: center;
+  display: table-cell;
+  vertical-align: middle;
 }
 #product-list .product-big.no-image {
   line-height: 145px;
