@@ -1,6 +1,8 @@
 module Noosfero::DocTest
 
-  ROOT = File.join(Rails.root, "test", "tmp", "doc")
+  unless defined?(ROOT)
+    ROOT = File.join(Rails.root, "test", "tmp", "doc")
+  end
 
   def create_doc(section, topic, language, title, body = nil)
     dir = File.join(ROOT, section)
