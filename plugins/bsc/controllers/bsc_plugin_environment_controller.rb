@@ -1,6 +1,6 @@
-include BscPlugin::BscHelper
-
 class BscPluginEnvironmentController < AdminController
+
+  include BscPlugin::BscHelper
 
   def new
     @bsc = BscPlugin::Bsc.new(params[:profile_data])
