@@ -1,15 +1,8 @@
 require File.dirname(__FILE__) + '/../../../../test/test_helper'
-require File.dirname(__FILE__) + '/../../controllers/send_email_plugin_admin_controller'
-
-# Re-raise errors caught by the controller.
-class SendEmailPluginAdminController; def rescue_action(e) raise e end; end
 
 class SendEmailPluginAdminControllerTest < ActionController::TestCase
 
   def setup
-    @controller = SendEmailPluginAdminController.new
-    @request    = ActionController::TestRequest.new
-    @response   = ActionController::TestResponse.new
     @admin = create_user('adminplug').person
     @environment = @admin.environment
     @environment.add_admin(@admin)

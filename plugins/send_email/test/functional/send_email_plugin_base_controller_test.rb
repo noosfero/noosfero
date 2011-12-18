@@ -1,8 +1,4 @@
 require File.dirname(__FILE__) + '/../../../../test/test_helper'
-require File.dirname(__FILE__) + '/../../controllers/send_email_plugin_profile_controller'
-
-# Re-raise errors caught by the controller.
-class SendEmailPluginProfileController; def rescue_action(e) raise e end; end
 
 def run_common_tests
   should 'not deliver emails via GET requests' do
@@ -53,9 +49,6 @@ end
 
 class SendEmailPluginProfileControllerTest < ActionController::TestCase
   def setup
-    @controller = SendEmailPluginProfileController.new
-    @request    = ActionController::TestRequest.new
-    @response   = ActionController::TestResponse.new
     ActionMailer::Base.delivery_method = :test
     ActionMailer::Base.perform_deliveries = true
     ActionMailer::Base.deliveries = []
@@ -68,9 +61,6 @@ end
 
 class SendEmailPluginEnvironmentControllerTest < ActionController::TestCase
   def setup
-    @controller = SendEmailPluginEnvironmentController.new
-    @request    = ActionController::TestRequest.new
-    @response   = ActionController::TestResponse.new
     ActionMailer::Base.delivery_method = :test
     ActionMailer::Base.perform_deliveries = true
     ActionMailer::Base.deliveries = []
