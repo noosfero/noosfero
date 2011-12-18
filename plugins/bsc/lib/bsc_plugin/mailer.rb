@@ -1,7 +1,5 @@
 class BscPlugin::Mailer < Noosfero::Plugin::MailerBase
 
-  prepend_view_path(BscPlugin.root_path+'/views')
-
   def admin_notification(admin, bsc)
     domain = bsc.hostname || bsc.environment.default_hostname
     recipients    admin.contact_email

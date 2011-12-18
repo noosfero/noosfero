@@ -51,7 +51,7 @@ def run_common_tests
   end
 end
 
-class SendEmailPluginProfileControllerTest < ActiveSupport::TestCase
+class SendEmailPluginProfileControllerTest < ActionController::TestCase
   def setup
     @controller = SendEmailPluginProfileController.new
     @request    = ActionController::TestRequest.new
@@ -66,7 +66,7 @@ class SendEmailPluginProfileControllerTest < ActiveSupport::TestCase
   run_common_tests()
 end
 
-class SendEmailPluginEnvironmentControllerTest < ActiveSupport::TestCase
+class SendEmailPluginEnvironmentControllerTest < ActionController::TestCase
   def setup
     @controller = SendEmailPluginEnvironmentController.new
     @request    = ActionController::TestRequest.new

@@ -5,7 +5,7 @@ require File.dirname(__FILE__) + '/../../../../app/models/uploaded_file'
 # Re-raise errors caught by the controller.
 class BscPluginEnvironmentController; def rescue_action(e) raise e end; end
 
-class BscPluginEnvironmentControllerTest < ActiveSupport::TestCase
+class BscPluginEnvironmentControllerTest < ActionController::TestCase
 
   VALID_CNPJ = '94.132.024/0001-48'
 
