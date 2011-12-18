@@ -62,13 +62,14 @@
           </li>
         <% end %>
 
-        <% if product.any_inputs_details? %>
+        <% if product.inputs.count > 0 %>
           <li class="product-inputs expand-box">
             <span id="inputs-button"><%= _('inputs and raw materials') %></span>
             <div class="arrow"></div>
             <div class="content" id="inputs-description">
               <% product.inputs.each do |i| %>
-                <div><%= "#{i.amount_used} #{i.unit.singular} #{_('of')} #{i.product_category.name}" if i.has_all_price_details? %></div>
+                <div><%= "#{i.amount_used} #{i.unit.singular} #{_('of')} " if i.has_all_price_details? %>
+		<%= "#{i.product_category.name}" %></div>
               <% end %>
             </div>
           </li>

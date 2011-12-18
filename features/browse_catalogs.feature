@@ -149,6 +149,19 @@ Feature: browse catalogs
     Then I should see "A small description" within "#product-description"
     And the "product-description" should be visible
 
+  @selenium
+  Scenario: hide description
+    Given the following products
+      | owner      | category | name     | price | description                                           |
+      | artebonito | categ1   | Produto3 | 12.34 | A small description for a product that doesn't exist. |
+    And I am on /catalog/artebonito
+    And I reload and wait for the page
+    When I click "product-description-button"
+    Then I should see "A small description" within "#product-description"
+    And the "product-description" should be visible
+    When I click "product-description-button"
+    Then the "product-description" should not be visible
+
   Scenario: display unavailable product
     Given the following products
       | owner      | category | name  | price | available |
@@ -248,3 +261,22 @@ Feature: browse catalogs
     When I click "#inputs-button"
     Then the "#inputs-description" should be visible
     And I should see "7.0 Liter of food" within "#inputs-description"
+
+  @selenium
+  Scenario: hide inputs and raw materials
+    Given the following product
+      | owner      | category | name     | price |
+      | artebonito | food     | Vitamina | 17.99 |
+    And the following unit
+      | name  | plural |
+      | Liter | Liters |
+    And the following input
+      | product  | category | price_per_unit | amount_used | unit  |
+      | Vitamina | food     | 1.45           | 7           | Liter |
+    And I am on /catalog/artebonito
+    And I reload and wait for the page
+    When I click "#inputs-button"
+    Then the "#inputs-description" should be visible
+    And I should see "7.0 Liter of food" within "#inputs-description"
+    When I click "#inputs-button"
+    Then the "#inputs-description" should not be visible
