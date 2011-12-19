@@ -20,6 +20,7 @@ namespace :noosfero do
 
     def build_textile(input, output)
       begin
+        require 'redcloth'
         File.open(output ,'w') do |output_file|
           output_file.write(RedCloth.new(File.read(input)).to_html)
           puts "#{input} -> #{output}"
