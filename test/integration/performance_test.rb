@@ -5,11 +5,13 @@ class PerformanceTest < ActionController::IntegrationTest
 
   all_fixtures
 
+  FACTOR = 1.8
+
   # Testing blog page display. It should not present a linear increase in time
   # needed to display a blog page with the increase in number of posts.
   #
   # GOOD          BAD
-  #  
+  #
   # ^             ^     /
   # |             |    /
   # |   _____     |   /
@@ -48,7 +50,7 @@ class PerformanceTest < ActionController::IntegrationTest
     # the inclination of the second segment.
     a1 = (time1.total - time0.total)/50.0
     a2 = (time2.total - time1.total)/50.0
-    assert a1 > a2*2, "#{a1} should be larger than #{a2} by at least a factor of 2"
+    assert a1 > a2*FACTOR, "#{a1} should be larger than #{a2} by at least a factor of #{FACTOR}"
   end
 
   protected
