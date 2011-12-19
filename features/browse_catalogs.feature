@@ -150,7 +150,7 @@ Feature: browse catalogs
     And the "product-description" should be visible
 
   @selenium
-  Scenario: hide description
+  Scenario: hide description 
     Given the following products
       | owner      | category | name     | price | description                                           |
       | artebonito | categ1   | Produto3 | 12.34 | A small description for a product that doesn't exist. |
@@ -224,6 +224,22 @@ Feature: browse catalogs
 #    Then the "#product-price-composition" should be visible
 #    And I should see "food" within "#product-price-composition"
 #    And I should see "4.95" within "#product-price-composition"
+
+  @selenium
+  Scenario: display inputs and raw materials button when not completely filled
+    Given the following product
+      | owner      | category | name     | price |
+      | artebonito | food     | Vitamina | 17.99 |
+    And the following unit
+      | name  | plural |
+      | Liter | Liters |
+    And the following input
+      | product  | category | 
+      | Vitamina | food     |
+    And I am on /catalog/artebonito
+    And I reload and wait for the page
+    Then the "#inputs-button" should be visible
+    And I should see "inputs and raw materials" within "#inputs-button"
 
   @selenium
   Scenario: display inputs and raw materials button

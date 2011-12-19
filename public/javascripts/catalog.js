@@ -49,3 +49,12 @@ function click(e) {
 function hover() {
   jQuery(this).toggleClass('hover');
 }
+
+jQuery(document).click(function (event) {
+   if (jQuery(event.target).parents('.expand-box').length == 0) {
+     jQuery('.expand-box').each(function(index, element){
+       jQuery(element).removeClass('open');
+       jQuery(element).children('div').toggle(false);
+     });
+   }
+});
