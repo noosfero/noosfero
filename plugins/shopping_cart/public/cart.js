@@ -62,7 +62,7 @@ function Cart(config) {
         '<div class="item-price">' +
         '<input size="1" value="'+item.quantity+'" />'+ (item.price ? '&times; '+ item.price : '') +'</div>' +
         ' <a href="remove:'+item.name+'" onclick="Cart.removeItem(\''+this.enterprise+'\', '+item.id+'); return false"' +
-        ' class="button icon-delete"><span>remove</span></a>'
+        ' class="button icon-remove"><span>remove</span></a>'
        ).appendTo(li);
       var input = $("input", li)[0];
       input.lastValue = input.value;

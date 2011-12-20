@@ -13,16 +13,16 @@
 .cart {
   position: fixed;
   right: 20px;
-  top: 0px;
+  bottom: 0px;
   width: 200px;
   z-index: 1000;
   border: 1px solid #777;
   border-top: none;
-  background: rgba(200,200,200,0.6);
+  background: rgba(100,100,100,0.8);
 }
 
 .cart h3 {
-  color: #888;
+  color: #000;
   margin: 0px 0px 0px 5px;
 }
 
@@ -108,7 +108,7 @@
   padding: 0px 5px;
 }
 .cart-toggle:hover {
-  color: #555;
+  color: #fff;
 }
 
 #cart-request-box {
