@@ -304,6 +304,10 @@ function Cart(config) {
     });
   }
 
+  Cart.colorbox_close = function() {
+    $.colorbox.close();
+  }
+
   $(function(){
     $('.cart-add-item').button({ icons: { primary: 'ui-icon-cart'} })
   });

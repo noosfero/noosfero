@@ -17,7 +17,6 @@
   width: 200px;
   z-index: 1000;
   border: 1px solid #777;
-  border-top: none;
   background: rgba(100,100,100,0.8);
 }
 
@@ -118,6 +117,15 @@
 #cart-request-form {
   width: 274px;
   float: left;
+}
+
+#cart-request-box .cart-box-close {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  width: 16px;
+  height: 16px;
+  background-repeat: no-repeat;
 }
 
 #cart-form-main {
