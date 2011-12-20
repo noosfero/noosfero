@@ -22,7 +22,6 @@ class ShoppingCartPlugin < Noosfero::Plugin
     end
   end
 
-  alias :product_info_extras :add_to_cart_button
   alias :catalog_item_extras :add_to_cart_button
   alias :asset_product_extras :add_to_cart_button
 
