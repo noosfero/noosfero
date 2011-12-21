@@ -869,12 +869,27 @@ class ProfileEditorControllerTest < ActionController::TestCase
     plugins.stubs(:map).with(:control_panel_buttons).returns(buttons)
     plugins.stubs(:enabled_plugins).returns([])
     plugins.stubs(:map).with(:body_beginning).returns([])
+    plugins.stubs(:map).with(:head_ending).returns([])
     Noosfero::Plugin::Manager.stubs(:new).returns(plugins)
 
     get :index, :profile => profile.identifier
 
     assert_tag :tag => 'a', :content => plugin1_button[:title], :attributes => {:class => /#{plugin1_button[:icon]}/, :href => /#{plugin1_button[:url]}/}
     assert_tag :tag => 'a', :content => plugin2_button[:title], :attributes => {:class => /#{plugin2_button[:icon]}/, :href => /#{plugin2_button[:url]}/}
+  end
+
+  should 'add extra content provided by plugins on edit' do
+    plugin1_content = "<input id='field_added_by_plugin' value='value_of_field_added_by_plugin'/>"
+    plugins = mock()
+    plugins.stubs(:enabled_plugins).returns([])
+    plugins.stubs(:map).with(:profile_editor_extras).returns([plugin1_content])
+    plugins.stubs(:map).with(:head_ending).returns([])
+    plugins.stubs(:map).with(:body_beginning).returns([])
+    Noosfero::Plugin::Manager.stubs(:new).returns(plugins)
+
+    get :edit, :profile => profile.identifier
+
+    assert_tag :tag => 'input', :attributes => {:id => 'field_added_by_plugin', :value => 'value_of_field_added_by_plugin'}
   end
 
 end

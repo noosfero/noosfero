@@ -349,6 +349,7 @@ class AdminPanelControllerTest < ActionController::TestCase
     plugins.stubs(:map).with(:admin_panel_links).returns(links)
     plugins.stubs(:enabled_plugins).returns([])
     plugins.stubs(:map).with(:body_beginning).returns([])
+    plugins.stubs(:map).with(:head_ending).returns([])
     Noosfero::Plugin::Manager.stubs(:new).returns(plugins)
 
     get :index

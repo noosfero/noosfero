@@ -27,6 +27,11 @@
         <%= javascript_src_tag plugin.class.public_path(js_file), {} %>
       <% end %>
     <% end %>
+    <%=
+      @plugins.map(:head_ending).collect do |content|
+        content.respond_to?(:call) ? content.call : content
+      end.join('\n')
+    %>
   </head>
   <body class="<%=
     # Identify the current controller and action for the CSS:

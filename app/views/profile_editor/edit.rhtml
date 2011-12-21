@@ -75,6 +75,12 @@
 
   <%= select_categories(:profile_data, _('Select the categories of your interest'), 2) %>
 
+  <%=
+    @plugins.map(:profile_editor_extras).each do |content|
+      content.respond_to?(:call) ? content.call : content
+    end.join("\n")
+  %>
+
   <% button_bar do %>
     <%= submit_button('save', _('Save'), :cancel => {:action => 'index'}) %>
     <%= button(:back, _('Back to control panel'), :controller => 'profile_editor') %>

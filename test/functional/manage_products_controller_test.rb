@@ -446,6 +446,7 @@ class ManageProductsControllerTest < ActionController::TestCase
     plugins = mock()
     plugins.stubs(:enabled_plugins).returns([])
     plugins.stubs(:map).with(:body_beginning).returns([])
+    plugins.stubs(:map).with(:head_ending).returns([])
     plugins.stubs(:map).with(:product_info_extras, product).returns(contents)
     Noosfero::Plugin::Manager.stubs(:new).returns(plugins)
 
