@@ -91,6 +91,10 @@ class ApplicationController < ActionController::Base
     @domain = Domain.find_by_name(request.host)
     if @domain.nil?
       @environment = Environment.default
+      if @environment.nil? && Rails.env.development?
+        # This should only happen in development ...
+        @environment = Environment.create!(:name => "Noosfero", :is_default => true)
+      end
     else
       @environment = @domain.environment
       @profile = @domain.profile
