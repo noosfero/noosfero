@@ -1,5 +1,3 @@
-ActiveRecord::SchemaDumper.ignore_tables << /_plugin_/
-
 namespace :noosfero do
   namespace :plugins do
     plugin_migration_dirs = Dir.glob(File.join(Rails.root, 'plugins', '*', 'db', 'migrate'))
