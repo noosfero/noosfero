@@ -1,3 +1,5 @@
+require 'mocha'
+
 module Noosfero::DocTest
 
   unless defined?(ROOT)
