@@ -5882,10 +5882,20 @@ h1#agenda-title {
 
 #profile-activity li, #profile-network li, #profile-wall li {
   display: block;
-  padding: 0;
-  Xmargin-bottom: 8px;
-  background-color: #E8E8E8;
-  border-bottom: 5px double #f2f2f2;
+  padding: 10px;
+  margin-bottom: 0;
+  background-color: #f0f0f1;
+  border-bottom: 0;
+}
+
+#profile-activity li a, #profile-network li a, #profile-wall li a,
+#profile-wall .profile-wall-send-reply {
+  color: #333;
+}
+
+.profile-activity-text {
+  margin: 0;
+  color: #808080;
 }
 
 #profile-activity .profile-wall-scrap-replies li,
@@ -5953,9 +5963,31 @@ h1#agenda-title {
   text-align: right;
 }
 
+#profile-wall .profile-wall-send-reply,
+#profile_activities .profile-activity-time, #profile-network .profile-network-time, #profile-wall .profile-wall-time,
+.profile-wall-actions a {
+  display: block;
+  float: right;
+  font-size: 11px;
+  margin: 0;
+  margin-left: 10px;
+  color: #ccc;
+  padding: 0;
+}
+
+.profile-wall-actions a,
+#profile-wall .profile-wall-send-reply a {
+  text-decoration: none;
+  color: #333;
+}
+
+.profile-wall-actions a:hover,
+#profile-wall .profile-wall-send-reply a:hover {
+  text-decoration: underline;
+}
+
 #profile-activity hr, #profile-network hr, #profile-wall hr {
-  clear: both;
-  border: 0;
+  display: none;
 }
 
 #profile-activity .profile-activity-send-message, #profile-network .profile-network-send-message, #profile-wall .profile-wall-send-message {
@@ -6037,6 +6069,7 @@ h1#agenda-title {
 .profile-network-time,
 .profile-network-description {
   padding-left: 5px;
+  margin: 5px;
 }
 
 .profile-network-sender,
@@ -6111,11 +6144,6 @@ h1#agenda-title {
   text-align: right;
 }
 
-#profile-wall .profile-wall-send-reply {
-  display: inline-block;
-
-}
-
 #profile-wall .profile-wall-scrap-replies .profile-wall-description {
   background: transparent;
 }
@@ -6131,6 +6159,76 @@ h1#agenda-title {
 
 .limited-text-area div.fieldWithErrors {
   background: transparent;
+}
+
+#profile-wall ul.profile-wall-activities-comments {
+  margin-top: 35px;
+}
+
+#profile-wall .profile-wall-activities-comments li {
+  background: #e8e8e8;
+  border-bottom: 1px solid #d2d2d2 !important;
+  border-top: 1px solid #fff;
+}
+
+#profile-wall .profile-wall-activities-comments img {
+  width: 33px;
+  height: 33px;
+}
+
+#profile-wall .profile-wall-activities-comments .comment_reply,
+#profile-wall .profile-wall-activities-comments h4 {
+  display: none;
+}
+
+#profile-wall .profile-wall-activities-comments .comment-picture {
+  width: 33px;
+  margin-right: 10px;
+}
+
+#profile-wall .profile-wall-activities-comments .comment-text p {
+  margin: 0;
+}
+
+#profile-wall .profile-wall-activities-comments .profile-activity-time {
+  clear: both;
+}
+
+#profile-wall .profile-wall-activities-comments .comment-details {
+  padding: 0;
+}
+
+#profile-wall .profile-wall-activities-comments .article-comment .button-bar {
+  float: none !important;
+  padding: 0;
+  text-align: right;
+  position: static;
+}
+
+#profile-wall .profile-wall-activities-comments .article-comment .button-bar a.button {
+  background: transparent;
+  border: 0;
+  height: auto;
+  line-height: auto;
+  color: #333;
+  text-decoration: none;
+  font-size: 11px;
+  padding: 0;
+  margin: 0;
+  display: inline;
+  position: static;
+  float: none;
+}
+
+#profile-wall .profile-wall-activities-comments .article-comment .button-bar a.button:hover {
+  text-decoration: underline;
+}
+
+#profile-wall .profile-wall-activities-comments .article-comment .button-bar .button span {
+  display: inline;
+  position: static;
+  display: inline;
+  margin-right: -5px;
 }
 
 /* friends online {{{ */
@@ -6287,6 +6385,7 @@ h1#agenda-title {
 #profile_activities .profile-activity-image, #profile-network .profile-network-image, #profile-wall .profile-wall-image {
   width: 50px;
   margin: 5px;
+  float: left;
 }
 
 #profile-activity .profile-activity-description, #profile-network .profile-network-description, #profile-wall .profile-wall-description {
