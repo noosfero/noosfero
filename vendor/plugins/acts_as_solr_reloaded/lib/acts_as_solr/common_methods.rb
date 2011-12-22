@@ -6,7 +6,7 @@ module ActsAsSolr #:nodoc:
     def get_solr_field_type(field_type)
       if field_type.is_a?(Symbol)
         case field_type
-          when :float
+          when :float, :decimal
             return "f"
           when :integer
             return "i"
