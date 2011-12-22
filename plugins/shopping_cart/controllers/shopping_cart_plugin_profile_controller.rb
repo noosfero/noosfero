@@ -118,7 +118,7 @@ class ShoppingCartPluginProfileController < ProfileController
       session[:cart][:visibility] = true
       render :text => {
         :ok => true,
-        :message => _('Cart displayed.'),
+        :message => _('Basket displayed.'),
         :error => {:code => 0}
       }.to_json
     rescue Exception => exception
@@ -137,7 +137,7 @@ class ShoppingCartPluginProfileController < ProfileController
       session[:cart][:visibility] = false
       render :text => {
         :ok => true,
-        :message => _('Cart Hidden.'),
+        :message => _('Basket hidden.'),
         :error => {:code => 0}
       }.to_json
     rescue Exception => exception
@@ -173,7 +173,7 @@ class ShoppingCartPluginProfileController < ProfileController
         :ok => false,
         :error => {
         :code => 2,
-        :message => _("There is no cart.")
+        :message => _("There is no basket.")
       }
       }.to_json
       return false
@@ -203,7 +203,7 @@ class ShoppingCartPluginProfileController < ProfileController
         :ok => false,
         :error => {
         :code => 4,
-        :message => _("The cart doesn't have this product.")
+        :message => _("The basket doesn't have this product.")
       }
       }.to_json
       return false
