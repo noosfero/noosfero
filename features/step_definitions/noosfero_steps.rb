@@ -224,6 +224,7 @@ Given /^I am logged in as "(.+)"$/ do |username|
   if selenium_driver?
     selenium.wait_for_page
   end
+  Then "I should be logged in as \"#{username}\""
 end
 
 Given /^I am logged in as admin$/ do
@@ -487,4 +488,8 @@ Then /^"([^\"]*)" profile should not exist$/ do |profile_selector|
   rescue
     profile.nil?.should be_true
   end
+end
+
+When 'I log off' do
+  visit '/account/logout'
 end
