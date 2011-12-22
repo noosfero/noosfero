@@ -6,6 +6,7 @@ class ProfileMembersController; def rescue_action(e) raise e end; end
 
 class ProfileMembersControllerTest < Test::Unit::TestCase
   def setup
+    Test::Unit::TestCase::setup
     @controller = ProfileMembersController.new
     @request    = ActionController::TestRequest.new
     @request.stubs(:ssl?).returns(true)

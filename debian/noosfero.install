@@ -28,7 +28,7 @@ public                            usr/share/noosfero
 debian/default/noosfero           etc/default
 etc/init.d/noosfero               etc/init.d
 debian/mongrel_cluster.yml        etc/noosfero
-debian/ferret_server.yml          etc/noosfero
+debian/solr.yml                   etc/noosfero
 etc/logrotate.d/noosfero          etc/logrotate.d
 debian/noosfero.yml               etc/noosfero
 

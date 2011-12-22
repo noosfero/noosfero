@@ -15,3 +15,6 @@ test:
   url: http://0.0.0.0:8981/solr
   jvm_options: -server -Xmx32M -Xms16M
 
+cucumber:
+  url: http://0.0.0.0:8980/solr
+  jvm_options: -server -Xmx32M -Xms16M

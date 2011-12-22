@@ -71,7 +71,7 @@ class Enterprise < Organization
   end
 
   def product_updated
-    ferret_update
+    solr_save
   end
 
   after_save do |e|

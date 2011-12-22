@@ -22,7 +22,7 @@ module Noosfero::Factory
       end
     end
     if options[:search]
-      obj.ferret_create
+      obj.solr_save
     end
     obj
   end

@@ -4,6 +4,7 @@ Feature: browse
 
   Background:
     Given I am on the homepage
+    And the search index is empty
     And the following users
       | login | name |
       | joaosilva | Joao Silva |

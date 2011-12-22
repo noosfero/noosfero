@@ -488,3 +488,7 @@ Then /^"([^\"]*)" profile should not exist$/ do |profile_selector|
     profile.nil?.should be_true
   end
 end
+
+Given /^the search index is empty$/ do
+  ActsAsSolr::Post.execute(Solr::Request::Delete.new(:query => '*:*'))
+end

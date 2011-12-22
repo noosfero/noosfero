@@ -6,6 +6,7 @@ class SearchController; def rescue_action(e) raise e end; end
 
 class SearchControllerTest < Test::Unit::TestCase
   def setup
+    Test::Unit::TestCase::setup
     @controller = SearchController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
@@ -33,21 +34,6 @@ class SearchControllerTest < Test::Unit::TestCase
 
   def test_valid_xhtml
     assert_valid_xhtml
-  end
-
-  should 'filter stop words' do
-    @controller.expects(:locale).returns('pt_BR').at_least_once
-    get 'index', :query => 'a carne da vaca'
-    assert_response :success
-    assert_template 'index'
-    assert_equal 'carne vaca', assigns('filtered_query')
-  end
-
-  should 'search with filtered query' do
-    @controller.expects(:locale).returns('pt_BR').at_least_once
-    get 'index', :query => 'a carne da vaca'
-
-    assert_equal 'carne vaca', assigns('filtered_query')
   end
 
   should 'espape xss attack' do
