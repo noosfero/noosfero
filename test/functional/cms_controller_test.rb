@@ -9,6 +9,7 @@ class CmsControllerTest < Test::Unit::TestCase
   fixtures :environments
 
   def setup
+    Test::Unit::TestCase::setup
     @controller = CmsController.new
     @request    = ActionController::TestRequest.new
     @request.stubs(:ssl?).returns(true)
