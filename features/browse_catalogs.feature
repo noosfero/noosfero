@@ -26,7 +26,7 @@ Feature: browse catalogs
       | artebonito | categ1   |
     And I am on /catalog/artebonito
     Then I should see "categ1" within "li.product-link"
-    And I should see "No image" within "li.product-big"
+    And I should see "No image" within ".no-image"
     And I should not see "unit" within "#product-list"
     And I should not see "product unavailable"
     And I should not see "description"
@@ -39,7 +39,7 @@ Feature: browse catalogs
       | artebonito | categ1   | Produto1 |
     And I am on /catalog/artebonito
     Then I should see "Produto1" within "li.product-link"
-    And I should see "No image" within "li.product-big"
+    And I should see "No image" within ".no-image"
     And I should not see "unit" within "#product-list"
     And I should not see "product unavailable"
     And I should not see "description"
@@ -54,7 +54,7 @@ Feature: browse catalogs
     Then I should see "Produto1" within "li.product-link"
     And I should see "50.00" within "span.product-price"
     And I should see "unit" within "span.product-unit"
-    And I should see "No image" within "li.product-big"
+    And I should see "No image" within ".no-image"
     And I should not see "product unavailable"
     And I should not see "description"
     And I should not see "qualifiers"
@@ -67,7 +67,7 @@ Feature: browse catalogs
     And I am on /catalog/artebonito
     Then I should see "Produto1" within "li.product-link"
     And I should not see "0.00" 
-    And I should see "No image" within "li.product-big"
+    And I should see "No image" within ".no-image"
     And I should not see "product unavailable"
     And I should not see "description"
     And I should not see "qualifiers"
@@ -108,7 +108,7 @@ Feature: browse catalogs
       | owner      | category | name    | price | img     |
       | artebonito | categ1   | Agrotox | 12.34 | agrotox |
     And I am on /catalog/artebonito
-    When I follow "Agrotox" within "#product-image-link"
+    When I follow "Agrotox" within ".product-image-link"
     Then I should be taken to "Agrotox" product page
 
   Scenario: display product with discount

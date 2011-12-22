@@ -10,16 +10,17 @@
 
     <li class="product <%= "not-available" unless product.available %>">
       <ul>
-        <% if product.image %>
-          <li id="product-image-link">
+        <li class="product-image-link">
+          <% if product.image %>
             <div class="zoomable-image">
-	    <%= image_link_to_product product, :class => 'product-big' %>
-            <a href='<%= product.default_image(:big).gsub('_big','') %>' class="zoomify-image"><span><%= _('Zoom in') %></span></a>
+	      <%= link_to_product product, :class => 'product-big', :style => "background-image: url(#{product.default_image(:big)})" %>
+	      <a href='<%= product.default_image(:big).gsub('_big','') %>' class="zoomify-image"><span><%= _('Zoom in') %></span></a>
             </div>
-	  </li>
-        <% else %>
-          <li class="product-big no-image"><%= _('No image') %></li>
-        <% end %>
+          <% else %>
+            <div class="no-image"><%= _('No image') %></div>
+          <% end %>
+	  <div class="catalog-item-extras"><%= extra_content.join("\n") %></div>
+	</li>
 
         <li class="product-link"><%= link_to_product product %></li>
 
@@ -88,10 +89,8 @@
         <% end %>
 
         <% extra_content_list.map do |content| %>
-          <li><%= content %></li>
+          <li class="catalog-list-item-extras"><%= content %></li>
         <% end %>
-
-        <li><%= extra_content.join("\n") %></li>
 
         <li class="product-unavailable"><%= _('product unavailable') unless product.available %></li>
       </ul>

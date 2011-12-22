@@ -3131,19 +3131,40 @@ div#activation_enterprise div {
 #product-list .search-product-input-price {
   background-color: #DCFFD7;
 }
+
+#product-list .catalog-item-extras {
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+}
 #product-list .product-big {
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
   display: block;
   width: 200px;
   height: 160px;
+}
+#product-list .ui-button {
+  margin: 0;
+}
+#product-list .ui-button-text {
+      color: #D38D5F;
+          font-size: 0.8em;
+              padding: 0.1em 0.3em 0.1em 3em;
+            }
+#product-list .product-big span {
+  display: none;
+}
+#product-list .product-image-link {
+  position: relative;
+  width: 200px;
+  height: 160px;
   border: 1px solid #BFBFBF;
-/*  background-repeat: no-repeat;
-  background-position: 50% 50%; */
   position: relative; /* work arround msie bug */
   text-align: center;
-  display: table-cell;
   vertical-align: middle;
 }
-#product-list .product-big.no-image {
+#product-list .product-image-link .no-image {
   line-height: 145px;
   text-align: center;
   color: #777;
@@ -3155,9 +3176,6 @@ div#activation_enterprise div {
   -moz-user-select: none;
   -khtml-user-select: none;
   -webkit-user-select: none;
-}
-#product-list .product-big span {
-  display: none;
 }
 #product-list li.product-unavailable {
   text-transform: uppercase;
