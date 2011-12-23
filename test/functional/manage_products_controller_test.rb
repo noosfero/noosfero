@@ -383,9 +383,10 @@ class ManageProductsControllerTest < ActionController::TestCase
   end
 
   should 'not display tabs if description and inputs are empty and user is not allowed' do
-    not_allowed_person = fast_create(Person)
+    create_user('foo')
 
-    login_as not_allowed_person.identifier
+    login_as 'foo'
+
     product = fast_create(Product, :name => 'test product', :enterprise_id => @enterprise.id, :product_category_id => @product_category.id)
     get :show, :id => product.id, :profile => @enterprise.identifier
 
@@ -402,9 +403,9 @@ class ManageProductsControllerTest < ActionController::TestCase
   end
 
   should 'display only description tab if inputs are empty and user is not allowed' do
-    not_allowed_person = fast_create(Person)
+    create_user('foo')
 
-    login_as not_allowed_person.identifier
+    login_as 'foo'
     product = fast_create(Product, :description => 'This product is very good', :enterprise_id => @enterprise.id, :product_category_id => @product_category.id)
     get :show, :id => product.id, :profile => @enterprise.identifier
     assert_tag :tag => 'div', :attributes => { :id => "product-#{product.id}-tabs" }, :descendant => {:tag => 'a', :attributes => {:href => '#product-description'}, :content => 'Description'}
@@ -412,9 +413,9 @@ class ManageProductsControllerTest < ActionController::TestCase
   end
 
   should 'display only inputs tab if description is empty and user is not allowed' do
-    not_allowed_person = fast_create(Person)
+    create_user 'foo'
 
-    login_as not_allowed_person.identifier
+    login_as 'foo'
     product = fast_create(Product, :enterprise_id => @enterprise.id, :product_category_id => @product_category.id)
     input = fast_create(Input, :product_id => product.id, :product_category_id => @product_category.id)
 
@@ -424,9 +425,9 @@ class ManageProductsControllerTest < ActionController::TestCase
   end
 
   should 'display tabs if description and inputs are not empty and user is not allowed' do
-    not_allowed_person = fast_create(Person)
+    create_user('foo')
 
-    login_as not_allowed_person.identifier
+    login_as 'foo'
     product = fast_create(Product, :description => 'This product is very good', :enterprise_id => @enterprise.id, :product_category_id => @product_category.id)
     input = fast_create(Input, :product_id => product.id, :product_category_id => @product_category.id)
 

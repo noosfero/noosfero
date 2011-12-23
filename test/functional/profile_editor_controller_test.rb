@@ -818,7 +818,7 @@ class ProfileEditorControllerTest < ActionController::TestCase
   should 'be able to destroy communities' do
     community = fast_create(Community)
 
-    person = fast_create(Person)
+    person = create_user('foo').person
     community.add_admin(person)
 
     assert_difference Community, :count, -1 do
@@ -828,11 +828,12 @@ class ProfileEditorControllerTest < ActionController::TestCase
 
   should 'not be able to destroy communities if is a regular member' do
     community = fast_create(Community)
+    community.add_admin(fast_create(Person)) # first member is admin by default
 
-    person = fast_create(Person)
-    community.add_admin(person)
+    person = create_user('foo').person
+    community.add_member(person)
 
-    login_as(person.identifier)
+    login_as 'foo'
     assert_difference Community, :count, 0 do
       post :destroy_profile, :profile => community.identifier
     end
@@ -841,7 +842,7 @@ class ProfileEditorControllerTest < ActionController::TestCase
   should 'be able to destroy enterprise' do
     enterprise = fast_create(Enterprise)
 
-    person = fast_create(Person)
+    person = create_user('foo').person
     enterprise.add_admin(person)
 
     assert_difference Enterprise, :count, -1 do
@@ -851,11 +852,12 @@ class ProfileEditorControllerTest < ActionController::TestCase
 
   should 'not be able to destroy enterprise if is a regular member' do
     enterprise = fast_create(Enterprise)
+    enterprise.add_member(fast_create(Person)) # first member is admin by default
 
-    person = fast_create(Person)
-    enterprise.add_admin(person)
+    person = create_user('foo').person
+    enterprise.add_member(person)
 
-    login_as(person.identifier)
+    login_as('foo')
     assert_difference Enterprise, :count, 0 do
       post :destroy_profile, :profile => enterprise.identifier
     end
