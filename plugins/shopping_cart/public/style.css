@@ -1,9 +1,15 @@
 @import url(colorbox/colorbox.css);
 
-.cart-add-item {
-  position: absolute;
-  right: 5px;
-  top: 5px;
+.cart-add-item .ui-icon-cart {
+      background: url("images/button-icon.png") no-repeat scroll left center transparent;
+          width: 22px;
+        }
+         .cart-buy .ui-icon-cart {
+                 background: url("images/button-icon.png") no-repeat scroll left center transparent;
+                           width: 22px;
+                                   }
+.cart-add-item .ui-button-text {
+  padding-left: 2.6em;
 }
 
 .product-item .cart-add-item {
@@ -13,16 +19,15 @@
 .cart {
   position: fixed;
   right: 20px;
-  top: 0px;
+  bottom: 0px;
   width: 200px;
   z-index: 1000;
   border: 1px solid #777;
-  border-top: none;
-  background: rgba(200,200,200,0.6);
+  background: rgba(100,100,100,0.8);
 }
 
 .cart h3 {
-  color: #888;
+  color: #000;
   margin: 0px 0px 0px 5px;
 }
 
@@ -108,7 +113,7 @@
   padding: 0px 5px;
 }
 .cart-toggle:hover {
-  color: #555;
+  color: #fff;
 }
 
 #cart-request-box {
@@ -118,6 +123,15 @@
 #cart-request-form {
   width: 274px;
   float: left;
+}
+
+#cart-request-box .cart-box-close {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  width: 16px;
+  height: 16px;
+  background-repeat: no-repeat;
 }
 
 #cart-form-main {
@@ -171,8 +185,8 @@ label.error {
 
 .controller-profile_editor a.control-panel-shopping-cart-purchase-report {background-image: url(images/control-panel/purchase-report.png)}
 .controller-profile_editor .msie6 a.control-panel-shopping-cart-purchase-report {background-image: url(images/control-panel/purchase-report.gif)}
-.controller-profile_editor a.control-panel-shopping-cart {background-image: url(/images/control-panel/shopping-cart.png)}
-.controller-profile_editor .msie6 a.control-panel-shopping-cart {background-image: url(/images/control-panel/shopping-cart.gif)}
+.controller-profile_editor a.control-panel-shopping-cart-icon {background-image: url(images/control-panel/icon.png)}
+.controller-profile_editor .msie6 a.control-panel-shopping-cart-icon {background-image: url(images/control-panel/icon.gif)}
 
 .action-shopping_cart_plugin_myprofile-reports td.order-info {
   padding: 0px;
