@@ -14,9 +14,9 @@ module FormsHelper
 
   def labelled_check_box( human_name, name, value = "1", checked = false, options = {} )
     options[:id] ||= 'checkbox-' + FormsHelper.next_id_number
-    check_box_tag( name, value, checked, options ) +
-      content_tag( 'label', human_name, :for => options[:id] ) +
-      hidden_field_tag(name, '0')
+    hidden_field_tag(name, '0') +
+      check_box_tag( name, value, checked, options ) +
+      content_tag( 'label', human_name, :for => options[:id] )
   end
 
   def labelled_text_field( human_name, name, value=nil, options={} )
