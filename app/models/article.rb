@@ -2,7 +2,7 @@ require 'hpricot'
 
 class Article < ActiveRecord::Base
 
-  track_actions :create_article, :after_create, :keep_params => [:name, :url, :lead, :id], :if => Proc.new { |a| a.is_trackable? && !a.image? }, :custom_target => :action_tracker_target
+  track_actions :create_article, :after_create, :keep_params => [:name, :url, :lead], :if => Proc.new { |a| a.is_trackable? && !a.image? }
 
   # xss_terminate plugin can't sanitize array fields
   before_save :sanitize_tag_list
@@ -135,7 +135,8 @@ class Article < ActiveRecord::Base
 
   after_update :update_creation_activity
   def update_creation_activity
-    #update article's activity
+    action = ActionTracker::Record.find(:first, :conditions => {:target_type => 'Article', :target_id => self.id})
+    action.touch
   end
 
   # retrieves all articles belonging to the given +profile+ that are not
