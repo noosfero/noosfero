@@ -3,17 +3,14 @@ class ProfileController < PublicController
   needs_profile
   before_filter :check_access_to_profile, :except => [:join, :join_not_logged, :index, :add]
   before_filter :store_location, :only => [:join, :join_not_logged, :report_abuse]
-  before_filter :login_required, :only => [:add, :join, :join_not_logged, :leave, :unblock, :leave_scrap, :remove_scrap, :remove_activity, :view_more_scraps, :view_more_activities, :view_more_network_activities, :report_abuse, :register_report]
+  before_filter :login_required, :only => [:add, :join, :join_not_logged, :leave, :unblock, :leave_scrap, :remove_scrap, :remove_activity, :view_more_scraps, :view_more_activities, :view_more_network_activities, :report_abuse, :register_report, :leave_comment_on_activity]
 
   helper TagsHelper
 
   def index
-    @activities = @profile.tracked_actions.paginate(:per_page => 30, :page => params[:page])
-    @wall_items = []
     @network_activities = !@profile.is_a?(Person) ? @profile.tracked_notifications.paginate(:per_page => 30, :page => params[:page]) : []
     if logged_in? && current_person.follows?(@profile)
       @network_activities = @profile.tracked_notifications.paginate(:per_page => 30, :page => params[:page]) if @network_activities.empty?
-      @wall_items = @profile.scraps_received.not_replies.paginate(:per_page => 30, :page => params[:page])
       @activities = @profile.activities.paginate(:per_page => 30, :page => params[:page])
     end
     @tags = profile.article_tags
@@ -187,7 +184,7 @@ class ProfileController < PublicController
 
   def leave_comment_on_activity
     @comment = Comment.new(params[:comment])
-    @comment.author = user #'if logged_in?
+    @comment.author = user
     @comment.source = ActionTracker::Record.find(params[:comment][:source_id])
     @tab_action = params[:tab_action]
     @message = @comment.save ? _("Comment successfully added.") : _("You can't leave an empty comment.")
@@ -201,7 +198,6 @@ class ProfileController < PublicController
   end
 
   def view_more_activities
-#    @activities = @profile.tracked_actions.paginate(:per_page => 30, :page => params[:page])
     @activities = @profile.activities.paginate(:per_page => 30, :page => params[:page])
     render :partial => 'profile_activities_scraps', :locals => {:activities => @activities}
   end

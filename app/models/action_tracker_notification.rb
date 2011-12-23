@@ -11,4 +11,3 @@ class ActionTrackerNotification < ActiveRecord::Base
 end
 
 ActionTracker::Record.has_many :action_tracker_notifications, :class_name => 'ActionTrackerNotification', :foreign_key => 'action_tracker_id', :dependent => :destroy
-ActionTracker::Record.has_many :comments, :class_name => 'Comment', :foreign_key => 'source_id', :dependent => :destroy, :order => 'created_at asc'

@@ -1169,7 +1169,7 @@ class ProfileControllerTest < ActionController::TestCase
     assert_equal 40, profile.tracked_actions.count
     get :view_more_activities, :profile => profile.identifier, :page => 2
     assert_response :success
-    assert_template '_profile_bla'
+    assert_template '_profile_activities_scraps'
     assert_equal 10, assigns(:activities).count
   end
 
@@ -1287,5 +1287,42 @@ class ProfileControllerTest < ActionController::TestCase
     get :index, :profile => profile.identifier
 
     assert_equivalent [scrap,activity], assigns(:activities).map {|a| a.klass.constantize.find(a.id)}
-  end  
+  end
+
+  should "be logged in to leave comment on an activity" do
+    article = TinyMceArticle.create!(:profile => profile, :name => 'An article about free software')
+    activity = ActionTracker::Record.last
+    count = activity.comments.count
+
+    post :leave_comment_on_activity, :profile => profile.identifier, :comment => {:body => 'something', :source_id => activity.id}
+    assert_equal count, activity.comments.count
+    assert_redirected_to :controller => 'account', :action => 'login'
+  end
+
+  should "leave a comment in own activity" do
+    login_as(profile.identifier)
+    TinyMceArticle.create!(:profile => profile, :name => 'An article about free software')
+    activity = ActionTracker::Record.last
+    count = activity.comments.count
+
+    assert_equal 0, count
+    post :leave_comment_on_activity, :profile => profile.identifier, :comment => {:body => 'something', :source_id => activity.id}
+    assert_equal count + 1, activity.comments.count
+    assert_response :success
+    assert_equal "Comment successfully added.", assigns(:message)
+  end
+
+  should "leave a comment on another profile's activity" do
+    login_as(profile.identifier)
+    another_person = fast_create(Person)
+    TinyMceArticle.create!(:profile => another_person, :name => 'An article about free software')
+    activity = ActionTracker::Record.last
+    count = activity.comments.count
+
+    assert_equal 0, count
+    post :leave_comment_on_activity, :profile => another_person.identifier, :comment => {:body => 'something', :source_id => activity.id}
+    assert_equal count + 1, activity.comments.count
+    assert_response :success
+    assert_equal "Comment successfully added.", assigns(:message)
+  end
 end

@@ -2,7 +2,7 @@ require 'hpricot'
 
 class Article < ActiveRecord::Base
 
-  track_actions :create_article, :after_create, :keep_params => [:name, :url, :lead], :if => Proc.new { |a| a.is_trackable? && !a.image? }, :custom_target => :action_tracker_target
+  track_actions :create_article, :after_create, :keep_params => [:name, :url, :lead, :id], :if => Proc.new { |a| a.is_trackable? && !a.image? }, :custom_target => :action_tracker_target
 
   # xss_terminate plugin can't sanitize array fields
   before_save :sanitize_tag_list
@@ -15,7 +15,7 @@ class Article < ActiveRecord::Base
 
   belongs_to :last_changed_by, :class_name => 'Person', :foreign_key => 'last_changed_by_id'
 
-  has_many :comments, :dependent => :destroy, :order => 'created_at asc', :as => :source
+  has_many :comments, :class_name => 'Comment', :foreign_key => 'source_id', :dependent => :destroy, :order => 'created_at asc'
 
   has_many :article_categorizations, :conditions => [ 'articles_categories.virtual = ?', false ]
   has_many :categories, :through => :article_categorizations
@@ -133,7 +133,10 @@ class Article < ActiveRecord::Base
     article.advertise = true
   end
 
-  after_update do |article|
+  after_update :update_creation_activity
+  def update_creation_activity
+    a = ActionTracker::Record.all.select {|a| a.verb == 'create_article' && a.target == article.profile}
+    a.first.touch
     #update article's activity
   end
 

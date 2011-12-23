@@ -1,10 +1,8 @@
 class Comment < ActiveRecord::Base
 
-#  track_actions :leave_comment, :after_create, :keep_params => ["article.title", "article.url", "title", "url", "body"], :custom_target => :action_tracker_target 
-
   validates_presence_of :body
 
-  belongs_to :source, :foreign_key => :source_id, :counter_cache => true, :polymorphic => true
+  belongs_to :source, :counter_cache => true, :polymorphic => true
   alias :article :source
   alias :article= :source=
 

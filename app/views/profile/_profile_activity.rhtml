@@ -1,6 +1,27 @@
-<div id='profile-activity'>
-  <h3><%= _("%s's activity") % @profile.name %></h3>
-  <ul>
-    <%= render :partial => 'profile_activities_scraps', :locals => {:activities => @activities} %>
+<li class='profile-activity-item <%= activity.verb %>' id='profile-activity-item-<%= activity.id %>'>
+  <%= render :partial => activity.verb, :locals => { :activity => activity }%>
+  <hr />
+
+  <% if logged_in? && current_person.follows?(activity.user) %>
+    <span class='profile-wall-send-reply'><%= link_to_function _('Comment'), "hide_and_show(['#profile-wall-reply-response-#{activity.id}'],['#profile-wall-reply-#{activity.id}', '#profile-wall-reply-form-#{activity.id}']);$('reply_content_#{activity.id}').value='';$('activity_id_#{activity.id}').value='#{activity.id}';return false", :class => "profile-send-reply" %></span>
+  <% end %>
+
+  <ul class="profile-wall-activities-comments" style='padding-left: 50px;width:auto'>
+    <%= render :partial => 'comment', :collection => activity.comments %>
   </ul>
-</div>
+
+  <div id='profile-wall-reply-<%= activity.id%>' style='display:none;width:auto;'>
+    <div id='profile-wall-reply-form-<%= activity.id%>' style='display:none;'>
+      <p class='profile-wall-reply'>
+        <% form_remote_tag :url => {:controller => 'profile', :action => 'leave_comment_on_activity'}, :update => "profile_activities", :success =>"hide_and_show(['#profile-wall-reply-form-#{activity.id}'],['#profile-wall-reply-response-#{activity.id}'])" do %>
+          <%= limited_text_area :comment, :body, 420, "reply_content_#{activity.id}", :cols => 50, :rows => 2 %>
+          <%= hidden_field :comment, :source_id, :id => "activity_id_#{activity.id}" %>
+          <%= submit_button :add, _('Leave a comment') %>
+          <%= button_to_function :cancel, _('Cancel'), "hide_and_show(['#profile-wall-reply-#{activity.id}'],[]);return false" %>
+        <% end %>
+      </p>
+    </div>
+    <div id='profile-wall-message-response-<%=activity.id%>' class='profile-wall-message-response'></div>
+  </div>
+
+</li>

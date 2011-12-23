@@ -74,6 +74,14 @@ class CommentTest < ActiveSupport::TestCase
     assert_equal cc + 1, Article.find(art.id).comments_count
   end
 
+  should 'update counter cache in activity' do
+    action = fast_create(ActionTracker::Record)
+    cc = action.comments_count
+    comment = fast_create(Comment, :source_id => action.id)
+
+    assert_equal cc + 1, ActionTracker::Record.find(action.id).comments_count
+  end
+
   should 'provide author name for authenticated authors' do
     owner = create_user('testuser').person
     assert_equal 'testuser', Comment.new(:author => owner).author_name
@@ -319,4 +327,6 @@ class CommentTest < ActiveSupport::TestCase
     assert c.rejected?
   end
 
+  should 'update article activity when add a comment'
+  should 'update activity when add a comment'
 end
