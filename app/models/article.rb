@@ -135,8 +135,6 @@ class Article < ActiveRecord::Base
 
   after_update :update_creation_activity
   def update_creation_activity
-    a = ActionTracker::Record.all.select {|a| a.verb == 'create_article' && a.target == article.profile}
-    a.first.touch
     #update article's activity
   end
 
