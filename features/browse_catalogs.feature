@@ -66,7 +66,7 @@ Feature: browse catalogs
       | artebonito | categ1   | Produto1 | 0.00 |
     And I am on /catalog/artebonito
     Then I should see "Produto1" within "li.product-link"
-    And I should not see "0.00" 
+    And I should not see "0.00"
     And I should see "No image" within ".no-image"
     And I should not see "product unavailable"
     And I should not see "description"
@@ -150,7 +150,7 @@ Feature: browse catalogs
     And the "product-description" should be visible
 
   @selenium
-  Scenario: hide description 
+  Scenario: hide description
     Given the following products
       | owner      | category | name     | price | description                                           |
       | artebonito | categ1   | Produto3 | 12.34 | A small description for a product that doesn't exist. |
@@ -234,7 +234,7 @@ Feature: browse catalogs
       | name  | plural |
       | Liter | Liters |
     And the following input
-      | product  | category | 
+      | product  | category |
       | Vitamina | food     |
     And I am on /catalog/artebonito
     And I reload and wait for the page

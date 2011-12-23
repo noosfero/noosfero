@@ -13,14 +13,14 @@
         <li class="product-image-link">
           <% if product.image %>
             <div class="zoomable-image">
-	      <%= link_to_product product, :class => 'product-big', :style => "background-image: url(#{product.default_image(:big)})" %>
-	      <a href='<%= product.default_image(:big).gsub('_big','') %>' class="zoomify-image"><span><%= _('Zoom in') %></span></a>
+              <%= link_to_product product, :class => 'product-big', :style => "background-image: url(#{product.default_image(:big)})" %>
+              <%= link_to content_tag(:span, _('Zoom in')), product.default_image(:big).gsub('_big',''), :class => 'zoomify-image' %>
             </div>
           <% else %>
             <div class="no-image"><%= _('No image') %></div>
           <% end %>
-	  <div class="catalog-item-extras"><%= extra_content.join("\n") %></div>
-	</li>
+          <div class="catalog-item-extras"><%= extra_content.join("\n") %></div>
+        </li>
 
         <li class="product-link"><%= link_to_product product %></li>
 
@@ -74,8 +74,10 @@
               <div class="arrow"></div>
               <div class="content" id="inputs-description">
                 <% product.inputs.each do |i| %>
-                  <div><%= "#{i.amount_used} #{i.unit.singular} #{_('of')} " if i.has_all_price_details? %>
-		  <%= "#{i.product_category.name}" %></div>
+                  <div>
+                    <%= _('%{amount_used} %{unit} of') % {:amount_used => i.amount_used, :unit => i.unit.singular} + ' ' if i.has_all_price_details? %>
+                    <%= i.product_category.name %>
+                  </div>
                 <% end %>
               </div>
             </div>
@@ -100,12 +102,4 @@
 
 <%= pagination_links @products, :params => {:controller => :catalog, :action => :index, :profile => profile.identifier} %>
 
-<link href="/stylesheets/fancybox.css?1323903734" media="screen" rel="stylesheet" type="text/css" /><script src="/javascripts/jquery.fancybox-1.3.4.pack.js?1323903734" type="text/javascript"></script><script type="text/javascript">
-//<![CDATA[
-jQuery(function($) {
-        $(window).load( function() {
-          $('.zoomify-image').fancybox();
-        });
-      });
-//]]>
-</script>
+<%= add_zoom_to_images %>

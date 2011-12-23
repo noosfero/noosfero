@@ -12,6 +12,15 @@ $(document).live('click', function() {
   $.each($('#product-list .product .expand-box'), function(index, value) { value.clicked = false; click(value); });
 });
 
+$(document).click(function (event) {
+   if ($(event.target).parents('.expand-box').length == 0) {
+     $('.expand-box').each(function(index, element){
+       $(element).removeClass('open');
+       $(element).children('div').toggle(false);
+     });
+   }
+});
+
 var rows = {};
 $('#product-list .product').each(function (index, element) {
   obj = rows[$(element).offset().top] || {};
@@ -50,11 +59,4 @@ function hover() {
   jQuery(this).toggleClass('hover');
 }
 
-jQuery(document).click(function (event) {
-   if (jQuery(event.target).parents('.expand-box').length == 0) {
-     jQuery('.expand-box').each(function(index, element){
-       jQuery(element).removeClass('open');
-       jQuery(element).children('div').toggle(false);
-     });
-   }
-});
+

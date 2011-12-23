@@ -2994,12 +2994,9 @@ div#activation_enterprise div {
 #product-list .expand-box {
   background-color: #1EB46D;
   margin-bottom: 3px;
-  -moz-border-radius-topleft: 10px;
-  -moz-border-radius-topright: 0px;
-  -moz-border-radius-bottomright: 0px;
-  -moz-border-radius-bottomleft: 10px;
+  -moz-border-radius: 10px 0px 0px 10px;
   -webkit-border-radius: 10px 0px 0px 10px;
-  border-radius: 10px 0px 0px 10px; 
+  border-radius: 10px 0px 0px 10px;
   width: 202px;
 }
 #product-list .expand-box > span {
@@ -3148,10 +3145,10 @@ div#activation_enterprise div {
   margin: 0;
 }
 #product-list .ui-button-text {
-      color: #D38D5F;
-          font-size: 0.8em;
-              padding: 0.1em 0.3em 0.1em 3em;
-            }
+  color: #D38D5F;
+  font-size: 0.8em;
+  padding: 0.1em 0.3em 0.1em 3em;
+}
 #product-list .product-big span {
   display: none;
 }
