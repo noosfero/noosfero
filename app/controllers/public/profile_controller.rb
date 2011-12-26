@@ -185,7 +185,8 @@ class ProfileController < PublicController
   def leave_comment_on_activity
     @comment = Comment.new(params[:comment])
     @comment.author = user
-    @comment.source = ActionTracker::Record.find(params[:comment][:source_id])
+    @activity = ActionTracker::Record.find(params[:comment][:source_id])
+    @comment.source_type, @comment.source_id = (@activity.target_type == 'Article' ? ['Article', @activity.target_id] : [@activity.class.to_s, @activity.id])
     @tab_action = params[:tab_action]
     @message = @comment.save ? _("Comment successfully added.") : _("You can't leave an empty comment.")
     @activities = @profile.activities.paginate(:per_page => 30, :page => params[:page]) if params[:not_load_scraps].nil?
@@ -291,6 +292,16 @@ class ProfileController < PublicController
         }.to_json
       end
     end
+  end
+
+  def remove_comment
+    #FIXME Check whether these permissions are enough
+    @comment = Comment.find(params[:comment_id])
+    if (user == @comment.author || user == profile || user.has_permission?(:moderate_comments, profile))
+      @comment.destroy
+      session[:notice] = _('Comment successfully deleted')
+    end
+    redirect_to :action => :index
   end
 
   protected

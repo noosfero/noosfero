@@ -79,6 +79,12 @@ class Comment < ActiveRecord::Base
     if comment.source.kind_of?(Article) && comment.article.notify_comments? && !comment.article.profile.notification_emails.empty?
       Comment::Notifier.deliver_mail(comment)
     end
+
+    comment.article.activity.increment!(:comments_count) if comment.source.kind_of?(Article) && comment.article.activity
+  end
+
+  after_destroy do |comment|
+    comment.article.activity.decrement!(:comments_count) if comment.source.kind_of?(Article) && comment.article.activity
   end
 
   def replies
