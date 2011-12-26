@@ -1,15 +1,15 @@
 (function($) {
 
-$('#product-list .product .expand-box').hover(hover, hover).live('click', function () {
+$('#product-list .product .expand-box').live('click', function () {
   this.clicked = !this.clicked;
-  click(this);
-  $.each($(this).siblings('.expand-box'), function(index, value) { value.clicked = false; click(value); });
+  toggle_expandbox(this);
+  $.each($(this).siblings('.expand-box'), function(index, value) { value.clicked = false; toggle_expandbox(value); });
 
   return false;
 });
 
 $(document).live('click', function() {
-  $.each($('#product-list .product .expand-box'), function(index, value) { value.clicked = false; click(value); });
+  $.each($('#product-list .product .expand-box'), function(index, value) { value.clicked = false; toggle_expandbox(value); });
 });
 
 $(document).click(function (event) {
@@ -40,23 +40,7 @@ $.each(rows, function(top, obj) {
 
 })(jQuery);
 
-function open() {
-  if (this.clicked) return;
-  jQuery(this).addClass('open');
-}
-
-function close() {
-  if (this.clicked) return;
-  jQuery(this).removeClass('open');
-}
-
-function click(e) {
+function toggle_expandbox(e) {
   jQuery(e).toggleClass('open', e.clicked);
   jQuery(e).children('div').toggle(e.clicked).css({left: jQuery(e).position().left-180, top: jQuery(e).position().top-10});
 }
-
-function hover() {
-  jQuery(this).toggleClass('hover');
-}
-
-
