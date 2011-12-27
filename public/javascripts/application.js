@@ -255,7 +255,7 @@ function toggleSubmenu(trigger, title, link_list) {
       if (!hide) {
         var direction = 'down';
         if (submenu.hasClass('up')) direction = 'up';
-        submenu.show('slide', { 'direction' : direction }, 'slow');
+        jQuery(submenu).fadeIn();
       }
     }
     return false;
@@ -283,18 +283,18 @@ function toggleSubmenu(trigger, title, link_list) {
   content.append(list);
   submenu.append(header).append(content).append(footer);
   jQuery(trigger).before(submenu);
-  submenu.show('slide', { 'direction' : direction }, 'slow');
+  jQuery(submenu).fadeIn();
 }
 
 function toggleMenu(trigger) {
   hideAllSubmenus();
-  jQuery(trigger).siblings('.simplemenu-submenu').toggle('slide', {direction: 'up'}, 'slow').toggleClass('opened');
+  jQuery(trigger).siblings('.simplemenu-submenu').toggle().toggleClass('opened');
 }
 
 function hideAllSubmenus() {
-  jQuery('.menu-submenu.up:visible').hide('slide', { 'direction' : 'up' }, 'slow');
-  jQuery('.simplemenu-submenu:visible').hide('slide', { 'direction' : 'up' }, 'slow').toggleClass('opened');
-  jQuery('.menu-submenu.down:visible').hide('slide', { 'direction' : 'down' }, 'slow');
+  jQuery('.menu-submenu.up:visible').fadeOut('slow');
+  jQuery('.simplemenu-submenu:visible').hide().toggleClass('opened');
+  jQuery('.menu-submenu.down:visible').fadeOut('slow');
   jQuery('#chat-online-users-content').hide();
 }
 
