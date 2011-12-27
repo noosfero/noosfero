@@ -185,7 +185,9 @@ class ProfileController < PublicController
   def leave_comment_on_activity
     @comment = Comment.new(params[:comment])
     @comment.author = user
-    @activity = ActionTracker::Record.find(params[:comment][:source_id])
+    @activity = ActionTracker::Record.find(params[:source_id])
+    #FIXME pq n colocar source direto?
+    #@comment.source = ActionTracker::Record.find(params[:source_id])
     @comment.source_type, @comment.source_id = (@activity.target_type == 'Article' ? ['Article', @activity.target_id] : [@activity.class.to_s, @activity.id])
     @tab_action = params[:tab_action]
     @message = @comment.save ? _("Comment successfully added.") : _("You can't leave an empty comment.")
