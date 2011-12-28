@@ -30,7 +30,7 @@
     <%=
       @plugins.map(:head_ending).collect do |content|
         content.respond_to?(:call) ? content.call : content
-      end.join('\n')
+      end.join("\n")
     %>
   </head>
   <body class="<%=
@@ -45,7 +45,7 @@
     <%=
       @plugins.map(:body_beginning).collect do |content|
         content.respond_to?(:call) ? content.call : content
-      end.join('\n')
+      end.join("\n")
     %>
 
     <div id="wrap-1">
