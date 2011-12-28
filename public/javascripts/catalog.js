@@ -1,6 +1,7 @@
 (function($) {
 
 $('#product-list .product .expand-box').live('click', function () {
+  $('.expand-box').each(function(index, element){ this.clicked = false; click(this); });
   this.clicked = !this.clicked;
   toggle_expandbox(this);
   $.each($(this).siblings('.expand-box'), function(index, value) { value.clicked = false; toggle_expandbox(value); });
