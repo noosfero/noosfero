@@ -127,3 +127,7 @@ When /^I follow "([^\"]*)" and wait for jquery$/ do |link|
   click_link(link)
   selenium.wait_for(:wait_for => :ajax, :javascript_framework => framework)
 end
+
+When /^I leave the "([^\"]+)" field$/ do |field|
+   selenium.fire_event("css=#{field}", "blur")
+end

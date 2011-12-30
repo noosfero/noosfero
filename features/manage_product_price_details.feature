@@ -1,4 +1,3 @@
-
 Feature: manage product price details
   As an enterprise owner
   I want to manage the details of product's price
@@ -28,39 +27,33 @@ Feature: manage product price details
     And the following production cost
       | name  | owner       |
       | Taxes | environment |
+    And I am logged in as "joaosilva"
 
   @selenium
   Scenario: list total value of inputs as price details
-    Given I am logged in as "joaosilva"
-    When I go to Rede Moinho's page of product Abbey Road
+    Given I go to Rede Moinho's page of product Abbey Road
+    And I follow "Price composition"
     And I follow "Describe here the cost of production"
     Then I should see "Inputs"
     And I should see "60.0" within ".inputs-cost"
 
   @selenium
-  Scenario: cancel management of price details
-    Given I am logged in as "joaosilva"
-    When I go to Rede Moinho's page of product Abbey Road
-    And I follow "Describe here the cost of production"
-    When I follow "Cancel"
-    Then I should see "Describe here the cost of production"
-
-  @selenium
   Scenario: return to product after save
-    Given I am logged in as "joaosilva"
-    When I go to Rede Moinho's page of product Abbey Road
+    Given I go to Rede Moinho's page of product Abbey Road
+    And I follow "Price composition"
     And I follow "Describe here the cost of production"
     And I press "Save"
     Then I should be on Rede Moinho's page of product Abbey Road
 
   @selenium
   Scenario: add first item on price details
-    Given I am logged in as "joaosilva"
-    When I go to Rede Moinho's page of product Abbey Road
+    Given I go to Rede Moinho's page of product Abbey Road
+    And I follow "Price composition"
     And I follow "Describe here the cost of production"
     And I follow "New cost"
     And I select "Taxes"
     And I fill in "$" with "5.00"
+    And I leave the ".price-details-price" field
     And I press "Save"
     Then I should not see "Save"
     And I should see "Describe here the cost of production"
@@ -70,17 +63,19 @@ Feature: manage product price details
     Given the following production cost
       | name  | owner       |
       | Energy | environment |
-    Given I am logged in as "joaosilva"
     When I go to Rede Moinho's page of product Abbey Road
+    And I follow "Price composition"
     And I follow "Describe here the cost of production"
     And I follow "New cost"
     And I select "Taxes"
     And I fill in "$" with "20.00"
+    And I leave the ".price-details-price" field
     And I press "Save"
     Then I should not see "Save"
     And I should see "Taxes" within "#display-price-details"
     When I follow "Describe here the cost of production"
     And I select "Energy"
+    And I leave the ".price-details-price" field
     And I press "Save"
     And I should not see "Taxes" within "#display-price-details"
     And I should see "Energy" within "#display-price-details"
@@ -94,16 +89,18 @@ Feature: manage product price details
       | mariasouza | Maria Souza |
     And I am logged in as "mariasouza"
     When I go to Rede Moinho's page of product Yellow Submarine
+    And I follow "Price composition"
     Then I should not see "Describe here the cost of production"
 
   Scenario: not display price details if price is not fully described
-    Given I go to Rede Moinho's page of product Abbey Road
+    Given I am not logged in
+    And I go to Rede Moinho's page of product Abbey Road
     Then I should not see "60.0"
 
    @selenium
    Scenario: display price details if price is fully described
-     Given I am logged in as "joaosilva"
-     And I go to Rede Moinho's page of product Abbey Road
+     Given I go to Rede Moinho's page of product Abbey Road
+     And I follow "Price composition"
      And I follow "Describe here the cost of production"
      And I follow "New cost"
      And I select "Taxes"
@@ -114,19 +111,22 @@ Feature: manage product price details
 
   @selenium
   Scenario: create a new cost clicking on select
-    Given I am logged in as "joaosilva"
-    And I go to Rede Moinho's page of product Abbey Road
+    Given I go to Rede Moinho's page of product Abbey Road
+    And I follow "Price composition"
     And I follow "Describe here the cost of production"
+    And I follow "New cost"
     And I want to add "Energy" as cost
     And I select "Other cost"
+    And I fill in "$" with "10.00"
+    And I leave the ".price-details-price" field
     And I press "Save"
     When I follow "Describe here the cost of production"
     Then I should see "Energy" within ".production-cost-selection"
 
   @selenium
   Scenario: add created cost on new-cost-fields
-    Given I am logged in as "joaosilva"
-    And I go to Rede Moinho's page of product Abbey Road
+    Given I go to Rede Moinho's page of product Abbey Road
+    And I follow "Price composition"
     And I follow "Describe here the cost of production"
     And I want to add "Energy" as cost
     And I select "Other cost"
@@ -137,8 +137,8 @@ Feature: manage product price details
     Given the following price detail
       | product    | production_cost | price |
       | Abbey Road | Taxes           | 20.0  |
-    And I am logged in as "joaosilva"
     And I go to Rede Moinho's page of product Abbey Road
+    And I follow "Price composition"
     And I follow "Describe here the cost of production"
     And I should see "Taxes" within "#manage-product-details-form"
     When I follow "Remove" within "#manage-product-details-form"
@@ -146,3 +146,33 @@ Feature: manage product price details
     And I press "Save"
     And I follow "Describe here the cost of production"
     Then I should not see "Taxes" within "#manage-product-details-form"
+
+  Scenario: display progressbar
+    Given I go to Rede Moinho's page of product Abbey Road
+    And I follow "Price composition"
+    And I follow "Describe here the cost of production"
+    Then I should see "$ 60.00 of $ 80.00" within "#progressbar-text"
+
+  @selenium
+  Scenario: update value on progressbar after addition of new cost
+    Given I go to Rede Moinho's page of product Abbey Road
+    And I follow "Price composition"
+    And I follow "Describe here the cost of production"
+    Then I should see "$ 60.00 of $ 80.00" within "#progressbar-text"
+    And I follow "New cost"
+    And I fill in "$" with "10.00"
+    And I leave the ".price-details-price" field
+    Then I should see "$ 70.00 of $ 80.00" within "#progressbar-text"
+
+  @selenium
+  Scenario: update value on progressbar after editing an input
+    Given I go to Rede Moinho's page of product Abbey Road
+    And I follow "Price composition"
+    And I follow "Describe here the cost of production"
+    Then I should see "$ 60.00 of $ 80.00" within "#progressbar-text"
+    When I follow "Inputs"
+    And I follow "Edit" within ".input-details"
+    And I fill in "Price" with "23.31"
+    And I press "Save"
+    Then I follow "Price composition"
+    And I should see "$ 86.62 of $ 80.00" within "#progressbar-text"
