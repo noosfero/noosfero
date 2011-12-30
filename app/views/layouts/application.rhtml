@@ -27,11 +27,8 @@
     <%# Add custom tags/styles/etc via content_for %>
     <%= yield :head %>
     <%= javascript_tag('render_all_jquery_ui_widgets()') %>
-    <script type="text/javascript">
-       jQuery(".numbers-only").keypress(function(event) {
-          return numbersonly(event, '<%= environment.currency_separator %>')
-       });
-    </script>
+
+    <%= render :partial => 'shared/numbers_only_javascript' %>
   </head>
 
   <body class='noosfero category<%= category_color %><%=

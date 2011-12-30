@@ -1,5 +1,9 @@
 <% form_for(@input, :url => {:controller => 'manage_products', :action => 'edit_input', :id => @input},
             :html => {:method => 'post', :id => "edit-input-#{ @input.id }-form"}) do |f| %>
+
+  <%= hidden_field_tag 'input-bar-update-url', @input.product.price_composition_bar_display_url, :class => 'bar-update-url' %>
+  <%= hidden_field_tag 'inputs-cost-update-url', @input.product.inputs_cost_update_url %>
+
   <table>
     <tr>
       <td><%= f.label :amount_used, label_amount_used(@input), :class => 'formlabel' %></td>

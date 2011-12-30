@@ -55,4 +55,8 @@ class Input < ActiveRecord::Base
     true
   end
 
+  def cost
+    return 0 if self.amount_used.blank? || self.price_per_unit.blank?
+    self.amount_used * self.price_per_unit
+  end
 end

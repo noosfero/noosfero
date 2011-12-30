@@ -1,0 +1,22 @@
+<% javascript_tag do %>
+  var value = <%= @product.price_description_percentage %>
+  var total_cost = <%= @product.total_production_cost %>
+  var price = <%= @product.price %>
+  var described = false;
+  if (<%= @product.price_described? %>) {
+    var described = true;
+  }
+  priceCompositionBar(value,described,total_cost,price);
+<% end %>
+
+<div id="price-details-info">
+  <div id="details-progressbar">
+    <div id='progressbar'></div>
+    <div id='progressbar-text'>
+      <%= price_composition_progressbar_text(@product) %>
+    </div>
+  </div>
+  <div id='progressbar-icon' class='ui-icon ui-icon-info'></div>
+  <span id='price-not-described-message' style='display:none'><%= _("The production cost of your product is not described yet. If you want to display the price composition, please add all the costs") %></span>
+  <span id='price-described-message' style='display:none'><%= _("The production cost of your product is fully described and will be displayed on your product's page") %></span>
+</div>
