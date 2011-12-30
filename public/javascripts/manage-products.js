@@ -75,11 +75,16 @@
 
 function updatePriceCompositionBar(form) {
   bar_url = jQuery(form).find('.bar-update-url').val();
-  jQuery.get(bar_url, function(data){
-    jQuery("#price-composition-bar").html(data);
-    jQuery('form #product_price').val(currencyToFloat(jQuery('#progressbar-text .product_price').html(), currency_format.separator, currency_format.delimiter));
-    jQuery('form #product_inputs_cost').val(currencyToFloat(jQuery('#display-product-price-details .inputs-cost span').html(), currency_format.separator, currency_format.delimiter, currency_format.unit));
-    calculateValuesForBar();
+  jQuery.ajax({
+    url : bar_url,
+    success : function(data) {
+      jQuery("#price-composition-bar").html(data);
+    },
+    complete : function() {
+      jQuery('form #product_price').val(currencyToFloat(jQuery('#progressbar-text .product_price').html(), currency_format.separator, currency_format.delimiter));
+      jQuery('form #product_inputs_cost').val(currencyToFloat(jQuery('#display-product-price-details .inputs-cost span').html(), currency_format.separator, currency_format.delimiter, currency_format.unit));
+      calculateValuesForBar();
+    }
   });
 };
 
