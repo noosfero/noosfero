@@ -93,7 +93,7 @@ function calculateValuesForBar() {
   var total_cost = parseFloat(jQuery('form #product_inputs_cost').val());
 
   jQuery('form .price-details-price').each(function() {
-    var this_val = parseFloat(jQuery(this).val()) || 0;
+    var this_val = parseFloat(jQuery(this).val().replace(currency_format.separator, '.')) || 0;
     total_cost = total_cost + this_val;
   });
   enablePriceDetailSubmit();
