@@ -62,6 +62,12 @@
                     <%= price_span i.cost, :class => 'search-product-input-price' %>
                   </div>
                 <% end %>
+                <% product.price_details.each do |i| %>
+                  <div class="search-product-input-dots-to-price">
+                    <div class="search-product-input-name"><%= i.production_cost.name %></div>
+                    <%= price_span i.price, :class => 'search-product-input-price' %>
+                  </div>
+                <% end %>
               </div>
             </div>
           </li>
