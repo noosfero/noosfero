@@ -32,7 +32,7 @@
        $("#manage-product-details-button").show();
      });
      if ($('#progressbar-icon').hasClass('ui-icon-check')) {
-       display_notice($('#price-described-notice').show());
+       display_notice($('#progressbar-icon').attr('data-price-described-notice'));
      }
      return false;
   });
@@ -55,11 +55,11 @@
 
   $("form.edit_input").live('submit', function(data) {
     var form = this;
-    updatePriceCompositionBar(form);
     inputs_cost_update_url = $(form).find('#inputs-cost-update-url').val();
     $.get(inputs_cost_update_url, function(data){
       $(".inputs-cost span").html(data);
     });
+    updatePriceCompositionBar(form);
     return false;
   });
 
@@ -71,17 +71,17 @@
     $("#display-manage-price-details").html('');
   };
 
-  function updatePriceCompositionBar(form) {
-    bar_url = $(form).find('.bar-update-url').val();
-    $.get(bar_url, function(data){
-      $("#price-composition-bar").html(data);
-      $('form #product_price').val(currencyToFloat($('#progressbar-text .product_price').html(), currency_format.separator, currency_format.delimiter));
-      $('form #product_inputs_cost').val(currencyToFloat($('#display-product-price-details .inputs-cost span').html(), currency_format.separator, currency_format.delimiter, currency_format.unit));
-      calculateValuesForBar();
-    });
-  };
-
 })(jQuery);
+
+function updatePriceCompositionBar(form) {
+  bar_url = jQuery(form).find('.bar-update-url').val();
+  jQuery.get(bar_url, function(data){
+    jQuery("#price-composition-bar").html(data);
+    jQuery('form #product_price').val(currencyToFloat(jQuery('#progressbar-text .product_price').html(), currency_format.separator, currency_format.delimiter));
+    jQuery('form #product_inputs_cost').val(currencyToFloat(jQuery('#display-product-price-details .inputs-cost span').html(), currency_format.separator, currency_format.delimiter, currency_format.unit));
+    calculateValuesForBar();
+  });
+};
 
 function enablePriceDetailSubmit() {
   jQuery('#manage-product-details-form input.submit').removeAttr("disabled").removeClass('disabled');
@@ -125,7 +125,7 @@ function floatToCurrency(value, sep, del, cur) {
 
 function currencyToFloat(value, sep, del, cur) {
   var val = value;
-  if (cur) val.replace(cur + ' ', '');
+  if (cur) val = val.replace(cur + ' ', '');
   if (!sep) sep = '.';
   if (!del) del = ',';
   return parseFloat(val.replace(del, '').replace(sep, '.'));
@@ -166,11 +166,11 @@ function priceCompositionBar(value, described, total_cost, price) {
     $(bar_area).find('.product_price').html(floatToCurrency(price, currency_format.separator, currency_format.delimiter));
     if (described) {
       $(bar_area).find('#progressbar-icon').addClass('ui-icon-check');
-      $(bar_area).find('#progressbar-icon').attr('title', $('#price-described-message').html());
+      $(bar_area).find('#progressbar-icon').attr('title', $('#progressbar-icon').attr('data-price-described-message'));
       $(bar_area).find('div.ui-progressbar-value').addClass('price-described');
     } else {
       $(bar_area).find('#progressbar-icon').removeClass('ui-icon-check');
-      $(bar_area).find('#progressbar-icon').attr('title', $('#price-not-described-message').html());
+      $(bar_area).find('#progressbar-icon').attr('title', $('#progressbar-icon').attr('data-price-not-described-message'));
       $(bar_area).find('div.ui-progressbar-value').removeClass('price-described');
 
     }

@@ -138,7 +138,7 @@ class ManageProductsController < ApplicationController
 
   def display_inputs_cost
     @product = @profile.products.find(params[:id])
-    render :partial => 'inputs_cost'
+    render :inline => "<%= float_to_currency(@product.inputs_cost) %>"
   end
 
   def destroy

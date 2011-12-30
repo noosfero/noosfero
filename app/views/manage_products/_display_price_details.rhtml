@@ -5,7 +5,7 @@
     <li>
       <div class='price-detail-name'><%= _('Inputs:') %></div>
       <div class='price-detail-price inputs-cost'>
-        <%= render :partial => 'inputs_cost' %>
+        <span><%= float_to_currency(@product.inputs_cost) %></span>
       </div>
     </li>
     <% @product.price_details.each do |price_detail| %>

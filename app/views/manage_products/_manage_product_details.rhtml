@@ -7,8 +7,12 @@
     <table id='display-product-price-details'>
       <tr>
         <td><%= _('Inputs') %></td>
-        <td class='inputs-cost'><%= float_to_currency(@product.inputs_cost) %></td>
-        <td><small><%= _('This value is composed by the total value of registered inputs') %></small></td>
+        <td class='inputs-cost'>
+          <span><%= float_to_currency(@product.inputs_cost) %></span>
+        </td>
+        <td>
+          <small><%= _('This value is composed by the total value of registered inputs') %></small>
+        </td>
       </tr>
       <%= render :partial => 'edit_price_details', :locals => {:price_details => @product.price_details} %>
     </table>
