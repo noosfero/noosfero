@@ -1,8 +1,9 @@
 <% javascript_tag do %>
-  var value = <%= @product.price_description_percentage %>
-  var total_cost = <%= @product.total_production_cost %>
-  var price = <%= @product.price %>
+  var value = <%= @product.price_description_percentage %>;
+  var total_cost = <%= @product.total_production_cost %>;
+  var price = '<%= @product.formatted_value(:price) %>';
   var described = false;
+  var currency_format = { separator : '<%= environment.currency_separator %>', delimiter : '<%= environment.currency_delimiter %>', unit : '<%= environment.currency_unit %>' };
   if (<%= @product.price_described? %>) {
     var described = true;
   }

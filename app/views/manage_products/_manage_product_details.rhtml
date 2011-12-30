@@ -30,8 +30,10 @@
   <table id='new-cost-fields'>
     <tr>
       <td><%= select_production_cost(@product) %></td>
-      <td><%= labelled_form_field(environment.currency_unit, text_field_tag('price_details[][price]', nil, :class => 'price-details-price')) %></td>
+      <td><%= labelled_form_field(environment.currency_unit, text_field_tag('price_details[][price]', nil, :class => 'numbers-only price-details-price')) %></td>
       <td><%= link_to(_('Cancel'), '#', {:class => 'cancel-new-cost'}) %></td>
     </tr>
   </table>
 </div>
+
+<%= render :partial => 'shared/numbers_only_javascript' %>

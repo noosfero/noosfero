@@ -277,9 +277,9 @@ module ManageProductsHelper
     prompt_msg = _('Insert the name of the new cost:')
     error_msg = _('Something went wrong. Please, try again')
     select_tag('price_details[][production_cost_id]',
+               '<option value="" disabled="disabled">' + _('Select...') + '</option>' +
                options_for_select(product.available_production_costs.map {|item| [truncate(item.name, 10, '...'), item.id]} + [[_('Other cost'), '']], selected),
-               {:include_blank => _('Select the cost'),
-                :class => 'production-cost-selection',
+               {:class => 'production-cost-selection',
                 :onchange => "productionCostTypeChange(this, '#{url}', '#{prompt_msg}', '#{error_msg}')"})
   end
 
@@ -288,6 +288,6 @@ module ManageProductsHelper
     production_cost = args[:production_cost_value] || product.formatted_value(:total_production_cost)
     product_price = args[:product_price] || product.formatted_value(:price)
 
-    _("%{currency} %{production_cost} of %{currency} %{product_price}") % {:currency => currency, :production_cost => content_tag('span', production_cost, :class => '.production_cost'), :product_price => content_tag('span', product_price, :class => 'product_price')}
+    _("%{currency} %{production_cost} of %{currency} %{product_price}") % {:currency => currency, :production_cost => content_tag('span', production_cost, :class => 'production_cost'), :product_price => content_tag('span', product_price, :class => 'product_price')}
   end
 end
