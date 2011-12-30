@@ -145,11 +145,6 @@ class Product < ActiveRecord::Base
     false
   end
 
-  # FIXME this will check the validity of price composition with inputs and other costs
-  def is_open_price?
-    false
-  end
-
   def has_basic_info?
     %w[unit price discount].each do |field|
       return true if !self.send(field).blank?

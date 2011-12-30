@@ -50,7 +50,7 @@
           </li>
         <% end %>
 
-        <% if product.is_open_price? %>
+        <% if product.price_described? %>
           <li class="product-price-composition expand-box">
             <span id="product-price-composition-button"><%= _('price composition') %></span>
             <div>

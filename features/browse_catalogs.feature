@@ -159,7 +159,7 @@ Feature: browse catalogs
     When I click "product-description-button"
     Then I should see "A small description" within "#product-description"
     And the "product-description" should be visible
-    When I click "product-description-button"
+    When I click "product-list"
     Then the "product-description" should not be visible
 
   Scenario: display unavailable product
@@ -190,40 +190,51 @@ Feature: browse catalogs
     And I should see "Organic" within "span.search-product-qualifier"
     And I should not see "price composition"
 
-#FIXME: this will only be available after AI1413
-#  @selenium
-#  Scenario: display price composition button (but not inputs)
-#    Given the following product
-#      | owner      | category | name     | price |
-#      | artebonito | food     | Bananada | 10.00 |
-#    And the following input
-#      | product  | category | price_per_unit | amount_used |
-#      | Bananada | food     | 0.99           | 5           |
-#    And I am on /catalog/artebonito
-#    And I reload and wait for the page
-#    Then I should see "Bananada" within "li.product-link"
-#    And I should see "10.00" within "span.product-price"
-#    And I should see "price composition" within "#product-price-composition-button"
-#    And the "#product-price-composition-button" should be visible
-#    And I should see "food" within "#product-price-composition"
-#    And I should see "4.95" within "#product-price-composition"
-#    And the "#product-price-composition" should not be visible
+  @selenium
+  Scenario: not display price composition button if price is not described
+    Given the following product
+      | owner      | category | name     | price |
+      | artebonito | food     | Bananada | 10.00 |
+    And the following input
+      | product  | category | price_per_unit | amount_used |
+      | Bananada | food     | 0.99           | 5           |
+    And I am on /catalog/artebonito
+    And I reload and wait for the page
+    Then I should see "Bananada" within "li.product-link"
+    And I should see "10.00" within "span.product-price"
+    And the "#product-price-composition-button" should not be visible
 
-#FIXME: this will only be available after AI1413
-#  @selenium
-#  Scenario: display price composition when button is clicked
-#    Given the following product
-#      | owner      | category | name     | price |
-#      | artebonito | food     | Bananada | 10.00 |
-#    And the following input
-#      | product  | category | price_per_unit | amount_used |
-#      | Bananada | food     | 0.99           | 5           |
-#    And I am on /catalog/artebonito
-#    And I reload and wait for the page
-#    When I click "#product-price-composition-button"
-#    Then the "#product-price-composition" should be visible
-#    And I should see "food" within "#product-price-composition"
-#    And I should see "4.95" within "#product-price-composition"
+  @selenium
+  Scenario: display price composition button (but not inputs)
+    Given the following product
+      | owner      | category | name     | price |
+      | artebonito | food     | Bananada | 10.00 |
+    And the following input
+      | product  | category | price_per_unit | amount_used |
+      | Bananada | food     | 2.00           | 5           |
+    And I am on /catalog/artebonito
+    And I reload and wait for the page
+    Then I should see "Bananada" within "li.product-link"
+    And I should see "10.00" within "span.product-price"
+    And I should see "price composition" within "#product-price-composition-button"
+    And the "#product-price-composition-button" should be visible
+    And I should see "food" within "#product-price-composition"
+    And I should see "10.00" within "#product-price-composition"
+
+  @selenium
+  Scenario: display price composition when button is clicked
+    Given the following product
+      | owner      | category | name     | price |
+      | artebonito | food     | Bananada | 10.88 |
+    And the following input
+      | product  | category | price_per_unit | amount_used |
+      | Bananada | food     | 2.72           | 4           |
+    And I am on /catalog/artebonito
+    And I reload and wait for the page
+    When I click "#product-price-composition-button"
+    Then the "#product-price-composition" should be visible
+    And I should see "food" within "#product-price-composition"
+    And I should see "10.88" within "#product-price-composition"
 
   @selenium
   Scenario: display inputs and raw materials button when not completely filled
@@ -294,5 +305,5 @@ Feature: browse catalogs
     When I click "#inputs-button"
     Then the "#inputs-description" should be visible
     And I should see "7.0 Liter of food" within "#inputs-description"
-    When I click "#inputs-button"
+    When I click "#product-list"
     Then the "#inputs-description" should not be visible
