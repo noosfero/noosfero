@@ -341,5 +341,41 @@ class CommunityTest < ActiveSupport::TestCase
     assert_equal false, community.receives_scrap_notification?
   end
 
-  should 'return tracked_actions and scraps as activities'
+  should 'return scraps as activities' do
+    person = fast_create(Person)
+    community = fast_create(Community)
+
+    scrap = Scrap.create!(defaults_for_scrap(:sender => person, :receiver => community, :content => 'A scrap'))
+    activity = ActionTracker::Record.last
+
+    assert_equal 'An article about free software', activity.get_name.last
+    assert_equal [scrap,activity], person.activities.map { |a| a.klass.constantize.find(a.id) }
+  end
+
+  should 'return tracked_actions as activities' do
+    person = fast_create(Person)
+    another_person = fast_create(Person)
+
+    scrap = Scrap.create!(defaults_for_scrap(:sender => another_person, :receiver => person, :content => 'A scrap'))
+    UserStampSweeper.any_instance.expects(:current_user).returns(person).at_least_once
+    TinyMceArticle.create!(:profile => person, :name => 'An article about free software')
+    activity = ActionTracker::Record.last
+
+    assert_equal 'An article about free software', activity.get_name.last
+    assert_equal [scrap,activity], person.activities.map { |a| a.klass.constantize.find(a.id) }
+  end
+
+  should 'return articles published on communities as activities' do
+    person = fast_create(Person)
+    another_person = fast_create(Person)
+
+    scrap = Scrap.create!(defaults_for_scrap(:sender => another_person, :receiver => person, :content => 'A scrap'))
+    UserStampSweeper.any_instance.expects(:current_user).returns(person).at_least_once
+    TinyMceArticle.create!(:profile => person, :name => 'An article about free software')
+    activity = ActionTracker::Record.last
+
+    assert_equal 'An article about free software', activity.get_name.last
+    assert_equal [scrap,activity], person.activities.map { |a| a.klass.constantize.find(a.id) }
+  end
+
 end
