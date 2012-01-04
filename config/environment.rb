@@ -64,7 +64,7 @@ Rails::Initializer.run do |config|
     makemo
   ]
   unless $PROGRAM_NAME =~ /rake$/ && (ignore_rake_commands.include?(ARGV.first))
-    config.active_record.observers = :article_sweeper, :role_assignment_sweeper, :friendship_sweeper, :category_sweeper
+    config.active_record.observers = :article_sweeper, :role_assignment_sweeper, :friendship_sweeper, :category_sweeper, :block_sweeper
   end
   # Make Active Record use UTC-base instead of local time
   # config.active_record.default_timezone = :utc
