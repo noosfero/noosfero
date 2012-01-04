@@ -12,18 +12,13 @@ class EnterpriseHomepage < Article
     profile.nil? ? _('Homepage') : profile.name
   end
 
-  # FIXME isn't this too much including just to be able to generate some HTML?
-  include ActionView::Helpers::TagHelper
-  include ActionView::Helpers::UrlHelper
-  include ActionController::UrlWriter
-  include ActionView::Helpers::AssetTagHelper
-  include EnterpriseHomepageHelper
-  include CatalogHelper
-
-  def to_html(options ={})
-    products = self.profile.products
-    display_profile_info(self.profile) + content_tag('div', self.body || '') +
-    (self.profile.environment.enabled?('disable_products_for_enterprises') ? '' : display_products_list(self.profile, products))
+  def to_html(options = {})
+    enterprise_homepage = self
+    lambda do
+      extend EnterpriseHomepageHelper
+      @products = profile.products.paginate(:order => 'id asc', :per_page => 9, :page => 1)
+      render :partial => 'content_viewer/enterprise_homepage', :object => enterprise_homepage
+    end
   end
 
   def can_display_hits?

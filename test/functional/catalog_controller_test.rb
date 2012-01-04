@@ -46,7 +46,7 @@ class CatalogControllerTest < ActionController::TestCase
 
     assert_equal 12, @enterprise.products.count
     get :index, :profile => @enterprise.identifier
-    assert_equal 10, assigns(:products).count
+    assert_equal 9, assigns(:products).count
     assert_tag :a, :attributes => {:class => 'next_page'}
   end
 
@@ -63,21 +63,13 @@ class CatalogControllerTest < ActionController::TestCase
   should 'not show product price when listing products if not informed' do
     prod = @enterprise.products.create!(:name => 'Product test', :product_category => @product_category)
     get :index, :profile => @enterprise.identifier
-    assert_no_tag :tag => 'li', :attributes => { :class => 'product_price' }, :content => /Price:/
+    assert_no_tag :tag => 'span', :attributes => { :class => 'product-price with-discount' }, :content => /50.00/
   end
 
   should 'show product price when listing products if informed' do
     prod = @enterprise.products.create!(:name => 'Product test', :price => 50.00, :product_category => @product_category)
     get :index, :profile => @enterprise.identifier
-    assert_tag :tag => 'li', :attributes => { :class => 'product_price' }, :content => /Price:/
-  end
-
-  should 'link to assets products wiht product category in the link to product category on index' do
-    pc = ProductCategory.create!(:name => 'some product', :environment => enterprise.environment)
-    prod = enterprise.products.create!(:name => 'Product test', :price => 50.00, :product_category => pc)
-
-    get :index, :profile => enterprise.identifier
-    assert_tag :tag => 'a', :attributes => {:href => /assets\/products\?product_category=#{pc.id}/}
+    assert_tag :tag => 'span', :attributes => { :class => 'product-price with-discount' }, :content => /50.00/
   end
 
   should 'add an zero width space every 4 caracters of comment urls' do

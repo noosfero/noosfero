@@ -19,6 +19,7 @@ end
 When /^I visit "([^\"]*)" and wait$/ do |page_name|
   visit path_to(page_name)
   selenium.wait_for_page_to_load(10000)
+#  selenium.wait_for_page
 end
 
 When /^I press "([^\"]*)"$/ do |button|

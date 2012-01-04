@@ -150,8 +150,16 @@ Given /^the following products?$/ do |table|
     data = item.dup
     owner = Enterprise[data.delete("owner")]
     category = Category.find_by_slug(data.delete("category").to_slug)
-    img = Image.create!(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
-    product = Product.create!(data.merge(:enterprise => owner, :product_category => category, :image_id => img.id))
+    data.merge!(:enterprise => owner, :product_category => category)
+    if data[:img]
+      img = Image.create!(:uploaded_data => fixture_file_upload('/files/'+data.delete("img")+'.png', 'image/png'))
+      data.merge!(:image_id => img.id)
+    end
+    if data[:qualifier]
+      qualifier = Qualifier.find_by_name(data.delete("qualifier"))
+      data.merge!(:qualifiers => [qualifier])
+    end
+    product = Product.create!(data)
   end
 end
 
@@ -211,6 +219,22 @@ Given /^the following certifiers$/ do |table|
       row["qualifiers"] = qualifiers_list.split(', ').map{|i| Qualifier.find_by_name(i)}
     end
     Certifier.create!(row.merge(:environment_id => 1))
+  end
+end
+
+Given /^the following production costs?$/ do |table|
+  table.hashes.map{|item| item.dup}.each do |item|
+    owner_type = item.delete('owner')
+    owner = owner_type == 'environment' ? Environment.default : Profile[owner_type]
+    ProductionCost.create!(item.merge(:owner => owner))
+  end
+end
+
+Given /^the following price details?$/ do |table|
+  table.hashes.map{|item| item.dup}.each do |item|
+    product = Product.find_by_name item.delete('product')
+    production_cost = ProductionCost.find_by_name item.delete('production_cost')
+    product.price_details.create!(item.merge(:production_cost => production_cost))
   end
 end
 
@@ -492,4 +516,33 @@ end
 
 When 'I log off' do
   visit '/account/logout'
+end
+
+Then /^I should be taken to "([^\"]*)" product page$/ do |product_name|
+  product = Product.find_by_name(product_name)
+  path = url_for(product.enterprise.public_profile_url.merge(:controller => 'manage_products', :action => 'show', :id => product, :only_path => true))
+  if response.class.to_s == 'Webrat::SeleniumResponse'
+    URI.parse(response.selenium.get_location).path.should == path_to(path)
+  else
+    URI.parse(current_url).path.should == path_to(path)
+  end
+end
+
+When /^I reload and wait for the page$/ do
+  response.selenium.refresh
+  selenium.wait_for_page
+end
+
+Given /^the following enterprise homepages?$/ do |table|
+  # table is a Cucumber::Ast::Table
+  table.hashes.each do |item|
+    data = item.dup
+    home = EnterpriseHomepage.new(:name => data[:name])
+    ent = Enterprise.find_by_identifier(data[:enterprise])
+    ent.articles << home
+  end
+end
+
+And /^I want to add "([^\"]*)" as cost$/ do |string|
+  selenium.answer_on_next_prompt(string)
 end

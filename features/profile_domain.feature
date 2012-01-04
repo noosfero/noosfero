@@ -1,4 +1,5 @@
 Feature: domain for profile
+
   As a user
   I want access a profile by its own domain
 

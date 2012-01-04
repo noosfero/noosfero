@@ -77,6 +77,7 @@ class HighlightsBlockTest < ActiveSupport::TestCase
     file = mock()
     UploadedFile.expects(:find).with(1).returns(file)
     file.expects(:public_filename).returns('address')
+    UploadedFile.expects(:find).with(0).returns(nil)
     block = HighlightsBlock.new(:images => [{:image_id => 1, :address => '/address', :position => 1, :title => 'address'}, {:image_id => '', :address => 'some', :position => '2', :title => 'Some'}])
     block.save!
     block.reload
@@ -115,6 +116,12 @@ class HighlightsBlockTest < ActiveSupport::TestCase
     f3 = mock()
     f3.expects(:public_filename).returns('address')
     UploadedFile.expects(:find).with(3).returns(f3)
+    f4 = mock()
+    f4.expects(:public_filename).returns('address')
+    UploadedFile.expects(:find).with(4).returns(f4)
+    f5 = mock()
+    f5.expects(:public_filename).returns('address')
+    UploadedFile.expects(:find).with(5).returns(f5)
     block = HighlightsBlock.new
     i1 = {:image_id => 1, :address => '/address', :position => 3, :title => 'address'}
     i2 = {:image_id => 2, :address => '/address', :position => 1, :title => 'address'}

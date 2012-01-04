@@ -446,4 +446,8 @@ class EnterpriseTest < ActiveSupport::TestCase
     assert_equal false, enterprise.receives_scrap_notification?
   end
 
+  should 'have production cost' do
+    e = fast_create(Enterprise)
+    assert_respond_to e, :production_costs
+  end
 end

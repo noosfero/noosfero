@@ -625,13 +625,18 @@ class ApplicationHelperTest < ActiveSupport::TestCase
     env = Environment.default
     env.stubs(:enabled?).with(:show_zoom_button_on_article_images).returns(false)
     stubs(:environment).returns(env)
-    assert_nil add_zoom_to_images
+    assert_nil add_zoom_to_article_images
   end
 
   should 'return code when :show_zoom_button_on_article_images is enabled in environment' do
     env = Environment.default
     env.stubs(:enabled?).with(:show_zoom_button_on_article_images).returns(true)
     stubs(:environment).returns(env)
+    assert_not_nil add_zoom_to_article_images
+  end
+
+  should 'return code when add_zoom_to_images' do
+    env = Environment.default
     assert_not_nil add_zoom_to_images
   end
 

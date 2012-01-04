@@ -1200,4 +1200,7 @@ class EnvironmentTest < ActiveSupport::TestCase
     assert_not_includes environment.enabled_plugins, plugin
   end
 
+  should 'have production costs' do
+    assert_respond_to Environment.default, :production_costs
+  end
 end

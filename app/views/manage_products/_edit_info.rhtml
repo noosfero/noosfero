@@ -49,15 +49,12 @@
     <%= hidden_field_tag "product[qualifiers_list]" %>
   <% end %>
 
+  <%= hidden_field_tag 'info-bar-update-url', @product.price_composition_bar_display_url, :class => 'bar-update-url' %>
+
   <% button_bar do %>
     <%= submit_button :save, _('Save') %>
     <%= cancel_edit_product_link(@product, 'info') %>
   <% end %>
 <% end %>
 
-<% javascript_tag do %>
-  jQuery(".numbers-only").keypress(function(event) {
-    var separator = "<%= environment.currency_separator %>"
-    return numbersonly(event, separator)
-  });
-<% end %>
+<%= render :partial => 'shared/numbers_only_javascript' %>
