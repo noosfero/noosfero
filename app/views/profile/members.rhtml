@@ -2,7 +2,7 @@
 
 <h1><%= _("%s's members") % profile.name %></h1>
 
-<% cache_timeout(profile.members_cache_key(params), 4.hours.from_now) do %>
+<% cache_timeout(profile.members_cache_key(params), 4.hours) do %>
   <ul class='profile-list'>
     <% @members.each do |member| %>
       <%= profile_image_link(member) %>

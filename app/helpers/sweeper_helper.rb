@@ -4,9 +4,7 @@ module SweeperHelper
     ActionController::Base.new().expire_fragment(*args)
   end
 
-  def expire_timeout_fragment(*args)
-    ActionController::Base.new().expire_timeout_fragment(*args)
-  end
+  alias :expire_timeout_fragment :expire_fragment
 
   def expire_friends(profile)
     # public friends page

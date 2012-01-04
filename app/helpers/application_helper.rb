@@ -1310,4 +1310,8 @@ module ApplicationHelper
       ) + content_tag('span', ' | ', :class => 'comment-footer comment-footer-hide')
     end
   end
+
+  def cache_timeout(key, timeout, &block)
+    cache(key, { :expires_in => timeout }, &block)
+  end
 end
