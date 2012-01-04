@@ -1,12 +1,10 @@
 class NotifyActivityToProfilesJob < Struct.new(:tracked_action_id)
   NOTIFY_ONLY_COMMUNITY = [
     'add_member_in_community',
-    'remove_member_in_community',
   ]
 
   NOT_NOTIFY_COMMUNITY = [
     'join_community',
-    'leave_community',
   ]
   def perform
     return unless ActionTracker::Record.exists?(tracked_action_id)

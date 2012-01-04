@@ -274,22 +274,19 @@ class CommunityTest < ActiveSupport::TestCase
     end
   end
 
-  should "be created an tracked action to the community when an community's article is commented" do
+  should "update the action of article creation when an community's article is commented" do
     ActionTrackerNotification.delete_all
     p1 = Person.first
     community = fast_create(Community)
     p2 = fast_create(Person)
     p3 = fast_create(Person)
     community.add_member(p3)
-    article = fast_create(Article, :profile_id => community.id)
-    ActionTracker::Record.destroy_all
-    assert_difference(ActionTrackerNotification, :count, 3) do
-      Comment.create!(:article_id => article.id, :title => 'some', :body => 'some', :author_id => p2.id)
-      process_delayed_job_queue
-    end
-    ActionTrackerNotification.all.map{|a|a.profile}.map do |profile|
-      assert [community,p1,p3].include?(profile)
-    end
+    article = create(TextileArticle, :profile_id => community.id)
+    time = article.activity.updated_at
+    Time.stubs(:now).returns(time + 1.day)
+    Comment.create!(:source_id => article.id, :title => 'some', :body => 'some', :author_id => p2.id)
+    process_delayed_job_queue
+    assert_equal time, article.activity.updated_at
   end
 
   should "see get all received scraps" do
@@ -348,34 +345,28 @@ class CommunityTest < ActiveSupport::TestCase
     scrap = Scrap.create!(defaults_for_scrap(:sender => person, :receiver => community, :content => 'A scrap'))
     activity = ActionTracker::Record.last
 
-    assert_equal 'An article about free software', activity.get_name.last
-    assert_equal [scrap,activity], person.activities.map { |a| a.klass.constantize.find(a.id) }
+    assert_equal [scrap], community.activities.map { |a| a.klass.constantize.find(a.id) }
   end
 
-  should 'return tracked_actions as activities' do
+  should 'return tracked_actions of community as activities' do
     person = fast_create(Person)
-    another_person = fast_create(Person)
+    community = fast_create(Community)
 
-    scrap = Scrap.create!(defaults_for_scrap(:sender => another_person, :receiver => person, :content => 'A scrap'))
     UserStampSweeper.any_instance.expects(:current_user).returns(person).at_least_once
-    TinyMceArticle.create!(:profile => person, :name => 'An article about free software')
-    activity = ActionTracker::Record.last
+    article = create(TinyMceArticle, :profile => community, :name => 'An article about free software')
 
-    assert_equal 'An article about free software', activity.get_name.last
-    assert_equal [scrap,activity], person.activities.map { |a| a.klass.constantize.find(a.id) }
+    assert_equal [article.activity], community.activities.map { |a| a.klass.constantize.find(a.id) }
   end
 
-  should 'return articles published on communities as activities' do
+  should 'not return tracked_actions of other community as activities' do
     person = fast_create(Person)
-    another_person = fast_create(Person)
+    community = fast_create(Community)
+    community2 = fast_create(Community)
 
-    scrap = Scrap.create!(defaults_for_scrap(:sender => another_person, :receiver => person, :content => 'A scrap'))
     UserStampSweeper.any_instance.expects(:current_user).returns(person).at_least_once
-    TinyMceArticle.create!(:profile => person, :name => 'An article about free software')
-    activity = ActionTracker::Record.last
+    article = create(TinyMceArticle, :profile => community2, :name => 'Another article about free software')
 
-    assert_equal 'An article about free software', activity.get_name.last
-    assert_equal [scrap,activity], person.activities.map { |a| a.klass.constantize.find(a.id) }
+    assert_not_includes community.activities.map { |a| a.klass.constantize.find(a.id) }, article.activity
   end
 
 end
