@@ -4,8 +4,7 @@
   <div class="comment-content comment-logged-in">
 
   <% if Person.find(comment.author_id) %>
-    <%= link_to image_tag(profile_icon(Person.find(comment.author_id), :minor)) +
-                content_tag('span', Person.find(comment.author_id).name, :class => 'comment-info'),
+    <%= link_to image_tag(profile_icon(Person.find(comment.author_id), :minor)),
         Person.find(comment.author_id).url,
         :class => 'comment-picture',
         :title => Person.find(comment.author_id).name
@@ -13,10 +12,8 @@
   <% end %>
 
   <div class="comment-details">
-    <h4><%= comment.title %></h4>
     <div class="comment-text">
-      <p/>
-      <%= txt2html comment.body %>
+      <%= link_to(Person.find(comment.author_id).name, Person.find(comment.author_id).url) %><br /><%= txt2html comment.body %>
     </div>
     <div class="profile-activity-time">
       <%= time_ago_as_sentence(comment.created_at) %>

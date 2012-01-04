@@ -2,10 +2,6 @@
   <%= render :partial => activity.verb, :locals => { :activity => activity }%>
   <hr />
 
-  <% if logged_in? && current_person.follows?(activity.user) %>
-    <span class='profile-wall-send-reply'><%= link_to_function _('Comment'), "hide_and_show(['#profile-wall-reply-response-#{activity.id}'],['#profile-wall-reply-#{activity.id}', '#profile-wall-reply-form-#{activity.id}']);$('reply_content_#{activity.id}').value='';$('reply_content_#{activity.id}').focus();$('activity_id_#{activity.id}').value='#{activity.id}';return false", :class => "profile-send-reply" %></span>
-  <% end %>
-
   <ul class="profile-wall-activities-comments" style='padding-left: 50px;width:auto'>
     <%= render :partial => 'comment', :collection => activity.comments %>
   </ul>

@@ -2,7 +2,7 @@ require 'hpricot'
 
 class Article < ActiveRecord::Base
 
-  track_actions :create_article, :after_create, :keep_params => [:name, :url, :lead], :if => Proc.new { |a| a.is_trackable? && !a.image? }
+  track_actions :create_article, :after_create, :keep_params => [:name, :url, :lead, :first_image], :if => Proc.new { |a| a.is_trackable? && !a.image? }
 
   # xss_terminate plugin can't sanitize array fields
   before_save :sanitize_tag_list
@@ -564,6 +564,11 @@ class Article < ActiveRecord::Base
 
   def activity
     ActionTracker::Record.find_by_target_type_and_target_id 'Article', self.id
+  end
+
+  def first_image
+    img = Hpricot(self.lead.to_s).search('img[@src]').first || Hpricot(self.body.to_s).search('img').first
+    img.nil? ? '' : img.attributes['src']
   end
 
   private

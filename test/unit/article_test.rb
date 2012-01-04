@@ -1584,4 +1584,20 @@ assert_equal 'bla', profile.articles.map(&:comments_count)
     assert_includes Article.created_between(from, to), article2
     assert_not_includes Article.created_between(from, to), article3
   end
+
+  should 'get first image from lead' do
+    a = fast_create(Article, :body => '<p>Foo</p><p><img src="bar.png" />Bar<img src="foo.png" /></p>',
+                             :abstract => '<p>Lead</p><p><img src="leadbar.png" />Bar<img src="leadfoo.png" /></p>')
+    assert_equal 'leadbar.png', a.first_image
+  end
+
+  should 'get first image from body' do
+    a = fast_create(Article, :body => '<p>Foo</p><p><img src="bar.png" />Bar<img src="foo.png" /></p>')
+    assert_equal 'bar.png', a.first_image
+  end
+
+  should 'not get first image from anywhere' do
+    a = fast_create(Article, :body => '<p>Foo</p><p>Bar</p>')
+    assert_equal '', a.first_image
+  end
 end
