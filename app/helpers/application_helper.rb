@@ -1316,4 +1316,9 @@ module ApplicationHelper
   def cache_timeout(key, timeout, &block)
     cache(key, { :expires_in => timeout }, &block)
   end
+
+  def is_cache_expired?(key)
+    !cache_store.fetch(ActiveSupport::Cache.expand_cache_key(key, :controller))
+  end
+
 end
