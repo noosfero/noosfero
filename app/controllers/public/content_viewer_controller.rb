@@ -6,7 +6,6 @@ class ContentViewerController < ApplicationController
   helper TagsHelper
 
   def view_page
-    plugins_prepend_view_paths
     path = params[:page].join('/')
 
     if path.blank?
@@ -150,13 +149,6 @@ class ContentViewerController < ApplicationController
           end
         end
       end
-    end
-  end
-  
-  # FIXME duplicated
-  def plugins_prepend_view_paths
-    @plugins.map(:view_path).each do |view_path|
-      prepend_view_path(view_path)
     end
   end
 

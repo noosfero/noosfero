@@ -12,10 +12,6 @@ class MezuroPlugin < Noosfero::Plugin
     MezuroPlugin::ProjectContent
   end
 
-  def view_path
-    File.join(RAILS_ROOT, "plugins", "mezuro", "views")
-  end
-
   def stylesheet?
     true
   end
