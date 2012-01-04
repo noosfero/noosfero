@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../../../../test/test_helper'
 
-class GoogleAnalyticsPluginTest < Test::Unit::TestCase
+class GoogleAnalyticsPluginTest < ActiveSupport::TestCase
 
   def setup
     @plugin = GoogleAnalyticsPlugin.new
