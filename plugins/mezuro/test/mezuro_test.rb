@@ -4,8 +4,8 @@ require File.dirname(__FILE__) + '/../controllers/mezuro_plugin_myprofile_contro
 class MezuroTest < ActiveSupport::TestCase
 
   should 'create a mezuro project' do
-		controller = MezuroPluginMyprofileController.new
-		controller.create
+    controller = MezuroPluginMyprofileController.new
+    controller.create
   end
 
 end
