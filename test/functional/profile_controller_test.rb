@@ -39,6 +39,7 @@ class ProfileControllerTest < ActionController::TestCase
   end
 
   should 'not point to manage friends of other users' do
+    create_user('ze')
     login_as('ze')
     get :friends
     assert_no_tag :tag => 'a', :attributes => { :href => '/myprofile/testuser/friends' }
