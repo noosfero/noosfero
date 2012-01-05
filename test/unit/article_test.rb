@@ -1600,4 +1600,9 @@ assert_equal 'bla', profile.articles.map(&:comments_count)
     a = fast_create(Article, :body => '<p>Foo</p><p>Bar</p>')
     assert_equal '', a.first_image
   end
+
+  should 'store first image in tracked action' do
+    a = TinyMceArticle.create! :name => 'Tracked Article', :body => '<p>Foo<img src="foo.png" />Bar</p>', :profile_id => profile.id
+    assert_equal 'foo.png', ActionTracker::Record.last.get_first_image
+  end
 end

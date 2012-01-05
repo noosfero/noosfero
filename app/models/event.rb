@@ -120,6 +120,10 @@ class Event < Article
     true
   end
 
+  def notifiable?
+    true
+  end
+
   include Noosfero::TranslatableContent
   include MaybeAddHttp
 

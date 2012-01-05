@@ -330,4 +330,11 @@ class UploadedFileTest < ActiveSupport::TestCase
     assert_equal 'hello_world.php.txt', file.filename
   end
 
+  should 'use the gallery as the parent for action tracker' do
+    p = fast_create(Gallery, :profile_id => @profile.id)
+    f = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :parent => p, :profile => @profile)
+    ta = ActionTracker::Record.last(:conditions => { :verb => "upload_image" })
+    assert_equal f.parent, ta.target
+  end
+
 end

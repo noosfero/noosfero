@@ -5911,6 +5911,65 @@ h1#agenda-title {
   color: #808080;
 }
 
+#profile-wall li.profile-activity-item.upload_image span,
+#profile-wall li.profile-activity-item.upload_image span img,
+#profile-wall li.profile-activity-item.upload_image span a {
+  width: 98px;
+  height: 86px;
+  display: block;
+  overflow: hidden;
+  position: absolute;
+}
+
+#profile-wall li.profile-activity-item.upload_image span {
+  position: relative;
+  float: left;
+  margin: 5px 5px 5px 0;
+}
+
+#profile-wall li.profile-activity-item.upload_image span a {
+  background: transparent url(/images/gallery-image-activity-border.png) center center no-repeat;
+  text-indent: -5000em;
+}
+
+#profile-wall li.profile-activity-item.upload_image .article-comment span,
+#profile-wall li.profile-activity-item.upload_image .profile-wall-actions span {
+  display: inline;
+  position: static;
+  margin: 0;
+  float: none;
+  width: auto;
+  height: auto;
+}
+
+#profile-wall li.profile-activity-item ul.profile-wall-activities-comments {
+  margin-top: 0;
+}
+
+#profile-wall li.profile-activity-item.upload_image .profile-activity-text {
+  padding-left: 50px;
+}
+
+#profile-wall li.profile-activity-item.join_community .profile-activity-text a img,
+#profile-wall li.profile-activity-item.new_friendship .profile-activity-text a img {
+  margin: 5px 5px 0 0;
+  padding: 1px;
+  border: 1px solid #ccc;
+}
+
+#profile-wall li.profile-activity-item.create_article {
+  position: relative;
+}
+
+.profile-activity-icon {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}
+
 #profile-activity .profile-wall-scrap-replies li,
 #profile-network .profile-wall-scrap-replies li,
 #profile-wall .profile-wall-scrap-replies li {

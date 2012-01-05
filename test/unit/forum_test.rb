@@ -110,4 +110,17 @@ class ForumTest < ActiveSupport::TestCase
     assert !folder.accept_uploads?
   end
 
+  should 'be notifiable' do
+    assert Forum.new.notifiable?
+  end
+
+  should 'get first paragraph' do
+    f = fast_create(Forum, :body => '<p>First</p><p>Second</p>')
+    assert_equal '<p>First</p>', f.first_paragraph
+  end
+
+  should 'not get first paragraph' do
+    f = fast_create(Forum, :body => 'Nothing to do here')
+    assert_equal '', f.first_paragraph
+  end
 end
