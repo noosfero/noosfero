@@ -147,7 +147,7 @@ class TinyMceArticleTest < ActiveSupport::TestCase
   should 'update activity on update of an article' do
     ActionTracker::Record.delete_all
     profile = fast_create(Profile)
-    article = create(TextileArticle, :profile_id => profile.id)
+    article = create(TinyMceArticle, :profile_id => profile.id)
     time = article.activity.updated_at
     Time.stubs(:now).returns(time + 1.day)
     assert_no_difference ActionTracker::Record, :count do

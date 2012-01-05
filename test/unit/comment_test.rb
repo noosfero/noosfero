@@ -74,11 +74,13 @@ class CommentTest < ActiveSupport::TestCase
     assert_equal cc + 1, Article.find(art.id).comments_count
   end
 
-  should 'update counter cache in activity' do
-    action = fast_create(ActionTracker::Record)
-    cc = action.comments_count
-    comment = fast_create(Comment, :source_id => action.id)
+  should 'update counter cache in article activity' do
+    owner = create_user('testuser').person
+    article = create(TextileArticle, :profile_id => owner.id)
 
+    action = article.activity
+    cc = action.comments_count
+    comment = create(Comment, :source => action, :author_id => owner.id)
     assert_equal cc + 1, ActionTracker::Record.find(action.id).comments_count
   end
 

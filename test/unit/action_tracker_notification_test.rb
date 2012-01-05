@@ -77,11 +77,27 @@ class ActionTrackerNotificationTest < ActiveSupport::TestCase
   end
 
   should "have comments through action_tracker" do
-    action = fast_create(ActionTracker::Record)
-    notification = fast_create(ActionTrackerNotification, :action_tracker_id => action.id, :profile_id => 1)
+    person = fast_create(Person)
+    community = fast_create(Community)
+    community.add_member(person)
+    activity = ActionTracker::Record.last
+    process_delayed_job_queue
+    notification = ActionTrackerNotification.last
 
-    comment = fast_create(Comment, :source_id => action.id)
-    assert_equal action.comments, notification.comments
+    comment = create(Comment, :source => activity, :author => person)
+
+    assert_equal activity.comments, notification.comments
+  end
+
+  should "have comments through article action_tracker" do
+    person = fast_create(Person)
+    article = create(TextileArticle, :profile_id => person.id)
+    process_delayed_job_queue
+    notification = ActionTrackerNotification.last
+
+    comment = create(Comment, :source => article, :author => person)
+
+    assert_equal article.activity.comments, notification.comments
   end
 
 end

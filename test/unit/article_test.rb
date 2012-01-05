@@ -934,64 +934,29 @@ class ArticleTest < ActiveSupport::TestCase
   end
 
   should 'track action when a published article is created outside a community' do
-    article = TinyMceArticle.create! :name => 'Tracked Article', :profile_id => profile.id
-    assert article.published?
-    assert_kind_of Person, article.profile
-    ta = ActionTracker::Record.last
-    assert_equal 'Tracked Article', ta.get_name.last
-    assert_equal article.url, ta.get_url.last
-    assert_kind_of Person, ta.user
-    ta.created_at = Time.now.ago(26.hours); ta.save!
-    article = TinyMceArticle.create! :name => 'Another Tracked Article', :profile_id => profile.id
-    ta = ActionTracker::Record.last
-    assert_equal ['Another Tracked Article'], ta.get_name
-    assert_equal [article.url], ta.get_url
+    article = create(TinyMceArticle, :profile_id => profile.id)
+    ta = article.activity
+    assert_equal article.name, ta.get_name
+    assert_equal article.url, ta.get_url
   end
 
   should 'track action when a published article is created in a community' do
     community = fast_create(Community)
-    p1 = ActionTracker::Record.current_user_from_model 
+    p1 = fast_create(Person)
     p2 = fast_create(Person)
     p3 = fast_create(Person)
     community.add_member(p1)
     community.add_member(p2)
-    assert p1.is_member_of?(community)
-    assert p2.is_member_of?(community)
-    assert !p3.is_member_of?(community)
     Article.destroy_all
     ActionTracker::Record.destroy_all
-    article = TinyMceArticle.create! :name => 'Tracked Article', :profile_id => community.id
-    assert article.published?
-    assert_kind_of Community, article.profile
-    ta = ActionTracker::Record.last
-    assert_equal 'Tracked Article', ta.get_name.last
-    assert_equal article.url, ta.get_url.last
-    assert_kind_of Person, ta.user
+    UserStampSweeper.any_instance.expects(:current_user).returns(p1).at_least_once
+    article = create(TinyMceArticle, :profile_id => community.id)
+
     process_delayed_job_queue
-    assert_equal 3, ActionTrackerNotification.count
+    assert_equal 3, ActionTrackerNotification.all
     ActionTrackerNotification.all.map{|a|a.profile}.map do |profile|
       assert [p1,p2,community].include?(profile)
     end
-  end
-
-  should 'track action when a published article is updated' do
-    a = TinyMceArticle.create! :name => 'a', :profile_id => profile.id
-    a.update_attributes! :name => 'b'
-    ta = ActionTracker::Record.last
-    assert_equal ['b'], ta.get_name
-    assert_equal [a.reload.url], ta.get_url
-    a.update_attributes! :name => 'c'
-    ta = ActionTracker::Record.last
-    assert_equal ['b','c'], ta.get_name
-    assert_equal [a.url,a.reload.url], ta.get_url
-    a.update_attributes! :body => 'test'
-    ta = ActionTracker::Record.last
-    assert_equal ['b','c','c'], ta.get_name
-    assert_equal [a.url,a.reload.url,a.reload.url], ta.get_url
-    a.update_attributes! :hits => 50
-    ta = ActionTracker::Record.last
-    assert_equal ['b','c','c'], ta.get_name
-    assert_equal [a.url,a.reload.url,a.reload.url], ta.get_url
   end
 
   should 'track action when a published article is removed' do
@@ -1022,13 +987,13 @@ class ArticleTest < ActiveSupport::TestCase
 
   should 'update action when comment is created' do
     article = create(TinyMceArticle, :profile => profile)
-    action = ActionTracker::Record.last
+    action = article.activity
     time = action.updated_at
 
     Time.stubs(:now).returns(time + 1.day)
 
-    article.comments << Comment.create(:name => 'Guest', :email => 'guest@example.com', :title => 'test comment', :body => 'hello!')
-    assert_not_equal time, ActionTracker::Record.last.updated_at
+    comment = create(Comment, :source => article, :author => profile)
+    assert_equal time + 1.day, article.activity.updated_at
   end
 
   should 'notifiable is false by default' do
@@ -1162,36 +1127,17 @@ class ArticleTest < ActiveSupport::TestCase
     assert_equal 6, ActionTrackerNotification.count
   end
 
-  should 'not create more than one notification track action to friends when update more than one artile' do
-    p1 = Person.first || fast_create(Person)
+  should 'create notifications to friends when creating an article' do
     friend = fast_create(Person)
-    p1.add_friend(friend)
+    profile.add_friend(friend)
     Article.destroy_all
     ActionTracker::Record.destroy_all
     ActionTrackerNotification.destroy_all
-    article = TinyMceArticle.create! :name => 'Tracked Article 1', :profile_id => p1.id
-    assert article.published?
-    assert_kind_of Person, article.profile
-    assert_equal 1, ActionTracker::Record.count
-    ta = ActionTracker::Record.last
-    assert_equal 'Tracked Article 1', ta.get_name.last
-    assert_equal article.url, ta.get_url.last
-    assert p1, ta.user
-    assert p1, ta.target
-    process_delayed_job_queue
-    assert_equal 2, ActionTrackerNotification.count
+    UserStampSweeper.any_instance.expects(:current_user).returns(profile).at_least_once
+    article = create(TinyMceArticle, :profile_id => profile.id)
 
-    article = TinyMceArticle.create! :name => 'Tracked Article 2', :profile_id => p1.id
-    assert article.published?
-    assert_kind_of Person, article.profile
-    assert_equal 1, ActionTracker::Record.count
-    ta = ActionTracker::Record.last
-    assert_equal 'Tracked Article 2', ta.get_name.last
-    assert_equal article.url, ta.get_url.last
-    assert_equal p1, ta.user
-    assert_equal p1, ta.target
     process_delayed_job_queue
-    assert_equal 2, ActionTrackerNotification.count
+    assert_equal friend, ActionTrackerNotification.last.profile
   end
 
   should 'create the notification to the friend when one friend has the notification and the other no' do
@@ -1582,7 +1528,7 @@ class ArticleTest < ActiveSupport::TestCase
   should 'survive to a invalid src attribute while looking for images in body' do
     article = Article.new(:body => "An article with invalid src in img tag <img src='path with spaces.png' />", :profile => @profile)
     assert_nothing_raised URI::InvalidURIError do
-      assert_equal ['http://localhost/path%20with%20spaces.png'], article.body_images_paths
+      assert_equal ["http://#{profile.environment.default_hostname}/path%20with%20spaces.png"], article.body_images_paths
     end
   end
 
