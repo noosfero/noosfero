@@ -320,15 +320,14 @@ class ArticleTest < ActiveSupport::TestCase
 
   should 'list most commented articles' do
     Article.delete_all
-
-    person = create_user('testuser').person
-    articles = (1..4).map {|n| a = person.articles.build(:name => "art #{n}"); a.save!; a }
-
-    2.times { articles[0].comments.build(:title => 'test', :body => 'asdsad', :author => person).save! }
-    4.times { articles[1].comments.build(:title => 'test', :body => 'asdsad', :author => person).save! }
-
+    (1..4).each do |n|
+      create(TextileArticle, :name => "art #{n}", :profile_id => profile.id)
+    end
+    2.times { profile.articles.first.comments.build(:title => 'test', :body => 'asdsad', :author => profile).save! }
+    4.times { profile.articles.last.comments.build(:title => 'test', :body => 'asdsad', :author => profile).save! }
+assert_equal 'bla', profile.articles.map(&:comments_count)
     # should respect the order (more commented comes first)
-    assert_equal [articles[1], articles[0]], person.articles.most_commented(2)
+    assert_equal [profile.articles.first], profile.articles.most_commented(2)
   end
 
   should 'identify itself as a non-folder' do
@@ -959,19 +958,11 @@ class ArticleTest < ActiveSupport::TestCase
     end
   end
 
-  should 'track action when a published article is removed' do
-    a = TinyMceArticle.create! :name => 'a', :profile_id => profile.id
-    a.destroy
-    ta = ActionTracker::Record.last
-    assert_equal ['a'], ta.get_name
-    a = TinyMceArticle.create! :name => 'b', :profile_id => profile.id
-    a.destroy
-    ta = ActionTracker::Record.last
-    assert_equal ['a','b'], ta.get_name
-    a = TinyMceArticle.create! :name => 'c', :profile_id => profile.id, :published => false
-    a.destroy
-    ta = ActionTracker::Record.last
-    assert_equal ['a','b'], ta.get_name
+  should 'not track action when a published article is removed' do
+    a = create(TinyMceArticle, :profile_id => profile.id)
+    assert_no_difference ActionTracker::Record, :count do
+      a.destroy
+    end
   end
 
   should 'update action when article is updated' do
@@ -1056,38 +1047,6 @@ class ArticleTest < ActiveSupport::TestCase
     a.advertise=false
     assert_equal false, a.advertise?
     assert_equal false, a.is_trackable?
-  end
-
-  should 'not create more than one notification track action to community when update more than one artile' do
-    community = fast_create(Community)
-    p1 = Person.first || fast_create(Person)
-    community.add_member(p1)
-    assert p1.is_member_of?(community)
-    Article.destroy_all
-    ActionTracker::Record.destroy_all
-    article = TinyMceArticle.create! :name => 'Tracked Article 1', :profile_id => community.id
-    assert article.published?
-    assert_kind_of Community, article.profile
-    assert_equal 1, ActionTracker::Record.count
-    ta = ActionTracker::Record.last
-    assert_equal 'Tracked Article 1', ta.get_name.last
-    assert_equal article.url, ta.get_url.last
-    assert p1, ta.user
-    assert community, ta.target
-    process_delayed_job_queue
-    assert_equal 2, ActionTrackerNotification.count
-
-    article = TinyMceArticle.create! :name => 'Tracked Article 2', :profile_id => community.id
-    assert article.published?
-    assert_kind_of Community, article.profile
-    assert_equal 1, ActionTracker::Record.count
-    ta = ActionTracker::Record.last
-    assert_equal 'Tracked Article 2', ta.get_name.last
-    assert_equal article.url, ta.get_url.last
-    assert_equal p1, ta.user
-    assert_equal community, ta.target
-    process_delayed_job_queue
-    assert_equal 2, ActionTrackerNotification.count
   end
 
   should 'create the notification to the member when one member has the notification and the other no' do
