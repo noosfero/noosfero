@@ -38,11 +38,9 @@
     <div id='profile-wall-reply-form-<%= scrap.id%>' style='display:none;'>
       <p class='profile-wall-reply'>
         <% form_remote_tag :url => {:controller => 'profile', :action => 'leave_scrap'}, :update => "profile_activities", :success =>"hide_and_show(['#profile-wall-reply-form-#{scrap.id}'],['#profile-wall-reply-response-#{scrap.id}'])" do %>
-          <%= limited_text_area :scrap, :content, 420, "reply_content_#{scrap.id}", :cols => 50, :rows => 2 %>
+          <%= text_area :scrap, :content, { :id => "reply_content_#{scrap.id}", :cols => 50, :rows => 2, :class => 'submit-with-keypress' } %>
           <%= hidden_field :scrap, :scrap_id, :id => "scrap_id_#{scrap.id}" %>
           <%= hidden_field_tag 'receiver_id', scrap.sender.id %>
-          <%= submit_button :add, _('Leave a scrap') %>
-          <%= button_to_function :cancel, _('Cancel'), "hide_and_show(['#profile-wall-reply-#{scrap.id}'],[]);return false" %>
         <% end %>
       </p>
     </div>
