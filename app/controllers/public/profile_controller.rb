@@ -179,7 +179,7 @@ class ProfileController < PublicController
     @tab_action = params[:tab_action]
     @message = @scrap.save ? _("Message successfully sent.") : _("You can't leave an empty message.")
     @activities = @profile.activities.paginate(:per_page => 30, :page => params[:page]) if params[:not_load_scraps].nil?
-    render :partial => 'leave_scrap'
+    render :partial => 'profile_activities_list'
   end
 
   def leave_comment_on_activity
@@ -192,7 +192,7 @@ class ProfileController < PublicController
     @tab_action = params[:tab_action]
     @message = @comment.save ? _("Comment successfully added.") : _("You can't leave an empty comment.")
     @activities = @profile.activities.paginate(:per_page => 30, :page => params[:page]) if params[:not_load_scraps].nil?
-    render :partial => 'leave_comment_on_activity'
+    render :partial => 'profile_activities_list'
   end
 
   def view_more_scraps
