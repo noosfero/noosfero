@@ -3,7 +3,7 @@
   <%= flash[:error] %>
   <% form_remote_tag :url => {:controller => 'profile', :action => 'leave_scrap', :tab_action => 'wall' }, :update => 'profile_activities', :success => "$('leave_scrap_content').value=''" do %>
     <%= limited_text_area :scrap, :content, 420, 'leave_scrap_content', :cols => 50, :rows => 2 %>
-    <%= submit_button :scrap, _('Leave a scrap') %>
+    <%= submit_button :scrap, _('Share') %>
   <% end %>
 </div>
 <div id='leave_scrap_response'></div>

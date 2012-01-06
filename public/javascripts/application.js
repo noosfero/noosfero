@@ -725,7 +725,7 @@ jQuery(function($){
            },
            success: function(data) {
              $('#profile_activities').html(data);
-             $('.submit-with-keypress').val('');
+             $(field).val($(field).attr('title'));
            }
        });
        return false;

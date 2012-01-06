@@ -6,19 +6,18 @@
 
     <% tabs = plugins_tabs.select { |tab| tab[:start] } %>
 
-    <% if logged_in? && current_person.follows?(@profile) %>
-      <% tabs << {:title => _('Wall'), :id => 'profile-wall', :content => (render :partial => 'profile_wall')} %>
-    <% end %>
-
     <% if @profile.organization? %>
-      <% tabs << {:title => _('What\'s new'), :id => 'profile-network', :content => (render :partial => 'profile_network')} %>
       <% tabs << {:title => _('Profile'), :id => 'organization-profile', :content => (render :partial => 'organization_profile')} %>
-    <% elsif @profile.person? %>
       <% if logged_in? && current_person.follows?(@profile) %>
+        <% tabs << {:title => _('Wall'), :id => 'profile-wall', :content => (render :partial => 'profile_wall')} %>
+      <% end %>
+      <% tabs << {:title => _('What\'s new'), :id => 'profile-network', :content => (render :partial => 'profile_network')} %>
+    <% elsif @profile.person? %>
+      <% tabs << {:title => _('Profile'), :id => 'person-profile', :content => (render :partial => 'person_profile')} %>
+      <% if logged_in? && current_person.follows?(@profile) %>
+        <% tabs << {:title => _('Wall'), :id => 'profile-wall', :content => (render :partial => 'profile_wall')} %>
         <% tabs << {:title => _('Network'), :id => 'profile-network', :content => (render :partial => 'profile_network')} %>
       <% end %>
-
-      <% tabs << {:title => _('Profile'), :id => 'person-profile', :content => (render :partial => 'person_profile')} %>
     <% end %>
 
     <% tabs += plugins_tabs.select { |tab| !tab[:start] } %>
