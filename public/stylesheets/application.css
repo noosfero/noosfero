@@ -5913,7 +5913,10 @@ h1#agenda-title {
 
 #profile-wall li.profile-activity-item.upload_image span,
 #profile-wall li.profile-activity-item.upload_image span img,
-#profile-wall li.profile-activity-item.upload_image span a {
+#profile-wall li.profile-activity-item.upload_image span a,
+#profile-network li.profile-activity-item.upload_image span,
+#profile-network li.profile-activity-item.upload_image span img,
+#profile-network li.profile-activity-item.upload_image span a {
   width: 98px;
   height: 86px;
   display: block;
@@ -5921,19 +5924,23 @@ h1#agenda-title {
   position: absolute;
 }
 
-#profile-wall li.profile-activity-item.upload_image span {
+#profile-wall li.profile-activity-item.upload_image span,
+#profile-network li.profile-activity-item.upload_image span {
   position: relative;
   float: left;
   margin: 5px 5px 5px 0;
 }
 
-#profile-wall li.profile-activity-item.upload_image span a {
+#profile-wall li.profile-activity-item.upload_image span a,
+#profile-network li.profile-activity-item.upload_image span a {
   background: transparent url(/images/gallery-image-activity-border.png) center center no-repeat;
   text-indent: -5000em;
 }
 
 #profile-wall li.profile-activity-item.upload_image .article-comment span,
-#profile-wall li.profile-activity-item.upload_image .profile-wall-actions span {
+#profile-wall li.profile-activity-item.upload_image .profile-wall-actions span,
+#profile-network li.profile-activity-item.upload_image .article-comment span,
+#profile-network li.profile-activity-item.upload_image .profile-wall-actions span {
   display: inline;
   position: static;
   margin: 0;
@@ -5942,22 +5949,27 @@ h1#agenda-title {
   height: auto;
 }
 
-#profile-wall li.profile-activity-item ul.profile-wall-activities-comments {
+#profile-wall li.profile-activity-item ul.profile-wall-activities-comments,
+#profile-network li.profile-activity-item ul.profile-wall-activities-comments {
   margin-top: 0;
 }
 
-#profile-wall li.profile-activity-item.upload_image .profile-activity-text {
+#profile-wall li.profile-activity-item.upload_image .profile-activity-text,
+#profile-network li.profile-activity-item ul.profile-wall-activities-comments {
   padding-left: 50px;
 }
 
 #profile-wall li.profile-activity-item.join_community .profile-activity-text a img,
-#profile-wall li.profile-activity-item.new_friendship .profile-activity-text a img {
+#profile-wall li.profile-activity-item.new_friendship .profile-activity-text a img,
+#profile-network li.profile-activity-item.join_community .profile-activity-text a img,
+#profile-network li.profile-activity-item.new_friendship .profile-activity-text a img {
   margin: 5px 5px 0 0;
   padding: 1px;
   border: 1px solid #ccc;
 }
 
-#profile-wall li.profile-activity-item.create_article {
+#profile-wall li.profile-activity-item.create_article,
+#profile-netowrk li.profile-activity-item.create_article {
   position: relative;
 }
 
@@ -6233,52 +6245,63 @@ h1#agenda-title {
   background: transparent;
 }
 
-#profile-wall ul.profile-wall-activities-comments {
+#profile-wall ul.profile-wall-activities-comments,
+#profile-network ul.profile-wall-activities-comments {
   margin-top: 35px;
 }
 
-#profile-wall .profile-wall-activities-comments li {
+#profile-wall .profile-wall-activities-comments li,
+#profile-network .profile-wall-activities-comments li {
   background: #e8e8e8;
   border-bottom: 1px solid #d2d2d2 !important;
   border-top: 1px solid #fff;
   margin-bottom: 0;
 }
 
-#profile-wall .profile-wall-activities-comments img {
+#profile-wall .profile-wall-activities-comments img,
+#profile-network .profile-wall-activities-comments img {
   width: 33px;
   height: 33px;
 }
 
 #profile-wall .profile-wall-activities-comments .comment_reply,
-#profile-wall .profile-wall-activities-comments h4 {
+#profile-wall .profile-wall-activities-comments h4,
+#profile-network .profile-wall-activities-comments .comment_reply,
+#profile-network .profile-wall-activities-comments h4 {
   display: none;
 }
 
-#profile-wall .profile-wall-activities-comments .comment-picture {
+#profile-wall .profile-wall-activities-comments .comment-picture,
+#profile-network .profile-wall-activities-comments .comment-picture {
   width: 33px;
   margin-right: 10px;
 }
 
-#profile-wall .profile-wall-activities-comments .comment-text p {
+#profile-wall .profile-wall-activities-comments .comment-text p,
+#profile-network .profile-wall-activities-comments .comment-text p {
   margin: 0;
 }
 
-#profile-wall .profile-wall-activities-comments .profile-activity-time {
+#profile-wall .profile-wall-activities-comments .profile-activity-time,
+#profile-network .profile-wall-activities-comments .profile-activity-time {
   clear: both;
 }
 
-#profile-wall .profile-wall-activities-comments .comment-details {
+#profile-wall .profile-wall-activities-comments .comment-details,
+#profile-network .profile-wall-activities-comments .comment-details {
   padding: 0;
 }
 
-#profile-wall .profile-wall-activities-comments .article-comment .button-bar {
+#profile-wall .profile-wall-activities-comments .article-comment .button-bar,
+#profile-network .profile-wall-activities-comments .article-comment .button-bar {
   float: none !important;
   padding: 0;
   text-align: right;
   position: static;
 }
 
-#profile-wall .profile-wall-activities-comments .article-comment .button-bar a.button {
+#profile-wall .profile-wall-activities-comments .article-comment .button-bar a.button,
+#profile-network .profile-wall-activities-comments .article-comment .button-bar a.button {
   background: transparent;
   border: 0;
   height: auto;
@@ -6293,11 +6316,13 @@ h1#agenda-title {
   float: none;
 }
 
-#profile-wall .profile-wall-activities-comments .article-comment .button-bar a.button:hover {
+#profile-wall .profile-wall-activities-comments .article-comment .button-bar a.button:hover,
+#profile-network .profile-wall-activities-comments .article-comment .button-bar a.button:hover {
   text-decoration: underline;
 }
 
-#profile-wall .profile-wall-activities-comments .article-comment .button-bar .button span {
+#profile-wall .profile-wall-activities-comments .article-comment .button-bar .button span,
+#profile-network .profile-wall-activities-comments .article-comment .button-bar .button span {
   display: inline;
   position: static;
   display: inline;
@@ -6455,13 +6480,17 @@ h1#agenda-title {
   width: 98%;
 }
 
-#profile_activities .profile-activity-image, #profile-network .profile-network-image, #profile-wall .profile-wall-image {
+#profile_activities .profile-activity-image,
+#profile-network .profile-activity-image,
+#profile-wall .profile-wall-image {
   width: 50px;
   margin: 5px;
   float: left;
 }
 
-#profile-activity .profile-activity-description, #profile-network .profile-network-description, #profile-wall .profile-wall-description {
+#profile-activity .profile-activity-description,
+#profile-network .profile-activity-description,
+#profile-wall .profile-wall-description {
   width: 80%;
   word-wrap: break-word;
 }
