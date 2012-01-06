@@ -6465,6 +6465,15 @@ h1#agenda-title {
   margin: 0;
 }
 
+.profile-wall-reply-form {
+  display: block;
+  background: #e8e8e8;
+  border-bottom: 1px solid #d2d2d2;
+  border-top: 1px solid #fff;
+  margin-left: 50px;
+  padding: 0 5px;
+}
+
 .profile-wall-scrap-replies {
   float: right;
   margin-right: 2px;
@@ -6497,7 +6506,11 @@ h1#agenda-title {
 
 #profile-wall .profile-wall-scrap-replies textarea,
 #profile-network textarea, #profile-wall textarea {
-  width: 99%;
+  width: 98%;
+}
+
+#profile-wall textarea {
+  width: 375px;
 }
 
 .profile-wall-scrap-replies {
