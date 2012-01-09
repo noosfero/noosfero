@@ -49,6 +49,8 @@
 <% elsif @project.state == 'READY' %>
   <h3><%= _('LAST RESULT') %></h3>
   <% @project_result = Kalibro::Client::ProjectResultClient.new.last_result(@project.name) %>
+  <% @module_client = Kalibro::Client::ModuleResultClient.new %>
+
   <table id="project_result_info">
     <tr>
       <td><%= _('Date') %></td>
@@ -65,4 +67,28 @@
   </table>
   <h5><%= _('Source tree') %></h5>
   <%= @project_result.source_tree.print %>
+
+  <% @module_result = @module_client.module_result(@project.name, @project.name, @project_result.date) %>
+
+  <h5><%= _('Metric Result') %> </h5>
+  <strong>
+  <%= _('Module:') %>
+  <%=  @module_result.module.name %>
+  <br/>
+  <%= _('Grade:') %>
+  <%=  @module_result.grade %>
+  </strong>
+  <br/>
+  <hr/>
+  <table id="project_metric_result">
+    <% @module_result.metric_results.each do |metric_result|  %>
+    <tr>
+      <td><%= metric_result.metric.name %></td>
+      <td><%= metric_result.value %></td>
+      <td><%= metric_result.range.label %></td>
+    </tr>
+
+    <% end %>
+  </table>
+
 <% end %>
