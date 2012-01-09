@@ -2,7 +2,7 @@ class ProjectTest < Test::Unit::TestCase
 
   def self.qt_calculator
     project = Kalibro::Entities::Project.new
-    project.name = 'Qt-Calculator by ProjectTest'
+    project.name = 'Qt-Calculator'
     project.license = 'GPL'
     project.description = 'Calculator for Qt'
     project.repository = RepositoryTest.qt_calculator
@@ -12,7 +12,7 @@ class ProjectTest < Test::Unit::TestCase
   end
 
   def self.qt_calculator_hash
-    {:name => 'Qt-Calculator by ProjectTest', :license => 'GPL',
+    {:name => 'Qt-Calculator', :license => 'GPL',
         :description => 'Calculator for Qt',
         :repository => RepositoryTest.qt_calculator_hash,
         :configuration_name => 'Kalibro for Java',

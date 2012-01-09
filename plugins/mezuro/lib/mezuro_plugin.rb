@@ -17,7 +17,7 @@ class MezuroPlugin < Noosfero::Plugin
   end
 
   def js_files
-    'javascripts/collapsable.js'
+    'javascripts/toogle.js'
   end
 
 end
