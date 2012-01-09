@@ -23,6 +23,7 @@ class MezuroPlugin::ProjectContent < Article
 
   def send_project_to_service
     Kalibro::Client::ProjectClient.new.save(project)
+    Kalibro::Client::KalibroClient.new.process_project(title)
   end
 
   def project
