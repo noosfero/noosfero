@@ -73,6 +73,12 @@
   </table>
   <% end %>
 
+  <h2><%= _('Other options') %></h2>
+  <%= labelled_check_box(
+    _('Automatic redirect the visitor to the translated article of him language'),
+    'profile_data[redirect_l10n]', true, @profile.redirect_l10n
+  )%>
+
   <%= select_categories(:profile_data, _('Select the categories of your interest'), 2) %>
 
   <% button_bar do %>

@@ -115,6 +115,7 @@ class Profile < ActiveRecord::Base
 
   acts_as_having_settings :field => :data
 
+  settings_items :redirect_l10n, :type => :boolean, :default => false
   settings_items :public_content, :type => :boolean, :default => true
   settings_items :description
 

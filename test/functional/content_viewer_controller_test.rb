@@ -1113,26 +1113,6 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     assert_tag :a, :attributes => { :class => /article-translations-menu/, :onclick => /toggleSubmenu/ }
   end
 
-  should 'be redirected to translation if article is a root' do
-    @request.env['HTTP_REFERER'] = 'http://some.path'
-    FastGettext.stubs(:locale).returns('es')
-    en_article = fast_create(TextileArticle, :profile_id => @profile.id, :path => 'en_article', :language => 'en')
-    es_article = fast_create(TextileArticle, :profile_id => @profile.id, :path => 'es_article', :language => 'es', :translation_of_id => en_article)
-    get :view_page, :profile => @profile.identifier, :page => en_article.explode_path
-    assert_redirected_to :profile => @profile.identifier, :page => es_article.explode_path
-    assert_equal es_article, assigns(:page)
-  end
-
-  should 'be redirected to translation' do
-    @request.env['HTTP_REFERER'] = 'http://some.path'
-    FastGettext.stubs(:locale).returns('en')
-    en_article = fast_create(TextileArticle, :profile_id => @profile.id, :path => 'en_article', :language => 'en')
-    es_article = fast_create(TextileArticle, :profile_id => @profile.id, :path => 'es_article', :language => 'es', :translation_of_id => en_article)
-    get :view_page, :profile => @profile.identifier, :page => es_article.explode_path
-    assert_redirected_to :profile => @profile.identifier, :page => en_article.explode_path
-    assert_equal en_article, assigns(:page)
-  end
-
   should 'not be redirected if already in translation' do
     en_article = fast_create(TextileArticle, :profile_id => @profile.id, :path => 'en_article', :language => 'en')
     es_article = fast_create(TextileArticle, :profile_id => @profile.id, :path => 'es_article', :language => 'es', :translation_of_id => en_article)
@@ -1159,16 +1139,6 @@ class ContentViewerControllerTest < Test::Unit::TestCase
     get :view_page, :profile => @profile.identifier, :page => en_article.explode_path
     assert_response :success
     assert_equal en_article, assigns(:page)
-  end
-
-  should 'be redirected if http_referer is nil' do
-    en_article = fast_create(TextileArticle, :profile_id => @profile.id, :path => 'en_article', :language => 'en')
-    es_article = fast_create(TextileArticle, :profile_id => @profile.id, :path => 'es_article', :language => 'es', :translation_of_id => en_article)
-    @request.env['HTTP_REFERER'] = nil
-    FastGettext.stubs(:locale).returns('es')
-    get :view_page, :profile => @profile.identifier, :page => en_article.explode_path
-    assert_redirected_to :profile => @profile.identifier, :page => es_article.explode_path
-    assert_equal es_article, assigns(:page)
   end
 
   should 'not be redirected to transition if came from edit' do
