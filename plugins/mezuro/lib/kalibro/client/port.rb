@@ -2,18 +2,12 @@ require 'savon'
 
 class Kalibro::Client::Port
 
-  @@service_address = 'http://localhost:8080/KalibroService/'
-
-  def self.service_address
-    @@service_address
-  end
-
-  def self.service_address=(service_address)
-    @@service_address = service_address
-  end
-
   def initialize(endpoint)
-    @client = Savon::Client.new("#{@@service_address}#{endpoint}Endpoint/?wsdl")
+    @client = Savon::Client.new("#{service_address}#{endpoint}Endpoint/?wsdl")
+  end
+
+  def service_address
+    @service_address ||= 'http://localhost:8080/KalibroService/'
   end
 
   def request(action, request_body = nil)

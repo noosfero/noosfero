@@ -1,14 +1,14 @@
 class PortTest < Test::Unit::TestCase
 
   def setup
-    @service_address = Kalibro::Client::Port.service_address
+    @default_address = 'http://localhost:8080/KalibroService/'
     @client = mock
-    Savon::Client.expects(:new).with("#{@service_address}PortTestEndpoint/?wsdl").returns(@client)
+    Savon::Client.expects(:new).with("#{@default_address}PortTestEndpoint/?wsdl").returns(@client)
     @port = Kalibro::Client::Port.new('PortTest')
   end
 
-  should 'default address be localhost' do
-    assert_equal 'http://localhost:8080/KalibroService/', @service_address
+  should 'get default address' do
+    assert_equal @default_address, @port.service_address
   end
 
   should 'request action and return response' do
