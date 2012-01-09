@@ -33,9 +33,12 @@ class ProjectContentTest < Test::Unit::TestCase
   end
 
   should 'send correct project to service' do
-    client = mock
-    Kalibro::Client::ProjectClient.expects(:new).returns(client)
-    client.expects(:save).with(@project)
+    project_client = mock
+    kalibro_client = mock
+    Kalibro::Client::ProjectClient.expects(:new).returns(project_client)
+    project_client.expects(:save).with(@project)
+    Kalibro::Client::KalibroClient.expects(:new).returns(kalibro_client)
+    kalibro_client.expects(:process_project).with(@project.name)
     @content.send :send_project_to_service
   end
 
