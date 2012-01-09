@@ -25,16 +25,17 @@ class Kalibro::Entities::ModuleNode < Kalibro::Entities::Entity
     id = @module.name
     "<table>" +
       "<tr>" +
-        "<td width=\"1\">" +
+        "<td width=\"10%\">" +
           "<img id=\"#{id}_plus\" onclick=\"toogle('#{id}')\"" +
-            "alt=\"+\" src=\"/plugins/mezuro/images/plus.png\" class=\"link\"/>" +
+            "alt=\"+\" src=\"/plugins/mezuro/images/plus.png\" class=\"link\"" +
+            "style=\"display: none\"/>" +
           "<img id=\"#{id}_minus\" onclick=\"toogle('#{id}')\"" +
             "alt=\"-\" src=\"/plugins/mezuro/images/minus.png\" class=\"link\"" +
-            "style=\"display: none\"/>" +
+            "/>" +
         "</td>" +
         cell +
       "</tr>" +
-      "<tr id=\"#{id}_hidden\" style=\"display: none\">" +
+      "<tr id=\"#{id}_hidden\">" +
         "<td></td>" +
         "<td style=\"text-align: left\">" +
           @child.collect { |child| child.print }.to_s +
