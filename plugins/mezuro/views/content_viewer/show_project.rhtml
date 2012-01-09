@@ -85,7 +85,8 @@
     <tr>
       <td><%= metric_result.metric.name %></td>
       <td><%= metric_result.value %></td>
-      <td><%= metric_result.range.label %></td>
+      <% range = metric_result.range %>
+      <td style="background-color: #<%= range.color[2..-1] %>"><%= range.label %></td>
     </tr>
 
     <% end %>
