@@ -1193,6 +1193,12 @@ class PersonTest < ActiveSupport::TestCase
     end
   end
 
+  should 'not accept an empty year on birth date' do
+    p = Person.new({"birth_date(2i)"=>"11", "birth_date(3i)"=>"15", "birth_date(1i)"=>""})
+    p.valid?
+    assert p.errors.invalid?(:birth_date)
+  end
+
   should 'associate report with the correct complaint' do
     p1 = create_user('user1').person
     p2 = create_user('user2').person

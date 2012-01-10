@@ -120,6 +120,12 @@ class Person < Profile
 
   validates_multiparameter_assignments
 
+  validates_each :birth_date do |record,attr,value|
+    if value && value.year == 1
+      record.errors.add(attr, _('%{fn} is invalid'))
+    end
+  end
+
   def self.fields
     FIELDS
   end
