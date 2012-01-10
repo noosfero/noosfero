@@ -5,6 +5,7 @@ def define_task(test, plugins_folder='plugins', plugin = '*')
   test_files = Dir.glob(File.join(Rails.root, plugins_folder, plugin, 'test', test[:folder], '**', '*_test.rb'))
   desc 'Runs ' + (plugin != '*' ? plugin : 'plugins') + ' ' + test[:name] + ' tests'
   Rake::TestTask.new(test[:name].to_sym => 'db:test:prepare') do |t|
+    t.libs << 'test'
     t.test_files = test_files
     t.verbose = true
   end
