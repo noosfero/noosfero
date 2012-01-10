@@ -1,3 +1,4 @@
+require "test_helper"
 class ConfigurationTest < Test::Unit::TestCase
 
   def self.kalibro_configuration

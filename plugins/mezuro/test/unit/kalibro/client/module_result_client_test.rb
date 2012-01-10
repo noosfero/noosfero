@@ -1,3 +1,4 @@
+require "test_helper"
 class ModuleResultClientTest < Test::Unit::TestCase
 
   def setup

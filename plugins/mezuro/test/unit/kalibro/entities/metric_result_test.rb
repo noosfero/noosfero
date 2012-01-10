@@ -1,3 +1,4 @@
+require "test_helper"
 class MetricResultTest < Test::Unit::TestCase
 
   def self.amloc_result

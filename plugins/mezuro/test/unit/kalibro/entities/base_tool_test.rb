@@ -1,3 +1,4 @@
+require "test_helper"
 class BaseToolTest < Test::Unit::TestCase
 
   def self.analizo

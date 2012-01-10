@@ -1,3 +1,4 @@
+require "test_helper"
 class NativeMetricTest < Test::Unit::TestCase
 
   def self.total_cof

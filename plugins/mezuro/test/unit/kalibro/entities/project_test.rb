@@ -1,3 +1,4 @@
+require "test_helper"
 class ProjectTest < Test::Unit::TestCase
 
   def self.qt_calculator

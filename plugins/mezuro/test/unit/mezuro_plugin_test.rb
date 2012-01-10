@@ -1,3 +1,4 @@
+require "test_helper"
 class MezuroPluginTest < Test::Unit::TestCase
   
   def setup

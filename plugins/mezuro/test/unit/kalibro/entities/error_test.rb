@@ -1,3 +1,4 @@
+require "test_helper"
 class ErrorTest < Test::Unit::TestCase
 
   def self.fixture

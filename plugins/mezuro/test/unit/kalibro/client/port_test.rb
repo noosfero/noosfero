@@ -1,3 +1,4 @@
+require "test_helper"
 class PortTest < Test::Unit::TestCase
 
   def setup

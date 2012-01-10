@@ -1,3 +1,4 @@
+require "test_helper"
 class MetricTest < Test::Unit::TestCase
   
   def setup

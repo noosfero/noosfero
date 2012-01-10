@@ -1,3 +1,4 @@
+require "test_helper"
 class RangeTest < Test::Unit::TestCase
 
   Infinity = 1.0/0.0

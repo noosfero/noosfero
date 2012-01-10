@@ -1,3 +1,4 @@
+require "test_helper"
 class MetricConfigurationTest < Test::Unit::TestCase
 
   def self.amloc_configuration

@@ -1,3 +1,4 @@
+require "test_helper"
 class StackTraceElementTest < Test::Unit::TestCase
 
   def self.fixture(method_name = 'stackTraceElementTestMethod', line_number = 42)

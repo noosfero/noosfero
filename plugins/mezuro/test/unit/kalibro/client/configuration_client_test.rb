@@ -1,3 +1,4 @@
+require "test_helper"
 class ConfigurationClientTest < Test::Unit::TestCase
 
   def setup

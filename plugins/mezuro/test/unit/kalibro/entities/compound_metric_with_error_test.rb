@@ -1,3 +1,4 @@
+require "test_helper"
 class CompoundMetricWithErrorTest < Test::Unit::TestCase
   
   def self.fixture

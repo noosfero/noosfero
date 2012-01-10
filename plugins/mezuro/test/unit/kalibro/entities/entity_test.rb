@@ -1,3 +1,4 @@
+require "test_helper"
 class EntityTest < Test::Unit::TestCase
   
 	def setup

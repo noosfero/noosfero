@@ -1,3 +1,4 @@
+require "test_helper"
 class CompoundMetricTest < Test::Unit::TestCase
 
   def self.sc

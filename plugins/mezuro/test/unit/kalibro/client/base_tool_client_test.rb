@@ -1,3 +1,4 @@
+require "test_helper"
 class BaseToolClientTest < Test::Unit::TestCase
 
   def setup
