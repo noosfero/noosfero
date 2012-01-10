@@ -4621,14 +4621,14 @@ msgstr[1] ""
 #: app/views/blocks/profile_info_actions/community.rhtml:19
 #, fuzzy
 msgid "Leave community"
-msgstr "Una comunidad"
+msgstr "Salir de la comunidad"
 
 #: app/views/blocks/profile_info_actions/community.rhtml:11
 #: app/views/blocks/profile_info_actions/community.rhtml:23
 #: app/views/profile/_private_profile.rhtml:10
 #, fuzzy
 msgid "Join community"
-msgstr "Una comunidad"
+msgstr "Unirse a la comunidad"
 
 #: app/views/blocks/profile_info_actions/community.rhtml:46
 msgid "Join this community"
