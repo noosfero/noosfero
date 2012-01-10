@@ -1,4 +1,5 @@
 .gitignore
+.rbenv-*
 vendor/rails
 doc/api
 doc/noosfero/plugins
