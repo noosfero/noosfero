@@ -12,4 +12,8 @@ class Kalibro::Client::KalibroClient
     @port.request(:process_project, {:project_name => project_name})
   end
 
+  def self.process_project(project_name)
+    new.process_project(project_name)
+  end
+
 end

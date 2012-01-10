@@ -8,6 +8,10 @@ class Kalibro::Client::ProjectClient
     @port.request(:save_project, {:project => project.to_hash})
   end
 
+  def self.save(project)
+    new.save(project)
+  end
+
   def project_names
     @port.request(:get_project_names)[:project_name].to_a
   end

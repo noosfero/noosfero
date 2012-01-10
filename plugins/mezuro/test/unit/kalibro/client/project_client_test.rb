@@ -44,4 +44,12 @@ class ProjectClientTest < Test::Unit::TestCase
     @client.remove(name)
   end
 
+  should 'instantiate for saving a project' do
+    project = mock
+    instance = mock
+    Kalibro::Client::ProjectClient.expects(:new).returns(instance)
+    instance.expects(:save).with(project)
+    Kalibro::Client::ProjectClient.save(project)
+  end
+
 end

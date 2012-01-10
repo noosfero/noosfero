@@ -18,5 +18,12 @@ class KalibroClientTest < Test::Unit::TestCase
     @port.expects(:request).with(:process_project, {:project_name => name})
     @client.process_project(name)
   end
+
+  should 'instantiate for processing project' do
+    instance = mock
+    Kalibro::Client::KalibroClient.expects(:new).returns(instance)
+    instance.expects(:process_project).with('myproject')
+    Kalibro::Client::KalibroClient.process_project('myproject')
+  end
   
 end
