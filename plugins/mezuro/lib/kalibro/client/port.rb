@@ -1,5 +1,9 @@
 require 'savon'
 
+Savon.configure do |config|
+  config.log = HTTPI.log = (RAILS_ENV == 'development')
+end
+
 class Kalibro::Client::Port
 
   def initialize(endpoint)
