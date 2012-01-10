@@ -9,10 +9,12 @@ class ModuleResultClientTest < Test::Unit::TestCase
   end
 
   should 'get module result' do
-    request_body = {:project_name => 'Qt-Calculator', :module_name => 'main', :date => '42'}
+    date_string = '2012-01-10T16:07:15.442-02:00'
+    date = DateTime.parse(date_string)
+    request_body = {:project_name => 'Qt-Calculator', :module_name => 'main', :date => date_string}
     response = {:module_result => @result.to_hash}
     @port.expects(:request).with(:get_module_result, request_body).returns(response)
-    assert_equal @result, @client.module_result('Qt-Calculator', 'main', '42')
+    assert_equal @result, @client.module_result('Qt-Calculator', 'main', date)
   end
 
   should 'get result history' do
