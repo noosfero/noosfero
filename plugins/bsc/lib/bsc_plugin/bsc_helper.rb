@@ -1,5 +1,6 @@
 module BscPlugin::BscHelper
   include ActionView::Helpers::FormTagHelper
+  include ActionView::Helpers::TextHelper
 
   def token_input_field_tag(name, element_id, search_action, options = {}, text_field_options = {}, html_options = {})
     options[:min_chars] ||= 3

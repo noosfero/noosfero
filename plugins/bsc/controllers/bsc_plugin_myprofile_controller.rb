@@ -8,7 +8,7 @@ class BscPluginMyprofileController < MyProfileController
   end
 
   def search_enterprise
-    render :text => environment.enterprises.find(:all, :conditions => ["type <> 'BscPlugin::Bsc' AND (LOWER(name) LIKE ? OR LOWER(identifier) LIKE ?)", "%#{params[:q]}%", "%#{params[:q]}%"]).
+    render :text => environment.enterprises.find(:all, :conditions => ["type <> 'BscPlugin::Bsc' AND (LOWER(name) LIKE ? OR LOWER(identifier) LIKE ?) AND (identifier NOT LIKE ?)", "%#{params[:q]}%", "%#{params[:q]}%", "%_template"]).
       select { |enterprise| enterprise.bsc.nil? && !profile.already_requested?(enterprise)}.
       map {|enterprise| {:id => enterprise.id, :name => enterprise.name} }.
       to_json
