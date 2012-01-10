@@ -8,8 +8,11 @@ fi
 
 export RAILS_ENV=production
 
-ACTION=$1
-shift
+ACTION="$1"
+if [ -z "$ACTION" ]; then
+  echo "usage: $0 start|stop|restart|run"
+  exit 1
+fi
 
 clear_cache() {
   if test -w ./public; then
