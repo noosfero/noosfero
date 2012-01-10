@@ -33,11 +33,11 @@ do_start() {
   clear_cache
   ./script/ferret_server -e $RAILS_ENV start
   environments_loop
-  mongrel_rails cluster::start
+  ruby -S thin -C config/thin.yml start
 }
 
 do_stop() {
-  mongrel_rails cluster::stop
+  ruby -S thin -C config/thin.yml stop
   ./script/delayed_job stop
   ./script/feed-updater stop
   ./script/ferret_server -e $RAILS_ENV stop

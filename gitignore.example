@@ -9,6 +9,7 @@ config/noosfero.yml
 config/ferret_server.yml
 config/mongrel_cluster.yml
 config/plugins
+config/thin.yml
 index
 locale
 log
