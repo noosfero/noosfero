@@ -17,26 +17,39 @@ class MezuroPlugin::ProjectContent < Article
     end
   end
 
+  def project
+    Kalibro::Client::ProjectClient.new.project(title)
+  end
+
+  def project_result
+    @project_result ||= Kalibro::Client::ProjectResultClient.new.last_result(title)
+  end
+
+  def module_result(module_name)
+    @module_client ||= Kalibro::Client::ModuleResultClient.new
+    @module_client.module_result(title, module_name, project_result.date)
+  end
+
   after_save :send_project_to_service
 
   private
 
   def send_project_to_service
-    Kalibro::Client::ProjectClient.save(project)
+    Kalibro::Client::ProjectClient.save(create_project)
     Kalibro::Client::KalibroClient.process_project(title)
   end
 
-  def project
+  def create_project
     project = Kalibro::Entities::Project.new
     project.name = title
     project.license = license
     project.description = description
-    project.repository = repository
+    project.repository = create_repository
     project.configuration_name = configuration_name
     project
   end
 
-  def repository
+  def create_repository
     repository = Kalibro::Entities::Repository.new
     repository.type = repository_type
     repository.address = repository_url
