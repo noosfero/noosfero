@@ -99,7 +99,7 @@ class MembershipsControllerTest < Test::Unit::TestCase
     community = Community.create!(:name => 'my test community', :description => 'description test')
     community.add_member(profile)
     get :index, :profile => profile.identifier
-    assert_tag :tag => 'a', :attributes => { :href => "/profile/#{community.identifier}/leave?reload=true" }, :content => 'Leave'
+    assert_tag :tag => 'a', :attributes => { :href => "/profile/#{community.identifier}/leave?reload=true" }, :content => 'Leave community'
   end
 
   should 'current user is added as admin after create new community' do
