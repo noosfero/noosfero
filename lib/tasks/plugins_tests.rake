@@ -69,8 +69,21 @@ namespace :test do
     end
     task :enabled => ['enabled:units', 'enabled:functionals', 'enabled:integration']
 
+
+    namespace :cucumber do
+      task :enabled do
+        features = Dir.glob('config/plugins/*/features/*.feature')
+        if features.empty?
+          puts "No acceptance tests for enabled plugins, skipping"
+        else
+          ruby '-S', 'cucumber', '--format', ENV['CUCUMBER_FORMAT'] || 'progress' , *features
+        end
+      end
+    end
+
   end
 
-  task :noosfero_plugins => 'noosfero_plugins:available'
+  task :noosfero_plugins => ['noosfero_plugins:available', 'noosfero_plugins:cucumber:enabled']
 
 end
+
