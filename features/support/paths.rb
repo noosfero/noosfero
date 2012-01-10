@@ -36,7 +36,7 @@ module NavigationHelpers
     when /^(.*)'s sitemap/
       '/profile/%s/sitemap' % Profile.find_by_name($1).identifier
 
-    when /^(.*)'s profile/
+    when /^(.*)'s profile$/
       '/profile/%s' % Profile.find_by_name($1).identifier
 
     when /^the profile$/
@@ -47,6 +47,9 @@ module NavigationHelpers
 
     when /^(.*)'s leave page/
       '/profile/%s/leave' % Profile.find_by_name($1).identifier
+
+    when /^(.*)'s profile editor$/
+      "myprofile/manuel/profile_editor/edit"
 
     when /^login page$/
       '/account/login'

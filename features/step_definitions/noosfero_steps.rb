@@ -94,7 +94,20 @@ Given /^the following (articles|events|blogs|folders|forums|galleries)$/ do |con
     parent = item.delete("parent")
     owner = Profile[owner_identifier]
     home = item.delete("homepage")
-    result = klass.new(item.merge(:profile => owner))
+    language = item.delete("lang")
+    translation_of_id = nil
+    if item["translation_of"]
+      if item["translation_of"] != "nil"
+        article = owner.articles.find_by_name(item["translation_of"])
+        translation_of_id = article.id if article
+      end
+      item.delete("translation_of")
+    end
+    result = klass.new(item.merge(
+      :profile => owner,
+      :language => language,
+      :translation_of_id => translation_of_id
+    ))
     if parent
       result.parent = Article.find_by_name(parent)
     end
@@ -540,4 +553,11 @@ end
 
 And /^I want to add "([^\"]*)" as cost$/ do |string|
   selenium.answer_on_next_prompt(string)
+end
+
+Given /^([^\s]+) (enabled|disabled) translation redirection in (?:his|her) profile$/ do
+  |login, status|
+  profile = Profile[login]
+  profile.redirect_l10n = ( status == "enabled" )
+  profile.save
 end
