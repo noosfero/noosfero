@@ -25,4 +25,7 @@ class Kalibro::Client::ProjectClient
     @port.request(:remove_project, {:project_name => project_name})
   end
 
+  def self.remove(project_name)
+    new.remove(project_name)
+  end
 end

@@ -31,12 +31,17 @@ class MezuroPlugin::ProjectContent < Article
   end
 
   after_save :send_project_to_service
+  after_destroy :remove_project_from_service
 
   private
 
   def send_project_to_service
     Kalibro::Client::ProjectClient.save(create_project)
     Kalibro::Client::KalibroClient.process_project(title)
+  end
+
+  def remove_project_from_service
+    Kalibro::Client::ProjectClient.remove(title)
   end
 
   def create_project
