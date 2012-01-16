@@ -1,18 +1,7 @@
+<h1><%= _('Signup') %></h1>
 <% if @register_pending %>
-<div id='thanks-for-signing'>
-  <%= _("<h1>Welcome to %s!</h1>
-         <h3>Thanks for signing up, we're thrilled to have you on our social network!</h3>
-         <p>Firsty, some tips for getting started:</p>
-         <h4>Confirm your account!</h4>
-         <p>You should receive a welcome email from us shortly. Please take a second to follow the link within to confirm your account.</p>
-         <p>You won't appear as a <a href=\"%s\">user</a> until your account is confirmed.</p>
-         <h4>What to do next?</h4>
-         <p><a href=\"/doc/user/editing-person-info\">Customize your profile</a>. Upload an avatar and sign up for activity notifications under Account.</p>
-         <p>Learn the guidelines. Read the <a href=\"/doc\">Documentation</a> for more details on how to use new social network!</p>
-         <p><a href=\"/profile/noosfero_person_template/invite/friends\">Invite and find</a> your Gmail, Yahoo and Hotmail contacts!</p>
-         <p>Start exploring and Have fun!</p>" % [environment.name, url_for(:controller => :browse, :action => :people, :filter => 'more_recent')]) %>
-</div>
+  <%= _('Thanks for signing up! Now check your e-mail to activate your account!') %>
+  <p style="text-align: center"><%= link_to(_('Go to the homepage'), '/') %></p>
 <% else %>
-  <h1><%= _('Sign up for %s!') % environment.name %></h1>
   <%= render :partial => 'signup_form' %>
 <% end %>

@@ -13,19 +13,19 @@ Feature: signup
       | Password              | secret                |
       | Password confirmation | secret                |
       | Name                  | José da Silva         |
-    And I press "Create my account"
+    And I press "Sign up"
     Then I should not be logged in
-    And I should receive an e-mail on josesilva@example.com
+		And I should receive an e-mail on josesilva@example.com
     When I go to login page
-    And I fill in "Username" with "josesilva"
-    And I fill in "Password" with "secret"
-    And I press "Log in"
+		And I fill in "Username" with "josesilva"
+		And I fill in "Password" with "secret"
+		And I press "Log in"
     Then I should not be logged in
     When José da Silva's account is activated
     And I go to login page
-    And I fill in "Username" with "josesilva"
-    And I fill in "Password" with "secret"
-    And I press "Log in"
+		And I fill in "Username" with "josesilva"
+		And I fill in "Password" with "secret"
+		And I press "Log in"
     Then I should be logged in as "josesilva"
 
   Scenario: be redirected if user goes to signup page and is logged
@@ -44,7 +44,7 @@ Feature: signup
     And I fill in "Username" with "josesilva"
     And I fill in "Password" with "secret"
     And I fill in "Password confirmation" with "secret"
-    And I press "Create my account"
+    And I press "Sign up"
     Then I should see "Name can't be blank"
 
   Scenario: user cannot change his name to empty string

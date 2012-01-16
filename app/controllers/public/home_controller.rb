@@ -14,8 +14,4 @@ class HomeController < PublicController
     end
   end
 
-  def terms
-    @no_design_blocks = true
-  end
-
 end

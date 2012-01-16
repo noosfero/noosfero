@@ -67,17 +67,27 @@ class AdminPanelControllerTest < Test::Unit::TestCase
     assert_tag :tag => 'a', :attributes => { :href => '/admin/admin_panel/message_for_disabled_enterprise' }
   end
 
+  should 'link to define terms of use' do
+    get :index
+    assert_tag :tag => 'a', :attributes => { :href => '/admin/admin_panel/terms_of_use' }
+  end
+ 
   should 'display form for editing site info' do
     get :site_info
     assert_template 'site_info'
     assert_tag :tag => 'textarea', :attributes => { :name => 'environment[description]'}
-    assert_tag :tag => 'textarea', :attributes => { :name => 'environment[terms_of_use]'}
   end
 
   should 'display form for editing message for disabled enterprise' do
     get :message_for_disabled_enterprise
     assert_template 'message_for_disabled_enterprise'
     assert_tag :tag => 'textarea', :attributes => { :name => 'environment[message_for_disabled_enterprise]'}
+  end
+
+  should 'display form for editing terms of use' do
+    get :terms_of_use
+    assert_template 'terms_of_use'
+    assert_tag :tag => 'textarea', :attributes => { :name => 'environment[terms_of_use]'}
   end
 
   should 'save site description' do
