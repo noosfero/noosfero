@@ -39,4 +39,8 @@ class ProjectContentTest < Test::Unit::TestCase
     @content.send :send_project_to_service
   end
 
+  should 'remove project from service' do
+    Kalibro::Client::ProjectClient.expects(:remove).with(@project.name)
+    @content.send :remove_project_from_service
+  end
 end
