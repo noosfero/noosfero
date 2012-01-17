@@ -82,9 +82,20 @@ namespace :test do
       end
     end
 
+    namespace :selenium do
+      task :enabled do
+        features = Dir.glob('config/plugins/*/features/*.feature')
+        if features.empty?
+          puts "No acceptance tests for enabled plugins, skipping"
+        else
+          sh 'xvfb-run', 'ruby', '-S', 'cucumber', '--profile', 'selenium', '--format', ENV['CUCUMBER_FORMAT'] || 'progress' , *features
+        end
+      end
+    end
+
   end
 
-  task :noosfero_plugins => ['noosfero_plugins:available', 'noosfero_plugins:cucumber:enabled']
+  task :noosfero_plugins => %w[ noosfero_plugins:available noosfero_plugins:cucumber:enabled noosfero_plugins:cucumber:enabled ]
 
 end
 

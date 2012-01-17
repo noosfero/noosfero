@@ -59,3 +59,18 @@ Feature: mezuro content
     And I press "Save" 
     Then I should see "Qt-Calculator"
 
+#  @selenium
+#  Scenario: I delete a real mezuro content
+#    Given I am on My Community's cms
+#    And I follow "New content"
+#    And I follow "Kalibro project"
+#    And I fill in the following:
+#      | Title           | Qt-Calculator           |
+#      | License         | GPL 2.0                 |
+#      | Repository type | SUBVERSION              |
+#      | Repository url  | https://qt-calculator.svn.sourceforge.net/svnroot/qt-calculator |
+#    And I press "Save"
+#    And I follow "Qt-Calculator"
+#    And I follow "Destroy"
+#    And I press "Yes, I want."
+#    Then I should not see "Qt-Calculator"
