@@ -110,7 +110,7 @@ $.fn.tokenInput = function (method) {
 };
 
 // TokenList class for each input
-$.TokenList = function (input, url_or_data, settings) {
+$.TokenList = function (input, url_or_data, options) {
     //
     // Initialization
     //
