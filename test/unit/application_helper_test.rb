@@ -603,7 +603,7 @@ class ApplicationHelperTest < Test::Unit::TestCase
 
     @controller = ApplicationController.new
     path = File.join(RAILS_ROOT, 'app', 'views')
-    @controller.stubs(:view_paths).returns(path)
+    @controller.stubs(:view_paths).returns([path])
 
     file = path + '/shared/usermenu/xmpp_chat.rhtml'
     expects(:render).with(:file => file, :use_full_path => false).returns('Open chat')
