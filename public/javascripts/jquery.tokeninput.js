@@ -1,6 +1,7 @@
 /*
  * jQuery Plugin: Tokenizing Autocomplete Text Entry
  * Version 1.5.0
+ * Requires jQuery 1.6+
  *
  * Copyright (c) 2009 James Smith (http://loopj.com)
  * Licensed jointly under the GPL and MIT licenses,
@@ -18,6 +19,7 @@ var DEFAULT_SETTINGS = {
     searchDelay: 300,
     minChars: 1,
     permanentDropdown: false,
+    showAllResults: false,
     tokenLimit: null,
     jsonContainer: null,
     method: "GET",
@@ -170,17 +172,20 @@ $.TokenList = function (input, url_or_data, options) {
         .attr("id", settings.idPrefix + input.id)
         .focus(function () {
             if (settings.tokenLimit === null || settings.tokenLimit !== token_count) {
-              if(settings.permanentDropdown)
+              if(settings.permanentDropdown || settings.showAllResults) {
                 hide_dropdown_hint();
-              else
+              } else
                 show_dropdown_hint();
+              if (settings.showAllResults)
+                do_search();
             }
         })
         .blur(function () {
             if(settings.permanentDropdown)
               show_dropdown_hint();
-            else
+            else {
               hide_dropdown();
+            }
         })
         .bind("keyup keydown blur update", resize_input)
         .keydown(function (event) {
@@ -235,9 +240,10 @@ $.TokenList = function (input, url_or_data, options) {
                     previous_token = input_token.prev();
                     next_token = input_token.next();
 
-                    if(!$(this).val().length) {
+                    if(!$(this).val().length && settings.backspaceDeleteItem) {
                         if(selected_token) {
                             delete_token($(selected_token));
+                            input_box.focus();
                         } else if(KEY.DELETE && next_token.length) {
                             select_token($(next_token.get(0)));
                         } else if(KEY.BACKSPACE && previous_token.length) {
@@ -259,6 +265,7 @@ $.TokenList = function (input, url_or_data, options) {
                 case KEY.COMMA:
                   if(selected_dropdown_item) {
                     add_token($(selected_dropdown_item).data("tokeninput"));
+                    input_box.focus();
                     return false;
                   }
                   break;
@@ -305,8 +312,9 @@ $.TokenList = function (input, url_or_data, options) {
                     deselect_token($(selected_token), POSITION.END);
                 }
 
-                // Focus input box
-                input_box.focus();
+                // Transfer focus
+                if (!input_box.is(':focus'))
+                  input_box.focus();
             }
         })
         .mouseover(function (event) {
@@ -336,13 +344,17 @@ $.TokenList = function (input, url_or_data, options) {
     dropdown.appendTo("body");
     if (!settings.permanentDropdown)
         dropdown.appendTo("body");
-    else {
+    else 
         $(input).after(dropdown.show());
-        do_search();
+
+    if (settings.permanentDropdown || settings.showAllResults) {
+      do_search();
+      if (!settings.permanentDropdown && settings.showAllResults)
+        hide_dropdown();
     }
 
     // Hint for permanentDropdown
-    if(settings.permanentDropdown)
+    if (settings.permanentDropdown || settings.showAllResults)
       show_dropdown_hint();
 
     // Magic element to help us resize the text input
@@ -430,7 +442,7 @@ $.TokenList = function (input, url_or_data, options) {
         input_resizer.html(escaped);
         input_box.width(input_resizer.width() + 30);
 
-        if(settings.permanentDropdown && input_box.hasClass(settings.classes.blurText))
+        if((settings.permanentDropdown || settings.showAllResults) && input_box.hasClass(settings.classes.blurText))
           input_val = '';
     }
 
@@ -497,7 +509,6 @@ $.TokenList = function (input, url_or_data, options) {
             if(found_existing_token) {
                 select_token(found_existing_token);
                 input_token.insertAfter(found_existing_token);
-                input_box.focus();
                 return;
             }
         }
@@ -578,9 +589,6 @@ $.TokenList = function (input, url_or_data, options) {
         token.remove();
         selected_token = null;
 
-        // Show the input box and give it focus again
-        input_box.focus();
-
         // Remove this token from the saved list
         saved_tokens = saved_tokens.slice(0,index).concat(saved_tokens.slice(index+1));
         if(index < selected_token_index) selected_token_index--;
@@ -593,12 +601,8 @@ $.TokenList = function (input, url_or_data, options) {
 
         token_count -= 1;
 
-        if(settings.tokenLimit !== null) {
-            input_box
-                .show()
-                .val("")
-                .focus();
-        }
+        if(settings.tokenLimit !== null)
+            input_box.show().val("");
 
         // Execute the onDelete callback if defined
         if($.isFunction(callback)) {
@@ -609,27 +613,27 @@ $.TokenList = function (input, url_or_data, options) {
     // Hide and clear the results dropdown
     function hide_dropdown () {
         if (!settings.permanentDropdown) {
-            dropdown.hide().empty();
+            dropdown.hide();
+            if (!settings.showAllResults)
+              dropdown.empty();
             selected_dropdown_item = null;
         } 
+        if (settings.showAllResults)
+            show_dropdown_hint();
     }
 
     function show_dropdown() {
         if (!settings.permanentDropdown)
-            dropdown
-                .css({
-                    position: "absolute",
-                    top: $(token_list).offset().top + $(token_list).outerHeight(),
-                    left: $(token_list).offset().left,
-                    zindex: 999
-                })
-                .show();
+            dropdown.css({
+                position: "absolute",
+                top: $(token_list).offset().top + $(token_list).outerHeight(),
+                left: $(token_list).offset().left,
+                zindex: 999
+            }).show();
         else
-            dropdown
-                .css({
-                    position: "relative",
-                })
-                .show();
+            dropdown.css({
+                position: "relative",
+            }).show();
     }
 
     function show_dropdown_searching () {
@@ -641,10 +645,10 @@ $.TokenList = function (input, url_or_data, options) {
 
     function show_dropdown_hint () {
         if(settings.hintText) {
-          if(settings.permanentDropdown) {
+          if(settings.permanentDropdown || settings.showAllResults) {
             if (input_val == '') {
               input_box.val(settings.hintText);
-              input_box.toggleClass(settings.classes.blurText);
+              input_box.addClass(settings.classes.blurText);
             }
           } else {
             dropdown.html("<p>"+settings.hintText+"</p>");
@@ -656,7 +660,7 @@ $.TokenList = function (input, url_or_data, options) {
     function hide_dropdown_hint () {
       if (input_box.hasClass(settings.classes.blurText)) {
         input_box.val('');
-        input_box.toggleClass(settings.classes.blurText);
+        input_box.removeClass(settings.classes.blurText);
       }
     }
 
@@ -676,6 +680,7 @@ $.TokenList = function (input, url_or_data, options) {
                 })
                 .mousedown(function (event) {
                     add_token($(event.target).closest("li").data("tokeninput"));
+                    input_box.blur();
                     return false;
                 })
                 .hide();
@@ -721,6 +726,16 @@ $.TokenList = function (input, url_or_data, options) {
 
             item.addClass(settings.classes.selectedDropdownItem);
             selected_dropdown_item = item.get(0);
+
+            isBefore = item[0].offsetTop <= (dropdown[0].scrollTop + dropdown[0].scrollWidth); 
+            isAfter = item[0].offsetTop >= dropdown[0].scrollTop;
+            visible = isBefore && isAfter;
+            if (!visible) {
+                if (isBefore)
+                    dropdown[0].scrollTop = item[0].offsetTop;
+                else //isAfter
+                    dropdown[0].scrollTop = item[0].offsetTop - dropdown[0].scrollWidth;
+            }
         }
     }
 
@@ -750,7 +765,7 @@ $.TokenList = function (input, url_or_data, options) {
             } else {
                 hide_dropdown();
             }
-        } else if (settings.permanentDropdown)
+        } else if (settings.permanentDropdown || settings.showAllResults)
             run_search('');
     }
 
