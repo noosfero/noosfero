@@ -1,0 +1,13 @@
+h1. GoogleCsePlugin
+
+A plugin that uses the Google Custom Search as Noosfero general search engine.
+
+h2. Usage
+
+* Register a Google Custom Search ID at http://www.google.com/cse
+* Set at least basic config, site list and look and fell of your Google Cse ID
+* Configure Noosfero environment with this ID
+** >> env = Environment.find( ... )
+** >> env.settings[:google_cse_id] = '&lt;PUT ID HERE&gt;'
+** >> env.save!
+* That's all! The top search text-field of Noosfero will be used to make searches

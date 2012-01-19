@@ -22,4 +22,11 @@ class Noosfero::Plugin::Manager
     end
   end
 
+  def [](name)
+    klass = Noosfero::Plugin.klass(name)
+    enabled_plugins.select do |plugin|
+      plugin.kind_of?(klass)
+    end.first
+  end
+
 end
