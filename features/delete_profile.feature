@@ -16,7 +16,7 @@ Feature: delete profile
   Scenario: deleting profile
     Given I am logged in as "joaosilva"
     And I am on Joao Silva's control panel
-    And I follow "Profile Info and settings"
+    And I follow "Edit Profile"
     And I follow "Delete profile"
     Then I should see "Are you sure you want to delete this profile?"
     When I follow "Yes, I am sure"
@@ -32,7 +32,7 @@ Feature: delete profile
   Scenario: giving up of deleting profile
     Given I am logged in as "joaosilva"
     And I am on Joao Silva's control panel
-    And I follow "Profile Info and settings"
+    And I follow "Edit Profile"
     And I follow "Delete profile"
     Then I should see "Are you sure you want to delete this profile?"
     When I follow "No, I gave up"
@@ -108,7 +108,7 @@ Feature: delete profile
   Scenario: environment admin deletes profile
     Given I am logged in as admin
     And I am on Joao Silva's control panel
-    And I follow "Profile Info and settings"
+    And I follow "Edit Profile"
     And I follow "Delete profile"
     Then I should see "Are you sure you want to delete this profile?"
     When I follow "Yes, I am sure"
