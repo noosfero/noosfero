@@ -1,4 +1,5 @@
 require "test_helper"
+
 class ModuleNodeTest < Test::Unit::TestCase
 
   def self.qt_calculator_tree
