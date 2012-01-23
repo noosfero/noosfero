@@ -13,6 +13,7 @@ class FeedReaderBlock < Block
     old_address = address
     orig_set_address(new_address)
     self.enabled = (new_address && new_address != old_address) || (new_address && self.enabled) || false
+    self.fetched_at = nil
   end
 
   settings_items :limit, :type => :integer
@@ -71,6 +72,7 @@ class FeedReaderBlock < Block
     self.feed_title = nil
     self.error_message = nil
   end
+
   def finish_fetch
     self.fetched_at = Time.now
     self.save!
