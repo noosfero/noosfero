@@ -1154,7 +1154,7 @@ module ApplicationHelper
   def render_environment_features(folder)
     result = ''
     environment.enabled_features.keys.each do |feature|
-      file = File.join(@controller.view_paths, 'shared', folder.to_s, "#{feature}.rhtml")
+      file = File.join(@controller.view_paths.last, 'shared', folder.to_s, "#{feature}.rhtml")
       if File.exists?(file)
         result << render(:file => file, :use_full_path => false)
       end

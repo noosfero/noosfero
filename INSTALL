@@ -237,6 +237,10 @@ Create the database structure:
 
 $ RAILS_ENV=production rake db:schema:load
 
+Compile the translations:
+
+$ RAILS_ENV=production rake noosfero:translations:compile
+
 Now we have to create some initial data. To create your default environment
 (the first one), run the command below:
 
@@ -257,10 +261,6 @@ $ RAILS_ENV=production ./script/runner "User.create(:login => 'adminuser', :emai
 
 (replace "adminuser", "admin@example.com", "admin" with the login, email
 and password of your environment admin)
-
-Compile the translations:
-
-$ RAILS_ENV=production rake noosfero:translations:compile
 
 To start the Noosfero application servers:
 
