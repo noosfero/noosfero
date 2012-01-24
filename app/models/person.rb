@@ -116,6 +116,7 @@ class Person < Profile
   contact_phone
   contact_information
   description
+  image
   ]
 
   validates_multiparameter_assignments

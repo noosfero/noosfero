@@ -1,0 +1,3 @@
+<%= required labelled_form_field(_('Site name'), text_field(:environment, :name)) %>
+<%= required f.text_field(:reports_lower_bound, :size => 3) %>
+<%= labelled_form_field _('Homepage content'), text_area(:environment, :description, :cols => 40, :style => 'width: 90%', :class => 'mceEditor') %>

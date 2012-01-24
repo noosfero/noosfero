@@ -6,12 +6,14 @@
 
   <%= render :partial => partial_for_class(@profile.class), :locals => { :f => f } %>
 
+  <% unless @profile.person? && @environment.active_person_fields.include?('image') %>
   <div id="profile_change_picture">
     <h2><%= _('Change picture') %></h2>
     <% f.fields_for :image_builder, @profile.image do |i| %>
       <%= file_field_or_thumbnail(_('Image:'), @profile.image, i) %><%= _("Max size: %s (.jpg, .gif, .png)")% Image.max_size.to_humanreadable %>
     <% end %>
   </div>
+  <% end %>
 
   <h2><%= _('Privacy options') %></h2>
 
