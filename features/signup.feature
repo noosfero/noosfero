@@ -53,7 +53,7 @@ Feature: signup
       | joaosilva | Joao Silva |
     Given I am logged in as "joaosilva"
     And I am on Joao Silva's control panel
-    And I follow "Profile Info and settings"
+    And I follow "Edit Profile"
     And I fill in "Name" with ""
     When I press "Save"
     Then I should see "Name can't be blank"

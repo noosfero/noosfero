@@ -63,7 +63,7 @@
                 <%= render :file => 'account/login', :locals => { :is_thickbox => true } %>
               </div>
           </span>
-          <form action="/search" class="search_form" method="get" class="clean">
+          <form action="/search" class="search_form clean" method="get" id="top-search">
             <input name="query" size="15" value="<%=_('Search...')%>"
                 onfocus="this.form.className='focused';
                          if(this.value=='<%=_('Search...')%>'){this.value=''}"

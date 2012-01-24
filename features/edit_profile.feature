@@ -11,7 +11,7 @@ Feature: edit profile
       | display_name |
       | birth_date |
     When I go to joao's control panel
-    And I follow "Profile Info and settings"
+    And I follow "Edit Profile"
     And I select "November"
     And I select "15"
     And I press "Save"
@@ -23,7 +23,7 @@ Feature: edit profile
       | display_name |
       | birth_date |
     When I go to joao's control panel
-    And I follow "Profile Info and settings"
+    And I follow "Edit Profile"
     And I select "November"
     And I select "15"
     And I press "Save"
@@ -35,7 +35,7 @@ Feature: edit profile
       | display_name |
       | birth_date |
     When I go to joao's control panel
-    And I follow "Profile Info and settings"
+    And I follow "Edit Profile"
     And I select "November"
     And I select "15"
     And I select "1980"
@@ -48,7 +48,7 @@ Feature: edit profile
       | display_name |
       | birth_date |
     When I go to joao's control panel
-    And I follow "Profile Info and settings"
+    And I follow "Edit Profile"
     And I select "November"
     And I select "15"
     And I select "1980"

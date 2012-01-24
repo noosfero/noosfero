@@ -80,7 +80,7 @@ Feature: manage product price details
     And I should not see "Taxes" within "#display-price-details"
     And I should see "Energy" within "#display-price-details"
 
-  Scenario: not display product detail button if product does not have input
+  Scenario: not display price composition if product does not have input
     Given the following product
       | owner      | category | name             |
       | redemoinho | rock     | Yellow Submarine |
@@ -89,13 +89,12 @@ Feature: manage product price details
       | mariasouza | Maria Souza |
     And I am logged in as "mariasouza"
     When I go to Rede Moinho's page of product Yellow Submarine
-    And I follow "Price composition"
-    Then I should not see "Describe here the cost of production"
+    Then I should not see "Price composition"
 
-  Scenario: not display price details if price is not fully described
+  Scenario: not display price composition if price is not fully described
     Given I am not logged in
     And I go to Rede Moinho's page of product Abbey Road
-    Then I should not see "60.0"
+    Then I should not see "Price composition"
 
    @selenium
    Scenario: display price details if price is fully described

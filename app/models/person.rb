@@ -403,7 +403,7 @@ class Person < Profile
   end
 
   def control_panel_settings_button
-    {:title => _('Profile Info and settings'), :icon => 'edit-profile'}
+    {:title => _('Edit Profile'), :icon => 'edit-profile'}
   end
 
   def disable

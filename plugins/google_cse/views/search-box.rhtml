@@ -1,0 +1,10 @@
+<script type="text/javascript">
+  jQuery(function($) {
+    $('<%= locals[:selector] %>')
+      .attr({class: "cse-search-box", action: "<%= GoogleCsePlugin.results_url_path %>"})
+      .append('<input type="hidden" name="cx" value="<%= locals[:plugin].google_id %>" /><input type="hidden" name="cof" value="FORID:10" /><input type="hidden" name="ie" value="UTF-8" /><input type="hidden" name="siteurl" value="<%= context.environment.default_hostname %>">')
+      .children("input[name='query']")
+        .attr('name', 'q')
+        .attr('id', 'q');
+  });
+</script>

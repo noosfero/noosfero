@@ -4,6 +4,8 @@ class GoogleAnalyticsPlugin < Noosfero::Plugin
 
   include ActionView::Helpers::JavaScriptHelper
   include ActionView::Helpers::FormHelper
+  include ActionView::Helpers::UrlHelper
+  include ActionView::Helpers::TagHelper
   include ApplicationHelper
 
   def self.plugin_name
@@ -15,7 +17,7 @@ class GoogleAnalyticsPlugin < Noosfero::Plugin
   end
 
   def profile_id
-    context.profile && context.profile.data[:google_analytics_profile_id]
+    context.profile && context.profile.google_analytics_profile_id
   end
 
   def head_ending
@@ -25,7 +27,7 @@ class GoogleAnalyticsPlugin < Noosfero::Plugin
   end
 
   def profile_editor_extras
-    labelled_form_field(_('Google Analytics Profile ID'), text_field(:profile_data, :google_analytics_profile_id, :value => context.profile.google_analytics_profile_id))
+    expanded_template('profile-editor-extras.rhtml',{:profile_id => profile_id})
   end
 
 end
