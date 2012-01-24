@@ -4,7 +4,7 @@
 
 <%= render :file => 'shared/tiny_mce' %>
 
-<% labelled_form_for :environment, @environment, :url => {:host => @environment.default_hostname, :port => request.port} do |f| %>
+<% labelled_form_for :environment, @environment do |f| %>
   <% tabs = [] %>
   <% tabs << {:title => _('Site info'), :id => 'site-info',
     :content => (render :partial => 'site_info', :locals => {:f => f})} %>
