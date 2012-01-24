@@ -59,6 +59,21 @@ Feature: mezuro content
     And I press "Save" 
     Then I should see "Qt-Calculator"
 
+  Scenario: I see results from a real Kalibro project
+    Given I am on My Community's cms
+    And I follow "New content"
+    And I follow "Kalibro project"
+    And I fill in the following:
+      | Title           | Qt-Calculator           |
+      | License         | GPL                     |
+      | Repository type | SUBVERSION              |
+      | Repository url  | https://qt-calculator.svn.sourceforge.net/svnroot/qt-calculator |
+   And I press "Save"
+   Then I should see "Qt-Calculator"
+   And I should see "GPL"
+   And I should see "SUBVERSION"
+   And I should see "https://qt-calculator.svn.sourceforge.net/svnroot/qt-calculator"
+
   @selenium
   Scenario: I delete a real mezuro content
     Given I am on My Community's cms
