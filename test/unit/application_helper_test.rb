@@ -468,6 +468,9 @@ class ApplicationHelperTest < Test::Unit::TestCase
   end
 
   should 'generate a gravatar image url' do
+    stubs(:environment).returns(Environment.default)
+    @controller = ApplicationController.new
+
     with_constants :NOOSFERO_CONF => {'gravatar' => 'crazyvatar'} do
       url = str_gravatar_url_for( 'rms@gnu.org', :size => 50 )
       assert_match(/^http:\/\/www\.gravatar\.com\/avatar\.php\?/, url)
