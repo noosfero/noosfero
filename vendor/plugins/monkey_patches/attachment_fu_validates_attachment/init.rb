@@ -17,16 +17,16 @@ Technoweenie::AttachmentFu::InstanceMethods.module_eval do
 end
 
 Technoweenie::AttachmentFu::ClassMethods.module_eval do
-  # Options: 
-  # *  <tt>:empty</tt> - Base error message when no file is uploaded. Default is "No file uploaded" 
+  # Options:
+  # *  <tt>:empty</tt> - Base error message when no file is uploaded. Default is "No file uploaded"
   # *  <tt>:content_type</tt> - Base error message when the uploaded file is not a valid content type.
   # *  <tt>:size</tt> - Base error message when the uploaded file is not a valid size.
   #
   # Example:
   #   validates_attachment :content_type => "The file you uploaded was not a JPEG, PNG or GIF",
-  #                        :size         => "The image you uploaded was larger than the maximum size of 10MB" 
+  #                        :size         => "The image you uploaded was larger than the maximum size of 10MB"
   def validates_attachment(options={})
-    options[:empty] ||= "No file uploaded" 
+    options[:empty] ||= "No file uploaded"
     class_inheritable_accessor :attachment_validation_options
     self.attachment_validation_options = options
     validate :attachment_valid?
