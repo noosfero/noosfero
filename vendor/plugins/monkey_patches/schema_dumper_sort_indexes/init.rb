@@ -1,5 +1,5 @@
 # based on https://rails.lighthouseapp.com/projects/8994/tickets/1266-order-add_index-statements-in-schemarb
-# only needed for rails < 2.2 
+# only needed for rails < 2.2
 if Rails::VERSION::STRING < "2.2.0"
   class ActiveRecord::SchemaDumper
     def indexes(table, stream)
