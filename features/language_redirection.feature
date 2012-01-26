@@ -27,7 +27,7 @@ Feature: language redirection
     Given I am logged in as "manuel"
     And my browser prefers English
     And I go to manuel's profile editor
-    And I check "Automatic redirect the visitor to the translated article of him language"
+    And I check "Automaticaly redirect the visitor to the article translated to his/her language"
     And I press "save"
     When I go to /manuel/meu-artigo
     Then the site should be in English
