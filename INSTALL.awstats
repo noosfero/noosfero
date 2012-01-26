@@ -32,7 +32,7 @@ INSTALL.varnish) and varnishncsa-vhost [1].
 
 [1] http://gitorious.org/varnisnncsa-vhost
 
-3. Running AWStats for first time
+3. Running AWStats for the first time
 
 Run awstats by hand via command line:
 
@@ -75,4 +75,4 @@ Try: http://tools.<domain>/cgi-bin/awstats.pl?config=<domain>
 
 0,10,20,30,40,50 * * * * www-data [ -x /usr/lib/cgi-bin/awstats.pl -a -f /etc/awstats/awstats.<domain>.conf -a -r /var/log/apache/access.log ] && /usr/lib/cgi-bin/awstats.pl -config=<domain> -update >/dev/null
 
-Done, check the AWStats frontend after one or two days to see if is all going well.
+Done, check the AWStats frontend after one or two days to see if everything is working properly.
