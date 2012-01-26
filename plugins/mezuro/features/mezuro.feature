@@ -68,11 +68,14 @@ Feature: mezuro content
       | License         | GPL                     |
       | Repository type | SUBVERSION              |
       | Repository url  | https://qt-calculator.svn.sourceforge.net/svnroot/qt-calculator |
+      | Configuration   | Kalibro for Java        |
    And I press "Save"
    Then I should see "Qt-Calculator"
    And I should see "GPL"
    And I should see "SUBVERSION"
    And I should see "https://qt-calculator.svn.sourceforge.net/svnroot/qt-calculator"
+   And I should see "Kalibro for Java"
+   And I should see "Kalibro Service is loading the source code"
 
   @selenium
   Scenario: I delete a real mezuro content
