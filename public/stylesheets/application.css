@@ -1100,6 +1100,15 @@ code input {
 
 #article pre {
   white-space: pre-wrap;
+  padding: 5px;
+  border: 1px solid #d3d7cf;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+}
+#article pre, #article code {
+  background: #eeeeec;
+  color: #2e3436;
 }
 
 #article .article-body a.icon {
