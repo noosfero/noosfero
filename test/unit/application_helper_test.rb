@@ -467,8 +467,10 @@ class ApplicationHelperTest < Test::Unit::TestCase
     assert_match(/Community nick/, page_title)
   end
 
-  should 'generate a gravatar url' do
-    stubs(:theme_option).returns({})
+  should 'generate a gravatar image url' do
+    stubs(:environment).returns(Environment.default)
+    @controller = ApplicationController.new
+
     with_constants :NOOSFERO_CONF => {'gravatar' => 'crazyvatar'} do
       url = str_gravatar_url_for( 'rms@gnu.org', :size => 50 )
       assert_match(/^http:\/\/www\.gravatar\.com\/avatar\.php\?/, url)
@@ -484,6 +486,11 @@ class ApplicationHelperTest < Test::Unit::TestCase
       assert_match(/(\?|&)d=nicevatar(&|$)/, url)
       assert_match(/(\?|&)size=50(&|$)/, url)
     end
+  end
+
+  should 'generate a gravatar profile url' do
+    url = gravatar_profile_url( 'rms@gnu.org' )
+    assert_equal('http://www.gravatar.com/ed5214d4b49154ba0dc397a28ee90eb7', url)
   end
 
   should 'use theme passed via param when in development mode' do

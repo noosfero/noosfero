@@ -588,7 +588,7 @@ module ApplicationHelper
   def gravatar_url_for(email, options = {})
     # Ta dando erro de roteamento
     default = theme_option['gravatar'] || NOOSFERO_CONF['gravatar'] || nil
-    url_for( { :gravatar_id => Digest::MD5.hexdigest(email),
+    url_for( { :gravatar_id => Digest::MD5.hexdigest(email.to_s),
                :host => 'www.gravatar.com',
                :protocol => 'http://',
                :only_path => false,
@@ -600,7 +600,7 @@ module ApplicationHelper
   def str_gravatar_url_for(email, options = {})
     default = theme_option['gravatar'] || NOOSFERO_CONF['gravatar'] || nil
     url = 'http://www.gravatar.com/avatar.php?gravatar_id=' +
-           Digest::MD5.hexdigest(email)
+           Digest::MD5.hexdigest(email.to_s)
     {
       :only_path => false,
       :d => default
@@ -608,6 +608,10 @@ module ApplicationHelper
       url += ( '&%s=%s' % [ k,v ] )
     }
     url
+  end
+
+  def gravatar_profile_url(email)
+    'http://www.gravatar.com/'+ Digest::MD5.hexdigest(email.to_s)
   end
 
   attr_reader :environment

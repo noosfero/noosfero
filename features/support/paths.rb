@@ -14,6 +14,9 @@ module NavigationHelpers
     when /^\//
       page_name
 
+    when /article "([^"]+)"\s*$/
+      url_for( Article.find_by_name($1).url )
+
     when /edit "(.+)" by (.+)/
       article_id = Person[$2].articles.find_by_slug($1.to_slug).id
       "/myprofile/#{$2}/cms/edit/#{article_id}"
