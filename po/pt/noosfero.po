@@ -13,8 +13,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.34.3\n"
-"POT-Creation-Date: 2012-01-26 14:57-0200\n"
-"PO-Revision-Date: 2012-01-26 16:51-0200\n"
+"POT-Creation-Date: 2012-01-26 18:34-0200\n"
+"PO-Revision-Date: 2012-01-26 18:40-0200\n"
 "Last-Translator: Joenio Costa <joenio@colivre.coop.br>\n"
 "Language-Team: LANGUAGE TEAM <E-MAIL@ADDRESS or HOME PAGE>\n"
 "Language: \n"
@@ -827,6 +827,7 @@ msgstr "Produtos"
 #: app/views/search/_sellers_form.rhtml:7
 #: app/views/profile/_person_profile.rhtml:38
 #: plugins/bsc/views/bsc_plugin_myprofile/view_contract.html.erb:18
+#: plugins/bsc/views/bsc_plugin_myprofile/_contract_form.html.erb:13
 msgid "Enterprises"
 msgstr "Empreendimentos"
 
@@ -4997,7 +4998,7 @@ msgid ""
 "<h1>Welcome to %s!</h1>\n"
 "         <h3>Thanks for signing up, we're thrilled to have you on our social "
 "network!</h3>\n"
-"         <p>Firsty, some tips for getting started:</p>\n"
+"         <p>Firstly, some tips for getting started:</p>\n"
 "         <h4>Confirm your account!</h4>\n"
 "         <p>You should receive a welcome email from us shortly. Please take "
 "a second to follow the link within to confirm your account.</p>\n"
@@ -5005,14 +5006,34 @@ msgid ""
 "until your account is confirmed.</p>\n"
 "         <h4>What to do next?</h4>\n"
 "         <p><a href=\"/doc/user/editing-person-info\" target=\"_blank"
-"\">Customize your profile</a>. Upload an avatar and sign up for activity "
-"notifications under Account.</p>\n"
+"\">Customize your profile</a>. Upload an avatar and let your friends find "
+"you easily :)</p>\n"
 "         <p>Learn the guidelines. Read the <a href=\"/doc\" target=\"_blank"
 "\">Documentation</a> for more details on how to use new social network!</p>\n"
 "         <p><a href=\"/doc/user/invite-contacts\" target=\"_blank\">Invite "
 "and find</a> your Gmail, Yahoo and Hotmail contacts!</p>\n"
 "         <p>Start exploring and Have fun!</p>"
 msgstr ""
+"<h1>Boas vindas ao ambiente %s!</h1>\n"
+"         <h3>Agradecemos seu cadastro, estamos muito felizes por ter você em "
+"nossa rede social!</h3>\n"
+"         <p>Em primeiro lugar, algumas dicas para começar:</p>\n"
+"         <h4>Confirme sua conta!</h4>\n"
+"         <p>Você deve receber um e-mail de boas vindas em breve. Por favor, "
+"reserve um segundo para seguir o link no e-mail e confirmar sua conta.</"
+"p>\n"
+"         <p>Você não aparecerá como um <a href=\"%s\" target=\"_blank"
+"\">usuário</a> até sua conta ser confirmada.</p>\n"
+"         <h4>O que fazer agora?</h4>\n"
+"         <p><a href=\"/doc/user/editing-person-info\" target=\"_blank"
+"\">Personalize seu perfil</a>. Adicione uma imagem como seu avatar e "
+"deixe seus amigos envontrarem você facilmente :)</p>\n"
+"         <p>Aprenda o básico. Leia a <a href=\"/doc\" target=\"_blank"
+"\">documentação</a> para obter mais detalhes sobre como utilizar essa rede "
+"social!</p>\n"
+"         <p><a href=\"/doc/user/invite-contacts\" target=\"_blank\">Convide "
+"e encontre</a> seus contatos do Gmail, Yahoo e Hotmail!</p>\n"
+"         <p>Comece a explorar e divirta-se!</p>"
 
 #: app/views/account/signup.rhtml:16
 msgid "Sign up for %s!"
@@ -5616,8 +5637,8 @@ msgid ""
 "If you leave, you will lose all unsaved information. Are you sure you want "
 "to quit?"
 msgstr ""
-"Se você sair, perderá todas as informações não salvas. Tem certeza que deseja "
-"sair?"
+"Se você sair, perderá todas as informações não salvas. Tem certeza que "
+"deseja sair?"
 
 #: app/views/manage_products/_manage_product_details.rhtml:27
 msgid "New cost"
@@ -5628,8 +5649,8 @@ msgid ""
 "The production cost of your product is not described yet. If you want to "
 "display the price composition, please add all the costs"
 msgstr ""
-"O custo de produção do seu produto ainda não está descrito. Se desejar exibir "
-"a composição do preço, por favor adicione todos os custos"
+"O custo de produção do seu produto ainda não está descrito. Se desejar "
+"exibir a composição do preço, por favor adicione todos os custos"
 
 #: app/views/manage_products/_price_composition_bar.rhtml:20
 msgid ""
@@ -6240,7 +6261,7 @@ msgstr "por "
 
 #: app/views/catalog/index.rhtml:37
 msgid " / "
-msgstr ""
+msgstr " / "
 
 #: app/views/catalog/index.rhtml:45
 msgid "description"
@@ -7036,9 +7057,11 @@ msgstr "Exibir conteúdo deste grupo para membros"
 
 #: app/views/profile_editor/edit.rhtml:80
 msgid ""
-"Automatic redirect the visitor to the translated article of him language"
+"Automaticaly redirect the visitor to the article translated to his/her "
+"language"
 msgstr ""
-""
+"Redirecionar o visitante para o artigo traduzido para seu idioma "
+"automaticamente"
 
 #: app/views/profile_editor/edit.rhtml:90
 msgid "Select the categories of your interest"
@@ -7637,11 +7660,11 @@ msgstr "Entrar no bate-papo"
 #: app/views/shared/product/_qualifiers.rhtml:3
 #: app/views/shared/product/_qualifiers.rhtml:6
 msgid ";"
-msgstr ""
+msgstr ";"
 
 #: app/views/shared/product/_qualifiers.rhtml:6
 msgid "cert. "
-msgstr ""
+msgstr "cert. "
 
 #: app/views/shared/logged_in/xmpp_chat.rhtml:5
 msgid "None of your friends is online at the moment"
@@ -8918,7 +8941,8 @@ msgid ""
 "A plugin that uses the Google Custom Search as Noosfero general search "
 "engine."
 msgstr ""
-"Um plugin que utiliza a busca customizada do Google como busca geral do Noosfero"
+"Um plugin que utiliza a busca customizada do Google como busca geral do "
+"Noosfero"
 
 #: plugins/bsc/lib/bsc_plugin/contract.rb:33
 msgid "Negotiating"
@@ -9066,7 +9090,8 @@ msgstr "Contrato editado"
 
 #: plugins/bsc/controllers/bsc_plugin_myprofile_controller.rb:173
 msgid "Contract edited but some products could not be added."
-msgstr "O contrato foi editado mas alguns produtos não puderam ser adicionados."
+msgstr ""
+"O contrato foi editado mas alguns produtos não puderam ser adicionados."
 
 #: plugins/bsc/controllers/bsc_plugin_myprofile_controller.rb:183
 msgid "Contract removed."
@@ -9419,13 +9444,9 @@ msgstr "Anotações"
 msgid "New contract"
 msgstr "Novo contrato"
 
-#: plugins/bsc/views/bsc_plugin_myprofile/_contract_form.html.erb:13
-msgid "Empreendimentos"
-msgstr ""
-
 #: plugins/bsc/views/bsc_plugin_myprofile/_contract_form.html.erb:18
-msgid "Type in serach term for enterprise"
-msgstr "Desabilitar busca por empreendimentos"
+msgid "Type in search term for enterprise"
+msgstr "Digite um termo de pesquisa para empreendimentos"
 
 #: plugins/bsc/views/bsc_plugin_myprofile/_contract_form.html.erb:31
 msgid "Add new product"
@@ -9449,9 +9470,9 @@ msgid ""
 "decide to associate one of them or create the new enterprise confirming the "
 "informations you typed in."
 msgstr ""
-"Foram encontrados %{count} empreendimentos com nomes similares na mesma cidade, "
-"você pode decidir assoociar um deles ou criar um novo empreendimento confirmando"
-" as informações que você digitou."
+"Foram encontrados %{count} empreendimentos com nomes similares na mesma "
+"cidade, você pode decidir assoociar um deles ou criar um novo empreendimento "
+"confirmando as informações que você digitou."
 
 #: plugins/bsc/views/bsc_plugin_myprofile/_similar_enterprises.html.erb:20
 msgid "Associate"
@@ -9646,6 +9667,9 @@ msgstr ""
 "Este site usa <a href=\"http://noosfero.org/\">Noosfero</a>, desenvolvido "
 "pela %s e licenciado sob a <a href=\"http://www.gnu.org/licenses/agpl.html"
 "\">GNU Affero General Public License</a> versão 3 ou superior."
+
+#~ msgid "Type in serach term for enterprise"
+#~ msgstr "Desabilitar busca por empreendimentos"
 
 #~ msgid "Leave"
 #~ msgstr "Sair"

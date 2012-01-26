@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.34.3\n"
-"POT-Creation-Date: 2012-01-26 14:57-0200\n"
+"POT-Creation-Date: 2012-01-26 18:34-0200\n"
 "PO-Revision-Date: 2010-10-26 09:57-0300\n"
 "Last-Translator: Anton <anton.c@live.com>\n"
 "Language-Team: German <de@li.org>\n"
@@ -820,6 +820,7 @@ msgstr "Продукты"
 #: app/views/search/_sellers_form.rhtml:7
 #: app/views/profile/_person_profile.rhtml:38
 #: plugins/bsc/views/bsc_plugin_myprofile/view_contract.html.erb:18
+#: plugins/bsc/views/bsc_plugin_myprofile/_contract_form.html.erb:13
 msgid "Enterprises"
 msgstr "Компании"
 
@@ -5020,7 +5021,7 @@ msgid ""
 "<h1>Welcome to %s!</h1>\n"
 "         <h3>Thanks for signing up, we're thrilled to have you on our social "
 "network!</h3>\n"
-"         <p>Firsty, some tips for getting started:</p>\n"
+"         <p>Firstly, some tips for getting started:</p>\n"
 "         <h4>Confirm your account!</h4>\n"
 "         <p>You should receive a welcome email from us shortly. Please take "
 "a second to follow the link within to confirm your account.</p>\n"
@@ -5028,8 +5029,8 @@ msgid ""
 "until your account is confirmed.</p>\n"
 "         <h4>What to do next?</h4>\n"
 "         <p><a href=\"/doc/user/editing-person-info\" target=\"_blank"
-"\">Customize your profile</a>. Upload an avatar and sign up for activity "
-"notifications under Account.</p>\n"
+"\">Customize your profile</a>. Upload an avatar and let your friends find "
+"you easily :)</p>\n"
 "         <p>Learn the guidelines. Read the <a href=\"/doc\" target=\"_blank"
 "\">Documentation</a> for more details on how to use new social network!</p>\n"
 "         <p><a href=\"/doc/user/invite-contacts\" target=\"_blank\">Invite "
@@ -7061,7 +7062,8 @@ msgstr "Показывать данные группы пользователя�
 
 #: app/views/profile_editor/edit.rhtml:80
 msgid ""
-"Automatic redirect the visitor to the translated article of him language"
+"Automaticaly redirect the visitor to the article translated to his/her "
+"language"
 msgstr ""
 
 #: app/views/profile_editor/edit.rhtml:90
@@ -9535,13 +9537,9 @@ msgstr "Текст приглашения"
 msgid "New contract"
 msgstr "Весь контент"
 
-#: plugins/bsc/views/bsc_plugin_myprofile/_contract_form.html.erb:13
-msgid "Empreendimentos"
-msgstr ""
-
 #: plugins/bsc/views/bsc_plugin_myprofile/_contract_form.html.erb:18
 #, fuzzy
-msgid "Type in serach term for enterprise"
+msgid "Type in search term for enterprise"
 msgstr "Отключить поиск по компаниям"
 
 #: plugins/bsc/views/bsc_plugin_myprofile/_contract_form.html.erb:31
@@ -9760,6 +9758,10 @@ msgid ""
 "%s and licensed under the <a href=\"http://www.gnu.org/licenses/agpl.html"
 "\">GNU Affero General Public License</a> version 3 or any later version."
 msgstr ""
+
+#, fuzzy
+#~ msgid "Type in serach term for enterprise"
+#~ msgstr "Отключить поиск по компаниям"
 
 #~ msgid "Leave"
 #~ msgstr "Выйти"
