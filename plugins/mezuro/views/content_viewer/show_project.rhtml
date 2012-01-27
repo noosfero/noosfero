@@ -67,7 +67,7 @@
     </tr>
   </table>
   <h5><%= _('Source tree') %></h5>
-  <%= @project_result.source_tree.print %>
+  <%= render :partial => 'source_tree', :locals => { :source_tree => @project_result.source_tree } %>
 
   <% @module_result = @page.module_result(@project.name) %>
 
