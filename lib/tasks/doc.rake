@@ -13,7 +13,7 @@ namespace :noosfero do
         [File.join(RAILS_ROOT, 'doc/noosfero/plugins/index.textile')]
     end
     input = Dir.glob('doc/noosfero/**/*.textile') + plugins_textiles.map{|i| "doc/noosfero/plugins/#{File.basename(i)}"}
-    topics_xhtml = input.map { |item| item.sub('.textile', '.en.xhtml') }
+    topics_xhtml = input.map { |item| item.sub('.textile', '.en.xhtml') }.uniq
     sections = Dir.glob('doc/noosfero/*').select {|item| File.directory?(item) }
     toc_sections = sections.map {|item| File.join(item, 'toc.en.xhtml')}
     index_sections = sections.map {|item| File.join(item, 'index.en.xhtml')}
@@ -105,11 +105,10 @@ namespace :noosfero do
     desc "Build Noosfero online documentation"
     task :build => [:link_plugins_textiles, po4a_conf] do
       sh "po4a #{po4a_conf}"
-      Rake::Task['noosfero:doc:unlink_plugins_textiles'].invoke
     end
 
     desc "Cleans Noosfero online documentation"
-    task :clean do
+    task :clean => :unlink_plugins_textiles do
       sh 'rm -f doc/noosfero/*.xhtml'
       sh 'rm -f doc/noosfero/*/*.xhtml'
       rm_f po4a_conf

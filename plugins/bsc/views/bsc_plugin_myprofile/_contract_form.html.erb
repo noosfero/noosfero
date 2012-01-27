@@ -10,12 +10,12 @@
   <%= labelled_form_field(_('Status'), f.select(:status, BscPlugin::Contract::Status.types.
         map { |s| [BscPlugin::Contract::Status.names[s], s] })) %>
   <%= f.text_field(:number_of_producers, :size => 8, :id => 'bsc-plugin-contract-spinner') %>
-  <%= _('Empreendimentos')+':' %>
+  <%= _('Enterprises')+':' %>
 
   <% search_action = {:action => 'search_contract_enterprises', :profile => profile.identifier} %>
   <%= token_input_field_tag(:enterprises, 'involved-enterprises', search_action, 
                             { :pre_populate => @contract.enterprises_to_token_input,
-                              :hint_text => _('Type in serach term for enterprise') }) %>
+                              :hint_text => _('Type in search term for enterprise') }) %>
 
   <table id="bsc-plugin-sales-table" class="alternate-colors">
     <tr>

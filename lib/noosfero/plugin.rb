@@ -7,6 +7,10 @@ class Noosfero::Plugin
 
   class << self
 
+    def klass(dir)
+      (dir.to_s.camelize + 'Plugin').constantize # load the plugin
+    end
+
     def init_system
       Dir.glob(File.join(Rails.root, 'config', 'plugins', '*')).select do |entry|
         File.directory?(entry)
@@ -18,8 +22,7 @@ class Noosfero::Plugin
           path << File.join(dir, 'lib')
         end
 
-        plugin_name = File.basename(dir).camelize + 'Plugin'
-        plugin_name.constantize # load the plugin
+        klass(File.basename(dir))
       end
     end
 

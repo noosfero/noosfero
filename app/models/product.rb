@@ -184,7 +184,7 @@ class Product < ActiveRecord::Base
   end
 
   def price_described?
-    return false if price.nil?
+    return false if price.blank? or price == 0
     (price - total_production_cost).zero?
   end
 

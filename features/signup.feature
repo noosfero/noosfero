@@ -13,19 +13,19 @@ Feature: signup
       | Password              | secret                |
       | Password confirmation | secret                |
       | Name                  | José da Silva         |
-    And I press "Sign up"
+    And I press "Create my account"
     Then I should not be logged in
-		And I should receive an e-mail on josesilva@example.com
+    And I should receive an e-mail on josesilva@example.com
     When I go to login page
-		And I fill in "Username" with "josesilva"
-		And I fill in "Password" with "secret"
-		And I press "Log in"
+    And I fill in "Username" with "josesilva"
+    And I fill in "Password" with "secret"
+    And I press "Log in"
     Then I should not be logged in
     When José da Silva's account is activated
     And I go to login page
-		And I fill in "Username" with "josesilva"
-		And I fill in "Password" with "secret"
-		And I press "Log in"
+    And I fill in "Username" with "josesilva"
+    And I fill in "Password" with "secret"
+    And I press "Log in"
     Then I should be logged in as "josesilva"
 
   Scenario: be redirected if user goes to signup page and is logged
@@ -44,7 +44,7 @@ Feature: signup
     And I fill in "Username" with "josesilva"
     And I fill in "Password" with "secret"
     And I fill in "Password confirmation" with "secret"
-    And I press "Sign up"
+    And I press "Create my account"
     Then I should see "Name can't be blank"
 
   Scenario: user cannot change his name to empty string
@@ -53,7 +53,7 @@ Feature: signup
       | joaosilva | Joao Silva |
     Given I am logged in as "joaosilva"
     And I am on Joao Silva's control panel
-    And I follow "Profile Info and settings"
+    And I follow "Edit Profile"
     And I fill in "Name" with ""
     When I press "Save"
     Then I should see "Name can't be blank"

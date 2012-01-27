@@ -443,8 +443,10 @@ class ApplicationHelperTest < ActiveSupport::TestCase
     assert_match(/Community nick/, page_title)
   end
 
-  should 'generate a gravatar url' do
-    stubs(:theme_option).returns({})
+  should 'generate a gravatar image url' do
+    stubs(:environment).returns(Environment.default)
+    @controller = ApplicationController.new
+
     with_constants :NOOSFERO_CONF => {'gravatar' => 'crazyvatar'} do
       url = str_gravatar_url_for( 'rms@gnu.org', :size => 50 )
       assert_match(/^http:\/\/www\.gravatar\.com\/avatar\.php\?/, url)
@@ -460,6 +462,11 @@ class ApplicationHelperTest < ActiveSupport::TestCase
       assert_match(/(\?|&)d=nicevatar(&|$)/, url)
       assert_match(/(\?|&)size=50(&|$)/, url)
     end
+  end
+
+  should 'generate a gravatar profile url' do
+    url = gravatar_profile_url( 'rms@gnu.org' )
+    assert_equal('http://www.gravatar.com/ed5214d4b49154ba0dc397a28ee90eb7', url)
   end
 
   should 'use theme passed via param when in development mode' do
@@ -522,7 +529,7 @@ class ApplicationHelperTest < ActiveSupport::TestCase
     community.stubs(:url).returns('url for community')
     community.stubs(:public_profile_url).returns('url for community')
     links = links_for_balloon(community)
-    assert_equal ['Wall', 'Members', 'Agenda', 'Join', 'Leave', 'Send an e-mail'], links.map{|i| i.keys.first}
+    assert_equal ['Wall', 'Members', 'Agenda', 'Join', 'Leave community', 'Send an e-mail'], links.map{|i| i.keys.first}
   end
 
   should 'return ordered list of links to balloon to Enterprise' do
@@ -579,7 +586,7 @@ class ApplicationHelperTest < ActiveSupport::TestCase
 
     @controller = ApplicationController.new
     path = File.join(RAILS_ROOT, 'app', 'views')
-    @controller.stubs(:view_paths).returns(path)
+    @controller.stubs(:view_paths).returns([path])
 
     file = path + '/shared/usermenu/xmpp_chat.rhtml'
     expects(:render).with(:file => file, :use_full_path => false).returns('Open chat')

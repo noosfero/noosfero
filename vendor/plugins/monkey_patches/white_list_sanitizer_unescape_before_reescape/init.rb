@@ -4,7 +4,7 @@
 # this was solved in rails 2.2.1, then remove this patch when upgrade to it
 
 HTML::WhiteListSanitizer.module_eval do
-  
+
   def sanitize_with_filter_fixes(*args, &block)
     text = sanitize_without_filter_fixes(*args, &block)
     if text

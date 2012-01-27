@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2011-08-16 16:18-0300\n"
-"PO-Revision-Date: 2011-08-22 17:56-0300\n"
+"POT-Creation-Date: 2012-01-27 01:27-0100\n"
+"PO-Revision-Date: 2012-01-27 01:41-0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
 "MIME-Version: 1.0\n"
@@ -535,7 +535,7 @@ msgstr "Plugins"
 # type: Content of: <h1>
 #: doc/noosfero/plugins/send_email.en.xhtml:1
 msgid "SendEmailPlugin"
-msgstr ""
+msgstr "SendEmailPlugin"
 
 # type: Content of: <p>
 #: doc/noosfero/plugins/send_email.en.xhtml:3
@@ -544,6 +544,8 @@ msgstr "Permite enviar e-mails por um formulário"
 
 # type: Content of: <h2>
 #: doc/noosfero/plugins/send_email.en.xhtml:6
+#: doc/noosfero/plugins/google_analytics.en.xhtml:6
+#: doc/noosfero/plugins/google_cse.en.xhtml:6
 msgid "Usage"
 msgstr "Utilização"
 
@@ -553,23 +555,24 @@ msgid ""
 "Create a <span class=\"caps\">HTML</span> form using RawHTMLBlock or "
 "RawHTMLArticle that invokes the {sendemail} action"
 msgstr ""
-"Crie um formulário <span class=\"caps\">HTML</span> utilizando using RawHTMLBlock ou "
-"RawHTMLArticle que invoca a 'action' {sendemail}"
+"Crie um formulário <span class=\"caps\">HTML</span> utilizando using "
+"RawHTMLBlock ou RawHTMLArticle que invoca a 'action' {sendemail}"
 
 # type: Content of: <ul><li>
 #: doc/noosfero/plugins/send_email.en.xhtml:10
 msgid ""
 "Add a &#8220;to&#8221; and &#8220;message&#8221; field and a submit button"
 msgstr ""
-"Adicione os campos &#8220;to&#8221; e &#8220;message&#8221; e um botão de submit"
+"Adicione os campos &#8220;to&#8221; e &#8220;message&#8221; e um botão de "
+"submit"
 
 # type: Content of: <ul><li>
 #: doc/noosfero/plugins/send_email.en.xhtml:11
 msgid ""
 "Make sure to fill in allowed &#8216;to&#8217; addresses in plugin settings"
 msgstr ""
-"Tenha certeza de preencher o campo &#8216;to&#8217; com endereços permitidos"
-" nas configurações do plugin"
+"Tenha certeza de preencher o campo &#8216;to&#8217; com endereços permitidos "
+"nas configurações do plugin"
 
 # type: Content of: <h2>
 #: doc/noosfero/plugins/send_email.en.xhtml:14
@@ -586,8 +589,8 @@ msgstr "Atributo 'action' do formulário"
 msgid ""
 "You should use {sendemail} macro as form action, it will be expanded as:"
 msgstr ""
-"Você deve utilizar a macro {sendemail} como 'action' do formulário, ela"
-" será expandida como:"
+"Você deve utilizar a macro {sendemail} como 'action' do formulário, ela será "
+"expandida como:"
 
 # type: Content of: <ul><li>
 #: doc/noosfero/plugins/send_email.en.xhtml:22
@@ -640,8 +643,8 @@ msgstr "Campo &#8216;To&#8217;"
 # type: Content of: <p>
 #: doc/noosfero/plugins/send_email.en.xhtml:44
 msgid "Target address. Accepts multiple addresses separated by comma."
-msgstr "Endereço do destinatário. Aceita múltiplos endereços separados "
-"por vírgula."
+msgstr ""
+"Endereço do destinatário. Aceita múltiplos endereços separados por vírgula."
 
 # type: Content of: <h3>
 #: doc/noosfero/plugins/send_email.en.xhtml:50
@@ -654,8 +657,8 @@ msgid ""
 "Each other params in <span class=\"caps\">HTML</span> form will compose "
 "message body in a format &#8220;key: value&#8221;"
 msgstr ""
-"Os outros parâmetros no formulário <span class=\"caps\">HTML</span> irão compor "
-"o corpo da mensagem no formato &#8220;chave: valor&#8221;"
+"Os outros parâmetros no formulário <span class=\"caps\">HTML</span> irão "
+"compor o corpo da mensagem no formato &#8220;chave: valor&#8221;"
 
 # type: Content of: <h3>
 #: doc/noosfero/plugins/send_email.en.xhtml:55
@@ -673,8 +676,8 @@ msgid ""
 "Ajax is supported using #ajax-form as id of <span class=\"caps\">HTML</span> "
 "form."
 msgstr ""
-"Ajax é suportado utilizando #ajax-form como 'id' do formulário "
-"<span class=\"caps\">HTML</span> "
+"Ajax é suportado utilizando #ajax-form como 'id' do formulário <span class="
+"\"caps\">HTML</span> "
 
 # type: Content of: <p>
 #: doc/noosfero/plugins/send_email.en.xhtml:62
@@ -688,9 +691,13 @@ msgid ""
 "name='to'/&gt; &lt;input type='text' name='subject'/&gt; &lt;input "
 "type='text' name='message'/&gt; &lt;input type='subject'/&gt; &lt;/form&gt;"
 msgstr ""
+"&lt;form action='{sendemail}' id='ajax-form'&gt; &lt;input type='text' "
+"name='to'/&gt; &lt;input type='text' name='subject'/&gt; &lt;input "
+"type='text' name='message'/&gt; &lt;input type='subject'/&gt; &lt;/form&gt;"
 
 # type: Content of: <h2>
 #: doc/noosfero/plugins/send_email.en.xhtml:73
+#: doc/noosfero/plugins/google_analytics.en.xhtml:26
 msgid "Info"
 msgstr "Informações"
 
@@ -702,6 +709,102 @@ msgid ""
 msgstr ""
 "Esseplugin foi inspirado pelo <a href=\"http://foswiki.org/Extensions/"
 "SendEmailPlugin\">Foswiki SendEmailPlugin</a>"
+
+# type: Content of: <h1>
+#: doc/noosfero/plugins/google_analytics.en.xhtml:1
+msgid "Google Analytics"
+msgstr "Google Analytics"
+
+# type: Content of: <p>
+#: doc/noosfero/plugins/google_analytics.en.xhtml:3
+msgid "Tracking and web analytics for people and communities."
+msgstr "Rastreamento e análise web para pessoas e comunidades."
+
+# type: Content of: <p>
+#: doc/noosfero/plugins/google_analytics.en.xhtml:8
+msgid "Create and configure Google Analytics account following these steps:"
+msgstr "Crie e configure sua conta do Google Analytics seguindo esses passos:"
+
+# type: Content of: <ol><li>
+#: doc/noosfero/plugins/google_analytics.en.xhtml:12
+msgid "Open <a href=\"http://www.google.com/analytics/\">Google Analytics</a>"
+msgstr "Acesse <a href=\"http://www.google.com/analytics/\">Google Analytics</a>"
+
+# type: Attribute 'alt' of: <ol><li><div><img>
+#: doc/noosfero/plugins/google_analytics.en.xhtml:13
+msgid "Google Setup - Step 1"
+msgstr "Configurações do Google - Passo 1"
+
+# type: Content of: <ol><li>
+#: doc/noosfero/plugins/google_analytics.en.xhtml:14
+msgid "Sign in to Google Analytics"
+msgstr "Cadastre-se no Google Analytics"
+
+# type: Attribute 'alt' of: <ol><li><div><img>
+#: doc/noosfero/plugins/google_analytics.en.xhtml:15
+msgid "Google Setup - Step 2"
+msgstr "Configurações do Google - Passo 2"
+
+# type: Attribute 'alt' of: <p><img>
+#: doc/noosfero/plugins/google_analytics.en.xhtml:16
+msgid "Follow signup instructions"
+msgstr "Siga as instruções de cadastro"
+
+# type: Attribute 'alt' of: <ol><li><div><img>
+#: doc/noosfero/plugins/google_analytics.en.xhtml:17
+msgid "Google Setup - Step 3"
+msgstr "Configurações do Google - Passo 3"
+
+# type: Content of: <ol><li>
+#: doc/noosfero/plugins/google_analytics.en.xhtml:18
+msgid ""
+"Fill in <em>Website&#8217;s <span class=\"caps\">URL</span></em> with your "
+"profile address (eg.: softwarelivre.org/joenio), <em>Account Name</em> with "
+"your name and read and accept terms of use"
+msgstr ""
+"Preencha <em>Website&#8217;s <span class=\"caps\">URL</span></em> com o "
+"endereço do seu perfil (ex.: softwarelivre.org/joenio), <em>Account Name</"
+"em> com seu nome e leia e aceite os termos de uso"
+
+# type: Attribute 'alt' of: <ol><li><div><img>
+#: doc/noosfero/plugins/google_analytics.en.xhtml:19
+msgid "Google Setup - Step 4"
+msgstr "Configurações do Google - Passo 4"
+
+# type: Content of: <ol><li>
+#: doc/noosfero/plugins/google_analytics.en.xhtml:20
+msgid ""
+"Accept default options, save and take note of your <em>Web Property ID</em> "
+"(eg.: UA-23455430-3)"
+msgstr ""
+"Aceite as opções padrão, salve e anote seu  <em>Web Property ID</em> (ex.: "
+"UA-23455430-3)"
+
+# type: Attribute 'alt' of: <ol><li><div><img>
+#: doc/noosfero/plugins/google_analytics.en.xhtml:21
+msgid "Google Setup - Step 5"
+msgstr "Configurações do Google - Passo 5"
+
+# type: Content of: <ol><li>
+#: doc/noosfero/plugins/google_analytics.en.xhtml:22
+msgid ""
+"Login to Noosfero, go to your control panel, follow <em>Edit Profile</em> "
+"and fill in <em>Google Analytics Profile ID</em> with ID above"
+msgstr ""
+"Faça login no Noosfero, acesse seu painel de controle, clique em <em>Editar perfil</em>"
+" e preencha <em>ID do Perfil no Google Analytics</em> com o ID acima"
+
+# type: Attribute 'alt' of: <ol><li><div><img>
+#: doc/noosfero/plugins/google_analytics.en.xhtml:23
+msgid "Google Setup - Step 6"
+msgstr "Configurações do Google - Passo 6"
+
+# type: Content of: <ul><li>
+#: doc/noosfero/plugins/google_analytics.en.xhtml:29
+msgid ""
+"<a href=\"http://support.google.com/analytics\">Google Analytics Support</a>"
+msgstr ""
+"<a href=\"http://support.google.com/analytics\">Suporte do Google Analytics</a>"
 
 # type: Content of: <h1>
 #: doc/noosfero/plugins/shopping_cart.en.xhtml:1
@@ -865,8 +968,8 @@ msgid ""
 msgstr ""
 "<span class=\"caps\">OBS</span>: você só pode adicionar produtos de um mesmo "
 "empreendimento no carrinho. Se você quer comprar produtos de um "
-"empreendimento diferente, você deve finalizar sua compra com um e "
-"então começar a nova compra com o outro."
+"empreendimento diferente, você deve finalizar sua compra com um e então "
+"começar a nova compra com o outro."
 
 # type: Content of: <h1>
 #: doc/noosfero/plugins/shopping_cart.en.xhtml:65
@@ -1016,9 +1119,9 @@ msgid ""
 "it will slide down gracefully back to you.  ^^"
 msgstr ""
 "Quando você esconder o carrinho nada irá acontecer com os produtos que você "
-"já adcionou."
-"Se você sente falta do seu lindo carrinho novamente, basta apertar &#8220;"
-"Mostrar carrinho&#8221; e ele irá deslizar graciosamente de volta para você."
+"já adcionou.Se você sente falta do seu lindo carrinho novamente, basta "
+"apertar &#8220;Mostrar carrinho&#8221; e ele irá deslizar graciosamente de "
+"volta para você."
 
 # type: Content of: <h2>
 #: doc/noosfero/plugins/shopping_cart.en.xhtml:131
@@ -1033,9 +1136,8 @@ msgid ""
 "Shopping Checkout&#8221; button:"
 msgstr ""
 "Então, agora você já escolheu os seus produtos e as respectivas quantidades "
-"e você quer finalizar o seu pedido."
-"Como você pode ver no seu carrinho, tem um botão &#8220;Finalizar "
-"Pedido&#8221;:"
+"e você quer finalizar o seu pedido.Como você pode ver no seu carrinho, tem "
+"um botão &#8220;Finalizar Pedido&#8221;:"
 
 # type: Attribute 'alt' of: <p><img>
 #: doc/noosfero/plugins/shopping_cart.en.xhtml:137
@@ -1113,6 +1215,69 @@ msgstr ""
 "lhe mandar um email com o seu pedido para que você possa confirmar os seus "
 "produtos e as suas informações. Agora o empreendimento deve te contactar "
 "para discutir demais detalhes."
+
+# type: Content of: <h1>
+#: doc/noosfero/plugins/google_cse.en.xhtml:1
+msgid "GoogleCsePlugin"
+msgstr "GoogleCsePlugin"
+
+# type: Content of: <p>
+#: doc/noosfero/plugins/google_cse.en.xhtml:3
+msgid ""
+"A plugin that uses the Google Custom Search as Noosfero general search "
+"engine."
+msgstr ""
+"Um plugin que utiliza a busca customizada do Google como busca geral do "
+"Noosfero"
+
+# type: Content of: <ul><li>
+#: doc/noosfero/plugins/google_cse.en.xhtml:9
+msgid ""
+"Register a Google Custom Search ID at <a href=\"http://www.google.com/cse"
+"\">http://www.google.com/cse</a>"
+msgstr ""
+"Registre um ID para a busca customizada do Google em <a href=\"http://www.google.com/cse"
+"\">http://www.google.com/cse</a>"
+
+# type: Content of: <ul><li>
+#: doc/noosfero/plugins/google_cse.en.xhtml:10
+msgid ""
+"Set at least basic config, site list and look and fell of your Google Cse ID"
+msgstr ""
+"Defina no mínimo a configuração básica, site e aparência do seu Google Cse ID"
+
+# type: Content of: <ul><li>
+#: doc/noosfero/plugins/google_cse.en.xhtml:11
+msgid "Configure Noosfero environment with this ID"
+msgstr "Configure o ambiente do Noosfero com esse ID"
+
+# type: Content of: <ul><li><ul><li>
+#: doc/noosfero/plugins/google_cse.en.xhtml:13
+msgid ">> env = Environment.find( ... )"
+msgstr ">> env = Environment.find( ... )"
+
+# type: Content of: <ul><li><ul><li>
+#: doc/noosfero/plugins/google_cse.en.xhtml:14
+msgid ""
+">> env.settings[:google_cse_id] = &#8217;&lt;PUT <span class=\"caps\">ID "
+"HERE</span>&gt;&#8217;"
+msgstr ""
+">> env.settings[:google_cse_id] = &#8217;&lt;PUT <span class=\"caps\">ID "
+"HERE</span>&gt;&#8217;"
+
+# type: Content of: <ul><li><ul><li>
+#: doc/noosfero/plugins/google_cse.en.xhtml:15
+msgid ">> env.save!"
+msgstr ">> env.save!"
+
+# type: Content of: <ul><li>
+#: doc/noosfero/plugins/google_cse.en.xhtml:17
+msgid ""
+"That&#8217;s all! The top search text-field of Noosfero will be used to make "
+"searches"
+msgstr ""
+"Isso é tudo! O campo de texto da busca do topo do Noosfero será utilizada para"
+" fazer as buscas"
 
 # type: Content of: <h1>
 #: doc/noosfero/cms/posting-on-blog.en.xhtml:1
@@ -7018,6 +7183,16 @@ msgstr "<a href=\"/doc/plugins/send_email\">SendEmailPlugin</a>"
 
 # type: Content of: <ul><li>
 #: doc/noosfero/plugins/toc.en.xhtml:4
+msgid "<a href=\"/doc/plugins/google_analytics\">Google Analytics</a>"
+msgstr "<a href=\"/doc/plugins/google_analytics\">Google Analytics</a>"
+
+# type: Content of: <ul><li>
+#: doc/noosfero/plugins/toc.en.xhtml:5
+msgid "<a href=\"/doc/plugins/google_cse\">GoogleCsePlugin</a>"
+msgstr "<a href=\"/doc/plugins/google_cse\">GoogleCsePlugin</a>"
+
+# type: Content of: <ul><li>
+#: doc/noosfero/plugins/toc.en.xhtml:6
 msgid "<a href=\"/doc/plugins/shopping_cart\">Shopping Cart</a>"
 msgstr "<a href=\"/doc/plugins/shopping_cart\">Carrinho de Compras</a>"
 
@@ -7145,7 +7320,7 @@ msgid ""
 "<a href=\"/doc/enterprise/adding-product\">Adding products to an enterprise</"
 "a>"
 msgstr ""
-"<a href=\"/doc/navigation/adding-product\">Adicionando produtos em um "
+"<a href=\"/doc/enterprise/adding-product\">Adicionando produtos em um "
 "empreendimento</a>"
 
 # type: Content of: <ul><li>

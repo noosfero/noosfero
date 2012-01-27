@@ -86,5 +86,11 @@ all_fixtures
     assert block.visible?
   end
 
+  should 'access terms of use of environment' do
+    env = Environment.default
+    env.update_attribute(:terms_of_use, 'Noosfero terms of use')
+    get :terms
+    assert_tag :content => /Noosfero terms of use/
+  end
 
 end

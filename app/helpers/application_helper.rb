@@ -540,7 +540,7 @@ module ApplicationHelper
           {_('Members') => {:href => url_for(:controller => :profile, :action => :members, :profile => profile.identifier)}},
           {_('Agenda') => {:href => url_for(:controller => :profile, :action => :events, :profile => profile.identifier)}},
           {_('Join') => {:href => url_for(profile.join_url), :class => 'join-community', :style => 'display: none'}},
-          {_('Leave') => {:href => url_for(profile.leave_url), :class => 'leave-community', :style => 'display:  none'}},
+          {_('Leave community') => {:href => url_for(profile.leave_url), :class => 'leave-community', :style => 'display:  none'}},
           {_('Send an e-mail') => {:href => url_for(:profile => profile.identifier, :controller => 'contact', :action => 'new'), :class => 'send-an-email', :style => 'display: none'}}
         ]
       elsif profile.kind_of?(Enterprise)
@@ -590,7 +590,7 @@ module ApplicationHelper
   def gravatar_url_for(email, options = {})
     # Ta dando erro de roteamento
     default = theme_option['gravatar'] || NOOSFERO_CONF['gravatar'] || nil
-    url_for( { :gravatar_id => Digest::MD5.hexdigest(email),
+    url_for( { :gravatar_id => Digest::MD5.hexdigest(email.to_s),
                :host => 'www.gravatar.com',
                :protocol => 'http://',
                :only_path => false,
@@ -602,7 +602,7 @@ module ApplicationHelper
   def str_gravatar_url_for(email, options = {})
     default = theme_option['gravatar'] || NOOSFERO_CONF['gravatar'] || nil
     url = 'http://www.gravatar.com/avatar.php?gravatar_id=' +
-           Digest::MD5.hexdigest(email)
+           Digest::MD5.hexdigest(email.to_s)
     {
       :only_path => false,
       :d => default
@@ -610,6 +610,10 @@ module ApplicationHelper
       url += ( '&%s=%s' % [ k,v ] )
     }
     url
+  end
+
+  def gravatar_profile_url(email)
+    'http://www.gravatar.com/'+ Digest::MD5.hexdigest(email.to_s)
   end
 
   attr_reader :environment
@@ -1149,7 +1153,7 @@ module ApplicationHelper
   def render_environment_features(folder)
     result = ''
     environment.enabled_features.keys.each do |feature|
-      file = File.join(@controller.view_paths, 'shared', folder.to_s, "#{feature}.rhtml")
+      file = File.join(@controller.view_paths.last, 'shared', folder.to_s, "#{feature}.rhtml")
       if File.exists?(file)
         result << render(:file => file, :use_full_path => false)
       end
@@ -1319,6 +1323,15 @@ module ApplicationHelper
 
   def is_cache_expired?(key)
     !cache_store.fetch(ActiveSupport::Cache.expand_cache_key(key, :controller))
+  end
+
+  def render_tabs(tabs)
+    titles = tabs.inject(''){ |result, tab| result << content_tag(:li, link_to(tab[:title], '#'+tab[:id]), :class => 'tab') }
+    contents = tabs.inject(''){ |result, tab| result << content_tag(:div, tab[:content], :id => tab[:id]) }
+
+    content_tag :div, :class => 'ui-tabs' do
+      content_tag(:ul, titles) + contents
+    end
   end
 
 end

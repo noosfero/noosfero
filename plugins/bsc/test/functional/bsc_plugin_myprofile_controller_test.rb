@@ -50,6 +50,18 @@ class BscPluginMyprofileControllerTest < ActionController::TestCase
     assert_match /#{e6.name}/, @response.body
   end
 
+  should 'do not list profiles template on search' do
+    e1 = Enterprise.create!(:name => 'Sample Enterprise 1', :identifier => 'sample-enterprise-1')
+    e2 = Enterprise.create!(:name => 'Sample Enterprise 2', :identifier => 'sample-enterprise-2')
+    t1 = Enterprise.create!(:name => 'Enterprise template', :identifier => 'enterprise_template')
+    t2 = Enterprise.create!(:name => 'Inactive enterprise template', :identifier => 'inactive_enterprise_template')
+
+    get :search_enterprise, :profile => bsc.identifier, :q => 'ent'
+
+    assert_no_match /#{t1.name}/, @response.body
+    assert_no_match /#{t2.name}/, @response.body
+  end
+
   should 'save associations' do
     e1 = fast_create(Enterprise, :enabled => false)
     e2 = fast_create(Enterprise, :enabled => false)

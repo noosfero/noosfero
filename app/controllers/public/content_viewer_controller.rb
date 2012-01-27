@@ -46,7 +46,7 @@ class ContentViewerController < ApplicationController
       return
     end
 
-    redirect_to_translation
+    redirect_to_translation if @page.profile.redirect_l10n
 
     # At this point the page will be showed
     @page.hit
