@@ -16,7 +16,7 @@ Feature: edit profile
     And I select "15"
     And I press "Save"
     Then I should see "Birth date is invalid"
-    And I should not see "Birth date is mandatory"
+    And I should not see "Birth date can't be blank"
 
   Scenario: Warn about invalid birth date when required
     Given the following person fields are required fields
@@ -28,7 +28,7 @@ Feature: edit profile
     And I select "15"
     And I press "Save"
     Then I should see "Birth date is invalid"
-    And I should see "Birth date is mandatory"
+    And I should not see "Birth date can't be blank"
 
   Scenario: Not warn if birth date is valid when active
     Given the following person fields are active fields

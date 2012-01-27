@@ -122,7 +122,7 @@ class Person < Profile
 
   validates_each :birth_date do |record,attr,value|
     if value && value.year == 1
-      record.errors.add(attr, _('%{fn} is invalid'))
+      record.errors.add(attr)
     end
   end
 
@@ -135,7 +135,7 @@ class Person < Profile
     self.required_fields.each do |field|
       if self.send(field).blank?
         unless (field == 'custom_area_of_study' && self.area_of_study != 'Others') || (field == 'custom_formation' && self.formation != 'Others')
-          self.errors.add(field, _('%{fn} is mandatory'))
+          self.errors.add_on_blank(field)
         end
       end
     end
