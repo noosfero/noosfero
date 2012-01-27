@@ -133,6 +133,7 @@ class PersonTest < ActiveSupport::TestCase
     other.email = 'user@domain.com'
     other.valid?
     assert other.errors.invalid?(:email)
+    assert_no_match /\{fn\}/, other.errors.on(:email)
   end
 
   should 'be able to use an e-mail already used in other environment' do

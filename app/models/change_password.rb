@@ -30,10 +30,10 @@ class ChangePassword < Task
     unless data.login.blank? || data.email.blank?
       user = User.find_by_login_and_environment_id(data.login, data.environment_id)
       if user.nil? 
-        data.errors.add(:login, _('%{fn} is not a valid username.'))
+        data.errors.add(:login, _('%{fn} is not a valid username.').fix_i18n)
       else
         if user.email != data.email
-          data.errors.add(:email, _('%{fn} is invalid.'))
+          data.errors.add(:email)
         end
       end
     end

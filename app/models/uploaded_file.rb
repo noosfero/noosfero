@@ -50,7 +50,7 @@ class UploadedFile < Article
     :thumbnail_class => Thumbnail,
     :max_size => 5.megabytes # remember to update validate message below
 
-  validates_attachment :size => N_("%{fn} of uploaded file was larger than the maximum size of 5.0 MB")
+  validates_attachment :size => N_("%{fn} of uploaded file was larger than the maximum size of 5.0 MB").fix_i18n
 
   delay_attachment_fu_thumbnails
 

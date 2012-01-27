@@ -197,7 +197,7 @@ class Person < Profile
 
   validates_each :email, :on => :update do |record,attr,value|
     if User.find(:first, :conditions => ['email = ? and id != ? and environment_id = ?', value, record.user.id, record.environment.id])
-      record.errors.add(attr, _('%{fn} is already used by other user'))
+      record.errors.add(attr, _('%{fn} is already used by other user').fix_i18n)
     end
   end
 

@@ -60,6 +60,7 @@ class CommentTest < ActiveSupport::TestCase
     c1.name = 'my name'
     c1.valid?
     assert c1.errors.invalid?(:name)
+    assert_no_match /\{fn\}/, c1.errors.on(:name)
   end
 
   should 'update counter cache in article' do

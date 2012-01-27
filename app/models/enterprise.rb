@@ -46,7 +46,7 @@ class Enterprise < Organization
     super
     self.required_fields.each do |field|
       if self.send(field).blank?
-        self.errors.add(field, _("%{fn} can't be blank"))
+        self.errors.add_on_blank(field)
       end
     end
   end
