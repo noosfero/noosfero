@@ -4,7 +4,7 @@ require File.dirname(__FILE__) + '/../../controllers/google_cse_plugin_environme
 # Re-raise errors caught by the controller.
 class GoogleCsePluginEnvironmentController; def rescue_action(e) raise e end; end
 
-class GoogleCsePluginEnvironmentControllerTest < Test::Unit::TestCase
+class GoogleCsePluginEnvironmentControllerTest < ActionController::TestCase
 
   def setup
     @controller = GoogleCsePluginEnvironmentController.new
