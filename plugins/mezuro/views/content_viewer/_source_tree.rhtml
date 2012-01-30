@@ -9,7 +9,9 @@
         alt='-' src='/plugins/mezuro/images/minus.png' class='link' 
         /> 
       </td> 
-      <td><%= source_tree.module_name %> (<%= source_tree.granularity %>)</td>
+      <td>
+        <a href="#" class='mezuro-display-metrics' data-module-name='<%= source_tree.module_name %>'><%= source_tree.module_name %> (<%= source_tree.granularity %>)</a>
+      </td>
     </tr> 
     <tr id='<%= source_tree.module_name %>_hidden'> 
       <td></td> 
@@ -24,7 +26,9 @@
   <table>
     <tr>
       <td width='1'></td>
-      <td><%= source_tree.module_name %> (<%= source_tree.granularity %>)</td>
+      <td>
+        <a href="#" class='mezuro-display-metrics' data-module-name='<%= source_tree.module_name %>'><%= source_tree.module_name %> (<%= source_tree.granularity %>)</a>
+      </td>
     </tr>
   </table>
 <% end %>

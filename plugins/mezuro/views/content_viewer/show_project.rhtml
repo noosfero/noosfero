@@ -68,29 +68,10 @@
   </table>
   <h5><%= _('Source tree') %></h5>
   <%= render :partial => 'source_tree', :locals => { :source_tree => @project_result.source_tree } %>
-
-  <% @module_result = @page.module_result(@project.name) %>
-
-  <h5><%= _('Metric Result') %> </h5>
-  <strong>
-  <%= _('Module:') %>
-  <%=  @module_result.module.name %>
-  <br/>
-  <%= _('Grade:') %>
-  <%=  @module_result.grade %>
-  </strong>
-  <br/>
-  <hr/>
-  <table id="project_metric_result">
-    <% @module_result.metric_results.each do |metric_result|  %>
-    <tr>
-      <td><%= metric_result.metric.name %></td>
-      <td><%= metric_result.value %></td>
-      <% range = metric_result.range %>
-      <td style="background-color: #<%= range.color[2..-1] %>"><%= range.label %></td>
-    </tr>
-
-    <% end %>
-  </table>
-
+  <div id='module-result' data-project-id='<%= @page.id %>'>
+    <%= render :partial => 'module_result', :locals => { :module_result => @page.module_result(@project.name) } %>
+  </div>
+  <script>
+    jQuery(results);
+  </script>
 <% end %>
