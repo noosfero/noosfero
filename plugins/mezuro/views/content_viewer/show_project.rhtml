@@ -71,6 +71,9 @@
   <div id='module-result' data-project-id='<%= @page.id %>'>
     <%= render :partial => 'module_result', :locals => { :module_result => @page.module_result(@project.name) } %>
   </div>
+  <div id="loading-message">
+    loading results...
+  </div>
   <script>
     jQuery(results);
   </script>
