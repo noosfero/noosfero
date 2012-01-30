@@ -17,7 +17,7 @@ class MezuroPlugin < Noosfero::Plugin
   end
 
   def js_files
-    'javascripts/toogle.js'
+    ['javascripts/results.js', 'javascripts/toogle.js']
   end
 
 end

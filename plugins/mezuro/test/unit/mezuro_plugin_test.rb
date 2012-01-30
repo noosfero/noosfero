@@ -26,7 +26,7 @@ class MezuroPluginTest < Test::Unit::TestCase
   end
 
   should 'list javascript files' do
-    assert_equal 'javascripts/toogle.js', @plugin.js_files
+    assert_equal ['javascripts/results.js', 'javascripts/toogle.js'], @plugin.js_files
   end
 
 end
