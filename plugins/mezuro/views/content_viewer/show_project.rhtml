@@ -68,7 +68,7 @@
   </table>
   <h5><%= _('Source tree') %></h5>
   <%= render :partial => 'source_tree', :locals => { :source_tree => @project_result.source_tree } %>
-  <div id='module-result' data-project-id='<%= @page.id %>'>
+  <div id='module-result' data-profile="<%= @page.profile.name.downcase %>" data-project-id='<%= @page.id %>'>
     <%= render :partial => 'module_result', :locals => { :module_result => @page.module_result(@project.name) } %>
   </div>
   <div id="loading-message">
