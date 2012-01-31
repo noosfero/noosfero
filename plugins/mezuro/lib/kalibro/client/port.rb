@@ -11,7 +11,11 @@ class Kalibro::Client::Port
   end
 
   def service_address
-    @service_address ||= 'http://valinhos.ime.usp.br:50688/KalibroService/'
+    if @service_address.nil?
+      service_file = "#{RAILS_ROOT}/plugins/mezuro/SERVICE"
+      File.open(service_file).each_line{ | line | @service_address = line }
+    end
+    @service_address
   end
 
   def request(action, request_body = nil)
