@@ -11,7 +11,7 @@ class Kalibro::Client::Port
   end
 
   def service_address
-    @service_address ||= 'http://localhost:8080/KalibroService/'
+    @service_address ||= 'http://valinhos.ime.usp.br:50688/KalibroService/'
   end
 
   def request(action, request_body = nil)

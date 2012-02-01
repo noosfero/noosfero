@@ -8,6 +8,10 @@ class Kalibro::Client::ConfigurationClient
     @port.request(:save_configuration, {:configuration => configuration.to_hash})
   end
 
+  def self.save(configuration)
+    new.save(configuration)
+  end
+
   def configuration_names
     @port.request(:get_configuration_names)[:configuration_name].to_a
   end
