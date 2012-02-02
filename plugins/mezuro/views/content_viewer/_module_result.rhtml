@@ -2,25 +2,36 @@
 <strong>
   <%= _('Module:') %>
   <%=  module_result.module.name %>
-  <br/>
-  <%= _('Grade:') %>
-  <%=  module_result.grade %>
 </strong>
 <br/>
 <hr/>
 <table id="project_metric_result">
-  <tr>
-    <th>Metric</th>
-    <th>Value</th>
-    <th>Threshold</th>
-  </tr>
-  <% module_result.metric_results.each do |metric_result|  %>
+  <thead>
     <tr>
-      <td><%= metric_result.metric.name %></td>
-      <td><%= metric_result.value %></td>
-      <% range = metric_result.range %>
-      <td style="background-color: #<%= range.color[2..-1] %>"><%= range.label %></td>
+      <th>Metric</th>
+      <th>Value</th>
+      <th>Threshold</th>
     </tr>
-
-  <% end %>
+  </thead>
+  <tbody>
+    <% module_result.metric_results.each do |metric_result|  %>
+      <tr>
+        <td><%= metric_result.metric.name %></td>
+        <td><%= metric_result.value %></td>
+        <% range = metric_result.range %>
+        <td style="background-color: #<%= range.color[2..-1] %>"><%= range.label %></td>
+      </tr>   
+    <% end %>
+  </tbody>
+  <tfoot>
+    <tr>
+      <td colspan = "3" align = "right">
+        <strong>
+          <%= _('Grade:') %>
+          <%=  module_result.grade %>
+        </strong>
+      </td>
+    </tr>
+  </tfoot>
 </table>
+
