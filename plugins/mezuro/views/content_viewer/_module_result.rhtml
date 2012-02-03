@@ -1,4 +1,3 @@
-<!-- ToDo -->
 <h5><%= _('Metric Result') %> </h5>
 <strong>
   <%= _('Module:') %>
@@ -11,7 +10,7 @@
     <tr>
       <th>Metric</th>
       <th>Value</th>
-     <!-- <th>Weight</th> -->
+      <th>Weight</th>
       <th>Threshold</th>
     </tr>
   </thead>
@@ -20,7 +19,7 @@
       <tr>
         <td><%= metric_result.metric.name %></td>
         <td><%= metric_result.value %></td>
-     <!--   <td><%= metric_result.weight %></td> --> 
+        <td><%= metric_result.weight %></td>
         <% range = metric_result.range %>
         <td style="background-color: #<%= range.color[2..-1] %>"><%= range.label %></td>
       </tr>   
@@ -28,7 +27,7 @@
   </tbody>
   <tfoot>
     <tr>
-      <td colspan = "3" align = "right">
+      <td colspan = "4" align = "right">
         <strong>
           <%= _('Grade:') %>
           <%=  module_result.grade %>

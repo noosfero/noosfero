@@ -1,6 +1,6 @@
 class Kalibro::Entities::MetricResult < Kalibro::Entities::Entity
 
-  attr_accessor :metric, :value, :range, :descendent_result
+  attr_accessor :metric, :value, :range, :descendent_result, :weight
 
   def metric=(value)
     if value.kind_of?(Hash)
