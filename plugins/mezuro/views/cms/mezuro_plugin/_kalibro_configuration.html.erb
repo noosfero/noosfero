@@ -18,16 +18,3 @@
 <%= required f.text_field(:name) %>
 
 <%= f.text_field :description %><br/>
-
-<% @repository_types = Kalibro::Client::KalibroClient.new.supported_repository_types.sort %>
-<% @selected = (@project.nil? ? @repository_types : @project.repository.type) %>
-<%= required labelled_form_field _('Repository type'),
-  f.select(:repository_type, @repository_types, {:selected => @selected}) %><br/>
-
-<%= required f.text_field(:repository_url) %><br/>
-
-<% @configuration_names = Kalibro::Client::ConfigurationClient.new.configuration_names.sort %>
-<% @selected = (@project.nil? ? @configuration_names[0] : @project.configuration_name) %>
-<%= required labelled_form_field _('Configuration'),
-  f.select(:configuration_name, @configuration_names.sort, {:selected => @selected}) %><br/>
-

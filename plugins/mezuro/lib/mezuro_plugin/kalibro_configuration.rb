@@ -38,7 +38,6 @@ class MezuroPlugin::KalibroConfiguration < Article
     configuration = Kalibro::Entities::Configuration.new
     configuration.name = title
     configuration.description = description
-    configuration.metric_configuration = 0 
     configuration
   end
 
