@@ -17,8 +17,12 @@ class MezuroPluginTest < Test::Unit::TestCase
     assert_equal _('A metric analizer plugin.'), MezuroPlugin.plugin_description
   end
 
+  should 'have configuration content type' do
+    assert_includes @plugin.content_types, MezuroPlugin::ConfigurationContent
+  end
+
   should 'have project content type' do
-    assert_equal MezuroPlugin::ProjectContent, @plugin.content_types
+    assert_includes @plugin.content_types, MezuroPlugin::ProjectContent
   end
 
   should 'have stylesheet' do

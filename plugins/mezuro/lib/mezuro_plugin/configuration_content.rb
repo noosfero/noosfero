@@ -1,4 +1,4 @@
-class MezuroPlugin::KalibroConfiguration < Article
+class MezuroPlugin::ConfigurationContent < Article
 
   def self.short_description
     'Kalibro configuration'
