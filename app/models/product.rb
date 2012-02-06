@@ -196,6 +196,7 @@ class Product < ActiveRecord::Base
   end
 
   def price_description_percentage
+    return 0 if price.blank? || price.zero?
     total_production_cost * 100 / price
   end
 
