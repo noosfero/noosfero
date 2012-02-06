@@ -25,4 +25,7 @@ class Kalibro::Client::ConfigurationClient
     @port.request(:remove_configuration, {:configuration_name => configuration_name})
   end
 
+  def self.remove(configuration_name)
+    new.remove(configuration_name)
+  end
 end
