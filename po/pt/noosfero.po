@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.34.3\n"
 "POT-Creation-Date: 2012-01-26 18:34-0200\n"
-"PO-Revision-Date: 2012-01-26 18:40-0200\n"
+"PO-Revision-Date: 2012-02-06 15:39-0200\n"
 "Last-Translator: Joenio Costa <joenio@colivre.coop.br>\n"
 "Language-Team: LANGUAGE TEAM <E-MAIL@ADDRESS or HOME PAGE>\n"
 "Language: \n"
@@ -9151,7 +9151,7 @@ msgstr "Enviar pedido de compra"
 
 #: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/edit.html.erb:1
 msgid "Basket options"
-msgstr "Opçôes do cesto"
+msgstr "Opções do cesto"
 
 #: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/edit.html.erb:5
 msgid "Delivery?"
