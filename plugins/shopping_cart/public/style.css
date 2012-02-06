@@ -19,7 +19,7 @@
 .cart {
   position: fixed;
   right: 20px;
-  bottom: 0px;
+  top: 0px;
   width: 200px;
   z-index: 1000;
   border: 1px solid #777;
