@@ -16,11 +16,11 @@
   </thead>
   <tbody>
     <% module_result.metric_results.each do |metric_result|  %>
-      <tr>
+      <% range = metric_result.range %>
+      <tr title=" <%= range.comments %>">
         <td><%= metric_result.metric.name %></td>
         <td><%= metric_result.value %></td>
         <td><%= metric_result.weight %></td>
-        <% range = metric_result.range %>
         <td style="background-color: #<%= range.color[2..-1] %>"><%= range.label %></td>
       </tr>   
     <% end %>
