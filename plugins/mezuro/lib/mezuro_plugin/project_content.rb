@@ -17,6 +17,7 @@ class MezuroPlugin::ProjectContent < Article
     end
   end
 
+  # FIXME is this really needed?
   def project
     Kalibro::Client::ProjectClient.new.project(title)
   end
