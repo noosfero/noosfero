@@ -35,41 +35,32 @@ Feature: mezuro content
 
   Scenario: I create a sample mezuro content
     Given I am on My Community's cms
-    And I follow "New content"
-    And I follow "Kalibro project"
-    And I fill in the following:
+    When I create a content of type "Kalibro project" with the following data
       | Title           | Sample project          |
       | License         | BSD                     |
       | Repository type | GIT                     |
       | Repository url  | git://example           |
-    And I press "Save" 
     Then I should see "Sample project"
     And I should see "Viewed one time"
     And I should see "BSD"
 
   Scenario: I create a real mezuro content
     Given I am on My Community's cms
-    And I follow "New content"
-    And I follow "Kalibro project"
-    And I fill in the following:
+    When I create a content of type "Kalibro project" with the following data
       | Title           | Qt-Calculator           |
       | License         | GPL 2.0                 |
       | Repository type | SUBVERSION              |
       | Repository url  | https://qt-calculator.svn.sourceforge.net/svnroot/qt-calculator |
-    And I press "Save" 
     Then I should see "Qt-Calculator"
 
   Scenario: I see results from a real Kalibro project
     Given I am on My Community's cms
-    And I follow "New content"
-    And I follow "Kalibro project"
-    And I fill in the following:
+    When I create a content of type "Kalibro project" with the following data
       | Title           | Qt-Calculator           |
       | License         | GPL                     |
       | Repository type | SUBVERSION              |
       | Repository url  | https://qt-calculator.svn.sourceforge.net/svnroot/qt-calculator |
       | Configuration   | Kalibro for Java        |
-   And I press "Save"
    Then I should see "Qt-Calculator"
    And I should see "GPL"
    And I should see "SUBVERSION"
