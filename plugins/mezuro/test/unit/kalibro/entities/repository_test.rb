@@ -1,5 +1,5 @@
 require "test_helper"
-class RepositoryTest < Test::Unit::TestCase
+class RepositoryTest < ActiveSupport::TestCase
 
   def self.qt_calculator
     repository = Kalibro::Entities::Repository.new

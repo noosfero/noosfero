@@ -1,5 +1,5 @@
 require "test_helper"
-class ErrorTest < Test::Unit::TestCase
+class ErrorTest < ActiveSupport::TestCase
 
   def self.fixture
     error = Kalibro::Entities::Error.new

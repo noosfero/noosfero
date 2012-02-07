@@ -1,5 +1,5 @@
 require "test_helper"
-class ProjectContentTest < Test::Unit::TestCase
+class ProjectContentTest < ActiveSupport::TestCase
 
   def setup
     @project = ProjectTest.qt_calculator

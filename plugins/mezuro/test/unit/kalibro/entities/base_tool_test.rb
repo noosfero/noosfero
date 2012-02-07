@@ -1,5 +1,5 @@
 require "test_helper"
-class BaseToolTest < Test::Unit::TestCase
+class BaseToolTest < ActiveSupport::TestCase
 
   def self.analizo
     total_cof = NativeMetricTest.total_cof

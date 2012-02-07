@@ -1,5 +1,5 @@
 require "test_helper"
-class MetricTest < Test::Unit::TestCase
+class MetricTest < ActiveSupport::TestCase
   
   def setup
     name = 'MetricTest metric'

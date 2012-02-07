@@ -1,5 +1,5 @@
 require "test_helper"
-class MezuroPluginTest < Test::Unit::TestCase
+class MezuroPluginTest < ActiveSupport::TestCase
   
   def setup
     @plugin = MezuroPlugin.new

@@ -1,5 +1,5 @@
 require "test_helper"
-class PortTest < Test::Unit::TestCase
+class PortTest < ActiveSupport::TestCase
 
   def setup
     @client = mock

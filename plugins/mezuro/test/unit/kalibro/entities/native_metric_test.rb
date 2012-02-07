@@ -1,5 +1,5 @@
 require "test_helper"
-class NativeMetricTest < Test::Unit::TestCase
+class NativeMetricTest < ActiveSupport::TestCase
 
   def self.total_cof
     total_cof = Kalibro::Entities::NativeMetric.new

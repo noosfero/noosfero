@@ -1,5 +1,5 @@
 require "test_helper"
-class CompoundMetricWithErrorTest < Test::Unit::TestCase
+class CompoundMetricWithErrorTest < ActiveSupport::TestCase
   
   def self.fixture
     fixture = Kalibro::Entities::CompoundMetricWithError.new

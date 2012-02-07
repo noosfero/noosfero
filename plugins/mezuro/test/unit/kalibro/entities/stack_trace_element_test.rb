@@ -1,5 +1,5 @@
 require "test_helper"
-class StackTraceElementTest < Test::Unit::TestCase
+class StackTraceElementTest < ActiveSupport::TestCase
 
   def self.fixture(method_name = 'stackTraceElementTestMethod', line_number = 42)
     stack_trace_element = Kalibro::Entities::StackTraceElement.new

@@ -1,6 +1,6 @@
 require "test_helper"
 
-class ModuleResultTest < Test::Unit::TestCase
+class ModuleResultTest < ActiveSupport::TestCase
 
   def self.fixture
     amloc_result = MetricResultTest.amloc_result

@@ -1,5 +1,5 @@
 require "test_helper"
-class EntityTest < Test::Unit::TestCase
+class EntityTest < ActiveSupport::TestCase
   
 	def setup
     @hash = {:name => 'Carlos', :age => 25,

@@ -1,5 +1,5 @@
 require "test_helper"
-class RangeTest < Test::Unit::TestCase
+class RangeTest < ActiveSupport::TestCase
 
   Infinity = 1.0/0.0
 

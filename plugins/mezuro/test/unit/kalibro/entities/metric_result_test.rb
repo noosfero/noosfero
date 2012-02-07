@@ -1,5 +1,5 @@
 require "test_helper"
-class MetricResultTest < Test::Unit::TestCase
+class MetricResultTest < ActiveSupport::TestCase
 
   def self.amloc_result
     result = Kalibro::Entities::MetricResult.new

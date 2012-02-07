@@ -1,5 +1,5 @@
 require "test_helper"
-class KalibroClientTest < Test::Unit::TestCase
+class KalibroClientTest < ActiveSupport::TestCase
 
   def setup
     @port = mock

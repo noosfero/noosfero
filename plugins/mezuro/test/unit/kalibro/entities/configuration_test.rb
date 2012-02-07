@@ -1,5 +1,5 @@
 require "test_helper"
-class ConfigurationTest < Test::Unit::TestCase
+class ConfigurationTest < ActiveSupport::TestCase
 
   def self.kalibro_configuration
     amloc_configuration = MetricConfigurationTest.amloc_configuration

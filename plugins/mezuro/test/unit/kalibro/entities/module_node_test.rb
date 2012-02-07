@@ -1,6 +1,6 @@
 require "test_helper"
 
-class ModuleNodeTest < Test::Unit::TestCase
+class ModuleNodeTest < ActiveSupport::TestCase
 
   def self.qt_calculator_tree
     node = Kalibro::Entities::ModuleNode.new

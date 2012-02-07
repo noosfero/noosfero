@@ -1,5 +1,5 @@
 require "test_helper"
-class MetricConfigurationTest < Test::Unit::TestCase
+class MetricConfigurationTest < ActiveSupport::TestCase
 
   def self.amloc_configuration
     range1 = RangeTest.amloc_excellent

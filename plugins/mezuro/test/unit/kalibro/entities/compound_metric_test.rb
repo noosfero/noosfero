@@ -1,5 +1,5 @@
 require "test_helper"
-class CompoundMetricTest < Test::Unit::TestCase
+class CompoundMetricTest < ActiveSupport::TestCase
 
   def self.sc
     sc = Kalibro::Entities::CompoundMetric.new

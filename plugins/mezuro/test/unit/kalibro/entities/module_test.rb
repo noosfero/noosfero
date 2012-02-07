@@ -1,5 +1,5 @@
 require "test_helper"
-class ModuleTest < Test::Unit::TestCase
+class ModuleTest < ActiveSupport::TestCase
 
   def self.qt_calculator
     entity = Kalibro::Entities::Module.new
