@@ -67,19 +67,3 @@ Feature: mezuro content
    And I should see "https://qt-calculator.svn.sourceforge.net/svnroot/qt-calculator"
    And I should see "Kalibro for Java"
    And I should see "Kalibro Service is loading the source code"
-
-  @selenium
-  Scenario: I delete a real mezuro content
-    Given I am on My Community's cms
-    And I follow "New content"
-    And I follow "Kalibro project"
-    And I fill in the following:
-      | Title           | Qt-Calculator           |
-      | License         | GPL 2.0                 |
-      | Repository type | SUBVERSION              |
-      | Repository url  | https://qt-calculator.svn.sourceforge.net/svnroot/qt-calculator |
-    And I press "Save"
-    And I follow "Qt-Calculator"
-    When I follow "Delete"
-    And I press "Yes, I want."
-    Then I should not see "Qt-Calculator"
