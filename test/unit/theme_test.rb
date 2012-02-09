@@ -170,6 +170,14 @@ class ThemeTest < ActiveSupport::TestCase
     assert ! Theme.approved_themes(profile).include?(Theme.find(t3.id))
   end
 
+  should 'not list non theme files or dirs inside themes dir' do
+    Theme.stubs(:system_themes_dir).returns(TMP_THEMES_DIR)
+    Dir.mkdir(TMP_THEMES_DIR)
+    Dir.mkdir(TMP_THEMES_DIR+'/empty-dir')
+    File.new(TMP_THEMES_DIR+'/my-logo.png', File::CREAT)
+    assert Theme.approved_themes(Environment.default).empty?
+  end
+
   should 'set theme to public' do
     t = Theme.new('mytheme')
     t.public = true
