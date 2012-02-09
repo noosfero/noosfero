@@ -18,8 +18,10 @@ class MetricConfigurationTest < ActiveSupport::TestCase
   end
 
   should 'create appropriate metric type' do
-    assert self.class.amloc_configuration.metric.instance_of?(Kalibro::Entities::NativeMetric)
-    assert self.class.sc_configuration.metric.instance_of?(Kalibro::Entities::CompoundMetric)
+    amloc = MetricConfigurationFixtures.amloc_configuration
+    sc = MetricConfigurationFixtures.sc_configuration
+    assert amloc.metric.instance_of?(Kalibro::Entities::NativeMetric)
+    assert sc.metric.instance_of?(Kalibro::Entities::CompoundMetric)
   end
 
 end
