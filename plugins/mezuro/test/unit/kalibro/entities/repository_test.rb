@@ -1,21 +1,12 @@
 require "test_helper"
+
+require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/repository_fixtures"
+
 class RepositoryTest < ActiveSupport::TestCase
 
-  def self.qt_calculator
-    repository = Kalibro::Entities::Repository.new
-    repository.type = 'SUBVERSION'
-    repository.address = 'https://qt-calculator.svn.sourceforge.net/svnroot/qt-calculator'
-    repository
-  end
-
-  def self.qt_calculator_hash
-    {:type => 'SUBVERSION',
-     :address => 'https://qt-calculator.svn.sourceforge.net/svnroot/qt-calculator'}
-  end
-
   def setup
-    @hash = self.class.qt_calculator_hash
-    @repository = self.class.qt_calculator
+    @hash = RepositoryFixtures.qt_calculator_hash
+    @repository = RepositoryFixtures.qt_calculator
   end
 
   should 'create repository from hash' do
