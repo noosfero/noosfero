@@ -9,8 +9,7 @@ class MezuroPlugin < Noosfero::Plugin
   end
 
   def content_types
-    [MezuroPlugin::ProjectContent,
-     MezuroPlugin::ConfigurationContent]
+    [MezuroPlugin::ConfigurationContent, MezuroPlugin::ProjectContent]
   end
 
   def stylesheet?
