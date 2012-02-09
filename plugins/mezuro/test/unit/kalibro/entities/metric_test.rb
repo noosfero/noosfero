@@ -1,4 +1,5 @@
 require "test_helper"
+
 class MetricTest < ActiveSupport::TestCase
   
   def setup
