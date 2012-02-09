@@ -1,0 +1,34 @@
+<h1> <%= _(MezuroPlugin::ProjectContent.short_description) %> </h1>
+
+<%
+  begin
+    @project = @article.title.nil? ? nil : Kalibro::Client::ProjectClient.new.project(@article.title)
+  rescue
+    @project = nil
+  end
+%>
+
+<%= error_messages_for 'project_content' %>
+
+<%= hidden_field_tag 'project_content[profile_id]', profile.id %>
+<%= hidden_field_tag 'id', @article.id %>
+
+<%= required_fields_message %>
+
+<%= required f.text_field(:name) %>
+
+<%= f.text_field :license %><br/>
+
+<%= f.text_field :description %><br/>
+
+<% @repository_types = Kalibro::Client::KalibroClient.new.supported_repository_types.sort %>
+<% @selected = (@project.nil? ? @repository_types : @project.repository.type) %>
+<%= required labelled_form_field _('Repository type'),
+  f.select(:repository_type, @repository_types, {:selected => @selected}) %><br/>
+
+<%= required f.text_field(:repository_url) %><br/>
+
+<% @configuration_names = Kalibro::Client::ConfigurationClient.new.configuration_names.sort %>
+<% @selected = (@project.nil? ? @configuration_names[0] : @project.configuration_name) %>
+<%= required labelled_form_field _('Configuration'),
+  f.select(:configuration_name, @configuration_names.sort, {:selected => @selected}) %><br/>
