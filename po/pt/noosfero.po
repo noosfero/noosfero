@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.34.3\n"
 "POT-Creation-Date: 2012-01-26 18:34-0200\n"
-"PO-Revision-Date: 2012-02-06 15:39-0200\n"
+"PO-Revision-Date: 2012-02-06 22:28-0200\n"
 "Last-Translator: Joenio Costa <joenio@colivre.coop.br>\n"
 "Language-Team: LANGUAGE TEAM <E-MAIL@ADDRESS or HOME PAGE>\n"
 "Language: \n"
@@ -6735,7 +6735,7 @@ msgstr ""
 
 #: app/views/cms/publish_on_portal_community.rhtml:2
 msgid "Publish your article on portal community"
-msgstr "Publicar seu artigoi na comunidade portal"
+msgstr "Publicar seu artigo na comunidade portal"
 
 #: app/views/cms/publish_on_portal_community.rhtml:14
 msgid "There is no portal community in this environment."
