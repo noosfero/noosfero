@@ -12,7 +12,7 @@ class EnvironmentStatisticsBlock < Block
     _('This block presents some statistics about your environment.')
   end
 
-  def content
+  def content(args={})
     users = owner.people.visible.count
     enterprises = owner.enterprises.visible.count
     communities = owner.communities.visible.count

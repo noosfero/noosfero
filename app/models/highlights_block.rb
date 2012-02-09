@@ -28,7 +28,7 @@ class HighlightsBlock < Block
     shuffle ? block_images.shuffle : block_images
   end
 
-  def content
+  def content(args={})
     block = self
     lambda do
       render :file => 'blocks/highlights', :locals => { :block => block }
