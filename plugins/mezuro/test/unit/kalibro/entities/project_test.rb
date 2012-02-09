@@ -1,28 +1,12 @@
 require "test_helper"
+
+require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/project_fixtures"
+
 class ProjectTest < ActiveSupport::TestCase
 
-  def self.qt_calculator
-    project = Kalibro::Entities::Project.new
-    project.name = 'Qt-Calculator'
-    project.license = 'GPL'
-    project.description = 'Calculator for Qt'
-    project.repository = RepositoryTest.qt_calculator
-    project.configuration_name = 'Kalibro for Java'
-    project.state = 'READY'
-    project
-  end
-
-  def self.qt_calculator_hash
-    {:name => 'Qt-Calculator', :license => 'GPL',
-        :description => 'Calculator for Qt',
-        :repository => RepositoryTest.qt_calculator_hash,
-        :configuration_name => 'Kalibro for Java',
-        :state => 'READY'}
-  end
-
   def setup
-    @hash = self.class.qt_calculator_hash
-    @project = self.class.qt_calculator
+    @hash = ProjectFixtures.qt_calculator_hash
+    @project = ProjectFixtures.qt_calculator
   end
 
   should 'create project from hash' do
