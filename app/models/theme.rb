@@ -47,8 +47,6 @@ class Theme
           config = YAML.load_file(File.join(item, 'theme.yml'))
           (config['owner_type'] == owner.class.base_class.name) &&
           (config['owner_id'] == owner.id) || config['public']
-        else
-          false
         end
       end.map do |desc|
         new(File.basename(desc))
