@@ -1,21 +1,12 @@
 require "test_helper"
+
+require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/compound_metric_with_error_fixtures"
+
 class CompoundMetricWithErrorTest < ActiveSupport::TestCase
   
-  def self.fixture
-    fixture = Kalibro::Entities::CompoundMetricWithError.new
-    fixture.metric = CompoundMetricTest.sc
-    fixture.error = ErrorTest.fixture
-    fixture
-  end
-
-  def self.fixture_hash
-    {:metric => CompoundMetricTest.sc_hash,
-     :error => ErrorTest.fixture_hash}
-  end
-
   def setup
-    @hash = self.class.fixture_hash
-    @entity = self.class.fixture
+    @hash = CompoundMetricWithErrorFixtures.create_hash
+    @entity = CompoundMetricWithErrorFixtures.create
   end
 
   should 'create error from hash' do
