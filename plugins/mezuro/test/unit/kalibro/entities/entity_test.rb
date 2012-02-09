@@ -1,4 +1,5 @@
 require "test_helper"
+
 class EntityTest < ActiveSupport::TestCase
   
 	def setup
