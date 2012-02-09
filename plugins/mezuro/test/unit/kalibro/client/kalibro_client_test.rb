@@ -1,4 +1,5 @@
 require "test_helper"
+
 class KalibroClientTest < ActiveSupport::TestCase
 
   def setup

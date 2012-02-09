@@ -1,8 +1,11 @@
 require "test_helper"
+
+require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/project_fixtures"
+
 class ProjectContentTest < ActiveSupport::TestCase
 
   def setup
-    @project = ProjectTest.qt_calculator
+    @project = ProjectFixtures.qt_calculator
     @content = MezuroPlugin::ProjectContent.new
     @content.name = @project.name
     @content.license = @project.license

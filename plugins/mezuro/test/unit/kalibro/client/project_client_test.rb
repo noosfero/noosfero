@@ -1,4 +1,7 @@
 require "test_helper"
+
+require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/project_fixtures"
+
 class ProjectClientTest < ActiveSupport::TestCase
 
   def setup
@@ -8,7 +11,7 @@ class ProjectClientTest < ActiveSupport::TestCase
   end
 
   should 'save project' do
-    project = ProjectTest.qt_calculator
+    project = ProjectFixtures.qt_calculator
     @port.expects(:request).with(:save_project, {:project => project.to_hash})
     @client.save(project)
   end
@@ -31,7 +34,7 @@ class ProjectClientTest < ActiveSupport::TestCase
   end
 
   should 'get project by name' do
-    project = ProjectTest.qt_calculator
+    project = ProjectFixtures.qt_calculator
     request_body = {:project_name => project.name}
     response_hash = {:project => project.to_hash}
     @port.expects(:request).with(:get_project, request_body).returns(response_hash)
