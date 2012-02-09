@@ -49,12 +49,6 @@ module CmsHelper
   end
 
   def display_delete_button(article)
-    confirm_message = if article.folder?
-        _('Are you sure that you want to remove this folder? Note that all the items inside it will also be removed!')
-      else
-        _('Are you sure that you want to remove this item?')
-      end
-
-    button_without_text :delete, _('Delete'), { :action => 'destroy', :id => article.id }, :method => :post, :confirm => confirm_message
+    button_without_text :delete, _('Delete'), { :action => 'destroy', :id => article.id }, :method => :post, :confirm => delete_article_message(article)
   end
 end

@@ -206,6 +206,7 @@ class CmsController < MyProfileController
     @article = profile.articles.find(params[:id])
     if request.post?
       @article.destroy
+      session[:notice] = _("\"#{@article.name}\" was removed.")
       redirect_to :action => (@article.parent ? 'view' : 'index'), :id => @article.parent
     end
   end
