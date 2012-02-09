@@ -95,7 +95,7 @@ namespace :test do
 
   end
 
-  task :noosfero_plugins => %w[ noosfero_plugins:available noosfero_plugins:cucumber:enabled noosfero_plugins:cucumber:enabled ]
+  task :noosfero_plugins => %w[ noosfero_plugins:available noosfero_plugins:cucumber:enabled noosfero_plugins:selenium:enabled ]
 
 end
 
