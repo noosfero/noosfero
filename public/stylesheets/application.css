@@ -2993,9 +2993,10 @@ div#activation_enterprise div {
 #product-list li.product {
   width: 200px;
   min-height: 280px;
-  float: left;
   padding: 10px 30px 10px 0;
   margin-bottom: 10px;
+  display: inline-block;
+  vertical-align: top;
 }
 #product-list .expand-box:hover {
   background-color: #28F091;

@@ -985,7 +985,7 @@ module ApplicationHelper
       'thickbox',
       'lightbox',
       'colorpicker',
-      colorbox_stylesheet_path,
+      'colorbox',
       pngfix_stylesheet_path,
     ] +
     tokeninput_stylesheets
@@ -998,10 +998,6 @@ module ApplicationHelper
 
   def pngfix_stylesheet_path
     'iepngfix/iepngfix.css'
-  end
-
-  def colorbox_stylesheet_path
-    'colorbox/colorbox.css'
   end
 
   def tokeninput_stylesheets

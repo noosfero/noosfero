@@ -510,4 +510,26 @@ class ProductTest < ActiveSupport::TestCase
     assert_equal "50.00", product.formatted_value(:inputs_cost)
   end
 
+  should 'return 0 on price_description_percentage by default' do
+    assert_equal 0, Product.new.price_description_percentage
+  end
+
+  should 'return 0 on price_description_percentage if price is 0' do
+    product = fast_create(Product, :price => 0)
+
+    assert_equal 0, product.price_description_percentage
+  end
+
+  should 'return 0 on price_description_percentage if price is not defined' do
+    product = fast_create(Product)
+
+    assert_equal 0, product.price_description_percentage
+  end
+
+  should 'return 0 on price_description_percentage if total_production_cost is 0' do
+    product = fast_create(Product, :price => 50)
+
+    assert_equal 0, product.price_description_percentage
+  end
+
 end

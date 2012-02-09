@@ -3,10 +3,10 @@ class UsersController < AdminController
   protect 'manage_environment_users', :environment
 
   def index
-    @users = environment.users
     respond_to do |format|
       format.html
       format.xml do
+        @users = User.find(:all, :conditions => {:environment_id => environment.id}, :include => [:person])
         render :xml => @users.to_xml(
           :skip_types => true,
           :only => %w[email login created_at updated_at],
@@ -14,6 +14,7 @@ class UsersController < AdminController
         )
       end
       format.csv do
+        @users = User.find(:all, :conditions => {:environment_id => environment.id}, :include => [:person])
         render :template => "users/index_csv.rhtml", :content_type => 'text/csv', :layout => false
       end
     end
