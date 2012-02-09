@@ -50,7 +50,7 @@ class CmsController < MyProfileController
   end
 
   def special_article_types
-    [Folder, Blog, UploadedFile, Forum, Gallery, RssFeed]
+    [Folder, Blog, UploadedFile, Forum, Gallery, RssFeed] + @plugins.map(:content_types)
   end
 
   def view
@@ -352,7 +352,7 @@ class CmsController < MyProfileController
       }
     end.to_json
   end
-  
+
   def content_editor?
     true
   end

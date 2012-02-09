@@ -1,1 +1,58 @@
-This plugin depends on ruby binds for subversion. Checkout http://packages.debian.org/lenny/libsvn-ruby and http://subversion.tigris.org/ for further information.
+README - Mezuro (Kalibro Plugin)
+================================
+
+Mezuro is source code tracking network based on Noosfero Platform with Kalibro Plugin to access Kalibro Web Service.
+
+INSTALL
+=======
+
+See the Noosfero install file and include Ruby gem Savon:
+
+gem install savon
+
+Also, you need to enable Mezuro Plugin in the Noosfero:
+
+cd <your_noosfero_dir>
+./script/noosfero-plugins enable mezuro
+
+To run Mezuro (kalibro Plugin) and its acceptance tests, you need to install the Kalibro Service. 
+For that, access https://gitorious.org/kalibro/kalibro/blobs/master/INSTALL
+
+
+SOURCE CODE
+===========
+
+To get the Mezuro (Noosfero with Kalibro Plugin) development repository:
+
+git clone https://gitorious.org/+mezuro/noosfero/mezuro-noosfero-plugin
+cd mezuro-noosfero-plugin
+git checkout mezuro
+
+AUTHORS
+=======
+
+Please see the file AUTHORS.
+
+BUGS
+====
+
+If you found any bug, please report at mezuro@listas.softwarelivre.org
+(http://listas.softwarelivre.org/cgi-bin/mailman/listinfo/mezuro)
+
+LICENSE
+=======
+Copyright (c) The Authors developers.
+
+See Noosfero license.
+
+
+ACKNOWLEDGMENTS
+===============
+
+The authors have been supported by organizations:
+
+Brazilian National Research Council (CNPQ)
+http://www.cnpq.br/
+
+USP FLOSS Competence Center
+http://ccsl.ime.usp.br/

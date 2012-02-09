@@ -1509,4 +1509,20 @@ class CmsControllerTest < ActionController::TestCase
     assert_includes @controller.available_article_types, RawHTMLArticle
   end
 
+  should 'include new contents special types from plugins' do
+    types = [Integer, Float]
+    plugins = mock()
+
+    Noosfero::Plugin::Manager.expects(:new).with(@controller).returns(plugins).times(2)
+    plugins.stubs(:map).with(:content_types).returns(types)
+    plugins.stubs(:map).with(:body_beginning).returns([])
+    plugins.stubs(:map).with(:head_ending).returns([])
+    plugins.stubs(:enabled_plugins).returns([])
+
+    get :index, :profile => profile.identifier
+
+    assert_includes @controller.special_article_types, Integer
+    assert_includes @controller.special_article_types, Float
+  end
+
 end

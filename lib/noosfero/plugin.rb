@@ -105,6 +105,12 @@ class Noosfero::Plugin
     nil
   end
 
+  # -> Adds plugin-specific content types to CMS
+  # returns  = { content type class }
+  def content_types
+    nil
+  end
+
   # -> Adds content to calalog item
   # returns = lambda block that creates a html code
   def catalog_item_extras(item)
