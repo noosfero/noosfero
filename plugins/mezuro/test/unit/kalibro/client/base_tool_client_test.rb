@@ -1,4 +1,7 @@
 require "test_helper"
+
+require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/base_tool_fixtures"
+
 class BaseToolClientTest < ActiveSupport::TestCase
 
   def setup
@@ -25,7 +28,7 @@ class BaseToolClientTest < ActiveSupport::TestCase
   end
 
   should 'get base tool by name' do
-    analizo = BaseToolTest.analizo
+    analizo = BaseToolFixtures.analizo
     request_body = {:base_tool_name => 'Analizo'}
     @port.expects(:request).with(:get_base_tool, request_body).returns({:base_tool => analizo.to_hash})
     assert_equal analizo, @client.base_tool('Analizo')

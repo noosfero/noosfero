@@ -1,4 +1,5 @@
 require "test_helper"
+
 require File.dirname(__FILE__) + '/../controllers/mezuro_plugin_myprofile_controller'
 
 class MezuroTest < ActiveSupport::TestCase

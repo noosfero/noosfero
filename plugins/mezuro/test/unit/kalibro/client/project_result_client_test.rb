@@ -1,4 +1,7 @@
 require "test_helper"
+
+require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/configuration_fixtures"
+
 class ProjectResultClientTest < ActiveSupport::TestCase
 
   def setup
@@ -6,7 +9,7 @@ class ProjectResultClientTest < ActiveSupport::TestCase
     Kalibro::Client::Port.expects(:new).with('ProjectResult').returns(@port)
     @client = Kalibro::Client::ProjectResultClient.new
 
-    @result = ProjectResultTest.qt_calculator
+    @result = ProjectResultFixtures.qt_calculator
     @project_name = @result.project.name
     @date = @result.date
     @flag = DateTime.now.sec % 2 == 0

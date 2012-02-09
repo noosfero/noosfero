@@ -1,11 +1,14 @@
 require "test_helper"
+
+require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/module_result_fixtures"
+
 class ModuleResultClientTest < ActiveSupport::TestCase
 
   def setup
     @port = mock
     Kalibro::Client::Port.expects(:new).with('ModuleResult').returns(@port)
     @client = Kalibro::Client::ModuleResultClient.new
-    @result = ModuleResultTest.fixture
+    @result = ModuleResultFixtures.create
   end
 
   should 'get module result' do
