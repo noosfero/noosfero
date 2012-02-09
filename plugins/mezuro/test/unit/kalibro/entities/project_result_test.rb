@@ -1,27 +1,12 @@
 require "test_helper"
+
+require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/project_result_fixtures"
+
 class ProjectResultTest < ActiveSupport::TestCase
 
-  def self.qt_calculator
-    result = Kalibro::Entities::ProjectResult.new
-    result.project = ProjectTest.qt_calculator
-    result.date = DateTime.parse('Thu, 20 Oct 2011 18:26:43.151 +0000')
-    result.load_time = 14878
-    result.analysis_time = 1022
-    result.source_tree = ModuleNodeTest.qt_calculator_tree
-    result
-  end
-
-  def self.qt_calculator_hash
-    {:project => ProjectTest.qt_calculator_hash,
-      :date => DateTime.parse('Thu, 20 Oct 2011 18:26:43.151 +0000'),
-      :load_time => 14878,
-      :analysis_time => 1022,
-      :source_tree => ModuleNodeTest.qt_calculator_tree_hash}
-  end
-
   def setup
-    @hash = self.class.qt_calculator_hash
-    @result = self.class.qt_calculator
+    @hash = ProjectResultFixtures.qt_calculator_hash
+    @result = ProjectResultFixtures.qt_calculator
   end
 
   should 'create project result from hash' do
