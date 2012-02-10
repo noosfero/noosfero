@@ -1,3 +1,5 @@
+require File.dirname(__FILE__) + '/repository_fixtures'
+
 class ProjectFixtures
 
   def self.qt_calculator

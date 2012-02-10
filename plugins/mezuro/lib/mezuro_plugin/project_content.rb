@@ -17,9 +17,9 @@ class MezuroPlugin::ProjectContent < Article
     end
   end
 
-  # FIXME is this really needed?
+  # From ProjectClient
   def project
-    Kalibro::Client::ProjectClient.new.project(name)
+    Kalibro::Client::ProjectClient.project(name)
   end
 
   def project_result
@@ -37,29 +37,12 @@ class MezuroPlugin::ProjectContent < Article
   private
 
   def send_project_to_service
-    Kalibro::Client::ProjectClient.save(create_project)
+    Kalibro::Client::ProjectClient.save(self)
     Kalibro::Client::KalibroClient.process_project(name)
   end
 
   def remove_project_from_service
     Kalibro::Client::ProjectClient.remove(name)
-  end
-
-  def create_project
-    project = Kalibro::Entities::Project.new
-    project.name = name
-    project.license = license
-    project.description = description
-    project.repository = create_repository
-    project.configuration_name = configuration_name
-    project
-  end
-
-  def create_repository
-    repository = Kalibro::Entities::Repository.new
-    repository.type = repository_type
-    repository.address = repository_url
-    repository
   end
 
 end

@@ -37,7 +37,7 @@ class ProjectContentTest < ActiveSupport::TestCase
   end
 
   should 'send correct project to service' do
-    Kalibro::Client::ProjectClient.expects(:save).with(@project)
+    Kalibro::Client::ProjectClient.expects(:save).with(@content)
     Kalibro::Client::KalibroClient.expects(:process_project).with(@project.name)
     @content.send :send_project_to_service
   end
