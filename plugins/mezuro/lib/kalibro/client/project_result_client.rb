@@ -1,5 +1,6 @@
 class Kalibro::Client::ProjectResultClient
 
+  # TODO test this
   def self.last_result(project_name)
     new.last_result(project_name)
   end

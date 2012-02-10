@@ -1,3 +1,7 @@
+require File.dirname(__FILE__) + '/project_fixtures'
+require File.dirname(__FILE__) + '/module_node_fixtures'
+require File.dirname(__FILE__) + '/module_result_fixtures'
+
 class ProjectResultFixtures
 
   def self.qt_calculator
