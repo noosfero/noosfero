@@ -1,4 +1,9 @@
 class Kalibro::Client::ModuleResultClient
+
+  def self.module_result(project_content, module_name)
+    project_result = project_content.project_result
+    new.module_result(project_result.project.name, module_name, project_result.date)
+  end
   
   def initialize
     @port = Kalibro::Client::Port.new('ModuleResult')

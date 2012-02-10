@@ -1,5 +1,9 @@
 class Kalibro::Client::ProjectResultClient
 
+  def self.last_result(project_name)
+    new.last_result(project_name)
+  end
+
   def initialize
     @port = Kalibro::Client::Port.new('ProjectResult')
   end
