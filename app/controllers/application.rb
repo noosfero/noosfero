@@ -9,6 +9,7 @@ class ApplicationController < ActionController::Base
   include ApplicationHelper
   layout :get_layout
   def get_layout
+    prepend_view_path('public/' + theme_path)
     theme_option(:layout) || 'application'
   end
 
