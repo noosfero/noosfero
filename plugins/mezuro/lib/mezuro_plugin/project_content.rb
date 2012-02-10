@@ -19,16 +19,16 @@ class MezuroPlugin::ProjectContent < Article
 
   # FIXME is this really needed?
   def project
-    Kalibro::Client::ProjectClient.new.project(title)
+    Kalibro::Client::ProjectClient.new.project(name)
   end
 
   def project_result
-    @project_result ||= Kalibro::Client::ProjectResultClient.new.last_result(title)
+    @project_result ||= Kalibro::Client::ProjectResultClient.new.last_result(name)
   end
 
   def module_result(module_name)
     @module_client ||= Kalibro::Client::ModuleResultClient.new
-    @module_client.module_result(title, module_name, project_result.date)
+    @module_client.module_result(name, module_name, project_result.date)
   end
 
   after_save :send_project_to_service
@@ -38,16 +38,16 @@ class MezuroPlugin::ProjectContent < Article
 
   def send_project_to_service
     Kalibro::Client::ProjectClient.save(create_project)
-    Kalibro::Client::KalibroClient.process_project(title)
+    Kalibro::Client::KalibroClient.process_project(name)
   end
 
   def remove_project_from_service
-    Kalibro::Client::ProjectClient.remove(title)
+    Kalibro::Client::ProjectClient.remove(name)
   end
 
   def create_project
     project = Kalibro::Entities::Project.new
-    project.name = title
+    project.name = name
     project.license = license
     project.description = description
     project.repository = create_repository
