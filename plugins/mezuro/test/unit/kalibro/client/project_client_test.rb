@@ -24,8 +24,15 @@ class ProjectClientTest < ActiveSupport::TestCase
     Kalibro::Client::ProjectClient.save(@project_content)
   end
 
-  should 'remove project by name' do
+  should 'remove existent project from service' do
+    @port.expects(:request).with(:get_project_names).returns({:project_name => @project.name})
     @port.expects(:request).with(:remove_project, {:project_name => @project.name})
+    Kalibro::Client::ProjectClient.remove(@project.name)
+  end
+
+  should 'not try to remove inexistent project from service' do
+    @port.expects(:request).with(:get_project_names).returns({:project_name => 'Different project'})
+    @port.expects(:request).with(:remove_project, {:project_name => @project.name}).never
     Kalibro::Client::ProjectClient.remove(@project.name)
   end
 

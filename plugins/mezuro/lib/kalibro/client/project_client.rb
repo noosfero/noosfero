@@ -10,7 +10,10 @@ class Kalibro::Client::ProjectClient
   end
 
   def self.remove(project_name)
-    new.remove(project_name)
+    instance = new
+    if (instance.project_names.include?(project_name))
+      instance.remove(project_name)
+    end
   end
 
   def self.create_project (project_content)
