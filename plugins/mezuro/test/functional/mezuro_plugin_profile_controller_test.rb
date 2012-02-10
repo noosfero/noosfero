@@ -13,7 +13,7 @@ class MezuroPluginProfileControllerTest < ActionController::TestCase
     @profile_id = @profile.identifier
 
     @module_result = ModuleResultFixtures.create
-    @project_result = ProjectResultFixtures.project_result
+    @project_result = ProjectResultFixtures.qt_calculator
     @project = @project_result.project
   end
 
@@ -29,11 +29,13 @@ class MezuroPluginProfileControllerTest < ActionController::TestCase
 
 
   def test_metrics_for_known_module
-    @project_content = create_project_content(@profile)
-    Kalibro::Client::ProjectResultClient.expects(:last_result).with(@project.name).returns(@project_result)
-    Kalibro::Client::ModuleResultClient.expects(:module_result).
-      with(@project.name, @project.name, @project_result.date).returns(@module_result)
-    get :metrics, :profile => @profile_id, :id => @project_content.id, :module_name => @project_content.title
+    project_content = create_project_content(@profile)
+    project_name = project_content.name
+    module_name = project_name
+    Kalibro::Client::ProjectResultClient.expects(:last_result).with(project_name).returns(@project_result)
+    Kalibro::Client::ModuleResultClient.expects(:module_result).with(project_content, module_name).
+      returns(@module_result)
+    get :metrics, :profile => @profile_id, :id => project_content.id, :module_name => module_name
     assert_response 200
     # assert_tag # TODO
   end
@@ -42,18 +44,12 @@ class MezuroPluginProfileControllerTest < ActionController::TestCase
 
   # returns a new ProjectContent for the given profile
   def create_project_content(profile)
-    Kalibro::Client::ProjectClient.expects(:save).with(@project)
-    Kalibro::Client::KalibroClient.expects(:process_project).with(@project.name)
-
     project_content = MezuroPlugin::ProjectContent.new(:profile => profile, :name => @project.name)
-    project_content.license = @project.license
-    project_content.description = @project.description
-    project_content.repository_type = @project.repository.type
-    project_content.repository_url = @project.repository.address
-    project_content.configuration_name = @project.configuration_name
+    Kalibro::Client::ProjectClient.expects(:save).with(project_content)
+    Kalibro::Client::KalibroClient.expects(:process_project).with(project_content.name)
     project_content.save
 
-    MezuroPlugin::ProjectContent.any_instance.stubs(:project_content).returns(project_content)
+#    MezuroPlugin::ProjectContent.any_instance.stubs(:project_content).returns(project_content)
     project_content
   end
  
