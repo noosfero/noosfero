@@ -1,13 +1,16 @@
 <div class='profile-activity-image'>
   <%= link_to(profile_image(activity.user, :minor), activity.user.url) %>
 </div>
-<div class='profile-activity-description'>
+<div class='profile-activity-description profile-activity-article-<%= activity.target.class.icon_name %>'>
   <p class='profile-activity-text'><%= link_to activity.user.name, activity.user.url %></p>
   <div class='profile-activity-lead'>
-  <b><%= activity.params['name'] %></b> <span title='<%= activity.target.class.short_description %>' class='profile-activity-icon icon-new icon-new<%= activity.target.class.icon_name %>'></span><br />
-  <%= image_tag(activity.params['first_image']) unless activity.params['first_image'].blank? %><%= strip_tags(activity.params['lead']).gsub(/(\xA0|\xC2|\s)+/, ' ').gsub(/^\s+/, '') %> <small><%= link_to(_('See more +'), activity.params['url']) unless activity.get_lead.blank? %></small></div>
+  <b><%= activity.params['name'] %></b>
+  <span title='<%= activity.target.class.short_description %>' class='profile-activity-icon icon-new icon-new<%= activity.target.class.icon_name %>'></span><br />
+  <%= image_tag(activity.params['first_image']) unless activity.params['first_image'].blank? %><%= strip_tags(activity.params['lead']).gsub(/(\xA0|\xC2|\s)+/, ' ').gsub(/^\s+/, '') %> <small><%= link_to(_('See more'), activity.params['url']) unless activity.get_lead.blank? %></small></div>
+  <%= content_tag(:p, link_to(_('See complete forum'), activity.get_url), :class => 'see-forum') if activity.target.is_a?(Forum) %>
   <p class='profile-activity-time'><%= time_ago_as_sentence(activity.created_at) + ' ' + _('ago') %></p>
   <div class='profile-wall-actions'>
+    <%= link_to _('Comment'), "#reply_content_#{activity.id}" %>
     <%= link_to_remote(content_tag(:span, _('Remove')), :url =>{:action => 'remove_activity', :activity_id => activity.id}, :update => "profile-activity-item-#{activity.id}") if logged_in? && current_person == @profile %>
   </div>
 </div>

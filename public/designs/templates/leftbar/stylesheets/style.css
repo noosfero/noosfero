@@ -23,3 +23,15 @@
 #profile-wall ul {
   width: 620px;
 }
+
+.profile-activity-lead {
+  width: 534px;
+}
+
+#profile-wall textarea {
+  width: 534px;
+}
+
+#profile-wall #leave_scrap textarea {
+  width: 640px;
+}

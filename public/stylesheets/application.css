@@ -5884,8 +5884,9 @@ h1#agenda-title {
   display: block;
   padding: 10px;
   margin-bottom: 10px;
-  background-color: #f0f0f1;
-  border-bottom: 0;
+  background-color: #fff;
+  border-bottom: 1px solid #e8e8e8;
+  position: relative;
 }
 
 .profile-activity-lead img {
@@ -5901,6 +5902,32 @@ h1#agenda-title {
   margin: 5px 0;
 }
 
+.profile-activity-article-forum .profile-activity-lead {
+  height: 50px;
+  width: 297px;
+  padding-left: 60px;
+  float: none;
+  overflow: hidden;
+  background: transparent url(/images/forum-activity-bg.png) left center no-repeat;
+}
+
+.profile-activity-article-forum .see-forum {
+  text-align: right;
+}
+
+.profile-activity-article-forum .see-forum a {
+  background: transparent url(/images/forum-activity-icon.png) left center no-repeat;
+  padding-left: 30px;
+  font-weight: bold;
+  color: #dadada !important;
+  text-decoration: none;
+  font-size: 11px;
+}
+
+.profile-activity-article-forum .profile-activity-lead b {
+  font-weight: normal;
+}
+
 #profile-activity li a, #profile-network li a, #profile-wall li a,
 #profile-wall .profile-wall-send-reply {
   color: #333;
@@ -5908,7 +5935,7 @@ h1#agenda-title {
 
 .profile-activity-text {
   margin: 0;
-  color: #808080;
+  color: #000;
 }
 
 #profile-wall li.profile-activity-item.upload_image span,
@@ -5924,6 +5951,16 @@ h1#agenda-title {
   position: absolute;
 }
 
+#profile-wall li.profile-activity-item.upload_image .activity-gallery-images-count-1 span,
+#profile-wall li.profile-activity-item.upload_image .activity-gallery-images-count-1 span img,
+#profile-wall li.profile-activity-item.upload_image .activity-gallery-images-count-1 span a,
+#profile-network li.profile-activity-item.upload_image .activity-gallery-images-count-1 span,
+#profile-network li.profile-activity-item.upload_image .activity-gallery-images-count-1 span img,
+#profile-network li.profile-activity-item.upload_image .activity-gallery-images-count-1 span a {
+  width: 383px;
+  height: 177px;
+}
+
 #profile-wall li.profile-activity-item.upload_image span,
 #profile-network li.profile-activity-item.upload_image span {
   position: relative;
@@ -5935,6 +5972,11 @@ h1#agenda-title {
 #profile-network li.profile-activity-item.upload_image span a {
   background: transparent url(/images/gallery-image-activity-border.png) center center no-repeat;
   text-indent: -5000em;
+}
+
+#profile-wall li.profile-activity-item.upload_image .activity-gallery-images-count-1 span a,
+#profile-network li.profile-activity-item.upload_image .activity-gallery-images-count-1 span a {
+  background-image: url(/images/gallery-image-activity-border-big.png);
 }
 
 #profile-wall li.profile-activity-item.upload_image .article-comment span,
@@ -6058,9 +6100,8 @@ h1#agenda-title {
 .profile-wall-actions a {
   display: block;
   float: right;
-  font-size: 11px;
-  margin: 0;
-  margin-left: 10px;
+  font-size: 10px;
+  margin: 2px 0 3px 10px;
   color: #ccc;
   padding: 0;
 }
@@ -6163,8 +6204,9 @@ h1#agenda-title {
 }
 
 .profile-network-sender,
+.profile-activity-sender,
 .profile-wall-sender {
-  margin: 2px 0;
+  margin: 0;
 }
 
 #profile-activity .profile-activity-time,
@@ -6179,6 +6221,13 @@ h1#agenda-title {
   border: 1px solid #ccc;
   padding: 2px;
   overflow: hidden;
+}
+
+#profile-network li textarea:focus,
+#profile-wall li textarea:focus {
+  background-position: left center;
+  background-repeat: no-repeat;
+  text-indent: 28px;
 }
 
 .profile-network-message,
@@ -6258,7 +6307,7 @@ h1#agenda-title {
 
 #profile-wall .profile-wall-activities-comments li,
 #profile-network .profile-wall-activities-comments li {
-  background: #e8e8e8;
+  background: #f0f0f1;
   border-bottom: 1px solid #d2d2d2 !important;
   border-top: 1px solid #fff;
   margin-bottom: 0;
@@ -6300,10 +6349,17 @@ h1#agenda-title {
 
 #profile-wall .profile-wall-activities-comments .article-comment .button-bar,
 #profile-network .profile-wall-activities-comments .article-comment .button-bar {
-  float: none !important;
+  float: right;
   padding: 0;
   text-align: right;
   position: static;
+  clear: none;
+  display: none;
+}
+
+#profile-wall .profile-wall-activities-comments .article-comment:hover .button-bar,
+#profile-network .profile-wall-activities-comments .article-comment:hover .button-bar {
+  display: block;
 }
 
 #profile-wall .profile-wall-activities-comments .article-comment .button-bar a.button,
@@ -6314,7 +6370,7 @@ h1#agenda-title {
   line-height: auto;
   color: #333;
   text-decoration: none;
-  font-size: 11px;
+  font-size: 10px;
   padding: 0;
   margin: 0;
   display: inline;
@@ -6332,7 +6388,6 @@ h1#agenda-title {
   display: inline;
   position: static;
   display: inline;
-  margin-right: -5px;
 }
 
 /* friends online {{{ */
@@ -6473,7 +6528,7 @@ h1#agenda-title {
 
 .profile-wall-reply-form {
   display: block;
-  background: #e8e8e8;
+  background: #f0f0f1;
   border-bottom: 1px solid #d2d2d2;
   border-top: 1px solid #fff;
   margin-left: 50px;
@@ -6516,6 +6571,10 @@ h1#agenda-title {
 
 #profile-wall textarea {
   width: 375px;
+}
+
+#profile-wall #leave_scrap textarea {
+  width: 442px;
 }
 
 .profile-wall-scrap-replies {

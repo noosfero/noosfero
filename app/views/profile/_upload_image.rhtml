@@ -1,1 +1,4 @@
-<%= render :partial => 'default_activity', :locals => {:activity => activity} %>
+<div class="activity-gallery-images-count-<%= activity.get_view_url.size %>">
+  <%= render :partial => 'default_activity', :locals => {:activity => activity} %>
+</div>
+<div title='<%= activity.target.class.short_description %>' class='profile-activity-icon icon-new icon-newgallery'></div>

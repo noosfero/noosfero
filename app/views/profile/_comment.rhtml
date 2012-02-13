@@ -25,6 +25,7 @@
       <%= icon_button(:delete, _('Remove'), { :action => :remove_comment, :comment_id => comment.id }, :method => :get, :confirm => _('Are you sure you want to remove this comment and all its replies?')) %>
     <% end %>
   <% end %>
+  <br style="clear: both;" />
 
   <div class="comment_reply post_comment_box closed">
     <% if @comment && @comment.errors.any? && @comment.reply_of_id.to_i == comment.id %>
