@@ -1,4 +1,5 @@
 class MezuroPluginProfileController < ProfileController
+  append_view_path File.join(File.dirname(__FILE__) + '/../views')
 
   def metrics
     project_content = profile.articles.find(params[:id])

@@ -17,18 +17,17 @@ class MezuroPluginProfileControllerTest < ActionController::TestCase
     @project = @project_result.project
   end
 
-#  def test_metrics_for_unknown_project
-#    get :metrics, :profile => @profile_id
-#    assert_response 404
-#  end
-#
-#  def test_metric_unknown_module
-#    get :metrics, :profile => @profile_id, :id => @project_content.id, :module_name => 'veryunlikelyname'
-#    assert_response 404
-#  end
+  def test_metrics_for_unknown_project
+    get :metrics, :profile => @profile_id
+    assert_response 404
+  end
 
+  def test_metric_unknown_module
+    get :metrics, :profile => @profile_id, :id => @project_content.id, :module_name => 'veryunlikelyname'
+    assert_response 404
+  end
 
-  def test_metrics_for_known_module
+  should 'get metrics from a known module' do
     project_content = create_project_content(@profile)
     project_name = project_content.name
     module_name = project_name
