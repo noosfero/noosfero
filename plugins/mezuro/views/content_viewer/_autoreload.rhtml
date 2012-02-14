@@ -1,0 +1,29 @@
+  <h3><%= _('LAST RESULT') %></h3>
+  <% @project_result = @page.project_result %>
+
+  <table id="project_result_info">
+    <tr>
+      <td><%= _('Date') %></td>
+      <td><%= @project_result.date %></td>
+    </tr>
+    <tr>
+      <td><%= _('Load time') %></td>
+      <td><%= @project_result.formatted_load_time %></td>
+    </tr>
+    <tr>
+      <td><%= _('Analysis time') %></td>
+      <td><%= @project_result.formatted_analysis_time %></td>
+    </tr>
+  </table>
+
+  <h5><%= _('Source tree') %></h5>
+
+  <%= render :partial => 'source_tree', :locals => { :source_tree => @project_result.source_tree } %>
+
+  <div id='module-result' data-profile="<%= @page.profile.identifier %>" data-project-id='<%= @page.id %>'>
+    <%= render :partial => 'module_result', :locals => { :module_result => @page.module_result(@project.name) } %>
+  </div>
+
+  <script type="text/javascript">
+    jQuery(results);
+  </script>
