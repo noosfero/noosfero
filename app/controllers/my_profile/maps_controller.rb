@@ -6,18 +6,13 @@ class MapsController < MyProfileController
     @profile_data = profile
     if request.post?
       begin
-        national_code = nil
-        country  = params[:profile_data][:country]
-        city  = params[:profile_data][:city]
-        state  = params[:profile_data][:state]
-
+        country = params[:profile_data][:country]
+        city = params[:profile_data][:city]
+        state = params[:profile_data][:state]
         nregion = NationalRegion.validate!(city, state, country)
-
-        if nregion != nil
-          national_code = nregion.national_region_code
+        unless nregion.blank?
+          params[:profile_data][:national_region_code] = nregion.national_region_code
         end
-        
-        params[:profile_data]["national_region_code"] = national_code
 
         Profile.transaction do
           if profile.update_attributes!(params[:profile_data])
@@ -26,9 +21,7 @@ class MapsController < MyProfileController
           end
         end
       rescue Exception => exc
-        
         flash[:error] = exc.message
-
       end
     end
   end
