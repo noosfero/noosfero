@@ -10,6 +10,9 @@ class Community < Organization
   settings_items :language
   settings_items :zip_code, :city, :state, :country
 
+  extend SetProfileRegionFromCityState::ClassMethods
+  set_profile_region_from_city_state
+
   before_create do |community|
     community.moderated_articles = true if community.environment.enabled?('organizations_are_moderated_by_default')
   end

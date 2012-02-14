@@ -20,6 +20,9 @@ class Enterprise < Organization
 
   settings_items :organization_website, :historic_and_current_context, :activities_short_description, :zip_code, :city, :state, :country
 
+  extend SetProfileRegionFromCityState::ClassMethods
+  set_profile_region_from_city_state
+
   before_save do |enterprise|
     enterprise.organization_website = enterprise.maybe_add_http(enterprise.organization_website)
   end

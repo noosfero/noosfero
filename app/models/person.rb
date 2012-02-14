@@ -177,6 +177,9 @@ class Person < Profile
   N_('Contact information'); N_('City'); N_('State'); N_('Country'); N_('Sex'); N_('Zip code')
   settings_items :photo, :contact_information, :sex, :city, :state, :country, :zip_code
 
+  extend SetProfileRegionFromCityState::ClassMethods
+  set_profile_region_from_city_state
+
   def self.conditions_for_profiles(conditions, person)
     new_conditions = sanitize_sql(['role_assignments.accessor_id = ?', person])
     new_conditions << ' AND ' +  sanitize_sql(conditions) unless conditions.blank?
