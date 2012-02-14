@@ -17,11 +17,15 @@
   <tbody>
     <% module_result.metric_results.each do |metric_result|  %>
       <% range = metric_result.range %>
-      <tr title=" <%= range.comments %>">
+      <tr title="<%= range.nil? ? '' : range.comments %>">
         <td><%= metric_result.metric.name %></td>
         <td><%= metric_result.value %></td>
         <td><%= metric_result.weight %></td>
-        <td style="background-color: #<%= range.color[2..-1] %>"><%= range.label %></td>
+        <% if range.nil? %>
+          <td></td>
+        <% else %>
+          <td style="background-color: #<%= range.color[2..-1] %>"><%= range.label %></td>
+        <% end %>
       </tr>   
     <% end %>
   </tbody>

@@ -15,6 +15,7 @@ class MezuroPluginProfileControllerTest < ActionController::TestCase
     @module_result = ModuleResultFixtures.create
     @project_result = ProjectResultFixtures.qt_calculator
     @project = @project_result.project
+    @project_content = create_project_content(@profile)
   end
 
   def test_metrics_for_unknown_project
@@ -28,13 +29,12 @@ class MezuroPluginProfileControllerTest < ActionController::TestCase
   end
 
   should 'get metrics from a known module' do
-    project_content = create_project_content(@profile)
-    project_name = project_content.name
+    project_name = @project_content.name
     module_name = project_name
     Kalibro::Client::ProjectResultClient.expects(:last_result).with(project_name).returns(@project_result)
-    Kalibro::Client::ModuleResultClient.expects(:module_result).with(project_content, module_name).
+    Kalibro::Client::ModuleResultClient.expects(:module_result).with(@project_content, module_name).
       returns(@module_result)
-    get :metrics, :profile => @profile_id, :id => project_content.id, :module_name => module_name
+    get :metrics, :profile => @profile_id, :id => @project_content.id, :module_name => module_name
     assert_response 200
     # assert_tag # TODO
   end
@@ -48,7 +48,7 @@ class MezuroPluginProfileControllerTest < ActionController::TestCase
     Kalibro::Client::KalibroClient.expects(:process_project).with(project_content.name)
     project_content.save
 
-#    MezuroPlugin::ProjectContent.any_instance.stubs(:project_content).returns(project_content)
+    MezuroPlugin::ProjectContent.any_instance.stubs(:project_content).returns(project_content)
     project_content
   end
  
