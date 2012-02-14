@@ -1,6 +1,6 @@
 class AddRegionTypeIdToNationalRegions < ActiveRecord::Migration
   def self.up
-    add_column :national_regions, :national_region_type_id, :integer, :null => false
+    add_column :national_regions, :national_region_type_id, :integer
   end
 
   def self.down

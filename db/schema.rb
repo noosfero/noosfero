@@ -325,6 +325,22 @@ ActiveRecord::Schema.define(:version => 20111004184104) do
     t.datetime "updated_at"
   end
 
+  create_table "national_region_types", :force => true do |t|
+    t.string "name"
+  end
+
+  create_table "national_regions", :force => true do |t|
+    t.string   "name"
+    t.string   "national_region_code"
+    t.string   "parent_national_region_code"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "national_region_type_id"
+  end
+
+  add_index "national_regions", ["name"], :name => "name_index"
+  add_index "national_regions", ["national_region_code"], :name => "code_index"
+
   create_table "price_details", :force => true do |t|
     t.decimal  "price",              :default => 0.0
     t.integer  "product_id"
@@ -384,7 +400,7 @@ ActiveRecord::Schema.define(:version => 20111004184104) do
     t.string   "type"
     t.string   "identifier"
     t.integer  "environment_id"
-    t.boolean  "active",                            :default => true
+    t.boolean  "active",                             :default => true
     t.string   "address"
     t.string   "contact_phone"
     t.integer  "home_page_id"
@@ -395,19 +411,20 @@ ActiveRecord::Schema.define(:version => 20111004184104) do
     t.float    "lat"
     t.float    "lng"
     t.integer  "geocode_precision"
-    t.boolean  "enabled",                           :default => true
-    t.string   "nickname",            :limit => 16
+    t.boolean  "enabled",                            :default => true
+    t.string   "nickname",             :limit => 16
     t.text     "custom_header"
     t.text     "custom_footer"
     t.string   "theme"
-    t.boolean  "public_profile",                    :default => true
+    t.boolean  "public_profile",                     :default => true
     t.date     "birth_date"
     t.integer  "preferred_domain_id"
     t.datetime "updated_at"
-    t.boolean  "visible",                           :default => true
+    t.boolean  "visible",                            :default => true
     t.integer  "image_id"
-    t.boolean  "validated",                         :default => true
+    t.boolean  "validated",                          :default => true
     t.string   "cnpj"
+    t.string   "national_region_code"
   end
 
   add_index "profiles", ["environment_id"], :name => "index_profiles_on_environment_id"
