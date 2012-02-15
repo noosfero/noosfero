@@ -1,5 +1,5 @@
-require_dependency 'ext/enterprise'
-require_dependency 'ext/person'
+require_dependency File.dirname(__FILE__) + 'ext/enterprise'
+require_dependency File.dirname(__FILE__) + 'ext/person'
 
 class ShoppingCartPlugin < Noosfero::Plugin
 
