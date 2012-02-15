@@ -1,4 +1,5 @@
-<% @project = @page.project %>
+<% @project_content = @page 
+   @project = @project_content.project %>
 
 <table id="project_info">
   <tr>
@@ -40,14 +41,14 @@
       <li><%= "#{trace.declaring_class}.#{trace.method_name}(#{trace.file_name}:#{trace.line_number})" %></li>
     <% end %></ul>
   </p>
-<% elsif @page.project.state=='READY' %>
-  <div id='autoreload' data-profile="<%= @page.profile.identifier %>" data-project-id='<%= @page.id %>' data-project-name='<%= @project.name %>'>
-    <%= render :partial => 'autoreload', :locals => { :autoreload => @page } %>
-  </div> 
 <% else %>
-  <div id='autoreload' data-profile="<%= @page.profile.identifier %>" data-project-id='<%= @page.id %>' data-project-name="<%= @project.name %>">
-  </div>
+
+  <div id='autoreload' data-profile="<%= @project_content.profile.identifier %>" data-project-id='<%= @project_content.id %>' data-project-name='<%= @project.name %>' data-project-state='<%= @project.state %>'>
+    <%= render :partial => 'autoreload', :locals => { :project_content => @project_content } %>
+  </div> 
+  
   <script type="text/javascript">
-    jQuery(autoreloads);
+    jQuery(show_autoreload);
   </script>
+
 <% end %>
