@@ -1,11 +1,11 @@
 require 'test_helper'
 
-class MezuroPluginProfileControllerTest < ActiveSupport::TestCase
+class MezuroPluginProfileControllerTest < ActionController::TestCase
 
   def setup
     @controller = MezuroPluginProfileController.new
     @request = ActionController::TestRequest.new
-    @response   = ActionController::TestResponse.new
+    @response = ActionController::TestResponse.new
     @profile = fast_create(Community)
     @profile_id = @profile.identifier
   end

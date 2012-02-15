@@ -1,11 +1,11 @@
-<h5><%= _('Metric Result') %> </h5>
-<strong>
-  <%= _('Module:') %>
-  <%=  module_result.module.name %>
-</strong>
-<br/>
+<% the_module = module_result.module %>
+<% module_label = "#{the_module.name} (#{the_module.granularity})" %>
+
+<h5><%= _('Metric results for: ') + module_label %> </h5>
+
 <hr/>
-<table id="project_metric_result">
+
+<table>
   <thead>
     <tr>
       <th>Metric</th>
@@ -17,11 +17,15 @@
   <tbody>
     <% module_result.metric_results.each do |metric_result|  %>
       <% range = metric_result.range %>
-      <tr title=" <%= range.comments %>">
+      <tr title="<%= range.nil? ? '' : range.comments %>">
         <td><%= metric_result.metric.name %></td>
         <td><%= metric_result.value %></td>
         <td><%= metric_result.weight %></td>
-        <td style="background-color: #<%= range.color[2..-1] %>"><%= range.label %></td>
+        <% if range.nil? %>
+          <td></td>
+        <% else %>
+          <td style="background-color: #<%= range.color[2..-1] %>"><%= range.label %></td>
+        <% end %>
       </tr>   
     <% end %>
   </tbody>
