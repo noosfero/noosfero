@@ -1,3 +1,5 @@
+require File.dirname(__FILE__) + '/error_fixtures'
+
 class CompoundMetricWithErrorFixtures
     
   def self.create

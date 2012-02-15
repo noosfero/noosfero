@@ -1,3 +1,7 @@
+require File.dirname(__FILE__) + '/module_fixtures'
+require File.dirname(__FILE__) + '/metric_result_fixtures'
+require File.dirname(__FILE__) + '/compound_metric_with_error_fixtures'
+
 class ModuleResultFixtures
 
   def self.create

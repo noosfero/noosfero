@@ -1,3 +1,5 @@
+require File.dirname(__FILE__) + '/stack_trace_element_fixtures'
+
 class ErrorFixtures
 
   def self.create

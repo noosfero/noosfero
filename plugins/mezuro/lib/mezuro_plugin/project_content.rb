@@ -17,18 +17,17 @@ class MezuroPlugin::ProjectContent < Article
     end
   end
 
-  # FIXME is this really needed?
+  # From ProjectClient
   def project
-    Kalibro::Client::ProjectClient.new.project(title)
+    @project ||= Kalibro::Client::ProjectClient.project(name)
   end
 
   def project_result
-    @project_result ||= Kalibro::Client::ProjectResultClient.new.last_result(title)
+    @project_result ||= Kalibro::Client::ProjectResultClient.last_result(name)
   end
 
   def module_result(module_name)
-    @module_client ||= Kalibro::Client::ModuleResultClient.new
-    @module_client.module_result(title, module_name, project_result.date)
+    @module_client ||= Kalibro::Client::ModuleResultClient.module_result(self, module_name)
   end
 
   after_save :send_project_to_service
@@ -37,29 +36,12 @@ class MezuroPlugin::ProjectContent < Article
   private
 
   def send_project_to_service
-    Kalibro::Client::ProjectClient.save(create_project)
-    Kalibro::Client::KalibroClient.process_project(title)
+    Kalibro::Client::ProjectClient.save(self)
+    Kalibro::Client::KalibroClient.process_project(name)
   end
 
   def remove_project_from_service
-    Kalibro::Client::ProjectClient.remove(title)
-  end
-
-  def create_project
-    project = Kalibro::Entities::Project.new
-    project.name = title
-    project.license = license
-    project.description = description
-    project.repository = create_repository
-    project.configuration_name = configuration_name
-    project
-  end
-
-  def create_repository
-    repository = Kalibro::Entities::Repository.new
-    repository.type = repository_type
-    repository.address = repository_url
-    repository
+    Kalibro::Client::ProjectClient.remove(name)
   end
 
 end
