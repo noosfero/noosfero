@@ -19,7 +19,7 @@
       <td></td> 
       <td style="text-align: left">
         <% source_tree.children.each do |child| %>
-          <%= render :partial => 'source_tree', :locals => { :source_tree => child } %>
+          <%= render :partial => 'content_viewer/source_tree', :locals => { :source_tree => child } %>
         <% end %>
       </td> 
     </tr> 

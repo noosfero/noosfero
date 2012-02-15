@@ -44,7 +44,6 @@
 <% else %>
 
   <div id='autoreload' data-profile="<%= @project_content.profile.identifier %>" data-project-id='<%= @project_content.id %>' data-project-name='<%= @project.name %>' data-project-state='<%= @project.state %>'>
-    <%= render :partial => 'autoreload', :locals => { :project_content => @project_content } %>
   </div> 
   
   <script type="text/javascript">

@@ -1,5 +1,7 @@
 class MezuroPluginProfileController < ProfileController
 
+  append_view_path File.join(File.dirname(__FILE__) + '/../views')
+
   def metrics
     project_content = profile.articles.find(params[:id])
     module_name = params[:module_name]
@@ -7,8 +9,7 @@ class MezuroPluginProfileController < ProfileController
   end
 
   def autoreload
-    page_content = profile.articles.find(params[:id])
-    project_name = params[:project_name]
-    render :partial => 'content_viewer/autoreload', :locals => { :project_result => page_content.project_result(project_name) }
+    @project_content = profile.articles.find(params[:id])
+    render :partial => 'content_viewer/autoreload'
   end
 end

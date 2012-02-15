@@ -1,7 +1,7 @@
-<% if project_content.project.state == 'READY' %>
+<% if @project_content.project.state == 'READY' %>
  
   <h3><%= _('LAST RESULT') %></h3>
-  <% @project_result = project_content.project_result %>
+  <% @project_result = @project_content.project_result %>
 
   <table id="project_result_info">
     <tr>
@@ -20,10 +20,10 @@
 
   <h5><%= _('Source tree') %></h5>
 
-  <%= render :partial => 'source_tree', :locals => { :source_tree => @project_result.source_tree } %>
+  <%= render :partial => 'content_viewer/source_tree', :locals => { :source_tree => @project_result.source_tree } %>
 
-  <div id='module-result' data-profile="<%= project_content.profile.identifier %>" data-project-id='<%= project_content.id %>'>
-    <%= render :partial => 'module_result', :locals => { :module_result => project_content.module_result(project_content.project.name) } %>
+  <div id='module-result' data-profile="<%= @project_content.profile.identifier %>" data-project-id='<%= @project_content.id %>'>
+    <%= render :partial => 'content_viewer/module_result', :locals => { :module_result => @project_content.module_result(@project_content.project.name) } %>
   </div>
 
   <script type="text/javascript">
@@ -32,6 +32,6 @@
 
 <% else %>
 
-  Joao Silva estah dormindo ...
+  <%= _("Loading results for %s ...") % project_content.project.name %>
 
 <% end %>.

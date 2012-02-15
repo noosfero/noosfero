@@ -5,15 +5,19 @@ function show_autoreload($){
   var project_name = $('#autoreload').attr('data-project-name');
   var endpoint = '/profile/' + profile + '/plugins/mezuro/autoreload/' + project;
 
-  show_loading_message(project_name);
+  jQuery('#autoreload').html('Loading ...'); // #FIXME
   $.get(endpoint, {project_name: project_name}, show_page_with_results);
   return false;
 }
 
-function show_loading_message(project_name) {
-  jQuery('#autoreload').html("Loading results for " + project_name + "...");
-}
-
 function show_page_with_results(content){
-  jQuery('#autoreload').html(content);
+  var done = true; // FIXME; test the content in some way
+  if (done) {
+    jQuery('#autoreload').html(content);
+  } else {
+    var wait = 10; // FIXME; how many seconds to wait?
+    setTimeout(function() {
+      show_autoreload(jQuery);
+    }, wait * 1000);
+  }
 }
