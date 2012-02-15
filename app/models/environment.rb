@@ -121,7 +121,7 @@ class Environment < ActiveRecord::Base
       'show_balloon_with_profile_links_when_clicked' => _('Show a balloon with profile links when a profile image is clicked'),
       'xmpp_chat' => _('XMPP/Jabber based chat'),
       'show_zoom_button_on_article_images' => _('Show a zoom link on all article images'),
-      'captcha_for_logged_users' => _('Ask captcha to comment for logged users too'),
+      'captcha_for_logged_users' => _('Ask captcha when a logged user comments too'),
     }
   end
 
