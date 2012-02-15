@@ -5,7 +5,7 @@ function show_autoreload($){
   var project_name = $('#autoreload').attr('data-project-name');
   var endpoint = '/profile/' + profile + '/plugins/mezuro/autoreload/' + project;
 
-  jQuery('#autoreload').html('Loading ...'); // #FIXME
+  jQuery('#autoreload').html('Loading results for ...' + project_name); // #FIXME
   $.get(endpoint, {project_name: project_name}, show_page_with_results);
   return false;
 }

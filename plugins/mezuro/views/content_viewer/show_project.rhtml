@@ -30,24 +30,9 @@
 
 <br />
 
-<% if ! @project.error.nil? %>
-  <h3><%= _('ERROR') %></h3>
-  <p>
-    <%= "State when error ocurred: #{@project.state}" %>
-    <br/>
-    <% error = @project.error %>
-    <%= error.message %>
-    <ul><% error.stack_trace.each do |trace| %>
-      <li><%= "#{trace.declaring_class}.#{trace.method_name}(#{trace.file_name}:#{trace.line_number})" %></li>
-    <% end %></ul>
-  </p>
-<% else %>
-
-  <div id='autoreload' data-profile="<%= @project_content.profile.identifier %>" data-project-id='<%= @project_content.id %>' data-project-name='<%= @project.name %>' data-project-state='<%= @project.state %>'>
-  </div> 
+<div id='autoreload' data-profile="<%= @project_content.profile.identifier %>" data-project-id='<%= @project_content.id %>' data-project-name='<%= @project.name %>' data-project-state='<%= @project.state %>'>
+</div> 
   
-  <script type="text/javascript">
-    jQuery(show_autoreload);
-  </script>
-
-<% end %>
+<script type="text/javascript">
+  jQuery(show_autoreload);
+</script>
