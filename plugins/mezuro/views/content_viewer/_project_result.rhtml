@@ -1,48 +1,29 @@
-<% if ! @project_content.project.error.nil? %>
-  <h3><%= _('ERROR') %></h3>
-  <p>
-    <%= "State when error ocurred: #{@project_content.project.state}" %>
-    <br/>
-    <% error = @project_content.project.error %>
-    <%= error.message %>
-    <ul><% error.stack_trace.each do |trace| %>
-      <li><%= "#{trace.declaring_class}.#{trace.method_name}(#{trace.file_name}:#{trace.line_number})" %></li>
-    <% end %></ul>
-  </p>
-<% elsif @project_content.project.state.end_with?('ING') %>
-  
-  <%= _("Loading results for %s ...") % @project_content.project.name %>
+<% @project_result = content.project_result %>
 
-<% elsif @project_content.project.state == 'READY' %>
- 
-  <h3><%= _('LAST RESULT') %></h3>
-  <% @project_result = @project_content.project_result %>
+<h3><%= _('LAST RESULT') %></h3>
 
-  <table id="project_result_info">
-    <tr>
-      <td><%= _('Date') %></td>
-      <td><%= @project_result.date %></td>
-    </tr>
-    <tr>
-      <td><%= _('Load time') %></td>
-      <td><%= @project_result.formatted_load_time %></td>
-    </tr>
-    <tr>
-      <td><%= _('Analysis time') %></td>
-      <td><%= @project_result.formatted_analysis_time %></td>
-    </tr>
-  </table>
+<table>
+  <tr>
+    <td><%= _('Date') %></td>
+    <td><%= @project_result.date %></td>
+  </tr>
+  <tr>
+    <td><%= _('Load time') %></td>
+    <td><%= @project_result.formatted_load_time %></td>
+  </tr>
+  <tr>
+    <td><%= _('Analysis time') %></td>
+    <td><%= @project_result.formatted_analysis_time %></td>
+  </tr>
+</table>
 
-  <h5><%= _('Source tree') %></h5>
+<h4><%= _('Source tree') %></h4>
+<%= render :partial => 'content_viewer/source_tree', :locals => { :source_tree => @project_result.source_tree } %>
 
-  <%= render :partial => 'content_viewer/source_tree', :locals => { :source_tree => @project_result.source_tree } %>
+<div id='module-result' data-profile="<%= content.profile.identifier %>" data-content='<%= content.id %>'>
+  <%= render :partial => 'content_viewer/module_result', :locals => { :module_result => content.module_result(content.project.name) } %>
+</div>
 
-  <div id='module-result' data-profile="<%= @project_content.profile.identifier %>" data-project-id='<%= @project_content.id %>'>
-    <%= render :partial => 'content_viewer/module_result', :locals => { :module_result => @project_content.module_result(@project_content.project.name) } %>
-  </div>
-
-  <script type="text/javascript">
-    jQuery(results);
-  </script>
-
-<% end %>.
+<script type="text/javascript">
+  jQuery(results);
+</script>

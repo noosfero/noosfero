@@ -5,9 +5,9 @@
     <tr>
       <td width="10%">
         <img alt="+" src="/plugins/mezuro/images/plus.png" class="link"
-          id="<%= module_name %>_plus" onclick="toggle('<%= module_name %>')" style="display: none"/>
+          id="<%= module_name %>_plus" onclick="toggle('<%= module_name %>')"/>
         <img alt="-" src="/plugins/mezuro/images/minus.png" class="link"
-          id="<%= module_name %>_minus" onclick="toggle('<%= module_name %>')"/>
+          id="<%= module_name %>_minus" onclick="toggle('<%= module_name %>')" style="display: none"/>
       </td>
       <td>
         <a href="#" class="module-result-link" data-module-name="<%= module_name %>">
@@ -15,7 +15,7 @@
         </a>
       </td>
     </tr> 
-    <tr id="<%= module_name %>_hidden">
+    <tr id="<%= module_name %>_hidden" style="display: none">
       <td></td> 
       <td style="text-align: left">
         <% source_tree.children.each do |child| %>

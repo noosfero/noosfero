@@ -2,7 +2,7 @@
 
 <%
   begin
-    @project = @article.title.nil? ? nil : Kalibro::Client::ProjectClient.new.project(@article.title)
+    @project = @article.title.nil? ? nil : Kalibro::Client::ProjectClient.project(@article.title)
   rescue
     @project = nil
   end
