@@ -8,8 +8,10 @@ class MezuroPluginProfileController < ProfileController
     render :partial => 'content_viewer/module_result', :locals => { :module_result =>  module_result}
   end
 
-  def autoreload
-    @project_content = profile.articles.find(params[:id])
-    render :partial => 'content_viewer/autoreload'
+  def project_result
+    project_content = profile.articles.find(params[:id])
+    project_result = project_content.project_result
+    render :partial => 'content_viewer/project_result', :locals => { :project_result => project_result }
   end
+
 end
