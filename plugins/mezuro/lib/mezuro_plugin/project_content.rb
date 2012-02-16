@@ -17,7 +17,6 @@ class MezuroPlugin::ProjectContent < Article
     end
   end
 
-  # From ProjectClient
   def project
     @project ||= Kalibro::Client::ProjectClient.project(name)
   end

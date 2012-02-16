@@ -6,7 +6,7 @@ function show_module_result(){
   var profile = jQuery('#module-result').attr('data-profile');
   var project = jQuery('#module-result').attr('data-project-id');
   var module_name = jQuery(this).attr('data-module-name');
-  var endpoint = '/profile/' + profile + '/plugins/mezuro/metrics/' + project;
+  var endpoint = '/profile/' + profile + '/plugins/mezuro/module_result/' + project;
   show_loading_message(module_name);
   jQuery.get(endpoint, {module_name: module_name}, show_result_table);
   return false;
