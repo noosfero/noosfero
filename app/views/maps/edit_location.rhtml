@@ -17,18 +17,17 @@
     <% end %>
   </div>
 
+  <p><%= _('Drag the balloon to find the exact location.') %> </p>
+
   <div style='overflow: hidden'>
     <p><div id="location-map"></div></p>
   </div>
 
   <%= f.hidden_field(:lat) %>
   <%= f.hidden_field(:lng) %>
-
-  <% button_bar do %>
-    <%= submit_button 'save', _('Save') %>
-    <%= button(:back, _('Back to control panel'), :controller => 'profile_editor') %>
-  <% end %>
  
 <% end %>
 
-<%= render :partial => 'google_map'%>
+<%= content_tag('script', '', :src => "http://maps.googleapis.com/maps/api/js?sensor=false", :type => 'text/javascript') %>
+<%= content_tag('script', '', :src => url_for(:controller => :maps, :action => :google_map), :type => 'text/javascript') %>
+
