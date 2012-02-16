@@ -14,4 +14,9 @@ class MezuroPluginProfileController < ProfileController
     render :partial => 'content_viewer/project_result', :locals => { :project_result => project_result }
   end
 
+  def project_state
+    project_content = profile.articles.find(params[:id])
+    project_content.project.state
+  end
+
 end

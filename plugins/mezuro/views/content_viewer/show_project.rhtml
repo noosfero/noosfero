@@ -48,5 +48,8 @@
   <%= render :partial => 'project_result', :locals => { :project_result => @page.project_result } %>
 <% end %>
 
-<div id="ids" data-profile="<%= @page.profile.identifier %>" data-content='<%= @page.id %>'>
-</div>
+<div id="ids" data-profile="<%= @page.profile.identifier %>" data-content='<%= @page.id %>'/>
+
+<script type="text/javascript">
+  jQuery(dynamic);
+</script>

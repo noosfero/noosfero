@@ -17,7 +17,7 @@ class MezuroPlugin < Noosfero::Plugin
   end
 
   def js_files
-    ['javascripts/autoreload.js', 'javascripts/results.js', 'javascripts/toggle.js']
+    ['javascripts/dynamic.js', 'javascripts/toggle.js']
   end
 
 end
