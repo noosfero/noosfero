@@ -5,18 +5,20 @@ module SetProfileRegionFromCityState
       before_save :region_from_city_and_state
 
       include InstanceMethods
+      alias_method_chain :city=, :region
+      alias_method_chain :state=, :region
     end
   end
 
   module InstanceMethods
 
-    def city=(value)
-      self.data[:city] = value
+    def city_with_region=(value)
+      self.city_without_region = value
       @change_region = true
     end
 
-    def state=(value)
-      self.data[:state] = value
+    def state_with_region=(value)
+      self.state_without_region = value
       @change_region = true
     end
 
