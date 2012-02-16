@@ -17,6 +17,7 @@ class MezuroPluginProfileController < ProfileController
   def project_state
     project_content = profile.articles.find(params[:id])
     project_content.project.state
+    render :text => "READY"
   end
 
 end
