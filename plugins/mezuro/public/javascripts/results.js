@@ -3,8 +3,8 @@ function results($) {
 }
 
 function show_module_result(){
-  var profile = jQuery('#module-result').attr('data-profile');
-  var project = jQuery('#module-result').attr('data-content');
+  var profile = jQuery('#ids').attr('data-profile');
+  var project = jQuery('#ids').attr('data-content');
   var module_name = jQuery(this).attr('data-module-name');
   var endpoint = '/profile/' + profile + '/plugins/mezuro/module_result/' + project;
   show_loading_message(module_name);
