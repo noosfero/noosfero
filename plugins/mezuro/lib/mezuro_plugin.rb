@@ -16,8 +16,4 @@ class MezuroPlugin < Noosfero::Plugin
     true
   end
 
-  def js_files
-    ['javascripts/dynamic.js', 'javascripts/source_tree_toggle.js']
-  end
-
 end
