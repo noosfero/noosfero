@@ -1,3 +1,5 @@
+require File.dirname(__FILE__) + '/metric_configuration_fixtures'
+
 class ConfigurationFixtures
 
   def self.kalibro_configuration

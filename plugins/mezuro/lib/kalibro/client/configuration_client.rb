@@ -1,15 +1,23 @@
 class Kalibro::Client::ConfigurationClient
 
+  def self.save(configuration_content)
+    configuration = Kalibro::Entities::Configuration.new
+    configuration.name = configuration_content.name
+    configuration.description = configuration_content.description
+    new.save(configuration)
+  end
+
+  def self.remove(configuration_name)
+    client = new
+    client.remove(configuration_name) if client.configuration_names.include? configuration_name
+  end
+
   def initialize
     @port = Kalibro::Client::Port.new('Configuration')
   end
 
   def save(configuration)
     @port.request(:save_configuration, {:configuration => configuration.to_hash})
-  end
-
-  def self.save(configuration)
-    new.save(configuration)
   end
 
   def configuration_names
@@ -25,7 +33,4 @@ class Kalibro::Client::ConfigurationClient
     @port.request(:remove_configuration, {:configuration_name => configuration_name})
   end
 
-  def self.remove(configuration_name)
-    new.remove(configuration_name)
-  end
 end

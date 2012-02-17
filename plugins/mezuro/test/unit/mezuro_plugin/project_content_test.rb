@@ -50,19 +50,20 @@ class ProjectContentTest < ActiveSupport::TestCase
     assert_equal module_result, @content.module_result(module_name)
   end
 
-  should 'run send project to service on after_save callback' do
+  should 'send project to service after saving' do
     @content.expects :send_project_to_service
     @content.run_callbacks :after_save
   end
 
   should 'send correct project to service' do
     Kalibro::Client::ProjectClient.expects(:save).with(@content)
-    Kalibro::Client::KalibroClient.expects(:process_project).with(@project.name)
+    Kalibro::Client::KalibroClient.expects(:process_project).with(@content.name)
     @content.send :send_project_to_service
   end
 
   should 'remove project from service' do
-    Kalibro::Client::ProjectClient.expects(:remove).with(@project.name)
+    Kalibro::Client::ProjectClient.expects(:remove).with(@content.name)
     @content.send :remove_project_from_service
   end
+  
 end

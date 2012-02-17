@@ -44,4 +44,3 @@ class MezuroPlugin::ProjectContent < Article
   end
 
 end
-

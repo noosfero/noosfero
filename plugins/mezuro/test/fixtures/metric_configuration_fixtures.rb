@@ -1,3 +1,7 @@
+require File.dirname(__FILE__) + '/compound_metric_fixtures'
+require File.dirname(__FILE__) + '/native_metric_fixtures'
+require File.dirname(__FILE__) + '/range_fixtures'
+
 class MetricConfigurationFixtures
 
   def self.amloc_configuration
