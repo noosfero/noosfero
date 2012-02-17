@@ -59,10 +59,9 @@ class MezuroPluginProfileControllerTest < ActionController::TestCase
   should 'get project processing' do
     create_project_content
     Kalibro::Client::ProjectClient.expects(:project).with(@name).returns(@project)
-    @project.expects(:state).returns("LOADING")
     get :project_processing, :profile => @profile.identifier, :id => @content.id
     assert_response 200
-    assert_select('h3', 'Service is loading Qt-Calculator...')
+    assert_select('h3', 'Service is processing Qt-Calculator...')
   end
 
   should 'get error state if project has error' do

@@ -29,15 +29,9 @@
 
 <br />
 
-<% if ! @project.error.nil? %>
-  <%= render :partial => 'content_viewer/project_error', :locals => { :project => @project } %>
-<% elsif @project.state.end_with?('ING') #Loading or analyzing%>
-  <%= render :partial => 'content_viewer/project_processing', :locals => { :project => @project } %>
-<% elsif @project.state == 'READY' %>
-  <%= render :partial => 'content_viewer/project_result', :locals => { :project_result => @page.project_result } %>
-<% end %>
-
-<div id="ids" data-profile="<%= @page.profile.identifier %>" data-content='<%= @page.id %>'/>
+<div id="project-content" data-profile="<%= @page.profile.identifier %>" data-content='<%= @page.id %>'>
+  <%= _('Loading project content...') %>
+</div>
 
 <script type="text/javascript">
   jQuery(dynamic);
