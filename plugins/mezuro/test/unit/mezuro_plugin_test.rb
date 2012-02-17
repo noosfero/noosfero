@@ -30,8 +30,4 @@ class MezuroPluginTest < ActiveSupport::TestCase
     assert @plugin.stylesheet?
   end
 
-  should 'list javascript files' do
-    assert_equal ['javascripts/results.js', 'javascripts/toogle.js'], @plugin.js_files
-  end
-
 end
