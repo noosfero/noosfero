@@ -2,6 +2,7 @@ require 'test_helper'
 
 require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/module_result_fixtures"
 require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/project_result_fixtures"
+require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/error_fixtures"
 
 class MezuroPluginProfileControllerTest < ActionController::TestCase
 
@@ -44,6 +45,24 @@ class MezuroPluginProfileControllerTest < ActionController::TestCase
     get :project_state, :profile => @profile.identifier, :id => @content.id
     assert_response 200
     assert_equal @project.state, @response.body
+  end
+
+  should 'get project error' do
+    create_project_content
+    Kalibro::Client::ProjectClient.expects(:project).with(@name).returns(@project)
+    @project.expects(:error).returns(ErrorFixtures.create)
+    get :project_error, :profile => @profile.identifier, :id => @content.id
+    assert_response 200
+    assert_select('h3', 'ERROR')
+  end
+
+  should 'get project processing' do
+    create_project_content
+    Kalibro::Client::ProjectClient.expects(:project).with(@name).returns(@project)
+    @project.expects(:state).returns("LOADING")
+    get :project_processing, :profile => @profile.identifier, :id => @content.id
+    assert_response 200
+    assert_select('h3', 'Service is loading Qt-Calculator...')
   end
 
   should 'get error state if project has error' do
