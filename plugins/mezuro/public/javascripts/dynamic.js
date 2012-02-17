@@ -9,15 +9,29 @@ function endpoint(action){
 }
 
 function select_project_partial(state){
-  var action;
+  var action, callback = show_project_content;
   if (state == 'ERROR')
     action = 'project_error';
   else if (state == 'READY')
     action = 'project_result';
-  else
-    action = 'project_processing';
-  jQuery.get(endpoint(action), {}, show_project_content);
+  else {
+//    wait(10);
+    action = 'project_state';
+    callback = select_project_partial;
+  }
+  jQuery.get(endpoint(action), {}, callback);
 }
+
+//function wait(seconds){
+//  var remaining = seconds;
+//  while(remaining > 0){
+//    setTimeout(function() {
+//        jQuery('#project-content').html("Processing. Trying again in " + remaining + " seconds");
+//      }, 1000);
+//    remaining--;
+//  }
+//  jQuery('#project-content').html("Trying now...");
+//}
 
 function show_project_content(content){
   jQuery('#project-content').html(content);

@@ -20,12 +20,6 @@ class MezuroPluginProfileController < ProfileController
     render :partial => 'content_viewer/project_error', :locals => { :project => project }
   end
 
-  def project_processing
-    content = profile.articles.find(params[:id])
-    project = content.project
-    render :partial => 'content_viewer/project_processing', :locals => { :project => project }
-  end
-
   def project_state
     content = profile.articles.find(params[:id])
     project = content.project
