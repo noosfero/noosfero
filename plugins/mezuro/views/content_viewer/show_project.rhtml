@@ -45,7 +45,7 @@
 <% elsif @project.state.end_with?('ING') %>
   <h3><%= _('Service is ') + @project.state.downcase + ' ' + @project.name + '...' %></h3>
 <% elsif @project.state == 'READY' %>
-  <%= render :partial => 'project_result', :locals => { :project_result => @page.project_result } %>
+  <%= render :partial => 'content_viewer/project_result', :locals => { :project_result => @page.project_result } %>
 <% end %>
 
 <div id="ids" data-profile="<%= @page.profile.identifier %>" data-content='<%= @page.id %>'/>
