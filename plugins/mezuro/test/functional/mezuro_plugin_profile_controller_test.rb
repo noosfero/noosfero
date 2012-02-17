@@ -11,9 +11,10 @@ class MezuroPluginProfileControllerTest < ActionController::TestCase
     @response = ActionController::TestResponse.new
     @profile = fast_create(Community)
 
-    @module_result = ModuleResultFixtures.create
-    @module_name = @module_result.module.name
     @project_result = ProjectResultFixtures.qt_calculator
+    @module_result = ModuleResultFixtures.create
+    @project = @project_result.project
+    @name = @project.name
   end
 
   should 'not find module result for inexistent project content' do
@@ -23,34 +24,43 @@ class MezuroPluginProfileControllerTest < ActionController::TestCase
 
   should 'get metric results for a module' do
     create_project_content
-    Kalibro::Client::ModuleResultClient.expects(:module_result).with(@project_content, @module_name).returns(@module_result)
-    get :module_result, :profile => @profile.identifier, :id => @project_content.id, :module_name => @module_name
+    Kalibro::Client::ModuleResultClient.expects(:module_result).with(@content, @name).returns(@module_result)
+    get :module_result, :profile => @profile.identifier, :id => @content.id, :module_name => @name
     assert_response 200
     assert_select('h5', 'Metric results for: Qt-Calculator (APPLICATION)')
   end
 
   should 'get project results' do
     create_project_content
-    Kalibro::Client::ProjectResultClient.expects(:last_result).with(@project_content.name).returns(@project_result)
-    get :project_result, :profile => @profile.identifier, :id => @project_content.id
+    Kalibro::Client::ProjectResultClient.expects(:last_result).with(@name).returns(@project_result)
+    get :project_result, :profile => @profile.identifier, :id => @content.id
     assert_response 200
     assert_select('h3', 'LAST RESULT')
   end
 
   should 'get project state' do
     create_project_content
-    Kalibro::Client::ProjectClient.expects(:project).with(@project_content.name).returns(@project_result.project)
-    get :project_state, :profile => @profile.identifier, :id => @project_content.id
+    Kalibro::Client::ProjectClient.expects(:project).with(@name).returns(@project)
+    get :project_state, :profile => @profile.identifier, :id => @content.id
     assert_response 200
-    assert_equal "READY", @response.body
+    assert_equal @project.state, @response.body
+  end
+
+  should 'get error state if project has error' do
+    create_project_content
+    Kalibro::Client::ProjectClient.expects(:project).with(@name).returns(@project)
+    @project.expects(:error).returns("")
+    get :project_state, :profile => @profile.identifier, :id => @content.id
+    assert_response 200
+    assert_equal "ERROR", @response.body
   end
 
   private
 
   def create_project_content
-    @project_content = MezuroPlugin::ProjectContent.new(:profile => @profile, :name => @module_name)
-    @project_content.expects(:send_project_to_service).returns(nil)
-    @project_content.save
+    @content = MezuroPlugin::ProjectContent.new(:profile => @profile, :name => @name)
+    @content.expects(:send_project_to_service).returns(nil)
+    @content.save
   end
 
 end
