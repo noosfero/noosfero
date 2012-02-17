@@ -30,20 +30,9 @@
 <br />
 
 <% if ! @project.error.nil? %>
-  <h3><%= _('ERROR') %></h3>
-  <p>
-    <%= "State when error ocurred: #{@project.state}" %>
-    <br/>
-    <% error = @project.error %>
-    <%= error.message %>
-    <ul>
-      <% error.stack_trace.each do |trace| %>
-        <li><%= "#{trace.declaring_class}.#{trace.method_name}(#{trace.file_name}:#{trace.line_number})" %></li>
-      <% end %>
-    </ul>
-  </p>
-<% elsif @project.state.end_with?('ING') %>
-  <h3><%= _('Service is ') + @project.state.downcase + ' ' + @project.name + '...' %></h3>
+  <%= render :partial => 'content_viewer/project_error', :locals => { :project => @project } %>
+<% elsif @project.state.end_with?('ING') #Loading or analyzing%>
+  <%= render :partial => 'content_viewer/project_processing', :locals => { :project => @project } %>
 <% elsif @project.state == 'READY' %>
   <%= render :partial => 'content_viewer/project_result', :locals => { :project_result => @page.project_result } %>
 <% end %>
