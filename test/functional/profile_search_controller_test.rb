@@ -6,7 +6,7 @@ class ProfileSearchController; def rescue_action(e) raise e end; end
 
 class ProfileSearchControllerTest < ActionController::TestCase
   def setup
-    Test::Unit::TestCase::setup
+    ActiveSupport::TestCase::setup
     @controller = ProfileSearchController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new

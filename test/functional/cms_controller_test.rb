@@ -9,7 +9,7 @@ class CmsControllerTest < ActionController::TestCase
   fixtures :environments
 
   def setup
-    Test::Unit::TestCase::setup
+    ActiveSupport::TestCase::setup
     @controller = CmsController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
