@@ -3,6 +3,7 @@ require File.dirname(__FILE__) + '/../test_helper'
 class EnvironmentFinderTest < ActiveSupport::TestCase
 
   def setup
+    Test::Unit::TestCase::setup
     @product_category = fast_create(ProductCategory, :name => 'Products')
   end
 
@@ -77,10 +78,10 @@ class EnvironmentFinderTest < ActiveSupport::TestCase
     finder = EnvironmentFinder.new(Environment.default)
     
     region = fast_create(Region, :name => 'r-test', :environment_id => Environment.default.id, :lat => 45.0, :lng => 45.0)
-    ent1 = fast_create(Enterprise, :name => 'test 1', :identifier => 'test1', :lat => 45.0, :lng => 45.0)
+    ent1 = fast_create(Enterprise, {:name => 'test 1', :identifier => 'test1', :lat => 45.0, :lng => 45.0}, :search => true)
     p1 = create_user('test2').person
     p1.name = 'test 2'; p1.lat = 45.0; p1.lng = 45.0; p1.save!
-    ent2 = fast_create(Enterprise, :name => 'test 3', :identifier => 'test3', :lat => 30.0, :lng => 30.0)
+    ent2 = fast_create(Enterprise, {:name => 'test 3', :identifier => 'test3', :lat => 30.0, :lng => 30.0}, :search => true)
     p2 = create_user('test4').person
     p2.name = 'test 4'; p2.lat = 30.0; p2.lng = 30.0; p2.save!
 

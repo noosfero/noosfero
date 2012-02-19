@@ -34,7 +34,7 @@ do_start() {
   fi
 
   clear_cache
-  ./script/ferret_server -e $RAILS_ENV start
+  rake -s solr:start
   environments_loop
   ruby -S thin -C config/thin.yml start
 }
@@ -43,7 +43,7 @@ do_stop() {
   ruby -S thin -C config/thin.yml stop
   ./script/delayed_job stop
   ./script/feed-updater stop
-  ./script/ferret_server -e $RAILS_ENV stop
+  rake -s solr:stop
 }
 
 environments_loop() {

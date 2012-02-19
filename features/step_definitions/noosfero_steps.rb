@@ -566,3 +566,7 @@ Given /^([^\s]+) (enabled|disabled) translation redirection in (?:his|her) profi
   profile.redirect_l10n = ( status == "enabled" )
   profile.save
 end
+
+Given /^the search index is empty$/ do
+  ActsAsSolr::Post.execute(Solr::Request::Delete.new(:query => '*:*'))
+end

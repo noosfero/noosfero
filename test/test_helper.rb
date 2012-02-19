@@ -50,6 +50,11 @@ class ActiveSupport::TestCase
   include AuthenticatedTestHelper
 
   fixtures :environments, :roles
+
+  def self.setup
+    # clean up index db before each test
+    ActsAsSolr::Post.execute(Solr::Request::Delete.new(:query => '*:*'))
+  end
   
   def self.all_fixtures
     Dir.glob(File.join(RAILS_ROOT, 'test', 'fixtures', '*.yml')).each do |item|
@@ -193,27 +198,12 @@ class ActiveSupport::TestCase
     adapter.any_instance.stubs(:adapter_name).returns('PostgreSQL')
     adapter.any_instance.stubs(:schema_search_path).returns(schema_name)
     Noosfero::MultiTenancy.stubs(:on?).returns(true)
-    reload_for_ferret
   end
 
   def uses_sqlite
     adapter = ActiveRecord::Base.connection.class
     adapter.any_instance.stubs(:adapter_name).returns('SQLite')
     Noosfero::MultiTenancy.stubs(:on?).returns(false)
-  end
-
-  def reload_for_ferret
-    ActsAsFerret.send(:remove_const, :DEFAULT_FIELD_OPTIONS)
-    load File.join(RAILS_ROOT, 'lib', 'acts_as_searchable.rb')
-    load File.join(RAILS_ROOT, 'vendor', 'plugins', 'acts_as_ferret', 'lib', 'acts_as_ferret.rb')
-    [Article, Profile, Product].each do |clazz|
-      inst_meth = clazz.instance_methods.reject{ |m| m =~ /_to_ferret$/ }
-      clazz.stubs(:instance_methods).returns(inst_meth)
-    end
-    #FIXME Is there a way to avoid this replication from model code?
-    Article.acts_as_searchable :additional_fields => [ :comment_data ]
-    Profile.acts_as_searchable :additional_fields => [ :extra_data_for_index ]
-    Product.acts_as_searchable :fields => [ :name, :description, :category_full_name ]
   end
 
 end

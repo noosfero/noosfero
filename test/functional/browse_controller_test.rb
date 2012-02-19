@@ -7,6 +7,7 @@ class BrowseController; def rescue_action(e) raise e end; end
 class BrowseControllerTest < ActionController::TestCase
 
   def setup
+    Test::Unit::TestCase::setup
     @controller = BrowseController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
