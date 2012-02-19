@@ -9,7 +9,8 @@ class CategoryFinderTest < ActiveSupport::TestCase
     @product_category = fast_create(ProductCategory, :name => 'Products')
 
     Profile.rebuild_index
-    Comment.skip_captcha!
+# This doesn't exist/never existed; either we remove or implement?
+#    Comment.skip_captcha!
   end
 	
   should 'search for articles in a specific category' do
