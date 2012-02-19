@@ -4,7 +4,7 @@ class ProfileTest < ActiveSupport::TestCase
   fixtures :profiles, :environments, :users, :roles, :domains
 
   def setup
-    Test::Unit::TestCase::setup
+    ActiveSupport::TestCase::setup
   end
 
   def test_identifier_validation

@@ -5,7 +5,7 @@ class ArticleTest < ActiveSupport::TestCase
   fixtures :environments
 
   def setup
-    Test::Unit::TestCase::setup
+    ActiveSupport::TestCase::setup
     @profile = create_user('testing').person
   end
   attr_reader :profile

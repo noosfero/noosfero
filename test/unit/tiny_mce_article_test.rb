@@ -3,7 +3,7 @@ require File.dirname(__FILE__) + '/../test_helper'
 class TinyMceArticleTest < ActiveSupport::TestCase
 
   def setup
-    Test::Unit::TestCase::setup
+    ActiveSupport::TestCase::setup
     Article.rebuild_solr_index
     @profile = create_user('zezinho').person
   end

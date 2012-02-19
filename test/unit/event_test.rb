@@ -3,7 +3,7 @@ require File.dirname(__FILE__) + '/../test_helper'
 class EventTest < ActiveSupport::TestCase
 
   def setup
-    Test::Unit::TestCase::setup
+    ActiveSupport::TestCase::setup
   end
 
   should 'be an article' do

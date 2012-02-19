@@ -4,7 +4,7 @@ class EnterpriseTest < ActiveSupport::TestCase
   fixtures :profiles, :environments, :users
 
   def setup
-    Test::Unit::TestCase::setup
+    ActiveSupport::TestCase::setup
     @product_category = fast_create(ProductCategory, :name => 'Products')
   end
 

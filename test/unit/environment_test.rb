@@ -4,7 +4,7 @@ class EnvironmentTest < ActiveSupport::TestCase
   fixtures :environments
 
   def setup
-    Test::Unit::TestCase::setup
+    ActiveSupport::TestCase::setup
   end
 
   def test_exists_default_and_it_is_unique
