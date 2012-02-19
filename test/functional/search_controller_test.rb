@@ -9,6 +9,7 @@ class SearchControllerTest < ActionController::TestCase
     ActiveSupport::TestCase::setup
     @controller = SearchController.new
     @request    = ActionController::TestRequest.new
+    @request.stubs(:ssl?).returns(false)
     @response   = ActionController::TestResponse.new
 
     @category = Category.create!(:name => 'my category', :environment => Environment.default)
@@ -18,6 +19,14 @@ class SearchControllerTest < ActionController::TestCase
     domain.save!
 
     @product_category = fast_create(ProductCategory)
+
+    # By pass user validation on person creation
+    user = mock()
+    user.stubs(:id).returns(1)
+    user.stubs(:valid?).returns(true)
+    user.stubs(:email).returns('some@test.com')
+    user.stubs(:save!).returns(true)
+    Person.any_instance.stubs(:user).returns(user)
   end
 
   def create_article_with_optional_category(name, profile, category = nil)
@@ -42,13 +51,8 @@ class SearchControllerTest < ActionController::TestCase
   end
 
   should 'search only in specified types of content' do
-    get :index, :query => 'something not important', :find_in => [ 'articles' ]
+    get :articles, :query => 'something not important'
     assert_equal [:articles], assigns(:results).keys
-  end
-
-  should 'search in more than one specified types of content' do
-    get :index, :query => 'something not important', :find_in => [ 'articles', 'people' ]
-    assert_equivalent [:articles, :people ], assigns(:results).keys
   end
 
   should 'render success in search' do
@@ -85,7 +89,7 @@ class SearchControllerTest < ActionController::TestCase
     art1 = create_article_with_optional_category('one article', person, @category)
     art2 = create_article_with_optional_category('two article', person, @category)
 
-    get :assets, :asset => 'articles'
+    get :articles
 
     assert_includes assigns(:results)[:articles], art1
     assert_includes assigns(:results)[:articles], art2
@@ -101,7 +105,7 @@ class SearchControllerTest < ActionController::TestCase
     # not in category
     art3 = create_article_with_optional_category('another article', person)
 
-    get :assets, :asset => 'articles', :category_path => ['my-category']
+    get :articles, :category_path => ['my-category']
 
     assert_includes assigns(:results)[:articles], art1
     assert_includes assigns(:results)[:articles], art2
@@ -131,7 +135,7 @@ class SearchControllerTest < ActionController::TestCase
     ent1 = create_profile_with_optional_category(Enterprise, 'teste 1')
     ent2 = create_profile_with_optional_category(Enterprise, 'teste 2')
 
-    get :assets, :asset => 'enterprises'
+    get :enterprises
     assert_includes assigns(:results)[:enterprises], ent1
     assert_includes assigns(:results)[:enterprises], ent2
   end
@@ -143,7 +147,7 @@ class SearchControllerTest < ActionController::TestCase
     # not in category
     ent2 = create_profile_with_optional_category(Enterprise, 'teste 2')
 
-    get :assets, :asset => 'enterprises', :category_path => [ 'my-category' ]
+    get :enterprises, :category_path => [ 'my-category' ]
     assert_includes assigns(:results)[:enterprises], ent1
     assert_not_includes assigns(:results)[:enterprises], ent2
   end
@@ -169,7 +173,7 @@ class SearchControllerTest < ActionController::TestCase
     p1 = create_user('test1').person
     p2 = create_user('test2').person
 
-    get :assets, :asset => 'people'
+    get :people
 
     assert_equivalent [p2,p1], assigns(:results)[:people]
   end
@@ -184,7 +188,7 @@ class SearchControllerTest < ActionController::TestCase
     # not in category
     p2 = create_user('test2').person
 
-    get :assets, :asset => 'people', :category_path => [ 'my-category' ]
+    get :people, :category_path => [ 'my-category' ]
     assert_equal [p1], assigns(:results)[:people]
   end
 
@@ -207,7 +211,7 @@ class SearchControllerTest < ActionController::TestCase
     c1 = create_profile_with_optional_category(Community, 'a beautiful community')
     c2 = create_profile_with_optional_category(Community, 'another beautiful community')
 
-    get :assets, :asset => 'communities'
+    get :communities
     assert_equivalent [c2, c1], assigns(:results)[:communities]
   end
 
@@ -223,7 +227,7 @@ class SearchControllerTest < ActionController::TestCase
     # in category
     c3 = create_profile_with_optional_category(Community, 'yet another beautiful community', @category)
 
-    get :assets, :asset => 'communities', :category_path => [ 'my-category' ]
+    get :communities, :category_path => [ 'my-category' ]
 
     assert_equivalent [c3, c1], assigns(:results)[:communities]
   end
@@ -254,7 +258,7 @@ class SearchControllerTest < ActionController::TestCase
     prod1 = ent1.products.create!(:name => 'a beautiful product', :product_category => @product_category)
     prod2 = ent2.products.create!(:name => 'another beautiful product', :product_category => @product_category)
 
-    get :assets, :asset => 'products'
+    get :products
     assert_equivalent [prod2, prod1], assigns(:results)[:products]
   end
 
@@ -270,7 +274,7 @@ class SearchControllerTest < ActionController::TestCase
     ent2 = create_profile_with_optional_category(Enterprise, 'teste2')
     prod2 = ent2.products.create!(:name => 'another beautiful product', :product_category => @product_category)
 
-    get :assets, :asset => 'products', :category_path => [ 'my-category' ]
+    get :products, :category_path => [ 'my-category' ]
 
     assert_equal [prod1], assigns(:results)[:products]
   end
@@ -319,7 +323,7 @@ class SearchControllerTest < ActionController::TestCase
     environment.enable_plugin(Plugin1.name)
     environment.enable_plugin(Plugin2.name)
 
-    get :assets, :asset => 'products'
+    get :products
 
     assert_tag :tag => 'li', :content => /Property1/, :child => {:tag => 'a', :attributes => {:href => '/plugin1'}, :content => product.name}
     assert_tag :tag => 'li', :content => /Property2/, :child => {:tag => 'a', :attributes => {:href => '/plugin2'}, :content => product.name}
@@ -330,7 +334,7 @@ class SearchControllerTest < ActionController::TestCase
     ent1 = create_profile_with_optional_category(Enterprise, 'teste 1')
     ent2 = create_profile_with_optional_category(Enterprise, 'teste 2')
 
-    get :assets, :asset => 'enterprises', :page => '2'
+    get :enterprises, :page => '2'
 
     assert_equal 1, assigns(:results)[:enterprises].size
   end
@@ -498,7 +502,7 @@ class SearchControllerTest < ActionController::TestCase
 
   # SECURITY
   should 'not allow unrecognized assets' do
-    get :assets, :asset => 'unexisting_asset'
+    get :unexisting_asset
     assert_response 403
   end
 
@@ -523,11 +527,6 @@ class SearchControllerTest < ActionController::TestCase
     }
   end
 
-  should 'offer button search in the whole site' do
-    get :index, :category_path => [ 'my-category' ], :query => 'a sample search'
-    assert_tag :tag => 'input', :attributes => { :type => 'submit', :name => 'search_whole_site_yes' }
-  end
-
   should 'display only category name in "search results for ..." title' do
     parent = Category.create!(:name => 'Parent Category', :environment => Environment.default)
     child = Category.create!(:name => "Child Category", :environment => Environment.default, :parent => parent)
@@ -543,7 +542,7 @@ class SearchControllerTest < ActionController::TestCase
 
     p = create_profile_with_optional_category(Person, 'test_profile', child)
 
-    get :index, :category_path => ['parent-category'], :query => 'test_profile', :find_in => ['people']
+    get :category_index, :category_path => ['parent-category'], :query => 'test_profile', :find_in => ['people']
 
     assert_includes assigns(:results)[:people], p
   end
@@ -570,22 +569,6 @@ class SearchControllerTest < ActionController::TestCase
     assert_not_includes assigns('results')[:enterprises], ent2
   end
 
-  should 'find profiles by radius and region' do
-    city = City.create!(:name => 'r-test', :environment => Environment.default, :lat => 45.0, :lng => 45.0)
-    ent1 = create_profile_with_optional_category(Enterprise, 'test 1', nil, :lat => 45.0, :lng => 45.0)
-    p1 = create_profile_with_optional_category(Person, 'test 2', nil, :lat => 45.0, :lng => 45.0)
-
-    ent2 = create_profile_with_optional_category(Enterprise, 'test 1', nil, :lat => 30.0, :lng => 30.0)
-    p2 = create_profile_with_optional_category(Person, 'test 2', nil, :lat => 30.0, :lng => 30.0)
-
-    get :index, :city => city.id, :radius => 10, :query => 'test'
-
-    assert_includes assigns('results')[:enterprises], ent1
-    assert_not_includes assigns('results')[:enterprises], ent2
-    assert_includes assigns('results')[:people], p1
-    assert_not_includes assigns('results')[:people], p2
-  end
-
   should 'display category image while in directory' do
     parent = Category.create!(:name => 'category1', :environment => Environment.default)
     cat = Category.create!(:name => 'category2', :environment => Environment.default, :parent => parent,
@@ -595,60 +578,6 @@ class SearchControllerTest < ActionController::TestCase
     process_delayed_job_queue
     get :category_index, :category_path => [ 'category1', 'category2' ], :query => 'teste'
     assert_tag :tag => 'img', :attributes => { :src => /rails_thumb\.png/ }
-  end
-
-  should 'complete region name' do
-    r1 = Region.create!(:name => 'One region', :environment => Environment.default, :lat => 111.07, :lng => '88.9')
-    r2 = Region.create!(:name => 'Another region', :environment => Environment.default, :lat => 111.07, :lng => '88.9')
-
-    get :complete_region, :region => { :name => 'one' }
-    assert_includes assigns(:regions), r1
-    assert_tag :tag => 'ul', :descendant => { :tag => 'li', :content => 'One region' }
-  end
-
-  should 'render completion results without layout' do
-    get :complete_region, :region => { :name => 'test' }
-    assert_no_tag :tag => 'body'
-  end
-
-  should 'complete only georeferenced regions' do
-    r1 = Region.create!(:name => 'One region', :environment => Environment.default, :lat => 111.07, :lng => '88.9')
-    r2 = Region.create!(:name => 'Another region', :environment => Environment.default)
-
-    get :complete_region, :region => { :name => 'region' }
-    assert_includes assigns(:regions), r1
-    assert_tag :tag => 'ul', :descendant => { :tag => 'li', :content => r1.name }
-    assert_not_includes assigns(:regions), r2
-    assert_no_tag :tag => 'ul', :descendant => { :tag => 'li', :content => r2.name }
-  end
-  
-  should 'return options of cities by its state' do
-    state1 = State.create!(:name => 'State One', :environment => Environment.default)
-    state2 = State.create!(:name => 'State Two', :environment => Environment.default)
-    city1 = City.create!(:name => 'City One', :environment => Environment.default, :lat => 111.07, :lng => '88.9', :parent => state1)
-    city2 = City.create!(:name => 'City Two', :environment => Environment.default, :lat => 111.07, :lng => '88.9', :parent => state2)
-
-    get :cities, :state_id => state1.id
-    assert_includes assigns(:cities), city1
-    assert_tag :tag => 'option', :content => city1.name, :attributes => {:value => city1.id}
-    assert_not_includes assigns(:cities), city2
-    assert_no_tag :tag => 'option', :content => city2.name, :attributes => {:value => city2.id}
-  end
-
-  should 'render cities results without layout' do
-    get :cities, :state_id => 1
-    assert_no_tag :tag => 'body'
-  end
-
-  should 'list only georeferenced cities' do
-    state = State.create!(:name => 'State One', :environment => Environment.default)
-    city1 = City.create!(:name => 'City One', :environment => Environment.default, :lat => 111.07, :lng => '88.9', :parent => state)
-    city2 = City.create!(:name => 'City Two', :environment => Environment.default, :parent => state)
-
-    get :cities, :state_id => state.id
-
-    assert_includes assigns(:cities), city1
-    assert_not_includes assigns(:cities), city2
   end
 
   should 'search for events' do
@@ -687,7 +616,7 @@ class SearchControllerTest < ActionController::TestCase
 
     ev2 = create_event(person2, :name => 'two event', :category_ids => [@category.id])
 
-    get :assets, :asset => 'events'
+    get :events
 
     assert_includes assigns(:results)[:events], ev1
     assert_includes assigns(:results)[:events], ev2
@@ -704,7 +633,7 @@ class SearchControllerTest < ActionController::TestCase
     # not in category
     ev3 = create_event(person, :name => 'another event')
 
-    get :assets, :asset => 'events', :category_path => ['my-category']
+    get :events, :category_path => ['my-category']
 
     assert_includes assigns(:results)[:events], ev1
     assert_includes assigns(:results)[:events], ev2
@@ -717,7 +646,7 @@ class SearchControllerTest < ActionController::TestCase
     create_event(person, :name => 'upcoming event 1', :category_ids => [@category.id], :start_date => Date.new(2008, 1, 25))
     create_event(person, :name => 'upcoming event 2', :category_ids => [@category.id], :start_date => Date.new(2008, 4, 27))
 
-    get :assets, :asset => 'events', :year => '2008', :month => '1'
+    get :events, :year => '2008', :month => '1'
 
     assert_equal [ 'upcoming event 1' ], assigns(:results)[:events].map(&:name)
   end
@@ -728,7 +657,7 @@ class SearchControllerTest < ActionController::TestCase
     create_event(person, :name => 'upcoming event 1', :category_ids => [@category.id], :start_date => Date.new(2008, 1, 25))
     create_event(person, :name => 'upcoming event 2', :category_ids => [@category.id], :start_date => Date.new(2008, 4, 27))
 
-    get :assets, :asset => 'events', :category_path => [ 'my-category' ], :year => '2008', :month => '1'
+    get :events, :category_path => [ 'my-category' ], :year => '2008', :month => '1'
 
     assert_equal [ 'upcoming event 1' ], assigns(:results)[:events].map(&:name)
   end
@@ -911,27 +840,15 @@ class SearchControllerTest < ActionController::TestCase
   should 'display current year/month by default as caption of current month' do
     Date.expects(:today).returns(Date.new(2008, 8, 1)).at_least_once
 
-    get :assets, :asset => 'events'
+    get :events
     assert_tag :tag => 'table', :attributes => {:class => /current-month/}, :descendant => {:tag => 'caption', :content => /August 2008/}
   end
 
   should 'submit search form to /search when viewing asset' do
-    get :index, :asset => 'people'
+    get :people
     assert_tag :tag => "form", :attributes => { :class => 'search_form', :action => '/search' }
   end
-
-  should 'treat blank input for the city id' do
-    get :index, :city => ''
-
-    assert_equal nil, assigns(:region)
-  end
   
-  should 'treat non-numeric input for the city id' do
-    get :index, :city => 'bla'
-
-    assert_equal nil, assigns(:region)
-  end
-
   should 'found TextileArticle in articles' do
     person = create_user('teste').person
     art = TextileArticle.create!(:name => 'an text_article article to be found', :profile => person)
@@ -968,19 +885,16 @@ class SearchControllerTest < ActionController::TestCase
     assert_not_includes assigns(:results)[:products], p2
   end
 
-  should 'show link to article asset in the see all foot link of the most_commented_articles block in the category page' do
-    art = create_user('teste').person.articles.create!(:name => 'an article to be found')
-    most_commented = [art]
-    finder = CategoryFinder.new(@category)
-    finder.expects(:most_commented_articles).returns(most_commented)
-    CategoryFinder.stubs(:new).with(@category).returns(finder)
+  should 'show link to article asset in the see all foot link of the articles block in the category page' do
+    a = create_user('test1').person.articles.create!(:name => 'an article to be found')
+    a.add_category @category
 
     get :category_index, :category_path => [ 'my-category' ]
-    assert_tag :tag => 'div', :attributes => {:class => /search-results-most_commented_articles/} , :descendant => {:tag => 'a', :attributes => { :href => '/search/index/my-category?asset=articles'}}
+    assert_tag :tag => 'div', :attributes => {:class => /search-results-articles/} , :descendant => {:tag => 'a', :attributes => { :href => '/search/articles/my-category'}}
   end
 
   should 'display correct title on list communities' do
-    get :assets, :asset => 'communities'
+    get :communities
     assert_tag :tag => 'h1', :content => 'Communities'
   end
 
@@ -997,14 +911,14 @@ class SearchControllerTest < ActionController::TestCase
 
   should 'add link to list in all categories when in a category' do
     ['people', 'enterprises', 'products', 'communities', 'articles'].each do |asset|
-      get :index, :asset => asset, :category_path => [ 'my-category' ]
+      get asset, :category_path => [ 'my-category' ]
       assert_tag :tag => 'div', :content => 'In all categories'
     end
   end
 
   should 'not add link to list in all categories when not in a category' do
     ['people', 'enterprises', 'products', 'communities', 'articles'].each do |asset|
-      get :index, :asset => asset
+      get asset
       assert_no_tag :tag => 'div', :content => 'In all categories'
     end
   end
@@ -1064,7 +978,7 @@ class SearchControllerTest < ActionController::TestCase
     event_in_searched_category = create_event(person, :name => 'Maria Birthday', :start_date => Date.today, :category_ids => [searched_category.id])
     event_in_non_searched_category = create_event(person, :name => 'Joao Birthday', :start_date => Date.today, :category_ids => [@category.id])
 
-    get :assets, :asset => 'events', :category_path => ['category-with-events']
+    get :events, :category_path => ['category-with-events']
 
     assert_includes assigns(:events_of_the_day), event_in_searched_category
     assert_not_includes assigns(:events_of_the_day), event_in_non_searched_category
@@ -1095,6 +1009,243 @@ class SearchControllerTest < ActionController::TestCase
 
     assert_tag :tag => 'a', :content => /Joao Birthday/
     assert_tag :tag => 'a', :content => /Maria Birthday/
+  end
+
+  should 'search for people' do
+    Person.delete_all
+    small = create(Person, :name => 'A small person for testing', :user_id => 1)
+    create(Person, :name => 'A big person for testing', :user_id => 2)
+
+    get :people, :query => 'small'
+    assert_equal [small], assigns(:results)
+  end
+
+  should 'list all people order by more recent one by default' do
+    Person.delete_all
+    p1 = create(Person, :name => 'Testing person 1', :user_id => 1, :created_at => DateTime.now - 2)
+    p2 = create(Person, :name => 'Testing person 2', :user_id => 2, :created_at => DateTime.now - 1)
+    p3 = create(Person, :name => 'Testing person 3', :user_id => 3)
+
+    get :people
+    assert_equal [p3,p2,p1] , assigns(:results)
+  end
+
+  should 'paginate search of people in groups of 27' do
+    Person.delete_all
+
+    1.upto(30).map do |n|
+      create(Person, :name => 'Testing person', :user_id => n)
+    end
+
+    get :people
+    assert_equal 30 , Person.count
+    assert_equal 27 , assigns(:results).count
+    assert_tag :a, '', :attributes => {:class => 'next_page'}
+  end
+
+  should 'paginate ferret search of people in groups of 27' do
+    Person.delete_all
+
+    1.upto(30).map do |n|
+      create(Person, :name => 'Testing person', :user_id => n)
+    end
+
+    get :people, :query => 'Testing'
+    assert_equal 27 , assigns(:results).count
+    assert_tag :a, '', :attributes => {:class => 'next_page'}
+  end
+
+  should 'not return nil results in the more_active people list' do
+    Profile.delete_all
+    p1 = fast_create(Person)
+    p2 = fast_create(Person)
+    p3 = fast_create(Person)
+    fast_create(Article, :profile_id => p1, :created_at => 1.day.ago)
+    fast_create(Article, :profile_id => p2, :created_at => 1.day.ago)
+    fast_create(Article, :profile_id => p2, :created_at => 1.day.ago)
+    fast_create(Article, :profile_id => p2, :created_at => 1.day.ago)
+    fast_create(Article, :profile_id => p3, :created_at => 1.day.ago)
+
+    per_page = 1
+    @controller.stubs(:per_page).returns(per_page)
+
+    get :people, :filter => 'more_active'
+
+    assert_equal Person.count/per_page, assigns(:results).total_entries
+  end
+
+  should 'list all people filter by more active' do
+    Person.delete_all
+    p1 = create(Person, :name => 'Testing person 1', :user_id => 1)
+    p2 = create(Person, :name => 'Testing person 2', :user_id => 2)
+    p3 = create(Person, :name => 'Testing person 3', :user_id => 3)
+    ActionTracker::Record.delete_all
+    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => p1, :created_at => Time.now)
+    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => p2, :created_at => Time.now)
+    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => p2, :created_at => Time.now)
+    get :people, :filter => 'more_active'
+    assert_equal [p2,p1,p3] , assigns(:results)
+  end
+
+  should 'filter more popular people' do
+    Person.delete_all
+    p1 = create(Person, :name => 'Testing person 1', :user_id => 1)
+    p2 = create(Person, :name => 'Testing person 2', :user_id => 2)
+    p3 = create(Person, :name => 'Testing person 3', :user_id => 3)
+
+    p1.add_friend(p2)
+    p2.add_friend(p1)
+    p2.add_friend(p3)
+    get :people, :filter => 'more_popular'
+    assert_equal [p2,p1,p3] , assigns(:results)
+  end
+
+  should 'set filter be only the hardcoded one' do
+    get :people, :filter => 'more_recent'
+    assert_equal 'more_recent' , assigns(:filter)
+    get :people, :filter => 'more_active'
+    assert_equal 'more_active' , assigns(:filter)
+    get :people, :filter => 'more_popular'
+    assert_equal 'more_popular' , assigns(:filter)
+    get :people, :filter => 'more_anything'
+    assert_equal 'more_recent' , assigns(:filter)
+
+    get :communities, :filter => 'more_recent'
+    assert_equal 'more_recent' , assigns(:filter)
+    get :communities, :filter => 'more_active'
+    assert_equal 'more_active' , assigns(:filter)
+    get :communities, :filter => 'more_popular'
+    assert_equal 'more_popular' , assigns(:filter)
+    get :communities, :filter => 'more_anything'
+    assert_equal 'more_recent' , assigns(:filter)
+  end
+
+  should 'the people filter define the title' do
+    get :people, :filter => 'more_recent'
+    assert_equal 'More recent people from network' , assigns(:filter_title)
+    assert_tag :h1, :content => 'More recent people from network'
+    get :people, :filter => 'more_active'
+    assert_equal 'More active people from network' , assigns(:filter_title)
+    assert_tag :h1, :content => 'More active people from network'
+    get :people, :filter => 'more_popular'
+    assert_equal 'More popular people from network' , assigns(:filter_title)
+    assert_tag :h1, :content => 'More popular people from network'
+    get :people, :filter => 'more_anything'
+    assert_equal 'More recent people from network' , assigns(:filter_title)
+    assert_tag :h1, :content => 'More recent people from network'
+    get :communities, :filter => 'more_recent'
+
+    assert_equal 'More recent communities from network' , assigns(:filter_title)
+    assert_tag :h1, :content => 'More recent communities from network'
+    get :communities, :filter => 'more_active'
+    assert_equal 'More active communities from network' , assigns(:filter_title)
+    assert_tag :h1, :content => 'More active communities from network'
+    get :communities, :filter => 'more_popular'
+    assert_equal 'More popular communities from network' , assigns(:filter_title)
+    assert_tag :h1, :content => 'More popular communities from network'
+    get :communities, :filter => 'more_anything'
+    assert_equal 'More recent communities from network' , assigns(:filter_title)
+    assert_tag :h1, :content => 'More recent communities from network'
+  end
+
+  should 'search for community' do
+    small = create(Community, :name => 'A small community for testing')
+    create(Community, :name => 'A big community for testing')
+
+    get :communities, :query => 'small'
+    assert_equal [small], assigns(:results)
+  end
+
+  should 'list all community order by more recent one by default' do
+    c1 = create(Community, :name => 'Testing community 1', :created_at => DateTime.now - 2)
+    c2 = create(Community, :name => 'Testing community 2', :created_at => DateTime.now - 1)
+    c3 = create(Community, :name => 'Testing community 3')
+
+    get :communities
+    assert_equal [c3,c2,c1] , assigns(:results)
+  end
+
+  should 'paginate search of communities in groups of 27' do
+    1.upto(30).map do |n|
+      create(Community, :name => 'Testing community')
+    end
+
+    get :communities
+    assert_equal 30 , Community.count
+    assert_equal 27 , assigns(:results).count
+    assert_tag :a, '', :attributes => {:class => 'next_page'}
+  end
+
+  should 'paginate ferret search of communities in groups of 27' do
+    1.upto(30).map do |n|
+      create(Community, :name => 'Testing community')
+    end
+
+    get :communities, :query => 'Testing'
+    assert_equal 27 , assigns(:results).count
+    assert_tag :a, '', :attributes => {:class => 'next_page'}
+  end
+
+  should 'not return nil results in the more_active communities list' do
+    Profile.delete_all
+    c1 = fast_create(Community)
+    c2 = fast_create(Community)
+    c3 = fast_create(Community)
+    fast_create(Article, :profile_id => c1, :created_at => 1.day.ago)
+    fast_create(Article, :profile_id => c2, :created_at => 1.day.ago)
+    fast_create(Article, :profile_id => c2, :created_at => 1.day.ago)
+    fast_create(Article, :profile_id => c2, :created_at => 1.day.ago)
+    fast_create(Article, :profile_id => c3, :created_at => 1.day.ago)
+
+    per_page = 1
+    @controller.stubs(:per_page).returns(per_page)
+
+    get :communities, :filter => 'more_active'
+
+    assert_equal Community.count/per_page, assigns(:results).total_pages
+  end
+
+
+  should 'list all communities filter by more active' do
+    person = fast_create(Person)
+    c1 = create(Community, :name => 'Testing community 1')
+    c2 = create(Community, :name => 'Testing community 2')
+    c3 = create(Community, :name => 'Testing community 3')
+    ActionTracker::Record.delete_all
+    fast_create(ActionTracker::Record, :target_id => c1, :user_type => 'Profile', :user_id => person, :created_at => Time.now)
+    fast_create(ActionTracker::Record, :target_id => c2, :user_type => 'Profile', :user_id => person, :created_at => Time.now)
+    fast_create(ActionTracker::Record, :target_id => c2, :user_type => 'Profile', :user_id => person, :created_at => Time.now)
+    get :communities, :filter => 'more_active'
+    assert_equal [c2,c1,c3] , assigns(:results)
+  end
+
+  should 'filter more popular communities' do
+    Person.delete_all
+    Community.delete_all
+    c1 = create(Community, :name => 'Testing community 1')
+    c2 = create(Community, :name => 'Testing community 2')
+
+    p1 = create(Person, :name => 'Testing person 1', :user_id => 1)
+    p2 = create(Person, :name => 'Testing person 2', :user_id => 2)
+    c1.add_member(p1)
+    c2.add_member(p1)
+    c2.add_member(p2)
+    get :communities, :filter => 'more_popular'
+    assert_equal [c2,c1] , assigns(:results)
+  end
+
+  should "only include visible people in more_recent filter" do
+    # assuming that all filters behave the same!
+    p1 = fast_create(Person, :visible => false)
+    get :people, :filter => 'more_recent'
+    assert_not_includes assigns(:results), p1
+  end
+
+  should "only include visible communities in more_recent filter" do
+    # assuming that all filters behave the same!
+    p1 = fast_create(Community, :visible => false)
+    get :communities, :filter => 'more_recent'
+    assert_not_includes assigns(:results), p1
   end
 
   ##################################################################

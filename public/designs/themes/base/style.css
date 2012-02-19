@@ -1,6 +1,5 @@
 /* ==> button.css <== */
 
-
 .button {
   -moz-border-radius: 3px;
   -webkit-border-radius: 3px;
@@ -108,14 +107,14 @@ body, th, td, input {
   margin-left: 20px;
 }
 
-#user form input {
+#user form input .blur {
   width: 160px;
   border: 1px solid #BBB;
   -moz-border-radius: 3px;
   -webkit-border-radius: 3px;
   color: #CCC;
 }
-#user form.focused input {
+#user form input {
   border: 1px solid #888;
   color: #555;
 }
@@ -502,11 +501,11 @@ div#notice {
 }
 
 #content .profile-list li a,
-#content .common-profile-list-block li a {
+#content .common-profile-list-block .vcard li a {
   color: #555;
 }
 #content .profile-list li a:hover,
-#content .common-profile-list-block li a:hover {
+#content .common-profile-list-block .vcard li a:hover {
   color: #000;
   text-decoration: none;
 }

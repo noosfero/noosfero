@@ -1,28 +1,24 @@
-<%= search_page_title( _('Products and Services'), { :query => @query, 
-                                                     :category => @category ? @category.name : nil, 
-                                                     :total_results => @total_results, 
-                                                     :region => @region ? @region.name : nil, 
-                                                     :distance => @radius } ) %>
+<%= search_page_title( @titles[:products], @category ) %>
 
-<%= search_page_link_to_all( { :asset => params[:asset],
-                               :category => @category }) %>
+<div id="search-column-left">
+  <% if !@empty_query %>
+    <% button_bar do %>
+      <%= display_map_list_button %>
+    <% end %>
+    <%= facets_menu(:products, @facets) %>
+  <% end %>
+</div>
 
-<%= render :partial => 'search_form', :locals => { :form_title => _("Refine your search"), :simple_search => true } %>
+<div id="search-column-right">
+  <%= render :partial => 'search_form', :locals => { :hint => _('Type the product, service, city or qualifier desired') } %>
+  <%= render :partial => 'results_header' %>
 
-<% if @categories_menu %>
-<div class="has_cat_list">
-<% end %>
+  <% if !@empty_query %>
+    <%= display_results(true) %>
+    <% if params[:display] != 'map' %>
+      <%= pagination_links @results[:products] %>
+    <% end %>
+  <% end %>
+</div>
 
-<% cache(:action => 'assets', :asset => 'products', :category_path => params[:category_path], :query => @query, :product_category => @product_category, :region => @region, :radius => params[:radius]) do %>
-  <%= product_categories_menu(:products, @product_category, @result_ids)  %>
-<% end %>
-
-<%= display_results %>
-
-<% if @categories_menu %>
-</div><!-- class="has_cat_list" -->
-<% end %>
-
-<%= pagination_links @results[:products] %>
-
-<br style="clear:both" />
+<div style="clear: both"></div>

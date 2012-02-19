@@ -1,4 +1,5 @@
 # locally-developed modules
+require 'acts_as_faceted'
 require 'acts_as_filesystem'
 require 'acts_as_having_settings'
 require 'acts_as_searchable'

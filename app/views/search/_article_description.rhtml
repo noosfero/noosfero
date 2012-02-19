@@ -1,0 +1,11 @@
+<% article = article_description %>
+
+<div class="search-article-description">
+  <span class="search-field-label"><%= _("Description") %></span>
+  <% if !article.body.blank? %>
+    <% body_stripped = strip_tags(article.body.to_s) %>
+    <span class="search-article-body"><%= excerpt(body_stripped, body_stripped.first(3), 200) %></span>
+  <% else %>
+    <span class="search-field-none"><%= _('None') %></span>
+  <% end %>
+</div>

@@ -1,0 +1,12 @@
+<li class="search-gallery article-item">
+  <%= link_to gallery.title, gallery.view_url, :class => 'search-result-title' %>
+  <div class="search-content-first-column">
+    <%= render :partial => 'image', :object => gallery %>
+  </div>
+  <div class="search-content-second-column">
+    <%= render :partial => 'article_common', :object => gallery %>
+  </div>
+
+  <div style="clear: both"></div>
+</li>
+

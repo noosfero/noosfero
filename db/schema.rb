@@ -175,6 +175,8 @@ ActiveRecord::Schema.define(:version => 20111004184104) do
     t.integer "children_count",  :default => 0
     t.boolean "accept_products", :default => true
     t.integer "image_id"
+    t.string  "acronym"
+    t.string  "abbreviation"
   end
 
   create_table "categories_profiles", :id => false, :force => true do |t|
@@ -452,9 +454,9 @@ ActiveRecord::Schema.define(:version => 20111004184104) do
 
   create_table "roles", :force => true do |t|
     t.string  "name"
+    t.text    "permissions"
     t.string  "key"
     t.boolean "system",         :default => false
-    t.text    "permissions"
     t.integer "environment_id"
   end
 

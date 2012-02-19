@@ -1,6 +1,24 @@
-<li class="<%= icon_for_article(event) %>">
-  <strong><%= link_to(event.title, event.url) %></strong>
-  <div class="item_meta">
-    <%= show_period(event.start_date, event.end_date) %>
+<li class="search-event-item article-item">
+  <%= link_to(event.title, event.url, :class => "search-result-title") %>
+  <div class="search-content-first-column">
+    <%= render :partial => 'image', :object => event %>
   </div>
+  <div class="search-content-second-column">
+    <% if event.start_date %>
+      <div class="searc-article-event-date">
+        <span class="search-field-label"><%= _('Start date') %></span>
+        <span class="article-item-date"><%= event.start_date %></span>
+      </div>
+    <% end %>
+    <% if event.end_date %>
+      <div class="searc-article-event-date">
+        <span class="search-field-label"><%= _('End date') %></span>
+        <span class="article-item-date"><%= event.end_date %></span>
+      </div>
+    <% end %>
+
+    <%= render :partial => 'article_common', :object => event %>
+  </div>
+
+  <div style="clear: both;"/></div>
 </li>

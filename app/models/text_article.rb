@@ -3,6 +3,10 @@ class TextArticle < Article
 
   xss_terminate :only => [ :name ], :on => 'validation'
 
+  def self.type_name
+    _('Article')
+  end
+
   include Noosfero::TranslatableContent
 
   def self.icon_name(article = nil)

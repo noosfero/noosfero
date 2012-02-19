@@ -1,0 +1,20 @@
+<li class="search-forum-item article-item">
+  <%= link_to forum.title, forum.view_url, :class => 'search-result-title' %>
+  <div class="search-content-first-column">
+    <%= render :partial => 'image', :object => forum %>
+  </div>
+  <div class="search-content-second-column">
+    <div class="search-forum-items">
+      <span class="search-field-label"><%= _("Last topics") %></span>
+      <% r = forum.children.find(:all, :order => :updated_at, :conditions => ['type != ?', 'RssFeed']).last(3) %>
+      <% r.each do |a| %>
+        <%= link_to a.title, a.view_url, :class => 'search-forum-sample-item '+icon_for_article(a) %>
+      <% end %>
+      <span class="search-field-none"><%= _('None') if r.empty? %></span>
+    </div>
+
+    <%= render :partial => 'article_common', :object => forum %>
+  </div>
+
+  <div style="clear:both"></div>
+</li>

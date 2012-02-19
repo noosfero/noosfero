@@ -2,6 +2,10 @@
 # only enterprises can offer products and services.
 class Enterprise < Organization
 
+  def self.type_name
+    _('Enterprise')
+  end
+
   N_('Enterprise')
 
   has_many :products, :dependent => :destroy, :order => 'name ASC'
@@ -162,6 +166,10 @@ class Enterprise < Organization
       environment.inactive_enterprise_template
     end
   end
+
+  def control_panel_settings_button                                                                                                                                                             
+    {:title => __('Enterprise Info and settings'), :icon => 'edit-profile-enterprise'}                                                                                                          
+  end 
 
   settings_items :enable_contact_us, :type => :boolean, :default => true
 

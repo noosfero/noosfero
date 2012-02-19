@@ -12,6 +12,8 @@
     <%= stylesheet_link_tag template_stylesheet_path %>
     <%= stylesheet_link_tag icon_theme_stylesheet_path %>
     <%= stylesheet_link_tag jquery_ui_theme_stylesheet_path %>
+    <%= stylesheet_link_tag "token-input" %>
+    <%= stylesheet_link_tag "token-input-facet" %>
     <% @plugins.enabled_plugins.each do |plugin| %>
       <% if plugin.stylesheet? %>
         <%= stylesheet_tag plugin.class.public_path('style.css'), {} %>
@@ -63,16 +65,10 @@
                 <%= render :file => 'account/login', :locals => { :is_thickbox => true } %>
               </div>
           </span>
-          <form action="/search" class="search_form clean" method="get" id="top-search">
-            <input name="query" size="15" value="<%=_('Search...')%>"
-                onfocus="this.form.className='focused';
-                         if(this.value=='<%=_('Search...')%>'){this.value=''}"
-                onblur="this.form.className='';
-                        if(/^\s*$/.test(this.value)){
-                          this.value='<%=_('Search...')%>';
-                          this.form.className='clean'
-                        }" />
+          <form action="/search" class="search_form" method="get" class="clean">
+            <input name="query" size="15" title="<%=_('Search...')%>" onfocus="this.form.className='focused';" onblur="this.form.className=''" /> 
             <div><%=_('Press <strong>Enter</strong> to send the search query.')%></div>
+            <%= javascript_tag 'jQuery("#user form input").hint();' %>
           </form>
         </div><!-- end id="user" -->
 

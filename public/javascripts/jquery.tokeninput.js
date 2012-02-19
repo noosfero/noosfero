@@ -1,6 +1,7 @@
 /*
  * jQuery Plugin: Tokenizing Autocomplete Text Entry
  * Version 1.5.0
+ * Requires jQuery 1.6+
  *
  * Copyright (c) 2009 James Smith (http://loopj.com)
  * Licensed jointly under the GPL and MIT licenses,
@@ -17,6 +18,8 @@ var DEFAULT_SETTINGS = {
     deleteText: "&times;",
     searchDelay: 300,
     minChars: 1,
+    permanentDropdown: false,
+    showAllResults: false,
     tokenLimit: null,
     jsonContainer: null,
     method: "GET",
@@ -27,6 +30,7 @@ var DEFAULT_SETTINGS = {
     prePopulate: null,
     processPrePopulate: false,
     animateDropdown: true,
+    dontAdd: false,
     onResult: null,
     onAdd: null,
     onDelete: null,
@@ -45,7 +49,8 @@ var DEFAULT_CLASSES = {
     dropdownItem: "token-input-dropdown-item",
     dropdownItem2: "token-input-dropdown-item2",
     selectedDropdownItem: "token-input-selected-dropdown-item",
-    inputToken: "token-input-input-token"
+    inputToken: "token-input-input-token",
+    blurText: "token-input-blur-text",
 };
 
 // Input box position "enum"
@@ -58,6 +63,7 @@ var POSITION = {
 // Keys "enum"
 var KEY = {
     BACKSPACE: 8,
+    DELETE: 46,
     TAB: 9,
     ENTER: 13,
     ESCAPE: 27,
@@ -77,10 +83,8 @@ var KEY = {
 // Additional public (exposed) methods
 var methods = {
     init: function(url_or_data_or_function, options) {
-        var settings = $.extend({}, DEFAULT_SETTINGS, options || {});
-
         return this.each(function () {
-            $(this).data("tokenInputObject", new $.TokenList(this, url_or_data_or_function, settings));
+            $(this).data("tokenInputObject", new $.TokenList(this, url_or_data_or_function, options));
         });
     },
     clear: function() {
@@ -108,10 +112,11 @@ $.fn.tokenInput = function (method) {
 };
 
 // TokenList class for each input
-$.TokenList = function (input, url_or_data, settings) {
+$.TokenList = function (input, url_or_data, options) {
     //
     // Initialization
     //
+    var settings = $.extend({}, DEFAULT_SETTINGS, options || {});
 
     // Configure the data source
     if(typeof(url_or_data) === "string") {
@@ -157,7 +162,7 @@ $.TokenList = function (input, url_or_data, settings) {
 
     // Keep track of the timeout, old vals
     var timeout;
-    var input_val;
+    var input_val = '';
 
     // Create a new text input an attach keyup events
     var input_box = $("<input type=\"text\"  autocomplete=\"off\">")
@@ -167,12 +172,20 @@ $.TokenList = function (input, url_or_data, settings) {
         .attr("id", settings.idPrefix + input.id)
         .focus(function () {
             if (settings.tokenLimit === null || settings.tokenLimit !== token_count) {
+              if(settings.permanentDropdown || settings.showAllResults) {
+                hide_dropdown_hint();
+              } else
                 show_dropdown_hint();
+              if (settings.showAllResults)
+                do_search();
             }
         })
         .blur(function () {
-            hide_dropdown();
-            $(this).val("");
+            if(settings.permanentDropdown)
+              show_dropdown_hint();
+            else {
+              hide_dropdown();
+            }
         })
         .bind("keyup keydown blur update", resize_input)
         .keydown(function (event) {
@@ -205,7 +218,11 @@ $.TokenList = function (input, url_or_data, settings) {
                     } else {
                         var dropdown_item = null;
 
-                        if(event.keyCode === KEY.DOWN || event.keyCode === KEY.RIGHT) {
+                        if (event.keyCode == KEY.LEFT && (this.selectionStart > 0 || this.selectionStart != this.selectionEnd))
+                            return true;
+                        else if (event.keyCode == KEY.RIGHT && (this.selectionEnd < $(this).val().length || this.selectionStart != this.selectionEnd))
+                            return true;
+                        else if(event.keyCode === KEY.DOWN || event.keyCode === KEY.RIGHT) {
                             dropdown_item = $(selected_dropdown_item).next();
                         } else {
                             dropdown_item = $(selected_dropdown_item).prev();
@@ -219,16 +236,22 @@ $.TokenList = function (input, url_or_data, settings) {
                     break;
 
                 case KEY.BACKSPACE:
+                case KEY.DELETE:
                     previous_token = input_token.prev();
+                    next_token = input_token.next();
+
                     if(!$(this).val().length && settings.backspaceDeleteItem) {
                         if(selected_token) {
                             delete_token($(selected_token));
-                        } else if(previous_token.length) {
+                            input_box.focus();
+                        } else if(KEY.DELETE && next_token.length) {
+                            select_token($(next_token.get(0)));
+                        } else if(KEY.BACKSPACE && previous_token.length) {
                             select_token($(previous_token.get(0)));
                         }
 
                         return false;
-                    } else if($(this).val().length === 1) {
+                    } else if(!settings.permanentDropdown && $(this).val().length === 1) {
                         hide_dropdown();
                     } else {
                         // set a timeout just long enough to let this function finish.
@@ -242,6 +265,7 @@ $.TokenList = function (input, url_or_data, settings) {
                 case KEY.COMMA:
                   if(selected_dropdown_item) {
                     add_token($(selected_dropdown_item).data("tokeninput"));
+                    input_box.focus();
                     return false;
                   }
                   break;
@@ -288,8 +312,9 @@ $.TokenList = function (input, url_or_data, settings) {
                     deselect_token($(selected_token), POSITION.END);
                 }
 
-                // Focus input box
-                input_box.focus();
+                // Transfer focus
+                if (!input_box.is(':focus'))
+                  input_box.focus();
             }
         })
         .mouseover(function (event) {
@@ -315,8 +340,22 @@ $.TokenList = function (input, url_or_data, settings) {
     // The list to store the dropdown items in
     var dropdown = $("<div>")
         .addClass(settings.classes.dropdown)
-        .appendTo("body")
         .hide();
+    dropdown.appendTo("body");
+    if (!settings.permanentDropdown)
+        dropdown.appendTo("body");
+    else 
+        $(input).after(dropdown.show());
+
+    if (settings.permanentDropdown || settings.showAllResults) {
+      do_search();
+      if (!settings.permanentDropdown && settings.showAllResults)
+        hide_dropdown();
+    }
+
+    // Hint for permanentDropdown
+    if (settings.permanentDropdown || settings.showAllResults)
+      show_dropdown_hint();
 
     // Magic element to help us resize the text input
     var input_resizer = $("<tester/>")
@@ -402,6 +441,9 @@ $.TokenList = function (input, url_or_data, settings) {
         var escaped = input_val.replace(/&/g, '&amp;').replace(/\s/g,' ').replace(/</g, '&lt;').replace(/>/g, '&gt;');
         input_resizer.html(escaped);
         input_box.width(input_resizer.width() + 30);
+
+        if((settings.permanentDropdown || settings.showAllResults) && input_box.hasClass(settings.classes.blurText))
+          input_val = '';
     }
 
     function is_printable_character(keycode) {
@@ -447,6 +489,9 @@ $.TokenList = function (input, url_or_data, settings) {
 
     // Add a token to the token list based on user input
     function add_token (item) {
+        if (settings.dontAdd)
+            return;
+
         var callback = settings.onAdd;
 
         // See if the token already exists and select it if we don't want duplicates
@@ -464,7 +509,6 @@ $.TokenList = function (input, url_or_data, settings) {
             if(found_existing_token) {
                 select_token(found_existing_token);
                 input_token.insertAfter(found_existing_token);
-                input_box.focus();
                 return;
             }
         }
@@ -545,9 +589,6 @@ $.TokenList = function (input, url_or_data, settings) {
         token.remove();
         selected_token = null;
 
-        // Show the input box and give it focus again
-        input_box.focus();
-
         // Remove this token from the saved list
         saved_tokens = saved_tokens.slice(0,index).concat(saved_tokens.slice(index+1));
         if(index < selected_token_index) selected_token_index--;
@@ -560,12 +601,8 @@ $.TokenList = function (input, url_or_data, settings) {
 
         token_count -= 1;
 
-        if(settings.tokenLimit !== null) {
-            input_box
-                .show()
-                .val("")
-                .focus();
-        }
+        if(settings.tokenLimit !== null)
+            input_box.show().val("");
 
         // Execute the onDelete callback if defined
         if($.isFunction(callback)) {
@@ -575,19 +612,28 @@ $.TokenList = function (input, url_or_data, settings) {
 
     // Hide and clear the results dropdown
     function hide_dropdown () {
-        dropdown.hide().empty();
-        selected_dropdown_item = null;
+        if (!settings.permanentDropdown) {
+            dropdown.hide();
+            if (!settings.showAllResults)
+              dropdown.empty();
+            selected_dropdown_item = null;
+        } 
+        if (settings.showAllResults)
+            show_dropdown_hint();
     }
 
     function show_dropdown() {
-        dropdown
-            .css({
+        if (!settings.permanentDropdown)
+            dropdown.css({
                 position: "absolute",
                 top: $(token_list).offset().top + $(token_list).outerHeight(),
                 left: $(token_list).offset().left,
                 zindex: 999
-            })
-            .show();
+            }).show();
+        else
+            dropdown.css({
+                position: "relative",
+            }).show();
     }
 
     function show_dropdown_searching () {
@@ -599,9 +645,23 @@ $.TokenList = function (input, url_or_data, settings) {
 
     function show_dropdown_hint () {
         if(settings.hintText) {
+          if(settings.permanentDropdown || settings.showAllResults) {
+            if (input_val == '') {
+              input_box.val(settings.hintText);
+              input_box.addClass(settings.classes.blurText);
+            }
+          } else {
             dropdown.html("<p>"+settings.hintText+"</p>");
             show_dropdown();
+          }
         }
+    }
+
+    function hide_dropdown_hint () {
+      if (input_box.hasClass(settings.classes.blurText)) {
+        input_box.val('');
+        input_box.removeClass(settings.classes.blurText);
+      }
     }
 
     // Highlight the query part of the search term
@@ -620,6 +680,7 @@ $.TokenList = function (input, url_or_data, settings) {
                 })
                 .mousedown(function (event) {
                     add_token($(event.target).closest("li").data("tokeninput"));
+                    input_box.blur();
                     return false;
                 })
                 .hide();
@@ -665,6 +726,16 @@ $.TokenList = function (input, url_or_data, settings) {
 
             item.addClass(settings.classes.selectedDropdownItem);
             selected_dropdown_item = item.get(0);
+
+            isBefore = item[0].offsetTop <= (dropdown[0].scrollTop + dropdown[0].scrollWidth); 
+            isAfter = item[0].offsetTop >= dropdown[0].scrollTop;
+            visible = isBefore && isAfter;
+            if (!visible) {
+                if (isBefore)
+                    dropdown[0].scrollTop = item[0].offsetTop;
+                else //isAfter
+                    dropdown[0].scrollTop = item[0].offsetTop - dropdown[0].scrollWidth;
+            }
         }
     }
 
@@ -694,7 +765,8 @@ $.TokenList = function (input, url_or_data, settings) {
             } else {
                 hide_dropdown();
             }
-        }
+        } else if (settings.permanentDropdown || settings.showAllResults)
+            run_search('');
     }
 
     // Do the actual search
