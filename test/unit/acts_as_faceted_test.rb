@@ -32,7 +32,7 @@ class TestModel < ActiveRecord::Base
     :order => [:f_type, :f_published_at, :f_profile_type, :f_category]
 end
 
-class ActsAsFacetedTest < Test::Unit::TestCase
+class ActsAsFacetedTest < ActiveSupport::TestCase
   def setup
     @facets = {
       "facet_fields"=> {
