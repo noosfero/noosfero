@@ -639,12 +639,12 @@ class Article < ActiveRecord::Base
     :order => [:f_type, :f_published_at, :f_profile_type, :f_category]
 
   acts_as_searchable :additional_fields => [
-      {:name => {:type => :string}},
+      {:name_sort => {:type => :string}},
       {:public => {:type => :boolean}},
       {:environment_id => {:type => :integer}},
       ] + facets_fields_for_solr,
     :exclude_fields => [:setting],
-    :include => [:profile, :comments],
+    :include => [:profile, :comments, :categories],
     :facets => facets_option_for_solr,
     :boost => proc {|a| 10 if a.profile.enabled},
     :if => proc{|a| ! ['RssFeed'].include?(a.class.name)}
