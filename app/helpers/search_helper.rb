@@ -69,6 +69,7 @@ module SearchHelper
     id = facet[:solr_field].to_s
     params[:facet] ||= {}
     params[:facet][id] ||= {}
+    params[:page] = {}
 
     selected = facet[:label_id].nil? ? params[:facet][id] == value : params[:facet][id][facet[:label_id]].to_a.include?(value)
 
