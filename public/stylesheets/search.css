@@ -117,7 +117,7 @@
 }
 .controller-search .search-results-innerbox {
   padding: 8px 0px 10px 10px;
-  height: 215px;
+  height: 230px;
   overflow: visible;
   position: relative; /* work-arround-bug fo MSIE */
 }
@@ -163,6 +163,9 @@
 #content .only-one-result-box .search-results-enterprises li.vcard {
   margin: 4.5px;
 }
+#content .search-results-box .vcard {
+   margin: 4.5px;
+ }
 .search-results-type-article a {
   min-height: 16px;
   overflow: hidden;
@@ -272,6 +275,7 @@ li.article-item .search-article-categories-container {
 }
 
 .search-article-author-changes {
+  padding-top: 5px;
   float:right;
   color:#999;
   clear:both;
@@ -363,7 +367,7 @@ li.search-product-item {
   line-height: 18px;
 }
 .search-product-ecosol-percentage-icon-0 {
-  background-position: 0px 0px;
+  background-image: none;
 }
 .search-product-ecosol-percentage-icon-25 {
   background-position: 0px -21px;
@@ -602,14 +606,15 @@ li.search-product-item hr {
 }
 .search-enterprise-item-column-left {
   float:left;
-  width:108px;
+  width:10%;
 }
 .search-enterprise-item-column-left .common-profile-list-block {
   margin:0 10px 0 0;
 }
 .search-enterprise-item-column-right {
   float:right;
-  width: 605px
+  width: 83%;
+  padding-top: 5px;
 }
 .product-item-second-column,
 .search-enterprise-item .search-enterprise-region-label,
@@ -750,7 +755,7 @@ li.search-product-item hr {
 .search-text-article-second-column,
 .search-content-second-column {
   float: left;
-  width: 575px;
+  width: 570px;
 }
 ul.clean-list .search-uploaded-file-second-column,
 ul.clean-list .search-text-article-second-column,
@@ -781,8 +786,7 @@ a.search-image-pic {
 .search-no-image {
   border: 1px solid #777;
   height: 98px;
-  width: 130px;
-  line-height:98px;
+  width: 90%;
   color: #777;
   text-align: center;
   font-size: 9px;
@@ -798,6 +802,11 @@ a.search-image-pic {
   -webkit-border-radius: 5px;
   -o-border-radius: 5px;
   -khtml-border-radius: 5px;
+  display: table;
+}
+.search-no-image span {
+  display: table-cell;
+  vertical-align: middle;
 }
 .search-gallery-items a.search-image-pic {
   float:left;
