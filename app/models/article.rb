@@ -644,7 +644,7 @@ class Article < ActiveRecord::Base
       {:environment_id => {:type => :integer}},
       ] + facets_fields_for_solr,
     :exclude_fields => [:setting],
-    :include => [:profile],
+    :include => [:profile, :comments],
     :facets => facets_option_for_solr,
     :boost => proc {|a| 10 if a.profile.enabled},
     :if => proc{|a| ! ['RssFeed'].include?(a.class.name)}
