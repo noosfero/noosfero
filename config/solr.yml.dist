@@ -5,7 +5,7 @@
 
 development:
   url: http://0.0.0.0:8982/solr
-  jvm_options: -server -Xmx64M -Xms16M
+  jvm_options: -server -Xmx128M -Xms16M
   
 production:
   url: http://127.0.0.1:8983/solr
@@ -13,8 +13,8 @@ production:
 
 test:
   url: http://0.0.0.0:8981/solr
-  jvm_options: -server -Xmx32M -Xms16M
+  jvm_options: -server -Xmx128M -Xms16M
 
 cucumber:
   url: http://0.0.0.0:8980/solr
-  jvm_options: -server -Xmx32M -Xms16M
+  jvm_options: -server -Xmx128M -Xms16M
