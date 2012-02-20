@@ -67,11 +67,6 @@ Feature: browse catalogs
     And I am on /catalog/artebonito
     Then I should see "Produto1" within "li.product-link"
     And I should not see "0.00"
-    And I should see "No image" within ".no-image"
-    And I should not see "product unavailable"
-    And I should not see "description"
-    And I should not see "qualifiers"
-    And I should not see "price composition"
 
   Scenario: don't display the price when it's not defined
     Given the following products
