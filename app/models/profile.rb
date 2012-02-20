@@ -87,7 +87,7 @@ class Profile < ActiveRecord::Base
   named_scope :more_popular
   named_scope :more_active
 
-  named_scope :more_recent, :order => "created_at DESC"
+  named_scope :more_recent, :order => "updated_at DESC"
 
   acts_as_trackable :dependent => :destroy
 
@@ -847,12 +847,17 @@ private :generate_url, :url_options
   def f_categories
     category_ids
   end
-
-  def f_type
-    self.class.name
+  def f_region
+    self.region.id if self.region
   end
-  def self.f_type_proc(klass)
-    klass.constantize.type_name
+  def self.f_region_proc(id)
+    c = Region.find(id)
+    s = c.parent
+    if c and c.kind_of?(City) and s and s.kind_of?(State) and s.acronym 
+      [c.name, ', ' + s.acronym]
+    else
+      c.name
+    end
   end
   def name_sort
     name
@@ -863,17 +868,19 @@ private :generate_url, :url_options
   public
 
   acts_as_faceted :fields => {
-      :f_type => {:label => _('Type'), :type_if => proc { |klass| klass.kind_of?(Enterprise) }, :proc => proc { |id| f_type_proc(id) }},
-      :f_categories => {:multi => true, :proc => proc {|facet, id| f_categories_proc(facet, id)},
+    :f_region => {:label => _('City'), :type_if => proc { |klass| klass.kind_of?(Enterprise) },
+		:proc => proc { |id| f_region_proc(id) }},
+    :f_categories => {:multi => true, :proc => proc {|facet, id| f_categories_proc(facet, id)},
         :label => proc { |env| f_categories_label_proc(env) }, :label_abbrev => proc { |env| f_categories_label_abbrev_proc(env) }}},
     :category_query => proc { |c| "f_categories:#{c.id}" },
-    :order => [:f_type, :f_categories]
+    :order => [:f_region, :f_categories]
 
   acts_as_searchable :additional_fields => [
       {:name_sort => {:type => :string}},
       {:public => {:type => :boolean}},
       :extra_data_for_index ] + facets.keys.map{|i| {i => :facet}},
     :boost => proc {|p| 10 if p.enabled},
+    :include => [:categories, :region],
     :facets => facets.keys
   handle_asynchronously :solr_save
 

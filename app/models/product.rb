@@ -19,6 +19,8 @@ class Product < ActiveRecord::Base
   validates_numericality_of :price, :allow_nil => true
   validates_numericality_of :discount, :allow_nil => true
 
+  named_scope :more_recent, :order => "updated_at DESC"
+
   after_update :save_image
 
   before_create do |p|
