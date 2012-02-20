@@ -10,10 +10,8 @@
   <%= render :partial => 'search_form', :locals => { :hint => _('Type the title, author or content desired') } %>
   <%= render :partial => 'results_header' %>
 
-  <% if !@empty_query or @filter %>
-    <%= display_results %>
-    <%= pagination_links @results.values.first %>
-  <% end %>
+  <%= display_results %>
+  <%= pagination_links @results[:articles] %>
 </div>
 
 <div style="clear: both"></div>
