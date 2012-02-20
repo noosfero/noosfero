@@ -33,7 +33,7 @@ module Delayed
     
     module ClassMethods
       def handle_asynchronously(method)
-		return if Rails.env == "test"		
+		return if (Rails.env == "test" or Rails.env == "cucumber")
         aliased_method, punctuation = method.to_s.sub(/([?!=])$/, ''), $1
         with_method, without_method = "#{aliased_method}_with_delay#{punctuation}", "#{aliased_method}_without_delay#{punctuation}"
         define_method(with_method) do |*args|
