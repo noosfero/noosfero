@@ -20,7 +20,6 @@
           <span class="search-enterprise-region-label"><%= _("City") %></span>
           <% if profile.region %>
             <span class="search-enterprise-region-name"><%= city_with_state(profile.region) %></span>
-          <% else %>
           <% end %>
         </div>
         <% if !profile.description.blank? %>
@@ -29,10 +28,14 @@
 
         <div class="search-enterprise-categorization">
           <% profile.top_level_categorization.each do |parent, children| %>
-            <div class="search-enterprise-category-<%=parent.id%> search-enterprise-category">
-              <span class="search-enterprise-categorization-parent"><%= parent.name %></span>
-              <span class="search-enterprise-categorization-children"><%= children.collect(&:name).join(', ')  %></span>
-            </div>
+            <% if parent.name != "Territórios" %> 
+              <div class="search-enterprise-category-<%=parent.id%> search-enterprise-category">
+                <span class="search-enterprise-categorization-parent"><%= parent.name %></span>
+                <span class="search-enterprise-categorization-children">
+                  <%= children.collect(&:name).join(', ')  %>
+                </span>
+              </div>
+            <% end %>
           <% end %>
         </div>
       </div>
