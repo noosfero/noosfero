@@ -124,7 +124,7 @@ module SearchHelper
 
   def order_by(asset)
     options = {
-      :products => [[_('Relevance'), ''], [_('Name'), 'name_or_category_sort asc'], [_('Lower price'), 'price_sort asc'], [_('Higher price'), 'price_sort desc']],
+      :products => [[_('Relevance'), ''], [_('More Recent'), 'updated_at desc'], [_('Name'), 'name_or_category_sort asc'], [_('Lower price'), 'price_sort asc'], [_('Higher price'), 'price_sort desc']],
       :events => [[_('Relevance'), ''], [_('Name'), 'name_sort asc']],
       :articles => [[_('Relevance'), ''], [_('Name'), 'name_sort asc'], [_('Most recent'), 'updated_at desc']],
       :enterprises => [[_('Relevance'), ''], [_('Name'), 'name_sort asc']],

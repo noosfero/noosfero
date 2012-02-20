@@ -29,12 +29,11 @@ class SearchController < PublicController
   end
 
   def articles
-    @filter = params[:filter] ? filter : nil
-    @filter_title = params[:filter] ? filter_description(@asset, @filter) : nil
     if !@empty_query
       full_text_search ['public:true']
-    elsif params[:filter]
+    else
       @results[@asset] = @environment.articles.public.send(@filter).paginate(paginate_options)
+      facets = {}
     end
   end
 
@@ -54,6 +53,9 @@ class SearchController < PublicController
   def products
     if !@empty_query
       full_text_search ['public:true']
+    else
+      @results[@asset] = @environment.products.send(@filter).paginate(paginate_options)  
+      @facets = {}
     end
   end
 
@@ -238,6 +240,7 @@ class SearchController < PublicController
       'communities_more_recent' => _('More recent communities from network'),  
       'communities_more_active' => _('More active communities from network'),  
       'communities_more_popular' => _('More popular communities from network'),
+      'products_more_recent' => _('More recent products from network'),
     }[asset.to_s + '_' + filter]
   end
 
