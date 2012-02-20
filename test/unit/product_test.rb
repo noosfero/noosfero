@@ -5,11 +5,12 @@ class ProductTest < ActiveSupport::TestCase
   def setup
     ActiveSupport::TestCase::setup
     @product_category = fast_create(ProductCategory, :name => 'Products')
+    @profile = fast_create(Enterprise)
   end
 
   should 'create product' do
     assert_difference Product, :count do
-      p = Product.new(:name => 'test product1', :product_category => @product_category)
+      p = Product.new(:name => 'test product1', :product_category => @product_category, :enterprise_id => @profile.id)
       assert p.save
     end    
   end
@@ -68,7 +69,7 @@ class ProductTest < ActiveSupport::TestCase
     assert_difference Product, :count do
       p = Product.create!(:name => 'test product1', :product_category => @product_category, :image_builder => {
         :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')
-      })
+      }, :enterprise_id => @profile.id)
       assert_equal p.image(true).filename, 'rails.png'
     end    
   end
@@ -89,7 +90,7 @@ class ProductTest < ActiveSupport::TestCase
   end
 
   should 'be indexed by category full name' do
-    p = Product.new(:name => 'a test product', :product_category => @product_category)
+    p = Product.create(:name => 'a test product', :product_category => @product_category, :enterprise_id => @profile.id)
     p.stubs(:category_full_name).returns('interesting category')
     p.save!
 
@@ -147,7 +148,7 @@ class ProductTest < ActiveSupport::TestCase
 
     assert ProductCategorization.find(:first, :conditions => {:product_id => p, :category_id => cat}) 
   end
-  
+ 
   should 'categorize parent cateogries with product categorization' do
     parent_cat = fast_create(ProductCategory, :name => 'test cat', :environment_id => Environment.default.id)
     child_cat = fast_create(ProductCategory, :name => 'test cat', :environment_id => Environment.default.id, :parent_id => parent_cat.id)
@@ -362,7 +363,7 @@ class ProductTest < ActiveSupport::TestCase
 
   should 'index by schema name when database is postgresql' do
     uses_postgresql 'schema_one'
-    p1 = Product.create!(:name => 'some thing', :product_category => @product_category)
+    p1 = Product.create!(:name => 'some thing', :product_category => @product_category, :enterprise_id => @profile.id)
     assert_equal Product.find_by_contents('thing')[:results], [p1]
     uses_postgresql 'schema_two'
     p2 = Product.create!(:name => 'another thing', :product_category => @product_category)
@@ -376,9 +377,9 @@ class ProductTest < ActiveSupport::TestCase
 
   should 'not index by schema name when database is not postgresql' do
     uses_sqlite
-    p1 = Product.create!(:name => 'some thing', :product_category => @product_category)
+    p1 = Product.create!(:name => 'some thing', :product_category => @product_category, :enterprise_id => @profile.id)
     assert_equal Product.find_by_contents('thing')[:results], [p1]
-    p2 = Product.create!(:name => 'another thing', :product_category => @product_category)
+    p2 = Product.create!(:name => 'another thing', :product_category => @product_category, :enterprise_id => @profile.id)
     assert_includes Product.find_by_contents('thing')[:results], p1
     assert_includes Product.find_by_contents('thing')[:results], p2
   end

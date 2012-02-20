@@ -192,7 +192,8 @@ class ProfileTest < ActiveSupport::TestCase
     assert_not_equal list.object_id, other_list.object_id
   end
 
-  should 'be able to find profiles by their names with ferret' do
+# This problem should be solved; talk to Bráulio if it fails
+  should 'be able to find profiles by their names' do
     small = create(Profile, :name => 'A small profile for testing')
     big = create(Profile, :name => 'A big profile for testing')
 
@@ -1669,7 +1670,7 @@ class ProfileTest < ActiveSupport::TestCase
   should 'index by schema name when database is postgresql' do
     uses_postgresql 'schema_one'
     p1 = Profile.create!(:name => 'some thing', :identifier => 'some-thing')
-    assert_equal Profile.find_by_contents('thing')[:results], [p1]
+    assert_equal [p1], Profile.find_by_contents('thing')[:results]
     uses_postgresql 'schema_two'
     p2 = Profile.create!(:name => 'another thing', :identifier => 'another-thing')
     assert_not_includes Profile.find_by_contents('thing')[:results], p1

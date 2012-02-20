@@ -43,7 +43,7 @@ class CommunitiesBlockTest < ActiveSupport::TestCase
     block = CommunitiesBlock.new
     block.expects(:owner).returns(env)
 
-    expects(:link_to).with('View all', :controller => "browse", :action => 'communities')
+    expects(:link_to).with('View all', :controller => "search", :action => 'communities')
 
     instance_eval(&block.footer)
   end

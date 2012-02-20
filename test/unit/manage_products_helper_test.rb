@@ -191,6 +191,7 @@ class ManageProductsHelperTest < ActiveSupport::TestCase
     qualifier = fast_create(Qualifier)
     certifier = fast_create(Certifier)
     ProductQualifier.create!(:product => product, :qualifier => qualifier, :certifier => certifier)
+# The relationship between product, certifiers and qualifiers is extremely complicated
     certifier.destroy
     assert_nothing_raised do
       result = display_qualifiers(product)

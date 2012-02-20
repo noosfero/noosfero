@@ -10,6 +10,7 @@ class FeaturedProductsBlockTest < ActiveSupport::TestCase
   attr_reader :profile
 
   should 'refer to products' do
+    profile = fast_create(Enterprise)
     products = []
     category = fast_create(ProductCategory)
     3.times {|n| products.push(Product.create!(:name => "product #{n}", :enterprise_id => profile.id, :product_category_id => category.id)) }

@@ -5,6 +5,7 @@ class EnvironmentTest < ActiveSupport::TestCase
 
   def setup
     ActiveSupport::TestCase::setup
+    Article.rebuild_index
   end
 
   def test_exists_default_and_it_is_unique
