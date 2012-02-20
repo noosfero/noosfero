@@ -1520,6 +1520,7 @@ class CmsControllerTest < ActionController::TestCase
     plugins.stubs(:map).with(:head_ending).returns([])
     plugins.stubs(:enabled_plugins).returns([])
 
+    Noosfero::Plugin::Manager.expects(:new).with(@controller).returns(plugins)
     get :index, :profile => profile.identifier
 
     assert_includes @controller.special_article_types, Integer

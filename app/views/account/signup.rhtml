@@ -10,7 +10,7 @@
          <p><a href=\"/doc/user/editing-person-info\" target=\"_blank\">Customize your profile</a>. Upload an avatar and let your friends find you easily :)</p>
          <p>Learn the guidelines. Read the <a href=\"/doc\" target=\"_blank\">Documentation</a> for more details on how to use new social network!</p>
          <p><a href=\"/doc/user/invite-contacts\" target=\"_blank\">Invite and find</a> your Gmail, Yahoo and Hotmail contacts!</p>
-         <p>Start exploring and Have fun!</p>" % [environment.name, url_for(:controller => :browse, :action => :people, :filter => 'more_recent')]) %>
+         <p>Start exploring and Have fun!</p>" % [environment.name, url_for(:controller => :search, :action => :people, :filter => 'more_recent')]) %>
 </div>
 <% else %>
   <h1><%= _('Sign up for %s!') % environment.name %></h1>
