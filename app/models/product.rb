@@ -125,7 +125,6 @@ class Product < ActiveRecord::Base
     end
   end
 
-  # Note: will probably be completely overhauled for AI1413
   def inputs_prices?
     return false if self.inputs.count <= 0
     self.inputs.each do |input|

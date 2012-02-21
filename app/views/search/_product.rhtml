@@ -23,10 +23,10 @@
             <% product.inputs.each{ |i| t_i += 1; se_i += 1 if i.is_from_solidarity_economy } %>
             <% p = case (se_i.to_f/t_i)*100 
                  when 0..24.999 then ["0", _("")]; 
-                 when 25..49.999 then ["0", _("25%")];
-                 when 50..74.999 then ["25", _("50%")];
-                 when 75..99.999 then ["50", _("75%")];
-                 when 100 then ["75", _("100%")]; 
+                 when 25..49.999 then ["25", _("25%")];
+                 when 50..74.999 then ["50", _("50%")];
+                 when 75..99.999 then ["75", _("75%")];
+                 when 100 then ["100", _("100%")]; 
             end %>
             <div class="search-product-percentage-from-solidarity-economy search-product-ecosol-percentage-icon-<%=p[0]%>" title="<%=_('Percentage of inputs from solidarity economy')%>">
               <%= p[1] %>
