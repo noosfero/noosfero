@@ -7,7 +7,13 @@ Given /^the following users?$/ do |table|
   table.hashes.each do |item|
     person_data = item.dup
     person_data.delete("login")
-    User.create!(:login => item[:login], :password => '123456', :password_confirmation => '123456', :email => item[:login] + "@example.com", :person_data => person_data).activate
+    category = Category.find_by_slug person_data.delete("category")
+    user = User.create!(:login => item[:login], :password => '123456', :password_confirmation => '123456', :email => item[:login] + "@example.com", :person_data => person_data)
+    user.activate
+    p = user.person
+    p.categories << category if category
+    p.save!
+    user.save!
   end
 end
 
@@ -25,6 +31,8 @@ Given /^the following (community|communities|enterprises?|organizations?)$/ do |
   table.hashes.each do |row|
     owner = row.delete("owner")
     domain = row.delete("domain")
+    city = row.delete("city")
+    category = row.delete("category")
     organization = klass.create!(row)
     if owner
       organization.add_admin(Profile[owner])
@@ -33,6 +41,15 @@ Given /^the following (community|communities|enterprises?|organizations?)$/ do |
       d = Domain.new :name => domain, :owner => organization
       d.save(false)
     end
+    if city
+      c = City.find_by_name city
+      organization.region = c
+    end
+    if category && !category.blank?
+      cat = Category.find_by_slug category
+      organization.categories << cat
+    end
+    organization.save!
   end
 end
 
@@ -95,6 +112,7 @@ Given /^the following (articles|events|blogs|folders|forums|galleries)$/ do |con
     owner = Profile[owner_identifier]
     home = item.delete("homepage")
     language = item.delete("lang")
+    category = item.delete("category")
     translation_of_id = nil
     if item["translation_of"]
       if item["translation_of"] != "nil"
@@ -110,6 +128,12 @@ Given /^the following (articles|events|blogs|folders|forums|galleries)$/ do |con
     ))
     if parent
       result.parent = Article.find_by_name(parent)
+    end
+    if category
+      cat = Category.find_by_slug category
+      if cat
+      	result.add_category(cat)
+      end
     end
     result.save!
     if home == 'true'
@@ -182,7 +206,9 @@ Given /^the following inputs?$/ do |table|
     product = Product.find_by_name(data.delete("product"))
     category = Category.find_by_slug(data.delete("category").to_slug)
     unit = Unit.find_by_singular(data.delete("unit"))
-    input = Input.create!(data.merge(:product => product, :product_category => category, :unit => unit))
+    solidary = data.delete("solidary")
+    input = Input.create!(data.merge(:product => product, :product_category => category, :unit => unit,
+      :is_from_solidarity_economy => solidary))
     input.update_attributes!(:position => data['position'])
   end
 end
@@ -570,3 +596,31 @@ end
 Given /^the search index is empty$/ do
   ActsAsSolr::Post.execute(Solr::Request::Delete.new(:query => '*:*'))
 end
+
+# This could be merged with "the following categories"
+Given /^the following categories as facets$/ do |table|
+  ids = []
+  table.hashes.each do |item|
+    cat = Category.find_by_name(item[:name])
+    if cat.nil?
+      cat = Category.create!(:environment_id => Environment.default.id, :name => item[:name])
+    end
+    ids << cat.id
+  end
+  env = Environment.default
+  env.top_level_category_as_facet_ids = ids
+  env.save!
+end
+
+Given /^the following cities$/ do |table|
+  table.hashes.each do |item|
+    state = State.find_by_acronym item[:state]
+    if !state
+      state = State.create!(:name => item[:state], :acronym => item[:state], :environment_id => Environment.default.id)
+    end
+    city = City.create!(:name => item[:name], :environment_id => Environment.default.id)
+    city.parent = state
+    city.save! 
+  end
+end
+

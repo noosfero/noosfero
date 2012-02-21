@@ -5,16 +5,17 @@ Feature: search
 
   Background:
     Given the search index is empty
+    And feature "disable_asset_products" is disabled on environment
 
   Scenario: simple search for person
     Given the following users
-      | login | name |
-      | joaosilva | Joao Silva |
+      | login      | name        |
+      | joaosilva  | Joao Silva  |
       | josearaujo | Jose Araujo |
     When I go to the search page
     And I fill in "query" with "Silva"
     And I press "Search"
-    Then I should see "Joao Silva"
+    Then I should see "Joao Silva" within "div.search-results-people"
     And I should not see "Jose Araujo"
 
   Scenario: simple search for community
@@ -25,7 +26,7 @@ Feature: search
     And I go to the search page
     And I fill in "query" with "fancy"
     And I press "Search"
-    Then I should see "Fancy community"
+    Then I should see "Fancy community" within "div.search-results-communities"
     And I should not see "Boring community"
 
   Scenario: simple search for enterprise
@@ -36,7 +37,7 @@ Feature: search
     And I go to the search page
     And I fill in "query" with "shoes"
     And I press "Search"
-    Then I should see "Shoes shop"
+    Then I should see "Shoes shop" within "div.search-results-enterprises"
     And I should not see "Fruits shop"
 
   Scenario: simple search for content
@@ -50,27 +51,25 @@ Feature: search
     When I go to the search page
     And I fill in "query" with "whales"
     And I press "Search"
-    Then I should see "whales and dolphins"
+    Then I should see "whales and dolphins" within "div.search-results-articles"
     And I should not see "bees and butterflies"
-
 
   Scenario: simple search for product
     Given the following enterprises
-      | identifier | name |
+      | identifier  | name    |
       | colivre-ent | Colivre |
     And the following product_categories
-      | name |
+      | name        |
       | Development |
     And the following products
-      | owner | category | name |
+      | owner       | category    | name                        |
       | colivre-ent | development | social networks consultancy |
-      | colivre-ent | development | wikis consultancy |
+      | colivre-ent | development | wikis consultancy           |
     When I go to the search page
     And I fill in "query" with "wikis"
     And I press "Search"
-    Then I should see "wikis consultancy"
+    Then I should see "wikis consultancy" within "div.search-results-products"
     And I should not see "social networks consultancy"
-
 
   Scenario: simple search for event
     Given the following communities
@@ -83,6 +82,25 @@ Feature: search
     When I go to the search page
     And I fill in "query" with "birthday"
     And I press "Search"
-    Then I should see "John Doe's birthday"
+    Then I should see "John Doe's birthday" within "div.search-results-events"
     And I should not see "Group meeting"
 
+  Scenario: search different types of entities with the same query
+    Given the following enterprises
+      | identifier  | name                    | 
+      | colivre     | Colivre - Noosfero dev. |
+    And the following communities
+      | identifier     | name           |
+      | noosfero-users | Noosfero users | 
+    And the following product_categories
+      | name        |
+      | Development |
+    And the following products
+      | owner   | name              | category    |
+      | colivre | Noosfero platform | Development |
+    When I go to the search page
+    And I fill in "query" with "noosfero"
+    And I press "Search"
+    Then I should see "Colivre - Noosfero dev." within "div.search-results-enterprises"
+    And I should see "Noosfero users" within "div.search-results-communities"
+    And I should see "Noosfero platform" within "div.search-results-products"
