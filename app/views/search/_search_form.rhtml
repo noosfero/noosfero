@@ -4,6 +4,13 @@
                  :method => 'get', :class => 'search_form' ) do %>
   
     <%= hidden_field_tag :display, params[:display] %>
+
+    <% CGI::unescape(request.request_uri).split("&").each do |part| %>
+      <% if part.start_with? "facet" %>
+        <% name_value = part.split("=") %>
+        <%= hidden_field_tag name_value[0], name_value[1] %>
+      <% end %>
+    <% end %>
   
     <div class="search-field">
       <span class="formfield">
