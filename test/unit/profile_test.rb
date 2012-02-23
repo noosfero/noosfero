@@ -1554,12 +1554,12 @@ class ProfileTest < ActiveSupport::TestCase
 
   should 'find more recent profile' do
     Profile.delete_all
-    p1 = fast_create(Profile, :created_at => 4.days.ago)
-    p2 = fast_create(Profile, :created_at => Time.now)
-    p3 = fast_create(Profile, :created_at => 2.days.ago)
+    p1 = fast_create(Profile, :updated_at => 4.days.ago)
+    p2 = fast_create(Profile, :updated_at => Time.now)
+    p3 = fast_create(Profile, :updated_at => 2.days.ago)
     assert_equal [p2,p3,p1] , Profile.more_recent
 
-    p4 = fast_create(Profile, :created_at => 3.days.ago)
+    p4 = fast_create(Profile, :updated_at => 3.days.ago)
     assert_equal [p2,p3,p4,p1] , Profile.more_recent
   end
 
