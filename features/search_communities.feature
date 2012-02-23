@@ -15,7 +15,7 @@ Feature: search communities
   Scenario: show recent communities on index (empty query)
     Given the following community
       | identifier | name            | category       |
-      | linux      | Linux Community | software-livre |
+      | linux      | Linux Community | social-network |
     When I go to the search communities page
     Then I should see "Noosfero Community" within "#search-results"
     And I should see "Linux Community" within "#search-results"
