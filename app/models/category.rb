@@ -15,6 +15,8 @@ class Category < ActiveRecord::Base
 
   acts_as_filesystem
 
+  acts_as_searchable :additional_fields => [{:name => {:boost => 2.0}}]
+
   has_many :article_categorizations
   has_many :articles, :through => :article_categorizations
   has_many :comments, :through => :articles

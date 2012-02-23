@@ -24,9 +24,9 @@ module SetProfileRegionFromCityState
 
     def region_from_city_and_state
       if @change_region
-        s = State.find_by_name self.state
+        s = State.find_by_contents(self.state)[:results].first
         if s
-          c = s.children.find_by_name self.city
+          c = City.find_by_contents(self.city, {}, :filter_queries => ["parent_id:#{s.id}"])[:results].first
           self.region = c
         end
       end
