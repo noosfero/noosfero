@@ -31,7 +31,6 @@ Given /^the following (community|communities|enterprises?|organizations?)$/ do |
   table.hashes.each do |row|
     owner = row.delete("owner")
     domain = row.delete("domain")
-    city = row.delete("city")
     category = row.delete("category")
     organization = klass.create!(row)
     if owner
@@ -41,6 +40,7 @@ Given /^the following (community|communities|enterprises?|organizations?)$/ do |
       d = Domain.new :name => domain, :owner => organization
       d.save(false)
     end
+    city = row.delete("city")
     if city
       c = City.find_by_name city
       organization.region = c
