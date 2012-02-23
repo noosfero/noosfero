@@ -139,41 +139,6 @@ class ProductTest < ActiveSupport::TestCase
     assert_equal({:controller => 'manage_products', :action => 'show', :id => 999}, product.url)
   end
 
-  should 'categorize also with product categorization' do
-    cat = fast_create(ProductCategory, :name => 'test cat', :environment_id => Environment.default.id)
-    ent = fast_create(Enterprise, :name => 'test ent', :identifier => 'test_ent')
-    p = ent.products.new(:name => 'test product')
-    p.product_category = cat
-    p.save!
-
-    assert ProductCategorization.find(:first, :conditions => {:product_id => p, :category_id => cat}) 
-  end
- 
-  should 'categorize parent cateogries with product categorization' do
-    parent_cat = fast_create(ProductCategory, :name => 'test cat', :environment_id => Environment.default.id)
-    child_cat = fast_create(ProductCategory, :name => 'test cat', :environment_id => Environment.default.id, :parent_id => parent_cat.id)
-    ent = fast_create(Enterprise, :name => 'test ent', :identifier => 'test_ent')
-    p = ent.products.new(:name => 'test product')
-    p.product_category = child_cat
-    p.save!
-
-    assert ProductCategorization.find(:first, :conditions => {:product_id => p, :category_id => parent_cat}) 
-    assert ProductCategorization.find(:first, :conditions => {:product_id => p, :category_id => child_cat}) 
-  end
-
-  should 'change product categorization when product category changes' do
-    cat1 = fast_create(ProductCategory, :name => 'test cat 1', :environment_id => Environment.default.id)
-    cat2 = fast_create(ProductCategory, :name => 'test cat 2', :environment_id => Environment.default.id)
-    ent = fast_create(Enterprise, :name => 'test ent', :identifier => 'test_ent')
-    p = ent.products.create!(:name => 'test product', :product_category => cat1)
-
-    p.product_category = cat2
-    p.save!
-
-    assert ProductCategorization.find(:first, :conditions => {:product_id => p, :category_id => cat2}), 'must include the new category'
-    assert !ProductCategorization.find(:first, :conditions => {:product_id => p, :category_id => cat1}), 'must exclude the old category'
-  end
-
   should 'respond to public? as its enterprise public?' do
     e1 = fast_create(Enterprise, :name => 'test ent 1', :identifier => 'test_ent1')
     p1 = fast_create(Product, :name => 'test product 1', :enterprise_id => e1.id, :product_category_id => @product_category.id)
