@@ -55,11 +55,11 @@ class NationalRegion < ActiveRecord::Base
 
   def self.validate!(city, state, country)
 
-    coutry_region = NationalRegion.find_by_national_region_code(country,
+    country_region = NationalRegion.find_by_national_region_code(country,
                                                 :conditions => ["national_region_type_id = :type",
                                                                {:type => NationalRegionType::COUNTRY}])
 
-    if(coutry_region)
+    if(country_region)
 
       nregion = NationalRegion.search_city(city, false, state);
 
