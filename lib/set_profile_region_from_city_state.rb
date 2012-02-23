@@ -25,8 +25,10 @@ module SetProfileRegionFromCityState
     def region_from_city_and_state
       if @change_region
         s = State.find_by_name self.state
-        c = s.children.find_by_name self.city
-        self.region = c
+        if s
+          c = s.children.find_by_name self.city
+          self.region = c
+        end
       end
     end
 
