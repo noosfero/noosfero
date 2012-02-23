@@ -79,10 +79,11 @@ class SearchController < PublicController
   def events
     @category_id = @category ? @category.id : nil
 
-    if params[:year] || params[:month]
-      date = Date.new(year.to_i, month.to_i, 1)
-      date_range = (date - 1.month)..(date + 1.month).at_end_of_month
-    end
+    year = (params[:year] ? params[:year].to_i : Date.today.year)
+    month = (params[:month] ? params[:month].to_i : Date.today.month)
+    day = (params[:day] ? params[:day].to_i : Date.today.day)
+    date = Date.new(year, month, day)
+    date_range = (date - 1.month)..(date + 1.month).at_end_of_month
 
     if @query.blank?
       # Ignore pagination for asset events
