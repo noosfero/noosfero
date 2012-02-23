@@ -13,6 +13,7 @@ class MapsControllerTest < ActionController::TestCase
 
     @profile = create_user('test_profile').person
     login_as(@profile.identifier)
+
   end
 
   attr_reader :profile
@@ -28,6 +29,10 @@ class MapsControllerTest < ActionController::TestCase
     city = 'Santo Afonso'
     state = 'Mato Grosso'
 
+    fast_create(NationalRegion, :name => 'Brasil', 
+      :national_region_code => 'BR', 
+      :national_region_type_id => NationalRegionType::COUNTRY)
+
     parent_region = fast_create(NationalRegion, :name => state,
                                 :national_region_code => '35',
                                 :national_region_type_id => NationalRegionType::STATE)
@@ -38,10 +43,10 @@ class MapsControllerTest < ActionController::TestCase
                                 :parent_national_region_code => parent_region.national_region_code)
 
     post :edit_location, :profile => profile.identifier, :profile_data => { 
-    :address => 'new address',
-    :country => 'BR',
-    :city => city,
-    :state => state
+      :address => 'new address',
+      :country => 'BR',
+      :city => city,
+      :state => state
     }
 
     assert_equal national_region_code, Profile['test_profile'].national_region_code
