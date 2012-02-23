@@ -293,7 +293,7 @@ class SearchController < PublicController
       solr_options.merge! asset_class.facets_find_options(params[:facet])
       solr_options[:all_facets] = true
       solr_options[:limit] = 0 if @facets_only
-      solr_options[:facets][:browse] << asset_class.facet_category_query.call(@category) if @category and asset_class.facet_category_query
+      #solr_options[:facets][:browse] << asset_class.facet_category_query.call(@category) if @category and asset_class.facet_category_query
     end
     solr_options[:order] = params[:order_by] if params[:order_by]
     solr_options[:filter_queries] ||= []

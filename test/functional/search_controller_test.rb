@@ -14,7 +14,13 @@ class SearchControllerTest < ActionController::TestCase
 
     @category = Category.create!(:name => 'my category', :environment => Environment.default)
 
-    domain = Environment.default.domains.first
+    env = Environment.default
+    domain = env.domains.first
+    if !domain
+      domain = Domain.create!(:name => "localhost")
+      env.domains = [domain]
+      env.save!
+    end
     domain.google_maps_key = 'ENVIRONMENT_KEY'
     domain.save!
 
@@ -68,20 +74,6 @@ class SearchControllerTest < ActionController::TestCase
     assert_includes assigns(:results)[:articles], art
   end
 
-  should 'search for articles in a specific category' do
-    person = fast_create(Person)
-
-    # in category
-    art1 = create_article_with_optional_category('an article to be found', person, @category)
-    # not in category
-    art2 = create_article_with_optional_category('another article to be found', person)
-
-    get :index, :category_path => [ 'my-category' ], :query => 'article found', :find_in => [ 'articles' ]
-
-    assert_includes assigns(:results)[:articles], art1
-    assert_not_includes assigns(:results)[:articles], art2
-  end
-
   # 'assets' outside any category
   should 'list articles in general' do
     person = fast_create(Person)
@@ -95,40 +87,10 @@ class SearchControllerTest < ActionController::TestCase
     assert_includes assigns(:results)[:articles], art2
   end
 
-  # 'assets' inside a category
-  should 'list articles in a specific category' do
-    person = fast_create(Person)
-
-    # in category
-    art1 = create_article_with_optional_category('one article', person, @category)
-    art2 = create_article_with_optional_category('two article', person, @category)
-    # not in category
-    art3 = create_article_with_optional_category('another article', person)
-
-    get :articles, :category_path => ['my-category']
-
-    assert_includes assigns(:results)[:articles], art1
-    assert_includes assigns(:results)[:articles], art2
-    assert_not_includes assigns(:results)[:articles], art3
-  end
-
   should 'find enterprises' do
     ent = create_profile_with_optional_category(Enterprise, 'teste')
     get 'index', :query => 'teste', :find_in => [ 'enterprises' ]
     assert_includes assigns(:results)[:enterprises], ent
-  end
-
-  should 'find enterprises in a specified category' do
-
-    # in category
-    ent1 = create_profile_with_optional_category(Enterprise, 'testing enterprise 1', @category)
-    # not in category
-    ent2 = create_profile_with_optional_category(Enterprise, 'testing enterprise 2')
-
-    get :index, :category_path => [ 'my-category' ], :query => 'testing', :find_in => [ 'enterprises' ]
-
-    assert_includes assigns(:results)[:enterprises], ent1
-    assert_not_includes assigns(:results)[:enterprises], ent2
   end
 
   should 'list enterprises in general' do
@@ -140,30 +102,10 @@ class SearchControllerTest < ActionController::TestCase
     assert_includes assigns(:results)[:enterprises], ent2
   end
 
-  # 'assets' menu inside a category
-  should 'list enterprises in a specified category' do
-    # in category
-    ent1 = create_profile_with_optional_category(Enterprise, 'teste 1', @category)
-    # not in category
-    ent2 = create_profile_with_optional_category(Enterprise, 'teste 2')
-
-    get :enterprises, :category_path => [ 'my-category' ]
-    assert_includes assigns(:results)[:enterprises], ent1
-    assert_not_includes assigns(:results)[:enterprises], ent2
-  end
-
   should 'find people' do
     p1 = create_user('people_1').person; p1.name = 'a beautiful person'; p1.save!
     get :index, :query => 'beautiful', :find_in => [ 'people' ]
     assert_includes assigns(:results)[:people], p1
-  end
-
-  should 'find people in a specific category' do
-    p1 = create_user('people_1').person; p1.name = 'a beautiful person'; p1.add_category @category; p1.save!
-    p2 = create_user('people_2').person; p2.name = 'another beautiful person'; p2.save!
-    get :index, :category_path => [ 'my-category' ], :query => 'beautiful', :find_in => [ 'people' ]
-    assert_includes assigns(:results)[:people], p1
-    assert_not_includes assigns(:results)[:people], p2
   end
 
   # 'assets' menu outside any category
@@ -178,32 +120,10 @@ class SearchControllerTest < ActionController::TestCase
     assert_equivalent [p2,p1], assigns(:results)[:people]
   end
 
-  # 'assets' menu inside a category
-  should 'list people in a specified category' do
-    Profile.delete_all
-
-    # in category
-    p1 = create_user('test1').person; p1.add_category @category
-
-    # not in category
-    p2 = create_user('test2').person
-
-    get :people, :category_path => [ 'my-category' ]
-    assert_equal [p1], assigns(:results)[:people]
-  end
-
   should 'find communities' do
     c1 = create_profile_with_optional_category(Community, 'a beautiful community')
     get :index, :query => 'beautiful', :find_in => [ 'communities' ]
     assert_includes assigns(:results)[:communities], c1
-  end
-
-  should 'find communities in a specified category' do
-    c1 = create_profile_with_optional_category(Community, 'a beautiful community', @category)
-    c2 = create_profile_with_optional_category(Community, 'another beautiful community')
-    get :index, :category_path => [ 'my-category' ], :query => 'beautiful', :find_in => [ 'communities' ]
-    assert_includes assigns(:results)[:communities], c1
-    assert_not_includes assigns(:results)[:communities], c2
   end
 
   # 'assets' menu outside any category
@@ -215,38 +135,11 @@ class SearchControllerTest < ActionController::TestCase
     assert_equivalent [c2, c1], assigns(:results)[:communities]
   end
 
-  # 'assets' menu
-  should 'list communities in a specified category' do
-
-    # in category
-    c1 = create_profile_with_optional_category(Community, 'a beautiful community', @category)
-
-    # not in category
-    c2 = create_profile_with_optional_category(Community, 'another beautiful community')
-
-    # in category
-    c3 = create_profile_with_optional_category(Community, 'yet another beautiful community', @category)
-
-    get :communities, :category_path => [ 'my-category' ]
-
-    assert_equivalent [c3, c1], assigns(:results)[:communities]
-  end
-
   should 'find products' do
     ent = create_profile_with_optional_category(Enterprise, 'teste')
     prod = ent.products.create!(:name => 'a beautiful product', :product_category => @product_category)
     get 'index', :query => 'beautiful', :find_in => ['products']
     assert_includes assigns(:results)[:products], prod
-  end
-
-  should 'find products in a specific category' do
-    ent1 = create_profile_with_optional_category(Enterprise, 'teste1', @category)
-    ent2 = create_profile_with_optional_category(Enterprise, 'teste2')
-    prod1 = ent1.products.create!(:name => 'a beautiful product', :product_category => @product_category)
-    prod2 = ent2.products.create!(:name => 'another beautiful product', :product_category => @product_category)
-    get :index, :category_path => @category.path.split('/'), :query => 'beautiful', :find_in => ['products']
-    assert_includes assigns(:results)[:products], prod1
-    assert_not_includes assigns(:results)[:products], prod2
   end
 
   # 'assets' menu outside any category
@@ -260,23 +153,6 @@ class SearchControllerTest < ActionController::TestCase
 
     get :products
     assert_equivalent [prod2, prod1], assigns(:results)[:products]
-  end
-
-  # 'assets' menu inside a category
-  should 'list products in a specific category' do
-    Profile.delete_all
-
-    # in category
-    ent1 = create_profile_with_optional_category(Enterprise, 'teste1', @category)
-    prod1 = ent1.products.create!(:name => 'a beautiful product', :product_category => @product_category)
-
-    # not in category
-    ent2 = create_profile_with_optional_category(Enterprise, 'teste2')
-    prod2 = ent2.products.create!(:name => 'another beautiful product', :product_category => @product_category)
-
-    get :products, :category_path => [ 'my-category' ]
-
-    assert_equal [prod1], assigns(:results)[:products]
   end
 
   should 'include extra content supplied by plugins on product asset' do
@@ -293,13 +169,13 @@ class SearchControllerTest < ActionController::TestCase
     end
   
     enterprise = fast_create(Enterprise)
-    product = fast_create(Product, :enterprise_id => enterprise.id)
+    product = fast_create(Product, :enterprise_id => enterprise.id, :name => "produto1")
 
     e = Environment.default
     e.enable_plugin(Plugin1.name)
     e.enable_plugin(Plugin2.name)
 
-    get :assets, :asset => 'products'
+    get :assets, {:asset => 'products', :query => 'produto1'}
 
     assert_tag :tag => 'span', :content => 'This is Plugin1 speaking!', :attributes => {:id => 'plugin1'}
     assert_tag :tag => 'span', :content => 'This is Plugin2 speaking!', :attributes => {:id => 'plugin2'}
@@ -317,13 +193,13 @@ class SearchControllerTest < ActionController::TestCase
       end
     end
     enterprise = fast_create(Enterprise)
-    product = fast_create(Product, :enterprise_id => enterprise.id)
+    product = fast_create(Product, :enterprise_id => enterprise.id, :name => "produto1")
 
     environment = Environment.default
     environment.enable_plugin(Plugin1.name)
     environment.enable_plugin(Plugin2.name)
 
-    get :products
+    get :products, :query => "produto1"
 
     assert_tag :tag => 'li', :content => /Property1/, :child => {:tag => 'a', :attributes => {:href => '/plugin1'}, :content => product.name}
     assert_tag :tag => 'li', :content => /Property2/, :child => {:tag => 'a', :attributes => {:href => '/plugin2'}, :content => product.name}
@@ -339,171 +215,14 @@ class SearchControllerTest < ActionController::TestCase
     assert_equal 1, assigns(:results)[:enterprises].size
   end
 
-  should 'display search results' do
-    ent = create_profile_with_optional_category(Enterprise, 'display enterprise')
-    product = ent.products.create!(:name => 'display product', :product_category => @product_category)
-    person = create_user('displayperson').person; person.name = 'display person'; person.save!
-    article = person.articles.create!(:name => 'display article')
-    event = Event.new(:name => 'display event', :start_date => Date.today); event.profile = person; event.save!
-    comment = article.comments.create!(:title => 'display comment', :body => '...', :author => person)
-    community = create_profile_with_optional_category(Community, 'display community')
-
-    get :index, :query => 'display'
-
-    names = {
-        :articles => ['Articles', article],
-        :enterprises => ['Enterprises', ent],
-        :communities => ['Communities', community],
-        :products => ['Products', product],
-        :events => ['Events', event],
-    }
-    names.each do |thing, pair|
-      description, object = pair
-      assert_tag :tag => 'div', :attributes => { :class => /search-results-#{thing}/ }, :descendant => { :tag => 'h3', :content => Regexp.new(description) }
-      assert_tag :tag => 'a', :content => object.respond_to?(:short_name) ? object.short_name : object.name
-    end
-
-    # display only first name on people listing
-    assert_tag :tag => 'div', :attributes => { :class => /search-results-people/ }, :descendant => { :tag => 'h3', :content => /People/ }
-  end
-
-  should 'present options of where to search' do
-    get :popup
-    names = {
-        :articles => 'Articles',
-        :people => 'People',
-        :enterprises => 'Enterprises',
-        :communities => 'Communities',
-        :products => 'Products',
-        :events => 'Events',
-    }
-    names.each do |thing,description|
-      assert_tag :tag => 'input', :attributes => { :type => 'checkbox', :name => "find_in[]", :value => thing.to_s, :checked => 'checked' }
-      assert_tag :tag => 'label', :content => description
-    end
-  end
-
-  should 'not display option to choose where to search when not inside filter' do
-    get :popup
-    assert_no_tag :tag => 'input', :attributes => { :type => 'radio', :name => 'search_whole_site', :value => 'yes' }
-  end
-
-  should 'display option to choose searching in whole site or in current category' do
-    parent = Category.create!(:name => 'cat', :environment => Environment.default)
-    Category.create!(:name => 'sub', :environment => Environment.default, :parent => parent)
-
-    get :popup, :category_path => [ 'cat', 'sub']
-    assert_tag :tag => 'input', :attributes => { :type => 'submit', :name => 'search_whole_site_yes' }
-    assert_tag :tag => 'input', :attributes => { :type => 'submit', :name => 'search_whole_site_no' }
-  end
-
-  should 'display option to search within a given point and distance' do
-    state = State.create!(:name => "Bahia", :environment => Environment.default)
-    get :popup
-
-    assert_tag :tag => 'select', :attributes => {:name => 'radius'}
-    assert_tag :tag => 'select', :attributes => {:name => 'state'}
-    assert_tag :tag => 'select', :attributes => {:name => 'city'}
-  end
-
-  should 'search in whole site when told so' do
-    parent = Category.create!(:name => 'randomcat', :environment => Environment.default)
-    Category.create!(:name => 'randomchild', :environment => Environment.default, :parent => parent)
-
-    get :index, :category_path => [ 'randomcat', 'randomchild' ], :query => 'some random query', :search_whole_site => 'yes'
-
-    # search_whole_site must be removed to precent a infinite redirect loop
-    assert_redirected_to :controller.to_s => 'search', :action.to_s => 'index', :category_path.to_s => [], :query.to_s => 'some random query', :search_whole_site.to_s => nil, :search_whole_site_yes.to_s => nil
-  end
-
-  should 'submit form to root when not inside a filter' do
-    get :popup
-    assert_tag :tag => 'form', :attributes => { :action => '/search' }
-  end
-
-  should 'submit form to category path when inside a filter' do
-    get :popup, :category_path => Category.create!(:name => 'mycat', :environment => Environment.default).explode_path
-    assert_tag :tag => 'form', :attributes => { :action => '/search/index/mycat' }
-  end
-
-  should 'use GET method to search' do
-    get :popup
-    assert_tag :tag => 'form' , :attributes => { :method => 'get' }
-  end
-
   should 'display a given category' do
     get :category_index, :category_path => [ 'my-category' ]
     assert_equal @category, assigns(:category)
   end
 
-  should 'expose category in a method' do
-    get :category_index, :category_path => [ 'my-category' ]
-    assert_same assigns(:category), @controller.category
-  end
-
-  should 'list recent articles in the category' do
-    recent = []
-    finder = CategoryFinder.new(@category)
-    finder.expects(:recent).with(any_parameters).at_least_once
-    finder.expects(:recent).with('text_articles', anything).returns(recent)
-    CategoryFinder.stubs(:new).with(@category).returns(finder)
-
-    get :category_index, :category_path => [ 'my-category' ]
-    assert_same recent, assigns(:results)[:articles]
-  end
-
-  should 'list most commented articles in the category' do
-    most_commented = []
-    finder = CategoryFinder.new(@category)
-    finder.expects(:most_commented_articles).returns(most_commented)
-    CategoryFinder.stubs(:new).with(@category).returns(finder)
-
-    get :category_index, :category_path => [ 'my-category' ]
-    assert_same most_commented, assigns(:results)[:most_commented_articles]
-  end
-
-  should 'list recently registered people in the category' do
-    recent_people = []
-    finder = CategoryFinder.new(@category)
-    finder.expects(:recent).with(any_parameters).at_least_once
-    finder.expects(:recent).with('people', kind_of(Integer)).returns(recent_people)
-    CategoryFinder.stubs(:new).with(@category).returns(finder)
-
-    get :category_index, :category_path => [ 'my-category' ]
-    assert_same recent_people, assigns(:results)[:people]
-  end
-
-  should 'list recently registered communities in the category' do
-    recent_communities = []
-    finder = CategoryFinder.new(@category)
-    finder.expects(:recent).with(any_parameters).at_least_once
-    finder.expects(:recent).with('communities', anything).returns(recent_communities)
-    CategoryFinder.stubs(:new).with(@category).returns(finder)
-
-    get :category_index, :category_path => [ 'my-category' ]
-    assert_same recent_communities, assigns(:results)[:communities]
-  end
-
-  should 'list recently registered enterprises in the category' do
-    recent_enterptises = []
-    finder = CategoryFinder.new(@category)
-    finder.expects(:recent).with(any_parameters).at_least_once
-    finder.expects(:recent).with('enterprises', anything).returns(recent_enterptises)
-    CategoryFinder.stubs(:new).with(@category).returns(finder)
-
-    get :category_index, :category_path => [ 'my-category' ]
-    assert_same recent_enterptises, assigns(:results)[:enterprises]
-  end
-
   should 'not list "Search for ..." in category_index' do
     get :category_index, :category_path => [ 'my-category' ]
     assert_no_tag :content => /Search for ".*" in the whole site/
-  end
-
-  # SECURITY
-  should 'not allow unrecognized assets' do
-    get :unexisting_asset
-    assert_response 403
   end
 
   should 'not use design blocks' do
@@ -527,15 +246,6 @@ class SearchControllerTest < ActionController::TestCase
     }
   end
 
-  should 'display only category name in "search results for ..." title' do
-    parent = Category.create!(:name => 'Parent Category', :environment => Environment.default)
-    child = Category.create!(:name => "Child Category", :environment => Environment.default, :parent => parent)
-
-    get :index, :category_path => [ 'parent-category', 'child-category' ], :query => 'a sample search'
-    assert_tag :tag => 'h2', :content => /Searched for 'a sample search'/
-    assert_tag :tag => 'h2', :content => /In category Child Category/
-  end
-
   should 'search in category hierachy' do
     parent = Category.create!(:name => 'Parent Category', :environment => Environment.default)
     child  = Category.create!(:name => 'Child Category', :environment => Environment.default, :parent => parent)
@@ -545,15 +255,6 @@ class SearchControllerTest < ActionController::TestCase
     get :category_index, :category_path => ['parent-category'], :query => 'test_profile', :find_in => ['people']
 
     assert_includes assigns(:results)[:people], p
-  end
-
-  # FIXME how do test link_to_remote?
-  should 'keep asset selection for new searches' do
-    get :index, :query => 'a sample query', :find_in => [ 'people', 'communities' ]
-    assert_tag :tag => 'input', :attributes =>  { :name => 'find_in[]', :value => 'people', :checked => 'checked' }
-    assert_tag :tag => 'input', :attributes =>  { :name => 'find_in[]', :value => 'communities', :checked => 'checked' }
-    assert_no_tag :tag => 'input', :attributes =>  { :name => 'find_in[]', :value => 'enterprises', :checked => 'checked' }
-    assert_no_tag :tag => 'input', :attributes =>  { :name => 'find_in[]', :value => 'products', :checked => 'checked' }
   end
 
   should 'find enterprise by product category' do
@@ -589,57 +290,6 @@ class SearchControllerTest < ActionController::TestCase
     assert_includes assigns(:results)[:events], ev
   end
 
-  should 'search for events in a specific category' do
-    person = create_user('teste').person
-
-    # in category
-    ev1 = create_event(person, :name => 'an event to be found')
-    ev1.add_category @category
-    ev1.save!
-
-    # not in category
-    ev2 = create_event(person, :name => 'another event to be found')
-    ev2.save!
-
-    get :index, :category_path => [ 'my-category' ], :query => 'event found', :find_in => [ 'events' ]
-
-    assert_includes assigns(:results)[:events], ev1
-    assert_not_includes assigns(:results)[:events], ev2
-  end
-
-  # 'assets' outside any category
-  should 'list events in general' do
-    person = create_user('testuser').person
-    person2 = create_user('anotheruser').person
-
-    ev1 = create_event(person, :name => 'one event', :category_ids => [@category.id])
-
-    ev2 = create_event(person2, :name => 'two event', :category_ids => [@category.id])
-
-    get :events
-
-    assert_includes assigns(:results)[:events], ev1
-    assert_includes assigns(:results)[:events], ev2
-  end
-
-  # 'assets' inside a category
-  should 'list events in a specific category' do
-    person = create_user('testuser').person
-
-    # in category
-    ev1 = create_event(person, :name => 'one event', :category_ids => [@category.id])
-    ev2 = create_event(person, :name => 'other event', :category_ids => [@category.id])
-
-    # not in category
-    ev3 = create_event(person, :name => 'another event')
-
-    get :events, :category_path => ['my-category']
-
-    assert_includes assigns(:results)[:events], ev1
-    assert_includes assigns(:results)[:events], ev2
-    assert_not_includes assigns(:results)[:events], ev3
-  end
-
   should 'list events for a given month' do
     person = create_user('testuser').person
 
@@ -651,57 +301,11 @@ class SearchControllerTest < ActionController::TestCase
     assert_equal [ 'upcoming event 1' ], assigns(:results)[:events].map(&:name)
   end
 
-  should 'list events for a given month in a specific category' do
-    person = create_user('testuser').person
-
-    create_event(person, :name => 'upcoming event 1', :category_ids => [@category.id], :start_date => Date.new(2008, 1, 25))
-    create_event(person, :name => 'upcoming event 2', :category_ids => [@category.id], :start_date => Date.new(2008, 4, 27))
-
-    get :events, :category_path => [ 'my-category' ], :year => '2008', :month => '1'
-
-    assert_equal [ 'upcoming event 1' ], assigns(:results)[:events].map(&:name)
-  end
-
-  should 'list upcoming events in a specific category' do
-    person = create_user('testuser').person
-
-    # today is January 15th, 2008
-    Date.expects(:today).returns(Date.new(2008,1,15)).at_least_once
-
-    # in category, but in the past
-    create_event(person, :name => 'past event', :category_ids => [@category.id], :start_date => Date.new(2008, 1, 1))
-
-    # in category, upcoming
-    create_event(person, :name => 'upcoming event 1', :category_ids => [@category.id], :start_date => Date.new(2008, 1, 25))
-    create_event(person, :name => 'upcoming event 2', :category_ids => [@category.id], :start_date => Date.new(2008, 1, 27))
-
-    # not in category
-    create_event(person, :name => 'event not in category')
-
-    get :category_index, :category_path => ['my-category']
-
-    assert_equal [ 'upcoming event 1', 'upcoming event 2' ], assigns(:results)[:events].map(&:name)
-  end
-
-
   %w[ people enterprises articles events communities products ].each do |asset|
     should "render asset-specific template when searching for #{asset}" do
-      get :index, :find_in => [ asset ]
+      get "#{asset}"
       assert_template asset
     end
-  end
-
-  should 'list only categories with products' do
-    cat1 = ProductCategory.create!(:name => 'pc test 1', :environment => Environment.default)
-    cat2 = ProductCategory.create!(:name => 'pc test 2', :environment => Environment.default)
-    ent = create_profile_with_optional_category(Enterprise, 'test ent')
-    
-    cat1.products.create!(:name => 'prod test 1', :enterprise => ent)
-    
-    get :index, :find_in => 'products', :query => 'test'
-
-    assert_tag :attributes => { :id => "product-categories-menu" }, :descendant => { :tag => 'a', :content => /pc test 1/ }
-    assert_no_tag :attributes => { :id => "product-categories-menu" }, :descendant => { :tag => 'a', :content => /pc test c/ }
   end
 
   should 'display only within a product category when specified' do
@@ -716,120 +320,17 @@ class SearchControllerTest < ActionController::TestCase
   end
 
   should 'display properly in conjuntion with a category' do
+
     cat = Category.create(:name => 'cat', :environment => Environment.default)
     prod_cat1 = ProductCategory.create!(:name => 'prod cat test 1', :environment => Environment.default)
     prod_cat2 = ProductCategory.create!(:name => 'prod cat test 2', :environment => Environment.default, :parent => prod_cat1)
     ent = create_profile_with_optional_category(Enterprise, 'test ent', cat)
 
-    p = prod_cat2.products.create!(:name => 'prod test 1', :enterprise => ent)
+    product = prod_cat2.products.create!(:name => 'prod test 1', :enterprise_id => ent.id)
 
-    get :index, :find_in => 'products', :category_path => cat.path.split('/'), :product_category => prod_cat1.id
+    get :products, {:category_path => cat.path.split('/'), :product_category => prod_cat1.id}
 
-    assert_includes assigns(:results)[:products], p
-  end
-
-  should 'display only top level product categories that has products when no product category filter is specified' do
-    cat1 = ProductCategory.create(:name => 'prod cat 1', :environment => Environment.default)
-    cat2 = ProductCategory.create(:name => 'prod cat 2', :environment => Environment.default)
-    ent = create_profile_with_optional_category(Enterprise, 'test ent')
-    p = cat1.products.create!(:name => 'prod test 1', :enterprise => ent)
-
-    get :index, :find_in => 'products'
-
-    assert_tag :attributes => { :id => "product-categories-menu" }, :descendant => { :tag => 'a', :content => /prod cat 1/ }
-    assert_no_tag :attributes => { :id => "product-categories-menu" }, :descendant => { :tag => 'a', :content => /prod cat 2/ }
-  end
-
-  should 'display children categories that has products when product category filter is selected' do
-    cat1 = ProductCategory.create(:name => 'prod cat 1', :environment => Environment.default)
-    cat11 = ProductCategory.create(:name => 'prod cat 11', :environment => Environment.default, :parent => cat1)
-    cat12 = ProductCategory.create(:name => 'prod cat 12', :environment => Environment.default, :parent => cat1)
-    ent = create_profile_with_optional_category(Enterprise, 'test ent')
-    p = cat11.products.create!(:name => 'prod test 1', :enterprise => ent)
-
-    get :index, :find_in => 'products', :product_category => cat1.id
-
-    assert_tag :attributes => { :id => "product-categories-menu" }, :descendant => { :tag => 'a', :content => /prod cat 11/ }
-    assert_no_tag :attributes => { :id => "product-categories-menu" }, :descendant => { :tag => 'a', :content => /prod cat 12/ }
-  end
-
-  should 'list only product categories with enterprises' do
-    cat1 = ProductCategory.create!(:name => 'pc test 1', :environment => Environment.default)
-    cat2 = ProductCategory.create!(:name => 'pc test 2', :environment => Environment.default)
-    ent = create_profile_with_optional_category(Enterprise, 'test ent')
-
-    cat1.products.create!(:name => 'prod test 1', :enterprise => ent)
-
-    get :index, :find_in => 'enterprises', :query => 'test'
-
-    assert_tag :attributes => { :id => "product-categories-menu" }, :descendant => { :tag => 'a', :content => /pc test 1/ }
-    assert_no_tag :attributes => { :id => "product-categories-menu" }, :descendant => { :tag => 'a', :content => /pc test c/ }
-  end
-
-  should 'display only enterprises in the product category when its specified' do
-    prod_cat = ProductCategory.create!(:name => 'prod cat test', :environment => Environment.default)
-    ent1 = create_profile_with_optional_category(Enterprise, 'test_ent1')
-    p = prod_cat.products.create!(:name => 'prod test 1', :enterprise => ent1)
-
-    ent2 = create_profile_with_optional_category(Enterprise, 'test_ent2')
-
-    get :index, :find_in => 'enterprises', :product_category => prod_cat.id
-
-    assert_includes assigns(:results)[:enterprises], ent1
-    assert_not_includes assigns(:results)[:enterprises], ent2
-  end
-
-  should 'display enterprises properly in conjuntion with a category' do
-    cat = Category.create(:name => 'cat', :environment => Environment.default)
-    prod_cat1 = ProductCategory.create!(:name => 'prod cat test 1', :environment => Environment.default)
-    prod_cat2 = ProductCategory.create!(:name => 'prod cat test 2', :environment => Environment.default, :parent => prod_cat1)
-    ent1 = create_profile_with_optional_category(Enterprise, 'test ent 1', cat)
-    p = prod_cat2.products.create!(:name => 'prod test 1', :enterprise => ent1)
-
-    ent2 = create_profile_with_optional_category(Enterprise, 'test ent 2', cat)
-
-    get :index, :find_in => 'enterprises', :category_path => cat.path.split('/'), :product_category => prod_cat1.id
-
-    assert_includes assigns(:results)[:enterprises], ent1
-    assert_not_includes assigns(:results)[:enterprises], ent2
-  end
-
-  should 'display only top level product categories that has enterprises when no product category filter is specified' do
-    cat1 = ProductCategory.create(:name => 'prod cat 1', :environment => Environment.default)
-    cat2 = ProductCategory.create(:name => 'prod cat 2', :environment => Environment.default)
-    ent = create_profile_with_optional_category(Enterprise, 'test ent')
-    p = cat1.products.create!(:name => 'prod test 1', :enterprise => ent)
-
-    get :index, :find_in => 'enterprises'
-
-    assert_tag :attributes => { :id => "product-categories-menu" }, :descendant => { :tag => 'a', :content => /prod cat 1/ }
-    assert_no_tag :attributes => { :id => "product-categories-menu" }, :descendant => { :tag => 'a', :content => /prod cat 2/ }
-  end
-
-  should 'display children categories that has enterprises when product category filter is selected' do
-    cat1 = ProductCategory.create(:name => 'prod cat 1', :environment => Environment.default)
-    cat11 = ProductCategory.create(:name => 'prod cat 11', :environment => Environment.default, :parent => cat1)
-    cat12 = ProductCategory.create(:name => 'prod cat 12', :environment => Environment.default, :parent => cat1)
-    ent = create_profile_with_optional_category(Enterprise, 'test ent')
-    p = cat11.products.create!(:name => 'prod test 1', :enterprise => ent)
-
-    get :index, :find_in => 'enterprises', :product_category => cat1.id
-
-    assert_tag :attributes => { :id => "product-categories-menu" }, :descendant => { :tag => 'a', :content => /prod cat 11/ }
-    assert_no_tag :attributes => { :id => "product-categories-menu" }, :descendant => { :tag => 'a', :content => /prod cat 12/ }
-  end
-
-  should 'load two level of the product categories tree' do
-    cat1 = ProductCategory.create(:name => 'prod cat 1', :environment => Environment.default)
-    cat11 = ProductCategory.create(:name => 'prod cat 11', :environment => Environment.default, :parent => cat1)
-    cat12 = ProductCategory.create(:name => 'prod cat 12', :environment => Environment.default, :parent => cat1)
-    ent = create_profile_with_optional_category(Enterprise, 'test ent')
-    p = cat11.products.create!(:name => 'prod test 1', :enterprise => ent)
-
-    get :index, :find_in => 'enterprises'
-
-    assert_tag :attributes => { :id => "product-categories-menu" }, :descendant => { :tag => 'a', :content => /prod cat 11/ }
-    assert_no_tag :attributes => { :id => "product-categories-menu" }, :descendant => { :tag => 'a', :content => /prod cat 12/ }
+    assert_includes assigns(:results)[:products], product
   end
 
   should 'provide calendar for events' do
@@ -844,11 +345,6 @@ class SearchControllerTest < ActionController::TestCase
     assert_tag :tag => 'table', :attributes => {:class => /current-month/}, :descendant => {:tag => 'caption', :content => /August 2008/}
   end
 
-  should 'submit search form to /search when viewing asset' do
-    get :people
-    assert_tag :tag => "form", :attributes => { :class => 'search_form', :action => '/search' }
-  end
-  
   should 'found TextileArticle in articles' do
     person = create_user('teste').person
     art = TextileArticle.create!(:name => 'an text_article article to be found', :profile => person)
@@ -856,33 +352,6 @@ class SearchControllerTest < ActionController::TestCase
     get 'index', :query => 'article found', :find_in => [ 'articles' ]
 
     assert_includes assigns(:results)[:articles], art
-  end
-
-  should 'know about disabled assets' do
-    env = mock
-    %w[ articles enterprises people communities events].each do |item|
-      env.expects(:enabled?).with('disable_asset_' + item).returns(false).at_least_once
-    end
-    env.expects(:enabled?).with('disable_asset_products').returns(true).at_least_once
-    @controller.stubs(:environment).returns(env)
-
-    %w[ articles enterprises people communities events].each do |item|
-      assert_includes @controller.where_to_search.map(&:first), item.to_sym
-    end
-    assert_not_includes @controller.where_to_search.map(&:first), :products
-  end
-
-  should 'search for products by origin and radius correctly' do
-    s = City.create!(:name => 'Salvador', :lat => -12.97, :lng => -38.51, :environment => Environment.default)
-    e1 = create_profile_with_optional_category(Enterprise, 'test ent 1', nil, :lat => -12.97, :lng => -38.51)
-    p1 = e1.products.create!(:name => 'test_product1', :product_category => @product_category)
-    e2 = create_profile_with_optional_category(Enterprise, 'test ent 2', nil, :lat => -14.97, :lng => -40.51)
-    p2 = e2.products.create!(:name => 'test_product2', :product_category => @product_category)
-
-    get :assets, :asset => 'products', :city => s.id, :radius => 15
-
-    assert_includes assigns(:results)[:products], p1
-    assert_not_includes assigns(:results)[:products], p2
   end
 
   should 'show link to article asset in the see all foot link of the articles block in the category page' do
@@ -909,20 +378,6 @@ class SearchControllerTest < ActionController::TestCase
     assert_equal 20, assigns(:results)[:enterprises].total_entries
   end
 
-  should 'add link to list in all categories when in a category' do
-    ['people', 'enterprises', 'products', 'communities', 'articles'].each do |asset|
-      get asset, :category_path => [ 'my-category' ]
-      assert_tag :tag => 'div', :content => 'In all categories'
-    end
-  end
-
-  should 'not add link to list in all categories when not in a category' do
-    ['people', 'enterprises', 'products', 'communities', 'articles'].each do |asset|
-      get asset
-      assert_no_tag :tag => 'div', :content => 'In all categories'
-    end
-  end
-
   should 'find products when enterprises has own hostname' do
     ent = create_profile_with_optional_category(Enterprise, 'teste')
     ent.domains << Domain.new(:name => 'testent.com'); ent.save!
@@ -938,12 +393,14 @@ class SearchControllerTest < ActionController::TestCase
   end
 
   should 'add script tag for google maps if searching enterprises' do
+    ent = create_profile_with_optional_category(Enterprise, 'teste')
     get 'index', :query => 'enterprise', :display => 'map', :find_in => ['enterprises']
 
     assert_tag :tag => 'script', :attributes => { :src => 'http://maps.google.com/maps?file=api&amp;v=2&amp;key=ENVIRONMENT_KEY'}
   end
 
   should 'not add script tag for google maps if searching articles' do
+    ent = create_profile_with_optional_category(Enterprise, 'teste')
     get 'index', :query => 'article', :display => 'map', :find_in => ['articles']
 
     assert_no_tag :tag => 'script', :attributes => { :src => 'http://maps.google.com/maps?file=api&amp;v=2&amp;key=ENVIRONMENT_KEY'}
@@ -970,34 +427,6 @@ class SearchControllerTest < ActionController::TestCase
     assert_tag :tag => 'a', :content => /Joao Birthday/
   end
 
-  should 'filter events by category' do
-    person = create_user('anotheruser').person
-
-    searched_category = Category.create!(:name => 'Category with events', :environment => Environment.default)
-
-    event_in_searched_category = create_event(person, :name => 'Maria Birthday', :start_date => Date.today, :category_ids => [searched_category.id])
-    event_in_non_searched_category = create_event(person, :name => 'Joao Birthday', :start_date => Date.today, :category_ids => [@category.id])
-
-    get :events, :category_path => ['category-with-events']
-
-    assert_includes assigns(:events_of_the_day), event_in_searched_category
-    assert_not_includes assigns(:events_of_the_day), event_in_non_searched_category
-  end
-
-  should 'filter events by category of specific day' do
-    person = create_user('anotheruser').person
-
-    searched_category = Category.create!(:name => 'Category with events', :environment => Environment.default)
-
-    event_in_searched_category = create_event(person, :name => 'Maria Birthday', :start_date => Date.new(2009, 10, 28), :category_ids => [searched_category.id])
-    event_in_non_searched_category = create_event(person, :name => 'Joao Birthday', :start_date => Date.new(2009, 10, 28), :category_ids => [@category.id])
-
-    get :events_by_day, :year => 2009, :month => 10, :day => 28, :category_id => searched_category.id
-
-    assert_tag :tag => 'a', :content => /Maria Birthday/
-    assert_no_tag :tag => 'a', :content => /Joao Birthday/
-  end
-
   should 'ignore filter of events if category not exists' do
     person = create_user('anotheruser').person
     create_event(person, :name => 'Joao Birthday', :start_date => Date.new(2009, 10, 28), :category_ids => [@category.id])
@@ -1011,149 +440,17 @@ class SearchControllerTest < ActionController::TestCase
     assert_tag :tag => 'a', :content => /Maria Birthday/
   end
 
-  should 'search for people' do
-    Person.delete_all
-    small = create(Person, :name => 'A small person for testing', :user_id => 1)
-    create(Person, :name => 'A big person for testing', :user_id => 2)
-
-    get :people, :query => 'small'
-    assert_equal [small], assigns(:results)
-  end
-
-  should 'list all people order by more recent one by default' do
-    Person.delete_all
-    p1 = create(Person, :name => 'Testing person 1', :user_id => 1, :created_at => DateTime.now - 2)
-    p2 = create(Person, :name => 'Testing person 2', :user_id => 2, :created_at => DateTime.now - 1)
-    p3 = create(Person, :name => 'Testing person 3', :user_id => 3)
-
-    get :people
-    assert_equal [p3,p2,p1] , assigns(:results)
-  end
-
   should 'paginate search of people in groups of 27' do
     Person.delete_all
 
     1.upto(30).map do |n|
-      create(Person, :name => 'Testing person', :user_id => n)
+      create(User)    
     end
 
     get :people
-    assert_equal 30 , Person.count
-    assert_equal 27 , assigns(:results).count
+    assert_equal 30, Person.count
+    assert_equal 27, assigns(:results).count
     assert_tag :a, '', :attributes => {:class => 'next_page'}
-  end
-
-  should 'paginate ferret search of people in groups of 27' do
-    Person.delete_all
-
-    1.upto(30).map do |n|
-      create(Person, :name => 'Testing person', :user_id => n)
-    end
-
-    get :people, :query => 'Testing'
-    assert_equal 27 , assigns(:results).count
-    assert_tag :a, '', :attributes => {:class => 'next_page'}
-  end
-
-  should 'not return nil results in the more_active people list' do
-    Profile.delete_all
-    p1 = fast_create(Person)
-    p2 = fast_create(Person)
-    p3 = fast_create(Person)
-    fast_create(Article, :profile_id => p1, :created_at => 1.day.ago)
-    fast_create(Article, :profile_id => p2, :created_at => 1.day.ago)
-    fast_create(Article, :profile_id => p2, :created_at => 1.day.ago)
-    fast_create(Article, :profile_id => p2, :created_at => 1.day.ago)
-    fast_create(Article, :profile_id => p3, :created_at => 1.day.ago)
-
-    per_page = 1
-    @controller.stubs(:per_page).returns(per_page)
-
-    get :people, :filter => 'more_active'
-
-    assert_equal Person.count/per_page, assigns(:results).total_entries
-  end
-
-  should 'list all people filter by more active' do
-    Person.delete_all
-    p1 = create(Person, :name => 'Testing person 1', :user_id => 1)
-    p2 = create(Person, :name => 'Testing person 2', :user_id => 2)
-    p3 = create(Person, :name => 'Testing person 3', :user_id => 3)
-    ActionTracker::Record.delete_all
-    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => p1, :created_at => Time.now)
-    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => p2, :created_at => Time.now)
-    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => p2, :created_at => Time.now)
-    get :people, :filter => 'more_active'
-    assert_equal [p2,p1,p3] , assigns(:results)
-  end
-
-  should 'filter more popular people' do
-    Person.delete_all
-    p1 = create(Person, :name => 'Testing person 1', :user_id => 1)
-    p2 = create(Person, :name => 'Testing person 2', :user_id => 2)
-    p3 = create(Person, :name => 'Testing person 3', :user_id => 3)
-
-    p1.add_friend(p2)
-    p2.add_friend(p1)
-    p2.add_friend(p3)
-    get :people, :filter => 'more_popular'
-    assert_equal [p2,p1,p3] , assigns(:results)
-  end
-
-  should 'set filter be only the hardcoded one' do
-    get :people, :filter => 'more_recent'
-    assert_equal 'more_recent' , assigns(:filter)
-    get :people, :filter => 'more_active'
-    assert_equal 'more_active' , assigns(:filter)
-    get :people, :filter => 'more_popular'
-    assert_equal 'more_popular' , assigns(:filter)
-    get :people, :filter => 'more_anything'
-    assert_equal 'more_recent' , assigns(:filter)
-
-    get :communities, :filter => 'more_recent'
-    assert_equal 'more_recent' , assigns(:filter)
-    get :communities, :filter => 'more_active'
-    assert_equal 'more_active' , assigns(:filter)
-    get :communities, :filter => 'more_popular'
-    assert_equal 'more_popular' , assigns(:filter)
-    get :communities, :filter => 'more_anything'
-    assert_equal 'more_recent' , assigns(:filter)
-  end
-
-  should 'the people filter define the title' do
-    get :people, :filter => 'more_recent'
-    assert_equal 'More recent people from network' , assigns(:filter_title)
-    assert_tag :h1, :content => 'More recent people from network'
-    get :people, :filter => 'more_active'
-    assert_equal 'More active people from network' , assigns(:filter_title)
-    assert_tag :h1, :content => 'More active people from network'
-    get :people, :filter => 'more_popular'
-    assert_equal 'More popular people from network' , assigns(:filter_title)
-    assert_tag :h1, :content => 'More popular people from network'
-    get :people, :filter => 'more_anything'
-    assert_equal 'More recent people from network' , assigns(:filter_title)
-    assert_tag :h1, :content => 'More recent people from network'
-    get :communities, :filter => 'more_recent'
-
-    assert_equal 'More recent communities from network' , assigns(:filter_title)
-    assert_tag :h1, :content => 'More recent communities from network'
-    get :communities, :filter => 'more_active'
-    assert_equal 'More active communities from network' , assigns(:filter_title)
-    assert_tag :h1, :content => 'More active communities from network'
-    get :communities, :filter => 'more_popular'
-    assert_equal 'More popular communities from network' , assigns(:filter_title)
-    assert_tag :h1, :content => 'More popular communities from network'
-    get :communities, :filter => 'more_anything'
-    assert_equal 'More recent communities from network' , assigns(:filter_title)
-    assert_tag :h1, :content => 'More recent communities from network'
-  end
-
-  should 'search for community' do
-    small = create(Community, :name => 'A small community for testing')
-    create(Community, :name => 'A big community for testing')
-
-    get :communities, :query => 'small'
-    assert_equal [small], assigns(:results)
   end
 
   should 'list all community order by more recent one by default' do
@@ -1162,7 +459,7 @@ class SearchControllerTest < ActionController::TestCase
     c3 = create(Community, :name => 'Testing community 3')
 
     get :communities
-    assert_equal [c3,c2,c1] , assigns(:results)
+    assert_equal [c3,c2,c1] , assigns(:results)[:communities]
   end
 
   should 'paginate search of communities in groups of 27' do
@@ -1176,36 +473,6 @@ class SearchControllerTest < ActionController::TestCase
     assert_tag :a, '', :attributes => {:class => 'next_page'}
   end
 
-  should 'paginate ferret search of communities in groups of 27' do
-    1.upto(30).map do |n|
-      create(Community, :name => 'Testing community')
-    end
-
-    get :communities, :query => 'Testing'
-    assert_equal 27 , assigns(:results).count
-    assert_tag :a, '', :attributes => {:class => 'next_page'}
-  end
-
-  should 'not return nil results in the more_active communities list' do
-    Profile.delete_all
-    c1 = fast_create(Community)
-    c2 = fast_create(Community)
-    c3 = fast_create(Community)
-    fast_create(Article, :profile_id => c1, :created_at => 1.day.ago)
-    fast_create(Article, :profile_id => c2, :created_at => 1.day.ago)
-    fast_create(Article, :profile_id => c2, :created_at => 1.day.ago)
-    fast_create(Article, :profile_id => c2, :created_at => 1.day.ago)
-    fast_create(Article, :profile_id => c3, :created_at => 1.day.ago)
-
-    per_page = 1
-    @controller.stubs(:per_page).returns(per_page)
-
-    get :communities, :filter => 'more_active'
-
-    assert_equal Community.count/per_page, assigns(:results).total_pages
-  end
-
-
   should 'list all communities filter by more active' do
     person = fast_create(Person)
     c1 = create(Community, :name => 'Testing community 1')
@@ -1216,22 +483,7 @@ class SearchControllerTest < ActionController::TestCase
     fast_create(ActionTracker::Record, :target_id => c2, :user_type => 'Profile', :user_id => person, :created_at => Time.now)
     fast_create(ActionTracker::Record, :target_id => c2, :user_type => 'Profile', :user_id => person, :created_at => Time.now)
     get :communities, :filter => 'more_active'
-    assert_equal [c2,c1,c3] , assigns(:results)
-  end
-
-  should 'filter more popular communities' do
-    Person.delete_all
-    Community.delete_all
-    c1 = create(Community, :name => 'Testing community 1')
-    c2 = create(Community, :name => 'Testing community 2')
-
-    p1 = create(Person, :name => 'Testing person 1', :user_id => 1)
-    p2 = create(Person, :name => 'Testing person 2', :user_id => 2)
-    c1.add_member(p1)
-    c2.add_member(p1)
-    c2.add_member(p2)
-    get :communities, :filter => 'more_popular'
-    assert_equal [c2,c1] , assigns(:results)
+    assert_equal [c2,c1,c3] , assigns(:results)[:communities]
   end
 
   should "only include visible people in more_recent filter" do
