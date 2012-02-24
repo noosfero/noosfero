@@ -70,7 +70,7 @@ class SearchControllerTest < ActionController::TestCase
     person = fast_create(Person)
     art = create_article_with_optional_category('an article to be found', person)
 
-    get 'index', :query => 'article found', :find_in => [ 'articles' ]
+    get 'articles', :query => 'article found'
     assert_includes assigns(:results)[:articles], art
   end
 
@@ -89,7 +89,7 @@ class SearchControllerTest < ActionController::TestCase
 
   should 'find enterprises' do
     ent = create_profile_with_optional_category(Enterprise, 'teste')
-    get 'index', :query => 'teste', :find_in => [ 'enterprises' ]
+    get 'enterprises', :query => 'teste'
     assert_includes assigns(:results)[:enterprises], ent
   end
 
@@ -104,7 +104,7 @@ class SearchControllerTest < ActionController::TestCase
 
   should 'find people' do
     p1 = create_user('people_1').person; p1.name = 'a beautiful person'; p1.save!
-    get :index, :query => 'beautiful', :find_in => [ 'people' ]
+    get :people, :query => 'beautiful'
     assert_includes assigns(:results)[:people], p1
   end
 
@@ -122,7 +122,7 @@ class SearchControllerTest < ActionController::TestCase
 
   should 'find communities' do
     c1 = create_profile_with_optional_category(Community, 'a beautiful community')
-    get :index, :query => 'beautiful', :find_in => [ 'communities' ]
+    get :communities, :query => 'beautiful'
     assert_includes assigns(:results)[:communities], c1
   end
 
@@ -138,7 +138,7 @@ class SearchControllerTest < ActionController::TestCase
   should 'find products' do
     ent = create_profile_with_optional_category(Enterprise, 'teste')
     prod = ent.products.create!(:name => 'a beautiful product', :product_category => @product_category)
-    get 'index', :query => 'beautiful', :find_in => ['products']
+    get :products, :query => 'beautiful'
     assert_includes assigns(:results)[:products], prod
   end
 
@@ -169,13 +169,13 @@ class SearchControllerTest < ActionController::TestCase
     end
   
     enterprise = fast_create(Enterprise)
-    product = fast_create(Product, :enterprise_id => enterprise.id, :name => "produto1")
+    product = fast_create(Product, {:enterprise_id => enterprise.id, :name => "produto1"}, :search => true)
 
     e = Environment.default
     e.enable_plugin(Plugin1.name)
     e.enable_plugin(Plugin2.name)
 
-    get :assets, {:asset => 'products', :query => 'produto1'}
+    get :products, :query => 'produto1'
 
     assert_tag :tag => 'span', :content => 'This is Plugin1 speaking!', :attributes => {:id => 'plugin1'}
     assert_tag :tag => 'span', :content => 'This is Plugin2 speaking!', :attributes => {:id => 'plugin2'}
@@ -193,7 +193,7 @@ class SearchControllerTest < ActionController::TestCase
       end
     end
     enterprise = fast_create(Enterprise)
-    product = fast_create(Product, :enterprise_id => enterprise.id, :name => "produto1")
+    product = fast_create(Product, {:enterprise_id => enterprise.id, :name => "produto1"}, :search => true)
 
     environment = Environment.default
     environment.enable_plugin(Plugin1.name)
@@ -201,8 +201,8 @@ class SearchControllerTest < ActionController::TestCase
 
     get :products, :query => "produto1"
 
-    assert_tag :tag => 'li', :content => /Property1/, :child => {:tag => 'a', :attributes => {:href => '/plugin1'}, :content => product.name}
-    assert_tag :tag => 'li', :content => /Property2/, :child => {:tag => 'a', :attributes => {:href => '/plugin2'}, :content => product.name}
+    assert_tag :tag => 'div', :content => /Property1/, :child => {:tag => 'a', :attributes => {:href => '/plugin1'}, :content => product.name}
+    assert_tag :tag => 'div', :content => /Property2/, :child => {:tag => 'a', :attributes => {:href => '/plugin2'}, :content => product.name}
   end
 
   should 'paginate enterprise listing' do
@@ -252,7 +252,7 @@ class SearchControllerTest < ActionController::TestCase
 
     p = create_profile_with_optional_category(Person, 'test_profile', child)
 
-    get :category_index, :category_path => ['parent-category'], :query => 'test_profile', :find_in => ['people']
+    get :category_index, :category_path => ['parent-category'], :query => 'test_profile'
 
     assert_includes assigns(:results)[:people], p
   end
@@ -285,7 +285,7 @@ class SearchControllerTest < ActionController::TestCase
     person = create_user('teste').person
     ev = create_event(person, :name => 'an event to be found')
 
-    get 'index', :query => 'event found', :find_in => [ 'events' ]
+    get :events, :query => 'event found'
 
     assert_includes assigns(:results)[:events], ev
   end
@@ -314,7 +314,7 @@ class SearchControllerTest < ActionController::TestCase
 
     p = prod_cat.products.create!(:name => 'prod test 1', :enterprise => ent)
 
-    get :index, :find_in => 'products', :product_category => prod_cat.id
+    get :products, :product_category => prod_cat.id
 
     assert_includes assigns(:results)[:products], p
   end
@@ -328,13 +328,13 @@ class SearchControllerTest < ActionController::TestCase
 
     product = prod_cat2.products.create!(:name => 'prod test 1', :enterprise_id => ent.id)
 
-    get :products, {:category_path => cat.path.split('/'), :product_category => prod_cat1.id}
+    get :products, :category_path => cat.path.split('/'), :product_category => prod_cat1.id
 
     assert_includes assigns(:results)[:products], product
   end
 
   should 'provide calendar for events' do
-    get :index, :find_in => [ 'events' ]
+    get :events
     assert_equal 0, assigns(:calendar).size % 7
   end
 
@@ -349,14 +349,14 @@ class SearchControllerTest < ActionController::TestCase
     person = create_user('teste').person
     art = TextileArticle.create!(:name => 'an text_article article to be found', :profile => person)
 
-    get 'index', :query => 'article found', :find_in => [ 'articles' ]
+    get 'articles', :query => 'article found'
 
     assert_includes assigns(:results)[:articles], art
   end
 
   should 'show link to article asset in the see all foot link of the articles block in the category page' do
     a = create_user('test1').person.articles.create!(:name => 'an article to be found')
-    a.add_category @category
+    a.categories << @category
 
     get :category_index, :category_path => [ 'my-category' ]
     assert_tag :tag => 'div', :attributes => {:class => /search-results-articles/} , :descendant => {:tag => 'a', :attributes => { :href => '/search/articles/my-category'}}
@@ -382,40 +382,40 @@ class SearchControllerTest < ActionController::TestCase
     ent = create_profile_with_optional_category(Enterprise, 'teste')
     ent.domains << Domain.new(:name => 'testent.com'); ent.save!
     prod = ent.products.create!(:name => 'a beautiful product', :product_category => @product_category)
-    get 'index', :query => 'beautiful', :find_in => ['products']
+    get 'products', :query => 'beautiful'
     assert_includes assigns(:results)[:products], prod
   end
 
   should 'add script tag for google maps if searching products' do
-    get 'index', :query => 'product', :display => 'map', :find_in => ['products']
+    get 'products', :query => 'product', :display => 'map'
 
-    assert_tag :tag => 'script', :attributes => { :src => 'http://maps.google.com/maps?file=api&amp;v=2&amp;key=ENVIRONMENT_KEY'}
+    assert_tag :tag => 'script', :attributes => { :src => 'http://maps.google.com/maps/api/js?sensor=true'}
   end
 
   should 'add script tag for google maps if searching enterprises' do
     ent = create_profile_with_optional_category(Enterprise, 'teste')
-    get 'index', :query => 'enterprise', :display => 'map', :find_in => ['enterprises']
+    get 'enterprises', :query => 'enterprise', :display => 'map'
 
-    assert_tag :tag => 'script', :attributes => { :src => 'http://maps.google.com/maps?file=api&amp;v=2&amp;key=ENVIRONMENT_KEY'}
+    assert_tag :tag => 'script', :attributes => { :src => 'http://maps.google.com/maps/api/js?sensor=true'}
   end
 
   should 'not add script tag for google maps if searching articles' do
     ent = create_profile_with_optional_category(Enterprise, 'teste')
-    get 'index', :query => 'article', :display => 'map', :find_in => ['articles']
+    get 'articles', :query => 'article', :display => 'map'
 
-    assert_no_tag :tag => 'script', :attributes => { :src => 'http://maps.google.com/maps?file=api&amp;v=2&amp;key=ENVIRONMENT_KEY'}
+    assert_no_tag :tag => 'script', :attributes => { :src => 'http://maps.google.com/maps/api/js?sensor=true'}
   end
 
   should 'not add script tag for google maps if searching people' do
-    get 'index', :query => 'person', :display => 'map', :find_in => ['people']
+    get 'people', :query => 'person', :display => 'map'
 
-    assert_no_tag :tag => 'script', :attributes => { :src => 'http://maps.google.com/maps?file=api&amp;v=2&amp;key=ENVIRONMENT_KEY'}
+    assert_no_tag :tag => 'script', :attributes => { :src => 'http://maps.google.com/maps/api/js?sensor=true'}
   end
 
   should 'not add script tag for google maps if searching communities' do
-    get 'index', :query => 'community', :display => 'map', :find_in => ['communities']
+    get 'communities', :query => 'community', :display => 'map'
 
-    assert_no_tag :tag => 'script', :attributes => { :src => 'http://maps.google.com/maps?file=api&amp;v=2&amp;key=ENVIRONMENT_KEY'}
+    assert_no_tag :tag => 'script', :attributes => { :src => 'http://maps.google.com/maps/api/js?sensor=true'}
   end
 
   should 'show events of specific day' do
@@ -440,16 +440,16 @@ class SearchControllerTest < ActionController::TestCase
     assert_tag :tag => 'a', :content => /Maria Birthday/
   end
 
-  should 'paginate search of people in groups of 27' do
+  should "paginate search of people in groups of #{SearchController::BLOCKS_SEARCH_LIMIT}" do
     Person.delete_all
 
-    1.upto(30).map do |n|
-      create(User)    
+    1.upto(SearchController::BLOCKS_SEARCH_LIMIT+3).map do |n|
+      fast_create Person, {:name => 'Testing person'}
     end
 
     get :people
-    assert_equal 30, Person.count
-    assert_equal 27, assigns(:results).count
+    assert_equal SearchController::BLOCKS_SEARCH_LIMIT+3, Person.count
+    assert_equal SearchController::BLOCKS_SEARCH_LIMIT, assigns(:results)[:people].count
     assert_tag :a, '', :attributes => {:class => 'next_page'}
   end
 
@@ -462,14 +462,14 @@ class SearchControllerTest < ActionController::TestCase
     assert_equal [c3,c2,c1] , assigns(:results)[:communities]
   end
 
-  should 'paginate search of communities in groups of 27' do
-    1.upto(30).map do |n|
-      create(Community, :name => 'Testing community')
+  should "paginate search of communities in groups of #{SearchController::BLOCKS_SEARCH_LIMIT}" do
+    1.upto(SearchController::BLOCKS_SEARCH_LIMIT+3).map do |n|
+      fast_create Community, {:name => 'Testing community'}
     end
 
     get :communities
-    assert_equal 30 , Community.count
-    assert_equal 27 , assigns(:results).count
+    assert_equal SearchController::BLOCKS_SEARCH_LIMIT+3, Community.count
+    assert_equal SearchController::BLOCKS_SEARCH_LIMIT, assigns(:results)[:communities].count
     assert_tag :a, '', :attributes => {:class => 'next_page'}
   end
 
