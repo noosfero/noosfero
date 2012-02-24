@@ -1,6 +1,7 @@
 class Product < ActiveRecord::Base
   belongs_to :enterprise
   has_one :region, :through => :enterprise
+  validates_presence_of :enterprise
 
   belongs_to :product_category
 

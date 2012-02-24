@@ -200,7 +200,7 @@ class ProductTest < ActiveSupport::TestCase
   end
 
   should 'use name of category when has no name yet' do
-    product = Product.new(:product_category => @product_category)
+    product = Product.new(:product_category => @product_category, :enterprise_id => @profile.id)
     assert product.valid?
     assert_equal product.name, @product_category.name
   end
@@ -331,7 +331,7 @@ class ProductTest < ActiveSupport::TestCase
     p1 = Product.create!(:name => 'some thing', :product_category => @product_category, :enterprise_id => @profile.id)
     assert_equal Product.find_by_contents('thing')[:results], [p1]
     uses_postgresql 'schema_two'
-    p2 = Product.create!(:name => 'another thing', :product_category => @product_category)
+    p2 = Product.create!(:name => 'another thing', :product_category => @product_category, :enterprise_id => @profile.id)
     assert_not_includes Product.find_by_contents('thing')[:results], p1
     assert_includes Product.find_by_contents('thing')[:results], p2
     uses_postgresql 'schema_one'
