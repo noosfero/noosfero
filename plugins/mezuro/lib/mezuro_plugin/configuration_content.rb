@@ -1,5 +1,7 @@
 class MezuroPlugin::ConfigurationContent < Article
 
+  attr_accessor :metric_ids
+
   def self.short_description
     'Kalibro configuration'
   end

@@ -6,6 +6,7 @@
   rescue
     @configuration = nil
   end
+  @metrics = Kalibro::Client::MetricsClient.all_metrics
 %>
 
 <%= error_messages_for 'kalibro_configuration' %>
@@ -18,3 +19,12 @@
 <%= required f.text_field(:name) %>
 
 <%= f.text_field :description %><br/>
+
+<h3> Metrics </h3>
+<% @metrics.each do |metric| %>
+  <div class="metric">
+    <%= check_box_tag "article[metric_ids][]", metric.id, true, :id => "article_metric_ids_#{metric.id}" %>
+    <%= label_tag "article_metric_ids_#{metric.id}", metric.name %>
+    <%= metric.description %>
+  </div>
+<% end %>

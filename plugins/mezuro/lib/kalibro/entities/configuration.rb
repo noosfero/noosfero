@@ -1,6 +1,6 @@
 class Kalibro::Entities::Configuration < Kalibro::Entities::Entity
 
-  attr_accessor :name, :description, :metric_configuration
+  attr_accessor :name, :description, :metric_configuration, :metric_ids
 
   def metric_configuration=(value)
     @metric_configuration = to_entity_array(value, Kalibro::Entities::MetricConfiguration)
