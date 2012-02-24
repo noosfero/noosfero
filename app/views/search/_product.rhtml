@@ -3,7 +3,7 @@
 
 <li class="search-product-item">
   <div class="search-product-item-first-column">
-    <%= render :partial => 'image', :object => product %>
+    <%= render :partial => 'search/image', :object => product %>
 
     <% if product.available %>
       <% if product.price && product.price > 0 %>
