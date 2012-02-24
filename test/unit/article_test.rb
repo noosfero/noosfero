@@ -756,6 +756,9 @@ class ArticleTest < ActiveSupport::TestCase
     a.category_ids = ['0', c.id, nil]
     assert a.save
     assert_equal [c], a.categories
+
+    a = profile.articles.find_by_name 'a test article'
+    assert_equal [c], a.categories
   end
 
   should 'add owner on cache_key when has profile' do
@@ -1509,7 +1512,7 @@ class ArticleTest < ActiveSupport::TestCase
   should 'index by schema name when database is postgresql' do
     uses_postgresql 'schema_one'
     art1 = Article.create!(:name => 'some thing', :profile_id => @profile.id)
-    assert_equal Article.find_by_contents('thing')[:results], [art1]
+    assert_equal [art1], Article.find_by_contents('thing')[:results]
     uses_postgresql 'schema_two'
     art2 = Article.create!(:name => 'another thing', :profile_id => @profile.id)
     assert_not_includes Article.find_by_contents('thing')[:results], art1
@@ -1559,9 +1562,10 @@ class ArticleTest < ActiveSupport::TestCase
   end
 
   should 'survive to a invalid src attribute while looking for images in body' do
+    domain = Environment.default.domains.first.name
     article = Article.new(:body => "An article with invalid src in img tag <img src='path with spaces.png' />", :profile => @profile)
     assert_nothing_raised URI::InvalidURIError do
-      assert_equal ['http://localhost/path%20with%20spaces.png'], article.body_images_paths
+      assert_equal ["http://#{domain}/path%20with%20spaces.png"], article.body_images_paths
     end
   end
 
