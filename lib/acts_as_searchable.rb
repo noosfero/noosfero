@@ -32,9 +32,10 @@ module ActsAsSearchable
         pg_options[:page] ||= 1
         pg_options[:per_page] ||= 20
         options[:limit] ||= pg_options[:per_page].to_i*pg_options[:page].to_i
-        options[:scores] ||= true;
+        options[:scores] ||= true
+        options[:filter_queries] ||= []
         all_facets_enabled = options.delete(:all_facets)
-        query = !schema_name.empty? ? "+schema_name:\"#{schema_name}\" AND #{query}" : query
+        options[:filter_queries] << "schema_name:\"#{schema_name}\"" unless schema_name.empty?
         results = []
         facets = all_facets = {}
 
