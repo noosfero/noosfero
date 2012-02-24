@@ -5,9 +5,8 @@
     @configuration = @article.title.nil? ? nil : Kalibro::Client::ConfigurationClient.new.configuration(@article.title)
   rescue
     @configuration = nil
-  end
-  @metrics = Kalibro::Client::MetricsClient.all_metrics
-%>
+  end 
+  %>
 
 <%= error_messages_for 'kalibro_configuration' %>
 
@@ -21,10 +20,13 @@
 <%= f.text_field :description %><br/>
 
 <h3> Metrics </h3>
-<% @metrics.each do |metric| %>
-  <div class="metric">
-    <%= check_box_tag "article[metric_ids][]", metric.id, true, :id => "article_metric_ids_#{metric.id}" %>
-    <%= label_tag "article_metric_ids_#{metric.id}", metric.name %>
-    <%= metric.description %>
-  </div>
-<% end %>
+<% @tool_names = Kalibro::Client::BaseToolClient.new
+@tool_names.base_tool_names.each do |collector_name|
+  @collector = @tool_names.base_tool(collector_name)
+  #FIXME dando erro
+  @collector.supported_metrics.each do |metric| %>
+    <div class="metric">
+      <%= label_tag "#{metric.origin}" %>
+    </div>
+  <% end
+end %>

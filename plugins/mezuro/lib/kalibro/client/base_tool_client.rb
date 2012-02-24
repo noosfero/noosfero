@@ -11,6 +11,7 @@ class Kalibro::Client::BaseToolClient
   def base_tool(name)
     hash = @port.request(:get_base_tool, {:base_tool_name => name})[:base_tool]
     Kalibro::Entities::BaseTool.from_hash(hash)
+    #FIXME dando erro
   end
 
 end
