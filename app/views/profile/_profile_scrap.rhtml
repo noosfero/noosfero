@@ -10,7 +10,7 @@
     <% if logged_in? && current_person.follows?(scrap.sender) %>
       <span class='profile-activity-send-reply'><%= link_to_function _('Comment'), "hide_and_show(['#profile-activity-reply-response-#{scrap.id}'],['#profile-activity-reply-#{scrap.id}', '#profile-activity-reply-form-#{scrap.id}']);$('reply_content_#{scrap.id}').value='';$('reply_content_#{scrap.id}').focus();$('scrap_id_#{scrap.id}').value='#{scrap.id}';return false", :class => "profile-send-reply" %></span>
     <% end %>
-    <%= link_to_remote(content_tag(:span, _('Remove')), :url =>{:action => 'remove_scrap', :scrap_id => scrap.id}, :update => "profile-activity-item-#{scrap.id}") if logged_in? && user.can_control_scrap?(scrap) %>
+    <%= link_to_remote(content_tag(:span, _('Remove')), :confirm => _('Are you sure?'), :url =>{:action => 'remove_scrap', :scrap_id => scrap.id}, :update => "profile-activity-item-#{scrap.id}") if logged_in? && user.can_control_scrap?(scrap) %>
   <% end %>
   </div>
   <ul class="profile-activity-scrap-replies">

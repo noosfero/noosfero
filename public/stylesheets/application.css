@@ -5882,8 +5882,8 @@ h1#agenda-title {
 
 #profile-activity li, #profile-network li, #profile-wall li {
   display: block;
-  padding: 10px;
-  margin-bottom: 10px;
+  padding: 3px;
+  margin-bottom: 3px;
   background-color: #fff;
   border-bottom: 1px solid #e8e8e8;
   position: relative;
@@ -5933,6 +5933,15 @@ h1#agenda-title {
   color: #333;
 }
 
+#profile-activity li a, #profile-network li a, #profile-wall li a {
+  font-weight: bold;
+  text-decoration: none;
+}
+
+#profile-activity li a:hover, #profile-network li a:hover, #profile-wall li a:hover {
+  text-decoration: underline;
+}
+
 .profile-activity-text {
   margin: 0;
   color: #000;
@@ -5944,8 +5953,8 @@ h1#agenda-title {
 #profile-network li.profile-activity-item.upload_image span,
 #profile-network li.profile-activity-item.upload_image span img,
 #profile-network li.profile-activity-item.upload_image span a {
-  width: 98px;
-  height: 86px;
+  width: 124px;
+  height: 100px;
   display: block;
   overflow: hidden;
   position: absolute;
@@ -5965,7 +5974,7 @@ h1#agenda-title {
 #profile-network li.profile-activity-item.upload_image span {
   position: relative;
   float: left;
-  margin: 5px 5px 5px 0;
+  margin: 5px 0px 0px 5px;
 }
 
 #profile-wall li.profile-activity-item.upload_image span a,
@@ -5989,6 +5998,7 @@ h1#agenda-title {
   float: none;
   width: auto;
   height: auto;
+  font-weight: normal;
 }
 
 #profile-wall li.profile-activity-item ul.profile-wall-activities-comments,
@@ -6020,8 +6030,8 @@ h1#agenda-title {
   height: 16px;
   display: inline-block;
   position: absolute;
-  top: 5px;
-  right: 5px;
+  top: -4px;
+  right: -16px;
 }
 
 #profile-activity .profile-wall-scrap-replies li,
@@ -6106,10 +6116,13 @@ h1#agenda-title {
   padding: 0;
 }
 
-.profile-wall-actions a,
+#profile-wall li .profile-wall-actions a,
+#profile-activity li .profile-wall-actions a,
+#profile-network li .profile-wall-actions a,
 #profile-wall .profile-wall-send-reply a {
   text-decoration: none;
   color: #333;
+  font-weight: normal;
 }
 
 .profile-wall-actions a:hover,
@@ -6376,6 +6389,7 @@ h1#agenda-title {
   display: inline;
   position: static;
   float: none;
+  font-weight: normal;
 }
 
 #profile-wall .profile-wall-activities-comments .article-comment .button-bar a.button:hover,
@@ -6571,6 +6585,10 @@ h1#agenda-title {
 
 #profile-wall textarea {
   width: 375px;
+}
+
+#profile-wall li textarea {
+  width: 388px;
 }
 
 #profile-wall #leave_scrap textarea {

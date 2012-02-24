@@ -13,7 +13,7 @@
 
   <div class="comment-details">
     <div class="comment-text">
-      <%= link_to(Person.find(comment.author_id).name, Person.find(comment.author_id).url) %><br /><%= txt2html comment.body %>
+      <%= link_to(Person.find(comment.author_id).name, Person.find(comment.author_id).url) %> <%= txt2html comment.body %>
     </div>
     <div class="profile-activity-time">
       <%= time_ago_as_sentence(comment.created_at) %>
