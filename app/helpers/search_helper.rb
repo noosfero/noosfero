@@ -17,7 +17,7 @@ module SearchHelper
   end
 
   def display_results(use_map = false)
-    if params[:display] == 'map' && use_map && GoogleMaps.enabled?(environment.default_hostname)
+    if params[:display] == 'map' && use_map
       partial = 'google_maps'
       klass = 'map'
     else
@@ -31,15 +31,19 @@ module SearchHelper
   def display_map_list_button
     button(:search, params[:display] == 'map' ? _('Display in list') : _('Display in map'),
            params.merge(:display => (params[:display] == 'map' ? 'list' : 'map')),
-           :class => "map-toggle-button" ) if GoogleMaps.enabled?(environment.default_hostname)
+           :class => "map-toggle-button" )
   end
 
   def city_with_state(city)
-    s = city.parent
-    if city and city.kind_of?(City) and s and s.kind_of?(State) and s.acronym 
-      city.name + ', ' + s.acronym
+    if city and city.kind_of?(City) 
+      s = city.parent
+      if s and s.kind_of?(State) and s.acronym 
+        city.name + ', ' + s.acronym
+      else
+        city.name
+      end
     else
-      city.name
+      nil
     end
   end
 
@@ -55,6 +59,7 @@ module SearchHelper
   end
   
   def facet_javascript(input_id, facet, array)
+    array = [] if array.nil?
     hintText = _('Type in an option')
     text_field_tag('facet['+input_id+']', '', :id => input_id) +
       javascript_tag("jQuery.TokenList(jQuery('##{input_id}'), #{array.to_json},
@@ -63,13 +68,13 @@ module SearchHelper
   end
 
   def facet_link_html(facet, params, value, label, count)
-    params = params.dup
+    params = params ? params.dup : {}
     has_extra = label.kind_of?(Array)
     link_label = has_extra ? label[0] : label
     id = facet[:solr_field].to_s
     params[:facet] ||= {}
     params[:facet][id] ||= {}
-    params[:page] = {}
+    params[:page] = {} if params[:page]
 
     selected = facet[:label_id].nil? ? params[:facet][id] == value : params[:facet][id][facet[:label_id]].to_a.include?(value)
 
