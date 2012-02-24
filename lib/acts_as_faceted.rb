@@ -33,7 +33,7 @@ module ActsAsFaceted
       cattr_accessor :facet_category_query
 
       self.facets = options[:fields]
-      self.facets_order = options[:order] || facets
+      self.facets_order = options[:order] || self.facets.keys
       self.facets_results_containers = {:fields => 'facet_fields', :queries => 'facet_queries', :ranges => 'facet_ranges'}
       self.facets_option_for_solr = Hash[facets.select{ |id,data| ! data.has_key?(:queries) }].keys
       self.facets_fields_for_solr = facets.map{ |id,data| {id => data[:type] || :facet} } 
@@ -49,8 +49,7 @@ module ActsAsFaceted
       end
 
       def map_facets_for(environment)
-        list = facets_order ? facets_order : facets.keys
-        list.map do |id|
+        facets_order.map do |id|
           facet = facet_by_id(id)
           next if facet[:type_if] and !facet[:type_if].call(self.new)
 
@@ -65,6 +64,7 @@ module ActsAsFaceted
       end
 
       def map_facet_results(facet, facet_params, facets_data, unfiltered_facets_data = {}, options = {})
+        raise 'Use map_facets_for before this method' if facet[:solr_field].nil?
         facets_data ||= {}
         solr_facet = to_solr_fields_names[facet[:solr_field]]
 
