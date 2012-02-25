@@ -1,6 +1,6 @@
 <script type="text/javascript">
 function submit_comment_form(button) {
-  <% if logged_in? %>
+  <% if pass_without_comment_captcha? %>
   button.form.confirm.value = 'true';
   button.disabled = true;
   button.form.submit();
@@ -42,7 +42,7 @@ function submit_comment_form(button) {
   <%= content_tag('a', '', :name => 'comment_form') + _('Post a comment') %>
 </h4>
 
-<% unless logged_in? %>
+<% unless pass_without_comment_captcha? %>
   <div id="recaptcha-container" style="display: none">
     <h3><%= _('Please type the two words below') %></h3>
     <%= recaptcha_tags(:display => { :theme => 'clean' }, :ajax => true) %>
@@ -72,9 +72,11 @@ function submit_comment_form(button) {
     <%= _('If you are a registered user, you can login and be automatically recognized.') %>
     </p>
 
+  <% end %>
+
+  <% unless pass_without_comment_captcha? %>
     <%= hidden_field_tag(:recaptcha_response_field, nil, :id => nil) %>
     <%= hidden_field_tag(:recaptcha_challenge_field, nil, :id => nil) %>
-
   <% end %>
 
   <%= labelled_form_field(_('Title'), text_field(:comment, :title)) %>

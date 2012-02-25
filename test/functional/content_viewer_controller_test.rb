@@ -1334,4 +1334,32 @@ class ContentViewerControllerTest < ActionController::TestCase
     assert_no_tag :tag => 'body', :attributes => { :class => /profile-homepage/ }
   end
 
+  should 'ask for captcha if user not logged' do
+    article = profile.articles.build(:name => 'test')
+    article.save!
+
+    @controller.stubs(:verify_recaptcha).returns(false)
+    post :view_page, :profile => profile.identifier, :page => ['test'], :comment => {:body => "Some comment...", :author => profile}, :confirm => 'true'
+    assert_not_nil assigns(:comment)
+
+    @controller.stubs(:verify_recaptcha).returns(true)
+    post :view_page, :profile => profile.identifier, :page => ['test'], :comment => {:body => "Some comment...", :author => profile}, :confirm => 'true'
+    assert_nil assigns(:comment)
+  end
+
+  should 'ask for captcha if environment defines even with logged user' do
+    article = profile.articles.build(:name => 'test')
+    article.save!
+    login_as('testinguser')
+    @controller.stubs(:verify_recaptcha).returns(false)
+
+    post :view_page, :profile => profile.identifier, :page => ['test'], :comment => {:body => "Some comment...", :author => profile}, :confirm => 'true'
+    assert_nil assigns(:comment)
+
+    environment.enable('captcha_for_logged_users')
+    environment.save!
+
+    post :view_page, :profile => profile.identifier, :page => ['test'], :comment => {:body => "Some comment...", :author => profile}, :confirm => 'true'
+    assert_not_nil assigns(:comment)
+  end
 end

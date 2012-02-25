@@ -874,9 +874,8 @@ class CmsControllerTest < ActionController::TestCase
 
   should 'offer confirmation to remove article' do
     a = profile.articles.create!(:name => 'my-article')
-    get :destroy, :profile => profile.identifier, :id => a.id
-    assert_response :success
-    assert_tag :tag => 'input', :attributes => {:type => 'submit', :value => 'Yes, I want.' }
+    post :destroy, :profile => profile.identifier, :id => a.id
+    assert_response :redirect
   end
 
   should 'display notify comments option' do
