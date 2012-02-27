@@ -1,4 +1,4 @@
-usr/share/rails                                     usr/share/noosfero/vendor/rails
+usr/share/rails                                     usr/share/rails-ruby1.8
 var/tmp/noosfero                                    usr/share/noosfero/tmp
 var/log/noosfero                                    usr/share/noosfero/log
 etc/noosfero/database.yml                           usr/share/noosfero/config/database.yml
