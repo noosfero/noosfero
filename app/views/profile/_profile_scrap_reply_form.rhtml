@@ -2,7 +2,14 @@
   <div id='profile-wall-reply-form-<%= scrap.id%>' style='display:none;'>
     <p class='profile-wall-reply'>
       <% form_remote_tag :url => {:controller => 'profile', :action => 'leave_scrap'}, :update => "profile_activities", :success =>"hide_and_show(['#profile-wall-reply-form-#{scrap.id}'],['#profile-wall-reply-response-#{scrap.id}'])" do %>
-        <%= text_area :scrap, :content, { :id => "reply_content_#{scrap.id}", :cols => 50, :rows => 1, :class => 'submit-with-keypress' } %>
+        <%= text_area :scrap, :content, { :id => "reply_content_#{scrap.id}",
+                                          :cols => 50,
+                                          :rows => 1,
+                                          :class => 'submit-with-keypress',
+                                          :onfocus => ('if(this.value==this.title){this.value="";this.style.color="#000"};this.style.backgroundImage="url(' + profile_icon(current_person, :icon, false) + ')"' if logged_in?),
+                                          :onblur => ('if(this.value==""){this.value=this.title;this.style.color="#ccc"};this.style.backgroundImage="none"' if logged_in?),
+
+                                        } %>
         <%= hidden_field :scrap, :scrap_id, :id => "scrap_id_#{scrap.id}" %>
         <%= hidden_field_tag 'receiver_id', scrap.sender.id %>
       <% end %>
