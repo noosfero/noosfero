@@ -133,11 +133,6 @@ class Article < ActiveRecord::Base
     article.advertise = true
   end
 
-  after_update :update_creation_activity
-  def update_creation_activity
-    self.activity.touch if self.activity
-  end
-
   # retrieves all articles belonging to the given +profile+ that are not
   # sub-articles of any other article.
   named_scope :top_level_for, lambda { |profile|
