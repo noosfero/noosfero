@@ -2,8 +2,6 @@
 # Added for Ruby-GetText-Package
 #
 
-require 'noosfero'
-
 makemo_stamp = 'tmp/makemo.stamp'
 desc "Create mo-files for L10n"
 task :makemo => makemo_stamp
@@ -40,6 +38,8 @@ end
 desc "Update pot/po files to match new version."
 task :updatepo do
   require 'gettext_rails/tools'
+  require 'noosfero'
+
   GetText::RubyParser::ID << '__'
   GetText::RubyParser::PLURAL_ID << 'n__'
   GetText::ActiveRecordParser.init(:use_classname => false)

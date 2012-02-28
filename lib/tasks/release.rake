@@ -9,7 +9,11 @@ namespace :noosfero do
     end
   end
 
-  version = Noosfero::VERSION
+  def version
+    require 'noosfero'
+    Noosfero::VERSION
+  end
+
   desc 'checks if there is already a tag for the current version'
   task :check_tag do
     sh "git tag | grep '^#{version}$' >/dev/null" do |ok, res|
@@ -23,9 +27,9 @@ namespace :noosfero do
   desc 'checks the version of the Debian package'
   task :check_debian_package do
     debian_version = `dpkg-parsechangelog | grep Version: | cut -d ' ' -f 2`.strip
-    unless debian_version =~ /^#{Noosfero::VERSION}/
-      puts "Version mismatch: Debian version = #{debian_version}, Noosfero upstream version = #{Noosfero::VERSION}"
-      puts "Run `dch -v #{Noosfero::VERSION}` to add a new changelog entry that upgrades the Debian version"
+    unless debian_version =~ /^#{version}/
+      puts "Version mismatch: Debian version = #{debian_version}, Noosfero upstream version = #{version}"
+      puts "Run `dch -v #{version}` to add a new changelog entry that upgrades the Debian version"
       raise "Version mismatch between noosfero version and debian package version"
     end
   end
