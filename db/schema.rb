@@ -255,7 +255,6 @@ ActiveRecord::Schema.define(:version => 20120307200651) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "reports_lower_bound",          :default => 0,         :null => false
-    t.text     "send_email_plugin_allow_to"
   end
 
   create_table "external_feeds", :force => true do |t|
@@ -388,7 +387,7 @@ ActiveRecord::Schema.define(:version => 20120307200651) do
     t.string   "type"
     t.string   "identifier"
     t.integer  "environment_id"
-    t.boolean  "active",                                     :default => true
+    t.boolean  "active",                            :default => true
     t.string   "address"
     t.string   "contact_phone"
     t.integer  "home_page_id"
@@ -399,24 +398,19 @@ ActiveRecord::Schema.define(:version => 20120307200651) do
     t.float    "lat"
     t.float    "lng"
     t.integer  "geocode_precision"
-    t.boolean  "enabled",                                    :default => true
-    t.string   "nickname",                     :limit => 16
+    t.boolean  "enabled",                           :default => true
+    t.string   "nickname",            :limit => 16
     t.text     "custom_header"
     t.text     "custom_footer"
     t.string   "theme"
-    t.boolean  "public_profile",                             :default => true
+    t.boolean  "public_profile",                    :default => true
     t.date     "birth_date"
     t.integer  "preferred_domain_id"
     t.datetime "updated_at"
-    t.boolean  "visible",                                    :default => true
+    t.boolean  "visible",                           :default => true
     t.integer  "image_id"
-    t.boolean  "validated",                                  :default => true
+    t.boolean  "validated",                         :default => true
     t.string   "cnpj"
-    t.boolean  "shopping_cart",                              :default => true
-    t.boolean  "shopping_cart_delivery",                     :default => false
-    t.decimal  "shopping_cart_delivery_price",               :default => 0.0
-    t.integer  "bsc_id"
-    t.string   "company_name"
   end
 
   add_index "profiles", ["environment_id"], :name => "index_profiles_on_environment_id"
@@ -505,7 +499,6 @@ ActiveRecord::Schema.define(:version => 20120307200651) do
     t.datetime "created_at"
     t.string   "target_type"
     t.integer  "image_id"
-    t.integer  "bsc_id"
   end
 
   create_table "thumbnails", :force => true do |t|
