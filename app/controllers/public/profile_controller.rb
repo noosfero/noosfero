@@ -224,7 +224,11 @@ class ProfileController < PublicController
     begin
       raise if !can_edit_profile
       activity = ActionTracker::Record.find(params[:activity_id])
-      activity.destroy
+      if params[:only_hide]
+        activity.update_attribute(:visible, false)
+      else
+        activity.destroy
+      end
       render :text => _('Activity successfully removed.')
     rescue
       render :text => _('You could not remove this activity')

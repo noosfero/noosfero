@@ -80,7 +80,10 @@ class Comment < ActiveRecord::Base
       Comment::Notifier.deliver_mail(comment)
     end
 
-    comment.article.activity.increment!(:comments_count) if comment.source.kind_of?(Article) && comment.article.activity
+    if comment.source.kind_of?(Article) && comment.article.activity
+      comment.article.activity.increment!(:comments_count)
+      comment.article.activity.update_attribute(:visible, true)
+    end
   end
 
   after_destroy do |comment|

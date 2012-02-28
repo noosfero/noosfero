@@ -11,6 +11,6 @@
   <p class='profile-activity-time'><%= time_ago_as_sentence(activity.created_at) %></p>
   <div class='profile-wall-actions'>
     <%= link_to _('Comment'), "#reply_content_#{activity.id}" %>
-    <%= link_to_remote(content_tag(:span, _('Remove')), :url =>{:action => 'remove_activity', :activity_id => activity.id}, :confirm => _('Are you sure?'), :update => "profile-activity-item-#{activity.id}") if logged_in? && current_person == @profile %>
+    <%= link_to_remote(content_tag(:span, _('Remove')), :url =>{:action => 'remove_activity', :activity_id => activity.id, :only_hide => true}, :confirm => _('Are you sure?'), :update => "profile-activity-item-#{activity.id}") if logged_in? && current_person == @profile %>
   </div>
 </div>
