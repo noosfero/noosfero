@@ -4,6 +4,6 @@ class AddCommentCountToActionTracker < ActiveRecord::Migration
   end
 
   def self.down
-    remove_column :action_tracker, :comments_count, :integer, :default => 0
+    remove_column :action_tracker, :comments_count, :integer
   end
 end
