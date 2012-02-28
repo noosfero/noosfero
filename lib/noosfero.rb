@@ -9,7 +9,18 @@ module Noosfero
   end
 
   class << self
-    attr_accessor :locales
+    def locales
+      {
+        'en' => 'English',
+        'pt' => 'Português',
+        'fr' => 'Français',
+        'hy' => 'հայերեն լեզու',
+        'de' => 'Deutsch',
+        'ru' => 'русский язык',
+        'es' => 'Español',
+        'eo' => 'Esperanto'
+      }
+    end
     attr_accessor :default_locale
     def available_locales
       @available_locales ||=
