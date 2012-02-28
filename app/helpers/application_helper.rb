@@ -1217,15 +1217,12 @@ module ApplicationHelper
           else             _('1 minute')
         end
 
-      when 2..44           then _('%{distance} minutes') % { :distance => distance_in_minutes }
-      when 45..89          then _('about 1 hour')
-      when 90..1439        then _('about %{distance} hours') % { :distance => (distance_in_minutes.to_f / 60.0).round }
-      when 1440..2879      then _('1 day')
-      when 2880..43199     then _('%{distance} days') % { :distance => (distance_in_minutes / 1440).round }
-      when 43200..86399    then _('about 1 month')
-      when 86400..525599   then _('%{distance} months') % { :distance => (distance_in_minutes / 43200).round }
-      when 525600..1051199 then _('about 1 year')
-      else                      _('over %{distance} years') % { :distance => (distance_in_minutes / 525600).round }
+      when 2..44           then _('%{distance} minutes ago') % { :distance => distance_in_minutes }
+      when 45..89          then _('about 1 hour ago')
+      when 90..1439        then _('about %{distance} hours ago') % { :distance => (distance_in_minutes.to_f / 60.0).round }
+      when 1440..2879      then _('1 day ago')
+      when 2880..10079     then _('%{distance} days ago') % { :distance => (distance_in_minutes / 1440).round }
+      else                      show_time(from_time)
     end
   end
 
