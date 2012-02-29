@@ -1562,10 +1562,10 @@ class ArticleTest < ActiveSupport::TestCase
   end
 
   should 'survive to a invalid src attribute while looking for images in body' do
-    domain = Environment.default.domains.first.name
+    domain = Environment.default.domains.first || Domain.new(:name => 'localhost')
     article = Article.new(:body => "An article with invalid src in img tag <img src='path with spaces.png' />", :profile => @profile)
     assert_nothing_raised URI::InvalidURIError do
-      assert_equal ["http://#{domain}/path%20with%20spaces.png"], article.body_images_paths
+      assert_equal ["http://#{domain.name}/path%20with%20spaces.png"], article.body_images_paths
     end
   end
 

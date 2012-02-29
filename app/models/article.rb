@@ -114,6 +114,7 @@ class Article < ActiveRecord::Base
     ids.uniq.each do |item|
       add_category(Category.find(item)) unless item.to_i.zero?
     end
+    self.categories(true)
   end
 
   after_create :create_pending_categorizations
