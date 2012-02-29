@@ -19,16 +19,18 @@ end
 
 <%= f.text_field :description %><br/>
 
-<h3> Metrics </h3>
-<table>
-  <% @tool_names = Kalibro::Client::BaseToolClient.new
-  @tool_names.base_tool_names.each do |collector_name|
+<h3>Metrics</h3>
+<% @tool_names = Kalibro::Client::BaseToolClient.new
+@tool_names.base_tool_names.each do |collector_name| %>
+  <h4><%=collector_name%></h4>
+  <table>
+  <%
     @collector = @tool_names.base_tool(collector_name)
     @collector.supported_metrics.each do |metric| %>
 
       <tr class="metric" title="<%= metric.description %>">
         <td>
-          <%= check_box_tag metric.name, metric.name, true %>
+          <%= check_box_tag  collector_name + ":" + metric.name, collector_name + ":" + metric.name, true %>
           <%= label_tag metric.name %>
         </td>
       </tr>
