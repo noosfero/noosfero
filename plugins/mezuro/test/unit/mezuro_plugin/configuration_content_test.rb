@@ -23,11 +23,6 @@ class ConfigurationContentTest < ActiveSupport::TestCase
     assert_equal 'Sets of thresholds to interpret metrics', MezuroPlugin::ConfigurationContent.description
   end
 
-  should 'accept metric_ids' do
-    @content.metric_ids = [1,5]
-    assert_equal @content.metric_ids, [1,5]
-  end
-
   should 'have an html view' do
     assert_not_nil @content.to_html
   end

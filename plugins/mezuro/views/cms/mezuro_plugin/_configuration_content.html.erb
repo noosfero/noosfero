@@ -1,12 +1,12 @@
 <h1> <%= _(MezuroPlugin::ConfigurationContent.short_description) %> </h1>
 
 <%
-  begin
-    @configuration = @article.title.nil? ? nil : Kalibro::Client::ConfigurationClient.new.configuration(@article.title)
-  rescue
-    @configuration = nil
-  end 
-  %>
+begin
+  @configuration = @article.title.nil? ? nil : Kalibro::Client::ConfigurationClient.new.configuration(@article.title)
+rescue
+  @configuration = nil
+end 
+%>
 
 <%= error_messages_for 'kalibro_configuration' %>
 
@@ -20,13 +20,19 @@
 <%= f.text_field :description %><br/>
 
 <h3> Metrics </h3>
-<% @tool_names = Kalibro::Client::BaseToolClient.new
-@tool_names.base_tool_names.each do |collector_name|
-  @collector = @tool_names.base_tool(collector_name)
-  #FIXME dando erro
-  @collector.supported_metrics.each do |metric| %>
-    <div class="metric">
-      <%= label_tag "#{metric.name}" %>
-    </div>
-  <% end
-end %>
+<table>
+  <% @tool_names = Kalibro::Client::BaseToolClient.new
+  @tool_names.base_tool_names.each do |collector_name|
+    @collector = @tool_names.base_tool(collector_name)
+    @collector.supported_metrics.each do |metric| %>
+
+      <tr class="metric" title="<%= metric.description %>">
+        <td>
+          <%= check_box_tag metric.name, metric.name, true %>
+          <%= label_tag metric.name %>
+        </td>
+      </tr>
+
+    <% end %>
+  </table>
+<% end %>
