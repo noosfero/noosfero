@@ -24,8 +24,16 @@ function showProjectContentAfter(seconds){
 }
 
 function setProjectContent(content){
+  var module_name = jQuery(this).attr('data-module-name');
   jQuery('#project-content').html(content);
-  jQuery('.module-result-link').click(showModuleResult);
+  jQuery('.module-result-link').click(showProjectTree);
+  callAction('module_result', {module_name: module_name}, setModuleResult);
+}
+
+function showProjectTree(){ 
+  var module_name = jQuery(this).attr('data-module-name');
+  callAction('project_result', {module_name: module_name}, setProjectContent);
+  return false;
 }
 
 function showModuleResult(){
@@ -33,6 +41,10 @@ function showModuleResult(){
   setModuleResult("Loading results for " + module_name + "...");
   callAction('module_result', {module_name: module_name}, setModuleResult);
   return false;
+}
+
+function setProjectResult(content){
+  jQuery('#project_results').html(content);
 }
 
 function setModuleResult(content){

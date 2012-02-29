@@ -14,6 +14,22 @@ class Kalibro::Entities::ProjectResult < Kalibro::Entities::Entity
     format_milliseconds(@load_time)
   end
 
+  def subtree(name)
+    find_subtree(@source_tree, name)
+  end
+
+  def find_subtree(tree, name)
+    if tree.module.name == name
+      tree
+    elsif !tree.children.nil?
+      tree.children.each do |child| 
+        found = find_subtree(child, name)
+        return found if !found.nil? 
+      end
+      return nil
+    end
+  end
+
   def formatted_analysis_time
      format_milliseconds(@analysis_time)
   end
