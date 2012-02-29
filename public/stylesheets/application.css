@@ -268,6 +268,12 @@ td.field-name {
   vertical-align: top;
 }
 
+table.profile .ui-tabs .ui-tabs-panel {
+  border-left: 0;
+  border-right: 0;
+  border-bottom: 0;
+}
+
 table.profile th {
   border-bottom: 2px solid #eeeeec;
   padding: 10px 0px 0px 0px;

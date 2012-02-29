@@ -35,3 +35,42 @@
 #profile-wall #leave_scrap textarea {
   width: 640px;
 }
+
+#profile-wall li textarea {
+  width: 548px;
+}
+
+.profile-activity-article-forum .profile-activity-lead {
+  background: url(/images/forum-activity-bg-onecol.png);
+  width: 489px;
+}
+
+#profile-wall li.profile-activity-item.upload_image span,
+#profile-wall li.profile-activity-item.upload_image span img,
+#profile-wall li.profile-activity-item.upload_image span a,
+#profile-network li.profile-activity-item.upload_image span,
+#profile-network li.profile-activity-item.upload_image span img,
+#profile-network li.profile-activity-item.upload_image span a {
+  width: 178px;
+  height: 144px;
+}
+
+#profile-wall li.profile-activity-item.upload_image span a,
+#profile-network li.profile-activity-item.upload_image span a {
+  background-image: url(/images/gallery-image-activity-border-onecol.png);
+}
+
+#profile-wall li.profile-activity-item.upload_image .activity-gallery-images-count-1 span,
+#profile-wall li.profile-activity-item.upload_image .activity-gallery-images-count-1 span img,
+#profile-wall li.profile-activity-item.upload_image .activity-gallery-images-count-1 span a,
+#profile-network li.profile-activity-item.upload_image .activity-gallery-images-count-1 span,
+#profile-network li.profile-activity-item.upload_image .activity-gallery-images-count-1 span img,
+#profile-network li.profile-activity-item.upload_image .activity-gallery-images-count-1 span a {
+  width: 549px;
+  height: 254px;
+}
+
+#profile-wall li.profile-activity-item.upload_image .activity-gallery-images-count-1 span a,
+#profile-network li.profile-activity-item.upload_image .activity-gallery-images-count-1 span a {
+  background-image: url(/images/gallery-image-activity-border-big-onecol.png);
+}
