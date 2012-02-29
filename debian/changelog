@@ -1,3 +1,15 @@
+noosfero (0.35.2~1) unstable; urgency=low
+
+  * Bugfixes version release
+  * Added missing Build dependencies to build in a clean chroot: rake, rails,
+    libferret-ruby, libwill-paginate-ruby, tango-icon-theme, rcov
+  * Noosfero needs a functioning MTA: added dependency on exim4 |
+    mail-transport-agent.
+  * /usr/share/dbconfig-common/scripts/noosfero/install/pgsql: run db:migrate
+    just after db:schema:load.
+
+ -- Antonio Terceiro <terceiro@colivre.coop.br>  Wed, 29 Feb 2012 15:22:48 -0300
+
 noosfero (0.35.1) unstable; urgency=low
 
   * Bugfixes version release
