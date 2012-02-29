@@ -43,6 +43,7 @@ Depends:
  dbconfig-common,
  postgresql,
  adduser,
+ exim4 | mail-transport-agent,
  ${misc:Depends}
 Recommends: postgresql-client
 Description: free web-based platform for social networks
