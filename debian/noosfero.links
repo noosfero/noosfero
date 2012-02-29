@@ -17,4 +17,4 @@ var/lib/noosfero-data/public/articles               usr/share/noosfero/public/ar
 var/lib/noosfero-data/public/image_uploads          usr/share/noosfero/public/image_uploads
 var/lib/noosfero-data/public/thumbnails             usr/share/noosfero/public/thumbnails
 usr/share/noosfero/public/designs/themes/noosfero   usr/share/noosfero/public/designs/themes/default
-usr/share/noosfero/public/designs/icons/tango       usr/share/noosfero/public/designs/icons/icons/default
+usr/share/noosfero/public/designs/icons/tango       usr/share/noosfero/public/designs/icons/default
