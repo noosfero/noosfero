@@ -2,6 +2,8 @@ class Kalibro::Entities::Configuration < Kalibro::Entities::Entity
 
   attr_accessor :name, :description, :metric_configuration
 
+  #FIXME Fix metric_configuration / metric_configurationS names
+
   def metric_configuration=(value)
     @metric_configuration = to_entity_array(value, Kalibro::Entities::MetricConfiguration)
   end

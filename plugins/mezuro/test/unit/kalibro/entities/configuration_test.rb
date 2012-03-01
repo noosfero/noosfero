@@ -17,4 +17,13 @@ class ConfigurationTest < ActiveSupport::TestCase
     assert_equal @hash, @configuration.to_hash
   end
 
+  should 'create metric configuration' do
+    configuration = Kalibro::Entities::Configuration.new
+    configuration.create_metric_configurations(["Analizo:Metric Name"])
+    metric_configuration = configuration.metric_configurations[0]
+    assert_equal metric_configuration.code, "Metric Name"
+    assert_equal metric_configuration.metric.name, "Metric Name"
+    assert_equal metric_configuration.metric.origin, "Analizo"
+  end
+
 end
