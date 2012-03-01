@@ -27,7 +27,7 @@ clear_cache() {
 }
 
 do_start() {
-  rake db:migrate
+  rake db:migrate SCHEMA=/dev/null
   clear_cache
   ./script/ferret_server -e $RAILS_ENV start
   environments_loop
