@@ -155,6 +155,17 @@ if [ -z "$command" ]; then
   exit 1
 fi
 shift
+
+
+case "$command" in
+  enableall|disableall|enable|disable|new)
+    if [ ! -w "$enabled_plugins_dir" ]; then
+      echo "E: sorry, you don't have the required permissions to manage plugins"
+      exit 2
+    fi
+    ;;
+esac
+
 case "$command" in
   list|status|usage|enableall|disableall)
     if [ ! -z "$1" ]; then
