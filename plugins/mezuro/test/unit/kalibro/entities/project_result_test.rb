@@ -24,5 +24,14 @@ class ProjectResultTest < ActiveSupport::TestCase
   should 'retrieve formatted analysis time' do
     assert_equal '00:00:01', @result.formatted_analysis_time
   end
-  
+
+  should 'retrieve module node' do
+    node = @result.get_node("main")
+    assert_equal @hash[:source_tree][:child][1], node.to_hash
+  end
+
+  should 'retrive complex module' do
+    node = @result.get_node("org.Window")
+    assert_equal @hash[:source_tree][:child][2][:child].first, node.to_hash
+  end
 end
