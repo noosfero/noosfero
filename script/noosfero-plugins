@@ -18,13 +18,7 @@ enabled_plugins=$(find -L "$enabled_plugins_dir" -maxdepth 1 -mindepth 1 -type d
 disabled_plugins=$(printf "%s\n" $available_plugins $enabled_plugins_dir | sort | uniq -u)
 
 # operation defaults
-read_only=true
 quiet=false
-
-# initialization
-if [ -w "$enabled_plugins_dir" ]; then
-  read_only=false
-fi
 
 _list() {
   for plugin in $available_plugins; do
