@@ -175,7 +175,7 @@ case "$command" in
     ;;
 esac
 
-if [ "$needs_migrate" = 'true' ]; then
+if [ "$needs_migrate" = 'true' ] && [ "$quiet" = 'false' ]; then
   cat <<-EOF
 ====================================================================
 To finish the activation of the plugins you have just enabled, you
