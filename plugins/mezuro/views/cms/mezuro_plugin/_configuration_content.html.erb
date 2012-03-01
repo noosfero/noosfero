@@ -26,12 +26,13 @@ end
   <table>
   <%
     @collector = @tool_names.base_tool(collector_name)
-    @collector.supported_metrics.each do |metric| %>
-
+    @collector.supported_metrics.each do |metric| 
+      
+      metric_id = collector_name + ":" + metric.name %>
       <tr class="metric" title="<%= metric.description %>">
         <td>
-          <%= check_box_tag  collector_name + ":" + metric.name, collector_name + ":" + metric.name, true %>
-          <%= label_tag metric.name %>
+          <%= check_box_tag  "article[metrics][]", metric_id, true, {:id =>  metric_id.gsub(/[\/ ]/, '_')} %>
+          <%= label_tag metric_id, metric.name %>
         </td>
       </tr>
 

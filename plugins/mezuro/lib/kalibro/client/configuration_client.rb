@@ -4,7 +4,7 @@ class Kalibro::Client::ConfigurationClient
     configuration = Kalibro::Entities::Configuration.new
     configuration.name = configuration_content.name
     configuration.description = configuration_content.description
-    configuration.metric_ids = configuration_content.metric_ids
+    configuration.create_metric_configurations(configuration_content.metrics)
     new.save(configuration)
   end
 

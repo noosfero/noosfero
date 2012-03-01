@@ -2,6 +2,14 @@ class Kalibro::Entities::MetricConfiguration < Kalibro::Entities::Entity
 
   attr_accessor :metric, :code, :weight, :aggregation_form, :range
 
+
+  def self.new_with_metric_and_code(metric, code)
+    configuration = new
+    configuration.metric = metric
+    configuration.code = code
+    configuration
+  end
+
   def metric=(value)
     if value.kind_of?(Hash)
       @metric = to_entity(value, Kalibro::Entities::CompoundMetric) if value.has_key?(:script)
