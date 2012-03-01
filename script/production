@@ -27,12 +27,7 @@ clear_cache() {
 }
 
 do_start() {
-  if ! rake db:abort_if_pending_migrations; then
-    echo "========================================"
-    echo "There are pending migrations, please upgrade the database before starting the production server"
-    exit 1
-  fi
-
+  rake db:migrate
   clear_cache
   ./script/ferret_server -e $RAILS_ENV start
   environments_loop
