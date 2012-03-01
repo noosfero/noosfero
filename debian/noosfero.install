@@ -34,3 +34,5 @@ debian/noosfero.yml               etc/noosfero
 
 locale                            usr/share/noosfero
 doc/noosfero                      usr/share/noosfero/doc
+
+debian/noosfero-console           usr/sbin

@@ -1,0 +1,5 @@
+#!/bin/sh
+
+set -e
+
+cd /usr/share/noosfero && su noosfero -c "./script/console production"
