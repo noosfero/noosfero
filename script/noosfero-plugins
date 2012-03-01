@@ -7,7 +7,8 @@ program_name=$(basename $0)
 if [ -e /etc/default/noosfero ]; then
   . /etc/default/noosfero
 else
-  NOOSFERO_DIR=$(readlink -f `dirname $0`/..)
+  this_script=$(readlink -f $0)
+  NOOSFERO_DIR=$(dirname $this_script | xargs dirname)
 fi
 
 # data
@@ -19,6 +20,7 @@ disabled_plugins=$(printf "%s\n" $available_plugins $enabled_plugins_dir | sort 
 
 # operation defaults
 quiet=false
+needs_migrate=false
 
 _list() {
   for plugin in $available_plugins; do
@@ -74,6 +76,7 @@ _enable(){
     plugins_public_dir="$NOOSFERO_DIR/public/plugins"
     test -d "$target/public/" && ln -s "$target/public" "$plugins_public_dir/$plugin"
     _say "$plugin enabled"
+    needs_migrate=true
   fi
 }
 
@@ -159,13 +162,11 @@ case "$command" in
       exit 1
     fi
     _$command
-    exit 0
     ;;
   enable|disable|new)
     for plugin in $@; do
       _$command "$plugin"
     done
-    exit 0
     ;;
   *)
     echo "Unknown command: $command"
@@ -173,3 +174,21 @@ case "$command" in
     exit 1
     ;;
 esac
+
+if [ "$needs_migrate" = 'true' ]; then
+  cat <<-EOF
+====================================================================
+To finish the activation of the plugins you have just enabled, you
+need to restart Noosfero.
+
+If you installed Noosfero manually, run:
+
+  $ ./script/production restart
+
+If you installed Noosfero using Debian packages, run as root:
+
+  # service noosfero restart
+
+====================================================================
+EOF
+fi
