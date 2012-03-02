@@ -1,3 +1,9 @@
+noosfero (0.35.2) unstable; urgency=low
+
+  * Bugfixes version release
+
+ -- Daniela Soares Feitosa <daniela@colivre.coop.br>  Fri, 02 Mar 2012 13:36:02 -0300
+
 noosfero (0.35.2~1) unstable; urgency=low
 
   * Bugfixes version release
