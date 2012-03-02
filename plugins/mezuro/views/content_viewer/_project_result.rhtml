@@ -24,7 +24,7 @@
   <% split_link.each do |link| %>
     <% if split_link.length - 1 != split_link.index(link) %>
       <a href="#" class="module-result-link" data-module-name="<%= link %>">
-        <%= link %>
+        <%= link.split(".").last %>
       </a>
     <% end %>
   <% end %>
