@@ -18,12 +18,13 @@ class MezuroPluginProfileController < ProfileController
   def project_result
     content = profile.articles.find(params[:id])
     project_result = content.project_result
+    project = content.project
     if params[:module_name].nil?
       source_tree = project_result.source_tree
     else
       source_tree = project_result.get_node(params[:module_name])
     end
-    render :partial => 'content_viewer/project_result', :locals => { :project_result => project_result, :source_tree => source_tree }
+    render :partial => 'content_viewer/project_result', :locals => { :project_result => project_result, :source_tree => source_tree, :project => project }
   end
 
   def module_result

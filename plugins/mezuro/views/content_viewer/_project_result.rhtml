@@ -14,6 +14,21 @@
     <td><%= project_result.formatted_analysis_time %></td>
   </tr>
 </table>
-
 <h4><%= _('Source tree') %></h4>
-<%= render :partial => 'content_viewer/source_tree', :locals => { :source_tree => source_tree } %>
+
+<% if !source_tree.nil? && project.name != source_tree.module.name %>
+  <a href="#" class="module-result-link" data-module-name="<%= project_result.source_tree %>">
+    <%= project.name %>
+  </a>
+  <% split_link = source_tree.module.ancestor_names %>
+  <% split_link.each do |link| %>
+    <% if split_link.length - 1 != split_link.index(link) %>
+      <a href="#" class="module-result-link" data-module-name="<%= link %>">
+        <%= link %>
+      </a>
+    <% end %>
+  <% end %>
+  <%= render :partial => 'content_viewer/source_tree', :locals => { :source_tree => source_tree } %>
+<% else %> 
+  <%= render :partial => 'content_viewer/source_tree', :locals => { :source_tree => project_result.source_tree } %>
+<% end %>
