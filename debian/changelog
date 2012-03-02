@@ -1,3 +1,20 @@
+noosfero (0.35.2~1) unstable; urgency=low
+
+  * Bugfixes version release
+  * Added missing Build dependencies to build in a clean chroot: rake, rails,
+    libferret-ruby, libwill-paginate-ruby, tango-icon-theme, rcov
+  * Noosfero needs a functioning MTA: added dependency on exim4 |
+    mail-transport-agent.
+  * /usr/share/dbconfig-common/scripts/noosfero/install/pgsql: run db:migrate
+    just after db:schema:load.
+  * etc/init.d/noosfero: forward fix for the Lenny → Squeeze upgrade. In
+    Squeeze, `rails` is an empty package that depends on rails-ruby1.8, but
+    rails-ruby1.8 is only unpacked *after* noosfero prerm runs. This way, the
+    initscript must be able to stop the services without any of the Rails
+    libraries available.
+
+ -- Antonio Terceiro <terceiro@colivre.coop.br>  Thu, 01 Mar 2012 14:37:15 -0300
+
 noosfero (0.35.1) unstable; urgency=low
 
   * Bugfixes version release
