@@ -37,7 +37,7 @@ class ProfileListBlock < Block
     _('Clicking on the people or groups will take you to their home page.')
   end
 
-  def content
+  def content(args={})
     profiles = self.profile_list
     title = self.view_title
     nl = "\n"

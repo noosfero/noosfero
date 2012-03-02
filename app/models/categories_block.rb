@@ -28,7 +28,7 @@ class CategoriesBlock < Block
     Category.top_level_for(self.owner).from_types(self.category_types)
   end
 
-  def content
+  def content(args={})
     block = self
     lambda do
       render :file => 'blocks/categories', :locals => { :block => block }

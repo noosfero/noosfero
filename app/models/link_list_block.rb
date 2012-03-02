@@ -47,7 +47,7 @@ class LinkListBlock < Block
     _('This block can be used to create a menu of links. You can add, remove and update the links as you wish.')
   end
 
-  def content
+  def content(args={})
     block_title(title) +
     content_tag('ul',
       links.select{|i| !i[:name].blank? and !i[:address].blank?}.map{|i| content_tag('li', link_html(i))}

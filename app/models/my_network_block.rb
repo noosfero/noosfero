@@ -14,7 +14,7 @@ class MyNetworkBlock < Block
     _('This block displays some info about your networking.')
   end
 
-  def content
+  def content(args={})
     block = self
     lambda do
       render :file => 'blocks/my_network', :locals => {

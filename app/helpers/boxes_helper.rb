@@ -81,8 +81,8 @@ module BoxesHelper
     box_decorator == DontMoveBlocks
   end
 
-  def display_block_content(block, main_content = nil)
-    content = block.main? ? wrap_main_content(main_content) : block.content
+  def display_block_content(block, person, main_content = nil)
+    content = block.main? ? wrap_main_content(main_content) : block.content({:person => person})
     result = extract_block_content(content)
     footer_content = extract_block_content(block.footer)
     unless footer_content.blank?
