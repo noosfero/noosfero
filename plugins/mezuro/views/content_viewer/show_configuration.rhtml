@@ -10,3 +10,23 @@
     <td><%= @configuration_content.description %></td>
   </tr>
 </table>
+
+<h3>Metrics</h3>
+<% @tool_names = Kalibro::Client::BaseToolClient.new
+@tool_names.base_tool_names.each do |collector_name| %>
+  <h4><%=collector_name%></h4>
+  <table>
+  <% @configuration_content.metrics.each do |metric|
+    splitted_metric = metric.split(/:/)
+    metric_origin = splitted_metric[0]
+    metric_name = splitted_metric[1]
+    if( metric_origin == collector_name )%>
+      <tr class="metric" title="<%= metric_name %>">
+        <td>
+          <%=metric_name%>
+        </td>
+      </tr>
+    <%end
+    end %>
+  </table>
+<% end %>

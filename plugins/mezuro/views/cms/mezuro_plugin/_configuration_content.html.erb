@@ -31,7 +31,8 @@ end
       metric_id = collector_name + ":" + metric.name %>
       <tr class="metric" title="<%= metric.description %>">
         <td>
-          <%= check_box_tag  "article[metrics][]", metric_id, true, {:id =>  metric_id.gsub(/[\/ ]/, '_')} %>
+          <% #FIXME Tratar caso com 0 métricas selecionadas
+          <%= check_box_tag  "article[metrics][]", metric_id, false, {:id =>  metric_id.gsub(/[\/ ]/, '_')} %>
           <%= label_tag metric_id, metric.name %>
         </td>
       </tr>
