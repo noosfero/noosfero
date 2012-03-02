@@ -172,6 +172,7 @@ class BlogArchivesBlockTest < ActiveSupport::TestCase
     private_post = fast_create(TextileArticle, :profile_id => profile.id, :parent_id => blog.id, :published => false, :published_at => Time.mktime(2012, 'jan'))
 
     assert_match /January \(1\)/, block.content({:person => person})
+    assert_match /January \(1\)/, block.content()
     assert_match /January \(2\)/, block.content({:person => profile})
   end
 end
