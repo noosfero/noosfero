@@ -13,7 +13,7 @@ if test -x /usr/share/noosfero/script/apacheconf; then
   /usr/share/noosfero/script/apacheconf thin > "$cluster_file"
   if test -e "$mongrel_file"; then
     echo "Moving existing $mongrel_file away ..."
-    mv "$mongrel_file" "$mongrel_file".dpkg-old
+    mv "$mongrel_file" "$mongrel_file".bak
     (cd $datadir && ln -sf cluster.conf mongrel.conf)
   fi
 
