@@ -66,7 +66,10 @@ Rails::Initializer.run do |config|
     noosfero:translations:compile
     makemo
   ]
-  unless $PROGRAM_NAME =~ /rake$/ && (ignore_rake_commands.include?(ARGV.first))
+  if $PROGRAM_NAME =~ /rake$/ && (ignore_rake_commands.include?(ARGV.first))
+    $NOOSFERO_LOAD_PLUGINS = false
+  else
+    $NOOSFERO_LOAD_PLUGINS = true
     config.active_record.observers = :article_sweeper, :role_assignment_sweeper, :friendship_sweeper, :category_sweeper, :block_sweeper
   end
   # Make Active Record use UTC-base instead of local time
