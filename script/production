@@ -47,10 +47,10 @@ do_stop() {
     stop_via_pid_file tmp/pids/mongrel.*.pid
 
   ./script/delayed_job stop ||
-    stop_via_pid_file tmp/pids/delayed_job.pid
+    stop_via_pid_file tmp/pids/delayed_job.pid tmp/pids/delayed_job.*.pid
 
   ./script/feed-updater stop ||
-    stop_via_pid_file tmp/pids/feed-updater.default.pid
+    stop_via_pid_file tmp/pids/feed-updater.*.pid
 
   ./script/ferret_server -e $RAILS_ENV stop ||
     stop_via_pid_file tmp/pids/ferret.production.pid
