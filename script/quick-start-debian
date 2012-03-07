@@ -27,6 +27,7 @@ run sudo apt-get -y install libtidy-ruby libhpricot-ruby libmocha-ruby imagemagi
 run cp config/database.yml.sqlite3 config/database.yml
 run rake db:schema:load
 run rake db:data:minimal
+run rake db:test:prepare
 
 # compile translations
 run rake noosfero:translations:compile
