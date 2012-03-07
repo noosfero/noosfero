@@ -436,6 +436,14 @@ class ContentViewerControllerTest < ActionController::TestCase
     end
   end
 
+  should 'list comments if article has them, even if new comments are not allowed' do
+    page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text', :accept_comments => false)
+    page.comments.create!(:author => profile, :title => 'list my comment', :body => 'foo bar baz')
+    get :view_page, :profile => profile.identifier, :page => ['myarticle']
+
+    assert_tag :content => /list my comment/
+  end
+
   should 'show link to publication on view' do
     page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
     login_as(profile.identifier)
