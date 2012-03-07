@@ -1,3 +1,9 @@
+noosfero (0.35.3) unstable; urgency=low
+
+  * Bugfix release.
+
+ -- Antonio Terceiro <terceiro@colivre.coop.br>  Wed, 07 Mar 2012 11:35:06 -0300
+
 noosfero (0.35.2) unstable; urgency=low
 
   * Bugfixes version release
