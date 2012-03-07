@@ -40,10 +40,34 @@ do_start() {
 }
 
 do_stop() {
-  ruby -S thin -C config/thin.yml stop
-  ./script/delayed_job stop
-  ./script/feed-updater stop
-  ./script/ferret_server -e $RAILS_ENV stop
+
+  # During Debian upgrades, it is possible that rails is not available (e.g.
+  # Lenny -> Squeeze), so the programs below might fail. If they do, we fall
+  # back to stopping the daemons by manually reading their PID files, killing
+  # them and wiping the PID files.
+
+  ruby -S thin -C config/thin.yml stop ||
+    stop_via_pid_file tmp/pids/thin.*.pid
+
+  ./script/delayed_job stop ||
+    stop_via_pid_file tmp/pids/delayed_job.pid
+
+  ./script/feed-updater stop ||
+    stop_via_pid_file tmp/pids/feed-updater.default.pid
+
+  ./script/ferret_server -e $RAILS_ENV stop ||
+    stop_via_pid_file tmp/pids/ferret.production.pid
+}
+
+stop_via_pid_file() {
+  for pidfile in $@; do
+    if [ -e "$pidfile" ]; then
+      pid=$(cat $pidfile)
+      echo "Sentign TERM signal to stop $pid ..."
+      kill -TERM "$pid"
+      rm -f $pidfile
+    fi
+  done
 }
 
 environments_loop() {

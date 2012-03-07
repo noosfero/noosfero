@@ -1033,14 +1033,43 @@ class ProfileControllerTest < ActionController::TestCase
     assert_redirected_to :controller => 'account', :action => 'login'
   end
 
-  should "not remove an activity of another user" do
-    login_as(profile.identifier)
-    p1 = fast_create(Person)
-    at = fast_create(ActionTracker::Record, :user_id => p1.id)
-    atn = fast_create(ActionTrackerNotification, :profile_id => p1.id, :action_tracker_id => at.id) 
-    count = ActionTrackerNotification.count
-    post :remove_activity, :profile => profile.identifier, :activity_id => at.id
-    assert_equal count, ActionTrackerNotification.count
+  should "remove an activity of another person if user has permissions to edit it" do
+    user = create_user('owner').person
+    login_as(user.identifier)
+    owner = create_user('owner').person
+    activity = fast_create(ActionTracker::Record, :user_id => owner.id)
+    @controller.stubs(:user).returns(user)
+    @controller.stubs(:profile).returns(owner)
+
+    assert_no_difference ActionTracker::Record, :count do
+      post :remove_activity, :profile => owner.identifier, :activity_id => activity.id
+    end
+
+    owner.environment.add_admin(user)
+
+    assert_difference ActionTracker::Record, :count, -1 do
+      post :remove_activity, :profile => owner.identifier, :activity_id => activity.id
+    end
+  end
+
+  should "remove a notification of another profile if user has permissions to edit it" do
+    user = create_user('owner').person
+    login_as(user.identifier)
+    profile = fast_create(Profile)
+    activity = fast_create(ActionTracker::Record, :user_id => user.id)
+    fast_create(ActionTrackerNotification, :profile_id => profile.id, :action_tracker_id => activity.id)
+    @controller.stubs(:user).returns(user)
+    @controller.stubs(:profile).returns(profile)
+
+    assert_no_difference ActionTrackerNotification, :count do
+      post :remove_notification, :profile => profile.identifier, :activity_id => activity.id
+    end
+
+    profile.environment.add_admin(user)
+
+    assert_difference ActionTrackerNotification, :count, -1 do
+      post :remove_activity, :profile => profile.identifier, :activity_id => activity.id
+    end
   end
 
   should "not show the scrap button on network activity if the user don't follow the user" do
