@@ -9,12 +9,11 @@ development:
   
 production:
   url: http://127.0.0.1:8983/solr
-  jvm_options: -server -Xmx512M -Xms64M
+  jvm_options: -server -Xmx192M -Xms64M
 
-test:
+test: &TEST
   url: http://0.0.0.0:8981/solr
   jvm_options: -server -Xmx128M -Xms16M
 
 cucumber:
-  url: http://0.0.0.0:8980/solr
-  jvm_options: -server -Xmx128M -Xms16M
+  <<: *TEST
