@@ -6,7 +6,7 @@ class RawHTMLBlock < Block
 
   settings_items :html, :type => :text
 
-  def content
+  def content(args={})
     (title.blank? ? '' : block_title(title)) + html.to_s
   end
 

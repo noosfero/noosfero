@@ -16,7 +16,7 @@ class ProductsBlock < Block
     _('This block presents a list of your products.')
   end
 
-  def content
+  def content(args={})
     block_title(title) +
     content_tag(
       'ul',

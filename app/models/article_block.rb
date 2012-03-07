@@ -8,7 +8,7 @@ class ArticleBlock < Block
     _('This block displays one of your articles. You can edit the block to select which one of your articles is going to be displayed in the block.')
   end
 
-  def content
+  def content(args={})
     block = self
     lambda do
       block_title(block.title) +

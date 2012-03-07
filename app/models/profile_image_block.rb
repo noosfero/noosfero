@@ -10,7 +10,7 @@ class ProfileImageBlock < Block
     _('This block presents the profile image')
   end
 
-  def content
+  def content(args={})
     block = self
     s = show_name
     lambda do

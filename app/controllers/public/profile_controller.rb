@@ -211,11 +211,23 @@ class ProfileController < PublicController
 
   def remove_activity
     begin
-      activity = current_person.tracked_actions.find(params[:activity_id])
+      raise if !can_edit_profile
+      activity = ActionTracker::Record.find(params[:activity_id])
       activity.destroy
       render :text => _('Activity successfully removed.')
     rescue
       render :text => _('You could not remove this activity')
+    end
+  end
+
+  def remove_notification
+    begin
+      raise if !can_edit_profile
+      notification = ActionTrackerNotification.find(:first, :conditions => {:profile_id => profile.id, :action_tracker_id => params[:activity_id]})
+      notification.destroy
+      render :text => _('Notification successfully removed.')
+    rescue
+      render :text => _('You could not remove this notification.')
     end
   end
 
@@ -320,4 +332,8 @@ class ProfileController < PublicController
     20
   end
 
+  def can_edit_profile
+    @can_edit_profile ||= user && user.has_permission?('edit_profile', profile)
+  end
+  helper_method :can_edit_profile
 end
