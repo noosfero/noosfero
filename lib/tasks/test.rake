@@ -9,7 +9,6 @@ end
 task :test do
   ENV['RAILS_ENV'] = 'test'
   Rake::Task['solr:stop'].invoke
-  Rake::Task['solr:download'].invoke
   Rake::Task['solr:start'].invoke
   errors = %w(test:units test:functionals test:integration cucumber selenium test:noosfero_plugins).collect do |task|
     begin
