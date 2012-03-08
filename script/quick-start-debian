@@ -22,6 +22,8 @@ run sudo apt-get -y install $runtime_dependencies
 
 # needed for development
 run sudo apt-get -y install libtidy-ruby libhpricot-ruby libmocha-ruby imagemagick po4a xvfb
+run gem install bundler
+run bundle install
 
 # create the database with sample data
 run cp config/database.yml.sqlite3 config/database.yml
