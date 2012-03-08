@@ -111,6 +111,7 @@ class ContentViewerController < ApplicationController
   def add_comment
     @comment.author = user if logged_in?
     @comment.article = @page
+    @comment.ip_address = request.remote_ip
     if (pass_without_comment_captcha? || verify_recaptcha(:model => @comment, :message => _('Please type the words correctly'))) && @comment.save
       @page.touch
       @comment = nil # clear the comment form

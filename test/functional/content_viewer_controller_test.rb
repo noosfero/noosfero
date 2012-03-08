@@ -1370,4 +1370,13 @@ class ContentViewerControllerTest < ActionController::TestCase
     post :view_page, :profile => profile.identifier, :page => ['test'], :comment => {:body => "Some comment...", :author => profile}, :confirm => 'true'
     assert_not_nil assigns(:comment)
   end
+
+  should 'store IP address for comments' do
+    page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
+    @request.stubs(:remote_ip).returns('33.44.55.66')
+    post :view_page, :profile => profile.identifier, :page => [ 'myarticle' ], :comment => { :title => 'title', :body => 'body', :name => "Spammer", :email => 'damn@spammer.com' }, :confirm => 'true'
+    comment = Comment.last
+    assert_equal '33.44.55.66', comment.ip_address
+  end
+
 end
