@@ -1,39 +1,29 @@
+<h4><%= _('Source tree') %></h4>
 <% module_name = source_tree.module.name %>
 <% module_label = "#{module_name} (#{source_tree.module.granularity})" %>
 
+<% if module_name != project_name %>
+  <a href="#" class="source-tree-link" data-module-name="<%= project_name %>">
+    <%= project_name %>
+  </a>
+<% end %>
+
+  <% split_link = source_tree.module.ancestor_names %>
+  <% split_link.each do |link| %>
+    <a href="#" class="source-tree-link" data-module-name="<%= link %>">
+      <%= link.split(".").last %>
+    </a>
+<% end %>
+
 <% if source_tree.children %>
   <table>
-    <tr>
-      <td width="10%">
-        <img alt="+" src="/plugins/mezuro/images/plus.png" class="link"  style="display: none"
-	id="<%= module_name %>_plus" onclick="sourceNodeToggle('<%= module_name %>')"/>
-        <img alt="-" src="/plugins/mezuro/images/minus.png" class="link"
-          id="<%= module_name %>_minus" onclick="sourceNodeToggle('<%= module_name %>')"/>
-      </td>
-      <td>
-        <a href="#" class="module-result-link" data-module-name="<%= module_name %>">
-          <%= module_label %>
-        </a>
-      </td>
-    </tr> 
-    <tr id="<%= module_name %>_hidden">
-      <td></td> 
-      <td style="text-align: left">
-        <% source_tree.children.each do |child| %>
-          <%= render :partial => 'content_viewer/source_tree', :locals => { :source_tree => child } %>
-        <% end %>
-      </td> 
-    </tr> 
-  </table>
-<% else %>
-  <table>
-    <tr>
-      <td width="1"></td>
-      <td>
-        <a href="#" class="module-result-link" data-module-name="<%= module_name %>">
-          <%= module_label %>
-        </a>
-      </td>
-    </tr>
+    <% source_tree.children.each do |child| %>
+      <tr>
+        <td>
+          <a href='#' class="source-tree-link" data-module-name="<%= child.module.name %>">
+	  <%= "#{child.module.name} (#{child.module.granularity})" %>
+        </td>
+      </tr>
+    <% end %>  
   </table>
 <% end %>
