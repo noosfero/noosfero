@@ -18,19 +18,28 @@ AllTasks = TestTasks + CucumberTasks + NoosferoTasks
 
 namespace :test do
   TestTasks.each do |test_task|
-    test_task = test_task.to_s.gsub(/^test:/, '').to_sym #remove namespace :test
+    orig_name = test_task.to_s
+    test_task = test_task.to_s.gsub(/^test:/, '').to_sym #remove namespace :test    
     ENV['RAILS_ENV'] = 'test'
-    override_task test_task => ['solr:start', "#{test_task}:original", "solr:stop"]
+    # force the solr tasks to run with each individual test task
+    override_task test_task do
+      Rake::Task['solr:start'].execute
+      Rake::Task["#{orig_name}:original"].execute
+      Rake::Task['solr:stop'].execute
+    end
   end
 end
 (CucumberTasks + NoosferoTasks).each do |test_task|
   ENV['RAILS_ENV'] = 'test'
-  override_task test_task => ['solr:start', "#{test_task}:original", "solr:stop"]
+  override_task test_task do
+    Rake::Task['solr:start'].execute
+    Rake::Task["#{test_task}:original"].execute
+    Rake::Task['solr:stop'].execute
+  end
 end
 
 task :test do
   ENV['RAILS_ENV'] = 'test'
-  Rake::Task['solr:start'].invoke
   errors = AllTasks.collect do |task|
     begin
       Rake::Task[task].invoke
@@ -39,7 +48,6 @@ task :test do
       task
     end
   end.compact
-  Rake::Task['solr:stop'].invoke
   abort "Errors running #{errors.to_sentence}!" if errors.any?
 end
 
