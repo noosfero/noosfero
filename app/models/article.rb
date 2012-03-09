@@ -561,6 +561,12 @@ class Article < ActiveRecord::Base
     ActionTracker::Record.find_by_target_type_and_target_id 'Article', self.id
   end
 
+  def create_activity
+    if is_trackable? && !image?
+      save_action_for_verb 'create_article', [:name, :url, :lead, :first_image], Proc.new{}, :author
+    end
+  end
+
   def first_image
     img = Hpricot(self.lead.to_s).search('img[@src]').first || Hpricot(self.body.to_s).search('img').first
     img.nil? ? '' : img.attributes['src']

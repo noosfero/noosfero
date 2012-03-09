@@ -976,17 +976,6 @@ assert_equal 'bla', profile.articles.map(&:comments_count)
     assert_not_equal time, ActionTracker::Record.last.updated_at
   end
 
-  should 'update action when comment is created' do
-    article = create(TinyMceArticle, :profile => profile)
-    action = article.activity
-    time = action.updated_at
-
-    Time.stubs(:now).returns(time + 1.day)
-
-    comment = create(Comment, :source => article, :author => profile)
-    assert_equal time + 1.day, article.activity.updated_at
-  end
-
   should 'notifiable is false by default' do
     a = fast_create(Article)
     assert !a.notifiable?
@@ -1011,6 +1000,15 @@ assert_equal 'bla', profile.articles.map(&:comments_count)
     a = Article.create! :name => 'bar', :profile_id => fast_create(Profile).id, :published => true
     a.destroy
     assert_equal 0, ActionTracker::Record.count
+  end
+
+  should 'create activity' do
+    a = TextileArticle.create! :name => 'bar', :profile_id => fast_create(Profile).id, :published => true
+    a.activity.destroy
+    assert_nil a.activity
+
+    a.create_activity
+    assert_not_nil a.activity
   end
 
   should "the action_tracker_target method be defined" do
@@ -1100,39 +1098,23 @@ assert_equal 'bla', profile.articles.map(&:comments_count)
   end
 
   should 'create the notification to the friend when one friend has the notification and the other no' do
-    p1 = Person.first || fast_create(Person)
-    f1 = fast_create(Person)
-    p1.add_friend(f1)
     Article.destroy_all
     ActionTracker::Record.destroy_all
     ActionTrackerNotification.destroy_all
-    article = TinyMceArticle.create! :name => 'Tracked Article 1', :profile_id => p1.id
-    assert article.published?
-    assert_kind_of Person, article.profile
-    assert_equal 1, ActionTracker::Record.count
-    ta = ActionTracker::Record.first
-    assert_equal 'Tracked Article 1', ta.get_name.last
-    assert_equal article.url, ta.get_url.last
-    assert p1, ta.user
-    assert p1, ta.target
+
+    f1 = fast_create(Person)
+    profile.add_friend(f1)
+    article = TinyMceArticle.create! :name => 'Tracked Article 1', :profile_id => profile.id
+    assert_equal 1, ActionTracker::Record.find_all_by_verb('create_article').count
     process_delayed_job_queue
-    assert_equal 2, ActionTrackerNotification.count
+    assert_equal 2, ActionTrackerNotification.find_all_by_action_tracker_id(article.activity.id).count
 
     f2 = fast_create(Person)
-    p1.add_friend(f2)
+    profile.add_friend(f2)
+    article2 = TinyMceArticle.create! :name => 'Tracked Article 2', :profile_id => profile.id
+    assert_equal 2, ActionTracker::Record.find_all_by_verb('create_article').count
     process_delayed_job_queue
-    assert_equal 5, ActionTrackerNotification.count
-    article = TinyMceArticle.create! :name => 'Tracked Article 2', :profile_id => p1.id
-    assert article.published?
-    assert_kind_of Person, article.profile
-    assert_equal 2, ActionTracker::Record.count
-    ta = ActionTracker::Record.first
-    assert_equal 'Tracked Article 2', ta.get_name.last
-    assert_equal article.url, ta.get_url.last
-    assert_equal p1, ta.user
-    assert_equal p1, ta.target
-    process_delayed_job_queue
-    assert_equal 6, ActionTrackerNotification.count
+    assert_equal 3, ActionTrackerNotification.find_all_by_action_tracker_id(article2.activity.id).count
   end
 
   should 'found articles with published date between a range' do

@@ -65,12 +65,10 @@ class CommentTest < ActiveSupport::TestCase
 
   should 'update counter cache in article' do
     owner = create_user('testuser').person
-    art = owner.articles.build(:name => 'ytest'); art.save!
-
+    art = create(TextileArticle, :profile_id => owner.id)
     cc = art.comments_count
-    art.comments.build(:title => 'test comment', :body => 'anything', :author => owner).save!
-    art = Article.find(art.id)
 
+    comment = create(Comment, :source => art, :author_id => owner.id)
     assert_equal cc + 1, Article.find(art.id).comments_count
   end
 
@@ -82,6 +80,18 @@ class CommentTest < ActiveSupport::TestCase
     cc = action.comments_count
     comment = create(Comment, :source => action, :author_id => owner.id)
     assert_equal cc + 1, ActionTracker::Record.find(action.id).comments_count
+  end
+
+  should 'update counter cache in general activity when add a comment' do
+    person = fast_create(Person)
+    community = fast_create(Community)
+
+    activity = ActionTracker::Record.create :user => person, :target => community, :verb => 'add_member_in_community'
+
+    cc = activity.comments_count
+
+    comment = create(Comment, :source => activity, :author_id => person.id)
+    assert_equal cc + 1, ActionTracker::Record.find(activity.id).comments_count
   end
 
   should 'provide author name for authenticated authors' do
@@ -329,7 +339,29 @@ class CommentTest < ActiveSupport::TestCase
     assert c.rejected?
   end
 
-  should 'update article activity when add a comment'
   should 'update activity when add a comment'
-  should 'create a new activity when add a comment and the activity was removed'
+
+  should 'update article activity when add a comment' do
+    profile = create_user('testuser').person
+    article = create(TinyMceArticle, :profile => profile)
+    action = article.activity
+    time = action.updated_at
+
+    Time.stubs(:now).returns(time + 1.day)
+
+    comment = create(Comment, :source => article, :author => profile)
+    assert_equal time + 1.day, article.activity.updated_at
+  end
+
+  should 'create a new activity when add a comment and the activity was removed' do
+    profile = create_user('testuser').person
+    article = create(TinyMceArticle, :profile => profile)
+    article.activity.destroy
+
+    assert_nil article.activity
+
+    comment = create(Comment, :source => article, :author => profile)
+    assert_not_nil article.activity
+  end
+
 end

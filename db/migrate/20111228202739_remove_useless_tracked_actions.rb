@@ -7,7 +7,6 @@ class RemoveUselessTrackedActions < ActiveRecord::Migration
         if (activity.updated_at.to_time < Time.now.months_ago(3)) || verbs.include?(activity.verb)
           activity.destroy
         end
-      #    select_all("SELECT id, verb, updated_at FROM action_tracker WHERE verb IN ('create_article', 'update_article', 'remove_article', 'leave_comment', 'leave_community', 'remove_member_in_community')").each do |tracker|
       end
     end
   end
