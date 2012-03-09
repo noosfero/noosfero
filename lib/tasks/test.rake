@@ -23,18 +23,22 @@ namespace :test do
     ENV['RAILS_ENV'] = 'test'
     # force the solr tasks to run with each individual test task
     override_task test_task do
-      Rake::Task['solr:start'].execute
-      Rake::Task["#{orig_name}:original"].execute
-      Rake::Task['solr:stop'].execute
+      Rake::Task['solr:start'].reenable
+      Rake::Task['solr:start'].invoke
+      Rake::Task["#{orig_name}:original"].invoke
+      Rake::Task['solr:stop'].reenable
+      Rake::Task['solr:stop'].invoke
     end
   end
 end
 (CucumberTasks + NoosferoTasks).each do |test_task|
   ENV['RAILS_ENV'] = 'test'
   override_task test_task do
-    Rake::Task['solr:start'].execute
-    Rake::Task["#{test_task}:original"].execute
-    Rake::Task['solr:stop'].execute
+    Rake::Task['solr:start'].reenable
+    Rake::Task['solr:start'].invoke
+    Rake::Task["#{test_task}:original"].invoke
+    Rake::Task['solr:stop'].reenable
+    Rake::Task['solr:stop'].invoke
   end
 end
 
