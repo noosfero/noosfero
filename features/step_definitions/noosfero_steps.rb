@@ -262,6 +262,7 @@ Given /^I am logged in as "(.+)"$/ do |username|
     selenium.wait_for_page
   end
   Then "I should be logged in as \"#{username}\""
+  @current_user = username
 end
 
 Given /^I am logged in as admin$/ do
@@ -565,4 +566,9 @@ Given /^([^\s]+) (enabled|disabled) translation redirection in (?:his|her) profi
   profile = Profile[login]
   profile.redirect_l10n = ( status == "enabled" )
   profile.save
+end
+
+When /^I edit my profile$/ do
+  visit "/myprofile/#{@current_user}"
+  click_link "Edit Profile"
 end
