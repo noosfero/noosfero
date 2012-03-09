@@ -112,12 +112,27 @@ class ContentViewerController < ApplicationController
     @comment.author = user if logged_in?
     @comment.article = @page
     @comment.ip_address = request.remote_ip
+    plugins_filter_comment(@comment)
+    return if @comment.rejected?
     if (pass_without_comment_captcha? || verify_recaptcha(:model => @comment, :message => _('Please type the words correctly'))) && @comment.save
+      plugins_comment_saved(@comment)
       @page.touch
       @comment = nil # clear the comment form
       redirect_to :action => 'view_page', :profile => params[:profile], :page => @page.explode_path, :view => params[:view]
     else
       @form_div = 'opened' if params[:comment][:reply_of_id].blank?
+    end
+  end
+
+  def plugins_filter_comment(comment)
+    @plugins.each do |plugin|
+      plugin.filter_comment(comment)
+    end
+  end
+
+  def plugins_comment_saved(comment)
+    @plugins.each do |plugin|
+      plugin.comment_saved(comment)
     end
   end
 

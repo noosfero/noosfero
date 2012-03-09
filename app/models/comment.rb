@@ -126,4 +126,12 @@ class Comment < ActiveRecord::Base
     end
   end
 
+  def rejected?
+    @rejected
+  end
+
+  def reject!
+    @rejected = true
+  end
+
 end
