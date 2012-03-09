@@ -103,7 +103,7 @@ _new(){
     template="$available_plugins_dir/template"
     mkdir "$target"
 
-    plugin_name=$(echo "$plugin" | sed -e 's/^./\u&/; s/_\(.\)/\u\1/')
+    plugin_name=$(echo "$plugin" | sed -e 's/^./\u&/; s/_\(.\)/\u\1/g')
     for source_file in $(find "$template" -type f); do
       target_file=$(echo "$source_file" | sed -e "s/template/$plugin/g")
       mkdir -p $(dirname "$target_file")
