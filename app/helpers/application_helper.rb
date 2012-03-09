@@ -1020,7 +1020,7 @@ module ApplicationHelper
     options.merge!(:page => params[:npage])
     content = article.to_html(options)
     content = content.kind_of?(Proc) ? self.instance_eval(&content) : content
-    @plugins && @plugins.enabled_plugins.each do |plugin|
+    @plugins && @plugins.each do |plugin|
       content = plugin.parse_content(content)
     end
     content

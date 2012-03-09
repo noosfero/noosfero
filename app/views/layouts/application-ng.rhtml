@@ -13,7 +13,7 @@
     <%= stylesheet_link_tag icon_theme_stylesheet_path %>
     <%= stylesheet_link_tag jquery_ui_theme_stylesheet_path %>
     <%
-      plugins_stylesheets = @plugins.enabled_plugins.select(&:stylesheet?).map { |plugin| plugin.class.public_path('style.css') }
+      plugins_stylesheets = @plugins.select(&:stylesheet?).map { |plugin| plugin.class.public_path('style.css') }
     %>
     <%= stylesheet_link_tag(plugins_stylesheets, :cache => 'cache-plugins-style-' + Digest::MD5.hexdigest(plugins_stylesheets.to_s)) unless plugins_stylesheets.empty? %>
     <%= stylesheet_link_tag theme_stylesheet_path %>
@@ -22,11 +22,11 @@
     <%= yield :head %>
     <%= javascript_tag('render_all_jquery_ui_widgets()') %>
     <%
-      plugins_javascripts = @plugins.enabled_plugins.map { |plugin| plugin.js_files.map { |js| plugin.class.public_path(js) } }.flatten
+      plugins_javascripts = @plugins.map { |plugin| plugin.js_files.map { |js| plugin.class.public_path(js) } }.flatten
     %>
     <%= javascript_include_tag(plugins_javascripts, :cache => 'cache-plugins-js-' + Digest::MD5.hexdigest(plugins_javascripts.to_s)) unless plugins_javascripts.empty? %>
     <%=
-      @plugins.map(:head_ending).collect do |content|
+      @plugins.dispatch(:head_ending).collect do |content|
         content.respond_to?(:call) ? content.call : content
       end.join("\n")
     %>
@@ -41,7 +41,7 @@
 
     <a href="#content" id="link-go-content"><span><%= _("Go to the content") %></span></a>
     <%=
-      @plugins.map(:body_beginning).collect do |content|
+      @plugins.dispatch(:body_beginning).collect do |content|
         content.respond_to?(:call) ? content.call : content
       end.join("\n")
     %>
