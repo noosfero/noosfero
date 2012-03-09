@@ -6,7 +6,7 @@ class Noosfero::Plugin::Context
     @controller = controller
   end
 
-  delegate :profile, :request, :response, :environment, :params, :session, :user, :to => :controller
+  delegate :profile, :request, :response, :environment, :params, :session, :user, :logged_in?, :to => :controller
 
   protected
 
