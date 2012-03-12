@@ -218,7 +218,7 @@ class Noosfero::Plugin
     end
   end
 
-  # This method will be called just before a comment in saved to the database.
+  # This method will be called just before a comment is saved to the database.
   #
   # It can modify the comment in several ways. In special, a plugin can call
   # reject! on the comment and that will cause the comment to not be saved.
