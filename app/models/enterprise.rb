@@ -76,7 +76,11 @@ class Enterprise < Organization
   end
 
   after_save do |e|
-    e.products.each{ |p| p.enterprise_updated(e) }
+    e.delay.update_products_position
+  end
+
+  def update_products_position
+    products.each{ |p| p.enterprise_updated(self) }
   end
 
   def closed?
