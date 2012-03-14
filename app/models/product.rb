@@ -265,7 +265,7 @@ class Product < ActiveRecord::Base
       {:environment_id => {:type => :integer}},
       {:name_or_category => {:type => :string, :as => :name_or_category_sort, :boost => 2.0}},
       :category_full_name ] + facets.keys.map{|i| {i => :facet}},
-    :include => [:enterprise, :qualifiers, :certifiers, :product_category],
+    :include => [:enterprise, :region, :qualifiers, :certifiers, :product_category],
     :boost => proc {|p| 10 if p.enterprise.enabled},
     :facets => facets.keys
   handle_asynchronously :solr_save
