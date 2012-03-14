@@ -6,12 +6,12 @@ stop() {
   ./script/delayed_job stop
   ./script/feed-updater stop
   rake -s solr:stop
+  exit
 }
 
 start() {
   ./script/feed-updater start
   ./script/delayed_job start
-  rake -s solr:download
   rake -s solr:start
   trap stop INT TERM
   ./script/server $@

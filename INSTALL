@@ -117,9 +117,6 @@ $ cd current
 
 Copy config/solr.yml.dist to config/solr.yml. You will
 probably not need to customize this configuration, but have a look at it.
-Then you'll need to download Solr into noosfero:
-
-$ rake solr:download
 
 Create the mongrel configuration file:
 
