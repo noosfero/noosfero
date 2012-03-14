@@ -1,3 +1,5 @@
+require 'fast_gettext'
+
 module Noosfero
   PROJECT = 'noosfero'
   VERSION = '0.36.1'
