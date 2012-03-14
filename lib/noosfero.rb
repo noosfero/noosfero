@@ -10,7 +10,7 @@ module Noosfero
 
   class << self
     def locales
-      {
+      @locales ||= {
         'en' => 'English',
         'pt' => 'Português',
         'fr' => 'Français',
@@ -21,6 +21,7 @@ module Noosfero
         'eo' => 'Esperanto'
       }
     end
+    attr_writer :locales
     attr_accessor :default_locale
     def available_locales
       @available_locales ||=
