@@ -232,16 +232,16 @@ class Product < ActiveRecord::Base
       c.name
     end
   end
-  def self.f_qualifier_proc(id)
-    pq = ProductQualifier.find(id)
-    if pq.certifier
-      [pq.qualifier.name, _(' cert. ') + pq.certifier.name]
-    else
-      pq.qualifier.name
-    end
+  def self.f_qualifier_proc(ids)
+    array = ids.split ' '
+    qualifier = Qualifier.find_by_id array[0]
+    certifier = Certifier.find_by_id array[1]
+    certifier ? [qualifier.name, _(' cert. ') + certifier.name] : qualifier.name
   end
   def f_qualifier
-    product_qualifier_ids
+    product_qualifiers.map do |pq|
+      "#{pq.qualifier_id} #{pq.certifier_id}"
+    end
   end
   def public
     self.public?
