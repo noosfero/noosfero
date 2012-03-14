@@ -820,26 +820,6 @@ X.sep {
   display: none;
 }
 
-.controller-search #content .search_form {
-  background: #DDD;
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
-  padding: 12px 15px 13px 15px;
-  position: relative;
-  text-align: left;
-}
-
-#advanced_search_link {
-  position: absolute;
-  top: 15px;
-  right: 20px;
-  background: url(imgs/arrow-down-p.png) 100% 55% no-repeat;
-  padding-right: 15px;
-  color: #000;
-  text-decoration: none;
-  font-weight: bold;
-}
-
 .controller-search #content .search_form h3 {
   display: none;
 }
@@ -1226,38 +1206,6 @@ table.profile th {
 }
 
 /**************************** Browse *******************************/
-
-.controller-browse #content .search_form {
-  background: #DDD;
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
-  padding: 12px 15px 13px 15px;
-  position: relative;
-  text-align: left;
-}
-
-.controller-browse a {
-  color: #555753;
-}
-
-.browse-results-innerbox {
-  margin-top: 10px;
-  padding-bottom: 10px;
-
-}
-.browse-results-innerbox ul{
-  padding: 0px;
-}
-
-.browse-results-innerbox .browse-results-type-empty div {
-  text-align: center;
-  color: #DDD;
-  font-weight: bold;
-  font-size: 30px;
-  padding: 70px 10px 0px 0px;
-  border: none;
-
-}
 
 .search-results-type-article.search-results-innerbox {
   padding: 5px 0px 5px 10px;

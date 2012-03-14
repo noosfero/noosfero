@@ -139,9 +139,6 @@ div#notice {
 }
 /* * * Generic Content Formating * * */
 
-.main-block {
-  text-align: justify;
-}
 .msie7 #content {
   z-index: 8;
 }
@@ -2397,12 +2394,9 @@ div#activation_enterprise label, div#activation_enterprise input, div#activation
   line-height: 20px;
   margin: 0px;
   padding: 0px;
+  list-style: none;
 }
-#product_list ul {
-  margin: 0px;
-  padding: 0px;
-}
-#content #product_list li {
+#product-list ul {
   margin: 0px;
   padding: 0px;
   list-style: none;
@@ -2411,12 +2405,6 @@ div#activation_enterprise label, div#activation_enterprise input, div#activation
   width: 200px;
   min-height: 280px;
   padding: 10px 30px 10px 0;
-  margin-bottom: 10px;
-  display: inline-block;
-  vertical-align: top;
-}
-#content #product_list li.product {
-  border: 1px solid #888;
   margin-bottom: 10px;
   display: inline-block;
   vertical-align: top;
@@ -2438,12 +2426,6 @@ div#activation_enterprise label, div#activation_enterprise input, div#activation
   color: white;
   font-weight: bold;
   background: url(/images/catalog-expanders.png) no-repeat;
-  display: block;
-  line-height: 15px;
-  background-position: left 100%;
-  cursor: pointer;
-}
-#product_list .product-pic {
   display: block;
   line-height: 15px;
   background-position: left 100%;
@@ -2530,14 +2512,6 @@ div#activation_enterprise label, div#activation_enterprise input, div#activation
   display: block;
   clear: both;
 }
-#product_list .product-pic span {
-  display: none;
-}
-#content #product_list h3 {
-  margin: 0px;
-  padding: 0px;
-  font-size: 120%;
-}
 #product-list .product-price {
   font-weight: bold;
 }
@@ -2590,15 +2564,6 @@ div#activation_enterprise label, div#activation_enterprise input, div#activation
 }
 #product-list .ui-button {
   margin: 0;
-}
-#product_list .product_category {
-  font-size: 11px;
-}
-#product_list .description {
-  clear: left;
-  font-size: 11px;
-  text-align: justify;
-  padding: 5px 10px 0px 10px;
 }
 #product-list .ui-button-text {
   color: #D38D5F;
@@ -4388,7 +4353,8 @@ h1#agenda-title {
   text-align: left;
   padding-left: 12px;
 }
-.msie7 .block .menu-submenu-trigger, .msie7 #search-results .menu-submenu-trigger, .msie7 #browse-results .menu-submenu-trigger {
+.msie7 .block .menu-submenu-trigger,
+.msie7 #search-results .menu-submenu-trigger {
   width: 20px !important;
 }
 .common-profile-list-block .vcard .menu-submenu a {
@@ -5514,60 +5480,6 @@ h1#agenda-title {
 }
 
 /* }}} */
-
-/* Alterações */
-.controller-search #content .search_form {
-  background: transparent !important;
-  padding:0 !important;
-}
-.formfield input {
-  border: 1px solid #231F20;
-  height: 28px;
-  width: 558px;
-}
-.search-field .formfield {
-  height: 34px;
-  display: inline-block
-}
-
-#content form .search-field input.button.submit {
-  width: 152px;
-  background: #000;
-  overflow: visible;
-  color:#fff;
-  text-align: left;
-  font-weight: bold;
-  padding-left: 10px;
-  border: none;
-  height:34px;
-  display:inline-block;
-  max-height:none;
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
-  -khtml-border-radius: 5px;
-  -o-border-radius: 5px;
-  border-radius: 5px;
-}
-#content form .search-field input:hover.button.submit {
-  background-color:#444;
-}
-#content #public-profile-search form .search-field input.button.submit {
-  margin: 0;
-  width: 116px;
-}
-#content h1.page-title.no-boxes {
-  left:230px !important;
-}
-h1.page-title.no-boxes small {
-  font-size: 13px;
-  margin: 13px;
-}
-#main-content-wrapper-8 {
-  padding: 0 !important;
-}
-#advanced_search_link {
-  display: none;
-}
 
 #alt-beautify {
   background-color: #EDEDED;

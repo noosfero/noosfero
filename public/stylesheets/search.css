@@ -1,3 +1,4 @@
+
 .search-category-context {
   margin: 30px 0px;
 }
@@ -508,13 +509,13 @@ li.search-product-item {
 #facets-menu .facet-menu {
   border-bottom: 1px solid #000;
   margin-bottom: 15px;
-	padding-bottom: 10px;
+  padding-bottom: 10px;
 }
 #facets-menu .facet-menu-label {
   background:#E8F5FB;
   text-transform:uppercase;
   padding:10px 10px 2px 10px;
-	margin:0 0 15px 0;
+  margin:0 0 15px 0;
 }
 #facets-menu .facet-menu-options a {
   color: #007788;
@@ -522,21 +523,21 @@ li.search-product-item {
 }
 .facet-menu-item {
   display: inline-block;
-	margin-bottom: 2px;
-	width: 100%;
-	padding:2px 0;
+  margin-bottom: 2px;
+  width: 100%;
+  padding:2px 0;
 }
 .facet-menu-less-options .facet-result-link-selected {
-	background-color: #B1DFEF;
+  background-color: #B1DFEF;
 }
 .facet-menu-less-options .facet-result-link-selected .facet-result-extra-label,
 .facet-menu-less-options .facet-result-link-selected .facet-result-count {
-	color: #777;
+  color: #777;
 }
 .facet-menu-less-options .facet-result-link-selected a {
   border-left: 4px solid #00A5D3;
   padding-left: 4px;
-	color: #000 !important;
+  color: #000 !important;
 }
 .facet-menu-more-options .facet-result-link-selected a {
   border-left: 4px solid #B1DFEF;
@@ -669,13 +670,43 @@ li.search-product-item hr {
   display: none;
   color: #ff0000
 }
-.controller-search #content .search_form {
-  background: transparent !important;
-  padding:0 !important;
+
+
+/* Search field and button */
+
+.search-field .formfield {
+  height: 34px;
+  display: inline-block;
+}
+.search-field .formfield input {
+  border: 1px solid #231F20;
+  height: 35px;
+  width: 530px;
 }
 .search-field .formfield {
   height: 34px;
-  display: inline-block
+  display: inline-block;
+}
+#content form .search-field input.button.submit {
+  width: 152px;
+  background: #000;
+  overflow: visible;
+  color:#fff;
+  text-align: left;
+  font-weight: bold;
+  padding-left: 10px;
+  border: none;
+  height:34px;
+  display:inline-block;
+  max-height:none;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -khtml-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px;
+}
+form .search-field input:hover.button.submit {
+  background-color:#444;
 }
 #content form .search-field input.button.submit {
   width: 150px;
@@ -697,16 +728,16 @@ li.search-product-item hr {
 }
 .search-hint {
   clear: both;
-  float: right;
-  width: 708px;
   padding: 10px 0 10px 10px;
-  display: block;
   border-bottom: 1px solid #555;
   font-size: 0.9em;
 }
 #content form .search-field input:hover.button.submit {
   background-color:#444;
 }
+
+
+
 .facet-any-result-found {
   font-size: 75%;
   color: #AAA;
@@ -724,22 +755,16 @@ li.search-product-item hr {
   text-align: right;
 }
 .facet-menu a.facet-options-toggle {
-	color: #000;
-	background-image: url("../images/icon_more_options.png");
-	background-repeat: no-repeat;
-	padding: 0 0 0 20px;
+  color: #000;
+  background-image: url("../images/icon_more_options.png");
+  background-repeat: no-repeat;
+  padding: 0 0 0 20px;
 }
 .facet-menu a.facet-options-toggle.facet-more-options, .facet-menu a.facet-options-toggle {
-	background-position: 0 0;
+  background-position: 0 0;
 }
 .facet-menu a.facet-options-toggle.facet-less-options {
-	background-position: 0 -32px;
-}
-.controller-search .formfield input {
-  border: 1px solid #231F20;
-  height: 28px;
-  width: 558px;
-  background: none;
+  background-position: 0 -32px;
 }
 
 .search-uploaded-file-first-column,
