@@ -134,13 +134,9 @@ module ActsAsFaceted
         if facet[:queries_order]
           facets_data
         elsif sort_by == :alphabetically
-          facets_data.sort do |a,b| 
-            a = a[1].is_a?(String) ? a[1] : a.first
-            b = b[1].is_a?(String) ? b[1] : b.first
-            a <=> b
-          end
+          facets_data.sort{ |a,b| Array(a[1])[0] <=> Array(b[1])[0] }
         elsif sort_by == :count
-           facets_data.sort{ |a,b| -1*(a[2] <=> b[2]) }
+          facets_data.sort{ |a,b| -1*(a[2] <=> b[2]) }
         else
           facets_data
         end

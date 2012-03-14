@@ -1,6 +1,8 @@
 class MapBalloonController < PublicController
 
-  before_filter :profile, :only => [:person, :enterprise, :community]
+  helper SearchHelper
+
+  before_filter :load_profile, :only => [:person, :enterprise, :community]
 
   def product
     @product = Product.find(params[:id])
@@ -21,7 +23,7 @@ class MapBalloonController < PublicController
 
   protected
 
-  def profile
+  def load_profile
     @profile = Profile.find(params[:id])
   end
 

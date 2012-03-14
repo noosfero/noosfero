@@ -28,6 +28,8 @@ module SetProfileRegionFromCityState
         if s
           c = City.find_by_contents(self.city, {}, :filter_queries => ["parent_id:#{s.id}"])[:results].first
           self.region = c
+        else
+          self.region = nil
         end
       end
     end
