@@ -20,9 +20,9 @@ namespace :test do
   TestTasks.each do |test_task|
     orig_name = test_task.to_s
     test_task = test_task.to_s.gsub(/^test:/, '').to_sym #remove namespace :test    
-    ENV['RAILS_ENV'] = 'test'
     # force the solr tasks to run with each individual test task
     override_task test_task do
+      ENV['RAILS_ENV'] = 'test'
       Rake::Task['solr:start'].reenable
       Rake::Task['solr:start'].invoke
       Rake::Task["#{orig_name}:original"].invoke
@@ -32,8 +32,8 @@ namespace :test do
   end
 end
 (CucumberTasks + NoosferoTasks).each do |test_task|
-  ENV['RAILS_ENV'] = 'test'
   override_task test_task do
+    ENV['RAILS_ENV'] = 'test'
     Rake::Task['solr:start'].reenable
     Rake::Task['solr:start'].invoke
     Rake::Task["#{test_task}:original"].invoke
@@ -43,9 +43,9 @@ end
 end
 
 task :test do
-  ENV['RAILS_ENV'] = 'test'
   errors = AllTasks.collect do |task|
     begin
+      ENV['RAILS_ENV'] = 'test'
       Rake::Task[task].invoke
       nil
     rescue => e
