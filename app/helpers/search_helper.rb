@@ -83,9 +83,10 @@ module SearchHelper
         id => facet[:label_id].nil? ? value : params[:facet][id].merge( facet[:label_id] => params[:facet][id][facet[:label_id]].to_a.push(value) )
       ))
     else
-      url = params.merge(:facet => {
+      # preserve others filters and change this filter
+      url = params.merge(:facet => params[:facet].merge(
         id => facet[:label_id].nil? ? value : { facet[:label_id] => value }
-      })
+      ))
     end
 
     content_tag 'div', link_to(link_label, url, :class => 'facet-result-link-label') +
