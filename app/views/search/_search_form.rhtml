@@ -30,14 +30,14 @@
         <%= _("Type more than 2 characters to start a search") %>
       </div>
     </div>
-  
-    <% if @empty_query %>
-      <% hint = environment.search_hints[@asset] %>
-      <% if hint and !hint.blank? %>
-        <span class="search-hint"><%= hint %></span>
-      <% end %>
-    <% end %>
 
+  <% end %>
+  
+  <% if @empty_query %>
+    <% hint = environment.search_hints[@asset] %>
+    <% if hint and !hint.blank? %>
+      <div class="search-hint"><%= hint %></div>
+    <% end %>
   <% end %>
 
   <div style="clear: both"></div>
