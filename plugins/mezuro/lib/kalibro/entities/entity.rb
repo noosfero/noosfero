@@ -7,7 +7,7 @@ class Kalibro::Entities::Entity
   end
 
   def set(field, value)
-    send("#{field}=", value)
+    send("#{field}=", value) if not field.to_s.start_with? '@'
   end
 
   def to_entity_array(value, entity_class = nil)

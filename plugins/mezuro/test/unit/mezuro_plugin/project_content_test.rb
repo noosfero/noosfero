@@ -50,6 +50,20 @@ class ProjectContentTest < ActiveSupport::TestCase
     assert_equal module_result, @content.module_result(module_name)
   end
 
+  should 'get module result root when nil is given' do
+    module_result = mock
+    Kalibro::Client::ModuleResultClient.expects(:module_result).with(@content, @project.name).
+      returns(module_result)
+    assert_equal module_result, @content.module_result(nil)
+  end
+
+  should 'get module result root when project name is give' do
+    module_result = mock
+    Kalibro::Client::ModuleResultClient.expects(:module_result).with(@content, @project.name).
+      returns(module_result)
+    assert_equal module_result, @content.module_result(@project.name)
+  end  
+
   should 'send project to service after saving' do
     @content.expects :send_project_to_service
     @content.run_callbacks :after_save

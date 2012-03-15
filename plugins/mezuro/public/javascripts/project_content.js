@@ -1,14 +1,27 @@
-jQuery(showProjectContent);
+jQuery(function (){
+  jQuery('.source-tree-link').live("click", reloadModule);
+  showProjectContent();
+});
 
 function showProjectContent() {
   callAction('project_state', {}, showProjectContentFor);
 }
 
+function reloadModule(){
+  var module_name = jQuery(this).attr('data-module-name');
+  callAction('project_tree', {module_name: module_name }, showProjectTree);
+  callAction('module_result', {module_name: module_name}, showModuleResult);
+  return false;
+}
+
 function showProjectContentFor(state){
   if (state == 'ERROR')
-    callAction('project_error', {}, setProjectContent);
-  else if (state == 'READY')
-    callAction('project_result', {}, setProjectContent);
+    callAction('project_error', {}, showProjectResult);
+  else if (state == 'READY') {
+    callAction('project_result', {}, showProjectResult);
+    callAction('project_tree', {}, showProjectTree);
+    callAction('module_result', {}, showModuleResult);
+  }
   else if (state.endsWith("ING"))
     showProjectContentAfter(20);
 }
@@ -23,19 +36,15 @@ function showProjectContentAfter(seconds){
   }
 }
 
-function setProjectContent(content){
-  jQuery('#project-content').html(content);
-  jQuery('.module-result-link').click(showModuleResult);
+function showProjectResult(content) {
+  jQuery('#project-result').html(content);
 }
 
-function showModuleResult(){
-  var module_name = jQuery(this).attr('data-module-name');
-  setModuleResult("Loading results for " + module_name + "...");
-  callAction('module_result', {module_name: module_name}, setModuleResult);
-  return false;
+function showProjectTree(content){ 
+  jQuery('#project-tree').html(content);
 }
 
-function setModuleResult(content){
+function showModuleResult(content){
   jQuery('#module-result').html(content);
 }
 
@@ -47,11 +56,5 @@ function callAction(action, params, callback){
 }
 
 function projectContentData(data){
-  return jQuery('#project-content').attr('data-' + data);
-}
-
-function sourceNodeToggle(id){
-  var suffixes = ['_hidden', '_plus', '_minus'];
-  for (var i in suffixes)
-    jQuery('#' + id + suffixes[i]).toggle();
+  return jQuery('#project-result').attr('data-' + data);
 }

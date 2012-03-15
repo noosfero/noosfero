@@ -1,4 +1,4 @@
-<h3><%= _('LAST RESULT') %></h3>
+<h4><%= _('Last Result') %></h4>
 
 <table>
   <tr>
@@ -14,9 +14,3 @@
     <td><%= project_result.formatted_analysis_time %></td>
   </tr>
 </table>
-
-<h4><%= _('Source tree') %></h4>
-<%= render :partial => 'content_viewer/source_tree', :locals => { :source_tree => project_result.source_tree } %>
-
-<div id='module-result'>
-</div>
