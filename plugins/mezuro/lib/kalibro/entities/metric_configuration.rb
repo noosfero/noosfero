@@ -7,7 +7,16 @@ class Kalibro::Entities::MetricConfiguration < Kalibro::Entities::Entity
     configuration = new
     configuration.metric = metric
     configuration.code = code
+    configuration.ranges = [new_range]
     configuration
+  end
+
+  def self.new_range
+    created_range = Kalibro::Entities::Range.new
+    created_range.beginning = 0
+    created_range.end = 10
+    created_range.label = ""
+    created_range
   end
 
   def metric=(value)

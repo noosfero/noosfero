@@ -11,6 +11,10 @@
   </tr>
 </table>
 
+<%= link_to "Teste", "/profile/#{profile.identifier}/plugins/mezuro/teste" %>
+<%= link_to "Teste", :controller => "mezuro_plugin_profile", :action => "teste", :params => {:configuration_name =>
+@configuration_content.name}%>
+
 <h3>Metrics</h3>
 <% @tool_names = Kalibro::Client::BaseToolClient.new
 @tool_names.base_tool_names.each do |collector_name| %>

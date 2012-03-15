@@ -17,9 +17,9 @@ class Kalibro::Entities::Configuration < Kalibro::Entities::Entity
   end
 
   def create_metric_configurations(metrics)
-    @metric_configurations = []
+    @metric_configuration = []
     metrics.each do |metric|
-      @metric_configurations << create_metric_configuration(metric)
+      @metric_configuration << create_metric_configuration(metric)
     end
   end
 
@@ -28,6 +28,8 @@ class Kalibro::Entities::Configuration < Kalibro::Entities::Entity
     origin = splitted_metric[0]
     name = splitted_metric[1]
     metric = Kalibro::Entities::NativeMetric.new_with_origin_and_name(origin, name)
+    metric.scope = 'CLASS'
+    metric.languages = ['JAVA']
     Kalibro::Entities::MetricConfiguration.new_with_metric_and_code(metric, name)
  end
 

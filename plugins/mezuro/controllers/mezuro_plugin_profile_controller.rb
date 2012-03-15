@@ -27,4 +27,8 @@ class MezuroPluginProfileController < ProfileController
     render :partial => 'content_viewer/module_result', :locals => { :module_result =>  module_result}
   end
 
+  def teste
+    @configuration_name = params[:configuration_name]
+  end
+
 end
