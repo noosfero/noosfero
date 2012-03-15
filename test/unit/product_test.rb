@@ -8,6 +8,14 @@ class ProductTest < ActiveSupport::TestCase
     @profile = fast_create(Enterprise)
   end
 
+  should 'return associated enterprise region' do
+    @profile.region = fast_create Region, :name => 'Salvador'
+    @profile.save!
+    p = fast_create(Product, :name => 'test product1', :product_category_id => @product_category.id, :enterprise_id => @profile.id)
+
+    assert_equal @profile.region, p.region
+  end
+
   should 'create product' do
     assert_difference Product, :count do
       p = Product.new(:name => 'test product1', :product_category => @product_category, :enterprise_id => @profile.id)
