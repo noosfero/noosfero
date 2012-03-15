@@ -10,11 +10,4 @@ class Kalibro::Entities::NativeMetric < Kalibro::Entities::Metric
     @language = languages
   end
 
-  def self.new_with_origin_and_name(origin, name)
-    metric = new
-    metric.name = name
-    metric.origin = origin
-    metric
-  end
-
 end

@@ -18,25 +18,3 @@ end
 <%= required f.text_field(:name) %>
 
 <%= f.text_field :description %><br/>
-
-<h3>Metrics</h3>
-<% @tool_names = Kalibro::Client::BaseToolClient.new
-@tool_names.base_tool_names.each do |collector_name| %>
-  <h4><%=collector_name%></h4>
-  <table>
-  <%
-    @collector = @tool_names.base_tool(collector_name)
-    @collector.supported_metrics.each do |metric| 
-      
-      metric_id = collector_name + ":" + metric.name %>
-      <tr class="metric" title="<%= metric.description %>">
-        <td>
-          <% #FIXME Tratar caso com 0 métricas selecionadas %>
-          <%= check_box_tag  "article[metrics][]", metric_id, false, {:id =>  metric_id.gsub(/[\/ ]/, '_')} %>
-          <%= label_tag metric_id, metric.name %>
-        </td>
-      </tr>
-
-    <% end %>
-  </table>
-<% end %>
