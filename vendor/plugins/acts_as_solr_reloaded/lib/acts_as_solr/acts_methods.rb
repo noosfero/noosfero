@@ -1,3 +1,6 @@
+# a list of models which called acts_as_solr
+$solr_indexed_models = []
+
 module ActsAsSolr #:nodoc:
 
   module ActsMethods
@@ -164,6 +167,8 @@ module ActsAsSolr #:nodoc:
     # taggable: Default false. When true, indexes tags with field name tag. Tags are taken from taggings.tag
     # spatial: Default false. When true, indexes model.local.latitude and model.local.longitude as coordinates.
     def acts_as_solr(options={}, solr_options={}, &deferred_solr_configuration)
+
+      $solr_indexed_models << self
 
       extend ClassMethods
       include InstanceMethods
@@ -371,3 +376,4 @@ module ActsAsSolr #:nodoc:
     end
   end
 end
+

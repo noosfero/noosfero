@@ -209,14 +209,15 @@ module ActsAsSolr #:nodoc:
     # If a finder block is given, it will be called to retrieve the items to index.
     # This can be very useful for things such as updating based on conditions or
     # using eager loading for indexed associations.
-    def rebuild_solr_index(batch_size=100, &finder)
+    def rebuild_solr_index(batch_size=100, options = {}, &finder)
       finder ||= lambda { |ar, options| ar.find(:all, options.merge({:order => self.primary_key})) }
       start_time = Time.now
+      options[:offset] ||= 0
 
       if batch_size > 0
         items_processed = 0
         limit = batch_size
-        offset = 0
+        offset = options[:offset]
         begin
           iteration_start = Time.now
           items = finder.call(self, {:limit => limit, :offset => offset})
