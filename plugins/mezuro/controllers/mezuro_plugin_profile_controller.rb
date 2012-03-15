@@ -24,11 +24,7 @@ class MezuroPluginProfileController < ProfileController
 
   def module_result
     content = profile.articles.find(params[:id])
-    if params[:module_name].nil? or params[:module_name] == content.project.name
-      module_result = content.module_result(content.project.name)
-    else
-      module_result = content.module_result(params[:module_name])
-    end   
+    module_result = content.module_result(params[:module_name])
     render :partial => 'content_viewer/module_result', :locals => { :module_result =>  module_result}
   end
 
