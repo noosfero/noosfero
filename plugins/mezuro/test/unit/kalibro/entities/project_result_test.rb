@@ -34,4 +34,16 @@ class ProjectResultTest < ActiveSupport::TestCase
     node = @result.get_node("org.Window")
     assert_equal @hash[:source_tree][:child][2][:child].first, node.to_hash
   end
+
+  should 'return source tree node when nil is given' do
+    assert_equal @hash[:source_tree], @result.node_of(nil).to_hash 
+  end
+  
+  should 'return source tree node when project name is given' do
+    assert_equal @hash[:source_tree], @result.node_of(@result.project.name).to_hash 
+  end
+
+  should 'return correct node when module name is given' do
+    assert_equal @hash[:source_tree][:child][1], @result.node_of("main").to_hash 
+  end
 end

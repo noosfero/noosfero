@@ -54,10 +54,10 @@ class MezuroPluginProfileControllerTest < ActionController::TestCase
     Kalibro::Client::ProjectResultClient.expects(:last_result).with(@name).returns(@project_result)
     get :project_result, :profile => @profile.identifier, :id => @content.id
     assert_response 200
-    assert_select('h3', 'LAST RESULT')
+    assert_select('h4', 'Last Result')
   end
 
-  should 'get metric results for a module' do
+  should 'get module result' do
     create_project_content
     Kalibro::Client::ModuleResultClient.expects(:module_result).with(@content, @name).returns(@module_result)
     get :module_result, :profile => @profile.identifier, :id => @content.id, :module_name => @name
