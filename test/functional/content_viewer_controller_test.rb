@@ -436,6 +436,14 @@ class ContentViewerControllerTest < ActionController::TestCase
     end
   end
 
+  should 'list comments if article has them, even if new comments are not allowed' do
+    page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text', :accept_comments => false)
+    page.comments.create!(:author => profile, :title => 'list my comment', :body => 'foo bar baz')
+    get :view_page, :profile => profile.identifier, :page => ['myarticle']
+
+    assert_tag :content => /list my comment/
+  end
+
   should 'show link to publication on view' do
     page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
     login_as(profile.identifier)
@@ -1332,6 +1340,75 @@ class ContentViewerControllerTest < ActionController::TestCase
     blog = fast_create(Blog, :profile_id => profile.id, :path => 'blog')
     get :view_page, :profile => profile.identifier, :page => ['blog']
     assert_no_tag :tag => 'body', :attributes => { :class => /profile-homepage/ }
+  end
+
+  should 'ask for captcha if user not logged' do
+    article = profile.articles.build(:name => 'test')
+    article.save!
+
+    @controller.stubs(:verify_recaptcha).returns(false)
+    post :view_page, :profile => profile.identifier, :page => ['test'], :comment => {:body => "Some comment...", :author => profile}, :confirm => 'true'
+    assert_not_nil assigns(:comment)
+
+    @controller.stubs(:verify_recaptcha).returns(true)
+    post :view_page, :profile => profile.identifier, :page => ['test'], :comment => {:body => "Some comment...", :author => profile}, :confirm => 'true'
+    assert_nil assigns(:comment)
+  end
+
+  should 'ask for captcha if environment defines even with logged user' do
+    article = profile.articles.build(:name => 'test')
+    article.save!
+    login_as('testinguser')
+    @controller.stubs(:verify_recaptcha).returns(false)
+
+    post :view_page, :profile => profile.identifier, :page => ['test'], :comment => {:body => "Some comment...", :author => profile}, :confirm => 'true'
+    assert_nil assigns(:comment)
+
+    environment.enable('captcha_for_logged_users')
+    environment.save!
+
+    post :view_page, :profile => profile.identifier, :page => ['test'], :comment => {:body => "Some comment...", :author => profile}, :confirm => 'true'
+    assert_not_nil assigns(:comment)
+  end
+
+  should 'store IP address for comments' do
+    page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
+    @request.stubs(:remote_ip).returns('33.44.55.66')
+    post :view_page, :profile => profile.identifier, :page => [ 'myarticle' ], :comment => { :title => 'title', :body => 'body', :name => "Spammer", :email => 'damn@spammer.com' }, :confirm => 'true'
+    comment = Comment.last
+    assert_equal '33.44.55.66', comment.ip_address
+  end
+
+  should 'not save a comment if a plugin rejects it' do
+    class TestFilterPlugin < Noosfero::Plugin
+      def filter_comment(c)
+        c.reject!
+      end
+    end
+    Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([TestFilterPlugin.new])
+    page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
+    assert_no_difference Comment, :count do
+      post :view_page, :profile => profile.identifier, :page => [ 'myarticle' ], :comment => { :title => 'title', :body => 'body', :name => "Spammer", :email => 'damn@spammer.com' }, :confirm => 'true'
+    end
+  end
+
+  should 'notify plugins after a comment is saved' do
+    class TestNotifyCommentPlugin < Noosfero::Plugin
+      def comment_saved(c)
+        @__saved = c.id
+        @__title = c.title
+      end
+      attr_reader :__title
+      attr_reader :__saved
+    end
+    plugin = TestNotifyCommentPlugin.new
+    Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([plugin])
+    page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
+    post :view_page, :profile => profile.identifier, :page => [ 'myarticle' ], :comment => { :title => 'the title of the comment', :body => 'body', :name => "Spammer", :email => 'damn@spammer.com' }, :confirm => 'true'
+
+    assert_equal 'the title of the comment', plugin.__title
+    assert plugin.__saved
+
   end
 
 end

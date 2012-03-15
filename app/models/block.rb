@@ -81,7 +81,7 @@ class Block < ActiveRecord::Base
   # The method can also return <tt>nil</tt>, which means "no content".
   #
   # See BoxesHelper#extract_block_content for implementation details. 
-  def content
+  def content(args={})
     "This is block number %d" % self.id
   end
 

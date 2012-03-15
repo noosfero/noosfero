@@ -120,7 +120,8 @@ class Environment < ActiveRecord::Base
       'enterprises_are_validated_when_created' => __('Enterprises are validated when created'),
       'show_balloon_with_profile_links_when_clicked' => _('Show a balloon with profile links when a profile image is clicked'),
       'xmpp_chat' => _('XMPP/Jabber based chat'),
-      'show_zoom_button_on_article_images' => _('Show a zoom link on all article images')
+      'show_zoom_button_on_article_images' => _('Show a zoom link on all article images'),
+      'captcha_for_logged_users' => _('Ask captcha when a logged user comments too'),
     }
   end
 

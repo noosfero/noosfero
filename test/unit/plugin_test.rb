@@ -15,7 +15,7 @@ class PluginTest < ActiveSupport::TestCase
     end
 
     assert_includes  Noosfero::Plugin.all, Plugin1.to_s
-    assert_includes  Noosfero::Plugin.all, Plugin1.to_s
+    assert_includes  Noosfero::Plugin.all, Plugin2.to_s
   end
 
   should 'returns url to plugin management if plugin has admin_controller' do

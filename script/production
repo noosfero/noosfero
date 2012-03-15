@@ -17,46 +17,62 @@ fi
 clear_cache() {
   if test -w ./public; then
     echo "Cleaning cache files"
-    rm -f ./public/javascripts/cache-*.js
-    rm -f ./public/stylesheets/cache.css
+    rm -rf ./public/javascripts/cache*
+    rm -rf ./public/stylesheets/cache*
   elif [ ! -z "$NOOSFERO_DATA_DIR" ] && [ -w "$NOOSFERO_DATA_DIR" ]; then
     echo "Cleaning cache files"
-    rm -f $NOOSFERO_DATA_DIR/cache/cache-*.js
-    rm -f $NOOSFERO_DATA_DIR/cache/cache.css
+    rm -rf "$NOOSFERO_DATA_DIR"/cache/*
   fi
 }
 
 do_start() {
-  if ! rake db:abort_if_pending_migrations; then
-    echo "========================================"
-    echo "There are pending migrations, please upgrade the database before starting the production server"
-    exit 1
-  fi
-
+  rake db:migrate SCHEMA=/dev/null
   clear_cache
   ./script/ferret_server -e $RAILS_ENV start
-  environments_loop
+  environments_loop start
   ruby -S thin -C config/thin.yml start
 }
 
 do_stop() {
-  ruby -S thin -C config/thin.yml stop
-  ./script/delayed_job stop
-  ./script/feed-updater stop
-  ./script/ferret_server -e $RAILS_ENV stop
+
+  # During Debian upgrades, it is possible that rails is not available (e.g.
+  # Lenny -> Squeeze), so the programs below might fail. If they do, we fall
+  # back to stopping the daemons by manually reading their PID files, killing
+  # them and wiping the PID files.
+
+  ruby -S thin -C config/thin.yml stop ||
+    stop_via_pid_file tmp/pids/thin.*.pid
+
+  environments_loop stop ||
+    stop_via_pid_file tmp/pids/delayed_job.pid tmp/pids/delayed_job.*.pid tmp/pids/feed-updater.*.pid
+
+  ./script/ferret_server -e $RAILS_ENV stop ||
+    stop_via_pid_file tmp/pids/ferret.production.pid
+}
+
+stop_via_pid_file() {
+  for pidfile in $@; do
+    if [ -e "$pidfile" ]; then
+      pid=$(cat $pidfile)
+      echo "Sentign TERM signal to stop $pid ..."
+      kill -TERM "$pid"
+      rm -f $pidfile
+    fi
+  done
 }
 
 environments_loop() {
+  action="$1"
   environments=$(find ./config/environments -name *_$RAILS_ENV.rb)
   if [ "$environments" ]; then
     for environment in $environments; do
       env=$(basename $environment | cut -d. -f1)
-      RAILS_ENV=$env ./script/delayed_job -i $env start
-      RAILS_ENV=$env ./script/feed-updater start -i $env
+      RAILS_ENV=$env ./script/delayed_job -i $env "$action"
+      RAILS_ENV=$env ./script/feed-updater "$action" -i $env
     done
   else
-    ./script/delayed_job start
-    ./script/feed-updater start
+    ./script/delayed_job "$action"
+    ./script/feed-updater "$action"
   fi
 }
 

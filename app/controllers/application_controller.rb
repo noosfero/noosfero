@@ -104,8 +104,8 @@ class ApplicationController < ActionController::Base
 
   def init_noosfero_plugins
     @plugins = Noosfero::Plugin::Manager.new(self)
-    @plugins.enabled_plugins.map(&:class).each do |plugin|
-      prepend_view_path(plugin.view_path)
+    @plugins.each do |plugin|
+      prepend_view_path(plugin.class.view_path)
     end
     init_noosfero_plugins_controller_filters
   end
@@ -113,7 +113,7 @@ class ApplicationController < ActionController::Base
   # This is a generic method that initialize any possible filter defined by a
   # plugin to the current controller being initialized.
   def init_noosfero_plugins_controller_filters
-    @plugins.enabled_plugins.each do |plugin|
+    @plugins.each do |plugin|
       plugin.send(self.class.name.underscore + '_filters').each do |plugin_filter|
         self.class.send(plugin_filter[:type], plugin.class.name.underscore + '_' + plugin_filter[:method_name], (plugin_filter[:options] || {}))
         self.class.send(:define_method, plugin.class.name.underscore + '_' + plugin_filter[:method_name], plugin_filter[:block])

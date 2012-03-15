@@ -32,3 +32,9 @@ tags
 pkg
 *~
 *.swp
+debian/*.log
+debian/*.substvars
+debian/*.debhelper
+debian/files
+debian/noosfero/
+debian/noosfero-apache/

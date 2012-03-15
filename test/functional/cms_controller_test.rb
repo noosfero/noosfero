@@ -874,9 +874,8 @@ class CmsControllerTest < ActionController::TestCase
 
   should 'offer confirmation to remove article' do
     a = profile.articles.create!(:name => 'my-article')
-    get :destroy, :profile => profile.identifier, :id => a.id
-    assert_response :success
-    assert_tag :tag => 'input', :attributes => {:type => 'submit', :value => 'Yes, I want.' }
+    post :destroy, :profile => profile.identifier, :id => a.id
+    assert_response :redirect
   end
 
   should 'display notify comments option' do
@@ -1510,14 +1509,13 @@ class CmsControllerTest < ActionController::TestCase
   end
 
   should 'include new contents special types from plugins' do
-    types = [Integer, Float]
-    plugins = mock()
+    class TestContentTypesPlugin < Noosfero::Plugin
+      def content_types
+        [Integer, Float]
+      end
+    end
 
-    Noosfero::Plugin::Manager.expects(:new).with(@controller).returns(plugins).times(2)
-    plugins.stubs(:map).with(:content_types).returns(types)
-    plugins.stubs(:map).with(:body_beginning).returns([])
-    plugins.stubs(:map).with(:head_ending).returns([])
-    plugins.stubs(:enabled_plugins).returns([])
+    Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([TestContentTypesPlugin.new])
 
     get :index, :profile => profile.identifier
 

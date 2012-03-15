@@ -1,7 +1,7 @@
-require 'noosfero'
 
 desc "Generate source tarball"
 task :package => 'package:clobber' do
+  require 'noosfero'
   begin
     sh 'test -d .git'
   rescue

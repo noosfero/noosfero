@@ -4,7 +4,7 @@ class ProfileSearchBlock < Block
     _('Display a form to search the profile')
   end
 
-  def content
+  def content(args={})
     title = self.title
     lambda do
       render :file => 'blocks/profile_search', :locals => { :title => title }

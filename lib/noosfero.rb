@@ -1,6 +1,8 @@
+require 'fast_gettext'
+
 module Noosfero
   PROJECT = 'noosfero'
-  VERSION = '0.35.0'
+  VERSION = '0.36.1'
 
   def self.pattern_for_controllers_in_directory(dir)
     disjunction = controllers_in_directory(dir).join('|')
@@ -9,7 +11,19 @@ module Noosfero
   end
 
   class << self
-    attr_accessor :locales
+    def locales
+      @locales ||= {
+        'en' => 'English',
+        'pt' => 'Português',
+        'fr' => 'Français',
+        'hy' => 'հայերեն լեզու',
+        'de' => 'Deutsch',
+        'ru' => 'русский язык',
+        'es' => 'Español',
+        'eo' => 'Esperanto'
+      }
+    end
+    attr_writer :locales
     attr_accessor :default_locale
     def available_locales
       @available_locales ||=

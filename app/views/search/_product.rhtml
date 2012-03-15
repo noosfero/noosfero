@@ -5,8 +5,8 @@ product_item_pos = 0  if ! product_item_pos
 product_item_pos += 1
 %>
 
-<% extra_content = @plugins.map(:asset_product_extras, product, product.enterprise).collect { |content| instance_eval(&content) } %>
-<% extra_properties = @plugins.map(:asset_product_properties, product)%>
+<% extra_content = @plugins.dispatch(:asset_product_extras, product, product.enterprise).collect { |content| instance_eval(&content) } %>
+<% extra_properties = @plugins.dispatch(:asset_product_properties, product)%>
 
 <li class="product-item <%= ( pos % 2 == 0 ) ? 'odd' : 'even' %>">
   <%= link_to_product product, :class => 'product-pic', :style => 'background-image:url(%s)' % product.default_image(:minor) %>
