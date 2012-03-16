@@ -39,7 +39,7 @@ all_fixtures
     env = Environment.default
     env.organization_approval_method = :admin
     env.save
-    region = fast_create(Region)
+    region = fast_create(Region, {}, :search => true)
 
     data = { :name => 'My new enterprise', :identifier => 'mynew', :region => region }
     create_enterprise = CreateEnterprise.new(data)

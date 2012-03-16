@@ -143,15 +143,12 @@ Feature: search products
     Then I should see "Arte em Madeira" within "#search-results"
 
   Scenario: find products without exact query
-    Given the following enterprise
-      | identifier | name    |
-      | colivre    | Colivre |
-    And the following product_category
+    Given the following product_category
       | name           |
 	  | Software Livre |
     And the following products
-      | owner   | name                             | category       |
-      | colivre | Noosfero Social Network Platform | software-livre |
+      | owner       | name                             | category       |
+      | colivre-ent | Noosfero Social Network Platform | software-livre |
     When I go to the search products page
     And I fill in "query" with "Noosfero Network"
     And I press "Search"
@@ -160,7 +157,6 @@ Feature: search products
   Scenario: filter products by facet
     Given the following enterprises
       | identifier | name    |
-      | colivre    | Colivre |
       | fb         | FB inc. |
     And the following categories as facets
       | name      |
@@ -170,9 +166,9 @@ Feature: search products
       | Software Livre | tematicas |
       | Big Brother    | tematicas |
     And the following products
-      | owner   | name             | category       |
-      | colivre | Noosfero Network | software-livre |
-      | fb      | Facebook Network | big-brother    |
+      | owner       | name             | category       |
+      | colivre-ent | Noosfero Network | software-livre |
+      | fb          | Facebook Network | big-brother    |
     When I go to the search products page
     And I fill in "query" with "Network"
     And I press "Search"
@@ -183,7 +179,6 @@ Feature: search products
   Scenario: remember facet filter when searching new query
     Given the following enterprises
       | identifier | name    |
-      | colivre    | Colivre |
       | fb         | FB inc. |
       | other      | Other   |
     And the following categories as facets
@@ -195,11 +190,11 @@ Feature: search products
       | Big Brother    | tematicas |
       | Other          | tematicas |
     And the following products
-      | owner   | name               | category       |
-      | colivre | Noosfero Network   | software-livre |
-      | fb      | Facebook Network   | big-brother    |
-      | other   | Other open         | software-livre |
-      | other   | Other closed       | big-brother    |
+      | owner       | name               | category       |
+      | colivre-ent | Noosfero Network   | software-livre |
+      | fb          | Facebook Network   | big-brother    |
+      | other       | Other open         | software-livre |
+      | other       | Other closed       | big-brother    |
     When I go to the search products page
     And I fill in "query" with "Network"
     And I press "Search"

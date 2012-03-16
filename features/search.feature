@@ -88,7 +88,7 @@ Feature: search
   Scenario: search different types of entities with the same query
     Given the following enterprises
       | identifier  | name                    | 
-      | colivre     | Colivre - Noosfero dev. |
+      | colivre_dev | Colivre - Noosfero dev. |
     And the following communities
       | identifier     | name           |
       | noosfero-users | Noosfero users | 
@@ -96,8 +96,8 @@ Feature: search
       | name        |
       | Development |
     And the following products
-      | owner   | name              | category    |
-      | colivre | Noosfero platform | Development |
+      | owner       | name              | category    |
+      | colivre_dev | Noosfero platform | Development |
     When I go to the search page
     And I fill in "query" with "noosfero"
     And I press "Search"
