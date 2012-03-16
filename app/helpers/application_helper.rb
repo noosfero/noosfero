@@ -986,7 +986,7 @@ module ApplicationHelper
   end
 
   def tokeninput_stylesheets
-    ['token-input', 'token-input-facebook', 'token-input-mac']
+    ['token-input', 'token-input-facebook', 'token-input-mac', 'token-input-facet']
   end
 
   def noosfero_layout_features
@@ -1005,7 +1005,7 @@ module ApplicationHelper
     options.merge!(:page => params[:npage])
     content = article.to_html(options)
     content = content.kind_of?(Proc) ? self.instance_eval(&content) : content
-    @plugins && @plugins.enabled_plugins.each do |plugin|
+    @plugins && @plugins.each do |plugin|
       content = plugin.parse_content(content)
     end
     content
@@ -1332,4 +1332,11 @@ module ApplicationHelper
     "hintText: '#{hintText}', noResultsText: '#{noResultsText}', searchingText: '#{searchingText}'"
   end
 
+  def delete_article_message(article)
+    if article.folder?
+      _("Are you sure that you want to remove the folder \"#{article.name}\"? Note that all the items inside it will also be removed!")
+    else
+      _("Are you sure that you want to remove the item \"#{article.name}\"?")
+    end
+  end
 end

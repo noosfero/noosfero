@@ -332,20 +332,23 @@ class AdminPanelControllerTest < ActionController::TestCase
   end
 
   should 'display plugins links' do
-    plugin1_link = {:title => 'Plugin1 link', :url => 'plugin1.com'}
-    plugin2_link = {:title => 'Plugin2 link', :url => 'plugin2.com'}
-    links = [plugin1_link, plugin2_link]
-    plugins = mock()
-    plugins.stubs(:map).with(:admin_panel_links).returns(links)
-    plugins.stubs(:enabled_plugins).returns([])
-    plugins.stubs(:map).with(:body_beginning).returns([])
-    plugins.stubs(:map).with(:head_ending).returns([])
-    Noosfero::Plugin::Manager.stubs(:new).returns(plugins)
+    class TestAdminPanelLinks1 < Noosfero::Plugin
+      def admin_panel_links
+        {:title => 'Plugin1 link', :url => 'plugin1.com'}
+      end
+    end
+    class TestAdminPanelLinks2 < Noosfero::Plugin
+      def admin_panel_links
+        {:title => 'Plugin2 link', :url => 'plugin2.com'}
+      end
+    end
+
+    Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([TestAdminPanelLinks1.new, TestAdminPanelLinks2.new])
 
     get :index
 
-    assert_tag :tag => 'a', :content => /#{plugin1_link[:title]}/, :attributes => {:href => /#{plugin1_link[:url]}/}
-    assert_tag :tag => 'a', :content => /#{plugin2_link[:title]}/, :attributes => {:href => /#{plugin2_link[:url]}/}
+    assert_tag :tag => 'a', :content => /Plugin1 link/, :attributes => {:href => /plugin1.com/}
+    assert_tag :tag => 'a', :content => /Plugin2 link/, :attributes => {:href => /plugin2.com/}
   end
 
 end

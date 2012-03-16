@@ -84,4 +84,15 @@ class NoosferoTest < ActiveSupport::TestCase
     assert_equal 'localhost', Noosfero.default_hostname
   end
 
+  should 'be able to override locales' do
+    original_locales = Noosfero.locales
+
+    english_only = { 'en' => 'English' }
+    Noosfero.locales = english_only
+    assert_equal english_only, Noosfero.locales
+
+    # cleanup
+    Noosfero.locales = original_locales
+  end
+
 end

@@ -864,30 +864,34 @@ class ProfileEditorControllerTest < ActionController::TestCase
   end
 
   should 'display plugins buttons on the control panel' do
-    plugin1_button = {:title => "Plugin1 button", :icon => 'plugin1_icon', :url => 'plugin1_url'}
-    plugin2_button = {:title => "Plugin2 button", :icon => 'plugin2_icon', :url => 'plugin2_url'}
-    buttons = [plugin1_button, plugin2_button]
-    plugins = mock()
-    plugins.stubs(:map).with(:control_panel_buttons).returns(buttons)
-    plugins.stubs(:enabled_plugins).returns([])
-    plugins.stubs(:map).with(:body_beginning).returns([])
-    plugins.stubs(:map).with(:head_ending).returns([])
-    Noosfero::Plugin::Manager.stubs(:new).returns(plugins)
+
+    class TestControlPanelButtons1 < Noosfero::Plugin
+      def control_panel_buttons
+        {:title => "Plugin1 button", :icon => 'plugin1_icon', :url => 'plugin1_url'}
+      end
+    end
+    class TestControlPanelButtons2 < Noosfero::Plugin
+      def control_panel_buttons
+        {:title => "Plugin2 button", :icon => 'plugin2_icon', :url => 'plugin2_url'}
+      end
+    end
+
+    Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([TestControlPanelButtons1.new, TestControlPanelButtons2.new])
 
     get :index, :profile => profile.identifier
 
-    assert_tag :tag => 'a', :content => plugin1_button[:title], :attributes => {:class => /#{plugin1_button[:icon]}/, :href => /#{plugin1_button[:url]}/}
-    assert_tag :tag => 'a', :content => plugin2_button[:title], :attributes => {:class => /#{plugin2_button[:icon]}/, :href => /#{plugin2_button[:url]}/}
+    assert_tag :tag => 'a', :content => 'Plugin1 button', :attributes => {:class => /plugin1_icon/, :href => /plugin1_url/}
+    assert_tag :tag => 'a', :content => 'Plugin2 button', :attributes => {:class => /plugin2_icon/, :href => /plugin2_url/}
   end
 
   should 'add extra content provided by plugins on edit' do
-    plugin1_content = "<input id='field_added_by_plugin' value='value_of_field_added_by_plugin'/>"
-    plugins = mock()
-    plugins.stubs(:enabled_plugins).returns([])
-    plugins.stubs(:map).with(:profile_editor_extras).returns([plugin1_content])
-    plugins.stubs(:map).with(:head_ending).returns([])
-    plugins.stubs(:map).with(:body_beginning).returns([])
-    Noosfero::Plugin::Manager.stubs(:new).returns(plugins)
+    class TestProfileEditPlugin < Noosfero::Plugin
+      def profile_editor_extras
+        "<input id='field_added_by_plugin' value='value_of_field_added_by_plugin'/>"
+      end
+    end
+
+    Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([TestProfileEditPlugin.new])
 
     get :edit, :profile => profile.identifier
 

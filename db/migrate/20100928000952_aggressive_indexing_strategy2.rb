@@ -31,7 +31,7 @@ class AggressiveIndexingStrategy2 < ActiveRecord::Migration
       execute buffer
     end
 
-    add_index(:action_tracker_notifications, [:profile_id, :action_tracker_id], :unique => true)
+    add_index(:action_tracker_notifications, [:profile_id, :action_tracker_id], :unique => true, :name => "index_action_tracker_notif_on_prof_id_act_tracker_id")
   end
 
   def self.down

@@ -82,7 +82,7 @@
   )%>
 
   <%=
-    @plugins.map(:profile_editor_extras).each do |content|
+    @plugins.dispatch(:profile_editor_extras).each do |content|
       content.respond_to?(:call) ? content.call : content
     end.join("\n")
   %>

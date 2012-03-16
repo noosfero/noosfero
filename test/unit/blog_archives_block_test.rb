@@ -157,4 +157,22 @@ class BlogArchivesBlockTest < ActiveSupport::TestCase
     end
   end
 
+  should 'not count articles if the user can\'t see them' do
+    person = create_user('testuser').person
+    blog = fast_create(Blog, :profile_id => profile.id, :path => 'blog_path')
+    block = fast_create(BlogArchivesBlock)
+
+    feed = mock()
+    feed.stubs(:url).returns(blog.url)
+    blog.stubs(:feed).returns(feed)
+    block.stubs(:blog).returns(blog)
+    block.stubs(:owner).returns(profile)
+
+    public_post = fast_create(TextileArticle, :profile_id => profile.id, :parent_id => blog.id, :published => true, :published_at => Time.mktime(2012, 'jan'))
+    private_post = fast_create(TextileArticle, :profile_id => profile.id, :parent_id => blog.id, :published => false, :published_at => Time.mktime(2012, 'jan'))
+
+    assert_match /January \(1\)/, block.content({:person => person})
+    assert_match /January \(1\)/, block.content()
+    assert_match /January \(2\)/, block.content({:person => profile})
+  end
 end

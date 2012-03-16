@@ -8,8 +8,10 @@
         <% if !(profile.kind_of?(Enterprise) && environment.enabled?('disable_cms')) %>
           <% if @page != profile.home_page && !@page.has_posts? %>
             <%= link_to content_tag( 'span', _('Delete') ),
-              profile.admin_url.merge({ :controller => 'cms', :action => 'destroy', :id => @page }),
-              :class => 'button with-text icon-delete' %>
+              profile.admin_url.merge({ :controller => 'cms', :action => 'destroy', :id => @page}),
+              :method => :post,
+              :class => 'button with-text icon-delete',
+              :confirm => delete_article_message(@page) %>
           <% end %>
           <% if !environment.enabled?('disable_cms') && !@page.folder? %>
             <% if profile.kind_of?(Person) %>

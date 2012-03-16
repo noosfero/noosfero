@@ -78,7 +78,7 @@ class FeedReaderBlock < Block
     self.save!
   end
 
-  def content
+  def content(args={})
     block_title(title) + formatted_feed_content
   end
 

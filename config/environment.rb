@@ -19,7 +19,10 @@ extra_controller_dirs = %w[
 ].map {|item| File.join(RAILS_ROOT, item) }
 
 def noosfero_session_secret
-  file = File.join(File.dirname(__FILE__), '/../tmp/session.secret')
+  require 'fileutils'
+  target_dir = File.join(File.dirname(__FILE__), '/../tmp')
+  FileUtils.mkdir_p(target_dir)
+  file = File.join(target_dir, 'session.secret')
   if !File.exists?(file)
     secret = (1..128).map { %w[0 1 2 3 4 5 6 7 8 9 a b c d e f][rand(16)] }.join('')
     File.open(file, 'w') do |f|
@@ -63,7 +66,10 @@ Rails::Initializer.run do |config|
     noosfero:translations:compile
     makemo
   ]
-  unless $PROGRAM_NAME =~ /rake$/ && (ignore_rake_commands.include?(ARGV.first))
+  if $PROGRAM_NAME =~ /rake$/ && (ignore_rake_commands.include?(ARGV.first))
+    $NOOSFERO_LOAD_PLUGINS = false
+  else
+    $NOOSFERO_LOAD_PLUGINS = true
     config.active_record.observers = :article_sweeper, :role_assignment_sweeper, :friendship_sweeper, :category_sweeper, :block_sweeper
   end
   # Make Active Record use UTC-base instead of local time
@@ -108,16 +114,6 @@ end
 
 ActiveRecord::Base.store_full_sti_class = true
 
-Noosfero.locales = {
-  'en' => 'English',
-  'pt' => 'Português',
-  'fr' => 'Français',
-  'hy' => 'հայերեն լեզու',
-  'de' => 'Deutsch',
-  'ru' => 'русский язык',
-  'es' => 'Español',
-  'eo' => 'Esperanto'
-}
 # if you want to override this, do it in config/local.rb !
 Noosfero.default_locale = nil
 

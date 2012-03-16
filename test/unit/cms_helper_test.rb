@@ -82,8 +82,9 @@ class CmsHelperTest < ActiveSupport::TestCase
 
   should 'display delete_button to folder' do
     profile = fast_create(Profile)
-    folder = fast_create(Folder, :name => 'My folder', :profile_id => profile.id)
-    confirm_message = 'Are you sure that you want to remove this folder? Note that all the items inside it will also be removed!'
+    name = 'My folder'
+    folder = fast_create(Folder, :name => name, :profile_id => profile.id)
+    confirm_message = "Are you sure that you want to remove the folder \"#{name}\"? Note that all the items inside it will also be removed!"
     expects(:button_without_text).with(:delete, 'Delete', {:action => 'destroy', :id => folder.id}, :method => :post, :confirm => confirm_message)
 
     result = display_delete_button(folder)
@@ -91,8 +92,9 @@ class CmsHelperTest < ActiveSupport::TestCase
 
   should 'display delete_button to article' do
     profile = fast_create(Profile)
-    article = fast_create(TinyMceArticle, :name => 'My article', :profile_id => profile.id)
-    confirm_message = 'Are you sure that you want to remove this item?'
+    name = 'My article'
+    article = fast_create(TinyMceArticle, :name => name, :profile_id => profile.id)
+    confirm_message = "Are you sure that you want to remove the item \"#{name}\"?"
     expects(:button_without_text).with(:delete, 'Delete', {:action => 'destroy', :id => article.id}, :method => :post, :confirm => confirm_message)
 
     result = display_delete_button(article)

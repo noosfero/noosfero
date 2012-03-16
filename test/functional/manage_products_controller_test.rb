@@ -437,24 +437,25 @@ class ManageProductsControllerTest < ActionController::TestCase
   end
 
   should 'include extra content supplied by plugins on products info extras' do
-    product = fast_create(Product, :enterprise_id => @enterprise.id)
-    plugin1_local_variable = "Plugin1"
-    plugin1_content = lambda {"<span id='plugin1'>This is #{plugin1_local_variable} speaking!</span>"}
-    plugin2_local_variable = "Plugin2"
-    plugin2_content = lambda {"<span id='plugin2'>This is #{plugin2_local_variable} speaking!</span>"}
-    contents = [plugin1_content, plugin2_content]
+    class TestProductInfoExtras1Plugin < Noosfero::Plugin
+      def product_info_extras(p)
+        lambda {"<span id='plugin1'>This is Plugin1 speaking!</span>"}
+      end
+    end
+    class TestProductInfoExtras2Plugin < Noosfero::Plugin
+      def product_info_extras(p)
+        lambda { "<span id='plugin2'>This is Plugin2 speaking!</span>" }
+      end
+    end
 
-    plugins = mock()
-    plugins.stubs(:enabled_plugins).returns([])
-    plugins.stubs(:map).with(:body_beginning).returns([])
-    plugins.stubs(:map).with(:head_ending).returns([])
-    plugins.stubs(:map).with(:product_info_extras, product).returns(contents)
-    Noosfero::Plugin::Manager.stubs(:new).returns(plugins)
+    product = fast_create(Product, :enterprise_id => @enterprise.id)
+
+    Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([TestProductInfoExtras1Plugin.new, TestProductInfoExtras2Plugin.new])
 
     get :show, :id => product.id, :profile => @enterprise.identifier
 
-    assert_tag :tag => 'span', :content => 'This is ' + plugin1_local_variable + ' speaking!', :attributes => {:id => 'plugin1'}
-    assert_tag :tag => 'span', :content => 'This is ' + plugin2_local_variable + ' speaking!', :attributes => {:id => 'plugin2'}
+    assert_tag :tag => 'span', :content => 'This is Plugin1 speaking!', :attributes => {:id => 'plugin1'}
+    assert_tag :tag => 'span', :content => 'This is Plugin2 speaking!', :attributes => {:id => 'plugin2'}
   end
 
   should 'not allow product creation for profiles that can\'t do it' do

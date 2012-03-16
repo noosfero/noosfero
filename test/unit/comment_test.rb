@@ -330,4 +330,12 @@ class CommentTest < ActiveSupport::TestCase
     assert_nil Comment.new(:email => 'my@email.com').author_url
   end
 
+  should 'be able to reject a comment' do
+    c = Comment.new
+    assert !c.rejected?
+
+    c.reject!
+    assert c.rejected?
+  end
+
 end

@@ -218,4 +218,24 @@ class Noosfero::Plugin
     end
   end
 
+  # This method will be called just before a comment is saved to the database.
+  #
+  # It can modify the comment in several ways. In special, a plugin can call
+  # reject! on the comment and that will cause the comment to not be saved.
+  #
+  # example:
+  #
+  #   def filter_comment(comment)
+  #     comment.reject! if anti_spam_service.is_spam?(comment)
+  #   end
+  #
+  def filter_comment(comment)
+  end
+
+  # This method will be called just after a comment has been saved to the
+  # database, so that a plugin can perform some action on it.
+  #
+  def comment_saved(comment)
+  end
+
 end

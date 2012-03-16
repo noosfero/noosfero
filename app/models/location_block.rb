@@ -11,7 +11,7 @@ class LocationBlock < Block
     _('Shows where the profile is on the material world.')
   end
 
-  def content
+  def content(args={})
     profile = self.owner
     title = self.title
     if profile.lat

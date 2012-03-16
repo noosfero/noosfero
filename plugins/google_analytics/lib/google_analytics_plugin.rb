@@ -1,4 +1,4 @@
-require_dependency 'ext/profile'
+require_dependency File.dirname(__FILE__) + '/ext/profile'
 
 class GoogleAnalyticsPlugin < Noosfero::Plugin
 

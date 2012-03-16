@@ -288,6 +288,7 @@ Given /^I am logged in as "(.+)"$/ do |username|
     selenium.wait_for_page
   end
   Then "I should be logged in as \"#{username}\""
+  @current_user = username
 end
 
 Given /^I am logged in as admin$/ do
@@ -624,3 +625,7 @@ Given /^the following cities$/ do |table|
   end
 end
 
+When /^I edit my profile$/ do
+  visit "/myprofile/#{@current_user}"
+  click_link "Edit Profile"
+end
