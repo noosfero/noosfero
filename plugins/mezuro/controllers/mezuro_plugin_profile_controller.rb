@@ -27,8 +27,12 @@ class MezuroPluginProfileController < ProfileController
     render :partial => 'content_viewer/module_result', :locals => { :module_result =>  module_result}
   end
 
-  def teste
+  def choose_base_tool
     @configuration_name = params[:configuration_name]
+    @tool_names = Kalibro::Client::BaseToolClient.new
+  end
+
+  def add_metric
   end
 
 end
