@@ -31,7 +31,17 @@ namespace :test do
     end
   end
 end
-(CucumberTasks + NoosferoTasks).each do |test_task|
+CucumberTasks.each do |test_task|
+  override_task test_task do
+    ENV['RAILS_ENV'] = 'cucumber'
+    Rake::Task['solr:start'].reenable
+    Rake::Task['solr:start'].invoke
+    Rake::Task["#{test_task}:original"].invoke
+    Rake::Task['solr:stop'].reenable
+    Rake::Task['solr:stop'].invoke
+  end
+end
+NoosferoTasks.each do |test_task|
   override_task test_task do
     ENV['RAILS_ENV'] = 'test'
     Rake::Task['solr:start'].reenable
