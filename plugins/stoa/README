@@ -1,0 +1,12 @@
+Banco de Dados
+==============
+
+É preciso adicionar uma seção definindo a conexão com o banco de usuários da USP, no arquivo config/database.yml com identificador stoa.
+``
+stoa:
+  adapter: mysql
+  host: db2.stoa.usp.br
+  database: usp
+  username: <usuario>
+  password: <senha>
+``

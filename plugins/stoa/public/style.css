@@ -1,0 +1,5 @@
+#signup-form label[for="usp_id_field"],
+#signup-form label[for="confirmation_field"] {
+  display: block;
+}
+
