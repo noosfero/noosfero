@@ -526,3 +526,17 @@ Feature: manage products
     And I follow "Delete qualifier"
     And I press "Save"
     Then I should not see "Organic (Self declared)"
+
+  @selenium
+  Scenario: Show checkbox to mark product as highlight
+    Given the following product_category
+      | name    |
+      | Bicycle |
+    And the following products
+      | owner      | category | name |
+      | redemoinho | bicycle  | Bike |
+    And I am logged in as "joaosilva"
+    When I go to Rede Moinho's page of product Bike
+    And I follow "Add price and other basic information"
+    Then I should see "Highlight product"
+    And I check "Highlight product"
