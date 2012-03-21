@@ -6548,7 +6548,9 @@ h1#agenda-title {
 #signup-form #user_password,
 #signup-form #user_password_confirmation,
 #signup-form .filled-in,
-#signup-form .passwords_match {
+#signup-form .passwords_match,
+#signup-form .invalid,
+#signup-form .checking {
   border-width: 2px;
   border-style: solid;
   background-color: #fff;
@@ -6626,6 +6628,8 @@ h1#agenda-title {
 }
 
 #signup-form span.invalid {
+  border: none;
+  padding: 0px;
   background: transparent;
   color: #FFA000;
 }
@@ -6636,6 +6640,8 @@ h1#agenda-title {
 }
 
 #signup-form span.checking {
+  border: none;
+  padding: 0px;
   background: transparent;
   color: #4A4A4A;
 }

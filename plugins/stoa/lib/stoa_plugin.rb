@@ -31,9 +31,16 @@ class StoaPlugin < Noosfero::Plugin
             function(data){
               if(data.exists) jQuery(me).removeClass('checking').addClass('validated');
               else jQuery(me).removeClass('checking').addClass('invalid');
+              if(data.error) displayValidationUspIdError(data.error);
             }
           );
         });
+
+        function displayValidationUspIdError(error){
+          jQuery.colorbox({html: '<h2>'+error.message+'</h2>'+error.backtrace.join("<br />"),
+                           height: "80%",
+                           width:  "70%" });
+        }
         EOF
       )
     }

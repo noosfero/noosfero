@@ -25,7 +25,11 @@ class StoaPluginController < PublicController
   end
 
   def check_usp_id
-    render :text => { :exists => StoaPlugin::UspUser.exists?(params[:usp_id]) }.to_json
+    begin
+      render :text => { :exists => StoaPlugin::UspUser.exists?(params[:usp_id]) }.to_json
+    rescue Exception => exception
+      render :text => { :exists => false, :error => {:message => exception.to_s, :backtrace => exception.backtrace} }.to_json
+    end
   end
 
 end
