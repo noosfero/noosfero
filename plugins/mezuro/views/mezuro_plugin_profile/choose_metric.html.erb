@@ -10,7 +10,7 @@
   <% @collector.supported_metrics.each do |metric| %>
     <tr class="metric" title="<%= metric.name %>">
       <td>
-        <%= link_to metric.name, :controller => "mezuro_plugin_profile", :action => "add_metric", :params => {:metric_name => metric.name,
+        <%= link_to metric.name, :controller => "mezuro_plugin_profile", :action => "new_metric_configuration", :params => {:metric_name => metric.name,
         :collector_name => @collector_name, :configuration_name => @configuration_name} %>
       </td>
     </tr>

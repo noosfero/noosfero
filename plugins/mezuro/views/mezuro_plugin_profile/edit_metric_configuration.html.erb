@@ -1,0 +1,33 @@
+<h2><%= @configuration_name %> Configuration</h2>
+
+<% form_for @metric_configuration, :url => {:action =>"update_metric_configuration", :controller => "mezuro_plugin_profile"}, :method => :get do |f| %>
+  <%= hidden_field_tag :configuration_name, @configuration_name %>
+  <p>
+    <%= f.label :collector_name, "Collector Name:" %>
+    <%= @metric_configuration.metric.origin %>
+    <%= hidden_field_tag "metric[origin]", @metric_origin %>
+  </p>
+  <p>
+    <%= f.label :metric_name, "Metric Name:" %>
+    <%= @metric_configuration.metric.name %>
+    <%= hidden_field_tag "metric[name]", @metric_name %>
+  </p>
+  <p>
+    <%= f.label :code, "Code:" %>
+    <%= @metric_configuration.code %>
+    <%= f.hidden_field :code, :value => @metric_configuration.code %>
+  </p>
+  <p>
+    <%= f.label :aggregation_form, "Aggregation Form:" %>
+    <%= f.select :aggregation_form, [["Average","AVERAGE"], ["Median", "MEDIAN"], ["Maximum", "MAXIMUM"], ["Minimum", "MINIMUM"], 
+    ["Count", "COUNT"], ["Standard Deviation", "STANDARD_DEVIATION"]] %>
+  </p>
+  <p>
+    <%= f.label :weight, "Weight:" %>
+    <%= f.text_field :weight %>
+  </p>
+  <p>
+    <%= f.submit "Save" %>
+  </p>
+
+<% end %>

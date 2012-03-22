@@ -27,10 +27,8 @@
       <td><%= metric_configuration.metric.name %></td>
       <td><%= metric_configuration.metric.origin %></td>
       <td><%= metric_configuration.code %></td>
-      <td><%= link_to "Edit", :controller => "mezuro_plugin_profile", :action => "edit_metric", :params =>
+      <td><%= link_to "Edit", :controller => "mezuro_plugin_profile", :action => "edit_metric_configuration", :params =>
         {:configuration_name => @configuration.name, :metric_code => metric_configuration.code} %></td>
     </tr>
 <% end %>
 </table>
-
-<% #link_to "Teste", "/profile/#{profile.identifier}/plugins/mezuro/teste" %>

@@ -35,14 +35,36 @@ class MezuroPluginProfileController < ProfileController
   def choose_metric
     @configuration_name = params[:configuration_name]
     @collector_name = params[:collector_name]
-    collector_client = Kalibro::Client::BaseToolClient.new
-    @collector = collector_client.base_tool(@collector_name)
+
+    @collector = Kalibro::Client::BaseToolClient.new.base_tool(@collector_name)
   end
 
-  def add_metric
+  def new_metric_configuration
     @metric_name = params[:metric_name]
     @configuration_name = params[:configuration_name]
     @collector_name = params[:collector_name]
   end
 
+  def edit_metric_configuration
+    @metric_configuration_code = params[:metric_code]
+    @configuration_name = params[:configuration_name]
+
+    @metric_configuration = Kalibro::Entities::MetricConfiguration.new
+    @metric_configuration.code = @metric_configuration_code
+    @metric_configuration.aggregation_form = "MEDIAN"
+    @metric_configuration.weight = "1"
+    @metric_configuration.metric = Kalibro::Entities::NativeMetric.new
+    @metric_configuration.metric.name = "Nome falso"
+    @metric_configuration.metric.origin = "Origem Falsa"
+  end
+
+  def create_metric_configuration
+    @configuration_name = params[:configuration_name]
+    redirect_to "/#{profile.identifier}/#{@configuration_name.downcase.gsub(/\s/, '-')}"
+  end
+
+  def update_metric_configuration
+    @configuration_name = params[:configuration_name]
+    redirect_to "/#{profile.identifier}/#{@configuration_name.downcase.gsub(/\s/, '-')}"
+  end
 end
