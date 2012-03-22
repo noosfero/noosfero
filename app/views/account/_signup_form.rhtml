@@ -73,7 +73,9 @@
     <%= render :partial => 'profile_editor/person_form', :locals => {:f => f} %>
   <% end %>
 
-  <%= @plugins.map(:signup_extra_contents).collect { |content| instance_eval(&content) }.join("") %>
+
+
+  <%= @plugins.dispatch(:signup_extra_contents).collect { |content| instance_eval(&content) }.join("") %>
 
   <% unless @terms_of_use.blank? %>
     <div id='terms-of-use-box' class='formfieldline'>
