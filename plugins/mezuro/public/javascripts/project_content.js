@@ -1,3 +1,4 @@
+var processingTree = false;
 jQuery(function (){
   jQuery('.source-tree-link').live("click", reloadModule);
   showProjectContent();
@@ -9,6 +10,8 @@ function showProjectContent() {
 
 function reloadModule(){
   var module_name = jQuery(this).attr('data-module-name');
+  showLoadingProcess();
+  processingTree = true;
   callAction('project_tree', {module_name: module_name }, showProjectTree);
   callAction('module_result', {module_name: module_name}, showModuleResult);
   return false;
@@ -41,11 +44,14 @@ function showProjectResult(content) {
 }
 
 function showProjectTree(content){ 
+  processingTree = false;
   jQuery('#project-tree').html(content);
 }
 
 function showModuleResult(content){
-  jQuery('#module-result').html(content);
+  if (processingTree != true){ 
+    jQuery('#module-result').html(content);
+  }
 }
 
 function callAction(action, params, callback){
@@ -58,3 +64,8 @@ function callAction(action, params, callback){
 function projectContentData(data){
   return jQuery('#project-result').attr('data-' + data);
 }
+
+function showLoadingProcess(){
+  showProjectTree("<img src='/images/loading-small.gif'/>");
+  showModuleResult("<img src='/images/loading-small.gif'/>");
+} 
