@@ -1,4 +1,5 @@
 require_dependency 'person'
+require_dependency 'ext/person'
 
 class StoaPlugin < Noosfero::Plugin
 
