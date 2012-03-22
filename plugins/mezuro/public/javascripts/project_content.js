@@ -28,10 +28,10 @@ function showProjectContentFor(state){
 
 function showProjectContentAfter(seconds){
   if (seconds > 0){
-    setProjectContent("Not ready. Trying again in " + seconds + " seconds");
-    setTimeout(function() { showProjectContentAfter(seconds - 1);}, 1000);
+    alert("Not ready. Trying again in " + seconds + " seconds");
+    setTimeout(function() { showProjectContentAfter(seconds - 10);}, 10000);
   } else {
-    setProjectContent("Trying now...");
+    alert("Trying now...");
     showProjectContent();
   }
 }
