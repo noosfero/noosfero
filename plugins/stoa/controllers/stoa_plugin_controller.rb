@@ -13,7 +13,7 @@ class StoaPluginController < PublicController
           :first_name => user.name.split(' ').first,
           :surname => user.name.split(' ',2).last,
           :address => user.person.address,
-          :homepage => user.person.url,
+          :homepage => url_for(user.person.url),
         }
       else
         result = { :error => _('Incorrect user/password pair.') }
