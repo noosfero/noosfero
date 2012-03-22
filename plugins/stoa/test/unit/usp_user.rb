@@ -11,10 +11,10 @@ class StoaPlugin::UspUserTest < ActiveSupport::TestCase
     ActiveRecord::Schema.create_table "pessoa" do |t|
       t.integer  "codpes"
       t.text     "numcpf"
-      t.text     "numdocidf"
+      t.date     "dtanas"
     end
     ActiveRecord::Base.establish_connection(:test)
-    StoaPlugin::UspUser.create!(:codpes => 123456, :cpf => Digest::MD5.hexdigest(SALT+'12345678'), :rg => Digest::MD5.hexdigest(SALT+'87654321'))
+    StoaPlugin::UspUser.create!(:codpes => 123456, :cpf => Digest::MD5.hexdigest(SALT+'12345678'), :birth_date => '1970-01-30')
   end
 
   def teardown
@@ -26,10 +26,16 @@ class StoaPlugin::UspUserTest < ActiveSupport::TestCase
     assert !StoaPlugin::UspUser.exists?(654321)
   end
 
-  should 'check if usp_id matches with a field' do
+  should 'check if usp_id matches with a cpf' do
     assert  StoaPlugin::UspUser.matches?(123456, :cpf, 12345678)
     assert !StoaPlugin::UspUser.matches?(123456, :cpf, 87654321)
     assert !StoaPlugin::UspUser.matches?(654321, :cpf, 12345678)
+  end
+
+  should 'check if usp_id matches with a birth_date' do
+    assert  StoaPlugin::UspUser.matches?(123456, :birth_date, '1970-01-30')
+    assert !StoaPlugin::UspUser.matches?(123456, :birth_date, '1999-01-30')
+    assert !StoaPlugin::UspUser.matches?(654321, :birth_date, '1970-01-30')
   end
 end
 

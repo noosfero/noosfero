@@ -21,7 +21,7 @@ class StoaPlugin < Noosfero::Plugin
     lambda {
       required(labelled_form_field(_('USP number'), text_field_tag('profile_data[usp_id]', '', :id => 'usp_id_field'))) +
       labelled_form_field(_('Select a confirmation data'), select_tag('confirmation_field',
-        options_for_select([['CPF','cpf'], [_('Mother\'s name'), 'mother'], [_('Birth date (yyyy-mm-dd)'), 'birth']])
+        options_for_select([['CPF','cpf'], [_('Birth date (yyyy-mm-dd)'), 'birth_date']])
       )) +
       required(labelled_form_field(_('Confirmation value'), text_field_tag('confirmation_value', '', :placeholder=>_('Confirmation value')))) +
       javascript_tag(<<-EOF
