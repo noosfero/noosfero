@@ -19,7 +19,7 @@
       <% range = metric_result.range %>
       <tr title="<%= range.nil? ? '' : range.comments %>">
         <td><%= metric_result.metric.name %></td>
-        <td><%= metric_result.value %></td>
+        <td><%= metric_result.value.slice(/[0-9]+\.[0-9]{1,2}/) %></td> <!--FIXME: Move to helper eventually-->
         <td><%= metric_result.weight %></td>
         <% if range.nil? %>
           <td></td>
@@ -34,7 +34,7 @@
       <td colspan = "4" align = "right">
         <strong>
           <%= _('Grade:') %>
-          <%=  module_result.grade %>
+          <%=  module_result.grade.slice(/[0-9]+\.[0-9]{1,2}/) %> <!--FIXME: Move to helper eventually -->
         </strong>
       </td>
     </tr>
