@@ -19,7 +19,7 @@
       <% range = metric_result.range %>
       <tr title="<%= range.nil? ? '' : range.comments %>">
         <td><%= metric_result.metric.name %></td>
-        <td><%= metric_result.value %></td>
+        <td><%= metric_result.value.to_f.round(2).to_s %></td>
         <td><%= metric_result.weight %></td>
         <% if range.nil? %>
           <td></td>
@@ -34,7 +34,7 @@
       <td colspan = "4" align = "right">
         <strong>
           <%= _('Grade:') %>
-          <%=  module_result.grade %>
+          <%=  module_result.grade.to_f.round(2).to_s %>
         </strong>
       </td>
     </tr>
