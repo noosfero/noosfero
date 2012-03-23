@@ -1,6 +1,7 @@
 var processingTree = false;
 jQuery(function (){
   jQuery('.source-tree-link').live("click", reloadModule);
+	showLoadingProcess(true);
   showProjectContent();
 });
 
@@ -10,7 +11,7 @@ function showProjectContent() {
 
 function reloadModule(){
   var module_name = jQuery(this).attr('data-module-name');
-  showLoadingProcess();
+  showLoadingProcess(false);
   processingTree = true;
   callAction('project_tree', {module_name: module_name }, showProjectTree);
   callAction('module_result', {module_name: module_name}, showModuleResult);
@@ -31,10 +32,8 @@ function showProjectContentFor(state){
 
 function showProjectContentAfter(seconds){
   if (seconds > 0){
-    alert("Not ready. Trying again in " + seconds + " seconds");
     setTimeout(function() { showProjectContentAfter(seconds - 10);}, 10000);
   } else {
-    alert("Trying now...");
     showProjectContent();
   }
 }
@@ -65,7 +64,10 @@ function projectContentData(data){
   return jQuery('#project-result').attr('data-' + data);
 }
 
-function showLoadingProcess(){
+function showLoadingProcess(firstLoad){
+	if(firstLoad)	
+  	showProjectResult("<img src='/images/loading-small.gif'/>");
+	
   showProjectTree("<img src='/images/loading-small.gif'/>");
   showModuleResult("<img src='/images/loading-small.gif'/>");
 } 
