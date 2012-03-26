@@ -24,6 +24,12 @@ class Kalibro::Entities::Entity
     fields.each do |field|
       field_value = self.get(field)
       hash[field] = convert_to_hash(field_value) if ! field_value.nil?
+#      TODO
+#      if field_value is object
+#        hash[:attributes!] += {field.to_sym =>
+#         {'xmlns:xsi'=> 'http://www.w3.org/2001/XMLSchema-instance',
+#         'xsi:type' => 'kalibro:' + field_value_type + 'Xml'  } }
+#      end
     end
     hash
   end
