@@ -53,8 +53,10 @@ class Kalibro::Entities::Entity
   end
   
   def convert_to_hash(value)
-    return value.collect { |element| convert_to_hash(element) } if value.kind_of?(Array)
-    return value.to_hash if value.kind_of?(Kalibro::Entities::Entity)
+    return value.collect { |element| convert_to_hash(element) } if value.is_a?(Array)
+    return value.to_hash if value.is_a?(Kalibro::Entities::Entity)
+    return 'INF' if value.is_a?(Float) and value.infinite? == 1
+    return '-INF' if value.is_a?(Float) and value.infinite? == -1
     value
   end
 
