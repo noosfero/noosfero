@@ -11,6 +11,10 @@ class Kalibro::Entities::MetricConfiguration < Kalibro::Entities::Entity
     end
   end
 
+  def weight=(value)
+    @weight = value.to_f
+  end
+
   def range=(value)
     @range = to_entity_array(value, Kalibro::Entities::Range)
   end
