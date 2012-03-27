@@ -1,8 +1,8 @@
 <% collection = @collection == :profile_admins ? profile.admins : profile.members %>
-<% title = @title ? @title : "Current members" %>
+<% title = @title ? @title : _('Current members') %>
 <% remove_action = @remove_action ? @remove_action : {:action => 'unassociate'} %>
 
-<h3><%= _(title) %></h3>
+<h3><%= title %></h3>
 
 <table>
   <tr>
