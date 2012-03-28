@@ -9,6 +9,11 @@ function showProjectContent() {
   callAction('project_state', {}, showProjectContentFor);
 }
 
+function toogle(element){
+	alert(element);
+  jQuery(element).hide();
+}
+
 function reloadModule(){
   var module_name = jQuery(this).attr('data-module-name');
   showLoadingProcess(false);
