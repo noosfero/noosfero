@@ -29,7 +29,11 @@
       <% else %>
         <tr>
 	        <td class="icon"><%= image_tag('/plugins/mezuro/images/file.png') %></td>
-	        <td class="source-tree-text"><%= child.module.name %></td>
+	        <td class="source-tree-text">
+                  <a href='#' class="source-tree-link" data-module-name="<%= child.module.name %>">
+                    <%= child.module.name %>
+                  </a>
+                </td>
         </tr>
       <% end %>
     <% end %>  
