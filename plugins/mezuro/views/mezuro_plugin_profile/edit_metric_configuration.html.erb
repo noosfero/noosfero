@@ -26,8 +26,41 @@
     <%= f.label :weight, "Weight:" %>
     <%= f.text_field :weight %>
   </p>
+
   <p>
     <%= f.submit "Save" %>
   </p>
-
 <% end %>
+
+
+<h5> Ranges </h5><br/>
+
+<table id="ranges">
+  <tr>
+    <td>
+      Label
+    </td>
+    <td>
+      Beginning
+    </td>
+    <td>
+      End
+    </td>
+    <td>
+      Grade
+    </td>
+    <td>
+      Color
+    </td>       
+  </tr>
+  <% if (@metric_configuration.ranges!=nil) 
+    @metric_configuration.ranges.each do |range| %>
+      <%= render :partial => "range", :locals => {:range => range} %>
+    <% end
+  end %>
+</table>
+
+<br/>
+<%= link_to_remote "New Range", :url => {:action =>"new_range", :controller => "mezuro_plugin_profile"}  %>
+<div id="new_range" style="display:none"></div>
+
