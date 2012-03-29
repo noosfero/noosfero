@@ -18,7 +18,7 @@
     <% module_result.metric_results.each do |metric_result|  %>
       <% range = metric_result.range %>
       <tr>
-        <td><a href="#" onClick="toogle('.<%= metric_result.metric.name.delete("() ") %>')";><%= metric_result.metric.name %></a></td>
+        <td><a href="#" data-show=".<%= metric_result.metric.name.delete("() ")%>"><%= metric_result.metric.name %></a></td>
         <td><%= metric_result.value.slice(/[0-9]+\.[0-9]{1,2}/) %></td> <!--FIXME: Move to helper eventually-->
         <td><%= metric_result.weight %></td>
         <% if range.nil? %>
@@ -27,7 +27,7 @@
           <td style="background-color: #<%= range.color[2..-1] %>"><%= range.label %></td>
         <% end %>
       </tr>
-      <tr class="<%= metric_result.metric.name.delete("() ")%>">
+      <tr class="<%= metric_result.metric.name.delete("() ")%>" style="display: none;">
       	<td colspan="4" align="right">
       	  <%= range.comments.nil? ? 'comment empty' : range.comments %>
       	</td>      

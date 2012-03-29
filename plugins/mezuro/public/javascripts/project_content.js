@@ -1,7 +1,8 @@
 var processingTree = false;
 jQuery(function (){
   jQuery('.source-tree-link').live("click", reloadModule);
-	showLoadingProcess(true);
+  jQuery('[data-show]').live("click", toggle_mezuro);
+  showLoadingProcess(true);
   showProjectContent();
 });
 
@@ -9,7 +10,8 @@ function showProjectContent() {
   callAction('project_state', {}, showProjectContentFor);
 }
 
-function toogle(element){
+function toggle_mezuro(){
+  var element = jQuery(this).attr('data-show');
   jQuery(element).toggle();
   return false;
 }
