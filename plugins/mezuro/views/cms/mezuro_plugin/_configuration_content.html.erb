@@ -1,11 +1,11 @@
 <h1> <%= _(MezuroPlugin::ConfigurationContent.short_description) %> </h1>
 
 <%
-  begin
-    @configuration = @article.title.nil? ? nil : Kalibro::Client::ConfigurationClient.new.configuration(@article.title)
-  rescue
-    @configuration = nil
-  end
+begin
+  @configuration = @article.title.nil? ? nil : Kalibro::Client::ConfigurationClient.new.configuration(@article.title)
+rescue
+  @configuration = nil
+end 
 %>
 
 <%= error_messages_for 'kalibro_configuration' %>
