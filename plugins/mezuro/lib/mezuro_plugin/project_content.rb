@@ -8,7 +8,7 @@ class MezuroPlugin::ProjectContent < Article
     'Software project tracked by Kalibro'
   end
 
-  settings_items :license, :description, :repository_type, :repository_url, :configuration_name
+  settings_items :license, :description, :repository_type, :repository_url, :configuration_name, :periodicity_in_days
 
   include ActionView::Helpers::TagHelper
   def to_html(options = {})
@@ -37,7 +37,7 @@ class MezuroPlugin::ProjectContent < Article
 
   def send_project_to_service
     Kalibro::Client::ProjectClient.save(self)
-    Kalibro::Client::KalibroClient.process_project(name)
+   	Kalibro::Client::KalibroClient.process_project(name, periodicity_in_days)
   end
 
   def remove_project_from_service
