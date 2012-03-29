@@ -10,8 +10,8 @@ function showProjectContent() {
 }
 
 function toogle(element){
-	alert(element);
-  jQuery(element).hide();
+  jQuery(element).toggle();
+  return false;
 }
 
 function reloadModule(){
@@ -50,12 +50,14 @@ function showProjectResult(content) {
 function showProjectTree(content){ 
   processingTree = false;
   jQuery('#project-tree').html(content);
+	return false;
 }
 
 function showModuleResult(content){
   if (processingTree != true){ 
     jQuery('#module-result').html(content);
   }
+  return false;
 }
 
 function callAction(action, params, callback){
