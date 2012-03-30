@@ -13,6 +13,7 @@ class ProjectContentTest < ActiveSupport::TestCase
     @content.repository_type = @project.repository.type
     @content.repository_url = @project.repository.address
     @content.configuration_name = @project.configuration_name
+    @content.periodicity_in_days = 1
   end
 
   should 'be an article' do
@@ -71,7 +72,7 @@ class ProjectContentTest < ActiveSupport::TestCase
 
   should 'send correct project to service' do
     Kalibro::Client::ProjectClient.expects(:save).with(@content)
-    Kalibro::Client::KalibroClient.expects(:process_project).with(@content.name)
+    Kalibro::Client::KalibroClient.expects(:process_project).with(@content.name, @content.periodicity_in_days)
     @content.send :send_project_to_service
   end
 

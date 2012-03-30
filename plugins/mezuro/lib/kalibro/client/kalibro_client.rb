@@ -12,8 +12,16 @@ class Kalibro::Client::KalibroClient
     @port.request(:process_project, {:project_name => project_name})
   end
 
-  def self.process_project(project_name)
-    new.process_project(project_name)
+	def process_periodically(project_name, days)
+		@port.request(:process_periodically, {:project_name => project_name, :period_in_days => days})
+	end
+
+  def self.process_project(project_name, days)
+    if days.to_i.zero?
+    	new.process_project(project_name)
+  	else
+  		new.process_periodically(project_name, days)
+  	end
   end
 
 end
