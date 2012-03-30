@@ -48,15 +48,18 @@ class MezuroPluginProfileController < ProfileController
   end
 
   def new_metric_configuration
-    @metric_name = params[:metric_name]
+
+    metric_name = params[:metric_name]
     @configuration_name = params[:configuration_name]
-    @collector_name = params[:collector_name]
+    collector_name = params[:collector_name]
+
+    collector = Kalibro::Client::BaseToolClient.new.base_tool(collector_name)
+    @metric = collector.supported_metrics.find {|metric| metric.name == metric_name}
   end
 
   def edit_metric_configuration
     @metric_configuration_code = params[:metric_code]
     @configuration_name = params[:configuration_name]
-
     @metric_configuration = Kalibro::Entities::MetricConfiguration.new
     @metric_configuration.code = @metric_configuration_code
     @metric_configuration.aggregation_form = "MEDIAN"
@@ -75,6 +78,19 @@ class MezuroPluginProfileController < ProfileController
 
   def create_metric_configuration
     @configuration_name = params[:configuration_name]
+    metric_configuration = Kalibro::Entities::MetricConfiguration.new
+    metric_configuration.metric = Kalibro::Entities::NativeMetric.new
+    metric_configuration.metric.name = params[:metric][:name]
+    metric_configuration.metric.description = params[:description]
+    metric_configuration.metric.origin = params[:metric][:origin]
+    metric_configuration.metric.scope = params[:scope]
+    metric_configuration.metric.language = params[:language]
+    metric_configuration.code = params[:metric_configuration][:code]
+    metric_configuration.weight = params[:metric_configuration][:weight]
+    metric_configuration.aggregation_form = params[:metric_configuration][:aggregation]
+
+    Kalibro::Client::MetricConfigurationClient.new.save(metric_configuration, @configuration_name)
+
     redirect_to "/#{profile.identifier}/#{@configuration_name.downcase.gsub(/\s/, '-')}"
   end
 
@@ -96,3 +112,4 @@ class MezuroPluginProfileController < ProfileController
     @range.comments = params[:range][:comments]
   end
 end
+

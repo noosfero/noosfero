@@ -2,19 +2,23 @@
 
 <% form_for :metric_configuration, :url => {:action =>"create_metric_configuration", :controller => "mezuro_plugin_profile"}, :method => :get do |f| %>
   <%= hidden_field_tag :configuration_name, @configuration_name %>
+  <%= hidden_field_tag :scope, @metric.scope %>
+  <%= hidden_field_tag :language, @metric.language %>
+
   <p>
-    <%= f.label :collector_name, "Collector Name:" %>
-    <%= @collector_name %>
-    <%= f.hidden_field :collector_name, :value => @collector_name %>
+    <%= f.label :origin, "Collector Name:" %>
+    <%= @metric.origin %>
+    <%= hidden_field_tag "metric[origin]", @metric.origin %>
   </p>
   <p>
     <%= f.label :metric_name, "Metric Name:" %>
-    <%= @metric_name %>
-    <%= f.hidden_field :metric_name, :value => @metric_name %>
+    <%= @metric.name %>
+    <%= hidden_field_tag "metric[name]", @metric.name %>
   </p>
   <p>
     <%= f.label :description, "Description:" %>
-    <%= f.text_field :description %>
+    <%= @metric.description %>
+    <%= text_field_tag :description %>
   </p>
   <p>
     <%= f.label :code, "Code:" %>
@@ -29,6 +33,7 @@
     <%= f.label :weight, "Weight:" %>
     <%= f.text_field :weight %>
   </p>
+
   <p>
     <%= f.submit "Add" %>
   </p>
