@@ -1,3 +1,5 @@
+<% require "#{RAILS_ROOT}/plugins/mezuro/lib/mezuro_plugin/helpers/content_viewer_helper.rb" %>
+
 <% the_module = module_result.module %>
 <% module_label = "#{the_module.name} (#{the_module.granularity})" %>
 
@@ -19,7 +21,7 @@
       <% range = metric_result.range %>
       <tr>
         <td><a href="#" data-show=".<%= metric_result.metric.name.delete("() ")%>"><%= metric_result.metric.name %></a></td>
-        <td><%= metric_result.value.slice(/[0-9]+\.[0-9]{1,2}/) %></td> <!--FIXME: Move to helper eventually-->
+        <td><%= MezuroPlugin::Helpers::ContentViewerHelper.format_grade(metric_result.value) %></td> <!--FIXME: Move to helper eventually-->
         <td><%= metric_result.weight %></td>
         <% if range.nil? %>
           <td></td>
@@ -39,7 +41,7 @@
       <td colspan = "4" align = "right">
         <strong>
           <%= _('Grade:') %>
-          <%=  module_result.grade.slice(/[0-9]+\.[0-9]{1,2}/) %> <!--FIXME: Move to helper eventually -->
+          <%=  MezuroPlugin::Helpers::ContentViewerHelper.format_grade(module_result.grade) %> <!--FIXME: Move to helper eventually -->
         </strong>
       </td>
     </tr>
