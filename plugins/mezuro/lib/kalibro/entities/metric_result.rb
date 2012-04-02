@@ -14,12 +14,16 @@ class Kalibro::Entities::MetricResult < Kalibro::Entities::Entity
     end
   end
 
+  def value=(value)
+    @value = value.to_f
+  end
+
   def range=(value)
     @range = to_entity(value, Kalibro::Entities::Range)
   end
 
   def descendent_result=(value)
-    @descendent_result = to_entity_array(value)
+    @descendent_result = value.collect {|element| element.to_f}
   end
 
   def descendent_results

@@ -5,17 +5,17 @@ class ModuleNodeFixtures
     node.module = ModuleFixtures.qt_calculator
     org_node = new_node('org', 'PACKAGE')
     org_node.children = [new_node('org.Window', 'CLASS')]
-    node.children = [new_node('Dialog', 'CLASS'), new_node('main', 'CLASS'), org_node]
+    node.children = [org_node, new_node('Dialog', 'CLASS'), new_node('main', 'CLASS')]
     node
   end
 
   def self.qt_calculator_tree_hash
     {:module => ModuleFixtures.qt_calculator_hash,
       :child => [
-        {:module => {:name => 'Dialog', :granularity => 'CLASS'}},
-        {:module => {:name => 'main', :granularity => 'CLASS'}},
         {:module => {:name => 'org', :granularity => 'PACKAGE'},
-         :child => [{:module => {:name => 'org.Window', :granularity => 'CLASS'}}]}
+         :child => [{:module => {:name => 'org.Window', :granularity => 'CLASS'}}]},
+        {:module => {:name => 'Dialog', :granularity => 'CLASS'}},
+        {:module => {:name => 'main', :granularity => 'CLASS'}}
       ]
     }
   end
