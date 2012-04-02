@@ -6,6 +6,11 @@ class Kalibro::Entities::Entity
     entity
   end
 
+  def self.date_with_milliseconds(date)
+    milliseconds = "." + (date.sec_fraction * 60 * 60 * 24 * 1000).to_s
+    date.to_s[0..18] + milliseconds + date.to_s[19..-1]
+  end
+
   def set(field, value)
     send("#{field}=", value) if not field.to_s.start_with? '@'
   end
@@ -55,6 +60,7 @@ class Kalibro::Entities::Entity
   def convert_to_hash(value)
     return value.collect { |element| convert_to_hash(element) } if value.is_a?(Array)
     return value.to_hash if value.is_a?(Kalibro::Entities::Entity)
+    return date_with_milliseconds(value) if value.is_a?(DateTime)
     return 'INF' if value.is_a?(Float) and value.infinite? == 1
     return '-INF' if value.is_a?(Float) and value.infinite? == -1
     value
