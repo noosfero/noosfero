@@ -1,3 +1,5 @@
+require File.dirname(__FILE__) + '/native_metric_fixtures'
+
 class BaseToolFixtures
     
   def self.analizo
