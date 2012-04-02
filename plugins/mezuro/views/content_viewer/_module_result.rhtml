@@ -29,7 +29,7 @@
       </tr>
       <tr class="<%= metric_result.metric.name.delete("() ")%>" style="display: none;">
       	<td colspan="4" align="right">
-      	  <%= range.comments.nil? ? 'comment empty' : range.comments %>
+      	  <%= range.nil? or range.comments.nil? ? 'comment empty' : range.comments %>
       	</td>      
       </tr>
     <% end %>
