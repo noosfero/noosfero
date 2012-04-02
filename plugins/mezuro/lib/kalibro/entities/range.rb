@@ -12,4 +12,8 @@ class Kalibro::Entities::Range < Kalibro::Entities::Entity
     @end = 1.0/0.0 if value == "INF"
   end
 
+  def grade=(value)
+    @grade = value.to_f
+  end
+
 end

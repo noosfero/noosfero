@@ -2,7 +2,7 @@ class Kalibro::Entities::Entity
 
   def self.from_hash(hash)
     entity = self.new
-    hash.each { |field, value| entity.set(field, value) if field != :attributes!}
+    hash.each { |field, value| entity.set(field, value) if field.to_s[0] != '@'}
     entity
   end
 
