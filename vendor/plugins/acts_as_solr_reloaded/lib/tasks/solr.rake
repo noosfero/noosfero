@@ -93,6 +93,12 @@ namespace :solr do
       puts "PID file not found at #{SOLR_PID_FILE}. Either Solr is not running or no PID file was written."
     end
   end
+
+  desc 'Restart Solr. Specify the environment by using: RAILS_ENV=your_env. Defaults to development if none.'
+  task :restart => :environment do
+    Rake::Task["solr:stop"].invoke 
+    Rake::Task["solr:start"].invoke 
+  end
   
   desc 'Remove Solr index'
   task :destroy_index => :environment do
@@ -111,39 +117,45 @@ namespace :solr do
   task :reindex => :environment do
     require File.expand_path("#{File.dirname(__FILE__)}/../../config/solr_environment")
 
-    optimize     = env_to_bool('OPTIMIZE', true)
+    delayed_job  = env_to_bool('DELAYED_JOB', false)
+    optimize     = env_to_bool('OPTIMIZE', !delayed_job)
     start_server = env_to_bool('START_SERVER', false)
     offset       = ENV['OFFSET'].to_i.nonzero? || 0
     clear_first  = env_to_bool('CLEAR', offset == 0)
     batch_size   = ENV['BATCH'].to_i.nonzero? || 300
     debug_output = env_to_bool("DEBUG", false)
+    models       = (ENV['MODELS'] || '').split(',').map{ |m| m.constantize }
+    threads      = (ENV['THREADS'] || '2').to_i
 
     logger = ActiveRecord::Base.logger = Logger.new(STDOUT)
     logger.level = ActiveSupport::BufferedLogger::INFO unless debug_output
+    Dir["#{Rails.root}/app/models/*.rb"].each{ |file| require file }
 
     if start_server
       puts "Starting Solr server..."
       Rake::Task["solr:start"].invoke 
     end
     
-    # Disable solr_optimize
+    # Disable optimize and commit
     module ActsAsSolr::CommonMethods
       def blank() end
       alias_method :deferred_solr_optimize, :solr_optimize
       alias_method :solr_optimize, :blank
+      alias_method :solr_commit, :blank
     end
     
-    $solr_indexed_models.each do |model|
-  
+    models = $solr_indexed_models unless models.count > 0
+    models.each do |model|
       if clear_first
         puts "Clearing index for #{model}..."
-        #ActsAsSolr::Post.execute(Solr::Request::Delete.new(:query => "#{model.solr_configuration[:type_field]}:#{model}")) 
-        #ActsAsSolr::Post.execute(Solr::Request::Commit.new)
+        ActsAsSolr::Post.execute(Solr::Request::Delete.new(:query => "#{model.solr_configuration[:type_field]}:#{model}")) 
+        ActsAsSolr::Post.execute(Solr::Request::Commit.new)
       end
       
       puts "Rebuilding index for #{model}..."
-      model.rebuild_solr_index batch_size, :offset => offset
-
+      model.rebuild_solr_index batch_size, :offset => offset, :threads => threads, :delayed_job => delayed_job
+      puts "Commiting changes..."
+      ActsAsSolr::Post.execute(Solr::Request::Commit.new)
     end 
 
     if $solr_indexed_models.empty?
