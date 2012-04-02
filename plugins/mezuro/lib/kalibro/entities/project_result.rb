@@ -6,6 +6,11 @@ class Kalibro::Entities::ProjectResult < Kalibro::Entities::Entity
     @project = to_entity(value, Kalibro::Entities::Project)
   end
 
+  def date=(value)
+    @date = value
+    @date = DateTime.parse(value) if value.is_a?(String)
+  end
+
   def load_time=(value)
     @load_time = value.to_i
   end

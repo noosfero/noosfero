@@ -13,7 +13,7 @@ class Kalibro::Client::ModuleResultClient
   def module_result(project_name, module_name, date)
     hash = @port.request(:get_module_result,
       {:project_name => project_name, :module_name => module_name,
-       :date => Kalibro::Entitites::Entity.date_with_milliseconds(date)})[:module_result]
+       :date => Kalibro::Entities::Entity.date_with_milliseconds(date)})[:module_result]
     Kalibro::Entities::ModuleResult.from_hash(hash)
   end
 

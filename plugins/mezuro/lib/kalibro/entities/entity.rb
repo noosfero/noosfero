@@ -2,8 +2,12 @@ class Kalibro::Entities::Entity
 
   def self.from_hash(hash)
     entity = self.new
-    hash.each { |field, value| entity.set(field, value) if field.to_s[0] != '@'}
+    hash.each { |field, value| entity.set(field, value) if is_valid?(field) }
     entity
+  end
+
+  def self.is_valid?(field)
+    field.to_s[0] != '@' and field != :attributes!
   end
 
   def self.date_with_milliseconds(date)
@@ -60,7 +64,7 @@ class Kalibro::Entities::Entity
   def convert_to_hash(value)
     return value.collect { |element| convert_to_hash(element) } if value.is_a?(Array)
     return value.to_hash if value.is_a?(Kalibro::Entities::Entity)
-    return date_with_milliseconds(value) if value.is_a?(DateTime)
+    return self.class.date_with_milliseconds(value) if value.is_a?(DateTime)
     return 'INF' if value.is_a?(Float) and value.infinite? == 1
     return '-INF' if value.is_a?(Float) and value.infinite? == -1
     value

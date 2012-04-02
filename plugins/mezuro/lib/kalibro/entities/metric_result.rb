@@ -23,7 +23,8 @@ class Kalibro::Entities::MetricResult < Kalibro::Entities::Entity
   end
 
   def descendent_result=(value)
-    @descendent_result = value.collect {|element| element.to_f}
+    array = value.kind_of?(Array) ? value : [value]
+    @descendent_result = array.collect {|element| element.to_f}
   end
 
   def descendent_results

@@ -27,7 +27,7 @@ class RangeFixtures
   end
 
   def self.amloc_bad_hash
-    {:beginning => 19.5, :end => Infinity, :label => 'Bad',:grade => 0.0, :color => 'ffff0000'}
+    {:beginning => 19.5, :end => "INF", :label => 'Bad',:grade => 0.0, :color => 'ffff0000'}
   end
 
 end

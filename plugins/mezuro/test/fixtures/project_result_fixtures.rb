@@ -15,7 +15,7 @@ class ProjectResultFixtures
   end
 
   def self.qt_calculator_hash
-    {:project => ProjectFixtures.qt_calculator_hash, :date => ModuleResultFixtures.create.date,
+    {:project => ProjectFixtures.qt_calculator_hash, :date => ModuleResultFixtures.create_hash[:date],
       :load_time => 14878, :analysis_time => 1022, :source_tree => ModuleNodeFixtures.qt_calculator_tree_hash}
   end
     
