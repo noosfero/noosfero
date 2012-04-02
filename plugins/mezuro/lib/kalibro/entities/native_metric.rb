@@ -10,4 +10,8 @@ class Kalibro::Entities::NativeMetric < Kalibro::Entities::Metric
     @language = languages
   end
 
+  def language=(value)
+    @language = to_entity_array(value)
+  end
+
 end

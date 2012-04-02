@@ -27,12 +27,12 @@ class ProjectResultTest < ActiveSupport::TestCase
 
   should 'retrieve module node' do
     node = @result.get_node("main")
-    assert_equal @hash[:source_tree][:child][1], node.to_hash
+    assert_equal @hash[:source_tree][:child][2], node.to_hash
   end
 
   should 'retrive complex module' do
     node = @result.get_node("org.Window")
-    assert_equal @hash[:source_tree][:child][2][:child].first, node.to_hash
+    assert_equal @hash[:source_tree][:child][0][:child].first, node.to_hash
   end
 
   should 'return source tree node when nil is given' do
@@ -44,6 +44,6 @@ class ProjectResultTest < ActiveSupport::TestCase
   end
 
   should 'return correct node when module name is given' do
-    assert_equal @hash[:source_tree][:child][1], @result.node_of("main").to_hash 
+    assert_equal @hash[:source_tree][:child][2], @result.node_of("main").to_hash
   end
 end
