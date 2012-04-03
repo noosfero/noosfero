@@ -37,5 +37,10 @@ class StoaPlugin::UspUserTest < ActiveSupport::TestCase
     assert !StoaPlugin::UspUser.matches?(123456, :birth_date, '1999-01-30')
     assert !StoaPlugin::UspUser.matches?(654321, :birth_date, '1970-01-30')
   end
+
+  should 'filter leading zeroes of id codes on exists and matches' do
+    assert  StoaPlugin::UspUser.exists?('0000123456')
+    assert  StoaPlugin::UspUser.matches?(123456, :cpf, '00012345678')
+  end
 end
 

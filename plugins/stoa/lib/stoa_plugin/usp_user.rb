@@ -9,15 +9,15 @@ class StoaPlugin::UspUser < ActiveRecord::Base
   alias_attribute :birth_date, :dtanas
 
   def self.exists?(usp_id)
-    !StoaPlugin::UspUser.find(:first, :conditions => {:codpes => usp_id}).nil?
+    !StoaPlugin::UspUser.find(:first, :conditions => {:codpes => usp_id.to_i}).nil?
   end
 
   def self.matches?(usp_id, field, value)
-    user = StoaPlugin::UspUser.find(:first, :conditions => {:codpes => usp_id})
+    user = StoaPlugin::UspUser.find(:first, :conditions => {:codpes => usp_id.to_i})
     return false if user.nil? || !user.respond_to?(field) || value.blank?
     case field.to_sym
     when :cpf
-      user.cpf == Digest::MD5.hexdigest(SALT+value.to_s)
+      user.cpf == Digest::MD5.hexdigest(SALT+value.to_i.to_s)
     when :birth_date
       user.birth_date.to_s == value
     end
