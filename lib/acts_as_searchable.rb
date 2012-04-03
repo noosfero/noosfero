@@ -31,27 +31,29 @@ module ActsAsSearchable
       def find_by_contents(query, pg_options = {}, options = {}, db_options = {})
         pg_options[:page] ||= 1
         pg_options[:per_page] ||= 20
-        options[:limit] ||= pg_options[:per_page].to_i*pg_options[:page].to_i
+        options[:page] = pg_options[:page].to_i
+        options[:per_page] = pg_options[:per_page].to_i
         options[:scores] ||= true
         options[:filter_queries] ||= []
-        all_facets_enabled = options.delete(:all_facets)
         options[:filter_queries] << "schema_name:\"#{schema_name}\"" unless schema_name.empty?
+        all_facets_enabled = options.delete(:all_facets)
+        options[:per_page] = options.delete(:extra_limit) if options[:extra_limit]
         results = []
         facets = all_facets = {}
 
         solr_result = find_by_solr(query, options)
         if all_facets_enabled
           options[:facets][:browse] = nil
-          all_facets = find_by_solr(query, options.merge(:limit => 0)).facets
+          all_facets = find_by_solr(query, options.merge(:per_page => 0)).facets
         end
         
         if !solr_result.nil?
           facets = options.include?(:facets) ? solr_result.facets : []
 
           if db_options.empty?
-            results = solr_result.results
+            results = solr_result
           else
-            ids = solr_result.results.map{|r|r[:id].to_i}
+            ids = solr_result.results.map{ |r| r[:id].to_i }
             if ids.empty?
               ids << -1
             end
@@ -64,8 +66,6 @@ module ActsAsSearchable
 
             results = find(:all, db_options)
           end
-
-          results = results.paginate(pg_options.merge(:total_entries => solr_result.total))
         end
 
         {:results => results, :facets => facets, :all_facets => all_facets}
