@@ -14,7 +14,11 @@ class Enterprise < Organization
 
   has_and_belongs_to_many :fans, :class_name => 'Person', :join_table => 'favorite_enteprises_people'
 
+  after_save_reindex [:products], :with => :delayed_job
   extra_data_for_index :product_categories
+  def product_categories
+    products.map{|p| p.category_full_name}.compact
+  end
 
   N_('Organization website'); N_('Historic and current context'); N_('Activities short description'); N_('City'); N_('State'); N_('Country'); N_('ZIP code')
 
@@ -72,18 +76,6 @@ class Enterprise < Organization
 
   def signup_fields
     environment ? environment.signup_enterprise_fields : []
-  end
-
-  def product_categories
-    products.map{|p| p.category_full_name}.compact
-  end
-
-  def product_updated
-    solr_save
-  end
-
-  after_save do |e|
-    e.products.each{ |p| p.enterprise_updated(e) }
   end
 
   def closed?

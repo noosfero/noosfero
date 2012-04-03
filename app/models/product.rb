@@ -24,21 +24,15 @@ class Product < ActiveRecord::Base
 
   after_update :save_image
 
-  before_create do |p|
-    if p.enterprise
-      p['lat'] = p.enterprise.lat
-      p['lng'] = p.enterprise.lng
-    end
+  def lat
+    self.enterprise.lat
   end
-
-  after_save do |p|
-    p.enterprise.product_updated if p.enterprise
+  def lng
+    self.enterprise.lng
   end
 
   xss_terminate :only => [ :name ], :on => 'validation'
   xss_terminate :only => [ :description ], :with => 'white_list', :on => 'validation'
-
-  acts_as_mappable
 
   belongs_to :unit
 
@@ -83,14 +77,6 @@ class Product < ActiveRecord::Base
 
   def self.recent(limit = nil)
     self.find(:all, :order => 'id desc', :limit => limit)
-  end
-
-  def enterprise_updated(e)
-    if self.lat != e.lat or self.lng != e.lng
-      self.lat = e.lat
-      self.lng = e.lng
-      save!
-    end
   end
 
   def url
@@ -210,13 +196,19 @@ class Product < ActiveRecord::Base
     url_for({:host => enterprise.default_hostname, :controller => 'manage_products', :action => 'display_inputs_cost', :profile => enterprise.identifier, :id => self.id }.merge(Noosfero.url_options))
   end
 
+  def percentage_from_solidarity_economy
+    se_i = t_i = 0
+    self.inputs.each{ |i| t_i += 1; se_i += 1 if i.is_from_solidarity_economy }
+    p = case (se_i.to_f/t_i)*100 
+        when 0..24.999 then [0, _("")]; 
+        when 25..49.999 then [25, _("25%")];
+        when 50..74.999 then [50, _("50%")];
+        when 75..99.999 then [75, _("75%")];
+        when 100 then [100, _("100%")]; 
+        end
+  end
+
   private
-  def name_or_category
-    name ? name : product_category.name
-  end
-  def price_sort
-    (price.nil? or price.zero?) ? 999999999.9 : price
-  end
   def f_category
     self.product_category.name
   end
@@ -243,11 +235,20 @@ class Product < ActiveRecord::Base
       "#{pq.qualifier_id} #{pq.certifier_id}"
     end
   end
+
+  alias_method :name_sortable, :name
+  delegate :region, :region_id, :environment, :environment_id, :to => :enterprise
+  def name_sortable # give a different name for solr
+    name
+  end
   def public
     self.public?
   end
-  def environment_id
-    enterprise.environment_id
+  def price_sortable
+    (price.nil? or price.zero?) ? 999999999.9 : price
+  end
+  def categories
+    enterprise.category_ids << product_category_id
   end
   public
 
@@ -255,19 +256,40 @@ class Product < ActiveRecord::Base
     :f_category => {:label => _('Related products')},
     :f_region => {:label => _('City'), :proc => proc { |id| f_region_proc(id) }},
     :f_qualifier => {:label => _('Qualifiers'), :proc => proc { |id| f_qualifier_proc(id) }}},
-    :category_query => proc { |c| "f_category:\"#{c.name}\"" },
+    :category_query => proc { |c| "categories:#{c.id}" },
     :order => [:f_category, :f_region, :f_qualifier]
 
-  acts_as_searchable :additional_fields => [
-      {:name => {:type => :text, :boost => 5.0}},
-      {:price_sort => {:type => :decimal}},
-      {:public => {:type => :boolean}},
-      {:environment_id => {:type => :integer}},
-      {:name_or_category => {:type => :string, :as => :name_or_category_sort, :boost => 2.0}},
-      :category_full_name ] + facets.keys.map{|i| {i => :facet}},
-    :include => [:enterprise, :region, :qualifiers, :certifiers, :product_category],
-    :boost => proc {|p| 10 if p.enterprise.enabled},
-    :facets => facets.keys
+  Boosts = [
+    [:image, 0.4, proc{ |p| p.image ? 1 : 0}],
+    [:qualifiers, 0.3, proc{ |p| p.product_qualifiers.count > 0 ? 1 : 0}],
+    [:open_price, 0.3, proc{ |p| p.price_described? ? 1 : 0}],
+    [:solidarity, 0.3, proc{ |p| p.inputs.count > 0 ? p.percentage_from_solidarity_economy[0]/100 : 0 }],
+    [:available, 0.2, proc{ |p| p.available ? 1 : 0}],
+    [:price, 0.2, proc{ |p| (!p.price.nil? and p.price > 0) ? 1 : 0}],
+    [:new_product, 0.2, proc{ |p| (p.updated_at.to_i - p.created_at.to_i) < 24*3600 ? 1 : 0}],
+    [:description, 0.15, proc{ |p| (!p.description.nil? and !p.description.empty?) ? 1 : 0}],
+    [:enabled, 0.05, proc{ |p| p.enterprise.enabled ? 1 : 0}],
+  ]
+
+  acts_as_searchable :fields => facets_fields_for_solr + [
+      # searched fields
+      {:name => {:type => :text, :boost => 2.0}},
+      {:description => :text},
+      # filtered fields
+      {:public => :boolean}, {:environment_id => :integer},
+      {:categories => :integer},
+      # ordered/query-boosted fields
+      {:price_sortable => :decimal}, {:name_sortable => :string},
+      {:lat => :float}, {:lng => :float},
+      :updated_at, :created_at,
+    ], :include => [
+      {:product_category => {:fields => [:name, :path, :slug, :lat, :lng, :acronym, :abbreviation]}},
+      {:region => {:fields => [:name, :path, :slug, :lat, :lng]}},
+      {:enterprise => {:fields => [:name, :identifier, :address, :nickname, :lat, :lng]}},
+      {:qualifiers => {:fields => [:name]}},
+      {:certifiers => {:fields => [:name]}},
+    ], :facets => facets_option_for_solr,
+    :boost => proc{ |p| boost = 1; Boosts.each{ |b| boost = boost * (1 - ((1 - b[2].call(p)) * b[1])) }; boost}
   handle_asynchronously :solr_save
 
 end
