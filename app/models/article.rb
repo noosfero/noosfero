@@ -618,14 +618,13 @@ class Article < ActiveRecord::Base
   def f_category
     self.categories.collect(&:name)
   end
-  def name_sort
+
+  delegate :region, :region_id, :environment, :environment_id, :to => :profile
+  def name_sortable # give a different name for solr
     name
   end
   def public
     self.public?
-  end
-  def environment_id
-    profile.environment_id
   end
   public
 
@@ -639,16 +638,24 @@ class Article < ActiveRecord::Base
     :category_query => proc { |c| "f_category:\"#{c.name}\"" },
     :order => [:f_type, :f_published_at, :f_profile_type, :f_category]
 
-  acts_as_searchable :additional_fields => [
-      {:name_sort => {:type => :string}},
-      {:public => {:type => :boolean}},
-      {:environment_id => {:type => :integer}},
-      ] + facets_fields_for_solr,
-    :exclude_fields => [:setting],
-    :include => [:profile, :comments, :categories],
-    :facets => facets_option_for_solr,
-    :boost => proc {|a| 10 if a.profile.enabled},
-    :if => proc{|a| ! ['RssFeed'].include?(a.class.name)}
+  acts_as_searchable :fields => facets_fields_for_solr + [
+      # searched fields
+      {:name => {:type => :text, :boost => 2.0}},
+      {:slug => :text}, {:body => :text},
+      {:abstract => :text}, {:filename => :text},
+      # filtered fields
+      {:public => :boolean}, {:environment_id => :integer},
+      :language, :published,
+      # ordered/query-boosted fields
+      {:name_sortable => :string}, :last_changed_by_id, :published_at, :is_image,
+      :updated_at, :created_at,
+    ], :include => [
+      {:profile => {:fields => [:name, :identifier, :address, :nickname, :region_id, :lat, :lng]}},
+      {:comments => {:fields => [:title, :body, :author_name, :author_email]}},
+      {:categories => {:fields => [:name, :path, :slug, :lat, :lng, :acronym, :abbreviation]}},
+    ], :facets => facets_option_for_solr,
+    :boost => proc { |a| 10 if a.profile.enabled },
+    :if => proc{ |a| ! ['RssFeed'].include?(a.class.name) }
   handle_asynchronously :solr_save
 
   private

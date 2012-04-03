@@ -14,7 +14,7 @@
   <%= render :partial => 'results_header' %>
 
   <%= display_results(true) %>
-  <% if params[:display] != 'map' %>
+  <% if !@one_page and params[:display] != 'map' %>
     <%= pagination_links @results[:products] %>
   <% end %>
 </div>

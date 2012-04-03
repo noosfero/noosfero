@@ -2,6 +2,7 @@
 <% extra_properties = @plugins.dispatch(:asset_product_properties, product)%>
 
 <li class="search-product-item">
+
   <div class="search-product-item-first-column">
     <%= render :partial => 'search/image', :object => product %>
 
@@ -18,17 +19,9 @@
           <% end %>
         <% end %>
         <div class="search-product-inputs-info">
-          <% if product.inputs.count > product.inputs.collect(&:is_from_solidarity_economy).count(nil) %>
-            <% se_i = t_i = 0 %>
-            <% product.inputs.each{ |i| t_i += 1; se_i += 1 if i.is_from_solidarity_economy } %>
-            <% p = case (se_i.to_f/t_i)*100 
-                 when 0..24.999 then ["0", _("")]; 
-                 when 25..49.999 then ["25", _("25%")];
-                 when 50..74.999 then ["50", _("50%")];
-                 when 75..99.999 then ["75", _("75%")];
-                 when 100 then ["100", _("100%")]; 
-            end %>
-            <div class="search-product-percentage-from-solidarity-economy search-product-ecosol-percentage-icon-<%=p[0]%>" title="<%=_('Percentage of inputs from solidarity economy')%>">
+          <% if p = product.percentage_from_solidarity_economy %>
+            <div class="search-product-percentage-from-solidarity-economy search-product-ecosol-percentage-icon-<%= p[0].to_s %>" 
+              title="<%=_('Percentage of inputs from solidarity economy')%>">
               <%= p[1] %>
             </div>
           <% end %>

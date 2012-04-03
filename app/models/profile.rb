@@ -87,7 +87,7 @@ class Profile < ActiveRecord::Base
   named_scope :more_popular
   named_scope :more_active
 
-  named_scope :more_recent, :order => "updated_at DESC"
+  named_scope :more_recent, :order => "created_at DESC"
 
   acts_as_trackable :dependent => :destroy
 
@@ -124,8 +124,6 @@ class Profile < ActiveRecord::Base
   settings_items :description
 
   validates_length_of :description, :maximum => 550, :allow_nil => true
-
-  acts_as_mappable :default_units => :kms
 
   # Valid identifiers must match this format.
   IDENTIFIER_FORMAT = /^#{Noosfero.identifier_format}$/
@@ -859,7 +857,8 @@ private :generate_url, :url_options
       c.name
     end
   end
-  def name_sort
+
+  def name_sortable # give a different name for solr
     name
   end
   def public
@@ -875,13 +874,24 @@ private :generate_url, :url_options
     :category_query => proc { |c| "f_categories:#{c.id}" },
     :order => [:f_region, :f_categories]
 
-  acts_as_searchable :additional_fields => [
-      {:name_sort => {:type => :string}},
-      {:public => {:type => :boolean}},
-      :extra_data_for_index ] + facets.keys.map{|i| {i => :facet}},
-    :boost => proc {|p| 10 if p.enabled},
-    :include => [:categories, :region],
-    :facets => facets.keys
+  acts_as_searchable :fields => facets_fields_for_solr + [:extra_data_for_index,
+      # searched fields
+      {:name => {:type => :text, :boost => 2.0}},
+      {:identifier => :text}, {:address => :text}, {:nickname => :text},
+      # filtered fields
+      {:public => :boolean}, {:environment_id => :integer},
+      # ordered/query-boosted fields
+      {:name_sortable => :string}, {:user_id => :integer},
+      :enabled, :active, :validated, :public_profile,
+      {:lat => :float}, {:lng => :float},
+      :updated_at, :created_at,
+    ],
+    :include => [
+      {:region => {:fields => [:name, :path, :slug, :lat, :lng]}},
+      {:categories => {:fields => [:name, :path, :slug, :lat, :lng, :acronym, :abbreviation]}},
+    ], :facets => facets_option_for_solr,
+    :boost => proc{ |p| 10 if p.enabled }
+  after_save_reindex [:articles], :with => :delayed_job
   handle_asynchronously :solr_save
 
   def control_panel_settings_button                                                                                                                                                             

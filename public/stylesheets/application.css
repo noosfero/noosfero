@@ -3216,7 +3216,7 @@ div#article-parent {
 #agenda .calendar-day-out.selected {
   background: none;
 }
-#agenda td {
+#agenda .agenda-calendar td {
   vertical-align: middle;
 }
 #agenda .agenda-calendar .current-month caption {

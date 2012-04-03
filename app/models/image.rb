@@ -23,4 +23,9 @@ class Image < ActiveRecord::Base
 
   postgresql_attachment_fu
 
+  alias_method :public_filename_old, :public_filename
+  def public_filename(*args)
+    "http://cirandas.net#{public_filename_old(args)}"
+  end
+
 end

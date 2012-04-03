@@ -1,10 +1,5 @@
 class SearchController < PublicController
 
-  MAP_SEARCH_LIMIT = 2000
-  LIST_SEARCH_LIMIT = 20
-  BLOCKS_SEARCH_LIMIT = 18
-  MULTIPLE_SEARCH_LIMIT = 8
-
   helper TagsHelper
   include SearchHelper
   include ActionView::Helpers::NumberHelper
@@ -33,7 +28,6 @@ class SearchController < PublicController
       full_text_search ['public:true']
     else
       @results[@asset] = @environment.articles.public.send(@filter).paginate(paginate_options)
-      facets = {}
     end
   end
 
@@ -46,7 +40,6 @@ class SearchController < PublicController
       full_text_search ['public:true']
     else
       @results[@asset] = @environment.people.visible.send(@filter).paginate(paginate_options)
-      @facets = {}
     end
   end
 
@@ -54,8 +47,19 @@ class SearchController < PublicController
     if !@empty_query
       full_text_search ['public:true']
     else
-      @results[@asset] = @environment.products.send(@filter).paginate(paginate_options)  
-      @facets = {}
+      @one_page = true
+      @geosearch = logged_in? && current_user.person.lat && current_user.person.lng
+
+      extra_limit = LIST_SEARCH_LIMIT*5
+      sql_options = {:limit => LIST_SEARCH_LIMIT, :order => 'random()'}
+      if @geosearch
+        full_text_search ['public:true', "{!geofilt}"], :sql_options => sql_options, :extra_limit => extra_limit,
+          :alternate_query => "{!boost b=recip(geodist(),#{1/DistBoost},1,1)}",
+          :radius => DistFilt, :latitude => current_user.person.lat, :longitude => current_user.person.lng
+      else
+        full_text_search ['public:true'], :sql_options => sql_options, :extra_limit => extra_limit,
+          :boost_functions => ['recip(ms(NOW/HOUR,updated_at),1.3e-10,1,1)']
+      end
     end
   end
 
@@ -77,40 +81,25 @@ class SearchController < PublicController
   end
 
   def events
-    @category_id = @category ? @category.id : nil
-
     year = (params[:year] ? params[:year].to_i : Date.today.year)
     month = (params[:month] ? params[:month].to_i : Date.today.month)
     day = (params[:day] ? params[:day].to_i : Date.today.day)
-    date = Date.new(year, month, day)
+    date = build_date(params[:year], params[:month], params[:day])
     date_range = (date - 1.month)..(date + 1.month).at_end_of_month
-
-    if @query.blank?
-      # Ignore pagination for asset events
-      if date_range
-        @results[@asset] = Event.send('find', :all, 
-          :conditions => [
-            'start_date BETWEEN :start_day AND :end_day OR end_date BETWEEN :start_day AND :end_day',
-            {:start_day => date_range.first, :end_day => date_range.last}
-        ])
-      else
-        @results[@asset] = Event.send('find', :all)
-      end
-    else
-      full_text_search
-    end
 
     @selected_day = nil
     @events_of_the_day = []
-    date = build_date(params[:year], params[:month], params[:day])
-
     if params[:day] || !params[:year] && !params[:month]
       @selected_day = date
-      if @category_id and Category.exists?(@category_id)
-        @events_of_the_day = environment.events.by_day(@selected_day).in_category(Category.find(@category_id))
-      else
-        @events_of_the_day = environment.events.by_day(@selected_day)
-      end
+      @events_of_the_day = @category ?
+        environment.events.by_day(@selected_day).in_category(Category.find(@category_id)) :
+        environment.events.by_day(@selected_day)
+    end
+
+    if !@empty_query
+      full_text_search
+    else
+      @results[@asset] = date_range ? environment.events.by_range(date_range) : environment.events
     end
 
     events = @results[@asset]
@@ -135,17 +124,10 @@ class SearchController < PublicController
     @asset = nil
     @facets = {}
 
-    if @results.keys.size == 1
-      specific_action = @results.keys.first
-      if respond_to?(specific_action)
-        @asset_name = getterm(@names[@results.keys.first])
-        send(specific_action)
-        render :action => specific_action
-        return
-      end
-    end
+    render :action => @results.keys.first if @results.keys.size == 1
   end
 
+  # keep old URLs workings
   def assets
     params[:action] = params[:asset].is_a?(Array) ? :index : params.delete(:asset)
     redirect_to params
@@ -167,6 +149,7 @@ class SearchController < PublicController
     ].each do |asset, name, filter|
       @order << asset
       @results[asset] = @category.send(filter, limit)
+      raise "nao total #{asset}" unless @results[asset].respond_to?(:total_entries)
       @names[asset] = name
     end
   end
@@ -182,7 +165,8 @@ class SearchController < PublicController
     @tag = params[:tag]
     @tag_cache_key = "tag_#{CGI.escape(@tag.to_s)}_env_#{environment.id.to_s}_page_#{params[:npage]}"
     if is_cache_expired?(@tag_cache_key)
-      @tagged = environment.articles.find_tagged_with(@tag).paginate(:per_page => 10, :page => params[:npage])
+      @asset = :articles
+      @results[@asset] = environment.articles.find_tagged_with(@tag).paginate(paginate_options)
     end
   end
 
@@ -241,7 +225,7 @@ class SearchController < PublicController
       'communities_more_recent' => _('More recent communities from network'),  
       'communities_more_active' => _('More active communities from network'),  
       'communities_more_popular' => _('More popular communities from network'),
-      'products_more_recent' => _('More recent products from network'),
+      'products_more_recent' => _('Highlights'),
     }[asset.to_s + '_' + filter]
   end
 
@@ -284,21 +268,30 @@ class SearchController < PublicController
     { :per_page => limit, :page => page }
   end
 
-  def full_text_search(filters = [])
+  def full_text_search(filters = [], options = {})
     paginate_options = paginate_options(params[:page])
     asset_class = asset_class(@asset)
 
-    solr_options = {}
-    if !@results_only and asset_class.methods.include?('facets')
+    solr_options = options
+    if !@results_only and asset_class.respond_to? :facets
       solr_options.merge! asset_class.facets_find_options(params[:facet])
       solr_options[:all_facets] = true
       solr_options[:limit] = 0 if @facets_only
-      #solr_options[:facets][:browse] << asset_class.facet_category_query.call(@category) if @category and asset_class.facet_category_query
     end
-    solr_options[:order] = params[:order_by] if params[:order_by]
     solr_options[:filter_queries] ||= []
     solr_options[:filter_queries] += filters
     solr_options[:filter_queries] << "environment_id:#{environment.id}"
+    solr_options[:filter_queries] << asset_class.facet_category_query.call(@category) if @category
+
+    solr_options[:boost_functions] ||= []
+    params[:order_by] = nil if params[:order_by] == 'none'
+    if params[:order_by]
+      order = SortOptions[@asset][params[:order_by].to_sym]
+      raise "Unknown order by" if order.nil?
+      order[:solr_opts].each do |opt, value|
+        solr_options[opt] = value.is_a?(Proc) ? instance_eval(&value) : value
+      end
+    end
 
     ret = asset_class.find_by_contents(@query, paginate_options, solr_options)
     @results[@asset] = ret[:results]

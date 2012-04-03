@@ -5,10 +5,13 @@
   
     <%= hidden_field_tag :display, params[:display] %>
 
-    <% CGI::unescape(request.request_uri).split("&").each do |part| %>
-      <% if part.start_with? "facet" %>
-        <% name_value = part.split("=") %>
-        <%= hidden_field_tag name_value[0], name_value[1] %>
+    <% params_uri = CGI::unescape(request.request_uri) %>
+    <% if params_uri.index('?') %>
+      <% params_uri[(params_uri.index('?')+1)..-1].to_s.split("&").each do |part| %>
+        <% if part.start_with? "facet" %>
+          <% name_value = part.split("=") %>
+          <%= hidden_field_tag name_value[0], name_value[1] %>
+        <% end %>
       <% end %>
     <% end %>
   
@@ -16,19 +19,9 @@
       <span class="formfield">
         <%= text_field_tag 'query', @query, :id => 'search-input', :size => 50 %>
         <%= javascript_tag "jQuery('#search-input').attr('title', \"#{hint}\").hint()" if defined?(hint) %>
-        <%= javascript_tag "jQuery('.search_form').submit(function() {
-          if (jQuery('#search-input').val().length < 3) {
-            jQuery('#search-empty-query-error').slideDown(200).delay(2500).slideUp(200);
-            return false;
-          }
-        });" %>
       </span>
   
       <%= submit_button(:search, _('Search')) %>
-  
-      <div id="search-empty-query-error">
-        <%= _("Type more than 2 characters to start a search") %>
-      </div>
     </div>
 
   <% end %>

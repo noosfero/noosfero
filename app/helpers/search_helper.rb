@@ -1,5 +1,37 @@
 module SearchHelper
 
+  MAP_SEARCH_LIMIT = 2000
+  LIST_SEARCH_LIMIT = 20
+  BLOCKS_SEARCH_LIMIT = 18
+  MULTIPLE_SEARCH_LIMIT = 8
+  DistFilt = 200
+  DistBoost = 50
+  SortOptions = {
+    :products => ActiveSupport::OrderedHash[ :none, {:label => _('Relevance')},
+      :more_recent, {:label => _('More Recent'), :solr_opts => {:sort => 'updated_at desc, score desc'}},
+      :name, {:label => _('Name'), :solr_opts => {:sort => 'name_sortable asc'}},
+      :closest, {:label => _('Closest to me'), :if => proc{ logged_in? && (profile=current_user.person).lat && profile.lng },
+        :solr_opts => {:sort => "geodist() asc",
+          :latitude => proc{ current_user.person.lat }, :longitude => proc{ current_user.person.lng }}},
+    ],
+    :events => ActiveSupport::OrderedHash[ :none, {:label => _('Relevance')},
+      :name, {:label => _('Name'), :solr_opts => {:sort => 'name_sortable asc'}},
+    ],
+    :articles => ActiveSupport::OrderedHash[ :none, {:label => _('Relevance')},
+      :name, {:label => _('Name'), :solr_opts => {:sort => 'name_sortable asc'}},
+      :name, {:label => _('Most recent'), :solr_opts => {:sort => 'updated_at desc, score desc'}},
+    ],
+    :enterprises => ActiveSupport::OrderedHash[ :none, {:label => _('Relevance')},
+      :name, {:label => _('Name'), :solr_opts => {:sort => 'name_sortable asc'}},
+    ],
+    :people => ActiveSupport::OrderedHash[ :none, {:label => _('Relevance')},
+      :name, {:label => _('Name'), :solr_opts => {:sort => 'name_sortable asc'}},
+    ],
+    :communities => ActiveSupport::OrderedHash[ :none, {:label => _('Relevance')},
+      :name, {:label => _('Name'), :solr_opts => {:sort => 'name_sortable asc'}},
+    ],
+  }
+
   # FIXME remove it after search_controler refactored
   include EventsHelper
 
@@ -130,18 +162,14 @@ module SearchHelper
   end
 
   def order_by(asset)
-    options = {
-      :products => [[_('Relevance'), ''], [_('More Recent'), 'updated_at desc'], [_('Name'), 'name_or_category_sort asc']],
-      :events => [[_('Relevance'), ''], [_('Name'), 'name_sort asc']],
-      :articles => [[_('Relevance'), ''], [_('Name'), 'name_sort asc'], [_('Most recent'), 'updated_at desc']],
-      :enterprises => [[_('Relevance'), ''], [_('Name'), 'name_sort asc']],
-      :people => [[_('Relevance'), ''], [_('Name'), 'name_sort asc']],
-      :communities  => [[_('Relevance'), ''], [_('Name'), 'name_sort asc']],
-    }
+    options = SortOptions[asset].map do |name, options|
+      next if options[:if] and ! instance_eval(&options[:if])
+      [_(options[:label]), name.to_s]
+    end.compact
 
     content_tag('div', _('Sort results by ') +
-      select_tag(asset.to_s + '[order]', options_for_select(options[asset], params[:order_by]),
-        {:onchange => "window.location=jQuery.param.querystring(window.location.href, { 'order_by' : this.options[this.selectedIndex].value})"}),
+      select_tag(asset.to_s + '[order]', options_for_select(options, params[:order_by] || 'none'),
+        {:onchange => "window.location = jQuery.param.querystring(window.location.href, { 'order_by' : this.options[this.selectedIndex].value})"}),
       :class => "search-ordering")
   end
 

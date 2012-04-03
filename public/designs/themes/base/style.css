@@ -872,30 +872,6 @@ X.sep {
   border-top: 1px solid #CCC;
 }
 
-#content .search-results-box a.see-more {
-  z-index: 10;
-  position: absolute;
-  bottom: 20px;
-  right: 20px;
-  background: transparent url(imgs/arrow-right-p.png) 100% 55% no-repeat;
-  border: none;
-  padding-right: 15px;
-  color: #000;
-  text-decoration: none;
-  font-weight: bold;
-}
-#content .search-results-box a.see-more:hover {
-  background: transparent url(imgs/arrow-right-p.png) 100% 55% no-repeat;
-  color: #888;
-}
-
-
-.search-results-type-article.search-results-innerbox {
-  padding: 5px 0px 5px 10px;
-  max-height: 215px;
-  height: 225px;
-}
-
 #content .search-results-type-article li,
 #content .search-results-type-event li {
   padding: 5px 0px;
@@ -1206,12 +1182,6 @@ table.profile th {
 }
 
 /**************************** Browse *******************************/
-
-.search-results-type-article.search-results-innerbox {
-  padding: 5px 0px 5px 10px;
-  max-height: 215px;
-  height: 225px;
-}
 
 #content .search-results-type-article li {
   padding: 5px 0px;

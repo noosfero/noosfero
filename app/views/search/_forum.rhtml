@@ -3,18 +3,22 @@
   <div class="search-content-first-column">
     <%= render :partial => 'image', :object => forum %>
   </div>
-  <div class="search-content-second-column">
-    <div class="search-forum-items">
-      <span class="search-field-label"><%= _("Last topics") %></span>
+  <table class="noborder search-content-second-column">
+    <tr class="search-forum-items">
+      <td class="search-field-label"><%= _("Last topics") %></td>
+
       <% r = forum.children.find(:all, :order => :updated_at, :conditions => ['type != ?', 'RssFeed']).last(3) %>
-      <% r.each do |a| %>
-        <%= link_to a.title, a.view_url, :class => 'search-forum-sample-item '+icon_for_article(a) %>
-      <% end %>
-      <span class="search-field-none"><%= _('None') if r.empty? %></span>
-    </div>
+      <td class="<%= "search-field-none" if r.empty? %>">
+        <% r.each do |a| %>
+          <%= link_to a.title, a.view_url, :class => 'search-forum-sample-item '+icon_for_article(a) %>
+        <% end %>
+        <%= _('None') if r.empty? %>
+      </td>
+    </tr>
 
     <%= render :partial => 'article_common', :object => forum %>
-  </div>
+  </table>
+  <%= render :partial => 'article_last_change', :object => forum %>
 
   <div style="clear:both"></div>
 </li>

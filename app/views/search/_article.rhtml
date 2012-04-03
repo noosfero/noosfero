@@ -3,9 +3,10 @@
   <div class="search-content-first-column">
     <%= render :partial => 'image', :object => article %>
   </div>
-  <div class="search-content-second-column">
-
-  </div>
+  <table class="noborder search-content-second-column">
+    <%= render :partial => 'article_common', :object => article %>
+  </table>
+  <%= render :partial => 'article_last_change', :object => article %>
 
   <div style="clear:both"></div>
 </li>

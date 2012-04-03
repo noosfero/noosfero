@@ -15,9 +15,6 @@ class Category < ActiveRecord::Base
 
   acts_as_filesystem
 
-  acts_as_searchable :additional_fields => [{:name => {:boost => 2.0}}]
-  handle_asynchronously :solr_save
-
   has_many :article_categorizations, :dependent => :destroy
   has_many :articles, :through => :article_categorizations
   has_many :comments, :through => :articles
@@ -68,7 +65,7 @@ class Category < ActiveRecord::Base
   end
 
   def upcoming_events(limit = 10)
-    self.events.find(:all, :conditions => [ 'start_date >= ?', Date.today ], :order => 'start_date')
+    self.events.paginate(:conditions => [ 'start_date >= ?', Date.today ], :order => 'start_date', :page => 1, :per_page => limit)
   end
 
   def display_in_menu?
@@ -91,5 +88,24 @@ class Category < ActiveRecord::Base
     return false if self.display_in_menu == false
     self.children.find(:all, :conditions => {:display_in_menu => true}).empty?
   end
+
+  private
+  def name_sortable # give a different name for solr
+    name
+  end
+  public
+
+  acts_as_searchable :fields => [
+    # searched fields
+    {:name => {:type => :text, :boost => 2.0}},
+    {:path => :text}, {:slug => :text},
+    {:abbreviation => :text}, {:acronym => :text},
+    # filtered fields
+    :parent_id,
+    # ordered/query-boosted fields
+    {:name_sortable => :string},
+  ]
+  after_save_reindex [:articles, :profiles], :with => :delayed_job
+  handle_asynchronously :solr_save
 
 end
