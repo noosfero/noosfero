@@ -25,6 +25,8 @@ function codeAddress() {
      if (status == google.maps.GeocoderStatus.OK) {
        map.setCenter(results[0].geometry.location);
        marker.setPosition(results[0].geometry.location);
+       getAddress(marker.getPosition());
+
        $('profile_data_lat').value = results[0].geometry.location.lat();
        $('profile_data_lng').value = results[0].geometry.location.lng();
        $('location-fields').removeClassName("loading");
@@ -92,6 +94,10 @@ function updateFields(place) {
   $('profile_data_lat').value = position.lat();
   $('profile_data_lng').value = position.lng();
   $('location-fields').removeClassName("loading");
+
+  form = jQuery('#location-form')[0];
+  form.lat = marker.getPosition().lat();
+  form.lng = marker.getPosition().lng();
 
   var components_len = place.address_components.size();
 
