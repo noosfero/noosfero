@@ -439,12 +439,6 @@ class ProfileTest < ActiveSupport::TestCase
     assert_includes Enterprise.find_within(2, :origin => [45, 45]), e    
   end
 
-  should 'have latitude and longitude and find' do
-    e = fast_create(Enterprise, :lat => 45, :lng => 45)
-
-    assert_includes Enterprise.find(:all, :within => 2, :origin => [45, 45]), e    
-  end
-
   should 'have a public profile by default' do
     assert_equal true, Profile.new.public_profile
   end

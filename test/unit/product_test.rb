@@ -126,16 +126,6 @@ class ProductTest < ActiveSupport::TestCase
     assert_in_delta 45.0, prod.lng, 0.0001
   end
 
-  should 'be searched by radius and distance' do
-    prod1 = fast_create(Product, :name => 'prod test 1', :lat => 30.0, :lng => 30.0, :product_category_id => @product_category.id)
-    prod2 = fast_create(Product, :name => 'prod test 2', :lat => 45.0, :lng => 45.0, :product_category_id => @product_category.id)
-
-    prods = Product.find(:all, :within => 10, :origin => [30.0, 30.0])
-
-    assert_includes prods, prod1
-    assert_not_includes prods, prod2
-  end
-
   should 'provide url' do
     product = Product.new
 
