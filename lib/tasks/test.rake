@@ -16,42 +16,6 @@ CucumberTasks = %w(cucumber selenium)
 NoosferoTasks = %w(test:noosfero_plugins)
 AllTasks = TestTasks + CucumberTasks + NoosferoTasks
 
-namespace :test do
-  TestTasks.each do |test_task|
-    orig_name = test_task.to_s
-    test_task = test_task.to_s.gsub(/^test:/, '').to_sym #remove namespace :test    
-    # force the solr tasks to run with each individual test task
-    override_task test_task do
-      ENV['RAILS_ENV'] = 'test'
-      Rake::Task['solr:start'].reenable
-      Rake::Task['solr:start'].invoke
-      Rake::Task["#{orig_name}:original"].invoke
-      Rake::Task['solr:stop'].reenable
-      Rake::Task['solr:stop'].invoke
-    end
-  end
-end
-CucumberTasks.each do |test_task|
-  override_task test_task do
-    ENV['RAILS_ENV'] = 'cucumber'
-    Rake::Task['solr:start'].reenable
-    Rake::Task['solr:start'].invoke
-    Rake::Task["#{test_task}:original"].invoke
-    Rake::Task['solr:stop'].reenable
-    Rake::Task['solr:stop'].invoke
-  end
-end
-NoosferoTasks.each do |test_task|
-  override_task test_task do
-    ENV['RAILS_ENV'] = 'test'
-    Rake::Task['solr:start'].reenable
-    Rake::Task['solr:start'].invoke
-    Rake::Task["#{test_task}:original"].invoke
-    Rake::Task['solr:stop'].reenable
-    Rake::Task['solr:stop'].invoke
-  end
-end
-
 task :test do
   errors = AllTasks.collect do |task|
     begin
