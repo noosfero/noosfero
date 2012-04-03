@@ -18,13 +18,13 @@ class Category < ActiveRecord::Base
   acts_as_searchable :additional_fields => [{:name => {:boost => 2.0}}]
   handle_asynchronously :solr_save
 
-  has_many :article_categorizations
+  has_many :article_categorizations, :dependent => :destroy
   has_many :articles, :through => :article_categorizations
   has_many :comments, :through => :articles
 
   has_many :events, :through => :article_categorizations, :class_name => 'Event', :source => :article
 
-  has_many :profile_categorizations
+  has_many :profile_categorizations, :dependent => :destroy
   has_many :enterprises, :through => :profile_categorizations, :source => :profile, :class_name => 'Enterprise'
   has_many :people, :through => :profile_categorizations, :source => :profile, :class_name => 'Person'
   has_many :communities, :through => :profile_categorizations, :source => :profile, :class_name => 'Community'
