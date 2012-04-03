@@ -6,9 +6,10 @@
 
   <%= required f.text_field(:name) %>
 
-  <%= _('Permissions:') %> <br>
+  <p><%= _('Permissions:') %><p>
   <% permissions.keys.each do |p| %>
-    <%= labelled_check_box(permission_name(p), "role[permissions][]", p, role.has_permission?(p)) %> <br/>
+    <%= check_box_tag("role[permissions][]", p, role.has_permission?(p), { :id => p }) %>
+    <%= content_tag(:label, permission_name(p), { :for => p }) %><br/>
   <% end %>
 
   <% button_bar do %>
