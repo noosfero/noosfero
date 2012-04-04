@@ -89,6 +89,13 @@ class MezuroPluginProfileController < ProfileController
     @range.comments = params[:range][:comments]
   end
 
+  def remove_metric_configuration
+    configuration_name = params[:configuration_name]
+    metric_name = params[:metric_name]
+    Kalibro::Client::MetricConfigurationClient.new.remove(configuration_name, metric_name)
+    redirect_to "/#{profile.identifier}/#{configuration_name.downcase.gsub(/\s/, '-')}"
+  end
+
   private 
 
   def set_metric_configuration(params) #FIXME isso foi feito para evitar duplicar o codigo de create e update metric configuration, faça de um jeito melhor

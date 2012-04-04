@@ -30,6 +30,8 @@
       <td><%= metric_configuration.code %></td>
       <td><%= link_to "Edit", :controller => "mezuro_plugin_profile", :action => "edit_metric_configuration", :params =>
         {:configuration_name => @configuration.name, :metric_name => metric_configuration.metric.name} %></td>
+      <td><%= link_to "Remove", :controller => "mezuro_plugin_profile", :action => "remove_metric_configuration", :params =>
+        {:configuration_name => @configuration.name, :metric_name => metric_configuration.metric.name} %></td>
     </tr>
 <% end %>
 </table>
