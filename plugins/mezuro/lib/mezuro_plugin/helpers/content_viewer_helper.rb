@@ -1,5 +1,5 @@
 class MezuroPlugin::Helpers::ContentViewerHelper
   def self.format_grade(grade)
-    grade.slice(/[0-9]+\.[0-9]{1,2}/)
+    sprintf("%.2f", grade.to_f)
   end
 end
