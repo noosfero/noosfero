@@ -1,6 +1,6 @@
-<%= options_from_collection_for_select(history, :date, :date) %>
-
-<h4><%= _('Last Result') %></h4>
+Project history <%=select_tag "projectHistory",options_for_select(history)%>
+ 
+<h4><%= _('Result') %></h4>
 
 <table>
   <tr>
