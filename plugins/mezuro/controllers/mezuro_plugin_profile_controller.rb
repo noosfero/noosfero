@@ -48,42 +48,31 @@ class MezuroPluginProfileController < ProfileController
   end
 
   def new_metric_configuration
-
     metric_name = params[:metric_name]
-    @configuration_name = params[:configuration_name]
     collector_name = params[:collector_name]
-
     collector = Kalibro::Client::BaseToolClient.new.base_tool(collector_name)
     @metric = collector.supported_metrics.find {|metric| metric.name == metric_name}
+    @configuration_name = params[:configuration_name]
   end
 
   def edit_metric_configuration
-    @configuration_name = params[:configuration_name]
     metric_name = params[:metric_name]
+    @configuration_name = params[:configuration_name]
     @metric_configuration = Kalibro::Client::MetricConfigurationClient.new.metric_configuration(@configuration_name, metric_name)
+    @metric = @metric_configuration.metric
   end
 
   def create_metric_configuration
     @configuration_name = params[:configuration_name]
-    metric_configuration = Kalibro::Entities::MetricConfiguration.new
-    metric_configuration.metric = Kalibro::Entities::NativeMetric.new
-    metric_configuration.metric.name = params[:metric][:name]
-    metric_configuration.metric.description = params[:description]
-    metric_configuration.metric.origin = params[:metric][:origin]
-    metric_configuration.metric.scope = params[:scope]
-    metric_configuration.metric.language = params[:language]
-    metric_configuration.code = params[:metric_configuration][:code]
-    metric_configuration.weight = params[:metric_configuration][:weight]
-    metric_configuration.aggregation_form = params[:metric_configuration][:aggregation]
-
+    metric_configuration = set_metric_configuration(params)
     Kalibro::Client::MetricConfigurationClient.new.save(metric_configuration, @configuration_name)
-
     redirect_to "/#{profile.identifier}/#{@configuration_name.downcase.gsub(/\s/, '-')}"
   end
 
   def update_metric_configuration
     @configuration_name = params[:configuration_name]
-   # raise @configuration_name.inspect
+    metric_configuration = set_metric_configuration(params)
+    Kalibro::Client::MetricConfigurationClient.new.save(metric_configuration, @configuration_name)
     redirect_to "/#{profile.identifier}/#{@configuration_name.downcase.gsub(/\s/, '-')}"
   end
 
@@ -99,5 +88,23 @@ class MezuroPluginProfileController < ProfileController
     @range.color = params[:range][:color]
     @range.comments = params[:range][:comments]
   end
+
+  private 
+
+  def set_metric_configuration(params) #FIXME isso foi feito para evitar duplicar o codigo de create e update metric configuration, faça de um jeito melhor
+    metric_configuration = Kalibro::Entities::MetricConfiguration.new
+    metric_configuration.metric = Kalibro::Entities::NativeMetric.new
+    metric_configuration.metric.name = params[:metric][:name]
+    metric_configuration.metric.description = params[:description]
+    metric_configuration.metric.origin = params[:metric][:origin]
+    metric_configuration.metric.scope = params[:scope]
+    metric_configuration.metric.language = params[:language]
+    metric_configuration.code = params[:metric_configuration][:code]
+    metric_configuration.weight = params[:metric_configuration][:weight]
+    metric_configuration.aggregation_form = params[:metric_configuration][:aggregation]
+
+    metric_configuration
+  end
+
 end
 
