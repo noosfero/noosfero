@@ -3,7 +3,11 @@
 <% form_for :metric_configuration, :url => {:action =>"create_metric_configuration", :controller => "mezuro_plugin_profile"}, :method => :get do |f| %>
   <%= hidden_field_tag :configuration_name, @configuration_name %>
   <%= hidden_field_tag :scope, @metric.scope %>
-  <%= hidden_field_tag :language, @metric.language %>
+  
+  <% @metric.language.each do |language| %>
+  <%= hidden_field_tag "language[]", language %>
+  <% end %>
+
 
   <p>
     <%= f.label :origin, "Collector Name:" %>

@@ -58,22 +58,9 @@ class MezuroPluginProfileController < ProfileController
   end
 
   def edit_metric_configuration
-    @metric_configuration_code = params[:metric_code]
     @configuration_name = params[:configuration_name]
-    @metric_configuration = Kalibro::Entities::MetricConfiguration.new
-    @metric_configuration.code = @metric_configuration_code
-    @metric_configuration.aggregation_form = "MEDIAN"
-    @metric_configuration.weight = "1"
-    @metric_configuration.metric = Kalibro::Entities::NativeMetric.new
-    @metric_configuration.metric.name = "Nome falso"
-    @metric_configuration.metric.origin = "Origem Falsa"
-    range = Kalibro::Entities::Range.new
-    range.beginning = "0"
-    range.end = "100"
-    range.label = "fake label"
-    range.grade = "100"
-    range.color = "FFFFFF"
-    @metric_configuration.range = [range]
+    metric_name = params[:metric_name]
+    @metric_configuration = Kalibro::Client::MetricConfigurationClient.new.metric_configuration(@configuration_name, metric_name)
   end
 
   def create_metric_configuration
@@ -96,6 +83,7 @@ class MezuroPluginProfileController < ProfileController
 
   def update_metric_configuration
     @configuration_name = params[:configuration_name]
+   # raise @configuration_name.inspect
     redirect_to "/#{profile.identifier}/#{@configuration_name.downcase.gsub(/\s/, '-')}"
   end
 

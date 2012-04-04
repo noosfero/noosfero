@@ -1,11 +1,5 @@
 <% @configuration_content = @page
-@configuration = Kalibro::Entities::Configuration.new 
-@configuration.name = @configuration_content.name
-@configuration.description = @configuration_content.description 
-@fake_metric_configuration = Kalibro::Entities::MetricConfiguration.new
-@fake_metric_configuration.metric = {:name => "fake_name", :origin => "Analizo"}
-@fake_metric_configuration.code = "fake_code"
-@configuration.metric_configurations = [@fake_metric_configuration] %>
+@configuration = Kalibro::Client::ConfigurationClient.new.configuration(@configuration_content.name) %>
 
 <table id="project_info">
   <tr>
@@ -18,25 +12,24 @@
   </tr>
 </table>
 
-
 <br/>
 
-<%= link_to "#{image_tag ('/plugins/mezuro/images/plus.png')}Add Metric", :controller => "mezuro_plugin_profile", :action => "choose_base_tool", :params =>
-{:configuration_name => @configuration.name} %><br/>
+<%= link_to "#{image_tag ('/plugins/mezuro/images/plus.png')}Add Metric", :controller => "mezuro_plugin_profile", 
+:action => "choose_base_tool", :params => {:configuration_name => @configuration.name} %><br/>
 
 <table>
-<% @configuration.metric_configurations.each do |metric_configuration| %>
-    <tr class="titles">
-        <td><h5>Metric Name</h5></td>
-        <td><h5>Collector Name</h5></td>
-        <td><h5>Metric Code</h5></td>
-    </tr>
+  <tr class="titles">
+      <td><h5>Metric Name</h5></td>
+      <td><h5>Collector Name</h5></td>
+      <td><h5>Metric Code</h5></td>
+  </tr>
+  <% @configuration.metric_configurations.each do |metric_configuration| %>
     <tr class="metric">
       <td><%= metric_configuration.metric.name %></td>
       <td><%= metric_configuration.metric.origin %></td>
       <td><%= metric_configuration.code %></td>
       <td><%= link_to "Edit", :controller => "mezuro_plugin_profile", :action => "edit_metric_configuration", :params =>
-        {:configuration_name => @configuration.name, :metric_code => metric_configuration.code} %></td>
+        {:configuration_name => @configuration.name, :metric_name => metric_configuration.metric.name} %></td>
     </tr>
 <% end %>
 </table>
