@@ -33,6 +33,5 @@
 <%= required labelled_form_field _('Configuration'),
   f.select(:configuration_name, @configuration_names.sort, {:selected => @selected}) %><br/>
 
-<% options = [["Not Periodically", 0], ["1 day", 1], ["2 days", 2], ["Weekly", 7], ["Biweekly", 15], ["Monthly", 30]] %>
 <%= required labelled_form_field _('Periodic Avaliation'),
-  f.select(:periodicity_in_days, options, {:selected => 0}) %><br/> 
+  f.select(:periodicity_in_days, MezuroPlugin::Helpers::ContentViewerHelper.create_periodicity_options ,{:selected => 0}) %><br/> 
