@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class QualifierCertifierTest < Test::Unit::TestCase
+class QualifierCertifierTest < ActiveSupport::TestCase
 
   should 'qualifier has many certifiers' do
     env_one = fast_create(Environment)

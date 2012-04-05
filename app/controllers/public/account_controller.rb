@@ -2,8 +2,6 @@ class AccountController < ApplicationController
 
   no_design_blocks
 
-  require_ssl :except => [ :login_popup, :logout_popup, :profile_details ]
-
   before_filter :login_required, :only => [:activation_question, :accept_terms, :activate_enterprise]
   before_filter :redirect_if_logged_in, :only => [:login, :signup]
 
@@ -95,7 +93,6 @@ class AccountController < ApplicationController
     if logged_in?
       self.current_user.forget_me
     end
-    cookies.delete :auth_token
     reset_session
     session[:notice] = _("You have been logged out.")
     redirect_to :controller => 'home', :action => 'index'
@@ -245,7 +242,7 @@ class AccountController < ApplicationController
       session[:notice] = nil # consume the notice
     end
 
-    @plugins.enabled_plugins.each { |plugin| user_data.merge!(plugin.user_data_extras) }
+    @plugins.each { |plugin| user_data.merge!(plugin.user_data_extras) }
 
     render :text => user_data.to_json, :layout => false, :content_type => "application/javascript"
   end

@@ -4,7 +4,7 @@ require 'profile_controller'
 # Re-raise errors caught by the controller.
 class ProfileController; def rescue_action(e) raise e end; end
 
-class ProfileControllerTest < Test::Unit::TestCase
+class ProfileControllerTest < ActionController::TestCase
   def setup
     @controller = ProfileController.new
     @request    = ActionController::TestRequest.new
@@ -39,6 +39,7 @@ class ProfileControllerTest < Test::Unit::TestCase
   end
 
   should 'not point to manage friends of other users' do
+    create_user('ze')
     login_as('ze')
     get :friends
     assert_no_tag :tag => 'a', :attributes => { :href => '/myprofile/testuser/friends' }
@@ -1234,7 +1235,7 @@ class ProfileControllerTest < Test::Unit::TestCase
     @request.stubs(:host).returns(community.environment.default_hostname)
     get :index, :profile => community.identifier
     assert_response :redirect
-    assert_redirected_to :host => 'community.example.net'
+    assert_redirected_to :host => 'community.example.net', :controller => 'profile', :action => 'index'
   end
 
   should 'register abuse report' do

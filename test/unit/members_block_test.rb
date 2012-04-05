@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class MembersBlockTest < Test::Unit::TestCase
+class MembersBlockTest < ActiveSupport::TestCase
 
   should 'inherit from ProfileListBlock' do
     assert_kind_of ProfileListBlock, MembersBlock.new

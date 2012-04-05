@@ -6,7 +6,7 @@
   <%= button('back', _('Back to tag cloud'), :action => 'tags') %>
 <% end %>
 
-<% cache_timeout(@tag_cache_key, 4.hour.from_now) do %>
+<% cache_timeout(@tag_cache_key, 4.hour) do %>
   <div class='search-tagged-items'>
   <% @tagged.each do |hit| %>
     <ul class="clean-list">

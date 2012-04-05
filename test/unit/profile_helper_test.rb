@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class ProfileHelperTest < Test::Unit::TestCase
+class ProfileHelperTest < ActiveSupport::TestCase
 
   def setup
     @profile = mock

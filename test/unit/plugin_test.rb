@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class PluginTest < Test::Unit::TestCase
+class PluginTest < ActiveSupport::TestCase
 
   def setup
     @environment = Environment.default
@@ -15,7 +15,7 @@ class PluginTest < Test::Unit::TestCase
     end
 
     assert_includes  Noosfero::Plugin.all, Plugin1.to_s
-    assert_includes  Noosfero::Plugin.all, Plugin1.to_s
+    assert_includes  Noosfero::Plugin.all, Plugin2.to_s
   end
 
   should 'returns url to plugin management if plugin has admin_controller' do

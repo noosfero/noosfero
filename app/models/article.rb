@@ -13,7 +13,7 @@ class Article < ActiveRecord::Base
   validates_presence_of :profile_id, :name
   validates_presence_of :slug, :path, :if => lambda { |article| !article.name.blank? }
 
-  validates_uniqueness_of :slug, :scope => ['profile_id', 'parent_id'], :message => N_('<!-- %{fn} -->The title (article name) is already being used by another article, please use another title.'), :if => lambda { |article| !article.slug.blank? }
+  validates_uniqueness_of :slug, :scope => ['profile_id', 'parent_id'], :message => N_('The title (article name) is already being used by another article, please use another title.'), :if => lambda { |article| !article.slug.blank? }
 
   belongs_to :last_changed_by, :class_name => 'Person', :foreign_key => 'last_changed_by_id'
 
@@ -34,7 +34,7 @@ class Article < ActiveRecord::Base
   before_destroy :rotate_translations
 
   before_create do |article|
-    article.published_at = article.created_at if article.published_at.nil?
+    article.published_at ||= Time.now
     if article.reference_article && !article.parent
       parent = article.reference_article.parent
       if parent && parent.blog? && article.profile.has_blog?
@@ -233,7 +233,7 @@ class Article < ActiveRecord::Base
 
   include ActionView::Helpers::TextHelper
   def short_title
-    truncate self.title, 15, '...'
+    truncate self.title, :length => 15, :omission => '...'
   end
 
   def belongs_to_blog?
@@ -514,7 +514,7 @@ class Article < ActiveRecord::Base
   end
 
   def short_lead
-    truncate sanitize_html(self.lead), 170, '...'
+    truncate sanitize_html(self.lead), :length => 170, :omission => '...'
   end
 
   def creator

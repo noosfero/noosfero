@@ -4,12 +4,11 @@ require 'region_validators_controller'
 # Re-raise errors caught by the controller.
 class RegionValidatorsController; def rescue_action(e) raise e end; end
 
-class RegionValidatorsControllerTest < Test::Unit::TestCase
+class RegionValidatorsControllerTest < ActionController::TestCase
   all_fixtures
   def setup
     @controller = RegionValidatorsController.new
     @request    = ActionController::TestRequest.new
-    @request.stubs(:ssl?).returns(true)
     @response   = ActionController::TestResponse.new
     login_as('ze')
   end

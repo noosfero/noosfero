@@ -121,6 +121,12 @@ class Person < Profile
 
   validates_multiparameter_assignments
 
+  validates_each :birth_date do |record,attr,value|
+    if value && value.year == 1
+      record.errors.add(attr)
+    end
+  end
+
   def self.fields
     FIELDS
   end
@@ -130,7 +136,7 @@ class Person < Profile
     self.required_fields.each do |field|
       if self.send(field).blank?
         unless (field == 'custom_area_of_study' && self.area_of_study != 'Others') || (field == 'custom_formation' && self.formation != 'Others')
-          self.errors.add(field, _('%{fn} is mandatory'))
+          self.errors.add_on_blank(field)
         end
       end
     end
@@ -192,7 +198,7 @@ class Person < Profile
 
   validates_each :email, :on => :update do |record,attr,value|
     if User.find(:first, :conditions => ['email = ? and id != ? and environment_id = ?', value, record.user.id, record.environment.id])
-      record.errors.add(attr, _('%{fn} is already used by other user'))
+      record.errors.add(attr, _('%{fn} is already used by other user').fix_i18n)
     end
   end
 

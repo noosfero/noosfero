@@ -14,16 +14,16 @@
 
     <td><label for="enterprise_fields[<%= field %>][active]"><%= _(field.humanize) %></label></td>
     <td>
-      <%= check_box_tag "enterprise_fields[#{field}][active]", true, environment.custom_enterprise_field(field, 'active'), :onclick => "$('enterprise_fields[#{field}][required]').disabled=$('enterprise_fields[#{field}][signup]').disabled=!this.checked;" %>
       <%= hidden_field_tag  "enterprise_fields[#{field}][active]", false %>
+      <%= check_box_tag "enterprise_fields[#{field}][active]", true, environment.custom_enterprise_field(field, 'active'), :onclick => "$('enterprise_fields[#{field}][required]').disabled=$('enterprise_fields[#{field}][signup]').disabled=!this.checked;" %>
     </td>
     <td>
-      <%= check_box_tag "enterprise_fields[#{field}][required]", true, environment.custom_enterprise_field(field, 'required'), :onclick => "if(this.checked) $('enterprise_fields[#{field}][signup]').checked = true;" %>
       <%= hidden_field_tag  "enterprise_fields[#{field}][required]", false %>
+      <%= check_box_tag "enterprise_fields[#{field}][required]", true, environment.custom_enterprise_field(field, 'required'), :onclick => "if(this.checked) $('enterprise_fields[#{field}][signup]').checked = true;" %>
     </td>
     <td>
-      <%= check_box_tag "enterprise_fields[#{field}][signup]", true, environment.custom_enterprise_field(field, 'signup'), :onclick => "if(!this.checked) $('enterprise_fields[#{field}][required]').checked = false;" %>
       <%= hidden_field_tag  "enterprise_fields[#{field}][signup]", false %>
+      <%= check_box_tag "enterprise_fields[#{field}][signup]", true, environment.custom_enterprise_field(field, 'signup'), :onclick => "if(!this.checked) $('enterprise_fields[#{field}][required]').checked = false;" %>
     </td>
 
   </tr>

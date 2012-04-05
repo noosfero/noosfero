@@ -4,7 +4,7 @@ require 'account_controller'
 # Re-raise errors caught by the controller.
 class AccountController; def rescue_action(e) raise e end; end
 
-class AccountControllerTest < Test::Unit::TestCase
+class AccountControllerTest < ActionController::TestCase
   # Be sure to include AuthenticatedTestHelper in test/test_helper.rb instead
   # Then, you can remove it from this and the units test.
   include AuthenticatedTestHelper
@@ -15,8 +15,6 @@ class AccountControllerTest < Test::Unit::TestCase
     @controller = AccountController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
-
-    @request.stubs(:ssl?).returns(true)
   end
 
   def test_local_files_reference
@@ -150,7 +148,7 @@ class AccountControllerTest < Test::Unit::TestCase
   def test_should_delete_token_on_logout
     login_as :johndoe
     get :logout
-    assert_equal @response.cookies["auth_token"], []
+    assert_nil @response.cookies["auth_token"]
   end
 
   # "remember_me" feature is disabled; uncommend this if it is enabled again.
@@ -589,49 +587,17 @@ class AccountControllerTest < Test::Unit::TestCase
     assert_equal 1, assigns(:user).person.boxes[0].blocks.size
   end
 
-  should 'force ssl' do
-    Environment.default.update_attribute(:enable_ssl, true)
-    @request.expects(:ssl?).returns(false).at_least_once
-    get :index
-    assert_redirected_to :protocol => 'https://'
-  end
-
-  should 'alllow login_popup without SSL' do
-    @request.expects(:ssl?).returns(false).at_least_once
-    get :login_popup
-    assert_response :success
-  end
-
-  should 'allow logout_popup without SSL' do
-    @request.expects(:ssl?).returns(false).at_least_once
-    get :logout_popup
-    assert_response :success
-  end
-
-  should 'point to SSL URL in login popup' do
-    Environment.default.update_attribute(:enable_ssl, true)
-    get :login_popup
-    assert_tag :tag => 'form', :attributes => { :action => /^https:\/\// }
-  end
-
-  should 'not point to SSL URL in login popup when in development mode' do
-    @request.stubs(:ssl?).returns(false)
-    ENV.expects(:[]).with('RAILS_ENV').returns('development').at_least_once
-    get :login_popup
-    assert_no_tag :tag => 'form', :attributes => { :action => /^https:\/\// }
-  end
-
   should 'render person partial' do
     Environment.any_instance.expects(:signup_person_fields).returns(['contact_phone']).at_least_once
     get :signup
     assert_tag :tag => 'input', :attributes => { :name => "profile_data[contact_phone]" }
   end
 
-  should 'redirect to login when unlogged user try logout' do
+  should 'redirect to login when unlogged user tries to logout' do
     logout
     assert_nothing_raised NoMethodError do
       get :logout
-      assert_redirected_to :action => 'index'
+      assert_redirected_to :action => 'index', :controller => 'home'
     end
   end
 
@@ -712,7 +678,7 @@ class AccountControllerTest < Test::Unit::TestCase
     assert_response :success
     post :login, :user => {:login => 'testuser', :password => 'test123'}
     assert_not_nil session[:user]
-    assert_redirected_to :controller => 'profile_editor', :profile => 'testuser'
+    assert_redirected_to :controller => 'profile_editor', :profile => 'testuser', :action => 'index'
   end
 
   should 'not activate user when activation code is missing' do

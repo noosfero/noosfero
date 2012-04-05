@@ -13,7 +13,7 @@ You need to install some packages Noosfero depends on.  On Debian GNU/Linux or
 Debian-based systems, all of these packages are available through the Debian
 archive. You can install them with the following command:
 
- # apt-get install ruby rake po4a libgettext-ruby-util libgettext-ruby-data libgettext-ruby1.8 libsqlite3-ruby rcov librmagick-ruby libredcloth-ruby libwill-paginate-ruby iso-codes libfeedparser-ruby libferret-ruby libdaemons-ruby mongrel mongrel-cluster tango-icon-theme libhpricot-ruby
+ # apt-get install ruby rake po4a libgettext-ruby-util libgettext-ruby-data libgettext-ruby1.8 libsqlite3-ruby rcov librmagick-ruby libredcloth-ruby libwill-paginate-ruby iso-codes libfeedparser-ruby libferret-ruby libdaemons-ruby thin tango-icon-theme libhpricot-ruby
 
 On other systems, they may or may not be available through your regular package
 management system. Below are the links to their homepages.
@@ -31,7 +31,7 @@ management system. Below are the links to their homepages.
 * iso-codes: http://pkg-isocodes.alioth.debian.org/
 * feedparser: http://packages.debian.org/sid/libfeedparser-ruby
 * Daemons - http://daemons.rubyforge.org/
-* Mongrel: http://mongrel.rubyforge.org/
+* Thin: http://code.macournoyer.com/thin/
 * tango-icon-theme: http://tango.freedesktop.org/Tango_Icon_Library
 * Hpricot: http://hpricot.com/
 
@@ -118,13 +118,13 @@ $ cd current
 Copy config/ferret_server.yml.dist to config/ferret_server.yml. You will
 probably not need to customize this configuration, but have a look at it.
 
-Create the mongrel configuration file:
+Create the thin configuration file:
 
-$ mongrel_rails cluster::configure
+$ thin -C config/thin.yml config
 
-Edit config/mongrel_cluster.yml to suit your needs. Make sure your apache
-configuration matches the mongrel cluster configuration, specially in respect
-to the ports and numbers of mongrel instances.
+Edit config/thin.yml to suit your needs. Make sure your apache
+configuration matches the thin cluster configuration, specially in respect
+to the ports and numbers of thin instances.
 
 Note: currently Noosfero only supports Rails 2.1.0, which is the version in
 Debian Lenny. If you have a Rails version newer than that, Noosfero will
@@ -316,7 +316,7 @@ In other systems the way by which you enable apache modules may be different.
 Now with the Apache configuration. You can use the template below, replacing
 /var/lib/noosfero/current with the directory in which your noosfero
 installation is, your.domain.com with the domain name of your noosfero site.
-We are assuming that you are running two mongrel instances on ports 3000 and
+We are assuming that you are running two thin instances on ports 3000 and
 3001. If your setup is different you'll need to adjust <Proxy> section. If you
 don't understand something in the configuration, please refer to the apache
 documentation.

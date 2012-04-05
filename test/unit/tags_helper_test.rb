@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class TagsHelperTest < Test::Unit::TestCase
+class TagsHelperTest < ActiveSupport::TestCase
 
   include ApplicationHelper
   include TagsHelper

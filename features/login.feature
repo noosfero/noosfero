@@ -16,6 +16,7 @@ Feature: login
       | Password | 123456 |
     When I press "Log in"
     Then I should be on the homepage
+    And I should be logged in as "joaosilva"
 
   Scenario: login from some profile page
     Given I am not logged in

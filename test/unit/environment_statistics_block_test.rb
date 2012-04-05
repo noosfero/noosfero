@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class EnvironmentStatisticsBlockTest < Test::Unit::TestCase
+class EnvironmentStatisticsBlockTest < ActiveSupport::TestCase
 
   should 'inherit from Block' do
     assert_kind_of Block, EnvironmentStatisticsBlock.new

@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class InputTest < Test::Unit::TestCase
+class InputTest < ActiveSupport::TestCase
 
   should 'require product_category' do
     product_category = fast_create(ProductCategory, :name => 'Products')

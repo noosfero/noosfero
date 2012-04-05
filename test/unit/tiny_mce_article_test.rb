@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class TinyMceArticleTest < Test::Unit::TestCase
+class TinyMceArticleTest < ActiveSupport::TestCase
 
   def setup
     Article.rebuild_index

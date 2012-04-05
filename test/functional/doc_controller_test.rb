@@ -59,11 +59,4 @@ class DocControllerTest < ActionController::TestCase
     get :topic, :section => 'user', :topic => 'accepting-friends'
   end
 
-  should 'bail out gracefully for unexisting sections or topics' do
-    assert_nothing_raised do
-      get :section, :section => 'something-very-unlikely'
-      get :section, :section => 'something-very-unlikely', :topic => 'other-thing-very-unlikely'
-    end
-  end
-
 end

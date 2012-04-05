@@ -1,5 +1,5 @@
-require_dependency File.dirname(__FILE__) + '/ext/enterprise'
-require_dependency File.dirname(__FILE__) + '/ext/product'
+require_dependency 'bsc_plugin/ext/enterprise'
+require_dependency 'bsc_plugin/ext/product'
 
 class BscPlugin < Noosfero::Plugin
 

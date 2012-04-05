@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class DatesHelperTest < Test::Unit::TestCase
+class DatesHelperTest < ActiveSupport::TestCase
 
   include DatesHelper
 

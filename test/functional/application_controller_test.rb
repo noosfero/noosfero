@@ -4,7 +4,7 @@ require 'test_controller'
 # Re-raise errors caught by the controller.
 class TestController; def rescue_action(e) raise e end; end
 
-class ApplicationControllerTest < Test::Unit::TestCase
+class ApplicationControllerTest < ActionController::TestCase
   all_fixtures
   def setup
     @controller = TestController.new
@@ -160,16 +160,13 @@ class ApplicationControllerTest < Test::Unit::TestCase
     assert !DoesNotUsesBlocksTestController.new.uses_design_blocks?
   end
 
-  should 'use design plugin to generate blocks' do
+  should 'generate blocks' do
     get :index
     assert_tag :tag => 'div', :attributes => { :id => 'boxes', :class => 'boxes' }
   end
 
-  should 'not use design plugin when tells so' do
-    class NoDesignBlocksTestController < ApplicationController
-      no_design_blocks
-    end
-    @controller = NoDesignBlocksTestController.new
+  should 'not generate blocks when told not to do so' do
+    @controller.stubs(:uses_design_blocks?).returns(false)
     get :index
     assert_no_tag :tag => 'div', :attributes => { :id => 'boxes', :class => 'boxes'  }
   end
@@ -248,101 +245,8 @@ class ApplicationControllerTest < Test::Unit::TestCase
     env.stubs(:terminology).returns(term)
     env.stubs(:id).returns(-9999)
 
-    Noosfero.expects(:terminology=).with(term)
     get :index
-  end
-
-  should 'require ssl when told to' do
-    Environment.default.update_attribute(:enable_ssl, true)
-    @request.expects(:ssl?).returns(false).at_least_once
-    get :sslonly
-    assert_redirected_to :protocol => 'https://'
-  end
-
-  should 'not force ssl in development mode' do
-    ENV.expects(:[]).with('RAILS_ENV').returns('development').at_least_once
-    @request.expects(:ssl?).returns(false).at_least_once
-    get :sslonly
-    assert_response :success
-  end
-
-  should 'not force ssl when not told to' do
-    @request.expects(:ssl?).returns(false).at_least_once
-    get :doesnt_need_ssl
-    assert_response :success
-  end
-
-  should 'not force ssl when already in ssl' do
-    @request.expects(:ssl?).returns(true).at_least_once
-    get :sslonly
-    assert_response :success
-  end
-
-  should 'keep arguments when redirecting to ssl' do
-    Environment.default.update_attribute(:enable_ssl, true)
-    @request.expects(:ssl?).returns(false).at_least_once
-    get :sslonly, :x => '1', :y => '2'
-    assert_redirected_to :protocol => 'https://', :x => '1', :y => '2'
-  end
-
-  should 'refuse ssl when told to' do
-    @request.expects(:ssl?).returns(true).at_least_once
-    get :nossl
-    assert_redirected_to :protocol => "http://"
-  end
-
-  should 'not refuse ssl when not told to' do
-    @request.expects(:ssl?).returns(true).at_least_once
-    get :doesnt_refuse_ssl
-    assert_response :success
-  end
-  should 'not refuse ssl while in development mode' do
-    ENV.expects(:[]).with('RAILS_ENV').returns('development').at_least_once
-    @request.expects(:ssl?).returns(true).at_least_once
-    get :nossl
-    assert_response :success
-  end
-  should 'not refuse ssl when not in ssl' do
-    @request.expects(:ssl?).returns(false).at_least_once
-    get :nossl
-    assert_response :success
-  end
-
-  should 'keep arguments when redirecting to non-ssl' do
-    @request.expects(:ssl?).returns(true).at_least_once
-    get :nossl, :x => '1', :y => '2'
-    assert_redirected_to :protocol => 'http://', :x => '1', :y => '2'
-  end
-
-  should 'add https protocols on redirect_to_ssl' do
-    Environment.default.update_attribute(:enable_ssl, true)
-    get :sslonly, :x => '1', :y => '1'
-    assert_redirected_to :x => '1', :y => '1', :protocol => 'https://'
-  end
-
-  should 'return true in redirect_to_ssl' do
-    env = mock
-    env.expects(:enable_ssl).returns(true)
-    env.stubs(:default_hostname).returns('test.mydomain.net')
-    @controller.stubs(:environment).returns(env)
-    @controller.expects(:params).returns({})
-    @controller.expects(:redirect_to).with({:protocol => 'https://', :host => 'test.mydomain.net'})
-    assert_equal true, @controller.redirect_to_ssl
-  end
-  should 'return false in redirect_to_ssl when ssl is disabled' do
-    env = mock
-    env.expects(:enable_ssl).returns(false)
-    @controller.expects(:environment).returns(env)
-    assert_equal false, @controller.redirect_to_ssl
-  end
-
-  should 'not force ssl when ssl is disabled' do
-    env = Environment.default
-    env.expects(:enable_ssl).returns(false)
-    @controller.stubs(:environment).returns(env)
-    @request.expects(:ssl?).returns(false).at_least_once
-    get :sslonly
-    assert_response :success
+    assert_equal Noosfero.terminology, term
   end
 
   should 'not display categories menu if categories feature disabled' do
@@ -401,17 +305,6 @@ class ApplicationControllerTest < Test::Unit::TestCase
     get :index, :profile => p.identifier
 
     assert_no_tag :tag => 'div', :attributes => {:id => 'block-' + b.id.to_s}
-  end
-
-  should 'return false when not avoid ssl' do
-    req = mock
-    req.stubs(:ssl?).returns(true)
-
-    @controller.expects(:request).returns(req)
-    @controller.stubs(:params).returns({})
-    @controller.stubs(:redirect_to)
-
-    assert_equal false, @controller.avoid_ssl
   end
 
   should 'diplay name of environment in description' do
@@ -499,38 +392,49 @@ class ApplicationControllerTest < Test::Unit::TestCase
   end
 
   should 'include content in the beginning of body supplied by plugins regardless it is a block or html code' do
-    plugin1_local_variable = "Plugin1"
-    plugin1_content = lambda {"<span id='plugin1'>This is #{plugin1_local_variable} speaking!</span>"}
-    plugin2_content = "<span id='plugin2'>This is Plugin2 speaking!</span>"
-    contents = [plugin1_content, plugin2_content]
+    class TestBodyBeginning1Plugin < Noosfero::Plugin
+      def plugin1_method
+        '[[plugin1]]'
+      end
+      def body_beginning
+        lambda {"<span id='plugin1'>This is #{plugin1_method} speaking!</span>"}
+      end
+    end
+    class TestBodyBeginning2Plugin < Noosfero::Plugin
+      def body_beginning
+        "<span id='plugin2'>This is Plugin2 speaking!</span>"
+      end
+    end
 
-    plugins = mock()
-    plugins.stubs(:enabled_plugins).returns([])
-    plugins.stubs(:map).with(:body_beginning).returns(contents)
-    plugins.stubs(:map).with(:head_ending).returns([])
-    Noosfero::Plugin::Manager.stubs(:new).returns(plugins)
+    Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([TestBodyBeginning1Plugin.new, TestBodyBeginning2Plugin.new])
 
     get :index
 
-    assert_tag :tag => 'span', :content => 'This is ' + plugin1_local_variable + ' speaking!', :attributes => {:id => 'plugin1'}
+    assert_tag :tag => 'span', :content => 'This is [[plugin1]] speaking!', :attributes => {:id => 'plugin1'}
     assert_tag :tag => 'span', :content => 'This is Plugin2 speaking!', :attributes => {:id => 'plugin2'}
   end
 
   should 'include content in the ending of head supplied by plugins regardless it is a block or html code' do
-    plugin1_local_variable = "Plugin1"
-    plugin1_content = lambda {"<script>alert('This is #{plugin1_local_variable} speaking!')</script>"}
-    plugin2_content = "<style>This is Plugin2 speaking!</style>"
-    contents = [plugin1_content, plugin2_content]
 
-    plugins = mock()
-    plugins.stubs(:enabled_plugins).returns([])
-    plugins.stubs(:map).with(:head_ending).returns(contents)
-    plugins.stubs(:map).with(:body_beginning).returns([])
-    Noosfero::Plugin::Manager.stubs(:new).returns(plugins)
+    class TestHeadEnding1Plugin < Noosfero::Plugin
+      def plugin1_method
+        '[[plugin1]]'
+      end
+      def head_ending
+        lambda {"<script>alert('This is #{plugin1_method} speaking!')</script>"}
+      end
+    end
+    class TestHeadEnding2Plugin < Noosfero::Plugin
+      def head_ending
+        "<style>This is Plugin2 speaking!</style>"
+      end
+    end
+
+    Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([TestHeadEnding1Plugin.new, TestHeadEnding2Plugin.new])
 
     get :index
 
-    assert_tag :tag => 'script', :content => "alert('This is #{plugin1_local_variable} speaking!')"
+    assert_tag :tag => 'script', :content => "alert('This is [[plugin1]] speaking!')"
     assert_tag :tag => 'style', :content => 'This is Plugin2 speaking!'
   end
 

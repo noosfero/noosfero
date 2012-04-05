@@ -179,10 +179,10 @@ class BlogTest < ActiveSupport::TestCase
     assert Blog.new.has_posts?
   end
 
-  should 'display posts in current language by default' do
+  should 'not display posts in current language by default' do
     blog = Blog.new
-    assert blog.display_posts_in_current_language
-    assert blog.display_posts_in_current_language?
+    assert !blog.display_posts_in_current_language
+    assert !blog.display_posts_in_current_language?
   end
 
   should 'update display posts in current language setting' do

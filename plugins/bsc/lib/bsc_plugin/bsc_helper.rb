@@ -70,7 +70,7 @@ module BscPlugin::BscHelper
   end
 
   def short_text(name, chars = 40)
-    truncate name, chars, '...'
+    truncate name, :length => chars, :omission => '...'
   end
 
 end

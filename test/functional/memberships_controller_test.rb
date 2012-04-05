@@ -5,14 +5,13 @@ require 'memberships_controller'
 # Re-raise errors caught by the controller.
 class MembershipsController; def rescue_action(e) raise e end; end
 
-class MembershipsControllerTest < Test::Unit::TestCase
+class MembershipsControllerTest < ActionController::TestCase
   
   include ApplicationHelper
 
   def setup
     @controller = MembershipsController.new
     @request    = ActionController::TestRequest.new
-    @request.stubs(:ssl?).returns(true)
     @response   = ActionController::TestResponse.new
 
     @profile = create_user('testuser').person

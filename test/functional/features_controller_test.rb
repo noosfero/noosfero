@@ -4,13 +4,12 @@ require 'features_controller'
 # Re-raise errors caught by the controller.
 class FeaturesController; def rescue_action(e) raise e end; end
 
-class FeaturesControllerTest < Test::Unit::TestCase
+class FeaturesControllerTest < ActionController::TestCase
 
   all_fixtures 
   def setup
     @controller = FeaturesController.new
     @request    = ActionController::TestRequest.new
-    @request.stubs(:ssl?).returns(true)
     @response   = ActionController::TestResponse.new
     login_as(create_admin_user(Environment.find(2)))
   end

@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class ActsAsFilesystemTest < Test::Unit::TestCase
+class ActsAsFilesystemTest < ActiveSupport::TestCase
 
   # FIXME shouldn't we test with a non-real model, instead of Article?
 

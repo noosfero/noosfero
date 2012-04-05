@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../../../../test/test_helper'
 
-class GoogleCsePluginTest < Test::Unit::TestCase
+class GoogleCsePluginTest < ActiveSupport::TestCase
 
   def setup
     @plugin = GoogleCsePlugin.new

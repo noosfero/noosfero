@@ -1,7 +1,6 @@
 class SendEmailPlugin::Sender < Noosfero::Plugin::MailerBase
-  prepend_view_path(SendEmailPlugin.root_path+'/views')
 
-  def mail(referer, url, mail)
+  def message(referer, url, mail)
     recipients mail.to
     from mail.from
     subject "[#{mail.environment.name}] #{mail.subject}"

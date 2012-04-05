@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class CountriesHelperTest < Test::Unit::TestCase
+class CountriesHelperTest < ActiveSupport::TestCase
 
   def setup
     @helper = CountriesHelper.instance

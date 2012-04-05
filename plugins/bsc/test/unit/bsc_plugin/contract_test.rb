@@ -2,7 +2,7 @@ require File.dirname(__FILE__) + '/../../../../../test/test_helper'
 #require File.dirname(__FILE__) + '/../../../../../app/models/uploaded_file'
 #require File.dirname(__FILE__) + '/../../../lib/ext/enterprise'
 
-class BscPlugin::ContractTest < Test::Unit::TestCase
+class BscPlugin::ContractTest < ActiveSupport::TestCase
   def setup
     @contract = BscPlugin::Contract.new(:bsc => BscPlugin::Bsc.new, :client_name => 'Marvin')
   end

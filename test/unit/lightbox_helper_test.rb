@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class LightboxHelperTest < Test::Unit::TestCase
+class LightboxHelperTest < ActiveSupport::TestCase
 
   include LightboxHelper
 

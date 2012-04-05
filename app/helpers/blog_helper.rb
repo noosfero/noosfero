@@ -17,7 +17,7 @@ module BlogHelper
   def list_posts(articles, format = 'full')
     pagination = will_paginate(articles, {
       :param_name => 'npage',
-      :prev_label => _('&laquo; Newer posts'),
+      :previous_label => _('&laquo; Newer posts'),
       :next_label => _('Older posts &raquo;')
     })
     content = []

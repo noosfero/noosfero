@@ -55,7 +55,7 @@ module ManageProductsHelper
   def options_for_select_categories(categories, selected = nil)
     categories.sort_by{|cat| cat.name.transliterate}.map do |category|
       selected_attribute = selected.nil? ? '' : (category == selected ? "selected='selected'" : '')
-      "<option value='#{category.id}' title='#{category.name}' #{selected_attribute}>#{truncate(category.name, 33) + (category.leaf? ? '': ' &raquo;')}</option>"
+      "<option value='#{category.id}' title='#{category.name}' #{selected_attribute}>#{truncate(category.name, :length => 33) + (category.leaf? ? '': ' &raquo;')}</option>"
     end.join("\n")
   end
 

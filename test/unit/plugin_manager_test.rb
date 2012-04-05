@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class PluginManagerTest < Test::Unit::TestCase
+class PluginManagerTest < ActiveSupport::TestCase
 
   def setup
     @environment = Environment.default
@@ -51,7 +51,7 @@ class PluginManagerTest < Test::Unit::TestCase
     p1 = Plugin1.new
     p2 = Plugin2.new
 
-    assert_equal [p1.random_event, p2.random_event], manager.map(:random_event)
+    assert_equal [p1.random_event, p2.random_event], manager.dispatch(:random_event)
   end
 
 end

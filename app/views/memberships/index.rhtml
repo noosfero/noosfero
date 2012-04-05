@@ -19,7 +19,7 @@
       <%= _('Role: %s') % rolename_for(profile, membership) %> <br/>
       <%= _('Type: %s') % getterm(membership.class.identification) %> <br/>
       <%= _('Description: %s') % membership.description  + '<br/>' if membership.community? %>
-      <%= _('Members: %s') % membership.members.size.to_s %> <br/>
+      <%= _('Members: %s') % membership.members_count.to_s %> <br/>
       <%= _('Created at: %s') % show_date(membership.created_at) unless membership.enterprise? %> <br/>
       <% button_bar do %>
         <%= button 'menu-ctrl-panel', _('Control panel of this group'), membership.admin_url %>

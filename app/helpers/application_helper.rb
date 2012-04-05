@@ -1,3 +1,5 @@
+require 'redcloth'
+
 # Methods added to this helper will be available to all templates in the
 # application.
 module ApplicationHelper
@@ -95,7 +97,7 @@ module ApplicationHelper
     text = content_tag('div', button + content_tag('div', content_tag('div', content) + close_button, :class => 'help_message', :id => help_id, :style => 'display: none;'), :class => 'help_box')
 
     unless block.nil?
-      concat(text, block.binding)
+      concat(text)
     end
 
     text
@@ -256,7 +258,7 @@ module ApplicationHelper
   end
 
   def button_bar(options = {}, &block)
-    concat(content_tag('div', capture(&block) + tag('br', :style => 'clear: left;'), { :class => 'button-bar' }.merge(options)), block.binding)
+    concat(content_tag('div', capture(&block) + tag('br', :style => 'clear: left;'), { :class => 'button-bar' }.merge(options)))
   end
 
   VIEW_EXTENSIONS = %w[.rhtml .html.erb]
@@ -758,7 +760,7 @@ module ApplicationHelper
 
   # Should be on the forms_helper file but when its there the translation of labels doesn't work
   class NoosferoFormBuilder < ActionView::Helpers::FormBuilder
-  extend ActionView::Helpers::TagHelper
+    extend ActionView::Helpers::TagHelper
 
     def self.output_field(text, field_html, field_id = nil)
       # try to guess an id if none given
@@ -780,7 +782,7 @@ module ApplicationHelper
     (field_helpers - %w(hidden_field)).each do |selector|
       src = <<-END_SRC
         def #{selector}(field, *args, &proc)
-          text = object.class.human_attribute_name(field.to_s)
+          text = object.class.respond_to?(:human_attribute_name) && object.class.human_attribute_name(field.to_s) || field.to_s.humanize
           NoosferoFormBuilder::output_field(text, super)
         end
       END_SRC
@@ -882,7 +884,7 @@ module ApplicationHelper
     end
 
     if block
-      concat(result, block.binding)
+      concat(result)
     end
 
     result
@@ -914,18 +916,11 @@ module ApplicationHelper
 
   def login_url
     options = Noosfero.url_options.merge({ :controller => 'account', :action => 'login' })
-    if environment.enable_ssl && (ENV['RAILS_ENV'] != 'development')
-      options.merge!(:protocol => 'https://', :host => ssl_hostname)
-    end
     url_for(options)
   end
 
-  def ssl_hostname
-    environment.default_hostname
-  end
-
   def base_url
-    environment.top_url(request.ssl?)
+    environment.top_url
   end
 
   def helper_for_article(article)
@@ -1025,7 +1020,7 @@ module ApplicationHelper
     options.merge!(:page => params[:npage])
     content = article.to_html(options)
     content = content.kind_of?(Proc) ? self.instance_eval(&content) : content
-    @plugins && @plugins.enabled_plugins.each do |plugin|
+    @plugins && @plugins.each do |plugin|
       content = plugin.parse_content(content)
     end
     content
@@ -1147,7 +1142,7 @@ module ApplicationHelper
   end
 
   def pagination_links(collection, options={})
-    options = {:prev_label => '&laquo; ' + _('Previous'), :next_label => _('Next') + ' &raquo;'}.merge(options)
+    options = {:previous_label => '&laquo; ' + _('Previous'), :next_label => _('Next') + ' &raquo;'}.merge(options)
     will_paginate(collection, options)
   end
 
@@ -1238,7 +1233,7 @@ module ApplicationHelper
     wrapper = content_tag(:div, capture(&block), :class => 'comment-balloon-content')
     (1..8).to_a.reverse.each { |i| wrapper = content_tag(:div, wrapper, :class => "comment-wrapper-#{i}") }
     classes = options.delete(:class) || options.delete("class") || ''
-    concat(content_tag('div', wrapper + tag('br', :style => 'clear: both;'), { :class => 'comment-balloon ' + classes.to_s }.merge(options)), block.binding)
+    concat(content_tag('div', wrapper + tag('br', :style => 'clear: both;'), { :class => 'comment-balloon ' + classes.to_s }.merge(options)))
   end
 
   def display_source_info(page)
@@ -1316,6 +1311,14 @@ module ApplicationHelper
         link_to(text, url, :class => klass + ' comment-footer comment-footer-link', :title => report_profile_message)
       ) + content_tag('span', ' | ', :class => 'comment-footer comment-footer-hide')
     end
+  end
+
+  def cache_timeout(key, timeout, &block)
+    cache(key, { :expires_in => timeout }, &block)
+  end
+
+  def is_cache_expired?(key)
+    !cache_store.fetch(ActiveSupport::Cache.expand_cache_key(key, :controller))
   end
 
   def render_tabs(tabs)

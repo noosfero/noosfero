@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class ChangePasswordTest < Test::Unit::TestCase
+class ChangePasswordTest < ActiveSupport::TestCase
 
   fixtures :environments
 

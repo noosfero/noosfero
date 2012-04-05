@@ -5,8 +5,8 @@
   <li><h1><%= _('Products/Services') %></h1></li>
 
   <% @products.each do |product| %>
-    <% extra_content = @plugins.map(:catalog_item_extras, product).collect { |content| instance_eval(&content) } %>
-    <% extra_content_list = @plugins.map(:catalog_list_item_extras, product).collect { |content| instance_eval(&content) } %>
+    <% extra_content = @plugins.dispatch(:catalog_item_extras, product).collect { |content| instance_eval(&content) } %>
+    <% extra_content_list = @plugins.dispatch(:catalog_list_item_extras, product).collect { |content| instance_eval(&content) } %>
 
     <li class="product <%= "not-available" unless product.available %>">
       <ul>

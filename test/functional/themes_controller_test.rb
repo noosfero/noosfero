@@ -3,12 +3,11 @@ require 'themes_controller'
 
 class ThemesController; def rescue_action(e) raise e end; end
 
-class ThemesControllerTest < Test::Unit::TestCase
+class ThemesControllerTest < ActionController::TestCase
 
   def setup
     @controller = ThemesController.new
     @request    = ActionController::TestRequest.new
-    @request.stubs(:ssl?).returns(true)
     @response   = ActionController::TestResponse.new
 
     Theme.stubs(:user_themes_dir).returns(TMP_THEMES_DIR)
@@ -235,7 +234,7 @@ class ThemesControllerTest < Test::Unit::TestCase
     post :start_test, :profile => 'testinguser', :id => 'theme-under-test'
 
     assert_equal 'theme-under-test', session[:theme]
-    assert_redirected_to :controller => 'content_viewer', :profile => 'testinguser'
+    assert_redirected_to :controller => 'content_viewer', :profile => 'testinguser', :action => 'view_page'
   end
 
   should 'stop testing theme' do

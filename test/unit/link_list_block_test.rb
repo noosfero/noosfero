@@ -64,7 +64,7 @@ class LinkListBlockTest < ActiveSupport::TestCase
 
   should 'not add link to onclick' do
     l = LinkListBlock.new(:links => [{:name => 'link', :address => "#\" onclick=\"alert(123456)"}])
-    assert_no_match /onclick/, l.link_html(l.links.first)
+    assert_no_tag_in_string l.link_html(l.links.first), :attributes => { :onclick => /.*/ }
   end
 
   should 'add http in front of incomplete external links' do

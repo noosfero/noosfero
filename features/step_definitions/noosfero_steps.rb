@@ -261,6 +261,8 @@ Given /^I am logged in as "(.+)"$/ do |username|
   if selenium_driver?
     selenium.wait_for_page
   end
+  Then "I should be logged in as \"#{username}\""
+  @current_user = username
 end
 
 Given /^I am logged in as admin$/ do
@@ -526,6 +528,10 @@ Then /^"([^\"]*)" profile should not exist$/ do |profile_selector|
   end
 end
 
+When 'I log off' do
+  visit '/account/logout'
+end
+
 Then /^I should be taken to "([^\"]*)" product page$/ do |product_name|
   product = Product.find_by_name(product_name)
   path = url_for(product.enterprise.public_profile_url.merge(:controller => 'manage_products', :action => 'show', :id => product, :only_path => true))
@@ -560,4 +566,9 @@ Given /^([^\s]+) (enabled|disabled) translation redirection in (?:his|her) profi
   profile = Profile[login]
   profile.redirect_l10n = ( status == "enabled" )
   profile.save
+end
+
+When /^I edit my profile$/ do
+  visit "/myprofile/#{@current_user}"
+  click_link "Edit Profile"
 end

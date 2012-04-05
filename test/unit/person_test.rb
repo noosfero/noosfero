@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class PersonTest < Test::Unit::TestCase
+class PersonTest < ActiveSupport::TestCase
   fixtures :profiles, :users, :environments
 
   def test_person_must_come_form_the_cration_of_an_user
@@ -133,6 +133,7 @@ class PersonTest < Test::Unit::TestCase
     other.email = 'user@domain.com'
     other.valid?
     assert other.errors.invalid?(:email)
+    assert_no_match /\{fn\}/, other.errors.on(:email)
   end
 
   should 'be able to use an e-mail already used in other environment' do
@@ -587,8 +588,9 @@ class PersonTest < Test::Unit::TestCase
     end
   end
 
-  should 'not rename' do
-    assert_valid p = create_user('test_user').person
+  should 'not be renamed' do
+    p = create_user('test_user').person
+    assert p.valid?
     assert_raise ArgumentError do
       p.identifier = 'other_person_name'
     end
@@ -1189,9 +1191,13 @@ class PersonTest < Test::Unit::TestCase
         :name => 'birthday', :identifier => 'birthday', :user_id => 999,
         'birth_date(1i)' => '', 'birth_date(2i)' => '6', 'birth_date(3i)' => '16'
       )
-      assert !p.valid?
-      assert p.errors.invalid?(:birth_date)
     end
+  end
+
+  should 'not accept an empty year on birth date' do
+    p = Person.new({"birth_date(2i)"=>"11", "birth_date(3i)"=>"15", "birth_date(1i)"=>""})
+    p.valid?
+    assert p.errors.invalid?(:birth_date)
   end
 
   should 'associate report with the correct complaint' do

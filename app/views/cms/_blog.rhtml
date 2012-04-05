@@ -68,7 +68,6 @@
     <% enabled = @article.external_feed && @article.external_feed.enabled %>
     <% only_once = @article.external_feed ? @article.external_feed.only_once : true %>
     <%= labelled_check_box(_('Fetch posts from an external feed'), 'article[external_feed_builder][enabled]', 'true', enabled, {:onchange => "$('external-feed-options').toggle()"}) %>
-    <%= hidden_field_tag 'article[external_feed_builder][enabled]', 'false' %>
     <div id='external-feed-options' style="display: <%= enabled ? 'block' : 'none' %>">
       <%= efeed.hidden_field(:id) %>
       <%= labelled_form_field( _('Feed address'), efeed.text_field(:address) ) %>

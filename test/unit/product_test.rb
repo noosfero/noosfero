@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class ProductTest < Test::Unit::TestCase
+class ProductTest < ActiveSupport::TestCase
 
   def setup
     @product_category = fast_create(ProductCategory, :name => 'Products')
@@ -109,7 +109,7 @@ class ProductTest < Test::Unit::TestCase
     prod = ent.products.create!(:name => 'test product', :product_category => @product_category)
 
     ent.lat = 45.0; ent.lng = 45.0; ent.save!
-
+    process_delayed_job_queue
     prod.reload
    
     assert_in_delta 45.0, prod.lat, 0.0001

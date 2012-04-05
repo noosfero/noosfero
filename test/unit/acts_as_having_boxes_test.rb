@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class ActsAsHavingBoxesTest < Test::Unit::TestCase
+class ActsAsHavingBoxesTest < ActiveSupport::TestCase
 
   should 'be able to find blocks by id' do
     env = fast_create(Environment, :name => 'An environment without blocks')

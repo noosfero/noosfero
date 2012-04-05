@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class TextileArticleTest < Test::Unit::TestCase
+class TextileArticleTest < ActiveSupport::TestCase
   
   def setup
     @profile = create_user('testing').person

@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class LoginBlockTest < Test::Unit::TestCase
+class LoginBlockTest < ActiveSupport::TestCase
 
   def setup
     @block = LoginBlock.new

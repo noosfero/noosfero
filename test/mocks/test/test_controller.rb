@@ -39,20 +39,4 @@ class TestController < ApplicationController
     '
   end
 
-  require_ssl :only => 'sslonly'
-  def sslonly
-    render :text => 'this should be seen only on SSL', :layout => false
-  end
-  def doesnt_need_ssl
-    render :text => 'this should be seen even without SSL', :layout => false
-  end
-
-  refuse_ssl :only => 'nossl'
-  def nossl
-    render :text => 'this should not be seen over SSL', :layout => false
-  end
-  def doesnt_refuse_ssl
-    render :text => 'this should be seen over SSL or not, whatever', :layout => false
-  end
-
 end

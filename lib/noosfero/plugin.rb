@@ -16,8 +16,8 @@ class Noosfero::Plugin
         File.directory?(entry)
       end.each do |dir|
         Rails.configuration.controller_paths << File.join(dir, 'controllers')
-        Dependencies.load_paths << File.join(dir, 'controllers')
-        [ Dependencies.load_paths, $:].each do |path|
+        ActiveSupport::Dependencies.load_paths << File.join(dir, 'controllers')
+        [ ActiveSupport::Dependencies.load_paths, $:].each do |path|
           path << File.join(dir, 'models')
           path << File.join(dir, 'lib')
         end
@@ -102,6 +102,12 @@ class Noosfero::Plugin
   #   content = lambda block that creates a html code.
   #   start   = boolean that specifies if the tab must come before noosfero tabs (optional).
   def profile_tabs
+    nil
+  end
+
+  # -> Adds plugin-specific content types to CMS
+  # returns  = { content type class }
+  def content_types
     nil
   end
 
@@ -210,6 +216,26 @@ class Noosfero::Plugin
     else
       super
     end
+  end
+
+  # This method will be called just before a comment is saved to the database.
+  #
+  # It can modify the comment in several ways. In special, a plugin can call
+  # reject! on the comment and that will cause the comment to not be saved.
+  #
+  # example:
+  #
+  #   def filter_comment(comment)
+  #     comment.reject! if anti_spam_service.is_spam?(comment)
+  #   end
+  #
+  def filter_comment(comment)
+  end
+
+  # This method will be called just after a comment has been saved to the
+  # database, so that a plugin can perform some action on it.
+  #
+  def comment_saved(comment)
   end
 
 end

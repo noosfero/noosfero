@@ -1,16 +1,16 @@
 <% if @register_pending %>
 <div id='thanks-for-signing'>
-  <%= _("<h1>Welcome to %s!</h1>
-         <h3>Thanks for signing up, we're thrilled to have you on our social network!</h3>
-         <p>Firstly, some tips for getting started:</p>
-         <h4>Confirm your account!</h4>
-         <p>You should receive a welcome email from us shortly. Please take a second to follow the link within to confirm your account.</p>
-         <p>You won't appear as a <a href=\"%s\" target=\"_blank\">user</a> until your account is confirmed.</p>
-         <h4>What to do next?</h4>
-         <p><a href=\"/doc/user/editing-person-info\" target=\"_blank\">Customize your profile</a>. Upload an avatar and let your friends find you easily :)</p>
-         <p>Learn the guidelines. Read the <a href=\"/doc\" target=\"_blank\">Documentation</a> for more details on how to use new social network!</p>
-         <p><a href=\"/doc/user/invite-contacts\" target=\"_blank\">Invite and find</a> your Gmail, Yahoo and Hotmail contacts!</p>
-         <p>Start exploring and Have fun!</p>" % [environment.name, url_for(:controller => :browse, :action => :people, :filter => 'more_recent')]) %>
+  <h1><%= _("Welcome to %s!") % environment.name %></h1>
+  <h3><%= _("Thanks for signing up, we're thrilled to have you on our social network!") %></h3>
+  <p><%= _("Firstly, some tips for getting started:") %></p>
+  <h4><%= _("Confirm your account!") %></h4>
+  <p><%= _("You should receive a welcome email from us shortly. Please take a second to follow the link within to confirm your account.") %></p>
+  <p><%= _("You won't appear as %s until your account is confirmed.") % link_to(_('user'), {:controller => :browse, :action => :people, :filter => 'more_recent'}, :target => '_blank') %></p>
+  <h4><%= _("What to do next?") %></h4>
+  <p><%= _("%s. Upload an avatar and let your friends find you easily :)") % link_to(_('Customize your profile'), {:controller => 'doc', :section => 'user', :topic => 'editing-person-info'}, :target => '_blank') %></p>
+  <p><%= _("Learn the guidelines. Read the %s for more details on how to use this social network!") % link_to(_('Documentation'), {:controller => 'doc'}, :target => '_blank') %></p>
+  <p><%= _("%s your Gmail, Yahoo and Hotmail contacts!") % link_to(_('Invite and find'), {:controller => 'doc', :section => 'user', :topic => 'invite-contacts'}, :target => '_blank') %></p>
+  <p><%= _("Start exploring and have fun!") %></p>
 </div>
 <% else %>
   <h1><%= _('Sign up for %s!') % environment.name %></h1>

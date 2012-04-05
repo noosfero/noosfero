@@ -16,7 +16,7 @@ module CmsHelper
   end
 
   def pagination_links(collection, options={})
-    options = {:prev_label => '&laquo; ', :next_label => ' &raquo;', :page_links => false}.merge(options)
+    options = {:previous_label => '&laquo; ', :next_label => ' &raquo;', :page_links => false}.merge(options)
     will_paginate(collection, options)
   end
 

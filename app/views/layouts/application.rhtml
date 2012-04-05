@@ -38,6 +38,7 @@
     %>' onload='noosfero_init();'
     onresize="registerDocumentSize()">
     <script type="text/javascript">
+      // <!--
       function registerDocumentSize() {
         document.body.className = document.body.className.replace(/docSize-(G|L)T-\d+/g, "");
         for ( var x=100; x<=1500; x+=100 ) {
@@ -49,6 +50,7 @@
         }
       }
       registerDocumentSize();
+      // -->
     </script>
 
     <div id="accessibility_menu">

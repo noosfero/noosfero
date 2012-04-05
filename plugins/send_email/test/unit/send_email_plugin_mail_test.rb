@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../../../../test/test_helper'
 
-class SendEmailPluginMailTest < Test::Unit::TestCase
+class SendEmailPluginMailTest < ActiveSupport::TestCase
 
   def setup
     @environment = mock()

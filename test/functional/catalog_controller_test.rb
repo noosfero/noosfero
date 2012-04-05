@@ -4,7 +4,7 @@ require 'catalog_controller'
 # Re-raise errors caught by the controller.
 class CatalogController; def rescue_action(e) raise e end; end
 
-class CatalogControllerTest < Test::Unit::TestCase
+class CatalogControllerTest < ActionController::TestCase
   def setup
     @controller = CatalogController.new
     @request    = ActionController::TestRequest.new
@@ -26,7 +26,7 @@ class CatalogControllerTest < Test::Unit::TestCase
   should 'not display for non-enterprises' do
     u = create_user('testinguser').person
     get :index, :profile => 'testinguser'
-    assert_redirected_to :controller => "profile", :profile => 'testinguser'
+    assert_redirected_to :controller => "profile", :profile => 'testinguser', :action => 'index'
   end
 
   should 'display for enterprises' do

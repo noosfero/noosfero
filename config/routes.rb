@@ -102,7 +102,7 @@ ActionController::Routing::Routes.draw do |map|
   ######################################################
   # administrative tasks for a environment
   map.admin 'admin', :controller => 'admin_panel'
-  map.admin 'admin/:controller.:format/:action/:id', :controller => Noosfero.pattern_for_controllers_in_directory('admin')
+  map.admin 'admin/:controller/:action.:format/:id', :controller => Noosfero.pattern_for_controllers_in_directory('admin')
   map.admin 'admin/:controller/:action/:id', :controller => Noosfero.pattern_for_controllers_in_directory('admin')
 
 
@@ -116,7 +116,7 @@ ActionController::Routing::Routes.draw do |map|
   ######################################################
   # plugin routes
   ######################################################
-  plugins_routes = File.join(Rails.root + '/lib/noosfero/plugin/routes.rb')
+  plugins_routes = File.join(File.dirname(__FILE__) + '/../lib/noosfero/plugin/routes.rb')
   eval(IO.read(plugins_routes), binding, plugins_routes)
 
   # cache stuff - hack

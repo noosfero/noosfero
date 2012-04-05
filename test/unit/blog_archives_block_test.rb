@@ -163,7 +163,7 @@ class BlogArchivesBlockTest < ActiveSupport::TestCase
     block = fast_create(BlogArchivesBlock)
 
     feed = mock()
-    feed.stubs(:url).returns('feed_url')
+    feed.stubs(:url).returns(blog.url)
     blog.stubs(:feed).returns(feed)
     block.stubs(:blog).returns(blog)
     block.stubs(:owner).returns(profile)

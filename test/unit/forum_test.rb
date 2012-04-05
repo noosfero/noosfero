@@ -80,7 +80,8 @@ class ForumTest < ActiveSupport::TestCase
     newer = create(TextileArticle, :name => 'Post 2', :parent => forum, :profile => p)
     older = create(TextileArticle, :name => 'Post 1', :parent => forum, :profile => p)
     older.updated_at = Time.now - 1.month
-    older.send :update_without_callbacks
+    older.stubs(:record_timestamps).returns(false)
+    older.save!
     assert_equal [newer, older], forum.posts
   end
 

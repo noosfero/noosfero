@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class CreateEnterpriseTest < Test::Unit::TestCase
+class CreateEnterpriseTest < ActiveSupport::TestCase
 
   def setup
     @person = fast_create(Person)

@@ -16,14 +16,14 @@ class SendEmailPlugin::Mail < ActiveRecord::Base #WithoutTable
   def validate
     if to_as_list.any? do |value|
         if value !~ Noosfero::Constants::EMAIL_FORMAT
-          self.errors.add(:to, _("%{fn} '%s' isn't a valid e-mail address") % value)
+          self.errors.add(:to, _("'%s' isn't a valid e-mail address") % value)
         end
       end
     else
       allowed_emails = environment ? environment.send_email_plugin_allow_to.to_s.gsub(/\s+/, '').split(/,/) : []
       if to_as_list.any? do |value|
           if !allowed_emails.include?(value)
-            self.errors.add(:to, _("%{fn} '%s' address is not allowed (see SendEmailPlugin config)") % value)
+            self.errors.add(:to, _("'%s' address is not allowed (see SendEmailPlugin config)") % value)
           end
         end
       end

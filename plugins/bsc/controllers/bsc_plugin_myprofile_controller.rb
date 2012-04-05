@@ -1,6 +1,6 @@
-include BscPlugin::BscHelper
-
 class BscPluginMyprofileController < MyProfileController
+
+  include BscPlugin::BscHelper
 
   def manage_associated_enterprises
     @associated_enterprises = profile.enterprises

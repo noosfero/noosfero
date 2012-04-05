@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class DomainTest < Test::Unit::TestCase
+class DomainTest < ActiveSupport::TestCase
   fixtures :domains, :environments, :profiles, :users
 
   def setup
