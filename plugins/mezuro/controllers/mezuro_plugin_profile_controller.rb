@@ -123,5 +123,12 @@ class MezuroPluginProfileController < ProfileController
     range.comments = params[:range][:comments]
     range
   end
-end
 
+  def get_module_metrics_history
+    content = profile.articles.find(params[:id])
+    module_history = Kalibro::Client::ModuleResultClient.new
+    module_history.result_history(content.project.name, params[:module_name])
+    render :partial => 'content_viewer/show_history', :locals => {:module_history => module_history }
+  end
+
+end
