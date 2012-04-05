@@ -1,11 +1,5 @@
 class Kalibro::Client::ModuleResultClient
 
-  # TODO test this
-  def self.module_result(project_content, module_name)
-    project_result = project_content.project_result
-    new.module_result(project_result.project.name, module_name, project_result.date)
-  end
-  
   def initialize
     @port = Kalibro::Client::Port.new('ModuleResult')
   end
@@ -21,6 +15,13 @@ class Kalibro::Client::ModuleResultClient
     value = @port.request(:get_result_history,
       {:project_name => project_name, :module_name => module_name})[:module_result]
     Kalibro::Entities::Entity.new.to_entity_array(value, Kalibro::Entities::ModuleResult)
+  end
+
+  private
+
+  def date_with_milliseconds(date)
+    milliseconds = "." + (date.sec_fraction * 60 * 60 * 24 * 1000).to_s
+    date.to_s[0..18] + milliseconds + date.to_s[19..-1]
   end
 
 end

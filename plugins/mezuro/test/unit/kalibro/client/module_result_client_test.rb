@@ -26,5 +26,4 @@ class ModuleResultClientTest < ActiveSupport::TestCase
     @port.expects(:request).with(:get_result_history, request_body).returns(response)
     assert_equal [@result], @client.result_history('Qt-Calculator', 'main')
   end
-
 end
