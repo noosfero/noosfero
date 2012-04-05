@@ -187,9 +187,10 @@ class InviteControllerTest < ActionController::TestCase
   should 'return hash as invitation data if contact list was fetched' do
     contact_list = ContactList.create(:fetched => true)
     get :invitation_data, :profile => profile.identifier, :contact_list => contact_list.id
+    hash = {'fetched' => true, 'contact_list' => contact_list.id, 'error' => nil}
 
     assert_equal 'application/javascript', @response.content_type
-    assert_match /\{\"fetched\":\s*true,\s*\"contact_list\":\s*#{contact_list.id},\s*\"error\":\s*null\}/, @response.body
+    assert_equal hash, json_response
   end
 
   should 'render empty list of contacts' do
@@ -231,5 +232,12 @@ class InviteControllerTest < ActionController::TestCase
     post :select_friends, :profile => profile.identifier, :manual_import_addresses => "#{friend.name} <#{friend.email}>", :import_from => "manual", :mail_template => "click: <url>", :contact_list => contact_list.id
     assert_equal 'pt', Delayed::Job.first.payload_object.locale
   end
+
+  private
+
+  def json_response
+    ActiveSupport::JSON.decode @response.body
+  end
+
 
 end
