@@ -72,6 +72,6 @@
 </table>
 
 <br/>
-<%= link_to_remote "New Range", :url => {:action =>"new_range", :controller => "mezuro_plugin_profile"}  %>
+<%= link_to_remote "New Range", :url => {:action =>"new_range", :controller => "mezuro_plugin_profile", :configuration_name => @configuration_name, :metric_name => @metric.name} %>
 <div id="new_range" style="display:none"></div>
 

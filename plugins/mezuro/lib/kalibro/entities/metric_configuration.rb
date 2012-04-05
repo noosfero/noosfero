@@ -19,6 +19,11 @@ class Kalibro::Entities::MetricConfiguration < Kalibro::Entities::Entity
     @range = to_entity_array(value, Kalibro::Entities::Range)
   end
 
+  def add_range(new_range)
+    @range = [] if @range.nil?
+    @range << new_range
+  end
+
   def ranges
     @range
   end
