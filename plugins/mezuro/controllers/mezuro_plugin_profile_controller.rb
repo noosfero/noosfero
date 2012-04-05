@@ -124,10 +124,11 @@ class MezuroPluginProfileController < ProfileController
     range
   end
 
-  def get_module_metrics_history
+  def module_metrics_history
+    metric_name = params[:metric_name]
     content = profile.articles.find(params[:id])
-    module_history = Kalibro::Client::ModuleResultClient.new
-    module_history.result_history(content.project.name, params[:module_name])
+    module_history = content.result_history(content.project.name, params[:module_name])
+#precisamos que uma variável receba um array com os valores da métrica passada a partir do result history
     render :partial => 'content_viewer/show_history', :locals => {:module_history => module_history }
   end
 
