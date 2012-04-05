@@ -245,18 +245,18 @@ class Product < ActiveRecord::Base
     self.public?
   end
   def price_sortable
-    (price.nil? or price.zero?) ? 999999999.9 : price
+    (price.nil? or price.zero?) ? nil : price
   end
-  def categories
-    enterprise.category_ids << product_category_id
+  def category_filter
+    enterprise.categories_including_virtual_ids << product_category_id
   end
   public
 
   acts_as_faceted :fields => {
-    :f_category => {:label => _('Related products')},
-    :f_region => {:label => _('City'), :proc => proc { |id| f_region_proc(id) }},
-    :f_qualifier => {:label => _('Qualifiers'), :proc => proc { |id| f_qualifier_proc(id) }}},
-    :category_query => proc { |c| "categories:#{c.id}" },
+      :f_category => {:label => _('Related products')},
+      :f_region => {:label => _('City'), :proc => proc { |id| f_region_proc(id) }},
+      :f_qualifier => {:label => _('Qualifiers'), :proc => proc { |id| f_qualifier_proc(id) }},
+    }, :category_query => proc { |c| "category_filter:#{c.id}" },
     :order => [:f_category, :f_region, :f_qualifier]
 
   Boosts = [
@@ -277,7 +277,7 @@ class Product < ActiveRecord::Base
       {:description => :text},
       # filtered fields
       {:public => :boolean}, {:environment_id => :integer},
-      {:categories => :integer},
+      {:category_filter => :integer},
       # ordered/query-boosted fields
       {:price_sortable => :decimal}, {:name_sortable => :string},
       {:lat => :float}, {:lng => :float},

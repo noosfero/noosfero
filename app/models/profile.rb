@@ -179,6 +179,9 @@ class Profile < ActiveRecord::Base
   has_many :profile_categorizations, :conditions => [ 'categories_profiles.virtual = ?', false ]
   has_many :categories, :through => :profile_categorizations
 
+  has_many :profile_categorizations_including_virtual, :class_name => 'ProfileCategorization'
+  has_many :categories_including_virtual, :through => :profile_categorizations_including_virtual, :source => :category
+
   has_many :abuse_complaints, :foreign_key => 'requestor_id'
 
   def top_level_categorization
@@ -839,6 +842,7 @@ private :generate_url, :url_options
   end
   def self.f_categories_proc(facet, id)
     id = id.to_i
+    return if id.zero?
     c = Category.find(id)
     c.name if c.top_ancestor.id == facet[:label_id].to_i or facet[:label_id] == 0
   end
@@ -846,7 +850,7 @@ private :generate_url, :url_options
     category_ids
   end
   def f_region
-    self.region.id if self.region
+    self.region_id
   end
   def self.f_region_proc(id)
     c = Region.find(id)
@@ -864,14 +868,16 @@ private :generate_url, :url_options
   def public
     self.public?
   end
+  def category_filter
+    categories_including_virtual_ids
+  end
   public
 
   acts_as_faceted :fields => {
-    :f_region => {:label => _('City'), :type_if => proc { |klass| klass.kind_of?(Enterprise) },
-		:proc => proc { |id| f_region_proc(id) }},
-    :f_categories => {:multi => true, :proc => proc {|facet, id| f_categories_proc(facet, id)},
-        :label => proc { |env| f_categories_label_proc(env) }, :label_abbrev => proc { |env| f_categories_label_abbrev_proc(env) }}},
-    :category_query => proc { |c| "f_categories:#{c.id}" },
+      :f_region => {:label => _('City'), :proc => proc { |id| f_region_proc(id) }},
+      :f_categories => {:multi => true, :proc => proc {|facet, id| f_categories_proc(facet, id)},
+        :label => proc { |env| f_categories_label_proc(env) }, :label_abbrev => proc{ |env| f_categories_label_abbrev_proc(env) }},
+    }, :category_query => proc { |c| "category_filter:#{c.id}" },
     :order => [:f_region, :f_categories]
 
   acts_as_searchable :fields => facets_fields_for_solr + [:extra_data_for_index,
@@ -880,6 +886,7 @@ private :generate_url, :url_options
       {:identifier => :text}, {:address => :text}, {:nickname => :text},
       # filtered fields
       {:public => :boolean}, {:environment_id => :integer},
+      {:category_filter => :integer},
       # ordered/query-boosted fields
       {:name_sortable => :string}, {:user_id => :integer},
       :enabled, :active, :validated, :public_profile,

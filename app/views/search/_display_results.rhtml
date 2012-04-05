@@ -1,4 +1,4 @@
-<div id="search-results" class="<%= 'only-one-result-box' if @results.size == 1 %>">
+<div id="search-results" class="<%= @results.size == 1 ? 'only-one-result-box' : 'multiple-results-boxes' %>">
   <% @order.each do |name| %>
     <% results = @results[name] %>
     <% empty = results.nil? || results.empty? %>

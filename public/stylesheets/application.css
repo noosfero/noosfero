@@ -3821,8 +3821,6 @@ h1#agenda-title {
   -moz-border-radius:10px;
   -webkit-border-radius:10px;
 }
-/* ==> public/stylesheets/controller_search.css <== */
-/* @import url(pagination.css); ALREADY INCLUDED ABOVE */
 
 /* * * Profile search * * * * * * * */
 
@@ -3833,17 +3831,13 @@ h1#agenda-title {
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
 }
-#public-profile-search .formfield input {
-  width: 395px;
-}
-/* * * Profile Search Results * * * * * * * */
 
 #profile-search-results ul {
   padding-left: 0px;
   margin-left: 0px;
 }
 #profile-search-results form .formfield input {
-  width: 395px;
+  width: 362px;
 }
 #profile-search-results form .search_form .button {
   margin-top: 5px;

@@ -28,6 +28,9 @@ class Article < ActiveRecord::Base
   has_many :article_categorizations, :conditions => [ 'articles_categories.virtual = ?', false ]
   has_many :categories, :through => :article_categorizations
 
+  has_many :article_categorizations_including_virtual, :class_name => 'ArticleCategorization'
+  has_many :categories_including_virtual, :through => :article_categorizations_including_virtual, :source => :category
+
   acts_as_having_settings :field => :setting
 
   settings_items :display_hits, :type => :boolean, :default => true
@@ -626,6 +629,9 @@ class Article < ActiveRecord::Base
   def public
     self.public?
   end
+  def category_filter
+    categories_including_virtual_ids
+  end
   public
 
   acts_as_faceted :fields => {
@@ -634,8 +640,8 @@ class Article < ActiveRecord::Base
         '[NOW-1YEARS TO NOW/DAY]' => _("Last year"), '[NOW-1MONTHS TO NOW/DAY]' => _("Last month"), '[NOW-7DAYS TO NOW/DAY]' => _("Last week"), '[NOW-1DAYS TO NOW/DAY]' => _("Last day")},
         :queries_order => ['[NOW-1DAYS TO NOW/DAY]', '[NOW-7DAYS TO NOW/DAY]', '[NOW-1MONTHS TO NOW/DAY]', '[NOW-1YEARS TO NOW/DAY]', '[* TO NOW-1YEARS/DAY]']},
       :f_profile_type => {:label => _('Profile'), :proc => proc{|klass| f_profile_type_proc(klass)}},
-      :f_category => {:label => _('Categories')}},
-    :category_query => proc { |c| "f_category:\"#{c.name}\"" },
+      :f_category => {:label => _('Categories')},
+    }, :category_query => proc { |c| "category_filter:\"#{c.id}\"" },
     :order => [:f_type, :f_published_at, :f_profile_type, :f_category]
 
   acts_as_searchable :fields => facets_fields_for_solr + [
@@ -645,7 +651,8 @@ class Article < ActiveRecord::Base
       {:abstract => :text}, {:filename => :text},
       # filtered fields
       {:public => :boolean}, {:environment_id => :integer},
-      :language, :published,
+      {:profile_id => :integer}, :language,
+      {:category_filter => :integer},
       # ordered/query-boosted fields
       {:name_sortable => :string}, :last_changed_by_id, :published_at, :is_image,
       :updated_at, :created_at,

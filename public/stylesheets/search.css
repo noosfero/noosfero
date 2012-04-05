@@ -121,7 +121,7 @@
   color: #FFF;
   text-decoration: none;
 }
-.controller-search .search-results-innerbox.common-profile-list-block {
+.controller-search .multiple-results-boxes .search-results-innerbox.common-profile-list-block {
   overflow: hidden;
 }
 .controller-search .search-results-innerbox {
