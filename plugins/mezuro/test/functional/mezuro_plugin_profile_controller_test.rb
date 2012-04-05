@@ -65,6 +65,23 @@ class MezuroPluginProfileControllerTest < ActionController::TestCase
     assert_select('h5', 'Metric results for: Qt-Calculator (APPLICATION)')
   end
 
+  should 'assign configuration name in choose_base_tool' do
+    get :choose_base_tool, :profile => @profile.identifier, :configuration_name => "test name"
+    assert_equal assigns(:configuration_name), "test name"
+  end
+
+  should 'create base tool client' do
+    get :choose_base_tool, :profile => @profile.identifier, :configuration_name => "test name"
+    assert assigns(:tool_names).instance_of?(Kalibro::Client::BaseToolClient)
+  end
+
+  should 'assign configuration and collector name in choose_metric' do
+    #TODO  Mockar cliente
+    get :choose_metric, :profile => @profile.identifier, :configuration_name => "test name", :collector_name => "Collector A"
+    assert_equal assigns(:configuration_name), "test name"
+    assert_equal assigns(:collector_name), "Collector A"
+  end
+
   private
 
   def create_project_content
