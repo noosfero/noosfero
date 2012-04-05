@@ -68,6 +68,14 @@ class ProjectContentTest < ActiveSupport::TestCase
     assert_equal module_result, @content.module_result(nil)
   end
 
+  should 'get result history' do
+    module_name = 'Qt-Calculator'
+	module_result_client = mock
+	@content.expects(:module_result_client).returns(module_result_client)
+    module_result_client.expects(:result_history).with(@project.name, module_name)
+	@content.result_history(module_name)
+  end
+
   should 'send project to service after saving' do
     @content.expects :send_project_to_service
     @content.run_callbacks :after_save
