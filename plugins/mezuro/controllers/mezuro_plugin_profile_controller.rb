@@ -43,7 +43,6 @@ class MezuroPluginProfileController < ProfileController
   def choose_metric
     @configuration_name = params[:configuration_name]
     @collector_name = params[:collector_name]
-
     @collector = Kalibro::Client::BaseToolClient.new.base_tool(@collector_name)
   end
 

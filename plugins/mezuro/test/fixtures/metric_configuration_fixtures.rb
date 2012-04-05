@@ -14,6 +14,15 @@ class MetricConfigurationFixtures
     amloc
   end
 
+  def self.metric_configuration_without_ranges
+    amloc = Kalibro::Entities::MetricConfiguration.new
+    amloc.metric = NativeMetricFixtures.amloc
+    amloc.code = 'amloc'
+    amloc.weight = 1.0
+    amloc.aggregation_form = 'AVERAGE'
+    amloc
+  end
+
   def self.sc_configuration
     sc = Kalibro::Entities::MetricConfiguration.new
     sc.metric = CompoundMetricFixtures.sc
