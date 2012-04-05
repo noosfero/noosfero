@@ -109,7 +109,7 @@ class ProductTest < ActiveSupport::TestCase
     prod = ent.products.create!(:name => 'test product', :product_category => @product_category)
 
     ent.lat = 45.0; ent.lng = 45.0; ent.save!
-
+    process_delayed_job_queue
     prod.reload
    
     assert_in_delta 45.0, prod.lat, 0.0001
