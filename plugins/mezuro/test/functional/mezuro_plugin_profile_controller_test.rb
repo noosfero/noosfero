@@ -76,7 +76,7 @@ class MezuroPluginProfileControllerTest < ActionController::TestCase
   end
 
   should 'assign configuration and collector name in choose_metric' do
-    #TODO  Mockar cliente
+    fail "Need to mock client"
     get :choose_metric, :profile => @profile.identifier, :configuration_name => "test name", :collector_name => "Collector A"
     assert_equal assigns(:configuration_name), "test name"
     assert_equal assigns(:collector_name), "Collector A"
