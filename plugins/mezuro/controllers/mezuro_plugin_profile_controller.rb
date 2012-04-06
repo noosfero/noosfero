@@ -87,7 +87,7 @@ class MezuroPluginProfileController < ProfileController
     metric_configuration_client = Kalibro::Client::MetricConfigurationClient.new
     metric_configuration = metric_configuration_client.metric_configuration(configuration_name, metric_name)
     metric_configuration.add_range(@range)
-    #metric_configuration_client.save(metric_configuration, configuration_name)
+    metric_configuration_client.save(metric_configuration, configuration_name)
   end
 
   def remove_metric_configuration
