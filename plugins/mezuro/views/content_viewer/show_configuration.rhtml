@@ -23,7 +23,6 @@
       <td><h5>Collector Name</h5></td>
       <td><h5>Metric Code</h5></td>
   </tr>
-	<%= debug @configuration.inspect %>
   <% @configuration.metric_configurations.each do |metric_configuration| %>
     <tr class="metric">
       <td><%= metric_configuration.metric.name %></td>
