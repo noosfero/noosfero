@@ -16,6 +16,9 @@ class MezuroPluginProfileControllerTest < ActionController::TestCase
     @module_result = ModuleResultFixtures.create
     @project = @project_result.project
     @name = @project.name
+
+    @collector = create_collector
+    @client = Kalibro::Client::BaseToolClient.new
   end
 
   should 'not find module result for inexistent project content' do
@@ -76,7 +79,8 @@ class MezuroPluginProfileControllerTest < ActionController::TestCase
   end
 
   should 'assign configuration and collector name in choose_metric' do
-    fail "Need to mock client"
+    Kalibro::Client::BaseToolClient.expects(:new).returns(@client)
+    @client.expects(:base_tool).with(@collector.name).returns(@collector)
     get :choose_metric, :profile => @profile.identifier, :configuration_name => "test name", :collector_name => "Collector A"
     assert_equal assigns(:configuration_name), "test name"
     assert_equal assigns(:collector_name), "Collector A"
@@ -90,4 +94,10 @@ class MezuroPluginProfileControllerTest < ActionController::TestCase
     @content.save
   end
 
+  def create_collector
+    collector = Kalibro::Entities::BaseTool.new
+    collector.name = "Collector A"
+    collector.supported_metrics = []
+    collector
+  end
 end
