@@ -57,18 +57,6 @@
       <td><%= link_to profile.communities.count, :controller => "profile", :action => 'communities' %></td>
     </tr>
 
-    <% if !environment.enabled?('disable_categories') && !profile.interests.empty? %>
-      <tr>
-        <th colspan='2'><%= _('Interests') %></th>
-      </tr>
-      <% profile.interests.each do |item| %>
-        <tr>
-          <td></td>
-          <td><%= link_to item.name, :controller => 'search', :action => 'category_index', :category_path => item.explode_path %></td>
-        </tr>
-      <% end %>
-    <% end %>
-
     <%= render :partial => 'common' %>
 
   </table>
