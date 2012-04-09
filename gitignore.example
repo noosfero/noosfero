@@ -12,9 +12,9 @@ config/mongrel_cluster.yml
 config/solr.yml
 config/plugins
 config/thin.yml
-index
-locale
-log
+/index
+/locale
+/log
 public/articles
 public/image_uploads
 public/thumbnails
@@ -29,9 +29,9 @@ db/production.db
 db/test.db
 doc/noosfero/*.xhtml
 doc/noosfero/*/*.xhtml
-tags
-pkg
-solr
+/tags
+/pkg
+/solr
 *~
 *.swp
 debian/*.log
