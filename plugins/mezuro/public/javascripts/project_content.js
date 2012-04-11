@@ -25,6 +25,12 @@ function reloadModule(){
   return false;
 }
 
+function reloadProject(date){
+  callAction('project_result', {date: date}, showProjectResult);
+  callAction('project_tree', {date: date}, showProjectTree);
+  callAction('module_result', {date: date}, showModuleResult);
+}
+
 function showProjectContentFor(state){
   if (state == 'ERROR')
     callAction('project_error', {}, showProjectResult);

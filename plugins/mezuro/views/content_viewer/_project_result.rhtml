@@ -1,4 +1,4 @@
-Project history <%=select_tag "projectHistory",options_for_select(history)%>
+Project history <%=select_tag "projectHistory",options_for_select(history), :onChange=>'reloadProject(this.value)'%>
  
 <h4><%= _('Result') %></h4>
 
