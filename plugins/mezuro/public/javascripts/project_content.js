@@ -26,6 +26,7 @@ function reloadModule(){
 }
 
 function reloadProject(date){
+  showLoadingProcess(true);
   callAction('project_result', {date: date}, showProjectResult);
   callAction('project_tree', {date: date}, showProjectTree);
   callAction('module_result', {date: date}, showModuleResult);

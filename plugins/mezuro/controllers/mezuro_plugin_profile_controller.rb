@@ -16,11 +16,19 @@ class MezuroPluginProfileController < ProfileController
   end
 
   def project_result
+     
+    date = params[:date]
     
     content = profile.articles.find(params[:id])
     project_result = content.project_result
     project = content.project
     
+    if date_verify(date)
+      client = Kalibro::Client::ProjectResultClient.new
+      if client.has_results_before(project.name, date)
+        project_result = client.last_result_before(project.name, date)
+      end
+    end
     history = project_history project
     
     render :partial => 'content_viewer/project_result', :locals => { :project_result => project_result, :history => history }
