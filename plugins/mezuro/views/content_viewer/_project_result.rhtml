@@ -1,12 +1,32 @@
-Project history
 
 <% form_for :project_date, :html=>{:id=>"project_history_date"} do |f| %>
-  <%= f.text_field :day, :size => 1, :maxlength => 2 %>
-  <%= f.text_field :month, :size => 1, :maxlength => 2  %>
-  <%= f.text_field :year, :size => 1, :maxlength => 4   %>
-  <p>
-    <%= f.submit "Save" %>
-  </p>
+	<%= f.label :day, "Choose project date:" %>
+	
+<table>
+	<tr>
+		<td>
+			Day
+		</td>
+		<td>
+			Month
+		</td>
+		<td>
+			Year
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<%= f.text_field :day, :size => 1, :maxlength => 2, :placeholder =>"dd" %>
+			</td>
+		<td>
+			<%= f.text_field :month, :size => 1, :maxlength => 2, :placeholder =>"mm"  %>
+		</td>
+		<td>
+			<%= f.text_field :year, :size => 1, :maxlength => 4, :placeholder =>"yyyy"   %>
+		</td>
+	</tr>
+</table>
+  <%= f.submit "Refresh" %>
 <% end %>
 
  
