@@ -2,12 +2,18 @@ var processingTree = false;
 jQuery(function (){
   jQuery('.source-tree-link').live("click", reloadModule);
   jQuery('[data-show]').live("click", toggle_mezuro);
+  jQuery('#project_history_date').live("submit", reloadProjectWithDate);
   showLoadingProcess(true);
   showProjectContent();
 });
 
 function showProjectContent() {
   callAction('project_state', {}, showProjectContentFor);
+}
+
+function reloadProjectWithDate(){
+	reloadProject();
+  return false;
 }
 
 function toggle_mezuro(){
@@ -25,11 +31,12 @@ function reloadModule(){
   return false;
 }
 
-function reloadProject(date){
+function reloadProject(){
   showLoadingProcess(true);
-  callAction('project_result', {date: date}, showProjectResult);
-  callAction('project_tree', {date: date}, showProjectTree);
-  callAction('module_result', {date: date}, showModuleResult);
+  
+  callAction('project_result', {}, showProjectResult);
+  callAction('project_tree', {}, showProjectTree);
+  callAction('module_result', {}, showModuleResult);
 }
 
 function showProjectContentFor(state){
@@ -37,7 +44,7 @@ function showProjectContentFor(state){
     callAction('project_error', {}, showProjectResult);
   else if (state == 'READY') {
     callAction('project_result', {}, showProjectResult);
-    callAction('project_tree', {}, showProjectTree);
+    //callAction('project_tree', {}, showProjectTree);
     var project_name = jQuery("#project-result").attr('data-project-name');
     callAction('module_result', {module_name: project_name}, showModuleResult);
   }

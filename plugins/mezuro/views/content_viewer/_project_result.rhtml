@@ -1,4 +1,14 @@
-Project history <%=select_tag "projectHistory",options_for_select(history), :onChange=>'reloadProject(this.value)'%>
+Project history
+
+<% form_for :project_date, :html=>{:id=>"project_history_date"} do |f| %>
+  <%= f.text_field :day, :size => 1, :maxlength => 2 %>
+  <%= f.text_field :month, :size => 1, :maxlength => 2  %>
+  <%= f.text_field :year, :size => 1, :maxlength => 4   %>
+  <p>
+    <%= f.submit "Save" %>
+  </p>
+<% end %>
+
  
 <h4><%= _('Result') %></h4>
 

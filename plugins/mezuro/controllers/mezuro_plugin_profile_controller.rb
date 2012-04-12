@@ -16,23 +16,12 @@ class MezuroPluginProfileController < ProfileController
   end
 
   def project_result
-     
-    date = params[:date]
     
     content = profile.articles.find(params[:id])
     project_result = content.project_result
     project = content.project
-    
-    if date_verify(date)
-      client = Kalibro::Client::ProjectResultClient.new
-      if client.has_results_before(project.name, date)
-        project_result = client.last_result_before(project.name, date)
-      end
-    end
-    history = project_history project
-    
-    render :partial => 'content_viewer/project_result', :locals => { :project_result => project_result, :history => history }
-  end
+    render :partial => 'content_viewer/project_result', :locals => { :project_result => project_result}
+  end 	
 
   def module_result
     content = profile.articles.find(params[:id])
@@ -57,7 +46,6 @@ class MezuroPluginProfileController < ProfileController
     @collector_name = params[:collector_name]
     @collector = Kalibro::Client::BaseToolClient.new.base_tool(@collector_name)
   end
-
   def new_metric_configuration
     metric_name = params[:metric_name]
     collector_name = params[:collector_name]
@@ -65,14 +53,12 @@ class MezuroPluginProfileController < ProfileController
     @metric = collector.supported_metrics.find {|metric| metric.name == metric_name}
     @configuration_name = params[:configuration_name]
   end
-
   def edit_metric_configuration
     metric_name = params[:metric_name]
     @configuration_name = params[:configuration_name]
     @metric_configuration = Kalibro::Client::MetricConfigurationClient.new.metric_configuration(@configuration_name, metric_name)
     @metric = @metric_configuration.metric
   end
-
   def create_metric_configuration
     @configuration_name = params[:configuration_name]
     metric_configuration = new_metric_configuration_instance
@@ -86,7 +72,6 @@ class MezuroPluginProfileController < ProfileController
     Kalibro::Client::MetricConfigurationClient.new.save(metric_configuration, @configuration_name)
     redirect_to "/#{profile.identifier}/#{@configuration_name.downcase.gsub(/\s/, '-')}"
   end
-
   def new_range
     @metric_name = params[:metric_name]
     @configuration_name = params[:configuration_name]
