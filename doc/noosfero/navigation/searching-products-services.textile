@@ -2,16 +2,16 @@ h1(order-640). Finding products and services
 
 p.  _To find a product or service in the system, you can use the search specific for products and services._
 
-*  "How to access":#HowAccess
-*  "Description":#Description
-*  "Related topics":#RelatedTopics
+*  "How to access":#howaccess
+*  "Description":#description
+*  "Related topics":#relatedtopics
 
-h2(#HowAccess). How to access
+h2(#howaccess). How to access
 
 p. Find on top of page the term "Products" and click on it
   !=/images/doc/menu-products.en.png(Products on top menu)!
 
-h2(#Description). Description
+h2(#description). Description
 
 # Fill in the search field with what you want to look for and click on "Search"  !=/images/doc/products-search-field.en.png(Products search field)!
 # Then you will see the search results. To see more results, click on the pages below the search results.  !=/images/doc/products-search-results-with-example.en.png(Products search results with example)!
@@ -25,7 +25,7 @@ h3. Display on map
 
 p. If available on the system, when you are searching for products, services or enterprises and the system allows, you will see the "Display on map" button. Clicking on this button, the search results will be displayed on a map, with house icons indicating the location of enterprises.
 
-h2(#RelatedTopics). Related topics
+h2(#relatedtopics). Related topics
 
 *  "Searching":/doc/navigation/searching
 *  "Finding people":/doc/navigation/searching-people

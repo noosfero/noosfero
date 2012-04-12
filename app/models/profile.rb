@@ -20,12 +20,16 @@ class Profile < ActiveRecord::Base
       find_role('editor', env_id)
     end
     def self.organization_member_roles(env_id)
-      [admin(env_id), moderator(env_id), member(env_id)]
+      all_roles(env_id).select{ |r| r.key.match(/^profile_/) unless r.key.blank? }
     end
     def self.all_roles(env_id)
-      [admin(env_id), member(env_id), moderator(env_id), owner(env_id), editor(env_id)]
+      Role.all :conditions => { :environment_id => env_id }
     end
-
+    def self.method_missing(m, *args, &block)
+      role = find_role(m, args[0])
+      return role unless role.nil?
+      super
+    end
     private
     def self.find_role(name, env_id)
       ::Role.find_by_key_and_environment_id("profile_#{name}", env_id)

@@ -107,4 +107,14 @@ class RoleTest < Test::Unit::TestCase
     assert !RoleAssignment.exists?(ra.id)
   end
 
+  def test_should_define_key_for_role_if_key_not_present
+    r = Role.create! :name => 'Test Role'
+    assert_equal 'profile_test_role', r.key
+  end
+
+  def test_should_not_define_key_for_role_if_key_present
+    r = Role.create! :name => 'Test Role', :key => 'foo'
+    assert_equal 'foo', r.key
+  end
+
 end

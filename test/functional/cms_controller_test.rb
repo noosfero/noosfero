@@ -583,7 +583,8 @@ class CmsControllerTest < ActionController::TestCase
   should 'be able to add image with alignment' do
     post :new, :type => 'TinyMceArticle', :profile => profile.identifier, :article => { :name => 'image-alignment', :body => "the text of the article with image <img src='#' align='right'/> right align..." }
     saved = TinyMceArticle.find_by_name('image-alignment')
-    assert_match /<img src="#" align="right" \/>/, saved.body
+    assert_match /<img.*src="#".*\/>/, saved.body
+    assert_match /<img.*align="right".*\/>/, saved.body
   end
 
   should 'not be able to add image with alignment when textile' do
@@ -1322,9 +1323,15 @@ class CmsControllerTest < ActionController::TestCase
     assert_no_tag :select, :attributes => { :id => 'article_language'}
   end
 
-  should 'display display posts in current language input checked on edit blog' do
-    get :new, :profile => profile.identifier, :type => 'Blog'
+  should 'display display posts in current language input checked when editing blog' do
+    profile.articles << Blog.new(:name => 'Blog for test', :profile => profile, :display_posts_in_current_language => true)
+    get :edit, :profile => profile.identifier, :id => profile.blog.id
     assert_tag :tag => 'input', :attributes => { :type => 'checkbox', :name => 'article[display_posts_in_current_language]', :checked => 'checked' }
+  end
+
+  should 'display display posts in current language input not checked on new blog' do
+    get :new, :profile => profile.identifier, :type => 'Blog'
+    assert_no_tag :tag => 'input', :attributes => { :type => 'checkbox', :name => 'article[display_posts_in_current_language]', :checked => 'checked' }
   end
 
   should 'update to false blog display posts in current language setting' do

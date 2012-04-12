@@ -4,16 +4,16 @@ p.  _If you have an enterprise that is registered in the system, you might have 
 
 p.  _This article shows how you can activate your enterprise in the system. After that, you can update information, add members, products and much more._
 
-*  "How to access":#HowAccess
-*  "Description":#Description
-*  "Related Topics":#RelatedTopics
+*  "How to access":#howaccess
+*  "Description":#description
+*  "Related Topics":#relatedtopics
 
-h2(#HowAccess). How to access
+h2(#howaccess). How to access
 
 # Find your user menu on top bar:  !=/images/doc/system-homepage-top-menu.en.png(Top menu)!
 # In user menu, click on Control Panel:  !=/images/doc/menu-control-panel.en.png(Control panel on menu)!
 
-h2(#Description). Description
+h2(#description). Description
 
 # Below the control panel actions, you will see a box. Fill in the field with the enterprise activation code and click on "Activate".
   !=/images/doc/enterprise-activation-box.en.png(Control panel and enterprise activation box)!
@@ -23,7 +23,7 @@ h2(#Description). Description
 # Then, you will receive a confirmation that your enterprise was activated. In this screen, you can go to enterprise's control panel and update it or go to your control panel.  !=/images/doc/activation-conlusion.en.png(Conclusion of enterprise activation)!
 
 
-h2(#RelatedTopics). Related Topics
+h2(#relatedtopics). Related Topics
 
 *  "Editing enterprise settings":/doc/enterprise/editing-enterprise-info
 *  "Registering a new user":/doc/user/registering-new-user

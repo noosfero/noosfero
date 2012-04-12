@@ -22,6 +22,14 @@ class AddMemberTest < ActiveSupport::TestCase
     assert_equal [person], community.members
   end
 
+  should 'make member role the default role' do
+    TaskMailer.stubs(:deliver_target_notification)
+    task = AddMember.create!(:roles => ["0", "0", nil], :person => person, :organization => community)
+    task.finish
+
+    assert_equal [person], community.members
+  end
+
   should 'require requestor' do
     task = AddMember.new
     task.valid?

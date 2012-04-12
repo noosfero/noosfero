@@ -1,3 +1,27 @@
+noosfero (0.36.5) unstable; urgency=low
+
+  * Bugfixes release
+
+ -- Daniela Soares Feitosa <daniela@colivre.coop.br>  Thu, 26 Apr 2012 00:49:32 -0300
+
+noosfero (0.36.4) unstable; urgency=low
+
+  * Bugfix release
+
+ -- Daniela Soares Feitosa <daniela@colivre.coop.br>  Sat, 21 Apr 2012 10:59:32 -0300
+
+noosfero (0.36.3) unstable; urgency=low
+
+  * Bugfixes release
+
+ -- Daniela Soares Feitosa <daniela@colivre.coop.br>  Thu, 19 Apr 2012 22:33:13 -0300
+
+noosfero (0.36.2) unstable; urgency=low
+
+  * Bugfixes release
+
+ -- Daniela Soares Feitosa <daniela@colivre.coop.br>  Thu, 05 Apr 2012 15:11:04 -0300
+
 noosfero (0.36.1) unstable; urgency=low
 
   * Bug fix release
@@ -20,6 +44,12 @@ noosfero (0.36.0~3) unstable; urgency=low
     miserably (YMMV, though).
 
  -- Antonio Terceiro <terceiro@colivre.coop.br>  Sun, 27 Nov 2011 14:11:33 -0200
+
+noosfero (0.35.3) unstable; urgency=low
+
+  * Bugfix release.
+
+ -- Antonio Terceiro <terceiro@colivre.coop.br>  Wed, 07 Mar 2012 11:35:06 -0300
 
 noosfero (0.35.2) unstable; urgency=low
 

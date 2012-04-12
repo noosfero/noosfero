@@ -5,11 +5,11 @@ streaming, ftp or mail server statistics, graphically.
 
 See http://awstats.sourceforge.net/
 
-This guide supposes that the Noosfero server is running GNU/Linux Debian Lenny.
+This guide supposes that the Noosfero server is running GNU/Linux Debian Squeeze.
 
 1. Install AWStats
 
-# apt-get install awstats libgeo-ip-perl
+# apt-get install awstats libgeo-ip-perl geoip-database
 
 2. Basic setup
 

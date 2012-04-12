@@ -1135,7 +1135,8 @@ class ContentViewerControllerTest < ActionController::TestCase
   should 'replace article for his translation at blog listing if blog option is enabled' do
     FastGettext.stubs(:locale).returns('es')
     blog = fast_create(Blog, :profile_id => profile.id, :path => 'blog')
-    blog.stubs(:display_posts_in_current_language).returns(true)
+    blog.display_posts_in_current_language = true
+    blog.save
     en_article = fast_create(TextileArticle, :profile_id => @profile.id, :path => 'en_article', :language => 'en', :parent_id => blog.id)
     es_article = fast_create(TextileArticle, :profile_id => @profile.id, :path => 'es_article', :language => 'es', :parent_id => blog.id, :translation_of_id => en_article)
 
@@ -1147,7 +1148,8 @@ class ContentViewerControllerTest < ActionController::TestCase
   should 'not display article at blog listing if blog option is enabled and there is no translation for the language' do
     FastGettext.stubs(:locale).returns('pt')
     blog = fast_create(Blog, :profile_id => profile.id, :path => 'blog')
-    blog.stubs(:display_posts_in_current_language).returns(true)
+    blog.display_posts_in_current_language = true
+    blog.save
     en_article = fast_create(TextileArticle, :profile_id => @profile.id, :path => 'en_article', :language => 'en', :parent_id => blog.id)
     es_article = fast_create(TextileArticle, :profile_id => @profile.id, :path => 'es_article', :language => 'es', :parent_id => blog.id, :translation_of_id => en_article)
     pt_article = fast_create(TextileArticle, :profile_id => @profile.id, :path => 'es_article', :language => 'pt', :parent_id => blog.id, :translation_of_id => en_article)
@@ -1175,7 +1177,8 @@ class ContentViewerControllerTest < ActionController::TestCase
   should 'display only native translations at blog listing if blog option is enabled' do
     FastGettext.stubs(:locale).returns('es')
     blog = fast_create(Blog, :profile_id => profile.id, :path => 'blog')
-    blog.stubs(:display_posts_in_current_language).returns(true)
+    blog.display_posts_in_current_language = true
+    blog.save!
     en_article = fast_create(TextileArticle, :profile_id => @profile.id, :path => 'en_article', :language => 'en', :parent_id => blog.id)
     es_article = fast_create(TextileArticle, :profile_id => @profile.id, :path => 'es_article', :language => 'es', :parent_id => blog.id, :translation_of_id => en_article)
     blog.posts = [en_article, es_article]
