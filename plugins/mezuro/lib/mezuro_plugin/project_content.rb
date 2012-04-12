@@ -26,7 +26,6 @@ class MezuroPlugin::ProjectContent < Article
   end
 
   def module_result(module_name)
-    module_name = project.name if module_name.nil?      
     @module_client ||= Kalibro::Client::ModuleResultClient.module_result(self, module_name)
   end
 
