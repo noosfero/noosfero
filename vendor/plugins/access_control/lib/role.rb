@@ -6,6 +6,7 @@ class Role < ActiveRecord::Base
   validates_presence_of :name
   validates_uniqueness_of :name, :scope => :environment_id
   validates_uniqueness_of :key, :if => lambda { |role| !role.key.blank? }, :scope => :environment_id
+  before_validation_on_create :create_key
 
   def initialize(*args)
     super(*args)
@@ -53,5 +54,10 @@ class Role < ActiveRecord::Base
   protected
   def perms
     ActiveRecord::Base::PERMISSIONS
+  end
+
+  private
+  def create_key
+    self.key = 'profile_' + self.name.gsub(' ', '_').gsub(/[^a-zA-Z0-9_]/, '').downcase if self.key.blank? && !self.name.blank?
   end
 end
