@@ -119,7 +119,7 @@ class MezuroPluginProfileController < ProfileController
     range.end = params[:range][:end]
     range.label = params[:range][:label]
     range.grade = params[:range][:grade]
-    range.color = "10" + params[:range][:color] #FIXME when you have js color pallete
+    range.color = params[:range][:color]
     range.comments = params[:range][:comments]
     range
   end
