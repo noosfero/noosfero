@@ -1,0 +1,2 @@
+page.replace_html 'new_range', :partial => "new_range", :locals => {:metric_name => @metric_name, :configuration_name => @configuration_name}
+page.visual_effect :toggle_slide, "new_range"

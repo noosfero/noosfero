@@ -19,7 +19,7 @@
       <% range = metric_result.range %>
       <tr>
         <td><a href="#" data-show=".<%= metric_result.metric.name.delete("() ")%>"><%= metric_result.metric.name %></a></td>
-        <td><%= MezuroPlugin::Helpers::ContentViewerHelper.format_grade(metric_result.value) %></td> <!--FIXME: Move to helper eventually-->
+        <td><%= "%.02f" % metric_result.value %></td>
         <td><%= metric_result.weight %></td>
         <% if range.nil? %>
           <td></td>
@@ -29,7 +29,7 @@
       </tr>
       <tr class="<%= metric_result.metric.name.delete("() ")%>" style="display: none;">
       	<td colspan="4" align="right">
-      	  <%= range.comments.nil? ? 'comment empty' : range.comments %>
+      	  <%= range.nil? or range.comments.nil? ? 'comment empty' : range.comments %>
       	</td>      
       </tr>
     <% end %>
@@ -39,7 +39,7 @@
       <td colspan = "4" align = "right">
         <strong>
           <%= _('Grade:') %>
-          <%=  MezuroPlugin::Helpers::ContentViewerHelper.format_grade(module_result.grade) %> <!--FIXME: Move to helper eventually -->
+          <%= "%.02f" % module_result.grade %>
         </strong>
       </td>
     </tr>

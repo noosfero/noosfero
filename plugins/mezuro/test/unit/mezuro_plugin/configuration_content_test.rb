@@ -42,7 +42,7 @@ class ConfigurationContentTest < ActiveSupport::TestCase
     @content.send :send_configuration_to_service
   end
 
-  should 'remove project from service' do
+  should 'remove configuration from service' do
     Kalibro::Client::ConfigurationClient.expects(:remove).with(@content.name)
     @content.send :remove_configuration_from_service
   end

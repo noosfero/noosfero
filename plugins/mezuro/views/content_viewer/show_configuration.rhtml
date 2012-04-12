@@ -1,4 +1,5 @@
-<% @configuration = @page.configuration %>
+<% @configuration_content = @page
+@configuration = Kalibro::Client::ConfigurationClient.new.configuration(@configuration_content.name) %>
 
 <table id="project_info">
   <tr>
@@ -9,4 +10,28 @@
     <td><%= _('Description') %></td>
     <td><%= @configuration.description %></td>
   </tr>
+</table>
+
+<br/>
+
+<%= link_to "#{image_tag ('/plugins/mezuro/images/plus.png')}Add Metric", :controller => "mezuro_plugin_profile", 
+:action => "choose_base_tool", :params => {:configuration_name => @configuration.name} %><br/>
+
+<table>
+  <tr class="titles">
+      <td><h5>Metric Name</h5></td>
+      <td><h5>Collector Name</h5></td>
+      <td><h5>Metric Code</h5></td>
+  </tr>
+  <% @configuration.metric_configurations.each do |metric_configuration| %>
+    <tr class="metric">
+      <td><%= metric_configuration.metric.name %></td>
+      <td><%= metric_configuration.metric.origin %></td>
+      <td><%= metric_configuration.code %></td>
+      <td><%= link_to "Edit", :controller => "mezuro_plugin_profile", :action => "edit_metric_configuration", :params =>
+        {:configuration_name => @configuration.name, :metric_name => metric_configuration.metric.name} %></td>
+      <td><%= link_to "Remove", :controller => "mezuro_plugin_profile", :action => "remove_metric_configuration", :params =>
+        {:configuration_name => @configuration.name, :metric_name => metric_configuration.metric.name} %></td>
+    </tr>
+<% end %>
 </table>

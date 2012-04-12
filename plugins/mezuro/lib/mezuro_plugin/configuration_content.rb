@@ -8,7 +8,7 @@ class MezuroPlugin::ConfigurationContent < Article
     'Sets of thresholds to interpret metrics'
   end
 
-  settings_items :description
+  settings_items :description, :metrics
 
   include ActionView::Helpers::TagHelper
   def to_html(options = {})

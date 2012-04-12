@@ -80,4 +80,10 @@ function showLoadingProcess(firstLoad){
 	
   showProjectTree("<img src='/images/loading-small.gif'/>");
   showModuleResult("<img src='/images/loading-small.gif'/>");
-} 
+}
+
+function sourceNodeToggle(id){
+  var suffixes = ['_hidden', '_plus', '_minus'];
+  for (var i in suffixes)
+    jQuery('#' + id + suffixes[i]).toggle();
+}

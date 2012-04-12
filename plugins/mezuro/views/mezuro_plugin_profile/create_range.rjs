@@ -1,0 +1,2 @@
+page.visual_effect :toggle_slide, "new_range"
+page.insert_html :bottom, "ranges", :partial => "range", :locals => {:range => @range}

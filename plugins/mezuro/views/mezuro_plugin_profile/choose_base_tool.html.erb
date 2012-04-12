@@ -1,0 +1,13 @@
+<h2><%= @configuration_name%> Configuration</h2>
+
+<h5>Base Tools:</h5>
+<table id="project_info">
+  <% @tool_names.base_tool_names.each do |collector_name| %>
+    <tr>
+      <td>
+        <%= link_to collector_name, :controller => "mezuro_plugin_profile", :action => "choose_metric", :params =>
+        {:configuration_name => @configuration_name, :collector_name => collector_name} %>
+      </td>
+    </tr>
+  <% end %>
+</table>

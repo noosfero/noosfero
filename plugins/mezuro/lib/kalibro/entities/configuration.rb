@@ -7,7 +7,11 @@ class Kalibro::Entities::Configuration < Kalibro::Entities::Entity
   end
 
   def metric_configurations
-    @metric_configuration
+    if @metric_configuration != nil
+      @metric_configuration
+    else
+      []
+    end
   end
 
   def metric_configurations=(metric_configurations)

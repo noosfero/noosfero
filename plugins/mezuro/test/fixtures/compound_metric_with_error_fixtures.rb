@@ -10,7 +10,10 @@ class CompoundMetricWithErrorFixtures
   end
 
   def self.create_hash
-    {:metric => CompoundMetricFixtures.sc_hash, :error => ErrorFixtures.create_hash}
+    {:metric => CompoundMetricFixtures.sc_hash, :error => ErrorFixtures.create_hash,
+      :attributes! => {:metric => {
+          'xmlns:xsi'=> 'http://www.w3.org/2001/XMLSchema-instance',
+          'xsi:type' => 'kalibro:compoundMetricXml'  }}}
   end
 
 end
