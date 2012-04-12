@@ -31,7 +31,8 @@ function showProjectContentFor(state){
   else if (state == 'READY') {
     callAction('project_result', {}, showProjectResult);
     callAction('project_tree', {}, showProjectTree);
-    callAction('module_result', {}, showModuleResult);
+    var project_name = jQuery("#project-result").attr('data-project-name');
+    callAction('module_result', {module_name: project_name}, showModuleResult);
   }
   else if (state.endsWith("ING"))
     showProjectContentAfter(20);
