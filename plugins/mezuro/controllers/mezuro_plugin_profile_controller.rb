@@ -125,11 +125,16 @@ class MezuroPluginProfileController < ProfileController
   end
 
   def module_metrics_history
+    
     metric_name = params[:metric_name]
+    for i in 1..50 do
+	  puts metric_name
+	  end
     content = profile.articles.find(params[:id])
     module_history = content.result_history(content.project.name, params[:module_name])
+	metric_history = module_history.select { |x| x.metric_result.metric.name == metric_name}
 #precisamos que uma variável receba um array com os valores da métrica passada a partir do result history
-    render :partial => 'content_viewer/show_history', :locals => {:module_history => module_history }
+    render :partial => 'content_viewer/metric_history', :locals => {:metric_history => metric_history }
   end
 
 end

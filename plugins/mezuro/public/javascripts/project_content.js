@@ -2,12 +2,27 @@ var processingTree = false;
 jQuery(function (){
   jQuery('.source-tree-link').live("click", reloadModule);
   jQuery('[data-show]').live("click", toggle_mezuro);
+  //alert('AAAASDFAGSGDRSAFGHADFGSDFGSD');
+  jQuery('[show-metric-history]').live("click", display_metric_history);
   showLoadingProcess(true);
   showProjectContent();
 });
 
 function showProjectContent() {
   callAction('project_state', {}, showProjectContentFor);
+}
+
+function display_metric_history() {
+  var module_name = jQuery(this).attr('data-module-name');
+  var metric_name = jQuery(this).attr('data-metric-name');
+  alert (metric_name);
+  callAction('module_metrics_history', {module_name: module_name, metric_name: metric_name}, show_metrics)//metric_name, module_name}, show_metrics);
+}
+
+function show_metrics(content) {
+  alert('SSSSSSSSSSS');
+  jQuery('#historical').html(content);
+
 }
 
 function toggle_mezuro(){

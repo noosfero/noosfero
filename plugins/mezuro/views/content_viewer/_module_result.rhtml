@@ -32,7 +32,9 @@
       	  <%= range.nil? or range.comments.nil? ? 'comment empty' : range.comments %>
       	</td>      
         <td>
-          <a> <p style="text-indent: 3em;"> Draw Historical Graphic </p> </a>
+		  <div id='historical'>
+          <a href="#" show-metric-history="<%= metric_result.metric.name.delete("() ") %>" data-module-name="<%= the_module.name %>" data-metric-name="<%= metric_result.metric.name.delete("() ") %>"> <p style="text-indent: 3em;"> Draw Historical Graphic </p> </a>
+		  </div>
         </td>
         <td colspan="3" align="right">
           <%= range.comments.nil? ? '' : range.comments %>
