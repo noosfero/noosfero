@@ -26,16 +26,16 @@ class MezuroPluginProfileController < ProfileController
 
   def module_result
     content = profile.articles.find(params[:id])
-#    date = params[:date]
-#    project_result = date.nil? ? content.project_result : content.get_date_module_results(date)
+    date = params[:date]
+    project_result = date.nil? ? content.project_result : content.get_date_result(date)
     module_result = content.module_result(params[:module_name])
     render :partial => 'content_viewer/module_result', :locals => { :module_result =>  module_result}
   end
 
   def project_tree
     content = profile.articles.find(params[:id])
-#    date = params[:date]
-#    project_result = date.nil? ? content.project_result : content.get_date_project_tree(date)
+    date = params[:date]
+    project_result = date.nil? ? content.project_result : content.get_date_result(date)
     project_result = content.project_result
     source_tree = project_result.node_of(params[:module_name])
     render :partial =>'content_viewer/source_tree', :locals => { :source_tree => source_tree, :project_name => content.project.name}
