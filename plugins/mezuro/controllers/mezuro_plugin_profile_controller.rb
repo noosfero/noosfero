@@ -17,9 +17,9 @@ class MezuroPluginProfileController < ProfileController
 
   def project_result
     
-  	content = profile.articles.find(params[:id])
-  	date = params[:date]
-    project_result = date.nil? ? content.project_result : content.get_date_project_result(date)
+    content = profile.articles.find(params[:id])
+    date = params[:date]
+    project_result = date.nil? ? content.project_result : content.get_date_result(date)
     project = content.project
     render :partial => 'content_viewer/project_result', :locals => { :project_result => project_result}
   end 	
