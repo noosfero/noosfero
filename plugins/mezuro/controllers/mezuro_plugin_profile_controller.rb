@@ -90,7 +90,36 @@ class MezuroPluginProfileController < ProfileController
     metric_configuration.add_range(@range)
     metric_configuration_client.save(metric_configuration, configuration_name)
   end
+  
+  def edit_range
+    @configuration_name = params[:configuration_name]
+    @metric_name = params[:metric_name]
+    @range_beginning = params[:range_beginning]
+    
+    metric_configuration_client = Kalibro::Client::MetricConfigurationClient.new
+    metric_configuration = metric_configuration_client.metric_configuration(@configuration_name, @metric_name)
 
+    metric_configuration.ranges.each do |r|
+      @range = r if r.beginning == @range_beginning.to_f
+    end    
+  end
+  
+  def update_range
+    @configuration_name = params[:configuration_name]
+    metric_name = params[:metric_name]
+    range_beginning = params[:beginning_id]
+    metric_configuration_client = Kalibro::Client::MetricConfigurationClient.new
+    metric_configuration = metric_configuration_client.metric_configuration(@configuration_name, metric_name)
+    index = 0
+    metric_configuration.ranges.each do |r|
+      break if r.beginning == range_beginning.to_f
+      index = index + 1
+    end
+    metric_configuration.ranges[index] = new_range_instance
+    Kalibro::Client::MetricConfigurationClient.new.save(metric_configuration, @configuration_name)  
+    redirect_to "/#{profile.identifier}/#{@configuration_name.downcase.gsub(/\s/, '-')}"      
+  end
+  
   def remove_metric_configuration
     configuration_name = params[:configuration_name]
     metric_name = params[:metric_name]
