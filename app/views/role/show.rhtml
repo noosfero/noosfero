@@ -7,4 +7,7 @@
   <% end %>
 </ul>
 
-<%= link_to _('Back'), :action => 'index' %>
+<% button_bar do %>
+  <%= button :edit, _('Edit'), :action => 'edit', :id => @role %>
+  <%= button :back, _('Back to roles management'), :action => 'index' %>
+<% end %>
