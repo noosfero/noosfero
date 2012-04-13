@@ -1,0 +1,3 @@
+<h2> <%= _("Create a new role") %> </h2>
+
+<%= render :partial => 'form', :locals => { :mode => :create, :role => @role, :permissions => ActiveRecord::Base::PERMISSIONS[@role.kind] } %>

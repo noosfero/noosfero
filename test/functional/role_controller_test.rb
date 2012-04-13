@@ -59,6 +59,26 @@ class RoleControllerTest < ActionController::TestCase
     assert_not_nil session[:notice]
   end
 
+  def test_should_see_new_role_page
+    get 'new'
+    assert_response :success
+    assert_not_nil assigns(:role)
+  end
+
+  def test_should_create_new_role
+    assert_difference Role, :count do
+      post 'create', :role => { :name => 'Test Role', :permissions => ["test"] }
+    end
+    assert_redirected_to :action => 'show', :id => Role.last.id
+  end
+
+  def test_should_not_create_new_role
+    assert_no_difference Role, :count do
+      post 'create', :role => { }
+    end
+    assert_template :new
+  end
+
   should 'not crash when editing role with no permissions' do
     role = Role.create!(:name => 'test_role', :environment => Environment.default)
 

@@ -5,6 +5,20 @@ class RoleController < AdminController
     @roles = environment.roles.find(:all)
   end
 
+  def new
+    @role = Role.new
+  end
+
+  def create
+    @role = Role.new :name => params[:role][:name], :permissions => params[:role][:permissions], :environment => environment
+    if @role.save
+      redirect_to :action => 'show', :id => @role
+    else
+      session[:notice] = _('Failed to create role')
+      render :action => 'new'
+    end
+  end
+
   def show
     @role = environment.roles.find(params[:id])
   end
