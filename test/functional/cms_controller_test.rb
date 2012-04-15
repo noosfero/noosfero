@@ -1525,7 +1525,6 @@ class CmsControllerTest < ActionController::TestCase
 
     Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([TestContentTypesPlugin.new])
 
-    Noosfero::Plugin::Manager.expects(:new).with(@controller).returns(plugins)
     get :index, :profile => profile.identifier
 
     assert_includes @controller.special_article_types, Integer
