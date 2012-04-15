@@ -22,6 +22,7 @@ class Category < ActiveRecord::Base
   has_many :events, :through => :article_categorizations, :class_name => 'Event', :source => :article
 
   has_many :profile_categorizations, :dependent => :destroy
+  has_many :profiles, :through => :profile_categorizations, :source => :profile
   has_many :enterprises, :through => :profile_categorizations, :source => :profile, :class_name => 'Enterprise'
   has_many :people, :through => :profile_categorizations, :source => :profile, :class_name => 'Person'
   has_many :communities, :through => :profile_categorizations, :source => :profile, :class_name => 'Community'
