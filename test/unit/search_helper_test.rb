@@ -217,6 +217,7 @@ class SearchHelperTest < ActiveSupport::TestCase
       params = {:order_by => 'Relevance'}
 
       stubs(:params).returns(params)
+			stubs(:logged_in?).returns(false)
       stubs(:options_for_select).with(instance_of(Array), params[:order_by]).returns('<options_for_select>')
       stubs(:select_tag).with(regexp_matches(/#{asset}/), '<options_for_select>', anything).returns('<select_tag>')
       expects(:content_tag).with(anything, regexp_matches(/<select_tag>/), anything).returns('<final_content>')
