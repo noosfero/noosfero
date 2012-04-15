@@ -1,5 +1,11 @@
 <div id='display-product-image'>
-  <%= image_tag (@product.reload.default_image('thumb')), :class => 'product-pic' %>
+  <%= image_tag (@product.reload.default_image('big')), :class => 'product-pic' %>
 </div>
+
+<% if @product.image %>
+  <%= link_to content_tag(:span, _('Zoom in')), @product.image.public_filename, 
+    :class => 'zoomify-image' %>
+<% end %>
+<%= add_zoom_to_images %>
 
 <%= edit_product_link_to_remote(@product, 'image', _('Change image')) %>

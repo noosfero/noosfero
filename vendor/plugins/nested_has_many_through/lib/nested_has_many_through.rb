@@ -15,14 +15,25 @@ module NestedHasManyThrough
   module Association
     def self.included(base)
       base.class_eval do
+        alias_method :original_construct_conditions, :construct_conditions
+        alias_method :original_construct_joins, :construct_joins
+
         def construct_conditions
-          @nested_join_attributes ||= construct_nested_join_attributes
-          "#{@nested_join_attributes[:remote_key]} = #{@owner.quoted_id} #{@nested_join_attributes[:conditions]}"
+          if @reflection.macro == :has_one
+            original_construct_conditions
+          else
+            @nested_join_attributes ||= construct_nested_join_attributes
+            "#{@nested_join_attributes[:remote_key]} = #{@owner.quoted_id} #{@nested_join_attributes[:conditions]}"
+          end
         end
 
         def construct_joins(custom_joins = nil)
-          @nested_join_attributes ||= construct_nested_join_attributes
-          "#{@nested_join_attributes[:joins]} #{custom_joins}"
+          if @reflection.macro == :has_one
+            original_construct_joins(custom_joins)
+          else
+            @nested_join_attributes ||= construct_nested_join_attributes
+            "#{@nested_join_attributes[:joins]} #{custom_joins}"
+          end
         end
       end
     end

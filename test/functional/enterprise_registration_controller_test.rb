@@ -9,6 +9,7 @@ class EnterpriseRegistrationControllerTest < ActionController::TestCase
 #  all_fixtures:users
 all_fixtures
   def setup
+    ActiveSupport::TestCase::setup
     @controller = EnterpriseRegistrationController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
@@ -39,7 +40,7 @@ all_fixtures
     env = Environment.default
     env.organization_approval_method = :admin
     env.save
-    region = fast_create(Region)
+    region = fast_create(Region, {}, :search => true)
 
     data = { :name => 'My new enterprise', :identifier => 'mynew', :region => region }
     create_enterprise = CreateEnterprise.new(data)
@@ -52,7 +53,7 @@ all_fixtures
     env = Environment.default
     env.organization_approval_method = :none
     env.save
-    region = fast_create(Region)
+    region = fast_create(Region, {}, :search => true)
 
     data = { :name => 'My new enterprise', :identifier => 'mynew', :region => region }
     create_enterprise = CreateEnterprise.new(data)

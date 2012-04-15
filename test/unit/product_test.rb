@@ -3,12 +3,22 @@ require File.dirname(__FILE__) + '/../test_helper'
 class ProductTest < ActiveSupport::TestCase
 
   def setup
+    ActiveSupport::TestCase::setup
     @product_category = fast_create(ProductCategory, :name => 'Products')
+    @profile = fast_create(Enterprise)
+  end
+
+  should 'return associated enterprise region' do
+    @profile.region = fast_create Region, :name => 'Salvador'
+    @profile.save!
+    p = fast_create(Product, :name => 'test product1', :product_category_id => @product_category.id, :enterprise_id => @profile.id)
+
+    assert_equal @profile.region, p.region
   end
 
   should 'create product' do
     assert_difference Product, :count do
-      p = Product.new(:name => 'test product1', :product_category => @product_category)
+      p = Product.new(:name => 'test product1', :product_category => @product_category, :enterprise_id => @profile.id)
       assert p.save
     end    
   end
@@ -67,7 +77,7 @@ class ProductTest < ActiveSupport::TestCase
     assert_difference Product, :count do
       p = Product.create!(:name => 'test product1', :product_category => @product_category, :image_builder => {
         :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')
-      })
+      }, :enterprise_id => @profile.id)
       assert_equal p.image(true).filename, 'rails.png'
     end    
   end
@@ -88,11 +98,11 @@ class ProductTest < ActiveSupport::TestCase
   end
 
   should 'be indexed by category full name' do
-    p = Product.new(:name => 'a test product', :product_category => @product_category)
+    p = Product.create(:name => 'a test product', :product_category => @product_category, :enterprise_id => @profile.id)
     p.stubs(:category_full_name).returns('interesting category')
     p.save!
 
-    assert_includes Product.find_by_contents('interesting'), p
+    assert_includes Product.find_by_contents('interesting')[:results], p
   end
 
   should 'have same lat and lng of its enterprise' do
@@ -116,16 +126,6 @@ class ProductTest < ActiveSupport::TestCase
     assert_in_delta 45.0, prod.lng, 0.0001
   end
 
-  should 'be searched by radius and distance' do
-    prod1 = fast_create(Product, :name => 'prod test 1', :lat => 30.0, :lng => 30.0, :product_category_id => @product_category.id)
-    prod2 = fast_create(Product, :name => 'prod test 2', :lat => 45.0, :lng => 45.0, :product_category_id => @product_category.id)
-
-    prods = Product.find(:all, :within => 10, :origin => [30.0, 30.0])
-
-    assert_includes prods, prod1
-    assert_not_includes prods, prod2
-  end
-
   should 'provide url' do
     product = Product.new
 
@@ -135,41 +135,6 @@ class ProductTest < ActiveSupport::TestCase
     product.expects(:id).returns(999)
     product.expects(:enterprise).returns(enterprise)
     assert_equal({:controller => 'manage_products', :action => 'show', :id => 999}, product.url)
-  end
-
-  should 'categorize also with product categorization' do
-    cat = fast_create(ProductCategory, :name => 'test cat', :environment_id => Environment.default.id)
-    ent = fast_create(Enterprise, :name => 'test ent', :identifier => 'test_ent')
-    p = ent.products.new(:name => 'test product')
-    p.product_category = cat
-    p.save!
-
-    assert ProductCategorization.find(:first, :conditions => {:product_id => p, :category_id => cat}) 
-  end
-  
-  should 'categorize parent cateogries with product categorization' do
-    parent_cat = fast_create(ProductCategory, :name => 'test cat', :environment_id => Environment.default.id)
-    child_cat = fast_create(ProductCategory, :name => 'test cat', :environment_id => Environment.default.id, :parent_id => parent_cat.id)
-    ent = fast_create(Enterprise, :name => 'test ent', :identifier => 'test_ent')
-    p = ent.products.new(:name => 'test product')
-    p.product_category = child_cat
-    p.save!
-
-    assert ProductCategorization.find(:first, :conditions => {:product_id => p, :category_id => parent_cat}) 
-    assert ProductCategorization.find(:first, :conditions => {:product_id => p, :category_id => child_cat}) 
-  end
-
-  should 'change product categorization when product category changes' do
-    cat1 = fast_create(ProductCategory, :name => 'test cat 1', :environment_id => Environment.default.id)
-    cat2 = fast_create(ProductCategory, :name => 'test cat 2', :environment_id => Environment.default.id)
-    ent = fast_create(Enterprise, :name => 'test ent', :identifier => 'test_ent')
-    p = ent.products.create!(:name => 'test product', :product_category => cat1)
-
-    p.product_category = cat2
-    p.save!
-
-    assert ProductCategorization.find(:first, :conditions => {:product_id => p, :category_id => cat2}), 'must include the new category'
-    assert !ProductCategorization.find(:first, :conditions => {:product_id => p, :category_id => cat1}), 'must exclude the old category'
   end
 
   should 'respond to public? as its enterprise public?' do
@@ -233,7 +198,7 @@ class ProductTest < ActiveSupport::TestCase
   end
 
   should 'use name of category when has no name yet' do
-    product = Product.new(:product_category => @product_category)
+    product = Product.new(:product_category => @product_category, :enterprise_id => @profile.id)
     assert product.valid?
     assert_equal product.name, @product_category.name
   end
@@ -361,25 +326,25 @@ class ProductTest < ActiveSupport::TestCase
 
   should 'index by schema name when database is postgresql' do
     uses_postgresql 'schema_one'
-    p1 = Product.create!(:name => 'some thing', :product_category => @product_category)
-    assert_equal Product.find_by_contents('thing'), [p1]
+    p1 = Product.create!(:name => 'some thing', :product_category => @product_category, :enterprise_id => @profile.id)
+    assert_equal Product.find_by_contents('thing')[:results], [p1]
     uses_postgresql 'schema_two'
-    p2 = Product.create!(:name => 'another thing', :product_category => @product_category)
-    assert_not_includes Product.find_by_contents('thing'), p1
-    assert_includes Product.find_by_contents('thing'), p2
+    p2 = Product.create!(:name => 'another thing', :product_category => @product_category, :enterprise_id => @profile.id)
+    assert_not_includes Product.find_by_contents('thing')[:results], p1
+    assert_includes Product.find_by_contents('thing')[:results], p2
     uses_postgresql 'schema_one'
-    assert_includes Product.find_by_contents('thing'), p1
-    assert_not_includes Product.find_by_contents('thing'), p2
+    assert_includes Product.find_by_contents('thing')[:results], p1
+    assert_not_includes Product.find_by_contents('thing')[:results], p2
     uses_sqlite
   end
 
   should 'not index by schema name when database is not postgresql' do
     uses_sqlite
-    p1 = Product.create!(:name => 'some thing', :product_category => @product_category)
-    assert_equal Product.find_by_contents('thing'), [p1]
-    p2 = Product.create!(:name => 'another thing', :product_category => @product_category)
-    assert_includes Product.find_by_contents('thing'), p1
-    assert_includes Product.find_by_contents('thing'), p2
+    p1 = Product.create!(:name => 'some thing', :product_category => @product_category, :enterprise_id => @profile.id)
+    assert_equal Product.find_by_contents('thing')[:results], [p1]
+    p2 = Product.create!(:name => 'another thing', :product_category => @product_category, :enterprise_id => @profile.id)
+    assert_includes Product.find_by_contents('thing')[:results], p1
+    assert_includes Product.find_by_contents('thing')[:results], p2
   end
 
   should 'respond to price details' do

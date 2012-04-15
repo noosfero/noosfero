@@ -18,13 +18,6 @@ class LocationBlockTest < ActiveSupport::TestCase
     assert_tag_in_string block.content, :tag => 'i'
   end
 
-  should 'display localization map' do
-    profile.lat = 0
-    profile.lng = 0
-    profile.save!
-    assert_tag_in_string block.content, :tag => 'img'
-  end
-
   should 'be editable' do
     assert LocationBlock.new.editable?
   end

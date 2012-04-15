@@ -1,0 +1,9 @@
+<tr class="search-article-categories">
+  <td class="search-field-label"><%= _('Categories') %></td>
+  <td class="search-article-categories-container <%= "search-field-none" if article_categories.empty? %>">
+    <% article_categories.each do |category| %>
+      <%= link_to_category category, false, :class => "search-article-category" %>
+    <% end %>
+    <%= _('None') if article_categories.empty? %>
+  </td>
+</tr>

@@ -1,0 +1,25 @@
+<li class="search-uploaded-file-item article-item">
+  <%= link_to uploaded_file.filename, uploaded_file.view_url, :class => 'search-result-title' %>
+
+  <div class="search-content-first-column">
+    <%= render :partial => 'image', :object => uploaded_file %>
+  </div>
+
+  <table class="noborder search-content-second-column">
+    <%= render :partial => 'article_author', :object => uploaded_file %>
+    <%= render :partial => 'article_description', :object => uploaded_file %>
+
+    <% if uploaded_file.parent and uploaded_file.parent.published? %>
+      <tr class="search-uploaded-file-parent">
+        <td class="search-field-label"><%= uploaded_file.parent.gallery? ? _("Gallery") : _("Folder") %></td>
+        <td><%= link_to uploaded_file.parent.name, uploaded_file.parent.url %></td>
+      </tr>
+    <% end %>
+
+    <%= render :partial => 'article_tags', :object => uploaded_file.tags %>
+    <%= render :partial => 'article_categories', :object => uploaded_file.categories %>
+  </table>
+  <%= render :partial => 'article_last_change', :object => uploaded_file %>
+
+  <div style="clear:both"></div>
+</li>

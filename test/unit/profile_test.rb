@@ -3,6 +3,10 @@ require File.dirname(__FILE__) + '/../test_helper'
 class ProfileTest < ActiveSupport::TestCase
   fixtures :profiles, :environments, :users, :roles, :domains
 
+  def setup
+    ActiveSupport::TestCase::setup
+  end
+
   def test_identifier_validation
     p = Profile.new
     p.valid?
@@ -100,8 +104,8 @@ class ProfileTest < ActiveSupport::TestCase
   def test_find_by_contents
     p = create(Profile, :name => 'wanted')
 
-    assert Profile.find_by_contents('wanted').include?(p)
-    assert ! Profile.find_by_contents('not_wanted').include?(p)
+    assert Profile.find_by_contents('wanted')[:results].include?(p)
+    assert ! Profile.find_by_contents('not_wanted')[:results].include?(p)
   end
 
   should 'remove pages when removing profile' do
@@ -188,14 +192,15 @@ class ProfileTest < ActiveSupport::TestCase
     assert_not_equal list.object_id, other_list.object_id
   end
 
-  should 'be able to find profiles by their names with ferret' do
+# This problem should be solved; talk to Bráulio if it fails
+  should 'be able to find profiles by their names' do
     small = create(Profile, :name => 'A small profile for testing')
     big = create(Profile, :name => 'A big profile for testing')
 
-    assert Profile.find_by_contents('small').include?(small)
-    assert Profile.find_by_contents('big').include?(big)
+    assert Profile.find_by_contents('small')[:results].include?(small)
+    assert Profile.find_by_contents('big')[:results].include?(big)
 
-    both = Profile.find_by_contents('profile testing')
+    both = Profile.find_by_contents('profile testing')[:results]
     assert both.include?(small)
     assert both.include?(big)
   end
@@ -434,12 +439,6 @@ class ProfileTest < ActiveSupport::TestCase
     assert_includes Enterprise.find_within(2, :origin => [45, 45]), e    
   end
 
-  should 'have latitude and longitude and find' do
-    e = fast_create(Enterprise, :lat => 45, :lng => 45)
-
-    assert_includes Enterprise.find(:all, :within => 2, :origin => [45, 45]), e    
-  end
-
   should 'have a public profile by default' do
     assert_equal true, Profile.new.public_profile
   end
@@ -517,18 +516,18 @@ class ProfileTest < ActiveSupport::TestCase
   should 'actually index by results of extra_data_for_index' do
     profile = TestingExtraDataForIndex.create!(:name => 'testprofile', :identifier => 'testprofile')
 
-    assert_includes TestingExtraDataForIndex.find_by_contents('sample'), profile
+    assert_includes TestingExtraDataForIndex.find_by_contents('sample')[:results], profile
   end
 
   should 'index profile identifier for searching' do
     Profile.destroy_all
     p = create(Profile, :identifier => 'lalala')
-    assert_includes Profile.find_by_contents('lalala'), p
+    assert_includes Profile.find_by_contents('lalala')[:results], p
   end
 
   should 'index profile name for searching' do
     p = create(Profile, :name => 'Interesting Profile')
-    assert_includes Profile.find_by_contents('interesting'), p
+    assert_includes Profile.find_by_contents('interesting')[:results], p
   end
 
   should 'enabled by default on creation' do
@@ -1549,12 +1548,12 @@ class ProfileTest < ActiveSupport::TestCase
 
   should 'find more recent profile' do
     Profile.delete_all
-    p1 = fast_create(Profile, :created_at => 4.days.ago)
-    p2 = fast_create(Profile, :created_at => Time.now)
-    p3 = fast_create(Profile, :created_at => 2.days.ago)
+    p1 = fast_create(Profile, :updated_at => 4.days.ago)
+    p2 = fast_create(Profile, :updated_at => Time.now)
+    p3 = fast_create(Profile, :updated_at => 2.days.ago)
     assert_equal [p2,p3,p1] , Profile.more_recent
 
-    p4 = fast_create(Profile, :created_at => 3.days.ago)
+    p4 = fast_create(Profile, :updated_at => 3.days.ago)
     assert_equal [p2,p3,p4,p1] , Profile.more_recent
   end
 
@@ -1665,24 +1664,24 @@ class ProfileTest < ActiveSupport::TestCase
   should 'index by schema name when database is postgresql' do
     uses_postgresql 'schema_one'
     p1 = Profile.create!(:name => 'some thing', :identifier => 'some-thing')
-    assert_equal Profile.find_by_contents('thing'), [p1]
+    assert_equal [p1], Profile.find_by_contents('thing')[:results]
     uses_postgresql 'schema_two'
     p2 = Profile.create!(:name => 'another thing', :identifier => 'another-thing')
-    assert_not_includes Profile.find_by_contents('thing'), p1
-    assert_includes Profile.find_by_contents('thing'), p2
+    assert_not_includes Profile.find_by_contents('thing')[:results], p1
+    assert_includes Profile.find_by_contents('thing')[:results], p2
     uses_postgresql 'schema_one'
-    assert_includes Profile.find_by_contents('thing'), p1
-    assert_not_includes Profile.find_by_contents('thing'), p2
+    assert_includes Profile.find_by_contents('thing')[:results], p1
+    assert_not_includes Profile.find_by_contents('thing')[:results], p2
     uses_sqlite
   end
 
   should 'not index by schema name when database is not postgresql' do
     uses_sqlite
     p1 = Profile.create!(:name => 'some thing', :identifier => 'some-thing')
-    assert_equal Profile.find_by_contents('thing'), [p1]
+    assert_equal Profile.find_by_contents('thing')[:results], [p1]
     p2 = Profile.create!(:name => 'another thing', :identifier => 'another-thing')
-    assert_includes Profile.find_by_contents('thing'), p1
-    assert_includes Profile.find_by_contents('thing'), p2
+    assert_includes Profile.find_by_contents('thing')[:results], p1
+    assert_includes Profile.find_by_contents('thing')[:results], p2
   end
 
   should 'know if url is the profile homepage' do

@@ -5,10 +5,9 @@ class Region < Category
   require_dependency 'enterprise' # enterprises can also be validators
 
   # searches for organizations that could become validators for this region.
-  # <tt>search</tt> is passed as is to ferret's find_by_contents on Organizatio
-  # find_by_contents on Organization class.
+  # <tt>search</tt> is passed as is to find_by_contents on Organization.
   def search_possible_validators(search)
-    Organization.find_by_contents(search).reject {|item| self.validator_ids.include?(item.id) }
+    Organization.find_by_contents(search)[:results].reject {|item| self.validator_ids.include?(item.id) }
   end
 
   def has_validator?

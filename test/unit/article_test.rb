@@ -5,6 +5,7 @@ class ArticleTest < ActiveSupport::TestCase
   fixtures :environments
 
   def setup
+    ActiveSupport::TestCase::setup
     @profile = create_user('testing').person
   end
   attr_reader :profile
@@ -356,7 +357,7 @@ class ArticleTest < ActiveSupport::TestCase
 
   should 'reindex when comments are changed' do
     a = Article.new
-    a.expects(:ferret_update)
+    a.expects(:solr_save)
     a.comments_updated
   end
 
@@ -365,7 +366,7 @@ class ArticleTest < ActiveSupport::TestCase
     art = owner.articles.build(:name => 'ytest'); art.save!
     c1 = art.comments.build(:title => 'a nice comment', :body => 'anything', :author => owner); c1.save!
 
-    assert_includes Article.find_by_contents('nice'), art
+    assert_includes Article.find_by_contents('nice')[:results], art
   end
 
   should 'index comments body together with article' do
@@ -373,7 +374,7 @@ class ArticleTest < ActiveSupport::TestCase
     art = owner.articles.build(:name => 'ytest'); art.save!
     c1 = art.comments.build(:title => 'test comment', :body => 'anything', :author => owner); c1.save!
 
-    assert_includes Article.find_by_contents('anything'), art
+    assert_includes Article.find_by_contents('anything')[:results], art
   end
 
   should 'cache children count' do
@@ -754,6 +755,9 @@ class ArticleTest < ActiveSupport::TestCase
     c = fast_create(Category, :name => 'test category', :environment_id => profile.environment.id)
     a.category_ids = ['0', c.id, nil]
     assert a.save
+    assert_equal [c], a.categories
+
+    a = profile.articles.find_by_name 'a test article'
     assert_equal [c], a.categories
   end
 
@@ -1508,24 +1512,24 @@ class ArticleTest < ActiveSupport::TestCase
   should 'index by schema name when database is postgresql' do
     uses_postgresql 'schema_one'
     art1 = Article.create!(:name => 'some thing', :profile_id => @profile.id)
-    assert_equal Article.find_by_contents('thing'), [art1]
+    assert_equal [art1], Article.find_by_contents('thing')[:results]
     uses_postgresql 'schema_two'
     art2 = Article.create!(:name => 'another thing', :profile_id => @profile.id)
-    assert_not_includes Article.find_by_contents('thing'), art1
-    assert_includes Article.find_by_contents('thing'), art2
+    assert_not_includes Article.find_by_contents('thing')[:results], art1
+    assert_includes Article.find_by_contents('thing')[:results], art2
     uses_postgresql 'schema_one'
-    assert_includes Article.find_by_contents('thing'), art1
-    assert_not_includes Article.find_by_contents('thing'), art2
+    assert_includes Article.find_by_contents('thing')[:results], art1
+    assert_not_includes Article.find_by_contents('thing')[:results], art2
     uses_sqlite
   end
 
   should 'not index by schema name when database is not postgresql' do
     uses_sqlite
     art1 = Article.create!(:name => 'some thing', :profile_id => @profile.id)
-    assert_equal Article.find_by_contents('thing'), [art1]
+    assert_equal Article.find_by_contents('thing')[:results], [art1]
     art2 = Article.create!(:name => 'another thing', :profile_id => @profile.id)
-    assert_includes Article.find_by_contents('thing'), art1
-    assert_includes Article.find_by_contents('thing'), art2
+    assert_includes Article.find_by_contents('thing')[:results], art1
+    assert_includes Article.find_by_contents('thing')[:results], art2
   end
 
   should 'get images paths in article body' do
@@ -1558,9 +1562,10 @@ class ArticleTest < ActiveSupport::TestCase
   end
 
   should 'survive to a invalid src attribute while looking for images in body' do
+    domain = Environment.default.domains.first || Domain.new(:name => 'localhost')
     article = Article.new(:body => "An article with invalid src in img tag <img src='path with spaces.png' />", :profile => @profile)
     assert_nothing_raised URI::InvalidURIError do
-      assert_equal ['http://localhost/path%20with%20spaces.png'], article.body_images_paths
+      assert_equal ["http://#{domain.name}/path%20with%20spaces.png"], article.body_images_paths
     end
   end
 

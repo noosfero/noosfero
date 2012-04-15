@@ -72,6 +72,9 @@ module NavigationHelpers
     when /^the search page$/
       '/search'
 
+    when /^the search (.+) page$/
+      '/search/%s' % $1
+
     when /^(.+)'s cms/
       '/myprofile/%s/cms' % Profile.find_by_name($1).identifier
 

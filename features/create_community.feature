@@ -17,6 +17,7 @@ Feature: create community
     And I fill in "Name" with "Fancy community"
     And I press "Create"
     Then I should see "Fancy community"
+    And I should see "Fancy community"'s creation date
 
   Scenario: a user creates a community when environment moderates it
     Given I am logged in as "joaosilva"

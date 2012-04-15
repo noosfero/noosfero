@@ -21,7 +21,7 @@ class CommunitiesBlock < ProfileListBlock
       end
     when Environment
       lambda do
-        link_to s_('communities|View all'), :controller => 'browse', :action => 'communities'
+        link_to s_('communities|View all'), :controller => 'search', :action => 'communities'
       end
     else
       ''

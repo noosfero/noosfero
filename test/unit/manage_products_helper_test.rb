@@ -186,7 +186,7 @@ class ManageProductsHelperTest < ActiveSupport::TestCase
     end
   end
 
-  should 'product consider its Qualifier self-declared when Certifier is deleted' do
+  should 'delete product Qualifier self-declared when Certifier is deleted' do
     product = fast_create(Product)
     qualifier = fast_create(Qualifier)
     certifier = fast_create(Certifier)

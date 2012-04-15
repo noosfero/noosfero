@@ -6,12 +6,13 @@ class ProductCategoryTest < ActiveSupport::TestCase
     c0 = ProductCategory.create!(:name => 'base_cat', :environment => Environment.default)
     assert_equivalent [], c0.all_products
 
-    p0 = Product.create(:name => 'product1', :product_category => c0)
+    profile = fast_create(Enterprise)
+    p0 = Product.create(:name => 'product1', :product_category => c0, :enterprise_id => profile.id)
     c0.reload
     assert_equivalent [p0], c0.all_products
 
     c1 = ProductCategory.create!(:name => 'cat_1', :parent => c0, :environment => Environment.default)
-    p1 = Product.create(:name => 'product2', :product_category => c1)
+    p1 = Product.create(:name => 'product2', :product_category => c1, :enterprise_id => profile.id)
     c0.reload; c1.reload
     assert_equivalent [p0, p1], c0.all_products
     assert_equivalent [p1], c1.all_products 

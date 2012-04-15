@@ -9,6 +9,7 @@ class CmsControllerTest < ActionController::TestCase
   fixtures :environments
 
   def setup
+    ActiveSupport::TestCase::setup
     @controller = CmsController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
@@ -1524,6 +1525,7 @@ class CmsControllerTest < ActionController::TestCase
 
     Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([TestContentTypesPlugin.new])
 
+    Noosfero::Plugin::Manager.expects(:new).with(@controller).returns(plugins)
     get :index, :profile => profile.identifier
 
     assert_includes @controller.special_article_types, Integer
