@@ -17,7 +17,7 @@ class SearchControllerTest < ActionController::TestCase
     env = Environment.default
     domain = env.domains.first
     if !domain
-      domain = Domain.create!(:name => "localhost")
+      domain = Domain.create!(:name => "127.0.0.1")
       env.domains = [domain]
       env.save!
     end
@@ -152,7 +152,7 @@ class SearchControllerTest < ActionController::TestCase
     prod2 = ent2.products.create!(:name => 'another beautiful product', :product_category => @product_category)
 
     get :products
-    assert_equivalent [prod2, prod1], assigns(:results)[:products]
+    assert_equivalent [prod2, prod1], assigns(:results)[:products].docs
   end
 
   should 'include extra content supplied by plugins on product asset' do
@@ -169,7 +169,8 @@ class SearchControllerTest < ActionController::TestCase
     end
   
     enterprise = fast_create(Enterprise)
-    product = fast_create(Product, {:enterprise_id => enterprise.id, :name => "produto1"}, :search => true)
+    prod_cat = fast_create(ProductCategory)
+    product = fast_create(Product, {:enterprise_id => enterprise.id, :name => "produto1", :product_category_id => prod_cat.id}, :search => true)
 
     e = Environment.default
     e.enable_plugin(Plugin1.name)
@@ -193,7 +194,8 @@ class SearchControllerTest < ActionController::TestCase
       end
     end
     enterprise = fast_create(Enterprise)
-    product = fast_create(Product, {:enterprise_id => enterprise.id, :name => "produto1"}, :search => true)
+    prod_cat = fast_create(ProductCategory)
+    product = fast_create(Product, {:enterprise_id => enterprise.id, :name => "produto1", :product_category_id => prod_cat.id}, :search => true)
 
     environment = Environment.default
     environment.enable_plugin(Plugin1.name)
@@ -355,8 +357,10 @@ class SearchControllerTest < ActionController::TestCase
   end
 
   should 'show link to article asset in the see all foot link of the articles block in the category page' do
-    a = create_user('test1').person.articles.create!(:name => 'an article to be found')
-    a.categories << @category
+	(1..SearchController::MULTIPLE_SEARCH_LIMIT+1).each do |i|
+	  a = create_user("test#{i}").person.articles.create!(:name => "article #{i} to be found")
+      a.categories << @category
+    end
 
     get :category_index, :category_path => [ 'my-category' ]
     assert_tag :tag => 'div', :attributes => {:class => /search-results-articles/} , :descendant => {:tag => 'a', :attributes => { :href => '/search/articles/my-category'}}
