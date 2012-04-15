@@ -423,9 +423,10 @@ class EnterpriseTest < ActiveSupport::TestCase
   end
   
   should 'reindex when products are changed' do
-    a = Enterprise.new
-    a.expects(:solr_save)
-    a.product_updated
+    enterprise = fast_create(Enterprise)
+    product = fast_create(Product, :enterprise_id => enterprise.id, :product_category_id => @product_category.id)
+    Product.expects(:solr_batch_add_association).with(product, :enterprise)
+    product.update_attribute :name, "novo nome"
   end
 
   should "the followed_by? be true only to members" do
