@@ -1512,7 +1512,7 @@ class ArticleTest < ActiveSupport::TestCase
   should 'index by schema name when database is postgresql' do
     uses_postgresql 'schema_one'
     art1 = Article.create!(:name => 'some thing', :profile_id => @profile.id)
-    assert_equal [art1], Article.find_by_contents('thing')[:results]
+    assert_equal [art1], Article.find_by_contents('thing')[:results].docs
     uses_postgresql 'schema_two'
     art2 = Article.create!(:name => 'another thing', :profile_id => @profile.id)
     assert_not_includes Article.find_by_contents('thing')[:results], art1
@@ -1526,7 +1526,7 @@ class ArticleTest < ActiveSupport::TestCase
   should 'not index by schema name when database is not postgresql' do
     uses_sqlite
     art1 = Article.create!(:name => 'some thing', :profile_id => @profile.id)
-    assert_equal Article.find_by_contents('thing')[:results], [art1]
+    assert_equal [art1], Article.find_by_contents('thing')[:results].docs
     art2 = Article.create!(:name => 'another thing', :profile_id => @profile.id)
     assert_includes Article.find_by_contents('thing')[:results], art1
     assert_includes Article.find_by_contents('thing')[:results], art2

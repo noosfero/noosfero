@@ -17,7 +17,7 @@ class TextArticleTest < ActiveSupport::TestCase
   should 'found TextileArticle by TextArticle indexes' do
     person = create_user('testuser').person
     article = TextileArticle.create!(:name => 'found article test', :profile => person)
-    assert_equal TextileArticle.find_by_contents('found'), TextArticle.find_by_contents('found')
+    assert_equal TextileArticle.find_by_contents('found')[:results].docs, TextArticle.find_by_contents('found')[:results].docs
   end
 
   should 'remove HTML from name' do

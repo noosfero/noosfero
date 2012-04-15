@@ -51,7 +51,7 @@ class ProfileSearchControllerTest < ActionController::TestCase
 
     get 'index', :profile => person.identifier, :q => 'Article'
 
-    assert_equal 10, assigns(:results).size
+    assert_equal 10, assigns('results').docs.size
     assert_tag :tag => 'a', :attributes => { :href => "/profile/#{person.identifier}/search?page=2&amp;q=Article", :rel => 'next' }
   end
 
