@@ -16,7 +16,9 @@ class AssetsMenuTest < ActionController::IntegrationTest
   end
 
   should 'link to assets inside category root' do
-    ent = @category.enterprises.create! :identifier => 'ent1', :name => 'enterprise1'
+	(1..SearchController::MULTIPLE_SEARCH_LIMIT+1).each do |i|
+      ent = @category.enterprises.create! :identifier => "ent#{i}", :name => "enterprise#{i}"
+    end
     
     get '/cat/parent-category/category-a'
     assert_tag :tag => 'a', :attributes => { :href => '/search/enterprises/parent-category/category-a' }
