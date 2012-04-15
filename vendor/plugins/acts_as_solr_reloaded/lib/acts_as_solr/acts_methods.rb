@@ -300,6 +300,7 @@ module ActsAsSolr #:nodoc:
     end
 
     def after_save_reindex(associations, options = {})
+      extend ActsAsSolr::CommonMethods
       Array(associations).each do |association|
         after_save do |ar|
           if options[:with] == :delayed_job
