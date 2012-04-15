@@ -433,10 +433,10 @@ class ProfileTest < ActiveSupport::TestCase
     assert article.advertise?
   end
 
-  should 'have latitude and longitude' do
-    e = fast_create(Enterprise, :lat => 45, :lng => 45)
+  should 'search with latitude and longitude' do
+    e = fast_create(Enterprise, {:lat => 45, :lng => 45}, :search => true)
 
-    assert_includes Enterprise.find_within(2, :origin => [45, 45]), e    
+    assert_includes Enterprise.find_by_contents('', {}, {:radius => 2, :latitude => 45, :longitude => 45})[:results].docs, e    
   end
 
   should 'have a public profile by default' do
@@ -566,7 +566,7 @@ class ProfileTest < ActiveSupport::TestCase
     assert_equivalent [c2, c3], profile.categories(true)
   end
 
-  should 'be able to create an profile already with categories' do
+  should 'be able to create a profile with categories' do
     c1 = create(Category)
     c2 = create(Category)
 
@@ -959,7 +959,7 @@ class ProfileTest < ActiveSupport::TestCase
 
     Profile.any_instance.stubs(:template).returns(template)
 
-    p = create(Profile)
+    p = create(Profile, :name => "ProfileTest1")
 
     a_copy = p.articles[0]
 
@@ -1548,12 +1548,12 @@ class ProfileTest < ActiveSupport::TestCase
 
   should 'find more recent profile' do
     Profile.delete_all
-    p1 = fast_create(Profile, :updated_at => 4.days.ago)
-    p2 = fast_create(Profile, :updated_at => Time.now)
-    p3 = fast_create(Profile, :updated_at => 2.days.ago)
+    p1 = fast_create(Profile, :created_at => 4.days.ago)
+    p2 = fast_create(Profile, :created_at => Time.now)
+    p3 = fast_create(Profile, :created_at => 2.days.ago)
     assert_equal [p2,p3,p1] , Profile.more_recent
 
-    p4 = fast_create(Profile, :updated_at => 3.days.ago)
+    p4 = fast_create(Profile, :created_at => 3.days.ago)
     assert_equal [p2,p3,p4,p1] , Profile.more_recent
   end
 
@@ -1664,7 +1664,7 @@ class ProfileTest < ActiveSupport::TestCase
   should 'index by schema name when database is postgresql' do
     uses_postgresql 'schema_one'
     p1 = Profile.create!(:name => 'some thing', :identifier => 'some-thing')
-    assert_equal [p1], Profile.find_by_contents('thing')[:results]
+    assert_equal [p1], Profile.find_by_contents('thing')[:results].docs
     uses_postgresql 'schema_two'
     p2 = Profile.create!(:name => 'another thing', :identifier => 'another-thing')
     assert_not_includes Profile.find_by_contents('thing')[:results], p1
@@ -1678,7 +1678,7 @@ class ProfileTest < ActiveSupport::TestCase
   should 'not index by schema name when database is not postgresql' do
     uses_sqlite
     p1 = Profile.create!(:name => 'some thing', :identifier => 'some-thing')
-    assert_equal Profile.find_by_contents('thing')[:results], [p1]
+    assert_equal [p1], Profile.find_by_contents('thing')[:results].docs
     p2 = Profile.create!(:name => 'another thing', :identifier => 'another-thing')
     assert_includes Profile.find_by_contents('thing')[:results], p1
     assert_includes Profile.find_by_contents('thing')[:results], p2
