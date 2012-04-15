@@ -541,6 +541,7 @@ private :generate_url, :url_options
     other.top_level_articles.each do |a|
       copy_article_tree a
     end
+		self.articles.reload
   end
 
   def copy_article_tree(article, parent=nil)
