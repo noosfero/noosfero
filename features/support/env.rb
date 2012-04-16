@@ -5,6 +5,14 @@
 
 # Sets up the Rails environment for Cucumber
 ENV["RAILS_ENV"] ||= "cucumber"
+
+# Start/stop Solr
+if not $cucumber_env_loaded
+	abort unless system 'rake solr:start'
+  at_exit { system 'rake solr:stop' }
+  $cucumber_env_loaded = true
+end
+
 require File.expand_path(File.dirname(__FILE__) + '/../../config/environment')
 require 'cucumber/rails/world'
 
