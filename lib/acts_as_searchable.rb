@@ -7,6 +7,7 @@ module ActsAsSearchable
       return if !ACTS_AS_SEARCHABLE_ENABLED
 
       if (!options[:fields])
+		    options[:additional_fields] ||= []
         options[:additional_fields] |= [{:schema_name => :string}]
       else
         options[:fields] << {:schema_name => :string}
