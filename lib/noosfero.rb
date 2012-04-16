@@ -20,7 +20,8 @@ module Noosfero
         'de' => 'Deutsch',
         'ru' => 'русский язык',
         'es' => 'Español',
-        'eo' => 'Esperanto'
+        'eo' => 'Esperanto',
+        'it' => 'Italiano'
       }
     end
     attr_writer :locales
