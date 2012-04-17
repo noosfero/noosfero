@@ -1,9 +1,5 @@
 class TinyMceArticle < TextArticle
 
-  def self.type_name
-    _('Article')
-  end
-
   def self.short_description
     _('Text article with visual editor.')
   end

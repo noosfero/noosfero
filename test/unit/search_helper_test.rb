@@ -4,8 +4,6 @@ class SearchHelperTest < ActiveSupport::TestCase
 
   include SearchHelper
 
-    
-
   should 'display search page title' do
     title = 'page_title'
     assert_equal search_page_title(title), '<h1>page_title</h1>' 

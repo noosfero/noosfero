@@ -20,14 +20,14 @@ class ProductTest < ActiveSupport::TestCase
     assert_difference Product, :count do
       p = Product.new(:name => 'test product1', :product_category => @product_category, :enterprise_id => @profile.id)
       assert p.save
-    end    
+    end
   end
 
   should 'destroy product' do
     p = fast_create(Product, :name => 'test product2', :product_category_id => @product_category.id)
     assert_difference Product, :count, -1 do
       p.destroy
-    end   
+    end
   end
 
   should 'display category name if name is nil' do
@@ -69,7 +69,7 @@ class ProductTest < ActiveSupport::TestCase
     p1 = enterprise.products.create!(:name => 'product 1', :product_category => @product_category)
     p2 = enterprise.products.create!(:name => 'product 2', :product_category => @product_category)
     p3 = enterprise.products.create!(:name => 'product 3', :product_category => @product_category)
-    
+
     assert_equal [p3, p2], Product.recent(2)
   end
 
@@ -79,7 +79,7 @@ class ProductTest < ActiveSupport::TestCase
         :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')
       }, :enterprise_id => @profile.id)
       assert_equal p.image(true).filename, 'rails.png'
-    end    
+    end
   end
 
   should 'calculate catagory full name' do
@@ -125,7 +125,7 @@ class ProductTest < ActiveSupport::TestCase
     ent.lat = 45.0; ent.lng = 45.0; ent.save!
     process_delayed_job_queue
     prod.reload
-   
+
     assert_in_delta 45.0, prod.lat, 0.0001
     assert_in_delta 45.0, prod.lng, 0.0001
   end
@@ -500,5 +500,72 @@ class ProductTest < ActiveSupport::TestCase
 
     assert_equal 0, product.price_description_percentage
   end
+
+  should 'act as faceted' do
+		s = fast_create(State, :acronym => 'XZ')
+		c = fast_create(City, :name => 'Tabajara', :parent_id => s.id)
+		ent = fast_create(Enterprise, :region_id => c.id)
+	  p = fast_create(Product, :enterprise_id => ent.id)
+    pq = p.product_qualifiers.create!(:qualifier => fast_create(Qualifier, :name => 'qualifier'),
+			:certifier => fast_create(Certifier, :name => 'certifier'))
+		assert_equal 'Related products', Product.facet_by_id(:f_category)[:label]
+		assert_equal ['Tabajara', ', XZ'], Product.facet_by_id(:f_region)[:proc].call(p.send(:f_region))
+		assert_equal ['qualifier', ' cert. certifier'], Product.facet_by_id(:f_qualifier)[:proc].call(p.send(:f_qualifier).last)
+  end
+
+  should 'act as searchable' do
+		s = fast_create(State, :acronym => 'XZ')
+		c = fast_create(City, :name => 'Tabajara', :parent_id => s.id)
+		ent = fast_create(Enterprise, :region_id => c.id, :name => "Black Sun")
+		category = fast_create(ProductCategory, :name => "homemade", :acronym => "hm", :abbreviation => "homey")
+	  p = Product.create!(:name => 'bananas syrup', :description => 'surrounded by mosquitos', :enterprise_id => ent.id,
+			:product_category_id => category.id)
+		qual = Qualifier.create!(:name => 'qualificador', :environment_id => Environment.default.id)
+		cert = Certifier.create!(:name => 'certificador', :environment_id => Environment.default.id)
+    pq = p.product_qualifiers.create!(:qualifier => qual,	:certifier => cert)
+		# fields
+	  assert_includes Product.find_by_contents('bananas')[:results].docs, p
+	  assert_includes Product.find_by_contents('mosquitos')[:results].docs, p
+	  assert_includes Product.find_by_contents('homemade')[:results].docs, p
+		# filters
+	  assert_includes Product.find_by_contents('bananas', {}, {
+			:filter_queries => ["public:true"]})[:results].docs, p
+	  assert_not_includes Product.find_by_contents('bananas', {}, {
+			:filter_queries => ["public:false"]})[:results].docs, p
+	  assert_includes Product.find_by_contents('bananas', {}, {
+			:filter_queries => ["environment_id:\"#{Environment.default.id}\""]})[:results].docs, p
+    # includes
+	  assert_includes Product.find_by_contents("homemade")[:results].docs, p
+	  assert_includes Product.find_by_contents(category.slug)[:results].docs, p
+	  assert_includes Product.find_by_contents("hm")[:results].docs, p
+	  assert_includes Product.find_by_contents("homey")[:results].docs, p
+	  assert_includes Product.find_by_contents("Tabajara")[:results].docs, p
+	  assert_includes Product.find_by_contents("Black Sun")[:results].docs, p
+  end
+
+  should 'boost name matches' do
+		ent = fast_create(Enterprise)
+		cat = fast_create(ProductCategory)
+	  in_desc = Product.create!(:name => 'something', :enterprise_id => ent.id, :description => 'bananas in the description!',
+			:product_category_id => cat.id)
+	  in_name = Product.create!(:name => 'bananas in the name!', :enterprise_id => ent.id, :product_category_id => cat.id)
+	  assert_equal [in_name, in_desc], Product.find_by_contents('bananas')[:results].docs
+  end
+
+  should 'boost if profile is enabled' do
+    person2 = fast_create(Person, :enabled => false)
+	  art_profile_disabled = Article.create!(:name => 'profile disabled', :profile_id => person2.id)
+    person1 = fast_create(Person, :enabled => true)
+	  art_profile_enabled = Article.create!(:name => 'profile enabled', :profile_id => person1.id)
+	  assert_equal [art_profile_enabled, art_profile_disabled], Article.find_by_contents('profile')[:results].docs
+	end
+
+	should 'reindex enterprise after saving' do
+		ent = fast_create(Enterprise)
+		cat = fast_create(ProductCategory)
+	  prod = Product.create!(:name => 'something', :enterprise_id => ent.id, :product_category_id => cat.id)
+		Product.expects(:solr_batch_add).with([ent])
+		prod.save!
+	end
 
 end

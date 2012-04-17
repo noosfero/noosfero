@@ -247,4 +247,9 @@ class TinyMceArticleTest < ActiveSupport::TestCase
     assert TinyMceArticle.new.tiny_mce?
   end
 
+  should 'define type facet' do
+	  a = TinyMceArticle.new
+		assert_equal TextArticle.type_name, TinyMceArticle.send(:f_type_proc, a.send(:f_type))
+  end
+
 end

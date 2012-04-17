@@ -55,7 +55,7 @@ class Article < ActiveRecord::Base
   xss_terminate :only => [ :name ], :on => 'validation', :with => 'white_list'
 
   named_scope :in_category, lambda { |category|
-    {:include => 'categories', :conditions => { 'categories.id' => category.id }}
+    {:include => 'categories_including_virtual', :conditions => { 'categories.id' => category.id }}
   }
 
   named_scope :by_range, lambda { |range| {
@@ -599,6 +599,7 @@ class Article < ActiveRecord::Base
   def self.f_type_proc(klass)
     klass.constantize.type_name
   end
+
   def self.f_profile_type_proc(klass)
     klass.constantize.type_name
   end
@@ -612,12 +613,15 @@ class Article < ActiveRecord::Base
       self.class.name
     end
   end
+
   def f_profile_type
     self.profile.class.name
   end
+
   def f_published_at
     self.published_at
   end
+
   def f_category
     self.categories.collect(&:name)
   end
@@ -626,12 +630,15 @@ class Article < ActiveRecord::Base
   def name_sortable # give a different name for solr
     name
   end
+
   def public
     self.public?
   end
+
   def category_filter
     categories_including_virtual_ids
   end
+
   public
 
   acts_as_faceted :fields => {

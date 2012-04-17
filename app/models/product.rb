@@ -225,7 +225,7 @@ class Product < ActiveRecord::Base
     end
   end
   def self.f_qualifier_proc(ids)
-    array = ids.split ' '
+    array = ids.split
     qualifier = Qualifier.find_by_id array[0]
     certifier = Certifier.find_by_id array[1]
     certifier ? [qualifier.name, _(' cert. ') + certifier.name] : qualifier.name

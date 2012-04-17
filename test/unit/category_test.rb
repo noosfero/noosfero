@@ -492,4 +492,30 @@ class CategoryTest < ActiveSupport::TestCase
     assert_not_includes Category.top_level_for(Environment.default).from_types(['ProductCategory']), toplevel_category
   end
 
+  should 'act as searchable' do
+		parent = fast_create(Category, :name => 'books')
+		c = Category.create!(:name => "science fiction", :acronym => "sf", :abbreviation => "sci-fi",
+			:environment_id => Environment.default.id, :parent_id => parent.id)
+
+		# fields
+	  assert_includes Category.find_by_contents('fiction')[:results].docs, c
+	  assert_includes Category.find_by_contents('sf')[:results].docs, c
+	  assert_includes Category.find_by_contents('sci-fi')[:results].docs, c
+		# filters
+	  assert_includes Category.find_by_contents('science', {}, {
+			:filter_queries => ["parent_id:#{parent.id}"]})[:results].docs, c
+  end
+
+  should 'boost name matches' do
+		c_abbr = Category.create!(:name => "something else", :abbreviation => "science", :environment_id => Environment.default.id)
+		c_name = Category.create!(:name => "science fiction", :environment_id => Environment.default.id)
+		assert_equal [c_name, c_abbr], Category.find_by_contents("science")[:results].docs
+  end
+
+	should 'solr save' do
+    c = @env.categories.build(:name => 'my category');
+		c.expects(:solr_save)
+		c.save!
+	end
+
 end
