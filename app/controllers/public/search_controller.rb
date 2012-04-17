@@ -114,7 +114,7 @@ class SearchController < PublicController
     @names = {}
     @results_only = true
 
-    @enabled_searchs.select { |key,description| @searching[key] }.each do |key, description|
+    @enabled_searches.select { |key,description| @searching[key] }.each do |key, description|
       load_query
       @asset = key
       send(key)
@@ -149,7 +149,7 @@ class SearchController < PublicController
     ].each do |asset, name, filter|
       @order << asset
       @results[asset] = @category.send(filter, limit)
-      raise "nao total #{asset}" unless @results[asset].respond_to?(:total_entries)
+      raise "No total_entries for: #{asset}" unless @results[asset].respond_to?(:total_entries)
       @names[asset] = name
     end
   end
@@ -229,7 +229,7 @@ class SearchController < PublicController
   end
 
   def load_search_assets
-    @enabled_searchs = [
+    @enabled_searches = [
       [ :articles, _('Contents') ],
       [ :enterprises, _('Enterprises') ],
       [ :people, _('People') ],
@@ -240,10 +240,11 @@ class SearchController < PublicController
 
     @searching = {}
     @titles = {}
-    @enabled_searchs.each do |key, name|
+    @enabled_searches.each do |key, name|
       @titles[key] = name
       @searching[key] = params[:action] == 'index' || params[:action] == key.to_s
     end
+		@names = @titles if @names.nil?
   end
 
   def limit

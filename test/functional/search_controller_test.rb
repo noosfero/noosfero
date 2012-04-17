@@ -74,6 +74,15 @@ class SearchControllerTest < ActionController::TestCase
     assert_includes assigns(:results)[:articles], art
   end
 
+	should 'redirect contents to articles' do
+    person = fast_create(Person)
+    art = create_article_with_optional_category('an article to be found', person)
+
+    get 'contents', :query => 'article found'
+		# full description to avoid deprecation warning
+    assert_redirected_to :controller => :search, :action => :articles, :query => 'article found'
+	end
+
   # 'assets' outside any category
   should 'list articles in general' do
     person = fast_create(Person)
@@ -89,7 +98,7 @@ class SearchControllerTest < ActionController::TestCase
 
   should 'find enterprises' do
     ent = create_profile_with_optional_category(Enterprise, 'teste')
-    get 'enterprises', :query => 'teste'
+    get :enterprises, :query => 'teste'
     assert_includes assigns(:results)[:enterprises], ent
   end
 
@@ -143,8 +152,9 @@ class SearchControllerTest < ActionController::TestCase
   end
 
   # 'assets' menu outside any category
-  should 'list products in general' do
+  should 'list products in general without geosearch' do
     Profile.delete_all
+		SearchController.stubs(:logged_in?).returns(false)
 
     ent1 = create_profile_with_optional_category(Enterprise, 'teste1')
     ent2 = create_profile_with_optional_category(Enterprise, 'teste2')
@@ -161,13 +171,13 @@ class SearchControllerTest < ActionController::TestCase
         lambda {"<span id='plugin1'>This is Plugin1 speaking!</span>"}
       end
     end
-  
+
     class Plugin2 < Noosfero::Plugin
       def asset_product_extras(product, enterprise)
         lambda {"<span id='plugin2'>This is Plugin2 speaking!</span>"}
       end
     end
-  
+
     enterprise = fast_create(Enterprise)
     prod_cat = fast_create(ProductCategory)
     product = fast_create(Product, {:enterprise_id => enterprise.id, :name => "produto1", :product_category_id => prod_cat.id}, :search => true)
@@ -272,6 +282,38 @@ class SearchControllerTest < ActionController::TestCase
     assert_not_includes assigns('results')[:enterprises], ent2
   end
 
+  should 'show only results in general search' do
+    ent1 = create_profile_with_optional_category(Enterprise, 'test1')
+    prod_cat = ProductCategory.create!(:name => 'pctest', :environment => Environment.default)
+    prod = ent1.products.create!(:name => 'teste', :product_category => prod_cat)
+
+    ent2 = create_profile_with_optional_category(Enterprise, 'test2')
+
+    get :index, :query => prod_cat.name
+
+		assert assigns(:facets).empty?
+		assert_nil assigns(:results)[:enterprises].facets
+		assert_nil assigns(:results)[:products].facets
+	end
+
+  should 'search all enabled assets in general search' do
+    ent1 = create_profile_with_optional_category(Enterprise, 'test enterprise')
+    prod_cat = ProductCategory.create!(:name => 'pctest', :environment => Environment.default)
+    prod = ent1.products.create!(:name => 'test product', :product_category => prod_cat)
+		art = Article.create!(:name => 'test article', :profile_id => fast_create(Person).id)
+		per = Person.create!(:name => 'test person', :identifier => 'test-person', :user_id => fast_create(User).id)
+		com = Community.create!(:name => 'test community')
+		eve = Event.create!(:name => 'test event', :profile_id => fast_create(Person).id)
+
+    get :index, :query => 'test'
+
+    [:articles, :enterprises, :people, :communities, :products, :events].select do |key, name|
+			!@controller.environment.enabled?('disable_asset_' + key.to_s)
+		end.each do |asset|
+			assert !assigns(:results)[asset].docs.empty?
+		end
+	end
+
   should 'display category image while in directory' do
     parent = Category.create!(:name => 'category1', :environment => Environment.default)
     cat = Category.create!(:name => 'category2', :environment => Environment.default, :parent => parent,
@@ -371,7 +413,7 @@ class SearchControllerTest < ActionController::TestCase
     assert_tag :tag => 'h1', :content => 'Communities'
   end
 
-  should 'indicate more than page for total_entries' do
+  should 'indicate more than the page limit for total_entries' do
     Enterprise.destroy_all
     ('1'..'20').each do |n|
       create_profile_with_optional_category(Enterprise, 'test ' + n)
@@ -503,6 +545,40 @@ class SearchControllerTest < ActionController::TestCase
     get :communities, :filter => 'more_recent'
     assert_not_includes assigns(:results), p1
   end
+
+	should 'browse facets when query is not empty' do
+		get :articles, :query => 'something'
+		get :facets_browse, :asset => 'articles', :facet_id => 'f_type'
+		assert_equal assigns(:facet)[:id], 'f_type'
+		get :products, :query => 'something'
+		get :facets_browse, :asset => 'products', :facet_id => 'f_category'
+		assert_equal assigns(:facet)[:id], 'f_category'
+		get :people, :query => 'something'
+		get :facets_browse, :asset => 'people', :facet_id => 'f_region'
+		assert_equal assigns(:facet)[:id], 'f_region'
+	end
+
+	should 'raise exception when facet is invalid' do
+		get :articles, :query => 'something'
+		assert_raise RuntimeError do
+			get :facets_browse, :asset => 'articles', :facet_id => 'f_whatever'
+		end
+	end
+
+	should 'keep old urls working' do
+		get :assets, :asset => 'articles'
+    assert_redirected_to :controller => :search, :action => :articles
+		get :assets, :asset => 'people'
+    assert_redirected_to :controller => :search, :action => :people
+		get :assets, :asset => 'communities'
+    assert_redirected_to :controller => :search, :action => :communities
+		get :assets, :asset => 'products'
+    assert_redirected_to :controller => :search, :action => :products
+		get :assets, :asset => 'enterprises'
+    assert_redirected_to :controller => :search, :action => :enterprises
+		get :assets, :asset => 'events'
+    assert_redirected_to :controller => :search, :action => :events
+	end
 
   ##################################################################
   ##################################################################
