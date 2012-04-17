@@ -33,6 +33,15 @@ class ProfileSearchControllerTest < ActionController::TestCase
     assert_includes assigns(:results), article
   end
 
+  should 'not display articles from another profile' do
+    article = TextileArticle.create(:name => 'My article', :body => 'Article to test profile search', :profile => person)
+    article2 = TextileArticle.create(:name => 'Another article', :body => 'Article from someone else', :profile => fast_create(Person))
+
+    get 'index', :profile => person.identifier, :q => 'article'
+    assert_includes assigns(:results), article
+    assert_not_includes assigns(:results), article2
+	end
+
   should 'display search results' do
     article1 = fast_create(Article, {:body => '<p>Article to test profile search</p>', :profile_id => person.id}, :search => true)
     article2 = fast_create(Article, {:body => '<p>Another article to test profile search</p>', :profile_id => person.id}, :search => true)
