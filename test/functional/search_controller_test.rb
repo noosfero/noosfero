@@ -72,6 +72,7 @@ class SearchControllerTest < ActionController::TestCase
 
     get 'articles', :query => 'article found'
     assert_includes assigns(:results)[:articles], art
+		assert !assigns(:results)[:articles].facets.nil?
   end
 
 	should 'redirect contents to articles' do
@@ -100,6 +101,7 @@ class SearchControllerTest < ActionController::TestCase
     ent = create_profile_with_optional_category(Enterprise, 'teste')
     get :enterprises, :query => 'teste'
     assert_includes assigns(:results)[:enterprises], ent
+		assert !assigns(:results)[:enterprises].facets.nil?
   end
 
   should 'list enterprises in general' do
@@ -115,6 +117,7 @@ class SearchControllerTest < ActionController::TestCase
     p1 = create_user('people_1').person; p1.name = 'a beautiful person'; p1.save!
     get :people, :query => 'beautiful'
     assert_includes assigns(:results)[:people], p1
+		assert !assigns(:results)[:people].facets.nil?
   end
 
   # 'assets' menu outside any category
@@ -133,6 +136,7 @@ class SearchControllerTest < ActionController::TestCase
     c1 = create_profile_with_optional_category(Community, 'a beautiful community')
     get :communities, :query => 'beautiful'
     assert_includes assigns(:results)[:communities], c1
+		assert !assigns(:results)[:communities].facets.nil?
   end
 
   # 'assets' menu outside any category
@@ -149,6 +153,7 @@ class SearchControllerTest < ActionController::TestCase
     prod = ent.products.create!(:name => 'a beautiful product', :product_category => @product_category)
     get :products, :query => 'beautiful'
     assert_includes assigns(:results)[:products], prod
+		assert !assigns(:results)[:products].facets.nil?
   end
 
   # 'assets' menu outside any category
@@ -332,6 +337,7 @@ class SearchControllerTest < ActionController::TestCase
     get :events, :query => 'event found'
 
     assert_includes assigns(:results)[:events], ev
+		assert !assigns(:results)[:events].facets.nil?
   end
 
   should 'list events for a given month' do
