@@ -7,6 +7,13 @@ Feature: search
     Given the search index is empty
     And feature "disable_asset_products" is disabled on environment
 
+  Scenario: search with empty results
+    Given I go to the search page
+    And I fill in "query" with "Anything"
+    And I press "Search"
+    Then I should see "None" within ".multiple-results-boxes"
+    And I should see "None" within ".search-results-empty"
+
   Scenario: simple search for person
     Given the following users
       | login      | name        |
