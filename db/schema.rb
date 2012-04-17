@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120402205653) do
+ActiveRecord::Schema.define(:version => 20120411132751) do
 
   create_table "abuse_reports", :force => true do |t|
     t.integer  "reporter_id"
@@ -203,7 +203,7 @@ ActiveRecord::Schema.define(:version => 20120402205653) do
     t.float   "lng"
     t.boolean "display_in_menu", :default => false
     t.integer "children_count",  :default => 0
-    t.boolean "accept_products"
+    t.boolean "accept_products", :default => true
     t.integer "image_id"
     t.string  "acronym"
     t.string  "abbreviation"
