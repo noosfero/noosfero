@@ -127,6 +127,11 @@ class Block < ActiveRecord::Base
     true
   end
 
+  alias :active_record_cache_key :cache_key
+  def cache_key(language='en')
+    active_record_cache_key+'-'+language
+  end
+
   def timeout
     4.hours
   end

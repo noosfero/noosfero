@@ -31,7 +31,7 @@ protected
 
   def expire_statistics_block_cache(profile)
     blocks = profile.environment.blocks.select { |b| b.kind_of?(EnvironmentStatisticsBlock) }
-    blocks.map(&:cache_key).each{|ck|expire_timeout_fragment(ck)}
+    BlockSweeper.expire_blocks(blocks)
   end
 
   def expire_blogs(profile)

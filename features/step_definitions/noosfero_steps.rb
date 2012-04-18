@@ -572,3 +572,7 @@ When /^I edit my profile$/ do
   visit "/myprofile/#{@current_user}"
   click_link "Edit Profile"
 end
+
+Given /^the cache is turned (on|off)$/ do |state|
+  ActionController::Base.perform_caching = (state == 'on')
+end
