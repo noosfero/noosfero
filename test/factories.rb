@@ -249,7 +249,7 @@ module Noosfero::Factory
   ###############################################
   def defaults_for_blog
     name = 'My blog ' + factory_num_seq.to_s
-    { :name => name, :slug => name.to_slug }
+    { :name => name, :slug => name.to_slug, :path => name.to_slug }
   end
 
   def create_blog
