@@ -126,9 +126,6 @@ class MezuroPluginProfileController < ProfileController
 
   def module_metrics_history
     metric_name = params[:metric_name]
-    for i in 1..50 do
-    puts metric_name
-    end
     content = profile.articles.find(params[:id])
     module_history = content.result_history(params[:module_name])
     metric_history = module_history.collect { |x| (x.metric_results.select { |y| y.metric.name == metric_name })[0] }
