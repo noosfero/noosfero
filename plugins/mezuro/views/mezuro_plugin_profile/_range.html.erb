@@ -12,6 +12,7 @@
     <%=range.grade%>
   </td>
   <td bgcolor="#<%= range.color[2..-1] %>"></td>
-  <td><%= link_to "Edit", :controller => "mezuro_plugin_profile", :action => "edit_range", :params =>
-        {:configuration_name => params[:configuration_name], :metric_name => params[:metric_name], :range_beginning => range.beginning} %></td>
+  <!-- <td><%= link_to "Edit", :controller => "mezuro_plugin_profile", :action => "edit_range", :params =>
+        {:configuration_name => params[:configuration_name], :metric_name => params[:metric_name], :range_beginning => range.beginning} %></td> -->
+  <td><%= link_to_remote "Edit", :url => {:action =>"new_range", :controller => "mezuro_plugin_profile", :configuration_name => params[:configuration_name], :metric_name => params[:metric_name], :range_beginning => range.beginning} %></td>
 </tr>

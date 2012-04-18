@@ -2,6 +2,7 @@
   <%= hidden_field_tag :configuration_name, @configuration_name %>
   <%= hidden_field_tag :metric_name, @metric_name %>
   <%= hidden_field_tag :beginning_id, @range_beginning %>
+  <!-- beginning_id and range_beginning occurs because the field may be changed and we still need and identificator to the desired range -->
   <table>
     <tr>
       <td>

@@ -1,6 +1,7 @@
 <% remote_form_for :range, :url => {:action =>"create_range", :controller => "mezuro_plugin_profile"}, :method => :get do |f| %>
   <%= hidden_field_tag :configuration_name, configuration_name %>
   <%= hidden_field_tag :metric_name, metric_name %>
+  <%= hidden_field_tag :beginning_id, range_beginning %>
   <table>
     <tr>
       <td>
