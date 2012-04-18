@@ -1,13 +1,13 @@
 @import url(colorbox/colorbox.css);
 
 .cart-add-item .ui-icon-cart {
-      background: url("images/button-icon.png") no-repeat scroll left center transparent;
-          width: 22px;
-        }
-         .cart-buy .ui-icon-cart {
-                 background: url("images/button-icon.png") no-repeat scroll left center transparent;
-                           width: 22px;
-                                   }
+  background: url("/plugins/shopping_cart/images/button-icon.png") no-repeat scroll left center transparent;
+  width: 22px;
+}
+.cart-buy .ui-icon-cart {
+  background: url("/plugins/shopping_cart/images/button-icon.png") no-repeat scroll left center transparent;
+  width: 22px;
+}
 .cart-add-item .ui-button-text {
   padding-left: 2.6em;
 }
@@ -183,10 +183,10 @@ label.error {
   vertical-align: top;
 }
 
-.controller-profile_editor a.control-panel-shopping-cart-purchase-report {background-image: url(images/control-panel/purchase-report.png)}
-.controller-profile_editor .msie6 a.control-panel-shopping-cart-purchase-report {background-image: url(images/control-panel/purchase-report.gif)}
-.controller-profile_editor a.control-panel-shopping-cart-icon {background-image: url(images/control-panel/icon.png)}
-.controller-profile_editor .msie6 a.control-panel-shopping-cart-icon {background-image: url(images/control-panel/icon.gif)}
+.controller-profile_editor a.control-panel-shopping-cart-purchase-report {background-image: url("/plugins/shopping_cart/images/control-panel/purchase-report.png")}
+.controller-profile_editor .msie6 a.control-panel-shopping-cart-purchase-report {background-image: url("/plugins/shopping_cart/images/control-panel/purchase-report.gif")}
+.controller-profile_editor a.control-panel-shopping-cart-icon {background-image: url("/plugins/shopping_cart/images/control-panel/icon.png")}
+.controller-profile_editor .msie6 a.control-panel-shopping-cart-icon {background-image: url("/plugins/shopping_cart/images/control-panel/icon.gif")}
 
 .action-shopping_cart_plugin_myprofile-reports td.order-info {
   padding: 0px;

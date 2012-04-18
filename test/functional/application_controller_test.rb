@@ -438,6 +438,13 @@ class ApplicationControllerTest < ActionController::TestCase
     assert_tag :tag => 'style', :content => 'This is Plugin2 speaking!'
   end
 
+  should 'not include jquery-validation language script if they do not exist' do
+    Noosfero.stubs(:available_locales).returns(['bli'])
+    get :index, :lang => 'bli'
+    assert_no_tag :tag => 'script', :attributes => {:src => /messages_bli/}
+    assert_no_tag :tag => 'script', :attributes => {:src => /methods_bli/}
+  end
+
   if ActiveRecord::Base.connection.adapter_name == 'PostgreSQL'
 
     should 'change postgresql schema' do

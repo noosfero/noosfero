@@ -20,7 +20,7 @@ module SweeperHelper
 
     # friends blocks
     blocks = profile.blocks.select{|b| b.kind_of?(FriendsBlock)}
-    blocks.map(&:cache_key).each{|ck|expire_timeout_fragment(ck)}
+    BlockSweeper.expire_blocks(blocks)
   end
 
   def expire_communities(profile)
@@ -32,13 +32,13 @@ module SweeperHelper
 
     # communities block
     blocks = profile.blocks.select{|b| b.kind_of?(CommunitiesBlock)}
-    blocks.map(&:cache_key).each{|ck|expire_timeout_fragment(ck)}
+    BlockSweeper.expire_blocks(blocks)
   end
 
   def expire_enterprises(profile)
     # enterprises and favorite enterprises blocks
     blocks = profile.blocks.select {|b| [EnterprisesBlock, FavoriteEnterprisesBlock].any?{|klass| b.kind_of?(klass)} }
-    blocks.map(&:cache_key).each{|ck|expire_timeout_fragment(ck)}
+    BlockSweeper.expire_blocks(blocks)
   end
 
   def expire_profile_index(profile)

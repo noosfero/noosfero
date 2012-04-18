@@ -52,7 +52,7 @@
 </div>
 <% end %>
 
-<% cache(@page.cache_key(params, user)) do %>
+<% cache(@page.cache_key(params, user, language)) do %>
   <div class="<%="article-body article-body-" + @page.css_class_name %>">
     <% options = @page.image? ? {:gallery_view => true} : {} %>
     <%= article_to_html(@page, options) %>
