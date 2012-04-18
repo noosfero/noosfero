@@ -40,7 +40,6 @@ class MezuroPluginProfileController < ProfileController
     source_tree = project_result.node_of(params[:module_name])
     render :partial =>'content_viewer/source_tree', :locals => { :source_tree => source_tree, :project_name => content.project.name}
   end
-
   def choose_base_tool
     @configuration_name = params[:configuration_name]
     @tool_names = Kalibro::Client::BaseToolClient.new
