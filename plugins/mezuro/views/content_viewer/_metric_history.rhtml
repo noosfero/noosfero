@@ -1,2 +1,14 @@
-<br>
-<h5> TESTANDO </h5>
+<table width="100%"> 
+ <tr>
+    <% date_history.each do |date| %>
+		  <td> <b> <%= date %> </b> </td> 
+	<% end %>
+ </tr> 
+ <tr>
+   <% metric_history.each do |metric_result| %>
+   <td>
+     <%= MezuroPlugin::Helpers::ContentViewerHelper.format_grade(metric_result.value) %>
+   </td>
+   <% end %>
+ </tr>
+ </table>
