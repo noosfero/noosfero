@@ -97,6 +97,14 @@ class MezuroPluginProfileController < ProfileController
     redirect_to "/#{profile.identifier}/#{configuration_name.downcase.gsub(/\s/, '-')}"
   end
 
+  def module_metrics_history
+    metric_name = params[:metric_name]
+    content = profile.articles.find(params[:id])
+    module_history = content.result_history(params[:module_name])
+	date_history = module_history.collect { |x| x.date }
+    metric_history = module_history.collect { |x| (x.metric_results.select { |y| y.metric.name.delete("() ") == metric_name })[0] }
+    render :partial => 'content_viewer/metric_history', :locals => {:metric_history => metric_history, :date_history => date_history }
+  end
   private 
 
   def new_metric_configuration_instance
@@ -122,16 +130,6 @@ class MezuroPluginProfileController < ProfileController
     range.color = params[:range][:color]
     range.comments = params[:range][:comments]
     range
-  end
-
-  def module_metrics_history
-    metric_name = params[:metric_name]
-    content = profile.articles.find(params[:id])
-    module_history = content.result_history(params[:module_name])
-	date_history = module_history.collect { |x| x.date }
-    metric_history = module_history.collect { |x| (x.metric_results.select { |y| y.metric.name.delete("() ") == metric_name })[0] }
-    #precisamos que uma variável receba um array com os valores da métrica passada a partir do result history
-render :partial => 'content_viewer/metric_history', :locals => {:metric_history => metric_history, :date_history => date_history }
   end
 
 end

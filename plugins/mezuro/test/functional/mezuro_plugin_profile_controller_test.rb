@@ -68,7 +68,10 @@ class MezuroPluginProfileControllerTest < ActionController::TestCase
 
   should 'get module result' do
     create_project_content
-    Kalibro::Client::ModuleResultClient.expects(:module_result).with(@content, @name).returns(@module_result)
+	module_result_client = mock
+    Kalibro::Client::ProjectResultClient.expects(:last_result).with(@name).returns(@project_result)
+	Kalibro::Client::ModuleResultClient.expects(:new).returns(module_result_client)
+    module_result_client.expects(:module_result).with(@name, @name, @project_result.date).returns(@module_result)
     get :module_result, :profile => @profile.identifier, :id => @content.id, :module_name => @name
     assert_response 200
     assert_select('h5', 'Metric results for: Qt-Calculator (APPLICATION)')
