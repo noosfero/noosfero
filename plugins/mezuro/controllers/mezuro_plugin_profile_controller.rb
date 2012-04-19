@@ -80,17 +80,16 @@ class MezuroPluginProfileController < ProfileController
   def new_range
     @metric_name = params[:metric_name]
     @configuration_name = params[:configuration_name]
-    @range_beginning = params[:range_beginning]
-
-    if(@range_beginning != nil) then
+  end
+  
+  def edit_range
+    @metric_name = params[:metric_name]
+    @configuration_name = params[:configuration_name]
+    @beginning_id = params[:beginning_id]
     
-      metric_configuration_client = Kalibro::Client::MetricConfigurationClient.new
-      metric_configuration = metric_configuration_client.metric_configuration(@configuration_name, @metric_name)
-
-      metric_configuration.ranges.each do |r|
-        @range = r if r.beginning == @range_beginning.to_f
-      end
-    end
+    metric_configuration_client = Kalibro::Client::MetricConfigurationClient.new
+    metric_configuration = metric_configuration_client.metric_configuration(@configuration_name, @metric_name)
+    @range = metric_configuration.ranges.find{ |range| range.beginning == @beginning_id.to_f }
   end
 
   def create_range
@@ -99,57 +98,38 @@ class MezuroPluginProfileController < ProfileController
     metric_name = params[:metric_name]
     beginning_id = params[:beginning_id]
     metric_configuration_client = Kalibro::Client::MetricConfigurationClient.new
-    metric_configuration = metric_configuration_client.metric_configuration(configuration_name, metric_name)
-    
-    if( beginning_id == "") then #When nothing is passed as beginning_id, this range is new
-      metric_configuration.add_range(@range)
-      metric_configuration_client.save(metric_configuration, configuration_name)
-    else #else, this is a range to edit
-      #First search range
-      index = 0
-      metric_configuration.ranges.each do |r|
-        break if r.beginning == beginning_id.to_f
-        index = index + 1
-      end
-      #Then edit and save
-      metric_configuration.ranges[index] = new_range_instance
-      Kalibro::Client::MetricConfigurationClient.new.save(metric_configuration, configuration_name)  
-    end
-  end
-  
-=begin 
-  this commented lines and views/mezuro_plugin_profile/edit_range.html.erb should be removed
-  
-  def edit_range
-    @configuration_name = params[:configuration_name]
-    @metric_name = params[:metric_name]
-    @range_beginning = params[:range_beginning]
-    
-    metric_configuration_client = Kalibro::Client::MetricConfigurationClient.new
-    metric_configuration = metric_configuration_client.metric_configuration(@configuration_name, @metric_name)
-
-    metric_configuration.ranges.each do |r|
-      @range = r if r.beginning == @range_beginning.to_f
-    end    
+    metric_configuration = metric_configuration_client.metric_configuration(configuration_name, metric_name)   
+    metric_configuration.add_range(@range)
+    metric_configuration_client.save(metric_configuration, configuration_name)
   end
   
   def update_range
-    @configuration_name = params[:configuration_name]
     metric_name = params[:metric_name]
-    range_beginning = params[:beginning_id]
+    configuration_name = params[:configuration_name]
+    beginning_id = params[:beginning_id]
     metric_configuration_client = Kalibro::Client::MetricConfigurationClient.new
-    metric_configuration = metric_configuration_client.metric_configuration(@configuration_name, metric_name)
-    index = 0
-    metric_configuration.ranges.each do |r|
-      break if r.beginning == range_beginning.to_f
-      index = index + 1
-    end
-    #Here index points to the right range in metric_configuration.ranges[]
+    metric_configuration = metric_configuration_client.metric_configuration(configuration_name, metric_name)
+    index = metric_configuration.ranges.index{ |range| range.beginning == beginning_id.to_f }
     metric_configuration.ranges[index] = new_range_instance
-    Kalibro::Client::MetricConfigurationClient.new.save(metric_configuration, @configuration_name)  
-    redirect_to "/#{profile.identifier}/#{@configuration_name.downcase.gsub(/\s/, '-')}"      
+    Kalibro::Client::MetricConfigurationClient.new.save(metric_configuration, configuration_name)
+    formatted_configuration_name = configuration_name.gsub(/\s/, '+')
+    formatted_metric_name = metric_name.gsub(/\s/, '+')
+    redirect_to "/profile/#{profile.identifier}/plugins/mezuro/edit_metric_configuration?configuration_name=#{formatted_configuration_name}&metric_name=#{formatted_metric_name}"
   end
-=end
+  
+  def remove_range
+    configuration_name = params[:configuration_name]
+    metric_name = params[:metric_name]
+    beginning_id = params[:range_beginning]
+    metric_configuration_client = Kalibro::Client::MetricConfigurationClient.new
+    metric_configuration = metric_configuration_client.metric_configuration(configuration_name, metric_name)
+    metric_configuration.ranges.delete_if { |range| range.beginning == beginning_id.to_f }.inspect
+    Kalibro::Client::MetricConfigurationClient.new.save(metric_configuration, configuration_name)
+    formatted_configuration_name = configuration_name.gsub(/\s/, '+')
+    formatted_metric_name = metric_name.gsub(/\s/, '+')
+    #FIXME não está redirecionando
+    redirect "/profile/#{profile.identifier}/plugins/mezuro/edit_metric_configuration?configuration_name=#{formatted_configuration_name}&metric_name=#{formatted_metric_name}"
+  end
 
   def remove_metric_configuration
     configuration_name = params[:configuration_name]
