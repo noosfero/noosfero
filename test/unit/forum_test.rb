@@ -28,21 +28,21 @@ class ForumTest < ActiveSupport::TestCase
 
   should 'create rss feed automatically' do
     p = create_user('testuser').person
-    b = create(Forum, :profile_id => p.id, :name => 'forum_feed_test')
+    b = create(Forum, :profile_id => p.id, :name => 'forum_feed_test', :body => 'Forum')
     assert_kind_of RssFeed, b.feed
   end
 
   should 'save feed options' do
     p = create_user('testuser').person
-    p.articles << Forum.new(:profile => p, :name => 'forum_feed_test')
+    p.articles << forum = Forum.new(:profile => p, :name => 'forum_feed_test', :body => 'Forum test')
     p.forum.feed = { :limit => 7 }
-    assert_equal 7, p.forum.feed.limit
+    assert_equal 7, Forum.find(forum.id).feed.limit
   end
 
   should 'save feed options after create forum' do
     p = create_user('testuser').person
-    p.articles << Forum.new(:profile => p, :name => 'forum_feed_test', :feed => { :limit => 7 })
-    assert_equal 7, p.forum.feed.limit
+    p.articles << forum = Forum.new(:profile => p, :name => 'forum_feed_test', :body => 'Forum test', :feed => { :limit => 7 })
+    assert_equal 7, Forum.find(forum.id).feed.limit
   end
 
   should 'list 5 posts per page by default' do
@@ -52,16 +52,15 @@ class ForumTest < ActiveSupport::TestCase
 
   should 'update posts per page setting' do
     p = create_user('testuser').person
-    p.articles << Forum.new(:profile => p, :name => 'Forum test')
-    forum = p.forum
+    p.articles << forum = Forum.new(:profile => p, :name => 'Forum test', :body => 'Forum test')
     forum.posts_per_page = 7
     assert forum.save!
-    assert_equal 7, p.forum.posts_per_page
+    assert_equal 7, Forum.find(forum.id).posts_per_page
   end
 
   should 'has posts' do
     p = create_user('testuser').person
-    forum = fast_create(Forum, :profile_id => p.id, :name => 'Forum test')
+    p.articles << forum = Forum.new(:profile => p, :name => 'Forum test', :body => 'Forum test')
     post = fast_create(TextileArticle, :name => 'First post', :profile_id => p.id, :parent_id => forum.id)
     forum.children << post
     assert_includes forum.posts, post
@@ -69,7 +68,7 @@ class ForumTest < ActiveSupport::TestCase
 
   should 'not includes rss feed in posts' do
     p = create_user('testuser').person
-    forum = create(Forum, :profile_id => p.id, :name => 'Forum test')
+    forum = create(Forum, :profile_id => p.id, :name => 'Forum test', :body => 'Forum')
     assert_includes forum.children, forum.feed
     assert_not_includes forum.posts, forum.feed
   end
@@ -89,13 +88,13 @@ class ForumTest < ActiveSupport::TestCase
     p = create_user('testuser').person
     fast_create(Forum, :name => 'Forum test', :profile_id => p.id)
     assert_nothing_raised ActiveRecord::RecordInvalid do
-      Forum.create!(:name => 'Another Forum', :profile => p)
+      Forum.create!(:name => 'Another Forum', :profile => p, :body => 'Forum test')
     end
   end
 
   should 'not update slug from name for existing forum' do
     p = create_user('testuser').person
-    forum = Forum.create!(:name => 'Forum test', :profile => p)
+    forum = Forum.create(:name => 'Forum test', :profile_id => p.id, :body => 'Forum')
     assert_equal 'forum-test', forum.slug
     forum.name = 'Changed name'
     assert_not_equal 'changed-name', forum.slug

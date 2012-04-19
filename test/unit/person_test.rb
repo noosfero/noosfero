@@ -1201,7 +1201,7 @@ class PersonTest < ActiveSupport::TestCase
     UserStampSweeper.any_instance.expects(:current_user).returns(person).at_least_once
     article = TinyMceArticle.create!(:profile => person, :name => 'An article about free software')
 
-    assert_equal [scrap,article.activity], person.activities.map { |a| a.klass.constantize.find(a.id) }
+    assert_equivalent [scrap,article.activity], person.activities.map { |a| a.klass.constantize.find(a.id) }
   end
 
   should 'not return tracked_actions and scraps from others as activities' do

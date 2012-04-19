@@ -1518,26 +1518,6 @@ assert_equal 'bla', profile.articles.map(&:comments_count)
     assert_equal [c1,c2,c5], Article.text_articles
   end
 
-  should 'filter articles by date of creation' do
-    from = Date.today - 2.days
-    to = Date.today - 1.day
-    article1 = fast_create(Article, :created_at => from - 1.day)
-    article2 = fast_create(Article, :created_at => from + 6.hours)
-    article3 = fast_create(Article, :created_at => to + 1.day)
-
-    assert_not_includes Article.created_between(from, nil), article1
-    assert_includes Article.created_between(from, nil), article2
-    assert_includes Article.created_between(from, nil), article3
-
-    assert_includes Article.created_between(nil, to), article1
-    assert_includes Article.created_between(nil, to), article2
-    assert_not_includes Article.created_between(nil, to), article3
-
-    assert_not_includes Article.created_between(from, to), article1
-    assert_includes Article.created_between(from, to), article2
-    assert_not_includes Article.created_between(from, to), article3
-  end
-
   should 'get first image from lead' do
     a = fast_create(Article, :body => '<p>Foo</p><p><img src="bar.png" />Bar<img src="foo.png" /></p>',
                              :abstract => '<p>Lead</p><p><img src="leadbar.png" />Bar<img src="leadfoo.png" /></p>')
