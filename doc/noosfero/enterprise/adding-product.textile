@@ -2,15 +2,15 @@ h1(order-212). Adding products to an enterprise
 
 p.  _If you are an enterprise administrator, you can add products to the enterprise._
 
-*  "How to access":#HowAccess
-*  "Description":#Description
-*  "Related topics":#RelatedTopics
+*  "How to access":#howaccess
+*  "Description":#description
+*  "Related topics":#relatedtopics
 
-h2(HowAccess). How to access
+h2(#howaccess). How to access
 
 # Go to the enterprise's page. Use the "search":/doc/navigation/searching-enterprises and click on the enterprise you want to add a product.
 
-h2(#Description). Description
+h2(#description). Description
 
 # In enterprise's control panel, click on "Manage products and services" !=/images/doc/control-panel-manage-products.en.png(Control panel with manage products)!
 # You will see the list of products already registered. To add a new product/service click on "New product or service" button !=/images/doc/enterprise-product-list-new-product-button.en.png(Product list of enterprise on manage products)!
@@ -27,7 +27,7 @@ h2(#Description). Description
 ### Fill in the form with the category of the input you are adding and press the "Save and continue" button !=/images/doc/enterprise-product-add-input-form.en.png(Inputs tab)!
 # Now the product is ready to be displayed !=/images/doc/enterprise-product-complete.en.png(Product created final)!
 
-h2(#RelatedTopics). Related topics
+h2(#relatedtopics). Related topics
 
 *  "Editing enterprise settings":/doc/enterprise/editing-enterprise-info
 *  "Activating your enterprise":/doc/enterprise/activating-enterprise

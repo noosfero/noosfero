@@ -2,18 +2,18 @@ h1(order-210). Managing and adding members to an enterprise
 
 p.  _If you are an enterprise administrator, you can add or remove members from enterprise and also define which permissions each member will have_
 
-*  "How to access":#HowAccess
-*  "Description":#Description
-*  "Related topics":#RelatedTopics
+*  "How to access":#howaccess
+*  "Description":#description
+*  "Related topics":#relatedtopics
 
-h2(HowAccess). How to access
+h2(#howaccess). How to access
 
 # Find you user menu on top bar:  !=/images/doc/system-homepage-top-menu.en.png(Top menu)!
 # In user menu, click on Control Panel  !=/images/doc/menu-control-panel.en.png(Control panel on menu)!
 # Then, click on "Manage my groups":  !=/images/doc/control-panel-manage-groups.en.png(Manage groups in control panel)!
 # You will see the list of groups (communities/enterprises) that you are a member. The groups that you can manage are listed with a link "Manage". Assuming that you are administrator of an enterprise", click on "Manage" link.  !=/images/doc/groups-list-with-manage-enterprise.en.png(Groups list with permission to manage enterprise)!
 
-h2(#Description). Description
+h2(#description). Description
 
 # In enterprise's control panel, click on "Manage members"
   !=/images/doc/control-panel-manage-members.en.png(Control panel with manage members)!
@@ -25,7 +25,7 @@ h2(#Description). Description
 ### Click on "+" button to add the user. After clicking the button, the table on the right side ("Current members") will be updated with the new member.
   !=/images/doc/add-member-enterprise.en.png(Add member on manage member)!
 
-h2(#RelatedTopics). Related topics
+h2(#relatedtopics). Related topics
 
 *  "Editing enterprise settings":/doc/enterprise/editing-enterprise-info
 *  "Activating your enterprise":/doc/enterprise/activating-enterprise

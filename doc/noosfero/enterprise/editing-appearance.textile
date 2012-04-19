@@ -2,11 +2,11 @@ h1(order-240). Editing appearance
 
 p.  _You can customize the page of your enterprise, changing the template of it._
 
-*  "How to access":#HowAccess
-*  "Description":#Description
-*  "Related topics":#RelatedTopics
+*  "How to access":#howaccess
+*  "Description":#description
+*  "Related topics":#relatedtopics
 
-h2(#HowAccess). How to access
+h2(#howaccess). How to access
 
 # Find you user menu on top bar:  !=/images/doc/system-homepage-top-menu.en.png(Top menu)!
 # In user menu, click on Control Panel:  !=/images/doc/menu-control-panel.en.png(Control panel on menu)!
@@ -14,7 +14,7 @@ h2(#HowAccess). How to access
 # You will see the list of groups (communities/enterprises) that you are a member. The groups that you can manage are listed with a link "Manage". Assuming that you are a community administrator, click on "Manage" link. !=/images/doc/groups-list-with-manage-enterprise.en.png(Groups list with permission to manage community)!
 # Then, click on "Edit Appearance:  !=/images/doc/control-panel-enterprise-edit-appearance.en.png(Edit appearance on user control panel)!
 
-h2(#Description). Description
+h2(#description). Description
 
 # You will see the available templates:
 ## *default:* This template uses 3 columns.
@@ -23,7 +23,7 @@ h2(#Description). Description
 # You can change your template clicking on the link "Use this template"
 !=/images/doc/edit-appearance.en.png(Edit appearance)!
 
-h2(#RelatedTopics). Related topics
+h2(#relatedtopics). Related topics
 
 *  "Login into the system":/doc/user/login
 *  "Logout of the system":/doc/user/logout

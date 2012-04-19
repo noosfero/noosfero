@@ -2,17 +2,17 @@ h1(order-500). Editing sideboxes
 
 p.  _You can customize your page, changing the blocks that will be displayed on it._
 
-*  "How to access":#HowAccess
-*  "Description":#Description
-*  "Related topics":#RelatedTopics
+*  "How to access":#howaccess
+*  "Description":#description
+*  "Related topics":#relatedtopics
 
-h2(#HowAccess). How to access
+h2(#howaccess). How to access
 
 # Find you user menu on top bar:  !=/images/doc/system-homepage-top-menu.en.png(Top menu)!
 # In user menu, click on Control Panel:  !=/images/doc/menu-control-panel.en.png(Control panel on menu)!
 # Then, click on "Edit Sideboxes":  !=/images/doc/control-panel-user-edit-sideboxes.en.png(Edit sideboxes on user control panel)!
 
-h2(#Description). Description
+h2(#description). Description
 
 # The model of the page will be displayed, always with 3 columns. If you want to add a new block, click on "Add a block": !=/images/doc/user-edit-sideboxes.en.png(Edit sideboxes)!
 # You will see the blocks that you can add to your page: !=/images/doc/user-sideboxes-add-block.en.png(Add a block)!
@@ -48,7 +48,7 @@ h2(#Description). Description
 ***  *Remove block:* Remove the block from your page.
 ***  *Help on this block:* Display a message with a small description of the block.
 
-h2(#RelatedTopics). Related topics
+h2(#relatedtopics). Related topics
 
 *  "Editing header and footer":/doc/user/editing-header-footer
 *  "Editing appearance":/doc/user/editing-appearance

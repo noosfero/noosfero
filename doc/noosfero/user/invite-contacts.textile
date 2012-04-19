@@ -2,17 +2,17 @@ h1(order-440). Inviting contacts from e-mail
 
 p.  _You can invite e-mail contacts to be your friend on the system. If the e-mail is registered on the system, the user will receive an invitation through the system. If it is not registered, the user will receive an invitation on his e-mail._
 
-*  "How to access":#HowAccess
-*  "Description":#Description
-*  "Related topics":#RelatedTopics
+*  "How to access":#howaccess
+*  "Description":#description
+*  "Related topics":#relatedtopics
 
-h2(#HowAccess). How to access
+h2(#howaccess). How to access
 
 # Find your user menu on top bar:  !=/images/doc/system-homepage-top-menu.en.png(Top menu)!
 # In user menu, click on Control Panel:  !=/images/doc/control-panel-menu.en.png(Control panel menu)!
 # Then, click on "Manage friends"  !=/images/doc/manage-friends.en.png(Manage Friends)!
 
-h2(#Description). Description
+h2(#description). Description
 
 # You will your list of friends and the invitation button. Click on the button.
   !=/images/doc/user-friends-with-invitation-button.en.png(User's friends list)!
@@ -25,7 +25,7 @@ h2(#Description). Description
 *** You will also see your list of e-mails. Check the e-mails that you want to send an invitation.
 *** Clicking on "Personalize invitation mail", you can edit the text that will be sent. Then, click on "Invite my friends" !=/images/doc/user-import-invitation-step-2.en.png(Import invitation for user. Step 2)!
 
-h2(#RelatedTopics). Related topics
+h2(#relatedtopics). Related topics
 
 *  "Accepting friends":/doc/user/accepting-friends
 *  "Removing friends":/doc/user/removing-friends
