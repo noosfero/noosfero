@@ -268,20 +268,6 @@ class ApproveArticleTest < ActiveSupport::TestCase
     assert_equal 3, ActionTracker::Record.count
   end
 
-  should 'update activity on update of an article' do
-    ActionTracker::Record.delete_all
-    a = ApproveArticle.create!(:name => 'bar', :article => article, :target => community, :requestor => profile)
-    a.finish
-    published = community.articles.find_by_name(a.name)
-    time = published.activity.updated_at
-    Time.stubs(:now).returns(time + 1.day)
-    assert_no_difference ActionTracker::Record, :count do
-      published.name = 'foo'
-      published.save!
-    end
-    assert_equal time + 1.day, published.activity.updated_at
-  end
-
   should 'not create trackers activity when updating articles' do
     ActionTracker::Record.delete_all
     article1 = fast_create(TextileArticle)

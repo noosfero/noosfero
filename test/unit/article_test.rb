@@ -946,16 +946,14 @@ assert_equal 'bla', profile.articles.map(&:comments_count)
     p3 = fast_create(Person)
     community.add_member(p1)
     community.add_member(p2)
-    Article.destroy_all
-    ActionTracker::Record.destroy_all
     UserStampSweeper.any_instance.expects(:current_user).returns(p1).at_least_once
+
     article = create(TinyMceArticle, :profile_id => community.id)
+    activity = article.activity
 
     process_delayed_job_queue
-    assert_equal 3, ActionTrackerNotification.all
-    ActionTrackerNotification.all.map{|a|a.profile}.map do |profile|
-      assert [p1,p2,community].include?(profile)
-    end
+    assert_equal 3, ActionTrackerNotification.find_all_by_action_tracker_id(activity.id).count
+    assert_equivalent [p1,p2,community], ActionTrackerNotification.find_all_by_action_tracker_id(activity.id).map(&:profile)
   end
 
   should 'not track action when a published article is removed' do
@@ -963,17 +961,6 @@ assert_equal 'bla', profile.articles.map(&:comments_count)
     assert_no_difference ActionTracker::Record, :count do
       a.destroy
     end
-  end
-
-  should 'update action when article is updated' do
-    article = create(TinyMceArticle, :profile => profile)
-    action = ActionTracker::Record.last
-    time = action.updated_at
-
-    Time.stubs(:now).returns(time + 1.day)
-    article.name = 'New name'
-    article.save
-    assert_not_equal time, ActionTracker::Record.last.updated_at
   end
 
   should 'notifiable is false by default' do
@@ -1047,41 +1034,27 @@ assert_equal 'bla', profile.articles.map(&:comments_count)
     assert_equal false, a.is_trackable?
   end
 
-  should 'create the notification to the member when one member has the notification and the other no' do
+  should 'create the notification to organization and all organization members' do
     community = fast_create(Community)
-    p1 = Person.first || fast_create(Person)
-    community.add_member(p1)
-    assert p1.is_member_of?(community)
-    Article.destroy_all
-    ActionTracker::Record.destroy_all
+    member_1 = Person.first
+    community.add_member(member_1)
+
     article = TinyMceArticle.create! :name => 'Tracked Article 1', :profile_id => community.id
-    assert article.published?
-    assert_kind_of Community, article.profile
-    assert_equal 1, ActionTracker::Record.count
-    ta = ActionTracker::Record.first
-    assert_equal 'Tracked Article 1', ta.get_name.last
-    assert_equal article.url, ta.get_url.last
-    assert p1, ta.user
-    assert community, ta.target
-    process_delayed_job_queue
-    assert_equal 2, ActionTrackerNotification.count
+    first_activity = article.activity
+    assert_equal [first_activity], ActionTracker::Record.find_all_by_verb('create_article')
 
-    p2 = fast_create(Person)
-    community.add_member(p2)
     process_delayed_job_queue
-    assert_equal 5, ActionTrackerNotification.count
+    assert_equal 2, ActionTrackerNotification.find_all_by_action_tracker_id(first_activity.id).count
 
-    article = TinyMceArticle.create! :name => 'Tracked Article 2', :profile_id => community.id
-    assert article.published?
-    assert_kind_of Community, article.profile
-    assert_equal 3, ActionTracker::Record.count
-    ta = ActionTracker::Record.first
-    assert_equal 'Tracked Article 2', ta.get_name.last
-    assert_equal article.url, ta.get_url.last
-    assert_equal p1, ta.user
-    assert_equal community, ta.target
+    member_2 = fast_create(Person)
+    community.add_member(member_2)
+
+    article2 = TinyMceArticle.create! :name => 'Tracked Article 2', :profile_id => community.id
+    second_activity = article2.activity
+    assert_equivalent [first_activity, second_activity], ActionTracker::Record.find_all_by_verb('create_article')
+
     process_delayed_job_queue
-    assert_equal 6, ActionTrackerNotification.count
+    assert_equal 3, ActionTrackerNotification.find_all_by_action_tracker_id(second_activity.id).count
   end
 
   should 'create notifications to friends when creating an article' do
@@ -1098,12 +1071,10 @@ assert_equal 'bla', profile.articles.map(&:comments_count)
   end
 
   should 'create the notification to the friend when one friend has the notification and the other no' do
-    Article.destroy_all
-    ActionTracker::Record.destroy_all
-    ActionTrackerNotification.destroy_all
-
     f1 = fast_create(Person)
     profile.add_friend(f1)
+
+    UserStampSweeper.any_instance.expects(:current_user).returns(profile).at_least_once
     article = TinyMceArticle.create! :name => 'Tracked Article 1', :profile_id => profile.id
     assert_equal 1, ActionTracker::Record.find_all_by_verb('create_article').count
     process_delayed_job_queue

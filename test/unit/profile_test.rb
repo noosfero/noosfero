@@ -1763,6 +1763,7 @@ class ProfileTest < ActiveSupport::TestCase
     assert_raise NoMethodError do
       Profile::Roles.invalid_role(env.id)
     end
+  end
 
   should 'return empty array as activities' do
     profile = Profile.new
@@ -1770,7 +1771,6 @@ class ProfileTest < ActiveSupport::TestCase
   end
 
   private
-
 
   def assert_invalid_identifier(id)
     profile = Profile.new(:identifier => id)
