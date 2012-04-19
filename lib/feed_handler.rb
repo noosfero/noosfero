@@ -17,8 +17,10 @@ class FeedHandler
 
   # The maximum number
   cattr_accessor :max_errors
+  cattr_accessor :disabled_period
 
   self.max_errors = 6
+  self.disabled_period = 1.week
 
   def parse(content)
     raise FeedHandler::ParseError, "Content is nil" if content.nil?
@@ -52,6 +54,12 @@ class FeedHandler
     RAILS_DEFAULT_LOGGER.info("Processing %s with id = %d" % [container.class.name, container.id])
     begin
       container.class.transaction do
+        if container.update_errors > FeedHandler.max_errors && container.fetched_at < (Time.now - FeedHandler.disabled_period) then
+          container.enabled = true
+          container.update_errors = 0
+          container.save
+        end
+        next unless container.enabled
         actually_process_container(container)
         container.update_errors = 0
         container.finish_fetch
@@ -63,6 +71,7 @@ class FeedHandler
       container.update_errors += 1
       container.error_message = exception.to_s
       if container.update_errors > FeedHandler.max_errors
+        container.fetched_at = Time.now
         container.enabled = false
       end
       begin

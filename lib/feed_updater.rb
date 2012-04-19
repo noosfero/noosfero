@@ -72,7 +72,7 @@ class FeedUpdater
       if !running
         break
       end
-      source.enabled.expired.all.each do |container|
+      source.expired.all.each do |container|
         if !running
           break
         end

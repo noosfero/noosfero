@@ -112,6 +112,22 @@ class FeedHandlerTest < ActiveSupport::TestCase
       assert !container.error_message.blank?, 'must set error message in container after <max_errors> errors (%s)' % container_class
       assert !container.enabled, 'must disable continer after <max_errors> errors (%s)' % container_class
     end
+
+    should "reenable after <disabled_period> (#{container_class})" do
+      FeedHandler.stubs(:max_errors).returns(4)
+
+      container = create(container_class)
+      handler.stubs(:actually_process_container).with(container).raises(Exception.new("crash"))
+      # exceeds max_errors
+      5.times { handler.process(container) }
+
+      # after disabled period, tries to process the container again
+      last_error = Time.now
+      Time.stubs(:now).returns(last_error + FeedHandler.disabled_period + 1.second)
+      handler.process(container)
+
+      assert container.enabled, 'must reenable container after <disabled_period> (%s)' % container_class
+    end
   end
 
   should 'not crash even when finish fetch fails' do
