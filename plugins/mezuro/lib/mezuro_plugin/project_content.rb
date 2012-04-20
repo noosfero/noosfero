@@ -30,8 +30,8 @@ class MezuroPlugin::ProjectContent < Article
   end
   
   def get_date_result(date)
-  	client =  Kalibro::Client::ProjectResultClient.new
-  	@project_result ||= client.has_results_before(name, date) ? client.last_result_before(name, date) : client.first_result_after(name, date)
+#client =  Kalibro::Client::ProjectResultClient.new
+  	@project_result ||= Kalibro::Client::ProjectResultClient.has_results_before(name, date) ? Kalibro::Client::ProjectResultClient.last_result_before(name, date) : Kalibro::Client::ProjectResultClient.first_result_after(name, date)
   end
 
   def module_result(module_name)
