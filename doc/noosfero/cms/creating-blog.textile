@@ -2,11 +2,11 @@ h1(order-320). Creating a blog
 
 p.  _You can have a blog in your system._
 
-*  "How to access":#HowAccess
-*  "Description":#Description
-*  "Related topics":#RelatedTopics
+*  "How to access":#howaccess
+*  "Description":#description
+*  "Related topics":#relatedtopics
 
-h2(#HowAccess). How to access
+h2(#howaccess). How to access
 
 # Find your menu on top bar:  !=/images/doc/system-homepage-top-menu.en.png(Top menu)!
 # In user menu, click on Control Panel:  !=/images/doc/menu-control-panel.en.png(Control panel on menu)!
@@ -14,7 +14,7 @@ h2(#HowAccess). How to access
 
 
 
-h2(#Description). Description
+h2(#description). Description
 
 Fill in the form and click on Save  !=/images/doc/cms-blog-creation.en.png(Creation of a blog)!
 
@@ -27,7 +27,7 @@ Fill in the form and click on Save  !=/images/doc/cms-blog-creation.en.png(Creat
 # Select this option if you want to import your posts from an external feed. If you selected the option, you should fill in the field with the feed address and choose if you want to import the posts periodically or just once.
 # Fill in with the blog's tags.
 
-h2(#RelatedTopics). Related topics
+h2(#relatedtopics). Related topics
 
 *  "Managing your content":/doc/cms/managing-content
 *  "Posting on blog":/doc/cms/posting-on-blog

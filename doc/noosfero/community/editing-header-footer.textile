@@ -2,11 +2,11 @@ h1(order-170). Editing header and footer
 
 p.  _You can customize the page of your community, adding some text or image on header or footer._
 
-*  "How to access":#HowAccess
-*  "Description":#Description
-*  "Related topics":#RelatedTopics
+*  "How to access":#howaccess
+*  "Description":#description
+*  "Related topics":#relatedtopics
 
-h2(#HowAccess). How to access
+h2(#howaccess). How to access
 
 # Find you user menu on top bar:  !=/images/doc/system-homepage-top-menu.en.png(Top menu)!
 # In user menu, click on Control Panel:  !=/images/doc/menu-control-panel.en.png(Control panel on menu)!
@@ -14,7 +14,7 @@ h2(#HowAccess). How to access
 # You will see the list of groups (communities/enterprises) that you are a member. The groups that you can manage are listed with a link "Manage". Assuming that you are a community administrator, click on "Manage" link. !=/images/doc/groups-list-with-manage-community.en.png(Groups list with permission to manage community)!
 # Then, click on "Edit Header and Footer":  !=/images/doc/control-panel-community-edit-header-footer.en.png(Edit header and footer on community control panel)!
 
-h2(#Description). Description
+h2(#description). Description
 
 # You will see 2 boxes. In the first box, add the content of your header, that will be displayed on the top of your page. In the second box, add the content of your footer, that will be displayed on the bottom of your page.
 # On the top of both boxes you will see some buttons, that will help you formatting your text. Passing mouse over the button, the name of the button function is displayed.  !=/images/doc/wysiwyg-buttons.en.png(WYSIWYG buttons)!
@@ -46,7 +46,7 @@ h2(#Description). Description
 ###  *Edit HTML source:* the text written in this editor is transformed in HTML code, to be viewed on browsers. Use this button to view/edit the HTML code of your header/footer.
 # After editing your header and footer, click on "Save" button !=/images/doc/edit-header-footer.en.png(Editing header and footer)!
 
-h2(#RelatedTopics). Related topics
+h2(#relatedtopics). Related topics
 
 *  "Login into the system":/doc/user/login
 *  "Logout of the system":/doc/user/logout

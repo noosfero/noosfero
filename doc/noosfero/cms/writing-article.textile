@@ -2,17 +2,17 @@ h1(order-300). Writing an article
 
 p.  _To publish your articles you can create an aticle, as explained below._
 
-*  "How to access":#HowAccess
-*  "Description":#Description
-*  "Related topics":#RelatedTopics
+*  "How to access":#howaccess
+*  "Description":#description
+*  "Related topics":#relatedtopics
 
-h2(#HowAccess). How to access
+h2(#howaccess). How to access
 
 # Find your menu on top bar:  !=/images/doc/system-homepage-top-menu.en.png(Top menu)!
 # In user menu, click on Control Panel:  !=/images/doc/menu-control-panel.en.png(Control panel on menu)!
 # Then, click on "Manage content":  !=/images/doc/control-panel-content-management.en.png(Manage content in control panel)!
 
-h2(#Description). Description
+h2(#description). Description
 
 # Click on "New article" button:  !=/images/doc/cms-new-article.en.png(New article on CMS)!
 # There are four options of article that you can create after clicking on "New article" button:
@@ -63,7 +63,7 @@ h2(#Description). Description
 ## Display the number of article's visualizations
 # Then, click on "Save" button and the article will be created.
 
-h2(#RelatedTopics). Related topics
+h2(#relatedtopics). Related topics
 
 *  "Spreading an article":/doc/cms/spreading-articles
 *  "Writing advanced articles":/doc/cms/writing-advanced-article

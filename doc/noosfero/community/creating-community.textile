@@ -2,17 +2,17 @@ h1(order-110). Creating a community
 
 p.  _You can create communities to interact to others users_
 
-*  "How to access":#HowAccess
-*  "Description":#Description
-*  "Related topics":#RelatedTopics
+*  "How to access":#howaccess
+*  "Description":#description
+*  "Related topics":#relatedtopics
 
-h2(HowAccess). How to access
+h2(#howaccess). How to access
 
 # Find you user menu on top bar:  !=/images/doc/system-homepage-top-menu.en.png(Top menu)!
 # In user menu, click on Control Panel  !=/images/doc/menu-control-panel.en.png(Control panel on menu)!
 # Then, click on "Manage my groups":  !=/images/doc/control-panel-manage-groups.en.png(Manage groups in control panel)!
 
-h2(#Description). Description
+h2(#description). Description
 
 # Find the button "Create a new community" and click on it. !=/images/doc/groups-list-with-create-community.en.png(Groups list)!
 # You will see a form to be filled with the community information. !=/images/doc/community-creation-form.en.png(Form for creation of a community)!
@@ -23,7 +23,7 @@ h2(#Description). Description
 ## After filling the fields, click on "Create" button.
 # If allowed by the environment, the community will be already created. Otherwise, the environment administrator will need to approve/deny the new community.
 
-h2(#RelatedTopics). Related topics
+h2(#relatedtopics). Related topics
 
 *  "Login into the system":/doc/user/login
 

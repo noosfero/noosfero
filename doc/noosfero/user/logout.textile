@@ -2,20 +2,20 @@ h1(order-430). Leaving the system
 
 p.  _After finishing your navigation, we recommend leaving the system._
 
-*  "How to access":#HowAccess
-*  "Description":#Description
-*  "Related Topics":#RelatedTopics
+*  "How to access":#howaccess
+*  "Description":#description
+*  "Related Topics":#relatedtopics
 
-h2(#HowAccess). How to access
+h2(#howaccess). How to access
 
 # Find your user menu on top bar:  !=/images/doc/system-homepage-top-menu.en.png(Top menu)!
 # In user menu, click on "Logout"  !=/images/doc/menu-logout.en.png(Menu with logout)!
 
-h2(#Description). Description
+h2(#description). Description
 
 p. After clicking the button, you will be logged out of the system
 
-h2(#RelatedTopics). Related topics
+h2(#relatedtopics). Related topics
 
 *  "Login into the system":/doc/user/login
 
