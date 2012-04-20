@@ -1,2 +1,1 @@
-page.visual_effect :toggle_slide, "range_form"
-page.insert_html :bottom, "ranges", :partial => "range", :locals => {:range => @range}
+page.reload()

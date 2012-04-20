@@ -72,7 +72,9 @@ class MezuroPluginProfileController < ProfileController
 
   def update_metric_configuration
     @configuration_name = params[:configuration_name]
-    metric_configuration = new_metric_configuration_instance
+    metric_name = params[:metric][:name]
+    metric_configuration = Kalibro::Client::MetricConfigurationClient.new.metric_configuration(@configuration_name, metric_name)  
+    assign_metric_configuration_instance (metric_configuration)
     Kalibro::Client::MetricConfigurationClient.new.save(metric_configuration, @configuration_name)
     redirect_to "/#{profile.identifier}/#{@configuration_name.downcase.gsub(/\s/, '-')}"
   end
@@ -112,9 +114,6 @@ class MezuroPluginProfileController < ProfileController
     index = metric_configuration.ranges.index{ |range| range.beginning == beginning_id.to_f }
     metric_configuration.ranges[index] = new_range_instance
     Kalibro::Client::MetricConfigurationClient.new.save(metric_configuration, configuration_name)
-    formatted_configuration_name = configuration_name.gsub(/\s/, '+')
-    formatted_metric_name = metric_name.gsub(/\s/, '+')
-    redirect_to "/profile/#{profile.identifier}/plugins/mezuro/edit_metric_configuration?configuration_name=#{formatted_configuration_name}&metric_name=#{formatted_metric_name}"
   end
   
   def remove_range
@@ -127,8 +126,7 @@ class MezuroPluginProfileController < ProfileController
     Kalibro::Client::MetricConfigurationClient.new.save(metric_configuration, configuration_name)
     formatted_configuration_name = configuration_name.gsub(/\s/, '+')
     formatted_metric_name = metric_name.gsub(/\s/, '+')
-    #FIXME não está redirecionando
-    redirect "/profile/#{profile.identifier}/plugins/mezuro/edit_metric_configuration?configuration_name=#{formatted_configuration_name}&metric_name=#{formatted_metric_name}"
+    redirect_to "/profile/#{profile.identifier}/plugins/mezuro/edit_metric_configuration?configuration_name=#{formatted_configuration_name}&metric_name=#{formatted_metric_name}"
   end
 
   def remove_metric_configuration
@@ -143,6 +141,10 @@ class MezuroPluginProfileController < ProfileController
   def new_metric_configuration_instance
     metric_configuration = Kalibro::Entities::MetricConfiguration.new
     metric_configuration.metric = Kalibro::Entities::NativeMetric.new
+    assign_metric_configuration_instance (metric_configuration)
+  end
+
+  def assign_metric_configuration_instance (metric_configuration)   
     metric_configuration.metric.name = params[:metric][:name]
     metric_configuration.metric.description = params[:description]
     metric_configuration.metric.origin = params[:metric][:origin]
@@ -150,7 +152,7 @@ class MezuroPluginProfileController < ProfileController
     metric_configuration.metric.language = params[:language]
     metric_configuration.code = params[:metric_configuration][:code]
     metric_configuration.weight = params[:metric_configuration][:weight]
-    metric_configuration.aggregation_form = params[:metric_configuration][:aggregation]
+    metric_configuration.aggregation_form = params[:metric_configuration][:aggregation_form]
     metric_configuration
   end
 

@@ -1,2 +1,2 @@
-page.replace_html 'range_form', :partial => "new_range", :locals => {:metric_name => @metric_name, :configuration_name => @configuration_name }
+page.replace_html 'range_form', :partial => "new_range", :locals => {:metric_name => @metric_name, :configuration_name => @configuration_name, :beginning_id => "bolinha" }
 page.visual_effect :slide_down, "range_form"
