@@ -1306,7 +1306,7 @@ class ProfileControllerTest < ActionController::TestCase
     count = activity.comments.count
 
     assert_equal 0, count
-    post :leave_comment_on_activity, :profile => profile.identifier, :comment => {:body => 'something', :source_id => activity.id}
+    post :leave_comment_on_activity, :profile => profile.identifier, :comment => {:body => 'something'}, :source_id => activity.id
     assert_equal count + 1, activity.comments.count
     assert_response :success
     assert_equal "Comment successfully added.", assigns(:message)
@@ -1318,9 +1318,9 @@ class ProfileControllerTest < ActionController::TestCase
     TinyMceArticle.create!(:profile => another_person, :name => 'An article about free software')
     activity = ActionTracker::Record.last
     count = activity.comments.count
-
+puts activity.inspect
     assert_equal 0, count
-    post :leave_comment_on_activity, :profile => another_person.identifier, :comment => {:body => 'something', :source_id => activity.id}
+    post :leave_comment_on_activity, :profile => another_person.identifier, :comment => {:body => 'something'}, :source_id => activity.id
     assert_equal count + 1, activity.comments.count
     assert_response :success
     assert_equal "Comment successfully added.", assigns(:message)

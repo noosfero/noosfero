@@ -122,4 +122,15 @@ class ForumTest < ActiveSupport::TestCase
     f = fast_create(Forum, :body => 'Nothing to do here')
     assert_equal '', f.first_paragraph
   end
+
+  should 'provide first_paragraph even if body was not given' do
+    f = fast_create(Forum)
+    assert_equal '', f.first_paragraph
+  end
+
+  should 'provide first_paragraph even if body is nil' do
+    f = fast_create(Forum, :body => nil)
+    assert_equal '', f.first_paragraph
+  end
+
 end

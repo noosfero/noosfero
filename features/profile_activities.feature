@@ -7,15 +7,17 @@ Feature: list activities of a profile
       | login     | name       |
       | joaosilva | Joao Silva |
     And the following articles
-      | owner   | name                 | body            |
-      | booking | article to comment   | first paragraph |
+      | owner     | name                 | body            |
+      | joaosilva | article to comment   | first paragraph |
     And the following comments
-      | article              | author  | title | body         |
-      | article with comment | booking | hi    | how are you? |
+      | article              | author    | title | body         |
+      | article to comment | joaosilva | hi    | how are you? |
 
   Scenario: see the activity of a profile
     Given I am logged in as "joaosilva"
-    When I go to Jose Silva's homepage
+    When I go to Joao Silva's homepage
+#Não tá rodando o delayed job :(
+Then I should see "dkjfhv"
     Then I should see "first paragraph" within ".profile-activity-item"
     And I should see "how are you?" within ".profile-wall-activities-comments"
 
