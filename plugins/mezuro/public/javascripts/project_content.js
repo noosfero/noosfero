@@ -1,14 +1,27 @@
 var processingTree = false;
+var metricName;
 jQuery(function (){
   jQuery('.source-tree-link').live("click", reloadModule);
   jQuery('[data-show]').live("click", toggle_mezuro);
-  jQuery('#project_history_date').live("submit", reloadProjectWithDate);
+  jQuery('[show-metric-history]').live("click", display_metric_history);
   showLoadingProcess(true);
   showProjectContent();
 });
 
 function showProjectContent() {
   callAction('project_state', {}, showProjectContentFor);
+}
+
+function display_metric_history() {
+  var module_name = jQuery(this).attr('data-module-name');
+  var metric_name = jQuery(this).attr('data-metric-name');
+  metricName = metric_name;
+  callAction('module_metrics_history', {module_name: module_name, metric_name: metric_name}, show_metrics);
+  return false;
+}
+
+function show_metrics(content) {
+  jQuery('#historical-' + metricName).html(content);
 }
 
 function toggle_mezuro(){

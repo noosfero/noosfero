@@ -46,17 +46,35 @@ class ProjectContentTest < ActiveSupport::TestCase
   should 'get module result from service' do
     module_name = 'My module name'
     module_result = mock
-    Kalibro::Client::ModuleResultClient.expects(:module_result).with(@content, module_name).
+	module_result_client = mock
+	project_result = mock
+	@content.expects(:project_result).returns(project_result)
+    project_result.expects(:date).returns('12/04/2012')
+	@content.expects(:module_result_client).returns(module_result_client)
+    module_result_client.expects(:module_result).with(@project.name, module_name, '12/04/2012').
       returns(module_result)
     assert_equal module_result, @content.module_result(module_name)
   end
 
-  should 'get module result root when project name is give' do
+  should 'get module result root when nil is given' do
     module_result = mock
-    Kalibro::Client::ModuleResultClient.expects(:module_result).with(@content, @project.name).
+	module_result_client = mock
+	project_result = mock
+	@content.expects(:project_result).returns(project_result)
+    project_result.expects(:date).returns('12/04/2012')
+	@content.expects(:module_result_client).returns(module_result_client)
+    module_result_client.expects(:module_result).with(@project.name, @project.name, '12/04/2012').
       returns(module_result)
-    assert_equal module_result, @content.module_result(@project.name)
-  end  
+    assert_equal module_result, @content.module_result(nil)
+  end
+
+  should 'get result history' do
+    module_name = 'Qt-Calculator'
+	module_result_client = mock
+	@content.expects(:module_result_client).returns(module_result_client)
+    module_result_client.expects(:result_history).with(@project.name, module_name)
+	@content.result_history(module_name)
+  end
 
   should 'send project to service after saving' do
     @content.expects :send_project_to_service

@@ -35,7 +35,16 @@ class MezuroPlugin::ProjectContent < Article
   end
 
   def module_result(module_name)
-    @module_client ||= Kalibro::Client::ModuleResultClient.module_result(self, module_name)
+    module_name = project.name if module_name.nil?      
+    @module_client ||= module_result_client.module_result(project.name, module_name, project_result.date)
+  end
+
+  def result_history(module_name)
+    @result_history ||= module_result_client.result_history(project.name, module_name)
+  end
+
+  def module_result_client
+    @module_result_client ||= Kalibro::Client::ModuleResultClient.new
   end
 
   after_save :send_project_to_service

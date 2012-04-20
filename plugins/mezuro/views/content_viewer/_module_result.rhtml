@@ -17,21 +17,24 @@
   <tbody>
     <% module_result.metric_results.each do |metric_result|  %>
       <% range = metric_result.range %>
-      <tr>
-        <td><a href="#" data-show=".<%= metric_result.metric.name.delete("() ")%>"><%= metric_result.metric.name %></a></td>
-        <td><%= "%.02f" % metric_result.value %></td>
-        <td><%= metric_result.weight %></td>
-        <% if range.nil? %>
-          <td></td>
-        <% else %>
+      <% if !range.nil? %>
+        <tr>
+          <td><a href="#" data-show=".<%= metric_result.metric.name.delete("() ")%>"><%= metric_result.metric.name %></a></td>
+          <td><%= MezuroPlugin::Helpers::ContentViewerHelper.format_grade(metric_result.value) %></td>
+          <td><%= metric_result.weight %></td>
           <td style="background-color: #<%= range.color[2..-1] %>"><%= range.label %></td>
-        <% end %>
-      </tr>
-      <tr class="<%= metric_result.metric.name.delete("() ")%>" style="display: none;">
-      	<td colspan="4" align="right">
-      	  <%= range.nil? or range.comments.nil? ? 'comment empty' : range.comments %>
-      	</td>      
-      </tr>
+        </tr>	  
+        <tr class="<%= metric_result.metric.name.delete("() ")%>" style="display: none;">
+          <td colspan="4">
+		    <div id='historical-<%= metric_result.metric.name.delete("() ") %>'>
+            <a href="#" show-metric-history="<%= metric_result.metric.name.delete("() ") %>" data-module-name="<%= the_module.name %>" data-metric-name="<%= metric_result.metric.name.delete("() ") %>"> <p style="text-indent: 3em;"> Draw Historical Graphic </p> </a>
+		    </div>
+          </td>
+          <td colspan="3" align="right">
+            <%= range.comments.nil? ? '' : range.comments %>
+          </td> 
+        </tr>
+	  <% end %>
     <% end %>
   </tbody>
   <tfoot>
