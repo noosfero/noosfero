@@ -4,7 +4,7 @@ require 'catalog_controller'
 # Re-raise errors caught by the controller.
 class CatalogController; def rescue_action(e) raise e end; end
 
-class CatalogControllerTest < Test::Unit::TestCase
+class CatalogControllerTest < ActionController::TestCase
   def setup
     @controller = CatalogController.new
     @request    = ActionController::TestRequest.new
@@ -26,7 +26,7 @@ class CatalogControllerTest < Test::Unit::TestCase
   should 'not display for non-enterprises' do
     u = create_user('testinguser').person
     get :index, :profile => 'testinguser'
-    assert_redirected_to :controller => "profile", :profile => 'testinguser'
+    assert_redirected_to :controller => "profile", :profile => 'testinguser', :action => 'index'
   end
 
   should 'display for enterprises' do
@@ -46,7 +46,7 @@ class CatalogControllerTest < Test::Unit::TestCase
 
     assert_equal 12, @enterprise.products.count
     get :index, :profile => @enterprise.identifier
-    assert_equal 10, assigns(:products).count
+    assert_equal 9, assigns(:products).count
     assert_tag :a, :attributes => {:class => 'next_page'}
   end
 
@@ -63,21 +63,13 @@ class CatalogControllerTest < Test::Unit::TestCase
   should 'not show product price when listing products if not informed' do
     prod = @enterprise.products.create!(:name => 'Product test', :product_category => @product_category)
     get :index, :profile => @enterprise.identifier
-    assert_no_tag :tag => 'li', :attributes => { :class => 'product_price' }, :content => /Price:/
+    assert_no_tag :tag => 'span', :attributes => { :class => 'product-price with-discount' }, :content => /50.00/
   end
 
   should 'show product price when listing products if informed' do
     prod = @enterprise.products.create!(:name => 'Product test', :price => 50.00, :product_category => @product_category)
     get :index, :profile => @enterprise.identifier
-    assert_tag :tag => 'li', :attributes => { :class => 'product_price' }, :content => /Price:/
-  end
-
-  should 'link to assets products wiht product category in the link to product category on index' do
-    pc = ProductCategory.create!(:name => 'some product', :environment => enterprise.environment)
-    prod = enterprise.products.create!(:name => 'Product test', :price => 50.00, :product_category => pc)
-
-    get :index, :profile => enterprise.identifier
-    assert_tag :tag => 'a', :attributes => {:href => /assets\/products\?product_category=#{pc.id}/}
+    assert_tag :tag => 'span', :attributes => { :class => 'product-price with-discount' }, :content => /50.00/
   end
 
   should 'add an zero width space every 4 caracters of comment urls' do

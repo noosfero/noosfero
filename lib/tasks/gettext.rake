@@ -2,14 +2,13 @@
 # Added for Ruby-GetText-Package
 #
 
-require 'noosfero'
-
 makemo_stamp = 'tmp/makemo.stamp'
 desc "Create mo-files for L10n"
 task :makemo => makemo_stamp
 file makemo_stamp => Dir.glob('po/*/noosfero.po') do
-  ruby '-rconfig/boot -rgettext -rgettext/utils -e \'GetText.create_mofiles(true, "po", "locale")\' 2>/dev/null'
+  ruby '-rconfig/boot -e \'require "gettext"; require "gettext/utils"; GetText.create_mofiles(true, "po", "locale")\' 2>/dev/null'
   Rake::Task['symlinkmo'].invoke
+  FileUtils.mkdir_p 'tmp'
   FileUtils.touch makemo_stamp
 end
 
@@ -22,11 +21,11 @@ task :symlinkmo do
   langmap = {
     'pt' => 'pt_BR',
   }
-  FileUtils.mkdir_p(Rails.root + '/locale')
-  Dir.glob(Rails.root + '/locale/*').each do |dir|
+  mkdir_p(File.join(Rails.root, 'locale'))
+  Dir.glob(File.join(Rails.root, 'locale/*')).each do |dir|
     lang = File.basename(dir)
     orig_lang = langmap[lang] || lang
-    FileUtils.mkdir_p("#{Rails.root}/locale/#{lang}/LC_MESSAGES")
+    mkdir_p("#{Rails.root}/locale/#{lang}/LC_MESSAGES")
     ['iso_3166', 'rails'].each do |domain|
       origin = "/usr/share/locale/#{orig_lang}/LC_MESSAGES/#{domain}.mo"
       target = "#{Rails.root}/locale/#{lang}/LC_MESSAGES/#{domain}.mo"
@@ -39,23 +38,14 @@ end
 
 desc "Update pot/po files to match new version."
 task :updatepo do
-  require 'gettext'
-  require 'gettext/rails'
-  require 'gettext/utils'
+  require 'gettext_rails/tools'
+  require 'noosfero'
+
   GetText::RubyParser::ID << '__'
   GetText::RubyParser::PLURAL_ID << 'n__'
   GetText::ActiveRecordParser.init(:use_classname => false)
 
-  module GetText
-    module_function
-    def update_pofiles(textdomain, files, app_version, po_root = "po", refpot = "tmp.pot")
-      rgettext(files, refpot)
-      system("mv tmp.pot tmp2.pot; msguniq -o tmp.pot tmp2.pot; rm -f tmp2.pot")
-      msgmerge_all(textdomain, app_version, po_root, refpot)
-      File.delete(refpot)
-    end
-  end
-
+  puts 'Extracting strings from source. This may take a while ...'
   sources =
     Dir.glob("{app,lib}/**/*.{rb,rhtml,erb}") +
     Dir.glob("plugins/**/*.{rb,rhtml,erb}") +

@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2011-08-16 16:18-0300\n"
+"POT-Creation-Date: 2012-01-27 01:27-0100\n"
 "PO-Revision-Date: 2010-01-27 09:32-0300\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -531,6 +531,8 @@ msgstr ""
 
 # type: Content of: <h2>
 #: doc/noosfero/plugins/send_email.en.xhtml:6
+#: doc/noosfero/plugins/google_analytics.en.xhtml:6
+#: doc/noosfero/plugins/google_cse.en.xhtml:6
 msgid "Usage"
 msgstr ""
 
@@ -666,6 +668,7 @@ msgstr ""
 
 # type: Content of: <h2>
 #: doc/noosfero/plugins/send_email.en.xhtml:73
+#: doc/noosfero/plugins/google_analytics.en.xhtml:26
 msgid "Info"
 msgstr ""
 
@@ -674,6 +677,94 @@ msgstr ""
 msgid ""
 "This plugin was inspired by <a href=\"http://foswiki.org/Extensions/"
 "SendEmailPlugin\">Foswiki SendEmailPlugin</a>"
+msgstr ""
+
+# type: Content of: <h1>
+#: doc/noosfero/plugins/google_analytics.en.xhtml:1
+msgid "Google Analytics"
+msgstr ""
+
+# type: Content of: <p>
+#: doc/noosfero/plugins/google_analytics.en.xhtml:3
+msgid "Tracking and web analytics for people and communities."
+msgstr ""
+
+# type: Content of: <p>
+#: doc/noosfero/plugins/google_analytics.en.xhtml:8
+msgid "Create and configure Google Analytics account following these steps:"
+msgstr ""
+
+# type: Content of: <ol><li>
+#: doc/noosfero/plugins/google_analytics.en.xhtml:12
+msgid "Open <a href=\"http://www.google.com/analytics/\">Google Analytics</a>"
+msgstr ""
+
+# type: Attribute 'alt' of: <ol><li><div><img>
+#: doc/noosfero/plugins/google_analytics.en.xhtml:13
+msgid "Google Setup - Step 1"
+msgstr ""
+
+# type: Content of: <ol><li>
+#: doc/noosfero/plugins/google_analytics.en.xhtml:14
+msgid "Sign in to Google Analytics"
+msgstr ""
+
+# type: Attribute 'alt' of: <ol><li><div><img>
+#: doc/noosfero/plugins/google_analytics.en.xhtml:15
+msgid "Google Setup - Step 2"
+msgstr ""
+
+# type: Content of: <ol><li>
+#: doc/noosfero/plugins/google_analytics.en.xhtml:16
+msgid "Follow signup instructions"
+msgstr ""
+
+# type: Attribute 'alt' of: <ol><li><div><img>
+#: doc/noosfero/plugins/google_analytics.en.xhtml:17
+msgid "Google Setup - Step 3"
+msgstr ""
+
+# type: Content of: <ol><li>
+#: doc/noosfero/plugins/google_analytics.en.xhtml:18
+msgid ""
+"Fill in <em>Website&#8217;s <span class=\"caps\">URL</span></em> with your "
+"profile address (eg.: softwarelivre.org/joenio), <em>Account Name</em> with "
+"your name and read and accept terms of use"
+msgstr ""
+
+# type: Attribute 'alt' of: <ol><li><div><img>
+#: doc/noosfero/plugins/google_analytics.en.xhtml:19
+msgid "Google Setup - Step 4"
+msgstr ""
+
+# type: Content of: <ol><li>
+#: doc/noosfero/plugins/google_analytics.en.xhtml:20
+msgid ""
+"Accept default options, save and take note of your <em>Web Property ID</em> "
+"(eg.: UA-23455430-3)"
+msgstr ""
+
+# type: Attribute 'alt' of: <ol><li><div><img>
+#: doc/noosfero/plugins/google_analytics.en.xhtml:21
+msgid "Google Setup - Step 5"
+msgstr ""
+
+# type: Content of: <ol><li>
+#: doc/noosfero/plugins/google_analytics.en.xhtml:22
+msgid ""
+"Login to Noosfero, go to your control panel, follow <em>Edit Profile</em> "
+"and fill in <em>Google Analytics Profile ID</em> with ID above"
+msgstr ""
+
+# type: Attribute 'alt' of: <ol><li><div><img>
+#: doc/noosfero/plugins/google_analytics.en.xhtml:23
+msgid "Google Setup - Step 6"
+msgstr ""
+
+# type: Content of: <ul><li>
+#: doc/noosfero/plugins/google_analytics.en.xhtml:29
+msgid ""
+"<a href=\"http://support.google.com/analytics\">Google Analytics Support</a>"
 msgstr ""
 
 # type: Content of: <h1>
@@ -1027,6 +1118,60 @@ msgid ""
 "an email with your request so that you can confirm the products and your "
 "informations. Now the enterprise might contact you to discuss further "
 "details."
+msgstr ""
+
+# type: Content of: <h1>
+#: doc/noosfero/plugins/google_cse.en.xhtml:1
+msgid "GoogleCsePlugin"
+msgstr ""
+
+# type: Content of: <p>
+#: doc/noosfero/plugins/google_cse.en.xhtml:3
+msgid ""
+"A plugin that uses the Google Custom Search as Noosfero general search "
+"engine."
+msgstr ""
+
+# type: Content of: <ul><li>
+#: doc/noosfero/plugins/google_cse.en.xhtml:9
+msgid ""
+"Register a Google Custom Search ID at <a href=\"http://www.google.com/cse"
+"\">http://www.google.com/cse</a>"
+msgstr ""
+
+# type: Content of: <ul><li>
+#: doc/noosfero/plugins/google_cse.en.xhtml:10
+msgid ""
+"Set at least basic config, site list and look and fell of your Google Cse ID"
+msgstr ""
+
+# type: Content of: <ul><li>
+#: doc/noosfero/plugins/google_cse.en.xhtml:11
+msgid "Configure Noosfero environment with this ID"
+msgstr ""
+
+# type: Content of: <ul><li><ul><li>
+#: doc/noosfero/plugins/google_cse.en.xhtml:13
+msgid ">> env = Environment.find( ... )"
+msgstr ""
+
+# type: Content of: <ul><li><ul><li>
+#: doc/noosfero/plugins/google_cse.en.xhtml:14
+msgid ""
+">> env.settings[:google_cse_id] = &#8217;&lt;PUT <span class=\"caps\">ID "
+"HERE</span>&gt;&#8217;"
+msgstr ""
+
+# type: Content of: <ul><li><ul><li>
+#: doc/noosfero/plugins/google_cse.en.xhtml:15
+msgid ">> env.save!"
+msgstr ""
+
+# type: Content of: <ul><li>
+#: doc/noosfero/plugins/google_cse.en.xhtml:17
+msgid ""
+"That&#8217;s all! The top search text-field of Noosfero will be used to make "
+"searches"
 msgstr ""
 
 # type: Content of: <h1>
@@ -6092,6 +6237,16 @@ msgstr ""
 
 # type: Content of: <ul><li>
 #: doc/noosfero/plugins/toc.en.xhtml:4
+msgid "<a href=\"/doc/plugins/google_analytics\">Google Analytics</a>"
+msgstr ""
+
+# type: Content of: <ul><li>
+#: doc/noosfero/plugins/toc.en.xhtml:5
+msgid "<a href=\"/doc/plugins/google_cse\">GoogleCsePlugin</a>"
+msgstr ""
+
+# type: Content of: <ul><li>
+#: doc/noosfero/plugins/toc.en.xhtml:6
 msgid "<a href=\"/doc/plugins/shopping_cart\">Shopping Cart</a>"
 msgstr ""
 

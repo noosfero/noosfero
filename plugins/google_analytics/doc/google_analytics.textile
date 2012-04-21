@@ -1,0 +1,24 @@
+h1. Google Analytics
+
+Tracking and web analytics for people and communities.
+
+h2. Usage
+
+Create and configure Google Analytics account following these steps:
+
+# Open "Google Analytics":http://www.google.com/analytics/
+!=/plugins/google_analytics/images/doc/google-analytics-setup-step1.en.png(Google Setup - Step 1)!
+# Sign in to Google Analytics
+!=/plugins/google_analytics/images/doc/google-analytics-setup-step2.en.png(Google Setup - Step 2)!
+# Follow signup instructions
+!=/plugins/google_analytics/images/doc/google-analytics-setup-step3.en.png(Google Setup - Step 3)!
+# Fill in _Website's URL_ with your profile address (eg.: softwarelivre.org/joenio), _Account Name_ with your name and read and accept terms of use
+!=/plugins/google_analytics/images/doc/google-analytics-setup-step4.en.png(Google Setup - Step 4)!
+# Accept default options, save and take note of your _Web Property ID_ (eg.: UA-23455430-3)
+!=/plugins/google_analytics/images/doc/google-analytics-setup-step5.en.png(Google Setup - Step 5)!
+# Login to Noosfero, go to your control panel, follow _Edit Profile_ and fill in _Google Analytics Profile ID_ with ID above
+!=/plugins/google_analytics/images/doc/google-analytics-setup-step6.en.png(Google Setup - Step 6)!
+
+h2. Info
+
+* "Google Analytics Support":http://support.google.com/analytics

@@ -31,14 +31,6 @@ class ContentViewerController < ApplicationController
       end
     end
 
-    if !@page.public? && !request.ssl?
-      return if redirect_to_ssl
-    end
-
-    if @page.public?
-      return unless avoid_ssl
-    end
-
     if !@page.display_to?(user)
       if profile.display_info_to?(user) || !profile.visible?
         message = _('You are not allowed to view this content. You can contact the owner of this profile to request access then.')
@@ -54,7 +46,7 @@ class ContentViewerController < ApplicationController
       return
     end
 
-    redirect_to_translation
+    redirect_to_translation if @page.profile.redirect_l10n
 
     # At this point the page will be showed
     @page.hit
@@ -119,7 +111,11 @@ class ContentViewerController < ApplicationController
   def add_comment
     @comment.author = user if logged_in?
     @comment.article = @page
-    if (logged_in? || @comment.reply_of_id || verify_recaptcha(:model => @comment, :message => _('Please type the words correctly'))) && @comment.save
+    @comment.ip_address = request.remote_ip
+    plugins_filter_comment(@comment)
+    return if @comment.rejected?
+    if (pass_without_comment_captcha? || verify_recaptcha(:model => @comment, :message => _('Please type the words correctly'))) && @comment.save
+      plugins_comment_saved(@comment)
       @page.touch
       @comment = nil # clear the comment form
       redirect_to :action => 'view_page', :profile => params[:profile], :page => @page.explode_path, :view => params[:view]
@@ -127,6 +123,23 @@ class ContentViewerController < ApplicationController
       @form_div = 'opened' if params[:comment][:reply_of_id].blank?
     end
   end
+
+  def plugins_filter_comment(comment)
+    @plugins.each do |plugin|
+      plugin.filter_comment(comment)
+    end
+  end
+
+  def plugins_comment_saved(comment)
+    @plugins.each do |plugin|
+      plugin.comment_saved(comment)
+    end
+  end
+
+  def pass_without_comment_captcha?
+    logged_in? && !environment.enabled?('captcha_for_logged_users')
+  end
+  helper_method :pass_without_comment_captcha?
 
   def remove_comment
     @comment = @page.comments.find(params[:remove_comment])

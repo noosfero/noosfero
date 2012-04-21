@@ -4,7 +4,7 @@ require 'search_controller'
 # Re-raise errors caught by the controller.
 class SearchController; def rescue_action(e) raise e end; end
 
-class SearchControllerTest < Test::Unit::TestCase
+class SearchControllerTest < ActionController::TestCase
   def setup
     @controller = SearchController.new
     @request    = ActionController::TestRequest.new
@@ -423,7 +423,7 @@ class SearchControllerTest < Test::Unit::TestCase
     get :index, :category_path => [ 'randomcat', 'randomchild' ], :query => 'some random query', :search_whole_site => 'yes'
 
     # search_whole_site must be removed to precent a infinite redirect loop
-    assert_redirected_to :action => 'index', :category_path => [], :query => 'some random query', :search_whole_site => nil
+    assert_redirected_to :controller.to_s => 'search', :action.to_s => 'index', :category_path.to_s => [], :query.to_s => 'some random query', :search_whole_site.to_s => nil, :search_whole_site_yes.to_s => nil
   end
 
   should 'submit form to root when not inside a filter' do
@@ -453,10 +453,10 @@ class SearchControllerTest < Test::Unit::TestCase
 
   should 'list recent articles in the category' do
     recent = []
-    finger = CategoryFinder.new(@category)
-    finger.expects(:recent).with(any_parameters).at_least_once
-    finger.expects(:recent).with('text_articles', anything).returns(recent)
-    CategoryFinder.expects(:new).with(@category).returns(finger)
+    finder = CategoryFinder.new(@category)
+    finder.expects(:recent).with(any_parameters).at_least_once
+    finder.expects(:recent).with('text_articles', anything).returns(recent)
+    CategoryFinder.stubs(:new).with(@category).returns(finder)
 
     get :category_index, :category_path => [ 'my-category' ]
     assert_same recent, assigns(:results)[:articles]
@@ -464,9 +464,9 @@ class SearchControllerTest < Test::Unit::TestCase
 
   should 'list most commented articles in the category' do
     most_commented = []
-    finger = CategoryFinder.new(@category)
-    finger.expects(:most_commented_articles).returns(most_commented)
-    CategoryFinder.expects(:new).with(@category).returns(finger)
+    finder = CategoryFinder.new(@category)
+    finder.expects(:most_commented_articles).returns(most_commented)
+    CategoryFinder.stubs(:new).with(@category).returns(finder)
 
     get :category_index, :category_path => [ 'my-category' ]
     assert_same most_commented, assigns(:results)[:most_commented_articles]
@@ -474,10 +474,10 @@ class SearchControllerTest < Test::Unit::TestCase
 
   should 'list recently registered people in the category' do
     recent_people = []
-    finger = CategoryFinder.new(@category)
-    finger.expects(:recent).with(any_parameters).at_least_once
-    finger.expects(:recent).with('people', kind_of(Integer)).returns(recent_people)
-    CategoryFinder.expects(:new).with(@category).returns(finger)
+    finder = CategoryFinder.new(@category)
+    finder.expects(:recent).with(any_parameters).at_least_once
+    finder.expects(:recent).with('people', kind_of(Integer)).returns(recent_people)
+    CategoryFinder.stubs(:new).with(@category).returns(finder)
 
     get :category_index, :category_path => [ 'my-category' ]
     assert_same recent_people, assigns(:results)[:people]
@@ -485,10 +485,10 @@ class SearchControllerTest < Test::Unit::TestCase
 
   should 'list recently registered communities in the category' do
     recent_communities = []
-    finger = CategoryFinder.new(@category)
-    finger.expects(:recent).with(any_parameters).at_least_once
-    finger.expects(:recent).with('communities', anything).returns(recent_communities)
-    CategoryFinder.expects(:new).with(@category).returns(finger)
+    finder = CategoryFinder.new(@category)
+    finder.expects(:recent).with(any_parameters).at_least_once
+    finder.expects(:recent).with('communities', anything).returns(recent_communities)
+    CategoryFinder.stubs(:new).with(@category).returns(finder)
 
     get :category_index, :category_path => [ 'my-category' ]
     assert_same recent_communities, assigns(:results)[:communities]
@@ -496,10 +496,10 @@ class SearchControllerTest < Test::Unit::TestCase
 
   should 'list recently registered enterprises in the category' do
     recent_enterptises = []
-    finger = CategoryFinder.new(@category)
-    finger.expects(:recent).with(any_parameters).at_least_once
-    finger.expects(:recent).with('enterprises', anything).returns(recent_enterptises)
-    CategoryFinder.expects(:new).with(@category).returns(finger)
+    finder = CategoryFinder.new(@category)
+    finder.expects(:recent).with(any_parameters).at_least_once
+    finder.expects(:recent).with('enterprises', anything).returns(recent_enterptises)
+    CategoryFinder.stubs(:new).with(@category).returns(finder)
 
     get :category_index, :category_path => [ 'my-category' ]
     assert_same recent_enterptises, assigns(:results)[:enterprises]
@@ -987,7 +987,7 @@ class SearchControllerTest < Test::Unit::TestCase
     most_commented = [art]
     finder = CategoryFinder.new(@category)
     finder.expects(:most_commented_articles).returns(most_commented)
-    CategoryFinder.expects(:new).with(@category).returns(finder)
+    CategoryFinder.stubs(:new).with(@category).returns(finder)
 
     get :category_index, :category_path => [ 'my-category' ]
     assert_tag :tag => 'div', :attributes => {:class => /search-results-most_commented_articles/} , :descendant => {:tag => 'a', :attributes => { :href => '/search/index/my-category?asset=articles'}}

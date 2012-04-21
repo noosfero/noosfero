@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class TextArticleTest < Test::Unit::TestCase
+class TextArticleTest < ActiveSupport::TestCase
   
   # mostly dummy test. Can be removed when (if) there are real tests for this
   # this class. 

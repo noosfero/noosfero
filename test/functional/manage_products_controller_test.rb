@@ -4,12 +4,11 @@ require 'manage_products_controller'
 # Re-raise errors caught by the controller.
 class ManageProductsController; def rescue_action(e) raise e end; end
 
-class ManageProductsControllerTest < Test::Unit::TestCase
+class ManageProductsControllerTest < ActionController::TestCase
   all_fixtures
   def setup
     @controller = ManageProductsController.new
     @request    = ActionController::TestRequest.new
-    @request.stubs(:ssl?).returns(true)
     @response   = ActionController::TestResponse.new
     @enterprise = fast_create(Enterprise, :name => 'teste', :identifier => 'test_ent')
     @user = create_user_with_permission('test_user', 'manage_products', @enterprise)
@@ -147,10 +146,10 @@ class ManageProductsControllerTest < Test::Unit::TestCase
     assert_no_difference Product, :count do
       post 'destroy', :profile => @enterprise.identifier, :id => product.id
       assert_response :redirect
-      assert_redirected_to :action => 'show'
+      assert_redirected_to :controller => "manage_products", :profile => @enterprise.identifier, :action => 'show', :id => product.id
       assert assigns(:product)
-      assert Product.find_by_name('test product')      
-    end    
+      assert Product.find_by_name('test product')
+    end
   end
 
   should 'show categories selection' do
@@ -384,9 +383,10 @@ class ManageProductsControllerTest < Test::Unit::TestCase
   end
 
   should 'not display tabs if description and inputs are empty and user is not allowed' do
-    not_allowed_person = fast_create(Person)
+    create_user('foo')
 
-    login_as not_allowed_person.identifier
+    login_as 'foo'
+
     product = fast_create(Product, :name => 'test product', :enterprise_id => @enterprise.id, :product_category_id => @product_category.id)
     get :show, :id => product.id, :profile => @enterprise.identifier
 
@@ -403,9 +403,9 @@ class ManageProductsControllerTest < Test::Unit::TestCase
   end
 
   should 'display only description tab if inputs are empty and user is not allowed' do
-    not_allowed_person = fast_create(Person)
+    create_user('foo')
 
-    login_as not_allowed_person.identifier
+    login_as 'foo'
     product = fast_create(Product, :description => 'This product is very good', :enterprise_id => @enterprise.id, :product_category_id => @product_category.id)
     get :show, :id => product.id, :profile => @enterprise.identifier
     assert_tag :tag => 'div', :attributes => { :id => "product-#{product.id}-tabs" }, :descendant => {:tag => 'a', :attributes => {:href => '#product-description'}, :content => 'Description'}
@@ -413,9 +413,9 @@ class ManageProductsControllerTest < Test::Unit::TestCase
   end
 
   should 'display only inputs tab if description is empty and user is not allowed' do
-    not_allowed_person = fast_create(Person)
+    create_user 'foo'
 
-    login_as not_allowed_person.identifier
+    login_as 'foo'
     product = fast_create(Product, :enterprise_id => @enterprise.id, :product_category_id => @product_category.id)
     input = fast_create(Input, :product_id => product.id, :product_category_id => @product_category.id)
 
@@ -425,9 +425,9 @@ class ManageProductsControllerTest < Test::Unit::TestCase
   end
 
   should 'display tabs if description and inputs are not empty and user is not allowed' do
-    not_allowed_person = fast_create(Person)
+    create_user('foo')
 
-    login_as not_allowed_person.identifier
+    login_as 'foo'
     product = fast_create(Product, :description => 'This product is very good', :enterprise_id => @enterprise.id, :product_category_id => @product_category.id)
     input = fast_create(Input, :product_id => product.id, :product_category_id => @product_category.id)
 
@@ -437,23 +437,25 @@ class ManageProductsControllerTest < Test::Unit::TestCase
   end
 
   should 'include extra content supplied by plugins on products info extras' do
-    product = fast_create(Product, :enterprise_id => @enterprise.id)
-    plugin1_local_variable = "Plugin1"
-    plugin1_content = lambda {"<span id='plugin1'>This is #{plugin1_local_variable} speaking!</span>"}
-    plugin2_local_variable = "Plugin2"
-    plugin2_content = lambda {"<span id='plugin2'>This is #{plugin2_local_variable} speaking!</span>"}
-    contents = [plugin1_content, plugin2_content]
+    class TestProductInfoExtras1Plugin < Noosfero::Plugin
+      def product_info_extras(p)
+        lambda {"<span id='plugin1'>This is Plugin1 speaking!</span>"}
+      end
+    end
+    class TestProductInfoExtras2Plugin < Noosfero::Plugin
+      def product_info_extras(p)
+        lambda { "<span id='plugin2'>This is Plugin2 speaking!</span>" }
+      end
+    end
 
-    plugins = mock()
-    plugins.stubs(:enabled_plugins).returns([])
-    plugins.stubs(:map).with(:body_beginning).returns([])
-    plugins.stubs(:map).with(:product_info_extras, product).returns(contents)
-    Noosfero::Plugin::Manager.stubs(:new).returns(plugins)
+    product = fast_create(Product, :enterprise_id => @enterprise.id)
+
+    Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([TestProductInfoExtras1Plugin.new, TestProductInfoExtras2Plugin.new])
 
     get :show, :id => product.id, :profile => @enterprise.identifier
 
-    assert_tag :tag => 'span', :content => 'This is ' + plugin1_local_variable + ' speaking!', :attributes => {:id => 'plugin1'}
-    assert_tag :tag => 'span', :content => 'This is ' + plugin2_local_variable + ' speaking!', :attributes => {:id => 'plugin2'}
+    assert_tag :tag => 'span', :content => 'This is Plugin1 speaking!', :attributes => {:id => 'plugin1'}
+    assert_tag :tag => 'span', :content => 'This is Plugin2 speaking!', :attributes => {:id => 'plugin2'}
   end
 
   should 'not allow product creation for profiles that can\'t do it' do
@@ -465,6 +467,49 @@ class ManageProductsControllerTest < Test::Unit::TestCase
     enterprise = SpecialEnterprise.create!(:identifier => 'special-enterprise', :name => 'Special Enterprise')
     get 'new', :profile => enterprise.identifier
     assert_response 403
+  end
+
+  should 'remove price detail of a product' do
+    product = fast_create(Product, :enterprise_id => @enterprise.id, :product_category_id => @product_category.id)
+    cost = fast_create(ProductionCost, :owner_id => Environment.default.id, :owner_type => 'Environment')
+    detail = product.price_details.create(:production_cost_id => cost.id, :price => 10)
+
+    assert_equal [detail], product.price_details
+
+    post :remove_price_detail, :id => detail.id, :product => product, :profile => @enterprise.identifier
+    product.reload
+    assert_equal [], product.price_details
+  end
+
+  should 'create a production cost for enterprise' do
+    get :create_production_cost, :profile => @enterprise.identifier, :id => 'Taxes'
+
+    assert_equal ['Taxes'], Enterprise.find(@enterprise.id).production_costs.map(&:name)
+    resp = ActiveSupport::JSON.decode(@response.body)
+    assert_equal 'Taxes', resp['name']
+    assert resp['id'].kind_of?(Integer)
+    assert resp['ok']
+    assert_nil resp['error_msg']
+  end
+
+  should 'display error if production cost has no name' do
+    get :create_production_cost, :profile => @enterprise.identifier
+
+    resp = ActiveSupport::JSON.decode(@response.body)
+    assert_nil resp['name']
+    assert_nil resp['id']
+    assert !resp['ok']
+    assert_match /blank/, resp['error_msg']
+  end
+
+  should 'display error if name of production cost is too long' do
+    get :create_production_cost, :profile => @enterprise.identifier, :id => 'a'*60
+
+    resp = ActiveSupport::JSON.decode(@response.body)
+    assert_nil resp['name']
+    assert_nil resp['id']
+    assert !resp['ok']
+    assert_match /too long/, resp['error_msg']
   end
 
 end

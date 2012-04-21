@@ -19,7 +19,7 @@ class TagsBlock < Block
        Try to add some tags to some articles and you'l see your tag cloud growing.")
   end
 
-  def content
+  def content(args={})
     tags = owner.article_tags
     return '' if tags.empty?
 

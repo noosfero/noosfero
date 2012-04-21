@@ -2,16 +2,16 @@ h1(order-619). Community balloon
 
 p.  _When an user is navigating on the system, he can see details of a community and become a member quickly._
 
-*  "How to access":#HowAccess
-*  "Description":#Description
-*  "Related topics":#RelatedTopics
+*  "How to access":#howaccess
+*  "Description":#description
+*  "Related topics":#relatedtopics
 
-h2(#HowAccess). How to access
+h2(#howaccess). How to access
 
 p. If enabled on environment, wherever a community appears you can click on the top-left corner to see the community balloon !=/images/doc/community-balloon-closed-en.png(Community balloon link)!
 
 
-h2(#Description). Description
+h2(#description). Description
 
 p. The community balloon has links to allow direct access to some community's pages !=/images/doc/community-balloon-en.png(Community balloon links)!
 # Wall: lists scraps sent to this community
@@ -21,7 +21,7 @@ p. The community balloon has links to allow direct access to some community's pa
 # Leave: if you are a member of community, you can quickly leave it clicking on this link
 # Send an e-mail: if you are a member of community, you can send an e-mail to the community admins clicking on this link
 
-h2(#RelatedTopics). Related topics
+h2(#relatedtopics). Related topics
 
 *  "Finding communities":/doc/navigation/searching-communities
 

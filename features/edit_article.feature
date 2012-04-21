@@ -91,7 +91,7 @@ Feature: edit article
     Given I am on Joao Silva's sitemap
     When I follow "Save the whales" and wait
     And I follow "Edit" and wait
-    And I follow "Cancel" within ".main-block" and wait
+    And I follow "Cancel" and wait
     Then I should be on /joaosilva/save-the-whales
 
   @selenium

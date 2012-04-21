@@ -2,18 +2,18 @@ h1(order-340). Writing an advanced article (inserting images, links, videos and 
 
 p.  _You can add images and links to the articles created on the system to make it more interesting._
 
-*  "How to access":#HowAccess
-*  "Description":#Description
+*  "How to access":#howaccess
+*  "Description":#description
 **  "Inserting links":#InsertingLinks
 **  "Inserting images":#InsertingImages
 **  "Inserting videos and audio":#InsertingVideosAudio
-*  "Related topics":#RelatedTopics
+*  "Related topics":#relatedtopics
 
-h2(#HowAccess). How to access
+h2(#howaccess). How to access
 
 p. Read "Writing an article":/doc/cms/writing-article to learn how to access article edition page.
 
-h2(#Description). Description
+h2(#description). Description
 
 h3(#InsertingLinks). Inserting links
 
@@ -52,7 +52,7 @@ h3(#InsertingVideosAudio). Inserting videos and audio
 # You will see a square with a "play" image on your text !=/images/doc/advanced-article-created-object.en.png(Created object on an article)!
 # After clicking on "Save" button, the video or audio will be displayed on your text.
 
-h2(#RelatedTopics). Related topics
+h2(#relatedtopics). Related topics
 
 *  "Spreading an article":/doc/cms/spreading-articles
 *  "Writing an article":/doc/cms/writing-article

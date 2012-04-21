@@ -1,7 +1,5 @@
 class ShoppingCartPlugin::Mailer < Noosfero::Plugin::MailerBase
 
-  prepend_view_path(ShoppingCartPlugin.root_path+'/views')
-
   def customer_notification(customer, supplier, items)
     domain = supplier.hostname || supplier.environment.default_hostname
     recipients    customer[:email]

@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class NoosferoFilenamesTest < Test::Unit::TestCase
+class NoosferoFilenamesTest < ActiveSupport::TestCase
 
   include ShortFilename
 

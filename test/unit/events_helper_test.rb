@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class EventsHelperTest < Test::Unit::TestCase
+class EventsHelperTest < ActiveSupport::TestCase
 
   include EventsHelper
 

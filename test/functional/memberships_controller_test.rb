@@ -5,14 +5,13 @@ require 'memberships_controller'
 # Re-raise errors caught by the controller.
 class MembershipsController; def rescue_action(e) raise e end; end
 
-class MembershipsControllerTest < Test::Unit::TestCase
+class MembershipsControllerTest < ActionController::TestCase
   
   include ApplicationHelper
 
   def setup
     @controller = MembershipsController.new
     @request    = ActionController::TestRequest.new
-    @request.stubs(:ssl?).returns(true)
     @response   = ActionController::TestResponse.new
 
     @profile = create_user('testuser').person
@@ -99,7 +98,7 @@ class MembershipsControllerTest < Test::Unit::TestCase
     community = Community.create!(:name => 'my test community', :description => 'description test')
     community.add_member(profile)
     get :index, :profile => profile.identifier
-    assert_tag :tag => 'a', :attributes => { :href => "/profile/#{community.identifier}/leave?reload=true" }, :content => 'Leave'
+    assert_tag :tag => 'a', :attributes => { :href => "/profile/#{community.identifier}/leave?reload=true" }, :content => 'Leave community'
   end
 
   should 'current user is added as admin after create new community' do

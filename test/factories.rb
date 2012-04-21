@@ -249,7 +249,7 @@ module Noosfero::Factory
   ###############################################
   def defaults_for_blog
     name = 'My blog ' + factory_num_seq.to_s
-    { :name => name, :slug => name.to_slug }
+    { :name => name, :slug => name.to_slug, :path => name.to_slug }
   end
 
   def create_blog
@@ -447,6 +447,14 @@ module Noosfero::Factory
 
   def defaults_for_unit
     { :singular => 'Litre', :plural => 'Litres', :environment_id => 1 }
+  end
+
+  ###############################################
+  # Production Cost
+  ###############################################
+
+  def defaults_for_production_cost
+    { :name => 'Production cost ' + factory_num_seq.to_s }
   end
 
 end

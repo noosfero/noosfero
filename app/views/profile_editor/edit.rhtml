@@ -6,12 +6,14 @@
 
   <%= render :partial => partial_for_class(@profile.class), :locals => { :f => f } %>
 
+  <% unless @profile.person? && @environment.active_person_fields.include?('image') %>
   <div id="profile_change_picture">
     <h2><%= _('Change picture') %></h2>
     <% f.fields_for :image_builder, @profile.image do |i| %>
       <%= file_field_or_thumbnail(_('Image:'), @profile.image, i) %><%= _("Max size: %s (.jpg, .gif, .png)")% Image.max_size.to_humanreadable %>
     <% end %>
   </div>
+  <% end %>
 
   <h2><%= _('Privacy options') %></h2>
 
@@ -72,6 +74,18 @@
     </tr>
   </table>
   <% end %>
+
+  <h2><%= _('Translations') %></h2>
+  <%= labelled_check_box(
+    _('Automaticaly redirect the visitor to the article translated to his/her language'),
+    'profile_data[redirect_l10n]', true, @profile.redirect_l10n
+  )%>
+
+  <%=
+    @plugins.dispatch(:profile_editor_extras).each do |content|
+      content.respond_to?(:call) ? content.call : content
+    end.join("\n")
+  %>
 
   <%= select_categories(:profile_data, _('Select the categories of your interest'), 2) %>
 

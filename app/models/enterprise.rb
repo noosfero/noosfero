@@ -6,6 +6,7 @@ class Enterprise < Organization
 
   has_many :products, :dependent => :destroy, :order => 'name ASC'
   has_many :inputs, :through => :products
+  has_many :production_costs, :as => :owner
 
   has_and_belongs_to_many :fans, :class_name => 'Person', :join_table => 'favorite_enteprises_people'
 
@@ -45,7 +46,7 @@ class Enterprise < Organization
     super
     self.required_fields.each do |field|
       if self.send(field).blank?
-        self.errors.add(field, _("%{fn} can't be blank"))
+        self.errors.add_on_blank(field)
       end
     end
   end
@@ -75,7 +76,11 @@ class Enterprise < Organization
   end
 
   after_save do |e|
-    e.products.each{ |p| p.enterprise_updated(e) }
+    e.delay.update_products_position
+  end
+
+  def update_products_position
+    products.each{ |p| p.enterprise_updated(self) }
   end
 
   def closed?

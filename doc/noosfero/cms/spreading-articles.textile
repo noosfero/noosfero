@@ -2,11 +2,11 @@ h1(order-305). Spreading articles
 
 p.  _With an article already created, you can spread it in the communities that you participate._
 
-*  "How to access":#HowAccess
-*  "Description":#Description
-*  "Related Topics":#RelatedTopics
+*  "How to access":#howaccess
+*  "Description":#description
+*  "Related Topics":#relatedtopics
 
-h2(#HowAccess). How to access
+h2(#howaccess). How to access
 To spread your articles there are two options that you can follow:
 
 * Through the Content Manager
@@ -19,14 +19,14 @@ To spread your articles there are two options that you can follow:
 *# Access your article and press the "Spread this" button: !=/images/doc/article-bigger-spread-view.en.png(Spread article)!
 !=/images/doc/article-spread-view.en.png(Spread article)!
 
-h2(#Description). Description
+h2(#description). Description
 
 p. Check the communities where you want to spread your article and fill in the name that you want to spread it.
   !=/images/doc/article-spread.en.png(Choose the communities)!
 
 p. After choosing the communities and the respective names, you just need to press "Spread this". Note that there are communities where the publication needs the moderation of the administrator.
 
-h2(#RelatedTopics). Related topics
+h2(#relatedtopics). Related topics
 
 *  "Writing an article":/doc/cms/writing-article
 *  "Writing an advanced article":/doc/cms/writing-advanced-article

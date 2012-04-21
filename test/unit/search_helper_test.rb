@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class SearchHelperTest < Test::Unit::TestCase
+class SearchHelperTest < ActiveSupport::TestCase
 
   include SearchHelper
 

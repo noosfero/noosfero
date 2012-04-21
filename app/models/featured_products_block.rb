@@ -25,7 +25,7 @@ class FeaturedProductsBlock < Block
     self.owner.highlighted_products_with_image
   end
 
-  def content
+  def content(args={})
     block = self
     lambda do
       render :file => 'blocks/featured_products', :locals => { :block => block }

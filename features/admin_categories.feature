@@ -43,7 +43,7 @@ Feature: manage categories
     When I follow "Show"
     Then I should see "Vegetarian"
     And I should see "Steak"
-    When I follow "Hide"
+    When I follow "Hide" and sleep 1 second
     Then I should not see "Vegetarian"
     And I should not see "Steak"
 

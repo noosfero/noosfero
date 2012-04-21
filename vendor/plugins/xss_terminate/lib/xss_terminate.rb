@@ -80,7 +80,7 @@ module XssTerminate
     end
 
     def sanitize_fields_with_full
-      sanitizer = RailsSanitize.full_sanitizer
+      sanitizer = ActionView::Base.full_sanitizer
       columns, columns_serialized = sanitize_columns(:full)
       columns.each do |column|
         sanitize_field(sanitizer, column.to_sym, columns_serialized.include?(column), :full)
@@ -88,7 +88,7 @@ module XssTerminate
     end
 
     def sanitize_fields_with_white_list
-      sanitizer = RailsSanitize.white_list_sanitizer
+      sanitizer = ActionView::Base.white_list_sanitizer
       columns, columns_serialized = sanitize_columns(:white_list)
       columns.each do |column|
         sanitize_field(sanitizer, column.to_sym, columns_serialized.include?(column), :white_list)

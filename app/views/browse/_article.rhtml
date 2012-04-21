@@ -1,0 +1,11 @@
+<li class="<%= 'browse-results-type-content ' + icon_for_article(result) %>">
+  <strong><%= link_to(result.title, result.view_url) %></strong>
+  <div class="item_meta">
+    <span class="item_by">
+    <%= _('by %s') % link_to(result.author.name, result.author.url) %>
+    </span>
+    <span class="extra-info">
+      <%= (@filter == 'more_recent' ? result.send(@filter + '_label') + show_date(result.created_at) : result.send(@filter + '_label')) %>
+    </span>
+  </div>
+</li>

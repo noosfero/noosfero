@@ -13,7 +13,7 @@ After installing the requirements listed in INSTALL, you need to install some
 packages be able to run Noosfero tests. On Debian GNU/Linux and Debian-based
 systems, you install them with the following command:
 
- # apt-get install libtidy-ruby libhpricot-ruby libmocha-ruby imagemagick po4a xvfb
+ # apt-get install libtidy-ruby libhpricot-ruby libmocha-ruby imagemagick po4a xvfb libxml2-dev libxslt-dev
 
 On other systems, they may or may not be available through your regular package
 management system. Below are the links to their homepages.
@@ -24,6 +24,8 @@ management system. Below are the links to their homepages.
 * Imagemagick: http://wwwimagemagick.org/
 * po4a: http://po4a.alioth.debian.org/
 * xvfb: http://packages.debian.org/lenny/xvfb
+* Libxml2: http://xmlsoft.org/
+* Libxslt: http://xmlsoft.org/xslt
 
 == Boostraping a development/test environment
 
@@ -46,6 +48,9 @@ commands and make sure you understand what you are doing):
  rake makemo
  # create some test data:
  ./script/sample-data
+ # install latest requirements for running tests
+ RAILS_ENV=cucumber rake gems:install
+ RAILS_ENV=test rake gems:install
  # run the automated test suite to make sure your environment is sane:
  rake test
 

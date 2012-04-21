@@ -11,7 +11,9 @@ class AddMember < Task
   settings_items :roles
 
   def perform
-    self.roles ||= [Profile::Roles.member(organization.environment.id).id]
+    if !self.roles or (self.roles.uniq.compact.length == 1 and self.roles.uniq.compact.first.to_i.zero?)
+      self.roles = [Profile::Roles.member(organization.environment.id).id]
+    end
     target.affiliate(requestor, self.roles.select{|r| !r.to_i.zero? }.map{|i| Role.find(i)})
   end
 

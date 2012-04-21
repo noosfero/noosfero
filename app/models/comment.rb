@@ -2,7 +2,7 @@ class Comment < ActiveRecord::Base
 
   track_actions :leave_comment, :after_create, :keep_params => ["article.title", "article.url", "title", "url", "body"], :custom_target => :action_tracker_target 
 
-  validates_presence_of :title, :body
+  validates_presence_of :body
   belongs_to :article, :counter_cache => true
   belongs_to :author, :class_name => 'Person', :foreign_key => 'author_id'
   has_many :children, :class_name => 'Comment', :foreign_key => 'reply_of_id', :dependent => :destroy
@@ -17,7 +17,7 @@ class Comment < ActiveRecord::Base
   validates_presence_of :author_id, :if => (lambda { |rec| rec.name.blank? && rec.email.blank? })
   validates_each :name do |rec,attribute,value|
     if rec.author_id && (!rec.name.blank? || !rec.email.blank?)
-      rec.errors.add(:name, _('%{fn} can only be informed for unauthenticated authors'))
+      rec.errors.add(:name, _('%{fn} can only be informed for unauthenticated authors').fix_i18n)
     end
   end
 
@@ -124,6 +124,14 @@ class Comment < ActiveRecord::Base
         :environment => profile.environment.name,
         :url => profile.environment.top_url
     end
+  end
+
+  def rejected?
+    @rejected
+  end
+
+  def reject!
+    @rejected = true
   end
 
 end

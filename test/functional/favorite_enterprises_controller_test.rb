@@ -3,14 +3,13 @@ require 'favorite_enterprises_controller'
 
 class FavoriteEnterprisesController; def rescue_action(e) raise e end; end
 
-class FavoriteEnterprisesControllerTest < Test::Unit::TestCase
+class FavoriteEnterprisesControllerTest < ActionController::TestCase
 
   noosfero_test :profile => 'testuser'
 
   def setup
     @controller = FavoriteEnterprisesController.new
     @request    = ActionController::TestRequest.new
-    @request.stubs(:ssl?).returns(true)
     @response   = ActionController::TestResponse.new
 
     self.profile = create_user('testuser').person

@@ -127,7 +127,7 @@ class FeedReaderBlockTest < ActiveSupport::TestCase
     Time.stubs(:now).returns(now - 3.hours)
     not_expired.finish_fetch
 
-    # now one block should be expired and the not the other
+    # now one block should be expired and not the other
     Time.stubs(:now).returns(now)
     expired_list = FeedReaderBlock.expired
     assert_includes expired_list, expired
@@ -156,6 +156,17 @@ class FeedReaderBlockTest < ActiveSupport::TestCase
     assert_equal true, reader.enabled
   end
 
+  should 'be expired when address is updated' do
+    reader = build(:feed_reader_block, :address => 'http://www.example.com/feed')
+    reader.finish_fetch
+    expired_list = FeedReaderBlock.expired
+    assert_not_includes expired_list, reader
+    reader.address = "http://www.example.com/new-feed"
+    reader.save!
+    expired_list = FeedReaderBlock.expired
+    assert_includes expired_list, reader
+  end
+
   should 'be disabled when address is empty' do
     reader = build(:feed_reader_block, :enabled => true, :address => 'http://www.example.com/feed')
     reader.address = nil
@@ -173,7 +184,7 @@ class FeedReaderBlockTest < ActiveSupport::TestCase
     assert_equal true, reader.enabled, 'must enable when setting to new address'
   end
 
-  should 'kepp enable when address is not changed' do
+  should 'keep enable when address is not changed' do
     reader = build(:feed_reader_block, :address => 'http://www.example.com/feed')
     reader.address = 'http://www.example.com/feed'
     assert_equal true, reader.enabled

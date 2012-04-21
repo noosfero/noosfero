@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class ChatHelperTest < Test::Unit::TestCase
+class ChatHelperTest < ActiveSupport::TestCase
 
   include ChatHelper
 

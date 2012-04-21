@@ -23,7 +23,7 @@ class ProfileController < PublicController
 
   def tags
     @tags_cache_key = "tags_profile_#{profile.id.to_s}"
-    if is_cache_expired?(@tags_cache_key, true)
+    if is_cache_expired?(@tags_cache_key)
       @tags = profile.article_tags
     end
   end
@@ -31,7 +31,7 @@ class ProfileController < PublicController
   def content_tagged
     @tag = params[:id]
     @tag_cache_key = "tag_#{CGI.escape(@tag.to_s)}_#{profile.id.to_s}_page_#{params[:npage]}"
-    if is_cache_expired?(@tag_cache_key, true)
+    if is_cache_expired?(@tag_cache_key)
       @tagged = profile.find_tagged_with(@tag).paginate(:per_page => 20, :page => params[:npage])
     end
   end
@@ -211,11 +211,23 @@ class ProfileController < PublicController
 
   def remove_activity
     begin
-      activity = current_person.tracked_actions.find(params[:activity_id])
+      raise if !can_edit_profile
+      activity = ActionTracker::Record.find(params[:activity_id])
       activity.destroy
       render :text => _('Activity successfully removed.')
     rescue
       render :text => _('You could not remove this activity')
+    end
+  end
+
+  def remove_notification
+    begin
+      raise if !can_edit_profile
+      notification = ActionTrackerNotification.find(:first, :conditions => {:profile_id => profile.id, :action_tracker_id => params[:activity_id]})
+      notification.destroy
+      render :text => _('Notification successfully removed.')
+    rescue
+      render :text => _('You could not remove this notification.')
     end
   end
 
@@ -320,4 +332,8 @@ class ProfileController < PublicController
     20
   end
 
+  def can_edit_profile
+    @can_edit_profile ||= user && user.has_permission?('edit_profile', profile)
+  end
+  helper_method :can_edit_profile
 end

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111004184104) do
+ActiveRecord::Schema.define(:version => 20120307200651) do
 
   create_table "abuse_reports", :force => true do |t|
     t.integer  "reporter_id"
@@ -41,7 +41,7 @@ ActiveRecord::Schema.define(:version => 20111004184104) do
   end
 
   add_index "action_tracker_notifications", ["action_tracker_id"], :name => "index_action_tracker_notifications_on_action_tracker_id"
-  add_index "action_tracker_notifications", ["profile_id", "action_tracker_id"], :name => "index_action_tracker_notifications_on_profile_id_and_action_trac", :unique => true
+  add_index "action_tracker_notifications", ["profile_id", "action_tracker_id"], :name => "index_action_tracker_notif_on_prof_id_act_tracker_id", :unique => true
   add_index "action_tracker_notifications", ["profile_id"], :name => "index_action_tracker_notifications_on_profile_id"
 
   create_table "article_versions", :force => true do |t|
@@ -204,6 +204,8 @@ ActiveRecord::Schema.define(:version => 20111004184104) do
     t.string   "email"
     t.datetime "created_at"
     t.integer  "reply_of_id"
+    t.string   "ip_address"
+    t.boolean  "spam"
   end
 
   create_table "contact_lists", :force => true do |t|
@@ -323,6 +325,14 @@ ActiveRecord::Schema.define(:version => 20111004184104) do
     t.datetime "updated_at"
   end
 
+  create_table "price_details", :force => true do |t|
+    t.decimal  "price",              :default => 0.0
+    t.integer  "product_id"
+    t.integer  "production_cost_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "product_categorizations", :force => true do |t|
     t.integer  "category_id"
     t.integer  "product_id"
@@ -338,6 +348,14 @@ ActiveRecord::Schema.define(:version => 20111004184104) do
     t.integer  "product_id"
     t.integer  "qualifier_id"
     t.integer  "certifier_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "production_costs", :force => true do |t|
+    t.string   "name"
+    t.integer  "owner_id"
+    t.string   "owner_type"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

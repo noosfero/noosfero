@@ -35,19 +35,20 @@ Feature: manage products
       | redemoinho | bicycle  | Bike J | bicycle 10 |
       | redemoinho | bicycle  | Bike K | bicycle 11 |
     When I go to /catalog/redemoinho
-    Then I should see "Bike A" within "#product_list"
-    And I should see "Bike B" within "#product_list"
-    And I should see "Bike C" within "#product_list"
-    And I should see "Bike D" within "#product_list"
-    And I should see "Bike E" within "#product_list"
-    And I should see "Bike F" within "#product_list"
-    And I should see "Bike G" within "#product_list"
-    And I should see "Bike H" within "#product_list"
-    And I should see "Bike I" within "#product_list"
-    And I should see "Bike J" within "#product_list"
-    And I should not see "Bike K" within "#product_list"
+    Then I should see "Bike A" within "#product-list"
+    And I should see "Bike B" within "#product-list"
+    And I should see "Bike C" within "#product-list"
+    And I should see "Bike D" within "#product-list"
+    And I should see "Bike E" within "#product-list"
+    And I should see "Bike F" within "#product-list"
+    And I should see "Bike G" within "#product-list"
+    And I should see "Bike H" within "#product-list"
+    And I should see "Bike I" within "#product-list"
+    And I should not see "Bike J" within "#product-list"
+    And I should not see "Bike K" within "#product-list"
     When I follow "Next"
-    Then I should see "Bike K" within "#product_list"
+    Then I should see "Bike J" within "#product-list"
+    Then I should see "Bike K" within "#product-list"
 
   Scenario: listing products and services
     Given I am logged in as "joaosilva"

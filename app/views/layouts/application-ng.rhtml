@@ -11,22 +11,25 @@
     <%= stylesheet_link_tag noosfero_stylesheets, :cache => 'cache' %>
     <%= stylesheet_link_tag template_stylesheet_path %>
     <%= stylesheet_link_tag icon_theme_stylesheet_path %>
-    <%= stylesheet_link_tag theme_stylesheet_path %>
     <%= stylesheet_link_tag jquery_ui_theme_stylesheet_path %>
-    <% @plugins.enabled_plugins.each do |plugin| %>
-      <% if plugin.stylesheet? %>
-        <%= stylesheet_tag plugin.class.public_path('style.css'), {} %>
-      <% end %>
-    <% end %>
+    <%
+      plugins_stylesheets = @plugins.select(&:stylesheet?).map { |plugin| plugin.class.public_path('style.css') }
+    %>
+    <%= stylesheet_link_tag(plugins_stylesheets, :cache => 'cache/plugins-' + Digest::MD5.hexdigest(plugins_stylesheets.to_s)) unless plugins_stylesheets.empty? %>
+    <%= stylesheet_link_tag theme_stylesheet_path %>
 
     <%# Add custom tags/styles/etc via content_for %>
     <%= yield :head %>
     <%= javascript_tag('render_all_jquery_ui_widgets()') %>
-    <% @plugins.enabled_plugins.each do |plugin| %>
-      <% plugin.js_files.each do |js_file| %>
-        <%= javascript_src_tag plugin.class.public_path(js_file), {} %>
-      <% end %>
-    <% end %>
+    <%
+      plugins_javascripts = @plugins.map { |plugin| plugin.js_files.map { |js| plugin.class.public_path(js) } }.flatten
+    %>
+    <%= javascript_include_tag(plugins_javascripts, :cache => 'cache/plugins-' + Digest::MD5.hexdigest(plugins_javascripts.to_s)) unless plugins_javascripts.empty? %>
+    <%=
+      @plugins.dispatch(:head_ending).collect do |content|
+        content.respond_to?(:call) ? content.call : content
+      end.join("\n")
+    %>
   </head>
   <body class="<%=
     # Identify the current controller and action for the CSS:
@@ -38,9 +41,9 @@
 
     <a href="#content" id="link-go-content"><span><%= _("Go to the content") %></span></a>
     <%=
-      @plugins.map(:body_beginning).collect do |content|
+      @plugins.dispatch(:body_beginning).collect do |content|
         content.respond_to?(:call) ? content.call : content
-      end.join('\n')
+      end.join("\n")
     %>
 
     <div id="wrap-1">
@@ -53,12 +56,12 @@
             <%= usermenu_logged_in %>
           </span>
           <span class='not-logged-in' style='display: none'>
-              <%= _('%s or %s') % [thickbox_inline_popup_link('<i class="icon-menu-login"></i><strong>' + _('Login') + '</strong>', login_url, 'inlineLoginBox', :id => 'link_login'), link_to('<strong>' + _('Register') + '</strong>', :controller => 'account', :action => 'signup') ] %>
+              <%= _("<span class='login'>%s</span> <span class='or'>or</span> <span class='signup'>%s</span>") % [thickbox_inline_popup_link('<i class="icon-menu-login"></i><strong>' + _('Login') + '</strong>', login_url, 'inlineLoginBox', :id => 'link_login'), link_to('<strong>' + _('Sign up') + '</strong>', :controller => 'account', :action => 'signup') ] %>
               <div id='inlineLoginBox' style='display: none;'>
                 <%= render :file => 'account/login', :locals => { :is_thickbox => true } %>
               </div>
           </span>
-          <form action="/search" class="search_form" method="get" class="clean">
+          <form action="/search" class="search_form clean" method="get" id="top-search">
             <input name="query" size="15" value="<%=_('Search...')%>"
                 onfocus="this.form.className='focused';
                          if(this.value=='<%=_('Search...')%>'){this.value=''}"

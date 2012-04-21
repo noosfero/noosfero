@@ -1,12 +1,12 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class CommentTest < Test::Unit::TestCase
+class CommentTest < ActiveSupport::TestCase
 
   def setup
   end
 
-  should 'have a name and require it' do
-    assert_mandatory(Comment.new, :title)
+  should 'have a name but not require it' do
+    assert_optional(Comment.new, :title)
   end
 
   should 'have a body and require it' do
@@ -60,6 +60,7 @@ class CommentTest < Test::Unit::TestCase
     c1.name = 'my name'
     c1.valid?
     assert c1.errors.invalid?(:name)
+    assert_no_match /\{fn\}/, c1.errors.on(:name)
   end
 
   should 'update counter cache in article' do
@@ -197,7 +198,6 @@ class CommentTest < Test::Unit::TestCase
     comment.valid?
 
     assert comment.errors.invalid?(:name)
-    assert comment.errors.invalid?(:title)
     assert comment.errors.invalid?(:body)
   end
 
@@ -328,6 +328,14 @@ class CommentTest < Test::Unit::TestCase
 
   should 'not provide author url for unauthenticated user' do
     assert_nil Comment.new(:email => 'my@email.com').author_url
+  end
+
+  should 'be able to reject a comment' do
+    c = Comment.new
+    assert !c.rejected?
+
+    c.reject!
+    assert c.rejected?
   end
 
 end

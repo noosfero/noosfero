@@ -40,3 +40,15 @@ Feature: private profiles
     When I am on Safernet's homepage
     Then I should see "What's new"
 
+  Scenario: person private profiles should not display sensible information
+    Given I am logged in as "joao"
+    When I go to shygirl's homepage
+    Then I should not see "Basic information"
+    Then I should not see "Work"
+    Then I should not see "Enterprises"
+    Then I should not see "Network"
+
+  Scenario: community private profiles should not display sensible information
+    Given I am logged in as "joao"
+    When I go to Safernet's homepage
+    Then I should not see "Basic information"

@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class EnterpriseTest < Test::Unit::TestCase
+class EnterpriseTest < ActiveSupport::TestCase
   fixtures :profiles, :environments, :users
 
   def setup
@@ -446,4 +446,8 @@ class EnterpriseTest < Test::Unit::TestCase
     assert_equal false, enterprise.receives_scrap_notification?
   end
 
+  should 'have production cost' do
+    e = fast_create(Enterprise)
+    assert_respond_to e, :production_costs
+  end
 end

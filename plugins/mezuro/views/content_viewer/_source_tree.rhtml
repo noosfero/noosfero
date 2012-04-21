@@ -1,0 +1,38 @@
+<% module_name = source_tree.module_name %>
+<% module_label = "#{module_name} (#{source_tree.granularity})" %>
+<% if source_tree.children %>
+  <table>
+    <tr>
+      <td width="10%">
+        <img alt="+" src="/plugins/mezuro/images/plus.png" class="link"
+          id="<%= module_name %>_plus" onclick="toogle('<%= module_name %>')"/>
+        <img alt="-" src="/plugins/mezuro/images/minus.png" class="link"
+          id="<%= module_name %>_minus" onclick="toogle('<%= module_name %>')" style="display: none"/>
+      </td>
+      <td>
+        <a href="#" class="module-result-link" data-module-name="<%= module_name %>">
+          <%= module_label %>
+        </a>
+      </td>
+    </tr> 
+    <tr id="<%= module_name %>_hidden" style="display: none">
+      <td></td> 
+      <td style="text-align: left">
+        <% source_tree.children.each do |child| %>
+          <%= render :partial => 'source_tree', :locals => { :source_tree => child } %>
+        <% end %>
+      </td> 
+    </tr> 
+  </table>
+<% else %>
+  <table>
+    <tr>
+      <td width="1"></td>
+      <td>
+        <a href="#" class="module-result-link" data-module-name="<%= module_name %>">
+          <%= module_label %>
+        </a>
+      </td>
+    </tr>
+  </table>
+<% end %>

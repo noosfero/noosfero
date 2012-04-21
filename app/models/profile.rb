@@ -20,12 +20,16 @@ class Profile < ActiveRecord::Base
       find_role('editor', env_id)
     end
     def self.organization_member_roles(env_id)
-      [admin(env_id), moderator(env_id), member(env_id)]
+      all_roles(env_id).select{ |r| r.key.match(/^profile_/) unless r.key.blank? }
     end
     def self.all_roles(env_id)
-      [admin(env_id), member(env_id), moderator(env_id), owner(env_id), editor(env_id)]
+      Role.all :conditions => { :environment_id => env_id }
     end
-
+    def self.method_missing(m, *args, &block)
+      role = find_role(m, args[0])
+      return role unless role.nil?
+      super
+    end
     private
     def self.find_role(name, env_id)
       ::Role.find_by_key_and_environment_id("profile_#{name}", env_id)
@@ -115,6 +119,7 @@ class Profile < ActiveRecord::Base
 
   acts_as_having_settings :field => :data
 
+  settings_items :redirect_l10n, :type => :boolean, :default => false
   settings_items :public_content, :type => :boolean, :default => true
   settings_items :description
 
@@ -147,6 +152,7 @@ class Profile < ActiveRecord::Base
   doc
   chat
   plugin
+  site
   ]
 
   belongs_to :user
@@ -609,7 +615,7 @@ private :generate_url, :url_options
   include ActionView::Helpers::TextHelper
   def short_name(chars = 40)
     if self[:nickname].blank?
-      truncate self.name, chars, '...'
+      truncate self.name, :length => chars, :omission => '...'
     else
       self[:nickname]
     end
@@ -806,15 +812,10 @@ private :generate_url, :url_options
   end
 
   def disable
-    self.visible = false
-    user.password = Digest::SHA1.hexdigest("--#{Time.now.to_s}--#{identifier}--")
-    user.password_confirmation = user.password
-    save!
-    user.save!
   end
 
   def control_panel_settings_button
-    {:title => _('Profile Info and settings'), :icon => 'edit-profile'}
+    {:title => _('Edit Profile'), :icon => 'edit-profile'}
   end
 
   def self.identification

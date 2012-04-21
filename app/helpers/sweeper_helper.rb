@@ -4,9 +4,7 @@ module SweeperHelper
     ActionController::Base.new().expire_fragment(*args)
   end
 
-  def expire_timeout_fragment(*args)
-    ActionController::Base.new().expire_timeout_fragment(*args)
-  end
+  alias :expire_timeout_fragment :expire_fragment
 
   def expire_friends(profile)
     # public friends page
@@ -22,7 +20,7 @@ module SweeperHelper
 
     # friends blocks
     blocks = profile.blocks.select{|b| b.kind_of?(FriendsBlock)}
-    blocks.map(&:cache_key).each{|ck|expire_timeout_fragment(ck)}
+    BlockSweeper.expire_blocks(blocks)
   end
 
   def expire_communities(profile)
@@ -34,13 +32,13 @@ module SweeperHelper
 
     # communities block
     blocks = profile.blocks.select{|b| b.kind_of?(CommunitiesBlock)}
-    blocks.map(&:cache_key).each{|ck|expire_timeout_fragment(ck)}
+    BlockSweeper.expire_blocks(blocks)
   end
 
   def expire_enterprises(profile)
     # enterprises and favorite enterprises blocks
     blocks = profile.blocks.select {|b| [EnterprisesBlock, FavoriteEnterprisesBlock].any?{|klass| b.kind_of?(klass)} }
-    blocks.map(&:cache_key).each{|ck|expire_timeout_fragment(ck)}
+    BlockSweeper.expire_blocks(blocks)
   end
 
   def expire_profile_index(profile)

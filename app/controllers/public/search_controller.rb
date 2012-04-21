@@ -207,7 +207,7 @@ class SearchController < PublicController
 
   def tags
     @tags_cache_key = "tags_env_#{environment.id.to_s}"
-    if is_cache_expired?(@tags_cache_key, true)
+    if is_cache_expired?(@tags_cache_key)
       @tags = environment.tag_counts
     end
   end
@@ -215,7 +215,7 @@ class SearchController < PublicController
   def tag
     @tag = params[:tag]
     @tag_cache_key = "tag_#{CGI.escape(@tag.to_s)}_env_#{environment.id.to_s}_page_#{params[:npage]}"
-    if is_cache_expired?(@tag_cache_key, true)
+    if is_cache_expired?(@tag_cache_key)
       @tagged = environment.articles.find_tagged_with(@tag).paginate(:per_page => 10, :page => params[:npage])
     end
   end

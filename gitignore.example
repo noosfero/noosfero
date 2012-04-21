@@ -1,4 +1,5 @@
 .gitignore
+.rbenv-*
 vendor/rails
 doc/api
 doc/noosfero/plugins
@@ -9,6 +10,7 @@ config/noosfero.yml
 config/ferret_server.yml
 config/mongrel_cluster.yml
 config/plugins
+config/thin.yml
 index
 locale
 log
@@ -30,3 +32,9 @@ tags
 pkg
 *~
 *.swp
+debian/*.log
+debian/*.substvars
+debian/*.debhelper
+debian/files
+debian/noosfero/
+debian/noosfero-apache/

@@ -6,12 +6,11 @@ require 'edit_template_controller'
 # Re-raise errors caught by the controller.
 class EditTemplateController; def rescue_action(e) raise e end; end
 
-class EditTemplateControllerTest < Test::Unit::TestCase
+class EditTemplateControllerTest < ActionController::TestCase
   all_fixtures
   def setup
     @controller = EditTemplateController.new
     @request    = ActionController::TestRequest.new
-    @request.stubs(:ssl?).returns(true)
     @response   = ActionController::TestResponse.new
     login_as 'ze'
   end

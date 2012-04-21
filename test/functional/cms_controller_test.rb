@@ -4,14 +4,13 @@ require 'cms_controller'
 # Re-raise errors caught by the controller.
 class CmsController; def rescue_action(e) raise e end; end
 
-class CmsControllerTest < Test::Unit::TestCase
+class CmsControllerTest < ActionController::TestCase
 
   fixtures :environments
 
   def setup
     @controller = CmsController.new
     @request    = ActionController::TestRequest.new
-    @request.stubs(:ssl?).returns(true)
     @response   = ActionController::TestResponse.new
 
     @profile = create_user_with_permission('testinguser', 'post_content')
@@ -203,7 +202,7 @@ class CmsControllerTest < Test::Unit::TestCase
 
     assert_difference Article, :count, -1 do
       post :destroy, :profile => profile.identifier, :id => a.id
-      assert_redirected_to :action => 'index'
+      assert_redirected_to :controller => 'cms', :profile => profile.identifier, :action => 'index'
     end
   end
 
@@ -584,7 +583,8 @@ class CmsControllerTest < Test::Unit::TestCase
   should 'be able to add image with alignment' do
     post :new, :type => 'TinyMceArticle', :profile => profile.identifier, :article => { :name => 'image-alignment', :body => "the text of the article with image <img src='#' align='right'/> right align..." }
     saved = TinyMceArticle.find_by_name('image-alignment')
-    assert_match /<img src="#" align="right" \/>/, saved.body
+    assert_match /<img.*src="#".*\/>/, saved.body
+    assert_match /<img.*align="right".*\/>/, saved.body
   end
 
   should 'not be able to add image with alignment when textile' do
@@ -757,33 +757,6 @@ class CmsControllerTest < Test::Unit::TestCase
     end
   end
 
-  should 'require ssl in general' do
-    Environment.default.update_attribute(:enable_ssl, true)
-    @request.expects(:ssl?).returns(false).at_least_once
-    get :index, :profile => 'testinguser'
-    assert_redirected_to :protocol => 'https://'
-  end
-
-  should 'accept ajax connections to new action without ssl' do
-    @request.expects(:ssl?).returns(false).at_least_once
-    xml_http_request :get, :new, :profile => 'testinguser'
-    assert_response :success
-  end
-
-  should 'not loose type argument in new action when redirecting to ssl' do
-    Environment.default.update_attribute(:enable_ssl, true)
-    @request.expects(:ssl?).returns(false).at_least_once
-    get :new, :profile => 'testinguser', :type => 'Folder'
-    assert_redirected_to :protocol => 'https://', :action => 'new', :type => 'Folder'
-  end
-
-  should 'not accept non-ajax connections to new action without ssl' do
-    Environment.default.update_attribute(:enable_ssl, true)
-    @request.expects(:ssl?).returns(false).at_least_once
-    get :new, :profile => 'testinguser'
-    assert_redirected_to :protocol => 'https://'
-  end
-
   should 'display categories if environment disable_categories disabled' do
     Environment.any_instance.stubs(:enabled?).with(anything).returns(false)
     a = profile.articles.create!(:name => 'test')
@@ -902,9 +875,8 @@ class CmsControllerTest < Test::Unit::TestCase
 
   should 'offer confirmation to remove article' do
     a = profile.articles.create!(:name => 'my-article')
-    get :destroy, :profile => profile.identifier, :id => a.id
-    assert_response :success
-    assert_tag :tag => 'input', :attributes => {:type => 'submit', :value => 'Yes, I want.' }
+    post :destroy, :profile => profile.identifier, :id => a.id
+    assert_response :redirect
   end
 
   should 'display notify comments option' do
@@ -987,7 +959,7 @@ class CmsControllerTest < Test::Unit::TestCase
 
     post :upload_files, :profile => profile.identifier, :parent_id => folder.id, :back_to => @request.referer, :uploaded_files => [fixture_file_upload('files/rails.png', 'image/png')]
     assert_template nil
-    assert_redirected_to folder.view_url
+    assert_redirected_to 'http://colivre.net/testinguser/test-folder'
   end
 
   should 'record when coming from public view on edit files with view true' do
@@ -1351,9 +1323,15 @@ class CmsControllerTest < Test::Unit::TestCase
     assert_no_tag :select, :attributes => { :id => 'article_language'}
   end
 
-  should 'display display posts in current language input checked on edit blog' do
-    get :new, :profile => profile.identifier, :type => 'Blog'
+  should 'display display posts in current language input checked when editing blog' do
+    profile.articles << Blog.new(:name => 'Blog for test', :profile => profile, :display_posts_in_current_language => true)
+    get :edit, :profile => profile.identifier, :id => profile.blog.id
     assert_tag :tag => 'input', :attributes => { :type => 'checkbox', :name => 'article[display_posts_in_current_language]', :checked => 'checked' }
+  end
+
+  should 'display display posts in current language input not checked on new blog' do
+    get :new, :profile => profile.identifier, :type => 'Blog'
+    assert_no_tag :tag => 'input', :attributes => { :type => 'checkbox', :name => 'article[display_posts_in_current_language]', :checked => 'checked' }
   end
 
   should 'update to false blog display posts in current language setting' do
@@ -1444,7 +1422,7 @@ class CmsControllerTest < Test::Unit::TestCase
   should 'update file and be redirect to cms' do
     file = UploadedFile.create!(:profile => @profile, :uploaded_data => fixture_file_upload('files/test.txt', 'text/plain'))
     post :edit, :profile => @profile.identifier, :id => file.id, :article => { }
-    assert_redirected_to :action => 'index'
+    assert_redirected_to :controller => 'cms', :profile => profile.identifier, :action => 'index'
   end
 
   should 'update file and be redirect to cms folder' do
@@ -1535,6 +1513,21 @@ class CmsControllerTest < Test::Unit::TestCase
     assert_not_includes @controller.available_article_types, RawHTMLArticle
     profile.environment.add_admin(profile)
     assert_includes @controller.available_article_types, RawHTMLArticle
+  end
+
+  should 'include new contents special types from plugins' do
+    class TestContentTypesPlugin < Noosfero::Plugin
+      def content_types
+        [Integer, Float]
+      end
+    end
+
+    Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([TestContentTypesPlugin.new])
+
+    get :index, :profile => profile.identifier
+
+    assert_includes @controller.special_article_types, Integer
+    assert_includes @controller.special_article_types, Float
   end
 
 end

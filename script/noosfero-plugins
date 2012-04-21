@@ -7,7 +7,8 @@ program_name=$(basename $0)
 if [ -e /etc/default/noosfero ]; then
   . /etc/default/noosfero
 else
-  NOOSFERO_DIR=$(readlink -f `dirname $0`/..)
+  this_script=$(readlink -f $0)
+  NOOSFERO_DIR=$(dirname $this_script | xargs dirname)
 fi
 
 # data
@@ -18,13 +19,8 @@ enabled_plugins=$(find -L "$enabled_plugins_dir" -maxdepth 1 -mindepth 1 -type d
 disabled_plugins=$(printf "%s\n" $available_plugins $enabled_plugins_dir | sort | uniq -u)
 
 # operation defaults
-read_only=true
 quiet=false
-
-# initialization
-if [ -w "$enabled_plugins_dir" ]; then
-  read_only=false
-fi
+needs_migrate=false
 
 _list() {
   for plugin in $available_plugins; do
@@ -80,6 +76,7 @@ _enable(){
     plugins_public_dir="$NOOSFERO_DIR/public/plugins"
     test -d "$target/public/" && ln -s "$target/public" "$plugins_public_dir/$plugin"
     _say "$plugin enabled"
+    needs_migrate=true
   fi
 }
 
@@ -106,7 +103,7 @@ _new(){
     template="$available_plugins_dir/template"
     mkdir "$target"
 
-    plugin_name=$(echo "$plugin" | sed -e 's/^./\u&/; s/_\(.\)/\u\1/')
+    plugin_name=$(echo "$plugin" | sed -e 's/^./\u&/; s/_\(.\)/\u\1/g')
     for source_file in $(find "$template" -type f); do
       target_file=$(echo "$source_file" | sed -e "s/template/$plugin/g")
       mkdir -p $(dirname "$target_file")
@@ -158,6 +155,17 @@ if [ -z "$command" ]; then
   exit 1
 fi
 shift
+
+
+case "$command" in
+  enableall|disableall|enable|disable|new)
+    if [ ! -w "$enabled_plugins_dir" ]; then
+      echo "E: sorry, you don't have the required permissions to manage plugins"
+      exit 2
+    fi
+    ;;
+esac
+
 case "$command" in
   list|status|usage|enableall|disableall)
     if [ ! -z "$1" ]; then
@@ -165,13 +173,11 @@ case "$command" in
       exit 1
     fi
     _$command
-    exit 0
     ;;
   enable|disable|new)
     for plugin in $@; do
       _$command "$plugin"
     done
-    exit 0
     ;;
   *)
     echo "Unknown command: $command"
@@ -179,3 +185,21 @@ case "$command" in
     exit 1
     ;;
 esac
+
+if [ "$needs_migrate" = 'true' ] && [ "$quiet" = 'false' ]; then
+  cat <<-EOF
+====================================================================
+To finish the activation of the plugins you have just enabled, you
+need to restart Noosfero.
+
+If you installed Noosfero manually, run:
+
+  $ ./script/production restart
+
+If you installed Noosfero using Debian packages, run as root:
+
+  # service noosfero restart
+
+====================================================================
+EOF
+fi

@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class ApplicationHelperTest < Test::Unit::TestCase
+class ApplicationHelperTest < ActiveSupport::TestCase
 
   include ApplicationHelper
 
@@ -242,30 +242,6 @@ class ApplicationHelperTest < Test::Unit::TestCase
     assert_equal '/designs/templates/mytemplate/stylesheets/style.css', template_stylesheet_path
   end
 
-  should 'use https:// for login_url' do
-    environment = Environment.default
-    environment.update_attribute(:enable_ssl, true)
-    environment.domains << Domain.new(:name => "test.domain.net", :is_default => true)
-    stubs(:environment).returns(environment)
-
-    stubs(:url_for).with(has_entries(:protocol => 'https://', :host => 'test.domain.net')).returns('LALALA')
-
-    assert_equal 'LALALA', login_url
-  end
-
-  should 'not force ssl in login_url when environment has ssl disabled' do
-    environment = mock
-    environment.expects(:enable_ssl).returns(false).at_least_once
-    stubs(:environment).returns(environment)
-    request = mock
-    request.stubs(:host).returns('localhost')
-    stubs(:request).returns(request)
-
-    expects(:url_for).with(has_entries(:protocol => 'https://')).never
-    expects(:url_for).with(has_key(:controller)).returns("LALALA")
-    assert_equal "LALALA", login_url
-  end
-
   should 'return nil if disable_categories is enabled' do
     env = fast_create(Environment, :name => 'env test')
     stubs(:environment).returns(env)
@@ -467,7 +443,10 @@ class ApplicationHelperTest < Test::Unit::TestCase
     assert_match(/Community nick/, page_title)
   end
 
-  should 'generate a gravatar url' do
+  should 'generate a gravatar image url' do
+    stubs(:environment).returns(Environment.default)
+    @controller = ApplicationController.new
+
     with_constants :NOOSFERO_CONF => {'gravatar' => 'crazyvatar'} do
       url = str_gravatar_url_for( 'rms@gnu.org', :size => 50 )
       assert_match(/^http:\/\/www\.gravatar\.com\/avatar\.php\?/, url)
@@ -475,6 +454,19 @@ class ApplicationHelperTest < Test::Unit::TestCase
       assert_match(/(\?|&)d=crazyvatar(&|$)/, url)
       assert_match(/(\?|&)size=50(&|$)/, url)
     end
+    stubs(:theme_option).returns('gravatar' => 'nicevatar')
+    with_constants :NOOSFERO_CONF => {'gravatar' => 'crazyvatar'} do
+      url = str_gravatar_url_for( 'rms@gnu.org', :size => 50 )
+      assert_match(/^http:\/\/www\.gravatar\.com\/avatar\.php\?/, url)
+      assert_match(/(\?|&)gravatar_id=ed5214d4b49154ba0dc397a28ee90eb7(&|$)/, url)
+      assert_match(/(\?|&)d=nicevatar(&|$)/, url)
+      assert_match(/(\?|&)size=50(&|$)/, url)
+    end
+  end
+
+  should 'generate a gravatar profile url' do
+    url = gravatar_profile_url( 'rms@gnu.org' )
+    assert_equal('http://www.gravatar.com/ed5214d4b49154ba0dc397a28ee90eb7', url)
   end
 
   should 'use theme passed via param when in development mode' do
@@ -537,7 +529,7 @@ class ApplicationHelperTest < Test::Unit::TestCase
     community.stubs(:url).returns('url for community')
     community.stubs(:public_profile_url).returns('url for community')
     links = links_for_balloon(community)
-    assert_equal ['Wall', 'Members', 'Agenda', 'Join', 'Leave', 'Send an e-mail'], links.map{|i| i.keys.first}
+    assert_equal ['Wall', 'Members', 'Agenda', 'Join', 'Leave community', 'Send an e-mail'], links.map{|i| i.keys.first}
   end
 
   should 'return ordered list of links to balloon to Enterprise' do
@@ -594,7 +586,7 @@ class ApplicationHelperTest < Test::Unit::TestCase
 
     @controller = ApplicationController.new
     path = File.join(RAILS_ROOT, 'app', 'views')
-    @controller.stubs(:view_paths).returns(path)
+    @controller.stubs(:view_paths).returns([path])
 
     file = path + '/shared/usermenu/xmpp_chat.rhtml'
     expects(:render).with(:file => file, :use_full_path => false).returns('Open chat')
@@ -640,13 +632,18 @@ class ApplicationHelperTest < Test::Unit::TestCase
     env = Environment.default
     env.stubs(:enabled?).with(:show_zoom_button_on_article_images).returns(false)
     stubs(:environment).returns(env)
-    assert_nil add_zoom_to_images
+    assert_nil add_zoom_to_article_images
   end
 
   should 'return code when :show_zoom_button_on_article_images is enabled in environment' do
     env = Environment.default
     env.stubs(:enabled?).with(:show_zoom_button_on_article_images).returns(true)
     stubs(:environment).returns(env)
+    assert_not_nil add_zoom_to_article_images
+  end
+
+  should 'return code when add_zoom_to_images' do
+    env = Environment.default
     assert_not_nil add_zoom_to_images
   end
 

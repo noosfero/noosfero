@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class LocationBlockTest < Test::Unit::TestCase
+class LocationBlockTest < ActiveSupport::TestCase
 
   def setup
     @profile = create_user('lele').person

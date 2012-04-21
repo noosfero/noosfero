@@ -3,14 +3,13 @@ require 'tasks_controller'
 
 class TasksController; def rescue_action(e) raise e end; end
 
-class TasksControllerTest < Test::Unit::TestCase
+class TasksControllerTest < ActionController::TestCase
 
   noosfero_test :profile => 'testuser' 
 
   def setup
     @controller = TasksController.new
     @request    = ActionController::TestRequest.new
-    @request.stubs(:ssl?).returns(true)
     @response   = ActionController::TestResponse.new
 
     self.profile = create_user('testuser').person
@@ -18,6 +17,10 @@ class TasksControllerTest < Test::Unit::TestCase
     login_as 'testuser'
   end
   attr_accessor :profile
+
+  def assert_redirected_to(options)
+    super({ :controller => 'tasks', :profile => profile.identifier }.merge(options))
+  end
 
   def test_local_files_reference
     assert_local_files_reference

@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class AssetsHelperTest < Test::Unit::TestCase
+class AssetsHelperTest < ActiveSupport::TestCase
 
   include AssetsHelper
 

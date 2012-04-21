@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class PendingTaskNotifierTest < Test::Unit::TestCase
+class PendingTaskNotifierTest < ActiveSupport::TestCase
   FIXTURES_PATH = File.dirname(__FILE__) + '/../fixtures'
   CHARSET = "utf-8"
 

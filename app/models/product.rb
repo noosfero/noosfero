@@ -5,6 +5,8 @@ class Product < ActiveRecord::Base
   has_many :product_qualifiers
   has_many :qualifiers, :through => :product_qualifiers
   has_many :inputs, :dependent => :destroy, :order => 'position'
+  has_many :price_details, :dependent => :destroy
+  has_many :production_costs, :through => :price_details
 
   validates_uniqueness_of :name, :scope => :enterprise_id, :allow_nil => true
   validates_presence_of :product_category_id
@@ -101,12 +103,13 @@ class Product < ActiveRecord::Base
     enterprise.public_profile
   end
 
-  def formatted_value(value)
-    ("%.2f" % self[value]).to_s.gsub('.', enterprise.environment.currency_separator) if self[value]
+  def formatted_value(method)
+    value = self[method] || self.send(method)
+    ("%.2f" % value).to_s.gsub('.', enterprise.environment.currency_separator) if value
   end
 
   def price_with_discount
-    price - discount if discount
+    discount ? (price - discount) : price
   end
 
   def price=(value)
@@ -123,6 +126,23 @@ class Product < ActiveRecord::Base
     else
       super(value)
     end
+  end
+
+  # Note: will probably be completely overhauled for AI1413
+  def inputs_prices?
+    return false if self.inputs.count <= 0
+    self.inputs.each do |input|
+      return false if input.has_price_details? == false
+    end
+    true
+  end
+
+  def any_inputs_details?
+    return false if self.inputs.count <= 0
+    self.inputs.each do |input|
+      return true if input.has_all_price_details? == true
+    end
+    false
   end
 
   def has_basic_info?
@@ -151,6 +171,46 @@ class Product < ActiveRecord::Base
 
   def display_supplier_on_search?
     true
+  end
+
+  def inputs_cost
+    return 0 if inputs.empty?
+    inputs.map(&:cost).inject { |sum,price| sum + price }
+  end
+
+  def total_production_cost
+    return inputs_cost if price_details.empty?
+    inputs_cost + price_details.map(&:price).inject { |sum,price| sum + price }
+  end
+
+  def price_described?
+    return false if price.blank? or price == 0
+    (price - total_production_cost).zero?
+  end
+
+  def update_price_details(price_details)
+    self.price_details.destroy_all
+    price_details.each do |price_detail|
+      self.price_details.create(price_detail)
+    end
+  end
+
+  def price_description_percentage
+    return 0 if price.blank? || price.zero?
+    total_production_cost * 100 / price
+  end
+
+  def available_production_costs
+    self.enterprise.environment.production_costs + self.enterprise.production_costs
+  end
+
+  include ActionController::UrlWriter
+  def price_composition_bar_display_url
+    url_for({:host => enterprise.default_hostname, :controller => 'manage_products', :action => 'display_price_composition_bar', :profile => enterprise.identifier, :id => self.id }.merge(Noosfero.url_options))
+  end
+
+  def inputs_cost_update_url
+    url_for({:host => enterprise.default_hostname, :controller => 'manage_products', :action => 'display_inputs_cost', :profile => enterprise.identifier, :id => self.id }.merge(Noosfero.url_options))
   end
 
 end

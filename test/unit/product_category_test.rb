@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class ProductCategoryTest < Test::Unit::TestCase
+class ProductCategoryTest < ActiveSupport::TestCase
 
   def test_all_products
     c0 = ProductCategory.create!(:name => 'base_cat', :environment => Environment.default)

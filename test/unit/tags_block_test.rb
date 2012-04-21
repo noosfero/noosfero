@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class TagsBlockTest < Test::Unit::TestCase
+class TagsBlockTest < ActiveSupport::TestCase
 
   def setup
     @user = create_user('testinguser').person

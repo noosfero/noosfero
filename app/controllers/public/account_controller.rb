@@ -2,8 +2,6 @@ class AccountController < ApplicationController
 
   no_design_blocks
 
-  require_ssl :except => [ :login_popup, :logout_popup, :profile_details ]
-
   before_filter :login_required, :only => [:activation_question, :accept_terms, :activate_enterprise]
   before_filter :redirect_if_logged_in, :only => [:login, :signup]
 
@@ -60,6 +58,10 @@ class AccountController < ApplicationController
   def signup
     @invitation_code = params[:invitation_code]
     begin
+      if params[:user]
+        params[:user].delete(:password_confirmation_clear)
+        params[:user].delete(:password_clear)
+      end
       @user = User.new(params[:user])
       @user.terms_of_use = environment.terms_of_use
       @user.environment = environment
@@ -91,7 +93,6 @@ class AccountController < ApplicationController
     if logged_in?
       self.current_user.forget_me
     end
-    cookies.delete :auth_token
     reset_session
     session[:notice] = _("You have been logged out.")
     redirect_to :controller => 'home', :action => 'index'
@@ -209,14 +210,24 @@ class AccountController < ApplicationController
     @identifier = params[:identifier]
     valid = Person.is_available?(@identifier, environment)
     if valid
-      @status = _('Available!')
+      @status = _('This login name is available')
       @status_class = 'available'
     else
-      @status = _('Unavailable!')
+      @status = _('This login name is unavailable')
       @status_class = 'unavailable'
     end
-    @url = environment.top_url + '/' + @identifier
     render :partial => 'identifier_status'
+  end
+
+  def check_email
+    if User.find_by_email_and_environment_id(params[:address], environment.id).nil?
+      @status = _('This e-mail address is available')
+      @status_class = 'available'
+    else
+      @status = _('This e-mail address is taken')
+      @status_class = 'unavailable'
+    end
+    render :partial => 'email_status'
   end
 
   def user_data
@@ -231,7 +242,7 @@ class AccountController < ApplicationController
       session[:notice] = nil # consume the notice
     end
 
-    @plugins.enabled_plugins.each { |plugin| user_data.merge!(plugin.user_data_extras) }
+    @plugins.each { |plugin| user_data.merge!(plugin.user_data_extras) }
 
     render :text => user_data.to_json, :layout => false, :content_type => "application/javascript"
   end

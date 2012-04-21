@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class WhiteListFilterTest < Test::Unit::TestCase
+class WhiteListFilterTest < ActiveSupport::TestCase
 
   include WhiteListFilter
 

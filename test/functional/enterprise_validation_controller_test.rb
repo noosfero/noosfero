@@ -4,14 +4,13 @@ require 'enterprise_validation_controller'
 # Re-raise errors caught by the controller.
 class EnterpriseValidationController; def rescue_action(e) raise e end; end
 
-class EnterpriseValidationControllerTest < Test::Unit::TestCase
+class EnterpriseValidationControllerTest < ActionController::TestCase
 
   all_fixtures
 
   def setup
     @controller = EnterpriseValidationController.new
     @request    = ActionController::TestRequest.new
-    @request.stubs(:ssl?).returns(true)
     @response   = ActionController::TestResponse.new
     
     login_as 'ze'

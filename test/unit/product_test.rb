@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class ProductTest < Test::Unit::TestCase
+class ProductTest < ActiveSupport::TestCase
 
   def setup
     @product_category = fast_create(ProductCategory, :name => 'Products')
@@ -109,7 +109,7 @@ class ProductTest < Test::Unit::TestCase
     prod = ent.products.create!(:name => 'test product', :product_category => @product_category)
 
     ent.lat = 45.0; ent.lng = 45.0; ent.save!
-
+    process_delayed_job_queue
     prod.reload
    
     assert_in_delta 45.0, prod.lat, 0.0001
@@ -380,6 +380,156 @@ class ProductTest < Test::Unit::TestCase
     p2 = Product.create!(:name => 'another thing', :product_category => @product_category)
     assert_includes Product.find_by_contents('thing'), p1
     assert_includes Product.find_by_contents('thing'), p2
+  end
+
+  should 'respond to price details' do
+    product = Product.new
+    assert_respond_to product, :price_details
+  end
+
+  should 'return total value of inputs' do
+    product = fast_create(Product)
+    first = fast_create(Input, :product_id => product.id, :product_category_id => fast_create(ProductCategory).id, :price_per_unit => 20.0, :amount_used => 2)
+    second = fast_create(Input, :product_id => product.id, :product_category_id => fast_create(ProductCategory).id, :price_per_unit => 10.0, :amount_used => 1)
+
+    assert_equal 50.0, product.inputs_cost
+  end
+
+  should 'return 0 on total value of inputs if has no input' do
+    product = fast_create(Product)
+
+    assert product.inputs_cost.zero?
+  end
+
+  should 'know if price is described' do
+    product = fast_create(Product, :price => 30.0)
+
+    first = fast_create(Input, :product_id => product.id, :product_category_id => fast_create(ProductCategory).id, :price_per_unit => 20.0, :amount_used => 1)
+    assert !Product.find(product.id).price_described?
+
+    second = fast_create(Input, :product_id => product.id, :product_category_id => fast_create(ProductCategory).id, :price_per_unit => 10.0, :amount_used => 1)
+    assert Product.find(product.id).price_described?
+  end
+
+  should 'return false on price_described if price of product is not defined' do
+    product = fast_create(Product)
+
+    assert_equal false, product.price_described?
+  end
+
+  should 'create price details' do
+    product = fast_create(Product)
+    cost = fast_create(ProductionCost, :owner_id => Environment.default.id, :owner_type => 'Environment')
+    assert product.price_details.empty?
+
+    product.update_price_details([{:production_cost_id => cost.id, :price => 10}])
+    assert_equal 1, Product.find(product.id).price_details.size
+  end
+
+  should 'update price of a cost on price details' do
+    product = fast_create(Product)
+    cost = fast_create(ProductionCost, :owner_id => Environment.default.id, :owner_type => 'Environment')
+    cost2 = fast_create(ProductionCost, :owner_id => Environment.default.id, :owner_type => 'Environment')
+    price_detail = product.price_details.create(:production_cost_id => cost.id, :price => 10)
+    assert !product.price_details.empty?
+
+    product.update_price_details([{:production_cost_id => cost.id, :price => 20}, {:production_cost_id => cost2.id, :price => 30}])
+    assert_equal 20, product.price_details.find_by_production_cost_id(cost.id).price
+    assert_equal 2, Product.find(product.id).price_details.size
+  end
+
+  should 'destroy price details if product is removed' do
+    product = fast_create(Product)
+    cost = fast_create(ProductionCost, :owner_id => Environment.default.id, :owner_type => 'Environment')
+    price_detail = product.price_details.create(:production_cost_id => cost.id, :price => 10)
+
+    assert_difference PriceDetail, :count, -1 do
+      product.destroy
+    end
+  end
+
+  should 'have production costs' do
+    product = fast_create(Product)
+    cost = fast_create(ProductionCost, :owner_id => Environment.default.id, :owner_type => 'Environment')
+    product.price_details.create(:production_cost_id => cost.id, :price => 10)
+    assert_equal [cost], Product.find(product.id).production_costs
+  end
+
+  should 'return production costs from enterprise and environment' do
+    ent = fast_create(Enterprise)
+    product = fast_create(Product, :enterprise_id => ent.id)
+    ent_production_cost = fast_create(ProductionCost, :owner_id => ent.id, :owner_type => 'Profile')
+    env_production_cost = fast_create(ProductionCost, :owner_id => ent.environment.id, :owner_type => 'Environment')
+
+    assert_equal [env_production_cost, ent_production_cost], product.available_production_costs
+  end
+
+  should 'return all production costs' do
+    ent = fast_create(Enterprise)
+    product = fast_create(Product, :enterprise_id => ent.id)
+
+    env_production_cost = fast_create(ProductionCost, :owner_id => ent.environment.id, :owner_type => 'Environment')
+    ent_production_cost = fast_create(ProductionCost, :owner_id => ent.id, :owner_type => 'Profile')
+    product.price_details.create(:production_cost => env_production_cost, :product => product)
+    assert_equal [env_production_cost, ent_production_cost], product.available_production_costs
+  end
+
+  should 'return total value of production costs' do
+    ent = fast_create(Enterprise)
+    product = fast_create(Product, :enterprise_id => ent.id)
+
+    env_production_cost = fast_create(ProductionCost, :owner_id => ent.environment.id, :owner_type => 'Environment')
+    price_detail = product.price_details.create(:production_cost => env_production_cost, :price => 10)
+
+    input = fast_create(Input, :product_id => product.id, :product_category_id => fast_create(ProductCategory).id, :price_per_unit => 20.0, :amount_used => 2)
+
+    assert_equal price_detail.price + input.cost, product.total_production_cost
+  end
+
+  should 'return inputs cost as total value of production costs if has no price details' do
+    ent = fast_create(Enterprise)
+    product = fast_create(Product, :enterprise_id => ent.id)
+
+    input = fast_create(Input, :product_id => product.id, :product_category_id => fast_create(ProductCategory).id, :price_per_unit => 20.0, :amount_used => 2)
+
+    assert_equal input.cost, product.total_production_cost
+  end
+
+  should 'return 0 on total production cost if has no input and price details' do
+    product = fast_create(Product)
+
+    assert product.total_production_cost.zero?
+  end
+
+  should 'format inputs cost values to float with 2 decimals' do
+    ent = fast_create(Enterprise)
+    product = fast_create(Product, :enterprise_id => ent.id)
+    first = fast_create(Input, :product_id => product.id, :product_category_id => fast_create(ProductCategory).id, :price_per_unit => 20.0, :amount_used => 2)
+    second = fast_create(Input, :product_id => product.id, :product_category_id => fast_create(ProductCategory).id, :price_per_unit => 10.0, :amount_used => 1)
+
+    assert_equal "50.00", product.formatted_value(:inputs_cost)
+  end
+
+  should 'return 0 on price_description_percentage by default' do
+    assert_equal 0, Product.new.price_description_percentage
+  end
+
+  should 'return 0 on price_description_percentage if price is 0' do
+    product = fast_create(Product, :price => 0)
+
+    assert_equal 0, product.price_description_percentage
+  end
+
+  should 'return 0 on price_description_percentage if price is not defined' do
+    product = fast_create(Product)
+
+    assert_equal 0, product.price_description_percentage
+  end
+
+  should 'return 0 on price_description_percentage if total_production_cost is 0' do
+    product = fast_create(Product, :price => 50)
+
+    assert_equal 0, product.price_description_percentage
   end
 
 end

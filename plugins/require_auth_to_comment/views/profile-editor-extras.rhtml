@@ -1,0 +1,4 @@
+<h2><%= _('Comments') %></h2>
+<div>
+<%= labelled_check_box(_('Accept comments from unauthenticated users'), 'profile_data[allow_unauthenticated_comments]', true, context.profile.allow_unauthenticated_comments) %>
+</div>

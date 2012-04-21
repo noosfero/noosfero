@@ -157,4 +157,8 @@ class Organization < Profile
     members_by_role(role).map { |member| {:id => member.id, :name => member.name} }.to_json
   end
 
+  def disable
+    self.visible = false
+    save!
+  end
 end

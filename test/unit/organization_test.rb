@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class OrganizationTest < Test::Unit::TestCase
+class OrganizationTest < ActiveSupport::TestCase
   fixtures :profiles
 
   def create_create_enterprise(org)
@@ -406,6 +406,14 @@ class OrganizationTest < Test::Unit::TestCase
     organization.affiliate(p2, role)
 
     assert_match [{:id => p1.id, :name => p1.name}, {:id => p2.id, :name => p2.name}].to_json, organization.members_by_role_to_json(role)
+  end
+
+  should 'disable organization' do
+    organization = fast_create(Organization, :visible => true)
+    assert organization.visible
+
+    organization.disable
+    assert !organization.visible
   end
 
 end

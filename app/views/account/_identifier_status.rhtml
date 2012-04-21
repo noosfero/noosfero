@@ -1,3 +1,7 @@
 <div class='status-identifier'>
-  <p><%= @url %> <span class='<%= @status_class %>'><%= @status %></span> </p>
+  <p><span class='<%= @status_class %>'><%= @status %></span></p>
+  <script type="text/javascript">
+    jQuery('#user_login').removeClass('<%= validation_classes %>');
+    jQuery('#user_login').addClass('<%= @status_class %>');
+  </script>
 </div>

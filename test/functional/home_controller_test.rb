@@ -4,7 +4,7 @@ require 'home_controller'
 # Re-raise errors caught by the controller.
 class HomeController; def rescue_action(e) raise e end; end
 
-class HomeControllerTest < Test::Unit::TestCase
+class HomeControllerTest < ActionController::TestCase
 
 #  all_fixtures:profiles, :environments, :domains
 all_fixtures
@@ -86,5 +86,11 @@ all_fixtures
     assert block.visible?
   end
 
+  should 'access terms of use of environment' do
+    env = Environment.default
+    env.update_attribute(:terms_of_use, 'Noosfero terms of use')
+    get :terms
+    assert_tag :content => /Noosfero terms of use/
+  end
 
 end

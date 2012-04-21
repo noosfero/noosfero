@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../../../../test/test_helper'
 
-class ShoppingCartPluginTest < Test::Unit::TestCase
+class ShoppingCartPluginTest < ActiveSupport::TestCase
 
   def setup
     @shopping_cart = ShoppingCartPlugin.new

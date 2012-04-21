@@ -2,18 +2,18 @@ h1(order-120). Inviting contacts from e-mail
 
 p.  _If you are a community administrator, you can invite e-mail contacts to join your community. If the e-mail is registered on the system, the user will receive an invitation through the system. If it is not registered, the user will receive an invitation on his e-mail._
 
-*  "How to access":#HowAccess
-*  "Description":#Description
-*  "Related topics":#RelatedTopics
+*  "How to access":#howaccess
+*  "Description":#description
+*  "Related topics":#relatedtopics
 
-h2(#HowAccess). How to access
+h2(#howaccess). How to access
 
 # Find your user menu on top bar:  !=/images/doc/system-homepage-top-menu.en.png(Top menu)!
 # In user menu, click on Control Panel:  !=/images/doc/menu-control-panel.en.png(Control panel on menu)!
 # Then, click on "Manage my groups" button:  !=/images/doc/control-panel-manage-groups.en.png(Manage groups in control panel)!
 # You will see the list of groups (communities/enterprises) that you are a member. The groups that you can manage are listed with a link "Manage". Assuming that you are a community administrator, click on "Manage" link.  !=/images/doc/groups-list-with-manage-community.en.png(Groups list with permission to manage enterprise)!
 
-h2(#Description). Description
+h2(#description). Description
 
 # In community control panel, click on "Manage members" !=/images/doc/community-control-panel-manage-members.en.png(Manage members in control panel)!
 # You will see the members list of community and the invitation button. Click on the button.
@@ -27,7 +27,7 @@ h2(#Description). Description
 *** You will also see your list of e-mails. Check the e-mails that you want to send an invitation.
 *** Clicking on "Personalize invitation mail", you can edit the text that will be sent. Then, click on "Invite my friends" !=/images/doc/community-import-invitation-step-2.en.png(Import invitation for community. Step 2)!
 
-h2(#RelatedTopics). Related topics
+h2(#relatedtopics). Related topics
 
 *  "Creating a community":/doc/community/creating-community
 *  "Joining a community":/doc/community/joining-community

@@ -4,12 +4,11 @@ require 'categories_controller'
 # Re-raise errors caught by the controller.
 class CategoriesController; def rescue_action(e) raise e end; end
 
-class CategoriesControllerTest < Test::Unit::TestCase
+class CategoriesControllerTest < ActionController::TestCase
   all_fixtures
   def setup
     @controller = CategoriesController.new
     @request    = ActionController::TestRequest.new
-    @request.stubs(:ssl?).returns(true)
     @response   = ActionController::TestResponse.new
    
     @env = fast_create(Environment, :name => "My test environment")
@@ -30,8 +29,7 @@ class CategoriesControllerTest < Test::Unit::TestCase
   end
   
   def test_index
-    assert user =  login_as(create_admin_user(Environment.default))
-    assert user.person.has_permission?('manage_environment_categories',Environment.default ), "#{user.login} don't have permission to manage_environment_categories in #{Environment.default.name}"
+    login_as(create_admin_user(Environment.default))
     get :index
     assert_response :success
     assert_template 'index'
@@ -93,7 +91,7 @@ class CategoriesControllerTest < Test::Unit::TestCase
 
   should 'expire categories menu cache when some menu category is updated' do
     cat = Category.create!(:name => 'test category in menu', :environment => Environment.default, :display_in_menu => true)
-    @controller.expects(:expire_fragment).with(:controller => 'public', :action => 'categories_menu').once
+    @controller.expects(:expire_fragment).with(:controller => 'public', :action => 'categories_menu').at_least_once
     post :edit, :id => cat.id, :category => { :name => 'new name for category in menu' }
   end
 
@@ -104,7 +102,7 @@ class CategoriesControllerTest < Test::Unit::TestCase
   end
 
   should 'expire categories menu cache when new category is created for the menu' do
-    @controller.expects(:expire_fragment).with(:controller => 'public', :action => 'categories_menu').once
+    @controller.expects(:expire_fragment).with(:controller => 'public', :action => 'categories_menu').at_least_once
     post :new, :category => { :name => 'my new category for the menu', :display_in_menu => '1' }
   end
 

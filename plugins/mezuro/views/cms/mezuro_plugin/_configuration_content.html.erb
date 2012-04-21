@@ -1,0 +1,20 @@
+<h1> <%= _(MezuroPlugin::ConfigurationContent.short_description) %> </h1>
+
+<%
+  begin
+    @configuration = @article.title.nil? ? nil : Kalibro::Client::ConfigurationClient.new.configuration(@article.title)
+  rescue
+    @configuration = nil
+  end
+%>
+
+<%= error_messages_for 'kalibro_configuration' %>
+
+<%= hidden_field_tag 'kalibro_configuration[profile_id]', profile.id %>
+<%= hidden_field_tag 'id', @article.id %>
+
+<%= required_fields_message %>
+
+<%= required f.text_field(:name) %>
+
+<%= f.text_field :description %><br/>

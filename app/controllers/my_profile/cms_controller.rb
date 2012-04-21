@@ -23,15 +23,6 @@ class CmsController < MyProfileController
     profile.articles.find(c.params[:id]).allow_post_content?(user)
   end
 
-  alias :check_ssl_orig :check_ssl
-  # Redefines the SSL checking to avoid requiring SSL when creating the "New
-  # publication" button on article's public view.
-  def check_ssl
-    if ((params[:action] == 'new') && (!request.xhr?)) || (params[:action] != 'new')
-      check_ssl_orig
-    end
-  end
-
   def boxes_holder
     profile
   end
@@ -59,7 +50,7 @@ class CmsController < MyProfileController
   end
 
   def special_article_types
-    [Folder, Blog, UploadedFile, Forum, Gallery, RssFeed]
+    [Folder, Blog, UploadedFile, Forum, Gallery, RssFeed] + @plugins.dispatch(:content_types)
   end
 
   def view
@@ -206,6 +197,7 @@ class CmsController < MyProfileController
     @article = profile.articles.find(params[:id])
     if request.post?
       @article.destroy
+      session[:notice] = _("\"#{@article.name}\" was removed.")
       redirect_to :action => (@article.parent ? 'view' : 'index'), :id => @article.parent
     end
   end
@@ -319,10 +311,6 @@ class CmsController < MyProfileController
     end
   end
 
-  def maybe_ssl(url)
-    [url, url.sub('https:', 'http:')]
-  end
-
   def valid_article_type?(type)
     (available_article_types + special_article_types).map {|item| item.name}.include?(type)
   end
@@ -365,7 +353,7 @@ class CmsController < MyProfileController
       }
     end.to_json
   end
-  
+
   def content_editor?
     true
   end

@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class ProfileTest < Test::Unit::TestCase
+class ProfileTest < ActiveSupport::TestCase
   fixtures :profiles, :environments, :users, :roles, :domains
 
   def test_identifier_validation
@@ -1738,6 +1738,30 @@ class ProfileTest < Test::Unit::TestCase
     child = CommunitySubclass.create!(:identifier => 'child', :name => 'Child')
 
     assert_includes Profile.communities, child
+  end
+
+  should 'get organization roles' do
+    env = fast_create(Environment)
+    roles = %w(foo bar profile_foo profile_bar).map{ |r| Role.create!(:name => r, :key => r, :environment_id => env.id, :permissions => ["some"]) }
+    Role.create! :name => 'test', :key => 'profile_test', :environment_id => env.id + 1
+    Profile::Roles.expects(:all_roles).returns(roles)
+    assert_equal roles[2..3], Profile::Roles.organization_member_roles(env.id)
+  end
+
+  should 'get all roles' do
+    env = fast_create(Environment)
+    roles = %w(foo bar profile_foo profile_bar).map{ |r| Role.create!(:name => r, :environment_id => env.id, :permissions => ["some"]) }
+    Role.create! :name => 'test', :environment_id => env.id + 1
+    assert_equal roles, Profile::Roles.all_roles(env.id)
+  end
+
+  should 'define method for role' do
+    env = fast_create(Environment)
+    r = Role.create! :name => 'Test Role', :environment_id => env.id
+    assert_equal r, Profile::Roles.test_role(env.id)
+    assert_raise NoMethodError do
+      Profile::Roles.invalid_role(env.id)
+    end
   end
 
   private

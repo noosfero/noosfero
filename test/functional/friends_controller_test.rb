@@ -3,14 +3,13 @@ require 'friends_controller'
 
 class FriendsController; def rescue_action(e) raise e end; end
 
-class FriendsControllerTest < Test::Unit::TestCase
+class FriendsControllerTest < ActionController::TestCase
 
   noosfero_test :profile => 'testuser'
 
   def setup
     @controller = FriendsController.new
     @request    = ActionController::TestRequest.new
-    @request.stubs(:ssl?).returns(true)
     @response   = ActionController::TestResponse.new
 
     self.profile = create_user('testuser').person

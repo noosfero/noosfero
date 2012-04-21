@@ -4,7 +4,7 @@ require 'environment_design_controller'
 # Re-raise errors caught by the controller.
 class EnvironmentDesignController; def rescue_action(e) raise e end; end
 
-class EnvironmentDesignControllerTest < Test::Unit::TestCase
+class EnvironmentDesignControllerTest < ActionController::TestCase
 
   ALL_BLOCKS = [ArticleBlock, LoginBlock, EnvironmentStatisticsBlock, RecentDocumentsBlock, EnterprisesBlock, CommunitiesBlock, PeopleBlock, SellersSearchBlock, LinkListBlock, FeedReaderBlock, SlideshowBlock, HighlightsBlock, FeaturedProductsBlock, CategoriesBlock, RawHTMLBlock ]
 
@@ -70,7 +70,7 @@ class EnvironmentDesignControllerTest < Test::Unit::TestCase
     article.expects(:path).returns('some_path')
     article.expects(:id).returns(1)
     get :edit, :id => l.id
-    assert_tag :tag => 'select', :attributes => { :id => 'block[article_id]' }
+    assert_tag :tag => 'select', :attributes => { :name => 'block[article_id]' }
   end
 
   should 'be able to edit ArticleBlock without portal community' do

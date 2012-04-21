@@ -1,5 +1,7 @@
 class BscPluginEnvironmentController < AdminController
 
+  include BscPlugin::BscHelper
+
   def new
     @bsc = BscPlugin::Bsc.new(params[:profile_data])
     if request.post? && @bsc.valid?

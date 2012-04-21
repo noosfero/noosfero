@@ -81,7 +81,7 @@ class Block < ActiveRecord::Base
   # The method can also return <tt>nil</tt>, which means "no content".
   #
   # See BoxesHelper#extract_block_content for implementation details. 
-  def content
+  def content(args={})
     "This is block number %d" % self.id
   end
 
@@ -125,6 +125,11 @@ class Block < ActiveRecord::Base
 
   def cacheable?
     true
+  end
+
+  alias :active_record_cache_key :cache_key
+  def cache_key(language='en')
+    active_record_cache_key+'-'+language
   end
 
   def timeout

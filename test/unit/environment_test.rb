@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class EnvironmentTest < Test::Unit::TestCase
+class EnvironmentTest < ActiveSupport::TestCase
   fixtures :environments
 
   def test_exists_default_and_it_is_unique
@@ -237,12 +237,6 @@ class EnvironmentTest < Test::Unit::TestCase
     Noosfero.expects(:url_options).returns({ :port => 9999 }).at_least_once
 
     assert_equal 'http://localhost:9999', env.top_url
-  end
-
-  should 'use https when asked for a ssl url' do
-    env = Environment.new
-    env.expects(:default_hostname).returns('www.lalala.net')
-    assert_equal 'https://www.lalala.net', env.top_url(true)
   end
 
   should 'provide an approval_method setting' do
@@ -541,16 +535,6 @@ class EnvironmentTest < Test::Unit::TestCase
     assert_equal enterprise, e.enterprise_template
   end
 
-  should 'not enable ssl by default' do
-    e = Environment.new
-    assert !e.enable_ssl
-  end
-
-  should 'be able to enable ssl' do
-    e = Environment.new(:enable_ssl => true)
-    assert_equal true, e.enable_ssl
-  end
-
   should 'have a layout template' do
     e = Environment.new(:layout_template => 'mytemplate')
     assert_equal 'mytemplate', e.layout_template
@@ -819,7 +803,7 @@ class EnvironmentTest < Test::Unit::TestCase
     e2 = fast_create(Environment)
     role2 = Role.new(:name => 'test_role', :environment => e2)
 
-    assert_valid role2
+    assert role2.valid?
   end
 
   should 'have roles with keys independent of other environments' do
@@ -828,7 +812,7 @@ class EnvironmentTest < Test::Unit::TestCase
     e2 = fast_create(Environment)
     role2 = Role.new(:name => 'test_role', :environment => e2, :key => 'a_member')
 
-    assert_valid role2
+    assert role2.valid?
   end
 
   should 'have a help_message_to_add_enterprise attribute' do
@@ -1216,4 +1200,7 @@ class EnvironmentTest < Test::Unit::TestCase
     assert_not_includes environment.enabled_plugins, plugin
   end
 
+  should 'have production costs' do
+    assert_respond_to Environment.default, :production_costs
+  end
 end

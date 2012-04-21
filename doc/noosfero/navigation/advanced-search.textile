@@ -2,15 +2,15 @@ h1(order-620). Advanced search
 
 p.  _When an user is navigating on the system, he can do a search to find articles, communities, people, enterprises or products._
 
-*  "How to access":#HowAccess
-*  "Description":#Description
-*  "Related topics":#RelatedTopics
+*  "How to access":#howaccess
+*  "Description":#description
+*  "Related topics":#relatedtopics
 
-h2(#HowAccess). How to access
+h2(#howaccess). How to access
 
 p. Do a search as explained in "Searching":/doc/navigation/searching
 
-h2(#Description). Description
+h2(#description). Description
 
 # Click on "More options" to specify the search  !=/images/doc/search-more-options.en.png(More options button on search)!
 # Type what you want to search on the system  !=/images/doc/search-more-options-open.en.png(More options on search)!
@@ -21,7 +21,7 @@ h2(#Description). Description
 ## Click on "Search" button to do the search.
 # In this example, we searched for "free software" in articles/people/communities/events/enterprises/products. Then you will see a screen with the search result. Each box brings one kind of information with a limited number of results. To see more results of a box, click on "See all" link below the box.  !=/images/doc/search-results-with-example.en.png(Advanced search results with example)!
 
-h2(#RelatedTopics). Related topics
+h2(#relatedtopics). Related topics
 
 *  "Searching":/doc/navigation/searching
 *  "Findind people":/doc/navigation/searching-people

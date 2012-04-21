@@ -1,13 +1,12 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class MailconfControllerTest < Test::Unit::TestCase
+class MailconfControllerTest < ActionController::TestCase
 
   all_fixtures
 
   def setup
     @controller = MailconfController.new
     @request    = ActionController::TestRequest.new
-    @request.stubs(:ssl?).returns(true)
     @response   = ActionController::TestResponse.new
 
     MailConf.stubs(:enabled?).returns(true)
@@ -100,7 +99,7 @@ class MailconfControllerTest < Test::Unit::TestCase
   should 'go back on save' do
     login_as('ze')
     post :enable, :profile => 'ze'
-    assert_redirected_to :controller => 'profile_editor'
+    assert_redirected_to :controller => 'profile_editor', :action => 'edit'
   end
 
   should 'go to profile editor after enable email' do

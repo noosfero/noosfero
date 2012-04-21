@@ -1,3 +1,5 @@
+require 'redcloth'
+
 # Methods added to this helper will be available to all templates in the
 # application.
 module ApplicationHelper
@@ -95,7 +97,7 @@ module ApplicationHelper
     text = content_tag('div', button + content_tag('div', content_tag('div', content) + close_button, :class => 'help_message', :id => help_id, :style => 'display: none;'), :class => 'help_box')
 
     unless block.nil?
-      concat(text, block.binding)
+      concat(text)
     end
 
     text
@@ -256,7 +258,7 @@ module ApplicationHelper
   end
 
   def button_bar(options = {}, &block)
-    concat(content_tag('div', capture(&block) + tag('br', :style => 'clear: left;'), { :class => 'button-bar' }.merge(options)), block.binding)
+    concat(content_tag('div', capture(&block) + tag('br', :style => 'clear: left;'), { :class => 'button-bar' }.merge(options)))
   end
 
   VIEW_EXTENSIONS = %w[.rhtml .html.erb]
@@ -538,7 +540,7 @@ module ApplicationHelper
           {_('Members') => {:href => url_for(:controller => :profile, :action => :members, :profile => profile.identifier)}},
           {_('Agenda') => {:href => url_for(:controller => :profile, :action => :events, :profile => profile.identifier)}},
           {_('Join') => {:href => url_for(profile.join_url), :class => 'join-community', :style => 'display: none'}},
-          {_('Leave') => {:href => url_for(profile.leave_url), :class => 'leave-community', :style => 'display:  none'}},
+          {_('Leave community') => {:href => url_for(profile.leave_url), :class => 'leave-community', :style => 'display:  none'}},
           {_('Send an e-mail') => {:href => url_for(:profile => profile.identifier, :controller => 'contact', :action => 'new'), :class => 'send-an-email', :style => 'display: none'}}
         ]
       elsif profile.kind_of?(Enterprise)
@@ -587,19 +589,20 @@ module ApplicationHelper
 
   def gravatar_url_for(email, options = {})
     # Ta dando erro de roteamento
-    url_for( { :gravatar_id => Digest::MD5.hexdigest(email),
+    default = theme_option['gravatar'] || NOOSFERO_CONF['gravatar'] || nil
+    url_for( { :gravatar_id => Digest::MD5.hexdigest(email.to_s),
                :host => 'www.gravatar.com',
                :protocol => 'http://',
                :only_path => false,
                :controller => 'avatar.php',
-               :d => NOOSFERO_CONF['gravatar'] ? NOOSFERO_CONF['gravatar'] : nil
+               :d => default
              }.merge(options) )
   end
 
   def str_gravatar_url_for(email, options = {})
-    default = NOOSFERO_CONF['gravatar'] ? NOOSFERO_CONF['gravatar'] : nil
+    default = theme_option['gravatar'] || NOOSFERO_CONF['gravatar'] || nil
     url = 'http://www.gravatar.com/avatar.php?gravatar_id=' +
-           Digest::MD5.hexdigest(email)
+           Digest::MD5.hexdigest(email.to_s)
     {
       :only_path => false,
       :d => default
@@ -607,6 +610,10 @@ module ApplicationHelper
       url += ( '&%s=%s' % [ k,v ] )
     }
     url
+  end
+
+  def gravatar_profile_url(email)
+    'http://www.gravatar.com/'+ Digest::MD5.hexdigest(email.to_s)
   end
 
   attr_reader :environment
@@ -753,7 +760,7 @@ module ApplicationHelper
 
   # Should be on the forms_helper file but when its there the translation of labels doesn't work
   class NoosferoFormBuilder < ActionView::Helpers::FormBuilder
-  extend ActionView::Helpers::TagHelper
+    extend ActionView::Helpers::TagHelper
 
     def self.output_field(text, field_html, field_id = nil)
       # try to guess an id if none given
@@ -775,7 +782,7 @@ module ApplicationHelper
     (field_helpers - %w(hidden_field)).each do |selector|
       src = <<-END_SRC
         def #{selector}(field, *args, &proc)
-          text = object.class.human_attribute_name(field.to_s)
+          text = object.class.respond_to?(:human_attribute_name) && object.class.human_attribute_name(field.to_s) || field.to_s.humanize
           NoosferoFormBuilder::output_field(text, super)
         end
       END_SRC
@@ -877,7 +884,7 @@ module ApplicationHelper
     end
 
     if block
-      concat(result, block.binding)
+      concat(result)
     end
 
     result
@@ -909,18 +916,11 @@ module ApplicationHelper
 
   def login_url
     options = Noosfero.url_options.merge({ :controller => 'account', :action => 'login' })
-    if environment.enable_ssl && (ENV['RAILS_ENV'] != 'development')
-      options.merge!(:protocol => 'https://', :host => ssl_hostname)
-    end
     url_for(options)
   end
 
-  def ssl_hostname
-    environment.default_hostname
-  end
-
   def base_url
-    environment.top_url(request.ssl?)
+    environment.top_url
   end
 
   def helper_for_article(article)
@@ -985,7 +985,7 @@ module ApplicationHelper
       'thickbox',
       'lightbox',
       'colorpicker',
-      colorbox_stylesheet_path,
+      'colorbox',
       pngfix_stylesheet_path,
     ] +
     tokeninput_stylesheets
@@ -998,10 +998,6 @@ module ApplicationHelper
 
   def pngfix_stylesheet_path
     'iepngfix/iepngfix.css'
-  end
-
-  def colorbox_stylesheet_path
-    'colorbox/colorbox.css'
   end
 
   def tokeninput_stylesheets
@@ -1024,7 +1020,7 @@ module ApplicationHelper
     options.merge!(:page => params[:npage])
     content = article.to_html(options)
     content = content.kind_of?(Proc) ? self.instance_eval(&content) : content
-    @plugins && @plugins.enabled_plugins.each do |plugin|
+    @plugins && @plugins.each do |plugin|
       content = plugin.parse_content(content)
     end
     content
@@ -1134,15 +1130,26 @@ module ApplicationHelper
     link_to(content_tag(:span, _('Communities Menu')), '#', :onclick => "toggleSubmenu(this,'',#{links.to_json}); return false", :class => 'menu-submenu-trigger up', :id => 'submenu-communities-trigger')
   end
 
+  def browse_contents_menu
+     links = [
+       {s_('contents|More Comments') => {:href => url_for({:controller => 'browse', :action => 'contents', :filter => 'more_comments'})}},
+       {s_('contents|More Views') => {:href => url_for({:controller => 'browse', :action => 'contents', :filter => 'more_views'})}},
+       {s_('contents|More Recent') => {:href => url_for({:controller => 'browse', :action => 'contents', :filter => 'more_recent'})}}
+     ]
+
+    link_to(content_tag(:span, _('Contents'), :class => 'icon-blog'), {:controller => "browse", :action => 'contents'}, :id => 'submenu-contents') +
+    link_to(content_tag(:span, _('Contents Menu')), '#', :onclick => "toggleSubmenu(this,'',#{links.to_json}); return false", :class => 'menu-submenu-trigger up', :id => 'submenu-contents-trigger')
+  end
+
   def pagination_links(collection, options={})
-    options = {:prev_label => '&laquo; ' + _('Previous'), :next_label => _('Next') + ' &raquo;'}.merge(options)
+    options = {:previous_label => '&laquo; ' + _('Previous'), :next_label => _('Next') + ' &raquo;'}.merge(options)
     will_paginate(collection, options)
   end
 
   def render_environment_features(folder)
     result = ''
     environment.enabled_features.keys.each do |feature|
-      file = File.join(@controller.view_paths, 'shared', folder.to_s, "#{feature}.rhtml")
+      file = File.join(@controller.view_paths.last, 'shared', folder.to_s, "#{feature}.rhtml")
       if File.exists?(file)
         result << render(:file => file, :use_full_path => false)
       end
@@ -1166,7 +1173,7 @@ module ApplicationHelper
       pending_tasks_count = link_to(count.to_s, @environment.top_url + '/myprofile/{login}/tasks', :id => 'pending-tasks-count', :title => _("Manage your pending tasks"))
     end
 
-    (_('Welcome, %s') % link_to('<i></i><strong>{login}</strong>', @environment.top_url + '/{login}', :id => "homepage-link", :title => _('Go to your homepage'))) +
+    (_("<span class='welcome'>Welcome,</span> %s") % link_to('<i></i><strong>{login}</strong>', @environment.top_url + '/{login}', :id => "homepage-link", :title => _('Go to your homepage'))) +
     render_environment_features(:usermenu) +
     link_to('<i class="icon-menu-admin"></i><strong>' + _('Administration') + '</strong>', @environment.top_url + '/admin', :id => "controlpanel", :title => _("Configure the environment"), :class => 'admin-link', :style => 'display: none') +
     manage_enterprises.to_s +
@@ -1226,7 +1233,7 @@ module ApplicationHelper
     wrapper = content_tag(:div, capture(&block), :class => 'comment-balloon-content')
     (1..8).to_a.reverse.each { |i| wrapper = content_tag(:div, wrapper, :class => "comment-wrapper-#{i}") }
     classes = options.delete(:class) || options.delete("class") || ''
-    concat(content_tag('div', wrapper + tag('br', :style => 'clear: both;'), { :class => 'comment-balloon ' + classes.to_s }.merge(options)), block.binding)
+    concat(content_tag('div', wrapper + tag('br', :style => 'clear: both;'), { :class => 'comment-balloon ' + classes.to_s }.merge(options)))
   end
 
   def display_source_info(page)
@@ -1247,25 +1254,27 @@ module ApplicationHelper
     task.information[:message] % values
   end
 
+  def add_zoom_to_article_images
+    add_zoom_to_images if environment.enabled?(:show_zoom_button_on_article_images)
+  end
+
   def add_zoom_to_images
-    if environment.enabled?(:show_zoom_button_on_article_images)
-      stylesheet_link_tag('fancybox') +
-      javascript_include_tag('jquery.fancybox-1.3.4.pack') +
-      javascript_tag("jQuery(function($) {
-        $(window).load( function() {
-          $('#article .article-body img').each( function(index) {
-            var original = original_image_dimensions($(this).attr('src'));
-            if ($(this).width() < original['width'] || $(this).height() < original['height']) {
-              $(this).wrap('<div class=\"zoomable-image\" />');
-              $(this).parent('.zoomable-image').attr('style', $(this).attr('style'));
-              $(this).attr('style', '');
-              $(this).after(\'<a href=\"' + $(this).attr('src') + '\" class=\"zoomify-image\"><span class=\"zoomify-text\">%s</span></a>');
-            }
-          });
-          $('.zoomify-image').fancybox();
+    stylesheet_link_tag('fancybox') +
+    javascript_include_tag('jquery.fancybox-1.3.4.pack') +
+    javascript_tag("jQuery(function($) {
+      $(window).load( function() {
+        $('#article .article-body img').each( function(index) {
+          var original = original_image_dimensions($(this).attr('src'));
+          if ($(this).width() < original['width'] || $(this).height() < original['height']) {
+            $(this).wrap('<div class=\"zoomable-image\" />');
+            $(this).parent('.zoomable-image').attr('style', $(this).attr('style'));
+            $(this).attr('style', '');
+            $(this).after(\'<a href=\"' + $(this).attr('src') + '\" class=\"zoomify-image\"><span class=\"zoomify-text\">%s</span></a>');
+          }
         });
-      });" % _('Zoom in'))
-    end
+        $('.zoomify-image').fancybox();
+      });
+    });" % _('Zoom in'))
   end
 
   def render_dialog_error_messages(instance_name)
@@ -1301,6 +1310,31 @@ module ApplicationHelper
         content_tag('a', text, :class => klass + ' disabled comment-footer comment-footer-link', :title => already_reported_message) :
         link_to(text, url, :class => klass + ' comment-footer comment-footer-link', :title => report_profile_message)
       ) + content_tag('span', ' | ', :class => 'comment-footer comment-footer-hide')
+    end
+  end
+
+  def cache_timeout(key, timeout, &block)
+    cache(key, { :expires_in => timeout }, &block)
+  end
+
+  def is_cache_expired?(key)
+    !cache_store.fetch(ActiveSupport::Cache.expand_cache_key(key, :controller))
+  end
+
+  def render_tabs(tabs)
+    titles = tabs.inject(''){ |result, tab| result << content_tag(:li, link_to(tab[:title], '#'+tab[:id]), :class => 'tab') }
+    contents = tabs.inject(''){ |result, tab| result << content_tag(:div, tab[:content], :id => tab[:id]) }
+
+    content_tag :div, :class => 'ui-tabs' do
+      content_tag(:ul, titles) + contents
+    end
+  end
+
+  def delete_article_message(article)
+    if article.folder?
+      _("Are you sure that you want to remove the folder \"#{article.name}\"? Note that all the items inside it will also be removed!")
+    else
+      _("Are you sure that you want to remove the item \"#{article.name}\"?")
     end
   end
 end

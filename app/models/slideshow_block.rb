@@ -31,7 +31,7 @@ class SlideshowBlock < Block
     gallery.images.reject {|item| item.folder?}
   end
 
-  def content
+  def content(args={})
     block = self
     if gallery
       images = block_images

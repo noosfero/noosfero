@@ -1243,9 +1243,6 @@ table.profile th {
 
 .browse-results-innerbox {
   margin-top: 10px;
-  border-bottom: none;
-  border: 1px solid #CCC;
-  background: url(imgs/comment-bg-S.png) 0% 100% repeat-x;
   padding-bottom: 10px;
 
 }

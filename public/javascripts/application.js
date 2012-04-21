@@ -255,7 +255,7 @@ function toggleSubmenu(trigger, title, link_list) {
       if (!hide) {
         var direction = 'down';
         if (submenu.hasClass('up')) direction = 'up';
-        submenu.show('slide', { 'direction' : direction }, 'slow');
+        jQuery(submenu).fadeIn();
       }
     }
     return false;
@@ -283,18 +283,18 @@ function toggleSubmenu(trigger, title, link_list) {
   content.append(list);
   submenu.append(header).append(content).append(footer);
   jQuery(trigger).before(submenu);
-  submenu.show('slide', { 'direction' : direction }, 'slow');
+  jQuery(submenu).fadeIn();
 }
 
 function toggleMenu(trigger) {
   hideAllSubmenus();
-  jQuery(trigger).siblings('.simplemenu-submenu').toggle('slide', {direction: 'up'}, 'slow').toggleClass('opened');
+  jQuery(trigger).siblings('.simplemenu-submenu').toggle().toggleClass('opened');
 }
 
 function hideAllSubmenus() {
-  jQuery('.menu-submenu.up:visible').hide('slide', { 'direction' : 'up' }, 'slow');
-  jQuery('.simplemenu-submenu:visible').hide('slide', { 'direction' : 'up' }, 'slow').toggleClass('opened');
-  jQuery('.menu-submenu.down:visible').hide('slide', { 'direction' : 'down' }, 'slow');
+  jQuery('.menu-submenu.up:visible').fadeOut('slow');
+  jQuery('.simplemenu-submenu:visible').hide().toggleClass('opened');
+  jQuery('.menu-submenu.down:visible').fadeOut('slow');
   jQuery('#chat-online-users-content').hide();
 }
 
@@ -662,7 +662,6 @@ function add_comment_reply_form(button, comment_id) {
   var f = container.find('.comment_form');
   if (f.length == 0) {
     f = jQuery('#page-comment-form .comment_form').clone();
-    f.find('#dynamic_recaptcha').remove();
     f.find('.fieldWithErrors').map(function() { jQuery(this).replaceWith(jQuery(this).contents()); });
     f.prepend('<input type="hidden" name="comment[reply_of_id]" value="' + comment_id + '" />');
     container.append(f);
@@ -681,6 +680,12 @@ function original_image_dimensions(src) {
   return { 'width' : img.width, 'height' : img.height };
 }
 
+function gravatarCommentFailback(img) {
+  var link = img.parentNode;
+  link.href = "http://www.gravatar.com";
+  img.src = img.getAttribute("data-gravatar");
+}
+
 jQuery(function() {
   jQuery("#ajax-form").before("<div id='ajax-form-loading-area' style='display:block;width:16px;height:16px;'></div>");
   jQuery("#ajax-form").before("<div id='ajax-form-message-area'></div>");
@@ -695,3 +700,14 @@ jQuery(function() {
     target: "#ajax-form-message-area"
   })
 });
+
+// from http://jsfiddle.net/naveen/HkxJg/
+// Function to get the Max value in Array
+Array.max = function(array) {
+  return Math.max.apply(Math, array);
+};
+// Function to get the Min value in Array
+Array.min = function(array) {
+  return Math.min.apply(Math, array);
+};
+

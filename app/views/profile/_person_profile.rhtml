@@ -9,7 +9,7 @@
   <%= display_field(_('Type:'), profile, :privacy_setting, true) %>
 
   <tr>
-    <td class='field-name'><%= _('Created at:')  %></td>
+    <td class='field-name'><%= _('Profile created at:')  %></td>
     <td><%= show_date(profile.created_at) %></td>
   </tr>
 
@@ -23,7 +23,7 @@
     <%= display_field(_('e-Mail:'), profile, :email, true) { |email| link_to_email(email) } %>
   <% end %>
 
-  <% cache_timeout(profile.relationships_cache_key, 4.hours.from_now) do %>
+  <% cache_timeout(profile.relationships_cache_key, 4.hours) do %>
     <% if !(profile.organization.blank? && profile.organization_website.blank?) && (profile.active_fields.include?('organization') || profile.active_fields.include?('organization_website')) %>
       <tr>
         <th colspan='2'><%= _('Work')%></th>
@@ -56,18 +56,6 @@
       <td><%= __('Communities') + ':' %></td>
       <td><%= link_to profile.communities.count, :controller => "profile", :action => 'communities' %></td>
     </tr>
-
-    <% if !environment.enabled?('disable_categories') && !profile.interests.empty? %>
-      <tr>
-        <th colspan='2'><%= _('Interests') %></th>
-      </tr>
-      <% profile.interests.each do |item| %>
-        <tr>
-          <td></td>
-          <td><%= link_to item.name, :controller => 'search', :action => 'category_index', :category_path => item.explode_path %></td>
-        </tr>
-      <% end %>
-    <% end %>
 
     <%= render :partial => 'common' %>
 

@@ -15,7 +15,7 @@ class RecentDocumentsBlock < Block
   settings_items :limit, :type => :integer, :default => 5
 
   include ActionController::UrlWriter
-  def content
+  def content(args={})
     docs = self.limit.nil? ? owner.recent_documents : owner.recent_documents(self.limit)
 
     block_title(title) +

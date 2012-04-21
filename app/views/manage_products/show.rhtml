@@ -13,7 +13,7 @@
       <%= render :partial => 'manage_products/display_image' %>
     </div>
     <div id='product-extra-content'>
-      <% extra_content = @plugins.map(:product_info_extras, @product).collect { |content| instance_eval(&content) } %>
+      <% extra_content = @plugins.dispatch(:product_info_extras, @product).collect { |content| instance_eval(&content) } %>
       <%= extra_content.join("\n") %>
     </div>
     <div id='product-info'>
@@ -23,7 +23,7 @@
 
   <br style='clear: both'/>
 
-  <% unless !@allowed_user && (@product.description.blank? && @product.inputs.empty?) %>
+  <% unless !@allowed_user && (@product.description.blank? && @product.inputs.empty? && !@product.price_described? ) %>
     <div class='ui-tabs' id='product-<%= @product.id %>-tabs'>
       <ul>
         <% if !@product.description.blank? || @allowed_user %>
@@ -32,6 +32,9 @@
         <% if !@product.inputs.empty? || @allowed_user %>
           <li class='tab'><a href='#product-inputs'><%= _('Inputs and raw material') %></a></li>
         <% end %>
+        <% if @product.price_described? || @allowed_user %>
+          <li class='tab'><a href='#product-price-details'><%= _('Price composition') %></a></li>
+        <% end %>
       </ul>
       <div id='product-description'>
         <%= render :partial => 'manage_products/display_description' %>
@@ -39,6 +42,12 @@
       <div id='product-inputs'>
         <%= render :partial => 'manage_products/display_inputs' %>
       </div>
+      <% if @product.price_described? || @allowed_user %>
+        <div id='product-price-details'>
+          <%= render :partial => 'manage_products/display_price_details' %>
+          <%= render :partial => 'manage_products/price_details_button' %>
+        </div>
+      <% end %>
     </div>
   <% end %>
 

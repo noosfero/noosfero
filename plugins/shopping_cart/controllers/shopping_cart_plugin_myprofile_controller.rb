@@ -24,7 +24,7 @@ class ShoppingCartPluginMyprofileController < MyProfileController
     condition = 'created_at >= ? AND created_at <= ?'
     condition_parameters = [@from, @to+1.day]
     if @status
-      condition += ' AND status == ?'
+      condition += ' AND status = ?'
       condition_parameters << @status
     end
 

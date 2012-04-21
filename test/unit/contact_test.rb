@@ -22,7 +22,7 @@ class ContactTest < ActiveSupport::TestCase
   should 'validates format of email only if not empty' do
     contact = Contact.new
     contact.valid?
-    assert_match(/^.* can't be blank$/, contact.errors[:email])
+    assert_match(/can't be blank/, contact.errors[:email])
   end
 
   should 'inicialize fields on instanciate' do

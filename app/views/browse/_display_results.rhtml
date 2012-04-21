@@ -8,7 +8,7 @@
     <% end %>
     <ul class='common-profile-list-block'>
       <% @results.each do |result| %>
-        <%= render :partial => partial_for_class(result.class), :locals => {:profile => result} %>
+        <%= render :partial => partial_for_class(result.class), :locals => {:result => result} %>
       <% end %>
     </ul>
     <br style='clear: both;'>

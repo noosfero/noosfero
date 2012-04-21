@@ -4,13 +4,12 @@ require 'admin_panel_controller'
 # Re-raise errors caught by the controller.
 class AdminPanelController; def rescue_action(e) raise e end; end
 
-class AdminPanelControllerTest < Test::Unit::TestCase
+class AdminPanelControllerTest < ActionController::TestCase
 
   all_fixtures
   def setup
     @controller = AdminPanelController.new
     @request    = ActionController::TestRequest.new
-    @request.stubs(:ssl?).returns(true)
     @response   = ActionController::TestResponse.new
     login_as(create_admin_user(Environment.default))
   end
@@ -67,27 +66,17 @@ class AdminPanelControllerTest < Test::Unit::TestCase
     assert_tag :tag => 'a', :attributes => { :href => '/admin/admin_panel/message_for_disabled_enterprise' }
   end
 
-  should 'link to define terms of use' do
-    get :index
-    assert_tag :tag => 'a', :attributes => { :href => '/admin/admin_panel/terms_of_use' }
-  end
- 
   should 'display form for editing site info' do
     get :site_info
     assert_template 'site_info'
     assert_tag :tag => 'textarea', :attributes => { :name => 'environment[description]'}
+    assert_tag :tag => 'textarea', :attributes => { :name => 'environment[terms_of_use]'}
   end
 
   should 'display form for editing message for disabled enterprise' do
     get :message_for_disabled_enterprise
     assert_template 'message_for_disabled_enterprise'
     assert_tag :tag => 'textarea', :attributes => { :name => 'environment[message_for_disabled_enterprise]'}
-  end
-
-  should 'display form for editing terms of use' do
-    get :terms_of_use
-    assert_template 'terms_of_use'
-    assert_tag :tag => 'textarea', :attributes => { :name => 'environment[terms_of_use]'}
   end
 
   should 'save site description' do
@@ -343,19 +332,23 @@ class AdminPanelControllerTest < Test::Unit::TestCase
   end
 
   should 'display plugins links' do
-    plugin1_link = {:title => 'Plugin1 link', :url => 'plugin1.com'}
-    plugin2_link = {:title => 'Plugin2 link', :url => 'plugin2.com'}
-    links = [plugin1_link, plugin2_link]
-    plugins = mock()
-    plugins.stubs(:map).with(:admin_panel_links).returns(links)
-    plugins.stubs(:enabled_plugins).returns([])
-    plugins.stubs(:map).with(:body_beginning).returns([])
-    Noosfero::Plugin::Manager.stubs(:new).returns(plugins)
+    class TestAdminPanelLinks1 < Noosfero::Plugin
+      def admin_panel_links
+        {:title => 'Plugin1 link', :url => 'plugin1.com'}
+      end
+    end
+    class TestAdminPanelLinks2 < Noosfero::Plugin
+      def admin_panel_links
+        {:title => 'Plugin2 link', :url => 'plugin2.com'}
+      end
+    end
+
+    Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([TestAdminPanelLinks1.new, TestAdminPanelLinks2.new])
 
     get :index
 
-    assert_tag :tag => 'a', :content => /#{plugin1_link[:title]}/, :attributes => {:href => /#{plugin1_link[:url]}/}
-    assert_tag :tag => 'a', :content => /#{plugin2_link[:title]}/, :attributes => {:href => /#{plugin2_link[:url]}/}
+    assert_tag :tag => 'a', :content => /Plugin1 link/, :attributes => {:href => /plugin1.com/}
+    assert_tag :tag => 'a', :content => /Plugin2 link/, :attributes => {:href => /plugin2.com/}
   end
 
 end

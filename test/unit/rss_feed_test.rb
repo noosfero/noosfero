@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class RssFeedTest < Test::Unit::TestCase
+class RssFeedTest < ActiveSupport::TestCase
 
   should 'indicate the correct mime/type' do
     assert_equal 'text/xml', RssFeed.new.mime_type

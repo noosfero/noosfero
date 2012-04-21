@@ -1,7 +1,7 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 # FIXME move the filesystem-related tests out here
-class CategoryTest < Test::Unit::TestCase
+class CategoryTest < ActiveSupport::TestCase
 
   def setup
     @env = fast_create(Environment)

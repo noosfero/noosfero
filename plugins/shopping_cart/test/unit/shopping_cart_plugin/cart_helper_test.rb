@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../../../../../test/test_helper'
 
-class ShoppingCartPlugin::CartHelperTest < Test::Unit::TestCase
+class ShoppingCartPlugin::CartHelperTest < ActiveSupport::TestCase
 
   include ShoppingCartPlugin::CartHelper
 
@@ -32,6 +32,13 @@ class ShoppingCartPlugin::CartHelperTest < Test::Unit::TestCase
     product.stubs(:price_with_discount).returns(price-discount)
 
     assert_equal price-discount, sell_price(product)
+  end
+
+  should 'return the correct formated string with float_to_currency_cart' do
+    value = 13.7
+    environment = Environment.default
+
+    assert_equal "#{environment.currency_unit} 13#{environment.currency_separator}70", float_to_currency_cart(value,environment)
   end
 
 end
