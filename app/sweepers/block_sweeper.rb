@@ -5,15 +5,14 @@ class BlockSweeper < ActiveRecord::Observer
   class << self
     include SweeperHelper
 
-    def cache_key_regex(block)
-      regex = '-[a-z]*$'
-      clean_ck = block.cache_key.gsub(/#{regex}/,'')
-      %r{#{clean_ck+regex}}
-    end
-
     # Expire block's all languages cache
     def expire_block(block)
-      expire_timeout_fragment(cache_key_regex(block))
+      regex = '-[a-z]*$'
+      clean_ck = block.cache_key.gsub(/#{regex}/,'')
+
+      Noosfero.locales.keys.each do |locale|
+        expire_timeout_fragment("#{clean_ck}-#{locale}")
+      end
     end
 
     def expire_blocks(blocks)
