@@ -322,7 +322,7 @@ msgstr "Zoologie"
 
 #: app/helpers/profile_editor_helper.rb:79
 msgid "Zootecnia"
-msgstr ""
+msgstr "Tierzucht"
 
 #: app/helpers/profile_editor_helper.rb:80
 msgid "Others"
@@ -1977,11 +1977,11 @@ msgstr "Gesamter Inhalt"
 
 #: app/models/contact.rb:-
 msgid "action tracker"
-msgstr ""
+msgstr "action tracker"
 
 #: app/models/contact.rb:-
 msgid "actiontracker::record"
-msgstr ""
+msgstr "actiontracker::record"
 
 #: app/models/contact.rb:-
 msgid "User"
@@ -2001,11 +2001,11 @@ msgstr "Zieltyp"
 
 #: app/models/contact.rb:-
 msgid "Params"
-msgstr ""
+msgstr "Params"
 
 #: app/models/contact.rb:-
 msgid "Verb"
-msgstr ""
+msgstr "Verb"
 
 #: app/models/contact.rb:- app/models/production_cost.rb:-
 #: app/models/certifier.rb:- app/models/user.rb:-
@@ -2031,7 +2031,7 @@ msgstr "aktualisiert um"
 
 #: app/models/contact.rb:-
 msgid "tagging"
-msgstr ""
+msgstr "tagging"
 
 #: app/models/contact.rb:-
 msgid "Tag"
@@ -2039,7 +2039,7 @@ msgstr "Tag"
 
 #: app/models/contact.rb:-
 msgid "Taggable"
-msgstr ""
+msgstr "Taggable"
 
 #: app/models/contact.rb:-
 msgid "Taggable type"
@@ -2055,27 +2055,27 @@ msgstr "Eltern"
 
 #: app/models/contact.rb:-
 msgid "Pending"
-msgstr ""
+msgstr "In Bearbeitung"
 
 #: app/models/contact.rb:-
 msgid "delayed job"
-msgstr ""
+msgstr "delayed job"
 
 #: app/models/contact.rb:-
 msgid "delayed::backend::activerecord::job"
-msgstr ""
+msgstr "delayed::backend::activerecord::job"
 
 #: app/models/contact.rb:-
 msgid "Priority"
-msgstr ""
+msgstr "Priorität"
 
 #: app/models/contact.rb:-
 msgid "Attempts"
-msgstr ""
+msgstr "Versuche"
 
 #: app/models/contact.rb:-
 msgid "Handler"
-msgstr ""
+msgstr "Handler"
 
 #: app/models/contact.rb:-
 msgid "Last error"
@@ -2099,11 +2099,11 @@ msgstr "Geschlossen durch"
 
 #: app/models/contact.rb:-
 msgid "noosfero plugin active record"
-msgstr ""
+msgstr "noosfero plugin active record"
 
 #: app/models/contact.rb:-
 msgid "noosfero::plugin::activerecord"
-msgstr ""
+msgstr "noosfero::plugin::activerecord"
 
 #: app/models/contact.rb:-
 msgid "profile"
@@ -2225,7 +2225,7 @@ msgstr "bestätigt"
 
 #: app/models/contact.rb:-
 msgid "Cnpj"
-msgstr ""
+msgstr "Cnpj"
 
 #: app/models/contact.rb:-
 msgid "National region code"
@@ -2279,11 +2279,11 @@ msgstr "Titel"
 
 #: app/models/contact.rb:-
 msgid "Slug"
-msgstr ""
+msgstr "Slug"
 
 #: app/models/contact.rb:-
 msgid "Path"
-msgstr ""
+msgstr "Pfad"
 
 #: app/models/contact.rb:- app/models/mailing.rb:- app/models/comment.rb:-
 msgid "Body"
@@ -2469,11 +2469,11 @@ msgstr "Einheit"
 
 #: app/models/contact.rb:-
 msgid "bscplugin::bsc"
-msgstr ""
+msgstr "bscplugin::bsc"
 
 #: app/models/contact.rb:-
 msgid "role assignment"
-msgstr ""
+msgstr "role assignment"
 
 #: app/models/contact.rb:-
 msgid "Accessor"
@@ -3384,7 +3384,7 @@ msgstr "Community Informationen und Einstellungen"
 
 #: app/models/abuse_report.rb:-
 msgid "abuse report"
-msgstr ""
+msgstr "Missbrauchsmeldung"
 
 #: app/models/abuse_report.rb:-
 msgid "Reporter"
@@ -3403,7 +3403,7 @@ msgid ""
 "You need to login to %{system} in order to accept %{requestor} as your "
 "friend."
 msgstr ""
-"Sie müssen bei %{system} angemeldet sein, um %{requestor} alsIhren Freund zu "
+"Sie müssen bei %{system} angemeldet sein, um %{requestor} als Ihren Freund zu "
 "akzeptieren."
 
 #: app/models/add_friend.rb:36
@@ -3430,15 +3430,15 @@ msgid ""
 "use another title."
 msgstr ""
 "Der Titel (Artikelname) wird bereits durch einen anderen Artikel "
-"genutzt, bitte nutzen Sie einen anderen Titel."
+"genutzt. Bitte nutzen Sie einen anderen Titel."
 
 #: app/models/article.rb:219
 msgid "HTML Text document"
-msgstr "HTML Text Dokument"
+msgstr "HTML-Textdokument"
 
 #: app/models/article.rb:302
 msgid "Language not supported by Noosfero"
-msgstr "Sprache wird nicht von Noosfeo unterstützt"
+msgstr "Sprache wird nicht von Noosfero unterstützt"
 
 #: app/models/article.rb:308
 msgid "Language is already used"
@@ -3494,7 +3494,7 @@ msgstr "Zufällig ausgewählte Leute"
 
 #: app/models/action_tracker_notification.rb:-
 msgid "action tracker notification"
-msgstr ""
+msgstr "action tracker notification"
 
 #: app/models/action_tracker_notification.rb:-
 msgid "Action tracker"
@@ -3648,7 +3648,7 @@ msgstr "Umgebung"
 
 #: app/models/environment.rb:-
 msgid "Design data"
-msgstr ""
+msgstr "Designdaten"
 
 #: app/models/environment.rb:-
 msgid "Terms of use acceptance text"
@@ -3656,11 +3656,11 @@ msgstr "Nutzungsbedingungen"
 
 #: app/models/environment.rb:-
 msgid "Reports lower bound"
-msgstr ""
+msgstr "Untere Grenze für Meldungen"
 
 #: app/models/environment.rb:-
 msgid "Send email plugin allow to"
-msgstr ""
+msgstr "Send email plugin allow to"
 
 #: app/models/environment.rb:20
 msgid "View environment admin panel"
@@ -3830,14 +3830,13 @@ msgid "Enterprises are disabled when created"
 msgstr "Unternehmen sind (zunächst) deaktiviert, nachdem sie erstellt wurden."
 
 #: app/models/environment.rb:120
-#, fuzzy
 msgid "Enterprises are validated when created"
-msgstr "Unternehmen sind (zunächst) deaktiviert, nachdem sie erstellt wurden."
+msgstr "Unternehmen werden bei ihrer Erstellung überprüft"
 
 #: app/models/environment.rb:121
 msgid "Show a balloon with profile links when a profile image is clicked"
 msgstr ""
-"Zeigt einen Ballon mit Profil-Links wenn eine Profil-Bild angeklickt wird."
+"Zeigt einen Ballon mit Profil-Links, wenn ein Profil-Bild angeklickt wird."
 
 #: app/models/environment.rb:122
 msgid "XMPP/Jabber based chat"
@@ -3921,10 +3920,11 @@ msgid ""
 "\n"
 "%{comment} "
 msgstr ""
-"\n"
 "Ihrer Anfrage, den Artikel \"%{article}\" zu veröffentlichen, wurde "
-"stattgegeben. Hier ist der Kommentar des Admins, der Ihren Artikel genehmigt "
+"stattgegeben. Hier ist der Kommentar des Administrators, der Ihren Artikel genehmigt "
 "hat:\n"
+"\n"
+"%{comment} "
 
 #: app/models/approve_article.rb:114
 msgid "Your request for publishing the article \"%{article}\" was approved."
@@ -3973,7 +3973,7 @@ msgid ""
 "to approve or reject it through the \"Pending Validations\" section in your "
 "control panel.\n"
 msgstr ""
-"Der Nutzer  \"%{user}\" möchte die Community %{community} erstellen. Sie "
+"Der Nutzer \"%{user}\" möchte die Community %{community} erstellen. Sie "
 "können im Bereich  \"Pending Validations\" diesem Anliegen zustimmen oder es "
 "ablehnen.\n"
 
@@ -4000,7 +4000,7 @@ msgid ""
 "\n"
 "%{explanation}"
 msgstr ""
-"Ihrer Anfrage, die Community %{Community} zu registrieren, wurde durch den "
+"Ihrer Anfrage, die Community %{community} in %{environment} zu registrieren, wurde durch den "
 "Administrator NICHT stattgegeben. Folgende Erklärung wurde dazu abgegeben: \n"
 "\n"
 "%{explanation}"
@@ -4010,7 +4010,7 @@ msgid ""
 "Your request for registering the community \"%{community}\" was approved. "
 "You can access %{environment} now and start using your new community."
 msgstr ""
-"Ihre Anfrage, die Communtity  \"%{community}\"  zu registrieren, war "
+"Ihre Anfrage, die Communtity \"%{community}\" zu registrieren, war "
 "erfolgreich. Sie können sich nun bei %{environment} anmelden und die Nutzung "
 "Ihrer neuen Community beginnen."
 
@@ -4078,7 +4078,7 @@ msgstr "Dieser Block zeigt einige Informationen über Ihr Netzwerk."
 
 #: app/models/fans_block.rb:4
 msgid "Displays the people who like the enterprise"
-msgstr ""
+msgstr "Personen anzeigen, welche sich als Unterstützer der Firma eingetragen haben"
 
 #: app/models/fans_block.rb:8
 msgid "{#} fan"
@@ -4173,7 +4173,7 @@ msgstr "persönliches Profil"
 
 #: app/models/profile.rb:758
 msgid "Since: "
-msgstr "Seit:"
+msgstr "Seit: "
 
 #: app/models/profile.rb:773
 msgid "no activity"
@@ -4233,12 +4233,17 @@ msgid ""
 "The administrators of the environment are now reviewing the report. To solve "
 "this misunderstanding, please contact the administrators."
 msgstr ""
+"Ihr Profil wurde durch die Nutzer von %s aufgrund missbräuchlichen Verhaltens gemeldet. "
+"Die Administratoren der Umgebung sehen sich nun die Meldung an. Um ein eventuelles Missverständnis "
+"auszuräumen, wenden Sie sich bitte an die Administratoren."
 
 #: app/models/abuse_complaint.rb:64
 msgid ""
 "Your profile was disabled by the administrators of %s due to inappropriate "
 "behavior. To solve this misunderstanding please contact them."
 msgstr ""
+"Ihr Profil wurde durch die Administratoren von %s aufgrund missbräuchlichen Verhaltens gesperrt. "
+"Um ein eventuelles Missverständnis auszuräumen, wenden Sie sich bitte an sie."
 
 #: app/models/abuse_complaint.rb:68
 msgid "%s was reported due to inappropriate behavior."
@@ -4251,6 +4256,10 @@ msgid ""
 "contents reported by these users. Please verify the reports and decide "
 "whether this profile must be disabled or not."
 msgstr ""
+"Die Benutzer von %{environment} haben %{reported} aufgrund missbräuchlichen Verhaltens "
+"gemeldet. Eine Aufgabe mit allen Meldungen inklusive der von den Benutzern gemeldeten Gründe und Inhalte "
+"wurde erstellt. Bitte schauen Sie sich diese Meldungen an und entscheiden Sie sich, ob das Profil "
+"deaktiviert werden muss oder nicht."
 
 #: app/models/reported_image.rb:-
 msgid "reported image"
@@ -4258,7 +4267,7 @@ msgstr "gemeldetes Bild"
 
 #: app/models/reported_image.rb:-
 msgid "Abuse report"
-msgstr ""
+msgstr "Missbrauchsmeldung"
 
 #: app/models/profile_image_block.rb:6
 msgid "Profile Image"
@@ -4354,7 +4363,7 @@ msgid ""
 "You can access %{environment} now and provide start providing all relevant "
 "information your new enterprise."
 msgstr ""
-"Ihre Anfrage, das Unternehmen  \"%{enterprise}\"  zu registrieren, war "
+"Ihre Anfrage, das Unternehmen \"%{enterprise}\"  zu registrieren, war "
 "erfolgreich. Sie können sich nun bei %{environment} anmelden und damit "
 "beginnen alle relevanten Informationen zu Ihrem Unternehmen bereitzustellen."
 
@@ -4366,9 +4375,11 @@ msgid ""
 "\n"
 "%{explanation}"
 msgstr ""
-"Ihrer Anfrage, das Unternehmen %{enterprise} zu registrieren, wurde durch "
+"Ihrer Anfrage, das Unternehmen %{enterprise} in %{environment} zu registrieren, wurde durch "
 "die Validierungsorganisation NICHT stattgegeben. Folgende Erklärung wurde "
-"dazu abgegebn: "
+"dazu abgegebn: \n"
+"\n"
+"%{explanation}"
 
 #: app/models/create_enterprise.rb:177
 msgid ""
@@ -4376,8 +4387,8 @@ msgid ""
 "have to approve or reject it through the \"Pending Validations\" section in "
 "your control panel.\n"
 msgstr ""
-"Das Unternehmen  \"%{enterprise}\" möchte %{environment} beitreten. Sie "
-"können im Bereich  \"Pending Validations\" diesem Anliegen zustimmen oder es "
+"Das Unternehmen \"%{enterprise}\" möchte %{environment} beitreten. Sie "
+"können im Bereich \"Validierungen in Bearbeitung\" in Ihrem Kontrollmenü diesem Anliegen zustimmen oder es "
 "ablehnen.\n"
 
 #: app/models/create_enterprise.rb:179
@@ -4818,7 +4829,7 @@ msgstr "von %{author} zu \"%{article}\""
 #: app/views/search/enterprises.rhtml:3
 msgid "Enterprise results for \"%{query}\" in \"%{category}\""
 msgstr ""
-"Ergebnisse der Unternehmenssuche für  \"%{query}\" in der \"%{category}\""
+"Ergebnisse der Unternehmenssuche für \"%{query}\" in der \"%{category}\""
 
 #: app/views/search/enterprises.rhtml:3
 msgid "Enterprise results for \"%s\""
@@ -5076,8 +5087,8 @@ msgstr ""
 "Unternehmen nutzen kann, wenn Sie sie aktivieren.\n"
 "\n"
 "Markieren Sie alle Funktionen, die nutzen möchten, alle Funktionen die Sie "
-"nicht nutzen wollen, lassen Sie unmarkiert und mit dem  <em>\"Save changes\" "
-"button</em> bestätigen Sie die Änderungen."
+"nicht nutzen wollen, lassen Sie unmarkiert und mit dem <em>Knopf \"Save changes\"</em> "
+"bestätigen Sie die Änderungen."
 
 #: app/views/features/index.rhtml:15
 msgid "Feature"
@@ -5218,8 +5229,7 @@ msgstr ""
 #: app/views/account/activate_enterprise.rhtml:22
 msgid "Enter you user name and password"
 msgstr ""
-"Geben Sie Ihren Anmeldenamen und Ihr Passwort ein und bestätigen Sie mit "
-"Enter"
+"Geben Sie Ihren Anmeldenamen und Ihr Passwort ein"
 
 #: app/views/account/accept_terms.rhtml:14
 msgid "part 2 of 2"
@@ -5258,7 +5268,7 @@ msgstr ""
 msgid "We don't have enough information about your enterprise to identify you."
 msgstr ""
 "Wir haben noch nicht genug Informationen über Ihr Unternehmen um Sie "
-"einordnen zu können"
+"einordnen zu können."
 
 #: app/views/account/blocked.rhtml:13
 msgid "Your enterprise has been blocked"
@@ -5319,6 +5329,7 @@ msgstr "Willkommen zu %s!"
 msgid ""
 "Thanks for signing up, we're thrilled to have you on our social network!"
 msgstr ""
+"Vielen Dank für die Anmeldung. Wir sind sehr erfreut, Sie in unserem sozialen Netzwerk willkommen heißen zu dürfen!"
 
 #: app/views/account/signup.rhtml:5
 msgid "Firstly, some tips for getting started:"
@@ -5333,10 +5344,12 @@ msgid ""
 "You should receive a welcome email from us shortly. Please take a second to "
 "follow the link within to confirm your account."
 msgstr ""
+"Sie werden in Kürze von uns eine Willkommens-E-Mail erhalten. Bitte nehmen Sie sich dann "
+"die Zeit, um dem darin enthaltenen Verweis zur Bestätigung des Zugangs zu folgen."
 
 #: app/views/account/signup.rhtml:8
 msgid "You won't appear as %s until your account is confirmed."
-msgstr ""
+msgstr "Sie werden nicht als %s erscheinen, bis Ihr Zugang bestätigt werden wird."
 
 #: app/views/account/signup.rhtml:9
 msgid "What to do next?"
@@ -5355,6 +5368,8 @@ msgid ""
 "Learn the guidelines. Read the %s for more details on how to use this social "
 "network!"
 msgstr ""
+"Lernen Sie die Regeln. Lesen Sie %s für mehr Informationen über die Nutzung "
+"dieses sozialen Netzwerks!"
 
 #: app/views/account/signup.rhtml:11
 msgid "Documentation"
@@ -5561,13 +5576,15 @@ msgstr "Dieses Unternehmen ist bereits aktiv"
 
 #: app/views/account/_signup_form.rhtml:12
 msgid "signup|Login"
-msgstr ""
+msgstr "signup|Login"
 
 #: app/views/account/_signup_form.rhtml:15
 msgid ""
 "Choose your login name carefully! It will be your network access and you "
 "will not be able to change it later."
 msgstr ""
+"Wählen Sie Ihren Loginnamen mit Bedacht! Er wird Ihr Zugang zum Netzwerk werden und "
+"Sie werden ihn später nicht mehr ändern können."
 
 #: app/views/account/_signup_form.rhtml:29
 msgid "password"
@@ -5973,13 +5990,15 @@ msgstr "Eingaben"
 
 #: app/views/manage_products/_manage_product_details.rhtml:14
 msgid "This value is composed by the total value of registered inputs"
-msgstr ""
+msgstr "Dieser Wert setzt sich aus allen Werten der registrierten Eingaben zusammen"
 
 #: app/views/manage_products/_manage_product_details.rhtml:26
 msgid ""
 "If you leave, you will lose all unsaved information. Are you sure you want "
 "to quit?"
 msgstr ""
+"Wenn Sie verlassen, werden Sie alle ungespeicherten Informationen verlieren. Sind "
+"Sie sicher, dass Sie verlassen möchten?"
 
 #: app/views/manage_products/_manage_product_details.rhtml:27
 msgid "New cost"
@@ -5990,16 +6009,20 @@ msgid ""
 "The production cost of your product is not described yet. If you want to "
 "display the price composition, please add all the costs"
 msgstr ""
+"Die Produktionskosten Ihres Produktes sind noch nicht beschrieben. Wenn Sie die "
+"Preiszusammensetzung anzeigen lassen möchten, fügen Sie bitte alle Kosten hinzu"
 
 #: app/views/manage_products/_price_composition_bar.rhtml:20
 msgid ""
 "The production cost of your product is fully described and will be displayed "
 "on your product's page"
 msgstr ""
+"Die Produktionskosten Ihres Produktes sind vollständig beschrieben und werden auf "
+"Ihrer Produktseite angezeigt"
 
 #: app/views/manage_products/_price_composition_bar.rhtml:20
 msgid "Congratulations! Now the price is open to the public"
-msgstr ""
+msgstr "Herzlichen Glückwunsch! Jetzt ist der Preis für die Öffentlichkeit sichtbar"
 
 #: app/views/manage_products/_display_info.rhtml:7
 msgid "Edit basic information"
@@ -6224,11 +6247,11 @@ msgstr "Wählen Sie ein Vorprodukt oder Rohstoff für dieses Produkt:"
 
 #: app/views/manage_products/_price_details_button.rhtml:2
 msgid "Describe here the cost of production"
-msgstr ""
+msgstr "Beschreiben Sie hier die Produktionskosten"
 
 #: app/views/manage_products/_price_details_button.rhtml:7
 msgid "Describe details about how the price was defined"
-msgstr ""
+msgstr "Beschreiben Sie hier, wie der Preis bestimmt worden ist"
 
 #: app/views/manage_products/_display_description.rhtml:4
 msgid "Edit description"
@@ -6264,7 +6287,7 @@ msgstr "Ich möchte eine Kopie der Nachricht in meiner E-Mail"
 
 #: app/views/contact/sender/mail.rhtml:7
 msgid "This message was sent by %{sender} to %{target} on %{environment}."
-msgstr ""
+msgstr "Diese Nachricht wurde von %{sender} zu %{target} in %{environment} gesendet."
 
 #: app/views/contact/sender/mail.rhtml:9
 msgid "Information about the user who sent this message:"
@@ -6356,7 +6379,7 @@ msgstr "Vorschläge: %s"
 
 #: app/views/tasks/_abuse_complaint_accept_details.rhtml:5
 msgid "Reported by %{reporter} %{time}."
-msgstr ""
+msgstr "Gemeldet durch %{reporter} %{time}"
 
 #: app/views/tasks/_abuse_complaint_accept_details.rhtml:7
 #: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/_orders_list.html.erb:29
@@ -6589,7 +6612,7 @@ msgstr "Kein Bild"
 
 #: app/views/catalog/index.rhtml:30
 msgid "from "
-msgstr ""
+msgstr "von "
 
 #: app/views/catalog/index.rhtml:31
 msgid "by "
@@ -6597,7 +6620,7 @@ msgstr "von "
 
 #: app/views/catalog/index.rhtml:37
 msgid " / "
-msgstr ""
+msgstr " / "
 
 #: app/views/catalog/index.rhtml:45
 msgid "description"
@@ -6824,7 +6847,7 @@ msgstr ""
 
 #: app/views/cms/_text_editor_sidebar.rhtml:4
 msgid "Media upload"
-msgstr ""
+msgstr "Medien hochladen"
 
 #: app/views/cms/_text_editor_sidebar.rhtml:9
 #: app/views/cms/_upload_file_form.rhtml:4
@@ -6878,7 +6901,7 @@ msgstr "Ihr Name"
 
 #: app/views/cms/_textile_quick_reference.rhtml:3
 msgid "Textile markup quick reference"
-msgstr ""
+msgstr "Schnellhandbuch zur Auszeichnungssprache Textile"
 
 #: app/views/cms/_textile_quick_reference.rhtml:4
 msgid "(show)"
@@ -6934,10 +6957,11 @@ msgstr "Nummerierte Listen:"
 msgid ""
 "For code, use HTML tags <pre> and <code>, and indent the code inside them:"
 msgstr ""
+"Für Code verwenden Sie die HTML-Tags <pre> und <code> und rücken Sie den darin enthaltenen Code ein:"
 
 #: app/views/cms/_textile_quick_reference.rhtml:25
 msgid "See also a more complete <a href=\"%s\">Textile Reference</a>."
-msgstr ""
+msgstr "Sehen Sie sich auch die vollständige <a href=\"%s\">Textile-Referenz</a> an."
 
 #: app/views/cms/_rss_feed.rhtml:5
 msgid "Limit of articles"
@@ -7095,11 +7119,11 @@ msgstr "Mein Forum"
 
 #: app/views/cms/_drag_and_drop_note.rhtml:2
 msgid "Drag images to add them to the text."
-msgstr ""
+msgstr "Ziehen Sie die Bilder, um sie zum Text hinzuzufügen."
 
 #: app/views/cms/_drag_and_drop_note.rhtml:3
 msgid "Drag item names to the text to add links."
-msgstr ""
+msgstr "Ziehen Sie die Namen von Dingen zum Text, um Verweise zu erstellen."
 
 #: app/views/memberships/index.rhtml:3 app/views/profile_editor/index.rhtml:67
 msgid "Manage my groups"
@@ -7153,7 +7177,7 @@ msgid ""
 "member in pending request before member can access the intranet and/or the "
 "website)."
 msgstr ""
-"<strong>vor </strong> dem Beitritt (ein Moderator muss Ihre Anfrage positiv "
+"<strong>Vor</strong> dem Beitritt zu dieser Gruppe (ein Moderator muss Ihre Anfrage positiv "
 "bestätigen, bevor Sie Zugriff auf das Intranet und/oder die Website "
 "bekommen)."
 
@@ -7163,7 +7187,7 @@ msgid ""
 "<strong>After</strong> joining this group (a moderator can always "
 "desactivate access for users later)."
 msgstr ""
-"<strong>nach</strong> dem Beitritt (ein Moderator kann jederzeit den Zugang "
+"<strong>Nach</strong> dem Beitritt zu dieser Gruppe (ein Moderator kann jederzeit den Zugang "
 "für Nutzer sperren)."
 
 #: app/views/memberships/new_community.rhtml:42 app/views/themes/new.rhtml:8
@@ -7315,7 +7339,7 @@ msgid ""
 msgstr ""
 "Im Kopfbereich können Sie ein persönliches Banner einbinden, in dem Sie "
 "dieses zunächst in \"Inhalt verwalten\" hochladen und dann referenzieren "
-"(verlinken). Ein gutes Format ist 468 X 60 pixel, PNG-Format"
+"(verlinken). Ein gutes Format ist 468 X 60 Pixel, PNG-Format"
 
 #: app/views/profile_editor/header_footer.rhtml:12
 msgid "On footer, you can include a slogan and your contact information etc."
@@ -7400,6 +7424,7 @@ msgid ""
 "Automaticaly redirect the visitor to the article translated to his/her "
 "language"
 msgstr ""
+"Den Besucher automatisch zu einer Übersetzung des Artikels in seine/ihre Sprache umleiten"
 
 #: app/views/profile_editor/edit.rhtml:90
 msgid "Select the categories of your interest"
@@ -7472,7 +7497,7 @@ msgstr "Ja, ich möchte deaktivieren."
 
 #: app/views/profile_members/_add_admins.rhtml:1
 msgid "Add admins to %s"
-msgstr "Admins zu %s hinzufügen"
+msgstr "Administratoren zu %s hinzufügen"
 
 #: app/views/profile_members/_members_list.rhtml:2
 #: app/views/profile_members/unassociate.rhtml:2
@@ -7493,7 +7518,7 @@ msgstr "Sende E-Mail an Mitglieder"
 
 #: app/views/profile_members/add_members.rhtml:1
 msgid "Add members to %s"
-msgstr "Mitgleider zu %s hinzufügen"
+msgstr "Mitglieder zu %s hinzufügen"
 
 #: app/views/profile_members/change_role.rhtml:1
 #: app/views/environment_role_manager/change_role.rhtml:1
@@ -7502,7 +7527,7 @@ msgstr "Ändere die Funktion von %s"
 
 #: app/views/profile_members/last_admin.rhtml:1
 msgid "Last administrator leaving %s"
-msgstr "Letzter Administratore verließ %s"
+msgstr "Letzter Administrator verließ %s"
 
 #: app/views/profile_members/last_admin.rhtml:4
 msgid ""
@@ -7556,6 +7581,8 @@ msgid ""
 "<span class='login'>%s</span> <span class='or'>or</span> <span "
 "class='signup'>%s</span>"
 msgstr ""
+"<span class='login'>%s</span> <span class='or'>oder</span> <span "
+"class='signup'>%s</span>"
 
 #: app/views/layouts/application-ng.rhtml:59
 msgid "Sign up"
@@ -8006,11 +8033,11 @@ msgstr "Chatroom betreten"
 #: app/views/shared/product/_qualifiers.rhtml:3
 #: app/views/shared/product/_qualifiers.rhtml:6
 msgid ";"
-msgstr ""
+msgstr ";"
 
 #: app/views/shared/product/_qualifiers.rhtml:6
 msgid "cert. "
-msgstr ""
+msgstr "Zertifizierung. "
 
 #: app/views/shared/logged_in/xmpp_chat.rhtml:5
 msgid "None of your friends is online at the moment"
@@ -8493,6 +8520,8 @@ msgid ""
 "Welcome to %{environment}! To activate your account, follow the link: "
 "%{activation_url}"
 msgstr ""
+"Willkommen in %{environment}! Um Ihren Zugang zu aktivieren, folgen Sie diesem Verweis: "
+"%{activation_url}"
 
 #: app/views/user/mailer/activation_email_notify.rhtml:3
 msgid "Your email %s was just activated."
@@ -8589,7 +8618,7 @@ msgstr ""
 "Bitte geben Sie nun einen Einladungstext ein. Ihre Nachricht muss den Code "
 "<url> enthalten. In der E-Mail, die Ihr Freund erhält, wird <url> durch "
 "einen Link ersetzt. Diesen benötigt Ihr Freund, um seinen Account zu "
-"aktivieren.<user> und <friend> werden in der späteren Nachricht durch ihren "
+"aktivieren. <user> und <friend> werden in der späteren Nachricht durch ihren "
 "Namen und den Ihres Freundes ersetzt. Beides ist nur optional und muss nicht "
 "enthalten sein."
 
@@ -8634,12 +8663,12 @@ msgid ""
 "<strong>After</strong> being published in this group (a moderator can always "
 "remove publicated articles later)."
 msgstr ""
-"<strong>Nachdem</strong>etwas in dieser Gruppe veröffentlicht wird (ein "
+"<strong>Nachdem</strong> etwas in dieser Gruppe veröffentlicht wird (ein "
 "Moderator kann jederzeit bereits veröffentlichte Artikel löschen)."
 
 #: app/views/profile_members/_manage_roles.html.erb:21
 msgid "Type in a search term for users"
-msgstr ""
+msgstr "Geben Sie einen Suchbegriff für Benutzer ein"
 
 #: app/views/profile_members/_manage_roles.html.erb:22
 #: plugins/bsc/lib/bsc_plugin/bsc_helper.rb:8
@@ -8669,7 +8698,7 @@ msgstr "Ursprüngliche Inhalte"
 #: app/views/shared/reported_versions/_article.html.erb:6
 #: app/views/shared/reported_versions/_comment.html.erb:6
 msgid "This link might be unavailable if the content is removed"
-msgstr ""
+msgstr "Dieser Verweis wird nicht mehr verfügbar sein, wenn der Inhalt gelöscht worden ist"
 
 #: app/views/shared/reported_versions/_comment.html.erb:3
 msgid "Comment"
@@ -9185,7 +9214,7 @@ msgstr "Einkaufskorb"
 
 #: plugins/shopping_cart/lib/shopping_cart_plugin.rb:47
 msgid "Purchase reports"
-msgstr ""
+msgstr "Kaufbelege"
 
 #: plugins/shopping_cart/lib/shopping_cart_plugin/cart_helper.rb:22
 msgid "Delivery"
@@ -9247,7 +9276,7 @@ msgstr "Einkaufskorb versteckt."
 
 #: plugins/shopping_cart/controllers/shopping_cart_plugin_profile_controller.rb:162
 msgid "Can't join items from different enterprises."
-msgstr ""
+msgstr "Dinge aus unterschiedlichen Firmen können nicht zusammengeführt werden."
 
 #: plugins/shopping_cart/controllers/shopping_cart_plugin_profile_controller.rb:176
 msgid "There is no basket."
@@ -9267,26 +9296,28 @@ msgstr "Ungültige Menge."
 
 #: plugins/google_analytics/lib/google_analytics_plugin.rb:16
 msgid "Tracking and web analytics to people and communities"
-msgstr ""
+msgstr "Nachverfolgung und Webanalyse für Personen und Gemeinschaften"
 
 #: plugins/mezuro/lib/mezuro_plugin.rb:8
 #: plugins/mezuro/test/unit/mezuro_plugin_test.rb:17
 msgid "A metric analizer plugin."
-msgstr ""
+msgstr "Ein Analyse-Plugin für Metriken."
 
 #: plugins/google_cse/lib/google_cse_plugin.rb:8
 msgid ""
 "A plugin that uses the Google Custom Search as Noosfero general search "
 "engine."
 msgstr ""
+"Ein Plugin, welches Google Custom Search nutzt, um die generelle Suche in Noosfero "
+"zu realisieren."
 
 #: plugins/require_auth_to_comment/lib/require_auth_to_comment_plugin.rb:14
 msgid "Requires users to authenticate in order to post comments."
-msgstr ""
+msgstr "Nutzer müssen sich anmelden, um Kommentare abgeben zu dürfen."
 
 #: plugins/foo/lib/foo_plugin.rb:10
 msgid "A sample plugin to test autoload craziness."
-msgstr ""
+msgstr "Ein Beispiel-Plugin, um die Autoload-Verrücktheit zu überprüfen."
 
 #: plugins/bsc/lib/bsc_plugin/contract.rb:33
 msgid "Negotiating"
@@ -9330,11 +9361,11 @@ msgstr "%{requestor} möchte das Unternehmen %{linked_subject} mit %{linked_subj
 
 #: plugins/bsc/lib/bsc_plugin/associate_enterprise.rb:35
 msgid "%{enterprise} accepted your request to associate it with %{bsc}."
-msgstr ""
+msgstr "%{enterprise} hat Ihre Anfrage zur Verbindung mit %{bsc} akzeptiert."
 
 #: plugins/bsc/lib/bsc_plugin/associate_enterprise.rb:39
 msgid "%{enterprise} rejected your request to associate it with %{bsc}."
-msgstr ""
+msgstr "%{enterprise} hat Ihre Anfrage zur Verbindung mit %{bsc} abgelehnt."
 
 #: plugins/bsc/lib/bsc_plugin/associate_enterprise.rb:41
 msgid ""
@@ -9342,6 +9373,9 @@ msgid ""
 "\n"
 "%{reject_explanation}"
 msgstr ""
+"Hier ist der vom Administrator angegebene Grund der Ablehnung:\n"
+"\n"
+"%{reject_explanation}"
 
 #: plugins/bsc/lib/bsc_plugin/associate_enterprise.rb:46
 msgid "%{requestor} wants assoaciate %{bsc} as your BSC."
@@ -9415,11 +9449,11 @@ msgstr "Vertrag erstellt."
 
 #: plugins/bsc/controllers/bsc_plugin_myprofile_controller.rb:120
 msgid "Contract created but some products could not be added."
-msgstr ""
+msgstr "Der Vertrag wurde erstellt, aber einige Produkte konnten nicht hinzugefügt werden."
 
 #: plugins/bsc/controllers/bsc_plugin_myprofile_controller.rb:131
 msgid "Contract doesn't exists! Maybe it was already removed."
-msgstr ""
+msgstr "Der Vertrag existiert nicht! Vielleicht wurde er bereits entfernt."
 
 #: plugins/bsc/controllers/bsc_plugin_myprofile_controller.rb:140
 msgid "Could not edit such contract."
@@ -9443,36 +9477,35 @@ msgstr "Vertrag konnte nicht entfernt werden. Entschuldigung! ^^"
 
 #: plugins/template/lib/template_plugin.rb:10
 msgid "A plugin that does this and that."
-msgstr ""
+msgstr "Ein Plugin, welches dies und jenes tut."
 
 #: plugins/send_email/views/send_email_plugin_admin/index.rhtml:1
 msgid "SendEmailPlugin's config"
-msgstr ""
+msgstr "Konfiguratio ndes SendEmailPlugins"
 
 #: plugins/send_email/views/send_email_plugin_admin/index.rhtml:4
 msgid "E-Mail addresses you want to allow to send"
-msgstr ""
+msgstr "E-Mail-Adressen, welche Sie zum Senden freigeben möchten"
 
 #: plugins/send_email/views/send_email_plugin_admin/index.rhtml:5
 msgid "(list of email addresses separated by comma)"
-msgstr ""
+msgstr "(liste von kommagetrennten E-Mail-Adressen)"
 
 #: plugins/send_email/views/send_email_plugin_base/fail.rhtml:1
 msgid "The message could not be sent"
 msgstr "Die Nachricht konnte nicht abgeschickt werden"
 
 #: plugins/send_email/views/send_email_plugin/sender/message.rhtml:1
-#, fuzzy
 msgid "Contact from %s"
-msgstr "Kontakt %s"
+msgstr "Kontakt von %s"
 
 #: plugins/google_analytics/views/profile-editor-extras.rhtml:2
 msgid "Google Analytics Profile ID"
-msgstr ""
+msgstr "Profil-ID von Google Analytics"
 
 #: plugins/google_analytics/views/profile-editor-extras.rhtml:3
 msgid "See how to configure statistics for your profile"
-msgstr ""
+msgstr "Sehen Sie sich an, wie Sie Statistiken für Ihr Profil konfigurieren können"
 
 #: plugins/mezuro/views/content_viewer/_module_result.rhtml:1
 msgid "Metric Result"
@@ -9480,7 +9513,7 @@ msgstr "Metrikergebnisse"
 
 #: plugins/mezuro/views/content_viewer/_module_result.rhtml:3
 msgid "Module:"
-msgstr ""
+msgstr "Module:"
 
 #: plugins/mezuro/views/content_viewer/_module_result.rhtml:32
 msgid "Grade:"
@@ -9501,15 +9534,15 @@ msgstr "Adresse des Repositories"
 
 #: plugins/mezuro/views/content_viewer/show_project.rhtml:33
 msgid "ERROR"
-msgstr ""
+msgstr "FEHLER"
 
 #: plugins/mezuro/views/content_viewer/show_project.rhtml:47
 msgid "Reload the page manually in a few moments."
-msgstr ""
+msgstr "Laden Sie die Seite manuell in ein paar Momenten neu."
 
 #: plugins/mezuro/views/content_viewer/show_project.rhtml:50
 msgid "LAST RESULT"
-msgstr ""
+msgstr "LETZTE ERGEBNISSE"
 
 #: plugins/mezuro/views/content_viewer/show_project.rhtml:55
 #: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/_orders_list.html.erb:6
@@ -9542,7 +9575,7 @@ msgstr "Kommentare von nicht angemeldeten Nutzer akzeptieren"
 
 #: plugins/shopping_cart/views/shopping_cart_plugin_profile/send_request.html.erb:1
 msgid "Request sent successfully check your email."
-msgstr ""
+msgstr "Anfrage erfolgreich zu Ihrer E-Mail-Adresse gesendet."
 
 #: plugins/shopping_cart/views/shopping_cart_plugin_profile/buy.html.erb:10
 msgid "Delivery Address"
@@ -9597,7 +9630,7 @@ msgstr "Kunde"
 
 #: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/_orders_list.html.erb:8
 msgid "Purchase value"
-msgstr ""
+msgstr "Wert des Einkaufs"
 
 #: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/_orders_list.html.erb:35
 msgid "E-mail"
@@ -9614,13 +9647,15 @@ msgstr "Hallo %s!"
 
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:10
 msgid "This is a notification e-mail about your buy request on %s."
-msgstr ""
+msgstr "Dies ist eine Benachrichtigungs-E-Mail über Ihre Anfrage, %s kaufen zu wollen."
 
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:11
 msgid ""
 "The supplier already received your buy request and may contact you for "
 "confirmation."
 msgstr ""
+"Der Zulieferer hat Ihre Kaufanfrage bereits erhalten und wird Sie für eine Bestätigung "
+"kontaktieren."
 
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:12
 msgid "If you have any doubts, contact us at: %s"
@@ -9628,7 +9663,7 @@ msgstr "Wenn Sie Fragen haben, wenden Sie sich an uns: %s"
 
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:13
 msgid "Please check if your information below is correct:"
-msgstr ""
+msgstr "Bitte prüfen Sie untenstehende Informationen auf Korrektheit:"
 
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:19
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:17
@@ -9654,15 +9689,15 @@ msgstr "Das ist eine Anfrage von %s."
 
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:11
 msgid "Below follows the customer informations:"
-msgstr ""
+msgstr "Nachfolgend die Informationen über den Kunden:"
 
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:35
 msgid "And here are the items bought by this customer:"
-msgstr ""
+msgstr "Dies sind die durch den Kunden eingekauften Dinge:"
 
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:40
 msgid "If there are any problems with this email contact the admin of %s."
-msgstr ""
+msgstr "Falls es Probleme mit dieser E-Mail gibt, wenden Sie sich bitte an den Administrator von %s."
 
 #: plugins/shopping_cart/views/cart.html.erb:2
 msgid "Are you sure you want to remove this item?"
@@ -9694,7 +9729,7 @@ msgstr "Einkaufskorb verstecken"
 
 #: plugins/bsc/views/bsc_plugin/mailer/admin_notification.html.erb:1
 msgid "The management of %{bsc} was transferred to you."
-msgstr ""
+msgstr "Die Verwaltung des %{bsc} wurde zu Ihnen transferiert."
 
 #: plugins/bsc/views/profile/_profile_tab.html.erb:2
 msgid "Contact phone: "
@@ -9719,7 +9754,7 @@ msgstr "Geben Sie einen Suchbegriff für Unternehmen ein"
 
 #: plugins/bsc/views/bsc_plugin_myprofile/manage_associated_enterprises.html.erb:4
 msgid "Associations awaiting approval:"
-msgstr ""
+msgstr "Assoziierungen, welche noch bestätigt werden müssen:"
 
 #: plugins/bsc/views/bsc_plugin_myprofile/manage_associated_enterprises.html.erb:19
 msgid "Add new enterprise"
@@ -9789,6 +9824,9 @@ msgid ""
 "decide to associate one of them or create the new enterprise confirming the "
 "informations you typed in."
 msgstr ""
+"Wir haben %{count} Firmen mit ähnlichen Namen in der gleichen Stadt gefunden. "
+"Sie können sich mit einer von diesen assoziieren oder eine neue Firma unter Bestätigung "
+"der von Ihnen getätigten Angaben gründen. "
 
 #: plugins/bsc/views/bsc_plugin_myprofile/_similar_enterprises.html.erb:20
 msgid "Associate"
@@ -9800,19 +9838,19 @@ msgstr "Sortieren nach"
 
 #: plugins/bsc/views/bsc_plugin_myprofile/manage_contracts.html.erb:18
 msgid "Date(newest first)"
-msgstr ""
+msgstr "Datum (neueste zuerst)"
 
 #: plugins/bsc/views/bsc_plugin_myprofile/manage_contracts.html.erb:18
 msgid "Date(oldest first)"
-msgstr ""
+msgstr "Datum (älteste zuerst)"
 
 #: plugins/bsc/views/bsc_plugin_myprofile/manage_contracts.html.erb:19
 msgid "Client name(A-Z)"
-msgstr ""
+msgstr "Kundenname (A-Z)"
 
 #: plugins/bsc/views/bsc_plugin_myprofile/manage_contracts.html.erb:19
 msgid "Client name(Z-A)"
-msgstr ""
+msgstr "Kundenname (Z-A)"
 
 #: plugins/bsc/views/bsc_plugin_myprofile/manage_contracts.html.erb:24
 msgid "There are no contracts at all."
@@ -9828,7 +9866,7 @@ msgstr "Einen neuen Vertrag erstellen"
 
 #: plugins/bsc/views/bsc_plugin_myprofile/transfer_ownership.html.erb:1
 msgid "Transfer Ownership"
-msgstr ""
+msgstr "Eigentümerschaft übertragen"
 
 #: plugins/bsc/views/bsc_plugin_myprofile/transfer_ownership.html.erb:4
 msgid ""
@@ -9836,6 +9874,9 @@ msgid ""
 "user. This action will remove all the current administrators. Be careful "
 "when confirming this procedure."
 msgstr ""
+"Diese Option erlaubt Ihnen, die Verwaltung dieses Unternehmens an einen anderen "
+"Benutzer zu übertragen. Diese Aktion wird alle derzeitigen Administratoren entfernen. "
+"Seien Sie vorsichtig, bevor Sie diese Prozedur ausführen."
 
 #: plugins/bsc/views/bsc_plugin_myprofile/transfer_ownership.html.erb:8
 msgid "Current administrators:"
