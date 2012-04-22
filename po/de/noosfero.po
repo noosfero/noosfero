@@ -270,7 +270,7 @@ msgstr "Psychologie"
 
 #: app/helpers/profile_editor_helper.rb:66
 msgid "Psychiatry"
-msgstr "Psychatrie"
+msgstr "Psychiatrie"
 
 #: app/helpers/profile_editor_helper.rb:67
 msgid "Quality"
@@ -350,7 +350,7 @@ msgstr "Absolvent"
 
 #: app/helpers/profile_editor_helper.rb:89
 msgid "High School"
-msgstr "weierführende Schule"
+msgstr "weiterführende Schule"
 
 #: app/helpers/profile_editor_helper.rb:90
 msgid "Elementary School"
@@ -1369,7 +1369,7 @@ msgstr "Kontrollpanel"
 
 #: app/helpers/application_helper.rb:1180
 msgid "Configure your personal account and content"
-msgstr "Persönliches Benutzerkonto  und Inhalte konfiguirieren"
+msgstr "Persönliches Benutzerkonto  und Inhalte konfigurieren"
 
 #: app/helpers/application_helper.rb:1182 app/views/shared/user_menu.rhtml:45
 #: app/views/blocks/login_block.rhtml:8
@@ -1424,7 +1424,7 @@ msgstr "ungefähr 1 Stunde"
 
 #: app/helpers/application_helper.rb:1222
 msgid "about %{distance} hours"
-msgstr "ungefährt %{distance} Stunden"
+msgstr "ungefähr %{distance} Stunden"
 
 #: app/helpers/application_helper.rb:1223
 msgid "1 day"
@@ -1520,11 +1520,11 @@ msgstr "\"%s\" konfiguriert als Homepage"
 #: app/controllers/my_profile/cms_controller.rb:242
 #: app/controllers/my_profile/cms_controller.rb:259
 msgid "Your publish request was sent successfully"
-msgstr "Ihre beabsichtige Publizierung wurde erfolgreich abgesandt."
+msgstr "Ihre beabsichtigte Publizierung wurde erfolgreich abgesandt."
 
 #: app/controllers/my_profile/cms_controller.rb:261
 msgid "Your publish request couldn't be sent."
-msgstr "Ihre beabsichtige Publikation konnte nicht abgeschickt werden."
+msgstr "Ihre beabsichtigte Publikation konnte nicht abgeschickt werden."
 
 #: app/controllers/my_profile/cms_controller.rb:264
 msgid "There is no portal community to publish your article."
@@ -1887,7 +1887,7 @@ msgid ""
 "profile to request access then."
 msgstr ""
 "Es ist Ihnen nicht erlaubt diesen Inhalt anzusehen. Sie können den Besitzer "
-"dieses Profiles kontaktieren und um Erlaubnis fragen."
+"dieses Profils kontaktieren und um Erlaubnis fragen."
 
 #: app/controllers/public/content_viewer_controller.rb:148
 msgid "Comment succesfully deleted"
@@ -2917,7 +2917,7 @@ msgstr "Nuzungsbedingungen akzeptieren"
 
 #: app/models/user.rb:-
 msgid "Password type"
-msgstr "Passworttype"
+msgstr "Passworttyp"
 
 #: app/models/user.rb:-
 msgid "Enable email"
@@ -3093,7 +3093,7 @@ msgstr "Ändere Passwort"
 
 #: app/models/change_password.rb:59 app/models/change_password.rb:72
 msgid "%{requestor} wants to change its password."
-msgstr "%{requestor} möchte sein Password ändern."
+msgstr "%{requestor} möchte sein Passwort ändern."
 
 #: app/models/change_password.rb:78
 msgid "Your password change request was cancelled at %s."
@@ -3304,7 +3304,7 @@ msgstr ""
 
 #: app/models/gallery.rb:8
 msgid "A gallery, inside which you can put images."
-msgstr "Eine Galeire, in die Sie Bilder ablegen können."
+msgstr "Eine Galerie, in die Sie Bilder ablegen können."
 
 #: app/models/profile_categorization.rb:-
 msgid "categories profile"
@@ -3672,7 +3672,7 @@ msgstr "Ändere Funktionen der Umgebung"
 
 #: app/models/environment.rb:22
 msgid "Edit environment design"
-msgstr "Ändere Desingn der Umgebung"
+msgstr "Ändere Design der Umgebung"
 
 #: app/models/environment.rb:23
 msgid "Manage environment categories"
@@ -3974,7 +3974,7 @@ msgid ""
 "control panel.\n"
 msgstr ""
 "Der Nutzer \"%{user}\" möchte die Community %{community} erstellen. Sie "
-"können im Bereich  \"Pending Validations\" diesem Anliegen zustimmen oder es "
+"können im Bereich  \"Validierungen in Bearbeitung\" diesem Anliegen zustimmen oder es "
 "ablehnen.\n"
 
 #: app/models/create_community.rb:82
@@ -3987,7 +3987,7 @@ msgid ""
 "position about your request."
 msgstr ""
 "Ihre Anfrage zur Registrierung der Community \"%{community}\" bei "
-"%{environment} haben wir erhalten. Sie wird vom Adminitrator geprüft.\n"
+"%{environment} haben wir erhalten. Sie wird vom Administrator geprüft.\n"
 "\n"
 "Sie erhalten baldmöglichst Antwort, sobald sich Administrator positioniert "
 "hat."
@@ -4010,7 +4010,7 @@ msgid ""
 "Your request for registering the community \"%{community}\" was approved. "
 "You can access %{environment} now and start using your new community."
 msgstr ""
-"Ihre Anfrage, die Communtity \"%{community}\" zu registrieren, war "
+"Ihre Anfrage, die Community \"%{community}\" zu registrieren, war "
 "erfolgreich. Sie können sich nun bei %{environment} anmelden und die Nutzung "
 "Ihrer neuen Community beginnen."
 
@@ -4279,11 +4279,11 @@ msgstr "Dieser Block zeigt das Profilbild."
 
 #: app/models/validation_info.rb:-
 msgid "validation info"
-msgstr "Validationsinformationen"
+msgstr "Validierungssinformationen"
 
 #: app/models/validation_info.rb:-
 msgid "Validation methodology"
-msgstr "Validationsmethoden"
+msgstr "Validierungsmethoden"
 
 #: app/models/validation_info.rb:-
 msgid "Restrictions"
@@ -4377,7 +4377,7 @@ msgid ""
 msgstr ""
 "Ihrer Anfrage, das Unternehmen %{enterprise} in %{environment} zu registrieren, wurde durch "
 "die Validierungsorganisation NICHT stattgegeben. Folgende Erklärung wurde "
-"dazu abgegebn: \n"
+"dazu abgegeben: \n"
 "\n"
 "%{explanation}"
 
@@ -4417,7 +4417,7 @@ msgstr "Gründungsjahr: %d"
 
 #: app/models/create_enterprise.rb:187
 msgid "Economic activity: %s"
-msgstr "Tätigkeitfeld: %s"
+msgstr "Tätigkeitsfeld: %s"
 
 #: app/models/create_enterprise.rb:189
 msgid "Information about enterprise's management:\n"
@@ -4550,7 +4550,7 @@ msgstr "Home"
 
 #: app/models/link_list_block.rb:31
 msgid "Package"
-msgstr "Packet"
+msgstr "Paket"
 
 #: app/models/link_list_block.rb:32
 msgid "To do list"
@@ -5175,7 +5175,7 @@ msgid ""
 "account to the enterprise."
 msgstr ""
 "Nun können Sie Ihr Unternehmen verwalten. Sie haben einen individuellen "
-"Zugangzum Unternehmen."
+"Zugang zum Unternehmen."
 
 #: app/views/account/activate_enterprise.rhtml:7
 msgid "Do you have a personal user account in the system?"
@@ -5393,7 +5393,7 @@ msgstr "Melden Sie sich zu %s an!"
 
 #: app/views/account/forgot_password.rhtml:1
 msgid "Forgot your password?"
-msgstr "Haben Sie Ihr Password vergessen?"
+msgstr "Haben Sie Ihr Passwort vergessen?"
 
 #: app/views/account/forgot_password.rhtml:16
 msgid "Send instructions"
@@ -5406,7 +5406,7 @@ msgid ""
 msgstr ""
 "Nachdem Sie auf den oberen Button geklickt haben, erhalten Sie eine E-Mail "
 "mit einem Link zu einer Seite, mit der Sie in der Lage sind, ein neues "
-"Password zu erstellen."
+"Passwort zu erstellen."
 
 #: app/views/account/new_password_ok.rhtml:1
 msgid "Password changed sucessfully"
@@ -5922,7 +5922,7 @@ msgstr "Verlasse %s"
 
 #: app/views/profile/leave.rhtml:4
 msgid "Are you sure you want to leave %s?"
-msgstr "Sind Sie sicher, dass Sie %s verlasssen möchten"
+msgstr "Sind Sie sicher, dass Sie %s verlassen möchten"
 
 #: app/views/profile/leave.rhtml:10
 msgid "Yes, I want to leave."
@@ -6465,7 +6465,7 @@ msgstr "Quell-URL"
 #: app/views/tasks/_suggest_article_accept_details.rhtml:9
 #: app/views/tasks/_approve_article_accept_details.rhtml:4
 msgid "Select the folder where the article must be published"
-msgstr "Wählen Sie den ordner aus, in den der Artikel bereitsgestellt wird"
+msgstr "Wählen Sie den Ordner aus, in dem der Artikel bereitgestellt wird"
 
 #: app/views/tasks/_suggest_article_accept_details.rhtml:10
 #: app/views/tasks/_approve_article_accept_details.rhtml:5
@@ -6762,7 +6762,7 @@ msgstr "Abgeschlossene Unternehmensvalidierungen"
 
 #: app/views/enterprise_validation/index.rhtml:32
 msgid "See the list of processed enterprise validations"
-msgstr "Liste abgeschlossenener Unternehmensvalidierungen ansehen"
+msgstr "Liste abgeschlossener Unternehmensvalidierungen ansehen"
 
 #: app/views/enterprise_validation/_details.rhtml:27
 msgid "Foundation Year"
@@ -7409,7 +7409,7 @@ msgstr ""
 
 #: app/views/profile_editor/edit.rhtml:67
 msgid "Include this group directory of groups"
-msgstr "Beinhaltet diesen Gruppeordner von Gruppen"
+msgstr "Beinhaltet diesen Gruppenordner von Gruppen"
 
 #: app/views/profile_editor/edit.rhtml:70
 msgid "Show content of this group to all internet users"
@@ -7950,7 +7950,7 @@ msgid ""
 "If you are supposed to have access to this area, you'll probably want to "
 "talk to the people responsible and ask them to give you access."
 msgstr ""
-"Wenn Sie Zugriff auf diesen Bereich möchten, dann wenden Sie sich bittean "
+"Wenn Sie Zugriff auf diesen Bereich möchten, dann wenden Sie sich bitte an "
 "die jeweils für diesen Bereich zuständige Person."
 
 #: app/views/shared/access_denied.rhtml:14 public/500.html.erb:28
@@ -7972,7 +7972,7 @@ msgstr "Gesuchte Seite nicht gefunden: %s"
 #: app/views/shared/not_found.rhtml:4
 msgid "You may have clicked an expired link or mistyped the address."
 msgstr ""
-"Sie haben auf einen veralteteten Link geklickt oder sich bei der Adresse "
+"Sie haben auf einen veralteten Link geklickt oder sich bei der Adresse "
 "vertippt."
 
 #: app/views/shared/not_found.rhtml:5
@@ -8170,7 +8170,7 @@ msgstr "Straßenkarte"
 
 #: app/views/box_organizer/_location_block.rhtml:6
 msgid "Mobile"
-msgstr "Mobiletelefon"
+msgstr "Mobiltelefon"
 
 #: app/views/box_organizer/_location_block.rhtml:7
 msgid "Satellite"
@@ -8329,7 +8329,7 @@ msgstr "Methoden zur Überprüfung"
 
 #: app/views/enterprise_registration/select_validator.rhtml:14
 msgid "Restrictions (if any):"
-msgstr "Regisitrierung (falls notwendig):"
+msgstr "Registrierung (falls notwendig):"
 
 #: app/views/enterprise_registration/select_validator.rhtml:19
 #: app/views/enterprise_registration/select_validator.rhtml:20
@@ -8547,7 +8547,7 @@ msgid ""
 msgstr ""
 "Falls der Vorgang zu lange dauert, werden Sie zur vorhergehenden Seite "
 "zurückgeleitet, von der Sie es erneut versuchen sollten. Bitte überprüfen "
-"Sie, dass Sie das korrekte Login und Password in die Felder eingetragen "
+"Sie, dass Sie das korrekte Login und Passwort in die Felder eingetragen "
 "haben."
 
 #: app/views/invite/_dialog_wait_loading.rhtml:19
@@ -8589,7 +8589,7 @@ msgstr "Schritt 2 von 2: Wählen Sie Freunde aus"
 
 #: app/views/invite/select_friends.rhtml:15
 msgid "Indicate which friends you want to invite."
-msgstr "Wählen Sie, weclhe Freunde Sie einladen möchten"
+msgstr "Wählen Sie, welche Freunde Sie einladen möchten."
 
 #: app/views/invite/select_friends.rhtml:23
 msgid "Enter one e-mail address per line:"
@@ -8655,8 +8655,8 @@ msgid ""
 "article of this group)."
 msgstr ""
 "<strong>Bevor</strong> etwas in dieser Gruppe veröffentlicht wird (ein "
-"Moderator muss zunächste den beabsichtigten Artikel akzeptieren, erst danach "
-"wird erin den Artikeln der Gruppe gelistet)."
+"Moderator muss zunächst den beabsichtigten Artikel akzeptieren, erst danach "
+"wird er in den Artikeln der Gruppe gelistet)."
 
 #: app/views/profile_editor/_moderation.html.erb:33
 msgid ""
@@ -8779,7 +8779,7 @@ msgid ""
 "methodology, restrictions to the types of institutions the organization "
 "validates etc."
 msgstr ""
-"Validationsinformationen sind die Informationen, die Organisationen über "
+"Validierungsinformationen sind die Informationen, die Organisationen über "
 "Ihren Organisationsprozess erhalten möchten: Methodik, Beschränkungen auf "
 "bestimmt Typen von Organisationen die validiert werden usw."
 
@@ -8793,7 +8793,7 @@ msgstr "Hier stehen alle beliebtesten Institutionen von <b>%s</b>."
 
 #: lib/unifreire_terminology.rb:27
 msgid "Institutions in \"%s\""
-msgstr "Insitutionen in \"%s\""
+msgstr "Institutionen in \"%s\""
 
 #: lib/unifreire_terminology.rb:28
 msgid "Register a new Institution"
@@ -8958,7 +8958,7 @@ msgid ""
 "methodology, restrictions to the types of organizations the organization "
 "validates etc."
 msgstr ""
-"Validationsinformationen sind die Informationen, die Organisationen über "
+"Validierunsinformationen sind die Informationen, die Organisationen über "
 "Ihren Organisationsprozess erhalten möchten: Methodik, Beschränkungen auf "
 "bestimmt Typen von Organisationen die validiert werden usw."
 
@@ -9248,7 +9248,7 @@ msgstr "Ausgeliefert"
 
 #: plugins/shopping_cart/lib/shopping_cart_plugin/mailer.rb:8
 msgid "[%s] Your buy request was performed successfully."
-msgstr "[%s] Ihr beabsichtiger Kauf wurde erfolgreich durchgeführt."
+msgstr "[%s] Ihr beabsichtigter Kauf wurde erfolgreich durchgeführt."
 
 #: plugins/shopping_cart/lib/shopping_cart_plugin/mailer.rb:21
 msgid "[%s] You have a new buy request from %s."
@@ -9481,7 +9481,7 @@ msgstr "Ein Plugin, welches dies und jenes tut."
 
 #: plugins/send_email/views/send_email_plugin_admin/index.rhtml:1
 msgid "SendEmailPlugin's config"
-msgstr "Konfiguratio ndes SendEmailPlugins"
+msgstr "Konfiguration des SendEmailPlugins"
 
 #: plugins/send_email/views/send_email_plugin_admin/index.rhtml:4
 msgid "E-Mail addresses you want to allow to send"
@@ -10009,7 +10009,7 @@ msgid ""
 "version."
 msgstr ""
 "Dieses soziale Netzwerk nutzt <a href=\"http://noosfero.org/\">Noosfero</a>, "
-"entwickelt von %s und ist lizensiert unter <a href=\"http://www.gnu.org/"
+"entwickelt von %s und ist lizenziert unter <a href=\"http://www.gnu.org/"
 "licenses/agpl.html\">GNU Affero General Public License</a> Version 3 oder "
 "einer späteren Version."
 
@@ -10022,7 +10022,7 @@ msgstr ""
 "Diese Site nutzt <a href=\"http://noosfero.org/\">Noosfero</a>, dass von %s "
 "entwickelt wird und unter <a href=\"http://www.gnu.org/licenses/agpl.html"
 "\">GNU Affero General Public License</a> Version 3 oder einer späteren "
-"Version lizensiert ist."
+"Version lizenziert ist."
 
 #, fuzzy
 #~ msgid "mail"
