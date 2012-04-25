@@ -25,6 +25,8 @@ class MezuroPluginProfileControllerTest < ActionController::TestCase
     @metric = NativeMetricFixtures.amloc
     @metric_configuration_client = Kalibro::Client::MetricConfigurationClient.new
     @metric_configuration = MetricConfigurationFixtures.amloc_configuration
+
+	@date = "2012-04-13T20:39:41+04:00"
   end
 
   should 'not find module result for inexistent project content' do
@@ -65,7 +67,16 @@ class MezuroPluginProfileControllerTest < ActionController::TestCase
     assert_response 200
     assert_select('h4', 'Last Result')
   end
-
+  
+  should 'get project results from a specific date' do
+    create_project_content
+#client = mock
+#Kalibro::Client::ProjectResultClient.expects(:new).returns(client)
+	Kalibro::Client::ProjectResultClient.expects(:has_results_before).with(@name, @date).returns(true)
+	Kalibro::Client::ProjectResultClient.expects(:last_result_before).with(@name, @date).returns(@project_result)
+    assert_response 200
+  end
+  
   should 'get module result' do
     create_project_content
 	module_result_client = mock
