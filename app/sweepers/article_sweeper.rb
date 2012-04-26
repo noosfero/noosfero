@@ -20,7 +20,9 @@ protected
     BlockSweeper.expire_blocks(blocks)
     env = article.profile.environment
     if env && (env.portal_community == article.profile)
-      expire_fragment(env.portal_news_cache_key)
+      Noosfero.locales.keys.each do |locale|
+        expire_fragment(env.portal_news_cache_key(locale))
+      end
     end
   end
 
