@@ -1,0 +1,78 @@
+<h2><%= @configuration_name %> Configuration</h2>
+
+<% form_for :metric_configuration, :url => {:action =>"update_metric_configuration", :controller => "mezuro_plugin_myprofile"}, :method => :get do |f| %>
+  <%= hidden_field_tag :configuration_name, @configuration_name %>
+  <%= hidden_field_tag :scope, @metric.scope %>
+  
+  <% @metric.language.each do |language| %>
+    <%= hidden_field_tag "language[]", language %>
+  <% end %>
+
+  <p>
+    <%= f.label :origin, "Collector Name:" %>
+    <%= @metric.origin %>
+    <%= hidden_field_tag "metric[origin]", @metric.origin %>
+  </p>
+  <p>
+    <%= f.label :metric_name, "Metric Name:" %>
+    <%= @metric.name %>
+    <%= hidden_field_tag "metric[name]", @metric.name %>
+  </p>
+  <p>
+    <%= f.label :description, "Description:" %>
+    <%= @metric.description %>
+    <%= text_field_tag "metric[description]", @metric.description %>
+  </p>
+  <p>
+    <%= f.label :code, "Code:" %>
+    <%= @metric_configuration.code %>
+    <%= f.hidden_field :code, :value => @metric_configuration.code %>
+  </p>
+  <p>
+    <%= f.label :aggregation_form, "Aggregation Form:" %>
+    <%= f.select :aggregation_form, [["Average","AVERAGE"], ["Median", "MEDIAN"], ["Maximum", "MAXIMUM"], ["Minimum", "MINIMUM"], 
+    ["Count", "COUNT"], ["Standard Deviation", "STANDARD_DEVIATION"]] %>
+  </p>
+  <p>
+    <%= f.label :weight, "Weight:" %>
+    <%= f.text_field :weight %>
+  </p>
+
+  <p>
+    <%= f.submit "Save" %>
+  </p>
+<% end %>
+
+
+<h5> Ranges </h5><br/>
+
+<table id="ranges">
+  <tr>
+    <td>
+      Label
+    </td>
+    <td>
+      Beginning
+    </td>
+    <td>
+      End
+    </td>
+    <td>
+      Grade
+    </td>
+    <td>
+      Color
+    </td>       
+  </tr>
+  <% if (@metric_configuration.ranges!=nil) 
+    @metric_configuration.ranges.each do |range| %>
+      <%= render :partial => "range", :locals => {:range => range, :configuration_name => @configuration_name, 
+          :metric_name => @metric_configuration.metric.name} %>
+    <% end
+  end %>
+</table>
+
+<br/>
+<%= link_to_remote "New Range", :url => {:action =>"new_range", :controller => "mezuro_plugin_myprofile", :configuration_name => @configuration_name, :metric_name => @metric.name} %>
+<div id="range_form" style="display:none"></div>
+
