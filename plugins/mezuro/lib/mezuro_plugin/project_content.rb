@@ -34,9 +34,11 @@ class MezuroPlugin::ProjectContent < Article
   	@project_result ||= client.has_results_before(name, date) ? client.last_result_before(name, date) : client.first_result_after(name, date)
   end
 
-  def module_result(module_name)
-    module_name = project.name if module_name.nil?      
-    @module_client ||= module_result_client.module_result(project.name, module_name, project_result.date)
+  def module_result(module_name, date)
+    module_name = project.name if module_name.nil? 
+#FIXME date format is wrong
+	date = project_result.date if date.nil?
+	@module_client ||= module_result_client.module_result(project.name, module_name, date)
   end
 
   def result_history(module_name)
