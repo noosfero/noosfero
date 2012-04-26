@@ -1,6 +1,6 @@
 <h2><%= @configuration_name %> Configuration</h2>
 
-<% form_for :metric_configuration, :url => {:action =>"update_metric_configuration", :controller => "mezuro_plugin_profile"}, :method => :get do |f| %>
+<% form_for :metric_configuration, :url => {:action =>"update_metric_configuration", :controller => "mezuro_plugin_myprofile"}, :method => :get do |f| %>
   <%= hidden_field_tag :configuration_name, @configuration_name %>
   <%= hidden_field_tag :scope, @metric.scope %>
   
@@ -73,6 +73,6 @@
 </table>
 
 <br/>
-<%= link_to_remote "New Range", :url => {:action =>"new_range", :controller => "mezuro_plugin_profile", :configuration_name => @configuration_name, :metric_name => @metric.name} %>
+<%= link_to_remote "New Range", :url => {:action =>"new_range", :controller => "mezuro_plugin_myprofile", :configuration_name => @configuration_name, :metric_name => @metric.name} %>
 <div id="range_form" style="display:none"></div>
 

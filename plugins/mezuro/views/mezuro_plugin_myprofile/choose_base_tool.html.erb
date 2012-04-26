@@ -5,7 +5,7 @@
   <% @tool_names.base_tool_names.each do |collector_name| %>
     <tr>
       <td>
-        <%= link_to collector_name, :controller => "mezuro_plugin_profile", :action => "choose_metric", :params =>
+        <%= link_to collector_name, :controller => "mezuro_plugin_myprofile", :action => "choose_metric", :params =>
         {:configuration_name => @configuration_name, :collector_name => collector_name} %>
       </td>
     </tr>

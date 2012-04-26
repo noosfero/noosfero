@@ -1,6 +1,6 @@
 <h2><%= @configuration_name %> Configuration</h2>
 
-<% form_for :metric_configuration, :url => {:action =>"create_metric_configuration", :controller => "mezuro_plugin_profile"}, :method => :get do |f| %>
+<% form_for :metric_configuration, :url => {:action =>"create_metric_configuration", :controller => "mezuro_plugin_myprofile"}, :method => :get do |f| %>
   <%= hidden_field_tag :configuration_name, @configuration_name %>
   <%= hidden_field_tag :scope, @metric.scope %>
   
