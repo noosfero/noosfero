@@ -696,8 +696,8 @@ class Environment < ActiveRecord::Base
     settings[:portal_folders] = folders ? folders.map(&:id) : nil
   end
 
-  def portal_news_cache_key
-    "home-page-news/#{cache_key}"
+  def portal_news_cache_key(language='en')
+    "home-page-news/#{cache_key}-#{language}"
   end
 
   def notification_emails
