@@ -1,2 +1,0 @@
-page.replace_html 'range_form', :partial => "edit_range", :locals => {:metric_name => @metric_name, :configuration_name => @configuration_name, :beginning_id => @beginning_id, :range => @range }
-page.visual_effect :slide_down, "range_form"
