@@ -68,7 +68,15 @@ class MezuroPluginProfileControllerTest < ActionController::TestCase
     assert_select('h4', 'Last Result')
   end
   
-  should 'get project results from a specific date'
+  should 'get project results from a specific date' do
+    create_project_content
+	client = mock
+	Kalibro::Client::ProjectResultClient.expects(:new).returns(client)
+	client.expects(:has_results_before).returns(true)
+	client.expects(:last_result_before).returns(@project_result)
+	get :project_result, :profile => @profile.identifier, :id => @content.id, :date => "2012-04-13T20:39:41+04:00"
+    assert_response 200
+  end
   
   should 'get module result' do
     create_project_content

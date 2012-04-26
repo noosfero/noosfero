@@ -16,7 +16,6 @@ class MezuroPluginProfileController < ProfileController
   end
 
   def project_result
-    
     content = profile.articles.find(params[:id])
     date = params[:date]
     project_result = date.nil? ? content.project_result : content.get_date_result(date)
