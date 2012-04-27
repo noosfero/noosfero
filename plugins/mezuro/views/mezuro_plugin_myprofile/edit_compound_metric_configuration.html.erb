@@ -1,0 +1,75 @@
+<h2><%= @configuration_name %> Configuration</h2>
+
+<% form_for :metric_configuration, :url => {:action =>"update_compound_metric_configuration", :controller => "mezuro_plugin_myprofile"}, :method => :get do |f| %>
+  <%= hidden_field_tag :configuration_name, @configuration_name %>
+
+  <p>
+    <%= f.label :metric_name, "Metric Name:" %>
+    <%= @metric.name %>
+    <%= hidden_field_tag "metric[name]", @metric.name %>
+  </p>
+  <p>
+    <%= f.label :description, "Description:" %>
+    <%= @metric.description %>
+    <%= text_field_tag "metric[description]", @metric.description %>
+  </p>
+  <p>
+    <%= f.label :code, "Code:" %>
+    <%= f.text_field :code %>
+  </p>
+  <p>
+    <%= f.label :scope, "Scope:" %>
+    <%= @metric.scope %>
+    <%= text_field_tag "metric[scope]", @metric.scope %>
+  </p>
+  <p>
+    <%= f.label :aggregation_form, "Aggregation Form:" %>
+    <%= f.select :aggregation_form, [["Average","AVERAGE"], ["Median", "MEDIAN"], ["Maximum", "MAXIMUM"], ["Minimum", "MINIMUM"], 
+    ["Count", "COUNT"], ["Standard Deviation", "STANDARD_DEVIATION"]] %>
+  </p>
+  <p>
+    <%= f.label :weight, "Weight:" %>
+    <%= f.text_field :weight %>
+  </p>
+  <p>
+    <%= f.label :script, "script:" %>
+    <%= f.text_area :script %>
+  </p>
+  <p>
+    <%= f.submit "Save" %>
+  </p>
+<% end %>
+
+
+<h5> Ranges </h5><br/>
+
+<table id="ranges">
+  <tr>
+    <td>
+      Label
+    </td>
+    <td>
+      Beginning
+    </td>
+    <td>
+      End
+    </td>
+    <td>
+      Grade
+    </td>
+    <td>
+      Color
+    </td>       
+  </tr>
+  <% if (@metric_configuration.ranges!=nil) 
+    @metric_configuration.ranges.each do |range| %>
+      <%= render :partial => "range", :locals => {:range => range, :configuration_name => @configuration_name, 
+          :metric_name => @metric_configuration.metric.name} %>
+    <% end
+  end %>
+</table>
+
+<br/>
+<%= link_to_remote "New Range", :url => {:action =>"new_range", :controller => "mezuro_plugin_myprofile", :configuration_name => @configuration_name, :metric_name => @metric.name} %>
+<div id="range_form" style="display:none"></div>
+

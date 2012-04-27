@@ -111,10 +111,26 @@ class MezuroPluginMyprofileController < ProfileController
   def create_compound_metric_configuration
     @configuration_name = params[:configuration_name]
     compound_metric_configuration = new_compound_metric_configuration_instance
-    # NOT WORKING # Kalibro::Client::MetricConfigurationClient.new.save(compound_metric_configuration, @configuration_name)
+    Kalibro::Client::MetricConfigurationClient.new.save(compound_metric_configuration, @configuration_name)
     redirect_to "/#{profile.identifier}/#{@configuration_name.downcase.gsub(/\s/, '-')}"    
   end
-  
+
+  def edit_compound_metric_configuration
+    metric_name = params[:metric_name]
+    @configuration_name = params[:configuration_name]
+    @metric_configuration = Kalibro::Client::MetricConfigurationClient.new.metric_configuration(@configuration_name, metric_name)
+    @metric = @metric_configuration.metric
+  end
+
+  def update_compound_metric_configuration
+    @configuration_name = params[:configuration_name]
+    metric_name = params[:metric][:name]
+    metric_configuration = Kalibro::Client::MetricConfigurationClient.new.metric_configuration(@configuration_name, metric_name)  
+    assign_compound_metric_configuration_instance (metric_configuration)
+    Kalibro::Client::MetricConfigurationClient.new.save(metric_configuration, @configuration_name)
+    redirect_to "/#{profile.identifier}/#{@configuration_name.downcase.gsub(/\s/, '-')}"
+  end
+
   private 
 
   def new_metric_configuration_instance
