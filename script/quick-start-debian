@@ -34,6 +34,9 @@ run rake db:test:prepare
 # compile translations
 run rake noosfero:translations:compile
 
+# create needed directory
+mkdir -p tmp/pids
+
 # start server
 say "I: Congratulations, you are ready to run Noosfero."
 say "I: To execute Noosfero server, run \`/script/server\` and browse to http://localhost:3000"
