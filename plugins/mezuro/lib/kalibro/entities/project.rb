@@ -9,5 +9,4 @@ class Kalibro::Entities::Project < Kalibro::Entities::Entity
   def error=(value)
     @error = to_entity(value, Kalibro::Entities::Error)
   end
-
 end
