@@ -71,7 +71,8 @@ module Noosfero::Factory
   # testing that passes through the actual user creation process.
   #
   # Be aware that this is slow, though.
-  def create_user_full(name, options = {}, person_options = {})
+  def create_user_full(name = nil, options = {}, person_options = {})
+    name ||= 'user' + factory_num_seq.to_s
     data = {
       :login => name,
       :email => name + '@noosfero.org',
@@ -90,7 +91,8 @@ module Noosfero::Factory
 
   # This method knows way too much about the model. But since creating an
   # actual user is really expensive, for tests we need a fast alternative.
-  def create_user(name, options = {}, person_options = {})
+  def create_user(name = nil, options = {}, person_options = {})
+    name ||= 'user' + factory_num_seq.to_s
     environment_id = options.delete(:environment_id) || (options.delete(:environment) || Environment.default).id
 
     password = options.delete(:password)
