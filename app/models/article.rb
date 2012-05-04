@@ -408,6 +408,14 @@ class Article < ActiveRecord::Base
     user && user.has_permission?('view_private_content', profile)
   end
 
+  alias :allow_delete?  :allow_post_content?
+  alias :allow_spread?  :allow_post_content?
+  alias :allow_edit?    :allow_post_content?
+
+  def allow_create?(user)
+    allow_post_content?(user) || allow_publish_content?(user)
+  end
+
   def comments_updated
     ferret_update
   end
