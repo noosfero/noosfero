@@ -601,15 +601,6 @@ class ProfileEditorControllerTest < ActionController::TestCase
     assert_tag :tag => 'a', :attributes => { :href => '/myprofile/default_user/cms' }
   end
 
-  should 'not display link to CMS if disabled' do
-    env = Environment.default
-    env.enable('disable_cms')
-    env.save!
-    get :index, :profile => profile.identifier
-
-    assert_no_tag :tag => 'a', :attributes => { :href => '/myprofile/default_user/cms' }
-  end
-
   should 'offer to create blog in control panel' do
     get :index, :profile => profile.identifier
     assert_tag :tag => 'a', :attributes => { :href => "/myprofile/default_user/cms/new?type=Blog" }

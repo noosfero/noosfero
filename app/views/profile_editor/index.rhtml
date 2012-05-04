@@ -26,7 +26,7 @@
   
   <%= control_panel_button(_('Edit Header and Footer'), 'header-and-footer', :controller => 'profile_editor', :action => 'header_footer') unless profile.enterprise? && environment.enabled?('disable_header_and_footer') && !user.is_admin?(environment) %>
 
-  <%= control_panel_button(_('Manage Content'), 'cms', :controller => 'cms') if !environment.enabled?('disable_cms') || profile.community? %>
+  <%= control_panel_button(_('Manage Content'), 'cms', :controller => 'cms') %>
 
   <% unless profile.enterprise? %>
     <%= case profile.blogs.count
