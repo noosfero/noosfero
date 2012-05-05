@@ -15,7 +15,7 @@ class ProductCategoryTest < ActiveSupport::TestCase
     p1 = Product.create(:name => 'product2', :product_category => c1, :enterprise_id => profile.id)
     c0.reload; c1.reload
     assert_equivalent [p0, p1], c0.all_products
-    assert_equivalent [p1], c1.all_products 
+    assert_equivalent [p1], c1.all_products
   end
 
   should 'return top level product categories for environment when no parent product category specified' do
@@ -35,4 +35,13 @@ class ProductCategoryTest < ActiveSupport::TestCase
 
     assert_equal [c11], ProductCategory.menu_categories(c1, nil)
   end
+
+  should 'reindex products after save' do
+    product = mock
+    ProductCategory.any_instance.stubs(:products).returns([product])
+    ProductCategory.expects(:solr_batch_add).with(includes(product))
+    pc = fast_create(ProductCategory)
+    pc.save!
+  end
+
 end

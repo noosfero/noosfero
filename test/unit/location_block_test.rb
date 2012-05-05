@@ -21,9 +21,15 @@ class LocationBlockTest < ActiveSupport::TestCase
   should 'be editable' do
     assert LocationBlock.new.editable?
   end
-  
+
   should 'default title be blank by default' do
     assert_equal '', LocationBlock.new.title
+  end
+
+  should 'use google maps api v3' do
+    @block.owner.lat = '-12.34'; @block.owner.save!
+    assert_match 'http://maps.google.com/maps/api/staticmap', @block.content
+    assert_no_match /key=/, @block.content
   end
 
 end

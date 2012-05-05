@@ -8,6 +8,13 @@ class ProductTest < ActiveSupport::TestCase
     @profile = fast_create(Enterprise)
   end
 
+  should 'validate the presence of enterprise' do
+    p = Product.new
+    assert_raise ActiveRecord::RecordInvalid do
+      p.save!
+    end
+  end
+
   should 'return associated enterprise region' do
     @profile.region = fast_create Region, :name => 'Salvador'
     @profile.save!
@@ -82,7 +89,7 @@ class ProductTest < ActiveSupport::TestCase
     end
   end
 
-  should 'calculate catagory full name' do
+  should 'calculate category full name' do
     cat = mock
     cat.expects(:full_name).returns('A/B/C')
 
@@ -221,18 +228,25 @@ class ProductTest < ActiveSupport::TestCase
   end
 
   should 'format values to float with 2 decimals' do
-     ent = fast_create(Enterprise, :name => 'test ent 1', :identifier => 'test_ent1')
-     product = fast_create(Product, :enterprise_id => ent.id, :price => 12.994, :discount => 1.994)
+    ent = fast_create(Enterprise, :name => 'test ent 1', :identifier => 'test_ent1')
+    product = fast_create(Product, :enterprise_id => ent.id, :price => 12.994, :discount => 1.994)
 
     assert_equal "12.99", product.formatted_value(:price)
     assert_equal "1.99", product.formatted_value(:discount)
   end
 
   should 'calculate price with discount' do
-     ent = fast_create(Enterprise, :name => 'test ent 1', :identifier => 'test_ent1')
-     product = fast_create(Product, :enterprise_id => ent.id, :price => 12.994, :discount => 1.994)
+    ent = fast_create(Enterprise, :name => 'test ent 1', :identifier => 'test_ent1')
+    product = fast_create(Product, :enterprise_id => ent.id, :price => 12.994, :discount => 1.994)
 
     assert_equal 11.00, product.price_with_discount
+  end
+
+  should 'calculate price without discount' do
+    ent = fast_create(Enterprise, :name => 'test ent 1', :identifier => 'test_ent1')
+    product = fast_create(Product, :enterprise_id => ent.id, :price => 12.994, :discount => 0)
+
+    assert_equal product.price, product.price_with_discount
   end
 
   should 'have default image' do
@@ -251,24 +265,24 @@ class ProductTest < ActiveSupport::TestCase
   end
 
   should 'return product inputs' do
-     ent = fast_create(Enterprise)
-     product = fast_create(Product, :enterprise_id => ent.id)
-     input = fast_create(Input, :product_id => product.id, :product_category_id => @product_category.id)
+    ent = fast_create(Enterprise)
+    product = fast_create(Product, :enterprise_id => ent.id)
+    input = fast_create(Input, :product_id => product.id, :product_category_id => @product_category.id)
 
-     assert_equal [input], product.inputs
+    assert_equal [input], product.inputs
   end
 
   should 'destroy inputs when product is removed' do
-     ent = fast_create(Enterprise)
-     product = fast_create(Product, :enterprise_id => ent.id)
-     input = fast_create(Input, :product_id => product.id, :product_category_id => @product_category.id)
+    ent = fast_create(Enterprise)
+    product = fast_create(Product, :enterprise_id => ent.id)
+    input = fast_create(Input, :product_id => product.id, :product_category_id => @product_category.id)
 
-     services_category = fast_create(ProductCategory, :name => 'Services')
-     input2 = fast_create(Input, :product_id => product.id, :product_category_id => services_category.id)
+    services_category = fast_create(ProductCategory, :name => 'Services')
+    input2 = fast_create(Input, :product_id => product.id, :product_category_id => services_category.id)
 
-     assert_difference Input, :count, -2 do
-       product.destroy
-     end
+    assert_difference Input, :count, -2 do
+      product.destroy
+    end
   end
 
   should 'test if name is blank' do
@@ -501,71 +515,242 @@ class ProductTest < ActiveSupport::TestCase
     assert_equal 0, product.price_description_percentage
   end
 
+  should 'return solidarity percentage from inputs' do
+    prod = fast_create(Product, :name => 'test product1', :product_category_id => @product_category.id, :enterprise_id => @profile.id)
+    puts "$$$$ #{prod.percentage_from_solidarity_economy}"
+    assert_equal 0, prod.percentage_from_solidarity_economy.first
+
+    Input.create!(:product_id => prod.id, :product_category_id => @product_category.id,
+                  :amount_used => 10, :price_per_unit => 10, :is_from_solidarity_economy => false)
+    assert_equal 0, prod.percentage_from_solidarity_economy.first
+
+    Input.create!(:product_id => prod.id, :product_category_id => @product_category.id,
+                  :amount_used => 10, :price_per_unit => 10, :is_from_solidarity_economy => true)
+    assert_equal 50, prod.percentage_from_solidarity_economy.first
+
+    Input.create!(:product_id => prod.id, :product_category_id => @product_category.id,
+                  :amount_used => 10, :price_per_unit => 10, :is_from_solidarity_economy => false)
+    assert_equal 25, prod.percentage_from_solidarity_economy.first
+
+    prod = fast_create(Product, :name => 'test product1', :product_category_id => @product_category.id, :enterprise_id => @profile.id)
+    Input.create!(:product_id => prod.id, :product_category_id => @product_category.id,
+                  :amount_used => 10, :price_per_unit => 10, :is_from_solidarity_economy => true)
+    Input.create!(:product_id => prod.id, :product_category_id => @product_category.id,
+                  :amount_used => 10, :price_per_unit => 10, :is_from_solidarity_economy => true)
+    Input.create!(:product_id => prod.id, :product_category_id => @product_category.id,
+                  :amount_used => 10, :price_per_unit => 10, :is_from_solidarity_economy => true)
+    Input.create!(:product_id => prod.id, :product_category_id => @product_category.id,
+                  :amount_used => 10, :price_per_unit => 10, :is_from_solidarity_economy => false)
+    assert_equal 75, prod.percentage_from_solidarity_economy.first
+
+    prod = fast_create(Product, :name => 'test product', :product_category_id => @product_category.id, :enterprise_id => @profile.id)
+    Input.create!(:product_id => prod.id, :product_category_id => @product_category.id,
+                  :amount_used => 10, :price_per_unit => 10, :is_from_solidarity_economy => true)
+    assert_equal 100, prod.percentage_from_solidarity_economy.first
+  end
+
+  should 'delegate region info to enterprise' do
+    enterprise = fast_create(Enterprise)
+    Enterprise.any_instance.expects(:region)
+    Enterprise.any_instance.expects(:region_id)
+    product = fast_create(Product, :enterprise_id => enterprise.id)
+    product.region
+    product.region_id
+  end
+
+  should 'delegate environment info to enterprise' do
+    enterprise = fast_create(Enterprise)
+    Enterprise.any_instance.expects(:environment)
+    Enterprise.any_instance.expects(:environment_id)
+    product = fast_create(Product, :enterprise_id => enterprise.id)
+    product.environment
+    product.environment_id
+  end
+
   should 'act as faceted' do
-		s = fast_create(State, :acronym => 'XZ')
-		c = fast_create(City, :name => 'Tabajara', :parent_id => s.id)
-		ent = fast_create(Enterprise, :region_id => c.id)
-	  p = fast_create(Product, :enterprise_id => ent.id)
+    s = fast_create(State, :acronym => 'XZ')
+    c = fast_create(City, :name => 'Tabajara', :parent_id => s.id)
+    ent = fast_create(Enterprise, :region_id => c.id)
+    cat = fast_create(ProductCategory, :name => 'hardcore')
+    p = Product.create!(:name => 'black flag', :enterprise_id => ent.id, :product_category_id => cat.id)
     pq = p.product_qualifiers.create!(:qualifier => fast_create(Qualifier, :name => 'qualifier'),
-			:certifier => fast_create(Certifier, :name => 'certifier'))
-		assert_equal 'Related products', Product.facet_by_id(:f_category)[:label]
-		assert_equal ['Tabajara', ', XZ'], Product.facet_by_id(:f_region)[:proc].call(p.send(:f_region))
-		assert_equal ['qualifier', ' cert. certifier'], Product.facet_by_id(:f_qualifier)[:proc].call(p.send(:f_qualifier).last)
+                                      :certifier => fast_create(Certifier, :name => 'certifier'))
+    assert_equal 'Related products', Product.facet_by_id(:f_category)[:label]
+    assert_equal ['Tabajara', ', XZ'], Product.facet_by_id(:f_region)[:proc].call(p.send(:f_region))
+    assert_equal ['qualifier', ' cert. certifier'], Product.facet_by_id(:f_qualifier)[:proc].call(p.send(:f_qualifier).last)
+    assert_equal 'hardcore', p.send(:f_category)
+    assert_equal "category_filter:#{cat.id}", Product.facet_category_query.call(cat)
   end
 
   should 'act as searchable' do
-		s = fast_create(State, :acronym => 'XZ')
-		c = fast_create(City, :name => 'Tabajara', :parent_id => s.id)
-		ent = fast_create(Enterprise, :region_id => c.id, :name => "Black Sun")
-		category = fast_create(ProductCategory, :name => "homemade", :acronym => "hm", :abbreviation => "homey")
-	  p = Product.create!(:name => 'bananas syrup', :description => 'surrounded by mosquitos', :enterprise_id => ent.id,
-			:product_category_id => category.id)
-		qual = Qualifier.create!(:name => 'qualificador', :environment_id => Environment.default.id)
-		cert = Certifier.create!(:name => 'certificador', :environment_id => Environment.default.id)
+    s = fast_create(State, :acronym => 'XZ')
+    c = fast_create(City, :name => 'Tabajara', :parent_id => s.id)
+    ent = fast_create(Enterprise, :region_id => c.id, :name => "Black Sun")
+    category = fast_create(ProductCategory, :name => "homemade", :acronym => "hm", :abbreviation => "homey")
+    p = Product.create!(:name => 'bananas syrup', :description => 'surrounded by mosquitos', :enterprise_id => ent.id,
+                        :product_category_id => category.id)
+    qual = Qualifier.create!(:name => 'qualificador', :environment_id => Environment.default.id)
+    cert = Certifier.create!(:name => 'certificador', :environment_id => Environment.default.id)
     pq = p.product_qualifiers.create!(:qualifier => qual,	:certifier => cert)
-		# fields
-	  assert_includes Product.find_by_contents('bananas')[:results].docs, p
-	  assert_includes Product.find_by_contents('mosquitos')[:results].docs, p
-	  assert_includes Product.find_by_contents('homemade')[:results].docs, p
-		# filters
-	  assert_includes Product.find_by_contents('bananas', {}, {
-			:filter_queries => ["public:true"]})[:results].docs, p
-	  assert_not_includes Product.find_by_contents('bananas', {}, {
-			:filter_queries => ["public:false"]})[:results].docs, p
-	  assert_includes Product.find_by_contents('bananas', {}, {
-			:filter_queries => ["environment_id:\"#{Environment.default.id}\""]})[:results].docs, p
+    p.qualifiers.reload
+    p.certifiers.reload
+    p.save!
+    # fields
+    assert_includes Product.find_by_contents('bananas')[:results].docs, p
+    assert_includes Product.find_by_contents('mosquitos')[:results].docs, p
+    assert_includes Product.find_by_contents('homemade')[:results].docs, p
+    # filters
+    assert_includes Product.find_by_contents('bananas', {}, { :filter_queries => ["public:true"]})[:results].docs, p
+    assert_not_includes Product.find_by_contents('bananas', {}, { :filter_queries => ["public:false"]})[:results].docs, p
+    assert_includes Product.find_by_contents('bananas', {}, { :filter_queries => ["environment_id:\"#{Environment.default.id}\""]})[:results].docs, p
     # includes
-	  assert_includes Product.find_by_contents("homemade")[:results].docs, p
-	  assert_includes Product.find_by_contents(category.slug)[:results].docs, p
-	  assert_includes Product.find_by_contents("hm")[:results].docs, p
-	  assert_includes Product.find_by_contents("homey")[:results].docs, p
-	  assert_includes Product.find_by_contents("Tabajara")[:results].docs, p
-	  assert_includes Product.find_by_contents("Black Sun")[:results].docs, p
+    assert_includes Product.find_by_contents("homemade")[:results].docs, p
+    assert_includes Product.find_by_contents(category.slug)[:results].docs, p
+    assert_includes Product.find_by_contents("hm")[:results].docs, p
+    assert_includes Product.find_by_contents("homey")[:results].docs, p
+    assert_includes Product.find_by_contents("Tabajara")[:results].docs, p
+    assert_includes Product.find_by_contents("Black Sun")[:results].docs, p
+    assert_includes Product.find_by_contents("qualificador")[:results].docs, p
+    assert_includes Product.find_by_contents("certificador")[:results].docs, p
   end
 
   should 'boost name matches' do
-		ent = fast_create(Enterprise)
-		cat = fast_create(ProductCategory)
-	  in_desc = Product.create!(:name => 'something', :enterprise_id => ent.id, :description => 'bananas in the description!',
-			:product_category_id => cat.id)
-	  in_name = Product.create!(:name => 'bananas in the name!', :enterprise_id => ent.id, :product_category_id => cat.id)
-	  assert_equal [in_name, in_desc], Product.find_by_contents('bananas')[:results].docs
+    ent = fast_create(Enterprise)
+    cat = fast_create(ProductCategory)
+    in_desc = Product.create!(:name => 'something', :enterprise_id => ent.id, :description => 'bananas in the description!',
+                              :product_category_id => cat.id)
+    in_name = Product.create!(:name => 'bananas in the name!', :enterprise_id => ent.id, :product_category_id => cat.id)
+    assert_equal [in_name, in_desc], Product.find_by_contents('bananas')[:results].docs
   end
 
-  should 'boost if profile is enabled' do
-    person2 = fast_create(Person, :enabled => false)
-	  art_profile_disabled = Article.create!(:name => 'profile disabled', :profile_id => person2.id)
-    person1 = fast_create(Person, :enabled => true)
-	  art_profile_enabled = Article.create!(:name => 'profile enabled', :profile_id => person1.id)
-	  assert_equal [art_profile_enabled, art_profile_disabled], Article.find_by_contents('profile')[:results].docs
-	end
+  should 'reindex enterprise after saving' do
+    ent = fast_create(Enterprise)
+    cat = fast_create(ProductCategory)
+    prod = Product.create!(:name => 'something', :enterprise_id => ent.id, :product_category_id => cat.id)
+    Product.expects(:solr_batch_add).with([ent])
+    prod.save!
+  end
 
-	should 'reindex enterprise after saving' do
-		ent = fast_create(Enterprise)
-		cat = fast_create(ProductCategory)
-	  prod = Product.create!(:name => 'something', :enterprise_id => ent.id, :product_category_id => cat.id)
-		Product.expects(:solr_batch_add).with([ent])
-		prod.save!
-	end
+  should 'boost search results that include an image' do
+    product_without_image = Product.create!(:name => 'product without image', :product_category => @product_category,
+                                            :enterprise_id => @profile.id)
+    product_with_image = Product.create!(:name => 'product with image', :product_category => @product_category,
+                                         :image_builder => { :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')},
+                                         :enterprise_id => @profile.id)
+    assert_equal [product_with_image, product_without_image], Product.find_by_contents('product image')[:results].docs
+  end
+
+  should 'boost search results that include qualifier' do
+    product_without_q = Product.create!(:name => 'product without qualifier', :product_category => @product_category,
+                                        :enterprise_id => @profile.id)
+    product_with_q = Product.create!(:name => 'product with qualifier', :product_category => @product_category,
+                                     :enterprise_id => @profile.id)
+    product_with_q.product_qualifiers.create(:qualifier => fast_create(Qualifier), :certifier => nil)
+    product_with_q.save!
+
+    assert_equal [product_with_q, product_without_q], Product.find_by_contents('product qualifier')[:results].docs
+  end
+
+  should 'boost search results with open price' do
+    product = Product.create!(:name => 'product 1', :product_category => @product_category, :enterprise_id => @profile.id)
+    product.price = 100
+    product.save!
+    open_price = Product.create!(:name => 'product 2', :product_category => @product_category, :enterprise_id => @profile.id)
+    open_price.price = 100
+    Input.create!(:product_id => open_price.id, :product_category_id => @product_category.id,
+                  :amount_used => 10, :price_per_unit => 10)
+    open_price.update_price_details []
+    open_price.save!
+
+    #pp Product::Boosts[2][2].call(product)
+    #pp Product::Boosts[2][2].call(open_price)
+    #pp Product.find_by_contents('product')[:results].docs.first.solr_score
+    #pp Product.find_by_contents('product')[:results].docs.last.solr_score
+    assert_equal [open_price, product], Product.find_by_contents('product')[:results].docs
+  end
+
+  should 'boost search results with solidarity inputs' do
+    product = Product.create!(:name => 'product 1', :product_category => @product_category, :enterprise_id => @profile.id)
+    perc_50 = Product.create!(:name => 'product 2', :product_category => @product_category, :enterprise_id => @profile.id)
+    Input.create!(:product_id => perc_50.id, :product_category_id => @product_category.id,
+                  :amount_used => 10, :price_per_unit => 10, :is_from_solidarity_economy => true)
+    Input.create!(:product_id => perc_50.id, :product_category_id => @product_category.id,
+                  :amount_used => 10, :price_per_unit => 10, :is_from_solidarity_economy => false)
+    perc_50.save!
+    perc_75 = Product.create!(:name => 'product 3', :product_category => @product_category, :enterprise_id => @profile.id)
+    Input.create!(:product_id => perc_75.id, :product_category_id => @product_category.id,
+                  :amount_used => 10, :price_per_unit => 10, :is_from_solidarity_economy => false)
+    Input.create!(:product_id => perc_75.id, :product_category_id => @product_category.id,
+                  :amount_used => 10, :price_per_unit => 10, :is_from_solidarity_economy => true)
+    Input.create!(:product_id => perc_75.id, :product_category_id => @product_category.id,
+                  :amount_used => 10, :price_per_unit => 10, :is_from_solidarity_economy => true)
+    Input.create!(:product_id => perc_75.id, :product_category_id => @product_category.id,
+                  :amount_used => 10, :price_per_unit => 10, :is_from_solidarity_economy => true)
+    perc_75.save!
+
+    assert_equal [perc_75, perc_50, product], Product.find_by_contents('product')[:results].docs
+  end
+
+  should 'boost available search results' do
+    product = Product.create!(:name => 'product 1', :product_category => @product_category, :enterprise_id => @profile.id)
+    product.available = false
+    product.save!
+    product2 = Product.create!(:name => 'product 2', :product_category => @product_category, :enterprise_id => @profile.id)
+    product2.available = true
+    product2.save!
+
+    assert_equal [product2, product], Product.find_by_contents('product')[:results].docs
+  end
+
+  should 'boost search results created updated recently' do
+    product = Product.create!(:name => 'product 1', :product_category => @product_category, :enterprise_id => @profile.id)
+    product.update_attribute :created_at, Time.now - 10.day
+    product2 = Product.create!(:name => 'product 2', :product_category => @product_category, :enterprise_id => @profile.id)
+
+    assert_equal [product2, product], Product.find_by_contents('product')[:results].docs
+  end
+
+  should 'boost search results with description' do
+    product = Product.create!(:name => 'product 1', :product_category => @product_category, :enterprise_id => @profile.id,
+                              :description => '')
+    product2 = Product.create!(:name => 'product 2', :product_category => @product_category, :enterprise_id => @profile.id,
+                               :description => 'a small description')
+
+    assert_equal [product2, product], Product.find_by_contents('product')[:results].docs
+  end
+
+  should 'boost if enterprise is enabled' do
+    ent = Enterprise.create!(:name => 'ent', :identifier => 'ent', :enabled => false)
+    product = Product.create!(:name => 'product 1', :product_category => @product_category, :enterprise_id => ent.id)
+    product2 = Product.create!(:name => 'product 2', :product_category => @product_category, :enterprise_id => @profile.id)
+
+    assert_equal [product2, product], Product.find_by_contents('product')[:results].docs
+  end
+
+  should 'combine different boost types' do
+    product = Product.create!(:name => 'product', :product_category => @product_category,	:enterprise_id => @profile.id)
+    image_only = Product.create!(:name => 'product with image', :product_category => @product_category,
+                                 :image_builder => { :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')},
+                                 :enterprise_id => @profile.id)
+    qual_only = Product.create!(:name => 'product with qualifier', :product_category => @product_category,
+                                :enterprise_id => @profile.id)
+    img_and_qual = Product.create!(:name => 'product with image and qualifier', :product_category => @product_category,
+                                   :image_builder => { :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')},
+                                   :enterprise_id => @profile.id)
+    qual_only.product_qualifiers.create(:qualifier => fast_create(Qualifier), :certifier => nil)
+    img_and_qual.product_qualifiers.create(:qualifier => fast_create(Qualifier), :certifier => nil)
+    qual_only.save!
+    img_and_qual.save!
+
+    assert_equal [img_and_qual, image_only, qual_only, product], Product.find_by_contents('product')[:results].docs
+  end
+
+  should 'return more recent products' do
+    prod1 = Product.create!(:name => 'Damaged LP', :enterprise_id => @profile.id, :product_category_id => @product_category.id)
+    prod2 = Product.create!(:name => 'Damaged CD', :enterprise_id => @profile.id, :product_category_id => @product_category.id)
+    prod3 = Product.create!(:name => 'Damaged DVD', :enterprise_id => @profile.id, :product_category_id => @product_category.id)
+
+    assert_equal [prod3, prod2, prod1], Product.more_recent
+  end
 
 end

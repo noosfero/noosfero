@@ -412,8 +412,8 @@ class ArticleTest < ActiveSupport::TestCase
     assert_includes c2.articles(true), art
     assert_includes c1.articles(true), art
 
-		assert_includes art.categories_including_virtual(true), c2
-		assert_includes art.categories_including_virtual(true), c1
+    assert_includes art.categories_including_virtual(true), c2
+    assert_includes art.categories_including_virtual(true), c1
   end
 
   should 'redefine the entire category set at once' do
@@ -429,8 +429,8 @@ class ArticleTest < ActiveSupport::TestCase
     art.category_ids = [c2,c3].map(&:id)
 
     assert_equivalent [c2, c3], art.categories(true)
-		assert_includes art.categories_including_virtual(true), c1
-		assert !art.categories_including_virtual(true).include?(c4)
+    assert_includes art.categories_including_virtual(true), c1
+    assert !art.categories_including_virtual(true).include?(c4)
   end
 
   should 'be able to create an article already with categories' do
@@ -442,7 +442,7 @@ class ArticleTest < ActiveSupport::TestCase
     a = p.articles.create!(:name => 'test', :category_ids => [c1.id, c2.id])
 
     assert_equivalent [c1, c2], a.categories(true)
-		assert_includes a.categories_including_virtual(true), parent1
+    assert_includes a.categories_including_virtual(true), parent1
   end
 
   should 'not add a category twice to article' do
@@ -1658,67 +1658,132 @@ class ArticleTest < ActiveSupport::TestCase
     assert_equal [c1,c2,c5], Article.text_articles
   end
 
+  should 'delegate region info to profile' do
+    profile = fast_create(Profile)
+    Profile.any_instance.expects(:region)
+    Profile.any_instance.expects(:region_id)
+    article = fast_create(Article, :profile_id => profile.id)
+    article.region
+    article.region_id
+  end
+
+  should 'delegate environment info to profile' do
+    profile = fast_create(Profile)
+    Profile.any_instance.expects(:environment)
+    Profile.any_instance.expects(:environment_id)
+    article = fast_create(Article, :profile_id => profile.id)
+    article.environment
+    article.environment_id
+  end
+
   should 'act as faceted' do
     person = fast_create(Person)
-	  a = Article.new(:profile_id => person.id)
-		assert_equal Article.type_name, Article.facet_by_id(:f_type)[:proc].call(a.send(:f_type))
-		assert_equal Person.type_name, Article.facet_by_id(:f_profile_type)[:proc].call(a.send(:f_profile_type))
-	  assert_equal a.published_at, a.send(:f_published_at)
+    cat = Category.create!(:name => 'hardcore', :environment_id => Environment.default.id)
+    a = Article.create!(:name => 'black flag review', :profile_id => person.id)
+    a.add_category(cat, true)
+    a.save!
+    assert_equal Article.type_name, Article.facet_by_id(:f_type)[:proc].call(a.send(:f_type))
+    assert_equal Person.type_name, Article.facet_by_id(:f_profile_type)[:proc].call(a.send(:f_profile_type))
+    assert_equal a.published_at, a.send(:f_published_at)
+    assert_equal ['hardcore'], a.send(:f_category)
+    assert_equal "category_filter:\"#{cat.id}\"", Article.facet_category_query.call(cat)
   end
 
   should 'act as searchable' do
     person = fast_create(Person, :name => "Hiro", :address => 'U-Stor-It @ Inglewood, California',
-			:nickname => 'Protagonist')
-		person2 = fast_create(Person, :name => "Raven")
-		category = fast_create(Category, :name => "science fiction", :acronym => "sf", :abbreviation => "sci-fi")
-	  a = Article.create!(:name => 'a searchable article about bananas', :profile_id => person.id,
-			:body => 'the body talks about mosquitos', :abstract => 'and the abstract is about beer',
-			:filename => 'not_a_virus.exe')
-		a.add_category(category)
-		c = a.comments.build(:title => 'snow crash', :author => person2, :body => 'wanna try some?')
-		c.save!
+                         :nickname => 'Protagonist')
+    person2 = fast_create(Person, :name => "Raven")
+    category = fast_create(Category, :name => "science fiction", :acronym => "sf", :abbreviation => "sci-fi")
+    a = Article.create!(:name => 'a searchable article about bananas', :profile_id => person.id,
+                        :body => 'the body talks about mosquitos', :abstract => 'and the abstract is about beer',
+                        :filename => 'not_a_virus.exe')
+    a.add_category(category)
+    c = a.comments.build(:title => 'snow crash', :author => person2, :body => 'wanna try some?')
+    c.save!
 
-		# fields
-	  assert_includes Article.find_by_contents('bananas')[:results].docs, a
-	  assert_includes Article.find_by_contents('mosquitos')[:results].docs, a
-	  assert_includes Article.find_by_contents('beer')[:results].docs, a
-	  assert_includes Article.find_by_contents('not_a_virus.exe')[:results].docs, a
-		# filters
-	  assert_includes Article.find_by_contents('bananas', {}, {
-			:filter_queries => ["public:true"]})[:results].docs, a
-	  assert_not_includes Article.find_by_contents('bananas', {}, {
-			:filter_queries => ["public:false"]})[:results].docs, a
-	  assert_includes Article.find_by_contents('bananas', {}, {
-			:filter_queries => ["environment_id:\"#{Environment.default.id}\""]})[:results].docs, a
-	  assert_includes Article.find_by_contents('bananas', {}, {
-			:filter_queries => ["profile_id:\"#{person.id}\""]})[:results].docs, a
+    # fields
+    assert_includes Article.find_by_contents('bananas')[:results].docs, a
+    assert_includes Article.find_by_contents('mosquitos')[:results].docs, a
+    assert_includes Article.find_by_contents('beer')[:results].docs, a
+    assert_includes Article.find_by_contents('not_a_virus.exe')[:results].docs, a
+    # filters
+    assert_includes Article.find_by_contents('bananas', {}, {:filter_queries => ["public:true"]})[:results].docs, a
+    assert_not_includes Article.find_by_contents('bananas', {}, {:filter_queries => ["public:false"]})[:results].docs, a
+    assert_includes Article.find_by_contents('bananas', {}, {:filter_queries => ["environment_id:\"#{Environment.default.id}\""]})[:results].docs, a
+    assert_includes Article.find_by_contents('bananas', {}, {:filter_queries => ["profile_id:\"#{person.id}\""]})[:results].docs, a
     # includes
-	  assert_includes Article.find_by_contents('Hiro')[:results].docs, a
-	  assert_includes Article.find_by_contents("person-#{person.id}")[:results].docs, a
-	  assert_includes Article.find_by_contents("California")[:results].docs, a
-	  assert_includes Article.find_by_contents("Protagonist")[:results].docs, a
-	  assert_includes Article.find_by_contents("snow")[:results].docs, a
-	  assert_includes Article.find_by_contents("try some")[:results].docs, a
-	  assert_includes Article.find_by_contents("Raven")[:results].docs, a
-	  assert_includes Article.find_by_contents("science")[:results].docs, a
-	  assert_includes Article.find_by_contents(category.slug)[:results].docs, a
-	  assert_includes Article.find_by_contents("sf")[:results].docs, a
-	  assert_includes Article.find_by_contents("sci-fi")[:results].docs, a
+    assert_includes Article.find_by_contents('Hiro')[:results].docs, a
+    assert_includes Article.find_by_contents("person-#{person.id}")[:results].docs, a
+    assert_includes Article.find_by_contents("California")[:results].docs, a
+    assert_includes Article.find_by_contents("Protagonist")[:results].docs, a
+    assert_includes Article.find_by_contents("snow")[:results].docs, a
+    assert_includes Article.find_by_contents("try some")[:results].docs, a
+    assert_includes Article.find_by_contents("Raven")[:results].docs, a
+    assert_includes Article.find_by_contents("science")[:results].docs, a
+    assert_includes Article.find_by_contents(category.slug)[:results].docs, a
+    assert_includes Article.find_by_contents("sf")[:results].docs, a
+    assert_includes Article.find_by_contents("sci-fi")[:results].docs, a
   end
 
   should 'boost name matches' do
     person = fast_create(Person)
-	  in_body = Article.create!(:name => 'something', :profile_id => person.id, :body => 'bananas in the body!')
-	  in_name = Article.create!(:name => 'bananas in the name!', :profile_id => person.id)
-	  assert_equal [in_name, in_body], Article.find_by_contents('bananas')[:results].docs
+    in_body = Article.create!(:name => 'something', :profile_id => person.id, :body => 'bananas in the body!')
+    in_name = Article.create!(:name => 'bananas in the name!', :profile_id => person.id)
+    assert_equal [in_name, in_body], Article.find_by_contents('bananas')[:results].docs
   end
 
   should 'boost if profile is enabled' do
     person2 = fast_create(Person, :enabled => false)
-	  art_profile_disabled = Article.create!(:name => 'profile disabled', :profile_id => person2.id)
+    art_profile_disabled = Article.create!(:name => 'profile disabled', :profile_id => person2.id)
     person1 = fast_create(Person, :enabled => true)
-	  art_profile_enabled = Article.create!(:name => 'profile enabled', :profile_id => person1.id)
-	  assert_equal [art_profile_enabled, art_profile_disabled], Article.find_by_contents('profile')[:results].docs
-	end
+    art_profile_enabled = Article.create!(:name => 'profile enabled', :profile_id => person1.id)
+    assert_equal [art_profile_enabled, art_profile_disabled], Article.find_by_contents('profile')[:results].docs
+  end
+
+  should 'remove all categorizations when destroyed' do
+    art = Article.create!(:name => 'article 1', :profile_id => fast_create(Person).id)
+    cat = Category.create!(:name => 'category 1', :environment_id => Environment.default.id)
+    art.add_category cat
+    art.destroy
+    assert cat.articles.reload.empty?
+  end
+
+  should 'show more popular articles' do
+    art1 = Article.create!(:name => 'article 1', :profile_id => fast_create(Person).id)
+    art2 = Article.create!(:name => 'article 2', :profile_id => fast_create(Person).id)
+    art3 = Article.create!(:name => 'article 3', :profile_id => fast_create(Person).id)
+
+    art1.hits = 56; art1.save!
+    art3.hits = 92; art3.save!
+    art2.hits = 3; art2.save!
+
+    assert_equal [art3, art1, art2], Article.more_popular
+  end
+
+  should 'return more commented with pagination' do
+    art1 = Article.create!(:name => 'article 1', :profile_id => fast_create(Person).id)
+    art2 = Article.create!(:name => 'article 2', :profile_id => fast_create(Person).id)
+    art3 = Article.create!(:name => 'article 3', :profile_id => fast_create(Person).id)
+
+    art1.comments_count = 56; art1.save!
+    art3.comments_count = 92; art3.save!
+    art2.comments_count = 3; art2.save!
+
+    assert_equal [art3, art1], Article.most_commented(2)
+  end
+
+  should 'show if article is public' do
+    art1 = Article.create!(:name => 'article 1', :profile_id => fast_create(Person).id)
+    art2 = Article.create!(:name => 'article 2', :profile_id => fast_create(Person).id)
+    art2.advertise = false; art2.save!
+    art3 = Article.create!(:name => 'article 3', :profile_id => fast_create(Person).id)
+    art3.published = false; art3.save!
+    art4 = Article.create!(:name => 'article 4', :profile_id => fast_create(Person).id)
+    art4.profile.visible = false; art4.save!
+    art5 = Article.create!(:name => 'article 5', :profile_id => fast_create(Person).id)
+    art5.profile.public_profile = false; art5.save!
+
+    assert_equal [art1], Article.public
+  end
 
 end

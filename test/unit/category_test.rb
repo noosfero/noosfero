@@ -32,11 +32,6 @@ class CategoryTest < ActiveSupport::TestCase
     assert_equal parent_category, c.parent
   end
 
-  # def test_full_text_search
-  #   c = Category.create!(:name => 'product category for testing', :environment_id => @env.id)
-  #   assert @env.product_categories.full_text_search('product*').include?(c)
-  # end
-
   def test_category_full_name
     cat = Category.new(:name => 'category_name')
     assert_equal 'category_name', cat.full_name
@@ -102,10 +97,10 @@ class CategoryTest < ActiveSupport::TestCase
     sub_cat = fast_create(Category, :environment_id => @env.id, :parent_id => cat.id)
 
     roots = Category.top_level_for(@env)
-    
+
     assert_equal 1, roots.size
   end
- 
+
   def test_slug
     c = Category.new(:name => 'Category name')
     assert_equal 'category-name', c.slug
@@ -176,7 +171,7 @@ class CategoryTest < ActiveSupport::TestCase
     c.display_color = 10
     c.valid?
     assert c.errors.invalid?(:display_color)
-    
+
     valid = %w[ 1 2 3 4 ].map { |item| item.to_i }
     valid.each do |item|
       c.display_color = item
@@ -197,7 +192,7 @@ class CategoryTest < ActiveSupport::TestCase
     c.display_color = 2
     c.valid?
     assert !c.errors.invalid?(:display_color)
-    
+
   end
 
   should 'be able to get top ancestor' do
@@ -219,7 +214,7 @@ class CategoryTest < ActiveSupport::TestCase
   ################################################################
   # category filter stuff
   ################################################################
-  
+
   should 'should paginate recent-like methods' do
     c = @env.categories.build(:name => 'my category'); c.save!
     assert c.recent_people.respond_to? 'total_entries'
@@ -492,30 +487,63 @@ class CategoryTest < ActiveSupport::TestCase
     assert_not_includes Category.top_level_for(Environment.default).from_types(['ProductCategory']), toplevel_category
   end
 
-  should 'act as searchable' do
-		parent = fast_create(Category, :name => 'books')
-		c = Category.create!(:name => "science fiction", :acronym => "sf", :abbreviation => "sci-fi",
-			:environment_id => Environment.default.id, :parent_id => parent.id)
+  should 'paginate upcoming events' do
+    category = Category.create!(:name => 'category1', :environment_id => Environment.default.id)
+    profile = fast_create(Profile)
+    event1 = category.events.build(:name => 'event1', :start_date => Time.now, :profile => profile)	
+    event2 = category.events.build(:name => 'event2', :start_date => Time.now + 1.hour, :profile => profile)	
+    event3 = category.events.build(:name => 'event3', :start_date => Time.now + 1.day, :profile => profile)
+    category.save!
+    assert_equal [event1, event2], category.upcoming_events(2)
+  end
 
-		# fields
-	  assert_includes Category.find_by_contents('fiction')[:results].docs, c
-	  assert_includes Category.find_by_contents('sf')[:results].docs, c
-	  assert_includes Category.find_by_contents('sci-fi')[:results].docs, c
-		# filters
-	  assert_includes Category.find_by_contents('science', {}, {
-			:filter_queries => ["parent_id:#{parent.id}"]})[:results].docs, c
+  should 'remove all article categorizations when destroyed' do
+    cat = Category.create!(:name => 'category 1', :environment_id => Environment.default.id)
+    art = Article.create!(:name => 'article 1', :profile_id => fast_create(Person).id)
+    art.add_category cat
+    cat.destroy
+    assert art.categories.reload.empty?
+  end
+
+  should 'remove all profile categorizations when destroyed' do
+    cat = Category.create!(:name => 'category 1', :environment_id => Environment.default.id)
+    p = create(Person, :user_id => fast_create(User).id)
+    p.add_category cat
+    cat.destroy
+    assert p.categories.reload.empty?
+  end
+
+  should 'act as searchable' do
+    parent = fast_create(Category, :name => 'books')
+    c = Category.create!(:name => "science fiction", :acronym => "sf", :abbreviation => "sci-fi",
+                         :environment_id => Environment.default.id, :parent_id => parent.id)
+
+    # fields
+    assert_includes Category.find_by_contents('fiction')[:results].docs, c
+    assert_includes Category.find_by_contents('sf')[:results].docs, c
+    assert_includes Category.find_by_contents('sci-fi')[:results].docs, c
+    # filters
+    assert_includes Category.find_by_contents('science', {}, {
+      :filter_queries => ["parent_id:#{parent.id}"]})[:results].docs, c
   end
 
   should 'boost name matches' do
-		c_abbr = Category.create!(:name => "something else", :abbreviation => "science", :environment_id => Environment.default.id)
-		c_name = Category.create!(:name => "science fiction", :environment_id => Environment.default.id)
-		assert_equal [c_name, c_abbr], Category.find_by_contents("science")[:results].docs
+    c_abbr = Category.create!(:name => "something else", :abbreviation => "science", :environment_id => Environment.default.id)
+    c_name = Category.create!(:name => "science fiction", :environment_id => Environment.default.id)
+    assert_equal [c_name, c_abbr], Category.find_by_contents("science")[:results].docs
   end
 
-	should 'solr save' do
+  should 'solr save' do
     c = @env.categories.build(:name => 'my category');
-		c.expects(:solr_save)
-		c.save!
-	end
+    c.expects(:solr_save)
+    c.save!
+  end
 
+  should 'reindex articles after saving' do
+    cat = Category.create!(:name => 'category 1', :environment_id => Environment.default.id)
+    art = Article.create!(:name => 'something', :profile_id => fast_create(Person).id)
+    Category.expects(:solr_batch_add).with(includes(art))
+    art.add_category cat
+    cat.save!
+  end
 end

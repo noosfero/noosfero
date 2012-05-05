@@ -192,7 +192,7 @@ class ProfileTest < ActiveSupport::TestCase
     assert_not_equal list.object_id, other_list.object_id
   end
 
-# This problem should be solved; talk to Bráulio if it fails
+  # This problem should be solved; talk to Bráulio if it fails
   should 'be able to find profiles by their names' do
     small = create(Profile, :name => 'A small profile for testing')
     big = create(Profile, :name => 'A big profile for testing')
@@ -388,12 +388,19 @@ class ProfileTest < ActiveSupport::TestCase
     assert_respond_to c, :categories
   end
 
+  should 'responds to categories including virtual' do
+    c = fast_create(Profile)
+    assert_respond_to c, :categories_including_virtual
+  end
+
   should 'have categories' do
     c = fast_create(Profile)
-    cat = Environment.default.categories.build(:name => 'a category'); cat.save!
+    pcat = Environment.default.categories.build(:name => 'a category'); pcat.save!
+    cat = Environment.default.categories.build(:name => 'a category', :parent_id => pcat.id); cat.save!
     c.add_category cat
     c.save!
     assert_includes c.categories, cat
+    assert_includes c.categories_including_virtual, pcat
   end
 
   should 'be able to list recent profiles' do
@@ -543,13 +550,15 @@ class ProfileTest < ActiveSupport::TestCase
     profile = create_user('testuser').person
     profile.add_category(c3)
 
-
     assert_equal [c3], profile.categories(true)
     assert_equal [profile], c2.people(true)
 
     assert_includes c3.people(true), profile
     assert_includes c2.people(true), profile
     assert_includes c1.people(true), profile
+
+    assert_includes profile.categories_including_virtual, c2
+    assert_includes profile.categories_including_virtual, c1
   end
 
   should 'redefine the entire category set at once' do
@@ -564,15 +573,18 @@ class ProfileTest < ActiveSupport::TestCase
     profile.category_ids = [c2,c3].map(&:id)
 
     assert_equivalent [c2, c3], profile.categories(true)
+    assert_equivalent [c2, c1, c3], profile.categories_including_virtual(true)
   end
 
   should 'be able to create a profile with categories' do
-    c1 = create(Category)
+    pcat = create(Category)
+    c1 = create(Category, :parent_id => pcat)
     c2 = create(Category)
 
     profile = create(Profile, :category_ids => [c1.id, c2.id])
 
     assert_equivalent [c1, c2], profile.categories(true)
+    assert_equivalent [c1, pcat, c2], profile.categories_including_virtual(true)
   end
 
   should 'be associated with a region' do
@@ -625,32 +637,38 @@ class ProfileTest < ActiveSupport::TestCase
 
   should 'be able to create with categories and region at the same time' do
     region = fast_create(Region)
-    category = fast_create(Category)
+    pcat = fast_create(Category)
+    category = fast_create(Category, :parent_id => pcat.id)
     profile = create(Profile, :region => region, :category_ids => [category.id])
 
     assert_equivalent [region, category], profile.categories(true)
+    assert_equivalent [region, category, pcat], profile.categories_including_virtual(true)
   end
 
   should 'be able to update categories and not get regions removed' do
     region = fast_create(Region)
     category = fast_create(Category)
-    category2 = fast_create(Category)
+    pcat = fast_create(Category)
+    category2 = fast_create(Category, :parent_id => pcat.id)
     profile = create(Profile, :region => region, :category_ids => [category.id])
 
     profile.update_attributes!(:category_ids => [category2.id])
 
     assert_includes profile.categories(true), region
+    assert_includes profile.categories_including_virtual(true), pcat
   end
 
   should 'be able to update region and not get categories removed' do
     region = fast_create(Region)
     region2 = fast_create(Region)
-    category = fast_create(Category)
+    pcat = fast_create(Category)
+    category = fast_create(Category, :parent_id => pcat.id)
     profile = create(Profile, :region => region, :category_ids => [category.id])
 
     profile.update_attributes!(:region => region2)
 
     assert_includes profile.categories(true), category
+    assert_includes profile.categories_including_virtual(true), pcat
   end
 
   should 'not accept product category as category' do
@@ -757,6 +775,7 @@ class ProfileTest < ActiveSupport::TestCase
     profile = fast_create(Profile)
     profile.category_ids = [c2,c3,c3].map(&:id)
     assert_equal [c2, c3], profile.categories(true)
+    assert_equal [c2, c1, c3], profile.categories_including_virtual(true)
   end
 
   should 'not return nil members when a member is removed from system' do
@@ -965,7 +984,7 @@ class ProfileTest < ActiveSupport::TestCase
 
     assert !a_copy.advertise
   end
-  
+
   should 'copy set of boxes from profile template' do
     template = fast_create(Profile)
     template.boxes.destroy_all
@@ -1403,10 +1422,12 @@ class ProfileTest < ActiveSupport::TestCase
 
   should 'ignore category with id zero' do
     profile = fast_create(Profile)
-    c = fast_create(Category)
+    pcat = fast_create(Category, :id => 0)
+    c = fast_create(Category, :parent_id => pcat.id)
     profile.category_ids = ['0', c.id, nil]
 
     assert_equal [c], profile.categories
+    assert_not_includes profile.categories_including_virtual, [pcat]
   end
 
   should 'get first blog when has multiple blogs' do
@@ -1772,48 +1793,51 @@ class ProfileTest < ActiveSupport::TestCase
   end
 
   should 'act as faceted' do
-		st = fast_create(State, :acronym => 'XZ')
-		city = fast_create(City, :name => 'Tabajara', :parent_id => st.id)
+    st = fast_create(State, :acronym => 'XZ')
+    city = fast_create(City, :name => 'Tabajara', :parent_id => st.id)
+    cat = fast_create(Category)
     prof = fast_create(Person, :region_id => city.id)
-		assert_equal ['Tabajara', ', XZ'], Profile.facet_by_id(:f_region)[:proc].call(prof.send(:f_region))
+    prof.add_category(cat, true)
+    assert_equal ['Tabajara', ', XZ'], Profile.facet_by_id(:f_region)[:proc].call(prof.send(:f_region))
+    assert_equal "category_filter:#{cat.id}", Person.facet_category_query.call(cat)
   end
 
   should 'act as searchable' do
-		st = fast_create(State, :acronym => 'CA')
-		city = fast_create(City, :name => 'Inglewood', :parent_id => st.id)
+    st = create(State, :name => 'California', :acronym => 'CA', :environment_id => Environment.default.id)
+    city = create(City, :name => 'Inglewood', :parent_id => st.id, :environment_id => Environment.default.id)
     p = create(Person, :name => "Hiro", :address => 'U-Stor-It', :nickname => 'Protagonist',
-			:user_id => fast_create(User).id, :region_id => city.id)
-		cat = fast_create(Category, :name => "Science Fiction", :acronym => "sf", :abbreviation => "sci-fi")
-		p.add_category cat
-		cat.save!
-		p.save!
+               :user_id => fast_create(User).id, :region_id => city.id)
+    cat = create(Category, :name => "Science Fiction", :acronym => "sf", :abbreviation => "sci-fi")
+    p.add_category cat
+    cat.profiles.reload
+    cat.save!
+    p.save!
 
-		# fields
-	  assert_includes Profile.find_by_contents('Hiro')[:results].docs, p
-	  assert_includes Profile.find_by_contents('Stor')[:results].docs, p
-	  assert_includes Profile.find_by_contents('Protagonist')[:results].docs, p
-		# filters
-	  assert_includes Profile.find_by_contents('Hiro', {}, {
-			:filter_queries => ["public:true"]})[:results].docs, p
-	  assert_not_includes Profile.find_by_contents('Hiro', {}, {
-			:filter_queries => ["public:false"]})[:results].docs, p
-	  assert_includes Profile.find_by_contents('Hiro', {}, {
-			:filter_queries => ["environment_id:\"#{Environment.default.id}\""]})[:results].docs, p
+    # fields
+    assert_includes Profile.find_by_contents('Hiro')[:results].docs, p
+    assert_includes Profile.find_by_contents('Stor')[:results].docs, p
+    assert_includes Profile.find_by_contents('Protagonist')[:results].docs, p
+    # filters
+    assert_includes Profile.find_by_contents('Hiro', {}, { :filter_queries => ["public:true"]})[:results].docs, p
+    assert_not_includes Profile.find_by_contents('Hiro', {}, { :filter_queries => ["public:false"]})[:results].docs, p
+    assert_includes Profile.find_by_contents('Hiro', {}, { :filter_queries => ["environment_id:\"#{Environment.default.id}\""]})[:results].docs, p
     # includes
-	  assert_includes Profile.find_by_contents("Inglewood")[:results].docs, p
+    assert_includes Profile.find_by_contents("Inglewood")[:results].docs, p
+    assert_includes Profile.find_by_contents("California")[:results].docs, p
+    assert_includes Profile.find_by_contents("Science")[:results].docs, p
   end
 
   should 'boost name matches' do
-	  in_addr = create(Person, :name => 'something', :address => 'bananas in the address!', :user_id => fast_create(User).id)
+    in_addr = create(Person, :name => 'something', :address => 'bananas in the address!', :user_id => fast_create(User).id)
     in_name = create(Person, :name => 'bananas in the name!', :user_id => fast_create(User).id)
-	  assert_equal [in_name, in_addr], Person.find_by_contents('bananas')[:results].docs
+    assert_equal [in_name, in_addr], Person.find_by_contents('bananas')[:results].docs
   end
 
-	should 'reindex articles after saving' do
-	  profile = create(Person, :name => 'something', :user_id => fast_create(User).id)
-		art = profile.articles.build(:name => 'something')
-		Profile.expects(:solr_batch_add).with(includes(art))
-		profile.save!
-	end
+  should 'reindex articles after saving' do
+    profile = create(Person, :name => 'something', :user_id => fast_create(User).id)
+    art = profile.articles.build(:name => 'something')
+    Profile.expects(:solr_batch_add).with(includes(art))
+    profile.save!
+  end
 
 end
