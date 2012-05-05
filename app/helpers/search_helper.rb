@@ -157,7 +157,7 @@ module SearchHelper
     ret.map do |label, name, url|
       content_tag('div', content_tag('span', label, :class => 'facet-selected-label') + 
         content_tag('span', name, :class => 'facet-selected-name') +
-        link_to('', url, :class => 'facet-selected-remove'), :class => 'facet-selected')
+        link_to('', url, :class => 'facet-selected-remove', :title => 'remove facet'), :class => 'facet-selected')
     end.join
   end
 

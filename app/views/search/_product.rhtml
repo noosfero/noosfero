@@ -30,7 +30,7 @@
             <% title = product.inputs.map{ |i|
               '<div class="search-product-input-dots-to-price">' +
                 '<div class="search-product-input-name">' + i.product_category.name + '</div>' + 
-                price_span(i.price_per_unit*i.amount_used, :class => 'search-product-input-price') +
+                price_span(i.cost, :class => 'search-product-input-price') +
               '</div>' }.join('') %>
             <% title += product.price_details.map{ |p|
               '<div class="search-product-input-dots-to-price">' +

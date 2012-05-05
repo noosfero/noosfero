@@ -7,7 +7,7 @@ module NavigationHelpers
   #
   def path_to(page_name)
     case page_name
-    
+
     when /the homepage/
       '/'
 
@@ -15,12 +15,12 @@ module NavigationHelpers
       page_name
 
     when /article "([^"]+)"\s*$/
-      url_for( Article.find_by_name($1).url )
+      url_for(Article.find_by_name($1).url.merge({:only_path => true}))
 
     when /edit "(.+)" by (.+)/
       article_id = Person[$2].articles.find_by_slug($1.to_slug).id
       "/myprofile/#{$2}/cms/edit/#{article_id}"
-    
+
     when /edit (.*Block) of (.+)/
       owner = Profile[$2]
       klass = $1.constantize
@@ -89,8 +89,8 @@ module NavigationHelpers
       '/myprofile/%s/manage_products/new' % Profile.find_by_name($1).identifier
 
     when /^(.+)'s page of product (.*)$/
-       enterprise = Profile.find_by_name($1)
-       product = enterprise.products.find_by_name($2)
+      enterprise = Profile.find_by_name($1)
+      product = enterprise.products.find_by_name($2)
       '/myprofile/%s/manage_products/show/%s' % [enterprise.identifier, product.id]
 
     when /^(.*)'s products page$/
@@ -99,11 +99,14 @@ module NavigationHelpers
     when /^chat$/
       '/chat'
 
-    # Add more mappings here.
-    # Here is a more fancy example:
-    #
-    #   when /^(.*)'s profile page$/i
-    #     user_profile_path(User.find_by_login($1))
+    when /^(.+)'s tag page/
+      '/tag/%s' % $1
+
+      # Add more mappings here.
+      # Here is a more fancy example:
+      #
+      #   when /^(.*)'s profile page$/i
+      #     user_profile_path(User.find_by_login($1))
 
     else
       raise "Can't find mapping from \"#{page_name}\" to a path.\n" +

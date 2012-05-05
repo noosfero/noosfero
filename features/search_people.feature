@@ -1,7 +1,7 @@
 Feature: search people
   As a noosfero user
   I want to search people
-  In order to find ones that interest me 
+  In order to find ones that interest me
 
   Background:
     Given the search index is empty
@@ -20,12 +20,17 @@ Feature: search people
     And I fill in "query" with "Silva"
     And I press "Search"
     Then I should see "Joao Silva" within "#search-results"
+    And I should see "Joao Silva" within ".only-one-result-box"
     And I should not see "Jose Araujo"
+
+  Scenario: show empty search results
+    When I search people for "something unrelated"
+    Then I should see "None" within ".search-results-type-empty"
 
   Scenario: see category facets when searching
     Given the following categories as facets
       | name      |
-	  | Temáticas |
+      | Temáticas |
     When I go to the search people page
     And I fill in "query" with "joao"
     And I press "Search"
@@ -34,7 +39,7 @@ Feature: search people
   Scenario: search people by category
     Given the following category
       | name           |
-	  | Software Livre |
+      | Software Livre |
     And the following users
       | login | name           | category       |
       | linus | Linus Torvalds | software-livre |
@@ -57,10 +62,10 @@ Feature: search people
   Scenario: filter people by facet
     Given the following categories as facets
       | name      |
-	  | Temáticas |
+      | Temáticas |
     And the following category
       | name           | parent    |
-	  | Software Livre | tematicas |
+      | Software Livre | tematicas |
     And the following users
       | login | name           | category       |
       | linus | Linus Torvalds | software-livre |
@@ -71,14 +76,17 @@ Feature: search people
     And I follow "Software Livre" within "#facets-menu"
     Then I should see "Linus Torvalds" within "#search-results"
     And I should not see "Other Linus"
+    # facet should also be de-selectable
+    When I follow "remove facet" within ".facet-selected"
+    Then I should see "Other Linus"
 
   Scenario: remember facet filter when searching new query
     Given the following categories as facets
       | name      |
-	  | Temáticas |
+      | Temáticas |
     And the following category
       | name           | parent    |
-	  | Software Livre | tematicas |
+      | Software Livre | tematicas |
     And the following users
       | login | name             | category       |
       | linus | Linus Torvalds   | software-livre |

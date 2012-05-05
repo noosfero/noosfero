@@ -1,35 +1,43 @@
 Feature: search communities
   As a noosfero user
   I want to search communities
-  In order to find ones that interest me 
+  In order to find ones that interest me
 
   Background:
     Given the search index is empty
     And the following category
       | name           |
-	  | social network |
+      | social network |
     And the following community
-      | identifier | name               | category       |
-      | noosfero   | Noosfero Community | social-network |
+      | identifier | name               | category       | img              |
+      | noosfero   | Noosfero Community | social-network | noosfero-network |
 
-  Scenario: show recent communities on index (empty query)
+  Scenario: show recent communities on index
     Given the following community
-      | identifier | name            | category       |
-      | linux      | Linux Community | social-network |
+      | identifier | name            | category       | img |
+      | linux      | Linux Community | social-network | tux |
     When I go to the search communities page
     Then I should see "Noosfero Community" within "#search-results"
+    And I should see Noosfero Community's community image
     And I should see "Linux Community" within "#search-results"
+    And I should see Linux Community's community image
+
+  Scenario: show empty search results
+    When I search communities for "something unrelated"
+    Then I should see "None" within ".search-results-type-empty"
 
   Scenario: simple search for community
     When I go to the search communities page
     And I fill in "query" with "noosfero"
     And I press "Search"
     Then I should see "Noosfero Community" within "#search-results"
+    And I should see "Noosfero Community" within ".only-one-result-box"
+    And I should see Noosfero Community's community image
 
   Scenario: search communities by category
     Given the following category
       | name           |
-	  | Software Livre |
+      | Software Livre |
     And the following community
       | identifier | name               | category       |
       | noos-comm  | Noosfero Community | software-livre |
@@ -44,7 +52,7 @@ Feature: search communities
       | Temáticas |
     And the following category
       | name           | parent    |
-	  | Software Livre | tematicas |
+      | Software Livre | tematicas |
     And the following community
       | identifier | name            | category       |
       | linux      | Linux Community | software-livre |
@@ -80,6 +88,9 @@ Feature: search communities
     And I follow "Software Livre" within "#facets-menu"
     Then I should see "Noosfero Developers" within "#search-results"
     And I should not see "Facebook Developers"
+    # facet should also be de-selectable
+    When I follow "remove facet" within ".facet-selected"
+    Then I should see "Facebook Developers"
 
   Scenario: remember facet filter when searching new query
     Given the following categories as facets

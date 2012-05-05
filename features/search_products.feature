@@ -1,7 +1,7 @@
 Feature: search products
   As a noosfero user
   I want to search products
-  In order to find ones that interest me 
+  In order to find ones that interest me
 
   Background:
     Given the search index is empty
@@ -13,21 +13,28 @@ Feature: search products
       | name        |
       | Development |
     And the following products
-      | owner       | category    | name                        | price |
-      | colivre-ent | development | social networks consultancy | 1.00  |
-      | colivre-ent | development | wikis consultancy           | 2.00  |
-    
-  Scenario: show recent products on index (empty query)
+      | owner       | category    | name                        | price | img    |
+      | colivre-ent | development | social networks consultancy | 1.00  | fruits |
+      | colivre-ent | development | wikis consultancy           | 2.00  | shoes  |
+
+  Scenario: show recent products on index
     When I go to the search products page
     Then I should see "wikis consultancy" within "#search-results"
     And I should see "social networks consultancy" within "#search-results"
+    And I should not see content inside "div.pagination"
+    And I should not see content inside "#facets-menu"
+
+  Scenario: show empty search results
+    When I search products for "something unrelated"
+    Then I should see "None" within ".search-results-type-empty"
 
   Scenario: simple search for product
-    When I go to the search products page
-    And I fill in "query" with "wikis"
-    And I press "Search"
+    When I search products for "wikis"
     Then I should see "wikis consultancy" within "#search-results"
+    And I should see "wikis consultancy" within ".only-one-result-box"
+    And I should see wikis consultancy's product image
     And I should not see "social networks consultancy"
+    And I should not see social networks consultancy's product image
 
   Scenario: see default facets when searching
     When I go to the search products page
@@ -37,7 +44,7 @@ Feature: search products
     Then I should see "City" within "#facets-menu"
     Then I should see "Qualifiers" within "#facets-menu"
 
-  Scenario: show percentage (100%) of solidary economy inputs in results 
+  Scenario: show percentage (100%) of solidary economy inputs in results
     Given the following inputs
       | product           | category    | solidary |
       | wikis consultancy | development | true     |
@@ -45,8 +52,8 @@ Feature: search products
     And I fill in "query" with "wikis"
     And I press "Search"
     Then I should see "100%" within "div.search-product-ecosol-percentage-icon-100"
-    
-  Scenario: show percentage (50%) of solidary economy inputs in results 
+
+  Scenario: show percentage (50%) of solidary economy inputs in results
     Given the following inputs
       | product           | category    | solidary |
       | wikis consultancy | development | true     |
@@ -56,7 +63,7 @@ Feature: search products
     And I press "Search"
     Then I should see "50%" within "div.search-product-ecosol-percentage-icon-50"
 
-  Scenario: show percentage (75%) of solidary economy inputs in results 
+  Scenario: show percentage (75%) of solidary economy inputs in results
     Given the following inputs
       | product           | category    | solidary |
       | wikis consultancy | development | true     |
@@ -68,7 +75,7 @@ Feature: search products
     And I press "Search"
     Then I should see "75%" within "div.search-product-ecosol-percentage-icon-75"
 
-  Scenario: show percentage (25%) of solidary economy inputs in results 
+  Scenario: show percentage (25%) of solidary economy inputs in results
     Given the following inputs
       | product           | category    | solidary |
       | wikis consultancy | development | true     |
@@ -93,7 +100,7 @@ Feature: search products
   Scenario: search products by category
     Given the following product_category
       | name           |
-	  | Software Livre |
+      | Software Livre |
     And the following product
       | owner       | name     | category       |
       | colivre-ent | Noosfero | software-livre |
@@ -113,7 +120,7 @@ Feature: search products
       | art-pp     | Artesanato PP | Pres. Prudente |
     And the following product_category
       | name      |
-	  | Solidária |
+      | Solidária |
     And the following product
       | owner  | name            | category  |
       | art-pp | Arte em Madeira | solidaria |
@@ -133,7 +140,7 @@ Feature: search products
       | art-pp     | Artesanato PP | Pres. Prudente |
     And the following product_category
       | name      |
-	  | Solidária |
+      | Solidária |
     And the following product
       | owner  | name            | category  |
       | art-pp | Arte em Madeira | solidaria |
@@ -145,7 +152,7 @@ Feature: search products
   Scenario: find products without exact query
     Given the following product_category
       | name           |
-	  | Software Livre |
+      | Software Livre |
     And the following products
       | owner       | name                             | category       |
       | colivre-ent | Noosfero Social Network Platform | software-livre |
@@ -160,7 +167,7 @@ Feature: search products
       | fb         | FB inc. |
     And the following categories as facets
       | name      |
-	  | Temáticas |
+      | Temáticas |
     And the following product_categories
       | name           | parent    |
       | Software Livre | tematicas |
@@ -175,6 +182,9 @@ Feature: search products
     And I follow "Software Livre" within "#facets-menu"
     Then I should see "Noosfero Network" within "#search-results"
     And I should not see "Facebook Network"
+    # facet should also be de-selectable
+    When I follow "remove facet" within ".facet-selected"
+    Then I should see "Facebook Network"
 
   Scenario: remember facet filter when searching new query
     Given the following enterprises
@@ -183,7 +193,7 @@ Feature: search products
       | other      | Other   |
     And the following categories as facets
       | name      |
-	  | Temáticas |
+      | Temáticas |
     And the following product_categories
       | name           | parent    |
       | Software Livre | tematicas |
@@ -203,3 +213,8 @@ Feature: search products
     And I press "Search"
     Then I should see "Other open" within "#search-results"
     And I should not see "Other closed"
+
+  Scenario: don't search when products are disabled in environment
+    Given feature "disable_asset_products" is enabled on environment
+    When I go to the search products page
+    Then I should not see content inside "#search-results"
