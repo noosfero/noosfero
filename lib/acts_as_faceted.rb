@@ -65,7 +65,7 @@ module ActsAsFaceted
 
       def map_facet_results(facet, facet_params, facets_data, unfiltered_facets_data = {}, options = {})
         raise 'Use map_facets_for before this method' if facet[:solr_field].nil?
-        facets_data ||= {}
+        facets_data = {} if facets_data.blank? # could be empty array
         solr_facet = to_solr_fields_names[facet[:solr_field]]
 
         if facet[:queries]
