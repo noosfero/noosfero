@@ -231,12 +231,13 @@ class Profile < ActiveRecord::Base
     @pending_categorizations ||= []
   end
 
-  def add_category(c)
-    if self.id
-      ProfileCategorization.add_category_to_profile(c, self)
-    else
+  def add_category(c, reload=false)
+    if new_record?
       pending_categorizations << c
+    else
+      ProfileCategorization.add_category_to_profile(c, self)
     end
+		self.categories(reload)
   end
 
   def category_ids=(ids)

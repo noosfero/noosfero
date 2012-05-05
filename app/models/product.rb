@@ -198,13 +198,14 @@ class Product < ActiveRecord::Base
 
   def percentage_from_solidarity_economy
     se_i = t_i = 0
-    self.inputs.each{ |i| t_i += 1; se_i += 1 if i.is_from_solidarity_economy }
-    p = case (se_i.to_f/t_i)*100 
-        when 0..24.999 then [0, _("")]; 
+    self.inputs(true).each{ |i| t_i += 1; se_i += 1 if i.is_from_solidarity_economy }
+    t_i = 1 if t_i == 0 # avoid division by 0
+    p = case (se_i.to_f/t_i)*100
+        when 0..24.999 then [0, _("")];
         when 25..49.999 then [25, _("25%")];
         when 50..74.999 then [50, _("50%")];
         when 75..99.999 then [75, _("75%")];
-        when 100 then [100, _("100%")]; 
+        when 100 then [100, _("100%")];
         end
   end
 
@@ -260,15 +261,15 @@ class Product < ActiveRecord::Base
     :order => [:f_category, :f_region, :f_qualifier]
 
   Boosts = [
-    [:image, 0.4, proc{ |p| p.image ? 1 : 0}],
-    [:qualifiers, 0.3, proc{ |p| p.product_qualifiers.count > 0 ? 1 : 0}],
-    [:open_price, 0.3, proc{ |p| p.price_described? ? 1 : 0}],
-    [:solidarity, 0.3, proc{ |p| p.inputs.count > 0 ? p.percentage_from_solidarity_economy[0]/100 : 0 }],
-    [:available, 0.2, proc{ |p| p.available ? 1 : 0}],
-    [:price, 0.2, proc{ |p| (!p.price.nil? and p.price > 0) ? 1 : 0}],
-    [:new_product, 0.2, proc{ |p| (p.updated_at.to_i - p.created_at.to_i) < 24*3600 ? 1 : 0}],
-    [:description, 0.15, proc{ |p| (!p.description.nil? and !p.description.empty?) ? 1 : 0}],
-    [:enabled, 0.05, proc{ |p| p.enterprise.enabled ? 1 : 0}],
+    [:image, 0.55, proc{ |p| p.image ? 1 : 0}],
+    [:qualifiers, 0.45, proc{ |p| p.product_qualifiers.count > 0 ? 1 : 0}],
+    [:open_price, 0.45, proc{ |p| p.price_described? ? 1 : 0}],
+    [:solidarity, 0.45, proc{ |p| p.percentage_from_solidarity_economy[0].to_f/100 }],
+    [:available, 0.35, proc{ |p| p.available ? 1 : 0}],
+    [:price, 0.35, proc{ |p| (!p.price.nil? and p.price > 0) ? 1 : 0}],
+    [:new_product, 0.35, proc{ |p| (p.updated_at.to_i - p.created_at.to_i) < 24*3600 ? 1 : 0}],
+    [:description, 0.3, proc{ |p| !p.description.blank? ? 1 : 0}],
+    [:enabled, 0.2, proc{ |p| p.enterprise.enabled ? 1 : 0}],
   ]
 
   acts_as_searchable :fields => facets_fields_for_solr + [
