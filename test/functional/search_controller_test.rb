@@ -72,7 +72,23 @@ class SearchControllerTest < ActionController::TestCase
 
     get 'articles', :query => 'article found'
     assert_includes assigns(:results)[:articles], art
-		assert !assigns(:results)[:articles].facets.nil?
+  end
+
+  should 'get facets with articles search results' do
+		cat1 = fast_create(Category, :name => 'cat1')
+		cat2 = fast_create(Category, :name => 'cat2')
+    person = fast_create(Person)
+    art = create_article_with_optional_category('an article to be found', person)
+		art.add_category cat1, false
+		art.add_category cat2, true
+		art.save!
+
+    get 'articles', :query => 'article found'
+		assert !assigns(:results)[:articles].facets.blank?
+		assert assigns(:results)[:articles].facets['facet_fields']['f_type_facet'][0][0] == 'Article'
+		assert assigns(:results)[:articles].facets['facet_fields']['f_profile_type_facet'][0][0] == 'Person'
+		assert assigns(:results)[:articles].facets['facet_fields']['f_category_facet'][0][0] == 'cat1'
+		assert assigns(:results)[:articles].facets['facet_fields']['f_category_facet'][1][0] == 'cat2'
   end
 
 	should 'redirect contents to articles' do
@@ -113,11 +129,29 @@ class SearchControllerTest < ActionController::TestCase
     assert_includes assigns(:results)[:enterprises], ent2
   end
 
-  should 'find people' do
+  should 'search for people' do
     p1 = create_user('people_1').person; p1.name = 'a beautiful person'; p1.save!
     get :people, :query => 'beautiful'
     assert_includes assigns(:results)[:people], p1
-		assert !assigns(:results)[:people].facets.nil?
+  end
+
+  should 'get facets with people search results' do
+		state = fast_create(State, :name => 'Acre', :acronym => 'AC')
+		city = fast_create(City, :name => 'Rio Branco', :parent_id => state.id)
+		person = Person.create!(:name => 'Hildebrando', :identifier => 'hild', :user_id => fast_create(User).id)
+		person.region = city
+		cat1 = fast_create(Category, :name => 'cat1')
+		cat2 = fast_create(Category, :name => 'cat2')
+		person.add_category cat1, false
+		person.add_category cat2, true
+		person.save!
+
+    get 'people', :query => 'Hildebrando'
+
+		assert !assigns(:results)[:people].facets.blank?
+		assert assigns(:results)[:people].facets['facet_fields']['f_region_facet'][0][0] == city.id.to_s
+		assert assigns(:results)[:people].facets['facet_fields']['f_categories_facet'][0][0] == cat1.id.to_s
+		assert assigns(:results)[:people].facets['facet_fields']['f_categories_facet'][1][0] == cat2.id.to_s
   end
 
   # 'assets' menu outside any category
@@ -148,12 +182,30 @@ class SearchControllerTest < ActionController::TestCase
     assert_equivalent [c2, c1], assigns(:results)[:communities]
   end
 
-  should 'find products' do
+  should 'search for products' do
     ent = create_profile_with_optional_category(Enterprise, 'teste')
     prod = ent.products.create!(:name => 'a beautiful product', :product_category => @product_category)
     get :products, :query => 'beautiful'
     assert_includes assigns(:results)[:products], prod
-		assert !assigns(:results)[:products].facets.nil?
+  end
+
+  should 'get facets with products search results' do
+		state = fast_create(State, :name => 'Acre', :acronym => 'AC')
+		city = fast_create(City, :name => 'Rio Branco', :parent_id => state.id)
+		ent = fast_create(Enterprise, :region_id => city.id)
+    prod = Product.create!(:name => 'Sound System', :enterprise_id => ent.id, :product_category_id => @product_category.id)
+		qualifier1 = fast_create(Qualifier)
+		qualifier2 = fast_create(Qualifier)
+		prod.qualifiers_list = [[qualifier1.id, 0], [qualifier2.id, 0]]
+		prod.qualifiers.reload
+		prod.save!
+
+    get 'products', :query => 'Sound'
+		assert !assigns(:results)[:products].facets.blank?
+		assert assigns(:results)[:products].facets['facet_fields']['f_category_facet'][0][0] == @product_category.name
+		assert assigns(:results)[:products].facets['facet_fields']['f_region_facet'][0][0] == city.id.to_s
+		assert assigns(:results)[:products].facets['facet_fields']['f_qualifier_facet'][0][0] == "#{qualifier1.id} 0"
+		assert assigns(:results)[:products].facets['facet_fields']['f_qualifier_facet'][1][0] == "#{qualifier2.id} 0"
   end
 
   # 'assets' menu outside any category
@@ -168,6 +220,7 @@ class SearchControllerTest < ActionController::TestCase
 
     get :products
     assert_equivalent [prod2, prod1], assigns(:results)[:products].docs
+		assert_match 'Highlights', @response.body
   end
 
   should 'include extra content supplied by plugins on product asset' do
@@ -296,9 +349,23 @@ class SearchControllerTest < ActionController::TestCase
 
     get :index, :query => prod_cat.name
 
-		assert assigns(:facets).empty?
+		assert assigns(:facets).blank?
 		assert_nil assigns(:results)[:enterprises].facets
 		assert_nil assigns(:results)[:products].facets
+	end
+
+  should 'render specific action when only one asset is enabled' do
+		# initialize @controller.environment
+		get :index
+
+		# article is not disabled
+    [:enterprises, :people, :communities, :products, :events].select do |key, name|
+			@controller.environment.enable('disable_asset_' + key.to_s)
+		end
+
+		@controller.expects(:articles)
+
+    get :index, :query => 'something'
 	end
 
   should 'search all enabled assets in general search' do
@@ -340,6 +407,50 @@ class SearchControllerTest < ActionController::TestCase
 		assert !assigns(:results)[:events].facets.nil?
   end
 
+  should 'return events of the day' do
+    person = create_user('someone').person
+    ev1 = create_event(person, :name => 'event 1', :category_ids => [@category.id],	:start_date => Date.today - 10.day)
+    ev2 = create_event(person, :name => 'event 2', :category_ids => [@category.id],	:start_date => Date.today - 2.month)
+
+    get :events, :day => (Date.today - 10.day).day
+
+    assert_equal [ev1], assigns(:events_of_the_day)
+  end
+
+  should 'return events of the day with category' do
+    person = create_user('someone').person
+    ev1 = create_event(person, :name => 'event 1', :category_ids => [@category.id],	:start_date => Date.today - 10.day)
+    ev2 = create_event(person, :name => 'event 2', :start_date => Date.today - 10.day)
+
+    get :events, :day => (Date.today - 10.day).day, :category_path => @category.path.split('/')
+
+    assert_equal [ev1], assigns(:events_of_the_day)
+  end
+
+  should 'return events of today when no date specified' do
+    person = create_user('someone').person
+    ev1 = create_event(person, :name => 'event 1', :category_ids => [@category.id],	:start_date => Date.today)
+    ev2 = create_event(person, :name => 'event 2', :category_ids => [@category.id],	:start_date => Date.today - 2.month)
+
+    get :events
+
+    assert_equal [ev1], assigns(:events_of_the_day)
+  end
+
+  should 'show events for current month by default' do
+    person = create_user('someone').person
+
+    ev1 = create_event(person, :name => 'event 1', :category_ids => [@category.id], 
+			:start_date => Date.today + 2.month)
+    ev2 = create_event(person, :name => 'event 2', :category_ids => [@category.id], 
+			:start_date => Date.today + 2.day)
+
+    get :events
+
+    assert_not_includes assigns(:results)[:events], ev1
+    assert_includes assigns(:results)[:events], ev2 
+  end
+
   should 'list events for a given month' do
     person = create_user('testuser').person
 
@@ -369,8 +480,46 @@ class SearchControllerTest < ActionController::TestCase
     assert_includes assigns(:results)[:products], p
   end
 
-  should 'display properly in conjuntion with a category' do
+	# Testing random sequences always have a small chance of failing
+	should 'randomize product display in empty search' do
+    prod_cat = ProductCategory.create!(:name => 'prod cat test', :environment => Environment.default)
+    ent = create_profile_with_optional_category(Enterprise, 'test enterprise')
+		(1..SearchController::LIST_SEARCH_LIMIT+5).each do |n|
+    	fast_create(Product, {:name => "produto #{n}", :enterprise_id => ent.id, :product_category_id => prod_cat.id}, :search => true)
+		end	
 
+		get :products
+		result1 = assigns(:results)[:products].docs.map(&:id)
+
+		(1..10).each do |n|
+  		get :products
+		end
+		result2 = assigns(:results)[:products].docs.map(&:id)
+
+		assert_not_equal result1, result2
+	end
+
+	should 'order products by geolocalization in empty search' do
+    user = create_user('a_logged_user')
+		user.person.lat = '1.0'
+		user.person.lng = '1.0'
+    # trigger geosearch
+		SearchController.any_instance.stubs(:logged_in?).returns(true)
+		SearchController.any_instance.stubs(:current_user).returns(user)
+	
+		cat = fast_create(ProductCategory)
+		ent1 = Enterprise.create!(:name => 'ent1', :identifier => 'ent1', :lat => '-5.0', :lng => '-5.0')
+    prod1 = Product.create!(:name => 'produto 1', :enterprise_id => ent1.id, :product_category_id => cat.id)
+		ent2 = Enterprise.create!(:name => 'ent2', :identifier => 'ent2', :lat => '2.0', :lng => '2.0')
+    prod2 = Product.create!(:name => 'produto 2', :enterprise_id => ent2.id, :product_category_id => cat.id)
+		ent3 = Enterprise.create!(:name => 'ent3', :identifier => 'ent3', :lat => '10.0', :lng => '10.0')
+    prod3 = Product.create!(:name => 'produto 3', :enterprise_id => ent3.id, :product_category_id => cat.id)
+
+		get :products
+		assert_equal [prod2, prod1, prod3], assigns(:results)[:products].docs
+	end
+
+  should 'display properly in conjuntion with a category' do
     cat = Category.create(:name => 'cat', :environment => Environment.default)
     prod_cat1 = ProductCategory.create!(:name => 'prod cat test 1', :environment => Environment.default)
     prod_cat2 = ProductCategory.create!(:name => 'prod cat test 2', :environment => Environment.default, :parent => prod_cat1)
@@ -585,6 +734,182 @@ class SearchControllerTest < ActionController::TestCase
 		get :assets, :asset => 'events'
     assert_redirected_to :controller => :search, :action => :events
 	end
+
+	should 'show tag cloud' do
+		@controller.stubs(:is_cache_expired?).returns(true)
+    a = Article.create!(:name => 'my article', :profile_id => fast_create(Person).id)
+    a.tag_list = ['one', 'two']
+		a.save_tags
+		
+		get :tags
+
+		assert assigns(:tags)["two"] = 1
+		assert assigns(:tags)["one"] = 1
+	end
+
+  should 'show tagged content' do
+		@controller.stubs(:is_cache_expired?).returns(true)
+    a = Article.create!(:name => 'my article', :profile_id => fast_create(Person).id)
+    a2 = Article.create!(:name => 'my article 2', :profile_id => fast_create(Person).id)
+    a.tag_list = ['one', 'two']
+    a2.tag_list = ['two', 'three']
+		a.save_tags
+    a2.save_tags
+		
+		get :tag, :tag => 'two'
+
+    assert_equal [a, a2], assigns(:results)[:tag]
+
+		get :tag, :tag => 'one'
+
+    assert_equal [a], assigns(:results)[:tag]
+  end
+
+  should 'not show assets from other environments' do
+    other_env = Environment.create!(:name => 'Another environment')
+		p1 = Person.create!(:name => 'Hildebrando', :identifier => 'hild', :user_id => fast_create(User).id, :environment_id => other_env.id)
+		p2 = Person.create!(:name => 'Adamastor', :identifier => 'adam', :user_id => fast_create(User).id)
+    art1 = Article.create!(:name => 'my article', :profile_id => p1.id)
+    art2 = Article.create!(:name => 'my article', :profile_id => p2.id)
+    
+    get :articles, :query => 'my article'
+
+    assert_equal [art2], assigns(:results)[:articles].docs  
+  end
+
+  should 'order product results by more recent when requested' do
+		ent = fast_create(Enterprise)
+    prod1 = Product.create!(:name => 'product 1', :enterprise_id => ent.id, :product_category_id => @product_category.id)
+    prod2 = Product.create!(:name => 'product 2', :enterprise_id => ent.id, :product_category_id => @product_category.id)
+    prod3 = Product.create!(:name => 'product 3', :enterprise_id => ent.id, :product_category_id => @product_category.id)
+
+    prod3.name = 'product 4'
+    prod3.save!
+    prod1.name = 'product 5'
+    prod1.save!
+    prod2.name = 'product 6'
+    prod2.save!
+
+    get :products, :query => 'product', :order_by => :more_recent 
+
+    assert_equal [prod2, prod1, prod3], assigns(:results)[:products].docs  
+  end
+
+  should 'order product results by name when requested' do
+		ent = fast_create(Enterprise)
+    prod1 = Product.create!(:name => 'product 1', :enterprise_id => ent.id, :product_category_id => @product_category.id)
+    prod2 = Product.create!(:name => 'product 2', :enterprise_id => ent.id, :product_category_id => @product_category.id)
+    prod3 = Product.create!(:name => 'product 3', :enterprise_id => ent.id, :product_category_id => @product_category.id)
+
+    prod3.name = 'product A'
+    prod3.save!
+    prod1.name = 'product B'
+    prod1.save!
+    prod2.name = 'product C'
+    prod2.save!
+
+    get :products, :query => 'product', :order_by => :name
+
+    assert_equal [prod3, prod1, prod2], assigns(:results)[:products].docs  
+  end
+
+	should 'order product results by closest when requested' do
+    user = create_user('a_logged_user')
+		user.person.lat = '1.0'
+		user.person.lng = '1.0'
+    # trigger geosearch
+		SearchController.any_instance.stubs(:logged_in?).returns(true)
+		SearchController.any_instance.stubs(:current_user).returns(user)
+	
+		cat = fast_create(ProductCategory)
+		ent1 = Enterprise.create!(:name => 'ent1', :identifier => 'ent1', :lat => '-5.0', :lng => '-5.0')
+    prod1 = Product.create!(:name => 'product 1', :enterprise_id => ent1.id, :product_category_id => cat.id)
+		ent2 = Enterprise.create!(:name => 'ent2', :identifier => 'ent2', :lat => '2.0', :lng => '2.0')
+    prod2 = Product.create!(:name => 'product 2', :enterprise_id => ent2.id, :product_category_id => cat.id)
+		ent3 = Enterprise.create!(:name => 'ent3', :identifier => 'ent3', :lat => '10.0', :lng => '10.0')
+    prod3 = Product.create!(:name => 'product 3', :enterprise_id => ent3.id, :product_category_id => cat.id)
+
+		get :products, :query => 'product', :order_by => :closest
+		assert_equal [prod2, prod1, prod3], assigns(:results)[:products].docs
+	end
+
+  
+  should 'order events by name when requested' do
+    person = create_user('someone').person
+    ev1 = create_event(person, :name => 'party B', :category_ids => [@category.id],	:start_date => Date.today - 10.day)
+    ev2 = create_event(person, :name => 'party A', :category_ids => [@category.id],	:start_date => Date.today - 2.month)
+
+    get :events, :query => 'party', :order_by => :name
+
+    assert_equal [ev2, ev1], assigns(:results)[:events].docs
+  end
+
+  should 'order articles by name when requested' do
+		art1 = Article.create!(:name => 'review C', :profile_id => fast_create(Person).id)
+		art2 = Article.create!(:name => 'review A', :profile_id => fast_create(Person).id)
+		art3 = Article.create!(:name => 'review B', :profile_id => fast_create(Person).id)
+    
+    get :articles, :query => 'review', :order_by => :name
+
+    assert_equal [art2, art3, art1], assigns(:results)[:articles].docs
+  end
+
+  should 'order articles by more recent' do
+		art1 = Article.create!(:name => 'review C', :profile_id => fast_create(Person).id)
+		art2 = Article.create!(:name => 'review A', :profile_id => fast_create(Person).id)
+		art3 = Article.create!(:name => 'review B', :profile_id => fast_create(Person).id)
+    
+    art1.name = 'review 10'
+    art1.save!
+    art3.name = 'review 87'
+    art3.save!
+    art2.name = 'review 54'
+    art2.save!
+
+    get :articles, :query => 'review', :order_by => :more_recent
+
+    assert_equal [art2, art3, art1], assigns(:results)[:articles].docs
+  end
+  
+  should 'order enterprise results by name when requested' do
+		ent1 = Enterprise.create!(:name => 'Company B', :identifier => 'com_b')
+		ent2 = Enterprise.create!(:name => 'Company A', :identifier => 'com_a')
+		ent3 = Enterprise.create!(:name => 'Company C', :identifier => 'com_c')
+    
+    get :enterprises, :query => 'Company', :order_by => :name
+
+    assert_equal [ent2, ent1, ent3], assigns(:results)[:enterprises].docs
+  end
+
+  should 'order people results by name when requested' do
+		person1 = Person.create!(:name => 'Deodárbio Silva', :identifier => 'deod', :user_id => fast_create(User).id)
+		person2 = Person.create!(:name => 'Glislange Silva', :identifier => 'glis', :user_id => fast_create(User).id)
+		person3 = Person.create!(:name => 'Ausêncio Silva', :identifier => 'ause', :user_id => fast_create(User).id)
+
+    get :people, :query => 'Silva', :order_by => :name
+    
+    assert_equal [person3, person1, person2], assigns(:results)[:people].docs 
+  end
+
+  should 'order community results by name when requested' do
+		com1 = Community.create!(:name => 'Yellow Group')
+		com2 = Community.create!(:name => 'Red Group')
+		com3 = Community.create!(:name => 'Green Group')
+
+    get :communities, :query => 'Group', :order_by => :name
+
+    assert_equal [com3, com2, com1], assigns(:results)[:communities].docs
+  end
+
+  should 'raise error when requested to order by unknown filter' do
+		com1 = Community.create!(:name => 'Yellow Group')
+		com2 = Community.create!(:name => 'Red Group')
+		com3 = Community.create!(:name => 'Green Group')
+
+    assert_raise RuntimeError do
+      get :communities, :query => 'Group', :order_by => :something
+    end
+  end
 
   ##################################################################
   ##################################################################
