@@ -19,7 +19,7 @@ module SearchHelper
     ],
     :articles => ActiveSupport::OrderedHash[ :none, {:label => _('Relevance')},
       :name, {:label => _('Name'), :solr_opts => {:sort => 'name_sortable asc'}},
-      :name, {:label => _('Most recent'), :solr_opts => {:sort => 'updated_at desc, score desc'}},
+      :more_recent, {:label => _('More recent'), :solr_opts => {:sort => 'updated_at desc, score desc'}},
     ],
     :enterprises => ActiveSupport::OrderedHash[ :none, {:label => _('Relevance')},
       :name, {:label => _('Name'), :solr_opts => {:sort => 'name_sortable asc'}},
