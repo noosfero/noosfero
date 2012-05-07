@@ -6,16 +6,25 @@ class StoaPluginController; def rescue_action(e) raise e end; end
 
 class StoaPluginControllerTest < ActionController::TestCase
 
+  SALT=YAML::load(File.open(StoaPlugin.root_path + '/config.yml'))['salt']
+
   def setup
     @controller = StoaPluginController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
-    @user = create_user('real_user', :password => '123456', :password_confirmation => '123456')
-    environment = Environment.default
-    environment.enabled_plugins = ['StoaPlugin']
-    environment.save!
     @db = Tempfile.new('stoa-test')
     configs = ActiveRecord::Base.configurations['stoa'] = {:adapter => 'sqlite3', :database => @db.path}
+    ActiveRecord::Base.establish_connection(:stoa)
+    ActiveRecord::Schema.verbose = false
+    ActiveRecord::Schema.create_table "pessoa" do |t|
+      t.integer  "codpes"
+      t.text     "numcpf"
+      t.date     "dtanas"
+    end
+    ActiveRecord::Base.establish_connection(:test)
+    @user = User.find_by_login('real_user') || create_user('real_user', :password => '123456', :password_confirmation => '123456')
+    StoaPlugin::UspUser.create!(:codpes => 12345678, :cpf => Digest::MD5.hexdigest(SALT+'12345678'), :birth_date => '1970-01-30')
+    Environment.default.enable_plugin(StoaPlugin.name)
   end
 
   attr_accessor :user
@@ -52,16 +61,25 @@ class StoaPluginControllerTest < ActionController::TestCase
     assert_equal user.login, json_response['username']
   end
 
+  should 'check valid usp id' do
+    get :check_usp_id, :usp_id => '12345678'
+    assert json_response['exists']
+  end
+
   should 'check invalid usp id' do
-    StoaPlugin::UspUser.stubs(:exists?).returns(false)
-    get :check_usp_id, :usp_id => '987654321'
+    get :check_usp_id, :usp_id => '87654321'
     assert !json_response['exists']
   end
 
-  should 'check valid usp id' do
-    StoaPlugin::UspUser.stubs(:exists?).returns(true)
-    get :check_usp_id, :usp_id => '987654321'
+  should 'check existent cpf' do
+    get :check_cpf, :usp_id => '12345678'
     assert json_response['exists']
+  end
+
+  should 'check not existent cpf' do
+    StoaPlugin::UspUser.create(:codpes => 87654321, :birth_date => '1970-01-30')
+    get :check_cpf, :usp_id => '87654321'
+    assert !json_response['exists']
   end
 
   private

@@ -1,5 +1,12 @@
 #signup-form label[for="usp_id_field"],
-#signup-form label[for="confirmation_field"] {
+#signup-form label[for="cpf"],
+#signup-form label[for="birth_date"] {
   display: block;
+}
+
+#content #signup-form input.submit[disabled=""] {
+  background-image: url(/plugins/stoa/images/grey-bg.png);
+	text-shadow: 0 -1px 0 #686156;
+	cursor: default;
 }
 
