@@ -20,7 +20,7 @@ class MezuroPluginProfileControllerTest < ActionController::TestCase
     @project = @project_result.project
     @name = @project.name
 
-  	@date = "2012-04-13T20:39:41+04:00"
+    @date = "2012-04-13T20:39:41+04:00"
   end
 
   should 'not find module result for inexistent project content' do
@@ -92,7 +92,7 @@ class MezuroPluginProfileControllerTest < ActionController::TestCase
   end
 
   should 'get project tree without date' do
-  	create_project_content
+    create_project_content
     Kalibro::Client::ProjectResultClient.expects(:last_result).with(@name).returns(@project_result)
     Kalibro::Client::ProjectClient.expects(:project).with(@name).returns(@project)
   	get :project_tree, :profile => @profile.identifier, :id => @content.id, :module_name => @name
@@ -101,11 +101,21 @@ class MezuroPluginProfileControllerTest < ActionController::TestCase
   end
 
   should 'get project tree from a specific date' do
-  	create_project_content
+    create_project_content
   	mock_project_result
     Kalibro::Client::ProjectClient.expects(:project).with(@name).returns(@project)
     get :project_tree, :profile => @profile.identifier, :id => @content.id, :module_name => @name, :date => "2012-04-13T20:39:41+04:00"
 	  assert_response 200
+  end
+
+  should 'get grade history' do
+    create_project_content
+    client = mock
+    Kalibro::Client::ModuleResultClient.expects(:new).returns(client)
+    client.expects(:result_history).returns([@module_result])
+    get :module_grade_history, :profile => @profile.identifier, :id => @content.id, :module_name => @name
+    assert_equal assings(:modules_results)[0].grade, 10.0
+    assert_response 200
   end
 
   private

@@ -26,25 +26,29 @@
         </tr>	  
         <tr class="<%= metric_result.metric.name.delete("() ")%>" style="display: none;">
           <td colspan="4">
-		    <div id='historical-<%= metric_result.metric.name.delete("() ") %>'>
-            <a href="#" show-metric-history="<%= metric_result.metric.name.delete("() ") %>" data-module-name="<%= the_module.name %>" data-metric-name="<%= metric_result.metric.name.delete("() ") %>"> <p style="text-indent: 3em;"> Get Historical Values </p> </a>
-		    </div>
+            <div id='historical-<%= metric_result.metric.name.delete("() ") %>'>
+              <a href="#" show-metric-history="<%= metric_result.metric.name.delete("() ") %>" data-module-name="<%= the_module.name %>" data-metric-name="<%= metric_result.metric.name.delete("() ") %>"> <p style="text-indent: 3em;"> Get Historical Values </p> </a>
+            </div>
           </td>
           <td colspan="3" align="right">
             <%= range.comments.nil? ? '' : range.comments %>
           </td> 
         </tr>
-	  <% end %>
+      <% end %>
     <% end %>
   </tbody>
   <tfoot>
     <tr>
-      <td colspan = "4" align = "right"> <a href="#" show-grade-history="<%= module_result.grade %>" >
-        <strong>
-          <%= _('Grade:') %>
-          <%= "%.02f" % module_result.grade %>
-        </strong>
-	</a>
+      <td colspan = "1">
+        <div id='historical-grade'>
+      </td>
+      <td colspan = "4" align = "right">
+        <a href="#" show-grade-history="<%= module_result.module.name %>" >
+          <strong>
+            <%= _('Grade:') %>
+            <%= "%.02f" % module_result.grade %>
+          </strong>
+        </a>
       </td>
     </tr>
   </tfoot>

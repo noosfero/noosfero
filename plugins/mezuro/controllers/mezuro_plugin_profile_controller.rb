@@ -43,8 +43,16 @@ class MezuroPluginProfileController < ProfileController
     metric_name = params[:metric_name]
     content = profile.articles.find(params[:id])
     module_history = content.result_history(params[:module_name])
-    date_history = module_history.collect { |x| x.date }
-    metric_history = module_history.collect { |x| (x.metric_results.select { |y| y.metric.name.delete("() ") == metric_name })[0] }
-    render :partial => 'content_viewer/metric_history', :locals => {:metric_history => metric_history, :date_history => date_history }
+    date_history = module_history.collect { |module_result| module_result.date }
+    score_history = (module_history.collect { |module_result| (module_result.metric_results.select { |metric_result| metric_result.metric.name.delete("() ") == metric_name })[0] }).collect { |metric_result| metric_result.value }
+    render :partial => 'content_viewer/score_history', :locals => {:score_history => score_history, :date_history => date_history }
+  end
+
+  def module_grade_history
+    content = profile.articles.find(params[:id])
+    modules_results = content.result_history(params[:module_name])
+    date_history = modules_results.collect { |module_result| module_result.date }
+    score_history = modules_results.collect { |module_result| module_result.grade }
+    render :partial => 'content_viewer/score_history', :locals => {:date_history => date_history, :score_history => score_history }
   end
 end

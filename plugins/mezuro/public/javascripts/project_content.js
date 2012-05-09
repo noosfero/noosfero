@@ -22,12 +22,17 @@ function display_metric_history() {
 }
 
 function display_grade_history() {
-  alert(jQuery(this).attr('show-grade-history'));
+  var module_name = jQuery(this).attr('show-grade-history');
+  callAction('module_grade_history', {module_name: module_name}, show_grades);
   return false;
 }
 
 function show_metrics(content) {
   jQuery('#historical-' + metricName).html(content);
+}
+
+function show_grades(content) {
+  jQuery('#historical-grade').html(content);
 }
 
 function toggle_mezuro(){
