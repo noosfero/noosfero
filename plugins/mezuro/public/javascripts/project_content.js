@@ -4,6 +4,7 @@ jQuery(function (){
   jQuery('.source-tree-link').live("click", reloadModule);
   jQuery('[data-show]').live("click", toggle_mezuro);
   jQuery('[show-metric-history]').live("click", display_metric_history);
+  jQuery('[show-grade-history]').live("click", display_grade_history);
   showLoadingProcess(true);
   showProjectContent();
 });
@@ -17,6 +18,11 @@ function display_metric_history() {
   var metric_name = jQuery(this).attr('data-metric-name');
   metricName = metric_name;
   callAction('module_metrics_history', {module_name: module_name, metric_name: metric_name}, show_metrics);
+  return false;
+}
+
+function display_grade_history() {
+  alert(jQuery(this).attr('show-grade-history'));
   return false;
 }
 
