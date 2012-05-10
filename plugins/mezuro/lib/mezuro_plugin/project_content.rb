@@ -20,10 +20,6 @@ class MezuroPlugin::ProjectContent < Article
   def project
     @project ||= Kalibro::Client::ProjectClient.project(name)
   end
-  
-  def project
-    @project ||= Kalibro::Client::ProjectClient.project(name)
-  end
 
   def project_result
     @project_result ||= Kalibro::Client::ProjectResultClient.last_result(name)
