@@ -67,11 +67,12 @@ returns(module_result)
   end
 
   should 'get result history' do
-    module_name = 'Qt-Calculator'
-	module_result_client = mock
-	@content.expects(:module_result_client).returns(module_result_client)
+    mock_project_client
+    module_name = 'Fake Name'
+  	module_result_client = mock
     module_result_client.expects(:result_history).with(@project.name, module_name)
-	@content.result_history(module_name)
+  	@content.expects(:module_result_client).returns(module_result_client)
+  	@content.result_history(module_name)
   end
 
   should 'send project to service after saving' do
