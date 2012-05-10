@@ -538,5 +538,5 @@ Feature: manage products
     And I am logged in as "joaosilva"
     When I go to Rede Moinho's page of product Bike
     And I follow "Add price and other basic information"
-    Then I should see "Highlight product"
-    And I check "Highlight product"
+    Then I should see "Highlight this product?"
+    And I check "Highlight this product?"

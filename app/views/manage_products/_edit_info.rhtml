@@ -22,7 +22,7 @@
       <td class='formfield'><%= labelled_radio_button( _('Yes'), 'product[available]', true, @product.available, :id => 'product_available') + labelled_radio_button( _('No'), 'product[available]', false, !@product.available) %></td>
     </tr>
     <tr>
-      <td><%= f.label :highlighted, _('Highlight product') %></td>
+      <td><%= f.label :highlighted, _('Highlight this product?'), :class => 'formlabel' %></td>
       <td class='formfield'><%= f.check_box(:highlighted) %></td>
     </tr>
   </table>
