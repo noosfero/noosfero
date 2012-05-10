@@ -1,6 +1,6 @@
 class Kalibro::Entities::ProjectResult < Kalibro::Entities::Entity
   
-  attr_accessor :project, :date, :load_time, :analysis_time, :source_tree
+  attr_accessor :project, :date, :load_time, :analysis_time, :source_tree, :collect_time
 
   def project=(value)
     @project = to_entity(value, Kalibro::Entities::Project)
