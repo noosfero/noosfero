@@ -44,29 +44,25 @@ class ProjectContentTest < ActiveSupport::TestCase
   end
 
   should 'get module result from service' do
-    Kalibro::Client::ProjectClient.expects(:project).with(@content.name).returns(@project)
-
-    project_result = mock
-    project_result.expects(:date).returns('12/04/2012')
-    Kalibro::Client::ProjectResultClient.expects(:last_result).with(@content.name).returns(project_result)
-
+    mock_project_client
+    project_result = mock_project_result_client
     module_name = 'My module name'
     module_result_client = mock
     module_result = Kalibro::Entities::ModuleResult.new
-    Kalibro::Client::ModuleResultClient.expects(:new).returns(module_result_client)
-    module_result_client.expects(:module_result).with(@project.name, module_name, '12/04/2012').returns(module_result)
+    @content.expects(:module_result_client).returns(module_result_client)
+    module_result_client.expects(:module_result).with(@project.name, module_name, project_result.date).
+returns(module_result)
     assert_equal module_result, @content.module_result(module_name)
   end
 
   should 'get module result root when nil is given' do
-    module_result = mock
-	module_result_client = mock
-	project_result = mock
-	@content.expects(:project_result).returns(project_result)
-    project_result.expects(:date).returns('12/04/2012')
-	@content.expects(:module_result_client).returns(module_result_client)
-    module_result_client.expects(:module_result).with(@project.name, @project.name, '12/04/2012').
-      returns(module_result)
+    mock_project_client
+    project_result = mock_project_result_client
+    module_result_client = mock
+    module_result = Kalibro::Entities::ModuleResult.new
+    @content.expects(:module_result_client).returns(module_result_client)
+    module_result_client.expects(:module_result).with(@project.name, @project.name, project_result.date).
+returns(module_result)
     assert_equal module_result, @content.module_result(nil)
   end
 
@@ -94,4 +90,30 @@ class ProjectContentTest < ActiveSupport::TestCase
     @content.send :remove_project_from_service
   end
   
+  private
+    def mock_project_client
+      Kalibro::Client::ProjectClient.expects(:project).with(@content.name).returns(@project)
+    end
+    
+    def mock_project_result_client
+      project_result = ProjectResultFixtures.qt_calculator
+      Kalibro::Client::ProjectResultClient.expects(:last_result).with(@content.name).returns(project_result)
+      project_result
+    end
+
 end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
