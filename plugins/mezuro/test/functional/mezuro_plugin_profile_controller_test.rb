@@ -72,28 +72,25 @@ class MezuroPluginProfileControllerTest < ActionController::TestCase
     assert_response 200
   end
   
-  should 'get module result' do
+  should 'get module result without date' do
     create_project_content
-    module_result_client = mock
+    mock_module_result
     Kalibro::Client::ProjectResultClient.expects(:last_result).with(@name).returns(@project_result)
-    Kalibro::Client::ModuleResultClient.expects(:new).returns(module_result_client)
-    module_result_client.expects(:module_result).with(@name, @name, @project_result.date).returns(@module_result)
+    Kalibro::Client::ProjectClient.expects(:project).with(@name).returns(@project)
+
     get :module_result, :profile => @profile.identifier, :id => @content.id, :module_name => @name
     assert_response 200
     assert_select('h5', 'Metric results for: Qt-Calculator (APPLICATION)')
   end
 
   should 'get module result from a specific date' do
-	create_project_content
-	client = mock
-    module_result_client = mock
-    Kalibro::Client::ModuleResultClient.expects(:new).returns(module_result_client)
-    module_result_client.expects(:module_result).with(@name, @name, @project_result.date).returns(@module_result)
-	Kalibro::Client::ProjectResultClient.expects(:new).returns(client)
-	client.expects(:has_results_before).returns(true)
-	client.expects(:last_result_before).returns(@project_result)
-	get :module_result, :profile => @profile.identifier, :id => @content.id, :date => "2012-04-13T20:39:41+04:00", :module_name => @name
-	assert_response 200
+	  create_project_content
+    Kalibro::Client::ProjectClient.expects(:project).with(@name).returns(@project)
+    mock_module_result
+	  mock_project_result
+
+	  get :module_result, :profile => @profile.identifier, :id => @content.id, :date => @project_result.date, :module_name => @name
+	  assert_response 200
   end
 
   should 'get project tree' do
@@ -120,6 +117,19 @@ class MezuroPluginProfileControllerTest < ActionController::TestCase
     @content = MezuroPlugin::ProjectContent.new(:profile => @profile, :name => @name)
     @content.expects(:send_project_to_service).returns(nil)
     @content.save
+  end
+  
+  def mock_project_result
+    project_result_client = mock
+	  Kalibro::Client::ProjectResultClient.expects(:new).returns(project_result_client)
+	  project_result_client.expects(:has_results_before).returns(true)
+	  project_result_client.expects(:last_result_before).returns(@project_result)
+  end
+  
+  def mock_module_result
+    module_result_client = mock
+    Kalibro::Client::ModuleResultClient.expects(:new).returns(module_result_client)
+    module_result_client.expects(:module_result).with(@name, @name, @project_result.date).returns(@module_result)
   end
 
 end
