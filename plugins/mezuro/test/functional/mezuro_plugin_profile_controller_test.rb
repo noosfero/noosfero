@@ -54,9 +54,10 @@ class MezuroPluginProfileControllerTest < ActionController::TestCase
     assert_select('h3', 'ERROR')
   end
 
-  should 'get project results' do
+  should 'get project results without date' do
     create_project_content
     Kalibro::Client::ProjectResultClient.expects(:last_result).with(@name).returns(@project_result)
+    Kalibro::Client::ProjectClient.expects(:project).with(@name).returns(@project)
     get :project_result, :profile => @profile.identifier, :id => @content.id
     assert_response 200
     assert_select('h4', 'Last Result')
@@ -64,11 +65,9 @@ class MezuroPluginProfileControllerTest < ActionController::TestCase
   
   should 'get project results from a specific date' do
     create_project_content
-	client = mock
-	Kalibro::Client::ProjectResultClient.expects(:new).returns(client)
-	client.expects(:has_results_before).returns(true)
-	client.expects(:last_result_before).returns(@project_result)
-	get :project_result, :profile => @profile.identifier, :id => @content.id, :date => "2012-04-13T20:39:41+04:00"
+	  mock_project_result
+  	Kalibro::Client::ProjectClient.expects(:project).with(@name).returns(@project)
+  	get :project_result, :profile => @profile.identifier, :id => @content.id, :date => @project_result.date
     assert_response 200
   end
   
@@ -93,22 +92,21 @@ class MezuroPluginProfileControllerTest < ActionController::TestCase
 	  assert_response 200
   end
 
-  should 'get project tree' do
+  should 'get project tree without date' do
   	create_project_content
     Kalibro::Client::ProjectResultClient.expects(:last_result).with(@name).returns(@project_result)
-	get :project_tree, :profile => @profile.identifier, :id => @content.id, :module_name => @name
-	assert_response 200
-	assert_select('h2', /Qt-Calculator/)
+    Kalibro::Client::ProjectClient.expects(:project).with(@name).returns(@project)
+  	get :project_tree, :profile => @profile.identifier, :id => @content.id, :module_name => @name
+	  assert_response 200
+  	assert_select('h2', /Qt-Calculator/)
   end
 
   should 'get project tree from a specific date' do
   	create_project_content
-	client = mock
-	Kalibro::Client::ProjectResultClient.expects(:new).returns(client)
-	client.expects(:has_results_before).returns(true)
-	client.expects(:last_result_before).returns(@project_result)
+  	mock_project_result
+    Kalibro::Client::ProjectClient.expects(:project).with(@name).returns(@project)
     get :project_tree, :profile => @profile.identifier, :id => @content.id, :module_name => @name, :date => "2012-04-13T20:39:41+04:00"
-	assert_response 200
+	  assert_response 200
   end
 
   private
