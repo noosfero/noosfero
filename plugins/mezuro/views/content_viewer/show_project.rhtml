@@ -26,11 +26,16 @@
     <td><%= _('Configuration') %></td>
     <td><%= @project.configuration_name %></td>
   </tr>
+  <tr>
+    <td><%= _('Status')%></td>
+    <td>
+      <div id="project-state"><%= @project.state %></div>
+      <div id="msg-time"></div> 
+    </td>
+  </tr>
 </table>
 
 <br />
-<div class="msg-time"></div>
-
 
 <div id="project-result" data-profile="<%= @page.profile.identifier %>" data-content="<%= @page.id %>"
      data-project-name="<%= @project.name %>">
