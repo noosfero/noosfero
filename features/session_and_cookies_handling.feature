@@ -16,6 +16,15 @@ Feature: session and cookies handling
     When I go to the homepage
     Then there must be no cookies
 
+  Scenario: user_data, not logged in
+    When I make a AJAX request to the user data path
+    Then there must be no cookies
+
+  Scenario: user_data, logged in
+    Given I am logged in as admin
+    When I make a AJAX request to the user data path
+    Then there must be a cookie "_noosfero_session"
+
   # FIXME for some reason I could not test this scenario, although manual tests
   # indicate this works!
   # Scenario: logout
