@@ -59,22 +59,24 @@ function reloadProject(date){
 }
 
 function showProjectContentFor(state){
-	alert(state);
-  if (state == 'ERROR')
+  if (state == 'ERROR') {
+    jQuery('#project-state').html('ERROR');
     callAction('project_error', {}, showProjectResult);
+  }
   else if (state == 'READY') {
-    jQuery('.msg-time').hide();
+    jQuery('#msg-time').html('');
+    jQuery('#project-state').html('READY');
     callAction('project_result', {}, showProjectResult);
     callAction('project_tree', {}, showProjectTree);
     var project_name = jQuery("#project-result").attr('data-project-name');
     callAction('module_result', {module_name: project_name}, showModuleResult);
   } 
-  else if (state.endsWith("ING"))
-    jQuery('.msg-time').show();
-	jQuery('.msg-time').replaceWith('O carregamento do projeto pode levar algumas horas!');
-    
-    showProjectContentAfter(20);	
-  }
+  else if (state.endsWith("ING")) {
+    jQuery('#project-state').html(state);
+    jQuery('#msg-time').html("The project analysis may take long. <br/> You'll receive an e-mail when it's ready!");
+    showProjectContentAfter(20);
+  }	
+}
 
 function showProjectContentAfter(seconds){
   if (seconds > 0){
