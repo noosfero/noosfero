@@ -1143,6 +1143,21 @@ class CmsControllerTest < ActionController::TestCase
     assert_template 'edit'
   end
 
+  should 'allow community members to edit articles that allow it' do
+    community = fast_create(Community)
+    admin = create_user('community-admin').person
+    member = create_user.person
+
+    community.add_admin(admin)
+    community.add_member(member)
+
+    article = community.articles.create!(:name => 'test_article', :allow_members_to_edit => true)
+
+    login_as member.identifier
+    get :edit, :profile => community.identifier, :id => article.id
+    assert_response :success
+  end
+
   should 'create thumbnails for images with delayed_job' do
     post :upload_files, :profile => profile.identifier, :uploaded_files => [fixture_file_upload('/files/rails.png', 'image/png'), fixture_file_upload('/files/test.txt', 'text/plain')]
     file_1 = profile.articles.find_by_path('rails.png')

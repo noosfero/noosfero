@@ -20,8 +20,12 @@ class CmsController < MyProfileController
     user && (user.has_permission?('post_content', profile) || user.has_permission?('publish_content', profile))
   end
 
-  protect_if :only => [:edit, :destroy, :publish] do |c, user, profile|
+  protect_if :only => [:destroy, :publish] do |c, user, profile|
     profile.articles.find(c.params[:id]).allow_post_content?(user)
+  end
+
+  protect_if :only => :edit do |c,user,profile|
+    profile.articles.find(c.params[:id]).allow_edit?(user)
   end
 
   def boxes_holder
