@@ -15,6 +15,7 @@ class CmsController < MyProfileController
   end
 
   before_filter :login_required, :except => [:suggest_an_article]
+
   protect_if :except => [:suggest_an_article, :set_home_page, :edit, :destroy, :publish] do |c, user, profile|
     user && (user.has_permission?('post_content', profile) || user.has_permission?('publish_content', profile))
   end
@@ -25,32 +26,6 @@ class CmsController < MyProfileController
 
   def boxes_holder
     profile
-  end
-
-  include CmsHelper
-
-  def available_article_types
-    articles = [
-      TinyMceArticle,
-      TextileArticle,
-      Event
-    ]
-    articles += special_article_types if params && params[:cms]
-    parent_id = params ? params[:parent_id] : nil
-    if profile.enterprise?
-      articles << EnterpriseHomepage
-    end
-    if @parent && @parent.blog?
-      articles -= Article.folder_types.map(&:constantize)
-    end
-    if user.is_admin?(profile.environment)
-      articles << RawHTMLArticle
-    end
-    articles
-  end
-
-  def special_article_types
-    [Folder, Blog, UploadedFile, Forum, Gallery, RssFeed] + @plugins.dispatch(:content_types)
   end
 
   def view
@@ -302,6 +277,33 @@ class CmsController < MyProfileController
   end
 
   protected
+
+  include CmsHelper
+
+  def available_article_types
+    articles = [
+      TinyMceArticle,
+      TextileArticle,
+      Event
+    ]
+    articles += special_article_types if params && params[:cms]
+    parent_id = params ? params[:parent_id] : nil
+    if profile.enterprise?
+      articles << EnterpriseHomepage
+    end
+    if @parent && @parent.blog?
+      articles -= Article.folder_types.map(&:constantize)
+    end
+    if user.is_admin?(profile.environment)
+      articles << RawHTMLArticle
+    end
+    articles
+  end
+
+  def special_article_types
+    [Folder, Blog, UploadedFile, Forum, Gallery, RssFeed] + @plugins.dispatch(:content_types)
+  end
+
 
   def record_coming
     if request.post?
