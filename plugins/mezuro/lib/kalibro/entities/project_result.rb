@@ -1,6 +1,6 @@
 class Kalibro::Entities::ProjectResult < Kalibro::Entities::Entity
   
-  attr_accessor :project, :date, :load_time, :analysis_time, :source_tree, :collect_time
+  attr_accessor :project, :date, :load_time, :collect_time, :analysis_time, :source_tree
 
   def project=(value)
     @project = to_entity(value, Kalibro::Entities::Project)
@@ -13,6 +13,10 @@ class Kalibro::Entities::ProjectResult < Kalibro::Entities::Entity
 
   def load_time=(value)
     @load_time = value.to_i
+  end
+
+  def collect_time=(value)
+    @collect_time = value.to_i
   end
 
   def analysis_time=(value)
