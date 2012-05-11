@@ -1,4 +1,5 @@
 class MezuroPlugin::ProjectContent < Article 
+  validate :validate_kalibro_project_name
 
   def self.short_description
     'Kalibro project'
@@ -26,13 +27,13 @@ class MezuroPlugin::ProjectContent < Article
   end
   
   def get_date_result(date)
-		client =  Kalibro::Client::ProjectResultClient.new
+    client =  Kalibro::Client::ProjectResultClient.new
   	@project_result ||= client.has_results_before(name, date) ? client.last_result_before(name, date) : client.first_result_after(name, date)
   end
 
   def module_result(module_name)
     module_name = project.name if module_name.nil? 
-		@module_client ||= module_result_client.module_result(project.name, module_name, project_result.date)
+    @module_client ||= module_result_client.module_result(project.name, module_name, project_result.date)
   end
 
   def result_history(module_name)
@@ -48,13 +49,20 @@ class MezuroPlugin::ProjectContent < Article
 
   private
 
+  def validate_kalibro_project_name
+    begin
+      Kalibro::Client::ProjectClient.project(name)
+      errors.add_to_base("Project name already exists in Kalibro")
+    rescue
+    end
+  end
+
   def send_project_to_service
     Kalibro::Client::ProjectClient.save(self)
-   	Kalibro::Client::KalibroClient.process_project(name, periodicity_in_days)
+    Kalibro::Client::KalibroClient.process_project(name, periodicity_in_days)
   end
 
   def remove_project_from_service
     Kalibro::Client::ProjectClient.remove(name)
   end
-
 end

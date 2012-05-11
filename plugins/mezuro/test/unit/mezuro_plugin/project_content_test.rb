@@ -14,6 +14,15 @@ class ProjectContentTest < ActiveSupport::TestCase
     @content.repository_url = @project.repository.address
     @content.configuration_name = @project.configuration_name
     @content.periodicity_in_days = 1
+
+		@content2 = MezuroPlugin::ProjectContent.new
+		@content2.name = @content.name
+    @content2.license = @project.license
+    @content2.description = @project.description
+    @content2.repository_type = @project.repository.type
+    @content2.repository_url = @project.repository.address
+    @content2.configuration_name = @project.configuration_name
+    @content2.periodicity_in_days = 1
   end
 
   should 'be an article' do
@@ -91,6 +100,12 @@ returns(module_result)
     @content.send :remove_project_from_service
   end
   
+  should 'not save a project with an existing project name in kalibro' do
+		Kalibro::Client::ProjectClient.expects(:project).with(@content.name).returns(mock)
+		@content.send :validate_kalibro_project_name
+		assert_equal @content.errors.on_base, "Project name already exists in Kalibro"
+	end
+  
   private
     def mock_project_client
       Kalibro::Client::ProjectClient.expects(:project).with(@content.name).returns(@project)
@@ -103,18 +118,3 @@ returns(module_result)
     end
 
 end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
