@@ -52,5 +52,4 @@ class MezuroPluginProfileController < ProfileController
     modules_results = content.result_history(params[:module_name])
     score_history = modules_results.collect { |module_result| module_result.grade }
     render :partial => 'content_viewer/score_history', :locals => {:score_history => score_history}
-  end
 end

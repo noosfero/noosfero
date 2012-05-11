@@ -67,18 +67,9 @@ class MezuroPluginProfileControllerTest < ActionController::TestCase
   
   should 'get project results from a specific date' do
     create_project_content
-#client = mock
-#Kalibro::Client::ProjectResultClient.expects(:new).returns(client)
-	Kalibro::Client::ProjectResultClient.expects(:has_results_before).with(@name, @date).returns(true)
-	Kalibro::Client::ProjectResultClient.expects(:last_result_before).with(@name, @date).returns(@project_result)
-    assert_response 200
-  end
-  
-    create_project_content
     mock_project_result
     Kalibro::Client::ProjectClient.expects(:project).with(@name).returns(@project)
     get :project_result, :profile => @profile.identifier, :id => @content.id, :date => @project_result.date
-    module_result_client.expects(:module_result).with(@name, @name, @project_result.date).returns(@module_result)
     assert_response 200
   end
   
