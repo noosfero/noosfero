@@ -26,6 +26,7 @@ class Article < ActiveRecord::Base
 
   settings_items :display_hits, :type => :boolean, :default => true
   settings_items :author_name, :type => :string, :default => ""
+  settings_items :allow_members_to_edit, :type => :boolean, :default => false
 
   belongs_to :reference_article, :class_name => "Article", :foreign_key => 'reference_article_id'
 
@@ -410,10 +411,13 @@ class Article < ActiveRecord::Base
 
   alias :allow_delete?  :allow_post_content?
   alias :allow_spread?  :allow_post_content?
-  alias :allow_edit?    :allow_post_content?
 
   def allow_create?(user)
     allow_post_content?(user) || allow_publish_content?(user)
+  end
+
+  def allow_edit?(user)
+    allow_post_content?(user) || allow_members_to_edit && user.is_member_of?(profile)
   end
 
   def comments_updated
