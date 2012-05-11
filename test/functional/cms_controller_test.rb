@@ -15,7 +15,6 @@ class CmsControllerTest < ActionController::TestCase
 
     @profile = create_user_with_permission('testinguser', 'post_content')
     login_as :testinguser
-    @controller.stubs(:user).returns(@profile)
   end
 
   attr_reader :profile
@@ -601,11 +600,13 @@ class CmsControllerTest < ActionController::TestCase
 
   should 'not make enterprise homepage available to person' do
     @controller.stubs(:profile).returns(profile)
+    @controller.stubs(:user).returns(profile)
     assert_not_includes available_article_types, EnterpriseHomepage
   end
 
   should 'make enterprise homepage available to enterprises' do
     @controller.stubs(:profile).returns(fast_create(Enterprise, :name => 'test_ent', :identifier => 'test_ent'))
+    @controller.stubs(:user).returns(profile)
     assert_includes available_article_types, EnterpriseHomepage
   end
 
@@ -838,6 +839,7 @@ class CmsControllerTest < ActionController::TestCase
 
   should 'not offer folder to blog articles' do
     @controller.stubs(:profile).returns(fast_create(Enterprise, :name => 'test_ent', :identifier => 'test_ent'))
+    @controller.stubs(:user).returns(profile)
     blog = Blog.create!(:name => 'Blog for test', :profile => profile)
     @controller.stubs(:params).returns({ :parent_id => blog.id })
 
@@ -846,6 +848,7 @@ class CmsControllerTest < ActionController::TestCase
 
   should 'not offer rssfeed to blog articles' do
     @controller.stubs(:profile).returns(fast_create(Enterprise, :name => 'test_ent', :identifier => 'test_ent'))
+    @controller.stubs(:user).returns(profile)
     blog = Blog.create!(:name => 'Blog for test', :profile => profile)
     @controller.stubs(:params).returns({ :parent_id => blog.id })
 
@@ -1203,6 +1206,7 @@ class CmsControllerTest < ActionController::TestCase
 
   should 'not offer folder to forum articles' do
     @controller.stubs(:profile).returns(fast_create(Enterprise, :name => 'test_ent', :identifier => 'test_ent'))
+    @controller.stubs(:user).returns(profile)
     forum = Forum.create!(:name => 'Forum for test', :profile => profile)
     @controller.stubs(:params).returns({ :parent_id => forum.id })
 
@@ -1211,6 +1215,7 @@ class CmsControllerTest < ActionController::TestCase
 
   should 'not offer rssfeed to forum articles' do
     @controller.stubs(:profile).returns(fast_create(Enterprise, :name => 'test_ent', :identifier => 'test_ent'))
+    @controller.stubs(:user).returns(profile)
     forum = Forum.create!(:name => 'Forum for test', :profile => profile)
     @controller.stubs(:params).returns({ :parent_id => forum.id })
 
@@ -1501,6 +1506,7 @@ class CmsControllerTest < ActionController::TestCase
 
   should 'make RawHTMLArticle available only to environment admins' do
     @controller.stubs(:profile).returns(profile)
+    @controller.stubs(:user).returns(profile)
     assert_not_includes available_article_types, RawHTMLArticle
     profile.environment.add_admin(profile)
     assert_includes available_article_types, RawHTMLArticle
