@@ -16,7 +16,7 @@ config/environment.rb             usr/share/noosfero/config
 config/environments               usr/share/noosfero/config
 config/initializers               usr/share/noosfero/config
 config/routes.rb                  usr/share/noosfero/config
-config/locales/                   usr/share/noosfero/config
+config/locales                    usr/share/noosfero/config
 
 plugins                           usr/share/noosfero
 
