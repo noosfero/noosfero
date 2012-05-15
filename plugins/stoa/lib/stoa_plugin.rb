@@ -64,4 +64,21 @@ class StoaPlugin < Noosfero::Plugin
       :block => block }]
   end
 
+  def invite_controller_filters
+    [{ :type => 'before_filter',
+      :method_name => 'check_usp_id_existence',
+      :block => lambda {render_access_denied if profile.usp_id.blank?} }]
+  end
+
+  def control_panel_buttons
+    { :title => _('Invite friends'),
+      :icon => 'invite-friends',
+      :url => {:controller => 'invite',
+               :action => 'select_address_book'} } if !context.profile.usp_id.blank?
+  end
+
+  def remove_invite_friends_button
+    true
+  end
+
 end

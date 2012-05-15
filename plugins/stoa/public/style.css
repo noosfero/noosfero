@@ -3,3 +3,6 @@
   display: block;
 }
 
+.controller-profile_editor a.control-panel-invite-friends {background-image: url(../stoa/images/control-panel/invite-friends.png)}
+.controller-profile_editor .msie6 a.control-panel-invite-friends {background-image: url(../stoa/images/control-panel/invite-friends.gif)}
+

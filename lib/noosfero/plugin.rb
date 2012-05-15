@@ -244,4 +244,10 @@ class Noosfero::Plugin
     nil
   end
 
+  # -> Removes the invite friend button from the friends controller
+  # returns = boolean
+  def remove_invite_friends_button
+    nil
+  end
+
 end
