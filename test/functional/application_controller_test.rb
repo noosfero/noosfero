@@ -334,6 +334,12 @@ class ApplicationControllerTest < ActionController::TestCase
     assert_tag :html, :attributes => { :lang => 'es' }
   end
 
+  should 'set Rails locale correctly' do
+    @request.env['HTTP_ACCEPT_LANGUAGE'] = 'pt-BR,pt;q=0.8,en;q=0.6,en-US;q=0.4'
+    get :index
+    assert_equal 'pt', I18n.locale.to_s
+  end
+
   should 'include stylesheets supplied by plugins' do
     class Plugin1 < Noosfero::Plugin
       def stylesheet?

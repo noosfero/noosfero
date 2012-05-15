@@ -96,6 +96,9 @@ module NavigationHelpers
     when /^chat$/
       '/chat'
 
+    when /the user data path/
+      '/account/user_data'
+
     # Add more mappings here.
     # Here is a more fancy example:
     #
