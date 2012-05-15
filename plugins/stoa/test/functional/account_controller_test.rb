@@ -29,4 +29,9 @@ class AccountControllerTest < ActionController::TestCase
     assert_nil assigns(:person).errors[:usp_id]
   end
 
+  should 'inlude invitation_code param in the person\'s attributes' do
+    get :signup, :invitation_code => 12345678
+    assert assigns(:person).invitation_code == '12345678'
+  end
+
 end

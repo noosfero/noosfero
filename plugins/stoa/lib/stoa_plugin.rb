@@ -49,8 +49,10 @@ class StoaPlugin < Noosfero::Plugin
 
   def account_controller_filters
     block = lambda do
+      params[:profile_data] ||= {}
+      params[:profile_data][:invitation_code] = params[:invitation_code]
       if request.post?
-        if !StoaPlugin::UspUser.matches?(params[:profile_data][:usp_id], params[:confirmation_field], params[:confirmation_value])
+        if !params[:invitation_code] && !StoaPlugin::UspUser.matches?(params[:profile_data][:usp_id], params[:confirmation_field], params[:confirmation_value])
           @person = Person.new
           @person.errors.add(:usp_id, _(' validation failed'))
           render :action => :signup
