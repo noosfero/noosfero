@@ -39,14 +39,27 @@ class StoaPlugin::Person < ActiveSupport::TestCase
     assert !person.errors.invalid?(:usp_id)
   end
 
-  should 'not allow person register with a finished task' do
-    t = Task.create!(:code => 87654321)
+  should 'not allow person to be saved with a finished invitation that is not his own' do
+    t = Task.create!(:code => 87654321, :target_id => 1)
     t.finish
     person = Person.new(:environment => environment, :invitation_code => 87654321)
     person.valid?
 
     assert person.errors.invalid?(:usp_id)
   end
+
+  should 'allow person to be saved with a finished invitation if it is his own' do
+    t = Task.create!(:code => 87654321)
+    user = User.new(:login => 'some-person', :email => 'some-person@example.com', :password => 'test', :password_confirmation => 'test', :person_data => {:environment => environment, :invitation_code => 87654321})
+    user.save!
+    person = user.person
+    t.target_id = person.id
+    t.finish
+
+    person.valid?
+    assert !person.errors.invalid?(:usp_id)
+  end
+
 
 end
 
