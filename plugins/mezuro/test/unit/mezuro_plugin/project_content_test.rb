@@ -14,15 +14,6 @@ class ProjectContentTest < ActiveSupport::TestCase
     @content.repository_url = @project.repository.address
     @content.configuration_name = @project.configuration_name
     @content.periodicity_in_days = 1
-
-		@content2 = MezuroPlugin::ProjectContent.new
-		@content2.name = @content.name
-    @content2.license = @project.license
-    @content2.description = @project.description
-    @content2.repository_type = @project.repository.type
-    @content2.repository_url = @project.repository.address
-    @content2.configuration_name = @project.configuration_name
-    @content2.periodicity_in_days = 1
   end
 
   should 'be an article' do
@@ -39,6 +30,11 @@ class ProjectContentTest < ActiveSupport::TestCase
 
   should 'have an html view' do
     assert_not_nil @content.to_html
+  end
+  
+  should 'rescue error when project doesnt exist in kalibro' do
+    MezuroPlugin::ProjectContent.expects(:project).returns(create_project_error)
+    assert_equal true, @content.rescue_error_kalibro
   end
 
   should 'get project from service' do
@@ -107,6 +103,7 @@ returns(module_result)
 	end
   
   private
+
     def mock_project_client
       Kalibro::Client::ProjectClient.expects(:project).with(@content.name).returns(@project)
     end
@@ -116,5 +113,9 @@ returns(module_result)
       Kalibro::Client::ProjectResultClient.expects(:last_result).with(@content.name).returns(project_result)
       project_result
     end
+
+	  def create_project_error
+	      raise "Error on Kalibro" 
+	  end
 
 end

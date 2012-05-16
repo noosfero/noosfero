@@ -14,7 +14,17 @@ class MezuroPlugin::ProjectContent < Article
   include ActionView::Helpers::TagHelper
   def to_html(options = {})
     lambda do
-      render :file => 'content_viewer/show_project.rhtml'
+      
+      render :file => 'content_viewer/show_project.rhtml', :locals => { :project => project_kalibro, :error_kalibro => error_kalibro }
+    end
+  end
+  
+  def rescue_error_kalibro
+    error_kalibro = false
+    begin
+      project_kalibro = project
+    rescue
+      error_kalibro = true
     end
   end
 
