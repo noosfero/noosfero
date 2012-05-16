@@ -121,6 +121,7 @@ class Environment < ActiveRecord::Base
       'xmpp_chat' => _('XMPP/Jabber based chat'),
       'show_zoom_button_on_article_images' => _('Show a zoom link on all article images'),
       'captcha_for_logged_users' => _('Ask captcha when a logged user comments too'),
+      'skip_new_user_email_confirmation' => _('Skip e-mail confirmation for new users')
     }
   end
 

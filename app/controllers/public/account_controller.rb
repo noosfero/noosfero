@@ -78,7 +78,12 @@ class AccountController < ApplicationController
           invitation.update_attributes!({:friend => @user.person})
           invitation.finish
         end
-        @register_pending = true
+        if @user.activated?
+          self.current_user = @user
+          redirect_to '/'
+        else
+          @register_pending = true
+        end
       end
     rescue ActiveRecord::RecordInvalid
       @person.valid?
