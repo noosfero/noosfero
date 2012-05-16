@@ -8,7 +8,7 @@ class CmsHelperTest < ActiveSupport::TestCase
 
   should 'show default options for article' do
     CmsHelperTest.any_instance.stubs(:controller).returns(ActionController::Base.new)
-    result = options_for_article(RssFeed.new)
+    result = options_for_article(RssFeed.new(:profile => Profile.new))
     assert_match /id="article_published" name="article\[published\]" type="checkbox" value="1"/, result
     assert_match /id="article_accept_comments" name="article\[accept_comments\]" type="checkbox" value="1"/, result
   end
