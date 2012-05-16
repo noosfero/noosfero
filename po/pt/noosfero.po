@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.36.1\n"
 "POT-Creation-Date: 2012-03-27 19:47-0300\n"
-"PO-Revision-Date: 2012-03-27 20:00-0300\n"
+"PO-Revision-Date: 2012-05-16 13:39-0300\n"
 "Last-Translator: Joenio Costa <joenio@colivre.coop.br>\n"
 "Language-Team: LANGUAGE TEAM <E-MAIL@ADDRESS or HOME PAGE>\n"
 "Language: \n"
@@ -1350,7 +1350,7 @@ msgstr "Gerenciar suas tarefas pendentes"
 
 #: app/helpers/application_helper.rb:1176
 msgid "<span class='welcome'>Welcome,</span> %s"
-msgstr "<span class='welcome'>Bem vindo(a),</span> %s"
+msgstr "<span class='welcome'>Bem-vindo(a),</span> %s"
 
 #: app/helpers/application_helper.rb:1176
 msgid "Go to your homepage"
@@ -8494,7 +8494,7 @@ msgid ""
 "Welcome to %{environment}! To activate your account, follow the link: "
 "%{activation_url}"
 msgstr ""
-"Bemvindo ao %{environment}! Para ativar sua conta, siga o link: "
+"Bem-vindo ao %{environment}! Para ativar sua conta, siga o link: "
 "%{activation_url}"
 
 #: app/views/user/mailer/activation_email_notify.rhtml:3
