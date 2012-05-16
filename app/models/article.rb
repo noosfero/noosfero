@@ -417,7 +417,7 @@ class Article < ActiveRecord::Base
   end
 
   def allow_edit?(user)
-    allow_post_content?(user) || allow_members_to_edit && user.is_member_of?(profile)
+    allow_post_content?(user) || user && allow_members_to_edit && user.is_member_of?(profile)
   end
 
   def comments_updated

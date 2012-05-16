@@ -1665,4 +1665,10 @@ class ArticleTest < ActiveSupport::TestCase
     assert_equal true, a.allow_edit?(member)
   end
 
+  should 'not crash on allow_edit without a current user' do
+    a = build(Article)
+    a.allow_members_to_edit = true
+    assert !a.allow_edit?(nil)
+  end
+
 end
