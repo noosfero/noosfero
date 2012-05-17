@@ -12,7 +12,7 @@ class Person
   end
 
   def invitation_task
-    Task.pending.find(:first, :conditions => {:code => invitation_code}) || 
+    Task.pending.find(:first, :conditions => {:code => invitation_code}) ||
     Task.finished.find(:first, :conditions => {:code => invitation_code, :target_id => id})
   end
 end
