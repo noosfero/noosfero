@@ -26,6 +26,13 @@
     <td><%= _('Configuration') %></td>
     <td><%= @project.configuration_name %></td>
   </tr>
+  <tr>
+    <td><%= _('Status')%></td>
+    <td>
+      <div id="project-state"><%= @project.state %></div>
+      <div id="msg-time"></div> 
+    </td>
+  </tr>
 </table>
 
 <br />
