@@ -182,5 +182,4 @@ sub vcl_recv {
   C{
     vcl_rewrite_accept_language(sp);
   }C
-  return(pass);
 }
