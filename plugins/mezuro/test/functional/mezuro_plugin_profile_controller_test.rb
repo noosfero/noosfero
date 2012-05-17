@@ -115,7 +115,7 @@ class MezuroPluginProfileControllerTest < ActionController::TestCase
     module_result_client.expects(:result_history).with(@name, @name).returns([@module_result])
     Kalibro::Client::ProjectClient.expects(:project).with(@name).returns(@project)
     get :module_grade_history, :profile => @profile.identifier, :id => @content.id, :module_name => @name
-    assert_equal assigns(:modules_results), [@module_result]
+    assert_equal [@module_result], assigns(:modules_results) 
     assert_response 200
   end
 
