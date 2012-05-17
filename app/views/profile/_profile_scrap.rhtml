@@ -2,7 +2,7 @@
   <div class='profile-activity-image'>
     <%= link_to(profile_image(scrap.sender, :minor), scrap.sender.url) %>
   </div>
-  <% comment_balloon :class => 'profile-activity-description' do %>
+  <div class='profile-activity-description'>
     <p class='profile-activity-sender'><%= link_to scrap.sender.name, scrap.sender.url %></p>
     <p class='profile-activity-text'><%= txt2html scrap.content %></p>
     <p class='profile-activity-time'><%= time_ago_as_sentence(scrap.created_at) %></p>
@@ -13,7 +13,7 @@
       </span>
     <% end %>
     <%= link_to_remote(content_tag(:span, _('Remove')), :confirm => _('Are you sure?'), :url =>{:action => 'remove_scrap', :scrap_id => scrap.id}, :update => "profile-activity-item-#{scrap.id}") if logged_in? && user.can_control_scrap?(scrap) %>
-  <% end %>
+    </div>
   </div>
   <ul class="profile-activity-scrap-replies">
     <% scrap.replies.map do |reply| %>
