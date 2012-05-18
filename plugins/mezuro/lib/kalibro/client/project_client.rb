@@ -49,8 +49,8 @@ class Kalibro::Client::ProjectClient
     begin 
       hash = @port.request(:get_project, {:project_name => project_name})[:project]
     rescue Exception => error
-      if (error.to_s =~ /There is no project named/) != nil
-        return nil 
+      unless (error.message =~ /There is no project named/).nil?
+        return nil
       else
         raise error
       end

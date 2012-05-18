@@ -87,7 +87,6 @@ class MezuroPluginProfileControllerTest < ActionController::TestCase
     Kalibro::Client::ProjectClient.expects(:project).with(@name).returns(@project)
     mock_module_result
 	  mock_project_result
-
 	  get :module_result, :profile => @profile.identifier, :id => @content.id, :date => @project_result.date, :module_name => @name
 	  assert_response 200
   end
@@ -114,6 +113,7 @@ class MezuroPluginProfileControllerTest < ActionController::TestCase
   def create_project_content
     @content = MezuroPlugin::ProjectContent.new(:profile => @profile, :name => @name)
     @content.expects(:send_project_to_service).returns(nil)
+    Kalibro::Client::ProjectClient.expects(:project).raises("there's no project named macaco")
     @content.save
   end
   
