@@ -110,12 +110,9 @@ class MezuroPluginProfileControllerTest < ActionController::TestCase
 
   should 'get grade history' do
     create_project_content
-    module_result_client = mock
-    Kalibro::Client::ModuleResultClient.expects(:new).returns(module_result_client)
-    module_result_client.expects(:result_history).with(@name, @name).returns([@module_result])
+    mock_module_result_history
     Kalibro::Client::ProjectClient.expects(:project).with(@name).returns(@project)
     get :module_grade_history, :profile => @profile.identifier, :id => @content.id, :module_name => @name
-    assert_equal [@module_result], assigns(:modules_results) 
     assert_response 200
   end
 
@@ -143,7 +140,7 @@ class MezuroPluginProfileControllerTest < ActionController::TestCase
 
   def mock_module_result_history
     module_result_client = mock
-    Kalibro::Client::ModuleResultClient.expects(:new).returns(module_result_client)
     module_result_client.expects(:result_history).with(@name, @name).returns([@module_result])
+    Kalibro::Client::ModuleResultClient.expects(:new).returns(module_result_client)
   end
 end
