@@ -22,7 +22,7 @@ function display_metric_history() {
 }
 
 function display_grade_history() {
-  var module_name = jQuery(this).attr('show-grade-history');
+  var module_name = jQuery(this).attr('data-module-name');
   callAction('module_grade_history', {module_name: module_name}, show_grades);
   return false;
 }

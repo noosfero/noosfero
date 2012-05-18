@@ -4,7 +4,7 @@
 <h5><%= _('Metric results for: ') + module_label %> </h5>
 
 <hr/>
-
+<div class="zoomable-image">
 <table>
   <thead>
     <tr>
@@ -43,7 +43,7 @@
         <div id='historical-grade'></div>
       </td>
       <td colspan = "4" align = "right">
-        <a href="#" show-grade-history="<%= module_result.module.name %>" >
+        <a href="#" show-grade-history="<%= module_result.module.name %>" data-module-name="<%= the_module.name%>" >
           <strong>
             <%= _('Grade:') %>
             <%= "%.02f" % module_result.grade %>
@@ -53,3 +53,4 @@
     </tr>
   </tfoot>
 </table>
+</div>
