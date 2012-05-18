@@ -50,6 +50,7 @@ class MezuroPlugin::ProjectContent < Article
 
   private
 
+  #FIXME
   def validate_kalibro_project_name
     begin
       Kalibro::Client::ProjectClient.project(name)
