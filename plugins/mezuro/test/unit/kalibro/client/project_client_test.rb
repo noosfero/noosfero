@@ -19,8 +19,7 @@ class ProjectClientTest < ActiveSupport::TestCase
   
   should 'raise error when project doesnt exist' do
     request_body = {:project_name => @project.name}
-    @port.expects(:request).with(:get_project, request_body)
-      .raises(Exception.new("(S:Server) There is no project named " + @project.name))
+    @port.expects(:request).with(:get_project, request_body).raises(Exception.new("(S:Server) There is no project named " + @project.name))
     assert_nil Kalibro::Client::ProjectClient.project(@project.name)
   end
 
