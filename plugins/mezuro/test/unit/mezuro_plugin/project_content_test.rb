@@ -31,11 +31,6 @@ class ProjectContentTest < ActiveSupport::TestCase
   should 'have an html view' do
     assert_not_nil @content.to_html
   end
-  
-  should 'rescue error when project doesnt exist in kalibro' do
-    MezuroPlugin::ProjectContent.expects(:project).returns(create_project_error)
-    assert_equal true, @content.rescue_error_kalibro
-  end
 
   should 'get project from service' do
     Kalibro::Client::ProjectClient.expects(:project).with(@content.name).returns(@project)

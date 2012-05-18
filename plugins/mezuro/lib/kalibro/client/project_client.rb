@@ -46,7 +46,15 @@ class Kalibro::Client::ProjectClient
   end
 
   def project(project_name)
-    hash = @port.request(:get_project, {:project_name => project_name})[:project]
+    begin 
+      hash = @port.request(:get_project, {:project_name => project_name})[:project]
+    rescue Exception => error
+      if (error.to_s =~ /There is no project named/) != nil
+        return nil 
+      else
+        raise error
+      end
+    end
     Kalibro::Entities::Project.from_hash(hash)
   end
 

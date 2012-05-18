@@ -1,8 +1,6 @@
 <script src="/plugins/mezuro/javascripts/project_content.js" type="text/javascript"></script>
-<% if error_kalibro %>
-  Projeto nao existe TODO: Perguntar oa usuário se deseja excluir o projeto do Noosfero
-<% else %>
-<% @project = project %>
+
+<% @project = @page.project %>
 <table>
   <tr>
     <td><%= _('Name') %></td>
@@ -45,4 +43,4 @@
 <div id="project-tree"></div>
 <div id="module-result">
 </div>
-<% end %>
+
