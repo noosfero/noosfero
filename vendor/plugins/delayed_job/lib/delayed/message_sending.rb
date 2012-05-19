@@ -8,7 +8,7 @@ module Delayed
     end
 
     def method_missing(method, *args)
-      if (Rails.env == "test" or Rails.env == "cucumber")
+      if (Rails.env == "test" or Rails.env == "cucumber" and !$DISABLE_DELAYED_JOB_TEST_ENV_RUN)
         @target.send method, *args
         return
       end

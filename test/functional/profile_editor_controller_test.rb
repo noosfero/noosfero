@@ -751,7 +751,6 @@ class ProfileEditorControllerTest < ActionController::TestCase
     assert_nothing_raised do
       post :edit, :profile => c.identifier, :profile_data => c.attributes.merge('identifier' => '')
     end
-    assert_response :success
   end
 
   should 'show active fields when edit community' do

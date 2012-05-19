@@ -3,7 +3,7 @@ require File.dirname(__FILE__) + '/../test_helper'
 class ProductTest < ActiveSupport::TestCase
 
   def setup
-    ActiveSupport::TestCase::setup
+    super
     @product_category = fast_create(ProductCategory, :name => 'Products')
     @profile = fast_create(Enterprise)
   end
@@ -105,6 +105,7 @@ class ProductTest < ActiveSupport::TestCase
   end
 
   should 'be indexed by category full name' do
+    TestSolr.enable
     parent_cat = fast_create(ProductCategory, :name => 'Parent')
     prod_cat = fast_create(ProductCategory, :name => 'Category1', :parent_id => parent_cat.id)
     prod_cat2 = fast_create(ProductCategory, :name => 'Category2')
@@ -343,6 +344,7 @@ class ProductTest < ActiveSupport::TestCase
   end
 
   should 'index by schema name when database is postgresql' do
+    TestSolr.enable
     uses_postgresql 'schema_one'
     p1 = Product.create!(:name => 'some thing', :product_category => @product_category, :enterprise_id => @profile.id)
     assert_equal [p1], Product.find_by_contents('thing')[:results].docs
@@ -357,6 +359,7 @@ class ProductTest < ActiveSupport::TestCase
   end
 
   should 'not index by schema name when database is not postgresql' do
+    TestSolr.enable
     uses_sqlite
     p1 = Product.create!(:name => 'some thing', :product_category => @product_category, :enterprise_id => @profile.id)
     assert_equal [p1], Product.find_by_contents('thing')[:results].docs
@@ -583,6 +586,7 @@ class ProductTest < ActiveSupport::TestCase
   end
 
   should 'act as searchable' do
+    TestSolr.enable
     s = fast_create(State, :acronym => 'XZ')
     c = fast_create(City, :name => 'Tabajara', :parent_id => s.id)
     ent = fast_create(Enterprise, :region_id => c.id, :name => "Black Sun")
@@ -615,6 +619,7 @@ class ProductTest < ActiveSupport::TestCase
   end
 
   should 'boost name matches' do
+    TestSolr.enable
     ent = fast_create(Enterprise)
     cat = fast_create(ProductCategory)
     in_desc = Product.create!(:name => 'something', :enterprise_id => ent.id, :description => 'bananas in the description!',
@@ -632,6 +637,7 @@ class ProductTest < ActiveSupport::TestCase
   end
 
   should 'boost search results that include an image' do
+    TestSolr.enable
     product_without_image = Product.create!(:name => 'product without image', :product_category => @product_category,
                                             :enterprise_id => @profile.id)
     product_with_image = Product.create!(:name => 'product with image', :product_category => @product_category,
@@ -641,6 +647,7 @@ class ProductTest < ActiveSupport::TestCase
   end
 
   should 'boost search results that include qualifier' do
+    TestSolr.enable
     product_without_q = Product.create!(:name => 'product without qualifier', :product_category => @product_category,
                                         :enterprise_id => @profile.id)
     product_with_q = Product.create!(:name => 'product with qualifier', :product_category => @product_category,
@@ -652,24 +659,17 @@ class ProductTest < ActiveSupport::TestCase
   end
 
   should 'boost search results with open price' do
-    product = Product.create!(:name => 'product 1', :product_category => @product_category, :enterprise_id => @profile.id)
-    product.price = 100
-    product.save!
-    open_price = Product.create!(:name => 'product 2', :product_category => @product_category, :enterprise_id => @profile.id)
-    open_price.price = 100
-    Input.create!(:product_id => open_price.id, :product_category_id => @product_category.id,
-                  :amount_used => 10, :price_per_unit => 10)
-    open_price.update_price_details []
+    TestSolr.enable
+    product = Product.create!(:name => 'product 1', :product_category => @product_category, :enterprise_id => @profile.id, :price => 100)
+    open_price = Product.new(:name => 'product 2', :product_category => @product_category, :enterprise_id => @profile.id, :price => 100)
+    open_price.inputs << Input.new(:product => open_price, :product_category_id => @product_category.id, :amount_used => 10, :price_per_unit => 10)
     open_price.save!
 
-    #pp Product::Boosts[2][2].call(product)
-    #pp Product::Boosts[2][2].call(open_price)
-    #pp Product.find_by_contents('product')[:results].docs.first.solr_score
-    #pp Product.find_by_contents('product')[:results].docs.last.solr_score
     assert_equal [open_price, product], Product.find_by_contents('product')[:results].docs
   end
 
   should 'boost search results with solidarity inputs' do
+    TestSolr.enable
     product = Product.create!(:name => 'product 1', :product_category => @product_category, :enterprise_id => @profile.id)
     perc_50 = Product.create!(:name => 'product 2', :product_category => @product_category, :enterprise_id => @profile.id)
     Input.create!(:product_id => perc_50.id, :product_category_id => @product_category.id,
@@ -692,6 +692,7 @@ class ProductTest < ActiveSupport::TestCase
   end
 
   should 'boost available search results' do
+    TestSolr.enable
     product = Product.create!(:name => 'product 1', :product_category => @product_category, :enterprise_id => @profile.id)
     product.available = false
     product.save!
@@ -703,6 +704,7 @@ class ProductTest < ActiveSupport::TestCase
   end
 
   should 'boost search results created updated recently' do
+    TestSolr.enable
     product = Product.create!(:name => 'product 1', :product_category => @product_category, :enterprise_id => @profile.id)
     product.update_attribute :created_at, Time.now - 10.day
     product2 = Product.create!(:name => 'product 2', :product_category => @product_category, :enterprise_id => @profile.id)
@@ -711,6 +713,7 @@ class ProductTest < ActiveSupport::TestCase
   end
 
   should 'boost search results with description' do
+    TestSolr.enable
     product = Product.create!(:name => 'product 1', :product_category => @product_category, :enterprise_id => @profile.id,
                               :description => '')
     product2 = Product.create!(:name => 'product 2', :product_category => @product_category, :enterprise_id => @profile.id,
@@ -720,6 +723,7 @@ class ProductTest < ActiveSupport::TestCase
   end
 
   should 'boost if enterprise is enabled' do
+    TestSolr.enable
     ent = Enterprise.create!(:name => 'ent', :identifier => 'ent', :enabled => false)
     product = Product.create!(:name => 'product 1', :product_category => @product_category, :enterprise_id => ent.id)
     product2 = Product.create!(:name => 'product 2', :product_category => @product_category, :enterprise_id => @profile.id)
@@ -728,6 +732,7 @@ class ProductTest < ActiveSupport::TestCase
   end
 
   should 'combine different boost types' do
+    TestSolr.enable
     product = Product.create!(:name => 'product', :product_category => @product_category,	:enterprise_id => @profile.id)
     image_only = Product.create!(:name => 'product with image', :product_category => @product_category,
                                  :image_builder => { :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')},
@@ -749,6 +754,10 @@ class ProductTest < ActiveSupport::TestCase
     prod1 = Product.create!(:name => 'Damaged LP', :enterprise_id => @profile.id, :product_category_id => @product_category.id)
     prod2 = Product.create!(:name => 'Damaged CD', :enterprise_id => @profile.id, :product_category_id => @product_category.id)
     prod3 = Product.create!(:name => 'Damaged DVD', :enterprise_id => @profile.id, :product_category_id => @product_category.id)
+
+    prod1.update_attribute :created_at, Time.now-2.days
+    prod2.update_attribute :created_at, Time.now-1.days
+    prod3.update_attribute :created_at, Time.now
 
     assert_equal [prod3, prod2, prod1], Product.more_recent
   end

@@ -41,7 +41,7 @@ ActiveRecord::Schema.define(:version => 20120411132751) do
   end
 
   add_index "action_tracker_notifications", ["action_tracker_id"], :name => "index_action_tracker_notifications_on_action_tracker_id"
-  add_index "action_tracker_notifications", ["profile_id", "action_tracker_id"], :name => "index_action_tracker_notifications_on_profile_id_and_action_tra", :unique => true
+  add_index "action_tracker_notifications", ["profile_id", "action_tracker_id"], :name => "index_action_tracker_notif_on_prof_id_act_tracker_id", :unique => true
   add_index "action_tracker_notifications", ["profile_id"], :name => "index_action_tracker_notifications_on_profile_id"
 
   create_table "article_versions", :force => true do |t|
@@ -159,37 +159,7 @@ ActiveRecord::Schema.define(:version => 20120411132751) do
     t.integer "position"
   end
 
-  add_index "boxes", ["owner_type", "owner_id"], :name => "index_boxes_on_owner_type_and_owner_id"
-
-  create_table "bsc_plugin_contracts", :force => true do |t|
-    t.string   "client_name"
-    t.integer  "client_type"
-    t.integer  "business_type"
-    t.string   "state"
-    t.string   "city"
-    t.integer  "status",              :default => 0
-    t.integer  "number_of_producers", :default => 0
-    t.datetime "supply_start"
-    t.datetime "supply_end"
-    t.text     "annotations"
-    t.integer  "bsc_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "bsc_plugin_contracts_enterprises", :id => false, :force => true do |t|
-    t.integer "contract_id"
-    t.integer "enterprise_id"
-  end
-
-  create_table "bsc_plugin_sales", :force => true do |t|
-    t.integer  "product_id",  :null => false
-    t.integer  "contract_id", :null => false
-    t.integer  "quantity",    :null => false
-    t.decimal  "price"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
+  add_index "boxes", ["owner_id", "owner_type"], :name => "index_boxes_on_owner_type_and_owner_id"
 
   create_table "categories", :force => true do |t|
     t.string  "name"
@@ -283,7 +253,6 @@ ActiveRecord::Schema.define(:version => 20120411132751) do
     t.text     "terms_of_use_acceptance_text"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.text     "send_email_plugin_allow_to"
     t.integer  "reports_lower_bound",          :default => 0,         :null => false
   end
 
@@ -361,28 +330,6 @@ ActiveRecord::Schema.define(:version => 20120411132751) do
     t.datetime "updated_at"
   end
 
-  create_table "mezuro_plugin_metrics", :force => true do |t|
-    t.string   "name"
-    t.float    "value"
-    t.integer  "metricable_id"
-    t.string   "metricable_type"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "mezuro_plugin_projects", :force => true do |t|
-    t.string   "name"
-    t.string   "identifier"
-    t.string   "personal_webpage"
-    t.text     "description"
-    t.string   "repository_url"
-    t.string   "svn_error"
-    t.boolean  "with_tab"
-    t.integer  "profile_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "national_region_types", :force => true do |t|
     t.string "name"
   end
@@ -450,7 +397,7 @@ ActiveRecord::Schema.define(:version => 20120411132751) do
     t.string   "type"
     t.string   "identifier"
     t.integer  "environment_id"
-    t.boolean  "active",                                     :default => true
+    t.boolean  "active",                             :default => true
     t.string   "address"
     t.string   "contact_phone"
     t.integer  "home_page_id"
@@ -461,23 +408,18 @@ ActiveRecord::Schema.define(:version => 20120411132751) do
     t.float    "lat"
     t.float    "lng"
     t.integer  "geocode_precision"
-    t.boolean  "enabled",                                    :default => true
-    t.string   "nickname",                     :limit => 16
+    t.boolean  "enabled",                            :default => true
+    t.string   "nickname",             :limit => 16
     t.text     "custom_header"
     t.text     "custom_footer"
     t.string   "theme"
-    t.boolean  "public_profile",                             :default => true
+    t.boolean  "public_profile",                     :default => true
     t.date     "birth_date"
     t.integer  "preferred_domain_id"
     t.datetime "updated_at"
-    t.boolean  "visible",                                    :default => true
+    t.boolean  "visible",                            :default => true
     t.integer  "image_id"
-    t.integer  "bsc_id"
-    t.string   "company_name"
-    t.boolean  "shopping_cart",                              :default => true
-    t.boolean  "shopping_cart_delivery",                     :default => false
-    t.decimal  "shopping_cart_delivery_price",               :default => 0.0
-    t.boolean  "validated",                                  :default => true
+    t.boolean  "validated",                          :default => true
     t.string   "cnpj"
     t.string   "national_region_code"
   end
@@ -527,9 +469,9 @@ ActiveRecord::Schema.define(:version => 20120411132751) do
 
   create_table "roles", :force => true do |t|
     t.string  "name"
-    t.text    "permissions"
     t.string  "key"
     t.boolean "system",         :default => false
+    t.text    "permissions"
     t.integer "environment_id"
   end
 
@@ -538,15 +480,6 @@ ActiveRecord::Schema.define(:version => 20120411132751) do
     t.integer  "sender_id"
     t.integer  "receiver_id"
     t.integer  "scrap_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "shopping_cart_plugin_purchase_orders", :force => true do |t|
-    t.integer  "customer_id"
-    t.integer  "seller_id"
-    t.text     "data"
-    t.integer  "status"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -578,7 +511,6 @@ ActiveRecord::Schema.define(:version => 20120411132751) do
     t.datetime "created_at"
     t.string   "target_type"
     t.integer  "image_id"
-    t.integer  "bsc_id"
   end
 
   create_table "thumbnails", :force => true do |t|

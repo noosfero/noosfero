@@ -148,8 +148,6 @@ class ArticleTest < ActiveSupport::TestCase
   should 'search for recent documents' do
     other_profile = create_user('otherpropfile').person
 
-    Article.destroy_all
-
     first = fast_create(TextArticle, :profile_id => profile.id, :name => 'first')
     second = fast_create(TextArticle, :profile_id => profile.id, :name => 'second')
     third = fast_create(TextArticle, :profile_id => profile.id, :name => 'third')
@@ -365,6 +363,7 @@ class ArticleTest < ActiveSupport::TestCase
   end
 
   should 'index comments title together with article' do
+    TestSolr.enable
     owner = create_user('testuser').person
     art = owner.articles.build(:name => 'ytest'); art.save!
     c1 = art.comments.build(:title => 'a nice comment', :body => 'anything', :author => owner); c1.save!
@@ -373,6 +372,7 @@ class ArticleTest < ActiveSupport::TestCase
   end
 
   should 'index comments body together with article' do
+    TestSolr.enable
     owner = create_user('testuser').person
     art = owner.articles.build(:name => 'ytest'); art.save!
     c1 = art.comments.build(:title => 'test comment', :body => 'anything', :author => owner); c1.save!
@@ -1525,6 +1525,7 @@ class ArticleTest < ActiveSupport::TestCase
   end
 
   should 'index by schema name when database is postgresql' do
+    TestSolr.enable
     uses_postgresql 'schema_one'
     art1 = Article.create!(:name => 'some thing', :profile_id => @profile.id)
     assert_equal [art1], Article.find_by_contents('thing')[:results].docs
@@ -1539,6 +1540,7 @@ class ArticleTest < ActiveSupport::TestCase
   end
 
   should 'not index by schema name when database is not postgresql' do
+    TestSolr.enable
     uses_sqlite
     art1 = Article.create!(:name => 'some thing', :profile_id => @profile.id)
     assert_equal [art1], Article.find_by_contents('thing')[:results].docs
@@ -1690,6 +1692,7 @@ class ArticleTest < ActiveSupport::TestCase
   end
 
   should 'act as searchable' do
+    TestSolr.enable
     person = fast_create(Person, :name => "Hiro", :address => 'U-Stor-It @ Inglewood, California',
                          :nickname => 'Protagonist')
     person2 = fast_create(Person, :name => "Raven")
@@ -1726,6 +1729,7 @@ class ArticleTest < ActiveSupport::TestCase
   end
 
   should 'boost name matches' do
+    TestSolr.enable
     person = fast_create(Person)
     in_body = Article.create!(:name => 'something', :profile_id => person.id, :body => 'bananas in the body!')
     in_name = Article.create!(:name => 'bananas in the name!', :profile_id => person.id)
@@ -1733,6 +1737,7 @@ class ArticleTest < ActiveSupport::TestCase
   end
 
   should 'boost if profile is enabled' do
+    TestSolr.enable
     person2 = fast_create(Person, :enabled => false)
     art_profile_disabled = Article.create!(:name => 'profile disabled', :profile_id => person2.id)
     person1 = fast_create(Person, :enabled => true)
@@ -1749,6 +1754,7 @@ class ArticleTest < ActiveSupport::TestCase
   end
 
   should 'show more popular articles' do
+    Article.destroy_all
     art1 = Article.create!(:name => 'article 1', :profile_id => fast_create(Person).id)
     art2 = Article.create!(:name => 'article 2', :profile_id => fast_create(Person).id)
     art3 = Article.create!(:name => 'article 3', :profile_id => fast_create(Person).id)
@@ -1760,30 +1766,19 @@ class ArticleTest < ActiveSupport::TestCase
     assert_equal [art3, art1, art2], Article.more_popular
   end
 
-  should 'return more commented with pagination' do
-    art1 = Article.create!(:name => 'article 1', :profile_id => fast_create(Person).id)
-    art2 = Article.create!(:name => 'article 2', :profile_id => fast_create(Person).id)
-    art3 = Article.create!(:name => 'article 3', :profile_id => fast_create(Person).id)
-
-    art1.comments_count = 56; art1.save!
-    art3.comments_count = 92; art3.save!
-    art2.comments_count = 3; art2.save!
-
-    assert_equal [art3, art1], Article.most_commented(2)
-  end
-
   should 'show if article is public' do
     art1 = Article.create!(:name => 'article 1', :profile_id => fast_create(Person).id)
-    art2 = Article.create!(:name => 'article 2', :profile_id => fast_create(Person).id)
-    art2.advertise = false; art2.save!
-    art3 = Article.create!(:name => 'article 3', :profile_id => fast_create(Person).id)
-    art3.published = false; art3.save!
-    art4 = Article.create!(:name => 'article 4', :profile_id => fast_create(Person).id)
-    art4.profile.visible = false; art4.save!
-    art5 = Article.create!(:name => 'article 5', :profile_id => fast_create(Person).id)
-    art5.profile.public_profile = false; art5.save!
+    art2 = Article.create!(:name => 'article 2', :profile_id => fast_create(Person).id, :advertise => false)
+    art3 = Article.create!(:name => 'article 3', :profile_id => fast_create(Person).id, :published => false)
+    art4 = Article.create!(:name => 'article 4', :profile_id => fast_create(Person, :visible => false).id)
+    art5 = Article.create!(:name => 'article 5', :profile_id => fast_create(Person, :public_profile => false).id)
 
-    assert_equal [art1], Article.public
+    articles = Article.public
+    assert_includes articles, art1
+    assert_not_includes articles, art2
+    assert_not_includes articles, art3
+    assert_not_includes articles, art4
+    assert_not_includes articles, art5
   end
 
 end

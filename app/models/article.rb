@@ -109,6 +109,8 @@ class Article < ActiveRecord::Base
       pending_categorizations << c
     else
       ArticleCategorization.add_category_to_article(c, self)
+      self.categories(true)
+      self.solr_save
     end
 		self.categories(reload)
   end
@@ -151,7 +153,8 @@ class Article < ActiveRecord::Base
   }
 
   named_scope :public,
-    :conditions => [ "advertise = ? AND published = ? AND profiles.visible = ? AND profiles.public_profile = ?", true, true, true, true ]
+    :conditions => [ "advertise = ? AND published = ? AND profiles.visible = ? AND profiles.public_profile = ?", true, true, true, true ],
+    :include => [:profile]
 
   named_scope :more_recent,
     :conditions => [ "advertise = ? AND published = ? AND profiles.visible = ? AND profiles.public_profile = ? AND

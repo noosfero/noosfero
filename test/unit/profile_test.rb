@@ -4,7 +4,7 @@ class ProfileTest < ActiveSupport::TestCase
   fixtures :profiles, :environments, :users, :roles, :domains
 
   def setup
-    ActiveSupport::TestCase::setup
+    super
   end
 
   def test_identifier_validation
@@ -102,6 +102,7 @@ class ProfileTest < ActiveSupport::TestCase
   end
 
   def test_find_by_contents
+    TestSolr.enable
     p = create(Profile, :name => 'wanted')
 
     assert Profile.find_by_contents('wanted')[:results].include?(p)
@@ -194,6 +195,7 @@ class ProfileTest < ActiveSupport::TestCase
 
   # This problem should be solved; talk to Bráulio if it fails
   should 'be able to find profiles by their names' do
+    TestSolr.enable
     small = create(Profile, :name => 'A small profile for testing')
     big = create(Profile, :name => 'A big profile for testing')
 
@@ -441,6 +443,7 @@ class ProfileTest < ActiveSupport::TestCase
   end
 
   should 'search with latitude and longitude' do
+    TestSolr.enable
     e = fast_create(Enterprise, {:lat => 45, :lng => 45}, :search => true)
 
     assert_includes Enterprise.find_by_contents('', {}, {:radius => 2, :latitude => 45, :longitude => 45})[:results].docs, e    
@@ -521,18 +524,21 @@ class ProfileTest < ActiveSupport::TestCase
   # content to be added to the index. The block returns "sample indexed text"
   # see test/mocks/test/testing_extra_data_for_index.rb
   should 'actually index by results of extra_data_for_index' do
+    TestSolr.enable
     profile = TestingExtraDataForIndex.create!(:name => 'testprofile', :identifier => 'testprofile')
 
     assert_includes TestingExtraDataForIndex.find_by_contents('sample')[:results], profile
   end
 
   should 'index profile identifier for searching' do
+    TestSolr.enable
     Profile.destroy_all
     p = create(Profile, :identifier => 'lalala')
     assert_includes Profile.find_by_contents('lalala')[:results], p
   end
 
   should 'index profile name for searching' do
+    TestSolr.enable
     p = create(Profile, :name => 'Interesting Profile')
     assert_includes Profile.find_by_contents('interesting')[:results], p
   end
@@ -1204,10 +1210,9 @@ class ProfileTest < ActiveSupport::TestCase
     env = fast_create(Environment)
 
     p1 = fast_create(Profile, :identifier => 'mytestprofile', :environment_id => env.id)
-
     p2 = Profile.new(:identifier => 'mytestprofile', :environment => env)
-    assert !p2.valid?
 
+    assert !p2.valid?
     assert p2.errors.on(:identifier)
     assert_equal p1.environment, p2.environment
   end
@@ -1683,6 +1688,7 @@ class ProfileTest < ActiveSupport::TestCase
   end
 
   should 'index by schema name when database is postgresql' do
+    TestSolr.enable
     uses_postgresql 'schema_one'
     p1 = Profile.create!(:name => 'some thing', :identifier => 'some-thing')
     assert_equal [p1], Profile.find_by_contents('thing')[:results].docs
@@ -1697,6 +1703,7 @@ class ProfileTest < ActiveSupport::TestCase
   end
 
   should 'not index by schema name when database is not postgresql' do
+    TestSolr.enable
     uses_sqlite
     p1 = Profile.create!(:name => 'some thing', :identifier => 'some-thing')
     assert_equal [p1], Profile.find_by_contents('thing')[:results].docs
@@ -1803,15 +1810,13 @@ class ProfileTest < ActiveSupport::TestCase
   end
 
   should 'act as searchable' do
+    TestSolr.enable
     st = create(State, :name => 'California', :acronym => 'CA', :environment_id => Environment.default.id)
     city = create(City, :name => 'Inglewood', :parent_id => st.id, :environment_id => Environment.default.id)
     p = create(Person, :name => "Hiro", :address => 'U-Stor-It', :nickname => 'Protagonist',
                :user_id => fast_create(User).id, :region_id => city.id)
     cat = create(Category, :name => "Science Fiction", :acronym => "sf", :abbreviation => "sci-fi")
     p.add_category cat
-    cat.profiles.reload
-    cat.save!
-    p.save!
 
     # fields
     assert_includes Profile.find_by_contents('Hiro')[:results].docs, p
@@ -1828,6 +1833,7 @@ class ProfileTest < ActiveSupport::TestCase
   end
 
   should 'boost name matches' do
+    TestSolr.enable
     in_addr = create(Person, :name => 'something', :address => 'bananas in the address!', :user_id => fast_create(User).id)
     in_name = create(Person, :name => 'bananas in the name!', :user_id => fast_create(User).id)
     assert_equal [in_name, in_addr], Person.find_by_contents('bananas')[:results].docs

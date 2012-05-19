@@ -11,8 +11,7 @@ class ProfileSearchController < PublicController
       if params[:where] == 'environment'
         redirect_to :controller => 'search', :query => @q
       else
-        @results = Article.find_by_contents(@q, {:per_page => 10, :page => params[:page]},
-                                            {:filter_queries => ["profile_id:#{profile.id}", 'public:true']})[:results]
+        @results = profile.articles.published.find_by_contents(@q, {:per_page => 10, :page => params[:page]})[:results]
       end
     end
   end

@@ -54,7 +54,7 @@ class SearchController < PublicController
       sql_options = {:limit => LIST_SEARCH_LIMIT, :order => 'random()'}
       if @geosearch
         full_text_search ['public:true', "{!geofilt}"], :sql_options => sql_options, :extra_limit => extra_limit,
-          :alternate_query => "{!boost b=recip(geodist(),#{1/DistBoost},1,1)}",
+          :alternate_query => "{!boost b=recip(geodist(),#{"%e" % (1.to_f/DistBoost)},1,1)}",
           :radius => DistFilt, :latitude => current_user.person.lat, :longitude => current_user.person.lng
       else
         full_text_search ['public:true'], :sql_options => sql_options, :extra_limit => extra_limit,

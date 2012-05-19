@@ -236,6 +236,8 @@ class Profile < ActiveRecord::Base
       pending_categorizations << c
     else
       ProfileCategorization.add_category_to_profile(c, self)
+      self.categories(true)
+      self.solr_save
     end
 		self.categories(reload)
   end
@@ -853,7 +855,7 @@ private :generate_url, :url_options
     c.name if c.top_ancestor.id == facet[:label_id].to_i or facet[:label_id] == 0
   end
   def f_categories
-    category_ids
+    category_ids - [region_id]
   end
   def f_region
     self.region_id

@@ -17,6 +17,7 @@ require 'noosfero/test'
 require File.dirname(__FILE__) + '/factories'
 require File.dirname(__FILE__) + '/noosfero_doc_test'
 require File.dirname(__FILE__) + '/action_tracker_test_helper'
+require File.expand_path(File.dirname(__FILE__) + "/test_solr_helper.rb")
 
 FileUtils.rm_rf(File.join(RAILS_ROOT, 'index', 'test'))
 
@@ -59,11 +60,14 @@ class ActiveSupport::TestCase
 
   fixtures :environments, :roles
 
-  def self.setup
-    # clean up index db before each test
-    ActsAsSolr::Post.execute(Solr::Request::Delete.new(:query => '*:*'))
+  def setup
+    TestSolr.disable
   end
-  
+
+  def teardown
+    TestSolr.disable
+  end
+
   def self.all_fixtures
     Dir.glob(File.join(RAILS_ROOT, 'test', 'fixtures', '*.yml')).each do |item|
       fixtures File.basename(item).sub(/\.yml$/, '').to_s

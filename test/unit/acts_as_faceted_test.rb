@@ -10,8 +10,6 @@ class TestModel < ActiveRecord::Base
       'Event' => "Event",
       'EnterpriseHomepage' => "Homepage",
       'Gallery' => "Gallery",
-      'Blog' => "Blog",
-      'Forum' => "Forum"
     }
     h[klass]
   end
@@ -26,7 +24,7 @@ class ActsAsFacetedTest < ActiveSupport::TestCase
   def setup
     @facets = {
       "facet_fields"=> {
-        "f_type_facet"=>{"TextArticle"=>15, "Blog"=>3, "Folder"=>3, "Forum"=>1, "UploadedFile"=>6, "Gallery"=>1},
+        "f_type_facet"=>{"TextArticle"=>15, "Folder"=>3, "UploadedFile"=>6, "Gallery"=>1},
       }, "facet_ranges"=>{}, "facet_dates"=>{},
       "facet_queries"=>{"f_published_at_d:[* TO NOW-1YEARS/DAY]"=>10, "f_published_at_d:[NOW-1YEARS TO NOW/DAY]"=>19}
     }
@@ -85,7 +83,7 @@ class ActsAsFacetedTest < ActiveSupport::TestCase
 
     f = facets.select{ |f| f[:id] == 'f_type' }.first
     r = TestModel.map_facet_results f, @facet_params, @facets, @all_facets, {}
-    assert_equivalent [["TextArticle", 'Text', 15], ["Blog", "Blog", 3], ["Folder", "Folder", 3], ["Forum", "Forum", 1], ["UploadedFile", "Uploaded File", 6], ["Gallery", "Gallery", 1]], r
+    assert_equivalent [["TextArticle", 'Text', 15], ["Folder", "Folder", 3], ["UploadedFile", "Uploaded File", 6], ["Gallery", "Gallery", 1]], r
 
     f = facets.select{ |f| f[:id] == 'f_published_at' }.first
     r = TestModel.map_facet_results f, @facet_params, @facets, @all_facets, {}
@@ -132,7 +130,7 @@ class ActsAsFacetedTest < ActiveSupport::TestCase
   should 'return facet options hash in acts_as_solr format' do
     options = TestModel.facets_find_options()[:facets]
     assert_equal [:f_type], options[:fields]
-    assert_equal ["f_published_at:[NOW-1YEARS TO NOW/DAY]", "f_published_at:[* TO NOW-1YEARS/DAY]"], options[:query]
+    assert_equivalent ["f_published_at:[NOW-1YEARS TO NOW/DAY]", "f_published_at:[* TO NOW-1YEARS/DAY]"], options[:query]
   end
 
   should 'return browse options hash in acts_as_solr format' do
@@ -148,7 +146,8 @@ class ActsAsFacetedTest < ActiveSupport::TestCase
     facet = facets.select{ |f| f[:id] == 'f_type' }.first
     facet_data = TestModel.map_facet_results facet, @facet_params, @facets, @all_facets, {}
     sorted = TestModel.facet_result_sort(facet, facet_data, :alphabetically) 
-    assert_equal [["Blog", "Blog", 3], ["Folder", "Folder", 3], ["Forum", "Forum", 1], ["Gallery", "Gallery", 1], ["TextArticle", 'Text', 15], ["UploadedFile", "Uploaded File", 6]], sorted
+    assert_equal sorted,
+      [["Folder", "Folder", 3], ["Gallery", "Gallery", 1], ["TextArticle", 'Text', 15], ["UploadedFile", "Uploaded File", 6]]
   end
 
   should 'sort facet results by count' do
@@ -156,6 +155,7 @@ class ActsAsFacetedTest < ActiveSupport::TestCase
     facet = facets.select{ |f| f[:id] == 'f_type' }.first
     facet_data = TestModel.map_facet_results facet, @facet_params, @facets, @all_facets, {}
     sorted = TestModel.facet_result_sort(facet, facet_data, :count) 
-    assert_equal [["TextArticle", 'Text', 15], ["UploadedFile", "Uploaded File", 6], ["Blog", "Blog", 3], ["Folder", "Folder", 3], ["Forum", "Forum", 1], ["Gallery", "Gallery", 1]], sorted
+    assert_equal sorted,
+      [["TextArticle", "Text", 15], ["UploadedFile", "Uploaded File", 6], ["Folder", "Folder", 3], ["Gallery", "Gallery", 1]]
   end
 end

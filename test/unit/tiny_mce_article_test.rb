@@ -3,8 +3,7 @@ require File.dirname(__FILE__) + '/../test_helper'
 class TinyMceArticleTest < ActiveSupport::TestCase
 
   def setup
-    ActiveSupport::TestCase::setup
-    Article.rebuild_solr_index
+    super
     @profile = create_user('zezinho').person
   end
   attr_reader :profile
@@ -23,6 +22,7 @@ class TinyMceArticleTest < ActiveSupport::TestCase
   end
 
   should 'be found when searching for articles by query' do
+    TestSolr.enable
     tma = TinyMceArticle.create!(:name => 'test tinymce article', :body => '---', :profile => profile)
     assert_includes TinyMceArticle.find_by_contents('article')[:results], tma
     assert_includes Article.find_by_contents('article')[:results], tma

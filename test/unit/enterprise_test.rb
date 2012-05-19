@@ -4,7 +4,7 @@ class EnterpriseTest < ActiveSupport::TestCase
   fixtures :profiles, :environments, :users
 
   def setup
-    ActiveSupport::TestCase::setup
+    super
     @product_category = fast_create(ProductCategory, :name => 'Products')
   end
 
@@ -86,6 +86,7 @@ class EnterpriseTest < ActiveSupport::TestCase
   end
 
   should 'be found in search for its product categories' do
+    TestSolr.enable
     ent1 = fast_create(Enterprise, :name => 'test1', :identifier => 'test1')
     prod_cat = fast_create(ProductCategory, :name => 'pctest', :environment_id => Environment.default.id)
     prod = ent1.products.create!(:name => 'teste', :product_category => prod_cat)
@@ -99,6 +100,7 @@ class EnterpriseTest < ActiveSupport::TestCase
   end
 
   should 'be found in search for its product categories hierarchy' do
+    TestSolr.enable
     ent1 = fast_create(Enterprise, :name => 'test1', :identifier => 'test1')
     prod_cat = fast_create(ProductCategory, :name => 'pctest', :environment_id => Environment.default.id)
     prod_child = fast_create(ProductCategory, :name => 'pchild', :environment_id => Environment.default.id, :parent_id => prod_cat.id)

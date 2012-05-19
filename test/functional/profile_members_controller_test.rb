@@ -6,7 +6,7 @@ class ProfileMembersController; def rescue_action(e) raise e end; end
 
 class ProfileMembersControllerTest < ActionController::TestCase
   def setup
-    ActiveSupport::TestCase::setup
+    super
     @controller = ProfileMembersController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new

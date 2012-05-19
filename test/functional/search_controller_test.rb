@@ -5,8 +5,10 @@ require 'search_controller'
 class SearchController; def rescue_action(e) raise e end; end
 
 class SearchControllerTest < ActionController::TestCase
+
   def setup
-    ActiveSupport::TestCase::setup
+    super
+    TestSolr.enable
     @controller = SearchController.new
     @request    = ActionController::TestRequest.new
     @request.stubs(:ssl?).returns(false)
@@ -138,18 +140,18 @@ class SearchControllerTest < ActionController::TestCase
   should 'get facets with people search results' do
 		state = fast_create(State, :name => 'Acre', :acronym => 'AC')
 		city = fast_create(City, :name => 'Rio Branco', :parent_id => state.id)
-		person = Person.create!(:name => 'Hildebrando', :identifier => 'hild', :user_id => fast_create(User).id)
-		person.region = city
+		person = Person.create!(:name => 'Hildebrando', :identifier => 'hild', :user_id => fast_create(User).id, :region_id => city.id)
 		cat1 = fast_create(Category, :name => 'cat1')
 		cat2 = fast_create(Category, :name => 'cat2')
-		person.add_category cat1, false
-		person.add_category cat2, true
-		person.save!
+		person.add_category cat1
+		person.add_category cat2
 
     get 'people', :query => 'Hildebrando'
 
 		assert !assigns(:results)[:people].facets.blank?
 		assert assigns(:results)[:people].facets['facet_fields']['f_region_facet'][0][0] == city.id.to_s
+
+		assert assigns(:results)[:people].facets['facet_fields']['f_categories_facet'].count == 2
 		assert assigns(:results)[:people].facets['facet_fields']['f_categories_facet'][0][0] == cat1.id.to_s
 		assert assigns(:results)[:people].facets['facet_fields']['f_categories_facet'][1][0] == cat2.id.to_s
   end
@@ -499,24 +501,26 @@ class SearchControllerTest < ActionController::TestCase
 		assert_not_equal result1, result2
 	end
 
-	should 'order products by geolocalization in empty search' do
+	should 'remove far products by geolocalization empty logged search' do
     user = create_user('a_logged_user')
+    # trigger geosearch
 		user.person.lat = '1.0'
 		user.person.lng = '1.0'
-    # trigger geosearch
 		SearchController.any_instance.stubs(:logged_in?).returns(true)
 		SearchController.any_instance.stubs(:current_user).returns(user)
 	
 		cat = fast_create(ProductCategory)
-		ent1 = Enterprise.create!(:name => 'ent1', :identifier => 'ent1', :lat => '-5.0', :lng => '-5.0')
+		ent1 = Enterprise.create!(:name => 'ent1', :identifier => 'ent1', :lat => '1.3', :lng => '1.3')
     prod1 = Product.create!(:name => 'produto 1', :enterprise_id => ent1.id, :product_category_id => cat.id)
 		ent2 = Enterprise.create!(:name => 'ent2', :identifier => 'ent2', :lat => '2.0', :lng => '2.0')
     prod2 = Product.create!(:name => 'produto 2', :enterprise_id => ent2.id, :product_category_id => cat.id)
-		ent3 = Enterprise.create!(:name => 'ent3', :identifier => 'ent3', :lat => '10.0', :lng => '10.0')
+		ent3 = Enterprise.create!(:name => 'ent3', :identifier => 'ent3', :lat => '1.6', :lng => '1.6')
     prod3 = Product.create!(:name => 'produto 3', :enterprise_id => ent3.id, :product_category_id => cat.id)
+		ent4 = Enterprise.create!(:name => 'ent4', :identifier => 'ent4', :lat => '10', :lng => '10')
+    prod4 = Product.create!(:name => 'produto 4', :enterprise_id => ent4.id, :product_category_id => cat.id)
 
 		get :products
-		assert_equal [prod2, prod1, prod3], assigns(:results)[:products].docs
+		assert_equivalent [prod1, prod3, prod2], assigns(:results)[:products].docs
 	end
 
   should 'display properly in conjuntion with a category' do

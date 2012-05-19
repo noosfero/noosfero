@@ -2,10 +2,6 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class EventTest < ActiveSupport::TestCase
 
-  def setup
-    ActiveSupport::TestCase::setup
-  end
-
   should 'be an article' do
     assert_kind_of Article, Event.new
   end
@@ -61,12 +57,14 @@ class EventTest < ActiveSupport::TestCase
   end
 
   should 'be indexed by title' do
+    TestSolr.enable
     profile = create_user('testuser').person
     e = Event.create!(:name => 'my surprisingly nice event', :start_date => Date.new(2008, 06, 06), :profile => profile)
     assert_includes Event.find_by_contents('surprisingly')[:results], e
   end
 
   should 'be indexed by body' do
+    TestSolr.enable
     profile = create_user('testuser').person
     e = Event.create!(:name => 'bli', :start_date => Date.new(2008, 06, 06), :profile => profile, :body => 'my surprisingly long description about my freaking nice event')
     assert_includes Event.find_by_contents('surprisingly')[:results], e

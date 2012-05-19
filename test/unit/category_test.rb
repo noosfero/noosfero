@@ -514,6 +514,7 @@ class CategoryTest < ActiveSupport::TestCase
   end
 
   should 'act as searchable' do
+    TestSolr.enable
     parent = fast_create(Category, :name => 'books')
     c = Category.create!(:name => "science fiction", :acronym => "sf", :abbreviation => "sci-fi",
                          :environment_id => Environment.default.id, :parent_id => parent.id)
@@ -528,6 +529,7 @@ class CategoryTest < ActiveSupport::TestCase
   end
 
   should 'boost name matches' do
+    TestSolr.enable
     c_abbr = Category.create!(:name => "something else", :abbreviation => "science", :environment_id => Environment.default.id)
     c_name = Category.create!(:name => "science fiction", :environment_id => Environment.default.id)
     assert_equal [c_name, c_abbr], Category.find_by_contents("science")[:results].docs
@@ -542,8 +544,12 @@ class CategoryTest < ActiveSupport::TestCase
   should 'reindex articles after saving' do
     cat = Category.create!(:name => 'category 1', :environment_id => Environment.default.id)
     art = Article.create!(:name => 'something', :profile_id => fast_create(Person).id)
-    Category.expects(:solr_batch_add).with(includes(art))
     art.add_category cat
+    cat.reload
+
+    solr_doc = art.to_solr_doc
+    Article.any_instance.expects(:to_solr_doc).returns(solr_doc)
     cat.save!
   end
+
 end

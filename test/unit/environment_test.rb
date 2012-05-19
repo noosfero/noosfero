@@ -3,11 +3,6 @@ require File.dirname(__FILE__) + '/../test_helper'
 class EnvironmentTest < ActiveSupport::TestCase
   fixtures :environments
 
-  def setup
-    ActiveSupport::TestCase::setup
-    Article.rebuild_index
-  end
-
   def test_exists_default_and_it_is_unique
     Environment.delete_all
     vc = Environment.new(:name => 'Test Community')
@@ -447,6 +442,7 @@ class EnvironmentTest < ActiveSupport::TestCase
   end
 
   should 'find by contents from articles' do
+    TestSolr.enable
     environment = fast_create(Environment)
     assert_nothing_raised do
       environment.articles.find_by_contents('')[:results]
@@ -550,6 +546,7 @@ class EnvironmentTest < ActiveSupport::TestCase
   end
 
   should 'return more than 10 enterprises by contents' do
+    TestSolr.enable
     env = Environment.default
     Enterprise.destroy_all
     ('1'..'20').each do |n|
