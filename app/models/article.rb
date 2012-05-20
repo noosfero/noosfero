@@ -152,9 +152,10 @@ class Article < ActiveRecord::Base
     {:conditions => [ 'parent_id is null and profile_id = ?', profile.id ]}
   }
 
+  named_scope :join_profile, :joins => [:profile]
+
   named_scope :public,
-    :conditions => [ "advertise = ? AND published = ? AND profiles.visible = ? AND profiles.public_profile = ?", true, true, true, true ],
-    :include => [:profile]
+    :conditions => [ "advertise = ? AND published = ? AND profiles.visible = ? AND profiles.public_profile = ?", true, true, true, true ]
 
   named_scope :more_recent,
     :conditions => [ "advertise = ? AND published = ? AND profiles.visible = ? AND profiles.public_profile = ? AND
