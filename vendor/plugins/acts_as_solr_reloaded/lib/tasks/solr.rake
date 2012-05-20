@@ -1,25 +1,32 @@
 namespace :solr do
 
-  SOLR_VERSION = '3.5.0'
-  APACHE_MIRROR = "http://ftp.unicamp.br/pub/apache"
+  APACHE_MIRROR = ENV['APACHE_MIRROR'] || "http://ftp.unicamp.br/pub/apache"
+  SOLR_VERSION = '3.6.0'
   SOLR_FILENAME = "apache-solr-#{SOLR_VERSION}.tgz" 
-  SOLR_DIR = "apache-solr-#{SOLR_VERSION}" 
+  SOLR_MD5SUM = 'ac11ef4408bb015aa3a5eefcb1047aec'
   SOLR_URL = "#{APACHE_MIRROR}/lucene/solr/#{SOLR_VERSION}/#{SOLR_FILENAME}" 
+  SOLR_DIR = "apache-solr-#{SOLR_VERSION}" 
 
   # change path if it is on testing environment
   PLUGIN_ROOT = File.expand_path("#{File.dirname(__FILE__)}/../..")
 
+  def solr_downloaded?
+    File.exists?("#{PLUGIN_ROOT}/solr/start.jar")
+  end
+
   desc "Download and install Solr+Jetty #{SOLR_VERSION}."
   task :download do
-    if File.exists?("#{PLUGIN_ROOT}/solr/start.jar")
-      puts 'Solr already downloaded.'
-    else
-      Dir.chdir '/tmp' do
-        sh "wget -c #{SOLR_URL}"
-        if !File.directory?("/tmp/#{SOLR_DIR}")
-          sh "tar xzf apache-solr-#{SOLR_VERSION}.tgz"
-        end
+    abort 'Solr already downloaded.' if solr_downloaded?
+
+    Dir.chdir '/tmp' do
+      sh "wget -c #{SOLR_URL}"
+
+      sh "echo \"#{SOLR_MD5SUM}  /tmp/#{SOLR_FILENAME}\" | md5sum -c -" do |ok, res|
+        abort "MD5SUM do not match" if !ok
+
+        sh "tar xzf apache-solr-#{SOLR_VERSION}.tgz"
         cd "apache-solr-#{SOLR_VERSION}/example"
+
         cp_r ['../LICENSE.txt', '../NOTICE.txt', 'README.txt', 'etc', 'lib', 'start.jar', 'webapps', 'work'], "#{PLUGIN_ROOT}/solr", :verbose => true
         cd 'solr'
         cp_r ['README.txt', 'bin', 'solr.xml'], "#{PLUGIN_ROOT}/solr/solr", :verbose => true
@@ -39,7 +46,12 @@ namespace :solr do
   end
 
   desc 'Starts Solr. Options accepted: RAILS_ENV=your_env, PORT=XX. Defaults to development if none.'
-  task :start => [:download] do
+  task :start do
+    if !solr_downloaded?
+      puts "ERROR: Can't find Solr on the source code! Please run 'rake solr:download'."
+      return
+    end
+
     require File.expand_path(File.dirname(__FILE__) + '/../../config/solr_environment')
 
     FileUtils.mkdir_p(SOLR_LOGS_PATH)
@@ -58,8 +70,9 @@ namespace :solr do
       # there's an issue with Net::HTTP.request where @socket is nil and raises a NoMethodError
       # http://redmine.ruby-lang.org/issues/show/2708
       Dir.chdir(SOLR_PATH) do
-        cmd = "java #{SOLR_JVM_OPTIONS} -Djetty.logs=\"#{SOLR_LOGS_PATH}\" -Dsolr.solr.home=\"#{SOLR_CONFIG_PATH}\" -Dsolr.data.dir=\"#{SOLR_DATA_PATH}\" -Djetty.host=\"#{SOLR_HOST}\" -Djetty.port=#{SOLR_PORT} -jar start.jar"
-        puts "Executing: " + cmd
+        cmd = "java #{SOLR_JVM_OPTIONS} -Djetty.logs=\"#{SOLR_LOGS_PATH}\" -Dsolr.solr.home=\"#{SOLR_CONFIG_PATH}\"" +
+          " -Dsolr.data.dir=\"#{SOLR_DATA_PATH}\" -Djetty.host=\"#{SOLR_HOST}\" -Djetty.port=#{SOLR_PORT} -jar start.jar"
+
         windows = RUBY_PLATFORM =~ /(win|w)32$/
         if windows
           exec cmd
@@ -70,6 +83,7 @@ namespace :solr do
             exec cmd 
           end
         end
+
         File.open(SOLR_PID_FILE, "w"){ |f| f << pid} unless windows
         puts "#{ENV['RAILS_ENV']} Solr started successfully on #{SOLR_HOST}:#{SOLR_PORT}, pid: #{pid}."
       end
@@ -153,7 +167,7 @@ namespace :solr do
     models.each do |model|
       if clear_first
         puts "Clearing index for #{model}..."
-        ActsAsSolr::Post.execute(Solr::Request::Delete.new(:query => "#{model.solr_configuration[:type_field]}:\"#{model}\""))
+        ActsAsSolr::Post.execute(Solr::Request::Delete.new(:query => "#{model.solr_configuration[:type_field]}:#{Solr::Util.query_parser_escape(model.name)}"))
         ActsAsSolr::Post.execute(Solr::Request::Commit.new)
       end
       
