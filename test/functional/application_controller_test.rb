@@ -334,6 +334,12 @@ class ApplicationControllerTest < ActionController::TestCase
     assert_tag :html, :attributes => { :lang => 'es' }
   end
 
+  should 'set Rails locale correctly' do
+    @request.env['HTTP_ACCEPT_LANGUAGE'] = 'pt-BR,pt;q=0.8,en;q=0.6,en-US;q=0.4'
+    get :index
+    assert_equal 'pt', I18n.locale.to_s
+  end
+
   should 'include stylesheets supplied by plugins' do
     class Plugin1 < Noosfero::Plugin
       def stylesheet?
@@ -436,6 +442,13 @@ class ApplicationControllerTest < ActionController::TestCase
 
     assert_tag :tag => 'script', :content => "alert('This is [[plugin1]] speaking!')"
     assert_tag :tag => 'style', :content => 'This is Plugin2 speaking!'
+  end
+
+  should 'not include jquery-validation language script if they do not exist' do
+    Noosfero.stubs(:available_locales).returns(['bli'])
+    get :index, :lang => 'bli'
+    assert_no_tag :tag => 'script', :attributes => {:src => /messages_bli/}
+    assert_no_tag :tag => 'script', :attributes => {:src => /methods_bli/}
   end
 
   if ActiveRecord::Base.connection.adapter_name == 'PostgreSQL'

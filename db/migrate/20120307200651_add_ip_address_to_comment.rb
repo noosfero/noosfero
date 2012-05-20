@@ -6,6 +6,6 @@ class AddIpAddressToComment < ActiveRecord::Migration
 
   def self.down
     remove_column :comments, :ip_address
-    remove_column :comments, :boolean
+    remove_column :comments, :spam
   end
 end

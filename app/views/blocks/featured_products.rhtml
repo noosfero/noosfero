@@ -14,7 +14,7 @@
                 <div class="featured-product-text">
                   <h3><%= p.name %></h3>
                   <p class="featured-product-price"><%= float_to_currency(p.price) %></p>
-                  <p class="featured-product-desc"><%= p.description.chars[0...50].to_s + '...' %></p>
+                  <p class="featured-product-desc"><%= truncate(p.description, 50, '...') %></p>
                   <p><%= link_to _('See More'), product_path(p), :class => 'featured-product-link' %></p>
                 </div>
               </div>

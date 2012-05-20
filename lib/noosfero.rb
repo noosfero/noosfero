@@ -2,7 +2,7 @@ require 'fast_gettext'
 
 module Noosfero
   PROJECT = 'noosfero'
-  VERSION = '0.36.2'
+  VERSION = '0.36.6'
 
   def self.pattern_for_controllers_in_directory(dir)
     disjunction = controllers_in_directory(dir).join('|')
@@ -20,7 +20,8 @@ module Noosfero
         'de' => 'Deutsch',
         'ru' => 'русский язык',
         'es' => 'Español',
-        'eo' => 'Esperanto'
+        'eo' => 'Esperanto',
+        'it' => 'Italiano'
       }
     end
     attr_writer :locales

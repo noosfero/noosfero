@@ -102,11 +102,14 @@ module NavigationHelpers
     when /^(.+)'s tag page/
       '/tag/%s' % $1
 
-      # Add more mappings here.
-      # Here is a more fancy example:
-      #
-      #   when /^(.*)'s profile page$/i
-      #     user_profile_path(User.find_by_login($1))
+    when /the user data path/
+      '/account/user_data'
+
+    # Add more mappings here.
+    # Here is a more fancy example:
+    #
+    #   when /^(.*)'s profile page$/i
+    #     user_profile_path(User.find_by_login($1))
 
     else
       raise "Can't find mapping from \"#{page_name}\" to a path.\n" +

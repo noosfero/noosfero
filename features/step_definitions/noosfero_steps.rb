@@ -697,3 +697,12 @@ Given /^the article "([^\"]*)" is updated by "([^\"]*)"$/ do |article, person|
   a.last_changed_by = p
   a.save!
 end
+
+Given /^the cache is turned (on|off)$/ do |state|
+  ActionController::Base.perform_caching = (state == 'on')
+end
+
+When /^I make a AJAX request to (.*)$/ do |page|
+  header 'X-Requested-With', 'XMLHttpRequest'
+  visit(path_to(page))
+end

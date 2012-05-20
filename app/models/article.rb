@@ -520,8 +520,8 @@ class Article < ActiveRecord::Base
   end
 
   alias :active_record_cache_key :cache_key
-  def cache_key(params = {}, the_profile = nil)
-    active_record_cache_key +
+  def cache_key(params = {}, the_profile = nil, language = 'en')
+    active_record_cache_key+'-'+language +
       (allow_post_content?(the_profile) ? "-owner" : '') +
       (params[:npage] ? "-npage-#{params[:npage]}" : '') +
       (params[:year] ? "-year-#{params[:year]}" : '') +
