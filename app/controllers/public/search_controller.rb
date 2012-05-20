@@ -45,7 +45,7 @@ class SearchController < PublicController
 
   def products
     if !@empty_query
-      full_text_search ['public:true']
+      full_text_search ['public:true', 'enabled:true']
     else
       @one_page = true
       @geosearch = logged_in? && current_user.person.lat && current_user.person.lng

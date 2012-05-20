@@ -799,18 +799,26 @@ class SearchControllerTest < ActionController::TestCase
     assert_equal [prod2, prod1, prod3], assigns(:results)[:products].docs  
   end
 
+  should 'only list products from enabled enterprises' do
+		ent1 = fast_create(Enterprise, :enabled => true)
+		ent2 = fast_create(Enterprise, :enabled => false)
+    prod1 = Product.create!(:name => 'product 1', :enterprise_id => ent1.id, :product_category_id => @product_category.id)
+    prod2 = Product.create!(:name => 'product 2', :enterprise_id => ent2.id, :product_category_id => @product_category.id)
+
+    get :products, :query => 'product'
+
+    assert_equal [prod1], assigns(:results)[:products].docs  
+  end
+
   should 'order product results by name when requested' do
 		ent = fast_create(Enterprise)
     prod1 = Product.create!(:name => 'product 1', :enterprise_id => ent.id, :product_category_id => @product_category.id)
     prod2 = Product.create!(:name => 'product 2', :enterprise_id => ent.id, :product_category_id => @product_category.id)
     prod3 = Product.create!(:name => 'product 3', :enterprise_id => ent.id, :product_category_id => @product_category.id)
 
-    prod3.name = 'product A'
-    prod3.save!
-    prod1.name = 'product B'
-    prod1.save!
-    prod2.name = 'product C'
-    prod2.save!
+    prod3.update_attribute! :name, 'product A'
+    prod2.update_attribute! :name, 'product B'
+    prod1.update_attribute! :name, 'product C'
 
     get :products, :query => 'product', :order_by => :name
 

@@ -238,7 +238,7 @@ class Product < ActiveRecord::Base
   end
 
   alias_method :name_sortable, :name
-  delegate :region, :region_id, :environment, :environment_id, :to => :enterprise
+  delegate :enabled, :region, :region_id, :environment, :environment_id, :to => :enterprise
   def name_sortable # give a different name for solr
     name
   end
@@ -278,7 +278,7 @@ class Product < ActiveRecord::Base
       {:description => :text}, {:category_full_name => :text},
       # filtered fields
       {:public => :boolean}, {:environment_id => :integer},
-      {:category_filter => :integer},
+      {:enabled => :boolean}, {:category_filter => :integer},
       # ordered/query-boosted fields
       {:price_sortable => :decimal}, {:name_sortable => :string},
       {:lat => :float}, {:lng => :float},

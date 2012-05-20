@@ -857,6 +857,7 @@ private :generate_url, :url_options
   def f_categories
     category_ids - [region_id]
   end
+
   def f_region
     self.region_id
   end
@@ -868,6 +869,14 @@ private :generate_url, :url_options
     else
       c.name
     end
+  end
+
+  def self.f_enabled_proc(enabled)
+    enabled = enabled == "true" ? true : false 
+    enabled ? _('Enabled') : _('Not enabled')
+  end
+  def f_enabled
+    self.enabled
   end
 
   def name_sortable # give a different name for solr
@@ -882,11 +891,13 @@ private :generate_url, :url_options
   public
 
   acts_as_faceted :fields => {
+      :f_enabled => {:label => _('Situation'), :type_if => proc { |klass| klass.kind_of?(Enterprise) },
+        :proc => proc { |id| f_enabled_proc(id) }},
       :f_region => {:label => _('City'), :proc => proc { |id| f_region_proc(id) }},
       :f_categories => {:multi => true, :proc => proc {|facet, id| f_categories_proc(facet, id)},
         :label => proc { |env| f_categories_label_proc(env) }, :label_abbrev => proc{ |env| f_categories_label_abbrev_proc(env) }},
     }, :category_query => proc { |c| "category_filter:#{c.id}" },
-    :order => [:f_region, :f_categories]
+    :order => [:f_region, :f_categories, :f_enabled]
 
   acts_as_searchable :fields => facets_fields_for_solr + [:extra_data_for_index,
       # searched fields
