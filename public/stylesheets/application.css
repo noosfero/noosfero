@@ -5907,7 +5907,7 @@ h1#agenda-title {
 
 .profile-activity-lead {
   width: 370px;
-  float: right;
+  display: inline-block;
   text-align: left;
   margin: 5px 0;
 }
@@ -5958,22 +5958,29 @@ h1#agenda-title {
 }
 
 #profile-wall li.profile-activity-item.upload_image span,
-#Xprofile-wall li.profile-activity-item.upload_image span img,
 #profile-wall li.profile-activity-item.upload_image span a,
 #profile-network li.profile-activity-item.upload_image span,
-#Xprofile-network li.profile-activity-item.upload_image span img,
 #profile-network li.profile-activity-item.upload_image span a {
-  width: 120px;
+  width: 110px;
   height: 100px;
   display: block;
   overflow: hidden;
   position: absolute;
 }
 
+#profile-wall li.profile-activity-item.upload_image .activity-gallery-images-count-2 span a img,
+#profile-wall li.profile-activity-item.upload_image .activity-gallery-images-count-3 span a img,
+#profile-network li.profile-activity-item.upload_image .activity-gallery-images-count-2 span a img,
+#profile-network li.profile-activity-item.upload_image .activity-gallery-images-count-3 span a img {
+  width: 110px;
+  height: 100px;
+}
+
 #profile-wall li.profile-activity-item.upload_image .activity-gallery-images-count-1 span,
 #profile-wall li.profile-activity-item.upload_image .activity-gallery-images-count-1 span a,
+#profile-wall li.profile-activity-item.upload_image .activity-gallery-images-count-1 span a img,
 #profile-network li.profile-activity-item.upload_image .activity-gallery-images-count-1 span,
-#profile-network li.profile-activity-item.upload_image .activity-gallery-images-count-1 span a {
+#profile-network li.profile-activity-item.upload_image .activity-gallery-images-count-1 span a img {
   width: 383px;
   height: auto;
 }
@@ -5986,19 +5993,27 @@ h1#agenda-title {
 #profile-wall li.profile-activity-item.upload_image span,
 #profile-network li.profile-activity-item.upload_image span {
   position: relative;
-  float: left;
+  display: inline-block;
   margin: 5px 0px 0px 5px;
+}
+
+#profile-wall li.profile-activity-item.upload_image .profile-activity-text span,
+#profile-network li.profile-activity-item.upload_image .profile-activity-text span {
+  border: 4px solid #D2D2D2;
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
 }
 
 #profile-wall li.profile-activity-item.upload_image span a,
 #profile-network li.profile-activity-item.upload_image span a {
-  background: transparent url(/images/gallery-image-activity-border.png) center center no-repeat;
+  Xbackground: transparent url(/images/gallery-image-activity-border.png) center center no-repeat;
   text-indent: -5000em;
 }
 
 #profile-wall li.profile-activity-item.upload_image .activity-gallery-images-count-1 span a,
 #profile-network li.profile-activity-item.upload_image .activity-gallery-images-count-1 span a {
-  background-image: url(/images/gallery-image-activity-border-big.png);
+  Xbackground-image: url(/images/gallery-image-activity-border-big.png);
   position: relative;
 }
 
@@ -6044,8 +6059,8 @@ h1#agenda-title {
   height: 16px;
   display: inline-block;
   position: absolute;
-  top: -4px;
-  right: -16px;
+  top: 0px;
+  right: 0px;
 }
 
 #profile-activity .profile-wall-scrap-replies li,
@@ -6108,7 +6123,7 @@ h1#agenda-title {
   padding-top: 0;
 }
 
-#profile_activities .profile-activity-time,
+.profile-activities .profile-activity-time,
 #profile-network .profile-activity-time,
 #profile-wall .profile-wall-time {
   font-size: 11px;
@@ -6118,7 +6133,7 @@ h1#agenda-title {
 }
 
 #profile-wall .profile-wall-send-reply,
-#profile_activities .profile-activity-time,
+.profile-activities .profile-activity-time,
 #profile-network .profile-activity-time,
 #profile-wall .profile-wall-time,
 .profile-wall-actions a {
@@ -6139,7 +6154,8 @@ h1#agenda-title {
   font-weight: normal;
 }
 
-.profile-wall-actions a:hover,
+#profile-wall li .profile-wall-actions a:hover,
+#profile-network li .profile-wall-actions a:hover,
 #profile-wall .profile-wall-send-reply a:hover {
   text-decoration: underline;
 }
@@ -6330,6 +6346,8 @@ h1#agenda-title {
 #profile-wall ul.profile-wall-activities-comments,
 #profile-network ul.profile-wall-activities-comments {
   margin-top: 35px;
+  padding-left: 50px;
+  width: auto;
 }
 
 #profile-wall .profile-wall-activities-comments li,
@@ -6582,7 +6600,7 @@ h1#agenda-title {
   width: 98%;
 }
 
-#profile_activities .profile-activity-image,
+.profile-activities .profile-activity-image,
 #profile-network .profile-activity-image,
 #profile-wall .profile-wall-image {
   width: 50px;

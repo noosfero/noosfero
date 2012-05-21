@@ -1,10 +1,10 @@
 class NotifyActivityToProfilesJob < Struct.new(:tracked_action_id)
   NOTIFY_ONLY_COMMUNITY = [
-    'add_member_in_community',
+    'add_member_in_community'
   ]
 
   NOT_NOTIFY_COMMUNITY = [
-    'join_community',
+    'join_community'
   ]
   def perform
     return unless ActionTracker::Record.exists?(tracked_action_id)
@@ -17,6 +17,7 @@ class NotifyActivityToProfilesJob < Struct.new(:tracked_action_id)
 
     ActionTrackerNotification.create(:profile_id => tracked_action.user.id, :action_tracker_id => tracked_action.id)
 
+    #Notify all friends
     ActionTrackerNotification.connection.execute("insert into action_tracker_notifications(profile_id, action_tracker_id) select f.friend_id, #{tracked_action.id} from friendships as f where person_id=#{tracked_action.user.id} and f.friend_id not in (select atn.profile_id from action_tracker_notifications as atn where atn.action_tracker_id = #{tracked_action.id})")
 
     if target.is_a?(Community)

@@ -1036,6 +1036,12 @@ class ArticleTest < ActiveSupport::TestCase
     assert_equal false, a.is_trackable?
   end
 
+  should "not be trackable if article is inside a private community" do
+    private_community = fast_create(Community, :public_profile => false)
+    a =  fast_create(TinyMceArticle, :profile_id => private_community.id)
+    assert_equal false, a.is_trackable?
+  end
+
   should 'create the notification to organization and all organization members' do
     community = fast_create(Community)
     member_1 = Person.first

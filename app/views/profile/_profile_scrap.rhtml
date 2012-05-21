@@ -9,30 +9,17 @@
     <div class='profile-wall-actions'>
     <% if logged_in? && current_person.follows?(scrap.sender) %>
       <span class='profile-activity-send-reply'>
-        <%= link_to_function _('Comment'), "hide_and_show(['#profile-wall-reply-response-#{scrap.id}'],['#profile-wall-reply-#{scrap.id}', '#profile-wall-reply-form-#{scrap.id}']);$('reply_content_#{scrap.id}').value='';$('reply_content_#{scrap.id}').focus();$('scrap_id_#{scrap.id}').value='#{scrap.id}';return false", :class => "profile-send-reply" %>
+        <%= link_to_function s_('profile|Comment'), "hide_and_show(['#profile-wall-message-response-#{scrap.id}'],['#profile-wall-reply-#{scrap.id}', '#profile-wall-reply-form-#{scrap.id}']);$('reply_content_#{scrap.id}').value='';$('reply_content_#{scrap.id}').focus();return false", :class => "profile-send-reply" %>
       </span>
     <% end %>
     <%= link_to_remote(content_tag(:span, _('Remove')), :confirm => _('Are you sure?'), :url =>{:action => 'remove_scrap', :scrap_id => scrap.id}, :update => "profile-activity-item-#{scrap.id}") if logged_in? && user.can_control_scrap?(scrap) %>
     </div>
   </div>
-  <ul class="profile-activity-scrap-replies">
+  <ul class="profile-wall-activities-comments scrap-replies" style='width: auto;'>
     <% scrap.replies.map do |reply| %>
       <%= render :partial => 'profile_scrap', :locals => {:scrap => reply} %>
     <% end %>
   </ul>
-  <div id='profile-activity-message-<%= scrap.id%>' style='display:none;'>
-    <div id='profile-activity-form-<%= scrap.id%>' style='display:none;'>
-      <p class='profile-activity-message'>
-        <% form_remote_tag :url => {:controller => 'profile', :action => 'leave_scrap', :not_load_scraps => true}, :update => "profile-activity-message-response-#{scrap.id}", :success =>"hide_and_show(['#profile-activity-form-#{scrap.id}'],['#profile-activity-message-response-#{scrap.id}'])" do %>
-          <%= limited_text_area :scrap, :content, 420, "content_#{scrap.id}", :cols => 50, :rows => 2 %>
-          <%= hidden_field_tag 'receiver_id', scrap.sender.id %>
-          <%= submit_button :add, _('Leave a scrap') %>
-          <%= button_to_function :cancel, _('Cancel'), "hide_and_show(['#profile-activity-message-#{scrap.id}'],[]);return false" %>
-        <% end %>
-      </p>
-    </div>
-    <div id='profile-activity-message-response-<%=scrap.id%>' class='profile-activity-message-response'></div>
-  </div>
   <%= render :partial => 'profile_scrap_reply_form', :locals => { :scrap => scrap } %>
   <hr />  
 </li>

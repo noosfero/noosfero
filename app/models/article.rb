@@ -62,7 +62,7 @@ class Article < ActiveRecord::Base
   validate :translation_must_have_language
 
   def is_trackable?
-    self.published? && self.notifiable? && self.advertise?
+    self.published? && self.notifiable? && self.advertise? && self.profile.public_profile
   end
 
   def external_link=(link)

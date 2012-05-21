@@ -8,10 +8,10 @@ class ProfileController < PublicController
   helper TagsHelper
 
   def index
-    @network_activities = !@profile.is_a?(Person) ? @profile.tracked_notifications.paginate(:per_page => 30, :page => params[:page]) : []
+    @network_activities = !@profile.is_a?(Person) ? @profile.tracked_notifications.paginate(:per_page => 15, :page => params[:page]) : []
     if logged_in? && current_person.follows?(@profile)
-      @network_activities = @profile.tracked_notifications.paginate(:per_page => 30, :page => params[:page]) if @network_activities.empty?
-      @activities = @profile.activities.paginate(:per_page => 30, :page => params[:page])
+      @network_activities = @profile.tracked_notifications.paginate(:per_page => 15, :page => params[:page]) if @network_activities.empty?
+      @activities = @profile.activities.paginate(:per_page => 15, :page => params[:page])
     end
     @tags = profile.article_tags
     unless profile.display_info_to?(user)
@@ -186,8 +186,6 @@ class ProfileController < PublicController
     @comment = Comment.new(params[:comment])
     @comment.author = user
     @activity = ActionTracker::Record.find(params[:source_id])
-    #FIXME pq n colocar source direto?
-    #@comment.source = ActionTracker::Record.find(params[:source_id])
     @comment.source_type, @comment.source_id = (@activity.target_type == 'Article' ? ['Article', @activity.target_id] : [@activity.class.to_s, @activity.id])
     @tab_action = params[:tab_action]
     @message = @comment.save ? _("Comment successfully added.") : _("You can't leave an empty comment.")
@@ -201,12 +199,12 @@ class ProfileController < PublicController
   end
 
   def view_more_activities
-    @activities = @profile.activities.paginate(:per_page => 30, :page => params[:page])
+    @activities = @profile.activities.paginate(:per_page => 10, :page => params[:page])
     render :partial => 'profile_activities_list', :locals => {:activities => @activities}
   end
 
   def view_more_network_activities
-    @activities = @profile.tracked_notifications.paginate(:per_page => 30, :page => params[:page]) 
+    @activities = @profile.tracked_notifications.paginate(:per_page => 10, :page => params[:page]) 
     render :partial => 'profile_network_activities', :locals => {:network_activities => @activities}
   end
 

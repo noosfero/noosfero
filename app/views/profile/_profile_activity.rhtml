@@ -1,11 +1,4 @@
 <li class='profile-activity-item <%= activity.verb %>' id='profile-activity-item-<%= activity.id %>'>
   <%= render :partial => activity.verb, :locals => { :activity => activity }%>
   <hr />
-
-  <ul class="profile-wall-activities-comments" style='padding-left: 50px;width:auto'>
-    <%= render :partial => 'comment', :collection => activity.comments %>
-  </ul>
-
-  <%= render :partial => 'profile_comment_form', :locals => { :activity => activity } %> 
-
 </li>
