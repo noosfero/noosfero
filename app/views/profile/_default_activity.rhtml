@@ -10,9 +10,4 @@
   </div>
 </div>
 
-<hr />
-<ul class="profile-wall-activities-comments comments-count-<%= activity.comments_count %>" >
-  <%= render :partial => 'comment', :collection => activity.comments %>
-</ul>
-
-<%= render :partial => 'profile_comment_form', :locals => { :activity => activity } %>
+<%= render :partial => 'profile_comments', :locals => { :activity => activity } %>

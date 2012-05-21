@@ -731,4 +731,11 @@ jQuery(function($){
        return false;
      }
    });
+
+  $('.view-all-comments').live('click', function(e) {
+     var link = this;
+     $(link).parent().find('.profile-wall-activities-comments').show();
+     $(link).hide();
+     return false;
+  });
 });
