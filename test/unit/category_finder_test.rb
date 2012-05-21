@@ -188,17 +188,20 @@ class CategoryFinderTest < ActiveSupport::TestCase
   end
 
   should 'return most commented articles' do
+    person = create_user('testuser').person
     Article.delete_all
 
-    person = create_user('testuser').person
-    articles = (1..4).map {|n| a = person.articles.build(:name => "art #{n}", :category_ids => [@category.id]); a.save!; a }
+    (1..4).map {|n| create(TextileArticle, :profile_id => person.id, :name => "art #{n}", :category_ids => [@category.id]) }
 
-    2.times { articles[0].comments.build(:title => 'test', :body => 'asdsad', :author => person).save! }
-    4.times { articles[1].comments.build(:title => 'test', :body => 'asdsad', :author => person).save! }
+    first_article = person.articles.first
+    2.times { Comment.create(:title => 'test', :body => 'asdsad', :author => person, :source => first_article) }
+
+    last_article = person.articles.last
+    4.times { Comment.create(:title => 'test', :body => 'asdsad', :author => person, :source => last_article) }
 
     result = @finder.most_commented_articles(2)
     # should respect the order (more commented comes first)
-    assert_equal [articles[1], articles[0]], result
+    assert_equal [last_article, first_article], result
     assert_respond_to result, :total_entries
   end
 

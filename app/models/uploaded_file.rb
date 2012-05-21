@@ -140,4 +140,9 @@ class UploadedFile < Article
   def uploaded_file?
     true
   end
+
+  def action_tracker_target
+    self
+  end
+
 end

@@ -714,22 +714,15 @@ class ProfileControllerTest < ActionController::TestCase
     assert_no_tag :tag => 'p', :content => 'A scrap'
   end
 
-  should 'see only actions of the current profile when he is not followed by the viewer' do
-    p1= Person.first
+  should 'not display activities of the current profile when he is not followed by the viewer' do
+    p1= fast_create(Person)
     p2= fast_create(Person)
-    p3= fast_create(Person)
 
-#    UserStampSweeper.any_instance.stubs(:current_user).returns(p1)
-    ActionTracker::Record.destroy_all
-    scrap1 = Scrap.create!(defaults_for_scrap(:sender => p1, :receiver => p1))
+    UserStampSweeper.any_instance.stubs(:current_user).returns(p1)
+    scrap1 = Scrap.create!(defaults_for_scrap(:sender => p1, :receiver => p2))
 
-#    UserStampSweeper.any_instance.stubs(:current_user).returns(p2)
-    scrap2 = Scrap.create!(defaults_for_scrap(:sender => p2, :receiver => p3))
-#    a2 = ActionTracker::Record.last
-
-#    UserStampSweeper.any_instance.stubs(:current_user).returns(p3)
-    scrap3 = Scrap.create!(defaults_for_scrap(:sender => p3, :receiver => p1))
-#    a3 = ActionTracker::Record.last
+    UserStampSweeper.any_instance.stubs(:current_user).returns(p2)
+    scrap2 = Scrap.create!(defaults_for_scrap(:sender => p2, :receiver => p1))
 
     UserStampSweeper.any_instance.stubs(:current_user).returns(p1)
     TinyMceArticle.create!(:profile => p1, :name => 'An article about free software')
@@ -737,8 +730,7 @@ class ProfileControllerTest < ActionController::TestCase
 
     login_as(profile.identifier)
     get :index, :profile => p1.identifier
-    assert_not_nil assigns(:activities)
-    assert_equal [a1], assigns(:activities)
+    assert_nil assigns(:activities)
   end
 
   should 'see the activities_items paginated' do
@@ -750,31 +742,27 @@ class ProfileControllerTest < ActionController::TestCase
     assert_equal 30, assigns(:activities).count
   end
 
-  should 'not see the friends actions and scraps in the current profile activity' do
-    p1= Person.first
+  should 'not see the friends activities in the current profile' do
     p2= fast_create(Person)
-    assert !p1.is_a_friend?(p2)
+    assert !profile.is_a_friend?(p2)
     p3= fast_create(Person)
-    p1.add_friend(p3)
-    assert p1.is_a_friend?(p3)
+    p3.add_friend(profile)
+    assert p3.is_a_friend?(profile)
     ActionTracker::Record.destroy_all
 
-    scrap1 = Scrap.create!(defaults_for_scrap(:sender => p1, :receiver => p1))
-    scrap2 = Scrap.create!(defaults_for_scrap(:sender => p2, :receiver => p3))
-    scrap3 = Scrap.create!(defaults_for_scrap(:sender => p3, :receiver => p1))
+    scrap1 = Scrap.create!(defaults_for_scrap(:sender => p2, :receiver => p3))
+    scrap2 = Scrap.create!(defaults_for_scrap(:sender => p2, :receiver => profile))
 
     UserStampSweeper.any_instance.stubs(:current_user).returns(p3)
-    TinyMceArticle.create!(:profile => p3, :name => 'An article about free software')
-    a1 = ActionTracker::Record.last
+    article1 = TinyMceArticle.create!(:profile => p3, :name => 'An article about free software')
 
-    UserStampSweeper.any_instance.stubs(:current_user).returns(p1)
-    TinyMceArticle.create!(:profile => p1, :name => 'Another article about free software')
-    a2 = ActionTracker::Record.last
+    UserStampSweeper.any_instance.stubs(:current_user).returns(p2)
+    article2 = TinyMceArticle.create!(:profile => p2, :name => 'Another article about free software')
 
     login_as(profile.identifier)
-    get :index, :profile => p1.identifier
+    get :index, :profile => p3.identifier
     assert_not_nil assigns(:activities)
-    assert_equal [a2], assigns(:activities)
+    assert_equivalent [scrap1, article1.activity], assigns(:activities).map { |a| a.klass.constantize.find(a.id) }
   end
 
   should 'see all the activities in the current profile network' do
@@ -942,13 +930,29 @@ class ProfileControllerTest < ActionController::TestCase
     assert_template 'index'
   end
 
-  should 'have wall_itens defined' do
-    p1= ActionTracker::Record.current_user_from_model
+  should 'not have activities defined if not logged in' do
+    p1= fast_create(Person)
     get :index, :profile => p1.identifier
-    assert_equal [], assigns(:wall_items)
+    assert_nil assigns(:actvities)
   end
 
-  should 'the wall_itens be the received scraps in people profile' do
+  should 'not have activities defined if logged in but is not following profile' do
+    login_as(profile.identifier)
+    p1= fast_create(Person)
+    get :index, :profile => p1.identifier
+    assert_nil assigns(:activities)
+  end
+
+  should 'have activities defined if logged in and is following profile' do
+    login_as(profile.identifier)
+    p1= fast_create(Person)
+    p1.add_friend(profile)
+    ActionTracker::Record.destroy_all
+    get :index, :profile => p1.identifier
+    assert_equal [], assigns(:activities)
+  end
+
+  should 'the activities be the received scraps in people profile' do
     p1 = ActionTracker::Record.current_user_from_model
     p2 = fast_create(Person)
     p3 = fast_create(Person)
@@ -963,10 +967,10 @@ class ProfileControllerTest < ActionController::TestCase
     @controller.stubs(:current_user).returns(user)
     Person.any_instance.stubs(:follows?).returns(true)
     get :index, :profile => p1.identifier
-    assert_equal [s2,s3], assigns(:wall_items)
+    assert_equal [s2,s3], assigns(:activities)
   end
 
-  should 'the wall_itens be the received scraps in community profile' do
+  should 'the activities be the received scraps in community profile' do
     c = fast_create(Community)
     p1 = fast_create(Person)
     p2 = fast_create(Person)
@@ -982,10 +986,10 @@ class ProfileControllerTest < ActionController::TestCase
     @controller.stubs(:current_user).returns(user)
     Person.any_instance.stubs(:follows?).returns(true)
     get :index, :profile => c.identifier
-    assert_equal [s2,s3], assigns(:wall_items)
+    assert_equal [s2,s3], assigns(:activities)
   end
 
-  should 'the wall_itens be paginated in people profiles' do
+  should 'the activities be paginated in people profiles' do
     p1 = Person.first
     40.times{fast_create(Scrap, :sender_id => p1.id, :created_at => Time.now)}
 
@@ -997,10 +1001,10 @@ class ProfileControllerTest < ActionController::TestCase
     Person.any_instance.stubs(:follows?).returns(true)
     assert_equal 40, p1.scraps_received.not_replies.count
     get :index, :profile => p1.identifier
-    assert_equal 30, assigns(:wall_items).count
+    assert_equal 30, assigns(:activities).count
   end
 
-  should 'the wall_itens be paginated in community profiles' do
+  should 'the activities be paginated in community profiles' do
     p1 = Person.first
     c = fast_create(Community)
     40.times{fast_create(Scrap, :receiver_id => c.id)}
@@ -1013,7 +1017,7 @@ class ProfileControllerTest < ActionController::TestCase
     Person.any_instance.stubs(:follows?).returns(true)
     assert_equal 40, c.scraps_received.not_replies.count
     get :index, :profile => c.identifier
-    assert_equal 30, assigns(:wall_items).count
+    assert_equal 30, assigns(:activities).count
   end
 
   should "the owner of activity could remove it" do
@@ -1083,17 +1087,17 @@ class ProfileControllerTest < ActionController::TestCase
     end
   end
 
-  should "not show the scrap button on network activity if the user don't follow the user" do
+  should "not show the network activity if the viewer don't follow the profile" do
     login_as(profile.identifier)
     person = fast_create(Person)
     at = fast_create(ActionTracker::Record, :user_id => person.id)
     atn = fast_create(ActionTrackerNotification, :profile_id => profile.id, :action_tracker_id => at.id) 
-    get :index, :profile => profile.identifier
-    assert_no_tag :tag => 'p', :attributes => {:class => 'profile-network-send-message'}
+    get :index, :profile => person.identifier
+    assert_no_tag :tag => 'div', :attributes => {:id => 'profile-network'}
 
     person.add_friend(profile)
-    get :index, :profile => profile.identifier
-    assert_tag :tag => 'p', :attributes => {:class => 'profile-network-send-message'}
+    get :index, :profile => person.identifier
+    assert_tag :tag => 'div', :attributes => {:id => 'profile-network'}
   end
 
   should "not show the scrap button on network activity if the user is himself" do
@@ -1104,16 +1108,16 @@ class ProfileControllerTest < ActionController::TestCase
     assert_no_tag :tag => 'p', :attributes => {:class => 'profile-network-send-message'}
   end
 
-  should "not show the scrap button on wall activity if the user don't follow the user" do
+  should "not show the scrap area on wall if the user don't follow the user" do
     login_as(profile.identifier)
     person = fast_create(Person)
     scrap = fast_create(Scrap, :sender_id => person.id, :receiver_id => profile.id)
-    get :index, :profile => profile.identifier
-    assert_no_tag :tag => 'p', :attributes => {:class => 'profile-wall-send-message'}
+    get :index, :profile => person.identifier
+    assert_no_tag :tag => 'div', :attributes => {:id => 'leave_scrap'}, :descendant => { :tag => 'input', :attributes => {:value => 'Share'} }
 
     person.add_friend(profile)
-    get :index, :profile => profile.identifier
-    assert_tag :tag => 'p', :attributes => {:class => 'profile-wall-send-message'}
+    get :index, :profile => person.identifier
+    assert_tag :tag => 'div', :attributes => {:id => 'leave_scrap'}, :descendant => { :tag => 'input', :attributes => {:value => 'Share'} }
   end
 
   should "not show the scrap button on wall activity if the user is himself" do
@@ -1169,7 +1173,7 @@ class ProfileControllerTest < ActionController::TestCase
     assert_equal 40, profile.tracked_actions.count
     get :view_more_activities, :profile => profile.identifier, :page => 2
     assert_response :success
-    assert_template '_profile_activities_scraps'
+    assert_template '_profile_activities_list'
     assert_equal 10, assigns(:activities).count
   end
 
@@ -1270,8 +1274,8 @@ class ProfileControllerTest < ActionController::TestCase
     login_as(profile.identifier)
     get :index, :profile => profile.identifier
 
-    assert_tag :tag => 'div', :attributes => { :id => 'profile-wall' }, :descendant => { :tag => 'p', :content => 'A scrap' }
-    assert_tag :tag => 'div', :attributes => { :id => 'profile-wall' }, :descendant => { :tag => 'a', :content => 'An article about free software' }
+    assert_tag :tag => 'p', :content => 'A scrap', :attributes => { :class => 'profile-activity-text'} 
+    assert_tag :tag => 'div', :attributes => { :class => 'profile-activity-lead' }, :descendant => { :tag => 'a', :content => 'An article about free software' }
   end
 
   should 'have scraps and activities on activities' do
@@ -1307,7 +1311,7 @@ class ProfileControllerTest < ActionController::TestCase
 
     assert_equal 0, count
     post :leave_comment_on_activity, :profile => profile.identifier, :comment => {:body => 'something'}, :source_id => activity.id
-    assert_equal count + 1, activity.comments.count
+    assert_equal count + 1, ActionTracker::Record.find(activity.id).comments_count
     assert_response :success
     assert_equal "Comment successfully added.", assigns(:message)
   end
@@ -1318,10 +1322,9 @@ class ProfileControllerTest < ActionController::TestCase
     TinyMceArticle.create!(:profile => another_person, :name => 'An article about free software')
     activity = ActionTracker::Record.last
     count = activity.comments.count
-puts activity.inspect
     assert_equal 0, count
     post :leave_comment_on_activity, :profile => another_person.identifier, :comment => {:body => 'something'}, :source_id => activity.id
-    assert_equal count + 1, activity.comments.count
+    assert_equal count + 1, ActionTracker::Record.find(activity.id).comments_count
     assert_response :success
     assert_equal "Comment successfully added.", assigns(:message)
   end

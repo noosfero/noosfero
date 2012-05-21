@@ -178,8 +178,8 @@ class ProfileController < PublicController
     @scrap.receiver= receiver
     @tab_action = params[:tab_action]
     @message = @scrap.save ? _("Message successfully sent.") : _("You can't leave an empty message.")
-    @activities = @profile.activities.paginate(:per_page => 30, :page => params[:page]) if params[:not_load_scraps].nil?
-    render :partial => 'profile_activities_list'
+    activities = @profile.activities.paginate(:per_page => 30, :page => params[:page]) if params[:not_load_scraps].nil?
+    render :partial => 'profile_activities_list', :locals => {:activities => activities}
   end
 
   def leave_comment_on_activity
@@ -191,8 +191,8 @@ class ProfileController < PublicController
     @comment.source_type, @comment.source_id = (@activity.target_type == 'Article' ? ['Article', @activity.target_id] : [@activity.class.to_s, @activity.id])
     @tab_action = params[:tab_action]
     @message = @comment.save ? _("Comment successfully added.") : _("You can't leave an empty comment.")
-    @activities = @profile.activities.paginate(:per_page => 30, :page => params[:page]) if params[:not_load_scraps].nil?
-    render :partial => 'profile_activities_list'
+    activities = @profile.activities.paginate(:per_page => 30, :page => params[:page]) if params[:not_load_scraps].nil?
+    render :partial => 'profile_activities_list', :locals => {:activities => activities}
   end
 
   def view_more_scraps
@@ -202,7 +202,7 @@ class ProfileController < PublicController
 
   def view_more_activities
     @activities = @profile.activities.paginate(:per_page => 30, :page => params[:page])
-    render :partial => 'profile_activities_scraps', :locals => {:activities => @activities}
+    render :partial => 'profile_activities_list', :locals => {:activities => @activities}
   end
 
   def view_more_network_activities

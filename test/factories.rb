@@ -370,7 +370,7 @@ module Noosfero::Factory
   ###############################################
 
   def defaults_for_scrap(params = {})
-    { :content => 'soment content ', :sender_id => 1, :receiver_id => 1, :created_at => DateTime.now }.merge(params)
+    { :content => 'some content ', :sender_id => 1, :receiver_id => 1, :created_at => DateTime.now }.merge(params)
   end
 
   ###############################################

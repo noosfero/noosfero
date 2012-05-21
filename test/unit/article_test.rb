@@ -323,11 +323,13 @@ class ArticleTest < ActiveSupport::TestCase
     (1..4).each do |n|
       create(TextileArticle, :name => "art #{n}", :profile_id => profile.id)
     end
-    2.times { profile.articles.first.comments.build(:title => 'test', :body => 'asdsad', :author => profile).save! }
-    4.times { profile.articles.last.comments.build(:title => 'test', :body => 'asdsad', :author => profile).save! }
-assert_equal 'bla', profile.articles.map(&:comments_count)
+    first_article = profile.articles.first
+    2.times { Comment.create(:title => 'test', :body => 'asdsad', :author => profile, :source => first_article).save! }
+
+    last_article = profile.articles.last
+    4.times { Comment.create(:title => 'test', :body => 'asdsad', :author => profile, :source => last_article).save! }
     # should respect the order (more commented comes first)
-    assert_equal [profile.articles.first], profile.articles.most_commented(2)
+    assert_equal [last_article, first_article], profile.articles.most_commented(2)
   end
 
   should 'identify itself as a non-folder' do
@@ -361,16 +363,16 @@ assert_equal 'bla', profile.articles.map(&:comments_count)
 
   should 'index comments title together with article' do
     owner = create_user('testuser').person
-    art = owner.articles.build(:name => 'ytest'); art.save!
-    c1 = art.comments.build(:title => 'a nice comment', :body => 'anything', :author => owner); c1.save!
+    art = fast_create(TinyMceArticle, :profile_id => owner.id, :name => 'ytest')
+    c1 = Comment.create(:title => 'a nice comment', :body => 'anything', :author => owner, :source => art ); c1.save!
 
     assert_includes Article.find_by_contents('nice'), art
   end
 
   should 'index comments body together with article' do
     owner = create_user('testuser').person
-    art = owner.articles.build(:name => 'ytest'); art.save!
-    c1 = art.comments.build(:title => 'test comment', :body => 'anything', :author => owner); c1.save!
+    art = fast_create(TinyMceArticle, :profile_id => owner.id, :name => 'ytest')
+    c1 = Comment.create(:title => 'test comment', :body => 'anything', :author => owner, :source => art); c1.save!
 
     assert_includes Article.find_by_contents('anything'), art
   end

@@ -1,8 +1,2 @@
-<% activities.each do |a| %>
-  <% activity = a.klass.constantize.find(a.id) %>
-  <% if activity.kind_of?(ActionTracker::Record) %>
-    <%= render :partial => 'profile_activity', :locals => {:activity => activity} if activity.visible? %>
-  <% else %>
-    <%= render :partial => 'profile_scrap', :locals => {:scrap => activity } %>
-  <% end %>
-<% end %>
+NÂO DEVE APARECER!!
+

@@ -4,7 +4,7 @@
 <div class='profile-activity-description profile-activity-article-<%= activity.target.class.icon_name %>'>
   <p class='profile-activity-text'><%= link_to activity.user.name, activity.user.url %></p>
   <div class='profile-activity-lead'>
-  <b><%= activity.params['name'] %></b>
+  <b><%= link_to(activity.params['name'], activity.params['url']) %></b>
   <span title='<%= activity.target.class.short_description %>' class='profile-activity-icon icon-new icon-new<%= activity.target.class.icon_name %>'></span><br />
   <%= image_tag(activity.params['first_image']) unless activity.params['first_image'].blank? %><%= strip_tags(activity.params['lead']).gsub(/(\xA0|\xC2|\s)+/, ' ').gsub(/^\s+/, '') %> <small><%= link_to(_('See more'), activity.params['url']) unless activity.get_lead.blank? %></small></div>
   <%= content_tag(:p, link_to(_('See complete forum'), activity.get_url), :class => 'see-forum') if activity.target.is_a?(Forum) %>

@@ -8,7 +8,7 @@
 </div>
 <div id='leave_scrap_response'></div>
 <ul id='profile_activities'>
-  <%= render :partial => 'profile_activities_scraps', :locals => {:activities => @activities} %>
+  <%= render :partial => 'profile_activities_list', :locals => {:activities => @activities} %>
 </ul>
 
 <% if @activities.current_page < @activities.total_pages %>

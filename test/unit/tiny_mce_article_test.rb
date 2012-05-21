@@ -144,7 +144,7 @@ class TinyMceArticleTest < ActiveSupport::TestCase
     assert_equal 3, ActionTracker::Record.count
   end
 
-  should 'update activity on update of an article' do
+  should 'not update activity on update of an article' do
     ActionTracker::Record.delete_all
     profile = fast_create(Profile)
     article = create(TinyMceArticle, :profile_id => profile.id)
@@ -154,7 +154,7 @@ class TinyMceArticleTest < ActiveSupport::TestCase
       article.name = 'foo'
       article.save!
     end
-    assert_equal time + 1.day, article.activity.updated_at
+    assert_equal time, article.activity.updated_at
   end
 
   should 'not create trackers activity when updating articles' do

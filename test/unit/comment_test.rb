@@ -339,8 +339,6 @@ class CommentTest < ActiveSupport::TestCase
     assert c.rejected?
   end
 
-  should 'update activity when add a comment'
-
   should 'update article activity when add a comment' do
     profile = create_user('testuser').person
     article = create(TinyMceArticle, :profile => profile)

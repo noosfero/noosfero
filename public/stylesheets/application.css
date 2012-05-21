@@ -1434,7 +1434,8 @@ a.comment-picture {
   border-radius: 5px;
 }
 
-.comment-replies .article-comment-inner {
+.comment-replies .article-comment-inner,
+.scrap-replies {
   border: 1px solid #fff;
   padding: 0;
   -moz-border-radius: 4px;
@@ -5895,6 +5896,9 @@ h1#agenda-title {
   position: relative;
 }
 
+#profile-activity li, #profile-network li, #profile-wall li {
+}
+
 .profile-activity-lead img {
   width: 124px;
   float: left;
@@ -5954,12 +5958,12 @@ h1#agenda-title {
 }
 
 #profile-wall li.profile-activity-item.upload_image span,
-#profile-wall li.profile-activity-item.upload_image span img,
+#Xprofile-wall li.profile-activity-item.upload_image span img,
 #profile-wall li.profile-activity-item.upload_image span a,
 #profile-network li.profile-activity-item.upload_image span,
-#profile-network li.profile-activity-item.upload_image span img,
+#Xprofile-network li.profile-activity-item.upload_image span img,
 #profile-network li.profile-activity-item.upload_image span a {
-  width: 124px;
+  width: 120px;
   height: 100px;
   display: block;
   overflow: hidden;
@@ -5967,13 +5971,16 @@ h1#agenda-title {
 }
 
 #profile-wall li.profile-activity-item.upload_image .activity-gallery-images-count-1 span,
-#profile-wall li.profile-activity-item.upload_image .activity-gallery-images-count-1 span img,
 #profile-wall li.profile-activity-item.upload_image .activity-gallery-images-count-1 span a,
 #profile-network li.profile-activity-item.upload_image .activity-gallery-images-count-1 span,
-#profile-network li.profile-activity-item.upload_image .activity-gallery-images-count-1 span img,
 #profile-network li.profile-activity-item.upload_image .activity-gallery-images-count-1 span a {
   width: 383px;
-  height: 177px;
+  height: auto;
+}
+
+#profile-wall li.profile-activity-item.upload_image span img,
+#profile-network li.profile-activity-item.upload_image span img {
+  display: block;
 }
 
 #profile-wall li.profile-activity-item.upload_image span,
@@ -5992,6 +5999,7 @@ h1#agenda-title {
 #profile-wall li.profile-activity-item.upload_image .activity-gallery-images-count-1 span a,
 #profile-network li.profile-activity-item.upload_image .activity-gallery-images-count-1 span a {
   background-image: url(/images/gallery-image-activity-border-big.png);
+  position: relative;
 }
 
 #profile-wall li.profile-activity-item.upload_image .article-comment span,
@@ -6555,6 +6563,10 @@ h1#agenda-title {
   padding: 0 5px;
 }
 
+.scrap-replies .profile-wall-reply-form {
+  margin-left: 0px;
+}
+
 .profile-wall-scrap-replies {
   float: right;
   margin-right: 2px;
@@ -6584,17 +6596,18 @@ h1#agenda-title {
   word-wrap: break-word;
 }
 
-#profile-wall .profile-wall-scrap-replies textarea,
-#profile-network textarea, #profile-wall textarea {
-  width: 98%;
-}
-
 #profile-wall textarea {
   width: 375px;
 }
 
 #profile-wall li textarea {
   width: 388px;
+}
+
+#profile-wall .profile-wall-scrap-replies textarea,
+#profile-network textarea, #profile-wall textarea,
+#profile-wall li .profile-wall-reply-form textarea {
+  width: 98%;
 }
 
 #profile-wall #leave_scrap textarea {

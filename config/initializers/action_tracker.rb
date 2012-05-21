@@ -23,7 +23,7 @@ ActionTrackerConfig.verbs = {
   },
 
   :upload_image => { 
-    :description => lambda { n_('uploaded 1 image: %{details}<br />%{thumbnails}<br style="clear: both;" />', 'uploaded %{num} images: %{details}<br />%{thumbnails}<br style="clear: both;" />', get_view_url.size) % { :num => get_view_url.size, :thumbnails => '{{ta.collect_group_with_index(:thumbnail_path){ |t,i| content_tag(:span, image_tag(t) + link_to(nil, ta.get_view_url[i]))}.last(3).join}}', :details => '{{unique_with_count(ta.collect_group_with_index(:parent_name){ |n,i| link_to(n, ta.get_parent_url[i])}, "%s").join(", ")}}' % _("in the gallery") } },
+    :description => lambda { n_('uploaded 1 image<br />%{thumbnails}<br style="clear: both;" />', 'uploaded %{num} images<br />%{thumbnails}<br style="clear: both;" />', get_view_url.size) % { :num => get_view_url.size, :thumbnails => '{{ta.collect_group_with_index(:thumbnail_path){ |t,i| content_tag(:span, image_tag(t) + link_to(nil, ta.get_view_url[i]))}.last(3).join}}' } },
     :type => :groupable
   },
 

@@ -231,10 +231,10 @@ class UploadedFileTest < ActiveSupport::TestCase
   should 'return a thumbnail for images' do
     f = UploadedFile.new
     f.expects(:image?).returns(true)
-    f.expects(:full_filename).with(:thumb).returns(File.join(RAILS_ROOT, 'public', 'images', '0000', '0005', 'x.png'))
+    f.expects(:full_filename).with(:display).returns(File.join(RAILS_ROOT, 'public', 'images', '0000', '0005', 'x.png'))
     assert_equal '/images/0000/0005/x.png', f.thumbnail_path
     f = UploadedFile.new
-    f.stubs(:full_filename).with(:thumb).returns(File.join(RAILS_ROOT, 'public', 'images', '0000', '0005', 'x.png'))
+    f.stubs(:full_filename).with(:display).returns(File.join(RAILS_ROOT, 'public', 'images', '0000', '0005', 'x.png'))
     f.expects(:image?).returns(false)
     assert_nil f.thumbnail_path
   end
@@ -330,11 +330,11 @@ class UploadedFileTest < ActiveSupport::TestCase
     assert_equal 'hello_world.php.txt', file.filename
   end
 
-  should 'use the gallery as the parent for action tracker' do
+  should 'use itself as target for action tracker' do
     p = fast_create(Gallery, :profile_id => @profile.id)
     f = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :parent => p, :profile => @profile)
-    ta = ActionTracker::Record.last(:conditions => { :verb => "upload_image" })
-    assert_equal f.parent, ta.target
+    ta = f.activity
+    assert_equal f, ta.target
   end
 
 end
