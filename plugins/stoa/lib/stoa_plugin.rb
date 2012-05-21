@@ -20,6 +20,7 @@ class StoaPlugin < Noosfero::Plugin
   def signup_extra_contents
     lambda {
       required(labelled_form_field(_('USP number'), text_field_tag('profile_data[usp_id]', '', :id => 'usp_id_field'))) +
+      content_tag(:small, _('The usp id grants you special powers in the network. Don\'t forget to fill it in if you have one.'), :id => 'usp-id-balloon') +
       labelled_form_field(_('Select a confirmation data'), select_tag('confirmation_field',
         options_for_select([['CPF','cpf'], [_('Birth date (yyyy-mm-dd)'), 'birth_date']])
       )) +
@@ -42,6 +43,11 @@ class StoaPlugin < Noosfero::Plugin
                            height: "80%",
                            width:  "70%" });
         }
+
+        jQuery('#usp_id_field').focus(function() {
+          jQuery('#usp-id-balloon').fadeIn('slow');
+        });
+        jQuery('#usp_id_field').blur(function() { jQuery('#usp-id-balloon').fadeOut('slow'); });
         EOF
       )
     }

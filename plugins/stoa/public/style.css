@@ -5,3 +5,20 @@
 
 .controller-profile_editor a.control-panel-invite-friends {background-image: url(../../plugins/stoa/images/control-panel/invite-friends.png)}
 .controller-profile_editor .msie6 a.control-panel-invite-friends {background-image: url(../../plugins/stoa/images/control-panel/invite-friends.gif)}
+
+#signup-form small#usp-id-balloon {
+  display: none;
+  width: 142px;
+  height: 69px;
+  color: #FFFFFF;
+  font-weight: bold;
+  font-size: 11px;
+  padding: 5px 10px 45px 10px;
+  margin: 0;
+  line-height: 1.5em;
+  background: transparent url(/images/orange-balloon.png) bottom center no-repeat;
+  position: absolute;
+  z-index: 2;
+  right: 20px;
+  bottom: 235px;
+}
