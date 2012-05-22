@@ -738,4 +738,9 @@ jQuery(function($){
      $(link).hide();
      return false;
   });
+  $('.focus-on-comment').live('click', function(e) {
+     var link = this;
+     $(link).parents('.profile-activity-item').find('textarea').focus();
+     return false;
+  });
 });

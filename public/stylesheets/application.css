@@ -6350,6 +6350,11 @@ h1#agenda-title {
   width: auto;
 }
 
+#profile-wall ul.profile-wall-activities-comments ul,
+#profile-network ul.profile-wall-activities-comments ul {
+  padding-left: 0px;
+}
+
 #profile-wall .profile-wall-activities-comments li,
 #profile-network .profile-wall-activities-comments li {
   background: #f0f0f1;
@@ -6577,7 +6582,7 @@ h1#agenda-title {
   background: #f0f0f1;
   border-bottom: 1px solid #d2d2d2;
   border-top: 1px solid #fff;
-  Xmargin-left: 50px;
+  margin-left: 50px;
   padding: 0 5px;
 }
 

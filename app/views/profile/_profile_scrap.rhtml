@@ -22,7 +22,7 @@
     </div>
   <% end %>
 
-  <ul class="profile-wall-activities-comments scrap-replies" style="width: auto;padding-left:0px; <%= 'display:none;' if (scrap.replies.count > 2) %>" >
+  <ul class="profile-wall-activities-comments scrap-replies" style="width: auto; <%= 'display:none;' if (scrap.replies.count > 2) %>" >
     <% scrap.replies.map do |reply| %>
       <%= render :partial => 'profile_scrap', :locals => {:scrap => reply} %>
     <% end %>

@@ -3,7 +3,7 @@ class ProfileController < PublicController
   needs_profile
   before_filter :check_access_to_profile, :except => [:join, :join_not_logged, :index, :add]
   before_filter :store_location, :only => [:join, :join_not_logged, :report_abuse]
-  before_filter :login_required, :only => [:add, :join, :join_not_logged, :leave, :unblock, :leave_scrap, :remove_scrap, :remove_activity, :view_more_scraps, :view_more_activities, :view_more_network_activities, :report_abuse, :register_report, :leave_comment_on_activity]
+  before_filter :login_required, :only => [:add, :join, :join_not_logged, :leave, :unblock, :leave_scrap, :remove_scrap, :remove_activity, :view_more_activities, :view_more_network_activities, :report_abuse, :register_report, :leave_comment_on_activity]
 
   helper TagsHelper
 
@@ -191,11 +191,6 @@ class ProfileController < PublicController
     @message = @comment.save ? _("Comment successfully added.") : _("You can't leave an empty comment.")
     activities = @profile.activities.paginate(:per_page => 30, :page => params[:page]) if params[:not_load_scraps].nil?
     render :partial => 'profile_activities_list', :locals => {:activities => activities}
-  end
-
-  def view_more_scraps
-    @scraps = @profile.scraps_received.not_replies.paginate(:per_page => 30, :page => params[:page])
-    render :partial => 'profile_scraps', :locals => {:scraps => @scraps}
   end
 
   def view_more_activities
