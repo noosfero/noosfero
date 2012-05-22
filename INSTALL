@@ -139,8 +139,8 @@ so if you are planning to use a different database this steps won't apply.
 # apt-get install postgresql libpgsql-ruby
 # su postgres -c 'createuser noosfero -S -d -R'
 
-By default Rails will try to connect on postgresql through 5432 port, but
-you can check it  in /etc/postgresql/8.4/main/postgresql.conf file.
+By default Rails will try to connect on postgresql through 5432 port,
+you can check it on /etc/postgresql/8.4/main/postgresql.conf file.
 
 Restart postgresql:
 
@@ -221,12 +221,15 @@ $ ./script/dbconsole production
 If it connects to your database, then everything is fine. If you got an error
 message, then you have to check your database configuration.
 
-As root user
-============
+Installing gem rack
+===================
 
-Install RubyGem Rack 1.0.1:
+This gem is required if you want to run Mezuro plugin.
 
-$ gem install rack -v 1.0.1
+Install RubyGem Rack 1.0.1.
+Others versions may not be compatible with Noosfero:
+
+# gem install rack -v 1.0.1
 
 As noosfero user
 ================
