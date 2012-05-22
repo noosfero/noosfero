@@ -5968,10 +5968,8 @@ h1#agenda-title {
   position: absolute;
 }
 
-#profile-wall li.profile-activity-item.upload_image .activity-gallery-images-count-2 span a img,
-#profile-wall li.profile-activity-item.upload_image .activity-gallery-images-count-3 span a img,
-#profile-network li.profile-activity-item.upload_image .activity-gallery-images-count-2 span a img,
-#profile-network li.profile-activity-item.upload_image .activity-gallery-images-count-3 span a img {
+#profile-wall li.profile-activity-item.upload_image span a img,
+#profile-network li.profile-activity-item.upload_image span a img {
   width: 110px;
   height: 100px;
 }
@@ -6036,6 +6034,7 @@ h1#agenda-title {
 }
 
 #profile-wall li.profile-activity-item.upload_image .profile-activity-text,
+#profile-network li.profile-activity-item.upload_image .profile-activity-text,
 #profile-network li.profile-activity-item ul.profile-wall-activities-comments {
   padding-left: 50px;
 }
