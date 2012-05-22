@@ -756,6 +756,11 @@ $.fn.hint = function (blurClass) {
 
 })(jQuery);
 
+/*
+ * altBeautify: put a styled tooltip on elements with
+ * HTML on title and alt attributes.
+ */
+
 var altBeautify = jQuery('<div id="alt-beautify" style="display:none; position: absolute"/>')
   .append('<div class="alt-beautify-content"/>')
   .append('<div class="alt-beautify-arrow-border alt-beautify-arrow"/>')
@@ -779,7 +784,7 @@ function altHide() {
   altBeautify.hide();
 }
 
-jQuery('a[title]').live('mouseover', function (e) {
+function altShow(e) {
   alt = jQuery(this).attr('title');
   if (alt != '') {
     jQuery(this).attr('alt-beautify', alt);
@@ -788,9 +793,27 @@ jQuery('a[title]').live('mouseover', function (e) {
 
   altTarget = this;
   setTimeout("altTimeout()", 500);
-});
-jQuery('a[title]').live('mouseout', altHide);
-jQuery('a[title]').live('click', altHide);
+}
+
+(function($) {
+
+  jQuery.fn.altBeautify = function() {
+    return this.each(function() {
+      jQuery(this).bind('mouseover', altShow);
+      jQuery(this).bind('mouseout', altHide);
+      jQuery(this).bind('click', altHide);
+    });
+  }
+
+})(jQuery);
+
+// enable it generally
+// jQuery('*[title]').live('mouseover', altShow);
+// jQuery('*[title]').live('mouseout', altHide);
+// jQuery('*[title]').live('click', altHide);
+// jQuery('image[alt]').live('mouseover', altShow);
+// jQuery('image[alt]').live('mouseout', altHide);
+// jQuery('image[alt]').live('click', altHide);
 
 
 function facet_options_toggle(id, url) {

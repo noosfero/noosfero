@@ -6,6 +6,16 @@ module SearchHelper
   MULTIPLE_SEARCH_LIMIT = 8
   DistFilt = 200
   DistBoost = 50
+
+  Searches = ActiveSupport::OrderedHash[
+    :articles, _('Contents'),
+    :enterprises, _('Enterprises'),
+    :people, _('People'),
+    :communities, _('Communities'),
+    :products, _('Products and Services'),
+    :events, _('Events'),
+  ]
+
   SortOptions = {
     :products => ActiveSupport::OrderedHash[ :none, {:label => _('Relevance')},
       :more_recent, {:label => _('More Recent'), :solr_opts => {:sort => 'updated_at desc, score desc'}},
@@ -112,7 +122,7 @@ module SearchHelper
 
     if count > 0
       url = params.merge(:facet => params[:facet].merge(
-        id => facet[:label_id].nil? ? value : params[:facet][id].merge( facet[:label_id] => params[:facet][id][facet[:label_id]].to_a.push(value) )
+        id => facet[:label_id].nil? ? value : params[:facet][id].merge( facet[:label_id] => params[:facet][id][facet[:label_id]].to_a | [value] )
       ))
     else
       # preserve others filters and change this filter

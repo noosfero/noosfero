@@ -281,6 +281,9 @@ class Environment < ActiveRecord::Base
   def enabled?(feature)
     self.settings["#{feature}_enabled".to_sym] == true
   end
+  def disabled?(feature)
+    !self.enabled?(feature)
+  end
 
   # enables the features identified by <tt>features</tt>, which is expected to
   # be an Enumarable object containing the identifiers of the desired features.

@@ -787,12 +787,12 @@ class SearchControllerTest < ActionController::TestCase
     prod2 = Product.create!(:name => 'product 2', :enterprise_id => ent.id, :product_category_id => @product_category.id)
     prod3 = Product.create!(:name => 'product 3', :enterprise_id => ent.id, :product_category_id => @product_category.id)
 
-    prod3.name = 'product 4'
-    prod3.save!
-    prod1.name = 'product 5'
-    prod1.save!
-    prod2.name = 'product 6'
-    prod2.save!
+    # change others attrs will make updated_at = Time.now for all
+    Product.record_timestamps = false
+    prod3.update_attribute :updated_at, Time.now-2.days
+    prod1.update_attribute :updated_at, Time.now-1.days
+    prod2.update_attribute :updated_at, Time.now
+    Product.record_timestamps = true
 
     get :products, :query => 'product', :order_by => :more_recent 
 
@@ -816,13 +816,13 @@ class SearchControllerTest < ActionController::TestCase
     prod2 = Product.create!(:name => 'product 2', :enterprise_id => ent.id, :product_category_id => @product_category.id)
     prod3 = Product.create!(:name => 'product 3', :enterprise_id => ent.id, :product_category_id => @product_category.id)
 
-    prod3.update_attribute! :name, 'product A'
-    prod2.update_attribute! :name, 'product B'
-    prod1.update_attribute! :name, 'product C'
+    prod3.update_attribute :name, 'product A'
+    prod2.update_attribute :name, 'product B'
+    prod1.update_attribute :name, 'product C'
 
     get :products, :query => 'product', :order_by => :name
 
-    assert_equal [prod3, prod1, prod2], assigns(:results)[:products].docs  
+    assert_equal [prod3, prod2, prod1], assigns(:results)[:products].docs  
   end
 
 	should 'order product results by closest when requested' do
@@ -871,16 +871,16 @@ class SearchControllerTest < ActionController::TestCase
 		art2 = Article.create!(:name => 'review A', :profile_id => fast_create(Person).id)
 		art3 = Article.create!(:name => 'review B', :profile_id => fast_create(Person).id)
     
-    art1.name = 'review 10'
-    art1.save!
-    art3.name = 'review 87'
-    art3.save!
-    art2.name = 'review 54'
-    art2.save!
+    # change others attrs will make updated_at = Time.now for all
+    Article.record_timestamps = false
+    art3.update_attribute :updated_at, Time.now-2.days
+    art1.update_attribute :updated_at, Time.now-1.days
+    art2.update_attribute :updated_at, Time.now
+    Article.record_timestamps = true
 
     get :articles, :query => 'review', :order_by => :more_recent
 
-    assert_equal [art2, art3, art1], assigns(:results)[:articles].docs
+    assert_equal [art2, art1, art3], assigns(:results)[:articles].docs
   end
   
   should 'order enterprise results by name when requested' do

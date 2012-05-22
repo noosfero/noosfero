@@ -27,15 +27,10 @@
           <% end %>
 
           <% if product.price_described? %>
-            <% title = product.inputs.map{ |i|
+            <% title = (product.inputs + product.price_details).map{ |i|
               '<div class="search-product-input-dots-to-price">' +
                 '<div class="search-product-input-name">' + i.product_category.name + '</div>' + 
-                price_span(i.cost, :class => 'search-product-input-price') +
-              '</div>' }.join('') %>
-            <% title += product.price_details.map{ |p|
-              '<div class="search-product-input-dots-to-price">' +
-                '<div class="search-product-input-name">' + p.production_cost.name + '</div>' + 
-                price_span(p.price, :class => 'search-product-input-price') +
+                price_span(i.price, :class => 'search-product-input-price') +
               '</div>' }.join('') %>
             <%= link_to_function _("Open Price"), '', :title => title, :class => "search-product-price-details" %>
           <% end %>
@@ -80,10 +75,11 @@
     </div>
   </div>
 
+  <div style="clear: both"></div>
+
   <%= extra_content.join('\n') %>
   <% extra_properties.each do |property| %>
     <div><%= property[:name] + ': ' + instance_eval(&property[:content]) %></div>
   <% end %>
 
-  <br /><br />
 </li>

@@ -44,8 +44,9 @@ class SearchController < PublicController
   end
 
   def products
+    public_filters = ['public:true', 'enabled:true']
     if !@empty_query
-      full_text_search ['public:true', 'enabled:true']
+      full_text_search public_filters 
     else
       @one_page = true
       @geosearch = logged_in? && current_user.person.lat && current_user.person.lng
@@ -53,11 +54,11 @@ class SearchController < PublicController
       extra_limit = LIST_SEARCH_LIMIT*5
       sql_options = {:limit => LIST_SEARCH_LIMIT, :order => 'random()'}
       if @geosearch
-        full_text_search ['public:true', "{!geofilt}"], :sql_options => sql_options, :extra_limit => extra_limit,
+        full_text_search public_filters, :sql_options => sql_options, :extra_limit => extra_limit,
           :alternate_query => "{!boost b=recip(geodist(),#{"%e" % (1.to_f/DistBoost)},1,1)}",
           :radius => DistFilt, :latitude => current_user.person.lat, :longitude => current_user.person.lng
       else
-        full_text_search ['public:true'], :sql_options => sql_options, :extra_limit => extra_limit,
+        full_text_search public_filters, :sql_options => sql_options, :extra_limit => extra_limit,
           :boost_functions => ['recip(ms(NOW/HOUR,updated_at),1.3e-10,1,1)']
       end
     end
@@ -190,7 +191,9 @@ class SearchController < PublicController
   end
 
   def load_category
-    unless params[:category_path].blank?
+    if params[:category_path].blank?
+      render_not_found if params[:action] == 'category_index'
+    else
       path = params[:category_path].join('/')
       @category = environment.categories.find_by_path(path)
       if @category.nil?
@@ -229,22 +232,19 @@ class SearchController < PublicController
   end
 
   def load_search_assets
-    @enabled_searches = [
-      [ :articles, _('Contents') ],
-      [ :enterprises, _('Enterprises') ],
-      [ :people, _('People') ],
-      [ :communities, _('Communities') ],
-      [ :products, _('Products and Services') ],
-      [ :events, _('Events') ]
-    ].select {|key, name| !environment.enabled?('disable_asset_' + key.to_s) }
+    if Searches.keys.include?(params[:action].to_sym) and environment.enabled?("disable_asset_#{params[:action]}")
+      render_not_found
+      return
+    end
 
+    @enabled_searches = Searches.select {|key, name| environment.disabled?("disable_asset_#{params[:action]}") }
     @searching = {}
     @titles = {}
     @enabled_searches.each do |key, name|
       @titles[key] = name
       @searching[key] = params[:action] == 'index' || params[:action] == key.to_s
     end
-		@names = @titles if @names.nil?
+    @names = @titles if @names.nil?
   end
 
   def limit
