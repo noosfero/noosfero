@@ -1638,4 +1638,37 @@ class ArticleTest < ActiveSupport::TestCase
     assert_equal [c1,c2,c5], Article.text_articles
   end
 
+  should 'not allow all community members to edit by default' do
+    community = fast_create(Community)
+    admin = create_user('community-admin').person
+    member = create_user.person
+
+    community.add_admin(admin)
+    community.add_member(member)
+    a = Article.new(:profile => community)
+
+    assert_equal false, a.allow_members_to_edit
+    assert_equal false, a.allow_edit?(member)
+  end
+
+  should 'be able to allow all members of a community to edit' do
+    community = fast_create(Community)
+    admin = create_user('community-admin').person
+    member = create_user.person
+
+    community.add_admin(admin)
+    community.add_member(member)
+    a = Article.new(:profile => community)
+
+    a.allow_members_to_edit = true
+
+    assert_equal true, a.allow_edit?(member)
+  end
+
+  should 'not crash on allow_edit without a current user' do
+    a = build(Article)
+    a.allow_members_to_edit = true
+    assert !a.allow_edit?(nil)
+  end
+
 end

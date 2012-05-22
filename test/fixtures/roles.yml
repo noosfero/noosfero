@@ -58,9 +58,7 @@ profile_member:
   name: 'Profile Member'
   system: true
   permissions:
-   - edit_profile
-   - post_content
-   - manage_products
+   - invite_members
 profile_moderator:
   id: 7
   environment_id: 1

@@ -737,6 +737,16 @@ class AccountControllerTest < ActionController::TestCase
     end
   end
 
+  should 'login after signup when no e-mail confirmation is required' do
+    e = Environment.default
+    e.enable('skip_new_user_email_confirmation')
+    e.save!
+
+    new_user
+    assert_response :redirect
+    assert_not_nil assigns(:current_user)
+  end
+
   protected
     def new_user(options = {}, extra_options ={})
       data = {:profile_data => person_data}

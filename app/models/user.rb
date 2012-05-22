@@ -35,6 +35,9 @@ class User < ActiveRecord::Base
     user.person.name ||= user.login
     user.person.visible = false unless user.activated?
     user.person.save!
+    if user.environment && user.environment.enabled?('skip_new_user_email_confirmation')
+      user.activate
+    end
   end
   after_create :deliver_activation_code
   after_create :delay_activation_check
