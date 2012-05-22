@@ -14,7 +14,7 @@
 <div title='<%= activity.target.class.short_description %>' class='profile-activity-icon icon-new icon-newgallery'></div>
 
 <% if activity.get_view_url.size == 1 %>
-  <%= render :partial => 'profile_comments', :locals => { :activity => activity } %>
+  <%= render :partial => 'profile_comments', :locals => { :activity => activity, :tab_action => tab_action } %>
 <% end %>
 
 <br/>

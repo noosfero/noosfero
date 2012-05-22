@@ -724,7 +724,8 @@ jQuery(function($){
              loading_for_button($(field));
            },
            success: function(data) {
-             $('#profile_activities').html(data);
+             var update = form.attr('data-update');
+             $('#'+update).html(data);
              $(field).val($(field).attr('title'));
            }
        });

@@ -1,8 +1,5 @@
 <% network_activities.each do |activity| %>
-  <li class='profile-activity-item <%= activity.verb %>' id='profile-network-item-<%= activity.id %>'>
-    <%= render :partial => activity.verb, :locals => { :activity => activity }%>
-    <hr/>
-  </li>
+  <%= render :partial => 'profile_activity', :locals => { :activity => activity, :tab_action => 'network' } if activity.visible? %>
 <% end %>
 <% if network_activities.current_page < network_activities.total_pages %>
   <div id='profile_network_activities_page_<%= network_activities.current_page %>'>

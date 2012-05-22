@@ -1,4 +1,4 @@
 <li class='profile-activity-item <%= activity.verb %>' id='profile-activity-item-<%= activity.id %>'>
-  <%= render :partial => activity.verb, :locals => { :activity => activity }%>
+  <%= render :partial => activity.verb, :locals => { :activity => activity, :tab_action => tab_action }%>
   <hr />
 </li>
