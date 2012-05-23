@@ -17,7 +17,7 @@ class MezuroPlugin::MetricConfigurationContent < Article
     end
   end
 
-  def metric_configuration
+  def metric_configuration #FIXME invalid method name
     Kalibro::Client::MetricConfigurationClient.metric_configuration(name)
   end
 
