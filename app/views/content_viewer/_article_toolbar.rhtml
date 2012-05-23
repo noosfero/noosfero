@@ -32,7 +32,7 @@
           profile.admin_url.merge(:controller => 'cms', :action => 'new',
                                   :parent_id => (@page.folder? ? @page : (@page.parent.nil? ? nil : @page.parent)),
                                   :type => @page.type, :article => { :translation_of_id => @page.native_translation.id }),
-          :class => @page.translatable? && !@page.native_translation.language.blank? && 'button with-text icon-locale' %>
+          :class => 'button with-text icon-locale' if @page.translatable? && !@page.native_translation.language.blank? %>
       <%= lightbox_remote_button(:new, label_for_new_article(@page), profile.admin_url.merge(:controller => 'cms', :action => 'new', :parent_id => (@page.folder? ? @page : (@page.parent.nil? ? nil : @page.parent)))) %>
     <% end %>
 
