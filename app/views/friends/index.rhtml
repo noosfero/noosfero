@@ -14,7 +14,9 @@
     <% button_bar do %>
       <%= button(:back, _('Back to control panel'), :controller => 'profile_editor') %>
       <%= button(:search, _('Find people'), :controller => 'search', :action => 'assets', :asset => 'people') %>
-      <%= button(:search, _('Invite people from my e-mail contacts'), :controller => 'invite', :action => 'select_address_book') %>
+      <% if !@plugins.dispatch(:remove_invite_friends_button).include?(true) %>
+        <%= button(:search, _('Invite people from my e-mail contacts'), :controller => 'invite', :action => 'select_address_book') %>
+      <% end %>
     <% end %>
   <% end %>
 
@@ -43,7 +45,9 @@
   <% button_bar do %>
     <%= button(:back, _('Back to control panel'), :controller => 'profile_editor') %>
     <%= button(:search, _('Find people'), :controller => 'search', :action => 'assets', :asset => 'people') %>
-    <%= button(:search, _('Invite people from my e-mail contacts'), :controller => 'invite', :action => 'select_address_book') %>
+    <% if !@plugins.dispatch(:remove_invite_friends_button).include?(true) %>
+      <%= button(:search, _('Invite people from my e-mail contacts'), :controller => 'invite', :action => 'select_address_book') %>
+    <% end %>
   <% end %>
 <% end %>
 

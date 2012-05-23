@@ -23,14 +23,22 @@ jQuery("#usp_id_field").observe_field(1, function(){
           });
       }
       else {
-        jQuery('#signup-form .submit').attr('disabled', true);
+        jQuery(me).removeClass('checking');
+        if(me.value) {
+          jQuery('#signup-form .submit').attr('disabled', true);
+          jQuery(me).addClass('invalid');
+        }
+        else {
+          jQuery('#signup-form .submit').attr('disabled', false);
+          jQuery(me).removeClass('invalid');
+          jQuery(me).removeClass('validated');
+        }
         jQuery('#signup-birth-date').hide();
         jQuery('#signup-cpf').hide();
-        jQuery(me).removeClass('checking').addClass('invalid');
       }
       if(data.error) displayValidationUspIdError(data.error);
     }
-);
+  );
 });
 
 function displayValidationUspIdError(error){
@@ -39,3 +47,8 @@ function displayValidationUspIdError(error){
     width:  "70%" });
 }
 
+jQuery('#usp_id_field').focus(function() {
+  jQuery('#usp-id-balloon').fadeIn('slow');
+});
+
+jQuery('#usp_id_field').blur(function() { jQuery('#usp-id-balloon').fadeOut('slow'); });

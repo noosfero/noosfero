@@ -8,6 +8,7 @@ class StoaPlugin::UspUserTest < ActiveSupport::TestCase
     @db = Tempfile.new('stoa-test')
     configs = ActiveRecord::Base.configurations['stoa'] = {:adapter => 'sqlite3', :database => @db.path}
     ActiveRecord::Base.establish_connection(:stoa)
+    ActiveRecord::Schema.verbose = false
     ActiveRecord::Schema.create_table "pessoa" do |t|
       t.integer  "codpes"
       t.text     "numcpf"

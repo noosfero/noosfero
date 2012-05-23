@@ -20,6 +20,7 @@ class StoaPlugin < Noosfero::Plugin
   def signup_extra_contents
     lambda {
       required(labelled_form_field(_('USP number'), text_field_tag('profile_data[usp_id]', '', :id => 'usp_id_field'))) +
+      content_tag(:small, _('The usp id grants you special powers in the network. Don\'t forget to fill it in if you have one.'), :id => 'usp-id-balloon') +
       content_tag('div', required(labelled_form_field(_('Birth date (yyyy-mm-dd)'), text_field_tag('birth_date', ''))), :id => 'signup-birth-date', :style => 'display: none') +
       content_tag('div', required(labelled_form_field(_('CPF'), text_field_tag('cpf', ''))), :id => 'signup-cpf', :style => 'display:none') +
       javascript_include_tag('../plugins/stoa/javascripts/jquery.observe_field', '../plugins/stoa/javascripts/signup_complement')
@@ -28,8 +29,10 @@ class StoaPlugin < Noosfero::Plugin
 
   def account_controller_filters
     block = lambda do
+      params[:profile_data] ||= {}
+      params[:profile_data][:invitation_code] = params[:invitation_code]
       if request.post?
-        if !StoaPlugin::UspUser.matches?(params[:profile_data][:usp_id], params[:confirmation_field], params[params[:confirmation_field]])
+        if !params[:invitation_code] && !StoaPlugin::UspUser.matches?(params[:profile_data][:usp_id], params[:confirmation_field], params[params[:confirmation_field]])
           @person = Person.new
           @person.errors.add(:usp_id, _(' validation failed'))
           render :action => :signup
@@ -41,6 +44,23 @@ class StoaPlugin < Noosfero::Plugin
       :method_name => 'validate_usp_id',
       :options => {:only => 'signup'},
       :block => block }]
+  end
+
+  def invite_controller_filters
+    [{ :type => 'before_filter',
+      :method_name => 'check_usp_id_existence',
+      :block => lambda {render_access_denied if profile.usp_id.blank?} }]
+  end
+
+  def control_panel_buttons
+    { :title => _('Invite friends'),
+      :icon => 'invite-friends',
+      :url => {:controller => 'invite',
+               :action => 'select_address_book'} } if !context.profile.usp_id.blank?
+  end
+
+  def remove_invite_friends_button
+    true
   end
 
 end
