@@ -18,7 +18,27 @@ class MetricConfigurationContentTest < ActiveSupport::TestCase
     assert_equal 'Sets of thresholds to interpret a metric', MezuroPlugin::MetricConfigurationContent.description
   end
   
-  should 'return metric configuration' do
-    pending "Need refactoring"
+  should 'have an html view' do
+    assert_not_nil @metric_configuration.to_html
   end
+  
+  #should 'return metric configuration' do
+  #  pending "Need refactoring"
+  #end
+  
+  should 'send metric configuration to service after saving' do
+    @metric_configuration.expects :send_metric_configuration_to_service
+    @metric_configuration.run_callbacks :after_save
+  end
+
+  should 'send correct metric configuration to service' do
+    Kalibro::Client::MetricConfigurationClient.expects(:save).with(@metric_configuration)
+    @metric_configuration.send :send_metric_configuration_to_service
+  end
+
+  should 'remove metric configuration from service' do
+    Kalibro::Client::MetricConfigurationClient.expects(:remove).with(@metric_configuration.name)
+    @metric_configuration.send :remove_metric_configuration_from_service
+  end
+  
 end

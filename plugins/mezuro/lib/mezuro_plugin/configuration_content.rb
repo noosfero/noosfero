@@ -17,7 +17,7 @@ class MezuroPlugin::ConfigurationContent < Article
     end
   end
 
-  def configuration
+  def configuration #FIXME invalid method name
     Kalibro::Client::ConfigurationClient.configuration(name)
   end
 

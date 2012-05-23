@@ -1,6 +1,7 @@
 require "test_helper"
 
 require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/project_fixtures"
+require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/project_result_fixtures"
 
 class ProjectContentTest < ActiveSupport::TestCase
 
@@ -40,6 +41,19 @@ class ProjectContentTest < ActiveSupport::TestCase
   should 'get project result from service' do
     project_result = mock
     Kalibro::Client::ProjectResultClient.expects(:last_result).with(@content.name).returns(project_result)
+    assert_equal project_result, @content.project_result
+  end
+  
+  #def get_date_result(date)
+  #  client =  Kalibro::Client::ProjectResultClient.new
+  #	@project_result ||= client.has_results_before(name, date) ? client.last_result_before(name, date) : client.first_result_after(name, date)
+  #end
+
+  should 'get date result from service when has_result_before is true' do
+    client = mock
+    Kalibro::Client::ProjectResultClient.expects(:new).returns(client)
+    client.expects(:has_results_before).with(@project.name, "2012-05-22T22:00:33+04:00").returns(true)
+    client.expects(:last_result_before).with(@project.name, "2012-05-22T22:00:33+04:00").returns(project_result)
     assert_equal project_result, @content.project_result
   end
 
