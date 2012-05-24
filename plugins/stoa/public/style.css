@@ -29,3 +29,11 @@
   right: 20px;
   bottom: 110px;
 }
+
+.controller-profile_editor input.checking {
+  cursor: progress;
+}
+
+.controller-profile_editor div.checking {
+  background: transparent url(/images/loading-small.gif) 153px center no-repeat;
+}

@@ -1,6 +1,7 @@
 jQuery("#usp_id_field").observe_field(1, function(){
   var me=this;
   jQuery(this).addClass('checking').removeClass('validated');
+  jQuery(this.parentNode).addClass('checking')
   jQuery.getJSON('/plugin/stoa/check_usp_id?usp_id='+me.value,
     function(data){
       if(data.exists) {
@@ -18,12 +19,14 @@ jQuery("#usp_id_field").observe_field(1, function(){
               jQuery('#confirmation_field').remove();
               jQuery('#signup-form').append('<input id="confirmation_field" type="hidden" value="birth_date" name="confirmation_field">')
             }
-        jQuery('#signup-form .submit').attr('disabled', false);
-        jQuery(me).removeClass('checking').addClass('validated');
+            jQuery('#signup-form .submit').attr('disabled', false);
+            jQuery(me).removeClass('checking').addClass('validated');
+            jQuery(me.parentNode).removeClass('checking')
           });
       }
       else {
         jQuery(me).removeClass('checking');
+        jQuery(me.parentNode).removeClass('checking')
         if(me.value) {
           jQuery('#signup-form .submit').attr('disabled', true);
           jQuery(me).addClass('invalid');

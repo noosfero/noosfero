@@ -27,6 +27,16 @@ class StoaPlugin < Noosfero::Plugin
     }
   end
 
+  def profile_info_extra_contents
+    lambda {
+      labelled_form_field(_('USP number'), text_field_tag('profile_data[usp_id]', '', :id => 'usp_id_field')) +
+      content_tag(:small, _('The usp id grants you special powers in the network. Don\'t forget to fill it if you have one.')) +
+      content_tag('div', required(labelled_form_field(_('Birth date (yyyy-mm-dd)'), text_field_tag('birth_date', ''))), :id => 'signup-birth-date', :style => 'display: none') +
+      content_tag('div', required(labelled_form_field(_('CPF'), text_field_tag('cpf', ''))), :id => 'signup-cpf', :style => 'display:none') +
+      javascript_include_tag('../plugins/stoa/javascripts/jquery.observe_field', '../plugins/stoa/javascripts/signup_complement')
+    } if context.profile.person? && context.profile.usp_id.blank?
+  end
+
   def account_controller_filters
     block = lambda do
       params[:profile_data] ||= {}
