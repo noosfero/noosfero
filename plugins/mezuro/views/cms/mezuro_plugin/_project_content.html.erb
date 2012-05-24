@@ -34,6 +34,6 @@
 <%= required labelled_form_field _('Configuration'),
   f.select(:configuration_name, @configuration_names.sort, {:selected => @selected}) %><br/>
 
-<% @periodicity = (@project.nil? ? 0 : @kalibro_client.process_period(@project.name)) %>
+<% @selected = (@project.nil? ? 0 : @kalibro_client.process_period(@article.title)) %>
 <%= required labelled_form_field _('Periodic Avaliation'),
-  f.select(:periodicity_in_days, MezuroPlugin::Helpers::ContentViewerHelper.create_periodicity_options ,{:selected => @periodicity}) %><br/> 
+  f.select(:periodicity_in_days, MezuroPlugin::Helpers::ContentViewerHelper.create_periodicity_options ,{:selected => @selected}) %><br/>
