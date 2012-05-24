@@ -3,6 +3,7 @@
 <%
   begin
     @project = @article.title.nil? ? nil : Kalibro::Client::ProjectClient.project(@article.title)
+    @kalibro_client = Kalibro::Client::KalibroClient.new
   rescue
     @project = nil
   end
@@ -21,7 +22,7 @@
 
 <%= f.text_field :description %><br/>
 
-<% @repository_types = Kalibro::Client::KalibroClient.new.supported_repository_types.sort %>
+<% @repository_types = @kalibro_client.supported_repository_types.sort %>
 <% @selected = (@project.nil? ? @repository_types : @project.repository.type) %>
 <%= required labelled_form_field _('Repository type'),
   f.select(:repository_type, @repository_types, {:selected => @selected}) %><br/>
@@ -33,5 +34,6 @@
 <%= required labelled_form_field _('Configuration'),
   f.select(:configuration_name, @configuration_names.sort, {:selected => @selected}) %><br/>
 
+<% @periodicity = (@project.nil? ? 0 : @kalibro_client.process_period(@project.name)) %>
 <%= required labelled_form_field _('Periodic Avaliation'),
-  f.select(:periodicity_in_days, MezuroPlugin::Helpers::ContentViewerHelper.create_periodicity_options ,{:selected => 0}) %><br/> 
+  f.select(:periodicity_in_days, MezuroPlugin::Helpers::ContentViewerHelper.create_periodicity_options ,{:selected => @periodicity}) %><br/> 

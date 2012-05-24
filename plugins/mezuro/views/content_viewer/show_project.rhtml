@@ -34,7 +34,7 @@
   </tr>
   <tr> 
     <td><%= _('Periodicity') %></td>
-    <td><%= @project.periodicity_in_days %> </td>
+    <td><%= MezuroPlugin::Helpers::ContentViewerHelper.get_periodicity_option(@page.periodicity_in_days) %></td>
   </tr>
   <tr>
     <td><%= _('Status')%></td>

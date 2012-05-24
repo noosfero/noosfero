@@ -18,4 +18,8 @@ class MezuroPlugin::Helpers::ContentViewerHelper
                 :data => values,
                 :axis_with_labels => 'y')
   end
+
+  def self.get_periodicity_option(index)
+   [["Not Periodically", 0], ["1 day", 1], ["2 days", 2], ["Weekly", 7], ["Biweeky", 15], ["Monthly", 30]][index.to_i][0]
+  end
 end
