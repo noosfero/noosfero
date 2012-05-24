@@ -56,6 +56,27 @@ class StoaPlugin < Noosfero::Plugin
       :block => block }]
   end
 
+  def profile_editor_controller_filters
+    block = lambda do
+      if request.post?
+        if !params[:profile_data][:usp_id].blank? && !StoaPlugin::UspUser.matches?(params[:profile_data][:usp_id], params[:confirmation_field], params[params[:confirmation_field]])
+          @profile_data = profile
+          @profile_data.attributes = params[:profile_data]
+          @profile_data.valid?
+          @profile_data.errors.add(:usp_id, _(' validation failed'))
+          @profile_data.usp_id = nil
+          @possible_domains = profile.possible_domains
+          render :action => :edit
+        end
+      end
+    end
+
+    [{ :type => 'before_filter',
+      :method_name => 'validate_usp_id',
+      :options => {:only => 'edit'},
+      :block => block }]
+  end
+
   def invite_controller_filters
     [{ :type => 'before_filter',
       :method_name => 'check_usp_id_existence',
