@@ -4,6 +4,20 @@ class Person < Profile
   acts_as_trackable :after_add => Proc.new {|p,t| notify_activity(t)}
   acts_as_accessor
 
+  @@human_names = {}
+
+  def self.human_names
+    @@human_names
+  end
+
+  # FIXME ugly workaround
+  def self.human_attribute_name(attrib)
+    human_names.each do |key, human_text|
+      return human_text if attrib.to_sym == key.to_sym
+    end
+    super
+  end
+
   named_scope :members_of, lambda { |resource| { :select => 'DISTINCT profiles.*', :joins => :role_assignments, :conditions => ['role_assignments.resource_type = ? AND role_assignments.resource_id = ?', resource.class.base_class.name, resource.id ] } }
 
   def memberships

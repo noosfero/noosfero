@@ -114,6 +114,7 @@ module Noosfero::Factory
     fast_update(person, {:home_page_id => homepage.id})
     box = fast_insert(Box, { :owner_type => "Profile", :owner_id => person.id, :position => 1})
     block = fast_insert(Block, { :box_id => box.id, :type => 'MainBlock', :position => 0})
+    user.activate
     user
   end
 

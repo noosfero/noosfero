@@ -747,6 +747,28 @@ class AccountControllerTest < ActionController::TestCase
     assert_not_nil assigns(:current_user)
   end
 
+  should 'add extra content on signup forms from plugins' do
+    class Plugin1 < Noosfero::Plugin
+      def signup_extra_contents
+        lambda {"<strong>Plugin1 text</strong>"}
+      end
+    end
+    class Plugin2 < Noosfero::Plugin
+      def signup_extra_contents
+        lambda {"<strong>Plugin2 text</strong>"}
+      end
+    end
+
+    Environment.default.enable_plugin(Plugin1.name)
+    Environment.default.enable_plugin(Plugin2.name)
+
+    get :signup
+
+    assert_tag :tag => 'strong', :content => 'Plugin1 text'
+    assert_tag :tag => 'strong', :content => 'Plugin2 text'
+>>>>>>> stoa-full-invitation-and-signup
+  end
+
   protected
     def new_user(options = {}, extra_options ={})
       data = {:profile_data => person_data}

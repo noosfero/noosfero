@@ -1,16 +1,16 @@
 require File.dirname(__FILE__) + '/../../../../test/test_helper'
-require File.dirname(__FILE__) + '/../../controllers/bsc_plugin_environment_controller'
+require File.dirname(__FILE__) + '/../../controllers/bsc_plugin_admin_controller'
 require File.dirname(__FILE__) + '/../../../../app/models/uploaded_file'
 
 # Re-raise errors caught by the controller.
-class BscPluginEnvironmentController; def rescue_action(e) raise e end; end
+class BscPluginAdminController; def rescue_action(e) raise e end; end
 
-class BscPluginEnvironmentControllerTest < ActionController::TestCase
+class BscPluginAdminControllerTest < ActionController::TestCase
 
   VALID_CNPJ = '94.132.024/0001-48'
 
   def setup
-    @controller = BscPluginEnvironmentController.new
+    @controller = BscPluginAdminController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
     user_login = create_admin_user(Environment.default)
