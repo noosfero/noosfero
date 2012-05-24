@@ -244,6 +244,12 @@ class Noosfero::Plugin
     nil
   end
 
+  # -> Adds adicional content to profile info
+  # returns = lambda block that creates a html code
+  def profile_info_extra_contents
+    nil
+  end
+
   # -> Removes the invite friend button from the friends controller
   # returns = boolean
   def remove_invite_friends_button
