@@ -28,6 +28,13 @@ class MezuroPluginMyprofileController < ProfileController
     @metric_configuration = Kalibro::Client::MetricConfigurationClient.new.metric_configuration(@configuration_name, metric_name)
     @metric = @metric_configuration.metric
   end
+
+  def edit_compound_metric_configuration
+    metric_name = params[:metric_name]
+    @configuration_name = params[:configuration_name]
+    @metric_configuration = Kalibro::Client::MetricConfigurationClient.new.metric_configuration(@configuration_name, metric_name)
+    @metric = @metric_configuration.metric
+  end
   
   def create_metric_configuration
     @configuration_name = params[:configuration_name]
@@ -35,12 +42,33 @@ class MezuroPluginMyprofileController < ProfileController
     Kalibro::Client::MetricConfigurationClient.new.save(metric_configuration, @configuration_name)
     redirect_to "/#{profile.identifier}/#{@configuration_name.downcase.gsub(/\s/, '-')}"
   end
+  
+  def new_compound_metric
+    @configuration_name = params[:configuration_name]
+    @metric_configurations = Kalibro::Client::ConfigurationClient.new.configuration(@configuration_name).metric_configurations
+  end
+  
+  def create_compound_metric_configuration
+    @configuration_name = params[:configuration_name]
+    compound_metric_configuration = new_compound_metric_configuration_instance
+    Kalibro::Client::MetricConfigurationClient.new.save(compound_metric_configuration, @configuration_name)
+    redirect_to "/#{profile.identifier}/#{@configuration_name.downcase.gsub(/\s/, '-')}"    
+  end
 
   def update_metric_configuration
     @configuration_name = params[:configuration_name]
     metric_name = params[:metric][:name]
     metric_configuration = Kalibro::Client::MetricConfigurationClient.new.metric_configuration(@configuration_name, metric_name)  
     assign_metric_configuration_instance (metric_configuration)
+    Kalibro::Client::MetricConfigurationClient.new.save(metric_configuration, @configuration_name)
+    redirect_to "/#{profile.identifier}/#{@configuration_name.downcase.gsub(/\s/, '-')}"
+  end
+
+  def update_compound_metric_configuration
+    @configuration_name = params[:configuration_name]
+    metric_name = params[:metric][:name]
+    metric_configuration = Kalibro::Client::MetricConfigurationClient.new.metric_configuration(@configuration_name, metric_name)  
+    assign_compound_metric_configuration_instance (metric_configuration)
     Kalibro::Client::MetricConfigurationClient.new.save(metric_configuration, @configuration_name)
     redirect_to "/#{profile.identifier}/#{@configuration_name.downcase.gsub(/\s/, '-')}"
   end
@@ -103,33 +131,6 @@ class MezuroPluginMyprofileController < ProfileController
   end
 
   
-  def new_compound_metric
-    @configuration_name = params[:configuration_name]
-    @metric_configurations = Kalibro::Client::ConfigurationClient.new.configuration(@configuration_name).metric_configurations
-  end
-  
-  def create_compound_metric_configuration
-    @configuration_name = params[:configuration_name]
-    compound_metric_configuration = new_compound_metric_configuration_instance
-    Kalibro::Client::MetricConfigurationClient.new.save(compound_metric_configuration, @configuration_name)
-    redirect_to "/#{profile.identifier}/#{@configuration_name.downcase.gsub(/\s/, '-')}"    
-  end
-
-  def edit_compound_metric_configuration
-    metric_name = params[:metric_name]
-    @configuration_name = params[:configuration_name]
-    @metric_configuration = Kalibro::Client::MetricConfigurationClient.new.metric_configuration(@configuration_name, metric_name)
-    @metric = @metric_configuration.metric
-  end
-
-  def update_compound_metric_configuration
-    @configuration_name = params[:configuration_name]
-    metric_name = params[:metric][:name]
-    metric_configuration = Kalibro::Client::MetricConfigurationClient.new.metric_configuration(@configuration_name, metric_name)  
-    assign_compound_metric_configuration_instance (metric_configuration)
-    Kalibro::Client::MetricConfigurationClient.new.save(metric_configuration, @configuration_name)
-    redirect_to "/#{profile.identifier}/#{@configuration_name.downcase.gsub(/\s/, '-')}"
-  end
 
   private 
 

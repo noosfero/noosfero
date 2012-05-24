@@ -2,7 +2,8 @@
 
 <% form_for :metric_configuration, :url => {:action =>"update_compound_metric_configuration", :controller => "mezuro_plugin_myprofile"}, :method => :get do |f| %>
   <%= hidden_field_tag :configuration_name, @configuration_name %>
-
+  <%= hidden_field_tag :scope, @metric.scope %>
+  
   <p>
     <%= f.label :metric_name, "Metric Name:" %>
     <%= @metric.name %>
@@ -10,17 +11,15 @@
   </p>
   <p>
     <%= f.label :description, "Description:" %>
-    <%= @metric.description %>
     <%= text_field_tag "metric[description]", @metric.description %>
   </p>
   <p>
-    <%= f.label :code, "Code:" %>
-    <%= f.text_field :code %>
+    <%= f.label :scope, "Scope:" %>
+    <%= f.select :scope, [["Class", "CLASS"]], :selected => @metric.scope %>
   </p>
   <p>
-    <%= f.label :scope, "Scope:" %>
-    <%= @metric.scope %>
-    <%= text_field_tag "metric[scope]", @metric.scope %>
+    <%= f.label :code, "Code:" %>
+    <%= text_field_tag "metric[code]", @metric_configuration.code %>
   </p>
   <p>
     <%= f.label :aggregation_form, "Aggregation Form:" %>
@@ -31,10 +30,7 @@
     <%= f.label :weight, "Weight:" %>
     <%= f.text_field :weight %>
   </p>
-  <p>
-    <%= f.label :script, "script:" %>
-    <%= f.text_area :script %>
-  </p>
+
   <p>
     <%= f.submit "Save" %>
   </p>
