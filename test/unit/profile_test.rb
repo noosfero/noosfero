@@ -1218,10 +1218,10 @@ class ProfileTest < ActiveSupport::TestCase
   end
 
   should 'be possible to have different profiles with the same identifier in different environments' do
-    p1 = fast_create(Profile, :identifier => 'mytestprofile')
-
-    env = fast_create(Environment)
-    p2 = create(Profile, :identifier => 'mytestprofile', :environment => env)
+    env1 = fast_create(Environment)
+    p1 = create(Profile, :identifier => 'mytestprofile', :environment => env1)
+    env2 = fast_create(Environment)
+    p2 = create(Profile, :identifier => 'mytestprofile', :environment => env2)
 
     assert_not_equal p1.environment, p2.environment
   end
