@@ -413,5 +413,14 @@ class ApproveArticleTest < ActiveSupport::TestCase
     end
   end
 
+  should 'return reject message even without reject explanation' do
+    task = ApproveArticle.new(:name => 'My Article')
+    assert_not_nil task.task_cancelled_message
+  end
+
+  should 'show the name of the article in the reject message' do
+    task = ApproveArticle.new(:name => 'My Article')
+    assert_match /My Article/, task.task_cancelled_message
+  end
 
 end

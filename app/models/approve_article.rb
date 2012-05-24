@@ -116,10 +116,11 @@ class ApproveArticle < Task
   end
 
   def task_cancelled_message
-    message = _('Your request for publishing the article "{article}" was rejected.')
+    message = _('Your request for publishing the article "%{article}" was rejected.') % {:article => name}
     if !reject_explanation.blank?
       message += " " + _("Here is the reject explanation left by the administrator who rejected your article: \n\n%{reject_explanation}") % {:reject_explanation => reject_explanation}
     end
+    message
   end
 
 end
