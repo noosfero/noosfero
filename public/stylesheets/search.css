@@ -111,8 +111,8 @@
   font-weight: bold;
   font-size: 11px;
   line-height: 11px;
-  background: #B8CFE7;
-  border: 1px solid #B8CFE7;
+  background: #B8B8B8;
+  border: 1px solid #B8B8B8;
   border-top: none;
   padding: 0px 5px 2px 5px;
 }
@@ -201,9 +201,6 @@
 .search-product-item-second-column .search-result-title {
   display:block;
   margin:0 0 15px 0;
-}
-li.article-item .search-result-title {
-  color: #007788;
 }
 .search-article-tags,
 .search-uploaded-file-description,
@@ -309,7 +306,6 @@ li.search-product-item {
 }
 .search-product-price {
   float: left;
-  color: #249DCB;
   font-size: 120%;
   font-weight: bold;
   line-height: 14px;
@@ -317,7 +313,6 @@ li.search-product-item {
 }
 .search-product-unit {
   float: left;
-  color: #249DCB;
   line-height: 14px;
   font-size: 80%;
   padding: 4px 0px 0px 0px;
@@ -480,7 +475,7 @@ li.search-product-item {
   -khtml-border-radius: 4px;
   border-radius: 4px;
   margin: 0px 5px 5px 0;
-  background: #B1DFEF;
+  background: #B1B1B1;
   text-decoration: none;
 }
 .facet-selected-label {
@@ -511,13 +506,12 @@ li.search-product-item {
   padding-bottom: 10px;
 }
 #facets-menu .facet-menu-label {
-  background:#E8F5FB;
+  background:#E8E8E8;
   text-transform:uppercase;
   padding:10px 10px 2px 10px;
   margin:0 0 15px 0;
 }
 #facets-menu .facet-menu-options a {
-  color: #007788;
   font-size: 1em;
 }
 .facet-menu-item {
@@ -527,19 +521,19 @@ li.search-product-item {
   padding:2px 0;
 }
 .facet-menu-less-options .facet-result-link-selected {
-  background-color: #B1DFEF;
+  background-color: #B1B1B1;
 }
 .facet-menu-less-options .facet-result-link-selected .facet-result-extra-label,
 .facet-menu-less-options .facet-result-link-selected .facet-result-count {
   color: #777;
 }
 .facet-menu-less-options .facet-result-link-selected a {
-  border-left: 4px solid #00A5D3;
+  border-left: 4px solid #000000;
   padding-left: 4px;
   color: #000 !important;
 }
 .facet-menu-more-options .facet-result-link-selected a {
-  border-left: 4px solid #B1DFEF;
+  border-left: 4px solid #000000;
   padding-left: 4px;
 }
 .facet-menu-more-options {
@@ -679,7 +673,6 @@ li.search-product-item hr {
   display: inline-block;
 }
 .search-field .formfield input {
-  border: 1px solid #231F20;
   height: 35px;
   width: 530px;
 }
