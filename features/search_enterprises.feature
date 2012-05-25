@@ -36,7 +36,7 @@ Feature: search enterprises
   Scenario: link to enterprise homepage on search results
     Given I search enterprises for "shoes"
     When I follow "Shoes shop"
-    Then I should be on "Shoes shop" homepage
+    Then I should be on Shoes shop's profile
 
   Scenario: show clean enterprise description on search results
     Given the following articles
@@ -110,7 +110,7 @@ Feature: search enterprises
       | Rails          | software-livre |
     And the following enterprises
       | identifier | name     | category       |
-      | noosfero   | Noosfero | Rails |
+      | noosfero   | Noosfero | rails |
     When I search enterprises for "Rails"
     Then I should see "Software Livre" within ".search-enterprise-category"
     And I should see "Rails" within ".search-enterprise-category"

@@ -247,7 +247,7 @@ Given /^the following (product_categories|product_category|category|categories|r
   klass = kind.singularize.camelize.constantize
   table.hashes.each do |row|
     parent = row.delete("parent")
-    if parent
+    if !parent.blank?
       parent = Category.find_by_slug(parent.to_slug)
       row.merge!({:parent_id => parent.id})
     end

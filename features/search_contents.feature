@@ -86,7 +86,7 @@ Feature: search contents
     Given the following uploaded files
       | owner | name | filename |
       | joaosilva | Uploaded Executable | rails |
-      | joaosilva | Uploaded Spreadsheet | rails |
+      | joaosilva | Uploaded Spreadsheet | shoes |
     When I search contents for "Executable"
     Then I should see "Uploaded Executable" within ".search-uploaded-file-item"
     And I should not see "Uploaded Spreadsheet"
@@ -315,7 +315,7 @@ Feature: search contents
     When I go to the search articles page
     And I fill in "query" with "this is an article"
     And I press "Search"
-    Then show me the page
+    #  Then show me the page
     And I follow "Software Livre" within "#facets-menu"
     Then I should see "noosfero and debian" within "#search-results"
     And I should not see "facebook and 1984"
