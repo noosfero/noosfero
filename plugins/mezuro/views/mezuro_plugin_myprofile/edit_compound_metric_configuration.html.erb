@@ -30,6 +30,11 @@
     <%= f.label :weight, "Weight:" %>
     <%= f.text_field :weight %>
   </p>
+  
+  <p>
+    <%= f.label :script, "Script:" %>
+    <%= text_area_tag "metric[script]", @metric.script %>
+  </p>
 
   <p>
     <%= f.submit "Save" %>

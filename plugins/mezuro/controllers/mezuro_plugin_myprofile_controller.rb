@@ -140,6 +140,12 @@ class MezuroPluginMyprofileController < ProfileController
     assign_metric_configuration_instance (metric_configuration)
   end
   
+  def new_compound_metric_configuration_instance
+    metric_configuration = Kalibro::Entities::MetricConfiguration.new
+    metric_configuration.metric = Kalibro::Entities::CompoundMetric.new
+    assign_compound_metric_configuration_instance (metric_configuration)
+  end
+  
   def assign_metric_configuration_instance (metric_configuration)
     metric_configuration.metric.name = params[:metric][:name]
     metric_configuration.metric.description = params[:description]
@@ -150,12 +156,6 @@ class MezuroPluginMyprofileController < ProfileController
     metric_configuration.weight = params[:metric_configuration][:weight]
     metric_configuration.aggregation_form = params[:metric_configuration][:aggregation_form]
     metric_configuration
-  end
-  
-  def new_compound_metric_configuration_instance
-    metric_configuration = Kalibro::Entities::MetricConfiguration.new
-    metric_configuration.metric = Kalibro::Entities::CompoundMetric.new
-    assign_compound_metric_configuration_instance (metric_configuration)
   end
 
   def assign_compound_metric_configuration_instance (metric_configuration)   
