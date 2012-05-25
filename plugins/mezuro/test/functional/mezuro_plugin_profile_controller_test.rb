@@ -137,11 +137,18 @@ class MezuroPluginProfileControllerTest < ActionController::TestCase
     assert_response 200
   end
       
-  should 'not find project tree for inexistent project content' do
+  should 'not find metrics history for inexistent project content' do
     get :module_metrics_history, :profile => '', :id => -1, :module_name => ''
     assert_response 404
   end
-  
+  #copied from 'get grade history' test
+  should 'get metrics history' do
+    create_project_content
+    mock_module_result_history
+    Kalibro::Client::ProjectClient.expects(:project).with(@name).returns(@project)
+    get :module_metrics_history, :profile => @profile.identifier, :id => @content.id, :module_name => @name
+    assert_response 200
+  end
 
   private
 
