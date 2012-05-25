@@ -22,13 +22,17 @@ class StoaPluginControllerTest < ActionController::TestCase
       t.date     "dtanas"
     end
     ActiveRecord::Base.establish_connection(:test)
-    @user = User.find_by_login('real_user') || create_user('real_user', :password => '123456', :password_confirmation => '123456')
+    env = Environment.default
+    env.enable_plugin(StoaPlugin.name)
+    env.enable('skip_new_user_email_confirmation')
+    env.save!
+    @user = create_user_full('real_user', {:password => '123456', :password_confirmation => '123456'}, {:usp_id => 9999999})
     StoaPlugin::UspUser.create!(:codpes => 12345678, :cpf => Digest::MD5.hexdigest(SALT+'12345678'), :birth_date => '1970-01-30')
-    Environment.default.enable_plugin(StoaPlugin.name)
   end
 
   def teardown
     @db.unlink
+    @user.destroy
   end
 
   attr_accessor :user
