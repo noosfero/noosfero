@@ -15,7 +15,7 @@
   </p>
   <p>
     <%= f.label :scope, "Scope:" %>
-    <%= f.select :scope, [["Class", "CLASS"]], :selected => @metric.scope %>
+    <%= select_tag "metric[scope]", options_for_select([["Teste", "NIL"], ["Class", "CLASS"]], :selected => @metric.scope) %>
   </p>
   <p>
     <%= f.label :code, "Code:" %>
