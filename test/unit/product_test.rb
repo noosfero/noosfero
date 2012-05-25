@@ -520,7 +520,6 @@ class ProductTest < ActiveSupport::TestCase
 
   should 'return solidarity percentage from inputs' do
     prod = fast_create(Product, :name => 'test product1', :product_category_id => @product_category.id, :enterprise_id => @profile.id)
-    puts "$$$$ #{prod.percentage_from_solidarity_economy}"
     assert_equal 0, prod.percentage_from_solidarity_economy.first
 
     Input.create!(:product_id => prod.id, :product_category_id => @product_category.id,
