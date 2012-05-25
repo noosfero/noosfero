@@ -182,5 +182,12 @@ sub vcl_recv {
   C{
     vcl_rewrite_accept_language(sp);
   }C
-  return(pass);
+}
+
+sub vcl_fetch {
+  if (beresp.http.Vary) {
+    set beresp.http.Vary = beresp.http.Vary ", X-Varnish-Accept-Language";
+  } else {
+    set beresp.http.Vary = "X-Varnish-Accept-Language";
+  }
 }
