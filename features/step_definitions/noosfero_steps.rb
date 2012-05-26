@@ -33,6 +33,7 @@ Given /^the following (community|communities|enterprises?|organizations?)$/ do |
     domain = row.delete("domain")
     category = row.delete("category")
     img_name = row.delete("img")
+    city = row.delete("region")
     organization = klass.create!(row)
     if owner
       organization.add_admin(Profile[owner])
@@ -41,7 +42,6 @@ Given /^the following (community|communities|enterprises?|organizations?)$/ do |
       d = Domain.new :name => domain, :owner => organization
       d.save(false)
     end
-    city = row.delete("city")
     if city
       c = City.find_by_name city
       organization.region = c
@@ -134,10 +134,10 @@ Given /^the following (articles|events|blogs|folders|forums|galleries|uploaded f
       :language => language,
       :translation_of_id => translation_of_id)
       if !filename.blank?
-        item.merge!(:uploaded_data => fixture_file_upload("/files/#{filename}.png", 'image/png'))
+        item.merge!(:uploaded_data => fixture_file_upload("/files/#{filename}", 'binary/octet-stream'))
       end
       result = klass.new(item)
-      if parent
+      if !parent.blank?
         result.parent = Article.find_by_name(parent)
       end
       if category

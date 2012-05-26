@@ -84,14 +84,14 @@ Feature: search contents
 
   Scenario: simple search for uploaded file
     Given the following uploaded files
-      | owner | name | filename |
-      | joaosilva | Uploaded Executable | rails |
-      | joaosilva | Uploaded Spreadsheet | shoes |
-    When I search contents for "Executable"
-    Then I should see "Uploaded Executable" within ".search-uploaded-file-item"
-    And I should not see "Uploaded Spreadsheet"
-    When I follow "Uploaded Executable"
-    Then I should be on content "Uploaded Executable"
+      | owner | filename |
+      | joaosilva | rails.png |
+      | joaosilva | shoes.png |
+    When I search contents for "rails.png"
+    Then I should see "rails.png" within ".search-uploaded-file-item"
+    And I should not see "shoes.png"
+    When I follow "rails.png"
+    Then I should be on article "rails.png"
 
   Scenario: show event search results without end date
     Given the following communities
@@ -127,7 +127,6 @@ Feature: search contents
       | joaosilva | Games Forum |
     And the following articles
       | owner | name | parent |
-      | joaosilva | The Old Republic | Games Forum |
       | joaosilva | Mass Effect 3 | Games Forum |
       | joaosilva | The Witcher 2 | Games Forum |
       | joaosilva | Syndicate | Games Forum |
@@ -138,7 +137,6 @@ Feature: search contents
     And I should see "Syndicate"
     And I should see "The Witcher 2"
     And I should see "Mass Effect 3"
-    And I should not see "The Old Republic"
     And I should not see "Diablo 3"
     When I follow "The Witcher 2"
     Then I should be on article "The Witcher 2"
@@ -148,12 +146,12 @@ Feature: search contents
       | owner | name |
       | joaosilva | Folder for Uploaded Files |
     Given the following uploaded files
-      | owner | name | parent | filename |
-      | joaosilva | Uploaded Executable 2 | Folder for Uploaded Files | rails |
-    When I search contents for "Executable"
+      | owner | parent | filename |
+      | joaosilva | Folder for Uploaded Files | rails.png |
+    When I search contents for "rails.png"
     Then I should see "Folder for Uploaded Files" within ".search-uploaded-file-parent"
     When I follow "Folder for Uploaded Files"
-    Then I should be on content "Folder for Uploaded Files"
+    Then I should be on article "Folder for Uploaded Files"
 
   Scenario: link to author on search results
     When I go to the search articles page
@@ -207,17 +205,15 @@ Feature: search contents
   Scenario: link to categories on search results
     Given the following category
       | name           |
-      | Soviet ice hockey players |
+      | Soviet |
     And the following articles
       | owner     | name           | body                       | category       |
-      | joaosilva | Sergei Sorokin | Retired ice hockey player  | Soviet ice hockey players  |
+      | joaosilva | Sergei Sorokin | Retired ice hockey player  | soviet |
     When I go to the search articles page
     And I fill in "query" with "hockey"
     And I press "Search"
     Then I should see "Categories" within ".search-article-categories"
-    And I should see "Soviet ice hockey players" within ".search-article-categories"
-    When I follow "Soviet ice hockey players"
-    Then I should be on Joao Silva's profile
+    And I should see "Soviet" within ".search-article-category"
 
   Scenario: show empty categories on search results
     When I go to the search articles page
@@ -236,7 +232,7 @@ Feature: search contents
       | sglaspell | Susan Glaspell |
     And the article "whales and dolphins" is updated by "Susan Glaspell"
     When I search contents for "whales"
-    Then show me the page
+    #    Then show me the page
     Then I should see "by Susan Glaspell at" within ".search-article-author-changes"
 
   Scenario: search articles by category

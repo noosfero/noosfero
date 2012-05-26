@@ -38,18 +38,21 @@ Feature: search enterprises
     When I follow "Shoes shop"
     Then I should be on Shoes shop's profile
 
-  Scenario: show clean enterprise description on search results
+  Scenario: show clean enterprise homepage on search results
     Given the following articles
-      | owner | name | body |
-      | shop1 | Shoes home | This is the <i>homepage</i> of Shoes shop! It has a very long and pretty vague description, just so we can test wether the system will correctly create an excerpt of this text. We should probably talk about shoes. |
-    And the following enterprises
-      | identifier | name | description |
-      | shop3 | Clothes shop | This <b>clothes</b> shop also sells shoes! This too has a very long and pretty vague description, just so we can test wether the system will correctly create an excerpt of this text. Clothes are a really important part of our lives. |
+      | owner | name | body | homepage |
+      | shop1 | Shoes home | This is the <i>homepage</i> of Shoes shop! It has a very long and pretty vague description, just so we can test wether the system will correctly create an excerpt of this text. We should probably talk about shoes. | true |
     When I search enterprises for "shoes"
     Then I should see "This is the homepage of" within ".search-enterprise-description"
-    And I should see "probably talk..." within ".search-enterprise-description"
+    And I should see "about sho..." within ".search-enterprise-description"
+
+  Scenario: show clean enterprise description on search results
+    Given the following enterprises
+      | identifier | name | description |
+      | shop3 | Clothes shop | This <b>clothes</b> shop also sells shoes! This too has a very long and pretty vague description, just so we can test wether the system will correctly create an excerpt of this text. Clothes are a really important part of our lives. |
+    When I search enterprises for "clothes"
     And I should see "This clothes shop" within ".search-enterprise-description"
-    And I should see "are a re..." within ".search-enterprise-description"
+    And I should see "really import..." within ".search-enterprise-description"
 
   Scenario: see default facets when searching
     When I go to the search enterprises page
@@ -68,7 +71,7 @@ Feature: search enterprises
       | name           | state |
       | Pres. Prudente | SP    |
     And the following enterprises
-      | identifier | name          | city           |
+      | identifier | name          | region           |
       | art-pp     | Artesanato PP | Pres. Prudente |
     When I go to the search enterprises page
     And I fill in "query" with "Artesanato"
@@ -83,7 +86,7 @@ Feature: search enterprises
       | name           | state |
       | Pres. Prudente | SP    |
     And the following enterprises
-      | identifier | name          | city           |
+      | identifier | name          | region         |
       | art-pp     | Artesanato PP | Pres. Prudente |
     When I go to the search enterprises page
     And I fill in "query" with "Prudente"

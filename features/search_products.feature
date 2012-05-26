@@ -116,7 +116,7 @@ Feature: search products
       | name           | state |
       | Pres. Prudente | SP    |
     And the following enterprise
-      | identifier | name          | city           |
+      | identifier | name          | region         |
       | art-pp     | Artesanato PP | Pres. Prudente |
     And the following product_category
       | name      |
@@ -136,7 +136,7 @@ Feature: search products
       | name           | state |
       | Pres. Prudente | SP    |
     And the following enterprise
-      | identifier | name          | city           |
+      | identifier | name          | region         |
       | art-pp     | Artesanato PP | Pres. Prudente |
     And the following product_category
       | name      |

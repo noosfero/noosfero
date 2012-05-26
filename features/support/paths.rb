@@ -17,6 +17,9 @@ module NavigationHelpers
     when /article "([^"]+)"\s*$/
       url_for(Article.find_by_name($1).url.merge({:only_path => true}))
 
+    when /category "([^"]+)"/
+      '/cat/%s' % Category.find_by_name($1).slug
+
     when /edit "(.+)" by (.+)/
       article_id = Person[$2].articles.find_by_slug($1.to_slug).id
       "/myprofile/#{$2}/cms/edit/#{article_id}"
