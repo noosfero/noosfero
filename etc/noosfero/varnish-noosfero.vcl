@@ -1,7 +1,13 @@
-
-backend default {
-  .host = "127.0.0.1";
-  .port = "8080";
+sub vcl_recv {
+    if (req.http.Cookie) {
+        # We only care about the "_noosfero_session.*" cookie, used for
+        # authentication.
+        if (req.http.Cookie ~ "_noosfero_session.*" ) {
+             return (pass);
+        }
+        # Else strip all cookies
+        unset req.http.Cookie;
+    }
 }
 
 sub vcl_error {

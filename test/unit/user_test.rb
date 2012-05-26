@@ -478,6 +478,14 @@ class UserTest < ActiveSupport::TestCase
     end
   end
 
+  should 'activate right after creation when confirmation is not required' do
+    e = Environment.default
+    e.enable('skip_new_user_email_confirmation')
+    e.save!
+
+    assert new_user.activated?
+  end
+
   protected
     def new_user(options = {})
       user = User.new({ :login => 'quire', :email => 'quire@example.com', :password => 'quire', :password_confirmation => 'quire' }.merge(options))

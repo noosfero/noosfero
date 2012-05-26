@@ -26,7 +26,7 @@ task :symlinkmo do
     lang = File.basename(dir)
     orig_lang = langmap[lang] || lang
     mkdir_p("#{Rails.root}/locale/#{lang}/LC_MESSAGES")
-    ['iso_3166', 'rails'].each do |domain|
+    ['iso_3166'].each do |domain|
       origin = "/usr/share/locale/#{orig_lang}/LC_MESSAGES/#{domain}.mo"
       target = "#{Rails.root}/locale/#{lang}/LC_MESSAGES/#{domain}.mo"
       if !File.symlink?(target)

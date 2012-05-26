@@ -123,9 +123,7 @@ namespace :noosfero do
     task :rebuild => [:clean, :build]
 
     def percent_translated(po_file)
-      if !File.exists?(po_file)
-        raise "#{po_file}: not found"
-      end
+      return 0 unless File.exists?(po_file)
       output = `LANG=C msgfmt --output /dev/null --statistics #{po_file} 2>&1`
       puts output
       translated = (output =~ /([0-9]+) translated messages/) ? $1.to_i : 0

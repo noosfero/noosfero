@@ -94,7 +94,6 @@ class Environment < ActiveRecord::Base
       'disable_asset_events' => _('Disable search for events'),
       'disable_products_for_enterprises' => __('Disable products for enterprises'),
       'disable_categories' => _('Disable categories'),
-      'disable_cms' => _('Disable CMS'),
       'disable_header_and_footer' => _('Disable header/footer editing by users'),
       'disable_gender_icon' => _('Disable gender icon'),
       'disable_categories_menu' => _('Disable the categories menu'),
@@ -122,6 +121,7 @@ class Environment < ActiveRecord::Base
       'xmpp_chat' => _('XMPP/Jabber based chat'),
       'show_zoom_button_on_article_images' => _('Show a zoom link on all article images'),
       'captcha_for_logged_users' => _('Ask captcha when a logged user comments too'),
+      'skip_new_user_email_confirmation' => _('Skip e-mail confirmation for new users')
     }
   end
 

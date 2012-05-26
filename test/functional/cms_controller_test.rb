@@ -16,7 +16,6 @@ class CmsControllerTest < ActionController::TestCase
 
     @profile = create_user_with_permission('testinguser', 'post_content')
     login_as :testinguser
-    @controller.stubs(:user).returns(@profile)
   end
 
   attr_reader :profile
@@ -603,12 +602,14 @@ class CmsControllerTest < ActionController::TestCase
 
   should 'not make enterprise homepage available to person' do
     @controller.stubs(:profile).returns(profile)
-    assert_not_includes @controller.available_article_types, EnterpriseHomepage
+    @controller.stubs(:user).returns(profile)
+    assert_not_includes available_article_types, EnterpriseHomepage
   end
 
   should 'make enterprise homepage available to enterprises' do
     @controller.stubs(:profile).returns(fast_create(Enterprise, :name => 'test_ent', :identifier => 'test_ent'))
-    assert_includes @controller.available_article_types, EnterpriseHomepage
+    @controller.stubs(:user).returns(profile)
+    assert_includes available_article_types, EnterpriseHomepage
   end
 
   should 'update categories' do
@@ -840,18 +841,20 @@ class CmsControllerTest < ActionController::TestCase
 
   should 'not offer folder to blog articles' do
     @controller.stubs(:profile).returns(fast_create(Enterprise, :name => 'test_ent', :identifier => 'test_ent'))
+    @controller.stubs(:user).returns(profile)
     blog = Blog.create!(:name => 'Blog for test', :profile => profile)
     @controller.stubs(:params).returns({ :parent_id => blog.id })
 
-    assert_not_includes @controller.available_article_types, Folder
+    assert_not_includes available_article_types, Folder
   end
 
   should 'not offer rssfeed to blog articles' do
     @controller.stubs(:profile).returns(fast_create(Enterprise, :name => 'test_ent', :identifier => 'test_ent'))
+    @controller.stubs(:user).returns(profile)
     blog = Blog.create!(:name => 'Blog for test', :profile => profile)
     @controller.stubs(:params).returns({ :parent_id => blog.id })
 
-    assert_not_includes @controller.available_article_types, RssFeed
+    assert_not_includes available_article_types, RssFeed
   end
 
   should 'update blog posts_per_page setting' do
@@ -1142,6 +1145,21 @@ class CmsControllerTest < ActionController::TestCase
     assert_template 'edit'
   end
 
+  should 'allow community members to edit articles that allow it' do
+    community = fast_create(Community)
+    admin = create_user('community-admin').person
+    member = create_user.person
+
+    community.add_admin(admin)
+    community.add_member(member)
+
+    article = community.articles.create!(:name => 'test_article', :allow_members_to_edit => true)
+
+    login_as member.identifier
+    get :edit, :profile => community.identifier, :id => article.id
+    assert_response :success
+  end
+
   should 'create thumbnails for images with delayed_job' do
     post :upload_files, :profile => profile.identifier, :uploaded_files => [fixture_file_upload('/files/rails.png', 'image/png'), fixture_file_upload('/files/test.txt', 'text/plain')]
     file_1 = profile.articles.find_by_path('rails.png')
@@ -1205,18 +1223,20 @@ class CmsControllerTest < ActionController::TestCase
 
   should 'not offer folder to forum articles' do
     @controller.stubs(:profile).returns(fast_create(Enterprise, :name => 'test_ent', :identifier => 'test_ent'))
+    @controller.stubs(:user).returns(profile)
     forum = Forum.create!(:name => 'Forum for test', :profile => profile)
     @controller.stubs(:params).returns({ :parent_id => forum.id })
 
-    assert_not_includes @controller.available_article_types, Folder
+    assert_not_includes available_article_types, Folder
   end
 
   should 'not offer rssfeed to forum articles' do
     @controller.stubs(:profile).returns(fast_create(Enterprise, :name => 'test_ent', :identifier => 'test_ent'))
+    @controller.stubs(:user).returns(profile)
     forum = Forum.create!(:name => 'Forum for test', :profile => profile)
     @controller.stubs(:params).returns({ :parent_id => forum.id })
 
-    assert_not_includes @controller.available_article_types, RssFeed
+    assert_not_includes available_article_types, RssFeed
   end
 
   should 'update forum posts_per_page setting' do
@@ -1502,20 +1522,12 @@ class CmsControllerTest < ActionController::TestCase
     assert_nil data[1]['error']
   end
 
-  protected
-
-  # FIXME this is to avoid adding an extra dependency for a proper JSON parser.
-  # For now we are assuming that the JSON is close enough to Ruby and just
-  # making some adjustments.
-  def parse_json_response
-    eval(@response.body.gsub('":', '"=>').gsub('null', 'nil'))
-  end
-
   should 'make RawHTMLArticle available only to environment admins' do
     @controller.stubs(:profile).returns(profile)
-    assert_not_includes @controller.available_article_types, RawHTMLArticle
+    @controller.stubs(:user).returns(profile)
+    assert_not_includes available_article_types, RawHTMLArticle
     profile.environment.add_admin(profile)
-    assert_includes @controller.available_article_types, RawHTMLArticle
+    assert_includes available_article_types, RawHTMLArticle
   end
 
   should 'include new contents special types from plugins' do
@@ -1529,8 +1541,25 @@ class CmsControllerTest < ActionController::TestCase
 
     get :index, :profile => profile.identifier
 
-    assert_includes @controller.special_article_types, Integer
-    assert_includes @controller.special_article_types, Float
+    assert_includes special_article_types, Integer
+    assert_includes special_article_types, Float
+  end
+
+  protected
+
+  # FIXME this is to avoid adding an extra dependency for a proper JSON parser.
+  # For now we are assuming that the JSON is close enough to Ruby and just
+  # making some adjustments.
+  def parse_json_response
+    eval(@response.body.gsub('":', '"=>').gsub('null', 'nil'))
+  end
+
+  def available_article_types
+    @controller.send(:available_article_types)
+  end
+
+  def special_article_types
+    @controller.send(:special_article_types)
   end
 
 end
