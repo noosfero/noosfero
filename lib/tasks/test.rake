@@ -19,7 +19,7 @@ AllTasks = TestTasks + CucumberTasks + NoosferoTasks
 task :test do
   errors = AllTasks.collect do |task|
     begin
-      ENV['RAILS_ENV'] = 'test'
+      CucumberTasks.include?(task) ? ENV['RAILS_ENV'] = 'cucumber' : ENV['RAILS_ENV'] = 'test'
       Rake::Task[task].invoke
       nil
     rescue => e
