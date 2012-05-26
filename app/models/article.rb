@@ -674,7 +674,7 @@ class Article < ActiveRecord::Base
       {:comments => {:fields => [:title, :body, :author_name, :author_email]}},
       {:categories => {:fields => [:name, :path, :slug, :lat, :lng, :acronym, :abbreviation]}},
     ], :facets => facets_option_for_solr,
-    :boost => proc { |a| 10 if a.profile.enabled },
+    :boost => proc { |a| 10 if a.profile && a.profile.enabled },
     :if => proc{ |a| ! ['RssFeed'].include?(a.class.name) }
   handle_asynchronously :solr_save
 
