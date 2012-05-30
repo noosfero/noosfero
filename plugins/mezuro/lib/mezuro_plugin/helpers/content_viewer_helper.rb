@@ -12,7 +12,7 @@ class MezuroPlugin::Helpers::ContentViewerHelper
   def self.generate_chart(values)
     Gchart.line(  
                 :title_color => 'FF0000',
-                :size => '700x180', 
+                :size => '600x180', 
                 :bg => {:color => 'efefef', :type => 'stripes'},
                 :line_colors => 'c4a000',
                 :data => values,

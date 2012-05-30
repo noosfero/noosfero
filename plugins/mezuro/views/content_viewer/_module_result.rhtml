@@ -25,12 +25,12 @@
           <td style="background-color: #<%= range.color[2..-1] %>"><%= range.label %></td>
         </tr>	  
         <tr class="<%= metric_result.metric.name.delete("() ")%>" style="display: none;">
-          <td colspan="4">
+          <td colspan="3">
             <div id='historical-<%= metric_result.metric.name.delete("() ") %>'>
               <a href="#" show-metric-history="<%= metric_result.metric.name.delete("() ") %>" data-module-name="<%= the_module.name %>" data-metric-name="<%= metric_result.metric.name.delete("() ") %>"> <p style="text-indent: 3em;"> Get Historical Values </p> </a>
             </div>
           </td>
-          <td colspan="3" align="right">
+          <td align="right">
             <%= range.comments.nil? ? '' : range.comments %>
           </td> 
         </tr>
@@ -39,10 +39,10 @@
   </tbody>
   <tfoot>
     <tr>
-      <td colspan = "1">
+      <td colspan = "3">
         <div id='historical-grade'></div>
       </td>
-      <td colspan = "4" align = "right">
+      <td align = "right">
         <a href="#" show-grade-history="<%= module_result.module.name %>" data-module-name="<%= the_module.name%>" >
           <strong>
             <%= _('Grade:') %>
