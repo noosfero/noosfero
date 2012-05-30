@@ -50,12 +50,11 @@ class MezuroPlugin::ProjectContent < Article
 
   private
 
-  #FIXME
   def validate_kalibro_project_name
-    begin
-      Kalibro::Client::ProjectClient.project(name)
+    existing = Kalibro::Client::ProjectClient.new.project_names
+    
+    if existing.include?(name)
       errors.add_to_base("Project name already exists in Kalibro")
-    rescue
     end
   end
 
