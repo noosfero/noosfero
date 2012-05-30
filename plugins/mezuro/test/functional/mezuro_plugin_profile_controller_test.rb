@@ -123,7 +123,6 @@ class MezuroPluginProfileControllerTest < ActionController::TestCase
   def create_project_content
     @content = MezuroPlugin::ProjectContent.new(:profile => @profile, :name => @name)
     @content.expects(:send_project_to_service).returns(nil)
-    Kalibro::Client::ProjectClient.expects(:project).raises("there's no project named macaco")
     @content.save
   end
   
