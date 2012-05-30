@@ -80,8 +80,8 @@ module Noosfero::Factory
       :password_confirmation => name.underscore
     }.merge(options)
     user = User.new(data)
+    user.person = Person.new(person_options)
     user.save!
-    user.person.update_attributes!(person_data.merge(person_options))
     user
   end
 

@@ -1187,17 +1187,18 @@ class EnvironmentTest < ActiveSupport::TestCase
     assert !environment.errors.invalid?(:reports_lower_bound)
   end
 
-  should 'be able to enable or disable a plugin' do
+  should 'be able to enable or disable a plugin with the class or class name' do
+    class Plugin
+    end
     environment = Environment.default
-    plugin = 'Plugin'
 
-    environment.enable_plugin(plugin)
+    environment.enable_plugin(Plugin)
     environment.reload
-    assert_includes environment.enabled_plugins, plugin
+    assert environment.plugin_enabled?(Plugin.to_s)
 
-    environment.disable_plugin(plugin)
+    environment.disable_plugin(Plugin.to_s)
     environment.reload
-    assert_not_includes environment.enabled_plugins, plugin
+    assert !environment.plugin_enabled?(Plugin)
   end
 
   should 'have production costs' do

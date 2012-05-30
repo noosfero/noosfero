@@ -1,7 +1,7 @@
 module AccountHelper
 
   def validation_classes
-    'available unavailable valid invalid checking'
+    'available unavailable valid validated invalid checking'
   end
 
   def checking_message(key)

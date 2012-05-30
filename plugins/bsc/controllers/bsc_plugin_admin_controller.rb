@@ -1,4 +1,4 @@
-class BscPluginEnvironmentController < AdminController
+class BscPluginAdminController < AdminController
 
   include BscPlugin::BscHelper
 

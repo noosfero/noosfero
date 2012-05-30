@@ -49,9 +49,15 @@
         :loading  => "jQuery('#user_email').removeClass('#{validation_classes}').addClass('checking');
                       jQuery('#email-check').html('<p><span class=\"checking\">#{checking_message(:email)}</span></p>');",
         :complete => "jQuery('#user_email').removeClass('checking')",
-        :before   => "if (!( jQuery('#user_email').valid() )) {
-                        jQuery('#user_email').removeClass('#{validation_classes}').addClass('unavailable');
-                        jQuery('#email-check').html('<p><span class=\"unavailable\">#{_('This e-mail address is not valid')}</span></p>');
+        :before   => "var field = jQuery('#user_email');
+                      if (field.val()=='') {
+                        field.removeClass('#{validation_classes}');
+                        jQuery('#email-check').html('<p>&nbsp;</p>');
+                        return false;
+                      }
+                      if (!( field.valid() )) {
+                        field.removeClass('#{validation_classes}').addClass('invalid');
+                        jQuery('#email-check').html('<p><span class=\"invalid\">#{_('This e-mail address is not valid')}</span></p>');
                         return false;
                       }"
   %>
@@ -66,6 +72,10 @@
   <% labelled_fields_for :profile_data, @person do |f| %>
     <%= render :partial => 'profile_editor/person_form', :locals => {:f => f} %>
   <% end %>
+
+
+
+  <%= @plugins.dispatch(:signup_extra_contents).collect { |content| instance_eval(&content) }.join("") %>
 
   <% unless @terms_of_use.blank? %>
     <div id='terms-of-use-box' class='formfieldline'>
@@ -139,13 +149,13 @@ jQuery(function($) {
       $('#user_password_confirmation_clear').show();
       $('#user_password_confirmation').hide();
     } else if ($('#user_password_confirmation').val() == $('#user_pw').val()) {
-      $('#user_password_confirmation').addClass('passwords_match').removeClass('passwords_differ');
+      $('#user_password_confirmation').addClass('validated').removeClass('invalid');
       $('#user_pw').removeClass('invalid_input').addClass('valid_input');
       $('#password-check').html("<p>&nbsp;</p>");
     } else if ($('#user_password_confirmation').val() != $('#user_pw').val()) {
-      $('#user_password_confirmation').removeClass('passwords_match').addClass('passwords_differ');
+      $('#user_password_confirmation').removeClass('validated').addClass('invalid');
       $('#user_pw').addClass('invalid_input').removeClass('valid_input');
-      $('#password-check').html("<p><span class='unavailable'><%= _('Passwords don\'t match') %></span></p>");
+      $('#password-check').html("<p><span class='invalid'><%= _('Passwords don\'t match') %></span></p>");
     }
     $('#password-balloon').fadeOut('slow');
   });

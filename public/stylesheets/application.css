@@ -6500,14 +6500,14 @@ h1#agenda-title {
   margin-left: 12px;
 }
 
-.action-account-signup #wrap-1 label,
-.action-account-signup #wrap-1 small,
-.action-account-signup #wrap-1 #user_password,
-.action-account-signup #wrap-1 #user_password_confirmation {
+#signup-form label,
+#signup-form small,
+#signup-form #user_password,
+#signup-form #user_password_confirmation {
    display: none;
 }
 
-.action-account-signup #wrap-1 #signup-form-header {
+#signup-form #signup-form-header {
   background: #E3E3E3;
   padding: 22px 0;
   -moz-border-radius: 8px;
@@ -6518,24 +6518,24 @@ h1#agenda-title {
   width: 563px;
 }
 
-.action-account-signup #wrap-1 .formfield input.invalid_input {
+#signup-form input.invalid_input {
   border: 2px solid #FFA000;
   background: #FFF;
   padding: 5px 30px 8px 5px;
 }
 
-.action-account-signup #wrap-1 .formfield input.valid_input {
+#signup-form input.valid_input {
   border: 2px solid #88BD00;
   background: #FFF;
   padding: 5px 30px 8px 5px;
 }
 
-.action-account-signup #wrap-1 .formfield select,
-.action-account-signup #wrap-1 .formfield textarea,
-.action-account-signup #wrap-1 #profile_data_name,
-.action-account-signup #wrap-1 .formfield input {
+#signup-form select,
+#signup-form textarea,
+#signup-form #profile_data_name,
+#signup-form input {
   background: transparent url(/images/field-bg.png) left top no-repeat;
-  padding: 7px 3px 10px 7px;
+  padding: 7px 30px 10px 7px;
   height: 24px;
   width: 335px;
   color: #6d786e;
@@ -6543,71 +6543,62 @@ h1#agenda-title {
   font-family: droidserif, serif;
   margin: 9px 14px 0;
   border: 0;
-  padding-right: 30px;
 }
 
-.action-account-signup #wrap-1 #user_login.checking,
-.action-account-signup #wrap-1 #user_login.available,
-.action-account-signup #wrap-1 #user_login.unavailable,
-.action-account-signup #wrap-1 #user_email.checking,
-.action-account-signup #wrap-1 #user_email.available,
-.action-account-signup #wrap-1 #user_email.unavailable,
-.action-account-signup #wrap-1 .formfield input.passwords_differ,
-.action-account-signup #wrap-1 .formfield input.passwords_match {
+#signup-form #user_password,
+#signup-form #user_password_confirmation,
+#signup-form .filled-in,
+#signup-form .passwords_match,
+#signup-form .invalid,
+#signup-form .checking {
   border-width: 2px;
   border-style: solid;
   background-color: #fff;
   background-position: right center;
   background-repeat: no-repeat;
   padding: 5px 30px 8px 5px;
+  color: #4A4A4A;
 }
 
-.action-account-signup #wrap-1 .formfield select.filled-in,
-.action-account-signup #wrap-1 .formfield textarea.filled-in,
-.action-account-signup #wrap-1 #profile_data_name.filled-in,
-.action-account-signup #wrap-1 .formfield input.filled-in {
-   color: #4A4A4A;
-}
-
-.action-account-signup #wrap-1 .formfield select {
+#signup-form select {
   height: auto;
   padding-right: 3px;
   width: 365px;
 }
 
-.action-account-signup #wrap-1 .formfield .select-birth-date select {
+#signup-form .select-birth-date select {
   width: 93px;
   margin-right: 2px;
   margin-left: 0;
 }
 
-.webkit.action-account-signup #wrap-1 .formfield select {
+.webkit #signup-form select {
   background: #fff;
 }
 
-.action-account-signup #wrap-1 .formfield textarea {
+#signup-form textarea {
   background: #fff;
   height: 100px;
   padding-right: 3px;
   width: 365px;
 }
 
-.action-account-signup #wrap-1 .formfield input[type=file] {
+#signup-form input[type=file] {
   font-size: 12px;
 }
 
-.action-account-signup #wrap-1 input[type=radio] {
+#signup-form input[type=radio] {
   height: auto;
   margin: 0;
   margin-left: 3px;
 }
 
-.action-account-signup #wrap-1 .fieldgroup {
+#signup-form .fieldgroup {
   margin: 5px 10px;
 }
 
-.action-account-signup #wrap-1 label[for=profile_data_sex_female],
-.action-account-signup #wrap-1 label[for=profile_data_sex_male] {
+#signup-form label[for=profile_data_sex_female],
+#signup-form label[for=profile_data_sex_male] {
   color: #6d786e;
   font-size: 20px;
   font-family: droidserif;
@@ -6616,39 +6607,53 @@ h1#agenda-title {
   margin-left: 8px;
 }
 
-.action-account-signup #wrap-1 label[for=profile_data_country],
-.action-account-signup #wrap-1 label[for=profile_data_preferred_domain_id],
-.action-account-signup #wrap-1 label[for=profile_data_birth_date_2i],
-.action-account-signup #wrap-1 label[for=profile_data_birth_date_3i],
-.action-account-signup #wrap-1 label[for=profile_data_schooling],
-.action-account-signup #wrap-1 label[for=profile_data_formation],
-.action-account-signup #wrap-1 label[for=profile_data_area_of_study],
-.action-account-signup #wrap-1 label[for=profile_data_image_builder_uploaded_data] {
+#signup-form label[for=profile_data_country],
+#signup-form label[for=profile_data_preferred_domain_id],
+#signup-form label[for=profile_data_birth_date_2i],
+#signup-form label[for=profile_data_birth_date_3i],
+#signup-form label[for=profile_data_schooling],
+#signup-form label[for=profile_data_formation],
+#signup-form label[for=profile_data_area_of_study],
+#signup-form label[for=profile_data_image_builder_uploaded_data] {
   display: block;
 }
 
-.action-account-signup #wrap-1 #profile_data_name {
+#signup-form #profile_data_name {
   padding-left: 10px;
 }
 
-.action-account-signup #wrap-1 #user_login.unavailable,
-.action-account-signup #wrap-1 #user_email.unavailable,
-.action-account-signup #wrap-1 .formfield input.passwords_differ {
+#signup-form .invalid {
   border-color: #FFA000;
   background-image: url(/images/passwords_nomatch.png);
 }
 
-.action-account-signup #wrap-1 #user_email.checking,
-.action-account-signup #wrap-1 #user_login.checking {
+#signup-form span.invalid {
+  border: none;
+  padding: 0px;
+  background: transparent;
+  color: #FFA000;
+}
+
+#signup-form .checking {
   border-color: #4A4A4A;
   background-image: url(/images/login_checking.png);
 }
 
-.action-account-signup #wrap-1 #user_login.available,
-.action-account-signup #wrap-1 #user_email.available,
-.action-account-signup #wrap-1 .formfield input.passwords_match {
+#signup-form span.checking {
+  border: none;
+  padding: 0px;
+  background: transparent;
+  color: #4A4A4A;
+}
+
+#signup-form .validated {
   border-color: #88BD00;
   background-image: url(/images/passwords_match.png);
+}
+
+#signup-form span.validated {
+  background: transparent;
+  color: #88BD00;
 }
 
 #signup-domain {
@@ -6669,7 +6674,7 @@ h1#agenda-title {
   margin-left: 14px;
 }
 
-.action-account-signup #wrap-1 #signup-form-header #user_login {
+#signup-form #signup-form-header #user_login {
   margin: 0;
   width: 200px;
   padding-right: 30px;
@@ -6683,14 +6688,14 @@ h1#agenda-title {
   float: left;
 }
 
-.action-account-signup #wrap-1 #signup-password,
-.action-account-signup #wrap-1 #signup-password-confirmation,
-.action-account-signup #wrap-1 #signup-login {
+#signup-form #signup-password,
+#signup-form #signup-password-confirmation,
+#signup-form #signup-login {
   position: relative;
 }
 
-.action-account-signup #wrap-1 small#signup-balloon,
-.action-account-signup #wrap-1 small#password-balloon {
+#signup-form small#signup-balloon,
+#signup-form small#password-balloon {
   display: none;
   width: 142px;
   height: 69px;
@@ -6707,8 +6712,8 @@ h1#agenda-title {
   top: -100px;
 }
 
-.action-account-signup #wrap-1 .required-field label,
-.action-account-signup #wrap-1 .formlabel {
+#signup-form .required-field label,
+#signup-form .formlabel {
   color: #b4b9b5;
   font-size: 20px;
   text-transform: lowercase;
@@ -6717,7 +6722,7 @@ h1#agenda-title {
   font-family: droidserif;
 }
 
-.action-account-signup #wrap-1 .required-field label::after {
+#signup-form .required-field label::after {
   content: '';
 }
 
@@ -6741,16 +6746,16 @@ h1#agenda-title {
   background: #FFF;
 }
 
-.action-account-signup #terms-of-use-box label {
+#signup-form #terms-of-use-box label {
   display: inline;
   font-size: 16px;
 }
 
-.action-account-signup #terms-of-use-box label a {
+#signup-form #terms-of-use-box label a {
   color: #FF7F2A;
 }
 
-.action-account-signup #content form input.button.submit {
+#content #signup-form .submit {
   border: 0;
   padding: 8px 36px 12px;
   background: transparent url(/images/orange-bg.png) left center repeat-x;
@@ -6784,7 +6789,7 @@ h1#agenda-title {
   text-align: center;
 }
 
-.action-account-signup .formfieldline {
+#signup-form .formfieldline {
   padding: 0;
 }
 
