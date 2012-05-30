@@ -120,7 +120,11 @@ class MezuroPluginMyprofileController < ProfileController
     Kalibro::Client::MetricConfigurationClient.new.save(metric_configuration, configuration_name)
     formatted_configuration_name = configuration_name.gsub(/\s/, '+')
     formatted_metric_name = metric_name.gsub(/\s/, '+')
-    redirect_to "/myprofile/#{profile.identifier}/plugins/mezuro/edit_metric_configuration?configuration_name=#{formatted_configuration_name}&metric_name=#{formatted_metric_name}"
+    if metric_configuration.metric.class == Kalibro::Entities::CompoundMetric
+      redirect_to "/myprofile/#{profile.identifier}/plugin/mezuro/edit_compound_metric_configuration?configuration_name=#{formatted_configuration_name}&metric_name=#{formatted_metric_name}"
+    else
+      redirect_to "/myprofile/#{profile.identifier}/plugin/mezuro/edit_metric_configuration?configuration_name=#{formatted_configuration_name}&metric_name=#{formatted_metric_name}"
+    end
   end
 
   def remove_metric_configuration
