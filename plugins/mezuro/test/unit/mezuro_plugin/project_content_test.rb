@@ -92,9 +92,11 @@ returns(module_result)
   end
   
   should 'not save a project with an existing project name in kalibro' do
-		Kalibro::Client::ProjectClient.expects(:project).with(@content.name).returns(mock)
+    client = mock
+ 		Kalibro::Client::ProjectClient.expects(:new).returns(client)
+		client.expects(:project_names).returns([@content.name])
 		@content.send :validate_kalibro_project_name
-		assert_equal @content.errors.on_base, "Project name already exists in Kalibro"
+		assert_equal "Project name already exists in Kalibro", @content.errors.on_base
 	end
   
   private

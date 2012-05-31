@@ -13,6 +13,7 @@ class MezuroPluginMyprofileController < ProfileController
     @collector_name = params[:collector_name]
     @collector = Kalibro::Client::BaseToolClient.new.base_tool(@collector_name)
   end
+  
   def new_metric_configuration
     metric_name = params[:metric_name]
     collector_name = params[:collector_name]
@@ -20,17 +21,38 @@ class MezuroPluginMyprofileController < ProfileController
     @metric = collector.supported_metrics.find {|metric| metric.name == metric_name}
     @configuration_name = params[:configuration_name]
   end
+  
   def edit_metric_configuration
     metric_name = params[:metric_name]
     @configuration_name = params[:configuration_name]
     @metric_configuration = Kalibro::Client::MetricConfigurationClient.new.metric_configuration(@configuration_name, metric_name)
     @metric = @metric_configuration.metric
   end
+
+  def edit_compound_metric_configuration
+    metric_name = params[:metric_name]
+    @configuration_name = params[:configuration_name]
+    @metric_configuration = Kalibro::Client::MetricConfigurationClient.new.metric_configuration(@configuration_name, metric_name)
+    @metric = @metric_configuration.metric
+  end
+  
   def create_metric_configuration
     @configuration_name = params[:configuration_name]
     metric_configuration = new_metric_configuration_instance
     Kalibro::Client::MetricConfigurationClient.new.save(metric_configuration, @configuration_name)
     redirect_to "/#{profile.identifier}/#{@configuration_name.downcase.gsub(/\s/, '-')}"
+  end
+  
+  def new_compound_metric
+    @configuration_name = params[:configuration_name]
+    @metric_configurations = Kalibro::Client::ConfigurationClient.new.configuration(@configuration_name).metric_configurations
+  end
+  
+  def create_compound_metric_configuration
+    @configuration_name = params[:configuration_name]
+    compound_metric_configuration = new_compound_metric_configuration_instance
+    Kalibro::Client::MetricConfigurationClient.new.save(compound_metric_configuration, @configuration_name)
+    redirect_to "/#{profile.identifier}/#{@configuration_name.downcase.gsub(/\s/, '-')}"    
   end
 
   def update_metric_configuration
@@ -38,6 +60,15 @@ class MezuroPluginMyprofileController < ProfileController
     metric_name = params[:metric][:name]
     metric_configuration = Kalibro::Client::MetricConfigurationClient.new.metric_configuration(@configuration_name, metric_name)  
     assign_metric_configuration_instance (metric_configuration)
+    Kalibro::Client::MetricConfigurationClient.new.save(metric_configuration, @configuration_name)
+    redirect_to "/#{profile.identifier}/#{@configuration_name.downcase.gsub(/\s/, '-')}"
+  end
+
+  def update_compound_metric_configuration
+    @configuration_name = params[:configuration_name]
+    metric_name = params[:metric][:name]
+    metric_configuration = Kalibro::Client::MetricConfigurationClient.new.metric_configuration(@configuration_name, metric_name)  
+    assign_compound_metric_configuration_instance (metric_configuration)
     Kalibro::Client::MetricConfigurationClient.new.save(metric_configuration, @configuration_name)
     redirect_to "/#{profile.identifier}/#{@configuration_name.downcase.gsub(/\s/, '-')}"
   end
@@ -89,7 +120,11 @@ class MezuroPluginMyprofileController < ProfileController
     Kalibro::Client::MetricConfigurationClient.new.save(metric_configuration, configuration_name)
     formatted_configuration_name = configuration_name.gsub(/\s/, '+')
     formatted_metric_name = metric_name.gsub(/\s/, '+')
-    redirect_to "/myprofile/#{profile.identifier}/plugins/mezuro/edit_metric_configuration?configuration_name=#{formatted_configuration_name}&metric_name=#{formatted_metric_name}"
+    if metric_configuration.metric.class == Kalibro::Entities::CompoundMetric
+      redirect_to "/myprofile/#{profile.identifier}/plugin/mezuro/edit_compound_metric_configuration?configuration_name=#{formatted_configuration_name}&metric_name=#{formatted_metric_name}"
+    else
+      redirect_to "/myprofile/#{profile.identifier}/plugin/mezuro/edit_metric_configuration?configuration_name=#{formatted_configuration_name}&metric_name=#{formatted_metric_name}"
+    end
   end
 
   def remove_metric_configuration
@@ -99,6 +134,8 @@ class MezuroPluginMyprofileController < ProfileController
     redirect_to "/#{profile.identifier}/#{configuration_name.downcase.gsub(/\s/, '-')}"
   end
 
+  
+
   private 
 
   def new_metric_configuration_instance
@@ -106,13 +143,30 @@ class MezuroPluginMyprofileController < ProfileController
     metric_configuration.metric = Kalibro::Entities::NativeMetric.new
     assign_metric_configuration_instance (metric_configuration)
   end
-
-  def assign_metric_configuration_instance (metric_configuration)   
+  
+  def new_compound_metric_configuration_instance
+    metric_configuration = Kalibro::Entities::MetricConfiguration.new
+    metric_configuration.metric = Kalibro::Entities::CompoundMetric.new
+    assign_compound_metric_configuration_instance (metric_configuration)
+  end
+  
+  def assign_metric_configuration_instance (metric_configuration)
     metric_configuration.metric.name = params[:metric][:name]
     metric_configuration.metric.description = params[:description]
     metric_configuration.metric.origin = params[:metric][:origin]
     metric_configuration.metric.scope = params[:scope]
     metric_configuration.metric.language = params[:language]
+    metric_configuration.code = params[:metric_configuration][:code]
+    metric_configuration.weight = params[:metric_configuration][:weight]
+    metric_configuration.aggregation_form = params[:metric_configuration][:aggregation_form]
+    metric_configuration
+  end
+
+  def assign_compound_metric_configuration_instance (metric_configuration)   
+    metric_configuration.metric.name = params[:metric_configuration][:metric_name]
+    metric_configuration.metric.description = params[:metric_configuration][:description]
+    metric_configuration.metric.scope = params[:metric_configuration][:scope]
+    metric_configuration.metric.script = params[:metric_configuration][:script]
     metric_configuration.code = params[:metric_configuration][:code]
     metric_configuration.weight = params[:metric_configuration][:weight]
     metric_configuration.aggregation_form = params[:metric_configuration][:aggregation_form]

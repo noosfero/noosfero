@@ -18,6 +18,7 @@ class MezuroPluginMyprofileControllerTest < ActionController::TestCase
     @metric = NativeMetricFixtures.amloc
     @metric_configuration_client = Kalibro::Client::MetricConfigurationClient.new
     @metric_configuration = MetricConfigurationFixtures.amloc_configuration
+    @compound_metric_configuration = MetricConfigurationFixtures.sc_configuration
   end
 
   should 'assign configuration name in choose_base_tool' do
@@ -71,15 +72,28 @@ class MezuroPluginMyprofileControllerTest < ActionController::TestCase
     assert_equal assigns(:configuration_name), "test name"
     assert_response 302
   end
-
-  should 'test metric edition' do
+  
+  should 'test compound metric creation' do
     Kalibro::Client::MetricConfigurationClient.expects(:new).returns(@metric_configuration_client)
     @metric_configuration_client.expects(:save)
     get :create_metric_configuration, :profile => @profile.identifier, :configuration_name => "test name", :description => @metric.description,
-    :scope => @metric.scope, :language => @metric.language, :metric => { :name => @metric.name, :origin => @metric.origin},
-    :metric_configuration => { :code => @metric_configuration.code, :weight => @metric_configuration.code, :aggregation => @metric_configuration.aggregation_form }
-    assert_equal assigns(:configuration_name), "test name"
+    :scope => @metric.scope, :language => @metric.language, :metric => { :name => @metric.name},
+    :metric_configuration => { :script => @compound_metric_configuration.metric.script, :code => @compound_metric_configuration.code, :weight => @compound_metric_configuration.code, :aggregation => @compound_metric_configuration.aggregation_form}
     assert_response 302
+  end
+
+  should 'test metric edition' do
+    Kalibro::Client::MetricConfigurationClient.expects(:new).returns(@metric_configuration_client)
+    @metric_configuration_client.expects(:metric_configuration).with("test name","test metric name").returns(@metric_configuration)
+    get :edit_metric_configuration, :profile => @profile.identifier, :configuration_name => "test name", :metric_name => "test metric name"
+    assert_response 200
+  end
+  
+  should 'test compound metric edition' do
+    Kalibro::Client::MetricConfigurationClient.expects(:new).returns(@metric_configuration_client)
+    @metric_configuration_client.expects(:metric_configuration).with("test name","test metric name").returns(@compound_metric_configuration)
+    get :edit_compound_metric_configuration, :profile => @profile.identifier, :configuration_name => "test name", :metric_name => "test metric name"
+    assert_response 200
   end
 
   should 'assign configuration name and metric name to new range' do

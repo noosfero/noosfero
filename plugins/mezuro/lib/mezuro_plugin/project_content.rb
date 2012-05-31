@@ -29,7 +29,8 @@ class MezuroPlugin::ProjectContent < Article
   
   def get_date_result(date)
     client =  Kalibro::Client::ProjectResultClient.new
-  	@project_result ||= client.has_results_before(name, date) ? client.last_result_before(name, date) : client.first_result_after(name, date)
+    @project_result ||= client.has_results_before(name, date) ? client.last_result_before(name, date) : 
+client.first_result_after(name, date)
   end
 
   def module_result(module_name)
@@ -50,12 +51,11 @@ class MezuroPlugin::ProjectContent < Article
 
   private
 
-  #FIXME
   def validate_kalibro_project_name
-    begin
-      Kalibro::Client::ProjectClient.project(name)
+    existing = Kalibro::Client::ProjectClient.new.project_names
+    
+    if existing.include?(name)
       errors.add_to_base("Project name already exists in Kalibro")
-    rescue
     end
   end
 

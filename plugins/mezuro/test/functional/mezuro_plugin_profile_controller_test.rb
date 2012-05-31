@@ -21,6 +21,8 @@ class MezuroPluginProfileControllerTest < ActionController::TestCase
     @name = @project.name
 
     @date = "2012-04-13T20:39:41+04:00"
+
+	@date = "2012-04-13T20:39:41+04:00"
   end
 
   should 'not find module result for inexistent project content' do
@@ -65,9 +67,9 @@ class MezuroPluginProfileControllerTest < ActionController::TestCase
   
   should 'get project results from a specific date' do
     create_project_content
-	  mock_project_result
-  	Kalibro::Client::ProjectClient.expects(:project).with(@name).returns(@project)
-  	get :project_result, :profile => @profile.identifier, :id => @content.id, :date => @project_result.date
+    mock_project_result
+    Kalibro::Client::ProjectClient.expects(:project).with(@name).returns(@project)
+    get :project_result, :profile => @profile.identifier, :id => @content.id, :date => @project_result.date
     assert_response 200
   end
   
@@ -121,7 +123,6 @@ class MezuroPluginProfileControllerTest < ActionController::TestCase
   def create_project_content
     @content = MezuroPlugin::ProjectContent.new(:profile => @profile, :name => @name)
     @content.expects(:send_project_to_service).returns(nil)
-    Kalibro::Client::ProjectClient.expects(:project).raises("there's no project named macaco")
     @content.save
   end
   
