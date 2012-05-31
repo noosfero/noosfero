@@ -59,17 +59,17 @@ class MezuroPluginMyprofileController < ProfileController
     @configuration_name = params[:configuration_name]
     metric_name = params[:metric][:name]
     metric_configuration = Kalibro::Client::MetricConfigurationClient.new.metric_configuration(@configuration_name, metric_name)  
-    assign_metric_configuration_instance (metric_configuration)
+    metric_configuration = assign_metric_configuration_instance (metric_configuration)
     Kalibro::Client::MetricConfigurationClient.new.save(metric_configuration, @configuration_name)
     redirect_to "/#{profile.identifier}/#{@configuration_name.downcase.gsub(/\s/, '-')}"
   end
 
   def update_compound_metric_configuration
     @configuration_name = params[:configuration_name]
-    metric_name = params[:metric][:name]
-    metric_configuration = Kalibro::Client::MetricConfigurationClient.new.metric_configuration(@configuration_name, metric_name)  
-    assign_compound_metric_configuration_instance (metric_configuration)
-    Kalibro::Client::MetricConfigurationClient.new.save(metric_configuration, @configuration_name)
+    metric_name = params[:metric_configuration][:metric][:name]
+    compound_metric_configuration = Kalibro::Client::MetricConfigurationClient.new.metric_configuration(@configuration_name, metric_name)  
+    compound_metric_configuration = assign_compound_metric_configuration_instance (compound_metric_configuration)
+    Kalibro::Client::MetricConfigurationClient.new.save(compound_metric_configuration, @configuration_name)
     redirect_to "/#{profile.identifier}/#{@configuration_name.downcase.gsub(/\s/, '-')}"
   end
   
@@ -163,10 +163,10 @@ class MezuroPluginMyprofileController < ProfileController
   end
 
   def assign_compound_metric_configuration_instance (metric_configuration)   
-    metric_configuration.metric.name = params[:metric_configuration][:metric_name]
-    metric_configuration.metric.description = params[:metric_configuration][:description]
-    metric_configuration.metric.scope = params[:metric_configuration][:scope]
-    metric_configuration.metric.script = params[:metric_configuration][:script]
+    metric_configuration.metric.name = params[:metric_configuration][:metric][:name]
+    metric_configuration.metric.description = params[:metric_configuration][:metric][:description]
+    metric_configuration.metric.scope = params[:metric_configuration][:metric][:scope]
+    metric_configuration.metric.script = params[:metric_configuration][:metric][:script]
     metric_configuration.code = params[:metric_configuration][:code]
     metric_configuration.weight = params[:metric_configuration][:weight]
     metric_configuration.aggregation_form = params[:metric_configuration][:aggregation_form]

@@ -1,6 +1,6 @@
 <h2><%= @configuration_name %> Configuration</h2>
 
-<% form_for @metric_configuration, :url => {:action =>"update_compound_metric_configuration", :controller => "mezuro_plugin_myprofile"}, :method => :get do |f| %>
+<% form_for :metric_configuration, :url => {:action =>"update_compound_metric_configuration", :controller => "mezuro_plugin_myprofile"}, :method => :get do |f| %>
   <%= hidden_field_tag :configuration_name, @configuration_name %>
   <p>
     <%= "Metric Name:" + @metric.name %>   
@@ -9,15 +9,15 @@
     <%= m.hidden_field :name, :value => @metric.name %>
     <p>
       <%= m.label :description, "Description:" %>
-      <%= m.text_field "description" %>
+      <%= m.text_field "description", :value => @metric.description %>
     </p>
     <p>
       <%= m.label :scope, "Scope:" %>
-      <%= m.select :scope, [["Teste", "NIL"], ["Class", "CLASS"]] %>
+      <%= m.select :scope, [["Class", "CLASS"]], :selected => @metric.scope %>
     </p>
     <p>
       <%= m.label :script, "Script:" %>
-      <%= m.text_area "script" %>
+      <%= m.text_area "script", :value => @metric.script %>
     </p>
   <% end %>
   <p>
