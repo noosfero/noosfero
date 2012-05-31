@@ -162,7 +162,7 @@ class MezuroPluginMyprofileController < ProfileController
     metric_configuration
   end
 
-  def assign_compound_metric_configuration_instance (metric_configuration)   
+  def assign_compound_metric_configuration_instance (metric_configuration)
     metric_configuration.metric.name = params[:metric_configuration][:metric][:name]
     metric_configuration.metric.description = params[:metric_configuration][:metric][:description]
     metric_configuration.metric.scope = params[:metric_configuration][:metric][:scope]
