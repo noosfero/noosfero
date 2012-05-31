@@ -1,25 +1,28 @@
 <h2><%= @configuration_name %> Configuration</h2>
 
-<% form_for :metric_configuration, :url => {:action =>"update_compound_metric_configuration", :controller => "mezuro_plugin_myprofile"}, :method => :get do |f| %>
+<% form_for @metric_configuration, :url => {:action =>"update_compound_metric_configuration", :controller => "mezuro_plugin_myprofile"}, :method => :get do |f| %>
   <%= hidden_field_tag :configuration_name, @configuration_name %>
-  <%= hidden_field_tag :scope, @metric.scope %>
-  
   <p>
-    <%= f.label :metric_name, "Metric Name:" %>
-    <%= @metric.name %>
-    <%= hidden_field_tag "metric[name]", @metric.name %>
-  </p>
-  <p>
-    <%= f.label :description, "Description:" %>
-    <%= text_field_tag "metric[description]", @metric.description %>
-  </p>
-  <p>
-    <%= f.label :scope, "Scope:" %>
-    <%= select_tag "metric[scope]", options_for_select([["Teste", "NIL"], ["Class", "CLASS"]], :selected => @metric.scope) %>
-  </p>
+    <%= "Metric Name:" + @metric.name %>   
+  </p>  
+  <% f.fields_for :metric do |m| %>
+    <%= m.hidden_field :name, :value => @metric.name %>
+    <p>
+      <%= m.label :description, "Description:" %>
+      <%= m.text_field "description" %>
+    </p>
+    <p>
+      <%= m.label :scope, "Scope:" %>
+      <%= m.select :scope, [["Teste", "NIL"], ["Class", "CLASS"]] %>
+    </p>
+    <p>
+      <%= m.label :script, "Script:" %>
+      <%= m.text_area "script" %>
+    </p>
+  <% end %>
   <p>
     <%= f.label :code, "Code:" %>
-    <%= text_field_tag "metric[code]", @metric_configuration.code %>
+    <%= f.text_field "code" %>
   </p>
   <p>
     <%= f.label :aggregation_form, "Aggregation Form:" %>
@@ -30,12 +33,6 @@
     <%= f.label :weight, "Weight:" %>
     <%= f.text_field :weight %>
   </p>
-  
-  <p>
-    <%= f.label :script, "Script:" %>
-    <%= text_area_tag "metric[script]", @metric.script %>
-  </p>
-
   <p>
     <%= f.submit "Save" %>
   </p>
