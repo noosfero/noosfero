@@ -55,7 +55,7 @@ function validate_new_range_configuration(event){
         alert("Beginning, End and Grade must be numeric values");
         return false;
     }
-    if (beginning > end)
+    if (parseInt(beginning) > parseInt(end))
     {
         alert("End must be greater than Beginning");
         return false;
