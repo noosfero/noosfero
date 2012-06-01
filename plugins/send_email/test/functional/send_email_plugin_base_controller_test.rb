@@ -59,7 +59,7 @@ class SendEmailPluginProfileControllerTest < ActionController::TestCase
   run_common_tests()
 end
 
-class SendEmailPluginEnvironmentControllerTest < ActionController::TestCase
+class SendEmailPluginControllerTest < ActionController::TestCase
   def setup
     ActionMailer::Base.delivery_method = :test
     ActionMailer::Base.perform_deliveries = true
