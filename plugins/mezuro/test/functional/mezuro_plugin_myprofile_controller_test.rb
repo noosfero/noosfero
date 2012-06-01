@@ -153,4 +153,4 @@ class MezuroPluginMyprofileControllerTest < ActionController::TestCase
     assert_response 302
   end
 
-endgit 
+end
