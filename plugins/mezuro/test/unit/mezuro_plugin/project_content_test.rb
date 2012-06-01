@@ -44,17 +44,22 @@ class ProjectContentTest < ActiveSupport::TestCase
     assert_equal project_result, @content.project_result
   end
   
-  #def get_date_result(date)
-  #  client =  Kalibro::Client::ProjectResultClient.new
-  #	@project_result ||= client.has_results_before(name, date) ? client.last_result_before(name, date) : client.first_result_after(name, date)
-  #end
-
   should 'get date result from service when has_result_before is true' do
     client = mock
+    project_result = mock
     Kalibro::Client::ProjectResultClient.expects(:new).returns(client)
     client.expects(:has_results_before).with(@project.name, "2012-05-22T22:00:33+04:00").returns(true)
     client.expects(:last_result_before).with(@project.name, "2012-05-22T22:00:33+04:00").returns(project_result)
-    assert_equal project_result, @content.project_result
+    assert_equal project_result, @content.get_date_result("2012-05-22T22:00:33+04:00")
+  end
+
+  should 'get date result from service when has_result_before is false' do
+    client = mock
+    project_result = mock
+    Kalibro::Client::ProjectResultClient.expects(:new).returns(client)
+    client.expects(:has_results_before).with(@project.name, "2012-05-22T22:00:33+04:00").returns(false)
+    client.expects(:first_result_after).with(@project.name, "2012-05-22T22:00:33+04:00").returns(project_result)
+    assert_equal project_result, @content.get_date_result("2012-05-22T22:00:33+04:00")
   end
 
   should 'get module result from service' do
