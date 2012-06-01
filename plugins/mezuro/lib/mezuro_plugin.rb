@@ -9,16 +9,11 @@ class MezuroPlugin < Noosfero::Plugin
   end
 
   def content_types
-    [MezuroPlugin::ProjectContent,
-     MezuroPlugin::ConfigurationContent]
+    [MezuroPlugin::ConfigurationContent, MezuroPlugin::ProjectContent]
   end
 
   def stylesheet?
     true
-  end
-
-  def js_files
-    ['javascripts/results.js', 'javascripts/toogle.js']
   end
 
 end

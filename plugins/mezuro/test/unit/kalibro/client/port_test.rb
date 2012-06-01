@@ -1,4 +1,5 @@
 require "test_helper"
+
 class PortTest < ActiveSupport::TestCase
 
   def setup

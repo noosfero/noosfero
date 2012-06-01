@@ -1,4 +1,5 @@
 require "test_helper"
+
 class KalibroClientTest < ActiveSupport::TestCase
 
   def setup
@@ -23,7 +24,20 @@ class KalibroClientTest < ActiveSupport::TestCase
     instance = mock
     Kalibro::Client::KalibroClient.expects(:new).returns(instance)
     instance.expects(:process_project).with('myproject')
-    Kalibro::Client::KalibroClient.process_project('myproject')
+    Kalibro::Client::KalibroClient.process_project('myproject', 0)
+  end
+  
+  should 'process project with periodicity' do
+  	name = 'KalibroClientTest'
+    @port.expects(:request).with(:process_periodically, {:project_name => name, :period_in_days => 30})
+    @client.process_periodically(name, 30)
+  end
+  
+  should 'instantiate for processing project periodically' do
+    instance = mock
+    Kalibro::Client::KalibroClient.expects(:new).returns(instance)
+    instance.expects(:process_periodically).with('myproject', 30)
+    Kalibro::Client::KalibroClient.process_project('myproject', 30)
   end
   
 end

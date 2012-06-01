@@ -1,11 +1,14 @@
 require "test_helper"
+
+require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/module_result_fixtures"
+
 class ModuleResultClientTest < ActiveSupport::TestCase
 
   def setup
     @port = mock
     Kalibro::Client::Port.expects(:new).with('ModuleResult').returns(@port)
     @client = Kalibro::Client::ModuleResultClient.new
-    @result = ModuleResultTest.fixture
+    @result = ModuleResultFixtures.create
   end
 
   should 'get module result' do
@@ -23,5 +26,4 @@ class ModuleResultClientTest < ActiveSupport::TestCase
     @port.expects(:request).with(:get_result_history, request_body).returns(response)
     assert_equal [@result], @client.result_history('Qt-Calculator', 'main')
   end
-
 end

@@ -1,25 +1,12 @@
 require "test_helper"
+
+require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/stack_trace_element_fixtures"
+
 class StackTraceElementTest < ActiveSupport::TestCase
 
-  def self.fixture(method_name = 'stackTraceElementTestMethod', line_number = 42)
-    stack_trace_element = Kalibro::Entities::StackTraceElement.new
-    stack_trace_element.declaring_class = 'org.declaring.Class'
-    stack_trace_element.method_name = method_name
-    stack_trace_element.file_name = 'Class.java'
-    stack_trace_element.line_number = line_number
-    stack_trace_element
-  end
-
-  def self.fixture_hash(method_name = 'stackTraceElementTestMethod', line_number = 42)
-    {:declaring_class => 'org.declaring.Class',
-     :method_name => method_name,
-     :file_name => 'Class.java',
-     :line_number => line_number}
-  end
-
   def setup
-    @hash = self.class.fixture_hash
-    @stack_trace_element = self.class.fixture
+    @hash = StackTraceElementFixtures.create_hash
+    @stack_trace_element = StackTraceElementFixtures.create
   end
 
   should 'create stack trace element from hash' do

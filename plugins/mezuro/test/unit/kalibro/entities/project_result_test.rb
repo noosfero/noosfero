@@ -1,27 +1,12 @@
 require "test_helper"
+
+require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/project_result_fixtures"
+
 class ProjectResultTest < ActiveSupport::TestCase
 
-  def self.qt_calculator
-    result = Kalibro::Entities::ProjectResult.new
-    result.project = ProjectTest.qt_calculator
-    result.date = DateTime.parse('Thu, 20 Oct 2011 18:26:43.151 +0000')
-    result.load_time = 14878
-    result.analysis_time = 1022
-    result.source_tree = ModuleNodeTest.qt_calculator_tree
-    result
-  end
-
-  def self.qt_calculator_hash
-    {:project => ProjectTest.qt_calculator_hash,
-      :date => DateTime.parse('Thu, 20 Oct 2011 18:26:43.151 +0000'),
-      :load_time => 14878,
-      :analysis_time => 1022,
-      :source_tree => ModuleNodeTest.qt_calculator_tree_hash}
-  end
-
   def setup
-    @hash = self.class.qt_calculator_hash
-    @result = self.class.qt_calculator
+    @hash = ProjectResultFixtures.qt_calculator_hash
+    @result = ProjectResultFixtures.qt_calculator
   end
 
   should 'create project result from hash' do
@@ -39,5 +24,26 @@ class ProjectResultTest < ActiveSupport::TestCase
   should 'retrieve formatted analysis time' do
     assert_equal '00:00:01', @result.formatted_analysis_time
   end
+
+  should 'retrieve module node' do
+    node = @result.get_node("main")
+    assert_equal @hash[:source_tree][:child][2], node.to_hash
+  end
+
+  should 'retrive complex module' do
+    node = @result.get_node("org.Window")
+    assert_equal @hash[:source_tree][:child][0][:child].first, node.to_hash
+  end
+
+  should 'return source tree node when nil is given' do
+    assert_equal @hash[:source_tree], @result.node_of(nil).to_hash 
+  end
   
+  should 'return source tree node when project name is given' do
+    assert_equal @hash[:source_tree], @result.node_of(@result.project.name).to_hash 
+  end
+
+  should 'return correct node when module name is given' do
+    assert_equal @hash[:source_tree][:child][2], @result.node_of("main").to_hash
+  end
 end

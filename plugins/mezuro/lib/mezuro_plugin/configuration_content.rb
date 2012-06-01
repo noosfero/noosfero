@@ -5,10 +5,10 @@ class MezuroPlugin::ConfigurationContent < Article
   end
 
   def self.description
-    'Kalibro configuration for some project'
+    'Sets of thresholds to interpret metrics'
   end
 
-  settings_items :description
+  settings_items :description, :metrics
 
   include ActionView::Helpers::TagHelper
   def to_html(options = {})
@@ -17,8 +17,8 @@ class MezuroPlugin::ConfigurationContent < Article
     end
   end
 
-  def configuration
-    Kalibro::Client::ConfigurationClient.new.configuration(title)
+  def configuration #FIXME invalid method name
+    Kalibro::Client::ConfigurationClient.configuration(name)
   end
 
   after_save :send_configuration_to_service
@@ -27,18 +27,11 @@ class MezuroPlugin::ConfigurationContent < Article
   private
 
   def send_configuration_to_service
-    Kalibro::Client::ConfigurationClient.save(create_configuration)
+    Kalibro::Client::ConfigurationClient.save(self)
   end
 
   def remove_configuration_from_service
-    Kalibro::Client::ConfigurationClient.remove(title)
-  end
-
-  def create_configuration
-    configuration = Kalibro::Entities::Configuration.new
-    configuration.name = title
-    configuration.description = description
-    configuration
+    Kalibro::Client::ConfigurationClient.remove(name)
   end
 
 end

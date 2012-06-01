@@ -1,4 +1,7 @@
 require "test_helper"
+
+require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/configuration_fixtures"
+
 class ConfigurationClientTest < ActiveSupport::TestCase
 
   def setup
@@ -8,7 +11,7 @@ class ConfigurationClientTest < ActiveSupport::TestCase
   end
 
   should 'save configuration' do
-    configuration = ConfigurationTest.kalibro_configuration
+    configuration = ConfigurationFixtures.kalibro_configuration
     @port.expects(:request).with(:save_configuration, {:configuration => configuration.to_hash})
     @client.save(configuration)
   end
@@ -31,7 +34,7 @@ class ConfigurationClientTest < ActiveSupport::TestCase
   end
 
   should 'get configuration by name' do
-    configuration = ConfigurationTest.kalibro_configuration
+    configuration = ConfigurationFixtures.kalibro_configuration
     request_body = {:configuration_name => configuration.name}
     response_hash = {:configuration => configuration.to_hash}
     @port.expects(:request).with(:get_configuration, request_body).returns(response_hash)

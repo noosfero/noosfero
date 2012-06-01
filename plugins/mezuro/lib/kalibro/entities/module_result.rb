@@ -6,6 +6,15 @@ class Kalibro::Entities::ModuleResult < Kalibro::Entities::Entity
     @module = to_entity(value, Kalibro::Entities::Module)
   end
 
+  def date=(value)
+    @date = value
+    @date = DateTime.parse(value) if value.is_a?(String)
+  end
+
+  def grade=(value)
+    @grade = value.to_f
+  end
+
   def metric_result=(value)
     @metric_result = to_entity_array(value, Kalibro::Entities::MetricResult)
   end

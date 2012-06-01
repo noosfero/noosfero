@@ -1,4 +1,5 @@
 class MezuroPlugin::ProjectContent < Article 
+  validate :validate_kalibro_project_name
 
   def self.short_description
     'Kalibro project'
@@ -8,7 +9,7 @@ class MezuroPlugin::ProjectContent < Article
     'Software project tracked by Kalibro'
   end
 
-  settings_items :license, :description, :repository_type, :repository_url, :configuration_name
+  settings_items :license, :description, :repository_type, :repository_url, :configuration_name, :periodicity_in_days
 
   include ActionView::Helpers::TagHelper
   def to_html(options = {})
@@ -16,19 +17,33 @@ class MezuroPlugin::ProjectContent < Article
       render :file => 'content_viewer/show_project.rhtml'
     end
   end
+  
 
-  # FIXME is this really needed?
   def project
-    Kalibro::Client::ProjectClient.new.project(title)
+    @project ||= Kalibro::Client::ProjectClient.project(name)
   end
 
   def project_result
-    @project_result ||= Kalibro::Client::ProjectResultClient.new.last_result(title)
+    @project_result ||= Kalibro::Client::ProjectResultClient.last_result(name)
+  end
+  
+  def get_date_result(date)
+    client =  Kalibro::Client::ProjectResultClient.new
+    @project_result ||= client.has_results_before(name, date) ? client.last_result_before(name, date) : 
+client.first_result_after(name, date)
   end
 
   def module_result(module_name)
-    @module_client ||= Kalibro::Client::ModuleResultClient.new
-    @module_client.module_result(title, module_name, project_result.date)
+    module_name = project.name if module_name.nil? 
+    @module_client ||= module_result_client.module_result(project.name, module_name, project_result.date)
+  end
+
+  def result_history(module_name)
+    @result_history ||= module_result_client.result_history(project.name, module_name)
+  end
+
+  def module_result_client
+    @module_result_client ||= Kalibro::Client::ModuleResultClient.new
   end
 
   after_save :send_project_to_service
@@ -36,31 +51,20 @@ class MezuroPlugin::ProjectContent < Article
 
   private
 
+  def validate_kalibro_project_name
+    existing = Kalibro::Client::ProjectClient.new.project_names
+    
+    if existing.include?(name)
+      errors.add_to_base("Project name already exists in Kalibro")
+    end
+  end
+
   def send_project_to_service
-    Kalibro::Client::ProjectClient.save(create_project)
-    Kalibro::Client::KalibroClient.process_project(title)
+    Kalibro::Client::ProjectClient.save(self)
+    Kalibro::Client::KalibroClient.process_project(name, periodicity_in_days)
   end
 
   def remove_project_from_service
-    Kalibro::Client::ProjectClient.remove(title)
+    Kalibro::Client::ProjectClient.remove(name)
   end
-
-  def create_project
-    project = Kalibro::Entities::Project.new
-    project.name = title
-    project.license = license
-    project.description = description
-    project.repository = create_repository
-    project.configuration_name = configuration_name
-    project
-  end
-
-  def create_repository
-    repository = Kalibro::Entities::Repository.new
-    repository.type = repository_type
-    repository.address = repository_url
-    repository
-  end
-
 end
-

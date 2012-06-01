@@ -1,6 +1,13 @@
-<% @project = @page.project %>
+<script src="/plugins/mezuro/javascripts/project_content.js" type="text/javascript"></script>
 
-<table id="project_info">
+<% @project = @page.project %>
+<% if (@project==nil) %>
+  <h3>Warning:</h3>
+ <p>This project doesn't exist on the Web Service. Do you want to <a href="/myprofile/<%= @page.profile.name %>/cms/destroy/<%= @page.id%>">delete</a> or <a href="/myprofile/<%= @page.profile.name %>/cms/edit/<%= @page.id%>">save it again</a>?</p>
+<% else %>
+
+
+<table>
   <tr>
     <td><%= _('Name') %></td>
     <td><%= @project.name %></td>
@@ -25,55 +32,26 @@
     <td><%= _('Configuration') %></td>
     <td><%= @project.configuration_name %></td>
   </tr>
+  <tr> 
+    <td><%= _('Periodicity') %></td>
+    <td><%= MezuroPlugin::Helpers::ContentViewerHelper.get_periodicity_option(@page.periodicity_in_days) %></td>
+  </tr>
+  <tr>
+    <td><%= _('Status')%></td>
+    <td>
+      <div id="project-state"><%= @project.state %></div>
+      <div id="msg-time"></div> 
+    </td>
+  </tr>
 </table>
 
 <br />
 
-<% if ! @project.error.nil? %>
-  <h3><%= _('ERROR') %></h3>
-  <p>
-    <%= "State when error ocurred: #{@project.state}" %>
-    <br/>
-    <% error = @project.error %>
-    <%= error.message %>
-    <ul><% error.stack_trace.each do |trace| %>
-      <li><%= "#{trace.declaring_class}.#{trace.method_name}(#{trace.file_name}:#{trace.line_number})" %></li>
-    <% end %></ul>
-  </p>
-<% elsif @project.state.end_with? 'ING' %>
-  <p>
-    <%= _("Kalibro Service is #{@project.state.downcase} the source code.") %>
-    <br/>
-    <%= _('Reload the page manually in a few moments.') %>
-  </p>
-<% elsif @project.state == 'READY' %>
-  <h3><%= _('LAST RESULT') %></h3>
-  <% @project_result = @page.project_result %>
-
-  <table id="project_result_info">
-    <tr>
-      <td><%= _('Date') %></td>
-      <td><%= @project_result.date %></td>
-    </tr>
-    <tr>
-      <td><%= _('Load time') %></td>
-      <td><%= @project_result.formatted_load_time %></td>
-    </tr>
-    <tr>
-      <td><%= _('Analysis time') %></td>
-      <td><%= @project_result.formatted_analysis_time %></td>
-    </tr>
-  </table>
-
-  <h5><%= _('Source tree') %></h5>
-
-  <%= render :partial => 'source_tree', :locals => { :source_tree => @project_result.source_tree } %>
-
-  <div id='module-result' data-profile="<%= @page.profile.identifier %>" data-project-id='<%= @page.id %>'>
-    <%= render :partial => 'module_result', :locals => { :module_result => @page.module_result(@project.name) } %>
-  </div>
-
-  <script type="text/javascript">
-    jQuery(results);
-  </script>
+<div id="project-result" data-profile="<%= @page.profile.identifier %>" data-content="<%= @page.id %>"
+     data-project-name="<%= @project.name %>">
+</div>
+<div id="project-tree"></div>
+<div id="module-result">
+</div>
 <% end %>
+

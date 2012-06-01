@@ -1,9 +1,26 @@
 class Kalibro::Entities::ProjectResult < Kalibro::Entities::Entity
-  
-  attr_accessor :project, :date, :load_time, :analysis_time, :source_tree
+
+  attr_accessor :project, :date, :load_time, :analysis_time, :source_tree, :collect_time
 
   def project=(value)
     @project = to_entity(value, Kalibro::Entities::Project)
+  end
+
+  def date=(value)
+    @date = value
+    @date = DateTime.parse(value) if value.is_a?(String)
+  end
+
+  def load_time=(value)
+    @load_time = value.to_i
+  end
+
+  def collect_time=(value)
+    @collect_time = value.to_i
+  end
+
+  def analysis_time=(value)
+    @analysis_time = value.to_i
   end
 
   def source_tree=(value)
@@ -29,6 +46,31 @@ class Kalibro::Entities::ProjectResult < Kalibro::Entities::Entity
 
   def format(amount)
     ('%2d' % amount).sub(/\s/, '0')
+  end
+
+  def node_of(module_name)
+    if module_name.nil? or module_name == project.name
+      node = source_tree
+    else
+      node = get_node(module_name)
+    end
+  end
+
+  def get_node(module_name)
+    path = Kalibro::Entities::Module.parent_names(module_name)
+    parent = @source_tree
+    path.each do |node_name|
+      parent = get_leaf_from(parent, node_name)
+    end
+    return parent
+  end
+
+  private
+  def get_leaf_from(node, module_name) 
+    node.children.each do |child_node|
+      return child_node if child_node.module.name == module_name
+    end
+    nil
   end
 
 end
