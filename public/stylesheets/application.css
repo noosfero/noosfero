@@ -6548,7 +6548,6 @@ h1#agenda-title {
 #signup-form #user_password,
 #signup-form #user_password_confirmation,
 #signup-form .filled-in,
-#signup-form .passwords_match,
 #signup-form .invalid,
 #signup-form .checking {
   border-width: 2px;

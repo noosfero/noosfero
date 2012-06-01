@@ -99,7 +99,7 @@ class Noosfero::Plugin
   # returns   = { :title => title, :id => id, :content => content, :start => start }
   #   title   = name that will be displayed.
   #   id      = div id.
-  #   content = lambda block that creates a html code.
+  #   content = lambda block that creates html code.
   #   start   = boolean that specifies if the tab must come before noosfero tabs (optional).
   def profile_tabs
     nil
@@ -112,7 +112,7 @@ class Noosfero::Plugin
   end
 
   # -> Adds content to calalog item
-  # returns = lambda block that creates a html code
+  # returns = lambda block that creates html code
   def catalog_item_extras(item)
     nil
   end
@@ -124,19 +124,19 @@ class Noosfero::Plugin
   end
 
   # -> Adds content to calalog list item
-  # returns = lambda block that creates a html code
+  # returns = lambda block that creates html code
   def catalog_list_item_extras(item)
     nil
   end
 
   # -> Adds content to products info
-  # returns = lambda block that creates a html code
+  # returns = lambda block that creates html code
   def product_info_extras(product)
     nil
   end
 
   # -> Adds content to products on asset list
-  # returns = lambda block that creates a html code
+  # returns = lambda block that creates html code
   def asset_product_extras(product, enterprise)
     nil
   end
@@ -239,13 +239,13 @@ class Noosfero::Plugin
   end
 
   # -> Adds fields to the signup form
-  # returns = lambda block that creates a html code
+  # returns = lambda block that creates html code
   def signup_extra_contents
     nil
   end
 
   # -> Adds adicional content to profile info
-  # returns = lambda block that creates a html code
+  # returns = lambda block that creates html code
   def profile_info_extra_contents
     nil
   end

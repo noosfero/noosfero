@@ -9,11 +9,11 @@ class StoaPlugin::UspUser < ActiveRecord::Base
   alias_attribute :birth_date, :dtanas
 
   def self.exists?(usp_id)
-    !StoaPlugin::UspUser.find(:first, :conditions => {:codpes => usp_id.to_i}).nil?
+    StoaPlugin::UspUser.find_by_codpes(usp_id.to_i)
   end
 
   def self.matches?(usp_id, field, value)
-    user = StoaPlugin::UspUser.find(:first, :conditions => {:codpes => usp_id.to_i})
+    user = StoaPlugin::UspUser.find_by_codpes(usp_id.to_i)
     return false if user.nil? || !user.respond_to?(field) || value.blank?
     case field.to_sym
     when :cpf

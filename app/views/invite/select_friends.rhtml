@@ -20,7 +20,7 @@
   <%= hidden_field_tag(:contact_list, @contact_list.id) %>
 
   <div>
-  <%= labelled_form_field(_('Enter one e-mail address per line:'), text_area_tag(:manual_import_addresses, (@manual_import_addresses || ''), :cols => 72, :rows => 5)) %>
+  <%= labelled_form_field(_('Enter one e-mail address per line:'), text_area_tag(:manual_import_addresses, (@manual_import_addresses || ''), :rows => 5, :style => 'width: 98%;')) %>
   </div>
   <% if @import_from != 'manual' %>
     <div>

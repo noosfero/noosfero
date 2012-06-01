@@ -73,8 +73,6 @@
     <%= render :partial => 'profile_editor/person_form', :locals => {:f => f} %>
   <% end %>
 
-
-
   <%= @plugins.dispatch(:signup_extra_contents).collect { |content| instance_eval(&content) }.join("") %>
 
   <% unless @terms_of_use.blank? %>

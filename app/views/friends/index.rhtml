@@ -4,17 +4,17 @@
 
 <% cache_timeout(profile.manage_friends_cache_key(params), 4.hours) do %>
   <% if @friends.empty? %>
-  <p>
-  <em>
-    <%= __('You have no friends yet.') %>
-    <%= link_to _('Do you want to see other people in this environment?'), :controller => 'search', :action => 'assets', :asset => 'people' %>
-  </em>
-  </p>
+    <p>
+      <em>
+        <%= __('You have no friends yet.') %>
+        <%= link_to _('Do you want to see other people in this environment?'), :controller => 'search', :action => 'assets', :asset => 'people' %>
+      </em>
+    </p>
   <% else %>
     <% button_bar do %>
       <%= button(:back, _('Back to control panel'), :controller => 'profile_editor') %>
       <%= button(:search, _('Find people'), :controller => 'search', :action => 'assets', :asset => 'people') %>
-      <% if !@plugins.dispatch(:remove_invite_friends_button).include?(true) %>
+      <% unless @plugins.dispatch(:remove_invite_friends_button).include?(true) %>
         <%= button(:search, _('Invite people from my e-mail contacts'), :controller => 'invite', :action => 'select_address_book') %>
       <% end %>
     <% end %>
@@ -45,7 +45,7 @@
   <% button_bar do %>
     <%= button(:back, _('Back to control panel'), :controller => 'profile_editor') %>
     <%= button(:search, _('Find people'), :controller => 'search', :action => 'assets', :asset => 'people') %>
-    <% if !@plugins.dispatch(:remove_invite_friends_button).include?(true) %>
+    <% unless @plugins.dispatch(:remove_invite_friends_button).include?(true) %>
       <%= button(:search, _('Invite people from my e-mail contacts'), :controller => 'invite', :action => 'select_address_book') %>
     <% end %>
   <% end %>
