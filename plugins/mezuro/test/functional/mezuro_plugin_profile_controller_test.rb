@@ -19,10 +19,9 @@ class MezuroPluginProfileControllerTest < ActionController::TestCase
     @module_result = ModuleResultFixtures.create
     @project = @project_result.project
     @name = @project.name
-
+    
     @date = "2012-04-13T20:39:41+04:00"
 
-	@date = "2012-04-13T20:39:41+04:00"
   end
 
   should 'not find project state for inexistent project content' do
@@ -146,15 +145,19 @@ class MezuroPluginProfileControllerTest < ActionController::TestCase
     create_project_content
     mock_module_result_history
     Kalibro::Client::ProjectClient.expects(:project).with(@name).returns(@project)
-    get :module_metrics_history, :profile => @profile.identifier, :id => @content.id, :module_name => @name
+    get :module_metrics_history, :profile => @profile.identifier, :id => @content.id, :module_name => @name,
+    :metric_name => @module_result.metric_result.first.metric.name.delete("() ")
     assert_response 200
   end
 
   private
 
   def create_project_content
+    client = mock
     @content = MezuroPlugin::ProjectContent.new(:profile => @profile, :name => @name)
     @content.expects(:send_project_to_service).returns(nil)
+    Kalibro::Client::ProjectClient.expects(:new).returns(client)
+    client.expects(:project_names).returns([])
     @content.save
   end
   
