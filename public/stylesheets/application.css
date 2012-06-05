@@ -1052,6 +1052,7 @@ code input {
 .zoomable-image {
   position: relative;
   display: inline-block;
+  max-width: 100%;
 }
 
 /* IE 8 hack to avoid max-width image bug */
