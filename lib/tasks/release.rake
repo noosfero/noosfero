@@ -58,7 +58,6 @@ Vicente Aguiar <vicenteaguiar@colivre.coop.br>
 Arts
 ===================================
 Nara Oliveira <narananet@gmail.com>
-
 EOF
 
   desc 'updates the AUTHORS file'
