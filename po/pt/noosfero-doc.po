@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2012-06-05 10:29-0300\n"
-"PO-Revision-Date: 2012-01-27 01:41-0200\n"
+"POT-Creation-Date: 2012-06-05 11:12-0300\n"
+"PO-Revision-Date: 2012-06-05 11:37-0300\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
 "Language: \n"
@@ -22,49 +22,27 @@ msgstr ""
 msgid "Noosfero online manual"
 msgstr "Manual online do Noosfero"
 
-#. type: Content of: <p>
-#: doc/noosfero/index.en.xhtml:2
-msgid "This is the Noosfero online manual. In these pages you will find useful"
-msgstr ""
-
 # type: Content of: <p>
 #. type: Content of: <p>
-#: doc/noosfero/index.en.xhtml:3
-#, fuzzy
-#| msgid ""
-#| "This is the Noosfero online manual. In these pages you will find useful "
-#| "information on how to use Noosfero, manage a Noosfero environment and "
-#| "customize Noosfero in several ways."
+#: doc/noosfero/index.en.xhtml:2
 msgid ""
+"This is the Noosfero online manual. In these pages you will find useful "
 "information on how to use Noosfero, manage a Noosfero environment and "
-"customize"
+"customize Noosfero in several ways."
 msgstr ""
 "Este é o manual online do Noosfero. Nessa páginas você vai encontrar "
 "informaçoes úteis para usar o Noosfero, gerenciar um ambiente Noosfero e "
 "personalizar Noosfero de várias formas."
 
-#. type: Content of: <p>
-#: doc/noosfero/index.en.xhtml:4
-msgid "Noosfero in several ways."
-msgstr ""
-
 # type: Content of: <p>
 #. type: Content of: <p>
-#: doc/noosfero/index.en.xhtml:5
-#, fuzzy
-#| msgid ""
-#| "To display the manual about a given topic, first choose a section in the "
-#| "left menu, and then choose a topic within the section."
+#: doc/noosfero/index.en.xhtml:3
 msgid ""
-"To display the manual about a given topic, first choose a section in the"
+"To display the manual about a given topic, first choose a section in the "
+"left menu, and then choose a topic within the section."
 msgstr ""
-"Para exibir manual sobre um dado tópico, primeiro escolha uma seção no menu "
-"à esquerda, e então escolha um tópico na seção."
-
-#. type: Content of: <p>
-#: doc/noosfero/index.en.xhtml:6
-msgid "left menu, and then choose a topic within the section."
-msgstr ""
+"Para exibir o manual sobre um dado tópico, primeiro escolha uma seção no "
+"menu à esquerda, e então escolha um tópico na seção."
 
 # type: Content of: <h1>
 #. type: Content of: <h1>
@@ -143,10 +121,8 @@ msgstr ""
 #: doc/noosfero/user/sending-messages.en.xhtml:4
 #: doc/noosfero/user/deleting-profile.en.xhtml:4
 #: doc/noosfero/user/removing-comments.en.xhtml:4
-#, fuzzy
-#| msgid "<a href=\"#HowAccess\">How to access</a>"
 msgid "<a href=\"#howaccess\">How to access</a>"
-msgstr "<a href=\"#HowAccess\">Como acessar</a>"
+msgstr "<a href=\"#howaccess\">Como acessar</a>"
 
 # type: Content of: <ul><li>
 #. type: Content of: <ul><li>
@@ -208,10 +184,8 @@ msgstr "<a href=\"#HowAccess\">Como acessar</a>"
 #: doc/noosfero/user/sending-messages.en.xhtml:5
 #: doc/noosfero/user/deleting-profile.en.xhtml:5
 #: doc/noosfero/user/removing-comments.en.xhtml:5
-#, fuzzy
-#| msgid "<a href=\"#Description\">Description</a>"
 msgid "<a href=\"#description\">Description</a>"
-msgstr "<a href=\"#Description\">Descrição</a>"
+msgstr "<a href=\"#description\">Descrição</a>"
 
 # type: Content of: <ul><li>
 #. type: Content of: <ul><li>
@@ -257,10 +231,8 @@ msgstr "<a href=\"#Description\">Descrição</a>"
 #: doc/noosfero/user/editing-sideboxes.en.xhtml:6
 #: doc/noosfero/user/invite-contacts.en.xhtml:6
 #: doc/noosfero/user/deleting-profile.en.xhtml:6
-#, fuzzy
-#| msgid "<a href=\"#RelatedTopics\">Related topics</a>"
 msgid "<a href=\"#relatedtopics\">Related topics</a>"
-msgstr "<a href=\"#RelatedTopics\">Tópicos relacionados</a>"
+msgstr "<a href=\"#relatedtopics\">Tópicos relacionados</a>"
 
 # type: Content of: <h2>
 #. type: Content of: <h2>
@@ -611,7 +583,6 @@ msgstr ""
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/community/send-email-members.en.xhtml:19
 #: doc/noosfero/community/invite-contacts.en.xhtml:19
-#, fuzzy
 #| msgid "Community's members list"
 msgid "Community&#39;s members list"
 msgstr "Lista de integrantes da comunidade"
@@ -910,10 +881,9 @@ msgstr "Lista de grupos com permissão de gerenciar comunidade"
 #: doc/noosfero/community/editing-appearance.en.xhtml:14
 #: doc/noosfero/enterprise/editing-appearance.en.xhtml:14
 #: doc/noosfero/user/editing-appearance.en.xhtml:12
-#, fuzzy
 #| msgid "Then, click on &#8220;Edit Appearance:"
 msgid "Then, click on &quot;Edit Appearance:"
-msgstr "Depois, clique em &#8220;Editar Aparência&#8221;"
+msgstr "Depois, clique em &#8220;Editar Aparência&#8221;:"
 
 # type: Attribute 'alt' of: <ol><li><p><img>
 #. type: Attribute 'alt' of: <ol><li><img>
@@ -1358,7 +1328,6 @@ msgstr ""
 #: doc/noosfero/community/editing-header-footer.en.xhtml:34
 #: doc/noosfero/cms/writing-article.en.xhtml:46
 #: doc/noosfero/enterprise/editing-header-footer.en.xhtml:34
-#, fuzzy
 #| msgid ""
 #| "<strong>Underline:</strong> it is also used to emphasize a word/phrase. "
 #| "One line is drawn under the word. Example: <span style=\"text-decoration:"
@@ -1381,7 +1350,6 @@ msgstr ""
 #: doc/noosfero/cms/writing-article.en.xhtml:47
 #: doc/noosfero/enterprise/editing-header-footer.en.xhtml:35
 #: doc/noosfero/user/editing-header-footer.en.xhtml:34
-#, fuzzy
 #| msgid ""
 #| "<strong>Strikethrough:</strong> one line in drawn in the middle of word/"
 #| "phrase Example: <span style=\"text-decoration:line-through;;\">home</"
@@ -1605,10 +1573,9 @@ msgstr ""
 #: doc/noosfero/user/sending-scraps.en.xhtml:6
 #: doc/noosfero/user/sending-messages.en.xhtml:6
 #: doc/noosfero/user/removing-comments.en.xhtml:6
-#, fuzzy
 #| msgid "<a href=\"#RelatedTopics\">Related Topics</a>"
 msgid "<a href=\"#relatedtopics\">Related Topics</a>"
-msgstr "<a href=\"#RelatedTopics\">Tópicos Relacionados</a>"
+msgstr "<a href=\"#relatedtopics\">Tópicos Relacionados</a>"
 
 # type: Content of: <p>
 #. type: Content of: <p>
@@ -1635,7 +1602,6 @@ msgstr ""
 # type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/community/joining-community.en.xhtml:13
-#, fuzzy
 #| msgid ""
 #| "In community&#8217;s page, click on &#8221;+ Join&#8221; button below "
 #| "community&#8217;s image."
@@ -1850,7 +1816,6 @@ msgstr "Bloco de conteúdos recentes"
 # type: Content of: <ol><li><ul><li>
 #. type: Content of: <ol><li><ul><li>
 #: doc/noosfero/community/editing-sideboxes.en.xhtml:29
-#, fuzzy
 #| msgid ""
 #| "<strong>Links (static menu):</strong> You can use it to create a menu of "
 #| "links. You can add, remove and update the links as you wish. If you want "
@@ -2491,14 +2456,12 @@ msgstr ""
 # type: Content of: <p>
 #. type: Content of: <h2>
 #: doc/noosfero/plugins/send_email.en.xhtml:9
-#, fuzzy
 #| msgid ""
 #| "Ajax is supported using #ajax-form as id of <span class=\"caps\">HTML</"
 #| "span> form."
 msgid "<span class=\"caps\">HTML</span> form"
 msgstr ""
-"Ajax é suportado utilizando #ajax-form como 'id' do formulário <span class="
-"\"caps\">HTML</span> "
+"formulário <span class=\"caps\">HTML</span>"
 
 # type: Content of: <h3>
 #. type: Content of: <h3>
@@ -2614,8 +2577,7 @@ msgid ""
 "Ajax is supported using #ajax-form as id of <span class=\"caps\">HTML</span> "
 "form."
 msgstr ""
-"Ajax é suportado utilizando #ajax-form como 'id' do formulário <span class="
-"\"caps\">HTML</span> "
+"Ajax é suportado utilizando #ajax-form como 'id' do "
 
 # type: Content of: <p>
 #. type: Content of: <p>
@@ -2626,7 +2588,6 @@ msgstr "Exemplo"
 # type: Content of: <pre>
 #. type: Content of: <pre>
 #: doc/noosfero/plugins/send_email.en.xhtml:32
-#, fuzzy, no-wrap
 #| msgid "&lt;form action='{sendemail}' id='ajax-form'&gt; &lt;input type='text' name='to'/&gt; &lt;input type='text' name='subject'/&gt; &lt;input type='text' name='message'/&gt; &lt;input type='subject'/&gt; &lt;/form&gt;"
 msgid ""
 "&lt;form action='{sendemail}' id='ajax-form'&gt;\n"
@@ -2635,7 +2596,13 @@ msgid ""
 "   &lt;input type='text' name='message'/&gt;\n"
 "   &lt;input type='subject'/&gt;\n"
 "&lt;/form&gt;\n"
-msgstr "&lt;form action='{sendemail}' id='ajax-form'&gt; &lt;input type='text' name='to'/&gt; &lt;input type='text' name='subject'/&gt; &lt;input type='text' name='message'/&gt; &lt;input type='subject'/&gt; &lt;/form&gt;"
+msgstr ""
+"&lt;form action='{sendemail}' id='ajax-form'&gt;\n"
+"   &lt;input type='text' name='to'/&gt;\n"
+"   &lt;input type='text' name='subject'/&gt;\n"
+"   &lt;input type='text' name='message'/&gt;\n"
+"   &lt;input type='subject'/&gt;\n"
+"&lt;/form&gt;\n"
 
 # type: Content of: <h2>
 #. type: Content of: <h2>
@@ -2788,7 +2755,6 @@ msgstr ""
 # type: Content of: <ul><li>
 #. type: Content of: <ul><li>
 #: doc/noosfero/plugins/google_cse.en.xhtml:5
-#, fuzzy
 #| msgid ""
 #| "Register a Google Custom Search ID at <a href=\"http://www.google.com/cse"
 #| "\">http://www.google.com/cse</a>"
@@ -2814,7 +2780,6 @@ msgstr "Configure o ambiente do Noosfero com esse ID"
 # type: Content of: <ul><li><ul><li>
 #. type: Content of: <ul><li><ul><li>
 #: doc/noosfero/plugins/google_cse.en.xhtml:9
-#, fuzzy
 #| msgid ">> env = Environment.find( ... )"
 msgid "&gt;&gt; env = Environment.find( &#8230; )"
 msgstr ">> env = Environment.find( ... )"
@@ -2822,7 +2787,6 @@ msgstr ">> env = Environment.find( ... )"
 # type: Content of: <ul><li><ul><li>
 #. type: Content of: <ul><li><ul><li>
 #: doc/noosfero/plugins/google_cse.en.xhtml:10
-#, fuzzy
 #| msgid ""
 #| ">> env.settings[:google_cse_id] = &#8217;&lt;PUT <span class=\"caps\">ID "
 #| "HERE</span>&gt;&#8217;"
@@ -2830,13 +2794,12 @@ msgid ""
 "&gt;&gt; env.settings[:google_cse_id] = &#8216;&lt;<span class=\"caps\">PUT</"
 "span> ID <span class=\"caps\">HERE</span>&gt;&#8217;"
 msgstr ""
-">> env.settings[:google_cse_id] = &#8217;&lt;PUT <span class=\"caps\">ID "
+">> env.settings[:google_cse_id] = &#8216;&lt;PUT <span class=\"caps\">ID "
 "HERE</span>&gt;&#8217;"
 
 # type: Content of: <ul><li><ul><li>
 #. type: Content of: <ul><li><ul><li>
 #: doc/noosfero/plugins/google_cse.en.xhtml:11
-#, fuzzy
 #| msgid ">> env.save!"
 msgid "&gt;&gt; env.save!"
 msgstr ">> env.save!"
@@ -3013,11 +2976,12 @@ msgid ""
 "From now on, your cart will always be there until it gets empty or you "
 "choose to hide it."
 msgstr ""
+"A partir de agora, seu carrinho ficará sempre visível até ele ficar vazio ou "
+"você decidir escondê-lo."
 
 # type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/plugins/shopping_cart.en.xhtml:27
-#, fuzzy
 #| msgid ""
 #| "From now on, your cart will always be there until it gets empty or you "
 #| "choose to hide it.  If you want to add new products just do the same "
@@ -3028,10 +2992,9 @@ msgid ""
 "product that&#8217;s already in your cart, it will add one to the quantity "
 "of that product."
 msgstr ""
-"De agora em diante, o seu carrinho estará sempre lá até que ele se esvazie "
-"ou você decida esconder ele. Se você quiser adicionar novos produtos basta "
-"fazer a mesma coisa. Se você tentar adicionar um produto que já está no seu "
-"carrinho, ele irá acrescentar em um a quantidade do produto."
+"Se você quiser adicionar novos produtos basta fazer a mesma coisa. Se você "
+"tentar adicionar um produto que já está no seu carrinho, ele irá acrescentar"
+" em um a quantidade do produto."
 
 # type: Attribute 'alt' of: <ol><li><p><img>
 #. type: Attribute 'alt' of: <p><img>
@@ -3220,23 +3183,18 @@ msgstr "Carrinho escondido"
 msgid ""
 "When you hide your cart nothing happens to the products you already added."
 msgstr ""
+"Quando você esconde seu carrinho nada acontecerá com os produtos que você já "
+"adicionou."
 
 # type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/plugins/shopping_cart.en.xhtml:53
-#, fuzzy
-#| msgid ""
-#| "When you hide your cart nothing happens to the products you already "
-#| "added.  If you miss your beatiful cart again just press &#8220;Show "
-#| "cart&#8221; and it will slide down gracefully back to you.  ^^"
 msgid ""
 "If you miss your beatiful cart again just press &#8220;Show cart&#8221; and "
 "it will slide down gracefully back to you.  ^^"
 msgstr ""
-"Quando você esconder o carrinho nada irá acontecer com os produtos que você "
-"já adcionou.Se você sente falta do seu lindo carrinho novamente, basta "
-"apertar &#8220;Mostrar carrinho&#8221; e ele irá deslizar graciosamente de "
-"volta para você."
+"Se você sentir falta do seu lindo carrinho novamente, basta apertar &#8220;"
+"Mostrar carrinho&#8221; e ele irá deslizar graciosamente de volta para você."
 
 # type: Content of: <h2>
 #. type: Content of: <h2>
@@ -3247,34 +3205,22 @@ msgstr "Finzalizando a compra"
 # type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/plugins/shopping_cart.en.xhtml:55
-#, fuzzy
-#| msgid ""
-#| "So, now you already choosed your products and its quantities and want to "
-#| "checkout your products.  As you can see in your cart, there is a &#8220;"
-#| "Shopping Checkout&#8221; button:"
 msgid ""
 "So, now you already choosed your products and its quantities and want to "
 "checkout your products."
 msgstr ""
 "Então, agora você já escolheu os seus produtos e as respectivas quantidades "
-"e você quer finalizar o seu pedido.Como você pode ver no seu carrinho, tem "
-"um botão &#8220;Finalizar Pedido&#8221;:"
+"e você quer finalizar o seu pedido."
 
 # type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/plugins/shopping_cart.en.xhtml:56
-#, fuzzy
-#| msgid ""
-#| "So, now you already choosed your products and its quantities and want to "
-#| "checkout your products.  As you can see in your cart, there is a &#8220;"
-#| "Shopping Checkout&#8221; button:"
 msgid ""
 "As you can see in your cart, there is a &#8220;Shopping Checkout&#8221; "
 "button:"
 msgstr ""
-"Então, agora você já escolheu os seus produtos e as respectivas quantidades "
-"e você quer finalizar o seu pedido.Como você pode ver no seu carrinho, tem "
-"um botão &#8220;Finalizar Pedido&#8221;:"
+"Como você pode ver no seu carrinho, tem um botão &#8220;Finalizar "
+"Pedido&#8221;:"
 
 # type: Attribute 'alt' of: <p><img>
 #. type: Attribute 'alt' of: <p><img>
@@ -3736,20 +3682,15 @@ msgstr ""
 # type: Content of: <ol><li><ul><li>
 #. type: Content of: <ol><li><ul><li>
 #: doc/noosfero/cms/writing-article.en.xhtml:22
-#, fuzzy
-#| msgid ""
-#| "<strong>Feed <span class=\"caps\">RSS</span>:</strong> provides a <a href="
-#| "\"http://pt.wikipedia.org/wiki/Feed\">feed</a> <a href=\"http://pt."
-#| "wikipedia.org/wiki/RSS\">RSS</a> of your recent articles"
 msgid ""
 "<strong>Feed <span class=\"caps\">RSS</span>:</strong> provides a <a href="
 "\"http://pt.wikipedia.org/wiki/Feed\">feed</a> <a href=\"http://pt.wikipedia."
 "org/wiki/RSS\"><span class=\"caps\">RSS</span></a> of your recent articles"
 msgstr ""
-"<strong>Feed RSS:</strong> fornece um <a title=&#8220;O que é feed&#8221; "
-"href=\"http://pt.wikipedia.org/wiki/Feed\">feed</a> <a title=&#8220;O que é "
-"RSS&#8221; href=\"http://pt.wikipedia.org/wiki/RSS\">RSS</a> dos seu artigos "
-"mais recentes"
+"<strong>Feed <span class=\"caps\">RSS</span>:</strong> fornece um <a href="
+"\"http://pt.wikipedia.org/wiki/Feed\">feed</a> <a href=\"http://pt.wikipedia."
+"org/wiki/RSS\"><span class=\"caps\">RSS</span></a> dos seus artigos mais "
+"recentes"
 
 # type: Content of: <ol><li>
 #. type: Content of: <ol><li><ul><li>
@@ -4343,20 +4284,23 @@ msgstr ""
 # type: Content of: <ul><li><ul><li>
 #. type: Content of: <ul><li><ul><li>
 #: doc/noosfero/cms/writing-advanced-article.en.xhtml:7
-msgid "<a href=\"#InsertingLinks\">Inserting links</a>"
-msgstr "<a href=\"#InsertingLinks\">Inserir links</a>"
+#| msgid "<a href=\"#InsertingLinks\">Inserting links</a>"
+msgid "<a href=\"#insertinglinks\">Inserting links</a>"
+msgstr "<a href=\"#insertinglinks\">Inserir links</a>"
 
 # type: Content of: <ul><li><ul><li>
 #. type: Content of: <ul><li><ul><li>
 #: doc/noosfero/cms/writing-advanced-article.en.xhtml:8
-msgid "<a href=\"#InsertingImages\">Inserting images</a>"
-msgstr "<a href=\"#InsertingImages\">Inserir imagens</a>"
+#| msgid "<a href=\"#InsertingImages\">Inserting images</a>"
+msgid "<a href=\"#insertingimages\">Inserting images</a>"
+msgstr "<a href=\"#insertingimages\">Inserir imagens</a>"
 
 # type: Content of: <ul><li><ul><li>
 #. type: Content of: <ul><li><ul><li>
 #: doc/noosfero/cms/writing-advanced-article.en.xhtml:9
-msgid "<a href=\"#InsertingVideosAudio\">Inserting videos and audio</a>"
-msgstr "<a href=\"#InsertingVideosAudio\">Inserir vídeos e áudio</a>"
+#| msgid "<a href=\"#InsertingVideosAudio\">Inserting videos and audio</a>"
+msgid "<a href=\"#insertingvideosaudio\">Inserting videos and audio</a>"
+msgstr "<a href=\"#insertingvideosaudio\">Inserir vídeos e áudio</a>"
 
 # type: Content of: <p>
 #. type: Content of: <p>
@@ -4368,13 +4312,11 @@ msgstr ""
 "Para acessar a tela de edição de artigo, leia: <a href=\"/doc/cms/writing-"
 "article\">Escrevendo um artigo</a>."
 
-# type: Content of: <ul><li><ul><li>
-#. type: Content of: <p>
+# type: Content of: <h3>
+#. type: Content of: <h3>
 #: doc/noosfero/cms/writing-advanced-article.en.xhtml:16
-#, fuzzy
-#| msgid "<a href=\"#InsertingLinks\">Inserting links</a>"
-msgid "h3(#InsertingLinks). Inserting links"
-msgstr "<a href=\"#InsertingLinks\">Inserir links</a>"
+msgid "Inserting links"
+msgstr "Inserindo links"
 
 # type: Content of: <ol><li>
 #. type: Content of: <ol><li>
@@ -4451,13 +4393,11 @@ msgstr ""
 msgid "Created link on an article"
 msgstr "Link criado num artigo"
 
-# type: Content of: <ul><li><ul><li>
-#. type: Content of: <p>
+# type: Content of: <h1>
+#. type: Content of: <h3>
 #: doc/noosfero/cms/writing-advanced-article.en.xhtml:30
-#, fuzzy
-#| msgid "<a href=\"#InsertingImages\">Inserting images</a>"
-msgid "h3(#InsertingImages). Inserting images"
-msgstr "<a href=\"#InsertingImages\">Inserir imagens</a>"
+msgid "Inserting images"
+msgstr "Inserir imagens"
 
 # type: Content of: <p>
 #. type: Content of: <p>
@@ -4545,18 +4485,15 @@ msgstr ""
 msgid "Archives list when writing an article"
 msgstr "Lista de arquivos na edição de artigo"
 
-# type: Content of: <ul><li><ul><li>
-#. type: Content of: <p>
+# type: Content of: <h1>
+#. type: Content of: <h3>
 #: doc/noosfero/cms/writing-advanced-article.en.xhtml:53
-#, fuzzy
-#| msgid "<a href=\"#InsertingVideosAudio\">Inserting videos and audio</a>"
-msgid "h3(#InsertingVideosAudio). Inserting videos and audio"
-msgstr "<a href=\"#InsertingVideosAudio\">Inserir vídeos e áudio</a>"
+msgid "Inserting videos and audio"
+msgstr "Inserir vídeos e áudio"
 
 # type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/cms/writing-advanced-article.en.xhtml:55
-#, fuzzy
 #| msgid "Click on &#8220;HTML&#8221; button"
 msgid "Click on &#8220;<span class=\"caps\">HTML</span>&#8221; button"
 msgstr "Clique no botão &#8220;HTML&#8221;:"
@@ -5871,7 +5808,6 @@ msgstr ""
 # type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/admin/export-users-list.en.xhtml:14
-#, fuzzy
 #| msgid ""
 #| "In &#8220;Manage users&#8221;, choose which format you want to export the "
 #| "list. There are 2 options, &#8220;CSV&#8221; and &#8220;XML&#8221;."
@@ -6346,7 +6282,6 @@ msgstr ""
 # type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/enterprise/editing-enterprise-info.en.xhtml:33
-#, fuzzy
 #| msgid ""
 #| "Then, click on &#8220;Save&#8221; button an the profile will be updated."
 msgid ""
@@ -6443,7 +6378,6 @@ msgstr ""
 # type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:13
-#, fuzzy
 #| msgid ""
 #| "You will see the list of groups (communities/enterprises) that you are a "
 #| "member. The groups that you can manage are listed with a link &#8220;"
@@ -6544,7 +6478,6 @@ msgstr ""
 # type: Content of: <ol><li><ol><li><ol><li>
 #. type: Content of: <ol><li><ol><li><ol><li>
 #: doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:26
-#, fuzzy
 #| msgid ""
 #| "Click on &#8221;+&#8221; button to add the user. After clicking the "
 #| "button, the table on the right side (&#8220;Current members&#8221;) will "
@@ -6734,7 +6667,6 @@ msgstr ""
 # type: Content of: <ol><li><ul><li>
 #. type: Content of: <ol><li><ul><li>
 #: doc/noosfero/enterprise/editing-sideboxes.en.xhtml:29
-#, fuzzy
 #| msgid ""
 #| "<strong>Links (static menu):</strong> You can use it to create a menu of "
 #| "links. You can add, remove and update the links as you wish. If you want "
@@ -7137,22 +7069,18 @@ msgstr "Preencha com sua nova senha."
 # type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/user/changing-password.en.xhtml:19
-#, fuzzy
 #| msgid ""
 #| "Retype your new password, to confirm it.  Then, click on &#8220;Change "
 #| "password&#8221;."
 msgid "Retype your new password, to confirm it."
-msgstr ""
-"Digite novamente sua senha, para confirmá-la. Depois, clique em &#8220;"
-"Alterar senha&#8221;."
+msgstr "Digite novamente sua senha, para confirmá-la."
 
 # type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/user/changing-password.en.xhtml:20
-#, fuzzy
 #| msgid "Then, click on &#8220;Change Password&#8221;:"
 msgid "Then, click on &#8220;Change password&#8221;."
-msgstr "Depois, clique em &#8220;Alterar senha&#8221;"
+msgstr "Depois, clique em &#8220;Alterar senha&#8221;."
 
 # type: Content of: <h1>
 #. type: Content of: <h1>
@@ -7468,7 +7396,6 @@ msgstr "Informações gerais na edição do perfil de uma pessoa"
 # type: Content of: <ol><li><ul><li>
 #. type: Content of: <ol><li><ol><li>
 #: doc/noosfero/user/editing-person-info.en.xhtml:19
-#, fuzzy
 #| msgid ""
 #| "<strong>Change picture:</strong> Insert or change your picture. Click "
 #| "on&#8221;File…&#8221; and choose the image in your computer. The image "
@@ -7863,7 +7790,6 @@ msgstr ""
 # type: Content of: <ol><li><ul><li>
 #. type: Content of: <ol><li><ul><li>
 #: doc/noosfero/user/editing-sideboxes.en.xhtml:27
-#, fuzzy
 #| msgid ""
 #| "<strong>Links (static menu):</strong> You can use it to create a menu of "
 #| "links. You can add, remove and update the links as you wish. If you want "
@@ -8048,7 +7974,6 @@ msgstr "Você verá sua lista de amigos e o botão de convite. Clique no botão.
 # type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/user/invite-contacts.en.xhtml:17
-#, fuzzy
 #| msgid "User's friends list"
 msgid "User&#39;s friends list"
 msgstr "Lista de amigos do usuário"
@@ -8541,21 +8466,27 @@ msgstr "<a href=\"/doc/enterprise\">Funcionalidades do empreendimento</a>"
 msgid "<a href=\"/doc/user\">User features</a>"
 msgstr "<a href=\"/doc/user\">Funcionalidades do usuário</a>"
 
+# type: Content of: <ul><li><ul><li>
+#, fuzzy
+#~| msgid "<a href=\"#InsertingLinks\">Inserting links</a>"
+#~ msgid "h3(#InsertingLinks). Inserting links"
+#~ msgstr "<a href=\"#InsertingLinks\">Inserir links</a>"
+
+# type: Content of: <ul><li><ul><li>
+#, fuzzy
+#~| msgid "<a href=\"#InsertingImages\">Inserting images</a>"
+#~ msgid "h3(#InsertingImages). Inserting images"
+#~ msgstr "<a href=\"#InsertingImages\">Inserir imagens</a>"
+
+# type: Content of: <ul><li><ul><li>
+#, fuzzy
+#~| msgid "<a href=\"#InsertingVideosAudio\">Inserting videos and audio</a>"
+#~ msgid "h3(#InsertingVideosAudio). Inserting videos and audio"
+#~ msgstr "<a href=\"#InsertingVideosAudio\">Inserir vídeos e áudio</a>"
+
 # type: Content of: <h2>
 #~ msgid "HTML form"
 #~ msgstr "Formulário HTML"
-
-# type: Content of: <h3>
-#~ msgid "Inserting links"
-#~ msgstr "Inserindo links"
-
-# type: Content of: <h1>
-#~ msgid "Inserting images"
-#~ msgstr "Inserir imagens"
-
-# type: Content of: <h1>
-#~ msgid "Inserting videos and audio"
-#~ msgstr "Inserir vídeos e áudio"
 
 # type: Content of: <ol><li><ul><li><ul><li>
 #~ msgid ""

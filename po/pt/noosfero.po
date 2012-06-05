@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.36.6\n"
 "POT-Creation-Date: 2012-06-05 10:18-0300\n"
-"PO-Revision-Date: 2012-05-16 13:39-0300\n"
+"PO-Revision-Date: 2012-06-05 10:46-0300\n"
 "Last-Translator: Joenio Costa <joenio@colivre.coop.br>\n"
 "Language-Team: LANGUAGE TEAM <E-MAIL@ADDRESS or HOME PAGE>\n"
 "Language: \n"
@@ -1016,7 +1016,7 @@ msgstr "Leia mais"
 
 #: app/helpers/article_helper.rb:17
 msgid "Allow all members to edit this article"
-msgstr ""
+msgstr "Permitir que todos os membros editem este artigo"
 
 #: app/helpers/article_helper.rb:26
 msgid "This topic is opened for replies"
@@ -2299,9 +2299,8 @@ msgid "Shopping cart delivery price"
 msgstr "Preço de entrega do cesto de compras"
 
 #: app/models/contact.rb:-
-#, fuzzy
 msgid "Usp"
-msgstr "Acima"
+msgstr "Usp"
 
 #: app/models/contact.rb:-
 msgid "Bar"
@@ -2489,9 +2488,8 @@ msgstr "pessoa"
 
 #: app/models/contact.rb:- plugins/stoa/lib/stoa_plugin.rb:6
 #: plugins/stoa/lib/stoa_plugin.rb:22 plugins/stoa/lib/stoa_plugin.rb:32
-#, fuzzy
 msgid "USP number"
-msgstr "Telefone"
+msgstr "Número USP"
 
 #: app/models/contact.rb:-
 msgid "product"
@@ -3858,9 +3856,8 @@ msgid "Ask captcha when a logged user comments too"
 msgstr "Exigir captcha quando um usuário comentar também"
 
 #: app/models/environment.rb:124
-#, fuzzy
 msgid "Skip e-mail confirmation for new users"
-msgstr "Configuração de e-Mail para POP e IMAP"
+msgstr "Pular e-mail de confirmação para novos usuários"
 
 #: app/models/environment.rb:531
 msgid "Only one Virtual Community can be the default one"
@@ -3944,7 +3941,6 @@ msgid "Your request for publishing the article \"%{article}\" was approved."
 msgstr "Seu pedido de publicação do artigo \"%{article}\" foi aprovado."
 
 #: app/models/approve_article.rb:119
-#, fuzzy
 msgid "Your request for publishing the article \"%{article}\" was rejected."
 msgstr "Seu pedido de publicação do artigo \"%{article}\" foi rejeitado."
 
@@ -5972,9 +5968,8 @@ msgstr ""
 "Se o seu produto está à venda, preencha este campo com o valor de desconto"
 
 #: app/views/manage_products/_edit_info.rhtml:25
-#, fuzzy
 msgid "Highlight this product?"
-msgstr "Destacar este produto"
+msgstr "Destacar este produto?"
 
 #: app/views/manage_products/_edit_info.rhtml:50
 msgid "Add new qualifier"
@@ -6598,18 +6593,16 @@ msgid "Manage user roles"
 msgstr "Gerenciar papéis de usuários"
 
 #: app/views/role/index.rhtml:21 app/views/role/new.rhtml:1
-#, fuzzy
 msgid "Create a new role"
-msgstr "Criar novo grupo"
+msgstr "Criar um novo papel"
 
 #: app/views/role/show.rhtml:3
 msgid "Permissions"
 msgstr "Permissões"
 
 #: app/views/role/show.rhtml:12
-#, fuzzy
 msgid "Back to roles management"
-msgstr "Voltar ao painel de controle"
+msgstr "Voltar para a gestão de papéis"
 
 #: app/views/role/_form.rhtml:9
 msgid "Permissions:"
@@ -9318,47 +9311,45 @@ msgstr ""
 "Noosfero"
 
 #: plugins/stoa/lib/stoa_plugin.rb:13
-#, fuzzy
 msgid "Add Stoa features"
-msgstr "Adiciona a funcionalidades Bsc"
+msgstr "Adiciona a funcionalidades para o Stoa"
 
 #: plugins/stoa/lib/stoa_plugin.rb:23 plugins/stoa/lib/stoa_plugin.rb:33
 msgid ""
 "The usp id grants you special powers in the network. Don't forget to fill it "
 "if you have one."
 msgstr ""
+"O número USP garante poderes especiais nesta rede. Não esqueça de preenchê-lo"
+" se você possuir um se você possuir um."
 
 #: plugins/stoa/lib/stoa_plugin.rb:24 plugins/stoa/lib/stoa_plugin.rb:34
-#, fuzzy
 msgid "Birth date (yyyy-mm-dd)"
-msgstr "Data de nascimento"
+msgstr "Data de nascimento (aaaa-mm-dd)"
 
 #: plugins/stoa/lib/stoa_plugin.rb:25 plugins/stoa/lib/stoa_plugin.rb:35
 msgid "CPF"
-msgstr ""
+msgstr "CPF"
 
 #: plugins/stoa/lib/stoa_plugin.rb:47 plugins/stoa/lib/stoa_plugin.rb:66
-#, fuzzy
 msgid " validation failed"
-msgstr "informações de validação"
+msgstr " validação falhou"
 
 #: plugins/stoa/lib/stoa_plugin/usp_user.rb:-
 msgid "pessoa"
 msgstr ""
 
 #: plugins/stoa/lib/stoa_plugin/usp_user.rb:-
-#, fuzzy
 msgid "stoaplugin::uspuser"
-msgstr "bscplugin::bsc"
+msgstr "stoaplugin::uspuser"
 
 #: plugins/stoa/controllers/stoa_plugin_controller.rb:19
-#, fuzzy
 msgid "Incorrect user/password pair."
-msgstr "Nome ou senha incorreto"
+msgstr "O par usuário/senha está incorreto."
 
 #: plugins/stoa/controllers/stoa_plugin_controller.rb:23
 msgid "Conection requires SSL certificate and post method."
-msgstr ""
+msgstr "A conexão exige um certificado SSL e a utilização "
+"do método 'post'."
 
 #: plugins/require_auth_to_comment/lib/require_auth_to_comment_plugin.rb:14
 msgid "Requires users to authenticate in order to post comments."
