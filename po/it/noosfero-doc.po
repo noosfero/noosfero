@@ -1,23 +1,21 @@
-# Russian translations for PACKAGE package
-# Copyright (C) 2010 Free Software Foundation, Inc.
-# This file is distributed under the same license as the PACKAGE package.
-# Automatically generated, 2010.
+# translation of noosfero.po to Italian
+# Copyright (C) 2012
+# This file is distributed under the same license as noosfero itself.
+# Daniela Feitosa <danielafeitos@colivre.coop.br>, 2012.
 #
+#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: noosfero 0.36.6\n"
 "POT-Creation-Date: 2012-06-05 10:29-0300\n"
-"PO-Revision-Date: 2010-01-27 09:32-0300\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2012-06-05 10:32-0300\n"
+"Last-Translator: Daniela Feitosa <danielafeitosa@colivre.coop.br>\n"
+"Language-Team: LANGUAGE TEAM <LL@li.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ASCII\n"
+"Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
-# type: Content of: <h1>
 #. type: Content of: <h1>
 #: doc/noosfero/index.en.xhtml:1
 msgid "Noosfero online manual"
@@ -51,14 +49,12 @@ msgstr ""
 msgid "left menu, and then choose a topic within the section."
 msgstr ""
 
-# type: Content of: <h1>
 #. type: Content of: <h1>
 #: doc/noosfero/community/send-email-members.en.xhtml:1
 #: doc/noosfero/admin/send-email-members.en.xhtml:1
 msgid "Sending e-mail to members"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/community/send-email-members.en.xhtml:2
 msgid ""
@@ -236,7 +232,6 @@ msgstr ""
 msgid "<a href=\"#relatedtopics\">Related topics</a>"
 msgstr ""
 
-# type: Content of: <h2>
 #. type: Content of: <h2>
 #: doc/noosfero/community/send-email-members.en.xhtml:8
 #: doc/noosfero/community/accepting-members.en.xhtml:8
@@ -300,7 +295,6 @@ msgstr ""
 msgid "How to access"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/community/send-email-members.en.xhtml:10
 #: doc/noosfero/community/accepting-members.en.xhtml:10
@@ -320,7 +314,6 @@ msgstr ""
 msgid "Find your user menu on top bar:"
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/community/send-email-members.en.xhtml:10
 #: doc/noosfero/community/accepting-members.en.xhtml:10
@@ -359,7 +352,6 @@ msgstr ""
 msgid "Top menu"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/community/send-email-members.en.xhtml:11
 #: doc/noosfero/community/accepting-members.en.xhtml:11
@@ -392,7 +384,6 @@ msgstr ""
 msgid "In user menu, click on Control Panel:"
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/community/send-email-members.en.xhtml:11
 #: doc/noosfero/community/accepting-members.en.xhtml:11
@@ -427,7 +418,6 @@ msgstr ""
 msgid "Control panel on menu"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/community/send-email-members.en.xhtml:12
 #: doc/noosfero/community/accepting-members.en.xhtml:12
@@ -438,7 +428,6 @@ msgstr ""
 msgid "Then, click on &#8220;Manage my groups&#8221; button:"
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/community/send-email-members.en.xhtml:12
 #: doc/noosfero/community/accepting-members.en.xhtml:12
@@ -457,7 +446,6 @@ msgstr ""
 msgid "Manage groups in control panel"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/community/send-email-members.en.xhtml:13
 #: doc/noosfero/community/accepting-members.en.xhtml:13
@@ -475,7 +463,6 @@ msgid ""
 "&#8220;Manage&#8221; link."
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/community/send-email-members.en.xhtml:13
 #: doc/noosfero/community/accepting-members.en.xhtml:13
@@ -489,7 +476,6 @@ msgstr ""
 msgid "Groups list with permission to manage enterprise"
 msgstr ""
 
-# type: Content of: <h2>
 #. type: Content of: <h2>
 #: doc/noosfero/community/send-email-members.en.xhtml:15
 #: doc/noosfero/community/accepting-members.en.xhtml:15
@@ -552,21 +538,18 @@ msgstr ""
 msgid "Description"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/community/send-email-members.en.xhtml:17
 #: doc/noosfero/community/invite-contacts.en.xhtml:17
 msgid "In community control panel, click on &#8220;Manage members&#8221;"
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/community/send-email-members.en.xhtml:17
 #: doc/noosfero/community/invite-contacts.en.xhtml:17
 msgid "Manage members in control panel"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/community/send-email-members.en.xhtml:18
 msgid ""
@@ -580,7 +563,6 @@ msgstr ""
 msgid "Community&#39;s members list"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/community/send-email-members.en.xhtml:20
 #: doc/noosfero/admin/send-email-members.en.xhtml:16
@@ -590,13 +572,11 @@ msgid ""
 "send. Then, click on &#8220;Send&#8221;"
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/community/send-email-members.en.xhtml:20
 msgid "Sending e-mail to community members"
 msgstr ""
 
-# type: Content of: <h2>
 #. type: Content of: <h2>
 #: doc/noosfero/community/send-email-members.en.xhtml:22
 #: doc/noosfero/community/accepting-members.en.xhtml:22
@@ -655,7 +635,6 @@ msgstr ""
 msgid "Related topics"
 msgstr ""
 
-# type: Content of: <ul><li>
 #. type: Content of: <ul><li>
 #: doc/noosfero/community/send-email-members.en.xhtml:24
 #: doc/noosfero/community/accepting-members.en.xhtml:24
@@ -665,7 +644,6 @@ msgstr ""
 msgid "<a href=\"/doc/community/creating-community\">Creating a community</a>"
 msgstr ""
 
-# type: Content of: <ul><li>
 #. type: Content of: <ul><li>
 #: doc/noosfero/community/send-email-members.en.xhtml:25
 #: doc/noosfero/community/accepting-members.en.xhtml:25
@@ -675,14 +653,12 @@ msgstr ""
 msgid "<a href=\"/doc/community/joining-community\">Joining a community</a>"
 msgstr ""
 
-# type: Content of: <ul><li>
 #. type: Content of: <ul><li>
 #: doc/noosfero/community/send-email-members.en.xhtml:26
 #: doc/noosfero/community/invite-contacts.en.xhtml:39
 msgid "<a href=\"/doc/community/accepting-members\">Accepting members</a>"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/community/send-email-members.en.xhtml:28
 #: doc/noosfero/community/accepting-members.en.xhtml:27
@@ -747,19 +723,16 @@ msgstr ""
 msgid "<a href=\"#online-doc-text\">Back to top</a>"
 msgstr ""
 
-# type: Content of: <h1>
 #. type: Content of: <h1>
 #: doc/noosfero/community/index.en.xhtml:1
 msgid "Community features"
 msgstr ""
 
-# type: Content of: <h1>
 #. type: Content of: <h1>
 #: doc/noosfero/community/accepting-members.en.xhtml:1
 msgid "Accepting new members"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/community/accepting-members.en.xhtml:2
 msgid ""
@@ -767,7 +740,6 @@ msgid ""
 "approve the requests of new members.</em>"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/community/accepting-members.en.xhtml:17
 #: doc/noosfero/community/moderating-articles.en.xhtml:17
@@ -777,14 +749,12 @@ msgid ""
 "click on &#8220;Process requests&#8221; button"
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/community/accepting-members.en.xhtml:18
 #: doc/noosfero/community/moderating-articles.en.xhtml:18
 msgid "Community control panel with pending tasks"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/community/accepting-members.en.xhtml:19
 msgid ""
@@ -793,14 +763,12 @@ msgid ""
 "permissions, that are defined by the environment administrator."
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/community/accepting-members.en.xhtml:20
 #: doc/noosfero/community/moderating-articles.en.xhtml:19
 msgid "Community tasks list"
 msgstr ""
 
-# type: Content of: <h1>
 #. type: Content of: <h1>
 #: doc/noosfero/community/editing-appearance.en.xhtml:1
 #: doc/noosfero/enterprise/editing-appearance.en.xhtml:1
@@ -808,7 +776,6 @@ msgstr ""
 msgid "Editing appearance"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/community/editing-appearance.en.xhtml:2
 msgid ""
@@ -816,7 +783,6 @@ msgid ""
 "it.</em>"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/community/editing-appearance.en.xhtml:10
 #: doc/noosfero/community/editing-header-footer.en.xhtml:10
@@ -833,7 +799,6 @@ msgstr ""
 msgid "Find you user menu on top bar:"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/community/editing-appearance.en.xhtml:12
 #: doc/noosfero/community/editing-header-footer.en.xhtml:12
@@ -844,7 +809,6 @@ msgstr ""
 msgid "Click on &#8220;Manage my groups&#8221; button:"
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/community/editing-appearance.en.xhtml:13
 #: doc/noosfero/community/editing-header-footer.en.xhtml:13
@@ -860,7 +824,6 @@ msgstr ""
 msgid "Then, click on &quot;Edit Appearance:"
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/community/editing-appearance.en.xhtml:14
 #: doc/noosfero/enterprise/editing-appearance.en.xhtml:14
@@ -868,7 +831,6 @@ msgstr ""
 msgid "Edit appearance on user control panel"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/community/editing-appearance.en.xhtml:18
 #: doc/noosfero/enterprise/editing-appearance.en.xhtml:18
@@ -876,7 +838,6 @@ msgstr ""
 msgid "You will see the available templates:"
 msgstr ""
 
-# type: Content of: <ol><li><ol><li>
 #. type: Content of: <ol><li><ol><li>
 #: doc/noosfero/community/editing-appearance.en.xhtml:20
 #: doc/noosfero/enterprise/editing-appearance.en.xhtml:20
@@ -884,7 +845,6 @@ msgstr ""
 msgid "<strong>default:</strong> This template uses 3 columns."
 msgstr ""
 
-# type: Content of: <ol><li><ol><li>
 #. type: Content of: <ol><li><ol><li>
 #: doc/noosfero/community/editing-appearance.en.xhtml:21
 #: doc/noosfero/enterprise/editing-appearance.en.xhtml:21
@@ -894,7 +854,6 @@ msgid ""
 "Your blocks will be displayed on the collumn on the right."
 msgstr ""
 
-# type: Content of: <ol><li><ol><li>
 #. type: Content of: <ol><li><ol><li>
 #: doc/noosfero/community/editing-appearance.en.xhtml:22
 #: doc/noosfero/enterprise/editing-appearance.en.xhtml:22
@@ -904,7 +863,6 @@ msgid ""
 "Your blocks will be displayed on the collumn on the left."
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/community/editing-appearance.en.xhtml:24
 #: doc/noosfero/enterprise/editing-appearance.en.xhtml:24
@@ -914,7 +872,6 @@ msgid ""
 "template&#8221;"
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/community/editing-appearance.en.xhtml:25
 #: doc/noosfero/enterprise/editing-appearance.en.xhtml:25
@@ -922,7 +879,6 @@ msgstr ""
 msgid "Edit appearance"
 msgstr ""
 
-# type: Content of: <ul><li>
 #. type: Content of: <ul><li>
 #: doc/noosfero/community/editing-appearance.en.xhtml:29
 #: doc/noosfero/community/editing-header-footer.en.xhtml:54
@@ -943,7 +899,6 @@ msgstr ""
 msgid "<a href=\"/doc/user/login\">Login into the system</a>"
 msgstr ""
 
-# type: Content of: <ul><li>
 #. type: Content of: <ul><li>
 #: doc/noosfero/community/editing-appearance.en.xhtml:30
 #: doc/noosfero/community/editing-header-footer.en.xhtml:55
@@ -956,7 +911,6 @@ msgstr ""
 msgid "<a href=\"/doc/user/logout\">Logout of the system</a>"
 msgstr ""
 
-# type: Content of: <ul><li>
 #. type: Content of: <ul><li>
 #: doc/noosfero/community/editing-appearance.en.xhtml:31
 #: doc/noosfero/community/editing-sideboxes.en.xhtml:63
@@ -966,13 +920,11 @@ msgid ""
 "a>"
 msgstr ""
 
-# type: Content of: <h1>
 #. type: Content of: <h1>
 #: doc/noosfero/community/moderating-articles.en.xhtml:1
 msgid "Moderating articles"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/community/moderating-articles.en.xhtml:2
 msgid ""
@@ -981,13 +933,11 @@ msgid ""
 "the publication.</em>"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/community/moderating-articles.en.xhtml:19
 msgid "You will see the tasks list."
 msgstr ""
 
-# type: Content of: <ol><li><ol><li>
 #. type: Content of: <ol><li><ol><li>
 #: doc/noosfero/community/moderating-articles.en.xhtml:21
 msgid ""
@@ -995,7 +945,6 @@ msgid ""
 "to ignore the request, choose &#8220;Ignore&#8221;."
 msgstr ""
 
-# type: Content of: <ol><li><ol><li>
 #. type: Content of: <ol><li><ol><li>
 #: doc/noosfero/community/moderating-articles.en.xhtml:22
 msgid ""
@@ -1005,7 +954,6 @@ msgid ""
 "with the name you want."
 msgstr ""
 
-# type: Content of: <ol><li><ol><li>
 #. type: Content of: <ol><li><ol><li>
 #: doc/noosfero/community/moderating-articles.en.xhtml:23
 msgid ""
@@ -1013,7 +961,6 @@ msgid ""
 "can choose the folder where the article will be listed."
 msgstr ""
 
-# type: Content of: <ol><li><ol><li>
 #. type: Content of: <ol><li><ol><li>
 #: doc/noosfero/community/moderating-articles.en.xhtml:24
 msgid ""
@@ -1022,7 +969,6 @@ msgid ""
 "environment&#8217;s homepage."
 msgstr ""
 
-# type: Content of: <ol><li><ol><li>
 #. type: Content of: <ol><li><ol><li>
 #: doc/noosfero/community/moderating-articles.en.xhtml:25
 msgid ""
@@ -1030,7 +976,6 @@ msgid ""
 "the requestor after your decision."
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/community/moderating-articles.en.xhtml:28
 msgid ""
@@ -1038,7 +983,6 @@ msgid ""
 "If you accepted the article, it will be listed as community&#8217;s content."
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/community/editing-header-footer.en.xhtml:1
 #: doc/noosfero/community/editing-header-footer.en.xhtml:50
@@ -1049,7 +993,6 @@ msgstr ""
 msgid "Editing header and footer"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/community/editing-header-footer.en.xhtml:2
 msgid ""
@@ -1057,7 +1000,6 @@ msgid ""
 "on header or footer.</em>"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/community/editing-header-footer.en.xhtml:14
 #: doc/noosfero/enterprise/editing-header-footer.en.xhtml:14
@@ -1065,13 +1007,11 @@ msgstr ""
 msgid "Then, click on &#8220;Edit Header and Footer&#8221;:"
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/community/editing-header-footer.en.xhtml:14
 msgid "Edit header and footer on community control panel"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/community/editing-header-footer.en.xhtml:18
 #: doc/noosfero/enterprise/editing-header-footer.en.xhtml:18
@@ -1082,7 +1022,6 @@ msgid ""
 "content of your footer, that will be displayed on the bottom of your page."
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/community/editing-header-footer.en.xhtml:19
 #: doc/noosfero/enterprise/editing-header-footer.en.xhtml:19
@@ -1093,7 +1032,6 @@ msgid ""
 "function is displayed."
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/community/editing-header-footer.en.xhtml:19
 #: doc/noosfero/cms/writing-article.en.xhtml:31
@@ -1102,7 +1040,6 @@ msgstr ""
 msgid "WYSIWYG buttons"
 msgstr ""
 
-# type: Content of: <ol><li><ol><li>
 #. type: Content of: <ol><li><ul><li>
 #: doc/noosfero/community/editing-header-footer.en.xhtml:21
 #: doc/noosfero/community/editing-sideboxes.en.xhtml:41
@@ -1114,7 +1051,6 @@ msgstr ""
 msgid "From the left to right:"
 msgstr ""
 
-# type: Content of: <ol><li><ol><li><ol><li>
 #. type: Content of: <ol><li><ol><li><ol><li>
 #: doc/noosfero/community/editing-header-footer.en.xhtml:23
 #: doc/noosfero/enterprise/editing-header-footer.en.xhtml:23
@@ -1124,7 +1060,6 @@ msgid ""
 "content"
 msgstr ""
 
-# type: Content of: <ol><li><ol><li><ol><li>
 #. type: Content of: <ol><li><ol><li><ol><li>
 #: doc/noosfero/community/editing-header-footer.en.xhtml:24
 #: doc/noosfero/cms/writing-article.en.xhtml:36
@@ -1135,7 +1070,6 @@ msgid ""
 "to copy it"
 msgstr ""
 
-# type: Content of: <ol><li><ol><li><ol><li>
 #. type: Content of: <ol><li><ol><li><ol><li>
 #: doc/noosfero/community/editing-header-footer.en.xhtml:25
 #: doc/noosfero/cms/writing-article.en.xhtml:37
@@ -1147,7 +1081,6 @@ msgid ""
 "cursor is"
 msgstr ""
 
-# type: Content of: <ol><li><ol><li><ol><li>
 #. type: Content of: <ol><li><ol><li><ol><li>
 #: doc/noosfero/community/editing-header-footer.en.xhtml:26
 #: doc/noosfero/cms/writing-article.en.xhtml:38
@@ -1158,7 +1091,6 @@ msgid ""
 "text and want to undo the action"
 msgstr ""
 
-# type: Content of: <ol><li><ol><li><ol><li>
 #. type: Content of: <ol><li><ol><li><ol><li>
 #: doc/noosfero/community/editing-header-footer.en.xhtml:27
 #: doc/noosfero/cms/writing-article.en.xhtml:39
@@ -1169,7 +1101,6 @@ msgid ""
 "undo&#8221; and want to redo your last action"
 msgstr ""
 
-# type: Content of: <ol><li><ol><li><ol><li>
 #. type: Content of: <ol><li><ol><li><ol><li>
 #: doc/noosfero/community/editing-header-footer.en.xhtml:28
 #: doc/noosfero/cms/writing-article.en.xhtml:40
@@ -1180,7 +1111,6 @@ msgid ""
 "your text"
 msgstr ""
 
-# type: Content of: <ol><li><ol><li><ol><li>
 #. type: Content of: <ol><li><ol><li><ol><li>
 #: doc/noosfero/community/editing-header-footer.en.xhtml:29
 #: doc/noosfero/cms/writing-article.en.xhtml:41
@@ -1191,7 +1121,6 @@ msgid ""
 "phrase in your text and replace it for other"
 msgstr ""
 
-# type: Content of: <ol><li><ol><li><ol><li>
 #. type: Content of: <ol><li><ol><li><ol><li>
 #: doc/noosfero/community/editing-header-footer.en.xhtml:30
 #: doc/noosfero/cms/writing-article.en.xhtml:42
@@ -1202,7 +1131,6 @@ msgid ""
 "the text/word and change the size clicking on this button"
 msgstr ""
 
-# type: Content of: <ol><li><ol><li><ol><li>
 #. type: Content of: <ol><li><ol><li><ol><li>
 #: doc/noosfero/community/editing-header-footer.en.xhtml:31
 #: doc/noosfero/cms/writing-article.en.xhtml:43
@@ -1214,7 +1142,6 @@ msgid ""
 "format."
 msgstr ""
 
-# type: Content of: <ol><li><ol><li><ol><li>
 #. type: Content of: <ol><li><ol><li><ol><li>
 #: doc/noosfero/community/editing-header-footer.en.xhtml:32
 #: doc/noosfero/cms/writing-article.en.xhtml:44
@@ -1227,7 +1154,6 @@ msgid ""
 "button"
 msgstr ""
 
-# type: Content of: <ol><li><ol><li><ol><li>
 #. type: Content of: <ol><li><ol><li><ol><li>
 #: doc/noosfero/community/editing-header-footer.en.xhtml:33
 #: doc/noosfero/cms/writing-article.en.xhtml:45
@@ -1261,7 +1187,6 @@ msgid ""
 "To use it, first you should select the word/phrase and then click on button"
 msgstr ""
 
-# type: Content of: <ol><li><ol><li><ol><li>
 #. type: Content of: <ol><li><ol><li><ol><li>
 #: doc/noosfero/community/editing-header-footer.en.xhtml:36
 #: doc/noosfero/cms/writing-article.en.xhtml:48
@@ -1272,7 +1197,6 @@ msgid ""
 "before each item."
 msgstr ""
 
-# type: Content of: <ol><li><ol><li><ol><li>
 #. type: Content of: <ol><li><ol><li><ol><li>
 #: doc/noosfero/community/editing-header-footer.en.xhtml:37
 #: doc/noosfero/cms/writing-article.en.xhtml:49
@@ -1283,7 +1207,6 @@ msgid ""
 "before each item."
 msgstr ""
 
-# type: Content of: <ol><li><ol><li><ol><li>
 #. type: Content of: <ol><li><ol><li><ol><li>
 #: doc/noosfero/community/editing-header-footer.en.xhtml:38
 #: doc/noosfero/cms/writing-article.en.xhtml:50
@@ -1294,7 +1217,6 @@ msgid ""
 "left aligned. In this case, the right border of each line will be misaligned"
 msgstr ""
 
-# type: Content of: <ol><li><ol><li><ol><li>
 #. type: Content of: <ol><li><ol><li><ol><li>
 #: doc/noosfero/community/editing-header-footer.en.xhtml:39
 #: doc/noosfero/cms/writing-article.en.xhtml:51
@@ -1306,7 +1228,6 @@ msgid ""
 "misaligned"
 msgstr ""
 
-# type: Content of: <ol><li><ol><li><ol><li>
 #. type: Content of: <ol><li><ol><li><ol><li>
 #: doc/noosfero/community/editing-header-footer.en.xhtml:40
 #: doc/noosfero/cms/writing-article.en.xhtml:52
@@ -1317,7 +1238,6 @@ msgid ""
 "right aligned. In this case, the left border of each line will be misaligned"
 msgstr ""
 
-# type: Content of: <ol><li><ol><li><ol><li>
 #. type: Content of: <ol><li><ol><li><ol><li>
 #: doc/noosfero/community/editing-header-footer.en.xhtml:41
 #: doc/noosfero/cms/writing-article.en.xhtml:53
@@ -1329,7 +1249,6 @@ msgid ""
 "will be aligned"
 msgstr ""
 
-# type: Content of: <ol><li><ol><li><ol><li>
 #. type: Content of: <ol><li><ol><li><ol><li>
 #: doc/noosfero/community/editing-header-footer.en.xhtml:42
 #: doc/noosfero/cms/writing-article.en.xhtml:54
@@ -1340,7 +1259,6 @@ msgid ""
 "link to some address"
 msgstr ""
 
-# type: Content of: <ol><li><ol><li><ol><li>
 #. type: Content of: <ol><li><ol><li><ol><li>
 #: doc/noosfero/community/editing-header-footer.en.xhtml:43
 #: doc/noosfero/cms/writing-article.en.xhtml:55
@@ -1351,7 +1269,6 @@ msgid ""
 "button to remove the link"
 msgstr ""
 
-# type: Content of: <ol><li><ol><li><ol><li>
 #. type: Content of: <ol><li><ol><li><ol><li>
 #: doc/noosfero/community/editing-header-footer.en.xhtml:44
 #: doc/noosfero/cms/writing-article.en.xhtml:56
@@ -1362,7 +1279,6 @@ msgid ""
 "to edit an image that is in your text"
 msgstr ""
 
-# type: Content of: <ol><li><ol><li><ol><li>
 #. type: Content of: <ol><li><ol><li><ol><li>
 #: doc/noosfero/community/editing-header-footer.en.xhtml:45
 #: doc/noosfero/cms/writing-article.en.xhtml:57
@@ -1372,7 +1288,6 @@ msgid ""
 "<strong>Inserts a new table:</strong> use it to insert a table in your text"
 msgstr ""
 
-# type: Content of: <ol><li><ol><li><ol><li>
 #. type: Content of: <ol><li><ol><li><ol><li>
 #: doc/noosfero/community/editing-header-footer.en.xhtml:46
 #: doc/noosfero/cms/writing-article.en.xhtml:58
@@ -1384,7 +1299,6 @@ msgid ""
 "formatted text from another place"
 msgstr ""
 
-# type: Content of: <ol><li><ol><li><ol><li>
 #. type: Content of: <ol><li><ol><li><ol><li>
 #: doc/noosfero/community/editing-header-footer.en.xhtml:47
 #: doc/noosfero/enterprise/editing-header-footer.en.xhtml:47
@@ -1396,7 +1310,6 @@ msgid ""
 "\"caps\">HTML</span> code of your header/footer."
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/community/editing-header-footer.en.xhtml:50
 #: doc/noosfero/enterprise/editing-header-footer.en.xhtml:50
@@ -1405,13 +1318,11 @@ msgid ""
 "After editing your header and footer, click on &#8220;Save&#8221; button"
 msgstr ""
 
-# type: Content of: <h1>
 #. type: Content of: <h1>
 #: doc/noosfero/community/joining-community.en.xhtml:1
 msgid "Joining a community"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/community/joining-community.en.xhtml:2
 msgid ""
@@ -1437,7 +1348,6 @@ msgstr ""
 msgid "<a href=\"#relatedtopics\">Related Topics</a>"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/community/joining-community.en.xhtml:9
 msgid ""
@@ -1446,7 +1356,6 @@ msgid ""
 "to view it."
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/community/joining-community.en.xhtml:10
 msgid ""
@@ -1461,13 +1370,11 @@ msgid ""
 "community&#8217;s image."
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/community/joining-community.en.xhtml:13
 msgid "Community with join button"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/community/joining-community.en.xhtml:14
 msgid ""
@@ -1475,13 +1382,11 @@ msgid ""
 "be member of the community if it is not moderated."
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/community/joining-community.en.xhtml:14
 msgid "Confirmation after asking to join a community"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/community/joining-community.en.xhtml:15
 msgid ""
@@ -1489,7 +1394,6 @@ msgid ""
 "request before you start interacting."
 msgstr ""
 
-# type: Content of: <ul><li>
 #. type: Content of: <ul><li>
 #: doc/noosfero/community/joining-community.en.xhtml:19
 #: doc/noosfero/navigation/searching.en.xhtml:20
@@ -1509,7 +1413,6 @@ msgid ""
 "<a href=\"/doc/navigation/searching-communities\">Finding communities</a>"
 msgstr ""
 
-# type: Content of: <h1>
 #. type: Content of: <h1>
 #: doc/noosfero/community/editing-sideboxes.en.xhtml:1
 #: doc/noosfero/enterprise/editing-sideboxes.en.xhtml:1
@@ -1517,7 +1420,6 @@ msgstr ""
 msgid "Editing sideboxes"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/community/editing-sideboxes.en.xhtml:2
 msgid ""
@@ -1525,7 +1427,6 @@ msgid ""
 "will be displayed on it.</em>"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/community/editing-sideboxes.en.xhtml:14
 #: doc/noosfero/enterprise/editing-sideboxes.en.xhtml:14
@@ -1533,13 +1434,11 @@ msgstr ""
 msgid "Then, click on &#8220;Edit Sideboxes&#8221;:"
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/community/editing-sideboxes.en.xhtml:14
 msgid "Edit sideboxes on community control panel"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/community/editing-sideboxes.en.xhtml:18
 #: doc/noosfero/enterprise/editing-sideboxes.en.xhtml:18
@@ -1549,7 +1448,6 @@ msgid ""
 "to add a new block, click on &#8220;Add a block&#8221;:"
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/community/editing-sideboxes.en.xhtml:18
 #: doc/noosfero/enterprise/editing-sideboxes.en.xhtml:18
@@ -1557,7 +1455,6 @@ msgstr ""
 msgid "Edit sideboxes"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/community/editing-sideboxes.en.xhtml:19
 #: doc/noosfero/enterprise/editing-sideboxes.en.xhtml:19
@@ -1565,7 +1462,6 @@ msgstr ""
 msgid "You will see the blocks that you can add to your page:"
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/community/editing-sideboxes.en.xhtml:19
 #: doc/noosfero/enterprise/editing-sideboxes.en.xhtml:19
@@ -1573,7 +1469,6 @@ msgstr ""
 msgid "Add a block"
 msgstr ""
 
-# type: Content of: <ol><li><ol><li>
 #. type: Content of: <ol><li><ol><li>
 #: doc/noosfero/community/editing-sideboxes.en.xhtml:21
 #: doc/noosfero/enterprise/editing-sideboxes.en.xhtml:21
@@ -1584,7 +1479,6 @@ msgid ""
 "cannot add a new block in the middle of your page."
 msgstr ""
 
-# type: Content of: <ol><li><ol><li>
 #. type: Content of: <ol><li><ol><li>
 #: doc/noosfero/community/editing-sideboxes.en.xhtml:22
 #: doc/noosfero/enterprise/editing-sideboxes.en.xhtml:22
@@ -1592,7 +1486,6 @@ msgstr ""
 msgid "Choose which block will be added."
 msgstr ""
 
-# type: Content of: <ol><li><ol><li>
 #. type: Content of: <ol><li><ol><li>
 #: doc/noosfero/community/editing-sideboxes.en.xhtml:23
 #: doc/noosfero/enterprise/editing-sideboxes.en.xhtml:23
@@ -1602,7 +1495,6 @@ msgid ""
 "on the bottom of the area you selected."
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/community/editing-sideboxes.en.xhtml:25
 #: doc/noosfero/enterprise/editing-sideboxes.en.xhtml:25
@@ -1610,7 +1502,6 @@ msgstr ""
 msgid "Types of blocks:"
 msgstr ""
 
-# type: Content of: <ol><li><ul><li>
 #. type: Content of: <ol><li><ul><li>
 #: doc/noosfero/community/editing-sideboxes.en.xhtml:27
 msgid ""
@@ -1619,7 +1510,6 @@ msgid ""
 "article is going to be displayed in the block."
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><ul><li><ul><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><ul><li><ul><li><img>
 #: doc/noosfero/community/editing-sideboxes.en.xhtml:27
 #: doc/noosfero/community/editing-sideboxes.en.xhtml:46
@@ -1629,7 +1519,6 @@ msgstr ""
 msgid "block"
 msgstr ""
 
-# type: Content of: <ol><li><ul><li>
 #. type: Content of: <ol><li><ul><li>
 #: doc/noosfero/community/editing-sideboxes.en.xhtml:28
 msgid ""
@@ -1637,7 +1526,6 @@ msgid ""
 "the community. You can choose how many articles will be listed."
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><ul><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><ul><li><img>
 #: doc/noosfero/community/editing-sideboxes.en.xhtml:28
 #: doc/noosfero/enterprise/editing-sideboxes.en.xhtml:28
@@ -1655,7 +1543,6 @@ msgid ""
 "{profile}&#8221; will be replaced by your identifier."
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><ul><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><ul><li><img>
 #: doc/noosfero/community/editing-sideboxes.en.xhtml:29
 #: doc/noosfero/enterprise/editing-sideboxes.en.xhtml:29
@@ -1663,7 +1550,6 @@ msgstr ""
 msgid "Links block"
 msgstr ""
 
-# type: Content of: <ol><li><ul><li>
 #. type: Content of: <ol><li><ul><li>
 #: doc/noosfero/community/editing-sideboxes.en.xhtml:30
 #: doc/noosfero/user/editing-sideboxes.en.xhtml:28
@@ -1674,7 +1560,6 @@ msgid ""
 "select the number of items that will be displayed."
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><ul><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><ul><li><img>
 #: doc/noosfero/community/editing-sideboxes.en.xhtml:30
 #: doc/noosfero/enterprise/editing-sideboxes.en.xhtml:30
@@ -1682,7 +1567,6 @@ msgstr ""
 msgid "Feed reader block"
 msgstr ""
 
-# type: Content of: <ol><li><ul><li>
 #. type: Content of: <ol><li><ul><li>
 #: doc/noosfero/community/editing-sideboxes.en.xhtml:31
 msgid ""
@@ -1690,7 +1574,6 @@ msgid ""
 "world."
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><ul><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><ul><li><img>
 #: doc/noosfero/community/editing-sideboxes.en.xhtml:31
 #: doc/noosfero/enterprise/editing-sideboxes.en.xhtml:31
@@ -1698,7 +1581,6 @@ msgstr ""
 msgid "Location map block"
 msgstr ""
 
-# type: Content of: <ol><li><ul><li>
 #. type: Content of: <ol><li><ul><li>
 #: doc/noosfero/community/editing-sideboxes.en.xhtml:32
 msgid ""
@@ -1706,14 +1588,12 @@ msgid ""
 "choose how many members will be displayed."
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><ul><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><ul><li><img>
 #: doc/noosfero/community/editing-sideboxes.en.xhtml:32
 #: doc/noosfero/enterprise/editing-sideboxes.en.xhtml:32
 msgid "Members block"
 msgstr ""
 
-# type: Content of: <ol><li><ul><li>
 #. type: Content of: <ol><li><ul><li>
 #: doc/noosfero/community/editing-sideboxes.en.xhtml:33
 msgid ""
@@ -1722,7 +1602,6 @@ msgid ""
 "on the contents. You can choose how many tags will be displayed."
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><ul><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><ul><li><img>
 #: doc/noosfero/community/editing-sideboxes.en.xhtml:33
 #: doc/noosfero/enterprise/editing-sideboxes.en.xhtml:34
@@ -1730,7 +1609,6 @@ msgstr ""
 msgid "Tags block"
 msgstr ""
 
-# type: Content of: <ol><li><ul><li>
 #. type: Content of: <ol><li><ul><li>
 #: doc/noosfero/community/editing-sideboxes.en.xhtml:34
 msgid ""
@@ -1739,7 +1617,6 @@ msgid ""
 "environment and useful links."
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><ul><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><ul><li><img>
 #: doc/noosfero/community/editing-sideboxes.en.xhtml:34
 #: doc/noosfero/enterprise/editing-sideboxes.en.xhtml:35
@@ -1747,7 +1624,6 @@ msgstr ""
 msgid "Profile info block"
 msgstr ""
 
-# type: Content of: <ol><li><ul><li>
 #. type: Content of: <ol><li><ul><li>
 #: doc/noosfero/community/editing-sideboxes.en.xhtml:35
 msgid ""
@@ -1755,20 +1631,17 @@ msgid ""
 "community&#8217;s networking."
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><ul><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><ul><li><img>
 #: doc/noosfero/community/editing-sideboxes.en.xhtml:35
 msgid "Community network block"
 msgstr ""
 
-# type: Content of: <ol><li><ul><li>
 #. type: Content of: <ol><li><ul><li>
 #: doc/noosfero/community/editing-sideboxes.en.xhtml:36
 msgid ""
 "<strong>Profile Image:</strong> This block presents the community image."
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><ul><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><ul><li><img>
 #: doc/noosfero/community/editing-sideboxes.en.xhtml:36
 #: doc/noosfero/enterprise/editing-sideboxes.en.xhtml:37
@@ -1776,7 +1649,6 @@ msgstr ""
 msgid "Profile image block"
 msgstr ""
 
-# type: Content of: <ol><li><ul><li>
 #. type: Content of: <ol><li><ul><li>
 #: doc/noosfero/community/editing-sideboxes.en.xhtml:37
 msgid ""
@@ -1785,7 +1657,6 @@ msgid ""
 "select which image gallery will be displayed."
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><ul><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><ul><li><img>
 #: doc/noosfero/community/editing-sideboxes.en.xhtml:37
 #: doc/noosfero/enterprise/editing-sideboxes.en.xhtml:38
@@ -1793,7 +1664,6 @@ msgstr ""
 msgid "Slideshow block"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/community/editing-sideboxes.en.xhtml:39
 #: doc/noosfero/enterprise/editing-sideboxes.en.xhtml:41
@@ -1803,7 +1673,6 @@ msgid ""
 "the button, the name of the button function is displayed."
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/community/editing-sideboxes.en.xhtml:39
 #: doc/noosfero/enterprise/editing-sideboxes.en.xhtml:41
@@ -1811,7 +1680,6 @@ msgstr ""
 msgid "Buttons from block"
 msgstr ""
 
-# type: Content of: <ol><li><ul><li><ul><li>
 #. type: Content of: <ol><li><ul><li><ul><li>
 #: doc/noosfero/community/editing-sideboxes.en.xhtml:43
 #: doc/noosfero/enterprise/editing-sideboxes.en.xhtml:45
@@ -1821,7 +1689,6 @@ msgid ""
 "on the top of it."
 msgstr ""
 
-# type: Content of: <ol><li><ul><li><ul><li>
 #. type: Content of: <ol><li><ul><li><ul><li>
 #: doc/noosfero/community/editing-sideboxes.en.xhtml:44
 #: doc/noosfero/enterprise/editing-sideboxes.en.xhtml:46
@@ -1831,7 +1698,6 @@ msgid ""
 "on the bottom of it."
 msgstr ""
 
-# type: Content of: <ol><li><ul><li><ul><li>
 #. type: Content of: <ol><li><ul><li><ul><li>
 #: doc/noosfero/community/editing-sideboxes.en.xhtml:45
 #: doc/noosfero/enterprise/editing-sideboxes.en.xhtml:47
@@ -1842,7 +1708,6 @@ msgid ""
 "moved to the right side. If it is on the right, it is moved to the left side."
 msgstr ""
 
-# type: Content of: <ol><li><ul><li><ul><li>
 #. type: Content of: <ol><li><ul><li><ul><li>
 #: doc/noosfero/community/editing-sideboxes.en.xhtml:46
 #: doc/noosfero/enterprise/editing-sideboxes.en.xhtml:48
@@ -1853,7 +1718,6 @@ msgid ""
 "specific configuration."
 msgstr ""
 
-# type: Content of: <ol><li><ul><li><ul><li><ol><li>
 #. type: Content of: <ol><li><ul><li><ul><li><ol><li>
 #: doc/noosfero/community/editing-sideboxes.en.xhtml:48
 #: doc/noosfero/enterprise/editing-sideboxes.en.xhtml:50
@@ -1863,7 +1727,6 @@ msgid ""
 "change it, type your title in this field."
 msgstr ""
 
-# type: Content of: <ol><li><ul><li><ul><li><ol><li>
 #. type: Content of: <ol><li><ul><li><ul><li><ol><li>
 #: doc/noosfero/community/editing-sideboxes.en.xhtml:49
 #: doc/noosfero/enterprise/editing-sideboxes.en.xhtml:51
@@ -1873,7 +1736,6 @@ msgid ""
 "are 3 options:"
 msgstr ""
 
-# type: Content of: <ol><li><ul><li><ul><li><ol><li><ul><li>
 #. type: Content of: <ol><li><ul><li><ul><li><ol><li><ul><li>
 #: doc/noosfero/community/editing-sideboxes.en.xhtml:51
 #: doc/noosfero/enterprise/editing-sideboxes.en.xhtml:53
@@ -1881,7 +1743,6 @@ msgstr ""
 msgid "In all pages: The block will be displayed in all pages of your profile."
 msgstr ""
 
-# type: Content of: <ol><li><ul><li><ul><li><ol><li><ul><li>
 #. type: Content of: <ol><li><ul><li><ul><li><ol><li><ul><li>
 #: doc/noosfero/community/editing-sideboxes.en.xhtml:52
 #: doc/noosfero/enterprise/editing-sideboxes.en.xhtml:54
@@ -1890,7 +1751,6 @@ msgid ""
 "Only in the home page: The block will only be displayed on your homepage."
 msgstr ""
 
-# type: Content of: <ol><li><ul><li><ul><li><ol><li><ul><li>
 #. type: Content of: <ol><li><ul><li><ul><li><ol><li><ul><li>
 #: doc/noosfero/community/editing-sideboxes.en.xhtml:53
 #: doc/noosfero/enterprise/editing-sideboxes.en.xhtml:55
@@ -1898,7 +1758,6 @@ msgstr ""
 msgid "Don&#8217;t display: The block will not be displayed."
 msgstr ""
 
-# type: Content of: <ol><li><ul><li><ul><li>
 #. type: Content of: <ol><li><ul><li><ul><li>
 #: doc/noosfero/community/editing-sideboxes.en.xhtml:56
 #: doc/noosfero/enterprise/editing-sideboxes.en.xhtml:58
@@ -1906,7 +1765,6 @@ msgstr ""
 msgid "<strong>Remove block:</strong> Remove the block from your page."
 msgstr ""
 
-# type: Content of: <ol><li><ul><li><ul><li>
 #. type: Content of: <ol><li><ul><li><ul><li>
 #: doc/noosfero/community/editing-sideboxes.en.xhtml:57
 #: doc/noosfero/enterprise/editing-sideboxes.en.xhtml:59
@@ -1916,64 +1774,54 @@ msgid ""
 "description of the block."
 msgstr ""
 
-# type: Content of: <ul><li>
 #. type: Content of: <ul><li>
 #: doc/noosfero/community/editing-sideboxes.en.xhtml:64
 #: doc/noosfero/community/toc.en.xhtml:9
 msgid "<a href=\"/doc/community/editing-appearance\">Editing appearance</a>"
 msgstr ""
 
-# type: Content of: <h1>
 #. type: Content of: <h1>
 #: doc/noosfero/community/creating-community.en.xhtml:1
 msgid "Creating a community"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/community/creating-community.en.xhtml:2
 msgid "<em>You can create communities to interact to others users</em>"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/community/creating-community.en.xhtml:11
 #: doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:11
 msgid "In user menu, click on Control Panel"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/community/creating-community.en.xhtml:12
 #: doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:12
 msgid "Then, click on &#8220;Manage my groups&#8221;:"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/community/creating-community.en.xhtml:16
 msgid "Find the button &#8220;Create a new community&#8221; and click on it."
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/community/creating-community.en.xhtml:16
 msgid "Groups list"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/community/creating-community.en.xhtml:17
 msgid "You will see a form to be filled with the community information."
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/community/creating-community.en.xhtml:17
 msgid "Form for creation of a community"
 msgstr ""
 
-# type: Content of: <ol><li><ol><li>
 #. type: Content of: <ol><li><ol><li>
 #: doc/noosfero/community/creating-community.en.xhtml:19
 msgid ""
@@ -1981,7 +1829,6 @@ msgid ""
 "create."
 msgstr ""
 
-# type: Content of: <ol><li><ol><li>
 #. type: Content of: <ol><li><ol><li>
 #: doc/noosfero/community/creating-community.en.xhtml:20
 msgid ""
@@ -1989,7 +1836,6 @@ msgid ""
 "associated to your community."
 msgstr ""
 
-# type: Content of: <ol><li><ol><li>
 #. type: Content of: <ol><li><ol><li>
 #: doc/noosfero/community/creating-community.en.xhtml:21
 msgid ""
@@ -1999,7 +1845,6 @@ msgid ""
 "or .png."
 msgstr ""
 
-# type: Content of: <ol><li><ol><li>
 #. type: Content of: <ol><li><ol><li>
 #: doc/noosfero/community/creating-community.en.xhtml:22
 msgid ""
@@ -2009,13 +1854,11 @@ msgid ""
 "option, no moderation is needed."
 msgstr ""
 
-# type: Content of: <ol><li><ol><li>
 #. type: Content of: <ol><li><ol><li>
 #: doc/noosfero/community/creating-community.en.xhtml:23
 msgid "After filling the fields, click on &#8220;Create&#8221; button."
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/community/creating-community.en.xhtml:25
 msgid ""
@@ -2024,14 +1867,12 @@ msgid ""
 "community."
 msgstr ""
 
-# type: Content of: <h1>
 #. type: Content of: <h1>
 #: doc/noosfero/community/invite-contacts.en.xhtml:1
 #: doc/noosfero/user/invite-contacts.en.xhtml:1
 msgid "Inviting contacts from e-mail"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/community/invite-contacts.en.xhtml:2
 msgid ""
@@ -2041,7 +1882,6 @@ msgid ""
 "user will receive an invitation on his e-mail.</em>"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/community/invite-contacts.en.xhtml:18
 msgid ""
@@ -2049,7 +1889,6 @@ msgid ""
 "on the button."
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/community/invite-contacts.en.xhtml:20
 #: doc/noosfero/user/invite-contacts.en.xhtml:18
@@ -2058,7 +1897,6 @@ msgid ""
 "the e-mails from your e-mail contacts."
 msgstr ""
 
-# type: Content of: <ol><li><ul><li>
 #. type: Content of: <ol><li><ul><li>
 #: doc/noosfero/community/invite-contacts.en.xhtml:22
 #: doc/noosfero/user/invite-contacts.en.xhtml:20
@@ -2067,13 +1905,11 @@ msgid ""
 "click on &#8220;Next&#8221;"
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><ul><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><ul><li><img>
 #: doc/noosfero/community/invite-contacts.en.xhtml:22
 msgid "Manually invitation for community. Step 1"
 msgstr ""
 
-# type: Content of: <ol><li><ul><li><ul><li>
 #. type: Content of: <ol><li><ul><li><ul><li>
 #: doc/noosfero/community/invite-contacts.en.xhtml:24
 #: doc/noosfero/user/invite-contacts.en.xhtml:22
@@ -2082,7 +1918,6 @@ msgid ""
 "in each line."
 msgstr ""
 
-# type: Content of: <ol><li><ul><li><ul><li>
 #. type: Content of: <ol><li><ul><li><ul><li>
 #: doc/noosfero/community/invite-contacts.en.xhtml:25
 #: doc/noosfero/community/invite-contacts.en.xhtml:31
@@ -2093,13 +1928,11 @@ msgid ""
 "that will be sent. Then, click on &#8220;Invite my friends&#8221;"
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><ul><li><ul><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><ul><li><ul><li><img>
 #: doc/noosfero/community/invite-contacts.en.xhtml:25
 msgid "Manually invitation for community. Step 2"
 msgstr ""
 
-# type: Content of: <ol><li><ul><li>
 #. type: Content of: <ol><li><ul><li>
 #: doc/noosfero/community/invite-contacts.en.xhtml:27
 #: doc/noosfero/user/invite-contacts.en.xhtml:25
@@ -2109,13 +1942,11 @@ msgid ""
 "you use to access your e-mail and click on &#8220;Next&#8221;."
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><ul><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><ul><li><img>
 #: doc/noosfero/community/invite-contacts.en.xhtml:27
 msgid "Import invitation for community. Step 1"
 msgstr ""
 
-# type: Content of: <ol><li><ul><li><ul><li>
 #. type: Content of: <ol><li><ul><li><ul><li>
 #: doc/noosfero/community/invite-contacts.en.xhtml:29
 #: doc/noosfero/user/invite-contacts.en.xhtml:27
@@ -2124,7 +1955,6 @@ msgid ""
 "line."
 msgstr ""
 
-# type: Content of: <ol><li><ul><li><ul><li>
 #. type: Content of: <ol><li><ul><li><ul><li>
 #: doc/noosfero/community/invite-contacts.en.xhtml:30
 #: doc/noosfero/user/invite-contacts.en.xhtml:28
@@ -2133,31 +1963,26 @@ msgid ""
 "send an invitation."
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><ul><li><ul><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><ul><li><ul><li><img>
 #: doc/noosfero/community/invite-contacts.en.xhtml:31
 msgid "Import invitation for community. Step 2"
 msgstr ""
 
-# type: Content of: <h1>
 #. type: Content of: <h1>
 #: doc/noosfero/plugins/index.en.xhtml:1
 msgid "Plugins"
 msgstr ""
 
-# type: Content of: <h1>
 #. type: Content of: <h1>
 #: doc/noosfero/plugins/send_email.en.xhtml:1
 msgid "SendEmailPlugin"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/plugins/send_email.en.xhtml:2
 msgid "Allows to send e-mails through an e-mail form."
 msgstr ""
 
-# type: Content of: <h2>
 #. type: Content of: <h2>
 #: doc/noosfero/plugins/send_email.en.xhtml:3
 #: doc/noosfero/plugins/google_analytics.en.xhtml:3
@@ -2165,7 +1990,6 @@ msgstr ""
 msgid "Usage"
 msgstr ""
 
-# type: Content of: <ul><li>
 #. type: Content of: <ul><li>
 #: doc/noosfero/plugins/send_email.en.xhtml:5
 msgid ""
@@ -2173,14 +1997,12 @@ msgid ""
 "RawHTMLArticle that invokes the {sendemail} action"
 msgstr ""
 
-# type: Content of: <ul><li>
 #. type: Content of: <ul><li>
 #: doc/noosfero/plugins/send_email.en.xhtml:6
 msgid ""
 "Add a &#8220;to&#8221; and &#8220;message&#8221; field and a submit button"
 msgstr ""
 
-# type: Content of: <ul><li>
 #. type: Content of: <ul><li>
 #: doc/noosfero/plugins/send_email.en.xhtml:7
 msgid ""
@@ -2192,20 +2014,17 @@ msgstr ""
 msgid "<span class=\"caps\">HTML</span> form"
 msgstr ""
 
-# type: Content of: <h3>
 #. type: Content of: <h3>
 #: doc/noosfero/plugins/send_email.en.xhtml:10
 msgid "Form action"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/plugins/send_email.en.xhtml:11
 msgid ""
 "You should use {sendemail} macro as form action, it will be expanded as:"
 msgstr ""
 
-# type: Content of: <ul><li>
 #. type: Content of: <ul><li>
 #: doc/noosfero/plugins/send_email.en.xhtml:13
 msgid ""
@@ -2213,68 +2032,57 @@ msgid ""
 "profile context"
 msgstr ""
 
-# type: Content of: <ul><li>
 #. type: Content of: <ul><li>
 #: doc/noosfero/plugins/send_email.en.xhtml:14
 msgid "<strong>/plugin/send_email/deliver</strong> in environment context"
 msgstr ""
 
-# type: Content of: <h3>
 #. type: Content of: <h3>
 #: doc/noosfero/plugins/send_email.en.xhtml:16
 msgid "&#8216;Subject&#8217; field"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/plugins/send_email.en.xhtml:17
 msgid "Subject of message."
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/plugins/send_email.en.xhtml:18
 msgid "(default: &#8216;New mail&#8217;)"
 msgstr ""
 
-# type: Content of: <h3>
 #. type: Content of: <h3>
 #: doc/noosfero/plugins/send_email.en.xhtml:19
 msgid "&#8216;Message&#8217; field"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/plugins/send_email.en.xhtml:20
 msgid "Body of message."
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/plugins/send_email.en.xhtml:21
 #: doc/noosfero/plugins/send_email.en.xhtml:24
 msgid "(required)"
 msgstr ""
 
-# type: Content of: <h3>
 #. type: Content of: <h3>
 #: doc/noosfero/plugins/send_email.en.xhtml:22
 msgid "&#8216;To&#8217; field"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/plugins/send_email.en.xhtml:23
 msgid "Target address. Accepts multiple addresses separated by comma."
 msgstr ""
 
-# type: Content of: <h3>
 #. type: Content of: <h3>
 #: doc/noosfero/plugins/send_email.en.xhtml:25
 msgid "extra fields"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/plugins/send_email.en.xhtml:26
 msgid ""
@@ -2282,19 +2090,16 @@ msgid ""
 "message body in a format &#8220;key: value&#8221;"
 msgstr ""
 
-# type: Content of: <h2>
 #. type: Content of: <h2>
 #: doc/noosfero/plugins/send_email.en.xhtml:27
 msgid "Options"
 msgstr ""
 
-# type: Content of: <h3>
 #. type: Content of: <h3>
 #: doc/noosfero/plugins/send_email.en.xhtml:28
 msgid "Using ajax"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/plugins/send_email.en.xhtml:29
 msgid ""
@@ -2302,7 +2107,6 @@ msgid ""
 "form."
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/plugins/send_email.en.xhtml:30
 msgid "Example:"
@@ -2320,14 +2124,12 @@ msgid ""
 "&lt;/form&gt;\n"
 msgstr ""
 
-# type: Content of: <h2>
 #. type: Content of: <h2>
 #: doc/noosfero/plugins/send_email.en.xhtml:39
 #: doc/noosfero/plugins/google_analytics.en.xhtml:19
 msgid "Info"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/plugins/send_email.en.xhtml:40
 msgid ""
@@ -2335,61 +2137,51 @@ msgid ""
 "SendEmailPlugin\">Foswiki SendEmailPlugin</a>"
 msgstr ""
 
-# type: Content of: <h1>
 #. type: Content of: <h1>
 #: doc/noosfero/plugins/google_analytics.en.xhtml:1
 msgid "Google Analytics"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/plugins/google_analytics.en.xhtml:2
 msgid "Tracking and web analytics for people and communities."
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/plugins/google_analytics.en.xhtml:4
 msgid "Create and configure Google Analytics account following these steps:"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/plugins/google_analytics.en.xhtml:6
 msgid "Open <a href=\"http://www.google.com/analytics/\">Google Analytics</a>"
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/plugins/google_analytics.en.xhtml:7
 msgid "Google Setup - Step 1"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/plugins/google_analytics.en.xhtml:8
 msgid "Sign in to Google Analytics"
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/plugins/google_analytics.en.xhtml:9
 msgid "Google Setup - Step 2"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/plugins/google_analytics.en.xhtml:10
 msgid "Follow signup instructions"
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/plugins/google_analytics.en.xhtml:11
 msgid "Google Setup - Step 3"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/plugins/google_analytics.en.xhtml:12
 msgid ""
@@ -2398,13 +2190,11 @@ msgid ""
 "your name and read and accept terms of use"
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/plugins/google_analytics.en.xhtml:13
 msgid "Google Setup - Step 4"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/plugins/google_analytics.en.xhtml:14
 msgid ""
@@ -2412,13 +2202,11 @@ msgid ""
 "(eg.: UA-23455430-3)"
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/plugins/google_analytics.en.xhtml:15
 msgid "Google Setup - Step 5"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/plugins/google_analytics.en.xhtml:16
 msgid ""
@@ -2426,26 +2214,22 @@ msgid ""
 "and fill in <em>Google Analytics Profile ID</em> with ID above"
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/plugins/google_analytics.en.xhtml:17
 msgid "Google Setup - Step 6"
 msgstr ""
 
-# type: Content of: <ul><li>
 #. type: Content of: <ul><li>
 #: doc/noosfero/plugins/google_analytics.en.xhtml:21
 msgid ""
 "<a href=\"http://support.google.com/analytics\">Google Analytics Support</a>"
 msgstr ""
 
-# type: Content of: <h1>
 #. type: Content of: <h1>
 #: doc/noosfero/plugins/google_cse.en.xhtml:1
 msgid "GoogleCsePlugin"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/plugins/google_cse.en.xhtml:2
 msgid ""
@@ -2458,14 +2242,12 @@ msgstr ""
 msgid "Register a Google Custom Search ID at http://www.google.com/cse"
 msgstr ""
 
-# type: Content of: <ul><li>
 #. type: Content of: <ul><li>
 #: doc/noosfero/plugins/google_cse.en.xhtml:6
 msgid ""
 "Set at least basic config, site list and look and fell of your Google Cse ID"
 msgstr ""
 
-# type: Content of: <ul><li>
 #. type: Content of: <ul><li>
 #: doc/noosfero/plugins/google_cse.en.xhtml:7
 msgid "Configure Noosfero environment with this ID"
@@ -2488,7 +2270,6 @@ msgstr ""
 msgid "&gt;&gt; env.save!"
 msgstr ""
 
-# type: Content of: <ul><li>
 #. type: Content of: <ul><li>
 #: doc/noosfero/plugins/google_cse.en.xhtml:13
 msgid ""
@@ -2496,61 +2277,51 @@ msgid ""
 "searches"
 msgstr ""
 
-# type: Content of: <h1>
 #. type: Content of: <h1>
 #: doc/noosfero/plugins/shopping_cart.en.xhtml:1
 msgid "Shopping Cart"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/plugins/shopping_cart.en.xhtml:2
 msgid "<em>Buy the products you want.</em>"
 msgstr ""
 
-# type: Content of: <ul><li>
 #. type: Content of: <ul><li>
 #: doc/noosfero/plugins/shopping_cart.en.xhtml:4
 msgid "<a href=\"#how-to-access\">How to Access</a>"
 msgstr ""
 
-# type: Content of: <ul><li>
 #. type: Content of: <ul><li>
 #: doc/noosfero/plugins/shopping_cart.en.xhtml:5
 msgid "<a href=\"#adding-new-products\">Adding new products</a>"
 msgstr ""
 
-# type: Content of: <ul><li>
 #. type: Content of: <ul><li>
 #: doc/noosfero/plugins/shopping_cart.en.xhtml:6
 msgid "<a href=\"#editing-quantities\">Editing quantities</a>"
 msgstr ""
 
-# type: Content of: <ul><li>
 #. type: Content of: <ul><li>
 #: doc/noosfero/plugins/shopping_cart.en.xhtml:7
 msgid "<a href=\"#removing-products\">Removing products</a>"
 msgstr ""
 
-# type: Content of: <ul><li>
 #. type: Content of: <ul><li>
 #: doc/noosfero/plugins/shopping_cart.en.xhtml:8
 msgid "<a href=\"#cleaning-cart\">Cleaning the cart</a>"
 msgstr ""
 
-# type: Content of: <ul><li>
 #. type: Content of: <ul><li>
 #: doc/noosfero/plugins/shopping_cart.en.xhtml:9
 msgid "<a href=\"#show-and-hide\">Show and hide cart</a>"
 msgstr ""
 
-# type: Content of: <ul><li>
 #. type: Content of: <ul><li>
 #: doc/noosfero/plugins/shopping_cart.en.xhtml:10
 msgid "<a href=\"#checkout\">Checking out</a>"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/plugins/shopping_cart.en.xhtml:13
 msgid ""
@@ -2558,13 +2329,11 @@ msgid ""
 "are going to buy your products:"
 msgstr ""
 
-# type: Attribute 'alt' of: <p><img>
 #. type: Attribute 'alt' of: <p><img>
 #: doc/noosfero/plugins/shopping_cart.en.xhtml:14
 msgid "Enterprise Homepage"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/plugins/shopping_cart.en.xhtml:15
 msgid ""
@@ -2573,13 +2342,11 @@ msgid ""
 "products&#8217; list:"
 msgstr ""
 
-# type: Attribute 'alt' of: <p><img>
 #. type: Attribute 'alt' of: <p><img>
 #: doc/noosfero/plugins/shopping_cart.en.xhtml:16
 msgid "Link to the products list"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/plugins/shopping_cart.en.xhtml:17
 msgid ""
@@ -2587,19 +2354,16 @@ msgid ""
 "through the url:"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/plugins/shopping_cart.en.xhtml:18
 msgid "/catalog/enterprise-identifier."
 msgstr ""
 
-# type: Content of: <h2>
 #. type: Content of: <h2>
 #: doc/noosfero/plugins/shopping_cart.en.xhtml:19
 msgid "Adding new products"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/plugins/shopping_cart.en.xhtml:20
 msgid ""
@@ -2608,25 +2372,21 @@ msgid ""
 "each product listed. This is how it looks like in the catalog:"
 msgstr ""
 
-# type: Attribute 'alt' of: <p><img>
 #. type: Attribute 'alt' of: <p><img>
 #: doc/noosfero/plugins/shopping_cart.en.xhtml:21
 msgid "Catalog"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/plugins/shopping_cart.en.xhtml:22
 msgid "And here in the products search:"
 msgstr ""
 
-# type: Attribute 'alt' of: <p><img>
 #. type: Attribute 'alt' of: <p><img>
 #: doc/noosfero/plugins/shopping_cart.en.xhtml:23
 msgid "Search"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/plugins/shopping_cart.en.xhtml:24
 msgid ""
@@ -2634,7 +2394,6 @@ msgid ""
 "sliding down with the new product added:"
 msgstr ""
 
-# type: Attribute 'alt' of: <p><img>
 #. type: Attribute 'alt' of: <p><img>
 #: doc/noosfero/plugins/shopping_cart.en.xhtml:25
 msgid "First product"
@@ -2655,13 +2414,11 @@ msgid ""
 "of that product."
 msgstr ""
 
-# type: Attribute 'alt' of: <p><img>
 #. type: Attribute 'alt' of: <p><img>
 #: doc/noosfero/plugins/shopping_cart.en.xhtml:28
 msgid "Cart with some products"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/plugins/shopping_cart.en.xhtml:29
 msgid ""
@@ -2671,13 +2428,11 @@ msgid ""
 "buy with the other."
 msgstr ""
 
-# type: Content of: <h2>
 #. type: Content of: <h2>
 #: doc/noosfero/plugins/shopping_cart.en.xhtml:30
 msgid "Editing quantities"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/plugins/shopping_cart.en.xhtml:31
 msgid ""
@@ -2685,31 +2440,26 @@ msgid ""
 "You just need to click on the quantity and write the quantity you want:"
 msgstr ""
 
-# type: Attribute 'alt' of: <p><img>
 #. type: Attribute 'alt' of: <p><img>
 #: doc/noosfero/plugins/shopping_cart.en.xhtml:32
 msgid "Editing quantity"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/plugins/shopping_cart.en.xhtml:33
 msgid "After leaving the field, the quantity will be automatically updated:"
 msgstr ""
 
-# type: Attribute 'alt' of: <p><img>
 #. type: Attribute 'alt' of: <p><img>
 #: doc/noosfero/plugins/shopping_cart.en.xhtml:34
 msgid "Quantity updated"
 msgstr ""
 
-# type: Content of: <h2>
 #. type: Content of: <h2>
 #: doc/noosfero/plugins/shopping_cart.en.xhtml:35
 msgid "Removing products"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/plugins/shopping_cart.en.xhtml:36
 msgid ""
@@ -2717,25 +2467,21 @@ msgid ""
 "delete&#8217; button (which has a little thrash as icon):"
 msgstr ""
 
-# type: Attribute 'alt' of: <p><img>
 #. type: Attribute 'alt' of: <p><img>
 #: doc/noosfero/plugins/shopping_cart.en.xhtml:37
 msgid "Deleting product"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/plugins/shopping_cart.en.xhtml:38
 msgid "After pressing this button you will be asked for a confirmation:"
 msgstr ""
 
-# type: Attribute 'alt' of: <p><img>
 #. type: Attribute 'alt' of: <p><img>
 #: doc/noosfero/plugins/shopping_cart.en.xhtml:39
 msgid "Delete confirmation"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/plugins/shopping_cart.en.xhtml:40
 msgid ""
@@ -2743,13 +2489,11 @@ msgid ""
 "the last one, the cart will disappear too."
 msgstr ""
 
-# type: Content of: <h2>
 #. type: Content of: <h2>
 #: doc/noosfero/plugins/shopping_cart.en.xhtml:41
 msgid "Cleaning the cart"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/plugins/shopping_cart.en.xhtml:42
 msgid ""
@@ -2758,37 +2502,31 @@ msgid ""
 "again. Just follow the link &#8220;Clean cart&#8221;:"
 msgstr ""
 
-# type: Attribute 'alt' of: <p><img>
 #. type: Attribute 'alt' of: <p><img>
 #: doc/noosfero/plugins/shopping_cart.en.xhtml:43
 msgid "Cleaning cart"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/plugins/shopping_cart.en.xhtml:44
 msgid "After following this link you will be asked for a confirmation:"
 msgstr ""
 
-# type: Attribute 'alt' of: <p><img>
 #. type: Attribute 'alt' of: <p><img>
 #: doc/noosfero/plugins/shopping_cart.en.xhtml:45
 msgid "Cleaning confirmation"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/plugins/shopping_cart.en.xhtml:46
 msgid "And after confirming, your carted is empty again."
 msgstr ""
 
-# type: Content of: <h2>
 #. type: Content of: <h2>
 #: doc/noosfero/plugins/shopping_cart.en.xhtml:47
 msgid "Show and hide cart"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/plugins/shopping_cart.en.xhtml:48
 msgid ""
@@ -2797,13 +2535,11 @@ msgid ""
 "Don&#8217;t worry! In you cart is a &#8220;Hide cart&#8221; button:"
 msgstr ""
 
-# type: Attribute 'alt' of: <p><img>
 #. type: Attribute 'alt' of: <p><img>
 #: doc/noosfero/plugins/shopping_cart.en.xhtml:49
 msgid "Cart hide"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/plugins/shopping_cart.en.xhtml:50
 msgid ""
@@ -2811,7 +2547,6 @@ msgid ""
 "&#8220;Show cart&#8221; so that you can slide it down again:"
 msgstr ""
 
-# type: Attribute 'alt' of: <p><img>
 #. type: Attribute 'alt' of: <p><img>
 #: doc/noosfero/plugins/shopping_cart.en.xhtml:51
 msgid "Cart hided"
@@ -2830,7 +2565,6 @@ msgid ""
 "it will slide down gracefully back to you.  ^^"
 msgstr ""
 
-# type: Content of: <h2>
 #. type: Content of: <h2>
 #: doc/noosfero/plugins/shopping_cart.en.xhtml:54
 msgid "Checking out"
@@ -2850,13 +2584,11 @@ msgid ""
 "button:"
 msgstr ""
 
-# type: Attribute 'alt' of: <p><img>
 #. type: Attribute 'alt' of: <p><img>
 #: doc/noosfero/plugins/shopping_cart.en.xhtml:57
 msgid "Checkout"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/plugins/shopping_cart.en.xhtml:58
 msgid ""
@@ -2864,13 +2596,11 @@ msgid ""
 "fill and your cart review:"
 msgstr ""
 
-# type: Attribute 'alt' of: <p><img>
 #. type: Attribute 'alt' of: <p><img>
 #: doc/noosfero/plugins/shopping_cart.en.xhtml:59
 msgid "Filling informations"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/plugins/shopping_cart.en.xhtml:60
 msgid ""
@@ -2878,13 +2608,11 @@ msgid ""
 "filled automatically:"
 msgstr ""
 
-# type: Attribute 'alt' of: <p><img>
 #. type: Attribute 'alt' of: <p><img>
 #: doc/noosfero/plugins/shopping_cart.en.xhtml:61
 msgid "Informations automatically filled"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/plugins/shopping_cart.en.xhtml:62
 msgid ""
@@ -2893,13 +2621,11 @@ msgid ""
 "so that you can fill your informations correctly:"
 msgstr ""
 
-# type: Attribute 'alt' of: <p><img>
 #. type: Attribute 'alt' of: <p><img>
 #: doc/noosfero/plugins/shopping_cart.en.xhtml:63
 msgid "Invalid fields"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/plugins/shopping_cart.en.xhtml:64
 msgid ""
@@ -2907,13 +2633,11 @@ msgid ""
 "request&#8221;:"
 msgstr ""
 
-# type: Attribute 'alt' of: <p><img>
 #. type: Attribute 'alt' of: <p><img>
 #: doc/noosfero/plugins/shopping_cart.en.xhtml:65
 msgid "Send request"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/plugins/shopping_cart.en.xhtml:66
 msgid ""
@@ -2923,25 +2647,21 @@ msgid ""
 "details."
 msgstr ""
 
-# type: Content of: <h1>
 #. type: Content of: <h1>
 #: doc/noosfero/cms/index.en.xhtml:1
 msgid "Content Management"
 msgstr ""
 
-# type: Content of: <h1>
 #. type: Content of: <h1>
 #: doc/noosfero/cms/posting-on-blog.en.xhtml:1
 msgid "Posting on blog"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/cms/posting-on-blog.en.xhtml:2
 msgid "<em>You can have a blog and publish posts on it.</em>"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/cms/posting-on-blog.en.xhtml:10
 msgid ""
@@ -2949,13 +2669,11 @@ msgid ""
 "instructions on <a href=\"/doc/cms/creating-blog\">Creating a blog</a> ."
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/cms/posting-on-blog.en.xhtml:11
 msgid "To find your blog, first find you user menu on top bar:"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/cms/posting-on-blog.en.xhtml:13
 #: doc/noosfero/cms/adding-images-to-gallery.en.xhtml:13
@@ -2964,7 +2682,6 @@ msgstr ""
 msgid "Then, click on &#8220;Manage content&#8221;:"
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ul><li><ol><li><img>
 #: doc/noosfero/cms/posting-on-blog.en.xhtml:13
 #: doc/noosfero/cms/adding-images-to-gallery.en.xhtml:13
@@ -2974,31 +2691,26 @@ msgstr ""
 msgid "Manage content in control panel"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/cms/posting-on-blog.en.xhtml:17
 msgid "Find your blog on the list and click to view it."
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/cms/posting-on-blog.en.xhtml:17
 msgid "Public visualization of blog in CMS"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/cms/posting-on-blog.en.xhtml:18
 msgid "You will see your blog. Click on &#8220;New post&#8221; button:"
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/cms/posting-on-blog.en.xhtml:18
 msgid "Blog button on visualization mode"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/cms/posting-on-blog.en.xhtml:19
 msgid ""
@@ -3006,14 +2718,12 @@ msgid ""
 "article\">Writing an article</a> ."
 msgstr ""
 
-# type: Content of: <ul><li>
 #. type: Content of: <ul><li>
 #: doc/noosfero/cms/posting-on-blog.en.xhtml:23
 #: doc/noosfero/cms/toc.en.xhtml:6
 msgid "<a href=\"/doc/cms/creating-blog\">Creating a blog</a>"
 msgstr ""
 
-# type: Content of: <ul><li>
 #. type: Content of: <ul><li>
 #: doc/noosfero/cms/posting-on-blog.en.xhtml:24
 #: doc/noosfero/cms/adding-images-to-gallery.en.xhtml:23
@@ -3021,19 +2731,16 @@ msgstr ""
 msgid "<a href=\"/doc/cms/managing-content\">Managing your content</a>"
 msgstr ""
 
-# type: Content of: <h1>
 #. type: Content of: <h1>
 #: doc/noosfero/cms/adding-images-to-gallery.en.xhtml:1
 msgid "Adding pictures to gallery"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/cms/adding-images-to-gallery.en.xhtml:2
 msgid "<em>You can publish pictures on your image gallery</em>"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/cms/adding-images-to-gallery.en.xhtml:10
 msgid ""
@@ -3043,38 +2750,32 @@ msgid ""
 "gallery&#8221; in &#8220;Folder type&#8221;."
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/cms/adding-images-to-gallery.en.xhtml:11
 msgid "To find your image gallery, first find your user menu on top bar:"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/cms/adding-images-to-gallery.en.xhtml:17
 msgid "Find your gallery on the list and click to view it."
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/cms/adding-images-to-gallery.en.xhtml:17
 msgid "Public visualization of gallery in CMS"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/cms/adding-images-to-gallery.en.xhtml:18
 msgid ""
 "You will see your image gallery. Click on &#8220;Upload files&#8221; button"
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/cms/adding-images-to-gallery.en.xhtml:18
 msgid "Gallery buttons on visualization mode"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/cms/adding-images-to-gallery.en.xhtml:19
 msgid ""
@@ -3083,25 +2784,21 @@ msgid ""
 "More files&#8221;button and more fields will appear."
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/cms/adding-images-to-gallery.en.xhtml:19
 msgid "uploading files to gallery"
 msgstr ""
 
-# type: Content of: <h1>
 #. type: Content of: <h1>
 #: doc/noosfero/cms/creating-blog.en.xhtml:1
 msgid "Creating a blog"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/cms/creating-blog.en.xhtml:2
 msgid "<em>You can have a blog in your system.</em>"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ul><li><ol><li>
 #: doc/noosfero/cms/creating-blog.en.xhtml:10
 #: doc/noosfero/cms/writing-article.en.xhtml:10
@@ -3110,37 +2807,31 @@ msgstr ""
 msgid "Find your menu on top bar:"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/cms/creating-blog.en.xhtml:12
 msgid "Then click on &#8220;Create blog&#8221;:"
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/cms/creating-blog.en.xhtml:12
 msgid "Create a blog in control panel"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/cms/creating-blog.en.xhtml:15
 msgid "Fill in the form and click on Save"
 msgstr ""
 
-# type: Attribute 'alt' of: <p><div><img>
 #. type: Attribute 'alt' of: <p><img>
 #: doc/noosfero/cms/creating-blog.en.xhtml:15
 msgid "Creation of a blog"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/cms/creating-blog.en.xhtml:17
 msgid "Fill in with the name you want for your blog"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/cms/creating-blog.en.xhtml:18
 msgid ""
@@ -3148,20 +2839,17 @@ msgid ""
 "change it in this field."
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/cms/creating-blog.en.xhtml:19
 msgid "Type some description about your blog."
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/cms/creating-blog.en.xhtml:20
 msgid ""
 "Select the number of posts that will be listed in each blog&#8217;s page."
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/cms/creating-blog.en.xhtml:21
 msgid ""
@@ -3169,7 +2857,6 @@ msgid ""
 "\"caps\">RSS</span> feed."
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/cms/creating-blog.en.xhtml:22
 msgid ""
@@ -3177,7 +2864,6 @@ msgid ""
 "s <span class=\"caps\">RSS</span> feed."
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/cms/creating-blog.en.xhtml:23
 msgid ""
@@ -3186,25 +2872,21 @@ msgid ""
 "address and choose if you want to import the posts periodically or just once."
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/cms/creating-blog.en.xhtml:24
 msgid "Fill in with the blog&#8217;s tags."
 msgstr ""
 
-# type: Content of: <ul><li>
 #. type: Content of: <ul><li>
 #: doc/noosfero/cms/creating-blog.en.xhtml:29 doc/noosfero/cms/toc.en.xhtml:7
 msgid "<a href=\"/doc/cms/posting-on-blog\">Posting on blog</a>"
 msgstr ""
 
-# type: Content of: <h1>
 #. type: Content of: <h1>
 #: doc/noosfero/cms/writing-article.en.xhtml:1
 msgid "Writing an article"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/cms/writing-article.en.xhtml:2
 msgid ""
@@ -3212,19 +2894,16 @@ msgid ""
 "em>"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/cms/writing-article.en.xhtml:16
 msgid "Click on &#8220;New article&#8221; button:"
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/cms/writing-article.en.xhtml:16
 msgid "New article on CMS"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/cms/writing-article.en.xhtml:17
 msgid ""
@@ -3232,7 +2911,6 @@ msgid ""
 "&#8220;New article&#8221; button:"
 msgstr ""
 
-# type: Content of: <ol><li><ol><li>
 #. type: Content of: <ol><li><ul><li>
 #: doc/noosfero/cms/writing-article.en.xhtml:19
 msgid ""
@@ -3240,7 +2918,6 @@ msgid ""
 "article&#8217;s edition is similar to most text editors"
 msgstr ""
 
-# type: Content of: <ol><li><ol><li>
 #. type: Content of: <ol><li><ul><li>
 #: doc/noosfero/cms/writing-article.en.xhtml:20
 msgid ""
@@ -3250,7 +2927,6 @@ msgid ""
 "com/\">Textile</a>"
 msgstr ""
 
-# type: Content of: <ol><li><ol><li>
 #. type: Content of: <ol><li><ul><li>
 #: doc/noosfero/cms/writing-article.en.xhtml:21
 msgid ""
@@ -3265,7 +2941,6 @@ msgid ""
 "org/wiki/RSS\"><span class=\"caps\">RSS</span></a> of your recent articles"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li><ul><li>
 #: doc/noosfero/cms/writing-article.en.xhtml:23
 msgid ""
@@ -3273,26 +2948,22 @@ msgid ""
 "&#8220;Text article with visual editor&#8221;"
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><ul><li><img>
 #: doc/noosfero/cms/writing-article.en.xhtml:23
 msgid "List of article types"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/cms/writing-article.en.xhtml:25
 msgid "Create your article"
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/cms/writing-article.en.xhtml:25
 #: doc/noosfero/cms/writing-advanced-article.en.xhtml:18
 msgid "Text on an article"
 msgstr ""
 
-# type: Content of: <ol><li><ol><li>
 #. type: Content of: <ol><li><ol><li>
 #: doc/noosfero/cms/writing-article.en.xhtml:27
 msgid ""
@@ -3300,7 +2971,6 @@ msgid ""
 "to create."
 msgstr ""
 
-# type: Content of: <ol><li><ol><li>
 #. type: Content of: <ol><li><ol><li>
 #: doc/noosfero/cms/writing-article.en.xhtml:28
 msgid ""
@@ -3310,13 +2980,11 @@ msgid ""
 "introduction."
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><ol><li><img>
 #: doc/noosfero/cms/writing-article.en.xhtml:28
 msgid "Lead text on an article"
 msgstr ""
 
-# type: Content of: <ol><li><ol><li>
 #. type: Content of: <ol><li><ol><li>
 #: doc/noosfero/cms/writing-article.en.xhtml:29
 msgid ""
@@ -3325,7 +2993,6 @@ msgid ""
 "editors."
 msgstr ""
 
-# type: Content of: <ol><li><ol><li>
 #. type: Content of: <ol><li><ol><li>
 #: doc/noosfero/cms/writing-article.en.xhtml:30
 msgid ""
@@ -3334,7 +3001,6 @@ msgid ""
 "article and keeps on the same edition page)"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li><ol><li>
 #: doc/noosfero/cms/writing-article.en.xhtml:31
 msgid ""
@@ -3343,14 +3009,12 @@ msgid ""
 "name of the button function is displayed."
 msgstr ""
 
-# type: Content of: <ol><li><ol><li><ol><li>
 #. type: Content of: <ol><li><ol><li><ol><li><ol><li>
 #: doc/noosfero/cms/writing-article.en.xhtml:35
 msgid ""
 "<strong>Print:</strong> use this button if you want to print your article"
 msgstr ""
 
-# type: Content of: <ol><li><ol><li><ol><li>
 #. type: Content of: <ol><li><ol><li><ol><li><ol><li>
 #: doc/noosfero/cms/writing-article.en.xhtml:59
 msgid ""
@@ -3360,7 +3024,6 @@ msgid ""
 "\"caps\">HTML</span> code of your article."
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/cms/writing-article.en.xhtml:63
 msgid ""
@@ -3369,25 +3032,21 @@ msgid ""
 "categories, click on the arrow:"
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/cms/writing-article.en.xhtml:63
 msgid "Categorization of an article on creation"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/cms/writing-article.en.xhtml:64
 msgid "You can select as many categories as you want."
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/cms/writing-article.en.xhtml:64
 msgid "Category choosen on an article creation"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/cms/writing-article.en.xhtml:65
 msgid ""
@@ -3397,76 +3056,64 @@ msgid ""
 "article has."
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/cms/writing-article.en.xhtml:65
 msgid "Tag on an article creation"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/cms/writing-article.en.xhtml:66
 msgid "When creating an article, you should check the options you want."
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/cms/writing-article.en.xhtml:66
 msgid "Options on an article creation"
 msgstr ""
 
-# type: Content of: <ol><li><ol><li>
 #. type: Content of: <ol><li><ol><li>
 #: doc/noosfero/cms/writing-article.en.xhtml:68
 msgid "Everybody will be able to view the article"
 msgstr ""
 
-# type: Content of: <ol><li><ol><li>
 #. type: Content of: <ol><li><ol><li>
 #: doc/noosfero/cms/writing-article.en.xhtml:69
 msgid "Everybody who view your article will be able to comment on it"
 msgstr ""
 
-# type: Content of: <ol><li><ol><li>
 #. type: Content of: <ol><li><ol><li>
 #: doc/noosfero/cms/writing-article.en.xhtml:70
 msgid "Sends an e-mail to you when a person comments on your article"
 msgstr ""
 
-# type: Content of: <ol><li><ol><li>
 #. type: Content of: <ol><li><ol><li>
 #: doc/noosfero/cms/writing-article.en.xhtml:71
 msgid "Display the number of article&#8217;s visualizations"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/cms/writing-article.en.xhtml:73
 msgid ""
 "Then, click on &#8220;Save&#8221; button and the article will be created."
 msgstr ""
 
-# type: Content of: <ul><li>
 #. type: Content of: <ul><li>
 #: doc/noosfero/cms/writing-article.en.xhtml:77
 #: doc/noosfero/cms/writing-advanced-article.en.xhtml:62
 msgid "<a href=\"/doc/cms/spreading-articles\">Spreading an article</a>"
 msgstr ""
 
-# type: Content of: <ul><li>
 #. type: Content of: <ul><li>
 #: doc/noosfero/cms/writing-article.en.xhtml:78
 msgid ""
 "<a href=\"/doc/cms/writing-advanced-article\">Writing advanced articles</a>"
 msgstr ""
 
-# type: Content of: <h1>
 #. type: Content of: <h1>
 #: doc/noosfero/cms/managing-content.en.xhtml:1
 msgid "Managing your content"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/cms/managing-content.en.xhtml:2
 msgid ""
@@ -3475,7 +3122,6 @@ msgid ""
 "also contain other directories</em>"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/cms/managing-content.en.xhtml:3
 msgid ""
@@ -3483,14 +3129,12 @@ msgid ""
 "videos, poems, recipes, payments or the way the user prefers.</em>"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/cms/managing-content.en.xhtml:4
 msgid ""
 "<em>To organize your texts/images/files, you should manage your content.</em>"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/cms/managing-content.en.xhtml:18
 msgid ""
@@ -3499,13 +3143,11 @@ msgid ""
 "will see the files/folders inside them."
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/cms/managing-content.en.xhtml:18
 msgid "CMS with marks on buttons"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/cms/managing-content.en.xhtml:19
 msgid ""
@@ -3513,19 +3155,16 @@ msgid ""
 "href=\"/doc/cms/writing-article\">Writing an article</a> from item 7."
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/cms/managing-content.en.xhtml:19
 msgid "Creating a new folder"
 msgstr ""
 
-# type: Content of: <ol><li><ol><li>
 #. type: Content of: <ol><li><ol><li>
 #: doc/noosfero/cms/managing-content.en.xhtml:21
 msgid "Fill in with the name you want for your folder"
 msgstr ""
 
-# type: Content of: <ol><li><ol><li>
 #. type: Content of: <ol><li><ol><li>
 #: doc/noosfero/cms/managing-content.en.xhtml:22
 msgid ""
@@ -3533,39 +3172,33 @@ msgid ""
 "organize pictures, choose the type &#8220;Image gallery&#8221;"
 msgstr ""
 
-# type: Content of: <ol><li><ol><li>
 #. type: Content of: <ol><li><ol><li>
 #: doc/noosfero/cms/managing-content.en.xhtml:23
 msgid "Fill in with some information about the folder"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/cms/managing-content.en.xhtml:25
 msgid "Click to upload files"
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/cms/managing-content.en.xhtml:25
 msgid "Uploading files from CMS"
 msgstr ""
 
-# type: Content of: <ol><li><ol><li>
 #. type: Content of: <ul><li><ol><li>
 #: doc/noosfero/cms/managing-content.en.xhtml:27
 #: doc/noosfero/cms/writing-advanced-article.en.xhtml:35
 msgid "Select the folder where the file will be uploaded"
 msgstr ""
 
-# type: Content of: <ol><li><ol><li>
 #. type: Content of: <ul><li><ol><li>
 #: doc/noosfero/cms/managing-content.en.xhtml:28
 #: doc/noosfero/cms/writing-advanced-article.en.xhtml:36
 msgid "Select the file in your computer"
 msgstr ""
 
-# type: Content of: <ol><li><ol><li>
 #. type: Content of: <ul><li><ol><li>
 #: doc/noosfero/cms/managing-content.en.xhtml:29
 #: doc/noosfero/cms/writing-advanced-article.en.xhtml:37
@@ -3573,14 +3206,12 @@ msgid ""
 "If you want to upload more files at once, click on &#8220;More files&#8221;"
 msgstr ""
 
-# type: Content of: <ol><li><ol><li>
 #. type: Content of: <ul><li><ol><li>
 #: doc/noosfero/cms/managing-content.en.xhtml:30
 #: doc/noosfero/cms/writing-advanced-article.en.xhtml:38
 msgid "Click on &#8220;Upload&#8221;"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/cms/managing-content.en.xhtml:32
 msgid ""
@@ -3589,26 +3220,22 @@ msgid ""
 "article</a>"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/cms/managing-content.en.xhtml:33
 msgid "Folder options. From left to right:"
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/cms/managing-content.en.xhtml:33
 msgid "Folder icons on CMS"
 msgstr ""
 
-# type: Content of: <ol><li><ol><li>
 #. type: Content of: <ol><li><ol><li>
 #: doc/noosfero/cms/managing-content.en.xhtml:35
 msgid ""
 "<strong>Edit:</strong> It allows you to change folder&#8217;s information"
 msgstr ""
 
-# type: Content of: <ol><li><ol><li>
 #. type: Content of: <ol><li><ol><li>
 #: doc/noosfero/cms/managing-content.en.xhtml:36
 #: doc/noosfero/cms/managing-content.en.xhtml:43
@@ -3617,37 +3244,31 @@ msgid ""
 "the others users"
 msgstr ""
 
-# type: Content of: <ol><li><ol><li>
 #. type: Content of: <ol><li><ol><li>
 #: doc/noosfero/cms/managing-content.en.xhtml:37
 msgid "<strong>Use as homepage:</strong> Set the folder as your homepage"
 msgstr ""
 
-# type: Content of: <ol><li><ol><li>
 #. type: Content of: <ol><li><ol><li>
 #: doc/noosfero/cms/managing-content.en.xhtml:38
 msgid "<strong>Delete:</strong> Delete the folder"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/cms/managing-content.en.xhtml:40
 msgid "Files options. From left to right:"
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/cms/managing-content.en.xhtml:40
 msgid "Article icons on CMS"
 msgstr ""
 
-# type: Content of: <ol><li><ol><li>
 #. type: Content of: <ol><li><ol><li>
 #: doc/noosfero/cms/managing-content.en.xhtml:42
 msgid "<strong>Edit:</strong> It allows you to change the article"
 msgstr ""
 
-# type: Content of: <ol><li><ol><li>
 #. type: Content of: <ol><li><ol><li>
 #: doc/noosfero/cms/managing-content.en.xhtml:44
 msgid ""
@@ -3655,19 +3276,16 @@ msgid ""
 "communities or enterprises that you are member"
 msgstr ""
 
-# type: Content of: <ol><li><ol><li>
 #. type: Content of: <ol><li><ol><li>
 #: doc/noosfero/cms/managing-content.en.xhtml:45
 msgid "<strong>Use as homepage:</strong> Set the article as your homepage"
 msgstr ""
 
-# type: Content of: <ol><li><ol><li>
 #. type: Content of: <ol><li><ol><li>
 #: doc/noosfero/cms/managing-content.en.xhtml:46
 msgid "<strong>Delete:</strong> Delete the article"
 msgstr ""
 
-# type: Content of: <ul><li>
 #. type: Content of: <ul><li>
 #: doc/noosfero/cms/managing-content.en.xhtml:51
 #: doc/noosfero/cms/spreading-articles.en.xhtml:32
@@ -3676,13 +3294,11 @@ msgstr ""
 msgid "<a href=\"/doc/cms/writing-article\">Writing an article</a>"
 msgstr ""
 
-# type: Content of: <h1>
 #. type: Content of: <h1>
 #: doc/noosfero/cms/spreading-articles.en.xhtml:1
 msgid "Spreading articles"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/cms/spreading-articles.en.xhtml:2
 msgid ""
@@ -3690,31 +3306,26 @@ msgid ""
 "that you participate.</em>"
 msgstr ""
 
-# type: Content of: outside any tag (error?)
 #. type: Content of: <h2>
 #: doc/noosfero/cms/spreading-articles.en.xhtml:9
 msgid "To spread your articles there are two options that you can follow:"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ul><li>
 #: doc/noosfero/cms/spreading-articles.en.xhtml:11
 msgid "Through the Content Manager"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ul><li><ol><li>
 #: doc/noosfero/cms/spreading-articles.en.xhtml:15
 msgid "Click on &#8220;Manage content&#8221;:"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ul><li><ol><li>
 #: doc/noosfero/cms/spreading-articles.en.xhtml:16
 msgid "Then click on the &#8220;Spread this&#8221; button:"
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ul><li><ol><li><img>
 #: doc/noosfero/cms/spreading-articles.en.xhtml:16
 #: doc/noosfero/cms/spreading-articles.en.xhtml:22
@@ -3722,19 +3333,16 @@ msgstr ""
 msgid "Spread article"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ul><li>
 #: doc/noosfero/cms/spreading-articles.en.xhtml:20
 msgid "Through the article&#8217;s view page"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ul><li><ol><li>
 #: doc/noosfero/cms/spreading-articles.en.xhtml:22
 msgid "Access your article and press the &#8220;Spread this&#8221; button:"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/cms/spreading-articles.en.xhtml:27
 msgid ""
@@ -3742,13 +3350,11 @@ msgid ""
 "name that you want to spread it."
 msgstr ""
 
-# type: Attribute 'alt' of: <div><img>
 #. type: Attribute 'alt' of: <p><img>
 #: doc/noosfero/cms/spreading-articles.en.xhtml:28
 msgid "Choose the communities"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/cms/spreading-articles.en.xhtml:29
 msgid ""
@@ -3757,20 +3363,17 @@ msgid ""
 "publication needs the moderation of the administrator."
 msgstr ""
 
-# type: Content of: <ul><li>
 #. type: Content of: <ul><li>
 #: doc/noosfero/cms/spreading-articles.en.xhtml:33
 msgid ""
 "<a href=\"/doc/cms/writing-advanced-article\">Writing an advanced article</a>"
 msgstr ""
 
-# type: Content of: <h1>
 #. type: Content of: <h1>
 #: doc/noosfero/cms/writing-advanced-article.en.xhtml:1
 msgid "Writing an advanced article (inserting images, links, videos and audio)"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/cms/writing-advanced-article.en.xhtml:2
 msgid ""
@@ -3778,25 +3381,21 @@ msgid ""
 "make it more interesting.</em>"
 msgstr ""
 
-# type: Content of: <ul><li><ul><li>
 #. type: Content of: <ul><li><ul><li>
 #: doc/noosfero/cms/writing-advanced-article.en.xhtml:7
 msgid "<a href=\"#InsertingLinks\">Inserting links</a>"
 msgstr ""
 
-# type: Content of: <ul><li><ul><li>
 #. type: Content of: <ul><li><ul><li>
 #: doc/noosfero/cms/writing-advanced-article.en.xhtml:8
 msgid "<a href=\"#InsertingImages\">Inserting images</a>"
 msgstr ""
 
-# type: Content of: <ul><li><ul><li>
 #. type: Content of: <ul><li><ul><li>
 #: doc/noosfero/cms/writing-advanced-article.en.xhtml:9
 msgid "<a href=\"#InsertingVideosAudio\">Inserting videos and audio</a>"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/cms/writing-advanced-article.en.xhtml:14
 msgid ""
@@ -3809,31 +3408,26 @@ msgstr ""
 msgid "h3(#InsertingLinks). Inserting links"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/cms/writing-advanced-article.en.xhtml:18
 msgid "Write the text that will be displayed"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/cms/writing-advanced-article.en.xhtml:19
 msgid "Select the text and click on &#8220;Insert/edit link&#8221; button"
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/cms/writing-advanced-article.en.xhtml:19
 msgid "Insert links on an article"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/cms/writing-advanced-article.en.xhtml:20
 msgid "You will see a small window with a form to be filled."
 msgstr ""
 
-# type: Content of: <ol><li><ol><li>
 #. type: Content of: <ol><li><ol><li>
 #: doc/noosfero/cms/writing-advanced-article.en.xhtml:22
 msgid ""
@@ -3841,7 +3435,6 @@ msgid ""
 "address"
 msgstr ""
 
-# type: Content of: <ol><li><ol><li>
 #. type: Content of: <ol><li><ol><li>
 #: doc/noosfero/cms/writing-advanced-article.en.xhtml:23
 msgid ""
@@ -3849,7 +3442,6 @@ msgid ""
 "the link, if it will open in the same window or in a new one."
 msgstr ""
 
-# type: Content of: <ol><li><ol><li>
 #. type: Content of: <ol><li><ol><li>
 #: doc/noosfero/cms/writing-advanced-article.en.xhtml:24
 msgid ""
@@ -3857,13 +3449,11 @@ msgid ""
 "mouse over the link."
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><ol><li><img>
 #: doc/noosfero/cms/writing-advanced-article.en.xhtml:25
 msgid "Insert link popup on an article"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/cms/writing-advanced-article.en.xhtml:27
 msgid ""
@@ -3871,7 +3461,6 @@ msgid ""
 "be inserted on article."
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/cms/writing-advanced-article.en.xhtml:28
 msgid "Created link on an article"
@@ -3882,13 +3471,11 @@ msgstr ""
 msgid "h3(#InsertingImages). Inserting images"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/cms/writing-advanced-article.en.xhtml:31
 msgid "When creating/editing an article, you will see a box in the right side."
 msgstr ""
 
-# type: Content of: <ul><li>
 #. type: Content of: <ul><li>
 #: doc/noosfero/cms/writing-advanced-article.en.xhtml:33
 msgid ""
@@ -3896,13 +3483,11 @@ msgid ""
 "files from your profile."
 msgstr ""
 
-# type: Attribute 'alt' of: <ul><li><ul><li><div><img>
 #. type: Attribute 'alt' of: <ul><li><ol><li><img>
 #: doc/noosfero/cms/writing-advanced-article.en.xhtml:39
 msgid "Upload images when writing an article"
 msgstr ""
 
-# type: Content of: <ul><li>
 #. type: Content of: <ul><li>
 #: doc/noosfero/cms/writing-advanced-article.en.xhtml:41
 msgid ""
@@ -3910,7 +3495,6 @@ msgid ""
 "inserted in your article."
 msgstr ""
 
-# type: Content of: <ul><li><ul><li>
 #. type: Content of: <ul><li><ul><li>
 #: doc/noosfero/cms/writing-advanced-article.en.xhtml:43
 msgid ""
@@ -3918,7 +3502,6 @@ msgid ""
 "files, below &#8220;Documents&#8221;."
 msgstr ""
 
-# type: Content of: <ul><li><ul><li>
 #. type: Content of: <ul><li><ul><li>
 #: doc/noosfero/cms/writing-advanced-article.en.xhtml:44
 msgid ""
@@ -3927,13 +3510,11 @@ msgid ""
 "article. But both can be added in the same way:"
 msgstr ""
 
-# type: Content of: <ul><li><ul><li><ul><li>
 #. type: Content of: <ul><li><ul><li><ol><li>
 #: doc/noosfero/cms/writing-advanced-article.en.xhtml:46
 msgid "Choose the folder that has the image you want to insert"
 msgstr ""
 
-# type: Content of: <ul><li><ul><li><ul><li>
 #. type: Content of: <ul><li><ul><li><ol><li>
 #: doc/noosfero/cms/writing-advanced-article.en.xhtml:47
 msgid ""
@@ -3941,7 +3522,6 @@ msgid ""
 "choice"
 msgstr ""
 
-# type: Content of: <ul><li><ul><li><ul><li>
 #. type: Content of: <ul><li><ul><li><ol><li>
 #: doc/noosfero/cms/writing-advanced-article.en.xhtml:48
 msgid ""
@@ -3949,7 +3529,6 @@ msgid ""
 "will be inserted."
 msgstr ""
 
-# type: Attribute 'alt' of: <ul><li><ul><li><ul><li><div><img>
 #. type: Attribute 'alt' of: <ul><li><ul><li><ol><li><img>
 #: doc/noosfero/cms/writing-advanced-article.en.xhtml:49
 msgid "Archives list when writing an article"
@@ -3965,37 +3544,31 @@ msgstr ""
 msgid "Click on &#8220;<span class=\"caps\">HTML</span>&#8221; button"
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/cms/writing-advanced-article.en.xhtml:55
 msgid "Insert html on an article"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/cms/writing-advanced-article.en.xhtml:56
 msgid "Insert the code of the video or audio an click on &#8220;Update&#8221;"
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/cms/writing-advanced-article.en.xhtml:56
 msgid "Insert html popup on an article"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/cms/writing-advanced-article.en.xhtml:57
 msgid "You will see a square with a &#8220;play&#8221; image on your text"
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/cms/writing-advanced-article.en.xhtml:57
 msgid "Created object on an article"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/cms/writing-advanced-article.en.xhtml:58
 msgid ""
@@ -4003,13 +3576,11 @@ msgid ""
 "displayed on your text."
 msgstr ""
 
-# type: Content of: <h1>
 #. type: Content of: <h1>
 #: doc/noosfero/navigation/searching.en.xhtml:1
 msgid "Searching on the system"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/navigation/searching.en.xhtml:2
 msgid ""
@@ -4017,19 +3588,16 @@ msgid ""
 "services, an user in the system, can do a search.</em>"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/navigation/searching.en.xhtml:9
 msgid "Find on top bar the term &#8220;Search&#8221; and click on it:"
 msgstr ""
 
-# type: Attribute 'alt' of: <div><img>
 #. type: Attribute 'alt' of: <p><img>
 #: doc/noosfero/navigation/searching.en.xhtml:10
 msgid "Search on top menu"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/navigation/searching.en.xhtml:13
 msgid ""
@@ -4037,7 +3605,6 @@ msgid ""
 "Enter&#8221; on keyboard"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/navigation/searching.en.xhtml:14
 msgid ""
@@ -4046,13 +3613,11 @@ msgid ""
 "box, click on &#8220;See all&#8221; link below the box."
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/navigation/searching.en.xhtml:14
 msgid "Search results with example"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/navigation/searching.en.xhtml:15
 msgid ""
@@ -4060,13 +3625,11 @@ msgid ""
 "will see all the articles found on search."
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/navigation/searching.en.xhtml:15
 msgid "View all results on search with example"
 msgstr ""
 
-# type: Content of: <ul><li>
 #. type: Content of: <ul><li>
 #: doc/noosfero/navigation/searching.en.xhtml:19
 #: doc/noosfero/navigation/searching-enterprises.en.xhtml:24
@@ -4083,7 +3646,6 @@ msgstr ""
 msgid "<a href=\"/doc/navigation/searching-people\">Finding people</a>"
 msgstr ""
 
-# type: Content of: <ul><li>
 #. type: Content of: <ul><li>
 #: doc/noosfero/navigation/searching.en.xhtml:21
 #: doc/noosfero/navigation/advanced-search.en.xhtml:28
@@ -4101,7 +3663,6 @@ msgid ""
 "<a href=\"/doc/navigation/searching-enterprises\">Finding enterprises</a>"
 msgstr ""
 
-# type: Content of: <ul><li>
 #. type: Content of: <ul><li>
 #: doc/noosfero/navigation/searching.en.xhtml:22
 #: doc/noosfero/navigation/advanced-search.en.xhtml:29
@@ -4120,7 +3681,6 @@ msgid ""
 "services</a>"
 msgstr ""
 
-# type: Content of: <ul><li>
 #. type: Content of: <ul><li>
 #: doc/noosfero/navigation/searching.en.xhtml:23
 #: doc/noosfero/navigation/searching-enterprises.en.xhtml:27
@@ -4137,19 +3697,16 @@ msgstr ""
 msgid "<a href=\"/doc/navigation/advanced-search\">Advanced search</a>"
 msgstr ""
 
-# type: Content of: <h1>
 #. type: Content of: <h1>
 #: doc/noosfero/navigation/index.en.xhtml:1
 msgid "Navigation"
 msgstr ""
 
-# type: Content of: <h1>
 #. type: Content of: <h1>
 #: doc/noosfero/navigation/community-balloon.en.xhtml:1
 msgid "Community balloon"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/navigation/community-balloon.en.xhtml:2
 msgid ""
@@ -4157,7 +3714,6 @@ msgid ""
 "community and become a member quickly.</em>"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/navigation/community-balloon.en.xhtml:9
 msgid ""
@@ -4165,13 +3721,11 @@ msgid ""
 "top-left corner to see the community balloon"
 msgstr ""
 
-# type: Attribute 'alt' of: <p><div><img>
 #. type: Attribute 'alt' of: <p><img>
 #: doc/noosfero/navigation/community-balloon.en.xhtml:9
 msgid "Community balloon link"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/navigation/community-balloon.en.xhtml:11
 msgid ""
@@ -4179,31 +3733,26 @@ msgid ""
 "community&#8217;s pages"
 msgstr ""
 
-# type: Attribute 'alt' of: <p><div><img>
 #. type: Attribute 'alt' of: <p><img>
 #: doc/noosfero/navigation/community-balloon.en.xhtml:11
 msgid "Community balloon links"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/navigation/community-balloon.en.xhtml:13
 msgid "Wall: lists scraps sent to this community"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/navigation/community-balloon.en.xhtml:14
 msgid "Members: lists the community&#8217;s members"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/navigation/community-balloon.en.xhtml:15
 msgid "Agenda: lists the events created on community"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/navigation/community-balloon.en.xhtml:16
 msgid ""
@@ -4211,7 +3760,6 @@ msgid ""
 "on this link"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/navigation/community-balloon.en.xhtml:17
 msgid ""
@@ -4219,7 +3767,6 @@ msgid ""
 "on this link"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/navigation/community-balloon.en.xhtml:18
 msgid ""
@@ -4227,13 +3774,11 @@ msgid ""
 "the community admins clicking on this link"
 msgstr ""
 
-# type: Content of: <h1>
 #. type: Content of: <h1>
 #: doc/noosfero/navigation/advanced-search.en.xhtml:1
 msgid "Advanced search"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/navigation/advanced-search.en.xhtml:2
 msgid ""
@@ -4241,7 +3786,6 @@ msgid ""
 "articles, communities, people, enterprises or products.</em>"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/navigation/advanced-search.en.xhtml:9
 msgid ""
@@ -4249,43 +3793,36 @@ msgid ""
 "a>"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/navigation/advanced-search.en.xhtml:12
 msgid "Click on &#8220;More options&#8221; to specify the search"
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/navigation/advanced-search.en.xhtml:12
 msgid "More options button on search"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/navigation/advanced-search.en.xhtml:13
 msgid "Type what you want to search on the system"
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/navigation/advanced-search.en.xhtml:13
 msgid "More options on search"
 msgstr ""
 
-# type: Content of: <ol><li><ol><li>
 #. type: Content of: <ol><li><ol><li>
 #: doc/noosfero/navigation/advanced-search.en.xhtml:15
 msgid "Select the State where you want to find what you are looking for"
 msgstr ""
 
-# type: Content of: <ol><li><ol><li>
 #. type: Content of: <ol><li><ol><li>
 #: doc/noosfero/navigation/advanced-search.en.xhtml:16
 msgid "Select the City where you want to find what you are looking for"
 msgstr ""
 
-# type: Content of: <ol><li><ol><li>
 #. type: Content of: <ol><li><ol><li>
 #: doc/noosfero/navigation/advanced-search.en.xhtml:17
 msgid ""
@@ -4294,19 +3831,16 @@ msgid ""
 "enterprises/products that are up to that distance from the city specified"
 msgstr ""
 
-# type: Content of: <ol><li><ol><li>
 #. type: Content of: <ol><li><ol><li>
 #: doc/noosfero/navigation/advanced-search.en.xhtml:18
 msgid "Choose what you are looking for"
 msgstr ""
 
-# type: Content of: <ol><li><ol><li>
 #. type: Content of: <ol><li><ol><li>
 #: doc/noosfero/navigation/advanced-search.en.xhtml:19
 msgid "Click on &#8220;Search&#8221; button to do the search."
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/navigation/advanced-search.en.xhtml:21
 msgid ""
@@ -4317,13 +3851,11 @@ msgid ""
 "all&#8221; link below the box."
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/navigation/advanced-search.en.xhtml:21
 msgid "Advanced search results with example"
 msgstr ""
 
-# type: Content of: <ul><li>
 #. type: Content of: <ul><li>
 #: doc/noosfero/navigation/advanced-search.en.xhtml:25
 #: doc/noosfero/navigation/searching-enterprises.en.xhtml:23
@@ -4339,19 +3871,16 @@ msgstr ""
 msgid "<a href=\"/doc/navigation/searching\">Searching</a>"
 msgstr ""
 
-# type: Content of: <ul><li>
 #. type: Content of: <ul><li>
 #: doc/noosfero/navigation/advanced-search.en.xhtml:26
 msgid "<a href=\"/doc/navigation/searching-people\">Findind people</a>"
 msgstr ""
 
-# type: Content of: <h1>
 #. type: Content of: <h1>
 #: doc/noosfero/navigation/searching-enterprises.en.xhtml:1
 msgid "Finding enterprises"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/navigation/searching-enterprises.en.xhtml:2
 msgid ""
@@ -4359,19 +3888,16 @@ msgid ""
 "enterprises.</em>"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/navigation/searching-enterprises.en.xhtml:9
 msgid "Find on top of page the term &#8220;Enterprises&#8221; and click on it:"
 msgstr ""
 
-# type: Attribute 'alt' of: <div><img>
 #. type: Attribute 'alt' of: <p><img>
 #: doc/noosfero/navigation/searching-enterprises.en.xhtml:10
 msgid "Enterprises on top menu"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/navigation/searching-enterprises.en.xhtml:13
 #: doc/noosfero/navigation/finding-more-popular-people.en.xhtml:14
@@ -4388,13 +3914,11 @@ msgid ""
 "Search&#8221;"
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/navigation/searching-enterprises.en.xhtml:13
 msgid "Enterprises search field"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/navigation/searching-enterprises.en.xhtml:14
 #: doc/noosfero/navigation/searching-products-services.en.xhtml:14
@@ -4405,13 +3929,11 @@ msgid ""
 "pages below the search results."
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/navigation/searching-enterprises.en.xhtml:14
 msgid "Enteprises search results with example"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/navigation/searching-enterprises.en.xhtml:15
 msgid ""
@@ -4419,7 +3941,6 @@ msgid ""
 "homepage of choosen enterprise."
 msgstr ""
 
-# type: Content of: <h3>
 #. type: Content of: <h3>
 #: doc/noosfero/navigation/searching-enterprises.en.xhtml:17
 #: doc/noosfero/navigation/searching-products-services.en.xhtml:17
@@ -4428,7 +3949,6 @@ msgstr ""
 msgid "More options"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/navigation/searching-enterprises.en.xhtml:18
 #: doc/noosfero/navigation/searching-products-services.en.xhtml:18
@@ -4440,14 +3960,12 @@ msgid ""
 "navigation/advanced-search\">Advanced search</a>"
 msgstr ""
 
-# type: Content of: <h3>
 #. type: Content of: <h3>
 #: doc/noosfero/navigation/searching-enterprises.en.xhtml:19
 #: doc/noosfero/navigation/searching-products-services.en.xhtml:19
 msgid "Display on map"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/navigation/searching-enterprises.en.xhtml:20
 #: doc/noosfero/navigation/searching-products-services.en.xhtml:20
@@ -4458,19 +3976,16 @@ msgid ""
 "displayed on a map, with house icons indicating the location of enterprises."
 msgstr ""
 
-# type: Content of: <h1>
 #. type: Content of: <h1>
 #: doc/noosfero/navigation/finding-more-popular-people.en.xhtml:1
 msgid "Finding more popular people"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/navigation/finding-more-popular-people.en.xhtml:2
 msgid "<em>To find the people who has more friends.</em>"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/navigation/finding-more-popular-people.en.xhtml:9
 #: doc/noosfero/navigation/finding-more-recent-people.en.xhtml:9
@@ -4480,13 +3995,11 @@ msgid ""
 "below it:"
 msgstr ""
 
-# type: Attribute 'alt' of: <div><img>
 #. type: Attribute 'alt' of: <p><img>
 #: doc/noosfero/navigation/finding-more-popular-people.en.xhtml:10
 msgid "More popular people on top menu"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/navigation/finding-more-popular-people.en.xhtml:13
 msgid ""
@@ -4495,19 +4008,16 @@ msgid ""
 "the person has"
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/navigation/finding-more-popular-people.en.xhtml:13
 msgid "Profile with number of friends"
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/navigation/finding-more-popular-people.en.xhtml:14
 msgid "More popular people search field"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/navigation/finding-more-popular-people.en.xhtml:15
 msgid ""
@@ -4515,13 +4025,11 @@ msgid ""
 "person has on environment"
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/navigation/finding-more-popular-people.en.xhtml:15
 msgid "More popular people search results with example"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/navigation/finding-more-popular-people.en.xhtml:16
 #: doc/noosfero/navigation/finding-more-recent-people.en.xhtml:16
@@ -4532,7 +4040,6 @@ msgid ""
 "homepage of choosen person."
 msgstr ""
 
-# type: Content of: <ul><li>
 #. type: Content of: <ul><li>
 #: doc/noosfero/navigation/finding-more-popular-people.en.xhtml:21
 #: doc/noosfero/navigation/finding-more-active-people.en.xhtml:21
@@ -4542,7 +4049,6 @@ msgid ""
 "people</a>"
 msgstr ""
 
-# type: Content of: <ul><li>
 #. type: Content of: <ul><li>
 #: doc/noosfero/navigation/finding-more-popular-people.en.xhtml:22
 msgid ""
@@ -4550,13 +4056,11 @@ msgid ""
 "people</a>"
 msgstr ""
 
-# type: Content of: <h1>
 #. type: Content of: <h1>
 #: doc/noosfero/navigation/person-balloon.en.xhtml:1
 msgid "Person balloon"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/navigation/person-balloon.en.xhtml:2
 msgid ""
@@ -4564,7 +4068,6 @@ msgid ""
 "and become a friend quickly.</em>"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/navigation/person-balloon.en.xhtml:9
 msgid ""
@@ -4572,13 +4075,11 @@ msgid ""
 "top-left corner to see the person balloon"
 msgstr ""
 
-# type: Attribute 'alt' of: <p><div><img>
 #. type: Attribute 'alt' of: <p><img>
 #: doc/noosfero/navigation/person-balloon.en.xhtml:9
 msgid "Person balloon link"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/navigation/person-balloon.en.xhtml:11
 msgid ""
@@ -4586,31 +4087,26 @@ msgid ""
 "pages"
 msgstr ""
 
-# type: Attribute 'alt' of: <p><div><img>
 #. type: Attribute 'alt' of: <p><img>
 #: doc/noosfero/navigation/person-balloon.en.xhtml:11
 msgid "person balloon links"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/navigation/person-balloon.en.xhtml:13
 msgid "Wall: lists scraps sent to this person"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/navigation/person-balloon.en.xhtml:14
 msgid "Friends: lists the person&#8217;s friends"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/navigation/person-balloon.en.xhtml:15
 msgid "Communities: lists the person&#8217;s communities"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/navigation/person-balloon.en.xhtml:16
 msgid ""
@@ -4618,7 +4114,6 @@ msgid ""
 "clicking on this link"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/navigation/person-balloon.en.xhtml:17
 msgid ""
@@ -4626,19 +4121,16 @@ msgid ""
 "the her clicking on this link"
 msgstr ""
 
-# type: Content of: <h1>
 #. type: Content of: <h1>
 #: doc/noosfero/navigation/finding-more-active-communities.en.xhtml:1
 msgid "Finding more active communities"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/navigation/finding-more-active-communities.en.xhtml:2
 msgid "<em>To find the communities who create more content.</em>"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/navigation/finding-more-active-communities.en.xhtml:9
 #: doc/noosfero/navigation/finding-more-recent-communities.en.xhtml:9
@@ -4648,13 +4140,11 @@ msgid ""
 "arrow below it:"
 msgstr ""
 
-# type: Attribute 'alt' of: <div><img>
 #. type: Attribute 'alt' of: <p><img>
 #: doc/noosfero/navigation/finding-more-active-communities.en.xhtml:10
 msgid "More active communities on top menu"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/navigation/finding-more-active-communities.en.xhtml:13
 msgid ""
@@ -4663,20 +4153,17 @@ msgid ""
 "number of articles created by the community"
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/navigation/finding-more-active-communities.en.xhtml:13
 #: doc/noosfero/navigation/finding-more-active-people.en.xhtml:13
 msgid "Profile with number of articles"
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/navigation/finding-more-active-communities.en.xhtml:14
 msgid "More active communities search field"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/navigation/finding-more-active-communities.en.xhtml:15
 msgid ""
@@ -4684,13 +4171,11 @@ msgid ""
 "created by the community"
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/navigation/finding-more-active-communities.en.xhtml:15
 msgid "More active communities search results with example"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/navigation/finding-more-active-communities.en.xhtml:16
 #: doc/noosfero/navigation/finding-more-recent-communities.en.xhtml:16
@@ -4701,7 +4186,6 @@ msgid ""
 "homepage of choosen community."
 msgstr ""
 
-# type: Content of: <ul><li>
 #. type: Content of: <ul><li>
 #: doc/noosfero/navigation/finding-more-active-communities.en.xhtml:21
 #: doc/noosfero/navigation/finding-more-popular-communities.en.xhtml:21
@@ -4711,7 +4195,6 @@ msgid ""
 "recent communities</a>"
 msgstr ""
 
-# type: Content of: <ul><li>
 #. type: Content of: <ul><li>
 #: doc/noosfero/navigation/finding-more-active-communities.en.xhtml:22
 #: doc/noosfero/navigation/finding-more-recent-communities.en.xhtml:22
@@ -4721,13 +4204,11 @@ msgid ""
 "popular communities</a>"
 msgstr ""
 
-# type: Content of: <h1>
 #. type: Content of: <h1>
 #: doc/noosfero/navigation/searching-products-services.en.xhtml:1
 msgid "Finding products and services"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/navigation/searching-products-services.en.xhtml:2
 msgid ""
@@ -4735,31 +4216,26 @@ msgid ""
 "specific for products and services.</em>"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/navigation/searching-products-services.en.xhtml:9
 msgid "Find on top of page the term &#8220;Products&#8221; and click on it"
 msgstr ""
 
-# type: Attribute 'alt' of: <div><img>
 #. type: Attribute 'alt' of: <p><img>
 #: doc/noosfero/navigation/searching-products-services.en.xhtml:10
 msgid "Products on top menu"
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/navigation/searching-products-services.en.xhtml:13
 msgid "Products search field"
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/navigation/searching-products-services.en.xhtml:14
 msgid "Products search results with example"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/navigation/searching-products-services.en.xhtml:15
 msgid ""
@@ -4767,25 +4243,21 @@ msgid ""
 "homepage of the enterprise that has the product/service."
 msgstr ""
 
-# type: Content of: <h1>
 #. type: Content of: <h1>
 #: doc/noosfero/navigation/finding-more-recent-communities.en.xhtml:1
 msgid "Finding more recent communities"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/navigation/finding-more-recent-communities.en.xhtml:2
 msgid "<em>To find the communities created on the system in recent times.</em>"
 msgstr ""
 
-# type: Attribute 'alt' of: <div><img>
 #. type: Attribute 'alt' of: <p><img>
 #: doc/noosfero/navigation/finding-more-recent-communities.en.xhtml:10
 msgid "More recent communities on top menu"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/navigation/finding-more-recent-communities.en.xhtml:13
 msgid ""
@@ -4794,33 +4266,28 @@ msgid ""
 "community was created"
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/navigation/finding-more-recent-communities.en.xhtml:13
 #: doc/noosfero/navigation/finding-more-recent-people.en.xhtml:13
 msgid "Profile with creation date"
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/navigation/finding-more-recent-communities.en.xhtml:14
 msgid "More recent communities search field"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/navigation/finding-more-recent-communities.en.xhtml:15
 #: doc/noosfero/navigation/finding-more-recent-people.en.xhtml:15
 msgid "Then you will see the search results ordered by creation date"
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/navigation/finding-more-recent-communities.en.xhtml:15
 msgid "More recent communities search results with example"
 msgstr ""
 
-# type: Content of: <ul><li>
 #. type: Content of: <ul><li>
 #: doc/noosfero/navigation/finding-more-recent-communities.en.xhtml:21
 msgid ""
@@ -4828,25 +4295,21 @@ msgid ""
 "recent communities</a>"
 msgstr ""
 
-# type: Content of: <h1>
 #. type: Content of: <h1>
 #: doc/noosfero/navigation/finding-more-popular-communities.en.xhtml:1
 msgid "Finding more popular communities"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/navigation/finding-more-popular-communities.en.xhtml:2
 msgid "<em>To find the communities who has more members.</em>"
 msgstr ""
 
-# type: Attribute 'alt' of: <div><img>
 #. type: Attribute 'alt' of: <p><img>
 #: doc/noosfero/navigation/finding-more-popular-communities.en.xhtml:10
 msgid "More popular communities on top menu"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/navigation/finding-more-popular-communities.en.xhtml:13
 msgid ""
@@ -4855,19 +4318,16 @@ msgid ""
 "members the community has"
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/navigation/finding-more-popular-communities.en.xhtml:13
 msgid "Profile with number of members"
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/navigation/finding-more-popular-communities.en.xhtml:14
 msgid "More popular communities search field"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/navigation/finding-more-popular-communities.en.xhtml:15
 msgid ""
@@ -4875,13 +4335,11 @@ msgid ""
 "community has"
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/navigation/finding-more-popular-communities.en.xhtml:15
 msgid "More popular communities search results with example"
 msgstr ""
 
-# type: Content of: <ul><li>
 #. type: Content of: <ul><li>
 #: doc/noosfero/navigation/finding-more-popular-communities.en.xhtml:22
 msgid ""
@@ -4889,25 +4347,21 @@ msgid ""
 "popular communities</a>"
 msgstr ""
 
-# type: Content of: <h1>
 #. type: Content of: <h1>
 #: doc/noosfero/navigation/finding-more-recent-people.en.xhtml:1
 msgid "Finding more recent people"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/navigation/finding-more-recent-people.en.xhtml:2
 msgid "<em>To find the people who joined the system in recent times.</em>"
 msgstr ""
 
-# type: Attribute 'alt' of: <div><img>
 #. type: Attribute 'alt' of: <p><img>
 #: doc/noosfero/navigation/finding-more-recent-people.en.xhtml:10
 msgid "More recent people on top menu"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/navigation/finding-more-recent-people.en.xhtml:13
 msgid ""
@@ -4916,19 +4370,16 @@ msgid ""
 "joined the network"
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/navigation/finding-more-recent-people.en.xhtml:14
 msgid "More recent people search field"
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/navigation/finding-more-recent-people.en.xhtml:15
 msgid "More recent people search results with example"
 msgstr ""
 
-# type: Content of: <ul><li>
 #. type: Content of: <ul><li>
 #: doc/noosfero/navigation/finding-more-recent-people.en.xhtml:21
 msgid ""
@@ -4936,7 +4387,6 @@ msgid ""
 "people</a>"
 msgstr ""
 
-# type: Content of: <ul><li>
 #. type: Content of: <ul><li>
 #: doc/noosfero/navigation/finding-more-recent-people.en.xhtml:22
 #: doc/noosfero/navigation/finding-more-active-people.en.xhtml:22
@@ -4946,25 +4396,21 @@ msgid ""
 "people</a>"
 msgstr ""
 
-# type: Content of: <h1>
 #. type: Content of: <h1>
 #: doc/noosfero/navigation/finding-more-active-people.en.xhtml:1
 msgid "Finding more active people"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/navigation/finding-more-active-people.en.xhtml:2
 msgid "<em>To find the people who create more content.</em>"
 msgstr ""
 
-# type: Attribute 'alt' of: <div><img>
 #. type: Attribute 'alt' of: <p><img>
 #: doc/noosfero/navigation/finding-more-active-people.en.xhtml:10
 msgid "More active people on top menu"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/navigation/finding-more-active-people.en.xhtml:13
 msgid ""
@@ -4973,13 +4419,11 @@ msgid ""
 "articles created by the person"
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/navigation/finding-more-active-people.en.xhtml:14
 msgid "More active people search field"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/navigation/finding-more-active-people.en.xhtml:15
 msgid ""
@@ -4987,19 +4431,16 @@ msgid ""
 "created by the person"
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/navigation/finding-more-active-people.en.xhtml:15
 msgid "More active people search results with example"
 msgstr ""
 
-# type: Content of: <h1>
 #. type: Content of: <h1>
 #: doc/noosfero/navigation/searching-communities.en.xhtml:1
 msgid "Finding communities"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/navigation/searching-communities.en.xhtml:2
 msgid ""
@@ -5007,38 +4448,32 @@ msgid ""
 "communities.</em>"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/navigation/searching-communities.en.xhtml:9
 msgid "Find on top of page the term &#8220;Communities&#8221; and click on it:"
 msgstr ""
 
-# type: Attribute 'alt' of: <div><img>
 #. type: Attribute 'alt' of: <p><img>
 #: doc/noosfero/navigation/searching-communities.en.xhtml:10
 msgid "Communities on top menu"
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/navigation/searching-communities.en.xhtml:13
 msgid "Communities search field"
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/navigation/searching-communities.en.xhtml:14
 #: doc/noosfero/navigation/searching-people.en.xhtml:14
 msgid "Communities search results with example"
 msgstr ""
 
-# type: Content of: <h1>
 #. type: Content of: <h1>
 #: doc/noosfero/navigation/searching-people.en.xhtml:1
 msgid "Finding people"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/navigation/searching-people.en.xhtml:2
 msgid ""
@@ -5046,25 +4481,21 @@ msgid ""
 "people.</em>"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/navigation/searching-people.en.xhtml:9
 msgid "Find on top of page the term &#8220;People&#8221; and click on it:"
 msgstr ""
 
-# type: Attribute 'alt' of: <div><img>
 #. type: Attribute 'alt' of: <p><img>
 #: doc/noosfero/navigation/searching-people.en.xhtml:10
 msgid "People on top menu"
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/navigation/searching-people.en.xhtml:13
 msgid "People search field"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/admin/send-email-members.en.xhtml:2
 msgid ""
@@ -5072,28 +4503,24 @@ msgid ""
 "members of your environment.</em>"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/admin/send-email-members.en.xhtml:10
 #: doc/noosfero/admin/export-users-list.en.xhtml:10
 msgid "In user menu, click on Administration:"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/admin/send-email-members.en.xhtml:11
 #: doc/noosfero/admin/export-users-list.en.xhtml:11
 msgid "Then, click on &#8220;Manage users&#8221; link:"
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/admin/send-email-members.en.xhtml:11
 #: doc/noosfero/admin/export-users-list.en.xhtml:11
 msgid "Manage users in admin panel"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/admin/send-email-members.en.xhtml:15
 msgid ""
@@ -5101,31 +4528,26 @@ msgid ""
 "link:"
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/admin/send-email-members.en.xhtml:15
 msgid "Send e-mail link on manage users"
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/admin/send-email-members.en.xhtml:16
 msgid "Sending e-mail to environment members"
 msgstr ""
 
-# type: Content of: <h1>
 #. type: Content of: <h1>
 #: doc/noosfero/admin/index.en.xhtml:1
 msgid "Admin features"
 msgstr ""
 
-# type: Content of: <h1>
 #. type: Content of: <h1>
 #: doc/noosfero/admin/export-users-list.en.xhtml:1
 msgid "Export the list of users"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/admin/export-users-list.en.xhtml:2
 msgid ""
@@ -5142,25 +4564,21 @@ msgid ""
 "&#8220;<span class=\"caps\">XML</span>&#8221;."
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/admin/export-users-list.en.xhtml:15
 msgid "Click on the link of the format you choosed and download it:"
 msgstr ""
 
-# type: Attribute 'alt' of: <p><div><img>
 #. type: Attribute 'alt' of: <p><img>
 #: doc/noosfero/admin/export-users-list.en.xhtml:15
 msgid "Download list of users link on manage users"
 msgstr ""
 
-# type: Content of: <h1>
 #. type: Content of: <h1>
 #: doc/noosfero/enterprise/index.en.xhtml:1
 msgid "Enterprise features"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/enterprise/editing-appearance.en.xhtml:2
 msgid ""
@@ -5168,7 +4586,6 @@ msgid ""
 "it.</em>"
 msgstr ""
 
-# type: Content of: <ul><li>
 #. type: Content of: <ul><li>
 #: doc/noosfero/enterprise/editing-appearance.en.xhtml:31
 #: doc/noosfero/enterprise/editing-sideboxes.en.xhtml:65
@@ -5178,7 +4595,6 @@ msgid ""
 "a>"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/enterprise/editing-header-footer.en.xhtml:2
 msgid ""
@@ -5186,19 +4602,16 @@ msgid ""
 "on header or footer.</em>"
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/enterprise/editing-header-footer.en.xhtml:14
 msgid "Edit header and footer on enterprise control panel"
 msgstr ""
 
-# type: Content of: <h1>
 #. type: Content of: <h1>
 #: doc/noosfero/enterprise/adding-product.en.xhtml:1
 msgid "Adding products to an enterprise"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/enterprise/adding-product.en.xhtml:2
 msgid ""
@@ -5206,7 +4619,6 @@ msgid ""
 "enterprise.</em>"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/enterprise/adding-product.en.xhtml:10
 msgid ""
@@ -5215,7 +4627,6 @@ msgid ""
 "add a product."
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/enterprise/adding-product.en.xhtml:14
 msgid ""
@@ -5223,13 +4634,11 @@ msgid ""
 "services&#8221;"
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/enterprise/adding-product.en.xhtml:14
 msgid "Control panel with manage products"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/enterprise/adding-product.en.xhtml:15
 msgid ""
@@ -5237,13 +4646,11 @@ msgid ""
 "service click on &#8220;New product or service&#8221; button"
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/enterprise/adding-product.en.xhtml:15
 msgid "Product list of enterprise on manage products"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/enterprise/adding-product.en.xhtml:16
 msgid ""
@@ -5255,25 +4662,21 @@ msgid ""
 "&#8220;Save and continue button&#8221;:"
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/enterprise/adding-product.en.xhtml:17
 msgid "First category of product"
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/enterprise/adding-product.en.xhtml:18
 msgid "Second category of product"
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/enterprise/adding-product.en.xhtml:19
 msgid "Last category of product"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/enterprise/adding-product.en.xhtml:20
 msgid ""
@@ -5283,13 +4686,11 @@ msgid ""
 "information and add inputs clicking on the link indicated by numbers"
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/enterprise/adding-product.en.xhtml:20
 msgid "Product created"
 msgstr ""
 
-# type: Content of: <ol><li><ol><li>
 #. type: Content of: <ol><li><ol><li>
 #: doc/noosfero/enterprise/adding-product.en.xhtml:22
 msgid ""
@@ -5298,13 +4699,11 @@ msgid ""
 "Save&#8221; button"
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><ol><li><img>
 #: doc/noosfero/enterprise/adding-product.en.xhtml:22
 msgid "Edit name form"
 msgstr ""
 
-# type: Content of: <ol><li><ol><li>
 #. type: Content of: <ol><li><ol><li>
 #: doc/noosfero/enterprise/adding-product.en.xhtml:23
 msgid ""
@@ -5312,13 +4711,11 @@ msgid ""
 "button"
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><ol><li><img>
 #: doc/noosfero/enterprise/adding-product.en.xhtml:23
 msgid "Change image form"
 msgstr ""
 
-# type: Content of: <ol><li><ol><li>
 #. type: Content of: <ol><li><ol><li>
 #: doc/noosfero/enterprise/adding-product.en.xhtml:24
 msgid ""
@@ -5326,13 +4723,11 @@ msgid ""
 "the information about your product and press the &#8220;Save&#8221; button"
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><ol><li><img>
 #: doc/noosfero/enterprise/adding-product.en.xhtml:24
 msgid "Edit basic info form"
 msgstr ""
 
-# type: Content of: <ol><li><ol><li>
 #. type: Content of: <ol><li><ol><li>
 #: doc/noosfero/enterprise/adding-product.en.xhtml:25
 msgid ""
@@ -5340,13 +4735,11 @@ msgid ""
 "information about your product and press the &#8220;Save&#8221; button"
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><ol><li><img>
 #: doc/noosfero/enterprise/adding-product.en.xhtml:25
 msgid "Edit description form"
 msgstr ""
 
-# type: Content of: <ol><li><ol><li>
 #. type: Content of: <ol><li><ol><li>
 #: doc/noosfero/enterprise/adding-product.en.xhtml:26
 msgid ""
@@ -5354,14 +4747,12 @@ msgid ""
 "button to add a new input"
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><ol><li><ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><ol><li><ol><li><img>
 #: doc/noosfero/enterprise/adding-product.en.xhtml:26
 #: doc/noosfero/enterprise/adding-product.en.xhtml:28
 msgid "Inputs tab"
 msgstr ""
 
-# type: Content of: <ol><li><ol><li><ol><li>
 #. type: Content of: <ol><li><ol><li><ol><li>
 #: doc/noosfero/enterprise/adding-product.en.xhtml:28
 msgid ""
@@ -5369,19 +4760,16 @@ msgid ""
 "&#8220;Save and continue&#8221; button"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/enterprise/adding-product.en.xhtml:31
 msgid "Now the product is ready to be displayed"
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/enterprise/adding-product.en.xhtml:31
 msgid "Product created final"
 msgstr ""
 
-# type: Content of: <ul><li>
 #. type: Content of: <ul><li>
 #: doc/noosfero/enterprise/adding-product.en.xhtml:35
 #: doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:33
@@ -5392,7 +4780,6 @@ msgid ""
 "settings</a>"
 msgstr ""
 
-# type: Content of: <ul><li>
 #. type: Content of: <ul><li>
 #: doc/noosfero/enterprise/adding-product.en.xhtml:36
 #: doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:34
@@ -5402,13 +4789,11 @@ msgid ""
 "enterprise</a>"
 msgstr ""
 
-# type: Content of: <h1>
 #. type: Content of: <h1>
 #: doc/noosfero/enterprise/editing-enterprise-info.en.xhtml:1
 msgid "Editing enterprise settings"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/enterprise/editing-enterprise-info.en.xhtml:2
 msgid ""
@@ -5416,7 +4801,6 @@ msgid ""
 "em>"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/enterprise/editing-enterprise-info.en.xhtml:13
 #: doc/noosfero/enterprise/disabling-enterprise.en.xhtml:13
@@ -5427,7 +4811,6 @@ msgid ""
 "enterprise&#8221;, click on &#8220;Manage&#8221; link."
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/enterprise/editing-enterprise-info.en.xhtml:17
 msgid ""
@@ -5435,13 +4818,11 @@ msgid ""
 "settings&#8221;"
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/enterprise/editing-enterprise-info.en.xhtml:18
 msgid "Control panel with edit profile info"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/enterprise/editing-enterprise-info.en.xhtml:19
 msgid ""
@@ -5449,7 +4830,6 @@ msgid ""
 "enterprise. This screen will be explained in parts"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/enterprise/editing-enterprise-info.en.xhtml:20
 msgid ""
@@ -5459,13 +4839,11 @@ msgid ""
 "contact us&#8217;&#8221;."
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/enterprise/editing-enterprise-info.en.xhtml:21
 msgid "General information when editing enterprise profile info"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/enterprise/editing-enterprise-info.en.xhtml:22
 msgid ""
@@ -5475,13 +4853,11 @@ msgid ""
 "choose the second if approval is not needed."
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/enterprise/editing-enterprise-info.en.xhtml:23
 msgid "Moderation options when editing enterprise profile info"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/enterprise/editing-enterprise-info.en.xhtml:24
 msgid ""
@@ -5491,19 +4867,16 @@ msgid ""
 "gif</em> or <em>.png</em> ."
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><ul><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><ul><li><img>
 #: doc/noosfero/enterprise/editing-enterprise-info.en.xhtml:26
 msgid "Add picture when editing enterprise profile info"
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><ul><li><img>
 #: doc/noosfero/enterprise/editing-enterprise-info.en.xhtml:27
 msgid "Change picture when editing enterprise profile info"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/enterprise/editing-enterprise-info.en.xhtml:29
 msgid ""
@@ -5513,7 +4886,6 @@ msgid ""
 "will be redirected to a page that show only general information."
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><img>
 #. type: Attribute 'alt' of: <ol><li><ol><li><img>
 #: doc/noosfero/enterprise/editing-enterprise-info.en.xhtml:30
 #: doc/noosfero/enterprise/editing-enterprise-info.en.xhtml:32
@@ -5521,7 +4893,6 @@ msgstr ""
 msgid "Privacy options when editing enterprise profile info"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/enterprise/editing-enterprise-info.en.xhtml:31
 msgid ""
@@ -5536,7 +4907,6 @@ msgid ""
 "updated."
 msgstr ""
 
-# type: Content of: <ul><li>
 #. type: Content of: <ul><li>
 #: doc/noosfero/enterprise/editing-enterprise-info.en.xhtml:38
 #: doc/noosfero/enterprise/disabling-enterprise.en.xhtml:25
@@ -5544,13 +4914,11 @@ msgid ""
 "<a href=\"/doc/enterprise/activating-enterprise\">Activating enterprise</a>"
 msgstr ""
 
-# type: Content of: <h1>
 #. type: Content of: <h1>
 #: doc/noosfero/enterprise/disabling-enterprise.en.xhtml:1
 msgid "Disabling an enterprise"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/enterprise/disabling-enterprise.en.xhtml:2
 msgid ""
@@ -5559,7 +4927,6 @@ msgid ""
 "steps.</em>"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/enterprise/disabling-enterprise.en.xhtml:17
 msgid ""
@@ -5567,13 +4934,11 @@ msgid ""
 "Enterprise&#8221;"
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/enterprise/disabling-enterprise.en.xhtml:18
 msgid "Control panel with disable enterprise"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/enterprise/disabling-enterprise.en.xhtml:19
 msgid ""
@@ -5581,13 +4946,11 @@ msgid ""
 "disable the enterprise, click on &#8220;Yes, I want to disable&#8221;."
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/enterprise/disabling-enterprise.en.xhtml:20
 msgid "Enterprise disabling confirmation"
 msgstr ""
 
-# type: Content of: <h2>
 #. type: Content of: <h2>
 #: doc/noosfero/enterprise/disabling-enterprise.en.xhtml:22
 #: doc/noosfero/enterprise/activating-enterprise.en.xhtml:23
@@ -5595,13 +4958,11 @@ msgstr ""
 msgid "Related Topics"
 msgstr ""
 
-# type: Content of: <h1>
 #. type: Content of: <h1>
 #: doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:1
 msgid "Managing and adding members to an enterprise"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:2
 msgid ""
@@ -5618,20 +4979,17 @@ msgid ""
 "click on &#8220;Manage&#8221; link."
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:17
 msgid ""
 "In enterprise&#8217;s control panel, click on &#8220;Manage members&#8221;"
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:18
 msgid "Control panel with manage members"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:19
 msgid ""
@@ -5639,13 +4997,11 @@ msgid ""
 "buttons that will be explained in parts:"
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:19
 msgid "Members list of enterprise on manage members"
 msgstr ""
 
-# type: Content of: <ol><li><ol><li>
 #. type: Content of: <ol><li><ol><li>
 #: doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:21
 msgid ""
@@ -5653,13 +5009,11 @@ msgid ""
 "enterprise. Each role is associated to some permissions."
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><ol><li><img>
 #: doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:21
 msgid "Changing role of an enterprise member"
 msgstr ""
 
-# type: Content of: <ol><li><ol><li>
 #. type: Content of: <ol><li><ol><li>
 #: doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:22
 msgid ""
@@ -5667,7 +5021,6 @@ msgid ""
 "removed from the enterprise."
 msgstr ""
 
-# type: Content of: <ol><li><ol><li>
 #. type: Content of: <ol><li><ol><li>
 #: doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:23
 msgid ""
@@ -5676,7 +5029,6 @@ msgid ""
 "with all permissions."
 msgstr ""
 
-# type: Content of: <ol><li><ol><li><ol><li>
 #. type: Content of: <ol><li><ol><li><ol><li>
 #: doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:25
 msgid ""
@@ -5693,19 +5045,16 @@ msgid ""
 "with the new member."
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><ol><li><ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><ol><li><ol><li><img>
 #: doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:27
 msgid "Add member on manage member"
 msgstr ""
 
-# type: Content of: <h1>
 #. type: Content of: <h1>
 #: doc/noosfero/enterprise/activating-enterprise.en.xhtml:1
 msgid "Activating your enterprise"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/enterprise/activating-enterprise.en.xhtml:2
 msgid ""
@@ -5713,7 +5062,6 @@ msgid ""
 "have the activation code of the enterprise.</em>"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/enterprise/activating-enterprise.en.xhtml:3
 msgid ""
@@ -5722,7 +5070,6 @@ msgid ""
 "</em>"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/enterprise/activating-enterprise.en.xhtml:16
 msgid ""
@@ -5730,13 +5077,11 @@ msgid ""
 "the enterprise activation code and click on &#8220;Activate&#8221;."
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/enterprise/activating-enterprise.en.xhtml:17
 msgid "Control panel and enterprise activation box"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/enterprise/activating-enterprise.en.xhtml:18
 msgid ""
@@ -5746,13 +5091,11 @@ msgid ""
 "on &#8220;Continue&#8221; button."
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/enterprise/activating-enterprise.en.xhtml:18
 msgid "Activation question"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/enterprise/activating-enterprise.en.xhtml:19
 msgid ""
@@ -5763,13 +5106,11 @@ msgid ""
 "&#8221;. After that, click on &#8220;Continue&#8221; button."
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/enterprise/activating-enterprise.en.xhtml:20
 msgid "Enterprise terms of use"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/enterprise/activating-enterprise.en.xhtml:21
 msgid ""
@@ -5778,13 +5119,11 @@ msgid ""
 "go to your control panel."
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/enterprise/activating-enterprise.en.xhtml:21
 msgid "Conclusion of enterprise activation"
 msgstr ""
 
-# type: Content of: <ul><li>
 #. type: Content of: <ul><li>
 #: doc/noosfero/enterprise/activating-enterprise.en.xhtml:26
 #: doc/noosfero/user/deleting-profile.en.xhtml:21
@@ -5792,7 +5131,6 @@ msgstr ""
 msgid "<a href=\"/doc/user/registering-new-user\">Registering a new user</a>"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/enterprise/editing-sideboxes.en.xhtml:2
 msgid ""
@@ -5800,7 +5138,6 @@ msgid ""
 "will be displayed on it.</em>"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/enterprise/editing-sideboxes.en.xhtml:13
 msgid ""
@@ -5810,13 +5147,11 @@ msgid ""
 "&#8220;Manage&#8221; link."
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/enterprise/editing-sideboxes.en.xhtml:14
 msgid "Edit sideboxes on enterprise control panel"
 msgstr ""
 
-# type: Content of: <ol><li><ul><li>
 #. type: Content of: <ol><li><ul><li>
 #: doc/noosfero/enterprise/editing-sideboxes.en.xhtml:27
 msgid ""
@@ -5825,7 +5160,6 @@ msgid ""
 "article is going to be displayed in the block."
 msgstr ""
 
-# type: Content of: <ol><li><ul><li>
 #. type: Content of: <ol><li><ul><li>
 #: doc/noosfero/enterprise/editing-sideboxes.en.xhtml:28
 msgid ""
@@ -5843,7 +5177,6 @@ msgid ""
 "{profile}&#8221; will be replaced by your identifier."
 msgstr ""
 
-# type: Content of: <ol><li><ul><li>
 #. type: Content of: <ol><li><ul><li>
 #: doc/noosfero/enterprise/editing-sideboxes.en.xhtml:30
 msgid ""
@@ -5853,7 +5186,6 @@ msgid ""
 "select the number of items that will be displayed."
 msgstr ""
 
-# type: Content of: <ol><li><ul><li>
 #. type: Content of: <ol><li><ul><li>
 #: doc/noosfero/enterprise/editing-sideboxes.en.xhtml:31
 msgid ""
@@ -5861,7 +5193,6 @@ msgid ""
 "world."
 msgstr ""
 
-# type: Content of: <ol><li><ul><li>
 #. type: Content of: <ol><li><ul><li>
 #: doc/noosfero/enterprise/editing-sideboxes.en.xhtml:32
 msgid ""
@@ -5869,7 +5200,6 @@ msgid ""
 "choose how many members will be displayed."
 msgstr ""
 
-# type: Content of: <ol><li><ul><li>
 #. type: Content of: <ol><li><ul><li>
 #: doc/noosfero/enterprise/editing-sideboxes.en.xhtml:33
 msgid ""
@@ -5877,13 +5207,11 @@ msgid ""
 "choose how many products will be displayed."
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><ul><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><ul><li><img>
 #: doc/noosfero/enterprise/editing-sideboxes.en.xhtml:33
 msgid "Products block"
 msgstr ""
 
-# type: Content of: <ol><li><ul><li>
 #. type: Content of: <ol><li><ul><li>
 #: doc/noosfero/enterprise/editing-sideboxes.en.xhtml:34
 msgid ""
@@ -5892,7 +5220,6 @@ msgid ""
 "used on the contents. You can choose how many tags will be displayed."
 msgstr ""
 
-# type: Content of: <ol><li><ul><li>
 #. type: Content of: <ol><li><ul><li>
 #: doc/noosfero/enterprise/editing-sideboxes.en.xhtml:35
 msgid ""
@@ -5901,26 +5228,22 @@ msgid ""
 "environment and useful links."
 msgstr ""
 
-# type: Content of: <ol><li><ul><li>
 #. type: Content of: <ol><li><ul><li>
 #: doc/noosfero/enterprise/editing-sideboxes.en.xhtml:36
 msgid "<strong>My network:</strong> This block displays some links."
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><ul><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><ul><li><img>
 #: doc/noosfero/enterprise/editing-sideboxes.en.xhtml:36
 msgid "enterprise network block"
 msgstr ""
 
-# type: Content of: <ol><li><ul><li>
 #. type: Content of: <ol><li><ul><li>
 #: doc/noosfero/enterprise/editing-sideboxes.en.xhtml:37
 msgid ""
 "<strong>Profile Image:</strong> This block presents the enterprise image."
 msgstr ""
 
-# type: Content of: <ol><li><ul><li>
 #. type: Content of: <ol><li><ul><li>
 #: doc/noosfero/enterprise/editing-sideboxes.en.xhtml:38
 msgid ""
@@ -5929,7 +5252,6 @@ msgid ""
 "select which image gallery will be displayed."
 msgstr ""
 
-# type: Content of: <ol><li><ul><li>
 #. type: Content of: <ol><li><ul><li>
 #: doc/noosfero/enterprise/editing-sideboxes.en.xhtml:39
 msgid ""
@@ -5937,26 +5259,22 @@ msgid ""
 "for disabled enterprises."
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><ul><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><ul><li><img>
 #: doc/noosfero/enterprise/editing-sideboxes.en.xhtml:39
 msgid "Disabled enterprise block"
 msgstr ""
 
-# type: Content of: <ul><li>
 #. type: Content of: <ul><li>
 #: doc/noosfero/enterprise/editing-sideboxes.en.xhtml:66
 #: doc/noosfero/enterprise/toc.en.xhtml:8
 msgid "<a href=\"/doc/enterprise/editing-appearance\">Editing appearance</a>"
 msgstr ""
 
-# type: Content of: <h1>
 #. type: Content of: <h1>
 #: doc/noosfero/user/viewing-profiles-activity.en.xhtml:1
 msgid "Viewing profile&#8217;s activities"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/user/viewing-profiles-activity.en.xhtml:2
 msgid ""
@@ -5964,7 +5282,6 @@ msgid ""
 "profile and view his activities.</em>"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <ol><li>
 #: doc/noosfero/user/viewing-profiles-activity.en.xhtml:10
 #: doc/noosfero/user/adding-friends.en.xhtml:9
@@ -5975,7 +5292,6 @@ msgid ""
 "click on your friend picture to visite her/his page."
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/user/viewing-profiles-activity.en.xhtml:11
 #: doc/noosfero/user/sending-scraps.en.xhtml:11
@@ -5984,7 +5300,6 @@ msgid ""
 "picture."
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/user/viewing-profiles-activity.en.xhtml:11
 #: doc/noosfero/user/answering-scraps.en.xhtml:10
@@ -5992,7 +5307,6 @@ msgstr ""
 msgid "Link to view profile"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/user/viewing-profiles-activity.en.xhtml:14
 msgid ""
@@ -6000,13 +5314,11 @@ msgid ""
 "most recent activities of the user will be listed"
 msgstr ""
 
-# type: Attribute 'alt' of: <p><div><img>
 #. type: Attribute 'alt' of: <p><img>
 #: doc/noosfero/user/viewing-profiles-activity.en.xhtml:14
 msgid "Activity tab"
 msgstr ""
 
-# type: Content of: <ul><li>
 #. type: Content of: <ul><li>
 #: doc/noosfero/user/viewing-profiles-activity.en.xhtml:17
 #: doc/noosfero/user/adding-friends.en.xhtml:17
@@ -6019,7 +5331,6 @@ msgstr ""
 msgid "<a href=\"/doc/user/removing-friends\">Removing friends</a>"
 msgstr ""
 
-# type: Content of: <ul><li>
 #. type: Content of: <ul><li>
 #: doc/noosfero/user/viewing-profiles-activity.en.xhtml:18
 #: doc/noosfero/user/adding-friends.en.xhtml:18
@@ -6033,19 +5344,16 @@ msgstr ""
 msgid "<a href=\"/doc/user/accepting-friends\">Accepting friends</a>"
 msgstr ""
 
-# type: Content of: <h1>
 #. type: Content of: <h1>
 #: doc/noosfero/user/index.en.xhtml:1
 msgid "User features"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/user/editing-appearance.en.xhtml:2
 msgid "<em>You can customize your page, changing the template of it.</em>"
 msgstr ""
 
-# type: Content of: <ul><li>
 #. type: Content of: <ul><li>
 #: doc/noosfero/user/editing-appearance.en.xhtml:29
 #: doc/noosfero/user/editing-sideboxes.en.xhtml:64
@@ -6054,7 +5362,6 @@ msgid ""
 "<a href=\"/doc/user/editing-header-footer\">Editing header and footer</a>"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/user/editing-header-footer.en.xhtml:2
 msgid ""
@@ -6062,7 +5369,6 @@ msgid ""
 "footer.</em>"
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/user/editing-header-footer.en.xhtml:12
 msgid "Edit header and footer on user control panel"
@@ -6082,13 +5388,11 @@ msgid ""
 "phrase and then click on button"
 msgstr ""
 
-# type: Content of: <h1>
 #. type: Content of: <h1>
 #: doc/noosfero/user/adding-friends.en.xhtml:1
 msgid "Adding friends"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/user/adding-friends.en.xhtml:2
 msgid ""
@@ -6096,7 +5400,6 @@ msgid ""
 "contact list, adding them as friends.</em>"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/user/adding-friends.en.xhtml:12
 msgid ""
@@ -6104,13 +5407,11 @@ msgid ""
 "see below the user picture"
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/user/adding-friends.en.xhtml:12
 msgid "Button to add a profile as friend"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/user/adding-friends.en.xhtml:13
 msgid ""
@@ -6119,44 +5420,37 @@ msgid ""
 "relationship type."
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/user/adding-friends.en.xhtml:13
 msgid "Confirmation when adding a friend"
 msgstr ""
 
-# type: Attribute 'alt' of: <div><img>
 #. type: Attribute 'alt' of: <p><img>
 #: doc/noosfero/user/changing-password.en.xhtml:1
 #: doc/noosfero/user/changing-password.en.xhtml:15
 msgid "Changing password"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/user/changing-password.en.xhtml:2
 msgid "<em>Whenever you want, you can change your password.</em>"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/user/changing-password.en.xhtml:12
 msgid "Then, click on &#8220;Change Password&#8221;:"
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/user/changing-password.en.xhtml:12
 msgid "Change password in control panel"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/user/changing-password.en.xhtml:17
 msgid "Fill in with your password."
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/user/changing-password.en.xhtml:18
 msgid "Fill in with your new password."
@@ -6172,13 +5466,11 @@ msgstr ""
 msgid "Then, click on &#8220;Change password&#8221;."
 msgstr ""
 
-# type: Content of: <h1>
 #. type: Content of: <h1>
 #: doc/noosfero/user/accepting-friends.en.xhtml:1
 msgid "Accepting friends"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/user/accepting-friends.en.xhtml:2
 msgid ""
@@ -6186,7 +5478,6 @@ msgid ""
 "request. This is what will be explained.</em>"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/user/accepting-friends.en.xhtml:15
 msgid ""
@@ -6195,13 +5486,11 @@ msgid ""
 "&#8220;Process requests&#8221; button"
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/user/accepting-friends.en.xhtml:16
 msgid "Control panel with pending tasks"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/user/accepting-friends.en.xhtml:17
 msgid ""
@@ -6211,13 +5500,11 @@ msgid ""
 "will be listed in your contact list."
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/user/accepting-friends.en.xhtml:18
 msgid "Tasks list"
 msgstr ""
 
-# type: Content of: <ul><li>
 #. type: Content of: <ul><li>
 #: doc/noosfero/user/accepting-friends.en.xhtml:22
 #: doc/noosfero/user/registering-new-user.en.xhtml:25
@@ -6227,13 +5514,11 @@ msgstr ""
 msgid "<a href=\"/doc/user/adding-friends\">Adding friends</a>"
 msgstr ""
 
-# type: Content of: <h1>
 #. type: Content of: <h1>
 #: doc/noosfero/user/registering-new-user.en.xhtml:1
 msgid "Registering a new user"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/user/registering-new-user.en.xhtml:2
 msgid ""
@@ -6242,26 +5527,22 @@ msgid ""
 "and much more.</em>"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/user/registering-new-user.en.xhtml:10
 #: doc/noosfero/user/login.en.xhtml:9
 msgid "In the system homepage you will see a box to get into the system."
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/user/registering-new-user.en.xhtml:11
 msgid "Click on &#8220;New user&#8221;:"
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/user/registering-new-user.en.xhtml:11
 msgid "Register on box"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/user/registering-new-user.en.xhtml:15
 msgid ""
@@ -6269,7 +5550,6 @@ msgid ""
 "accept the system terms of use."
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li><ul><li>
 #: doc/noosfero/user/registering-new-user.en.xhtml:17
 msgid ""
@@ -6277,7 +5557,6 @@ msgid ""
 "done if they are not filled in."
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li><ul><li>
 #: doc/noosfero/user/registering-new-user.en.xhtml:18
 msgid ""
@@ -6286,7 +5565,6 @@ msgid ""
 "shown informing the error and you should choose another login/e-mail."
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li><ul><li>
 #: doc/noosfero/user/registering-new-user.en.xhtml:19
 msgid ""
@@ -6295,31 +5573,26 @@ msgid ""
 "system."
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><img>
 #. type: Attribute 'alt' of: <ol><li><ul><li><img>
 #: doc/noosfero/user/registering-new-user.en.xhtml:20
 msgid "Signup form"
 msgstr ""
 
-# type: Content of: <h1>
 #. type: Content of: <h1>
 #: doc/noosfero/user/answering-scraps.en.xhtml:1
 msgid "Answering scraps sent by friends"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/user/answering-scraps.en.xhtml:2
 msgid "<em>When a friend sends a scrap to you, you can answer it.</em>"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/user/answering-scraps.en.xhtml:10
 msgid "Visit your profile to see the scraps that your friends sent to you."
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/user/answering-scraps.en.xhtml:14
 msgid ""
@@ -6327,7 +5600,6 @@ msgid ""
 "you will be listed."
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/user/answering-scraps.en.xhtml:14
 #: doc/noosfero/user/answering-scraps.en.xhtml:15
@@ -6338,7 +5610,6 @@ msgstr ""
 msgid "Wall tab"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/user/answering-scraps.en.xhtml:15
 msgid ""
@@ -6346,7 +5617,6 @@ msgid ""
 "button that will be displayed"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/user/answering-scraps.en.xhtml:16
 msgid ""
@@ -6354,78 +5624,66 @@ msgid ""
 "scrap&#8221; button"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/user/answering-scraps.en.xhtml:17
 msgid "Then, your reply will be listed on your profile&#8217;s wall"
 msgstr ""
 
-# type: Content of: <ul><li>
 #. type: Content of: <ul><li>
 #: doc/noosfero/user/answering-scraps.en.xhtml:21
 #: doc/noosfero/user/toc.en.xhtml:10
 msgid "<a href=\"/doc/user/sending-scraps\">Sending scraps to friends</a>"
 msgstr ""
 
-# type: Content of: <h1>
 #. type: Content of: <h1>
 #: doc/noosfero/user/logout.en.xhtml:1
 msgid "Leaving the system"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/user/logout.en.xhtml:2
 msgid ""
 "<em>After finishing your navigation, we recommend leaving the system.</em>"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/user/logout.en.xhtml:11
 msgid "In user menu, click on &#8220;Logout&#8221;"
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/user/logout.en.xhtml:11
 msgid "Menu with logout"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/user/logout.en.xhtml:14
 msgid "After clicking the button, you will be logged out of the system"
 msgstr ""
 
-# type: Content of: <h1>
 #. type: Content of: <h1>
 #: doc/noosfero/user/editing-person-info.en.xhtml:1
 msgid "Editing user settings"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/user/editing-person-info.en.xhtml:2
 msgid ""
 "<em>You can change your profile information and settings in the system.</em>"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/user/editing-person-info.en.xhtml:15
 #: doc/noosfero/user/deleting-profile.en.xhtml:15
 msgid "In your control panel, click on &#8220;Profile Info and settings&#8221;"
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/user/editing-person-info.en.xhtml:15
 #: doc/noosfero/user/deleting-profile.en.xhtml:15
 msgid "Control panel with edit profile info of person"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/user/editing-person-info.en.xhtml:16
 msgid ""
@@ -6433,13 +5691,11 @@ msgid ""
 "explained in parts"
 msgstr ""
 
-# type: Content of: <ol><li><ol><li>
 #. type: Content of: <ol><li><ol><li>
 #: doc/noosfero/user/editing-person-info.en.xhtml:18
 msgid "<strong>General information:</strong> Fill in with your data"
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><ol><li><img>
 #: doc/noosfero/user/editing-person-info.en.xhtml:18
 msgid "General information when editing person profile info"
@@ -6453,7 +5709,6 @@ msgid ""
 "have a maximum of 500Kb e be <em>.jpg</em> , <em>.gif</em> or <em>.png</em> ."
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><ol><li><img>
 #: doc/noosfero/user/editing-person-info.en.xhtml:19
 msgid "Change picture when editing person profile info"
@@ -6473,7 +5728,6 @@ msgid ""
 "be redirected to a page that display only general information."
 msgstr ""
 
-# type: Content of: <ol><li><ol><li>
 #. type: Content of: <ol><li><ol><li>
 #: doc/noosfero/user/editing-person-info.en.xhtml:22
 msgid ""
@@ -6481,33 +5735,28 @@ msgid ""
 "categories that the person will have."
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><ol><li><img>
 #. type: Attribute 'alt' of: <ol><li><ol><li><img>
 #: doc/noosfero/user/editing-person-info.en.xhtml:22
 msgid "Categories when editing person profile info"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/user/editing-person-info.en.xhtml:24
 msgid ""
 "Then, click on &#8220;Save&#8221; button an the profile will be updated."
 msgstr ""
 
-# type: Content of: <h1>
 #. type: Content of: <h1>
 #: doc/noosfero/user/login.en.xhtml:1
 msgid "Login into the system"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/user/login.en.xhtml:2
 msgid ""
 "<em>Some system features only can be used when the user is logged in.</em>"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/user/login.en.xhtml:12
 msgid ""
@@ -6515,13 +5764,11 @@ msgid ""
 "you choosed in your registration and click on &#8220;Log in&#8221; button."
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/user/login.en.xhtml:12
 msgid "Environment homepage with login button"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/user/login.en.xhtml:13
 msgid ""
@@ -6530,19 +5777,16 @@ msgid ""
 "displayed in the top of page."
 msgstr ""
 
-# type: Content of: <ul><li>
 #. type: Content of: <ul><li>
 #: doc/noosfero/user/login.en.xhtml:17
 msgid "<a href=\"/doc/user/registering-new-user\">Registering new user</a>"
 msgstr ""
 
-# type: Content of: <h1>
 #. type: Content of: <h1>
 #: doc/noosfero/user/commenting.en.xhtml:1
 msgid "Commenting articles"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/user/commenting.en.xhtml:2
 msgid ""
@@ -6551,7 +5795,6 @@ msgid ""
 "comment.</em>"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/user/commenting.en.xhtml:3
 msgid ""
@@ -6560,7 +5803,6 @@ msgid ""
 "will learn how to comment pictures and articles.</em>"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/user/commenting.en.xhtml:11
 msgid ""
@@ -6568,7 +5810,6 @@ msgid ""
 "to send comments after the content:"
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/user/commenting.en.xhtml:11
 msgid "Box for comments closed"
@@ -6579,7 +5820,6 @@ msgstr ""
 msgid "h2(Description). Description"
 msgstr ""
 
-# type: Content of: <ul><li>
 #. type: Content of: <ul><li>
 #: doc/noosfero/user/commenting.en.xhtml:15
 msgid ""
@@ -6587,13 +5827,11 @@ msgid ""
 "displayed. You will see the title and body comment fields:"
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ul><li><img>
 #: doc/noosfero/user/commenting.en.xhtml:15
 msgid "Box for comments open when logged in"
 msgstr ""
 
-# type: Content of: <ul><li>
 #. type: Content of: <ul><li>
 #: doc/noosfero/user/commenting.en.xhtml:16
 msgid ""
@@ -6601,13 +5839,11 @@ msgid ""
 "name and e-mail fields to identify yourself:"
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ul><li><img>
 #: doc/noosfero/user/commenting.en.xhtml:16
 msgid "Box for comments open when not logged in"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ul><li>
 #: doc/noosfero/user/commenting.en.xhtml:17
 msgid ""
@@ -6615,46 +5851,39 @@ msgid ""
 "the comment will be displayed below the article."
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ul><li><img>
 #: doc/noosfero/user/commenting.en.xhtml:18
 msgid "Comment of a logged in person"
 msgstr ""
 
-# type: Content of: <h1>
 #. type: Content of: <h1>
 #: doc/noosfero/user/removing-friends.en.xhtml:1
 msgid "Removing friends"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/user/removing-friends.en.xhtml:2
 msgid "<em>How you can remove one friend from your contact list.</em>"
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/user/removing-friends.en.xhtml:11
 #: doc/noosfero/user/invite-contacts.en.xhtml:11
 msgid "Control panel menu"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/user/removing-friends.en.xhtml:12
 #: doc/noosfero/user/invite-contacts.en.xhtml:12
 msgid "Then, click on &#8220;Manage friends&#8221;"
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/user/removing-friends.en.xhtml:12
 #: doc/noosfero/user/invite-contacts.en.xhtml:12
 msgid "Manage Friends"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/user/removing-friends.en.xhtml:16
 msgid ""
@@ -6663,13 +5892,11 @@ msgid ""
 "the picture of the person you want to remove."
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/user/removing-friends.en.xhtml:17
 msgid "Remove Friend"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/user/removing-friends.en.xhtml:18
 msgid ""
@@ -6677,33 +5904,28 @@ msgid ""
 "your friend."
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/user/removing-friends.en.xhtml:19
 msgid "Remove friend confirmation"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/user/removing-friends.en.xhtml:20
 msgid ""
 "After confirmation, the user will not be listed on your friends list anymore."
 msgstr ""
 
-# type: Content of: <h1>
 #. type: Content of: <h1>
 #: doc/noosfero/user/sending-scraps.en.xhtml:1
 msgid "Sending scraps to friends"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/user/sending-scraps.en.xhtml:2
 msgid ""
 "<em>To keep in touch with your friends you can send scraps to them.</em>"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/user/sending-scraps.en.xhtml:15
 msgid ""
@@ -6712,13 +5934,11 @@ msgid ""
 "field and press the &#8220;Leave a scrap&#8221; button"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/user/sending-scraps.en.xhtml:16
 msgid "Then, your scrap will be listed on profile&#8217;s wall"
 msgstr ""
 
-# type: Content of: <ul><li>
 #. type: Content of: <ul><li>
 #: doc/noosfero/user/sending-scraps.en.xhtml:20
 #: doc/noosfero/user/toc.en.xhtml:11
@@ -6726,7 +5946,6 @@ msgid ""
 "<a href=\"/doc/user/answering-scraps\">Answering scraps sent by friends</a>"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/user/editing-sideboxes.en.xhtml:2
 msgid ""
@@ -6734,13 +5953,11 @@ msgid ""
 "on it.</em>"
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/user/editing-sideboxes.en.xhtml:12
 msgid "Edit sideboxes on user control panel"
 msgstr ""
 
-# type: Content of: <ol><li><ul><li>
 #. type: Content of: <ol><li><ul><li>
 #: doc/noosfero/user/editing-sideboxes.en.xhtml:25
 msgid ""
@@ -6749,13 +5966,11 @@ msgid ""
 "is going to be displayed in the block."
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><ul><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><ul><li><img>
 #: doc/noosfero/user/editing-sideboxes.en.xhtml:25
 msgid "Article block"
 msgstr ""
 
-# type: Content of: <ol><li><ul><li>
 #. type: Content of: <ol><li><ul><li>
 #: doc/noosfero/user/editing-sideboxes.en.xhtml:26
 msgid ""
@@ -6773,7 +5988,6 @@ msgid ""
 "will be replaced by your identifier."
 msgstr ""
 
-# type: Content of: <ol><li><ul><li>
 #. type: Content of: <ol><li><ul><li>
 #: doc/noosfero/user/editing-sideboxes.en.xhtml:29
 msgid ""
@@ -6781,7 +5995,6 @@ msgid ""
 "world."
 msgstr ""
 
-# type: Content of: <ol><li><ul><li>
 #. type: Content of: <ol><li><ul><li>
 #: doc/noosfero/user/editing-sideboxes.en.xhtml:30
 msgid ""
@@ -6789,13 +6002,11 @@ msgid ""
 "friends will be displayed."
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><ul><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><ul><li><img>
 #: doc/noosfero/user/editing-sideboxes.en.xhtml:30
 msgid "Friends block"
 msgstr ""
 
-# type: Content of: <ol><li><ul><li>
 #. type: Content of: <ol><li><ul><li>
 #: doc/noosfero/user/editing-sideboxes.en.xhtml:31
 msgid ""
@@ -6803,13 +6014,11 @@ msgid ""
 "a member. You can choose how many communities will be displayed."
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><ul><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><ul><li><img>
 #: doc/noosfero/user/editing-sideboxes.en.xhtml:31
 msgid "Communities block"
 msgstr ""
 
-# type: Content of: <ol><li><ul><li>
 #. type: Content of: <ol><li><ul><li>
 #: doc/noosfero/user/editing-sideboxes.en.xhtml:32
 msgid ""
@@ -6818,7 +6027,6 @@ msgid ""
 "choose how many tags will be displayed."
 msgstr ""
 
-# type: Content of: <ol><li><ul><li>
 #. type: Content of: <ol><li><ul><li>
 #: doc/noosfero/user/editing-sideboxes.en.xhtml:33
 msgid ""
@@ -6827,7 +6035,6 @@ msgid ""
 "environment and useful links."
 msgstr ""
 
-# type: Content of: <ol><li><ul><li>
 #. type: Content of: <ol><li><ul><li>
 #: doc/noosfero/user/editing-sideboxes.en.xhtml:34
 msgid ""
@@ -6835,19 +6042,16 @@ msgid ""
 "networking."
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><ul><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><ul><li><img>
 #: doc/noosfero/user/editing-sideboxes.en.xhtml:34
 msgid "User network block"
 msgstr ""
 
-# type: Content of: <ol><li><ul><li>
 #. type: Content of: <ol><li><ul><li>
 #: doc/noosfero/user/editing-sideboxes.en.xhtml:35
 msgid "<strong>Profile Image:</strong> This block presents the profile image."
 msgstr ""
 
-# type: Content of: <ol><li><ul><li>
 #. type: Content of: <ol><li><ul><li>
 #: doc/noosfero/user/editing-sideboxes.en.xhtml:36
 msgid ""
@@ -6856,7 +6060,6 @@ msgid ""
 "gallery will be displayed."
 msgstr ""
 
-# type: Content of: <ol><li><ul><li>
 #. type: Content of: <ol><li><ul><li>
 #: doc/noosfero/user/editing-sideboxes.en.xhtml:37
 msgid ""
@@ -6864,13 +6067,11 @@ msgid ""
 "can choose how many enterprises will be listed."
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><ul><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><ul><li><img>
 #: doc/noosfero/user/editing-sideboxes.en.xhtml:37
 msgid "Favorite enterprises block"
 msgstr ""
 
-# type: Content of: <ol><li><ul><li>
 #. type: Content of: <ol><li><ul><li>
 #: doc/noosfero/user/editing-sideboxes.en.xhtml:38
 msgid ""
@@ -6878,20 +6079,17 @@ msgid ""
 "the user is a member. You can choose how many enterprises will be listed."
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><ul><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><ul><li><img>
 #: doc/noosfero/user/editing-sideboxes.en.xhtml:38
 msgid "Enterprises block"
 msgstr ""
 
-# type: Content of: <ul><li>
 #. type: Content of: <ul><li>
 #: doc/noosfero/user/editing-sideboxes.en.xhtml:65
 #: doc/noosfero/user/toc.en.xhtml:20
 msgid "<a href=\"/doc/user/editing-appearance\">Editing appearance</a>"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/user/invite-contacts.en.xhtml:2
 msgid ""
@@ -6901,7 +6099,6 @@ msgid ""
 "invitation on his e-mail.</em>"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/user/invite-contacts.en.xhtml:16
 msgid ""
@@ -6913,37 +6110,31 @@ msgstr ""
 msgid "User&#39;s friends list"
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><ul><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><ul><li><img>
 #: doc/noosfero/user/invite-contacts.en.xhtml:20
 msgid "Manually invitation for user. Step 1"
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><ul><li><ul><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><ul><li><ul><li><img>
 #: doc/noosfero/user/invite-contacts.en.xhtml:23
 msgid "Manually invitation for user. Step 2"
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><ul><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><ul><li><img>
 #: doc/noosfero/user/invite-contacts.en.xhtml:25
 msgid "Import invitation for user. Step 1"
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><ul><li><ul><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><ul><li><ul><li><img>
 #: doc/noosfero/user/invite-contacts.en.xhtml:29
 msgid "Import invitation for user. Step 2"
 msgstr ""
 
-# type: Content of: <h1>
 #. type: Content of: <h1>
 #: doc/noosfero/user/sending-messages.en.xhtml:1
 msgid "Sending messages"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/user/sending-messages.en.xhtml:2
 msgid ""
@@ -6951,7 +6142,6 @@ msgid ""
 "system. The messages will be received by email.</em>"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/user/sending-messages.en.xhtml:10
 msgid ""
@@ -6959,7 +6149,6 @@ msgid ""
 "searching-people\">search</a> and click to view his/her profile."
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/user/sending-messages.en.xhtml:11
 msgid ""
@@ -6967,13 +6156,11 @@ msgid ""
 "picture if you are logged in and you are friend of the person in the system."
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/user/sending-messages.en.xhtml:12
 msgid "Contact button"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/user/sending-messages.en.xhtml:15
 msgid ""
@@ -6982,7 +6169,6 @@ msgid ""
 "don&#8217;t fill them."
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/user/sending-messages.en.xhtml:16
 msgid ""
@@ -6991,19 +6177,16 @@ msgid ""
 "option &#8220;I want to receive a copy of the message in my e-mail.&#8221;."
 msgstr ""
 
-# type: Attribute 'alt' of: <div><img>
 #. type: Attribute 'alt' of: <p><img>
 #: doc/noosfero/user/sending-messages.en.xhtml:17
 msgid "Send message"
 msgstr ""
 
-# type: Content of: <h1>
 #. type: Content of: <h1>
 #: doc/noosfero/user/deleting-profile.en.xhtml:1
 msgid "Deleting a profile"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/user/deleting-profile.en.xhtml:2
 msgid ""
@@ -7011,7 +6194,6 @@ msgid ""
 "the environment anymore.</em>"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/user/deleting-profile.en.xhtml:16
 msgid ""
@@ -7019,13 +6201,11 @@ msgid ""
 "Delete profile&#8221; button below the privacy options"
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/user/deleting-profile.en.xhtml:16
 msgid "Delete profile link"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/user/deleting-profile.en.xhtml:17
 msgid ""
@@ -7033,19 +6213,16 @@ msgid ""
 "the profile, click on &#8220;Yes, I am sure&#8221;"
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/user/deleting-profile.en.xhtml:17
 msgid "Delete profile confirmation"
 msgstr ""
 
-# type: Content of: <h1>
 #. type: Content of: <h1>
 #: doc/noosfero/user/removing-comments.en.xhtml:1
 msgid "Removing comments"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/user/removing-comments.en.xhtml:2
 msgid ""
@@ -7054,7 +6231,6 @@ msgid ""
 "the unwanted comments posted on it.</em>"
 msgstr ""
 
-# type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/user/removing-comments.en.xhtml:9
 msgid ""
@@ -7062,7 +6238,6 @@ msgid ""
 "the comments. The comments are listed below the article/picture/event"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/user/removing-comments.en.xhtml:12
 msgid ""
@@ -7070,13 +6245,11 @@ msgid ""
 "icon. To delete one, click on the trash icon."
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/user/removing-comments.en.xhtml:12
 msgid "Comments"
 msgstr ""
 
-# type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/user/removing-comments.en.xhtml:13
 msgid ""
@@ -7084,89 +6257,75 @@ msgid ""
 "button, the comment will be removed"
 msgstr ""
 
-# type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/user/removing-comments.en.xhtml:13
 msgid "Remove comment confirmation"
 msgstr ""
 
-# type: Content of: <ul><li>
 #. type: Content of: <ul><li>
 #: doc/noosfero/user/removing-comments.en.xhtml:18
 msgid ""
 "<a href=\"/doc/user/commenting\">Commenting articles, pictures and events</a>"
 msgstr ""
 
-# type: Content of: <ul><li>
 #. type: Content of: <ul><li>
 #: doc/noosfero/community/toc.en.xhtml:5
 msgid ""
 "<a href=\"/doc/community/invite-contacts\">Inviting contacts from e-mail</a>"
 msgstr ""
 
-# type: Content of: <ul><li>
 #. type: Content of: <ul><li>
 #: doc/noosfero/community/toc.en.xhtml:6
 msgid ""
 "<a href=\"/doc/community/send-email-members\">Sending e-mail to members</a>"
 msgstr ""
 
-# type: Content of: <ul><li>
 #. type: Content of: <ul><li>
 #: doc/noosfero/community/toc.en.xhtml:7
 msgid "<a href=\"/doc/community/accepting-members\">Accepting new members</a>"
 msgstr ""
 
-# type: Content of: <ul><li>
 #. type: Content of: <ul><li>
 #: doc/noosfero/community/toc.en.xhtml:8
 msgid "<a href=\"/doc/community/moderating-articles\">Moderating articles</a>"
 msgstr ""
 
-# type: Content of: <ul><li>
 #. type: Content of: <ul><li>
 #: doc/noosfero/community/toc.en.xhtml:10
 msgid "<a href=\"/doc/community/editing-sideboxes\">Editing sideboxes</a>"
 msgstr ""
 
-# type: Content of: <ul><li>
 #. type: Content of: <ul><li>
 #: doc/noosfero/plugins/toc.en.xhtml:3
 msgid "<a href=\"/doc/plugins/send_email\">SendEmailPlugin</a>"
 msgstr ""
 
-# type: Content of: <ul><li>
 #. type: Content of: <ul><li>
 #: doc/noosfero/plugins/toc.en.xhtml:4
 msgid "<a href=\"/doc/plugins/google_analytics\">Google Analytics</a>"
 msgstr ""
 
-# type: Content of: <ul><li>
 #. type: Content of: <ul><li>
 #: doc/noosfero/plugins/toc.en.xhtml:5
 msgid "<a href=\"/doc/plugins/google_cse\">GoogleCsePlugin</a>"
 msgstr ""
 
-# type: Content of: <ul><li>
 #. type: Content of: <ul><li>
 #: doc/noosfero/plugins/toc.en.xhtml:6
 msgid "<a href=\"/doc/plugins/shopping_cart\">Shopping Cart</a>"
 msgstr ""
 
-# type: Content of: <ul><li>
 #. type: Content of: <ul><li>
 #: doc/noosfero/cms/toc.en.xhtml:4
 msgid "<a href=\"/doc/cms/spreading-articles\">Spreading articles</a>"
 msgstr ""
 
-# type: Content of: <ul><li>
 #. type: Content of: <ul><li>
 #: doc/noosfero/cms/toc.en.xhtml:5
 msgid ""
 "<a href=\"/doc/cms/adding-images-to-gallery\">Adding pictures to gallery</a>"
 msgstr ""
 
-# type: Content of: <ul><li>
 #. type: Content of: <ul><li>
 #: doc/noosfero/cms/toc.en.xhtml:8
 msgid ""
@@ -7174,7 +6333,6 @@ msgid ""
 "(inserting images, links, videos and audio)</a>"
 msgstr ""
 
-# type: Content of: <ul><li>
 #. type: Content of: <ul><li>
 #: doc/noosfero/navigation/toc.en.xhtml:7
 msgid ""
@@ -7182,7 +6340,6 @@ msgid ""
 "people</a>"
 msgstr ""
 
-# type: Content of: <ul><li>
 #. type: Content of: <ul><li>
 #: doc/noosfero/navigation/toc.en.xhtml:8
 msgid ""
@@ -7190,37 +6347,31 @@ msgid ""
 "active communities</a>"
 msgstr ""
 
-# type: Content of: <ul><li>
 #. type: Content of: <ul><li>
 #: doc/noosfero/navigation/toc.en.xhtml:11
 msgid "<a href=\"/doc/navigation/person-balloon\">Person balloon</a>"
 msgstr ""
 
-# type: Content of: <ul><li>
 #. type: Content of: <ul><li>
 #: doc/noosfero/navigation/toc.en.xhtml:12
 msgid "<a href=\"/doc/navigation/community-balloon\">Community balloon</a>"
 msgstr ""
 
-# type: Content of: <ul><li>
 #. type: Content of: <ul><li>
 #: doc/noosfero/navigation/toc.en.xhtml:14
 msgid "<a href=\"/doc/navigation/searching\">Searching on the system</a>"
 msgstr ""
 
-# type: Content of: <ul><li>
 #. type: Content of: <ul><li>
 #: doc/noosfero/admin/toc.en.xhtml:3
 msgid "<a href=\"/doc/admin/send-email-members\">Sending e-mail to members</a>"
 msgstr ""
 
-# type: Content of: <ul><li>
 #. type: Content of: <ul><li>
 #: doc/noosfero/admin/toc.en.xhtml:4
 msgid "<a href=\"/doc/admin/export-users-list\">Export the list of users</a>"
 msgstr ""
 
-# type: Content of: <ul><li>
 #. type: Content of: <ul><li>
 #: doc/noosfero/enterprise/toc.en.xhtml:4
 msgid ""
@@ -7228,7 +6379,6 @@ msgid ""
 "members to an enterprise</a>"
 msgstr ""
 
-# type: Content of: <ul><li>
 #. type: Content of: <ul><li>
 #: doc/noosfero/enterprise/toc.en.xhtml:5
 msgid ""
@@ -7236,44 +6386,37 @@ msgid ""
 "a>"
 msgstr ""
 
-# type: Content of: <ul><li>
 #. type: Content of: <ul><li>
 #: doc/noosfero/enterprise/toc.en.xhtml:7
 msgid "<a href=\"/doc/enterprise/editing-sideboxes\">Editing sideboxes</a>"
 msgstr ""
 
-# type: Content of: <ul><li>
 #. type: Content of: <ul><li>
 #: doc/noosfero/enterprise/toc.en.xhtml:10
 msgid ""
 "<a href=\"/doc/enterprise/disabling-enterprise\">Disabling an enterprise</a>"
 msgstr ""
 
-# type: Content of: <ul><li>
 #. type: Content of: <ul><li>
 #: doc/noosfero/user/toc.en.xhtml:4
 msgid "<a href=\"/doc/user/deleting-profile\">Deleting a profile</a>"
 msgstr ""
 
-# type: Content of: <ul><li>
 #. type: Content of: <ul><li>
 #: doc/noosfero/user/toc.en.xhtml:6
 msgid "<a href=\"/doc/user/editing-person-info\">Editing user settings</a>"
 msgstr ""
 
-# type: Content of: <ul><li>
 #. type: Content of: <ul><li>
 #: doc/noosfero/user/toc.en.xhtml:7
 msgid "<a href=\"/doc/user/logout\">Leaving the system</a>"
 msgstr ""
 
-# type: Content of: <ul><li>
 #. type: Content of: <ul><li>
 #: doc/noosfero/user/toc.en.xhtml:8
 msgid "<a href=\"/doc/user/invite-contacts\">Inviting contacts from e-mail</a>"
 msgstr ""
 
-# type: Content of: <ul><li>
 #. type: Content of: <ul><li>
 #: doc/noosfero/user/toc.en.xhtml:13
 msgid ""
@@ -7281,73 +6424,61 @@ msgid ""
 "activities</a>"
 msgstr ""
 
-# type: Content of: <ul><li>
 #. type: Content of: <ul><li>
 #: doc/noosfero/user/toc.en.xhtml:14
 msgid "<a href=\"/doc/user/commenting\">Commenting articles</a>"
 msgstr ""
 
-# type: Content of: <ul><li>
 #. type: Content of: <ul><li>
 #: doc/noosfero/user/toc.en.xhtml:15
 msgid "<a href=\"/doc/user/removing-comments\">Removing comments</a>"
 msgstr ""
 
-# type: Content of: <ul><li>
 #. type: Content of: <ul><li>
 #: doc/noosfero/user/toc.en.xhtml:16
 msgid "<a href=\"/doc/user/sending-messages\">Sending messages</a>"
 msgstr ""
 
-# type: Content of: <ul><li>
 #. type: Content of: <ul><li>
 #: doc/noosfero/user/toc.en.xhtml:17
 msgid "<a href=\"/doc/user/editing-sideboxes\">Editing sideboxes</a>"
 msgstr ""
 
-# type: Content of: <ul><li>
 #. type: Content of: <ul><li>
 #: doc/noosfero/user/toc.en.xhtml:18
 msgid "<a href=\"/doc/user/changing-password\">Changing password</a>"
 msgstr ""
 
-# type: Content of: <ul><li>
 #. type: Content of: <ul><li>
 #: doc/noosfero/toc.en.xhtml:3
 msgid "<a href=\"/doc/community\">Community features</a>"
 msgstr ""
 
-# type: Content of: <ul><li>
 #. type: Content of: <ul><li>
 #: doc/noosfero/toc.en.xhtml:4
 msgid "<a href=\"/doc/plugins\">Plugins</a>"
 msgstr ""
 
-# type: Content of: <ul><li>
 #. type: Content of: <ul><li>
 #: doc/noosfero/toc.en.xhtml:5
 msgid "<a href=\"/doc/cms\">Content Management</a>"
 msgstr ""
 
-# type: Content of: <ul><li>
 #. type: Content of: <ul><li>
 #: doc/noosfero/toc.en.xhtml:6
 msgid "<a href=\"/doc/navigation\">Navigation</a>"
 msgstr ""
 
-# type: Content of: <ul><li>
 #. type: Content of: <ul><li>
 #: doc/noosfero/toc.en.xhtml:7
 msgid "<a href=\"/doc/admin\">Admin features</a>"
 msgstr ""
 
-# type: Content of: <ul><li>
 #. type: Content of: <ul><li>
 #: doc/noosfero/toc.en.xhtml:8
 msgid "<a href=\"/doc/enterprise\">Enterprise features</a>"
 msgstr ""
 
-# type: Content of: <ul><li>
 #. type: Content of: <ul><li>
 #: doc/noosfero/toc.en.xhtml:9
 msgid "<a href=\"/doc/user\">User features</a>"
