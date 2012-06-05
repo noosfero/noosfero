@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2012-06-05 11:12-0300\n"
-"PO-Revision-Date: 2012-06-05 11:37-0300\n"
+"POT-Creation-Date: 2012-06-05 11:38-0300\n"
+"PO-Revision-Date: 2012-06-05 11:44-0300\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
 "Language: \n"
@@ -544,6 +544,7 @@ msgstr "Lista de grupos com permissão de gerenciar empreendimento"
 #: doc/noosfero/user/logout.en.xhtml:13
 #: doc/noosfero/user/editing-person-info.en.xhtml:13
 #: doc/noosfero/user/login.en.xhtml:10
+#: doc/noosfero/user/commenting.en.xhtml:13
 #: doc/noosfero/user/removing-friends.en.xhtml:14
 #: doc/noosfero/user/sending-scraps.en.xhtml:13
 #: doc/noosfero/user/editing-sideboxes.en.xhtml:14
@@ -583,7 +584,6 @@ msgstr ""
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/community/send-email-members.en.xhtml:19
 #: doc/noosfero/community/invite-contacts.en.xhtml:19
-#| msgid "Community's members list"
 msgid "Community&#39;s members list"
 msgstr "Lista de integrantes da comunidade"
 
@@ -646,13 +646,13 @@ msgstr "Enviando e-mail para os membros da comunidade"
 #: doc/noosfero/enterprise/editing-sideboxes.en.xhtml:63
 #: doc/noosfero/user/viewing-profiles-activity.en.xhtml:15
 #: doc/noosfero/user/editing-appearance.en.xhtml:25
-#: doc/noosfero/user/editing-header-footer.en.xhtml:51
+#: doc/noosfero/user/editing-header-footer.en.xhtml:50
 #: doc/noosfero/user/adding-friends.en.xhtml:15
 #: doc/noosfero/user/changing-password.en.xhtml:22
 #: doc/noosfero/user/registering-new-user.en.xhtml:23
 #: doc/noosfero/user/answering-scraps.en.xhtml:19
 #: doc/noosfero/user/logout.en.xhtml:15
-#: doc/noosfero/user/editing-person-info.en.xhtml:26
+#: doc/noosfero/user/editing-person-info.en.xhtml:25
 #: doc/noosfero/user/login.en.xhtml:15
 #: doc/noosfero/user/commenting.en.xhtml:20
 #: doc/noosfero/user/removing-friends.en.xhtml:22
@@ -738,14 +738,14 @@ msgstr "<a href=\"/doc/community/accepting-members\">Aceitar integrantes</a>"
 #: doc/noosfero/enterprise/editing-sideboxes.en.xhtml:68
 #: doc/noosfero/user/viewing-profiles-activity.en.xhtml:21
 #: doc/noosfero/user/editing-appearance.en.xhtml:31
-#: doc/noosfero/user/editing-header-footer.en.xhtml:56
+#: doc/noosfero/user/editing-header-footer.en.xhtml:55
 #: doc/noosfero/user/adding-friends.en.xhtml:21
 #: doc/noosfero/user/changing-password.en.xhtml:27
 #: doc/noosfero/user/accepting-friends.en.xhtml:25
 #: doc/noosfero/user/registering-new-user.en.xhtml:30
 #: doc/noosfero/user/answering-scraps.en.xhtml:26
 #: doc/noosfero/user/logout.en.xhtml:19
-#: doc/noosfero/user/editing-person-info.en.xhtml:30
+#: doc/noosfero/user/editing-person-info.en.xhtml:29
 #: doc/noosfero/user/login.en.xhtml:20
 #: doc/noosfero/user/commenting.en.xhtml:24
 #: doc/noosfero/user/removing-friends.en.xhtml:27
@@ -881,7 +881,6 @@ msgstr "Lista de grupos com permissão de gerenciar comunidade"
 #: doc/noosfero/community/editing-appearance.en.xhtml:14
 #: doc/noosfero/enterprise/editing-appearance.en.xhtml:14
 #: doc/noosfero/user/editing-appearance.en.xhtml:12
-#| msgid "Then, click on &#8220;Edit Appearance:"
 msgid "Then, click on &quot;Edit Appearance:"
 msgstr "Depois, clique em &#8220;Editar Aparência&#8221;:"
 
@@ -962,10 +961,10 @@ msgstr "Editar aparência"
 #: doc/noosfero/enterprise/editing-enterprise-info.en.xhtml:37
 #: doc/noosfero/enterprise/disabling-enterprise.en.xhtml:24
 #: doc/noosfero/user/editing-appearance.en.xhtml:27
-#: doc/noosfero/user/editing-header-footer.en.xhtml:53
+#: doc/noosfero/user/editing-header-footer.en.xhtml:52
 #: doc/noosfero/user/changing-password.en.xhtml:24
 #: doc/noosfero/user/logout.en.xhtml:17
-#: doc/noosfero/user/editing-person-info.en.xhtml:28
+#: doc/noosfero/user/editing-person-info.en.xhtml:27
 #: doc/noosfero/user/commenting.en.xhtml:22
 #: doc/noosfero/user/deleting-profile.en.xhtml:22
 #: doc/noosfero/user/removing-comments.en.xhtml:17
@@ -980,7 +979,7 @@ msgstr "<a href=\"/doc/user/login\">Entrar no sistema</a>"
 #: doc/noosfero/enterprise/editing-appearance.en.xhtml:30
 #: doc/noosfero/enterprise/editing-header-footer.en.xhtml:55
 #: doc/noosfero/user/editing-appearance.en.xhtml:28
-#: doc/noosfero/user/editing-header-footer.en.xhtml:54
+#: doc/noosfero/user/editing-header-footer.en.xhtml:53
 #: doc/noosfero/user/changing-password.en.xhtml:25
 #: doc/noosfero/user/login.en.xhtml:18
 msgid "<a href=\"/doc/user/logout\">Logout of the system</a>"
@@ -1094,7 +1093,7 @@ msgstr ""
 #: doc/noosfero/enterprise/editing-header-footer.en.xhtml:1
 #: doc/noosfero/enterprise/editing-header-footer.en.xhtml:50
 #: doc/noosfero/user/editing-header-footer.en.xhtml:1
-#: doc/noosfero/user/editing-header-footer.en.xhtml:49
+#: doc/noosfero/user/editing-header-footer.en.xhtml:48
 msgid "Editing header and footer"
 msgstr "Editando cabeçalho e rodapé"
 
@@ -1328,11 +1327,6 @@ msgstr ""
 #: doc/noosfero/community/editing-header-footer.en.xhtml:34
 #: doc/noosfero/cms/writing-article.en.xhtml:46
 #: doc/noosfero/enterprise/editing-header-footer.en.xhtml:34
-#| msgid ""
-#| "<strong>Underline:</strong> it is also used to emphasize a word/phrase. "
-#| "One line is drawn under the word. Example: <span style=\"text-decoration:"
-#| "underline;;\">home</span> . To use it, first you should select the word/"
-#| "phrase and then click on button"
 msgid ""
 "<strong>Underline:</strong> it is also used to emphasize a word/phrase. One "
 "line is drawn under the word. Example: <span style=\"text-decoration:"
@@ -1349,12 +1343,7 @@ msgstr ""
 #: doc/noosfero/community/editing-header-footer.en.xhtml:35
 #: doc/noosfero/cms/writing-article.en.xhtml:47
 #: doc/noosfero/enterprise/editing-header-footer.en.xhtml:35
-#: doc/noosfero/user/editing-header-footer.en.xhtml:34
-#| msgid ""
-#| "<strong>Strikethrough:</strong> one line in drawn in the middle of word/"
-#| "phrase Example: <span style=\"text-decoration:line-through;;\">home</"
-#| "span> . To use it, first you should select the word/phrase and then click "
-#| "on button"
+#: doc/noosfero/user/editing-header-footer.en.xhtml:33
 msgid ""
 "<strong>Strikethrough:</strong> one line in drawn in the middle of word/"
 "phrase Example: <span style=\"text-decoration:line-through;\">home</span> . "
@@ -1369,7 +1358,7 @@ msgstr ""
 #: doc/noosfero/community/editing-header-footer.en.xhtml:36
 #: doc/noosfero/cms/writing-article.en.xhtml:48
 #: doc/noosfero/enterprise/editing-header-footer.en.xhtml:36
-#: doc/noosfero/user/editing-header-footer.en.xhtml:35
+#: doc/noosfero/user/editing-header-footer.en.xhtml:34
 msgid ""
 "<strong>Unordered list:</strong> it creates a list, inserting a small ball "
 "before each item."
@@ -1382,7 +1371,7 @@ msgstr ""
 #: doc/noosfero/community/editing-header-footer.en.xhtml:37
 #: doc/noosfero/cms/writing-article.en.xhtml:49
 #: doc/noosfero/enterprise/editing-header-footer.en.xhtml:37
-#: doc/noosfero/user/editing-header-footer.en.xhtml:36
+#: doc/noosfero/user/editing-header-footer.en.xhtml:35
 msgid ""
 "<strong>Ordered list</strong> it creates a numbered list, adding a number "
 "before each item."
@@ -1395,7 +1384,7 @@ msgstr ""
 #: doc/noosfero/community/editing-header-footer.en.xhtml:38
 #: doc/noosfero/cms/writing-article.en.xhtml:50
 #: doc/noosfero/enterprise/editing-header-footer.en.xhtml:38
-#: doc/noosfero/user/editing-header-footer.en.xhtml:37
+#: doc/noosfero/user/editing-header-footer.en.xhtml:36
 msgid ""
 "<strong>Align left:</strong> use this button if you want your text to be "
 "left aligned. In this case, the right border of each line will be misaligned"
@@ -1409,7 +1398,7 @@ msgstr ""
 #: doc/noosfero/community/editing-header-footer.en.xhtml:39
 #: doc/noosfero/cms/writing-article.en.xhtml:51
 #: doc/noosfero/enterprise/editing-header-footer.en.xhtml:39
-#: doc/noosfero/user/editing-header-footer.en.xhtml:38
+#: doc/noosfero/user/editing-header-footer.en.xhtml:37
 msgid ""
 "<strong>Align center</strong> the alignment of the text is based on the "
 "center of the text. In this case, the left and right borders will be "
@@ -1424,7 +1413,7 @@ msgstr ""
 #: doc/noosfero/community/editing-header-footer.en.xhtml:40
 #: doc/noosfero/cms/writing-article.en.xhtml:52
 #: doc/noosfero/enterprise/editing-header-footer.en.xhtml:40
-#: doc/noosfero/user/editing-header-footer.en.xhtml:39
+#: doc/noosfero/user/editing-header-footer.en.xhtml:38
 msgid ""
 "<strong>Align right:</strong> use this button if you want your text to be "
 "right aligned. In this case, the left border of each line will be misaligned"
@@ -1438,7 +1427,7 @@ msgstr ""
 #: doc/noosfero/community/editing-header-footer.en.xhtml:41
 #: doc/noosfero/cms/writing-article.en.xhtml:53
 #: doc/noosfero/enterprise/editing-header-footer.en.xhtml:41
-#: doc/noosfero/user/editing-header-footer.en.xhtml:40
+#: doc/noosfero/user/editing-header-footer.en.xhtml:39
 msgid ""
 "<strong>Align full:</strong> use this button if you want your text to be "
 "aligned in both sides. In this case, the left and right borders of each line "
@@ -1452,7 +1441,7 @@ msgstr ""
 #: doc/noosfero/community/editing-header-footer.en.xhtml:42
 #: doc/noosfero/cms/writing-article.en.xhtml:54
 #: doc/noosfero/enterprise/editing-header-footer.en.xhtml:42
-#: doc/noosfero/user/editing-header-footer.en.xhtml:41
+#: doc/noosfero/user/editing-header-footer.en.xhtml:40
 msgid ""
 "<strong>Insert/edit link:</strong> use it when you want to insert or edit a "
 "link to some address"
@@ -1465,7 +1454,7 @@ msgstr ""
 #: doc/noosfero/community/editing-header-footer.en.xhtml:43
 #: doc/noosfero/cms/writing-article.en.xhtml:55
 #: doc/noosfero/enterprise/editing-header-footer.en.xhtml:43
-#: doc/noosfero/user/editing-header-footer.en.xhtml:42
+#: doc/noosfero/user/editing-header-footer.en.xhtml:41
 msgid ""
 "<strong>Unlink:</strong> if you have a link in your text, click on this "
 "button to remove the link"
@@ -1478,7 +1467,7 @@ msgstr ""
 #: doc/noosfero/community/editing-header-footer.en.xhtml:44
 #: doc/noosfero/cms/writing-article.en.xhtml:56
 #: doc/noosfero/enterprise/editing-header-footer.en.xhtml:44
-#: doc/noosfero/user/editing-header-footer.en.xhtml:43
+#: doc/noosfero/user/editing-header-footer.en.xhtml:42
 msgid ""
 "<strong>Insert/edit image:</strong> use it if you want to insert an image or "
 "to edit an image that is in your text"
@@ -1492,7 +1481,7 @@ msgstr ""
 #: doc/noosfero/community/editing-header-footer.en.xhtml:45
 #: doc/noosfero/cms/writing-article.en.xhtml:57
 #: doc/noosfero/enterprise/editing-header-footer.en.xhtml:45
-#: doc/noosfero/user/editing-header-footer.en.xhtml:44
+#: doc/noosfero/user/editing-header-footer.en.xhtml:43
 msgid ""
 "<strong>Inserts a new table:</strong> use it to insert a table in your text"
 msgstr ""
@@ -1504,7 +1493,7 @@ msgstr ""
 #: doc/noosfero/community/editing-header-footer.en.xhtml:46
 #: doc/noosfero/cms/writing-article.en.xhtml:58
 #: doc/noosfero/enterprise/editing-header-footer.en.xhtml:46
-#: doc/noosfero/user/editing-header-footer.en.xhtml:45
+#: doc/noosfero/user/editing-header-footer.en.xhtml:44
 msgid ""
 "<strong>Cleanup messy code:</strong> click on this button to remove bad "
 "<span class=\"caps\">HTML</span> code. You should use it after pasting a "
@@ -1518,7 +1507,7 @@ msgstr ""
 #. type: Content of: <ol><li><ol><li><ol><li>
 #: doc/noosfero/community/editing-header-footer.en.xhtml:47
 #: doc/noosfero/enterprise/editing-header-footer.en.xhtml:47
-#: doc/noosfero/user/editing-header-footer.en.xhtml:46
+#: doc/noosfero/user/editing-header-footer.en.xhtml:45
 msgid ""
 "<strong>Edit <span class=\"caps\">HTML</span> source:</strong> the text "
 "written in this editor is transformed in <span class=\"caps\">HTML</span> "
@@ -1534,7 +1523,7 @@ msgstr ""
 #. type: Content of: <ol><li>
 #: doc/noosfero/community/editing-header-footer.en.xhtml:50
 #: doc/noosfero/enterprise/editing-header-footer.en.xhtml:50
-#: doc/noosfero/user/editing-header-footer.en.xhtml:49
+#: doc/noosfero/user/editing-header-footer.en.xhtml:48
 msgid ""
 "After editing your header and footer, click on &#8220;Save&#8221; button"
 msgstr ""
@@ -1573,7 +1562,6 @@ msgstr ""
 #: doc/noosfero/user/sending-scraps.en.xhtml:6
 #: doc/noosfero/user/sending-messages.en.xhtml:6
 #: doc/noosfero/user/removing-comments.en.xhtml:6
-#| msgid "<a href=\"#RelatedTopics\">Related Topics</a>"
 msgid "<a href=\"#relatedtopics\">Related Topics</a>"
 msgstr "<a href=\"#relatedtopics\">Tópicos Relacionados</a>"
 
@@ -1602,9 +1590,6 @@ msgstr ""
 # type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/community/joining-community.en.xhtml:13
-#| msgid ""
-#| "In community&#8217;s page, click on &#8221;+ Join&#8221; button below "
-#| "community&#8217;s image."
 msgid ""
 "In community&#8217;s page, click on &#8220;+ Join&#8221; button below "
 "community&#8217;s image."
@@ -1816,12 +1801,6 @@ msgstr "Bloco de conteúdos recentes"
 # type: Content of: <ol><li><ul><li>
 #. type: Content of: <ol><li><ul><li>
 #: doc/noosfero/community/editing-sideboxes.en.xhtml:29
-#| msgid ""
-#| "<strong>Links (static menu):</strong> You can use it to create a menu of "
-#| "links. You can add, remove and update the links as you wish. If you want "
-#| "a link to the community&#8217;s blog, for example, you should type "
-#| "&#8221;/{profile}/blog&#8221; on the field &#8220;Address&#8221;. The "
-#| "&#8220;{profile}&#8221; will be replaced by your identifier."
 msgid ""
 "<strong>Links (static menu):</strong> You can use it to create a menu of "
 "links. You can add, remove and update the links as you wish. If you want a "
@@ -2456,12 +2435,8 @@ msgstr ""
 # type: Content of: <p>
 #. type: Content of: <h2>
 #: doc/noosfero/plugins/send_email.en.xhtml:9
-#| msgid ""
-#| "Ajax is supported using #ajax-form as id of <span class=\"caps\">HTML</"
-#| "span> form."
 msgid "<span class=\"caps\">HTML</span> form"
-msgstr ""
-"formulário <span class=\"caps\">HTML</span>"
+msgstr "formulário <span class=\"caps\">HTML</span>"
 
 # type: Content of: <h3>
 #. type: Content of: <h3>
@@ -2576,8 +2551,7 @@ msgstr "Utilizando ajax"
 msgid ""
 "Ajax is supported using #ajax-form as id of <span class=\"caps\">HTML</span> "
 "form."
-msgstr ""
-"Ajax é suportado utilizando #ajax-form como 'id' do "
+msgstr "Ajax é suportado utilizando #ajax-form como 'id' do "
 
 # type: Content of: <p>
 #. type: Content of: <p>
@@ -2588,7 +2562,7 @@ msgstr "Exemplo"
 # type: Content of: <pre>
 #. type: Content of: <pre>
 #: doc/noosfero/plugins/send_email.en.xhtml:32
-#| msgid "&lt;form action='{sendemail}' id='ajax-form'&gt; &lt;input type='text' name='to'/&gt; &lt;input type='text' name='subject'/&gt; &lt;input type='text' name='message'/&gt; &lt;input type='subject'/&gt; &lt;/form&gt;"
+#, no-wrap
 msgid ""
 "&lt;form action='{sendemail}' id='ajax-form'&gt;\n"
 "   &lt;input type='text' name='to'/&gt;\n"
@@ -2755,9 +2729,6 @@ msgstr ""
 # type: Content of: <ul><li>
 #. type: Content of: <ul><li>
 #: doc/noosfero/plugins/google_cse.en.xhtml:5
-#| msgid ""
-#| "Register a Google Custom Search ID at <a href=\"http://www.google.com/cse"
-#| "\">http://www.google.com/cse</a>"
 msgid "Register a Google Custom Search ID at http://www.google.com/cse"
 msgstr ""
 "Registre um ID para a busca customizada do Google em <a href=\"http://www."
@@ -2780,16 +2751,12 @@ msgstr "Configure o ambiente do Noosfero com esse ID"
 # type: Content of: <ul><li><ul><li>
 #. type: Content of: <ul><li><ul><li>
 #: doc/noosfero/plugins/google_cse.en.xhtml:9
-#| msgid ">> env = Environment.find( ... )"
 msgid "&gt;&gt; env = Environment.find( &#8230; )"
 msgstr ">> env = Environment.find( ... )"
 
 # type: Content of: <ul><li><ul><li>
 #. type: Content of: <ul><li><ul><li>
 #: doc/noosfero/plugins/google_cse.en.xhtml:10
-#| msgid ""
-#| ">> env.settings[:google_cse_id] = &#8217;&lt;PUT <span class=\"caps\">ID "
-#| "HERE</span>&gt;&#8217;"
 msgid ""
 "&gt;&gt; env.settings[:google_cse_id] = &#8216;&lt;<span class=\"caps\">PUT</"
 "span> ID <span class=\"caps\">HERE</span>&gt;&#8217;"
@@ -2800,7 +2767,6 @@ msgstr ""
 # type: Content of: <ul><li><ul><li>
 #. type: Content of: <ul><li><ul><li>
 #: doc/noosfero/plugins/google_cse.en.xhtml:11
-#| msgid ">> env.save!"
 msgid "&gt;&gt; env.save!"
 msgstr ">> env.save!"
 
@@ -2982,19 +2948,14 @@ msgstr ""
 # type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/plugins/shopping_cart.en.xhtml:27
-#| msgid ""
-#| "From now on, your cart will always be there until it gets empty or you "
-#| "choose to hide it.  If you want to add new products just do the same "
-#| "thing. If you try to add a product that&#8217;s already in your cart, it "
-#| "will add one to the quantity of that product."
 msgid ""
 "If you want to add new products just do the same thing. If you try to add a "
 "product that&#8217;s already in your cart, it will add one to the quantity "
 "of that product."
 msgstr ""
 "Se você quiser adicionar novos produtos basta fazer a mesma coisa. Se você "
-"tentar adicionar um produto que já está no seu carrinho, ele irá acrescentar"
-" em um a quantidade do produto."
+"tentar adicionar um produto que já está no seu carrinho, ele irá acrescentar "
+"em um a quantidade do produto."
 
 # type: Attribute 'alt' of: <ol><li><p><img>
 #. type: Attribute 'alt' of: <p><img>
@@ -4284,21 +4245,18 @@ msgstr ""
 # type: Content of: <ul><li><ul><li>
 #. type: Content of: <ul><li><ul><li>
 #: doc/noosfero/cms/writing-advanced-article.en.xhtml:7
-#| msgid "<a href=\"#InsertingLinks\">Inserting links</a>"
 msgid "<a href=\"#insertinglinks\">Inserting links</a>"
 msgstr "<a href=\"#insertinglinks\">Inserir links</a>"
 
 # type: Content of: <ul><li><ul><li>
 #. type: Content of: <ul><li><ul><li>
 #: doc/noosfero/cms/writing-advanced-article.en.xhtml:8
-#| msgid "<a href=\"#InsertingImages\">Inserting images</a>"
 msgid "<a href=\"#insertingimages\">Inserting images</a>"
 msgstr "<a href=\"#insertingimages\">Inserir imagens</a>"
 
 # type: Content of: <ul><li><ul><li>
 #. type: Content of: <ul><li><ul><li>
 #: doc/noosfero/cms/writing-advanced-article.en.xhtml:9
-#| msgid "<a href=\"#InsertingVideosAudio\">Inserting videos and audio</a>"
 msgid "<a href=\"#insertingvideosaudio\">Inserting videos and audio</a>"
 msgstr "<a href=\"#insertingvideosaudio\">Inserir vídeos e áudio</a>"
 
@@ -4494,7 +4452,6 @@ msgstr "Inserir vídeos e áudio"
 # type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/cms/writing-advanced-article.en.xhtml:55
-#| msgid "Click on &#8220;HTML&#8221; button"
 msgid "Click on &#8220;<span class=\"caps\">HTML</span>&#8221; button"
 msgstr "Clique no botão &#8220;HTML&#8221;:"
 
@@ -5808,9 +5765,6 @@ msgstr ""
 # type: Content of: <p>
 #. type: Content of: <p>
 #: doc/noosfero/admin/export-users-list.en.xhtml:14
-#| msgid ""
-#| "In &#8220;Manage users&#8221;, choose which format you want to export the "
-#| "list. There are 2 options, &#8220;CSV&#8221; and &#8220;XML&#8221;."
 msgid ""
 "In &#8220;Manage users&#8221;, choose which format you want to export the "
 "list. There are 2 options, &#8220;<span class=\"caps\">CSV</span>&#8221; and "
@@ -6265,7 +6219,7 @@ msgstr ""
 #. type: Attribute 'alt' of: <ol><li><ol><li><img>
 #: doc/noosfero/enterprise/editing-enterprise-info.en.xhtml:30
 #: doc/noosfero/enterprise/editing-enterprise-info.en.xhtml:32
-#: doc/noosfero/user/editing-person-info.en.xhtml:21
+#: doc/noosfero/user/editing-person-info.en.xhtml:20
 msgid "Privacy options when editing enterprise profile info"
 msgstr "Opções de privacidade na edição das informações do empreendimento"
 
@@ -6282,8 +6236,6 @@ msgstr ""
 # type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/enterprise/editing-enterprise-info.en.xhtml:33
-#| msgid ""
-#| "Then, click on &#8220;Save&#8221; button an the profile will be updated."
 msgid ""
 "Then, click on &#8220;Save&#8221; button&quot; and the profile will be "
 "updated."
@@ -6378,11 +6330,6 @@ msgstr ""
 # type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:13
-#| msgid ""
-#| "You will see the list of groups (communities/enterprises) that you are a "
-#| "member. The groups that you can manage are listed with a link &#8220;"
-#| "Manage&#8221;. Assuming that you are administrator of an "
-#| "enterprise&#8221;, click on &#8220;Manage&#8221; link."
 msgid ""
 "You will see the list of groups (communities/enterprises) that you are a "
 "member. The groups that you can manage are listed with a link &#8220;"
@@ -6478,10 +6425,6 @@ msgstr ""
 # type: Content of: <ol><li><ol><li><ol><li>
 #. type: Content of: <ol><li><ol><li><ol><li>
 #: doc/noosfero/enterprise/managing-enterprise-members.en.xhtml:26
-#| msgid ""
-#| "Click on &#8221;+&#8221; button to add the user. After clicking the "
-#| "button, the table on the right side (&#8220;Current members&#8221;) will "
-#| "be updated with the new member."
 msgid ""
 "Click on &#8220;+&#8221; button to add the user. After clicking the button, "
 "the table on the right side (&#8220;Current members&#8221;) will be updated "
@@ -6667,12 +6610,6 @@ msgstr ""
 # type: Content of: <ol><li><ul><li>
 #. type: Content of: <ol><li><ul><li>
 #: doc/noosfero/enterprise/editing-sideboxes.en.xhtml:29
-#| msgid ""
-#| "<strong>Links (static menu):</strong> You can use it to create a menu of "
-#| "links. You can add, remove and update the links as you wish. If you want "
-#| "a link to the enterprise&#8217;s blog, for example, you should type "
-#| "&#8221;/{profile}/blog&#8221; on the field &#8220;Address&#8221;. The "
-#| "&#8220;{profile}&#8221; will be replaced by your identifier."
 msgid ""
 "<strong>Links (static menu):</strong> You can use it to create a menu of "
 "links. You can add, remove and update the links as you wish. If you want a "
@@ -6948,39 +6885,23 @@ msgid "Edit header and footer on user control panel"
 msgstr "Editar cabeçalho e rodapé no controle de painel do usuário"
 
 # type: Content of: <ol><li><ul><li><ul><li>
-#. type: Content of: <ol><li><ol><li><ol><li><span>
+#. type: Content of: <ol><li><ol><li><ol><li>
 #: doc/noosfero/user/editing-header-footer.en.xhtml:32
-#, fuzzy
 #| msgid ""
 #| "<strong>Underline:</strong> it is also used to emphasize a word/phrase. "
 #| "One line is drawn under the word. Example: <span style=\"text-decoration:"
-#| "underline;;\">home</span> . To use it, first you should select the word/"
+#| "underline;\">home</span> . To use it, first you should select the word/"
 #| "phrase and then click on button"
 msgid ""
 "<strong>Underline:</strong> it is also used to emphasize a word/phrase. One "
-"line is drawn under the word. Example: <span>{text-decoration:"
+"line is drawn under the word. Example: <span style=\"text-decoration: "
+"underline;\">home</span> . To use it, first you should select the word/"
+"phrase and then click on button"
 msgstr ""
 "<strong>Sublinhado:</strong> também usado para destacar uma palavra/frase. "
 "Uma linha é inserida abaixo da palavra. Ex: <span style=\"text-decoration: "
 "underline;\">casa</span>. Para usá-lo, primeiro você deve selecionar o "
 "trecho e depois clicar no botão"
-
-# type: Content of: <ol><li><ul><li><ul><li>
-#. type: Content of: <ol><li><ol><li><ol><li>
-#: doc/noosfero/user/editing-header-footer.en.xhtml:33
-#, fuzzy
-#| msgid ""
-#| "<strong>Strikethrough:</strong> one line in drawn in the middle of word/"
-#| "phrase Example: <span style=\"text-decoration:line-through;;\">home</"
-#| "span> . To use it, first you should select the word/phrase and then click "
-#| "on button"
-msgid ""
-"##underline;}home</span> . To use it, first you should select the word/"
-"phrase and then click on button"
-msgstr ""
-"<strong>Riscado: </strong>uma linha é inserida no meio da palavra/frase. Ex: "
-"<span style=\"text-decoration: line-through;\">casa</span>. Para usá-lo, "
-"primeiro você deve selecionar o trecho e depois clicar no botão"
 
 # type: Content of: <h1>
 #. type: Content of: <h1>
@@ -7069,16 +6990,12 @@ msgstr "Preencha com sua nova senha."
 # type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/user/changing-password.en.xhtml:19
-#| msgid ""
-#| "Retype your new password, to confirm it.  Then, click on &#8220;Change "
-#| "password&#8221;."
 msgid "Retype your new password, to confirm it."
 msgstr "Digite novamente sua senha, para confirmá-la."
 
 # type: Content of: <ol><li>
 #. type: Content of: <ol><li>
 #: doc/noosfero/user/changing-password.en.xhtml:20
-#| msgid "Then, click on &#8220;Change Password&#8221;:"
 msgid "Then, click on &#8220;Change password&#8221;."
 msgstr "Depois, clique em &#8220;Alterar senha&#8221;."
 
@@ -7396,11 +7313,6 @@ msgstr "Informações gerais na edição do perfil de uma pessoa"
 # type: Content of: <ol><li><ul><li>
 #. type: Content of: <ol><li><ol><li>
 #: doc/noosfero/user/editing-person-info.en.xhtml:19
-#| msgid ""
-#| "<strong>Change picture:</strong> Insert or change your picture. Click "
-#| "on&#8221;File…&#8221; and choose the image in your computer. The image "
-#| "must have a maximum of 500Kb e be <em>.jpg</em> , <em>.gif</em> or <em>."
-#| "png</em> ."
 msgid ""
 "<strong>Change picture:</strong> Insert or change your picture. Click "
 "on&quot;File…&quot; and choose the image in your computer. The image must "
@@ -7416,45 +7328,29 @@ msgstr ""
 msgid "Change picture when editing person profile info"
 msgstr "Alterar imagem na edição de perfil de pessoa"
 
-# type: Content of: <ol><li><ul><li>
+# type: Content of: <ol><li>
 #. type: Content of: <ol><li><ol><li>
 #: doc/noosfero/user/editing-person-info.en.xhtml:20
-#, fuzzy
 #| msgid ""
-#| "<strong>Privacy options:</strong> Choose if your profile will be public "
-#| "or private. When a profile is private, the users that are not friends and "
-#| "that tries to view the profile or some of its contents will be redirected "
-#| "to a page that display only general information."
+#| "<strong>Privacy options:</strong> Choose if enterprise profile will be "
+#| "public or private. When an enterprise is private, the users that are not "
+#| "friends and tries to view the enterprise&#8217;s profile or its contents "
+#| "will be redirected to a page that show only general information."
 msgid ""
 "<strong>Privacy options:</strong> Choose if your profile will be public or "
-"private. When a profile is private, the users that are"
+"private. When a profile is private, the users that are not friends and that "
+"tries to view the profile or some of its contents will be redirected to a "
+"page that display only general information."
 msgstr ""
-"<strong>Opções de privacidade:</strong> Escolha se o seu perfil será público "
-"ou privado. Quando um perfil é privado, os usuários que não são amigos e que "
-"tentam visualizar o perfil ou algum conteúdo dele será redirecionado para "
-"uma página que mostra apenas as informações gerais."
+"<strong>Opções de privacidade:</strong> Escolha se o perfil do "
+"empreendimento será público ou privado. Quando um empreendimento é privado, "
+"os usuários que não são amigos e tentam visualizar o perfil do "
+"empreendimento ou seu conteúdo serão redirecionado para a página que mostra "
+"apenas informações gerais."
 
 # type: Content of: <ol><li><ul><li>
 #. type: Content of: <ol><li><ol><li>
 #: doc/noosfero/user/editing-person-info.en.xhtml:21
-#, fuzzy
-#| msgid ""
-#| "<strong>Privacy options:</strong> Choose if your profile will be public "
-#| "or private. When a profile is private, the users that are not friends and "
-#| "that tries to view the profile or some of its contents will be redirected "
-#| "to a page that display only general information."
-msgid ""
-"not friends and that tries to view the profile or some of its contents will "
-"be redirected to a page that display only general information."
-msgstr ""
-"<strong>Opções de privacidade:</strong> Escolha se o seu perfil será público "
-"ou privado. Quando um perfil é privado, os usuários que não são amigos e que "
-"tentam visualizar o perfil ou algum conteúdo dele será redirecionado para "
-"uma página que mostra apenas as informações gerais."
-
-# type: Content of: <ol><li><ul><li>
-#. type: Content of: <ol><li><ol><li>
-#: doc/noosfero/user/editing-person-info.en.xhtml:22
 msgid ""
 "<strong>Categories:</strong> If enabled in the system, you can choose the "
 "categories that the person will have."
@@ -7464,13 +7360,13 @@ msgstr ""
 
 # type: Attribute 'alt' of: <ol><li><ul><li><p><img>
 #. type: Attribute 'alt' of: <ol><li><ol><li><img>
-#: doc/noosfero/user/editing-person-info.en.xhtml:22
+#: doc/noosfero/user/editing-person-info.en.xhtml:21
 msgid "Categories when editing person profile info"
 msgstr "Alterar imagem na edição de perfil de pessoa"
 
 # type: Content of: <ol><li>
 #. type: Content of: <ol><li>
-#: doc/noosfero/user/editing-person-info.en.xhtml:24
+#: doc/noosfero/user/editing-person-info.en.xhtml:23
 msgid ""
 "Then, click on &#8220;Save&#8221; button an the profile will be updated."
 msgstr ""
@@ -7569,14 +7465,6 @@ msgstr ""
 #: doc/noosfero/user/commenting.en.xhtml:11
 msgid "Box for comments closed"
 msgstr "Caixa para comentários fechada"
-
-# type: Content of: <ul><li>
-#. type: Content of: <p>
-#: doc/noosfero/user/commenting.en.xhtml:13
-#, fuzzy
-#| msgid "<a href=\"#Description\">Description</a>"
-msgid "h2(Description). Description"
-msgstr "<a href=\"#Description\">Descrição</a>"
 
 # type: Content of: <ol><li>
 #. type: Content of: <ul><li>
@@ -7790,12 +7678,6 @@ msgstr ""
 # type: Content of: <ol><li><ul><li>
 #. type: Content of: <ol><li><ul><li>
 #: doc/noosfero/user/editing-sideboxes.en.xhtml:27
-#| msgid ""
-#| "<strong>Links (static menu):</strong> You can use it to create a menu of "
-#| "links. You can add, remove and update the links as you wish. If you want "
-#| "a link to your blog, for example, you should type &#8221;/{profile}/"
-#| "blog&#8221; on the field &#8220;Address&#8221;. The &#8220;{profile}"
-#| "&#8221; will be replaced by your identifier."
 msgid ""
 "<strong>Links (static menu):</strong> You can use it to create a menu of "
 "links. You can add, remove and update the links as you wish. If you want a "
@@ -7974,7 +7856,6 @@ msgstr "Você verá sua lista de amigos e o botão de convite. Clique no botão.
 # type: Attribute 'alt' of: <ol><li><div><img>
 #. type: Attribute 'alt' of: <ol><li><img>
 #: doc/noosfero/user/invite-contacts.en.xhtml:17
-#| msgid "User's friends list"
 msgid "User&#39;s friends list"
 msgstr "Lista de amigos do usuário"
 
@@ -8465,6 +8346,75 @@ msgstr "<a href=\"/doc/enterprise\">Funcionalidades do empreendimento</a>"
 #: doc/noosfero/toc.en.xhtml:9
 msgid "<a href=\"/doc/user\">User features</a>"
 msgstr "<a href=\"/doc/user\">Funcionalidades do usuário</a>"
+
+# type: Content of: <ol><li><ul><li><ul><li>
+#, fuzzy
+#~| msgid ""
+#~| "<strong>Underline:</strong> it is also used to emphasize a word/phrase. "
+#~| "One line is drawn under the word. Example: <span style=\"text-decoration:"
+#~| "underline;;\">home</span> . To use it, first you should select the word/"
+#~| "phrase and then click on button"
+#~ msgid ""
+#~ "<strong>Underline:</strong> it is also used to emphasize a word/phrase. "
+#~ "One line is drawn under the word. Example: <span>{text-decoration:"
+#~ msgstr ""
+#~ "<strong>Sublinhado:</strong> também usado para destacar uma palavra/"
+#~ "frase. Uma linha é inserida abaixo da palavra. Ex: <span style=\"text-"
+#~ "decoration: underline;\">casa</span>. Para usá-lo, primeiro você deve "
+#~ "selecionar o trecho e depois clicar no botão"
+
+# type: Content of: <ol><li><ul><li><ul><li>
+#, fuzzy
+#~| msgid ""
+#~| "<strong>Strikethrough:</strong> one line in drawn in the middle of word/"
+#~| "phrase Example: <span style=\"text-decoration:line-through;;\">home</"
+#~| "span> . To use it, first you should select the word/phrase and then "
+#~| "click on button"
+#~ msgid ""
+#~ "##underline;}home</span> . To use it, first you should select the word/"
+#~ "phrase and then click on button"
+#~ msgstr ""
+#~ "<strong>Riscado: </strong>uma linha é inserida no meio da palavra/frase. "
+#~ "Ex: <span style=\"text-decoration: line-through;\">casa</span>. Para usá-"
+#~ "lo, primeiro você deve selecionar o trecho e depois clicar no botão"
+
+# type: Content of: <ol><li><ul><li>
+#, fuzzy
+#~| msgid ""
+#~| "<strong>Privacy options:</strong> Choose if your profile will be public "
+#~| "or private. When a profile is private, the users that are not friends "
+#~| "and that tries to view the profile or some of its contents will be "
+#~| "redirected to a page that display only general information."
+#~ msgid ""
+#~ "<strong>Privacy options:</strong> Choose if your profile will be public "
+#~ "or private. When a profile is private, the users that are"
+#~ msgstr ""
+#~ "<strong>Opções de privacidade:</strong> Escolha se o seu perfil será "
+#~ "público ou privado. Quando um perfil é privado, os usuários que não são "
+#~ "amigos e que tentam visualizar o perfil ou algum conteúdo dele será "
+#~ "redirecionado para uma página que mostra apenas as informações gerais."
+
+# type: Content of: <ol><li><ul><li>
+#, fuzzy
+#~| msgid ""
+#~| "<strong>Privacy options:</strong> Choose if your profile will be public "
+#~| "or private. When a profile is private, the users that are not friends "
+#~| "and that tries to view the profile or some of its contents will be "
+#~| "redirected to a page that display only general information."
+#~ msgid ""
+#~ "not friends and that tries to view the profile or some of its contents "
+#~ "will be redirected to a page that display only general information."
+#~ msgstr ""
+#~ "<strong>Opções de privacidade:</strong> Escolha se o seu perfil será "
+#~ "público ou privado. Quando um perfil é privado, os usuários que não são "
+#~ "amigos e que tentam visualizar o perfil ou algum conteúdo dele será "
+#~ "redirecionado para uma página que mostra apenas as informações gerais."
+
+# type: Content of: <ul><li>
+#, fuzzy
+#~| msgid "<a href=\"#Description\">Description</a>"
+#~ msgid "h2(Description). Description"
+#~ msgstr "<a href=\"#Description\">Descrição</a>"
 
 # type: Content of: <ul><li><ul><li>
 #, fuzzy
