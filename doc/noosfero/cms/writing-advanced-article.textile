@@ -4,9 +4,9 @@ p.  _You can add images and links to the articles created on the system to make 
 
 *  "How to access":#howaccess
 *  "Description":#description
-**  "Inserting links":#InsertingLinks
-**  "Inserting images":#InsertingImages
-**  "Inserting videos and audio":#InsertingVideosAudio
+**  "Inserting links":#insertinglinks
+**  "Inserting images":#insertingimages
+**  "Inserting videos and audio":#insertingvideosaudio
 *  "Related topics":#relatedtopics
 
 h2(#howaccess). How to access
@@ -15,7 +15,7 @@ p. Read "Writing an article":/doc/cms/writing-article to learn how to access art
 
 h2(#description). Description
 
-h3(#InsertingLinks). Inserting links
+h3(#insertinglinks). Inserting links
 
 # Write the text that will be displayed  !=/images/doc/article-text.en.png(Text on an article)!
 # Select the text and click on "Insert/edit link" button  !=/images/doc/advanced-article-insert-links.en.png(Insert links on an article)!
@@ -27,7 +27,7 @@ h3(#InsertingLinks). Inserting links
 # After filling in the form, click on "Insert" and the link will be inserted on article.
   !=/images/doc/advanced-article-created-link.en.png(Created link on an article)!
 
-h3(#InsertingImages). Inserting images
+h3(#insertingimages). Inserting images
 
 p. When creating/editing an article, you will see a box in the right side.
 
@@ -45,7 +45,7 @@ p. When creating/editing an article, you will see a box in the right side.
 ### Using your mouse, click and drag the image to the part of the text where it will be inserted.
   !=/images/doc/advanced-article-archives-list.en.png(Archives list when writing an article)!
 
-h3(#InsertingVideosAudio). Inserting videos and audio
+h3(#insertingvideosaudio). Inserting videos and audio
 
 # Click on "HTML" button  !=/images/doc/advanced-article-insert-html.en.png(Insert html on an article)!
 # Insert the code of the video or audio an click on "Update" !=/images/doc/advanced-article-popup-insert-html.en.png(Insert html popup on an article)!

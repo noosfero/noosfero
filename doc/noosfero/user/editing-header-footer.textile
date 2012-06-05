@@ -28,8 +28,7 @@ h2(#description). Description
 ###  *Format:* if you want to use one of the pre-configured formats, select text/word, click on this button and select the desired format.
 ###  *Bold:* it formats your text/word with a line thicker than usual. This format is used to emphasize the words. Example: *home* . To use it, first you should select the text/word and then click on button
 ###  *Italic* it formats your text/word as oblique. This format is also used to emphasize the words. Example: _home_ . To use it, first you should select the text/word and then click on button
-###  *Underline:* it is also used to emphasize a word/phrase. One line is drawn under the word. Example: %{text-decoration:
-##underline;}home% . To use it, first you should select the word/phrase and then click on button
+###  *Underline:* it is also used to emphasize a word/phrase. One line is drawn under the word. Example: %{text-decoration: underline;}home% . To use it, first you should select the word/phrase and then click on button
 ###  *Strikethrough:* one line in drawn in the middle of word/phrase Example: %{text-decoration:line-through;}home% . To use it, first you should select the word/phrase and then click on button
 ###  *Unordered list:* it creates a list, inserting a small ball before each item.
 ###  *Ordered list* it creates a numbered list, adding a number before each item.

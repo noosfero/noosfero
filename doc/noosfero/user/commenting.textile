@@ -12,7 +12,7 @@ h2(#howaccess). How to access
 
 # When a person is viewing an article, picture or event, you will see a button to send comments after the content:  !=/images/doc/closed-comment-box.en.png(Box for comments closed)!
 
-h2(Description). Description
+h2(#description). Description
 
 * *Logged in user:* Click the button and a comment form will be displayed. You will see the title and body comment fields:  !=/images/doc/open-comment-box-for-logged-in.en.png(Box for comments open when logged in)!
 * *Not logged in user:* If you are not logged in, you will see name and e-mail fields to identify yourself:  !=/images/doc/open-comment-box-for-not-logged-in.en.png(Box for comments open when not logged in)!
