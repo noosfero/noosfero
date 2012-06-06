@@ -76,9 +76,9 @@ class MezuroPluginMyprofileControllerTest < ActionController::TestCase
   should 'test metric creation' do
     Kalibro::Client::MetricConfigurationClient.expects(:new).returns(@metric_configuration_client)
     @metric_configuration_client.expects(:save)
-    get :create_metric_configuration, :profile => @profile.identifier, :configuration_name => "test name", :description => @metric.description,
-    :scope => @metric.scope, :language => @metric.language, :metric => { :name => @metric.name, :origin => @metric.origin},
-    :metric_configuration => { :code => @metric_configuration.code, :weight => @metric_configuration.code, :aggregation => @metric_configuration.aggregation_form }
+    get :create_metric_configuration, :profile => @profile.identifier, :configuration_name => "test name", 
+    :metric_configuration => { :code => @metric_configuration.code, :weight => @metric_configuration.code, :aggregation => @metric_configuration.aggregation_form, 
+    :metric => { :name => @metric.name, :origin => @metric.origin, :description => @metric.description, :scope => @metric.scope, :language => @metric.language }}
     assert_equal assigns(:configuration_name), "test name"
     assert_response 302
   end
@@ -112,9 +112,9 @@ class MezuroPluginMyprofileControllerTest < ActionController::TestCase
     Kalibro::Client::MetricConfigurationClient.expects(:new).returns(@metric_configuration_client)
     @metric_configuration_client.expects(:metric_configuration).with(@configuration.name, @metric_configuration.metric.name).returns(@metric_configuration)
     @metric_configuration_client.expects(:save)
-    get :update_metric_configuration, :profile => @profile.identifier, :configuration_name => @configuration.name, :description => @metric.description,
-    :scope => @metric.scope, :language => @metric.language, :metric => { :name => @metric.name, :origin => @metric.origin},
-    :metric_configuration => { :code => @metric_configuration.code, :weight => @metric_configuration.code, :aggregation => @metric_configuration.aggregation_form }
+    get :update_metric_configuration, :profile => @profile.identifier, :configuration_name => @configuration.name, 
+    :metric_configuration => { :code => @metric_configuration.code, :weight => @metric_configuration.weight, :aggregation => @metric_configuration.aggregation_form, 
+    :metric => { :name => @metric.name, :origin => @metric.origin, :description => @metric.description, :scope => @metric.scope, :language => @metric.language }}
     assert_response 302
   end
 

@@ -57,8 +57,8 @@ class MezuroPluginMyprofileController < ProfileController
 
   def update_metric_configuration
     @configuration_name = params[:configuration_name]
+    metric_name = params[:metric_configuration][:metric][:name]
     metric_configuration_client = Kalibro::Client::MetricConfigurationClient.new
-    metric_name = params[:metric][:name]
     metric_configuration = metric_configuration_client.metric_configuration(@configuration_name, metric_name)  
     metric_configuration = assign_metric_configuration_instance(metric_configuration)
     metric_configuration_client.save(metric_configuration, @configuration_name)
@@ -152,19 +152,19 @@ class MezuroPluginMyprofileController < ProfileController
     assign_compound_metric_configuration_instance (metric_configuration)
   end
   
-  def assign_metric_configuration_instance (metric_configuration)
-    metric_configuration.metric.name = params[:metric][:name]
-    metric_configuration.metric.description = params[:description]
-    metric_configuration.metric.origin = params[:metric][:origin]
-    metric_configuration.metric.scope = params[:scope]
-    metric_configuration.metric.language = params[:language]
+  def assign_metric_configuration_instance(metric_configuration)
+    metric_configuration.metric.name = params[:metric_configuration][:metric][:name]
+    metric_configuration.metric.description = params[:metric_configuration][:metric][:description]
+    metric_configuration.metric.origin = params[:metric_configuration][:metric][:origin]
+    metric_configuration.metric.scope = params[:metric_configuration][:metric][:scope]
+    metric_configuration.metric.language = params[:metric_configuration][:metric][:language]
     metric_configuration.code = params[:metric_configuration][:code]
     metric_configuration.weight = params[:metric_configuration][:weight]
     metric_configuration.aggregation_form = params[:metric_configuration][:aggregation_form]
     metric_configuration
   end
 
-  def assign_compound_metric_configuration_instance (metric_configuration)
+  def assign_compound_metric_configuration_instance(metric_configuration)
     metric_configuration.metric.name = params[:metric_configuration][:metric][:name]
     metric_configuration.metric.description = params[:metric_configuration][:metric][:description]
     metric_configuration.metric.scope = params[:metric_configuration][:metric][:scope]

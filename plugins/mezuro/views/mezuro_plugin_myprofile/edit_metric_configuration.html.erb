@@ -4,31 +4,34 @@
 
 <% form_for :metric_configuration, :url => {:action =>"update_metric_configuration", :controller => "mezuro_plugin_myprofile"}, :method => :get do |f| %>
   <%= hidden_field_tag :configuration_name, @configuration_name %>
-  <%= hidden_field_tag :scope, @metric.scope %>
   
-  <% @metric.language.each do |language| %>
-    <%= hidden_field_tag "language[]", language %>
+  <% f.fields_for :metric do |m| %>
+  
+    <% @metric.language.each do |language| %>
+      <%= m.hidden_field :language, :multiple => true, :value => language %>
+    <% end %>
+    
+    <%= m.hidden_field "scope", :value => @metric.scope %>
+    <p>
+      <%= m.label :origin, "Collector Name:" %>
+      <%= @metric.origin %>
+      <%= m.hidden_field "origin", :value => @metric.origin %>
+    </p>
+    <p>
+      <%= m.label :metric_name, "Metric Name:" %>
+      <%= @metric.name %>
+      <%= m.hidden_field "name", :value => @metric.name %>
+    </p>
+    <p>    
+      <%= m.label :description, "Description:" %>
+      <%= @metric.description %>
+      <%= m.hidden_field "description", :value => @metric.description %>
+    </p>
   <% end %>
-
-  <p>
-    <%= f.label :origin, "Collector Name:" %>
-    <%= @metric.origin %>
-    <%= hidden_field_tag "metric[origin]", @metric.origin %>
-  </p>
-  <p>
-    <%= f.label :metric_name, "Metric Name:" %>
-    <%= @metric.name %>
-    <%= hidden_field_tag "metric[name]", @metric.name %>
-  </p>
-  <p>
-    <%= f.label :description, "Description:" %>
-    <%= @metric.description %>
-    <%= text_field_tag "metric[description]", @metric.description %>
-  </p>
   <p>
     <%= f.label :code, "Code:" %>
     <%= @metric_configuration.code %>
-    <%= f.hidden_field :code, :value => @metric_configuration.code %>
+    <%= f.hidden_field "code", :value => @metric_configuration.code %>
   </p>
   <p>
     <%= f.label :aggregation_form, "Aggregation Form:" %>
@@ -37,7 +40,7 @@
   </p>
   <p>
     <%= f.label :weight, "Weight:" %>
-    <%= f.text_field :weight %>
+    <%= f.text_field "weight", :value => @metric_configuration.weight %>
   </p>
 
   <p>
