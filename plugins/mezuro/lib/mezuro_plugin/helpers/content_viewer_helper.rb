@@ -16,7 +16,10 @@ class MezuroPlugin::Helpers::ContentViewerHelper
                 :bg => {:color => 'efefef', :type => 'stripes'},
                 :line_colors => 'c4a000',
                 :data => values,
-                :axis_with_labels => 'y')
+                :axis_with_labels => 'y',
+                :max_value => values.max,
+                :min_value => values.min
+                )
   end
 
   def self.get_periodicity_option(index)
