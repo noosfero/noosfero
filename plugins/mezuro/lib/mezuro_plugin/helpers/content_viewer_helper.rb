@@ -23,8 +23,12 @@ class MezuroPlugin::Helpers::ContentViewerHelper
   end
 
   def self.get_periodicity_option(index)
-   options = [["Not Periodically", 0], ["1 day", 1], ["2 days", 2], ["Weekly", 7], ["Biweeky", 15], ["Monthly", 30]]
-   selected_option = options.find { |option| option.last == index.to_i }
-   selected_option.first
+    options = [["Not Periodically", 0], ["1 day", 1], ["2 days", 2], ["Weekly", 7], ["Biweeky", 15], ["Monthly", 30]]
+    selected_option = options.find { |option| option.last == index.to_i }
+    selected_option.first
+  end
+  
+  def self.format_name(metric_result)
+    metric_result.metric.name.delete("() ")
   end
 end

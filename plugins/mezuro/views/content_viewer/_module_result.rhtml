@@ -19,15 +19,15 @@
       <% range = metric_result.range %>
       <% if !range.nil? %>
         <tr>
-          <td><a href="#" data-show=".<%= metric_result.metric.name.delete("() ")%>"><%= metric_result.metric.name %></a></td>
+          <td><a href="#" data-show=".<%= MezuroPlugin::Helpers::ContentViewerHelper.format_name(metric_result) %>"><%= metric_result.metric.name %></a></td>
           <td><%= MezuroPlugin::Helpers::ContentViewerHelper.format_grade(metric_result.value) %></td>
           <td><%= metric_result.weight %></td>
           <td style="background-color: #<%= range.color[2..-1] %>"><%= range.label %></td>
         </tr>	  
-        <tr class="<%= metric_result.metric.name.delete("() ")%>" style="display: none;">
+        <tr class="<%= MezuroPlugin::Helpers::ContentViewerHelper.format_name(metric_result) %>" style="display: none;">
           <td colspan="3">
-            <div id='historical-<%= metric_result.metric.name.delete("() ") %>'>
-              <a href="#" show-metric-history="<%= metric_result.metric.name.delete("() ") %>" data-module-name="<%= the_module.name %>" data-metric-name="<%= metric_result.metric.name.delete("() ") %>"> <p style="text-indent: 3em;"> Get Historical Values </p> </a>
+            <div id='historical-<%= MezuroPlugin::Helpers::ContentViewerHelper.format_name(metric_result) %>'>
+              <a href="#" show-metric-history="<%= MezuroPlugin::Helpers::ContentViewerHelper.format_name(metric_result) %>" data-module-name="<%= the_module.name %>" data-metric-name="<%= MezuroPlugin::Helpers::ContentViewerHelper.format_name(metric_result) %>"> <p style="text-indent: 3em;"> Get Historical Values </p> </a>
             </div>
           </td>
           <td align="right">
