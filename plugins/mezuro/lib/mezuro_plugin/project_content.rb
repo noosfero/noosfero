@@ -42,10 +42,6 @@ client.first_result_after(name, date)
     @result_history ||= module_result_client.result_history(project.name, module_name)
   end
 
-  def module_result_client
-    @module_result_client ||= Kalibro::Client::ModuleResultClient.new
-  end
-
   after_save :send_project_to_service
   after_destroy :remove_project_from_service
 
@@ -67,4 +63,9 @@ client.first_result_after(name, date)
   def remove_project_from_service
     Kalibro::Client::ProjectClient.remove(name)
   end
+
+  def module_result_client
+    @module_result_client ||= Kalibro::Client::ModuleResultClient.new
+  end
 end
+
