@@ -102,9 +102,12 @@ class MezuroPluginMyprofileControllerTest < ActionController::TestCase
   end
   
   should 'test compound metric edition' do
+    configuration_client = mock
     Kalibro::Client::MetricConfigurationClient.expects(:new).returns(@metric_configuration_client)
-    @metric_configuration_client.expects(:metric_configuration).with("test name","test metric name").returns(@compound_metric_configuration)
-    get :edit_compound_metric_configuration, :profile => @profile.identifier, :configuration_name => "test name", :metric_name => "test metric name"
+    Kalibro::Client::ConfigurationClient.expects(:new).returns(configuration_client)
+    configuration_client.expects(:configuration).with(@configuration.name).returns(@configuration)
+    @metric_configuration_client.expects(:metric_configuration).with(@configuration.name,@metric.name).returns(@compound_metric_configuration)
+    get :edit_compound_metric_configuration, :profile => @profile.identifier, :configuration_name => @configuration.name, :metric_name => @metric.name
     assert_response 200
   end
 
