@@ -71,3 +71,5 @@
 <%= link_to_remote "New Range", :url => {:action =>"new_range", :controller => "mezuro_plugin_myprofile", :configuration_name => @configuration_name, :metric_name => @metric.name} %>
 <div id="range_form" style="display:none"></div>
 
+<br/>
+<%= render :partial => "metric_codes", :locals => {:metric_configurations => @metric_configurations} %>
