@@ -22,11 +22,11 @@
       <%= @metric.name %>
       <%= m.hidden_field "name", :value => @metric.name %>
     </p>
-    <p>    
-      <%= m.label :description, "Description:" %>
-      <%= @metric.description %>
-      <%= m.hidden_field "description", :value => @metric.description %>
-    </p>
+    <!--<p>-->
+      <% m.label :description, "Description:" %>
+      <% @metric.description %>
+      <% m.hidden_field "description", :value => @metric.description %>
+    <!--</p>-->
   <% end %>
   <p>
     <%= f.label :code, "Code:" %>
