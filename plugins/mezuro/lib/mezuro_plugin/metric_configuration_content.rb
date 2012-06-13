@@ -1,5 +1,8 @@
 class MezuroPlugin::MetricConfigurationContent < Article
 
+  NATIVE_TYPE='native'
+  COMPOUND_TYPE='compound'
+
   def self.short_description
     'Kalibro Configurated Metric'
   end
