@@ -43,16 +43,14 @@ class MezuroPluginMyprofileController < ProfileController
   end
   
   def create_metric_configuration
-    @configuration_name = params[:configuration_name]
     metric_configuration = new_metric_configuration_instance
-    Kalibro::Client::MetricConfigurationClient.new.save(metric_configuration, @configuration_name)
+    generic_metric_configuration_creation(metric_configuration)
     redirect_to "/#{profile.identifier}/#{@configuration_name.downcase.gsub(/\s/, '-')}"
   end
   
   def create_compound_metric_configuration
-    @configuration_name = params[:configuration_name]
     compound_metric_configuration = new_compound_metric_configuration_instance
-    Kalibro::Client::MetricConfigurationClient.new.save(compound_metric_configuration, @configuration_name)
+    generic_metric_configuration_creation(compound_metric_configuration)
     redirect_to "/#{profile.identifier}/#{@configuration_name.downcase.gsub(/\s/, '-')}"    
   end
 
@@ -137,8 +135,6 @@ class MezuroPluginMyprofileController < ProfileController
     redirect_to "/#{profile.identifier}/#{configuration_name.downcase.gsub(/\s/, '-')}"
   end
 
-  
-
   private 
 
   def new_metric_configuration_instance
@@ -154,26 +150,30 @@ class MezuroPluginMyprofileController < ProfileController
   end
   
   def assign_metric_configuration_instance(metric_configuration)
-    metric_configuration.metric.name = params[:metric_configuration][:metric][:name]
-    metric_configuration.metric.description = params[:metric_configuration][:metric][:description]
+    assign_generic_metric_configuration(metric_configuration)
     metric_configuration.metric.origin = params[:metric_configuration][:metric][:origin]
-    metric_configuration.metric.scope = params[:metric_configuration][:metric][:scope]
     metric_configuration.metric.language = params[:metric_configuration][:metric][:language]
-    metric_configuration.code = params[:metric_configuration][:code]
-    metric_configuration.weight = params[:metric_configuration][:weight]
-    metric_configuration.aggregation_form = params[:metric_configuration][:aggregation_form]
     metric_configuration
   end
 
   def assign_compound_metric_configuration_instance(metric_configuration)
+    assign_generic_metric_configuration(metric_configuration)
+    metric_configuration.metric.script = params[:metric_configuration][:metric][:script]
+    metric_configuration
+  end
+  
+  def assign_generic_metric_configuration(metric_configuration)
     metric_configuration.metric.name = params[:metric_configuration][:metric][:name]
     metric_configuration.metric.description = params[:metric_configuration][:metric][:description]
     metric_configuration.metric.scope = params[:metric_configuration][:metric][:scope]
-    metric_configuration.metric.script = params[:metric_configuration][:metric][:script]
     metric_configuration.code = params[:metric_configuration][:code]
     metric_configuration.weight = params[:metric_configuration][:weight]
     metric_configuration.aggregation_form = params[:metric_configuration][:aggregation_form]
-    metric_configuration
+  end
+  
+  def generic_metric_configuration_creation(metric_configuration)
+    @configuration_name = params[:configuration_name]
+    Kalibro::Client::MetricConfigurationClient.new.save(metric_configuration, @configuration_name)
   end
 
   def new_range_instance
