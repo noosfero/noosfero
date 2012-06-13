@@ -38,6 +38,7 @@ class MezuroPluginMyprofileController < ProfileController
     metric_name = params[:metric_name]
     @configuration_name = params[:configuration_name]
     @metric_configuration = Kalibro::Client::MetricConfigurationClient.new.metric_configuration(@configuration_name, metric_name)
+    @metric_configurations = Kalibro::Client::ConfigurationClient.new.configuration(@configuration_name).metric_configurations
     @metric = @metric_configuration.metric
   end
   
