@@ -151,6 +151,7 @@ class MezuroPluginMyprofileController < ProfileController
     elsif type == MezuroPlugin::MetricConfigurationContent::COMPOUND_TYPE
       metric_configuration.metric.script = params[:metric_configuration][:metric][:script]
     end
+    metric_configuration
   end
   
   def generic_metric_configuration_creation(metric_configuration)
