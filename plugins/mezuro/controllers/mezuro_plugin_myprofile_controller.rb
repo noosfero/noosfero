@@ -43,13 +43,13 @@ class MezuroPluginMyprofileController < ProfileController
   end
   
   def create_metric_configuration
-    generic_metric_configuration_creation(new_metric_configuration_instance)
-    redirect_to "/#{profile.identifier}/#{@configuration_name.downcase.gsub(/\s/, '-')}"
+    metric_name = generic_metric_configuration_creation(new_metric_configuration_instance)
+    redirect_to "/myprofile/#{profile.identifier}/plugin/mezuro/edit_metric_configuration?configuration_name=#{@configuration_name.gsub(/\s/, '+')}&metric_name=#{metric_name.gsub(/\s/, '+')}"
   end
   
   def create_compound_metric_configuration
-    generic_metric_configuration_creation(new_compound_metric_configuration_instance)
-    redirect_to "/#{profile.identifier}/#{@configuration_name.downcase.gsub(/\s/, '-')}"    
+    metric_name = generic_metric_configuration_creation(new_compound_metric_configuration_instance)
+    redirect_to "/myprofile/#{profile.identifier}/plugin/mezuro/edit_compound_metric_configuration?configuration_name=#{@configuration_name.gsub(/\s/, '+')}&metric_name=#{metric_name.gsub(/\s/, '+')}"
   end
 
   def update_metric_configuration
@@ -157,6 +157,7 @@ class MezuroPluginMyprofileController < ProfileController
   def generic_metric_configuration_creation(metric_configuration)
     @configuration_name = params[:configuration_name]
     Kalibro::Client::MetricConfigurationClient.new.save(metric_configuration, @configuration_name)
+    metric_configuration.metric.name
   end
   
   def auxiliar_update_metric_configuration(type)
