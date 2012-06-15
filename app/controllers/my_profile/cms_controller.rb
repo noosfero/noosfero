@@ -265,7 +265,7 @@ class CmsController < MyProfileController
 
   def search
     query = params[:q]
-    results = query.blank? ? [] : profile.articles.published.find_by_contents(query)
+    results = query.blank? ? [] : profile.files.published.find_by_contents(query)
     render :text => article_list_to_json(results), :content_type => 'application/json'
   end
   def media_upload

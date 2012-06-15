@@ -164,6 +164,8 @@ class Profile < ActiveRecord::Base
   has_many :articles, :dependent => :destroy
   belongs_to :home_page, :class_name => Article.name, :foreign_key => 'home_page_id'
 
+  has_many :files, :class_name => 'UploadedFile'
+
   acts_as_having_image
 
   has_many :tasks, :dependent => :destroy, :as => 'target'
