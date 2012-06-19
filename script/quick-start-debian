@@ -23,6 +23,7 @@ run sudo apt-get -y install $runtime_dependencies
 # needed for development
 run sudo apt-get -y install libtidy-ruby libhpricot-ruby libmocha-ruby imagemagick po4a xvfb libxml2-dev libxslt-dev
 gem which bundler >/dev/null 2>&1 || run gem install bundler
+which bundle >/dev/null 2>&1 || export PATH="$(ruby -rubygems -e 'puts Gem.bindir'):$PATH"
 run bundle install
 
 # create the database with sample data
