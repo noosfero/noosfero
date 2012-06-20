@@ -1097,6 +1097,7 @@ module ApplicationHelper
     link_to(content_tag(:span, _('Contents'), :class => 'icon-menu-articles'), {:controller => "search", :action => 'contents', :category_path => ''}, :id => 'submenu-contents') +
     link_to(content_tag(:span, _('Contents Menu')), '#', :onclick => "toggleSubmenu(this,'',#{links.to_json}); return false", :class => 'menu-submenu-trigger up', :id => 'submenu-contents-trigger')
   end
+  alias :browse_contents_menu :search_contents_menu
 
   def search_people_menu
      links = [
@@ -1112,6 +1113,7 @@ module ApplicationHelper
     link_to(content_tag(:span, _('People'), :class => 'icon-menu-people'), {:controller => "search", :action => 'people', :category_path => ''}, :id => 'submenu-people') +
     link_to(content_tag(:span, _('People Menu')), '#', :onclick => "toggleSubmenu(this,'',#{links.to_json}); return false", :class => 'menu-submenu-trigger up', :id => 'submenu-people-trigger')
   end
+  alias :browse_people_menu :search_people_menu
 
   def search_communities_menu
      links = [
@@ -1127,6 +1129,7 @@ module ApplicationHelper
     link_to(content_tag(:span, _('Communities'), :class => 'icon-menu-community'), {:controller => "search", :action => 'communities'}, :id => 'submenu-communities') +
     link_to(content_tag(:span, _('Communities Menu')), '#', :onclick => "toggleSubmenu(this,'',#{links.to_json}); return false", :class => 'menu-submenu-trigger up', :id => 'submenu-communities-trigger')
   end
+  alias :browse_communities_menu :search_communities_menu
 
   def browse_contents_menu
      links = [
