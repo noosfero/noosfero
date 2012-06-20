@@ -668,14 +668,22 @@ li.search-product-item hr {
 
 /* Search field and button */
 
+.search-field input {
+  vertical-align: middle;
+}
 .search-field .formfield {
   height: 34px;
   display: inline-block;
 }
 .search-field .formfield input {
-  height: 35px;
+  height: 25px;
   width: 530px;
 }
+#public-profile-search .search-field .formfield input {
+  height: 25px;
+  width: 395px;
+}
+
 .search-field .formfield {
   height: 34px;
   display: inline-block;
@@ -698,6 +706,10 @@ li.search-product-item hr {
   -o-border-radius: 5px;
   border-radius: 5px;
 }
+#content #public-profile-search form .search-field input.button.submit {
+  width: 75px;
+}
+
 form .search-field input:hover.button.submit {
   background-color:#444;
 }
@@ -897,6 +909,7 @@ a.search-image-pic {
 #search-input {
   font-size: 140%;
   color: #000;
+  vertical-align: middle;
 }
 #search-input.blur {
   font-size: 140%;
