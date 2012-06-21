@@ -688,48 +688,12 @@ li.search-product-item hr {
   height: 34px;
   display: inline-block;
 }
-#content form .search-field input.button.submit {
-  width: 152px;
-  background: #000;
-  overflow: visible;
-  color:#fff;
-  text-align: left;
-  font-weight: bold;
-  padding-left: 10px;
-  border: none;
-  height:34px;
-  display:inline-block;
-  max-height:none;
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
-  -khtml-border-radius: 5px;
-  -o-border-radius: 5px;
-  border-radius: 5px;
-}
 #content #public-profile-search form .search-field input.button.submit {
   width: 75px;
 }
 
 form .search-field input:hover.button.submit {
   background-color:#444;
-}
-#content form .search-field input.button.submit {
-  width: 150px;
-  backgrounD: #000;
-  overflow: visible;
-  color:#fff;
-  text-align: left;
-  font-weight: bold;
-  padding: 3px 1px 1px 10px;
-  border: none;
-  height:34px;
-  display:inline-block;
-  max-height:none;
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
-  -khtml-border-radius: 5px;
-  -o-border-radius: 5px;
-  border-radius: 5px;
 }
 .search-hint {
   clear: both;
@@ -741,6 +705,10 @@ form .search-field input:hover.button.submit {
   background-color:#444;
 }
 
+#content form .search-field input.button.submit {
+  height: 30px;
+  max-height:none;
+}
 
 
 .facet-any-result-found {
