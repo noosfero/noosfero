@@ -1,6 +1,7 @@
 <li class="search-profile-item">
 <% if @empty_query or @results.size > 1 or !profile.enterprise?  %>
-  <%= profile_image_link profile, :portrait, 'div' %>
+  <%= profile_image_link profile, :portrait, 'div',
+    @filter == 'more_recent' ? profile.send(@filter + '_label') + show_date(profile.created_at) : profile.send(@filter + '_label') %>
 <% else %>
   <div class="search-enterprise-item">
     <div class="search-enterprise-item-column-left">
