@@ -4,6 +4,7 @@ class EnterpriseTest < ActiveSupport::TestCase
   fixtures :profiles, :environments, :users
 
   def setup
+    super
     @product_category = fast_create(ProductCategory, :name => 'Products')
   end
 
@@ -85,19 +86,21 @@ class EnterpriseTest < ActiveSupport::TestCase
   end
 
   should 'be found in search for its product categories' do
+    TestSolr.enable
     ent1 = fast_create(Enterprise, :name => 'test1', :identifier => 'test1')
     prod_cat = fast_create(ProductCategory, :name => 'pctest', :environment_id => Environment.default.id)
     prod = ent1.products.create!(:name => 'teste', :product_category => prod_cat)
 
     ent2 = fast_create(Enterprise, :name => 'test2', :identifier => 'test2')
 
-    result = Enterprise.find_by_contents(prod_cat.name)
+    result = Enterprise.find_by_contents(prod_cat.name)[:results]
 
     assert_includes result, ent1
     assert_not_includes result, ent2
   end
 
-   should 'be found in search for its product categories hierarchy' do
+  should 'be found in search for its product categories hierarchy' do
+    TestSolr.enable
     ent1 = fast_create(Enterprise, :name => 'test1', :identifier => 'test1')
     prod_cat = fast_create(ProductCategory, :name => 'pctest', :environment_id => Environment.default.id)
     prod_child = fast_create(ProductCategory, :name => 'pchild', :environment_id => Environment.default.id, :parent_id => prod_cat.id)
@@ -105,7 +108,7 @@ class EnterpriseTest < ActiveSupport::TestCase
 
     ent2 = fast_create(Enterprise, :name => 'test2', :identifier => 'test2')
 
-    result = Enterprise.find_by_contents(prod_cat.name)
+    result = Enterprise.find_by_contents(prod_cat.name)[:results]
 
     assert_includes result, ent1
     assert_not_includes result, ent2
@@ -200,9 +203,9 @@ class EnterpriseTest < ActiveSupport::TestCase
     ent.reload
     assert_equal 1, ent.boxes.size
     assert_equal 1, ent.boxes[0].blocks.size
-   end
+  end
 
-   should 'not replace template if environment doesnt allow' do
+  should 'not replace template if environment doesnt allow' do
     inactive_template = fast_create(Enterprise, :name => 'inactive enteprise template', :identifier => 'inactive_enterprise_template')
     inactive_template.boxes.destroy_all
     inactive_template.boxes << Box.new
@@ -407,8 +410,8 @@ class EnterpriseTest < ActiveSupport::TestCase
     }
     Product.create!(:name => "product 4", :enterprise_id => e1.id, :product_category_id => @product_category.id, :highlighted => true)
     Product.create!(:name => "product 5", :enterprise_id => e1.id, :product_category_id => @product_category.id, :image_builder => {
-        :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')
-      })
+      :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')
+    })
     assert_equal products, e1.highlighted_products_with_image
   end
 
@@ -419,6 +422,13 @@ class EnterpriseTest < ActiveSupport::TestCase
     product.inputs << Input.new(:product_category => @product_category)
 
     assert_equal product.inputs, enterprise.inputs
+  end
+
+  should 'reindex when products are changed' do
+    enterprise = fast_create(Enterprise)
+    product = fast_create(Product, :enterprise_id => enterprise.id, :product_category_id => @product_category.id)
+    Product.expects(:solr_batch_add_association).with(product, :enterprise)
+    product.update_attribute :name, "novo nome"
   end
 
   should "the followed_by? be true only to members" do
@@ -450,4 +460,14 @@ class EnterpriseTest < ActiveSupport::TestCase
     e = fast_create(Enterprise)
     assert_respond_to e, :production_costs
   end
+
+  should 'reindex products with full category name after save' do
+    product = mock
+    product.expects(:category_full_name)
+    Enterprise.any_instance.stubs(:products).returns([product])
+    Enterprise.expects(:solr_batch_add).with(includes(product))
+    ent = fast_create(Enterprise)
+    ent.save!
+  end
+
 end

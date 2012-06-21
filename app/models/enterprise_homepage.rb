@@ -1,5 +1,9 @@
 class EnterpriseHomepage < Article
 
+  def self.type_name
+    _('Homepage')
+  end
+
   def self.short_description
     __('Enterprise homepage.')
   end

@@ -1,8 +1,3 @@
-<h1>
-  <%= _("%s's events") % @environment.name %>
-  <% if @category %>
-    :<small><%= @category.name %></small>
-  <% end %>
-</h1>
+<%= search_page_title( Environment.default.name + "'s " + @titles[:events], @category ) %>
 
 <%= render :partial => 'events/agenda' %>

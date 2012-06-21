@@ -3,6 +3,10 @@ require File.dirname(__FILE__) + '/../test_helper'
 class ProfileTest < ActiveSupport::TestCase
   fixtures :profiles, :environments, :users, :roles, :domains
 
+  def setup
+    super
+  end
+
   def test_identifier_validation
     p = Profile.new
     p.valid?
@@ -98,10 +102,11 @@ class ProfileTest < ActiveSupport::TestCase
   end
 
   def test_find_by_contents
+    TestSolr.enable
     p = create(Profile, :name => 'wanted')
 
-    assert Profile.find_by_contents('wanted').include?(p)
-    assert ! Profile.find_by_contents('not_wanted').include?(p)
+    assert Profile.find_by_contents('wanted')[:results].include?(p)
+    assert ! Profile.find_by_contents('not_wanted')[:results].include?(p)
   end
 
   should 'remove pages when removing profile' do
@@ -188,14 +193,16 @@ class ProfileTest < ActiveSupport::TestCase
     assert_not_equal list.object_id, other_list.object_id
   end
 
-  should 'be able to find profiles by their names with ferret' do
+  # This problem should be solved; talk to Bráulio if it fails
+  should 'be able to find profiles by their names' do
+    TestSolr.enable
     small = create(Profile, :name => 'A small profile for testing')
     big = create(Profile, :name => 'A big profile for testing')
 
-    assert Profile.find_by_contents('small').include?(small)
-    assert Profile.find_by_contents('big').include?(big)
+    assert Profile.find_by_contents('small')[:results].include?(small)
+    assert Profile.find_by_contents('big')[:results].include?(big)
 
-    both = Profile.find_by_contents('profile testing')
+    both = Profile.find_by_contents('profile testing')[:results]
     assert both.include?(small)
     assert both.include?(big)
   end
@@ -383,12 +390,19 @@ class ProfileTest < ActiveSupport::TestCase
     assert_respond_to c, :categories
   end
 
+  should 'responds to categories including virtual' do
+    c = fast_create(Profile)
+    assert_respond_to c, :categories_including_virtual
+  end
+
   should 'have categories' do
     c = fast_create(Profile)
-    cat = Environment.default.categories.build(:name => 'a category'); cat.save!
+    pcat = Environment.default.categories.build(:name => 'a category'); pcat.save!
+    cat = Environment.default.categories.build(:name => 'a category', :parent_id => pcat.id); cat.save!
     c.add_category cat
     c.save!
     assert_includes c.categories, cat
+    assert_includes c.categories_including_virtual, pcat
   end
 
   should 'be able to list recent profiles' do
@@ -428,16 +442,11 @@ class ProfileTest < ActiveSupport::TestCase
     assert article.advertise?
   end
 
-  should 'have latitude and longitude' do
-    e = fast_create(Enterprise, :lat => 45, :lng => 45)
+  should 'search with latitude and longitude' do
+    TestSolr.enable
+    e = fast_create(Enterprise, {:lat => 45, :lng => 45}, :search => true)
 
-    assert_includes Enterprise.find_within(2, :origin => [45, 45]), e    
-  end
-
-  should 'have latitude and longitude and find' do
-    e = fast_create(Enterprise, :lat => 45, :lng => 45)
-
-    assert_includes Enterprise.find(:all, :within => 2, :origin => [45, 45]), e    
+    assert_includes Enterprise.find_by_contents('', {}, {:radius => 2, :latitude => 45, :longitude => 45})[:results].docs, e    
   end
 
   should 'have a public profile by default' do
@@ -515,20 +524,23 @@ class ProfileTest < ActiveSupport::TestCase
   # content to be added to the index. The block returns "sample indexed text"
   # see test/mocks/test/testing_extra_data_for_index.rb
   should 'actually index by results of extra_data_for_index' do
+    TestSolr.enable
     profile = TestingExtraDataForIndex.create!(:name => 'testprofile', :identifier => 'testprofile')
 
-    assert_includes TestingExtraDataForIndex.find_by_contents('sample'), profile
+    assert_includes TestingExtraDataForIndex.find_by_contents('sample')[:results], profile
   end
 
   should 'index profile identifier for searching' do
+    TestSolr.enable
     Profile.destroy_all
     p = create(Profile, :identifier => 'lalala')
-    assert_includes Profile.find_by_contents('lalala'), p
+    assert_includes Profile.find_by_contents('lalala')[:results], p
   end
 
   should 'index profile name for searching' do
+    TestSolr.enable
     p = create(Profile, :name => 'Interesting Profile')
-    assert_includes Profile.find_by_contents('interesting'), p
+    assert_includes Profile.find_by_contents('interesting')[:results], p
   end
 
   should 'enabled by default on creation' do
@@ -544,13 +556,15 @@ class ProfileTest < ActiveSupport::TestCase
     profile = create_user('testuser').person
     profile.add_category(c3)
 
-
     assert_equal [c3], profile.categories(true)
     assert_equal [profile], c2.people(true)
 
     assert_includes c3.people(true), profile
     assert_includes c2.people(true), profile
     assert_includes c1.people(true), profile
+
+    assert_includes profile.categories_including_virtual, c2
+    assert_includes profile.categories_including_virtual, c1
   end
 
   should 'redefine the entire category set at once' do
@@ -565,15 +579,18 @@ class ProfileTest < ActiveSupport::TestCase
     profile.category_ids = [c2,c3].map(&:id)
 
     assert_equivalent [c2, c3], profile.categories(true)
+    assert_equivalent [c2, c1, c3], profile.categories_including_virtual(true)
   end
 
-  should 'be able to create an profile already with categories' do
-    c1 = create(Category)
+  should 'be able to create a profile with categories' do
+    pcat = create(Category)
+    c1 = create(Category, :parent_id => pcat)
     c2 = create(Category)
 
     profile = create(Profile, :category_ids => [c1.id, c2.id])
 
     assert_equivalent [c1, c2], profile.categories(true)
+    assert_equivalent [c1, pcat, c2], profile.categories_including_virtual(true)
   end
 
   should 'be associated with a region' do
@@ -626,32 +643,38 @@ class ProfileTest < ActiveSupport::TestCase
 
   should 'be able to create with categories and region at the same time' do
     region = fast_create(Region)
-    category = fast_create(Category)
+    pcat = fast_create(Category)
+    category = fast_create(Category, :parent_id => pcat.id)
     profile = create(Profile, :region => region, :category_ids => [category.id])
 
     assert_equivalent [region, category], profile.categories(true)
+    assert_equivalent [region, category, pcat], profile.categories_including_virtual(true)
   end
 
   should 'be able to update categories and not get regions removed' do
     region = fast_create(Region)
     category = fast_create(Category)
-    category2 = fast_create(Category)
+    pcat = fast_create(Category)
+    category2 = fast_create(Category, :parent_id => pcat.id)
     profile = create(Profile, :region => region, :category_ids => [category.id])
 
     profile.update_attributes!(:category_ids => [category2.id])
 
     assert_includes profile.categories(true), region
+    assert_includes profile.categories_including_virtual(true), pcat
   end
 
   should 'be able to update region and not get categories removed' do
     region = fast_create(Region)
     region2 = fast_create(Region)
-    category = fast_create(Category)
+    pcat = fast_create(Category)
+    category = fast_create(Category, :parent_id => pcat.id)
     profile = create(Profile, :region => region, :category_ids => [category.id])
 
     profile.update_attributes!(:region => region2)
 
     assert_includes profile.categories(true), category
+    assert_includes profile.categories_including_virtual(true), pcat
   end
 
   should 'not accept product category as category' do
@@ -758,6 +781,7 @@ class ProfileTest < ActiveSupport::TestCase
     profile = fast_create(Profile)
     profile.category_ids = [c2,c3,c3].map(&:id)
     assert_equal [c2, c3], profile.categories(true)
+    assert_equal [c2, c1, c3], profile.categories_including_virtual(true)
   end
 
   should 'not return nil members when a member is removed from system' do
@@ -960,13 +984,13 @@ class ProfileTest < ActiveSupport::TestCase
 
     Profile.any_instance.stubs(:template).returns(template)
 
-    p = create(Profile)
+    p = create(Profile, :name => "ProfileTest1")
 
     a_copy = p.articles[0]
 
     assert !a_copy.advertise
   end
-  
+
   should 'copy set of boxes from profile template' do
     template = fast_create(Profile)
     template.boxes.destroy_all
@@ -1186,19 +1210,18 @@ class ProfileTest < ActiveSupport::TestCase
     env = fast_create(Environment)
 
     p1 = fast_create(Profile, :identifier => 'mytestprofile', :environment_id => env.id)
-
     p2 = Profile.new(:identifier => 'mytestprofile', :environment => env)
-    assert !p2.valid?
 
+    assert !p2.valid?
     assert p2.errors.on(:identifier)
     assert_equal p1.environment, p2.environment
   end
 
   should 'be possible to have different profiles with the same identifier in different environments' do
-    p1 = fast_create(Profile, :identifier => 'mytestprofile')
-
-    env = fast_create(Environment)
-    p2 = create(Profile, :identifier => 'mytestprofile', :environment => env)
+    env1 = fast_create(Environment)
+    p1 = create(Profile, :identifier => 'mytestprofile', :environment => env1)
+    env2 = fast_create(Environment)
+    p2 = create(Profile, :identifier => 'mytestprofile', :environment => env2)
 
     assert_not_equal p1.environment, p2.environment
   end
@@ -1404,10 +1427,12 @@ class ProfileTest < ActiveSupport::TestCase
 
   should 'ignore category with id zero' do
     profile = fast_create(Profile)
-    c = fast_create(Category)
+    pcat = fast_create(Category, :id => 0)
+    c = fast_create(Category, :parent_id => pcat.id)
     profile.category_ids = ['0', c.id, nil]
 
     assert_equal [c], profile.categories
+    assert_not_includes profile.categories_including_virtual, [pcat]
   end
 
   should 'get first blog when has multiple blogs' do
@@ -1663,26 +1688,28 @@ class ProfileTest < ActiveSupport::TestCase
   end
 
   should 'index by schema name when database is postgresql' do
+    TestSolr.enable
     uses_postgresql 'schema_one'
     p1 = Profile.create!(:name => 'some thing', :identifier => 'some-thing')
-    assert_equal Profile.find_by_contents('thing'), [p1]
+    assert_equal [p1], Profile.find_by_contents('thing')[:results].docs
     uses_postgresql 'schema_two'
     p2 = Profile.create!(:name => 'another thing', :identifier => 'another-thing')
-    assert_not_includes Profile.find_by_contents('thing'), p1
-    assert_includes Profile.find_by_contents('thing'), p2
+    assert_not_includes Profile.find_by_contents('thing')[:results], p1
+    assert_includes Profile.find_by_contents('thing')[:results], p2
     uses_postgresql 'schema_one'
-    assert_includes Profile.find_by_contents('thing'), p1
-    assert_not_includes Profile.find_by_contents('thing'), p2
+    assert_includes Profile.find_by_contents('thing')[:results], p1
+    assert_not_includes Profile.find_by_contents('thing')[:results], p2
     uses_sqlite
   end
 
   should 'not index by schema name when database is not postgresql' do
+    TestSolr.enable
     uses_sqlite
     p1 = Profile.create!(:name => 'some thing', :identifier => 'some-thing')
-    assert_equal Profile.find_by_contents('thing'), [p1]
+    assert_equal [p1], Profile.find_by_contents('thing')[:results].docs
     p2 = Profile.create!(:name => 'another thing', :identifier => 'another-thing')
-    assert_includes Profile.find_by_contents('thing'), p1
-    assert_includes Profile.find_by_contents('thing'), p2
+    assert_includes Profile.find_by_contents('thing')[:results], p1
+    assert_includes Profile.find_by_contents('thing')[:results], p2
   end
 
   should 'know if url is the profile homepage' do
@@ -1771,4 +1798,52 @@ class ProfileTest < ActiveSupport::TestCase
     assert !profile.valid?
     assert profile.errors.invalid?(:identifier)
   end
+
+  should 'act as faceted' do
+    st = fast_create(State, :acronym => 'XZ')
+    city = fast_create(City, :name => 'Tabajara', :parent_id => st.id)
+    cat = fast_create(Category)
+    prof = fast_create(Person, :region_id => city.id)
+    prof.add_category(cat, true)
+    assert_equal ['Tabajara', ', XZ'], Profile.facet_by_id(:f_region)[:proc].call(prof.send(:f_region))
+    assert_equal "category_filter:#{cat.id}", Person.facet_category_query.call(cat)
+  end
+
+  should 'act as searchable' do
+    TestSolr.enable
+    st = create(State, :name => 'California', :acronym => 'CA', :environment_id => Environment.default.id)
+    city = create(City, :name => 'Inglewood', :parent_id => st.id, :environment_id => Environment.default.id)
+    p = create(Person, :name => "Hiro", :address => 'U-Stor-It', :nickname => 'Protagonist',
+               :user_id => fast_create(User).id, :region_id => city.id)
+    cat = create(Category, :name => "Science Fiction", :acronym => "sf", :abbreviation => "sci-fi")
+    p.add_category cat
+
+    # fields
+    assert_includes Profile.find_by_contents('Hiro')[:results].docs, p
+    assert_includes Profile.find_by_contents('Stor')[:results].docs, p
+    assert_includes Profile.find_by_contents('Protagonist')[:results].docs, p
+    # filters
+    assert_includes Profile.find_by_contents('Hiro', {}, { :filter_queries => ["public:true"]})[:results].docs, p
+    assert_not_includes Profile.find_by_contents('Hiro', {}, { :filter_queries => ["public:false"]})[:results].docs, p
+    assert_includes Profile.find_by_contents('Hiro', {}, { :filter_queries => ["environment_id:\"#{Environment.default.id}\""]})[:results].docs, p
+    # includes
+    assert_includes Profile.find_by_contents("Inglewood")[:results].docs, p
+    assert_includes Profile.find_by_contents("California")[:results].docs, p
+    assert_includes Profile.find_by_contents("Science")[:results].docs, p
+  end
+
+  should 'boost name matches' do
+    TestSolr.enable
+    in_addr = create(Person, :name => 'something', :address => 'bananas in the address!', :user_id => fast_create(User).id)
+    in_name = create(Person, :name => 'bananas in the name!', :user_id => fast_create(User).id)
+    assert_equal [in_name, in_addr], Person.find_by_contents('bananas')[:results].docs
+  end
+
+  should 'reindex articles after saving' do
+    profile = create(Person, :name => 'something', :user_id => fast_create(User).id)
+    art = profile.articles.build(:name => 'something')
+    Profile.expects(:solr_batch_add).with(includes(art))
+    profile.save!
+  end
+
 end

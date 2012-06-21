@@ -32,11 +32,6 @@ class CategoryTest < ActiveSupport::TestCase
     assert_equal parent_category, c.parent
   end
 
-  # def test_full_text_search
-  #   c = Category.create!(:name => 'product category for testing', :environment_id => @env.id)
-  #   assert @env.product_categories.full_text_search('product*').include?(c)
-  # end
-
   def test_category_full_name
     cat = Category.new(:name => 'category_name')
     assert_equal 'category_name', cat.full_name
@@ -102,10 +97,10 @@ class CategoryTest < ActiveSupport::TestCase
     sub_cat = fast_create(Category, :environment_id => @env.id, :parent_id => cat.id)
 
     roots = Category.top_level_for(@env)
-    
+
     assert_equal 1, roots.size
   end
- 
+
   def test_slug
     c = Category.new(:name => 'Category name')
     assert_equal 'category-name', c.slug
@@ -176,7 +171,7 @@ class CategoryTest < ActiveSupport::TestCase
     c.display_color = 10
     c.valid?
     assert c.errors.invalid?(:display_color)
-    
+
     valid = %w[ 1 2 3 4 ].map { |item| item.to_i }
     valid.each do |item|
       c.display_color = item
@@ -197,7 +192,7 @@ class CategoryTest < ActiveSupport::TestCase
     c.display_color = 2
     c.valid?
     assert !c.errors.invalid?(:display_color)
-    
+
   end
 
   should 'be able to get top ancestor' do
@@ -220,6 +215,62 @@ class CategoryTest < ActiveSupport::TestCase
   # category filter stuff
   ################################################################
 
+  should 'should paginate recent-like methods' do
+    c = @env.categories.build(:name => 'my category'); c.save!
+    assert c.recent_people.respond_to? 'total_entries'
+    assert c.recent_enterprises.respond_to? 'total_entries'
+    assert c.recent_communities.respond_to? 'total_entries'
+    assert c.recent_products.respond_to? 'total_entries'
+    assert c.recent_articles.respond_to? 'total_entries'
+    assert c.recent_comments.respond_to? 'total_entries'
+    assert c.most_commented_articles.respond_to? 'total_entries'
+  end
+
+  should 'list recent people' do
+    c = @env.categories.build(:name => 'my category'); c.save!
+    p1 = create_user('testuser').person
+    p1.add_category c
+    p1.save!
+
+    p2 = create_user('testuser2').person
+    p2.add_category c
+    p2.save!
+
+    assert_equal [p2, p1], c.recent_people
+  end
+
+  should 'list recent enterprises' do
+    c = @env.categories.build(:name => 'my category'); c.save!
+    ent1 = fast_create(Enterprise, :identifier => 'enterprise_1', :name => 'Enterprise one')
+    ent1.add_category c
+    ent2 = fast_create(Enterprise, :identifier => 'enterprise_2', :name => 'Enterprise one')
+    ent2.add_category c
+
+    assert_equal [ent2, ent1], c.recent_enterprises
+  end
+
+  should 'list recent communities' do
+    c = @env.categories.build(:name => 'my category'); c.save!
+    c1 = fast_create(Community, :name => 'testcommunity_1')
+    c1.add_category c
+    c2 = fast_create(Community, :name => 'testcommunity_2')
+    c2.add_category c
+
+    assert_equal [c2, c1], c.recent_communities
+  end
+
+  should 'list recent products' do
+    product_category = fast_create(ProductCategory, :name => 'Products', :environment_id => Environment.default.id)
+    c = @env.categories.build(:name => 'my category'); c.save!
+    ent1 = fast_create(Enterprise, :identifier => 'enterprise_1', :name => 'Enterprise one')
+    ent1.add_category c
+    ent2 = fast_create(Enterprise, :identifier => 'enterprise_2', :name => 'Enterprise one')
+    ent2.add_category c
+    prod1 = ent1.products.create!(:name => 'test_prod1', :product_category => product_category)
+    prod2 = ent2.products.create!(:name => 'test_prod2', :product_category => product_category)
+    assert_equal [prod2, prod1], c.recent_products
+  end
+
   should 'list recent articles' do
     c = @env.categories.build(:name => 'my category'); c.save!
     person = create_user('testuser').person
@@ -232,7 +283,7 @@ class CategoryTest < ActiveSupport::TestCase
     a2.add_category c
     a2.save!
 
-    assert_equivalent [a1, a2], c.recent_articles
+    assert_equal [a2, a1], c.recent_articles
   end
 
   should 'list recent comments' do
@@ -249,7 +300,7 @@ class CategoryTest < ActiveSupport::TestCase
     a2.save!
     c2 = a2.comments.build(:title => 'comm1', :body => 'khdkashd ', :author => person); c2.save!
 
-    assert_equivalent [c1, c2], c.recent_comments
+    assert_equal [c2, c1], c.recent_comments
   end
 
   should 'list most commented articles' do
@@ -267,6 +318,7 @@ class CategoryTest < ActiveSupport::TestCase
 
     assert_equal [a3, a2], c.most_commented_articles(2)
   end
+
   should 'have comments' do
     c = @env.categories.build(:name => 'my category'); c.save!
     person = create_user('testuser').person
@@ -433,6 +485,71 @@ class CategoryTest < ActiveSupport::TestCase
     assert_includes Category.top_level_for(Environment.default).from_types(['ProductCategory']), toplevel_productcategory
     assert_not_includes Category.top_level_for(Environment.default).from_types(['ProductCategory']), leaf_productcategory
     assert_not_includes Category.top_level_for(Environment.default).from_types(['ProductCategory']), toplevel_category
+  end
+
+  should 'paginate upcoming events' do
+    category = Category.create!(:name => 'category1', :environment_id => Environment.default.id)
+    profile = fast_create(Profile)
+    event1 = category.events.build(:name => 'event1', :start_date => Time.now, :profile => profile)	
+    event2 = category.events.build(:name => 'event2', :start_date => Time.now + 1.hour, :profile => profile)	
+    event3 = category.events.build(:name => 'event3', :start_date => Time.now + 1.day, :profile => profile)
+    category.save!
+    assert_equal [event1, event2], category.upcoming_events(2)
+  end
+
+  should 'remove all article categorizations when destroyed' do
+    cat = Category.create!(:name => 'category 1', :environment_id => Environment.default.id)
+    art = Article.create!(:name => 'article 1', :profile_id => fast_create(Person).id)
+    art.add_category cat
+    cat.destroy
+    assert art.categories.reload.empty?
+  end
+
+  should 'remove all profile categorizations when destroyed' do
+    cat = Category.create!(:name => 'category 1', :environment_id => Environment.default.id)
+    p = create(Person, :user_id => fast_create(User).id)
+    p.add_category cat
+    cat.destroy
+    assert p.categories.reload.empty?
+  end
+
+  should 'act as searchable' do
+    TestSolr.enable
+    parent = fast_create(Category, :name => 'books')
+    c = Category.create!(:name => "science fiction", :acronym => "sf", :abbreviation => "sci-fi",
+                         :environment_id => Environment.default.id, :parent_id => parent.id)
+
+    # fields
+    assert_includes Category.find_by_contents('fiction')[:results].docs, c
+    assert_includes Category.find_by_contents('sf')[:results].docs, c
+    assert_includes Category.find_by_contents('sci-fi')[:results].docs, c
+    # filters
+    assert_includes Category.find_by_contents('science', {}, {
+      :filter_queries => ["parent_id:#{parent.id}"]})[:results].docs, c
+  end
+
+  should 'boost name matches' do
+    TestSolr.enable
+    c_abbr = Category.create!(:name => "something else", :abbreviation => "science", :environment_id => Environment.default.id)
+    c_name = Category.create!(:name => "science fiction", :environment_id => Environment.default.id)
+    assert_equal [c_name, c_abbr], Category.find_by_contents("science")[:results].docs
+  end
+
+  should 'solr save' do
+    c = @env.categories.build(:name => 'my category');
+    c.expects(:solr_save)
+    c.save!
+  end
+
+  should 'reindex articles after saving' do
+    cat = Category.create!(:name => 'category 1', :environment_id => Environment.default.id)
+    art = Article.create!(:name => 'something', :profile_id => fast_create(Person).id)
+    art.add_category cat
+    cat.reload
+
+    solr_doc = art.to_solr_doc
+    Article.any_instance.expects(:to_solr_doc).returns(solr_doc)
+    cat.save!
   end
 
 end

@@ -27,6 +27,6 @@ Feature: manage categories
     Then I should not see "Beans"
     And I should not see "Potatoes"
     When I follow "Show" and wait for jquery
-    Then show me the page
+    #    Then show me the page
 
 

@@ -22,7 +22,7 @@ module Noosfero::Factory
       end
     end
     if options[:search]
-      obj.ferret_create
+      obj.solr_save
     end
     obj
   end
@@ -44,7 +44,9 @@ module Noosfero::Factory
   end
 
   def defaults_for(name)
-    send('defaults_for_' + name.to_s.underscore) || {}
+    send('defaults_for_' + name.to_s.underscore)
+  rescue
+    {}
   end
 
   def self.num_seq
@@ -457,6 +459,14 @@ module Noosfero::Factory
 
   def defaults_for_production_cost
     { :name => 'Production cost ' + factory_num_seq.to_s }
+  end
+
+  ###############################################
+  # National Region
+  ###############################################
+
+  def defaults_for_national_region
+    { :name => 'National region ' + factory_num_seq.to_s }
   end
 
 end

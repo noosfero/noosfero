@@ -52,10 +52,6 @@ ActionController::Routing::Routes.draw do |map|
   # search
   map.connect 'search/:action/*category_path', :controller => 'search'
  
-  # Browse
-  map.connect 'browse/:action/:filter', :controller => 'browse'
-  map.connect 'browse/:action', :controller => 'browse'
-
   # events
   map.events 'profile/:profile/events_by_day', :controller => 'events', :action => 'events_by_day', :profile => /#{Noosfero.identifier_format}/
   map.events 'profile/:profile/events/:year/:month/:day', :controller => 'events', :action => 'events', :year => /\d*/, :month => /\d*/, :day => /\d*/, :profile => /#{Noosfero.identifier_format}/
@@ -84,6 +80,9 @@ ActionController::Routing::Routes.draw do |map|
 
   # contact
   map.contact 'contact/:profile/:action/:id', :controller => 'contact', :action => 'index', :id => /.*/, :profile => /#{Noosfero.identifier_format}/
+
+  # map balloon
+  map.contact 'map_balloon/:action/:id', :controller => 'map_balloon', :id => /.*/
 
   # chat
   map.chat 'chat/:action/:id', :controller => 'chat'

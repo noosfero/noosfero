@@ -1,11 +1,12 @@
-<li class="<%= icon_for_article(article) %>">
-  <strong><%= link_to(article.title, article.view_url) %></strong>
-  <div class="item_meta">
-    <% if article.last_changed_by %>
-      <span class="cat_item_by">
-      <%= _('by %s') % link_to(article.last_changed_by.name, article.last_changed_by.url) %>
-      </span>
-    <% end %>
-    <span class="cat_item_update"><%= _('Last update: %s.') % show_date(article.updated_at) %></span>
+<li class="search-article-item article-item">
+  <%= link_to(article.title, article.url, :class => "search-result-title") %>
+  <div class="search-content-first-column">
+    <%= render :partial => 'image', :object => article %>
   </div>
+  <table class="noborder search-content-second-column">
+    <%= render :partial => 'article_common', :object => article %>
+  </table>
+  <%= render :partial => 'article_last_change', :object => article %>
+
+  <div style="clear:both"></div>
 </li>

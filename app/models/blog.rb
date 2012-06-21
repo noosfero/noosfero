@@ -9,6 +9,10 @@ class Blog < Folder
   end
   alias_method_chain :posts, :no_folders
 
+  def self.type_name
+    _('Blog')
+  end
+
   def self.short_description
     _('Blog')
   end

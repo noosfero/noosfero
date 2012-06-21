@@ -54,6 +54,7 @@ class PerformanceTest < ActionController::IntegrationTest
   end
 
   should 'not have a linear increase in time to save enterprise due to amount of products' do
+    $DISABLE_DELAYED_JOB_TEST_ENV_RUN = true
     enterprise0 = Enterprise.create!(:name => 'Enterprise 0', :identifier => 'enterprise0')
     enterprise1 = Enterprise.create!(:name => 'Enterprise 1', :identifier => 'enterprise1')
     enterprise2 = Enterprise.create!(:name => 'Enterprise 2', :identifier => 'enterprise2')

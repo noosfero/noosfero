@@ -15,13 +15,14 @@ class Category < ActiveRecord::Base
 
   acts_as_filesystem
 
-  has_many :article_categorizations
+  has_many :article_categorizations, :dependent => :destroy
   has_many :articles, :through => :article_categorizations
   has_many :comments, :through => :articles
 
   has_many :events, :through => :article_categorizations, :class_name => 'Event', :source => :article
 
-  has_many :profile_categorizations
+  has_many :profile_categorizations, :dependent => :destroy
+  has_many :profiles, :through => :profile_categorizations, :source => :profile
   has_many :enterprises, :through => :profile_categorizations, :source => :profile, :class_name => 'Enterprise'
   has_many :people, :through => :profile_categorizations, :source => :profile, :class_name => 'Person'
   has_many :communities, :through => :profile_categorizations, :source => :profile, :class_name => 'Community'
@@ -36,16 +37,36 @@ class Category < ActiveRecord::Base
       { :conditions => [ "type IN (?) OR type IS NULL", types.reject{ |t| t.blank? } ] }
   }
 
+  def recent_people(limit = 10)
+    self.people.paginate(:order => 'created_at DESC, id DESC', :page => 1, :per_page => limit)
+  end
+
+  def recent_enterprises(limit = 10)
+    self.enterprises.paginate(:order => 'created_at DESC, id DESC', :page => 1, :per_page => limit)
+  end
+
+  def recent_communities(limit = 10)
+    self.communities.paginate(:order => 'created_at DESC, id DESC', :page => 1, :per_page => limit)
+  end
+
+  def recent_products(limit = 10)
+    self.products.paginate(:order => 'created_at DESC, id DESC', :page => 1, :per_page => limit)
+  end
+
   def recent_articles(limit = 10)
     self.articles.recent(limit)
   end
 
   def recent_comments(limit = 10)
-    comments.find(:all, :order => 'created_at DESC, comments.id DESC', :limit => limit)
+    comments.paginate(:all, :order => 'created_at DESC, comments.id DESC', :page => 1, :per_page => limit)
   end
 
   def most_commented_articles(limit = 10)
     self.articles.most_commented(limit)
+  end
+
+  def upcoming_events(limit = 10)
+    self.events.paginate(:conditions => [ 'start_date >= ?', Date.today ], :order => 'start_date', :page => 1, :per_page => limit)
   end
 
   def display_in_menu?
@@ -68,5 +89,24 @@ class Category < ActiveRecord::Base
     return false if self.display_in_menu == false
     self.children.find(:all, :conditions => {:display_in_menu => true}).empty?
   end
+
+  private
+  def name_sortable # give a different name for solr
+    name
+  end
+  public
+
+  acts_as_searchable :fields => [
+    # searched fields
+    {:name => {:type => :text, :boost => 2.0}},
+    {:path => :text}, {:slug => :text},
+    {:abbreviation => :text}, {:acronym => :text},
+    # filtered fields
+    :parent_id,
+    # ordered/query-boosted fields
+    {:name_sortable => :string},
+  ]
+  after_save_reindex [:articles, :profiles], :with => :delayed_job
+  handle_asynchronously :solr_save
 
 end

@@ -3,6 +3,12 @@
 # which by default is the one returned by Environment:default.
 class Profile < ActiveRecord::Base
 
+  # use for internationalizable human type names in search facets
+  # reimplement on subclasses
+  def self.type_name
+    _('Profile')
+  end
+
   module Roles
     def self.admin(env_id)
       find_role('admin', env_id)
@@ -74,8 +80,6 @@ class Profile < ActiveRecord::Base
 
   acts_as_having_boxes
 
-  acts_as_searchable :additional_fields => [ :extra_data_for_index ]
-
   acts_as_taggable
 
   def self.qualified_column_names
@@ -124,8 +128,6 @@ class Profile < ActiveRecord::Base
   settings_items :description
 
   validates_length_of :description, :maximum => 550, :allow_nil => true
-
-  acts_as_mappable :default_units => :kms
 
   # Valid identifiers must match this format.
   IDENTIFIER_FORMAT = /^#{Noosfero.identifier_format}$/
@@ -181,7 +183,19 @@ class Profile < ActiveRecord::Base
   has_many :profile_categorizations, :conditions => [ 'categories_profiles.virtual = ?', false ]
   has_many :categories, :through => :profile_categorizations
 
+  has_many :profile_categorizations_including_virtual, :class_name => 'ProfileCategorization'
+  has_many :categories_including_virtual, :through => :profile_categorizations_including_virtual, :source => :category
+
   has_many :abuse_complaints, :foreign_key => 'requestor_id'
+
+  def top_level_categorization
+    ret = {}
+    self.profile_categorizations.each do |c|
+      p = c.category.top_ancestor
+      ret[p] = (ret[p] || []) + [c.category]
+    end
+    ret
+  end
 
   def interests
     categories.select {|item| !item.is_a?(Region)}
@@ -217,12 +231,15 @@ class Profile < ActiveRecord::Base
     @pending_categorizations ||= []
   end
 
-  def add_category(c)
-    if self.id
-      ProfileCategorization.add_category_to_profile(c, self)
-    else
+  def add_category(c, reload=false)
+    if new_record?
       pending_categorizations << c
+    else
+      ProfileCategorization.add_category_to_profile(c, self)
+      self.categories(true)
+      self.solr_save
     end
+		self.categories(reload)
   end
 
   def category_ids=(ids)
@@ -527,6 +544,7 @@ private :generate_url, :url_options
     other.top_level_articles.each do |a|
       copy_article_tree a
     end
+		self.articles.reload
   end
 
   def copy_article_tree(article, parent=nil)
@@ -822,18 +840,100 @@ private :generate_url, :url_options
     name
   end
 
-  protected
+  private
+  def self.f_categories_label_proc(environment)
+    ids = environment.top_level_category_as_facet_ids
+    r = Category.find(ids)
+    map = {}
+    ids.map{ |id| map[id.to_s] = r.detect{|c| c.id == id}.name }
+    map
+  end
+  def self.f_categories_proc(facet, id)
+    id = id.to_i
+    return if id.zero?
+    c = Category.find(id)
+    c.name if c.top_ancestor.id == facet[:label_id].to_i or facet[:label_id] == 0
+  end
+  def f_categories
+    category_ids - [region_id]
+  end
 
-    def followed_by?(person)
-      person.is_member_of?(self)
+  def f_region
+    self.region_id
+  end
+  def self.f_region_proc(id)
+    c = Region.find(id)
+    s = c.parent
+    if c and c.kind_of?(City) and s and s.kind_of?(State) and s.acronym 
+      [c.name, ', ' + s.acronym]
+    else
+      c.name
     end
+  end
 
-    def display_private_info_to?(user)
-      if user.nil?
-        false
-      else
-        (user == self) || (user.is_admin?(self.environment)) || user.is_admin?(self) || user.memberships.include?(self)
-      end
+  def self.f_enabled_proc(enabled)
+    enabled = enabled == "true" ? true : false 
+    enabled ? _('Enabled') : _('Not enabled')
+  end
+  def f_enabled
+    self.enabled
+  end
+
+  def name_sortable # give a different name for solr
+    name
+  end
+  def public
+    self.public?
+  end
+  def category_filter
+    categories_including_virtual_ids
+  end
+  public
+
+  acts_as_faceted :fields => {
+      :f_enabled => {:label => _('Situation'), :type_if => proc { |klass| klass.kind_of?(Enterprise) },
+        :proc => proc { |id| f_enabled_proc(id) }},
+      :f_region => {:label => _('City'), :proc => proc { |id| f_region_proc(id) }},
+      :f_categories => {:multi => true, :proc => proc {|facet, id| f_categories_proc(facet, id)},
+        :label => proc { |env| f_categories_label_proc(env) }, :label_abbrev => proc{ |env| f_categories_label_abbrev_proc(env) }},
+    }, :category_query => proc { |c| "category_filter:#{c.id}" },
+    :order => [:f_region, :f_categories, :f_enabled]
+
+  acts_as_searchable :fields => facets_fields_for_solr + [:extra_data_for_index,
+      # searched fields
+      {:name => {:type => :text, :boost => 2.0}},
+      {:identifier => :text}, {:address => :text}, {:nickname => :text},
+      # filtered fields
+      {:public => :boolean}, {:environment_id => :integer},
+      {:category_filter => :integer},
+      # ordered/query-boosted fields
+      {:name_sortable => :string}, {:user_id => :integer},
+      :enabled, :active, :validated, :public_profile,
+      {:lat => :float}, {:lng => :float},
+      :updated_at, :created_at,
+    ],
+    :include => [
+      {:region => {:fields => [:name, :path, :slug, :lat, :lng]}},
+      {:categories => {:fields => [:name, :path, :slug, :lat, :lng, :acronym, :abbreviation]}},
+    ], :facets => facets_option_for_solr,
+    :boost => proc{ |p| 10 if p.enabled }
+  after_save_reindex [:articles], :with => :delayed_job
+  handle_asynchronously :solr_save
+
+  def control_panel_settings_button                                                                                                                                                             
+    {:title => _('Profile Info and settings'), :icon => 'edit-profile'}                                                                                                                         
+  end 
+
+  def followed_by?(person)
+    person.is_member_of?(self)
+  end
+
+  def display_private_info_to?(user)
+    if user.nil?
+      false
+    else
+      (user == self) || (user.is_admin?(self.environment)) || user.is_admin?(self) || user.memberships.include?(self)
     end
+  end
 
 end

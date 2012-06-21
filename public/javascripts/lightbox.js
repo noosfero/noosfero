@@ -51,7 +51,6 @@ function checkIt(string) {
 
 /*-----------------------------------------------------------------------------------------------*/
 
-Event.observe(window, 'load', initialize, false);
 Event.observe(window, 'load', getBrowserInfo, false);
 
 var lightbox = Class.create();
@@ -66,8 +65,8 @@ lightbox.prototype = {
 		if (ctrl.id != '') {
 		    this.lightbox_className = ctrl.id;
 		}
-		Event.observe(ctrl, 'click', this.activate.bindAsEventListener(this), false);
 		ctrl.onclick = function(){return false;};
+                ctrl.lightbox = this;
 	},
 	
 	// Turn everything on - mainly the IE fixes
@@ -80,7 +79,6 @@ lightbox.prototype = {
 		}
 		this.hideObjectsAndEmbeds('hidden');
 		this.displayLightbox("block");
-		window.location.href= "#";
 	},
 	
 	// Ie requires height to 100% and overflow hidden or else you can scroll down past the lightbox
@@ -196,14 +194,21 @@ lightbox.prototype = {
 
 /*-----------------------------------------------------------------------------------------------*/
 
-// Onload, make all links that need to trigger a lightbox active
-function initialize(){
-	addLightboxMarkup();
-	lbox = document.getElementsByClassName('lbOn');
-	for(i = 0; i < lbox.length; i++) {
-		valid = new lightbox(lbox[i]);
-	}
-}
+jQuery('.lbOn').live('click', function(event) {
+  if (jQuery('#lbLoadMessage').length == 0)
+    addLightboxMarkup();
+  if (this.lightbox == undefined)
+    valid = new lightbox(this);
+  else {
+    removeLightboxMarkup();
+    addLightboxMarkup();
+  }
+
+  this.lightbox.activate();
+
+  event.preventDefault();
+  return false;
+});
 
 // Add in markup necessary to make this work. Basically two divs:
 // Overlay holds the shadow
@@ -220,4 +225,8 @@ function addLightboxMarkup() {
 						  '</div>';
 	bod.appendChild(overlay);
 	bod.appendChild(lb);
+}
+function removeLightboxMarkup() {
+    Element.remove($('overlay'));
+    Element.remove($('lightbox'));
 }

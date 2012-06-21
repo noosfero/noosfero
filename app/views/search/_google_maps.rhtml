@@ -1,72 +1,26 @@
-<%= content_tag('script', '', :src => GoogleMaps.api_url(environment.default_hostname), :type => 'text/javascript') %>
-
-
+<div style="clear: both;"></div>
 <div style='text-align: center;'>
   <div id="map"></div>
 </div>
 
-<script type='text/javascript'>
-var points = {};
-   
-function putMarker(lat, lng, title, summary) {
-  var point_str = lat + ":" + lng;
-   
-  if (points[point_str]) {
-    lng += (Math.random() - 0.5) * 0.02;
-    lat += (Math.random() - 0.5) * 0.02;
-  } else {
-    points[point_str] = true;
-  }
-     
-  var point = new GLatLng(lat, lng);
-  var options = { 'title' : title, 'icon' : icon };
-  var marker = new GMarker(point, options);
-  map.addOverlay(marker);
-  GEvent.addListener(marker, 'click', function() {
-    map.openInfoWindowHtml(point, summary);
-  });
-  bounds.extend(point);
-}
-
-window.unload = function() {
-  GUnload();
-};
-
-if (GBrowserIsCompatible()) {
-  var map = new GMap2(document.getElementById("map"));
-
-  new GKeyboardHandler(map);
-  map.addControl(new GLargeMapControl());
-  map.addControl(new GMapTypeControl());
-
-  centerPoint = new GLatLng(-15.0, -50.1419);
-  map.setCenter(centerPoint, <%= GoogleMaps.initial_zoom.to_json %>);
-  var bounds = new GLatLngBounds();
-
-  var baseIcon = new GIcon();
-      baseIcon.iconSize=new GSize(32,32);
-      baseIcon.shadowSize=new GSize(36,32);
-      baseIcon.iconAnchor=new GPoint(16,32);
-      baseIcon.infoWindowAnchor=new GPoint(16,0);
-  <%
-    icon = default_or_themed_icon("/images/icons-map/enterprise.png")
-    icon_shadow = default_or_themed_icon("/images/icons-map/enterprise_shadow.png")
-  %>
-  var icon = new GIcon(baseIcon, "<%= icon %>", null, "<%= icon_shadow %>");
+<%= content_tag('script', '', :src => "http://maps.google.com/maps/api/js?sensor=true", :type => 'text/javascript') %>
+<%= javascript_include_tag('google_maps') %>
 
 <%
-  @results.each do |name,results|
-    results.each do |item|
-      if item.lat && item.lng
-      %>
-        putMarker(<%= item.lat.to_json %>, <%= item.lng.to_json %>, <%= item.name.to_json %>, <%= display_item_map_info(item).to_json %>);
-      <%
-      end
-    end
-  end
+  icon = default_or_themed_icon("/images/icons-map/enterprise.png")
 %>
-}
 
-  map.setZoom(map.getBoundsZoomLevel(bounds));
-  map.setCenter(bounds.getCenter());
+<script type='text/javascript'>
+  mapLoad(<%= GoogleMaps.initial_zoom.to_json %>);
+
+  <% @results.each do |name,results| %>
+    <% results.each do |item| %>
+      <% if item.lat && item.lng %>
+        mapPutMarker(<%= item.lat.to_json %>, <%= item.lng.to_json %>, <%= item.name.to_json %>, '<%= icon %>',
+          '<%= url_for(:controller => :map_balloon, :action => name.to_s.singularize, :id => item.id) %>');
+      <% end %>
+    <% end %>
+  <% end %>
+
+  mapCenter();
 </script>

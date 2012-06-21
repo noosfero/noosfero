@@ -6,9 +6,20 @@ else
   t.instance_variable_get('@actions').clear
 end
 
+desc 'Runs Seleniun acceptance tests'
+task :selenium do
+  sh "xvfb-run -a cucumber -p selenium --format #{ENV['CUCUMBER_FORMAT'] || 'progress'}"
+end
+
+TestTasks = %w(test:units test:functionals test:integration)
+CucumberTasks = %w(cucumber selenium)
+NoosferoTasks = %w(test:noosfero_plugins)
+AllTasks = TestTasks + CucumberTasks + NoosferoTasks
+
 task :test do
-  errors = %w(test:units test:functionals test:integration cucumber selenium test:noosfero_plugins).collect do |task|
+  errors = AllTasks.collect do |task|
     begin
+      CucumberTasks.include?(task) ? ENV['RAILS_ENV'] = 'cucumber' : ENV['RAILS_ENV'] = 'test'
       Rake::Task[task].invoke
       nil
     rescue => e
@@ -18,7 +29,3 @@ task :test do
   abort "Errors running #{errors.to_sentence}!" if errors.any?
 end
 
-desc 'Runs Seleniun acceptance tests'
-task :selenium do
-  sh "xvfb-run -a cucumber -p selenium --format #{ENV['CUCUMBER_FORMAT'] || 'progress'}"
-end

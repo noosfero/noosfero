@@ -1,0 +1,6 @@
+<div class="facets-applied">
+  <% if params[:facet] and params[:facet].count > 0 %>
+    <span class="facets-applied-label"><%= _("Applied filters") %> </span>
+    <%= facet_selecteds_html_for(environment, asset_class(@asset), params) %>
+  <% end %>
+</div>

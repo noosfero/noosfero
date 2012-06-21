@@ -9,6 +9,7 @@ class CmsControllerTest < ActionController::TestCase
   fixtures :environments
 
   def setup
+    super
     @controller = CmsController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
@@ -281,6 +282,7 @@ class CmsControllerTest < ActionController::TestCase
   end
 
   should 'display destination folder of files when uploading file' do
+    TestSolr.enable
     f = Folder.new(:name => 'f'); profile.articles << f; f.save!
     get :upload_files, :profile => profile.identifier, :parent_id => f.id
 
@@ -1466,6 +1468,7 @@ class CmsControllerTest < ActionController::TestCase
   end
 
   should 'search for content for inclusion in articles' do
+    TestSolr.enable
     file = UploadedFile.create!(:profile => @profile, :uploaded_data => fixture_file_upload('files/test.txt', 'text/plain'))
     get :search, :profile => @profile.identifier, :q => 'test.txt'
     assert_match /test.txt/, @response.body

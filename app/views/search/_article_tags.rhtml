@@ -1,0 +1,9 @@
+<tr class="search-article-tags">
+  <td class="search-field-label"><%= _('Tags') %></td>
+  <td class="search-article-tags-container <%= "search-field-none" if article_tags.empty? %>">
+    <% article_tags.each do |tag| %>
+      <%= link_to_tag tag, :class => "search-article-tag" %>
+    <% end %>
+    <%= _('None') if article_tags.empty? %>
+  </td>
+</tr>

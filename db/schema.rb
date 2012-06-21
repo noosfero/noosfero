@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120307200651) do
+ActiveRecord::Schema.define(:version => 20120411132751) do
 
   create_table "abuse_reports", :force => true do |t|
     t.integer  "reporter_id"
@@ -175,6 +175,8 @@ ActiveRecord::Schema.define(:version => 20120307200651) do
     t.integer "children_count",  :default => 0
     t.boolean "accept_products", :default => true
     t.integer "image_id"
+    t.string  "acronym"
+    t.string  "abbreviation"
   end
 
   create_table "categories_profiles", :id => false, :force => true do |t|
@@ -306,6 +308,9 @@ ActiveRecord::Schema.define(:version => 20120307200651) do
     t.integer  "unit_id"
   end
 
+  add_index "inputs", ["product_category_id"], :name => "index_inputs_on_product_category_id"
+  add_index "inputs", ["product_id"], :name => "index_inputs_on_product_id"
+
   create_table "mailing_sents", :force => true do |t|
     t.integer  "mailing_id"
     t.integer  "person_id"
@@ -325,6 +330,22 @@ ActiveRecord::Schema.define(:version => 20120307200651) do
     t.datetime "updated_at"
   end
 
+  create_table "national_region_types", :force => true do |t|
+    t.string "name"
+  end
+
+  create_table "national_regions", :force => true do |t|
+    t.string   "name"
+    t.string   "national_region_code"
+    t.string   "parent_national_region_code"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "national_region_type_id"
+  end
+
+  add_index "national_regions", ["name"], :name => "name_index"
+  add_index "national_regions", ["national_region_code"], :name => "code_index"
+
   create_table "price_details", :force => true do |t|
     t.decimal  "price",              :default => 0.0
     t.integer  "product_id"
@@ -333,17 +354,6 @@ ActiveRecord::Schema.define(:version => 20120307200651) do
     t.datetime "updated_at"
   end
 
-  create_table "product_categorizations", :force => true do |t|
-    t.integer  "category_id"
-    t.integer  "product_id"
-    t.boolean  "virtual",     :default => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "product_categorizations", ["category_id"], :name => "index_product_categorizations_on_category_id"
-  add_index "product_categorizations", ["product_id"], :name => "index_product_categorizations_on_product_id"
-
   create_table "product_qualifiers", :force => true do |t|
     t.integer  "product_id"
     t.integer  "qualifier_id"
@@ -351,6 +361,10 @@ ActiveRecord::Schema.define(:version => 20120307200651) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "product_qualifiers", ["certifier_id"], :name => "index_product_qualifiers_on_certifier_id"
+  add_index "product_qualifiers", ["product_id"], :name => "index_product_qualifiers_on_product_id"
+  add_index "product_qualifiers", ["qualifier_id"], :name => "index_product_qualifiers_on_qualifier_id"
 
   create_table "production_costs", :force => true do |t|
     t.string   "name"
@@ -368,8 +382,6 @@ ActiveRecord::Schema.define(:version => 20120307200651) do
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.float    "lat"
-    t.float    "lng"
     t.decimal  "discount"
     t.boolean  "available",           :default => true
     t.boolean  "highlighted"
@@ -378,13 +390,14 @@ ActiveRecord::Schema.define(:version => 20120307200651) do
   end
 
   add_index "products", ["enterprise_id"], :name => "index_products_on_enterprise_id"
+  add_index "products", ["product_category_id"], :name => "index_products_on_product_category_id"
 
   create_table "profiles", :force => true do |t|
     t.string   "name"
     t.string   "type"
     t.string   "identifier"
     t.integer  "environment_id"
-    t.boolean  "active",                            :default => true
+    t.boolean  "active",                             :default => true
     t.string   "address"
     t.string   "contact_phone"
     t.integer  "home_page_id"
@@ -395,22 +408,24 @@ ActiveRecord::Schema.define(:version => 20120307200651) do
     t.float    "lat"
     t.float    "lng"
     t.integer  "geocode_precision"
-    t.boolean  "enabled",                           :default => true
-    t.string   "nickname",            :limit => 16
+    t.boolean  "enabled",                            :default => true
+    t.string   "nickname",             :limit => 16
     t.text     "custom_header"
     t.text     "custom_footer"
     t.string   "theme"
-    t.boolean  "public_profile",                    :default => true
+    t.boolean  "public_profile",                     :default => true
     t.date     "birth_date"
     t.integer  "preferred_domain_id"
     t.datetime "updated_at"
-    t.boolean  "visible",                           :default => true
+    t.boolean  "visible",                            :default => true
     t.integer  "image_id"
-    t.boolean  "validated",                         :default => true
+    t.boolean  "validated",                          :default => true
     t.string   "cnpj"
+    t.string   "national_region_code"
   end
 
   add_index "profiles", ["environment_id"], :name => "index_profiles_on_environment_id"
+  add_index "profiles", ["region_id"], :name => "index_profiles_on_region_id"
 
   create_table "qualifier_certifiers", :force => true do |t|
     t.integer "qualifier_id"

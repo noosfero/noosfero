@@ -1,5 +1,9 @@
 class Gallery < Folder
 
+  def self.type_name
+    _('Gallery')
+  end
+
   def self.short_description
     _('Gallery')
   end

@@ -3,7 +3,7 @@ require File.dirname(__FILE__) + '/../test_helper'
 class TinyMceArticleTest < ActiveSupport::TestCase
 
   def setup
-    Article.rebuild_index
+    super
     @profile = create_user('zezinho').person
   end
   attr_reader :profile
@@ -22,9 +22,10 @@ class TinyMceArticleTest < ActiveSupport::TestCase
   end
 
   should 'be found when searching for articles by query' do
+    TestSolr.enable
     tma = TinyMceArticle.create!(:name => 'test tinymce article', :body => '---', :profile => profile)
-    assert_includes TinyMceArticle.find_by_contents('article'), tma
-    assert_includes Article.find_by_contents('article'), tma
+    assert_includes TinyMceArticle.find_by_contents('article')[:results], tma
+    assert_includes Article.find_by_contents('article')[:results], tma
   end
 
   should 'not sanitize target attribute' do
@@ -244,6 +245,11 @@ class TinyMceArticleTest < ActiveSupport::TestCase
 
   should 'tiny mce editor is enabled' do
     assert TinyMceArticle.new.tiny_mce?
+  end
+
+  should 'define type facet' do
+	  a = TinyMceArticle.new
+		assert_equal TextArticle.type_name, TinyMceArticle.send(:f_type_proc, a.send(:f_type))
   end
 
 end

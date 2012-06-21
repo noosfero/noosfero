@@ -1,0 +1,7 @@
+<% article = article_common %>
+<% show_description = true if show_description.nil? %>
+
+<%= render :partial => 'article_author', :object => article %>
+<%= render :partial => 'article_description', :object => article if show_description %>
+<%= render :partial => 'article_tags', :object => article.tags %>
+<%= render :partial => 'article_categories', :object => article.categories %>

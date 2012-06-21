@@ -1,40 +1,28 @@
-<h1> 
-  <% if !@query.blank? %>
-    <%=h @category ? (__('Enterprise results for "%{query}" in "%{category}"') % { :query => @query, :category => @category.name}) : (__('Enterprise results for "%s"') % @query) %>
-  <% else %>
-    <%=h @category ? (__('Enterprises in "%s"') % @category.name) : __('Enterprises') %>
+<%= search_page_title( @titles[:enterprises], @category ) %>
+
+<div id="search-column-left">
+  <% if logged_in? && environment.enabled?('enterprise_registration') %>
+    <% button_bar do %>
+      <%= button(:add, __('New enterprise'), {:controller => 'enterprise_registration'}) %>
+    <% end %>
   <% end %>
-</h1>
 
-<% if @radius && @region %>
-  <h2><%=h (_('Within %s km from %s') % [@radius, @region.name]) %><h2>
-<% end %>
-
-<%= search_page_link_to_all( { :asset => params[:asset],
-                               :category => @category }) %>
-
-<%= render :partial => 'search_form', :locals => { :form_title => _("Refine your search"), :simple_search => true } %>
-
-<% if logged_in? && environment.enabled?('enterprise_registration') %>
-  <% button_bar do %>
-    <%= button(:add, __('New enterprise'), {:controller => 'enterprise_registration'}) %>
+  <% if !@empty_query %>
+    <% button_bar do %>
+      <%= display_map_list_button %>
+    <% end %>
+    <%= facets_menu(:enterprises, @facets) %>
   <% end %>
-<% end %>
+</div>
 
-<% if @categories_menu %>
-<div class="has_cat_list">
-<% end %>
+<div id="search-column-right">
+  <%= render :partial => 'search_form', :locals => { :hint => _("Type words about the enterprise you're looking for") } %>
+  <%= render :partial => 'results_header' %>
 
-<% cache(:action => 'assets', :asset => 'enterprises', :category_path => params[:category_path], :query => @query, :product_category => @product_category, :region => @region, :radius => params[:radius]) do %>
-  <%= product_categories_menu(:enterprises, @product_category, @result_ids) %>
-<% end %>
+  <%= display_results(true) %>
+  <% if params[:display] != 'map' %>
+    <%= pagination_links @results[:enterprises] %>
+  <% end %>
+</div>
 
-<%= display_results %>
-
-<% if @categories_menu %>
-</div><!-- class="has_cat_list" -->
-<% end %>
-
-<%= pagination_links @results[:enterprises] %>
-
-<br style="clear:both" />
+<div style="clear: both"></div>
