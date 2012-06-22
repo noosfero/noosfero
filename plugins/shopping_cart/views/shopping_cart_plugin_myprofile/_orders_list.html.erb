@@ -38,14 +38,14 @@
             </ul>
             <ul class="order-products">
               <% order.products_list.each do |id, qp| %>
-                <% 
+                <%
                   begin
                     product = Product.find(id)
                   rescue
                     product = nil
                   end
                 %>
-                <li><%= product ? link_to(product.name, product.url) : _("Pruduct unavailable")%>
+                <li><%= product ? link_to(product.name, product.url) : qp[:name]%>
                 &times; <%= qp[:quantity] %> = <%= float_to_currency_cart( qp[:quantity] * qp[:price], environment ) %></li>
               <% end %>
             </ul>

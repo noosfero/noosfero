@@ -6,10 +6,10 @@
       <th><%= _('Product') %></th>
       <th><%= _('Quantity') %></th>
     </tr>
-    <% @products.each do |id, quantity|%>
+    <% @products.each do |id, item|%>
       <tr>
-        <td><%= link_to(Product.find(id).name, Product.find(id).url) %></td>
-        <td style="text-align: center"><%= quantity %></td>
+        <td><%= item.product ? link_to(item.name, item.product.url) : item.name %></td>
+        <td style="text-align: center"><%= item.quantity %></td>
       </tr>
     <% end %>
   </table>
