@@ -12,6 +12,7 @@ class Scrap < ActiveRecord::Base
   named_scope :not_replies, :conditions => {:scrap_id => nil}
 
   track_actions :leave_scrap, :after_create, :keep_params => ['sender.name', 'content', 'receiver.name', 'receiver.url'], :if => Proc.new{|s| s.receiver != s.sender}, :custom_target => :action_tracker_target 
+
   track_actions :leave_scrap_to_self, :after_create, :keep_params => ['sender.name', 'content'], :if => Proc.new{|s| s.receiver == s.sender}
 
   after_create do |scrap|

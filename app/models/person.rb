@@ -435,6 +435,10 @@ class Person < Profile
     user.save!
   end
 
+  def activities
+    Scrap.find_by_sql("SELECT id, updated_at, '#{Scrap.to_s}' AS klass FROM #{Scrap.table_name} WHERE scraps.receiver_id = #{self.id} AND scraps.scrap_id IS NULL UNION SELECT id, updated_at, '#{ActionTracker::Record.to_s}' AS klass FROM #{ActionTracker::Record.table_name} WHERE action_tracker.user_id = #{self.id} ORDER BY updated_at DESC")
+  end
+
   protected
 
   def followed_by?(profile)

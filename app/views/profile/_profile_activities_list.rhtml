@@ -1,0 +1,16 @@
+<% unless activities.nil? %>
+  <% activities.each do |a| %>
+    <% activity = a.klass.constantize.find(a.id) %>
+    <% if activity.kind_of?(ActionTracker::Record) %>
+      <%= render :partial => 'profile_activity', :locals => { :activity => activity, :tab_action => 'wall' } if activity.visible? %>
+    <% else %>
+      <%= render :partial => 'profile_scrap', :locals => {:scrap => activity } %>
+    <% end %>
+  <% end %>
+<% end %>
+
+<% if activities.current_page < activities.total_pages %>
+  <div id='profile_activities_page_<%= activities.current_page %>'>
+    <%= button_to_remote :add, _('View more'), :url => {:action => 'view_more_activities', :page => (activities.current_page + 1)}, :update => "profile_activities_page_#{activities.current_page}" %>
+  </div>
+<% end %>

@@ -372,7 +372,7 @@ module Noosfero::Factory
   ###############################################
 
   def defaults_for_scrap(params = {})
-    { :content => 'soment content ', :sender_id => 1, :receiver_id => 1, :created_at => DateTime.now }.merge(params)
+    { :content => 'some content ', :sender_id => 1, :receiver_id => 1, :created_at => DateTime.now }.merge(params)
   end
 
   ###############################################
@@ -440,7 +440,7 @@ module Noosfero::Factory
 
   def defaults_for_comment(params = {})
     name = "comment_#{rand(1000)}"
-    { :title => name, :body => "my own comment", :article_id => 1 }.merge(params)
+    { :title => name, :body => "my own comment", :source_id => 1 }.merge(params)
   end
 
   ###############################################

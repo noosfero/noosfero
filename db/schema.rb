@@ -29,6 +29,8 @@ ActiveRecord::Schema.define(:version => 20120307200651) do
     t.string   "verb"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "comments_count", :default => 0
+    t.boolean  "visible",        :default => true
   end
 
   add_index "action_tracker", ["target_id", "target_type"], :name => "index_action_tracker_on_dispatcher_id_and_dispatcher_type"
@@ -198,7 +200,7 @@ ActiveRecord::Schema.define(:version => 20120307200651) do
   create_table "comments", :force => true do |t|
     t.string   "title"
     t.text     "body"
-    t.integer  "article_id"
+    t.integer  "source_id"
     t.integer  "author_id"
     t.string   "name"
     t.string   "email"
@@ -206,6 +208,7 @@ ActiveRecord::Schema.define(:version => 20120307200651) do
     t.integer  "reply_of_id"
     t.string   "ip_address"
     t.boolean  "spam"
+    t.string   "source_type"
   end
 
   create_table "contact_lists", :force => true do |t|

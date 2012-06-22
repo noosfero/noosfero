@@ -1,6 +1,4 @@
-<div id='profile-activity'>
-  <h3><%= _("%s's activity") % @profile.name %></h3>
-  <ul>
-    <%= render :partial => 'profile_activities', :locals => {:activities => @activities} %>
-  </ul>
-</div>
+<li class='profile-activity-item <%= activity.verb %>' id='profile-activity-item-<%= activity.id %>'>
+  <%= render :partial => activity.verb, :locals => { :activity => activity, :tab_action => tab_action }%>
+  <hr />
+</li>
