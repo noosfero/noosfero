@@ -4,7 +4,7 @@
 #
 # The specific types of tasks <em>must</em> override the #perform method, so
 # the actual action associated to the type of task can be performed. See the
-# documentation of the #perform method for details. 
+# documentation of the #perform method for details.
 #
 # This class has a +data+ field of type <tt>text</tt>, where you can store any
 # type of data (as serialized Ruby objects) you need for your subclass (which
@@ -64,7 +64,8 @@ class Task < ActiveRecord::Base
 
       begin
         target_msg = task.target_notification_message
-        TaskMailer.deliver_target_notification(task, target_msg) if target_msg
+        target_emails = task.target && task.target.notification_emails || []
+        TaskMailer.deliver_target_notification(task, target_msg) if target_msg && !target_emails.empty?
       rescue NotImplementedError => ex
         RAILS_DEFAULT_LOGGER.info ex.to_s
       end
@@ -192,7 +193,7 @@ class Task < ActiveRecord::Base
 
   # The message that will be sent to the *target* of the task when it is
   # created. The indent of this message is to notify the target about the
-  # request that was just created for him/her. 
+  # request that was just created for him/her.
   #
   # The implementation in this class returns +nil+, what makes the notification
   # not to be sent. If you want to send a notification to the target upon task
@@ -225,7 +226,8 @@ class Task < ActiveRecord::Base
 
     begin
       target_msg = target_notification_message
-      TaskMailer.deliver_target_notification(self, target_msg) if target_msg
+      target_emails = self.target && self.target.notification_emails || []
+      TaskMailer.deliver_target_notification(self, target_msg) if target_msg && !target_emails.empty?
     rescue NotImplementedError => ex
       RAILS_DEFAULT_LOGGER.info ex.to_s
     end
@@ -253,7 +255,7 @@ class Task < ActiveRecord::Base
 
   # sends notification e-mail about a task, if the task has a requestor.
   #
-  # If 
+  # If
   def send_notification(action)
     if sends_email?
       if self.requestor
