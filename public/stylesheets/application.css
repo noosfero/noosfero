@@ -1203,6 +1203,10 @@ a.comment-picture {
   color: #888;
 }
 
+.comment-title {
+  font-size: 12px;
+  font-weight: bold;
+}
 .comment-created-at {
   padding-right: 9px;
 }
@@ -5913,6 +5917,11 @@ h1#agenda-title {
   margin: 5px 0;
 }
 
+.profile-activity-lead .article-name {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
 .profile-activity-article-forum .profile-activity-lead {
   height: 50px;
   width: 297px;
@@ -5980,7 +5989,8 @@ h1#agenda-title {
 #profile-wall li.profile-activity-item.upload_image .activity-gallery-images-count-1 span a img,
 #profile-network li.profile-activity-item.upload_image .activity-gallery-images-count-1 span,
 #profile-network li.profile-activity-item.upload_image .activity-gallery-images-count-1 span a img {
-  width: 383px;
+  width: auto;
+  max-width: 383px;
   height: auto;
 }
 
@@ -6006,13 +6016,11 @@ h1#agenda-title {
 
 #profile-wall li.profile-activity-item.upload_image span a,
 #profile-network li.profile-activity-item.upload_image span a {
-  Xbackground: transparent url(/images/gallery-image-activity-border.png) center center no-repeat;
   text-indent: -5000em;
 }
 
 #profile-wall li.profile-activity-item.upload_image .activity-gallery-images-count-1 span a,
 #profile-network li.profile-activity-item.upload_image .activity-gallery-images-count-1 span a {
-  Xbackground-image: url(/images/gallery-image-activity-border-big.png);
   position: relative;
 }
 
@@ -6365,8 +6373,8 @@ h1#agenda-title {
 
 #profile-wall .profile-wall-activities-comments img,
 #profile-network .profile-wall-activities-comments img {
-  width: 33px;
-  height: 33px;
+  max-width: 50px;
+  max-height: 50px;
 }
 
 #profile-wall .profile-wall-activities-comments .comment_reply,
@@ -6378,8 +6386,8 @@ h1#agenda-title {
 
 #profile-wall .profile-wall-activities-comments .comment-picture,
 #profile-network .profile-wall-activities-comments .comment-picture {
-  width: 33px;
-  margin-right: 10px;
+  width: 50px;
+  text-align: center;
 }
 
 #profile-wall .profile-wall-activities-comments .comment-text p,

@@ -55,19 +55,13 @@
   height: 144px;
 }
 
-#profile-wall li.profile-activity-item.upload_image span a,
-#profile-network li.profile-activity-item.upload_image span a {
-  background-image: url(/images/gallery-image-activity-border-onecol.png);
-}
-
 #profile-wall li.profile-activity-item.upload_image .activity-gallery-images-count-1 span,
-#profile-wall li.profile-activity-item.upload_image .activity-gallery-images-count-1 span img,
+#profile-wall li.profile-activity-item.upload_image .activity-gallery-images-count-1 span a img,
 #profile-wall li.profile-activity-item.upload_image .activity-gallery-images-count-1 span a,
 #profile-network li.profile-activity-item.upload_image .activity-gallery-images-count-1 span,
-#profile-network li.profile-activity-item.upload_image .activity-gallery-images-count-1 span img,
+#profile-network li.profile-activity-item.upload_image .activity-gallery-images-count-1 span a img,
 #profile-network li.profile-activity-item.upload_image .activity-gallery-images-count-1 span a {
-  width: 549px;
-  height: 254px;
+  max-width: 540px;
 }
 
 #profile-wall li.profile-activity-item.upload_image .activity-gallery-images-count-1 span a,

@@ -17,7 +17,11 @@
 
   <div class="comment-details">
     <div class="comment-text">
-      <%= link_to(comment.author_name, comment.author.url) %> <%= txt2html comment.body %>
+      <%= link_to(comment.author_name, comment.author.url) %>
+      <% unless comment.title.blank? %>
+        <span class="comment-title"><%= comment.title %></span><br/>
+      <% end %>
+      <%= txt2html comment.body %>
     </div>
     <div class="profile-activity-time">
       <%= time_ago_as_sentence(comment.created_at) %>

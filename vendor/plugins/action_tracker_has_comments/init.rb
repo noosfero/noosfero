@@ -9,4 +9,15 @@ ActionTracker::Record.module_eval do
     "source_type = '#{type}' AND source_id = '#{id}'"
   end
 
+  def comments_as_thread
+    result = {}
+    root = []
+    self.comments.each do |c|
+      c.replies = []
+      result[c.id] ||= c
+      c.reply_of_id.nil? ? root << c : result[c.reply_of_id].replies << c
+    end
+    root
+  end
+
 end

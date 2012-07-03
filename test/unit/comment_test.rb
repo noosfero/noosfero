@@ -321,6 +321,22 @@ class CommentTest < ActiveSupport::TestCase
     assert result[1].replies.empty?
   end
 
+  should "return activities comments as a thread" do
+    person = fast_create(Person)
+    a = TextileArticle.create!(:profile => person, :name => 'My article', :body => 'Article body')
+    c0 = Comment.create!(:source => a, :body => 'My comment', :author => person)
+    c1 = Comment.create!(:reply_of_id => c0.id, :source => a, :body => 'bla', :author => person)
+    c2 = Comment.create!(:reply_of_id => c1.id, :source => a, :body => 'bla', :author => person)
+    c3 = Comment.create!(:reply_of_id => c0.id, :source => a, :body => 'bla', :author => person)
+    c4 = Comment.create!(:source => a, :body => 'My comment', :author => person)
+    result = a.activity.comments_as_thread
+    assert_equal c0, result[0]
+    assert_equal [c1, c3], result[0].replies
+    assert_equal [c2], result[0].replies[0].replies
+    assert_equal c4, result[1]
+    assert result[1].replies.empty?
+  end
+
   should 'provide author url for authenticated user' do
     author = Person.new
     author.expects(:url).returns('http://blabla.net/author')
