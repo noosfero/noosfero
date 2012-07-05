@@ -1151,6 +1151,18 @@ class PersonTest < ActiveSupport::TestCase
     assert_equal [person], Person.members_of(community)
   end
 
+  should 'be able to pass array to members_of' do
+    person1 = fast_create(Person)
+    community = fast_create(Community)
+    community.add_member(person1)
+    person2 = fast_create(Person)
+    enterprise = fast_create(Enterprise)
+    enterprise.add_member(person2)
+
+    assert_includes Person.members_of([community, enterprise]), person1
+    assert_includes Person.members_of([community, enterprise]), person2
+  end
+
   should 'find more active people' do
     Person.destroy_all
     p1 = fast_create(Person)
