@@ -1,6 +1,8 @@
 class ApplicationController < ActionController::Base
 
   before_filter :change_pg_schema
+  before_filter :detect_stuff_by_domain
+  before_filter :init_noosfero_plugins
 
   include ApplicationHelper
   layout :get_layout
@@ -51,8 +53,6 @@ class ApplicationController < ActionController::Base
 
   include NeedsProfile
 
-  before_filter :detect_stuff_by_domain
-  before_filter :init_noosfero_plugins
   attr_reader :environment
 
   before_filter :load_terminology

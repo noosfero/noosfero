@@ -3,6 +3,10 @@ require File.dirname(__FILE__) + '/../test_helper'
 class PersonTest < ActiveSupport::TestCase
   fixtures :profiles, :users, :environments
 
+  def teardown
+    Thread.current[:enabled_plugins] = nil
+  end
+
   def test_person_must_come_form_the_cration_of_an_user
     p = Person.new(:environment => Environment.default, :name => 'John', :identifier => 'john')
     assert !p.valid?

@@ -3,6 +3,10 @@ require File.dirname(__FILE__) + '/../test_helper'
 class ProfileTest < ActiveSupport::TestCase
   fixtures :profiles, :environments, :users, :roles, :domains
 
+  def teardown
+    Thread.current[:enabled_plugins] = nil
+  end
+
   def test_identifier_validation
     p = Profile.new
     p.valid?
