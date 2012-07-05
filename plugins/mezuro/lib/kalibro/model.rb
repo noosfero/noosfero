@@ -3,7 +3,7 @@ class Kalibro::Model
   def initialize(attributes={})
     attributes.each { |field, value| send("#{field}=", value) if self.class.is_valid?(field) }
   end
- 
+
   def to_hash
     hash = Hash.new
     fields.each do |field|
@@ -39,7 +39,7 @@ class Kalibro::Model
     instance_variable_names.each.collect { |variable| variable.to_s.sub(/@/, '').to_sym }
   end
 
-  def convert_to_hash(value)  
+  def convert_to_hash(value)
     return value if value.nil?
     return value.collect { |element| convert_to_hash(element) } if value.is_a?(Array)
     return value.to_hash if value.is_a?(Kalibro::Model)

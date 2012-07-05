@@ -5,7 +5,7 @@ class Kalibro::Project < Kalibro::Model
   def self.all_names
     request("Project", :get_project_names)[:project_name]
   end
-  
+
   def self.find_by_name(project_name)
     new request("Project", :get_project, :project_name => project_name)[:project]
   end
@@ -18,7 +18,7 @@ class Kalibro::Project < Kalibro::Model
       :repository => {
         :type => content.repository_type,
         :address => content.repository_url
-      }, 
+      },
       :configuration_name => content.configuration_name
     }).save
   end
@@ -26,7 +26,7 @@ class Kalibro::Project < Kalibro::Model
   def destroy
     self.class.request("Project", :remove_project, {:project_name => name})
   end
-  
+
   def save
     begin
       self.class.request("Project", :save_project, {:project => to_hash})
