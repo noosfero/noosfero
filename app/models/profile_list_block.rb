@@ -25,7 +25,7 @@ class ProfileListBlock < Block
   end
 
   def profile_count
-    profiles.visible.count('DISTINCT(profiles.id)')
+    profiles.visible.count
   end
 
   # the title of the block. Probably will be overriden in subclasses.

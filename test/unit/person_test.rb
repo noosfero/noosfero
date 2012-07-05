@@ -1247,4 +1247,26 @@ class PersonTest < ActiveSupport::TestCase
     assert !person.visible
     assert_not_equal password, person.user.password
   end
+
+  should 'allow plugins to extend person\'s permission access' do
+    person = create_user('some-user').person
+    class Plugin1 < Noosfero::Plugin
+      def has_permission?(person, permission, target)
+        true
+      end
+    end
+
+    class Plugin2 < Noosfero::Plugin
+      def has_permission?(person, permission, target)
+        false
+      end
+    end
+
+    e = Environment.default
+    e.enable_plugin(Plugin1.name)
+    e.enable_plugin(Plugin2.name)
+    person.stubs('has_permission_without_plugins?').returns(false)
+
+    assert person.has_permission?('bli', Profile.new)
+  end
 end
