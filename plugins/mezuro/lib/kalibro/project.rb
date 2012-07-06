@@ -1,4 +1,5 @@
 class Kalibro::Project < Kalibro::Model
+
   attr_accessor :name, :license, :description, :repository, :configuration_name, :state, :error
 
   def self.all_names
@@ -10,6 +11,23 @@ class Kalibro::Project < Kalibro::Model
     new attributes
   end
 
+  def self.destroy(project_name)
+    request(:remove_project, {:project_name => project_name})
+  end
+
+  def self.create (content)
+    new({
+      :name => content.name,
+      :license => content.license,
+      :description => content.description,
+      :repository => {
+        :type => content.repository_type,
+        :address => content.repository_url
+      }, 
+      :configuration_name => content.configuration_name
+    })
+  end
+
   def save
     self.class.request(:save_project, {:project => to_hash})
   end
@@ -17,7 +35,7 @@ class Kalibro::Project < Kalibro::Model
   def repository=(value)
     @repository = (value.kind_of?(Hash)) ? Kalibro::Repository.new(value) : value
   end
-  
+
   private
   
   def self.client
