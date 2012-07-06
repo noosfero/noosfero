@@ -1,7 +1,7 @@
-<h2><%= @configuration_name %> Configuration</h2>
+<h2><%= @configuration_content.name %> Configuration</h2>
 
 <% form_for :metric_configuration, :url => {:action =>"update_compound_metric_configuration", :controller => "mezuro_plugin_myprofile"}, :method => :get do |f| %>
-  <%= hidden_field_tag :configuration_name, @configuration_name %>
+  <%= hidden_field_tag :id, @configuration_content.id %>
   <p>
     <%= "Metric Name:" + @metric.name %>   
   </p>  
@@ -61,14 +61,14 @@
   </tr>
   <% if (@metric_configuration.ranges!=nil) 
     @metric_configuration.ranges.each do |range| %>
-      <%= render :partial => "range", :locals => {:range => range, :configuration_name => @configuration_name, 
+      <%= render :partial => "range", :locals => {:range => range, :id => @configuration_content.id, 
           :metric_name => @metric_configuration.metric.name} %>
     <% end
   end %>
 </table>
 
 <br/>
-<%= link_to_remote "New Range", :url => {:action =>"new_range", :controller => "mezuro_plugin_myprofile", :configuration_name => @configuration_name, :metric_name => @metric.name} %>
+<%= link_to_remote "New Range", :url => {:action =>"new_range", :controller => "mezuro_plugin_myprofile", :id => @configuration_content.id, :metric_name => @metric.name} %>
 <div id="range_form" style="display:none"></div>
 
 <br/>

@@ -1,9 +1,9 @@
 <script src="/plugins/mezuro/javascripts/validations.js" type="text/javascript"></script>
 
-<h2><%= @configuration_name %> Configuration</h2>
+<h2><%= @configuration_content.name %> Configuration</h2>
 
 <% form_for :metric_configuration, :url => {:action =>"create_metric_configuration", :controller => "mezuro_plugin_myprofile"},  :method => :get do |f| %>
-  <%= hidden_field_tag :configuration_name, @configuration_name %>
+  <%= hidden_field_tag :id, @configuration_content.id %>
   
   <% f.fields_for :metric do |m| %>
   
@@ -33,7 +33,7 @@
     <%= f.text_field :code %>
   </p>
   <p>
-    <%= f.label :aggregation_form, "Aggregation:" %>
+    <%= f.label :aggregation_form, "Aggregation Form:" %>
     <%= f.select :aggregation_form, [["Average","AVERAGE"], ["Median", "MEDIAN"], ["Maximum", "MAXIMUM"], ["Minimum", "MINIMUM"], 
     ["Count", "COUNT"], ["Standard Deviation", "STANDARD_DEVIATION"]] %>
   </p>

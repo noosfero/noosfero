@@ -1,15 +1,15 @@
-<h2><%= @configuration_name%> Configuration</h2>
+<h2><%= @configuration_content.name%> Configuration</h2>
 
-<%= link_to "* New Compound Metric *", :controller => "mezuro_plugin_myprofile", :action => "new_compound_metric_configuration", :params =>
-{:configuration_name => @configuration_name} %>
+<%= link_to "New Compound Metric", :controller => "mezuro_plugin_myprofile", :action => "new_compound_metric_configuration", :params =>
+{ :id => @configuration_content.id } %>
 
 <h5>Base Tools:</h5>
 <table id="project_info">
-  <% @tool_names.base_tool_names.each do |collector_name| %>
+  <% @base_tools.each do |base_tool| %>
     <tr>
       <td>
-        <%= link_to collector_name, :controller => "mezuro_plugin_myprofile", :action => "choose_metric", :params =>
-        {:configuration_name => @configuration_name, :collector_name => collector_name} %>
+        <%= link_to base_tool, :controller => "mezuro_plugin_myprofile", :action => "choose_metric", :params =>
+        { :base_tool => base_tool, :id => @configuration_content.id} %>
       </td>
     </tr>
   <% end %>
