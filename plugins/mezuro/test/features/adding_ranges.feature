@@ -1,6 +1,6 @@
-Feature: editing a configuration 
+Feature: Add range to a metric configuration 
   As a mezuro user
-  I want to edit a Kalibro configuration
+  I want to add ranges to a Kalibro metric configuration
 
   Background:
     Given the following users
@@ -20,30 +20,23 @@ Feature: editing a configuration
     And I follow "Analizo"
     And I follow "Lines of Code"
     And I fill in the following:
-      | Code:           | SampleCode           |
+      | Code:           | Sample Code           |
       | Weight:         | 10.0                  |
     And I select "Average" from "Aggregation Form:"
     And I press "Add"
-    And I press "Save" and wait
-    
-  Scenario: Keep metrics after editing configuration
-    When I follow "Edit" within "article-actions" and wait
-    And I press "Save" 
     Then I should see "Lines of Code"
+    And I should see "Analizo"
+    And I should see "Sample Code"
     
-  #FIXME: Create new step for this scenario
-  Scenario: Check if title is edit-disabled
-    When I follow "Edit" within "article-actions" and wait
+  Scenario: adding a range to a metric configuration
+    When I follow "New Range" and wait
     And I fill in the following:
-      | Title           | Some Title     |
-    And I press "Save" and wait
-    Then I should not see "Some Title"
-    
-    
-  Scenario: Check if description is edit-enabled
-    When I follow "Edit" within "article-actions" and wait
-    And I fill in the following:
-      | Description           | Some Description     |
-    And I press "Save" and wait
-    Then I should see "Some Description"
-    And I should see "Lines of Code"
+      | (*) Label:       | label       |
+      | (*) Beginning:   | 1           |
+      | (*) End:         | 10          |
+      | (*) Grade:       | 100         |
+      | (*) Color:       | FFFF00FF    |
+      | Comments:        | Comentário  |
+    And I press "Save Range" and wait
+    And I should see "label" within "#ranges"
+

@@ -1,4 +1,4 @@
-Feature: create configuration 
+Feature: Create configuration 
   As a mezuro user
   I want to create a Kalibro configuration
 
@@ -23,17 +23,18 @@ Feature: create configuration
     And I should see "Description"
     And I should see "A sample description"
     
-  Scenario: creating without title
-    Given I am on My Community's cms
-    When I create a content of type "Kalibro configuration" with the following data
-      | Title           |          |
-    Then I should see "1 error prohibited this {{model}} from being saved"
-    
-  Scenario: creating with duplicated title
+   Scenario: creating with duplicated name
     Given I am on My Community's cms
     And I create a content of type "Kalibro configuration" with the following data
       | Title           | Original Title          |
     And I am on My Community's cms
     When I create a content of type "Kalibro configuration" with the following data
       | Title           | Original Title          |
-    Then I should see "1 error prohibited this {{model}} from being saved"
+    Then I should see "1 error prohibited this article from being saved"  
+    
+  Scenario: creating without title
+    Given I am on My Community's cms
+    When I create a content of type "Kalibro configuration" with the following data
+      | Title           |          |
+    Then I should see "1 error prohibited this article from being saved"
+
