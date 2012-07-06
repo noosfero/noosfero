@@ -15,8 +15,11 @@
 <%= hidden_field_tag 'id', @article.id %>
 
 <%= required_fields_message %>
-
-<%= required f.text_field(:name) %>
+<% if !@project.nil? && !@article.id.nil? %>
+  <%= required f.text_field(:name, :disabled => 'true') %>
+<% else %>
+  <%= required f.text_field(:name) %>
+<% end %>
 
 <%= f.text_field :license %><br/>
 
@@ -31,9 +34,14 @@
 
 <% @configuration_names = Kalibro::Client::ConfigurationClient.new.configuration_names.sort %>
 <% @selected = (@project.nil? ? @configuration_names[0] : @project.configuration_name) %>
-<%= required labelled_form_field _('Configuration'),
-  f.select(:configuration_name, @configuration_names, {:selected => @selected}) %><br/>
 
+<% if !@project.nil? && !@article.id.nil? %>
+  <%= required labelled_form_field _('Configuration'),
+    f.select(:configuration_name, @configuration_names, {:selected => @selected}, :disabled => 'true') %>
+<% else %>
+  <%= required labelled_form_field _('Configuration'),
+    f.select(:configuration_name, @configuration_names, {:selected => @selected}) %><br/>
+<% end %>
 
 <% selected = (@project.nil? ? 0 : @kalibro_client.process_period(@article.title).to_i) %>
 <%= required labelled_form_field _('Periodic Avaliation'),

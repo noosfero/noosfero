@@ -1,6 +1,6 @@
 class MezuroPlugin::ProjectContent < Article 
-  validate :validate_kalibro_project_name
-
+  validate_on_create :validate_kalibro_project_name 
+  validate_on_create :validate_repository_url
   def self.short_description
     'Kalibro project'
   end
@@ -20,17 +20,29 @@ class MezuroPlugin::ProjectContent < Article
   
 
   def project
-    @project ||= Kalibro::Client::ProjectClient.project(name)
+    begin
+      @project ||= Kalibro::Client::ProjectClient.project(name)
+    rescue Exception => error
+      errors.add_to_base(error.message)
+    end
   end
 
   def project_result
-    @project_result ||= Kalibro::Client::ProjectResultClient.last_result(name)
+    begin
+      @project_result ||= Kalibro::Client::ProjectResultClient.last_result(name)
+    rescue Exception => error
+      errors.add_to_base(error.message)
+    end
   end
   
   def get_date_result(date)
-    client =  Kalibro::Client::ProjectResultClient.new
-    @project_result ||= client.has_results_before(name, date) ? client.last_result_before(name, date) : 
+    begin
+      client =  Kalibro::Client::ProjectResultClient.new
+      @project_result ||= client.has_results_before(name, date) ? client.last_result_before(name, date) : 
 client.first_result_after(name, date)
+    rescue Exception => error
+      errors.add_to_base(error.message)
+    end
   end
 
   def module_result(module_name)
@@ -48,24 +60,47 @@ client.first_result_after(name, date)
   private
 
   def validate_kalibro_project_name
-    existing = Kalibro::Client::ProjectClient.new.project_names
+    begin
+      existing = Kalibro::Client::ProjectClient.new.project_names
+    rescue Exception => error
+      errors.add_to_base(error.message)
+    end
     
-    if existing.include?(name)
+    if existing.any?{|existing_name| existing_name.casecmp(name)==0} # existing.include?(name) + case insensitive
       errors.add_to_base("Project name already exists in Kalibro")
     end
   end
-
+  
+  def validate_repository_url
+    if(repository_url.nil? || repository_url == "")
+      errors.add_to_base("Repository URL is mandatory")
+    end
+  end
+  
   def send_project_to_service
-    Kalibro::Client::ProjectClient.save(self)
-    Kalibro::Client::KalibroClient.process_project(name, periodicity_in_days)
+    begin
+      Kalibro::Client::ProjectClient.save(self)
+      Kalibro::Client::KalibroClient.process_project(name, periodicity_in_days)
+    rescue Exception => error
+      errors.add_to_base(error.message)
+    end
+
   end
 
   def remove_project_from_service
-    Kalibro::Client::ProjectClient.remove(name)
+    begin
+      Kalibro::Client::ProjectClient.remove(name)
+    rescue Exception => error
+      errors.add_to_base(error.message)
+    end
+
   end
 
   def module_result_client
-    @module_result_client ||= Kalibro::Client::ModuleResultClient.new
+    begin
+      @module_result_client ||= Kalibro::Client::ModuleResultClient.new
+    rescue Exception => error
+      errors.add_to_base(error.message)
+    end
   end
 end
-

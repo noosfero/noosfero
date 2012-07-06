@@ -6,6 +6,7 @@ require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/error_fixtures"
 require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/base_tool_fixtures"
 require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/native_metric_fixtures"
 require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/metric_configuration_fixtures"
+require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/repository_fixtures"
 
 class MezuroPluginProfileControllerTest < ActionController::TestCase
 
@@ -17,6 +18,7 @@ class MezuroPluginProfileControllerTest < ActionController::TestCase
 
     @project_result = ProjectResultFixtures.qt_calculator
     @module_result = ModuleResultFixtures.create
+    @repository_url = RepositoryFixtures.qt_calculator.address
     @project = @project_result.project
     @name = @project.name
     
@@ -66,7 +68,6 @@ class MezuroPluginProfileControllerTest < ActionController::TestCase
   should 'get project results without date' do
     create_project_content
     Kalibro::Client::ProjectResultClient.expects(:last_result).with(@name).returns(@project_result)
-    Kalibro::Client::ProjectClient.expects(:project).with(@name).returns(@project)
     get :project_result, :profile => @profile.identifier, :id => @content.id
     assert_response 200
     assert_select('h4', 'Last Result')
@@ -75,7 +76,6 @@ class MezuroPluginProfileControllerTest < ActionController::TestCase
   should 'get project results from a specific date' do
     create_project_content
     mock_project_result
-    Kalibro::Client::ProjectClient.expects(:project).with(@name).returns(@project)
     get :project_result, :profile => @profile.identifier, :id => @content.id, :date => @project_result.date
     assert_response 200
   end
@@ -90,7 +90,6 @@ class MezuroPluginProfileControllerTest < ActionController::TestCase
     mock_module_result
     Kalibro::Client::ProjectResultClient.expects(:last_result).with(@name).returns(@project_result)
     Kalibro::Client::ProjectClient.expects(:project).with(@name).returns(@project)
-
     get :module_result, :profile => @profile.identifier, :id => @content.id, :module_name => @name
     assert_response 200
     assert_select('h5', 'Metric results for: Qt-Calculator (APPLICATION)')
@@ -157,6 +156,7 @@ class MezuroPluginProfileControllerTest < ActionController::TestCase
     @content = MezuroPlugin::ProjectContent.new(:profile => @profile, :name => @name)
     @content.expects(:send_project_to_service).returns(nil)
     Kalibro::Client::ProjectClient.expects(:new).returns(client)
+    @content.repository_url = @repository_url
     client.expects(:project_names).returns([])
     @content.save
   end

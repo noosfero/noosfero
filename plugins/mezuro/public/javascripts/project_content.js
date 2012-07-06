@@ -5,6 +5,7 @@ jQuery(function (){
   jQuery('[data-show]').live("click", toggle_mezuro);
   jQuery('[show-metric-history]').live("click", display_metric_history);
   jQuery('[show-grade-history]').live("click", display_grade_history);
+  jQuery('#project_date_submit').live("click", reloadProjectWithDate);
   showLoadingProcess(true);
   showProjectContent();
 });
@@ -55,8 +56,17 @@ function reloadProjectWithDate(){
 	var month = jQuery("#project_date_month").val();
 	var year = jQuery("#project_date_year").val();
 
-	var date = year + "-" + month + "-" + day + "T00:00:00+00:00";
+  if(day.length == 1) 
+    day = "0" + day;
+  if(month.length == 1) 
+    month = "0" + month; 
 	
+	var date = new Date(year + "-" + month + "-" + day + "T00:00:00+00:00");
+	
+	if(isNaN(date)){
+	  alert("Invalid date! " + date);
+	  return false;
+	}
 	reloadProject(date);
   return false;
 }
