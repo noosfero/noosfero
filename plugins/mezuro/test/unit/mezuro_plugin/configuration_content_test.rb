@@ -27,6 +27,14 @@ class ConfigurationContentTest < ActiveSupport::TestCase
     assert_not_nil @content.to_html
   end
 
+  should 'not save a configuration with an existing cofiguration name in kalibro' do
+    client = mock
+    Kalibro::Client::ConfigurationClient.expects(:new).returns(client)
+    client.expects(:configuration_names).returns([@content.name.upcase])
+    @content.send :validate_kalibro_configuration_name
+    assert_equal "Configuration name already exists in Kalibro", @content.errors.on_base
+  end
+
   should 'get configuration from service' do
     Kalibro::Client::ConfigurationClient.expects(:configuration).with(@content.name).returns(@configuration)
     assert_equal @configuration, @content.configuration

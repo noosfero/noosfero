@@ -15,6 +15,6 @@ end
 
 <%= required_fields_message %>
 
-<%= required f.text_field(:name) %>
+<%= required f.text_field(:name, :disabled => !(@configuration.nil? || @article.id.nil?)) %>
 
 <%= f.text_field :description %><br/>
