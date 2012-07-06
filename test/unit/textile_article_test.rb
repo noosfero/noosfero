@@ -121,7 +121,7 @@ class TextileArticleTest < ActiveSupport::TestCase
   end
 
   should "the common trackable conditions return the correct value" do
-    a =  TextileArticle.new
+    a =  TextileArticle.new(:profile => profile)
     a.published = a.advertise = true
     assert_equal true, a.published?
     assert_equal true, a.notifiable?

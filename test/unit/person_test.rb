@@ -1218,6 +1218,6 @@ class PersonTest < ActiveSupport::TestCase
     TinyMceArticle.create!(:profile => person, :name => 'An article about free software')
     person_activity = ActionTracker::Record.last
 
-    assert_equal [person_scrap,person_activity], person.activities.map { |a| a.klass.constantize.find(a.id) }
+    assert_equivalent [person_scrap,person_activity], person.activities.map { |a| a.klass.constantize.find(a.id) }
   end
 end

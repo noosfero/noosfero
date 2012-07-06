@@ -209,7 +209,7 @@ end
   end
 
   should "the common trackable conditions return the correct value" do
-    a =  TinyMceArticle.new
+    a =  TinyMceArticle.new(:profile => profile)
     a.published = a.advertise = true
     assert_equal true, a.published?
     assert_equal true, a.notifiable?
