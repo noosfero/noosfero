@@ -50,7 +50,7 @@
       _('Add new qualifier'),
       "new_qualifier_row('#product-qualifiers-list', '#{escape_javascript(select_qualifiers(@product))}')"
     ) %>
-    <%= hidden_field_tag "product[qualifiers_list]" %>
+    <%= hidden_field_tag "product[qualifiers_list][nil]" %>
   <% end %>
 
   <%= hidden_field_tag 'info-bar-update-url', @product.price_composition_bar_display_url, :class => 'bar-update-url' %>
