@@ -1,5 +1,8 @@
 class Kalibro::Entities::MetricConfiguration < Kalibro::Entities::Entity
 
+  NATIVE_TYPE='native'
+  COMPOUND_TYPE='compound'
+  
   attr_accessor :metric, :code, :weight, :aggregation_form, :range
 
   def metric=(value)

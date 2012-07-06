@@ -30,8 +30,15 @@ function IsNotNumeric(value){
     return true;
 }
 
+function IsNotInfinite(value){
+    if(value.match(/INF/)){
+      return false;
+    }
+    return true;
+}
+
 function IsNotHexadecimal(value){
-    if(value.match(/[0-9a-fA-F]{1,8}/))
+    if(value.match(/^[0-9a-fA-F]{1,8}$/))
     {
       return false;
     }
@@ -50,15 +57,17 @@ function validate_new_range_configuration(event){
         alert("Please fill all fields marked with (*)");
         return false;
     }
-    if (IsNotNumeric(beginning) || IsNotNumeric(end) || IsNotNumeric(grade))
+    if ( (IsNotNumeric(beginning) && IsNotInfinite(beginning)) || (IsNotNumeric(end) && IsNotInfinite(end)) || IsNotNumeric(grade))
     {
         alert("Beginning, End and Grade must be numeric values");
         return false;
     }
     if (parseInt(beginning) > parseInt(end))
     {
-        alert("End must be greater than Beginning");
-        return false;
+        if(IsNotInfinite(beginning) && IsNotInfinite(end)){
+          alert("End must be greater than Beginning");
+          return false;
+        }
     }
     if (IsNotHexadecimal(color)){
         alert("Color must be an hexadecimal value");

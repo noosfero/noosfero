@@ -1,5 +1,9 @@
 class Kalibro::Client::MetricConfigurationClient
 
+  def self.metric_configuration(configuration_name, metric_name)
+    new.metric_configuration(configuration_name, metric_name)
+  end
+
   def initialize
     @port = Kalibro::Client::Port.new('MetricConfiguration')
   end

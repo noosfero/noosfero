@@ -1,8 +1,17 @@
 class Kalibro::Client::ConfigurationClient
 
+  def self.configuration(configuration_name)
+    new.configuration(configuration_name)
+  end
+
   def self.save(configuration_content)
-    configuration = Kalibro::Entities::Configuration.new
-    configuration.name = configuration_content.name
+    begin
+      configuration = new.configuration(configuration_content.name)
+    rescue
+      configuration = Kalibro::Entities::Configuration.new      
+      configuration.name = configuration_content.name
+    end
+    
     configuration.description = configuration_content.description
     new.save(configuration)
   end

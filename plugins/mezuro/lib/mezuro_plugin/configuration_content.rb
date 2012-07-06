@@ -1,4 +1,5 @@
 class MezuroPlugin::ConfigurationContent < Article
+  validate_on_create :validate_kalibro_configuration_name
 
   def self.short_description
     'Kalibro configuration'
@@ -8,7 +9,7 @@ class MezuroPlugin::ConfigurationContent < Article
     'Sets of thresholds to interpret metrics'
   end
 
-  settings_items :description, :metrics
+  settings_items :description
 
   include ActionView::Helpers::TagHelper
   def to_html(options = {})
@@ -17,14 +18,28 @@ class MezuroPlugin::ConfigurationContent < Article
     end
   end
 
-  def configuration #FIXME invalid method name
+  def configuration
     Kalibro::Client::ConfigurationClient.configuration(name)
   end
+  
+  def metric_configurations
+    configuration.metric_configurations
+  end
+  
 
   after_save :send_configuration_to_service
   after_destroy :remove_configuration_from_service
 
   private
+
+  def validate_kalibro_configuration_name
+    existing = Kalibro::Client::ConfigurationClient.new.configuration_names
+    existing.each { |a| a.downcase!}
+
+    if existing.include?(name.downcase)
+      errors.add_to_base("Configuration name already exists in Kalibro")
+    end
+  end
 
   def send_configuration_to_service
     Kalibro::Client::ConfigurationClient.save(self)
