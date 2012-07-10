@@ -29,7 +29,7 @@ class MezuroPlugin::ProjectContent < Article
 
   def project_result
     begin
-      @project_result ||= Kalibro::Client::ProjectResultClient.last_result(name)
+      @project_result ||= Kalibro::ProjectResult.last_result(name)
     rescue Exception => error
       errors.add_to_base(error.message)
     end
@@ -37,9 +37,8 @@ class MezuroPlugin::ProjectContent < Article
   
   def get_date_result(date)
     begin
-      client =  Kalibro::Client::ProjectResultClient.new
-      @project_result ||= client.has_results_before(name, date) ? client.last_result_before(name, date) : 
-client.first_result_after(name, date)
+      @project_result ||= Kalibro::ProjectResult.has_results_before?(name, date) ? Kalibro::ProjectResult.last_result_before?(name, date) : 
+Kalibro::ProjectResult.first_result_after(name, date)
     rescue Exception => error
       errors.add_to_base(error.message)
     end
