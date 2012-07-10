@@ -12,30 +12,38 @@ class ProjectTest < ActiveSupport::TestCase
   should 'get project by name' do
     request_body = {:project_name => @project.name}
     response_hash = {:project => @hash}
+    Kalibro::Project.expects(:new).with(@hash).returns(@project)
     Kalibro::Project.expects(:request).with(:get_project, request_body).returns(response_hash)
     assert_equal @project, Kalibro::Project.find_by_name(@project.name)
   end
 
-=begin 
   should 'raise error when project doesnt exist' do
     request_body = {:project_name => @project.name}
-    @port.expects(:request).with(:get_project, request_body).raises(Exception.new("(S:Server) There is no project named " + @project.name))
-    assert_nil Kalibro::Client::ProjectClient.project(@project.name)
+    Kalibro::Project.expects(:request).with(:get_project, request_body).raises(Exception.new("(S:Server) There is no project named " + @project.name))
+    assert_nil Kalibro::Project.find_by_name(@project.name)
   end
 
-  should 'save project' do
-    create_project_content_mock
-    @project.state = nil
-    @port.expects(:request).with(:save_project, {:project => @project.to_hash})
-    Kalibro::Client::ProjectClient.save(@project_content)
+  should 'return true when project is saved successfully' do
+    Kalibro::Project.expects(:request).with(:save_project, {:project => @project.to_hash})
+    assert @project.save
+  end
+
+  should 'return false when project is not saved successfully' do
+    Kalibro::Project.expects(:request).with(:save_project, {:project => @project.to_hash}).raises(Exception.new)
+    assert !(@project.save)
   end
 
   should 'remove existent project from service' do
-    @port.expects(:request).with(:get_project_names).returns({:project_name => @project.name})
-    @port.expects(:request).with(:remove_project, {:project_name => @project.name})
-    Kalibro::Client::ProjectClient.remove(@project.name)
+    Kalibro::Project.expects(:request).with(:remove_project, {:project_name => @project.name})
+    Kalibro::Project.destroy(@project.name)
   end
 
+  should 'raise error when try to remove inexistent project from service' do
+    Kalibro::Project.expects(:request).with(:remove_project, {:project_name => @project.name}).raises(Exception.new)
+    assert_raise Exception do Kalibro::Project.destroy(@project.name) end
+  end
+  
+=begin 
   should 'not try to remove inexistent project from service' do
     @port.expects(:request).with(:get_project_names).returns({:project_name => 'Different project'})
     @port.expects(:request).with(:remove_project, {:project_name => @project.name}).never

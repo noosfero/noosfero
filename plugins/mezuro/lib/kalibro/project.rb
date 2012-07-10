@@ -7,8 +7,12 @@ class Kalibro::Project < Kalibro::Model
   end
   
   def self.find_by_name(project_name)
-    attributes = request(:get_project, :project_name => project_name)[:project]
-    new attributes
+    begin
+      attributes = request(:get_project, :project_name => project_name)[:project]
+      new attributes
+    rescue Exception => error
+      nil
+    end
   end
 
   def self.destroy(project_name)
@@ -29,7 +33,12 @@ class Kalibro::Project < Kalibro::Model
   end
 
   def save
-    self.class.request(:save_project, {:project => to_hash})
+    begin
+      self.class.request(:save_project, {:project => to_hash})
+      true
+    rescue Exception => error
+      false
+    end
   end
 
   def repository=(value)

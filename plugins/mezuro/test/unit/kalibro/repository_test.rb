@@ -9,13 +9,8 @@ class RepositoryTest < ActiveSupport::TestCase
     @repository = RepositoryFixtures.qt_calculator
   end
 
-  #TODO como pegar o nome de TODAS as variáveis, mesmo as não setadas???
-  should 'create repository from hash' do
-    repository = Kalibro::Repository.new(@hash)
-    attributes = repository.instance_variable_names.map { |variable| variable.to_s.sub(/@/, '') }
-    attributes.each { |field| assert_equal(@repository.send("#{field}"), repository.send("#{field}")) }
-    attributes = @repository.instance_variable_names.map { |variable| variable.to_s.sub(/@/, '') }
-    attributes.each { |field| assert_equal(@repository.send("#{field}"), repository.send("#{field}")) }
+  should 'new repository from hash' do
+    assert_equal @repository.type, Kalibro::Repository.new(@hash).type
   end
 
   should 'convert repository to hash' do
