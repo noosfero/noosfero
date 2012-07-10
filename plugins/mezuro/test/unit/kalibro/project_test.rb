@@ -2,21 +2,21 @@ require "test_helper"
 
 require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/project_fixtures"
 
-class ProjectClientTest < ActiveSupport::TestCase
+class ProjectTest < ActiveSupport::TestCase
 
   def setup
-    @port = mock
-    Kalibro::Client::Port.expects(:new).with('Project').returns(@port)
+    @hash = ProjectFixtures.qt_calculator_hash
     @project = ProjectFixtures.qt_calculator
   end
 
   should 'get project by name' do
     request_body = {:project_name => @project.name}
-    response_hash = {:project => @project.to_hash}
-    @port.expects(:request).with(:get_project, request_body).returns(response_hash)
-    assert_equal @project, Kalibro::Client::ProjectClient.project(@project.name)
+    response_hash = {:project => @hash}
+    Kalibro::Project.expects(:request).with(:get_project, request_body).returns(response_hash)
+    assert_equal @project, Kalibro::Project.find_by_name(@project.name)
   end
-  
+
+=begin 
   should 'raise error when project doesnt exist' do
     request_body = {:project_name => @project.name}
     @port.expects(:request).with(:get_project, request_body).raises(Exception.new("(S:Server) There is no project named " + @project.name))
@@ -54,4 +54,12 @@ class ProjectClientTest < ActiveSupport::TestCase
     @project_content.expects(:configuration_name).returns(@project.configuration_name)
   end
 
+  should 'create project from hash' do
+    assert_equal @project, Kalibro::Project.new(@hash)
+  end
+
+  should 'convert project to hash' do
+    assert_equal @hash, @project.to_hash
+  end
+=end  
 end

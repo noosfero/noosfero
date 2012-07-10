@@ -3,7 +3,7 @@ require File.dirname(__FILE__) + '/repository_fixtures'
 class ProjectFixtures
 
   def self.qt_calculator
-    project = Kalibro::Entities::Project.new
+    project = Kalibro::Project.new
     project.name = 'Qt-Calculator'
     project.license = 'GPL'
     project.description = 'Calculator for Qt'
