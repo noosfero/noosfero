@@ -3,9 +3,6 @@ require 'test_helper'
 require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/module_result_fixtures"
 require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/project_result_fixtures"
 require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/error_fixtures"
-require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/base_tool_fixtures"
-require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/native_metric_fixtures"
-require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/metric_configuration_fixtures"
 require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/repository_fixtures"
 
 class MezuroPluginProfileControllerTest < ActionController::TestCase
@@ -18,7 +15,7 @@ class MezuroPluginProfileControllerTest < ActionController::TestCase
 
     @project_result = ProjectResultFixtures.qt_calculator
     @module_result = ModuleResultFixtures.create
-    @repository_url = RepositoryFixtures.qt_calculator.address
+    @repository_url = RepositoryFixtures.repository.address
     @project = @project_result.project
     @name = @project.name
     
