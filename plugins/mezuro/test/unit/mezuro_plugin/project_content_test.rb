@@ -96,7 +96,7 @@ returns(module_result)
     project = mock
     Kalibro::Project.expects(:create).with(@content).returns(project)
     project.expects(:save).returns(true)
-    Kalibro::Client::KalibroClient.expects(:process_project).with(@content.name, @content.periodicity_in_days)
+    Kalibro::Kalibro.expects(:process_project).with(@content.name, @content.periodicity_in_days)
     @content.send :send_project_to_service
   end
 

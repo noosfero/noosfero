@@ -38,4 +38,14 @@ class Kalibro::Model
     xml_name + "Xml"
   end
 
+  def self.client(endpoint)
+    service_address = YAML.load_file("#{RAILS_ROOT}/plugins/mezuro/service.yaml")
+    Savon::Client.new("#{service_address}#{endpoint}Endpoint/?wsdl")
+  end
+
+  def self.request(endpoint, action, request_body = nil)
+    response = client(endpoint).request(:kalibro, action) { soap.body = request_body }
+    response.to_hash["#{action}_response".to_sym]
+  end
+
 end

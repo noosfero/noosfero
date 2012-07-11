@@ -80,7 +80,7 @@ client.first_result_after(name, date)
   def send_project_to_service
     begin
       Kalibro::Project.create(self).save
-      Kalibro::Client::KalibroClient.process_project(name, periodicity_in_days)
+      Kalibro::Kalibro.process_project(name, periodicity_in_days)
     rescue Exception => error
       errors.add_to_base(error.message)
     end

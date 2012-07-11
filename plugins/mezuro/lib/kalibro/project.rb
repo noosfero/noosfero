@@ -3,12 +3,12 @@ class Kalibro::Project < Kalibro::Model
   attr_accessor :name, :license, :description, :repository, :configuration_name, :state, :error
 
   def self.all_names
-    request(:get_project_names)[:project_name]
+    request("Project", :get_project_names)[:project_name]
   end
   
   def self.find_by_name(project_name)
     begin
-      attributes = request(:get_project, :project_name => project_name)[:project]
+      attributes = request("Project", :get_project, :project_name => project_name)[:project]
       new attributes
     rescue Exception => error
       nil
@@ -16,7 +16,7 @@ class Kalibro::Project < Kalibro::Model
   end
 
   def self.destroy(project_name)
-    request(:remove_project, {:project_name => project_name})
+    request("Project", :remove_project, {:project_name => project_name})
   end
 
   def self.create (content)
@@ -34,7 +34,7 @@ class Kalibro::Project < Kalibro::Model
 
   def save
     begin
-      self.class.request(:save_project, {:project => to_hash})
+      self.class.request("Project", :save_project, {:project => to_hash})
       true
     rescue Exception => error
       false
@@ -45,18 +45,5 @@ class Kalibro::Project < Kalibro::Model
     @repository = (value.kind_of?(Hash)) ? Kalibro::Repository.new(value) : value
   end
 
-  private
-  
-  def self.client
-    endpoint = "Project"
-    service_address = YAML.load_file("#{RAILS_ROOT}/plugins/mezuro/service.yaml")
-    Savon::Client.new("#{service_address}#{endpoint}Endpoint/?wsdl")
-  end
-
-  def self.request(action, request_body = nil)
-    response = client.request(:kalibro, action) { soap.body = request_body }
-    response.to_hash["#{action}_response".to_sym]
-  end
-  
 end
 
