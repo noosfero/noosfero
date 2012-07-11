@@ -3,14 +3,24 @@ class Kalibro::ModuleResult < Kalibro::Model
   attr_accessor :module, :date, :grade, :metric_result, :compound_metric_with_error
   
   def self.find_module_result(project_name, module_name, date)
-    result = module_result.request(
+    response = request(
     :get_module_result,
       {
         :project_name => project_name, 
         :module_name => module_name,
         :date => date_with_milliseconds(date)
       })[:module_result]
-    new result
+    new response
+  end
+  
+  def self.all_module_results(project_name, module_name)
+    response = request(
+    :get_result_history,
+      {
+        :project_name => project_name, 
+        :module_name => module_name,
+      })[:module_result]
+    to_entity_array(response)
   end
   
   #FIXME change Kalibro::Entities::Module
@@ -34,14 +44,23 @@ class Kalibro::ModuleResult < Kalibro::Model
   
   private
   
-  def self.module_result
-    endpoint = "ModuleResult"
+  def self.to_entity_array(value)
+    array = value.kind_of?(Array) ? value : [value]
+    array.each.collect { |element| to_entity(element) }
+  end
+  
+  def self.to_entity(value)
+    value.kind_of?(Hash) ? new(value) : value
+  end
+  
+  def self.client
+    endpoint = 'ModuleResult'
     service_address = YAML.load_file("#{RAILS_ROOT}/plugins/mezuro/service.yaml")
     Savon::Client.new("#{service_address}#{endpoint}Endpoint/?wsdl")
   end
   
   def self.request(action, request_body = nil)
-    response = module_result.request(:kalibro, action) { soap.body = request_body }
+    response = client.request(:kalibro, action) { soap.body = request_body }
     response.to_hash["#{action}_response".to_sym]
   end
   
