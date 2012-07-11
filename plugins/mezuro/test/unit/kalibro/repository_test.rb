@@ -5,8 +5,8 @@ require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/repository_fixtures"
 class RepositoryTest < ActiveSupport::TestCase
 
   def setup
-    @hash = RepositoryFixtures.qt_calculator_hash
-    @repository = RepositoryFixtures.qt_calculator
+    @hash = RepositoryFixtures.repository_hash
+    @repository = RepositoryFixtures.repository
   end
 
   should 'new repository from hash' do

@@ -6,15 +6,8 @@ require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/project_result_fixtures"
 class ProjectContentTest < ActiveSupport::TestCase
 
   def setup
-    @project = ProjectFixtures.qt_calculator
-    @content = MezuroPlugin::ProjectContent.new
-    @content.name = @project.name
-    @content.license = @project.license
-    @content.description = @project.description
-    @content.repository_type = @project.repository.type
-    @content.repository_url = @project.repository.address
-    @content.configuration_name = @project.configuration_name
-    @content.periodicity_in_days = 1
+    @project = ProjectFixtures.project
+    @content = ProjectFixtures.project_content
   end
 
   should 'be an article' do
@@ -34,7 +27,7 @@ class ProjectContentTest < ActiveSupport::TestCase
   end
 
   should 'get project from service' do
-    Kalibro::Client::ProjectClient.expects(:project).with(@content.name).returns(@project)
+    Kalibro::Project.expects(:find_by_name).with(@content.name).returns(@project)
     assert_equal @project, @content.project
   end
 
@@ -100,20 +93,20 @@ returns(module_result)
   end
 
   should 'send correct project to service' do
-    Kalibro::Client::ProjectClient.expects(:save).with(@content)
+    project = mock
+    Kalibro::Project.expects(:create).with(@content).returns(project)
+    project.expects(:save).returns(true)
     Kalibro::Client::KalibroClient.expects(:process_project).with(@content.name, @content.periodicity_in_days)
     @content.send :send_project_to_service
   end
 
-  should 'remove project from service' do
-    Kalibro::Client::ProjectClient.expects(:remove).with(@content.name)
-    @content.send :remove_project_from_service
+  should 'destroy project from service' do
+    Kalibro::Project.expects(:destroy).with(@content.name)
+    @content.send :destroy_project_from_service
   end
   
   should 'not save a project with an existing project name in kalibro' do
-    client = mock
- 		Kalibro::Client::ProjectClient.expects(:new).returns(client)
-		client.expects(:project_names).returns([@content.name])
+ 		Kalibro::Project.expects(:all_names).returns([@content.name])
 		@content.send :validate_kalibro_project_name
 		assert_equal "Project name already exists in Kalibro", @content.errors.on_base
 	end
@@ -121,7 +114,7 @@ returns(module_result)
   private
 
     def mock_project_client
-      Kalibro::Client::ProjectClient.expects(:project).with(@content.name).returns(@project)
+      Kalibro::Project.expects(:find_by_name).with(@content.name).returns(@project)
     end
     
     def mock_project_result_client

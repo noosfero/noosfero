@@ -1,10 +1,10 @@
 class RepositoryFixtures
 
-  def self.qt_calculator
-    Kalibro::Repository.new qt_calculator_hash
+  def self.repository
+    Kalibro::Repository.new repository_hash
   end
 
-  def self.qt_calculator_hash
+  def self.repository_hash
     {:type => 'SUBVERSION', :address => 'https://qt-calculator.svn.sourceforge.net/svnroot/qt-calculator'}
   end
 

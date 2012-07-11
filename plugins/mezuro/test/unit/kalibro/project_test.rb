@@ -5,11 +5,18 @@ require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/project_fixtures"
 class ProjectTest < ActiveSupport::TestCase
 
   def setup
-    @hash = ProjectFixtures.qt_calculator_hash
-    @project = ProjectFixtures.qt_calculator
+    @hash = ProjectFixtures.project_hash
+    @project = ProjectFixtures.project
+    @project_content = ProjectFixtures.project_content
   end
 
-  should 'get project by name' do
+  should 'get all project names' do
+    response_hash = {:project_name => [@project.name]}
+    Kalibro::Project.expects(:request).with(:get_project_names).returns(response_hash)
+    assert_equal response_hash[:project_name], Kalibro::Project.all_names
+  end
+
+  should 'find project by name' do
     request_body = {:project_name => @project.name}
     response_hash = {:project => @hash}
     Kalibro::Project.expects(:new).with(@hash).returns(@project)
@@ -43,31 +50,24 @@ class ProjectTest < ActiveSupport::TestCase
     assert_raise Exception do Kalibro::Project.destroy(@project.name) end
   end
   
-=begin 
-  should 'not try to remove inexistent project from service' do
-    @port.expects(:request).with(:get_project_names).returns({:project_name => 'Different project'})
-    @port.expects(:request).with(:remove_project, {:project_name => @project.name}).never
-    Kalibro::Client::ProjectClient.remove(@project.name)
+  should 'initialize new project from hash' do
+    project = Kalibro::Project.new @hash
+    assert_equal @project.name, project.name
+    assert_equal @project.repository.type, project.repository.type
   end
 
-  private
-
-  def create_project_content_mock
-    @project_content = mock
-    @project_content.expects(:name).returns(@project.name)
-    @project_content.expects(:license).returns(@project.license)
-    @project_content.expects(:description).returns(@project.description)
-    @project_content.expects(:repository_type).returns(@project.repository.type)
-    @project_content.expects(:repository_url).returns(@project.repository.address)
-    @project_content.expects(:configuration_name).returns(@project.configuration_name)
-  end
-
-  should 'create project from hash' do
-    assert_equal @project, Kalibro::Project.new(@hash)
+  should 'create project' do
+    project = Kalibro::Project.create @project_content
+    assert_equal @project.name, project.name
+    assert_equal @project.repository.type, project.repository.type
   end
 
   should 'convert project to hash' do
-    assert_equal @hash, @project.to_hash
+    hash = @project.to_hash
+    assert_equal @hash[:name], hash[:name]
+    assert_equal @hash[:configuration_name], hash[:configuration_name]
+    assert_equal @hash[:repository], hash[:repository]
+    assert_equal @hash[:state], hash[:state]
   end
-=end  
+
 end

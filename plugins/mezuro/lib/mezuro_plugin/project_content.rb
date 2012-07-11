@@ -21,7 +21,7 @@ class MezuroPlugin::ProjectContent < Article
 
   def project
     begin
-      @project ||= Kalibro::Client::ProjectClient.project(name)
+      @project ||= Kalibro::Project.find_by_name(name)
     rescue Exception => error
       errors.add_to_base(error.message)
     end
@@ -55,13 +55,13 @@ client.first_result_after(name, date)
   end
 
   after_save :send_project_to_service
-  after_destroy :remove_project_from_service
+  after_destroy :destroy_project_from_service
 
   private
 
   def validate_kalibro_project_name
     begin
-      existing = Kalibro::Client::ProjectClient.new.project_names
+      existing = Kalibro::Project.all_names
     rescue Exception => error
       errors.add_to_base(error.message)
     end
@@ -79,7 +79,7 @@ client.first_result_after(name, date)
   
   def send_project_to_service
     begin
-      Kalibro::Client::ProjectClient.save(self)
+      Kalibro::Project.create(self).save
       Kalibro::Client::KalibroClient.process_project(name, periodicity_in_days)
     rescue Exception => error
       errors.add_to_base(error.message)
@@ -87,13 +87,12 @@ client.first_result_after(name, date)
 
   end
 
-  def remove_project_from_service
+  def destroy_project_from_service
     begin
-      Kalibro::Client::ProjectClient.remove(name)
+      Kalibro::Project.destroy(name)
     rescue Exception => error
       errors.add_to_base(error.message)
     end
-
   end
 
   def module_result_client
