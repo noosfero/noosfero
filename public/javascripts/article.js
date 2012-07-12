@@ -26,6 +26,7 @@ jQuery(function($) {
 
   var button_add = $('.text-editor-sidebar meta[name=button.add]').attr('value');
   var button_zoom = $('.text-editor-sidebar meta[name=button.zoom]').attr('value');
+  var button_close = $('.text-editor-sidebar meta[name=button.close]').attr('value');
 
   function add_to_text_button() {
     return '<a class="button icon-add add-to-text" href="#"><span>' + button_add + '</span></a>';
@@ -33,6 +34,10 @@ jQuery(function($) {
 
   function add_to_text_link() {
     return '<a class="add-to-text" href="#">' + button_add + '</a>';
+  }
+
+  function close_link() {
+    return '<a class="close" href="#">' + button_close + '</a>';
   }
 
   function zoom_button() {
@@ -88,9 +93,13 @@ jQuery(function($) {
     var $item = $(this).closest('.item');
     var html_selector = $item.attr('data-item');
     var img = $item.find(html_selector).find('img').attr('src');
-    $.colorbox({ html: '<div class="item" data-item="div"><div><img src="' + img + '" style="max-width: 580px; max-height: 580px"/></div>' + '<div class="controls" style="padding-top: 5px;">' + add_to_text_link() + '</div></div>', maxWidth: '640px', maxHeight: '670px', scrolling: false });
+    $.colorbox({ html: '<div class="item" data-item="div"><div><img src="' + img + '" style="max-width: 580px; max-height: 580px"/></div>' + '<div class="controls" style="padding-top: 5px;">' + add_to_text_link() + '&nbsp;&nbsp;&nbsp;' + close_link() + '</div></div>', maxWidth: '640px', maxHeight: '670px', scrolling: false });
     return false;
   });
+  $('.controls a.close').live('click', function() {
+    $.colorbox.close();
+    return false;
+  })
 
   // FIXME the user may also want to add the item to the abstract textarea!
   var text_field = 'article_body';
