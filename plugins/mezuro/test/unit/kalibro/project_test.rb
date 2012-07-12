@@ -42,12 +42,12 @@ class ProjectTest < ActiveSupport::TestCase
 
   should 'remove existent project from service' do
     Kalibro::Project.expects(:request).with("Project", :remove_project, {:project_name => @project.name})
-    Kalibro::Project.destroy(@project.name)
+    @project.destroy
   end
 
   should 'raise error when try to remove inexistent project from service' do
     Kalibro::Project.expects(:request).with("Project", :remove_project, {:project_name => @project.name}).raises(Exception.new)
-    assert_raise Exception do Kalibro::Project.destroy(@project.name) end
+    assert_raise Exception do @project.destroy end
   end
   
   should 'initialize new project from hash' do

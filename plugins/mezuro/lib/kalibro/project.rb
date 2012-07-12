@@ -15,10 +15,6 @@ class Kalibro::Project < Kalibro::Model
     end
   end
 
-  def self.destroy(project_name)
-    request("Project", :remove_project, {:project_name => project_name})
-  end
-
   def self.create (content)
     new({
       :name => content.name,
@@ -32,6 +28,10 @@ class Kalibro::Project < Kalibro::Model
     })
   end
 
+  def destroy
+    self.class.request("Project", :remove_project, {:project_name => name})
+  end
+  
   def save
     begin
       self.class.request("Project", :save_project, {:project => to_hash})
@@ -46,4 +46,3 @@ class Kalibro::Project < Kalibro::Model
   end
 
 end
-

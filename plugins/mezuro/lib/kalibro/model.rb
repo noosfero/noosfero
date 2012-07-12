@@ -1,7 +1,7 @@
 class Kalibro::Model
 
   def initialize(attributes={})
-    attributes.each { |field, value| send("#{field}=", value) }
+    attributes.each { |field, value| send("#{field}=", value) if self.class.is_valid?(field) }
   end
  
   def to_hash
@@ -49,6 +49,10 @@ class Kalibro::Model
   def self.request(endpoint, action, request_body = nil)
     response = client(endpoint).request(:kalibro, action) { soap.body = request_body }
     response.to_hash["#{action}_response".to_sym]
+  end
+
+  def self.is_valid?(field)
+    field.to_s[0] != '@' and field != :attributes!
   end
 
   def to_objects_array(value, model_class = nil)

@@ -4,45 +4,41 @@ require File.dirname(__FILE__) + '/range_fixtures'
 
 class MetricConfigurationFixtures
 
-  def self.amloc_configuration
-    amloc = Kalibro::Entities::MetricConfiguration.new
-    amloc.metric = NativeMetricFixtures.amloc
-    amloc.code = 'amloc'
-    amloc.weight = 1.0
-    amloc.aggregation_form = 'AVERAGE'
-    amloc.ranges = [RangeFixtures.amloc_excellent, RangeFixtures.amloc_bad]
+  def self.amloc_metric_configuration
+    amloc = Kalibro::MetricConfiguration.new amloc_metric_configuration_hash
+    amloc.configuration_name = "Sample Configuration"
     amloc
   end
 
   def self.metric_configuration_without_ranges
-    amloc = Kalibro::Entities::MetricConfiguration.new
-    amloc.metric = NativeMetricFixtures.amloc
-    amloc.code = 'amloc'
-    amloc.weight = 1.0
-    amloc.aggregation_form = 'AVERAGE'
+    amloc = Kalibro::MetricConfiguration.new 
+      {
+        :metric => NativeMetricFixtures.amloc_hash,
+        :code => 'amloc',
+        :weight => 1.0,
+        :aggregation_form => 'AVERAGE'
+      }
+    amloc.configuration_name = "Sample Configuration"
     amloc
   end
 
-  def self.sc_configuration
-    sc = Kalibro::Entities::MetricConfiguration.new
-    sc.metric = CompoundMetricFixtures.sc
-    sc.code = 'sc'
-    sc.weight = 1.0
-    sc.aggregation_form = 'AVERAGE'
+  def self.sc_metric_configuration
+    sc = Kalibro::MetricConfiguration.new sc_metric_configuration_hash
+    sc.configuration_name = "Sample Configuration"
     sc
   end
 
-  def self.amloc_configuration_hash
+  def self.amloc_metric_configuration_hash
     {:metric => NativeMetricFixtures.amloc_hash, :code => 'amloc', :weight => 1.0,
       :aggregation_form => 'AVERAGE',
-      :range => [RangeFixtures.amloc_excellent_hash, RangeFixtures.amloc_bad_hash],
+      :range => [RangeFixtures.range_excellent_hash, RangeFixtures.range_bad_hash],
       :attributes! => {:metric => {
           'xmlns:xsi'=> 'http://www.w3.org/2001/XMLSchema-instance',
           'xsi:type' => 'kalibro:nativeMetricXml'  }}}
   end
 
-  def self.sc_configuration_hash
-    {:metric => CompoundMetricFixtures.sc_hash, :code => 'sc', :weight => 1.0, :aggregation_form => 'AVERAGE',
+  def self.sc_metric_configuration_hash
+    {:metric => CompoundMetricFixtures.compound_metric_hash, :code => 'sc', :weight => 1.0, :aggregation_form => 'AVERAGE',
       :attributes! => {:metric => {
           'xmlns:xsi'=> 'http://www.w3.org/2001/XMLSchema-instance',
           'xsi:type' => 'kalibro:compoundMetricXml'  }}}
