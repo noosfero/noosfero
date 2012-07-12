@@ -110,7 +110,7 @@ jQuery(function($) {
       var text = $text_element.val();
       var $item = $wrapper.children().first();
       if ($item.attr('src')) {
-        $text_element.val(text + '!' + $item.attr('src') + '!');
+        $text_element.val(text + '!' + $item.attr('src') + "!\n");
       }
       if ($item.attr('href')) {
         $text_element.val(text + $item.attr('href'));
