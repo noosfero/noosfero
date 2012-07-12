@@ -2,7 +2,7 @@ class Kalibro::ModuleResult < Kalibro::Model
 
   attr_accessor :module, :date, :grade, :metric_result, :compound_metric_with_error
   
-  def self.find_module_result(project_name, module_name, date)
+  def self.find_by_project_name_and_module_name_and_date(project_name, module_name, date)
     response = request(
     :get_module_result,
       {
