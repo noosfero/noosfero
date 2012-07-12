@@ -28,16 +28,14 @@ jQuery(function($) {
   var button_zoom = $('.text-editor-sidebar meta[name=button.zoom]').attr('value');
   var button_close = $('.text-editor-sidebar meta[name=button.close]').attr('value');
 
-  function add_to_text_button() {
-    return '<a class="button icon-add add-to-text" href="#"><span>' + button_add + '</span></a>';
+  function add_to_text_button(extra_class) {
+    if (!extra_class) { extra_class = '' }
+    return '<a class="button icon-add add-to-text ' + extra_class + '" href="#"><span>' + button_add + '</span></a>';
   }
 
-  function add_to_text_link() {
-    return '<a class="add-to-text" href="#">' + button_add + '</a>';
-  }
-
-  function close_link() {
-    return '<a class="close" href="#">' + button_close + '</a>';
+  function close_button(extra_class) {
+    if (!extra_class) { extra_class = '' }
+    return '<a class="button icon-cancel close ' + extra_class + '" href="#"><span>' + button_close + '</span></a>';
   }
 
   function zoom_button() {
@@ -82,21 +80,21 @@ jQuery(function($) {
     }
   }
 
-  $('.controls a.add-to-text').live('click', function() {
+  $('a.add-to-text').live('click', function() {
     var $item = $(this).closest('.item');
     var html_selector = $item.attr('data-item');
     insert_item_in_text($item.find(html_selector));
     $.colorbox.close();
     return false;
   });
-  $('.controls a.zoom').live('click', function() {
+  $('a.zoom').live('click', function() {
     var $item = $(this).closest('.item');
     var html_selector = $item.attr('data-item');
     var img = $item.find(html_selector).find('img').attr('src');
-    $.colorbox({ html: '<div class="item" data-item="div"><div><img src="' + img + '" style="max-width: 580px; max-height: 580px"/></div>' + '<div class="controls" style="padding-top: 5px;">' + add_to_text_link() + '&nbsp;&nbsp;&nbsp;' + close_link() + '</div></div>', maxWidth: '640px', maxHeight: '670px', scrolling: false });
+    $.colorbox({ html: '<div class="item" data-item="div"><div><img src="' + img + '" style="max-width: 580px; max-height: 580px"/></div>' + '<div class="button-bar" style="padding-top: 5px;">' + add_to_text_button('with-text') + '&nbsp;&nbsp;&nbsp;' + close_button('with-text') + '</div></div>', maxWidth: '640px', maxHeight: '640px', scrolling: false });
     return false;
   });
-  $('.controls a.close').live('click', function() {
+  $('a.close').live('click', function() {
     $.colorbox.close();
     return false;
   })
