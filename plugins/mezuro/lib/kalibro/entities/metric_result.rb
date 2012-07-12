@@ -5,9 +5,9 @@ class Kalibro::Entities::MetricResult < Kalibro::Entities::Entity
   def metric=(value)
     if value.kind_of?(Hash)
       if value.has_key?(:script)
-        @metric = to_entity(value, Kalibro::Entities::CompoundMetric)
+        @metric = to_entity(value, Kalibro::CompoundMetric)
       else
-        @metric = to_entity(value, Kalibro::Entities::NativeMetric)
+        @metric = to_entity(value, Kalibro::NativeMetric)
       end
     else
       @metric = value

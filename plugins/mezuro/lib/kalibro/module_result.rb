@@ -22,7 +22,7 @@ class Kalibro::ModuleResult < Kalibro::Model
         :project_name => project_name, 
         :module_name => module_name,
       })[:module_result]
-    to_entity_array(response)
+    to_objects_array(response)
   end
   
   #FIXME change Kalibro::Entities::Module
@@ -45,15 +45,6 @@ class Kalibro::ModuleResult < Kalibro::Model
   end
   
   private
-  
-  def self.to_entity_array(value)
-    array = value.kind_of?(Array) ? value : [value]
-    array.each.collect { |element| to_entity(element) }
-  end
-
-  def self.to_entity(value)
-    value.kind_of?(Hash) ? new(value) : value
-  end
 
   def self.date_with_milliseconds(date)
     milliseconds = "." + (date.sec_fraction * 60 * 60 * 24 * 1000).to_s

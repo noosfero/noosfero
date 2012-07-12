@@ -5,7 +5,7 @@ require File.dirname(__FILE__) + '/compound_metric_with_error_fixtures'
 class ModuleResultFixtures
 
   def self.module_result
-    fixture = Kalibro::ModuleResult.new( module_result_hash )
+    Kalibro::ModuleResult.new( module_result_hash )
   end
 
   def self.module_result_hash
