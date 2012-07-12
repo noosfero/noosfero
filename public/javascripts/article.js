@@ -27,12 +27,16 @@ jQuery(function($) {
   var button_add = $('.text-editor-sidebar meta[name=button.add]').attr('value');
   var button_zoom = $('.text-editor-sidebar meta[name=button.zoom]').attr('value');
 
-  function add_to_text_button(item) {
-    return '<a class="button icon-add" data-item-url="' + item.url + '" href="#"><span>' + button_add + '</span></span>';
+  function add_to_text_button() {
+    return '<a class="button icon-add add-to-text" href="#"><span>' + button_add + '</span></a>';
   }
 
-  function zoom_button(item) {
-    return '<a class="button icon-zoom" href="#" title="' + button_zoom + '"><span>' + button_zoom + '/span></a>';
+  function add_to_text_link() {
+    return '<a class="add-to-text" href="#">' + button_add + '</a>';
+  }
+
+  function zoom_button() {
+    return '<a class="button icon-zoom zoom" href="#" title="' + button_zoom + '"><span>' + button_zoom + '</span></a>';
   }
 
   function list_items(items, selector) {
@@ -55,11 +59,11 @@ jQuery(function($) {
     });
 
     $.each(images, function(i, item) {
-      html_for_items += '<div class="item image" data-item="span"><span><img src="' + item.url + '"/></span><div class="controls image-controls">' + add_to_text_button(item) + zoom_button(item) + '</div></div>';
+      html_for_items += '<div class="item image" data-item="span"><span><img src="' + item.url + '"/></span><div class="controls image-controls">' + add_to_text_button() + zoom_button() + '</div></div>';
     });
 
     $.each(files, function(i, item) {
-      html_for_items += '<div class="item file ' + item.icon + '" data-item="div"><div><a href="' + item.url + '">' + item.title + '</a></div> <div class="controls file-controls">' + add_to_text_button(item) + '</div></div>';
+      html_for_items += '<div class="item file ' + item.icon + '" data-item="div"><div><a href="' + item.url + '">' + item.title + '</a></div> <div class="controls file-controls">' + add_to_text_button() + '</div></div>';
     });
 
     $.each(errors, function(i, item) {
@@ -67,20 +71,22 @@ jQuery(function($) {
     });
 
     $(selector).html(html_for_items);
-    $(selector).find('.controls a.icon-add').click(function() {
-      var $item = $(this).closest('.item');
-      var html_selector = $item.attr('data-item');
-      insert_item_in_text($item.find(html_selector));
-      return false;
-    });
-    $(selector).find('.controls a.icon-zoom').click(function() {
-      var $item = $(this).closest('.item');
-      var html_selector = $item.attr('data-item');
-      var img = $item.find(html_selector).find('img').attr('src');
-      $.colorbox({ html: '<img src="' + img + '" style="max-width: 580px; max-height: 580px"/>', maxWidth: '640px', maxHeight: '640px', scrolling: false });
-      return false;
-    });
   }
+
+  $('.controls a.add-to-text').live('click', function() {
+    var $item = $(this).closest('.item');
+    var html_selector = $item.attr('data-item');
+    insert_item_in_text($item.find(html_selector));
+    $.colorbox.close();
+    return false;
+  });
+  $('.controls a.zoom').live('click', function() {
+    var $item = $(this).closest('.item');
+    var html_selector = $item.attr('data-item');
+    var img = $item.find(html_selector).find('img').attr('src');
+    $.colorbox({ html: '<div class="item" data-item="div"><div><img src="' + img + '" style="max-width: 580px; max-height: 580px"/></div>' + '<div class="controls" style="padding-top: 5px;">' + add_to_text_link() + '</div></div>', maxWidth: '640px', maxHeight: '670px', scrolling: false });
+    return false;
+  });
 
   // FIXME the user may also want to add the item to the abstract textarea!
   var text_field = 'article_body';
