@@ -4,6 +4,7 @@ class Kalibro::ModuleResult < Kalibro::Model
   
   def self.find_by_project_name_and_module_name_and_date(project_name, module_name, date)
     response = request(
+    'ModuleResult',
     :get_module_result,
       {
         :project_name => project_name, 
@@ -13,8 +14,9 @@ class Kalibro::ModuleResult < Kalibro::Model
     new response
   end
   
-  def self.all_module_results(project_name, module_name)
+  def self.all_by_project_name_and_module_name(project_name, module_name)
     response = request(
+    'ModuleResult',
     :get_result_history,
       {
         :project_name => project_name, 
@@ -48,22 +50,11 @@ class Kalibro::ModuleResult < Kalibro::Model
     array = value.kind_of?(Array) ? value : [value]
     array.each.collect { |element| to_entity(element) }
   end
-  
+
   def self.to_entity(value)
     value.kind_of?(Hash) ? new(value) : value
   end
-  
-  def self.client
-    endpoint = 'ModuleResult'
-    service_address = YAML.load_file("#{RAILS_ROOT}/plugins/mezuro/service.yaml")
-    Savon::Client.new("#{service_address}#{endpoint}Endpoint/?wsdl")
-  end
-  
-  def self.request(action, request_body = nil)
-    response = client.request(:kalibro, action) { soap.body = request_body }
-    response.to_hash["#{action}_response".to_sym]
-  end
-  
+
   def self.date_with_milliseconds(date)
     milliseconds = "." + (date.sec_fraction * 60 * 60 * 24 * 1000).to_s
     date.to_s[0..18] + milliseconds + date.to_s[19..-1]
