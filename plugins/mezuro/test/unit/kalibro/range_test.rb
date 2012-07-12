@@ -5,12 +5,12 @@ require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/range_fixtures"
 class RangeTest < ActiveSupport::TestCase
 
   def setup
-    @hash = RangeFixtures.amloc_bad_hash
-    @range = RangeFixtures.amloc_bad
+    @hash = RangeFixtures.range_bad_hash
+    @range = RangeFixtures.range_bad
   end
 
   should 'create range from hash' do
-    assert_equal @range, Kalibro::Entities::Range.from_hash(@hash)
+    assert_equal @hash[:label], Kalibro::Range.new(@hash).label
   end
 
   should 'convert range to hash' do

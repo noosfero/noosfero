@@ -1,4 +1,4 @@
-class Kalibro::Entities::Range < Kalibro::Entities::Entity
+class Kalibro::Range < Kalibro::Model
   
   attr_accessor :beginning, :end, :label, :grade, :color, :comments
 
