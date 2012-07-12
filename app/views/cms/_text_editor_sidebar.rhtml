@@ -4,7 +4,7 @@
   <meta name='button.close' value='<%= _('Close') %>'/>
   <%= render(:partial => 'textile_quick_reference') if @article.is_a?(TextileArticle) %>
   <div class='text-editor-sidebar-box' id='media-upload-box'>
-    <div class='header'<strong><%= _('Media upload') %></strong></div>
+    <div class='header'><strong><%= _('Media upload') %></strong></div>
     <div id='media-upload-form'>
       <% form_tag({ :action => 'media_upload' }, :multipart => true) do %>
         <div class='formfield'>
