@@ -39,7 +39,7 @@ jQuery(function($) {
     return '<a class="button icon-zoom zoom" href="#" title="' + button_zoom + '"><span>' + button_zoom + '</span></a>';
   }
 
-  function list_items(items, selector) {
+  function list_items(items, selector, auto_add) {
     var html_for_items = '';
 
     var images  = [];
@@ -71,6 +71,10 @@ jQuery(function($) {
     });
 
     $(selector).html(html_for_items);
+
+    if (auto_add) {
+      $(selector).find('a.add-to-text').click();
+    }
   }
 
   $('.controls a.add-to-text').live('click', function() {
@@ -118,7 +122,7 @@ jQuery(function($) {
     var $button = $(this);
     $('#media-search-box .header').toggleClass('icon-loading');
     $.get($(this).parent().attr('action'), { 'q': query }, function(data) {
-      list_items(data, '#media-search-results .items');
+      list_items(data, '#media-search-results .items', false);
       if (data.length && data.length > 0) {
         $('#media-search-results').slideDown();
       }
@@ -137,7 +141,7 @@ jQuery(function($) {
       },
     success:
       function(data) {
-        list_items(data, '#media-upload-results .items');
+        list_items(data, '#media-upload-results .items', true);
         if (data.length && data.length > 0) {
           $('#media-upload-results').slideDown();
         }
