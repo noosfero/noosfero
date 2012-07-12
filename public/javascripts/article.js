@@ -106,13 +106,14 @@ jQuery(function($) {
 
     } else {
       // simple text editor
-      var text = $('#' + text_field).val();
+      var $text_element = $('#' + text_field);
+      var text = $text_element.val();
       var $item = $wrapper.children().first();
       if ($item.attr('src')) {
-        $('#article_body').val(text + '!' + $item.attr('src') + '!');
+        $text_element.val(text + '!' + $item.attr('src') + '!');
       }
       if ($item.attr('href')) {
-        $('#article_body').val(text + $item.attr('href'));
+        $text_element.val(text + $item.attr('href'));
       }
     }
   }
