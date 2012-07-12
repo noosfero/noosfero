@@ -27,6 +27,7 @@ class Kalibro::Model
 
   def convert_to_hash(value)  
     return value if value.nil?
+    return value.collect { |element| convert_to_hash(element) } if value.is_a?(Array)
     return value.to_hash if value.is_a?(Kalibro::Model)
     value
   end
@@ -47,5 +48,14 @@ class Kalibro::Model
     response = client(endpoint).request(:kalibro, action) { soap.body = request_body }
     response.to_hash["#{action}_response".to_sym]
   end
+
+  def to_objects_array(value, model_class = nil)
+    array = value.kind_of?(Array) ? value : [value]
+    array.each.collect { |element| to_object(element, model_class) }
+  end
+
+  def to_object(value, model_class)
+    value.kind_of?(Hash) ? model_class.new(value) : value
+  end 
 
 end

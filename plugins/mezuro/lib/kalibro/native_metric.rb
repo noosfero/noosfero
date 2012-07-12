@@ -1,4 +1,4 @@
-class Kalibro::Entities::NativeMetric < Kalibro::Entities::Metric
+class Kalibro::NativeMetric < Kalibro::Metric
 
   attr_accessor :origin, :language
 
@@ -11,7 +11,7 @@ class Kalibro::Entities::NativeMetric < Kalibro::Entities::Metric
   end
 
   def language=(value)
-    @language = to_entity_array(value)
+    @language = to_objects_array(value)
   end
 
 end

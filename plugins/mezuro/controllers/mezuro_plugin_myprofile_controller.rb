@@ -5,18 +5,18 @@ class MezuroPluginMyprofileController < ProfileController
  
   def choose_base_tool
     @configuration_content = profile.articles.find(params[:id])
-    @base_tools = Kalibro::Client::BaseToolClient.base_tools
+    @base_tools = Kalibro::BaseTool.all_names
   end
 
   def choose_metric
     @configuration_content = profile.articles.find(params[:id])
     @base_tool = params[:base_tool]
-    @supported_metrics = Kalibro::Client::BaseToolClient.metrics @base_tool
+    @supported_metrics = Kalibro::BaseTool.find_by_name(@base_tool).supported_metrics
   end
   
   def new_metric_configuration
     @configuration_content = profile.articles.find(params[:id])
-    @metric = Kalibro::Client::BaseToolClient.metric params[:metric_name], params[:base_tool]
+    @metric = Kalibro::BaseTool.find_by_name(params[:base_tool]).metric params[:metric_name]
   end
   
   def new_compound_metric_configuration
@@ -123,7 +123,7 @@ class MezuroPluginMyprofileController < ProfileController
 
   def new_metric_configuration_instance
     metric_configuration = Kalibro::Entities::MetricConfiguration.new
-    metric_configuration.metric = Kalibro::Entities::NativeMetric.new
+    metric_configuration.metric = Kalibro::NativeMetric.new
     assign_metric_configuration_instance(metric_configuration, Kalibro::Entities::MetricConfiguration::NATIVE_TYPE)
   end
   

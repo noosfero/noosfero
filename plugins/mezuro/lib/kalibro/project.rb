@@ -42,7 +42,7 @@ class Kalibro::Project < Kalibro::Model
   end
 
   def repository=(value)
-    @repository = (value.kind_of?(Hash)) ? Kalibro::Repository.new(value) : value
+    @repository = to_object(value, Kalibro::Repository)
   end
 
 end

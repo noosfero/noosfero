@@ -1,12 +1,7 @@
 class NativeMetricFixtures
 
   def self.total_cof
-    total_cof = Kalibro::Entities::NativeMetric.new
-    total_cof.name = 'Total Coupling Factor'
-    total_cof.scope = 'APPLICATION'
-    total_cof.origin = 'Analizo'
-    total_cof.languages = ['JAVA']
-    total_cof
+    Kalibro::NativeMetric.new total_cof_hash
   end
 
   def self.total_cof_hash
@@ -14,12 +9,7 @@ class NativeMetricFixtures
   end
 
   def self.amloc
-    total_cof = Kalibro::Entities::NativeMetric.new
-    total_cof.name = 'Average Method LOC'
-    total_cof.scope = 'CLASS'
-    total_cof.origin = 'Analizo'
-    total_cof.languages = ['JAVA']
-    total_cof
+    Kalibro::NativeMetric.new amloc_hash
   end
 
   def self.amloc_hash

@@ -10,7 +10,7 @@ class NativeMetricTest < ActiveSupport::TestCase
   end
 
   should 'create native metric from hash' do
-    assert_equal @metric, Kalibro::Entities::NativeMetric.from_hash(@hash)
+    assert_equal @hash[:name], Kalibro::NativeMetric.new(@hash).name
   end
 
   should 'convert native metric to hash' do
