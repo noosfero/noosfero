@@ -80,6 +80,11 @@ jQuery(function($) {
     }
   }
 
+  function zoom_dialog_html(img) {
+    // FIXME organize this code better
+    return '<div class="item" data-item="div"><div><img src="' + img + '" style="max-width: 640px; max-height: 480px"/></div>' + '<div class="button-bar">' + add_to_text_button('with-text') + '&nbsp;&nbsp;&nbsp;' + close_button('with-text') + '</div></div>'
+  }
+
   $('a.add-to-text').live('click', function() {
     var $item = $(this).closest('.item');
     var html_selector = $item.attr('data-item');
@@ -91,7 +96,10 @@ jQuery(function($) {
     var $item = $(this).closest('.item');
     var html_selector = $item.attr('data-item');
     var img = $item.find(html_selector).find('img').attr('src');
-    $.colorbox({ html: '<div class="item" data-item="div"><div><img src="' + img + '" style="max-width: 640px; max-height: 480px"/></div>' + '<div class="button-bar" style="padding-top: 5px;">' + add_to_text_button('with-text') + '&nbsp;&nbsp;&nbsp;' + close_button('with-text') + '</div></div>', scrolling: false });
+    $.colorbox({
+      html: zoom_dialog_html(img),
+      scrolling: false
+    });
     return false;
   });
   $('a.close').live('click', function() {
