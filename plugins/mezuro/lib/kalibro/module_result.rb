@@ -25,9 +25,8 @@ class Kalibro::ModuleResult < Kalibro::Model
     to_objects_array(response)
   end
   
-  #FIXME change Kalibro::Entities::Module
   def module=(value)
-    @module = value.kind_of?(Hash) ? Kalibro::Entities::Module.from_hash(value) : value
+    @module = to_object(value, Kalibro::Module)
   end
 
   def date=(value)
@@ -38,10 +37,8 @@ class Kalibro::ModuleResult < Kalibro::Model
     @grade = value.to_f
   end
 
-  #FIXME change Kalibro::Entities::MetricResult
   def metric_result=(value)
-    array = value.kind_of?(Array) ? value : [value]
-    @metric_result = array.each.collect { |element| element.kind_of?(Hash) ? Kalibro::Entities::MetricResult.from_hash(element) : element }
+    @metric_result = to_objects_array(value, Kalibro::MetricResult)
   end
   
   private
