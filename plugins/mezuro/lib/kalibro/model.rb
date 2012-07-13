@@ -4,7 +4,7 @@ class Kalibro::Model
     attributes.each { |field, value| send("#{field}=", value) if self.class.is_valid?(field) }
   end
  
-  def to_hash
+  def to_hash # Convert an object into a hash
     hash = Hash.new
     fields.each do |field|
       field_value = send(field)
@@ -48,7 +48,7 @@ class Kalibro::Model
 
   def self.request(endpoint, action, request_body = nil)
     response = client(endpoint).request(:kalibro, action) { soap.body = request_body }
-    response.to_hash["#{action}_response".to_sym]
+    response.to_hash["#{action}_response".to_sym] # response is a Savon::SOAP::Response, and to_hash is a Savon::SOAP::Response method
   end
 
   def self.is_valid?(field)
