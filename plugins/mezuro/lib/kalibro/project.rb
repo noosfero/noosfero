@@ -8,14 +8,13 @@ class Kalibro::Project < Kalibro::Model
   
   def self.find_by_name(project_name)
     begin
-      attributes = request("Project", :get_project, :project_name => project_name)[:project]
-      new attributes
+      new request("Project", :get_project, :project_name => project_name)[:project]
     rescue Exception => error
       nil
     end
   end
 
-  def self.create (content)
+  def self.create(content)
     new({
       :name => content.name,
       :license => content.license,
@@ -25,7 +24,7 @@ class Kalibro::Project < Kalibro::Model
         :address => content.repository_url
       }, 
       :configuration_name => content.configuration_name
-    })
+    }).save
   end
 
   def destroy

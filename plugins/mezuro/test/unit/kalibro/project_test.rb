@@ -57,9 +57,7 @@ class ProjectTest < ActiveSupport::TestCase
   end
 
   should 'create project' do
-    project = Kalibro::Project.create @project_content
-    assert_equal @project.name, project.name
-    assert_equal @project.repository.type, project.repository.type
+    assert Kalibro::Project.create @project_content
   end
 
   should 'convert project to hash' do
