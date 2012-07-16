@@ -9,6 +9,8 @@ class Input < ActiveRecord::Base
 
   belongs_to :unit
 
+  named_scope :relevant_to_price, :conditions => { :relevant_to_price => true }
+
   include FloatHelper
 
   def price_per_unit=(value)

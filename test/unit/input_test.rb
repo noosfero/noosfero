@@ -177,4 +177,18 @@ class InputTest < ActiveSupport::TestCase
     assert_equal 0.00, input.cost
   end
 
+  should 'list inputs relevants to price' do
+    product_category = fast_create(ProductCategory)
+    product = fast_create(Product, :product_category_id => product_category.id)
+
+    i1 = Input.create!(:product => product, :product_category => product_category, :relevant_to_price => true)
+
+    i2 = Input.create!(:product => product, :product_category => product_category, :relevant_to_price => false)
+
+    i1.save!
+    i2.save!
+    assert_includes Input.relevant_to_price, i1
+    assert_not_includes Input.relevant_to_price, i2
+  end
+
 end
