@@ -163,6 +163,20 @@ class ShoppingCartPluginProfileControllerTest < ActionController::TestCase
     assert_equal ShoppingCartPlugin::PurchaseOrder::Status::OPENED, order.status
   end
 
+  should 'register order on send request and not crash if product is not defined' do
+    product1 = fast_create(Product, :enterprise_id => enterprise.id)
+    @controller.stubs(:session).returns({:cart => {:items => {product1.id => 1}}})
+    assert_difference ShoppingCartPlugin::PurchaseOrder, :count, 1 do
+      post :send_request,
+        :customer => {:name => "Manuel", :email => "manuel@ceu.com"},
+        :profile => enterprise.identifier
+    end
+
+    order = ShoppingCartPlugin::PurchaseOrder.last
+
+    assert_equal 0, order.products_list[product1.id][:price]
+  end
+
   private
 
   def json_response

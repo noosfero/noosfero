@@ -229,7 +229,8 @@ class ShoppingCartPluginProfileController < ProfileController
     new_items = {}
     items.each do |id, quantity|
       product = Product.find(id)
-      new_items[id] = {:quantity => quantity, :price => product.price, :name => product.name}
+      price = product.price || 0
+      new_items[id] = {:quantity => quantity, :price => price, :name => product.name}
     end
     ShoppingCartPlugin::PurchaseOrder.create!(
       :seller => profile,
