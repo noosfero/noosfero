@@ -37,7 +37,7 @@ class Kalibro::Project < Kalibro::Model
   end
 
   def repository=(value)
-    @repository = to_object(value, Kalibro::Repository)
+    @repository = Kalibro::Repository.to_object value
   end
 
 end

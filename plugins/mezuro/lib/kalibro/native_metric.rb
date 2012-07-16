@@ -11,7 +11,7 @@ class Kalibro::NativeMetric < Kalibro::Metric
   end
 
   def language=(value)
-    @language = to_objects_array(value)
+    @language = Kalibro::Model.to_objects_array value
   end
 
 end

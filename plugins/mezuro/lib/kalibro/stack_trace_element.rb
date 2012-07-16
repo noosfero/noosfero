@@ -1,4 +1,4 @@
-class Kalibro::Entities::StackTraceElement < Kalibro::Entities::Entity
+class Kalibro::StackTraceElement < Kalibro::Model
   
   attr_accessor :declaring_class, :method_name, :file_name, :line_number
 

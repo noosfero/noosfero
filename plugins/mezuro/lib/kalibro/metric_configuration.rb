@@ -7,8 +7,8 @@ class Kalibro::MetricConfiguration < Kalibro::Model
 
   def metric=(value)
     if value.kind_of?(Hash)
-      @metric = to_object(value, Kalibro::NativeMetric) if value.has_key?(:origin)
-      @metric = to_object(value, Kalibro::CompoundMetric) if value.has_key?(:script)
+      @metric = Kalibro::NativeMetric.to_object(value) if value.has_key?(:origin)
+      @metric = Kalibro::CompoundMetric.to_object(value) if value.has_key?(:script)
     else
       @metric = value
     end
@@ -19,7 +19,7 @@ class Kalibro::MetricConfiguration < Kalibro::Model
   end
 
   def range=(value)
-    @range = to_objects_array(value, Kalibro::Range)
+    @range = Kalibro::Range.to_objects_array value
   end
 
   def add_range(new_range)

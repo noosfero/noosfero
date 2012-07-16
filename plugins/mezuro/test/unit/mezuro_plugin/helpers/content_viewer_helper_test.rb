@@ -14,7 +14,7 @@ class ContentViewerHelperTest < ActiveSupport::TestCase
   end
   
   should 'format metric name for module result' do
-    metric_result = MetricResultFixtures.amloc_result
+    metric_result = MetricResultFixtures.native_metric_result
     assert_equal 'AverageMethodLOC', MezuroPlugin::Helpers::ContentViewerHelper.format_name(metric_result)
   end
 end

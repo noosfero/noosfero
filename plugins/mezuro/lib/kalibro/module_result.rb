@@ -22,11 +22,11 @@ class Kalibro::ModuleResult < Kalibro::Model
         :project_name => project_name, 
         :module_name => module_name,
       })[:module_result]
-    to_objects_array(response)
+    Kalibro::ModuleResult.to_objects_array(response)
   end
   
   def module=(value)
-    @module = to_object(value, Kalibro::Module)
+    @module = Kalibro::Module.to_object value
   end
 
   def date=(value)
@@ -38,15 +38,34 @@ class Kalibro::ModuleResult < Kalibro::Model
   end
 
   def metric_result=(value)
-    @metric_result = to_objects_array(value, Kalibro::MetricResult)
+    @metric_result = Kalibro::MetricResult.to_objects_array value
   end
   
+  def metric_results
+    @metric_result
+  end
+  
+  def metric_results=(metric_results)
+    @metric_result = metric_results
+  end
+
+  def compound_metric_with_error=(value)
+    @compound_metric_with_error = Kalibro::CompoundMetricWithError.to_objects_array value
+  end
+
+  def compound_metrics_with_error
+    @compound_metric_with_error
+  end
+
+  def compound_metrics_with_error=(compound_metrics_with_error)
+    @compound_metric_with_error = compound_metrics_with_error
+  end
+
   private
 
   def self.date_with_milliseconds(date)
     milliseconds = "." + (date.sec_fraction * 60 * 60 * 24 * 1000).to_s
     date.to_s[0..18] + milliseconds + date.to_s[19..-1]
   end
-
 
 end

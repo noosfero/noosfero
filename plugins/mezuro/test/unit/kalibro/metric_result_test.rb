@@ -5,12 +5,12 @@ require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/metric_result_fixtures"
 class MetricResultTest < ActiveSupport::TestCase
 
   def setup
-    @hash = MetricResultFixtures.amloc_result_hash
-    @result = MetricResultFixtures.amloc_result
+    @hash = MetricResultFixtures.native_metric_result_hash
+    @result = MetricResultFixtures.native_metric_result
   end
 
   should 'create metric result from hash' do
-    assert_equal @result, Kalibro::Entities::MetricResult.from_hash(@hash)
+    assert_equal @hash[:metric][:name], Kalibro::MetricResult.new(@hash).metric.name
   end
 
   should 'convert metric result to hash' do
@@ -18,8 +18,8 @@ class MetricResultTest < ActiveSupport::TestCase
   end
 
   should 'create appropriate metric type' do
-    assert MetricResultFixtures.amloc_result.metric.instance_of?(Kalibro::Entities::NativeMetric)
-    assert MetricResultFixtures.sc_result.metric.instance_of?(Kalibro::Entities::CompoundMetric)
+    assert MetricResultFixtures.native_metric_result.metric.instance_of?(Kalibro::NativeMetric)
+    assert MetricResultFixtures.compound_metric_result.metric.instance_of?(Kalibro::CompoundMetric)
   end
 
   should 'convert single descendent result to array' do

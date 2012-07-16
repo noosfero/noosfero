@@ -1,4 +1,4 @@
-class Kalibro::Entities::Module < Kalibro::Entities::Entity
+class Kalibro::Module < Kalibro::Model
 
   attr_accessor :name, :granularity
 
@@ -13,6 +13,6 @@ class Kalibro::Entities::Module < Kalibro::Entities::Entity
   end
 
   def ancestor_names
-    Kalibro::Entities::Module.parent_names(@name)
+    self.class.parent_names(@name)
   end
 end

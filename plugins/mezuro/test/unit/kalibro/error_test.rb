@@ -5,12 +5,12 @@ require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/error_fixtures"
 class ErrorTest < ActiveSupport::TestCase
 
   def setup
-    @hash = ErrorFixtures.create_hash
-    @error = ErrorFixtures.create
+    @hash = ErrorFixtures.error_hash
+    @error = ErrorFixtures.error
   end
 
   should 'create error from hash' do
-    assert_equal @error, Kalibro::Entities::Error.from_hash(@hash)
+    assert_equal @hash[:message], Kalibro::Error.new(@hash).message
   end
 
   should 'convert error to hash' do

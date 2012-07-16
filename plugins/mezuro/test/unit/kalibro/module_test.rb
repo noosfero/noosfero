@@ -5,12 +5,12 @@ require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/module_fixtures"
 class ModuleTest < ActiveSupport::TestCase
 
   def setup
-    @hash = ModuleFixtures.qt_calculator_hash
-    @module = ModuleFixtures.qt_calculator
+    @hash = ModuleFixtures.module_hash
+    @module = ModuleFixtures.module
   end
 
   should 'create module from hash' do
-    assert_equal @module, Kalibro::Entities::Module.from_hash(@hash)
+    assert_equal @hash[:name], Kalibro::Module.new(@hash).name
   end
   
   should 'convert module to hash' do

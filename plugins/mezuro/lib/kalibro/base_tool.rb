@@ -11,7 +11,7 @@ class Kalibro::BaseTool < Kalibro::Model
   end
 
   def supported_metric=(value)
-    @supported_metric = to_objects_array(value, Kalibro::NativeMetric)
+    @supported_metric = Kalibro::NativeMetric.to_objects_array value
   end
 
   def supported_metrics

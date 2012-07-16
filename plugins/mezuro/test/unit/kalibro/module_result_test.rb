@@ -17,19 +17,20 @@ class ModuleResultTest < ActiveSupport::TestCase
   end
 
   should 'find module result' do
-    date_string = '2012-01-10T16:07:15.442-02:00'
-    date = DateTime.parse(date_string)
-    request_body = {:project_name => 'Qt-Calculator', :module_name => 'main', :date => date_string}
+    date = DateTime.parse(@module_result.date.to_s)
+    name = @module_result.module.name
+    request_body = {:project_name => name, :module_name => name, :date => '2011-10-20T18:26:43.0+00:00'}
     response = {:module_result => @hash}
     Kalibro::ModuleResult.expects(:request).with('ModuleResult',:get_module_result, request_body).returns(response)
-    assert_equal @module_result.grade, Kalibro::ModuleResult.find_by_project_name_and_module_name_and_date('Qt-Calculator', 'main', date).grade
+    assert_equal @module_result.grade, Kalibro::ModuleResult.find_by_project_name_and_module_name_and_date(name, name, date).grade
   end
   
   should 'find all module results' do
-    request_body = {:project_name => 'Qt-Calculator', :module_name => 'main'}
+    name = @module_result.module.name
+    request_body = {:project_name => name, :module_name => name}
     response = {:module_result => @hash}
     Kalibro::ModuleResult.expects(:request).with('ModuleResult',:get_result_history, request_body).returns(response)
-    response_array = Kalibro::ModuleResult.all_by_project_name_and_module_name('Qt-Calculator', 'main')
+    response_array = Kalibro::ModuleResult.all_by_project_name_and_module_name(name, name)
     assert_equal [@module_result].class, response_array.class
     assert_equal @module_result.grade, response_array[0].grade
   end

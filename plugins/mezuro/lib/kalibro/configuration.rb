@@ -3,7 +3,7 @@ class Kalibro::Configuration < Kalibro::Model
   attr_accessor :name, :description, :metric_configuration
 
   def metric_configuration=(value)
-    @metric_configuration = to_objects_array(value, Kalibro::MetricConfiguration)
+    @metric_configuration = Kalibro::MetricConfiguration.to_objects_array value
   end
 
   def metric_configurations

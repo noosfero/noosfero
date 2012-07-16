@@ -1,9 +1,9 @@
-class Kalibro::Entities::Error < Kalibro::Entities::Entity
+class Kalibro::Error < Kalibro::Model
   
   attr_accessor :error_class, :message, :stack_trace_element, :cause
 
   def stack_trace_element=(value)
-    @stack_trace_element = to_entity_array(value, Kalibro::Entities::StackTraceElement)
+    @stack_trace_element = Kalibro::StackTraceElement.to_objects_array value
   end
   
   def stack_trace
@@ -15,7 +15,7 @@ class Kalibro::Entities::Error < Kalibro::Entities::Entity
   end
 
   def cause=(cause_value)
-    @cause = to_entity(cause_value, Kalibro::Entities::Error)
+    @cause = Kalibro::Error.to_object cause_value
   end
 
 end

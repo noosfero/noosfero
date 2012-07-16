@@ -4,12 +4,12 @@ class Kalibro::MetricResult < Kalibro::Model
 
   def metric=(value)
     if value.kind_of?(Hash)
-      compound?(value) ? @metric = to_object(value, Kalibro::CompoundMetric) : @metric = to_object(value, Kalibro::NativeMetric)
+      compound?(value) ? @metric = Kalibro::CompoundMetric.to_object(value) : @metric = Kalibro::NativeMetric.to_object(value)
     else
       @metric = value
     end
   end
-  
+
   def compound?(metric)
     metric.has_key?(:script)
   end
@@ -19,7 +19,7 @@ class Kalibro::MetricResult < Kalibro::Model
   end
 
   def range=(value)
-    @range = to_object(value, Kalibro::Range)
+    @range = Kalibro::Range.to_object value
   end
 
   def descendent_result=(value)
