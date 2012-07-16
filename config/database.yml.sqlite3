@@ -1,6 +1,7 @@
 development:
   adapter: sqlite3
   database: db/development.db
+  timeout: 500
 
 test: &TEST
   adapter: sqlite3
