@@ -10,8 +10,8 @@
 	cursor: default;
 }
 
-.controller-profile_editor a.control-panel-invite-friends {background-image: url(../../plugins/stoa/images/control-panel/invite-friends.png)}
-.controller-profile_editor .msie6 a.control-panel-invite-friends {background-image: url(../../plugins/stoa/images/control-panel/invite-friends.gif)}
+.controller-profile_editor a.control-panel-invite-friends {background-image: url(/plugins/stoa/images/control-panel/invite-friends.png)}
+.controller-profile_editor .msie6 a.control-panel-invite-friends {background-image: url(/plugins/stoa/images/control-panel/invite-friends.gif)}
 
 #signup-form small#usp-id-balloon {
   display: none;
