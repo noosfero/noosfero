@@ -50,9 +50,14 @@ class Kalibro::MetricConfiguration < Kalibro::Model
   end
 
   def save
+    begin
       self.class.request("MetricConfiguration", :save_metric_configuration, {
         :metric_configuration => to_hash,
         :configuration_name => configuration_name})
+      true
+    rescue Exception => error
+      false
+    end
   end
 
   def destroy

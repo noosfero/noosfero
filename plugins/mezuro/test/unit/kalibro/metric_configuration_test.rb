@@ -53,7 +53,7 @@ class MetricConfigurationTest < ActiveSupport::TestCase
     }
     response_hash = {:metric_configuration => @metric_configuration1.to_hash}
     Kalibro::MetricConfiguration.expects(:request).with("MetricConfiguration", :get_metric_configuration, request_body).returns(response_hash)
-    metric_configuration = Kalibro::MetricConfiguration.find_by_configuration_and_metric(@metric_configuration1.configuration_name,
+    metric_configuration = Kalibro::MetricConfiguration.find_by_configuration_name_and_metric_name(@metric_configuration1.configuration_name,
                                                                                          @metric_configuration1.metric.name)
     assert_equal @metric_configuration1.code, metric_configuration.code
   end

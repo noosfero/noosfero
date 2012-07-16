@@ -18,11 +18,7 @@ class Kalibro::Model
     end
     hash
   end
-
-  def self.request(endpoint, action, request_body = nil)
-    response = client(endpoint).request(:kalibro, action) { soap.body = request_body }
-    response.to_hash["#{action}_response".to_sym] # response is a Savon::SOAP::Response, and to_hash is a Savon::SOAP::Response method
-  end
+  
   protected
 
   def fields
@@ -55,6 +51,11 @@ class Kalibro::Model
     field.to_s[0] != '@' and field != :attributes! and (field.to_s =~ /xsi/).nil?
   end
 
+  def self.request(endpoint, action, request_body = nil)
+    response = client(endpoint).request(:kalibro, action) { soap.body = request_body }
+    response.to_hash["#{action}_response".to_sym] # response is a Savon::SOAP::Response, and to_hash is a Savon::SOAP::Response method
+  end
+  
   def to_objects_array(value, model_class = nil)
     array = value.kind_of?(Array) ? value : [value]
     array.each.collect { |element| to_object(element, model_class) }
@@ -65,3 +66,4 @@ class Kalibro::Model
   end 
 
 end
+
