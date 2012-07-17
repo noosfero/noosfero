@@ -241,6 +241,10 @@ module ManageProductsHelper
     end
   end
 
+  def remove_qualifier_button
+    button_to_function(:delete, content_tag('span', _('Delete qualifier')), "jQuery(this).parents('tr').remove()")
+  end
+
   def select_unit(object)
     collection_select(object.class.name.downcase, :unit_id, environment.units, :id, :singular, {:include_blank => _('Select the unit')})
   end
