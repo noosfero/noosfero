@@ -1,34 +1,47 @@
+require File.dirname(__FILE__) + '/module_fixtures'
+
 class ModuleNodeFixtures
 
-  def self.qt_calculator_tree
-    node = Kalibro::Entities::ModuleNode.new
-    node.module = ModuleFixtures.qt_calculator
-    org_node = new_node('org', 'PACKAGE')
-    org_node.children = [new_node('org.Window', 'CLASS')]
-    node.children = [org_node, new_node('Dialog', 'CLASS'), new_node('main', 'CLASS')]
-    node
+  def self.module_node
+    Kalibro::ModuleNode.new module_node_hash
   end
 
-  def self.qt_calculator_tree_hash
-    {:module => ModuleFixtures.qt_calculator_hash,
-      :child => [
-        {:module => {:name => 'org', :granularity => 'PACKAGE'},
-         :child => [{:module => {:name => 'org.Window', :granularity => 'CLASS'}}]},
-        {:module => {:name => 'Dialog', :granularity => 'CLASS'}},
-        {:module => {:name => 'main', :granularity => 'CLASS'}}
-      ]
+  def self.module_node_hash
+    {
+      :module => ModuleFixtures.module_hash,:attributes! => {:module => {
+          'xmlns:xsi'=> 'http://www.w3.org/2001/XMLSchema-instance',
+          'xsi:type' => 'kalibro:moduleXml'  }},
+      :child => [{
+        :module => {
+          :name => 'org',
+          :granularity => 'PACKAGE'
+        },:attributes! => {:module => {
+          'xmlns:xsi'=> 'http://www.w3.org/2001/XMLSchema-instance',
+          'xsi:type' => 'kalibro:moduleXml'  }},
+        :child => [{
+          :module => {
+            :name => 'org.Window',
+            :granularity => 'CLASS'
+          },:attributes! => {:module => {
+          'xmlns:xsi'=> 'http://www.w3.org/2001/XMLSchema-instance',
+          'xsi:type' => 'kalibro:moduleXml'  }}
+        }]
+      },{
+        :module => {
+          :name => 'Dialog',
+          :granularity => 'CLASS'
+        },:attributes! => {:module => {
+          'xmlns:xsi'=> 'http://www.w3.org/2001/XMLSchema-instance',
+          'xsi:type' => 'kalibro:moduleXml'  }}
+      },{
+        :module => {
+          :name => 'main',
+          :granularity => 'CLASS'
+        },:attributes! => {:module => {
+          'xmlns:xsi'=> 'http://www.w3.org/2001/XMLSchema-instance',
+          'xsi:type' => 'kalibro:moduleXml'  }}
+      }]
     }
   end
 
-  private
-
-  def self.new_node(name, granularity)
-    the_module = Kalibro::Entities::Module.new
-    the_module.name = name
-    the_module.granularity = granularity
-    node = Kalibro::Entities::ModuleNode.new
-    node.module = the_module
-    node
-  end
-    
 end

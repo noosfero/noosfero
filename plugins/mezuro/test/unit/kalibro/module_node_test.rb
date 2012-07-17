@@ -1,16 +1,15 @@
 require "test_helper"
-
 require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/module_node_fixtures"
 
 class ModuleNodeTest < ActiveSupport::TestCase
 
   def setup
-    @hash = ModuleNodeFixtures.qt_calculator_tree_hash
-    @node = ModuleNodeFixtures.qt_calculator_tree
+    @hash = ModuleNodeFixtures.module_node_hash
+    @node = ModuleNodeFixtures.module_node
   end
 
   should 'create module node from hash' do
-    assert_equal @node, Kalibro::Entities::ModuleNode.from_hash(@hash)
+    assert_equal( @node.child[0].module.name, Kalibro::ModuleNode.new(@hash).child[0].module.name)
   end
 
   should 'convert children hash to array of ModuleNode' do

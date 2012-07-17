@@ -61,11 +61,4 @@ class Kalibro::ModuleResult < Kalibro::Model
     @compound_metric_with_error = compound_metrics_with_error
   end
 
-  private
-
-  def self.date_with_milliseconds(date)
-    milliseconds = "." + (date.sec_fraction * 60 * 60 * 24 * 1000).to_s
-    date.to_s[0..18] + milliseconds + date.to_s[19..-1]
-  end
-
 end

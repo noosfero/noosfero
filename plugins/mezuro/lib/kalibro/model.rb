@@ -64,5 +64,10 @@ class Kalibro::Model
   def self.is_valid?(field)
     field.to_s[0] != '@' and field != :attributes! and (field.to_s =~ /xsi/).nil?
   end
+  
+  def self.date_with_milliseconds(date)
+    milliseconds = "." + (date.sec_fraction * 60 * 60 * 24 * 1000).to_s
+    date.to_s[0..18] + milliseconds + date.to_s[19..-1]
+  end
 
 end

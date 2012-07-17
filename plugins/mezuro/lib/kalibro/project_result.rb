@@ -3,35 +3,35 @@ class Kalibro::ProjectResult < Kalibro::Model
   attr_accessor :project, :date, :load_time, :analysis_time, :source_tree, :collect_time
 
   def self.last_result(project_name)
-    last_result = request(:get_last_result_of, {:project_name => project_name})[:project_result]
+    last_result = request('ProjectResult', :get_last_result_of, {:project_name => project_name})[:project_result]
     new last_result
   end
   
   def self.first_result(project_name)
-    first_result = request(:get_first_result_of, {:project_name => project_name})[:project_result]
+    first_result = request('ProjectResult',:get_first_result_of, {:project_name => project_name})[:project_result]
     new first_result
   end
 
   def self.first_result_after(project_name, date)
-    first_result_after = request(:get_first_result_after, {:project_name => project_name, :date => date})[:project_result]
+    first_result_after = request('ProjectResult',:get_first_result_after, {:project_name => project_name, :date => date})[:project_result]
     new first_result_after
   end
 
   def self.last_result_before(project_name, date)
-    last_result_before = request(:get_last_result_before, {:project_name => project_name, :date => date})[:project_result]
+    last_result_before = request('ProjectResult',:get_last_result_before, {:project_name => project_name, :date => date})[:project_result]
     new last_result_before
   end
 
   def self.has_results?(project_name)
-    request(:has_results_for, {:project_name => project_name})[:has_results]
+    request('ProjectResult',:has_results_for, {:project_name => project_name})[:has_results]
   end
   
   def self.has_results_before?(project_name, date)
-    request(:has_results_before, {:project_name => project_name, :date => date})[:has_results]
+    request('ProjectResult',:has_results_before, {:project_name => project_name, :date => date})[:has_results]
   end
 
   def self.has_results_after?(project_name, date)
-    request(:has_results_after, {:project_name => project_name, :date => date})[:has_results]
+    request('ProjectResult',:has_results_after, {:project_name => project_name, :date => date})[:has_results]
   end
   
   def project=(value)
@@ -54,9 +54,8 @@ class Kalibro::ProjectResult < Kalibro::Model
     @analysis_time = value.to_i
   end
   
-  #FIXME mudar a atribuição depois que refatorarmos o module_result client
   def source_tree=(value)
-    @source_tree = value.kind_of?(Hash) ? Kalibro::Entities::ModuleNode.from_hash(value) : value
+    @source_tree = value.kind_of?(Hash) ? Kalibro::ModuleNode.new(value) : value
   end
   
   def formatted_load_time
@@ -88,9 +87,8 @@ class Kalibro::ProjectResult < Kalibro::Model
     end
   end
 
-#FIXME mudar a atribuição depois que refatorarmos o module_result client
   def get_node(module_name)
-    path = Kalibro::Entities::Module.parent_names(module_name)
+    path = Kalibro::Module.parent_names(module_name)
     parent = @source_tree
     path.each do |node_name|
       parent = get_leaf_from(parent, node_name)
@@ -99,17 +97,6 @@ class Kalibro::ProjectResult < Kalibro::Model
   end
   
   private
-
-  def self.project_result
-    endpoint = "ProjectResult" 
-    service_address = YAML.load_file("#{RAILS_ROOT}/plugins/mezuro/service.yaml")
-    Savon::Client.new("#{service_address}#{endpoint}Endpoint/?wsdl")
-  end
-
-  def self.request(action, request_body = nil)
-    response = project_result.request(:kalibro, action) { soap.body = request_body }
-    response.to_hash["#{action}_response".to_sym]
-  end
 
   def get_leaf_from(node, module_name) 
     node.children.each do |child_node|
