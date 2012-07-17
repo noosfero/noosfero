@@ -454,9 +454,9 @@ function loading_for_button(selector) {
   jQuery(selector).css('cursor', 'progress');
 }
 
-function new_qualifier_row(selector, select_qualifiers) {
+function new_qualifier_row(selector, select_qualifiers, delete_button) {
   index = jQuery(selector + ' tr').size() - 1;
-  jQuery(selector).append("<tr><td>" + select_qualifiers + "</td><td id='certifier-area-" + index + "'><select></select></td></tr>");
+  jQuery(selector).append("<tr><td>" + select_qualifiers + "</td><td id='certifier-area-" + index + "'><select></select>" + delete_button + "</td></tr>");
 }
 
 // controls the display of the login/logout stuff
