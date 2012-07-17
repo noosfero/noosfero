@@ -6,6 +6,25 @@ class ProjectFixtures
     Kalibro::Project.new project_hash
   end
 
+  def self.project_hash
+    {
+      :name => 'Qt-Calculator',
+      :license => 'GPL',
+      :description => 'Calculator for Qt',
+      :repository => RepositoryFixtures.repository_hash,
+      :configuration_name => 'Kalibro for Java',
+      :state => 'READY',
+      :attributes! =>
+      {
+        :repository=>
+        {
+          "xsi:type"=>"kalibro:repositoryXml",
+          "xmlns:xsi"=>"http://www.w3.org/2001/XMLSchema-instance"
+        }
+      }
+    }
+  end
+    
   def self.project_content
     content = MezuroPlugin::ProjectContent.new
     content.name = 'Qt-Calculator'
@@ -18,15 +37,4 @@ class ProjectFixtures
     content
   end
 
-  def self.project_hash
-    {
-      :name => 'Qt-Calculator',
-      :license => 'GPL',
-      :description => 'Calculator for Qt',
-      :repository => RepositoryFixtures.repository_hash,
-      :configuration_name => 'Kalibro for Java',
-      :state => 'READY'
-    }
-  end
-    
 end

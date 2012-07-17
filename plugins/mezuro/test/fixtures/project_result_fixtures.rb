@@ -15,7 +15,20 @@ class ProjectResultFixtures
       :load_time => 14878,
       :analysis_time => 1022,
       :source_tree => ModuleNodeFixtures.module_node_hash, 
-      :collect_time => 14878
+      :collect_time => 14878,
+      :attributes! =>
+      {
+        :source_tree =>
+        {
+          "xmlns:xsi"=>"http://www.w3.org/2001/XMLSchema-instance",
+          "xsi:type"=>"kalibro:moduleNodeXml"
+        },
+        :project =>
+        {
+          "xmlns:xsi"=>"http://www.w3.org/2001/XMLSchema-instance",
+          "xsi:type"=>"kalibro:projectXml"
+        }
+      }
     }
   end
     
