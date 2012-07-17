@@ -82,6 +82,7 @@ class ApproveArticleTest < ActiveSupport::TestCase
   should 'notify target if group is moderated' do
     community.moderated_articles = true
     community.save
+    community.stubs(:notification_emails).returns(['adm@example.com'])
 
     a = ApproveArticle.create!(:name => '', :article => article, :target => community, :requestor => profile)
     assert !ActionMailer::Base.deliveries.empty?
