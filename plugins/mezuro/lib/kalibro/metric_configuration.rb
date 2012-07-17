@@ -7,8 +7,8 @@ class Kalibro::MetricConfiguration < Kalibro::Model
 
   def metric=(value)
     if value.kind_of?(Hash)
-      @metric = to_object(value, Kalibro::CompoundMetric) if value.has_key?(:script)
       @metric = to_object(value, Kalibro::NativeMetric) if value.has_key?(:origin)
+      @metric = to_object(value, Kalibro::CompoundMetric) if value.has_key?(:script)
     else
       @metric = value
     end

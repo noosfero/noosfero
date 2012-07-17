@@ -40,7 +40,7 @@ class MezuroPluginMyprofileController < ProfileController
   def create_metric_configuration
     id = params[:id]
     metric_name = params[:metric_configuration][:metric][:name]
-    Kalibro::MetricConfiguration.new(params[:metric_configuration]).save
+    (Kalibro::MetricConfiguration.new(params[:metric_configuration])).save
     redirect_to "/myprofile/#{profile.identifier}/plugin/mezuro/edit_metric_configuration?id=#{id}&metric_name=#{metric_name.gsub(/\s/, '+')}"
   end
   
@@ -65,6 +65,14 @@ class MezuroPluginMyprofileController < ProfileController
     metric_configuration = Kalibro::MetricConfiguration.find_by_configuration_name_and_metric_name(@configuration_content.name, metric_name)
     metric_configuration.update_attributes params[:metric_configuration]
     redirect_to "/#{profile.identifier}/#{@configuration_content.slug}"
+  end
+
+  def remove_metric_configuration
+    configuration_content = profile.articles.find(params[:id])
+    metric_name = params[:metric_name]
+    metric_configuration = Kalibro::MetricConfiguration.find_by_configuration_name_and_metric_name(configuration_content.name, metric_name)
+    metric_configuration.destroy
+    redirect_to "/#{profile.identifier}/#{configuration_content.slug}"
   end
   
   def new_range
@@ -104,9 +112,9 @@ class MezuroPluginMyprofileController < ProfileController
   def remove_range
     configuration_content = profile.articles.find(params[:id])
     metric_name = params[:metric_name]
-    beginning_id = params[:range_beginning]
+    beginning_id = params[:beginning_id]
     metric_configuration = Kalibro::MetricConfiguration.find_by_configuration_name_and_metric_name(configuration_content.name, metric_name)
-    metric_configuration.ranges.delete_if { |range| range.beginning == beginning_id.to_f }.inspect
+    metric_configuration.ranges.delete_if { |range| range.beginning == beginning_id.to_f }
     metric_configuration.save
     formatted_metric_name = metric_name.gsub(/\s/, '+')
     if metric_configuration.metric.class == Kalibro::CompoundMetric
@@ -114,14 +122,6 @@ class MezuroPluginMyprofileController < ProfileController
     else
       redirect_to "/myprofile/#{profile.identifier}/plugin/mezuro/edit_metric_configuration?id=#{configuration_content.id}&metric_name=#{formatted_metric_name}"
     end
-  end
-
-  def remove_metric_configuration
-    configuration_content = profile.articles.find(params[:id])
-    metric_name = params[:metric_name]
-    metric_configuration = Kalibro::MetricConfiguration.find_by_configuration_name_and_metric_name(configuration_content.name, metric_name)
-    metric_configuration.destroy
-    redirect_to "/#{profile.identifier}/#{configuration_content.slug}"
   end
 
 end

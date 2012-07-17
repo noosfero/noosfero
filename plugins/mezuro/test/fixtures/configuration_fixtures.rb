@@ -8,7 +8,7 @@ class ConfigurationFixtures
 
   def self.configuration_hash
     {
-      :name => 'Kalibro for Java',
+      :name => 'Sample Configuration',
       :description => 'Kalibro configuration for Java projects.',
       :metric_configuration => [
         MetricConfigurationFixtures.amloc_metric_configuration_hash,
