@@ -1,19 +1,16 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 class LicenseTest < ActiveSupport::TestCase
-  should 'validate presence of name, slug and enviornment' do
+  should 'validate presence of name and environment' do
     license = License.new
     license.valid?
     assert license.errors.invalid?(:name)
-    assert license.errors.invalid?(:slug)
     assert license.errors.invalid?(:environment)
 
     license.name = 'GPLv3'
-    license.slug = 'gplv3'
     license.environment = Environment.default
     license.valid?
     assert !license.errors.invalid?(:name)
-    assert !license.errors.invalid?(:slug)
     assert !license.errors.invalid?(:environment)
   end
 
@@ -27,6 +24,15 @@ class LicenseTest < ActiveSupport::TestCase
     license = License.new(:name => 'GPLv3', :slug => 'some-slug', :environment => Environment.default)
     license.valid?
     assert_equal 'some-slug', license.slug
+  end
+
+  should 'allow equal slugs in different environments' do
+    e1 = fast_create(Environment)
+    e2 = fast_create(Environment)
+    License.create!(:name => 'License', :environment => e1)
+    license = License.new(:name => 'License', :environment => e2)
+
+    assert license.valid?
   end
 end
 

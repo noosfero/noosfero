@@ -4,7 +4,7 @@ class License < ActiveRecord::Base
 
   validates_presence_of :name, :environment
   validates_presence_of :slug, :if => lambda {|license| license.name.present?}
-  validates_uniqueness_of :slug
+  validates_uniqueness_of :slug, :scope => :environment_id
 
   before_validation do |license|
     license.slug ||= license.name.to_slug if license.name.present?
