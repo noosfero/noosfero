@@ -1,0 +1,1 @@
+<%= labelled_form_field(_('License'), select(:article, :license_id, [[_('None'), nil]] + profile.environment.licenses.map {|license| [license.name, license.id]})) %>

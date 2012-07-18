@@ -2,6 +2,8 @@
 
 <%= required f.text_field(:name) %>
 
+<%= render :partial => 'general_fields' %>
+
 <%= required labelled_form_field(_('Limit of articles'), text_field(:article, :limit)) %>
 
 <%= labelled_form_field(_('Include in RSS Feed only posts from language:'), f.select(:language, [[_('All'),  nil ]] + Noosfero.locales.map { |k,v| [v, k]})) %>
