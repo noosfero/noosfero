@@ -737,9 +737,14 @@ class Environment < ActiveRecord::Base
 
   after_create :create_default_licenses
   def create_default_licenses
-    #TODO Must create here the default licenses. Also needs to create a
-    #     migration to create these licenses to environments that alaready
-    #     exists
+    License.create!(:name => 'CC (by)', :url => 'http://creativecommons.org/licenses/by/3.0/legalcode', :environment => self)
+    License.create!(:name => 'CC (by-nd)', :url => 'http://creativecommons.org/licenses/by-nd/3.0/legalcode', :environment => self)
+    License.create!(:name => 'CC (by-sa)', :url => 'http://creativecommons.org/licenses/by-sa/3.0/legalcode', :environment => self)
+    License.create!(:name => 'CC (by-nc)', :url => 'http://creativecommons.org/licenses/by-nc/3.0/legalcode', :environment => self)
+    License.create!(:name => 'CC (by-nc-nd)', :url => 'http://creativecommons.org/licenses/by-nc-nd/3.0/legalcode', :environment => self)
+    License.create!(:name => 'CC (by-nc-sa)', :url => 'http://creativecommons.org/licenses/by-nc-sa/3.0/legalcode', :environment => self)
+    License.create!(:name => 'Free Art', :url => 'http://artlibre.org/licence/lal/en', :environment => self)
+    License.create!(:name => 'GNU FDL', :url => 'http://www.gnu.org/licenses/fdl-1.3.txt', :environment => self)
   end
 
   def highlighted_products_with_image(options = {})
