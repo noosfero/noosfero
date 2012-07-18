@@ -26,14 +26,12 @@
 
       <div class="search-enterprise-categorization">
         <% profile.top_level_categorization.each do |parent, children| %>
-          <% if parent.name != "Territórios" %>
-            <div class="search-enterprise-category-<%=parent.id%> search-enterprise-category">
-              <span class="search-enterprise-categorization-parent"><%= parent.name %></span>
-              <span class="search-enterprise-categorization-children">
-                <%= children.collect(&:name).join(', ')  %>
-              </span>
-            </div>
-          <% end %>
+          <div class="search-enterprise-category-<%=parent.id%> search-enterprise-category">
+            <span class="search-enterprise-categorization-parent"><%= parent.name %></span>
+            <span class="search-enterprise-categorization-children">
+              <%= children.collect(&:name).join(', ')  %>
+            </span>
+          </div>
         <% end %>
       </div>
     </div>

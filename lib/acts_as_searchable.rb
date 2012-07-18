@@ -47,7 +47,7 @@ module ActsAsSearchable
           options[:facets][:browse] = nil
           all_facets = find_by_solr(query, options.merge(:per_page => 0)).facets
         end
-        
+
         if !solr_result.nil?
           facets = options.include?(:facets) ? solr_result.facets : []
 

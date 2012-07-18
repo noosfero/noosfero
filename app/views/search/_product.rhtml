@@ -20,7 +20,7 @@
         <% end %>
         <div class="search-product-inputs-info">
           <% if p = product.percentage_from_solidarity_economy %>
-            <div class="search-product-percentage-from-solidarity-economy search-product-ecosol-percentage-icon-<%= p[0].to_s %>" 
+            <div class="search-product-percentage-from-solidarity-economy search-product-ecosol-percentage-icon-<%= p[0].to_s %>"
               title="<%=_('Percentage of inputs from solidarity economy')%>">
               <%= p[1] %>
             </div>
@@ -29,7 +29,7 @@
           <% if product.price_described? %>
             <% title = (product.inputs + product.price_details).map{ |i|
               '<div class="search-product-input-dots-to-price">' +
-                '<div class="search-product-input-name">' + i.product_category.name + '</div>' + 
+                '<div class="search-product-input-name">' + i.product_category.name + '</div>' +
                 price_span(i.price, :class => 'search-product-input-price') +
               '</div>' }.join('') %>
             <%= link_to_function _("Open Price"), '', :title => title, :class => "search-product-price-details" %>

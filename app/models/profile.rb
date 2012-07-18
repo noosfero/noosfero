@@ -239,7 +239,7 @@ class Profile < ActiveRecord::Base
       self.categories(true)
       self.solr_save
     end
-		self.categories(reload)
+	 self.categories(reload)
   end
 
   def category_ids=(ids)
@@ -544,7 +544,7 @@ private :generate_url, :url_options
     other.top_level_articles.each do |a|
       copy_article_tree a
     end
-		self.articles.reload
+    self.articles.reload
   end
 
   def copy_article_tree(article, parent=nil)
@@ -864,7 +864,7 @@ private :generate_url, :url_options
   def self.f_region_proc(id)
     c = Region.find(id)
     s = c.parent
-    if c and c.kind_of?(City) and s and s.kind_of?(State) and s.acronym 
+    if c and c.kind_of?(City) and s and s.kind_of?(State) and s.acronym
       [c.name, ', ' + s.acronym]
     else
       c.name
@@ -872,7 +872,7 @@ private :generate_url, :url_options
   end
 
   def self.f_enabled_proc(enabled)
-    enabled = enabled == "true" ? true : false 
+    enabled = enabled == "true" ? true : false
     enabled ? _('Enabled') : _('Not enabled')
   end
   def f_enabled
@@ -920,8 +920,8 @@ private :generate_url, :url_options
   after_save_reindex [:articles], :with => :delayed_job
   handle_asynchronously :solr_save
 
-  def control_panel_settings_button                                                                                                                                                             
-    {:title => _('Profile Info and settings'), :icon => 'edit-profile'}                                                                                                                         
+  def control_panel_settings_button
+    {:title => _('Profile Info and settings'), :icon => 'edit-profile'}
   end 
 
   def followed_by?(person)

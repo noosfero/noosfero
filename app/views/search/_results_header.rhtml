@@ -1,6 +1,6 @@
 <div class="search-results-header <%= "search-no-results" if @results[@asset].nil? or @results[@asset].length == 0 %>">
   <% if !@empty_query %>
-    <div class="search-results-header-information"> 
+    <div class="search-results-header-information">
       <% if @results[@asset].total_entries > 0 %>
         <%= label_total_found(@asset, @results[@asset].total_entries) %>
         <% if params[:display] != 'map' %>
@@ -9,7 +9,7 @@
       <% end %>
     </div>
 
-    <div class="search-results-header-facets-order-by"> 
+    <div class="search-results-header-facets-order-by">
       <%= facets_unselect_menu(@asset) %>
       <%= order_by(@asset) if params[:display] != 'map' %>
     </div>

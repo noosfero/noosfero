@@ -77,9 +77,9 @@ module SearchHelper
   end
 
   def city_with_state(city)
-    if city and city.kind_of?(City) 
+    if city and city.kind_of?(City)
       s = city.parent
-      if s and s.kind_of?(State) and s.acronym 
+      if s and s.kind_of?(State) and s.acronym
         city.name + ', ' + s.acronym
       else
         city.name
@@ -140,7 +140,7 @@ module SearchHelper
   def facet_selecteds_html_for(environment, klass, params)
     def name_with_extra(klass, facet, value)
       name = klass.facet_result_name(facet, value)
-      name = name[0] + name[1] if name.kind_of?(Array) 
+      name = name[0] + name[1] if name.kind_of?(Array)
       name
     end
 
@@ -165,7 +165,7 @@ module SearchHelper
     end
 
     ret.map do |label, name, url|
-      content_tag('div', content_tag('span', label, :class => 'facet-selected-label') + 
+      content_tag('div', content_tag('span', label, :class => 'facet-selected-label') +
         content_tag('span', name, :class => 'facet-selected-name') +
         link_to('', url, :class => 'facet-selected-remove', :title => 'remove facet'), :class => 'facet-selected')
     end.join
@@ -199,7 +199,7 @@ module SearchHelper
   def asset_class(asset)
     asset.to_s.singularize.camelize.constantize
   end
-  
+
   def asset_table(asset)
     asset_class(asset).table_name
   end

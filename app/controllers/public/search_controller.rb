@@ -46,7 +46,7 @@ class SearchController < PublicController
   def products
     public_filters = ['public:true', 'enabled:true']
     if !@empty_query
-      full_text_search public_filters 
+      full_text_search public_filters
     else
       @one_page = true
       @geosearch = logged_in? && current_user.person.lat && current_user.person.lng
@@ -183,7 +183,7 @@ class SearchController < PublicController
     @asset = params[:action].to_sym
     @order ||= [@asset]
     @results ||= {}
-    @filter = filter 
+    @filter = filter
     @filter_title = filter_description(@asset, @filter)
 
     @query = params[:query] || ''
@@ -198,7 +198,7 @@ class SearchController < PublicController
       @category = environment.categories.find_by_path(path)
       if @category.nil?
         render_not_found(path)
-      else 
+      else
         @category_id = @category.id
       end
     end
@@ -220,12 +220,12 @@ class SearchController < PublicController
   def filter_description(asset, filter)
     {
       'articles_more_recent' => _('More recent contents from network'),
-      'articles_more_popular' => _('More read contents from network'),
+      'articles_more_popular' => _('More viewed contents from network'),
       'people_more_recent' => _('More recent people from network'),
       'people_more_active' => _('More active people from network'),
       'people_more_popular' => _('More popular people from network'),
-      'communities_more_recent' => _('More recent communities from network'),  
-      'communities_more_active' => _('More active communities from network'),  
+      'communities_more_recent' => _('More recent communities from network'),
+      'communities_more_active' => _('More active communities from network'),
       'communities_more_popular' => _('More popular communities from network'),
       'products_more_recent' => _('Highlights'),
     }[asset.to_s + '_' + filter]

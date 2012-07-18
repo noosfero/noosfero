@@ -16,7 +16,7 @@ function getAddress(latlng) {
 
 function codeAddress() {
   $('location-fields').addClassName("loading");
-  
+
   var country_option = $('profile_data_country').value;
   var address = $('profile_data_address').value + "-" + $('profile_data_zip_code').value + "," + $('profile_data_city').value+ "-" + $('profile_data_state').value + "," + country_option;
 
@@ -78,7 +78,7 @@ function getAddressData() {
 }
 
 function showAddress(results, status) {
-  
+
   if (status == google.maps.GeocoderStatus.OK) {
     map.setCenter(results[0].geometry.location);
     updateFields(results[0]);
@@ -113,10 +113,10 @@ function updateFields(place) {
   var state = "";
   var country_code = "";
   var i = 0;
-  
+
   for( i =0 ; i < components_len; i ++)
   {
-  
+
       if (components[i].types[0] == 'country')
         country_code = components[i].short_name;
       else if (components[i].types[0] == 'administrative_area_level_1')
@@ -132,7 +132,7 @@ function updateFields(place) {
       else if (components[i].types[0] == 'postal_code')
         zip_code = components[i].short_name;
   }
-  
+
   $('profile_data_country').value = country_code;
   $('profile_data_state').value = state;
   $('profile_data_address').value = address;

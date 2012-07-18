@@ -1,5 +1,5 @@
 <div class="search-image-container">
-  
+
   <% if image.is_a? UploadedFile and image.filename %>
     <% extension = image.filename[(image.filename.rindex('.')+1)..-1].downcase %>
     <% if ['jpg', 'jpeg', 'gif', 'png', 'tiff', 'svg'].include? extension %>
@@ -38,9 +38,9 @@
   <% elsif image.is_a? Product %>
     <% if image.image %>
     <div class="zoomable-image">
-      <%= link_to '', product_path(image), :class => "search-image-pic", 
+      <%= link_to '', product_path(image), :class => "search-image-pic",
           :style => 'background-image: url(%s)'% image.default_image(:thumb) %>
-      <%= link_to content_tag(:span, _('Zoom in')), image.image.public_filename, 
+      <%= link_to content_tag(:span, _('Zoom in')), image.image.public_filename,
           :class => 'zoomify-image' %>
     </div>
     <% else %>

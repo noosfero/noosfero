@@ -161,36 +161,6 @@ ActiveRecord::Schema.define(:version => 20120411132751) do
 
   add_index "boxes", ["owner_id", "owner_type"], :name => "index_boxes_on_owner_type_and_owner_id"
 
-  create_table "bsc_plugin_contracts", :force => true do |t|
-    t.string   "client_name"
-    t.integer  "client_type"
-    t.integer  "business_type"
-    t.string   "state"
-    t.string   "city"
-    t.integer  "status",              :default => 0
-    t.integer  "number_of_producers", :default => 0
-    t.datetime "supply_start"
-    t.datetime "supply_end"
-    t.text     "annotations"
-    t.integer  "bsc_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "bsc_plugin_contracts_enterprises", :id => false, :force => true do |t|
-    t.integer "contract_id"
-    t.integer "enterprise_id"
-  end
-
-  create_table "bsc_plugin_sales", :force => true do |t|
-    t.integer  "product_id",  :null => false
-    t.integer  "contract_id", :null => false
-    t.integer  "quantity",    :null => false
-    t.decimal  "price"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "categories", :force => true do |t|
     t.string  "name"
     t.string  "slug"
@@ -284,7 +254,6 @@ ActiveRecord::Schema.define(:version => 20120411132751) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "reports_lower_bound",          :default => 0,         :null => false
-    t.text     "send_email_plugin_allow_to"
   end
 
   create_table "external_feeds", :force => true do |t|
@@ -306,10 +275,6 @@ ActiveRecord::Schema.define(:version => 20120411132751) do
   create_table "favorite_enteprises_people", :id => false, :force => true do |t|
     t.integer "person_id"
     t.integer "enterprise_id"
-  end
-
-  create_table "foo_plugin_bars", :force => true do |t|
-    t.string "name"
   end
 
   create_table "friendships", :force => true do |t|
@@ -432,7 +397,7 @@ ActiveRecord::Schema.define(:version => 20120411132751) do
     t.string   "type"
     t.string   "identifier"
     t.integer  "environment_id"
-    t.boolean  "active",                                     :default => true
+    t.boolean  "active",                             :default => true
     t.string   "address"
     t.string   "contact_phone"
     t.integer  "home_page_id"
@@ -443,26 +408,19 @@ ActiveRecord::Schema.define(:version => 20120411132751) do
     t.float    "lat"
     t.float    "lng"
     t.integer  "geocode_precision"
-    t.boolean  "enabled",                                    :default => true
-    t.string   "nickname",                     :limit => 16
+    t.boolean  "enabled",                            :default => true
+    t.string   "nickname",             :limit => 16
     t.text     "custom_header"
     t.text     "custom_footer"
     t.string   "theme"
-    t.boolean  "public_profile",                             :default => true
+    t.boolean  "public_profile",                     :default => true
     t.date     "birth_date"
     t.integer  "preferred_domain_id"
     t.datetime "updated_at"
-    t.boolean  "visible",                                    :default => true
+    t.boolean  "visible",                            :default => true
     t.integer  "image_id"
-    t.boolean  "validated",                                  :default => true
+    t.boolean  "validated",                          :default => true
     t.string   "cnpj"
-    t.boolean  "shopping_cart",                              :default => true
-    t.boolean  "shopping_cart_delivery",                     :default => false
-    t.decimal  "shopping_cart_delivery_price",               :default => 0.0
-    t.string   "usp_id"
-    t.integer  "bar_id"
-    t.integer  "bsc_id"
-    t.string   "company_name"
     t.string   "national_region_code"
   end
 
@@ -526,15 +484,6 @@ ActiveRecord::Schema.define(:version => 20120411132751) do
     t.datetime "updated_at"
   end
 
-  create_table "shopping_cart_plugin_purchase_orders", :force => true do |t|
-    t.integer  "customer_id"
-    t.integer  "seller_id"
-    t.text     "data"
-    t.integer  "status"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "taggings", :force => true do |t|
     t.integer  "tag_id"
     t.integer  "taggable_id"
@@ -562,7 +511,6 @@ ActiveRecord::Schema.define(:version => 20120411132751) do
     t.datetime "created_at"
     t.string   "target_type"
     t.integer  "image_id"
-    t.integer  "bsc_id"
   end
 
   create_table "thumbnails", :force => true do |t|

@@ -8,7 +8,7 @@ class Domain < ActiveRecord::Base
   # validations
   #############
 
-  # <tt>name</tt> must be sequences of alphanumeric characters (a to z, 
+  # <tt>name</tt> must be sequences of alphanumeric characters (a to z,
   # 0 to 9), plus '_' or '-', separated by dots. Letters must be lowercase.
   validates_format_of :name, :with => /^([a-z0-9_-]+\.)+[a-z0-9_-]+$/, :message => N_('%{fn} must be composed of sequences of lowercase letters (a to z), numbers (0 to 9), "_" and "-", separated by dots.').fix_i18n
 

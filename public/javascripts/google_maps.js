@@ -8,7 +8,7 @@ function mapOpenBalloon(marker, html) {
   infoWindow.setContent(html);
   infoWindow.open(map, marker);
 }
-   
+
 function mapPutMarker(lat, lng, title, icon, url_or_function) {
   var point_str = lat + ":" + lng;
 
@@ -18,7 +18,7 @@ function mapPutMarker(lat, lng, title, icon, url_or_function) {
   } else {
     mapPoints[point_str] = true;
   }
-     
+
   var point = new google.maps.LatLng(lat, lng);
   var options = { map: map, title: title, icon: icon, position: point };
   var marker = new google.maps.Marker(options);

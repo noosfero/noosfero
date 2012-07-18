@@ -3,7 +3,7 @@
 </div>
 
 <% if @product.image %>
-  <%= link_to content_tag(:span, _('Zoom in')), @product.image.public_filename, 
+  <%= link_to content_tag(:span, _('Zoom in')), @product.image.public_filename,
     :class => 'zoomify-image' %>
 <% end %>
 <%= add_zoom_to_images %>

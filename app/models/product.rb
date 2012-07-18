@@ -219,7 +219,7 @@ class Product < ActiveRecord::Base
   def self.f_region_proc(id)
     c = Region.find(id)
     s = c.parent
-    if c and c.kind_of?(City) and s and s.kind_of?(State) and s.acronym 
+    if c and c.kind_of?(City) and s and s.kind_of?(State) and s.acronym
       [c.name, ', ' + s.acronym]
     else
       c.name

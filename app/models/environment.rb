@@ -365,11 +365,11 @@ class Environment < ActiveRecord::Base
   end
 
   def terminology
-    #if self.settings[:terminology]
-      #self.settings[:terminology].constantize.instance
-    #else
+    if self.settings[:terminology]
+      self.settings[:terminology].constantize.instance
+    else
       Noosfero.terminology
-    #end
+    end
   end
 
   def terminology=(value)

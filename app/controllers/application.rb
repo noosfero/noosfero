@@ -1,2 +1,1 @@
 require 'application_controller'
-
