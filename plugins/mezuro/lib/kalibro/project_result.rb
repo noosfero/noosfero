@@ -3,35 +3,31 @@ class Kalibro::ProjectResult < Kalibro::Model
   attr_accessor :project, :date, :load_time, :analysis_time, :source_tree, :collect_time
 
   def self.last_result(project_name)
-    last_result = request('ProjectResult', :get_last_result_of, {:project_name => project_name})[:project_result]
-    new last_result
+    new request('ProjectResult', :get_last_result_of, {:project_name => project_name})[:project_result]
   end
   
   def self.first_result(project_name)
-    first_result = request('ProjectResult',:get_first_result_of, {:project_name => project_name})[:project_result]
-    new first_result
+    new request('ProjectResult', :get_first_result_of, {:project_name => project_name})[:project_result]
   end
 
   def self.first_result_after(project_name, date)
-    first_result_after = request('ProjectResult',:get_first_result_after, {:project_name => project_name, :date => date})[:project_result]
-    new first_result_after
+    new request('ProjectResult', :get_first_result_after, {:project_name => project_name, :date => date})[:project_result]
   end
 
   def self.last_result_before(project_name, date)
-    last_result_before = request('ProjectResult',:get_last_result_before, {:project_name => project_name, :date => date})[:project_result]
-    new last_result_before
+    new request('ProjectResult', :get_last_result_before, {:project_name => project_name, :date => date})[:project_result]
   end
 
   def self.has_results?(project_name)
-    request('ProjectResult',:has_results_for, {:project_name => project_name})[:has_results]
+    request('ProjectResult', :has_results_for, {:project_name => project_name})[:has_results]
   end
   
   def self.has_results_before?(project_name, date)
-    request('ProjectResult',:has_results_before, {:project_name => project_name, :date => date})[:has_results]
+    request('ProjectResult', :has_results_before, {:project_name => project_name, :date => date})[:has_results]
   end
 
   def self.has_results_after?(project_name, date)
-    request('ProjectResult',:has_results_after, {:project_name => project_name, :date => date})[:has_results]
+    request('ProjectResult', :has_results_after, {:project_name => project_name, :date => date})[:has_results]
   end
   
   def project=(value)

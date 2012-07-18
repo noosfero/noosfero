@@ -35,9 +35,9 @@ class MezuroPlugin::ProjectContent < Article
     end
   end
   
-  def get_date_result(date)
+  def project_result_with_date(date)
     begin
-      @project_result ||= Kalibro::ProjectResult.has_results_before?(name, date) ? Kalibro::ProjectResult.last_result_before?(name, date) : 
+      @project_result ||= Kalibro::ProjectResult.has_results_before?(name, date) ? Kalibro::ProjectResult.last_result_before(name, date) : 
 Kalibro::ProjectResult.first_result_after(name, date)
     rescue Exception => error
       errors.add_to_base(error.message)
@@ -46,11 +46,11 @@ Kalibro::ProjectResult.first_result_after(name, date)
 
   def module_result(module_name)
     module_name = project.name if module_name.nil? 
-    @module_client ||= module_result_client.module_result(project.name, module_name, project_result.date)
+    @module_client ||= Kalibro::ModuleResult.find_by_project_name_and_module_name_and_date(project.name, module_name, @project_result.date)
   end
 
   def result_history(module_name)
-    @result_history ||= module_result_client.result_history(project.name, module_name)
+    @result_history ||= Kalibro::ModuleResult.all_by_project_name_and_module_name(project.name, module_name)
   end
 
   after_save :send_project_to_service
@@ -78,7 +78,7 @@ Kalibro::ProjectResult.first_result_after(name, date)
   
   def send_project_to_service
     begin
-      Kalibro::Project.create(self).save
+      Kalibro::Project.create(self)
       Kalibro::Kalibro.process_project(name, periodicity_in_days)
     rescue Exception => error
       errors.add_to_base(error.message)
@@ -94,11 +94,4 @@ Kalibro::ProjectResult.first_result_after(name, date)
     end
   end
 
-  def module_result_client
-    begin
-      @module_result_client ||= Kalibro::Client::ModuleResultClient.new
-    rescue Exception => error
-      errors.add_to_base(error.message)
-    end
-  end
 end

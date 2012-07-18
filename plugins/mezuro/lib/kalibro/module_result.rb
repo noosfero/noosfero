@@ -3,7 +3,7 @@ class Kalibro::ModuleResult < Kalibro::Model
   attr_accessor :module, :date, :grade, :metric_result, :compound_metric_with_error
   
   def self.find_by_project_name_and_module_name_and_date(project_name, module_name, date)
-    response = request(
+    new request(
     'ModuleResult',
     :get_module_result,
       {
@@ -11,7 +11,6 @@ class Kalibro::ModuleResult < Kalibro::Model
         :module_name => module_name,
         :date => date_with_milliseconds(date)
       })[:module_result]
-    new response
   end
   
   def self.all_by_project_name_and_module_name(project_name, module_name)
@@ -20,7 +19,7 @@ class Kalibro::ModuleResult < Kalibro::Model
     :get_result_history,
       {
         :project_name => project_name, 
-        :module_name => module_name,
+        :module_name => module_name
       })[:module_result]
     Kalibro::ModuleResult.to_objects_array(response)
   end

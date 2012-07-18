@@ -40,4 +40,8 @@ class Kalibro::Project < Kalibro::Model
     @repository = Kalibro::Repository.to_object value
   end
 
+  def error=(value)
+    @error = Kalibro::Error.to_object value
+  end
+
 end

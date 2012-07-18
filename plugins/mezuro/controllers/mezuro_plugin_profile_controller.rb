@@ -18,14 +18,14 @@ class MezuroPluginProfileController < ProfileController
   def project_result
     @content = profile.articles.find(params[:id])
     date = params[:date]
-    @project_result = date.nil? ? @content.project_result : @content.get_date_result(date)
+    @project_result = date.nil? ? @content.project_result : @content.project_result_with_date(date)
     render :partial => 'content_viewer/project_result'
   end 	
 
   def module_result
     @content = profile.articles.find(params[:id])
     date = params[:date]
-    date.nil? ? @content.project_result : @content.get_date_result(date)
+    date.nil? ? @content.project_result : @content.project_result_with_date(date)
     @module_result = @content.module_result(params[:module_name])
     render :partial => 'content_viewer/module_result'
   end
@@ -33,7 +33,7 @@ class MezuroPluginProfileController < ProfileController
   def project_tree
     @content = profile.articles.find(params[:id])
     date = params[:date]
-    project_result = date.nil? ? @content.project_result : @content.get_date_result(date)
+    project_result = date.nil? ? @content.project_result : @content.project_result_with_date(date)
     @project_name = @content.project.name
     @source_tree = project_result.node_of(params[:module_name])
     render :partial =>'content_viewer/source_tree'
