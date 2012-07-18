@@ -28,6 +28,8 @@
       <%= hidden_field_tag  'create_enterprise[target_id]', environment.id %>
     <% end %>
 
+    <%= template_options(Enterprise, 'create_enterprise')%>
+
     <% button_bar do %>
       <%= submit_button('next', _('Next'), :cancel => {:profile => current_user.person.identifier, :action=>"enterprises", :controller=>"profile"}) %>
     <% end %>

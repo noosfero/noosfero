@@ -5675,7 +5675,31 @@ h1#agenda-title {
 
 #signup-form .fieldgroup {
   margin: 5px 10px;
+
 }
+
+
+#signup-form #template-options a,
+#signup-form #template-options label,
+#signup-form #template-options span {
+  color: #6D786E;
+  font-size: 20px;
+  font-family: droidserif;
+}
+
+#signup-form #template-options span {
+  color: #4A4A4A;
+}
+
+#signup-form #template-options label {
+  display: inline;
+  margin-left: 8px;
+}
+
+#signup-form #template-options input {
+  width: auto;
+}
+
 
 #signup-form label[for=profile_data_sex_female],
 #signup-form label[for=profile_data_sex_male] {
