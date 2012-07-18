@@ -1,0 +1,19 @@
+<% if @error %>
+  <div class="errorExplanation" id="errorExplanation">
+    <h2><%= _('The template could not be saved') %></h2>
+    <p><%= _('There were problems with the following fields:') %> </p>
+    <ul>
+      <li><%= @error %></li>
+    </ul>
+  </div>
+<% end %>
+
+<% form_tag do %>
+  <%= labelled_text_field(_('Name')+': ', :name)%>
+
+  <% button_bar do %>
+    <%= submit_button('save', _('Save'))%>
+    <%= button('cancel', _('Cancel'), {:action => 'index'})%>
+  <% end %>
+<% end %>
+

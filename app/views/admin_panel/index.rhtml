@@ -12,7 +12,7 @@
   <tr><td><%= link_to _('Manage User roles'), :controller => 'role' %></td></tr>
   <tr><td><%= link_to _('Manage users'), :controller => 'users' %></td></tr>
   <tr><td><%= link_to _('Manage Validators by region'), :controller => 'region_validators' %></td></tr>
-  <tr><td><%= link_to _('Edit Templates'), :action => 'edit_templates' %></td></tr>
+  <tr><td><%= link_to _('Edit Templates'), :controller => 'templates' %></td></tr>
   <tr><td><%= link_to _('Manage Fields'), :controller => 'features', :action => 'manage_fields' %></td></tr>
   <tr><td><%= link_to _('Set Portal'), :action => 'set_portal_community' %></td></tr>
   <% @plugins.dispatch(:admin_panel_links).each do |link| %>
