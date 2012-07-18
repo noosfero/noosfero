@@ -1410,6 +1410,42 @@ class ProfileTest < ActiveSupport::TestCase
     assert_equal "header customized", person.custom_header
   end
 
+  should 'not have a profile as a template if it is not defined as a template' do
+    template = fast_create(Profile)
+    profile = Profile.new(:template => template)
+    !profile.valid?
+    assert profile.errors.invalid?(:template)
+
+    template.is_template = true
+    template.save!
+    profile.valid?
+    assert !profile.errors.invalid?(:template)
+  end
+
+  should 'be able to have a template' do
+    template = fast_create(Profile, :is_template => true)
+    profile = fast_create(Profile, :template_id => template.id)
+    assert_equal template, profile.template
+  end
+
+  should 'have a default template' do
+    template = fast_create(Profile, :is_template => true)
+    profile = fast_create(Profile)
+    profile.stubs(:default_template).returns(template)
+
+    assert_equal template, profile.template
+  end
+
+  should 'return a list of templates' do
+    t1 = fast_create(Profile, :is_template => true)
+    t2 = fast_create(Profile, :is_template => true)
+    profile = fast_create(Profile)
+
+    assert_includes Profile.templates, t1
+    assert_includes Profile.templates, t2
+    assert_not_includes Profile.templates, profile
+  end
+
   should 'provide URL to leave' do
     profile = build(Profile, :identifier => 'testprofile')
     assert_equal({ :profile => 'testprofile', :controller => 'profile', :action => 'leave', :reload => false}, profile.leave_url)

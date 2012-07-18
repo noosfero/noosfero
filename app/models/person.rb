@@ -285,7 +285,7 @@ class Person < Profile
     end
   end
 
-  def template
+  def default_template
     environment.person_template
   end
 
