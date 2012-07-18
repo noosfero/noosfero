@@ -61,7 +61,7 @@ class Community < Organization
 
   def name=(value)
     super(value)
-    self.identifier = value.to_slug
+    self.identifier ||= value.to_slug
   end
 
   def default_template
