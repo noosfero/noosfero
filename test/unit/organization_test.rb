@@ -123,6 +123,10 @@ class OrganizationTest < ActiveSupport::TestCase
     assert_equal ['admin1@email.com', 'admin2@email.com'], o.notification_emails
   end
 
+  should 'return empty array if contact_email is a blank string and it has no admin' do
+    o = Organization.new(:contact_email => '', :environment => Environment.default)
+    assert_equal [], o.notification_emails
+  end
 
   should 'list pending enterprise validations' do
     org = Organization.new

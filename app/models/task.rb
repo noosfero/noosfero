@@ -64,8 +64,9 @@ class Task < ActiveRecord::Base
 
       begin
         target_msg = task.target_notification_message
-        target_emails = task.target && task.target.notification_emails || []
-        TaskMailer.deliver_target_notification(task, target_msg) if target_msg && !target_emails.empty?
+        if target_msg && task.target && !task.target.notification_emails.empty?
+          TaskMailer.deliver_target_notification(task, target_msg)
+        end
       rescue NotImplementedError => ex
         RAILS_DEFAULT_LOGGER.info ex.to_s
       end
@@ -226,8 +227,9 @@ class Task < ActiveRecord::Base
 
     begin
       target_msg = target_notification_message
-      target_emails = self.target && self.target.notification_emails || []
-      TaskMailer.deliver_target_notification(self, target_msg) if target_msg && !target_emails.empty?
+       if target_msg && self.target && !self.target.notification_emails.empty?
+         TaskMailer.deliver_target_notification(self, target_msg)
+       end
     rescue NotImplementedError => ex
       RAILS_DEFAULT_LOGGER.info ex.to_s
     end
