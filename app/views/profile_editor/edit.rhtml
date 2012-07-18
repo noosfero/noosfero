@@ -4,6 +4,10 @@
 
 <% labelled_form_for :profile_data, @profile, :html => { :id => 'profile-data', :multipart => true } do |f| %>
 
+  <% if user.has_permission?('manage_environment_templates', profile.environment) %>
+    <%= labelled_form_field check_box(:profile_data, :is_template) + _('Is a template?'), '' %>
+  <% end %>
+
   <%= render :partial => partial_for_class(@profile.class), :locals => { :f => f } %>
 
   <% unless @profile.person? && @environment.active_person_fields.include?('image') %>
