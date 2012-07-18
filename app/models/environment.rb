@@ -24,6 +24,7 @@ class Environment < ActiveRecord::Base
     'manage_environment_roles' => N_('Manage environment roles'),
     'manage_environment_validators' => N_('Manage environment validators'),
     'manage_environment_users' => N_('Manage environment users'),
+    'manage_environment_templates' => N_('Manage environment templates'),
   }
 
   module Roles
