@@ -30,6 +30,8 @@ class Article < ActiveRecord::Base
 
   belongs_to :reference_article, :class_name => "Article", :foreign_key => 'reference_article_id'
 
+  belongs_to :license
+
   has_many :translations, :class_name => 'Article', :foreign_key => :translation_of_id
   belongs_to :translation_of, :class_name => 'Article', :foreign_key => :translation_of_id
   before_destroy :rotate_translations

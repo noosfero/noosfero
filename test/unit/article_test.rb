@@ -1671,4 +1671,10 @@ class ArticleTest < ActiveSupport::TestCase
     assert !a.allow_edit?(nil)
   end
 
+  should 'be able to have a license' do
+    license = License.create!(:name => 'GPLv3', :environment => Environment.default)
+    article = Article.new(:license_id => license.id)
+    assert_equal license, article.license
+  end
+
 end
