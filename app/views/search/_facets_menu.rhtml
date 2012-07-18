@@ -1,0 +1,36 @@
+<% less_options_limit = 8 %>
+
+<div id="facets-menu">
+  <% @asset_class.map_facets_for(environment).each do |facet| %>
+
+    <div id="facet-menu-<%= facet[:id].to_s %>" class="facet-menu">
+      <div class="facet-menu-label">
+        <%= @asset_class.facet_label(facet) %>
+      </div>
+
+      <% results = @asset_class.map_facet_results(facet, params[:facet], @facets, @all_facets, :limit => less_options_limit) %>
+      <% facet_count = results.total_entries %>
+
+      <% if facet_count > 0 %>
+        <div class="facet-menu-options facet-menu-more-options" style="display: none">
+        </div>
+
+        <div class="facet-menu-options facet-menu-less-options">
+          <% results.each do |id, label, count| %>
+            <%= facet_link_html(facet, params, id, label, count) %><br />
+          <% end %>
+        </div> <br />
+
+        <% if facet_count > less_options_limit %>
+          <%= link_to_function _("Options"),
+            "facet_options_toggle('#{facet[:id].to_s}', '#{url_for(params.merge(:action => 'facets_browse', :facet_id => facet[:id], :asset => @asset, :escape => false))}'); " + 
+            "jQuery(this).toggleClass('facet-less-options')", :class => "facet-options-toggle" %>
+          <br />
+        <% end %>
+
+      <% else %>
+        <span class="facet-any-result-found"><%= _("No filter available") %></span>
+      <% end %>
+    </div>
+  <% end %>
+</div>

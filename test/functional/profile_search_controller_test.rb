@@ -6,6 +6,8 @@ class ProfileSearchController; def rescue_action(e) raise e end; end
 
 class ProfileSearchControllerTest < ActionController::TestCase
   def setup
+    super
+    TestSolr.enable
     @controller = ProfileSearchController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
@@ -13,14 +15,6 @@ class ProfileSearchControllerTest < ActionController::TestCase
     @person = fast_create(Person)
   end
   attr_reader :person
-
-  should 'filter stop words' do
-    @controller.expects(:locale).returns('en').at_least_once
-    get 'index', :profile => person.identifier, :q => 'an article about something'
-    assert_response :success
-    assert_template 'index'
-    assert_equal 'article something', assigns('filtered_query')
-  end
 
   should 'espape xss attack' do
     @controller.expects(:profile).returns(person).at_least_once
@@ -40,9 +34,18 @@ class ProfileSearchControllerTest < ActionController::TestCase
     assert_includes assigns(:results), article
   end
 
+  should 'not display articles from another profile' do
+    article = TextileArticle.create(:name => 'My article', :body => 'Article to test profile search', :profile => person)
+    article2 = TextileArticle.create(:name => 'Another article', :body => 'Article from someone else', :profile => fast_create(Person))
+
+    get 'index', :profile => person.identifier, :q => 'article'
+    assert_includes assigns(:results), article
+    assert_not_includes assigns(:results), article2
+	end
+
   should 'display search results' do
-    article1 = fast_create(Article, :body => '<p>Article to test profile search</p>', :profile_id => person.id)
-    article2 = fast_create(Article, :body => '<p>Another article to test profile search</p>', :profile_id => person.id)
+    article1 = fast_create(Article, {:body => '<p>Article to test profile search</p>', :profile_id => person.id}, :search => true)
+    article2 = fast_create(Article, {:body => '<p>Another article to test profile search</p>', :profile_id => person.id}, :search => true)
 
     get 'index', :profile => person.identifier, :q => 'article'
 
@@ -58,7 +61,7 @@ class ProfileSearchControllerTest < ActionController::TestCase
 
     get 'index', :profile => person.identifier, :q => 'Article'
 
-    assert_equal 10, assigns(:results).size
+    assert_equal 10, assigns('results').docs.size
     assert_tag :tag => 'a', :attributes => { :href => "/profile/#{person.identifier}/search?page=2&amp;q=Article", :rel => 'next' }
   end
 

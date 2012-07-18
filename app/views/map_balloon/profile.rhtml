@@ -1,0 +1,28 @@
+<div id="balloon">
+  <table class='profile-info'>
+    <tr>
+      <td><div class='profile-info-picture'><%= profile_image(@profile, :thumb) %></div></td>
+      <td>
+        <strong><%= link_to(@profile.name, url_for(@profile.url)) %></strong><br/>
+        <% unless @profile.contact_email.nil? %>
+          <strong><%= _('E-Mail: ') + @profile.contact_email %></strong><br/>
+        <% end %>
+        <% unless @profile.contact_phone.nil? %>
+          <strong><%= _('Phone(s): ') + @profile.contact_phone %></strong><br/>
+        <% end %>
+        <% unless @profile.region.nil? %>
+          <strong><%= _('Location: ') + @profile.region.name %></strong><br/>
+        <% end %>
+        <% unless @profile.address.nil? %>
+          <strong><%= _('Address: ') + @profile.address %></strong><br/>
+        <% end %>
+        <% if @profile.respond_to?(:products) and !@profile.products.blank? %>
+          <strong><%= _('Products/Services: ') + @profile.products.map{|i| link_to(i.name, :controller => 'manage_products', :profile => @profile.identifier, :action => 'show', :id => i.id)}.join(', ') %></strong><br/>
+        <% end %>
+        <% if @profile.respond_to?(:distance) and !@profile.distance.nil? %>
+          <strong><%= _('Distance: ') + "%.2f%" % @profile.distance %></strong><br/>
+        <% end %>
+      </td>
+    </tr>
+  </table>
+</div>

@@ -442,9 +442,10 @@ class EnvironmentTest < ActiveSupport::TestCase
   end
 
   should 'find by contents from articles' do
+    TestSolr.enable
     environment = fast_create(Environment)
     assert_nothing_raised do
-      environment.articles.find_by_contents('')
+      environment.articles.find_by_contents('')[:results]
     end
   end
 
@@ -545,13 +546,14 @@ class EnvironmentTest < ActiveSupport::TestCase
   end
 
   should 'return more than 10 enterprises by contents' do
+    TestSolr.enable
     env = Environment.default
     Enterprise.destroy_all
     ('1'..'20').each do |n|
       Enterprise.create!(:name => 'test ' + n, :identifier => 'test_' + n)
     end
 
-    assert_equal 20, env.enterprises.find_by_contents('test').total_entries
+    assert_equal 20, env.enterprises.find_by_contents('test')[:results].total_entries
   end
 
   should 'set replace_enterprise_template_when_enable on environment' do

@@ -1,17 +1,19 @@
-<%= search_page_title( _('People'), { :query => @query, 
-                                      :category => @category ? @category.name : nil, 
-                                      :total_results => @total_results, 
-                                      :region => @region ? @region.name : nil, 
-                                      :distance => @radius } ) %>
+<%= search_page_title( @titles[:people], @category ) %>
 
-<%= search_page_link_to_all( { :asset => params[:asset],
-                               :category => @category }) %>
+<div id='search-column-left'>
+  <% if !@empty_query %>
+    <%= facets_menu(:people, @facets) %>
+  <% end %>
+</div>
 
-<%= render :partial => 'search_form', :locals => { :form_title => @query.blank? ? _('Search') : _("Refine your search"), :simple_search => true } %>
+<div id='search-column-right'>
+  <%= render :partial => 'search_form', :locals => { :hint => _("Type words about the person you're looking for") } %>
+  <%= render :partial => 'results_header' %>
 
-<%# FIXME ARMENGUE %>
-<%= display_results(false) %>
+  <%= display_results %>
+  <% if params[:display] != 'map' %>
+    <%= pagination_links @results.values.first %>
+  <% end %>
+</div>
 
-<%= pagination_links @results.values.first %>
-
-<br style="clear:both" />
+<div style="clear: both"></div>

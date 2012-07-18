@@ -2,6 +2,12 @@ require 'hpricot'
 
 class Article < ActiveRecord::Base
 
+  # use for internationalizable human type names in search facets
+  # reimplement on subclasses
+  def self.type_name
+    _('Content')
+  end
+
   track_actions :create_article, :after_create, :keep_params => [:name, :url], :if => Proc.new { |a| a.is_trackable? && !a.image? }, :custom_target => :action_tracker_target
   track_actions :update_article, :before_update, :keep_params => [:name, :url], :if => Proc.new { |a| a.is_trackable? && (a.body_changed? || a.name_changed?) }, :custom_target => :action_tracker_target
   track_actions :remove_article, :before_destroy, :keep_params => [:name], :if => Proc.new { |a| a.is_trackable? }, :custom_target => :action_tracker_target
@@ -21,6 +27,9 @@ class Article < ActiveRecord::Base
 
   has_many :article_categorizations, :conditions => [ 'articles_categories.virtual = ?', false ]
   has_many :categories, :through => :article_categorizations
+
+  has_many :article_categorizations_including_virtual, :class_name => 'ArticleCategorization', :dependent => :destroy
+  has_many :categories_including_virtual, :through => :article_categorizations_including_virtual, :source => :category
 
   acts_as_having_settings :field => :setting
 
@@ -47,7 +56,7 @@ class Article < ActiveRecord::Base
   xss_terminate :only => [ :name ], :on => 'validation', :with => 'white_list'
 
   named_scope :in_category, lambda { |category|
-    {:include => 'categories', :conditions => { 'categories.id' => category.id }}
+    {:include => 'categories_including_virtual', :conditions => { 'categories.id' => category.id }}
   }
 
   named_scope :by_range, lambda { |range| {
@@ -96,11 +105,13 @@ class Article < ActiveRecord::Base
     @pending_categorizations ||= []
   end
 
-  def add_category(c)
-    if self.id
-      ArticleCategorization.add_category_to_article(c, self)
-    else
+  def add_category(c, reload=false)
+    if new_record?
       pending_categorizations << c
+    else
+      ArticleCategorization.add_category_to_article(c, self)
+      self.categories(reload)
+      self.solr_save
     end
   end
 
@@ -109,6 +120,7 @@ class Article < ActiveRecord::Base
     ids.uniq.each do |item|
       add_category(Category.find(item)) unless item.to_i.zero?
     end
+    self.categories(true)
   end
 
   after_create :create_pending_categorizations
@@ -116,6 +128,8 @@ class Article < ActiveRecord::Base
     pending_categorizations.each do |item|
       ArticleCategorization.add_category_to_article(item, self)
     end
+    self.categories(true)
+    self.solr_save
     pending_categorizations.clear
   end
 
@@ -125,8 +139,6 @@ class Article < ActiveRecord::Base
   acts_as_filesystem
 
   acts_as_versioned
-
-  acts_as_searchable :additional_fields => [ :comment_data ]
 
   def comment_data
     comments.map {|item| [item.title, item.body].join(' ') }.join(' ')
@@ -142,13 +154,33 @@ class Article < ActiveRecord::Base
     {:conditions => [ 'parent_id is null and profile_id = ?', profile.id ]}
   }
 
+  named_scope :join_profile, :joins => [:profile]
+
+  named_scope :public,
+    :conditions => [ "advertise = ? AND published = ? AND profiles.visible = ? AND profiles.public_profile = ?", true, true, true, true ]
+
+  named_scope :more_recent,
+    :conditions => [ "advertise = ? AND published = ? AND profiles.visible = ? AND profiles.public_profile = ? AND
+      ((articles.type != ?) OR articles.type is NULL)",
+      true, true, true, true, 'RssFeed'
+    ],
+    :order => 'articles.published_at desc, articles.id desc'
+
+  # retrives the most commented articles, sorted by the comment count (largest
+  # first)
+  def self.most_commented(limit)
+    paginate(:order => 'comments_count DESC', :page => 1, :per_page => limit)
+  end
+
+  named_scope :more_popular, :order => 'hits DESC'
+
   # retrieves the latest +limit+ articles, sorted from the most recent to the
   # oldest.
   #
   # Only includes articles where advertise == true
-  def self.recent(limit, extra_conditions = {})
+  def self.recent(limit = nil, extra_conditions = {})
     # FIXME this method is a horrible hack
-    options = { :limit => limit,
+    options = { :page => 1, :per_page => limit,
                 :conditions => [
                   "advertise = ? AND
                   published = ? AND
@@ -166,18 +198,12 @@ class Article < ActiveRecord::Base
       options.delete(:include)
     end
     if extra_conditions == {}
-      self.find(:all, options)
+      self.paginate(options)
     else
       with_scope :find => {:conditions => extra_conditions} do
-        self.find(:all, options)
+        self.paginate(options)
       end
     end
-  end
-
-  # retrives the most commented articles, sorted by the comment count (largest
-  # first)
-  def self.most_commented(limit)
-    find(:all, :order => 'comments_count DESC', :limit => limit)
   end
 
   # produces the HTML code that is to be displayed as this article's contents.
@@ -421,7 +447,7 @@ class Article < ActiveRecord::Base
   end
 
   def comments_updated
-    ferret_update
+    solr_save
   end
 
   def accept_category?(cat)
@@ -570,6 +596,99 @@ class Article < ActiveRecord::Base
   def more_recent_label
     _('Created at: ')
   end
+
+  private
+
+  # FIXME: workaround for development env.
+  # Subclasses aren't (re)loaded, and acts_as_solr
+  # depends on subclasses method to search
+  # see http://stackoverflow.com/questions/4138957/activerecordsubclassnotfound-error-when-using-sti-in-rails/4139245
+  UploadedFile
+  TextArticle
+  TinyMceArticle
+  TextileArticle
+  Folder
+  EnterpriseHomepage
+  Gallery
+  Blog
+  Forum
+  Event
+
+  def self.f_type_proc(klass)
+    klass.constantize.type_name
+  end
+
+  def self.f_profile_type_proc(klass)
+    klass.constantize.type_name
+  end
+
+  def f_type
+    #join common types
+    case self.class.name
+    when 'TinyMceArticle', 'TextileArticle'
+      TextArticle.name
+    else
+      self.class.name
+    end
+  end
+
+  def f_profile_type
+    self.profile.class.name
+  end
+
+  def f_published_at
+    self.published_at
+  end
+
+  def f_category
+    self.categories.collect(&:name)
+  end
+
+  delegate :region, :region_id, :environment, :environment_id, :to => :profile
+  def name_sortable # give a different name for solr
+    name
+  end
+
+  def public
+    self.public?
+  end
+
+  def category_filter
+    categories_including_virtual_ids
+  end
+
+  public
+
+  acts_as_faceted :fields => {
+      :f_type => {:label => _('Type'), :proc => proc{|klass| f_type_proc(klass)}},
+      :f_published_at => {:type => :date, :label => _('Published date'), :queries => {'[* TO NOW-1YEARS/DAY]' => _("Older than one year"), 
+        '[NOW-1YEARS TO NOW/DAY]' => _("Last year"), '[NOW-1MONTHS TO NOW/DAY]' => _("Last month"), '[NOW-7DAYS TO NOW/DAY]' => _("Last week"), '[NOW-1DAYS TO NOW/DAY]' => _("Last day")},
+        :queries_order => ['[NOW-1DAYS TO NOW/DAY]', '[NOW-7DAYS TO NOW/DAY]', '[NOW-1MONTHS TO NOW/DAY]', '[NOW-1YEARS TO NOW/DAY]', '[* TO NOW-1YEARS/DAY]']},
+      :f_profile_type => {:label => _('Profile'), :proc => proc{|klass| f_profile_type_proc(klass)}},
+      :f_category => {:label => _('Categories')},
+    }, :category_query => proc { |c| "category_filter:\"#{c.id}\"" },
+    :order => [:f_type, :f_published_at, :f_profile_type, :f_category]
+
+  acts_as_searchable :fields => facets_fields_for_solr + [
+      # searched fields
+      {:name => {:type => :text, :boost => 2.0}},
+      {:slug => :text}, {:body => :text},
+      {:abstract => :text}, {:filename => :text},
+      # filtered fields
+      {:public => :boolean}, {:environment_id => :integer},
+      {:profile_id => :integer}, :language,
+      {:category_filter => :integer},
+      # ordered/query-boosted fields
+      {:name_sortable => :string}, :last_changed_by_id, :published_at, :is_image,
+      :updated_at, :created_at,
+    ], :include => [
+      {:profile => {:fields => [:name, :identifier, :address, :nickname, :region_id, :lat, :lng]}},
+      {:comments => {:fields => [:title, :body, :author_name, :author_email]}},
+      {:categories => {:fields => [:name, :path, :slug, :lat, :lng, :acronym, :abbreviation]}},
+    ], :facets => facets_option_for_solr,
+    :boost => proc { |a| 10 if a.profile && a.profile.enabled },
+    :if => proc{ |a| ! ['RssFeed'].include?(a.class.name) }
+  handle_asynchronously :solr_save
 
   private
 

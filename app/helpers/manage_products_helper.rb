@@ -282,7 +282,7 @@ module ManageProductsHelper
     error_msg = _('Something went wrong. Please, try again')
     select_tag('price_details[][production_cost_id]',
                '<option value="" disabled="disabled">' + _('Select...') + '</option>' +
-               options_for_select(product.available_production_costs.map {|item| [truncate(item.name, 10, '...'), item.id]} + [[_('Other cost'), '']], selected),
+               options_for_select(product.available_production_costs.map {|item| [truncate(item.name, {:length => 10, :omission => '...'}), item.id]} + [[_('Other cost'), '']], selected),
                {:class => 'production-cost-selection',
                 :onchange => "productionCostTypeChange(this, '#{url}', '#{prompt_msg}', '#{error_msg}')"})
   end

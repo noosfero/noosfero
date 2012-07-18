@@ -3,7 +3,7 @@ ul.token-input-list {
     overflow: hidden; 
     height: auto !important; 
     height: 1%;
-    width: 497px;
+    width: 400px;
     border: 1px solid #999;
     cursor: text;
     font-size: 12px;
@@ -64,9 +64,9 @@ li.token-input-selected-token span {
 
 div.token-input-dropdown {
     position: absolute;
-    width: 497px;
+    width: 400px;
     background-color: #fff;
-    overflow: hidden;
+    overflow: auto;
     border-left: 1px solid #ccc;
     border-right: 1px solid #ccc;
     border-bottom: 1px solid #ccc;
@@ -110,4 +110,7 @@ div.token-input-dropdown ul li em {
 div.token-input-dropdown ul li.token-input-selected-dropdown-item {
     background-color: #d0efa0;
 }
-
+.token-input-blur-text {
+  font-style: italic;
+  color: #AAA;
+}

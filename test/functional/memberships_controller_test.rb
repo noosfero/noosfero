@@ -73,13 +73,6 @@ class MembershipsControllerTest < ActionController::TestCase
     assert_tag :tag => 'li', :content => /Members: 1/
   end
 
-  should 'show created at on list' do
-    community = Community.create!(:name => 'my test community')
-    community.add_member(profile)
-    get :index, :profile => profile.identifier
-    assert_tag :tag => 'li', :content => /Created at: #{show_date(community.created_at)}/
-  end
-
   should 'show description on list' do
     community = Community.create!(:name => 'my test community', :description => 'description test')
     community.add_member(profile)
