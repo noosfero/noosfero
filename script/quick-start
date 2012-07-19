@@ -1,0 +1,70 @@
+#!/bin/sh
+
+say() {
+  msg="$@"
+  printf "\033[33;01m%s\033[m\n" "$msg"
+}
+
+complain() {
+  msg="$@"
+  printf "\033[1;31;40m%s\033[m\n" "$msg"
+}
+
+run() {
+  say "\$ $@"
+  echo "$@" | sh
+  status="$?"
+  if [ $status -ne 0 ]; then
+    complain "E: The command \"$@\" failed with status code $status, we cannot proceed."
+    complain "I: If you have no idea of what went wrong, please feel free to ask for help in the Noosfero community. Check the contact information in the project website (http://noosfero.org/)."
+    exit 1
+  fi
+}
+
+if gem which system_timer >/dev/null 2>&1 && which xvfb-run >/dev/null 2>&1; then
+  say "Assuming dependencies are already installed. Pass --install to force their installation"
+else
+  if !which lsb_release >/dev/null 2>&1; then
+    complain "E: lsb_release not available! (Try installing the lsb-release package)"
+    exit 1
+  fi
+  system=$(echo $(lsb_release -sic) | awk '{print(tolower($1) "-" tolower($2))}')
+  install_script="$(dirname $0)/install-dependencies/${system}.sh"
+  if test -f "$install_script"; then
+    . $install_script
+  else
+    # FIXME the Ruby stuff could be installed with Rubygems
+    # FIXME but there is not generic way to install the non-Ruby stuff
+    complain "E: $install_script not found, cannot install dependencies."
+    exit 1
+  fi
+fi
+
+# setup solr
+run 'rake solr:download || true'
+if ! test -f vendor/plugins/acts_as_solr_reloaded/solr/start.jar; then
+  complain "Failed to download solr!"
+  exit 1
+fi
+
+run cp config/solr.yml.dist config/solr.yml
+
+# create the database with sample data
+run cp config/database.yml.sqlite3 config/database.yml
+run rake db:schema:load
+run rake db:data:minimal
+run rake db:test:prepare
+
+# compile translations
+run rake noosfero:translations:compile
+
+# create needed directory
+mkdir -p tmp/pids
+
+# use default gitignore rules
+ln -s gitignore.example .gitignore
+
+# you can now start the server
+say "I: Congratulations, you are ready to run Noosfero."
+say "I: To execute Noosfero in development mode, run \`/script/development\` and browse to http://localhost:3000"
+say "I: To execute Noosfero tests, run \`rake\`."
