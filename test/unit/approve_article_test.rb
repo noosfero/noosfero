@@ -251,7 +251,7 @@ class ApproveArticleTest < ActiveSupport::TestCase
     assert_equal 1, ActionTracker::Record.count
   end
 
-  should 'notify with different trackers activity create with different targets' do
+  should 'not group trackers activity of article\'s creation' do
     ActionTracker::Record.delete_all
 
     article = fast_create(TextileArticle)
@@ -261,28 +261,15 @@ class ApproveArticleTest < ActiveSupport::TestCase
     article = fast_create(TextileArticle)
     a = ApproveArticle.create!(:name => 'another bar', :article => article, :target => community, :requestor => profile)
     a.finish
-    assert_equal 1, ActionTracker::Record.count
 
     article = fast_create(TextileArticle)
     other_community = fast_create(Community)
     a = ApproveArticle.create!(:name => 'another bar', :article => article, :target => other_community, :requestor => profile)
     a.finish
-    assert_equal 2, ActionTracker::Record.count
+    assert_equal 3, ActionTracker::Record.count
   end
 
-  should 'notify activity on update' do
-    ActionTracker::Record.delete_all
-    a = ApproveArticle.create!(:name => 'bar', :article => article, :target => community, :requestor => profile)
-    a.finish
-    assert_equal 1, ActionTracker::Record.count
-
-    published = article.class.last
-    published.name = 'foo'
-    published.save!
-    assert_equal 2, ActionTracker::Record.count
-  end
-
-  should 'notify with different trackers activity update with different targets' do
+  should 'not create trackers activity when updating articles' do
     ActionTracker::Record.delete_all
     article1 = fast_create(TextileArticle)
     a = ApproveArticle.create!(:name => 'bar', :article => article1, :target => community, :requestor => profile)
@@ -294,16 +281,16 @@ class ApproveArticleTest < ActiveSupport::TestCase
     a.finish
     assert_equal 2, ActionTracker::Record.count
 
-    published = article1.class.last
-    published.name = 'foo';published.save!
-    assert_equal 3, ActionTracker::Record.count
-
-    published = article2.class.last
-    published.name = 'another foo';published.save!
-    assert_equal 4, ActionTracker::Record.count
+    assert_no_difference ActionTracker::Record, :count do
+      published = article1.class.last
+      published.name = 'foo';published.save!
+  
+      published = article2.class.last
+      published.name = 'another foo';published.save!
+    end
   end
 
-  should "the tracker action target be defined as Community by custom_target method on articles'creation in communities" do
+  should "the tracker action target be defined as the article on articles'creation in communities" do
     ActionTracker::Record.delete_all
     person = fast_create(Person)
     community.add_member(person)
@@ -311,17 +298,21 @@ class ApproveArticleTest < ActiveSupport::TestCase
     a = ApproveArticle.create!(:article => article, :target => community, :requestor => profile)
     a.finish
 
-    assert_equal Community, ActionTracker::Record.last.target.class
+    approved_article = community.articles.find_by_name(article.name)
+
+    assert_equal approved_article, ActionTracker::Record.last.target
   end
 
-  should "the tracker action target be defined as person by custom_target method on articles'creation in profile" do
+  should "the tracker action target be defined as the article on articles'creation in profile" do
     ActionTracker::Record.delete_all
     person = fast_create(Person)
 
     a = ApproveArticle.create!(:article => article, :target => person, :requestor => profile)
     a.finish
 
-    assert_equal Person, ActionTracker::Record.last.target.class
+    approved_article = person.articles.find_by_name(article.name)
+
+    assert_equal approved_article, ActionTracker::Record.last.target
   end
 
   should "have the same is_trackable method as original article" do

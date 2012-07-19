@@ -65,7 +65,7 @@ class ForumHelperTest < ActiveSupport::TestCase
     some_post.comments << Comment.new(:name => 'John', :email => 'lenon@example.com', :title => 'test', :body => 'test')
     c = Comment.last
     out = last_topic_update(some_post)
-    assert_match "#{c.created_at.to_s} ago by John", out
+    assert_match "#{c.created_at.to_s} by John", out
     assert_match 'John', out
 
     assert_match(/#{Regexp.escape(c.created_at.to_s)} ago by John/m, last_topic_update(some_post))

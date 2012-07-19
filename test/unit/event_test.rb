@@ -276,4 +276,7 @@ class EventTest < ActiveSupport::TestCase
     assert Event.new.tiny_mce?
   end
 
+  should 'be notifiable' do
+    assert Event.new.notifiable?
+  end
 end

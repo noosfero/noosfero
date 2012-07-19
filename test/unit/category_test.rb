@@ -311,10 +311,10 @@ class CategoryTest < ActiveSupport::TestCase
     a2 = person.articles.build(:name => 'art2', :category_ids => [c.id]); a2.save!
     a3 = person.articles.build(:name => 'art3', :category_ids => [c.id]); a3.save!
 
-    a1.comments.build(:title => 'test', :body => 'asdsa', :author => person).save!
-    5.times { a2.comments.build(:title => 'test', :body => 'asdsa', :author => person).save! }
+    Comment.create(:title => 'test', :body => 'asdsa', :author => person, :source => a1)
+    5.times { Comment.create(:title => 'test', :body => 'asdsa', :author => person, :source => a2) }
 
-    10.times { a3.comments.build(:title => 'test', :body => 'kajsdsa', :author => person).save! }
+    10.times { Comment.create(:title => 'test', :body => 'kajsdsa', :author => person, :source => a3) }
 
     assert_equal [a3, a2], c.most_commented_articles(2)
   end

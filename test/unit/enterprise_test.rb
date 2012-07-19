@@ -470,4 +470,36 @@ class EnterpriseTest < ActiveSupport::TestCase
     ent.save!
   end
 
+  should 'return scraps as activities' do
+    person = fast_create(Person)
+    enterprise = fast_create(Enterprise)
+
+
+    activity = ActionTracker::Record.last
+    scrap = Scrap.create!(defaults_for_scrap(:sender => person, :receiver => enterprise, :content => 'A scrap'))
+
+    assert_equal [scrap], enterprise.activities.map { |a| a.klass.constantize.find(a.id) }
+  end
+
+  should 'return tracked_actions of community as activities' do
+    person = fast_create(Person)
+    enterprise = fast_create(Enterprise)
+
+    UserStampSweeper.any_instance.expects(:current_user).returns(person).at_least_once
+    article = create(TinyMceArticle, :profile => enterprise, :name => 'An article about free software')
+
+    assert_equal [article.activity], enterprise.activities.map { |a| a.klass.constantize.find(a.id) }
+  end
+
+  should 'not return tracked_actions of other community as activities' do
+    person = fast_create(Person)
+    enterprise = fast_create(Enterprise)
+    enterprise2 = fast_create(Enterprise)
+
+    UserStampSweeper.any_instance.expects(:current_user).returns(person).at_least_once
+    article = create(TinyMceArticle, :profile => enterprise2, :name => 'Another article about free software')
+
+    assert_not_includes enterprise.activities.map { |a| a.klass.constantize.find(a.id) }, article.activity
+  end
+
 end

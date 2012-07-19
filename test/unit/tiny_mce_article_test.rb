@@ -135,80 +135,64 @@ class TinyMceArticleTest < ActiveSupport::TestCase
     assert_equal 1, ActionTracker::Record.count
   end
 
-  should 'notify with different trackers activity create with different targets' do
+  should 'not group trackers activity of article\'s creation' do
     ActionTracker::Record.delete_all
     profile = fast_create(Profile)
     TinyMceArticle.create! :name => 'bar', :profile_id => profile.id, :published => true
     TinyMceArticle.create! :name => 'another bar', :profile_id => profile.id, :published => true
-    assert_equal 1, ActionTracker::Record.count
+    assert_equal 2, ActionTracker::Record.count
     TinyMceArticle.create! :name => 'another bar', :profile_id => fast_create(Profile).id, :published => true
-    assert_equal 2, ActionTracker::Record.count
+    assert_equal 3, ActionTracker::Record.count
   end
 
-  should 'notify activity on update' do
+  should 'not update activity on update of an article' do
     ActionTracker::Record.delete_all
-    a = TinyMceArticle.create! :name => 'bar', :profile_id => fast_create(Profile).id, :published => true
-    assert_equal 1, ActionTracker::Record.count
-    a.name = 'foo'
-    a.save!
-    assert_equal 2, ActionTracker::Record.count
+    profile = fast_create(Profile)
+    article = create(TinyMceArticle, :profile_id => profile.id)
+    time = article.activity.updated_at
+    Time.stubs(:now).returns(time + 1.day)
+    assert_no_difference ActionTracker::Record, :count do
+      article.name = 'foo'
+      article.save!
+    end
+    assert_equal time, article.activity.updated_at
   end
 
-  should 'notify with different trackers activity update with different targets' do
+  should 'not create trackers activity when updating articles' do
     ActionTracker::Record.delete_all
     a1 = TinyMceArticle.create! :name => 'bar', :profile_id => fast_create(Profile).id, :published => true
     a2 = TinyMceArticle.create! :name => 'another bar', :profile_id => fast_create(Profile).id, :published => true
-    assert_equal 2, ActionTracker::Record.count
-    a1.name = 'foo'
-    a1.save!
-    assert_equal 3, ActionTracker::Record.count
-    a2.name = 'another foo'
-    a2.save!
-    assert_equal 4, ActionTracker::Record.count
+    assert_no_difference ActionTracker::Record, :count do
+      a1.name = 'foo';a1.save!
+      a2.name = 'another foo';a2.save!
+    end
   end
 
-  should 'notify activity on destroy' do
-    ActionTracker::Record.delete_all
-    a = TinyMceArticle.create! :name => 'bar', :profile_id => fast_create(Profile).id, :published => true
-    assert_equal 1, ActionTracker::Record.count
-    a.destroy
-    assert_equal 2, ActionTracker::Record.count
-  end
-
-  should 'notify different activities when destroy articles with diferrents targets' do
+  should 'not notify when an article is destroyed' do
     ActionTracker::Record.delete_all
     a1 = TinyMceArticle.create! :name => 'bar', :profile_id => fast_create(Profile).id, :published => true
     a2 = TinyMceArticle.create! :name => 'another bar', :profile_id => fast_create(Profile).id, :published => true
-    assert_equal 2, ActionTracker::Record.count
-    a1.destroy
-    assert_equal 3, ActionTracker::Record.count
-    a2.destroy
-    assert_equal 4, ActionTracker::Record.count
+    assert_no_difference ActionTracker::Record, :count do
+      a1.destroy
+      a2.destroy
+end
   end
 
-  should "the tracker action target be defined as Community by custom_target method on articles'creation in communities" do
+  should "the tracker action target be defined as the article on articles'creation in communities" do
     ActionTracker::Record.delete_all
     community = fast_create(Community)
     p1 = Person.first
     community.add_member(p1)
     assert p1.is_member_of?(community)
     article = TinyMceArticle.create! :name => 'test', :profile_id => community.id
-    assert_equal true, article.published?
-    assert_equal true, article.notifiable?
-    assert_equal false, article.image?
-    assert_equal Community, article.profile.class
-    assert_equal Community, ActionTracker::Record.last.target.class
+    assert_equal article, ActionTracker::Record.last.target
   end
 
-  should "the tracker action target be defined as person by custom_target method on articles'creation in profile" do
+  should "the tracker action target be defined as the article on articles'creation in profile" do
     ActionTracker::Record.delete_all
     person = Person.first
     article = TinyMceArticle.create! :name => 'test', :profile_id => person.id
-    assert_equal true, article.published?
-    assert_equal true, article.notifiable?
-    assert_equal false, article.image?
-    assert_equal Person, article.profile.class
-    assert_equal person, ActionTracker::Record.last.target
+    assert_equal article, ActionTracker::Record.last.target
   end
 
   should 'not notify activity if the article is not advertise' do
@@ -226,7 +210,7 @@ class TinyMceArticleTest < ActiveSupport::TestCase
   end
 
   should "the common trackable conditions return the correct value" do
-    a =  TinyMceArticle.new
+    a =  TinyMceArticle.new(:profile => profile)
     a.published = a.advertise = true
     assert_equal true, a.published?
     assert_equal true, a.notifiable?

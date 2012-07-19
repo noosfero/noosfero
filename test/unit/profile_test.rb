@@ -1648,7 +1648,7 @@ class ProfileTest < ActiveSupport::TestCase
 
   should 'have forum' do
     p = fast_create(Profile)
-    p.articles << Forum.new(:profile => p, :name => 'forum_feed_test')
+    p.articles << Forum.new(:profile => p, :name => 'forum_feed_test', :body => 'Forum test')
     assert p.has_forum?
   end
 
@@ -1664,9 +1664,9 @@ class ProfileTest < ActiveSupport::TestCase
 
   should 'get first forum when has multiple forums' do
     p = fast_create(Profile)
-    p.forums << Forum.new(:profile => p, :name => 'Forum one')
-    p.forums << Forum.new(:profile => p, :name => 'Forum two')
-    p.forums << Forum.new(:profile => p, :name => 'Forum three')
+    p.forums << Forum.new(:profile => p, :name => 'Forum one', :body => 'Forum test')
+    p.forums << Forum.new(:profile => p, :name => 'Forum two', :body => 'Forum test')
+    p.forums << Forum.new(:profile => p, :name => 'Forum three', :body => 'Forum test')
     assert_equal 'Forum one', p.forum.name
     assert_equal 3, p.forums.count
   end
@@ -1731,6 +1731,7 @@ class ProfileTest < ActiveSupport::TestCase
     assert profile.is_on_homepage?("/#{profile.identifier}/#{homepage.slug}", homepage)
   end
 
+  
   should 'find profiles with image' do
     env = fast_create(Environment)
     2.times do |n|
@@ -1789,6 +1790,11 @@ class ProfileTest < ActiveSupport::TestCase
     assert_raise NoMethodError do
       Profile::Roles.invalid_role(env.id)
     end
+  end
+
+  should 'return empty array as activities' do
+    profile = Profile.new
+    assert_equal [], profile.activities
   end
 
   private

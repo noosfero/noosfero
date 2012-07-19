@@ -840,6 +840,11 @@ private :generate_url, :url_options
     name
   end
 
+  # Override in your subclasses
+  def activities
+    []
+  end
+
   private
   def self.f_categories_label_proc(environment)
     ids = environment.top_level_category_as_facet_ids

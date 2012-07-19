@@ -28,4 +28,14 @@ class Forum < Folder
   def self.icon_name(article = nil)
     'forum'
   end
+
+  def notifiable?
+    true
+  end
+
+  def first_paragraph
+    return '' if body.blank?
+    paragraphs = Hpricot(body).search('p')
+    paragraphs.empty? ? '' : paragraphs.first.to_html
+  end
 end

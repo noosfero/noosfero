@@ -91,7 +91,7 @@
 .icon-lock	       { background-image: url(Tango/16x16/actions/lock.png) }
 .icon-chat             { background-image: url(Tango/16x16/apps/internet-group-chat.png); background-repeat: no-repeat }
 .icon-reply            { background-image: url(Tango/16x16/actions/mail-reply-sender.png) }
-.icon-newforum   { background-image: url(Tango/16x16/apps/system-users.png) }
+.icon-newforum   { background-image: url(Tango/16x16/apps/internet-group-chat.png) }
 .icon-forum      { background-image: url(Tango/16x16/apps/system-users.png) }
 .icon-gallery   { background-image: url(Tango/16x16/mimetypes/image-x-generic.png) }
 .icon-newgallery   { background-image: url(Tango/16x16/mimetypes/image-x-generic.png) }

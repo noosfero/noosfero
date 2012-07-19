@@ -8,9 +8,7 @@ class Article < ActiveRecord::Base
     _('Content')
   end
 
-  track_actions :create_article, :after_create, :keep_params => [:name, :url], :if => Proc.new { |a| a.is_trackable? && !a.image? }, :custom_target => :action_tracker_target
-  track_actions :update_article, :before_update, :keep_params => [:name, :url], :if => Proc.new { |a| a.is_trackable? && (a.body_changed? || a.name_changed?) }, :custom_target => :action_tracker_target
-  track_actions :remove_article, :before_destroy, :keep_params => [:name], :if => Proc.new { |a| a.is_trackable? }, :custom_target => :action_tracker_target
+  track_actions :create_article, :after_create, :keep_params => [:name, :url, :lead, :first_image], :if => Proc.new { |a| a.is_trackable? && !a.image? }
 
   # xss_terminate plugin can't sanitize array fields
   before_save :sanitize_tag_list
@@ -23,7 +21,7 @@ class Article < ActiveRecord::Base
 
   belongs_to :last_changed_by, :class_name => 'Person', :foreign_key => 'last_changed_by_id'
 
-  has_many :comments, :dependent => :destroy, :order => 'created_at asc'
+  has_many :comments, :class_name => 'Comment', :foreign_key => 'source_id', :dependent => :destroy, :order => 'created_at asc'
 
   has_many :article_categorizations, :conditions => [ 'articles_categories.virtual = ?', false ]
   has_many :categories, :through => :article_categorizations
@@ -74,7 +72,7 @@ class Article < ActiveRecord::Base
   validate :translation_must_have_language
 
   def is_trackable?
-    self.published? && self.notifiable? && self.advertise?
+    self.published? && self.notifiable? && self.advertise? && self.profile.public_profile
   end
 
   def external_link=(link)
@@ -147,7 +145,7 @@ class Article < ActiveRecord::Base
   before_update do |article|
     article.advertise = true
   end
-  
+
   # retrieves all articles belonging to the given +profile+ that are not
   # sub-articles of any other article.
   named_scope :top_level_for, lambda { |profile|
@@ -595,6 +593,21 @@ class Article < ActiveRecord::Base
 
   def more_recent_label
     _('Created at: ')
+  end
+
+  def activity
+    ActionTracker::Record.find_by_target_type_and_target_id 'Article', self.id
+  end
+
+  def create_activity
+    if is_trackable? && !image?
+      save_action_for_verb 'create_article', [:name, :url, :lead, :first_image], Proc.new{}, :author
+    end
+  end
+
+  def first_image
+    img = Hpricot(self.lead.to_s).search('img[@src]').first || Hpricot(self.body.to_s).search('img').first
+    img.nil? ? '' : img.attributes['src']
   end
 
   private

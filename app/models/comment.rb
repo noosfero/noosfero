@@ -1,9 +1,11 @@
 class Comment < ActiveRecord::Base
 
-  track_actions :leave_comment, :after_create, :keep_params => ["article.title", "article.url", "title", "url", "body"], :custom_target => :action_tracker_target 
-
   validates_presence_of :body
-  belongs_to :article, :counter_cache => true
+
+  belongs_to :source, :counter_cache => true, :polymorphic => true
+  alias :article :source
+  alias :article= :source=
+
   belongs_to :author, :class_name => 'Person', :foreign_key => 'author_id'
   has_many :children, :class_name => 'Comment', :foreign_key => 'reply_of_id', :dependent => :destroy
   belongs_to :reply_of, :class_name => 'Comment', :foreign_key => 'reply_of_id'
@@ -70,13 +72,25 @@ class Comment < ActiveRecord::Base
   after_save :notify_article
   after_destroy :notify_article
   def notify_article
-    article.comments_updated
+    article.comments_updated if article.kind_of?(Article)
   end
 
   after_create do |comment|
-    if comment.article.notify_comments? && !comment.article.profile.notification_emails.empty?
+    if comment.source.kind_of?(Article) && comment.article.notify_comments? && !comment.article.profile.notification_emails.empty?
       Comment::Notifier.deliver_mail(comment)
     end
+
+    if comment.source.kind_of?(Article)
+      comment.article.create_activity if comment.article.activity.nil?
+      if comment.article.activity
+        comment.article.activity.increment!(:comments_count)
+        comment.article.activity.update_attribute(:visible, true)
+      end
+    end
+  end
+
+  after_destroy do |comment|
+    comment.article.activity.decrement!(:comments_count) if comment.source.kind_of?(Article) && comment.article.activity
   end
 
   def replies

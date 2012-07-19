@@ -711,6 +711,41 @@ Array.min = function(array) {
   return Math.min.apply(Math, array);
 };
 
+jQuery(function($){
+  $('.submit-with-keypress').live('keydown', function(e) {
+     field = this;
+     if (e.keyCode == 13) {
+       e.preventDefault();
+       var form = $(field).closest("form");
+       $.ajax({
+           url: form.attr("action"),
+           data: form.serialize(),
+           beforeSend: function() {
+             loading_for_button($(field));
+           },
+           success: function(data) {
+             var update = form.attr('data-update');
+             $('#'+update).html(data);
+             $(field).val($(field).attr('title'));
+           }
+       });
+       return false;
+     }
+   });
+
+  $('.view-all-comments').live('click', function(e) {
+     var link = this;
+     $(link).parent().find('.profile-wall-activities-comments').show();
+     $(link).hide();
+     return false;
+  });
+  $('.focus-on-comment').live('click', function(e) {
+     var link = this;
+     $(link).parents('.profile-activity-item').find('textarea').focus();
+     return false;
+  });
+});
+
 /**
 * @author Remy Sharp
 * @url http://remysharp.com/2007/01/25/jquery-tutorial-text-box-hints/

@@ -13,7 +13,7 @@ class Image < ActiveRecord::Base
                  :thumbnails => { :big      => '150x150',
                                   :thumb    => '100x100',
                                   :portrait => '64x64',
-                                  :minor    => '50x50',
+                                  :minor    => '50x50>',
                                   :icon     => '20x20!' },
                  :max_size => 5.megabytes # remember to update validate message below
 
