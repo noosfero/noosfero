@@ -51,7 +51,7 @@ class ProjectContentTest < ActiveSupport::TestCase
     assert_equal @project_result.load_time, @content.project_result_with_date(@project_result.date).load_time
   end
 
-  should 'get module result from service' do
+  should 'get module result from service without date' do
     date_with_milliseconds = Kalibro::ProjectResult.date_with_milliseconds(@project_result.date)
     Kalibro::ProjectResult.expects(:request).with('ProjectResult', :get_last_result_of, {:project_name => @project.name}).returns({:project_result => @project_result.to_hash})
     Kalibro::ModuleResult.expects(:request).with(
@@ -62,7 +62,23 @@ class ProjectContentTest < ActiveSupport::TestCase
         :module_name => @module.name,
         :date => date_with_milliseconds
       }).returns({:module_result => @module_result.to_hash})
-    assert_equal @module_result.grade, @content.module_result(@module.name).grade
+    assert_equal @module_result.grade, @content.module_result({:module_name => @module.name}).grade
+  end
+
+  should 'get module result from service with date' do
+    date_with_milliseconds = Kalibro::ProjectResult.date_with_milliseconds(@project_result.date)
+    request_body = {:project_name => @project.name, :date => @project_result.date}
+    Kalibro::ProjectResult.expects(:request).with("ProjectResult", :has_results_before, request_body).returns({:has_results => false})
+    Kalibro::ProjectResult.expects(:request).with("ProjectResult", :get_first_result_after, request_body).returns({:project_result => @project_result.to_hash})
+    Kalibro::ModuleResult.expects(:request).with(
+      'ModuleResult',
+      :get_module_result,
+      {
+        :project_name => @project.name, 
+        :module_name => @module.name,
+        :date => date_with_milliseconds
+      }).returns({:module_result => @module_result.to_hash})
+    assert_equal @module_result.grade, @content.module_result({:module_name => @module.name, :date => @project_result.date}).grade
   end
 
   should 'get result history' do

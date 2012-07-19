@@ -45,9 +45,10 @@ Kalibro::ProjectResult.first_result_after(name, date)
     end
   end
 
-  def module_result(module_name)
-    module_name ||= project.name 
-    @module_result ||= Kalibro::ModuleResult.find_by_project_name_and_module_name_and_date(project.name, module_name, project_result.date)
+  def module_result(attributes)
+    module_name = attributes[:module_name].nil? ? project.name : attributes[:module_name]
+    date = attributes[:date].nil? ? project_result.date : project_result_with_date(attributes[:date]).date
+    @module_result ||= Kalibro::ModuleResult.find_by_project_name_and_module_name_and_date(project.name, module_name, date)
   end
 
   def result_history(module_name)
