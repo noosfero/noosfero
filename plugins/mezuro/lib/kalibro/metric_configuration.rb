@@ -51,7 +51,7 @@ class Kalibro::MetricConfiguration < Kalibro::Model
   def save
     begin
       self.class.request("MetricConfiguration", :save_metric_configuration, {
-        :metric_configuration => to_hash(:except => [:configuration_name]),
+        :metric_configuration => to_hash,
         :configuration_name => configuration_name})
       true
     rescue Exception => error
@@ -65,7 +65,10 @@ class Kalibro::MetricConfiguration < Kalibro::Model
         :metric_name=> metric.name
       })
   end
-
+  
+  def to_hash
+    super :except => [:configuration_name]
+  end
 
   private
   

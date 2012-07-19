@@ -19,7 +19,7 @@ class MetricConfigurationTest < ActiveSupport::TestCase
   end
 
   should 'convert metric configuration to hash' do
-    assert_equal @native_metric_configuration_hash, @native_metric_configuration.to_hash(:except => [:configuration_name])
+    assert_equal @native_metric_configuration_hash, @native_metric_configuration.to_hash()
   end
 
   should 'create appropriate metric type' do
