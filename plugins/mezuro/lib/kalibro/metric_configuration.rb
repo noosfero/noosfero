@@ -51,7 +51,7 @@ class Kalibro::MetricConfiguration < Kalibro::Model
   def save
     begin
       self.class.request("MetricConfiguration", :save_metric_configuration, {
-        :metric_configuration => to_hash,
+        :metric_configuration => to_hash(:except => [:configuration_name]),
         :configuration_name => configuration_name})
       true
     rescue Exception => error
@@ -66,22 +66,6 @@ class Kalibro::MetricConfiguration < Kalibro::Model
       })
   end
 
-  def to_hash
-    hash = Hash.new
-    fields.each do |field|
-      if (field != :configuration_name)
-        field_value = send(field)
-        hash[field] = convert_to_hash(field_value)
-        if field_value.is_a?(Kalibro::Model)
-          hash = {:attributes! => {}}.merge(hash)
-          hash[:attributes!][field.to_sym] = {
-            'xmlns:xsi'=> 'http://www.w3.org/2001/XMLSchema-instance',
-            'xsi:type' => 'kalibro:' + xml_class_name(field_value)  }
-        end
-      end
-    end
-    hash
-  end
 
   private
   

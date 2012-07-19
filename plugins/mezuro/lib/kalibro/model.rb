@@ -4,16 +4,19 @@ class Kalibro::Model
     attributes.each { |field, value| send("#{field}=", value) if self.class.is_valid?(field) }
   end
 
-  def to_hash
+  def to_hash(options={})
     hash = Hash.new
+    excepts = !options[:except].nil? ? options[:except] : []
     fields.each do |field|
-      field_value = send(field)
-      hash[field] = convert_to_hash(field_value) if ! field_value.nil?
-      if field_value.is_a?(Kalibro::Model)
-        hash = {:attributes! => {}}.merge(hash)
-        hash[:attributes!][field.to_sym] = {
-          'xmlns:xsi'=> 'http://www.w3.org/2001/XMLSchema-instance',
-          'xsi:type' => 'kalibro:' + xml_class_name(field_value)  }
+      if(!excepts.include?(field))
+        field_value = send(field)
+        hash[field] = convert_to_hash(field_value) if ! field_value.nil?
+        if field_value.is_a?(Kalibro::Model)
+          hash = {:attributes! => {}}.merge(hash)
+          hash[:attributes!][field.to_sym] = {
+            'xmlns:xsi'=> 'http://www.w3.org/2001/XMLSchema-instance',
+            'xsi:type' => 'kalibro:' + xml_class_name(field_value)  }
+        end
       end
     end
     hash
