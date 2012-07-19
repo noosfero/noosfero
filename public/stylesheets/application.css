@@ -3803,7 +3803,6 @@ h1#agenda-title {
   display: block;
 }
 .controller-profile_members .draggable-user {
-  xwidth: 170px;
   cursor: move;
 }
 .controller-profile_members #members-list.add-members {
@@ -4857,12 +4856,10 @@ h1#agenda-title {
 }
 #profile-activity .profile-activity-description, #profile-network .profile-network-description, #profile-wall .profile-wall-description {
   float: left;
-  Xmin-height: 60px;
   margin: 0;
   padding: 0;
   border: 1px solid #ccc;
   overflow: hidden;
-  Xbackground-color: #fff;
   position: relative;
 }
 #profile-wall .profile-wall-description {
@@ -5044,15 +5041,7 @@ h1#agenda-title {
   overflow: hidden;
 }
 .profile-send-reply {
-  xbackground-color: #eee;
-  xborder: 1px solid #aaa;
-  xpadding: 2px;
-  xpadding-left: 20px;
-  xbackground-repeat: no-repeat;
-  xbackground-position: 2px center;
   color: #aaa;
-  Xtext-decoration: none;
-  Xmargin-left: 8px;
 }
 #content .profile-send-reply:hover {
   text-decoration: none;

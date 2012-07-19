@@ -57,7 +57,7 @@ class ForumHelperTest < ActiveSupport::TestCase
     assert_match c.created_at.to_s, out
     assert_match 'a2', out
 
-    assert_match(/#{Regexp.escape(c.created_at.to_s)} ago by <a href='[^']+'>a2<\/a>/, last_topic_update(some_post))
+    assert_match(/#{Regexp.escape(c.created_at.to_s)} by <a href='[^']+'>a2<\/a>/, last_topic_update(some_post))
   end
 
   should "return last comment author's name from unauthenticated user" do
@@ -68,7 +68,7 @@ class ForumHelperTest < ActiveSupport::TestCase
     assert_match "#{c.created_at.to_s} by John", out
     assert_match 'John', out
 
-    assert_match(/#{Regexp.escape(c.created_at.to_s)} ago by John/m, last_topic_update(some_post))
+    assert_match(/#{Regexp.escape(c.created_at.to_s)} by John/m, last_topic_update(some_post))
   end
 
   protected
