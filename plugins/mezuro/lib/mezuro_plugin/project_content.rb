@@ -1,6 +1,11 @@
-class MezuroPlugin::ProjectContent < Article 
+class MezuroPlugin::ProjectContent < Article
+  include ActionView::Helpers::TagHelper
+
+  settings_items :license, :description, :repository_type, :repository_url, :configuration_name, :periodicity_in_days
+
   validate_on_create :validate_kalibro_project_name 
   validate_on_create :validate_repository_url
+
   def self.short_description
     'Kalibro project'
   end
@@ -9,15 +14,11 @@ class MezuroPlugin::ProjectContent < Article
     'Software project tracked by Kalibro'
   end
 
-  settings_items :license, :description, :repository_type, :repository_url, :configuration_name, :periodicity_in_days
-
-  include ActionView::Helpers::TagHelper
   def to_html(options = {})
     lambda do
       render :file => 'content_viewer/show_project.rhtml'
     end
   end
-  
 
   def project
     begin
@@ -45,8 +46,8 @@ Kalibro::ProjectResult.first_result_after(name, date)
   end
 
   def module_result(module_name)
-    module_name = project.name if module_name.nil? 
-    @module_client ||= Kalibro::ModuleResult.find_by_project_name_and_module_name_and_date(project.name, module_name, @project_result.date)
+    module_name ||= project.name 
+    @module_result ||= Kalibro::ModuleResult.find_by_project_name_and_module_name_and_date(project.name, module_name, project_result.date)
   end
 
   def result_history(module_name)
@@ -88,7 +89,7 @@ Kalibro::ProjectResult.first_result_after(name, date)
 
   def destroy_project_from_service
     begin
-      Kalibro::Project.destroy(name)
+      project.destroy
     rescue Exception => error
       errors.add_to_base(error.message)
     end

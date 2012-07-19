@@ -2,16 +2,17 @@ require "test_helper"
 
 require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/project_fixtures"
 require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/project_result_fixtures"
+require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/module_fixtures"
+require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/module_result_fixtures"
 
 class ProjectContentTest < ActiveSupport::TestCase
 
   def setup
     @project = ProjectFixtures.project
     @content = ProjectFixtures.project_content
-  end
-
-  should 'be an article' do
-    assert_kind_of Article, @content
+    @project_result = ProjectResultFixtures.project_result
+    @module = ModuleFixtures.module
+    @module_result = ModuleResultFixtures.module_result
   end
 
   should 'provide proper short description' do
@@ -27,64 +28,52 @@ class ProjectContentTest < ActiveSupport::TestCase
   end
 
   should 'get project from service' do
-    Kalibro::Project.expects(:find_by_name).with(@content.name).returns(@project)
-    assert_equal @project, @content.project
+    Kalibro::Project.expects(:request).with("Project", :get_project, :project_name => @project.name).returns({:project => @project.to_hash})
+    assert_equal @project.name, @content.project.name
   end
 
   should 'get project result from service' do
-    project_result = mock
-    Kalibro::Client::ProjectResultClient.expects(:last_result).with(@content.name).returns(project_result)
-    assert_equal project_result, @content.project_result
+    Kalibro::ProjectResult.expects(:request).with("ProjectResult", :get_last_result_of, {:project_name => @project.name}).returns({:project_result => @project_result.to_hash})
+    assert_equal @project_result.load_time, @content.project_result.load_time
   end
   
   should 'get date result from service when has_result_before is true' do
-    client = mock
-    project_result = mock
-    Kalibro::Client::ProjectResultClient.expects(:new).returns(client)
-    client.expects(:has_results_before).with(@project.name, "2012-05-22T22:00:33+04:00").returns(true)
-    client.expects(:last_result_before).with(@project.name, "2012-05-22T22:00:33+04:00").returns(project_result)
-    assert_equal project_result, @content.get_date_result("2012-05-22T22:00:33+04:00")
+    request_body = {:project_name => @project.name, :date => @project_result.date}
+    Kalibro::ProjectResult.expects(:request).with("ProjectResult", :has_results_before, request_body).returns({:has_results => true})
+    Kalibro::ProjectResult.expects(:request).with("ProjectResult", :get_last_result_before, request_body).returns({:project_result => @project_result.to_hash})
+    assert_equal @project_result.load_time, @content.project_result_with_date(@project_result.date).load_time
   end
 
   should 'get date result from service when has_result_before is false' do
-    client = mock
-    project_result = mock
-    Kalibro::Client::ProjectResultClient.expects(:new).returns(client)
-    client.expects(:has_results_before).with(@project.name, "2012-05-22T22:00:33+04:00").returns(false)
-    client.expects(:first_result_after).with(@project.name, "2012-05-22T22:00:33+04:00").returns(project_result)
-    assert_equal project_result, @content.get_date_result("2012-05-22T22:00:33+04:00")
+    request_body = {:project_name => @project.name, :date => @project_result.date}
+    Kalibro::ProjectResult.expects(:request).with("ProjectResult", :has_results_before, request_body).returns({:has_results => false})
+    Kalibro::ProjectResult.expects(:request).with("ProjectResult", :get_first_result_after, request_body).returns({:project_result => @project_result.to_hash})
+    assert_equal @project_result.load_time, @content.project_result_with_date(@project_result.date).load_time
   end
 
   should 'get module result from service' do
-    mock_project_client
-    project_result = mock_project_result_client
-    module_name = 'My module name'
-    module_result_client = mock
-    module_result = Kalibro::Entities::ModuleResult.new
-    @content.expects(:module_result_client).returns(module_result_client)
-    module_result_client.expects(:module_result).with(@project.name, module_name, project_result.date).
-returns(module_result)
-    assert_equal module_result, @content.module_result(module_name)
-  end
-
-  should 'get module result root when nil is given' do
-    mock_project_client
-    project_result = mock_project_result_client
-    module_result_client = mock
-    module_result = Kalibro::Entities::ModuleResult.new
-    @content.expects(:module_result_client).returns(module_result_client)
-    module_result_client.expects(:module_result).with(@project.name, @project.name, project_result.date).
-returns(module_result)
-    assert_equal module_result, @content.module_result(nil)
+    date_with_milliseconds = Kalibro::ProjectResult.date_with_milliseconds(@project_result.date)
+    Kalibro::ProjectResult.expects(:request).with('ProjectResult', :get_last_result_of, {:project_name => @project.name}).returns({:project_result => @project_result.to_hash})
+    Kalibro::ModuleResult.expects(:request).with(
+      'ModuleResult',
+      :get_module_result,
+      {
+        :project_name => @project.name, 
+        :module_name => @module.name,
+        :date => date_with_milliseconds
+      }).returns({:module_result => @module_result.to_hash})
+    assert_equal @module_result.grade, @content.module_result(@module.name).grade
   end
 
   should 'get result history' do
-    mock_project_client
-    module_name = 'Fake Name'
-  	module_result_client = mock
-    module_result_client.expects(:result_history).with(@project.name, module_name)
-  	@content.expects(:module_result_client).returns(module_result_client)
-  	@content.result_history(module_name)
+    Kalibro::ModuleResult.expects(:request).with(
+    'ModuleResult',
+    :get_result_history,
+      {
+        :project_name => @project.name, 
+        :module_name => @module.name
+      }).returns({:module_result => @module_result.to_hash})
+  	@content.result_history(@module.name)
   end
 
   should 'send project to service after saving' do
@@ -93,15 +82,14 @@ returns(module_result)
   end
 
   should 'send correct project to service' do
-    project = mock
-    Kalibro::Project.expects(:create).with(@content).returns(project)
-    project.expects(:save).returns(true)
+    Kalibro::Project.expects(:create).with(@content).returns(true)
     Kalibro::Kalibro.expects(:process_project).with(@content.name, @content.periodicity_in_days)
     @content.send :send_project_to_service
   end
 
   should 'destroy project from service' do
-    Kalibro::Project.expects(:destroy).with(@content.name)
+    Kalibro::Project.expects(:request).with("Project", :get_project, :project_name => @project.name).returns({:project => @project.to_hash})
+    Kalibro::Project.expects(:request).with("Project", :remove_project, {:project_name => @project.name})
     @content.send :destroy_project_from_service
   end
   
@@ -111,20 +99,4 @@ returns(module_result)
 		assert_equal "Project name already exists in Kalibro", @content.errors.on_base
 	end
   
-  private
-
-    def mock_project_client
-      Kalibro::Project.expects(:find_by_name).with(@content.name).returns(@project)
-    end
-    
-    def mock_project_result_client
-      project_result = ProjectResultFixtures.qt_calculator
-      Kalibro::Client::ProjectResultClient.expects(:last_result).with(@content.name).returns(project_result)
-      project_result
-    end
-
-	  def create_project_error
-	      raise "Error on Kalibro" 
-	  end
-
 end
