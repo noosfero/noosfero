@@ -48,17 +48,6 @@ class Kalibro::MetricConfiguration < Kalibro::Model
     metric_configuration
   end
 
-  def save
-    begin
-      self.class.request("MetricConfiguration", :save_metric_configuration, {
-        :metric_configuration => to_hash,
-        :configuration_name => configuration_name})
-      true
-    rescue Exception => error
-      false
-    end
-  end
-
   def destroy
     self.class.request("MetricConfiguration", :remove_metric_configuration, {
         :configuration_name => configuration_name,
@@ -75,5 +64,9 @@ class Kalibro::MetricConfiguration < Kalibro::Model
   def native?(value)
     value.has_key?(:origin) ? true : false
   end
-
+  
+  def save_params
+    {:metric_configuration => to_hash, :configuration_name => configuration_name}
+  end
+  
 end

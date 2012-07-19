@@ -22,20 +22,12 @@ class Kalibro::Configuration < Kalibro::Model
     new request("Configuration", :get_configuration, {:configuration_name => configuration_name})[:configuration]
   end
 
-  def self.create(configuration_content)
-	  new ({
-	    :name => configuration_content.name,
-  	  :description => configuration_content.description
-  	}).save
-  end
-
-  def save
-    begin
-      self.class.request("Configuration", :save_configuration, {:configuration => to_hash})
-	    true
-	  rescue Exception => error
-		  false
-	  end
+  def self.create(content)
+	  attributes = {
+	    :name => content.name,
+  	  :description => content.description
+  	}
+  	super attributes
   end
 
   def self.all_names

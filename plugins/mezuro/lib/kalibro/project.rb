@@ -11,7 +11,7 @@ class Kalibro::Project < Kalibro::Model
   end
 
   def self.create(content)
-    new({
+    attributes = {
       :name => content.name,
       :license => content.license,
       :description => content.description,
@@ -20,20 +20,12 @@ class Kalibro::Project < Kalibro::Model
         :address => content.repository_url
       },
       :configuration_name => content.configuration_name
-    }).save
+    }
+    super attributes
   end
 
   def destroy
     self.class.request("Project", :remove_project, {:project_name => name})
-  end
-
-  def save
-    begin
-      self.class.request("Project", :save_project, {:project => to_hash})
-      true
-    rescue Exception => error
-      false
-    end
   end
 
   def repository=(value)

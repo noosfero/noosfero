@@ -35,6 +35,19 @@ class Kalibro::Model
   def self.to_object value
     value.kind_of?(Hash) ? new(value) : value
   end 
+  
+  def self.create(attributes={})
+    new(attributes).save
+  end
+
+  def save
+    begin
+      self.class.request(save_endpoint, save_action, save_params)
+	    true
+	  rescue Exception => error
+		  false
+	  end
+  end
 
   protected
 
@@ -72,5 +85,20 @@ class Kalibro::Model
     milliseconds = "." + (date.sec_fraction * 60 * 60 * 24 * 1000).to_s
     date.to_s[0..18] + milliseconds + date.to_s[19..-1]
   end
-
+  
+  def class_name
+    self.class.name.gsub(/Kalibro::/,"")
+  end
+  
+  def save_endpoint
+    class_name
+  end
+  
+  def save_action
+    "save_#{class_name.underscore}".to_sym
+  end
+  
+  def save_params
+    {class_name.underscore.to_sym => self.to_hash}
+  end
 end
