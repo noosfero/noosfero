@@ -25,9 +25,9 @@ run sudo apt-get -y install libtidy-ruby libhpricot-ruby libmocha-ruby imagemagi
 gem which bundler >/dev/null 2>&1 || run gem install bundler
 run bundle install
 
-# download and start solr
-rake solr:download
-rake solr:start
+# setup solr
+run rake solr:download
+run cp config/solr.yml.dist config/solr.yml
 
 # create the database with sample data
 run cp config/database.yml.sqlite3 config/database.yml
