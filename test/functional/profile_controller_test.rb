@@ -739,7 +739,7 @@ class ProfileControllerTest < ActionController::TestCase
     40.times{Scrap.create!(defaults_for_scrap(:sender => p1, :receiver => p1))}
     login_as(p1.identifier)
     get :index, :profile => p1.identifier
-    assert_equal 30, assigns(:activities).count
+    assert_equal 15, assigns(:activities).count
   end
 
   should 'not see the friends activities in the current profile' do
@@ -843,7 +843,7 @@ class ProfileControllerTest < ActionController::TestCase
     user.stubs(:login).returns('some')
     @controller.stubs(:current_user).returns(user)
     get :index, :profile => p1.identifier
-    assert_equal 30, assigns(:network_activities).count
+    assert_equal 15, assigns(:network_activities).count
   end
 
   should 'the network activity be visible only to logged users' do
@@ -905,7 +905,7 @@ class ProfileControllerTest < ActionController::TestCase
     community = fast_create(Community)
     40.times{ fast_create(ActionTrackerNotification, :profile_id => community.id, :action_tracker_id => fast_create(ActionTracker::Record, :user_id => profile.id)) }
     get :index, :profile => community.identifier
-    assert_equal 30, assigns(:network_activities).count
+    assert_equal 15, assigns(:network_activities).count
   end
 
   should 'the self activity not crashes with user not logged in' do
@@ -1001,7 +1001,7 @@ class ProfileControllerTest < ActionController::TestCase
     Person.any_instance.stubs(:follows?).returns(true)
     assert_equal 40, p1.scraps_received.not_replies.count
     get :index, :profile => p1.identifier
-    assert_equal 30, assigns(:activities).count
+    assert_equal 15, assigns(:activities).count
   end
 
   should 'the activities be paginated in community profiles' do
@@ -1017,7 +1017,7 @@ class ProfileControllerTest < ActionController::TestCase
     Person.any_instance.stubs(:follows?).returns(true)
     assert_equal 40, c.scraps_received.not_replies.count
     get :index, :profile => c.identifier
-    assert_equal 30, assigns(:activities).count
+    assert_equal 15, assigns(:activities).count
   end
 
   should "the owner of activity could remove it" do
@@ -1135,36 +1135,6 @@ class ProfileControllerTest < ActionController::TestCase
     get :index, :profile => profile.identifier
     assert_equal [at], profile.tracked_actions
     assert_no_tag :tag => 'li', :attributes => {:id => "profile-activity-item-#{atn.id}"}
-  end
-
-  should "view more scraps paginate the scraps in people profiles" do
-    login_as(profile.identifier)
-    40.times{fast_create(Scrap, :receiver_id => profile.id)}
-    get :view_more_scraps, :profile => profile.identifier, :page => 2
-    assert_response :success
-    assert_template '_profile_scraps'
-    assert_equal 10, assigns(:scraps).count
-  end
-
-  should "view more scraps paginate the scraps in community profiles" do
-    login_as(profile.identifier)
-    c = fast_create(Community)
-    40.times{fast_create(Scrap, :receiver_id => c.id)}
-    get :view_more_scraps, :profile => c.identifier, :page => 2
-    assert_response :success
-    assert_template '_profile_scraps'
-    assert_equal 10, assigns(:scraps).count
-  end
-
-  should "be logged in to access the view_more_scraps action in people profiles" do
-    get :view_more_scraps, :profile => profile.identifier
-    assert_redirected_to :controller => 'account', :action => 'login'
-  end
-
-  should "be logged in to access the view_more_scraps action in community profiles" do
-    c = fast_create(Community)
-    get :view_more_scraps, :profile => c.identifier
-    assert_redirected_to :controller => 'account', :action => 'login'
   end
 
   should "view more activities paginated" do

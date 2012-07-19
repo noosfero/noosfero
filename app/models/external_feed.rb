@@ -16,6 +16,7 @@ class ExternalFeed < ActiveRecord::Base
       article.save!
       article.delay.create_activity
     end
+    article.valid?
   end
 
   def clear
