@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.37.0\n"
 "POT-Creation-Date: 2012-07-19 12:20-0300\n"
-"PO-Revision-Date: 2012-06-05 10:46-0300\n"
+"PO-Revision-Date: 2012-07-20 03:24-0300\n"
 "Last-Translator: Joenio Costa <joenio@colivre.coop.br>\n"
 "Language-Team: LANGUAGE TEAM <E-MAIL@ADDRESS or HOME PAGE>\n"
 "Language: \n"
@@ -650,14 +650,12 @@ msgstr "Eventos"
 #: app/helpers/search_helper.rb:20 app/helpers/search_helper.rb:27
 #: app/helpers/search_helper.rb:30 app/helpers/search_helper.rb:34
 #: app/helpers/search_helper.rb:37 app/helpers/search_helper.rb:40
-#, fuzzy
 msgid "Relevance"
-msgstr "Relevante para o preço"
+msgstr "Relevância"
 
 #: app/helpers/search_helper.rb:21
-#, fuzzy
 msgid "More Recent"
-msgstr "Mais recentes"
+msgstr "Mais Recentes"
 
 #: app/helpers/search_helper.rb:22 app/helpers/search_helper.rb:28
 #: app/helpers/search_helper.rb:31 app/helpers/search_helper.rb:35
@@ -682,23 +680,20 @@ msgid "Name"
 msgstr "Nome"
 
 #: app/helpers/search_helper.rb:23
-#, fuzzy
 msgid "Closest to me"
-msgstr "Comentário final"
+msgstr "Mais próximo de mim"
 
 #: app/helpers/search_helper.rb:32
-#, fuzzy
 msgid "More recent"
-msgstr "Pessoas mais recentes"
+msgstr "Mais recentes"
 
 #: app/helpers/search_helper.rb:55
 msgid ", "
-msgstr ""
+msgstr ", "
 
 #: app/helpers/search_helper.rb:56
-#, fuzzy
 msgid "search in all categories"
-msgstr "Em todas as categorias"
+msgstr "procurar em todas as categorias"
 
 #: app/helpers/search_helper.rb:74
 msgid "Display in list"
@@ -709,44 +704,36 @@ msgid "Display in map"
 msgstr "Mostrar no mapa"
 
 #: app/helpers/search_helper.rb:105
-#, fuzzy
 msgid "Type in an option"
-msgstr "O insumo não foi encontrado"
+msgstr "Digite uma opção"
 
 #: app/helpers/search_helper.rb:180
-#, fuzzy
 msgid "Sort results by "
-msgstr "Sem resultados"
+msgstr "Ordenar resultados por "
 
 #: app/helpers/search_helper.rb:188
-#, fuzzy
 msgid "%s products offers found"
-msgstr "%s resultados encontrados"
+msgstr "%s ofertas de produtos encontrados"
 
 #: app/helpers/search_helper.rb:189
-#, fuzzy
 msgid "%s articles found"
-msgstr "%s artigos"
+msgstr "%s artigos encontrados"
 
 #: app/helpers/search_helper.rb:190
-#, fuzzy
 msgid "%s events found"
-msgstr "%s resultados encontrados"
+msgstr "%s eventos encontrados"
 
 #: app/helpers/search_helper.rb:191
-#, fuzzy
 msgid "%s people found"
-msgstr "%s resultados encontrados"
+msgstr "%s pessoas encontradas"
 
 #: app/helpers/search_helper.rb:192
-#, fuzzy
 msgid "%s enterprises found"
-msgstr "Empreendimentos de %s"
+msgstr "%s empreendimentos encontrados"
 
 #: app/helpers/search_helper.rb:193
-#, fuzzy
 msgid "%s communities found"
-msgstr "Comunidades de %s"
+msgstr "%s comunidades encontradas"
 
 #: app/helpers/enterprise_homepage_helper.rb:6
 msgid "Contact person:"
@@ -1116,9 +1103,8 @@ msgid "Self declared"
 msgstr "Auto declarado"
 
 #: app/helpers/manage_products_helper.rb:245
-#, fuzzy
 msgid "Delete qualifier"
-msgstr "qualificador"
+msgstr "Remover qualificador"
 
 #: app/helpers/manage_products_helper.rb:249
 msgid "Select the unit"
@@ -1296,14 +1282,12 @@ msgid "contents|More Recent"
 msgstr "Mais recentes"
 
 #: app/helpers/application_helper.rb:1091
-#, fuzzy
 msgid "contents|More Viewed"
-msgstr "Mais visualizadas"
+msgstr "Mais Visualizados"
 
 #: app/helpers/application_helper.rb:1094
-#, fuzzy
 msgid "New Content"
-msgstr "Novo conteúdo"
+msgstr "Novo Conteúdo"
 
 #: app/helpers/application_helper.rb:1098
 #: app/helpers/application_helper.rb:1142
@@ -1462,29 +1446,24 @@ msgid "half a minute"
 msgstr "meio minuto"
 
 #: app/helpers/application_helper.rb:1221
-#, fuzzy
 msgid "%{distance} minutes ago"
-msgstr "%{distance} minutos"
+msgstr "%{distance} minutos atrás"
 
 #: app/helpers/application_helper.rb:1222
-#, fuzzy
 msgid "about 1 hour ago"
-msgstr "por volta de 1 hora"
+msgstr "por volta de 1 hora atrás"
 
 #: app/helpers/application_helper.rb:1223
-#, fuzzy
 msgid "about %{distance} hours ago"
-msgstr "por volta de %{distance} horas"
+msgstr "por volta de %{distance} horas atrás"
 
 #: app/helpers/application_helper.rb:1224
-#, fuzzy
 msgid "1 day ago"
-msgstr "1 dia"
+msgstr "1 dia atrás"
 
 #: app/helpers/application_helper.rb:1225
-#, fuzzy
 msgid "%{distance} days ago"
-msgstr "%{distance} dias"
+msgstr "%{distance} dias atrás"
 
 #: app/helpers/application_helper.rb:1243
 msgid "Source: %s"
@@ -1509,7 +1488,6 @@ msgid "Report this profile for abusive behaviour"
 msgstr "Denunciar este perfil por comportamento abusivo"
 
 #: app/helpers/application_helper.rb:1331
-#, fuzzy
 msgid "Type in an keyword"
 msgstr "Digite um termo de pesquisa"
 
@@ -1806,12 +1784,10 @@ msgid "You can't leave an empty message."
 msgstr "Você não pode deixar uma mensagem vazia."
 
 #: app/controllers/public/profile_controller.rb:191
-#, fuzzy
 msgid "Comment successfully added."
-msgstr "Comentário removido com sucesso"
+msgstr "Comentário adicionado com sucesso"
 
 #: app/controllers/public/profile_controller.rb:191
-#, fuzzy
 msgid "You can't leave an empty comment."
 msgstr "Você não pode deixar uma mensagem vazia."
 
@@ -1863,7 +1839,6 @@ msgstr ""
 "administrador."
 
 #: app/controllers/public/profile_controller.rb:306
-#, fuzzy
 msgid "Comment successfully deleted"
 msgstr "Comentário removido com sucesso"
 
@@ -1957,53 +1932,44 @@ msgid "Contact not sent"
 msgstr "Contato não enviado"
 
 #: app/controllers/public/search_controller.rb:71
-#, fuzzy
 msgid "Enterprises from network"
-msgstr "Perfil do empreendimento"
+msgstr "Empreendimentos da rede"
 
 #: app/controllers/public/search_controller.rb:147
 msgid "Upcoming events"
 msgstr "Próximos eventos"
 
 #: app/controllers/public/search_controller.rb:222
-#, fuzzy
 msgid "More recent contents from network"
-msgstr "Conteúdos mais recentes"
+msgstr "Conteúdos mais recentes da rede"
 
 #: app/controllers/public/search_controller.rb:223
-#, fuzzy
 msgid "More viewed contents from network"
-msgstr "Conteúdos mais visualizados"
+msgstr "Conteúdos mais visualizados da rede"
 
 #: app/controllers/public/search_controller.rb:224
-#, fuzzy
 msgid "More recent people from network"
-msgstr "Pessoas mais recentes"
+msgstr "Pessoas mais recentes da rede"
 
 #: app/controllers/public/search_controller.rb:225
-#, fuzzy
 msgid "More active people from network"
-msgstr "Pessoas mais ativas"
+msgstr "Pessoas mais ativas da rede"
 
 #: app/controllers/public/search_controller.rb:226
-#, fuzzy
 msgid "More popular people from network"
-msgstr "Pessoas mais populares"
+msgstr "Pessoas mais populares da rede"
 
 #: app/controllers/public/search_controller.rb:227
-#, fuzzy
 msgid "More recent communities from network"
-msgstr "Comunidades mais recentes"
+msgstr "Comunidades mais recentes da rede"
 
 #: app/controllers/public/search_controller.rb:228
-#, fuzzy
 msgid "More active communities from network"
-msgstr "Comunidades mais ativas"
+msgstr "Comunidades mais ativas da rede"
 
 #: app/controllers/public/search_controller.rb:229
-#, fuzzy
 msgid "More popular communities from network"
-msgstr "Comunidades mais populares"
+msgstr "Comunidades mais populares da rede"
 
 #: app/controllers/public/search_controller.rb:230
 #: app/models/highlights_block.rb:23
@@ -2106,12 +2072,11 @@ msgstr "Visível"
 
 #: app/models/contact.rb:-
 msgid "dynamic attribute"
-msgstr ""
+msgstr "atributo dinâmico"
 
 #: app/models/contact.rb:-
-#, fuzzy
 msgid "local"
-msgstr "Idioma"
+msgstr "local"
 
 #: app/models/contact.rb:-
 msgid "tagging"
@@ -2531,9 +2496,8 @@ msgid "Source name"
 msgstr "Nome da fonte"
 
 #: app/models/contact.rb:-
-#, fuzzy
 msgid "uploadedfile"
-msgstr "Arquivo enviado"
+msgstr "uploadedfile"
 
 #: app/models/contact.rb:-
 msgid "thumbnail"
@@ -2545,49 +2509,40 @@ msgid "Thumbnail"
 msgstr "Miniatura"
 
 #: app/models/contact.rb:-
-#, fuzzy
 msgid "textarticle"
-msgstr "artigo"
+msgstr "textarticle"
 
 #: app/models/contact.rb:-
-#, fuzzy
 msgid "tinymcearticle"
-msgstr "um artigo"
+msgstr "tinymcearticle"
 
 #: app/models/contact.rb:-
-#, fuzzy
 msgid "textilearticle"
-msgstr "artigo"
+msgstr "textilearticle"
 
 #: app/models/contact.rb:-
-#, fuzzy
 msgid "folder"
-msgstr "Pasta"
+msgstr "pasta"
 
 #: app/models/contact.rb:-
-#, fuzzy
 msgid "enterprisehomepage"
-msgstr "Página do Empreendimento"
+msgstr "enterprisehomepage"
 
 #: app/models/contact.rb:-
-#, fuzzy
 msgid "gallery"
-msgstr "Galeria"
+msgstr "galeria"
 
 #: app/models/contact.rb:-
-#, fuzzy
 msgid "blog"
-msgstr "Editar blog"
+msgstr "blog"
 
 #: app/models/contact.rb:-
-#, fuzzy
 msgid "forum"
-msgstr "Fórum"
+msgstr "forum"
 
 #: app/models/contact.rb:-
-#, fuzzy
 msgid "event"
-msgstr "Evento"
+msgstr "evento"
 
 #: app/models/contact.rb:-
 msgid "organization"
@@ -2862,13 +2817,12 @@ msgid "Google maps key"
 msgstr "Chave do Google maps"
 
 #: app/models/domain.rb:13
-#, fuzzy
 msgid ""
 "%{fn} must be composed of sequences of lowercase letters (a to z), numbers "
 "(0 to 9), \"_\" and \"-\", separated by dots."
 msgstr ""
-"%{fn} deve ser composto apenas por letras minúsculas (a a z), números (0 a "
-"9), \"_\" e \"-\""
+"%{fn} deve ser composto por sequências de letras minúsculas (a a z), números (0 a "
+"9), \"_\" e \"-\", separados por pontos."
 
 #: app/models/domain.rb:20
 msgid "%{fn} must not start with www."
@@ -3185,9 +3139,8 @@ msgid "Production cost"
 msgstr "Custo de produção"
 
 #: app/models/uploaded_file.rb:8
-#, fuzzy
 msgid "File"
-msgstr "Nome do arquivo"
+msgstr "File"
 
 #: app/models/uploaded_file.rb:57 app/models/image.rb:20
 msgid "%{fn} of uploaded file was larger than the maximum size of 5.0 MB"
@@ -3424,23 +3377,20 @@ msgid "Mailing"
 msgstr "Informativo"
 
 #: app/models/national_region.rb:-
-#, fuzzy
 msgid "national region"
-msgstr "Código nacional da região"
+msgstr "região nacional"
 
 #: app/models/national_region.rb:-
-#, fuzzy
 msgid "Parent national region code"
-msgstr "Código nacional da região"
+msgstr "Código nacional da região pai"
 
 #: app/models/national_region.rb:-
-#, fuzzy
 msgid "National region type"
-msgstr "Código nacional da região"
+msgstr "Tipo da região nacional"
 
 #: app/models/national_region.rb:67
 msgid "Invalid city or state name."
-msgstr ""
+msgstr "Cidade inválida ou nome do estado"
 
 #: app/models/comment.rb:-
 msgid "comment"
@@ -3492,38 +3442,35 @@ msgstr ""
 
 #: app/models/product.rb:204
 msgid "0%"
-msgstr ""
+msgstr "0%"
 
 #: app/models/product.rb:205
 msgid "25%"
-msgstr ""
+msgstr "25%"
 
 #: app/models/product.rb:206
 msgid "50%"
-msgstr ""
+msgstr "50%"
 
 #: app/models/product.rb:207
 msgid "75%"
-msgstr ""
+msgstr "75%"
 
 #: app/models/product.rb:208
 msgid "100%"
-msgstr ""
+msgstr "100%"
 
 #: app/models/product.rb:232
-#, fuzzy
 msgid " cert. "
-msgstr "cert. "
+msgstr " cert. "
 
 #: app/models/product.rb:257
-#, fuzzy
 msgid "Related products"
-msgstr "Refletir produtos"
+msgstr "Produtos relacionados"
 
 #: app/models/product.rb:259 app/views/search/_product.rhtml:65
-#, fuzzy
 msgid "Qualifiers"
-msgstr "Qualificador"
+msgstr "Qualificadores"
 
 #: app/models/gallery.rb:12
 msgid "A gallery, inside which you can put images."
@@ -3704,30 +3651,28 @@ msgid "Created at: "
 msgstr "Criado em: "
 
 #: app/models/article.rb:677
-#, fuzzy
 msgid "Published date"
-msgstr "Publicado em"
+msgstr "Data de publicação"
 
 #: app/models/article.rb:677
 msgid "Older than one year"
-msgstr ""
+msgstr "Mais de um ano"
 
 #: app/models/article.rb:678
-#, fuzzy
 msgid "In the last year"
-msgstr "na galeria"
+msgstr "No último ano"
 
 #: app/models/article.rb:678
 msgid "In the last month"
-msgstr ""
+msgstr "No último mês"
 
 #: app/models/article.rb:678
 msgid "In the last week"
-msgstr ""
+msgstr "Na última semana"
 
 #: app/models/article.rb:678
 msgid "In the last day"
-msgstr ""
+msgstr "No último dia"
 
 #: app/models/profile_search_block.rb:4
 msgid "Display a form to search the profile"
@@ -3809,9 +3754,8 @@ msgid "Slideshow"
 msgstr "Slideshow"
 
 #: app/models/rss_feed.rb:4
-#, fuzzy
 msgid "RssFeed"
-msgstr "Feed RSS"
+msgstr "RSSFeed"
 
 #: app/models/rss_feed.rb:84
 msgid "%s's RSS feed"
@@ -4294,9 +4238,8 @@ msgid "This block presents a login/logout block."
 msgstr "Este bloco apresenta um bloco de login/logout."
 
 #: app/models/raw_html_article.rb:4
-#, fuzzy
 msgid "HTML"
-msgstr "HTML puro"
+msgstr "HTML"
 
 #: app/models/raw_html_article.rb:8
 msgid "Raw HTML text article."
@@ -4440,14 +4383,12 @@ msgid "%s members"
 msgstr "%s integrantes"
 
 #: app/models/profile.rb:881
-#, fuzzy
 msgid "Not enabled"
-msgstr "%s não foi habilitado."
+msgstr "Não habilitado"
 
 #: app/models/profile.rb:899
-#, fuzzy
 msgid "Situation"
-msgstr "Convite"
+msgstr "Situação"
 
 #: app/models/profile.rb:929
 msgid "Profile Info and settings"
@@ -4561,9 +4502,8 @@ msgid "qualifier"
 msgstr "qualificador"
 
 #: app/models/national_region_type.rb:-
-#, fuzzy
 msgid "national region type"
-msgstr "Código nacional da região"
+msgstr "Tipo da região nacional"
 
 #: app/models/members_block.rb:8
 msgid "{#} members"
@@ -5016,7 +4956,7 @@ msgstr "Equipe %s."
 
 #: app/views/search/contents.rhtml:10 app/views/search/articles.rhtml:10
 msgid "Type the title, author or content desired"
-msgstr ""
+msgstr "Digite o título, autor ou conteúdo desejado"
 
 #: app/views/search/_image.rhtml:35 app/views/search/_image.rhtml:47
 #: app/views/catalog/index.rhtml:20
@@ -5036,46 +4976,40 @@ msgid "No sub-categories"
 msgstr "Sem subcategorias"
 
 #: app/views/search/_facets_unselect_menu.rhtml:3
-#, fuzzy
 msgid "Applied filters"
-msgstr "Enviar arquivos"
+msgstr "Aplicar filtros"
 
 #: app/views/search/tags.rhtml:1
 msgid "Tag cloud"
 msgstr "Nuvem de marcadores"
 
 #: app/views/search/_facets_menu.rhtml:32
-#, fuzzy
 msgid "No filter available"
-msgstr "Produto não disponível!"
+msgstr "Nenhum filtro disponível"
 
 #: app/views/search/products.rhtml:13
 msgid "Type the product, service, city or qualifier desired"
-msgstr ""
+msgstr "Digite o produto, serviço, cidade ou qualificador desejado"
 
 #: app/views/search/_product.rhtml:13
-#, fuzzy
 msgid "from"
-msgstr "de "
+msgstr "de"
 
 #: app/views/search/_product.rhtml:18
 msgid "/"
-msgstr ""
+msgstr "/"
 
 #: app/views/search/_product.rhtml:24
-#, fuzzy
 msgid "Percentage of inputs from solidarity economy"
-msgstr "Produto da economia solidária"
+msgstr "Porcentagem de insumos da economia solidária"
 
 #: app/views/search/_product.rhtml:35
-#, fuzzy
 msgid "Open Price"
-msgstr "Preço"
+msgstr "Preço aberto"
 
 #: app/views/search/_product.rhtml:40
-#, fuzzy
 msgid "Not available"
-msgstr "produto indisponível"
+msgstr "Indisponível"
 
 #: app/views/search/_product.rhtml:47 plugins/bsc/lib/bsc_plugin.rb:107
 msgid "Supplier"
@@ -5102,20 +5036,19 @@ msgstr "Novo empreendimento"
 
 #: app/views/search/enterprises.rhtml:19
 msgid "Type words about the enterprise you're looking for"
-msgstr ""
+msgstr "Digite palavras sobre o empreendimento que está procurando"
 
 #: app/views/search/_results_header.rhtml:7
-#, fuzzy
 msgid "Showing page %s of %s"
-msgstr "imagem %d de %d"
+msgstr "Mostrando página %d de %d"
 
 #: app/views/search/communities.rhtml:17
 msgid "Type words about the community you're looking for"
-msgstr ""
+msgstr "Digite palavras sobre a comunidade que está procurando"
 
 #: app/views/search/people.rhtml:10
 msgid "Type words about the person you're looking for"
-msgstr ""
+msgstr "Digite palavras sobre a pessoa que está procurando"
 
 #: app/views/search/_display_results.rhtml:13
 msgid "see all (%d)"
@@ -5126,9 +5059,8 @@ msgid "Search in:"
 msgstr "Buscar em:"
 
 #: app/views/search/_blog.rhtml:8
-#, fuzzy
 msgid "Last posts"
-msgstr "Último post"
+msgstr "Últimos posts"
 
 #: app/views/search/tag.rhtml:2
 msgid "Tagged with \"%s\""
@@ -5139,19 +5071,16 @@ msgid "Back to tag cloud"
 msgstr "Voltar à nuvem de marcadores"
 
 #: app/views/search/_forum.rhtml:8
-#, fuzzy
 msgid "Last topics"
-msgstr "Último post"
+msgstr "Últimos tópicos"
 
 #: app/views/search/_folder.rhtml:8
-#, fuzzy
 msgid "Last items"
-msgstr "Últimas atualizações"
+msgstr "Últimos itens"
 
 #: app/views/search/_article_last_change.rhtml:5
-#, fuzzy
 msgid "by %{name} at %{date}"
-msgstr "de %{date1} até %{date2}"
+msgstr "por %{name} em %{date2}"
 
 #: app/views/search/_article_last_change.rhtml:8
 msgid "Last update: %s."
@@ -5900,7 +5829,7 @@ msgstr "Mural de %s"
 
 #: app/views/profile/_profile_wall.rhtml:6
 msgid "Share"
-msgstr ""
+msgstr "Compartilhar"
 
 #: app/views/profile/_leave_scrap.rhtml:8 app/views/profile/_comment.rhtml:33
 #: app/views/profile/_create_article.rhtml:18
@@ -6038,31 +5967,27 @@ msgstr "Registrar um novo empreendimento"
 #: app/views/profile/_profile_scrap_reply_form.rhtml:12
 #: app/views/profile/_profile_comment_form.rhtml:10
 #: app/views/profile/_profile_comment_form.rhtml:13
-#, fuzzy
 msgid "Leave your comment"
-msgstr "Digite seu comentário"
+msgstr "Deixe seu comentário"
 
 #: app/views/profile/_create_article.rhtml:7
-#, fuzzy
 msgid "on community %s"
-msgstr "Na comunidade %s"
+msgstr "na comunidade %s"
 
 #: app/views/profile/_create_article.rhtml:12
-#, fuzzy
 msgid "See more"
-msgstr "Veja mais"
+msgstr "Ver mais"
 
 #: app/views/profile/_create_article.rhtml:14
 msgid "See complete forum"
-msgstr ""
+msgstr "Ver fórum completo"
 
 #: app/views/profile/_create_article.rhtml:17
 #: app/views/profile/_default_activity.rhtml:8
 #: app/views/profile/_upload_image.rhtml:9
 #: app/views/profile/_profile_scrap.rhtml:12
-#, fuzzy
 msgid "profile|Comment"
-msgstr "perfil"
+msgstr "Comentar"
 
 #: app/views/profile/communities.rhtml:3
 msgid "%s's communities"
@@ -6093,9 +6018,8 @@ msgstr "Ir para a página inicial do %s"
 
 #: app/views/profile/_profile_comments.rhtml:5
 #: app/views/profile/_profile_scrap.rhtml:21
-#, fuzzy
 msgid "View all %s comments"
-msgstr "Ver como ícones"
+msgstr "Ver todos os %s comentários"
 
 #: app/views/profile/members.rhtml:3
 msgid "%s's members"
@@ -7923,9 +7847,8 @@ msgstr ""
 "provavelmente precisar ajustar o marcador para conseguir uma posição precisa)"
 
 #: app/views/maps/edit_location.rhtml:21
-#, fuzzy
 msgid "Drag the balloon to find the exact location."
-msgstr "Arraste os nomes dos itens para o texto para adicionar links."
+msgstr "Arraste o balão para encontrar a localização exata."
 
 #: app/views/admin_panel/site_info.rhtml:1
 msgid "Environment settings"
@@ -8946,32 +8869,28 @@ msgid "You are here:"
 msgstr "Você está aqui:"
 
 #: app/views/maps/_google_map.js.erb:36 app/views/maps/_google_map.js.erb:87
-#, fuzzy
 msgid "Address not found, reason:"
-msgstr "Endereço não encontrado"
+msgstr "Endereço não encontrado, razão:"
 
 #: app/views/maps/_google_map.js.erb:51
-#, fuzzy
 msgid "Invalid address"
-msgstr "Endereço Ip"
+msgstr "Endereço inválido"
 
 #: app/views/maps/_google_map.js.erb:53
-#, fuzzy
 msgid "Request denied"
-msgstr "Acesso negado"
+msgstr "Requisição negada"
 
 #: app/views/maps/_google_map.js.erb:55
 msgid "Over query limit"
-msgstr ""
+msgstr "Acima do limite da busca"
 
 #: app/views/maps/_google_map.js.erb:57
-#, fuzzy
 msgid "Address do not exist"
-msgstr "Endereço não pôde ser salvo"
+msgstr "O endereço não existe"
 
 #: app/views/maps/_google_map.js.erb:244
 msgid "Localize before save"
-msgstr ""
+msgstr "Localizar antes de salvar"
 
 #: app/views/shared/reported_versions/_article.html.erb:5
 #: app/views/shared/reported_versions/_comment.html.erb:5
@@ -9628,7 +9547,7 @@ msgstr " validação falhou"
 
 #: plugins/stoa/lib/stoa_plugin/usp_user.rb:-
 msgid "pessoa"
-msgstr ""
+msgstr "pessoa"
 
 #: plugins/stoa/lib/stoa_plugin/usp_user.rb:-
 msgid "stoaplugin::uspuser"
@@ -10220,9 +10139,8 @@ msgstr ""
 "para esse bsc ou para artigos dentro dele. Você realmente deseja mudar?"
 
 #: config/initializers/action_tracker.rb:8
-#, fuzzy
 msgid "published an article: %{title}"
-msgstr "publicou 1 artigo: %{title}"
+msgstr "publicou um artigo: %{title}"
 
 #: config/initializers/action_tracker.rb:12
 msgid "has made 1 new friend:<br />%{name}"
@@ -10241,12 +10159,11 @@ msgid "has joined the community."
 msgstr "entrou na comunidade."
 
 #: config/initializers/action_tracker.rb:26
-#, fuzzy
 msgid "uploaded 1 image<br />%{thumbnails}<br style=\"clear: both;\" />"
 msgid_plural ""
 "uploaded %{num} images<br />%{thumbnails}<br style=\"clear: both;\" />"
-msgstr[0] "adicionou 1 nova imagem:<br />%{thumbnails}<br />%{details}"
-msgstr[1] "adicionou %{num} novas imagens:<br />%{thumbnails}<br />%{details}"
+msgstr[0] "adicionou 1 imagem:<br />%{thumbnails}<br style=\"clear: both;\" />"
+msgstr[1] "adicionou %{num} imagens:<br />%{thumbnails}<br style=\"clear: both;\" />"
 
 #: config/initializers/action_tracker.rb:31
 msgid "sent a message to %{receiver}: <br /> \"%{message}\""
