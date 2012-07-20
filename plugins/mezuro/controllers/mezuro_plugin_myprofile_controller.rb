@@ -84,16 +84,14 @@ class MezuroPluginMyprofileController < ProfileController
     @configuration_content = profile.articles.find(params[:id])
     @metric_name = params[:metric_name]
     @beginning_id = params[:beginning_id]
-    
     metric_configuration = Kalibro::MetricConfiguration.find_by_configuration_name_and_metric_name(@configuration_content.name, @metric_name)
-    @range = metric_configuration.ranges.find{ |range| range.beginning == @beginning_id.to_f }
+    @range = metric_configuration.ranges.find{|range| range.beginning == @beginning_id.to_f || ( @beginning_id =="-Infinity" && range.beginning == -1.0/0.0) }
   end
 
   def create_range
     @configuration_content = profile.articles.find(params[:id])
     @range = Kalibro::Range.new params[:range]
     metric_name = params[:metric_name]
-    beginning_id = params[:beginning_id]
     metric_configuration = Kalibro::MetricConfiguration.find_by_configuration_name_and_metric_name(@configuration_content.name, metric_name)   
     metric_configuration.add_range(@range)
     metric_configuration.save
