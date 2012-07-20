@@ -72,9 +72,13 @@ class MezuroPluginProfileControllerTest < ActionController::TestCase
 
   should 'get module result without date' do
     date_with_milliseconds = Kalibro::ProjectResult.date_with_milliseconds(@project_result.date)
-    Kalibro::ProjectResult.expects(:request).with("ProjectResult", :get_last_result_of, {:project_name => @project.name}).returns({:project_result => @project_result.to_hash})
-    Kalibro::ModuleResult.expects(:request).with("ModuleResult", :get_module_result, {:project_name => @project.name, :module_name => @project.name, :date => date_with_milliseconds}).returns({:module_result => @module_result.to_hash})
-    get :module_result, :profile => @profile.identifier, :id => @content.id, :module_name => @name, :date => nil
+    Kalibro::ProjectResult.expects(:request).
+      with("ProjectResult", :get_last_result_of, {:project_name => @project.name}).
+      returns({:project_result => @project_result.to_hash})
+    Kalibro::ModuleResult.expects(:request).
+      with("ModuleResult", :get_module_result, {:project_name => @project.name, :module_name => @project.name, :date => date_with_milliseconds}).
+      returns({:module_result => @module_result.to_hash})
+    get :module_result, :profile => @profile.identifier, :id => @content.id, :module_name => @project.name, :date => nil
     assert_equal @content, assigns(:content)
     assert_equal @module_result.grade, assigns(:module_result).grade
     assert_response 200
@@ -96,6 +100,7 @@ class MezuroPluginProfileControllerTest < ActionController::TestCase
 
   should 'test project tree without date' do
     Kalibro::ProjectResult.expects(:request).with("ProjectResult", :get_last_result_of, {:project_name => @project.name}).returns({:project_result => @project_result.to_hash})
+    Kalibro::Project.expects(:request).with("Project", :get_project, :project_name => @project.name).returns({:project => @project.to_hash})
   	get :project_tree, :profile => @profile.identifier, :id => @content.id, :module_name => @project.name, :date => nil
     assert_equal @content, assigns(:content)
     assert_equal @project.name, assigns(:project_name)
@@ -106,6 +111,7 @@ class MezuroPluginProfileControllerTest < ActionController::TestCase
 
   should 'test project tree with a specific date' do
     request_body = {:project_name => @project.name, :date => @project_result.date}
+    Kalibro::Project.expects(:request).with("Project", :get_project, :project_name => @project.name).returns({:project => @project.to_hash})
     Kalibro::ProjectResult.expects(:request).with("ProjectResult", :has_results_before, request_body).returns({:has_results => true})
     Kalibro::ProjectResult.expects(:request).with("ProjectResult", :get_last_result_before, request_body).returns({:project_result => @project_result.to_hash})
     get :project_tree, :profile => @profile.identifier, :id => @content.id, :module_name => @project.name, :date => @project_result.date

@@ -57,7 +57,18 @@ class ProjectTest < ActiveSupport::TestCase
   end
 
   should 'create project' do
-    assert Kalibro::Project.create @project_content
+    project_hash = Kalibro::Project.new({
+      :name => @project_content.name,
+      :license => @project_content.license,
+      :description => @project_content.description,
+      :repository => {
+        :type => @project_content.repository_type,
+        :address => @project_content.repository_url
+      },
+      :configuration_name => @project_content.configuration_name
+    }).to_hash
+    Kalibro::Project.expects(:request).with("Project", :save_project, {:project => project_hash})
+    Kalibro::Project.create @project_content
   end
 
   should 'convert project to hash' do
