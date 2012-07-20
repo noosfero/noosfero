@@ -18,13 +18,14 @@ namespace :solr do
   task :download do
     abort 'Solr already downloaded.' if solr_downloaded?
 
-    Dir.chdir '/tmp' do
+    tmpdir = [ '/var/tmp', '/tmp' ].find { |d| File.exists?(d) }
+    Dir.chdir tmpdir do
       sh "wget -c #{SOLR_URL}"
 
-      sh "echo \"#{SOLR_MD5SUM}  /tmp/#{SOLR_FILENAME}\" | md5sum -c -" do |ok, res|
+      sh "echo \"#{SOLR_MD5SUM}  #{SOLR_FILENAME}\" | md5sum -c -" do |ok, res|
         abort "MD5SUM do not match" if !ok
 
-        sh "tar xzf apache-solr-#{SOLR_VERSION}.tgz"
+        sh "tar xzf #{SOLR_FILENAME}"
         cd "apache-solr-#{SOLR_VERSION}/example"
 
         cp_r ['../LICENSE.txt', '../NOTICE.txt', 'README.txt', 'etc', 'lib', 'start.jar', 'webapps', 'work'], "#{PLUGIN_ROOT}/solr", :verbose => true
