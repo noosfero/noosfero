@@ -73,6 +73,7 @@ class Domain < ActiveRecord::Base
   # requires restarting the application.
   def self.hosting_profile_at(domainname)
     return false unless domainname
+    Noosfero::MultiTenancy.setup!(domainname)
     @hosting[domainname] ||=
       begin
         domain = Domain.find_by_name(domainname)
