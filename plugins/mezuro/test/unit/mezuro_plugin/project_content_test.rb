@@ -83,7 +83,8 @@ class ProjectContentTest < ActiveSupport::TestCase
 
   should 'send correct project to service' do
     Kalibro::Project.expects(:create).with(@content).returns(true)
-    Kalibro::Kalibro.expects(:process_project).with(@content.name, @content.periodicity_in_days)
+    Kalibro::Project.expects(:find_by_name).with(@content.name).returns(@project)
+    @project.expects(:process_project).with(@content.periodicity_in_days)
     @content.send :send_project_to_service
   end
 

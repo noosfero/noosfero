@@ -67,5 +67,25 @@ class ProjectTest < ActiveSupport::TestCase
     assert_equal @hash[:repository], hash[:repository]
     assert_equal @hash[:state], hash[:state]
   end
+  
+  should 'process project without days' do
+    @project.expects(:request).with('Kalibro', :process_project, {:project_name => @project.name})
+    @project.process_project
+  end
+
+  should 'process project with days' do
+    @project.expects(:request).with('Kalibro', :process_periodically, {:project_name => @project.name, :period_in_days => "1"})
+    @project.process_project "1"
+  end
+
+  should 'process period' do
+    @project.expects(:request).with('Kalibro', :get_process_period,  {:project_name => @project.name}).returns({:period => "1"})
+    assert_equal "1", @project.process_period
+  end
+  
+  should 'cancel periodic process' do
+    @project.expects(:request).with("Kalibro", :cancel_periodic_process, {:project_name => @project.name})
+    @project.cancel_periodic_process
+  end
 
 end

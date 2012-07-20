@@ -17,4 +17,10 @@ class RepositoryTest < ActiveSupport::TestCase
     assert_equal @hash, @repository.to_hash
   end
 
+  should 'get supported repository types' do
+    types = ['BAZAAR', 'GIT', 'SUBVERSION']
+    Kalibro::Repository.expects(:request).with('Kalibro', :get_supported_repository_types).returns({:repository_type => types})
+    assert_equal types, Kalibro::Repository.repository_types
+  end
+
 end

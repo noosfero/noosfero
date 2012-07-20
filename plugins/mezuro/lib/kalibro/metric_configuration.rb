@@ -7,8 +7,7 @@ class Kalibro::MetricConfiguration < Kalibro::Model
 
   def metric=(value)
     if value.kind_of?(Hash)
-      @metric = Kalibro::NativeMetric.to_object(value) if value.has_key?(:origin)
-      @metric = Kalibro::CompoundMetric.to_object(value) if value.has_key?(:script)
+      @metric = native?(value) ? Kalibro::NativeMetric.to_object(value) : Kalibro::CompoundMetric.to_object(value) 
     else
       @metric = value
     end
@@ -66,11 +65,11 @@ class Kalibro::MetricConfiguration < Kalibro::Model
         :metric_name=> metric.name
       })
   end
-  
+
   def to_hash
     hash = Hash.new
     fields.each do |field|
-      if !(field == :configuration_name)
+      if (field != :configuration_name)
         field_value = send(field)
         hash[field] = convert_to_hash(field_value)
         if field_value.is_a?(Kalibro::Model)
@@ -82,6 +81,12 @@ class Kalibro::MetricConfiguration < Kalibro::Model
       end
     end
     hash
+  end
+
+  private
+  
+  def native?(value)
+    value.has_key?(:origin) ? true : false
   end
 
 end

@@ -80,11 +80,10 @@ Kalibro::ProjectResult.first_result_after(name, date)
   def send_project_to_service
     begin
       Kalibro::Project.create(self)
-      Kalibro::Kalibro.process_project(name, periodicity_in_days)
+      project.process_project(periodicity_in_days)
     rescue Exception => error
       errors.add_to_base(error.message)
     end
-
   end
 
   def destroy_project_from_service
