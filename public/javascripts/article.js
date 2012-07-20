@@ -134,7 +134,7 @@ jQuery(function($) {
   }
 
   $('#media-search-button').click(function() {
-    var query = '*' + $('#media-search-query').val() + '*';
+    var query = $('#media-search-query').val();
     var $button = $(this);
     $('#media-search-box .header').toggleClass('icon-loading');
     $.get($(this).parent().attr('action'), { 'q': query }, function(data) {
