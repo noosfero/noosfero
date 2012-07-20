@@ -75,7 +75,7 @@ body, th, td, input {
 #user {
   text-align: right;
   position: absolute;
-  right: 20px;
+  right: 10px;
   z-index: 10;
 }
 
