@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
 
-  before_filter :change_pg_schema
+  before_filter :setup_multitenancy
 
   include ApplicationHelper
   layout :get_layout
@@ -67,10 +67,8 @@ class ApplicationController < ActionController::Base
 
   protected
 
-  def change_pg_schema
-    if Noosfero::MultiTenancy.on? and ActiveRecord::Base.postgresql?
-      Noosfero::MultiTenancy.db_by_host = request.host
-    end
+  def setup_multitenancy
+    Noosfero::MultiTenancy.setup!(request.host)
   end
 
   def boxes_editor?
