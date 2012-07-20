@@ -3,17 +3,15 @@ class ProfileController < PublicController
   needs_profile
   before_filter :check_access_to_profile, :except => [:join, :join_not_logged, :index, :add]
   before_filter :store_location, :only => [:join, :join_not_logged, :report_abuse]
-  before_filter :login_required, :only => [:add, :join, :join_not_logged, :leave, :unblock, :leave_scrap, :remove_scrap, :remove_activity, :view_more_scraps, :view_more_activities, :view_more_network_activities, :report_abuse, :register_report]
+  before_filter :login_required, :only => [:add, :join, :join_not_logged, :leave, :unblock, :leave_scrap, :remove_scrap, :remove_activity, :view_more_activities, :view_more_network_activities, :report_abuse, :register_report, :leave_comment_on_activity]
 
   helper TagsHelper
 
   def index
-    @activities = @profile.tracked_actions.paginate(:per_page => 30, :page => params[:page])
-    @wall_items = []
-    @network_activities = !@profile.is_a?(Person) ? @profile.tracked_notifications.paginate(:per_page => 30, :page => params[:page]) : []
+    @network_activities = !@profile.is_a?(Person) ? @profile.tracked_notifications.visible.paginate(:per_page => 15, :page => params[:page]) : []
     if logged_in? && current_person.follows?(@profile)
-      @network_activities = @profile.tracked_notifications.paginate(:per_page => 30, :page => params[:page]) if @network_activities.empty?
-      @wall_items = @profile.scraps_received.not_replies.paginate(:per_page => 30, :page => params[:page])
+      @network_activities = @profile.tracked_notifications.visible.paginate(:per_page => 15, :page => params[:page]) if @network_activities.empty?
+      @activities = @profile.activities.paginate(:per_page => 15, :page => params[:page])
     end
     @tags = profile.article_tags
     unless profile.display_info_to?(user)
@@ -180,22 +178,33 @@ class ProfileController < PublicController
     @scrap.receiver= receiver
     @tab_action = params[:tab_action]
     @message = @scrap.save ? _("Message successfully sent.") : _("You can't leave an empty message.")
-    @scraps = @profile.scraps_received.not_replies.paginate(:per_page => 30, :page => params[:page]) if params[:not_load_scraps].nil?
-    render :partial => 'leave_scrap'
+    activities = @profile.activities.paginate(:per_page => 15, :page => params[:page]) if params[:not_load_scraps].nil?
+    render :partial => 'profile_activities_list', :locals => {:activities => activities}
   end
 
-  def view_more_scraps
-    @scraps = @profile.scraps_received.not_replies.paginate(:per_page => 30, :page => params[:page])
-    render :partial => 'profile_scraps', :locals => {:scraps => @scraps}
+  def leave_comment_on_activity
+    @comment = Comment.new(params[:comment])
+    @comment.author = user
+    @activity = ActionTracker::Record.find(params[:source_id])
+    @comment.source_type, @comment.source_id = (@activity.target_type == 'Article' ? ['Article', @activity.target_id] : [@activity.class.to_s, @activity.id])
+    @tab_action = params[:tab_action]
+    @message = @comment.save ? _("Comment successfully added.") : _("You can't leave an empty comment.")
+    if @tab_action == 'wall'
+      activities = @profile.activities.paginate(:per_page => 15, :page => params[:page]) if params[:not_load_scraps].nil?
+      render :partial => 'profile_activities_list', :locals => {:activities => activities}
+    else
+      network_activities = @profile.tracked_notifications.visible.paginate(:per_page => 15, :page => params[:page])
+      render :partial => 'profile_network_activities', :locals => {:network_activities => network_activities}
+    end
   end
 
   def view_more_activities
-    @activities = @profile.tracked_actions.paginate(:per_page => 30, :page => params[:page])
-    render :partial => 'profile_activities', :locals => {:activities => @activities}
+    @activities = @profile.activities.paginate(:per_page => 10, :page => params[:page])
+    render :partial => 'profile_activities_list', :locals => {:activities => @activities}
   end
 
   def view_more_network_activities
-    @activities = @profile.tracked_notifications.paginate(:per_page => 30, :page => params[:page]) 
+    @activities = @profile.tracked_notifications.paginate(:per_page => 10, :page => params[:page]) 
     render :partial => 'profile_network_activities', :locals => {:network_activities => @activities}
   end
 
@@ -213,7 +222,11 @@ class ProfileController < PublicController
     begin
       raise if !can_edit_profile
       activity = ActionTracker::Record.find(params[:activity_id])
-      activity.destroy
+      if params[:only_hide]
+        activity.update_attribute(:visible, false)
+      else
+        activity.destroy
+      end
       render :text => _('Activity successfully removed.')
     rescue
       render :text => _('You could not remove this activity')
@@ -283,6 +296,16 @@ class ProfileController < PublicController
         }.to_json
       end
     end
+  end
+
+  def remove_comment
+    #FIXME Check whether these permissions are enough
+    @comment = Comment.find(params[:comment_id])
+    if (user == @comment.author || user == profile || user.has_permission?(:moderate_comments, profile))
+      @comment.destroy
+      session[:notice] = _('Comment successfully deleted')
+    end
+    redirect_to :action => :index
   end
 
   protected

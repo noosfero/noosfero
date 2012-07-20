@@ -1,9 +1,9 @@
 @import url(jquery.ui.spinner/ui.spinner.css);
 
-.controller-profile_editor a.control-panel-bsc-enterprises {background-image: url(images/manage-bsc-enterprises.png)}
-.controller-profile_editor .msie6 a.control-panel-bsc-enterprises {background-image: url(images/manage-bsc-enterprises.gif)}
+.controller-profile_editor a.control-panel-bsc-enterprises {background-image: url(/plugins/bsc/images/manage-bsc-enterprises.png)}
+.controller-profile_editor .msie6 a.control-panel-bsc-enterprises {background-image: url(/plugins/bsc/images/manage-bsc-enterprises.gif)}
 
-.controller-profile_editor a.control-panel-transfer-enterprise-ownership {background-image: url(images/transfer-ownership.png)}
+.controller-profile_editor a.control-panel-transfer-enterprise-ownership {background-image: url(/plugins/bsc/images/transfer-ownership.png)}
 
 .ui-spinner-up{
   height: 6.5px !important;
@@ -23,7 +23,7 @@
 }
 
 .icon-menu-bsc {
-  background-image: url(images/manage-bsc-enterprises-icon.png);
+  background-image: url(/plugins/bsc/images/manage-bsc-enterprises-icon.png);
 }
 
 #content .token-input-list {

@@ -22,7 +22,7 @@ module Noosfero::Factory
       end
     end
     if options[:search]
-      obj.ferret_create
+      obj.solr_save
     end
     obj
   end
@@ -44,7 +44,9 @@ module Noosfero::Factory
   end
 
   def defaults_for(name)
-    send('defaults_for_' + name.to_s.underscore) || {}
+    send('defaults_for_' + name.to_s.underscore)
+  rescue
+    {}
   end
 
   def self.num_seq
@@ -372,7 +374,7 @@ module Noosfero::Factory
   ###############################################
 
   def defaults_for_scrap(params = {})
-    { :content => 'soment content ', :sender_id => 1, :receiver_id => 1, :created_at => DateTime.now }.merge(params)
+    { :content => 'some content ', :sender_id => 1, :receiver_id => 1, :created_at => DateTime.now }.merge(params)
   end
 
   ###############################################
@@ -440,7 +442,7 @@ module Noosfero::Factory
 
   def defaults_for_comment(params = {})
     name = "comment_#{rand(1000)}"
-    { :title => name, :body => "my own comment", :article_id => 1 }.merge(params)
+    { :title => name, :body => "my own comment", :source_id => 1 }.merge(params)
   end
 
   ###############################################
@@ -457,6 +459,14 @@ module Noosfero::Factory
 
   def defaults_for_production_cost
     { :name => 'Production cost ' + factory_num_seq.to_s }
+  end
+
+  ###############################################
+  # National Region
+  ###############################################
+
+  def defaults_for_national_region
+    { :name => 'National region ' + factory_num_seq.to_s }
   end
 
 end

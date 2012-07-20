@@ -98,7 +98,7 @@ class ApplicationHelperTest < ActiveSupport::TestCase
     Environment.any_instance.expects(:default_hostname).returns('example.com')
 
     result = "/cat/my-category/my-subcatagory"
-    expects(:link_to).with('category name', :controller => 'search', :action => 'category_index', :category_path => ['my-category', 'my-subcatagory'], :host => 'example.com').returns(result)
+    expects(:link_to).with('category name', {:controller => 'search', :action => 'category_index', :category_path => ['my-category', 'my-subcatagory'], :host => 'example.com'}, {}).returns(result)
     assert_same result, link_to_category(cat)
   end
 

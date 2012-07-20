@@ -39,8 +39,7 @@
           <%= select_qualifiers(@product, qualifier.id) %>
         </td>
         <td id='certifier-area-<%= index %>'>
-          <%= select_certifiers(qualifier, @product) %>
-          <%= button_to_function(:delete, content_tag('span', 'Delete qualifier'), "jQuery(this).parents('tr').remove()") %>
+          <%= select_certifiers(qualifier, @product) + remove_qualifier_button %>
         </td>
       </tr>
       <% end %>
@@ -48,9 +47,9 @@
     <%= button_to_function(
       :add,
       _('Add new qualifier'),
-      "new_qualifier_row('#product-qualifiers-list', '#{escape_javascript(select_qualifiers(@product))}')"
+      "new_qualifier_row('#product-qualifiers-list', '#{escape_javascript(select_qualifiers(@product))}', '#{escape_javascript(remove_qualifier_button)}')"
     ) %>
-    <%= hidden_field_tag "product[qualifiers_list]" %>
+    <%= hidden_field_tag "product[qualifiers_list][nil]" %>
   <% end %>
 
   <%= hidden_field_tag 'info-bar-update-url', @product.price_composition_bar_display_url, :class => 'bar-update-url' %>

@@ -1,0 +1,13 @@
+<hr />
+
+<% if activity.comments_count > 2 %>
+  <div class='view-all-comments icon-chat'>
+    <%= link_to(_("View all %s comments") % activity.comments_count, '#') %>
+  </div>
+<% end %>
+
+<ul class="profile-wall-activities-comments" style="<%= 'display:none;' if (activity.comments_count > 2) %>" >
+  <%= render :partial => 'comment', :collection => activity.comments_as_thread %>
+</ul>
+
+<%= render :partial => 'profile_comment_form', :locals => { :activity => activity, :tab_action => tab_action } %>

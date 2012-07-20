@@ -128,7 +128,7 @@ class TaskTest < ActiveSupport::TestCase
     task = Task.new
     task.requestor = sample_user
     task.save!
-    
+
     task.cancel
 
     assert_nil Task.find_by_code(task.code)
@@ -160,6 +160,9 @@ class TaskTest < ActiveSupport::TestCase
 
   should 'send notification to target just after task creation' do
     task = Task.new
+    target = Profile.new
+    target.stubs(:notification_emails).returns(['adm@example.com'])
+    task.target = target
     task.stubs(:target_notification_message).returns('some non nil message to be sent to target')
     TaskMailer.expects(:deliver_target_notification).once
     task.save!
@@ -204,7 +207,7 @@ class TaskTest < ActiveSupport::TestCase
       user.destroy
     end
   end
-  
+
   should 'not deliver notification message to target' do
     task = Task.new
     assert_raise NotImplementedError do
@@ -224,6 +227,16 @@ class TaskTest < ActiveSupport::TestCase
   should 'not notify target if message is nil' do
     task = Task.new
     task.stubs(:target_notification_message).returns(nil)
+    TaskMailer.expects(:deliver_target_notification).never
+    task.save!
+  end
+
+  should 'not notify target if notification emails is empty' do
+    task = Task.new
+    target = Profile.new
+    target.stubs(:notification_emails).returns([])
+    task.target = target
+    task.stubs(:target_notification_message).returns('some non nil message to be sent to target')
     TaskMailer.expects(:deliver_target_notification).never
     task.save!
   end
@@ -266,6 +279,9 @@ class TaskTest < ActiveSupport::TestCase
 
   should 'send notification message to target just after task activation' do
     task = Task.new(:status => Task::Status::HIDDEN)
+    target = Profile.new
+    target.stubs(:notification_emails).returns(['target@example.com'])
+    task.target = target
     task.save!
     task.stubs(:target_notification_message).returns('some non nil message to be sent to target')
     TaskMailer.expects(:deliver_target_notification).once

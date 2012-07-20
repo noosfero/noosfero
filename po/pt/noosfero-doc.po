@@ -6887,11 +6887,6 @@ msgstr "Editar cabeçalho e rodapé no controle de painel do usuário"
 # type: Content of: <ol><li><ul><li><ul><li>
 #. type: Content of: <ol><li><ol><li><ol><li>
 #: doc/noosfero/user/editing-header-footer.en.xhtml:32
-#| msgid ""
-#| "<strong>Underline:</strong> it is also used to emphasize a word/phrase. "
-#| "One line is drawn under the word. Example: <span style=\"text-decoration:"
-#| "underline;\">home</span> . To use it, first you should select the word/"
-#| "phrase and then click on button"
 msgid ""
 "<strong>Underline:</strong> it is also used to emphasize a word/phrase. One "
 "line is drawn under the word. Example: <span style=\"text-decoration: "
@@ -7331,11 +7326,6 @@ msgstr "Alterar imagem na edição de perfil de pessoa"
 # type: Content of: <ol><li>
 #. type: Content of: <ol><li><ol><li>
 #: doc/noosfero/user/editing-person-info.en.xhtml:20
-#| msgid ""
-#| "<strong>Privacy options:</strong> Choose if enterprise profile will be "
-#| "public or private. When an enterprise is private, the users that are not "
-#| "friends and tries to view the enterprise&#8217;s profile or its contents "
-#| "will be redirected to a page that show only general information."
 msgid ""
 "<strong>Privacy options:</strong> Choose if your profile will be public or "
 "private. When a profile is private, the users that are not friends and that "

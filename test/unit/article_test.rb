@@ -5,6 +5,7 @@ class ArticleTest < ActiveSupport::TestCase
   fixtures :environments
 
   def setup
+    ActiveSupport::TestCase::setup
     @profile = create_user('testing').person
   end
   attr_reader :profile
@@ -147,8 +148,6 @@ class ArticleTest < ActiveSupport::TestCase
   should 'search for recent documents' do
     other_profile = create_user('otherpropfile').person
 
-    Article.destroy_all
-
     first = fast_create(TextArticle, :profile_id => profile.id, :name => 'first')
     second = fast_create(TextArticle, :profile_id => profile.id, :name => 'second')
     third = fast_create(TextArticle, :profile_id => profile.id, :name => 'third')
@@ -156,7 +155,7 @@ class ArticleTest < ActiveSupport::TestCase
     fifth = fast_create(TextArticle, :profile_id => profile.id, :name => 'fifth')
 
     other_first = other_profile.articles.build(:name => 'first'); other_first.save!
-    
+
     assert_equal [other_first, fifth, fourth], Article.recent(3)
     assert_equal [other_first, fifth, fourth, third, second, first], Article.recent(6)
   end
@@ -289,7 +288,9 @@ class ArticleTest < ActiveSupport::TestCase
 
   should 'associate with categories' do
     env = Environment.default
-    c1 = env.categories.build(:name => "test category 1"); c1.save!
+    parent_cat = env.categories.build(:name => "parent category")
+    parent_cat.save!
+    c1 = env.categories.build(:name => "test category 1", :parent_id => parent_cat.id); c1.save!
     c2 = env.categories.build(:name => "test category 2"); c2.save!
 
     article = profile.articles.build(:name => 'withcategories')
@@ -299,6 +300,7 @@ class ArticleTest < ActiveSupport::TestCase
     article.add_category c2
 
     assert_equivalent [c1,c2], article.categories(true)
+    assert_equivalent [c1, parent_cat, c2], article.categories_including_virtual(true)
   end
 
   should 'remove comments when removing article' do
@@ -320,15 +322,16 @@ class ArticleTest < ActiveSupport::TestCase
 
   should 'list most commented articles' do
     Article.delete_all
+    (1..4).each do |n|
+      create(TextileArticle, :name => "art #{n}", :profile_id => profile.id)
+    end
+    first_article = profile.articles.first
+    2.times { Comment.create(:title => 'test', :body => 'asdsad', :author => profile, :source => first_article).save! }
 
-    person = create_user('testuser').person
-    articles = (1..4).map {|n| a = person.articles.build(:name => "art #{n}"); a.save!; a }
-
-    2.times { articles[0].comments.build(:title => 'test', :body => 'asdsad', :author => person).save! }
-    4.times { articles[1].comments.build(:title => 'test', :body => 'asdsad', :author => person).save! }
-
+    last_article = profile.articles.last
+    4.times { Comment.create(:title => 'test', :body => 'asdsad', :author => profile, :source => last_article).save! }
     # should respect the order (more commented comes first)
-    assert_equal [articles[1], articles[0]], person.articles.most_commented(2)
+    assert_equal [last_article, first_article], profile.articles.most_commented(2)
   end
 
   should 'identify itself as a non-folder' do
@@ -356,24 +359,26 @@ class ArticleTest < ActiveSupport::TestCase
 
   should 'reindex when comments are changed' do
     a = Article.new
-    a.expects(:ferret_update)
+    a.expects(:solr_save)
     a.comments_updated
   end
 
   should 'index comments title together with article' do
+    TestSolr.enable
     owner = create_user('testuser').person
-    art = owner.articles.build(:name => 'ytest'); art.save!
-    c1 = art.comments.build(:title => 'a nice comment', :body => 'anything', :author => owner); c1.save!
+    art = fast_create(TinyMceArticle, :profile_id => owner.id, :name => 'ytest')
+    c1 = Comment.create(:title => 'a nice comment', :body => 'anything', :author => owner, :source => art ); c1.save!
 
-    assert_includes Article.find_by_contents('nice'), art
+    assert_includes Article.find_by_contents('nice')[:results], art
   end
 
   should 'index comments body together with article' do
+    TestSolr.enable
     owner = create_user('testuser').person
-    art = owner.articles.build(:name => 'ytest'); art.save!
-    c1 = art.comments.build(:title => 'test comment', :body => 'anything', :author => owner); c1.save!
+    art = fast_create(TinyMceArticle, :profile_id => owner.id, :name => 'ytest')
+    c1 = Comment.create(:title => 'test comment', :body => 'anything', :author => owner, :source => art); c1.save!
 
-    assert_includes Article.find_by_contents('anything'), art
+    assert_includes Article.find_by_contents('anything')[:results], art
   end
 
   should 'cache children count' do
@@ -407,6 +412,9 @@ class ArticleTest < ActiveSupport::TestCase
     assert_includes c3.articles(true), art
     assert_includes c2.articles(true), art
     assert_includes c1.articles(true), art
+
+    assert_includes art.categories_including_virtual(true), c2
+    assert_includes art.categories_including_virtual(true), c1
   end
 
   should 'redefine the entire category set at once' do
@@ -422,26 +430,31 @@ class ArticleTest < ActiveSupport::TestCase
     art.category_ids = [c2,c3].map(&:id)
 
     assert_equivalent [c2, c3], art.categories(true)
+    assert_includes art.categories_including_virtual(true), c1
+    assert !art.categories_including_virtual(true).include?(c4)
   end
 
   should 'be able to create an article already with categories' do
-    c1 = fast_create(Category, :environment_id => Environment.default.id, :name => 'c1')
+    parent1 = fast_create(Category, :environment_id => Environment.default.id, :name => 'parent1')
+    c1 = fast_create(Category, :environment_id => Environment.default.id, :name => 'c1', :parent_id => parent1.id)
     c2 = fast_create(Category, :environment_id => Environment.default.id, :name => 'c2')
 
     p = create_user('testinguser').person
     a = p.articles.create!(:name => 'test', :category_ids => [c1.id, c2.id])
 
     assert_equivalent [c1, c2], a.categories(true)
+    assert_includes a.categories_including_virtual(true), parent1
   end
 
   should 'not add a category twice to article' do
     c1 = fast_create(Category, :environment_id => Environment.default.id, :name => 'c1')
-    c2 = c1.children.create!(:environment => Environment.default, :name => 'c2')
-    c3 = c1.children.create!(:environment => Environment.default, :name => 'c3')
+    c2 = c1.children.create!(:environment => Environment.default, :name => 'c2', :parent_id => c1.id)
+    c3 = c1.children.create!(:environment => Environment.default, :name => 'c3', :parent_id => c1.id)
     owner = create_user('testuser').person
     art = owner.articles.create!(:name => 'ytest')
     art.category_ids = [c2,c3,c3].map(&:id)
     assert_equal [c2, c3], art.categories(true)
+    assert_equal [c2, c1, c3], art.categories_including_virtual(true)
   end
 
   should 'not accept Product category as category' do
@@ -458,8 +471,8 @@ class ArticleTest < ActiveSupport::TestCase
     article = fast_create(Article, :name => 'test article', :profile_id => profile.id, :published => false)
 
     assert !article.display_to?(nil)
-  end 
-  
+  end
+
   should 'say that not member of profile cannot see private article' do
     profile = fast_create(Profile, :name => 'test profile', :identifier => 'test_profile')
     article = fast_create(Article, :name => 'test article', :profile_id => profile.id, :published => false)
@@ -467,7 +480,7 @@ class ArticleTest < ActiveSupport::TestCase
 
     assert !article.display_to?(person)
   end
-  
+
   should 'say that member user can not see private article' do
     profile = fast_create(Profile, :name => 'test profile', :identifier => 'test_profile')
     article = fast_create(Article, :name => 'test article', :profile_id => profile.id, :published => false)
@@ -552,7 +565,7 @@ class ArticleTest < ActiveSupport::TestCase
     person = create_user('test_user').person
     a = person.articles.create!(:name => 'test article', :body => 'some text')
     b = a.copy(:parent => a, :profile => a.profile)
-    
+
     assert_includes a.children, b
     assert_equal 'some text', b.body
   end
@@ -751,9 +764,14 @@ class ArticleTest < ActiveSupport::TestCase
 
   should 'ignore category with zero as id' do
     a = profile.articles.create!(:name => 'a test article')
-    c = fast_create(Category, :name => 'test category', :environment_id => profile.environment.id)
+    c = fast_create(Category, :name => 'test category', :environment_id => profile.environment.id, :parent_id => 0)
     a.category_ids = ['0', c.id, nil]
     assert a.save
+    assert_equal [c], a.categories
+    # also ignore parent with id = 0
+    assert_equal [c], a.categories_including_virtual
+
+    a = profile.articles.find_by_name 'a test article'
     assert_equal [c], a.categories
   end
 
@@ -806,7 +824,8 @@ class ArticleTest < ActiveSupport::TestCase
 
   should 'find articles in a specific category' do
     env = Environment.default
-    category_with_articles = env.categories.create!(:name => "Category with articles")
+    parent_category = env.categories.create!(:name => "parent category")
+    category_with_articles = env.categories.create!(:name => "Category with articles", :parent_id => parent_category.id)
     category_without_articles = env.categories.create!(:name => "Category without articles")
 
     article_in_category = profile.articles.create!(:name => 'Article in category')
@@ -814,6 +833,7 @@ class ArticleTest < ActiveSupport::TestCase
     article_in_category.add_category(category_with_articles)
 
     assert_includes profile.articles.in_category(category_with_articles), article_in_category
+    assert_includes profile.articles.in_category(parent_category), article_in_category
     assert_not_includes profile.articles.in_category(category_without_articles), article_in_category
   end
 
@@ -934,79 +954,34 @@ class ArticleTest < ActiveSupport::TestCase
   end
 
   should 'track action when a published article is created outside a community' do
-    article = TinyMceArticle.create! :name => 'Tracked Article', :profile_id => profile.id
-    assert article.published?
-    assert_kind_of Person, article.profile
-    ta = ActionTracker::Record.last
-    assert_equal 'Tracked Article', ta.get_name.last
-    assert_equal article.url, ta.get_url.last
-    assert_kind_of Person, ta.user
-    ta.created_at = Time.now.ago(26.hours); ta.save!
-    article = TinyMceArticle.create! :name => 'Another Tracked Article', :profile_id => profile.id
-    ta = ActionTracker::Record.last
-    assert_equal ['Another Tracked Article'], ta.get_name
-    assert_equal [article.url], ta.get_url
+    article = create(TinyMceArticle, :profile_id => profile.id)
+    ta = article.activity
+    assert_equal article.name, ta.get_name
+    assert_equal article.url, ta.get_url
   end
 
   should 'track action when a published article is created in a community' do
     community = fast_create(Community)
-    p1 = ActionTracker::Record.current_user_from_model 
+    p1 = fast_create(Person)
     p2 = fast_create(Person)
     p3 = fast_create(Person)
     community.add_member(p1)
     community.add_member(p2)
-    assert p1.is_member_of?(community)
-    assert p2.is_member_of?(community)
-    assert !p3.is_member_of?(community)
-    Article.destroy_all
-    ActionTracker::Record.destroy_all
-    article = TinyMceArticle.create! :name => 'Tracked Article', :profile_id => community.id
-    assert article.published?
-    assert_kind_of Community, article.profile
-    ta = ActionTracker::Record.last
-    assert_equal 'Tracked Article', ta.get_name.last
-    assert_equal article.url, ta.get_url.last
-    assert_kind_of Person, ta.user
+    UserStampSweeper.any_instance.expects(:current_user).returns(p1).at_least_once
+
+    article = create(TinyMceArticle, :profile_id => community.id)
+    activity = article.activity
+
     process_delayed_job_queue
-    assert_equal 3, ActionTrackerNotification.count
-    ActionTrackerNotification.all.map{|a|a.profile}.map do |profile|
-      assert [p1,p2,community].include?(profile)
+    assert_equal 3, ActionTrackerNotification.find_all_by_action_tracker_id(activity.id).count
+    assert_equivalent [p1,p2,community], ActionTrackerNotification.find_all_by_action_tracker_id(activity.id).map(&:profile)
+  end
+
+  should 'not track action when a published article is removed' do
+    a = create(TinyMceArticle, :profile_id => profile.id)
+    assert_no_difference ActionTracker::Record, :count do
+      a.destroy
     end
-  end
-
-  should 'track action when a published article is updated' do
-    a = TinyMceArticle.create! :name => 'a', :profile_id => profile.id
-    a.update_attributes! :name => 'b'
-    ta = ActionTracker::Record.last
-    assert_equal ['b'], ta.get_name
-    assert_equal [a.reload.url], ta.get_url
-    a.update_attributes! :name => 'c'
-    ta = ActionTracker::Record.last
-    assert_equal ['b','c'], ta.get_name
-    assert_equal [a.url,a.reload.url], ta.get_url
-    a.update_attributes! :body => 'test'
-    ta = ActionTracker::Record.last
-    assert_equal ['b','c','c'], ta.get_name
-    assert_equal [a.url,a.reload.url,a.reload.url], ta.get_url
-    a.update_attributes! :hits => 50
-    ta = ActionTracker::Record.last
-    assert_equal ['b','c','c'], ta.get_name
-    assert_equal [a.url,a.reload.url,a.reload.url], ta.get_url
-  end
-
-  should 'track action when a published article is removed' do
-    a = TinyMceArticle.create! :name => 'a', :profile_id => profile.id
-    a.destroy
-    ta = ActionTracker::Record.last
-    assert_equal ['a'], ta.get_name
-    a = TinyMceArticle.create! :name => 'b', :profile_id => profile.id
-    a.destroy
-    ta = ActionTracker::Record.last
-    assert_equal ['a','b'], ta.get_name
-    a = TinyMceArticle.create! :name => 'c', :profile_id => profile.id, :published => false
-    a.destroy
-    ta = ActionTracker::Record.last
-    assert_equal ['a','b'], ta.get_name
   end
 
   should 'notifiable is false by default' do
@@ -1035,6 +1010,15 @@ class ArticleTest < ActiveSupport::TestCase
     assert_equal 0, ActionTracker::Record.count
   end
 
+  should 'create activity' do
+    a = TextileArticle.create! :name => 'bar', :profile_id => fast_create(Profile).id, :published => true
+    a.activity.destroy
+    assert_nil a.activity
+
+    a.create_activity
+    assert_not_nil a.activity
+  end
+
   should "the action_tracker_target method be defined" do
     assert Article.method_defined?(:action_tracker_target)
   end
@@ -1060,7 +1044,7 @@ class ArticleTest < ActiveSupport::TestCase
     assert_equal false, a.notifiable?
     assert_equal true, a.advertise?
     assert_equal false, a.is_trackable?
-   
+
     a.published=false
     assert_equal false, a.published?
     assert_equal false, a.is_trackable?
@@ -1071,141 +1055,64 @@ class ArticleTest < ActiveSupport::TestCase
     assert_equal false, a.is_trackable?
   end
 
-  should 'not create more than one notification track action to community when update more than one artile' do
-    community = fast_create(Community)
-    p1 = Person.first || fast_create(Person)
-    community.add_member(p1)
-    assert p1.is_member_of?(community)
-    Article.destroy_all
-    ActionTracker::Record.destroy_all
-    article = TinyMceArticle.create! :name => 'Tracked Article 1', :profile_id => community.id
-    assert article.published?
-    assert_kind_of Community, article.profile
-    assert_equal 1, ActionTracker::Record.count
-    ta = ActionTracker::Record.last
-    assert_equal 'Tracked Article 1', ta.get_name.last
-    assert_equal article.url, ta.get_url.last
-    assert p1, ta.user
-    assert community, ta.target
-    process_delayed_job_queue
-    assert_equal 2, ActionTrackerNotification.count
-
-    article = TinyMceArticle.create! :name => 'Tracked Article 2', :profile_id => community.id
-    assert article.published?
-    assert_kind_of Community, article.profile
-    assert_equal 1, ActionTracker::Record.count
-    ta = ActionTracker::Record.last
-    assert_equal 'Tracked Article 2', ta.get_name.last
-    assert_equal article.url, ta.get_url.last
-    assert_equal p1, ta.user
-    assert_equal community, ta.target
-    process_delayed_job_queue
-    assert_equal 2, ActionTrackerNotification.count
+  should "not be trackable if article is inside a private community" do
+    private_community = fast_create(Community, :public_profile => false)
+    a =  fast_create(TinyMceArticle, :profile_id => private_community.id)
+    assert_equal false, a.is_trackable?
   end
 
-  should 'create the notification to the member when one member has the notification and the other no' do
+  should 'create the notification to organization and all organization members' do
     community = fast_create(Community)
-    p1 = Person.first || fast_create(Person)
-    community.add_member(p1)
-    assert p1.is_member_of?(community)
-    Article.destroy_all
-    ActionTracker::Record.destroy_all
+    member_1 = Person.first
+    community.add_member(member_1)
+
     article = TinyMceArticle.create! :name => 'Tracked Article 1', :profile_id => community.id
-    assert article.published?
-    assert_kind_of Community, article.profile
-    assert_equal 1, ActionTracker::Record.count
-    ta = ActionTracker::Record.first
-    assert_equal 'Tracked Article 1', ta.get_name.last
-    assert_equal article.url, ta.get_url.last
-    assert p1, ta.user
-    assert community, ta.target
-    process_delayed_job_queue
-    assert_equal 2, ActionTrackerNotification.count
+    first_activity = article.activity
+    assert_equal [first_activity], ActionTracker::Record.find_all_by_verb('create_article')
 
-    p2 = fast_create(Person)
-    community.add_member(p2)
     process_delayed_job_queue
-    assert_equal 5, ActionTrackerNotification.count
+    assert_equal 2, ActionTrackerNotification.find_all_by_action_tracker_id(first_activity.id).count
 
-    article = TinyMceArticle.create! :name => 'Tracked Article 2', :profile_id => community.id
-    assert article.published?
-    assert_kind_of Community, article.profile
-    assert_equal 3, ActionTracker::Record.count
-    ta = ActionTracker::Record.first
-    assert_equal 'Tracked Article 2', ta.get_name.last
-    assert_equal article.url, ta.get_url.last
-    assert_equal p1, ta.user
-    assert_equal community, ta.target
+    member_2 = fast_create(Person)
+    community.add_member(member_2)
+
+    article2 = TinyMceArticle.create! :name => 'Tracked Article 2', :profile_id => community.id
+    second_activity = article2.activity
+    assert_equivalent [first_activity, second_activity], ActionTracker::Record.find_all_by_verb('create_article')
+
     process_delayed_job_queue
-    assert_equal 6, ActionTrackerNotification.count
+    assert_equal 3, ActionTrackerNotification.find_all_by_action_tracker_id(second_activity.id).count
   end
 
-  should 'not create more than one notification track action to friends when update more than one artile' do
-    p1 = Person.first || fast_create(Person)
+  should 'create notifications to friends when creating an article' do
     friend = fast_create(Person)
-    p1.add_friend(friend)
+    profile.add_friend(friend)
     Article.destroy_all
     ActionTracker::Record.destroy_all
     ActionTrackerNotification.destroy_all
-    article = TinyMceArticle.create! :name => 'Tracked Article 1', :profile_id => p1.id
-    assert article.published?
-    assert_kind_of Person, article.profile
-    assert_equal 1, ActionTracker::Record.count
-    ta = ActionTracker::Record.last
-    assert_equal 'Tracked Article 1', ta.get_name.last
-    assert_equal article.url, ta.get_url.last
-    assert p1, ta.user
-    assert p1, ta.target
-    process_delayed_job_queue
-    assert_equal 2, ActionTrackerNotification.count
+    UserStampSweeper.any_instance.expects(:current_user).returns(profile).at_least_once
+    article = create(TinyMceArticle, :profile_id => profile.id)
 
-    article = TinyMceArticle.create! :name => 'Tracked Article 2', :profile_id => p1.id
-    assert article.published?
-    assert_kind_of Person, article.profile
-    assert_equal 1, ActionTracker::Record.count
-    ta = ActionTracker::Record.last
-    assert_equal 'Tracked Article 2', ta.get_name.last
-    assert_equal article.url, ta.get_url.last
-    assert_equal p1, ta.user
-    assert_equal p1, ta.target
     process_delayed_job_queue
-    assert_equal 2, ActionTrackerNotification.count
+    assert_equal friend, ActionTrackerNotification.last.profile
   end
 
   should 'create the notification to the friend when one friend has the notification and the other no' do
-    p1 = Person.first || fast_create(Person)
     f1 = fast_create(Person)
-    p1.add_friend(f1)
-    Article.destroy_all
-    ActionTracker::Record.destroy_all
-    ActionTrackerNotification.destroy_all
-    article = TinyMceArticle.create! :name => 'Tracked Article 1', :profile_id => p1.id
-    assert article.published?
-    assert_kind_of Person, article.profile
-    assert_equal 1, ActionTracker::Record.count
-    ta = ActionTracker::Record.first
-    assert_equal 'Tracked Article 1', ta.get_name.last
-    assert_equal article.url, ta.get_url.last
-    assert p1, ta.user
-    assert p1, ta.target
+    profile.add_friend(f1)
+
+    UserStampSweeper.any_instance.expects(:current_user).returns(profile).at_least_once
+    article = TinyMceArticle.create! :name => 'Tracked Article 1', :profile_id => profile.id
+    assert_equal 1, ActionTracker::Record.find_all_by_verb('create_article').count
     process_delayed_job_queue
-    assert_equal 2, ActionTrackerNotification.count
+    assert_equal 2, ActionTrackerNotification.find_all_by_action_tracker_id(article.activity.id).count
 
     f2 = fast_create(Person)
-    p1.add_friend(f2)
+    profile.add_friend(f2)
+    article2 = TinyMceArticle.create! :name => 'Tracked Article 2', :profile_id => profile.id
+    assert_equal 2, ActionTracker::Record.find_all_by_verb('create_article').count
     process_delayed_job_queue
-    assert_equal 5, ActionTrackerNotification.count
-    article = TinyMceArticle.create! :name => 'Tracked Article 2', :profile_id => p1.id
-    assert article.published?
-    assert_kind_of Person, article.profile
-    assert_equal 2, ActionTracker::Record.count
-    ta = ActionTracker::Record.first
-    assert_equal 'Tracked Article 2', ta.get_name.last
-    assert_equal article.url, ta.get_url.last
-    assert_equal p1, ta.user
-    assert_equal p1, ta.target
-    process_delayed_job_queue
-    assert_equal 6, ActionTrackerNotification.count
+    assert_equal 3, ActionTrackerNotification.find_all_by_action_tracker_id(article2.activity.id).count
   end
 
   should 'found articles with published date between a range' do
@@ -1506,26 +1413,28 @@ class ArticleTest < ActiveSupport::TestCase
   end
 
   should 'index by schema name when database is postgresql' do
+    TestSolr.enable
     uses_postgresql 'schema_one'
     art1 = Article.create!(:name => 'some thing', :profile_id => @profile.id)
-    assert_equal Article.find_by_contents('thing'), [art1]
+    assert_equal [art1], Article.find_by_contents('thing')[:results].docs
     uses_postgresql 'schema_two'
     art2 = Article.create!(:name => 'another thing', :profile_id => @profile.id)
-    assert_not_includes Article.find_by_contents('thing'), art1
-    assert_includes Article.find_by_contents('thing'), art2
+    assert_not_includes Article.find_by_contents('thing')[:results], art1
+    assert_includes Article.find_by_contents('thing')[:results], art2
     uses_postgresql 'schema_one'
-    assert_includes Article.find_by_contents('thing'), art1
-    assert_not_includes Article.find_by_contents('thing'), art2
+    assert_includes Article.find_by_contents('thing')[:results], art1
+    assert_not_includes Article.find_by_contents('thing')[:results], art2
     uses_sqlite
   end
 
   should 'not index by schema name when database is not postgresql' do
+    TestSolr.enable
     uses_sqlite
     art1 = Article.create!(:name => 'some thing', :profile_id => @profile.id)
-    assert_equal Article.find_by_contents('thing'), [art1]
+    assert_equal [art1], Article.find_by_contents('thing')[:results].docs
     art2 = Article.create!(:name => 'another thing', :profile_id => @profile.id)
-    assert_includes Article.find_by_contents('thing'), art1
-    assert_includes Article.find_by_contents('thing'), art2
+    assert_includes Article.find_by_contents('thing')[:results], art1
+    assert_includes Article.find_by_contents('thing')[:results], art2
   end
 
   should 'get images paths in article body' do
@@ -1558,9 +1467,10 @@ class ArticleTest < ActiveSupport::TestCase
   end
 
   should 'survive to a invalid src attribute while looking for images in body' do
+    domain = Environment.default.domains.first || Domain.new(:name => 'localhost')
     article = Article.new(:body => "An article with invalid src in img tag <img src='path with spaces.png' />", :profile => @profile)
     assert_nothing_raised URI::InvalidURIError do
-      assert_equal ['http://localhost/path%20with%20spaces.png'], article.body_images_paths
+      assert_equal ["http://#{profile.environment.default_hostname}/path%20with%20spaces.png"], article.body_images_paths
     end
   end
 
@@ -1638,6 +1548,130 @@ class ArticleTest < ActiveSupport::TestCase
     assert_equal [c1,c2,c5], Article.text_articles
   end
 
+  should 'delegate region info to profile' do
+    profile = fast_create(Profile)
+    Profile.any_instance.expects(:region)
+    Profile.any_instance.expects(:region_id)
+    article = fast_create(Article, :profile_id => profile.id)
+    article.region
+    article.region_id
+  end
+
+  should 'delegate environment info to profile' do
+    profile = fast_create(Profile)
+    Profile.any_instance.expects(:environment)
+    Profile.any_instance.expects(:environment_id)
+    article = fast_create(Article, :profile_id => profile.id)
+    article.environment
+    article.environment_id
+  end
+
+  should 'act as faceted' do
+    person = fast_create(Person)
+    cat = Category.create!(:name => 'hardcore', :environment_id => Environment.default.id)
+    a = Article.create!(:name => 'black flag review', :profile_id => person.id)
+    a.add_category(cat, true)
+    a.save!
+    assert_equal Article.type_name, Article.facet_by_id(:f_type)[:proc].call(a.send(:f_type))
+    assert_equal Person.type_name, Article.facet_by_id(:f_profile_type)[:proc].call(a.send(:f_profile_type))
+    assert_equal a.published_at, a.send(:f_published_at)
+    assert_equal ['hardcore'], a.send(:f_category)
+    assert_equal "category_filter:\"#{cat.id}\"", Article.facet_category_query.call(cat)
+  end
+
+  should 'act as searchable' do
+    TestSolr.enable
+    person = fast_create(Person, :name => "Hiro", :address => 'U-Stor-It @ Inglewood, California',
+                         :nickname => 'Protagonist')
+    person2 = fast_create(Person, :name => "Raven")
+    category = fast_create(Category, :name => "science fiction", :acronym => "sf", :abbreviation => "sci-fi")
+    a = Article.create!(:name => 'a searchable article about bananas', :profile_id => person.id,
+                        :body => 'the body talks about mosquitos', :abstract => 'and the abstract is about beer',
+                        :filename => 'not_a_virus.exe')
+    a.add_category(category)
+    c = a.comments.build(:title => 'snow crash', :author => person2, :body => 'wanna try some?')
+    c.save!
+
+    # fields
+    assert_includes Article.find_by_contents('bananas')[:results].docs, a
+    assert_includes Article.find_by_contents('mosquitos')[:results].docs, a
+    assert_includes Article.find_by_contents('beer')[:results].docs, a
+    assert_includes Article.find_by_contents('not_a_virus.exe')[:results].docs, a
+    # filters
+    assert_includes Article.find_by_contents('bananas', {}, {:filter_queries => ["public:true"]})[:results].docs, a
+    assert_not_includes Article.find_by_contents('bananas', {}, {:filter_queries => ["public:false"]})[:results].docs, a
+    assert_includes Article.find_by_contents('bananas', {}, {:filter_queries => ["environment_id:\"#{Environment.default.id}\""]})[:results].docs, a
+    assert_includes Article.find_by_contents('bananas', {}, {:filter_queries => ["profile_id:\"#{person.id}\""]})[:results].docs, a
+    # includes
+    assert_includes Article.find_by_contents('Hiro')[:results].docs, a
+    assert_includes Article.find_by_contents("person-#{person.id}")[:results].docs, a
+    assert_includes Article.find_by_contents("California")[:results].docs, a
+    assert_includes Article.find_by_contents("Protagonist")[:results].docs, a
+# FIXME: After merging with AI1826, searching on comments is not working
+#    assert_includes Article.find_by_contents("snow")[:results].docs, a
+#    assert_includes Article.find_by_contents("try some")[:results].docs, a
+#    assert_includes Article.find_by_contents("Raven")[:results].docs, a
+#
+# FIXME: After merging with AI1826, searching on categories is not working
+#    assert_includes Article.find_by_contents("science")[:results].docs, a
+#    assert_includes Article.find_by_contents(category.slug)[:results].docs, a
+#    assert_includes Article.find_by_contents("sf")[:results].docs, a
+#    assert_includes Article.find_by_contents("sci-fi")[:results].docs, a
+  end
+
+  should 'boost name matches' do
+    TestSolr.enable
+    person = fast_create(Person)
+    in_body = Article.create!(:name => 'something', :profile_id => person.id, :body => 'bananas in the body!')
+    in_name = Article.create!(:name => 'bananas in the name!', :profile_id => person.id)
+    assert_equal [in_name, in_body], Article.find_by_contents('bananas')[:results].docs
+  end
+
+  should 'boost if profile is enabled' do
+    TestSolr.enable
+    person2 = fast_create(Person, :enabled => false)
+    art_profile_disabled = Article.create!(:name => 'profile disabled', :profile_id => person2.id)
+    person1 = fast_create(Person, :enabled => true)
+    art_profile_enabled = Article.create!(:name => 'profile enabled', :profile_id => person1.id)
+    assert_equal [art_profile_enabled, art_profile_disabled], Article.find_by_contents('profile')[:results].docs
+  end
+
+  should 'remove all categorizations when destroyed' do
+    art = Article.create!(:name => 'article 1', :profile_id => fast_create(Person).id)
+    cat = Category.create!(:name => 'category 1', :environment_id => Environment.default.id)
+    art.add_category cat
+    art.destroy
+    assert cat.articles.reload.empty?
+  end
+
+  should 'show more popular articles' do
+    Article.destroy_all
+    art1 = Article.create!(:name => 'article 1', :profile_id => fast_create(Person).id)
+    art2 = Article.create!(:name => 'article 2', :profile_id => fast_create(Person).id)
+    art3 = Article.create!(:name => 'article 3', :profile_id => fast_create(Person).id)
+
+    art1.hits = 56; art1.save!
+    art3.hits = 92; art3.save!
+    art2.hits = 3; art2.save!
+
+    assert_equal [art3, art1, art2], Article.more_popular
+  end
+
+  should 'show if article is public' do
+    art1 = Article.create!(:name => 'article 1', :profile_id => fast_create(Person).id)
+    art2 = Article.create!(:name => 'article 2', :profile_id => fast_create(Person).id, :advertise => false)
+    art3 = Article.create!(:name => 'article 3', :profile_id => fast_create(Person).id, :published => false)
+    art4 = Article.create!(:name => 'article 4', :profile_id => fast_create(Person, :visible => false).id)
+    art5 = Article.create!(:name => 'article 5', :profile_id => fast_create(Person, :public_profile => false).id)
+
+    articles = Article.join_profile.public
+    assert_includes articles, art1
+    assert_not_includes articles, art2
+    assert_not_includes articles, art3
+    assert_not_includes articles, art4
+    assert_not_includes articles, art5
+  end
+
   should 'not allow all community members to edit by default' do
     community = fast_create(Community)
     admin = create_user('community-admin').person
@@ -1671,4 +1705,24 @@ class ArticleTest < ActiveSupport::TestCase
     assert !a.allow_edit?(nil)
   end
 
+  should 'get first image from lead' do
+    a = fast_create(Article, :body => '<p>Foo</p><p><img src="bar.png" />Bar<img src="foo.png" /></p>',
+                             :abstract => '<p>Lead</p><p><img src="leadbar.png" />Bar<img src="leadfoo.png" /></p>')
+    assert_equal 'leadbar.png', a.first_image
+  end
+
+  should 'get first image from body' do
+    a = fast_create(Article, :body => '<p>Foo</p><p><img src="bar.png" />Bar<img src="foo.png" /></p>')
+    assert_equal 'bar.png', a.first_image
+  end
+
+  should 'not get first image from anywhere' do
+    a = fast_create(Article, :body => '<p>Foo</p><p>Bar</p>')
+    assert_equal '', a.first_image
+  end
+
+  should 'store first image in tracked action' do
+    a = TinyMceArticle.create! :name => 'Tracked Article', :body => '<p>Foo<img src="foo.png" />Bar</p>', :profile_id => profile.id
+    assert_equal 'foo.png', ActionTracker::Record.last.get_first_image
+  end
 end

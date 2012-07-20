@@ -173,7 +173,7 @@ Feature: events
 
   Scenario: display environment name in global agenda
     When I am on /assets/events
-    Then I should see "Colivre.net's events"
+    Then I should see "Colivre.net's Events"
 
   @selenium
   Scenario: published events should be listed in the agenda too

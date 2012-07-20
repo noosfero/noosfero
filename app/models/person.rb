@@ -1,6 +1,10 @@
 # A person is the profile of an user holding all relationships with the rest of the system
 class Person < Profile
 
+  def self.type_name
+    _('Person')
+  end
+
   acts_as_trackable :after_add => Proc.new {|p,t| notify_activity(t)}
   acts_as_accessor
 
@@ -186,6 +190,9 @@ class Person < Profile
 
   N_('Contact information'); N_('City'); N_('State'); N_('Country'); N_('Sex'); N_('Zip code')
   settings_items :photo, :contact_information, :sex, :city, :state, :country, :zip_code
+
+  extend SetProfileRegionFromCityState::ClassMethods
+  set_profile_region_from_city_state
 
   def self.conditions_for_profiles(conditions, person)
     new_conditions = sanitize_sql(['role_assignments.accessor_id = ?', person])
@@ -433,6 +440,10 @@ class Person < Profile
     user.password_confirmation = user.password
     save!
     user.save!
+  end
+
+  def activities
+    Scrap.find_by_sql("SELECT id, updated_at, '#{Scrap.to_s}' AS klass FROM #{Scrap.table_name} WHERE scraps.receiver_id = #{self.id} AND scraps.scrap_id IS NULL UNION SELECT id, updated_at, '#{ActionTracker::Record.to_s}' AS klass FROM #{ActionTracker::Record.table_name} WHERE action_tracker.user_id = #{self.id} ORDER BY updated_at DESC")
   end
 
   protected

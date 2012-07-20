@@ -38,3 +38,11 @@ When /^I fill in "([^\"]*)" with "([^\"]*)" within "([^\"]*)"$/ do |field, value
     content.fill_in(field, :with => value)
   end
 end
+
+When /^I should see content inside "([^\"]+)"$/ do |selector|
+  response.should have_selector(selector)
+end
+
+When /^I should not see content inside "([^\"]+)"$/ do |selector|
+  response.should_not have_selector(selector)
+end

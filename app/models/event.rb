@@ -1,5 +1,9 @@
 class Event < Article
 
+  def self.type_name
+    _('Event')
+  end
+
   settings_items :address, :type => :string
 
   def link=(value)
@@ -117,6 +121,10 @@ class Event < Article
   end
 
   def tiny_mce?
+    true
+  end
+
+  def notifiable?
     true
   end
 

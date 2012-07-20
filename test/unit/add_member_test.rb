@@ -54,6 +54,7 @@ class AddMemberTest < ActiveSupport::TestCase
 
   should 'send e-mails' do
     community.update_attribute(:closed, true)
+    community.stubs(:notification_emails).returns(["adm@example.com"])
 
     TaskMailer.expects(:deliver_target_notification).at_least_once
 

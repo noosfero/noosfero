@@ -1,0 +1,252 @@
+
+var geocoder;
+var map;
+var marker;
+var center;
+var move = true;
+var previousCenter;
+
+function getAddress(latlng) {
+  $('location-fields').addClassName("loading");
+
+   if (latlng != null) {
+    geocoder.geocode( {'latLng': latlng}, showAddress);
+   }
+}
+
+function codeAddress() {
+  $('location-fields').addClassName("loading");
+
+  var country_option = $('profile_data_country').value;
+  var address = $('profile_data_address').value + "-" + $('profile_data_zip_code').value + "," + $('profile_data_city').value+ "-" + $('profile_data_state').value + "," + country_option;
+
+  if (geocoder) {
+   geocoder.geocode( { 'address': address}, function(results, status) {
+     if (status == google.maps.GeocoderStatus.OK) {
+       map.setCenter(results[0].geometry.location);
+       marker.setPosition(results[0].geometry.location);
+       getAddress(marker.getPosition());
+
+       $('profile_data_lat').value = results[0].geometry.location.lat();
+       $('profile_data_lng').value = results[0].geometry.location.lng();
+       $('location-fields').removeClassName("loading");
+       enable_save();
+     } else {
+       $('location-fields').removeClassName("loading");
+       alert('<%=_("Address not found, reason:")%>' + translate_status(status));
+     }
+   });
+  }
+
+  map.setZoom(11);
+
+  return false;
+}
+
+function translate_status(status)
+{
+  var translated_status = '';
+
+  if (google.maps.GeocoderStatus.INVALID_REQUEST == status)
+    translated_status = '<%= _('Invalid address') %>';
+  else if (google.maps.GeocoderStatus.REQUEST_DENIED == status)
+    translated_status = '<%= _('Request denied') %>';
+  else if (google.maps.GeocoderStatus.OVER_QUERY_LIMIT == status)
+    translated_status = '<%= _('Over query limit') %>';
+  else if (google.maps.GeocoderStatus.ZERO_RESULTS == status)
+    translated_status = "<%= _('Address do not exist') %>";
+
+  return translated_status;
+}
+
+function getAddressData() {
+  var text = '';
+  var fields = [
+    'profile_data_country',
+    'profile_data_state',
+    'profile_data_city',
+    'profile_data_address',
+    'profile_data_zip_code'
+  ];
+  for (var i = 0; i < fields.length; i++) {
+    var field = fields[i];
+    if ($(field)) {
+      text += $(field).value + " ";
+    }
+  }
+  return text;
+}
+
+function showAddress(results, status) {
+
+  if (status == google.maps.GeocoderStatus.OK) {
+    map.setCenter(results[0].geometry.location);
+    updateFields(results[0]);
+
+  } else {
+    alert("<%=_("Address not found, reason:")%>" + translate_status(status));
+  }
+
+}
+
+function updateFields(place) {
+  var position = marker.getPosition();
+  $('profile_data_lat').value = position.lat();
+  $('profile_data_lng').value = position.lng();
+  $('location-fields').removeClassName("loading");
+
+  form = jQuery('#location-form')[0];
+  form.lat = marker.getPosition().lat();
+  form.lng = marker.getPosition().lng();
+
+  var components_len = place.address_components.size();
+
+  if(components_len <  2)
+  {
+    return false;
+  }
+
+  var components = place.address_components;
+  var address = "";
+  var zip_code = "";
+  var city = "";
+  var state = "";
+  var country_code = "";
+  var i = 0;
+
+  for( i =0 ; i < components_len; i ++)
+  {
+
+      if (components[i].types[0] == 'country')
+        country_code = components[i].short_name;
+      else if (components[i].types[0] == 'administrative_area_level_1')
+        state = components[i].long_name;
+      else if (components[i].types[0] == 'locality')
+        city  = components[i].long_name;
+      else if (components[i].types[0] == 'sublocality')
+        address  = components[i].long_name  + "-" + address;
+      else if (components[i].types[0] == "route")
+        address = components[i].long_name + address;
+      else if (components[i].types[0] == "street_number")
+        address =  address + "," + components[i].short_name ;
+      else if (components[i].types[0] == 'postal_code')
+        zip_code = components[i].short_name;
+  }
+
+  $('profile_data_country').value = country_code;
+  $('profile_data_state').value = state;
+  $('profile_data_address').value = address;
+  $('profile_data_city').value = city;
+  $('profile_data_zip_code').value = zip_code;
+}
+
+
+function initialize_map() {
+  geocoder = new google.maps.Geocoder();
+
+  var lat = <%= profile.lat || 'false' %>;
+  var lng = <%= profile.lng || 'false' %>;
+
+  if ( !(lat && lng) ) {
+    lat = -15.7605361485013;
+    lng = -47.933349609375;
+  }
+
+  var latlng = new google.maps.LatLng(lat,lng);
+
+  var myOptions = {
+    zoom: 8,
+    center: latlng,
+    mapTypeId: google.maps.MapTypeId.ROADMAP
+  }
+
+  center = latlng;
+
+  map = new google.maps.Map(document.getElementById("location-map"), myOptions);
+
+  continueLoadMapV3()
+}
+
+function continueLoadMapV3() {
+
+   marker = new google.maps.Marker({
+            position: center,
+            map: map,
+            draggable: true
+    });
+
+    google.maps.event.addListener(marker, "dragend", function() {
+      move = false;
+      getAddress(marker.getPosition());
+      enable_save();
+    });
+
+}
+
+window.onload = initialize_map;
+
+var delay_autocomplete = 500;
+
+jQuery.noConflict();
+jQuery(document).ready(function (){
+
+  jQuery.widget( "custom.catcomplete",jQuery.ui.autocomplete, {
+    _renderMenu: function( ul, items ) {
+      var self = this,
+      currentCategory = "";
+      jQuery.each( items, function( index, item ) {
+        if ( item.category != currentCategory ) {
+          ul.append( "<li class='ui-autocomplete-category'>" + item.category + "</li>" );
+          currentCategory = item.category;
+        }
+        self._renderItem( ul, item );
+      });
+    }
+  });
+
+
+  jQuery("#profile_data_city").catcomplete({
+    source: "../maps/search_city",
+    minLength: 3,
+    delay: delay_autocomplete,
+    select: function( event, ui ) { $('profile_data_state').value =( ui.item ? ui.item.category : this.value ); }
+  });
+
+  jQuery("#profile_data_state").autocomplete({
+    source: "../maps/search_state",
+    minLength: 3,
+    delay: delay_autocomplete
+  });
+
+  jQuery("#profile_data_city").keyup(function(){
+
+    disable_save();
+
+  });
+
+  jQuery("#profile_data_state").keyup(function(){
+
+    disable_save();
+
+  });
+
+  jQuery("#profile_data_country").change(function(){
+
+    disable_save();
+
+  });
+
+});
+
+function disable_save()
+{
+  jQuery('input[type="submit"]').attr("disabled", "true");
+  jQuery('input[type="submit"]').val('<%=_("Localize before save")%>');
+  jQuery('input[type="submit"]').addClass('disabled');
+}
+function enable_save()
+{
+  jQuery('input[type="submit"]').removeAttr("disabled");
+  jQuery('input[type="submit"]').val('<%=_("Save")%>');
+  jQuery('input[type="submit"]').removeClass('disabled');
+}

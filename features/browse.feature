@@ -4,6 +4,7 @@ Feature: browse
 
   Background:
     Given I am on the homepage
+    And the search index is empty
     And the following users
       | login | name |
       | joaosilva | Joao Silva |
@@ -40,7 +41,7 @@ Feature: browse
     And I should see "My friends"
 
   Scenario: Browse people by query
-    Given I go to /browse/people
+    Given I go to /search/people
     When I fill in "Silva" for "query"
     And I press "Search"
     Then I should see "Joao Silva"
@@ -76,7 +77,7 @@ Feature: browse
     And I should see "More Popular"
 
   Scenario: Browse communities by query
-    When I go to /browse/communities
+    When I go to /search/communities
     And I fill in "Neto" for "query"
     And I press "Search"
     Then I should see "Community Neto"
@@ -101,7 +102,7 @@ Feature: browse
       | joaosilva | Bees can fly              | this is an article      |
       | joaosilva | Bees and ants are insects | this is another article |
       | joaosilva | Ants are small            | this is another article |
-    When I go to /browse/contents
+    When I go to /search/contents
     And I fill in "bees" for "query"
     And I press "Search"
     Then I should see "Bees can fly"

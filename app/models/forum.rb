@@ -2,6 +2,10 @@ class Forum < Folder
 
   acts_as_having_posts :order => 'updated_at DESC'
 
+  def self.type_name
+    _('Forum')
+  end
+
   def self.short_description
     _('Forum')
   end
@@ -23,5 +27,15 @@ class Forum < Folder
 
   def self.icon_name(article = nil)
     'forum'
+  end
+
+  def notifiable?
+    true
+  end
+
+  def first_paragraph
+    return '' if body.blank?
+    paragraphs = Hpricot(body).search('p')
+    paragraphs.empty? ? '' : paragraphs.first.to_html
   end
 end

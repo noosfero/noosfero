@@ -1,4 +1,12 @@
 ENV["RAILS_ENV"] = "test"
+
+# Start/stop Solr
+if not $test_helper_loaded
+	abort unless system 'rake -s solr:start'
+  at_exit { system 'rake -s solr:stop' }
+  $test_helper_loaded = true
+end
+
 require File.expand_path(File.dirname(__FILE__) + "/../config/environment")
 require 'test_help'
 require 'mocha'
@@ -9,6 +17,7 @@ require 'noosfero/test'
 require File.dirname(__FILE__) + '/factories'
 require File.dirname(__FILE__) + '/noosfero_doc_test'
 require File.dirname(__FILE__) + '/action_tracker_test_helper'
+require File.expand_path(File.dirname(__FILE__) + "/test_solr_helper.rb")
 
 FileUtils.rm_rf(File.join(RAILS_ROOT, 'index', 'test'))
 
@@ -50,7 +59,15 @@ class ActiveSupport::TestCase
   include AuthenticatedTestHelper
 
   fixtures :environments, :roles
-  
+
+  def setup
+    TestSolr.disable
+  end
+
+  def teardown
+    TestSolr.disable
+  end
+
   def self.all_fixtures
     Dir.glob(File.join(RAILS_ROOT, 'test', 'fixtures', '*.yml')).each do |item|
       fixtures File.basename(item).sub(/\.yml$/, '').to_s
@@ -193,27 +210,12 @@ class ActiveSupport::TestCase
     adapter.any_instance.stubs(:adapter_name).returns('PostgreSQL')
     adapter.any_instance.stubs(:schema_search_path).returns(schema_name)
     Noosfero::MultiTenancy.stubs(:on?).returns(true)
-    reload_for_ferret
   end
 
   def uses_sqlite
     adapter = ActiveRecord::Base.connection.class
     adapter.any_instance.stubs(:adapter_name).returns('SQLite')
     Noosfero::MultiTenancy.stubs(:on?).returns(false)
-  end
-
-  def reload_for_ferret
-    ActsAsFerret.send(:remove_const, :DEFAULT_FIELD_OPTIONS)
-    load File.join(RAILS_ROOT, 'lib', 'acts_as_searchable.rb')
-    load File.join(RAILS_ROOT, 'vendor', 'plugins', 'acts_as_ferret', 'lib', 'acts_as_ferret.rb')
-    [Article, Profile, Product].each do |clazz|
-      inst_meth = clazz.instance_methods.reject{ |m| m =~ /_to_ferret$/ }
-      clazz.stubs(:instance_methods).returns(inst_meth)
-    end
-    #FIXME Is there a way to avoid this replication from model code?
-    Article.acts_as_searchable :additional_fields => [ :comment_data ]
-    Profile.acts_as_searchable :additional_fields => [ :extra_data_for_index ]
-    Product.acts_as_searchable :fields => [ :name, :description, :category_full_name ]
   end
 
 end

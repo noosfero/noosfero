@@ -8,6 +8,10 @@ module Delayed
     end
 
     def method_missing(method, *args)
+      if (Rails.env == "test" or Rails.env == "cucumber" and !$DISABLE_DELAYED_JOB_TEST_ENV_RUN)
+        @target.send method, *args
+        return
+      end
       Job.create({
         :payload_object => PerformableMethod.new(@target, method.to_sym, args),
         :priority       => ::Delayed::Worker.default_priority
@@ -33,6 +37,7 @@ module Delayed
     
     module ClassMethods
       def handle_asynchronously(method)
+        return if (Rails.env == "test" or Rails.env == "cucumber")
         aliased_method, punctuation = method.to_s.sub(/([?!=])$/, ''), $1
         with_method, without_method = "#{aliased_method}_with_delay#{punctuation}", "#{aliased_method}_without_delay#{punctuation}"
         define_method(with_method) do |*args|

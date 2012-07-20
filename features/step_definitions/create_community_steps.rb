@@ -1,3 +1,5 @@
+include DatesHelper
+
 Given /^I create community "(.+)"$/ do |community|
   Given 'I go to the Control panel'
   click_link('Manage my groups')
@@ -20,4 +22,10 @@ Given /^I reject community "(.+)"$/ do |community|
    click_link('Process requests')
    choose("decision-cancel-#{task.id}")
    click_button('Apply!')
+end
+
+Then /^I should see "([^\"]*)"'s creation date$/ do |community|
+  com = Community.find_by_name community
+  text = "Created at: #{show_date(com.created_at)}"
+  response.should contain(text)
 end

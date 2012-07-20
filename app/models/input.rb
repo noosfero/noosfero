@@ -59,4 +59,7 @@ class Input < ActiveRecord::Base
     return 0 if self.amount_used.blank? || self.price_per_unit.blank?
     self.amount_used * self.price_per_unit
   end
+
+  alias_method :price, :cost
+
 end

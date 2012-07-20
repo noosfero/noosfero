@@ -1,69 +1,39 @@
-<div id="search-results" class="<%= 'only-one-result-box' if @results.size == 1 %>">
+<div id="search-results" class="<%= @results.size == 1 ? 'only-one-result-box' : 'multiple-results-boxes' %>">
+  <% @order.each do |name| %>
+    <% results = @results[name] %>
+    <% empty = results.nil? || results.empty? %>
 
-<%
-  pos2 = :odd  # allow to format in a two columns layout
-  pos3 = 3     # allow to format in a thre columns layout
-%>
-<% @order.each do |name| %>
-  <% results = @results[name] %>
-  <%
-    pos3 += 1;  pos3 = 1 if pos3 > 3
-    pos2==:odd ? pos2=:even : pos2=:odd
-  %>
-  <% if !results.nil? and !results.empty? %>
-    <div class="search-results-<%= name %> search-results-box <%= pos2 %> <%= 'col%s_of3' % pos3.to_s %>">
-      <% if @controller.action_name != 'assets' %>
-        <% if @results.size != 1 %>
-          <h3>
-            <%= @names[name] %>
-          </h3>
-        <% end %>
-        <%# FIXME: don't hardcode an asset like this %>
-        <% if name == :most_commented_articles %>
-          <%= link_to( results.respond_to?(:total_entries) ? _('see all (%d)') % results.total_entries : _('see all...'),
-                       params.merge(:action => 'index',
-                       :asset => 'articles' ),
-                       :class => 'see-more' ) if @results.size > 1 %>
+    <div class="search-results-<%= name %> search-results-box <%= "search-results-empty" if empty %>">
+      <% if not empty %>
+        <% partial = partial_for_class(results.first.class.class_name.constantize) %>
 
-        <% else %>
-          <%= link_to( results.respond_to?(:total_entries) ? _('see all (%d)') % results.total_entries : _('see all...'),
-                       params.merge(:action => 'index',
-                       :asset => name ),
-                       :class => 'see-more' ) if @results.size > 1 %>
+        <% if @results.size > 1 %>
+          <h3><%= @names[name] %></h3>
+          <% if results.total_entries > SearchController::MULTIPLE_SEARCH_LIMIT %>
+            <%= link_to(_('see all (%d)') % results.total_entries, params.merge(:action => name), :class => 'see-more' ) %>
+          <% end %>
         <% end %>
-      <% end %>
-      <% partial = partial_for_class results.first.class %>
-      <div class="search-results-innerbox search-results-type-<%= partial %> <%= 'common-profile-list-block' if partial == 'profile' %>">
-        <div class="search-results-innerbox2"><!-- the innerbox2 is a workarround for MSIE -->
+
+        <div class="search-results-innerbox search-results-type-<%= partial %> <%= 'common-profile-list-block' if partial == 'profile' %>">
           <ul>
-          <% hit_pos = 0 %>
           <% results.each do |hit| %>
-            <% next if hit.respond_to?(:visible) && !hit.visible?  %>
-            <%= render :partial => partial_for_class(hit.class),
-
-                       :object => hit,
-                       :locals => { :pos => ( hit_pos += 1 ) } %>
+            <%= render :partial => partial_for_class(hit.class), :object => hit %>
           <% end %>
           </ul>
-          <hr />
-        </div><!-- end class="search-results-innerbox2" -->
-      </div><!-- end class="search-results-innerbox" -->
-    </div><!-- end class="search-results-<%= name %>" -->
-  <% else %>
-    <div class="search-results-<%= name %> search-results-empty search-results-box <%= pos2 %> <%= 'col%s_of3' % pos3.to_s %>">
-      <% if @controller.action_name != 'assets' %>
-        <% if @results.size != 1 %>
+        </div>
+      <% else %>
+        <% if @results.size > 1 %>
           <h3><%= @names[name] %></h3>
         <% end %>
+        <div class="search-results-innerbox search-results-type-empty">
+          <div> <%= _('None') %> </div>
+        </div>
       <% end %>
-      <div class="search-results-innerbox search-results-type-empty">
-        <div> <%= _('None') %> </div>
-        <hr />
-      </div><!-- end class="search-results-innerbox" -->
-    </div><!-- end class="search-results-<%= name %>" -->
+    </div>
   <% end %>
-<% end %>
 
-<br style="clear:both" />
-</div><!-- end id="search-results" -->
+  <div style="clear:both"></div>
+
+  <%= add_zoom_to_images %>
+</div>
 

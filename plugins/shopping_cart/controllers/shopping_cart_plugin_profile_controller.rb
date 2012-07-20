@@ -228,7 +228,9 @@ class ShoppingCartPluginProfileController < ProfileController
   def register_order(custumer, items)
     new_items = {}
     items.each do |id, quantity|
-      new_items[id] = {:quantity => quantity, :price => Product.find(id).price}
+      product = Product.find(id)
+      price = product.price || 0
+      new_items[id] = {:quantity => quantity, :price => price, :name => product.name}
     end
     ShoppingCartPlugin::PurchaseOrder.create!(
       :seller => profile,

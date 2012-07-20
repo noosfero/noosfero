@@ -241,6 +241,10 @@ module ManageProductsHelper
     end
   end
 
+  def remove_qualifier_button
+    button_to_function(:delete, content_tag('span', _('Delete qualifier')), "jQuery(this).parents('tr').remove()")
+  end
+
   def select_unit(object)
     collection_select(object.class.name.downcase, :unit_id, environment.units, :id, :singular, {:include_blank => _('Select the unit')})
   end
@@ -278,7 +282,7 @@ module ManageProductsHelper
     error_msg = _('Something went wrong. Please, try again')
     select_tag('price_details[][production_cost_id]',
                '<option value="" disabled="disabled">' + _('Select...') + '</option>' +
-               options_for_select(product.available_production_costs.map {|item| [truncate(item.name, 10, '...'), item.id]} + [[_('Other cost'), '']], selected),
+               options_for_select(product.available_production_costs.map {|item| [truncate(item.name, {:length => 10, :omission => '...'}), item.id]} + [[_('Other cost'), '']], selected),
                {:class => 'production-cost-selection',
                 :onchange => "productionCostTypeChange(this, '#{url}', '#{prompt_msg}', '#{error_msg}')"})
   end

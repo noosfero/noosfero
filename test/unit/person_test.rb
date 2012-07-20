@@ -1013,65 +1013,14 @@ class PersonTest < ActiveSupport::TestCase
     assert has_add_member_notification
   end
 
-  should 'track only one action when a person leaves a community' do
+  should 'not track when a person leaves a community' do
     p = create_user('test_user').person
     c = fast_create(Community, :name => "Foo")
     c.add_member(p)
     c.add_moderator(p)
     ActionTracker::Record.delete_all
     c.remove_member(p)
-    assert_equal ["Foo"], ActionTracker::Record.last(:conditions => {:verb => 'leave_community'}).get_resource_name
-  end
-
-  should 'the tracker target be Community when a person leaves a community' do
-    ActionTracker::Record.delete_all
-    p = create_user('test_user').person
-    c = fast_create(Community, :name => "Foo")
-    c.add_member(p)
-    c.add_moderator(p)
-    ActionTracker::Record.delete_all
-    c.remove_member(p)
-    assert_kind_of Community, ActionTracker::Record.last(:conditions => {:verb => 'leave_community'}).target
-  end
-
-  should 'the community be notified specifically when a person leaves a community' do
-    ActionTracker::Record.delete_all
-    p = create_user('test_user').person
-    c = fast_create(Community, :name => "Foo")
-    c.add_member(p)
-    c.add_moderator(p)
-    ActionTracker::Record.delete_all
-    c.remove_member(p)
-    assert_not_nil ActionTracker::Record.last(:conditions => {:verb => 'remove_member_in_community'})
-  end
-
-  should 'the community specific notification created when a member leaves community could not be propagated to members' do
-    ActionTracker::Record.delete_all
-    p1 = Person.first
-    p2 = create_user('test_user').person
-    p3 = create_user('test_user').person
-    c = fast_create(Community, :name => "Foo")
-    process_delayed_job_queue
-    Delayed::Job.delete_all
-    c.add_member(p1)
-    c.add_member(p3)
-    c.add_moderator(p1)
-    c.add_moderator(p3)
-    ActionTracker::Record.delete_all
-    c.remove_member(p1)
-    process_delayed_job_queue
-    c.remove_member(p3)
-    process_delayed_job_queue
-    assert_equal 4, ActionTracker::Record.count
-    assert_equal 5, ActionTrackerNotification.count
-    has_remove_member_notification = false
-    ActionTrackerNotification.all.map do |notification|
-      if notification.action_tracker.verb == 'remove_member_in_community'
-        has_remove_member_notification = true
-        assert_equal c, notification.profile
-      end
-    end
-    assert has_remove_member_notification
+    assert_equal [], ActionTracker::Record.all
   end
 
   should 'get all friends online' do
@@ -1242,5 +1191,33 @@ class PersonTest < ActiveSupport::TestCase
 
     assert !person.visible
     assert_not_equal password, person.user.password
+  end
+
+  should 'return tracked_actions and scraps as activities' do
+    person = fast_create(Person)
+    another_person = fast_create(Person)
+
+    scrap = Scrap.create!(defaults_for_scrap(:sender => another_person, :receiver => person, :content => 'A scrap'))
+    UserStampSweeper.any_instance.expects(:current_user).returns(person).at_least_once
+    article = TinyMceArticle.create!(:profile => person, :name => 'An article about free software')
+
+    assert_equivalent [scrap,article.activity], person.activities.map { |a| a.klass.constantize.find(a.id) }
+  end
+
+  should 'not return tracked_actions and scraps from others as activities' do
+    person = fast_create(Person)
+    another_person = fast_create(Person)
+
+    person_scrap = Scrap.create!(defaults_for_scrap(:sender => person, :receiver => person, :content => 'A scrap from person'))
+    another_person_scrap = Scrap.create!(defaults_for_scrap(:sender => another_person, :receiver => another_person, :content => 'A scrap from another person'))
+
+    TinyMceArticle.create!(:profile => another_person, :name => 'An article about free software from another person')
+    another_person_activity = ActionTracker::Record.last
+
+    UserStampSweeper.any_instance.stubs(:current_user).returns(person)
+    TinyMceArticle.create!(:profile => person, :name => 'An article about free software')
+    person_activity = ActionTracker::Record.last
+
+    assert_equivalent [person_scrap,person_activity], person.activities.map { |a| a.klass.constantize.find(a.id) }
   end
 end

@@ -12,26 +12,26 @@ class CommentNotifierTest < ActiveSupport::TestCase
     @article = fast_create(Article, :name => 'Article test', :profile_id => @profile.id, :notify_comments => true)
   end
 
-  should 'deliver mail after make aarticle commment' do
+  should 'deliver mail after make an article comment' do
     assert_difference ActionMailer::Base.deliveries, :size do
-      @article.comments << Comment.new(:author => @profile, :title => 'test comment', :body => 'you suck!')
+      Comment.create(:author => @profile, :title => 'test comment', :body => 'you suck!', :source => @article )
     end
   end
 
   should 'deliver mail to owner of article' do
-    @article.comments << Comment.new(:author => @profile, :title => 'test comment', :body => 'you suck!')
+    Comment.create(:author => @profile, :title => 'test comment', :body => 'you suck!', :source => @article )
     sent = ActionMailer::Base.deliveries.first
     assert_equal [@profile.email], sent.to
   end
 
   should 'display author name in delivered mail' do
-    @article.comments << Comment.new(:author => @profile, :title => 'test comment', :body => 'you suck!')
+    Comment.create(:author => @profile, :title => 'test comment', :body => 'you suck!', :source => @article)
     sent = ActionMailer::Base.deliveries.first
     assert_match /user_comment_test/, sent.body
   end
 
   should 'display unauthenticated author name and email in delivered mail' do
-    @article.comments << Comment.new(:name => 'flatline', :email => 'flatline@invalid.com', :title => 'test comment', :body => 'you suck!')
+    Comment.create(:name => 'flatline', :email => 'flatline@invalid.com', :title => 'test comment', :body => 'you suck!', :source => @article )
     sent = ActionMailer::Base.deliveries.first
     assert_match /flatline/, sent.body
     assert_match /flatline@invalid.com/, sent.body
@@ -45,13 +45,13 @@ class CommentNotifierTest < ActiveSupport::TestCase
   end
 
   should 'include comment title in the e-mail' do
-    @article.comments << Comment.new(:author => @profile, :title => 'comment title', :body => 'comment title')
+    Comment.create(:author => @profile, :title => 'comment title', :body => 'comment body', :source => @article)
     sent = ActionMailer::Base.deliveries.first
     assert_match /comment title/, sent.body
   end
 
   should 'include comment text in the e-mail' do
-    @article.comments << Comment.new(:author => @profile, :title => 'comment title', :body => 'comment body')
+    Comment.create(:author => @profile, :title => 'comment title', :body => 'comment body', :source => @article)
     sent = ActionMailer::Base.deliveries.first
     assert_match /comment body/, sent.body
   end

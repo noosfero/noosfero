@@ -25,16 +25,10 @@ class CategoriesMenuTest < ActionController::IntegrationTest
     assert_tag :attributes => { :id => 'cat_menu' }, :descendant => { :tag => 'a', :attributes => { :href => '/cat/food/vegetables' } }
   end
 
-  should 'link to other assets in the same category when viewing an asset' do
-    get '/assets/articles/food/vegetables'
-    assert_no_tag :attributes => { :id => 'assets_menu' }, :descendant => { :tag => 'a', :attributes => { :href => '/cat/food/vegetables' } }
-    assert_tag :attributes => { :id => 'assets_menu' }, :descendant => { :tag => 'a', :attributes => { :href => '/assets/enterprises/food/vegetables' } }
-  end
-
   should "always link to category's initial page in category menu" do
-    get '/assets/products/food/vegetables'
+    get '/search/products/food/vegetables'
     assert_tag :attributes => { :id => 'cat_menu' }, :descendant => { :tag => 'a', :attributes => { :href => '/cat/food/vegetables' } }
-    assert_no_tag :attributes => { :id => 'cat_menu' }, :descendant => { :tag => 'a', :attributes => { :href => '/assets/products/food/vegetables' } }
+    assert_no_tag :attributes => { :id => 'cat_menu' }, :descendant => { :tag => 'a', :attributes => { :href => '/searchh/products/food/vegetables' } }
   end
 
   should 'cache the categories menu' do

@@ -1,0 +1,42 @@
+# Config file for the acts_as_solr plugin.
+#
+# If you change the host or port number here, make sure you update
+# them in your Solr config file
+
+# This file must follow a structure in order to achieve multitenancy
+# support. In this example, we will configure solr to support 3
+# different schemas: env1, env2 and env3.
+#
+# Each "hosted" environment must have an entry like this:
+#
+# production: &PRODUCTION
+#  url: http://127.0.0.1:8983/solr
+#  jvm_options: -server -Xmx192M -Xms64M
+#  timeout: 0
+#
+# env1_production:
+#  <<: *PRODUCTION
+#
+# env2_production:
+#  <<: *PRODUCTION
+#
+# env3_production:
+#  <<: *PRODUCTION
+
+production:
+  url: http://127.0.0.1:8983/solr
+  jvm_options: -server -Xmx192M -Xms64M
+  timeout: 0
+
+development:
+  url: http://0.0.0.0:8982/solr
+  jvm_options: -server -Xmx128M -Xms16M
+  timeout: 0
+
+test: &TEST
+  url: http://0.0.0.0:8981/solr
+  jvm_options: -server -Xmx128M -Xms16M
+  timeout: 0
+
+cucumber:
+  <<: *TEST

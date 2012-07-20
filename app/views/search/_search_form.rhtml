@@ -1,64 +1,37 @@
 <div class='search-form'>
-<% simple_search = false unless defined? simple_search %>
 
-<% form_tag( { :controller => 'search', :action => 'index', :asset => nil, :category_path => ( @category ? @category.explode_path : [] ) },
-               :method => 'get', :class => 'search_form' ) do %>
-  <%= '<h3>%s</h3>' % form_title if defined? form_title %>
+  <% form_tag( { :controller => 'search', :action => @asset ? @asset : 'index', :asset => nil, :category_path => ( @category ? @category.explode_path : [] ) },
+                 :method => 'get', :class => 'search_form' ) do %>
 
-  <%= hidden_field_tag :display, params[:display] %>
+    <%= hidden_field_tag :display, params[:display] %>
 
-  <%= hidden_field_tag :asset, params[:asset] %>
-
-  <div class="search-field">
-    <span class="formfield">
-      <%= text_field_tag 'query', @query, :id => ( lightbox? ? 'popup-search-input' : '' ), :size => 50 %>
-      <%= javascript_tag 'setTimeout("$(\"popup-search-input\").focus()", 10 )' if lightbox? %>
-    </span>
-    <%= submit_button(:search, _('Search'), :name => :search_whole_site_no) %>
-    <% if @category %>
-      <%= submit_button(:search, _('Search in whole site'), :name => :search_whole_site_yes) %>
+    <% params_uri = CGI::unescape(request.request_uri) %>
+    <% if params_uri.index('?') %>
+      <% params_uri[(params_uri.index('?')+1)..-1].to_s.split("&").each do |part| %>
+        <% if part.start_with? "facet" %>
+          <% name_value = part.split("=") %>
+          <%= hidden_field_tag name_value[0], name_value[1] %>
+        <% end %>
+      <% end %>
     <% end %>
-  </div>
 
-  <div id='advanced-search-options' style="display: <%= simple_search ? 'none' : 'block' %>">  
-    <div class="search-options search-within">
-      <h4><%= _('Search within:') %></h4>
-      <br style='clear:left'/>
-      <div>
-        <span class="formfield">
-          <%= select_city %>
-        </span>
-        <span class="formfield">
-          <%= labelled_select(_('Distance:'), 'radius', :first, :last, nil, [15, 30, 50, 100, 150, 200, 300, 400, 500, 1000].map{|n|[n, n.to_s + 'km']}) %>
-        </span>
-      </div>
-    </div><!-- fim class="search-options" -->
+    <div class="search-field">
+      <span class="formfield">
+        <%= text_field_tag 'query', @query, :id => 'search-input', :size => 50 %>
+        <%= javascript_tag "jQuery('#search-input').attr('title', \"#{hint}\").hint()" if defined?(hint) %>
+      </span>
 
-    <div class="search-options search-for">
-      <h4><%= _('Search for:') %></h4>
-      <ul>
-        <% @search_in.map { |t,n| [t,getterm(n)] } .
-          sort_by(&:last).each do |thing, name| %>
-            <li>
-            <%= labelled_check_box name, 'find_in[]', thing.to_s, @searching[thing.to_sym] %>
-            </li>
-          <% end %>
-        </ul>
-        <br style="clear:both" />
-      </div><!-- fim class="search-options" -->
-    </div><!-- end id="advanced-search-options" -->
+      <%= submit_button(:search, _('Search')) %>
+    </div>
 
-  <% if simple_search %>
-    <%= link_to_function(_('More options'), nil, :id => 'advanced_search_link') do |page|
-      page['advanced_search_link'].hide
-      page['advanced-search-options'].toggle
-    end %>
   <% end %>
 
-  <% if lightbox?; button_bar do %>
-  <%= lightbox_close_button _('Close') %>
-  <% end; end %>
+  <% if @empty_query %>
+    <% hint = environment.search_hints[@asset] %>
+    <% if hint and !hint.blank? %>
+      <div class="search-hint"><%= hint %></div>
+    <% end %>
+  <% end %>
 
-<% end %>
-
-</div> <!-- id="search-form" -->
+  <div style="clear: both"></div>
+</div>
