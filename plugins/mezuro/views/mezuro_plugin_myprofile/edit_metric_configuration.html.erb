@@ -4,6 +4,7 @@
 
 <% form_for :metric_configuration, :url => {:action =>"update_metric_configuration", :controller => "mezuro_plugin_myprofile"}, :method => :get do |f| %>
   <%= hidden_field_tag :id, @configuration_content.id %>
+  <%= f.hidden_field :configuration_name, :value => @configuration_content.name %>
   
   <% f.fields_for :metric do |m| %>
   
@@ -67,7 +68,9 @@
     </td>
     <td>
       Color
-    </td>       
+    </td>   
+    <td></td>    
+    <td></td>
   </tr>
   <% if (@metric_configuration.ranges!=nil) 
     @metric_configuration.ranges.each do |range| %>

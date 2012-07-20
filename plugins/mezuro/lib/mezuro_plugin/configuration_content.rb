@@ -19,7 +19,16 @@ class MezuroPlugin::ConfigurationContent < Article
   end
 
   def configuration
-    Kalibro::Client::ConfigurationClient.configuration(name)
+    begin
+      configuration = Kalibro::Configuration.find_by_name(self.name)
+      configuration.description = self.description
+      configuration
+    rescue Exception
+      Kalibro::Configuration.new({
+        :name => self.name,
+        :description => self.description
+      })
+    end
   end
   
   def metric_configurations
@@ -33,7 +42,7 @@ class MezuroPlugin::ConfigurationContent < Article
   private
 
   def validate_kalibro_configuration_name
-    existing = Kalibro::Client::ConfigurationClient.new.configuration_names
+    existing = Kalibro::Configuration.all_names
     existing.each { |a| a.downcase!}
 
     if existing.include?(name.downcase)
@@ -42,11 +51,11 @@ class MezuroPlugin::ConfigurationContent < Article
   end
 
   def send_configuration_to_service
-    Kalibro::Client::ConfigurationClient.save(self)
+    configuration.save
   end
 
   def remove_configuration_from_service
-    Kalibro::Client::ConfigurationClient.remove(name)
+    configuration.destroy
   end
 
 end

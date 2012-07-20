@@ -35,7 +35,12 @@ class Kalibro::MetricConfiguration < Kalibro::Model
     @range = ranges
   end
 
-  def self.find_by_configuration_and_metric(configuration_name, metric_name)
+  def update_attributes(attributes={})
+    attributes.each { |field, value| send("#{field}=", value) if self.class.is_valid?(field) }
+    save
+  end
+
+  def self.find_by_configuration_name_and_metric_name(configuration_name, metric_name)
     metric_configuration = new request("MetricConfiguration", :get_metric_configuration, {
         :configuration_name => configuration_name,
         :metric_name => metric_name
@@ -45,14 +50,9 @@ class Kalibro::MetricConfiguration < Kalibro::Model
   end
 
   def save
-    begin
       self.class.request("MetricConfiguration", :save_metric_configuration, {
         :metric_configuration => to_hash,
         :configuration_name => configuration_name})
-      true
-    rescue
-      false
-    end
   end
 
   def destroy

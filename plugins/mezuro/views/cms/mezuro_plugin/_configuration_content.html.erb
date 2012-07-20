@@ -2,7 +2,7 @@
 
 <%
 begin
-  @configuration = @article.title.nil? ? nil : Kalibro::Client::ConfigurationClient.new.configuration(@article.title)
+  @configuration = @article.title.nil? ? nil : Kalibro::Configuration.find_by_name(@article.title)
 rescue
   @configuration = nil
 end 

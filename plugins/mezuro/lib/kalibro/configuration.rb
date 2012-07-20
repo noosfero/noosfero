@@ -19,11 +19,7 @@ class Kalibro::Configuration < Kalibro::Model
   end
 
   def self.find_by_name(configuration_name)
-	  begin
-	    new request("Configuration", :get_configuration, {:configuration_name => configuration_name})[:configuration]
-  	rescue Exception => error
-      nil
-	  end
+    new request("Configuration", :get_configuration, {:configuration_name => configuration_name})[:configuration]
   end
 
   def self.create(configuration_content)
@@ -37,7 +33,7 @@ class Kalibro::Configuration < Kalibro::Model
     begin
       self.class.request("Configuration", :save_configuration, {:configuration => to_hash})
 	    true
-	  rescue
+	  rescue Exception => error
 		  false
 	  end
   end

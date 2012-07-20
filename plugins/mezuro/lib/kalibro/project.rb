@@ -7,11 +7,7 @@ class Kalibro::Project < Kalibro::Model
   end
   
   def self.find_by_name(project_name)
-    begin
-      new request("Project", :get_project, :project_name => project_name)[:project]
-    rescue Exception => error
-      nil
-    end
+    new request("Project", :get_project, :project_name => project_name)[:project]
   end
 
   def self.create(content)

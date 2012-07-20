@@ -27,7 +27,7 @@ class ProjectTest < ActiveSupport::TestCase
   should 'raise error when project doesnt exist' do
     request_body = {:project_name => @project.name}
     Kalibro::Project.expects(:request).with("Project", :get_project, request_body).raises(Exception.new("(S:Server) There is no project named " + @project.name))
-    assert_nil Kalibro::Project.find_by_name(@project.name)
+    assert_raise Exception do Kalibro::Project.find_by_name(@project.name) end
   end
 
   should 'return true when project is saved successfully' do

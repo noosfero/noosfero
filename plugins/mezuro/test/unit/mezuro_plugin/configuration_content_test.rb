@@ -5,7 +5,7 @@ require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/configuration_fixtures"
 class ConfigurationContentTest < ActiveSupport::TestCase
 
   def setup
-    @configuration = ConfigurationFixtures.kalibro_configuration
+    @configuration = ConfigurationFixtures.configuration
     @content = MezuroPlugin::ConfigurationContent.new
     @content.name = @configuration.name
     @content.description = @configuration.description
@@ -28,15 +28,13 @@ class ConfigurationContentTest < ActiveSupport::TestCase
   end
 
   should 'not save a configuration with an existing cofiguration name in kalibro' do
-    client = mock
-    Kalibro::Client::ConfigurationClient.expects(:new).returns(client)
-    client.expects(:configuration_names).returns([@content.name.upcase])
+    Kalibro::Configuration.expects(:all_names).returns([@content.name.upcase])
     @content.send :validate_kalibro_configuration_name
     assert_equal "Configuration name already exists in Kalibro", @content.errors.on_base
   end
 
   should 'get configuration from service' do
-    Kalibro::Client::ConfigurationClient.expects(:configuration).with(@content.name).returns(@configuration)
+    Kalibro::Configuration.expects(:find_by_name).with(@content.name).returns(@configuration)
     assert_equal @configuration, @content.configuration
   end
 
@@ -46,12 +44,20 @@ class ConfigurationContentTest < ActiveSupport::TestCase
   end
 
   should 'send correct configuration to service' do
-    Kalibro::Client::ConfigurationClient.expects(:save).with(@content)
+    Kalibro::Configuration.expects(:find_by_name).with(@content.name).returns(@configuration)
+    @configuration.expects(:save).returns(true)
+    @content.send :send_configuration_to_service
+  end
+
+  should 'send correct configuration to service but comunication fails' do
+    Kalibro::Configuration.expects(:find_by_name).with(@content.name).returns(@configuration)
+    @configuration.expects(:save).returns(false)
     @content.send :send_configuration_to_service
   end
 
   should 'remove configuration from service' do
-    Kalibro::Client::ConfigurationClient.expects(:remove).with(@content.name)
+    Kalibro::Configuration.expects(:find_by_name).with(@content.name).returns(@configuration)
+    @configuration.expects(:destroy)
     @content.send :remove_configuration_from_service
   end
   
