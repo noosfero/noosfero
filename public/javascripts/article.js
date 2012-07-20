@@ -148,7 +148,6 @@ jQuery(function($) {
   });
 
   $('#media-upload-form form').ajaxForm({
-    dataType: 'json',
     resetForm: true,
     beforeSubmit:
       function() {
@@ -156,7 +155,8 @@ jQuery(function($) {
         $('#media-upload-box .header').toggleClass('icon-loading');
       },
     success:
-      function(data) {
+      function(text) {
+        var data = $.parseJSON(text);
         list_items(data, '#media-upload-results .items', true);
         if (data.length && data.length > 0) {
           $('#media-upload-results').slideDown();
@@ -168,6 +168,7 @@ jQuery(function($) {
   $('#media-upload-more-files').click(function() {
     $('#media-upload-results').hide();
     $('#media-upload-form').show();
+    return false;
   });
 
 });
