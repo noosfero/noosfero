@@ -48,11 +48,19 @@ Kalibro::ProjectResult.first_result_after(name, date)
   def module_result(attributes)
     module_name = attributes[:module_name].nil? ? project.name : attributes[:module_name]
     date = attributes[:date].nil? ? project_result.date : project_result_with_date(attributes[:date]).date
-    @module_result ||= Kalibro::ModuleResult.find_by_project_name_and_module_name_and_date(name, module_name, date)
+    begin
+      @module_result ||= Kalibro::ModuleResult.find_by_project_name_and_module_name_and_date(name, module_name, date)
+    rescue Exception => error
+      errors.add_to_base(error.message)
+    end
   end
 
   def result_history(module_name)
-    @result_history ||= Kalibro::ModuleResult.all_by_project_name_and_module_name(name, module_name)
+    begin
+      @result_history ||= Kalibro::ModuleResult.all_by_project_name_and_module_name(name, module_name)
+    rescue Exception => error
+      errors.add_to_base(error.message)
+    end
   end
 
   after_save :send_project_to_service
