@@ -20,7 +20,7 @@ The items below are separated for each hosted environment:
 
 * Uploaded files
 * Database
-* Ferret index
+* Solr index
 * ActiveRecord#cache_key
 * Feed updater
 * Delayed Job Workers
@@ -116,9 +116,9 @@ Run Noosfero init file as root:
 
 # invoke-rc.d noosfero start
 
-== Ferret
+== Solr
 
-It's necessary to run only one instance of ferret_server. Don't worry
+It's necessary to run only one instance of Solr. Don't worry
 about this, Noosfero initializer had already done this for you.
 
 == Feed updater & Delayed job
@@ -140,7 +140,7 @@ by following the steps below in addition to the previous steps:
 
 1. Reindex your database
 
-Rebuild the Ferret index by running the following task just
+Rebuild the Solr index by running the following task just
 for your hosting environment, do this as noosfero user:
 
 $ RAILS_ENV=production rake multitenancy:reindex
