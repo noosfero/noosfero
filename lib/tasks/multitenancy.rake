@@ -15,18 +15,17 @@ namespace :multitenancy do
   end
 
   task :reindex => :environment do
-    envs = ActiveRecord::Base.configurations.keys.select{ |k| k.match(/_#{RAILS_ENV}$/) }
-    models = [ Profile, Article, Product ]
-    envs.each do |e|
-      puts "Rebuilding Index for #{e}" if Rake.application.options.trace
+    # enable output from rebuild_index
+    logger = ActiveRecord::Base.logger = Logger.new(STDOUT)
+    logger.level = ActiveSupport::BufferedLogger::INFO
+
+    db_envs = ActiveRecord::Base.configurations.keys.select{ |k| k.match(/_#{RAILS_ENV}$/) }
+    db_envs.each do |e|
+      puts "REBUILDING INDEX FOR ENVIRONMENT #{e}"
       ActiveRecord::Base.connection.schema_search_path = ActiveRecord::Base.configurations[e]['schema_search_path']
-      models.each do |m|
-        if e == envs[0]
-          m.rebuild_index
-          puts "Rebuilt index for #{m}" if Rake.application.options.trace
-        end
-        m.paginated_each(:per_page => 50) { |i| i.solr_save }
-        puts "Reindexed all instances of #{m}" if Rake.application.options.trace
+      $solr_indexed_models.each do |m|
+        puts "Rebuilding index for model #{m}"
+        m.rebuild_index
       end
     end
   end

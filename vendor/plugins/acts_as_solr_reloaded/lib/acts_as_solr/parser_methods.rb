@@ -30,7 +30,7 @@ module ActsAsSolr #:nodoc:
           query = replace_types([*query], ':').first
         end
 
-        query_options[:filter_queries] += replace_types([*options[:filter_queries]], '') if options[:filter_queries]
+        query_options[:filter_queries] += replace_types([*options[:filter_queries]], ':') if options[:filter_queries]
 
         options[:alternate_query] ||= ''
         options[:alternate_query].strip!
@@ -125,7 +125,7 @@ module ActsAsSolr #:nodoc:
     def solr_type_condition(options = {})
       classes = [self] + (self.subclasses || []) + (options[:models] || [])
       classes.map do |klass|
-        next if klass.name.empty? 
+        next if klass.name.empty?
         "#{solr_configuration[:type_field]}:\"#{klass.name}\""
       end.compact.join(' OR ')
     end
@@ -248,7 +248,7 @@ module ActsAsSolr #:nodoc:
       bad_options = options.map {|x| x.to_sym} - valid_other_options
       raise "Invalid option#{'s' if bad_options.size > 1} for faceted date's other param: #{bad_options.join(', ')}. May only be one of :after, :all, :before, :between, :none" if bad_options.size > 0
     end
-    
+
     def sanitize_query(query)
       fields = self.configuration[:solr_fields].keys
       fields += DynamicAttribute.all(:select => 'name', :group => 'name').map(&:name) if DynamicAttribute.table_exists?

@@ -6,12 +6,13 @@ module ActsAsSearchable
     def acts_as_searchable(options = {})
       return if !ACTS_AS_SEARCHABLE_ENABLED
 
-      if (!options[:fields])
-		    options[:additional_fields] ||= []
-        options[:additional_fields] |= [{:schema_name => :string}]
-      else
+      if options[:fields]
         options[:fields] << {:schema_name => :string}
+      else
+        options[:additional_fields] ||= []
+        options[:additional_fields] << {:schema_name => :string}
       end
+
       acts_as_solr options
       extend FindByContents
       send :include, InstanceMethods
@@ -19,7 +20,15 @@ module ActsAsSearchable
 
     module InstanceMethods
       def schema_name
-        (Noosfero::MultiTenancy.on? and ActiveRecord::Base.postgresql?) ? ActiveRecord::Base.connection.schema_search_path : ''
+        self.class.schema_name
+      end
+
+      # replace solr_id from vendor/plugins/acts_as_solr_reloaded/lib/acts_as_solr/instance_methods.rb
+      # to include schema_name
+      def solr_id
+         id = "#{self.class.name}:#{record_id(self)}"
+         id.insert(0, "#{schema_name}:") unless schema_name.blank?
+         id
       end
     end
 
@@ -36,7 +45,7 @@ module ActsAsSearchable
         options[:per_page] = pg_options[:per_page].to_i
         options[:scores] ||= true
         options[:filter_queries] ||= []
-        options[:filter_queries] << "schema_name:\"#{schema_name}\"" unless schema_name.empty?
+        options[:filter_queries] << "schema_name:\"#{schema_name}\"" unless schema_name.blank?
         all_facets_enabled = options.delete(:all_facets)
         options[:per_page] = options.delete(:extra_limit) if options[:extra_limit]
         results = []
