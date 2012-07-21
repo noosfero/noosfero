@@ -208,6 +208,7 @@ class SearchController < PublicController
     more_recent
     more_active
     more_popular
+    more_comments
   )
   def filter
     if FILTERS.include?(params[:filter])
@@ -221,6 +222,7 @@ class SearchController < PublicController
     {
       'articles_more_recent' => _('More recent contents from network'),
       'articles_more_popular' => _('More viewed contents from network'),
+      'articles_more_comments' => _('Most commented contents from network'),
       'people_more_recent' => _('More recent people from network'),
       'people_more_active' => _('More active people from network'),
       'people_more_popular' => _('More popular people from network'),
