@@ -156,6 +156,7 @@ jQuery(function($) {
       },
     success:
       function(text) {
+        text = text.replace('<pre>', '').replace('</pre>', ''); // old firefox
         var data = $.parseJSON(text);
         list_items(data, '#media-upload-results .items', true);
         if (data.length && data.length > 0) {
