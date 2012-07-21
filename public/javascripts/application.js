@@ -863,3 +863,21 @@ function facet_options_toggle(id, url) {
     }
   });
 }
+
+jQuery(function($) {
+  $('.colorbox').live('click', function() {
+    $.fn.colorbox({
+      href:$(this).attr('href'),
+      maxWidth: '500',
+      maxHeight: '550',
+      open:true
+    });
+    return false;
+  });
+
+  $('.colorbox-close').live('click', function() {
+    $.colorbox.close();
+    return false;
+  });
+
+});

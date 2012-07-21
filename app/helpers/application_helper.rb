@@ -10,6 +10,8 @@ module ApplicationHelper
 
   include ThickboxHelper
 
+  include ColorboxHelper
+
   include BoxesHelper
 
   include FormsHelper
