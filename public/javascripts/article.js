@@ -24,9 +24,9 @@ jQuery(function($) {
     return false;
   })
 
-  var button_add = $('.text-editor-sidebar meta[name=button-add]').attr('value');
-  var button_zoom = $('.text-editor-sidebar meta[name=button-zoom]').attr('value');
-  var button_close = $('.text-editor-sidebar meta[name=button-close]').attr('value');
+  var button_add = $('.text-editor-sidebar span.button-add').attr('data-value');
+  var button_zoom = $('.text-editor-sidebar span.button-zoom').attr('data-value');
+  var button_close = $('.text-editor-sidebar span.button-close').attr('data-value');
 
   function add_to_text_button(extra_class) {
     if (!extra_class) { extra_class = '' }
