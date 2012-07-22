@@ -3,7 +3,7 @@
 # If you change the host or port number here, make sure you update
 # them in your Solr config file
 
-# No change is need to support multitenancy. Only one solr environment is need.
+# No change is needed to support multitenancy. Only one solr environment will be used.
 # Just remember to use 'rake multitenancy:reindex' for reindexation.
 
 production:
