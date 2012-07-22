@@ -1,7 +1,10 @@
 <div class='text-editor-sidebar'>
+  <meta name='button-add' value='<%= _('Add to the text') %>'/>
+  <meta name='button-zoom' value='<%= _('Zoom in') %>'/>
+  <meta name='button-close' value='<%= _('Close') %>'/>
   <%= render(:partial => 'textile_quick_reference') if @article.is_a?(TextileArticle) %>
   <div class='text-editor-sidebar-box' id='media-upload-box'>
-    <p><strong><%= _('Media upload') %></strong></p>
+    <div class='header'><strong><%= _('Insert media') %></strong></div>
     <div id='media-upload-form'>
       <% form_tag({ :action => 'media_upload' }, :multipart => true) do %>
         <div class='formfield'>
@@ -24,7 +27,7 @@
     </div>
   </div>
   <div id='media-search-box' class='text-editor-sidebar-box'>
-    <p><strong><%= _('Media search') %></strong></p>
+    <div class='header'><strong><%= _('Media search') %></strong></div>
     <p>
     <% form_tag({ :action => 'search' }) do %>
       <span class='formfield'>
