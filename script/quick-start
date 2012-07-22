@@ -21,8 +21,12 @@ run() {
   fi
 }
 
-if gem which system_timer >/dev/null 2>&1 && which xvfb-run >/dev/null 2>&1; then
-  say "Assuming dependencies are already installed. Pass --install to force their installation"
+force_install=false
+if test "$1" = '--force-install'; then
+  force_install=true
+fi
+if gem which system_timer >/dev/null 2>&1 && which xvfb-run >/dev/null 2>&1 && test "$force_install" = 'false'; then
+  say "Assuming dependencies are already installed. Pass --force-install to force their installation"
 else
   if !which lsb_release >/dev/null 2>&1; then
     complain "E: lsb_release not available! (Try installing the lsb-release package)"
