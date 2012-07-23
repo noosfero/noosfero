@@ -78,6 +78,7 @@ class MezuroPluginMyprofileController < ProfileController
   def new_range
     @configuration_content = profile.articles.find(params[:id])
     @metric_name = params[:metric_name]
+    @range = Kalibro::Range.new
   end
   
   def edit_range
@@ -85,7 +86,7 @@ class MezuroPluginMyprofileController < ProfileController
     @metric_name = params[:metric_name]
     @beginning_id = params[:beginning_id]
     metric_configuration = Kalibro::MetricConfiguration.find_by_configuration_name_and_metric_name(@configuration_content.name, @metric_name)
-    @range = metric_configuration.ranges.find{|range| range.beginning == @beginning_id.to_f || ( @beginning_id =="-Infinity" && range.beginning == -1.0/0.0) }
+    @range = metric_configuration.ranges.find{|range| range.beginning == @beginning_id.to_f || @beginning_id =="-INF" }
   end
 
   def create_range
@@ -102,7 +103,7 @@ class MezuroPluginMyprofileController < ProfileController
     metric_name = params[:metric_name]
     beginning_id = params[:beginning_id]
     metric_configuration = Kalibro::MetricConfiguration.find_by_configuration_name_and_metric_name(configuration_content.name, metric_name)
-    index = metric_configuration.ranges.index{ |range| range.beginning == beginning_id.to_f }
+    index = metric_configuration.ranges.index{ |range| range.beginning == beginning_id.to_f || beginning_id == "-INF" }
     metric_configuration.ranges[index] = Kalibro::Range.new params[:range]
     metric_configuration.save
   end
@@ -112,7 +113,7 @@ class MezuroPluginMyprofileController < ProfileController
     metric_name = params[:metric_name]
     beginning_id = params[:beginning_id]
     metric_configuration = Kalibro::MetricConfiguration.find_by_configuration_name_and_metric_name(configuration_content.name, metric_name)
-    metric_configuration.ranges.delete_if { |range| range.beginning == beginning_id.to_f }
+    metric_configuration.ranges.delete_if { |range| range.beginning == beginning_id.to_f || beginning_id == "-INF" }
     metric_configuration.save
     formatted_metric_name = metric_name.gsub(/\s/, '+')
     if metric_configuration.metric.class == Kalibro::CompoundMetric

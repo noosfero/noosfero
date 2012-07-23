@@ -14,11 +14,7 @@
       <%= f.label :beginning, "(*) Beginning:" %>
     </td>
     <td>
-      <% if @range.beginning.to_s == "-Infinity" %>
-        <%= f.text_field :beginning, :value => "-INF" %>
-      <% else %>
-        <%= f.text_field :beginning %>
-      <% end %>
+      <%= f.text_field :beginning, :value => @range.beginning %>
     </td>
   </tr>
   <tr>
@@ -26,11 +22,7 @@
       <%= f.label :end, "(*) End:" %>
     </td>
     <td>
-      <% if @range.end.to_s == "Infinity" %>
-        <%= f.text_field :end, :value => "INF" %>
-      <% else %>
-        <%= f.text_field :end %>
-      <% end %>
+      <%= f.text_field :end, :value => @range.end %>
     </td>
   </tr>
   <tr>
