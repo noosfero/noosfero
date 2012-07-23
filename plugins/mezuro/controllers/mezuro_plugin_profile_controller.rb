@@ -55,11 +55,16 @@ class MezuroPluginProfileController < ProfileController
   private
   
   def filtering_metric_history(metric_name, module_history)
-    metric_history = module_history.collect do |module_result| 
-      module_result.metric_results.select do |metric_result| 
-        metric_result.metric.name.delete("() ") == metric_name
-      end
+    metrics_history = module_history.map do |module_result|
+      module_result.metric_results
     end
-    metric_history[0].collect{ |metric_result| metric_result.value }
+    metric_history =  metrics_history.map do |array_of_metric_result|
+      (array_of_metric_result.select do |metric_result|
+        metric_result.metric.name.delete("() ") == metric_name
+      end).first
+    end
+    metric_history.map do |metric_result|
+      metric_result.value
+    end
   end
 end
