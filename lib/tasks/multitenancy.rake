@@ -21,7 +21,7 @@ namespace :multitenancy do
 
     db_envs = ActiveRecord::Base.configurations.keys.select{ |k| k.match(/_#{RAILS_ENV}$/) }
     db_envs.each do |e|
-      puts "REBUILDING INDEX FOR ENVIRONMENT #{e}"
+      puts "Rebuilding index for environment #{e}"
       ActiveRecord::Base.connection.schema_search_path = ActiveRecord::Base.configurations[e]['schema_search_path']
       $solr_indexed_models.each do |m|
         puts "Rebuilding index for model #{m}"
