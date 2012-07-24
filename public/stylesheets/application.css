@@ -5896,6 +5896,10 @@ h1#agenda-title {
 
 /* }}} */
 
+.unfollow-article {
+  margin-bottom: 40px;
+}
+
 #alt-beautify {
   background-color: #EDEDED;
   border: 1px solid #666666;

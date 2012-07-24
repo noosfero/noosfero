@@ -114,6 +114,7 @@ class User < ActiveRecord::Base
 
   # Activates the user in the database.
   def activate
+    return false unless self.person
     self.activated_at = Time.now.utc
     self.activation_code = nil
     self.person.visible = true
