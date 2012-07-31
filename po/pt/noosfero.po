@@ -13,8 +13,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.37.0\n"
-"POT-Creation-Date: 2012-07-31 18:42-0300\n"
-"PO-Revision-Date: 2012-07-20 03:24-0300\n"
+"POT-Creation-Date: 2012-07-31 19:11-0300\n"
+"PO-Revision-Date: 2012-07-31 19:25-0300\n"
 "Last-Translator: Joenio Costa <joenio@colivre.coop.br>\n"
 "Language-Team: LANGUAGE TEAM <E-MAIL@ADDRESS or HOME PAGE>\n"
 "Language: \n"
@@ -648,9 +648,9 @@ msgstr "Eventos"
 msgid "Relevance"
 msgstr "Relevância"
 
-#: app/helpers/search_helper.rb:21
-msgid "More Recent"
-msgstr "Mais Recentes"
+#: app/helpers/search_helper.rb:21 app/helpers/search_helper.rb:32
+msgid "More recent"
+msgstr "Mais recentes"
 
 #: app/helpers/search_helper.rb:22 app/helpers/search_helper.rb:28
 #: app/helpers/search_helper.rb:31 app/helpers/search_helper.rb:35
@@ -677,10 +677,6 @@ msgstr "Nome"
 #: app/helpers/search_helper.rb:23
 msgid "Closest to me"
 msgstr "Mais próximo de mim"
-
-#: app/helpers/search_helper.rb:32
-msgid "More recent"
-msgstr "Mais recentes"
 
 #: app/helpers/search_helper.rb:55
 msgid ", "
@@ -1273,36 +1269,35 @@ msgid "Chat"
 msgstr "Bate-papo"
 
 #: app/helpers/application_helper.rb:1092
-msgid "contents|More Recent"
+msgid "contents|More recent"
 msgstr "Mais recentes"
 
 #: app/helpers/application_helper.rb:1093
-msgid "contents|More Viewed"
-msgstr "Mais Visualizados"
+msgid "contents|More viewed"
+msgstr "Mais visualizados"
 
 #: app/helpers/application_helper.rb:1094
-#, fuzzy
-msgid "contents|Most Commented"
+msgid "contents|Most commented"
 msgstr "Mais comentados"
 
-#: app/helpers/application_helper.rb:1097
-msgid "New Content"
-msgstr "Novo Conteúdo"
+#: app/helpers/application_helper.rb:1097 app/views/cms/view.rhtml:8
+msgid "New content"
+msgstr "Novo conteúdo"
 
 #: app/helpers/application_helper.rb:1101
-msgid "Contents Menu"
-msgstr "Menu de Conteúdos"
+msgid "Contents menu"
+msgstr "Menu de conteúdos"
 
 #: app/helpers/application_helper.rb:1107
-msgid "people|More Recent"
+msgid "people|More recent"
 msgstr "Mais recentes"
 
 #: app/helpers/application_helper.rb:1108
-msgid "people|More Active"
+msgid "people|More active"
 msgstr "Mais ativas"
 
 #: app/helpers/application_helper.rb:1109
-msgid "people|More Popular"
+msgid "people|More popular"
 msgstr "Mais populares"
 
 #: app/helpers/application_helper.rb:1112
@@ -1314,19 +1309,19 @@ msgid "Invite friends"
 msgstr "Convidar amigos"
 
 #: app/helpers/application_helper.rb:1117
-msgid "People Menu"
-msgstr "Menu de Pessoas"
+msgid "People menu"
+msgstr "Menu de pessoas"
 
 #: app/helpers/application_helper.rb:1123
-msgid "communities|More Recent"
+msgid "communities|More recent"
 msgstr "Mais recentes"
 
 #: app/helpers/application_helper.rb:1124
-msgid "communities|More Active"
+msgid "communities|More active"
 msgstr "Mais ativas"
 
 #: app/helpers/application_helper.rb:1125
-msgid "communities|More Popular"
+msgid "communities|More popular"
 msgstr "Mais populares"
 
 #: app/helpers/application_helper.rb:1128
@@ -1339,8 +1334,8 @@ msgid "New community"
 msgstr "Nova comunidade"
 
 #: app/helpers/application_helper.rb:1133
-msgid "Communities Menu"
-msgstr "Menu de Comunidades"
+msgid "Communities menu"
+msgstr "Menu de comunidades"
 
 #: app/helpers/application_helper.rb:1138 app/views/layouts/slideshow.rhtml:18
 #: app/views/blocks/featured_products.rhtml:3
@@ -1939,9 +1934,8 @@ msgid "More viewed contents from network"
 msgstr "Conteúdos mais visualizados da rede"
 
 #: app/controllers/public/search_controller.rb:225
-#, fuzzy
 msgid "Most commented contents from network"
-msgstr "Conteúdos mais recentes da rede"
+msgstr "Conteúdos mais comentados da rede"
 
 #: app/controllers/public/search_controller.rb:226
 msgid "More recent people from network"
@@ -7016,13 +7010,12 @@ msgstr ""
 "chance que seu artigo seja encontrado."
 
 #: app/views/cms/_text_editor_sidebar.rhtml:2
-#, fuzzy
 msgid "Add to the text"
-msgstr "Ir para o conteúdo"
+msgstr "Adicionar ao texto"
 
 #: app/views/cms/_text_editor_sidebar.rhtml:8
 msgid "Insert media"
-msgstr ""
+msgstr "Adicionar mídia"
 
 #: app/views/cms/_text_editor_sidebar.rhtml:13
 #: app/views/cms/_upload_file_form.rhtml:4
@@ -7190,10 +7183,6 @@ msgstr "Site do evento"
 msgid "Content management"
 msgstr "Gerenciamento de conteúdo"
 
-#: app/views/cms/view.rhtml:8
-msgid "New content"
-msgstr "Novo conteúdo"
-
 #: app/views/cms/view.rhtml:14
 msgid "Current folder: "
 msgstr "Pasta atual:"
@@ -7297,9 +7286,8 @@ msgid "Drag images to add them to the text."
 msgstr "Arraste as imagens para adicioná-las ao texto."
 
 #: app/views/cms/_drag_and_drop_note.rhtml:4
-#, fuzzy
 msgid "Drag file names to the text to add links."
-msgstr "Arraste os nomes dos itens para o texto para adicionar links."
+msgstr "Arraste os nomes dos arquivos ao texto para adicionar links."
 
 #: app/views/memberships/index.rhtml:3 app/views/profile_editor/index.rhtml:67
 msgid "Manage my groups"
@@ -9495,9 +9483,8 @@ msgid " validation failed"
 msgstr " validação falhou"
 
 #: plugins/stoa/lib/stoa_plugin/usp_user.rb:-
-#, fuzzy
 msgid "usp user"
-msgstr "usuário"
+msgstr "usuário usp"
 
 #: plugins/stoa/lib/stoa_plugin/usp_user.rb:-
 msgid "stoaplugin::uspuser"
@@ -10171,6 +10158,12 @@ msgstr ""
 "Este site usa <a href=\"http://noosfero.org/\">Noosfero</a>, desenvolvido "
 "pela %s e licenciado sob a <a href=\"http://www.gnu.org/licenses/agpl.html"
 "\">GNU Affero General Public License</a> versão 3 ou superior."
+
+#~ msgid "More Recent"
+#~ msgstr "Mais Recentes"
+
+#~ msgid "New Content"
+#~ msgstr "Novo Conteúdo"
 
 #~ msgid "Please, try again when the page loading completes."
 #~ msgstr "Por favor, tente de novo quando a página terminar da carregar."
