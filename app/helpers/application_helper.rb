@@ -1333,7 +1333,7 @@ module ApplicationHelper
   end
 
   def template_options(klass, field_name)
-    return hidden_field_tag("#{field_name}[template_id]", klass.templates.first) if klass.templates.count == 1
+    return hidden_field_tag("#{field_name}[template_id]", klass.templates.first.id) if klass.templates.count == 1
 
     counter = 0
     radios = klass.templates.map do |template|

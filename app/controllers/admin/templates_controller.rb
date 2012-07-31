@@ -9,7 +9,7 @@ class TemplatesController < AdminController
         template = User.new(:login => identifier, :email => identifier+'@templates.noo', :password => password, :password_confirmation => password, :person_data => {:name => params[:name], :is_template => true})
         template.save!
         session[:notice] = _('New template created')
-        redirect_to :action => 'edit_templates'
+        redirect_to :action => 'index'
       rescue
         @error = _('Name has already been taken')
       end
@@ -21,7 +21,7 @@ class TemplatesController < AdminController
       begin
         create_organization_template(Community)
         session[:notice] = _('New template created')
-        redirect_to :action => 'edit_templates'
+        redirect_to :action => 'index'
       rescue
         @error = _('Name has already been taken')
       end
@@ -33,7 +33,7 @@ class TemplatesController < AdminController
       begin
         create_organization_template(Enterprise)
         session[:notice] = _('New template created')
-        redirect_to :action => 'edit_templates'
+        redirect_to :action => 'index'
       rescue
         @error = _('Name has already been taken')
       end
