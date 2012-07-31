@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.37.0\n"
-"POT-Creation-Date: 2012-07-19 12:20-0300\n"
+"POT-Creation-Date: 2012-07-31 18:42-0300\n"
 "PO-Revision-Date: 2010-10-26 09:57-0300\n"
 "Last-Translator: Anton <anton.c@live.com>\n"
 "Language-Team: German <de@li.org>\n"
@@ -15,10 +15,6 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-
-#: app/helpers/lightbox_helper.rb:27
-msgid "Please, try again when the page loading completes."
-msgstr "Пожалуйста, повторите попытку после окончания загрузки"
 
 #: app/helpers/profile_editor_helper.rb:5
 msgid "Agrometeorology"
@@ -601,8 +597,7 @@ msgstr "Распространить это"
 msgid "Delete"
 msgstr "Удалить"
 
-#: app/helpers/search_helper.rb:11 app/helpers/application_helper.rb:1097
-#: app/helpers/application_helper.rb:1141
+#: app/helpers/search_helper.rb:11 app/helpers/application_helper.rb:1100
 #: app/controllers/public/search_controller.rb:149
 #, fuzzy
 msgid "Contents"
@@ -618,15 +613,15 @@ msgid "Enterprises"
 msgstr "Компании"
 
 #: app/helpers/search_helper.rb:13 app/helpers/assets_helper.rb:8
-#: app/helpers/application_helper.rb:1113
+#: app/helpers/application_helper.rb:1116
 #: app/controllers/public/search_controller.rb:144
 #: app/models/people_block.rb:4
 msgid "People"
 msgstr "Пользователи"
 
 #: app/helpers/search_helper.rb:14 app/helpers/assets_helper.rb:11
-#: app/helpers/application_helper.rb:533
-#: app/helpers/application_helper.rb:1129
+#: app/helpers/application_helper.rb:535
+#: app/helpers/application_helper.rb:1132
 #: app/controllers/public/search_controller.rb:148
 #: app/models/communities_block.rb:4
 #: app/views/profile/_person_profile.rhtml:56
@@ -660,9 +655,9 @@ msgstr "люди|Последние"
 #: app/helpers/search_helper.rb:38 app/helpers/search_helper.rb:41
 #: app/controllers/my_profile/manage_products_controller.rb:210
 #: app/models/contact.rb:- app/models/contact.rb:14
-#: app/models/production_cost.rb:- app/models/domain.rb:-
-#: app/models/certifier.rb:- app/models/national_region.rb:-
-#: app/models/comment.rb:- app/models/qualifier.rb:-
+#: app/models/production_cost.rb:- app/models/certifier.rb:-
+#: app/models/national_region.rb:- app/models/comment.rb:-
+#: app/models/product.rb:- app/models/qualifier.rb:-
 #: app/models/national_region_type.rb:- app/models/create_enterprise.rb:4
 #: app/views/content_viewer/_comment_form.rhtml:69
 #: app/views/contact/sender/mail.rhtml:11
@@ -844,13 +839,14 @@ msgstr "Вы уверены что хотите удалить блок?"
 msgid "Help on this block"
 msgstr "Помощь по блоку"
 
-#: app/helpers/boxes_helper.rb:222 app/helpers/application_helper.rb:75
+#: app/helpers/boxes_helper.rb:222 app/helpers/application_helper.rb:77
 #: app/models/link_list_block.rb:23
 msgid "Help"
 msgstr "Помощь"
 
-#: app/helpers/boxes_helper.rb:222 app/helpers/application_helper.rb:95
+#: app/helpers/boxes_helper.rb:222 app/helpers/application_helper.rb:97
 #: app/views/cms/why_categorize.rhtml:8
+#: app/views/cms/_text_editor_sidebar.rhtml:4
 #: app/views/box_organizer/add_block.rhtml:26
 msgid "Close"
 msgstr "Закрыть"
@@ -871,7 +867,7 @@ msgstr "Нет событий на эту дату"
 msgid "Articles"
 msgstr "Статьи"
 
-#: app/helpers/assets_helper.rb:9 app/helpers/application_helper.rb:548
+#: app/helpers/assets_helper.rb:9 app/helpers/application_helper.rb:550
 #: app/controllers/public/search_controller.rb:146
 #: app/models/products_block.rb:8 app/models/products_block.rb:12
 #: app/models/enterprise.rb:130 app/views/search/_sellers_form.rhtml:8
@@ -1155,67 +1151,67 @@ msgstr "Другие"
 msgid "%{currency} %{production_cost} of %{currency} %{product_price}"
 msgstr ""
 
-#: app/helpers/application_helper.rb:152
+#: app/helpers/application_helper.rb:154
 msgid "This is %s, version %s"
 msgstr "Это %s, версия %s"
 
-#: app/helpers/application_helper.rb:495
+#: app/helpers/application_helper.rb:497
 msgid "non registered gender"
 msgstr "не указан пол"
 
-#: app/helpers/application_helper.rb:495
+#: app/helpers/application_helper.rb:497
 #: app/views/profile/_person_profile.rhtml:5
 #: app/views/profile_editor/_person_form.rhtml:16
 msgid "Male"
 msgstr "Мужской"
 
-#: app/helpers/application_helper.rb:495
+#: app/helpers/application_helper.rb:497
 #: app/views/profile/_person_profile.rhtml:5
 #: app/views/profile_editor/_person_form.rhtml:16
 msgid "Female"
 msgstr "Женский"
 
-#: app/helpers/application_helper.rb:520
+#: app/helpers/application_helper.rb:522
 msgid "Principal Product Categories"
 msgstr "Основные категории продуктов"
 
-#: app/helpers/application_helper.rb:531 app/helpers/application_helper.rb:539
+#: app/helpers/application_helper.rb:533 app/helpers/application_helper.rb:541
 #: app/views/profile/index.rhtml:30 app/views/profile/index.rhtml:36
 msgid "Wall"
 msgstr "Стена"
 
-#: app/helpers/application_helper.rb:532 app/models/friends_block.rb:4
+#: app/helpers/application_helper.rb:534 app/models/friends_block.rb:4
 #: app/views/profile/_person_profile.rhtml:52
 msgid "Friends"
 msgstr "Друзья"
 
-#: app/helpers/application_helper.rb:534 app/helpers/application_helper.rb:544
-#: app/helpers/application_helper.rb:551
+#: app/helpers/application_helper.rb:536 app/helpers/application_helper.rb:546
+#: app/helpers/application_helper.rb:553
 #: app/views/blocks/profile_info_actions/enterprise.rhtml:8
 #: app/views/blocks/profile_info_actions/person.rhtml:11
 #: app/views/blocks/profile_info_actions/community.rhtml:31
 msgid "Send an e-mail"
 msgstr "Послать email"
 
-#: app/helpers/application_helper.rb:535 app/models/link_list_block.rb:10
+#: app/helpers/application_helper.rb:537 app/models/link_list_block.rb:10
 #: app/views/region_validators/_search.rhtml:9
 #: app/views/admin_panel/set_portal_folders.rhtml:27
 #: app/views/themes/add_css.rhtml:7 app/views/box_organizer/add_block.rhtml:25
 msgid "Add"
 msgstr "Добавить"
 
-#: app/helpers/application_helper.rb:540 app/helpers/application_helper.rb:549
+#: app/helpers/application_helper.rb:542 app/helpers/application_helper.rb:551
 #: app/models/members_block.rb:4
 #: app/views/profile/_organization_profile.rhtml:7
 msgid "Members"
 msgstr "Участники"
 
-#: app/helpers/application_helper.rb:541 app/helpers/application_helper.rb:550
+#: app/helpers/application_helper.rb:543 app/helpers/application_helper.rb:552
 #: app/models/person.rb:252 app/models/organization.rb:118
 msgid "Agenda"
 msgstr "Повестка дня"
 
-#: app/helpers/application_helper.rb:542
+#: app/helpers/application_helper.rb:544
 #: app/views/profile/_private_profile.rhtml:10
 #: app/views/blocks/profile_info_actions/community.rhtml:9
 #: app/views/blocks/profile_info_actions/community.rhtml:21
@@ -1223,7 +1219,7 @@ msgstr "Повестка дня"
 msgid "Join"
 msgstr "Присоединиться"
 
-#: app/helpers/application_helper.rb:543 app/views/memberships/index.rhtml:26
+#: app/helpers/application_helper.rb:545 app/views/memberships/index.rhtml:26
 #: app/views/blocks/profile_info_actions/community.rhtml:5
 #: app/views/blocks/profile_info_actions/community.rhtml:7
 #: app/views/blocks/profile_info_actions/community.rhtml:17
@@ -1231,149 +1227,142 @@ msgstr "Присоединиться"
 msgid "Leave community"
 msgstr "Покинуть сообщество"
 
-#: app/helpers/application_helper.rb:578
+#: app/helpers/application_helper.rb:580
 msgid "Profile links"
 msgstr "Ссылки"
 
-#: app/helpers/application_helper.rb:585
+#: app/helpers/application_helper.rb:587
 msgid "Click on this icon to go to the <b>%s</b>'s home page"
 msgstr "Кликните на иконку, чтоб перейти на домашнюю страницу <b>%s</b>"
 
-#: app/helpers/application_helper.rb:623 app/models/article.rb:681
+#: app/helpers/application_helper.rb:625 app/models/article.rb:681
 #: app/views/search/_article_categories.rhtml:2
 #: app/views/content_viewer/view_page.rhtml:65
 #: app/views/categories/index.rhtml:1
 msgid "Categories"
 msgstr "Категории"
 
-#: app/helpers/application_helper.rb:646
+#: app/helpers/application_helper.rb:648
 msgid "open"
 msgstr "открыть"
 
-#: app/helpers/application_helper.rb:666
+#: app/helpers/application_helper.rb:668
 #, fuzzy
 msgid "root"
 msgstr "Выйти"
 
-#: app/helpers/application_helper.rb:694
+#: app/helpers/application_helper.rb:696
 #: app/views/layouts/application-ng.rhtml:65
 msgid "Search..."
 msgstr "Искать"
 
-#: app/helpers/application_helper.rb:696
+#: app/helpers/application_helper.rb:698
 msgid "This is a search box. Click, write your query, and press enter to find"
 msgstr "Это поле поиска."
 
-#: app/helpers/application_helper.rb:697
+#: app/helpers/application_helper.rb:699
 msgid "Click, write and press enter to find"
 msgstr "Введите запрос и нажмите enter"
 
-#: app/helpers/application_helper.rb:703 app/models/link_list_block.rb:20
+#: app/helpers/application_helper.rb:705 app/models/link_list_block.rb:20
 #: app/views/region_validators/region.rhtml:23
 #: app/views/search/_search_form.rhtml:24
 #: app/views/search/_sellers_form.rhtml:21
-#: app/views/cms/_text_editor_sidebar.rhtml:33
+#: app/views/cms/_text_editor_sidebar.rhtml:37
 #: app/views/profile_members/_add_admins.rhtml:5
 #: app/views/shared/_profile_search_form.rhtml:6 app/views/home/index.rhtml:61
 msgid "Search"
 msgstr "Поиск"
 
-#: app/helpers/application_helper.rb:956
+#: app/helpers/application_helper.rb:958
 msgid "Online Manual"
 msgstr "Онлайн-руководство"
 
-#: app/helpers/application_helper.rb:957 app/models/link_list_block.rb:33
+#: app/helpers/application_helper.rb:959 app/models/link_list_block.rb:33
 msgid "Chat"
 msgstr "Чат"
 
-#: app/helpers/application_helper.rb:1090
-#: app/helpers/application_helper.rb:1138
+#: app/helpers/application_helper.rb:1092
 #, fuzzy
 msgid "contents|More Recent"
 msgstr "Сообщества|последние"
 
-#: app/helpers/application_helper.rb:1091
+#: app/helpers/application_helper.rb:1093
 #, fuzzy
 msgid "contents|More Viewed"
 msgstr "Сообщества|Активные"
 
 #: app/helpers/application_helper.rb:1094
 #, fuzzy
+msgid "contents|Most Commented"
+msgstr "Сообщества|последние"
+
+#: app/helpers/application_helper.rb:1097
+#, fuzzy
 msgid "New Content"
 msgstr "Весь контент"
 
-#: app/helpers/application_helper.rb:1098
-#: app/helpers/application_helper.rb:1142
+#: app/helpers/application_helper.rb:1101
 #, fuzzy
 msgid "Contents Menu"
 msgstr "Меню \"Сообщества\""
 
-#: app/helpers/application_helper.rb:1104
+#: app/helpers/application_helper.rb:1107
 msgid "people|More Recent"
 msgstr "люди|Последние"
 
-#: app/helpers/application_helper.rb:1105
+#: app/helpers/application_helper.rb:1108
 msgid "people|More Active"
 msgstr "люди|Наиболее активные"
 
-#: app/helpers/application_helper.rb:1106
+#: app/helpers/application_helper.rb:1109
 msgid "people|More Popular"
 msgstr "люди|Наиболее популярные"
 
-#: app/helpers/application_helper.rb:1109
+#: app/helpers/application_helper.rb:1112
 msgid "My friends"
 msgstr "Мои друзья"
 
-#: app/helpers/application_helper.rb:1110 plugins/stoa/lib/stoa_plugin.rb:87
+#: app/helpers/application_helper.rb:1113 plugins/stoa/lib/stoa_plugin.rb:87
 msgid "Invite friends"
 msgstr "Пригласить друзей"
 
-#: app/helpers/application_helper.rb:1114
+#: app/helpers/application_helper.rb:1117
 msgid "People Menu"
 msgstr "Меню \"Пользователи\""
 
-#: app/helpers/application_helper.rb:1120
+#: app/helpers/application_helper.rb:1123
 msgid "communities|More Recent"
 msgstr "Сообщества|последние"
 
-#: app/helpers/application_helper.rb:1121
+#: app/helpers/application_helper.rb:1124
 msgid "communities|More Active"
 msgstr "Сообщества|Активные"
 
-#: app/helpers/application_helper.rb:1122
+#: app/helpers/application_helper.rb:1125
 msgid "communities|More Popular"
 msgstr "Сообщества|Наиболее популярные"
 
-#: app/helpers/application_helper.rb:1125
+#: app/helpers/application_helper.rb:1128
 msgid "My communities"
 msgstr "Мои сообщества"
 
-#: app/helpers/application_helper.rb:1126 app/models/create_community.rb:38
+#: app/helpers/application_helper.rb:1129 app/models/create_community.rb:38
 #: app/views/search/communities.rhtml:7
 msgid "New community"
 msgstr "Новое сообщество"
 
-#: app/helpers/application_helper.rb:1130
+#: app/helpers/application_helper.rb:1133
 msgid "Communities Menu"
 msgstr "Меню \"Сообщества\""
 
-#: app/helpers/application_helper.rb:1136
-#, fuzzy
-msgid "contents|More Comments"
-msgstr "Сообщества|последние"
-
-#: app/helpers/application_helper.rb:1137
-#, fuzzy
-msgid "contents|More Views"
-msgstr "Сообщества|Активные"
-
-#: app/helpers/application_helper.rb:1146 app/views/layouts/slideshow.rhtml:18
+#: app/helpers/application_helper.rb:1138 app/views/layouts/slideshow.rhtml:18
 #: app/views/blocks/featured_products.rhtml:3
 #: app/views/blocks/slideshow.rhtml:17
 msgid "Previous"
 msgstr "Предыдущий"
 
-#: app/helpers/application_helper.rb:1146 app/views/layouts/slideshow.rhtml:18
+#: app/helpers/application_helper.rb:1138 app/views/layouts/slideshow.rhtml:18
 #: app/views/enterprise_registration/basic_information.rhtml:32
 #: app/views/blocks/featured_products.rhtml:29
 #: app/views/blocks/slideshow.rhtml:21
@@ -1381,141 +1370,141 @@ msgstr "Предыдущий"
 msgid "Next"
 msgstr "Следующий"
 
-#: app/helpers/application_helper.rb:1164
+#: app/helpers/application_helper.rb:1156
 msgid "<span>Manage</span> %s"
 msgstr ""
 
-#: app/helpers/application_helper.rb:1164 app/views/shared/user_menu.rhtml:26
+#: app/helpers/application_helper.rb:1156 app/views/shared/user_menu.rhtml:26
 msgid "Manage %s"
 msgstr "Управлять%s"
 
-#: app/helpers/application_helper.rb:1174
+#: app/helpers/application_helper.rb:1166
 #, fuzzy
 msgid "Manage your pending tasks"
 msgstr "Управление контентом"
 
-#: app/helpers/application_helper.rb:1177
+#: app/helpers/application_helper.rb:1169
 msgid "<span class='welcome'>Welcome,</span> %s"
 msgstr ""
 
-#: app/helpers/application_helper.rb:1177
+#: app/helpers/application_helper.rb:1169
 msgid "Go to your homepage"
 msgstr "Вернуться на главную"
 
-#: app/helpers/application_helper.rb:1179
+#: app/helpers/application_helper.rb:1171
 msgid "Administration"
 msgstr "Администрация"
 
-#: app/helpers/application_helper.rb:1179
+#: app/helpers/application_helper.rb:1171
 msgid "Configure the environment"
 msgstr "Настроить среду"
 
-#: app/helpers/application_helper.rb:1181 app/views/shared/user_menu.rhtml:37
+#: app/helpers/application_helper.rb:1173 app/views/shared/user_menu.rhtml:37
 #: app/views/blocks/my_network.rhtml:9
 msgid "Control panel"
 msgstr "Панель управления"
 
-#: app/helpers/application_helper.rb:1181
+#: app/helpers/application_helper.rb:1173
 msgid "Configure your personal account and content"
 msgstr "Настроить аккаунт и контент"
 
-#: app/helpers/application_helper.rb:1183 app/views/shared/user_menu.rhtml:45
+#: app/helpers/application_helper.rb:1175 app/views/shared/user_menu.rhtml:45
 #: app/views/blocks/login_block.rhtml:8
 msgid "Logout"
 msgstr "Выйти"
 
-#: app/helpers/application_helper.rb:1183
+#: app/helpers/application_helper.rb:1175
 msgid "Leave the system"
 msgstr "Выйти из системы"
 
-#: app/helpers/application_helper.rb:1189
+#: app/helpers/application_helper.rb:1181
 msgid " characters left"
 msgstr "символов осталось"
 
-#: app/helpers/application_helper.rb:1190
+#: app/helpers/application_helper.rb:1182
 msgid "Limit of characters reached"
 msgstr "Лимит символов достигнут"
 
-#: app/helpers/application_helper.rb:1211
-#: app/helpers/application_helper.rb:1217
+#: app/helpers/application_helper.rb:1203
+#: app/helpers/application_helper.rb:1209
 msgid "less than a minute"
 msgstr "менее минуты"
 
-#: app/helpers/application_helper.rb:1211
-#: app/helpers/application_helper.rb:1218
+#: app/helpers/application_helper.rb:1203
+#: app/helpers/application_helper.rb:1210
 msgid "1 minute"
 msgstr "1 минута"
 
-#: app/helpers/application_helper.rb:1213
+#: app/helpers/application_helper.rb:1205
 msgid "less than 5 seconds"
 msgstr "менее 5-ти секунд"
 
-#: app/helpers/application_helper.rb:1214
+#: app/helpers/application_helper.rb:1206
 msgid "less than 10 seconds"
 msgstr "менее 10-ти секунд"
 
-#: app/helpers/application_helper.rb:1215
+#: app/helpers/application_helper.rb:1207
 msgid "less than 20 seconds"
 msgstr "менее 20-ти секунд"
 
-#: app/helpers/application_helper.rb:1216
+#: app/helpers/application_helper.rb:1208
 msgid "half a minute"
 msgstr "полминуты"
 
-#: app/helpers/application_helper.rb:1221
+#: app/helpers/application_helper.rb:1213
 #, fuzzy
 msgid "%{distance} minutes ago"
 msgstr "%{distance} минут"
 
-#: app/helpers/application_helper.rb:1222
+#: app/helpers/application_helper.rb:1214
 #, fuzzy
 msgid "about 1 hour ago"
 msgstr "около часа"
 
-#: app/helpers/application_helper.rb:1223
+#: app/helpers/application_helper.rb:1215
 #, fuzzy
 msgid "about %{distance} hours ago"
 msgstr "около %{distance} часов"
 
-#: app/helpers/application_helper.rb:1224
+#: app/helpers/application_helper.rb:1216
 #, fuzzy
 msgid "1 day ago"
 msgstr "1 день"
 
-#: app/helpers/application_helper.rb:1225
+#: app/helpers/application_helper.rb:1217
 #, fuzzy
 msgid "%{distance} days ago"
 msgstr "%{distance} дней"
 
-#: app/helpers/application_helper.rb:1243
+#: app/helpers/application_helper.rb:1235
 msgid "Source: %s"
 msgstr "Источник: %s"
 
-#: app/helpers/application_helper.rb:1275 app/views/search/_image.rhtml:43
+#: app/helpers/application_helper.rb:1267 app/views/search/_image.rhtml:43
 #: app/views/manage_products/_display_image.rhtml:6
-#: app/views/catalog/index.rhtml:17
+#: app/views/catalog/index.rhtml:17 app/views/cms/_text_editor_sidebar.rhtml:3
 #, fuzzy
 msgid "Zoom in"
 msgstr "домен"
 
-#: app/helpers/application_helper.rb:1289
+#: app/helpers/application_helper.rb:1281
 msgid "Report abuse"
 msgstr ""
 
-#: app/helpers/application_helper.rb:1291
+#: app/helpers/application_helper.rb:1283
 msgid "You already reported this profile."
 msgstr ""
 
-#: app/helpers/application_helper.rb:1292
+#: app/helpers/application_helper.rb:1284
 msgid "Report this profile for abusive behaviour"
 msgstr ""
 
-#: app/helpers/application_helper.rb:1331
+#: app/helpers/application_helper.rb:1323
 #, fuzzy
 msgid "Type in an keyword"
 msgstr "Отключить поиск по компаниям"
 
-#: app/helpers/application_helper.rb:1331
+#: app/helpers/application_helper.rb:1323
 #: app/views/profile_members/_manage_roles.html.erb:22
 #: plugins/bsc/lib/bsc_plugin/bsc_helper.rb:8
 #: plugins/bsc/views/bsc_plugin_myprofile/_contract_form.html.erb:58
@@ -1523,7 +1512,7 @@ msgstr "Отключить поиск по компаниям"
 msgid "No results"
 msgstr "найдено %d записей"
 
-#: app/helpers/application_helper.rb:1331
+#: app/helpers/application_helper.rb:1323
 #: app/views/profile_members/_manage_roles.html.erb:23
 #: plugins/bsc/lib/bsc_plugin/bsc_helper.rb:9
 #: plugins/bsc/views/bsc_plugin_myprofile/_contract_form.html.erb:59
@@ -1971,47 +1960,52 @@ msgstr "Категории профиля"
 msgid "Upcoming events"
 msgstr "Предстоящие события"
 
-#: app/controllers/public/search_controller.rb:222
+#: app/controllers/public/search_controller.rb:223
 #, fuzzy
 msgid "More recent contents from network"
 msgstr "Больше последних сообществ"
 
-#: app/controllers/public/search_controller.rb:223
+#: app/controllers/public/search_controller.rb:224
 #, fuzzy
 msgid "More viewed contents from network"
 msgstr "Перейти к контенту"
 
-#: app/controllers/public/search_controller.rb:224
+#: app/controllers/public/search_controller.rb:225
+#, fuzzy
+msgid "Most commented contents from network"
+msgstr "Больше последних сообществ"
+
+#: app/controllers/public/search_controller.rb:226
 #, fuzzy
 msgid "More recent people from network"
 msgstr "Недавние лица"
 
-#: app/controllers/public/search_controller.rb:225
+#: app/controllers/public/search_controller.rb:227
 #, fuzzy
 msgid "More active people from network"
 msgstr "Больше активных людей"
 
-#: app/controllers/public/search_controller.rb:226
+#: app/controllers/public/search_controller.rb:228
 #, fuzzy
 msgid "More popular people from network"
 msgstr "Популярные лица"
 
-#: app/controllers/public/search_controller.rb:227
+#: app/controllers/public/search_controller.rb:229
 #, fuzzy
 msgid "More recent communities from network"
 msgstr "Больше последних сообществ"
 
-#: app/controllers/public/search_controller.rb:228
+#: app/controllers/public/search_controller.rb:230
 #, fuzzy
 msgid "More active communities from network"
 msgstr "Больше активных сообществ"
 
-#: app/controllers/public/search_controller.rb:229
+#: app/controllers/public/search_controller.rb:231
 #, fuzzy
 msgid "More popular communities from network"
 msgstr "Больне популярных сообществ"
 
-#: app/controllers/public/search_controller.rb:230
+#: app/controllers/public/search_controller.rb:232
 #: app/models/highlights_block.rb:23
 #: app/views/box_organizer/_highlights_block.rhtml:1
 msgid "Highlights"
@@ -2074,7 +2068,7 @@ msgstr "Цель"
 msgid "Target type"
 msgstr "Тип цели"
 
-#: app/models/contact.rb:- plugins/send_email/lib/send_email_plugin/mail.rb:-
+#: app/models/contact.rb:-
 msgid "Params"
 msgstr ""
 
@@ -2088,7 +2082,7 @@ msgstr ""
 #: app/models/scrap.rb:- app/models/product_qualifier.rb:-
 #: app/models/mailing.rb:- app/models/mailing_sent.rb:-
 #: app/models/national_region.rb:- app/models/comment.rb:-
-#: app/models/abuse_report.rb:- app/models/task.rb:-
+#: app/models/product.rb:- app/models/abuse_report.rb:- app/models/task.rb:-
 #: app/models/contact_list.rb:- app/models/qualifier.rb:-
 #: app/models/input.rb:-
 msgid "Created at"
@@ -2099,9 +2093,9 @@ msgstr "Создано"
 #: app/models/external_feed.rb:- app/models/price_detail.rb:-
 #: app/models/scrap.rb:- app/models/product_qualifier.rb:-
 #: app/models/mailing.rb:- app/models/mailing_sent.rb:-
-#: app/models/national_region.rb:- app/models/abuse_report.rb:-
-#: app/models/contact_list.rb:- app/models/qualifier.rb:-
-#: app/models/input.rb:-
+#: app/models/national_region.rb:- app/models/product.rb:-
+#: app/models/abuse_report.rb:- app/models/contact_list.rb:-
+#: app/models/qualifier.rb:- app/models/input.rb:-
 msgid "Updated at"
 msgstr "Обновлено"
 
@@ -2205,7 +2199,7 @@ msgstr "обстановка"
 msgid "Contact email"
 msgstr "Контактный email"
 
-#: app/models/contact.rb:- app/models/domain.rb:-
+#: app/models/contact.rb:-
 msgid "Is default"
 msgstr "стандартно"
 
@@ -2238,8 +2232,20 @@ msgid "Reports lower bound"
 msgstr ""
 
 #: app/models/contact.rb:-
-msgid "Send email plugin allow to"
-msgstr ""
+msgid "domain"
+msgstr "домен"
+
+#: app/models/contact.rb:- app/models/production_cost.rb:- app/models/box.rb:-
+msgid "Owner type"
+msgstr "Тип владельца"
+
+#: app/models/contact.rb:- app/models/production_cost.rb:- app/models/box.rb:-
+msgid "Owner"
+msgstr "Владелец"
+
+#: app/models/contact.rb:-
+msgid "Google maps key"
+msgstr "Ключ карт Google"
 
 #: app/models/contact.rb:-
 msgid "noosfero plugin active record"
@@ -2323,7 +2329,7 @@ msgid "Geocode precision"
 msgstr "Точность геокодирования"
 
 #: app/models/contact.rb:- app/models/external_feed.rb:-
-#: app/models/profile.rb:881
+#: app/models/profile.rb:883
 msgid "Enabled"
 msgstr "Разрешено"
 
@@ -2331,7 +2337,7 @@ msgstr "Разрешено"
 msgid "Nickname"
 msgstr "Ник"
 
-#: app/models/contact.rb:- app/models/profile.rb:683
+#: app/models/contact.rb:- app/models/profile.rb:685
 msgid "Public profile"
 msgstr "Публичный пофиль"
 
@@ -2343,7 +2349,7 @@ msgstr "Дата рождения"
 msgid "Preferred domain"
 msgstr "Предпочтительный домен"
 
-#: app/models/contact.rb:- app/models/task.rb:-
+#: app/models/contact.rb:- app/models/product.rb:- app/models/task.rb:-
 #: app/views/box_organizer/_highlights_block.rhtml:4
 msgid "Image"
 msgstr "Изображение"
@@ -2363,37 +2369,8 @@ msgstr "Активировать"
 
 #: app/models/contact.rb:-
 #, fuzzy
-msgid "Shopping cart"
-msgstr "Учебный статус"
-
-#: app/models/contact.rb:-
-#, fuzzy
-msgid "Shopping cart delivery"
-msgstr "Уничтожить профиль"
-
-#: app/models/contact.rb:-
-#, fuzzy
-msgid "Shopping cart delivery price"
-msgstr "Уничтожить профиль"
-
-#: app/models/contact.rb:-
-#, fuzzy
 msgid "Usp"
 msgstr "Вверх"
-
-#: app/models/contact.rb:-
-msgid "Bar"
-msgstr ""
-
-#: app/models/contact.rb:- app/models/task.rb:-
-#: plugins/bsc/lib/bsc_plugin.rb:101
-msgid "Bsc"
-msgstr ""
-
-#: app/models/contact.rb:-
-#, fuzzy
-msgid "Company name"
-msgstr "Отображаемое имя"
 
 #: app/models/contact.rb:-
 #, fuzzy
@@ -2532,7 +2509,7 @@ msgstr "Опубликовать медиа-контент"
 msgid "Source"
 msgstr "Источник"
 
-#: app/models/contact.rb:-
+#: app/models/contact.rb:- app/models/product.rb:-
 msgid "Highlighted"
 msgstr "Выделено"
 
@@ -2625,16 +2602,6 @@ msgstr "Событие"
 
 #: app/models/contact.rb:-
 #, fuzzy
-msgid "organization"
-msgstr "организации"
-
-#: app/models/contact.rb:-
-#, fuzzy
-msgid "enterprise"
-msgstr "Компании"
-
-#: app/models/contact.rb:-
-#, fuzzy
 msgid "person"
 msgstr "Личность"
 
@@ -2643,51 +2610,6 @@ msgstr "Личность"
 #, fuzzy
 msgid "USP number"
 msgstr "один участник"
-
-#: app/models/contact.rb:-
-msgid "product"
-msgstr "продукт"
-
-#: app/models/contact.rb:- app/models/enterprise.rb:6
-#: app/models/enterprise.rb:9
-msgid "Enterprise"
-msgstr "Компания"
-
-#: app/models/contact.rb:- app/models/input.rb:-
-msgid "Product category"
-msgstr "Категория продукта"
-
-#: app/models/contact.rb:- app/models/price_detail.rb:-
-#: app/views/manage_products/index.rhtml:6
-#: plugins/shopping_cart/lib/shopping_cart_plugin/cart_helper.rb:37
-msgid "Price"
-msgstr "цена"
-
-#: app/models/contact.rb:- app/models/certifier.rb:-
-#: app/models/organization.rb:98 app/views/search/_article_description.rhtml:4
-#: app/views/search/_product.rhtml:52 app/views/manage_products/show.rhtml:30
-#: app/views/plugins/index.rhtml:9 app/views/cms/_uploaded_file.rhtml:2
-#: app/views/profile_editor/_person_form.rhtml:10
-#: plugins/mezuro/views/content_viewer/show_configuration.rhtml:9
-#: plugins/mezuro/views/content_viewer/show_project.rhtml:13
-msgid "Description"
-msgstr "Описание"
-
-#: app/models/contact.rb:-
-msgid "Discount"
-msgstr "Скидка"
-
-#: app/models/contact.rb:- app/views/manage_products/_edit_info.rhtml:21
-msgid "Available"
-msgstr "Свободно"
-
-#: app/models/contact.rb:- app/models/input.rb:-
-msgid "Unit"
-msgstr "Единица"
-
-#: app/models/contact.rb:-
-msgid "bscplugin::bsc"
-msgstr ""
 
 #: app/models/contact.rb:-
 msgid "role assignment"
@@ -2793,7 +2715,6 @@ msgid "contact"
 msgstr "Контакт"
 
 #: app/models/contact.rb:- app/models/contact.rb:14 app/models/mailing.rb:-
-#: plugins/send_email/lib/send_email_plugin/mail.rb:-
 #: plugins/send_email/lib/send_email_plugin/mail.rb:3
 #: plugins/send_email/views/send_email_plugin/success.rhtml:4
 msgid "Subject"
@@ -2801,7 +2722,6 @@ msgstr "Тема"
 
 #: app/models/contact.rb:- app/models/contact.rb:14
 #: app/models/disabled_enterprise_message_block.rb:12
-#: plugins/send_email/lib/send_email_plugin/mail.rb:-
 #: plugins/send_email/lib/send_email_plugin/mail.rb:3
 #: plugins/send_email/views/send_email_plugin/success.rhtml:5
 msgid "Message"
@@ -2825,7 +2745,7 @@ msgid "State"
 msgstr "Область"
 
 #: app/models/contact.rb:- app/models/person.rb:191 app/models/product.rb:258
-#: app/models/profile.rb:901 app/models/enterprise.rb:23
+#: app/models/profile.rb:903 app/models/enterprise.rb:23
 #: app/views/search/_profile.rhtml:21 app/views/search/_product.rhtml:59
 #: app/views/profile_editor/_person_form.rhtml:21
 #: app/views/maps/edit_location.rhtml:11
@@ -2894,22 +2814,6 @@ msgstr "Перейдите по ссылке чтоб подтвердить п�
 #, fuzzy
 msgid "production cost"
 msgstr "Производство"
-
-#: app/models/production_cost.rb:- app/models/domain.rb:- app/models/box.rb:-
-msgid "Owner"
-msgstr "Владелец"
-
-#: app/models/production_cost.rb:- app/models/domain.rb:- app/models/box.rb:-
-msgid "Owner type"
-msgstr "Тип владельца"
-
-#: app/models/domain.rb:-
-msgid "domain"
-msgstr "домен"
-
-#: app/models/domain.rb:-
-msgid "Google maps key"
-msgstr "Ключ карт Google"
 
 #: app/models/domain.rb:13
 #, fuzzy
@@ -3050,7 +2954,7 @@ msgstr "%s: друзей"
 msgid "You just left %s."
 msgstr "Вы только что покинули %s."
 
-#: app/models/person.rb:434 app/models/profile.rb:836
+#: app/models/person.rb:434 app/models/profile.rb:838
 #, fuzzy
 msgid "Edit Profile"
 msgstr "Редактировать профиль"
@@ -3108,6 +3012,16 @@ msgstr "ящик"
 #: app/models/certifier.rb:-
 msgid "certifier"
 msgstr "сертификатор"
+
+#: app/models/certifier.rb:- app/models/organization.rb:98
+#: app/models/product.rb:- app/views/search/_article_description.rhtml:4
+#: app/views/search/_product.rhtml:52 app/views/manage_products/show.rhtml:30
+#: app/views/plugins/index.rhtml:9 app/views/cms/_uploaded_file.rhtml:2
+#: app/views/profile_editor/_person_form.rhtml:10
+#: plugins/mezuro/views/content_viewer/show_configuration.rhtml:9
+#: plugins/mezuro/views/content_viewer/show_project.rhtml:13
+msgid "Description"
+msgstr "Описание"
 
 #: app/models/certifier.rb:-
 msgid "Link"
@@ -3227,6 +3141,12 @@ msgstr "Обновить ошибки"
 #, fuzzy
 msgid "price detail"
 msgstr "Просмотреть детали"
+
+#: app/models/price_detail.rb:- app/models/product.rb:-
+#: app/views/manage_products/index.rhtml:6
+#: plugins/shopping_cart/lib/shopping_cart_plugin/cart_helper.rb:37
+msgid "Price"
+msgstr "цена"
 
 #: app/models/price_detail.rb:- app/models/product_qualifier.rb:-
 #: app/models/categories_block.rb:6 app/models/input.rb:-
@@ -3554,6 +3474,31 @@ msgid ""
 msgstr ""
 "Общая информация о <i>%{user}</i>: как долго <i>%{user}</i> является <i>"
 "%{env}</i> и полезные ссылки."
+
+#: app/models/product.rb:-
+msgid "product"
+msgstr "продукт"
+
+#: app/models/product.rb:- app/models/enterprise.rb:6
+#: app/models/enterprise.rb:9
+msgid "Enterprise"
+msgstr "Компания"
+
+#: app/models/product.rb:- app/models/input.rb:-
+msgid "Product category"
+msgstr "Категория продукта"
+
+#: app/models/product.rb:-
+msgid "Discount"
+msgstr "Скидка"
+
+#: app/models/product.rb:- app/views/manage_products/_edit_info.rhtml:21
+msgid "Available"
+msgstr "Свободно"
+
+#: app/models/product.rb:- app/models/input.rb:-
+msgid "Unit"
+msgstr "Единица"
 
 #: app/models/product.rb:204
 msgid "0%"
@@ -4477,62 +4422,62 @@ msgstr "Публиковать контент"
 msgid "Invite members"
 msgstr "Пригласить участников"
 
-#: app/models/profile.rb:581
+#: app/models/profile.rb:583
 #, fuzzy
 msgid "%s can't have members"
 msgstr "%s не может иметь участников"
 
-#: app/models/profile.rb:602
+#: app/models/profile.rb:604
 msgid "%s can't has moderators"
 msgstr "%s не может иметь модераторов"
 
-#: app/models/profile.rb:683
+#: app/models/profile.rb:685
 msgid "Private profile"
 msgstr "Приватный профиль"
 
-#: app/models/profile.rb:780
+#: app/models/profile.rb:782
 msgid "Since: "
 msgstr "С:"
 
-#: app/models/profile.rb:795
+#: app/models/profile.rb:797
 #, fuzzy
 msgid "no activity"
 msgstr "Экономическая активность"
 
-#: app/models/profile.rb:796
+#: app/models/profile.rb:798
 #, fuzzy
 msgid "one activity"
 msgstr "Экономическая активность"
 
-#: app/models/profile.rb:797
+#: app/models/profile.rb:799
 #, fuzzy
 msgid "%s activities"
 msgstr "деятельность %s"
 
-#: app/models/profile.rb:803
+#: app/models/profile.rb:805
 #, fuzzy
 msgid "no members"
 msgstr "один участник"
 
-#: app/models/profile.rb:804
+#: app/models/profile.rb:806
 msgid "one member"
 msgstr "один участник"
 
-#: app/models/profile.rb:805
+#: app/models/profile.rb:807
 msgid "%s members"
 msgstr "%s участников"
 
-#: app/models/profile.rb:881
+#: app/models/profile.rb:883
 #, fuzzy
 msgid "Not enabled"
 msgstr "%s не позволено"
 
-#: app/models/profile.rb:899
+#: app/models/profile.rb:901
 #, fuzzy
 msgid "Situation"
 msgstr "Текст приглашения"
 
-#: app/models/profile.rb:929
+#: app/models/profile.rb:931
 msgid "Profile Info and settings"
 msgstr "Инфо профиля и настройки"
 
@@ -7209,27 +7154,32 @@ msgstr ""
 "Категоризируя свой контент вы увеличиваете его шансы быть замеченным другими "
 "пользователями. "
 
-#: app/views/cms/_text_editor_sidebar.rhtml:4
-msgid "Media upload"
+#: app/views/cms/_text_editor_sidebar.rhtml:2
+#, fuzzy
+msgid "Add to the text"
+msgstr "Перейти к контенту"
+
+#: app/views/cms/_text_editor_sidebar.rhtml:8
+msgid "Insert media"
 msgstr ""
 
-#: app/views/cms/_text_editor_sidebar.rhtml:9
+#: app/views/cms/_text_editor_sidebar.rhtml:13
 #: app/views/cms/_upload_file_form.rhtml:4
 msgid "Choose folder to upload files:"
 msgstr "Выберите папку для загрузки файлов"
 
-#: app/views/cms/_text_editor_sidebar.rhtml:15
+#: app/views/cms/_text_editor_sidebar.rhtml:19
 #: app/views/cms/_upload_file_form.rhtml:18
 #: app/views/cms/_upload_file_form.rhtml:20
 msgid "Upload"
 msgstr "Загрузить"
 
-#: app/views/cms/_text_editor_sidebar.rhtml:23
+#: app/views/cms/_text_editor_sidebar.rhtml:27
 #, fuzzy
 msgid "Upload more files ..."
 msgstr "Загруженные файлы"
 
-#: app/views/cms/_text_editor_sidebar.rhtml:27
+#: app/views/cms/_text_editor_sidebar.rhtml:31
 #, fuzzy
 msgid "Media search"
 msgstr "Ссылки"
@@ -7491,12 +7441,12 @@ msgstr "Переместить файлы"
 msgid "My Forum"
 msgstr ""
 
-#: app/views/cms/_drag_and_drop_note.rhtml:2
+#: app/views/cms/_drag_and_drop_note.rhtml:3
 msgid "Drag images to add them to the text."
 msgstr ""
 
-#: app/views/cms/_drag_and_drop_note.rhtml:3
-msgid "Drag item names to the text to add links."
+#: app/views/cms/_drag_and_drop_note.rhtml:4
+msgid "Drag file names to the text to add links."
 msgstr ""
 
 #: app/views/memberships/index.rhtml:3 app/views/profile_editor/index.rhtml:67
@@ -9508,26 +9458,15 @@ msgstr "RSS лента"
 msgid "A plugin that allows sending e-mails via HTML forms."
 msgstr ""
 
-#: plugins/send_email/lib/send_email_plugin/mail.rb:-
-#, fuzzy
-msgid "mail"
-msgstr "E-Mail"
-
-#: plugins/send_email/lib/send_email_plugin/mail.rb:-
-msgid "sendemailplugin::mail"
-msgstr ""
-
-#: plugins/send_email/lib/send_email_plugin/mail.rb:-
-#: plugins/send_email/lib/send_email_plugin/mail.rb:3
-#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/reports.html.erb:10
-msgid "From"
-msgstr ""
-
-#: plugins/send_email/lib/send_email_plugin/mail.rb:-
 #: plugins/send_email/lib/send_email_plugin/mail.rb:3
 #, fuzzy
 msgid "To"
 msgstr "Получатель:"
+
+#: plugins/send_email/lib/send_email_plugin/mail.rb:3
+#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/reports.html.erb:10
+msgid "From"
+msgstr ""
 
 #: plugins/send_email/lib/send_email_plugin/mail.rb:7
 #, fuzzy
@@ -9711,8 +9650,9 @@ msgid " validation failed"
 msgstr "Информация для подтверждения"
 
 #: plugins/stoa/lib/stoa_plugin/usp_user.rb:-
-msgid "pessoa"
-msgstr ""
+#, fuzzy
+msgid "usp user"
+msgstr "Пользователь"
 
 #: plugins/stoa/lib/stoa_plugin/usp_user.rb:-
 msgid "stoaplugin::uspuser"
@@ -9839,6 +9779,10 @@ msgstr ""
 #, fuzzy
 msgid "Manage contracts"
 msgstr "Управлять контактами"
+
+#: plugins/bsc/lib/bsc_plugin.rb:101
+msgid "Bsc"
+msgstr ""
 
 #: plugins/bsc/controllers/bsc_plugin_admin_controller.rb:11
 #, fuzzy
@@ -10449,6 +10393,41 @@ msgid ""
 "%s and licensed under the <a href=\"http://www.gnu.org/licenses/agpl.html"
 "\">GNU Affero General Public License</a> version 3 or any later version."
 msgstr ""
+
+#~ msgid "Please, try again when the page loading completes."
+#~ msgstr "Пожалуйста, повторите попытку после окончания загрузки"
+
+#, fuzzy
+#~ msgid "contents|More Views"
+#~ msgstr "Сообщества|Активные"
+
+#, fuzzy
+#~ msgid "Shopping cart"
+#~ msgstr "Учебный статус"
+
+#, fuzzy
+#~ msgid "Shopping cart delivery"
+#~ msgstr "Уничтожить профиль"
+
+#, fuzzy
+#~ msgid "Shopping cart delivery price"
+#~ msgstr "Уничтожить профиль"
+
+#, fuzzy
+#~ msgid "Company name"
+#~ msgstr "Отображаемое имя"
+
+#, fuzzy
+#~ msgid "organization"
+#~ msgstr "организации"
+
+#, fuzzy
+#~ msgid "enterprise"
+#~ msgstr "Компании"
+
+#, fuzzy
+#~ msgid "mail"
+#~ msgstr "E-Mail"
 
 #~ msgid "ago"
 #~ msgstr "раньше"
