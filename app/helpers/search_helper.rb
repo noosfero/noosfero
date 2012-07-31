@@ -18,7 +18,7 @@ module SearchHelper
 
   SortOptions = {
     :products => ActiveSupport::OrderedHash[ :none, {:label => _('Relevance')},
-      :more_recent, {:label => _('More Recent'), :solr_opts => {:sort => 'updated_at desc, score desc'}},
+      :more_recent, {:label => _('More recent'), :solr_opts => {:sort => 'updated_at desc, score desc'}},
       :name, {:label => _('Name'), :solr_opts => {:sort => 'name_sortable asc'}},
       :closest, {:label => _('Closest to me'), :if => proc{ logged_in? && (profile=current_user.person).lat && profile.lng },
         :solr_opts => {:sort => "geodist() asc",
