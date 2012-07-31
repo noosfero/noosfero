@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.37.0\n"
-"POT-Creation-Date: 2012-07-31 18:42-0300\n"
+"POT-Creation-Date: 2012-07-31 19:11-0300\n"
 "PO-Revision-Date: 2010-10-26 09:57-0300\n"
 "Last-Translator: Anton <anton.c@live.com>\n"
 "Language-Team: German <de@li.org>\n"
@@ -645,10 +645,10 @@ msgstr "События"
 msgid "Relevance"
 msgstr "Релевантно по цене"
 
-#: app/helpers/search_helper.rb:21
+#: app/helpers/search_helper.rb:21 app/helpers/search_helper.rb:32
 #, fuzzy
-msgid "More Recent"
-msgstr "люди|Последние"
+msgid "More recent"
+msgstr "Недавние лица"
 
 #: app/helpers/search_helper.rb:22 app/helpers/search_helper.rb:28
 #: app/helpers/search_helper.rb:31 app/helpers/search_helper.rb:35
@@ -676,11 +676,6 @@ msgstr "Имя"
 #, fuzzy
 msgid "Closest to me"
 msgstr "Закрывающее утверждение"
-
-#: app/helpers/search_helper.rb:32
-#, fuzzy
-msgid "More recent"
-msgstr "Недавние лица"
 
 #: app/helpers/search_helper.rb:55
 msgid ", "
@@ -1284,39 +1279,42 @@ msgstr "Чат"
 
 #: app/helpers/application_helper.rb:1092
 #, fuzzy
-msgid "contents|More Recent"
+msgid "contents|More recent"
 msgstr "Сообщества|последние"
 
 #: app/helpers/application_helper.rb:1093
 #, fuzzy
-msgid "contents|More Viewed"
+msgid "contents|More viewed"
 msgstr "Сообщества|Активные"
 
 #: app/helpers/application_helper.rb:1094
 #, fuzzy
-msgid "contents|Most Commented"
+msgid "contents|Most commented"
 msgstr "Сообщества|последние"
 
-#: app/helpers/application_helper.rb:1097
+#: app/helpers/application_helper.rb:1097 app/views/cms/view.rhtml:8
 #, fuzzy
-msgid "New Content"
+msgid "New content"
 msgstr "Весь контент"
 
 #: app/helpers/application_helper.rb:1101
 #, fuzzy
-msgid "Contents Menu"
+msgid "Contents menu"
 msgstr "Меню \"Сообщества\""
 
 #: app/helpers/application_helper.rb:1107
-msgid "people|More Recent"
+#, fuzzy
+msgid "people|More recent"
 msgstr "люди|Последние"
 
 #: app/helpers/application_helper.rb:1108
-msgid "people|More Active"
+#, fuzzy
+msgid "people|More active"
 msgstr "люди|Наиболее активные"
 
 #: app/helpers/application_helper.rb:1109
-msgid "people|More Popular"
+#, fuzzy
+msgid "people|More popular"
 msgstr "люди|Наиболее популярные"
 
 #: app/helpers/application_helper.rb:1112
@@ -1328,19 +1326,23 @@ msgid "Invite friends"
 msgstr "Пригласить друзей"
 
 #: app/helpers/application_helper.rb:1117
-msgid "People Menu"
+#, fuzzy
+msgid "People menu"
 msgstr "Меню \"Пользователи\""
 
 #: app/helpers/application_helper.rb:1123
-msgid "communities|More Recent"
+#, fuzzy
+msgid "communities|More recent"
 msgstr "Сообщества|последние"
 
 #: app/helpers/application_helper.rb:1124
-msgid "communities|More Active"
+#, fuzzy
+msgid "communities|More active"
 msgstr "Сообщества|Активные"
 
 #: app/helpers/application_helper.rb:1125
-msgid "communities|More Popular"
+#, fuzzy
+msgid "communities|More popular"
 msgstr "Сообщества|Наиболее популярные"
 
 #: app/helpers/application_helper.rb:1128
@@ -1353,7 +1355,8 @@ msgid "New community"
 msgstr "Новое сообщество"
 
 #: app/helpers/application_helper.rb:1133
-msgid "Communities Menu"
+#, fuzzy
+msgid "Communities menu"
 msgstr "Меню \"Сообщества\""
 
 #: app/helpers/application_helper.rb:1138 app/views/layouts/slideshow.rhtml:18
@@ -7338,11 +7341,6 @@ msgstr "Сайт события"
 msgid "Content management"
 msgstr "Управление контентом"
 
-#: app/views/cms/view.rhtml:8
-#, fuzzy
-msgid "New content"
-msgstr "Весь контент"
-
 #: app/views/cms/view.rhtml:14
 msgid "Current folder: "
 msgstr "Текущая папка:"
@@ -10393,6 +10391,14 @@ msgid ""
 "%s and licensed under the <a href=\"http://www.gnu.org/licenses/agpl.html"
 "\">GNU Affero General Public License</a> version 3 or any later version."
 msgstr ""
+
+#, fuzzy
+#~ msgid "More Recent"
+#~ msgstr "люди|Последние"
+
+#, fuzzy
+#~ msgid "New Content"
+#~ msgstr "Весь контент"
 
 #~ msgid "Please, try again when the page loading completes."
 #~ msgstr "Пожалуйста, повторите попытку после окончания загрузки"

@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.37.0\n"
-"POT-Creation-Date: 2012-07-31 18:42-0300\n"
+"POT-Creation-Date: 2012-07-31 19:11-0300\n"
 "PO-Revision-Date: 2012-06-05 10:27-0300\n"
 "Last-Translator: Daniela Feitosa <danielafeitosa@colivre.coop.br>\n"
 "Language-Team: LANGUAGE TEAM <LL@li.org>\n"
@@ -644,8 +644,8 @@ msgstr ""
 msgid "Relevance"
 msgstr ""
 
-#: app/helpers/search_helper.rb:21
-msgid "More Recent"
+#: app/helpers/search_helper.rb:21 app/helpers/search_helper.rb:32
+msgid "More recent"
 msgstr ""
 
 #: app/helpers/search_helper.rb:22 app/helpers/search_helper.rb:28
@@ -672,10 +672,6 @@ msgstr ""
 
 #: app/helpers/search_helper.rb:23
 msgid "Closest to me"
-msgstr ""
-
-#: app/helpers/search_helper.rb:32
-msgid "More recent"
 msgstr ""
 
 #: app/helpers/search_helper.rb:55
@@ -1264,35 +1260,35 @@ msgid "Chat"
 msgstr ""
 
 #: app/helpers/application_helper.rb:1092
-msgid "contents|More Recent"
+msgid "contents|More recent"
 msgstr ""
 
 #: app/helpers/application_helper.rb:1093
-msgid "contents|More Viewed"
+msgid "contents|More viewed"
 msgstr ""
 
 #: app/helpers/application_helper.rb:1094
-msgid "contents|Most Commented"
+msgid "contents|Most commented"
 msgstr ""
 
-#: app/helpers/application_helper.rb:1097
-msgid "New Content"
+#: app/helpers/application_helper.rb:1097 app/views/cms/view.rhtml:8
+msgid "New content"
 msgstr ""
 
 #: app/helpers/application_helper.rb:1101
-msgid "Contents Menu"
+msgid "Contents menu"
 msgstr ""
 
 #: app/helpers/application_helper.rb:1107
-msgid "people|More Recent"
+msgid "people|More recent"
 msgstr ""
 
 #: app/helpers/application_helper.rb:1108
-msgid "people|More Active"
+msgid "people|More active"
 msgstr ""
 
 #: app/helpers/application_helper.rb:1109
-msgid "people|More Popular"
+msgid "people|More popular"
 msgstr ""
 
 #: app/helpers/application_helper.rb:1112
@@ -1304,19 +1300,19 @@ msgid "Invite friends"
 msgstr ""
 
 #: app/helpers/application_helper.rb:1117
-msgid "People Menu"
+msgid "People menu"
 msgstr ""
 
 #: app/helpers/application_helper.rb:1123
-msgid "communities|More Recent"
+msgid "communities|More recent"
 msgstr ""
 
 #: app/helpers/application_helper.rb:1124
-msgid "communities|More Active"
+msgid "communities|More active"
 msgstr ""
 
 #: app/helpers/application_helper.rb:1125
-msgid "communities|More Popular"
+msgid "communities|More popular"
 msgstr ""
 
 #: app/helpers/application_helper.rb:1128
@@ -1329,7 +1325,7 @@ msgid "New community"
 msgstr ""
 
 #: app/helpers/application_helper.rb:1133
-msgid "Communities Menu"
+msgid "Communities menu"
 msgstr ""
 
 #: app/helpers/application_helper.rb:1138 app/views/layouts/slideshow.rhtml:18
@@ -6974,10 +6970,6 @@ msgstr ""
 
 #: app/views/cms/view.rhtml:2
 msgid "Content management"
-msgstr ""
-
-#: app/views/cms/view.rhtml:8
-msgid "New content"
 msgstr ""
 
 #: app/views/cms/view.rhtml:14

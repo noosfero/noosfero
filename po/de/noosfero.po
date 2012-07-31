@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.37.0\n"
-"POT-Creation-Date: 2012-07-31 18:42-0300\n"
+"POT-Creation-Date: 2012-07-31 19:11-0300\n"
 "PO-Revision-Date: 2012-03-27 19:47-0300\n"
 "Last-Translator: Josef Spillner <josef.spillner@tu-dresden.de>\n"
 "Language-Team: German <de@li.org>\n"
@@ -642,10 +642,10 @@ msgstr "Ereignisse"
 msgid "Relevance"
 msgstr "relevant für den Preis"
 
-#: app/helpers/search_helper.rb:21
+#: app/helpers/search_helper.rb:21 app/helpers/search_helper.rb:32
 #, fuzzy
-msgid "More Recent"
-msgstr "Mehr Neue"
+msgid "More recent"
+msgstr "Mehr neue Leute"
 
 #: app/helpers/search_helper.rb:22 app/helpers/search_helper.rb:28
 #: app/helpers/search_helper.rb:31 app/helpers/search_helper.rb:35
@@ -673,11 +673,6 @@ msgstr "Name"
 #, fuzzy
 msgid "Closest to me"
 msgstr "Endabrechnung"
-
-#: app/helpers/search_helper.rb:32
-#, fuzzy
-msgid "More recent"
-msgstr "Mehr neue Leute"
 
 #: app/helpers/search_helper.rb:55
 msgid ", "
@@ -1284,38 +1279,42 @@ msgid "Chat"
 msgstr "Chat"
 
 #: app/helpers/application_helper.rb:1092
-msgid "contents|More Recent"
+#, fuzzy
+msgid "contents|More recent"
 msgstr "contents|Mehr Neue"
 
 #: app/helpers/application_helper.rb:1093
 #, fuzzy
-msgid "contents|More Viewed"
+msgid "contents|More viewed"
 msgstr "contents|Mehr Ansichten"
 
 #: app/helpers/application_helper.rb:1094
 #, fuzzy
-msgid "contents|Most Commented"
+msgid "contents|Most commented"
 msgstr "contents|Mehr Kommentare"
 
-#: app/helpers/application_helper.rb:1097
-#, fuzzy
-msgid "New Content"
+#: app/helpers/application_helper.rb:1097 app/views/cms/view.rhtml:8
+msgid "New content"
 msgstr "Neue Inhalte"
 
 #: app/helpers/application_helper.rb:1101
-msgid "Contents Menu"
+#, fuzzy
+msgid "Contents menu"
 msgstr "Menü für Inhalte"
 
 #: app/helpers/application_helper.rb:1107
-msgid "people|More Recent"
+#, fuzzy
+msgid "people|More recent"
 msgstr "Mehr Neue"
 
 #: app/helpers/application_helper.rb:1108
-msgid "people|More Active"
+#, fuzzy
+msgid "people|More active"
 msgstr "Mehr Aktive"
 
 #: app/helpers/application_helper.rb:1109
-msgid "people|More Popular"
+#, fuzzy
+msgid "people|More popular"
 msgstr "Mehr Populäre"
 
 #: app/helpers/application_helper.rb:1112
@@ -1327,19 +1326,23 @@ msgid "Invite friends"
 msgstr "Freunde einladen"
 
 #: app/helpers/application_helper.rb:1117
-msgid "People Menu"
+#, fuzzy
+msgid "People menu"
 msgstr "Menü für Leute"
 
 #: app/helpers/application_helper.rb:1123
-msgid "communities|More Recent"
+#, fuzzy
+msgid "communities|More recent"
 msgstr "Mehr Neue"
 
 #: app/helpers/application_helper.rb:1124
-msgid "communities|More Active"
+#, fuzzy
+msgid "communities|More active"
 msgstr "Mehr Aktive"
 
 #: app/helpers/application_helper.rb:1125
-msgid "communities|More Popular"
+#, fuzzy
+msgid "communities|More popular"
 msgstr "Mehr Populäre"
 
 #: app/helpers/application_helper.rb:1128
@@ -1352,7 +1355,8 @@ msgid "New community"
 msgstr "Neue Community"
 
 #: app/helpers/application_helper.rb:1133
-msgid "Communities Menu"
+#, fuzzy
+msgid "Communities menu"
 msgstr "Menü für Communities"
 
 #: app/helpers/application_helper.rb:1138 app/views/layouts/slideshow.rhtml:18
@@ -7304,10 +7308,6 @@ msgstr "Webseite zum Ereignis:"
 msgid "Content management"
 msgstr "Inhalte verwalten"
 
-#: app/views/cms/view.rhtml:8
-msgid "New content"
-msgstr "Neue Inhalte"
-
 #: app/views/cms/view.rhtml:14
 msgid "Current folder: "
 msgstr "Aktueller Ordner: "
@@ -10328,6 +10328,14 @@ msgstr ""
 "entwickelt wird und unter <a href=\"http://www.gnu.org/licenses/agpl.html"
 "\">GNU Affero General Public License</a> Version 3 oder einer späteren "
 "Version lizenziert ist."
+
+#, fuzzy
+#~ msgid "More Recent"
+#~ msgstr "Mehr Neue"
+
+#, fuzzy
+#~ msgid "New Content"
+#~ msgstr "Neue Inhalte"
 
 #~ msgid "Please, try again when the page loading completes."
 #~ msgstr ""
