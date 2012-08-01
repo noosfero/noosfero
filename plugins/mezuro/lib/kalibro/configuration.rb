@@ -22,10 +22,11 @@ class Kalibro::Configuration < Kalibro::Model
     new request("Configuration", :get_configuration, {:configuration_name => configuration_name})[:configuration]
   end
 
-  def self.create(content)
-	  attributes = {
-	    :name => content.name,
-  	  :description => content.description
+  def self.create(content, configuration)
+    attributes = {
+      :name => content.name,
+      :description => content.description,
+      :metric_configuration => configuration.to_hash[:metric_configuration]
   	}
   	super attributes
   end
@@ -34,7 +35,13 @@ class Kalibro::Configuration < Kalibro::Model
     request("Configuration", :get_configuration_names)[:configuration_name]
   end
 
-  def destroy 
+  def destroy
     self.class.request("Configuration", :remove_configuration, {:configuration_name => name})
   end
+
+  def update_attributes(attributes={})
+    attributes.each { |field, value| send("#{field}=", value) if self.class.is_valid?(field) }
+    save
+  end
+
 end

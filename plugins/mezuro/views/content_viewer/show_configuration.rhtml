@@ -1,5 +1,5 @@
 <% @configuration_content = @page
-@configuration = Kalibro::Configuration.find_by_name(@configuration_content.name) %>
+@configuration = @page.configuration %>
 
 <table id="project_info">
   <tr>

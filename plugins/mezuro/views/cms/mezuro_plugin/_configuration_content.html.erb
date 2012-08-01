@@ -1,11 +1,11 @@
 <h1> <%= _(MezuroPlugin::ConfigurationContent.short_description) %> </h1>
 
 <%
-begin
-  @configuration = @article.title.nil? ? nil : Kalibro::Configuration.find_by_name(@article.title)
-rescue
-  @configuration = nil
-end 
+  begin
+    configuration = @article.title.nil? ? nil : @article.configuration
+  rescue
+    configuration = nil
+  end
 %>
 
 <%= error_messages_for 'kalibro_configuration' %>
@@ -13,8 +13,20 @@ end
 <%= hidden_field_tag 'kalibro_configuration[profile_id]', profile.id %>
 <%= hidden_field_tag 'id', @article.id %>
 
+<% configuration_names = @article.configuration_names %>
+
+<% selected = (configuration.nil? ? configuration_names[0] : @article.clone_configuration_name) %>
+
 <%= required_fields_message %>
 
-<%= required f.text_field(:name, :disabled => !(@configuration.nil? || @article.id.nil?)) %>
+<%= required labelled_form_field _('Clone Configuration'),
+if !configuration.nil? && !@article.id.nil?
+  f.select(:clone_configuration_name, configuration_names, {:selected => selected}, :disabled => 'true')
+else
+  f.select(:clone_configuration_name, configuration_names, {:selected => selected})
+end %>
+<br/>
+
+<%= required f.text_field(:name, :disabled => !(configuration.nil? || @article.id.nil?)) %>
 
 <%= f.text_field :description %><br/>

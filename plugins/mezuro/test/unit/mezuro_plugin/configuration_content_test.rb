@@ -61,5 +61,5 @@ class ConfigurationContentTest < ActiveSupport::TestCase
     @configuration.expects(:destroy)
     @content.send :remove_configuration_from_service
   end
-  
+
 end
