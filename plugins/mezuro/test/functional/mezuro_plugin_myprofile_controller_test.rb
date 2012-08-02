@@ -28,6 +28,7 @@ class MezuroPluginMyprofileControllerTest < ActionController::TestCase
     Kalibro::Configuration.expects(:all_names).returns([])
     @content = MezuroPlugin::ConfigurationContent.new(:profile => @profile, :name => @configuration.name)
     @content.expects(:send_configuration_to_service).returns(nil)
+    @content.stubs(:solr_save)
     @content.save
 
     @native_hash = @metric_configuration.to_hash.merge({:configuration_name => @metric_configuration.configuration_name})
