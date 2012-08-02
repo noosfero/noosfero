@@ -87,20 +87,25 @@ Kalibro::ProjectResult.first_result_after(name, date)
   end
   
   def send_project_to_service
-    begin
-      Kalibro::Project.create(self)
-      project.process_project(periodicity_in_days)
-    rescue Exception => error
-      errors.add_to_base(error.message)
-    end
+    created_project = create_kalibro_project
+    created_project.process_project(periodicity_in_days)
+  end
+
+  def create_kalibro_project
+   Kalibro::Project.create(
+      :name => name,
+      :license => license,
+      :description => description,
+      :repository => {
+        :type => repository_type,
+        :address => repository_url
+      },
+      :configuration_name => configuration_name
+    )
   end
 
   def destroy_project_from_service
-    begin
-      project.destroy
-    rescue Exception => error
-      errors.add_to_base(error.message)
-    end
+    project.destroy
   end
 
 end

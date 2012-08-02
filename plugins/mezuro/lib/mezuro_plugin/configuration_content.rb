@@ -19,12 +19,11 @@ class MezuroPlugin::ConfigurationContent < Article
   end
 
   def configuration
-    begin
-      @configuration ||= Kalibro::Configuration.find_by_name(self.name)
-    rescue Exception => error
-      errors.add_to_base(error.message)
-      nil
+    @configuration ||= Kalibro::Configuration.find_by_name(self.name)
+    if @configuration.nil? 
+      errors.add_to_base("Kalibro Configuration not found")
     end
+    @configuration
   end
 
   def metric_configurations
@@ -49,24 +48,35 @@ class MezuroPlugin::ConfigurationContent < Article
   end
 
   def send_configuration_to_service
-    if configuration.nil?
-      begin
-        clone_configuration = Kalibro::Configuration.find_by_name(self.clone_configuration_name)
-      rescue Exception => error
-        clone_configuration = nil
-      end
-      Kalibro::Configuration.create(self, clone_configuration)
-    else
+    if editing_configuration?
       configuration.update_attributes({:description => description})
+    else
+      create_kalibro_configuration
     end
   end
 
   def remove_configuration_from_service
-    begin
-      configuration.destroy
-    rescue Exception => error
-      errors.add_to_base(error.message)
+    configuration.destroy
+  end
+
+  def create_kalibro_configuration
+    attributes = {:name => name, :description => description}
+    if cloning_configuration?
+      attributes[:metric_configuration] = configuration_to_clone.metric_configurations_hash
     end
+    Kalibro::Configuration.create attributes
+  end
+  
+  def editing_configuration?
+    !configuration.nil?
+  end
+  
+  def configuration_to_clone
+    @configuration_to_clone ||= Kalibro::Configuration.find_by_name(self.clone_configuration_name)
+  end
+  
+  def cloning_configuration?
+    configuration_to_clone.nil?
   end
 
 end

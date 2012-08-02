@@ -98,8 +98,10 @@ class ProjectContentTest < ActiveSupport::TestCase
   end
 
   should 'send correct project to service' do
-    Kalibro::Project.expects(:create).with(@content).returns(true)
-    Kalibro::Project.expects(:find_by_name).with(@content.name).returns(@project)
+    hash = ProjectFixtures.project_hash
+    hash.delete(:attributes!)
+    hash.delete(:state)
+    Kalibro::Project.expects(:create).with(hash).returns(@project)
     @project.expects(:process_project).with(@content.periodicity_in_days)
     @content.send :send_project_to_service
   end

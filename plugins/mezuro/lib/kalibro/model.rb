@@ -37,7 +37,9 @@ class Kalibro::Model
   end 
   
   def self.create(attributes={})
-    new(attributes).save
+    new_model = new attributes
+    new_model.save
+    new_model
   end
 
   def save
@@ -47,6 +49,13 @@ class Kalibro::Model
 	  rescue Exception => error
 		  false
 	  end
+  end
+
+  def destroy
+    begin
+      self.class.request(destroy_endpoint, destroy_action, destroy_params)
+    rescue Exception
+    end
   end
 
   protected
@@ -101,4 +110,17 @@ class Kalibro::Model
   def save_params
     {class_name.underscore.to_sym => self.to_hash}
   end
+  
+  def destroy_endpoint
+    class_name
+  end
+  
+  def destroy_action
+    "remove_#{class_name.underscore}".to_sym
+  end
+  
+  def destroy_params
+    {"#{class_name.underscore}_name".to_sym => self.name}
+  end
+
 end

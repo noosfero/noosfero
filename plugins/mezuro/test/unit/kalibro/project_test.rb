@@ -44,31 +44,11 @@ class ProjectTest < ActiveSupport::TestCase
     Kalibro::Project.expects(:request).with("Project", :remove_project, {:project_name => @project.name})
     @project.destroy
   end
-
-  should 'raise error when try to remove inexistent project from service' do
-    Kalibro::Project.expects(:request).with("Project", :remove_project, {:project_name => @project.name}).raises(Exception.new)
-    assert_raise Exception do @project.destroy end
-  end
   
   should 'initialize new project from hash' do
     project = Kalibro::Project.new @hash
     assert_equal @project.name, project.name
     assert_equal @project.repository.type, project.repository.type
-  end
-
-  should 'create project' do
-    project_hash = Kalibro::Project.new({
-      :name => @project_content.name,
-      :license => @project_content.license,
-      :description => @project_content.description,
-      :repository => {
-        :type => @project_content.repository_type,
-        :address => @project_content.repository_url
-      },
-      :configuration_name => @project_content.configuration_name
-    }).to_hash
-    Kalibro::Project.expects(:request).with("Project", :save_project, {:project => project_hash})
-    Kalibro::Project.create @project_content
   end
 
   should 'convert project to hash' do

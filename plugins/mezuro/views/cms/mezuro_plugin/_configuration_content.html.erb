@@ -15,7 +15,7 @@
 
 <% configuration_names = @article.configuration_names %>
 
-<% selected = (configuration.nil? ? configuration_names[0] : @article.clone_configuration_name) %>
+<% selected = (configuration.nil? ? "None" : @article.clone_configuration_name) %>
 
 <%= required_fields_message %>
 

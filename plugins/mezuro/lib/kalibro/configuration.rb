@@ -19,24 +19,19 @@ class Kalibro::Configuration < Kalibro::Model
   end
 
   def self.find_by_name(configuration_name)
-    new request("Configuration", :get_configuration, {:configuration_name => configuration_name})[:configuration]
-  end
-
-  def self.create(content, configuration)
-    attributes = {
-      :name => content.name,
-      :description => content.description,
-      :metric_configuration => configuration.to_hash[:metric_configuration]
-  	}
-  	super attributes
+    begin
+      new request("Configuration", :get_configuration, {:configuration_name => configuration_name})[:configuration]
+    rescue Exception => error
+      nil
+    end
   end
 
   def self.all_names
-    request("Configuration", :get_configuration_names)[:configuration_name]
-  end
-
-  def destroy
-    self.class.request("Configuration", :remove_configuration, {:configuration_name => name})
+    begin
+      request("Configuration", :get_configuration_names)[:configuration_name]
+    rescue Exception
+      []
+    end
   end
 
   def update_attributes(attributes={})
@@ -44,4 +39,7 @@ class Kalibro::Configuration < Kalibro::Model
     save
   end
 
+  def metric_configurations_hash
+    self.to_hash[:metric_configuration]
+  end
 end

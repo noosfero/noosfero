@@ -10,24 +10,6 @@ class Kalibro::Project < Kalibro::Model
     new request("Project", :get_project, :project_name => project_name)[:project]
   end
 
-  def self.create(content)
-    attributes = {
-      :name => content.name,
-      :license => content.license,
-      :description => content.description,
-      :repository => {
-        :type => content.repository_type,
-        :address => content.repository_url
-      },
-      :configuration_name => content.configuration_name
-    }
-    super attributes
-  end
-
-  def destroy
-    self.class.request("Project", :remove_project, {:project_name => name})
-  end
-
   def repository=(value)
     @repository = Kalibro::Repository.to_object value
   end

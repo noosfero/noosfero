@@ -7,6 +7,7 @@ class ConfigurationTest < ActiveSupport::TestCase
   def setup
     @hash = ConfigurationFixtures.configuration_hash
     @configuration = ConfigurationFixtures.configuration
+    @configuration_content = ConfigurationFixtures.configuration_content([])
   end
 
   should 'initialize configuration' do
@@ -26,7 +27,7 @@ class ConfigurationTest < ActiveSupport::TestCase
     Kalibro::Configuration.expects(:request).with("Configuration", :save_configuration, {:configuration => @configuration.to_hash}).raises(Exception.new)
     assert !(@configuration.save)
   end
-
+  
   should 'get all configuration names' do
     names = ['Kalibro for Java', 'ConfigurationClientTest configuration']
     Kalibro::Configuration.expects(:request).with("Configuration", :get_configuration_names).returns({:configuration_name => names})
@@ -40,19 +41,14 @@ class ConfigurationTest < ActiveSupport::TestCase
     assert_equal @configuration.name, Kalibro::Configuration.find_by_name(@configuration.name).name
   end
 
-  should 'raise error when configuration doesnt exist' do
+  should 'return nil when configuration doesnt exist' do
     request_body = {:configuration_name => @configuration.name}
     Kalibro::Configuration.expects(:request).with("Configuration", :get_configuration, request_body).raises(Exception.new)
-    assert_raise Exception do Kalibro::Configuration.find_by_name(@configuration.name) end
+    assert_nil Kalibro::Configuration.find_by_name(@configuration.name)
   end
 
   should 'destroy configuration by name' do
     Kalibro::Configuration.expects(:request).with("Configuration", :remove_configuration, {:configuration_name => @configuration.name})
     @configuration.destroy
-  end
-  
-  should 'raise error when try to destroy inexistent configuration from service' do
-    Kalibro::Configuration.expects(:request).with("Configuration", :remove_configuration, {:configuration_name => @configuration.name}).raises(Exception.new)
-    assert_raise Exception do @configuration.destroy end
   end
 end
