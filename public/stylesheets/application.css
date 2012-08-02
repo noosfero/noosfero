@@ -4795,6 +4795,7 @@ h1#agenda-title {
 #profile-wall li.profile-activity-item.upload_image .activity-gallery-images-count-1 span a,
 #profile-wall li.profile-activity-item.upload_image .activity-gallery-images-count-1 span a img,
 #profile-network li.profile-activity-item.upload_image .activity-gallery-images-count-1 span,
+#profile-network li.profile-activity-item.upload_image .activity-gallery-images-count-1 span a,
 #profile-network li.profile-activity-item.upload_image .activity-gallery-images-count-1 span a img {
   width: auto;
   max-width: 383px;
