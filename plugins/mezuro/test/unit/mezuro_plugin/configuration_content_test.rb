@@ -44,9 +44,23 @@ class ConfigurationContentTest < ActiveSupport::TestCase
     @content.run_callbacks :after_save
   end
 
-  should 'send correct configuration to service' do
+  should 'create new configuration' do
+    Kalibro::Configuration.expects(:create).with(:name => @content.name, :description => @content.description)
+    Kalibro::Configuration.expects(:find_by_name).with(@content.name).returns(nil)
+    @content.send :send_configuration_to_service
+  end
+  
+  should 'clone configuration' do
+    @content.configuration_to_clone_name = 'clone name'
+    Kalibro::Configuration.expects(:create).with(:name => @content.name, :description => @content.description, :metric_configuration => @configuration.metric_configurations_hash)
+    Kalibro::Configuration.expects(:find_by_name).with(@content.name).returns(nil)
+    Kalibro::Configuration.expects(:find_by_name).with('clone name').returns(@configuration)
+    @content.send :send_configuration_to_service
+  end
+
+  should 'edit configuration' do
     Kalibro::Configuration.expects(:find_by_name).with(@content.name).returns(@configuration)
-    @configuration.expects(:save).returns(true)
+    @configuration.expects(:update_attributes).with(:description => @content.description)
     @content.send :send_configuration_to_service
   end
 

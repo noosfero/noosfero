@@ -1,6 +1,11 @@
 class MezuroPlugin::ConfigurationContent < Article
   validate_on_create :validate_kalibro_configuration_name
 
+  settings_items :description, :configuration_to_clone_name
+
+  after_save :send_configuration_to_service
+  after_destroy :remove_configuration_from_service
+
   def self.short_description
     'Kalibro configuration'
   end
@@ -8,8 +13,6 @@ class MezuroPlugin::ConfigurationContent < Article
   def self.description
     'Sets of thresholds to interpret metrics'
   end
-
-  settings_items :description, :clone_configuration_name
 
   include ActionView::Helpers::TagHelper
   def to_html(options = {})
@@ -33,9 +36,6 @@ class MezuroPlugin::ConfigurationContent < Article
   def configuration_names
     ["None"] + Kalibro::Configuration.all_names.sort
   end
-
-  after_save :send_configuration_to_service
-  after_destroy :remove_configuration_from_service
 
   private
 
@@ -68,15 +68,19 @@ class MezuroPlugin::ConfigurationContent < Article
   end
   
   def editing_configuration?
-    !configuration.nil?
+    configuration.present?
   end
   
   def configuration_to_clone
-    @configuration_to_clone ||= Kalibro::Configuration.find_by_name(self.clone_configuration_name)
+    @configuration_to_clone ||= find_configuration_to_clone
+  end
+  
+  def find_configuration_to_clone
+    configuration_to_clone_name.nil? ? nil : Kalibro::Configuration.find_by_name(configuration_to_clone_name)
   end
   
   def cloning_configuration?
-    configuration_to_clone.nil?
+    configuration_to_clone.present?
   end
 
 end

@@ -15,15 +15,15 @@
 
 <% configuration_names = @article.configuration_names %>
 
-<% selected = (configuration.nil? ? "None" : @article.clone_configuration_name) %>
+<% selected = (configuration.nil? ? "None" : @article.configuration_to_clone_name) %>
 
 <%= required_fields_message %>
 
 <%= required labelled_form_field _('Clone Configuration'),
 if !configuration.nil? && !@article.id.nil?
-  f.select(:clone_configuration_name, configuration_names, {:selected => selected}, :disabled => 'true')
+  f.select(:configuration_to_clone_name, configuration_names, {:selected => selected}, :disabled => 'true')
 else
-  f.select(:clone_configuration_name, configuration_names, {:selected => selected})
+  f.select(:configuration_to_clone_name, configuration_names, {:selected => selected})
 end %>
 <br/>
 

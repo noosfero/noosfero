@@ -21,7 +21,7 @@ class ConfigurationFixtures
     MezuroPlugin::ConfigurationContent.new({
       :name => 'Sample Configuration',
       :description => 'Kalibro configuration for Java projects.',
-      :clone_configuration_name => clone_configuration
+      :configuration_to_clone_name => clone_configuration
     })
   end
 
