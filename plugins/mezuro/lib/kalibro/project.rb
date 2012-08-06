@@ -1,6 +1,6 @@
 class Kalibro::Project < Kalibro::Model
 
-  attr_accessor :name, :license, :description, :repository, :configuration_name, :state, :error
+  attr_accessor :name, :license, :description, :repository, :configuration_name, :state, :kalibro_error
 
   def self.all_names
     request("Project", :get_project_names)[:project_name]
@@ -15,7 +15,7 @@ class Kalibro::Project < Kalibro::Model
   end
 
   def error=(value)
-    @error = Kalibro::Error.to_object value
+    @kalibro_error = Kalibro::Error.to_object value
   end
 
   def process_project(days = '0')
