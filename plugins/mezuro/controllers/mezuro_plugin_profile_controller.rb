@@ -5,7 +5,7 @@ class MezuroPluginProfileController < ProfileController
   def project_state
     @content = profile.articles.find(params[:id])
     project = @content.project
-    state = project.error.nil? ? project.state : "ERROR"
+    state = project.kalibro_error.nil? ? project.state : "ERROR"
     render :text => state
   end
 

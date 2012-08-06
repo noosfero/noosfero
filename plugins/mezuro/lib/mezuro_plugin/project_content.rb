@@ -51,7 +51,7 @@ Kalibro::ProjectResult.first_result_after(name, date)
     begin
       @module_result ||= Kalibro::ModuleResult.find_by_project_name_and_module_name_and_date(name, module_name, date)
     rescue Exception => error
-      errors.add_to_base(error.message)
+      raise error
     end
   end
 
