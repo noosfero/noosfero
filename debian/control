@@ -47,11 +47,12 @@ Depends:
  memcached,
  debconf,
  dbconfig-common,
- postgresql,
  adduser,
  exim4 | mail-transport-agent,
  ${misc:Depends}
-Recommends: postgresql-client
+Recommends:
+ postgresql,
+ postgresql-client
 Description: free web-based platform for social networks
  Noosfero is a web platform for social and solidarity economy networks with
  blog, e-Porfolios, CMS, RSS, thematic discussion, events agenda and collective
