@@ -6,12 +6,14 @@ class MezuroPluginMyprofileController < ProfileController
   def choose_base_tool
     @configuration_content = profile.articles.find(params[:id])
     @base_tools = Kalibro::BaseTool.all_names
+    @base_tools = [] if @base_tools.first.is_a? Exception
   end
 
   def choose_metric
     @configuration_content = profile.articles.find(params[:id])
     @base_tool = params[:base_tool]
-    @supported_metrics = Kalibro::BaseTool.find_by_name(@base_tool).supported_metrics
+    base_tool = Kalibro::BaseTool.find_by_name(@base_tool)
+    @supported_metrics = base_tool.nil? ? [] : base_tool.supported_metrics 
   end
   
   def new_metric_configuration
