@@ -281,7 +281,7 @@ class Profile < ActiveRecord::Base
 
   def valid_template
     if template_id.present? and !template.is_template
-      errors.add(:template, _('%{fn} is not a template.').fix_i18n)
+      errors.add(:template, _('is not a template.'))
     end
   end
 

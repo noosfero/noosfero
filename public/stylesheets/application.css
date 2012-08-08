@@ -2298,6 +2298,15 @@ div#activation_enterprise label, div#activation_enterprise input, div#activation
 #profile_change_picture img {
   margin-left: 10px;
 }
+
+#profile-is-template {
+  background-color: #E6E6E6;
+  border: 1px solid #CCC;
+  padding: 5px;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+}
 /*** REQUIRED FIELDS ***/
 
 .required-field label {

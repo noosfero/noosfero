@@ -1338,7 +1338,7 @@ module ApplicationHelper
     counter = 0
     radios = klass.templates.map do |template|
       counter += 1
-      content_tag('li', labelled_radio_button(link_to(template.name, template.url, :target => '_blank'), "#{field_name}[template_id]", template.id, counter==1))
+      content_tag('li', labelled_radio_button(template.name, "#{field_name}[template_id]", template.id, counter==1))
     end.join("\n")
 
     content_tag('div', content_tag('span', _('Template:')) +
