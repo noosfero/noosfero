@@ -242,6 +242,12 @@ class ApplicationHelperTest < ActiveSupport::TestCase
     assert_equal '/designs/templates/mytemplate/stylesheets/style.css', template_stylesheet_path
   end
 
+  should 'not display templates options when there is no template' do
+    [Person, Community, Enterprise].each do |klass|
+      assert_equal '', template_options(klass, 'profile_data')
+    end
+  end
+
   should 'return nil if disable_categories is enabled' do
     env = fast_create(Environment, :name => 'env test')
     stubs(:environment).returns(env)

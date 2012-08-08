@@ -1333,6 +1333,7 @@ module ApplicationHelper
   end
 
   def template_options(klass, field_name)
+    return '' if klass.templates.count == 0
     return hidden_field_tag("#{field_name}[template_id]", klass.templates.first.id) if klass.templates.count == 1
 
     counter = 0
