@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120411132751) do
+ActiveRecord::Schema.define(:version => 20120718145131) do
 
   create_table "abuse_reports", :force => true do |t|
     t.integer  "reporter_id"
@@ -425,6 +425,8 @@ ActiveRecord::Schema.define(:version => 20120411132751) do
     t.boolean  "validated",                          :default => true
     t.string   "cnpj"
     t.string   "national_region_code"
+    t.boolean  "is_template",                        :default => false
+    t.integer  "template_id"
   end
 
   add_index "profiles", ["environment_id"], :name => "index_profiles_on_environment_id"

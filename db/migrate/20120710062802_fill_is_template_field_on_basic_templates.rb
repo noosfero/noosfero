@@ -1,6 +1,6 @@
 class FillIsTemplateFieldOnBasicTemplates < ActiveRecord::Migration
   def self.up
-    update("update profiles set is_template = 't' where identifier like '%_template'")
+    update("update profiles set is_template = (1==1) where identifier like '%_template'")
   end
 
   def self.down
