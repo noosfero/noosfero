@@ -2,4 +2,6 @@
 
 <%= required f.text_field('name', :size => '64') %>
 
+<%= render :partial => 'general_fields' %>
+
 <%= labelled_form_field(_('Description:'), text_area(:article, :body, :rows => 3, :cols => 64)) %>

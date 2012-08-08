@@ -35,6 +35,7 @@ four:
    - perform_task
    - manage_environment_users
    - manage_environment_templates
+   - manage_environment_licenses
 profile_admin:
   id: 5
   environment_id: 1
@@ -88,3 +89,4 @@ environment_administrator:
    - edit_profile
    - destroy_profile
    - manage_environment_templates
+   - manage_environment_licenses

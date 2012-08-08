@@ -12,16 +12,26 @@
   <%= remote_function :update => "article-toolbar", :url => @page.url.merge({ :toolbar => true, :only_path => true }) %>
 </script>
 
+<% if @page.display_hits? || @page.license.present? %>
+  <div id='article-sub-header'>
+    <% if @page.display_hits? %>
+      <div id="article-hits">
+        <%= n_('Viewed one time', 'Viewed %{num} times', @page.hits) % { :num => @page.hits } %>
+      </div>
+    <% end %>
+
+    <% if @page.license.present? %>
+      <div id="article-license">
+        <%= _('Licensed under %s') % (@page.license.url.present? ? link_to(@page.license.name, @page.license.url, :target => '_blank') : @page.license.name) %>
+      </div>
+    <% end %>
+  </div>
+<% end %>
+
 <% if !@page.tags.empty? %>
   <div id="article-tags">
     <%= _("This article's tags:") %>
     <%= @page.tags.map { |t| link_to(t, :controller => 'profile', :profile => @profile.identifier, :action => 'tags', :id => t.name ) }.join("\n") %>
-  </div>
-<% end %>
-
-<% if @page.display_hits? %>
-  <div id="article-hits">
-    <%= n_('Viewed one time', 'Viewed %{num} times', @page.hits) % { :num => @page.hits } %>
   </div>
 <% end %>
 

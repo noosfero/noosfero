@@ -1725,4 +1725,11 @@ class ArticleTest < ActiveSupport::TestCase
     a = TinyMceArticle.create! :name => 'Tracked Article', :body => '<p>Foo<img src="foo.png" />Bar</p>', :profile_id => profile.id
     assert_equal 'foo.png', ActionTracker::Record.last.get_first_image
   end
+
+  should 'be able to have a license' do
+    license = License.create!(:name => 'GPLv3', :environment => Environment.default)
+    article = Article.new(:license_id => license.id)
+    assert_equal license, article.license
+  end
+
 end

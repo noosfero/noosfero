@@ -892,13 +892,26 @@ code input {
 #article-tags {
   font-size: 10px;
   text-align: right;
+  margin-bottom: -10px;
 }
 #article-tags a {
   text-decoration: none;
 }
+
+#article-sub-header {
+  height: 15px;
+}
+
 #article-hits {
   font-size: 10px;
+  float: left;
+}
+
+#article-license {
+  font-size: 10px;
+  float: right;
   text-align: right;
+  color: #AAA;
 }
 #article-cat {
   font-size: 10px;
