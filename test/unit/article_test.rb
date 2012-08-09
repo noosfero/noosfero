@@ -1705,6 +1705,11 @@ class ArticleTest < ActiveSupport::TestCase
     assert !a.allow_edit?(nil)
   end
 
+  should 'has a empty list of followers by default' do
+    a = Article.new
+    assert_equal [], a.followers
+  end
+
   should 'get first image from lead' do
     a = fast_create(Article, :body => '<p>Foo</p><p><img src="bar.png" />Bar<img src="foo.png" /></p>',
                              :abstract => '<p>Lead</p><p><img src="leadbar.png" />Bar<img src="leadfoo.png" /></p>')
