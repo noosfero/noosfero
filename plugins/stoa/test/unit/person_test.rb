@@ -18,6 +18,13 @@ class StoaPlugin::Person < ActiveSupport::TestCase
     assert another_person.errors.invalid?(:usp_id)
   end
 
+  should 'not allow usp_id as an empty string' do
+    person = Person.new(:usp_id => '')
+    person.valid?
+
+    assert_nil person.usp_id
+  end
+
   should 'allow nil usp_id only if person has an invitation_code or is a template' do
     person = Person.new(:environment => environment)
     person.valid?
