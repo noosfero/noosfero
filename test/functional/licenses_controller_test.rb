@@ -26,6 +26,18 @@ class LicensesControllerTest < ActionController::TestCase
     assert_includes assigns(:licenses), l2
   end
 
+  should 'not list licenses from other environments' do
+    other_env = fast_create(Environment)
+    l1 = License.create!(:name => 'GPLv3', :environment => environment)
+    l2 = License.create!(:name => 'AGPL', :environment => other_env)
+    @controller.stubs(:environment).returns(environment)
+
+    get :index
+
+    assert_includes assigns(:licenses), l1
+    assert_not_includes assigns(:licenses), l2
+  end
+
   should 'create a new license' do
     assert_difference License, :count, 1 do
       post :create, :license => {:name => 'GPLv3'}
@@ -43,4 +55,14 @@ class LicensesControllerTest < ActionController::TestCase
     post :remove, :license_id => license.id
     assert_raise(ActiveRecord::RecordNotFound) {License.find(license.id)}
   end
+
+  should 'remove a license only with post method' do
+    license = License.create!(:name => 'GPLv3', :environment => environment)
+    get :remove, :license_id => license.id
+    assert_nothing_raised ActiveRecord::RecordNotFound do
+      License.find(license.id)
+    end
+    assert_redirected_to :action => 'index'
+  end
+
 end

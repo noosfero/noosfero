@@ -2960,6 +2960,11 @@ table.cms-articles .icon:hover {
 .controller-cms ul.categories li.cat_checked {
   background: #B8CFE7;
 }
+
+.controller-cms select#article_license_id {
+  max-width: 100%;
+}
+
 /************* external blog options *****************/
 
 .controller-cms #fetch-external-feed {

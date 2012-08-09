@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120718145131) do
+ActiveRecord::Schema.define(:version => 20120718162001) do
 
   create_table "abuse_reports", :force => true do |t|
     t.integer  "reporter_id"
@@ -85,6 +85,7 @@ ActiveRecord::Schema.define(:version => 20120718145131) do
     t.integer  "translation_of_id"
     t.string   "language"
     t.string   "source_name"
+    t.integer  "license_id"
   end
 
   create_table "articles", :force => true do |t|
@@ -125,6 +126,7 @@ ActiveRecord::Schema.define(:version => 20120718145131) do
     t.integer  "translation_of_id"
     t.string   "language"
     t.string   "source_name"
+    t.integer  "license_id"
   end
 
   add_index "articles", ["translation_of_id"], :name => "index_articles_on_translation_of_id"
@@ -313,6 +315,13 @@ ActiveRecord::Schema.define(:version => 20120718145131) do
 
   add_index "inputs", ["product_category_id"], :name => "index_inputs_on_product_category_id"
   add_index "inputs", ["product_id"], :name => "index_inputs_on_product_id"
+
+  create_table "licenses", :force => true do |t|
+    t.string  "name",           :null => false
+    t.string  "slug",           :null => false
+    t.string  "url"
+    t.integer "environment_id", :null => false
+  end
 
   create_table "mailing_sents", :force => true do |t|
     t.integer  "mailing_id"

@@ -20,7 +20,7 @@ class LicensesController < AdminController
   end
 
   def edit
-    @license = License.find(params[:license_id])
+    @license = environment.licenses.find(params[:license_id])
     if request.post?
       begin
         @license.update_attributes!(params[:license])
@@ -33,12 +33,16 @@ class LicensesController < AdminController
   end
 
   def remove
-    @license = License.find(params[:license_id])
-    begin
-      @license.destroy
-      session[:notice] = _('Licese removed')
-    rescue
-      session[:notice] = _('Licese could not be removed')
+    @license = environment.licenses.find(params[:license_id])
+    if request.post?
+      begin
+        @license.destroy
+        session[:notice] = _('License removed')
+      rescue
+        session[:notice] = _('License could not be removed')
+      end
+    else
+      session[:notice] = _('License could not be removed')
     end
     redirect_to :action => 'index'
   end
