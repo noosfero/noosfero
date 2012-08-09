@@ -2,9 +2,9 @@
 
 <%
   begin
-    @configuration = @article.title.nil? ? nil : Kalibro::Client::ConfigurationClient.new.configuration(@article.title)
+    configuration = @article.title.nil? ? nil : @article.configuration
   rescue
-    @configuration = nil
+    configuration = nil
   end
 %>
 
@@ -13,8 +13,20 @@
 <%= hidden_field_tag 'kalibro_configuration[profile_id]', profile.id %>
 <%= hidden_field_tag 'id', @article.id %>
 
+<% configuration_names = @article.configuration_names %>
+
+<% selected = (configuration.nil? ? "None" : @article.configuration_to_clone_name) %>
+
 <%= required_fields_message %>
 
-<%= required f.text_field(:name) %>
+<%= required labelled_form_field _('Clone Configuration'),
+if !configuration.nil? && !@article.id.nil?
+  f.select(:configuration_to_clone_name, configuration_names, {:selected => selected}, :disabled => 'true')
+else
+  f.select(:configuration_to_clone_name, configuration_names, {:selected => selected})
+end %>
+<br/>
+
+<%= required f.text_field(:name, :disabled => !(configuration.nil? || @article.id.nil?)) %>
 
 <%= f.text_field :description %><br/>

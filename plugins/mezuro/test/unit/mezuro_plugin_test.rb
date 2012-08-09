@@ -1,4 +1,5 @@
 require "test_helper"
+
 class MezuroPluginTest < ActiveSupport::TestCase
   
   def setup
@@ -27,10 +28,6 @@ class MezuroPluginTest < ActiveSupport::TestCase
 
   should 'have stylesheet' do
     assert @plugin.stylesheet?
-  end
-
-  should 'list javascript files' do
-    assert_equal ['javascripts/results.js', 'javascripts/toogle.js'], @plugin.js_files
   end
 
 end

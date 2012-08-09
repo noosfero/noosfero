@@ -1,49 +1,104 @@
-README - Mezuro (Kalibro Plugin)
+README - Mezuro (Mezuro Plugin)
 ================================
 
-Mezuro is source code tracking network based on Noosfero Platform with Kalibro Plugin to access Kalibro Web Service.
+Mezuro is a source code tracking platform based on Noosfero social networking
+platform with Mezuro Plugin actived to access Kalibro Web Service.
+
 
 INSTALL
 =======
 
-See the Noosfero install file and include Ruby gem Savon:
+Dependences
+-----------
 
-gem install savon
+See the Noosfero install file. After install Noosfero, install Mezuro dependences:
 
-Also, you need to enable Mezuro Plugin in the Noosfero:
+$ gem install nokogiri -v 1.5.0
+$ gem install savon -v 0.9.7
+$ gem install googlecharts
+
+Enable Plugin
+-------------
+
+Also, you need to enable Mezuro Plugin at you Noosfero:
 
 cd <your_noosfero_dir>
 ./script/noosfero-plugins enable mezuro
 
-To run Mezuro (kalibro Plugin) and its acceptance tests, you need to install the Kalibro Service. 
+
+Install Service
+---------------
+
+To run Mezuro (Noosfero with Mezuro Plugin), you need to install the Kalibro
+Service. 
+
 For that, access https://gitorious.org/kalibro/kalibro/blobs/master/INSTALL
 
 
-SOURCE CODE
+Configure Service Address
+-------------------------
+
+Finally, copy service.yaml.example to service.yaml and define your Kalibro
+Service address:
+
+$ cd <your_noosfero_dir>/plugin/mezuro
+$ cp service.yaml.example service.yaml
+
+If you install Kalibro Service at localhost, just keep the default
+adress:
+
+http://localhost:8080/KalibroService/
+
+Applying Mezuro Theme
+---------------------
+
+$ cd public/designs/themes && rm -f default
+$ git clone git://gitorious.org/mezuro/mezuro-theme.git
+$ ln -s mezuro-theme/ default && cd ../../../
+
+Active Plugin
+-------------
+
+As a Noosfero administrator user, go to administrator panel:
+
+- Click on "Enable/disable plugins" option
+- Click on "Mezuro Plugin" check-box
+
+
+DEVELOPMENT
 ===========
 
-To get the Mezuro (Noosfero with Kalibro Plugin) development repository:
+Get the Mezuro (Noosfero with Mezuro Plugin) development repository:
 
-git clone https://gitorious.org/+mezuro/noosfero/mezuro-noosfero-plugin
-cd mezuro-noosfero-plugin
-git checkout mezuro
+$ git clone https://gitorious.org/+mezuro/noosfero/mezuro
+$ cd mezuro
+$ git checkout mezuro
+
+Running Mezuro tests
+--------------------
+
+$ rake test:noosfero_plugins:mezuro
+
+
+Get Involved
+============
+
+If you found any bug and/or want to collaborate, please send an e-mail to
+paulo@softwarelivre.org
+
+
+LICENSE
+=======
+
+Copyright (c) The Author developers.
+
+See Noosfero license.
+
 
 AUTHORS
 =======
 
-Please see the file AUTHORS.
-
-BUGS
-====
-
-If you found any bug, please report at mezuro@listas.softwarelivre.org
-(http://listas.softwarelivre.org/cgi-bin/mailman/listinfo/mezuro)
-
-LICENSE
-=======
-Copyright (c) The Authors developers.
-
-See Noosfero license.
+Please, see the Mezuro AUTHORS file.
 
 
 ACKNOWLEDGMENTS
@@ -51,8 +106,9 @@ ACKNOWLEDGMENTS
 
 The authors have been supported by organizations:
 
+University of São Paulo (USP)
+FLOSS Competence Center
+http://ccsl.ime.usp.br
+
 Brazilian National Research Council (CNPQ)
 http://www.cnpq.br/
-
-USP FLOSS Competence Center
-http://ccsl.ime.usp.br/
