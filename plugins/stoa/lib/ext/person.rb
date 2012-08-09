@@ -6,7 +6,7 @@ class Person
   validate :usp_id_or_invitation, :if => lambda { |person| person.environment && person.environment.plugin_enabled?(StoaPlugin)}
 
   def usp_id_or_invitation
-    if usp_id.blank? && (invitation_code.blank? || !invitation_task)
+    if usp_id.blank? && !is_template && (invitation_code.blank? || !invitation_task)
       errors.add(:usp_id, "can't register without usp_id or a valid invitation code")
     end
   end
