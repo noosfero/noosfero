@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.38.0\n"
 "POT-Creation-Date: 2012-08-09 10:45-0300\n"
-"PO-Revision-Date: 2012-07-31 19:25-0300\n"
+"PO-Revision-Date: 2012-08-09 11:10-0300\n"
 "Last-Translator: Joenio Costa <joenio@colivre.coop.br>\n"
 "Language-Team: LANGUAGE TEAM <E-MAIL@ADDRESS or HOME PAGE>\n"
 "Language: \n"
@@ -1498,9 +1498,8 @@ msgid "Searching..."
 msgstr "Pesquisando..."
 
 #: app/helpers/application_helper.rb:1345
-#, fuzzy
 msgid "Template:"
-msgstr "Editar Modelos"
+msgstr "Modelo:"
 
 #: app/controllers/my_profile/profile_members_controller.rb:22
 #: app/controllers/admin/environment_role_manager_controller.rb:17
@@ -1660,35 +1659,29 @@ msgid "Plugins were not updated successfully."
 msgstr "Os plugins não foram atualizados com sucesso."
 
 #: app/controllers/admin/licenses_controller.rb:14
-#, fuzzy
 msgid "License created"
-msgstr "Licença"
+msgstr "Licença criada"
 
 #: app/controllers/admin/licenses_controller.rb:17
-#, fuzzy
 msgid "License could not be created"
-msgstr "%s não pode ser enviado"
+msgstr "A licença não pode ser criada"
 
 #: app/controllers/admin/licenses_controller.rb:27
-#, fuzzy
 msgid "License updated"
-msgstr "Última atualização"
+msgstr "A licença foi atualizada"
 
 #: app/controllers/admin/licenses_controller.rb:30
-#, fuzzy
 msgid "License could not be updated"
-msgstr "%s não pode ser enviado"
+msgstr "A licença não pode ser atualizada"
 
 #: app/controllers/admin/licenses_controller.rb:40
-#, fuzzy
 msgid "License removed"
-msgstr "Artigo removido."
+msgstr "A licença foi removida."
 
 #: app/controllers/admin/licenses_controller.rb:42
 #: app/controllers/admin/licenses_controller.rb:45
-#, fuzzy
 msgid "License could not be removed"
-msgstr "%s não pode ser enviado"
+msgstr "A licença não pode ser removida"
 
 #: app/controllers/admin/admin_panel_controller.rb:12
 msgid "Environment settings updated"
@@ -1714,13 +1707,13 @@ msgstr "Número de notícias nas pastas salvo."
 #: app/controllers/admin/templates_controller.rb:23
 #: app/controllers/admin/templates_controller.rb:35
 msgid "New template created"
-msgstr ""
+msgstr "O novo modelo foi criado"
 
 #: app/controllers/admin/templates_controller.rb:14
 #: app/controllers/admin/templates_controller.rb:26
 #: app/controllers/admin/templates_controller.rb:38
 msgid "Name has already been taken"
-msgstr ""
+msgstr "O nome já está sendo utilizado"
 
 #: app/controllers/admin/environment_role_manager_controller.rb:45
 #: app/controllers/admin/environment_role_manager_controller.rb:55
@@ -1960,9 +1953,8 @@ msgstr ""
 "dono deste perfil e pedir acesso."
 
 #: app/controllers/public/content_viewer_controller.rb:106
-#, fuzzy
 msgid "Notification of new comments to '%s' was successfully canceled"
-msgstr "Notificação removida com sucesso"
+msgstr "A notificação de novos comentários para '%s' foi cancelada com sucesso"
 
 #: app/controllers/public/content_viewer_controller.rb:156
 msgid "Comment succesfully deleted"
@@ -3046,14 +3038,12 @@ msgid "National region code"
 msgstr "Código nacional da região"
 
 #: app/models/user.rb:-
-#, fuzzy
 msgid "Is template"
-msgstr "Usar este modelo"
+msgstr "É modelo"
 
 #: app/models/user.rb:-
-#, fuzzy
 msgid "Template"
-msgstr "Editar Modelos"
+msgstr "Modelo"
 
 #: app/models/user.rb:7 app/models/change_password.rb:12
 #: app/views/invite/select_address_book.rhtml:39
@@ -3413,9 +3403,8 @@ msgid "[%s] you got a new comment!"
 msgstr "[%s] você recebeu um novo comentário!"
 
 #: app/models/comment.rb:164
-#, fuzzy
 msgid "[%s] %s commented on a content of %s"
-msgstr "Conteúdos mais comentados"
+msgstr "[%s] %s comentou no conteúdo de %s"
 
 #: app/models/profile_info_block.rb:4
 msgid "Profile information"
@@ -3702,13 +3691,12 @@ msgid "Random people"
 msgstr "Pessoas aleatórias"
 
 #: app/models/license.rb:-
-#, fuzzy
 msgid "license"
-msgstr "Licença"
+msgstr "licença"
 
 #: app/models/license.rb:-
 msgid "Url"
-msgstr ""
+msgstr "Url"
 
 #: app/models/action_tracker_notification.rb:-
 msgid "action tracker notification"
@@ -3892,14 +3880,12 @@ msgid "Manage environment users"
 msgstr "Gerenciar usuários do ambiente"
 
 #: app/models/environment.rb:27
-#, fuzzy
 msgid "Manage environment templates"
-msgstr "Gerenciar papéis do ambiente"
+msgstr "Gerenciar os modelos do ambiente"
 
 #: app/models/environment.rb:28
-#, fuzzy
 msgid "Manage environment licenses"
-msgstr "Gerenciar papéis do ambiente"
+msgstr "Gerenciar as licenças do ambiente"
 
 #: app/models/environment.rb:41
 msgid "Environment Administrator"
@@ -4379,9 +4365,8 @@ msgid "Invite members"
 msgstr "Convidar membros"
 
 #: app/models/profile.rb:284
-#, fuzzy
 msgid "is not a template."
-msgstr "Usar este modelo"
+msgstr "não é um modelo."
 
 #: app/models/profile.rb:596
 msgid "%s can't have members"
@@ -5145,23 +5130,23 @@ msgstr "Sugerir um artigo"
 
 #: app/views/content_viewer/_confirm_unfollow.rhtml:3
 msgid "Cancel notification of new comments"
-msgstr ""
+msgstr "Cancelar notificação de novos comentários"
 
 #: app/views/content_viewer/_confirm_unfollow.rhtml:4
 msgid ""
 "Fill in the following field with your e-mail if you don't want to be "
 "notified when this content receives new comments anymore."
 msgstr ""
+"Preencha o campo a seguir com seu e-mail se não quiser mais ser "
+"notificado quando este conteúdo receber novos comentários."
 
 #: app/views/content_viewer/_confirm_unfollow.rhtml:7
-#, fuzzy
 msgid "Enter your e-Mail"
-msgstr "Digite seu comentário"
+msgstr "Digite seu e-mail"
 
 #: app/views/content_viewer/_confirm_unfollow.rhtml:9
-#, fuzzy
 msgid "Cancel notifications for e-mail above"
-msgstr "Cancelar obtenção de e-mails"
+msgstr "Cancelar notificações para o e-mail acima"
 
 #: app/views/content_viewer/_comment.rhtml:34
 msgid "Remove this comment and all its replies"
@@ -5236,7 +5221,7 @@ msgstr[1] "Visualizado %{num} vezes"
 
 #: app/views/content_viewer/view_page.rhtml:27
 msgid "Licensed under %s"
-msgstr ""
+msgstr "Licenciado sob %s"
 
 #: app/views/content_viewer/view_page.rhtml:35
 msgid "This article's tags:"
@@ -7649,9 +7634,8 @@ msgid "Profile settings for %s"
 msgstr "Configurações do perfil para %s"
 
 #: app/views/profile_editor/edit.rhtml:9
-#, fuzzy
 msgid "This profile is a template"
-msgstr "Este perfil não é público."
+msgstr "Este perfil é um modelo"
 
 #: app/views/profile_editor/edit.rhtml:17
 msgid "Change picture"
@@ -7913,27 +7897,22 @@ msgid "Access the address below to view this comment:"
 msgstr "Acesse o endereço abaixo para ver este comentário:"
 
 #: app/views/comment/notifier/mail_to_followers.rhtml:1
-#, fuzzy
 msgid "Hi!"
-msgstr "Olá %s!"
+msgstr "Olá!"
 
 #: app/views/comment/notifier/mail_to_followers.rhtml:3
-#, fuzzy
 msgid ""
 "%{sender} (%{sender_link}) commented on the content \"%{article_title}\"."
 msgstr ""
-"%{sender} (%{sender_link}) criou um novo comentário no seu artigo "
-"\"%{article_title}\"."
+"%{sender} (%{sender_link}) comentou no conteúdo \"%{article_title}\"."
 
 #: app/views/comment/notifier/mail_to_followers.rhtml:12
-#, fuzzy
 msgid "Click on the address below to view this comment:"
-msgstr "Acesse o endereço abaixo para ver este comentário:"
+msgstr "Clique no endereço abaixo para visualizar este comentário:"
 
 #: app/views/comment/notifier/mail_to_followers.rhtml:15
-#, fuzzy
 msgid "Click on the address below to cancel the notification of new comments:"
-msgstr "Acesse o endereço abaixo para ver este comentário:"
+msgstr "Clique no endereço abaixo para cancelar a notificação de novos comentários:"
 
 #: app/views/maps/edit_location.rhtml:15
 msgid "Locate in the map"
@@ -8010,9 +7989,8 @@ msgid "Set Portal"
 msgstr "Configurar portal"
 
 #: app/views/admin_panel/index.rhtml:18
-#, fuzzy
 msgid "Manage Licenses"
-msgstr "Gerenciar amigos"
+msgstr "Gerenciar Licenças"
 
 #: app/views/admin_panel/set_portal_community.rhtml:1
 msgid "Set Environment Portal"
@@ -8912,50 +8890,43 @@ msgid "Invite my friends!"
 msgstr "Convidar meus amigos!"
 
 #: app/views/templates/_create_template_form.html.erb:3
-#, fuzzy
 msgid "The template could not be saved"
-msgstr "A mensagem não pode ser enviada"
+msgstr "O modelo não pode ser salvo"
 
 #: app/views/templates/_create_template_form.html.erb:4
-#, fuzzy
 msgid "There were problems with the following fields:"
-msgstr "Houve problemas com os seguintes arquivos:"
+msgstr "Houve problemas com os seguintes campos:"
 
 #: app/views/templates/create_person_template.html.erb:5
 #: app/views/templates/create_community_template.html.erb:10
-#, fuzzy
 msgid "Create community template"
-msgstr "Editar Modelo de Comunidade"
+msgstr "Criar um modelos de comunidade"
 
 #: app/views/templates/create_person_template.html.erb:7
 #: app/views/templates/create_enterprise_template.html.erb:1
 #: app/views/templates/create_community_template.html.erb:7
-#, fuzzy
 msgid "Create enterprise template"
-msgstr "Editar Modelo de Empreendimento"
+msgstr "Criar um modelo de empreendimento"
 
 #: app/views/templates/create_person_template.html.erb:10
-#, fuzzy
 msgid "Create person template"
-msgstr "Editar Modelo de Pessoa"
+msgstr "Criar um modelo de pessoa"
 
 #: app/views/templates/index.html.erb:3
 msgid "Manage the templates used on creation of profiles"
-msgstr ""
+msgstr "Gerenciar os modelos usados na criação de perfis"
 
 #: app/views/templates/index.html.erb:12
 msgid "New..."
-msgstr ""
+msgstr "Novo..."
 
 #: app/views/templates/index.html.erb:12
-#, fuzzy
 msgid "Create a new template for %s"
-msgstr "Criar novo tema"
+msgstr "Criar um novo modelo para %s"
 
 #: app/views/templates/index.html.erb:17
-#, fuzzy
 msgid "Edit template \"%s\""
-msgstr "Editar Modelos"
+msgstr "Editar modelo \"%s\""
 
 #: app/views/profile/report_abuse.html.erb:3
 msgid "Report reasons"
@@ -8966,38 +8937,32 @@ msgid "Report profile"
 msgstr "Denunciar perfil"
 
 #: app/views/licenses/edit.html.erb:1
-#, fuzzy
 msgid "Edit license"
-msgstr "Editar tema"
+msgstr "Editar licença"
 
 #: app/views/licenses/_form.html.erb:6
-#, fuzzy
 msgid "License url"
-msgstr "Licença"
+msgstr "Url da licença"
 
 #: app/views/licenses/create.html.erb:1
-#, fuzzy
 msgid "New license"
-msgstr "Novo link"
+msgstr "Nova licença"
 
 #: app/views/licenses/index.html.erb:1
-#, fuzzy
 msgid "Manage licenses"
-msgstr "Gerenciar amigos"
+msgstr "Gerenciar licenças"
 
 #: app/views/licenses/index.html.erb:5
 msgid "Url reference"
-msgstr ""
+msgstr "Url de referência"
 
 #: app/views/licenses/index.html.erb:14
-#, fuzzy
 msgid "Are you sure you want to remove this license?"
-msgstr "Tem certeza de que quer excluir este ítem?"
+msgstr "Tem certeza de que deseja excluir esta licença?"
 
 #: app/views/licenses/index.html.erb:20
-#, fuzzy
 msgid "Add a new license"
-msgstr "Adicionar novo empreendimento"
+msgstr "Adicionar uma nova licença"
 
 #: app/views/profile_editor/_moderation.html.erb:1
 msgid "Moderation options"
@@ -9916,18 +9881,16 @@ msgid "See how to configure statistics for your profile"
 msgstr "Veja como configurar as estatísticas para seu perfil"
 
 #: plugins/mezuro/views/content_viewer/_module_result.rhtml:7
-#, fuzzy
 msgid "Metric results for: "
-msgstr "Resultados da Métrica"
+msgstr "Resultados da métrica para:"
 
 #: plugins/mezuro/views/content_viewer/_module_result.rhtml:51
 msgid "Grade:"
 msgstr "Grau"
 
 #: plugins/mezuro/views/content_viewer/_project_result.rhtml:35
-#, fuzzy
 msgid "Last Result"
-msgstr "Último post"
+msgstr "Último Resultado"
 
 #: plugins/mezuro/views/content_viewer/_project_result.rhtml:39
 #: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/_orders_list.html.erb:6
@@ -9957,7 +9920,7 @@ msgstr "Endereço do repositório"
 
 #: plugins/mezuro/views/content_viewer/show_project.rhtml:40
 msgid "Periodicity"
-msgstr ""
+msgstr "Periodicidade"
 
 #: plugins/mezuro/views/content_viewer/_project_error.rhtml:1
 msgid "ERROR"
@@ -10127,14 +10090,12 @@ msgid "Hide basket"
 msgstr "Esconder cesto"
 
 #: plugins/mezuro/views/cms/mezuro_plugin/_configuration_content.html.erb:22
-#, fuzzy
 msgid "Clone Configuration"
-msgstr "Configuração"
+msgstr "Clonar Configuração"
 
 #: plugins/mezuro/views/cms/mezuro_plugin/_project_content.html.erb:46
-#, fuzzy
 msgid "Periodic Avaliation"
-msgstr "Validações de empreendimento"
+msgstr "Avaliação Periódica"
 
 #: plugins/bsc/views/bsc_plugin/mailer/admin_notification.html.erb:1
 msgid "The management of %{bsc} was transferred to you."
