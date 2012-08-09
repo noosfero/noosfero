@@ -400,10 +400,12 @@ class CommentTest < ActiveSupport::TestCase
   should 'update article activity when add a comment' do
     profile = create_user('testuser').person
     article = create(TinyMceArticle, :profile => profile)
-    action = article.activity
-    time = action.updated_at
 
-    Time.stubs(:now).returns(time + 1.day)
+    ActionTracker::Record.record_timestamps = false
+    article.activity.update_attribute(:updated_at, Time.now - 1.day)
+    ActionTracker::Record.record_timestamps = true
+
+    time = article.activity.updated_at
 
     comment = create(Comment, :source => article, :author => profile)
     assert_equal time + 1.day, article.activity.updated_at
