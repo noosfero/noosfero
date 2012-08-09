@@ -92,11 +92,4 @@ class MailingTest < ActiveSupport::TestCase
     environment.domains << Domain.create(:name => 'noosfero.net', :is_default => true)
     assert_equal '', mailing.url
   end
-
-  should 'deliver mailing to each recipient after create' do
-    person = Person['user_one']
-    mailing = Mailing.create(:source => environment, :subject => 'Hello', :body => 'We have some news', :person => person)
-    process_delayed_job_queue
-    assert_equal [], ActionMailer::Base.deliveries
-  end
 end
