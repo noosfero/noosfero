@@ -3,19 +3,11 @@ class Kalibro::BaseTool < Kalibro::Model
   attr_accessor :name, :description, :supported_metric
 
   def self.all_names
-    begin
-      request("BaseTool", :get_base_tool_names)[:base_tool_name].to_a
-    rescue Exception => exception
-      [exception]
-    end
+    request("BaseTool", :get_base_tool_names)[:base_tool_name].to_a
   end
 
   def self.find_by_name(base_tool_name)
-    begin
-      new request("BaseTool", :get_base_tool, {:base_tool_name => base_tool_name})[:base_tool]
-    rescue Exception
-      nil
-    end
+    new request("BaseTool", :get_base_tool, {:base_tool_name => base_tool_name})[:base_tool]
   end
 
   def supported_metric=(value)
