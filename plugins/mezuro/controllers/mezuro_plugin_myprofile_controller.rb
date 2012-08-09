@@ -2,11 +2,17 @@ class MezuroPluginMyprofileController < ProfileController
 
   append_view_path File.join(File.dirname(__FILE__) + '/../views')
 
- 
+  rescue_from Exception do |exception|
+    message = URI.escape(CGI.escape(exception.message),'.')
+    redirect_to "/myprofile/#{profile.identifier}/plugin/mezuro/error_page?message=#{message}"
+  end
+
+  def error_page
+  end
+
   def choose_base_tool
     @configuration_content = profile.articles.find(params[:id])
     @base_tools = Kalibro::BaseTool.all_names
-    @base_tools = [] if @base_tools.first.is_a? Exception
   end
 
   def choose_metric
@@ -15,17 +21,17 @@ class MezuroPluginMyprofileController < ProfileController
     base_tool = Kalibro::BaseTool.find_by_name(@base_tool)
     @supported_metrics = base_tool.nil? ? [] : base_tool.supported_metrics 
   end
-  
+
   def new_metric_configuration
     @configuration_content = profile.articles.find(params[:id])
     @metric = Kalibro::BaseTool.find_by_name(params[:base_tool]).metric params[:metric_name]
   end
-  
+
   def new_compound_metric_configuration
     @configuration_content = profile.articles.find(params[:id])
     @metric_configurations = @configuration_content.metric_configurations
   end
-  
+
   def edit_metric_configuration
     @configuration_content = profile.articles.find(params[:id])
     @metric_configuration = Kalibro::MetricConfiguration.find_by_configuration_name_and_metric_name(@configuration_content.name, params[:metric_name])

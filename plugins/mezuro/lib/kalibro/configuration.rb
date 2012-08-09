@@ -21,7 +21,7 @@ class Kalibro::Configuration < Kalibro::Model
   def self.find_by_name(configuration_name)
     begin
       new request("Configuration", :get_configuration, {:configuration_name => configuration_name})[:configuration]
-    rescue Exception => error
+    rescue Exception
       nil
     end
   end

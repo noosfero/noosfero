@@ -60,11 +60,11 @@ class Kalibro::Model
   end
 
   def destroy
-   # begin
+    begin
       self.class.request(destroy_endpoint, destroy_action, destroy_params)
-    #rescue Exception => exception
-	   # add_error exception
-    #end
+    rescue Exception => exception
+	    add_error exception
+    end
   end
 
   protected
