@@ -92,4 +92,22 @@ class MailingTest < ActiveSupport::TestCase
     environment.domains << Domain.create(:name => 'noosfero.net', :is_default => true)
     assert_equal '', mailing.url
   end
+
+  should 'process the entire batch even if individual emails crash' do
+    mailing = Mailing.new(:source => environment, :person => Person['user_one'], :body => 'test', :subject => 'test')
+    def mailing.each_recipient
+      user_one = Person['user_one']
+      user_two = Person['user_two']
+      user_one.stubs(:email).raises(RuntimeError.new)
+      [user_one, user_two].each do |p|
+        yield p
+      end
+    end
+    mailing.stubs(:schedule)
+    mailing.save!
+    mailing.deliver
+
+    assert_equal 1, ActionMailer::Base.deliveries.size
+  end
+
 end
