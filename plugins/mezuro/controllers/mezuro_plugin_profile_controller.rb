@@ -1,7 +1,15 @@
 class MezuroPluginProfileController < ProfileController
 
   append_view_path File.join(File.dirname(__FILE__) + '/../views')
-  
+
+  rescue_from Exception do |exception|
+    message = URI.escape(CGI.escape(exception.message),'.')
+    redirect_to "/myprofile/#{profile.identifier}/plugin/mezuro/error_page?message=#{message}"
+  end
+
+  def error_page
+  end
+
   def project_state
     @content = profile.articles.find(params[:id])
     project = @content.project
