@@ -10,6 +10,7 @@ class Kalibro::Model
   def to_hash(options={})
     hash = Hash.new
     excepts = !options[:except].nil? ? options[:except] : []
+    excepts << :errors
     fields.each do |field|
       if(!excepts.include?(field))
         field_value = send(field)

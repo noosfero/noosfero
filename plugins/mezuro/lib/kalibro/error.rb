@@ -2,10 +2,6 @@ class Kalibro::Error < Kalibro::Model
   
   attr_accessor :error_class, :message, :stack_trace_element, :cause
 
-  def initialize(exception)
-    @message = exception.message
-  end
-
   def stack_trace_element=(value)
     @stack_trace_element = Kalibro::StackTraceElement.to_objects_array value
   end
