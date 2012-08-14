@@ -11,13 +11,13 @@ jQuery("#usp_id_field").observe_field(1, function(){
               jQuery('#signup-birth-date').hide();
               jQuery('#signup-cpf').show();
               jQuery('#confirmation_field').remove();
-              jQuery('#signup-form').append('<input id="confirmation_field" type="hidden" value="cpf" name="confirmation_field">')
+              jQuery('<input id="confirmation_field" type="hidden" value="cpf" name="confirmation_field">').insertAfter('#usp_id_field');
             }
             else {
               jQuery('#signup-cpf').hide();
               jQuery('#signup-birth-date').show();
               jQuery('#confirmation_field').remove();
-              jQuery('#signup-form').append('<input id="confirmation_field" type="hidden" value="birth_date" name="confirmation_field">')
+              jQuery('<input id="confirmation_field" type="hidden" value="birth_date" name="confirmation_field">').insertAfter('#usp_id_field');
             }
             jQuery('#signup-form .submit').attr('disabled', false);
             jQuery(me).removeClass('checking').addClass('validated');
