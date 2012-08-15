@@ -4,15 +4,17 @@ class MezuroPluginProfileController < ProfileController
 
   rescue_from Exception do |exception|
     message = URI.escape(CGI.escape(exception.message),'.')
-    redirect_to "/myprofile/#{profile.identifier}/plugin/mezuro/error_page?message=#{message}"
+    redirect_to_error_page message
   end
 
   def error_page
+    @message = params[:message]
   end
 
   def project_state
     @content = profile.articles.find(params[:id])
     project = @content.project
+    redirect_to_error_page(project.errors[0].message) if not project.errors.empty?
     state = project.kalibro_error.nil? ? project.state : "ERROR"
     render :text => state
   end
@@ -75,4 +77,10 @@ class MezuroPluginProfileController < ProfileController
       metric_result.value
     end
   end
+
+  def redirect_to_error_page(message)
+    redirect_to "/profile/#{profile.identifier}/plugin/mezuro/error_page?message=#{message}"
+  end
+
 end
+
