@@ -25,6 +25,7 @@ class MezuroPlugin::ProjectContent < Article
       @project ||= Kalibro::Project.find_by_name(name)
     rescue Exception => error
       errors.add_to_base(error.message)
+      @project
     end
   end
 
@@ -105,7 +106,7 @@ Kalibro::ProjectResult.first_result_after(name, date)
   end
 
   def destroy_project_from_service
-    project.destroy
+    project.destroy unless project.nil?
   end
 
 end

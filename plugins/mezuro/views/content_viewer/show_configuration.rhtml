@@ -1,50 +1,59 @@
 <% @configuration_content = @page
 @configuration = @page.configuration %>
-
-<table id="project_info">
-  <tr>
-    <td><%= _('Name') %></td>
-    <td><%= @configuration.name %></td>
-  </tr>
-  <tr>
-    <td><%= _('Description') %></td>
-    <td><%= @configuration.description %></td>
-  </tr>
-</table>
-
-<br/>
-
-<%= link_to "#{image_tag ('/plugins/mezuro/images/plus.png')}Add Metric", :controller => "mezuro_plugin_myprofile",
-:action => "choose_base_tool", :params => { :id => @configuration_content.id } %><br/>
-
-<table>
-  <tr class="titles">
-      <td><h5>Metric Name</h5></td>
-      <td><h5>Collector Name</h5></td>
-      <td><h5>Metric Code</h5></td>
-      <td/><td/>
-  </tr>
-  <% @configuration.metric_configurations.each do |metric_configuration| %>
-    <tr class="metric">
-      <td><%= metric_configuration.metric.name %></td>
-      <% if metric_configuration.metric.instance_of? Kalibro::NativeMetric %>
-        <td>
-          <%= metric_configuration.metric.origin %>
-        </td>
-        <td><%= metric_configuration.code %></td>
-        <td><%= link_to "Edit", :controller => "mezuro_plugin_myprofile", :action => "edit_metric_configuration", :params =>
-          {:metric_name => metric_configuration.metric.name, :id => @configuration_content.id} %></td>
-      <% else %>
-        <td>
-          Compound Metric
-        </td>
-        <td><%= metric_configuration.code %></td>
-        <td><%= link_to "Edit", :controller => "mezuro_plugin_myprofile", :action => "edit_compound_metric_configuration", :params =>
-          {:metric_name => metric_configuration.metric.name, :id => @configuration_content.id} %></td>
-      <% end %>
-      
-      <td><%= link_to "Remove", :controller => "mezuro_plugin_myprofile", :action => "remove_metric_configuration", :params =>
-        {:metric_name => metric_configuration.metric.name, :id => @configuration_content.id} %></td>
-    </tr>
+<% unless @page.errors[:base].nil? %>
+  <% if @page.errors[:base] =~ /There is no project named/ %>
+    <h3>Warning:</h3>
+    <p>This Configuration doesn't exist on the Web Service. Do you want to <a href="/myprofile/<%= @page.profile.name %>/cms/destroy/<%= @page.id%>">delete</a> or <a href="/myprofile/<%= @page.profile.name %>/cms/edit/<%= @page.id%>">save it again</a>?</p>
+  <% else %>
+    <%= @page.errors[:base] %>
   <% end %>
-</table>
+<% else %>
+
+  <table id="project_info">
+    <tr>
+      <td><%= _('Name') %></td>
+      <td><%= @configuration.name %></td>
+    </tr>
+    <tr>
+      <td><%= _('Description') %></td>
+      <td><%= @configuration.description %></td>
+    </tr>
+  </table>
+
+  <br/>
+
+  <%= link_to "#{image_tag ('/plugins/mezuro/images/plus.png')}Add Metric", :controller => "mezuro_plugin_myprofile",
+  :action => "choose_base_tool", :params => { :id => @configuration_content.id } %><br/>
+
+  <table>
+    <tr class="titles">
+        <td><h5>Metric Name</h5></td>
+        <td><h5>Collector Name</h5></td>
+        <td><h5>Metric Code</h5></td>
+        <td/><td/>
+    </tr>
+    <% @configuration.metric_configurations.each do |metric_configuration| %>
+      <tr class="metric">
+        <td><%= metric_configuration.metric.name %></td>
+        <% if metric_configuration.metric.instance_of? Kalibro::NativeMetric %>
+          <td>
+            <%= metric_configuration.metric.origin %>
+          </td>
+          <td><%= metric_configuration.code %></td>
+          <td><%= link_to "Edit", :controller => "mezuro_plugin_myprofile", :action => "edit_metric_configuration", :params =>
+            {:metric_name => metric_configuration.metric.name, :id => @configuration_content.id} %></td>
+        <% else %>
+          <td>
+            Compound Metric
+          </td>
+          <td><%= metric_configuration.code %></td>
+          <td><%= link_to "Edit", :controller => "mezuro_plugin_myprofile", :action => "edit_compound_metric_configuration", :params =>
+            {:metric_name => metric_configuration.metric.name, :id => @configuration_content.id} %></td>
+        <% end %>
+        
+        <td><%= link_to "Remove", :controller => "mezuro_plugin_myprofile", :action => "remove_metric_configuration", :params =>
+          {:metric_name => metric_configuration.metric.name, :id => @configuration_content.id} %></td>
+      </tr>
+    <% end %>
+  </table>
+<% end %>
