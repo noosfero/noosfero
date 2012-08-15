@@ -25,14 +25,21 @@ class MezuroPluginProfileControllerTest < ActionController::TestCase
     @content.save
   end
 
-  should 'test project state without error' do
+  should 'show an error page if an exception is raised' do
+    Kalibro::Project.expects(:request).with("Project", :get_project, :project_name => @project.name).returns(Exception.new(:message => "Error message"))
+    get :project_state, :profile => @profile.identifier, :id => @content.id
+    assert_response 302
+    assert_select('h2', 'An error occured: ')
+  end
+
+  should 'test project state without kalibro_error' do
     Kalibro::Project.expects(:request).with("Project", :get_project, :project_name => @project.name).returns({:project => @project.to_hash})
     get :project_state, :profile => @profile.identifier, :id => @content.id
     assert_response 200
     assert_equal @content, assigns(:content)
   end
 
-  should 'test project state with error' do
+  should 'test project state with kalibro_error' do
     Kalibro::Project.expects(:request).with("Project", :get_project, :project_name => @project.name).returns({:project => @project.to_hash.merge({:error => ErrorFixtures.error_hash})})
     get :project_state, :profile => @profile.identifier, :id => @content.id
     assert_response 200

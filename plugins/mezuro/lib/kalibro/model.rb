@@ -55,10 +55,6 @@ class Kalibro::Model
 	    false
 	  end
   end
-    
-  def add_error(exception)
-    @errors << exception
-  end
 
   def destroy
     begin
@@ -133,4 +129,9 @@ class Kalibro::Model
     {"#{class_name.underscore}_name".to_sym => self.name}
   end
 
+  def add_error(exception)
+    @errors << exception
+  end
+
 end
+

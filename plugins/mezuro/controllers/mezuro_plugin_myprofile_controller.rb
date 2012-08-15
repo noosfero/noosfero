@@ -8,6 +8,7 @@ class MezuroPluginMyprofileController < ProfileController
   end
 
   def error_page
+    @message = params[:message]
   end
 
   def choose_base_tool
