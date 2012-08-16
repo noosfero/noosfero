@@ -1,7 +1,7 @@
 class MezuroPlugin::ProjectContent < Article
   include ActionView::Helpers::TagHelper
 
-  settings_items :license, :description, :repository_type, :repository_url, :configuration_name, :periodicity_in_days
+  settings_items :project_license, :description, :repository_type, :repository_url, :configuration_name, :periodicity_in_days
 
   validate_on_create :validate_kalibro_project_name 
   validate_on_create :validate_repository_url
@@ -95,7 +95,7 @@ Kalibro::ProjectResult.first_result_after(name, date)
   def create_kalibro_project
    Kalibro::Project.create(
       :name => name,
-      :license => license,
+      :license => project_license,
       :description => description,
       :repository => {
         :type => repository_type,
