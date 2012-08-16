@@ -15,6 +15,10 @@ Noosfero was tested with Varnish 2.x. If you are using a Debian Lenny (and you
 should, unless Debian already released Squeeze by now), make sure you install
 varnish from the lenny-backports suite.
 
+Install the RPAF apache module (or skip this step if not using apache):
+
+  # apt-get install libapache2-mod-rpaf
+
 3) Enable varnish logging:
 
 3a) Edit /etc/default/varnishncsa and uncomment the line that contains:
