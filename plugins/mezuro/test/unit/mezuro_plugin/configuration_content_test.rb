@@ -6,9 +6,7 @@ class ConfigurationContentTest < ActiveSupport::TestCase
 
   def setup
     @configuration = ConfigurationFixtures.configuration
-    @content = MezuroPlugin::ConfigurationContent.new
-    @content.name = @configuration.name
-    @content.description = @configuration.description
+    @content = ConfigurationFixtures.configuration_content("None")
   end
 
   should 'be an article' do
@@ -35,19 +33,19 @@ class ConfigurationContentTest < ActiveSupport::TestCase
 
   should 'get configuration from service' do
     Kalibro::Configuration.expects(:find_by_name).with(@content.name).returns(@configuration)
-    assert_equal @configuration, @content.configuration
+    assert_equal @configuration, @content.kalibro_configuration
   end
 
   should 'send configuration to service after saving' do
-    @content.expects :send_configuration_to_service
+    @content.expects :send_kalibro_configuration_to_service
     @content.stubs(:solr_save)
     @content.run_callbacks :after_save
   end
 
   should 'create new configuration' do
     Kalibro::Configuration.expects(:create).with(:name => @content.name, :description => @content.description)
-    Kalibro::Configuration.expects(:find_by_name).with(@content.name).returns(nil)
-    @content.send :send_configuration_to_service
+    Kalibro::Configuration.expects(:find_by_name).with(@content.name)
+    @content.send :send_kalibro_configuration_to_service
   end
   
   should 'clone configuration' do
@@ -55,25 +53,25 @@ class ConfigurationContentTest < ActiveSupport::TestCase
     Kalibro::Configuration.expects(:create).with(:name => @content.name, :description => @content.description, :metric_configuration => @configuration.metric_configurations_hash)
     Kalibro::Configuration.expects(:find_by_name).with(@content.name).returns(nil)
     Kalibro::Configuration.expects(:find_by_name).with('clone name').returns(@configuration)
-    @content.send :send_configuration_to_service
+    @content.send :send_kalibro_configuration_to_service
   end
 
   should 'edit configuration' do
     Kalibro::Configuration.expects(:find_by_name).with(@content.name).returns(@configuration)
     @configuration.expects(:update_attributes).with(:description => @content.description)
-    @content.send :send_configuration_to_service
+    @content.send :send_kalibro_configuration_to_service
   end
 
   should 'send correct configuration to service but comunication fails' do
     Kalibro::Configuration.expects(:find_by_name).with(@content.name).returns(@configuration)
     @configuration.expects(:save).returns(false)
-    @content.send :send_configuration_to_service
+    @content.send :send_kalibro_configuration_to_service
   end
 
   should 'remove configuration from service' do
     Kalibro::Configuration.expects(:find_by_name).with(@content.name).returns(@configuration)
     @configuration.expects(:destroy)
-    @content.send :remove_configuration_from_service
+    @content.send :remove_kalibro_configuration_from_service
   end
 
 end
