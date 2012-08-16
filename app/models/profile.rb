@@ -65,6 +65,7 @@ class Profile < ActiveRecord::Base
   #FIXME: these will work only if the subclass is already loaded
   named_scope :enterprises, lambda { {:conditions => (Enterprise.send(:subclasses).map(&:name) << 'Enterprise').map { |klass| "profiles.type = '#{klass}'"}.join(" OR ")} }
   named_scope :communities, lambda { {:conditions => (Community.send(:subclasses).map(&:name) << 'Community').map { |klass| "profiles.type = '#{klass}'"}.join(" OR ")} }
+  named_scope :templates, :conditions => {:is_template => true}
 
   def members
     Person.members_of(self)
@@ -98,6 +99,7 @@ class Profile < ActiveRecord::Base
   has_many :action_tracker_notifications, :foreign_key => 'profile_id'
   has_many :tracked_notifications, :through => :action_tracker_notifications, :source => :action_tracker, :order => 'updated_at DESC'
   has_many :scraps_received, :class_name => 'Scrap', :foreign_key => :receiver_id, :order => "updated_at DESC", :dependent => :destroy
+  belongs_to :template, :class_name => 'Profile', :foreign_key => 'template_id'
 
   # FIXME ugly workaround
   def self.human_attribute_name(attrib)
@@ -274,8 +276,14 @@ class Profile < ActiveRecord::Base
   validates_format_of :identifier, :with => IDENTIFIER_FORMAT, :if => lambda { |profile| !profile.identifier.blank? }
   validates_exclusion_of :identifier, :in => RESERVED_IDENTIFIERS
   validates_uniqueness_of :identifier, :scope => :environment_id
-
   validates_length_of :nickname, :maximum => 16, :allow_nil => true
+  validate :valid_template
+
+  def valid_template
+    if template_id.present? and !template.is_template
+      errors.add(:template, _('is not a template.'))
+    end
+  end
 
   before_create :set_default_environment
   def set_default_environment
@@ -322,9 +330,14 @@ class Profile < ActiveRecord::Base
   end
 
   # this method should be overwritten to provide the correct template
-  def template
+  def default_template
     nil
   end
+
+  def template_with_default
+    template_without_default || default_template
+  end
+  alias_method_chain :template, :default
 
   def apply_template(template, options = {:copy_articles => true})
     copy_blocks_from(template)

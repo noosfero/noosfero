@@ -77,6 +77,7 @@ class Organization < Profile
     state
     country
     tag_list
+    template_id
   ]
 
   def self.fields

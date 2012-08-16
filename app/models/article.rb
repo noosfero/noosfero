@@ -34,8 +34,11 @@ class Article < ActiveRecord::Base
   settings_items :display_hits, :type => :boolean, :default => true
   settings_items :author_name, :type => :string, :default => ""
   settings_items :allow_members_to_edit, :type => :boolean, :default => false
+  settings_items :followers, :type => Array, :default => []
 
   belongs_to :reference_article, :class_name => "Article", :foreign_key => 'reference_article_id'
+
+  belongs_to :license
 
   has_many :translations, :class_name => 'Article', :foreign_key => :translation_of_id
   belongs_to :translation_of, :class_name => 'Article', :foreign_key => :translation_of_id

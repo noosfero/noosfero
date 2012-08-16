@@ -892,13 +892,26 @@ code input {
 #article-tags {
   font-size: 10px;
   text-align: right;
+  margin-bottom: -10px;
 }
 #article-tags a {
   text-decoration: none;
 }
+
+#article-sub-header {
+  height: 15px;
+}
+
 #article-hits {
   font-size: 10px;
+  float: left;
+}
+
+#article-license {
+  font-size: 10px;
+  float: right;
   text-align: right;
+  color: #AAA;
 }
 #article-cat {
   font-size: 10px;
@@ -2298,6 +2311,15 @@ div#activation_enterprise label, div#activation_enterprise input, div#activation
 #profile_change_picture img {
   margin-left: 10px;
 }
+
+#profile-is-template {
+  background-color: #E6E6E6;
+  border: 1px solid #CCC;
+  padding: 5px;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+}
 /*** REQUIRED FIELDS ***/
 
 .required-field label {
@@ -2938,6 +2960,11 @@ table.cms-articles .icon:hover {
 .controller-cms ul.categories li.cat_checked {
   background: #B8CFE7;
 }
+
+.controller-cms select#article_license_id {
+  max-width: 100%;
+}
+
 /************* external blog options *****************/
 
 .controller-cms #fetch-external-feed {
@@ -5675,7 +5702,31 @@ h1#agenda-title {
 
 #signup-form .fieldgroup {
   margin: 5px 10px;
+
 }
+
+
+#signup-form #template-options a,
+#signup-form #template-options label,
+#signup-form #template-options span {
+  color: #6D786E;
+  font-size: 20px;
+  font-family: droidserif;
+}
+
+#signup-form #template-options span {
+  color: #4A4A4A;
+}
+
+#signup-form #template-options label {
+  display: inline;
+  margin-left: 8px;
+}
+
+#signup-form #template-options input {
+  width: auto;
+}
+
 
 #signup-form label[for=profile_data_sex_female],
 #signup-form label[for=profile_data_sex_male] {
@@ -5895,7 +5946,34 @@ h1#agenda-title {
   font-size: 20px;
 }
 
+/* Templates */
+
+.controller-templates .template-kind {
+  border-bottom: 1px solid #CCC;
+}
+
+.controller-templates .template-kind ul {
+  padding-left: 5px;
+}
+
+.controller-templates .template-kind li {
+  list-style: none;
+  padding: 3px;
+}
+
+.controller-templates .template-kind li:hover {
+  background-color: #f0f0f0;
+}
+
+.controller-templates .template-kind li a {
+  font-size: 13px;
+}
+
 /* }}} */
+
+.unfollow-article {
+  margin-bottom: 40px;
+}
 
 #alt-beautify {
   background-color: #EDEDED;

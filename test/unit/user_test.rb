@@ -486,6 +486,12 @@ class UserTest < ActiveSupport::TestCase
     assert new_user.activated?
   end
 
+  should 'cancel activation if user has no person associated' do
+    user = new_user
+    user.stubs(:person).returns(nil)
+    assert !user.activate
+  end
+
   protected
     def new_user(options = {})
       user = User.new({ :login => 'quire', :email => 'quire@example.com', :password => 'quire', :password_confirmation => 'quire' }.merge(options))

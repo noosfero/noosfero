@@ -949,4 +949,17 @@ class ProfileEditorControllerTest < ActionController::TestCase
     assert_tag :tag => 'strong', :content => 'Plugin2 text'
   end
 
+  should 'see is_template check_box' do
+    give_permission(profile, 'manage_environment_templates', profile.environment)
+    get :edit, :profile =>  profile.identifier
+    assert_tag :tag => 'input', :attributes => {:name => 'profile_data[is_template]'}
+  end
+
+  should 'not see is_template check_box' do
+    another_user = create_user('another_user').person
+    login_as('another_user')
+    get :edit, :profile => profile.identifier
+    assert_no_tag :tag => 'input', :attributes => {:name => 'profile_data[is_template]'}
+  end
+
 end

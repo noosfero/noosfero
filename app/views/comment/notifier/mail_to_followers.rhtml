@@ -1,0 +1,22 @@
+<%= _('Hi!') %>
+
+<%= word_wrap(_('%{sender} (%{sender_link}) commented on the content "%{article_title}".') % { :sender => @sender, :sender_link => url_for(@sender_link), :article_title => @article_title }) %>
+
+<%= word_wrap(_('Title: %s') % @comment_title) if @comment_title %>
+
+<%= _("Comment:") %>
+-------------------------------------------------------------------------------
+<%= word_wrap(@comment_body) %>
+-------------------------------------------------------------------------------
+
+<%= _('Click on the address below to view this comment:') %>
+<%= url_for @comment_url %>
+
+<%= _('Click on the address below to cancel the notification of new comments:') %>
+<%= url_for @unsubscribe_url %>
+
+<%= _("Greetings,") %>
+
+--
+<%= _('%s team.') % @environment %>
+<%= url_for @url %>

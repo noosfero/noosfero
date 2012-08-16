@@ -1,0 +1,26 @@
+<h1><%= _('Edit Templates') %></h1>
+
+<%= _('Manage the templates used on creation of profiles') %>
+
+<% list_of_templates = [[_('Person')    , Person.templates    , 'person'    ],
+                        [_('Community') , Community.templates , 'community' ],
+                        [_('Enterprise'), Enterprise.templates, 'enterprise']] %>
+
+<% list_of_templates.each do |title, templates, kind|%>
+  <div class='template-kind'>
+    <h2><%= title %></h2>
+    <%= button :add, _('New...'), {:action => "create_#{kind}_template"}, :title => _("Create a new template for %s") % title.downcase %>
+    <ul>
+      <% templates.each do |template| %>
+        <li>
+          <%= image_tag "icons-app/#{kind}-icon.png" %>
+          <%= link_to(template.name, {:controller => 'profile_editor', :profile => template.identifier}, :title => _('Edit template "%s"') % template.name ) %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<% button_bar do %>
+  <%= button :back, _('Back to admin panel'), :controller => 'admin_panel' %>
+<% end %>

@@ -1,3 +1,10 @@
+require 'savon'
+require 'yaml'
+
+Savon.configure do |config|
+  config.log = HTTPI.log = (RAILS_ENV == 'development')
+end
+
 class MezuroPlugin < Noosfero::Plugin
 
   def self.plugin_name
@@ -9,16 +16,11 @@ class MezuroPlugin < Noosfero::Plugin
   end
 
   def content_types
-    [MezuroPlugin::ProjectContent,
-     MezuroPlugin::ConfigurationContent]
+    [MezuroPlugin::ConfigurationContent, MezuroPlugin::ProjectContent]
   end
 
   def stylesheet?
     true
-  end
-
-  def js_files
-    ['javascripts/results.js', 'javascripts/toogle.js']
   end
 
 end

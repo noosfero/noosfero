@@ -1,68 +1,141 @@
 require 'test_helper'
 
-class MezuroPluginProfileControllerTest < ActiveSupport::TestCase
+require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/module_result_fixtures"
+require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/project_result_fixtures"
+require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/error_fixtures"
+require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/repository_fixtures"
+
+class MezuroPluginProfileControllerTest < ActionController::TestCase
 
   def setup
     @controller = MezuroPluginProfileController.new
     @request = ActionController::TestRequest.new
-    @response   = ActionController::TestResponse.new
+    @response = ActionController::TestResponse.new
     @profile = fast_create(Community)
-    @profile_id = @profile.identifier
+
+    @project_result = ProjectResultFixtures.project_result
+    @module_result = ModuleResultFixtures.module_result
+    @repository_url = RepositoryFixtures.repository.address
+    @project = @project_result.project
+    @date = "2012-04-13T20:39:41+04:00"
+    
+    Kalibro::Project.expects(:all_names).returns([])
+    @content = MezuroPlugin::ProjectContent.new(:profile => @profile, :name => @project.name, :repository_url => @repository_url)
+    @content.expects(:send_project_to_service).returns(nil)
+    @content.save
   end
 
-#  def test_metrics_for_unknown_module
-#    get :metrics, :profile => @profile_id, :id => 0
-#    assert_response 404
-#  end
+  should 'test project state without error' do
+    Kalibro::Project.expects(:request).with("Project", :get_project, :project_name => @project.name).returns({:project => @project.to_hash})
+    get :project_state, :profile => @profile.identifier, :id => @content.id
+    assert_response 200
+    assert_equal @content, assigns(:content)
+  end
 
-#  def test_metric_unknown_module
-#  get :metrics, :profile => @profile_id, :id => @project_content.id, :module_name => 'veryunlikelyname'
-#  assert_response 404
-#  end
+  should 'test project state with error' do
+    Kalibro::Project.expects(:request).with("Project", :get_project, :project_name => @project.name).returns({:project => @project.to_hash.merge({:error => ErrorFixtures.error_hash})})
+    get :project_state, :profile => @profile.identifier, :id => @content.id
+    assert_response 200
+    assert_equal "ERROR", @response.body
+    assert_equal @content, assigns(:content)
+  end
 
+  should 'test project error' do
+    Kalibro::Project.expects(:request).with("Project", :get_project, :project_name => @project.name).returns({:project => @project.to_hash.merge({:error => ErrorFixtures.error_hash})})
+    get :project_error, :profile => @profile.identifier, :id => @content.id
+    assert_response 200
+    assert_select('h3', 'ERROR')
+    assert_equal @content, assigns(:content)
+    assert_equal @project.name, assigns(:project).name
+  end
 
-#  def test_metrics_for_known_module
-#    @project_content = create_project_content(@profile)
-#    get :metrics, :profile => @profile_id, :id => @project_content.id, :module_name => @project_content.name
-#    assert_response 200
-#    # assert_tag # TODO
-#  end
-
-  protected
-
-  # returns a new ProjectContent for the given profile
-  def create_project_content(profile)
-    project_content = MezuroPlugin::ProjectContent.create!(:profile => profile, :name => 'foo') 
-
-    project = create_project(project_content.name)
-    project_content.license = project.license
-    project_content.description = project.description
-    project_content.repository_type = project.repository.type
-    project_content.repository_url = project.repository.address
-    project_content.configuration_name = project.configuration_name
-
-    MezuroPlugin::ProjectContent.any_instance.stubs(:project_content).returns(project_content)
-    project_content
+  should 'test project result without date' do
+    Kalibro::ProjectResult.expects(:request).with("ProjectResult", :get_last_result_of, {:project_name => @project.name}).returns({:project_result => @project_result.to_hash})
+    get :project_result, :profile => @profile.identifier, :id => @content.id, :date => nil
+    assert_equal @content, assigns(:content)
+    assert_equal @project_result.project.name, assigns(:project_result).project.name
+    assert_response 200
+    assert_select('h4', 'Last Result')
   end
   
-  def create_project(name)
-    project = Kalibro::Entities::Project.new
-    project.name = name
-    project.license = 'GPL'
-    project.description = 'testing' 
-    project.repository = crieate_repository
-    project.configuration_name = 'Kalibro Default'
-    project
+  should 'test project results from a specific date' do
+    request_body = {:project_name => @project.name, :date => @date}
+    Kalibro::ProjectResult.expects(:request).with("ProjectResult", :has_results_before, request_body).returns({:has_results => true})
+    Kalibro::ProjectResult.expects(:request).with("ProjectResult", :get_last_result_before, request_body).returns({:project_result => @project_result.to_hash})
+    get :project_result, :profile => @profile.identifier, :id => @content.id, :date => @date
+    assert_equal @content, assigns(:content)
+    assert_equal @project_result.project.name, assigns(:project_result).project.name
+    assert_response 200
+    assert_select('h4', 'Last Result')
   end
 
-  def create_repository
-    repository = Kalibro::Entities::Repository.new
-    repository.type = 'git'
-    repository.address = 'http://git.git'
-    repository
+
+  should 'get module result without date' do
+    date_with_milliseconds = Kalibro::ProjectResult.date_with_milliseconds(@project_result.date)
+    Kalibro::ProjectResult.expects(:request).
+      with("ProjectResult", :get_last_result_of, {:project_name => @project.name}).
+      returns({:project_result => @project_result.to_hash})
+    Kalibro::ModuleResult.expects(:request).
+      with("ModuleResult", :get_module_result, {:project_name => @project.name, :module_name => @project.name, :date => date_with_milliseconds}).
+      returns({:module_result => @module_result.to_hash})
+    get :module_result, :profile => @profile.identifier, :id => @content.id, :module_name => @project.name, :date => nil
+    assert_equal @content, assigns(:content)
+    assert_equal @module_result.grade, assigns(:module_result).grade
+    assert_response 200
+    assert_select('h5', 'Metric results for: Qt-Calculator (APPLICATION)')
   end
- 
-  #TODO Adicionar module result manualmente
-  #TODO Ver testes do project content, refatorar o project content em cima dos testes
-  #TODO Repensar design OO: nao amarrar o project_content ao webservice. Criar um modelo abstrato do webservice
+
+  should 'get module result with a specific date' do
+	  date_with_milliseconds = Kalibro::ProjectResult.date_with_milliseconds(@project_result.date)
+    request_body = {:project_name => @project.name, :date => @project_result.date}
+    Kalibro::ProjectResult.expects(:request).with("ProjectResult", :has_results_before, request_body).returns({:has_results => true})
+    Kalibro::ProjectResult.expects(:request).with("ProjectResult", :get_last_result_before, request_body).returns({:project_result => @project_result.to_hash})
+    Kalibro::ModuleResult.expects(:request).with("ModuleResult", :get_module_result, {:project_name => @project.name, :module_name => @project.name, :date => date_with_milliseconds}).returns({:module_result => @module_result.to_hash})
+    get :module_result, :profile => @profile.identifier, :id => @content.id, :module_name => @project.name, :date => @project_result.date
+    assert_equal @content, assigns(:content)
+    assert_equal @module_result.grade, assigns(:module_result).grade
+    assert_response 200
+    assert_select('h5', 'Metric results for: Qt-Calculator (APPLICATION)')
+  end
+
+  should 'test project tree without date' do
+    Kalibro::ProjectResult.expects(:request).with("ProjectResult", :get_last_result_of, {:project_name => @project.name}).returns({:project_result => @project_result.to_hash})
+    Kalibro::Project.expects(:request).with("Project", :get_project, :project_name => @project.name).returns({:project => @project.to_hash})
+  	get :project_tree, :profile => @profile.identifier, :id => @content.id, :module_name => @project.name, :date => nil
+    assert_equal @content, assigns(:content)
+    assert_equal @project.name, assigns(:project_name)
+    assert_equal @project_result.source_tree.module.name, assigns(:source_tree).module.name
+	  assert_response 200
+  	assert_select('h2', /Qt-Calculator/)
+  end
+
+  should 'test project tree with a specific date' do
+    request_body = {:project_name => @project.name, :date => @project_result.date}
+    Kalibro::Project.expects(:request).with("Project", :get_project, :project_name => @project.name).returns({:project => @project.to_hash})
+    Kalibro::ProjectResult.expects(:request).with("ProjectResult", :has_results_before, request_body).returns({:has_results => true})
+    Kalibro::ProjectResult.expects(:request).with("ProjectResult", :get_last_result_before, request_body).returns({:project_result => @project_result.to_hash})
+    get :project_tree, :profile => @profile.identifier, :id => @content.id, :module_name => @project.name, :date => @project_result.date
+    assert_equal @content, assigns(:content)
+    assert_equal @project.name, assigns(:project_name)
+    assert_equal @project_result.source_tree.module.name, assigns(:source_tree).module.name    
+	  assert_response 200
+  end
+
+  should 'test module metrics history' do
+    Kalibro::ModuleResult.expects(:request).with("ModuleResult", :get_result_history, {:project_name => @project.name, :module_name => @project.name}).returns({:module_result => @module_result})
+    get :module_metrics_history, :profile => @profile.identifier, :id => @content.id, :module_name => @project.name,
+    :metric_name => @module_result.metric_result.first.metric.name.delete("() ")
+    assert_equal @content, assigns(:content)
+    assert_equal [@module_result.metric_result[0].value], assigns(:score_history)
+    assert_response 200
+  end
+  
+  should 'test grade history' do
+    Kalibro::ModuleResult.expects(:request).with("ModuleResult", :get_result_history, {:project_name => @project.name, :module_name => @project.name}).returns({:module_result => @module_result})
+    get :module_grade_history, :profile => @profile.identifier, :id => @content.id, :module_name => @project.name
+    assert_equal @content, assigns(:content)
+    assert_equal [@module_result.grade], assigns(:score_history)
+    assert_response 200
+  end
+
 end

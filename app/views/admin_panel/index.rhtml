@@ -8,6 +8,7 @@
   <tr><td><%= link_to _('Plugins'), :controller => 'plugins' %></td></tr>
   <tr><td><%= link_to _('Sideboxes'), :controller => 'environment_design'%></td></tr>
   <tr><td><%= link_to _('Homepage'), :action => 'set_portal_community' %></td></tr>
+  <tr><td><%= link_to _('Manage Licenses'), :controller =>'licenses' %></td></tr>
 </table>
 
 <h2><%= _('Profiles') %></h2>
@@ -15,7 +16,7 @@
 <table>
   <tr><td><%= link_to _('User roles'), :controller => 'role' %></td></tr>
   <tr><td><%= link_to _('Users'), :controller => 'users' %></td></tr>
-  <tr><td><%= link_to _('Profile templates'), :action => 'edit_templates' %></td></tr>
+  <tr><td><%= link_to _('Profile templates'), :action => 'templates' %></td></tr>
   <tr><td><%= link_to _('Fields'), :controller => 'features', :action => 'manage_fields' %></td></tr>
 </table>
 

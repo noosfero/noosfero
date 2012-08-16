@@ -1331,4 +1331,21 @@ module ApplicationHelper
       _("Are you sure that you want to remove the item \"#{article.name}\"?")
     end
   end
+
+  def template_options(klass, field_name)
+    return '' if klass.templates.count == 0
+    return hidden_field_tag("#{field_name}[template_id]", klass.templates.first.id) if klass.templates.count == 1
+
+    counter = 0
+    radios = klass.templates.map do |template|
+      counter += 1
+      content_tag('li', labelled_radio_button(template.name, "#{field_name}[template_id]", template.id, counter==1))
+    end.join("\n")
+
+    content_tag('div', content_tag('span', _('Template:')) +
+      content_tag('ul', radios, :style => 'list-style: none; padding-left: 0; margin-top: 0.5em;'),
+      :id => 'template-options',
+      :style => 'margin-top: 1em'
+    )
+  end
 end

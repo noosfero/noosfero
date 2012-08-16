@@ -357,6 +357,14 @@ class PersonTest < ActiveSupport::TestCase
   end
 
   should 'have a person template' do
+    template = fast_create(Person, :is_template => true)
+    p = create_user('test_user').person
+    p.template_id = template.id
+    p.save!
+    assert_equal template, p.template
+  end
+
+  should 'have a default person template' do
     env = Environment.create!(:name => 'test env')
     p = create_user('test_user', :environment => env).person
     assert_kind_of Person, p.template

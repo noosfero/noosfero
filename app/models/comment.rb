@@ -75,11 +75,30 @@ class Comment < ActiveRecord::Base
     article.comments_updated if article.kind_of?(Article)
   end
 
-  after_create do |comment|
-    if comment.source.kind_of?(Article) && comment.article.notify_comments? && !comment.article.profile.notification_emails.empty?
-      Comment::Notifier.deliver_mail(comment)
+  after_create :new_follower
+  def new_follower
+    if source.kind_of?(Article)
+      article.followers += [author_email]
+      article.followers -= article.profile.notification_emails
+      article.followers.uniq!
+      article.save
     end
+  end
 
+  after_create :notify_by_mail
+  def notify_by_mail
+    if source.kind_of?(Article) && article.notify_comments?
+      if !article.profile.notification_emails.empty?
+        Comment::Notifier.deliver_mail(self)
+      end
+      emails = article.followers - [author_email]
+      if !emails.empty?
+        Comment::Notifier.deliver_mail_to_followers(self, emails)
+      end
+    end
+  end
+
+  after_create do |comment|
     if comment.source.kind_of?(Article)
       comment.article.create_activity if comment.article.activity.nil?
       if comment.article.activity
@@ -133,6 +152,22 @@ class Comment < ActiveRecord::Base
         :sender_link => comment.author_link,
         :article_title => comment.article.name,
         :comment_url => comment.url,
+        :comment_title => comment.title,
+        :comment_body => comment.body,
+        :environment => profile.environment.name,
+        :url => profile.environment.top_url
+    end
+    def mail_to_followers(comment, emails)
+      profile = comment.article.profile
+      bcc emails
+      from "#{profile.environment.name} <#{profile.environment.contact_email}>"
+      subject _("[%s] %s commented on a content of %s") % [profile.environment.name, comment.author_name, profile.short_name]
+      body :recipient => profile.nickname || profile.name,
+        :sender => comment.author_name,
+        :sender_link => comment.author_link,
+        :article_title => comment.article.name,
+        :comment_url => comment.url,
+        :unsubscribe_url => comment.article.view_url.merge({:unfollow => true}),
         :comment_title => comment.title,
         :comment_body => comment.body,
         :environment => profile.environment.name,
