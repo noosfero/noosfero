@@ -1,7 +1,7 @@
 <% @configuration_content = @page
-@configuration = @page.configuration %>
+@kalibro_configuration = @page.kalibro_configuration %>
 <% unless @page.errors[:base].nil? %>
-  <% if @page.errors[:base] =~ /There is no project named/ %>
+  <% if @page.errors[:base] =~ /There is no configuration named/ %>
     <h3>Warning:</h3>
     <p>This Configuration doesn't exist on the Web Service. Do you want to <a href="/myprofile/<%= @page.profile.name %>/cms/destroy/<%= @page.id%>">delete</a> or <a href="/myprofile/<%= @page.profile.name %>/cms/edit/<%= @page.id%>">save it again</a>?</p>
   <% else %>
@@ -12,11 +12,11 @@
   <table id="project_info">
     <tr>
       <td><%= _('Name') %></td>
-      <td><%= @configuration.name %></td>
+      <td><%= @kalibro_configuration.name %></td>
     </tr>
     <tr>
       <td><%= _('Description') %></td>
-      <td><%= @configuration.description %></td>
+      <td><%= @kalibro_configuration.description %></td>
     </tr>
   </table>
 
@@ -32,7 +32,7 @@
         <td><h5>Metric Code</h5></td>
         <td/><td/>
     </tr>
-    <% @configuration.metric_configurations.each do |metric_configuration| %>
+    <% @kalibro_configuration.metric_configurations.each do |metric_configuration| %>
       <tr class="metric">
         <td><%= metric_configuration.metric.name %></td>
         <% if metric_configuration.metric.instance_of? Kalibro::NativeMetric %>

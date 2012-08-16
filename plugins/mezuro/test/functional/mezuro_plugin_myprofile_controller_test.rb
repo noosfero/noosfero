@@ -27,7 +27,7 @@ class MezuroPluginMyprofileControllerTest < ActionController::TestCase
 
     Kalibro::Configuration.expects(:all_names).returns([])
     @content = MezuroPlugin::ConfigurationContent.new(:profile => @profile, :name => @configuration.name)
-    @content.expects(:send_configuration_to_service).returns(nil)
+    @content.expects(:send_kalibro_configuration_to_service).returns(nil)
     @content.stubs(:solr_save)
     @content.save
 
