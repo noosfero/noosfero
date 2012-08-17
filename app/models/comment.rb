@@ -85,7 +85,12 @@ class Comment < ActiveRecord::Base
     end
   end
 
-  after_create :notify_by_mail
+  after_create :schedule_notification
+
+  def schedule_notification
+    Delayed::Job.enqueue CommentHandler.new(self.id)
+  end
+
   def notify_by_mail
     if source.kind_of?(Article) && article.notify_comments?
       if !article.profile.notification_emails.empty?

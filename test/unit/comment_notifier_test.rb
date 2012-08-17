@@ -84,6 +84,7 @@ class CommentNotifierTest < ActiveSupport::TestCase
 
   def create_comment_and_notify(args)
     Comment.create!(args)
+    process_delayed_job_queue
   end
 
   def read_fixture(action)
