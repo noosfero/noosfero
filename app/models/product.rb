@@ -201,6 +201,7 @@ class Product < ActiveRecord::Base
     self.inputs(true).each{ |i| t_i += 1; se_i += 1 if i.is_from_solidarity_economy }
     t_i = 1 if t_i == 0 # avoid division by 0
     p = case (se_i.to_f/t_i)*100
+        when 0 then [0, '']
         when 0..24.999 then [0, _("0%")];
         when 25..49.999 then [25, _("25%")];
         when 50..74.999 then [50, _("50%")];
