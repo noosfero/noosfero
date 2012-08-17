@@ -1,4 +1,4 @@
-/var/log/noosfero/*.log /home/noosfero/current/log/*.log {
+/var/log/noosfero/*.log {
         daily
         missingok
         rotate 30
