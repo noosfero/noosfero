@@ -25,7 +25,7 @@ class User < ActiveRecord::Base
     if user.environment.nil?
       user.environment = Environment.default
     end
-    user.send(:make_activation_code) if !user.environment.enabled?('skip_new_user_email_confirmation')
+    user.send(:make_activation_code) unless user.environment.enabled?('skip_new_user_email_confirmation')
   end
 
   after_create do |user|
