@@ -56,7 +56,7 @@
             <div>
               <div class="arrow"></div>
               <div class="content" id="product-price-composition">
-                <% product.inputs.each do |i| %>
+                <% product.inputs.relevant_to_price.each do |i| %>
                   <div class="search-product-input-dots-to-price">
                     <div class="search-product-input-name"><%= i.product_category.name %></div>
                     <%= price_span i.cost, :class => 'search-product-input-price' %>
