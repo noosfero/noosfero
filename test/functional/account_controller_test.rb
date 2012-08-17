@@ -610,6 +610,15 @@ class AccountControllerTest < ActionController::TestCase
     assert_equal 'example.com', Person['testuser'].organization
   end
 
+  should 'activate user after signup if environment is set to skip confirmation' do
+    env = Environment.default
+    env.enable('skip_new_user_email_confirmation')
+    env.save!
+    new_user(:login => 'activated_user')
+    user = User.find_by_login('activated_user')
+    assert user.activated?
+  end
+
   should 'redirect to initial page after logout' do
     login_as :johndoe
     get :logout
