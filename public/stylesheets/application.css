@@ -5137,7 +5137,8 @@ h1#agenda-title {
 
 #profile-wall .profile-wall-activities-comments .comment-picture,
 #profile-network .profile-wall-activities-comments .comment-picture {
-  width: 50px;
+  width: 32px;
+  margin-right: 5px;
   text-align: center;
 }
 
