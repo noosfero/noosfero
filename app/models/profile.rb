@@ -880,7 +880,7 @@ private :generate_url, :url_options
 
   def self.f_enabled_proc(enabled)
     enabled = enabled == "true" ? true : false
-    enabled ? _('facets|Enabled') : _('facets|Not enabled')
+    enabled ? s_('facets|Enabled') : s_('facets|Not enabled')
   end
   def f_enabled
     self.enabled
