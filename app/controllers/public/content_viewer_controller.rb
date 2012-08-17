@@ -123,7 +123,6 @@ class ContentViewerController < ApplicationController
     plugins_filter_comment(@comment)
     return if @comment.rejected?
     if (pass_without_comment_captcha? || verify_recaptcha(:model => @comment, :message => _('Please type the words correctly'))) && @comment.save
-      plugins_comment_saved(@comment)
       @page.touch
       @comment = nil # clear the comment form
       redirect_to :action => 'view_page', :profile => params[:profile], :page => @page.explode_path, :view => params[:view]
@@ -135,12 +134,6 @@ class ContentViewerController < ApplicationController
   def plugins_filter_comment(comment)
     @plugins.each do |plugin|
       plugin.filter_comment(comment)
-    end
-  end
-
-  def plugins_comment_saved(comment)
-    @plugins.each do |plugin|
-      plugin.comment_saved(comment)
     end
   end
 

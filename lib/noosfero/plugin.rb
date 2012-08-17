@@ -232,12 +232,6 @@ class Noosfero::Plugin
   def filter_comment(comment)
   end
 
-  # This method will be called just after a comment has been saved to the
-  # database, so that a plugin can perform some action on it.
-  #
-  def comment_saved(comment)
-  end
-
   # -> Adds fields to the signup form
   # returns = lambda block that creates html code
   def signup_extra_contents

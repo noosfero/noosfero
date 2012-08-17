@@ -1395,25 +1395,6 @@ class ContentViewerControllerTest < ActionController::TestCase
     end
   end
 
-  should 'notify plugins after a comment is saved' do
-    class TestNotifyCommentPlugin < Noosfero::Plugin
-      def comment_saved(c)
-        @__saved = c.id
-        @__title = c.title
-      end
-      attr_reader :__title
-      attr_reader :__saved
-    end
-    plugin = TestNotifyCommentPlugin.new
-    Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([plugin])
-    page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
-    post :view_page, :profile => profile.identifier, :page => [ 'myarticle' ], :comment => { :title => 'the title of the comment', :body => 'body', :name => "Spammer", :email => 'damn@spammer.com' }, :confirm => 'true'
-
-    assert_equal 'the title of the comment', plugin.__title
-    assert plugin.__saved
-
-  end
-
   should 'remove email from article followers when unfollow' do
     profile = create_user('testuser').person
     follower_email = 'john@doe.br'
