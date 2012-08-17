@@ -158,7 +158,7 @@ class Product < ActiveRecord::Base
 
   def inputs_cost
     return 0 if inputs.empty?
-    inputs.map(&:cost).inject { |sum,price| sum + price }
+    inputs.relevant_to_price.map(&:cost).inject { |sum,price| sum + price }
   end
 
   def total_production_cost
