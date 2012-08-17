@@ -83,15 +83,15 @@ class CommentNotifierTest < ActiveSupport::TestCase
   private
 
   def create_comment_and_notify(args)
-    Comment!.create(args)
+    Comment.create!(args)
   end
 
-    def read_fixture(action)
-      IO.readlines("#{FIXTURES_PATH}/mail_sender/#{action}")
-    end
+  def read_fixture(action)
+    IO.readlines("#{FIXTURES_PATH}/mail_sender/#{action}")
+  end
 
-    def encode(subject)
-      quoted_printable(subject, CHARSET)
-    end
+  def encode(subject)
+    quoted_printable(subject, CHARSET)
+  end
 
 end
