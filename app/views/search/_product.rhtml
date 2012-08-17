@@ -27,7 +27,7 @@
           <% end %>
 
           <% if product.price_described? %>
-            <% title = (product.inputs + product.price_details).map{ |i|
+            <% title = (product.inputs.relevant_to_price + product.price_details).map{ |i|
               '<div class="search-product-input-dots-to-price">' +
                 '<div class="search-product-input-name">' + i.name + '</div>' +
                 price_span(i.price, :class => 'search-product-input-price') +
