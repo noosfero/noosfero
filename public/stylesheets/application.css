@@ -5124,8 +5124,8 @@ h1#agenda-title {
 
 #profile-wall .profile-wall-activities-comments img,
 #profile-network .profile-wall-activities-comments img {
-  max-width: 50px;
-  max-height: 50px;
+  max-width: 32px;
+  max-height: 32px;
 }
 
 #profile-wall .profile-wall-activities-comments .comment_reply,
