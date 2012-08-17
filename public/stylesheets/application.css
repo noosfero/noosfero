@@ -5047,7 +5047,7 @@ h1#agenda-title {
 
 #profile-network li textarea:focus,
 #profile-wall li textarea:focus {
-  background-position: left center;
+  background-position: left top;
   background-repeat: no-repeat;
   text-indent: 28px;
 }
