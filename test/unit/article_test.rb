@@ -977,9 +977,9 @@ class ArticleTest < ActiveSupport::TestCase
     assert_equivalent [p1,p2,community], ActionTrackerNotification.find_all_by_action_tracker_id(activity.id).map(&:profile)
   end
 
-  should 'not track action when a published article is removed' do
+  should 'destroy activity when a published article is removed' do
     a = create(TinyMceArticle, :profile_id => profile.id)
-    assert_no_difference ActionTracker::Record, :count do
+    assert_difference ActionTracker::Record, :count, -1 do
       a.destroy
     end
   end
@@ -1113,6 +1113,51 @@ class ArticleTest < ActiveSupport::TestCase
     assert_equal 2, ActionTracker::Record.find_all_by_verb('create_article').count
     process_delayed_job_queue
     assert_equal 3, ActionTrackerNotification.find_all_by_action_tracker_id(article2.activity.id).count
+  end
+
+  should 'destroy activity and notifications of friends when destroying an article' do
+    friend = fast_create(Person)
+    profile.add_friend(friend)
+    Article.destroy_all
+    ActionTracker::Record.destroy_all
+    ActionTrackerNotification.destroy_all
+    UserStampSweeper.any_instance.expects(:current_user).returns(profile).at_least_once
+    article = create(TinyMceArticle, :profile_id => profile.id)
+    activity = article.activity
+
+    process_delayed_job_queue
+    assert_equal 2, ActionTrackerNotification.find_all_by_action_tracker_id(activity.id).count
+
+    assert_difference ActionTrackerNotification, :count, -2 do
+      article.destroy
+    end
+
+    assert_raise ActiveRecord::RecordNotFound do
+      ActionTracker::Record.find(activity.id)
+    end
+  end
+
+  should 'destroy action_tracker and notifications when an article is destroyed in a community' do
+    community = fast_create(Community)
+    p1 = fast_create(Person)
+    p2 = fast_create(Person)
+    community.add_member(p1)
+    community.add_member(p2)
+    UserStampSweeper.any_instance.expects(:current_user).returns(p1).at_least_once
+
+    article = create(TinyMceArticle, :profile_id => community.id)
+    activity = article.activity
+
+    process_delayed_job_queue
+    assert_equal 3, ActionTrackerNotification.find_all_by_action_tracker_id(activity.id).count
+
+    assert_difference ActionTrackerNotification, :count, -3 do
+      article.destroy
+    end
+
+    assert_raise ActiveRecord::RecordNotFound do
+      ActionTracker::Record.find(activity.id)
+    end
   end
 
   should 'found articles with published date between a range' do

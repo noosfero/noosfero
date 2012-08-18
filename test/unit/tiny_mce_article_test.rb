@@ -168,11 +168,11 @@ class TinyMceArticleTest < ActiveSupport::TestCase
     end
   end
 
-  should 'not notify when an article is destroyed' do
+  should 'remove activity when an article is destroyed' do
     ActionTracker::Record.delete_all
     a1 = TinyMceArticle.create! :name => 'bar', :profile_id => fast_create(Profile).id, :published => true
     a2 = TinyMceArticle.create! :name => 'another bar', :profile_id => fast_create(Profile).id, :published => true
-    assert_no_difference ActionTracker::Record, :count do
+    assert_difference ActionTracker::Record, :count, -2 do
       a1.destroy
       a2.destroy
 end

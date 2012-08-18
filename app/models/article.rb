@@ -51,6 +51,11 @@ class Article < ActiveRecord::Base
     end
   end
 
+  after_destroy :destroy_activity
+  def destroy_activity
+    self.activity.destroy if self.activity
+  end
+
   xss_terminate :only => [ :name ], :on => 'validation', :with => 'white_list'
 
   named_scope :in_category, lambda { |category|
