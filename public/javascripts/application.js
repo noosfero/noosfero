@@ -622,7 +622,7 @@ function hide_and_show(hide_elements, show_elements) {
 
 function limited_text_area(textid, limit) {
   var text = jQuery('#' + textid).val();
-  jQuery('#' + textid).css('height', jQuery('#' + textid).attr('scrollHeight') + 'px');
+  grow_text_area(textid);
   var textlength = text.length;
   jQuery('#' + textid + '_left span').html(limit - textlength);
   if (textlength > limit) {
@@ -635,6 +635,15 @@ function limited_text_area(textid, limit) {
     jQuery('#' + textid + '_limit').hide();
     return true;
   }
+}
+
+function grow_text_area(textid) {
+  var height = jQuery('#' + textid).attr('scrollHeight');
+  if (jQuery.browser.webkit) {
+    height -= parseInt(jQuery('#' + textid).css('padding-top')) +
+              parseInt(jQuery('#' + textid).css('padding-bottom'));
+  }
+  jQuery('#' + textid).css('height', height + 'px');
 }
 
 jQuery(function($) {

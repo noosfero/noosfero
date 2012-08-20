@@ -1094,7 +1094,7 @@ module ApplicationHelper
       {s_('contents|Most commented') => {:href => url_for({:controller => 'search', :action => 'contents', :filter => 'more_comments'})}}
     ]
     if logged_in?
-      links.push(_('New content') => lightbox_options({:href => url_for({:controller => 'cms', :action => 'new', :profile => current_user.login, :cms => true})}))
+      links.push(_('New content') => colorbox_options({:href => url_for({:controller => 'cms', :action => 'new', :profile => current_user.login, :cms => true})}))
     end
 
     link_to(content_tag(:span, _('Contents'), :class => 'icon-menu-articles'), {:controller => "search", :action => 'contents', :category_path => ''}, :id => 'submenu-contents') +
@@ -1181,6 +1181,10 @@ module ApplicationHelper
       content_tag(:p, content_tag(:span, limit) + ' ' + _(' characters left'), :id => text_area_id + '_left'),
       content_tag(:p, _('Limit of characters reached'), :id => text_area_id + '_limit', :style => 'display: none')
     ], :class => 'limited-text-area')
+  end
+
+  def expandable_text_area(object_name, method, text_area_id, options = {})
+    text_area(object_name, method, { :id => text_area_id, :onkeyup => "grow_text_area('#{text_area_id}')" }.merge(options))
   end
 
   def pluralize_without_count(count, singular, plural = nil)

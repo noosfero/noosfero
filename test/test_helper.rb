@@ -79,7 +79,7 @@ class ActiveSupport::TestCase
 
     destname = 'test_should_' + name.gsub(/[^a-zA-z0-9]+/, '_')
     if @shoulds.include?(destname)
-      raise "there is already a test named \"#{destname}\"" 
+      raise "there is already a test named \"#{destname}\""
     end
 
     @shoulds << destname
@@ -121,7 +121,7 @@ class ActiveSupport::TestCase
     object.valid?
     assert !object.errors.invalid?(attribute)
   end
-  
+
   def assert_subclass(parent, child)
     assert_equal parent, child.superclass, "Class #{child} expected to be a subclass of #{parent}"
   end
@@ -150,7 +150,7 @@ class ActiveSupport::TestCase
       get action, params
     end
     doc = Hpricot @response.body
-    
+
     # Test style references:
     (doc/'style').each do |s|
       s = s.to_s().gsub( /\/\*.*\*\//, '' ).
@@ -191,6 +191,12 @@ class ActiveSupport::TestCase
     doc = HTML::Document.new(text, false, false)
     tag = doc.find(options)
     assert !tag, "expected no tag #{options.inspect}, but tag found in #{text.inspect}"
+  end
+
+  # For models that render views (blocks, articles, ...)
+  def render(*args)
+    view_paths = @explicit_view_paths || ActionController::Base.view_paths
+    ActionView::Base.new(view_paths, {}).render(*args)
   end
 
   private

@@ -1862,7 +1862,6 @@ class ProfileTest < ActiveSupport::TestCase
 
     # fields
     assert_includes Profile.find_by_contents('Hiro')[:results].docs, p
-    assert_includes Profile.find_by_contents('Stor')[:results].docs, p
     assert_includes Profile.find_by_contents('Protagonist')[:results].docs, p
     # filters
     assert_includes Profile.find_by_contents('Hiro', {}, { :filter_queries => ["public:true"]})[:results].docs, p
@@ -1872,13 +1871,15 @@ class ProfileTest < ActiveSupport::TestCase
     assert_includes Profile.find_by_contents("Inglewood")[:results].docs, p
     assert_includes Profile.find_by_contents("California")[:results].docs, p
     assert_includes Profile.find_by_contents("Science")[:results].docs, p
+    # not includes
+    assert_not_includes Profile.find_by_contents('Stor')[:results].docs, p
   end
 
   should 'boost name matches' do
     TestSolr.enable
     in_addr = create(Person, :name => 'something', :address => 'bananas in the address!', :user_id => fast_create(User).id)
     in_name = create(Person, :name => 'bananas in the name!', :user_id => fast_create(User).id)
-    assert_equal [in_name, in_addr], Person.find_by_contents('bananas')[:results].docs
+    assert_equal [in_name], Person.find_by_contents('bananas')[:results].docs
   end
 
   should 'reindex articles after saving' do

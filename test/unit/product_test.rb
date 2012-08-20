@@ -381,6 +381,15 @@ class ProductTest < ActiveSupport::TestCase
     assert_equal 50.0, product.inputs_cost
   end
 
+  should 'return total value only of inputs relevant to price' do
+    product = fast_create(Product)
+    first_relevant = fast_create(Input, :product_id => product.id, :product_category_id => fast_create(ProductCategory).id, :price_per_unit => 20.0, :amount_used => 2)
+    second_relevant = fast_create(Input, :product_id => product.id, :product_category_id => fast_create(ProductCategory).id, :price_per_unit => 10.0, :amount_used => 1)
+    not_relevant = fast_create(Input, :product_id => product.id, :product_category_id => fast_create(ProductCategory).id, :price_per_unit => 10.0, :amount_used => 1, :relevant_to_price => false)
+
+    assert_equal 50.0, product.inputs_cost
+  end
+
   should 'return 0 on total value of inputs if has no input' do
     product = fast_create(Product)
 
@@ -750,6 +759,8 @@ class ProductTest < ActiveSupport::TestCase
   end
 
   should 'return more recent products' do
+    Product.destroy_all
+
     prod1 = Product.create!(:name => 'Damaged LP', :enterprise_id => @profile.id, :product_category_id => @product_category.id)
     prod2 = Product.create!(:name => 'Damaged CD', :enterprise_id => @profile.id, :product_category_id => @product_category.id)
     prod3 = Product.create!(:name => 'Damaged DVD', :enterprise_id => @profile.id, :product_category_id => @product_category.id)
