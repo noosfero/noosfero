@@ -437,4 +437,12 @@ class CommentTest < ActiveSupport::TestCase
     assert !c.ham?
   end
 
+  should 'be able to select non-spam comments' do
+    c1 = fast_create(Comment)
+    c2 = fast_create(Comment, :spam => false)
+    c3 = fast_create(Comment, :spam => true)
+
+    assert_equivalent [c1,c2], Comment.without_spam
+  end
+
 end

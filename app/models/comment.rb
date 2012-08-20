@@ -10,6 +10,8 @@ class Comment < ActiveRecord::Base
   has_many :children, :class_name => 'Comment', :foreign_key => 'reply_of_id', :dependent => :destroy
   belongs_to :reply_of, :class_name => 'Comment', :foreign_key => 'reply_of_id'
 
+  named_scope :without_spam, :conditions => ['spam IS NULL OR spam = ?', false]
+
   # unauthenticated authors:
   validates_presence_of :name, :if => (lambda { |record| !record.email.blank? })
   validates_presence_of :email, :if => (lambda { |record| !record.name.blank? })
