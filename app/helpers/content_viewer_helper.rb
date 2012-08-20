@@ -4,7 +4,7 @@ module ContentViewerHelper
   include ForumHelper
 
   def number_of_comments(article)
-    n = article.comments.size
+    n = article.comments.without_spam.count
     if n == 0
      _('No comments yet')
     else

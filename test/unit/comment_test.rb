@@ -445,4 +445,11 @@ class CommentTest < ActiveSupport::TestCase
     assert_equivalent [c1,c2], Comment.without_spam
   end
 
+  should 'be able to mark as spam atomically' do
+    c1 = fast_create(Comment, :name => 'foo', :email => 'foo@example.com')
+    c1.spam!
+    c1.reload
+    assert c1.spam?
+  end
+
 end

@@ -1069,15 +1069,6 @@ a.comment-picture {
   top: 9px;
   right: 8px;
 }
-#content .comment-balloon a.button.icon-delete {
-  border: 0;
-  padding-top: 0;
-  padding-bottom: 0;
-  background-color: transparent;
-}
-#content .comments .comment-balloon a.button.icon-delete {
-  display: none;
-}
 .msie7 .article-comments-list .comment-balloon {
   margin-top: -15px;
 }

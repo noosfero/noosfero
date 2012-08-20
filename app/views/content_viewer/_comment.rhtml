@@ -29,17 +29,12 @@
   <% end %>
 
   <% comment_balloon do %>
-    <% if logged_in? && (user == @page.profile || user == comment.author || user.has_permission?(:moderate_comments, @page.profile)) %>
-      <% button_bar(:style => 'float: right; margin-top: 0px;') do %>
-        <%= icon_button(:delete, _('Remove this comment and all its replies'), { :profile => params[:profile], :remove_comment => comment.id, :view => params[:view] }, :method => :post, :confirm => _('Are you sure you want to remove this comment and all its replies?')) %>
-      <% end %>
-    <% end %>
 
     <div class="comment-details">
       <div class="comment-created-at">
         <%= show_time(comment.created_at) %>
       </div>
-      <h4><%= comment.title %></h4>
+      <h4><%= comment.title.blank? && '&nbsp;' || comment.title %></h4>
       <div class="comment-text">
         <p/>
         <%= txt2html comment.body %>
@@ -57,6 +52,17 @@
         </script>
       <% end %>
       <%= report_abuse(comment.author, :comment_link, comment) if comment.author %>
+
+      <% if (logged_in? && (user == @page.profile || user.has_permission?(:moderate_comments, @page.profile))) %>
+        <%= link_to(_('Mark as SPAM'), { :mark_comment_as_spam => comment.id }, :method => :post, :confirm => _('Are you sure you want to mark this comment as SPAM?'), :class => 'comment-footer comment-footer-link comment-footer-hide')  %>
+        &nbsp;
+      <% end %>
+
+      <% if logged_in? && (user == @page.profile || user == comment.author || user.has_permission?(:moderate_comments, @page.profile)) %>
+        <%= link_to(_('Remove'), { :profile => params[:profile], :remove_comment => comment.id, :view => params[:view] }, :method => :post, :confirm => _('Are you sure you want to remove this comment and all its replies?'), :class => 'comment-footer comment-footer-link comment-footer-hide') %>
+        &nbsp;
+      <% end %>
+
       <%= link_to_function _('Reply'),
           "var f = add_comment_reply_form(this, %s); f.find('input[name=comment[title]], textarea').val(''); return false" % comment.id,
           :class => 'comment-footer comment-footer-link comment-footer-hide',

@@ -198,4 +198,9 @@ class Comment < ActiveRecord::Base
     !spam.nil? && !spam
   end
 
+  def spam!
+    self.spam = true
+    self.save!
+  end
+
 end

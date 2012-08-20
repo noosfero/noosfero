@@ -75,8 +75,14 @@ class ContentViewerController < ApplicationController
       @comment = Comment.new
     end
 
-    if request.post? && params[:remove_comment]
-      remove_comment
+    if request.post?
+      if params[:remove_comment]
+        remove_comment
+        return
+      elsif params[:mark_comment_as_spam]
+        mark_comment_as_spam
+        return
+      end
     end
     
     if @page.has_posts?
@@ -107,8 +113,9 @@ class ContentViewerController < ApplicationController
       end
     end
 
-    @comments = @page.comments(true).as_thread
-    @comments_count = @page.comments.count
+    comments = @page.comments.without_spam
+    @comments = comments.as_thread
+    @comments_count = comments.count
     if params[:slideshow]
       render :action => 'slideshow', :layout => 'slideshow'
     end
@@ -147,6 +154,15 @@ class ContentViewerController < ApplicationController
     if (user == @comment.author || user == @page.profile || user.has_permission?(:moderate_comments, @page.profile))
       @comment.destroy
       session[:notice] = _('Comment succesfully deleted')
+    end
+    redirect_to :action => 'view_page', :profile => params[:profile], :page => @page.explode_path, :view => params[:view]
+  end
+
+  def mark_comment_as_spam
+    @comment = @page.comments.find(params[:mark_comment_as_spam])
+    if logged_in? && (user == @page.profile || user.has_permission?(:moderate_comments, @page.profile))
+      @comment.spam!
+      session[:notice] = _('Comment succesfully marked as SPAM')
     end
     redirect_to :action => 'view_page', :profile => params[:profile], :page => @page.explode_path, :view => params[:view]
   end
