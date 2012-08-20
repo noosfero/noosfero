@@ -422,4 +422,19 @@ class CommentTest < ActiveSupport::TestCase
     assert_not_nil article.activity
   end
 
+  should 'be able to mark comments as spam/ham/unknown' do
+    c = Comment.new
+    c.spam = true
+    assert c.spam?
+    assert !c.ham?
+
+    c.spam = false
+    assert c.ham?
+    assert !c.spam?
+
+    c.spam = nil
+    assert !c.spam?
+    assert !c.ham?
+  end
+
 end

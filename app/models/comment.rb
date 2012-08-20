@@ -188,4 +188,12 @@ class Comment < ActiveRecord::Base
     @rejected = true
   end
 
+  def spam?
+    !spam.nil? && spam
+  end
+
+  def ham?
+    !spam.nil? && !spam
+  end
+
 end
