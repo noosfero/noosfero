@@ -5,27 +5,113 @@ var marker;
 var center;
 var move = true;
 var previousCenter;
+var mapZoom = 15;
+var delay_autocomplete = 500;
 
-function getAddress(latlng) {
+function pointToAddress(latlng) {
   $('location-fields').addClassName("loading");
 
-   if (latlng != null) {
-    geocoder.geocode( {'latLng': latlng}, showAddress);
-   }
+  if (latlng == null)
+    return;
+
+  geocoder.geocode( {'latLng': latlng}, function(results, status) {
+    if (status != google.maps.GeocoderStatus.OK) {
+      alert("<%=_("Address not found, reason:")%>" + statusErrorMessage(status));
+      return;
+    }
+
+    var place = results[0];
+
+    $('location-fields').removeClassName("loading");
+
+    var position = marker.getPosition();
+    $('profile_data_lat').value = position.lat();
+    $('profile_data_lng').value = position.lng();
+
+    form = jQuery('#location-form')[0];
+    form.lat = marker.getPosition().lat();
+    form.lng = marker.getPosition().lng();
+
+    var components_len = place.address_components.size();
+    if (components_len < 2)
+      return;
+
+    var country_code = "";
+    var state = "";
+    var city = "";
+    var zip_code = "";
+    var route = "";
+    var number = "";
+    var sublocality = "";
+    var address = "";
+
+    var i;
+    var has_postal_code = false;
+    for (i=0; i < components_len; i++) {
+      type = place.address_components[i].types[0];
+      if (type == 'postal_code')
+        has_postal_code = true;
+    }
+
+    for (i=0; i < components_len; i++) {
+      type = place.address_components[i].types[0];
+      value = place.address_components[i];
+
+      if (type == 'country')
+        country_code = value.short_name;
+      else if (type == 'administrative_area_level_1')
+        state = value.long_name;
+      else if (type == 'locality')
+        city = value.long_name;
+      else if (type == 'postal_code')
+        zip_code = value.short_name;
+      if (has_postal_code) {
+        if (type == "route")
+          route = value.long_name;
+        else if (type == "street_number")
+          number = value.short_name;
+        else if (type == 'sublocality')
+          sublocality = value.long_name;
+      }
+    }
+
+    // build address
+    if (route) {
+      address = route;
+      if (number)
+       address = address + ', ' + number;
+      if (sublocality && sublocality != city)
+       address = address + ', ' + sublocality;
+    }
+
+    if (country_code)
+      $('profile_data_country').value = country_code;
+    if (state)
+      $('profile_data_state').value = state;
+    if (city)
+      $('profile_data_city').value = city;
+    if (zip_code)
+      $('profile_data_zip_code').value = zip_code;
+    if (address)
+      $('profile_data_address').value = address;
+
+    map.setCenter(marker.getPosition());
+  });
 }
 
-function codeAddress() {
+function addressToPoint() {
   $('location-fields').addClassName("loading");
 
   var country_option = $('profile_data_country').value;
-  var address = $('profile_data_address').value + "-" + $('profile_data_zip_code').value + "," + $('profile_data_city').value+ "-" + $('profile_data_state').value + "," + country_option;
+  var address = $('profile_data_address').value + ", " + $('profile_data_zip_code').value + ", "
+    + $('profile_data_city').value+ ", " + $('profile_data_state').value + ", " + country_option;
 
   if (geocoder) {
-   geocoder.geocode( { 'address': address}, function(results, status) {
+   geocoder.geocode({ 'address': address}, function(results, status) {
      if (status == google.maps.GeocoderStatus.OK) {
        map.setCenter(results[0].geometry.location);
        marker.setPosition(results[0].geometry.location);
-       getAddress(marker.getPosition());
+       pointToAddress(marker.getPosition());
 
        $('profile_data_lat').value = results[0].geometry.location.lat();
        $('profile_data_lng').value = results[0].geometry.location.lng();
@@ -33,17 +119,15 @@ function codeAddress() {
        enable_save();
      } else {
        $('location-fields').removeClassName("loading");
-       alert('<%=_("Address not found, reason:")%>' + translate_status(status));
+       alert('<%=_("Address not found, reason:")%>' + statusErrorMessage(status));
      }
    });
   }
 
-  map.setZoom(11);
-
   return false;
 }
 
-function translate_status(status)
+function statusErrorMessage(status)
 {
   var translated_status = '';
 
@@ -59,136 +143,42 @@ function translate_status(status)
   return translated_status;
 }
 
-function getAddressData() {
-  var text = '';
-  var fields = [
-    'profile_data_country',
-    'profile_data_state',
-    'profile_data_city',
-    'profile_data_address',
-    'profile_data_zip_code'
-  ];
-  for (var i = 0; i < fields.length; i++) {
-    var field = fields[i];
-    if ($(field)) {
-      text += $(field).value + " ";
-    }
-  }
-  return text;
-}
-
-function showAddress(results, status) {
-
-  if (status == google.maps.GeocoderStatus.OK) {
-    map.setCenter(results[0].geometry.location);
-    updateFields(results[0]);
-
-  } else {
-    alert("<%=_("Address not found, reason:")%>" + translate_status(status));
-  }
-
-}
-
-function updateFields(place) {
-  var position = marker.getPosition();
-  $('profile_data_lat').value = position.lat();
-  $('profile_data_lng').value = position.lng();
-  $('location-fields').removeClassName("loading");
-
-  form = jQuery('#location-form')[0];
-  form.lat = marker.getPosition().lat();
-  form.lng = marker.getPosition().lng();
-
-  var components_len = place.address_components.size();
-
-  if(components_len <  2)
-  {
-    return false;
-  }
-
-  var components = place.address_components;
-  var address = "";
-  var zip_code = "";
-  var city = "";
-  var state = "";
-  var country_code = "";
-  var i = 0;
-
-  for( i =0 ; i < components_len; i ++)
-  {
-
-      if (components[i].types[0] == 'country')
-        country_code = components[i].short_name;
-      else if (components[i].types[0] == 'administrative_area_level_1')
-        state = components[i].long_name;
-      else if (components[i].types[0] == 'locality')
-        city  = components[i].long_name;
-      else if (components[i].types[0] == 'sublocality')
-        address  = components[i].long_name  + "-" + address;
-      else if (components[i].types[0] == "route")
-        address = components[i].long_name + address;
-      else if (components[i].types[0] == "street_number")
-        address =  address + "," + components[i].short_name ;
-      else if (components[i].types[0] == 'postal_code')
-        zip_code = components[i].short_name;
-  }
-
-  $('profile_data_country').value = country_code;
-  $('profile_data_state').value = state;
-  $('profile_data_address').value = address;
-  $('profile_data_city').value = city;
-  $('profile_data_zip_code').value = zip_code;
-}
-
-
-function initialize_map() {
+function initializeMap() {
   geocoder = new google.maps.Geocoder();
 
   var lat = <%= profile.lat || 'false' %>;
   var lng = <%= profile.lng || 'false' %>;
-
   if ( !(lat && lng) ) {
     lat = -15.7605361485013;
     lng = -47.933349609375;
   }
 
-  var latlng = new google.maps.LatLng(lat,lng);
+  var center = new google.maps.LatLng(lat,lng);;
+  map = new google.maps.Map(document.getElementById("location-map"), {
+    zoom: mapZoom,
+    center: center,
+    mapTypeId: google.maps.MapTypeId.HYBRID
+  });
 
-  var myOptions = {
-    zoom: 8,
-    center: latlng,
-    mapTypeId: google.maps.MapTypeId.ROADMAP
-  }
+  marker = new google.maps.Marker({
+    position: center,
+    map: map,
+    draggable: true
+  });
 
-  center = latlng;
-
-  map = new google.maps.Map(document.getElementById("location-map"), myOptions);
-
-  continueLoadMapV3()
-}
-
-function continueLoadMapV3() {
-
-   marker = new google.maps.Marker({
-            position: center,
-            map: map,
-            draggable: true
-    });
-
-    google.maps.event.addListener(marker, "dragend", function() {
-      move = false;
-      getAddress(marker.getPosition());
-      enable_save();
-    });
+  google.maps.event.addListener(marker, "dragend", function() {
+    move = false;
+    pointToAddress(marker.getPosition());
+    map.setCenter(marker.getPosition());
+    enable_save();
+  });
 
 }
-
-window.onload = initialize_map;
-
-var delay_autocomplete = 500;
 
 jQuery.noConflict();
-jQuery(document).ready(function (){
+jQuery(document).ready(function () {
+
+  initializeMap();
 
   jQuery.widget( "custom.catcomplete",jQuery.ui.autocomplete, {
     _renderMenu: function( ul, items ) {
@@ -204,7 +194,6 @@ jQuery(document).ready(function (){
     }
   });
 
-
   jQuery("#profile_data_city").catcomplete({
     source: "../maps/search_city",
     minLength: 3,
@@ -219,21 +208,13 @@ jQuery(document).ready(function (){
   });
 
   jQuery("#profile_data_city").keyup(function(){
-
     disable_save();
-
   });
-
   jQuery("#profile_data_state").keyup(function(){
-
     disable_save();
-
   });
-
   jQuery("#profile_data_country").change(function(){
-
     disable_save();
-
   });
 
 });

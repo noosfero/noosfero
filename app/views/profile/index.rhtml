@@ -29,7 +29,6 @@
           <% if logged_in? && current_person.follows?(@profile) %>
             <% tabs << {:title => _('Wall'), :id => 'profile-wall', :content => (render :partial => 'profile_wall')} %>
           <% end %>
-          <% tabs << {:title => _('What\'s new'), :id => 'profile-network', :content => (render :partial => 'profile_network')} %>
         <% elsif @profile.person? %>
           <% tabs << {:title => _('Profile'), :id => 'person-profile', :content => (render :partial => 'person_profile')} %>
           <% if logged_in? && current_person.follows?(@profile) %>

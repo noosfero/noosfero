@@ -5073,7 +5073,7 @@ h1#agenda-title {
 
 #profile-network li textarea:focus,
 #profile-wall li textarea:focus {
-  background-position: left center;
+  background-position: left top;
   background-repeat: no-repeat;
   text-indent: 28px;
 }
@@ -5150,8 +5150,8 @@ h1#agenda-title {
 
 #profile-wall .profile-wall-activities-comments img,
 #profile-network .profile-wall-activities-comments img {
-  max-width: 50px;
-  max-height: 50px;
+  max-width: 32px;
+  max-height: 32px;
 }
 
 #profile-wall .profile-wall-activities-comments .comment_reply,
@@ -5163,7 +5163,8 @@ h1#agenda-title {
 
 #profile-wall .profile-wall-activities-comments .comment-picture,
 #profile-network .profile-wall-activities-comments .comment-picture {
-  width: 50px;
+  width: 32px;
+  margin-right: 5px;
   text-align: center;
 }
 
