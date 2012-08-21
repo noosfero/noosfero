@@ -39,7 +39,7 @@ class MezuroPluginMyprofileControllerTest < ActionController::TestCase
     @range = RangeFixtures.range_excellent
     @range_hash = RangeFixtures.range_excellent_hash
   end
-  
+
   should 'test choose base tool' do
     Kalibro::BaseTool.expects(:request).with("BaseTool", :get_base_tool_names).returns({:base_tool_name => @base_tool.name})
     get :choose_base_tool, :profile => @profile.identifier, :id => @content.id

@@ -1,10 +1,14 @@
 <h1> <%= _(MezuroPlugin::ProjectContent.short_description) %> </h1>
 
 <%
+  @project = @article.title.nil? ? nil : @article.project
   begin
-    @project = @article.title.nil? ? nil : Kalibro::Project.find_by_name(@article.title)
-  rescue
-    @project = nil
+    @repository_types = Kalibro::Repository.repository_types.sort
+    @configuration_names = Kalibro::Configuration.all_names.sort
+  rescue Exception => exception
+    @article.errors.add_to_base(exception.message)
+    @repository_types = []
+    @configuration_names = []
   end
 %>
 
@@ -24,14 +28,12 @@
 
 <%= f.text_field :description %><br/>
 
-<% @repository_types = Kalibro::Repository.repository_types.sort %>
 <% @selected = (@project.nil? ? @repository_types : @project.repository.type) %>
 <%= required labelled_form_field _('Repository type'),
   f.select(:repository_type, @repository_types, {:selected => @selected}) %><br/>
 
 <%= required f.text_field(:repository_url) %><br/>
 
-<% @configuration_names = Kalibro::Configuration.all_names.sort %>
 <% @selected = (@project.nil? ? @configuration_names[0] : @project.configuration_name) %>
 
 <% if !@project.nil? && !@article.id.nil? %>
