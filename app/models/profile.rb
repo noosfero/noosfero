@@ -60,6 +60,7 @@ class Profile < ActiveRecord::Base
   }
 
   acts_as_accessible
+  acts_as_having_hotspots
 
   named_scope :memberships_of, lambda { |person| { :select => 'DISTINCT profiles.*', :joins => :role_assignments, :conditions => ['role_assignments.accessor_type = ? AND role_assignments.accessor_id = ?', person.class.base_class.name, person.id ] } }
   #FIXME: these will work only if the subclass is already loaded
@@ -68,12 +69,23 @@ class Profile < ActiveRecord::Base
   named_scope :templates, :conditions => {:is_template => true}
 
   def members
-    Person.members_of(self)
+    scopes = dispatch_scopes(:organization_members, self)
+    scopes << Person.members_of(self)
+    scopes.size == 1 ? scopes.first : Person.or_scope(scopes)
   end
 
   def members_count
-    members.count('DISTINCT(profiles.id)')
+    members.count
   end
+
+  class << self
+    def count_with_distinct(*args)
+      options = args.last || {}
+      count_without_distinct(:id, {:distinct => true}.merge(options))
+    end
+    alias_method_chain :count, :distinct
+  end
+
 
   def members_by_role(role)
     Person.members_of(self).all(:conditions => ['role_assignments.role_id = ?', role.id])

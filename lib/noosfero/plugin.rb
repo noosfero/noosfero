@@ -256,4 +256,29 @@ class Noosfero::Plugin
     nil
   end
 
+  # -> Extends organization list of members
+  # returns = An instance of ActiveRecord::NamedScope::Scope retrieved through
+  # Person.members_of method.
+  def organization_members(organization)
+    nil
+  end
+
+  # -> Extends person permission access
+  # returns = boolean
+  def has_permission?(person, permission, target)
+    nil
+  end
+
+  # -> Adds hidden_fields to the new community view
+  # returns = {key => value}
+  def new_community_hidden_fields
+    nil
+  end
+
+  # -> Adds hidden_fields to the enterprise registration view
+  # returns = {key => value}
+  def enterprise_registration_hidden_fields
+    nil
+  end
+
 end
