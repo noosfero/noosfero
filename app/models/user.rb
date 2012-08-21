@@ -21,12 +21,11 @@ class User < ActiveRecord::Base
     end
   end
 
-  before_create :make_activation_code
-
   before_create do |user|
     if user.environment.nil?
       user.environment = Environment.default
     end
+    user.send(:make_activation_code) unless user.environment.enabled?('skip_new_user_email_confirmation')
   end
 
   after_create do |user|
@@ -35,7 +34,7 @@ class User < ActiveRecord::Base
     user.person.name ||= user.login
     user.person.visible = false unless user.activated?
     user.person.save!
-    if user.environment && user.environment.enabled?('skip_new_user_email_confirmation')
+    if user.environment.enabled?('skip_new_user_email_confirmation')
       user.activate
     end
   end
@@ -114,10 +113,11 @@ class User < ActiveRecord::Base
 
   # Activates the user in the database.
   def activate
+    return false unless self.person
     self.activated_at = Time.now.utc
     self.activation_code = nil
     self.person.visible = true
-    self.person.save! && self.save
+    self.person.save! && self.save!
   end
 
   def activated?

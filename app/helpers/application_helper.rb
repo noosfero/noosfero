@@ -10,6 +10,8 @@ module ApplicationHelper
 
   include ThickboxHelper
 
+  include ColorboxHelper
+
   include BoxesHelper
 
   include FormsHelper
@@ -1087,24 +1089,24 @@ module ApplicationHelper
 
   def search_contents_menu
     links = [
-      {s_('contents|More Recent') => {:href => url_for({:controller => 'search', :action => 'contents', :filter => 'more_recent'})}},
-      {s_('contents|More Viewed') => {:href => url_for({:controller => 'search', :action => 'contents', :filter => 'more_popular'})}},
-      {s_('contents|Most Commented') => {:href => url_for({:controller => 'search', :action => 'contents', :filter => 'more_comments'})}}
+      {s_('contents|More recent') => {:href => url_for({:controller => 'search', :action => 'contents', :filter => 'more_recent'})}},
+      {s_('contents|More viewed') => {:href => url_for({:controller => 'search', :action => 'contents', :filter => 'more_popular'})}},
+      {s_('contents|Most commented') => {:href => url_for({:controller => 'search', :action => 'contents', :filter => 'more_comments'})}}
     ]
     if logged_in?
-      links.push(_('New Content') => lightbox_options({:href => url_for({:controller => 'cms', :action => 'new', :profile => current_user.login, :cms => true})}))
+      links.push(_('New content') => colorbox_options({:href => url_for({:controller => 'cms', :action => 'new', :profile => current_user.login, :cms => true})}))
     end
 
     link_to(content_tag(:span, _('Contents'), :class => 'icon-menu-articles'), {:controller => "search", :action => 'contents', :category_path => ''}, :id => 'submenu-contents') +
-    link_to(content_tag(:span, _('Contents Menu')), '#', :onclick => "toggleSubmenu(this,'',#{links.to_json}); return false", :class => 'menu-submenu-trigger up', :id => 'submenu-contents-trigger')
+    link_to(content_tag(:span, _('Contents menu')), '#', :onclick => "toggleSubmenu(this,'',#{links.to_json}); return false", :class => 'menu-submenu-trigger up', :id => 'submenu-contents-trigger')
   end
   alias :browse_contents_menu :search_contents_menu
 
   def search_people_menu
      links = [
-       {s_('people|More Recent') => {:href => url_for({:controller => 'search', :action => 'people', :filter => 'more_recent'})}},
-       {s_('people|More Active') => {:href => url_for({:controller => 'search', :action => 'people', :filter => 'more_active'})}},
-       {s_('people|More Popular') => {:href => url_for({:controller => 'search', :action => 'people', :filter => 'more_popular'})}}
+       {s_('people|More recent') => {:href => url_for({:controller => 'search', :action => 'people', :filter => 'more_recent'})}},
+       {s_('people|More active') => {:href => url_for({:controller => 'search', :action => 'people', :filter => 'more_active'})}},
+       {s_('people|More popular') => {:href => url_for({:controller => 'search', :action => 'people', :filter => 'more_popular'})}}
      ]
      if logged_in?
        links.push(_('My friends') => {:href => url_for({:profile => current_user.login, :controller => 'friends'})})
@@ -1112,15 +1114,15 @@ module ApplicationHelper
      end
 
     link_to(content_tag(:span, _('People'), :class => 'icon-menu-people'), {:controller => "search", :action => 'people', :category_path => ''}, :id => 'submenu-people') +
-    link_to(content_tag(:span, _('People Menu')), '#', :onclick => "toggleSubmenu(this,'',#{links.to_json}); return false", :class => 'menu-submenu-trigger up', :id => 'submenu-people-trigger')
+    link_to(content_tag(:span, _('People menu')), '#', :onclick => "toggleSubmenu(this,'',#{links.to_json}); return false", :class => 'menu-submenu-trigger up', :id => 'submenu-people-trigger')
   end
   alias :browse_people_menu :search_people_menu
 
   def search_communities_menu
      links = [
-       {s_('communities|More Recent') => {:href => url_for({:controller => 'search', :action => 'communities', :filter => 'more_recent'})}},
-       {s_('communities|More Active') => {:href => url_for({:controller => 'search', :action => 'communities', :filter => 'more_active'})}},
-       {s_('communities|More Popular') => {:href => url_for({:controller => 'search', :action => 'communities', :filter => 'more_popular'})}}
+       {s_('communities|More recent') => {:href => url_for({:controller => 'search', :action => 'communities', :filter => 'more_recent'})}},
+       {s_('communities|More active') => {:href => url_for({:controller => 'search', :action => 'communities', :filter => 'more_active'})}},
+       {s_('communities|More popular') => {:href => url_for({:controller => 'search', :action => 'communities', :filter => 'more_popular'})}}
      ]
      if logged_in?
        links.push(_('My communities') => {:href => url_for({:profile => current_user.login, :controller => 'memberships'})})
@@ -1128,7 +1130,7 @@ module ApplicationHelper
      end
 
     link_to(content_tag(:span, _('Communities'), :class => 'icon-menu-community'), {:controller => "search", :action => 'communities'}, :id => 'submenu-communities') +
-    link_to(content_tag(:span, _('Communities Menu')), '#', :onclick => "toggleSubmenu(this,'',#{links.to_json}); return false", :class => 'menu-submenu-trigger up', :id => 'submenu-communities-trigger')
+    link_to(content_tag(:span, _('Communities menu')), '#', :onclick => "toggleSubmenu(this,'',#{links.to_json}); return false", :class => 'menu-submenu-trigger up', :id => 'submenu-communities-trigger')
   end
   alias :browse_communities_menu :search_communities_menu
 
@@ -1179,6 +1181,10 @@ module ApplicationHelper
       content_tag(:p, content_tag(:span, limit) + ' ' + _(' characters left'), :id => text_area_id + '_left'),
       content_tag(:p, _('Limit of characters reached'), :id => text_area_id + '_limit', :style => 'display: none')
     ], :class => 'limited-text-area')
+  end
+
+  def expandable_text_area(object_name, method, text_area_id, options = {})
+    text_area(object_name, method, { :id => text_area_id, :onkeyup => "grow_text_area('#{text_area_id}')" }.merge(options))
   end
 
   def pluralize_without_count(count, singular, plural = nil)
@@ -1341,5 +1347,22 @@ module ApplicationHelper
 
   def remove_content_button(action)
     @plugins.dispatch("content_remove_#{action.to_s}", @page).include?(true)
+  end
+
+  def template_options(klass, field_name)
+    return '' if klass.templates.count == 0
+    return hidden_field_tag("#{field_name}[template_id]", klass.templates.first.id) if klass.templates.count == 1
+
+    counter = 0
+    radios = klass.templates.map do |template|
+      counter += 1
+      content_tag('li', labelled_radio_button(template.name, "#{field_name}[template_id]", template.id, counter==1))
+    end.join("\n")
+
+    content_tag('div', content_tag('span', _('Template:')) +
+      content_tag('ul', radios, :style => 'list-style: none; padding-left: 0; margin-top: 0.5em;'),
+      :id => 'template-options',
+      :style => 'margin-top: 1em'
+    )
   end
 end

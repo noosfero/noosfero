@@ -34,7 +34,7 @@
         <%= expirable_button @page, :locale, content, url %>
       <% end %>
 
-      <%= lightbox_remote_button(:new, label_for_new_article(@page), profile.admin_url.merge(:controller => 'cms', :action => 'new', :parent_id => (@page.folder? ? @page : (@page.parent.nil? ? nil : @page.parent)))) %>
+      <%= colorbox_button(:new, label_for_new_article(@page), profile.admin_url.merge(:controller => 'cms', :action => 'new', :parent_id => (@page.folder? ? @page : (@page.parent.nil? ? nil : @page.parent)))) %>
     <% end %>
 
     <% if @page.accept_uploads? && @page.allow_create?(user) %>

@@ -1446,4 +1446,15 @@ class ContentViewerControllerTest < ActionController::TestCase
     assert_tag :tag => 'div', :attributes => { :id => 'article-actions' }, :descendant => { :tag => 'a', :attributes => { :href => "/myprofile/testinguser/cms/edit/#{profile.home_page.id}", :title => 'This button is expired.', :class => 'button with-text icon-edit disabled', :onclick => 'return false' } }
   end
 
+  should 'remove email from article followers when unfollow' do
+    profile = create_user('testuser').person
+    follower_email = 'john@doe.br'
+    article = profile.articles.create(:name => 'test')
+    article.followers = [follower_email]
+    article.save
+
+    assert_includes Article.find(article.id).followers, follower_email
+    post :view_page, :profile => profile.identifier, :page => [article.name], :unfollow => 'commit', :email => follower_email
+    assert_not_includes Article.find(article.id).followers, follower_email
+  end
 end

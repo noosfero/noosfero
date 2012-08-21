@@ -101,6 +101,14 @@ class ContentViewerController < ApplicationController
       @images = @images.paginate(:per_page => per_page, :page => params[:npage]) unless params[:slideshow]
     end
 
+    @unfollow_form = params[:unfollow] && params[:unfollow] == 'true'
+    if params[:unfollow] && params[:unfollow] == 'commit' && request.post?
+      @page.followers -= [params[:email]]
+      if @page.save
+        session[:notice] = _("Notification of new comments to '%s' was successfully canceled") % params[:email]
+      end
+    end
+
     @comments = @page.comments(true).as_thread
     @comments_count = @page.comments.count
     if params[:slideshow]

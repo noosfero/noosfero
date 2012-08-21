@@ -2,6 +2,9 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class LocationBlockTest < ActiveSupport::TestCase
 
+  ActionView::Base.send :include, BlockHelper
+  include BoxesHelper
+
   def setup
     @profile = create_user('lele').person
     @block = LocationBlock.new
@@ -15,7 +18,7 @@ class LocationBlockTest < ActiveSupport::TestCase
   end
 
   should 'display no localization map without lat' do
-    assert_tag_in_string block.content, :tag => 'i'
+    assert_tag_in_string extract_block_content(block.content), :tag => 'i'
   end
 
   should 'be editable' do
@@ -28,8 +31,10 @@ class LocationBlockTest < ActiveSupport::TestCase
 
   should 'use google maps api v3' do
     @block.owner.lat = '-12.34'; @block.owner.save!
-    assert_match 'http://maps.google.com/maps/api/staticmap', @block.content
-    assert_no_match /key=/, @block.content
+    content = extract_block_content(@block.content)
+
+    assert_match 'http://maps.google.com/maps/api/staticmap', content
+    assert_no_match /key=/, content
   end
 
 end

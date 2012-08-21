@@ -138,22 +138,22 @@ class SearchControllerTest < ActionController::TestCase
   end
 
   should 'get facets with people search results' do
-		state = fast_create(State, :name => 'Acre', :acronym => 'AC')
-		city = fast_create(City, :name => 'Rio Branco', :parent_id => state.id)
-		person = Person.create!(:name => 'Hildebrando', :identifier => 'hild', :user_id => fast_create(User).id, :region_id => city.id)
-		cat1 = fast_create(Category, :name => 'cat1')
-		cat2 = fast_create(Category, :name => 'cat2')
-		person.add_category cat1
-		person.add_category cat2
+    state = fast_create(State, :name => 'Acre', :acronym => 'AC')
+    city = fast_create(City, :name => 'Rio Branco', :parent_id => state.id)
+    person = Person.create!(:name => 'Hildebrando', :identifier => 'hild', :user_id => fast_create(User).id, :region_id => city.id)
+    cat1 = fast_create(Category, :name => 'cat1')
+    cat2 = fast_create(Category, :name => 'cat2')
+    person.add_category cat1
+    person.add_category cat2
 
     get 'people', :query => 'Hildebrando'
 
-		assert !assigns(:results)[:people].facets.blank?
-		assert assigns(:results)[:people].facets['facet_fields']['f_region_facet'][0][0] == city.id.to_s
+    assert !assigns(:results)[:people].facets.blank?
+    assert assigns(:results)[:people].facets['facet_fields']['f_region_facet'][0][0] == city.id.to_s
 
-		assert assigns(:results)[:people].facets['facet_fields']['f_categories_facet'].count == 2
-		assert assigns(:results)[:people].facets['facet_fields']['f_categories_facet'][0][0] == cat1.id.to_s
-		assert assigns(:results)[:people].facets['facet_fields']['f_categories_facet'][1][0] == cat2.id.to_s
+    categories_facet = assigns(:results)[:people].facets['facet_fields']['f_categories_facet']
+    assert_equal 2, categories_facet.count
+    assert_equivalent [cat1.id.to_s, cat2.id.to_s], [categories_facet[0][0], categories_facet[1][0]]
   end
 
   # 'assets' menu outside any category
@@ -411,20 +411,23 @@ class SearchControllerTest < ActionController::TestCase
 
   should 'return events of the day' do
     person = create_user('someone').person
-    ev1 = create_event(person, :name => 'event 1', :category_ids => [@category.id],	:start_date => Date.today - 10.day)
+    ten_days_ago = Date.today - 10.day
+
+    ev1 = create_event(person, :name => 'event 1', :category_ids => [@category.id],	:start_date => ten_days_ago)
     ev2 = create_event(person, :name => 'event 2', :category_ids => [@category.id],	:start_date => Date.today - 2.month)
 
-    get :events, :day => (Date.today - 10.day).day
-
+    get :events, :day => ten_days_ago.day, :month => ten_days_ago.month, :year => ten_days_ago.year
     assert_equal [ev1], assigns(:events_of_the_day)
   end
 
   should 'return events of the day with category' do
     person = create_user('someone').person
-    ev1 = create_event(person, :name => 'event 1', :category_ids => [@category.id],	:start_date => Date.today - 10.day)
-    ev2 = create_event(person, :name => 'event 2', :start_date => Date.today - 10.day)
+    ten_days_ago = Date.today - 10.day
 
-    get :events, :day => (Date.today - 10.day).day, :category_path => @category.path.split('/')
+    ev1 = create_event(person, :name => 'event 1', :category_ids => [@category.id],	:start_date => ten_days_ago)
+    ev2 = create_event(person, :name => 'event 2', :start_date => ten_days_ago)
+
+    get :events, :day => ten_days_ago.day, :month => ten_days_ago.month, :year => ten_days_ago.year, :category_path => @category.path.split('/')
 
     assert_equal [ev1], assigns(:events_of_the_day)
   end

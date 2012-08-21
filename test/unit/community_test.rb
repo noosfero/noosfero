@@ -85,6 +85,12 @@ class CommunityTest < ActiveSupport::TestCase
   end
 
   should 'have a community template' do
+    template = fast_create(Community, :is_template => true)
+    p = Community.create!(:name => 'test_com', :identifier => 'test_com', :template => template)
+    assert_equal template, p.template
+  end
+
+  should 'have a default community template' do
     env = Environment.create!(:name => 'test env')
     p = Community.create!(:name => 'test_com', :identifier => 'test_com', :environment => env)
     assert_kind_of Community, p.template

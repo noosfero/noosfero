@@ -9,7 +9,11 @@ class Mailing < ActiveRecord::Base
   xss_terminate :only => [ :subject, :body ], :with => 'white_list', :on => 'validation'
 
   after_create do |mailing|
-    Delayed::Job.enqueue MailingJob.new(mailing.id)
+    mailing.schedule
+  end
+
+  def schedule
+    Delayed::Job.enqueue MailingJob.new(self.id)
   end
 
   def generate_from
@@ -30,8 +34,14 @@ class Mailing < ActiveRecord::Base
 
   def deliver
     each_recipient do |recipient|
-      Mailing::Sender.deliver_mail(self, recipient.email)
-      self.mailing_sents.create(:person => recipient)
+      begin
+        Mailing::Sender.deliver_mail(self, recipient.email)
+        self.mailing_sents.create(:person => recipient)
+      rescue Exception
+        # FIXME should not discard errors silently. An idea is to collect all
+        # errors and generate a task (notification) for the +source+
+        # (environment/organization) listing these errors.
+      end
     end
   end
 

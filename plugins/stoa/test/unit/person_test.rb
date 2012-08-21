@@ -18,7 +18,14 @@ class StoaPlugin::Person < ActiveSupport::TestCase
     assert another_person.errors.invalid?(:usp_id)
   end
 
-  should 'allow nil usp_id only if person has an invitation_code' do
+  should 'not allow usp_id as an empty string' do
+    person = Person.new(:usp_id => '')
+    person.valid?
+
+    assert_nil person.usp_id
+  end
+
+  should 'allow nil usp_id only if person has an invitation_code or is a template' do
     person = Person.new(:environment => environment)
     person.valid?
     assert person.errors.invalid?(:usp_id)
@@ -26,7 +33,11 @@ class StoaPlugin::Person < ActiveSupport::TestCase
     Task.create!(:code => 12345678)
     person.invitation_code = 12345678
     person.valid?
+    assert !person.errors.invalid?(:usp_id)
 
+    person.invitation_code = nil
+    person.is_template = true
+    person.valid?
     assert !person.errors.invalid?(:usp_id)
   end
 

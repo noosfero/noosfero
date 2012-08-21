@@ -22,7 +22,7 @@ class UploadedFileTest < ActiveSupport::TestCase
     f = UploadedFile.new
     f.expects(:content_type).returns('application/pdf')
     assert_equal 'application/pdf', f.mime_type
-  end 
+  end
 
   should 'provide proper description' do
     assert_kind_of String, UploadedFile.description
@@ -330,11 +330,21 @@ class UploadedFileTest < ActiveSupport::TestCase
     assert_equal 'hello_world.php.txt', file.filename
   end
 
-  should 'use itself as target for action tracker' do
-    p = fast_create(Gallery, :profile_id => @profile.id)
-    f = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :parent => p, :profile => @profile)
-    ta = f.activity
-    assert_equal f, ta.target
+  should 'use gallery as target for action tracker' do
+    gallery = fast_create(Gallery, :profile_id => profile.id)
+    image = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :parent => gallery, :profile => profile)
+    activity = ActionTracker::Record.find_last_by_verb 'upload_image'
+    assert_equal gallery, activity.target
+  end
+
+  should 'group trackers activity of image\'s upload' do
+    gallery = fast_create(Gallery, :profile_id => profile.id)
+
+    image1 = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :parent => gallery, :profile => profile)
+    assert_equal 1, ActionTracker::Record.find_all_by_verb('upload_image').count
+
+    image2 = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/other-pic.jpg', 'image/jpg'), :parent => gallery, :profile => profile)
+    assert_equal 1, ActionTracker::Record.find_all_by_verb('upload_image').count
   end
 
 end

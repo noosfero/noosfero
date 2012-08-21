@@ -2,7 +2,7 @@
 pid: tmp/pids/thin.pid
 address: 127.0.0.1
 user: noosfero
-timeout: 30
+timeout: 0
 port: 50000
 log: log/thin.log
 max_conns: 1024

@@ -1545,6 +1545,17 @@ class CmsControllerTest < ActionController::TestCase
     assert_includes special_article_types, Float
   end
 
+  should 'be able to define license when updating article' do
+    article = fast_create(Article, :profile_id => profile.id)
+    license = License.create!(:name => 'GPLv3', :environment => profile.environment)
+    login_as(profile.identifier)
+
+    post :edit, :profile => profile.identifier, :id => article.id, :article => { :license_id => license.id }
+
+    article.reload
+    assert_equal license, article.license
+  end
+
   protected
 
   # FIXME this is to avoid adding an extra dependency for a proper JSON parser.

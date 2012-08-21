@@ -1,4 +1,10 @@
-class MezuroPlugin::ProjectContent < Article 
+class MezuroPlugin::ProjectContent < Article
+  include ActionView::Helpers::TagHelper
+
+  settings_items :license, :description, :repository_type, :repository_url, :configuration_name, :periodicity_in_days
+
+  validate_on_create :validate_kalibro_project_name 
+  validate_on_create :validate_repository_url
 
   def self.short_description
     'Kalibro project'
@@ -8,59 +14,98 @@ class MezuroPlugin::ProjectContent < Article
     'Software project tracked by Kalibro'
   end
 
-  settings_items :license, :description, :repository_type, :repository_url, :configuration_name
-
-  include ActionView::Helpers::TagHelper
   def to_html(options = {})
     lambda do
       render :file => 'content_viewer/show_project.rhtml'
     end
   end
 
-  # FIXME is this really needed?
   def project
-    Kalibro::Client::ProjectClient.new.project(title)
+    begin
+      @project ||= Kalibro::Project.find_by_name(name)
+    rescue Exception => error
+      errors.add_to_base(error.message)
+    end
   end
 
   def project_result
-    @project_result ||= Kalibro::Client::ProjectResultClient.new.last_result(title)
+    begin
+      @project_result ||= Kalibro::ProjectResult.last_result(name)
+    rescue Exception => error
+      errors.add_to_base(error.message)
+    end
+  end
+  
+  def project_result_with_date(date)
+    begin
+      @project_result ||= Kalibro::ProjectResult.has_results_before?(name, date) ? Kalibro::ProjectResult.last_result_before(name, date) : 
+Kalibro::ProjectResult.first_result_after(name, date)
+    rescue Exception => error
+      errors.add_to_base(error.message)
+    end
   end
 
-  def module_result(module_name)
-    @module_client ||= Kalibro::Client::ModuleResultClient.new
-    @module_client.module_result(title, module_name, project_result.date)
+  def module_result(attributes)
+    module_name = attributes[:module_name].nil? ? project.name : attributes[:module_name]
+    date = attributes[:date].nil? ? project_result.date : project_result_with_date(attributes[:date]).date
+    begin
+      @module_result ||= Kalibro::ModuleResult.find_by_project_name_and_module_name_and_date(name, module_name, date)
+    rescue Exception => error
+      errors.add_to_base(error.message)
+    end
+  end
+
+  def result_history(module_name)
+    begin
+      @result_history ||= Kalibro::ModuleResult.all_by_project_name_and_module_name(name, module_name)
+    rescue Exception => error
+      errors.add_to_base(error.message)
+    end
   end
 
   after_save :send_project_to_service
-  after_destroy :remove_project_from_service
+  after_destroy :destroy_project_from_service
 
   private
 
+  def validate_kalibro_project_name
+    begin
+      existing = Kalibro::Project.all_names
+    rescue Exception => error
+      errors.add_to_base(error.message)
+    end
+    
+    if existing.any?{|existing_name| existing_name.casecmp(name)==0} # existing.include?(name) + case insensitive
+      errors.add_to_base("Project name already exists in Kalibro")
+    end
+  end
+  
+  def validate_repository_url
+    if(repository_url.nil? || repository_url == "")
+      errors.add_to_base("Repository URL is mandatory")
+    end
+  end
+  
   def send_project_to_service
-    Kalibro::Client::ProjectClient.save(create_project)
-    Kalibro::Client::KalibroClient.process_project(title)
+    created_project = create_kalibro_project
+    created_project.process_project(periodicity_in_days)
   end
 
-  def remove_project_from_service
-    Kalibro::Client::ProjectClient.remove(title)
+  def create_kalibro_project
+   Kalibro::Project.create(
+      :name => name,
+      :license => license,
+      :description => description,
+      :repository => {
+        :type => repository_type,
+        :address => repository_url
+      },
+      :configuration_name => configuration_name
+    )
   end
 
-  def create_project
-    project = Kalibro::Entities::Project.new
-    project.name = title
-    project.license = license
-    project.description = description
-    project.repository = create_repository
-    project.configuration_name = configuration_name
-    project
-  end
-
-  def create_repository
-    repository = Kalibro::Entities::Repository.new
-    repository.type = repository_type
-    repository.address = repository_url
-    repository
+  def destroy_project_from_service
+    project.destroy
   end
 
 end
-

@@ -4,8 +4,12 @@ class PriceDetail < ActiveRecord::Base
   validates_presence_of :product_id
 
   belongs_to :production_cost
-  validates_presence_of :production_cost_id
+  validates_presence_of :production_cost
   validates_uniqueness_of :production_cost_id, :scope => :product_id
+
+  def name
+    production_cost.name
+  end
 
   def price
     self[:price] || 0

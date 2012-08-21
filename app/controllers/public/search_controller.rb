@@ -243,7 +243,7 @@ class SearchController < PublicController
     @searching = {}
     @titles = {}
     @enabled_searches.each do |key, name|
-      @titles[key] = name
+      @titles[key] = _(name)
       @searching[key] = params[:action] == 'index' || params[:action] == key.to_s
     end
     @names = @titles if @names.nil?
