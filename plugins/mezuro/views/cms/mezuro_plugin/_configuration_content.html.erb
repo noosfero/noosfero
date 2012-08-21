@@ -1,11 +1,8 @@
 <h1> <%= _(MezuroPlugin::ConfigurationContent.short_description) %> </h1>
 
 <%
-  begin
-    kalibro_configuration = @article.title.nil? ? nil : @article.kalibro_configuration
-  rescue
-    kalibro_configuration = nil
-  end
+  kalibro_configuration = @article.title.nil? ? nil : @article.kalibro_configuration
+  kalibro_configuration_names = @article.kalibro_configuration_names
 %>
 
 <%= error_messages_for 'kalibro_configuration' %>
@@ -13,8 +10,7 @@
 <%= hidden_field_tag 'kalibro_configuration[profile_id]', profile.id %>
 <%= hidden_field_tag 'id', @article.id %>
 
-<% kalibro_configuration_names = @article.kalibro_configuration_names %>
-
+ 
 <% selected = (kalibro_configuration.nil? ? "None" : @article.configuration_to_clone_name) %>
 
 <%= required_fields_message %>
