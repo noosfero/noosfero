@@ -908,6 +908,16 @@ hr.pre-posts, hr.sep-posts {
 #article-actions a.button:hover {
   color: #555753;
 }
+#content a.disabled,
+#content a.disabled:hover {
+  color: #888;
+  text-decoration: none;
+}
+#content a.button.disabled,
+#content a.button.disabled:hover {
+  background-color: #CCC;
+  border-color: #CCC;
+}
 
 #addThis {
   text-align: right;

@@ -25,6 +25,8 @@ class Comment < ActiveRecord::Base
 
   xss_terminate :only => [ :body, :title, :name ], :on => 'validation'
 
+  delegate :environment, :to => :source
+
   def action_tracker_target
     self.article.profile
   end

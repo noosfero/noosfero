@@ -68,4 +68,20 @@ module ContentViewerHelper
     end
   end
 
+  def expirable_content_reference(content, action, text, url, options = {})
+    reason = @plugins.dispatch("content_expire_#{action.to_s}", content).first
+    options[:title] = reason
+    expirable_link_to reason.present?, text, url, options
+  end
+
+  def expirable_button(content, action, text, url, options = {})
+    options[:class] = "button with-text icon-#{action.to_s}"
+    expirable_content_reference content, action, text, url, options
+  end
+
+  def expirable_comment_link(content, action, text, url, options = {})
+    options[:class] = "comment-footer comment-footer-link comment-footer-hide"
+    expirable_content_reference content, action, text, url, options
+  end
+
 end

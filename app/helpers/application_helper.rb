@@ -1329,4 +1329,17 @@ module ApplicationHelper
       _("Are you sure that you want to remove the item \"#{article.name}\"?")
     end
   end
+
+  def expirable_link_to(expired, content, url, options = {})
+    if expired
+      options[:class] = (options[:class] || '') + ' disabled'
+      content_tag('a', '&nbsp;'+content_tag('span', content), options)
+    else
+      link_to content, url, options
+    end
+  end
+
+  def remove_content_button(action)
+    @plugins.dispatch("content_remove_#{action.to_s}", @page).include?(true)
+  end
 end
