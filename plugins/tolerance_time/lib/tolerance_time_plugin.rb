@@ -27,7 +27,7 @@ class ToleranceTimePlugin < Noosfero::Plugin
   def cms_controller_filters
     block = lambda do
       content = Article.find(params[:id])
-      if self.class.expired?(content)
+      if ToleranceTimePlugin.expired?(content)
         session[:notice] = _('This content can\'t be edited anymore because it expired the tolerance time')
         redirect_to content.url
       end
@@ -40,7 +40,7 @@ class ToleranceTimePlugin < Noosfero::Plugin
   end
 
   def content_expire_edit(content)
-    if self.class.expired?(content)
+    if ToleranceTimePlugin.expired?(content)
       _('The tolerance time for editing this content is over.')
     end
   end
