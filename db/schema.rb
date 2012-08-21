@@ -217,6 +217,7 @@ ActiveRecord::Schema.define(:version => 20150122165042) do
     t.string  "acronym"
     t.string  "abbreviation"
     t.string  "display_color",   :limit => 6
+    t.text    "ancestry"
   end
 
   create_table "categories_profiles", :id => false, :force => true do |t|

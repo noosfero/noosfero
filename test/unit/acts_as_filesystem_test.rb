@@ -7,11 +7,32 @@ class ActsAsFilesystemTest < ActiveSupport::TestCase
   should 'provide a hierarchy list' do
     profile = create_user('testinguser').person
 
-    a1 = profile.articles.build(:name => 'a1'); a1.save!
-    a2 = profile.articles.build(:name => 'a2'); a2.parent = a1; a2.save!
-    a3 = profile.articles.build(:name => 'a3'); a3.parent = a2; a3.save!
+    a1 = profile.articles.create(:name => 'a1')
+    a2 = profile.articles.create(:name => 'a2', :parent => a1)
+    a3 = profile.articles.create(:name => 'a3', :parent => a2)
 
     assert_equal [a1, a2, a3], a3.hierarchy
+  end
+
+  should 'set ancestry' do
+    c1 = create(Category, :name => 'c1')
+    c2 = create(Category, :name => 'c2', :parent => c1)
+    c3 = create(Category, :name => 'c3', :parent => c2)
+
+    assert_not_nil c1.ancestry
+    assert_not_nil c2.ancestry
+    assert_equal "%010d.%010d" % [c1.id, c2.id], c3.ancestry
+    assert_equal [c1, c2, c3], c3.hierarchy
+  end
+
+  should 'provide the level' do
+    c1 = create(Category, :name => 'c1')
+    c2 = create(Category, :name => 'c2', :parent => c1)
+    c3 = create(Category, :name => 'c3', :parent => c2)
+
+    assert_equal 0, c1.level
+    assert_equal 1, c2.level
+    assert_equal 2, c3.level
   end
 
   should 'be able to optionally reload the hierarchy' do
