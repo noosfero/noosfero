@@ -25,8 +25,8 @@ class MezuroPlugin::ProjectContent < Article
       @project ||= Kalibro::Project.find_by_name(name)
     rescue Exception => error
       errors.add_to_base(error.message)
-      @project
     end
+    @project
   end
 
   def project_result
@@ -35,6 +35,7 @@ class MezuroPlugin::ProjectContent < Article
     rescue Exception => error
       errors.add_to_base(error.message)
     end
+    @project_result
   end
   
   def project_result_with_date(date)
@@ -44,6 +45,7 @@ Kalibro::ProjectResult.first_result_after(name, date)
     rescue Exception => error
       errors.add_to_base(error.message)
     end
+    @project_result
   end
 
   def module_result(attributes)
@@ -52,8 +54,9 @@ Kalibro::ProjectResult.first_result_after(name, date)
     begin
       @module_result ||= Kalibro::ModuleResult.find_by_project_name_and_module_name_and_date(name, module_name, date)
     rescue Exception => error
-      raise error
+      errors.add_to_base(error.message)
     end
+    @module_result
   end
 
   def result_history(module_name)
@@ -74,6 +77,7 @@ Kalibro::ProjectResult.first_result_after(name, date)
       existing = Kalibro::Project.all_names
     rescue Exception => error
       errors.add_to_base(error.message)
+      existing = []
     end
     
     if existing.any?{|existing_name| existing_name.casecmp(name)==0} # existing.include?(name) + case insensitive

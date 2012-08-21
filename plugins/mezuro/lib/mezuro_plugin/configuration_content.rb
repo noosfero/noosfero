@@ -35,7 +35,12 @@ class MezuroPlugin::ConfigurationContent < Article
   end
 
   def kalibro_configuration_names
-    ["None"] + Kalibro::Configuration.all_names.sort
+    begin
+      ["None"] + Kalibro::Configuration.all_names.sort
+    rescue Exception => exception
+      errors.add_to_base(exception.message)
+      ["None"]
+    end
   end
 
   private
