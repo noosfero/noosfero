@@ -460,4 +460,11 @@ class CommentTest < ActiveSupport::TestCase
     assert_equivalent [c3], Comment.spam
   end
 
+  should 'be able to mark as ham atomically' do
+    c1 = fast_create(Comment, :name => 'foo', :email => 'foo@example.com', :spam => true)
+    c1.ham!
+    c1.reload
+    assert c1.ham?
+  end
+
 end

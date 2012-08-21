@@ -204,4 +204,9 @@ class Comment < ActiveRecord::Base
     self.save!
   end
 
+  def ham!
+    self.spam = false
+    self.save!
+  end
+
 end
