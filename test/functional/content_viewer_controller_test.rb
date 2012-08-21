@@ -92,7 +92,7 @@ class ContentViewerControllerTest < ActionController::TestCase
 
     login_as 'testuser'
     get :view_page, :profile => 'testuser', :page => [ 'test' ]
-    assert_tag :tag => 'a', :attributes => { :href => '/testuser/test?remove_comment=' + comment.id.to_s }
+    assert_tag :tag => 'a', :attributes => { :onclick => %r(/testuser/test\?remove_comment=#{comment.id}.quot) }
   end
 
   should 'display remove comment button with param view when image' do
@@ -106,8 +106,9 @@ class ContentViewerControllerTest < ActionController::TestCase
 
     login_as 'testuser'
     get :view_page, :profile => 'testuser', :page => [ image.filename ], :view => true
-    assert_tag :tag => 'a', :attributes => { :href => "/testuser/#{image.filename}?remove_comment=" + comment.id.to_s + '&amp;view=true'}
-  end
+    assert_tag :tag => 'a', :attributes => { :onclick => %r(/testuser/#{image.filename}\?remove_comment=#{comment.id}.*amp;view=true.quot) }
+end
+
 
   should 'not add unneeded params for remove comment button' do
     profile = create_user('testuser').person
@@ -117,8 +118,8 @@ class ContentViewerControllerTest < ActionController::TestCase
     comment.save!
 
     login_as 'testuser'
-    get :view_page, :profile => 'testuser', :page => [ 'test' ], :random_param => 'bli' # <<<<<<<<<<<<<<<
-    assert_tag :tag => 'a', :attributes => { :href => '/testuser/test?remove_comment=' + comment.id.to_s }
+    get :view_page, :profile => 'testuser', :page => [ 'test' ], :random_param => 'bli'
+    assert_tag :tag => 'a', :attributes => { :onclick => %r(/testuser/test\?remove_comment=#{comment.id.to_s}.quot) }
   end
 
   should 'be able to remove comment' do

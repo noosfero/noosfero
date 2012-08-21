@@ -1,7 +1,7 @@
 <li id="<%= comment.anchor %>" class="article-comment">
   <div class="article-comment-inner">
 
-  <div class="comment-content comment-logged-<%= comment.author ? 'in' : 'out' %> <%= 'comment-from-owner' if ( comment.author && (@page.profile.name == comment.author.name) ) %>">
+  <div class="comment-content comment-logged-<%= comment.author ? 'in' : 'out' %> <%= 'comment-from-owner' if ( comment.author && (profile == comment.author) ) %>">
 
   <% if comment.author %>
     <%= link_to image_tag(profile_icon(comment.author, :minor)) +
@@ -53,21 +53,29 @@
       <% end %>
       <%= report_abuse(comment.author, :comment_link, comment) if comment.author %>
 
-      <% if (logged_in? && (user == @page.profile || user.has_permission?(:moderate_comments, @page.profile))) %>
-        <%= link_to(_('Mark as SPAM'), { :mark_comment_as_spam => comment.id }, :method => :post, :confirm => _('Are you sure you want to mark this comment as SPAM?'), :class => 'comment-footer comment-footer-link comment-footer-hide')  %>
+      <% if comment.spam? %>
         &nbsp;
+        <%= link_to_function(_('Mark as NOT SPAM'), 'remove_comment(this, %s); return false;' % url_for(:mark_comment_as_ham => comment.id).to_json, :class => 'comment-footer comment-footer-link comment-footer-hide')  %>
+      <% else %>
+        <% if (logged_in? && (user == profile || user.has_permission?(:moderate_comments, profile))) %>
+          &nbsp;
+          <%= link_to_function(_('Mark as SPAM'), 'remove_comment(this, %s, %s); return false;' % [url_for(:mark_comment_as_spam => comment.id).to_json, _('Are you sure you want to mark this comment as SPAM?').to_json], :class => 'comment-footer comment-footer-link comment-footer-hide')  %>
+        <% end %>
       <% end %>
 
-      <% if logged_in? && (user == @page.profile || user == comment.author || user.has_permission?(:moderate_comments, @page.profile)) %>
-        <%= link_to(_('Remove'), { :profile => params[:profile], :remove_comment => comment.id, :view => params[:view] }, :method => :post, :confirm => _('Are you sure you want to remove this comment and all its replies?'), :class => 'comment-footer comment-footer-link comment-footer-hide') %>
+      <% if logged_in? && (user == profile || user == comment.author || user.has_permission?(:moderate_comments, profile)) %>
         &nbsp;
+        <%= link_to_function(_('Remove'), 'remove_comment(this, %s, %s); return false ;' % [url_for(:profile => params[:profile], :remove_comment => comment.id, :view => params[:view]).to_json, _('Are you sure you want to remove this comment and all its replies?').to_json], :class => 'comment-footer comment-footer-link comment-footer-hide') %>
       <% end %>
 
-      <%= link_to_function _('Reply'),
+      <% unless comment.spam? %>
+        &nbsp;
+        <%= link_to_function _('Reply'),
           "var f = add_comment_reply_form(this, %s); f.find('input[name=comment[title]], textarea').val(''); return false" % comment.id,
           :class => 'comment-footer comment-footer-link comment-footer-hide',
           :id => 'comment-reply-to-' + comment.id.to_s
-      %>
+        %>
+      <% end %>
     </div>
 
   <% end %>

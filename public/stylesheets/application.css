@@ -1262,6 +1262,11 @@ a.comment-picture {
 }
 /* * * Comment Box * * */
 
+.comment-button-loading {
+  padding-left: 20px;
+  background: transparent url(../images/loading-small.gif) no-repeat left center;
+}
+
 .post_comment_box {
   text-align: center;
   padding: 0px 15px 5px 15px;
@@ -3839,6 +3844,9 @@ h1#agenda-title {
 }
 .controller-profile_editor .msie6 a.control-panel-edit-location {
   background-image: url(../images/control-panel/set-geolocation.gif)
+}
+.controller-profile_editor a.control-panel-manage-spam {
+  background-image: url(../images/control-panel/mail-mark-junk.png)
 }
 /* ==> public/stylesheets/controller_profile_members.css <== */
 .controller-profile_members .no-boxes {

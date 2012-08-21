@@ -155,7 +155,7 @@ class ContentViewerController < ApplicationController
       @comment.destroy
       session[:notice] = _('Comment succesfully deleted')
     end
-    redirect_to :action => 'view_page', :profile => params[:profile], :page => @page.explode_path, :view => params[:view]
+    finish_comment_handling
   end
 
   def mark_comment_as_spam
@@ -164,7 +164,15 @@ class ContentViewerController < ApplicationController
       @comment.spam!
       session[:notice] = _('Comment succesfully marked as SPAM')
     end
-    redirect_to :action => 'view_page', :profile => params[:profile], :page => @page.explode_path, :view => params[:view]
+    finish_comment_handling
+  end
+
+  def finish_comment_handling
+    if request.xhr?
+      render :text => {'ok' => true}.to_json, :content_type => 'application/json'
+    else
+      redirect_to :action => 'view_page', :profile => params[:profile], :page => @page.explode_path, :view => params[:view]
+    end
   end
 
   def per_page

@@ -674,6 +674,21 @@ function add_comment_reply_form(button, comment_id) {
   return f;
 }
 
+function remove_comment(button, url, msg) {
+  var $ = jQuery;
+  var $button = $(button);
+  if (msg && !confirm(msg)) {
+    $button.removeClass('comment-button-loading');
+    return;
+  }
+  $button.addClass('comment-button-loading');
+  $.post(url, function(data) {
+    if (data.ok) {
+      $button.closest('.article-comment').slideUp();
+    }
+  });
+}
+
 function original_image_dimensions(src) {
   var img = new Image();
   img.src = src;

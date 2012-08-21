@@ -101,6 +101,8 @@ class Profile < ActiveRecord::Base
   has_many :scraps_received, :class_name => 'Scrap', :foreign_key => :receiver_id, :order => "updated_at DESC", :dependent => :destroy
   belongs_to :template, :class_name => 'Profile', :foreign_key => 'template_id'
 
+  has_many :comments_received, :class_name => 'Comment', :through => :articles, :source => :comments
+
   # FIXME ugly workaround
   def self.human_attribute_name(attrib)
       _(self.superclass.human_attribute_name(attrib))

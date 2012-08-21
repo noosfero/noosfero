@@ -1,0 +1,20 @@
+<h1><%= _('Manage SPAM') %></h1>
+
+<% button_bar do %>
+  <%= button :back, _('Back to control panel'), :controller => :profile_editor %>
+<% end %>
+
+<%# FIXME should not need to replicate the article structure like this to be able to use the same formatting as the comments listing %>
+<div id='article'>
+  <div class="comments" id="comments_list">
+    <ul class="article-comments-list">
+      <%= render :partial => 'content_viewer/comment', :collection => @spam %>
+    </ul>
+  </div>
+</div>
+
+<%= pagination_links @spam %>
+
+<% button_bar do %>
+  <%= button :back, _('Back to control panel'), :controller => :profile_editor %>
+<% end %>
