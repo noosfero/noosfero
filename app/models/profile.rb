@@ -243,7 +243,7 @@ class Profile < ActiveRecord::Base
       self.categories(true)
       self.solr_save
     end
-	 self.categories(reload)
+    self.categories(reload)
   end
 
   def category_ids=(ids)
