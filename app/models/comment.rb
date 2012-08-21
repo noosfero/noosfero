@@ -11,6 +11,7 @@ class Comment < ActiveRecord::Base
   belongs_to :reply_of, :class_name => 'Comment', :foreign_key => 'reply_of_id'
 
   named_scope :without_spam, :conditions => ['spam IS NULL OR spam = ?', false]
+  named_scope :spam, :conditions => ['spam = ?', true]
 
   # unauthenticated authors:
   validates_presence_of :name, :if => (lambda { |record| !record.email.blank? })

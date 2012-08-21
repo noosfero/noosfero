@@ -452,4 +452,12 @@ class CommentTest < ActiveSupport::TestCase
     assert c1.spam?
   end
 
+  should 'be able to select spammy comments' do
+    c1 = fast_create(Comment)
+    c2 = fast_create(Comment, :spam => false)
+    c3 = fast_create(Comment, :spam => true)
+
+    assert_equivalent [c3], Comment.spam
+  end
+
 end
