@@ -355,6 +355,12 @@ Given /^"(.+)" is admin of "(.+)"$/ do |person, organization|
   org.add_admin(user)
 end
 
+Given /^"(.+)" is moderator of "(.+)"$/ do |person, organization|
+  org = Profile.find_by_name(organization)
+  user = Profile.find_by_name(person)
+  org.add_moderator(user)
+end
+
 Then /^"(.+)" should be admin of "(.+)"$/ do |person, organization|
   org = Organization.find_by_name(organization)
   user = Person.find_by_name(person)

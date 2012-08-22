@@ -70,6 +70,7 @@ profile_moderator:
   permissions:
    - moderate_comments
    - view_private_content
+   - send_mail_to_members
 environment_administrator:
   id: 8
   environment_id: 1

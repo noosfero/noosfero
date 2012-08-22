@@ -2,10 +2,12 @@ class ProfileController < PublicController
 
   needs_profile
   before_filter :check_access_to_profile, :except => [:join, :join_not_logged, :index, :add]
-  before_filter :store_location, :only => [:join, :join_not_logged, :report_abuse]
+  before_filter :store_location, :only => [:join, :join_not_logged, :report_abuse, :send_mail]
   before_filter :login_required, :only => [:add, :join, :join_not_logged, :leave, :unblock, :leave_scrap, :remove_scrap, :remove_activity, :view_more_activities, :view_more_network_activities, :report_abuse, :register_report, :leave_comment_on_activity]
 
   helper TagsHelper
+
+  protect 'send_mail_to_members', :profile, :only => [:send_mail]
 
   def index
     @network_activities = !@profile.is_a?(Person) ? @profile.tracked_notifications.visible.paginate(:per_page => 15, :page => params[:page]) : []
@@ -324,6 +326,20 @@ class ProfileController < PublicController
       finish_successful_removal 'Comment successfully removed.'
     else
       finish_unsuccessful_removal 'You could not remove this comment.'
+    end
+  end
+
+  def send_mail
+    @mailing = profile.mailings.build(params[:mailing])
+    if request.post?
+      @mailing.locale = locale
+      @mailing.person = user
+      if @mailing.save
+        session[:notice] = _('The e-mails are being sent')
+        redirect_to_previous_location
+      else
+        session[:notice] = _('Could not create the e-mail')
+      end
     end
   end
 

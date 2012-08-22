@@ -1324,4 +1324,42 @@ class ProfileControllerTest < ActionController::TestCase
 
     assert_tag :tag => 'span', :content => '(unauthenticated user)', :attributes => {:class => 'comment-user-status comment-user-status-wall icon-user-unknown'}
   end
+
+  should 'add locale on mailing' do
+    community = fast_create(Community)
+    create_user_with_permission('profile_moderator_user', 'send_mail_to_members', community)
+    login_as('profile_moderator_user')
+    @controller.stubs(:locale).returns('pt')
+    post :send_mail, :profile => community.identifier, :mailing => {:subject => 'Hello', :body => 'We have some news'}
+    assert_equal 'pt', assigns(:mailing).locale
+  end
+
+  should 'queue mailing to process later' do
+    community = fast_create(Community)
+    create_user_with_permission('profile_moderator_user', 'send_mail_to_members', community)
+    login_as('profile_moderator_user')
+    @controller.stubs(:locale).returns('pt')
+    assert_difference Delayed::Job, :count, 1 do
+      post :send_mail, :profile => community.identifier, :mailing => {:subject => 'Hello', :body => 'We have some news'}
+    end
+  end
+
+  should 'save mailing' do
+    community = fast_create(Community)
+    create_user_with_permission('profile_moderator_user', 'send_mail_to_members', community)
+    login_as('profile_moderator_user')
+    @controller.stubs(:locale).returns('pt')
+    post :send_mail, :profile => community.identifier, :mailing => {:subject => 'Hello', :body => 'We have some news'}
+    assert_equal ['Hello', 'We have some news'], [assigns(:mailing).subject, assigns(:mailing).body]
+    assert_redirected_to :action => 'members'
+  end
+
+  should 'add the user logged on mailing' do
+    community = fast_create(Community)
+    create_user_with_permission('profile_moderator_user', 'send_mail_to_members', community)
+    login_as('profile_moderator_user')
+    post :send_mail, :profile => community.identifier, :mailing => {:subject => 'Hello', :body => 'We have some news'}
+    assert_equal Profile['profile_moderator_user'], assigns(:mailing).person
+  end
+
 end

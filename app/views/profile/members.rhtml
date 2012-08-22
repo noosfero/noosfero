@@ -16,8 +16,13 @@
 
 <% button_bar do %>
   <%= button :back, _('Go back'), { :controller => 'profile' } %>
-  <% if profile.community? and user and user.has_permission?(:invite_members, profile) %>
-    <%= button :search, _('Invite your friends to join %s') % profile.name, :controller => 'invite', :action => 'select_address_book' %>
+  <% if profile.community? and user %>
+    <% if user.has_permission?(:invite_members, profile) %>
+      <%= button :search, _('Invite your friends to join %s') % profile.name, :controller => 'invite', :action => 'select_address_book' %>
+    <% end %>
+    <% if user.has_permission?(:send_mail_to_members, profile) %>
+      <%= button :send, _('Send e-mail to members'), :controller => 'profile', :action => 'send_mail' %>
+    <% end %>
   <% end %>
 <% end %>
 
