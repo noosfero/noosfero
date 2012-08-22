@@ -2,6 +2,7 @@ class SubOrganizationsPluginMyprofileController < MyProfileController
   append_view_path File.join(File.dirname(__FILE__) + '/../views')
 
   before_filter :organizations_only
+  protect 'edit_profile', :profile
 
   def index
     @children = SubOrganizationsPlugin::Relation.children(profile)

@@ -86,4 +86,28 @@ class SubOrganizationsPluginMyprofileControllerTest < ActionController::TestCase
     assert_includes SubOrganizationsPlugin::Relation.children(organization), org2
   end
 
+  should 'not access index if dont have permission' do
+    member = create_user('member').person
+    organization.add_member(member)
+
+    login_as(member.identifier)
+    get :index, :profile => organization.identifier
+
+    assert_response 403
+    assert_template 'access_denied.rhtml'
+  end
+
+  should 'not search organizations if dont have permission' do
+    member = create_user('member').person
+    organization.add_member(member)
+
+    login_as(member.identifier)
+
+    org1 = fast_create(Organization, :name => 'sample organization 1')
+    get :search_organization, :profile => organization.identifier, :q => 'sampl'
+
+    assert_response 403
+    assert_template 'access_denied.rhtml'
+  end
+
 end
