@@ -148,7 +148,7 @@ class MezuroPluginMyprofileController < ProfileController
   end
 
   def look_for_configuration_content_errors
-    redirect_to_error_page(@configuration_content.errors[:base]) if not @configuration_content.errors.nil?
+    redirect_to_error_page(@configuration_content.errors[:base]) if not @configuration_content.errors[:base].nil?
   end
 
   def look_for_model_error(model)

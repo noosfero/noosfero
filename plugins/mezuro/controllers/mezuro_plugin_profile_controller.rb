@@ -105,7 +105,7 @@ class MezuroPluginProfileController < ProfileController
   end
 
   def project_content_errors?
-    not @content.errors.nil?
+    not @content.errors[:base].nil?
   end
 end
 
