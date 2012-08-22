@@ -9,7 +9,7 @@ class MezuroPluginProfileController < ProfileController
   def project_state
     @content = profile.articles.find(params[:id])
     project = @content.project
-    if project_content_errors?
+    if project_content_has_errors?
       redirect_to_error_page(@content.errors[:base])
     else
       state = project.kalibro_error.nil? ? project.state : "ERROR"
@@ -20,7 +20,7 @@ class MezuroPluginProfileController < ProfileController
   def project_error
     @content = profile.articles.find(params[:id])
     @project = @content.project
-    if project_content_errors?
+    if project_content_has_errors?
       redirect_to_error_page(@content.errors[:base])
     else
       render :partial => 'content_viewer/project_error'
@@ -31,7 +31,7 @@ class MezuroPluginProfileController < ProfileController
     @content = profile.articles.find(params[:id])
     date = params[:date]
     @project_result = date.nil? ? @content.project_result : @content.project_result_with_date(date)
-    if project_content_errors?
+    if project_content_has_errors?
       redirect_to_error_page(@content.errors[:base])
     else
       render :partial => 'content_viewer/project_result'
@@ -41,7 +41,7 @@ class MezuroPluginProfileController < ProfileController
   def module_result
     @content = profile.articles.find(params[:id])
     @module_result = @content.module_result(params)
-    if project_content_errors?
+    if project_content_has_errors?
       redirect_to_error_page(@content.errors[:base])
     else
       render :partial => 'content_viewer/module_result'
@@ -53,7 +53,7 @@ class MezuroPluginProfileController < ProfileController
     date = params[:date]
     project_result = date.nil? ? @content.project_result : @content.project_result_with_date(date)
     @project_name = @content.project.name if not @content.project.nil?
-    if project_content_errors?
+    if project_content_has_errors?
       redirect_to_error_page(@content.errors[:base])
     else
       @source_tree = project_result.node_of(params[:module_name])
@@ -65,7 +65,7 @@ class MezuroPluginProfileController < ProfileController
     metric_name = params[:metric_name]
     @content = profile.articles.find(params[:id])
     module_history = @content.result_history(params[:module_name])
-    if project_content_errors?
+    if project_content_has_errors?
       redirect_to_error_page(@content.errors[:base])
     else
       @score_history = filtering_metric_history(metric_name, module_history)
@@ -76,7 +76,7 @@ class MezuroPluginProfileController < ProfileController
   def module_grade_history
     @content = profile.articles.find(params[:id])
     modules_results = @content.result_history(params[:module_name])
-    if project_content_errors?
+    if project_content_has_errors?
       redirect_to_error_page(@content.errors[:base])
     else
       @score_history = modules_results.collect { |module_result| module_result.grade }
@@ -104,8 +104,8 @@ class MezuroPluginProfileController < ProfileController
     redirect_to "/profile/#{profile.identifier}/plugin/mezuro/error_page?message=#{message}"
   end
 
-  def project_content_errors?
-    not @content.errors.nil?
+  def project_content_has_errors?
+    not @content.errors[:base].nil?
   end
 end
 

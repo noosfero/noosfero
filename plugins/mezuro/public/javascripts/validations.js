@@ -3,7 +3,9 @@ jQuery(function (){
   jQuery('#metric_configuration_submit').live("click", validate_metric_configuration);
 });
 
-
+function validate_code(code){
+  return true;
+}
 
 function validate_metric_configuration(){
     var code = jQuery('#metric_configuration_code').val();
