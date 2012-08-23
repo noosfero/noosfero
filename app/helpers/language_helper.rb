@@ -14,6 +14,7 @@ module LanguageHelper
   alias :calendar_date_select_language :tinymce_language
 
   def language_chooser(environment, options = {})
+    return if environment.locales.size < 2
     current = language
     separator = options[:separator] || ' &mdash; '
 
