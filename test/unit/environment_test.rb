@@ -1221,6 +1221,18 @@ class EnvironmentTest < ActiveSupport::TestCase
     assert_not_includes environment.licenses, l3
   end
 
+  should 'allow only default languages there are defined in available locales' do
+    environment = Environment.default
+    environment.stubs(:available_locales).returns(['en'])
+    environment.default_language = 'pt'
+    environment.valid?
+    assert environment.errors.invalid?(:default_language)
+
+    environment.default_language = 'en'
+    environment.valid?
+    assert !environment.errors.invalid?(:default_language)
+  end
+
   should 'define default locale or use the config default locale' do
     environment = Environment.default
     environment.default_language = nil
@@ -1230,6 +1242,23 @@ class EnvironmentTest < ActiveSupport::TestCase
     environment.default_language = 'en'
     environment.save!
     assert_equal environment.default_language, environment.default_locale
+  end
+
+  should 'allow only languages there are defined in locales' do
+    environment = Environment.default
+    Noosfero.stubs(:locales).returns({'en' => 'English'})
+
+    environment.languages = {'pt' => 'Português'}
+    environment.valid?
+    assert environment.errors.invalid?(:languages)
+
+    environment.languages = {'en' => 'Bli blo'}
+    environment.valid?
+    assert environment.errors.invalid?(:languages)
+
+    environment.languages = {'en' => 'English'}
+    environment.valid?
+    assert !environment.errors.invalid?(:languages)
   end
 
   should 'define locales or use the config locales' do
