@@ -8,9 +8,8 @@ class PluginManagerTest < ActiveSupport::TestCase
     @controller.stubs(:profile).returns()
     @controller.stubs(:request).returns()
     @controller.stubs(:response).returns()
-    @controller.stubs(:environment).returns(@environment)
     @controller.stubs(:params).returns()
-    @manager = Noosfero::Plugin::Manager.new(@controller)
+    @manager = Noosfero::Plugin::Manager.new(@environment, @controller)
   end
   attr_reader :environment
   attr_reader :manager

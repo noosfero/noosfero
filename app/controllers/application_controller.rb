@@ -102,7 +102,7 @@ class ApplicationController < ActionController::Base
   end
 
   def init_noosfero_plugins
-    @plugins = Noosfero::Plugin::Manager.new(self)
+    @plugins = Noosfero::Plugin::Manager.new(environment, self)
     @plugins.each do |plugin|
       prepend_view_path(plugin.class.view_path)
     end

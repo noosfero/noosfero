@@ -1,8 +1,10 @@
 class Noosfero::Plugin::Manager
 
+  attr_reader :environment
   attr_reader :context
 
-  def initialize(controller)
+  def initialize(environment, controller)
+    @environment = environment
     @context = Noosfero::Plugin::Context.new(controller)
   end
 
@@ -22,7 +24,7 @@ class Noosfero::Plugin::Manager
   end
 
   def enabled_plugins
-    @enabled_plugins ||= (Noosfero::Plugin.all & context.environment.enabled_plugins).map do |plugin|
+    @enabled_plugins ||= (Noosfero::Plugin.all & environment.enabled_plugins).map do |plugin|
       p = plugin.constantize.new
       p.context = context
       p
