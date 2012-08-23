@@ -75,21 +75,17 @@ class Kalibro::ProjectResult < Kalibro::Model
     ('%2d' % amount).sub(/\s/, '0')
   end
   
-  def node_of(module_name)
+  def node(module_name)
     if module_name.nil? or module_name == project.name
       node = source_tree
     else
-      node = get_node(module_name)
-    end
-  end
-
-  def get_node(module_name)
-    path = Kalibro::Module.parent_names(module_name)
-    parent = @source_tree
-    path.each do |node_name|
-      parent = get_leaf_from(parent, node_name)
-    end
-    return parent
+		path = Kalibro::Module.parent_names(module_name)
+		parent = @source_tree
+		path.each do |node_name|
+		  parent = get_leaf_from(parent, node_name)
+		end
+		parent
+	end
   end
   
   private
