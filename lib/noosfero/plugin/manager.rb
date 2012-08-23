@@ -3,9 +3,9 @@ class Noosfero::Plugin::Manager
   attr_reader :environment
   attr_reader :context
 
-  def initialize(environment, controller)
+  def initialize(environment, context)
     @environment = environment
-    @context = Noosfero::Plugin::Context.new(controller)
+    @constantize = context
   end
 
   delegate :each, :to => :enabled_plugins
