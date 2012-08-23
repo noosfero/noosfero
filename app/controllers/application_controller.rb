@@ -42,9 +42,9 @@ class ApplicationController < ActionController::Base
 
   before_filter :set_locale
   def set_locale
-    FastGettext.available_locales = Noosfero.available_locales
-    FastGettext.default_locale = Noosfero.default_locale
-    FastGettext.locale = (params[:lang] || session[:lang] || Noosfero.default_locale || request.env['HTTP_ACCEPT_LANGUAGE'] || 'en')
+    FastGettext.available_locales = environment.available_locales
+    FastGettext.default_locale = environment.default_locale
+    FastGettext.locale = (params[:lang] || session[:lang] || environment.default_locale || request.env['HTTP_ACCEPT_LANGUAGE'] || 'en')
     I18n.locale = FastGettext.locale
     if params[:lang]
       session[:lang] = params[:lang]

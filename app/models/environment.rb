@@ -766,4 +766,21 @@ class Environment < ActiveRecord::Base
   def image_galleries
     portal_community ? portal_community.image_galleries : []
   end
+
+  def locales
+    languages || Noosfero.locales
+  end
+
+  def default_locale
+    default_language || Noosfero.default_locale
+  end
+
+  def available_locales
+    locales_list = locales.keys
+    # move English to the beginning
+    if locales_list.include?('en')
+      locales_list = ['en'] + (locales_list - ['en']).sort
+    end
+    locales_list
+  end
 end

@@ -325,14 +325,14 @@ class Article < ActiveRecord::Base
   end
 
   def possible_translations
-    possibilities = Noosfero.locales.keys - self.native_translation.translations(:select => :language).map(&:language) - [self.native_translation.language]
+    possibilities = environment.locales.keys - self.native_translation.translations(:select => :language).map(&:language) - [self.native_translation.language]
     possibilities << self.language unless self.language_changed?
     possibilities
   end
 
   def known_language
     unless self.language.blank?
-      errors.add(:language, N_('Language not supported by Noosfero')) unless Noosfero.locales.key?(self.language)
+      errors.add(:language, N_('Language not supported by the environment.')) unless environment.locales.key?(self.language)
     end
   end
 

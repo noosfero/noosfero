@@ -1220,4 +1220,37 @@ class EnvironmentTest < ActiveSupport::TestCase
     assert_includes environment.licenses, l2
     assert_not_includes environment.licenses, l3
   end
+
+  should 'define default locale or use the config default locale' do
+    environment = Environment.default
+    environment.default_language = nil
+    environment.save!
+    assert_equal Noosfero.default_locale, environment.default_locale
+
+    environment.default_language = 'en'
+    environment.save!
+    assert_equal environment.default_language, environment.default_locale
+  end
+
+  should 'define locales or use the config locales' do
+    environment = Environment.default
+    environment.languages = nil
+    environment.save!
+    assert_equal Noosfero.locales, environment.locales
+
+    environment.languages = {'en' => 'English'}
+    environment.save!
+    assert_equal environment.languages, environment.locales
+  end
+
+  should 'define available_locales or use the config available_locales' do
+    environment = Environment.default
+    environment.languages = nil
+    environment.save!
+    assert_equal Noosfero.available_locales, environment.available_locales
+
+    environment.languages = {'pt' => 'Português', 'en' => 'English'}
+    environment.save!
+    assert_equal ['en', 'pt'], environment.available_locales
+  end
 end
