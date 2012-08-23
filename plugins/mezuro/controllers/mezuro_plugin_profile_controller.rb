@@ -56,7 +56,7 @@ class MezuroPluginProfileController < ProfileController
     if project_content_has_errors?
       redirect_to_error_page(@content.errors[:base])
     else
-      @source_tree = project_result.node_of(params[:module_name])
+      @source_tree = project_result.node(params[:module_name])
       render :partial =>'content_viewer/source_tree'
     end
   end
