@@ -1,6 +1,6 @@
 module ActsAsFileSystem
 
-  module ClassMethods
+  module ActsMethods
 
     # Declares the ActiveRecord model to acts like a filesystem: objects are
     # arranged in a tree (liks acts_as_tree), and . The underlying table must
@@ -14,14 +14,29 @@ module ActsAsFileSystem
     #   the parent, a "/" and the slug of the object)
     # * children_count - a cache of the number of children elements.
     def acts_as_filesystem
-      include ActsAsFileSystem::InstanceMethods
-
       # a filesystem is a tree
       acts_as_tree :counter_cache => :children_count
+
+      include InstanceMethods
+      extend ClassMethods
 
       before_create :set_path
       before_save :set_ancestry
       after_update :update_children_path
+    end
+
+  end
+
+  module ClassMethods
+
+    def build_ancestry(parent_id = nil, ancestry = '')
+      self.base_class.all(:conditions => {:parent_id => parent_id}).each do |node|
+        node.ancestry = ancestry
+        node.save :run_callbacks => false
+
+        build_ancestry node.id, (ancestry.empty? ? "#{node.formatted_ancestry_id}" :
+                                 "#{ancestry}#{node.ancestry_sep}#{node.formatted_ancestry_id}")
+      end
     end
 
   end
@@ -44,25 +59,35 @@ module ActsAsFileSystem
       path.split(/\//)
     end
 
+    def ancestry_column
+      'ancestry'
+    end
+    def ancestry_sep
+      '.'
+    end
     def has_ancestry?
-      self.class.column_names.include? 'ancestry'
+      self.class.column_names.include? self.ancestry_column
     end
+
+    def formatted_ancestry_id
+      "%010d" % self.id if self.id
+    end
+
     def ancestry
-      self['ancestry']
+      self[ancestry_column]
     end
-    def ancestry=(value)
-      self['ancestry'] = value
-    end
-    # get the serialized tree from database column 'ancetry'
-    # and convert it to an array
-    def ancestry_ids
+    def ancestor_ids
       return nil if !has_ancestry? or ancestry.nil?
-      @ancestry_ids ||= ancestry.split('.').map{ |id| id.to_i }
+      @ancestor_ids ||= ancestry.split(ancestry_sep).map{ |id| id.to_i }
+    end
+
+    def ancestry=(value)
+      self[ancestry_column] = value
     end
     def set_ancestry
       return unless self.has_ancestry?
       if self.ancestry.nil? or (new_record? or parent_id_changed?) or recalculate_path
-        self.ancestry = self.hierarchy[0...-1].map{ |p| "%010d" % p.id }.join('.')
+        self.ancestry = self.hierarchy(true)[0...-1].map{ |p| p.formatted_ancestry_id }.join(ancestry_sep)
       end
     end
 
@@ -107,7 +132,7 @@ module ActsAsFileSystem
       self.hierarchy.first
     end
     def top_ancestor_id
-      self.ancestry_ids.first
+      self.ancestor_ids.first
     end
 
     # returns the full hierarchy from the top-level item to this one. For
@@ -123,9 +148,9 @@ module ActsAsFileSystem
       if @hierarchy.nil?
         @hierarchy = []
 
-        if ancestry_ids
-          objects = self.class.base_class.all(:conditions => {:id => ancestry_ids})
-          ancestry_ids.each{ |id| @hierarchy << objects.find{ |t| t.id == id } }
+        if !reload and !recalculate_path and ancestor_ids
+          objects = self.class.base_class.all(:conditions => {:id => ancestor_ids})
+          ancestor_ids.each{ |id| @hierarchy << objects.find{ |t| t.id == id } }
           @hierarchy << self
         else
           item = self
@@ -207,5 +232,5 @@ module ActsAsFileSystem
   end
 end
 
-ActiveRecord::Base.extend ActsAsFileSystem::ClassMethods
+ActiveRecord::Base.extend ActsAsFileSystem::ActsMethods
 
