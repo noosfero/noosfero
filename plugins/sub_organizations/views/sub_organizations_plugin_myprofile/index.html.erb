@@ -15,6 +15,7 @@
     <%= button :add, __('Register a new sub-enterprise'), :controller => 'enterprise_registration', :sub_organizations_plugin_parent_to_be => profile.id if environment.enabled?('enterprise_registration') %>
   <% end %>
 
+  <p><%= _('Fill in the search field to find the groups that should be added as sub-group of this organization:') %></p>
   <%= token_input_field_tag(:q, 'search-organization', {:action => 'search_organization'},
     { :focus => true,
       :hint_text => _('Type in a search term for a group'),
