@@ -53,6 +53,7 @@ profile_admin:
    - post_content
    - view_private_content
    - manage_products
+   - send_mail_to_members
 profile_member:
   id: 6
   environment_id: 1

@@ -1351,7 +1351,6 @@ class ProfileControllerTest < ActionController::TestCase
     @controller.stubs(:locale).returns('pt')
     post :send_mail, :profile => community.identifier, :mailing => {:subject => 'Hello', :body => 'We have some news'}
     assert_equal ['Hello', 'We have some news'], [assigns(:mailing).subject, assigns(:mailing).body]
-    assert_redirected_to :action => 'members'
   end
 
   should 'add the user logged on mailing' do
@@ -1360,6 +1359,16 @@ class ProfileControllerTest < ActionController::TestCase
     login_as('profile_moderator_user')
     post :send_mail, :profile => community.identifier, :mailing => {:subject => 'Hello', :body => 'We have some news'}
     assert_equal Profile['profile_moderator_user'], assigns(:mailing).person
+  end
+
+  should 'redirect back to right place after mail' do
+    community = fast_create(Community)
+    create_user_with_permission('profile_moderator_user', 'send_mail_to_members', community)
+    login_as('profile_moderator_user')
+    @controller.stubs(:locale).returns('pt')
+    @request.expects(:referer).returns("/profile/#{community.identifier}/members")
+    post :send_mail, :profile => community.identifier, :mailing => {:subject => 'Hello', :body => 'We have some news'}
+    assert_redirected_to :action => 'members'
   end
 
 end

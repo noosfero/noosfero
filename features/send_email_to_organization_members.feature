@@ -17,7 +17,7 @@ Feature: send emails to organization members
 
   Scenario: Cant access if not logged in
     Given I am not logged in
-    When I go to /myprofile/sample-community/profile_members/send_mail
+    When I go to /profile/sample-community/send_mail
     Then I should be on login page
 
   Scenario: Cant access as normal user
@@ -25,7 +25,7 @@ Feature: send emails to organization members
       | login |
       | josesilva |
     And I am logged in as "josesilva"
-    When I go to /myprofile/sample-community/profile_members/send_mail
+    When I go to /profile/sample-community/send_mail
     Then I should see "Access denied"
 
   Scenario: Send e-mail to members
@@ -43,7 +43,7 @@ Feature: send emails to organization members
     And I follow "Send e-mail to members"
     And I fill in "body" with "We have some news"
     When I press "Send"
-    Then I should be on /myprofile/sample-community/profile_members/send_mail
+    Then I should be on /profile/sample-community/send_mail
 
   Scenario: Not send e-mail to members if body is blank
     Given I am logged in as "joaosilva"
@@ -51,7 +51,7 @@ Feature: send emails to organization members
     And I follow "Send e-mail to members"
     And I fill in "Subject" with "Hello, user!"
     When I press "Send"
-    Then I should be on /myprofile/sample-community/profile_members/send_mail
+    Then I should be on /profile/sample-community/send_mail
 
   Scenario: Cancel creation of mailing
     Given I am logged in as "joaosilva"
