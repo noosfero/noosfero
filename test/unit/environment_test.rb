@@ -1246,17 +1246,12 @@ class EnvironmentTest < ActiveSupport::TestCase
 
   should 'allow only languages there are defined in locales' do
     environment = Environment.default
-    Noosfero.stubs(:locales).returns({'en' => 'English'})
 
-    environment.languages = {'pt' => 'Português'}
+    environment.languages = ['zz']
     environment.valid?
     assert environment.errors.invalid?(:languages)
 
-    environment.languages = {'en' => 'Bli blo'}
-    environment.valid?
-    assert environment.errors.invalid?(:languages)
-
-    environment.languages = {'en' => 'English'}
+    environment.languages = ['en']
     environment.valid?
     assert !environment.errors.invalid?(:languages)
   end
@@ -1267,9 +1262,10 @@ class EnvironmentTest < ActiveSupport::TestCase
     environment.save!
     assert_equal Noosfero.locales, environment.locales
 
-    environment.languages = {'en' => 'English'}
+    environment.languages = ['en']
     environment.save!
-    assert_equal environment.languages, environment.locales
+    hash = {'en' => 'English'}
+    assert_equal hash, environment.locales
   end
 
   should 'define available_locales or use the config available_locales' do
@@ -1278,7 +1274,7 @@ class EnvironmentTest < ActiveSupport::TestCase
     environment.save!
     assert_equal Noosfero.available_locales, environment.available_locales
 
-    environment.languages = {'pt' => 'Português', 'en' => 'English'}
+    environment.languages = ['pt', 'en']
     environment.save!
     assert_equal ['en', 'pt'], environment.available_locales
   end

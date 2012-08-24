@@ -777,7 +777,11 @@ class Environment < ActiveRecord::Base
   validate :languages_available
 
   def locales
-    languages || Noosfero.locales
+    if languages.present?
+      languages.inject({}) {|r, l| r.merge({l => Noosfero.locales[l]})}
+    else
+      Noosfero.locales
+    end
   end
 
   def default_locale
@@ -803,8 +807,8 @@ class Environment < ActiveRecord::Base
 
   def languages_available
     if languages.present?
-      languages.each do |key, value|
-        if Noosfero.locales[key] != value
+      languages.each do |language|
+        if !Noosfero.available_locales.include?(language)
           errors.add(:languages, _('have unsupported languages.'))
           break
         end
