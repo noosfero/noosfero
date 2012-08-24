@@ -1410,8 +1410,8 @@ end
 
   should 'not display comments marked as spam' do
     article = fast_create(Article, :profile_id => profile.id)
-    ham = fast_create(Comment, :source_id => article.id)
-    spam = fast_create(Comment, :source_id => article.id, :spam => true)
+    ham = fast_create(Comment, :source_id => article.id, :source_type => 'Article')
+    spam = fast_create(Comment, :source_id => article.id, :source_type => 'Article', :spam => true)
 
     get 'view_page', :profile => profile.identifier, :page => article.path.split('/')
     assert_equal 1, assigns(:comments_count)
@@ -1420,7 +1420,7 @@ end
   should 'be able to mark comments as spam' do
     login_as profile.identifier
     article = fast_create(Article, :profile_id => profile.id)
-    spam = fast_create(Comment, :name => 'foo', :email => 'foo@example.com', :source_id => article.id)
+    spam = fast_create(Comment, :name => 'foo', :email => 'foo@example.com', :source_id => article.id, :source_type => 'Article')
 
     post 'view_page', :profile => profile.identifier, :page => article.path.split('/'), :mark_comment_as_spam => spam.id
 

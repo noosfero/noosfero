@@ -8,7 +8,6 @@ class Noosfero::Plugin::Manager
     @constantize = context
   end
 
-  delegate :environment, :to => :context
   delegate :each, :to => :enabled_plugins
   include Enumerable
 
@@ -21,8 +20,14 @@ class Noosfero::Plugin::Manager
   # return [1,0,1,2,3]
   #
   def dispatch(event, *args)
-    map { |plugin| plugin.send(event, *args) }.compact.flatten
+    dispatch_without_flatten(event, *args).flatten
   end
+
+  def dispatch_without_flatten(event, *args)
+    map { |plugin| plugin.send(event, *args) }.compact
+  end
+
+  alias :dispatch_scopes :dispatch_without_flatten
 
   def enabled_plugins
     @enabled_plugins ||= (Noosfero::Plugin.all & environment.enabled_plugins).map do |plugin|

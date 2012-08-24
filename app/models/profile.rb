@@ -60,7 +60,8 @@ class Profile < ActiveRecord::Base
   }
 
   acts_as_accessible
-  acts_as_having_hotspots
+
+  include Noosfero::Plugin::HotSpot
 
   named_scope :memberships_of, lambda { |person| { :select => 'DISTINCT profiles.*', :joins => :role_assignments, :conditions => ['role_assignments.accessor_type = ? AND role_assignments.accessor_id = ?', person.class.base_class.name, person.id ] } }
   #FIXME: these will work only if the subclass is already loaded
@@ -69,7 +70,7 @@ class Profile < ActiveRecord::Base
   named_scope :templates, :conditions => {:is_template => true}
 
   def members
-    scopes = dispatch_scopes(:organization_members, self)
+    scopes = plugins.dispatch_scopes(:organization_members, self)
     scopes << Person.members_of(self)
     scopes.size == 1 ? scopes.first : Person.or_scope(scopes)
   end
