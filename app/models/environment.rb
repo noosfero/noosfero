@@ -769,6 +769,10 @@ class Environment < ActiveRecord::Base
 
   serialize :languages
 
+  before_validation do |environment|
+    environment.default_language = nil if environment.default_language.blank?
+  end
+
   validate :default_language_available
   validate :languages_available
 
