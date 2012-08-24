@@ -3598,46 +3598,50 @@ h1#agenda-title {
 /* ==> public/stylesheets/controller_memberships.css <== */
 /* @import url(profile-list-block.css); ==> BROKEN REFERENCE, OH MY! */
 
-.controller-memberships #memberships-index ul {
+#groups-list {
   width: 100%;
   padding: 0px;
   margin: 0px;
   display: block;
 }
-.controller-memberships #memberships-index li {
+
+#groups-list li {
   display: block;
   list-style: none;
   margin-bottom: 20px background-color: #B8CFE7;
 }
-.controller-memberships #memberships-index li .vcard {
+
+#groups-list li .vcard {
   float: right;
   padding: 5px;
   margin-bottom: 5px;
   margin-left: 10px;
 }
-.controller-memberships #memberships-index li .may-clear {
+#groups-list li .may-clear {
   clear: right;
 }
-.controller-memberships #memberships-index li .profile-details {
+
+#groups-list li .profile-details {
   display: block;
   padding: 3% 0px 0px 30px;
 }
-.controller-memberships .action_memberships_destroy_community .main-block u {
-  text-decoration: none;
-  border-bottom: 1px dotted red;
-}
-#memberships-index .menu-submenu {
+
+#groups-list .menu-submenu {
   bottom: 127px;
   right: -20px;
 }
-#memberships-index .menu-submenu li {
+
+#groups-list .menu-submenu li {
   border: 0;
   background: transparent;
 }
-.controller-memberships .button-bar {
+
+#groups-list .button-bar {
   clear: both;
 }
-.controller-memberships #memberships-index li .vcard a.profile_link.url, .controller-memberships #memberships-index li .vcard a.profile_link.url:hover {
+
+#groups-list li .vcard a.profile_link.url,
+#groups-list li .vcard a.profile_link.url:hover {
   background: transparent;
   border: 0;
   text-decoration: none;

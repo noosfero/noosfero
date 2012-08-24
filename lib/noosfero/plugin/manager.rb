@@ -8,6 +8,7 @@ class Noosfero::Plugin::Manager
     @constantize = context
   end
 
+  delegate :environment, :to => :context
   delegate :each, :to => :enabled_plugins
   include Enumerable
 

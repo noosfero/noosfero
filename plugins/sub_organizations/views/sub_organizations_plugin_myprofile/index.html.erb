@@ -1,0 +1,32 @@
+<h1><%= _('Manage sub-groups') %></h1>
+
+<% if !@pending_children.blank? %>
+  <%= _('Sub-groups awaiting approval:') %>
+  <ul>
+    <% @pending_children.each do |child| %>
+      <li><%= link_to(child.name, child.url) %></li>
+    <% end %>
+  </ul>
+<% end %>
+
+<% form_tag do %>
+  <% button_bar do %>
+    <%= button(:add, __('Create a new sub-community'), :controller => 'memberships', :action => 'new_community', :profile => user.identifier, :sub_organizations_plugin_parent_to_be => profile.id) %>
+    <%= button :add, __('Register a new sub-enterprise'), :controller => 'enterprise_registration', :sub_organizations_plugin_parent_to_be => profile.id if environment.enabled?('enterprise_registration') %>
+  <% end %>
+
+  <p><%= _('Fill in the search field to find the groups that should be added as sub-group of this organization:') %></p>
+  <%= token_input_field_tag(:q, 'search-organization', {:action => 'search_organization'},
+    { :focus => true,
+      :hint_text => _('Type in a search term for a group'),
+      :pre_populate => @tokenized_children}) %>
+
+  <% button_bar do %>
+    <%= submit_button('save', _('Save'))%>
+    <%= button('cancel', _('Cancel'), {:controller => 'profile_editor'})%>
+  <% end %>
+<% end %>
+
+<br style='clear: both'/>
+
+<%= render :partial => 'shared/list_groups', :locals => {:profile => user, :groups => @children} %>

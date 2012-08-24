@@ -22,7 +22,22 @@ class Person < Profile
     super
   end
 
-  named_scope :members_of, lambda { |resource| { :select => 'DISTINCT profiles.*', :joins => :role_assignments, :conditions => ['role_assignments.resource_type = ? AND role_assignments.resource_id = ?', resource.class.base_class.name, resource.id ] } }
+  acts_as_having_hotspots
+
+  named_scope :members_of, lambda { |resources|
+    resources = [resources] if !resources.kind_of?(Array)
+    conditions = resources.map {|resource| "role_assignments.resource_type = '#{resource.class.base_class.name}' AND role_assignments.resource_id = #{resource.id || -1}"}.join(' OR ')
+    { :select => 'DISTINCT profiles.*', :joins => :role_assignments, :conditions => [conditions] }
+  }
+
+  def has_permission_with_plugins?(permission, profile)
+    permissions = [has_permission_without_plugins?(permission, profile)]
+    permissions += enabled_plugins.map do |plugin|
+      plugin.has_permission?(self, permission, profile)
+    end
+    permissions.include?(true)
+  end
+  alias_method_chain :has_permission?, :plugins
 
   def memberships
     Profile.memberships_of(self)

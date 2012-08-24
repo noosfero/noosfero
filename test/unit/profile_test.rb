@@ -3,8 +3,8 @@ require File.dirname(__FILE__) + '/../test_helper'
 class ProfileTest < ActiveSupport::TestCase
   fixtures :profiles, :environments, :users, :roles, :domains
 
-  def setup
-    super
+  def teardown
+    Thread.current[:enabled_plugins] = nil
   end
 
   def test_identifier_validation
@@ -1831,6 +1831,37 @@ class ProfileTest < ActiveSupport::TestCase
   should 'return empty array as activities' do
     profile = Profile.new
     assert_equal [], profile.activities
+  end
+
+  should 'merge members of plugins to original members' do
+    original_community = fast_create(Community)
+    community1 = fast_create(Community, :identifier => 'community1')
+    community2 = fast_create(Community, :identifier => 'community2')
+    original_member = fast_create(Person)
+    plugin1_member = fast_create(Person)
+    plugin2_member = fast_create(Person)
+    original_community.add_member(original_member)
+    community1.add_member(plugin1_member)
+    community2.add_member(plugin2_member)
+
+    class Plugin1 < Noosfero::Plugin
+      def organization_members(profile)
+        Person.members_of(Community.find_by_identifier('community1'))
+      end
+    end
+
+    class Plugin2 < Noosfero::Plugin
+      def organization_members(profile)
+        Person.members_of(Community.find_by_identifier('community2'))
+      end
+    end
+
+    original_community.stubs(:enabled_plugins).returns([Plugin1.new, Plugin2.new])
+
+    assert_includes original_community.members, original_member
+    assert_includes original_community.members, plugin1_member
+    assert_includes original_community.members, plugin2_member
+    assert 3, original_community.members.count
   end
 
   private

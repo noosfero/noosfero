@@ -3,6 +3,10 @@ require File.dirname(__FILE__) + '/../test_helper'
 class PersonTest < ActiveSupport::TestCase
   fixtures :profiles, :users, :environments
 
+  def teardown
+    Thread.current[:enabled_plugins] = nil
+  end
+
   def test_person_must_come_form_the_cration_of_an_user
     p = Person.new(:environment => Environment.default, :name => 'John', :identifier => 'john')
     assert !p.valid?
@@ -1104,6 +1108,18 @@ class PersonTest < ActiveSupport::TestCase
     assert_equal [person], Person.members_of(community)
   end
 
+  should 'be able to pass array to members_of' do
+    person1 = fast_create(Person)
+    community = fast_create(Community)
+    community.add_member(person1)
+    person2 = fast_create(Person)
+    enterprise = fast_create(Enterprise)
+    enterprise.add_member(person2)
+
+    assert_includes Person.members_of([community, enterprise]), person1
+    assert_includes Person.members_of([community, enterprise]), person2
+  end
+
   should 'find more active people' do
     Person.destroy_all
     p1 = fast_create(Person)
@@ -1227,5 +1243,27 @@ class PersonTest < ActiveSupport::TestCase
     person_activity = ActionTracker::Record.last
 
     assert_equivalent [person_scrap,person_activity], person.activities.map { |a| a.klass.constantize.find(a.id) }
+  end
+
+  should 'allow plugins to extend person\'s permission access' do
+    person = create_user('some-user').person
+    class Plugin1 < Noosfero::Plugin
+      def has_permission?(person, permission, target)
+        true
+      end
+    end
+
+    class Plugin2 < Noosfero::Plugin
+      def has_permission?(person, permission, target)
+        false
+      end
+    end
+
+    e = Environment.default
+    e.enable_plugin(Plugin1.name)
+    e.enable_plugin(Plugin2.name)
+    person.stubs('has_permission_without_plugins?').returns(false)
+
+    assert person.has_permission?('bli', Profile.new)
   end
 end

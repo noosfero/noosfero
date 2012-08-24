@@ -180,4 +180,27 @@ class EnterpriseRegistrationControllerTest < ActionController::TestCase
     get :index
     assert_equal assigns(:create_enterprise).target, environment
   end
+
+  should 'include hidden fields supplied by plugins on enterprise registration' do
+    class Plugin1 < Noosfero::Plugin
+      def enterprise_registration_hidden_fields
+        {'plugin1' => 'Plugin 1'}
+      end
+    end
+
+    class Plugin2 < Noosfero::Plugin
+      def enterprise_registration_hidden_fields
+        {'plugin2' => 'Plugin 2'}
+      end
+    end
+
+    environment = Environment.default
+    environment.enable_plugin(Plugin1.name)
+    environment.enable_plugin(Plugin2.name)
+
+    get :index
+
+    assert_tag :tag => 'input', :attributes => {:id => 'create_enterprise_plugin1', :type => 'hidden', :value => 'Plugin 1'}
+    assert_tag :tag => 'input', :attributes => {:id => 'create_enterprise_plugin2', :type => 'hidden', :value => 'Plugin 2'}
+  end
 end
