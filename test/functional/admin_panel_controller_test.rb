@@ -351,4 +351,13 @@ class AdminPanelControllerTest < ActionController::TestCase
     assert_tag :tag => 'a', :content => /Plugin2 link/, :attributes => {:href => /plugin2.com/}
   end
 
+  should 'save available languages and default language properly' do
+    post :site_info, :environment => {:default_language => 'pt', :languages => {'pt' => 'true', 'en' => 'false'}}
+    environment = Environment.default
+
+    assert_equal 'pt', environment.default_language
+    assert_includes environment.languages, 'pt'
+    assert_not_includes environment.languages, 'en'
+  end
+
 end

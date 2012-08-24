@@ -3,14 +3,13 @@
 <%= labelled_form_field(_('Default language'), select(:environment, :default_language, environment.locales.invert, { :selected => environment.default_locale, :include_blank => true })) %>
 <%= label_tag :languages, _('Available languages') %>
 <br />
-<% counter = 0 %>
-<table>
-<% Noosfero.locales.each do |value, name| %>
-  <%= "<tr>" if counter%3==0 %>
-  <% counter += 1 %>
-  <%= content_tag('td', labelled_check_box(name, "environment[languages][#{value}]", true, environment.available_locales.include?(value))) %>
-  <%= "</tr>" if counter%3==0 %>
-<% end %>
-</table>
+
+<%
+  fields = Noosfero.locales.map do |value, name|
+    labelled_check_box(name, "environment[languages][#{value}]", true, environment.available_locales.include?(value))
+  end
+%>
+<%= balanced_table(fields)%>
+
 <br />
 <%= labelled_form_field _('Homepage content'), text_area(:environment, :description, :cols => 40, :style => 'width: 90%', :class => 'mceEditor') %>

@@ -8,6 +8,9 @@ class AdminPanelController < AdminController
 
   def site_info
     if request.post?
+      if params[:environment][:languages]
+        params[:environment][:languages] = params[:environment][:languages].map {|lang, value| lang if value=='true'}.compact
+      end
       if @environment.update_attributes(params[:environment])
         session[:notice] = _('Environment settings updated')
         redirect_to :action => 'index'
