@@ -446,7 +446,7 @@ class CommentTest < ActiveSupport::TestCase
   end
 
   should 'be able to mark as spam atomically' do
-    c1 = fast_create(Comment, :name => 'foo', :email => 'foo@example.com')
+    c1 = create_comment
     c1.spam!
     c1.reload
     assert c1.spam?
@@ -461,10 +461,82 @@ class CommentTest < ActiveSupport::TestCase
   end
 
   should 'be able to mark as ham atomically' do
-    c1 = fast_create(Comment, :name => 'foo', :email => 'foo@example.com', :spam => true)
+    c1 = create_comment
     c1.ham!
     c1.reload
     assert c1.ham?
+  end
+
+  should 'notify by email' do
+    c1 = create_comment
+    c1.expects(:notify_by_mail)
+    c1.verify_and_notify
+  end
+
+  should 'not notify by email when comment is spam' do
+    c1 = create_comment(:spam => true)
+    c1.expects(:notify_by_mail).never
+    c1.verify_and_notify
+  end
+
+  class EverythingIsSpam < Noosfero::Plugin
+    def check_comment_for_spam(comment)
+      comment.spam!
+    end
+  end
+
+
+  should 'delegate spam detection to plugins' do
+    Environment.default.enable_plugin(EverythingIsSpam)
+
+    c1 = create_comment
+
+    c1.expects(:notify_by_mail).never
+
+    c1.verify_and_notify
+  end
+
+  class SpamNotification < Noosfero::Plugin
+    class << self
+      attr_accessor :marked_as_spam
+      attr_accessor :marked_as_ham
+    end
+
+    def comment_marked_as_spam(c)
+      self.class.marked_as_spam = c
+    end
+
+    def comment_marked_as_ham(c)
+      self.class.marked_as_ham = c
+    end
+  end
+
+  should 'notify plugins of comments being marked as spam' do
+    Environment.default.enable_plugin(SpamNotification)
+
+    c = create_comment
+
+    c.spam!
+
+    assert_equal c, SpamNotification.marked_as_spam
+  end
+
+  should 'notify plugins of comments being marked as ham' do
+    Environment.default.enable_plugin(SpamNotification)
+
+    c = create_comment
+
+    c.ham!
+
+    assert_equal c, SpamNotification.marked_as_ham
+  end
+
+  private
+
+  def create_comment(args = {})
+    owner = create_user('testuser').person
+    article = create(TextileArticle, :profile_id => owner.id)
+    create(Comment, { :name => 'foo', :email => 'foo@example.com', :source => article }.merge(args))
   end
 
 end

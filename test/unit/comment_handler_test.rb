@@ -16,7 +16,7 @@ class CommentHandlerTest < ActiveSupport::TestCase
     handler = CommentHandler.new(-1)
     comment = Comment.new
     Comment.stubs(:find).with(-1).returns(comment)
-    comment.expects(:notify_by_mail)
+    comment.expects(:verify_and_notify)
 
     handler.perform
   end

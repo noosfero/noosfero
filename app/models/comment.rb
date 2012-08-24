@@ -94,6 +94,18 @@ class Comment < ActiveRecord::Base
     Delayed::Job.enqueue CommentHandler.new(self.id)
   end
 
+  delegate :environment, :to => :profile
+  delegate :profile, :to => :source
+
+  include Noosfero::Plugin::HotSpot
+
+  def verify_and_notify
+    plugins.dispatch(:check_comment_for_spam, self)
+    unless spam?
+      notify_by_mail
+    end
+  end
+
   def notify_by_mail
     if source.kind_of?(Article) && article.notify_comments?
       if !article.profile.notification_emails.empty?
@@ -202,11 +214,15 @@ class Comment < ActiveRecord::Base
   def spam!
     self.spam = true
     self.save!
+    plugins.dispatch(:comment_marked_as_spam, self)
+    self
   end
 
   def ham!
     self.spam = false
     self.save!
+    plugins.dispatch(:comment_marked_as_ham, self)
+    self
   end
 
 end
