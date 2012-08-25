@@ -398,6 +398,9 @@ class CommentTest < ActiveSupport::TestCase
   end
 
   should 'update article activity when add a comment' do
+    now = Time.now
+    Time.stubs(:now).returns(now)
+
     profile = create_user('testuser').person
     article = create(TinyMceArticle, :profile => profile)
 
