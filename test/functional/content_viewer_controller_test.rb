@@ -1375,12 +1375,16 @@ end
     assert_not_nil assigns(:comment)
   end
 
-  should 'store IP address for comments' do
+  should 'store IP address, user agent and referrer for comments' do
     page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
     @request.stubs(:remote_ip).returns('33.44.55.66')
+    @request.stubs(:referrer).returns('http://example.com')
+    @request.stubs(:user_agent).returns('MyBrowser')
     post :view_page, :profile => profile.identifier, :page => [ 'myarticle' ], :comment => { :title => 'title', :body => 'body', :name => "Spammer", :email => 'damn@spammer.com' }, :confirm => 'true'
     comment = Comment.last
     assert_equal '33.44.55.66', comment.ip_address
+    assert_equal 'MyBrowser', comment.user_agent
+    assert_equal 'http://example.com', comment.referrer
   end
 
   should 'not save a comment if a plugin rejects it' do

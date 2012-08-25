@@ -127,6 +127,8 @@ class ContentViewerController < ApplicationController
     @comment.author = user if logged_in?
     @comment.article = @page
     @comment.ip_address = request.remote_ip
+    @comment.user_agent = request.user_agent
+    @comment.referrer = request.referrer
     plugins_filter_comment(@comment)
     return if @comment.rejected?
     if (pass_without_comment_captcha? || verify_recaptcha(:model => @comment, :message => _('Please type the words correctly'))) && @comment.save

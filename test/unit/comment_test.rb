@@ -536,6 +536,16 @@ class CommentTest < ActiveSupport::TestCase
     assert_equal c, SpamNotification.marked_as_ham
   end
 
+  should 'store User-Agent' do
+    c = Comment.new(:user_agent => 'foo')
+    assert_equal 'foo', c.user_agent
+  end
+
+  should 'store referrer' do
+    c = Comment.new(:referrer => 'bar')
+    assert_equal 'bar', c.referrer
+  end
+
   private
 
   def create_comment(args = {})
