@@ -15,14 +15,29 @@ class Noosfero::Plugin
       Dir.glob(File.join(Rails.root, 'config', 'plugins', '*')).select do |entry|
         File.directory?(entry)
       end.each do |dir|
-        Rails.configuration.controller_paths << File.join(dir, 'controllers')
-        ActiveSupport::Dependencies.load_paths << File.join(dir, 'controllers')
-        [ ActiveSupport::Dependencies.load_paths, $:].each do |path|
-          path << File.join(dir, 'models')
-          path << File.join(dir, 'lib')
+        plugin_name = File.basename(dir)
+
+        plugin_dependencies_ok = true
+        plugin_dependencies_file = File.join(dir, 'dependencies.rb')
+        if File.exists?(plugin_dependencies_file)
+          begin
+            require plugin_dependencies_file
+          rescue LoadError => ex
+            plugin_dependencies_ok = false
+            $stderr.puts "W: Noosfero plugin #{plugin_name} failed to load (#{ex})"
+          end
         end
 
-        klass(File.basename(dir))
+        if plugin_dependencies_ok
+          Rails.configuration.controller_paths << File.join(dir, 'controllers')
+          ActiveSupport::Dependencies.load_paths << File.join(dir, 'controllers')
+          [ ActiveSupport::Dependencies.load_paths, $:].each do |path|
+            path << File.join(dir, 'models')
+            path << File.join(dir, 'lib')
+          end
+
+          klass(plugin_name)
+        end
       end
     end
 
