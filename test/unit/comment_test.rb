@@ -517,6 +517,7 @@ class CommentTest < ActiveSupport::TestCase
     c = create_comment
 
     c.spam!
+    process_delayed_job_queue
 
     assert_equal c, SpamNotification.marked_as_spam
   end
@@ -527,6 +528,7 @@ class CommentTest < ActiveSupport::TestCase
     c = create_comment
 
     c.ham!
+    process_delayed_job_queue
 
     assert_equal c, SpamNotification.marked_as_ham
   end

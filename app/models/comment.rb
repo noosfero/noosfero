@@ -91,7 +91,7 @@ class Comment < ActiveRecord::Base
   after_create :schedule_notification
 
   def schedule_notification
-    Delayed::Job.enqueue CommentHandler.new(self.id)
+    Delayed::Job.enqueue CommentHandler.new(self.id, :verify_and_notify)
   end
 
   delegate :environment, :to => :profile
@@ -214,15 +214,23 @@ class Comment < ActiveRecord::Base
   def spam!
     self.spam = true
     self.save!
-    plugins.dispatch(:comment_marked_as_spam, self)
+    Delayed::Job.enqueue(CommentHandler.new(self.id, :marked_as_spam))
     self
   end
 
   def ham!
     self.spam = false
     self.save!
-    plugins.dispatch(:comment_marked_as_ham, self)
+    Delayed::Job.enqueue(CommentHandler.new(self.id, :marked_as_ham))
     self
+  end
+
+  def marked_as_spam
+    plugins.dispatch(:comment_marked_as_spam, self)
+  end
+
+  def marked_as_ham
+    plugins.dispatch(:comment_marked_as_ham, self)
   end
 
 end

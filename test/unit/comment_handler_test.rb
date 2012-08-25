@@ -12,11 +12,11 @@ class CommentHandlerTest < ActiveSupport::TestCase
     handler.perform
   end
 
-  should 'call Comment#notify_by_mail' do
-    handler = CommentHandler.new(-1)
+  should 'call Comment#whatever_method' do
+    handler = CommentHandler.new(-1, :whatever_method)
     comment = Comment.new
     Comment.stubs(:find).with(-1).returns(comment)
-    comment.expects(:verify_and_notify)
+    comment.expects(:whatever_method)
 
     handler.perform
   end
