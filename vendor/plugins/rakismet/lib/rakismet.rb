@@ -6,7 +6,11 @@ require 'yaml'
 require 'rakismet/model'
 require 'rakismet/middleware'
 require 'rakismet/version'
-require 'rakismet/railtie.rb' if defined?(Rails)
+
+if defined?(Rails) && Rails::VERSION::STRING > '3.2.0'
+  require 'rakismet/railtie.rb'
+  $stderr.puts "W: on Rails 3, this vendored version of rakismet should be replaced by a proper dependency"
+end
 
 module Rakismet
   Request = Struct.new(:user_ip, :user_agent, :referrer)
