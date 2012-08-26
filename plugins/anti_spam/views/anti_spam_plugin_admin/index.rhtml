@@ -4,7 +4,7 @@
 
   <%= labelled_form_field _('Host'), f.text_field(:host) %>
 
-  <%= labelled_form_field _('API key'), f.text_field (:api_key) %>
+  <%= labelled_form_field _('API key'), f.text_field(:api_key, :size => 40) %>
 
   <% button_bar do %>
     <%= submit_button(:save, _('Save'), :cancel => {:controller => 'plugins', :action => 'index'}) %>
