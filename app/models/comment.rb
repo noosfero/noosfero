@@ -100,10 +100,14 @@ class Comment < ActiveRecord::Base
   include Noosfero::Plugin::HotSpot
 
   def verify_and_notify
-    plugins.dispatch(:check_comment_for_spam, self)
+    check_for_spam
     unless spam?
       notify_by_mail
     end
+  end
+
+  def check_for_spam
+    plugins.dispatch(:check_comment_for_spam, self)
   end
 
   def notify_by_mail
