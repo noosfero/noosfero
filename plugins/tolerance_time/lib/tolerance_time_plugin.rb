@@ -26,6 +26,7 @@ class ToleranceTimePlugin < Noosfero::Plugin
   end
 
   def cms_controller_filters
+    return if !context.environment.plugin_enabled?(ToleranceTimePlugin)
     block = lambda do
       content = Article.find(params[:id])
       if ToleranceTimePlugin.expired?(content)
