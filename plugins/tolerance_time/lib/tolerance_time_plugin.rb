@@ -13,7 +13,8 @@ class ToleranceTimePlugin < Noosfero::Plugin
 
   def self.expired?(content)
     publication = ToleranceTimePlugin::Publication.find_by_target(content)
-    (content.kind_of?(Comment) || (!content.folder? && content.published?)) && (!publication.present? || publication.expired?)
+    (content.kind_of?(Comment) || (!content.folder? && content.published?)) &&
+    ((!publication.present? && !content.profile.kind_of?(Person)) || (publication.present? && publication.expired?))
   end
 
   def control_panel_buttons
