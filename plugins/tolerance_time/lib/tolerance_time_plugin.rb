@@ -41,6 +41,22 @@ class ToleranceTimePlugin < Noosfero::Plugin
       :block => block }
   end
 
+  def content_viewer_controller_filters
+    return if !context.environment.plugin_enabled?(ToleranceTimePlugin)
+    block = lambda do
+      content = Comment.find(params[:id])
+      if ToleranceTimePlugin.expired?(content)
+        session[:notice] = _('This content can\'t be edited anymore because it expired the tolerance time')
+        redirect_to content.article.url
+      end
+    end
+
+    { :type => 'before_filter',
+      :method_name => 'expired_content',
+      :options => {:only => 'edit_comment'},
+      :block => block }
+  end
+
   def content_expire_edit(content)
     if ToleranceTimePlugin.expired?(content)
       _('The tolerance time for editing this content is over.')
