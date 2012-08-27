@@ -72,11 +72,26 @@ _enable(){
   if [ -h "$target" ]; then
     _say "$plugin already enabled"
   else
-    ln -s "$source" "$target"
-    plugins_public_dir="$NOOSFERO_DIR/public/plugins"
-    test -d "$target/public/" && ln -s "$target/public" "$plugins_public_dir/$plugin"
-    _say "$plugin enabled"
-    needs_migrate=true
+    if [ ! -d "$source" ]; then
+      echo "E: $plugin plugin does not exist!"
+      return
+    fi
+    dependencies_ok=true
+    dependencies_file="$source/dependencies.rb"
+    if [ -e "$dependencies_file" ]; then
+      if ! "$NOOSFERO_DIR"/script/runner "require '$dependencies_file'"; then
+        dependencies_ok=false
+      fi
+    fi
+    if [ "$dependencies_ok" = true ]; then
+      ln -s "$source" "$target"
+      plugins_public_dir="$NOOSFERO_DIR/public/plugins"
+      test -d "$target/public/" && ln -s "$target/public" "$plugins_public_dir/$plugin"
+      _say "$plugin enabled"
+      needs_migrate=true
+    else
+      echo "W: failed to load dependencies for $plugin; not enabling"
+    fi
   fi
 }
 
