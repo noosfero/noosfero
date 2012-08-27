@@ -14,7 +14,7 @@ Feature: manage categories
       | Development   | services  |
     And I am logged in as admin
     And I am on the environment control panel
-    And I follow "Manage categories"
+    And I follow "Categories"
 
   Scenario: load only top level categories
     Then I should see "Products"
