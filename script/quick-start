@@ -23,9 +23,9 @@ run() {
 
 gem_install() {
   if [ -w "$(ruby -rubygems -e 'puts Gem.dir')" ]; then
-    run gem install $@
+    run gem install --no-ri --no-rdoc $@
   else
-    run gem install --user-install $@
+    run gem install --user-install --no-ri --no-rdoc $@
   fi
 }
 
