@@ -35,7 +35,7 @@ class RequireAuthToCommentPluginTest < ActiveSupport::TestCase
     controller = mock()
     controller.stubs(:logged_in?).returns(boolean)
     controller.stubs(:profile).returns(Profile.new)
-    Noosfero::Plugin::Context.new(controller)
+    controller
   end
 
 end
