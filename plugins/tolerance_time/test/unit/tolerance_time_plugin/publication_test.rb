@@ -65,4 +65,14 @@ class ToleranceTimePlugin::PublicationTest < ActiveSupport::TestCase
 
     assert !article_publication.expired?
   end
+
+  should 'not crash if profile has no tolerance yet defined' do
+    profile = fast_create(Profile)
+    article = fast_create(Article, :profile_id => profile.id)
+    article_publication = ToleranceTimePlugin::Publication.create!(:target => article)
+    article_publication.created_at = 1000.years.ago
+    article_publication.save!
+
+    assert !article_publication.expired?
+  end
 end
