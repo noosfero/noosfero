@@ -9,6 +9,14 @@ class MezuroPlugin::Helpers::ContentViewerHelper
    [["Not Periodically", 0], ["1 day", 1], ["2 days", 2], ["Weekly", 7], ["Biweeky", 15], ["Monthly", 30]]
   end
   
+  def self.create_license_options
+   options = YAML.load_file("#{RAILS_ROOT}/plugins/mezuro/licenses.yaml")
+   options = options.split(";")
+   formated_options = []
+   options.each { |option| formated_options << [option, option] }
+   formated_options
+  end
+  
   def self.generate_chart(values)
     Gchart.line(  
                 :title_color => 'FF0000',
@@ -30,5 +38,11 @@ class MezuroPlugin::Helpers::ContentViewerHelper
   
   def self.format_name(metric_result)
     metric_result.metric.name.delete("() ")
+  end
+  
+  def self.get_license_option(selected)
+    options = YAML.load_file("#{RAILS_ROOT}/plugins/mezuro/licenses.yaml")
+    options.split(";")
+    selected_option = options.find { |license| license == selected }
   end
 end
