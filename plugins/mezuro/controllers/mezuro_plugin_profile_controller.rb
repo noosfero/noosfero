@@ -90,15 +90,15 @@ class MezuroPluginProfileController < ProfileController
   
   def filtering_metric_history(metric_name, module_history)
     metrics_history = module_history.map do |module_result|
-      module_result.metric_results
+      [module_result.metric_results, module_result.date.to_s[0..9]]
     end
-    metric_history =  metrics_history.map do |array_of_metric_result|
-      (array_of_metric_result.select do |metric_result|
+    metric_history =  metrics_history.map do |metric_results_with_date|
+      [(metric_results_with_date.first.select do |metric_result|
         metric_result.metric.name.delete("() ") == metric_name
-      end).first
+      end).first, metric_results_with_date.last]
     end
-    metric_history.map do |metric_result|
-      metric_result.value
+    metric_history.map do |metric_result_with_date|
+      [metric_result_with_date.first.value, metric_result_with_date.last]
     end
   end
 
