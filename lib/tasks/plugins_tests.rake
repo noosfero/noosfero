@@ -44,7 +44,7 @@ end
 
 def plugin_cucumber_task(plugin, files_glob)
   task :cucumber => 'db:test:plugins:prepare' do |t|
-    run_cucumber t.name, :default, files_blog
+    run_cucumber t.name, :default, files_glob
   end
 end
 
