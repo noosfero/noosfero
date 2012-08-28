@@ -17,14 +17,21 @@ class MezuroPlugin::Helpers::ContentViewerHelper
    formated_options
   end
   
-  def self.generate_chart(values)
-    Gchart.line(  
+  def self.generate_chart(score_history)
+    values = []
+    labels = []
+    score_history.each do |score_data|
+      values << score_data.first
+      labels << score_data.last
+    end
+    Gchart.line(
                 :title_color => 'FF0000',
                 :size => '600x180', 
                 :bg => {:color => 'efefef', :type => 'stripes'},
                 :line_colors => 'c4a000',
                 :data => values,
-                :axis_with_labels => 'y',
+                :labels => labels,
+                :axis_with_labels => ['y','x'],
                 :max_value => values.max,
                 :min_value => values.min
                 )
