@@ -41,6 +41,8 @@ class MezuroPluginProfileController < ProfileController
   def module_result
     @content = profile.articles.find(params[:id])
     @module_result = @content.module_result(params)
+    @module = @module_result.module
+    @module_label = "#{@module.name} (#{@module.granularity})"
     if project_content_has_errors?
       redirect_to_error_page(@content.errors[:base])
     else
