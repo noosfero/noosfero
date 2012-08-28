@@ -24,7 +24,9 @@
   <%= required f.text_field(:name) %>
 <% end %>
 
-<%= f.text_field :project_license %><br/>
+<% selected = (@project.nil? ? "" : @project.license) %>
+<%= required labelled_form_field _('License'),
+  f.select(:project_license, MezuroPlugin::Helpers::ContentViewerHelper.create_license_options ,{:selected => selected}) %><br/>
 
 <%= f.text_field :description %><br/>
 
