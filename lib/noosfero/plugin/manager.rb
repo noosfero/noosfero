@@ -5,7 +5,7 @@ class Noosfero::Plugin::Manager
 
   def initialize(environment, context)
     @environment = environment
-    @constantize = context
+    @context = context
   end
 
   delegate :each, :to => :enabled_plugins

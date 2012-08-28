@@ -14,6 +14,11 @@ class PluginManagerTest < ActiveSupport::TestCase
   attr_reader :environment
   attr_reader :manager
 
+  should 'give access to environment and context' do
+    assert_same @environment, @manager.environment
+    assert_same @controller, @manager.context
+  end
+
   should 'return the intersection between environment\'s enabled plugins and system available plugins' do
     class Plugin1 < Noosfero::Plugin; end;
     class Plugin2 < Noosfero::Plugin; end;
