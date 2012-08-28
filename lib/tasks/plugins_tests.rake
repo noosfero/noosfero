@@ -87,8 +87,8 @@ namespace :test do
     end
 
     { :units => :unit , :functionals => :functional , :integration => :integration }.each do |taskname,folder|
-      task taskname => 'db:test:plugins:prepare' do
-        run_tests taskname, "plugins/{#{enabled_plugins.join(',')}}/test/#{folder}/**/*.rb"
+      task taskname => 'db:test:plugins:prepare' do |t|
+        run_tests t.name, "plugins/{#{enabled_plugins.join(',')}}/test/#{folder}/**/*.rb"
       end
     end
 
