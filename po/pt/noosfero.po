@@ -5110,7 +5110,7 @@ msgstr "Últimos itens"
 
 #: app/views/search/_article_last_change.rhtml:5
 msgid "by %{name} at %{date}"
-msgstr "por %{name} em %{date2}"
+msgstr "por %{name} em %{date}"
 
 #: app/views/search/_article_last_change.rhtml:8
 msgid "Last update: %s."
