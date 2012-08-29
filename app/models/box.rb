@@ -10,7 +10,10 @@ class Box < ActiveRecord::Base
   private
 
   def acceptable_center_blocks
-    %w{ MainBlock }
+    %w{
+      MainBlock
+      LinkListBlock
+    }
   end
 
   def acceptable_side_blocks
