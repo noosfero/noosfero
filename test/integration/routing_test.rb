@@ -221,4 +221,32 @@ class RoutingTest < ActionController::IntegrationTest
     assert_routing('/chat/avatar/chemical-brothers', :controller => 'chat', :action => 'avatar', :id => 'chemical-brothers')
   end
 
+  def test_not_found_images_on_nothing
+    assert_recognizes({:controller => 'not_found', :action => 'nothing', :stuff => ['aksdhf']}, '/images/aksdhf')
+  end
+
+  def test_not_found_stylesheets_on_nothing
+    assert_recognizes({:controller => 'not_found', :action => 'nothing', :stuff => ['aksdhf']}, '/stylesheets/aksdhf')
+  end
+
+  def test_not_found_designs_on_nothing
+    assert_recognizes({:controller => 'not_found', :action => 'nothing', :stuff => ['aksdhf']}, '/designs/aksdhf')
+  end
+
+  def test_not_found_articles_on_nothing
+    assert_recognizes({:controller => 'not_found', :action => 'nothing', :stuff => ['aksdhf']}, '/articles/aksdhf')
+  end
+
+  def test_not_found_javascripts_on_nothing
+    assert_recognizes({:controller => 'not_found', :action => 'nothing', :stuff => ['aksdhf']}, '/javascripts/aksdhf')
+  end
+
+  def test_not_found_thumbnails_on_nothing
+    assert_recognizes({:controller => 'not_found', :action => 'nothing', :stuff => ['aksdhf']}, '/thumbnails/aksdhf')
+  end
+
+  def test_not_found_user_themes_on_nothing
+    assert_recognizes({:controller => 'not_found', :action => 'nothing', :stuff => ['aksdhf']}, '/user_themes/aksdhf')
+  end
+
 end
