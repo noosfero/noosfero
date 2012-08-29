@@ -12,22 +12,32 @@ class Box < ActiveRecord::Base
   def acceptable_center_blocks
     %w{
       ArticleBlock
+      BlogArchivesBlock
       CommunitiesBlock
       EnterprisesBlock
+      FavoriteEnterprisesBlock
+      FeedReaderBlock
+      RawHTMLBlock
       FriendsBlock
       LinkListBlock
       MainBlock
+      MyNetworkBlock
       PeopleBlock
+      ProfileImageBlock
+      RecentDocumentsBlock
+      TagsBlock
     }
   end
 
   def acceptable_side_blocks
     %w{
       ArticleBlock
+      BlogArchivesBlock
       CategoriesBlock
       CommunitiesBlock
       EnterprisesBlock
       EnvironmentStatisticsBlock
+      FavoriteEnterprisesBlock
       FeaturedProductsBlock
       FeedReaderBlock
       FriendsBlock
