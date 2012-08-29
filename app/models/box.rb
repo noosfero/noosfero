@@ -11,6 +11,7 @@ class Box < ActiveRecord::Base
 
   def acceptable_center_blocks
     %w{
+      ArticleBlock
       CommunitiesBlock
       EnterprisesBlock
       FriendsBlock

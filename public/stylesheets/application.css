@@ -1394,6 +1394,7 @@ a.comment-picture {
   position: relative;
   display: inline;
 }
+#content #boxes .box-1 .article-block img,
 #content #article .article-body img {
   max-width: 100%;
   height: auto;
