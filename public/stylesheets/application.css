@@ -1390,6 +1390,7 @@ a.comment-picture {
 }
 #content #article .article-body img {
   max-width: 100%;
+  height: auto;
 }
 #content .blog-post .read-more {
   text-align: right;
