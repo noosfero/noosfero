@@ -11,8 +11,12 @@ class Box < ActiveRecord::Base
 
   def acceptable_center_blocks
     %w{
-      MainBlock
+      CommunitiesBlock
+      EnterprisesBlock
+      FriendsBlock
       LinkListBlock
+      MainBlock
+      PeopleBlock
     }
   end
 
@@ -25,6 +29,7 @@ class Box < ActiveRecord::Base
       EnvironmentStatisticsBlock
       FeaturedProductsBlock
       FeedReaderBlock
+      FriendsBlock
       HighlightsBlock
       LinkListBlock
       LocationBlock

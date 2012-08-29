@@ -483,6 +483,17 @@ div#notice {
   padding: 0px;
 }
 
+#content .box-1 .people-block ul,
+#content .box-1 .profile-list-block ul,
+#content .box-1 .enterprises-block ul,
+#content .box-1 .members-block ul,
+#content .box-1 .communities-block ul,
+#content .box-1 .friends-block ul,
+#content .box-1 .fans-block ul {
+  width: auto;
+  display: block;
+}
+
 #content .tags-block .block-footer-content a,
 #content .people-block .block-footer-content a,
 #content .profile-list-block .block-footer-content a,

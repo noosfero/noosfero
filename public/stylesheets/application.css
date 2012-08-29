@@ -1772,6 +1772,9 @@ input.disabled {
   width: 92px;
   overflow: hidden;
 }
+.box-1 .common-profile-list-block span {
+  width: 102px;
+}
 .common-profile-list-block .profile-image {
   width: 92px;
   display: table-cell;
