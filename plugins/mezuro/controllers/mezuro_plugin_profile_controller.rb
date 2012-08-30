@@ -36,7 +36,7 @@ class MezuroPluginProfileController < ProfileController
     else
       render :partial => 'content_viewer/project_result'
     end
-  end 	
+  end
 
   def module_result
     @content = profile.articles.find(params[:id])
@@ -87,9 +87,9 @@ class MezuroPluginProfileController < ProfileController
       render :partial => 'content_viewer/score_history'
     end
   end
-  
+
   private
-  
+
   def filtering_metric_history(metric_name, module_history)
     metrics_history = module_history.map do |module_result|
       [module_result.metric_results, format_date_to_simple_form(module_result.date)]
