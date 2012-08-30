@@ -113,7 +113,6 @@ class MezuroPluginMyprofileController < ProfileController
     @configuration_content = profile.articles.find(params[:id])
     @metric_name = params[:metric_name]
     @range = Kalibro::Range.new
-    @range_color = "#000000"
   end
   
   def edit_range
@@ -122,7 +121,6 @@ class MezuroPluginMyprofileController < ProfileController
     @beginning_id = params[:beginning_id]
     metric_configuration = Kalibro::MetricConfiguration.find_by_configuration_name_and_metric_name(@configuration_content.name, @metric_name)
     @range = metric_configuration.ranges.find{|range| range.beginning == @beginning_id.to_f || @beginning_id =="-INF" }
-    @range_color = "#" + @range.color.to_s.gsub(/^ff/, "")
   end
 
   def create_range
