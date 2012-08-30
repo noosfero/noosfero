@@ -81,7 +81,9 @@ class MezuroPluginProfileController < ProfileController
     if project_content_has_errors?
       redirect_to_error_page(@content.errors[:base])
     else
-      @score_history = modules_results.collect { |module_result| module_result.grade }
+      @score_history = modules_results.map do |module_result|
+        [module_result.grade, format_date_to_simple_form(module_result.date)]
+      end
       render :partial => 'content_viewer/score_history'
     end
   end
@@ -90,7 +92,7 @@ class MezuroPluginProfileController < ProfileController
   
   def filtering_metric_history(metric_name, module_history)
     metrics_history = module_history.map do |module_result|
-      [module_result.metric_results, module_result.date.to_s[0..9]]
+      [module_result.metric_results, format_date_to_simple_form(module_result.date)]
     end
     metric_history =  metrics_history.map do |metric_results_with_date|
       [(metric_results_with_date.first.select do |metric_result|
@@ -110,5 +112,10 @@ class MezuroPluginProfileController < ProfileController
   def project_content_has_errors?
     not @content.errors[:base].nil?
   end
+
+  def format_date_to_simple_form date
+    date.to_s[0..9]
+  end
+
 end
 
