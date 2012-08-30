@@ -34,8 +34,6 @@ do_start() {
 }
 
 do_stop() {
-  rake -s solr:stop
-
   # During Debian upgrades, it is possible that rails is not available (e.g.
   # Lenny -> Squeeze), so the programs below might fail. If they do, we fall
   # back to stopping the daemons by manually reading their PID files, killing
@@ -46,6 +44,8 @@ do_stop() {
 
   environments_loop stop ||
     stop_via_pid_file tmp/pids/delayed_job.pid tmp/pids/delayed_job.*.pid tmp/pids/feed-updater.*.pid
+
+  rake -s solr:stop || stop_via_pid_file tmp/pids/solr.*.pid
 }
 
 stop_via_pid_file() {
