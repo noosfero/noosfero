@@ -3,13 +3,11 @@ sub vcl_recv {
     if (req.http.Cookie) {
       # We only care about the "_noosfero_session.*" cookie, used for
       # authentication.
-      if (req.http.Cookie ~ "_noosfero_session.*" ) {
-           return (pass);
+      if (req.http.Cookie !~ "_noosfero_session.*" ) {
+        # strip all cookies
+        unset req.http.Cookie;
       }
-      # Else strip all cookies
-      unset req.http.Cookie;
     }
-  }
 }
 
 sub vcl_error {
