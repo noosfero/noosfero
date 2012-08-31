@@ -19,6 +19,7 @@ class Box < ActiveRecord::Base
       FeedReaderBlock
       FriendsBlock
       LinkListBlock
+      LoginBlock
       MainBlock
       MyNetworkBlock
       PeopleBlock
