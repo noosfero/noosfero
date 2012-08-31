@@ -16,6 +16,8 @@ class Box < ActiveRecord::Base
       CategoriesBlock
       CommunitiesBlock
       EnterprisesBlock
+      EnvironmentStatisticsBlock
+      FansBlock
       FavoriteEnterprisesBlock
       FeedReaderBlock
       FriendsBlock
@@ -23,6 +25,7 @@ class Box < ActiveRecord::Base
       LinkListBlock
       LoginBlock
       MainBlock
+      MembersBlock
       MyNetworkBlock
       PeopleBlock
       ProfileImageBlock
@@ -39,8 +42,10 @@ class Box < ActiveRecord::Base
       BlogArchivesBlock
       CategoriesBlock
       CommunitiesBlock
+      DisabledEnterpriseMessageBlock
       EnterprisesBlock
       EnvironmentStatisticsBlock
+      FansBlock
       FavoriteEnterprisesBlock
       FeaturedProductsBlock
       FeedReaderBlock
@@ -49,8 +54,10 @@ class Box < ActiveRecord::Base
       LinkListBlock
       LocationBlock
       LoginBlock
+      MembersBlock
       MyNetworkBlock
       PeopleBlock
+      ProductsBlock
       ProfileImageBlock
       ProfileInfoBlock
       ProfileSearchBlock
