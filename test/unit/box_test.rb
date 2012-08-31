@@ -3,13 +3,56 @@ require File.dirname(__FILE__) + '/../test_helper'
 class BoxTest < ActiveSupport::TestCase
 
   should 'list allowed blocks for center box' do
-    b = Box.new(:position => 1)
-    assert b.acceptable_blocks.include?('main-block')
+    blocks = Box.new(:position => 1).acceptable_blocks
+
+    assert blocks.include?('main-block')
+    assert blocks.include?('article-block')
+    assert blocks.include?('blog-archives-block')
+    assert blocks.include?('communities-block')
+    assert blocks.include?('enterprises-block')
+    assert blocks.include?('favorite-enterprises-block')
+    assert blocks.include?('feed-reader-block')
+    assert blocks.include?('friends-block')
+    assert blocks.include?('link-list-block')
+    assert blocks.include?('main-block')
+    assert blocks.include?('my-network-block')
+    assert blocks.include?('people-block')
+    assert blocks.include?('profile-image-block')
+    assert blocks.include?('raw-html-block')
+    assert blocks.include?('recent-documents-block')
+    assert blocks.include?('tags-block')
+
   end
 
   should 'list allowed blocks for box at position 2' do
-    b = Box.new(:position => 2)
-    assert !b.acceptable_blocks.include?('main-block')
+    blocks = Box.new(:position => 2).acceptable_blocks
+
+    assert !blocks.include?('main-block')
+
+    assert blocks.include?('article-block')
+    assert blocks.include?('blog-archives-block')
+    assert blocks.include?('categories-block')
+    assert blocks.include?('communities-block')
+    assert blocks.include?('enterprises-block')
+    assert blocks.include?('environment-statistics-block')
+    assert blocks.include?('favorite-enterprises-block')
+    assert blocks.include?('featured-products-block')
+    assert blocks.include?('feed-reader-block')
+    assert blocks.include?('friends-block')
+    assert blocks.include?('highlights-block')
+    assert blocks.include?('link-list-block')
+    assert blocks.include?('location-block')
+    assert blocks.include?('login-block')
+    assert blocks.include?('my-network-block')
+    assert blocks.include?('people-block')
+    assert blocks.include?('profile-image-block')
+    assert blocks.include?('profile-info-block')
+    assert blocks.include?('profile-search-block')
+    assert blocks.include?('raw-html-block')
+    assert blocks.include?('recent-documents-block')
+    assert blocks.include?('sellers-search-block')
+    assert blocks.include?('slideshow-block')
+    assert blocks.include?('tags-block')
   end
 
 end

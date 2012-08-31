@@ -17,13 +17,13 @@ class Box < ActiveRecord::Base
       EnterprisesBlock
       FavoriteEnterprisesBlock
       FeedReaderBlock
-      RawHTMLBlock
       FriendsBlock
       LinkListBlock
       MainBlock
       MyNetworkBlock
       PeopleBlock
       ProfileImageBlock
+      RawHTMLBlock
       RecentDocumentsBlock
       TagsBlock
     }
