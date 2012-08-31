@@ -47,8 +47,10 @@ class AntiSpamPlugin::Spaminator
   def process_all_comments
     puts 'Processing comments ...'
     i = 0
-    Comment.joins("JOIN articles ON (comments.source_id = articles.id AND comments.source_type = 'Article') JOIN profiles ON (profiles.id = articles.profile_id)").where(conditions(:comments)).find_each do |comment|
-      puts "Comment #{i += 1}"
+    comments = Comment.joins("JOIN articles ON (comments.source_id = articles.id AND comments.source_type = 'Article') JOIN profiles ON (profiles.id = articles.profile_id)").where(conditions(:comments))
+    total = comments.count
+    comments.find_each do |comment|
+      puts "Comment #{i += 1}/#{total} (#{100*i/total}%)"
       process_comment(comment)
     end
   end
@@ -56,8 +58,10 @@ class AntiSpamPlugin::Spaminator
   def process_all_people
     puts 'Processing people ...'
     i = 0
-    Person.where(conditions(:profiles)).find_each do |person|
-      puts "Person #{i += 1}"
+    people = Person.where(conditions(:profiles))
+    total = people.count
+    people.find_each do |person|
+      puts "Person #{i += 1}/#{total} (#{100*i/total}%)"
       process_person(person)
     end
   end
