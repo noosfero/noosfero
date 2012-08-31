@@ -13,11 +13,13 @@ class Box < ActiveRecord::Base
     %w{
       ArticleBlock
       BlogArchivesBlock
+      CategoriesBlock
       CommunitiesBlock
       EnterprisesBlock
       FavoriteEnterprisesBlock
       FeedReaderBlock
       FriendsBlock
+      HighlightsBlock
       LinkListBlock
       LoginBlock
       MainBlock
@@ -26,6 +28,7 @@ class Box < ActiveRecord::Base
       ProfileImageBlock
       RawHTMLBlock
       RecentDocumentsBlock
+      SellersSearchBlock
       TagsBlock
     }
   end
