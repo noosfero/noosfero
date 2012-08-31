@@ -12,11 +12,20 @@ class Noosfero::Plugin
     end
 
     def init_system
-      Dir.glob(File.join(Rails.root, 'config', 'plugins', '*')).select do |entry|
+      enabled_plugins = Dir.glob(File.join(Rails.root, 'config', 'plugins', '*'))
+      if Rails.env.test? && !enabled_plugins.include?(File.join(Rails.root, 'config', 'plugins', 'foo'))
+        enabled_plugins << File.join(Rails.root, 'plugins', 'foo')
+      end
+      enabled_plugins.select do |entry|
         File.directory?(entry)
       end.each do |dir|
         Rails.configuration.controller_paths << File.join(dir, 'controllers')
         ActiveSupport::Dependencies.load_paths << File.join(dir, 'controllers')
+        controllers_folders = %w[public profile myprofile admin]
+        controllers_folders.each do |folder|
+          Rails.configuration.controller_paths << File.join(dir, 'controllers', folder)
+          ActiveSupport::Dependencies.load_paths << File.join(dir, 'controllers', folder)
+        end
         [ ActiveSupport::Dependencies.load_paths, $:].each do |path|
           path << File.join(dir, 'models')
           path << File.join(dir, 'lib')
