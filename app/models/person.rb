@@ -251,7 +251,7 @@ class Person < Profile
 
   def is_admin?(environment = nil)
     environment ||= self.environment
-    role_assignments.select { |ra| ra.resource == environment }.map{|ra|ra.role.permissions}.any? do |ps|
+    role_assignments.includes([:role, :resource]).select { |ra| ra.resource == environment }.map{|ra|ra.role.permissions}.any? do |ps|
       ps.any? do |p|
         ActiveRecord::Base::PERMISSIONS['Environment'].keys.include?(p)
       end

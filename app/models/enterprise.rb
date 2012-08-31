@@ -17,7 +17,7 @@ class Enterprise < Organization
   after_save_reindex [:products], :with => :delayed_job
   extra_data_for_index :product_categories
   def product_categories
-    products.map{|p| p.category_full_name}.compact
+    products.includes(:product_category).map{|p| p.category_full_name}.compact
   end
 
   N_('Organization website'); N_('Historic and current context'); N_('Activities short description'); N_('City'); N_('State'); N_('Country'); N_('ZIP code')

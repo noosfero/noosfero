@@ -398,8 +398,8 @@ class Profile < ActiveRecord::Base
   #
   # +limit+ is the maximum number of documents to be returned. It defaults to
   # 10.
-  def recent_documents(limit = 10, options = {})
-    self.articles.recent(limit, options)
+  def recent_documents(limit = 10, options = {}, pagination = true)
+    self.articles.recent(limit, options, pagination)
   end
 
   def last_articles(limit = 10, options = {})
