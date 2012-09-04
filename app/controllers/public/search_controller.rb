@@ -4,9 +4,16 @@ class SearchController < PublicController
   include SearchHelper
   include ActionView::Helpers::NumberHelper
 
+  before_filter :redirect_asset_param, :except => [:facets_browse, :assets]
   before_filter :load_category
   before_filter :load_search_assets
   before_filter :load_query
+
+  # Backwards compatibility with old URLs
+  def redirect_asset_param
+    return unless params.has_key?(:asset)
+    redirect_to params.merge(:action => params.delete(:asset))
+  end
 
   no_design_blocks
 
