@@ -49,7 +49,7 @@ Feature: plugins
     When I go to the profile
     Then I should see "Test plugin tab"
     And I go to the environment control panel
-    And I follow "Enable/disable plugins"
+    And I follow "Plugins"
     And I uncheck "Test plugin"
     And I press "Save changes"
     When I go to the Control panel

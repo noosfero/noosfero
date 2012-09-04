@@ -45,6 +45,14 @@ module SearchHelper
   # FIXME remove it after search_controler refactored
   include EventsHelper
 
+  def multiple_search?
+    ['index', 'category_index'].include?(params[:action]) or @results.size > 1
+  end
+
+  def map_search?
+    !@empty_query and !multiple_search? and params[:display] == 'map'
+  end
+
   def search_page_title(title, category = nil)
     title = "<h1>" + title
     title += '<small>' + category.name + '</small>' if category
@@ -58,8 +66,8 @@ module SearchHelper
       :align => 'center', :class => 'search-category-context') if category
   end
 
-  def display_results(use_map = false)
-    if params[:display] == 'map' && use_map
+  def display_results(map_capable = false)
+    if map_capable and map_search?
       partial = 'google_maps'
       klass = 'map'
     else
@@ -99,7 +107,7 @@ module SearchHelper
     @asset_class = asset_class(asset)
     render(:partial => 'facets_unselect_menu')
   end
-  
+
   def facet_javascript(input_id, facet, array)
     array = [] if array.nil?
     hintText = _('Type in an option')
@@ -148,6 +156,7 @@ module SearchHelper
     params = params.dup
     params[:facet].each do |id, value|
       facet = klass.facet_by_id(id.to_sym)
+      next unless facet
       if value.kind_of?(Hash)
         label_hash = facet[:label].call(environment)
         value.each do |label_id, value|

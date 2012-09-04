@@ -22,8 +22,6 @@ class Person < Profile
     super
   end
 
-  acts_as_having_hotspots
-
   named_scope :members_of, lambda { |resources|
     resources = [resources] if !resources.kind_of?(Array)
     conditions = resources.map {|resource| "role_assignments.resource_type = '#{resource.class.base_class.name}' AND role_assignments.resource_id = #{resource.id || -1}"}.join(' OR ')
@@ -32,7 +30,7 @@ class Person < Profile
 
   def has_permission_with_plugins?(permission, profile)
     permissions = [has_permission_without_plugins?(permission, profile)]
-    permissions += enabled_plugins.map do |plugin|
+    permissions += plugins.map do |plugin|
       plugin.has_permission?(self, permission, profile)
     end
     permissions.include?(true)
@@ -73,10 +71,7 @@ class Person < Profile
     Friendship.find(:all, :conditions => { :friend_id => person.id}).each { |friendship| friendship.destroy }
   end
 
-  after_destroy :destroy_user
-  def destroy_user
-    self.user.destroy if self.user
-  end
+  belongs_to :user, :dependent => :delete
 
   def can_control_scrap?(scrap)
     begin
@@ -253,7 +248,7 @@ class Person < Profile
 
   def is_admin?(environment = nil)
     environment ||= self.environment
-    role_assignments.select { |ra| ra.resource == environment }.map{|ra|ra.role.permissions}.any? do |ps|
+    role_assignments.includes([:role, :resource]).select { |ra| ra.resource == environment }.map{|ra|ra.role.permissions}.any? do |ps|
       ps.any? do |p|
         ActiveRecord::Base::PERMISSIONS['Environment'].keys.include?(p)
       end
@@ -458,7 +453,7 @@ class Person < Profile
   end
 
   def activities
-    Scrap.find_by_sql("SELECT id, updated_at, '#{Scrap.to_s}' AS klass FROM #{Scrap.table_name} WHERE scraps.receiver_id = #{self.id} AND scraps.scrap_id IS NULL UNION SELECT id, updated_at, '#{ActionTracker::Record.to_s}' AS klass FROM #{ActionTracker::Record.table_name} WHERE action_tracker.user_id = #{self.id} ORDER BY updated_at DESC")
+    Scrap.find_by_sql("SELECT id, updated_at, '#{Scrap.to_s}' AS klass FROM #{Scrap.table_name} WHERE scraps.receiver_id = #{self.id} AND scraps.scrap_id IS NULL UNION SELECT id, updated_at, '#{ActionTracker::Record.to_s}' AS klass FROM #{ActionTracker::Record.table_name} WHERE action_tracker.user_id = #{self.id} and action_tracker.verb != 'leave_scrap_to_self' and action_tracker.verb != 'add_member_in_community' ORDER BY updated_at DESC")
   end
 
   protected

@@ -1139,8 +1139,10 @@ class ProfileControllerTest < ActionController::TestCase
 
   should "view more activities paginated" do
     login_as(profile.identifier)
-    40.times{ fast_create(ActionTracker::Record, :user_id => profile.id)}
+    article = TinyMceArticle.create!(:profile => profile, :name => 'An Article about Free Software')
+    40.times{ ActionTracker::Record.create!(:user_id => profile.id, :user_type => 'Profile', :verb => 'create_article', :target_id => article.id, :target_type => 'Article', :params => {'name' => article.name, 'url' => article.url, 'lead' => article.lead, 'first_image' => article.first_image})}
     assert_equal 40, profile.tracked_actions.count
+    assert_equal 40, profile.activities.count
     get :view_more_activities, :profile => profile.identifier, :page => 2
     assert_response :success
     assert_template '_profile_activities_list'
@@ -1298,4 +1300,75 @@ class ProfileControllerTest < ActionController::TestCase
     assert_response :success
     assert_equal "Comment successfully added.", assigns(:message)
   end
+
+  should 'display comment in wall if user was removed' do
+    UserStampSweeper.any_instance.stubs(:current_user).returns(profile)
+    article = TinyMceArticle.create!(:profile => profile, :name => 'An article about free software')
+    to_be_removed = create_user('removed_user').person
+    comment = Comment.create!(:author => to_be_removed, :title => 'Test Comment', :body => 'My author does not exist =(', :source_id => article.id, :source_type => 'Article')
+    to_be_removed.destroy
+
+    login_as(profile.identifier)
+    get :index, :profile => profile.identifier
+
+    assert_tag :tag => 'span', :content => '(removed user)', :attributes => {:class => 'comment-user-status comment-user-status-wall icon-user-removed'}
+  end
+
+  should 'display comment in wall from non logged users' do
+    UserStampSweeper.any_instance.stubs(:current_user).returns(profile)
+    article = TinyMceArticle.create!(:profile => profile, :name => 'An article about free software')
+    comment = Comment.create!(:name => 'outside user', :email => 'outside@localhost.localdomain', :title => 'Test Comment', :body => 'My author does not exist =(', :source_id => article.id, :source_type => 'Article')
+
+    login_as(profile.identifier)
+    get :index, :profile => profile.identifier
+
+    assert_tag :tag => 'span', :content => '(unauthenticated user)', :attributes => {:class => 'comment-user-status comment-user-status-wall icon-user-unknown'}
+  end
+
+  should 'add locale on mailing' do
+    community = fast_create(Community)
+    create_user_with_permission('profile_moderator_user', 'send_mail_to_members', community)
+    login_as('profile_moderator_user')
+    @controller.stubs(:locale).returns('pt')
+    post :send_mail, :profile => community.identifier, :mailing => {:subject => 'Hello', :body => 'We have some news'}
+    assert_equal 'pt', assigns(:mailing).locale
+  end
+
+  should 'queue mailing to process later' do
+    community = fast_create(Community)
+    create_user_with_permission('profile_moderator_user', 'send_mail_to_members', community)
+    login_as('profile_moderator_user')
+    @controller.stubs(:locale).returns('pt')
+    assert_difference Delayed::Job, :count, 1 do
+      post :send_mail, :profile => community.identifier, :mailing => {:subject => 'Hello', :body => 'We have some news'}
+    end
+  end
+
+  should 'save mailing' do
+    community = fast_create(Community)
+    create_user_with_permission('profile_moderator_user', 'send_mail_to_members', community)
+    login_as('profile_moderator_user')
+    @controller.stubs(:locale).returns('pt')
+    post :send_mail, :profile => community.identifier, :mailing => {:subject => 'Hello', :body => 'We have some news'}
+    assert_equal ['Hello', 'We have some news'], [assigns(:mailing).subject, assigns(:mailing).body]
+  end
+
+  should 'add the user logged on mailing' do
+    community = fast_create(Community)
+    create_user_with_permission('profile_moderator_user', 'send_mail_to_members', community)
+    login_as('profile_moderator_user')
+    post :send_mail, :profile => community.identifier, :mailing => {:subject => 'Hello', :body => 'We have some news'}
+    assert_equal Profile['profile_moderator_user'], assigns(:mailing).person
+  end
+
+  should 'redirect back to right place after mail' do
+    community = fast_create(Community)
+    create_user_with_permission('profile_moderator_user', 'send_mail_to_members', community)
+    login_as('profile_moderator_user')
+    @controller.stubs(:locale).returns('pt')
+    @request.expects(:referer).returns("/profile/#{community.identifier}/members")
+    post :send_mail, :profile => community.identifier, :mailing => {:subject => 'Hello', :body => 'We have some news'}
+    assert_redirected_to :action => 'members'
+  end
+
 end

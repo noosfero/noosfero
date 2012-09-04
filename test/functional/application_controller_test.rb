@@ -296,15 +296,20 @@ class ApplicationControllerTest < ActionController::TestCase
 
   should 'not display invisible blocks' do
     @controller.expects(:uses_design_blocks?).returns(true)
-    p = create_user_full('test_user').person
+    p = create_user('test_user').person
     @controller.expects(:profile).at_least_once.returns(p)
-    b = p.blocks[1]
-    b.expects(:visible?).returns(false)
-    b.save!
+
+    box = p.boxes.first
+    invisible_block = fast_create(Block, :box_id => box.id)
+    invisible_block.display = 'never'
+    invisible_block.save
+    visible_block = fast_create(Block, :box_id => box.id)
+    visible_block.display = 'always'
+    visible_block.save
 
     get :index, :profile => p.identifier
-
-    assert_no_tag :tag => 'div', :attributes => {:id => 'block-' + b.id.to_s}
+    assert_no_tag :tag => 'div', :attributes => {:id => 'block-' + invisible_block.id.to_s}
+    assert_tag :tag => 'div', :attributes => {:id => 'block-' + visible_block.id.to_s}
   end
 
   should 'diplay name of environment in description' do

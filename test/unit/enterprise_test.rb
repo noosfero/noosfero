@@ -482,9 +482,11 @@ class EnterpriseTest < ActiveSupport::TestCase
 
   should 'reindex products with full category name after save' do
     product = mock
+    products = mock
     product.expects(:category_full_name)
-    Enterprise.any_instance.stubs(:products).returns([product])
-    Enterprise.expects(:solr_batch_add).with(includes(product))
+    products.stubs(:includes).returns([product])
+    Enterprise.any_instance.stubs(:products).returns(products)
+    Enterprise.expects(:solr_batch_add).with([products])
     ent = fast_create(Enterprise)
     ent.save!
   end

@@ -25,9 +25,24 @@ class ContactControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  should 'display destinatary name in title' do
+  should 'display destinatary name in title if profile is a person' do
+    get :new, :profile => profile.identifier
+    assert_tag :tag => 'h1', :content => /Send.*#{profile.name}/
+  end
+
+  should 'display administrators in title if profile is an organization' do
     get :new, :profile => enterprise.identifier
-    assert_tag :tag => 'h1', :content => /Send.*#{enterprise.name}/
+    assert_tag :tag => 'h1', :content => /Send.*administrators/
+  end
+
+  should 'display profile name in tooltip if profile is an organization' do
+    get :new, :profile => enterprise.identifier
+    assert_tag :tag => 'div', :content => /administrators.*#{enterprise.name}/, :attributes => {:class => 'tooltip'}
+  end
+
+  should 'not display tooltip if profile is a person' do
+    get :new, :profile => profile.identifier
+    assert_no_tag :tag => 'div', :attributes => {:class => 'tooltip'}
   end
 
   should 'add form to create contact via post' do

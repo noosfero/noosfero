@@ -16,11 +16,9 @@ class RecentDocumentsBlock < Block
 
   include ActionController::UrlWriter
   def content(args={})
-    docs = self.limit.nil? ? owner.recent_documents : owner.recent_documents(self.limit)
-
+    docs = self.limit.nil? ? owner.recent_documents(nil, {}, false) : owner.recent_documents(self.limit, {}, false)
     block_title(title) +
     content_tag('ul', docs.map {|item| content_tag('li', link_to(h(item.title), item.url))}.join("\n"))
-
   end
 
   def footer

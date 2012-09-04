@@ -2,10 +2,12 @@ class ProfileController < PublicController
 
   needs_profile
   before_filter :check_access_to_profile, :except => [:join, :join_not_logged, :index, :add]
-  before_filter :store_location, :only => [:join, :join_not_logged, :report_abuse]
-  before_filter :login_required, :only => [:add, :join, :join_not_logged, :leave, :unblock, :leave_scrap, :remove_scrap, :remove_activity, :view_more_activities, :view_more_network_activities, :report_abuse, :register_report, :leave_comment_on_activity]
+  before_filter :store_location, :only => [:join, :join_not_logged, :report_abuse, :send_mail]
+  before_filter :login_required, :only => [:add, :join, :join_not_logged, :leave, :unblock, :leave_scrap, :remove_scrap, :remove_activity, :view_more_activities, :view_more_network_activities, :report_abuse, :register_report, :leave_comment_on_activity, :send_mail]
 
   helper TagsHelper
+
+  protect 'send_mail_to_members', :profile, :only => [:send_mail]
 
   def index
     @network_activities = !@profile.is_a?(Person) ? @profile.tracked_notifications.visible.paginate(:per_page => 15, :page => params[:page]) : []
@@ -49,36 +51,36 @@ class ProfileController < PublicController
 
   def communities
     if is_cache_expired?(profile.communities_cache_key(params))
-      @communities = profile.communities.paginate(:per_page => per_page, :page => params[:npage])
+      @communities = profile.communities.includes(relations_to_include).paginate(:per_page => per_page, :page => params[:npage])
     end
   end
 
   def enterprises
-    @enterprises = profile.enterprises
+    @enterprises = profile.enterprises.includes(relations_to_include)
   end
 
   def friends
     if is_cache_expired?(profile.friends_cache_key(params))
-      @friends = profile.friends.paginate(:per_page => per_page, :page => params[:npage])
+      @friends = profile.friends.includes(relations_to_include).paginate(:per_page => per_page, :page => params[:npage])
     end
   end
 
   def members
     if is_cache_expired?(profile.members_cache_key(params))
-      @members = profile.members.paginate(:per_page => members_per_page, :page => params[:npage])
+      @members = profile.members.includes(relations_to_include).paginate(:per_page => members_per_page, :page => params[:npage])
     end
   end
 
   def fans
-    @fans = profile.fans
+    @fans = profile.fans.includes(relations_to_include)
   end
 
   def favorite_enterprises
-    @favorite_enterprises = profile.favorite_enterprises
+    @favorite_enterprises = profile.favorite_enterprises.includes(relations_to_include)
   end
 
   def sitemap
-    @articles = profile.top_level_articles
+    @articles = profile.top_level_articles.includes([:profile, :parent])
   end
 
   def join
@@ -212,9 +214,9 @@ class ProfileController < PublicController
     begin
       scrap = current_user.person.scraps(params[:scrap_id])
       scrap.destroy
-      render :text => _('Scrap successfully removed.')
+      finish_successful_removal 'Scrap successfully removed.'
     rescue
-      render :text => _('You could not remove this scrap')
+      finish_unsuccessful_removal 'You could not remove this scrap.'
     end
   end
 
@@ -227,9 +229,9 @@ class ProfileController < PublicController
       else
         activity.destroy
       end
-      render :text => _('Activity successfully removed.')
+      finish_successful_removal 'Activity successfully removed.'
     rescue
-      render :text => _('You could not remove this activity')
+      finish_unsuccessful_removal 'You could not remove this activity.'
     end
   end
 
@@ -241,6 +243,24 @@ class ProfileController < PublicController
       render :text => _('Notification successfully removed.')
     rescue
       render :text => _('You could not remove this notification.')
+    end
+  end
+
+  def finish_successful_removal(msg)
+    if request.xhr?
+      render :text => {'ok' => true}.to_json, :content_type => 'application/json'
+    else
+      session[:notice] = _(msg)
+      redirect_to :action => :index
+    end
+  end
+
+  def finish_unsuccessful_removal(msg)
+    session[:notice] = _(msg)
+    if request.xhr?
+      render :text => {'redirect' => url_for(:action => :index)}.to_json, :content_type => 'application/json'
+    else
+      redirect_to :action => :index
     end
   end
 
@@ -303,9 +323,24 @@ class ProfileController < PublicController
     @comment = Comment.find(params[:comment_id])
     if (user == @comment.author || user == profile || user.has_permission?(:moderate_comments, profile))
       @comment.destroy
-      session[:notice] = _('Comment successfully deleted')
+      finish_successful_removal 'Comment successfully removed.'
+    else
+      finish_unsuccessful_removal 'You could not remove this comment.'
     end
-    redirect_to :action => :index
+  end
+
+  def send_mail
+    @mailing = profile.mailings.build(params[:mailing])
+    if request.post?
+      @mailing.locale = locale
+      @mailing.person = user
+      if @mailing.save
+        session[:notice] = _('The e-mails are being sent')
+        redirect_to_previous_location
+      else
+        session[:notice] = _('Could not create the e-mail')
+      end
+    end
   end
 
   protected
@@ -359,4 +394,8 @@ class ProfileController < PublicController
     @can_edit_profile ||= user && user.has_permission?('edit_profile', profile)
   end
   helper_method :can_edit_profile
+
+  def relations_to_include
+    [:image, :domains, :preferred_domain, :environment]
+  end
 end

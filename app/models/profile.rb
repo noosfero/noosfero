@@ -57,10 +57,12 @@ class Profile < ActiveRecord::Base
     'view_private_content' => N_('View private content'),
     'publish_content'      => N_('Publish content'),
     'invite_members'       => N_('Invite members'),
+    'send_mail_to_members' => N_('Send e-Mail to members'),
   }
 
   acts_as_accessible
-  acts_as_having_hotspots
+
+  include Noosfero::Plugin::HotSpot
 
   named_scope :memberships_of, lambda { |person| { :select => 'DISTINCT profiles.*', :joins => :role_assignments, :conditions => ['role_assignments.accessor_type = ? AND role_assignments.accessor_id = ?', person.class.base_class.name, person.id ] } }
   #FIXME: these will work only if the subclass is already loaded
@@ -69,7 +71,7 @@ class Profile < ActiveRecord::Base
   named_scope :templates, :conditions => {:is_template => true}
 
   def members
-    scopes = dispatch_scopes(:organization_members, self)
+    scopes = plugins.dispatch_scopes(:organization_members, self)
     scopes << Person.members_of(self)
     scopes.size == 1 ? scopes.first : Person.or_scope(scopes)
   end
@@ -112,6 +114,8 @@ class Profile < ActiveRecord::Base
   has_many :tracked_notifications, :through => :action_tracker_notifications, :source => :action_tracker, :order => 'updated_at DESC'
   has_many :scraps_received, :class_name => 'Scrap', :foreign_key => :receiver_id, :order => "updated_at DESC", :dependent => :destroy
   belongs_to :template, :class_name => 'Profile', :foreign_key => 'template_id'
+
+  has_many :comments_received, :class_name => 'Comment', :through => :articles, :source => :comments
 
   # FIXME ugly workaround
   def self.human_attribute_name(attrib)
@@ -255,7 +259,7 @@ class Profile < ActiveRecord::Base
       self.categories(true)
       self.solr_save
     end
-	 self.categories(reload)
+    self.categories(reload)
   end
 
   def category_ids=(ids)
@@ -395,8 +399,8 @@ class Profile < ActiveRecord::Base
   #
   # +limit+ is the maximum number of documents to be returned. It defaults to
   # 10.
-  def recent_documents(limit = 10, options = {})
-    self.articles.recent(limit, options)
+  def recent_documents(limit = 10, options = {}, pagination = true)
+    self.articles.recent(limit, options, pagination)
   end
 
   def last_articles(limit = 10, options = {})
@@ -968,4 +972,8 @@ private :generate_url, :url_options
     end
   end
 
+  validates_inclusion_of :redirection_after_login, :in => Environment.login_redirection_options.keys, :allow_nil => true
+  def preferred_login_redirection
+    redirection_after_login.blank? ? environment.redirection_after_login : redirection_after_login
+  end
 end

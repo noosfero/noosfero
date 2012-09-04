@@ -66,6 +66,8 @@
 
   <%= control_panel_button(_('Manage my groups'), 'groups', :controller => 'memberships') if profile.person? %>
 
+  <%= control_panel_button(_('Manage SPAM'), 'manage-spam', :controller => 'spam', :action => 'index') %>
+
   <% @plugins.dispatch(:control_panel_buttons).each do |button| %>
     <%= control_panel_button(button[:title], button[:icon], button[:url]) %>
   <% end %>

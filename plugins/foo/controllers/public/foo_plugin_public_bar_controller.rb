@@ -1,0 +1,2 @@
+class FooPluginPublicBarController < PublicController
+end

@@ -6,8 +6,11 @@ class HomeController; def rescue_action(e) raise e end; end
 
 class HomeControllerTest < ActionController::TestCase
 
-#  all_fixtures:profiles, :environments, :domains
-all_fixtures
+  def teardown
+    Thread.current[:enabled_plugins] = nil
+  end
+
+  all_fixtures
   def setup
     @controller = HomeController.new
     @request    = ActionController::TestRequest.new
@@ -91,6 +94,46 @@ all_fixtures
     env.update_attribute(:terms_of_use, 'Noosfero terms of use')
     get :terms
     assert_tag :content => /Noosfero terms of use/
+  end
+
+  should 'provide a link to make the user authentication' do
+    class Plugin1 < Noosfero::Plugin
+      def alternative_authentication_link
+        lambda {"<a href='plugin1'>Plugin1 link</a>"}
+      end
+    end
+    class Plugin2 < Noosfero::Plugin
+      def alternative_authentication_link
+        lambda {"<a href='plugin2'>Plugin2 link</a>"}
+      end
+    end
+
+    Environment.default.enable_plugin(Plugin1)
+    Environment.default.enable_plugin(Plugin2)
+
+    get :index
+
+    assert_tag :tag => 'a', :content => 'Plugin1 link'
+    assert_tag :tag => 'a', :content => 'Plugin2 link'
+  end
+
+  should "not display the new user button on login page if now allowed by any plugin" do
+    class Plugin1 < Noosfero::Plugin
+      def allow_user_registration
+        false
+      end
+    end
+
+    class Plugin2 < Noosfero::Plugin
+      def allow_user_registration
+        true
+      end
+    end
+    Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([Plugin1.new, Plugin2.new])
+
+    get :index
+
+    assert_no_tag :tag => 'a', :attributes => {:href => '/account/signup'}
   end
 
 end

@@ -1,4 +1,3 @@
-require 'savon'
 require 'yaml'
 
 Savon.configure do |config|

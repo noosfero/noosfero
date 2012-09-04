@@ -51,23 +51,8 @@ function reloadModule(){
   return false;
 }
 
-function reloadProjectWithDate(){
-	var day = jQuery("#project_date_day").val();
-	var month = jQuery("#project_date_month").val();
-	var year = jQuery("#project_date_year").val();
-
-  if(day.length == 1) 
-    day = "0" + day;
-  if(month.length == 1) 
-    month = "0" + month; 
-	
-	var date = new Date(year + "-" + month + "-" + day + "T00:00:00+00:00");
-	
-	if(isNaN(date)){
-	  alert("Invalid date! " + date);
-	  return false;
-	}
-	reloadProject(date);
+function reloadProjectWithDate(date){
+	reloadProject(date + "T00:00:00+00:00");
   return false;
 }
 

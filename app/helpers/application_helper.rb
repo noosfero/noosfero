@@ -265,9 +265,9 @@ module ApplicationHelper
 
   VIEW_EXTENSIONS = %w[.rhtml .html.erb]
 
-  def partial_for_class_in_view_path(klass, view_path)
+  def partial_for_class_in_view_path(klass, view_path, suffix = nil)
     return nil if klass.nil?
-    name = klass.name.underscore
+    name = [klass.name.underscore, suffix].compact.map(&:to_s).join('_')
 
     search_name = String.new(name)
     if search_name.include?("/")
@@ -282,29 +282,18 @@ module ApplicationHelper
       return name if File.exists?(File.join(path))
     end
 
-    partial_for_class_in_view_path(klass.superclass, view_path)
+    partial_for_class_in_view_path(klass.superclass, view_path, suffix)
   end
 
-  def partial_for_class(klass)
+  def partial_for_class(klass, suffix=nil)
     raise ArgumentError, 'No partial for object. Is there a partial for any class in the inheritance hierarchy?' if klass.nil?
     name = klass.name.underscore
     @controller.view_paths.each do |view_path|
-      partial = partial_for_class_in_view_path(klass, view_path)
+      partial = partial_for_class_in_view_path(klass, view_path, suffix)
       return partial if partial
     end
 
     raise ArgumentError, 'No partial for object. Is there a partial for any class in the inheritance hierarchy?'
-  end
-
-  def partial_for_task_class(klass, action)
-    raise ArgumentError, 'No partial for object. Is there a partial for any class in the inheritance hierarchy?' if klass.nil?
-
-    name = "#{klass.name.underscore}_#{action.to_s}"
-    VIEW_EXTENSIONS.each do |ext|
-      return name if File.exists?(File.join(RAILS_ROOT, 'app', 'views', params[:controller], '_'+name+ext))
-    end
-
-    partial_for_task_class(klass.superclass, action)
   end
 
   def view_for_profile_actions(klass)
@@ -1336,6 +1325,19 @@ module ApplicationHelper
     end
   end
 
+  def expirable_link_to(expired, content, url, options = {})
+    if expired
+      options[:class] = (options[:class] || '') + ' disabled'
+      content_tag('a', '&nbsp;'+content_tag('span', content), options)
+    else
+      link_to content, url, options
+    end
+  end
+
+  def remove_content_button(action)
+    @plugins.dispatch("content_remove_#{action.to_s}", @page).include?(true)
+  end
+
   def template_options(klass, field_name)
     return '' if klass.templates.count == 0
     return hidden_field_tag("#{field_name}[template_id]", klass.templates.first.id) if klass.templates.count == 1
@@ -1401,4 +1403,19 @@ module ApplicationHelper
     result
   end
 
+  def expirable_content_reference(content, action, text, url, options = {})
+    reason = @plugins.dispatch("content_expire_#{action.to_s}", content).first
+    options[:title] = reason
+    expirable_link_to reason.present?, text, url, options
+  end
+
+  def expirable_button(content, action, text, url, options = {})
+    options[:class] = "button with-text icon-#{action.to_s}"
+    expirable_content_reference content, action, text, url, options
+  end
+
+  def expirable_comment_link(content, action, text, url, options = {})
+    options[:class] = "comment-footer comment-footer-link comment-footer-hide"
+    expirable_content_reference content, action, text, url, options
+  end
 end

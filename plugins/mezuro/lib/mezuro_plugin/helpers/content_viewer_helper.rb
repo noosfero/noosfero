@@ -1,5 +1,3 @@
-require 'googlecharts'
-
 class MezuroPlugin::Helpers::ContentViewerHelper
 
   MAX_NUMBER_OF_LABELS = 5

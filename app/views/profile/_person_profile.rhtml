@@ -37,7 +37,7 @@
       <tr>
         <th colspan='2'><%= __('Enterprises') %></th>
       </tr>
-      <% profile.enterprises.each do |item| %>
+      <% profile.enterprises.includes(:environment,:domains, :preferred_domain).each do |item| %>
         <tr>
           <td></td>
           <td><%= button 'menu-enterprise', item.name, item.url %></td>

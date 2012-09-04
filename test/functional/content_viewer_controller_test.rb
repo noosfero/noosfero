@@ -92,7 +92,7 @@ class ContentViewerControllerTest < ActionController::TestCase
 
     login_as 'testuser'
     get :view_page, :profile => 'testuser', :page => [ 'test' ]
-    assert_tag :tag => 'a', :attributes => { :href => '/testuser/test?remove_comment=' + comment.id.to_s }
+    assert_tag :tag => 'a', :attributes => { :onclick => %r(/testuser/test\?remove_comment=#{comment.id}.quot) }
   end
 
   should 'display remove comment button with param view when image' do
@@ -106,8 +106,9 @@ class ContentViewerControllerTest < ActionController::TestCase
 
     login_as 'testuser'
     get :view_page, :profile => 'testuser', :page => [ image.filename ], :view => true
-    assert_tag :tag => 'a', :attributes => { :href => "/testuser/#{image.filename}?remove_comment=" + comment.id.to_s + '&amp;view=true'}
-  end
+    assert_tag :tag => 'a', :attributes => { :onclick => %r(/testuser/#{image.filename}\?remove_comment=#{comment.id}.*amp;view=true.quot) }
+end
+
 
   should 'not add unneeded params for remove comment button' do
     profile = create_user('testuser').person
@@ -117,8 +118,8 @@ class ContentViewerControllerTest < ActionController::TestCase
     comment.save!
 
     login_as 'testuser'
-    get :view_page, :profile => 'testuser', :page => [ 'test' ], :random_param => 'bli' # <<<<<<<<<<<<<<<
-    assert_tag :tag => 'a', :attributes => { :href => '/testuser/test?remove_comment=' + comment.id.to_s }
+    get :view_page, :profile => 'testuser', :page => [ 'test' ], :random_param => 'bli'
+    assert_tag :tag => 'a', :attributes => { :onclick => %r(/testuser/test\?remove_comment=#{comment.id.to_s}.quot) }
   end
 
   should 'be able to remove comment' do
@@ -474,7 +475,7 @@ class ContentViewerControllerTest < ActionController::TestCase
     get :view_page, :profile => p.identifier, :page => old_path
 
     assert_response :redirect
-    assert_redirected_to :profile => p.identifier, :page => a.explode_path
+    assert_redirected_to :host => p.default_hostname, :controller => 'content_viewer', :action => 'view_page', :profile => p.identifier, :page => a.explode_path
   end
 
   should 'load new article name equal of another article old name' do
@@ -503,7 +504,7 @@ class ContentViewerControllerTest < ActionController::TestCase
     get :view_page, :profile => p.identifier, :page => old_path
 
     assert_response :redirect
-    assert_redirected_to :profile => p.identifier, :page => a2.explode_path
+    assert_redirected_to :host => p.default_hostname, :controller => 'content_viewer', :action => 'view_page', :profile => p.identifier, :page => a2.explode_path
   end
 
   should 'not return an article of a different user' do
@@ -1374,12 +1375,16 @@ class ContentViewerControllerTest < ActionController::TestCase
     assert_not_nil assigns(:comment)
   end
 
-  should 'store IP address for comments' do
+  should 'store IP address, user agent and referrer for comments' do
     page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
     @request.stubs(:remote_ip).returns('33.44.55.66')
+    @request.stubs(:referrer).returns('http://example.com')
+    @request.stubs(:user_agent).returns('MyBrowser')
     post :view_page, :profile => profile.identifier, :page => [ 'myarticle' ], :comment => { :title => 'title', :body => 'body', :name => "Spammer", :email => 'damn@spammer.com' }, :confirm => 'true'
     comment = Comment.last
     assert_equal '33.44.55.66', comment.ip_address
+    assert_equal 'MyBrowser', comment.user_agent
+    assert_equal 'http://example.com', comment.referrer
   end
 
   should 'not save a comment if a plugin rejects it' do
@@ -1395,23 +1400,36 @@ class ContentViewerControllerTest < ActionController::TestCase
     end
   end
 
-  should 'notify plugins after a comment is saved' do
-    class TestNotifyCommentPlugin < Noosfero::Plugin
-      def comment_saved(c)
-        @__saved = c.id
-        @__title = c.title
-      end
-      attr_reader :__title
-      attr_reader :__saved
+  should 'not display article actions button if any plugins says so' do
+    class Plugin1 < Noosfero::Plugin
+      def content_remove_edit(content); true; end
     end
-    plugin = TestNotifyCommentPlugin.new
-    Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([plugin])
-    page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
-    post :view_page, :profile => profile.identifier, :page => [ 'myarticle' ], :comment => { :title => 'the title of the comment', :body => 'body', :name => "Spammer", :email => 'damn@spammer.com' }, :confirm => 'true'
+    class Plugin2 < Noosfero::Plugin
+      def content_remove_edit(content); false; end
+    end
 
-    assert_equal 'the title of the comment', plugin.__title
-    assert plugin.__saved
+    environment.enable_plugin(Plugin1.name)
+    environment.enable_plugin(Plugin2.name)
 
+    login_as('testinguser')
+    xhr :get, :view_page, :profile => 'testinguser', :page => [], :toolbar => true
+    assert_no_tag :tag => 'div', :attributes => { :id => 'article-actions' }, :descendant => { :tag => 'a', :attributes => { :href => "/myprofile/testinguser/cms/edit/#{profile.home_page.id}" } }
+  end
+
+  should 'expire article actions button if any plugins says so' do
+    class Plugin1 < Noosfero::Plugin
+      def content_expire_edit(content); 'This button is expired.'; end
+    end
+    class Plugin2 < Noosfero::Plugin
+      def content_expire_edit(content); nil; end
+    end
+
+    environment.enable_plugin(Plugin1.name)
+    environment.enable_plugin(Plugin2.name)
+
+    login_as('testinguser')
+    xhr :get, :view_page, :profile => 'testinguser', :page => [], :toolbar => true
+    assert_tag :tag => 'div', :attributes => { :id => 'article-actions' }, :descendant => { :tag => 'a', :attributes => { :title => 'This button is expired.', :class => 'button with-text icon-edit disabled' } }
   end
 
   should 'remove email from article followers when unfollow' do
@@ -1424,6 +1442,64 @@ class ContentViewerControllerTest < ActionController::TestCase
     assert_includes Article.find(article.id).followers, follower_email
     post :view_page, :profile => profile.identifier, :page => [article.name], :unfollow => 'commit', :email => follower_email
     assert_not_includes Article.find(article.id).followers, follower_email
+  end
+
+  should 'not display comments marked as spam' do
+    article = fast_create(Article, :profile_id => profile.id)
+    ham = fast_create(Comment, :source_id => article.id, :source_type => 'Article')
+    spam = fast_create(Comment, :source_id => article.id, :source_type => 'Article', :spam => true)
+
+    get 'view_page', :profile => profile.identifier, :page => article.path.split('/')
+    assert_equal 1, assigns(:comments_count)
+  end
+
+  should 'be able to mark comments as spam' do
+    login_as profile.identifier
+    article = fast_create(Article, :profile_id => profile.id)
+    spam = fast_create(Comment, :name => 'foo', :email => 'foo@example.com', :source_id => article.id, :source_type => 'Article')
+
+    post 'view_page', :profile => profile.identifier, :page => article.path.split('/'), :mark_comment_as_spam => spam.id
+
+    spam.reload
+    assert spam.spam?
+  end
+
+  should 'be able to edit a comment' do
+    login_as profile.identifier
+    page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text', :accept_comments => false)
+    comment = fast_create(Comment, :body => 'Original comment', :author_id => profile.id, :source_id => page.id, :source_type => 'Article')
+
+    post :edit_comment, :id => comment.id, :profile => profile.identifier, :page => [ 'myarticle' ], :comment => { :body => 'Comment edited' }
+    assert_equal 'Comment edited', Comment.find(comment.id).body
+  end
+
+  should 'edit comment from a page' do
+    login_as profile.identifier
+    page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
+    comment = fast_create(Comment, :body => 'Original comment', :author_id => profile.id, :source_id => page.id, :source_type => 'Article')
+
+    get :edit_comment, :id => comment.id, :profile => profile.identifier, :page => [ 'myarticle' ], :comment => { :body => 'Comment edited' }
+    assert_tag :tag => 'h1', :content => 'Edit comment'
+  end
+
+  should 'not edit comment from other page' do
+    login_as profile.identifier
+    page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
+    comment = fast_create(Comment, :body => 'Original comment', :author_id => profile.id, :source_id => page.id, :source_type => 'Article')
+
+    other_page = profile.articles.create!(:name => 'my other article', :body => 'the body of the text')
+    comment_on_other_page = fast_create(Comment, :body => 'Comment on other article', :author_id => profile.id, :source_id => other_page.id, :source_type => 'Article')
+
+    get :edit_comment, :id => comment_on_other_page.id, :profile => profile.identifier, :page => [ 'myarticle' ], :comment => { :body => 'Comment edited' }
+    assert_redirected_to page.url
+  end
+
+  should 'not crash on edit comment if comment does not exist' do
+    login_as profile.identifier
+    page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
+
+    get :edit_comment, :id => 1000, :profile => profile.identifier, :page => [ 'myarticle' ], :comment => { :body => 'Comment edited' }
+    assert_response 404
   end
 
 end

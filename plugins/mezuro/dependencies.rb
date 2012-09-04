@@ -1,0 +1,2 @@
+require 'savon'
+require 'googlecharts'

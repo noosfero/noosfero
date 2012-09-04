@@ -9,25 +9,30 @@
   @user ||= User.new
 %>
     
-    <% labelled_form_for :user, @user,
-       :url => login_url do |f| %>
+    <% labelled_form_for :user, @user, :url => login_url do |f| %>
 
-         <%= f.text_field :login, :onchange => 'this.value = convToValidLogin( this.value )' %>
+      <%= f.text_field :login, :onchange => 'this.value = convToValidLogin( this.value )' %>
 
-         <%= f.password_field :password %>
+      <%= f.password_field :password %>
+
+      <%= @plugins.dispatch(:login_extra_contents).collect { |content| instance_eval(&content) }.join("") %>
 
       <% button_bar do %>
         <%= submit_button( 'login', _('Log in') )%>
-        <%= link_to content_tag( 'span', _('New user') ),
-            { :controller => 'account', :action => 'signup' },
-            :class => 'button with-text icon-add' %>
+        <% unless @plugins.dispatch(:allow_user_registration).include?(false) %>
+          <%= link_to content_tag( 'span', _('New user') ),
+              { :controller => 'account', :action => 'signup' },
+              :class => 'button with-text icon-add' %>
+        <% end %>
       <% end %>
 
     <% end %>
 
-    <p class="forgot-passwd">
-      <%= link_to _("I forgot my password!"), :controller => 'account', :action => 'forgot_password' %>
-    </p>
+    <% unless @plugins.dispatch(:allow_password_recovery).include?(false) %>
+      <p class="forgot-passwd">
+        <%= link_to _("I forgot my password!"), :controller => 'account', :action => 'forgot_password' %>
+      </p>
+    <% end %>
 
     </div>
 

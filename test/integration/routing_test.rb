@@ -221,4 +221,39 @@ class RoutingTest < ActionController::IntegrationTest
     assert_routing('/chat/avatar/chemical-brothers', :controller => 'chat', :action => 'avatar', :id => 'chemical-brothers')
   end
 
+  def test_plugins_generic_routes
+    assert_routing('/plugin/foo/public_bar/play/1', {:controller => 'foo_plugin_public_bar', :action => 'play', :id => '1'})
+    assert_routing('/profile/test/plugin/foo/profile_bar/play/1', {:controller => 'foo_plugin_profile_bar', :action => 'play', :id => '1', :profile => 'test'})
+    assert_routing('/myprofile/test/plugin/foo/myprofile_bar/play/1', {:controller => 'foo_plugin_myprofile_bar', :action => 'play', :id => '1', :profile => 'test'})
+    assert_routing('/admin/plugin/foo/admin_bar/play/1', {:controller => 'foo_plugin_admin_bar', :action => 'play', :id => '1'})
+  end
+
+  def test_not_found_images_on_nothing
+    assert_recognizes({:controller => 'not_found', :action => 'nothing', :stuff => ['aksdhf']}, '/images/aksdhf')
+  end
+
+  def test_not_found_stylesheets_on_nothing
+    assert_recognizes({:controller => 'not_found', :action => 'nothing', :stuff => ['aksdhf']}, '/stylesheets/aksdhf')
+  end
+
+  def test_not_found_designs_on_nothing
+    assert_recognizes({:controller => 'not_found', :action => 'nothing', :stuff => ['aksdhf']}, '/designs/aksdhf')
+  end
+
+  def test_not_found_articles_on_nothing
+    assert_recognizes({:controller => 'not_found', :action => 'nothing', :stuff => ['aksdhf']}, '/articles/aksdhf')
+  end
+
+  def test_not_found_javascripts_on_nothing
+    assert_recognizes({:controller => 'not_found', :action => 'nothing', :stuff => ['aksdhf']}, '/javascripts/aksdhf')
+  end
+
+  def test_not_found_thumbnails_on_nothing
+    assert_recognizes({:controller => 'not_found', :action => 'nothing', :stuff => ['aksdhf']}, '/thumbnails/aksdhf')
+  end
+
+  def test_not_found_user_themes_on_nothing
+    assert_recognizes({:controller => 'not_found', :action => 'nothing', :stuff => ['aksdhf']}, '/user_themes/aksdhf')
+  end
+
 end

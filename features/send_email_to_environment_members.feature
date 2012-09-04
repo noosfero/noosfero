@@ -18,7 +18,7 @@ Feature: send emails to environment members users
   Scenario: Send e-mail to members
     Given I am logged in as admin
     When I follow "Administration"
-    And I follow "Manage users"
+    And I follow "Users"
     And I follow "Send e-mail to users"
     And I fill in "Subject" with "Hello, user!"
     And I fill in "body" with "We have some news"
@@ -28,7 +28,7 @@ Feature: send emails to environment members users
   Scenario: Not send e-mail to members if subject is blank
     Given I am logged in as admin
     When I follow "Administration"
-    And I follow "Manage users"
+    And I follow "Users"
     And I follow "Send e-mail to users"
     And I fill in "body" with "We have some news"
     When I press "Send"
@@ -37,7 +37,7 @@ Feature: send emails to environment members users
   Scenario: Not send e-mail to members if body is blank
     Given I am logged in as admin
     When I follow "Administration"
-    And I follow "Manage users"
+    And I follow "Users"
     And I follow "Send e-mail to users"
     And I fill in "Subject" with "Hello, user!"
     When I press "Send"
@@ -46,7 +46,7 @@ Feature: send emails to environment members users
   Scenario: Cancel creation of mailing
     Given I am logged in as admin
     When I follow "Administration"
-    And I follow "Manage users"
+    And I follow "Users"
     And I follow "Send e-mail to users"
     Then I should be on /admin/users/send_mail
     When I follow "Cancel e-mail"

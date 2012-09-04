@@ -33,7 +33,7 @@ class UsersControllerTest < ActionController::TestCase
     login_as('admin_user')
 
     get :index, :format => 'xml'
-    assert_equal 'application/xml', @response.content_type
+    assert_equal 'text/xml', @response.content_type
   end
 
   should 'response as CSV to export users' do

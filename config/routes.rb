@@ -19,16 +19,17 @@ ActionController::Routing::Routes.draw do |map|
  
   # -- just remember to delete public/index.html.
   # You can have the root of your site routed by hooking up ''
+  map.root :controller => "home", :conditions => { :if => lambda { |env| !Domain.hosting_profile_at(env[:host]) } }
   map.connect '', :controller => "home", :conditions => { :if => lambda { |env| !Domain.hosting_profile_at(env[:host]) } }
   map.home 'site/:action', :controller => 'home'
 
-  map.connect 'images/*stuff', :controller => 'not_found', :action => 'index'
-  map.connect 'stylesheets/*stuff', :controller => 'not_found', :action => 'index'
-  map.connect 'designs/*stuff', :controller => 'not_found', :action => 'index'
-  map.connect 'articles/*stuff', :controller => 'not_found', :action => 'index'
-  map.connect 'javascripts/*stuff', :controller => 'not_found', :action => 'index'
-  map.connect 'thumbnails/*stuff', :controller => 'not_found', :action => 'index'
-  map.connect 'user_themes/*stuff', :controller => 'not_found', :action => 'index'
+  map.connect 'images/*stuff', :controller => 'not_found', :action => 'nothing'
+  map.connect 'stylesheets/*stuff', :controller => 'not_found', :action => 'nothing'
+  map.connect 'designs/*stuff', :controller => 'not_found', :action => 'nothing'
+  map.connect 'articles/*stuff', :controller => 'not_found', :action => 'nothing'
+  map.connect 'javascripts/*stuff', :controller => 'not_found', :action => 'nothing'
+  map.connect 'thumbnails/*stuff', :controller => 'not_found', :action => 'nothing'
+  map.connect 'user_themes/*stuff', :controller => 'not_found', :action => 'nothing'
 
   # online documentation
   map.doc         'doc', :controller => 'doc', :action => 'index'
@@ -121,8 +122,11 @@ ActionController::Routing::Routes.draw do |map|
   # cache stuff - hack
   map.cache 'public/:action/:id', :controller => 'public'
 
+  map.connect ':profile/edit_comment/:id/*page', :controller => 'content_viewer', :action => 'edit_comment', :profile => /#{Noosfero.identifier_format}/
+
   # match requests for profiles that don't have a custom domain
   map.homepage ':profile/*page', :controller => 'content_viewer', :action => 'view_page', :profile => /#{Noosfero.identifier_format}/, :conditions => { :if => lambda { |env| !Domain.hosting_profile_at(env[:host]) } }
+
 
   # match requests for content in domains hosted for profiles
   map.connect '*page', :controller => 'content_viewer', :action => 'view_page'

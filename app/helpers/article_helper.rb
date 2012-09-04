@@ -2,14 +2,19 @@ module ArticleHelper
 
   def custom_options_for_article(article)
     @article = article
+    content_tag('h4', _('Visibility')) +
+    content_tag('div',
+      content_tag('div',
+        radio_button(:article, :published, true) +
+          content_tag('label', _('Public (visible to other people)'), :for => 'article_published_true')
+           ) +
+      content_tag('div',
+        radio_button(:article, :published, false) +
+          content_tag('label', _('Private'), :for => 'article_published_false')
+       )
+     ) +
     content_tag('h4', _('Options')) +
     content_tag('div',
-      content_tag(
-        'div',
-        check_box(:article, :published) +
-        content_tag('label', _('This article must be published (visible to other people)'), :for => 'article_published')
-      ) +
-
       (article.profile.has_members? ?
       content_tag(
         'div',
