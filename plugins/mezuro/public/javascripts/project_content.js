@@ -10,7 +10,7 @@ jQuery(function (){
 });
 
 function showProjectContent() {
-  callAction('project_state', {}, showProjectContentFor);
+  callAction('project', 'project_state', {}, showProjectContentFor);
 }
 
 function display_metric_history() {
@@ -18,14 +18,14 @@ function display_metric_history() {
   var metric_name = jQuery(this).attr('show-metric-history');
   toggle_mezuro("." + metric_name);
   metricName = metric_name;
-  callAction('module_metrics_history', {module_name: module_name, metric_name: metric_name}, show_metrics);
+  callAction('module', 'module_metrics_history', {module_name: module_name, metric_name: metric_name}, show_metrics);
   return false;
 }
 
 function display_grade_history() {
   var module_name = jQuery(this).attr('data-module-name');
   toggle_mezuro("#historical-grade");
-  callAction('module_grade_history', {module_name: module_name}, show_grades);
+  callAction('module', 'module_grade_history', {module_name: module_name}, show_grades);
   return false;
 }
 
@@ -46,8 +46,8 @@ function reloadModule(){
   var module_name = jQuery(this).attr('data-module-name');
   showLoadingProcess(false);
   processingTree = true;
-  callAction('project_tree', {module_name: module_name }, showProjectTree);
-  callAction('module_result', {module_name: module_name}, showModuleResult);
+  callAction('project', 'project_tree', {module_name: module_name }, showProjectTree);
+  callAction('module', 'module_result', {module_name: module_name}, showModuleResult);
   return false;
 }
 
@@ -59,23 +59,23 @@ function reloadProjectWithDate(date){
 function reloadProject(date){
   showLoadingProcess(true);
   
-  callAction('project_result', {date: date}, showProjectResult);
-  callAction('project_tree', {date: date}, showProjectTree);
-  callAction('module_result', {date: date}, showModuleResult);
+  callAction('project', 'project_result', {date: date}, showProjectResult);
+  callAction('project', 'project_tree', {date: date}, showProjectTree);
+  callAction('module', 'module_result', {date: date}, showModuleResult);
 }
 
 function showProjectContentFor(state){
   if (state == 'ERROR') {
     jQuery('#project-state').html('ERROR');
-    callAction('project_error', {}, showProjectResult);
+    callAction('project', 'project_error', {}, showProjectResult);
   }
   else if (state == 'READY') {
     jQuery('#msg-time').html('');
     jQuery('#project-state').html('READY');
-    callAction('project_result', {}, showProjectResult);
-    callAction('project_tree', {}, showProjectTree);
+    callAction('project', 'project_result', {}, showProjectResult);
+    callAction('project','project_tree', {}, showProjectTree);
     var project_name = jQuery("#project-result").attr('data-project-name');
-    callAction('module_result', {module_name: project_name}, showModuleResult);
+    callAction('module', 'module_result', {module_name: project_name}, showModuleResult);
   } 
   else if (state.endsWith("ING")) {
     jQuery('#project-state').html(state);
@@ -109,10 +109,10 @@ function showModuleResult(content){
   return false;
 }
 
-function callAction(action, params, callback){
+function callAction(controller, action, params, callback){
   var profile = projectContentData('profile');
   var content = projectContentData('content');
-  var endpoint = '/profile/' + profile + '/plugins/mezuro/' + action + '/' + content;
+  var endpoint = '/profile/' + profile + '/plugin/mezuro/' + controller + '/' + action + '/' + content;
   jQuery.get(endpoint, params, callback);
 }
 
