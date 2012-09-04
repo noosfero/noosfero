@@ -1,0 +1,59 @@
+<script src="/plugins/mezuro/javascripts/project_content.js" type="text/javascript"></script>
+
+<% @project = @page.project %>
+<% unless @page.errors[:base].nil? %>
+  <% if @page.errors[:base] =~ /There is no project named/ %>
+    <h3>Warning:</h3>
+    <p>This project doesn't exist on the Web Service. Do you want to <a href="/myprofile/<%= @page.profile.name %>/cms/destroy/<%= @page.id%>">delete</a> or <a href="/myprofile/<%= @page.profile.name %>/cms/edit/<%= @page.id%>">save it again</a>?</p>
+  <% else %>
+    <%= @page.errors[:base] %>
+  <% end %>
+<% else %>
+
+  <table>
+    <tr>
+      <td><%= _('Name') %></td>
+      <td><%= @project.name %></td>
+    </tr>
+    <tr>
+      <td><%= _('License') %></td>
+      <td><%= @project.license %></td>
+    </tr>
+    <tr>
+      <td><%= _('Description') %></td>
+      <td><%= @project.description %></td>
+    </tr>
+    <tr>
+      <td><%= _('Repository type') %></td>
+      <td><%= @project.repository.type %></td>
+    </tr>
+    <tr>
+      <td><%= _('Repository address') %></td>
+      <td><%= @project.repository.address %></td>
+    </tr>
+    <tr>
+      <td><%= _('Configuration') %></td>
+      <td><%= @project.configuration_name %></td>
+    </tr>
+    <tr> 
+      <td><%= _('Periodicity') %></td>
+      <td><%= MezuroPlugin::Helpers::ContentViewerHelper.get_periodicity_option(@page.periodicity_in_days) %></td>
+    </tr>
+    <tr>
+      <td><%= _('Status')%></td>
+      <td>
+        <div id="project-state"><%= @project.state %></div>
+        <div id="msg-time"></div> 
+      </td>
+    </tr>
+  </table>
+
+  <br />
+
+  <div id="project-result" data-profile="<%= @page.profile.identifier %>" data-content="<%= @page.id %>"
+       data-project-name="<%= @project.name %>">
+  </div>
+  <div id="project-tree"></div>
+  <div id="module-result">
+  </div>
+<% end %>
