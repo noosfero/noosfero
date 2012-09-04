@@ -71,10 +71,7 @@ class Person < Profile
     Friendship.find(:all, :conditions => { :friend_id => person.id}).each { |friendship| friendship.destroy }
   end
 
-  after_destroy :destroy_user
-  def destroy_user
-    self.user.destroy if self.user
-  end
+  belongs_to :user, :dependent => :delete
 
   def can_control_scrap?(scrap)
     begin

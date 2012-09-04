@@ -320,6 +320,37 @@ class Noosfero::Plugin
     nil
   end
 
+  # -> Add an alternative authentication method.
+  # Your plugin have to make the access control and return the logged user.
+  # returns = User
+  def alternative_authentication
+    nil
+  end
+
+  # -> Adds adicional link to make the user authentication
+  # returns = lambda block that creates html code
+  def alternative_authentication_link
+    nil
+  end
+
+  # -> Allow or not user registration
+  # returns = boolean
+  def allow_user_registration
+    true
+  end
+
+  # -> Allow or not password recovery by users
+  # returns = boolean
+  def allow_password_recovery
+    true
+  end
+
+  # -> Adds fields to the login form
+  # returns = lambda block that creates html code
+  def login_extra_contents
+    nil
+  end
+
   def method_missing(method, *args, &block)
     # This is a generic hotspot for all controllers on Noosfero.
     # If any plugin wants to define filters to run on any controller, the name of

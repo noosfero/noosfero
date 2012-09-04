@@ -13,6 +13,8 @@
 
      <%= f.password_field :password %>
 
+     <%= @plugins.dispatch(:login_extra_contents).collect { |content| instance_eval(&content) }.join("") %>
+
      <% button_bar do %>
        <%= submit_button( 'login', _('Log in') )%>
        <% if is_thickbox %>
@@ -23,8 +25,13 @@
 <% end %>
 
 <% button_bar do %>
-  <%= button :add, _("New user"), :controller => 'account', :action => 'signup' %>
-  <%= button :help, _("I forgot my password!"), :controller => 'account', :action => 'forgot_password' %>
+  <% unless @plugins.dispatch(:allow_user_registration).include?(false) %>
+    <%= button :add, _("New user"), :controller => 'account', :action => 'signup' %>
+  <% end %>
+
+  <% unless @plugins.dispatch(:allow_password_recovery).include?(false) %>
+    <%= button :help, _("I forgot my password!"), :controller => 'account', :action => 'forgot_password' %>
+  <% end %>
 <% end %>
 
 </div><!-- end class="login-box" -->

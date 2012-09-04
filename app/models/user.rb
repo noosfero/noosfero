@@ -30,7 +30,7 @@ class User < ActiveRecord::Base
 
   after_create do |user|
     user.person ||= Person.new
-    user.person.attributes = user.person_data.merge(:identifier => user.login, :user_id => user.id, :environment_id => user.environment_id)
+    user.person.attributes = user.person_data.merge(:identifier => user.login, :user => user, :environment_id => user.environment_id)
     user.person.name ||= user.login
     user.person.visible = false unless user.activated?
     user.person.save!
@@ -88,13 +88,13 @@ class User < ActiveRecord::Base
   attr_protected :activated_at
 
   # Virtual attribute for the unencrypted password
-  attr_accessor :password
+  attr_accessor :password, :name
 
   validates_presence_of     :login, :email
   validates_format_of       :login, :with => Profile::IDENTIFIER_FORMAT, :if => (lambda {|user| !user.login.blank?})
   validates_presence_of     :password,                   :if => :password_required?
-  validates_presence_of     :password_confirmation,      :if => :password_required?, :if => (lambda {|user| !user.password.blank?})
-  validates_length_of       :password, :within => 4..40, :if => :password_required?, :if => (lambda {|user| !user.password.blank?})
+  validates_presence_of     :password_confirmation,      :if => :password_required?
+  validates_length_of       :password, :within => 4..40, :if => :password_required?
   validates_confirmation_of :password,                   :if => :password_required?
   validates_length_of       :login,    :within => 2..40, :if => (lambda {|user| !user.login.blank?})
   validates_length_of       :email,    :within => 3..100, :if => (lambda {|user| !user.email.blank?})
@@ -228,7 +228,12 @@ class User < ActiveRecord::Base
   end
 
   def name
-    person ? person.name : login
+    name = (self[:name] || login)
+    person.nil? ? name : (person.name || name)
+  end
+
+  def name= name
+   self[:name] = name
   end
 
   def enable_email!
@@ -274,6 +279,11 @@ class User < ActiveRecord::Base
     15 # in minutes
   end
 
+
+  def not_require_password!
+    @is_password_required = false
+  end
+
   protected
     # before filter 
     def encrypt_password
@@ -282,9 +292,13 @@ class User < ActiveRecord::Base
       self.password_type ||= User.system_encryption_method.to_s
       self.crypted_password = encrypt(password)
     end
-    
+
     def password_required?
-      crypted_password.blank? || !password.blank?
+      (crypted_password.blank? || !password.blank?) && is_password_required?
+    end
+
+    def is_password_required?
+      @is_password_required.nil? ? true : @is_password_required
     end
 
     def make_activation_code

@@ -11,6 +11,10 @@ class AccountControllerTest < ActionController::TestCase
 
   all_fixtures
 
+  def teardown
+    Thread.current[:enabled_plugins] = nil
+  end
+
   def setup
     @controller = AccountController.new
     @request    = ActionController::TestRequest.new
@@ -31,13 +35,11 @@ class AccountControllerTest < ActionController::TestCase
     assert_response :redirect
   end
 
-  should 'redirect to where user was on login' do
-    @request.env["HTTP_REFERER"] = '/bli'
-    u = new_user
+  should 'display notice message if the login fail' do
     @controller.stubs(:logged_in?).returns(false)
     post :login, :user => {:login => 'quire', :password => 'quire'}
 
-    assert_redirected_to '/bli'
+    assert session[:notice].include?('Incorrect')
   end
 
   should 'authenticate on the current environment' do
@@ -46,23 +48,11 @@ class AccountControllerTest < ActionController::TestCase
     post :login, :user => { :login => 'fake', :password => 'fake' }
   end
 
-  should 'redirect to where was when login on other environment' do
-    e = fast_create(Environment, :name => 'other_environment')
-    e.domains << Domain.new(:name => 'other.environment')
-    e.save!
-    u = create_user('test_user', :environment => e).person
-
-    @request.env["HTTP_REFERER"] = '/bli'
-    post :login, :user => {:login => 'test_user', :password => 'test_user'}
-
-    assert_redirected_to '/bli'
-  end
-
   def test_should_fail_login_and_not_redirect
     @request.env["HTTP_REFERER"] = 'bli'
     post :login, :user => {:login => 'johndoe', :password => 'bad password'}
     assert_nil session[:user]
-    assert_response :redirect
+    assert_response :success
   end
 
   def test_should_allow_signup
@@ -697,7 +687,6 @@ class AccountControllerTest < ActionController::TestCase
     assert_nil assigns(:message)
     post :login, :user => {:login => 'testuser', :password => 'test123'}
     assert_nil session[:user]
-    assert_redirected_to '/bli'
   end
 
   should 'not activate user when activation code is incorrect' do
@@ -707,7 +696,6 @@ class AccountControllerTest < ActionController::TestCase
     assert_nil assigns(:message)
     post :login, :user => {:login => 'testuser', :password => 'test123'}
     assert_nil session[:user]
-    assert_redirected_to '/bli'
   end
 
   should 'be able to upload an image' do
@@ -776,6 +764,122 @@ class AccountControllerTest < ActionController::TestCase
     assert_tag :tag => 'strong', :content => 'Plugin1 text'
     assert_tag :tag => 'strong', :content => 'Plugin2 text'
   end
+
+  should 'login with an alternative authentication defined by plugin' do
+    class Plugin1 < Noosfero::Plugin
+      def alternative_authentication
+        User.new(:login => 'testuser')
+      end
+    end
+    Environment.default.enable_plugin(Plugin1.name)
+   
+    post :login, :user => {:login => "testuser"}
+
+    assert_equal 'testuser', assigns(:current_user).login
+    assert_response :redirect
+  end
+
+  should "login with the default autentication if the alternative authentication method doesn't login the user" do
+    class Plugin1 < Noosfero::Plugin
+      def alternative_authentication
+        nil
+      end
+    end
+    Environment.default.enable_plugin(Plugin1.name)
+    post :login, :user => {:login => 'johndoe', :password => 'test'}
+    assert session[:user]
+    assert_equal 'johndoe', assigns(:current_user).login
+    assert_response :redirect
+  end
+
+  should "redirect user on signup if a plugin doesn't allow user registration" do
+    class TestRegistrationPlugin < Noosfero::Plugin
+      def allow_user_registration
+        false
+      end
+    end
+    Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([TestRegistrationPlugin.new])
+
+    post :signup, :user => { :login => 'testuser', :password => '123456', :password_confirmation => '123456', :email => 'testuser@example.com' }
+    assert_response :redirect
+  end
+
+  should "not display the new user button on login page if not allowed by any plugin" do
+    class Plugin1 < Noosfero::Plugin
+      def allow_user_registration
+        false
+      end
+    end
+
+    class Plugin2 < Noosfero::Plugin
+      def allow_user_registration
+        true
+      end
+    end
+    Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([Plugin1.new, Plugin2.new])
+
+    get :login
+
+    assert_no_tag :tag => 'a', :attributes => {:href => '/account/signup'}
+  end
+
+  should "redirect user on forgot_password action if a plugin doesn't allow user to recover its password" do
+    class TestRegistrationPlugin < Noosfero::Plugin
+      def allow_password_recovery
+        false
+      end
+    end
+    Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([TestRegistrationPlugin.new])
+
+    #Redirect on get action
+    get :forgot_password
+    assert_response :redirect
+    
+    #Redirect on post action
+    post :forgot_password, :change_password => { :login => 'test', :email => 'test@localhost.localdomain' }
+    assert_response :redirect
+  end
+
+  should "not display the forgot password button on login page if not allowed by any plugin" do
+    class Plugin1 < Noosfero::Plugin
+      def allow_password_recovery
+        false
+      end
+    end
+
+    class Plugin2 < Noosfero::Plugin
+      def allow_password_recovery
+        true
+      end
+    end
+    Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([Plugin1.new, Plugin2.new])
+
+    get :login
+
+    assert_no_tag :tag => 'a', :attributes => {:href => '/account/forgot_password'}
+  end
+
+  should 'add extra content on login form from plugins' do
+    class Plugin1 < Noosfero::Plugin
+      def login_extra_contents
+        lambda {"<strong>Plugin1 text</strong>"}
+      end
+    end
+    class Plugin2 < Noosfero::Plugin
+      def login_extra_contents
+        lambda {"<strong>Plugin2 text</strong>"}
+      end
+    end
+
+    Environment.default.enable_plugin(Plugin1.name)
+    Environment.default.enable_plugin(Plugin2.name)
+
+    get :login
+
+    assert_tag :tag => 'strong', :content => 'Plugin1 text'
+    assert_tag :tag => 'strong', :content => 'Plugin2 text'
+  end
+
 
   protected
     def new_user(options = {}, extra_options ={})

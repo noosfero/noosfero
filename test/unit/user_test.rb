@@ -403,10 +403,27 @@ class UserTest < ActiveSupport::TestCase
     assert_equal 'Test User', user.name
   end
 
-  should 'respond name with login, if there is no person related' do
+  should 'respond name with login, if there is no person related and name defined' do
     user = create_user('testuser')
     user.person = nil
+    user.name = nil
     assert_equal 'testuser', user.name
+  end
+
+  should 'respond name with user name attribute' do
+    user = create_user('testuser')
+    user.person = nil
+    user.name = 'Another User'
+    user.login = 'Login User'
+    assert_equal 'Another User', user.name
+  end
+
+  should 'respond name with related person name although user name attribute is defined' do
+    user = create_user('testuser')
+    user.person.name = 'Person Name'
+    user.name = 'Another User'
+    user.login = 'Login User'
+    assert_equal 'Person Name', user.name
   end
 
   should 'have activation code' do
@@ -497,6 +514,12 @@ class UserTest < ActiveSupport::TestCase
     user = new_user
     user.stubs(:person).returns(nil)
     assert !user.activate
+  end
+
+  should 'be able to skip the password requirement' do
+    user = User.new(:login => 'quire', :email => 'quire@example.com')
+    user.not_require_password!
+    assert user.save!
   end
 
   protected
