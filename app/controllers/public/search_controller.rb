@@ -250,10 +250,9 @@ class SearchController < PublicController
   end
 
   def limit
-    searching = @searching.values.select{ |v| v }
-    if params[:display] == 'map'
+    if map_search?
       MAP_SEARCH_LIMIT
-    elsif searching.size <= 1
+    elsif !multiple_search?
       if [:people, :communities].include? @asset
         BLOCKS_SEARCH_LIMIT
       elsif @asset == :enterprises and @empty_query
@@ -267,31 +266,34 @@ class SearchController < PublicController
   end
 
   def paginate_options(page = params[:page])
+    page = 1 if multiple_search? or params[:display] == 'map'
     { :per_page => limit, :page => page }
   end
 
   def full_text_search(filters = [], options = {})
     paginate_options = paginate_options(params[:page])
     asset_class = asset_class(@asset)
-
     solr_options = options
-    if !@results_only and asset_class.respond_to? :facets
-      solr_options.merge! asset_class.facets_find_options(params[:facet])
-      solr_options[:all_facets] = true
-      solr_options[:limit] = 0 if @facets_only
-    end
-    solr_options[:filter_queries] ||= []
-    solr_options[:filter_queries] += filters
-    solr_options[:filter_queries] << "environment_id:#{environment.id}"
-    solr_options[:filter_queries] << asset_class.facet_category_query.call(@category) if @category
+    pg_options = paginate_options(params[:page])
 
-    solr_options[:boost_functions] ||= []
-    params[:order_by] = nil if params[:order_by] == 'none'
-    if params[:order_by]
-      order = SortOptions[@asset][params[:order_by].to_sym]
-      raise "Unknown order by" if order.nil?
-      order[:solr_opts].each do |opt, value|
-        solr_options[opt] = value.is_a?(Proc) ? instance_eval(&value) : value
+    if !multiple_search?
+      if !@results_only and asset_class.respond_to? :facets
+        solr_options.merge! asset_class.facets_find_options(params[:facet])
+        solr_options[:all_facets] = true
+      end
+      solr_options[:filter_queries] ||= []
+      solr_options[:filter_queries] += filters
+      solr_options[:filter_queries] << "environment_id:#{environment.id}"
+      solr_options[:filter_queries] << asset_class.facet_category_query.call(@category) if @category
+
+      solr_options[:boost_functions] ||= []
+      params[:order_by] = nil if params[:order_by] == 'none'
+      if params[:order_by]
+        order = SortOptions[@asset][params[:order_by].to_sym]
+        raise "Unknown order by" if order.nil?
+        order[:solr_opts].each do |opt, value|
+          solr_options[opt] = value.is_a?(Proc) ? instance_eval(&value) : value
+        end
       end
     end
 
