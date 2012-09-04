@@ -116,10 +116,10 @@ class CmsController < MyProfileController
       @parent_id = parent.id
     end
 
-    translations if @article.translatable?
-
     @article.profile = profile
     @article.last_changed_by = user
+
+    translations if @article.translatable?
 
     continue = params[:continue]
     if request.post?
