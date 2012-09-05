@@ -1,5 +1,5 @@
-class MezuroPluginProjectController < ProfileController
-  append_view_path File.join(File.dirname(__FILE__) + '/../../views/project')
+class MezuroPluginProjectController < MezuroPluginProfileController
+  append_view_path File.join(File.dirname(__FILE__) + '/../../views')
 
   def project_state
     @content = profile.articles.find(params[:id])
@@ -18,7 +18,7 @@ class MezuroPluginProjectController < ProfileController
     if project_content_has_errors?
       redirect_to_error_page(@content.errors[:base])
     else
-      render :partial => 'content_viewer/project_error'
+      render :partial => 'project_error'
     end
   end
 
@@ -29,7 +29,7 @@ class MezuroPluginProjectController < ProfileController
     if project_content_has_errors?
       redirect_to_error_page(@content.errors[:base])
     else
-      render :partial => 'content_viewer/project_result'
+      render :partial => 'project_result'
     end
   end
 
@@ -42,13 +42,8 @@ class MezuroPluginProjectController < ProfileController
       redirect_to_error_page(@content.errors[:base])
     else
       @source_tree = project_result.node(params[:module_name])
-      render :partial =>'content_viewer/source_tree'
+      render :partial =>'source_tree'
     end
   end
 
-  private
-
-  def project_content_has_errors?
-    not @content.errors[:base].nil?
-  end
 end
