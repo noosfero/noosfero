@@ -4,6 +4,28 @@ class SearchHelperTest < ActiveSupport::TestCase
 
   include SearchHelper
 
+  should 'return whether on a multiple search' do
+    stubs(:params).returns({:action => 'index', :display => 'map'})
+    @results = {:articles => [1,2], :products => [1,2]}
+    assert multiple_search?
+
+    stubs(:params).returns({:action => 'products', :display => 'map'})
+    @results = {:products => [1,2]}
+    assert !multiple_search?
+  end
+
+  should 'return whether on a map search' do
+    stubs(:params).returns({:action => 'index', :display => 'map'})
+    @results = {:articles => [1,2], :products => [1,2]}
+    @query = ''
+    assert !map_search?
+
+    stubs(:params).returns({:action => 'products', :display => 'map'})
+    @results = {:products => [1,2]}
+    @query = 'test'
+    assert map_search?
+  end
+
   should 'display search page title' do
     title = 'page_title'
     assert_equal search_page_title(title), '<h1>page_title</h1>' 
@@ -35,6 +57,8 @@ class SearchHelperTest < ActiveSupport::TestCase
 
   should 'display results with map' do
     stubs(:params).returns({:display => 'map'})
+    @query = 'test'
+    @results = {:products => [1,2]}
     expects('render').with({:partial => 'google_maps'}).returns('render_return')
     expects('content_tag').with('div', 'render_return', :class => 'map-or-list-search-results map')
     display_results true
@@ -231,7 +255,6 @@ class SearchHelperTest < ActiveSupport::TestCase
     end
   end
     
-
   should 'return asset class from string' do
     asset_names = ['products', 'events', 'articles', 'enterprises', 'people', 'communities']
     asset_classes = [Product, Event, Article, Enterprise, Person, Community]
