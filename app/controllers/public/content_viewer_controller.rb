@@ -19,7 +19,7 @@ class ContentViewerController < ApplicationController
       unless @page
         page_from_old_path = profile.articles.find_by_old_path(path)
         if page_from_old_path
-          redirect_to :profile => profile.identifier, :page => page_from_old_path.explode_path
+          redirect_to profile.url.merge(:page => page_from_old_path.explode_path)
           return
         end
       end
