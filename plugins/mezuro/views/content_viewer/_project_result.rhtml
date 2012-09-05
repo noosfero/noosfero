@@ -1,7 +1,10 @@
 <% unless @content.errors[:base].nil? %>
   <%= @content.errors[:base] %>
 <% else %>
-  <p> Choose a date to see specific project results: </p><input id="datepicker" style="display:none"/>
+  <p> Choose a date to see specific project results: </p>
+  <div id="datepicker">
+    <input id="datepicker_field" style="display:none"/> 
+  </div>
    
   <h4><%= _('Last Result') %></h4>
 
@@ -23,9 +26,9 @@
   
   <script>
 	  jQuery(document).ready(function($) {
-  	  $("#datepicker").datepicker({ altField: '#datepicker', showOn: 'button', dateFormat: "yy-mm-dd",
+  	  $("#datepicker").datepicker({ altField: '#datepicker_field', showOn: 'button', dateFormat: "yy-mm-dd",
   	  															buttonImageOnly: true, buttonImage: '/images/calendar_date_select/calendar.png',
-  	  															onSelect: function(dateText, inst) { 
+  	  															onSelect: function(dateText, inst) {
   	  																reloadProjectWithDate(dateText) } });
 																		});
   </script>

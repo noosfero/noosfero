@@ -52,13 +52,7 @@ function reloadModule(){
 }
 
 function reloadProjectWithDate(date){
-	var new_date = new Date(date + "T00:00:00+00:00");
-	
-	if(isNaN(new_date)){
-	  alert("Invalid date! " + new_date);
-	  return false;
-	}
-	reloadProject(new_date);
+	reloadProject(date + "T00:00:00+00:00");
   return false;
 }
 
