@@ -2,7 +2,7 @@
   <%= @content.errors[:base] %>
 <% else %>
   <p> Choose a date to see specific project results: </p>
-  <div id="datepicker">
+  <div id="datepicker" data-date="<%= @project_result.date %>">
     <input id="datepicker_field" style="display:none"/> 
   </div>
    
@@ -29,8 +29,11 @@
   	  $("#datepicker").datepicker({ altField: '#datepicker_field', showOn: 'button', dateFormat: "yy-mm-dd",
   	  															buttonImageOnly: true, buttonImage: '/images/calendar_date_select/calendar.png',
   	  															onSelect: function(dateText, inst) {
-  	  																reloadProjectWithDate(dateText) } });
-																		});
+  	  															reloadProjectWithDate(dateText) } });
+  	  var date = jQuery("#datepicker").attr('data-date').substr(0,10);
+	    $("#datepicker").datepicker( "setDate" , date );
+	    
+		});
   </script>
   
 <% end %>
