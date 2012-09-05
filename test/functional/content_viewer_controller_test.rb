@@ -474,7 +474,7 @@ class ContentViewerControllerTest < ActionController::TestCase
     get :view_page, :profile => p.identifier, :page => old_path
 
     assert_response :redirect
-    assert_redirected_to :profile => p.identifier, :page => a.explode_path
+    assert_redirected_to :host => p.default_hostname, :controller => 'content_viewer', :action => 'view_page', :profile => p.identifier, :page => a.explode_path
   end
 
   should 'load new article name equal of another article old name' do
@@ -503,7 +503,7 @@ class ContentViewerControllerTest < ActionController::TestCase
     get :view_page, :profile => p.identifier, :page => old_path
 
     assert_response :redirect
-    assert_redirected_to :profile => p.identifier, :page => a2.explode_path
+    assert_redirected_to :host => p.default_hostname, :controller => 'content_viewer', :action => 'view_page', :profile => p.identifier, :page => a2.explode_path
   end
 
   should 'not return an article of a different user' do

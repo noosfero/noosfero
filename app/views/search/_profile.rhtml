@@ -1,5 +1,5 @@
 <li class="search-profile-item">
-<% if @empty_query or @results.size > 1 or !profile.enterprise?  %>
+<% if @empty_query or multiple_search? or !profile.enterprise?  %>
   <%= profile_image_link profile, :portrait, 'div',
     @filter == 'more_recent' ? profile.send(@filter + '_label') + show_date(profile.created_at) : profile.send(@filter + '_label') %>
 <% else %>

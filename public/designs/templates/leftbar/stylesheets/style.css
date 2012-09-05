@@ -45,26 +45,25 @@
   width: 489px;
 }
 
-#profile-wall li.profile-activity-item.upload_image span,
-#profile-wall li.profile-activity-item.upload_image span img,
-#profile-wall li.profile-activity-item.upload_image span a,
-#profile-network li.profile-activity-item.upload_image span,
-#profile-network li.profile-activity-item.upload_image span img,
-#profile-network li.profile-activity-item.upload_image span a {
-  width: 178px;
-  height: 144px;
+li.profile-activity-item.upload_image .upimg {
+  width: 168px;
+  height: 168px;
+}
+li.profile-activity-item.upload_image .more,
+li.profile-activity-item.upload_image .upimg.morethen2 {
+  font-size: 46px;
+  width: 77px;
+  height: 77px;
+}
+li.profile-activity-item.upload_image .activity-gallery-images-count-3 .pos3 {
+  /* reduce size only for 4 or more itens */
+  width: 168px;
+  height: 168px;
 }
 
-#profile-wall li.profile-activity-item.upload_image .activity-gallery-images-count-1 span,
-#profile-wall li.profile-activity-item.upload_image .activity-gallery-images-count-1 span a img,
-#profile-wall li.profile-activity-item.upload_image .activity-gallery-images-count-1 span a,
-#profile-network li.profile-activity-item.upload_image .activity-gallery-images-count-1 span,
-#profile-network li.profile-activity-item.upload_image .activity-gallery-images-count-1 span a img,
-#profile-network li.profile-activity-item.upload_image .activity-gallery-images-count-1 span a {
-  max-width: 540px;
+li.profile-activity-item.upload_image .activity-gallery-images-count-4 .pos3 {
+  /* make a line-break on this case */
+  float: none;
+  margin-left: 364px;
 }
 
-#profile-wall li.profile-activity-item.upload_image .activity-gallery-images-count-1 span a,
-#profile-network li.profile-activity-item.upload_image .activity-gallery-images-count-1 span a {
-  background-image: url(/images/gallery-image-activity-border-big-onecol.png);
-}

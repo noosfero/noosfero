@@ -351,7 +351,7 @@ class CommunityTest < ActiveSupport::TestCase
     scrap = Scrap.create!(defaults_for_scrap(:sender => person, :receiver => community, :content => 'A scrap'))
     activity = ActionTracker::Record.last
 
-    assert_equal [activity,scrap], community.activities.map { |a| a.klass.constantize.find(a.id) }
+    assert_equal [scrap], community.activities.map { |a| a.klass.constantize.find(a.id) }
   end
 
   should 'return tracked_actions of community as activities' do
