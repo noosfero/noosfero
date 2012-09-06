@@ -1,27 +1,7 @@
-class MezuroPluginMyprofileController < ProfileController
+class MezuroPluginMetricConfigurationController < MezuroPluginMyprofileController
 
-  append_view_path File.join(File.dirname(__FILE__) + '/../views')
+  append_view_path File.join(File.dirname(__FILE__) + '/../../views')
 
-  rescue_from Exception do |exception|
-    message = URI.escape(CGI.escape(exception.message),'.')
-    redirect_to_error_page message
-  end
-
-  def error_page
-    @message = params[:message]
-  end
-
-  def choose_base_tool
-    @configuration_content = profile.articles.find(params[:id])
-    @base_tools = Kalibro::BaseTool.all_names
-  end
-
-  def choose_metric
-    @configuration_content = profile.articles.find(params[:id])
-    @base_tool = params[:base_tool]
-    base_tool = Kalibro::BaseTool.find_by_name(@base_tool)
-    @supported_metrics = base_tool.nil? ? [] : base_tool.supported_metrics 
-  end
 
   def new_metric_configuration
     @configuration_content = profile.articles.find(params[:id])
@@ -57,7 +37,7 @@ class MezuroPluginMyprofileController < ProfileController
     if metric_configuration_has_errors? metric_configuration
       redirect_to_error_page metric_configuration.errors[0].message
     else
-      redirect_to "/myprofile/#{profile.identifier}/plugin/mezuro/edit_metric_configuration?id=#{id}&metric_name=#{metric_name.gsub(/\s/, '+')}"
+      redirect_to "edit_metric_configuration?id=#{id}&metric_name=#{metric_name.gsub(/\s/, '+')}"
     end
   end
 
@@ -69,7 +49,7 @@ class MezuroPluginMyprofileController < ProfileController
     if metric_configuration_has_errors? metric_configuration
       redirect_to_error_page metric_configuration.errors[0].message
     else
-      redirect_to "/myprofile/#{profile.identifier}/plugin/mezuro/edit_compound_metric_configuration?id=#{id}&metric_name=#{metric_name.gsub(/\s/, '+')}"
+      redirect_to "edit_compound_metric_configuration?id=#{id}&metric_name=#{metric_name.gsub(/\s/, '+')}"
     end
   end
 
@@ -108,20 +88,11 @@ class MezuroPluginMyprofileController < ProfileController
       redirect_to "/#{profile.identifier}/#{configuration_content.slug}"
     end
   end
-
+  
   private
-
-  def redirect_to_error_page(message)
-    message = URI.escape(CGI.escape(message),'.')
-    redirect_to "/myprofile/#{profile.identifier}/plugin/mezuro/error_page?message=#{message}"
-  end
-
+  
   def configuration_content_has_errors?
     not @configuration_content.errors[:base].nil?
   end
-
-  def metric_configuration_has_errors? metric_configuration
-    not metric_configuration.errors.empty?
-  end
-
+  
 end
