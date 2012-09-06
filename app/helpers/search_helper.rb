@@ -156,6 +156,7 @@ module SearchHelper
     params = params.dup
     params[:facet].each do |id, value|
       facet = klass.facet_by_id(id.to_sym)
+      next unless facet
       if value.kind_of?(Hash)
         label_hash = facet[:label].call(environment)
         value.each do |label_id, value|
