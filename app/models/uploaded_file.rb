@@ -67,7 +67,7 @@ class UploadedFile < Article
       'upload-file'
     end
   end
-  
+
   def mime_type
     content_type
   end
@@ -129,6 +129,12 @@ class UploadedFile < Article
     end
   end
 
+  def extension
+    dotindex = self.filename.rindex('.')
+    return nil unless dotindex
+    self.filename[(dotindex+1)..-1].downcase
+  end
+
   def allow_children?
     false
   end
@@ -144,4 +150,5 @@ class UploadedFile < Article
   def uploaded_file?
     true
   end
+
 end

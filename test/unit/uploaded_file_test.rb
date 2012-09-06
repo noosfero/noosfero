@@ -306,6 +306,11 @@ class UploadedFileTest < ActiveSupport::TestCase
     uses_sqlite
   end
 
+  should 'return extension' do
+    file = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :profile => @profile)
+    assert_equal 'png', file.extension
+  end
+
   should 'upload to path prefix folder if database is not postgresql' do
     uses_sqlite
     file = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/test.txt', 'text/plain'), :profile => @profile)
