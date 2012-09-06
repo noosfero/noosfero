@@ -460,6 +460,8 @@ div.pending-tasks {
 .headline img {
   float:left;
   margin: 5px;
+  max-width: 100%;
+  height: auto;
 }
 .news-area {
   border: 1px solid black;
