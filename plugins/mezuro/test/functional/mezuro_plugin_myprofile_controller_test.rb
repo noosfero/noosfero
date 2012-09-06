@@ -36,23 +36,6 @@ class MezuroPluginMyprofileControllerTest < ActionController::TestCase
     @compound_hash.delete :attributes!
   end
 
-  should 'test choose base tool' do
-    Kalibro::BaseTool.expects(:request).with("BaseTool", :get_base_tool_names).returns({:base_tool_name => @base_tool.name})
-    get :choose_base_tool, :profile => @profile.identifier, :id => @content.id
-    assert_equal [@base_tool.name], assigns(:base_tools)
-    assert_equal @content, assigns(:configuration_content)
-    assert_response 200
-  end
-
-  should 'test choose metric' do
-    Kalibro::BaseTool.expects(:request).with("BaseTool", :get_base_tool, {:base_tool_name => @base_tool.name}).returns({:base_tool => @base_tool_hash})
-    get :choose_metric, :profile => @profile.identifier, :id => @content.id, :base_tool => @base_tool.name
-    assert_equal @content, assigns(:configuration_content)
-    assert_equal @base_tool.name, assigns(:base_tool)
-    assert_equal @base_tool.supported_metric[0].name, assigns(:supported_metrics)[0].name
-    assert_response 200
-  end
-
   should 'test new metric configuration' do
     Kalibro::BaseTool.expects(:request).with("BaseTool", :get_base_tool, {:base_tool_name => @base_tool.name}).returns({:base_tool => @base_tool_hash})
     get :new_metric_configuration, :profile => @profile.identifier, :id => @content.id, :base_tool => @base_tool.name, :metric_name => @metric.name
@@ -60,8 +43,7 @@ class MezuroPluginMyprofileControllerTest < ActionController::TestCase
     assert_equal @metric.name, assigns(:metric).name
     assert_response 200
   end
-  
-  
+
   should 'test new compound metric configuration' do
     Kalibro::Configuration.expects(:request).with("Configuration", :get_configuration, {:configuration_name => @content.name}).returns({:configuration => @configuration_hash})
     get :new_compound_metric_configuration, :profile => @profile.identifier, :id => @content.id
