@@ -109,8 +109,6 @@ class MezuroPluginMyprofileController < ProfileController
     end
   end
 
-
-
   private
 
   def redirect_to_error_page(message)

@@ -1,7 +1,5 @@
 require 'test_helper'
 
-require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/error_fixtures"
-require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/base_tool_fixtures"
 require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/native_metric_fixtures"
 require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/metric_configuration_fixtures"
 require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/configuration_fixtures"
@@ -29,6 +27,7 @@ class MezuroPluginRangeControllerTest < ActionController::TestCase
     @range = RangeFixtures.range_excellent
     @range_hash = RangeFixtures.range_excellent_hash
   end
+
   should 'test new range' do
     get :new_range, :profile => @profile.identifier, :id => @content.id, :metric_name => @metric.name
     assert_equal @content, assigns(:configuration_content)

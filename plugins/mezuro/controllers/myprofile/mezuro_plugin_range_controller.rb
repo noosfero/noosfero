@@ -1,6 +1,6 @@
 class MezuroPluginRangeController < MezuroPluginMyprofileController
 
-  append_view_path File.join(File.dirname(__FILE__) + '/../views')
+  append_view_path File.join(File.dirname(__FILE__) + '/../../views')
 
   def new_range
     @configuration_content = profile.articles.find(params[:id])
