@@ -1,7 +1,8 @@
 class MezuroPluginModuleController < MezuroPluginProfileController
+
   append_view_path File.join(File.dirname(__FILE__) + '/../../views')
 
- def module_result
+  def module_result
     @content = profile.articles.find(params[:id])
     @module_result = @content.module_result(params)
     @module = @module_result.module
