@@ -60,7 +60,7 @@ class MezuroPluginMyprofileController < ProfileController
       redirect_to "/myprofile/#{profile.identifier}/plugin/mezuro/edit_metric_configuration?id=#{id}&metric_name=#{metric_name.gsub(/\s/, '+')}"
     end
   end
-  
+
   def create_compound_metric_configuration
     id = params[:id]
     metric_name = params[:metric_configuration][:metric][:name]
@@ -108,14 +108,14 @@ class MezuroPluginMyprofileController < ProfileController
       redirect_to "/#{profile.identifier}/#{configuration_content.slug}"
     end
   end
-  
+
   def new_range
     @configuration_content = profile.articles.find(params[:id])
     @metric_name = params[:metric_name]
     @range = Kalibro::Range.new
     @range_color = "#000000"
   end
-  
+
   def edit_range
     @configuration_content = profile.articles.find(params[:id])
     @metric_name = params[:metric_name]
@@ -129,14 +129,14 @@ class MezuroPluginMyprofileController < ProfileController
     @configuration_content = profile.articles.find(params[:id])
     @range = Kalibro::Range.new params[:range]
     metric_name = params[:metric_name]
-    metric_configuration = Kalibro::MetricConfiguration.find_by_configuration_name_and_metric_name(@configuration_content.name, metric_name)   
+    metric_configuration = Kalibro::MetricConfiguration.find_by_configuration_name_and_metric_name(@configuration_content.name, metric_name)
     metric_configuration.add_range(@range)
     metric_configuration.save
     if metric_configuration_has_errors? metric_configuration
       redirect_to_error_page metric_configuration.errors[0].message
     end
   end
-  
+
   def update_range
     configuration_content = profile.articles.find(params[:id])
     metric_name = params[:metric_name]
@@ -149,7 +149,7 @@ class MezuroPluginMyprofileController < ProfileController
       redirect_to_error_page metric_configuration.errors[0].message
     end
   end
-  
+
   def remove_range
     configuration_content = profile.articles.find(params[:id])
     metric_name = params[:metric_name]
