@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120411132751) do
+ActiveRecord::Schema.define(:version => 20120818030329) do
 
   create_table "abuse_reports", :force => true do |t|
     t.integer  "reporter_id"
@@ -85,6 +85,7 @@ ActiveRecord::Schema.define(:version => 20120411132751) do
     t.integer  "translation_of_id"
     t.string   "language"
     t.string   "source_name"
+    t.integer  "license_id"
   end
 
   create_table "articles", :force => true do |t|
@@ -125,6 +126,7 @@ ActiveRecord::Schema.define(:version => 20120411132751) do
     t.integer  "translation_of_id"
     t.string   "language"
     t.string   "source_name"
+    t.integer  "license_id"
   end
 
   add_index "articles", ["translation_of_id"], :name => "index_articles_on_translation_of_id"
@@ -314,6 +316,13 @@ ActiveRecord::Schema.define(:version => 20120411132751) do
   add_index "inputs", ["product_category_id"], :name => "index_inputs_on_product_category_id"
   add_index "inputs", ["product_id"], :name => "index_inputs_on_product_id"
 
+  create_table "licenses", :force => true do |t|
+    t.string  "name",           :null => false
+    t.string  "slug",           :null => false
+    t.string  "url"
+    t.integer "environment_id", :null => false
+  end
+
   create_table "mailing_sents", :force => true do |t|
     t.integer  "mailing_id"
     t.integer  "person_id"
@@ -425,6 +434,8 @@ ActiveRecord::Schema.define(:version => 20120411132751) do
     t.boolean  "validated",                          :default => true
     t.string   "cnpj"
     t.string   "national_region_code"
+    t.boolean  "is_template",                        :default => false
+    t.integer  "template_id"
   end
 
   add_index "profiles", ["environment_id"], :name => "index_profiles_on_environment_id"

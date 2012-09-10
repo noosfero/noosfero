@@ -22,7 +22,22 @@ class Person < Profile
     super
   end
 
-  named_scope :members_of, lambda { |resource| { :select => 'DISTINCT profiles.*', :joins => :role_assignments, :conditions => ['role_assignments.resource_type = ? AND role_assignments.resource_id = ?', resource.class.base_class.name, resource.id ] } }
+  acts_as_having_hotspots
+
+  named_scope :members_of, lambda { |resources|
+    resources = [resources] if !resources.kind_of?(Array)
+    conditions = resources.map {|resource| "role_assignments.resource_type = '#{resource.class.base_class.name}' AND role_assignments.resource_id = #{resource.id || -1}"}.join(' OR ')
+    { :select => 'DISTINCT profiles.*', :joins => :role_assignments, :conditions => [conditions] }
+  }
+
+  def has_permission_with_plugins?(permission, profile)
+    permissions = [has_permission_without_plugins?(permission, profile)]
+    permissions += enabled_plugins.map do |plugin|
+      plugin.has_permission?(self, permission, profile)
+    end
+    permissions.include?(true)
+  end
+  alias_method_chain :has_permission?, :plugins
 
   def memberships
     Profile.memberships_of(self)
@@ -285,7 +300,7 @@ class Person < Profile
     end
   end
 
-  def template
+  def default_template
     environment.person_template
   end
 
@@ -443,7 +458,7 @@ class Person < Profile
   end
 
   def activities
-    Scrap.find_by_sql("SELECT id, updated_at, '#{Scrap.to_s}' AS klass FROM #{Scrap.table_name} WHERE scraps.receiver_id = #{self.id} AND scraps.scrap_id IS NULL UNION SELECT id, updated_at, '#{ActionTracker::Record.to_s}' AS klass FROM #{ActionTracker::Record.table_name} WHERE action_tracker.user_id = #{self.id} ORDER BY updated_at DESC")
+    Scrap.find_by_sql("SELECT id, updated_at, '#{Scrap.to_s}' AS klass FROM #{Scrap.table_name} WHERE scraps.receiver_id = #{self.id} AND scraps.scrap_id IS NULL UNION SELECT id, updated_at, '#{ActionTracker::Record.to_s}' AS klass FROM #{ActionTracker::Record.table_name} WHERE action_tracker.user_id = #{self.id} and action_tracker.verb != 'leave_scrap_to_self' and action_tracker.verb != 'add_member_in_community' ORDER BY updated_at DESC")
   end
 
   protected

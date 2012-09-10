@@ -69,6 +69,8 @@
 
 <div id="signup-form-profile">
 
+  <%= template_options(Person, 'profile_data') %>
+
   <% labelled_fields_for :profile_data, @person do |f| %>
     <%= render :partial => 'profile_editor/person_form', :locals => {:f => f} %>
   <% end %>

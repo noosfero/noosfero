@@ -10,6 +10,8 @@ module ApplicationHelper
 
   include ThickboxHelper
 
+  include ColorboxHelper
+
   include BoxesHelper
 
   include FormsHelper
@@ -1076,24 +1078,24 @@ module ApplicationHelper
 
   def search_contents_menu
     links = [
-      {s_('contents|More Recent') => {:href => url_for({:controller => 'search', :action => 'contents', :filter => 'more_recent'})}},
-      {s_('contents|More Viewed') => {:href => url_for({:controller => 'search', :action => 'contents', :filter => 'more_popular'})}},
-      {s_('contents|Most Commented') => {:href => url_for({:controller => 'search', :action => 'contents', :filter => 'more_comments'})}}
+      {s_('contents|More recent') => {:href => url_for({:controller => 'search', :action => 'contents', :filter => 'more_recent'})}},
+      {s_('contents|More viewed') => {:href => url_for({:controller => 'search', :action => 'contents', :filter => 'more_popular'})}},
+      {s_('contents|Most commented') => {:href => url_for({:controller => 'search', :action => 'contents', :filter => 'more_comments'})}}
     ]
     if logged_in?
-      links.push(_('New Content') => lightbox_options({:href => url_for({:controller => 'cms', :action => 'new', :profile => current_user.login, :cms => true})}))
+      links.push(_('New content') => colorbox_options({:href => url_for({:controller => 'cms', :action => 'new', :profile => current_user.login, :cms => true})}))
     end
 
     link_to(content_tag(:span, _('Contents'), :class => 'icon-menu-articles'), {:controller => "search", :action => 'contents', :category_path => ''}, :id => 'submenu-contents') +
-    link_to(content_tag(:span, _('Contents Menu')), '#', :onclick => "toggleSubmenu(this,'',#{links.to_json}); return false", :class => 'menu-submenu-trigger up', :id => 'submenu-contents-trigger')
+    link_to(content_tag(:span, _('Contents menu')), '#', :onclick => "toggleSubmenu(this,'',#{links.to_json}); return false", :class => 'menu-submenu-trigger up', :id => 'submenu-contents-trigger')
   end
   alias :browse_contents_menu :search_contents_menu
 
   def search_people_menu
      links = [
-       {s_('people|More Recent') => {:href => url_for({:controller => 'search', :action => 'people', :filter => 'more_recent'})}},
-       {s_('people|More Active') => {:href => url_for({:controller => 'search', :action => 'people', :filter => 'more_active'})}},
-       {s_('people|More Popular') => {:href => url_for({:controller => 'search', :action => 'people', :filter => 'more_popular'})}}
+       {s_('people|More recent') => {:href => url_for({:controller => 'search', :action => 'people', :filter => 'more_recent'})}},
+       {s_('people|More active') => {:href => url_for({:controller => 'search', :action => 'people', :filter => 'more_active'})}},
+       {s_('people|More popular') => {:href => url_for({:controller => 'search', :action => 'people', :filter => 'more_popular'})}}
      ]
      if logged_in?
        links.push(_('My friends') => {:href => url_for({:profile => current_user.login, :controller => 'friends'})})
@@ -1101,15 +1103,15 @@ module ApplicationHelper
      end
 
     link_to(content_tag(:span, _('People'), :class => 'icon-menu-people'), {:controller => "search", :action => 'people', :category_path => ''}, :id => 'submenu-people') +
-    link_to(content_tag(:span, _('People Menu')), '#', :onclick => "toggleSubmenu(this,'',#{links.to_json}); return false", :class => 'menu-submenu-trigger up', :id => 'submenu-people-trigger')
+    link_to(content_tag(:span, _('People menu')), '#', :onclick => "toggleSubmenu(this,'',#{links.to_json}); return false", :class => 'menu-submenu-trigger up', :id => 'submenu-people-trigger')
   end
   alias :browse_people_menu :search_people_menu
 
   def search_communities_menu
      links = [
-       {s_('communities|More Recent') => {:href => url_for({:controller => 'search', :action => 'communities', :filter => 'more_recent'})}},
-       {s_('communities|More Active') => {:href => url_for({:controller => 'search', :action => 'communities', :filter => 'more_active'})}},
-       {s_('communities|More Popular') => {:href => url_for({:controller => 'search', :action => 'communities', :filter => 'more_popular'})}}
+       {s_('communities|More recent') => {:href => url_for({:controller => 'search', :action => 'communities', :filter => 'more_recent'})}},
+       {s_('communities|More active') => {:href => url_for({:controller => 'search', :action => 'communities', :filter => 'more_active'})}},
+       {s_('communities|More popular') => {:href => url_for({:controller => 'search', :action => 'communities', :filter => 'more_popular'})}}
      ]
      if logged_in?
        links.push(_('My communities') => {:href => url_for({:profile => current_user.login, :controller => 'memberships'})})
@@ -1117,7 +1119,7 @@ module ApplicationHelper
      end
 
     link_to(content_tag(:span, _('Communities'), :class => 'icon-menu-community'), {:controller => "search", :action => 'communities'}, :id => 'submenu-communities') +
-    link_to(content_tag(:span, _('Communities Menu')), '#', :onclick => "toggleSubmenu(this,'',#{links.to_json}); return false", :class => 'menu-submenu-trigger up', :id => 'submenu-communities-trigger')
+    link_to(content_tag(:span, _('Communities menu')), '#', :onclick => "toggleSubmenu(this,'',#{links.to_json}); return false", :class => 'menu-submenu-trigger up', :id => 'submenu-communities-trigger')
   end
   alias :browse_communities_menu :search_communities_menu
 
@@ -1168,6 +1170,10 @@ module ApplicationHelper
       content_tag(:p, content_tag(:span, limit) + ' ' + _(' characters left'), :id => text_area_id + '_left'),
       content_tag(:p, _('Limit of characters reached'), :id => text_area_id + '_limit', :style => 'display: none')
     ], :class => 'limited-text-area')
+  end
+
+  def expandable_text_area(object_name, method, text_area_id, options = {})
+    text_area(object_name, method, { :id => text_area_id, :onkeyup => "grow_text_area('#{text_area_id}')" }.merge(options))
   end
 
   def pluralize_without_count(count, singular, plural = nil)
@@ -1318,4 +1324,70 @@ module ApplicationHelper
       _("Are you sure that you want to remove the item \"#{article.name}\"?")
     end
   end
+
+  def template_options(klass, field_name)
+    return '' if klass.templates.count == 0
+    return hidden_field_tag("#{field_name}[template_id]", klass.templates.first.id) if klass.templates.count == 1
+
+    counter = 0
+    radios = klass.templates.map do |template|
+      counter += 1
+      content_tag('li', labelled_radio_button(template.name, "#{field_name}[template_id]", template.id, counter==1))
+    end.join("\n")
+
+    content_tag('div', content_tag('span', _('Template:')) +
+      content_tag('ul', radios, :style => 'list-style: none; padding-left: 0; margin-top: 0.5em;'),
+      :id => 'template-options',
+      :style => 'margin-top: 1em'
+    )
+  end
+
+  def token_input_field_tag(name, element_id, search_action, options = {}, text_field_options = {}, html_options = {})
+    options[:min_chars] ||= 3
+    options[:hint_text] ||= _("Type in a search term")
+    options[:no_results_text] ||= _("No results")
+    options[:searching_text] ||= _("Searching...")
+    options[:search_delay] ||= 1000
+    options[:prevent_duplicates] ||=  true
+    options[:backspace_delete_item] ||= false
+    options[:focus] ||= false
+    options[:avoid_enter] ||= true
+    options[:on_result] ||= 'null'
+    options[:on_add] ||= 'null'
+    options[:on_delete] ||= 'null'
+    options[:on_ready] ||= 'null'
+
+    result = text_field_tag(name, nil, text_field_options.merge(html_options.merge({:id => element_id})))
+    result +=
+    "
+    <script type='text/javascript'>
+      jQuery('##{element_id}')
+      .tokenInput('#{url_for(search_action)}', {
+        minChars: #{options[:min_chars].to_json},
+        prePopulate: #{options[:pre_populate].to_json},
+        hintText: #{options[:hint_text].to_json},
+        noResultsText: #{options[:no_results_text].to_json},
+        searchingText: #{options[:searching_text].to_json},
+        searchDelay: #{options[:serach_delay].to_json},
+        preventDuplicates: #{options[:prevent_duplicates].to_json},
+        backspaceDeleteItem: #{options[:backspace_delete_item].to_json},
+        queryParam: #{name.to_json},
+        tokenLimit: #{options[:token_limit].to_json},
+        onResult: #{options[:on_result]},
+        onAdd: #{options[:on_add]},
+        onDelete: #{options[:on_delete]},
+        onReady: #{options[:on_ready]},
+      })
+    "
+    result += options[:focus] ? ".focus();" : ";"
+    if options[:avoid_enter]
+      result += "jQuery('#token-input-#{element_id}')
+                    .live('keydown', function(event){
+                    if(event.keyCode == '13') return false;
+                  });"
+    end
+    result += "</script>"
+    result
+  end
+
 end

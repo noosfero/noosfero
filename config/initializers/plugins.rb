@@ -1,4 +1,5 @@
 require 'noosfero/plugin'
+require 'noosfero/plugin/acts_as_having_hotspots'
 require 'noosfero/plugin/manager'
 require 'noosfero/plugin/context'
 require 'noosfero/plugin/active_record'

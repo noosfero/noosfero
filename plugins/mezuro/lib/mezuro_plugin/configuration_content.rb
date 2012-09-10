@@ -1,14 +1,18 @@
 class MezuroPlugin::ConfigurationContent < Article
+  validate_on_create :validate_kalibro_configuration_name
+
+  settings_items :description, :configuration_to_clone_name
+
+  after_save :send_configuration_to_service
+  after_destroy :remove_configuration_from_service
 
   def self.short_description
     'Kalibro configuration'
   end
 
   def self.description
-    'Kalibro configuration for some project'
+    'Sets of thresholds to interpret metrics'
   end
-
-  settings_items :description
 
   include ActionView::Helpers::TagHelper
   def to_html(options = {})
@@ -18,27 +22,65 @@ class MezuroPlugin::ConfigurationContent < Article
   end
 
   def configuration
-    Kalibro::Client::ConfigurationClient.new.configuration(title)
+    @configuration ||= Kalibro::Configuration.find_by_name(self.name)
+    if @configuration.nil? 
+      errors.add_to_base("Kalibro Configuration not found")
+    end
+    @configuration
   end
 
-  after_save :send_configuration_to_service
-  after_destroy :remove_configuration_from_service
+  def metric_configurations
+    configuration.metric_configurations
+  end
+
+  def configuration_names
+    ["None"] + Kalibro::Configuration.all_names.sort
+  end
 
   private
 
+  def validate_kalibro_configuration_name
+    existing = configuration_names.map { |a| a.downcase}
+
+    if existing.include?(name.downcase)
+      errors.add_to_base("Configuration name already exists in Kalibro")
+    end
+  end
+
   def send_configuration_to_service
-    Kalibro::Client::ConfigurationClient.save(create_configuration)
+    if editing_configuration?
+      configuration.update_attributes({:description => description})
+    else
+      create_kalibro_configuration
+    end
   end
 
   def remove_configuration_from_service
-    Kalibro::Client::ConfigurationClient.remove(title)
+    configuration.destroy
   end
 
-  def create_configuration
-    configuration = Kalibro::Entities::Configuration.new
-    configuration.name = title
-    configuration.description = description
-    configuration
+  def create_kalibro_configuration
+    attributes = {:name => name, :description => description}
+    if cloning_configuration?
+      attributes[:metric_configuration] = configuration_to_clone.metric_configurations_hash
+    end
+    Kalibro::Configuration.create attributes
+  end
+  
+  def editing_configuration?
+    configuration.present?
+  end
+  
+  def configuration_to_clone
+    @configuration_to_clone ||= find_configuration_to_clone
+  end
+  
+  def find_configuration_to_clone
+    configuration_to_clone_name.nil? ? nil : Kalibro::Configuration.find_by_name(configuration_to_clone_name)
+  end
+  
+  def cloning_configuration?
+    configuration_to_clone.present?
   end
 
 end

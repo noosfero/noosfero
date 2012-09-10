@@ -2,7 +2,7 @@
 
 <%
   begin
-    @project = @article.title.nil? ? nil : Kalibro::Client::ProjectClient.new.project(@article.title)
+    @project = @article.title.nil? ? nil : Kalibro::Project.find_by_name(@article.title)
   rescue
     @project = nil
   end
@@ -14,21 +14,34 @@
 <%= hidden_field_tag 'id', @article.id %>
 
 <%= required_fields_message %>
-
-<%= required f.text_field(:name) %>
+<% if !@project.nil? && !@article.id.nil? %>
+  <%= required f.text_field(:name, :disabled => 'true') %>
+<% else %>
+  <%= required f.text_field(:name) %>
+<% end %>
 
 <%= f.text_field :license %><br/>
 
 <%= f.text_field :description %><br/>
 
-<% @repository_types = Kalibro::Client::KalibroClient.new.supported_repository_types.sort %>
+<% @repository_types = Kalibro::Repository.repository_types.sort %>
 <% @selected = (@project.nil? ? @repository_types : @project.repository.type) %>
 <%= required labelled_form_field _('Repository type'),
   f.select(:repository_type, @repository_types, {:selected => @selected}) %><br/>
 
 <%= required f.text_field(:repository_url) %><br/>
 
-<% @configuration_names = Kalibro::Client::ConfigurationClient.new.configuration_names.sort %>
+<% @configuration_names = Kalibro::Configuration.all_names.sort %>
 <% @selected = (@project.nil? ? @configuration_names[0] : @project.configuration_name) %>
-<%= required labelled_form_field _('Configuration'),
-  f.select(:configuration_name, @configuration_names.sort, {:selected => @selected}) %><br/>
+
+<% if !@project.nil? && !@article.id.nil? %>
+  <%= required labelled_form_field _('Configuration'),
+    f.select(:configuration_name, @configuration_names, {:selected => @selected}, :disabled => 'true') %>
+<% else %>
+  <%= required labelled_form_field _('Configuration'),
+    f.select(:configuration_name, @configuration_names, {:selected => @selected}) %><br/>
+<% end %>
+
+<% selected = (@project.nil? ? 0 : @project.process_period.to_i) %>
+<%= required labelled_form_field _('Periodic Avaliation'),
+  f.select(:periodicity_in_days, MezuroPlugin::Helpers::ContentViewerHelper.create_periodicity_options ,{:selected => selected}) %><br/>

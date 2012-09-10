@@ -1,3 +1,21 @@
+noosfero (0.38.2) unstable; urgency=low
+
+  * Bugfixes release
+
+ -- Antonio Terceiro <terceiro@colivre.coop.br>  Wed, 05 Sep 2012 10:07:58 -0300
+
+noosfero (0.38.1) unstable; urgency=low
+
+  * Bugfixes release
+
+ -- Daniela Soares Feitosa <daniela@colivre.coop.br>  Sat, 18 Aug 2012 07:49:59 -0300
+
+noosfero (0.38.0) unstable; urgency=low
+
+  * Features version release
+
+ -- Daniela Soares Feitosa <daniela@colivre.coop.br>  Tue, 31 Jul 2012 19:51:43 -0300
+
 noosfero (0.37.0) unstable; urgency=low
 
   * Features version release

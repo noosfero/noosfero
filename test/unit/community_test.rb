@@ -85,6 +85,12 @@ class CommunityTest < ActiveSupport::TestCase
   end
 
   should 'have a community template' do
+    template = fast_create(Community, :is_template => true)
+    p = Community.create!(:name => 'test_com', :identifier => 'test_com', :template => template)
+    assert_equal template, p.template
+  end
+
+  should 'have a default community template' do
     env = Environment.create!(:name => 'test env')
     p = Community.create!(:name => 'test_com', :identifier => 'test_com', :environment => env)
     assert_kind_of Community, p.template
@@ -345,7 +351,7 @@ class CommunityTest < ActiveSupport::TestCase
     scrap = Scrap.create!(defaults_for_scrap(:sender => person, :receiver => community, :content => 'A scrap'))
     activity = ActionTracker::Record.last
 
-    assert_equal [activity,scrap], community.activities.map { |a| a.klass.constantize.find(a.id) }
+    assert_equal [scrap], community.activities.map { |a| a.klass.constantize.find(a.id) }
   end
 
   should 'return tracked_actions of community as activities' do

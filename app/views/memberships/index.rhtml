@@ -8,30 +8,6 @@
   <%= button :back, _('Go back'), :controller => 'profile_editor' %>
 <% end %>
 
-<ul>
-<% for membership in @memberships %>
-  <li>
-    <div class='common-profile-list-block'>
-      <%= profile_image_link(membership, :portrait, 'div') %>
-    </div>
-    <span class='profile-details'>
-      <strong><%= membership.name %></strong><br/>
-      <%= _('Role: %s') % rolename_for(profile, membership) %> <br/>
-      <%= _('Type: %s') % getterm(membership.class.identification) %> <br/>
-      <%= _('Description: %s') % membership.description  + '<br/>' if membership.community? %>
-      <%= _('Members: %s') % membership.members_count.to_s %> <br/>
-      <%= _('Created at: %s') % show_date(membership.created_at) unless membership.enterprise? %> <br/>
-      <% button_bar do %>
-        <%= button 'menu-ctrl-panel', _('Control panel of this group'), membership.admin_url %>
-        <%= button 'menu-logout', _('Leave community'), membership.leave_url(true), :class => 'leave-community' %>
-        <% if (membership.community? && user.has_permission?(:destroy_profile, membership)) %>
-          <%= button 'delete', _('Remove'), { :controller => 'profile_editor', :action => 'destroy_profile', :profile => membership.identifier } %>
-        <% end %>
-      <% end %>
-    </span>
-    <br class="may-clear" />
-  </li>
-<% end %>
-</ul>
+<%= render :partial => 'shared/list_groups', :locals => {:groups => @memberships} %>
 
 </div>

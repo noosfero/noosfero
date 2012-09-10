@@ -474,7 +474,7 @@ class ContentViewerControllerTest < ActionController::TestCase
     get :view_page, :profile => p.identifier, :page => old_path
 
     assert_response :redirect
-    assert_redirected_to :profile => p.identifier, :page => a.explode_path
+    assert_redirected_to :host => p.default_hostname, :controller => 'content_viewer', :action => 'view_page', :profile => p.identifier, :page => a.explode_path
   end
 
   should 'load new article name equal of another article old name' do
@@ -503,7 +503,7 @@ class ContentViewerControllerTest < ActionController::TestCase
     get :view_page, :profile => p.identifier, :page => old_path
 
     assert_response :redirect
-    assert_redirected_to :profile => p.identifier, :page => a2.explode_path
+    assert_redirected_to :host => p.default_hostname, :controller => 'content_viewer', :action => 'view_page', :profile => p.identifier, :page => a2.explode_path
   end
 
   should 'not return an article of a different user' do
@@ -1412,6 +1412,18 @@ class ContentViewerControllerTest < ActionController::TestCase
     assert_equal 'the title of the comment', plugin.__title
     assert plugin.__saved
 
+  end
+
+  should 'remove email from article followers when unfollow' do
+    profile = create_user('testuser').person
+    follower_email = 'john@doe.br'
+    article = profile.articles.create(:name => 'test')
+    article.followers = [follower_email]
+    article.save
+
+    assert_includes Article.find(article.id).followers, follower_email
+    post :view_page, :profile => profile.identifier, :page => [article.name], :unfollow => 'commit', :email => follower_email
+    assert_not_includes Article.find(article.id).followers, follower_email
   end
 
 end

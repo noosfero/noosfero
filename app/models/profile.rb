@@ -60,19 +60,32 @@ class Profile < ActiveRecord::Base
   }
 
   acts_as_accessible
+  acts_as_having_hotspots
 
   named_scope :memberships_of, lambda { |person| { :select => 'DISTINCT profiles.*', :joins => :role_assignments, :conditions => ['role_assignments.accessor_type = ? AND role_assignments.accessor_id = ?', person.class.base_class.name, person.id ] } }
   #FIXME: these will work only if the subclass is already loaded
   named_scope :enterprises, lambda { {:conditions => (Enterprise.send(:subclasses).map(&:name) << 'Enterprise').map { |klass| "profiles.type = '#{klass}'"}.join(" OR ")} }
   named_scope :communities, lambda { {:conditions => (Community.send(:subclasses).map(&:name) << 'Community').map { |klass| "profiles.type = '#{klass}'"}.join(" OR ")} }
+  named_scope :templates, :conditions => {:is_template => true}
 
   def members
-    Person.members_of(self)
+    scopes = dispatch_scopes(:organization_members, self)
+    scopes << Person.members_of(self)
+    scopes.size == 1 ? scopes.first : Person.or_scope(scopes)
   end
 
   def members_count
-    members.count('DISTINCT(profiles.id)')
+    members.count
   end
+
+  class << self
+    def count_with_distinct(*args)
+      options = args.last || {}
+      count_without_distinct(:id, {:distinct => true}.merge(options))
+    end
+    alias_method_chain :count, :distinct
+  end
+
 
   def members_by_role(role)
     Person.members_of(self).all(:conditions => ['role_assignments.role_id = ?', role.id])
@@ -98,6 +111,7 @@ class Profile < ActiveRecord::Base
   has_many :action_tracker_notifications, :foreign_key => 'profile_id'
   has_many :tracked_notifications, :through => :action_tracker_notifications, :source => :action_tracker, :order => 'updated_at DESC'
   has_many :scraps_received, :class_name => 'Scrap', :foreign_key => :receiver_id, :order => "updated_at DESC", :dependent => :destroy
+  belongs_to :template, :class_name => 'Profile', :foreign_key => 'template_id'
 
   # FIXME ugly workaround
   def self.human_attribute_name(attrib)
@@ -204,7 +218,7 @@ class Profile < ActiveRecord::Base
   end
 
   belongs_to :region
-  
+
   def location(separator = ' - ')
     myregion = self.region
     if myregion
@@ -274,8 +288,14 @@ class Profile < ActiveRecord::Base
   validates_format_of :identifier, :with => IDENTIFIER_FORMAT, :if => lambda { |profile| !profile.identifier.blank? }
   validates_exclusion_of :identifier, :in => RESERVED_IDENTIFIERS
   validates_uniqueness_of :identifier, :scope => :environment_id
-
   validates_length_of :nickname, :maximum => 16, :allow_nil => true
+  validate :valid_template
+
+  def valid_template
+    if template_id.present? and !template.is_template
+      errors.add(:template, _('is not a template.'))
+    end
+  end
 
   before_create :set_default_environment
   def set_default_environment
@@ -285,12 +305,12 @@ class Profile < ActiveRecord::Base
     true
   end
 
-  # registar callback for creating boxes after the object is created. 
+  # registar callback for creating boxes after the object is created.
   after_create :create_default_set_of_boxes
 
   # creates the initial set of boxes when the profile is created. Can be
   # overriden for each subclass to create a custom set of boxes for its
-  # instances.    
+  # instances.
   def create_default_set_of_boxes
     if template
       apply_template(template, :copy_articles => false)
@@ -322,9 +342,14 @@ class Profile < ActiveRecord::Base
   end
 
   # this method should be overwritten to provide the correct template
-  def template
+  def default_template
     nil
   end
+
+  def template_with_default
+    template_without_default || default_template
+  end
+  alias_method_chain :template, :default
 
   def apply_template(template, options = {:copy_articles => true})
     copy_blocks_from(template)
@@ -405,7 +430,7 @@ class Profile < ActiveRecord::Base
 
   # returns +false+
   def person?
-    self.kind_of?(Person) 
+    self.kind_of?(Person)
   end
 
   def enterprise?
@@ -513,7 +538,7 @@ private :generate_url, :url_options
 
   after_create :insert_default_article_set
   def insert_default_article_set
-    if template 
+    if template
       copy_articles_from template
     else
       default_set_of_articles.each do |article|
@@ -583,7 +608,7 @@ private :generate_url, :url_options
       raise _("%s can't have members") % self.class.name
     end
   end
-  
+
   def remove_member(person)
     self.disaffiliate(person, Profile::Roles.all_roles(environment.id))
   end
@@ -880,7 +905,7 @@ private :generate_url, :url_options
 
   def self.f_enabled_proc(enabled)
     enabled = enabled == "true" ? true : false
-    enabled ? _('Enabled') : _('Not enabled')
+    enabled ? s_('facets|Enabled') : s_('facets|Not enabled')
   end
   def f_enabled
     self.enabled
@@ -909,7 +934,7 @@ private :generate_url, :url_options
   acts_as_searchable :fields => facets_fields_for_solr + [:extra_data_for_index,
       # searched fields
       {:name => {:type => :text, :boost => 2.0}},
-      {:identifier => :text}, {:address => :text}, {:nickname => :text},
+      {:identifier => :text}, {:nickname => :text},
       # filtered fields
       {:public => :boolean}, {:environment_id => :integer},
       {:category_filter => :integer},
@@ -929,7 +954,7 @@ private :generate_url, :url_options
 
   def control_panel_settings_button
     {:title => _('Profile Info and settings'), :icon => 'edit-profile'}
-  end 
+  end
 
   def followed_by?(person)
     person.is_member_of?(self)

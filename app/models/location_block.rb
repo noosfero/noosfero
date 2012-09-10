@@ -1,7 +1,7 @@
 class LocationBlock < Block
 
-  settings_items :zoom, :type => :integer , :default => 4
-  settings_items :map_type, :type => :string , :default => 'roadmap'
+  settings_items :zoom, :type => :integer, :default => 4
+  settings_items :map_type, :type => :string, :default => 'roadmap'
 
   def self.description
     _('Location map')
@@ -12,18 +12,10 @@ class LocationBlock < Block
   end
 
   def content(args={})
+    block = self
     profile = self.owner
-    title = self.title
-    if profile.lat
-      block_title(title) +
-      content_tag('div',
-      '<img src="http://maps.google.com/maps/api/staticmap?center=' + profile.lat.to_s() +
-      ',' + profile.lng.to_s() + '&zoom=' + zoom.to_s() +
-      '&size=190x250&maptype=' + map_type + '&markers=' + profile.lat.to_s() + ',' +
-      profile.lng.to_s() + ',green' + '&sensor=false"/>',
-      :class => 'the-localization-map' )
-    else
-      content_tag('i', _('This profile has no geographical position registered.'))
+    lambda do
+      render :file => 'blocks/location', :locals => {:block => block, :profile => profile}
     end
   end
 

@@ -54,7 +54,7 @@ class PriceDetailTest < ActiveSupport::TestCase
     p = PriceDetail.new
     p.valid?
 
-    assert p.errors.invalid?(:production_cost_id)
+    assert p.errors.invalid?(:production_cost)
   end
 
   should 'th production cost be unique on scope of product' do
@@ -77,5 +77,15 @@ class PriceDetailTest < ActiveSupport::TestCase
 
     assert_equal "10.00", price_detail.formatted_value(:price)
   end
+
+  should 'have the production cost name as name' do
+    product = fast_create(Product)
+    cost = fast_create(ProductionCost, :name => 'Energy',:owner_id => Environment.default.id, :owner_type => 'environment')
+
+    detail = product.price_details.create(:production_cost => cost, :price => 10)
+
+    assert_equal 'Energy', detail.name
+  end
+
 
 end

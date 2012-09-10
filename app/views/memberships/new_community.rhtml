@@ -16,6 +16,12 @@
 
   <%= required f.text_field(:name) %>
 
+  <% @plugins.dispatch(:new_community_hidden_fields).each do |field| %>
+    <% field.each do |key, value| %>
+      <%= f.hidden_field(key, :value => value) %>
+    <% end %>
+  <% end %>
+
   <%= render :partial => 'shared/organization_custom_fields', :locals => { :f => f, :object_name => 'community', :profile => @community } %>
 
   <% f.fields_for :image_builder, @community.image do |i| %>
@@ -37,6 +43,8 @@
       <%= _('<strong>After</strong> joining this group (a moderator can always desactivate access for users later).') %>
     </div>
   </div>
+
+  <%= template_options(Community, 'community')%>
 
   <% button_bar do %>
     <%= submit_button(:save, _('Create')) %>

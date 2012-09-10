@@ -206,4 +206,27 @@ class MembershipsControllerTest < ActionController::TestCase
     assert_no_tag :tag => 'textarea', :attributes => {:name => 'community[description]'}
   end
 
+  should 'include hidden fields supplied by plugins on new community' do
+    class Plugin1 < Noosfero::Plugin
+      def new_community_hidden_fields
+        {'plugin1' => 'Plugin 1'}
+      end
+    end
+
+    class Plugin2 < Noosfero::Plugin
+      def new_community_hidden_fields
+        {'plugin2' => 'Plugin 2'}
+      end
+    end
+
+    environment = Environment.default
+    environment.enable_plugin(Plugin1.name)
+    environment.enable_plugin(Plugin2.name)
+
+    get :new_community, :profile => profile.identifier
+
+    assert_tag :tag => 'input', :attributes => {:id => 'community_plugin1', :type => 'hidden', :value => 'Plugin 1'}
+    assert_tag :tag => 'input', :attributes => {:id => 'community_plugin2', :type => 'hidden', :value => 'Plugin 2'}
+  end
+
 end

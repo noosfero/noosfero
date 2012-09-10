@@ -892,13 +892,26 @@ code input {
 #article-tags {
   font-size: 10px;
   text-align: right;
+  margin-bottom: -10px;
 }
 #article-tags a {
   text-decoration: none;
 }
+
+#article-sub-header {
+  height: 15px;
+}
+
 #article-hits {
   font-size: 10px;
+  float: left;
+}
+
+#article-license {
+  font-size: 10px;
+  float: right;
   text-align: right;
+  color: #AAA;
 }
 #article-cat {
   font-size: 10px;
@@ -1381,6 +1394,7 @@ a.comment-picture {
 }
 #content #article .article-body img {
   max-width: 100%;
+  height: auto;
 }
 #content .blog-post .read-more {
   text-align: right;
@@ -2298,6 +2312,15 @@ div#activation_enterprise label, div#activation_enterprise input, div#activation
 #profile_change_picture img {
   margin-left: 10px;
 }
+
+#profile-is-template {
+  background-color: #E6E6E6;
+  border: 1px solid #CCC;
+  padding: 5px;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+}
 /*** REQUIRED FIELDS ***/
 
 .required-field label {
@@ -2938,6 +2961,11 @@ table.cms-articles .icon:hover {
 .controller-cms ul.categories li.cat_checked {
   background: #B8CFE7;
 }
+
+.controller-cms select#article_license_id {
+  max-width: 100%;
+}
+
 /************* external blog options *****************/
 
 .controller-cms #fetch-external-feed {
@@ -3575,46 +3603,50 @@ h1#agenda-title {
 /* ==> public/stylesheets/controller_memberships.css <== */
 /* @import url(profile-list-block.css); ==> BROKEN REFERENCE, OH MY! */
 
-.controller-memberships #memberships-index ul {
+#groups-list {
   width: 100%;
   padding: 0px;
   margin: 0px;
   display: block;
 }
-.controller-memberships #memberships-index li {
+
+#groups-list li {
   display: block;
   list-style: none;
   margin-bottom: 20px background-color: #B8CFE7;
 }
-.controller-memberships #memberships-index li .vcard {
+
+#groups-list li .vcard {
   float: right;
   padding: 5px;
   margin-bottom: 5px;
   margin-left: 10px;
 }
-.controller-memberships #memberships-index li .may-clear {
+#groups-list li .may-clear {
   clear: right;
 }
-.controller-memberships #memberships-index li .profile-details {
+
+#groups-list li .profile-details {
   display: block;
   padding: 3% 0px 0px 30px;
 }
-.controller-memberships .action_memberships_destroy_community .main-block u {
-  text-decoration: none;
-  border-bottom: 1px dotted red;
-}
-#memberships-index .menu-submenu {
+
+#groups-list .menu-submenu {
   bottom: 127px;
   right: -20px;
 }
-#memberships-index .menu-submenu li {
+
+#groups-list .menu-submenu li {
   border: 0;
   background: transparent;
 }
-.controller-memberships .button-bar {
+
+#groups-list .button-bar {
   clear: both;
 }
-.controller-memberships #memberships-index li .vcard a.profile_link.url, .controller-memberships #memberships-index li .vcard a.profile_link.url:hover {
+
+#groups-list li .vcard a.profile_link.url,
+#groups-list li .vcard a.profile_link.url:hover {
   background: transparent;
   border: 0;
   text-decoration: none;
@@ -4709,14 +4741,11 @@ h1#agenda-title {
 }
 #profile-activity li, #profile-network li, #profile-wall li {
   display: block;
-  padding: 3px;
+  padding: 3px 0px;
   margin-bottom: 3px;
   background-color: #fff;
   border-bottom: 1px solid #e8e8e8;
   position: relative;
-}
-
-#profile-activity li, #profile-network li, #profile-wall li {
 }
 
 .profile-activity-lead img {
@@ -4782,74 +4811,79 @@ h1#agenda-title {
   color: #000;
 }
 
-#profile-wall li.profile-activity-item.upload_image span,
-#profile-wall li.profile-activity-item.upload_image span a,
-#profile-network li.profile-activity-item.upload_image span,
-#profile-network li.profile-activity-item.upload_image span a {
-  width: 110px;
-  height: 100px;
+li.profile-activity-item.upload_image .more,
+li.profile-activity-item.upload_image .upimg {
   display: block;
-  overflow: hidden;
-  position: absolute;
-}
-
-#profile-wall li.profile-activity-item.upload_image span a img,
-#profile-network li.profile-activity-item.upload_image span a img {
-  width: 110px;
-  height: 100px;
-}
-
-#profile-wall li.profile-activity-item.upload_image .activity-gallery-images-count-1 span,
-#profile-wall li.profile-activity-item.upload_image .activity-gallery-images-count-1 span a,
-#profile-wall li.profile-activity-item.upload_image .activity-gallery-images-count-1 span a img,
-#profile-network li.profile-activity-item.upload_image .activity-gallery-images-count-1 span,
-#profile-network li.profile-activity-item.upload_image .activity-gallery-images-count-1 span a img {
-  width: auto;
-  max-width: 383px;
-  height: auto;
-}
-
-#profile-wall li.profile-activity-item.upload_image span img,
-#profile-network li.profile-activity-item.upload_image span img {
-  display: block;
-}
-
-#profile-wall li.profile-activity-item.upload_image span,
-#profile-network li.profile-activity-item.upload_image span {
-  position: relative;
-  display: inline-block;
-  margin: 5px 0px 0px 5px;
-}
-
-#profile-wall li.profile-activity-item.upload_image .profile-activity-text span,
-#profile-network li.profile-activity-item.upload_image .profile-activity-text span {
+  float: left;
+  width: 114px;
+  height: 114px;
+  background-size: cover;
+  -o-background-size: cover;
+  -moz-background-size: cover;
+  -webkit-background-size: cover;
+  background-position: 50% 50%;
   border: 4px solid #D2D2D2;
   border-radius: 4px;
-  -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  margin: 3px 6px 3px 0px;
 }
 
-#profile-wall li.profile-activity-item.upload_image span a,
-#profile-network li.profile-activity-item.upload_image span a {
-  text-indent: -5000em;
+#wrap-1 li.profile-activity-item.upload_image .upimg:hover {
+  text-decoration: none;
 }
 
-#profile-wall li.profile-activity-item.upload_image .activity-gallery-images-count-1 span a,
-#profile-network li.profile-activity-item.upload_image .activity-gallery-images-count-1 span a {
-  position: relative;
+li.profile-activity-item.upload_image .more,
+li.profile-activity-item.upload_image .upimg.morethen2 {
+  width: 50px;
+  height: 50px;
+}
+li.profile-activity-item.upload_image .activity-gallery-images-count-3 .pos3 {
+  /* reduce size only for 4 or more itens */
+  width: 114px;
+  height: 114px;
 }
 
-#profile-wall li.profile-activity-item.upload_image .article-comment span,
-#profile-wall li.profile-activity-item.upload_image .profile-wall-actions span,
-#profile-network li.profile-activity-item.upload_image .article-comment span,
-#profile-network li.profile-activity-item.upload_image .profile-wall-actions span {
-  display: inline;
-  position: static;
-  margin: 0;
+li.profile-activity-item.upload_image .activity-gallery-images-count-4 .pos3 {
+  /* make a line-break on this case */
   float: none;
+  margin-left: 256px;
+}
+
+li.profile-activity-item.upload_image .more {
+  text-align: center;
+  font-weight: bold;
+  font-size: 28px;
+  color: #DDD;
+  background: #888;
+  cursor: pointer;
+}
+li.profile-activity-item.upload_image .more:hover {
+  color: #EEE;
+  background: #999;
+}
+
+li.profile-activity-item.upload_image .morethen5 {
+  display: none;
+}
+
+li.profile-activity-item.upload_image .show-all .morethen5 {
+  display: block;
+}
+
+li.profile-activity-item.upload_image .show-all .more {
+  display: none;
+}
+
+li.profile-activity-item.upload_image .activity-gallery-images-count-1 .upimg,
+li.profile-activity-item.upload_image .activity-gallery-images-count-1 img {
+  /* Only ".activity-gallery-images-count-1" has a "img" inside */
+  float: none;
+  display: inline-block;
   width: auto;
+  max-width: 100%;
   height: auto;
-  font-weight: normal;
+  max-height: 300px;
 }
 
 #profile-wall li.profile-activity-item ul.profile-wall-activities-comments,
@@ -5054,7 +5088,7 @@ h1#agenda-title {
 
 #profile-network li textarea:focus,
 #profile-wall li textarea:focus {
-  background-position: left center;
+  background-position: left top;
   background-repeat: no-repeat;
   text-indent: 28px;
 }
@@ -5131,8 +5165,8 @@ h1#agenda-title {
 
 #profile-wall .profile-wall-activities-comments img,
 #profile-network .profile-wall-activities-comments img {
-  max-width: 50px;
-  max-height: 50px;
+  max-width: 32px;
+  max-height: 32px;
 }
 
 #profile-wall .profile-wall-activities-comments .comment_reply,
@@ -5144,7 +5178,8 @@ h1#agenda-title {
 
 #profile-wall .profile-wall-activities-comments .comment-picture,
 #profile-network .profile-wall-activities-comments .comment-picture {
-  width: 50px;
+  width: 32px;
+  margin-right: 5px;
   text-align: center;
 }
 
@@ -5682,7 +5717,31 @@ h1#agenda-title {
 
 #signup-form .fieldgroup {
   margin: 5px 10px;
+
 }
+
+
+#signup-form #template-options a,
+#signup-form #template-options label,
+#signup-form #template-options span {
+  color: #6D786E;
+  font-size: 20px;
+  font-family: droidserif;
+}
+
+#signup-form #template-options span {
+  color: #4A4A4A;
+}
+
+#signup-form #template-options label {
+  display: inline;
+  margin-left: 8px;
+}
+
+#signup-form #template-options input {
+  width: auto;
+}
+
 
 #signup-form label[for=profile_data_sex_female],
 #signup-form label[for=profile_data_sex_male] {
@@ -5902,7 +5961,34 @@ h1#agenda-title {
   font-size: 20px;
 }
 
+/* Templates */
+
+.controller-templates .template-kind {
+  border-bottom: 1px solid #CCC;
+}
+
+.controller-templates .template-kind ul {
+  padding-left: 5px;
+}
+
+.controller-templates .template-kind li {
+  list-style: none;
+  padding: 3px;
+}
+
+.controller-templates .template-kind li:hover {
+  background-color: #f0f0f0;
+}
+
+.controller-templates .template-kind li a {
+  font-size: 13px;
+}
+
 /* }}} */
+
+.unfollow-article {
+  margin-bottom: 40px;
+}
 
 #alt-beautify {
   background-color: #EDEDED;

@@ -78,14 +78,13 @@ class ActionTrackerNotificationTest < ActiveSupport::TestCase
 
   should "have comments through action_tracker" do
     person = fast_create(Person)
-    community = fast_create(Community)
-    community.add_member(person)
-    activity = ActionTracker::Record.last
+    friend = fast_create(Person)
+    person.add_friend(friend)
     process_delayed_job_queue
-    notification = ActionTrackerNotification.last
+    activity = ActionTracker::Record.find_last_by_verb 'new_friendship'
+    notification = ActionTrackerNotification.find_by_action_tracker_id activity.id
 
     comment = create(Comment, :source => activity, :author => person)
-
     assert_equal activity.comments, notification.comments
   end
 

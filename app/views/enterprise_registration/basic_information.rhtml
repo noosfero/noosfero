@@ -28,6 +28,14 @@
       <%= hidden_field_tag  'create_enterprise[target_id]', environment.id %>
     <% end %>
 
+    <% @plugins.dispatch(:enterprise_registration_hidden_fields).each do |field| %>
+      <% field.each do |key, value| %>
+        <%= f.hidden_field(key, :value => value) %>
+      <% end %>
+    <% end %>
+
+    <%= template_options(Enterprise, 'create_enterprise')%>
+
     <% button_bar do %>
       <%= submit_button('next', _('Next'), :cancel => {:profile => current_user.person.identifier, :action=>"enterprises", :controller=>"profile"}) %>
     <% end %>

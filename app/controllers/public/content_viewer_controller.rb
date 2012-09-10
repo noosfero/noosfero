@@ -19,7 +19,7 @@ class ContentViewerController < ApplicationController
       unless @page
         page_from_old_path = profile.articles.find_by_old_path(path)
         if page_from_old_path
-          redirect_to :profile => profile.identifier, :page => page_from_old_path.explode_path
+          redirect_to profile.url.merge(:page => page_from_old_path.explode_path)
           return
         end
       end
@@ -97,6 +97,14 @@ class ContentViewerController < ApplicationController
     if @page.folder? && @page.gallery?
       @images = @page.images
       @images = @images.paginate(:per_page => per_page, :page => params[:npage]) unless params[:slideshow]
+    end
+
+    @unfollow_form = params[:unfollow] && params[:unfollow] == 'true'
+    if params[:unfollow] && params[:unfollow] == 'commit' && request.post?
+      @page.followers -= [params[:email]]
+      if @page.save
+        session[:notice] = _("Notification of new comments to '%s' was successfully canceled") % params[:email]
+      end
     end
 
     @comments = @page.comments(true).as_thread

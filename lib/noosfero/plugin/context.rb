@@ -2,7 +2,7 @@
 # controller that can be accessed by plugins
 class Noosfero::Plugin::Context
 
-  def initialize(controller)
+  def initialize(controller = ApplicationController.new)
     @controller = controller
   end
 

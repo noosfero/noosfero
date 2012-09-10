@@ -1206,4 +1206,18 @@ class EnvironmentTest < ActiveSupport::TestCase
   should 'have production costs' do
     assert_respond_to Environment.default, :production_costs
   end
+
+  should 'be able to have many licenses' do
+    environment = Environment.default
+    another_environment = fast_create(Environment)
+    l1 = License.create!(:name => 'GPLv3', :environment => environment)
+    l2 = License.create!(:name => 'AGPL', :environment => environment)
+    l3 = License.create!(:name => 'Apache', :environment => another_environment)
+
+    environment.reload
+
+    assert_includes environment.licenses, l1
+    assert_includes environment.licenses, l2
+    assert_not_includes environment.licenses, l3
+  end
 end

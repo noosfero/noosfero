@@ -3,8 +3,8 @@ require File.dirname(__FILE__) + '/../test_helper'
 class ProfileTest < ActiveSupport::TestCase
   fixtures :profiles, :environments, :users, :roles, :domains
 
-  def setup
-    super
+  def teardown
+    Thread.current[:enabled_plugins] = nil
   end
 
   def test_identifier_validation
@@ -1410,6 +1410,42 @@ class ProfileTest < ActiveSupport::TestCase
     assert_equal "header customized", person.custom_header
   end
 
+  should 'not have a profile as a template if it is not defined as a template' do
+    template = fast_create(Profile)
+    profile = Profile.new(:template => template)
+    !profile.valid?
+    assert profile.errors.invalid?(:template)
+
+    template.is_template = true
+    template.save!
+    profile.valid?
+    assert !profile.errors.invalid?(:template)
+  end
+
+  should 'be able to have a template' do
+    template = fast_create(Profile, :is_template => true)
+    profile = fast_create(Profile, :template_id => template.id)
+    assert_equal template, profile.template
+  end
+
+  should 'have a default template' do
+    template = fast_create(Profile, :is_template => true)
+    profile = fast_create(Profile)
+    profile.stubs(:default_template).returns(template)
+
+    assert_equal template, profile.template
+  end
+
+  should 'return a list of templates' do
+    t1 = fast_create(Profile, :is_template => true)
+    t2 = fast_create(Profile, :is_template => true)
+    profile = fast_create(Profile)
+
+    assert_includes Profile.templates, t1
+    assert_includes Profile.templates, t2
+    assert_not_includes Profile.templates, profile
+  end
+
   should 'provide URL to leave' do
     profile = build(Profile, :identifier => 'testprofile')
     assert_equal({ :profile => 'testprofile', :controller => 'profile', :action => 'leave', :reload => false}, profile.leave_url)
@@ -1797,6 +1833,37 @@ class ProfileTest < ActiveSupport::TestCase
     assert_equal [], profile.activities
   end
 
+  should 'merge members of plugins to original members' do
+    original_community = fast_create(Community)
+    community1 = fast_create(Community, :identifier => 'community1')
+    community2 = fast_create(Community, :identifier => 'community2')
+    original_member = fast_create(Person)
+    plugin1_member = fast_create(Person)
+    plugin2_member = fast_create(Person)
+    original_community.add_member(original_member)
+    community1.add_member(plugin1_member)
+    community2.add_member(plugin2_member)
+
+    class Plugin1 < Noosfero::Plugin
+      def organization_members(profile)
+        Person.members_of(Community.find_by_identifier('community1'))
+      end
+    end
+
+    class Plugin2 < Noosfero::Plugin
+      def organization_members(profile)
+        Person.members_of(Community.find_by_identifier('community2'))
+      end
+    end
+
+    original_community.stubs(:enabled_plugins).returns([Plugin1.new, Plugin2.new])
+
+    assert_includes original_community.members, original_member
+    assert_includes original_community.members, plugin1_member
+    assert_includes original_community.members, plugin2_member
+    assert 3, original_community.members.count
+  end
+
   private
 
   def assert_invalid_identifier(id)
@@ -1826,7 +1893,6 @@ class ProfileTest < ActiveSupport::TestCase
 
     # fields
     assert_includes Profile.find_by_contents('Hiro')[:results].docs, p
-    assert_includes Profile.find_by_contents('Stor')[:results].docs, p
     assert_includes Profile.find_by_contents('Protagonist')[:results].docs, p
     # filters
     assert_includes Profile.find_by_contents('Hiro', {}, { :filter_queries => ["public:true"]})[:results].docs, p
@@ -1836,13 +1902,15 @@ class ProfileTest < ActiveSupport::TestCase
     assert_includes Profile.find_by_contents("Inglewood")[:results].docs, p
     assert_includes Profile.find_by_contents("California")[:results].docs, p
     assert_includes Profile.find_by_contents("Science")[:results].docs, p
+    # not includes
+    assert_not_includes Profile.find_by_contents('Stor')[:results].docs, p
   end
 
   should 'boost name matches' do
     TestSolr.enable
     in_addr = create(Person, :name => 'something', :address => 'bananas in the address!', :user_id => fast_create(User).id)
     in_name = create(Person, :name => 'bananas in the name!', :user_id => fast_create(User).id)
-    assert_equal [in_name, in_addr], Person.find_by_contents('bananas')[:results].docs
+    assert_equal [in_name], Person.find_by_contents('bananas')[:results].docs
   end
 
   should 'reindex articles after saving' do

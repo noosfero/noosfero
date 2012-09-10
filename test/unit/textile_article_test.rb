@@ -70,20 +70,20 @@ class TextileArticleTest < ActiveSupport::TestCase
     end
   end
 
-  should 'not notify activity on destroy' do
+  should 'remove activity after destroying article' do
     ActionTracker::Record.delete_all
     a = TextileArticle.create! :name => 'bar', :profile_id => fast_create(Profile).id, :published => true
-    assert_no_difference ActionTracker::Record, :count do
+    assert_difference ActionTracker::Record, :count, -1 do
       a.destroy
     end
   end
 
-  should 'not notify when an article is destroyed' do
+  should 'remove activity after article is destroyed' do
     ActionTracker::Record.delete_all
     a1 = TextileArticle.create! :name => 'bar', :profile_id => fast_create(Profile).id, :published => true
     a2 = TextileArticle.create! :name => 'another bar', :profile_id => fast_create(Profile).id, :published => true
     assert_equal 2, ActionTracker::Record.count
-    assert_no_difference ActionTracker::Record, :count do
+    assert_difference ActionTracker::Record, :count, -2 do
       a1.destroy
       a2.destroy
     end

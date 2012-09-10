@@ -18,7 +18,7 @@ module SearchHelper
 
   SortOptions = {
     :products => ActiveSupport::OrderedHash[ :none, {:label => _('Relevance')},
-      :more_recent, {:label => _('More Recent'), :solr_opts => {:sort => 'updated_at desc, score desc'}},
+      :more_recent, {:label => _('More recent'), :solr_opts => {:sort => 'updated_at desc, score desc'}},
       :name, {:label => _('Name'), :solr_opts => {:sort => 'name_sortable asc'}},
       :closest, {:label => _('Closest to me'), :if => proc{ logged_in? && (profile=current_user.person).lat && profile.lng },
         :solr_opts => {:sort => "geodist() asc",
@@ -45,6 +45,14 @@ module SearchHelper
   # FIXME remove it after search_controler refactored
   include EventsHelper
 
+  def multiple_search?
+    ['index', 'category_index'].include?(params[:action]) or @results.size > 1
+  end
+
+  def map_search?
+    !@query.blank? and !multiple_search? and params[:display] == 'map'
+  end
+
   def search_page_title(title, category = nil)
     title = "<h1>" + title
     title += '<small>' + category.name + '</small>' if category
@@ -58,8 +66,8 @@ module SearchHelper
       :align => 'center', :class => 'search-category-context') if category
   end
 
-  def display_results(use_map = false)
-    if params[:display] == 'map' && use_map
+  def display_results(map_capable = false)
+    if map_capable and map_search?
       partial = 'google_maps'
       klass = 'map'
     else

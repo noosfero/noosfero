@@ -6,6 +6,8 @@
 
 <%= required f.text_field(:name, :size => '64', :onchange => "updateUrlField(this, 'article_slug')") %>
 
+<%= render :partial => 'general_fields' %>
+
 <script type="text/javascript">
   function submit_button(index) {
      return $("article_slug").form.select("input.submit")[index];

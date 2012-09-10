@@ -65,6 +65,21 @@ class CommentNotifierTest < ActiveSupport::TestCase
     end
   end
 
+  should "deliver mail to followers" do
+    author = create_user('follower_author').person
+    follower = create_user('follower').person
+    @article.followers += [follower.email]
+    @article.save!
+    @article.comments << Comment.new(:source => @article, :author => author, :title => 'comment title', :body => 'comment body')
+    assert_includes ActionMailer::Base.deliveries.map(&:bcc).flatten, follower.email
+  end
+
+  should "not deliver follower's mail about new comment to comment's author" do
+    follower = create_user('follower').person
+    @article.comments << Comment.new(:source => @article, :author => follower, :title => 'comment title', :body => 'comment body')
+    assert_not_includes ActionMailer::Base.deliveries.map(&:bcc).flatten, follower.email
+  end
+
   private
 
     def read_fixture(action)

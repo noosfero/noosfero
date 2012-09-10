@@ -8,7 +8,7 @@ class UploadedFile < Article
     _('File')
   end
 
-  track_actions :upload_image, :after_create, :keep_params => ["view_url", "thumbnail_path", "parent.url", "parent.name"], :if => Proc.new { |a| a.published? && a.image? && !a.parent.nil? && a.parent.gallery? }, :custom_target => :action_tracker_target
+  track_actions :upload_image, :after_create, :keep_params => ["view_url", "thumbnail_path", "parent.url", "parent.name"], :if => Proc.new { |a| a.published? && a.image? && !a.parent.nil? && a.parent.gallery? }, :custom_target => :parent
 
   include ShortFilename
 
@@ -144,9 +144,4 @@ class UploadedFile < Article
   def uploaded_file?
     true
   end
-
-  def action_tracker_target
-    self
-  end
-
 end

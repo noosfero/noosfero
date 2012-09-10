@@ -1,0 +1,12 @@
+<% title = case @kind
+  when 'person'
+
+  when 'community'
+
+  when 'enterprise'
+    _('Create enterprise template')
+end %>
+
+<h1><%= _('Create community template') %></h1>
+
+<%= render :partial => 'create_template_form' %>

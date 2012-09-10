@@ -24,6 +24,8 @@ class Environment < ActiveRecord::Base
     'manage_environment_roles' => N_('Manage environment roles'),
     'manage_environment_validators' => N_('Manage environment validators'),
     'manage_environment_users' => N_('Manage environment users'),
+    'manage_environment_templates' => N_('Manage environment templates'),
+    'manage_environment_licenses' => N_('Manage environment licenses'),
   }
 
   module Roles
@@ -158,6 +160,7 @@ class Environment < ActiveRecord::Base
   has_many :products, :through => :enterprises
   has_many :people
   has_many :communities
+  has_many :licenses
 
   has_many :categories
   has_many :display_categories, :class_name => 'Category', :conditions => 'display_color is not null and parent_id is null', :order => 'display_color'
@@ -719,12 +722,12 @@ class Environment < ActiveRecord::Base
 
   def create_templates
     pre = self.name.to_slug + '_'
-    ent_id = Enterprise.create!(:name => 'Enterprise template', :identifier => pre + 'enterprise_template', :environment => self, :visible => false).id
-    inactive_enterprise_tmpl = Enterprise.create!(:name => 'Inactive Enterprise template', :identifier => pre + 'inactive_enterprise_template', :environment => self, :visible => false)
-    com_id = Community.create!(:name => 'Community template', :identifier => pre + 'community_template', :environment => self, :visible => false).id
+    ent_id = Enterprise.create!(:name => 'Enterprise template', :identifier => pre + 'enterprise_template', :environment => self, :visible => false, :is_template => true).id
+    inactive_enterprise_tmpl = Enterprise.create!(:name => 'Inactive Enterprise template', :identifier => pre + 'inactive_enterprise_template', :environment => self, :visible => false, :is_template => true)
+    com_id = Community.create!(:name => 'Community template', :identifier => pre + 'community_template', :environment => self, :visible => false, :is_template => true).id
     pass = Digest::MD5.hexdigest rand.to_s
     user = User.create!(:login => (pre + 'person_template'), :email => (pre + 'template@template.noo'), :password => pass, :password_confirmation => pass, :environment => self).person
-    user.update_attributes(:visible => false, :name => "Person template")
+    user.update_attributes(:visible => false, :name => "Person template", :is_template => true)
     usr_id = user.id
     self.settings[:enterprise_template_id] = ent_id
     self.inactive_enterprise_template = inactive_enterprise_tmpl
@@ -738,6 +741,18 @@ class Environment < ActiveRecord::Base
     [enterprise_template, inactive_enterprise_template, community_template, person_template].compact.each do |template|
       template.destroy
     end
+  end
+
+  after_create :create_default_licenses
+  def create_default_licenses
+    License.create!(:name => 'CC (by)', :url => 'http://creativecommons.org/licenses/by/3.0/legalcode', :environment => self)
+    License.create!(:name => 'CC (by-nd)', :url => 'http://creativecommons.org/licenses/by-nd/3.0/legalcode', :environment => self)
+    License.create!(:name => 'CC (by-sa)', :url => 'http://creativecommons.org/licenses/by-sa/3.0/legalcode', :environment => self)
+    License.create!(:name => 'CC (by-nc)', :url => 'http://creativecommons.org/licenses/by-nc/3.0/legalcode', :environment => self)
+    License.create!(:name => 'CC (by-nc-nd)', :url => 'http://creativecommons.org/licenses/by-nc-nd/3.0/legalcode', :environment => self)
+    License.create!(:name => 'CC (by-nc-sa)', :url => 'http://creativecommons.org/licenses/by-nc-sa/3.0/legalcode', :environment => self)
+    License.create!(:name => 'Free Art', :url => 'http://artlibre.org/licence/lal/en', :environment => self)
+    License.create!(:name => 'GNU FDL', :url => 'http://www.gnu.org/licenses/fdl-1.3.txt', :environment => self)
   end
 
   def highlighted_products_with_image(options = {})
