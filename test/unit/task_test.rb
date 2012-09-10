@@ -14,7 +14,7 @@ class TaskTest < ActiveSupport::TestCase
       t.requestor = 1
     end
     assert_nothing_raised do
-      t.requestor = Person.new
+      t.requestor = Profile.new
     end
   end
 
