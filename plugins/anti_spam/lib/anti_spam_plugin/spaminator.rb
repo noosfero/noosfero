@@ -72,6 +72,8 @@ class AntiSpamPlugin::Spaminator
     # TODO several comments with the same content:
     #   → disable author
     #   → mark all of them as spam
+
+    # TODO check comments that contains URL's
   end
 
   def process_person(person)
@@ -92,6 +94,7 @@ class AntiSpamPlugin::Spaminator
     #   → mark their comments as spam
     #
     Person.where(:environment_id => @environment.id).where(['created_at < ?', Time.now - 1.month]).find_each do |person|
+      # TODO progress indicator - see process_all_people above
       number_of_friends = person.friends.count
       number_of_communities = person.communities.count
       if number_of_friends == 0 && number_of_communities <= 1
@@ -104,6 +107,8 @@ class AntiSpamPlugin::Spaminator
   end
 
   def mark_as_spammer(person)
+    # FIXME create an AbuseComplaint and finish instead of calling
+    # Person#disable directly
     person.disable
   end
 
