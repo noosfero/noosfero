@@ -155,7 +155,6 @@ class ContentViewerController < ApplicationController
     @comment = @page.comments.find(params[:remove_comment])
     if (user == @comment.author || user == @page.profile || user.has_permission?(:moderate_comments, @page.profile))
       @comment.destroy
-      session[:notice] = _('Comment succesfully deleted')
     end
     finish_comment_handling
   end
@@ -164,7 +163,6 @@ class ContentViewerController < ApplicationController
     @comment = @page.comments.find(params[:mark_comment_as_spam])
     if logged_in? && (user == @page.profile || user.has_permission?(:moderate_comments, @page.profile))
       @comment.spam!
-      session[:notice] = _('Comment succesfully marked as SPAM')
     end
     finish_comment_handling
   end
