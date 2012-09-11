@@ -8,10 +8,16 @@ class PluginManagerTest < ActiveSupport::TestCase
     @controller.stubs(:profile).returns()
     @controller.stubs(:request).returns()
     @controller.stubs(:response).returns()
-    @controller.stubs(:environment).returns(@environment)
     @controller.stubs(:params).returns()
+    @manager = Noosfero::Plugin::Manager.new(@environment, @controller)
   end
   attr_reader :environment
+  attr_reader :manager
+
+  should 'give access to environment and context' do
+    assert_same @environment, @manager.environment
+    assert_same @controller, @manager.context
+  end
 
   should 'return the intersection between environment\'s enabled plugins and system available plugins' do
     class Plugin1 < Noosfero::Plugin; end;
@@ -20,7 +26,6 @@ class PluginManagerTest < ActiveSupport::TestCase
     class Plugin4 < Noosfero::Plugin; end;
     environment.stubs(:enabled_plugins).returns([Plugin1.to_s, Plugin2.to_s, Plugin4.to_s])
     Noosfero::Plugin.stubs(:all).returns([Plugin1.to_s, Plugin3.to_s, Plugin4.to_s])
-    manager = Noosfero::Plugin::Manager.new(@controller)
     plugins = manager.enabled_plugins.map { |instance| instance.class.to_s }
     assert_equal [Plugin1.to_s, Plugin4.to_s], plugins
   end
@@ -49,7 +54,6 @@ class PluginManagerTest < ActiveSupport::TestCase
 
     p1 = Plugin1.new
     p2 = Plugin2.new
-    manager = Noosfero::Plugin::Manager.new(@controller)
 
     assert_equal [p1.random_event, p2.random_event], manager.dispatch(:random_event)
   end

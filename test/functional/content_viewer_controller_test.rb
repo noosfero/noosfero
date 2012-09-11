@@ -92,7 +92,7 @@ class ContentViewerControllerTest < ActionController::TestCase
 
     login_as 'testuser'
     get :view_page, :profile => 'testuser', :page => [ 'test' ]
-    assert_tag :tag => 'a', :attributes => { :href => '/testuser/test?remove_comment=' + comment.id.to_s }
+    assert_tag :tag => 'a', :attributes => { :onclick => %r(/testuser/test\?remove_comment=#{comment.id}.quot) }
   end
 
   should 'display remove comment button with param view when image' do
@@ -106,8 +106,9 @@ class ContentViewerControllerTest < ActionController::TestCase
 
     login_as 'testuser'
     get :view_page, :profile => 'testuser', :page => [ image.filename ], :view => true
-    assert_tag :tag => 'a', :attributes => { :href => "/testuser/#{image.filename}?remove_comment=" + comment.id.to_s + '&amp;view=true'}
-  end
+    assert_tag :tag => 'a', :attributes => { :onclick => %r(/testuser/#{image.filename}\?remove_comment=#{comment.id}.*amp;view=true.quot) }
+end
+
 
   should 'not add unneeded params for remove comment button' do
     profile = create_user('testuser').person
@@ -117,8 +118,8 @@ class ContentViewerControllerTest < ActionController::TestCase
     comment.save!
 
     login_as 'testuser'
-    get :view_page, :profile => 'testuser', :page => [ 'test' ], :random_param => 'bli' # <<<<<<<<<<<<<<<
-    assert_tag :tag => 'a', :attributes => { :href => '/testuser/test?remove_comment=' + comment.id.to_s }
+    get :view_page, :profile => 'testuser', :page => [ 'test' ], :random_param => 'bli'
+    assert_tag :tag => 'a', :attributes => { :onclick => %r(/testuser/test\?remove_comment=#{comment.id.to_s}.quot) }
   end
 
   should 'be able to remove comment' do
@@ -1374,12 +1375,16 @@ class ContentViewerControllerTest < ActionController::TestCase
     assert_not_nil assigns(:comment)
   end
 
-  should 'store IP address for comments' do
+  should 'store IP address, user agent and referrer for comments' do
     page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
     @request.stubs(:remote_ip).returns('33.44.55.66')
+    @request.stubs(:referrer).returns('http://example.com')
+    @request.stubs(:user_agent).returns('MyBrowser')
     post :view_page, :profile => profile.identifier, :page => [ 'myarticle' ], :comment => { :title => 'title', :body => 'body', :name => "Spammer", :email => 'damn@spammer.com' }, :confirm => 'true'
     comment = Comment.last
     assert_equal '33.44.55.66', comment.ip_address
+    assert_equal 'MyBrowser', comment.user_agent
+    assert_equal 'http://example.com', comment.referrer
   end
 
   should 'not save a comment if a plugin rejects it' do
@@ -1395,25 +1400,6 @@ class ContentViewerControllerTest < ActionController::TestCase
     end
   end
 
-  should 'notify plugins after a comment is saved' do
-    class TestNotifyCommentPlugin < Noosfero::Plugin
-      def comment_saved(c)
-        @__saved = c.id
-        @__title = c.title
-      end
-      attr_reader :__title
-      attr_reader :__saved
-    end
-    plugin = TestNotifyCommentPlugin.new
-    Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([plugin])
-    page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
-    post :view_page, :profile => profile.identifier, :page => [ 'myarticle' ], :comment => { :title => 'the title of the comment', :body => 'body', :name => "Spammer", :email => 'damn@spammer.com' }, :confirm => 'true'
-
-    assert_equal 'the title of the comment', plugin.__title
-    assert plugin.__saved
-
-  end
-
   should 'remove email from article followers when unfollow' do
     profile = create_user('testuser').person
     follower_email = 'john@doe.br'
@@ -1424,6 +1410,26 @@ class ContentViewerControllerTest < ActionController::TestCase
     assert_includes Article.find(article.id).followers, follower_email
     post :view_page, :profile => profile.identifier, :page => [article.name], :unfollow => 'commit', :email => follower_email
     assert_not_includes Article.find(article.id).followers, follower_email
+  end
+
+  should 'not display comments marked as spam' do
+    article = fast_create(Article, :profile_id => profile.id)
+    ham = fast_create(Comment, :source_id => article.id, :source_type => 'Article')
+    spam = fast_create(Comment, :source_id => article.id, :source_type => 'Article', :spam => true)
+
+    get 'view_page', :profile => profile.identifier, :page => article.path.split('/')
+    assert_equal 1, assigns(:comments_count)
+  end
+
+  should 'be able to mark comments as spam' do
+    login_as profile.identifier
+    article = fast_create(Article, :profile_id => profile.id)
+    spam = fast_create(Comment, :name => 'foo', :email => 'foo@example.com', :source_id => article.id, :source_type => 'Article')
+
+    post 'view_page', :profile => profile.identifier, :page => article.path.split('/'), :mark_comment_as_spam => spam.id
+
+    spam.reload
+    assert spam.spam?
   end
 
 end

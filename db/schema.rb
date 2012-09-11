@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120818030329) do
+ActiveRecord::Schema.define(:version => 20120825185219) do
 
   create_table "abuse_reports", :force => true do |t|
     t.integer  "reporter_id"
@@ -213,6 +213,8 @@ ActiveRecord::Schema.define(:version => 20120818030329) do
     t.string   "ip_address"
     t.boolean  "spam"
     t.string   "source_type"
+    t.string   "user_agent"
+    t.string   "referrer"
   end
 
   create_table "contact_lists", :force => true do |t|

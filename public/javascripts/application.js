@@ -683,6 +683,33 @@ function add_comment_reply_form(button, comment_id) {
   return f;
 }
 
+function remove_comment(button, url, msg) {
+  var $ = jQuery;
+  var $button = $(button);
+  if (msg && !confirm(msg)) {
+    $button.removeClass('comment-button-loading');
+    return;
+  }
+  $button.addClass('comment-button-loading');
+  $.post(url, function(data) {
+    if (data.ok) {
+      var $comment = $button.closest('.article-comment');
+      var $replies = $comment.find('.comment-replies .article-comment');
+      $comment.slideUp();
+      var comments_removed = 1;
+      if ($button.hasClass('remove-children')) {
+        comments_removed = 1 + $replies.size();
+      } else {
+        $replies.appendTo('.article-comments-list');
+      }
+      $('.comment-count').each(function() {
+        var count = parseInt($(this).html());
+        $(this).html(count - comments_removed);
+      });
+    }
+  });
+}
+
 function original_image_dimensions(src) {
   var img = new Image();
   img.src = src;

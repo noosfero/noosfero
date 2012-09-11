@@ -1069,15 +1069,6 @@ a.comment-picture {
   top: 9px;
   right: 8px;
 }
-#content .comment-balloon a.button.icon-delete {
-  border: 0;
-  padding-top: 0;
-  padding-bottom: 0;
-  background-color: transparent;
-}
-#content .comments .comment-balloon a.button.icon-delete {
-  display: none;
-}
 .msie7 .article-comments-list .comment-balloon {
   margin-top: -15px;
 }
@@ -1270,6 +1261,11 @@ a.comment-picture {
   opacity: 0.6;
 }
 /* * * Comment Box * * */
+
+.comment-button-loading {
+  padding-left: 20px;
+  background: transparent url(../images/loading-small.gif) no-repeat left center;
+}
 
 .post_comment_box {
   text-align: center;
@@ -3853,6 +3849,9 @@ h1#agenda-title {
 }
 .controller-profile_editor .msie6 a.control-panel-edit-location {
   background-image: url(../images/control-panel/set-geolocation.gif)
+}
+.controller-profile_editor a.control-panel-manage-spam {
+  background-image: url(../images/control-panel/mail-mark-junk.png)
 }
 /* ==> public/stylesheets/controller_profile_members.css <== */
 .controller-profile_members .no-boxes {

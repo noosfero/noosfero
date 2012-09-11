@@ -15,14 +15,29 @@ class Noosfero::Plugin
       Dir.glob(File.join(Rails.root, 'config', 'plugins', '*')).select do |entry|
         File.directory?(entry)
       end.each do |dir|
-        Rails.configuration.controller_paths << File.join(dir, 'controllers')
-        ActiveSupport::Dependencies.load_paths << File.join(dir, 'controllers')
-        [ ActiveSupport::Dependencies.load_paths, $:].each do |path|
-          path << File.join(dir, 'models')
-          path << File.join(dir, 'lib')
+        plugin_name = File.basename(dir)
+
+        plugin_dependencies_ok = true
+        plugin_dependencies_file = File.join(dir, 'dependencies.rb')
+        if File.exists?(plugin_dependencies_file)
+          begin
+            require plugin_dependencies_file
+          rescue LoadError => ex
+            plugin_dependencies_ok = false
+            $stderr.puts "W: Noosfero plugin #{plugin_name} failed to load (#{ex})"
+          end
         end
 
-        klass(File.basename(dir))
+        if plugin_dependencies_ok
+          Rails.configuration.controller_paths << File.join(dir, 'controllers')
+          ActiveSupport::Dependencies.load_paths << File.join(dir, 'controllers')
+          [ ActiveSupport::Dependencies.load_paths, $:].each do |path|
+            path << File.join(dir, 'models')
+            path << File.join(dir, 'lib')
+          end
+
+          klass(plugin_name)
+        end
       end
     end
 
@@ -226,16 +241,53 @@ class Noosfero::Plugin
   # example:
   #
   #   def filter_comment(comment)
-  #     comment.reject! if anti_spam_service.is_spam?(comment)
+  #     if user_not_logged_in
+  #       comment.reject!
+  #     end
   #   end
   #
   def filter_comment(comment)
   end
 
-  # This method will be called just after a comment has been saved to the
-  # database, so that a plugin can perform some action on it.
+  # This method is called by the CommentHandler background job before sending
+  # the notification email. If the comment is marked as spam (i.e. by calling
+  # <tt>comment.spam!</tt>), then the notification email will *not* be sent.
   #
-  def comment_saved(comment)
+  # example:
+  #
+  #   def check_comment_for_spam(comment)
+  #     if anti_spam_service.is_spam?(comment)
+  #       comment.spam!
+  #     end
+  #   end
+  #
+  def check_comment_for_spam(comment)
+  end
+
+  # This method is called when the user manually marks a comment as SPAM. A
+  # plugin implementing this method should train its spam detection mechanism
+  # by submitting this comment as a confirmed spam.
+  #
+  # example:
+  #
+  #   def comment_marked_as_spam(comment)
+  #     anti_spam_service.train_with_spam(comment)
+  #   end
+  #
+  def comment_marked_as_spam(comment)
+  end
+
+  # This method is called when the user manually marks a comment a NOT SPAM. A
+  # plugin implementing this method should train its spam detection mechanism
+  # by submitting this coimment as a confirmed ham.
+  #
+  # example:
+  #
+  #   def comment_marked_as_ham(comment)
+  #     anti_spam_service.train_with_ham(comment)
+  #   end
+  #
+  def comment_marked_as_ham(comment)
   end
 
   # -> Adds fields to the signup form
