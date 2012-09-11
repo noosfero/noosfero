@@ -76,7 +76,7 @@
   </tr>
   <% if (@metric_configuration.ranges!=nil) 
     @metric_configuration.ranges.each do |range| %>
-      <%= render :partial => "range", :locals => {:range => range, :id => @configuration_content.id, 
+      <%= render :partial => "mezuro_plugin_range/range", :locals => {:range => range, :id => @configuration_content.id, 
           :metric_name => @metric.name} %>
     <% end
   end %>

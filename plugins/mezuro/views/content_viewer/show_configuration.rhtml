@@ -22,8 +22,10 @@
 
   <br/>
 
-  <%= link_to "#{image_tag ('/plugins/mezuro/images/plus.png')}Add Metric", :controller => "mezuro_plugin_base_tool",
-  :action => "choose_base_tool", :params => { :id => @configuration_content.id } %><br/>
+  <%= link_to "#{image_tag ('/plugins/mezuro/images/plus.png')}Add Metric", :controller => "mezuro_plugin_base_tool", 
+  																			:profile => @page.profile.identifier, 
+  																			:action => "choose_base_tool", 
+  																			:id => @configuration_content.id %><br/>
 
   <table>
     <tr class="titles">
@@ -40,19 +42,22 @@
             <%= metric_configuration.metric.origin %>
           </td>
           <td><%= metric_configuration.code %></td>
-          <td><%= link_to "Edit", :controller => "mezuro_plugin_metric_configuration", :action => "edit_metric_configuration", :params =>
-            {:metric_name => metric_configuration.metric.name, :id => @configuration_content.id} %></td>
+          <td><%= link_to "Edit", :controller => "mezuro_plugin_metric_configuration", :action => "edit_metric_configuration", 
+          						  :metric_name => metric_configuration.metric.name, :id => @configuration_content.id, 
+          						  :profile => @page.profile.identifier %></td>
         <% else %>
           <td>
             Compound Metric
           </td>
           <td><%= metric_configuration.code %></td>
-          <td><%= link_to "Edit", :controller => "mezuro_plugin_metric_configuration", :action => "edit_compound_metric_configuration", :params =>
-            {:metric_name => metric_configuration.metric.name, :id => @configuration_content.id} %></td>
+          <td><%= link_to "Edit", :controller => "mezuro_plugin_metric_configuration", 
+          						  :action => "edit_compound_metric_configuration", :metric_name => metric_configuration.metric.name, 
+          						  :id => @configuration_content.id, :profile => @page.profile.identifier %></td>
         <% end %>
         
-        <td><%= link_to "Remove", :controller => "mezuro_plugin_metric_configuration", :action => "remove_metric_configuration", :params =>
-          {:metric_name => metric_configuration.metric.name, :id => @configuration_content.id} %></td>
+        <td><%= link_to "Remove", :controller => "mezuro_plugin_metric_configuration", :action => "remove_metric_configuration", 
+        						  :metric_name => metric_configuration.metric.name, :id => @configuration_content.id, 
+        						  :profile => @page.profile.identifier %></td>
       </tr>
     <% end %>
   </table>

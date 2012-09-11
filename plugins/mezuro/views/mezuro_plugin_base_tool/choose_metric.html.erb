@@ -10,8 +10,8 @@
   <% @supported_metrics.each do |metric| %>
     <tr class="metric" title="<%= metric.name %>">
       <td>
-        <%= link_to metric.name, :controller => "mezuro_plugin_myprofile", :action => "new_metric_configuration", :params => {:metric_name => metric.name,
-        :base_tool => @base_tool, :id => @configuration_content.id } %>
+        <%= link_to metric.name, :controller => "mezuro_plugin_metric_configuration", :action => "new_metric_configuration",
+        						 :metric_name => metric.name, :base_tool => @base_tool, :id => @configuration_content.id %>
       </td>
     </tr>
   <% end %>
