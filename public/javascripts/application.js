@@ -693,7 +693,19 @@ function remove_comment(button, url, msg) {
   $button.addClass('comment-button-loading');
   $.post(url, function(data) {
     if (data.ok) {
-      $button.closest('.article-comment').slideUp();
+      var $comment = $button.closest('.article-comment');
+      var $replies = $comment.find('.comment-replies .article-comment');
+      $comment.slideUp();
+      var comments_removed = 1;
+      if ($button.hasClass('remove-children')) {
+        comments_removed = 1 + $replies.size();
+      } else {
+        $replies.appendTo('.article-comments-list');
+      }
+      $('.comment-count').each(function() {
+        var count = parseInt($(this).html());
+        $(this).html(count - comments_removed);
+      });
     }
   });
 }

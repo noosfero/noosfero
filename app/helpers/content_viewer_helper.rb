@@ -8,7 +8,7 @@ module ContentViewerHelper
     if n == 0
      _('No comments yet')
     else
-     n_('One comment', '%{comments} comments', n) % { :comments => n }
+     n_('One comment', '<span class="comment-count">%{comments}</span> comments', n) % { :comments => n }
     end
   end
 

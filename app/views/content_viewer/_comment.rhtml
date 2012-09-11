@@ -65,7 +65,7 @@
 
       <% if logged_in? && (user == profile || user == comment.author || user.has_permission?(:moderate_comments, profile)) %>
         &nbsp;
-        <%= link_to_function(_('Remove'), 'remove_comment(this, %s, %s); return false ;' % [url_for(:profile => params[:profile], :remove_comment => comment.id, :view => params[:view]).to_json, _('Are you sure you want to remove this comment and all its replies?').to_json], :class => 'comment-footer comment-footer-link comment-footer-hide') %>
+        <%= link_to_function(_('Remove'), 'remove_comment(this, %s, %s); return false ;' % [url_for(:profile => params[:profile], :remove_comment => comment.id, :view => params[:view]).to_json, _('Are you sure you want to remove this comment and all its replies?').to_json], :class => 'comment-footer comment-footer-link comment-footer-hide remove-children') %>
       <% end %>
 
       <% unless comment.spam? %>
