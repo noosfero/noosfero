@@ -536,6 +536,15 @@ class CommentTest < ActiveSupport::TestCase
     assert_equal c, SpamNotification.marked_as_ham
   end
 
+  should 'ignore spam when constructing threads' do
+    original = create_comment
+    response = create_comment(:reply_of_id => original.id)
+    original.spam!
+
+    assert_equivalent [response], Comment.without_spam.as_thread
+  end
+
+
   should 'store User-Agent' do
     c = Comment.new(:user_agent => 'foo')
     assert_equal 'foo', c.user_agent

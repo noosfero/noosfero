@@ -147,10 +147,14 @@ class Comment < ActiveRecord::Base
   def self.as_thread
     result = {}
     root = []
-    all.each do |c|
+    order(:id).each do |c|
       c.replies = []
       result[c.id] ||= c
-      c.reply_of_id.nil? ? root << c : result[c.reply_of_id].replies << c
+      if result[c.reply_of_id]
+        result[c.reply_of_id].replies << c
+      else
+        root << c
+      end
     end
     root
   end
