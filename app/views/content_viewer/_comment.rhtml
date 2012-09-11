@@ -82,7 +82,7 @@
 
   </div>
 
-  <% unless comment.replies.blank? %>
+  <% unless comment.replies.blank? || comment.spam? %>
   <ul class="comment-replies">
     <% comment.replies.each do |reply| %>
       <%= render :partial => 'comment', :locals => { :comment => reply } %>

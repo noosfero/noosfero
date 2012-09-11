@@ -31,5 +31,11 @@ class SpamControllerTest < ActionController::TestCase
     assert !Comment.exists?(@spam.id)
   end
 
+  should 'properly render spam that have replies' do
+    reply_spam = fast_create(Comment, :source_id => @article_id, :reply_of_id => @spam.id)
+
+    get :index, :profile => @profile.identifier
+    assert_response :success
+  end
 
 end
