@@ -3,7 +3,7 @@
 <% unless @page.errors[:base].nil? %>
   <% if @page.errors[:base] =~ /There is no configuration named/ %>
     <h3>Warning:</h3>
-    <p>This Configuration doesn't exist on the Web Service. Do you want to <a href="/myprofile/<%= @page.profile.name %>/cms/destroy/<%= @page.id%>">delete</a> or <a href="/myprofile/<%= @page.profile.name %>/cms/edit/<%= @page.id%>">save it again</a>?</p>
+    <p>This Configuration doesn't exist on the Web Service. Do you want to <%= link_to 'delete', :action => 'destroy', :controller => 'cms', :profile => @page.profile.identifier, :id => @page.id %> or <%= link_to 'save it again', :action => 'edit', :controller => 'cms', :profile => @page.profile.identifier, :id => @page.id %>?</p>
   <% else %>
     <%= @page.errors[:base] %>
   <% end %>
