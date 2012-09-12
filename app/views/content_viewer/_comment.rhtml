@@ -71,7 +71,7 @@
       <% unless comment.spam? %>
         &nbsp;
         <%= link_to_function _('Reply'),
-          "var f = add_comment_reply_form(this, %s); f.find('input[name=comment[title]], textarea').val(''); return false" % comment.id,
+          "var f = add_comment_reply_form(this, %s); f.find('comment_title, textarea').val(''); return false" % comment.id,
           :class => 'comment-footer comment-footer-link comment-footer-hide',
           :id => 'comment-reply-to-' + comment.id.to_s
         %>
