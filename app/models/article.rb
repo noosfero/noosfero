@@ -179,37 +179,23 @@ class Article < ActiveRecord::Base
   end
 
   named_scope :more_popular, :order => 'hits DESC'
+  named_scope :relevant_as_recent, :conditions => ["(articles.type != 'UploadedFile' and articles.type != 'RssFeed' and articles.type != 'Blog') OR articles.type is NULL"]
 
-  # retrieves the latest +limit+ articles, sorted from the most recent to the
-  # oldest.
-  #
-  # Only includes articles where advertise == true
-  def self.recent(limit = nil, extra_conditions = {})
-    # FIXME this method is a horrible hack
-    options = { :page => 1, :per_page => limit,
-                :conditions => [
-                  "advertise = ? AND
-                  published = ? AND
-                  profiles.visible = ? AND
-                  profiles.public_profile = ? AND
-                  ((articles.type != ? and articles.type != ? and articles.type != ?) OR articles.type is NULL)", true, true, true, true, 'UploadedFile', 'RssFeed', 'Blog'
-                ],
-                :include => 'profile',
-                :order => 'articles.published_at desc, articles.id desc'
-              }
-    if ( scoped_methods && scoped_methods.last &&
-         scoped_methods.last[:find] &&
-         scoped_methods.last[:find][:joins] &&
-         scoped_methods.last[:find][:joins].index('profiles') )
-      options.delete(:include)
+  def self.recent(limit = nil, extra_conditions = {}, pagination = true)
+    result = scoped({:conditions => extra_conditions}).
+      public.
+      relevant_as_recent.
+      limit(limit).
+      order(['articles.published_at desc', 'articles.id desc'])
+
+    if !( scoped_methods && scoped_methods.last &&
+        scoped_methods.last[:find] &&
+        scoped_methods.last[:find][:joins] &&
+        scoped_methods.last[:find][:joins].index('profiles') )
+      result = result.includes(:profile)
     end
-    if extra_conditions == {}
-      self.paginate(options)
-    else
-      with_scope :find => {:conditions => extra_conditions} do
-        self.paginate(options)
-      end
-    end
+
+    pagination ? result.paginate({:page => 1, :per_page => limit}) : result
   end
 
   # produces the HTML code that is to be displayed as this article's contents.

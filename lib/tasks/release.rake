@@ -95,6 +95,9 @@ EOF
     sh "cd #{target} && dpkg-buildpackage -us -uc -b"
   end
 
+  desc "Build Debian packages (shorcut)"
+  task :deb => :debian_packages
+
   desc 'Test Debian package'
   task 'debian:test' => :debian_packages do
     Dir.chdir 'pkg' do

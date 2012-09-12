@@ -19,9 +19,15 @@ class ExternalFeed < ActiveRecord::Base
     article.valid?
   end
 
+  def address=(new_address)
+    self.fetched_at = nil unless address == new_address
+    super(new_address)
+  end
+
   def clear
     # do nothing
   end
+
   def finish_fetch
     if self.only_once && self.update_errors.zero?
       self.enabled = false

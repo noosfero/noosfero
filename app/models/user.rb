@@ -30,7 +30,7 @@ class User < ActiveRecord::Base
 
   after_create do |user|
     user.person ||= Person.new
-    user.person.attributes = user.person_data.merge(:identifier => user.login, :user_id => user.id, :environment_id => user.environment_id)
+    user.person.attributes = user.person_data.merge(:identifier => user.login, :user => user, :environment_id => user.environment_id)
     user.person.name ||= user.login
     user.person.visible = false unless user.activated?
     user.person.save!
@@ -73,6 +73,18 @@ class User < ActiveRecord::Base
         :environment => user.environment.name,
         :url => user.environment.top_url
     end
+
+    def signup_welcome_email(user)
+      email_body = user.environment.signup_welcome_text_body.gsub('{user_name}', user.name)
+      email_subject = user.environment.signup_welcome_text_subject
+
+      content_type 'text/html'
+      recipients user.email
+
+      from "#{user.environment.name} <#{user.environment.contact_email}>"
+      subject email_subject.blank? ? _("Welcome to environment %s") % [user.environment.name] : email_subject
+      body email_body
+    end
   end
 
   def signup!
@@ -88,13 +100,13 @@ class User < ActiveRecord::Base
   attr_protected :activated_at
 
   # Virtual attribute for the unencrypted password
-  attr_accessor :password
+  attr_accessor :password, :name
 
   validates_presence_of     :login, :email
   validates_format_of       :login, :with => Profile::IDENTIFIER_FORMAT, :if => (lambda {|user| !user.login.blank?})
   validates_presence_of     :password,                   :if => :password_required?
-  validates_presence_of     :password_confirmation,      :if => :password_required?, :if => (lambda {|user| !user.password.blank?})
-  validates_length_of       :password, :within => 4..40, :if => :password_required?, :if => (lambda {|user| !user.password.blank?})
+  validates_presence_of     :password_confirmation,      :if => :password_required?
+  validates_length_of       :password, :within => 4..40, :if => :password_required?
   validates_confirmation_of :password,                   :if => :password_required?
   validates_length_of       :login,    :within => 2..40, :if => (lambda {|user| !user.login.blank?})
   validates_length_of       :email,    :within => 3..100, :if => (lambda {|user| !user.email.blank?})
@@ -117,7 +129,17 @@ class User < ActiveRecord::Base
     self.activated_at = Time.now.utc
     self.activation_code = nil
     self.person.visible = true
-    self.person.save! && self.save!
+    begin
+      self.person.save! && self.save!
+    rescue Exception => exception
+      logger.error(exception.to_s)
+      false
+    else
+      if environment.enabled?('send_welcome_email_to_new_users') && environment.has_signup_welcome_text?
+        User::Mailer.delay.deliver_signup_welcome_email(self)
+      end
+      true
+    end
   end
 
   def activated?
@@ -228,7 +250,12 @@ class User < ActiveRecord::Base
   end
 
   def name
-    person ? person.name : login
+    name = (self[:name] || login)
+    person.nil? ? name : (person.name || name)
+  end
+
+  def name= name
+   self[:name] = name
   end
 
   def enable_email!
@@ -274,6 +301,11 @@ class User < ActiveRecord::Base
     15 # in minutes
   end
 
+
+  def not_require_password!
+    @is_password_required = false
+  end
+
   protected
     # before filter 
     def encrypt_password
@@ -282,9 +314,13 @@ class User < ActiveRecord::Base
       self.password_type ||= User.system_encryption_method.to_s
       self.crypted_password = encrypt(password)
     end
-    
+
     def password_required?
-      crypted_password.blank? || !password.blank?
+      (crypted_password.blank? || !password.blank?) && is_password_required?
+    end
+
+    def is_password_required?
+      @is_password_required.nil? ? true : @is_password_required
     end
 
     def make_activation_code
@@ -292,6 +328,7 @@ class User < ActiveRecord::Base
     end
 
     def deliver_activation_code
+      return if person.is_template?
       User::Mailer.deliver_activation_code(self) unless self.activation_code.blank?
     end
 

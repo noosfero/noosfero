@@ -1,7 +1,12 @@
-<h1><%= _('Send an e-mail to %s') % profile.name %></h1>
+<% if profile.person? %>
+  <h1><%= _('Send an e-mail to %s') % profile.name %></h1>
+<% else %>
+  <h1><%= _('Send an e-mail to administrators') %></h1>
+
+  <div class='tooltip'><%= _("The e-mail will be sent to the administrators of '%s'") % profile.name %></div>
+<% end %>
 
 <%= error_messages_for 'contact' %>
-
 
 <% labelled_form_for :contact, @contact do |f| %>
   <%= hidden_field_tag(:confirm, 'false') %>

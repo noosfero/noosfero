@@ -1,0 +1,23 @@
+<h1><%= @form.name %></h1>
+<p><%= @form.description %></p>
+
+<% if @submission.id.nil? %>
+  <%= error_messages_for :submission %>
+
+  <% form_for :submission, @submission do |f| %>
+    <% if !user %>
+      <%= required labelled_form_field _('Author name'), text_field_tag(:author_name, @submission.author_name) %>
+      <%= required labelled_form_field _('Author email'), text_field_tag(:author_email, @submission.author_email) %>
+    <% end %>
+
+    <%= render :partial => 'shared/form_submission', :locals => {:f => f} %>
+
+    <% button_bar do %>
+      <%= submit_button :save, _('Save'), :cancel => {:action => 'index'} %>
+    <% end %>
+  <% end %>
+<% else %>
+  <% fields_for :submission, @submission do |f| %>
+    <%= render :partial => 'shared/form_submission', :locals => {:f => f} %>
+  <% end %>
+<% end %>

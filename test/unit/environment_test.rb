@@ -1220,4 +1220,104 @@ class EnvironmentTest < ActiveSupport::TestCase
     assert_includes environment.licenses, l2
     assert_not_includes environment.licenses, l3
   end
+
+  should 'return a Hash on login redirection options' do
+    assert_kind_of Hash, Environment.login_redirection_options
+  end
+
+  should 'respond to redirection after login' do
+    assert_respond_to Environment.new, :redirection_after_login
+  end
+
+  should 'allow only environment login redirection options' do
+    environment = fast_create(Environment)
+    environment.redirection_after_login = 'invalid_option'
+    environment.save
+    assert environment.errors.invalid?(:redirection_after_login)
+
+    Environment.login_redirection_options.keys.each do |redirection|
+      environment.redirection_after_login = redirection
+      environment.save
+      assert !environment.errors.invalid?(:redirection_after_login)
+    end
+  end
+
+  should 'respond to signup_welcome_text' do
+    assert_respond_to Environment.new, :signup_welcome_text
+  end
+
+  should 'store welcome text in a hash serialized' do
+    environment = Environment.default
+
+    environment.signup_welcome_text = {
+      :subject => 'Welcome to the environment',
+      :body => 'Thanks for signing up!',
+    }
+    environment.save
+    environment.reload
+
+    assert_kind_of Hash, environment.signup_welcome_text
+    assert_equal ['Welcome to the environment', 'Thanks for signing up!'], [environment.signup_welcome_text[:subject], environment.signup_welcome_text[:body]]
+  end
+
+  should 'not consider signup welcome text if not defined' do
+    env = Environment.default
+    assert !env.has_signup_welcome_text?
+  end
+
+  should 'not consider signup welcome text if nil' do
+    env = Environment.default
+
+    env.signup_welcome_text = nil
+    assert !env.has_signup_welcome_text?
+  end
+
+  should 'not consider signup welcome text if body is nil' do
+    env = Environment.default
+
+    env.signup_welcome_text = {
+      :subject => 'Welcome to the environment',
+    }
+    assert !env.has_signup_welcome_text?
+  end
+
+  should 'consider signup welcome text if subject is nil but body is defined' do
+    env = Environment.default
+
+    env.signup_welcome_text = {
+      :body => 'Thanks for signing up!',
+    }
+    assert env.has_signup_welcome_text?
+  end
+
+  should 'consider signup welcome text if subject and body are defined' do
+    env = Environment.default
+
+    env.signup_welcome_text = {
+      :subject => 'Welcome to the environment',
+      :body => 'Thanks for signing up!',
+    }
+    assert env.has_signup_welcome_text?
+  end
+
+  should 'store welcome text subject' do
+    environment = Environment.default
+
+    environment.signup_welcome_text_subject = 'Welcome to the environment'
+    environment.save
+    environment.reload
+
+    assert_equal environment.signup_welcome_text[:subject], environment.signup_welcome_text_subject
+  end
+
+  should 'store welcome text body' do
+    environment = Environment.default
+
+    environment.signup_welcome_text_body = 'Thanks for signing up!'
+    environment.save
+    environment.reload
+
+    assert_equal environment.signup_welcome_text[:body], environment.signup_welcome_text_body
+  end
+
 end

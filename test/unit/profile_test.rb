@@ -3,10 +3,6 @@ require File.dirname(__FILE__) + '/../test_helper'
 class ProfileTest < ActiveSupport::TestCase
   fixtures :profiles, :environments, :users, :roles, :domains
 
-  def teardown
-    Thread.current[:enabled_plugins] = nil
-  end
-
   def test_identifier_validation
     p = Profile.new
     p.valid?
@@ -1834,16 +1830,6 @@ class ProfileTest < ActiveSupport::TestCase
   end
 
   should 'merge members of plugins to original members' do
-    original_community = fast_create(Community)
-    community1 = fast_create(Community, :identifier => 'community1')
-    community2 = fast_create(Community, :identifier => 'community2')
-    original_member = fast_create(Person)
-    plugin1_member = fast_create(Person)
-    plugin2_member = fast_create(Person)
-    original_community.add_member(original_member)
-    community1.add_member(plugin1_member)
-    community2.add_member(plugin2_member)
-
     class Plugin1 < Noosfero::Plugin
       def organization_members(profile)
         Person.members_of(Community.find_by_identifier('community1'))
@@ -1855,8 +1841,18 @@ class ProfileTest < ActiveSupport::TestCase
         Person.members_of(Community.find_by_identifier('community2'))
       end
     end
+    Environment.default.enable_plugin(Plugin1)
+    Environment.default.enable_plugin(Plugin2)
 
-    original_community.stubs(:enabled_plugins).returns([Plugin1.new, Plugin2.new])
+    original_community = fast_create(Community)
+    community1 = fast_create(Community, :identifier => 'community1')
+    community2 = fast_create(Community, :identifier => 'community2')
+    original_member = fast_create(Person)
+    plugin1_member = fast_create(Person)
+    plugin2_member = fast_create(Person)
+    original_community.add_member(original_member)
+    community1.add_member(plugin1_member)
+    community2.add_member(plugin2_member)
 
     assert_includes original_community.members, original_member
     assert_includes original_community.members, plugin1_member
@@ -1918,6 +1914,35 @@ class ProfileTest < ActiveSupport::TestCase
     art = profile.articles.build(:name => 'something')
     Profile.expects(:solr_batch_add).with(includes(art))
     profile.save!
+  end
+
+  should 'respond to redirection_after_login' do
+    assert_respond_to Profile.new, :redirection_after_login
+  end
+
+  should 'return profile preference of redirection unless it is blank' do
+    environment = fast_create(Environment, :redirection_after_login => 'site_homepage')
+    profile = fast_create(Profile, :redirection_after_login => 'keep_on_same_page', :environment_id => environment.id)
+    assert_equal 'keep_on_same_page', profile.preferred_login_redirection
+  end
+
+  should 'return environment preference of redirection when profile preference is blank' do
+    environment = fast_create(Environment, :redirection_after_login => 'site_homepage')
+    profile = fast_create(Profile, :environment_id => environment.id)
+    assert_equal 'site_homepage', profile.preferred_login_redirection
+  end
+
+  should 'allow only environment login redirection options' do
+    profile = fast_create(Profile)
+    profile.redirection_after_login = 'invalid_option'
+    profile.save
+    assert profile.errors.invalid?(:redirection_after_login)
+
+    Environment.login_redirection_options.keys.each do |redirection|
+      profile.redirection_after_login = redirection
+      profile.save
+      assert !profile.errors.invalid?(:redirection_after_login)
+    end
   end
 
 end

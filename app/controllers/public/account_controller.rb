@@ -25,11 +25,13 @@ class AccountController < ApplicationController
 
   # action to perform login to the application
   def login
-    @user = User.new
-    @person = @user.build_person
     store_location(request.referer) unless session[:return_to]
     return unless request.post?
-    self.current_user = User.authenticate(params[:user][:login], params[:user][:password], environment) if params[:user]
+
+    self.current_user = plugins_alternative_authentication
+
+    self.current_user ||= User.authenticate(params[:user][:login], params[:user][:password], environment) if params[:user]
+
     if logged_in?
       if params[:remember_me] == "1"
         self.current_user.remember_me
@@ -41,7 +43,6 @@ class AccountController < ApplicationController
       end
     else
       session[:notice] = _('Incorrect username or password') if redirect?
-      redirect_to :back if redirect?
     end
   end
 
@@ -56,6 +57,11 @@ class AccountController < ApplicationController
 
   # action to register an user to the application
   def signup
+    if @plugins.dispatch(:allow_user_registration).include?(false)
+      redirect_back_or_default(:controller => 'home')
+      session[:notice] = _("This environment doesn't allow user registration.")
+    end
+
     @invitation_code = params[:invitation_code]
     begin
       if params[:user]
@@ -125,6 +131,10 @@ class AccountController < ApplicationController
   #
   # Posts back.
   def forgot_password
+    if @plugins.dispatch(:allow_password_recovery).include?(false)
+      redirect_back_or_default(:controller => 'home')
+      session[:notice] = _("This environment doesn't allow password recovery.")
+    end
     @change_password = ChangePassword.new(params[:change_password])
 
     if request.post?
@@ -303,10 +313,27 @@ class AccountController < ApplicationController
   end
 
   def go_to_initial_page
-    if environment == current_user.environment
-      redirect_back_or_default(user.admin_url)
+    if environment.enabled?('allow_change_of_redirection_after_login')
+      case user.preferred_login_redirection
+        when 'keep_on_same_page'
+          redirect_back_or_default(user.admin_url)
+        when 'site_homepage'
+          redirect_to :controller => :home
+        when 'user_profile_page'
+          redirect_to user.public_profile_url
+        when 'user_homepage'
+          redirect_to user.url
+        when 'user_control_panel'
+          redirect_to user.admin_url
+      else
+        redirect_back_or_default(user.admin_url)
+      end
     else
-      redirect_back_or_default(:controller => 'home')
+      if environment == current_user.environment
+        redirect_back_or_default(user.admin_url)
+      else
+        redirect_back_or_default(:controller => 'home')
+      end
     end
   end
 
@@ -314,6 +341,15 @@ class AccountController < ApplicationController
     if logged_in?
       go_to_initial_page
     end
+  end
+
+  def plugins_alternative_authentication
+    user = nil
+    @plugins.each do |plugin|
+      user = plugin.alternative_authentication
+      break unless user.nil?
+    end
+    user
   end
 
 end

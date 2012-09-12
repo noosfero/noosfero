@@ -123,9 +123,22 @@ class Environment < ActiveRecord::Base
       'xmpp_chat' => _('XMPP/Jabber based chat'),
       'show_zoom_button_on_article_images' => _('Show a zoom link on all article images'),
       'captcha_for_logged_users' => _('Ask captcha when a logged user comments too'),
-      'skip_new_user_email_confirmation' => _('Skip e-mail confirmation for new users')
+      'skip_new_user_email_confirmation' => _('Skip e-mail confirmation for new users'),
+      'send_welcome_email_to_new_users' => _('Send welcome e-mail to new users'),
+      'allow_change_of_redirection_after_login' => _('Allow users to set the page to redirect after login')
     }
   end
+
+  def self.login_redirection_options
+    {
+      'keep_on_same_page' => _('Stays on the same page the user was before login.'),
+      'site_homepage' => _('Redirects the user to the environment homepage.'),
+      'user_profile_page' => _('Redirects the user to his profile page.'),
+      'user_homepage' => _('Redirects the user to his homepage.'),
+      'user_control_panel' => _('Redirects the user to his control panel.')
+    }
+  end
+  validates_inclusion_of :redirection_after_login, :in => Environment.login_redirection_options.keys, :allow_nil => true
 
   # #################################################
   # Relationships and applied behaviour
@@ -530,6 +543,31 @@ class Environment < ActiveRecord::Base
     signup_fields
   end
 
+  serialize :signup_welcome_text, Hash
+  def signup_welcome_text
+    self[:signup_welcome_text] ||= {}
+  end
+
+  def signup_welcome_text_subject
+    self.signup_welcome_text[:subject]
+  end
+
+  def signup_welcome_text_subject=(subject)
+    self.signup_welcome_text[:subject] = subject
+  end
+
+  def signup_welcome_text_body
+    self.signup_welcome_text[:body]
+  end
+
+  def signup_welcome_text_body=(body)
+    self.signup_welcome_text[:body] = body
+  end
+
+  def has_signup_welcome_text?
+    signup_welcome_text && !signup_welcome_text_body.blank?
+  end
+
   # #################################################
   # Validations
   # #################################################
@@ -591,8 +629,8 @@ class Environment < ActiveRecord::Base
   end
 
   has_many :articles, :through => :profiles
-  def recent_documents(limit = 10)
-    self.articles.recent(limit)
+  def recent_documents(limit = 10, options = {}, pagination = true)
+    self.articles.recent(limit, options, pagination)
   end
 
   has_many :events, :through => :profiles, :source => :articles, :class_name => 'Event'

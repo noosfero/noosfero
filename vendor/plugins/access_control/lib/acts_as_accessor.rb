@@ -4,7 +4,7 @@ class ActiveRecord::Base
 
     def has_permission?(permission, resource = nil)
       return true if resource == self
-      role_assignments.any? {|ra| ra.has_permission?(permission, resource)}
+      role_assignments.includes([:resource,:role]).any? {|ra| ra.has_permission?(permission, resource)}
     end
 
     def define_roles(roles, resource)

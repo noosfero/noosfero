@@ -4,9 +4,16 @@ class SearchController < PublicController
   include SearchHelper
   include ActionView::Helpers::NumberHelper
 
+  before_filter :redirect_asset_param, :except => [:facets_browse, :assets]
   before_filter :load_category
   before_filter :load_search_assets
   before_filter :load_query
+
+  # Backwards compatibility with old URLs
+  def redirect_asset_param
+    return unless params.has_key?(:asset)
+    redirect_to params.merge(:action => params.delete(:asset))
+  end
 
   no_design_blocks
 
@@ -39,7 +46,7 @@ class SearchController < PublicController
     if !@empty_query
       full_text_search ['public:true']
     else
-      @results[@asset] = @environment.people.visible.send(@filter).paginate(paginate_options)
+      @results[@asset] = visible_profiles(Person).send(@filter).paginate(paginate_options)
     end
   end
 
@@ -69,7 +76,7 @@ class SearchController < PublicController
       full_text_search ['public:true']
     else
       @filter_title = _('Enterprises from network')
-      @results[@asset] = @environment.enterprises.visible.paginate(paginate_options)
+      @results[@asset] = visible_profiles(Enterprise, [{:products => :product_category}]).paginate(paginate_options)
     end
   end
 
@@ -77,7 +84,7 @@ class SearchController < PublicController
     if !@empty_query
       full_text_search ['public:true']
     else
-      @results[@asset] = @environment.communities.visible.send(@filter).paginate(paginate_options)
+      @results[@asset] = visible_profiles(Community).send(@filter).paginate(paginate_options)
     end
   end
 
@@ -250,10 +257,9 @@ class SearchController < PublicController
   end
 
   def limit
-    searching = @searching.values.select{ |v| v }
-    if params[:display] == 'map'
+    if map_search?
       MAP_SEARCH_LIMIT
-    elsif searching.size <= 1
+    elsif !multiple_search?
       if [:people, :communities].include? @asset
         BLOCKS_SEARCH_LIMIT
       elsif @asset == :enterprises and @empty_query
@@ -267,31 +273,34 @@ class SearchController < PublicController
   end
 
   def paginate_options(page = params[:page])
+    page = 1 if multiple_search? or params[:display] == 'map'
     { :per_page => limit, :page => page }
   end
 
   def full_text_search(filters = [], options = {})
     paginate_options = paginate_options(params[:page])
     asset_class = asset_class(@asset)
-
     solr_options = options
-    if !@results_only and asset_class.respond_to? :facets
-      solr_options.merge! asset_class.facets_find_options(params[:facet])
-      solr_options[:all_facets] = true
-      solr_options[:limit] = 0 if @facets_only
-    end
-    solr_options[:filter_queries] ||= []
-    solr_options[:filter_queries] += filters
-    solr_options[:filter_queries] << "environment_id:#{environment.id}"
-    solr_options[:filter_queries] << asset_class.facet_category_query.call(@category) if @category
+    pg_options = paginate_options(params[:page])
 
-    solr_options[:boost_functions] ||= []
-    params[:order_by] = nil if params[:order_by] == 'none'
-    if params[:order_by]
-      order = SortOptions[@asset][params[:order_by].to_sym]
-      raise "Unknown order by" if order.nil?
-      order[:solr_opts].each do |opt, value|
-        solr_options[opt] = value.is_a?(Proc) ? instance_eval(&value) : value
+    if !multiple_search?
+      if !@results_only and asset_class.respond_to? :facets
+        solr_options.merge! asset_class.facets_find_options(params[:facet])
+        solr_options[:all_facets] = true
+      end
+      solr_options[:filter_queries] ||= []
+      solr_options[:filter_queries] += filters
+      solr_options[:filter_queries] << "environment_id:#{environment.id}"
+      solr_options[:filter_queries] << asset_class.facet_category_query.call(@category) if @category
+
+      solr_options[:boost_functions] ||= []
+      params[:order_by] = nil if params[:order_by] == 'none'
+      if params[:order_by]
+        order = SortOptions[@asset][params[:order_by].to_sym]
+        raise "Unknown order by" if order.nil?
+        order[:solr_opts].each do |opt, value|
+          solr_options[opt] = value.is_a?(Proc) ? instance_eval(&value) : value
+        end
       end
     end
 
@@ -299,6 +308,14 @@ class SearchController < PublicController
     @results[@asset] = ret[:results]
     @facets = ret[:facets]
     @all_facets = ret[:all_facets]
+  end
+
+  private
+
+  def visible_profiles(klass, *extra_relations)
+    relations = [:image, :domains, :environment, :preferred_domain]
+    relations += extra_relations
+    @environment.send(klass.name.underscore.pluralize).visible.includes(relations)
   end
 
 end

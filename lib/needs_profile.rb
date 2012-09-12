@@ -14,11 +14,11 @@ module NeedsProfile
     profile || environment # prefers profile, but defaults to environment
   end
 
-  protected 
-
   def profile
     @profile
   end
+
+  protected
 
   def load_profile
     @profile ||= environment.profiles.find_by_identifier(params[:profile])

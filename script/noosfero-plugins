@@ -21,6 +21,8 @@ disabled_plugins=$(printf "%s\n" $available_plugins $enabled_plugins_dir | sort 
 # operation defaults
 quiet=false
 needs_migrate=false
+load_paths="$NOOSFERO_DIR/lib:$(echo $NOOSFERO_DIR/vendor/plugins/*/lib | tr ' ' :)"
+
 
 _list() {
   for plugin in $available_plugins; do
@@ -72,11 +74,26 @@ _enable(){
   if [ -h "$target" ]; then
     _say "$plugin already enabled"
   else
-    ln -s "$source" "$target"
-    plugins_public_dir="$NOOSFERO_DIR/public/plugins"
-    test -d "$target/public/" && ln -s "$target/public" "$plugins_public_dir/$plugin"
-    _say "$plugin enabled"
-    needs_migrate=true
+    if [ ! -d "$source" ]; then
+      echo "E: $plugin plugin does not exist!"
+      return
+    fi
+    dependencies_ok=true
+    dependencies_file="$source/dependencies.rb"
+    if [ -e "$dependencies_file" ]; then
+      if ! ruby -I$load_paths -e "require '$dependencies_file'"; then
+        dependencies_ok=false
+      fi
+    fi
+    if [ "$dependencies_ok" = true ]; then
+      ln -s "$source" "$target"
+      plugins_public_dir="$NOOSFERO_DIR/public/plugins"
+      test -d "$target/public/" && ln -s "$target/public" "$plugins_public_dir/$plugin"
+      _say "$plugin enabled"
+      needs_migrate=true
+    else
+      echo "W: failed to load dependencies for $plugin; not enabling"
+    fi
   fi
 }
 

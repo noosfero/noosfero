@@ -570,15 +570,16 @@ class CmsControllerTest < ActionController::TestCase
 
   should 'display published option' do
     get :edit, :profile => profile.identifier, :id => profile.home_page.id
-    assert_tag :tag => 'input', :attributes => { :type => 'checkbox', :name => 'article[published]', :checked => 'checked' }
+    assert_tag :tag => 'input', :attributes => { :type => 'radio', :name => 'article[published]', :id => 'article_published_true', :checked => 'checked' }
+    assert_tag :tag => 'input', :attributes => { :type => 'radio', :name => 'article[published]', :id => 'article_published_false' }
   end
 
   should "display properly a non-published articles' status" do
     article = profile.articles.create!(:name => 'test', :published => false)
 
     get :edit, :profile => profile.identifier, :id => article.id
-    assert_tag :tag => 'input', :attributes => { :type => 'checkbox', :name => 'article[published]' }
-    assert_no_tag :tag => 'input', :attributes => { :type => 'checkbox', :name => 'article[published]', :checked => 'checked' }
+    assert_tag :tag => 'input', :attributes => { :type => 'radio', :name => 'article[published]', :id => 'article_published_true' }
+    assert_tag :tag => 'input', :attributes => { :type => 'radio', :name => 'article[published]', :id => 'article_published_false', :checked => 'checked' }
   end
 
   should 'be able to add image with alignment' do
@@ -964,7 +965,7 @@ class CmsControllerTest < ActionController::TestCase
 
     post :upload_files, :profile => profile.identifier, :parent_id => folder.id, :back_to => @request.referer, :uploaded_files => [fixture_file_upload('files/rails.png', 'image/png')]
     assert_template nil
-    assert_redirected_to 'http://colivre.net/testinguser/test-folder'
+    assert_redirected_to "#{profile.environment.top_url}/testinguser/test-folder"
   end
 
   should 'record when coming from public view on edit files with view true' do

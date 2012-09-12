@@ -176,6 +176,25 @@ class ProfileMembersControllerTest < ActionController::TestCase
     assert_no_tag :tag => 'td', :descendant => { :tag => 'a', :attributes => {:class => /icon-remove/, :onclick => /#{admin.identifier}/} }
   end
 
+  should 'display send email to members that have the permission' do
+    community = Community.create!(:name => 'Test Com', :identifier => 'test_com')
+    person = create_user_with_permission('test_user', 'manage_memberships', community)
+    give_permission(person, 'send_mail_to_members', community)
+    login_as :test_user
+
+    get :index, :profile => community.identifier
+    assert_tag :tag => 'a', :attributes => {:href => /send_mail/}
+  end
+
+  should 'not display send email to members if doesn\'t have the permission' do
+    community = Community.create!(:name => 'Test Com', :identifier => 'test_com')
+    person = create_user_with_permission('test_user', 'manage_memberships', community)
+    login_as :test_user
+
+    get :index, :profile => community.identifier
+    assert_no_tag :tag => 'a', :attributes => {:href => /send_mail/}
+  end
+
   should 'have a add_members page' do
     ent = fast_create(Enterprise, :name => 'Test Ent', :identifier => 'test_ent')
     u = create_user_with_permission('test_user', 'manage_memberships', ent)
@@ -326,33 +345,6 @@ class ProfileMembersControllerTest < ActionController::TestCase
     p_roles = p.find_roles(ent).map(&:role).uniq
 
     assert p_roles, [r]
-  end
-
-  should 'add locale on mailing' do
-    community = fast_create(Community)
-    admin_user = create_user_with_permission('profile_admin_user', 'manage_memberships', community)
-    login_as('profile_admin_user')
-    @controller.stubs(:locale).returns('pt')
-    post :send_mail, :profile => community.identifier, :mailing => {:subject => 'Hello', :body => 'We have some news'}
-    assert_equal 'pt', assigns(:mailing).locale
-  end
-
-  should 'save mailing' do
-    community = fast_create(Community)
-    admin_user = create_user_with_permission('profile_admin_user', 'manage_memberships', community)
-    login_as('profile_admin_user')
-    @controller.stubs(:locale).returns('pt')
-    post :send_mail, :profile => community.identifier, :mailing => {:subject => 'Hello', :body => 'We have some news'}
-    assert_equal ['Hello', 'We have some news'], [assigns(:mailing).subject, assigns(:mailing).body]
-    assert_redirected_to :action => 'index'
-  end
-
-  should 'add the user logged on mailing' do
-    community = fast_create(Community)
-    admin_user = create_user_with_permission('profile_admin_user', 'manage_memberships', community)
-    login_as('profile_admin_user')
-    post :send_mail, :profile => community.identifier, :mailing => {:subject => 'Hello', :body => 'We have some news'}
-    assert_equal Profile['profile_admin_user'], assigns(:mailing).person
   end
 
   should 'set a community member as admin' do

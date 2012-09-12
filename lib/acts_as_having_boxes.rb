@@ -18,7 +18,7 @@ module ActsAsHavingBoxes
       @blocks = nil
     end
     if @blocks.nil?
-      @blocks = boxes.inject([]) do |acc,obj|
+      @blocks = boxes.includes(:blocks).inject([]) do |acc,obj|
         acc.concat(obj.blocks)
       end
       @blocks.send(:extend, BlockArray)

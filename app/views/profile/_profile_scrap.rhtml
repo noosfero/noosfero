@@ -12,7 +12,7 @@
         <%= link_to_function s_('profile|Comment'), "hide_and_show(['#profile-wall-message-response-#{scrap.id}'],['#profile-wall-reply-#{scrap.id}', '#profile-wall-reply-form-#{scrap.id}']);$('reply_content_#{scrap.id}').value='';$('reply_content_#{scrap.id}').focus();return false", :class => "profile-send-reply" %>
       </span>
     <% end %>
-    <%= link_to_remote(content_tag(:span, _('Remove')), :confirm => _('Are you sure?'), :url =>{:action => 'remove_scrap', :scrap_id => scrap.id}, :update => "profile-activity-item-#{scrap.id}") if logged_in? && user.can_control_scrap?(scrap) %>
+    <%= link_to_function(_('Remove'), 'remove_item_wall(this, %s, %s, %s); return false ;' % ["'.profile-activity-item'", url_for(:profile => params[:profile], :action => :remove_scrap, :scrap_id => scrap.id, :view => params[:view]).to_json, _('Are you sure you want to remove this scrap and all its replies?').to_json]) if logged_in? && user.can_control_scrap?(scrap) %>
     </div>
   </div>
 

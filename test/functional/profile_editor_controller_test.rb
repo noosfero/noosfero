@@ -962,4 +962,21 @@ class ProfileEditorControllerTest < ActionController::TestCase
     assert_no_tag :tag => 'input', :attributes => {:name => 'profile_data[is_template]'}
   end
 
+  should 'display select to change redirection after login if enabled' do
+    e = Environment.default
+    e.enable('allow_change_of_redirection_after_login')
+    e.save
+
+    get :edit, :profile => profile.identifier
+    assert_tag :tag => 'select', :attributes => {:id => 'profile_data_redirection_after_login'}
+  end
+
+  should 'not display select to change redirection after login if not enabled' do
+    e = Environment.default
+    e.disable('allow_change_of_redirection_after_login')
+    e.save
+
+    get :edit, :profile => profile.identifier
+    assert_no_tag :tag => 'select', :attributes => {:id => 'profile_data_redirection_after_login'}
+  end
 end

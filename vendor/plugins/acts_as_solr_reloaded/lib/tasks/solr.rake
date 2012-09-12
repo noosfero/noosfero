@@ -20,7 +20,16 @@ namespace :solr do
 
     tmpdir = [ '/var/tmp', '/tmp' ].find { |d| File.exists?(d) }
     Dir.chdir tmpdir do
-      sh "wget -c #{SOLR_URL}"
+      skip_download = false
+      if File.exists?(SOLR_FILENAME)
+        sh "echo \"#{SOLR_MD5SUM}  #{SOLR_FILENAME}\" | md5sum -c -" do |ok, res|
+          skip_download = ok
+        end
+      end
+
+      unless skip_download
+        sh "wget -c #{SOLR_URL}"
+      end
 
       sh "echo \"#{SOLR_MD5SUM}  #{SOLR_FILENAME}\" | md5sum -c -" do |ok, res|
         abort "MD5SUM do not match" if !ok
