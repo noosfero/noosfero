@@ -36,7 +36,7 @@ class MezuroPluginMetricConfigurationController < MezuroPluginMyprofileControlle
     if metric_configuration_has_errors? metric_configuration
       redirect_to_error_page metric_configuration.errors[0].message
     else
-      redirect_to "edit_metric_configuration?id=#{id}&metric_name=#{metric_name.gsub(/\s/, '+')}"
+      redirect_to "/myprofile/#{profile.identifier}/plugin/mezuro/metric_configuration/edit_metric_configuration?id=#{id}&metric_name=#{metric_name.gsub(/\s/, '+')}"
     end
   end
 
@@ -48,7 +48,7 @@ class MezuroPluginMetricConfigurationController < MezuroPluginMyprofileControlle
     if metric_configuration_has_errors? metric_configuration
       redirect_to_error_page metric_configuration.errors[0].message
     else
-      redirect_to "edit_compound_metric_configuration?id=#{id}&metric_name=#{metric_name.gsub(/\s/, '+')}"
+      redirect_to "/myprofile/#{profile.identifier}/plugin/mezuro/metric_configuration/edit_compound_metric_configuration?id=#{id}&metric_name=#{metric_name.gsub(/\s/, '+')}"
     end
   end
 
