@@ -38,8 +38,13 @@
 
 <% @selected = (@project.nil? ? @configuration_names[0] : @project.configuration_name) %>
 
-<%= required labelled_form_field _('Configuration'),
-  f.select(:configuration_name, @configuration_names, {:selected => @selected}) %><br/>
+<% if !@project.nil? && !@article.id.nil? %>
+  <%= required labelled_form_field _('Configuration') + " (Changing the configuration will erase your saved periodic avaliations)",
+    f.select(:configuration_name, @configuration_names, {:selected => @selected}) %>
+<% else %>
+  <%= required labelled_form_field _('Configuration'),
+    f.select(:configuration_name, @configuration_names, {:selected => @selected}) %><br/>
+<% end %>
 
 <% selected = (@project.nil? ? 0 : @project.process_period.to_i) %>
 <%= required labelled_form_field _('Periodic Avaliation'),
