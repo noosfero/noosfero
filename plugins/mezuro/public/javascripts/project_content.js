@@ -66,19 +66,19 @@ function reloadProject(date){
 
 function showProjectContentFor(state){
   if (state == 'ERROR') {
-    jQuery('#project-state').html('ERROR');
+    jQuery('#project-state').html('<div style="color:Red">ERROR</div>');
     callAction('project', 'project_error', {}, showProjectResult);
   }
   else if (state == 'READY') {
     jQuery('#msg-time').html('');
-    jQuery('#project-state').html('READY');
+    jQuery('#project-state').html('<div style="color:Green">READY</div>');
     callAction('project', 'project_result', {}, showProjectResult);
     callAction('project','project_tree', {}, showProjectTree);
     var project_name = jQuery("#project-result").attr('data-project-name');
     callAction('module', 'module_result', {module_name: project_name}, showModuleResult);
   } 
   else if (state.endsWith("ING")) {
-    jQuery('#project-state').html(state);
+    jQuery('#project-state').html('<div style="color:DarkGoldenRod">'+ state +'</div>');
     jQuery('#msg-time').html("The project analysis may take long. <br/> You'll receive an e-mail when it's ready!");
     showProjectContentAfter(20);
   }	
