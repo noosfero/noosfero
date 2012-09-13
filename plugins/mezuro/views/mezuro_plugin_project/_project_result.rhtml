@@ -1,11 +1,9 @@
 <% unless @content.errors[:base].nil? %>
   <%= @content.errors[:base] %>
 <% else %>
-  <p> Choose a date to see specific project results: </p>
-  <div id="datepicker" data-date="<%= @project_result.date %>">
-    <input id="datepicker_field" style="display:none"/> 
-  </div>
-   
+  <p> Choose a date to see specific project results: <input type="image" id="datepicker" /> </p>
+  <div id="current_project_date" data-date="<%= @project_result.date %>"/>
+
   <h4><%= _('Last Result') %></h4>
 
   <table>
@@ -25,15 +23,15 @@
   
   
   <script>
-	  jQuery(document).ready(function($) {
-  	  $("#datepicker").datepicker({ altField: '#datepicker_field', showOn: 'button', dateFormat: "yy-mm-dd",
-  	  															buttonImageOnly: true, buttonImage: '/images/calendar_date_select/calendar.png',
-  	  															onSelect: function(dateText, inst) {
-  	  															reloadProjectWithDate(dateText) } });
-  	  var date = jQuery("#datepicker").attr('data-date').substr(0,10);
-	    $("#datepicker").datepicker( "setDate" , date );
+    jQuery(document).ready(function($) {
+      $("#datepicker").datepicker({ showOn: 'button', dateFormat: "yy-mm-dd",
+  	  								buttonImageOnly: true, buttonImage: '/images/calendar_date_select/calendar.png',
+  	  								onSelect: function(dateText, inst) {
+  	  									reloadProjectWithDate(dateText) } });
+      var date = jQuery("#current_project_date").attr('data-date').substr(0,10);
+	  $("#datepicker").datepicker( "setDate" , date );
 	    
-		});
+    });
   </script>
   
 <% end %>
