@@ -19,7 +19,11 @@
           <td><a href="#" show-metric-history="<%= MezuroPlugin::Helpers::ContentViewerHelper.format_name(metric_result) %>" data-module-name="<%= @module.name %>"><%= metric_result.metric.name %></a></td>
           <td><%= MezuroPlugin::Helpers::ContentViewerHelper.format_grade(metric_result.value) %></td>
           <td><%= metric_result.weight %></td>
-          <td style="background-color: #<%= range.color[2..-1] %>"><%= range.label %></td>
+          <td style="background-color: #<%= range.color[2..-1] %>">
+            <span title="<%= range.comments %>" >
+              <%= range.label %>
+            </span>
+          </td>
         </tr>	  
         <tr class="<%= MezuroPlugin::Helpers::ContentViewerHelper.format_name(metric_result) %>" style="display: none;">
           <td colspan="3">
