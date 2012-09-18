@@ -18,6 +18,12 @@ class MezuroPlugin < Noosfero::Plugin
     [MezuroPlugin::ConfigurationContent, MezuroPlugin::ProjectContent]
   end
 
+  def control_panel_buttons
+    [{:title => _('Mezuro Project'), :url => {:controller =>  'cms', :action => 'new', :profile => context.profile.identifier, :type => 'MezuroPlugin::ProjectContent'} },
+     {:title => _('Mezuro Configuration'), :url => {:controller =>  'cms', :action => 'new', :profile => context.profile.identifier, :type => 'MezuroPlugin::ConfigurationContent'} }]
+  end
+
+
   def stylesheet?
     true
   end
