@@ -1,7 +1,7 @@
 <h2><%= @configuration_content.name %> Configuration</h2>
 
 <% form_for :metric_configuration, :url => {:action =>"create_compound_metric_configuration", 
-:controller => "mezuro_plugin_myprofile"}, :method => :get do |f| %>
+:controller => "mezuro_plugin_metric_configuration"}, :method => :get do |f| %>
   <%= hidden_field_tag :id, @configuration_content.id %>
   <%= f.hidden_field :configuration_name, :value => @configuration_content.name %>
 
