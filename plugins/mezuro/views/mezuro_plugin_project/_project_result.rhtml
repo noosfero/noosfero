@@ -1,11 +1,8 @@
 <% unless @content.errors[:base].nil? %>
   <%= @content.errors[:base] %>
 <% else %>
-  <p> Choose a date to see specific project results: </p>
-  <div id="datepicker" data-date="<%= @project_result.date %>">
-    <input id="datepicker_field" style="display:none"/> 
-  </div>
-   
+  <div id="current_project_date" data-date="<%= @project_result.date %>"/>
+
   <h4><%= _('Last Result') %></h4>
 
   <table>
@@ -21,19 +18,24 @@
       <td><%= _('Analysis time') %></td>
       <td><%= @project_result.formatted_analysis_time %></td>
     </tr>
+    <tr>
+      <td>Click to choose specific date:</td>
+      <td><%= link_to(image_tag('/images/calendar_date_select/calendar.png', :width => 20, :height => 20, :onClick => "$( 'datepicker' ).toggle();"), "javascript:void(0)") %></p></td>
+    </tr>
   </table>
-  
-  
+
+  <div id="datepicker"></div>
+
   <script>
-	  jQuery(document).ready(function($) {
-  	  $("#datepicker").datepicker({ altField: '#datepicker_field', showOn: 'button', dateFormat: "yy-mm-dd",
-  	  															buttonImageOnly: true, buttonImage: '/images/calendar_date_select/calendar.png',
-  	  															onSelect: function(dateText, inst) {
-  	  															reloadProjectWithDate(dateText) } });
-  	  var date = jQuery("#datepicker").attr('data-date').substr(0,10);
-	    $("#datepicker").datepicker( "setDate" , date );
-	    
-		});
+    jQuery(document).ready(function($) {
+      $("#datepicker").datepicker({
+  	  								onSelect: function(dateText, inst) {
+  	  									reloadProjectWithDate(dateText) } });
+      $("#datepicker").toggle();
+      var date = jQuery("#current_project_date").attr('data-date').substr(0,10);
+	  $("#datepicker").datepicker( "setDate" , date );
+
+    });
   </script>
-  
+
 <% end %>
