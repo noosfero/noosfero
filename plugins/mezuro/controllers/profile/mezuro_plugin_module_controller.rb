@@ -55,11 +55,6 @@ class MezuroPluginModuleController < MezuroPluginProfileController
     end
   end
 
-  def redirect_to_error_page(message)
-    message = URI.escape(CGI.escape(message),'.')
-    redirect_to "/profile/#{profile.identifier}/plugins/mezuro/error_page?message=#{message}"
-  end
-
   def format_date_to_simple_form date
     date.to_s[0..9]
   end
