@@ -11,7 +11,7 @@ class MezuroPlugin::Helpers::ContentViewerHelper
   end
 
   def self.create_license_options
-   options = YAML.load_file("#{RAILS_ROOT}/plugins/mezuro/licenses.yaml")
+   options = YAML.load_file("#{RAILS_ROOT}/plugins/mezuro/licenses.yml")
    options = options.split(";")
    formated_options = []
    options.each { |option| formated_options << [option, option] }
@@ -50,7 +50,7 @@ class MezuroPlugin::Helpers::ContentViewerHelper
   end
 
   def self.get_license_option(selected)
-    options = YAML.load_file("#{RAILS_ROOT}/plugins/mezuro/licenses.yaml")
+    options = YAML.load_file("#{RAILS_ROOT}/plugins/mezuro/licenses.yml")
     options.split(";")
     selected_option = options.find { |license| license == selected }
   end
