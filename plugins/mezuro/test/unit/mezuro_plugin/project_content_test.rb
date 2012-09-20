@@ -16,7 +16,7 @@ class ProjectContentTest < ActiveSupport::TestCase
   end
 
   should 'provide proper short description' do
-    assert_equal 'Kalibro project', MezuroPlugin::ProjectContent.short_description
+    assert_equal 'Mezuro project', MezuroPlugin::ProjectContent.short_description
   end
 
   should 'provide proper description' do

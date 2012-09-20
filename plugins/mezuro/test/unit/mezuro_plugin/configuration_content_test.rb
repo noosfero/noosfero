@@ -14,7 +14,7 @@ class ConfigurationContentTest < ActiveSupport::TestCase
   end
 
   should 'provide proper short description' do
-    assert_equal 'Kalibro configuration', MezuroPlugin::ConfigurationContent.short_description
+    assert_equal 'Mezuro configuration', MezuroPlugin::ConfigurationContent.short_description
   end
 
   should 'provide proper description' do
