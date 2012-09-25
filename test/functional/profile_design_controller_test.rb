@@ -322,11 +322,14 @@ class ProfileDesignControllerTest < ActionController::TestCase
   should 'be able to save FeedReaderBlock configurations' do
     @box1.blocks << FeedReaderBlock.new(:address => 'feed address')
     holder.blocks(true)
+    block = @box1.blocks.last
 
-    post :save, :profile => 'designtestuser', :id => @box1.blocks[-1].id, :block => {:address => 'new feed address', :limit => '20'}
+    post :save, :profile => 'designtestuser', :id => block.id, :block => {:address => 'new feed address', :limit => '20'}
 
-    assert_equal 'new feed address', @box1.blocks[-1].address
-    assert_equal 20, @box1.blocks[-1].limit
+    block.reload
+
+    assert_equal 'new feed address', block.address
+    assert_equal 20, block.limit
   end
 
   should 'require login' do

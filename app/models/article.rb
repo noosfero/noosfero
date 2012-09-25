@@ -192,7 +192,7 @@ class Article < ActiveRecord::Base
         scoped_methods.last[:find] &&
         scoped_methods.last[:find][:joins] &&
         scoped_methods.last[:find][:joins].index('profiles') )
-      result.includes(:profile)
+      result = result.includes(:profile)
     end
 
     pagination ? result.paginate({:page => 1, :per_page => limit}) : result
