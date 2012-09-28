@@ -4772,6 +4772,10 @@ h1#agenda-title {
   color: #000;
 }
 
+.remove-item-loading {
+  background: transparent url(../images/loading-small.gif) no-repeat left center !important;
+}
+
 li.profile-activity-item.upload_image .more,
 li.profile-activity-item.upload_image .upimg {
   display: block;

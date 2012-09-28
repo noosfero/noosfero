@@ -5805,8 +5805,14 @@ msgstr "Remover"
 #: app/views/profile/_create_article.rhtml:18
 #: app/views/profile/_default_activity.rhtml:9
 #: app/views/profile/_leave_scrap_to_self.rhtml:8
-#: app/views/profile/_upload_image.rhtml:10
+#: app/views/profile/_upload_image.rhtml:9
+msgid "Are you sure you want to remove this activity and all its replies?"
+msgstr "Você tem certeza que quer remover esta atividade e todas as suas respostas?"
+
 #: app/views/profile/_profile_scrap.rhtml:15
+msgid "Are you sure you want to remove this scrap and all its replies?"
+msgstr "Você tem certeza que quer remover esta mensagem e todas as suas respostas?"
+
 #: plugins/bsc/views/bsc_plugin_myprofile/manage_contracts.html.erb:35
 msgid "Are you sure?"
 msgstr "Você tem certeza?"
