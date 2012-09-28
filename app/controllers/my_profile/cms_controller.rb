@@ -149,7 +149,6 @@ class CmsController < MyProfileController
     @uploaded_files = []
     @article = @parent = check_parent(params[:parent_id])
     @target = @parent ? ('/%s/%s' % [profile.identifier, @parent.full_name]) : '/%s' % profile.identifier
-    @folders = Folder.find(:all, :conditions => { :profile_id => profile })
     if @article
       record_coming
     end
