@@ -1556,6 +1556,32 @@ class CmsControllerTest < ActionController::TestCase
     assert_equal license, article.license
   end
 
+  should 'list folders options to move content' do
+    article = fast_create(Article, :profile_id => profile.id)
+    f1 = fast_create(Folder, :profile_id => profile.id)
+    f2 = fast_create(Folder, :profile_id => profile.id)
+    f3 = fast_create(Folder, :profile_id => profile, :parent_id => f2.id)
+    login_as(profile.identifier)
+
+    get :edit, :profile => profile.identifier, :id => article.id
+
+    assert_tag :tag => 'option', :attributes => {:value => f1.id}, :content => "#{profile.identifier}/#{f1.name}"
+    assert_tag :tag => 'option', :attributes => {:value => f2.id}, :content => "#{profile.identifier}/#{f2.name}"
+    assert_tag :tag => 'option', :attributes => {:value => f3.id}, :content => "#{profile.identifier}/#{f2.name}/#{f3.name}"
+  end
+
+  should 'be able to move content' do
+    f1 = fast_create(Folder, :profile_id => profile.id)
+    f2 = fast_create(Folder, :profile_id => profile.id)
+    article = fast_create(Article, :profile_id => profile.id, :parent_id => f1)
+    login_as(profile.identifier)
+
+    post :edit, :profile => profile.identifier, :id => article.id, :article => {:parent_id => f2.id}
+    article.reload
+
+    assert_equal f2, article.parent
+  end
+
   protected
 
   # FIXME this is to avoid adding an extra dependency for a proper JSON parser.

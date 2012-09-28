@@ -9,8 +9,7 @@
     <div id='media-upload-form'>
       <% form_tag({ :action => 'media_upload' }, :multipart => true) do %>
         <div class='formfield'>
-          <%# TODO duplicated from partial upload_file_form %>
-          <%= labelled_form_field(_('Choose folder to upload files:'), select_tag('parent_id', options_for_select([[profile.identifier, '']] + profile.folders.collect {|f| [ profile.identifier + '/' +  f.full_name, f.id ] }))) %>
+          <%= select_profile_folder(_('Choose folder to upload files:'), :parent_id, profile) %>
         </div>
         <p><%= file_field_tag('file1') %></p>
         <p><%= file_field_tag('file2') %></p>
