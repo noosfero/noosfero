@@ -50,7 +50,7 @@ module SearchHelper
   end
 
   def map_search?
-    !@query.blank? and !multiple_search? and params[:display] == 'map'
+    !@empty_query and !multiple_search? and params[:display] == 'map'
   end
 
   def search_page_title(title, category = nil)
@@ -107,7 +107,7 @@ module SearchHelper
     @asset_class = asset_class(asset)
     render(:partial => 'facets_unselect_menu')
   end
-  
+
   def facet_javascript(input_id, facet, array)
     array = [] if array.nil?
     hintText = _('Type in an option')
@@ -156,6 +156,7 @@ module SearchHelper
     params = params.dup
     params[:facet].each do |id, value|
       facet = klass.facet_by_id(id.to_sym)
+      next unless facet
       if value.kind_of?(Hash)
         label_hash = facet[:label].call(environment)
         value.each do |label_id, value|

@@ -8,7 +8,7 @@ module ActsAsFaceted
     #
     #acts_as_faceted :fields => {
     #  :f_type => {:label => _('Type'), :proc => proc{|klass| f_type_proc(klass)}},
-    #  :f_published_at => {:type => :date, :label => _('Published date'), :queries => {'[* TO NOW-1YEARS/DAY]' => _("Older than one year"), 
+    #  :f_published_at => {:type => :date, :label => _('Published date'), :queries => {'[* TO NOW-1YEARS/DAY]' => _("Older than one year"),
     #    '[NOW-1YEARS TO NOW/DAY]' => _("Last year"), '[NOW-1MONTHS TO NOW/DAY]' => _("Last month"), '[NOW-7DAYS TO NOW/DAY]' => _("Last week"), '[NOW-1DAYS TO NOW/DAY]' => _("Last day")}},
     #  :f_profile_type => {:label => _('Author'), :proc => proc{|klass| f_profile_type_proc(klass)}},
     #  :f_category => {:label => _('Categories')}},
@@ -36,7 +36,7 @@ module ActsAsFaceted
       self.facets_order = options[:order] || self.facets.keys
       self.facets_results_containers = {:fields => 'facet_fields', :queries => 'facet_queries', :ranges => 'facet_ranges'}
       self.facets_option_for_solr = Hash[facets.select{ |id,data| ! data.has_key?(:queries) }].keys
-      self.facets_fields_for_solr = facets.map{ |id,data| {id => data[:type] || :facet} } 
+      self.facets_fields_for_solr = facets.map{ |id,data| {id => data[:type] || :facet} }
       self.solr_fields_names = facets.map{ |id,data| id.to_s + '_' + get_solr_field_type(data[:type] || :facet) }
       self.facet_category_query = options[:category_query]
 
@@ -67,6 +67,7 @@ module ActsAsFaceted
         raise 'Use map_facets_for before this method' if facet[:solr_field].nil?
         facets_data = {} if facets_data.blank? # could be empty array
         solr_facet = to_solr_fields_names[facet[:solr_field]]
+        unfiltered_facets_data ||= {}
 
         if facet[:queries]
           container = facets_data[facets_results_containers[:queries]]
@@ -158,13 +159,15 @@ module ActsAsFaceted
       end
 
       def facet_label(facet)
-        _ facet[:label]
+        return nil unless facet
+        _(facet[:label])
       end
 
       def facets_find_options(facets_selected = {}, options = {})
         browses = []
         facets_selected ||= {}
         facets_selected.map do |id, value|
+          next unless facets[id.to_sym]
           if value.kind_of?(Hash)
             value.map do |label_id, value|
               value.to_a.each do |value|
