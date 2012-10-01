@@ -31,7 +31,7 @@
               :class => 'button icon-remove',
               :title => _('remove') %>
         <%= link_to content_tag('span',_('contact')),
-              friend.url.merge(:controller => 'contact', :action => 'new'),
+              friend.url.merge(:controller => 'contact', :action => 'new', :profile => friend.identifier),
               :class => 'button icon-menu-mail',
               :title => _('contact') %>
       </div><!-- end class="controll" -->

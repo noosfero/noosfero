@@ -460,6 +460,8 @@ div.pending-tasks {
 .headline img {
   float:left;
   margin: 5px;
+  max-width: 100%;
+  height: auto;
 }
 .news-area {
   border: 1px solid black;
@@ -1097,6 +1099,10 @@ a.comment-picture {
   top: 33px;
   left: 33px;
   background-repeat: no-repeat;
+}
+.comment-user-status-wall {
+  top: 16px;
+  left: 16px;
 }
 #article .article-comments-list, #article .article-comments-list ul, #article .article-comments-list li {
   padding: 0;
@@ -4800,6 +4806,10 @@ h1#agenda-title {
 .profile-activity-text {
   margin: 0;
   color: #000;
+}
+
+.remove-item-loading {
+  background: transparent url(../images/loading-small.gif) no-repeat left center !important;
 }
 
 li.profile-activity-item.upload_image .more,
