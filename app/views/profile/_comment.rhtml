@@ -5,19 +5,35 @@
 <li class="article-comment" style='border-bottom:none;'>
   <div class="article-comment-inner">
 
-  <div class="comment-content comment-logged-in">
+  <div class="comment-content comment-logged-<%= comment.author ? 'in' : 'out' %>">
 
   <% if comment.author %>
     <%= link_to image_tag(profile_icon(comment.author, :minor)),
-        Person.find(comment.author_id).url,
+        comment.author_url,
         :class => 'comment-picture',
         :title => comment.author_name
     %>
+  <% else %>
+    <% url_image, status_class = comment.author_id ?
+       [comment.removed_user_image, 'icon-user-removed'] :
+       [str_gravatar_url_for( comment.email ), 'icon-user-unknown'] %>
+
+    <%= link_to(
+          image_tag(url_image, :onerror=>'gravatarCommentFailback(this)',
+                   'data-gravatar'=>str_gravatar_url_for(comment.email)) +
+          content_tag('span', comment.author_name, :class => 'comment-info') +
+          content_tag('span', comment.message,
+                   :class => 'comment-user-status comment-user-status-wall ' + status_class),
+        gravatar_profile_url(comment.email),
+        :target => '_blank',
+        :class => 'comment-picture',
+        :title => '%s %s' % [comment.author_name, comment.message]
+    )%>
   <% end %>
 
   <div class="comment-details">
     <div class="comment-text">
-      <%= link_to(comment.author_name, comment.author.url) %>
+      <%= comment.author.present? ? link_to(comment.author_name, comment.author.url) : content_tag('strong', comment.author_name) %>
       <% unless comment.title.blank? %>
         <span class="comment-title"><%= comment.title %></span><br/>
       <% end %>

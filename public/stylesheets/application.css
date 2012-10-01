@@ -1096,6 +1096,10 @@ a.comment-picture {
   left: 33px;
   background-repeat: no-repeat;
 }
+.comment-user-status-wall {
+  top: 16px;
+  left: 16px;
+}
 #article .article-comments-list, #article .article-comments-list ul, #article .article-comments-list li {
   padding: 0;
   margin: 0;
