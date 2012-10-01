@@ -697,7 +697,7 @@ function remove_item_wall(button, item, url, msg) {
     } else {
       $wall_item.removeClass('remove-item-loading');
       window.location.replace(data.redirect);
-	}
+    }
   });
 }
 
