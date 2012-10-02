@@ -1,5 +1,6 @@
-<%= hidden_field_tag :id, id %>
-<%= hidden_field_tag :metric_name, metric_name %>
+<%= hidden_field_tag :id, @content_id %>
+<%= hidden_field_tag :metric_name, @metric_name %>
+
 <table>
   <tr>
     <td>
@@ -14,7 +15,7 @@
       <%= f.label :beginning, "(*) Beginning:" %>
     </td>
     <td>
-      <%= f.text_field :beginning, :value => @range.beginning , :id => 'beginning' %>&nbsp;<%= link_to('-&#8734', 'javascript:void(0)', :onClick => "jQuery( '#beginning' ).val('-INF');") %>
+      <%= f.text_field :beginning, :id => "range_beginning" %>&nbsp;<%= link_to('-&#8734', 'javascript:void(0)', :onClick => "jQuery( '#range_beginning' ).val('-INF');") %>
     </td>
   </tr>
   <tr>
@@ -22,7 +23,7 @@
       <%= f.label :end, "(*) End:" %>
     </td>
     <td>
-      <%= f.text_field :end, :value => @range.end, :id => "end" %>&nbsp;<%= link_to('+&#8734', 'javascript:void(0)', :onClick => "jQuery( '#end' ).val('+INF');") %>
+      <%= f.text_field(:end, :id => "range_end") %>&nbsp;<%= link_to('+&#8734', 'javascript:void(0)', :onClick => "jQuery( '#range_end' ).val('+INF');") %>
     </td>
   </tr>
   <tr>

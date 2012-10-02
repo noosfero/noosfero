@@ -45,7 +45,7 @@ function validate_new_range_configuration(event){
     var end = jQuery("#range_end").val();
     var color = jQuery("#range_color").val();
     var grade = jQuery("#range_grade").val();
-    
+
     if (is_null(label) || is_null(beginning) || is_null(end) || is_null(color) || is_null(grade))
     {
         alert("Please fill all fields marked with (*).");

@@ -30,7 +30,7 @@ class MezuroPluginRangeControllerTest < ActionController::TestCase
 
   should 'test new range' do
     get :new_range, :profile => @profile.identifier, :id => @content.id, :metric_name => @metric.name
-    assert_equal @content, assigns(:configuration_content)
+    assert_equal @content.id.to_s, assigns(:content_id)
     assert_equal @metric.name, assigns(:metric_name)
     assert_response 200
   end
@@ -40,7 +40,7 @@ class MezuroPluginRangeControllerTest < ActionController::TestCase
       :configuration_name => @content.name,
       :metric_name => @metric.name}).returns({:metric_configuration => @metric_configuration_hash})
     get :edit_range, :profile => @profile.identifier, :id => @content.id, :metric_name => @metric.name, :beginning_id => @range.beginning
-    assert_equal @content, assigns(:configuration_content)
+    assert_equal @content.id.to_s, assigns(:content_id)
     assert_equal @metric.name, assigns(:metric_name)
     assert_equal @range.beginning, assigns(:beginning_id)
     assert_equal @range.end, assigns(:range).end
