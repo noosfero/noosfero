@@ -7,7 +7,7 @@ class MezuroPlugin::ProjectContent < Article
   validate_on_create :validate_repository_url
 
   def self.short_description
-    'Kalibro project'
+    'Mezuro project'
   end
 
   def self.description

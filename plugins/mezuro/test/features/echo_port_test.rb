@@ -9,7 +9,7 @@ class EchoPortTest < ActiveSupport::TestCase
 
   def setup
     @port = Kalibro::Client::Port.new('Echo')
-    address = YAML.load_file("#{RAILS_ROOT}/plugins/mezuro/service.yaml")
+    address = YAML.load_file("#{RAILS_ROOT}/plugins/mezuro/service.yml")
     address['KalibroService'] = 'KalibroFake'
     @port.service_address=(address);
   end

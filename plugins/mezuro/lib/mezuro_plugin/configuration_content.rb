@@ -7,7 +7,7 @@ class MezuroPlugin::ConfigurationContent < Article
   after_destroy :remove_kalibro_configuration_from_service
 
   def self.short_description
-    'Kalibro configuration'
+    'Mezuro configuration'
   end
 
   def self.description

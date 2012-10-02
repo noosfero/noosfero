@@ -10,6 +10,11 @@ class Kalibro::BaseTool < Kalibro::Model
     new request("BaseTool", :get_base_tool, {:base_tool_name => base_tool_name})[:base_tool]
   end
 
+  def self.all
+    basetools = all_names
+    basetools.map{ |name| find_by_name(name) }
+  end 
+
   def supported_metric=(value)
     @supported_metric = Kalibro::NativeMetric.to_objects_array value
   end
