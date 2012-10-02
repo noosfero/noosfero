@@ -87,12 +87,6 @@
 
   <% if @page.accept_comments? %>
     <div id="page-comment-form"><%= render :partial => 'comment_form' %></div>
-    <script type="text/javascript">
-      jQuery( function() {
-        jQuery('.article-comment').live('mouseover', function() { jQuery(this).find('.icon-delete:first').show(); });
-        jQuery('.article-comment').live('mouseout', function() { jQuery(this).find('.icon-delete').hide(); });
-      });
-    </script>
   <% end %>
 </div><!-- end class="comments" -->
 
