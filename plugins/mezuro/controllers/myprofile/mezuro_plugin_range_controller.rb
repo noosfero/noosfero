@@ -28,7 +28,6 @@ class MezuroPluginRangeController < MezuroPluginMyprofileController
     metric_configuration.save
     if metric_configuration_has_errors? metric_configuration
       @error = metric_configuration.errors[0].message
-      #redirect_to_error_page metric_configuration.errors[0].message
     end
   end
 
@@ -41,7 +40,7 @@ class MezuroPluginRangeController < MezuroPluginMyprofileController
     metric_configuration.ranges[index] = Kalibro::Range.new params[:range]
     metric_configuration.save
     if metric_configuration_has_errors? metric_configuration
-      redirect_to_error_page metric_configuration.errors[0].message
+      @error = metric_configuration.errors[0].message
     end
   end
 
@@ -57,9 +56,9 @@ class MezuroPluginRangeController < MezuroPluginMyprofileController
     else
       formatted_metric_name = metric_name.gsub(/\s/, '+')
       if metric_configuration.metric.class == Kalibro::CompoundMetric
-        redirect_to "/myprofile/#{profile.identifier}/plugin/mezuro/edit_compound_metric_configuration?id=#{configuration_content.id}&metric_name=#{formatted_metric_name}"
+        redirect_to "/myprofile/#{profile.identifier}/plugin/mezuro/metric_configuration/edit_compound_metric_configuration?id=#{configuration_content.id}&metric_name=#{formatted_metric_name}"
       else
-        redirect_to "/myprofile/#{profile.identifier}/plugin/mezuro/edit_metric_configuration?id=#{configuration_content.id}&metric_name=#{formatted_metric_name}"
+        redirect_to "/myprofile/#{profile.identifier}/plugin/mezuro/metric_configuration/edit_metric_configuration?id=#{configuration_content.id}&metric_name=#{formatted_metric_name}"
       end
     end
   end

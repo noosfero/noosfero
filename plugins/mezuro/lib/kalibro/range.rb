@@ -18,7 +18,7 @@ class Kalibro::Range < Kalibro::Model
 
   def end=(value)
     @end = value.to_f
-    @end = 1.0/0.0 if value == "INF"
+    @end = 1.0/0.0 if value =~ /INF/
   end
 
   def end
