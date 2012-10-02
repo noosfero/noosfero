@@ -27,7 +27,8 @@ class MezuroPluginRangeController < MezuroPluginMyprofileController
     metric_configuration.add_range(@range)
     metric_configuration.save
     if metric_configuration_has_errors? metric_configuration
-      redirect_to_error_page metric_configuration.errors[0].message
+      @error = metric_configuration.errors[0].message
+      #redirect_to_error_page metric_configuration.errors[0].message
     end
   end
 
