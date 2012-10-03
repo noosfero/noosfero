@@ -1,4 +1,5 @@
 class Product < ActiveRecord::Base
+
   belongs_to :enterprise
   has_one :region, :through => :enterprise
   validates_presence_of :enterprise
@@ -163,7 +164,7 @@ class Product < ActiveRecord::Base
 
   def total_production_cost
     return inputs_cost if price_details.empty?
-    inputs_cost + price_details.map(&:price).inject { |sum,price| sum + price }
+    inputs_cost + price_details.map(&:price).inject(0){ |sum,price| sum + price }
   end
 
   def price_described?

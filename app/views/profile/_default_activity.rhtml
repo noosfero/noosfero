@@ -6,7 +6,7 @@
   <p class='profile-activity-time'><%= time_ago_as_sentence(activity.created_at) %></p>
   <div class='profile-wall-actions'>
     <%= link_to s_('profile|Comment'), '#', { :class => 'focus-on-comment'} %>
-    <%= link_to_remote(content_tag(:span, _('Remove')), :confirm => _('Are you sure?'), :url =>{:action => 'remove_activity', :activity_id => activity.id}, :update => "profile-activity-item-#{activity.id}") if logged_in? && current_person == @profile %>
+    <%= link_to_function(_('Remove'), 'remove_item_wall(this, %s, %s, %s); return false ;' % ["'.profile-activity-item'", url_for(:profile => params[:profile], :action => :remove_activity, :activity_id => activity.id, :view => params[:view]).to_json, _('Are you sure you want to remove this activity and all its replies?').to_json]) if logged_in? && current_person == @profile %>
   </div>
 </div>
 

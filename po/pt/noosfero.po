@@ -14,7 +14,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.38.0\n"
 "POT-Creation-Date: 2012-08-09 10:45-0300\n"
-"PO-Revision-Date: 2012-08-09 11:10-0300\n"
+"PO-Revision-Date: 2012-10-01 01:32-0300\n"
 "Last-Translator: Joenio Costa <joenio@colivre.coop.br>\n"
 "Language-Team: LANGUAGE TEAM <E-MAIL@ADDRESS or HOME PAGE>\n"
 "Language: \n"
@@ -5915,7 +5915,13 @@ msgstr "Remover"
 #: app/views/profile/_default_activity.rhtml:9
 #: app/views/profile/_leave_scrap_to_self.rhtml:8
 #: app/views/profile/_upload_image.rhtml:9
+msgid "Are you sure you want to remove this activity and all its replies?"
+msgstr "Você tem certeza que quer remover esta atividade e todas as suas respostas?"
+
 #: app/views/profile/_profile_scrap.rhtml:15
+msgid "Are you sure you want to remove this scrap and all its replies?"
+msgstr "Você tem certeza que quer remover esta mensagem e todas as suas respostas?"
+
 #: plugins/bsc/views/bsc_plugin_myprofile/manage_contracts.html.erb:35
 msgid "Are you sure?"
 msgstr "Você tem certeza?"

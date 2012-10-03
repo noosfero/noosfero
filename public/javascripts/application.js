@@ -710,6 +710,24 @@ function remove_comment(button, url, msg) {
   });
 }
 
+function remove_item_wall(button, item, url, msg) {
+  var $ = jQuery;
+  var $wall_item = $(button).closest(item);
+  $wall_item.addClass('remove-item-loading');
+  if (msg && !confirm(msg)) {
+    $wall_item.removeClass('remove-item-loading');
+    return;
+  }
+  $.post(url, function(data) {
+    if (data.ok) {
+      $wall_item.slideUp();
+    } else {
+      $wall_item.removeClass('remove-item-loading');
+      window.location.replace(data.redirect);
+    }
+  });
+}
+
 function original_image_dimensions(src) {
   var img = new Image();
   img.src = src;

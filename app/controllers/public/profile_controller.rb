@@ -212,9 +212,9 @@ class ProfileController < PublicController
     begin
       scrap = current_user.person.scraps(params[:scrap_id])
       scrap.destroy
-      render :text => _('Scrap successfully removed.')
+      finish_successful_removal 'Scrap successfully removed.'
     rescue
-      render :text => _('You could not remove this scrap')
+      finish_unsuccessful_removal 'You could not remove this scrap.'
     end
   end
 
@@ -227,9 +227,9 @@ class ProfileController < PublicController
       else
         activity.destroy
       end
-      render :text => _('Activity successfully removed.')
+      finish_successful_removal 'Activity successfully removed.'
     rescue
-      render :text => _('You could not remove this activity')
+      finish_unsuccessful_removal 'You could not remove this activity.'
     end
   end
 
@@ -241,6 +241,24 @@ class ProfileController < PublicController
       render :text => _('Notification successfully removed.')
     rescue
       render :text => _('You could not remove this notification.')
+    end
+  end
+
+  def finish_successful_removal(msg)
+    if request.xhr?
+      render :text => {'ok' => true}.to_json, :content_type => 'application/json'
+    else
+      session[:notice] = _(msg)
+      redirect_to :action => :index
+    end
+  end
+
+  def finish_unsuccessful_removal(msg)
+    session[:notice] = _(msg)
+    if request.xhr?
+      render :text => {'redirect' => url_for(:action => :index)}.to_json, :content_type => 'application/json'
+    else
+      redirect_to :action => :index
     end
   end
 
@@ -303,9 +321,10 @@ class ProfileController < PublicController
     @comment = Comment.find(params[:comment_id])
     if (user == @comment.author || user == profile || user.has_permission?(:moderate_comments, profile))
       @comment.destroy
-      session[:notice] = _('Comment successfully deleted')
+      finish_successful_removal 'Comment successfully removed.'
+    else
+      finish_unsuccessful_removal 'You could not remove this comment.'
     end
-    redirect_to :action => :index
   end
 
   protected
