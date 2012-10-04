@@ -1,6 +1,6 @@
 Feature: Create project
   As a mezuro user
-  I want to create a Kalibro project
+  I want to create a Mezuro project
 
   Background:
     Given the following users
@@ -13,10 +13,9 @@ Feature: Create project
       | mycommunity | My Community |
     And "Joao Silva" is admin of "My Community"
 
-  Scenario: I see Kalibro project's input form
-    Given I am on My Community's cms
-    When I follow "New content"
-    And I follow "Kalibro project"
+  Scenario: I see Mezuro project's input form
+    Given I am on My Community's control panel
+    When I follow "Mezuro Project"
     Then I should see "Title"
     And I should see "License"
     And I should see "Repository type"
@@ -28,24 +27,24 @@ Feature: Create project
     And I should see "Configuration"
     And I should see "Kalibro for Java"
 
-  Scenario: I create a Kalibro project with valid attributes
-    Given I am on My Community's cms
-    When I create a content of type "Kalibro project" with the following data
+  Scenario: I create a Mezuro project with valid attributes
+    Given I am on My Community's control panel
+    When I create a Mezuro project with the following data
       | Title           | Sample Project      |
       | License         | GPL                 |
       | Repository type | SUBVERSION          |
       | Repository url  | https://qt-calculator.svn.sourceforge.net/svnroot/qt-calculator |
       | Configuration   | Kalibro for Java    |
-   Then I should see "Sample Project"
-   And I should see "GPL"
-   And I should see "SUBVERSION"
-   And I should see "https://qt-calculator.svn.sourceforge.net/svnroot/qt-calculator"
-   And I should see "Kalibro for Java"
-   And I directly delete content with name "Sample Project" for testing purposes
+    Then I should see "Sample Project"
+    And I should see "GPL"
+    And I should see "SUBVERSION"
+    And I should see "https://qt-calculator.svn.sourceforge.net/svnroot/qt-calculator"
+    And I should see "Kalibro for Java"
+    And I directly delete content with name "Sample Project" for testing purposes
    
-  Scenario: I can't create a Kalibro project with invalid attributes
-    Given I am on My Community's cms
-    When I create a content of type "Kalibro project" with the following data
+  Scenario: I can't create a Mezuro project with invalid attributes
+    Given I am on My Community's control panel
+    When I create a Mezuro project with the following data
       | Title           |                     |
       | License         | GPL                 |
       | Repository type | SUBVERSION          |

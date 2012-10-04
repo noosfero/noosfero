@@ -1,3 +1,18 @@
+When /^I create a Mezuro (project|configuration) with the following data$/ do |type, fields|
+  click_link ("Mezuro " + type)
+
+  fields.rows_hash.each do |name, value|
+    When %{I fill in "#{name}" with "#{value}"}
+  end
+
+  if Article.find_by_name(fields.rows_hash[:Title])
+    return false
+  end
+
+  click_button "Save" # Does not work without selenium?
+  Article.find_by_name(fields.rows_hash[:Title])
+end
+
 Then /^I directly delete content with name "([^\"]*)" for testing purposes$/ do |content_name|
   Article.find_by_name(content_name).destroy
 end
