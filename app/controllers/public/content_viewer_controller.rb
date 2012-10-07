@@ -2,6 +2,8 @@ class ContentViewerController < ApplicationController
 
   needs_profile
 
+  before_filter :comment_author, :only => :edit_comment
+
   helper ProfileHelper
   helper TagsHelper
 
@@ -121,6 +123,22 @@ class ContentViewerController < ApplicationController
     end
   end
 
+  def edit_comment
+    path = params[:page].join('/')
+    @page = profile.articles.find_by_path(path)
+    @form_div = 'opened'
+    @comment = Comment.find(params[:id])
+    if request.post?
+      begin
+        @comment.update_attributes(params[:comment])
+        session[:notice] = _('Comment updated.')
+        redirect_to :action => 'view_page', :profile => profile.identifier, :page => @comment.article.explode_path
+      rescue
+        session[:notice] = _('Comment could not be updated.')
+      end
+    end
+  end
+
   protected
 
   def add_comment
@@ -196,6 +214,11 @@ class ContentViewerController < ApplicationController
         end
       end
     end
+  end
+
+  def comment_author
+    comment = Comment.find(params[:id])
+    render_access_denied if comment.author.blank? || comment.author != user
   end
 
 end

@@ -62,6 +62,10 @@
       </script>
     <% end %>
     <%= report_abuse(comment.author, :comment_link, comment) if comment.author %>
+    <% if comment.author && comment.author == user %>
+      <%= expirable_comment_link comment, :edit, _('Edit'), {:action => 'edit_comment', :id => comment.id, :profile => profile.identifier} %>
+      <%= content_tag('span', ' | ', :class => 'comment-footer comment-footer-hide') %>
+    <% end %>
     <%= link_to_function _('Reply'),
         "var f = add_comment_reply_form(this, %s); f.find('input[name=comment[title]], textarea').val(''); return false" % comment.id,
         :class => 'comment-footer comment-footer-link comment-footer-hide',

@@ -75,6 +75,10 @@
           :class => 'comment-footer comment-footer-link comment-footer-hide',
           :id => 'comment-reply-to-' + comment.id.to_s
         %>
+        <% if comment.author && comment.author == user %>
+          &nbsp;
+          <%= expirable_comment_link comment, :edit, _('Edit'), {:action => 'edit_comment', :id => comment.id, :profile => profile.identifier} %>
+        <% end %>
       <% end %>
     </div>
 

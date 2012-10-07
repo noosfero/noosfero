@@ -1400,6 +1400,38 @@ end
     end
   end
 
+  should 'not display article actions button if any plugins says so' do
+    class Plugin1 < Noosfero::Plugin
+      def content_remove_edit(content); true; end
+    end
+    class Plugin2 < Noosfero::Plugin
+      def content_remove_edit(content); false; end
+    end
+
+    environment.enable_plugin(Plugin1.name)
+    environment.enable_plugin(Plugin2.name)
+
+    login_as('testinguser')
+    xhr :get, :view_page, :profile => 'testinguser', :page => [], :toolbar => true
+    assert_no_tag :tag => 'div', :attributes => { :id => 'article-actions' }, :descendant => { :tag => 'a', :attributes => { :href => "/myprofile/testinguser/cms/edit/#{profile.home_page.id}" } }
+  end
+
+  should 'expire article actions button if any plugins says so' do
+    class Plugin1 < Noosfero::Plugin
+      def content_expire_edit(content); 'This button is expired.'; end
+    end
+    class Plugin2 < Noosfero::Plugin
+      def content_expire_edit(content); nil; end
+    end
+
+    environment.enable_plugin(Plugin1.name)
+    environment.enable_plugin(Plugin2.name)
+
+    login_as('testinguser')
+    xhr :get, :view_page, :profile => 'testinguser', :page => [], :toolbar => true
+    assert_tag :tag => 'div', :attributes => { :id => 'article-actions' }, :descendant => { :tag => 'a', :attributes => { :title => 'This button is expired.', :class => 'button with-text icon-edit disabled' } }
+  end
+
   should 'remove email from article followers when unfollow' do
     profile = create_user('testuser').person
     follower_email = 'john@doe.br'

@@ -1503,7 +1503,13 @@ a.button:hover, body.noosfero a.button:hover, input.button:hover, a.button.with-
 body.noosfero a.button.with-text.icon-none, body.noosfero input.button.with-text.icon-none {
   padding-left: 2px;
 }
-a.button.disabled, input.disabled {
+a.disabled{
+  filter: url(filters.svg#grayscale); /* Firefox 3.5+ */
+  filter: gray; /* IE6-9 */
+  -webkit-filter: grayscale(1); /* Google Chrome & Safari 6+ */
+  cursor: default;
+}
+input.disabled {
   opacity: 0.5;
   filter-opacity: 50%;
 }

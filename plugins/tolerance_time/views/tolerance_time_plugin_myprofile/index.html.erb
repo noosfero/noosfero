@@ -1,0 +1,24 @@
+<h1><%= _('Tolerance Adjustments') %></h1>
+
+<%= error_messages_for :tolerance %>
+
+<% form_for :tolerance, @tolerance do |f| %>
+
+  <% time_units = [[_('Seconds'), 1], [_('Minutes'), 60], [_('Hours'), 3600]]%>
+
+  <% if profile.organization? %>
+    <%= labelled_form_field(_('Content edition tolerance time'),
+      f.text_field(:content_tolerance, :size => 2, :style => 'font-size: 14px; text-align: right') +
+      select_tag(:content_tolerance_unit, options_for_select(time_units, @content_default_unit) )) %>
+  <% end %>
+  <%= labelled_form_field(_('Comment edition tolerance time'), 
+    f.text_field(:comment_tolerance, :size => 2, :style => 'font-size: 14px; text-align: right') + 
+    select_tag(:comment_tolerance_unit, options_for_select(time_units, @comment_default_unit) )) %>
+
+  <%= content_tag( 'small', _('Empty means unlimited and zero means right away.') ) %>
+
+  <% button_bar do %>
+    <%= submit_button('save', _('Save'))%>
+    <%= button('back', _('Back'), {:controller => 'profile_editor'})%>
+  <% end %>
+<% end %>

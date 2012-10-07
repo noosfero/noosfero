@@ -1336,6 +1336,19 @@ module ApplicationHelper
     end
   end
 
+  def expirable_link_to(expired, content, url, options = {})
+    if expired
+      options[:class] = (options[:class] || '') + ' disabled'
+      content_tag('a', '&nbsp;'+content_tag('span', content), options)
+    else
+      link_to content, url, options
+    end
+  end
+
+  def remove_content_button(action)
+    @plugins.dispatch("content_remove_#{action.to_s}", @page).include?(true)
+  end
+
   def template_options(klass, field_name)
     return '' if klass.templates.count == 0
     return hidden_field_tag("#{field_name}[template_id]", klass.templates.first.id) if klass.templates.count == 1
@@ -1401,4 +1414,19 @@ module ApplicationHelper
     result
   end
 
+  def expirable_content_reference(content, action, text, url, options = {})
+    reason = @plugins.dispatch("content_expire_#{action.to_s}", content).first
+    options[:title] = reason
+    expirable_link_to reason.present?, text, url, options
+  end
+
+  def expirable_button(content, action, text, url, options = {})
+    options[:class] = "button with-text icon-#{action.to_s}"
+    expirable_content_reference content, action, text, url, options
+  end
+
+  def expirable_comment_link(content, action, text, url, options = {})
+    options[:class] = "comment-footer comment-footer-link comment-footer-hide"
+    expirable_content_reference content, action, text, url, options
+  end
 end
