@@ -1504,7 +1504,7 @@ body.noosfero a.button.with-text.icon-none, body.noosfero input.button.with-text
   padding-left: 2px;
 }
 a.disabled{
-  filter: url(filters.svg#grayscale); /* Firefox 3.5+ */
+  filter: url(/filters.svg#grayscale); /* Firefox 3.5+ */
   filter: gray; /* IE6-9 */
   -webkit-filter: grayscale(1); /* Google Chrome & Safari 6+ */
   cursor: default;

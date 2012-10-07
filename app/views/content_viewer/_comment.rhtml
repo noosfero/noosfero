@@ -63,6 +63,11 @@
         <% end %>
       <% end %>
 
+      <% if comment.author && comment.author == user %>
+        &nbsp;
+        <%= expirable_comment_link comment, :edit, _('Edit'), {:action => 'edit_comment', :id => comment.id, :profile => profile.identifier} %>
+      <% end %>
+
       <% if logged_in? && (user == profile || user == comment.author || user.has_permission?(:moderate_comments, profile)) %>
         &nbsp;
         <%= link_to_function(_('Remove'), 'remove_comment(this, %s, %s); return false ;' % [url_for(:profile => params[:profile], :remove_comment => comment.id, :view => params[:view]).to_json, _('Are you sure you want to remove this comment and all its replies?').to_json], :class => 'comment-footer comment-footer-link comment-footer-hide remove-children') %>
@@ -75,10 +80,6 @@
           :class => 'comment-footer comment-footer-link comment-footer-hide',
           :id => 'comment-reply-to-' + comment.id.to_s
         %>
-        <% if comment.author && comment.author == user %>
-          &nbsp;
-          <%= expirable_comment_link comment, :edit, _('Edit'), {:action => 'edit_comment', :id => comment.id, :profile => profile.identifier} %>
-        <% end %>
       <% end %>
     </div>
 
