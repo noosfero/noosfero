@@ -3,7 +3,7 @@
   <p><%= _('In what area do you want to put your new block?') %></p>
 
   <% @boxes.each do |box| %>
-    <%= radio_button_tag 'box-position', box.id, box.central?, { :class => 'box-position', 'data-position' => box.position } %>
+    <%= radio_button_tag 'box_id', box.id, box.central?, { :class => 'box-position', 'data-position' => box.position } %>
     <%= label_tag _("Area %d") % box.position %>
   <% end %>
 
