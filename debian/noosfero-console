@@ -2,4 +2,7 @@
 
 set -e
 
-cd /usr/share/noosfero && su noosfero -c "./script/console production"
+environment="$1"
+test -z "$environment" && environment=production
+
+cd /usr/share/noosfero && su noosfero -c "./script/console $environment"
