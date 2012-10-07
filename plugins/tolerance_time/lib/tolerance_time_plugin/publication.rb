@@ -22,6 +22,6 @@ class ToleranceTimePlugin::Publication < Noosfero::Plugin::ActiveRecord
     else
       tolerance_time = 1.0/0
     end
-    created_at.to_i+tolerance_time < Time.now.to_i
+    created_at.to_f.to_i+tolerance_time < Time.now.to_i
   end
 end

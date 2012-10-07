@@ -127,15 +127,20 @@ class ContentViewerController < ApplicationController
     path = params[:page].join('/')
     @page = profile.articles.find_by_path(path)
     @form_div = 'opened'
-    @comment = Comment.find(params[:id])
-    if request.post?
-      begin
-        @comment.update_attributes(params[:comment])
-        session[:notice] = _('Comment updated.')
-        redirect_to :action => 'view_page', :profile => profile.identifier, :page => @comment.article.explode_path
-      rescue
-        session[:notice] = _('Comment could not be updated.')
+    @comment = @page.comments.find_by_id(params[:id])
+    if @comment
+      if request.post?
+        begin
+          @comment.update_attributes(params[:comment])
+          session[:notice] = _('Comment succesfully updated')
+          redirect_to :action => 'view_page', :profile => profile.identifier, :page => @comment.article.explode_path
+        rescue
+          session[:notice] = _('Comment could not be updated')
+        end
       end
+    else
+      redirect_to @page.view_url
+      session[:notice] = _('Could not find the comment in the article')
     end
   end
 
@@ -217,8 +222,12 @@ class ContentViewerController < ApplicationController
   end
 
   def comment_author
-    comment = Comment.find(params[:id])
-    render_access_denied if comment.author.blank? || comment.author != user
+    comment = Comment.find_by_id(params[:id])
+    if comment
+      render_access_denied if comment.author.blank? || comment.author != user
+    else
+      render_not_found
+    end
   end
 
 end

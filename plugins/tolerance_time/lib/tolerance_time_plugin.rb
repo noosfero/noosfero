@@ -35,7 +35,7 @@ class ToleranceTimePlugin < Noosfero::Plugin
     block = lambda do
       content = Article.find(params[:id])
       if ToleranceTimePlugin.expired?(content)
-        session[:notice] = _('This content can\'t be edited anymore because it expired the tolerance time')
+        session[:notice] = _("This content can't be edited anymore because it expired the tolerance time")
         redirect_to content.url
       end
     end
@@ -51,7 +51,7 @@ class ToleranceTimePlugin < Noosfero::Plugin
     block = lambda do
       content = Comment.find(params[:id])
       if ToleranceTimePlugin.expired?(content)
-        session[:notice] = _('This content can\'t be edited anymore because it expired the tolerance time')
+        session[:notice] = _("This content can't be edited anymore because it expired the tolerance time")
         redirect_to content.article.url
       end
     end
