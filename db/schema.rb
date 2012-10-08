@@ -261,6 +261,7 @@ ActiveRecord::Schema.define(:version => 20120825185219) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "reports_lower_bound",          :default => 0,         :null => false
+    t.string   "redirection_after_login"       :default => "keep_on_same_page"
   end
 
   create_table "external_feeds", :force => true do |t|
@@ -438,6 +439,7 @@ ActiveRecord::Schema.define(:version => 20120825185219) do
     t.string   "national_region_code"
     t.boolean  "is_template",                        :default => false
     t.integer  "template_id"
+    t.string   "redirection_after_login"
   end
 
   add_index "profiles", ["environment_id"], :name => "index_profiles_on_environment_id"

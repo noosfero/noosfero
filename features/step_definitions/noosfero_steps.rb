@@ -712,3 +712,39 @@ When /^I make a AJAX request to (.*)$/ do |page|
   header 'X-Requested-With', 'XMLHttpRequest'
   visit(path_to(page))
 end
+
+Given /^the environment is configured to (.*) after login$/ do |option|
+  redirection = case option
+    when 'stay on the same page'
+      'keep_on_same_page'
+    when 'redirect to site homepage'
+      'site_homepage'
+    when 'redirect to user profile page'
+      'user_profile_page'
+    when 'redirect to profile homepage'
+      'user_homepage'
+    when 'redirect to profile control panel'
+      'user_control_panel'
+  end
+  environment = Environment.default
+  environment.redirection_after_login = redirection
+  environment.save
+end
+
+Given /^the profile (.*) is configured to (.*) after login$/ do |profile, option|
+  redirection = case option
+    when 'stay on the same page'
+      'keep_on_same_page'
+    when 'redirect to site homepage'
+      'site_homepage'
+    when 'redirect to user profile page'
+      'user_profile_page'
+    when 'redirect to profile homepage'
+      'user_homepage'
+    when 'redirect to profile control panel'
+      'user_control_panel'
+  end
+  profile = Profile.find_by_identifier(profile)
+  profile.redirection_after_login = redirection
+  profile.save
+end

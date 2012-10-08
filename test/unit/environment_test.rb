@@ -1220,4 +1220,26 @@ class EnvironmentTest < ActiveSupport::TestCase
     assert_includes environment.licenses, l2
     assert_not_includes environment.licenses, l3
   end
+
+  should 'return a Hash on login redirection options' do
+    assert_kind_of Hash, Environment.login_redirection_options
+  end
+
+  should 'respond to redirection after login' do
+    assert_respond_to Environment.new, :redirection_after_login
+  end
+
+  should 'allow only environment login redirection options' do
+    environment = fast_create(Environment)
+    environment.redirection_after_login = 'invalid_option'
+    environment.save
+    assert environment.errors.invalid?(:redirection_after_login)
+
+    Environment.login_redirection_options.keys.each do |redirection|
+      environment.redirection_after_login = redirection
+      environment.save
+      assert !environment.errors.invalid?(:redirection_after_login)
+    end
+  end
+
 end

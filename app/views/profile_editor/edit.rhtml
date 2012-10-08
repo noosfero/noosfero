@@ -39,6 +39,11 @@
     </div>
   <% end %>
 
+  <% if environment.enabled?('allow_change_of_redirection_after_login') %>
+    <h2><%= _('Page to redirect after login') %></h2>
+    <%=  select 'profile_data', 'redirection_after_login', Environment.login_redirection_options.map{|key,value|[value,key]}, { :selected => @profile.preferred_login_redirection} %>
+  <% end %>
+
   <h2><%= _('Translations') %></h2>
   <%= labelled_check_box(
     _('Automaticaly redirect the visitor to the article translated to his/her language'),

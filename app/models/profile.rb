@@ -972,4 +972,8 @@ private :generate_url, :url_options
     end
   end
 
+  validates_inclusion_of :redirection_after_login, :in => Environment.login_redirection_options.keys, :allow_nil => true
+  def preferred_login_redirection
+    redirection_after_login.blank? ? environment.redirection_after_login : redirection_after_login
+  end
 end

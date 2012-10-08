@@ -123,9 +123,21 @@ class Environment < ActiveRecord::Base
       'xmpp_chat' => _('XMPP/Jabber based chat'),
       'show_zoom_button_on_article_images' => _('Show a zoom link on all article images'),
       'captcha_for_logged_users' => _('Ask captcha when a logged user comments too'),
-      'skip_new_user_email_confirmation' => _('Skip e-mail confirmation for new users')
+      'skip_new_user_email_confirmation' => _('Skip e-mail confirmation for new users'),
+      'allow_change_of_redirection_after_login' => _('Allow users to set the page to redirect after login')
     }
   end
+
+  def self.login_redirection_options
+    {
+      'keep_on_same_page' => _('Stays on the same page the user was before login.'),
+      'site_homepage' => _('Redirects the user to the environment homepage.'),
+      'user_profile_page' => _('Redirects the user to his profile page.'),
+      'user_homepage' => _('Redirects the user to his homepage.'),
+      'user_control_panel' => _('Redirects the user to his control panel.')
+    }
+  end
+  validates_inclusion_of :redirection_after_login, :in => Environment.login_redirection_options.keys, :allow_nil => true
 
   # #################################################
   # Relationships and applied behaviour

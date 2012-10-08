@@ -26,17 +26,12 @@ Check all the features you want to enable for your environment, uncheck all the 
 
 <h2><%= _('Configure features') %></h2>
 
-<table>
-  <tr>
-    <th><%= _('Option') %></th>
-    <th><%= _('Choice') %></th>
-  </tr>
-  <tr>
-    <td><%= _('Organization Approval Method') %></td>
-    <td><%= select_organization_approval_method('environment', 'organization_approval_method') %></td>
-  </tr>
-</table>
-
+<h3><%= _('Page to redirect after login') %></h3>
+  <%=  select 'environment', 'redirection_after_login', Environment.login_redirection_options.map{|key,value|[value,key]} %>
+<hr/>
+<h3><%= _('Organization Approval Method') %></h3>
+  <%= select_organization_approval_method('environment', 'organization_approval_method') %>
+<hr/>
 
 <div>
   <% button_bar do %>
