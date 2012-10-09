@@ -27,3 +27,8 @@ end
 
 Then /^I don't fill anything$/ do
 end
+
+Then /^I should see "([^\"]*)" inside an alert$/ do |message|
+	selenium.get_alert.should eql(message)
+	selenium.chooseOkOnNextConfirmation();
+end

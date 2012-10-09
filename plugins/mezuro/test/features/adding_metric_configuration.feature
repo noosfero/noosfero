@@ -8,12 +8,8 @@ Feature: Add metric configuration to a configuration
       | joaosilva | Joao Silva |
     And I am logged in as "joaosilva"
     And "Mezuro" plugin is enabled
-    And the following community
-      | identifier  | name         |
-      | mycommunity | My Community |
-    And "Joao Silva" is admin of "My Community"
-    And I am on My Community's cms
-    And I create a content of type "Kalibro configuration" with the following data
+	And I go to the Control panel
+    And I create a Mezuro configuration with the following data
       | Title           | My Configuration     |
       | Description     | A sample description |
       
@@ -29,7 +25,7 @@ Feature: Add metric configuration to a configuration
     Then I should see "Lines of Code"
     And I should see "Analizo"
     And I should see "Sample Code"
-    
+   
   Scenario: adding a native metric configuration without code
     When I follow "Add metric"
     And I follow "Analizo"
@@ -39,7 +35,7 @@ Feature: Add metric configuration to a configuration
     Then I should be at the url "/myprofile/my-community/plugin/mezuro/new_metric_configuration"
     
   Scenario: adding a compound metric configuration
-    When I follow "Add metric"
+    When I follow "Add Metric"
     And I follow "New Compound Metric"
     And I fill in the following:
       | Name:           | Compound sample   |
@@ -64,4 +60,4 @@ Feature: Add metric configuration to a configuration
     And I select "Class" from "Scope:"
     And I select "Average" from "Aggregation Form:"
     And I press "Add"
-    Then I should see "Compound sample"
+    Then I should see "Metric with invalid code or script: invalid script"
