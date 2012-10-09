@@ -35,11 +35,7 @@ class Kalibro::Range < Kalibro::Model
   end
 
 	def mezuro_color
-		@color.nil? ? "#e4ca2d" : @color.gsub(/^ff/, "#")
+		@color.nil? ? "e4ca2d" : @color.gsub(/^ff/, "")
 	end
-	
-	def color=(new_color)
-		@color = new_color.gsub(/^#/, "ff")
-	end
-	
+
 end

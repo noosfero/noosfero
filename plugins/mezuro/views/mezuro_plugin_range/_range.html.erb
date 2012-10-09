@@ -11,7 +11,7 @@
   <td>
     <%=range.grade%>
   </td>
-  <td bgcolor="#<%= range.color[2..-1] %>"></td>
+  <td bgcolor="#<%= range.color %>"></td>
   <% if (not user.nil?) && user.id == @profile.id %>
   <td><%= link_to_remote "Edit", :url => {:action =>"edit_range", :controller => "mezuro_plugin_range", :id => params[:id], :metric_name => params[:metric_name], :beginning_id => range.beginning} %>
   </td>

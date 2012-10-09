@@ -18,15 +18,11 @@ class RangeTest < ActiveSupport::TestCase
   end
 
 	should 'create a default color for new range' do 
-		assert_equal "#e4ca2d", Kalibro::Range.new.mezuro_color
+		assert_equal "e4ca2d", Kalibro::Range.new.mezuro_color
 	end
 	
 	should "convert color from 'ff' to '#'" do
-		assert_equal "#ff0000", @range.mezuro_color
+		assert_equal "ff0000", @range.mezuro_color
 	end
 
-	should "convert color from '#' to 'ff' when creating a new range" do
-		assert_equal "ffff0000", Kalibro::Range.new({:color => '#ff0000'}).color
-	end
-	
 end
