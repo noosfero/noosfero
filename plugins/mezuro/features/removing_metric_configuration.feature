@@ -13,7 +13,7 @@ Feature: Remove a metric configuration from a configuration
       | mycommunity | My Community |
     And "Joao Silva" is admin of "My Community"
     And I am on My Community's cms
-    And I create a content of type "Kalibro configuration" with the following data
+    And I create a content of type "Mezuro configuration" with the following data
       | Title           | My Configuration     |
       | Description     | A sample description |
     When I follow "Add metric"

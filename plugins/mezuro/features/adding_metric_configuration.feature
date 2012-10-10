@@ -8,13 +8,13 @@ Feature: Add metric configuration to a configuration
       | joaosilva | Joao Silva |
     And I am logged in as "joaosilva"
     And "Mezuro" plugin is enabled
-	And I go to the Control panel
+	  And I go to the Control panel
     And I create a Mezuro configuration with the following data
       | Title           | My Configuration     |
       | Description     | A sample description |
       
   Scenario: adding a native metric configuration
-    When I follow "Add metric"
+    When I follow "Add Metric"
     And I follow "Analizo"
     And I follow "Lines of Code"
     And I fill in the following:

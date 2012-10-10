@@ -1,6 +1,6 @@
 Feature: editing a configuration 
   As a mezuro user
-  I want to edit a Kalibro configuration
+  I want to edit a Mezuro configuration
 
   Background:
     Given the following users
@@ -13,7 +13,7 @@ Feature: editing a configuration
       | mycommunity | My Community |
     And "Joao Silva" is admin of "My Community"
     And I am on My Community's cms
-    And I create a content of type "Kalibro configuration" with the following data
+    And I create a content of type "Mezuro configuration" with the following data
       | Title           | My Configuration     |
       | Description     | A sample description |
     And I follow "Add metric"
