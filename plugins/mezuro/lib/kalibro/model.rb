@@ -14,12 +14,14 @@ class Kalibro::Model
     fields.each do |field|
       if(!excepts.include?(field))
         field_value = send(field)
-        hash[field] = convert_to_hash(field_value) if ! field_value.nil?
-        if field_value.is_a?(Kalibro::Model)
-          hash = {:attributes! => {}}.merge(hash)
-          hash[:attributes!][field.to_sym] = {
-            'xmlns:xsi'=> 'http://www.w3.org/2001/XMLSchema-instance',
-            'xsi:type' => 'kalibro:' + xml_class_name(field_value)  }
+        if !field_value.nil?
+          hash[field] = convert_to_hash(field_value)
+          if field_value.is_a?(Kalibro::Model)
+            hash = {:attributes! => {}}.merge(hash)
+            hash[:attributes!][field.to_sym] = {
+              'xmlns:xsi'=> 'http://www.w3.org/2001/XMLSchema-instance',
+              'xsi:type' => 'kalibro:' + xml_class_name(field_value)  }
+          end
         end
       end
     end

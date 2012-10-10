@@ -3,7 +3,9 @@ class Kalibro::Project < Kalibro::Model
   attr_accessor :name, :license, :description, :repository, :configuration_name, :state, :kalibro_error
 
   def self.all_names
-    request("Project", :get_project_names)[:project_name]
+    response = request("Project", :get_project_names)[:project_name]
+    response = [] if response.nil?
+    response
   end
 
   def self.find_by_name(project_name)

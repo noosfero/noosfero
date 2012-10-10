@@ -16,6 +16,12 @@ class ProjectTest < ActiveSupport::TestCase
     assert_equal response_hash[:project_name], Kalibro::Project.all_names
   end
 
+  should 'return empty when there are no projects' do
+    response_hash = {:project_name => nil}
+    Kalibro::Project.expects(:request).with("Project", :get_project_names).returns(response_hash)
+    assert_equal [], Kalibro::Project.all_names
+  end
+
   should 'find project by name' do
     request_body = {:project_name => @project.name}
     response_hash = {:project => @hash}
