@@ -1,0 +1,3 @@
+class FooPluginMyprofileBarController < MyProfileController
+end
+
