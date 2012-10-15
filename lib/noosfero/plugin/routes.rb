@@ -2,8 +2,8 @@ plugins_root = Rails.env.test? ? 'plugins' : File.join('config', 'plugins')
 
 Dir.glob(File.join(Rails.root, plugins_root, '*', 'controllers')) do |controllers_dir|
   prefixes_by_folder = {'public' => 'plugin',
-                        'profile' => 'profile/:profile/plugin', 
-                        'myprofile' => 'myprofile/:profile/plugin', 
+                        'profile' => 'profile/:profile/plugin',
+                        'myprofile' => 'myprofile/:profile/plugin',
                         'admin' => 'admin/plugin'}
 
   controllers_by_folder = prefixes_by_folder.keys.inject({}) do |hash, folder|
