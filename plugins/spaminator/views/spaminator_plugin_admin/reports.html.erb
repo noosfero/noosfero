@@ -1,0 +1,30 @@
+<h1><%= _('Spaminator reports')%></h1>
+
+<table id="spaminator-report-table">
+  <tr>
+    <th><%= _('Date') %></th>
+    <th><%= _('Spams by content') %></th>
+    <th><%= _('Spams by author without network') %></th>
+    <th><%= _('Total Spams') %></th>
+    <th><%= _('Spammers by more than 2 spams')%></th>
+    <th><%= _('Spammers due to no network')%></th>
+    <th><%= _('Total Spammers')%></th>
+  </tr>
+  <% @reports.each do |report| %>
+    <tr>
+      <td><%= report.created_at.strftime("%Y-%m-%d") %></td>
+      <td><%= "#{report.spams_by_content} / #{report.processed_comments}" %></td>
+      <td><%= "#{report.spams_by_no_network} / #{report.processed_comments}" %></td>
+      <td><%= "#{report.spams} / #{report.total_comments}" %></td>
+      <td><%= "#{report.spammers_by_comments} / #{report.processed_people}" %></td>
+      <td><%= "#{report.spammers_by_no_network} / #{report.processed_people}" %></td>
+      <td><%= "#{report.spammers} / #{report.total_people}" %></td>
+    </tr>
+  <% end %>
+</table>
+
+<br style='clear: both'/>
+
+<% button_bar do %>
+  <%= button(:back, _('Back'), :action => 'index') %>
+<% end %>
