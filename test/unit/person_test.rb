@@ -1284,4 +1284,36 @@ class PersonTest < ActiveSupport::TestCase
     p.stubs(:fields_privacy).returns({ 'sex' => 'public', 'birth_date' => 'private' })
     assert_equal ['sex'], p.public_fields
   end
+
+  should 'define abuser?' do
+    abuser = create_user('abuser').person
+    AbuseComplaint.create!(:reported => abuser).finish
+    person = create_user('person').person
+
+    assert abuser.abuser?
+    assert !person.abuser?
+  end
+
+  should 'be able to retrieve abusers and non abusers' do
+    abuser1 = create_user('abuser1').person
+    AbuseComplaint.create!(:reported => abuser1).finish
+    abuser2 = create_user('abuser2').person
+    AbuseComplaint.create!(:reported => abuser2).finish
+    person = create_user('person').person
+
+    abusers = Person.abusers
+
+    assert_equal ActiveRecord::NamedScope::Scope, abusers.class
+    assert_includes abusers, abuser1
+    assert_includes abusers, abuser2
+    assert_not_includes abusers, person
+
+    non_abusers = Person.non_abusers
+
+    assert_equal ActiveRecord::NamedScope::Scope, non_abusers.class
+    assert_not_includes non_abusers, abuser1
+    assert_not_includes non_abusers, abuser2
+    assert_includes non_abusers, person
+  end
+
 end
