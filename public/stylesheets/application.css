@@ -1510,7 +1510,14 @@ a.disabled{
   -webkit-filter: grayscale(1); /* Google Chrome & Safari 6+ */
   cursor: default;
 }
-input.disabled {
+
+#content a.button.disabled:hover {
+  border: 1px solid #AAA;
+  background-color: #EEE;
+  color: #555;
+  cursor: default;
+}
+a.button.disabled, input.disabled {
   opacity: 0.5;
   filter-opacity: 50%;
 }
