@@ -1,0 +1,10 @@
+Delete from kalibro_test.RANGE;
+Delete from kalibro_test.METRICCONFIGURATION;
+Delete from kalibro_test.CONFIGURATION;
+Delete from kalibro_test.METRICRESULT;
+Delete from kalibro_test.MODULE;           
+Delete from kalibro_test.MetricResult_DESCENDENTRESULTS;
+Delete from kalibro_test.NativeMetric_LANGUAGES;
+Delete from kalibro_test.PROJECTRESULT;
+Delete from kalibro_test.PROJECT;
+Delete from kalibro_test.NATIVEMETRIC;
