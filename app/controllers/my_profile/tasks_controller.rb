@@ -9,7 +9,7 @@ class TasksController < MyProfileController
   end
 
   def processed
-    @tasks = Task.to(profile).finished.sort_by(&:created_at)
+    @tasks = Task.to(profile).closed.sort_by(&:created_at)
   end
 
   VALID_DECISIONS = [ 'finish', 'cancel', 'skip' ]
