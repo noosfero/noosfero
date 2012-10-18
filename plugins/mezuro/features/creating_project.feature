@@ -31,24 +31,23 @@ Feature: Create project
     Given I am on My Community's control panel
     When I create a Mezuro project with the following data
       | Title           | Sample Project      |
-      | License         | GPL                 |
+      | License         | GNU General Public License version 2.0 (GPL-2.0)                |
       | Repository type | SUBVERSION          |
       | Repository url  | https://qt-calculator.svn.sourceforge.net/svnroot/qt-calculator |
       | Configuration   | Kalibro for Java    |
     Then I should see "Sample Project"
-    And I should see "GPL"
+    And I should see "GNU General Public License version 2.0 (GPL-2.0)"
     And I should see "SUBVERSION"
     And I should see "https://qt-calculator.svn.sourceforge.net/svnroot/qt-calculator"
     And I should see "Kalibro for Java"
-    And I directly delete content with name "Sample Project" for testing purposes
    
   Scenario: I can't create a Mezuro project with invalid attributes
     Given I am on My Community's control panel
     When I create a Mezuro project with the following data
       | Title           |                     |
-      | License         | GPL                 |
+      | License         | GNU General Public License version 2.0 (GPL-2.0)                |
       | Repository type | SUBVERSION          |
       | Repository url  |                     |
       | Configuration   | Kalibro for Java    |
-   Then I should see "Title can't be blank"
-   And I should see "Missing repository url"
+   Then I should see "The highlighted fields are mandatory."
+   And I should see "Repository URL is mandatory"
