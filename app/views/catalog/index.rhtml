@@ -23,7 +23,11 @@
     <% extra_content = @plugins.dispatch(:catalog_item_extras, product).collect { |content| instance_eval(&content) } %>
     <% extra_content_list = @plugins.dispatch(:catalog_list_item_extras, product).collect { |content| instance_eval(&content) } %>
 
-    <li class="product <%= "not-available" unless product.available %>">
+    <% status = [] %>
+    <% status << 'not-available' if !product.available %>
+    <% status << 'highlighted' if product.highlighted %>
+
+    <li class="product <%= status.join(' ') %>">
       <ul>
         <li class="product-image-link">
           <% if product.image %>
