@@ -27,4 +27,10 @@ class ColorboxHelperTest < ActiveSupport::TestCase
     assert_equal '[button]', colorbox_button('type', 'label', { :action => 'popup'})
   end
 
+  should 'provide colorbox_icon_button' do
+    expects(:icon_button).with('type', 'label', { :action => 'popup'}, has_entries({ :class => 'colorbox' })).returns('[button]')
+
+    assert_equal '[button]', colorbox_icon_button('type', 'label', { :action => 'popup'})
+  end
+
 end

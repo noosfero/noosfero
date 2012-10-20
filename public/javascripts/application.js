@@ -922,7 +922,7 @@ jQuery(function($) {
   $('.colorbox').live('click', function() {
     $.fn.colorbox({
       href:$(this).attr('href'),
-      maxWidth: '500',
+      maxWidth: '600',
       maxHeight: '550',
       open:true
     });
