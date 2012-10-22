@@ -4,9 +4,16 @@ class ShoppingCartPluginMyprofileController < MyProfileController
   append_view_path File.join(File.dirname(__FILE__) + '/../views')
 
   def edit
+    if params[:settings]
+      params[:settings][:enabled] = params[:settings][:enabled] == '1'
+      params[:settings][:delivery] = params[:settings][:delivery] == '1'
+      params[:settings][:delivery_price] = params[:settings][:delivery_price].to_d
+    end
+
+    @settings = Noosfero::Plugin::Settings.new(profile, ShoppingCartPlugin, params[:settings])
     if request.post?
       begin
-        profile.update_attributes!(params[:profile_attr])
+        @settings.save!
         session[:notice] = _('Option updated successfully.')
       rescue Exception => exception
         session[:notice] = _('Option wasn\'t updated successfully.')

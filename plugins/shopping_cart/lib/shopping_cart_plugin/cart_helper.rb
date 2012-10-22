@@ -17,9 +17,11 @@ module ShoppingCartPlugin::CartHelper
 
   def items_table(items, profile, by_mail = false)
     environment = profile.environment
+    settings = Noosfero::Plugin::Settings.new(profile, ShoppingCartPlugin)
     items = items.to_a
-    if profile.shopping_cart_delivery
-      delivery = Product.create!(:name => _('Delivery'), :price => profile.shopping_cart_delivery_price, :product_category => ProductCategory.last)
+    if settings.delivery
+      delivery = Product.new(:name => _('Delivery'), :price => settings.delivery_price)
+      delivery.save(false)
       items << [delivery.id, 1]
     end
 
@@ -47,7 +49,7 @@ module ShoppingCartPlugin::CartHelper
     end.join("\n")
 
     total = get_total(items, environment)
-    delivery.destroy if profile.shopping_cart_delivery
+    delivery.destroy if settings.delivery
 
     table +
     content_tag('th', _('Total:'), :colspan => 2, :class => 'cart-table-total-label') +
