@@ -59,6 +59,7 @@ class AccountController < ApplicationController
   def signup
     if @plugins.dispatch(:allow_user_registration).include?(false)
       redirect_back_or_default(:controller => 'home')
+      session[:notice] = _("This environment doesn't allow user registration.")
     end
 
     @invitation_code = params[:invitation_code]
@@ -132,6 +133,7 @@ class AccountController < ApplicationController
   def forgot_password
     if @plugins.dispatch(:allow_password_recovery).include?(false)
       redirect_back_or_default(:controller => 'home')
+      session[:notice] = _("This environment doesn't allow password recovery.")
     end
     @change_password = ChangePassword.new(params[:change_password])
 
