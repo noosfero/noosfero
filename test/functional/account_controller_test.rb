@@ -24,11 +24,11 @@ class AccountControllerTest < ActionController::TestCase
   def test_local_files_reference
     assert_local_files_reference
   end
-  
+
   def test_valid_xhtml
     assert_valid_xhtml
   end
-  
+
   def test_should_login_and_redirect
     post :login, :user => {:login => 'johndoe', :password => 'test'}
     assert session[:user]
@@ -110,7 +110,7 @@ class AccountControllerTest < ActionController::TestCase
 
   def test_shoud_save_with_acceptance_of_terms_of_use_on_signup
     assert_difference User, :count do
-      Environment.default.update_attributes(:terms_of_use => 'some terms ...')      
+      Environment.default.update_attributes(:terms_of_use => 'some terms ...')
       new_user(:terms_accepted => '1')
       assert_response :success
       assert_not_nil assigns(:register_pending)
@@ -134,7 +134,7 @@ class AccountControllerTest < ActionController::TestCase
     post :login, :user => {:login => 'johndoe', :password => 'test'}, :remember_me => "0"
     assert_nil @response.cookies["auth_token"]
   end
-  
+
   def test_should_delete_token_on_logout
     login_as :johndoe
     get :logout
@@ -334,7 +334,7 @@ class AccountControllerTest < ActionController::TestCase
     login_as(person.identifier)
 
     ent = fast_create(Enterprise, :name => 'test enterprise', :identifier => 'test_ent')
-    
+
     task = mock
     task.expects(:enterprise).returns(ent).at_least_once
     EnterpriseActivation.expects(:find_by_code).with('0123456789').returns(task).at_least_once
@@ -349,7 +349,7 @@ class AccountControllerTest < ActionController::TestCase
     login_as(person.identifier)
 
     ent = fast_create(Enterprise, :name => 'test enterprise', :identifier => 'test_ent', :enabled => false)
-    
+
     task = mock
     task.expects(:enterprise).returns(ent).at_least_once
     EnterpriseActivation.expects(:find_by_code).with('0123456789').returns(task).at_least_once
@@ -545,7 +545,7 @@ class AccountControllerTest < ActionController::TestCase
     login_as(person.identifier)
 
     env = Environment.default
-    env.terms_of_use = 'some terms' 
+    env.terms_of_use = 'some terms'
     env.save!
     ent = fast_create(Enterprise, :name => 'test enterprise', :identifier => 'test_ent', :enabled => false)
     ent.update_attribute(:foundation_year, 1998)
@@ -772,7 +772,7 @@ class AccountControllerTest < ActionController::TestCase
       end
     end
     Environment.default.enable_plugin(Plugin1.name)
-   
+
     post :login, :user => {:login => "testuser"}
 
     assert_equal 'testuser', assigns(:current_user).login
@@ -834,7 +834,7 @@ class AccountControllerTest < ActionController::TestCase
     #Redirect on get action
     get :forgot_password
     assert_response :redirect
-    
+
     #Redirect on post action
     post :forgot_password, :change_password => { :login => 'test', :email => 'test@localhost.localdomain' }
     assert_response :redirect
