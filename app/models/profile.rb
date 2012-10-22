@@ -140,6 +140,10 @@ class Profile < ActiveRecord::Base
 
   acts_as_having_settings :field => :data
 
+  def settings
+    data
+  end
+
   settings_items :redirect_l10n, :type => :boolean, :default => false
   settings_items :public_content, :type => :boolean, :default => true
   settings_items :description
