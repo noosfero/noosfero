@@ -7,8 +7,8 @@ module ShoppingCartPlugin::CartHelper
     product.discount ? product.price_with_discount : product.price
   end
 
-  def get_price(product, environment)
-    float_to_currency_cart(sell_price(product), environment)
+  def get_price(product, environment, quantity=1)
+    float_to_currency_cart(sell_price(product)*quantity, environment)
   end
 
   def get_total(items, environment)
@@ -42,7 +42,7 @@ module ShoppingCartPlugin::CartHelper
       content_tag('tr',
                   content_tag('td', product.name) +
                   content_tag('td', quantity, quantity_opts ) +
-                  content_tag('td', get_price(product, environment), price_opts )
+                  content_tag('td', get_price(product, environment, quantity), price_opts )
                  )
     end.join("\n")
 
