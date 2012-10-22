@@ -27,6 +27,7 @@ module ShoppingCartPlugin::CartHelper
     quantity_opts.merge!({:align => 'center'}) if by_mail
     price_opts = {:class => 'cart-table-price'}
     price_opts.merge!({:align => 'right'}) if by_mail
+    items.sort! {|a, b| Product.find(a.first).name <=> Product.find(b.first).name}
 
     table = '<table id="cart-items-table" cellpadding="2" cellspacing="0"
     border="'+(by_mail ? '1' : '0')+'"
