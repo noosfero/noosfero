@@ -14,7 +14,7 @@ function Cart(config) {
     this.enterprise = config.enterprise;
     me = this;
     $.ajax({
-      url: '/profile/'+ this.enterprise +'/plugins/shopping_cart/visibility',
+      url: '/profile/'+ this.enterprise +'/plugin/shopping_cart/visibility',
       dataType: 'json',
       success: function(data, status, ajax){
         me.visible = /^true$/i.test(data);
@@ -25,7 +25,7 @@ function Cart(config) {
         alert('Visibility - HTTP '+status+': '+errorThrown);
       }
     });
-    $(".cart-buy", this.cartElem).colorbox({href: '/profile/' + this.enterprise + '/plugins/shopping_cart/buy'});
+    $(".cart-buy", this.cartElem).colorbox({href: '/profile/' + this.enterprise + '/plugin/shopping_cart/buy'});
   }
 }
 
@@ -34,7 +34,7 @@ function Cart(config) {
   Cart.prototype.listProducts = function() {
     var me = this;
     $.ajax({
-      url: '/profile/'+ this.enterprise +'/plugins/shopping_cart/list',
+      url: '/profile/'+ this.enterprise +'/plugin/shopping_cart/list',
       dataType: 'json',
       success: function(data, ststus, ajax){
         if ( !data.ok ) alert(data.error.message);
@@ -100,7 +100,7 @@ function Cart(config) {
     var me = this;
     if( quantity == NaN ) return input.value = input.lastValue;
     $.ajax({
-      url: '/profile/'+ this.enterprise +'/plugins/shopping_cart/update_quantity/'+ itemId +'?quantity='+ quantity,
+      url: '/profile/'+ this.enterprise +'/plugin/shopping_cart/update_quantity/'+ itemId +'?quantity='+ quantity,
       dataType: 'json',
       success: function(data, status, ajax){
         if ( !data.ok ) {
@@ -150,12 +150,12 @@ function Cart(config) {
   Cart.prototype.addItem = function(enterprise, itemId, callback) {
     if(!this.enterprise) {
       this.enterprise = enterprise;
-      $(".cart-buy", this.cartElem).colorbox({href: '/profile/' + this.enterprise + '/plugins/shopping_cart/buy'});
+      $(".cart-buy", this.cartElem).colorbox({href: '/profile/' + this.enterprise + '/plugin/shopping_cart/buy'});
 //      $(this.cartElem).show();
     }
     var me = this;
     $.ajax({
-      url: '/profile/'+ enterprise +'/plugins/shopping_cart/add/'+ itemId,
+      url: '/profile/'+ enterprise +'/plugin/shopping_cart/add/'+ itemId,
       dataType: 'json',
       success: function(data, status, ajax){
         if ( !data.ok ) alert(data.error.message);
@@ -178,7 +178,7 @@ function Cart(config) {
     if ($("li", this.itemsBox).size() < 2) return this.clean();
     var me = this;
     $.ajax({
-      url: '/profile/'+ enterprise +'/plugins/shopping_cart/remove/'+ itemId,
+      url: '/profile/'+ enterprise +'/plugin/shopping_cart/remove/'+ itemId,
       dataType: 'json',
       success: function(data, status, ajax){
         if ( !data.ok ) alert(data.error.message);
@@ -200,7 +200,7 @@ function Cart(config) {
 
   Cart.prototype.show = function() {
     $.ajax({
-      url: '/profile/'+ this.enterprise +'/plugins/shopping_cart/show',
+      url: '/profile/'+ this.enterprise +'/plugin/shopping_cart/show',
       dataType: 'json',
       cache: false,
       error: function(ajax, status, errorThrown) {
@@ -215,7 +215,7 @@ function Cart(config) {
   }
   Cart.prototype.hide = function() {
     $.ajax({
-      url: '/profile/'+ this.enterprise +'/plugins/shopping_cart/hide',
+      url: '/profile/'+ this.enterprise +'/plugin/shopping_cart/hide',
       dataType: 'json',
       cache: false,
       error: function(ajax, status, errorThrown) {
@@ -252,7 +252,7 @@ function Cart(config) {
   Cart.prototype.clean = function() {
     var me = this;
     $.ajax({
-      url: '/profile/'+ me.enterprise +'/plugins/shopping_cart/clean',
+      url: '/profile/'+ me.enterprise +'/plugin/shopping_cart/clean',
       dataType: 'json',
       success: function(data, status, ajax){
         if ( !data.ok ) alert(data.error.message);
@@ -284,7 +284,7 @@ function Cart(config) {
     var me = this;
     $.ajax({
       type: 'POST',
-      url: '/profile/'+ me.enterprise +'/plugins/shopping_cart/send_request',
+      url: '/profile/'+ me.enterprise +'/plugin/shopping_cart/send_request',
       data: params,
       dataType: 'json',
       success: function(data, status, ajax){
