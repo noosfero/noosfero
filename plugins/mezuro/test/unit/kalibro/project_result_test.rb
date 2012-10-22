@@ -69,26 +69,20 @@ class ProjectResultTest < ActiveSupport::TestCase
     assert_equal '00:00:01', @project_result.formatted_analysis_time
   end
 
-  should 'retrieve module node' do
-    node = @project_result.get_node("main")
-    assert_equal @hash[:source_tree][:child][2], node.to_hash
-  end
-
   should 'retrive complex module' do
-    node = @project_result.get_node("org.Window")
-    assert_equal @hash[:source_tree][:child][0][:child].first, node.to_hash
+    assert_equal @hash[:source_tree][:child][0][:child].first, @project_result.node("org.Window").to_hash
   end
 
   should 'return source tree node when nil is given' do
-    assert_equal @hash[:source_tree], @project_result.node_of(nil).to_hash 
+    assert_equal @hash[:source_tree], @project_result.node(nil).to_hash 
   end
   
   should 'return source tree node when project name is given' do
-    assert_equal @hash[:source_tree], @project_result.node_of(@project_result.project.name).to_hash 
+    assert_equal @hash[:source_tree], @project_result.node(@project_result.project.name).to_hash 
   end
 
   should 'return correct node when module name is given' do
-    assert_equal @hash[:source_tree][:child][2], @project_result.node_of("main").to_hash
+    assert_equal @hash[:source_tree][:child][2], @project_result.node("main").to_hash
   end
 
 end

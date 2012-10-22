@@ -1,4 +1,6 @@
 <script src="/plugins/mezuro/javascripts/validations.js" type="text/javascript"></script>
+<script src="/plugins/mezuro/javascripts/colorPicker/jquery.colorPicker.min.js" type="text/javascript"></script>
+<script src="/plugins/mezuro/javascripts/colorPicker/jquery.colorPicker.js" type="text/javascript"></script>
 
 <h2><%= @configuration_content.name %> Configuration</h2>
 
@@ -83,4 +85,5 @@
 <br/>
 <%= link_to_remote "New Range", :url => {:action =>"new_range", :controller => "mezuro_plugin_myprofile", :id => @configuration_content.id, :metric_name => @metric.name} %>
 <div id="range_form" style="display:none"></div>
+
 

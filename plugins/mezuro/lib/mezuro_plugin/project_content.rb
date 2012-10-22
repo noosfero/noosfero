@@ -1,7 +1,7 @@
 class MezuroPlugin::ProjectContent < Article
   include ActionView::Helpers::TagHelper
 
-  settings_items :license, :description, :repository_type, :repository_url, :configuration_name, :periodicity_in_days
+  settings_items :project_license, :description, :repository_type, :repository_url, :configuration_name, :periodicity_in_days
 
   validate_on_create :validate_kalibro_project_name 
   validate_on_create :validate_repository_url
@@ -26,6 +26,7 @@ class MezuroPlugin::ProjectContent < Article
     rescue Exception => error
       errors.add_to_base(error.message)
     end
+    @project
   end
 
   def project_result
@@ -34,6 +35,7 @@ class MezuroPlugin::ProjectContent < Article
     rescue Exception => error
       errors.add_to_base(error.message)
     end
+    @project_result
   end
   
   def project_result_with_date(date)
@@ -43,6 +45,7 @@ Kalibro::ProjectResult.first_result_after(name, date)
     rescue Exception => error
       errors.add_to_base(error.message)
     end
+    @project_result
   end
 
   def module_result(attributes)
@@ -53,6 +56,7 @@ Kalibro::ProjectResult.first_result_after(name, date)
     rescue Exception => error
       errors.add_to_base(error.message)
     end
+    @module_result
   end
 
   def result_history(module_name)
@@ -73,6 +77,7 @@ Kalibro::ProjectResult.first_result_after(name, date)
       existing = Kalibro::Project.all_names
     rescue Exception => error
       errors.add_to_base(error.message)
+      existing = []
     end
     
     if existing.any?{|existing_name| existing_name.casecmp(name)==0} # existing.include?(name) + case insensitive
@@ -94,7 +99,7 @@ Kalibro::ProjectResult.first_result_after(name, date)
   def create_kalibro_project
    Kalibro::Project.create(
       :name => name,
-      :license => license,
+      :license => project_license,
       :description => description,
       :repository => {
         :type => repository_type,
@@ -105,7 +110,7 @@ Kalibro::ProjectResult.first_result_after(name, date)
   end
 
   def destroy_project_from_service
-    project.destroy
+    project.destroy unless project.nil?
   end
 
 end

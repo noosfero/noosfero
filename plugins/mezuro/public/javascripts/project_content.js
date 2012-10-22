@@ -2,7 +2,6 @@ var processingTree = false;
 var metricName;
 jQuery(function (){
   jQuery('.source-tree-link').live("click", reloadModule);
-  jQuery('[data-show]').live("click", toggle_mezuro);
   jQuery('[show-metric-history]').live("click", display_metric_history);
   jQuery('[show-grade-history]').live("click", display_grade_history);
   jQuery('#project_date_submit').live("click", reloadProjectWithDate);
@@ -16,7 +15,8 @@ function showProjectContent() {
 
 function display_metric_history() {
   var module_name = jQuery(this).attr('data-module-name');
-  var metric_name = jQuery(this).attr('data-metric-name');
+  var metric_name = jQuery(this).attr('show-metric-history');
+  toggle_mezuro("." + metric_name);
   metricName = metric_name;
   callAction('module_metrics_history', {module_name: module_name, metric_name: metric_name}, show_metrics);
   return false;
@@ -24,6 +24,7 @@ function display_metric_history() {
 
 function display_grade_history() {
   var module_name = jQuery(this).attr('data-module-name');
+  toggle_mezuro("#historical-grade");
   callAction('module_grade_history', {module_name: module_name}, show_grades);
   return false;
 }
@@ -36,8 +37,7 @@ function show_grades(content) {
   jQuery('#historical-grade').html(content);
 }
 
-function toggle_mezuro(){
-  var element = jQuery(this).attr('data-show');
+function toggle_mezuro(element){
   jQuery(element).toggle();
   return false;
 }
@@ -51,23 +51,8 @@ function reloadModule(){
   return false;
 }
 
-function reloadProjectWithDate(){
-	var day = jQuery("#project_date_day").val();
-	var month = jQuery("#project_date_month").val();
-	var year = jQuery("#project_date_year").val();
-
-  if(day.length == 1) 
-    day = "0" + day;
-  if(month.length == 1) 
-    month = "0" + month; 
-	
-	var date = new Date(year + "-" + month + "-" + day + "T00:00:00+00:00");
-	
-	if(isNaN(date)){
-	  alert("Invalid date! " + date);
-	  return false;
-	}
-	reloadProject(date);
+function reloadProjectWithDate(date){
+	reloadProject(date + "T00:00:00+00:00");
   return false;
 }
 

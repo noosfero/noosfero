@@ -44,7 +44,9 @@ class ConfigurationTest < ActiveSupport::TestCase
   should 'return nil when configuration doesnt exist' do
     request_body = {:configuration_name => @configuration.name}
     Kalibro::Configuration.expects(:request).with("Configuration", :get_configuration, request_body).raises(Exception.new)
-    assert_nil Kalibro::Configuration.find_by_name(@configuration.name)
+    assert_raise Exception do
+      Kalibro::Configuration.find_by_name(@configuration.name)
+    end
   end
 
   should 'destroy configuration by name' do
