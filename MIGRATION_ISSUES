@@ -1,0 +1,7 @@
+* ruby-get-text incmopatible with rails3. Maybe we can use it's gem
+
+* all js code is inside miscellaneous.js. Would be nice to refactor this
+
+* rails 2 uses prototype instead of jquery
+
+* config/environment.rb maybe still have some code that should be on the initializers
