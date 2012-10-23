@@ -665,7 +665,7 @@ class Article < ActiveRecord::Base
     self.categories.collect(&:name)
   end
 
-  delegate :region, :region_id, :environment, :environment_id, :to => :profile
+  delegate :region, :region_id, :environment, :environment_id, :to => :profile, :allow_nil => true
   def name_sortable # give a different name for solr
     name
   end

@@ -1210,7 +1210,7 @@ class ArticleTest < ActiveSupport::TestCase
     assert_nothing_raised { a.language = 'en' }
   end
 
-  should 'validade inclusion of language' do
+  should 'validate inclusion of language' do
     a = build(Article, :profile_id => fast_create(Profile).id)
     a.language = '12'
     a.valid?

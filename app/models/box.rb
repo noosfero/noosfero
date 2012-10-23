@@ -4,6 +4,6 @@ class Box < ActiveRecord::Base
   has_many :blocks, :dependent => :destroy, :order => 'position'
 
   def environment
-    owner.kind_of?(Environment) ? owner : owner.environment
+    owner ? (owner.kind_of?(Environment) ? owner : owner.environment) : nil
   end
 end

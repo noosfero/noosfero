@@ -7,6 +7,7 @@ class BlockSweeper < ActiveRecord::Observer
 
     # Expire block's all languages cache
     def expire_block(block)
+      return if !block.environment
       regex = '-[a-z]*$'
       clean_ck = block.cache_key.gsub(/#{regex}/,'')
 

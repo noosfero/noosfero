@@ -13,6 +13,7 @@ class ArticleSweeper < ActiveRecord::Observer
 protected
 
   def expire_caches(article)
+    return if !article.environment
     article.hierarchy.each { |a| a.touch if a != article }
     blocks = article.profile.blocks
     blocks += article.profile.environment.blocks if article.profile.environment
