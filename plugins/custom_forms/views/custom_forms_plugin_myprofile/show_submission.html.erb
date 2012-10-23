@@ -1,0 +1,10 @@
+<h1><%= @form.name %></h1>
+<p><%= @form.description %></p>
+
+<% fields_for :submission, @submission do |f| %>
+  <%= render :partial => 'shared/form_submission', :locals => {:f => f} %>
+<% end %>
+
+<% button_bar do %>
+  <%= button :back, _('Back to submissions'), :action => 'submissions', :id => @form.id %>
+<% end %>
