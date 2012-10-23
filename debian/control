@@ -26,7 +26,8 @@ Depends:
  ruby,
  ruby1.9.3,
  rake,
- ruby-gettext-rails,
+# This package depends on rails that conflicts with rails3
+# ruby-gettext-rails,
  ruby-sqlite3,
  ruby-pg,
  ruby-mysql,
