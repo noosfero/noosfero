@@ -154,6 +154,12 @@ class Article < ActiveRecord::Base
     article.advertise = true
   end
 
+  before_save do |article|
+    article.parent = article.parent_id ? Article.find(article.parent_id) : nil
+    parent_path = article.parent ? article.parent.path : nil
+    article.path = [parent_path, article.slug].compact.join('/')
+  end
+
   # retrieves all articles belonging to the given +profile+ that are not
   # sub-articles of any other article.
   named_scope :top_level_for, lambda { |profile|
