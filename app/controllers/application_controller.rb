@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  protec_from_forgery
 
   before_filter :setup_multitenancy
   before_filter :detect_stuff_by_domain
