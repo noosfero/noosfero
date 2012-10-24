@@ -38,7 +38,7 @@ class Event < Article
   filter_iframes :body, :link, :address, :whitelist => lambda { profile && profile.environment && profile.environment.trusted_sites_for_iframe }
 
   def self.description
-    _('A calendar event')
+    _('A calendar event.')
   end
 
   def self.short_description
