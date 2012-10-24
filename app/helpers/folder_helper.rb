@@ -52,8 +52,8 @@ module FolderHelper
     end
   end
 
-  def icon_for_new_article(type)
-    "icon-new icon-new%s" % type.constantize.icon_name
+  def icon_for_new_article(klass)
+    "icon-new icon-new%s" % klass.icon_name
   end
 
   def custom_options_for_article(article)

@@ -92,7 +92,7 @@ class CmsController < MyProfileController
       @article_types = []
       available_article_types.each do |type|
         @article_types.push({
-          :name => type.name,
+          :class => type,
           :short_description => type.short_description,
           :description => type.description
         })
