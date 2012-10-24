@@ -1,22 +1,42 @@
 <h1><%= _('Administrator Panel') %></h1>
 
-<p><%= _('You, as an environment administrator, has the following options:')%></p>
+<h2><%= _('System settings') %></h2>
 
 <table>
-  <tr><td><%= link_to _('Edit environment settings'), :action => 'site_info' %></td></tr>
-  <tr><td><%= link_to __('Edit message for disabled enterprises'), :action => 'message_for_disabled_enterprise' %></td></tr>
-  <tr><td><%= link_to _('Enable/disable features'), :controller => 'features' %></td></tr>
-  <tr><td><%= link_to _('Enable/disable plugins'), :controller => 'plugins' %></td></tr>
-  <tr><td><%= link_to _('Edit sideboxes'), :controller => 'environment_design'%></td></tr>
-  <tr><td><%= link_to _('Manage Categories'), :controller => 'categories'%></td></tr>
-  <tr><td><%= link_to _('Manage User roles'), :controller => 'role' %></td></tr>
-  <tr><td><%= link_to _('Manage users'), :controller => 'users' %></td></tr>
-  <tr><td><%= link_to _('Manage Validators by region'), :controller => 'region_validators' %></td></tr>
-  <tr><td><%= link_to _('Edit Templates'), :controller => 'templates' %></td></tr>
-  <tr><td><%= link_to _('Manage Fields'), :controller => 'features', :action => 'manage_fields' %></td></tr>
-  <tr><td><%= link_to _('Set Portal'), :action => 'set_portal_community' %></td></tr>
-  <tr><td><%= link_to _('Manage Licenses'), :controller =>'licenses' %></td></tr>
-  <% @plugins.dispatch(:admin_panel_links).each do |link| %>
+  <tr><td><%= link_to _('Environment settings'), :action => 'site_info' %></td></tr>
+  <tr><td><%= link_to _('Features'), :controller => 'features' %></td></tr>
+  <tr><td><%= link_to _('Plugins'), :controller => 'plugins' %></td></tr>
+  <tr><td><%= link_to _('Sideboxes'), :controller => 'environment_design'%></td></tr>
+  <tr><td><%= link_to _('Homepage'), :action => 'set_portal_community' %></td></tr>
+  <tr><td><%= link_to _('Licenses'), :controller =>'licenses' %></td></tr>
+</table>
+
+<h2><%= _('Profiles') %></h2>
+
+<table>
+  <tr><td><%= link_to _('User roles'), :controller => 'role' %></td></tr>
+  <tr><td><%= link_to _('Users'), :controller => 'users' %></td></tr>
+  <tr><td><%= link_to _('Profile templates'), :controller => 'templates' %></td></tr>
+  <tr><td><%= link_to _('Fields'), :controller => 'features', :action => 'manage_fields' %></td></tr>
+</table>
+
+
+<%
+  plugin_links = @plugins.dispatch(:admin_panel_links)
+%>
+<% unless plugin_links.empty? %>
+  <h2><%= _('Plugins') %></h2>
+  <table>
+  <% plugin_links.each do |link| %>
     <tr><td><%= link_to link[:title], link[:url] %></td></tr>
   <% end %>
+  </table>
+<% end %>
+
+<h2><%= _('Enterprise-related settings') %></h2>
+
+<table>
+  <tr><td><%= link_to __('Message for disabled enterprises'), :action => 'message_for_disabled_enterprise' %></td></tr>
+  <tr><td><%= link_to _('Validators by region'), :controller => 'region_validators' %></td></tr>
+  <tr><td><%= link_to _('Categories'), :controller => 'categories'%></td></tr>
 </table>

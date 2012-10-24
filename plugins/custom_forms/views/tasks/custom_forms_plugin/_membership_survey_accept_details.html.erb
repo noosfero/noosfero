@@ -1,0 +1,10 @@
+<% @form = CustomFormsPlugin::Form.find(task.form_id) %>
+<% @submission = CustomFormsPlugin::Submission.new(:form_id => @form.id, :profile_id => user.id) %>
+
+<h2><%= @form.name %></h2>
+<p><%= @form.description %></p>
+
+<% f.fields_for :submission do |fi| %>
+  <%#= fi.error_messages_for :submission %>
+  <%= render :partial => 'shared/form_submission', :locals => {:f => fi} %>
+<% end %>

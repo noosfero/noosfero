@@ -23,7 +23,28 @@ ActionTrackerConfig.verbs = {
   },
 
   :upload_image => { 
-    :description => lambda { n_('uploaded 1 image<br />%{thumbnails}<br style="clear: both;" />', 'uploaded %{num} images<br />%{thumbnails}<br style="clear: both;" />', get_view_url.size) % { :num => get_view_url.size, :thumbnails => '{{ta.collect_group_with_index(:thumbnail_path){ |t,i| content_tag(:span, link_to(image_tag(t), ta.get_view_url[i]))}.last(3).join}}' } },
+    :description => lambda do
+      total = get_view_url.size
+      n_('uploaded 1 image', 'uploaded %d images', total) % total +
+      '<br />{{'+
+      'ta.collect_group_with_index(:thumbnail_path) { |t,i|' +
+      "  if ( #{total} == 1 );" +
+      '    link_to( image_tag(t), ta.get_view_url[i], :class => \'upimg\' );' +
+      '   else;' +
+      "    pos = #{total}-i;" +
+      '    morethen2 = pos>2 ? \'morethen2\' : \'\';' +
+      '    morethen5 = pos>5 ? \'morethen5\' : \'\';' +
+      '    t = t.gsub(/(.*)(display)(.*)/, \'\\1thumb\\3\');' +
+      '    link_to( \'&nbsp;\', ta.get_view_url[i],' +
+      '      :style => "background-image:url(#{t})",' +
+      '      :class => "upimg pos#{pos} #{morethen2} #{morethen5}" );' +
+      '  end' +
+      '}.reverse.join}}' +
+      ( total > 5 ?
+        '<span class="more" onclick="this.parentNode.className+=\' show-all\'">' +
+        '&hellip;</span>' : '' ) +
+      '<br style="clear: both;" />'
+    end,
     :type => :groupable
   },
 

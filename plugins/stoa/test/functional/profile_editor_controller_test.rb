@@ -4,7 +4,7 @@ require File.dirname(__FILE__) + '/../../../../app/controllers/my_profile/profil
 # Re-raise errors caught by the controller.
 class ProfileEditorController; def rescue_action(e) raise e end; end
 
-class ProfileEditorTest < ActionController::TestCase
+class StoaPluginProfileEditorControllerTest < ActionController::TestCase
 
   SALT=YAML::load(File.open(StoaPlugin.root_path + '/config.yml'))['salt']
 

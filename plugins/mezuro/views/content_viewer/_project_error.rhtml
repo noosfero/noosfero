@@ -2,7 +2,7 @@
 <p>
   <%= "State when error ocurred: #{@project.state}" %>
   <br/>
-  <% error = @project.error %>
+  <% error = @project.kalibro_error %>
   <%= error.message %>
 <ul>
   <% error.stack_trace.each do |trace| %>

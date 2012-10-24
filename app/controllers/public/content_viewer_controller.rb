@@ -2,6 +2,8 @@ class ContentViewerController < ApplicationController
 
   needs_profile
 
+  before_filter :comment_author, :only => :edit_comment
+
   helper ProfileHelper
   helper TagsHelper
 
@@ -19,7 +21,7 @@ class ContentViewerController < ApplicationController
       unless @page
         page_from_old_path = profile.articles.find_by_old_path(path)
         if page_from_old_path
-          redirect_to :profile => profile.identifier, :page => page_from_old_path.explode_path
+          redirect_to profile.url.merge(:page => page_from_old_path.explode_path)
           return
         end
       end
@@ -75,8 +77,14 @@ class ContentViewerController < ApplicationController
       @comment = Comment.new
     end
 
-    if request.post? && params[:remove_comment]
-      remove_comment
+    if request.post?
+      if params[:remove_comment]
+        remove_comment
+        return
+      elsif params[:mark_comment_as_spam]
+        mark_comment_as_spam
+        return
+      end
     end
     
     if @page.has_posts?
@@ -107,10 +115,32 @@ class ContentViewerController < ApplicationController
       end
     end
 
-    @comments = @page.comments(true).as_thread
-    @comments_count = @page.comments.count
+    comments = @page.comments.without_spam
+    @comments = comments.as_thread
+    @comments_count = comments.count
     if params[:slideshow]
       render :action => 'slideshow', :layout => 'slideshow'
+    end
+  end
+
+  def edit_comment
+    path = params[:page].join('/')
+    @page = profile.articles.find_by_path(path)
+    @form_div = 'opened'
+    @comment = @page.comments.find_by_id(params[:id])
+    if @comment
+      if request.post?
+        begin
+          @comment.update_attributes(params[:comment])
+          session[:notice] = _('Comment succesfully updated')
+          redirect_to :action => 'view_page', :profile => profile.identifier, :page => @comment.article.explode_path
+        rescue
+          session[:notice] = _('Comment could not be updated')
+        end
+      end
+    else
+      redirect_to @page.view_url
+      session[:notice] = _('Could not find the comment in the article')
     end
   end
 
@@ -120,10 +150,11 @@ class ContentViewerController < ApplicationController
     @comment.author = user if logged_in?
     @comment.article = @page
     @comment.ip_address = request.remote_ip
+    @comment.user_agent = request.user_agent
+    @comment.referrer = request.referrer
     plugins_filter_comment(@comment)
     return if @comment.rejected?
     if (pass_without_comment_captcha? || verify_recaptcha(:model => @comment, :message => _('Please type the words correctly'))) && @comment.save
-      plugins_comment_saved(@comment)
       @page.touch
       @comment = nil # clear the comment form
       redirect_to :action => 'view_page', :profile => params[:profile], :page => @page.explode_path, :view => params[:view]
@@ -138,12 +169,6 @@ class ContentViewerController < ApplicationController
     end
   end
 
-  def plugins_comment_saved(comment)
-    @plugins.each do |plugin|
-      plugin.comment_saved(comment)
-    end
-  end
-
   def pass_without_comment_captcha?
     logged_in? && !environment.enabled?('captcha_for_logged_users')
   end
@@ -153,9 +178,24 @@ class ContentViewerController < ApplicationController
     @comment = @page.comments.find(params[:remove_comment])
     if (user == @comment.author || user == @page.profile || user.has_permission?(:moderate_comments, @page.profile))
       @comment.destroy
-      session[:notice] = _('Comment succesfully deleted')
     end
-    redirect_to :action => 'view_page', :profile => params[:profile], :page => @page.explode_path, :view => params[:view]
+    finish_comment_handling
+  end
+
+  def mark_comment_as_spam
+    @comment = @page.comments.find(params[:mark_comment_as_spam])
+    if logged_in? && (user == @page.profile || user.has_permission?(:moderate_comments, @page.profile))
+      @comment.spam!
+    end
+    finish_comment_handling
+  end
+
+  def finish_comment_handling
+    if request.xhr?
+      render :text => {'ok' => true}.to_json, :content_type => 'application/json'
+    else
+      redirect_to :action => 'view_page', :profile => params[:profile], :page => @page.explode_path, :view => params[:view]
+    end
   end
 
   def per_page
@@ -178,6 +218,15 @@ class ContentViewerController < ApplicationController
           end
         end
       end
+    end
+  end
+
+  def comment_author
+    comment = Comment.find_by_id(params[:id])
+    if comment
+      render_access_denied if comment.author.blank? || comment.author != user
+    else
+      render_not_found
     end
   end
 

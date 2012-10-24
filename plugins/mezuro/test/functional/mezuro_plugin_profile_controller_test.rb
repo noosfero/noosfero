@@ -25,14 +25,14 @@ class MezuroPluginProfileControllerTest < ActionController::TestCase
     @content.save
   end
 
-  should 'test project state without error' do
+  should 'test project state without kalibro_error' do
     Kalibro::Project.expects(:request).with("Project", :get_project, :project_name => @project.name).returns({:project => @project.to_hash})
     get :project_state, :profile => @profile.identifier, :id => @content.id
     assert_response 200
     assert_equal @content, assigns(:content)
   end
 
-  should 'test project state with error' do
+  should 'test project state with kalibro_error' do
     Kalibro::Project.expects(:request).with("Project", :get_project, :project_name => @project.name).returns({:project => @project.to_hash.merge({:error => ErrorFixtures.error_hash})})
     get :project_state, :profile => @profile.identifier, :id => @content.id
     assert_response 200
@@ -126,7 +126,7 @@ class MezuroPluginProfileControllerTest < ActionController::TestCase
     get :module_metrics_history, :profile => @profile.identifier, :id => @content.id, :module_name => @project.name,
     :metric_name => @module_result.metric_result.first.metric.name.delete("() ")
     assert_equal @content, assigns(:content)
-    assert_equal [@module_result.metric_result[0].value], assigns(:score_history)
+    assert_equal [[@module_result.metric_result[0].value, @module_result.date.to_s[0..9]]], assigns(:score_history)
     assert_response 200
   end
   
@@ -134,7 +134,7 @@ class MezuroPluginProfileControllerTest < ActionController::TestCase
     Kalibro::ModuleResult.expects(:request).with("ModuleResult", :get_result_history, {:project_name => @project.name, :module_name => @project.name}).returns({:module_result => @module_result})
     get :module_grade_history, :profile => @profile.identifier, :id => @content.id, :module_name => @project.name
     assert_equal @content, assigns(:content)
-    assert_equal [@module_result.grade], assigns(:score_history)
+    assert_equal [[@module_result.grade, @module_result.date.to_s[0..9]]], assigns(:score_history)
     assert_response 200
   end
 

@@ -221,4 +221,11 @@ class RoutingTest < ActionController::IntegrationTest
     assert_routing('/chat/avatar/chemical-brothers', :controller => 'chat', :action => 'avatar', :id => 'chemical-brothers')
   end
 
+  def test_plugins_generic_routes
+    assert_routing('/plugin/foo/public_bar/play/1', {:controller => 'foo_plugin_public_bar', :action => 'play', :id => '1'})
+    assert_routing('/profile/test/plugin/foo/profile_bar/play/1', {:controller => 'foo_plugin_profile_bar', :action => 'play', :id => '1', :profile => 'test'})
+    assert_routing('/myprofile/test/plugin/foo/myprofile_bar/play/1', {:controller => 'foo_plugin_myprofile_bar', :action => 'play', :id => '1', :profile => 'test'})
+    assert_routing('/admin/plugin/foo/admin_bar/play/1', {:controller => 'foo_plugin_admin_bar', :action => 'play', :id => '1'})
+  end
+
 end

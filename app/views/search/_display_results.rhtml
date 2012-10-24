@@ -1,4 +1,4 @@
-<div id="search-results" class="<%= @results.size == 1 ? 'only-one-result-box' : 'multiple-results-boxes' %>">
+<div id="search-results" class="<%= !multiple_search? ? 'only-one-result-box' : 'multiple-results-boxes' %>">
   <% @order.each do |name| %>
     <% results = @results[name] %>
     <% empty = results.nil? || results.empty? %>
@@ -7,7 +7,7 @@
       <% if not empty %>
         <% partial = partial_for_class(results.first.class.class_name.constantize) %>
 
-        <% if @results.size > 1 %>
+        <% if multiple_search? %>
           <h3><%= @names[name] %></h3>
           <% if results.total_entries > SearchController::MULTIPLE_SEARCH_LIMIT %>
             <%= link_to(_('see all (%d)') % results.total_entries, params.merge(:action => name), :class => 'see-more' ) %>
@@ -22,9 +22,10 @@
           </ul>
         </div>
       <% else %>
-        <% if @results.size > 1 %>
+        <% if multiple_search? %>
           <h3><%= @names[name] %></h3>
         <% end %>
+
         <div class="search-results-innerbox search-results-type-empty">
           <div> <%= _('None') %> </div>
         </div>

@@ -1139,8 +1139,10 @@ class ProfileControllerTest < ActionController::TestCase
 
   should "view more activities paginated" do
     login_as(profile.identifier)
-    40.times{ fast_create(ActionTracker::Record, :user_id => profile.id)}
+    article = TinyMceArticle.create!(:profile => profile, :name => 'An Article about Free Software')
+    40.times{ ActionTracker::Record.create!(:user_id => profile.id, :user_type => 'Profile', :verb => 'create_article', :target_id => article.id, :target_type => 'Article', :params => {'name' => article.name, 'url' => article.url, 'lead' => article.lead, 'first_image' => article.first_image})}
     assert_equal 40, profile.tracked_actions.count
+    assert_equal 40, profile.activities.count
     get :view_more_activities, :profile => profile.identifier, :page => 2
     assert_response :success
     assert_template '_profile_activities_list'
@@ -1297,5 +1299,29 @@ class ProfileControllerTest < ActionController::TestCase
     assert_equal count + 1, ActionTracker::Record.find(activity.id).comments_count
     assert_response :success
     assert_equal "Comment successfully added.", assigns(:message)
+  end
+
+  should 'display comment in wall if user was removed' do
+    UserStampSweeper.any_instance.stubs(:current_user).returns(profile)
+    article = TinyMceArticle.create!(:profile => profile, :name => 'An article about free software')
+    to_be_removed = create_user('removed_user').person
+    comment = Comment.create!(:author => to_be_removed, :title => 'Test Comment', :body => 'My author does not exist =(', :source_id => article.id, :source_type => 'Article')
+    to_be_removed.destroy
+
+    login_as(profile.identifier)
+    get :index, :profile => profile.identifier
+
+    assert_tag :tag => 'span', :content => '(removed user)', :attributes => {:class => 'comment-user-status comment-user-status-wall icon-user-removed'}
+  end
+
+  should 'display comment in wall from non logged users' do
+    UserStampSweeper.any_instance.stubs(:current_user).returns(profile)
+    article = TinyMceArticle.create!(:profile => profile, :name => 'An article about free software')
+    comment = Comment.create!(:name => 'outside user', :email => 'outside@localhost.localdomain', :title => 'Test Comment', :body => 'My author does not exist =(', :source_id => article.id, :source_type => 'Article')
+
+    login_as(profile.identifier)
+    get :index, :profile => profile.identifier
+
+    assert_tag :tag => 'span', :content => '(unauthenticated user)', :attributes => {:class => 'comment-user-status comment-user-status-wall icon-user-unknown'}
   end
 end

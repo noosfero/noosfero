@@ -8,6 +8,10 @@ module ColorboxHelper
     button(type, label, url, colorbox_options(options))
   end
 
+  def colorbox_icon_button(type, label, url, options = {})
+    icon_button(type, label, url, colorbox_options(options))
+  end
+
   # options must be an HTML options hash as passed to link_to etc.
   #
   # returns a new hash with colorbox class added. Keeps existing classes.
