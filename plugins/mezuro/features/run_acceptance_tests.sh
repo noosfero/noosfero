@@ -3,15 +3,15 @@
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 MEZURO_HOME="$DIR/.."
 
-
-echo $MEZURO_HOME
-
 # Ignore errors from all commands
 trap "" ERR
 
 # Change Kalibro Service
-echo "http://localhost:8080/KalibroTest/" > "$MEZURO_HOME/service.yml"
-echo "Changed Kalibro Service"
+#echo "http://localhost:8080/KalibroTest/" > "$MEZURO_HOME/service.yml"
+#echo "Changed Kalibro Service"
+
+#echo cleaning Kalibro database ...
+#mysql -h lua -u kalibro -pkalibro2012p4ss -D 'kalibro' < $MEZURO_HOME/features/clean_kalibro_db.sql
 
 # Run acceptance test
 if [ "$1" == "" ];  then
@@ -21,10 +21,14 @@ else
 fi
 #cat "$MEZURO_HOME/service.yml"
 
-mysql -h lua -u kalibro -pkalibro2012p4ss -D 'kalibro_test' < $MEZURO_HOME/features/clean_kalibro_db.sql
+#echo cleaning Kalibro database ...
+
+#mysql -h lua -u kalibro -pkalibro2012p4ss -D 'kalibro' < $MEZURO_HOME/features/clean_kalibro_db.sql
+
+#echo Kalibro database cleaned!
 
 # Change back Kalibro Service
-echo "http://localhost:8080/KalibroService/" > "$MEZURO_HOME/service.yml"
-echo "Changed back Kalibro Service"
+#echo "http://localhost:8080/KalibroService/" > "$MEZURO_HOME/service.yml"
+#echo "Changed back Kalibro Service"
 #cat "$MEZURO_HOME/service.yml"
 
