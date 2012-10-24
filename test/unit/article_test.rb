@@ -1800,4 +1800,22 @@ class ArticleTest < ActiveSupport::TestCase
     assert_equal [f2.path,article.slug].join('/'), article.path
   end
 
+  should 'not allow parent as itself' do
+    article = Article.create!(:name => 'Sample Article', :profile => profile)
+    article.parent = article
+    article.valid?
+
+    assert article.errors.invalid?(:parent_id)
+  end
+
+  should 'not allow cyclical paternity' do
+    a1 = Article.create!(:name => 'Sample Article 1', :profile => profile)
+    a2 = Article.create!(:name => 'Sample Article 2', :profile => profile, :parent => a1)
+    a3 = Article.create!(:name => 'Sample Article 3', :profile => profile, :parent => a2)
+    a1.parent = a3
+    a1.valid?
+
+    assert a1.errors.invalid?(:parent_id)
+  end
+
 end
