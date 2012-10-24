@@ -130,7 +130,7 @@ class Noosfero::Plugin
   end
 
   # -> Adds plugin-specific content types to CMS
-  # returns  = { content type class }
+  # returns  = [ContentClass1, ContentClass2, ...]
   def content_types
     nil
   end
