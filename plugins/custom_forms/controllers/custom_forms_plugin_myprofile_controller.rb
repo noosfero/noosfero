@@ -1,4 +1,6 @@
 class CustomFormsPluginMyprofileController < MyProfileController
+
+  protect 'post_content', :profile
   def index
     @forms = CustomFormsPlugin::Form.from(profile)
   end

@@ -32,7 +32,9 @@
     <% end %>
     <%= render :partial => 'empty_field', :locals => {:field => @empty_field, :counter => counter} %>
     <tr class='new-item'>
-      <td colspan='5'><strong><%= link_to(_('NEW FIELD'), '#', :id => 'new-field')%></strong></td>
+      <td colspan='5'>
+        <%= button(:add, _('Add a new field'), '#', :id => 'new-field')%>
+      </td>
     </tr>
   </table>
 

@@ -1,6 +1,6 @@
 <% elem_id = "edit-select-#{counter}" %>
 <div id=<%= elem_id %> class='edit-information'>
-  <h1><%= _('Options') %></h1>
+  <h2><%= _('Options') %></h2>
   <table class='action-table' style='width: 420px'>
     <tr>
       <th style='width: 40%'><%= _('Name') %></th>
@@ -14,15 +14,15 @@
     <% end %>
     <%= render :partial => 'empty_option', :locals => {:counter => counter, :option_counter => option_counter} %>
     <tr class='new-item'>
-      <td colspan='3'><strong><%= link_to(_('NEW OPTION'), '#', :class => 'new-option', :field_id => counter)%></strong></td>
+      <td colspan='3'>
+        <%= button(:add, _('Add a new option'), '#', :class => 'new-option', :field_id => counter)%>
+      </td>
     </tr>
   </table>
 
-  <h2><%= _('Type') %></h2>
-  <%#= labelled_check_box _('List'), "fields[#{counter}][list]", true, field.list %>
-  <%#= labelled_check_box _('Multiple'), "fields[#{counter}][multiple]", true, field.multiple %>
+  <h3><%= _('Type') %></h3>
   <%= labelled_radio_button 'Radio', "fields[#{counter}][kind]", 'radio', !field.multiple && !field.list %><br />
-  <%= labelled_radio_button 'Check Box', "fields[#{counter}][kind]", 'check_box', field.multiple && !field.list %><br />
+  <%= labelled_radio_button 'Checkbox', "fields[#{counter}][kind]", 'check_box', field.multiple && !field.list %><br />
   <%= labelled_radio_button 'Select', "fields[#{counter}][kind]", 'select', !field.multiple && field.list %><br />
   <%= labelled_radio_button 'Multiple Select', "fields[#{counter}][kind]", 'multiple_select', field.multiple && field.list %><br />
 
