@@ -49,10 +49,14 @@ class Kalibro::MetricConfiguration < Kalibro::Model
   end
 
   def destroy
-    self.class.request("MetricConfiguration", :remove_metric_configuration, {
+    begin
+      self.class.request("MetricConfiguration", :remove_metric_configuration, {
         :configuration_name => configuration_name,
         :metric_name=> metric.name
       })
+    rescue Exception => exception
+      add_error exception
+    end
   end
   
   def to_hash

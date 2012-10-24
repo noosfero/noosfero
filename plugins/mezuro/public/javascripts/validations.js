@@ -3,7 +3,9 @@ jQuery(function (){
   jQuery('#metric_configuration_submit').live("click", validate_metric_configuration);
 });
 
-
+function validate_code(code){
+  return true;
+}
 
 function validate_metric_configuration(){
     var code = jQuery('#metric_configuration_code').val();
@@ -37,14 +39,6 @@ function IsNotInfinite(value){
     return true;
 }
 
-function IsNotHexadecimal(value){
-    if(value.match(/^[0-9a-fA-F]{1,8}$/))
-    {
-      return false;
-    }
-    return true;
-}
-
 function validate_new_range_configuration(event){    
     var label = jQuery("#range_label").val();
     var beginning = jQuery("#range_beginning").val();
@@ -54,24 +48,20 @@ function validate_new_range_configuration(event){
     
     if (is_null(label) || is_null(beginning) || is_null(end) || is_null(color) || is_null(grade))
     {
-        alert("Please fill all fields marked with (*)");
+        alert("Please fill all fields marked with (*).");
         return false;
     }
     if ( (IsNotNumeric(beginning) && IsNotInfinite(beginning)) || (IsNotNumeric(end) && IsNotInfinite(end)) || IsNotNumeric(grade))
     {
-        alert("Beginning, End and Grade must be numeric values");
+        alert("Beginning, End and Grade must be numeric values.");
         return false;
     }
     if (parseInt(beginning) > parseInt(end))
     {
         if(IsNotInfinite(beginning) && IsNotInfinite(end)){
-          alert("End must be greater than Beginning");
+          alert("End must be greater than Beginning.");
           return false;
         }
-    }
-    if (IsNotHexadecimal(color)){
-        alert("Color must be an hexadecimal value");
-        return false;
     }
     return true;
 }

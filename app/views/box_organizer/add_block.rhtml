@@ -1,29 +1,43 @@
-<% form_tag do %>
+<div style='height:350px'>
+  <% form_tag do %>
 
-  <p><%= _('In what area do you want to put your new block?') %></p>
+    <p><%= _('In what area do you want to put your new block?') %></p>
 
-  <%# FIXME hardcoded stuff %>
-  <%= select_tag('box_id', options_for_select(@boxes.select { |item| item.position != 1 }.map {|item| [ _("Area %d") % item.position, item.id]})) %>
-  
-  <p><%= _('Select the type of block you want to add to your page.') %></p>
-  
-  <% @block_types.in_groups_of(2) do |block1, block2| %>
-    <div style='float: left; width: 48%; padding-top: 2px;'>
-      <%= radio_button_tag('type', block1.name) %>
-      <%= label_tag "type_#{block1.name.downcase}", block1.description %>
-    </div>
-    <% if block2 %>
-      <div style='float: left; width: 48%; padding-top: 2px;'>
-        <%= radio_button_tag('type', block2.name) %>
-        <%= label_tag "type_#{block2.name.downcase}", block2.description %>
-      </div>
+    <% @boxes.each do |box| %>
+      <%= labelled_radio_button(_("Area %d") % box.position, :box_id, box.id, box.central?, { :class => 'box-position', 'data-position' => box.position })  %>
     <% end %>
-  <% end %>
-  <br style='clear: both'/>
-  
-  <% button_bar do %>
-    <%= submit_button(:add, _("Add")) %>
-    <%= lightbox_close_button(_('Close')) %>
-  <% end %>
 
-<% end %>
+    <script type="text/javascript">
+      (function ($) {
+        $(document).ready(function () {
+          $(".box-position").live('change', function () {
+            if ($(this).attr('data-position') == '1') {
+              $('#center-block-types').show();
+              $('#side-block-types').hide();
+            } else {
+              $('#center-block-types').hide();
+              $('#side-block-types').show();
+            };
+          });
+      })})(jQuery);
+    </script>
+
+    <p><%= _('Select the type of block you want to add to your page.') %></p>
+
+    <div id='center-block-types'>
+      <%= render :partial => 'block_types', :locals => { :block_types => @center_block_types } %>
+    </div>
+
+    <div id='side-block-types' style='display:none'>
+      <%= render :partial => 'block_types', :locals => { :block_types => @side_block_types } %>
+    </div>
+
+    <br style='clear: both'/>
+
+    <% button_bar do %>
+      <%= submit_button(:add, _("Add")) %>
+      <%= colorbox_close_button(_('Close')) %>
+    <% end %>
+
+  <% end %>
+</div>

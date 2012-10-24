@@ -38,7 +38,7 @@
       <%= f.label :color, "(*) Color:" %>
     </td>
     <td>
-      <%= f.text_field :color %>
+      <%= f.text_field(:color, :id => "range_color", :value => @range.mezuro_color) %>
     </td>
   </tr>
   <tr>
@@ -51,3 +51,11 @@
   </tr>
 </table>
 <%= f.submit "Save Range" %>
+
+<script>jQuery(document).ready(function($) {
+    $('#range_color').colorPicker({ 
+   		onColorChange : function(id, newValue) {
+   			jQuery('#range_color').val(newValue);
+   		}
+   	});
+});</script>

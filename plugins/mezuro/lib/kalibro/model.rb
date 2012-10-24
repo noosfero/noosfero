@@ -1,12 +1,16 @@
 class Kalibro::Model
 
+  attr_accessor :errors
+
   def initialize(attributes={})
     attributes.each { |field, value| send("#{field}=", value) if self.class.is_valid?(field) }
+    @errors = []
   end
 
   def to_hash(options={})
     hash = Hash.new
     excepts = !options[:except].nil? ? options[:except] : []
+    excepts << :errors
     fields.each do |field|
       if(!excepts.include?(field))
         field_value = send(field)
@@ -46,15 +50,17 @@ class Kalibro::Model
     begin
       self.class.request(save_endpoint, save_action, save_params)
 	    true
-	  rescue Exception => error
-		  false
+	  rescue Exception => exception
+	    add_error exception
+	    false
 	  end
   end
 
   def destroy
     begin
       self.class.request(destroy_endpoint, destroy_action, destroy_params)
-    rescue Exception
+    rescue Exception => exception
+	    add_error exception
     end
   end
 
@@ -123,4 +129,9 @@ class Kalibro::Model
     {"#{class_name.underscore}_name".to_sym => self.name}
   end
 
+  def add_error(exception)
+    @errors << exception
+  end
+
 end
+

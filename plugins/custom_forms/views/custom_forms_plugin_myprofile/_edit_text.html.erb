@@ -1,0 +1,10 @@
+<% elem_id = "edit-text-#{counter}" %>
+<div id=<%= elem_id %> class='edit-information'>
+  <h2><%= _('Default value') %></h2>
+  <%= labelled_form_field _('Default value'), text_field("fields[#{counter}]", :default_value, :value => field.default_value) %>
+
+  <% button_bar do %>
+    <%= button :ok, _('Ok'), '#', :class => 'colorbox-ok-button', :div_id => elem_id %>
+  <% end %>
+</div>
+

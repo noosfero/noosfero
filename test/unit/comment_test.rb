@@ -555,6 +555,14 @@ class CommentTest < ActiveSupport::TestCase
     assert_equal 'bar', c.referrer
   end
 
+  should 'delegate environment to article' do
+    profile = fast_create(Profile, :environment_id => Environment.default)
+    article = fast_create(Article, :profile_id => profile.id)
+    comment = fast_create(Comment, :source_id => article.id, :source_type => 'Article')
+
+    assert_equal Environment.default, comment.environment
+  end
+
   private
 
   def create_comment(args = {})

@@ -7,11 +7,7 @@ class Kalibro::Configuration < Kalibro::Model
   end
 
   def metric_configurations
-    if @metric_configuration != nil
-      @metric_configuration
-    else
-      []
-    end
+    @metric_configuration.nil? ? [] : @metric_configuration
   end
 
   def metric_configurations=(metric_configurations)
@@ -19,19 +15,11 @@ class Kalibro::Configuration < Kalibro::Model
   end
 
   def self.find_by_name(configuration_name)
-    begin
-      new request("Configuration", :get_configuration, {:configuration_name => configuration_name})[:configuration]
-    rescue Exception => error
-      nil
-    end
+    new request("Configuration", :get_configuration, {:configuration_name => configuration_name})[:configuration]
   end
 
   def self.all_names
-    begin
-      request("Configuration", :get_configuration_names)[:configuration_name]
-    rescue Exception
-      []
-    end
+    request("Configuration", :get_configuration_names)[:configuration_name]
   end
 
   def update_attributes(attributes={})

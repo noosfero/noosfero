@@ -1,0 +1,30 @@
+.controller-profile_editor a.control-panel-custom-forms,
+.controller-profile_editor .msie6 a.control-panel-custom-forms {
+  background-image: url(/plugins/custom_forms/icons/custom-forms.png)
+}
+
+.action-table {
+  width: 100%; 
+  overflow: hidden;
+}
+
+.action-table th,
+.action-table td{
+  text-align: center;
+}
+
+.action-table td{
+  cursor: move;
+}
+
+.action-table .actions{
+  white-space: nowrap;
+}
+
+.action-table .new-item{
+  background-color: #EEE;
+}
+
+.edit-information {
+  display: none;
+}

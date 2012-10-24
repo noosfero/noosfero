@@ -49,13 +49,13 @@
         <%= article.class.short_description %>
       </td>
       <td class="article-controls">
-        <%= button_without_text :edit, _('Edit'), :action => 'edit', :id => article.id %>
+        <%= expirable_button article, :edit, _('Edit'), {:action => 'edit', :id => article.id} if !remove_content_button(:edit) %>
         <%= button_without_text :eyes, _('Public view'), article.view_url %>
-        <%= display_spread_button(profile, article) unless article.folder? %>
-        <% if !environment.enabled?('cant_change_homepage') %>
-          <%= button_without_text :home, _('Use as homepage'), { :action => 'set_home_page', :id => article.id }, :method => :post %>
+        <%= display_spread_button(profile, article) unless article.folder? || remove_content_button(:spread)%>
+        <% if !environment.enabled?('cant_change_homepage') && !remove_content_button(:home) %>
+          <%= expirable_button article, :home, _('Use as homepage'), { :action => 'set_home_page', :id => article.id }, :method => :post %>
         <% end %>
-        <%= display_delete_button(article) %>
+        <%= display_delete_button(article) if !remove_content_button(:delete) %>
       </td>
     </tr>
   <% end %>

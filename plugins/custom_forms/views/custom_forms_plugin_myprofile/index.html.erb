@@ -1,0 +1,28 @@
+<% self.extend CustomFormsPlugin::Helper %>
+
+<h1><%= _('Manage forms') %></h1>
+<table class="action-table">
+  <tr>
+    <th style='width: 40%'><%= _('Name') %></th>
+    <th style='width: 30%'><%= _('Period') %></th>
+    <th style='width: 10%'><%= _('Submissions') %></th>
+    <th style='width: 10%'><%= _('Access') %></th>
+    <th style='width: 10%'><%= _('Actions') %></th>
+  </tr>
+  <% @forms.each do |form| %>
+    <tr>
+      <td><%= link_to form.name, {:controller => 'custom_forms_plugin_profile', :action => 'show', :id => form.id} %></td>
+      <td><%= period_range(form) %></td>
+      <td><%= form.submissions.count > 0 ? link_to(form.submissions.count, {:action => 'submissions', :id => form.id}) : 0 %></td>
+      <td><%= access_text(form) %></td>
+      <td class="actions">
+        <%= button_without_text :edit, _('Edit'), :action => 'edit', :id => form.id %>
+        <%= button_without_text :remove, _('Remove'), {:action => 'remove', :id => form.id}, :confirm => _('Are you sure you want to remove this form?') %></td>
+    </tr>
+  <% end %>
+  <tr id="new-item">
+    <td colspan='5'>
+      <%= button(:add, _('Add a new form'), :action => 'create')%>
+   </td>
+  </tr>
+</table>

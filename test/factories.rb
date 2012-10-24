@@ -442,7 +442,7 @@ module Noosfero::Factory
 
   def defaults_for_comment(params = {})
     name = "comment_#{rand(1000)}"
-    { :title => name, :body => "my own comment", :source_id => 1 }.merge(params)
+    { :title => name, :body => "my own comment", :source_id => 1, :source_type => 'Article' }.merge(params)
   end
 
   ###############################################

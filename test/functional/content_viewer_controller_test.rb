@@ -1400,6 +1400,38 @@ end
     end
   end
 
+  should 'not display article actions button if any plugins says so' do
+    class Plugin1 < Noosfero::Plugin
+      def content_remove_edit(content); true; end
+    end
+    class Plugin2 < Noosfero::Plugin
+      def content_remove_edit(content); false; end
+    end
+
+    environment.enable_plugin(Plugin1.name)
+    environment.enable_plugin(Plugin2.name)
+
+    login_as('testinguser')
+    xhr :get, :view_page, :profile => 'testinguser', :page => [], :toolbar => true
+    assert_no_tag :tag => 'div', :attributes => { :id => 'article-actions' }, :descendant => { :tag => 'a', :attributes => { :href => "/myprofile/testinguser/cms/edit/#{profile.home_page.id}" } }
+  end
+
+  should 'expire article actions button if any plugins says so' do
+    class Plugin1 < Noosfero::Plugin
+      def content_expire_edit(content); 'This button is expired.'; end
+    end
+    class Plugin2 < Noosfero::Plugin
+      def content_expire_edit(content); nil; end
+    end
+
+    environment.enable_plugin(Plugin1.name)
+    environment.enable_plugin(Plugin2.name)
+
+    login_as('testinguser')
+    xhr :get, :view_page, :profile => 'testinguser', :page => [], :toolbar => true
+    assert_tag :tag => 'div', :attributes => { :id => 'article-actions' }, :descendant => { :tag => 'a', :attributes => { :title => 'This button is expired.', :class => 'button with-text icon-edit disabled' } }
+  end
+
   should 'remove email from article followers when unfollow' do
     profile = create_user('testuser').person
     follower_email = 'john@doe.br'
@@ -1430,6 +1462,44 @@ end
 
     spam.reload
     assert spam.spam?
+  end
+
+  should 'be able to edit a comment' do
+    login_as profile.identifier
+    page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text', :accept_comments => false)
+    comment = fast_create(Comment, :body => 'Original comment', :author_id => profile.id, :source_id => page.id, :source_type => 'Article')
+
+    post :edit_comment, :id => comment.id, :profile => profile.identifier, :page => [ 'myarticle' ], :comment => { :body => 'Comment edited' }
+    assert_equal 'Comment edited', Comment.find(comment.id).body
+  end
+
+  should 'edit comment from a page' do
+    login_as profile.identifier
+    page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
+    comment = fast_create(Comment, :body => 'Original comment', :author_id => profile.id, :source_id => page.id, :source_type => 'Article')
+
+    get :edit_comment, :id => comment.id, :profile => profile.identifier, :page => [ 'myarticle' ], :comment => { :body => 'Comment edited' }
+    assert_tag :tag => 'h1', :content => 'Edit comment'
+  end
+
+  should 'not edit comment from other page' do
+    login_as profile.identifier
+    page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
+    comment = fast_create(Comment, :body => 'Original comment', :author_id => profile.id, :source_id => page.id, :source_type => 'Article')
+
+    other_page = profile.articles.create!(:name => 'my other article', :body => 'the body of the text')
+    comment_on_other_page = fast_create(Comment, :body => 'Comment on other article', :author_id => profile.id, :source_id => other_page.id, :source_type => 'Article')
+
+    get :edit_comment, :id => comment_on_other_page.id, :profile => profile.identifier, :page => [ 'myarticle' ], :comment => { :body => 'Comment edited' }
+    assert_redirected_to page.url
+  end
+
+  should 'not crash on edit comment if comment does not exist' do
+    login_as profile.identifier
+    page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
+
+    get :edit_comment, :id => 1000, :profile => profile.identifier, :page => [ 'myarticle' ], :comment => { :body => 'Comment edited' }
+    assert_response 404
   end
 
 end

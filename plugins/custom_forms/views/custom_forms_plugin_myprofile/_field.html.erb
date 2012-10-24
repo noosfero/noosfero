@@ -1,0 +1,12 @@
+<tr id=<%= "field-#{counter}" %>>
+  <td style="text-align: left"><%= text_field "fields[#{counter}]", :name, :value => field.name, :size => 25 %></td>
+  <td><%= type_to_label(field.type) %></td>
+  <%= hidden_field "fields[#{counter}]", :type, :value => type_for_options(field.class) %>
+  <td><%= check_box "fields[#{counter}]", :mandatory, :checked => field.mandatory %></td>
+  <%= hidden_field "fields[#{counter}]", :real_id, :value => field.id %>
+  <%= hidden_field "fields[#{counter}]", :form_id, :value => @form.id %>
+  <td class='actions'>
+    <%= button_without_text :edit, _('Edit'), '#', :field_id => counter %>
+    <%= button_without_text :remove, _('Remove'), '#', :class => 'remove-field', :field_id => counter,  :confirm => _('Are you sure you want to remove this field?') %>
+  </td>
+</tr>

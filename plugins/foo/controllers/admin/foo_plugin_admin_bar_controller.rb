@@ -1,0 +1,3 @@
+class FooPluginAdminBarController < AdminController
+end
+

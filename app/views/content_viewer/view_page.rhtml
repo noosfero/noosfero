@@ -98,7 +98,7 @@
   </ul>
 
   <% if @page.accept_comments? %>
-    <div id="page-comment-form"><%= render :partial => 'comment_form' %></div>
+    <div id="page-comment-form"><%= render :partial => 'comment_form', :locals => {:url => url_for(@page.view_url.merge({:only_path => true})), :display_link => true, :cancel_triggers_hide => true}%></div>
   <% end %>
 </div><!-- end class="comments" -->
 

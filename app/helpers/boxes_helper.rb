@@ -162,9 +162,6 @@ module BoxesHelper
   #
   # +box+ is always needed
   def block_target(box, block = nil)
-    # FIXME hardcoded
-    return '' if box.position == 1
-
     id =
       if block.nil?
         "end-of-box-#{box.id}"
@@ -172,14 +169,11 @@ module BoxesHelper
         "before-block-#{block.id}"
       end
 
-    content_tag('div', '&nbsp;', :id => id, :class => 'block-target' ) + drop_receiving_element(id, :url => { :action => 'move_block', :target => id }, :accept => 'block', :hoverclass => 'block-target-hover')
+    content_tag('div', '&nbsp;', :id => id, :class => 'block-target' ) + drop_receiving_element(id, :url => { :action => 'move_block', :target => id }, :accept => box.acceptable_blocks, :hoverclass => 'block-target-hover')
   end
 
   # makes the given block draggable so it can be moved away.
   def block_handle(block)
-    # FIXME hardcoded
-    return '' if block.box.position == 1
-
     draggable_element("block-#{block.id}", :revert => true)
   end
 
@@ -211,7 +205,7 @@ module BoxesHelper
     end
 
     if block.editable?
-      buttons << lightbox_icon_button(:edit, _('Edit'), { :action => 'edit', :id => block.id })
+      buttons << colorbox_icon_button(:edit, _('Edit'), { :action => 'edit', :id => block.id })
     end
 
     if !block.main?

@@ -1394,6 +1394,7 @@ a.comment-picture {
   position: relative;
   display: inline;
 }
+#content #boxes .box-1 .article-block img,
 #content #article .article-body img {
   max-width: 100%;
   height: auto;
@@ -1503,7 +1504,13 @@ a.button:hover, body.noosfero a.button:hover, input.button:hover, a.button.with-
 body.noosfero a.button.with-text.icon-none, body.noosfero input.button.with-text.icon-none {
   padding-left: 2px;
 }
-a.button.disabled, input.disabled {
+a.disabled{
+  filter: url(/filters.svg#grayscale); /* Firefox 3.5+ */
+  filter: gray; /* IE6-9 */
+  -webkit-filter: grayscale(1); /* Google Chrome & Safari 6+ */
+  cursor: default;
+}
+input.disabled {
   opacity: 0.5;
   filter-opacity: 50%;
 }
@@ -1765,6 +1772,9 @@ a.button.disabled, input.disabled {
   display: block;
   width: 92px;
   overflow: hidden;
+}
+.box-1 .common-profile-list-block span {
+  width: 102px;
 }
 .common-profile-list-block .profile-image {
   width: 92px;
@@ -3974,7 +3984,7 @@ h1#agenda-title {
 }
 /* * * Profile search block * * * * * * * */
 
-.profile-search-block .formfield input {
+.profile-search-block .search-field .formfield input {
   width: 100%;
 }
 .profile-search-block .button.icon-search {
@@ -4330,6 +4340,14 @@ h1#agenda-title {
   margin: 5px 0;
   padding: 5px;
 }
+
+.ui-timepicker-div .ui-widget-header { margin-bottom: 8px; }
+.ui-timepicker-div dl { text-align: left; }
+.ui-timepicker-div dl dt { height: 25px; margin-bottom: -25px; }
+.ui-timepicker-div dl dd { margin: 0 10px 10px 65px; }
+.ui-timepicker-div td { font-size: 90%; }
+.ui-tpicker-grid-label { background: none; border: none; margin: 0; padding: 0; }
+
 /* Categories block stuff */
 
 .categories-block ul {
