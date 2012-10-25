@@ -49,36 +49,36 @@ class ProfileController < PublicController
 
   def communities
     if is_cache_expired?(profile.communities_cache_key(params))
-      @communities = profile.communities.paginate(:per_page => per_page, :page => params[:npage])
+      @communities = profile.communities.includes(relations_to_include).paginate(:per_page => per_page, :page => params[:npage])
     end
   end
 
   def enterprises
-    @enterprises = profile.enterprises
+    @enterprises = profile.enterprises.includes(relations_to_include)
   end
 
   def friends
     if is_cache_expired?(profile.friends_cache_key(params))
-      @friends = profile.friends.paginate(:per_page => per_page, :page => params[:npage])
+      @friends = profile.friends.includes(relations_to_include).paginate(:per_page => per_page, :page => params[:npage])
     end
   end
 
   def members
     if is_cache_expired?(profile.members_cache_key(params))
-      @members = profile.members.paginate(:per_page => members_per_page, :page => params[:npage])
+      @members = profile.members.includes(relations_to_include).paginate(:per_page => members_per_page, :page => params[:npage])
     end
   end
 
   def fans
-    @fans = profile.fans
+    @fans = profile.fans.includes(relations_to_include)
   end
 
   def favorite_enterprises
-    @favorite_enterprises = profile.favorite_enterprises
+    @favorite_enterprises = profile.favorite_enterprises.includes(relations_to_include)
   end
 
   def sitemap
-    @articles = profile.top_level_articles
+    @articles = profile.top_level_articles.includes([:profile, :parent])
   end
 
   def join
@@ -264,7 +264,7 @@ class ProfileController < PublicController
 
   def profile_info
     begin
-      @block = profile.blocks.find(params[:block_id])
+      @block = profile.blocks.find(params[:block_id]).includes(:box)
     rescue
       render :text => _('Profile information could not be loaded')
     end
@@ -378,4 +378,8 @@ class ProfileController < PublicController
     @can_edit_profile ||= user && user.has_permission?('edit_profile', profile)
   end
   helper_method :can_edit_profile
+
+  def relations_to_include
+    [:image, :domains, :preferred_domain, :environment]
+  end
 end

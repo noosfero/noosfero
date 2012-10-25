@@ -591,8 +591,8 @@ class Environment < ActiveRecord::Base
   end
 
   has_many :articles, :through => :profiles
-  def recent_documents(limit = 10)
-    self.articles.recent(limit)
+  def recent_documents(limit = 10, options = {}, pagination = true)
+    self.articles.recent(limit, options, pagination)
   end
 
   has_many :events, :through => :profiles, :source => :articles, :class_name => 'Event'
