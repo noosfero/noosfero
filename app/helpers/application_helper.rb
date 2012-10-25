@@ -282,7 +282,7 @@ module ApplicationHelper
       return name if File.exists?(File.join(path))
     end
 
-    partial_for_class_in_view_path(klass.superclass, view_path)
+    partial_for_class_in_view_path(klass.superclass, view_path, suffix)
   end
 
   def partial_for_class(klass, suffix=nil)
