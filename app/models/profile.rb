@@ -57,6 +57,7 @@ class Profile < ActiveRecord::Base
     'view_private_content' => N_('View private content'),
     'publish_content'      => N_('Publish content'),
     'invite_members'       => N_('Invite members'),
+    'send_mail_to_members' => N_('Send e-Mail to members'),
   }
 
   acts_as_accessible

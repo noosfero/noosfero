@@ -10,5 +10,5 @@
   <%= labelled_form_field(_('Subject:'), f.text_field(:subject)) %>
   <%= labelled_form_field(_('Body:'), f.text_area(:body, :class => 'mceEditor')) %>
   <%= submit_button(:send, _('Send')) %>
-  <%= button :cancel, _('Cancel e-mail'), :action => 'index' %>
+  <%= button :cancel, _('Cancel e-mail'), :back %>
 <% end %>

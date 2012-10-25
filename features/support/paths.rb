@@ -108,6 +108,9 @@ module NavigationHelpers
     when /the user data path/
       '/account/user_data'
 
+    when /^(.+)'s members page/
+      '/profile/%s/members' % Profile.find_by_name($1).identifier
+
     # Add more mappings here.
     # Here is a more fancy example:
     #
