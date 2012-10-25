@@ -1,5 +1,7 @@
 class WorkAssignmentPlugin::WorkAssignment < Folder
 
+  alias :submissions :children
+
   def self.icon_name(article = nil)
     'work-assignment'
   end
