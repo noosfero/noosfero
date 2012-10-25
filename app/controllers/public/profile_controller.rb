@@ -264,7 +264,7 @@ class ProfileController < PublicController
 
   def profile_info
     begin
-      @block = profile.blocks.find(params[:block_id]).includes(:box)
+      @block = profile.blocks.find(params[:block_id])
     rescue
       render :text => _('Profile information could not be loaded')
     end
