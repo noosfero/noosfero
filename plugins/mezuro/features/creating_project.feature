@@ -1,3 +1,4 @@
+@mezuro
 Feature: Create project
   As a mezuro user
   I want to create a Mezuro project

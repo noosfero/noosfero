@@ -1,3 +1,4 @@
+@mezuro
 Feature: editing a configuration 
   As a mezuro user
   I want to edit a Mezuro configuration

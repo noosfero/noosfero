@@ -1,3 +1,4 @@
+@mezuro
 Feature: Add range to a metric configuration 
   As a mezuro user
   I want to add ranges to a Kalibro metric configuration
