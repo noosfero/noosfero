@@ -353,7 +353,9 @@ class Noosfero::Plugin
   private
 
   def content_actions
-    %w[edit delete spread locale suggest home]
+    #FIXME 'new' and 'upload' only works for content_remove. It should work for
+    #content_expire too.
+    %w[edit delete spread locale suggest home new upload]
   end
 
 end

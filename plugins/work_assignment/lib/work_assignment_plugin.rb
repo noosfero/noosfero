@@ -16,4 +16,12 @@ class WorkAssignmentPlugin < Noosfero::Plugin
     true
   end
 
+  def content_remove_new(content)
+    content.kind_of?(WorkAssignmentPlugin::WorkAssignment)
+  end
+
+  def content_remove_upload(content)
+    !content.profile.members.include?(context.send(:user))
+  end
+
 end
