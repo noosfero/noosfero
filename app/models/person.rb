@@ -54,6 +54,8 @@ class Person < Profile
 
   has_many :scraps_sent, :class_name => 'Scrap', :foreign_key => :sender_id, :dependent => :destroy
 
+  has_many :creations, :class_name => 'Article', :foreign_key => :author_id
+
   named_scope :more_popular,
       :select => "#{Profile.qualified_column_names}, count(friend_id) as total",
       :group => Profile.qualified_column_names,

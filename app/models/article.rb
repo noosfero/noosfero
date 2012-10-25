@@ -13,6 +13,12 @@ class Article < ActiveRecord::Base
   # xss_terminate plugin can't sanitize array fields
   before_save :sanitize_tag_list
 
+  before_save do |article|
+    if article.author_id
+      article.author_name = Person.find(article.author_id).name
+    end
+  end
+
   belongs_to :profile
   validates_presence_of :profile_id, :name
   validates_presence_of :slug, :path, :if => lambda { |article| !article.name.blank? }
@@ -20,6 +26,7 @@ class Article < ActiveRecord::Base
   validates_uniqueness_of :slug, :scope => ['profile_id', 'parent_id'], :message => N_('The title (article name) is already being used by another article, please use another title.'), :if => lambda { |article| !article.slug.blank? }
 
   belongs_to :last_changed_by, :class_name => 'Person', :foreign_key => 'last_changed_by_id'
+  belongs_to :author, :class_name => 'Person', :foreign_key => 'author_id'
 
   has_many :comments, :class_name => 'Comment', :foreign_key => 'source_id', :dependent => :destroy, :order => 'created_at asc'
 
@@ -278,7 +285,7 @@ class Article < ActiveRecord::Base
     if last_comment
       {:date => last_comment.created_at, :author_name => last_comment.author_name, :author_url => last_comment.author_url}
     else
-      {:date => updated_at, :author_name => author.name, :author_url => author.url}
+      {:date => updated_at, :author_name => author_name, :author_url => author ? author.url : nil}
     end
   end
 
@@ -430,7 +437,7 @@ class Article < ActiveRecord::Base
   end
 
   def allow_post_content?(user = nil)
-    user && (user.has_permission?('post_content', profile) || allow_publish_content?(user) && (user == self.creator))
+    user && (user.has_permission?('post_content', profile) || allow_publish_content?(user) && (user == author))
   end
 
   def allow_publish_content?(user = nil)
@@ -527,16 +534,8 @@ class Article < ActiveRecord::Base
     false
   end
 
-  def author
-    if reference_article
-      reference_article.author
-    else
-      last_changed_by || profile
-    end
-  end
-
   def author_name
-    setting[:author_name].blank? ? author.name : setting[:author_name]
+    author ? author.name : setting[:author_name]
   end
 
   alias :active_record_cache_key :cache_key
@@ -559,11 +558,6 @@ class Article < ActiveRecord::Base
 
   def short_lead
     truncate sanitize_html(self.lead), :length => 170, :omission => '...'
-  end
-
-  def creator
-    creator_id = versions[0][:last_changed_by_id]
-    creator_id && Profile.find(creator_id)
   end
 
   def notifiable?

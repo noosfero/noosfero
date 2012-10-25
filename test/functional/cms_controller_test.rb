@@ -1556,6 +1556,16 @@ class CmsControllerTest < ActionController::TestCase
     assert_equal license, article.license
   end
 
+  should 'set author when creating article' do
+    login_as(profile.identifier)
+
+    post :new, :type => 'TinyMceArticle', :profile => profile.identifier, :article => { :name => 'Sample Article', :body => 'content ...' }
+
+    a = profile.articles.find_by_path('sample-article')
+    assert_not_nil a
+    assert_equal profile, a.author
+  end
+
   protected
 
   # FIXME this is to avoid adding an extra dependency for a proper JSON parser.

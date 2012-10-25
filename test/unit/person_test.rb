@@ -1262,4 +1262,15 @@ class PersonTest < ActiveSupport::TestCase
 
     assert person.has_permission?('bli', Profile.new)
   end
+
+  should 'have creations' do
+    person = create_user('some-user').person
+    a1 = fast_create(Article, :author_id => person.id)
+    a2 = fast_create(Article, :author_id => person.id)
+    a3 = fast_create(Article)
+
+    assert_includes person.creations, a1
+    assert_includes person.creations, a2
+    assert_not_includes person.creations, a3
+  end
 end

@@ -708,14 +708,6 @@ class ArticleTest < ActiveSupport::TestCase
     assert_equal a.url, a.view_url
   end
 
-  should 'know its author' do
-    assert_equal profile, Article.new(:last_changed_by => profile).author
-  end
-
-  should 'use owning profile as author when we dont know who did the last change' do
-    assert_equal profile, Article.new(:last_changed_by => nil, :profile => profile).author
-  end
-
   should 'have published_at' do
     assert_respond_to Article.new, :published_at
   end
@@ -1372,7 +1364,7 @@ class ArticleTest < ActiveSupport::TestCase
     assert Article.method_defined?('author_name')
   end
 
-  should "the author_name returns the name od the article's author" do
+  should "the author_name returns the name of the article's author" do
     author = mock()
     author.expects(:name).returns('author name')
     a = Article.new
@@ -1780,6 +1772,27 @@ class ArticleTest < ActiveSupport::TestCase
     license = License.create!(:name => 'GPLv3', :environment => Environment.default)
     article = Article.new(:license_id => license.id)
     assert_equal license, article.license
+  end
+
+  should 'be able to have an author' do
+    author = fast_create(Person)
+    article = Article.new
+    assert_nothing_raised do
+      article.author = author
+    end
+  end
+
+  should 'set author_name before saving article if there is an author' do
+    author = fast_create(Person)
+    article = fast_create(Article, :profile_id => fast_create(Profile).id)
+    article.author = author
+    article.save!
+    assert_equal author.name, article.author_name
+
+    author_name = author.name
+    author.destroy
+    article.reload
+    assert_equal author_name, article.author_name
   end
 
 end

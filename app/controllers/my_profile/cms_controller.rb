@@ -119,6 +119,7 @@ class CmsController < MyProfileController
     translations if @article.translatable?
 
     @article.profile = profile
+    @article.author = user
     @article.last_changed_by = user
 
     continue = params[:continue]
