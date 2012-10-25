@@ -570,15 +570,16 @@ class CmsControllerTest < ActionController::TestCase
 
   should 'display published option' do
     get :edit, :profile => profile.identifier, :id => profile.home_page.id
-    assert_tag :tag => 'input', :attributes => { :type => 'checkbox', :name => 'article[published]', :checked => 'checked' }
+    assert_tag :tag => 'input', :attributes => { :type => 'radio', :name => 'article[published]', :id => 'article_published_true', :checked => 'checked' }
+    assert_tag :tag => 'input', :attributes => { :type => 'radio', :name => 'article[published]', :id => 'article_published_false' }
   end
 
   should "display properly a non-published articles' status" do
     article = profile.articles.create!(:name => 'test', :published => false)
 
     get :edit, :profile => profile.identifier, :id => article.id
-    assert_tag :tag => 'input', :attributes => { :type => 'checkbox', :name => 'article[published]' }
-    assert_no_tag :tag => 'input', :attributes => { :type => 'checkbox', :name => 'article[published]', :checked => 'checked' }
+    assert_tag :tag => 'input', :attributes => { :type => 'radio', :name => 'article[published]', :id => 'article_published_true' }
+    assert_tag :tag => 'input', :attributes => { :type => 'radio', :name => 'article[published]', :id => 'article_published_false', :checked => 'checked' }
   end
 
   should 'be able to add image with alignment' do
