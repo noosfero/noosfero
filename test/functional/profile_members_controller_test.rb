@@ -176,6 +176,25 @@ class ProfileMembersControllerTest < ActionController::TestCase
     assert_no_tag :tag => 'td', :descendant => { :tag => 'a', :attributes => {:class => /icon-remove/, :onclick => /#{admin.identifier}/} }
   end
 
+  should 'display send email to members that have the permission' do
+    community = Community.create!(:name => 'Test Com', :identifier => 'test_com')
+    person = create_user_with_permission('test_user', 'manage_memberships', community)
+    give_permission(person, 'send_mail_to_members', community)
+    login_as :test_user
+
+    get :index, :profile => community.identifier
+    assert_tag :tag => 'a', :attributes => {:href => /send_mail/}
+  end
+
+  should 'not display send email to members if doesn\'t have the permission' do
+    community = Community.create!(:name => 'Test Com', :identifier => 'test_com')
+    person = create_user_with_permission('test_user', 'manage_memberships', community)
+    login_as :test_user
+
+    get :index, :profile => community.identifier
+    assert_no_tag :tag => 'a', :attributes => {:href => /send_mail/}
+  end
+
   should 'have a add_members page' do
     ent = fast_create(Enterprise, :name => 'Test Ent', :identifier => 'test_ent')
     u = create_user_with_permission('test_user', 'manage_memberships', ent)
