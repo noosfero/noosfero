@@ -261,7 +261,7 @@ ActiveRecord::Schema.define(:version => 20120825185219) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "reports_lower_bound",          :default => 0,         :null => false
-    t.string   "redirection_after_login"       :default => "keep_on_same_page"
+    t.string   "redirection_after_login",      :default => "keep_on_same_page"
   end
 
   create_table "external_feeds", :force => true do |t|
