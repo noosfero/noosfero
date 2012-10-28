@@ -866,7 +866,7 @@ module ApplicationHelper
       end
     else
       if profile.active_fields.include?(name)
-        result = field_html
+        result = content_tag('div', field_html + profile_field_privacy_selector(profile, name), :class => 'field-with-privacy-selector')
       end
     end
 
@@ -879,6 +879,10 @@ module ApplicationHelper
     end
 
     result
+  end
+
+  def profile_field_privacy_selector(profile, name)
+    profile.public? ? content_tag('div', check_box_tag('profile_data[fields_privacy][' + name + ']', 'public', profile.public_fields.include?(name)) + label_tag('profile_data_fields_privacy_' + name, _('Public')), :class => 'field-privacy-selector') : ''
   end
 
   def template_stylesheet_path

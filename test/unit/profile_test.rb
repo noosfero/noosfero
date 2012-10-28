@@ -1945,4 +1945,18 @@ class ProfileTest < ActiveSupport::TestCase
     end
   end
 
+  should 'public fields are active fields' do
+    p = fast_create(Profile)
+    f = %w(sex birth_date)
+    p.expects(:active_fields).returns(f)
+    assert_equal f, p.public_fields
+  end
+
+  should 'return fields privacy' do
+    p = fast_create(Profile)
+    f = { 'sex' => 'public' }
+    p.data[:fields_privacy] = f
+    assert_equal f, p.fields_privacy
+  end
+
 end

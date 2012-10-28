@@ -6097,3 +6097,49 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 img {
      margin: .8em 0 .2em;
      line-height: 1.5;
 }
+
+.controller-profile_editor #profile-data {
+  display: table;
+  width: auto;
+}
+
+.field-with-privacy-selector {
+  display: table-row;
+}
+
+.controller-profile_editor #profile-data .field-with-privacy-selector .formfieldline {
+  display: table-cell;
+  width: auto;
+}
+
+.field-privacy-selector {
+  display: table-cell;
+  vertical-align: bottom;
+  text-align: center;
+  width: 100px;
+}
+
+#profile_change_picture {
+  clear: both;
+  margin-top: 20px;
+}
+
+#profile_change_picture_title {
+  display: table-row;
+  width: 100%;
+}
+
+#profile_change_picture_title h2,
+#profile_change_picture_title span {
+  display: table-cell;
+}
+
+#profile_change_picture_title h2 {
+  padding-top: 20px;
+  width: auto;
+}
+
+#profile_change_picture_title span {
+  width: 100px;
+  text-align: center;
+}

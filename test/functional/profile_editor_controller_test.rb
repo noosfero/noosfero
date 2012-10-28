@@ -979,4 +979,12 @@ class ProfileEditorControllerTest < ActionController::TestCase
     get :edit, :profile => profile.identifier
     assert_no_tag :tag => 'select', :attributes => {:id => 'profile_data_redirection_after_login'}
   end
+
+  should 'uncheck all field privacy fields' do
+    person = profile
+    assert_nil person.fields_privacy
+    post :edit, :profile => profile.identifier, :profile_data => {}
+    assert_equal({}, person.reload.fields_privacy)
+  end
+
 end

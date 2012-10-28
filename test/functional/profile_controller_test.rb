@@ -1371,4 +1371,80 @@ class ProfileControllerTest < ActionController::TestCase
     assert_redirected_to :action => 'members'
   end
 
+  should 'show all fields to anonymous user' do
+    viewed = create_user('person_1').person
+    Environment.any_instance.stubs(:active_person_fields).returns(['sex', 'birth_date'])
+    Environment.any_instance.stubs(:required_person_fields).returns([])
+    viewed.birth_date = Time.now.ago(22.years)
+    viewed.data = { :sex => 'male', :fields_privacy => { 'sex' => 'public', 'birth_date' => 'public' } }
+    viewed.save!
+    get :index, :profile => viewed.identifier
+    assert_tag :tag => 'td', :content => 'Sex:'
+    assert_tag :tag => 'td', :content => 'Male'
+    assert_tag :tag => 'td', :content => 'Date of birth:'
+    assert_tag :tag => 'td', :content => 'August 26, 1990'
+  end
+
+  should 'show some fields to anonymous user' do
+    viewed = create_user('person_1').person
+    Environment.any_instance.stubs(:active_person_fields).returns(['sex', 'birth_date'])
+    Environment.any_instance.stubs(:required_person_fields).returns([])
+    viewed.birth_date = Time.now.ago(22.years)
+    viewed.data = { :sex => 'male', :fields_privacy => { 'sex' => 'public' } }
+    viewed.save!
+    get :index, :profile => viewed.identifier
+    assert_tag :tag => 'td', :content => 'Sex:'
+    assert_tag :tag => 'td', :content => 'Male'
+    assert_no_tag :tag => 'td', :content => 'Date of birth:'
+    assert_no_tag :tag => 'td', :content => 'August 26, 1990'
+  end
+
+  should 'show some fields to non friend' do
+    viewed = create_user('person_1').person
+    Environment.any_instance.stubs(:active_person_fields).returns(['sex', 'birth_date'])
+    Environment.any_instance.stubs(:required_person_fields).returns([])
+    viewed.birth_date = Time.now.ago(22.years)
+    viewed.data = { :sex => 'male', :fields_privacy => { 'sex' => 'public' } }
+    viewed.save!
+    strange = create_user('person_2').person
+    login_as(strange.identifier)
+    get :index, :profile => viewed.identifier
+    assert_tag :tag => 'td', :content => 'Sex:'
+    assert_tag :tag => 'td', :content => 'Male'
+    assert_no_tag :tag => 'td', :content => 'Date of birth:'
+    assert_no_tag :tag => 'td', :content => 'August 26, 1990'
+  end
+
+  should 'show all fields to friend' do
+    viewed = create_user('person_1').person
+    friend = create_user('person_2').person
+    Environment.any_instance.stubs(:active_person_fields).returns(['sex', 'birth_date'])
+    Environment.any_instance.stubs(:required_person_fields).returns([])
+    viewed.birth_date = Time.now.ago(22.years)
+    viewed.data = { :sex => 'male', :fields_privacy => { 'sex' => 'public' } }
+    viewed.save!
+    Person.any_instance.stubs(:is_a_friend?).returns(true)
+    login_as(friend.identifier)
+    get :index, :profile => viewed.identifier
+    assert_tag :tag => 'td', :content => 'Sex:'
+    assert_tag :tag => 'td', :content => 'Male'
+    assert_tag :tag => 'td', :content => 'Date of birth:'
+    assert_tag :tag => 'td', :content => 'August 26, 1990'
+  end
+
+  should 'show all fields to self' do
+    viewed = create_user('person_1').person
+    Environment.any_instance.stubs(:active_person_fields).returns(['sex', 'birth_date'])
+    Environment.any_instance.stubs(:required_person_fields).returns([])
+    viewed.birth_date = Time.now.ago(22.years)
+    viewed.data = { :sex => 'male', :fields_privacy => { 'sex' => 'public' } }
+    viewed.save!
+    login_as(viewed.identifier)
+    get :index, :profile => viewed.identifier
+    assert_tag :tag => 'td', :content => 'Sex:'
+    assert_tag :tag => 'td', :content => 'Male'
+    assert_tag :tag => 'td', :content => 'Date of birth:'
+    assert_tag :tag => 'td', :content => 'August 26, 1990'
+  end
+
 end

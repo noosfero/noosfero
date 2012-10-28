@@ -1,7 +1,8 @@
 module ProfileHelper
 
   def display_field(title, profile, field, force = false)
-    if !force && !profile.active_fields.include?(field.to_s)
+    if (!force && field.to_s != 'email' && !profile.active_fields.include?(field.to_s)) ||
+       ((profile.active_fields.include?(field.to_s) || field.to_s == 'email') && !profile.public_fields.include?(field.to_s) && (!user || (user != profile && !user.is_a_friend?(profile))))
       return ''
     end
     value = profile.send(field)

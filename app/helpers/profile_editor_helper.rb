@@ -145,4 +145,12 @@ module ProfileEditorHelper
     link_to title, url, :class => 'control-panel-%s' % icon
   end
 
+  def unchangeable_privacy_field(profile)
+    if profile.public?    
+      check_box_tag('', '', true, :disabled => true) + ' ' + _('Public')
+    else
+      ''
+    end
+  end
+
 end

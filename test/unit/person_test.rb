@@ -1262,4 +1262,18 @@ class PersonTest < ActiveSupport::TestCase
 
     assert person.has_permission?('bli', Profile.new)
   end
+
+  should 'active fields are public if fields privacy is nil' do
+    p = fast_create(Person)
+    p.expects(:fields_privacy).returns(nil)
+    f = %w(sex birth_date)
+    p.expects(:active_fields).returns(f)
+    assert_equal f, p.public_fields
+  end
+
+  should 'return public fields' do
+    p = fast_create(Person)
+    p.stubs(:fields_privacy).returns({ 'sex' => 'public', 'birth_date' => 'private' })
+    assert_equal ['sex'], p.public_fields
+  end
 end
