@@ -522,6 +522,101 @@ class UserTest < ActiveSupport::TestCase
     assert user.save!
   end
 
+  should 'not deliver welcome e-mail after user activation if not enabled on environment' do
+    env = Environment.default
+    env.signup_welcome_text = {
+      :subject => 'Welcome to the environment',
+      :body => 'Thanks for signing up!'
+    }
+    env.disable('send_welcome_email_to_new_users')
+    env.save
+
+    user = new_user :email => 'pending@activation.com'
+    assert_no_difference(ActionMailer::Base.deliveries, :size) do
+      user.activate
+    end
+  end
+
+  should 'deliver welcome e-mail after user activation if enabled on environment' do
+    env = Environment.default
+    env.signup_welcome_text = {
+      :subject => 'Welcome to this environment',
+      :body => 'Thanks for signing up!'
+    }
+    env.enable('send_welcome_email_to_new_users')
+    env.save
+
+    user = new_user :email => 'pending@activation.com'
+    assert_difference(ActionMailer::Base.deliveries, :size, 1) do
+      user.activate
+    end
+
+    sent = ActionMailer::Base.deliveries.last
+    assert_equal ['pending@activation.com'], sent.to
+    assert_equal 'Welcome to this environment', sent.subject
+    assert_equal 'Thanks for signing up!', sent.body
+  end
+
+  should 'deliver welcome e-mail after user activation if enabled on environment with default subject if not defined' do
+    env = Environment.default
+    env.signup_welcome_text = {
+      :body => 'Thanks for signing up!'
+    }
+    env.enable('send_welcome_email_to_new_users')
+    env.save
+
+    user = new_user :email => 'pending@activation.com'
+    assert_difference(ActionMailer::Base.deliveries, :size, 1) do
+      user.activate
+    end
+
+    sent = ActionMailer::Base.deliveries.last
+    assert_equal "Welcome to environment #{env.name}", sent.subject
+  end
+
+  should 'deliver welcome e-mail after user activation if enabled on environment and replace user_name' do
+    env = Environment.default
+    env.signup_welcome_text = {
+      :subject => 'Welcome to the environment',
+      :body => 'Thanks for signing up, {user_name}!',
+    }
+    env.enable('send_welcome_email_to_new_users')
+    env.save
+
+    user = new_user :name => 'John Doe', :email => 'pending@activation.com'
+    assert_difference(ActionMailer::Base.deliveries, :size, 1) do
+      user.activate
+    end
+
+    sent = ActionMailer::Base.deliveries.last
+    assert_equal "Thanks for signing up, #{user.name}!", sent.body
+  end
+
+  should 'not deliver welcome e-mail after user activation if enabled on environment but body not filled in' do
+    env = Environment.default
+    env.signup_welcome_text = {
+      :subject => 'Welcome to the environment',
+    }
+    env.enable('send_welcome_email_to_new_users')
+    env.save
+
+    user = new_user :email => 'pending@activation.com'
+    assert_no_difference(ActionMailer::Base.deliveries, :size) do
+      user.activate
+    end
+  end
+
+  should 'not deliver welcome e-mail after user activation if enabled on environment but welcome text not defined' do
+    env = Environment.default
+    env.enable('send_welcome_email_to_new_users')
+    env.save
+
+    user = new_user :email => 'pending@activation.com'
+    assert_no_difference(ActionMailer::Base.deliveries, :size) do
+      user.activate
+    end
+  end
+
   protected
     def new_user(options = {})
       user = User.new({ :login => 'quire', :email => 'quire@example.com', :password => 'quire', :password_confirmation => 'quire' }.merge(options))

@@ -73,6 +73,18 @@ class User < ActiveRecord::Base
         :environment => user.environment.name,
         :url => user.environment.top_url
     end
+
+    def signup_welcome_email(user)
+      email_body = user.environment.signup_welcome_text_body.gsub('{user_name}', user.name)
+      email_subject = user.environment.signup_welcome_text_subject
+
+      content_type 'text/html'
+      recipients user.email
+
+      from "#{user.environment.name} <#{user.environment.contact_email}>"
+      subject email_subject.blank? ? _("Welcome to environment %s") % [user.environment.name] : email_subject
+      body email_body
+    end
   end
 
   def signup!
@@ -117,7 +129,17 @@ class User < ActiveRecord::Base
     self.activated_at = Time.now.utc
     self.activation_code = nil
     self.person.visible = true
-    self.person.save! && self.save!
+    begin
+      self.person.save! && self.save!
+    rescue Exception => exception
+      logger.error(exception.to_s)
+      false
+    else
+      if environment.enabled?('send_welcome_email_to_new_users') && environment.has_signup_welcome_text?
+        User::Mailer.delay.deliver_signup_welcome_email(self)
+      end
+      true
+    end
   end
 
   def activated?

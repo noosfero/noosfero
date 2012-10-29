@@ -124,6 +124,7 @@ class Environment < ActiveRecord::Base
       'show_zoom_button_on_article_images' => _('Show a zoom link on all article images'),
       'captcha_for_logged_users' => _('Ask captcha when a logged user comments too'),
       'skip_new_user_email_confirmation' => _('Skip e-mail confirmation for new users'),
+      'send_welcome_email_to_new_users' => _('Send welcome e-mail to new users'),
       'allow_change_of_redirection_after_login' => _('Allow users to set the page to redirect after login')
     }
   end
@@ -540,6 +541,31 @@ class Environment < ActiveRecord::Base
       signup_fields << field if custom_community_fields[field]['signup'] == 'true'
     end
     signup_fields
+  end
+
+  serialize :signup_welcome_text, Hash
+  def signup_welcome_text
+    self[:signup_welcome_text] ||= {}
+  end
+
+  def signup_welcome_text_subject
+    self.signup_welcome_text[:subject]
+  end
+
+  def signup_welcome_text_subject=(subject)
+    self.signup_welcome_text[:subject] = subject
+  end
+
+  def signup_welcome_text_body
+    self.signup_welcome_text[:body]
+  end
+
+  def signup_welcome_text_body=(body)
+    self.signup_welcome_text[:body] = body
+  end
+
+  def has_signup_welcome_text?
+    signup_welcome_text && !signup_welcome_text_body.blank?
   end
 
   # #################################################
