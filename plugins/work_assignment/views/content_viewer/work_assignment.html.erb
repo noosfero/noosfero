@@ -5,4 +5,6 @@
   <hr/>
 <% end %>
 
-<%= display_submissions(@page) %>
+<%= display_submissions(@page, user) %>
+
+<%= javascript_include_tag '../plugins/work_assignment/show_versions' %>
