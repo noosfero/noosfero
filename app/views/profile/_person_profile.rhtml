@@ -13,13 +13,7 @@
     <td><%= show_date(profile.created_at) %></td>
   </tr>
 
-  <tr>
-    <th colspan='2'><%= _('Contact')%></th>
-  </tr>
-  <%= display_field(_('Address:'), profile, :address) %>
-  <%= display_field(_('ZIP code:'), profile, :zip_code) %>
-  <%= display_field(_('Contact phone:'), profile, :contact_phone) %>
-  <%= display_field(_('e-Mail:'), profile, :email) { |email| link_to_email(email) } %>
+  <%= display_contact profile %>
 
   <% cache_timeout(profile.relationships_cache_key, 4.hours) do %>
     <% if !(profile.organization.blank? && profile.organization_website.blank?) && (profile.active_fields.include?('organization') || profile.active_fields.include?('organization_website')) %>

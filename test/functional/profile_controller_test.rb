@@ -279,16 +279,6 @@ class ProfileControllerTest < ActionController::TestCase
     assert_tag :tag => 'div', :attributes => { :class => /main-block/ }, :descendant => { :tag => 'a', :attributes => { :href => '/profile/testuser/tags/two'} }
   end
 
-  should 'show e-mail for friends on profile page' do
-    p1 = create_user('tusr1').person
-    p2 = create_user('tusr2', :email => 't2@t2.com').person
-    p2.add_friend p1
-    login_as 'tusr1'
-
-    get :index, :profile => 'tusr2'
-    assert_tag :content => /t2.*t2.com/
-  end
-
   should 'not show e-mail for non friends on profile page' do
     p1 = create_user('tusr1').person
     p2 = create_user('tusr2', :email => 't2@t2.com').person
@@ -1375,7 +1365,7 @@ class ProfileControllerTest < ActionController::TestCase
     viewed = create_user('person_1').person
     Environment.any_instance.stubs(:active_person_fields).returns(['sex', 'birth_date'])
     Environment.any_instance.stubs(:required_person_fields).returns([])
-    viewed.birth_date = Time.now.ago(22.years)
+    viewed.birth_date = Time.parse('2012-08-26').ago(22.years)
     viewed.data = { :sex => 'male', :fields_privacy => { 'sex' => 'public', 'birth_date' => 'public' } }
     viewed.save!
     get :index, :profile => viewed.identifier
@@ -1389,7 +1379,7 @@ class ProfileControllerTest < ActionController::TestCase
     viewed = create_user('person_1').person
     Environment.any_instance.stubs(:active_person_fields).returns(['sex', 'birth_date'])
     Environment.any_instance.stubs(:required_person_fields).returns([])
-    viewed.birth_date = Time.now.ago(22.years)
+    viewed.birth_date = Time.parse('2012-08-26').ago(22.years)
     viewed.data = { :sex => 'male', :fields_privacy => { 'sex' => 'public' } }
     viewed.save!
     get :index, :profile => viewed.identifier
@@ -1403,7 +1393,7 @@ class ProfileControllerTest < ActionController::TestCase
     viewed = create_user('person_1').person
     Environment.any_instance.stubs(:active_person_fields).returns(['sex', 'birth_date'])
     Environment.any_instance.stubs(:required_person_fields).returns([])
-    viewed.birth_date = Time.now.ago(22.years)
+    viewed.birth_date = Time.parse('2012-08-26').ago(22.years)
     viewed.data = { :sex => 'male', :fields_privacy => { 'sex' => 'public' } }
     viewed.save!
     strange = create_user('person_2').person
@@ -1420,7 +1410,7 @@ class ProfileControllerTest < ActionController::TestCase
     friend = create_user('person_2').person
     Environment.any_instance.stubs(:active_person_fields).returns(['sex', 'birth_date'])
     Environment.any_instance.stubs(:required_person_fields).returns([])
-    viewed.birth_date = Time.now.ago(22.years)
+    viewed.birth_date = Time.parse('2012-08-26').ago(22.years)
     viewed.data = { :sex => 'male', :fields_privacy => { 'sex' => 'public' } }
     viewed.save!
     Person.any_instance.stubs(:is_a_friend?).returns(true)
@@ -1436,7 +1426,7 @@ class ProfileControllerTest < ActionController::TestCase
     viewed = create_user('person_1').person
     Environment.any_instance.stubs(:active_person_fields).returns(['sex', 'birth_date'])
     Environment.any_instance.stubs(:required_person_fields).returns([])
-    viewed.birth_date = Time.now.ago(22.years)
+    viewed.birth_date = Time.parse('2012-08-26').ago(22.years)
     viewed.data = { :sex => 'male', :fields_privacy => { 'sex' => 'public' } }
     viewed.save!
     login_as(viewed.identifier)
@@ -1445,6 +1435,78 @@ class ProfileControllerTest < ActionController::TestCase
     assert_tag :tag => 'td', :content => 'Male'
     assert_tag :tag => 'td', :content => 'Date of birth:'
     assert_tag :tag => 'td', :content => 'August 26, 1990'
+  end
+
+  should 'show contact to non friend' do
+    viewed = create_user('person_1').person
+    Environment.any_instance.stubs(:required_person_fields).returns([])
+    viewed.data = { :email => 'test@test.com', :fields_privacy => { 'email' => 'public' } }
+    viewed.save!
+    strange = create_user('person_2').person
+    login_as(strange.identifier)
+    get :index, :profile => viewed.identifier
+    assert_tag :tag => 'th', :content => 'Contact'
+    assert_tag :tag => 'td', :content => 'e-Mail:'
+  end
+
+  should 'show contact to friend' do
+    viewed = create_user('person_1').person
+    friend = create_user('person_2').person
+    Environment.any_instance.stubs(:required_person_fields).returns([])
+    viewed.data = { :email => 'test@test.com', :fields_privacy => { 'email' => 'public' } }
+    viewed.save!
+    Person.any_instance.stubs(:is_a_friend?).returns(true)
+    login_as(friend.identifier)
+    get :index, :profile => viewed.identifier
+    assert_tag :tag => 'th', :content => 'Contact'
+    assert_tag :tag => 'td', :content => 'e-Mail:'
+  end
+
+  should 'show contact to self' do
+    viewed = create_user('person_1').person
+    Environment.any_instance.stubs(:required_person_fields).returns([])
+    viewed.data = { :email => 'test@test.com', :fields_privacy => { 'email' => 'public' } }
+    viewed.save!
+    login_as(viewed.identifier)
+    get :index, :profile => viewed.identifier
+    assert_tag :tag => 'th', :content => 'Contact'
+    assert_tag :tag => 'td', :content => 'e-Mail:'
+  end
+
+  should 'not show contact to non friend' do
+    viewed = create_user('person_1').person
+    Environment.any_instance.stubs(:required_person_fields).returns([])
+    viewed.data = { :email => 'test@test.com', :fields_privacy => { } }
+    viewed.save!
+    strange = create_user('person_2').person
+    login_as(strange.identifier)
+    get :index, :profile => viewed.identifier
+    assert_no_tag :tag => 'th', :content => 'Contact'
+    assert_no_tag :tag => 'td', :content => 'e-Mail:'
+  end
+
+  should 'show contact to friend even if private' do
+    viewed = create_user('person_1').person
+    friend = create_user('person_2').person
+    Environment.any_instance.stubs(:required_person_fields).returns([])
+    viewed.data = { :email => 'test@test.com', :fields_privacy => { } }
+    viewed.save!
+    Person.any_instance.stubs(:is_a_friend?).returns(true)
+    login_as(friend.identifier)
+    get :index, :profile => viewed.identifier
+    assert_tag :tag => 'th', :content => 'Contact'
+    assert_tag :tag => 'td', :content => 'e-Mail:'
+  end
+
+  should 'show contact to self even if private' do
+    viewed = create_user('person_1').person
+    Environment.any_instance.stubs(:required_person_fields).returns([])
+    viewed.data = { :email => 'test@test.com', :fields_privacy => { } }
+    viewed.save!
+    login_as(viewed.identifier)
+    get :index, :profile => viewed.identifier
+    assert_tag :tag => 'th', :content => 'Contact'
+    assert_tag :tag => 'td', :content => 'e-Mail:'
   end
 
 end
