@@ -1,9 +1,0 @@
-Delete from kalibro.RANGE;
-Delete from kalibro.METRICCONFIGURATION;
-Delete from kalibro.CONFIGURATION;
-Delete from kalibro.METRICRESULT;
-Delete from kalibro.MODULE;
-Delete from kalibro.MetricResult_DESCENDENTRESULTS;
-Delete from kalibro.PROJECTRESULT;
-Delete from kalibro.PROJECT;
-Delete from kalibro.REPOSITORY;
