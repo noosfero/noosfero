@@ -7,7 +7,6 @@ gem 'Selenium', '>= 1.1.14'
 gem 'selenium-client', '>= 1.2.17'
 gem 'database_cleaner'
 gem 'exception_notification', '1.0.20090728'
-gem 'system_timer'
 
 def program(name)
   unless system("which #{name} > /dev/null")
