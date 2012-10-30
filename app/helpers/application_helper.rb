@@ -148,14 +148,8 @@ module ApplicationHelper
     link_to text, profile_path(:profile => profile) , options
   end
 
-  def link_to_homepage(text, profile = nil, options = {})
-    p = if profile
-          Profile[profile]
-        else
-          user
-        end
-
-    link_to text, p.url, options
+  def link_to_homepage(text, profile, options = {})
+    link_to text, profile.url, options
   end
 
   def link_if_permitted(link, permission = nil, target = nil)

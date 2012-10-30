@@ -44,7 +44,7 @@
   <div class="search-product-item-second-column">
     <%= link_to_product product, :class => 'search-result-title' %>
     <div class="search-product-supplier">
-      <span class="search-field-label"><%= _('Supplier') %>  </span><%= link_to_homepage(product.enterprise.name, product.enterprise.identifier) %>
+      <span class="search-field-label"><%= _('Supplier') %>  </span><%= link_to_homepage product.enterprise.name, product.enterprise %>
     </div>
     <div class="search-product-description">
       <% if product.description %>

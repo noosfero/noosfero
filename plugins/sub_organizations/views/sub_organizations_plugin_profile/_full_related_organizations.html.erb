@@ -10,7 +10,7 @@
           <%= profile_image_link organization, :big, 'div' %>
         </div>
         <div class="related-organizations-item-column-right">
-          <%= link_to_homepage(organization.name, organization.identifier, :class => "search-result-title") %>
+          <%= link_to_homepage(organization.name, organization, :class => "search-result-title") %>
           <div class="related-organizations-description">
             <% if organization.description %>
               <% body_stripped = strip_tags(organization.description) %>
