@@ -5,3 +5,5 @@
 * rails 2 uses prototype instead of jquery
 
 * config/environment.rb maybe still have some code that should be on the initializers
+
+* initializers session_store.rb inflections.rb... don't exist

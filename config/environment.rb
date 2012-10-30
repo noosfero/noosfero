@@ -125,3 +125,5 @@ if !['test', 'cucumber'].include?(ENV['RAILS_ENV'])
     require localconfigfile
   end
 end
+
+Rails3::Application.initialize!
