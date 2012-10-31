@@ -1,9 +1,9 @@
 class Kalibro::BaseTool < Kalibro::Model
 
-  attr_accessor :name, :description, :supported_metric
+  attr_accessor :name, :description, :collector_class_name, :supported_metric
 
   def self.all_names
-    request("BaseTool", :get_base_tool_names)[:base_tool_name].to_a
+    request("BaseTool", :all_base_tool_names)[:base_tool_name].to_a
   end
 
   def self.find_by_name(base_tool_name)
