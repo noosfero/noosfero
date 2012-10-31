@@ -1,6 +1,7 @@
 class Kalibro::Configuration < Kalibro::Model
 
-  attr_accessor :name, :description, :id
+  attr_accessor :id, :name, :description
+  
 =begin
   def metric_configuration=(value)
     @metric_configuration = Kalibro::MetricConfiguration.to_objects_array value

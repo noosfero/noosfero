@@ -1,7 +1,7 @@
 class MezuroPlugin::ConfigurationContent < Article
   validate_on_create :validate_kalibro_configuration_name
 
-  settings_items :description, :configuration_to_clone_name
+  settings_items :kalibro_id, :description, :configuration_to_clone_name
 
   after_save :send_kalibro_configuration_to_service
   after_destroy :remove_kalibro_configuration_from_service
@@ -23,29 +23,31 @@ class MezuroPlugin::ConfigurationContent < Article
 
   def kalibro_configuration
     begin
-      @kalibro_configuration ||= Kalibro::Configuration.find_by_name(self.name)
+      @kalibro_configuration ||= Kalibro::Configuration.find(self.kalibro_id)
     rescue Exception => exception 
       errors.add_to_base(exception.message)
     end
     @kalibro_configuration
   end
 
-  def metric_configurations
-    kalibro_configuration.metric_configurations
-  end
+#  def metric_configurations
+#    kalibro_configuration.metric_configurations
+#  end
 
-  def kalibro_configuration_names
+  def kalibro_configuration_names_and_ids
+    all_names_and_ids = {}
     begin
-      all_configuration_names = Kalibro::Configuration.all_names
-      if all_configuration_names.nil?
-         ["None"]
-      else
-         ["None"] + all_configuration_names.sort
+      all_configurations = Kalibro::Configuration.all
+      if(!all_configurations.nil?)
+        all_configuration.each do |configuration| 
+            all_names_and_ids[configuration.id] = configuration.name
+        end
       end
     rescue Exception => exception
       errors.add_to_base(exception.message)
-      ["None"]
     end
+    all_names_and_ids[-1] = "None"
+    all_names_and_ids
   end
 
   private
