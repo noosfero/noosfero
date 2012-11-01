@@ -1,5 +1,4 @@
 require "test_helper"
-
 require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/base_tool_fixtures"
 
 class BaseToolTest < ActiveSupport::TestCase
@@ -10,7 +9,7 @@ class BaseToolTest < ActiveSupport::TestCase
   end
 
   should 'create base tool from hash' do
-    assert_equal @base_tool.name, Kalibro::BaseTool.new(@hash).name
+    assert_equal @hash[:name], Kalibro::BaseTool.new(@hash).name
   end
   
 #  Mezuro will not send a base_tool hash back to Kalibro

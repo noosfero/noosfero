@@ -28,13 +28,13 @@ class ReadingGroupTest < ActiveSupport::TestCase
   end
 
   should 'get all reading groups' do
-    Kalibro::ReadingGroup.expects(:request).with("ReadingGroup", :all_reading_group).returns({:reading_group => [@hash]})
+    Kalibro::ReadingGroup.expects(:request).with("ReadingGroup", :all_reading_groups).returns({:reading_group => [@hash]})
     assert_equal @hash[:name], Kalibro::ReadingGroup.all[0].name
   end
   
   should 'get reading group of a metric configuration' do
     id = 31
-    Kalibro::ReadingGroup.expects(:request).with("ReadingGroup", :reading_group_of, {:metricConfigurationId => id}).returns({:reading_group => @hash})
+    Kalibro::ReadingGroup.expects(:request).with("ReadingGroup", :reading_group_of, {:metric_configuration_id => id}).returns({:reading_group => @hash})
     assert_equal @hash[:name], Kalibro::ReadingGroup.reading_group_of(id).name
   end
 
@@ -47,7 +47,6 @@ class ReadingGroupTest < ActiveSupport::TestCase
     Kalibro::ReadingGroup.expects(:request).with("ReadingGroup", :save_reading_group, {:reading_group => @reading_group.to_hash}).raises(Exception.new)
     assert !(@reading_group.save)
   end
-
 
   should 'destroy reading group by id' do
     Kalibro::ReadingGroup.expects(:request).with("ReadingGroup", :delete_reading_group, {:group_id => @reading_group.id})

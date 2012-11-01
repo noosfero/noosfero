@@ -16,9 +16,11 @@ class Kalibro::Configuration < Kalibro::Model
   end
 =end
 
-  def self.exists?(id)
-    request("Configuration", :configuration_exists, {:configuration_id => id})[:exists]
-  end
+#  Should be on parent class
+#
+#  def self.exists?(id)
+#    request("Configuration", :configuration_exists, {:configuration_id => id})[:exists]
+#  end
 
   def self.find(id)
     if(exists?(id))

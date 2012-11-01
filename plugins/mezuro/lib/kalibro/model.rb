@@ -66,6 +66,10 @@ class Kalibro::Model
     end
   end
 
+  def self.exists?(id)
+    request(exists_endpoint, exists_action, exists_params(id))
+  end
+  
   protected
 
   def fields
@@ -124,11 +128,27 @@ class Kalibro::Model
   end
   
   def destroy_action
-    "remove_#{class_name.underscore}".to_sym
+    "delete_#{class_name.underscore}".to_sym
   end
   
   def destroy_params
-    {"#{class_name.underscore}_name".to_sym => self.name}
+    {"#{class_name.underscore}_id".to_sym => self.id}
+  end
+
+  def self.exists_class_name
+    self.name.gsub(/Kalibro::/,"")
+  end
+  
+  def self.exists_endpoint
+    self.exists_class_name
+  end
+  
+  def self.exists_action
+    "#{exists_class_name.underscore}_exists".to_sym
+  end
+  
+  def self.exists_params(id)
+    {"#{exists_class_name.underscore}_id".to_sym => id}
   end
 
   def add_error(exception)
