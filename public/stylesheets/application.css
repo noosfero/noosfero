@@ -1067,6 +1067,9 @@ a.comment-picture {
 #content .comments .comment-balloon a.button.icon-delete {
   display: none;
 }
+#content .comments .comment-balloon:hover a.button.icon-delete {
+  display: inline;
+}
 .msie7 .article-comments-list .comment-balloon {
   margin-top: -15px;
 }
@@ -5179,8 +5182,8 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 img {
   display: none;
 }
 
-#profile-wall .profile-wall-activities-comments .article-comment:hover .button-bar,
-#profile-network .profile-wall-activities-comments .article-comment:hover .button-bar {
+#profile-wall .profile-wall-activities-comments .comment-content:hover .button-bar,
+#profile-network .profile-wall-activities-comments .comment-content:hover .button-bar {
   display: block;
 }
 
