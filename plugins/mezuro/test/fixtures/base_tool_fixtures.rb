@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/native_metric_fixtures'
+require File.dirname(__FILE__) + '/metric_fixtures'
 
 class BaseToolFixtures
     
@@ -6,10 +6,14 @@ class BaseToolFixtures
     Kalibro::BaseTool.new base_tool_hash
   end
 
-  def self.base_tool_hash
-    {:name => 'Analizo', :supported_metric => [
-        NativeMetricFixtures.total_cof_hash,
-        NativeMetricFixtures.amloc_hash]}
+  def self.base_tool_hash 
+  {
+    :name => 'Analizo', 
+    :supported_metric => [
+      MetricFixtures.total_cof_hash,
+      MetricFixtures.amloc_hash], 
+    :collector_class_name => "org.analizo.AnalizoMetricCollector"
+  }
   end
 
 end
