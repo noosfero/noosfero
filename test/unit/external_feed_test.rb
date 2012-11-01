@@ -83,11 +83,22 @@ class ExternalFeedTest < ActiveSupport::TestCase
   should 'have empty fetch date by default' do
     assert_nil ExternalFeed.new.fetched_at
   end
+
   should 'set fetch date when finishing fetch' do
     feed = ExternalFeed.new
     feed.stubs(:save!)
     feed.finish_fetch
     assert_not_nil feed.fetched_at
+  end
+
+  should 'have empty fetch when change address' do
+    feed = ExternalFeed.new
+    feed.stubs(:save!)
+    feed.address = 'http://localhost/example_feed'
+    feed.finish_fetch
+    assert_not_nil feed.fetched_at
+    feed.address = 'http://localhost/other_example_feed'
+    assert_nil feed.fetched_at
   end
 
   should 'expire feeds after a certain period' do
