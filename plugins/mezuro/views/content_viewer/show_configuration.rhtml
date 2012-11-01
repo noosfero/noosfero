@@ -40,18 +40,18 @@
             <%= metric_configuration.metric.origin %>
           </td>
           <td><%= metric_configuration.code %></td>
-          <td><%= link_to "Edit", :controller => "mezuro_plugin_myprofile", :action => "edit_metric_configuration", :params =>
+          <td><%= link_to "Edit", :controller => "mezuro_plugin_metric_configuration", :action => "edit_metric_configuration", :params =>
             {:metric_name => metric_configuration.metric.name, :id => @configuration_content.id} %></td>
         <% else %>
           <td>
             Compound Metric
           </td>
           <td><%= metric_configuration.code %></td>
-          <td><%= link_to "Edit", :controller => "mezuro_plugin_myprofile", :action => "edit_compound_metric_configuration", :params =>
+          <td><%= link_to "Edit", :controller => "mezuro_plugin_metric_configuration", :action => "edit_compound_metric_configuration", :params =>
             {:metric_name => metric_configuration.metric.name, :id => @configuration_content.id} %></td>
         <% end %>
         
-        <td><%= link_to "Remove", :controller => "mezuro_plugin_myprofile", :action => "remove_metric_configuration", :params =>
+        <td><%= link_to "Remove", :controller => "mezuro_plugin_metric_configuration", :action => "remove_metric_configuration", :params =>
           {:metric_name => metric_configuration.metric.name, :id => @configuration_content.id} %></td>
       </tr>
     <% end %>
