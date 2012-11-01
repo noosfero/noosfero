@@ -1782,4 +1782,40 @@ class ArticleTest < ActiveSupport::TestCase
     assert_equal license, article.license
   end
 
+  should 'update path if parent is changed' do
+    f1 = Folder.create!(:name => 'Folder 1', :profile => profile)
+    f2 = Folder.create!(:name => 'Folder 2', :profile => profile)
+    article = TinyMceArticle.create!(:name => 'Sample Article', :parent_id => f1.id, :profile => profile)
+    assert_equal [f1.path,article.slug].join('/'), article.path
+
+    article.parent = f2
+    article.save!
+    assert_equal [f2.path,article.slug].join('/'), article.path
+
+    article.parent = nil
+    article.save!
+    assert_equal article.slug, article.path
+
+    article.update_attributes({:parent_id => f2.id})
+    assert_equal [f2.path,article.slug].join('/'), article.path
+  end
+
+  should 'not allow parent as itself' do
+    article = Article.create!(:name => 'Sample Article', :profile => profile)
+    article.parent = article
+    article.valid?
+
+    assert article.errors.invalid?(:parent_id)
+  end
+
+  should 'not allow cyclical paternity' do
+    a1 = Article.create!(:name => 'Sample Article 1', :profile => profile)
+    a2 = Article.create!(:name => 'Sample Article 2', :profile => profile, :parent => a1)
+    a3 = Article.create!(:name => 'Sample Article 3', :profile => profile, :parent => a2)
+    a1.parent = a3
+    a1.valid?
+
+    assert a1.errors.invalid?(:parent_id)
+  end
+
 end

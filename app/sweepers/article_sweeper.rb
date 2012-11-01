@@ -10,11 +10,17 @@ class ArticleSweeper < ActiveRecord::Observer
     expire_caches(article)
   end
 
+  def before_update(article)
+    if article.parent_id_change
+      Article.find(article.parent_id_was).touch if article.parent_id_was
+    end
+  end
+
 protected
 
   def expire_caches(article)
     return if !article.environment
-    article.hierarchy.each { |a| a.touch if a != article }
+    article.hierarchy(true).each { |a| a.touch if a != article }
     blocks = article.profile.blocks
     blocks += article.profile.environment.blocks if article.profile.environment
     blocks = blocks.select{|b|[RecentDocumentsBlock, BlogArchivesBlock].any?{|c| b.kind_of?(c)}}
