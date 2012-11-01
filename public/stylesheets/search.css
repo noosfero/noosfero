@@ -675,9 +675,13 @@ li.search-product-item hr {
   height: 34px;
   display: inline-block;
 }
-.search-field .formfield input {
+.box-1 .search-field .formfield input {
   height: 25px;
   width: 530px;
+}
+.box-2 .search-field .formfield input,
+.box-3 .search-field .formfield input {
+  width: 165px;
 }
 #public-profile-search .search-field .formfield input {
   height: 25px;
