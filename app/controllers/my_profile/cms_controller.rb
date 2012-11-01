@@ -18,7 +18,8 @@ class CmsController < MyProfileController
 
   protect_if :only => :upload_files do |c, user, profile|
     article_id = c.params[:parent_id]
-    profile.articles.find(article_id).allow_create?(user)
+    (article_id && profile.articles.find(article_id).allow_create?(user)) ||
+    (user && (user.has_permission?('post_content', profile) || user.has_permission?('publish_content', profile)))
   end
 
   protect_if :except => [:suggest_an_article, :set_home_page, :edit, :destroy, :publish, :upload_files] do |c, user, profile|

@@ -1125,7 +1125,7 @@ class CmsControllerTest < ActionController::TestCase
   should 'not allow user edit article if he is owner but has no publish permission' do
     c = Community.create!(:name => 'test_comm', :identifier => 'test_comm')
     u = create_user_with_permission('test_user', 'bogus_permission', c)
-    a = c.articles.create!(:name => 'test_article', :last_changed_by => u)
+    a = c.articles.create!(:name => 'test_article', :author => u)
     login_as :test_user
 
     get :edit, :profile => c.identifier, :id => a.id
@@ -1136,7 +1136,7 @@ class CmsControllerTest < ActionController::TestCase
   should 'allow user edit article if he is owner and has publish permission' do
     c = Community.create!(:name => 'test_comm', :identifier => 'test_comm')
     u = create_user_with_permission('test_user', 'publish_content', c)
-    a = c.articles.create!(:name => 'test_article', :last_changed_by => u)
+    a = c.articles.create!(:name => 'test_article', :author => u)
     login_as :test_user
     @controller.stubs(:user).returns(u)
 

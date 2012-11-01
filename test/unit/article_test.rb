@@ -783,18 +783,10 @@ class ArticleTest < ActiveSupport::TestCase
     assert_match(/-owner/, a.cache_key({}, c))
   end
 
-  should 'have a creator method' do
-    c = fast_create(Community)
-    a = c.articles.create!(:name => 'a test article', :last_changed_by => profile)
-    p = create_user('other_user').person
-    a.update_attributes(:body => 'some content', :last_changed_by => p); a.save!
-    assert_equal profile, a.creator
-  end
-
-  should 'allow creator to edit if is publisher' do
+  should 'allow author to edit if is publisher' do
     c = fast_create(Community)
     p = create_user_with_permission('test_user', 'publish_content', c)
-    a = c.articles.create!(:name => 'a test article', :last_changed_by => p)
+    a = c.articles.create!(:name => 'a test article', :author => p)
 
     assert a.allow_post_content?(p)
   end
@@ -1365,18 +1357,17 @@ class ArticleTest < ActiveSupport::TestCase
   end
 
   should "the author_name returns the name of the article's author" do
-    author = mock()
-    author.expects(:name).returns('author name')
-    a = Article.new
-    a.expects(:author).returns(author)
-    assert_equal 'author name', a.author_name
+    author = fast_create(Person)
+    a = Article.new(:author => author)
+    assert_equal author.name, a.author_name
+    a.author = nil
     a.author_name = 'some name'
     assert_equal 'some name', a.author_name
   end
 
   should 'retrieve latest info from topic when has no comments' do
     forum = fast_create(Forum, :name => 'Forum test', :profile_id => profile.id)
-    post = fast_create(TextileArticle, :name => 'First post', :profile_id => profile.id, :parent_id => forum.id, :updated_at => Time.now)
+    post = fast_create(TextileArticle, :name => 'First post', :profile_id => profile.id, :parent_id => forum.id, :updated_at => Time.now, :author_id => profile.id)
     assert_equal post.updated_at, post.info_from_last_update[:date]
     assert_equal profile.name, post.info_from_last_update[:author_name]
     assert_equal profile.url, post.info_from_last_update[:author_url]

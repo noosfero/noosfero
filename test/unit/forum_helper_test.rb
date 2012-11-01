@@ -29,17 +29,16 @@ class ForumHelperTest < ActiveSupport::TestCase
   end
 
   should 'list posts with different classes' do
-    forum.children << older_post = TextileArticle.create!(:name => 'First post', :profile => profile, :parent => forum, :published => false)
+    forum.children << older_post = TextileArticle.create!(:name => 'First post', :profile => profile, :parent => forum, :published => false, :author => profile)
     one_month_later = Time.now + 1.month
     Time.stubs(:now).returns(one_month_later)
-    forum.children << newer_post = TextileArticle.create!(:name => 'Second post', :profile => profile, :parent => forum, :published => true)
+    forum.children << newer_post = TextileArticle.create!(:name => 'Second post', :profile => profile, :parent => forum, :published => true, :author => profile)
     assert_match /forum-post position-1 first odd-post.*forum-post position-2 last not-published even-post/, list_forum_posts(forum.posts)
   end
 
   should 'return post update if it has no comments' do
     author = create_user('forum test author').person
-    some_post = TextileArticle.create!(:name => 'First post', :profile => profile, :parent => forum, :published => true)
-    some_post.expects(:author).returns(author).times(2)
+    some_post = TextileArticle.create!(:name => 'First post', :profile => profile, :parent => forum, :published => true, :author => author)
     assert some_post.comments.empty?
     out = last_topic_update(some_post)
     assert_match some_post.updated_at.to_s, out

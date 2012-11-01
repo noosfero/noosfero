@@ -296,7 +296,7 @@ class Article < ActiveRecord::Base
     if last_comment
       {:date => last_comment.created_at, :author_name => last_comment.author_name, :author_url => last_comment.author_url}
     else
-      {:date => updated_at, :author_name => author_name, :author_url => author ? author.url : nil}
+      {:date => updated_at, :author_name => author_name, :author_url => author_url}
     end
   end
 
@@ -546,7 +546,11 @@ class Article < ActiveRecord::Base
   end
 
   def author_name
-    author ? author.name : setting[:author_name]
+    author ? author.name : (setting[:author_name] || _('Unknown'))
+  end
+
+  def author_url
+    author ? author.url : nil
   end
 
   alias :active_record_cache_key :cache_key
