@@ -13,6 +13,7 @@ class ArticleSweeper < ActiveRecord::Observer
 protected
 
   def expire_caches(article)
+    return if !article.environment
     article.hierarchy.each { |a| a.touch if a != article }
     blocks = article.profile.blocks
     blocks += article.profile.environment.blocks if article.profile.environment
@@ -20,7 +21,7 @@ protected
     BlockSweeper.expire_blocks(blocks)
     env = article.profile.environment
     if env && (env.portal_community == article.profile)
-      Noosfero.locales.keys.each do |locale|
+      article.environment.locales.keys.each do |locale|
         expire_fragment(env.portal_news_cache_key(locale))
       end
     end

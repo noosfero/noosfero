@@ -311,14 +311,14 @@ class Article < ActiveRecord::Base
   end
 
   def possible_translations
-    possibilities = Noosfero.locales.keys - self.native_translation.translations(:select => :language).map(&:language) - [self.native_translation.language]
+    possibilities = environment.locales.keys - self.native_translation.translations(:select => :language).map(&:language) - [self.native_translation.language]
     possibilities << self.language unless self.language_changed?
     possibilities
   end
 
   def known_language
     unless self.language.blank?
-      errors.add(:language, N_('Language not supported by Noosfero')) unless Noosfero.locales.key?(self.language)
+      errors.add(:language, N_('Language not supported by the environment.')) unless environment.locales.key?(self.language)
     end
   end
 
@@ -651,7 +651,7 @@ class Article < ActiveRecord::Base
     self.categories.collect(&:name)
   end
 
-  delegate :region, :region_id, :environment, :environment_id, :to => :profile
+  delegate :region, :region_id, :environment, :environment_id, :to => :profile, :allow_nil => true
   def name_sortable # give a different name for solr
     name
   end

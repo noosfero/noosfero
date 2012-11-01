@@ -107,7 +107,7 @@ class BlockTest < ActiveSupport::TestCase
 
   should 'be able to save display setting' do
     user = create_user('testinguser').person
-    box = fast_create(Box, :owner_id => user.id)
+    box = fast_create(Box, :owner_id => user.id, :owner_type => 'Profile')
     block = create(Block, :display => 'never', :box_id => box.id)
     block.reload
     assert_equal 'never', block.display
@@ -115,7 +115,7 @@ class BlockTest < ActiveSupport::TestCase
 
   should 'be able to update display setting' do
     user = create_user('testinguser').person
-    box = fast_create(Box, :owner_id => user.id)
+    box = fast_create(Box, :owner_id => user.id, :owner_type => 'Profile')
     block = create(Block, :display => 'never', :box_id => box.id)
     assert block.update_attributes!(:display => 'always')
     block.reload
@@ -146,6 +146,14 @@ class BlockTest < ActiveSupport::TestCase
 
     assert_equal true, block.visible?(:locale => 'pt')
     assert_equal false, block.visible?(:locale => 'en')
+  end
+
+  should 'delegate environment to box' do
+    box = fast_create(Box, :owner_id => fast_create(Profile).id)
+    block = Block.new(:box => box)
+    box.stubs(:environment).returns(Environment.default)
+
+    assert_equal box.environment, block.environment
   end
 
 end

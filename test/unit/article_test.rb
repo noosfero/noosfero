@@ -1210,8 +1210,8 @@ class ArticleTest < ActiveSupport::TestCase
     assert_nothing_raised { a.language = 'en' }
   end
 
-  should 'validade inclusion of language' do
-    a = build(Article)
+  should 'validate inclusion of language' do
+    a = build(Article, :profile_id => fast_create(Profile).id)
     a.language = '12'
     a.valid?
     assert a.errors.invalid?(:language)
@@ -1243,7 +1243,7 @@ class ArticleTest < ActiveSupport::TestCase
   end
 
   should 'list possible translations' do
-    native_article = fast_create(Article, :language => 'pt')
+    native_article = fast_create(Article, :language => 'pt', :profile_id => fast_create(Profile).id             )
     article_translation = fast_create(Article, :language => 'en', :translation_of_id => native_article.id)
     possible_translations = native_article.possible_translations
     assert !possible_translations.include?('en')
@@ -1253,7 +1253,7 @@ class ArticleTest < ActiveSupport::TestCase
   should 'verify if translation is already in use' do
     native_article = fast_create(Article, :language => 'pt')
     article_translation = fast_create(Article, :language => 'en', :translation_of_id => native_article.id)
-    a = build(Article)
+    a = build(Article, :profile => fast_create(Profile))
     a.language = 'en'
     a.translation_of = native_article
     a.valid?
@@ -1265,7 +1265,7 @@ class ArticleTest < ActiveSupport::TestCase
 
   should 'verify if native translation is already in use' do
     native_article = fast_create(Article, :language => 'pt')
-    a = build(Article)
+    a = build(Article, :profile => fast_create(Profile))
     a.language = 'pt'
     a.translation_of = native_article
     a.valid?
@@ -1277,7 +1277,7 @@ class ArticleTest < ActiveSupport::TestCase
 
   should 'translation have a language' do
     native_article = fast_create(Article, :language => 'pt')
-    a = build(Article)
+    a = build(Article, :profile_id => fast_create(Profile).id)
     a.translation_of = native_article
     a.valid?
     assert a.errors.invalid?(:language)
@@ -1287,8 +1287,8 @@ class ArticleTest < ActiveSupport::TestCase
   end
 
   should 'native translation have a language' do
-    native_article = fast_create(Article)
-    a = build(Article)
+    native_article = fast_create(Article, :profile_id => fast_create(Profile).id             )
+    a = build(Article, :profile_id => fast_create(Profile).id)
     a.language = 'en'
     a.translation_of = native_article
     a.valid?
@@ -1356,15 +1356,15 @@ class ArticleTest < ActiveSupport::TestCase
   end
 
   should 'not list own language as a possible translation if language has changed' do
-    a = build(Article, :language => 'pt')
+    a = build(Article, :language => 'pt', :profile_id => fast_create(Profile).id)
     assert !a.possible_translations.include?('pt')
-    a = fast_create(Article, :language => 'pt')
+    a = fast_create(Article, :language => 'pt', :profile_id => fast_create(Profile).id             )
     a.language = 'en'
     assert !a.possible_translations.include?('en')
   end
 
   should 'list own language as a possible translation if language has not changed' do
-    a = fast_create(Article, :language => 'pt')
+    a = fast_create(Article, :language => 'pt', :profile_id => fast_create(Profile).id)
     assert a.possible_translations.include?('pt')
   end
 

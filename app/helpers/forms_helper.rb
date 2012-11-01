@@ -123,6 +123,25 @@ module FormsHelper
     options_for_select.join("\n")
   end
 
+  def balanced_table(items, per_row=3)
+    items = items.map {|item| content_tag('td', item, :style => 'border: none; background: transparent;')}
+    rows = []
+    row = []
+    counter = 0
+    items.each do |item|
+      counter += 1
+      row << item
+      if counter % per_row == 0
+        rows << content_tag('tr', row.join("\n"))
+        counter = 0
+        row = []
+      end
+    end
+    rows << content_tag('tr', row.join("\n"))
+
+    content_tag('table',rows.join("\n"))
+  end
+
   def date_field(name, value, format = '%Y-%m-%d', datepicker_options = {}, html_options = {})
     datepicker_options[:disabled] ||= false
     datepicker_options[:alt_field] ||= ''

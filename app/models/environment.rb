@@ -804,4 +804,53 @@ class Environment < ActiveRecord::Base
   def image_galleries
     portal_community ? portal_community.image_galleries : []
   end
+
+  serialize :languages
+
+  before_validation do |environment|
+    environment.default_language = nil if environment.default_language.blank?
+  end
+
+  validate :default_language_available
+  validate :languages_available
+
+  def locales
+    if languages.present?
+      languages.inject({}) {|r, l| r.merge({l => Noosfero.locales[l]})}
+    else
+      Noosfero.locales
+    end
+  end
+
+  def default_locale
+    default_language || Noosfero.default_locale
+  end
+
+  def available_locales
+    locales_list = locales.keys
+    # move English to the beginning
+    if locales_list.include?('en')
+      locales_list = ['en'] + (locales_list - ['en']).sort
+    end
+    locales_list
+  end
+
+  private
+
+  def default_language_available
+    if default_language.present? && !available_locales.include?(default_language)
+      errors.add(:default_language, _('is not available.'))
+    end
+  end
+
+  def languages_available
+    if languages.present?
+      languages.each do |language|
+        if !Noosfero.available_locales.include?(language)
+          errors.add(:languages, _('have unsupported languages.'))
+          break
+        end
+      end
+    end
+  end
 end
