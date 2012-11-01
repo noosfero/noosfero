@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121008185303) do
+ActiveRecord::Schema.define(:version => 20121024222938) do
 
   create_table "abuse_reports", :force => true do |t|
     t.integer  "reporter_id"
@@ -86,6 +86,7 @@ ActiveRecord::Schema.define(:version => 20121008185303) do
     t.string   "language"
     t.string   "source_name"
     t.integer  "license_id"
+    t.integer  "author_id"
   end
 
   create_table "articles", :force => true do |t|
@@ -127,6 +128,7 @@ ActiveRecord::Schema.define(:version => 20121008185303) do
     t.string   "language"
     t.string   "source_name"
     t.integer  "license_id"
+    t.integer  "author_id"
   end
 
   add_index "articles", ["translation_of_id"], :name => "index_articles_on_translation_of_id"
