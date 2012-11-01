@@ -50,7 +50,7 @@ class Kalibro::Model
 
   def save
     begin
-      self.class.request(save_endpoint, save_action, save_params)
+      self.id = self.class.request(save_endpoint, save_action, save_params)
 	    true
 	  rescue Exception => exception
 	    add_error exception

@@ -6,6 +6,7 @@ class ReadingGroupTest < ActiveSupport::TestCase
   def setup  
     @hash = ReadingGroupFixtures.reading_group_hash
     @reading_group = ReadingGroupFixtures.reading_group
+    @created_reading_group = ReadingGroupFixtures.created_reading_group
   end
 
   should 'create reading group from hash' do
@@ -29,7 +30,7 @@ class ReadingGroupTest < ActiveSupport::TestCase
 
   should 'get all reading groups' do
     Kalibro::ReadingGroup.expects(:request).with("ReadingGroup", :all_reading_groups).returns({:reading_group => [@hash]})
-    assert_equal @hash[:name], Kalibro::ReadingGroup.all[0].name
+    assert_equal @hash[:name], Kalibro::ReadingGroup.all.first.name
   end
   
   should 'get reading group of a metric configuration' do
@@ -39,13 +40,16 @@ class ReadingGroupTest < ActiveSupport::TestCase
   end
 
   should 'return true when reading group is saved successfully' do
-    Kalibro::ReadingGroup.expects(:request).with("ReadingGroup", :save_reading_group, {:reading_group => @reading_group.to_hash}).returns(-1)
-    assert @reading_group.save
+    id_from_kalibro = 1
+    Kalibro::ReadingGroup.expects(:request).with("ReadingGroup", :save_reading_group, {:reading_group => @created_reading_group.to_hash}).returns(id_from_kalibro)
+    assert @created_reading_group.save
+    assert_equal id_from_kalibro, @created_reading_group.id
   end
 
   should 'return false when reading group is not saved successfully' do
-    Kalibro::ReadingGroup.expects(:request).with("ReadingGroup", :save_reading_group, {:reading_group => @reading_group.to_hash}).raises(Exception.new)
-    assert !(@reading_group.save)
+    Kalibro::ReadingGroup.expects(:request).with("ReadingGroup", :save_reading_group, {:reading_group => @created_reading_group.to_hash}).raises(Exception.new)
+    assert !(@created_reading_group.save)
+    assert_nil @created_reading_group.id
   end
 
   should 'destroy reading group by id' do
