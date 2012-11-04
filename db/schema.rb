@@ -263,6 +263,8 @@ ActiveRecord::Schema.define(:version => 20121008185303) do
     t.integer  "reports_lower_bound",          :default => 0,         :null => false
     t.string   "redirection_after_login",      :default => "keep_on_same_page"
     t.text     "signup_welcome_text"
+    t.string   "languages"
+    t.string   "default_language"
   end
 
   create_table "external_feeds", :force => true do |t|
