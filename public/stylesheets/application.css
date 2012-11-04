@@ -6107,14 +6107,17 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 img {
   display: table-row;
 }
 
+.field-with-privacy-selector:hover {
+  background-color: #F0F0F0;
+}
+
 .controller-profile_editor #profile-data .field-with-privacy-selector .formfieldline {
-  display: table-cell;
   width: auto;
 }
 
 .field-privacy-selector {
   display: table-cell;
-  vertical-align: bottom;
+  vertical-align: middle;
   text-align: center;
   width: 100px;
 }

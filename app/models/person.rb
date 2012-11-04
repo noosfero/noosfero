@@ -178,7 +178,8 @@ class Person < Profile
   include MaybeAddHttp
 
   def active_fields
-    environment ? environment.active_person_fields : []
+    fields = environment ? environment.active_person_fields : []
+    fields << 'email'
   end
 
   def required_fields

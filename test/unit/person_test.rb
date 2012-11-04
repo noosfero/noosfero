@@ -441,6 +441,14 @@ class PersonTest < ActiveSupport::TestCase
     assert_equal e.active_person_fields, person.active_fields
   end
 
+  should 'return email as active_person_fields' do
+    e = Environment.default
+    e.expects(:active_person_fields).returns(['nickname']).at_least_once
+    person = Person.new(:environment => e)
+
+    assert_equal ['nickname', 'email'], person.active_fields
+  end
+
   should 'return required_person_fields' do
     e = Environment.default
     e.expects(:required_person_fields).returns(['cell_phone', 'comercial_phone']).at_least_once

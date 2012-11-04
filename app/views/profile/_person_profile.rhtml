@@ -16,14 +16,7 @@
   <%= display_contact profile %>
 
   <% cache_timeout(profile.relationships_cache_key, 4.hours) do %>
-    <% if !(profile.organization.blank? && profile.organization_website.blank?) && (profile.active_fields.include?('organization') || profile.active_fields.include?('organization_website')) %>
-      <tr>
-        <th colspan='2'><%= _('Work')%></th>
-      </tr>
-    <% end %>
-    <%= display_field(_('Organization:'), profile, :organization) %>
-    <%= display_field(_('Organization website:'), profile, :organization_website) { |url| link_to(url, url) }%>
-
+    <%= display_work_info profile %>
 
     <% if !environment.enabled?('disable_asset_enterprises') && !profile.enterprises.empty? %>
       <tr>
@@ -51,6 +44,6 @@
 
     <%= render :partial => 'common' %>
 
-  </table>
-<% end %>
+  <% end %>
+</table>
 

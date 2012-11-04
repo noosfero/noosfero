@@ -1,8 +1,8 @@
 module ProfileHelper
 
   def display_field(title, profile, field, force = false)
-    if (!force && field.to_s != 'email' && !profile.active_fields.include?(field.to_s)) ||
-       ((profile.active_fields.include?(field.to_s) || field.to_s == 'email') && !profile.public_fields.include?(field.to_s) && (!user || (user != profile && !user.is_a_friend?(profile))))
+    if (!force && !profile.active_fields.include?(field.to_s)) ||
+       (profile.active_fields.include?(field.to_s) && !profile.public_fields.include?(field.to_s) && (!user || (user != profile && !user.is_a_friend?(profile))))
       return ''
     end
     value = profile.send(field)
@@ -25,6 +25,16 @@ module ProfileHelper
       ''
     else
       content_tag('tr', content_tag('th', _('Contact'), { :colspan => 2 })) + address + zip + phone + email
+    end
+  end
+
+  def display_work_info(profile)
+    organization = display_field(_('Organization:'), profile, :organization)
+    organization_site = display_field(_('Organization website:'), profile, :organization_website) { |url| link_to(url, url) }
+    if organization.blank? && organization_site.blank?
+      ''
+    else
+      content_tag('tr', content_tag('th', _('Work'), { :colspan => 2 })) + organization + organization_site
     end
   end
 
