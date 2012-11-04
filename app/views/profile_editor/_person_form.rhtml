@@ -59,11 +59,3 @@
 <%= optional_field(@person, 'professional_activity', f.text_field(:professional_activity, :rel => _('Professional activity'))) %>
 <%= optional_field(@person, 'organization', f.text_field(:organization, :rel => _('Organization'))) %>
 <%= optional_field(@person, 'organization_website', f.text_field(:organization_website, :rel => _('Organization website'))) %>
-
-<% optional_field(@person, 'image') do %>
-  <div id="profile_choose_picture">
-    <% f.fields_for :image_builder, @person.image do |i| %>
-      <%= file_field_or_thumbnail(_('Image:'), @person.image, i) %><span class="person_image_maxsize"><%= _("Max size: %s (.jpg, .gif, .png)")% Image.max_size.to_humanreadable %></span>
-    <% end %>
-  </div>
-<% end %>
