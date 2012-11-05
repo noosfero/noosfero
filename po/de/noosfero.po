@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.39.0~1\n"
-"POT-Creation-Date: 2012-11-05 17:54-0200\n"
+"POT-Creation-Date: 2012-11-05 20:07-0200\n"
 "PO-Revision-Date: 2012-03-27 19:47-0300\n"
 "Last-Translator: Josef Spillner <josef.spillner@tu-dresden.de>\n"
 "Language-Team: German <de@li.org>\n"
@@ -11140,7 +11140,8 @@ msgid "New form"
 msgstr "Neuer Ordner"
 
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/_form.html.erb:7
-msgid "Período"
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/index.html.erb:7
+msgid "Period"
 msgstr ""
 
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/_form.html.erb:14
@@ -11168,10 +11169,6 @@ msgstr "Neues Unternehmen hinzufügen"
 #, fuzzy
 msgid "Manage forms"
 msgstr "Verwalte Freunde"
-
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/index.html.erb:7
-msgid "Period"
-msgstr ""
 
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/index.html.erb:8
 #, fuzzy

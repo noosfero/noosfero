@@ -13,8 +13,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.39.0~1\n"
-"POT-Creation-Date: 2012-11-05 17:54-0200\n"
-"PO-Revision-Date: 2012-10-01 01:32-0300\n"
+"POT-Creation-Date: 2012-11-05 20:07-0200\n"
+"PO-Revision-Date: 2012-11-05 19:05-0300\n"
 "Last-Translator: Joenio Costa <joenio@colivre.coop.br>\n"
 "Language-Team: LANGUAGE TEAM <E-MAIL@ADDRESS or HOME PAGE>\n"
 "Language: \n"
@@ -336,7 +336,7 @@ msgstr "Modelo"
 
 #: app/models/box.rb:-
 msgid "Redirection after login"
-msgstr ""
+msgstr "Redirecionamento após login"
 
 #: app/models/box.rb:-
 msgid "article"
@@ -577,16 +577,15 @@ msgstr "Reports lower bound"
 
 #: app/models/box.rb:- app/views/admin_panel/site_info.rhtml:13
 msgid "Signup welcome text"
-msgstr ""
+msgstr "Texto de boas vindas no registro"
 
 #: app/models/box.rb:- app/helpers/profile_editor_helper.rb:52
 msgid "Languages"
 msgstr "Línguas"
 
 #: app/models/box.rb:- app/views/admin_panel/_site_info.rhtml:6
-#, fuzzy
 msgid "Default language"
-msgstr "todos os idiomas"
+msgstr "Idioma padrão"
 
 #: app/models/box.rb:-
 msgid "organization"
@@ -615,9 +614,8 @@ msgid "Code"
 msgstr "Código"
 
 #: app/models/box.rb:-
-#, fuzzy
 msgid "createenterprise"
-msgstr "Excluir empreendimento"
+msgstr "createenterprise"
 
 #: app/models/box.rb:-
 msgid "enterprise"
@@ -662,13 +660,12 @@ msgid "Source type"
 msgstr "Tipo da fonte"
 
 #: app/models/box.rb:-
-#, fuzzy
 msgid "User agent"
-msgstr "Nome de usuário"
+msgstr "User agent"
 
 #: app/models/box.rb:-
 msgid "Referrer"
-msgstr ""
+msgstr "Referrer"
 
 #: app/models/box.rb:-
 msgid "product"
@@ -1315,9 +1312,8 @@ msgid "[%s] Activate your account"
 msgstr "[%s] Ative sua conta"
 
 #: app/models/user.rb:85
-#, fuzzy
 msgid "Welcome to environment %s"
-msgstr "Bem-vindo a %s"
+msgstr "Bem-vindo ao ambiente %s"
 
 #: app/models/user.rb:117
 msgid "%{fn} must be checked in order to signup."
@@ -1479,12 +1475,12 @@ msgstr ""
 #: app/models/article.rb:86
 #: plugins/sub_organizations/lib/sub_organizations_plugin/relation.rb:11
 msgid "self-reference is not allowed."
-msgstr ""
+msgstr "auto-referência não é permitido."
 
 #: app/models/article.rb:93
 #: plugins/sub_organizations/lib/sub_organizations_plugin/relation.rb:16
 msgid "cyclical reference is not allowed."
-msgstr ""
+msgstr "referência cíclica não é permitido."
 
 #: app/models/article.rb:162 app/models/organization.rb:99
 msgid "Tag list"
@@ -1495,9 +1491,8 @@ msgid "HTML Text document"
 msgstr "Documento de Texto HTML"
 
 #: app/models/article.rb:346
-#, fuzzy
 msgid "Language not supported by the environment."
-msgstr "Idioma não suportado pelo Noosfero"
+msgstr "Idioma não suportado pelo ambiente."
 
 #: app/models/article.rb:352
 msgid "Language is already used"
@@ -2871,48 +2866,45 @@ msgid "Skip e-mail confirmation for new users"
 msgstr "Pular e-mail de confirmação para novos usuários"
 
 #: app/models/environment.rb:127
-#, fuzzy
 msgid "Send welcome e-mail to new users"
-msgstr "Enviar e-mail para os usuários"
+msgstr "Enviar e-mail de boas vindas para novos usuários"
 
 #: app/models/environment.rb:128
 msgid "Allow users to set the page to redirect after login"
 msgstr ""
+"Permite que os usuários configurem a página para redirecionar após o login"
 
 #: app/models/environment.rb:134
 msgid "Stays on the same page the user was before login."
-msgstr ""
+msgstr "Permanece na mesma páǵina que o usuário estava antes do login."
 
 #: app/models/environment.rb:135
-#, fuzzy
 msgid "Redirects the user to the environment homepage."
-msgstr "Usar editor WYSIWYG para editar página inicial do ambiente"
+msgstr "Redireciona o usuário para a página inicial do ambiente"
 
 #: app/models/environment.rb:136
 msgid "Redirects the user to his profile page."
-msgstr ""
+msgstr "Redireciona o usuário para o seu perfil."
 
 #: app/models/environment.rb:137
 msgid "Redirects the user to his homepage."
-msgstr ""
+msgstr "Redireciona o usuário para a sua página inicial."
 
 #: app/models/environment.rb:138
-#, fuzzy
 msgid "Redirects the user to his control panel."
-msgstr "Voltar ao painel de controle"
+msgstr "Redireciona o usuário para seu painel de controle."
 
 #: app/models/environment.rb:579
 msgid "Only one Virtual Community can be the default one"
 msgstr "Apenas uma comunidade virtual pode ser a padrão"
 
 #: app/models/environment.rb:842
-#, fuzzy
 msgid "is not available."
-msgstr "Indisponível"
+msgstr "não está disponível"
 
 #: app/models/environment.rb:850
 msgid "have unsupported languages."
-msgstr ""
+msgstr "tem idiomas não suportados."
 
 #: app/models/unit.rb:- app/views/catalog/index.rhtml:37
 msgid "unit"
@@ -3009,15 +3001,15 @@ msgstr "Confirmação de senha"
 
 #: app/models/change_password.rb:23
 msgid "must be filled in"
-msgstr ""
+msgstr "deve ser preenchido"
 
 #: app/models/change_password.rb:31
 msgid "is invalid or user does not exists."
-msgstr ""
+msgstr "é inválido ou o usuário não existe."
 
 #: app/models/change_password.rb:34
 msgid "does not match the username you filled in"
-msgstr ""
+msgstr "não corresponde ao usuário preenchido"
 
 #: app/models/change_password.rb:53 app/views/account/change_password.rhtml:1
 #: app/views/account/change_password.rhtml:14
@@ -3140,7 +3132,6 @@ msgid "Invite members"
 msgstr "Convidar membros"
 
 #: app/models/profile.rb:60
-#, fuzzy
 msgid "Send e-Mail to members"
 msgstr "Enviar e-mail para os membros"
 
@@ -3189,12 +3180,10 @@ msgid "%s members"
 msgstr "%s integrantes"
 
 #: app/models/profile.rb:922
-#, fuzzy
 msgid "facets|Enabled"
 msgstr "Habilitado"
 
 #: app/models/profile.rb:922
-#, fuzzy
 msgid "facets|Not enabled"
 msgstr "Não habilitado"
 
@@ -3507,19 +3496,16 @@ msgid "Notification of new comments to '%s' was successfully canceled"
 msgstr "A notificação de novos comentários para '%s' foi cancelada com sucesso"
 
 #: app/controllers/public/content_viewer_controller.rb:135
-#, fuzzy
 msgid "Comment succesfully updated"
-msgstr "Comentário removido com sucesso"
+msgstr "Comentário atualizado com sucesso"
 
 #: app/controllers/public/content_viewer_controller.rb:138
-#, fuzzy
 msgid "Comment could not be updated"
-msgstr "A licença não pode ser atualizada"
+msgstr "O comentário não pode ser atualizado"
 
 #: app/controllers/public/content_viewer_controller.rb:143
-#, fuzzy
 msgid "Could not find the comment in the article"
-msgstr "Não foi possível criar o e-mail"
+msgstr "Não foi possível encontrar o comentário no artigo"
 
 #: app/controllers/public/content_viewer_controller.rb:157
 #: app/controllers/my_profile/cms_controller.rb:258
@@ -3613,7 +3599,7 @@ msgstr "Nome ou senha incorreto"
 
 #: app/controllers/public/account_controller.rb:62
 msgid "This environment doesn't allow user registration."
-msgstr ""
+msgstr "Este ambiente não permite o registro de usuários."
 
 #: app/controllers/public/account_controller.rb:108
 msgid "You have been logged out."
@@ -3629,7 +3615,7 @@ msgstr "A senha informada está incorreta"
 
 #: app/controllers/public/account_controller.rb:136
 msgid "This environment doesn't allow password recovery."
-msgstr ""
+msgstr "Este ambiente não permite a recuperação da senha."
 
 #: app/controllers/public/account_controller.rb:228
 msgid "This login name is available"
@@ -4130,21 +4116,19 @@ msgstr "Público"
 
 #: app/helpers/profile_editor_helper.rb:150
 msgid "This field must be public"
-msgstr ""
+msgstr "Este campo precisa ser público"
 
 #: app/helpers/folder_helper.rb:15 app/views/content_viewer/folder.rhtml:9
 msgid "(empty folder)"
 msgstr "(pasta vazia)"
 
 #: app/helpers/folder_helper.rb:61 app/helpers/article_helper.rb:5
-#, fuzzy
 msgid "Visibility"
-msgstr "Visível"
+msgstr "Visibilidade"
 
 #: app/helpers/folder_helper.rb:65 app/helpers/article_helper.rb:9
-#, fuzzy
 msgid "Public (visible to other people)"
-msgstr "Este artigo deve ser publicado (visível para outras pessoas)"
+msgstr "Público (visível para outras pessoas)"
 
 #: app/helpers/folder_helper.rb:69 app/helpers/article_helper.rb:13
 msgid "Private"
@@ -4872,109 +4856,91 @@ msgstr ""
 
 #: app/helpers/forms_helper.rb:157
 msgid "Done"
-msgstr ""
+msgstr "Feito"
 
 #: app/helpers/forms_helper.rb:159
 msgid "Today"
-msgstr ""
+msgstr "Hoje"
 
 #: app/helpers/forms_helper.rb:162
-#, fuzzy
 msgid "Su"
 msgstr "Dom"
 
 #: app/helpers/forms_helper.rb:162
-#, fuzzy
 msgid "Mo"
 msgstr "Seg"
 
 #: app/helpers/forms_helper.rb:162
-#, fuzzy
 msgid "Tu"
 msgstr "Ter"
 
 #: app/helpers/forms_helper.rb:162
-#, fuzzy
 msgid "We"
 msgstr "Qua"
 
 #: app/helpers/forms_helper.rb:162
-#, fuzzy
 msgid "Th"
 msgstr "Qui"
 
 #: app/helpers/forms_helper.rb:162
-#, fuzzy
 msgid "Fr"
 msgstr "Sex"
 
 #: app/helpers/forms_helper.rb:162
-#, fuzzy
 msgid "Sa"
 msgstr "Sab"
 
 #: app/helpers/forms_helper.rb:173
-#, fuzzy
 msgid "Jan"
-msgstr "e"
+msgstr "Jan"
 
 #: app/helpers/forms_helper.rb:173
 msgid "Feb"
-msgstr ""
+msgstr "Fev"
 
 #: app/helpers/forms_helper.rb:173
-#, fuzzy
 msgid "Mar"
-msgstr "Março"
+msgstr "Mar"
 
 #: app/helpers/forms_helper.rb:173
-#, fuzzy
 msgid "Apr"
-msgstr "Abril"
+msgstr "Abr"
 
 #: app/helpers/forms_helper.rb:173
-#, fuzzy
 msgid "Jun"
-msgstr "Junho"
+msgstr "Jun"
 
 #: app/helpers/forms_helper.rb:173
-#, fuzzy
 msgid "Jul"
-msgstr "Julho"
+msgstr "Jul"
 
 #: app/helpers/forms_helper.rb:173
-#, fuzzy
 msgid "Aug"
-msgstr "Agosto"
+msgstr "Ago"
 
 #: app/helpers/forms_helper.rb:173
-#, fuzzy
 msgid "Sep"
-msgstr "Sexo"
+msgstr "Set"
 
 #: app/helpers/forms_helper.rb:173
-#, fuzzy
 msgid "Oct"
-msgstr "Outubro"
+msgstr "Out"
 
 #: app/helpers/forms_helper.rb:173
-#, fuzzy
 msgid "Nov"
-msgstr "Não"
+msgstr "Nov"
 
 #: app/helpers/forms_helper.rb:173
 msgid "Dec"
-msgstr ""
+msgstr "Dez"
 
 #: app/helpers/forms_helper.rb:177
-#, fuzzy
 msgid "Prev"
 msgstr "Anterior"
 
 #: app/helpers/forms_helper.rb:188
-#, fuzzy
 msgid "Wk"
-msgstr "Trabalho"
+msgstr "Sem"
 
 #: app/helpers/forms_helper.rb:254
 #: plugins/send_email/lib/send_email_plugin/mail.rb:-
@@ -4985,7 +4951,7 @@ msgstr "De"
 
 #: app/helpers/forms_helper.rb:255
 msgid "until"
-msgstr ""
+msgstr "até"
 
 #: app/helpers/forms_helper.rb:259
 msgid "root"
@@ -5203,11 +5169,10 @@ msgid "No comments yet"
 msgstr "Sem comentários ainda"
 
 #: app/helpers/content_viewer_helper.rb:11
-#, fuzzy
 msgid "One comment"
 msgid_plural "<span class=\"comment-count\">%{comments}</span> comments"
 msgstr[0] "Um comentário"
-msgstr[1] "%{comments} comentários"
+msgstr[1] "%<span class=\"comment-count\">%{comments}</span> comentários"
 
 #: app/helpers/content_viewer_helper.rb:29
 msgid ", by %s"
@@ -5532,9 +5497,8 @@ msgid "Join community"
 msgstr "Entrar na comunidade"
 
 #: app/views/blocks/profile_info_actions/community.rhtml:35
-#, fuzzy
 msgid "Send an e-mail to the administrators"
-msgstr "Enviar e-mail para %s"
+msgstr "Enviar e-mail para os administradores"
 
 #: app/views/blocks/profile_info_actions/community.rhtml:46
 msgid "Join this community"
@@ -6599,9 +6563,8 @@ msgid "Manage plugins"
 msgstr "Gerenciar plugins"
 
 #: app/views/plugins/index.rhtml:4
-#, fuzzy
 msgid "Select which plugins you want to enable in your environment"
-msgstr "Selecione os grupos onde você quer publicar seu artigo"
+msgstr "Selecione quais plugins você quer habilitar no seu ambiente"
 
 #: app/views/plugins/index.rhtml:31
 #: app/views/features/_manage_community_fields.rhtml:46
@@ -6618,13 +6581,12 @@ msgid "Send an e-mail to %s"
 msgstr "Enviar e-mail para %s"
 
 #: app/views/contact/new.rhtml:4
-#, fuzzy
 msgid "Send an e-mail to administrators"
-msgstr "Enviar e-mail para %s"
+msgstr "Enviar um e-mail para os administradores"
 
 #: app/views/contact/new.rhtml:6
 msgid "The e-mail will be sent to the administrators of '%s'"
-msgstr ""
+msgstr "O e-mail será enviado para os administradores de '%s'"
 
 #: app/views/contact/new.rhtml:23
 msgid "I want to receive a copy of the message in my e-mail."
@@ -7135,7 +7097,7 @@ msgstr "Configurar funcionalidades"
 
 #: app/views/features/index.rhtml:29 app/views/profile_editor/edit.rhtml:44
 msgid "Page to redirect after login"
-msgstr ""
+msgstr "Página para redirecionar após o login"
 
 #: app/views/features/index.rhtml:32
 msgid "Organization Approval Method"
@@ -7607,9 +7569,8 @@ msgid "Site name"
 msgstr "Nome do site"
 
 #: app/views/admin_panel/_site_info.rhtml:7
-#, fuzzy
 msgid "Available languages"
-msgstr "todos os idiomas"
+msgstr "Idiomas disponíveis"
 
 #: app/views/admin_panel/_site_info.rhtml:18
 msgid "Homepage content"
@@ -7620,67 +7581,55 @@ msgid "Administrator Panel"
 msgstr "Painel do Administrador"
 
 #: app/views/admin_panel/index.rhtml:3
-#, fuzzy
 msgid "System settings"
-msgstr "Configurações"
+msgstr "Configurações do sistema"
 
 #: app/views/admin_panel/index.rhtml:7
-#, fuzzy
 msgid "Features"
-msgstr "Funcionalidade"
+msgstr "Funcionalidades"
 
 #: app/views/admin_panel/index.rhtml:8 app/views/admin_panel/index.rhtml:28
-#, fuzzy
 msgid "Plugins"
-msgstr "Plugin"
+msgstr "Plugins"
 
 #: app/views/admin_panel/index.rhtml:9
-#, fuzzy
 msgid "Sideboxes"
-msgstr "Editar blocos laterais"
+msgstr "Blocos laterais"
 
 #: app/views/admin_panel/index.rhtml:11
-#, fuzzy
 msgid "Licenses"
-msgstr "Licença"
+msgstr "Licenças"
 
 #: app/views/admin_panel/index.rhtml:14
-#, fuzzy
 msgid "Profiles"
-msgstr "Perfil"
+msgstr "Perfis"
 
 #: app/views/admin_panel/index.rhtml:17
-#, fuzzy
 msgid "User roles"
-msgstr "Gerenciar papéis de usuários"
+msgstr "Papéis de usuários"
 
 #: app/views/admin_panel/index.rhtml:18
 msgid "Users"
 msgstr "Usuários"
 
 #: app/views/admin_panel/index.rhtml:19
-#, fuzzy
 msgid "Profile templates"
-msgstr "Imagem do Perfil"
+msgstr "Templates de perfil"
 
 #: app/views/admin_panel/index.rhtml:20
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/_form.html.erb:20
-#, fuzzy
 msgid "Fields"
-msgstr "Campo"
+msgstr "Campos"
 
 #: app/views/admin_panel/index.rhtml:36
-#, fuzzy
 msgid "Enterprise-related settings"
-msgstr "Informações e Configurações do Empreendimento"
+msgstr "Configurações relacionadas com empreendimento"
 
 #: app/views/admin_panel/index.rhtml:39
-#, fuzzy
 msgid "Message for disabled enterprises"
-msgstr "Editar mensagem para empreendimento desabilitado"
+msgstr "Mensagem para empreendimentos desabilitados"
 
 #: app/views/admin_panel/index.rhtml:40
-#, fuzzy
 msgid "Validators by region"
 msgstr "Validadores por região"
 
@@ -7689,12 +7638,16 @@ msgid ""
 "This text will be sent to new users if the feature \"Send welcome e-mail to "
 "new users\" is enabled on environment."
 msgstr ""
+"Este texto será envado para os novos usuários se a funcionalidade \"Enviar e-"
+"mail de boas vindas para novos usuários\" estiver habilitada no ambiente"
 
 #: app/views/admin_panel/_signup_welcome_text.rhtml:3
 msgid ""
 "Including %s on body, it will be replaced by the real name of the e-mail "
 "recipient."
 msgstr ""
+"Incluindo %s no corpo do e-mail, ele será sbstituído pelo nome real do "
+"destinatário do e-mail."
 
 #: app/views/admin_panel/set_portal_community.rhtml:1
 msgid "Set Environment Portal"
@@ -7942,16 +7895,12 @@ msgid "Go to the content"
 msgstr "Ir para o conteúdo"
 
 #: app/views/layouts/application-ng.rhtml:60
-#, fuzzy
 msgid "<span class='login'>%s</span>"
-msgstr "<span class='welcome'>Bem-vindo(a),</span> %s"
+msgstr "<span class='login'>%s</span>"
 
 #: app/views/layouts/application-ng.rhtml:68
-#, fuzzy
 msgid "<span class='or'>or</span> <span class='signup'>%s</span>"
-msgstr ""
-"<span class='login'>%s</span> <span class='or'>ou</span> <span "
-"class='signup'>%s</span>"
+msgstr "<span class='or'>or</span> <span class='signup'>%s</span>"
 
 #: app/views/layouts/application-ng.rhtml:68
 msgid "Sign up"
@@ -8088,16 +8037,15 @@ msgstr "(feed externo não foi carregado ainda)"
 
 #: app/views/content_viewer/_comment.rhtml:58
 msgid "Mark as NOT SPAM"
-msgstr ""
+msgstr "Marcar como NÃO É SPAM"
 
 #: app/views/content_viewer/_comment.rhtml:62
 msgid "Mark as SPAM"
-msgstr ""
+msgstr "Marcar como SPAM"
 
 #: app/views/content_viewer/_comment.rhtml:62
-#, fuzzy
 msgid "Are you sure you want to mark this comment as SPAM?"
-msgstr "Tem certeza de que deseja excluir esta licença?"
+msgstr "Tem certeza de que deseja marcar esse comentário como SPAM?"
 
 #: app/views/content_viewer/image_gallery.rhtml:7
 msgid "This gallery contains no images yet"
@@ -8183,7 +8131,7 @@ msgstr "Esqueceu sua senha?"
 
 #: app/views/account/forgot_password.rhtml:3
 msgid "Instructions to password recovery could not be sent"
-msgstr ""
+msgstr "As instruções para recuperação de senha não puderam ser enviadas"
 
 #: app/views/account/forgot_password.rhtml:16
 msgid "Send instructions"
@@ -8896,9 +8844,8 @@ msgid "Choose an input or raw material to this product:"
 msgstr "Selecione um insumo ou matéria-prima para este produto:"
 
 #: app/views/spam/index.rhtml:1 app/views/profile_editor/index.rhtml:69
-#, fuzzy
 msgid "Manage SPAM"
-msgstr "Gerenciar %s"
+msgstr "Gerenciar SPAM"
 
 #: app/views/favorite_enterprises/add.rhtml:1
 msgid "Adding %s as a favorite enterprise"
@@ -8987,23 +8934,22 @@ msgid "Privacy options"
 msgstr "Opções de privacidade"
 
 #: app/views/profile_editor/edit.rhtml:29
-#, fuzzy
 msgid "Public &mdash; show my contents to all internet users"
-msgstr "Exibir meu conteúdo para todos os usuários da internet"
+msgstr "Público &mdash; exibir meu conteúdo para todos os usuários da internet"
 
 #: app/views/profile_editor/edit.rhtml:32
 msgid "Private &mdash; show my contents only to friends"
-msgstr ""
+msgstr "Privado &mdash; mostrar meu conteúdo apenas para amigos"
 
 #: app/views/profile_editor/edit.rhtml:36
-#, fuzzy
 msgid "Public &mdash; show content of this group to all internet users"
-msgstr "Exibir conteúdo deste grupo para todos os usuários da internet"
+msgstr ""
+"Público &mdash; exibir conteúdo deste grupo para todos os usuários da "
+"internet"
 
 #: app/views/profile_editor/edit.rhtml:39
-#, fuzzy
 msgid "Private &mdash; show content of this group only to members"
-msgstr "Exibir conteúdo deste grupo para membros"
+msgstr "Privado &mdash; exibir conteúdo deste grupo apenas para membros"
 
 #: app/views/profile_editor/edit.rhtml:50
 msgid ""
@@ -9302,9 +9248,8 @@ msgid "Add a new license"
 msgstr "Adicionar uma nova licença"
 
 #: app/views/cms/_general_fields.html.erb:1
-#, fuzzy
 msgid "Parent folder:"
-msgstr "pasta superior"
+msgstr "Pasta superior:"
 
 #: app/views/doc/_path.html.erb:2
 msgid "You are here:"
@@ -9319,9 +9264,8 @@ msgid "Type in a search term for users"
 msgstr "Digite um termo de pesquisa para os usuários"
 
 #: app/views/content_viewer/edit_comment.html.erb:1
-#, fuzzy
 msgid "Edit comment"
-msgstr "Enviar comentário"
+msgstr "Editar comentário"
 
 #: app/views/maps/_google_map.js.erb:19 app/views/maps/_google_map.js.erb:122
 msgid "Address not found, reason:"
@@ -9826,45 +9770,41 @@ msgid "No description informed."
 msgstr "Nenhuma descrição informada."
 
 #: plugins/sub_organizations/controllers/sub_organizations_plugin_myprofile_controller.rb:25
-#, fuzzy
 msgid "Sub-organizations updated"
-msgstr "organizações"
+msgstr "Sub-organizações atualizadas"
 
 #: plugins/sub_organizations/controllers/sub_organizations_plugin_myprofile_controller.rb:28
-#, fuzzy
 msgid "Sub-organizations could not be updated"
-msgstr "As configurações não puderam ser salvas"
+msgstr "As sub-organizações não puderam ser salvas"
 
 #: plugins/sub_organizations/lib/sub_organizations_plugin/approve_paternity.rb:20
-#, fuzzy
 msgid "Paternity request"
-msgstr "Enviar pedido de compra"
+msgstr "Requisição de paternidade"
 
 #: plugins/sub_organizations/lib/sub_organizations_plugin/approve_paternity.rb:28
-#, fuzzy
 msgid ""
 "%{requestor} wants to add this organization as a sub-organization of "
 "%{linked_subject}."
-msgstr "%{requestor} quer associar este empreendimento com %{linked_subject}."
+msgstr ""
+"%{requestor} quer associar esta organização como sub-organização de "
+"%{linked_subject}."
 
 #: plugins/sub_organizations/lib/sub_organizations_plugin/relation.rb:22
 msgid "multi-level paternity is not allowed."
-msgstr ""
+msgstr "paternidade multi-nível não é permitido."
 
 #: plugins/sub_organizations/lib/sub_organizations_plugin.rb:7
-#, fuzzy
 msgid "Sub-groups"
-msgstr "grupos"
+msgstr "Sub-grupos"
 
 #: plugins/sub_organizations/lib/sub_organizations_plugin.rb:11
 msgid "Adds the ability for groups to have sub-groups."
-msgstr ""
+msgstr "Adiciona a possibilidade de grupos terem sub-grupos."
 
 #: plugins/sub_organizations/lib/sub_organizations_plugin.rb:16
 #: plugins/sub_organizations/views/sub_organizations_plugin_myprofile/index.html.erb:1
-#, fuzzy
 msgid "Manage sub-groups"
-msgstr "Gerenciar meus grupos"
+msgstr "Gerenciar sub-grupos"
 
 #: plugins/send_email/controllers/send_email_plugin_admin_controller.rb:8
 msgid "Configurations was saved"
@@ -10016,38 +9956,41 @@ msgid ""
 "Checks comments against a spam checking service compatible with the Akismet "
 "API"
 msgstr ""
+"Checa os comentários com um serviço de verificação de spam compatível com a "
+"API Akismet"
 
 #: plugins/template/lib/template_plugin.rb:10
 msgid "A plugin that does this and that."
 msgstr "Um plugin que faz isto e aquilo."
 
 #: plugins/tolerance_time/controllers/tolerance_time_plugin_myprofile_controller.rb:10
-#, fuzzy
 msgid "Tolerance updated"
-msgstr "A licença foi atualizada"
+msgstr "A tolerância foi atualizada"
 
 #: plugins/tolerance_time/controllers/tolerance_time_plugin_myprofile_controller.rb:12
-#, fuzzy
 msgid "Tolerance could not be updated"
-msgstr "A licença não pode ser atualizada"
+msgstr "A tolerância não pode ser atualizada"
 
 #: plugins/tolerance_time/lib/tolerance_time_plugin.rb:11
 msgid "Adds a tolerance time for editing content after its publication"
 msgstr ""
+"Adiciona um tempo de tolerância para edição de conteúdo após sua publicação"
 
 #: plugins/tolerance_time/lib/tolerance_time_plugin.rb:26
 msgid "Tolerance Adjustements"
-msgstr ""
+msgstr "Configurações de Tolerância"
 
 #: plugins/tolerance_time/lib/tolerance_time_plugin.rb:38
 #: plugins/tolerance_time/lib/tolerance_time_plugin.rb:54
 msgid ""
 "This content can't be edited anymore because it expired the tolerance time"
 msgstr ""
+"Este conteúdo não pode mais ser editado porque seu tempo de tolerância "
+"expirou"
 
 #: plugins/tolerance_time/lib/tolerance_time_plugin.rb:67
 msgid "The tolerance time for editing this content is over."
-msgstr ""
+msgstr "O tempo de tolerância para edição deste conteúdo acabou."
 
 #: plugins/bsc/controllers/bsc_plugin_myprofile_controller.rb:38
 msgid "This Bsc associations were saved successfully."
@@ -10204,132 +10147,114 @@ msgstr "%{requestor} quer associar %{bsc} como seu BSC."
 
 #: plugins/custom_forms/controllers/custom_forms_plugin_profile_controller.rb:31
 msgid "Submission saved"
-msgstr ""
+msgstr "Submissão salva"
 
 #: plugins/custom_forms/controllers/custom_forms_plugin_profile_controller.rb:34
-#, fuzzy
 msgid "Submission could not be saved"
-msgstr "As configurações não puderam ser salvas"
+msgstr "A submissão não pode ser salva"
 
 #: plugins/custom_forms/controllers/custom_forms_plugin_myprofile_controller.rb:19
-#, fuzzy
 msgid "Form created"
-msgstr "O contrato foi criado"
+msgstr "Formulário criado"
 
 #: plugins/custom_forms/controllers/custom_forms_plugin_myprofile_controller.rb:23
-#, fuzzy
 msgid "Form could not be created"
-msgstr "A licença não pode ser criada"
+msgstr "O formulário não pode ser criado"
 
 #: plugins/custom_forms/controllers/custom_forms_plugin_myprofile_controller.rb:40
-#, fuzzy
 msgid "Form updated"
-msgstr "Última atualização"
+msgstr "Formulário atualizado"
 
 #: plugins/custom_forms/controllers/custom_forms_plugin_myprofile_controller.rb:44
-#, fuzzy
 msgid "Form could not be updated"
-msgstr "A licença não pode ser atualizada"
+msgstr "O formulário não pode ser atualizado"
 
 #: plugins/custom_forms/controllers/custom_forms_plugin_myprofile_controller.rb:53
-#, fuzzy
 msgid "Form removed"
-msgstr "Contrato removido."
+msgstr "Formulário removido."
 
 #: plugins/custom_forms/controllers/custom_forms_plugin_myprofile_controller.rb:55
-#, fuzzy
 msgid "Form could not be removed"
-msgstr "A licença não pode ser removida"
+msgstr "O formulário não pode ser removido"
 
 #: plugins/custom_forms/lib/custom_forms_plugin.rb:10
-#, fuzzy
 msgid "Enables the creation of forms."
-msgstr "Habilitar ativação de empreendimentos"
+msgstr "Habilita a criação de formulários."
 
 #: plugins/custom_forms/lib/custom_forms_plugin.rb:18
-#, fuzzy
 msgid "Manage Forms"
-msgstr "Gerenciar %s"
+msgstr "Gerenciar Formulários"
 
 #: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:4
 #: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:37
-#, fuzzy
 msgid "Logged users"
-msgstr "Identificado(a) como %s"
+msgstr "Usuários logados"
 
 #: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:9
-#, fuzzy
 msgid "Custom"
-msgstr "Cliente"
+msgstr "Customizado"
 
 #: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:14
 msgid "Always"
-msgstr ""
+msgstr "Sempre"
 
 #: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:18
 msgid "Until %s"
-msgstr ""
+msgstr "Até %s"
 
 #: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:20
-#, fuzzy
 msgid "From %s until %s"
-msgstr "de %s a %s"
+msgstr "De %s a %s"
 
 #: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:45
 #: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:52
-#, fuzzy
 msgid "Select"
-msgstr "Selecione..."
+msgstr "Selecione"
 
 #: plugins/custom_forms/lib/custom_forms_plugin/field.rb:-
 msgid "custom forms plugin field"
-msgstr ""
+msgstr "custom forms plugin field"
 
 #: plugins/custom_forms/lib/custom_forms_plugin/field.rb:-
 msgid "customformsplugin::field"
-msgstr ""
+msgstr "customformsplugin::field"
 
 #: plugins/custom_forms/lib/custom_forms_plugin/answer.rb:10
-#, fuzzy
 msgid "is mandatory."
-msgstr "%{fn} é obrigatório"
+msgstr "é obrigatório"
 
 #: plugins/custom_forms/lib/custom_forms_plugin/form.rb:52
-#, fuzzy
 msgid "Invalid string format of access."
-msgstr "Cidade inválida ou nome do estado"
+msgstr "Tipo de acesso inválido"
 
 #: plugins/custom_forms/lib/custom_forms_plugin/form.rb:56
 #: plugins/custom_forms/lib/custom_forms_plugin/form.rb:61
-#, fuzzy
 msgid "There is no profile with the provided id."
-msgstr "Houve problemas com os seguintes campos:"
+msgstr "Não existe perfil com o id fornecido."
 
 #: plugins/custom_forms/lib/custom_forms_plugin/form.rb:66
-#, fuzzy
 msgid "Invalid type format of access."
-msgstr "Cidade inválida ou nome do estado"
+msgstr "Formato de tipo de acesso inválido."
 
 #: plugins/custom_forms/lib/custom_forms_plugin/membership_survey.rb:16
-#, fuzzy
 msgid "Membership survey"
-msgstr "Integrantes: %s"
+msgstr "Pesquisa na associação de novos integrantes"
 
 #: plugins/custom_forms/lib/custom_forms_plugin/membership_survey.rb:28
-#, fuzzy
 msgid "%{requestor} wants you to fill in some information."
-msgstr "%{requestor} quer ser seu(sua) amigo(a)."
+msgstr "%{requestor} quer que você preencha algumas informações."
 
 #: plugins/custom_forms/lib/custom_forms_plugin/membership_survey.rb:40
 msgid ""
 "After joining %{requestor}, the administrators of this organization\n"
 "      wants you to fill in some further information."
 msgstr ""
+"Após entrar em %{requestor}, os administradores dessa organização\n"
+" quer que você preencha algumas informações adicionais."
 
 #: plugins/custom_forms/lib/custom_forms_plugin/membership_survey.rb:45
-#, fuzzy
 msgid "%{requestor} wants to fill in some further information."
-msgstr "%{requestor} quer ser seu(sua) amigo(a)."
+msgstr "%{requestor} quer que preencha algumas informações adicionais."
 
 #: plugins/stoa/controllers/stoa_plugin_controller.rb:19
 msgid "Incorrect user/password pair."
@@ -10422,17 +10347,16 @@ msgid "See how to configure statistics for your profile"
 msgstr "Veja como configurar as estatísticas para seu perfil"
 
 #: plugins/anti_spam/views/anti_spam_plugin_admin/index.rhtml:1
-#, fuzzy
 msgid "AntiSpam settings"
-msgstr "Configurações de e-mail"
+msgstr "Configurações de AntiSpam"
 
 #: plugins/anti_spam/views/anti_spam_plugin_admin/index.rhtml:5
 msgid "Host"
-msgstr ""
+msgstr "Host"
 
 #: plugins/anti_spam/views/anti_spam_plugin_admin/index.rhtml:7
 msgid "API key"
-msgstr ""
+msgstr "Chave da API"
 
 #: plugins/require_auth_to_comment/views/profile-editor-extras.rhtml:1
 msgid "Comments"
@@ -10493,30 +10417,28 @@ msgid "Loading"
 msgstr "Carregando... "
 
 #: plugins/sub_organizations/views/sub_organizations_plugin_myprofile/index.html.erb:4
-#, fuzzy
 msgid "Sub-groups awaiting approval:"
-msgstr "Associações aguardando aprovação:"
+msgstr "Sub-grupos aguardando aprovação:"
 
 #: plugins/sub_organizations/views/sub_organizations_plugin_myprofile/index.html.erb:14
-#, fuzzy
 msgid "Create a new sub-community"
-msgstr "Criar nova comunidade"
+msgstr "Criar nova sub-comunidade"
 
 #: plugins/sub_organizations/views/sub_organizations_plugin_myprofile/index.html.erb:15
-#, fuzzy
 msgid "Register a new sub-enterprise"
-msgstr "Registrar um novo empreendimento"
+msgstr "Registrar um novo sub-empreendimento"
 
 #: plugins/sub_organizations/views/sub_organizations_plugin_myprofile/index.html.erb:18
 msgid ""
 "Fill in the search field to find the groups that should be added as sub-"
 "group of this organization:"
 msgstr ""
+"Preencha o campo de busca para encontrar grupos que devem ser adicionados "
+"como sub-grupo dessa organização:"
 
 #: plugins/sub_organizations/views/sub_organizations_plugin_myprofile/index.html.erb:21
-#, fuzzy
 msgid "Type in a search term for a group"
-msgstr "Digite um termo de pesquisa para produto"
+msgstr "Digite um termo de pesquisa para um grupo"
 
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:7
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:7
@@ -10671,33 +10593,31 @@ msgstr "Preço de entrega:"
 
 #: plugins/tolerance_time/views/tolerance_time_plugin_myprofile/index.html.erb:1
 msgid "Tolerance Adjustments"
-msgstr ""
+msgstr "Configurações de Tolerância"
 
 #: plugins/tolerance_time/views/tolerance_time_plugin_myprofile/index.html.erb:7
 msgid "Seconds"
-msgstr ""
+msgstr "Segundos"
 
 #: plugins/tolerance_time/views/tolerance_time_plugin_myprofile/index.html.erb:7
-#, fuzzy
 msgid "Minutes"
-msgstr "1 minuto"
+msgstr "Minutos"
 
 #: plugins/tolerance_time/views/tolerance_time_plugin_myprofile/index.html.erb:7
 msgid "Hours"
-msgstr ""
+msgstr "Horas"
 
 #: plugins/tolerance_time/views/tolerance_time_plugin_myprofile/index.html.erb:10
 msgid "Content edition tolerance time"
-msgstr ""
+msgstr "Tempo de tolerância para edição de conteúdo"
 
 #: plugins/tolerance_time/views/tolerance_time_plugin_myprofile/index.html.erb:14
-#, fuzzy
 msgid "Comment edition tolerance time"
-msgstr "Comunidades"
+msgstr "Tempo de tolerância para edição de comentários"
 
 #: plugins/tolerance_time/views/tolerance_time_plugin_myprofile/index.html.erb:18
 msgid "Empty means unlimited and zero means right away."
-msgstr ""
+msgstr "Vazio significa ilimitado e zero significa imediatamente."
 
 #: plugins/bsc/views/shared/_fields.html.erb:39
 msgid ""
@@ -10873,122 +10793,99 @@ msgstr "Anotações"
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/_edit_text.html.erb:3
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/_edit_text.html.erb:4
 msgid "Default value"
-msgstr ""
+msgstr "Valor padrão"
 
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/_option.html.erb:5
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/_empty_option.html.erb:5
-#, fuzzy
 msgid "Are you sure you want to remove this option?"
-msgstr "Tem certeza de que quer excluir este ítem?"
+msgstr "Tem certeza de que deseja remover esta opção?"
 
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/submissions.html.erb:3
-#, fuzzy
 msgid "Submissions for %s"
-msgstr "Estatísticas para %s"
+msgstr "Submissões para %s"
 
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/submissions.html.erb:6
-#, fuzzy
 msgid "There are no submissions for this form."
-msgstr "Não há subcategorias para %s."
+msgstr "Não há submissões para este formulário."
 
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/submissions.html.erb:11
 msgid "Time"
-msgstr ""
+msgstr "Tempo"
 
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/submissions.html.erb:24
-#, fuzzy
 msgid "Back to forms"
-msgstr "Voltar à %s"
+msgstr "Voltar para os formulários"
 
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/_field.html.erb:10
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/_empty_field.html.erb:8
-#, fuzzy
 msgid "Are you sure you want to remove this field?"
-msgstr "Tem certeza de que quer excluir este ítem?"
+msgstr "Tem certeza de que deseja remover este campo?"
 
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/show_submission.html.erb:9
-#, fuzzy
 msgid "Back to submissions"
-msgstr "Voltar à %s"
+msgstr "Voltar para submissões"
 
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/_edit_select.html.erb:7
 msgid "Value"
-msgstr ""
+msgstr "Valor"
 
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/_edit_select.html.erb:18
-#, fuzzy
 msgid "Add a new option"
-msgstr "Adicionar uma nova licença"
+msgstr "Adicionar uma nova opção"
 
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/edit.html.erb:1
-#, fuzzy
 msgid "Edit form"
-msgstr "Editar pasta"
+msgstr "Editar formulário"
 
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/create.html.erb:1
-#, fuzzy
 msgid "New form"
-msgstr "Nova pasta "
+msgstr "Novo formulário"
 
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/_form.html.erb:7
-msgid "Período"
-msgstr ""
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/index.html.erb:7
+msgid "Period"
+msgstr "Período"
 
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/_form.html.erb:14
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/index.html.erb:9
-#, fuzzy
 msgid "Access"
-msgstr "Accessor"
+msgstr "Accesso"
 
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/_form.html.erb:16
-#, fuzzy
 msgid "Triggered on membership"
-msgstr "Gerenciar associação em organização"
+msgstr "Disparado na associação de um novo integrante"
 
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/_form.html.erb:25
-#, fuzzy
 msgid "Mandatory"
-msgstr "Moderador"
+msgstr "Obrigatório"
 
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/_form.html.erb:36
-#, fuzzy
 msgid "Add a new field"
-msgstr "Adicionar uma nova licença"
+msgstr "Adicionar um novo campo"
 
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/index.html.erb:3
-#, fuzzy
 msgid "Manage forms"
-msgstr "Gerenciar amigos"
-
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/index.html.erb:7
-#, fuzzy
-msgid "Period"
-msgstr "Periodicidade"
+msgstr "Gerenciar formulários"
 
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/index.html.erb:8
-#, fuzzy
 msgid "Submissions"
-msgstr "Permissões"
+msgstr "Submissões"
 
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/index.html.erb:20
-#, fuzzy
 msgid "Are you sure you want to remove this form?"
-msgstr "Tem certeza de que quer excluir este ítem?"
+msgstr "Tem certeza de que deseja remover esse formulário?"
 
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/index.html.erb:25
-#, fuzzy
 msgid "Add a new form"
-msgstr "Adicionar uma nova licença"
+msgstr "Adicionar um novo formulário"
 
 #: plugins/custom_forms/views/custom_forms_plugin_profile/show.html.erb:9
-#, fuzzy
 msgid "Author name"
-msgstr "Autor"
+msgstr "Nome do autor"
 
 #: plugins/custom_forms/views/custom_forms_plugin_profile/show.html.erb:10
-#, fuzzy
 msgid "Author email"
-msgstr "Autor"
+msgstr "Email do autor"
 
 #: plugins/mezuro/views/cms/mezuro_plugin/_configuration_content.html.erb:18
 msgid "Clone Configuration"
@@ -11019,11 +10916,10 @@ msgid "has joined the community."
 msgstr "entrou na comunidade."
 
 #: config/initializers/action_tracker.rb:28
-#, fuzzy
 msgid "uploaded 1 image"
 msgid_plural "uploaded %d images"
-msgstr[0] "uploadedfile"
-msgstr[1] "uploadedfile"
+msgstr[0] "adicionou 1 imagem"
+msgstr[1] "adicionou %d imagens"
 
 #: config/initializers/action_tracker.rb:52
 msgid "sent a message to %{receiver}: <br /> \"%{message}\""

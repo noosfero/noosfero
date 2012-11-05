@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.39.0~1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-11-05 17:54-0200\n"
+"POT-Creation-Date: 2012-11-05 20:07-0200\n"
 "PO-Revision-Date: 2009-12-04 18:46-0300\n"
 "Last-Translator: Jean-Claude Bulliard <jcb@bulliard-consulting.com>\n"
 "Language-Team: American English <kde-i18n-doc@kde.org>\n"
@@ -11659,7 +11659,8 @@ msgid "New form"
 msgstr "Nouveau dossier"
 
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/_form.html.erb:7
-msgid "Período"
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/index.html.erb:7
+msgid "Period"
 msgstr ""
 
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/_form.html.erb:14
@@ -11688,10 +11689,6 @@ msgstr "Une entreprise"
 #, fuzzy
 msgid "Manage forms"
 msgstr "Gérer les contacts"
-
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/index.html.erb:7
-msgid "Period"
-msgstr ""
 
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/index.html.erb:8
 #, fuzzy

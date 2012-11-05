@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.39.0~1\n"
-"POT-Creation-Date: 2012-11-05 17:54-0200\n"
+"POT-Creation-Date: 2012-11-05 20:07-0200\n"
 "PO-Revision-Date: 2011-03-30 20:52-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -10514,7 +10514,8 @@ msgid "New form"
 msgstr ""
 
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/_form.html.erb:7
-msgid "Período"
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/index.html.erb:7
+msgid "Period"
 msgstr ""
 
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/_form.html.erb:14
@@ -10536,10 +10537,6 @@ msgstr ""
 
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/index.html.erb:3
 msgid "Manage forms"
-msgstr ""
-
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/index.html.erb:7
-msgid "Period"
 msgstr ""
 
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/index.html.erb:8

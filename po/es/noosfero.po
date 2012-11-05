@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.39.0~1\n"
-"POT-Creation-Date: 2012-11-05 17:54-0200\n"
+"POT-Creation-Date: 2012-11-05 20:07-0200\n"
 "PO-Revision-Date: 2010-04-30 20:14-0300\n"
 "Last-Translator: Martín Olivera <molivera@solar.org.ar>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -11328,7 +11328,8 @@ msgid "New form"
 msgstr "Forma Legal"
 
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/_form.html.erb:7
-msgid "Período"
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/index.html.erb:7
+msgid "Period"
 msgstr ""
 
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/_form.html.erb:14
@@ -11355,10 +11356,6 @@ msgstr "Una empresa"
 #, fuzzy
 msgid "Manage forms"
 msgstr "Idiomas"
-
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/index.html.erb:7
-msgid "Period"
-msgstr ""
 
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/index.html.erb:8
 msgid "Submissions"

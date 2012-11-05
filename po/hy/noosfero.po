@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.39.0~1\n"
-"POT-Creation-Date: 2012-11-05 17:54-0200\n"
+"POT-Creation-Date: 2012-11-05 20:07-0200\n"
 "PO-Revision-Date: 2009-10-26 16:20-0300\n"
 "Last-Translator: Anahit Minassian <anahit.minassian@cooperation.net>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -11372,7 +11372,8 @@ msgid "New form"
 msgstr "Նոր թղթապանակ"
 
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/_form.html.erb:7
-msgid "Período"
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/index.html.erb:7
+msgid "Period"
 msgstr ""
 
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/_form.html.erb:14
@@ -11400,10 +11401,6 @@ msgstr "Մեկ ձեռնարկություն"
 #, fuzzy
 msgid "Manage forms"
 msgstr "Կառավարել ընկերներին"
-
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/index.html.erb:7
-msgid "Period"
-msgstr ""
 
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/index.html.erb:8
 #, fuzzy
