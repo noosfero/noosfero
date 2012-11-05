@@ -4,7 +4,7 @@
 
 <% form_for :form, @form do |f| %>
   <%= required labelled_form_field _('Name'), f.text_field(:name) %>
-  <%= labelled_form_field(_('Período'), (
+  <%= labelled_form_field(_('Period'), (
     date_range_field('form[begining]', 'form[ending]', @form.begining, @form.ending, 
                      '%Y-%m-%d %H:%M', 
                      { :time => true, :change_month => true, :change_year => true,
