@@ -1,21 +1,21 @@
 class Kalibro::Project < Kalibro::Model
 
-  attr_accessor :name, :license, :description, :repository, :configuration_name, :state, :kalibro_error
+  attr_accessor :id, :name, :description
 
-  def self.all_names
-    response = request("Project", :get_project_names)[:project_name]
+  def self.all
+    response = request("Project", :all_projects)[:project].to_a
     response = [] if response.nil?
-    response
+    response.map {|project| new project}
   end
 
-  def self.find_by_name(project_name)
-    new request("Project", :get_project, :project_name => project_name)[:project]
+  def self.find(project_id)
+    new request("Project", :get_project, :project_id => project_id)[:project]
   end
 
-  def repository=(value)
-    @repository = Kalibro::Repository.to_object value
+  def self.project_of(repository_id)
+    new request("Project", :project_of, :repository_id => repository_id)[:project]
   end
-
+=begin
   def error=(value)
     @kalibro_error = Kalibro::Error.to_object value
   end
@@ -47,5 +47,6 @@ class Kalibro::Project < Kalibro::Model
       add_error exception
     end
   end
+=end
 
 end

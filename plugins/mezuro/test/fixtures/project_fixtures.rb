@@ -6,22 +6,15 @@ class ProjectFixtures
     Kalibro::Project.new project_hash
   end
 
+  def self.created_project
+    Kalibro::Project.new :name => 'Qt-Calculator', :description => 'Calculator for Qt'
+  end
+
   def self.project_hash
     {
+      :id => 42,
       :name => 'Qt-Calculator',
-      :license => 'GPL',
-      :description => 'Calculator for Qt',
-      :repository => RepositoryFixtures.repository_hash,
-      :configuration_name => 'Kalibro for Java',
-      :state => 'READY',
-      :attributes! =>
-      {
-        :repository=>
-        {
-          "xsi:type"=>"kalibro:repositoryXml",
-          "xmlns:xsi"=>"http://www.w3.org/2001/XMLSchema-instance"
-        }
-      }
+      :description => 'Calculator for Qt'
     }
   end
     
