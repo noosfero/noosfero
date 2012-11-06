@@ -1,6 +1,6 @@
 class Kalibro::Range < Kalibro::Model
   
-  attr_accessor :beginning, :end, :label, :grade, :color, :comments
+  attr_accessor :id, :beginning, :end, :reading_id, :comments
 
   def beginning=(value)
     @beginning = value.to_f
@@ -37,5 +37,19 @@ class Kalibro::Range < Kalibro::Model
 	def mezuro_color
 		@color.nil? ? "e4ca2d" : @color.gsub(/^ff/, "")
 	end
+	
+	def self.ranges_of( metric_configuration_id )
+    request("Range", :ranges_of, {:metric_configuration_id => metric_configuration_id} )[:range].to_a.map { |range| new range }
+  end
+  
+  def save( metric_configuration_id )
+    begin
+      self.id = self.class.request("Range", :save_range, {:range => self.to_hash, :metric_configuration_id => metric_configuration_id})[:range_id]
+	    true
+	  rescue Exception => exception
+	    add_error exception
+	    false
+	  end
+  end
 
 end
