@@ -79,6 +79,25 @@ class Article < ActiveRecord::Base
   validate :native_translation_must_have_language
   validate :translation_must_have_language
 
+  validate :no_self_reference
+  validate :no_cyclical_reference, :if => 'parent_id.present?'
+
+  def no_self_reference
+    errors.add(:parent_id, _('self-reference is not allowed.')) if id && parent_id == id
+  end
+
+  def no_cyclical_reference
+    current_parent = Article.find(parent_id)
+    while current_parent
+      if current_parent == self
+        errors.add(:parent_id, _('cyclical reference is not allowed.'))
+        break
+      end
+      current_parent = current_parent.parent
+    end
+  end
+
+
   def is_trackable?
     self.published? && self.notifiable? && self.advertise? && self.profile.public_profile
   end
@@ -152,6 +171,12 @@ class Article < ActiveRecord::Base
 
   before_update do |article|
     article.advertise = true
+  end
+
+  before_save do |article|
+    article.parent = article.parent_id ? Article.find(article.parent_id) : nil
+    parent_path = article.parent ? article.parent.path : nil
+    article.path = [parent_path, article.slug].compact.join('/')
   end
 
   # retrieves all articles belonging to the given +profile+ that are not
@@ -311,14 +336,14 @@ class Article < ActiveRecord::Base
   end
 
   def possible_translations
-    possibilities = Noosfero.locales.keys - self.native_translation.translations(:select => :language).map(&:language) - [self.native_translation.language]
+    possibilities = environment.locales.keys - self.native_translation.translations(:select => :language).map(&:language) - [self.native_translation.language]
     possibilities << self.language unless self.language_changed?
     possibilities
   end
 
   def known_language
     unless self.language.blank?
-      errors.add(:language, N_('Language not supported by Noosfero')) unless Noosfero.locales.key?(self.language)
+      errors.add(:language, N_('Language not supported by the environment.')) unless environment.locales.key?(self.language)
     end
   end
 
@@ -651,7 +676,7 @@ class Article < ActiveRecord::Base
     self.categories.collect(&:name)
   end
 
-  delegate :region, :region_id, :environment, :environment_id, :to => :profile
+  delegate :region, :region_id, :environment, :environment_id, :to => :profile, :allow_nil => true
   def name_sortable # give a different name for solr
     name
   end

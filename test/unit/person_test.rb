@@ -441,6 +441,14 @@ class PersonTest < ActiveSupport::TestCase
     assert_equal e.active_person_fields, person.active_fields
   end
 
+  should 'return email as active_person_fields' do
+    e = Environment.default
+    e.expects(:active_person_fields).returns(['nickname']).at_least_once
+    person = Person.new(:environment => e)
+
+    assert_equal ['nickname', 'email'], person.active_fields
+  end
+
   should 'return required_person_fields' do
     e = Environment.default
     e.expects(:required_person_fields).returns(['cell_phone', 'comercial_phone']).at_least_once
@@ -1261,5 +1269,19 @@ class PersonTest < ActiveSupport::TestCase
     person.stubs('has_permission_without_plugins?').returns(false)
 
     assert person.has_permission?('bli', Profile.new)
+  end
+
+  should 'active fields are public if fields privacy is nil' do
+    p = fast_create(Person)
+    p.expects(:fields_privacy).returns(nil)
+    f = %w(sex birth_date)
+    p.expects(:active_fields).returns(f)
+    assert_equal f, p.public_fields
+  end
+
+  should 'return public fields' do
+    p = fast_create(Person)
+    p.stubs(:fields_privacy).returns({ 'sex' => 'public', 'birth_date' => 'private' })
+    assert_equal ['sex'], p.public_fields
   end
 end

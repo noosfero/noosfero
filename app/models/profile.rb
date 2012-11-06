@@ -144,6 +144,7 @@ class Profile < ActiveRecord::Base
   settings_items :redirect_l10n, :type => :boolean, :default => false
   settings_items :public_content, :type => :boolean, :default => true
   settings_items :description
+  settings_items :fields_privacy, :type => :hash, :default => {}
 
   validates_length_of :description, :maximum => 550, :allow_nil => true
 
@@ -874,6 +875,15 @@ private :generate_url, :url_options
   # Override in your subclasses
   def activities
     []
+  end
+
+  # field => privacy (e.g.: "address" => "public")
+  def fields_privacy
+    self.data[:fields_privacy]
+  end
+
+  def public_fields
+    self.active_fields
   end
 
   private

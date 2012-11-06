@@ -653,19 +653,6 @@ module ApplicationHelper
     content_tag('div', result)
   end
 
-  def select_folder(label, object, method, collection, html_options = {}, js_options = {})
-    root = profile ? profile.identifier : _("root")
-    labelled_form_field(label, select(object, method,
-                                      collection.map {|f| [ root + '/' + f.full_name, f.id ]},
-                                      {:include_blank => root}, html_options.merge(js_options)))
-  end
-
-  def select_profile_folder(label, object, method, profile, html_options = {}, js_options = {})
-    labelled_form_field(label, select(object, method,
-                                      profile.folders.map {|f| [ profile.identifier + '/' + f.full_name, f.id ]},
-                                      {:include_blank => profile.identifier}, html_options.merge(js_options)))
-  end
-
   def theme_option(opt = nil)
     conf = RAILS_ROOT.to_s() +
            '/public' + theme_path +
@@ -866,7 +853,7 @@ module ApplicationHelper
       end
     else
       if profile.active_fields.include?(name)
-        result = field_html
+        result = content_tag('div', field_html + profile_field_privacy_selector(profile, name), :class => 'field-with-privacy-selector')
       end
     end
 
@@ -879,6 +866,11 @@ module ApplicationHelper
     end
 
     result
+  end
+
+  def profile_field_privacy_selector(profile, name)
+    return '' unless profile.public?
+    content_tag('div', labelled_check_box(_('Public'), 'profile_data[fields_privacy]['+name+']', 'public', profile.public_fields.include?(name)), :class => 'field-privacy-selector')
   end
 
   def template_stylesheet_path

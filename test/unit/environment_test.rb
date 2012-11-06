@@ -1320,4 +1320,61 @@ class EnvironmentTest < ActiveSupport::TestCase
     assert_equal environment.signup_welcome_text[:body], environment.signup_welcome_text_body
   end
 
+  should 'allow only default languages there are defined in available locales' do
+    environment = Environment.default
+    environment.stubs(:available_locales).returns(['en'])
+    environment.default_language = 'pt'
+    environment.valid?
+    assert environment.errors.invalid?(:default_language)
+
+    environment.default_language = 'en'
+    environment.valid?
+    assert !environment.errors.invalid?(:default_language)
+  end
+
+  should 'define default locale or use the config default locale' do
+    environment = Environment.default
+    environment.default_language = nil
+    environment.save!
+    assert_equal Noosfero.default_locale, environment.default_locale
+
+    environment.default_language = 'en'
+    environment.save!
+    assert_equal environment.default_language, environment.default_locale
+  end
+
+  should 'allow only languages there are defined in locales' do
+    environment = Environment.default
+
+    environment.languages = ['zz']
+    environment.valid?
+    assert environment.errors.invalid?(:languages)
+
+    environment.languages = ['en']
+    environment.valid?
+    assert !environment.errors.invalid?(:languages)
+  end
+
+  should 'define locales or use the config locales' do
+    environment = Environment.default
+    environment.languages = nil
+    environment.save!
+    assert_equal Noosfero.locales, environment.locales
+
+    environment.languages = ['en']
+    environment.save!
+    hash = {'en' => 'English'}
+    assert_equal hash, environment.locales
+  end
+
+  should 'define available_locales or use the config available_locales' do
+    environment = Environment.default
+    environment.languages = nil
+    environment.save!
+    assert_equal Noosfero.available_locales, environment.available_locales
+
+    environment.languages = ['pt', 'en']
+    environment.save!
+    assert_equal ['en', 'pt'], environment.available_locales
+  end
 end

@@ -123,6 +123,25 @@ module FormsHelper
     options_for_select.join("\n")
   end
 
+  def balanced_table(items, per_row=3)
+    items = items.map {|item| content_tag('td', item, :style => 'border: none; background: transparent;')}
+    rows = []
+    row = []
+    counter = 0
+    items.each do |item|
+      counter += 1
+      row << item
+      if counter % per_row == 0
+        rows << content_tag('tr', row.join("\n"))
+        counter = 0
+        row = []
+      end
+    end
+    rows << content_tag('tr', row.join("\n"))
+
+    content_tag('table',rows.join("\n"))
+  end
+
   def date_field(name, value, format = '%Y-%m-%d', datepicker_options = {}, html_options = {})
     datepicker_options[:disabled] ||= false
     datepicker_options[:alt_field] ||= ''
@@ -234,6 +253,38 @@ module FormsHelper
     to_id = html_options[:to_id] || 'datepicker-to-date'
     return _('From') +' '+ date_field(from_name, from_value, format, datepicker_options, html_options.merge({:id => from_id})) +
     ' ' + _('until') +' '+ date_field(to_name, to_value, format, datepicker_options, html_options.merge({:id => to_id}))
+  end
+
+  def select_folder(label_text, field_id, collection, default_value=nil, html_options = {}, js_options = {})
+    root = profile ? profile.identifier : _("root")
+    labelled_form_field(
+      label_text,
+      select_tag(
+        field_id,
+        options_for_select(
+          [[root, '']] +
+          collection.collect {|f| [ root + '/' +  f.full_name, f.id ] },
+          default_value
+        ),
+        html_options.merge(js_options)
+      )
+    )
+  end
+
+  def select_profile_folder(label_text, field_id, profile, default_value='', html_options = {}, js_options = {})
+    result = labelled_form_field(
+      label_text,
+      select_tag(
+        field_id,
+        options_for_select(
+          [[profile.identifier, '']] +
+          profile.folders.collect {|f| [ profile.identifier + '/' +  f.full_name, f.id ] },
+          default_value
+        ),
+        html_options.merge(js_options)
+      )
+    )
+    return result
   end
 
 protected

@@ -116,10 +116,10 @@ class CmsController < MyProfileController
       @parent_id = parent.id
     end
 
-    translations if @article.translatable?
-
     @article.profile = profile
     @article.last_changed_by = user
+
+    translations if @article.translatable?
 
     continue = params[:continue]
     if request.post?
@@ -149,7 +149,6 @@ class CmsController < MyProfileController
     @uploaded_files = []
     @article = @parent = check_parent(params[:parent_id])
     @target = @parent ? ('/%s/%s' % [profile.identifier, @parent.full_name]) : '/%s' % profile.identifier
-    @folders = Folder.find(:all, :conditions => { :profile_id => profile })
     if @article
       record_coming
     end
@@ -345,7 +344,7 @@ class CmsController < MyProfileController
   end
 
   def translations
-    @locales = Noosfero.locales.invert.reject { |name, lang| !@article.possible_translations.include?(lang) }
+    @locales = environment.locales.invert.reject { |name, lang| !@article.possible_translations.include?(lang) }
     @selected_locale = @article.language || FastGettext.locale
   end
 

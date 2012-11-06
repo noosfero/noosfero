@@ -7,6 +7,8 @@ class Block < ActiveRecord::Base
   # Block-specific stuff
   include BlockHelper
 
+  delegate :environment, :to => :box, :allow_nil => true
+
   acts_as_list :scope => :box
   belongs_to :box
 

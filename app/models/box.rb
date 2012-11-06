@@ -3,6 +3,10 @@ class Box < ActiveRecord::Base
   acts_as_list :scope => 'owner_id = #{owner_id} and owner_type = \'#{owner_type}\''
   has_many :blocks, :dependent => :destroy, :order => 'position'
 
+  def environment
+    owner ? (owner.kind_of?(Environment) ? owner : owner.environment) : nil
+  end
+
   def acceptable_blocks
     to_css_class_name central?  ? Box.acceptable_center_blocks : Box.acceptable_side_blocks
   end

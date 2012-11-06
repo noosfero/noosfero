@@ -1210,8 +1210,8 @@ class ArticleTest < ActiveSupport::TestCase
     assert_nothing_raised { a.language = 'en' }
   end
 
-  should 'validade inclusion of language' do
-    a = build(Article)
+  should 'validate inclusion of language' do
+    a = build(Article, :profile_id => fast_create(Profile).id)
     a.language = '12'
     a.valid?
     assert a.errors.invalid?(:language)
@@ -1243,7 +1243,7 @@ class ArticleTest < ActiveSupport::TestCase
   end
 
   should 'list possible translations' do
-    native_article = fast_create(Article, :language => 'pt')
+    native_article = fast_create(Article, :language => 'pt', :profile_id => fast_create(Profile).id             )
     article_translation = fast_create(Article, :language => 'en', :translation_of_id => native_article.id)
     possible_translations = native_article.possible_translations
     assert !possible_translations.include?('en')
@@ -1253,7 +1253,7 @@ class ArticleTest < ActiveSupport::TestCase
   should 'verify if translation is already in use' do
     native_article = fast_create(Article, :language => 'pt')
     article_translation = fast_create(Article, :language => 'en', :translation_of_id => native_article.id)
-    a = build(Article)
+    a = build(Article, :profile => fast_create(Profile))
     a.language = 'en'
     a.translation_of = native_article
     a.valid?
@@ -1265,7 +1265,7 @@ class ArticleTest < ActiveSupport::TestCase
 
   should 'verify if native translation is already in use' do
     native_article = fast_create(Article, :language => 'pt')
-    a = build(Article)
+    a = build(Article, :profile => fast_create(Profile))
     a.language = 'pt'
     a.translation_of = native_article
     a.valid?
@@ -1277,7 +1277,7 @@ class ArticleTest < ActiveSupport::TestCase
 
   should 'translation have a language' do
     native_article = fast_create(Article, :language => 'pt')
-    a = build(Article)
+    a = build(Article, :profile_id => fast_create(Profile).id)
     a.translation_of = native_article
     a.valid?
     assert a.errors.invalid?(:language)
@@ -1287,8 +1287,8 @@ class ArticleTest < ActiveSupport::TestCase
   end
 
   should 'native translation have a language' do
-    native_article = fast_create(Article)
-    a = build(Article)
+    native_article = fast_create(Article, :profile_id => fast_create(Profile).id             )
+    a = build(Article, :profile_id => fast_create(Profile).id)
     a.language = 'en'
     a.translation_of = native_article
     a.valid?
@@ -1356,15 +1356,15 @@ class ArticleTest < ActiveSupport::TestCase
   end
 
   should 'not list own language as a possible translation if language has changed' do
-    a = build(Article, :language => 'pt')
+    a = build(Article, :language => 'pt', :profile_id => fast_create(Profile).id)
     assert !a.possible_translations.include?('pt')
-    a = fast_create(Article, :language => 'pt')
+    a = fast_create(Article, :language => 'pt', :profile_id => fast_create(Profile).id             )
     a.language = 'en'
     assert !a.possible_translations.include?('en')
   end
 
   should 'list own language as a possible translation if language has not changed' do
-    a = fast_create(Article, :language => 'pt')
+    a = fast_create(Article, :language => 'pt', :profile_id => fast_create(Profile).id)
     assert a.possible_translations.include?('pt')
   end
 
@@ -1780,6 +1780,42 @@ class ArticleTest < ActiveSupport::TestCase
     license = License.create!(:name => 'GPLv3', :environment => Environment.default)
     article = Article.new(:license_id => license.id)
     assert_equal license, article.license
+  end
+
+  should 'update path if parent is changed' do
+    f1 = Folder.create!(:name => 'Folder 1', :profile => profile)
+    f2 = Folder.create!(:name => 'Folder 2', :profile => profile)
+    article = TinyMceArticle.create!(:name => 'Sample Article', :parent_id => f1.id, :profile => profile)
+    assert_equal [f1.path,article.slug].join('/'), article.path
+
+    article.parent = f2
+    article.save!
+    assert_equal [f2.path,article.slug].join('/'), article.path
+
+    article.parent = nil
+    article.save!
+    assert_equal article.slug, article.path
+
+    article.update_attributes({:parent_id => f2.id})
+    assert_equal [f2.path,article.slug].join('/'), article.path
+  end
+
+  should 'not allow parent as itself' do
+    article = Article.create!(:name => 'Sample Article', :profile => profile)
+    article.parent = article
+    article.valid?
+
+    assert article.errors.invalid?(:parent_id)
+  end
+
+  should 'not allow cyclical paternity' do
+    a1 = Article.create!(:name => 'Sample Article 1', :profile => profile)
+    a2 = Article.create!(:name => 'Sample Article 2', :profile => profile, :parent => a1)
+    a3 = Article.create!(:name => 'Sample Article 3', :profile => profile, :parent => a2)
+    a1.parent = a3
+    a1.valid?
+
+    assert a1.errors.invalid?(:parent_id)
   end
 
 end

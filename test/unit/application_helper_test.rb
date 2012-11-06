@@ -379,8 +379,10 @@ class ApplicationHelperTest < ActiveSupport::TestCase
     controller.stubs(:action_name).returns('edit')
 
     profile = Person.new
-    profile.expects(:active_fields).returns(['field'])
-    assert_equal 'SIGNUP_FIELD', optional_field(profile, 'field', 'SIGNUP_FIELD')
+    profile.stubs(:active_fields).returns(['field'])
+
+    expects(:profile_field_privacy_selector).with(profile, 'field').returns('')
+    assert_tag_in_string optional_field(profile, 'field', 'EDIT_FIELD'), :tag => 'div', :content => 'EDIT_FIELD', :attributes => {:class => 'field-with-privacy-selector'}
   end
 
   should 'not display active fields' do
@@ -394,7 +396,7 @@ class ApplicationHelperTest < ActiveSupport::TestCase
 
     profile = Person.new
     profile.expects(:active_fields).returns([])
-    assert_equal '', optional_field(profile, 'field', 'SIGNUP_FIELD')
+    assert_equal '', optional_field(profile, 'field', 'EDIT_FIELD')
   end
 
   should 'display required fields' do
@@ -406,11 +408,13 @@ class ApplicationHelperTest < ActiveSupport::TestCase
     controller.stubs(:controller_name).returns('')
     controller.stubs(:action_name).returns('edit')
 
-    stubs(:required).with('SIGNUP_FIELD').returns('<span>SIGNUP_FIELD</span>')
     profile = Person.new
-    profile.expects(:active_fields).returns(['field'])
+    profile.stubs(:active_fields).returns(['field'])
     profile.expects(:required_fields).returns(['field'])
-    assert_equal '<span>SIGNUP_FIELD</span>', optional_field(profile, 'field', 'SIGNUP_FIELD')
+
+    stubs(:required).with(anything).returns('<span>EDIT_FIELD</span>')
+    expects(:profile_field_privacy_selector).with(profile, 'field').returns('')
+    assert_equal '<span>EDIT_FIELD</span>', optional_field(profile, 'field', 'EDIT_FIELD')
   end
 
   should 'base theme uses default icon theme' do
