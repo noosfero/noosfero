@@ -430,13 +430,6 @@ class UserTest < ActiveSupport::TestCase
     assert_equal 'pending@activation.com', ActionMailer::Base.deliveries.last['to'].to_s
   end
 
-  should 'not try to deliver email to template users' do
-    Person.any_instance.stubs(:is_template?).returns(true)
-    assert_no_difference ActionMailer::Base.deliveries, :size do
-      new_user
-    end
-  end
-
   should 'not mass assign activated at' do
     user = User.new :activated_at => 5.days.ago
     assert_nil user.activated_at
