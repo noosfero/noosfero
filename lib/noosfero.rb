@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 require 'fast_gettext'
 
 module Noosfero
