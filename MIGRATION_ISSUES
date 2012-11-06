@@ -7,3 +7,5 @@
 * config/environment.rb maybe still have some code that should be on the initializers
 
 * initializers session_store.rb inflections.rb... don't exist
+
+* rails gems version have to be forced on Gemfile or it will use incompatible pre3vious versions (3.1.3)
