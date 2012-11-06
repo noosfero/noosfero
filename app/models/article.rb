@@ -13,9 +13,9 @@ class Article < ActiveRecord::Base
   # xss_terminate plugin can't sanitize array fields
   before_save :sanitize_tag_list
 
-  before_save do |article|
-    if article.author_id
-      article.author_name = Person.find(article.author_id).name
+  before_create do |article|
+    if article.last_changed_by_id
+      article.author_name = Person.find(article.last_changed_by_id).name
     end
   end
 
@@ -26,7 +26,6 @@ class Article < ActiveRecord::Base
   validates_uniqueness_of :slug, :scope => ['profile_id', 'parent_id'], :message => N_('The title (article name) is already being used by another article, please use another title.'), :if => lambda { |article| !article.slug.blank? }
 
   belongs_to :last_changed_by, :class_name => 'Person', :foreign_key => 'last_changed_by_id'
-  belongs_to :author, :class_name => 'Person', :foreign_key => 'author_id'
 
   has_many :comments, :class_name => 'Comment', :foreign_key => 'source_id', :dependent => :destroy, :order => 'created_at asc'
 
@@ -543,6 +542,10 @@ class Article < ActiveRecord::Base
 
   def tiny_mce?
     false
+  end
+
+  def author
+    versions.empty? ? last_changed_by : versions.first.last_changed_by
   end
 
   def author_name

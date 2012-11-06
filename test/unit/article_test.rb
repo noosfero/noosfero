@@ -786,7 +786,7 @@ class ArticleTest < ActiveSupport::TestCase
   should 'allow author to edit if is publisher' do
     c = fast_create(Community)
     p = create_user_with_permission('test_user', 'publish_content', c)
-    a = c.articles.create!(:name => 'a test article', :author => p)
+    a = c.articles.create!(:name => 'a test article', :last_changed_by => p)
 
     assert a.allow_post_content?(p)
   end
@@ -1358,16 +1358,16 @@ class ArticleTest < ActiveSupport::TestCase
 
   should "the author_name returns the name of the article's author" do
     author = fast_create(Person)
-    a = Article.new(:author => author)
+    a = profile.articles.create!(:name => 'a test article', :last_changed_by => author)
     assert_equal author.name, a.author_name
-    a.author = nil
+    author.destroy
     a.author_name = 'some name'
     assert_equal 'some name', a.author_name
   end
 
   should 'retrieve latest info from topic when has no comments' do
     forum = fast_create(Forum, :name => 'Forum test', :profile_id => profile.id)
-    post = fast_create(TextileArticle, :name => 'First post', :profile_id => profile.id, :parent_id => forum.id, :updated_at => Time.now, :author_id => profile.id)
+    post = fast_create(TextileArticle, :name => 'First post', :profile_id => profile.id, :parent_id => forum.id, :updated_at => Time.now, :last_changed_by_id => profile.id)
     assert_equal post.updated_at, post.info_from_last_update[:date]
     assert_equal profile.name, post.info_from_last_update[:author_name]
     assert_equal profile.url, post.info_from_last_update[:author_url]
@@ -1801,19 +1801,9 @@ class ArticleTest < ActiveSupport::TestCase
     assert a1.errors.invalid?(:parent_id)
   end
 
-  should 'be able to have an author' do
+  should 'set author_name before creating article if there is an author' do
     author = fast_create(Person)
-    article = Article.new
-    assert_nothing_raised do
-      article.author = author
-    end
-  end
-
-  should 'set author_name before saving article if there is an author' do
-    author = fast_create(Person)
-    article = fast_create(Article, :profile_id => fast_create(Profile).id)
-    article.author = author
-    article.save!
+    article = Article.create!(:name => 'Test', :profile => profile, :last_changed_by => author)
     assert_equal author.name, article.author_name
 
     author_name = author.name
