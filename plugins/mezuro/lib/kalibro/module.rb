@@ -2,6 +2,7 @@ class Kalibro::Module < Kalibro::Model
 
   attr_accessor :name, :granularity
 
+=begin
   def self.parent_names(name)
     path = []
     ancestors = []
@@ -15,4 +16,6 @@ class Kalibro::Module < Kalibro::Model
   def ancestor_names
     self.class.parent_names(@name)
   end
+=end
+
 end
