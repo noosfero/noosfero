@@ -54,7 +54,8 @@ ActiveRecord::Base.store_full_sti_class = true
 
 # several local libraries
 require 'noosfero'
-require 'sqlite_extension'
+#FIXME: error when call lib/sqlite_extention
+#require 'sqlite_extension'
 
 # load a local configuration if present, but not under test environment.
 if !['test', 'cucumber'].include?(ENV['RAILS_ENV'])
