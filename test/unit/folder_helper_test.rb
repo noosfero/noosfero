@@ -127,7 +127,7 @@ class FolderHelperTest < ActiveSupport::TestCase
 
   private
   def render(template, the_binding)
-    ERB.new(File.read(RAILS_ROOT + '/app/views/' + template + '.rhtml')).result(the_binding)
+    ERB.new(File.read(Rails.root + '/app/views/' + template + '.rhtml')).result(the_binding)
   end
 
 end

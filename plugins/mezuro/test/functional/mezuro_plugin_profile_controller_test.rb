@@ -1,9 +1,9 @@
 require 'test_helper'
 
-require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/module_result_fixtures"
-require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/project_result_fixtures"
-require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/error_fixtures"
-require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/repository_fixtures"
+require "#{Rails.root}/plugins/mezuro/test/fixtures/module_result_fixtures"
+require "#{Rails.root}/plugins/mezuro/test/fixtures/project_result_fixtures"
+require "#{Rails.root}/plugins/mezuro/test/fixtures/error_fixtures"
+require "#{Rails.root}/plugins/mezuro/test/fixtures/repository_fixtures"
 
 class MezuroPluginProfileControllerTest < ActionController::TestCase
 

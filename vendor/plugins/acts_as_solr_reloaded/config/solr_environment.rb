@@ -7,21 +7,21 @@ require 'net/http'
 dir = File.dirname(__FILE__)
 SOLR_PATH = File.expand_path("#{dir}/../solr") unless defined? SOLR_PATH
 
-unless defined? RAILS_ROOT
-  # define RAILS_ROOT for test environment
-  RAILS_ROOT = defined?(Rails) ? Rails.root : File.expand_path("#{File.dirname(__FILE__)}/../test")
+unless defined? Rails.root
+  # define Rails.root for test environment
+  Rails.root = defined?(Rails) ? Rails.root : File.expand_path("#{File.dirname(__FILE__)}/../test")
 end
 unless defined? RAILS_ENV
   RAILS_ENV = ENV['RAILS_ENV']
 end
 unless defined? SOLR_LOGS_PATH
-  SOLR_LOGS_PATH = ENV["SOLR_LOGS_PATH"] || "#{RAILS_ROOT}/log"
+  SOLR_LOGS_PATH = ENV["SOLR_LOGS_PATH"] || "#{Rails.root}/log"
 end
 unless defined? SOLR_PIDS_PATH
-  SOLR_PIDS_PATH = ENV["SOLR_PIDS_PATH"] || "#{RAILS_ROOT}/tmp/pids"
+  SOLR_PIDS_PATH = ENV["SOLR_PIDS_PATH"] || "#{Rails.root}/tmp/pids"
 end
 unless defined? SOLR_DATA_PATH
-  SOLR_DATA_PATH = ENV["SOLR_DATA_PATH"] || "#{RAILS_ROOT}/solr/#{ENV['RAILS_ENV']}"
+  SOLR_DATA_PATH = ENV["SOLR_DATA_PATH"] || "#{Rails.root}/solr/#{ENV['RAILS_ENV']}"
 end
 unless defined? SOLR_CONFIG_PATH
   SOLR_CONFIG_PATH = ENV["SOLR_CONFIG_PATH"] || "#{SOLR_PATH}/solr"
@@ -31,7 +31,7 @@ unless defined? SOLR_PID_FILE
 end
 
 unless defined? SOLR_PORT
-  config = YAML::load_file(RAILS_ROOT+'/config/solr.yml')
+  config = YAML::load_file(Rails.root+'/config/solr.yml')
   raise("No solr environment defined for RAILS_ENV = #{ENV['RAILS_ENV'].inspect}") unless config[ENV['RAILS_ENV']]
 
   SOLR_HOST = ENV['HOST'] || URI.parse(config[ENV['RAILS_ENV']]['url']).host

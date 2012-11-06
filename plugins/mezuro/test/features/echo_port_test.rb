@@ -1,15 +1,15 @@
 require "test_helper"
 
-require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/base_tool_fixtures"
-require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/configuration_fixtures"
-require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/module_result_fixtures"
-require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/project_result_fixtures"
+require "#{Rails.root}/plugins/mezuro/test/fixtures/base_tool_fixtures"
+require "#{Rails.root}/plugins/mezuro/test/fixtures/configuration_fixtures"
+require "#{Rails.root}/plugins/mezuro/test/fixtures/module_result_fixtures"
+require "#{Rails.root}/plugins/mezuro/test/fixtures/project_result_fixtures"
 
 class EchoPortTest < ActiveSupport::TestCase
 
   def setup
     @port = Kalibro::Client::Port.new('Echo')
-    address = YAML.load_file("#{RAILS_ROOT}/plugins/mezuro/service.yaml")
+    address = YAML.load_file("#{Rails.root}/plugins/mezuro/service.yaml")
     address['KalibroService'] = 'KalibroFake'
     @port.service_address=(address);
   end

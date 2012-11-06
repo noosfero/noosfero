@@ -19,7 +19,7 @@ require File.dirname(__FILE__) + '/noosfero_doc_test'
 require File.dirname(__FILE__) + '/action_tracker_test_helper'
 require File.expand_path(File.dirname(__FILE__) + "/test_solr_helper.rb")
 
-FileUtils.rm_rf(File.join(RAILS_ROOT, 'index', 'test'))
+FileUtils.rm_rf(File.join(Rails.root, 'index', 'test'))
 
 Image.attachment_options[:path_prefix] = 'test/tmp/public/images'
 Thumbnail.attachment_options[:path_prefix] = 'test/tmp/public/thumbnails'
@@ -69,7 +69,7 @@ class ActiveSupport::TestCase
   end
 
   def self.all_fixtures
-    Dir.glob(File.join(RAILS_ROOT, 'test', 'fixtures', '*.yml')).each do |item|
+    Dir.glob(File.join(Rails.root, 'test', 'fixtures', '*.yml')).each do |item|
       fixtures File.basename(item).sub(/\.yml$/, '').to_s
     end
   end
@@ -160,7 +160,7 @@ class ActiveSupport::TestCase
                      patch ? patch[1] : nil
                    end.compact
       s.each do |css_ref|
-        if ! File.exists?( RAILS_ROOT.to_s() +'/public/'+ css_ref )
+        if ! File.exists?( Rails.root.to_s() +'/public/'+ css_ref )
           flunk 'CSS reference missed on HTML: "%s"' % css_ref
         end
       end
@@ -169,7 +169,7 @@ class ActiveSupport::TestCase
     # Test image references:
     (doc/'img').each do |img|
       src = img.get_attribute( 'src' ).gsub(/\?[0-9]+$/, '')
-      if ! File.exists?( RAILS_ROOT.to_s() +'/public/'+ src )
+      if ! File.exists?( Rails.root.to_s() +'/public/'+ src )
         flunk 'Image reference missed on HTML: "%s"' % src
       end
     end

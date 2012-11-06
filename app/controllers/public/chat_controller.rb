@@ -19,7 +19,7 @@ class ChatController < PublicController
   def avatar
     profile = environment.profiles.find_by_identifier(params[:id])
     filename, mimetype = profile_icon(profile, :minor, true)
-    data = File.read(File.join(RAILS_ROOT, 'public', filename))
+    data = File.read(File.join(Rails.root, 'public', filename))
     render :text => data, :layout => false, :content_type => mimetype
     expires_in 24.hours
   end

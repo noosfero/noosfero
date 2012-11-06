@@ -1,5 +1,5 @@
 require "test_helper"
-require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/module_node_fixtures"
+require "#{Rails.root}/plugins/mezuro/test/fixtures/module_node_fixtures"
 
 class ModuleNodeTest < ActiveSupport::TestCase
 

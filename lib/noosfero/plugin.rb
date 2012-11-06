@@ -67,7 +67,7 @@ class Noosfero::Plugin
     end
 
     def root_path
-      File.join(RAILS_ROOT, 'plugins', public_name)
+      File.join(Rails.root, 'plugins', public_name)
     end
 
     def view_path
@@ -93,7 +93,7 @@ class Noosfero::Plugin
   end
 
   def expanded_template(file_path, locals = {})
-    views_path = "#{RAILS_ROOT}/plugins/#{self.class.public_name}/views"
+    views_path = "#{Rails.root}/plugins/#{self.class.public_name}/views"
     ERB.new(File.read("#{views_path}/#{file_path}")).result(binding)
   end
 

@@ -1,6 +1,6 @@
 require "test_helper"
 
-require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/compound_metric_fixtures"
+require "#{Rails.root}/plugins/mezuro/test/fixtures/compound_metric_fixtures"
 
 class CompoundMetricTest < ActiveSupport::TestCase
 

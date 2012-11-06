@@ -11,7 +11,7 @@ extra_controller_dirs = %w[
   app/controllers/admin
   app/controllers/system
   app/controllers/public
-].map {|item| File.join(RAILS_ROOT, item) }
+].map {|item| File.join(Rails.root, item) }
 
 def noosfero_session_secret
   require 'fileutils'
@@ -34,8 +34,8 @@ Rails::Initializer.run do |config|
   # config.frameworks -= [ :action_web_service, :action_mailer ]
 
   # Add additional load paths for your own custom dirs
-  # config.load_paths += %W( #{RAILS_ROOT}/extras )
-  config.load_paths += %W( #{RAILS_ROOT}/app/sweepers )
+  # config.load_paths += %W( #{Rails.root}/extras )
+  config.load_paths += %W( #{Rails.root}/app/sweepers )
 
   # Force all environments to use the same logger level 
   # (by default production uses :info, the others :debug)
@@ -120,7 +120,7 @@ require 'sqlite_extension'
 
 # load a local configuration if present, but not under test environment.
 if !['test', 'cucumber'].include?(ENV['RAILS_ENV'])
-  localconfigfile = File.join(RAILS_ROOT, 'config', 'local.rb')
+  localconfigfile = File.join(Rails.root, 'config', 'local.rb')
   if File.exists?(localconfigfile)
     require localconfigfile
   end

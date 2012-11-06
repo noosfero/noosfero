@@ -1142,7 +1142,7 @@ class ProfileTest < ActiveSupport::TestCase
     assert_equal 'default title', p.boxes[0].blocks.first[:title]
   end
 
-  TMP_THEMES_DIR = RAILS_ROOT + '/test/tmp/profile_themes'
+  TMP_THEMES_DIR = Rails.root + '/test/tmp/profile_themes'
   should 'have themes' do
     Theme.stubs(:user_themes_dir).returns(TMP_THEMES_DIR)
 

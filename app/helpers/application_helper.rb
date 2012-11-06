@@ -301,7 +301,7 @@ module ApplicationHelper
 
     name = klass.name.underscore
     VIEW_EXTENSIONS.each do |ext|
-      return "blocks/profile_info_actions/"+name+ext if File.exists?(File.join(RAILS_ROOT, 'app', 'views', 'blocks', 'profile_info_actions', name+ext))
+      return "blocks/profile_info_actions/"+name+ext if File.exists?(File.join(Rails.root, 'app', 'views', 'blocks', 'profile_info_actions', name+ext))
     end
 
     view_for_profile_actions(klass.superclass)
@@ -320,7 +320,7 @@ module ApplicationHelper
       "\n" +
       sources.flatten.map do |source|
         filename = filename_for_stylesheet(source.to_s, themed_source)
-        if File.exists?(File.join(RAILS_ROOT, 'public', filename))
+        if File.exists?(File.join(Rails.root, 'public', filename))
           "@import url(#{filename});\n"
         else
           "/* Not included: url(#{filename}) */\n"
@@ -392,7 +392,7 @@ module ApplicationHelper
 
   def theme_include(template)
     ['.rhtml', '.html.erb'].each do |ext|
-      file = (RAILS_ROOT + '/public' + theme_path + '/' + template  + ext)
+      file = (Rails.root + '/public' + theme_path + '/' + template  + ext)
       if File.exists?(file)
         return render :file => file, :use_full_path => false
       end
@@ -402,7 +402,7 @@ module ApplicationHelper
 
   def theme_favicon
     return '/designs/themes/' + current_theme + '/favicon.ico' if profile.nil? || profile.theme.nil?
-    if File.exists?(File.join(RAILS_ROOT, 'public', theme_path, 'favicon.ico'))
+    if File.exists?(File.join(Rails.root, 'public', theme_path, 'favicon.ico'))
       '/designs/themes/' + profile.theme + '/favicon.ico'
     else
       favicon = profile.articles.find_by_path('favicon.ico')
@@ -498,7 +498,7 @@ module ApplicationHelper
           compact.uniq.map{ |c|
             cat_name = c.gsub( /[-_\s,.;'"]+/, '_' )
             cat_icon = "/images/icons-cat/#{cat_name}.png"
-            if ! File.exists? RAILS_ROOT.to_s() + '/public/' + cat_icon
+            if ! File.exists? Rails.root.to_s() + '/public/' + cat_icon
               cat_icon = '/images/icons-cat/undefined.png'
             end
             content_tag 'span',
@@ -654,7 +654,7 @@ module ApplicationHelper
   end
 
   def theme_option(opt = nil)
-    conf = RAILS_ROOT.to_s() +
+    conf = Rails.root.to_s() +
            '/public' + theme_path +
            '/theme.yml'
     if File.exists?(conf)
@@ -693,7 +693,7 @@ module ApplicationHelper
     option.each do |file|
       file = theme_path +
              '/javascript/'+ file +'.js'
-      if File.exists? RAILS_ROOT.to_s() +'/public'+ file
+      if File.exists? Rails.root.to_s() +'/public'+ file
         html << javascript_src_tag( file, {} )
       else
         html << '<!-- Not included: '+ file +' -->'
@@ -924,7 +924,7 @@ module ApplicationHelper
     theme_icon_themes = theme_option(:icon_theme) || []
     for icon_theme in theme_icon_themes do
       theme_path = "/designs/icons/#{icon_theme}/style.css"
-      if File.exists?(File.join(RAILS_ROOT, 'public', theme_path))
+      if File.exists?(File.join(Rails.root, 'public', theme_path))
         icon_themes << theme_path
       end
     end

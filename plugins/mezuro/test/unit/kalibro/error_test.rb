@@ -1,6 +1,6 @@
 require "test_helper"
 
-require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/error_fixtures"
+require "#{Rails.root}/plugins/mezuro/test/fixtures/error_fixtures"
 
 class ErrorTest < ActiveSupport::TestCase
 

@@ -5,12 +5,12 @@ namespace :noosfero do
     end
     task :link_plugins_textiles do
       plugins_textiles.each do |file|
-        ln_sf File.join(RAILS_ROOT, file), 'doc/noosfero/plugins/'
+        ln_sf File.join(Rails.root, file), 'doc/noosfero/plugins/'
       end
     end
     task :unlink_plugins_textiles do
-      rm_f Dir.glob(File.join(RAILS_ROOT, 'doc/noosfero/plugins/*.textile')) -
-        [File.join(RAILS_ROOT, 'doc/noosfero/plugins/index.textile')]
+      rm_f Dir.glob(File.join(Rails.root, 'doc/noosfero/plugins/*.textile')) -
+        [File.join(Rails.root, 'doc/noosfero/plugins/index.textile')]
     end
     input = Dir.glob('doc/noosfero/**/*.textile') + plugins_textiles.map{|i| "doc/noosfero/plugins/#{File.basename(i)}"}
     topics_xhtml = input.map { |item| item.sub('.textile', '.en.xhtml') }.uniq

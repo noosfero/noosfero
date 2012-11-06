@@ -34,9 +34,9 @@ module PermissionCheck
     end
 
     def access_denied_template_path
-      if File.exists?(File.join(RAILS_ROOT, 'app', 'views', 'access_control', 'access_denied.rhtml'))
-        File.join(RAILS_ROOT, 'app', 'views', 'access_control', 'access_denied.rhtml')
-      elsif File.exists?(File.join(RAILS_ROOT, 'app','views', 'shared', 'access_denied.rhtml'))
+      if File.exists?(File.join(Rails.root, 'app', 'views', 'access_control', 'access_denied.rhtml'))
+        File.join(Rails.root, 'app', 'views', 'access_control', 'access_denied.rhtml')
+      elsif File.exists?(File.join(Rails.root, 'app','views', 'shared', 'access_denied.rhtml'))
         File.join('shared', 'access_denied.rhtml')
       else
         File.join(File.dirname(__FILE__), '..', 'views', 'access_denied.rhtml')

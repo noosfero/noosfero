@@ -14,7 +14,7 @@ DatabaseCleaner.strategy = :truncation
 
 Before do
   Fixtures.reset_cache
-  fixtures_folder = File.join(RAILS_ROOT, 'test', 'fixtures')
+  fixtures_folder = File.join(Rails.root, 'test', 'fixtures')
   fixtures = ['environments', 'roles']
   Fixtures.create_fixtures(fixtures_folder, fixtures)
   ENV['LANG'] = 'C'

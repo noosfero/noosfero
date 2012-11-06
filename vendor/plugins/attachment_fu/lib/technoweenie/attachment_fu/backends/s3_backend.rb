@@ -12,12 +12,12 @@ module Technoweenie # :nodoc:
       #
       # == Configuration
       #
-      # Configuration is done via <tt>RAILS_ROOT/config/amazon_s3.yml</tt> and is loaded according to the <tt>RAILS_ENV</tt>.
+      # Configuration is done via <tt>Rails.root/config/amazon_s3.yml</tt> and is loaded according to the <tt>RAILS_ENV</tt>.
       # The minimum connection options that you must specify are a bucket name, your access key id and your secret access key.
       # If you don't already have your access keys, all you need to sign up for the S3 service is an account at Amazon.
       # You can sign up for S3 and get access keys by visiting http://aws.amazon.com/s3.
       #
-      # Example configuration (RAILS_ROOT/config/amazon_s3.yml)
+      # Example configuration (Rails.root/config/amazon_s3.yml)
       # 
       #   development:
       #     bucket_name: appname_development
@@ -36,7 +36,7 @@ module Technoweenie # :nodoc:
       #
       # You can change the location of the config path by passing a full path to the :s3_config_path option.
       #
-      #   has_attachment :storage => :s3, :s3_config_path => (RAILS_ROOT + '/config/s3.yml')
+      #   has_attachment :storage => :s3, :s3_config_path => (Rails.root + '/config/s3.yml')
       #
       # === Required configuration parameters
       #
@@ -132,7 +132,7 @@ module Technoweenie # :nodoc:
           end
 
           begin
-            @@s3_config_path = base.attachment_options[:s3_config_path] || (RAILS_ROOT + '/config/amazon_s3.yml')
+            @@s3_config_path = base.attachment_options[:s3_config_path] || (Rails.root + '/config/amazon_s3.yml')
             @@s3_config = @@s3_config = YAML.load(ERB.new(File.read(@@s3_config_path)).result)[RAILS_ENV].symbolize_keys
           #rescue
           #  raise ConfigFileNotFoundError.new('File %s not found' % @@s3_config_path)
@@ -203,7 +203,7 @@ module Technoweenie # :nodoc:
         #
         # The resulting url is in the form: <tt>http(s)://:server/:bucket_name/:table_name/:id/:file</tt> where
         # the <tt>:server</tt> variable defaults to <tt>AWS::S3 URL::DEFAULT_HOST</tt> (s3.amazonaws.com) and can be
-        # set using the configuration parameters in <tt>RAILS_ROOT/config/amazon_s3.yml</tt>.
+        # set using the configuration parameters in <tt>Rails.root/config/amazon_s3.yml</tt>.
         #
         # The optional thumbnail argument will output the thumbnail's filename (if any).
         def s3_url(thumbnail = nil)

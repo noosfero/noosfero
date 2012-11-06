@@ -1,6 +1,6 @@
 require "test_helper"
 
-require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/native_metric_fixtures"
+require "#{Rails.root}/plugins/mezuro/test/fixtures/native_metric_fixtures"
 
 class NativeMetricTest < ActiveSupport::TestCase
 

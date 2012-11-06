@@ -61,7 +61,7 @@ module Noosfero
   private
 
   def self.controllers_in_directory(dir)
-    app_controller_path = Dir.glob(File.join(RAILS_ROOT, 'app', 'controllers', dir, '*_controller.rb'))
+    app_controller_path = Dir.glob(File.join(Rails.root, 'app', 'controllers', dir, '*_controller.rb'))
     app_controller_path.map do |item|
       item.gsub(/^.*\/([^\/]+)_controller.rb$/, '\1')
     end

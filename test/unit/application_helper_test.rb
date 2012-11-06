@@ -54,10 +54,10 @@ class ApplicationHelperTest < ActiveSupport::TestCase
   end
 
   should 'look for superclasses on view_for_profile actions' do
-    File.expects(:exists?).with("#{RAILS_ROOT}/app/views/blocks/profile_info_actions/float.rhtml").returns(false)
-    File.expects(:exists?).with("#{RAILS_ROOT}/app/views/blocks/profile_info_actions/float.html.erb").returns(false)
-    File.expects(:exists?).with("#{RAILS_ROOT}/app/views/blocks/profile_info_actions/numeric.rhtml").returns(false)
-    File.expects(:exists?).with("#{RAILS_ROOT}/app/views/blocks/profile_info_actions/numeric.html.erb").returns(true)
+    File.expects(:exists?).with("#{Rails.root}/app/views/blocks/profile_info_actions/float.rhtml").returns(false)
+    File.expects(:exists?).with("#{Rails.root}/app/views/blocks/profile_info_actions/float.html.erb").returns(false)
+    File.expects(:exists?).with("#{Rails.root}/app/views/blocks/profile_info_actions/numeric.rhtml").returns(false)
+    File.expects(:exists?).with("#{Rails.root}/app/views/blocks/profile_info_actions/numeric.html.erb").returns(true)
 
     assert_equal 'blocks/profile_info_actions/numeric.html.erb', view_for_profile_actions(Float)
   end
@@ -69,13 +69,13 @@ class ApplicationHelperTest < ActiveSupport::TestCase
   end
 
   should 'generate link to stylesheet' do
-    File.expects(:exists?).with(File.join(RAILS_ROOT, 'public', 'stylesheets', 'something.css')).returns(true)
+    File.expects(:exists?).with(File.join(Rails.root, 'public', 'stylesheets', 'something.css')).returns(true)
     expects(:filename_for_stylesheet).with('something', nil).returns('/stylesheets/something.css')
     assert_match '@import url(/stylesheets/something.css)', stylesheet_import('something')
   end
 
   should 'not generate link to unexisting stylesheet' do
-    File.expects(:exists?).with(File.join(RAILS_ROOT, 'public', 'stylesheets', 'something.css')).returns(false)
+    File.expects(:exists?).with(File.join(Rails.root, 'public', 'stylesheets', 'something.css')).returns(false)
     expects(:filename_for_stylesheet).with('something', nil).returns('/stylesheets/something.css')
     assert_no_match %r{@import url(/stylesheets/something.css)}, stylesheet_import('something')
   end
@@ -174,7 +174,7 @@ class ApplicationHelperTest < ActiveSupport::TestCase
 
   should 'render theme footer' do
     stubs(:theme_path).returns('/user_themes/mytheme')
-    footer_path = RAILS_ROOT + '/public/user_themes/mytheme/footer.rhtml'
+    footer_path = Rails.root + '/public/user_themes/mytheme/footer.rhtml'
 
     File.expects(:exists?).with(footer_path).returns(true)
     expects(:render).with(:file => footer_path, :use_full_path => false).returns("BLI")
@@ -184,8 +184,8 @@ class ApplicationHelperTest < ActiveSupport::TestCase
 
   should 'ignore unexisting theme footer' do
     stubs(:theme_path).returns('/user_themes/mytheme')
-    footer_path = RAILS_ROOT + '/public/user_themes/mytheme/footer.rhtml'
-    alternate_footer_path = RAILS_ROOT + '/public/user_themes/mytheme/footer.html.erb'
+    footer_path = Rails.root + '/public/user_themes/mytheme/footer.rhtml'
+    alternate_footer_path = Rails.root + '/public/user_themes/mytheme/footer.html.erb'
 
     File.expects(:exists?).with(footer_path).returns(false)
     File.expects(:exists?).with(alternate_footer_path).returns(false)
@@ -196,7 +196,7 @@ class ApplicationHelperTest < ActiveSupport::TestCase
 
   should 'render theme site title' do
     stubs(:theme_path).returns('/user_themes/mytheme')
-    site_title_path = RAILS_ROOT + '/public/user_themes/mytheme/site_title.rhtml'
+    site_title_path = Rails.root + '/public/user_themes/mytheme/site_title.rhtml'
 
     File.expects(:exists?).with(site_title_path).returns(true)
     expects(:render).with(:file => site_title_path, :use_full_path => false).returns("Site title")
@@ -206,8 +206,8 @@ class ApplicationHelperTest < ActiveSupport::TestCase
 
   should 'ignore unexisting theme site title' do
     stubs(:theme_path).returns('/user_themes/mytheme')
-    site_title_path = RAILS_ROOT + '/public/user_themes/mytheme/site_title.rhtml'
-    alternate_site_title_path = RAILS_ROOT + '/public/user_themes/mytheme/site_title.html.erb'
+    site_title_path = Rails.root + '/public/user_themes/mytheme/site_title.rhtml'
+    alternate_site_title_path = Rails.root + '/public/user_themes/mytheme/site_title.html.erb'
 
     File.expects(:exists?).with(site_title_path).returns(false)
     File.expects(:exists?).with(alternate_site_title_path).returns(false)
@@ -569,7 +569,7 @@ class ApplicationHelperTest < ActiveSupport::TestCase
   should 'use favicon from profile theme if the profile has theme' do
     stubs(:environment).returns(fast_create(Environment, :theme => 'new-theme'))
     stubs(:profile).returns(fast_create(Profile, :theme => 'profile-theme'))
-    File.expects(:exists?).with(File.join(RAILS_ROOT, 'public', '/designs/themes/profile-theme', 'favicon.ico')).returns(true)
+    File.expects(:exists?).with(File.join(Rails.root, 'public', '/designs/themes/profile-theme', 'favicon.ico')).returns(true)
     assert_equal '/designs/themes/profile-theme/favicon.ico', theme_favicon
   end
 
@@ -577,7 +577,7 @@ class ApplicationHelperTest < ActiveSupport::TestCase
     stubs(:environment).returns(fast_create(Environment, :theme => 'new-theme'))
     stubs(:profile).returns(fast_create(Profile, :theme => 'profile-theme'))
     file = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/favicon.ico', 'image/x-ico'), :profile => profile)
-    File.expects(:exists?).with(File.join(RAILS_ROOT, 'public', theme_path, 'favicon.ico')).returns(false)
+    File.expects(:exists?).with(File.join(Rails.root, 'public', theme_path, 'favicon.ico')).returns(false)
 
     assert_match /favicon.ico/, theme_favicon
   end
@@ -585,7 +585,7 @@ class ApplicationHelperTest < ActiveSupport::TestCase
   should 'use favicon from environment if the profile theme and profile articles do not have' do
     stubs(:environment).returns(fast_create(Environment, :theme => 'new-theme'))
     stubs(:profile).returns(fast_create(Profile, :theme => 'profile-theme'))
-    File.expects(:exists?).with(File.join(RAILS_ROOT, 'public', theme_path, 'favicon.ico')).returns(false)
+    File.expects(:exists?).with(File.join(Rails.root, 'public', theme_path, 'favicon.ico')).returns(false)
     assert_equal '/designs/themes/new-theme/favicon.ico', theme_favicon
   end
 
@@ -595,7 +595,7 @@ class ApplicationHelperTest < ActiveSupport::TestCase
     stubs(:environment).returns(env)
 
     @controller = ApplicationController.new
-    path = File.join(RAILS_ROOT, 'app', 'views')
+    path = File.join(Rails.root, 'app', 'views')
     @controller.stubs(:view_paths).returns([path])
 
     file = path + '/shared/usermenu/xmpp_chat.rhtml'

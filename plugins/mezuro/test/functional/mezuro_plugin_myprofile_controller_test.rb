@@ -1,11 +1,11 @@
 require 'test_helper'
 
-require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/error_fixtures"
-require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/base_tool_fixtures"
-require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/native_metric_fixtures"
-require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/metric_configuration_fixtures"
-require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/configuration_fixtures"
-require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/range_fixtures"
+require "#{Rails.root}/plugins/mezuro/test/fixtures/error_fixtures"
+require "#{Rails.root}/plugins/mezuro/test/fixtures/base_tool_fixtures"
+require "#{Rails.root}/plugins/mezuro/test/fixtures/native_metric_fixtures"
+require "#{Rails.root}/plugins/mezuro/test/fixtures/metric_configuration_fixtures"
+require "#{Rails.root}/plugins/mezuro/test/fixtures/configuration_fixtures"
+require "#{Rails.root}/plugins/mezuro/test/fixtures/range_fixtures"
 
 class MezuroPluginMyprofileControllerTest < ActionController::TestCase
 

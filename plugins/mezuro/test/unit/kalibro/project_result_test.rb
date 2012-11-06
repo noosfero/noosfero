@@ -1,6 +1,6 @@
 require "test_helper"
 
-require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/project_result_fixtures"
+require "#{Rails.root}/plugins/mezuro/test/fixtures/project_result_fixtures"
 
 class ProjectResultTest < ActiveSupport::TestCase
 
