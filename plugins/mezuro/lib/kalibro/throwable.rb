@@ -1,6 +1,6 @@
-class Kalibro::Error < Kalibro::Model
+class Kalibro::Throwable < Kalibro::Model
   
-  attr_accessor :error_class, :message, :stack_trace_element, :cause
+  attr_accessor :target_string, :message, :cause, :stack_trace_element
 
   def stack_trace_element=(value)
     @stack_trace_element = Kalibro::StackTraceElement.to_objects_array value
@@ -15,7 +15,7 @@ class Kalibro::Error < Kalibro::Model
   end
 
   def cause=(cause_value)
-    @cause = Kalibro::Error.to_object cause_value
+    @cause = Kalibro::Throwable.to_object cause_value
   end
 
 end
