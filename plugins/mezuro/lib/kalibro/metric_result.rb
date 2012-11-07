@@ -1,40 +1,29 @@
 class Kalibro::MetricResult < Kalibro::Model
 
-  attr_accessor :metric, :value, :range, :descendent_result, :weight
-
-  def metric=(value)
-    if value.kind_of?(Hash)
-      @metric = native?(value) ? Kalibro::NativeMetric.to_object(value) : Kalibro::CompoundMetric.to_object(value) 
-    else
-      @metric = value
-    end
-  end
+  attr_accessor :id, :configuration, :value, :error
 
   def value=(value)
     @value = value.to_f
   end
 
-  def range=(value)
-    @range = Kalibro::Range.to_object value
+  def configuration=(value)
+    @configuration = Kalibro::MetricConfigurationSnapshot.to_object value
   end
 
-  def descendent_result=(value)
-    array = value.kind_of?(Array) ? value : [value]
-    @descendent_result = array.collect {|element| element.to_f}
-  end
-
-  def descendent_results
-    @descendent_result
-  end
-
-  def descendent_results=(descendent_results)
-    @descendent_result = descendent_results
+  def error=(value)
+    @error = Kalibro::Throwable.to_object value
   end
   
-  private
-  
-  def native?(value)
-    value.has_key?(:origin) ? true : false
+  def descendant_results
+    self.class.request("MetricResult", :descendant_results_of, {:metric_result_id => self.id})[:descendant_result].to_a
+  end
+
+  def self.metric_results_of(module_result_id)
+    request("MetricResult", :metric_results_of, {:module_result_id => module_result_id})[:metric_result].to_a.map {|metric_result| new metric_result}
+  end
+
+  def history_of(module_id)
+    self.class.request("MetricResult", :history_of, {:metric_name => self.configuration.metric.name, :module_result_id => module_id})[:date_metric_result].to_a.map {|date_metric_result| Kalibro::DateMetricResult.new date_metric_result}
   end
 
 end
