@@ -4,6 +4,12 @@ noosfero (0.39.0~1) UNRELEASED; urgency=low
 
  -- Antonio Terceiro <terceiro@debian.org>  Thu, 30 Aug 2012 14:55:10 -0300
 
+noosfero (0.38.3) unstable; urgency=low
+
+  * Bugfixes release
+
+ -- Daniela Soares Feitosa <daniela@colivre.coop.br>  Wed, 07 Nov 2012 20:25:51 -0200
+
 noosfero (0.38.2) unstable; urgency=low
 
   * Bugfixes release
