@@ -328,7 +328,7 @@ class User < ActiveRecord::Base
     end
 
     def deliver_activation_code
-      return if person.identifier =~ /person_template/
+      return if person.is_template?
       User::Mailer.deliver_activation_code(self) unless self.activation_code.blank?
     end
 
