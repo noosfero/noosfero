@@ -12,7 +12,7 @@ class ModuleTest < ActiveSupport::TestCase
   should 'create module from hash' do
     assert_equal @hash[:name], Kalibro::Module.new(@hash).name
   end
-  
+
   should 'convert module to hash' do
     assert_equal @hash, @module.to_hash
   end
