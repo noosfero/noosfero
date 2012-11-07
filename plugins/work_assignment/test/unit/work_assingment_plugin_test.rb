@@ -3,7 +3,7 @@ require 'test_helper'
 class WorkAssignmentPluginTest < ActiveSupport::TestCase
   should 'verify if a content is a work_assignment submission' do
     organization = fast_create(Organization)
-    content = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :profile => organization)
+    content = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :profile => organization, :last_changed_by => fast_create(Person))
     assert !WorkAssignmentPlugin.is_submission?(content)
 
     work_assignment = WorkAssignmentPlugin::WorkAssignment.create!(:name => 'Work Assignment', :profile => organization)
@@ -32,8 +32,7 @@ class WorkAssignmentPluginTest < ActiveSupport::TestCase
     submission = create_submission
     assert !WorkAssignmentPlugin.can_download_submission?(person, submission)
 
-    submission.author = person
-    submission.save!
+    submission = create_submission(person)
     assert WorkAssignmentPlugin.can_download_submission?(person, submission)
   end
 
@@ -48,10 +47,10 @@ class WorkAssignmentPluginTest < ActiveSupport::TestCase
 
   private
 
-  def create_submission
+  def create_submission(author=nil)
     organization = fast_create(Organization)
     work_assignment = WorkAssignmentPlugin::WorkAssignment.create!(:name => 'Work Assignment', :profile => organization)
     author_folder = work_assignment.find_or_create_author_folder(fast_create(Person))
-    UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :profile => organization, :parent => author_folder)
+    UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :profile => organization, :parent => author_folder, :last_changed_by => author)
   end
 end

@@ -3,9 +3,9 @@ class WorkAssignmentPlugin::WorkAssignment < Folder
   after_save do |work_assignment|
     work_assignment.children.select {|child| child.kind_of?(UploadedFile)}.each do |submission|
       author_folder = work_assignment.find_or_create_author_folder(submission.author)
-      submission.name = versioned_name(submission, author_folder) if !(submission.name =~ /\(V[0-9]*\)/)
+      submission.name = versioned_name(submission, author_folder)
       submission.parent = author_folder
-      submission.save!
+      submission.save(false)
     end
   end
 
@@ -24,7 +24,9 @@ class WorkAssignmentPlugin::WorkAssignment < Folder
   end
 
   def self.versioned_name(submission, folder)
-    "(V#{folder.children.count + 1}) #{submission.name}"
+    return submission.name if submission.name =~ /\(V[0-9]*\)/
+    count = folder.children.include?(submission) ? folder.children.count : folder.children.count + 1 
+    "(V#{count}) #{submission.name}"
   end
 
   def accept_comments?

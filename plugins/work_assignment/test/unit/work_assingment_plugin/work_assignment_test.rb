@@ -13,8 +13,8 @@ class WorkAssignmentTest < ActiveSupport::TestCase
   end
 
   should 'return versioned name' do
-    folder = fast_create(Folder)
     profile = fast_create(Profile)
+    folder = fast_create(Folder, :profile_id => profile)
     a1 = Article.create!(:name => "Article 1", :profile => profile)
     a2 = Article.create!(:name => "Article 2", :profile => profile)
     a3 = Article.create!(:name => "Article 3", :profile => profile)
@@ -35,7 +35,7 @@ class WorkAssignmentTest < ActiveSupport::TestCase
     organization = fast_create(Organization)
     author = fast_create(Person)
     work_assignment = WorkAssignmentPlugin::WorkAssignment.create!(:name => 'Sample Work Assignment', :profile => organization)
-    submission = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :profile => organization, :parent => work_assignment, :author => author)
+    submission = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :profile => organization, :parent => work_assignment, :last_changed_by => author)
 
     author_folder = work_assignment.find_or_create_author_folder(author)
     assert author_folder, submission.parent

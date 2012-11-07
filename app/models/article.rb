@@ -502,7 +502,6 @@ class Article < ActiveRecord::Base
     :slug,
     :updated_at,
     :created_at,
-    :last_changed_by_id,
     :version,
     :lock_version,
     :type,
@@ -545,7 +544,12 @@ class Article < ActiveRecord::Base
   end
 
   def author
-    versions.empty? ? last_changed_by : versions.first.last_changed_by
+    if versions.empty?
+      last_changed_by
+    else
+      author_id = versions.first.last_changed_by_id
+      Person.exists?(author_id) ? Person.find(author_id) : nil
+    end
   end
 
   def author_name

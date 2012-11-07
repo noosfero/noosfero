@@ -850,7 +850,7 @@ end
     c = Community.create!(:name => 'test_com')
     u = create_user_with_permission('test_user', 'publish_content', c)
     login_as u.identifier
-    a = c.articles.create!(:name => 'test-article', :author => u, :published => false)
+    a = c.articles.create!(:name => 'test-article', :last_changed_by => u, :published => false)
 
     get :view_page, :profile => c.identifier, :page => a.explode_path
 

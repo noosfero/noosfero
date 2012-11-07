@@ -210,9 +210,7 @@ class ApproveArticleTest < ActiveSupport::TestCase
   end
 
   should 'use author from original article on published' do
-    article.author = profile
-    article.save!
-
+    article.class.any_instance.stubs(:author).returns(profile)
     a = ApproveArticle.create!(:name => 'test name', :article => article, :target => community, :requestor => profile)
     a.finish
 
@@ -220,8 +218,7 @@ class ApproveArticleTest < ActiveSupport::TestCase
   end
 
   should 'use original article author even if article is destroyed' do
-    article.author = profile
-    article.save!
+    article.class.any_instance.stubs(:author).returns(profile)
     a = ApproveArticle.create!(:article => article, :target => community, :requestor => profile)
     a.finish
 
