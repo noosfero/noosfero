@@ -55,7 +55,7 @@ class ProjectTest < ActiveSupport::TestCase
 
   should 'return true when project is saved successfully' do
     id_from_kalibro = 1
-    Kalibro::Project.expects(:request).with("Project", :save_project, {:project => @created_project.to_hash}).returns(id_from_kalibro)
+    Kalibro::Project.expects(:request).with("Project", :save_project, {:project => @created_project.to_hash}).returns(:project_id => id_from_kalibro)
     assert @created_project.save
     assert_equal id_from_kalibro, @created_project.id
   end

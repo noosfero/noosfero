@@ -9,7 +9,7 @@ class Kalibro::Model
 
   def to_hash(options={})
     hash = Hash.new
-    excepts = !options[:except].nil? ? options[:except] : []
+    excepts = options[:except].nil? ? [] : options[:except]
     excepts << :errors
     fields.each do |field|
       if(!excepts.include?(field))
@@ -50,7 +50,7 @@ class Kalibro::Model
 
   def save
     begin
-      self.id = self.class.request(save_endpoint, save_action, save_params)
+      self.id = self.class.request(save_endpoint, save_action, save_params)["#{class_name.underscore}_id".to_sym]
 	    true
 	  rescue Exception => exception
 	    add_error exception

@@ -41,7 +41,7 @@ class ReadingGroupTest < ActiveSupport::TestCase
 
   should 'return true when reading group is saved successfully' do
     id_from_kalibro = 1
-    Kalibro::ReadingGroup.expects(:request).with("ReadingGroup", :save_reading_group, {:reading_group => @created_reading_group.to_hash}).returns(id_from_kalibro)
+    Kalibro::ReadingGroup.expects(:request).with("ReadingGroup", :save_reading_group, {:reading_group => @created_reading_group.to_hash}).returns(:reading_group_id => id_from_kalibro)
     assert @created_reading_group.save
     assert_equal id_from_kalibro, @created_reading_group.id
   end

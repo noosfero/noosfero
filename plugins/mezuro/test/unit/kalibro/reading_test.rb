@@ -37,7 +37,7 @@ class ReadingTest < ActiveSupport::TestCase
 
   should 'return true when reading is saved successfully' do
     id_from_kalibro = 1
-    Kalibro::Reading.expects(:request).with("Reading", :save_reading, {:reading => @created_reading.to_hash}).returns(id_from_kalibro)
+    Kalibro::Reading.expects(:request).with("Reading", :save_reading, {:reading => @created_reading.to_hash}).returns(:reading_id => id_from_kalibro)
     assert @created_reading.save
     assert_equal id_from_kalibro, @created_reading.id
   end
