@@ -30,5 +30,15 @@ class CmsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  should 'upload submission and automatically move it to the author folder' do
+    organization = fast_create(Organization)
+    work_assignment = WorkAssignmentPlugin::WorkAssignment.create!(:name => 'Work Assignment', :profile => organization)
+    organization.add_member(person)
+    post :upload_files, :profile => organization.identifier, :parent_id => work_assignment.id, :uploaded_files => [fixture_file_upload('/files/test.txt', 'text/plain')]
+
+    submission = UploadedFile.last
+    assert_equal work_assignment.find_or_create_author_folder(person), submission.parent
+  end
+
 end
 

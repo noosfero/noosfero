@@ -1,14 +1,5 @@
 class WorkAssignmentPlugin::WorkAssignment < Folder
 
-  after_save do |work_assignment|
-    work_assignment.children.select {|child| child.kind_of?(UploadedFile)}.each do |submission|
-      author_folder = work_assignment.find_or_create_author_folder(submission.author)
-      submission.name = versioned_name(submission, author_folder)
-      submission.parent = author_folder
-      submission.save(false)
-    end
-  end
-
   settings_items :publish_submissions, :type => :boolean, :default => false
 
   def self.icon_name(article = nil)
@@ -24,9 +15,7 @@ class WorkAssignmentPlugin::WorkAssignment < Folder
   end
 
   def self.versioned_name(submission, folder)
-    return submission.name if submission.name =~ /\(V[0-9]*\)/
-    count = folder.children.include?(submission) ? folder.children.count : folder.children.count + 1 
-    "(V#{count}) #{submission.name}"
+    "(V#{folder.children.count + 1}) #{submission.name}"
   end
 
   def accept_comments?
@@ -44,7 +33,7 @@ class WorkAssignmentPlugin::WorkAssignment < Folder
   end
 
   def find_or_create_author_folder(author)
-    children.find_by_slug(author.identifier) || Folder.create!(:name => author.name, :slug => author.identifier, :parent => self, :profile => profile)
+    children.find_by_slug(author.identifier.to_slug) || Folder.create!(:name => author.name, :slug => author.identifier.to_slug, :parent => self, :profile => profile)
   end
 
   def submissions

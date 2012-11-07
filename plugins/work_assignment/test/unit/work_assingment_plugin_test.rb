@@ -9,12 +9,10 @@ class WorkAssignmentPluginTest < ActiveSupport::TestCase
     work_assignment = WorkAssignmentPlugin::WorkAssignment.create!(:name => 'Work Assignment', :profile => organization)
     content.parent = work_assignment
     content.save!
-    assert !WorkAssignmentPlugin.is_submission?(content)
-
-    author_folder = work_assignment.find_or_create_author_folder(fast_create(Person))
-    content.parent = author_folder
-    content.save!
     assert WorkAssignmentPlugin.is_submission?(content)
+
+    author_folder = work_assignment.find_or_create_author_folder(content.author)
+    assert_equal author_folder, content.parent
   end
 
   should 'be able to download submission if work_assignment published submissions' do
