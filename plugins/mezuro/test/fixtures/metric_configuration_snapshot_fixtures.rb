@@ -23,4 +23,24 @@ class MetricConfigurationSnapshotFixtures
     }
   end
 
+  def self.compound_metric_configuration_snapshot
+    Kalibro::MetricConfigurationSnapshot.new compound_metric_configuration_snapshot_hash
+  end
+
+  def self.compound_metric_configuration_snapshot_hash
+    {
+      :code => "code",
+      :weight => 1,
+      :aggregation_form => 'AVERAGE',
+      :metric => MetricFixtures.compound_metric,
+      :base_tool_name => "Analizo",
+      :range => [RangeSnapshotFixtures.range_snapshot_hash],
+      :attributes! => {
+        :metric => {
+          'xmlns:xsi'=> 'http://www.w3.org/2001/XMLSchema-instance',
+          'xsi:type' => 'kalibro:metricXml'  }
+      }
+    }
+  end
+
 end
