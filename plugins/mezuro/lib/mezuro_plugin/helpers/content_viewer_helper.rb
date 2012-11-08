@@ -46,7 +46,7 @@ class MezuroPlugin::Helpers::ContentViewerHelper
   end
 
   def self.format_name(metric_result)
-    metric_result.metric.name.delete("() ")
+    metric_result.configuration.metric.name.delete("() ")
   end
 
   def self.get_license_option(selected)
