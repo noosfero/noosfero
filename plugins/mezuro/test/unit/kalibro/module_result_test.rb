@@ -8,6 +8,7 @@ class ModuleResultTest < ActiveSupport::TestCase
     @hash = ModuleResultFixtures.module_result_hash
     @module_result = ModuleResultFixtures.module_result
   end
+
   should 'create module result' do
     assert_equal @hash[:id] , Kalibro::ModuleResult.new(@hash).id
   end
@@ -18,13 +19,13 @@ class ModuleResultTest < ActiveSupport::TestCase
 
   should 'find module result' do
     response = {:module_result => @hash}
-    Kalibro::ModuleResult.expects(:request).with('ModuleResult',:get_module_result, {:module_result_id => @module_result.id}).returns(response)
+    Kalibro::ModuleResult.expects(:request).with(:get_module_result, {:module_result_id => @module_result.id}).returns(response)
     assert_equal @module_result.grade, Kalibro::ModuleResult.find(@module_result.id).grade
   end
   
   should 'return children of a module result' do
     response = {:module_result => [@hash]}
-    Kalibro::ModuleResult.expects(:request).with('ModuleResult',:children_of, {:module_result_id => @module_result.id}).returns(response)
+    Kalibro::ModuleResult.expects(:request).with(:children_of, {:module_result_id => @module_result.id}).returns(response)
     assert @hash[:id], @module_result.children.first.id
   end
 

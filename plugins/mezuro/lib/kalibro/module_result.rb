@@ -3,11 +3,11 @@ class Kalibro::ModuleResult < Kalibro::Model
   attr_accessor :id, :module, :grade, :parent_id
   
   def self.find(id)
-    new request('ModuleResult', :get_module_result, { :module_result_id => id })[:module_result]
+    new request(:get_module_result, { :module_result_id => id })[:module_result]
   end
 
   def children
-    hash_array = self.class.request('ModuleResult',:children_of, {:module_result_id => self.id})[:module_result].to_a
+    hash_array = self.class.request(:children_of, {:module_result_id => self.id})[:module_result].to_a
     hash_array.map { |module_result| self.class.new module_result }
   end
   

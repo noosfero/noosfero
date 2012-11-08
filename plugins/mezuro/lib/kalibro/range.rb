@@ -39,12 +39,12 @@ class Kalibro::Range < Kalibro::Model
 	end
 	
 	def self.ranges_of( metric_configuration_id )
-    request("Range", :ranges_of, {:metric_configuration_id => metric_configuration_id} )[:range].to_a.map { |range| new range }
+    request(:ranges_of, {:metric_configuration_id => metric_configuration_id} )[:range].to_a.map { |range| new range }
   end
   
   def save( metric_configuration_id )
     begin
-      self.id = self.class.request("Range", :save_range, {:range => self.to_hash, :metric_configuration_id => metric_configuration_id})[:range_id]
+      self.id = self.class.request(:save_range, {:range => self.to_hash, :metric_configuration_id => metric_configuration_id})[:range_id]
 	    true
 	  rescue Exception => exception
 	    add_error exception

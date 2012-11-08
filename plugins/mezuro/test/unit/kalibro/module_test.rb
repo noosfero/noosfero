@@ -17,16 +17,4 @@ class ModuleTest < ActiveSupport::TestCase
     assert_equal @hash, @module.to_hash
   end
 
-=begin
-  should 'list ancestor names' do
-    @module.name = "org.kalibro.core"
-    assert_equal ["org", "org.kalibro", "org.kalibro.core"], @module.ancestor_names
-  end
-
-  should 'list ancestor with one name' do
-    @module.name = "org"
-    assert_equal ["org"], @module.ancestor_names
-  end
-=end
-
 end
