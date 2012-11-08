@@ -1340,8 +1340,8 @@ module ApplicationHelper
       content_tag('li', labelled_radio_button(template.name, "#{field_name}[template_id]", template.id, counter==1))
     end.join("\n")
 
-    content_tag('div', content_tag('span', _('Template:')) +
-      content_tag('ul', radios, :style => 'list-style: none; padding-left: 0; margin-top: 0.5em;'),
+    content_tag('div', content_tag('label', _('Template'), :for => 'template-options', :class => 'formlabel') +
+      content_tag('ul', radios, :style => 'list-style: none; padding-left: 20px; margin-top: 0.5em;'),
       :id => 'template-options',
       :style => 'margin-top: 1em'
     )
