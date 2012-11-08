@@ -17,4 +17,5 @@ class ContentViewerHelperTest < ActiveSupport::TestCase
     metric_result = MetricResultFixtures.native_metric_result
     assert_equal 'AverageMethodLOC', MezuroPlugin::Helpers::ContentViewerHelper.format_name(metric_result)
   end
+
 end
