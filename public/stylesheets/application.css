@@ -6146,3 +6146,10 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 img {
   width: 100px;
   text-align: center;
 }
+
+#product-list .highlighted-product img.star {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  z-index: 10;
+}
