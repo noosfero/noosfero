@@ -20,7 +20,7 @@ class Kalibro::MetricConfiguration < Kalibro::Model
   end
 
   def self.metric_configurations_of(configuration_id)
-    hash = request("MetricConfiguration", :metric_configurations_of, {:configuration_id => configuration_id})
+    hash = request(:metric_configurations_of, {:configuration_id => configuration_id})
     hash[:metric_configuration].to_a.map { |metric_configuration| new metric_configuration }
   end
 

@@ -15,15 +15,15 @@ class Kalibro::MetricResult < Kalibro::Model
   end
   
   def descendant_results
-    self.class.request("MetricResult", :descendant_results_of, {:metric_result_id => self.id})[:descendant_result].to_a
+    self.class.request(:descendant_results_of, {:metric_result_id => self.id})[:descendant_result].to_a
   end
 
   def self.metric_results_of(module_result_id)
-    request("MetricResult", :metric_results_of, {:module_result_id => module_result_id})[:metric_result].to_a.map {|metric_result| new metric_result}
+    request(:metric_results_of, {:module_result_id => module_result_id})[:metric_result].to_a.map {|metric_result| new metric_result}
   end
 
   def history_of(module_id)
-    self.class.request("MetricResult", :history_of, {:metric_name => self.configuration.metric.name, :module_result_id => module_id})[:date_metric_result].to_a.map {|date_metric_result| Kalibro::DateMetricResult.new date_metric_result}
+    self.class.request(:history_of, {:metric_name => self.configuration.metric.name, :module_result_id => module_id})[:date_metric_result].to_a.map {|date_metric_result| Kalibro::DateMetricResult.new date_metric_result}
   end
 
 end

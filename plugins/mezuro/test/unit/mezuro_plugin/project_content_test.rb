@@ -1,7 +1,6 @@
 require "test_helper"
 
 require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/project_fixtures"
-require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/project_result_fixtures"
 require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/module_fixtures"
 require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/module_result_fixtures"
 
