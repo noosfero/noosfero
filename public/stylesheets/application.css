@@ -5597,7 +5597,7 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 img {
 #email-check,
 #fake-check,
 #password-check {
-  margin: -2px 171px -5px 0;
+  margin: -2px 176px -5px 13px;
   text-align: right;
   clear: both;
 }
@@ -5674,7 +5674,6 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 img {
 
 #signup-form select,
 #signup-form textarea,
-#signup-form #profile_data_name,
 #signup-form input {
   padding: 7px 30px 10px 7px;
   height: 20px;
@@ -5690,7 +5689,7 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 img {
 
 #signup-form .filled-in,
 #signup-form .invalid,
-#signup-form .validated,
+#signup-form input.validated,
 #signup-form .checking {
   border-width: 2px;
   border-style: solid;
@@ -5765,10 +5764,6 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 img {
   display: block;
 }
 
-#signup-form #profile_data_name {
-  padding-left: 10px;
-}
-
 #signup-form .invalid {
   border-color: #FFA000;
   background-image: url(/images/passwords_nomatch.png);
@@ -5793,7 +5788,8 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 img {
   color: #4A4A4A;
 }
 
-#signup-form .validated {
+#signup-form .validated,
+#signup-form .valid.filled-in {
   border-color: #88BD00;
   background-image: url(/images/passwords_match.png);
 }
@@ -5809,7 +5805,7 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 img {
   vertical-align: middle;
   background: #EEE;
   border: 1px solid #CFCFCF;
-  line-height: 37px;
+  line-height: 35px;
   padding: 0px 7px;
   color: #4A4A4A;
   font-size: 20px;
@@ -5820,10 +5816,6 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 img {
 #signup-form #signup-form-header #user_login {
   margin: 0;
   padding-right: 30px;
-}
-
-#url-check {
-  width: 239px;
 }
 
 #signup-login-field {
@@ -5855,27 +5847,18 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 img {
   background: transparent url(/images/orange-balloon.png) bottom center no-repeat;
   position: absolute;
   z-index: 2;
-  right: 30px;
+  right: 10px;
 }
 
 #signup-form small#signup-balloon {
   top: -110px;
 }
 
-#signup-form small#password-balloon {
-  top: -85px;
-}
-
-#signup-form small#password-confirmation-balloon {
-  top: -85px;
-}
-
-#signup-form small#email-balloon {
-  top: -85px;
-}
-
+#signup-form small#password-balloon,
+#signup-form small#password-confirmation-balloon,
+#signup-form small#email-balloon,
 #signup-form small#name-balloon {
-  top: -85px;
+  top: -80px;
 }
 
 #signup-form .required-field label,

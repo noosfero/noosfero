@@ -34,8 +34,8 @@
   background: transparent url(/images/orange-balloon.png) bottom center no-repeat;
   position: absolute;
   z-index: 2;
-  right: 20px;
-  top: -75px;
+  right: 10px;
+  top: -80px;
 }
 
 .controller-profile_editor input.checking {
@@ -44,4 +44,14 @@
 
 .controller-profile_editor div.checking {
   background: transparent url(/images/loading-small.gif) 153px center no-repeat;
+}
+
+#signup-form .invalid.valid.filled-in {
+  background-image: url("/images/passwords_nomatch.png");
+  border-color: #FFA000;
+}
+
+#signup-form .invalid.valid.filled-in.validated {
+  background-image: url("/images/passwords_match.png");
+  border-color: #88BD00;
 }

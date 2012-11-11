@@ -11,7 +11,7 @@
     <span id="signup-domain"><%= environment.default_hostname %>/</span>
     <div id='signup-login'>
       <div id='signup-login-field' class='formfield'>
-        <%= required text_field(:profile_data, :login, :id => 'user_login', :onchange => 'this.value = convToValidLogin(this.value);') %>
+        <%= required text_field(:user, :login, :id => 'user_login', :onchange => 'this.value = convToValidLogin(this.value);') %>
         <div id='url-check'><p>&nbsp;</p></div>
       </div>
       <%= content_tag(:small, _('Choose your login name carefully! It will be your network access and you will not be able to change it later.'), :id => 'signup-balloon') %>
@@ -107,26 +107,12 @@ jQuery(function($) {
   $('#signup-form #user_login').css('width', 335 - $('#signup-domain').outerWidth());
 
   $('#signup-form input[type=text], #signup-form textarea').each(function() {
-    if ($(this).attr('rel')) var default_value = $(this).attr('rel').toLowerCase();
-    if ($(this).val() == '') $(this).val(default_value);
-    $(this).bind('focus', function() {
-      if ($(this).val() == default_value) $(this).val('');
-    });
     $(this).bind('blur', function() {
       if ($(this).val() == '') {
-        $(this).val(default_value);
         $(this).removeClass('filled-in');
       }
       else $(this).addClass('filled-in');
     });
-  });
-
-  $('#signup-form').bind('submit', function() {
-    $('#signup-form input[type=text], #signup-form textarea').each(function() {
-      if ($(this).attr('rel')) var default_value = $(this).attr('rel').toLowerCase();
-      if ($(this).val() == default_value) $(this).val('');
-    });
-    return true;
   });
 
   $('#user_pw').focus(function() {
