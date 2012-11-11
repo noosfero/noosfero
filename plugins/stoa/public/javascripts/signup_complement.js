@@ -55,3 +55,17 @@ jQuery('#usp_id_field').focus(function() {
 });
 
 jQuery('#usp_id_field').blur(function() { jQuery('#usp-id-balloon').fadeOut('slow'); });
+
+jQuery('#signup-birth-date #birth_date').focus(function() {
+  jQuery('#usp-birth-date-balloon').fadeIn('slow');
+});
+jQuery('#signup-birth-date #birth_date').blur(function() {
+  jQuery('#usp-birth-date-balloon').fadeOut('slow');
+});
+
+jQuery('#signup-cpf #cpf').focus(function() {
+  jQuery('#usp-cpf-balloon').fadeIn('slow');
+});
+jQuery('#signup-cpf #cpf').blur(function() {
+  jQuery('#usp-cpf-balloon').fadeOut('slow');
+});

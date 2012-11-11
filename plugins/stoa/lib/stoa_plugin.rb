@@ -19,10 +19,12 @@ class StoaPlugin < Noosfero::Plugin
 
   def signup_extra_contents
     lambda {
-      labelled_form_field(_('USP number'), text_field_tag('profile_data[usp_id]', '', :id => 'usp_id_field')) +
-      content_tag(:small, _('The usp id grants you special powers in the network. Don\'t forget to fill it if you have one.'), :id => 'usp-id-balloon') +
-      content_tag('div', required(labelled_form_field(_('Birth date (yyyy-mm-dd)'), text_field_tag('birth_date', ''))), :id => 'signup-birth-date', :style => 'display: none') +
-      content_tag('div', required(labelled_form_field(_('CPF'), text_field_tag('cpf', ''))), :id => 'signup-cpf', :style => 'display:none') +
+      content_tag(:div, labelled_form_field(_('USP number'), text_field_tag('profile_data[usp_id]', '', :id => 'usp_id_field')) +
+      content_tag(:small, _('The usp id grants you special powers in the network. Don\'t forget to fill it wth a valid number if you have one.'), :id => 'usp-id-balloon'), :id => 'signup-usp-id') +
+      content_tag('div', required(labelled_form_field(_('Birth date (yyyy-mm-dd)'), text_field_tag('birth_date', ''))) +
+      content_tag(:small, _('Confirm your birth date. Pay attention to the format: yyyy-mm-dd.'), :id => 'usp-birth-date-balloon'), :id => 'signup-birth-date', :style => 'display: none') +
+      content_tag('div', required(labelled_form_field(_('CPF'), text_field_tag('cpf', ''))) +
+      content_tag(:small, _('Confirm your CPF number.'), :id => 'usp-cpf-balloon'), :id => 'signup-cpf', :style => 'display: none') +
       javascript_include_tag('../plugins/stoa/javascripts/jquery.observe_field', '../plugins/stoa/javascripts/signup_complement')
     }
   end
