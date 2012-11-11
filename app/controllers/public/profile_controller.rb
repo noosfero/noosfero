@@ -379,7 +379,9 @@ class ProfileController < PublicController
   end
 
   def invisible_profile
-    render_access_denied(_("This profile is inaccessible. You don't have the permission to view the content here."), _("Oops ... you cannot go ahead here"))
+    unless profile.is_template?
+      render_access_denied(_("This profile is inaccessible. You don't have the permission to view the content here."), _("Oops ... you cannot go ahead here"))
+    end
   end
 
   def per_page

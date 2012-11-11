@@ -5742,6 +5742,10 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 img {
   font-size: 18px;
 }
 
+#signup-form #template-options li a {
+  color: #555753
+}
+
 #signup-form label[for=profile_data_sex_female],
 #signup-form label[for=profile_data_sex_male] {
   color: #6d786e;

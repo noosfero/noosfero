@@ -189,6 +189,17 @@ class ProfileControllerTest < ActionController::TestCase
     assert_response 403
   end
 
+  should 'display template profiles' do
+    Person.any_instance.expects(:display_info_to?).with(anything).returns(false)
+    @profile.visible = false
+    @profile.is_template = true
+    @profile.save
+
+    get :index, :profile => @profile.identifier
+    assert_response :success
+  end
+
+
   should 'display add friend button' do
     @profile.user.activate
     login_as(@profile.identifier)
