@@ -10287,7 +10287,7 @@ msgid ""
 "if you have one."
 msgstr ""
 "O número USP garante poderes especiais nesta rede. Não esqueça de preenchê-"
-"lo se você possuir um se você possuir um."
+"lo se você possuir um."
 
 #: plugins/stoa/lib/stoa_plugin.rb:24 plugins/stoa/lib/stoa_plugin.rb:34
 msgid "Birth date (yyyy-mm-dd)"

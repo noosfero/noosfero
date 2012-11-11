@@ -5731,6 +5731,7 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 img {
 #signup-form input[type=radio] {
   height: auto;
   margin: 0px 5px 0px 3px;
+  width: auto;
 }
 
 #signup-form .fieldgroup {
