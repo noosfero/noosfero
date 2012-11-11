@@ -5863,19 +5863,19 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 img {
 }
 
 #signup-form small#password-balloon {
-  top: -75px;
+  top: -85px;
 }
 
 #signup-form small#password-confirmation-balloon {
-  top: -75px;
+  top: -85px;
 }
 
 #signup-form small#email-balloon {
-  top: -75px;
+  top: -85px;
 }
 
 #signup-form small#name-balloon {
-  top: -75px;
+  top: -85px;
 }
 
 #signup-form .required-field label,
