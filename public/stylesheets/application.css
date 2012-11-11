@@ -5828,12 +5828,17 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 img {
 
 #signup-form #signup-password,
 #signup-form #signup-password-confirmation,
+#signup-form #signup-email,
+#signup-form #signup-name,
 #signup-form #signup-login {
   position: relative;
 }
 
 #signup-form small#signup-balloon,
-#signup-form small#password-balloon {
+#signup-form small#password-balloon,
+#signup-form small#password-confirmation-balloon,
+#signup-form small#email-balloon,
+#signup-form small#name-balloon {
   display: none;
   width: 142px;
   height: 69px;
@@ -5846,8 +5851,27 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 img {
   background: transparent url(/images/orange-balloon.png) bottom center no-repeat;
   position: absolute;
   z-index: 2;
-  right: -40px;
-  top: -100px;
+  right: 30px;
+}
+
+#signup-form small#signup-balloon {
+  top: -110px;
+}
+
+#signup-form small#password-balloon {
+  top: -75px;
+}
+
+#signup-form small#password-confirmation-balloon {
+  top: -75px;
+}
+
+#signup-form small#email-balloon {
+  top: -75px;
+}
+
+#signup-form small#name-balloon {
+  top: -75px;
 }
 
 #signup-form .required-field label,
