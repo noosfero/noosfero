@@ -85,6 +85,7 @@ class ShoppingCartPluginProfileController < ProfileController
 
   def buy
     @environment = profile.environment
+    @settings = Noosfero::Plugin::Settings.new(profile, ShoppingCartPlugin)
     render :layout => false
   end
 

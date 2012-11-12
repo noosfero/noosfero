@@ -8,28 +8,42 @@ module ShoppingCartPlugin::CartHelper
   end
 
   def get_price(product, environment, quantity=1)
-    float_to_currency_cart(sell_price(product)*quantity, environment)
+    float_to_currency_cart(price_with_quantity(product,quantity), environment)
   end
 
-  def get_total(items, environment)
-    float_to_currency_cart(items.map { |id, quantity| sell_price(Product.find(id)) * quantity}.sum, environment)
+  def price_with_quantity(product, quantity=1)
+    quantity = 1 if !quantity.kind_of?(Numeric)
+    sell_price(product)*quantity
+  end
+
+  def get_total(items)
+    items.map { |id, quantity| price_with_quantity(Product.find(id),quantity)}.sum
+  end
+
+  def get_total_on_currency(items, environment)
+    float_to_currency_cart(get_total(items), environment)
   end
 
   def items_table(items, profile, by_mail = false)
     environment = profile.environment
     settings = Noosfero::Plugin::Settings.new(profile, ShoppingCartPlugin)
     items = items.to_a
-    if settings.delivery
-      delivery = Product.new(:name => _('Delivery'), :price => settings.delivery_price)
-      delivery.save(false)
-      items << [delivery.id, 1]
-    end
 
     quantity_opts = { :class => 'cart-table-quantity' }
     quantity_opts.merge!({:align => 'center'}) if by_mail
     price_opts = {:class => 'cart-table-price'}
     price_opts.merge!({:align => 'right'}) if by_mail
     items.sort! {|a, b| Product.find(a.first).name <=> Product.find(b.first).name}
+
+    if settings.delivery
+      if settings.free_delivery_price && get_total(items) >= settings.free_delivery_price
+        delivery = Product.new(:name => _('Free delivery'), :price => 0)
+      else
+        delivery = Product.new(:name => _('Delivery'), :price => settings.delivery_price)
+      end
+      delivery.save(false)
+      items << [delivery.id, '']
+    end
 
     table = '<table id="cart-items-table" cellpadding="2" cellspacing="0"
     border="'+(by_mail ? '1' : '0')+'"
@@ -48,7 +62,7 @@ module ShoppingCartPlugin::CartHelper
                  )
     end.join("\n")
 
-    total = get_total(items, environment)
+    total = get_total_on_currency(items, environment)
     delivery.destroy if settings.delivery
 
     table +

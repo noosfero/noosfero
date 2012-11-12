@@ -3,7 +3,12 @@
 <% form_for(:settings, @settings, :url => {:action => 'edit'}, :html => {:method => 'post'}) do |f| %>
   <%= labelled_form_field(_('Enabled?'), f.check_box(:enabled)) %>
   <%= labelled_form_field(_('Delivery?'), f.check_box(:delivery)) %>
-  <%= labelled_form_field(_('Delivery price:'), f.text_field(:delivery_price)) %>
+  <% display_delivery_options = @settings.delivery ? 'auto' : 'none' %>
+  <fieldset id='delivery_options' style="display: <%= display_delivery_options %>"><legend><%=_('Delivery Options')%></legend>
+    <%= labelled_form_field(_('Price:'), f.text_field(:delivery_price)) %>
+    <%= labelled_form_field(_('Free delivery price:'), f.text_field(:free_delivery_price)) %>
+    <%= content_tag('small', _('Empty stands for no free delivery price.')) %>
+  </fieldset>
   <br style='clear: both'/>
   <br style='clear: both'/>
   <div>
@@ -11,3 +16,9 @@
     <%= button :back, _('Back to control panel'), :controller => 'profile_editor' %>
   </div>
 <% end%>
+
+<script>
+  jQuery('#settings_delivery').click(function(){
+    jQuery('#delivery_options').toggle('fast');
+  });
+</script>

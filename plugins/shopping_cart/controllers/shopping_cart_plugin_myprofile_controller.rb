@@ -8,6 +8,7 @@ class ShoppingCartPluginMyprofileController < MyProfileController
       params[:settings][:enabled] = params[:settings][:enabled] == '1'
       params[:settings][:delivery] = params[:settings][:delivery] == '1'
       params[:settings][:delivery_price] = params[:settings][:delivery_price].to_d
+      params[:settings][:free_delivery_price] = params[:settings][:free_delivery_price].to_d
     end
 
     @settings = Noosfero::Plugin::Settings.new(profile, ShoppingCartPlugin, params[:settings])

@@ -7,11 +7,13 @@
       <%= labelled_form_field('* ' +  _("Email"), f.text_field(:email, :class => 'required email') ) %>
       <%= labelled_form_field('* ' +  _("Contact phone"), f.text_field(:contact_phone, :class => 'required') ) %>
     </div>
-    <fieldset><legend><%=_('Delivery Address')%></legend>
-      <%= labelled_form_field(_('Address (street and number)'), f.text_field(:address)) %>
-      <%= labelled_form_field( _("City"), f.text_field(:city)) %>
-      <%= labelled_form_field(_('ZIP code'), f.text_field(:zip_code)) %>
-    </fieldset>
+    <% if @settings.delivery %>
+      <fieldset><legend><%=_('Delivery Address')%></legend>
+        <%= labelled_form_field(_('Address (street and number)'), f.text_field(:address)) %>
+        <%= labelled_form_field( _("City"), f.text_field(:city)) %>
+        <%= labelled_form_field(_('ZIP code'), f.text_field(:zip_code)) %>
+      </fieldset>
+    <% end %>
     <div id="cart-form-actions">
       <%= submit_button(:send, _('Send buy request')) %>
     </div>
