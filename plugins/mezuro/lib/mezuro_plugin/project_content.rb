@@ -42,6 +42,8 @@ class MezuroPlugin::ProjectContent < Article
     begin
       if Kalibro::Processing.has_ready_processing(repository_id)
         @processing ||= Kalibro::Processing.last_ready_processing_of(repository_id)
+      else
+        @processing = Kalibro::Processing.last_processing_of(repository_id)
       end
     rescue Exception => error
       errors.add_to_base(error.message)
@@ -51,10 +53,10 @@ class MezuroPlugin::ProjectContent < Article
 
   def processing_with_date(repository_id, date)
     begin
-      if Kalibro::Processing.has_processing_before(repository_id, date)
+      if Kalibro::Processing.has_processing_after(repository_id, date)
+        @processing ||= Kalibro::Processing.first_processing_after(repository_id, date)
+      elsif Kalibro::Processing.has_processing_before(repository_id, date)
         @processing ||= Kalibro::Processing.last_processing_before(repository_id, date)
-      elsif Kalibro::Processing.has_processing_after(repository_id, date)
-        @processing ||= Kalibro::Processing.last_processing_after(repository_id, date)
       end
     rescue Exception => error
       errors.add_to_base(error.message)
@@ -65,16 +67,16 @@ class MezuroPlugin::ProjectContent < Article
   def module_result(repository_id, date = nil)
     @processing ||= date.nil? ? processing(repository_id) : processing_with_date(repository_id, date)
     begin
-      @module_result ||= Kalibro::ModuleResult.find(@procesing.results_root_id)
+      @module_result ||= Kalibro::ModuleResult.find(@processing.results_root_id)
     rescue Exception => error
       errors.add_to_base(error.message)
     end
     @module_result
   end
 
-  def result_history(module_id)
+  def result_history(module_result_id)
     begin
-      @result_history ||= Kalibro::MetricResult.history_of(module_id)
+      @result_history ||= Kalibro::MetricResult.history_of(module_result_id)
     rescue Exception => error
       errors.add_to_base(error.message)
     end
@@ -83,20 +85,24 @@ class MezuroPlugin::ProjectContent < Article
   def description=(value)
     @description=value
   end
+  
+  def description
+    @description
+  end
 
   def repositories=(value)
     @repositories = value.kind_of?(Array) ? value : [value]
-    @repositories = @repositories.map { |element| to_object(element) }
-  end
-
-  def self.to_object value
-    value.kind_of?(Hash) ? Kalibro::Repository.new(value) : value
+    @repositories = @repositories.map { |element| to_repository(element) }
   end
 
   after_save :send_project_to_service
   after_destroy :destroy_project_from_service
 
   private
+  
+  def self.to_repository value
+    value.kind_of?(Hash) ? Kalibro::Repository.new(value) : value
+  end
 
   def validate_repository_url
     if(@repositories.nil? || repository_url == "")
