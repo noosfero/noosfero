@@ -1340,7 +1340,8 @@ module ApplicationHelper
       content_tag('li', labelled_radio_button(link_to(template.name, template.url, :target => '_blank'), "#{field_name}[template_id]", template.id, counter==1))
     end.join("\n")
 
-    content_tag('div', content_tag('label', _('Template'), :for => 'template-options', :class => 'formlabel') +
+    content_tag('div', content_tag('label', _('Profile organization'), :for => 'template-options', :class => 'formlabel') +
+      content_tag('p', _('Your profile will be created according to the selected template. Click on the options to view them'), :style => 'margin: 5px 15px;padding: 0px 10px;') +
       content_tag('ul', radios, :style => 'list-style: none; padding-left: 20px; margin-top: 0.5em;'),
       :id => 'template-options',
       :style => 'margin-top: 1em'

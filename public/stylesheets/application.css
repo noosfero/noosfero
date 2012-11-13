@@ -5597,7 +5597,7 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 img {
 #email-check,
 #fake-check,
 #password-check {
-  margin: -2px 176px -5px 13px;
+  margin: -2px 16px -5px 13px;
   text-align: right;
   clear: both;
 }
@@ -5653,11 +5653,6 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 img {
   -webkit-border-radius: 8px;
   margin: 60px auto 5px;
   position: relative;
-  width: 563px;
-}
-
-#signup-form #signup-form-profile {
-  width: 563px;
 }
 
 #signup-form input.invalid_input {
@@ -5847,7 +5842,7 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 img {
   background: transparent url(/images/orange-balloon.png) bottom center no-repeat;
   position: absolute;
   z-index: 2;
-  right: 10px;
+  right: -150px;
 }
 
 #signup-form small#signup-balloon {
