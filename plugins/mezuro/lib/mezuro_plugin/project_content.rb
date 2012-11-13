@@ -3,7 +3,7 @@ class MezuroPlugin::ProjectContent < Article
 
   settings_items :project_id
 
-  validate_on_create :validate_kalibro_project_name 
+  validate_on_create :validate_kalibro_project_name
   validate_on_create :validate_repository_url
 
   def self.short_description
@@ -48,12 +48,12 @@ class MezuroPlugin::ProjectContent < Article
     end
     @processing
   end
-  
+
   def processing_with_date(repository_id, date)
     begin
       if Kalibro::Processing.has_processing_before(repository_id, date)
         @processing ||= Kalibro::Processing.last_processing_before(repository_id, date)
-      else if Kalibro::Processing.has_processing_after(repository_id, date)
+      elsif Kalibro::Processing.has_processing_after(repository_id, date)
         @processing ||= Kalibro::Processing.last_processing_after(repository_id, date)
       end
     rescue Exception => error
@@ -92,7 +92,7 @@ class MezuroPlugin::ProjectContent < Article
   def self.to_object value
     value.kind_of?(Hash) ? Kalibro::Repository.new(value) : value
   end
-  
+
   after_save :send_project_to_service
   after_destroy :destroy_project_from_service
 
@@ -103,7 +103,7 @@ class MezuroPlugin::ProjectContent < Article
       errors.add_to_base("Repository URL is mandatory")
     end
   end
-  
+
   def send_project_to_service
     created_project = create_kalibro_project
     created_project.process_project(periodicity_in_days)
