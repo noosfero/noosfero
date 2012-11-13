@@ -40,8 +40,8 @@ class Kalibro::Model
 
   def self.to_object value
     value.kind_of?(Hash) ? new(value) : value
-  end 
-  
+  end
+
   def self.create(attributes={})
     new_model = new attributes
     new_model.save
@@ -52,7 +52,7 @@ class Kalibro::Model
     if(exists?(id))
       new request(find_action, id_params(id))["#{class_name.underscore}".to_sym]
     else
-      nil
+      raise Errors::RecordNotFound
     end
   end
 
@@ -77,7 +77,7 @@ class Kalibro::Model
   def self.exists?(id)
     request(exists_action, id_params(id))[:exists]
   end
-  
+
   protected
 
   def fields
@@ -88,7 +88,7 @@ class Kalibro::Model
     return value if value.nil?
     return value.collect { |element| convert_to_hash(element) } if value.is_a?(Array)
     return value.to_hash if value.is_a?(Kalibro::Model)
-    return self.class.date_with_milliseconds(value) if value.is_a?(DateTime)    
+    return self.class.date_with_milliseconds(value) if value.is_a?(DateTime)
     return 'INF' if value.is_a?(Float) and value.infinite? == 1
     return '-INF' if value.is_a?(Float) and value.infinite? == -1
     value
@@ -109,32 +109,32 @@ class Kalibro::Model
   def self.is_valid?(field)
     field.to_s[0] != '@' and field != :attributes! and (field.to_s =~ /xsi/).nil?
   end
-  
+
   def self.date_with_milliseconds(date)
     milliseconds = "." + (date.sec_fraction * 60 * 60 * 24 * 1000).to_s
     date.to_s[0..18] + milliseconds + date.to_s[19..-1]
   end
-  
+
   def instance_class_name
     self.class.name.gsub(/Kalibro::/,"")
   end
-  
+
   def self.endpoint
     class_name
   end
-  
+
   def save_action
     "save_#{instance_class_name.underscore}".to_sym
   end
-  
+
   def save_params
     {instance_class_name.underscore.to_sym => self.to_hash}
   end
-  
+
   def destroy_action
     "delete_#{instance_class_name.underscore}".to_sym
   end
-  
+
   def destroy_params
     {"#{instance_class_name.underscore}_id".to_sym => self.id}
   end
@@ -142,11 +142,11 @@ class Kalibro::Model
   def self.class_name
     self.name.gsub(/Kalibro::/,"")
   end
-  
+
   def self.exists_action
     "#{class_name.underscore}_exists".to_sym
   end
-  
+
   def self.id_params(id)
     {"#{class_name.underscore}_id".to_sym => id}
   end
