@@ -3,24 +3,30 @@ require_dependency 'shopping_cart_plugin/ext/person'
 
 class ShoppingCartPlugin < Noosfero::Plugin
 
-  def self.plugin_name
+  class << self
+    def plugin_name
     "Shopping Basket"
-  end
+    end
 
-  def self.plugin_description
-    _("A shopping basket feature for enterprises")
-  end
+    def plugin_description
+      _("A shopping basket feature for enterprises")
+    end
 
-  def self.enabled_default_setting
-    true
-  end
+    def enabled_default_setting
+      true
+    end
 
-  def self.delivery_default_setting
-    false
-  end
+    def delivery_default_setting
+      false
+    end
 
-  def self.delivery_price_default_setting
-    0
+    def delivery_price_default_setting
+      0
+    end
+
+    def delivery_options_default_setting
+      {}
+    end
   end
 
   def add_to_cart_button(item, enterprise = context.profile)

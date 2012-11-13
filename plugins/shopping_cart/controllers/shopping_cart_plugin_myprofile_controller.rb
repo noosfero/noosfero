@@ -7,8 +7,8 @@ class ShoppingCartPluginMyprofileController < MyProfileController
     if params[:settings]
       params[:settings][:enabled] = params[:settings][:enabled] == '1'
       params[:settings][:delivery] = params[:settings][:delivery] == '1'
-      params[:settings][:delivery_price] = params[:settings][:delivery_price].to_d
       params[:settings][:free_delivery_price] = params[:settings][:free_delivery_price].to_d
+      params[:settings][:delivery_options] = treat_delivery_options(params[:settings][:delivery_options])
     end
 
     @settings = Noosfero::Plugin::Settings.new(profile, ShoppingCartPlugin, params[:settings])
@@ -53,5 +53,17 @@ class ShoppingCartPluginMyprofileController < MyProfileController
     order.status = params[:order_status].to_i
     order.save!
     redirect_to :action => 'reports', :from => params[:context_from], :to => params[:context_to], :filter_status => params[:context_status]
+  end
+
+  private
+
+  def treat_delivery_options(params)
+    result = {}
+    params[:options].size.times do |counter|
+      if params[:options][counter].present? && params[:prices][counter].present?
+        result[params[:options][counter]] = params[:prices][counter]
+      end
+    end
+    result
   end
 end

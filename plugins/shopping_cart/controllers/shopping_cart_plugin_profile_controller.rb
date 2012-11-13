@@ -92,8 +92,8 @@ class ShoppingCartPluginProfileController < ProfileController
   def send_request
       register_order(params[:customer], session[:cart][:items])
     begin
-      ShoppingCartPlugin::Mailer.deliver_customer_notification(params[:customer], profile, session[:cart][:items])
-      ShoppingCartPlugin::Mailer.deliver_supplier_notification(params[:customer], profile, session[:cart][:items])
+      ShoppingCartPlugin::Mailer.deliver_customer_notification(params[:customer], profile, session[:cart][:items], params[:delivery_option])
+      ShoppingCartPlugin::Mailer.deliver_supplier_notification(params[:customer], profile, session[:cart][:items], params[:delivery_option])
       render :text => {
         :ok => true,
         :message => _('Request sent successfully. Check your email.'),
@@ -150,6 +150,24 @@ class ShoppingCartPluginProfileController < ProfileController
         }
       }.to_json
     end
+  end
+
+  def update_delivery_option
+    settings = Noosfero::Plugin::Settings.new(profile, ShoppingCartPlugin)
+    delivery_price = settings.delivery_options[params[:delivery_option]]
+    delivery = Product.new(:name => params[:delivery_option], :price => delivery_price)
+    delivery.save(false)
+    items = session[:cart][:items].clone
+    items[delivery.id] = 1
+    total_price = get_total_on_currency(items, environment)
+    delivery.destroy
+    render :text => {
+      :ok => true,
+      :delivery_price => float_to_currency_cart(delivery_price, environment),
+      :total_price => total_price,
+      :message => _('Delivery option updated.'),
+      :error => {:code => 0}
+    }.to_json
   end
 
   private

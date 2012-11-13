@@ -24,7 +24,7 @@ module ShoppingCartPlugin::CartHelper
     float_to_currency_cart(get_total(items), environment)
   end
 
-  def items_table(items, profile, by_mail = false)
+  def items_table(items, profile, delivery_option = nil, by_mail = false)
     environment = profile.environment
     settings = Noosfero::Plugin::Settings.new(profile, ShoppingCartPlugin)
     items = items.to_a
@@ -39,7 +39,7 @@ module ShoppingCartPlugin::CartHelper
       if settings.free_delivery_price && get_total(items) >= settings.free_delivery_price
         delivery = Product.new(:name => _('Free delivery'), :price => 0)
       else
-        delivery = Product.new(:name => _('Delivery'), :price => settings.delivery_price)
+        delivery = Product.new(:name => delivery_option, :price => settings.delivery_options[delivery_option])
       end
       delivery.save(false)
       items << [delivery.id, '']
@@ -49,17 +49,23 @@ module ShoppingCartPlugin::CartHelper
     border="'+(by_mail ? '1' : '0')+'"
     style="'+(by_mail ? 'border-collapse:collapse' : '')+'">' +
     content_tag('tr',
-                content_tag('th', _('Item name')) +
-                content_tag('th', by_mail ? '&nbsp;#&nbsp;' : '#') +
-                content_tag('th', _('Price'))
+      content_tag('th', _('Item name')) +
+      content_tag('th', by_mail ? '&nbsp;#&nbsp;' : '#') +
+      content_tag('th', _('Price'))
     ) +
     items.map do |id, quantity|
       product = Product.find(id)
+      name_opts = {}
+      is_delivery = quantity.kind_of?(String)
+      if is_delivery
+        price_opts.merge!({:id => 'delivery-price'})
+        name_opts.merge!({:id => 'delivery-name'})
+      end
       content_tag('tr',
-                  content_tag('td', product.name) +
-                  content_tag('td', quantity, quantity_opts ) +
-                  content_tag('td', get_price(product, environment, quantity), price_opts )
-                 )
+        content_tag('td', product.name, name_opts) +
+        content_tag('td', quantity, quantity_opts ) +
+        content_tag('td', get_price(product, environment, quantity), price_opts)
+      )
     end.join("\n")
 
     total = get_total_on_currency(items, environment)
@@ -72,6 +78,12 @@ module ShoppingCartPlugin::CartHelper
   end
 
   def float_to_currency_cart(value, environment)
-    number_to_currency(value, :unit => environment.currency_unit, :separator => environment.currency_separator, :delimiter => environment.currency_delimiter, :precision => 2, :format => "%u %n")
+    number_to_currency(value, :unit => environment.currency_unit, :separator => environment.currency_separator, :delimiter => environment.currency_delimiter, :precision => 2, :format => "%u%n")
+  end
+
+  def select_delivery_options(options, environment)
+    options.map do |option, price|
+      ["#{option} (#{float_to_currency_cart(price, environment)})", option]
+    end
   end
 end
