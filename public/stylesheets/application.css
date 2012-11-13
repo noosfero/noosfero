@@ -5783,8 +5783,7 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 img {
   color: #4A4A4A;
 }
 
-#signup-form .validated,
-#signup-form .valid.filled-in {
+#signup-form .validated {
   border-color: #88BD00;
   background-image: url(/images/passwords_match.png);
 }

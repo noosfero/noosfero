@@ -1,9 +1,13 @@
 jQuery("#usp_id_field").observe_field(1, function(){
   var me=this;
+  jQuery('#usp-id-invalid').hide();
   jQuery(this).addClass('checking').removeClass('validated');
+  jQuery('#usp-id-checking').show();
   jQuery.getJSON('/plugin/stoa/check_usp_id?usp_id='+me.value,
     function(data){
+      jQuery('#usp-id-checking').hide();
       if(data.exists) {
+        jQuery('#usp-id-invalid').hide();
         jQuery.getJSON('/plugin/stoa/check_cpf?usp_id='+me.value,
           function(data){
             if(data.exists){
@@ -27,6 +31,7 @@ jQuery("#usp_id_field").observe_field(1, function(){
         if(me.value) {
           jQuery('#signup-form .submit').attr('disabled', true);
           jQuery(me).addClass('invalid');
+          jQuery('#usp-id-invalid').show();
         }
         else {
           jQuery('#signup-form .submit').attr('disabled', false);
@@ -58,6 +63,12 @@ jQuery('#signup-birth-date #birth_date').focus(function() {
 });
 jQuery('#signup-birth-date #birth_date').blur(function() {
   jQuery('#usp-birth-date-balloon').fadeOut('slow');
+  if (jQuery(this).val() == '') {
+    jQuery(this).removeClass('validated');
+  }
+  else {
+    jQuery(this).addClass('validated');
+  }
 });
 
 jQuery('#signup-cpf #cpf').focus(function() {
@@ -65,4 +76,8 @@ jQuery('#signup-cpf #cpf').focus(function() {
 });
 jQuery('#signup-cpf #cpf').blur(function() {
   jQuery('#usp-cpf-balloon').fadeOut('slow');
+  if (jQuery(this).val() == '') {
+    jQuery(this).removeClass('validated');
+  }
+  else jQuery(this).addClass('validated');
 });

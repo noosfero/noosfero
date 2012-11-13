@@ -21,7 +21,8 @@ class StoaPlugin < Noosfero::Plugin
     lambda {
       content_tag(:div, labelled_form_field(_('USP number'), text_field_tag('profile_data[usp_id]', '', :id => 'usp_id_field')) +
       content_tag(:small, _('The usp id grants you special powers in the network. Don\'t forget to fill it with a valid number if you have one.'), :id => 'usp-id-balloon') +
-      content_tag('div', '', :id => 'usp-id-check'), :id => 'signup-usp-id') +
+      content_tag('p', _("This usp number is not valid or doesn't exists"), :id => 'usp-id-invalid') +
+      content_tag('p', _('Checking usp number...'), :id => 'usp-id-checking'), :id => 'signup-usp-id') +
       content_tag('div', required(labelled_form_field(_('Birth date (yyyy-mm-dd)'), text_field_tag('birth_date', ''))) +
       content_tag(:small, _('Confirm your birth date. Pay attention to the format: yyyy-mm-dd.'), :id => 'usp-birth-date-balloon'), :id => 'signup-birth-date', :style => 'display: none') +
       content_tag('div', required(labelled_form_field(_('CPF'), text_field_tag('cpf', ''))) +

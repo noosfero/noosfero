@@ -34,8 +34,27 @@
   background: transparent url(/images/orange-balloon.png) bottom center no-repeat;
   position: absolute;
   z-index: 2;
-  right: 10px;
-  top: -80px;
+  right: -150px;
+  top: -75px;
+}
+
+#usp-id-invalid,
+#usp-id-checking {
+  display: none;
+  margin: 0px;
+  margin: -2px 16px -5px 13px;
+  text-align: right;
+  clear: both;
+  font-size: 11px;
+  text-transform: lowercase;
+}
+
+#usp-id-invalid{
+  color: #FFA000;
+}
+
+#usp-id-checking {
+  color: #4A4A4A;
 }
 
 .controller-profile_editor input.checking {
@@ -44,14 +63,4 @@
 
 .controller-profile_editor div.checking {
   background: transparent url(/images/loading-small.gif) 153px center no-repeat;
-}
-
-#signup-form .invalid.valid.filled-in {
-  background-image: url("/images/passwords_nomatch.png");
-  border-color: #FFA000;
-}
-
-#signup-form .invalid.valid.filled-in.validated {
-  background-image: url("/images/passwords_match.png");
-  border-color: #88BD00;
 }

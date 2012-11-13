@@ -152,6 +152,10 @@ jQuery(function($) {
   });
   $('#profile_data_name').blur(function() {
     $('#name-balloon').fadeOut('slow');
+    if ($(this).val() == '') {
+      $(this).removeClass('validated');
+    }
+    else $(this).addClass('validated');
   });
 });
 </script>
