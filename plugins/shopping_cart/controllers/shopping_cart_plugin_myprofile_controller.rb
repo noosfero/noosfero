@@ -4,12 +4,7 @@ class ShoppingCartPluginMyprofileController < MyProfileController
   append_view_path File.join(File.dirname(__FILE__) + '/../views')
 
   def edit
-    if params[:settings]
-      params[:settings][:enabled] = params[:settings][:enabled] == '1'
-      params[:settings][:delivery] = params[:settings][:delivery] == '1'
-      params[:settings][:free_delivery_price] = params[:settings][:free_delivery_price].to_d
-      params[:settings][:delivery_options] = treat_delivery_options(params[:settings][:delivery_options])
-    end
+    params[:settings] = treat_cart_options(params[:settings])
 
     @settings = Noosfero::Plugin::Settings.new(profile, ShoppingCartPlugin, params[:settings])
     if request.post?
@@ -56,6 +51,15 @@ class ShoppingCartPluginMyprofileController < MyProfileController
   end
 
   private
+
+  def treat_cart_options(settings)
+    return if settings.blank?
+    settings[:enabled] = settings[:enabled] == '1'
+    settings[:delivery] = settings[:delivery] == '1'
+    settings[:free_delivery_price] = settings[:free_delivery_price].blank? ? nil : settings[:free_delivery_price].to_d
+    settings[:delivery_options] = treat_delivery_options(settings[:delivery_options])
+    settings
+  end
 
   def treat_delivery_options(params)
     result = {}

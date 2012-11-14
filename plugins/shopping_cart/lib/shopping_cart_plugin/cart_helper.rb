@@ -39,7 +39,7 @@ module ShoppingCartPlugin::CartHelper
       if settings.free_delivery_price && get_total(items) >= settings.free_delivery_price
         delivery = Product.new(:name => _('Free delivery'), :price => 0)
       else
-        delivery = Product.new(:name => delivery_option, :price => settings.delivery_options[delivery_option])
+        delivery = Product.new(:name => delivery_option || _('Delivery'), :price => settings.delivery_options[delivery_option])
       end
       delivery.save(false)
       items << [delivery.id, '']
@@ -82,8 +82,10 @@ module ShoppingCartPlugin::CartHelper
   end
 
   def select_delivery_options(options, environment)
-    options.map do |option, price|
+    result = options.map do |option, price|
       ["#{option} (#{float_to_currency_cart(price, environment)})", option]
     end
+    result << ["#{_('Delivery')} (#{float_to_currency_cart(0, environment)})", 'delivery'] if result.empty?
+    result
   end
 end
