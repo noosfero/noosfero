@@ -15,11 +15,11 @@ class Kalibro::Repository < Kalibro::Model
   end
 
   def process_repository
-    self.class.request(:process_repository, {:repository_id => self.id});
+    self.class.request(:process_repository, {:repository_id => self.id})
   end
   
   def cancel_processing_of_repository
-    self.class.request(:cancel_processing_of_repository, {:repository_id => self.id});
+    self.class.request(:cancel_processing_of_repository, {:repository_id => self.id})
   end
 
 end

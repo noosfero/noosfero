@@ -106,26 +106,4 @@ class ProjectContentTest < ActiveSupport::TestCase
     assert_not_nil @project_content.errors[:base]
   end
 
-=begin
-  should 'send project to service after saving' do
-    @project_content.expects :send_project_to_service
-    @project_content.run_callbacks :after_save
-  end
-
-  should 'destroy project from service' do
-    Kalibro::Project.expects(:request).with("Project", :get_project, :project_name => @project.name).returns({:project => @project.to_hash})
-    Kalibro::Project.expects(:request).with("Project", :remove_project, {:project_name => @project.name})
-    @project_content.send :destroy_project_from_service
-  end
-
-  should 'send correct project to service' do
-    hash = ProjectFixtures.project_hash
-    hash.delete(:attributes!)
-    hash.delete(:state)
-    Kalibro::Project.expects(:create).with(hash).returns(@project)
-    @project.expects(:process_project).with(@project_content.periodicity_in_days)
-    @project_content.send :send_project_to_service
-  end
-
-=end
 end

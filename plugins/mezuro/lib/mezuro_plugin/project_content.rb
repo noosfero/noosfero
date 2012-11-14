@@ -4,7 +4,7 @@ class MezuroPlugin::ProjectContent < Article
   settings_items :project_id
 
   validate_on_create :validate_kalibro_project_name
-  validate_on_create :validate_repository_url
+  validate_on_create :validate_repository_address
 
   def self.short_description
     'Mezuro project'
@@ -104,27 +104,23 @@ class MezuroPlugin::ProjectContent < Article
     value.kind_of?(Hash) ? Kalibro::Repository.new(value) : value
   end
 
-  def validate_repository_url
-    if(@repositories.nil? || repository_url == "")
-      errors.add_to_base("Repository URL is mandatory")
+  def validate_repository_address
+    if(address.nil? || address == "")
+      errors.add_to_base("Repository Address is mandatory")
     end
   end
 
   def send_project_to_service
     created_project = create_kalibro_project
-    created_project.process_project(periodicity_in_days)
+    repositories = Kalibro::Repository.repositories_of(project_id)
+    repositories.each {|repository| repository.process_repository }
   end
 
   def create_kalibro_project
    Kalibro::Project.create(
+      :id => project_id,
       :name => name,
-      :license => project_license,
-      :description => description,
-      :repository => {
-        :type => repository_type,
-        :address => repository_url
-      },
-      :configuration_name => configuration_name
+      :description => description
     )
   end
 
