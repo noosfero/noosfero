@@ -18,7 +18,7 @@ function display_metric_history() {
   var metric_name = jQuery(this).attr('show-metric-history');
   toggle_mezuro("." + metric_name);
   metricName = metric_name;
-  callAction('module', 'module_metrics_history', {module_name: module_name, metric_name: metric_name}, show_metrics);
+  callAction('module', 'module_metrics_history', {module_id: module_id, module_result_id: module_result_id}, show_metrics);
   return false;
 }
 

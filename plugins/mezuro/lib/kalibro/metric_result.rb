@@ -10,6 +10,10 @@ class Kalibro::MetricResult < Kalibro::Model
     @configuration = Kalibro::MetricConfigurationSnapshot.to_object value
   end
 
+  def metric_configuration_snapshot
+    configuration
+  end
+
   def error=(value)
     @error = Kalibro::Throwable.to_object value
   end
