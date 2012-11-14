@@ -640,16 +640,16 @@ class Article < ActiveRecord::Base
   # Subclasses aren't (re)loaded, and acts_as_solr
   # depends on subclasses method to search
   # see http://stackoverflow.com/questions/4138957/activerecordsubclassnotfound-error-when-using-sti-in-rails/4139245
-#  UploadedFile
-#  TextArticle
-#  TinyMceArticle
-#  TextileArticle
-#  Folder
-#  EnterpriseHomepage
-#  Gallery
-#  Blog
-#  Forum
-#  Event
+  UploadedFile
+  TextArticle
+  TinyMceArticle
+  TextileArticle
+  Folder
+  EnterpriseHomepage
+  Gallery
+  Blog
+  Forum
+  Event
 
   def self.f_type_proc(klass)
     klass.constantize.type_name

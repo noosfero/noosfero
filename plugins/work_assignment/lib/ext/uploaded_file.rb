@@ -1,3 +1,4 @@
+require_dependency 'article'
 require_dependency 'uploaded_file'
 
 class UploadedFile < Article
