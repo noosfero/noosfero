@@ -1,4 +1,6 @@
-<%= error_messages_for :user, :person %>
+<% @profile_data = @person %>
+
+<%= error_messages_for :user, :person, :header_message => _('The account could not be created') %>
 
 <% labelled_form_for :user, @user, :html => { :multipart => true, :id => 'signup-form' } do |f| %>
 

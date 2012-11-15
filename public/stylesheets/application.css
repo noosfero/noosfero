@@ -5613,7 +5613,7 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 img {
 }
 
 .unavailable {
-  color: #FFA000;
+  color: #7f0000;
 }
 
 .checking {
@@ -5656,13 +5656,13 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 img {
 }
 
 #signup-form input.invalid_input {
-  border: 2px solid #FFA000;
+  border: 2px solid #7f0000;
   background: #FFF;
   padding: 5px 30px 8px 5px;
 }
 
 #signup-form input.valid_input {
-  border: 2px solid #88BD00;
+  border: 2px solid #005000;
   background: #FFF;
   padding: 5px 30px 8px 5px;
 }
@@ -5760,7 +5760,7 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 img {
 }
 
 #signup-form .invalid {
-  border-color: #FFA000;
+  border-color: #7f0000;
   background-image: url(/images/passwords_nomatch.png);
 }
 
@@ -5768,7 +5768,7 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 img {
   border: none;
   padding: 0px;
   background: transparent;
-  color: #FFA000;
+  color: #7f0000;
 }
 
 #signup-form .checking {
@@ -5784,13 +5784,13 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 img {
 }
 
 #signup-form .validated {
-  border-color: #88BD00;
+  border-color: #005000;
   background-image: url(/images/passwords_match.png);
 }
 
 #signup-form span.validated {
   background: transparent;
-  color: #88BD00;
+  color: #005000;
 }
 
 #signup-domain {
@@ -5838,7 +5838,7 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 img {
   padding: 5px 10px 45px 10px;
   margin: 0;
   line-height: 1.5em;
-  background: transparent url(/images/orange-balloon.png) bottom center no-repeat;
+  background: transparent url(/images/gray-balloon.png) bottom center no-repeat;
   position: absolute;
   z-index: 2;
   right: -150px;
@@ -5899,11 +5899,11 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 img {
 #content #signup-form .submit {
   border: 0;
   padding: 8px 36px 12px;
-  background: transparent url(/images/orange-bg.png) left center repeat-x;
+  background: transparent url(/images/gray-bg.png) left center repeat-x;
   font-size: 17px;
-  color: #FFFFD5;
+  color: #FFF;
   text-align: center;
-  text-shadow: #d45500 0 -1px 0;
+  text-shadow: #424242 0 -1px 0;
   border-radius: 7px;
   -moz-border-radius: 7px;
   -webkit-border-radius: 7px;

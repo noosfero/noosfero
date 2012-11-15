@@ -31,7 +31,7 @@
   padding: 5px 10px 45px 10px;
   margin: 0;
   line-height: 1.5em;
-  background: transparent url(/images/orange-balloon.png) bottom center no-repeat;
+  background: transparent url(/images/gray-balloon.png) bottom center no-repeat;
   position: absolute;
   z-index: 2;
   right: -150px;
@@ -50,7 +50,7 @@
 }
 
 #usp-id-invalid{
-  color: #FFA000;
+  color: #7f0000;
 }
 
 #usp-id-checking {

@@ -1341,7 +1341,7 @@ module ApplicationHelper
     end.join("\n")
 
     content_tag('div', content_tag('label', _('Profile organization'), :for => 'template-options', :class => 'formlabel') +
-      content_tag('p', _('Your profile will be created according to the selected template. Click on the options to view them'), :style => 'margin: 5px 15px;padding: 0px 10px;') +
+      content_tag('p', _('Your profile will be created according to the selected template. Click on the options to view them.'), :style => 'margin: 5px 15px;padding: 0px 10px;') +
       content_tag('ul', radios, :style => 'list-style: none; padding-left: 20px; margin-top: 0.5em;'),
       :id => 'template-options',
       :style => 'margin-top: 1em'
