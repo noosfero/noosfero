@@ -12,7 +12,7 @@ Feature: signup
       | Username              | josesilva             |
       | Password              | secret                |
       | Password confirmation | secret                |
-      | Name                  | José da Silva         |
+      | Full name             | José da Silva         |
     And I press "Create my account"
     Then I should not be logged in
     And I should receive an e-mail on josesilva@example.com
