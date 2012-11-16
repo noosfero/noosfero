@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.39.0~1\n"
-"POT-Creation-Date: 2012-11-05 20:07-0200\n"
+"POT-Creation-Date: 2012-11-16 01:07-0200\n"
 "PO-Revision-Date: 2012-06-05 10:27-0300\n"
 "Last-Translator: Daniela Feitosa <danielafeitosa@colivre.coop.br>\n"
 "Language-Team: LANGUAGE TEAM <LL@li.org>\n"
@@ -125,6 +125,7 @@ msgstr ""
 #: app/views/content_viewer/_comment_form.rhtml:71
 #: app/views/templates/_create_template_form.html.erb:12
 #: app/views/licenses/_form.html.erb:5 app/views/licenses/index.html.erb:4
+#: plugins/custom_forms/lib/custom_forms_plugin/field.rb:-
 #: plugins/mezuro/views/content_viewer/show_project.rhtml:15
 #: plugins/mezuro/views/content_viewer/show_configuration.rhtml:14
 #: plugins/shopping_cart/views/shopping_cart_plugin_profile/buy.html.erb:6
@@ -200,6 +201,7 @@ msgstr ""
 #: app/views/cms/view.rhtml:25
 #: app/views/shared/reported_versions/_comment.html.erb:3
 #: app/views/shared/reported_versions/_article.html.erb:3
+#: plugins/custom_forms/lib/custom_forms_plugin/field.rb:-
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/_edit_select.html.erb:23
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/_form.html.erb:24
 msgid "Type"
@@ -335,6 +337,30 @@ msgid "Redirection after login"
 msgstr ""
 
 #: app/models/box.rb:-
+msgid "Shopping cart"
+msgstr ""
+
+#: app/models/box.rb:-
+msgid "Shopping cart delivery"
+msgstr ""
+
+#: app/models/box.rb:-
+msgid "Shopping cart delivery price"
+msgstr ""
+
+#: app/models/box.rb:-
+msgid "Bar"
+msgstr ""
+
+#: app/models/box.rb:- plugins/bsc/lib/bsc_plugin.rb:101
+msgid "Bsc"
+msgstr ""
+
+#: app/models/box.rb:-
+msgid "Company name"
+msgstr ""
+
+#: app/models/box.rb:-
 msgid "article"
 msgstr ""
 
@@ -355,6 +381,7 @@ msgid "Title"
 msgstr ""
 
 #: app/models/box.rb:- app/models/license.rb:-
+#: plugins/custom_forms/lib/custom_forms_plugin/field.rb:-
 msgid "Slug"
 msgstr ""
 
@@ -581,6 +608,10 @@ msgstr ""
 
 #: app/models/box.rb:- app/views/admin_panel/_site_info.rhtml:6
 msgid "Default language"
+msgstr ""
+
+#: app/models/box.rb:-
+msgid "Send email plugin allow to"
 msgstr ""
 
 #: app/models/box.rb:-
@@ -1208,11 +1239,11 @@ msgstr ""
 
 #: app/models/user.rb:- app/models/user.rb:18 app/models/change_password.rb:8
 #: app/views/invite/select_address_book.rhtml:38
+#: app/views/account/_signup_form.rhtml:12
 msgid "Username"
 msgstr ""
 
 #: app/models/user.rb:- app/models/user.rb:19 app/models/contact.rb:14
-#: app/views/account/_signup_form.rhtml:41
 msgid "e-Mail"
 msgstr ""
 
@@ -1644,6 +1675,7 @@ msgid "contact list"
 msgstr ""
 
 #: app/models/contact_list.rb:-
+#: plugins/custom_forms/lib/custom_forms_plugin/field.rb:-
 msgid "List"
 msgstr ""
 
@@ -3373,13 +3405,13 @@ msgstr ""
 msgid "The contents in this community is available to members only."
 msgstr ""
 
-#: app/controllers/public/profile_controller.rb:382
+#: app/controllers/public/profile_controller.rb:383
 msgid ""
 "This profile is inaccessible. You don't have the permission to view the "
 "content here."
 msgstr ""
 
-#: app/controllers/public/profile_controller.rb:382
+#: app/controllers/public/profile_controller.rb:383
 msgid "Oops ... you cannot go ahead here"
 msgstr ""
 
@@ -4001,6 +4033,7 @@ msgstr ""
 #: app/helpers/application_helper.rb:873
 #: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:3
 #: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:36
+#: plugins/stoa/lib/stoa_plugin.rb:38
 msgid "Public"
 msgstr ""
 
@@ -4200,7 +4233,7 @@ msgstr ""
 msgid "My friends"
 msgstr ""
 
-#: app/helpers/application_helper.rb:1094 plugins/stoa/lib/stoa_plugin.rb:87
+#: app/helpers/application_helper.rb:1094 plugins/stoa/lib/stoa_plugin.rb:92
 msgid "Invite friends"
 msgstr ""
 
@@ -4370,7 +4403,7 @@ msgid "Type in an keyword"
 msgstr ""
 
 #: app/helpers/application_helper.rb:1308
-#: app/helpers/application_helper.rb:1353
+#: app/helpers/application_helper.rb:1354
 #: app/views/profile_members/_manage_roles.html.erb:22
 #: plugins/bsc/lib/bsc_plugin/bsc_helper.rb:8
 #: plugins/bsc/views/bsc_plugin_myprofile/_contract_form.html.erb:58
@@ -4378,7 +4411,7 @@ msgid "No results"
 msgstr ""
 
 #: app/helpers/application_helper.rb:1308
-#: app/helpers/application_helper.rb:1354
+#: app/helpers/application_helper.rb:1355
 #: app/views/profile_members/_manage_roles.html.erb:23
 #: plugins/bsc/lib/bsc_plugin/bsc_helper.rb:9
 #: plugins/bsc/views/bsc_plugin_myprofile/_contract_form.html.erb:59
@@ -4386,10 +4419,16 @@ msgid "Searching..."
 msgstr ""
 
 #: app/helpers/application_helper.rb:1343
-msgid "Template:"
+msgid "Profile organization"
 msgstr ""
 
-#: app/helpers/application_helper.rb:1352
+#: app/helpers/application_helper.rb:1344
+msgid ""
+"Your profile will be created according to the selected template. Click on "
+"the options to view them."
+msgstr ""
+
+#: app/helpers/application_helper.rb:1353
 #: plugins/bsc/lib/bsc_plugin/bsc_helper.rb:7
 msgid "Type in a search term"
 msgstr ""
@@ -4888,7 +4927,7 @@ msgstr ""
 msgid "Checking if e-mail address is already taken..."
 msgstr ""
 
-#: app/helpers/language_helper.rb:25 app/helpers/language_helper.rb:35
+#: app/helpers/language_helper.rb:26 app/helpers/language_helper.rb:36
 msgid ""
 "The language you choose here is the language used for options, buttons, etc. "
 "It does not affect the language of the content created by other users."
@@ -8002,53 +8041,55 @@ msgstr ""
 msgid "Confirm the new password"
 msgstr ""
 
-#: app/views/account/_signup_form.rhtml:12
-msgid "signup|Login"
+#: app/views/account/_signup_form.rhtml:3
+msgid "The account could not be created"
 msgstr ""
 
-#: app/views/account/_signup_form.rhtml:15
+#: app/views/account/_signup_form.rhtml:19
 msgid ""
 "Choose your login name carefully! It will be your network access and you "
 "will not be able to change it later."
 msgstr ""
 
-#: app/views/account/_signup_form.rhtml:29
-msgid "password"
-msgstr ""
-
-#: app/views/account/_signup_form.rhtml:30
+#: app/views/account/_signup_form.rhtml:34
 msgid ""
 "Choose a password that you can remember easily. It must have at least 4 "
 "characters."
 msgstr ""
 
-#: app/views/account/_signup_form.rhtml:36
-msgid "password confirmation"
+#: app/views/account/_signup_form.rhtml:40
+msgid ""
+"We need to be sure that you filled in your password correctly. Confirm you "
+"password."
 msgstr ""
 
-#: app/views/account/_signup_form.rhtml:42
+#: app/views/account/_signup_form.rhtml:46
 msgid "This e-mail address will be used to contact you."
 msgstr ""
 
-#: app/views/account/_signup_form.rhtml:66
+#: app/views/account/_signup_form.rhtml:70
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:15
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:17
 msgid "Full name"
 msgstr ""
 
-#: app/views/account/_signup_form.rhtml:82
+#: app/views/account/_signup_form.rhtml:71
+msgid "Tell us your name, it will be used to identify yourself."
+msgstr ""
+
+#: app/views/account/_signup_form.rhtml:88
 msgid "I accept the %s"
 msgstr ""
 
-#: app/views/account/_signup_form.rhtml:82
+#: app/views/account/_signup_form.rhtml:88
 msgid "terms of use"
 msgstr ""
 
-#: app/views/account/_signup_form.rhtml:95
+#: app/views/account/_signup_form.rhtml:101
 msgid "Create my account"
 msgstr ""
 
-#: app/views/account/_signup_form.rhtml:158
+#: app/views/account/_signup_form.rhtml:135
 msgid "Passwords don't match"
 msgstr ""
 
@@ -9754,10 +9795,6 @@ msgstr ""
 msgid "Manage contracts"
 msgstr ""
 
-#: plugins/bsc/lib/bsc_plugin.rb:101
-msgid "Bsc"
-msgstr ""
-
 #: plugins/bsc/lib/bsc_plugin/contract.rb:33
 msgid "Negotiating"
 msgstr ""
@@ -9891,6 +9928,37 @@ msgstr ""
 msgid "customformsplugin::field"
 msgstr ""
 
+#: plugins/custom_forms/lib/custom_forms_plugin/field.rb:-
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/_edit_text.html.erb:3
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/_edit_text.html.erb:4
+msgid "Default value"
+msgstr ""
+
+#: plugins/custom_forms/lib/custom_forms_plugin/field.rb:-
+msgid "Choices"
+msgstr ""
+
+#: plugins/custom_forms/lib/custom_forms_plugin/field.rb:-
+msgid "Minimum"
+msgstr ""
+
+#: plugins/custom_forms/lib/custom_forms_plugin/field.rb:-
+msgid "Maximum"
+msgstr ""
+
+#: plugins/custom_forms/lib/custom_forms_plugin/field.rb:-
+msgid "Form"
+msgstr ""
+
+#: plugins/custom_forms/lib/custom_forms_plugin/field.rb:-
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/_form.html.erb:25
+msgid "Mandatory"
+msgstr ""
+
+#: plugins/custom_forms/lib/custom_forms_plugin/field.rb:-
+msgid "Multiple"
+msgstr ""
+
 #: plugins/custom_forms/lib/custom_forms_plugin/answer.rb:10
 msgid "is mandatory."
 msgstr ""
@@ -9943,7 +10011,7 @@ msgid "stoaplugin::uspuser"
 msgstr ""
 
 #: plugins/stoa/lib/stoa_plugin.rb:6 plugins/stoa/lib/stoa_plugin.rb:22
-#: plugins/stoa/lib/stoa_plugin.rb:32
+#: plugins/stoa/lib/stoa_plugin.rb:36
 msgid "USP number"
 msgstr ""
 
@@ -9951,21 +10019,47 @@ msgstr ""
 msgid "Add Stoa features"
 msgstr ""
 
-#: plugins/stoa/lib/stoa_plugin.rb:23 plugins/stoa/lib/stoa_plugin.rb:33
+#: plugins/stoa/lib/stoa_plugin.rb:23
+msgid ""
+"The usp id grants you special powers in the network. Don't forget to fill it "
+"with a valid number if you have one."
+msgstr ""
+
+#: plugins/stoa/lib/stoa_plugin.rb:24
+msgid "Either this usp number is being used by another user or is not valid"
+msgstr ""
+
+#: plugins/stoa/lib/stoa_plugin.rb:25
+msgid "Checking usp number..."
+msgstr ""
+
+#: plugins/stoa/lib/stoa_plugin.rb:26 plugins/stoa/lib/stoa_plugin.rb:39
+msgid "Birth date (yyyy-mm-dd)"
+msgstr ""
+
+#: plugins/stoa/lib/stoa_plugin.rb:27
+msgid "Confirm your birth date. Pay attention to the format: yyyy-mm-dd."
+msgstr ""
+
+#: plugins/stoa/lib/stoa_plugin.rb:28 plugins/stoa/lib/stoa_plugin.rb:40
+msgid "CPF"
+msgstr ""
+
+#: plugins/stoa/lib/stoa_plugin.rb:29
+msgid "Confirm your CPF number."
+msgstr ""
+
+#: plugins/stoa/lib/stoa_plugin.rb:37
 msgid ""
 "The usp id grants you special powers in the network. Don't forget to fill it "
 "if you have one."
 msgstr ""
 
-#: plugins/stoa/lib/stoa_plugin.rb:24 plugins/stoa/lib/stoa_plugin.rb:34
-msgid "Birth date (yyyy-mm-dd)"
+#: plugins/stoa/lib/stoa_plugin.rb:38
+msgid "This field must be private"
 msgstr ""
 
-#: plugins/stoa/lib/stoa_plugin.rb:25 plugins/stoa/lib/stoa_plugin.rb:35
-msgid "CPF"
-msgstr ""
-
-#: plugins/stoa/lib/stoa_plugin.rb:47 plugins/stoa/lib/stoa_plugin.rb:66
+#: plugins/stoa/lib/stoa_plugin.rb:52 plugins/stoa/lib/stoa_plugin.rb:71
 msgid " validation failed"
 msgstr ""
 
@@ -10443,11 +10537,6 @@ msgstr ""
 msgid "Annotations"
 msgstr ""
 
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/_edit_text.html.erb:3
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/_edit_text.html.erb:4
-msgid "Default value"
-msgstr ""
-
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/_option.html.erb:5
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/_empty_option.html.erb:5
 msgid "Are you sure you want to remove this option?"
@@ -10506,10 +10595,6 @@ msgstr ""
 
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/_form.html.erb:16
 msgid "Triggered on membership"
-msgstr ""
-
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/_form.html.erb:25
-msgid "Mandatory"
 msgstr ""
 
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/_form.html.erb:36

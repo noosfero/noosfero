@@ -13,8 +13,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.39.0~1\n"
-"POT-Creation-Date: 2012-11-05 20:07-0200\n"
-"PO-Revision-Date: 2012-11-05 19:05-0300\n"
+"POT-Creation-Date: 2012-11-16 01:07-0200\n"
+"PO-Revision-Date: 2012-11-16 00:20-0300\n"
 "Last-Translator: Joenio Costa <joenio@colivre.coop.br>\n"
 "Language-Team: LANGUAGE TEAM <E-MAIL@ADDRESS or HOME PAGE>\n"
 "Language: \n"
@@ -129,6 +129,7 @@ msgstr "tag"
 #: app/views/content_viewer/_comment_form.rhtml:71
 #: app/views/templates/_create_template_form.html.erb:12
 #: app/views/licenses/_form.html.erb:5 app/views/licenses/index.html.erb:4
+#: plugins/custom_forms/lib/custom_forms_plugin/field.rb:-
 #: plugins/mezuro/views/content_viewer/show_project.rhtml:15
 #: plugins/mezuro/views/content_viewer/show_configuration.rhtml:14
 #: plugins/shopping_cart/views/shopping_cart_plugin_profile/buy.html.erb:6
@@ -204,6 +205,7 @@ msgstr "perfil"
 #: app/views/cms/view.rhtml:25
 #: app/views/shared/reported_versions/_comment.html.erb:3
 #: app/views/shared/reported_versions/_article.html.erb:3
+#: plugins/custom_forms/lib/custom_forms_plugin/field.rb:-
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/_edit_select.html.erb:23
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/_form.html.erb:24
 msgid "Type"
@@ -339,6 +341,30 @@ msgid "Redirection after login"
 msgstr "Redirecionamento após login"
 
 #: app/models/box.rb:-
+msgid "Shopping cart"
+msgstr "Cesto de compras"
+
+#: app/models/box.rb:-
+msgid "Shopping cart delivery"
+msgstr "Entrega do cesto de compras"
+
+#: app/models/box.rb:-
+msgid "Shopping cart delivery price"
+msgstr "Preço de entrega do cesto de compras"
+
+#: app/models/box.rb:-
+msgid "Bar"
+msgstr "Barra"
+
+#: app/models/box.rb:- plugins/bsc/lib/bsc_plugin.rb:101
+msgid "Bsc"
+msgstr "Bsc"
+
+#: app/models/box.rb:-
+msgid "Company name"
+msgstr "Nome de exibição"
+
+#: app/models/box.rb:-
 msgid "article"
 msgstr "artigo"
 
@@ -359,6 +385,7 @@ msgid "Title"
 msgstr "Título"
 
 #: app/models/box.rb:- app/models/license.rb:-
+#: plugins/custom_forms/lib/custom_forms_plugin/field.rb:-
 msgid "Slug"
 msgstr "Slug"
 
@@ -586,6 +613,10 @@ msgstr "Línguas"
 #: app/models/box.rb:- app/views/admin_panel/_site_info.rhtml:6
 msgid "Default language"
 msgstr "Idioma padrão"
+
+#: app/models/box.rb:-
+msgid "Send email plugin allow to"
+msgstr "Send email plugin allow to"
 
 #: app/models/box.rb:-
 msgid "organization"
@@ -1234,11 +1265,11 @@ msgstr "usuário"
 
 #: app/models/user.rb:- app/models/user.rb:18 app/models/change_password.rb:8
 #: app/views/invite/select_address_book.rhtml:38
+#: app/views/account/_signup_form.rhtml:12
 msgid "Username"
 msgstr "Nome de usuário"
 
 #: app/models/user.rb:- app/models/user.rb:19 app/models/contact.rb:14
-#: app/views/account/_signup_form.rhtml:41
 msgid "e-Mail"
 msgstr "e-Mail"
 
@@ -1692,6 +1723,7 @@ msgid "contact list"
 msgstr "lista de contatos"
 
 #: app/models/contact_list.rb:-
+#: plugins/custom_forms/lib/custom_forms_plugin/field.rb:-
 msgid "List"
 msgstr "Lista"
 
@@ -3471,7 +3503,7 @@ msgid "The contents in this community is available to members only."
 msgstr ""
 "O conteúdo desta comunidade está disponível apenas para os seus membros."
 
-#: app/controllers/public/profile_controller.rb:382
+#: app/controllers/public/profile_controller.rb:383
 msgid ""
 "This profile is inaccessible. You don't have the permission to view the "
 "content here."
@@ -3479,7 +3511,7 @@ msgstr ""
 "Este perfil esta inacessível. Você não tem permissão de visualizar este "
 "conteúdo."
 
-#: app/controllers/public/profile_controller.rb:382
+#: app/controllers/public/profile_controller.rb:383
 msgid "Oops ... you cannot go ahead here"
 msgstr "Oops ... você não pode seguir em frente"
 
@@ -4111,6 +4143,7 @@ msgstr "Selecione um domínio"
 #: app/helpers/application_helper.rb:873
 #: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:3
 #: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:36
+#: plugins/stoa/lib/stoa_plugin.rb:38
 msgid "Public"
 msgstr "Público"
 
@@ -4312,7 +4345,7 @@ msgstr "Mais populares"
 msgid "My friends"
 msgstr "Meus amigos"
 
-#: app/helpers/application_helper.rb:1094 plugins/stoa/lib/stoa_plugin.rb:87
+#: app/helpers/application_helper.rb:1094 plugins/stoa/lib/stoa_plugin.rb:92
 msgid "Invite friends"
 msgstr "Convidar amigos"
 
@@ -4482,7 +4515,7 @@ msgid "Type in an keyword"
 msgstr "Digite um termo de pesquisa"
 
 #: app/helpers/application_helper.rb:1308
-#: app/helpers/application_helper.rb:1353
+#: app/helpers/application_helper.rb:1354
 #: app/views/profile_members/_manage_roles.html.erb:22
 #: plugins/bsc/lib/bsc_plugin/bsc_helper.rb:8
 #: plugins/bsc/views/bsc_plugin_myprofile/_contract_form.html.erb:58
@@ -4490,7 +4523,7 @@ msgid "No results"
 msgstr "Sem resultados"
 
 #: app/helpers/application_helper.rb:1308
-#: app/helpers/application_helper.rb:1354
+#: app/helpers/application_helper.rb:1355
 #: app/views/profile_members/_manage_roles.html.erb:23
 #: plugins/bsc/lib/bsc_plugin/bsc_helper.rb:9
 #: plugins/bsc/views/bsc_plugin_myprofile/_contract_form.html.erb:59
@@ -4498,10 +4531,18 @@ msgid "Searching..."
 msgstr "Pesquisando..."
 
 #: app/helpers/application_helper.rb:1343
-msgid "Template:"
-msgstr "Modelo:"
+msgid "Profile organization"
+msgstr "Organização do perfil"
 
-#: app/helpers/application_helper.rb:1352
+#: app/helpers/application_helper.rb:1344
+msgid ""
+"Your profile will be created according to the selected template. Click on "
+"the options to view them."
+msgstr ""
+"Seu perfil será criado de acordo com o modelo selecionado. Clique nas "
+"opções para visualizá-los."
+
+#: app/helpers/application_helper.rb:1353
 #: plugins/bsc/lib/bsc_plugin/bsc_helper.rb:7
 msgid "Type in a search term"
 msgstr "Digite um termo de pesquisa"
@@ -5001,7 +5042,7 @@ msgstr "Checando disponibilidade do nome de usuário..."
 msgid "Checking if e-mail address is already taken..."
 msgstr "Checando se o endereço de e-mail já está sendo utilizado..."
 
-#: app/helpers/language_helper.rb:25 app/helpers/language_helper.rb:35
+#: app/helpers/language_helper.rb:26 app/helpers/language_helper.rb:36
 msgid ""
 "The language you choose here is the language used for options, buttons, etc. "
 "It does not affect the language of the content created by other users."
@@ -5172,7 +5213,7 @@ msgstr "Sem comentários ainda"
 msgid "One comment"
 msgid_plural "<span class=\"comment-count\">%{comments}</span> comments"
 msgstr[0] "Um comentário"
-msgstr[1] "%<span class=\"comment-count\">%{comments}</span> comentários"
+msgstr[1] "<span class=\"comment-count\">%{comments}</span> comentários"
 
 #: app/helpers/content_viewer_helper.rb:29
 msgid ", by %s"
@@ -8232,11 +8273,11 @@ msgstr "Olá, %s! Por favor entre sua nova senha no formulário abaixo."
 msgid "Confirm the new password"
 msgstr "Confirme a nova senha"
 
-#: app/views/account/_signup_form.rhtml:12
-msgid "signup|Login"
-msgstr "Nome de usuário"
+#: app/views/account/_signup_form.rhtml:3
+msgid "The account could not be created"
+msgstr "A conta não pode ser criada"
 
-#: app/views/account/_signup_form.rhtml:15
+#: app/views/account/_signup_form.rhtml:19
 msgid ""
 "Choose your login name carefully! It will be your network access and you "
 "will not be able to change it later."
@@ -8244,11 +8285,7 @@ msgstr ""
 "Escolha o nome de usuário cuidadosamente! Ele será seu acesso à rede e você "
 "não poderá alterá-lo depois"
 
-#: app/views/account/_signup_form.rhtml:29
-msgid "password"
-msgstr "senha"
-
-#: app/views/account/_signup_form.rhtml:30
+#: app/views/account/_signup_form.rhtml:34
 msgid ""
 "Choose a password that you can remember easily. It must have at least 4 "
 "characters."
@@ -8256,33 +8293,41 @@ msgstr ""
 "Escolha uma senha fácil de ser lembrada por você. Ela deve ter ao menos 4 "
 "caracteres."
 
-#: app/views/account/_signup_form.rhtml:36
-msgid "password confirmation"
-msgstr "confirmação de senha"
+#: app/views/account/_signup_form.rhtml:40
+msgid ""
+"We need to be sure that you filled in your password correctly. Confirm you "
+"password."
+msgstr ""
+"Nós precisamos ter certeza que você preencheu sua senha corretamente. "
+"Confirme sua senha."
 
-#: app/views/account/_signup_form.rhtml:42
+#: app/views/account/_signup_form.rhtml:46
 msgid "This e-mail address will be used to contact you."
 msgstr "Este endereço de e-mail será usado para contactar você."
 
-#: app/views/account/_signup_form.rhtml:66
+#: app/views/account/_signup_form.rhtml:70
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:15
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:17
 msgid "Full name"
 msgstr "Nome completo"
 
-#: app/views/account/_signup_form.rhtml:82
+#: app/views/account/_signup_form.rhtml:71
+msgid "Tell us your name, it will be used to identify yourself."
+msgstr "Nos informe seu nome, ele será usado para identificar você."
+
+#: app/views/account/_signup_form.rhtml:88
 msgid "I accept the %s"
 msgstr "Eu aceito os %s"
 
-#: app/views/account/_signup_form.rhtml:82
+#: app/views/account/_signup_form.rhtml:88
 msgid "terms of use"
 msgstr "termos de Uso"
 
-#: app/views/account/_signup_form.rhtml:95
+#: app/views/account/_signup_form.rhtml:101
 msgid "Create my account"
 msgstr "Criar minha conta"
 
-#: app/views/account/_signup_form.rhtml:158
+#: app/views/account/_signup_form.rhtml:135
 msgid "Passwords don't match"
 msgstr "As senhas não correspondem"
 
@@ -10079,10 +10124,6 @@ msgstr "Transferir administração"
 msgid "Manage contracts"
 msgstr "Gerenciar contratos"
 
-#: plugins/bsc/lib/bsc_plugin.rb:101
-msgid "Bsc"
-msgstr "Bsc"
-
 #: plugins/bsc/lib/bsc_plugin/contract.rb:33
 msgid "Negotiating"
 msgstr "Em negociação"
@@ -10219,6 +10260,37 @@ msgstr "custom forms plugin field"
 msgid "customformsplugin::field"
 msgstr "customformsplugin::field"
 
+#: plugins/custom_forms/lib/custom_forms_plugin/field.rb:-
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/_edit_text.html.erb:3
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/_edit_text.html.erb:4
+msgid "Default value"
+msgstr "Valor padrão"
+
+#: plugins/custom_forms/lib/custom_forms_plugin/field.rb:-
+msgid "Choices"
+msgstr "Escolhas"
+
+#: plugins/custom_forms/lib/custom_forms_plugin/field.rb:-
+msgid "Minimum"
+msgstr "Mínimo"
+
+#: plugins/custom_forms/lib/custom_forms_plugin/field.rb:-
+msgid "Maximum"
+msgstr "Máximo"
+
+#: plugins/custom_forms/lib/custom_forms_plugin/field.rb:-
+msgid "Form"
+msgstr "Formulário"
+
+#: plugins/custom_forms/lib/custom_forms_plugin/field.rb:-
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/_form.html.erb:25
+msgid "Mandatory"
+msgstr "Obrigatório"
+
+#: plugins/custom_forms/lib/custom_forms_plugin/field.rb:-
+msgid "Multiple"
+msgstr "Múltiplo"
+
 #: plugins/custom_forms/lib/custom_forms_plugin/answer.rb:10
 msgid "is mandatory."
 msgstr "é obrigatório"
@@ -10273,7 +10345,7 @@ msgid "stoaplugin::uspuser"
 msgstr "stoaplugin::uspuser"
 
 #: plugins/stoa/lib/stoa_plugin.rb:6 plugins/stoa/lib/stoa_plugin.rb:22
-#: plugins/stoa/lib/stoa_plugin.rb:32
+#: plugins/stoa/lib/stoa_plugin.rb:36
 msgid "USP number"
 msgstr "Número USP"
 
@@ -10281,7 +10353,41 @@ msgstr "Número USP"
 msgid "Add Stoa features"
 msgstr "Adiciona a funcionalidades para o Stoa"
 
-#: plugins/stoa/lib/stoa_plugin.rb:23 plugins/stoa/lib/stoa_plugin.rb:33
+#: plugins/stoa/lib/stoa_plugin.rb:23
+msgid ""
+"The usp id grants you special powers in the network. Don't forget to fill it "
+"with a valid number if you have one."
+msgstr ""
+"O número USP garante poderes especiais nesta rede. Não esqueça de preenchê-"
+"lo com um número válido se você possuir um."
+
+#: plugins/stoa/lib/stoa_plugin.rb:24
+msgid "Either this usp number is being used by another user or is not valid"
+msgstr "Esse número usp está sendo usado por outro usuário ou não é "
+"válido"
+
+#: plugins/stoa/lib/stoa_plugin.rb:25
+msgid "Checking usp number..."
+msgstr "Checando o número usp..."
+
+#: plugins/stoa/lib/stoa_plugin.rb:26 plugins/stoa/lib/stoa_plugin.rb:39
+msgid "Birth date (yyyy-mm-dd)"
+msgstr "Data de nascimento (aaaa-mm-dd)"
+
+#: plugins/stoa/lib/stoa_plugin.rb:27
+msgid "Confirm your birth date. Pay attention to the format: yyyy-mm-dd."
+msgstr "Confirme sua data de nascimento. Fique atento ao formato: "
+"aaaa-mm-dd."
+
+#: plugins/stoa/lib/stoa_plugin.rb:28 plugins/stoa/lib/stoa_plugin.rb:40
+msgid "CPF"
+msgstr "CPF"
+
+#: plugins/stoa/lib/stoa_plugin.rb:29
+msgid "Confirm your CPF number."
+msgstr "Confirme seu número de CPF."
+
+#: plugins/stoa/lib/stoa_plugin.rb:37
 msgid ""
 "The usp id grants you special powers in the network. Don't forget to fill it "
 "if you have one."
@@ -10289,15 +10395,11 @@ msgstr ""
 "O número USP garante poderes especiais nesta rede. Não esqueça de preenchê-"
 "lo se você possuir um."
 
-#: plugins/stoa/lib/stoa_plugin.rb:24 plugins/stoa/lib/stoa_plugin.rb:34
-msgid "Birth date (yyyy-mm-dd)"
-msgstr "Data de nascimento (aaaa-mm-dd)"
+#: plugins/stoa/lib/stoa_plugin.rb:38
+msgid "This field must be private"
+msgstr "Este campo precisa ser privado"
 
-#: plugins/stoa/lib/stoa_plugin.rb:25 plugins/stoa/lib/stoa_plugin.rb:35
-msgid "CPF"
-msgstr "CPF"
-
-#: plugins/stoa/lib/stoa_plugin.rb:47 plugins/stoa/lib/stoa_plugin.rb:66
+#: plugins/stoa/lib/stoa_plugin.rb:52 plugins/stoa/lib/stoa_plugin.rb:71
 msgid " validation failed"
 msgstr " validação falhou"
 
@@ -10790,11 +10892,6 @@ msgstr "Número de produtores"
 msgid "Annotations"
 msgstr "Anotações"
 
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/_edit_text.html.erb:3
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/_edit_text.html.erb:4
-msgid "Default value"
-msgstr "Valor padrão"
-
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/_option.html.erb:5
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/_empty_option.html.erb:5
 msgid "Are you sure you want to remove this option?"
@@ -10854,10 +10951,6 @@ msgstr "Accesso"
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/_form.html.erb:16
 msgid "Triggered on membership"
 msgstr "Disparado na associação de um novo integrante"
-
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/_form.html.erb:25
-msgid "Mandatory"
-msgstr "Obrigatório"
 
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/_form.html.erb:36
 msgid "Add a new field"
@@ -10973,6 +11066,18 @@ msgstr ""
 "pela %s e licenciado sob a <a href=\"http://www.gnu.org/licenses/agpl.html"
 "\">GNU Affero General Public License</a> versão 3 ou superior."
 
+#~ msgid "Template:"
+#~ msgstr "Modelo:"
+
+#~ msgid "signup|Login"
+#~ msgstr "Nome de usuário"
+
+#~ msgid "password"
+#~ msgstr "senha"
+
+#~ msgid "password confirmation"
+#~ msgstr "confirmação de senha"
+
 #~ msgid "Scrap successfully removed."
 #~ msgstr "Recado removido com sucesso"
 
@@ -10996,9 +11101,6 @@ msgstr ""
 
 #~ msgid "Option"
 #~ msgstr "Opção"
-
-#~ msgid "Choice"
-#~ msgstr "Escolha"
 
 #~ msgid "What's new"
 #~ msgstr "Novidades"
@@ -11086,24 +11188,6 @@ msgstr ""
 
 #~ msgid "contents|More Views"
 #~ msgstr "Mais visualizadas"
-
-#~ msgid "Send email plugin allow to"
-#~ msgstr "Send email plugin allow to"
-
-#~ msgid "Shopping cart"
-#~ msgstr "Cesto de compras"
-
-#~ msgid "Shopping cart delivery"
-#~ msgstr "Entrega do cesto de compras"
-
-#~ msgid "Shopping cart delivery price"
-#~ msgstr "Preço de entrega do cesto de compras"
-
-#~ msgid "Bar"
-#~ msgstr "Barra"
-
-#~ msgid "Company name"
-#~ msgstr "Nome de exibição"
 
 #~ msgid "Media upload"
 #~ msgstr "Upload de mídia"
@@ -11540,9 +11624,6 @@ msgstr ""
 
 #~ msgid "Computation"
 #~ msgstr "Computação"
-
-#~ msgid "Formation"
-#~ msgstr "Formação"
 
 #~ msgid "A collection of photos, logos or other kinds of images."
 #~ msgstr "Uma coleção de fotos, logos ou outros tipos de imagens."

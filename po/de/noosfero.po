@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.39.0~1\n"
-"POT-Creation-Date: 2012-11-05 20:07-0200\n"
+"POT-Creation-Date: 2012-11-16 01:07-0200\n"
 "PO-Revision-Date: 2012-03-27 19:47-0300\n"
 "Last-Translator: Josef Spillner <josef.spillner@tu-dresden.de>\n"
 "Language-Team: German <de@li.org>\n"
@@ -123,6 +123,7 @@ msgstr "Tag"
 #: app/views/content_viewer/_comment_form.rhtml:71
 #: app/views/templates/_create_template_form.html.erb:12
 #: app/views/licenses/_form.html.erb:5 app/views/licenses/index.html.erb:4
+#: plugins/custom_forms/lib/custom_forms_plugin/field.rb:-
 #: plugins/mezuro/views/content_viewer/show_project.rhtml:15
 #: plugins/mezuro/views/content_viewer/show_configuration.rhtml:14
 #: plugins/shopping_cart/views/shopping_cart_plugin_profile/buy.html.erb:6
@@ -198,6 +199,7 @@ msgstr "Profile"
 #: app/views/cms/view.rhtml:25
 #: app/views/shared/reported_versions/_comment.html.erb:3
 #: app/views/shared/reported_versions/_article.html.erb:3
+#: plugins/custom_forms/lib/custom_forms_plugin/field.rb:-
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/_edit_select.html.erb:23
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/_form.html.erb:24
 msgid "Type"
@@ -335,6 +337,30 @@ msgid "Redirection after login"
 msgstr ""
 
 #: app/models/box.rb:-
+msgid "Shopping cart"
+msgstr "Einkaufskorb"
+
+#: app/models/box.rb:-
+msgid "Shopping cart delivery"
+msgstr "Auslieferung des Einkaufskorbs"
+
+#: app/models/box.rb:-
+msgid "Shopping cart delivery price"
+msgstr "Preis der Auslieferung des Einkaufskorbs"
+
+#: app/models/box.rb:-
+msgid "Bar"
+msgstr "Bar"
+
+#: app/models/box.rb:- plugins/bsc/lib/bsc_plugin.rb:101
+msgid "Bsc"
+msgstr "Bsc"
+
+#: app/models/box.rb:-
+msgid "Company name"
+msgstr "Firmenname"
+
+#: app/models/box.rb:-
 msgid "article"
 msgstr "Artikel"
 
@@ -355,6 +381,7 @@ msgid "Title"
 msgstr "Titel"
 
 #: app/models/box.rb:- app/models/license.rb:-
+#: plugins/custom_forms/lib/custom_forms_plugin/field.rb:-
 msgid "Slug"
 msgstr "Slug"
 
@@ -593,6 +620,11 @@ msgstr "Sprachen"
 #, fuzzy
 msgid "Default language"
 msgstr "alle Sprachen"
+
+#: app/models/box.rb:-
+#, fuzzy
+msgid "Send email plugin allow to"
+msgstr "Send email plugin allow to"
 
 #: app/models/box.rb:-
 msgid "organization"
@@ -1246,11 +1278,11 @@ msgstr "Nutzer"
 
 #: app/models/user.rb:- app/models/user.rb:18 app/models/change_password.rb:8
 #: app/views/invite/select_address_book.rhtml:38
+#: app/views/account/_signup_form.rhtml:12
 msgid "Username"
 msgstr "Nutzername"
 
 #: app/models/user.rb:- app/models/user.rb:19 app/models/contact.rb:14
-#: app/views/account/_signup_form.rhtml:41
 msgid "e-Mail"
 msgstr "E-Mail"
 
@@ -1712,6 +1744,7 @@ msgid "contact list"
 msgstr "Kontaktliste"
 
 #: app/models/contact_list.rb:-
+#: plugins/custom_forms/lib/custom_forms_plugin/field.rb:-
 msgid "List"
 msgstr "Liste"
 
@@ -3526,7 +3559,7 @@ msgstr "Dieser Inhalt ist nur für %s's Freunde verfügbar."
 msgid "The contents in this community is available to members only."
 msgstr "Der Inhalt dieser Communitiy ist nur für Mitglieder verfügbar."
 
-#: app/controllers/public/profile_controller.rb:382
+#: app/controllers/public/profile_controller.rb:383
 msgid ""
 "This profile is inaccessible. You don't have the permission to view the "
 "content here."
@@ -3534,7 +3567,7 @@ msgstr ""
 "Dieses Profil ist nicht aufrufbar. Sie haben keine Berechtigungen, um es "
 "sich ansehen zu können."
 
-#: app/controllers/public/profile_controller.rb:382
+#: app/controllers/public/profile_controller.rb:383
 msgid "Oops ... you cannot go ahead here"
 msgstr "Oops.. Sie können hier leider nicht weitergehen"
 
@@ -4180,6 +4213,7 @@ msgstr "Domain-Auswahl"
 #: app/helpers/application_helper.rb:873
 #: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:3
 #: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:36
+#: plugins/stoa/lib/stoa_plugin.rb:38
 msgid "Public"
 msgstr "Öffentlich"
 
@@ -4390,7 +4424,7 @@ msgstr "Mehr Populäre"
 msgid "My friends"
 msgstr "Meine Freunde"
 
-#: app/helpers/application_helper.rb:1094 plugins/stoa/lib/stoa_plugin.rb:87
+#: app/helpers/application_helper.rb:1094 plugins/stoa/lib/stoa_plugin.rb:92
 msgid "Invite friends"
 msgstr "Freunde einladen"
 
@@ -4571,7 +4605,7 @@ msgid "Type in an keyword"
 msgstr "Geben Sie einen Suchbegriff an"
 
 #: app/helpers/application_helper.rb:1308
-#: app/helpers/application_helper.rb:1353
+#: app/helpers/application_helper.rb:1354
 #: app/views/profile_members/_manage_roles.html.erb:22
 #: plugins/bsc/lib/bsc_plugin/bsc_helper.rb:8
 #: plugins/bsc/views/bsc_plugin_myprofile/_contract_form.html.erb:58
@@ -4579,7 +4613,7 @@ msgid "No results"
 msgstr "Keine Ergebnisse"
 
 #: app/helpers/application_helper.rb:1308
-#: app/helpers/application_helper.rb:1354
+#: app/helpers/application_helper.rb:1355
 #: app/views/profile_members/_manage_roles.html.erb:23
 #: plugins/bsc/lib/bsc_plugin/bsc_helper.rb:9
 #: plugins/bsc/views/bsc_plugin_myprofile/_contract_form.html.erb:59
@@ -4588,10 +4622,16 @@ msgstr "Suche..."
 
 #: app/helpers/application_helper.rb:1343
 #, fuzzy
-msgid "Template:"
-msgstr "Templates ändern"
+msgid "Profile organization"
+msgstr "Eine Organisation"
 
-#: app/helpers/application_helper.rb:1352
+#: app/helpers/application_helper.rb:1344
+msgid ""
+"Your profile will be created according to the selected template. Click on "
+"the options to view them."
+msgstr ""
+
+#: app/helpers/application_helper.rb:1353
 #: plugins/bsc/lib/bsc_plugin/bsc_helper.rb:7
 msgid "Type in a search term"
 msgstr "Geben Sie einen Suchbegriff an"
@@ -5113,7 +5153,7 @@ msgstr "Prüfe die Verfügbarkeit des Loginnamen..."
 msgid "Checking if e-mail address is already taken..."
 msgstr "Prüfe, ob die E-Mail-Adresse bereits genutzt wird..."
 
-#: app/helpers/language_helper.rb:25 app/helpers/language_helper.rb:35
+#: app/helpers/language_helper.rb:26 app/helpers/language_helper.rb:36
 msgid ""
 "The language you choose here is the language used for options, buttons, etc. "
 "It does not affect the language of the content created by other users."
@@ -8432,11 +8472,12 @@ msgstr ""
 msgid "Confirm the new password"
 msgstr "Bestätigen Sie das neue Passwort"
 
-#: app/views/account/_signup_form.rhtml:12
-msgid "signup|Login"
-msgstr "signup|Login"
+#: app/views/account/_signup_form.rhtml:3
+#, fuzzy
+msgid "The account could not be created"
+msgstr "%s konnte nicht hochgeladen werden"
 
-#: app/views/account/_signup_form.rhtml:15
+#: app/views/account/_signup_form.rhtml:19
 msgid ""
 "Choose your login name carefully! It will be your network access and you "
 "will not be able to change it later."
@@ -8444,11 +8485,7 @@ msgstr ""
 "Wählen Sie Ihren Loginnamen mit Bedacht! Er wird Ihr Zugang zum Netzwerk "
 "werden und Sie werden ihn später nicht mehr ändern können."
 
-#: app/views/account/_signup_form.rhtml:29
-msgid "password"
-msgstr "Passwort"
-
-#: app/views/account/_signup_form.rhtml:30
+#: app/views/account/_signup_form.rhtml:34
 msgid ""
 "Choose a password that you can remember easily. It must have at least 4 "
 "characters."
@@ -8456,33 +8493,39 @@ msgstr ""
 "Wählen Sie ein Passwort, an das Sie sich einfach erinnern können. Es muss "
 "mindestens 4 Zeichen haben."
 
-#: app/views/account/_signup_form.rhtml:36
-msgid "password confirmation"
-msgstr "Passwortbestätigung"
+#: app/views/account/_signup_form.rhtml:40
+msgid ""
+"We need to be sure that you filled in your password correctly. Confirm you "
+"password."
+msgstr ""
 
-#: app/views/account/_signup_form.rhtml:42
+#: app/views/account/_signup_form.rhtml:46
 msgid "This e-mail address will be used to contact you."
 msgstr "Diese E-mail Adresse soll genutzt werden, um Sie zu kontaktieren."
 
-#: app/views/account/_signup_form.rhtml:66
+#: app/views/account/_signup_form.rhtml:70
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:15
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:17
 msgid "Full name"
 msgstr "Vollständiger Name"
 
-#: app/views/account/_signup_form.rhtml:82
+#: app/views/account/_signup_form.rhtml:71
+msgid "Tell us your name, it will be used to identify yourself."
+msgstr ""
+
+#: app/views/account/_signup_form.rhtml:88
 msgid "I accept the %s"
 msgstr "Ich akzeptiere die %s"
 
-#: app/views/account/_signup_form.rhtml:82
+#: app/views/account/_signup_form.rhtml:88
 msgid "terms of use"
 msgstr "Nutzungsbedingungen"
 
-#: app/views/account/_signup_form.rhtml:95
+#: app/views/account/_signup_form.rhtml:101
 msgid "Create my account"
 msgstr "Meinen Zugang erstellen"
 
-#: app/views/account/_signup_form.rhtml:158
+#: app/views/account/_signup_form.rhtml:135
 msgid "Passwords don't match"
 msgstr "Die Passwörter stimmen nicht überein"
 
@@ -10334,10 +10377,6 @@ msgstr "Eigentümerschaft übertragen"
 msgid "Manage contracts"
 msgstr "Verträge verwalten"
 
-#: plugins/bsc/lib/bsc_plugin.rb:101
-msgid "Bsc"
-msgstr "Bsc"
-
 #: plugins/bsc/lib/bsc_plugin/contract.rb:33
 msgid "Negotiating"
 msgstr "Aushandlung"
@@ -10489,6 +10528,40 @@ msgstr ""
 msgid "customformsplugin::field"
 msgstr ""
 
+#: plugins/custom_forms/lib/custom_forms_plugin/field.rb:-
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/_edit_text.html.erb:3
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/_edit_text.html.erb:4
+msgid "Default value"
+msgstr ""
+
+#: plugins/custom_forms/lib/custom_forms_plugin/field.rb:-
+#, fuzzy
+msgid "Choices"
+msgstr "Wahl"
+
+#: plugins/custom_forms/lib/custom_forms_plugin/field.rb:-
+msgid "Minimum"
+msgstr ""
+
+#: plugins/custom_forms/lib/custom_forms_plugin/field.rb:-
+msgid "Maximum"
+msgstr ""
+
+#: plugins/custom_forms/lib/custom_forms_plugin/field.rb:-
+#, fuzzy
+msgid "Form"
+msgstr "Anordnung"
+
+#: plugins/custom_forms/lib/custom_forms_plugin/field.rb:-
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/_form.html.erb:25
+#, fuzzy
+msgid "Mandatory"
+msgstr "Moderator"
+
+#: plugins/custom_forms/lib/custom_forms_plugin/field.rb:-
+msgid "Multiple"
+msgstr ""
+
 #: plugins/custom_forms/lib/custom_forms_plugin/answer.rb:10
 #, fuzzy
 msgid "is mandatory."
@@ -10549,7 +10622,7 @@ msgid "stoaplugin::uspuser"
 msgstr "bscplugin::bsc"
 
 #: plugins/stoa/lib/stoa_plugin.rb:6 plugins/stoa/lib/stoa_plugin.rb:22
-#: plugins/stoa/lib/stoa_plugin.rb:32
+#: plugins/stoa/lib/stoa_plugin.rb:36
 #, fuzzy
 msgid "USP number"
 msgstr "Telefonnummer"
@@ -10559,22 +10632,50 @@ msgstr "Telefonnummer"
 msgid "Add Stoa features"
 msgstr "Fügt Unterstützung für Bsc hinzu"
 
-#: plugins/stoa/lib/stoa_plugin.rb:23 plugins/stoa/lib/stoa_plugin.rb:33
+#: plugins/stoa/lib/stoa_plugin.rb:23
+msgid ""
+"The usp id grants you special powers in the network. Don't forget to fill it "
+"with a valid number if you have one."
+msgstr ""
+
+#: plugins/stoa/lib/stoa_plugin.rb:24
+msgid "Either this usp number is being used by another user or is not valid"
+msgstr ""
+
+#: plugins/stoa/lib/stoa_plugin.rb:25
+msgid "Checking usp number..."
+msgstr ""
+
+#: plugins/stoa/lib/stoa_plugin.rb:26 plugins/stoa/lib/stoa_plugin.rb:39
+#, fuzzy
+msgid "Birth date (yyyy-mm-dd)"
+msgstr "Geburtstag"
+
+#: plugins/stoa/lib/stoa_plugin.rb:27
+msgid "Confirm your birth date. Pay attention to the format: yyyy-mm-dd."
+msgstr ""
+
+#: plugins/stoa/lib/stoa_plugin.rb:28 plugins/stoa/lib/stoa_plugin.rb:40
+msgid "CPF"
+msgstr ""
+
+#: plugins/stoa/lib/stoa_plugin.rb:29
+#, fuzzy
+msgid "Confirm your CPF number."
+msgstr "Bestätigen Sie Ihr neues Passwort"
+
+#: plugins/stoa/lib/stoa_plugin.rb:37
 msgid ""
 "The usp id grants you special powers in the network. Don't forget to fill it "
 "if you have one."
 msgstr ""
 
-#: plugins/stoa/lib/stoa_plugin.rb:24 plugins/stoa/lib/stoa_plugin.rb:34
+#: plugins/stoa/lib/stoa_plugin.rb:38
 #, fuzzy
-msgid "Birth date (yyyy-mm-dd)"
-msgstr "Geburtstag"
+msgid "This field must be private"
+msgstr "Die Datei konnte nicht gespeichert werden"
 
-#: plugins/stoa/lib/stoa_plugin.rb:25 plugins/stoa/lib/stoa_plugin.rb:35
-msgid "CPF"
-msgstr ""
-
-#: plugins/stoa/lib/stoa_plugin.rb:47 plugins/stoa/lib/stoa_plugin.rb:66
+#: plugins/stoa/lib/stoa_plugin.rb:52 plugins/stoa/lib/stoa_plugin.rb:71
 #, fuzzy
 msgid " validation failed"
 msgstr "Validierungssinformationen"
@@ -11079,11 +11180,6 @@ msgstr "Anzahl der Produzenten"
 msgid "Annotations"
 msgstr "Anmerkungen"
 
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/_edit_text.html.erb:3
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/_edit_text.html.erb:4
-msgid "Default value"
-msgstr ""
-
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/_option.html.erb:5
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/_empty_option.html.erb:5
 #, fuzzy
@@ -11154,11 +11250,6 @@ msgstr "Zugriff"
 #, fuzzy
 msgid "Triggered on membership"
 msgstr "Mitgliedschaft verwalten"
-
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/_form.html.erb:25
-#, fuzzy
-msgid "Mandatory"
-msgstr "Moderator"
 
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/_form.html.erb:36
 #, fuzzy
@@ -11287,6 +11378,19 @@ msgstr ""
 "\">GNU Affero General Public License</a> Version 3 oder einer späteren "
 "Version lizenziert ist."
 
+#, fuzzy
+#~ msgid "Template:"
+#~ msgstr "Templates ändern"
+
+#~ msgid "signup|Login"
+#~ msgstr "signup|Login"
+
+#~ msgid "password"
+#~ msgstr "Passwort"
+
+#~ msgid "password confirmation"
+#~ msgstr "Passwortbestätigung"
+
 #~ msgid "Scrap successfully removed."
 #~ msgstr "Eintrag erfolgreich entfernt."
 
@@ -11311,9 +11415,6 @@ msgstr ""
 
 #~ msgid "Option"
 #~ msgstr "Option"
-
-#~ msgid "Choice"
-#~ msgstr "Wahl"
 
 #~ msgid "What's new"
 #~ msgstr "Was ist neu"
@@ -11407,25 +11508,6 @@ msgstr ""
 
 #~ msgid "contents|More Views"
 #~ msgstr "contents|Mehr Ansichten"
-
-#, fuzzy
-#~ msgid "Send email plugin allow to"
-#~ msgstr "Send email plugin allow to"
-
-#~ msgid "Shopping cart"
-#~ msgstr "Einkaufskorb"
-
-#~ msgid "Shopping cart delivery"
-#~ msgstr "Auslieferung des Einkaufskorbs"
-
-#~ msgid "Shopping cart delivery price"
-#~ msgstr "Preis der Auslieferung des Einkaufskorbs"
-
-#~ msgid "Bar"
-#~ msgstr "Bar"
-
-#~ msgid "Company name"
-#~ msgstr "Firmenname"
 
 #~ msgid "Media upload"
 #~ msgstr "Medien hochladen"
@@ -11816,9 +11898,6 @@ msgstr ""
 
 #~ msgid "Computation"
 #~ msgstr "Berechnung"
-
-#~ msgid "Formation"
-#~ msgstr "Anordnung"
 
 #~ msgid "A collection of photos, logos or other kinds of images."
 #~ msgstr "Eine Sammlung von Fotos, Logos und anderen Arten von Bildern."
