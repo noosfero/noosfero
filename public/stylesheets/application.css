@@ -5629,16 +5629,6 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 img {
   clear: both;
 }
 
-.action-account-signup #content .no-boxes h1 {
-  font-variant: normal;
-  border-bottom: 0;
-  color: #666666;
-  font-weight: lighter;
-  text-align: center;
-  margin-top: 35px;
-  margin-left: 12px;
-}
-
 #signup-form {
   color: #4A4A4A;
 }
@@ -5912,6 +5902,11 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 img {
 }
 
 .action-account-signup .no-boxes {
+  margin-left: 0px;
+  margin-right: 0px;
+}
+
+.action-account-signup .no-boxes form {
   margin-left: 247px;
   margin-right: 247px;
 }
