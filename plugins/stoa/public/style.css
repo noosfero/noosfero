@@ -64,3 +64,16 @@
 .controller-profile_editor div.checking {
   background: transparent url(/images/loading-small.gif) 153px center no-repeat;
 }
+
+.login-box #main_user_login,
+.login-box .formlabel[for=main_user_login],
+.login-box #user_login,
+.login-box .formlabel[for=user_login],
+.login-box #user_password,
+.login-box .formlabel[for=user_password] {
+  display:none;
+}
+
+#stoa-login-fields{
+  margin-top: -10px;
+}

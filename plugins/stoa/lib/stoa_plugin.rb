@@ -42,6 +42,23 @@ class StoaPlugin < Noosfero::Plugin
     } if context.profile.person? && context.profile.usp_id.blank?
   end
 
+  def login_extra_contents
+    lambda {
+      content_tag('div', labelled_form_field(_('USP number / Username'), text_field_tag('usp_id_login', '', :id => 'stoa_field_login')) +
+      labelled_form_field(_('Password'), password_field_tag('password', '', :id => 'stoa_field_password')), :id => 'stoa-login-fields')
+    }
+  end
+
+  def alternative_authentication
+    person = Person.find_by_usp_id(context.params[:usp_id_login])
+    if person
+      user = User.authenticate(person.user.login, context.params[:password])
+    else
+      user = User.authenticate(context.params[:usp_id_login], context.params[:password])
+    end
+    user
+  end
+
   def account_controller_filters
     block = lambda do
       params[:profile_data] ||= {}
