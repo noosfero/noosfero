@@ -3,7 +3,6 @@ class MezuroPlugin::ProjectContent < Article
 
   settings_items :project_id
 
-  validate_on_create :validate_kalibro_project_name
   validate_on_create :validate_repository_address
 
   def self.short_description
@@ -34,6 +33,7 @@ class MezuroPlugin::ProjectContent < Article
       @repositories ||= Kalibro::Repository.repositories_of(project_id)
     rescue Exception => error
       errors.add_to_base(error.message)
+      @repositories = []
     end
     @repositories
   end
@@ -105,8 +105,15 @@ class MezuroPlugin::ProjectContent < Article
   end
 
   def validate_repository_address
-    if(address.nil? || address == "")
-      errors.add_to_base("Repository Address is mandatory")
+    repositories.each do |repository|
+      if (!repository.nil?)
+        address = repository.address
+        if(address.nil? || address == "")
+          errors.add_to_base("Repository Address is mandatory")
+        end
+      else
+        errors.add_to_base("Repository is mandatory")
+      end       
     end
   end
 

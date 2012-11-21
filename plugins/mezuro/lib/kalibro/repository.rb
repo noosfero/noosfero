@@ -22,4 +22,8 @@ class Kalibro::Repository < Kalibro::Model
     self.class.request(:cancel_processing_of_repository, {:repository_id => self.id})
   end
 
+  def save_params
+    {:kalibro_repository => self.to_hash, :project_id => Kalibro::Project.project_of(id)}
+  end
+
 end
