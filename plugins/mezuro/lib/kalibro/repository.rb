@@ -23,7 +23,7 @@ class Kalibro::Repository < Kalibro::Model
   end
 
   def save_params
-    {:kalibro_repository => self.to_hash, :project_id => Kalibro::Project.project_of(id)}
+    {:repository => self.to_hash, :project_id => Kalibro::Project.project_of(id).id}
   end
 
 end
