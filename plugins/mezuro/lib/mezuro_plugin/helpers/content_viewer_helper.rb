@@ -45,8 +45,8 @@ class MezuroPlugin::Helpers::ContentViewerHelper
     selected_option.first
   end
 
-  def self.format_name(metric_result)
-    metric_result.configuration.metric.name.delete("() ")
+  def self.format_name(metric_configuration_snapshot)
+    metric_configuration_snapshot.metric.name.delete("() ")
   end
 
   def self.get_license_option(selected)

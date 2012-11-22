@@ -1,4 +1,5 @@
-<h5><%= _('Metric results for: ') + @module_label %> </h5>
+<% module_name = @module_result.module.name
+<h5><%= _('Metric results for: #{module_name} (#{@module_result.module.granularity}) ') %> </h5>
 
 <hr/>
 <div class="zoomable-image">
@@ -12,26 +13,28 @@
     </tr>
   </thead>
   <tbody>
-    <% @module_result.metric_results.each do |metric_result|  %>
-      <% range = metric_result.range %>
-      <% if !range.nil? %>
+    <% @metric_results.each do |metric_result|  %>
+      <% metric_configuration_snapshot = metric_result.metric_configuration_snapshot%>
+      <% range_snapshot = metric_configuration_snapshot.range_snapshot %>
+      <% formatted_name = MezuroPlugin::Helpers::ContentViewerHelper.format_name(metric_configuration_snapshot) %>
+      <% if !range_snapshot.nil? %>
         <tr>
-          <td style="width: 74%"><a href="#" show-metric-history="<%= MezuroPlugin::Helpers::ContentViewerHelper.format_name(metric_result) %>" data-module-name="<%= @module.name %>"><%= metric_result.metric.name %></a></td>
+          <td style="width: 74%"><a href="#" show-metric-history="<%= formatted_name %>" data-module-name="<%= module_name %>"><%= metric_configuration_snapshot.metric.name %></a></td>
           <td><%= MezuroPlugin::Helpers::ContentViewerHelper.format_grade(metric_result.value) %></td>
-          <td><%= metric_result.weight %></td>
-          <td style="background-color: #<%= range.color[2..-1] %>">
-            <span title="<%= range.comments %>" >
-              <%= range.label %>
+          <td><%= metric_configuration_snapshot.weight %></td>
+          <td style="background-color: #<%= range_snapshot.color %>">
+            <span title="<%= range_snapshot.comments %>" >
+              <%= range_snapshot.label %>
             </span>
           </td>
         </tr>	  
-        <tr class="<%= MezuroPlugin::Helpers::ContentViewerHelper.format_name(metric_result) %>" style="display: none;">
+        <tr class="<%= formatted_name %>" style="display: none;">
           <td colspan="3">
-            <div id='historical-<%= MezuroPlugin::Helpers::ContentViewerHelper.format_name(metric_result) %>'>
+            <div id='historical-<%= formatted_name %>'>
             </div>
           </td>
           <td align="right">
-            <%= range.comments.nil? ? '' : range.comments %>
+            <%= range_snapshot.comments.nil? ? '' : range_snapshot.comments %>
           </td> 
         </tr>
       <% end %>
@@ -43,7 +46,7 @@
         <div id='historical-grade' style="display: none;"></div>
       </td>
       <td align = "right">
-        <a href="#" show-grade-history="<%= @module_result.module.name %>" data-module-name="<%= @module.name%>" >
+        <a href="#" show-grade-history="<%= module_name %>" data-module-name="<%= module_name%>" >
           <strong>
             <%= _('Grade:') %>
             <%= "%.02f" % @module_result.grade %>

@@ -2,35 +2,34 @@ class MezuroPluginProjectController < MezuroPluginProfileController
 
   append_view_path File.join(File.dirname(__FILE__) + '/../../views')
 
-  def project_state
+  def processing_state
     @content = profile.articles.find(params[:id])
-    project = @content.project
+    processing = @content.processing
     if project_content_has_errors?
       redirect_to_error_page(@content.errors[:base])
     else
-      state = project.kalibro_error.nil? ? project.state : "ERROR"
-      render :text => state
+      render :text => processing.state
     end
   end
 
-  def project_error
+  def processing_error
     @content = profile.articles.find(params[:id])
-    @project = @content.project
+    @processing = @content.processing
     if project_content_has_errors?
       redirect_to_error_page(@content.errors[:base])
     else
-      render :partial => 'project_error'
+      render :partial => 'processing_error'
     end
   end
 
-  def project_result
+  def processing
     @content = profile.articles.find(params[:id])
     date = params[:date]
-    @project_result = date.nil? ? @content.project_result : @content.project_result_with_date(date)
+    @processing = date.nil? ? @content.processing : @content.processing_with_date(date)
     if project_content_has_errors?
       redirect_to_error_page(@content.errors[:base])
     else
-      render :partial => 'project_result'
+      render :partial => 'processing'
     end
   end
 

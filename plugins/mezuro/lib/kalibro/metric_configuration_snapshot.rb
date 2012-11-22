@@ -11,7 +11,11 @@ class Kalibro::MetricConfigurationSnapshot < Kalibro::Model
   end
 
   def range=(value)
-    @range = Kalibro::Range.to_object value
+    @range = Kalibro::RangeSnapshot.to_object value
+  end
+
+  def range_snapshot
+    range
   end
 
 end

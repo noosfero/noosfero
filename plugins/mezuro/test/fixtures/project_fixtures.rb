@@ -17,17 +17,4 @@ class ProjectFixtures
       :description => 'Calculator for Qt'
     }
   end
-    
-  def self.project_content
-    content = MezuroPlugin::ProjectContent.new
-    content.name = 'Qt-Calculator'
-    content.project_license = 'GPL'
-    content.description = 'Calculator for Qt'
-    content.repository_type = RepositoryFixtures.repository_hash[:type]
-    content.repository_url = RepositoryFixtures.repository_hash[:address]
-    content.configuration_name = 'Kalibro for Java'
-    content.periodicity_in_days = 1
-    content
-  end
-
 end
