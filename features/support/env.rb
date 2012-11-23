@@ -55,3 +55,10 @@ if defined?(ActiveRecord::Base)
   rescue LoadError => ignore_if_database_cleaner_not_present
   end
 end
+
+Before do
+  Fixtures.reset_cache
+  fixtures_folder = File.join(RAILS_ROOT, 'test', 'fixtures')
+  fixtures = ['environments', 'roles']
+  Fixtures.create_fixtures(fixtures_folder, fixtures)
+end
