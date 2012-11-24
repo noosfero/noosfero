@@ -1,3 +1,6 @@
+require 'database_cleaner'
+require 'database_cleaner/cucumber'
+
 Cucumber::Rails::World.use_transactional_fixtures = false
 
 Capybara.default_driver = :selenium
