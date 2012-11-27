@@ -29,9 +29,9 @@ class ConfigurationTest < ActiveSupport::TestCase
     assert_equal @hash[:name], Kalibro::Configuration.find(@configuration.id).name
   end
 
-  should 'return nil when configuration doesnt exist' do
+  should 'return exception when configuration doesnt exist' do
     Kalibro::Configuration.expects(:request).with(:configuration_exists, {:configuration_id => @configuration.id}).returns({:exists => false})
-    assert_nil Kalibro::Configuration.find(@configuration.id)
+    assert_raise(Kalibro::Errors::RecordNotFound){Kalibro::Configuration.find(@configuration.id)}
   end
 
   should 'get configuration of a repository' do

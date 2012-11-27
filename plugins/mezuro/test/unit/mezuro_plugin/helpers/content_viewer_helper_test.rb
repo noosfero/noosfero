@@ -1,5 +1,5 @@
 require "test_helper"
-require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/metric_result_fixtures"
+require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/metric_configuration_snapshot_fixtures"
 
 class ContentViewerHelperTest < ActiveSupport::TestCase
 
@@ -13,9 +13,9 @@ class ContentViewerHelperTest < ActiveSupport::TestCase
     assert_equal [["Not Periodically", 0], ["1 day", 1], ["2 days", 2], ["Weekly", 7], ["Biweeky", 15], ["Monthly", 30]], MezuroPlugin::Helpers::ContentViewerHelper.create_periodicity_options
   end
   
-  should 'format metric name for module result' do
-    metric_result = MetricResultFixtures.native_metric_result
-    assert_equal 'AverageMethodLOC', MezuroPlugin::Helpers::ContentViewerHelper.format_name(metric_result)
+  should 'format metric name for metric configuration snapshot' do
+    metric_configuration_snapshot = MetricConfigurationSnapshotFixtures.metric_configuration_snapshot
+    assert_equal 'AverageMethodLOC', MezuroPlugin::Helpers::ContentViewerHelper.format_name(metric_configuration_snapshot)
   end
 
 end

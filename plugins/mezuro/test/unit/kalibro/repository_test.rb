@@ -38,14 +38,16 @@ class RepositoryTest < ActiveSupport::TestCase
 
   should 'return true when repository is saved successfully' do
     id_from_kalibro = 1
-    Kalibro::Repository.expects(:request).with(:save_repository, {:repository => @created_repository.to_hash}).returns(:repository_id => id_from_kalibro)
-    assert @created_repository.save
+    project_id = 56
+    Kalibro::Repository.expects(:request).with(:save_repository, {:repository => @created_repository.to_hash, :project_id => project_id}).returns(:repository_id => id_from_kalibro)
+    assert @created_repository.save(project_id)
     assert_equal id_from_kalibro, @created_repository.id
   end
 
   should 'return false when repository is not saved successfully' do
-    Kalibro::Repository.expects(:request).with(:save_repository, {:repository => @created_repository.to_hash}).raises(Exception.new)
-    assert !(@created_repository.save)
+    project_id = 56
+    Kalibro::Repository.expects(:request).with(:save_repository, {:repository => @created_repository.to_hash, :project_id => project_id}).raises(Exception.new)
+    assert !(@created_repository.save(project_id))
     assert_nil @created_repository.id
   end
 
@@ -58,7 +60,7 @@ class RepositoryTest < ActiveSupport::TestCase
     Kalibro::Repository.expects(:request).with(:process_repository, {:repository_id => @repository.id});
     @repository.process_repository
   end
-  
+
   should 'cancel processing of a repository' do
     Kalibro::Repository.expects(:request).with(:cancel_processing_of_repository, {:repository_id => @repository.id});
     @repository.cancel_processing_of_repository

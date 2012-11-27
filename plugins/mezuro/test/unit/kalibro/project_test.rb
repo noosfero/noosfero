@@ -31,9 +31,9 @@ class ProjectTest < ActiveSupport::TestCase
     assert_equal @hash[:name], Kalibro::Project.find(@project.id).name
   end
 
-  should 'verify when project doesnt exist' do
+  should 'raise RecordNotFound exception when project doesnt exist' do
     Kalibro::Project.expects(:request).with(:project_exists, {:project_id => @project.id}).returns({:exists => false})
-    assert_nil Kalibro::Project.find(@project.id)
+    assert_raise(Kalibro::Errors::RecordNotFound){Kalibro::Project.find(@project.id)}
   end
 
   should 'get project of a repository' do

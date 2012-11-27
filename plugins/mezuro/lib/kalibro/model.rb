@@ -52,7 +52,7 @@ class Kalibro::Model
     if(exists?(id))
       new request(find_action, id_params(id))["#{class_name.underscore}".to_sym]
     else
-      raise Errors::RecordNotFound
+      raise Kalibro::Errors::RecordNotFound
     end
   end
 

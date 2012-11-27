@@ -22,8 +22,14 @@ class Kalibro::Repository < Kalibro::Model
     self.class.request(:cancel_processing_of_repository, {:repository_id => self.id})
   end
 
-  def save_params
-    {:repository => self.to_hash, :project_id => Kalibro::Project.project_of(id).id}
+  def save(project_id)
+    begin
+      self.id = self.class.request(:save_repository, {:repository => self.to_hash, :project_id => project_id})[:repository_id]
+      true
+	  rescue Exception => exception
+	    add_error exception
+	    false
+    end
   end
 
 end
