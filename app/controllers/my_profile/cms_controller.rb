@@ -16,7 +16,13 @@ class CmsController < MyProfileController
 
   before_filter :login_required, :except => [:suggest_an_article]
 
-  protect_if :except => [:suggest_an_article, :set_home_page, :edit, :destroy, :publish] do |c, user, profile|
+  protect_if :only => :upload_files do |c, user, profile|
+    article_id = c.params[:parent_id]
+    (article_id && profile.articles.find(article_id).allow_create?(user)) ||
+    (user && (user.has_permission?('post_content', profile) || user.has_permission?('publish_content', profile)))
+  end
+
+  protect_if :except => [:suggest_an_article, :set_home_page, :edit, :destroy, :publish, :upload_files] do |c, user, profile|
     user && (user.has_permission?('post_content', profile) || user.has_permission?('publish_content', profile))
   end
 
@@ -92,7 +98,7 @@ class CmsController < MyProfileController
       @article_types = []
       available_article_types.each do |type|
         @article_types.push({
-          :name => type.name,
+          :class => type,
           :short_description => type.short_description,
           :description => type.description
         })
@@ -154,7 +160,7 @@ class CmsController < MyProfileController
     end
     if request.post? && params[:uploaded_files]
       params[:uploaded_files].each do |file|
-        @uploaded_files << UploadedFile.create(:uploaded_data => file, :profile => profile, :parent => @parent) unless file == ''
+        @uploaded_files << UploadedFile.create(:uploaded_data => file, :profile => profile, :parent => @parent, :last_changed_by => user) unless file == ''
       end
       @errors = @uploaded_files.select { |f| f.errors.any? }
       if @errors.any?

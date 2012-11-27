@@ -1,0 +1,41 @@
+require 'test_helper'
+require 'content_viewer_controller'
+
+# Re-raise errors caught by the controller.
+class ContentViewerController; def rescue_action(e) raise e end; end
+
+class ContentViewerControllerTest < ActionController::TestCase
+
+  def setup
+    @controller = ContentViewerController.new
+    @request    = ActionController::TestRequest.new
+    @response   = ActionController::TestResponse.new
+
+    @organization = fast_create(Organization)
+    @work_assignment = WorkAssignmentPlugin::WorkAssignment.create!(:name => 'Work Assignment', :profile => @organization)
+    @person = create_user('test_user').person
+    @environment = @organization.environment
+    @environment.enable_plugin(WorkAssignmentPlugin)
+    @environment.save!
+    login_as(:test_user)
+  end
+  attr_reader :organization, :person, :work_assignment
+
+  should 'can download work_assignment' do
+    random_member = fast_create(Person)
+    organization.add_member(random_member)
+    folder = work_assignment.find_or_create_author_folder(random_member)
+    submission = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :profile => organization, :parent => folder)
+    WorkAssignmentPlugin.stubs(:can_download_submission?).returns(false)
+
+    get :view_page, :profile => organization.identifier, :page => submission.explode_path
+    assert_response :forbidden
+    assert_template 'access_denied.rhtml'
+
+    WorkAssignmentPlugin.stubs(:can_download_submission?).returns(true)
+
+    get :view_page, :profile => organization.identifier, :page => submission.explode_path
+    assert_response :success
+  end
+
+end

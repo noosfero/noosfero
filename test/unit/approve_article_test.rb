@@ -210,22 +210,21 @@ class ApproveArticleTest < ActiveSupport::TestCase
   end
 
   should 'use author from original article on published' do
-    article.stubs(:last_changed_by_id).returns(profile)
-
+    article.class.any_instance.stubs(:author).returns(profile)
     a = ApproveArticle.create!(:name => 'test name', :article => article, :target => community, :requestor => profile)
     a.finish
 
     assert_equal profile, article.class.last.author
   end
 
-
-  should 'use owning profile as author when there is no referenced article' do
+  should 'use original article author even if article is destroyed' do
+    article.class.any_instance.stubs(:author).returns(profile)
     a = ApproveArticle.create!(:article => article, :target => community, :requestor => profile)
     a.finish
 
     article.destroy
 
-    assert_equal community, article.class.last.author
+    assert_equal profile, article.class.last.author
   end
 
   should 'the published article have parent if defined' do
