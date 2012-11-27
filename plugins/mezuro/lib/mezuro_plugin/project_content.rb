@@ -3,8 +3,6 @@ class MezuroPlugin::ProjectContent < Article
 
   settings_items :project_id
 
-  validate_on_create :validate_repository_address
-
   def self.short_description
     'Mezuro project'
   end
@@ -38,50 +36,6 @@ class MezuroPlugin::ProjectContent < Article
     @repositories
   end
 
-  def processing(repository_id)
-    begin
-      if Kalibro::Processing.has_ready_processing(repository_id)
-        @processing ||= Kalibro::Processing.last_ready_processing_of(repository_id)
-      else
-        @processing = Kalibro::Processing.last_processing_of(repository_id)
-      end
-    rescue Exception => error
-      errors.add_to_base(error.message)
-    end
-    @processing
-  end
-
-  def processing_with_date(repository_id, date)
-    begin
-      if Kalibro::Processing.has_processing_after(repository_id, date)
-        @processing ||= Kalibro::Processing.first_processing_after(repository_id, date)
-      elsif Kalibro::Processing.has_processing_before(repository_id, date)
-        @processing ||= Kalibro::Processing.last_processing_before(repository_id, date)
-      end
-    rescue Exception => error
-      errors.add_to_base(error.message)
-    end
-    @processing
-  end
-
-  def module_result(repository_id, date = nil)
-    @processing ||= date.nil? ? processing(repository_id) : processing_with_date(repository_id, date)
-    begin
-      @module_result ||= Kalibro::ModuleResult.find(@processing.results_root_id)
-    rescue Exception => error
-      errors.add_to_base(error.message)
-    end
-    @module_result
-  end
-
-  def result_history(module_result_id)
-    begin
-      @result_history ||= Kalibro::MetricResult.history_of(module_result_id)
-    rescue Exception => error
-      errors.add_to_base(error.message)
-    end
-  end
-
   def description=(value)
     @description=value
   end
@@ -95,7 +49,7 @@ class MezuroPlugin::ProjectContent < Article
     @repositories = @repositories.map { |element| to_repository(element) }
   end
 
-  after_save :send_project_to_service
+  before_save :send_project_to_service
   after_destroy :destroy_project_from_service
 
   private
@@ -119,13 +73,11 @@ class MezuroPlugin::ProjectContent < Article
 
   def send_project_to_service
     created_project = create_kalibro_project
-    repositories = Kalibro::Repository.repositories_of(project_id)
-    repositories.each {|repository| repository.process_repository }
+    self.project_id = created_project.id
   end
 
   def create_kalibro_project
    Kalibro::Project.create(
-      :id => project_id,
       :name => name,
       :description => description
     )
