@@ -18,5 +18,10 @@
       <td><%= @project.description %></td>
     </tr>
   </table>
+  
+  <%= _('Repositories') %>
+  <% @page.repositories.each do |repository| %>
+    <%  repository.name %>
+  <% end %>
 
 <% end %>
