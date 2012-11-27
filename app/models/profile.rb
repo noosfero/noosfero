@@ -231,7 +231,7 @@ class Profile < ActiveRecord::Base
     if myregion
       myregion.hierarchy.reverse.first(2).map(&:name).join(separator)
     else
-      %w[address city state country_name zip_code ].map {|item| (self.respond_to?(item) && !self.send(item).blank?) ? self.send(item) : nil }.compact.join(separator)
+      %w[address district city state country_name zip_code ].map {|item| (self.respond_to?(item) && !self.send(item).blank?) ? self.send(item) : nil }.compact.join(separator)
     end
   end
 
@@ -696,7 +696,7 @@ private :generate_url, :url_options
   def custom_footer_expanded
     footer = custom_footer
     if footer
-      %w[contact_person contact_email contact_phone location address economic_activity city state country zip_code].each do |att|
+      %w[contact_person contact_email contact_phone location address district address_reference economic_activity city state country zip_code].each do |att|
         if self.respond_to?(att) && footer.match(/\{[^{]*#{att}\}/)
           if !self.send(att).nil? && !self.send(att).blank?
             footer = footer.gsub(/\{([^{]*)#{att}\}/, '\1' + self.send(att))
