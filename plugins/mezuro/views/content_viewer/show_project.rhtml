@@ -23,5 +23,11 @@
   <% @page.repositories.each do |repository| %>
     <%  repository.name %>
   <% end %>
+  
+  <br>
+  <%= link_to "#{image_tag ('/plugins/mezuro/images/plus.png')}Add Repository", :controller => "mezuro_plugin_repository", 
+  																			:profile => @page.profile.identifier, 
+  																			:action => "new_repository", 
+  																			:id => @page.id %><br/>
 
 <% end %>

@@ -1,3 +1,28 @@
+class MezuroPluginRepositoryController < MezuroPluginProfileController
+
+  append_view_path File.join(File.dirname(__FILE__) + '/../../views')
+  
+  def new_repository
+    puts "\n\n\n\n\n\n\n\n\n\n\n\n\n"
+    puts "chegou aqui"
+    @project_content = profile.articles.find(params[:id])
+    puts @project_content.inspect
+  end
+  
+  def create_repository
+    id = params[:id]
+=begin
+    metric_name = params[:metric_configuration][:metric][:name]
+    metric_configuration = Kalibro::MetricConfiguration.new(params[:metric_configuration])
+    metric_configuration.save
+    if metric_configuration_has_errors? metric_configuration
+      redirect_to_error_page metric_configuration.errors[0].message
+    else
+      redirect_to "/myprofile/#{profile.identifier}/plugin/mezuro/metric_configuration/edit_metric_configuration?id=#{id}&metric_name=#{metric_name.gsub(/\s/, '+')}"
+    end
+=end
+  end
+  
   def processing(repository_id)
     begin
       if Kalibro::Processing.has_ready_processing(repository_id)
@@ -41,3 +66,5 @@
       errors.add_to_base(error.message)
     end
   end
+  
+end
