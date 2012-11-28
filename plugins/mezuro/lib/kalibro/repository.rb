@@ -3,7 +3,7 @@ class Kalibro::Repository < Kalibro::Model
   attr_accessor :id, :name, :description, :license, :process_period, :type, :address, :configuration_id
 
   def self.repository_types
-    request(:supported_repository_types)[:repository_type].to_a
+    request(:supported_repository_types)[:supported_type].to_a
   end
 
   def self.repository_of(processing_id)
