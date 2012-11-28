@@ -24,6 +24,11 @@ class MezuroPluginProfileController < ProfileController
   def project_content_has_errors?
     not @content.errors[:base].nil?
   end
+  
+  def redirect_to_error_page(message)
+    message = URI.escape(CGI.escape(process_error_message(message)),'.')
+    redirect_to "/profile/#{profile.identifier}/plugin/mezuro/error_page?message=#{message}"
+  end
 
 end
 

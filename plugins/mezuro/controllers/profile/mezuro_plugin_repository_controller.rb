@@ -3,24 +3,33 @@ class MezuroPluginRepositoryController < MezuroPluginProfileController
   append_view_path File.join(File.dirname(__FILE__) + '/../../views')
   
   def new_repository
-    puts "\n\n\n\n\n\n\n\n\n\n\n\n\n"
-    puts "chegou aqui"
     @project_content = profile.articles.find(params[:id])
-    puts @project_content.inspect
+    
+    @repository_types = Kalibro::Repository.repository_types
+    #@repository_type_select = []
+    #repository_types.each do |repository_type|
+    #  @repository_type_select.push [repository_type,repository_type]
+    #end
+    
+    configurations = Kalibro::Configuration.all
+    @configuration_select = []
+    configurations.each do |configuration|
+      @configuration_select.push [configuration.name,configuration.id] 
+    end
   end
   
   def create_repository
-    id = params[:id]
-=begin
-    metric_name = params[:metric_configuration][:metric][:name]
-    metric_configuration = Kalibro::MetricConfiguration.new(params[:metric_configuration])
-    metric_configuration.save
-    if metric_configuration_has_errors? metric_configuration
-      redirect_to_error_page metric_configuration.errors[0].message
+    project_content = profile.articles.find(params[:id])
+    project_content_name = project_content.name
+    
+    repository = Kalibro::Repository.new( params[:repository] )
+    repository.save(project_content.project_id)
+    
+    if( repository.errors.empty? )
+      redirect_to "/#{profile.identifier}/#{project_content_name.downcase.gsub(/\s/, '-')}"
     else
-      redirect_to "/myprofile/#{profile.identifier}/plugin/mezuro/metric_configuration/edit_metric_configuration?id=#{id}&metric_name=#{metric_name.gsub(/\s/, '+')}"
+      redirect_to_error_page repository.errors[0].message
     end
-=end
   end
   
   def processing(repository_id)
