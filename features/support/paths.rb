@@ -66,11 +66,14 @@ module NavigationHelpers
     when /^login page$/
       '/account/login'
 
+    when /^logout page$/
+      '/account/logout'
+
     when /^signup page$/
       '/account/signup'
 
     when /^(.*)'s control panel$/
-      '/myprofile/%s' % Profile.find_by_name($1).identifier
+      '/myprofile/' + $1
 
     when /^the Control panel$/
       '/myprofile/%s' % User.find_by_id(session[:user]).login

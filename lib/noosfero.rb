@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 require 'fast_gettext'
 
 module Noosfero
@@ -80,8 +81,8 @@ module Noosfero
   def self.url_options
     if ENV['RAILS_ENV'] == 'development'
       development_url_options
-    elsif ENV['RAILS_ENV'] == 'cucumber'
-      Webrat.configuration.mode == :rails ? { :host => '' } : { :port => Webrat.configuration.application_port }
+    # elsif ENV['RAILS_ENV'] == 'cucumber'
+    #   Webrat.configuration.mode == :rails ? { :host => '' } : { :port => Webrat.configuration.application_port }
     else
       {}
     end
