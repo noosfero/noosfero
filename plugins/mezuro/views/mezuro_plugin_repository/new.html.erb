@@ -1,6 +1,6 @@
 <h2><%= @project_content.name %> Project</h2>
 
-<% form_for :repository, :url => {:action =>"create_repository", :controller => "mezuro_plugin_repository"},  :method => :get do |f| %>
+<% form_for :repository, :url => {:action =>"create", :controller => "mezuro_plugin_repository"},  :method => :get do |f| %>
   <%= hidden_field_tag :id, @project_content.id %>
   
   <p>
