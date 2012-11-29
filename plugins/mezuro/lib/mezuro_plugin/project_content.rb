@@ -41,7 +41,11 @@ class MezuroPlugin::ProjectContent < Article
   end
   
   def description
-    @description ||= project.description
+    begin
+      @description ||= project.description
+    rescue
+      @description = ""
+    end
     @description
   end
 
@@ -79,6 +83,7 @@ class MezuroPlugin::ProjectContent < Article
 
   def create_kalibro_project
    Kalibro::Project.create(
+      :id => project_id,
       :name => name,
       :description => description
     )
