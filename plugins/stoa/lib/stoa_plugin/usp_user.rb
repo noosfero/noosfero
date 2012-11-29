@@ -15,7 +15,7 @@ class StoaPlugin::UspUser < ActiveRecord::Base
   def self.matches?(usp_id, field, value)
     usp_id.to_s.gsub!(/[.-]/,'')
     user = StoaPlugin::UspUser.find_by_codpes(usp_id.to_i)
-    return false if user.nil? || !user.respond_to?(field) || value.blank?
+    return false if user.nil? || field.blank? || !user.respond_to?(field) || value.blank?
     case field.to_sym
     when :cpf
       value.to_s.gsub!(/[.-]/,'')
