@@ -26,7 +26,33 @@ class MezuroPluginRepositoryController < MezuroPluginProfileController
       redirect_to_error_page repository.errors[0].message
     end
   end
-  
+
+  def edit
+    @project_content = profile.articles.find(params[:id])
+    
+    @repository_types = Kalibro::Repository.repository_types
+    
+    configurations = Kalibro::Configuration.all
+    configurations = [] if (configurations.nil?)
+    @configuration_select = configurations.map do |configuration|
+      [configuration.name,configuration.id] 
+    end
+    @repository = @project_content.repositories.select{ |repository| repository.id == params[:repository_id].to_s }.first
+  end
+
+  def update
+    project_content = profile.articles.find(params[:id])
+    
+    repository = Kalibro::Repository.new( params[:repository] )
+    repository.save(project_content.project_id)
+    
+    if( repository.errors.empty? )
+      redirect_to "/#{profile.identifier}/#{project_content.name.downcase.gsub(/\s/, '-')}"
+    else
+      redirect_to_error_page repository.errors[0].message
+    end
+  end
+
   def show
     project_content = profile.articles.find(params[:id])
     @project_name = project_content.name
