@@ -2,7 +2,7 @@ class MezuroPluginRepositoryController < MezuroPluginProfileController
 
   append_view_path File.join(File.dirname(__FILE__) + '/../../views')
   
-  def new_repository
+  def new
     @project_content = profile.articles.find(params[:id])
     
     @repository_types = Kalibro::Repository.repository_types
@@ -18,26 +18,39 @@ class MezuroPluginRepositoryController < MezuroPluginProfileController
     end
   end
   
-  def create_repository
+  def create
     project_content = profile.articles.find(params[:id])
-    project_content_name = project_content.name
     
     repository = Kalibro::Repository.new( params[:repository] )
     repository.save(project_content.project_id)
     
     if( repository.errors.empty? )
-      redirect_to "/#{profile.identifier}/#{project_content_name.downcase.gsub(/\s/, '-')}"
+      redirect_to "/#{profile.identifier}/#{project_content.name.downcase.gsub(/\s/, '-')}"
     else
       redirect_to_error_page repository.errors[0].message
     end
   end
   
-  def show_repository
+  def show
     project_content = profile.articles.find(params[:id])
     @project_name = project_content.name
     @repository = project_content.repositories.select{ |repository| repository.id == params[:repository_id].to_s }.first
     @configuration_name = Kalibro::Configuration.find(@repository.configuration_id).name
+    @processing = processing(@repository.id)
   end
+
+  def destroy
+    project_content = profile.articles.find(params[:id])
+    repository = project_content.repositories.select{ |repository| repository.id == params[:repository_id].to_s }.first
+    repository.destroy
+    if( repository.errors.empty? )
+      redirect_to "/#{profile.identifier}/#{project_content.name.downcase.gsub(/\s/, '-')}"
+    else
+      redirect_to_error_page repository.errors[0].message
+    end
+  end
+
+  private
   
   def processing(repository_id)
     begin

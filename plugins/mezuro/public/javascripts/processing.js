@@ -6,11 +6,11 @@ jQuery(function (){
   jQuery('[show-grade-history]').live("click", display_grade_history);
   jQuery('#project_date_submit').live("click", reloadProjectWithDate);
   showLoadingProcess(true);
-  showProjectContent();
+  showProcessing();
 });
 
-function showProjectContent() {
-  callAction('project', 'project_state', {}, showProjectContentFor);
+function showProcessing() {
+  callAction('processing', 'processing_state', {}, showProcessingFor);
 }
 
 function display_metric_history() {
@@ -43,11 +43,11 @@ function toggle_mezuro(element){
 }
 
 function reloadModule(){
-  var module_name = jQuery(this).attr('data-module-name');
+  var results_root_id = jQuery(this).attr('results_root_id');
   showLoadingProcess(false);
   processingTree = true;
-  callAction('project', 'project_tree', {module_name: module_name }, showProjectTree);
-  callAction('module', 'module_result', {module_name: module_name}, showModuleResult);
+  callAction('module_result', 'project_tree', {results_root_id: results_root_id }, showProjectTree);
+  callAction('module_result', 'module_result', {results_root_id: results_root_id}, showModuleResult);
   return false;
 }
 
@@ -59,26 +59,26 @@ function reloadProjectWithDate(date){
 function reloadProject(date){
   showLoadingProcess(true);
   
-  callAction('project', 'project_result', {date: date}, showProjectResult);
-  callAction('project', 'project_tree', {date: date}, showProjectTree);
-  callAction('module', 'module_result', {date: date}, showModuleResult);
+  callAction('processing', 'processing', {date: date}, showProjectResult);
+  callAction('module_result', 'project_tree', {date: date}, showProjectTree);
+  callAction('module_result', 'module_result', {date: date}, showModuleResult);
 }
 
-function showProjectContentFor(state){
+function showProcessingFor(state){
   if (state == 'ERROR') {
     jQuery('#project-state').html('<div style="color:Red">ERROR</div>');
-    callAction('project', 'project_error', {}, showProjectResult);
+    callAction('processing', 'processing_error', {}, showProcessing);
   }
   else if (state == 'READY') {
     jQuery('#msg-time').html('');
-    jQuery('#project-state').html('<div style="color:Green">READY</div>');
-    callAction('project', 'project_result', {}, showProjectResult);
-    callAction('project','project_tree', {}, showProjectTree);
-    var project_name = jQuery("#project-result").attr('data-project-name');
-    callAction('module', 'module_result', {module_name: project_name}, showModuleResult);
+    jQuery('#processing-state').html('<div style="color:Green">READY</div>');
+    callAction('processing', 'processing', {}, showProcessing);
+    callAction('module_result','project_tree', {}, showProjectTree);
+    var module_result_id = jQuery("#processing").attr('results_root_id');
+    callAction('module_result', 'module_result', {module_result_id: module_result_id}, showModuleResult);
   } 
   else if (state.endsWith("ING")) {
-    jQuery('#project-state').html('<div style="color:DarkGoldenRod">'+ state +'</div>');
+    jQuery('#processing-state').html('<div style="color:DarkGoldenRod">'+ state +'</div>');
     jQuery('#msg-time').html("The project analysis may take long. <br/> You'll receive an e-mail when it's ready!");
     showProjectContentAfter(20);
   }	
@@ -93,7 +93,7 @@ function showProjectContentAfter(seconds){
 }
 
 function showProjectResult(content) {
-  jQuery('#project-result').html(content);
+  jQuery('#processing').html(content);
 }
 
 function showProjectTree(content){ 
@@ -117,7 +117,7 @@ function callAction(controller, action, params, callback){
 }
 
 function projectContentData(data){
-  return jQuery('#project-result').attr('data-' + data);
+  return jQuery('#processing').attr('data-' + data);
 }
 
 function showLoadingProcess(firstLoad){

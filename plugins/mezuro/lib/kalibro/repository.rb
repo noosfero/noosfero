@@ -25,6 +25,7 @@ class Kalibro::Repository < Kalibro::Model
   def save(project_id)
     begin
       self.id = self.class.request(:save_repository, {:repository => self.to_hash, :project_id => project_id})[:repository_id]
+      process_repository
       true
 	  rescue Exception => exception
 	    add_error exception
