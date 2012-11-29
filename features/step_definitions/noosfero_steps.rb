@@ -1,7 +1,3 @@
-def selenium_driver?
-  self.class.to_s == 'Webrat::SeleniumSession'
-end
-
 Given /^the following users?$/ do |table|
   # table is a Cucumber::Ast::Table
   table.hashes.each do |item|
@@ -313,10 +309,6 @@ Given /^I am logged in as admin$/ do
   fill_in("Username", :with => user.login)
   fill_in("Password", :with => '123456')
   click_button("Log in")
-  # FIXME selenium do not wait page load sometimes
-  if selenium_driver?
-    selenium.wait_for_page
-  end
 end
 
 Given /^I am not logged in$/ do
