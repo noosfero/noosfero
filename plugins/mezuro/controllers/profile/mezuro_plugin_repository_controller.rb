@@ -6,15 +6,11 @@ class MezuroPluginRepositoryController < MezuroPluginProfileController
     @project_content = profile.articles.find(params[:id])
     
     @repository_types = Kalibro::Repository.repository_types
-    #@repository_type_select = []
-    #repository_types.each do |repository_type|
-    #  @repository_type_select.push [repository_type,repository_type]
-    #end
     
     configurations = Kalibro::Configuration.all
-    @configuration_select = []
-    configurations.each do |configuration|
-      @configuration_select.push [configuration.name,configuration.id] 
+    configurations = [] if (configurations.nil?)
+    @configuration_select = configurations.map do |configuration|
+      [configuration.name,configuration.id] 
     end
   end
   
