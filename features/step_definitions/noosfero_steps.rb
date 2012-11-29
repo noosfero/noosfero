@@ -289,17 +289,18 @@ Given /^the following price details?$/ do |table|
 end
 
 Given /^I am logged in as "(.+)"$/ do |username|
-  visit('/account/logout')
-  visit('/account/login')
-  fill_in("Username", :with => username)
-  fill_in("Password", :with => '123456')
-  click_button("Log in")
-  # FIXME selenium do not wait page load sometimes
-  if selenium_driver?
-    selenium.wait_for_page
-  end
-  Then "I should be logged in as \"#{username}\""
-  @current_user = username
+  Given %{I go to logout page}
+    And %{I go to login page}
+    And %{I fill in "Username" with "#{username}"}
+    And %{I fill in "Password" with "123456"}
+   When %{I press "Log in"}
+    # FIXME:
+    # deveria apenas verificar que esta no myprofile do usuario
+    # nao conseguir fazer funcionar sem essa reduntancia no capybara
+    # acho que e algum problema com o http_referer
+    # olhar account_controller#store_location
+    And %{I go to #{username}'s control panel}
+   Then %{I should be on #{username}'s control panel}
 end
 
 Given /^I am logged in as admin$/ do
