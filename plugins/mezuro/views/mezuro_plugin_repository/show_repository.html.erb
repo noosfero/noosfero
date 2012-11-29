@@ -1,124 +1,24 @@
-<h1> <%= _(MezuroPlugin::ProjectContent.short_description) %> </h1>
-
-<%
-  @project = @article.title.nil? ? nil : @article.project
-  begin
-    @repository_types = Kalibro::Repository.repository_types.sort
-    @configuration_names = Kalibro::Configuration.all_names.sort
-  rescue Exception => exception
-    @article.errors.add_to_base(exception.message)
-    @repository_types = []
-    @configuration_names = []
-  end
-%>
-
-<%= error_messages_for 'project_content' %>
-
-<%= hidden_field_tag 'project_content[profile_id]', profile.id %>
-<%= hidden_field_tag 'id', @article.id %>
-
-<%= required_fields_message %>
-<% if !@project.nil? && !@article.id.nil? %>
-  <%= required f.text_field(:name, :disabled => 'true') %>
-<% else %>
-  <%= required f.text_field(:name) %>
-<% end %>
-
-<% selected = (@project.nil? ? "" : @project.license) %>
-<%= required labelled_form_field _('License'),
-  f.select(:project_license, MezuroPlugin::Helpers::ContentViewerHelper.create_license_options ,{:selected => selected}) %><br/>
-
-<%= f.text_field :description %><br/>
-
-<% @selected = (@project.nil? ? @repository_types : @project.repository.type) %>
-<%= required labelled_form_field _('Repository type'),
-  f.select(:repository_type, @repository_types, {:selected => @selected}) %><br/>
-
-<%= required f.text_field(:repository_url) %><br/>
-
-<% @selected = (@project.nil? ? @configuration_names[0] : @project.configuration_name) %>
-
-<% if !@project.nil? && !@article.id.nil? %>
-  <%= required labelled_form_field _('Configuration') + " (Changing the configuration will erase your saved periodic avaliations)",
-    f.select(:configuration_name, @configuration_names, {:selected => @selected}) %>
-<% else %>
-  <%= required labelled_form_field _('Configuration'),
-    f.select(:configuration_name, @configuration_names, {:selected => @selected}) %><br/>
-<% end %>
-
-<% selected = (@project.nil? ? 0 : @project.process_period.to_i) %>
-<%= required labelled_form_field _('Periodic Avaliation'),
-  f.select(:periodicity_in_days, MezuroPlugin::Helpers::ContentViewerHelper.create_periodicity_options ,{:selected => selected}) %><br/>
-  
-  
-  
-  
-  
-  
-  
-  
-  *************************************
-  
-  
-  
-  
-  <script src="/plugins/mezuro/javascripts/project_content.js" type="text/javascript"></script>
-
-<% @project = @page.project %>
-<% unless @page.errors[:base].nil? %>
-  <% if @page.errors[:base] =~ /There is no project named/ %>
-    <h3>Warning:</h3>
-    <p>This project doesn't exist on the Web Service. Do you want to <%= link_to 'delete', :action => 'destroy', :controller => 'cms', :profile => @page.profile.identifier, :id => @page.id %> or <%= link_to 'save it again', :action => 'edit', :controller => 'cms', :profile => @page.profile.identifier, :id => @page.id %>?</p>
-  <% else %>
-    <%= @page.errors[:base] %>
-  <% end %>
-<% else %>
-
-  <table>
-    <tr>
-      <td><%= _('Name') %></td>
-      <td><%= @project.name %></td>
-    </tr>
-    <tr>
-      <td><%= _('License') %></td>
-      <td><%= @project.license %></td>
-    </tr>
-    <tr>
-      <td><%= _('Description') %></td>
-      <td><%= @project.description %></td>
-    </tr>
-    <tr>
-      <td><%= _('Repository type') %></td>
-      <td><%= @project.repository.type %></td>
-    </tr>
-    <tr>
-      <td><%= _('Repository address') %></td>
-      <td><%= @project.repository.address %></td>
-    </tr>
-    <tr>
-      <td><%= _('Configuration') %></td>
-      <td><%= @project.configuration_name %></td>
-    </tr>
-    <tr> 
-      <td><%= _('Periodicity') %></td>
-      <td><%= MezuroPlugin::Helpers::ContentViewerHelper.get_periodicity_option(@page.periodicity_in_days) %></td>
-    </tr>
-    <tr>
-      <td><%= _('Status')%></td>
-      <td>
-        <div id="project-state" style="color:DarkGoldenRod"><%= @project.state %></div>
-        <div id="msg-time"></div> 
-      </td>
-    </tr>
-  </table>
-
-  <br />
-
-  <div id="project-result" data-profile="<%= @page.profile.identifier %>" data-content="<%= @page.id %>"
-       data-project-name="<%= @project.name %>">
-  </div>
-  <div id="project-tree"></div>
-  <div id="module-result">
-  </div>
-<% end %>
-
+  <p>
+    <%= "Project Name: " + @project_name %>
+  </p>
+  <p>
+    <%= "Name: " + @repository.name %>
+  </p>
+  <p>
+    <%= "Description: " + @repository.description %>
+  </p>
+  <p>
+    <%= "License: " + @repository.license %>
+  </p>
+    <p>
+    <%= "Process Period: " + @repository.process_period %>
+  </p>
+    <p>
+    <%= "Type: " + @repository.type %>
+  </p>
+    <p>
+    <%= "Address: " + @repository.address %>
+  </p>
+  <p>
+    <%= "Configuration: " + @configuration_name %>
+  </p>

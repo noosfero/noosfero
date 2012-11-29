@@ -32,6 +32,13 @@ class MezuroPluginRepositoryController < MezuroPluginProfileController
     end
   end
   
+  def show_repository
+    project_content = profile.articles.find(params[:id])
+    @project_name = project_content.name
+    @repository = project_content.repositories.select{ |repository| repository.id == params[:repository_id].to_s }.first
+    @configuration_name = Kalibro::Configuration.find(@repository.configuration_id).name
+  end
+  
   def processing(repository_id)
     begin
       if Kalibro::Processing.has_ready_processing(repository_id)
