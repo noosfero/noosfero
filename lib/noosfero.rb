@@ -81,8 +81,9 @@ module Noosfero
   def self.url_options
     if ENV['RAILS_ENV'] == 'development'
       development_url_options
-    # elsif ENV['RAILS_ENV'] == 'cucumber'
-    #   Webrat.configuration.mode == :rails ? { :host => '' } : { :port => Webrat.configuration.application_port }
+    elsif ENV['RAILS_ENV'] == 'cucumber'
+      { :host => Capybara.current_session.driver.rack_server.host,
+        :port => Capybara.current_session.driver.rack_server.port }
     else
       {}
     end
