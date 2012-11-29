@@ -22,6 +22,11 @@
   <%= _('Repositories') %>
   <% @page.repositories.each do |repository| %>
     <%= repository.name %>
+    <%= link_to repository.name, :controller => "mezuro_plugin_repository", 
+  																			:profile => @page.profile.identifier, 
+  																			:action => "show_repository", 
+  																			:id => @page.id,
+  																			:repository_id => repository.id %><br/>
   <% end %>
   
   <br>
