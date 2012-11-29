@@ -1,24 +1,48 @@
-  <p>
-    <%= "Project Name: " + @project_name %>
-  </p>
-  <p>
-    <%= "Name: " + @repository.name %>
-  </p>
-  <p>
-    <%= "Description: " + @repository.description %>
-  </p>
-  <p>
-    <%= "License: " + @repository.license %>
-  </p>
-    <p>
-    <%= "Process Period: " + @repository.process_period %>
-  </p>
-    <p>
-    <%= "Type: " + @repository.type %>
-  </p>
-    <p>
-    <%= "Address: " + @repository.address %>
-  </p>
-  <p>
-    <%= "Configuration: " + @configuration_name %>
-  </p>
+<script src="/plugins/mezuro/javascripts/processing.js" type="text/javascript"></script>
+<h3><%= @project_name %></h3>
+
+<table>
+  <tr>
+    <td><%= _('Name') %></td>
+    <td><%= @repository.name %></td>
+  </tr>
+  <tr>
+    <td><%= _('Description') %></td>
+    <td><%= @repository.description %></td>
+  </tr>
+  <tr>
+    <td><%= _('License') %></td>
+    <td><%= @repository.license %></td>
+  </tr>
+  <tr> 
+    <td><%= _('Process Period') %></td>
+    <td><%= MezuroPlugin::Helpers::ContentViewerHelper.get_periodicity_option(@repository.process_period) %></td>
+  </tr>
+  <tr>
+    <td><%= _('Type') %></td>
+    <td><%= @repository.type %></td>
+  </tr>
+  <tr>
+    <td><%= _('Address') %></td>
+    <td><%= @repository.address %></td>
+  </tr>
+  <tr>
+    <td><%= _('Configuration') %></td>
+    <td><%= @configuration_name %></td>
+  </tr>
+  <tr>
+    <td><%= _('Status')%></td>
+    <td>
+      <div id="processing-state" style="color:DarkGoldenRod"><%= @processing.state %></div>
+      <div id="msg-time"></div> 
+    </td>
+  </tr>
+</table>
+
+
+<br />
+
+<div id="processing" data-profile="<%= @page.profile.identifier %>" data-content="<%= @page.id %>"
+     data-repository-id="<%= @repository.id %>"></div>
+<div id="project-tree"></div>
+<div id="module-result"></div>

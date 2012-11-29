@@ -18,21 +18,29 @@
       <td><%= @project.description %></td>
     </tr>
   </table>
-  
-  <%= _('Repositories') %>
+  <br/>
+  <h5><%= _('Repositories') %></h5>
+  <table>
   <% @page.repositories.each do |repository| %>
-    <%= repository.name %>
-    <%= link_to repository.name, :controller => "mezuro_plugin_repository", 
+    <tr>
+      <td><%= link_to repository.name, :controller => "mezuro_plugin_repository", 
   																			:profile => @page.profile.identifier, 
-  																			:action => "show_repository", 
+  																			:action => "show", 
   																			:id => @page.id,
-  																			:repository_id => repository.id %><br/>
+  																			:repository_id => repository.id %></td>
+  		<td><%= link_to "#{image_tag ('/plugins/mezuro/images/minus.png')}", :controller => "mezuro_plugin_repository", 
+  																			:profile => @page.profile.identifier, 
+  																			:action => "destroy", 
+  																			:id => @page.id,
+  																			:repository_id => repository.id %></td>
+  	</tr>
   <% end %>
+  </table>
   
   <br>
   <%= link_to "#{image_tag ('/plugins/mezuro/images/plus.png')}Add Repository", :controller => "mezuro_plugin_repository", 
   																			:profile => @page.profile.identifier, 
-  																			:action => "new_repository", 
+  																			:action => "new", 
   																			:id => @page.id %><br/>
 
 <% end %>
