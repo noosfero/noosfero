@@ -23,12 +23,12 @@ Feature: approve article
   Scenario: edit an article before approval
     Given I am logged in as "mariasilva"
     And I am on Maria Silva's homepage
-    When I follow "Spread" and wait
+    When I follow "Spread"
     And I check "Sample Community"
     And I press "Spread this"
     And I am logged in as "joaosilva"
-    And I go to Sample Community's control panel
-    And I follow "Process requests" and wait
+    And I go to sample-community's control panel
+    And I follow "Process requests"
     And I fill in "Text" with "This is an article edited"
     And I choose "Accept"
     And I press "Apply!"
@@ -41,12 +41,12 @@ Feature: approve article
     Given I am logged in as "mariasilva"
     And I go to Maria Silva's cms
     And I follow "Sample Article"
-    And I follow "Spread" and wait
+    And I follow "Spread"
     And I check "Sample Community"
     And I press "Spread this"
     And I am logged in as "joaosilva"
-    And I go to Sample Community's control panel
-    And I follow "Process requests" and wait
+    And I go to sample-community's control panel
+    And I follow "Process requests"
     And I choose "Reject"
     And I fill in "Rejection explanation" with "This is not an appropriate article for this community."
     And I press "Apply!"
@@ -57,14 +57,14 @@ Feature: approve article
   Scenario: reject an article that was removed
     Given I am logged in as "mariasilva"
     And I follow "Dub Wars"
-    And I follow "Spread" and wait
+    And I follow "Spread"
     And I check "Sample Community"
     And I press "Spread this"
     And I follow "Delete"
     And I press "Yes, I want."
     When I am logged in as "joaosilva"
-    And I go to Sample Community's control panel
-    And I follow "Process requests" and wait
+    And I go to sample-community's control panel
+    And I follow "Process requests"
     And I choose "Reject"
     And I fill in "Rejection explanation" with "Article was removed."
     And I press "Apply!"
