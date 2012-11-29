@@ -8,13 +8,11 @@
 
 <%= hidden_field_tag 'project_content[profile_id]', profile.id %>
 <%= hidden_field_tag 'id', @article.id %>
+<%= hidden_field_tag 'project_id', @article.project_id %>
 
 <%= required_fields_message %>
-<% if !@project.nil? && !@article.id.nil? %>
-  <%= required f.text_field(:name, :disabled => 'true') %>
-<% else %>
-  <%= required f.text_field(:name) %>
-<% end %>
+
+<%= required f.text_field(:name) %>
 
 <%= f.text_field :description %><br/>
 
