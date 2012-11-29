@@ -41,6 +41,7 @@ class MezuroPlugin::ProjectContent < Article
   end
   
   def description
+    @description ||= project.description
     @description
   end
 
