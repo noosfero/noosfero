@@ -36,11 +36,13 @@ $("#usp_id_field").observe_field(1, function(){
         if(me.value) {
           $('#signup-form .submit').attr('disabled', true);
           $(me).addClass('invalid');
+          $('#profile-data #usp_id_field').parent().addClass('fieldWithErrors')
           $('#usp-id-invalid').show();
         }
         else {
           $('#signup-form .submit').attr('disabled', false);
           $(me).removeClass('invalid');
+          $('#profile-data #usp_id_field').parent().removeClass('fieldWithErrors')
           $(me).removeClass('validated');
         }
         $('#signup-birth-date').hide();
