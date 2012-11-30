@@ -1316,4 +1316,19 @@ class PersonTest < ActiveSupport::TestCase
     assert_includes non_abusers, person
   end
 
+  should 'not return canceled complaints as abusers' do
+    abuser = create_user('abuser1').person
+    AbuseComplaint.create!(:reported => abuser).finish
+    not_abuser = create_user('abuser2').person
+    AbuseComplaint.create!(:reported => not_abuser).cancel
+
+    abusers = Person.abusers
+    assert_includes abusers, abuser
+    assert_not_includes abusers, not_abuser
+
+    non_abusers = Person.non_abusers
+    assert_not_includes non_abusers, abuser
+    assert_includes non_abusers, not_abuser
+  end
+
 end

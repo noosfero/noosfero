@@ -136,8 +136,9 @@ class SpaminatorPlugin::Spaminator
   end
 
   def disable_person(person)
-    person.disable
-    SpaminatorPlugin::Mailer.delay.deliver_inactive_person_notification(person)
+    if person.disable
+      SpaminatorPlugin::Mailer.delay.deliver_inactive_person_notification(person)
+    end
   end
 
   def mark_as_spammer(person)

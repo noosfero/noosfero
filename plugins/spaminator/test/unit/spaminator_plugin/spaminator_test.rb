@@ -128,6 +128,21 @@ class SpaminatorPlugin::SpaminatorTest < ActiveSupport::TestCase
     assert !person.visible
   end
 
+  should 'send email notification after disabling person' do
+    person = create_user('spammer').person
+    assert_difference(ActionMailer::Base.deliveries, :size, 1) do
+      spaminator.send(:disable_person, person)
+    end
+  end
+
+  should 'not send email notification if person was not disabled' do
+    person = create_user('spammer').person
+    person.expects(:disable).returns(false)
+    assert_no_difference(ActionMailer::Base.deliveries, :size) do
+      spaminator.send(:disable_person, person)
+    end
+  end
+
   private
 
   def report
