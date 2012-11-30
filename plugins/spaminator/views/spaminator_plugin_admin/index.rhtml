@@ -3,7 +3,7 @@
 <% form_for(:settings) do |f| %>
 
   <div id="spaminator-config-fields">
-    <%= labelled_form_field _('Period (days)'), f.text_field(:period, :size => 4) %>
+    <%= labelled_form_field _('Period (days) for scanning spammers'), f.text_field(:period, :size => 4) %>
 
     <p id="deploy-status">
       <% if @settings.deployed.nil? %>
@@ -26,8 +26,8 @@
     <% klass = @settings.scanning ? 'disabled' : '' %>
     <%= button(:search, content, {:action => 'scan'}, :class => klass, :disabled => @settings.scanning) %>
     <% if !@settings.scanning %>
-      <%= button(:right, _('Deploy'), :action => 'deploy') if !@settings.deployed %>
-      <%= button(:cancel, _('Withhold'), :action => 'withhold') if @settings.deployed %>
+      <%= button(:right, _('Deploy'), {:action => 'deploy'}, :title => _('Schedule next scan for the period defined')) if !@settings.deployed %>
+      <%= button(:cancel, _('Withhold'), {:action => 'withhold'}, :title => _('Cancel next scheduled scans')) if @settings.deployed %>
     <% end %>
 
     <% button_bar do %>
@@ -44,8 +44,8 @@
     <% @reports.each do |report| %>
       <tr>
         <td><%= report.formated_date %></td>
-        <td><%= "#{report.spams} / #{report.total_comments}" %></td>
-        <td><%= "#{report.spammers} / #{report.total_people}" %></td>
+        <td title='<%= _('Spam comments found / number of comments verified') %>'><%= "#{report.spams} / #{report.total_comments}" %></td>
+        <td title='<%= _('Spammers found / number of users verified') %>'><%= "#{report.spammers} / #{report.total_people}" %></td>
       </tr>
     <% end %>
     <tr id="spaminator-reports-see-all">
