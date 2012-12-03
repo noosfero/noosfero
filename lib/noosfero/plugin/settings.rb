@@ -38,11 +38,7 @@ class Noosfero::Plugin::Settings
   end
 
   def save!
-<<<<<<< HEAD
-    @environment.save!
-=======
     @base.save!
->>>>>>> merge-requests/248
   end
 
 end
