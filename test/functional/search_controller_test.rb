@@ -926,6 +926,20 @@ class SearchControllerTest < ActionController::TestCase
     end
   end
 
+  should 'add highlighted CSS class around a highlighted product' do
+    enterprise = fast_create(Enterprise)
+    product = Product.create!(:name => 'Enter Sandman', :enterprise_id => enterprise.id, :product_category_id => @product_category.id, :highlighted => true)
+    get :products
+    assert_tag :tag => 'li', :attributes => { :class => 'search-product-item highlighted' }, :content => /Enter Sandman/
+  end
+
+  should 'do not add highlighted CSS class around an ordinary product' do
+    enterprise = fast_create(Enterprise)
+    product = Product.create!(:name => 'Holier Than Thou', :enterprise_id => enterprise.id, :product_category_id => @product_category.id, :highlighted => false)
+    get :products
+    assert_no_tag :tag => 'li', :attributes => { :class => 'search-product-item highlighted' }, :content => /Holier Than Thou/
+  end
+
   ##################################################################
   ##################################################################
 

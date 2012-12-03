@@ -552,4 +552,62 @@ class CategoryTest < ActiveSupport::TestCase
     cat.save!
   end
 
+  should 'return categories of a level' do
+    c1 = fast_create(Category)
+    c2 = fast_create(Category)
+    c3 = fast_create(Category, :parent_id => c1)
+    c4 = fast_create(Category, :parent_id => c1)
+    c5 = fast_create(Category, :parent_id => c2)
+    c6 = fast_create(Category, :parent_id => c3)
+
+    assert_includes Category.on_level(nil), c1
+    assert_includes Category.on_level(nil), c2
+    assert_includes Category.on_level(c1), c3
+    assert_includes Category.on_level(c1), c4
+    assert_includes Category.on_level(c2), c5
+    assert_includes Category.on_level(c3), c6
+  end
+
+  should 'on level named_scope must be able to receive parent or parent_id' do
+    parent = fast_create(Category)
+    category = fast_create(Category, :parent_id => parent)
+
+    assert_includes Category.on_level(parent), category
+    assert_includes Category.on_level(parent.id), category
+  end
+
+  should 'list category sub-categories' do
+    c1 = Category.create!(:name => 'Category 1', :environment => Environment.default)
+    c2 = Category.create!(:name => 'Category 2', :environment => Environment.default)
+    c3 = Category.create!(:name => 'Category 3', :environment => Environment.default, :parent_id => c1)
+    c4 = Category.create!(:name => 'Category 4', :environment => Environment.default, :parent_id => c1)
+    c5 = Category.create!(:name => 'Category 5', :environment => Environment.default, :parent_id => c3)
+
+    sub_categories = Category.sub_categories(c1)
+
+    assert ActiveRecord::NamedScope::Scope, sub_categories.class
+    assert_not_includes sub_categories, c1
+    assert_not_includes sub_categories, c2
+    assert_includes sub_categories, c3
+    assert_includes sub_categories, c4
+    assert_includes sub_categories, c5
+  end
+
+  should 'list category sub-tree' do
+    c1 = Category.create!(:name => 'Category 1', :environment => Environment.default)
+    c2 = Category.create!(:name => 'Category 2', :environment => Environment.default)
+    c3 = Category.create!(:name => 'Category 3', :environment => Environment.default, :parent_id => c1)
+    c4 = Category.create!(:name => 'Category 4', :environment => Environment.default, :parent_id => c1)
+    c5 = Category.create!(:name => 'Category 5', :environment => Environment.default, :parent_id => c3)
+
+    sub_tree = Category.sub_tree(c1)
+
+    assert ActiveRecord::NamedScope::Scope, sub_tree.class
+    assert_includes sub_tree, c1
+    assert_not_includes sub_tree, c2
+    assert_includes sub_tree, c3
+    assert_includes sub_tree, c4
+    assert_includes sub_tree, c5
+  end
+
 end

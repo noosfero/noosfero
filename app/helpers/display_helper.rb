@@ -8,6 +8,14 @@ module DisplayHelper
             opts
   end
 
+  def themed_path(file)
+    if File.exists?(File.join(Rails.root, 'public', theme_path, file))
+      File.join(theme_path, file)
+    else
+      file
+    end
+  end
+
   def image_link_to_product(product, opts={})
     return _('No product') unless product
     target = product_path(product)
