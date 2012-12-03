@@ -71,6 +71,8 @@ class AdminPanelControllerTest < ActionController::TestCase
     assert_template 'site_info'
     assert_tag :tag => 'textarea', :attributes => { :name => 'environment[description]'}
     assert_tag :tag => 'textarea', :attributes => { :name => 'environment[terms_of_use]'}
+    assert_tag :tag => 'input', :attributes => { :name => 'environment[signup_welcome_text_subject]'}
+    assert_tag :tag => 'textarea', :attributes => { :name => 'environment[signup_welcome_text_body]'}
   end
 
   should 'display form for editing message for disabled enterprise' do
@@ -108,6 +110,25 @@ class AdminPanelControllerTest < ActionController::TestCase
     assert_redirected_to :action => 'index'
 
     assert !Environment.default.has_terms_of_use?
+  end
+
+  should 'save subject and body of signup welcome text' do
+    subject = "This is my welcome subject"
+    body = "This is my welcome body"
+    post :site_info, :environment => { :signup_welcome_text_subject => subject, :signup_welcome_text_body => body }
+    assert_redirected_to :action => 'index'
+
+    assert_equal subject, Environment.default.signup_welcome_text[:subject]
+    assert_equal body, Environment.default.signup_welcome_text[:body]
+    assert !Environment.default.signup_welcome_text.blank?
+  end
+
+  should 'not save empty string as signup welcome text' do
+    content = ""
+    post :site_info, :environment => { :signup_welcome_text_body => content }
+    assert_redirected_to :action => 'index'
+
+    assert !Environment.default.has_signup_welcome_text?
   end
 
   should 'sanitize message for disabled enterprise with white_list' do
@@ -349,6 +370,15 @@ class AdminPanelControllerTest < ActionController::TestCase
 
     assert_tag :tag => 'a', :content => /Plugin1 link/, :attributes => {:href => /plugin1.com/}
     assert_tag :tag => 'a', :content => /Plugin2 link/, :attributes => {:href => /plugin2.com/}
+  end
+
+  should 'save available languages and default language properly' do
+    post :site_info, :environment => {:default_language => 'pt', :languages => {'pt' => 'true', 'en' => 'false'}}
+    environment = Environment.default
+
+    assert_equal 'pt', environment.default_language
+    assert_includes environment.languages, 'pt'
+    assert_not_includes environment.languages, 'en'
   end
 
 end

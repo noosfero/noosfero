@@ -13,31 +13,16 @@
     <td><%= show_date(profile.created_at) %></td>
   </tr>
 
-  <% if profile == user || profile.friends.include?(user) %>
-    <tr>
-      <th colspan='2'><%= _('Contact')%></th>
-    </tr>
-    <%= display_field(_('Address:'), profile, :address) %>
-    <%= display_field(_('ZIP code:'), profile, :zip_code) %>
-    <%= display_field(_('Contact phone:'), profile, :contact_phone) %>
-    <%= display_field(_('e-Mail:'), profile, :email, true) { |email| link_to_email(email) } %>
-  <% end %>
+  <%= display_contact profile %>
 
   <% cache_timeout(profile.relationships_cache_key, 4.hours) do %>
-    <% if !(profile.organization.blank? && profile.organization_website.blank?) && (profile.active_fields.include?('organization') || profile.active_fields.include?('organization_website')) %>
-      <tr>
-        <th colspan='2'><%= _('Work')%></th>
-      </tr>
-    <% end %>
-    <%= display_field(_('Organization:'), profile, :organization) %>
-    <%= display_field(_('Organization website:'), profile, :organization_website) { |url| link_to(url, url) }%>
-
+    <%= display_work_info profile %>
 
     <% if !environment.enabled?('disable_asset_enterprises') && !profile.enterprises.empty? %>
       <tr>
         <th colspan='2'><%= __('Enterprises') %></th>
       </tr>
-      <% profile.enterprises.each do |item| %>
+      <% profile.enterprises.includes(:environment,:domains, :preferred_domain).each do |item| %>
         <tr>
           <td></td>
           <td><%= button 'menu-enterprise', item.name, item.url %></td>
@@ -59,6 +44,6 @@
 
     <%= render :partial => 'common' %>
 
-  </table>
-<% end %>
+  <% end %>
+</table>
 

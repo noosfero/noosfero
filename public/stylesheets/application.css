@@ -1394,6 +1394,7 @@ a.comment-picture {
   position: relative;
   display: inline;
 }
+#content #boxes .box-1 .article-block img,
 #content #article .article-body img {
   max-width: 100%;
   height: auto;
@@ -1771,6 +1772,9 @@ input.disabled {
   display: block;
   width: 92px;
   overflow: hidden;
+}
+.box-1 .common-profile-list-block span {
+  width: 102px;
 }
 .common-profile-list-block .profile-image {
   width: 92px;
@@ -2432,6 +2436,13 @@ div#activation_enterprise label, div#activation_enterprise input, div#activation
 .controller-admin_panel #portal-folders select {
   width: 50%;
 }
+
+.description {
+  background-color: #E6E6E6;
+  border: 1px solid #CCC;
+  padding: 5px;
+}
+
 /* ==> public/stylesheets/controller_catalog.css <== */
 /* ==> @import url('products.css'); <== */
 /* * * Products catalog * * * * * * * * * * * * */
@@ -4370,6 +4381,14 @@ h1#agenda-title {
   margin: 5px 0;
   padding: 5px;
 }
+
+.ui-timepicker-div .ui-widget-header { margin-bottom: 8px; }
+.ui-timepicker-div dl { text-align: left; }
+.ui-timepicker-div dl dt { height: 25px; margin-bottom: -25px; }
+.ui-timepicker-div dl dd { margin: 0 10px 10px 65px; }
+.ui-timepicker-div td { font-size: 90%; }
+.ui-tpicker-grid-label { background: none; border: none; margin: 0; padding: 0; }
+
 /* Categories block stuff */
 
 .categories-block ul {
@@ -5249,8 +5268,8 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 img {
   display: none;
 }
 
-#profile-wall .profile-wall-activities-comments .article-comment:hover .button-bar,
-#profile-network .profile-wall-activities-comments .article-comment:hover .button-bar {
+#profile-wall .profile-wall-activities-comments .comment-content:hover .button-bar,
+#profile-network .profile-wall-activities-comments .comment-content:hover .button-bar {
   display: block;
 }
 
@@ -6140,4 +6159,60 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 img {
 #breadcrumb {
   font-size: 16px;
   margin: 15px 0;
+}
+
+.controller-profile_editor #profile-data {
+  display: table;
+  width: auto;
+}
+
+.field-with-privacy-selector {
+  display: table-row;
+}
+
+.field-with-privacy-selector:hover {
+  background-color: #F0F0F0;
+}
+
+.controller-profile_editor #profile-data .field-with-privacy-selector .formfieldline {
+  width: auto;
+}
+
+.field-privacy-selector {
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+  width: 100px;
+}
+
+#profile_change_picture {
+  clear: both;
+  margin-top: 20px;
+}
+
+#profile_change_picture_title {
+  display: table-row;
+  width: 100%;
+}
+
+#profile_change_picture_title h2,
+#profile_change_picture_title span {
+  display: table-cell;
+}
+
+#profile_change_picture_title h2 {
+  padding-top: 20px;
+  width: auto;
+}
+
+#profile_change_picture_title span {
+  width: 100px;
+  text-align: center;
+}
+
+#product-list .highlighted img.star {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  z-index: 10;
 }

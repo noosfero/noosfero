@@ -20,29 +20,30 @@ class LanguageHelperTest < ActiveSupport::TestCase
   end
 
   should 'generate language chooser correcly' do
-    Noosfero.expects(:locales).returns({ 'en' => 'English', 'pt_BR' => 'Português Brasileiro', 'fr' => 'Français', 'it' => 'Italiano' }).at_least_once
+    environment = Environment.default
+    environment.expects(:locales).returns({ 'en' => 'English', 'pt_BR' => 'Português Brasileiro', 'fr' => 'Français', 'it' => 'Italiano' }).at_least_once
 
     self.expects(:language).returns('pt_BR')
-    result = self.language_chooser
+    result = self.language_chooser(environment)
     assert_match /<strong>Português Brasileiro<\/strong>/, result
     assert_no_match /<strong>English<\/strong>/, result
     assert_no_match /<strong>Français<\/strong>/, result
     assert_no_match /<strong>Italiano<\/strong>/, result
 
     self.expects(:language).returns('fr')
-    result = self.language_chooser
+    result = self.language_chooser(environment)
     assert_no_match /<strong>Português Brasileiro<\/strong>/, result
     assert_no_match /<strong>English<\/strong>/, result
     assert_match /<strong>Français<\/strong>/, result
     assert_no_match /<strong>Italiano<\/strong>/, result
-
   end
 
   should 'generate drodown language chooser correcly' do
-    Noosfero.expects(:locales).returns({ 'en' => 'English', 'pt_BR' => 'Português Brasileiro', 'fr' => 'Français', 'it' => 'Italiano' }).at_least_once
+    environment = Environment.default
+    environment.expects(:locales).returns({ 'en' => 'English', 'pt_BR' => 'Português Brasileiro', 'fr' => 'Français', 'it' => 'Italiano' }).at_least_once
 
     self.expects(:language).returns('en')
-    result = self.language_chooser(:element => 'dropdown')
+    result = self.language_chooser(environment, :element => 'dropdown')
     assert_match /<option value="en" selected="selected">English<\/option>/, result
     assert_match /<option value="pt_BR">Português Brasileiro<\/option>/, result
     assert_match /<option value="fr">Français<\/option>/, result
@@ -50,6 +51,18 @@ class LanguageHelperTest < ActiveSupport::TestCase
     assert_no_match /<option value="pt_BR" selected="selected">Português Brasileiro<\/option>/, result
     assert_no_match /<option value="fr" selected="selected">Français<\/option>/, result
     assert_no_match /<option value="it" selected="selected">Italiano<\/option>/, result
+  end
+
+  should 'not list languages if there is less than 2 languages available' do
+    environment = Environment.default
+
+    environment.expects(:locales).returns({ 'en' => 'English'}).at_least_once
+    result = self.language_chooser(environment)
+    assert result.blank?
+
+    environment.expects(:locales).returns({}).at_least_once
+    result = self.language_chooser(environment)
+    assert result.blank?
   end
 
   protected

@@ -57,6 +57,7 @@ class Profile < ActiveRecord::Base
     'view_private_content' => N_('View private content'),
     'publish_content'      => N_('Publish content'),
     'invite_members'       => N_('Invite members'),
+    'send_mail_to_members' => N_('Send e-Mail to members'),
   }
 
   acts_as_accessible
@@ -147,6 +148,7 @@ class Profile < ActiveRecord::Base
   settings_items :redirect_l10n, :type => :boolean, :default => false
   settings_items :public_content, :type => :boolean, :default => true
   settings_items :description
+  settings_items :fields_privacy, :type => :hash, :default => {}
 
   validates_length_of :description, :maximum => 550, :allow_nil => true
 
@@ -402,8 +404,8 @@ class Profile < ActiveRecord::Base
   #
   # +limit+ is the maximum number of documents to be returned. It defaults to
   # 10.
-  def recent_documents(limit = 10, options = {})
-    self.articles.recent(limit, options)
+  def recent_documents(limit = 10, options = {}, pagination = true)
+    self.articles.recent(limit, options, pagination)
   end
 
   def last_articles(limit = 10, options = {})
@@ -879,6 +881,15 @@ private :generate_url, :url_options
     []
   end
 
+  # field => privacy (e.g.: "address" => "public")
+  def fields_privacy
+    self.data[:fields_privacy]
+  end
+
+  def public_fields
+    self.active_fields
+  end
+
   private
   def self.f_categories_label_proc(environment)
     ids = environment.top_level_category_as_facet_ids
@@ -975,4 +986,8 @@ private :generate_url, :url_options
     end
   end
 
+  validates_inclusion_of :redirection_after_login, :in => Environment.login_redirection_options.keys, :allow_nil => true
+  def preferred_login_redirection
+    redirection_after_login.blank? ? environment.redirection_after_login : redirection_after_login
+  end
 end

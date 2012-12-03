@@ -7,7 +7,7 @@ class ChangePassword < Task
     when :login:
       _('Username')
     when :email
-      _('e-Mail')
+      _('e-mail')
     when :password
       _('Password')
     when :password_confirmation
@@ -20,9 +20,7 @@ class ChangePassword < Task
   ###################################################
   # validations for creating a ChangePassword task 
   
-  validates_presence_of :login, :email, :environment_id, :on => :create
-
-  validates_presence_of :requestor_id
+  validates_presence_of :login, :email, :environment_id, :on => :create, :message => _('must be filled in')
 
   validates_format_of :email, :on => :create, :with => Noosfero::Constants::EMAIL_FORMAT, :if => (lambda { |obj| !obj.email.blank? })
 
@@ -30,10 +28,10 @@ class ChangePassword < Task
     unless data.login.blank? || data.email.blank?
       user = User.find_by_login_and_environment_id(data.login, data.environment_id)
       if user.nil? 
-        data.errors.add(:login, _('%{fn} is not a valid username.').fix_i18n)
+        data.errors.add(:login, _('is invalid or user does not exists.'))
       else
         if user.email != data.email
-          data.errors.add(:email)
+          data.errors.add(:email, _('does not match the username you filled in'))
         end
       end
     end

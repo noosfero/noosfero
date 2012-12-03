@@ -1916,4 +1916,47 @@ class ProfileTest < ActiveSupport::TestCase
     profile.save!
   end
 
+  should 'respond to redirection_after_login' do
+    assert_respond_to Profile.new, :redirection_after_login
+  end
+
+  should 'return profile preference of redirection unless it is blank' do
+    environment = fast_create(Environment, :redirection_after_login => 'site_homepage')
+    profile = fast_create(Profile, :redirection_after_login => 'keep_on_same_page', :environment_id => environment.id)
+    assert_equal 'keep_on_same_page', profile.preferred_login_redirection
+  end
+
+  should 'return environment preference of redirection when profile preference is blank' do
+    environment = fast_create(Environment, :redirection_after_login => 'site_homepage')
+    profile = fast_create(Profile, :environment_id => environment.id)
+    assert_equal 'site_homepage', profile.preferred_login_redirection
+  end
+
+  should 'allow only environment login redirection options' do
+    profile = fast_create(Profile)
+    profile.redirection_after_login = 'invalid_option'
+    profile.save
+    assert profile.errors.invalid?(:redirection_after_login)
+
+    Environment.login_redirection_options.keys.each do |redirection|
+      profile.redirection_after_login = redirection
+      profile.save
+      assert !profile.errors.invalid?(:redirection_after_login)
+    end
+  end
+
+  should 'public fields are active fields' do
+    p = fast_create(Profile)
+    f = %w(sex birth_date)
+    p.expects(:active_fields).returns(f)
+    assert_equal f, p.public_fields
+  end
+
+  should 'return fields privacy' do
+    p = fast_create(Profile)
+    f = { 'sex' => 'public' }
+    p.data[:fields_privacy] = f
+    assert_equal f, p.fields_privacy
+  end
+
 end

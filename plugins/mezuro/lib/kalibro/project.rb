@@ -1,6 +1,6 @@
 class Kalibro::Project < Kalibro::Model
 
-  attr_accessor :name, :license, :description, :repository, :configuration_name, :state, :error
+  attr_accessor :name, :license, :description, :repository, :configuration_name, :state, :kalibro_error
 
   def self.all_names
     request("Project", :get_project_names)[:project_name]
@@ -15,23 +15,35 @@ class Kalibro::Project < Kalibro::Model
   end
 
   def error=(value)
-    @error = Kalibro::Error.to_object value
+    @kalibro_error = Kalibro::Error.to_object value
   end
 
   def process_project(days = '0')
-    if days.to_i.zero?
-      self.class.request("Kalibro", :process_project, {:project_name => name})
-  	else
-      self.class.request("Kalibro", :process_periodically, {:project_name => name, :period_in_days => days})
-  	end
+    begin
+      if days.to_i.zero?
+        self.class.request("Kalibro", :process_project, {:project_name => name})
+    	else
+        self.class.request("Kalibro", :process_periodically, {:project_name => name, :period_in_days => days})
+    	end
+    rescue Exception => exception
+      add_error exception
+    end
   end
 
 	def process_period
-    self.class.request("Kalibro", :get_process_period, {:project_name => name})[:period]
+	  begin
+      self.class.request("Kalibro", :get_process_period, {:project_name => name})[:period]
+    rescue Exception => exception
+      add_error exception
+    end
   end
 
 	def cancel_periodic_process
-    self.class.request("Kalibro", :cancel_periodic_process, {:project_name => name})
+	  begin
+      self.class.request("Kalibro", :cancel_periodic_process, {:project_name => name})
+    rescue Exception => exception
+      add_error exception
+    end
   end
 
 end

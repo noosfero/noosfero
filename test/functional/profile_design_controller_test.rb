@@ -5,12 +5,12 @@ class ProfileDesignController; def rescue_action(e) raise e end; end
 
 class ProfileDesignControllerTest < ActionController::TestCase
   
-  COMMOM_BLOCKS = [ ArticleBlock, TagsBlock, RecentDocumentsBlock, ProfileInfoBlock, LinkListBlock, MyNetworkBlock, FeedReaderBlock, ProfileImageBlock, LocationBlock, SlideshowBlock, ProfileSearchBlock ]
+  COMMOM_BLOCKS = [ ArticleBlock, TagsBlock, RecentDocumentsBlock, ProfileInfoBlock, LinkListBlock, MyNetworkBlock, FeedReaderBlock, ProfileImageBlock, LocationBlock, SlideshowBlock, ProfileSearchBlock, HighlightsBlock ]
   PERSON_BLOCKS = COMMOM_BLOCKS + [FriendsBlock, FavoriteEnterprisesBlock, CommunitiesBlock, EnterprisesBlock ]
   PERSON_BLOCKS_WITH_MEMBERS = PERSON_BLOCKS + [MembersBlock]
   PERSON_BLOCKS_WITH_BLOG = PERSON_BLOCKS + [BlogArchivesBlock]
 
-  ENTERPRISE_BLOCKS = COMMOM_BLOCKS + [DisabledEnterpriseMessageBlock, HighlightsBlock, FeaturedProductsBlock, FansBlock]
+  ENTERPRISE_BLOCKS = COMMOM_BLOCKS + [DisabledEnterpriseMessageBlock, FeaturedProductsBlock, FansBlock]
   ENTERPRISE_BLOCKS_WITH_PRODUCTS_ENABLE = ENTERPRISE_BLOCKS + [ProductsBlock]
 
   attr_reader :holder
@@ -295,17 +295,17 @@ class ProfileDesignControllerTest < ActionController::TestCase
   should 'offer to create blog archives block only if has blog' do
     holder.articles << Blog.new(:name => 'Blog test', :profile => holder)
     get :add_block, :profile => 'designtestuser'
-    assert_tag :tag => 'input', :attributes => { :id => 'type_blogarchivesblock', :value => 'BlogArchivesBlock' }
+    assert_tag :tag => 'input', :attributes => { :name => 'type', :value => 'BlogArchivesBlock' }
   end
 
   should 'not offer to create blog archives block if user dont have blog' do
     get :add_block, :profile => 'designtestuser'
-    assert_no_tag :tag => 'input', :attributes => { :id => 'type_blogarchivesblock', :value => 'BlogArchivesBlock' }
+    assert_no_tag :tag => 'input', :attributes => { :name => 'type', :value => 'BlogArchivesBlock' }
   end
 
   should 'offer to create feed reader block' do
     get :add_block, :profile => 'designtestuser'
-    assert_tag :tag => 'input', :attributes => { :id => 'type_feedreaderblock', :value => 'FeedReaderBlock' }
+    assert_tag :tag => 'input', :attributes => { :name => 'type', :value => 'FeedReaderBlock' }
   end
 
   should 'be able to edit FeedReaderBlock' do
@@ -322,11 +322,14 @@ class ProfileDesignControllerTest < ActionController::TestCase
   should 'be able to save FeedReaderBlock configurations' do
     @box1.blocks << FeedReaderBlock.new(:address => 'feed address')
     holder.blocks(true)
+    block = @box1.blocks.last
 
-    post :save, :profile => 'designtestuser', :id => @box1.blocks[-1].id, :block => {:address => 'new feed address', :limit => '20'}
+    post :save, :profile => 'designtestuser', :id => block.id, :block => {:address => 'new feed address', :limit => '20'}
 
-    assert_equal 'new feed address', @box1.blocks[-1].address
-    assert_equal 20, @box1.blocks[-1].limit
+    block.reload
+
+    assert_equal 'new feed address', block.address
+    assert_equal 20, block.limit
   end
 
   should 'require login' do
@@ -421,14 +424,14 @@ class ProfileDesignControllerTest < ActionController::TestCase
     profile.stubs(:is_admin?).with(profile.environment).returns(true)
     @controller.stubs(:user).returns(profile)
     get :add_block, :profile => 'designtestuser'
-    assert_tag :tag => 'input', :attributes => { :id => 'type_rawhtmlblock', :value => 'RawHTMLBlock' }
+    assert_tag :tag => 'input', :attributes => { :name => 'type', :value => 'RawHTMLBlock' }
   end
 
   should 'not allow normal users to add RawHTMLBlock' do
     profile.stubs(:is_admin?).with(profile.environment).returns(false)
     @controller.stubs(:user).returns(profile)
     get :add_block, :profile => 'designtestuser'
-    assert_no_tag :tag => 'input', :attributes => { :id => 'type_rawhtmlblock', :value => 'RawHTMLBlock' }
+    assert_no_tag :tag => 'input', :attributes => { :name => 'type', :value => 'RawHTMLBlock' }
   end
 
   should 'editing article block displays right selected article' do

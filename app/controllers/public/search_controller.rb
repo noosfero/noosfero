@@ -46,7 +46,7 @@ class SearchController < PublicController
     if !@empty_query
       full_text_search ['public:true']
     else
-      @results[@asset] = @environment.people.visible.send(@filter).paginate(paginate_options)
+      @results[@asset] = visible_profiles(Person).send(@filter).paginate(paginate_options)
     end
   end
 
@@ -76,7 +76,7 @@ class SearchController < PublicController
       full_text_search ['public:true']
     else
       @filter_title = _('Enterprises from network')
-      @results[@asset] = @environment.enterprises.visible.paginate(paginate_options)
+      @results[@asset] = visible_profiles(Enterprise, [{:products => :product_category}]).paginate(paginate_options)
     end
   end
 
@@ -84,7 +84,7 @@ class SearchController < PublicController
     if !@empty_query
       full_text_search ['public:true']
     else
-      @results[@asset] = @environment.communities.visible.send(@filter).paginate(paginate_options)
+      @results[@asset] = visible_profiles(Community).send(@filter).paginate(paginate_options)
     end
   end
 
@@ -308,6 +308,14 @@ class SearchController < PublicController
     @results[@asset] = ret[:results]
     @facets = ret[:facets]
     @all_facets = ret[:all_facets]
+  end
+
+  private
+
+  def visible_profiles(klass, *extra_relations)
+    relations = [:image, :domains, :environment, :preferred_domain]
+    relations += extra_relations
+    @environment.send(klass.name.underscore.pluralize).visible.includes(relations)
   end
 
 end

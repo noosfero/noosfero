@@ -158,4 +158,22 @@ class CatalogControllerTest < ActionController::TestCase
     assert_equal [p1,p2,p3,p4,p5,p6], assigns(:products)
   end
 
+  should 'add highlighted CSS class around a highlighted product' do
+    prod = @enterprise.products.create!(:name => 'Highlighted Product', :product_category => @product_category, :highlighted => true)
+    get :index, :profile => @enterprise.identifier
+    assert_tag :tag => 'li', :attributes => { :class => 'product highlighted' }, :content => /Highlighted Product/
+  end
+
+  should 'do not add highlighted CSS class around an ordinary product' do
+    prod = @enterprise.products.create!(:name => 'Ordinary Product', :product_category => @product_category, :highlighted => false)
+    get :index, :profile => @enterprise.identifier
+    assert_no_tag :tag => 'li', :attributes => { :class => 'product highlighted' }, :content => /Ordinary Product/
+  end
+
+  should 'display star image in highlighted product' do
+    prod = @enterprise.products.create!(:name => 'The Eyes Are The Light', :product_category => @product_category, :highlighted => true)
+    get :index, :profile => @enterprise.identifier
+    assert_tag :tag => 'img', :attributes => { :class => 'star', :src => /star.png/ }
+  end
+
 end

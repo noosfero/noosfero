@@ -79,6 +79,25 @@ class Article < ActiveRecord::Base
   validate :native_translation_must_have_language
   validate :translation_must_have_language
 
+  validate :no_self_reference
+  validate :no_cyclical_reference, :if => 'parent_id.present?'
+
+  def no_self_reference
+    errors.add(:parent_id, _('self-reference is not allowed.')) if id && parent_id == id
+  end
+
+  def no_cyclical_reference
+    current_parent = Article.find(parent_id)
+    while current_parent
+      if current_parent == self
+        errors.add(:parent_id, _('cyclical reference is not allowed.'))
+        break
+      end
+      current_parent = current_parent.parent
+    end
+  end
+
+
   def is_trackable?
     self.published? && self.notifiable? && self.advertise? && self.profile.public_profile
   end
@@ -154,6 +173,12 @@ class Article < ActiveRecord::Base
     article.advertise = true
   end
 
+  before_save do |article|
+    article.parent = article.parent_id ? Article.find(article.parent_id) : nil
+    parent_path = article.parent ? article.parent.path : nil
+    article.path = [parent_path, article.slug].compact.join('/')
+  end
+
   # retrieves all articles belonging to the given +profile+ that are not
   # sub-articles of any other article.
   named_scope :top_level_for, lambda { |profile|
@@ -179,37 +204,23 @@ class Article < ActiveRecord::Base
   end
 
   named_scope :more_popular, :order => 'hits DESC'
+  named_scope :relevant_as_recent, :conditions => ["(articles.type != 'UploadedFile' and articles.type != 'RssFeed' and articles.type != 'Blog') OR articles.type is NULL"]
 
-  # retrieves the latest +limit+ articles, sorted from the most recent to the
-  # oldest.
-  #
-  # Only includes articles where advertise == true
-  def self.recent(limit = nil, extra_conditions = {})
-    # FIXME this method is a horrible hack
-    options = { :page => 1, :per_page => limit,
-                :conditions => [
-                  "advertise = ? AND
-                  published = ? AND
-                  profiles.visible = ? AND
-                  profiles.public_profile = ? AND
-                  ((articles.type != ? and articles.type != ? and articles.type != ?) OR articles.type is NULL)", true, true, true, true, 'UploadedFile', 'RssFeed', 'Blog'
-                ],
-                :include => 'profile',
-                :order => 'articles.published_at desc, articles.id desc'
-              }
-    if ( scoped_methods && scoped_methods.last &&
-         scoped_methods.last[:find] &&
-         scoped_methods.last[:find][:joins] &&
-         scoped_methods.last[:find][:joins].index('profiles') )
-      options.delete(:include)
+  def self.recent(limit = nil, extra_conditions = {}, pagination = true)
+    result = scoped({:conditions => extra_conditions}).
+      public.
+      relevant_as_recent.
+      limit(limit).
+      order(['articles.published_at desc', 'articles.id desc'])
+
+    if !( scoped_methods && scoped_methods.last &&
+        scoped_methods.last[:find] &&
+        scoped_methods.last[:find][:joins] &&
+        scoped_methods.last[:find][:joins].index('profiles') )
+      result = result.includes(:profile)
     end
-    if extra_conditions == {}
-      self.paginate(options)
-    else
-      with_scope :find => {:conditions => extra_conditions} do
-        self.paginate(options)
-      end
-    end
+
+    pagination ? result.paginate({:page => 1, :per_page => limit}) : result
   end
 
   # produces the HTML code that is to be displayed as this article's contents.
@@ -325,14 +336,14 @@ class Article < ActiveRecord::Base
   end
 
   def possible_translations
-    possibilities = Noosfero.locales.keys - self.native_translation.translations(:select => :language).map(&:language) - [self.native_translation.language]
+    possibilities = environment.locales.keys - self.native_translation.translations(:select => :language).map(&:language) - [self.native_translation.language]
     possibilities << self.language unless self.language_changed?
     possibilities
   end
 
   def known_language
     unless self.language.blank?
-      errors.add(:language, N_('Language not supported by Noosfero')) unless Noosfero.locales.key?(self.language)
+      errors.add(:language, N_('Language not supported by the environment.')) unless environment.locales.key?(self.language)
     end
   end
 
@@ -665,7 +676,7 @@ class Article < ActiveRecord::Base
     self.categories.collect(&:name)
   end
 
-  delegate :region, :region_id, :environment, :environment_id, :to => :profile
+  delegate :region, :region_id, :environment, :environment_id, :to => :profile, :allow_nil => true
   def name_sortable # give a different name for solr
     name
   end

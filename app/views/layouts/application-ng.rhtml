@@ -56,10 +56,18 @@
             <%= usermenu_logged_in %>
           </span>
           <span class='not-logged-in' style='display: none'>
-              <%= _("<span class='login'>%s</span> <span class='or'>or</span> <span class='signup'>%s</span>") % [thickbox_inline_popup_link('<i class="icon-menu-login"></i><strong>' + _('Login') + '</strong>', login_url, 'inlineLoginBox', :id => 'link_login'), link_to('<strong>' + _('Sign up') + '</strong>', :controller => 'account', :action => 'signup') ] %>
+
+              <%= _("<span class='login'>%s</span>") % thickbox_inline_popup_link('<i class="icon-menu-login"></i><strong>' + _('Login') + '</strong>', login_url, 'inlineLoginBox', :id => 'link_login') %>
+              <%= @plugins.dispatch(:alternative_authentication_link).collect { |content| instance_eval(&content) }.join("") %>
+
               <div id='inlineLoginBox' style='display: none;'>
                 <%= render :file => 'account/login', :locals => { :is_thickbox => true } %>
               </div>
+
+              <% unless @plugins.dispatch(:allow_user_registration).include?(false) %>
+              <%= _("<span class='or'>or</span> <span class='signup'>%s</span>") % link_to('<strong>' + _('Sign up') + '</strong>', :controller => 'account', :action => 'signup')%>
+              <% end %>
+
           </span>
           <form action="/search" class="search_form" method="get" class="clean">
             <input name="query" size="15" title="<%=_('Search...')%>" onfocus="this.form.className='focused';" onblur="this.form.className=''" />

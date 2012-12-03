@@ -14,6 +14,7 @@ class ProfileEditorController < MyProfileController
     @profile_data = profile
     @possible_domains = profile.possible_domains
     if request.post?
+      params[:profile_data][:fields_privacy] ||= {} if profile.person? && params[:profile_data].is_a?(Hash)
       begin
         Profile.transaction do
         Image.transaction do

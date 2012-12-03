@@ -46,7 +46,8 @@ class BoxesHelperTest < ActiveSupport::TestCase
     b = p.blocks.select{|bk| !bk.kind_of?(MainBlock) }[0]
     b.display = 'never'; b.save!
     box = b.box
-    box.expects(:blocks).returns([b])
+    box.blocks = [b]
+    box.save!
     expects(:display_block).with(b, '')
     expects(:request).returns(request)
     stubs(:block_target).returns('')
@@ -64,7 +65,8 @@ class BoxesHelperTest < ActiveSupport::TestCase
     b = p.blocks.select{|bk| !bk.kind_of?(MainBlock) }[0]
     b.display = 'never'; b.save!
     box = b.box
-    box.expects(:blocks).returns([b])
+    box.blocks = [b]
+    box.save!
     expects(:display_block).with(b, '').never
     expects(:request).returns(request)
     stubs(:block_target).returns('')
@@ -106,9 +108,7 @@ class BoxesHelperTest < ActiveSupport::TestCase
 
   should 'fill context with the article, request_path and locale' do
     request = mock()
-    box = mock()
-
-    box.expects(:blocks).returns([])
+    box = Box.create!(:owner => fast_create(Profile))
     request.expects(:path).returns('/')
     expects(:request).returns(request)
     expects(:locale).returns('en')

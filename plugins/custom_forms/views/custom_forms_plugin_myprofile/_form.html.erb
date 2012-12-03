@@ -1,0 +1,56 @@
+<% self.extend(CustomFormsPlugin::Helper) %>
+
+<%= error_messages_for :form %>
+
+<% form_for :form, @form do |f| %>
+  <%= required labelled_form_field _('Name'), f.text_field(:name) %>
+  <%= labelled_form_field(_('Period'), (
+    date_range_field('form[begining]', 'form[ending]', @form.begining, @form.ending, 
+                     '%Y-%m-%d %H:%M', 
+                     { :time => true, :change_month => true, :change_year => true,
+                       :date_format => 'yy-mm-dd', :time_format => 'hh:mm' },
+                     { :size => 14 })
+  )) %>
+  <%= labelled_form_field _('Access'), f.select(:access, access_options(profile))%>
+  <% if profile.organization? %>
+    <%= labelled_form_field _('Triggered on membership'), f.check_box(:on_membership) %>
+  <% end %>
+  <%= labelled_form_field _('Description'), f.text_area(:description, :style => 'width: 100%') %>
+
+  <h2><%= _('Fields') %></h2>
+  <table class="action-table" id='fields-table'>
+    <tr>
+      <th style='width: 40%'><%= _('Name') %></th>
+      <th style='width: 30%'><%= _('Type') %></th>
+      <th style='width: 10%'><%= _('Mandatory') %></th>
+      <th style='width: 20%'><%= _('Actions') %></th>
+    </tr>
+    <% counter = 1 %>
+    <% @fields.each do |field| %>
+      <%= render :partial => 'field', :locals => {:field => field, :counter => counter} %>
+      <% counter += 1 %>
+    <% end %>
+    <%= render :partial => 'empty_field', :locals => {:field => @empty_field, :counter => counter} %>
+    <tr class='new-item'>
+      <td colspan='5'>
+        <%= button(:add, _('Add a new field'), '#', :id => 'new-field')%>
+      </td>
+    </tr>
+  </table>
+
+  <% counter = 1 %>
+  <% @fields.each do |field| %>
+    <%= render :partial => 'edit_text', :locals => {:field => field, :counter => counter} %>
+    <%= render :partial => 'edit_select', :locals => {:field => field, :counter => counter} %>
+    <% counter += 1 %>
+  <% end %>
+
+  <%= render :partial => 'edit_text', :locals => {:field => @empty_field, :counter => counter} %>
+  <%= render :partial => 'edit_select', :locals => {:field => @empty_field, :counter => counter} %>
+
+  <% button_bar do %>
+    <%= submit_button :save, _('Save'), :cancel => {:action => 'index'}%>
+  <% end %>
+<% end %>
+
+<%= javascript_include_tag '../plugins/custom_forms/field' %>
