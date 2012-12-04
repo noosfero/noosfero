@@ -1,8 +1,7 @@
 require 'test_helper'
 
-require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/error_fixtures"
 require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/base_tool_fixtures"
-require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/native_metric_fixtures"
+require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/metric_fixtures"
 require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/metric_configuration_fixtures"
 require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/configuration_fixtures"
 
@@ -16,7 +15,7 @@ class MezuroPluginMyprofileControllerTest < ActionController::TestCase
 
     @base_tool = BaseToolFixtures.base_tool
     @base_tool_hash = BaseToolFixtures.base_tool_hash
-    @metric = NativeMetricFixtures.amloc
+    @metric = MetricFixtures.amloc
     @metric_configuration = MetricConfigurationFixtures.amloc_metric_configuration
     @metric_configuration_hash = MetricConfigurationFixtures.amloc_metric_configuration_hash
     @compound_metric_configuration = MetricConfigurationFixtures.sc_metric_configuration

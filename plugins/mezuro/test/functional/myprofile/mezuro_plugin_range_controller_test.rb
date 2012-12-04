@@ -1,6 +1,6 @@
 require 'test_helper'
 
-require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/native_metric_fixtures"
+require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/metric_fixtures"
 require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/metric_configuration_fixtures"
 require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/configuration_fixtures"
 require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/range_fixtures"
@@ -13,7 +13,7 @@ class MezuroPluginRangeControllerTest < ActionController::TestCase
     @response = ActionController::TestResponse.new
     @profile = fast_create(Community)
 
-    @metric = NativeMetricFixtures.amloc
+    @metric = MetricFixtures.amloc
     @metric_configuration = MetricConfigurationFixtures.amloc_metric_configuration
     @metric_configuration_hash = MetricConfigurationFixtures.amloc_metric_configuration_hash
     @configuration = ConfigurationFixtures.configuration
