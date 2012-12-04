@@ -8,19 +8,23 @@
     <%= f.label :name, "Name:" %>
     <%= f.text_field :name %>
   </p>
+
   <p>
     <%= f.label :description, "Description:" %>
     <%= f.text_field :description %>
   </p>
 
-  <%= required labelled_form_field _('License'),
-  f.select(:license, MezuroPlugin::Helpers::ContentViewerHelper.create_license_options) %><br/>
   <p>
+    <%= required labelled_form_field _('License'),
+    f.select(:license, MezuroPlugin::Helpers::ContentViewerHelper.create_license_options) %><br/>
+  </p>
 
   <p>
     <%= f.label :process_period, "Process Period:" %>
-    <%= f.select(:process_period, MezuroPlugin::Helpers::ContentViewerHelper.create_periodicity_options) %>
+    <%= f.select(:process_period, MezuroPlugin::Helpers::ContentViewerHelper.periodicity_options, :selected => @repository.process_period.to_i) %>
   </p>
+
+  <p>
     <%= f.label :type, "Type:" %>
     <%= f.select :type, @repository_types%>
   </p>
@@ -30,7 +34,7 @@
     <%= f.text_field :address%>
   </p>
 
-  </p>
+  <p>
     <%= f.label :configuration_id, "Configuration:" %>
     <%= f.select :configuration_id, @configuration_select, :selected => @repository.configuration_id.to_i %>
   </p>
