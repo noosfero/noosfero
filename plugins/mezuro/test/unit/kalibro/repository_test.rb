@@ -40,6 +40,7 @@ class RepositoryTest < ActiveSupport::TestCase
     id_from_kalibro = 1
     project_id = 56
     Kalibro::Repository.expects(:request).with(:save_repository, {:repository => @created_repository.to_hash, :project_id => project_id}).returns(:repository_id => id_from_kalibro)
+    Kalibro::Repository.expects(:request).with(:process_repository, :repository_id => id_from_kalibro).returns(:repository_id => id_from_kalibro)
     assert @created_repository.save(project_id)
     assert_equal id_from_kalibro, @created_repository.id
   end

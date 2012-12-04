@@ -68,6 +68,7 @@ class MezuroPluginRepositoryController < MezuroPluginProfileController
     if( repository.errors.empty? )
       redirect_to "/#{profile.identifier}/#{project_content.name.downcase.gsub(/\s/, '-')}"
     else
+      raise repository.errors[0].message
       redirect_to_error_page repository.errors[0].message
     end
   end
