@@ -29,4 +29,8 @@ class ConfigurationFixtures
     })
   end
 
+def self.all
+  [configuration]
+end
+
 end
