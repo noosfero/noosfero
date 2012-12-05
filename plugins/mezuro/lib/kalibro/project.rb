@@ -5,7 +5,7 @@ class Kalibro::Project < Kalibro::Model
   def self.all
     response = request(:all_projects)[:project]
     response = [] if response.nil?
-    response = [response] if response.is_a? (Hash) 
+    response = [response] if response.is_a?(Hash) 
     response.map {|project| new project}
   end
 
