@@ -15,18 +15,35 @@ class MezuroPluginRepositoryControllerTest < ActionController::TestCase
     @profile = fast_create(Community)
 
     @repository = RepositoryFixtures.repository
+    @repository_hash = RepositoryFixtures.hash
     @content = MezuroPlugin::ProjectContent.new(:profile => @profile, :name => name)
     @content.expects(:send_project_to_service).returns(nil)
     @content.stubs(:solr_save)
     @content.save
   end
 
-  should 'test stuff' do
-    Kalibro::Repository.expects(:repository_types).returns(RepositoryFixtures.types)
-    #Kalibro::Configuration.any_instance.expects(:all).returns(ConfigurationFixtures.all)
+  should 'provide the correct variables to the "new" view' do
+    repository_types = RepositoryFixtures.types
+    all_configurations = ConfigurationFixtures.all
+    Kalibro::Repository.expects(:repository_types).returns(repository_types)
+    Kalibro::Configuration.expects(:all).returns(all_configurations)
 
-    get :new_repository, :profile => @profile.identifier, :id => @content.id
+    get :new, :profile => @profile.identifier, :id => @content.id
 
-    #assert_equal RepositoryFixtures.types, assigns(:repository_types)
+    #assert_equal @content, assigns(:project_content)
+    assert_equal repository_types, assigns(:repository_types)
+    assert_equal all_configurations.first.name, assigns(:configuration_select).first.first
+    assert_equal all_configurations.first.id, assigns(:configuration_select).first.last
   end
+
+  should 'create a repository and redirect correctly' do
+        Kalibro::Repository.expects(:new).returns(@repository)
+        @repository.expects(:save).with(@content.project_id).returns(true)
+        get :create, :profile => @profile.identifier, :id => @content.id, :repository => @repository_hash
+        assert @repository.errors.empty?
+        assert_response :redirect
+        assert_select('h5', 'Repositories')
+  end
+
+
 end
