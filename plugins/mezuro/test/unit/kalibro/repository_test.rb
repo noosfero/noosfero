@@ -20,7 +20,7 @@ class RepositoryTest < ActiveSupport::TestCase
 
   should 'get supported repository types' do
     types = ['BAZAAR', 'GIT', 'SUBVERSION']
-    Kalibro::Repository.expects(:request).with(:supported_repository_types).returns({:repository_type => types})
+    Kalibro::Repository.expects(:request).with(:supported_repository_types).returns({:supported_type => types})
     assert_equal types, Kalibro::Repository.repository_types
   end
 
