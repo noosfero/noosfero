@@ -1,3 +1,4 @@
+#TODO refatorar todo o controller e seus testes funcionais
 class MezuroPluginProjectController < MezuroPluginProfileController
 
   append_view_path File.join(File.dirname(__FILE__) + '/../../views')
@@ -43,6 +44,26 @@ class MezuroPluginProjectController < MezuroPluginProfileController
     else
       @source_tree = project_result.node(params[:module_name])
       render :partial =>'source_tree'
+    end
+  end
+
+  private
+  
+  def module_result(repository_id, date = nil)
+    @processing ||= date.nil? ? processing(repository_id) : processing_with_date(repository_id, date)
+    begin
+      @module_result ||= Kalibro::ModuleResult.find(@processing.results_root_id)
+    rescue Exception => error
+      errors.add_to_base(error.message)
+    end
+    @module_result
+  end
+
+  def result_history(module_result_id)
+    begin
+      @result_history ||= Kalibro::MetricResult.history_of(module_result_id)
+    rescue Exception => error
+      errors.add_to_base(error.message)
     end
   end
 

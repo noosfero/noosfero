@@ -1,3 +1,4 @@
+#TODO refatorar todo o controller e seus testes funcionais
 class MezuroPluginModuleController < MezuroPluginProfileController
 
   append_view_path File.join(File.dirname(__FILE__) + '/../../views')

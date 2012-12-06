@@ -6,6 +6,7 @@ require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/repository_fixtures"
 require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/project_content_fixtures"
 require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/configuration_fixtures"
 
+#TODO terminar os testes
 class MezuroPluginRepositoryControllerTest < ActionController::TestCase
 
   def setup

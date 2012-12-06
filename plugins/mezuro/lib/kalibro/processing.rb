@@ -1,3 +1,4 @@
+#TODO arrumar esse modelo e seus testes de unidade
 class Kalibro::Processing < Kalibro::Model
 
   attr_accessor :id, :date, :state, :error, :process_time, :results_root_id

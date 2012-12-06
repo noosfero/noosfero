@@ -13,7 +13,7 @@ class Kalibro::Repository < Kalibro::Model
   def self.repositories_of(project_id)
     response = request(:repositories_of, {:project_id => project_id})[:repository]
     response = [] if response.nil?
-    response = [response] if response.is_a? (Hash) 
+    response = [response] if response.is_a?(Hash) 
     response.map {|repository| new repository}
   end
 

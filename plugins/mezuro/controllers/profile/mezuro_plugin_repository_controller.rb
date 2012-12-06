@@ -1,3 +1,5 @@
+#TODO terminar esse controler e seus testes funcionais
+#TODO falta o destroy
 class MezuroPluginRepositoryController < MezuroPluginProfileController
 
   append_view_path File.join(File.dirname(__FILE__) + '/../../views')
@@ -59,7 +61,7 @@ class MezuroPluginRepositoryController < MezuroPluginProfileController
     @project_name = project_content.name
     @repository = project_content.repositories.select{ |repository| repository.id == params[:repository_id].to_s }.first
     @configuration_name = Kalibro::Configuration.configuration_of(@repository.id).name
-    @processing = processing(@repository.id)
+    @processing = Kalibro::Processing.processing_of(@repository.id)
   end
 
   def destroy
@@ -70,26 +72,6 @@ class MezuroPluginRepositoryController < MezuroPluginProfileController
       redirect_to "/#{profile.identifier}/#{project_content.name.downcase.gsub(/\s/, '-')}"
     else
       redirect_to_error_page repository.errors[0].message
-    end
-  end
-
-  private
-  
-  def module_result(repository_id, date = nil)
-    @processing ||= date.nil? ? processing(repository_id) : processing_with_date(repository_id, date)
-    begin
-      @module_result ||= Kalibro::ModuleResult.find(@processing.results_root_id)
-    rescue Exception => error
-      errors.add_to_base(error.message)
-    end
-    @module_result
-  end
-
-  def result_history(module_result_id)
-    begin
-      @result_history ||= Kalibro::MetricResult.history_of(module_result_id)
-    rescue Exception => error
-      errors.add_to_base(error.message)
     end
   end
   
