@@ -1,7 +1,7 @@
 require 'test_helper' 
 
-require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/project_result_fixtures"
-require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/error_fixtures"
+require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/processing_fixtures"
+require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/throwable_fixtures"
 require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/repository_fixtures"
 
 class MezuroPluginProjectControllerTest < ActionController::TestCase
@@ -11,7 +11,7 @@ class MezuroPluginProjectControllerTest < ActionController::TestCase
     @response = ActionController::TestResponse.new
     @profile = fast_create(Community)
 
-    @project_result = ProjectResultFixtures.project_result
+    @project_result = ProcessingFixtures.project_result
     @repository_url = RepositoryFixtures.repository.address
     @project = @project_result.project
     @date = "2012-04-13T20:39:41+04:00"
@@ -30,7 +30,7 @@ class MezuroPluginProjectControllerTest < ActionController::TestCase
   end
 
   should 'test project state with kalibro_error' do
-    Kalibro::Project.expects(:request).with("Project", :get_project, :project_name => @project.name).returns({:project => @project.to_hash.merge({:error => ErrorFixtures.error_hash})})
+    Kalibro::Project.expects(:request).with("Project", :get_project, :project_name => @project.name).returns({:project => @project.to_hash.merge({:error => ThrowableFixtures.throwable_hash})})
     get :project_state, :profile => @profile.identifier, :id => @content.id
     assert_response 200
     assert_equal "ERROR", @response.body
@@ -38,7 +38,7 @@ class MezuroPluginProjectControllerTest < ActionController::TestCase
   end
 
   should 'test project error' do
-    Kalibro::Project.expects(:request).with("Project", :get_project, :project_name => @project.name).returns({:project => @project.to_hash.merge({:error => ErrorFixtures.error_hash})})
+    Kalibro::Project.expects(:request).with("Project", :get_project, :project_name => @project.name).returns({:project => @project.to_hash.merge({:error => ThrowableFixtures.throwable_hash})})
     get :project_error, :profile => @profile.identifier, :id => @content.id
     assert_response 200
     assert_select('h3', 'ERROR')
@@ -47,7 +47,7 @@ class MezuroPluginProjectControllerTest < ActionController::TestCase
   end
 
   should 'test project result without date' do
-    Kalibro::ProjectResult.expects(:request).with("ProjectResult", :get_last_result_of, {:project_name => @project.name}).returns({:project_result => @project_result.to_hash})
+    Kalibro::Processing.expects(:request).with("Processing", :get_last_result_of, {:project_name => @project.name}).returns({:project_result => @project_result.to_hash})
     get :project_result, :profile => @profile.identifier, :id => @content.id, :date => nil
     assert_equal @content, assigns(:content)
     assert_equal @project_result.project.name, assigns(:project_result).project.name
@@ -57,8 +57,8 @@ class MezuroPluginProjectControllerTest < ActionController::TestCase
   
   should 'test project results from a specific date' do
     request_body = {:project_name => @project.name, :date => @date}
-    Kalibro::ProjectResult.expects(:request).with("ProjectResult", :has_results_before, request_body).returns({:has_results => true})
-    Kalibro::ProjectResult.expects(:request).with("ProjectResult", :get_last_result_before, request_body).returns({:project_result => @project_result.to_hash})
+    Kalibro::Processing.expects(:request).with("Processing", :has_results_before, request_body).returns({:has_results => true})
+    Kalibro::Processing.expects(:request).with("Processing", :get_last_result_before, request_body).returns({:project_result => @project_result.to_hash})
     get :project_result, :profile => @profile.identifier, :id => @content.id, :date => @date
     assert_equal @content, assigns(:content)
     assert_equal @project_result.project.name, assigns(:project_result).project.name
@@ -67,7 +67,7 @@ class MezuroPluginProjectControllerTest < ActionController::TestCase
   end
 
   should 'test project tree without date' do
-    Kalibro::ProjectResult.expects(:request).with("ProjectResult", :get_last_result_of, {:project_name => @project.name}).returns({:project_result => @project_result.to_hash})
+    Kalibro::Processing.expects(:request).with("Processing", :get_last_result_of, {:project_name => @project.name}).returns({:project_result => @project_result.to_hash})
     Kalibro::Project.expects(:request).with("Project", :get_project, :project_name => @project.name).returns({:project => @project.to_hash})
   	get :project_tree, :profile => @profile.identifier, :id => @content.id, :module_name => @project.name, :date => nil
     assert_equal @content, assigns(:content)
@@ -80,8 +80,8 @@ class MezuroPluginProjectControllerTest < ActionController::TestCase
   should 'test project tree with a specific date' do
     request_body = {:project_name => @project.name, :date => @project_result.date}
     Kalibro::Project.expects(:request).with("Project", :get_project, :project_name => @project.name).returns({:project => @project.to_hash})
-    Kalibro::ProjectResult.expects(:request).with("ProjectResult", :has_results_before, request_body).returns({:has_results => true})
-    Kalibro::ProjectResult.expects(:request).with("ProjectResult", :get_last_result_before, request_body).returns({:project_result => @project_result.to_hash})
+    Kalibro::Processing.expects(:request).with("Processing", :has_results_before, request_body).returns({:has_results => true})
+    Kalibro::Processing.expects(:request).with("Processing", :get_last_result_before, request_body).returns({:project_result => @project_result.to_hash})
     get :project_tree, :profile => @profile.identifier, :id => @content.id, :module_name => @project.name, :date => @project_result.date
     assert_equal @content, assigns(:content)
     assert_equal @project.name, assigns(:project_name)
