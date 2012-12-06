@@ -108,7 +108,7 @@ probably not need to customize this configuration, but have a look at it.
 
 Create the thin configuration file:
 
-$ thin -C config/thin.yml config
+$ thin -C config/thin.yml -e production config
 
 Edit config/thin.yml to suit your needs. Make sure your apache
 configuration matches the thin cluster configuration, specially in respect
