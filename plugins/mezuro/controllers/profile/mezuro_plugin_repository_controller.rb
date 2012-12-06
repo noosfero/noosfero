@@ -37,7 +37,7 @@ class MezuroPluginRepositoryController < MezuroPluginProfileController
     @configuration_select = configurations.map do |configuration|
       [configuration.name,configuration.id] 
     end
-    @repository = @project_content.repositories.select{ |repository| repository.id == params[:repository_id].to_s }.first
+    @repository = @project_content.repositories.select{ |repository| repository.id.to_s == params[:repository_id] }.first
   end
 
   def update
@@ -57,7 +57,7 @@ class MezuroPluginRepositoryController < MezuroPluginProfileController
     project_content = profile.articles.find(params[:id])
     @project_name = project_content.name
     @repository = project_content.repositories.select{ |repository| repository.id == params[:repository_id].to_s }.first
-    @configuration_name = Kalibro::Configuration.find(@repository.configuration_id).name
+    @configuration_name = Kalibro::Configuration.configuration_of(@repository.id).name
     @processing = processing(@repository.id)
   end
 
@@ -74,32 +74,6 @@ class MezuroPluginRepositoryController < MezuroPluginProfileController
 
   private
   
-  def processing(repository_id)
-    begin
-      if Kalibro::Processing.has_ready_processing(repository_id)
-        @processing ||= Kalibro::Processing.last_ready_processing_of(repository_id)
-      else
-        @processing = Kalibro::Processing.last_processing_of(repository_id)
-      end
-    rescue Exception => error
-      errors.add_to_base(error.message)
-    end
-    @processing
-  end
-
-  def processing_with_date(repository_id, date)
-    begin
-      if Kalibro::Processing.has_processing_after(repository_id, date)
-        @processing ||= Kalibro::Processing.first_processing_after(repository_id, date)
-      elsif Kalibro::Processing.has_processing_before(repository_id, date)
-        @processing ||= Kalibro::Processing.last_processing_before(repository_id, date)
-      end
-    rescue Exception => error
-      errors.add_to_base(error.message)
-    end
-    @processing
-  end
-
   def module_result(repository_id, date = nil)
     @processing ||= date.nil? ? processing(repository_id) : processing_with_date(repository_id, date)
     begin
