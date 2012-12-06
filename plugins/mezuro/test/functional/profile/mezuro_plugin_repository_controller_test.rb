@@ -87,14 +87,14 @@ class MezuroPluginRepositoryControllerTest < ActionController::TestCase
     assert_response :redirect
   end
 
-  should 'show a repository' do
+  should 'set variables to show a repository' do #TODO Terminar esse teste
     Kalibro::Repository.expects(:repositories_of).with(@content.project_id).returns([@repository])
     Kalibro::Configuration.expects(:configuration_of).with(@repository.id).returns(@configuration)
 
     assert_equal @content.name, assigns(:project_name)
     assert_equal @repository, assigns(:repository)
-    @configuration_name = Kalibro::Configuration.find(@repository.configuration_id).name
-    @processing = processing(@repository.id)
+#   @configuration_name = Kalibro::Configuration.find(@repository.configuration_id).name
+#   @processing = processing(@repository.id)
   end
 
 end

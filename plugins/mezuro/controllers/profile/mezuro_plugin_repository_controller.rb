@@ -1,5 +1,4 @@
 #TODO terminar esse controler e seus testes funcionais
-#TODO falta o destroy
 class MezuroPluginRepositoryController < MezuroPluginProfileController
 
   append_view_path File.join(File.dirname(__FILE__) + '/../../views')
@@ -56,15 +55,16 @@ class MezuroPluginRepositoryController < MezuroPluginProfileController
     end
   end
 
-  def show
+  def show #TODO verificar data_content e data_profile
     project_content = profile.articles.find(params[:id])
     @project_name = project_content.name
     @repository = project_content.repositories.select{ |repository| repository.id == params[:repository_id].to_s }.first
     @configuration_name = Kalibro::Configuration.configuration_of(@repository.id).name
-    @processing = Kalibro::Processing.processing_of(@repository.id)
+    @data_profile = project_content.profile.identifier
+    @data_content = project_content.id
   end
 
-  def destroy
+  def destroy #TODO verificar se está correto
     project_content = profile.articles.find(params[:id])
     repository = project_content.repositories.select{ |repository| repository.id == params[:repository_id].to_s }.first
     repository.destroy
