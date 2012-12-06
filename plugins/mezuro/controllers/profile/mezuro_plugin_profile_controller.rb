@@ -1,7 +1,9 @@
+#TODO Ver quais metodos precisam estar aqui e fazer os testes
 class MezuroPluginProfileController < ProfileController
 
   append_view_path File.join(File.dirname(__FILE__) + '/../../views')
 
+=begin
   rescue_from Exception do |exception|
     @message = process_error_message exception.message
     render :partial => "error_page"
@@ -10,7 +12,7 @@ class MezuroPluginProfileController < ProfileController
   def error_page
     @message = params[:message]
   end
-
+=end
   protected
 
   def process_error_message message

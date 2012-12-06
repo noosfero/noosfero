@@ -16,7 +16,7 @@
   </tr>
   <tr> 
     <td><%= _('Process Period') %></td>
-    <td><%= MezuroPlugin::Helpers::ContentViewerHelper.get_periodicity_option(@repository.process_period) %></td>
+    <td><%= MezuroPlugin::Helpers::ContentViewerHelper.periodicity_option(@repository.process_period.to_i) %></td>
   </tr>
   <tr>
     <td><%= _('Type') %></td>
@@ -33,16 +33,14 @@
   <tr>
     <td><%= _('Status')%></td>
     <td>
-      <div id="processing-state" style="color:DarkGoldenRod"><%= @processing.state %></div>
+      <div id="processing-state" style="color:DarkGoldenRod">Retrieving</div>
       <div id="msg-time"></div> 
     </td>
   </tr>
 </table>
-
-
 <br />
 
-<div id="processing" data-profile="<%= @page.profile.identifier %>" data-content="<%= @page.id %>"
+<div id="processing" data-profile="<%= @data_profile %>" data-content="<%= @data_content %>"
      data-repository-id="<%= @repository.id %>"></div>
 <div id="project-tree"></div>
 <div id="module-result"></div>

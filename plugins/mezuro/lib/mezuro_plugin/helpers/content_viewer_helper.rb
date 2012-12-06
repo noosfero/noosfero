@@ -10,7 +10,11 @@ class MezuroPlugin::Helpers::ContentViewerHelper
     [["Not Periodically", 0], ["1 day", 1], ["2 days", 2], ["Weekly", 7], ["Biweeky", 15], ["Monthly", 30]]
   end
 
-  def self.create_license_options
+  def self.periodicity_option(periodicity)
+    periodicity_options.select {|x| x.last == periodicity}.first.first
+  end
+
+  def self.license_options
    options = YAML.load_file("#{RAILS_ROOT}/plugins/mezuro/licenses.yml")
    options = options.split(";")
    formated_options = []
@@ -42,12 +46,6 @@ class MezuroPlugin::Helpers::ContentViewerHelper
 
   def self.format_name(metric_configuration_snapshot)
     metric_configuration_snapshot.metric.name.delete("() ")
-  end
-
-  def self.get_license_option(selected)
-    options = YAML.load_file("#{RAILS_ROOT}/plugins/mezuro/licenses.yml")
-    options.split(";")
-    selected_option = options.find { |license| license == selected }
   end
 
   private
