@@ -578,11 +578,6 @@ Then /^I should be taken to "([^\"]*)" product page$/ do |product_name|
   end
 end
 
-When /^I reload and wait for the page$/ do
-  response.selenium.refresh
-  selenium.wait_for_page
-end
-
 Given /^the following enterprise homepages?$/ do |table|
   # table is a Cucumber::Ast::Table
   table.hashes.each do |item|
