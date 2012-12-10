@@ -37,7 +37,7 @@ module NavigationHelpers
       "/myprofile/#{$2}/profile_design/edit/#{block.id}"
 
     when /^(.*)'s homepage$/
-      '/%s' % Profile.find_by_name($1).identifier
+      '/' + $1
 
     when /^(.*)'s blog$/
       '/%s/blog' % Profile.find_by_name($1).identifier
