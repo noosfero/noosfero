@@ -16,6 +16,10 @@ Before do
   DatabaseCleaner.start
 end
 
+Before('@ignore-hidden-elements') do
+  Capybara.ignore_hidden_elements = true
+end
+
 After do
   DatabaseCleaner.clean
 end
