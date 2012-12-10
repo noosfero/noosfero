@@ -451,12 +451,14 @@ Given /^the following environment configuration$/ do |table|
   env.save
 end
 
-Then /^I should be logged in as "(.+)"$/ do |login|
-  User.find(session[:user]).login.should == login
+Then /^I should be logged in as "(.+)"$/ do |username|
+   When %{I go to #{username}'s control panel}
+   Then %{I should be on #{username}'s control panel}
 end
 
-Then /^I should not be logged in$/ do
-  session[:user].nil?
+Then /^I should not be logged in as "(.+)"$/ do |username|
+   When %{I go to #{username}'s control panel}
+   Then %{I should be on login page}
 end
 
 Given /^the profile "(.+)" has no blocks$/ do |profile|

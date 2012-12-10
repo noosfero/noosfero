@@ -14,13 +14,12 @@ Feature: signup
       | Password confirmation | secret                |
       | Full name             | José da Silva         |
     And I press "Create my account"
-    Then I should not be logged in
-    And I should receive an e-mail on josesilva@example.com
+    Then I should receive an e-mail on josesilva@example.com
     When I go to login page
     And I fill in "Username" with "josesilva"
     And I fill in "Password" with "secret"
     And I press "Log in"
-    Then I should not be logged in
+    Then I should not be logged in as "josesilva"
     When José da Silva's account is activated
     And I go to login page
     And I fill in "Username" with "josesilva"
@@ -34,7 +33,7 @@ Feature: signup
       | joaosilva | Joao Silva |
     Given I am logged in as "joaosilva"
     And I go to signup page
-    Then I should be on Joao Silva's control panel
+    Then I should be on joaosilva's control panel
 
   Scenario: user cannot register without a name
     Given I am on the homepage
@@ -52,7 +51,7 @@ Feature: signup
       | login | name |
       | joaosilva | Joao Silva |
     Given I am logged in as "joaosilva"
-    And I am on Joao Silva's control panel
+    And I am on joaosilva's control panel
     And I follow "Edit Profile"
     And I fill in "Name" with ""
     When I press "Save"
