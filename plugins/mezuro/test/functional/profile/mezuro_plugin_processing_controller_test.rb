@@ -5,32 +5,35 @@ require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/throwable_fixtures"
 require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/repository_fixtures"
 
 
-#TODO refatorar todos os testes
-class MezuroPluginProjectControllerTest < ActionController::TestCase
+class MezuroPluginProcessingControllerTest < ActionController::TestCase
   def setup
-    @controller = MezuroPluginProjectController.new
+    @controller = MezuroPluginProcessingController.new
     @request = ActionController::TestRequest.new
     @response = ActionController::TestResponse.new
     @profile = fast_create(Community)
 
-    @project_result = ProcessingFixtures.project_result
-    @repository_url = RepositoryFixtures.repository.address
-    @project = @project_result.project
-    @date = "2012-04-13T20:39:41+04:00"
-    
-    Kalibro::Project.expects(:all_names).returns([])
+    @repository = RepositoryFixtures.repository
+    @processing = ProcessingFixtures.processing
+
+=begin
     @content = MezuroPlugin::ProjectContent.new(:profile => @profile, :name => @project.name, :repository_url => @repository_url)
     @content.expects(:send_project_to_service).returns(nil)
     @content.save
+    @project_result = ProcessingFixtures.project_result
+    
+    Kalibro::Project.expects(:all_names).returns([])
+=end
   end
 
-  should 'test project state without kalibro_error' do
-    Kalibro::Project.expects(:request).with("Project", :get_project, :project_name => @project.name).returns({:project => @project.to_hash})
-    get :project_state, :profile => @profile.identifier, :id => @content.id
+  should 'render last processing state' do
+    Kalibro::Processing.expects(:request).with(:last_processing_state, :repository_id => @repository.id).returns({:process_state => @processing.state})
+    get :render_last_state, :profile => @profile.identifier, :repository_id => @repository.id
     assert_response 200
-    assert_equal @content, assigns(:content)
+    assert_equal @processing.state, @response.body
   end
 
+#TODO refatorar todos os testes
+=begin
   should 'test project state with kalibro_error' do
     Kalibro::Project.expects(:request).with("Project", :get_project, :project_name => @project.name).returns({:project => @project.to_hash.merge({:error => ThrowableFixtures.throwable_hash})})
     get :project_state, :profile => @profile.identifier, :id => @content.id
@@ -90,5 +93,5 @@ class MezuroPluginProjectControllerTest < ActionController::TestCase
     assert_equal @project_result.source_tree.module.name, assigns(:source_tree).module.name    
 	  assert_response 200
   end
-
+=end
 end
