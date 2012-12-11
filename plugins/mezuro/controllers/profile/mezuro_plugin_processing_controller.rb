@@ -1,16 +1,11 @@
 #TODO refatorar todo o controller e seus testes funcionais
-class MezuroPluginProjectController < MezuroPluginProfileController
+class MezuroPluginProcessingController < MezuroPluginProfileController
 
   append_view_path File.join(File.dirname(__FILE__) + '/../../views')
 
-  def processing_state
-    @content = profile.articles.find(params[:id])
-    processing = @content.processing
-    if project_content_has_errors?
-      redirect_to_error_page(@content.errors[:base])
-    else
-      render :text => processing.state
-    end
+  def render_last_state
+    last_state = Kalibro::Processing.last_processing_state_of(params[:repository_id].to_i)
+    render :text => last_state
   end
 
   def processing_error
