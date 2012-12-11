@@ -3,36 +3,29 @@
 <% form_for :repository, :url => {:action =>"create", :controller => "mezuro_plugin_repository"},  :method => :get do |f| %>
   <%= hidden_field_tag :id, @project_content.id %>
   
-  <p>
-    <%= f.label :name, "Name:" %>
-    <%= f.text_field :name %>
-  </p>
-  <p>
-    <%= f.label :description, "Description:" %>
-    <%= f.text_field :description %>
-  </p>
+  <%= required labelled_form_field _('Name:'), f.text_field(:name) %> 
+
+  <div class="formfieldline">
+    <%= f.label :description, "Description:", :class => 'formlabel' %>
+    <div class="formfield type-text">  
+      <%= f.text_field :description %>
+    </div>
+  </div>
   
   <%= required labelled_form_field _('License'),
-  f.select(:license, MezuroPlugin::Helpers::ContentViewerHelper.license_options) %><br/>
-  <p>
+  f.select(:license, MezuroPlugin::Helpers::ContentViewerHelper.license_options) %>
+
+  <%= required labelled_form_field _('Process Period'),
+  f.select(:process_period, MezuroPlugin::Helpers::ContentViewerHelper.periodicity_options ) %>
   
-  <p>
-    <%= f.label :process_period, "Process Period:" %>
-    <%= f.select(:process_period, MezuroPlugin::Helpers::ContentViewerHelper.periodicity_options ) %>
-  </p>
-    <%= f.label :type, "Type:" %>
-    <%= f.select :type, @repository_types %>
-  </p>
+  <%= required labelled_form_field _('Type'),
+  f.select(:type, @repository_types) %>
   
-  <p>
-    <%= f.label :address, "Address:" %>
-    <%= f.text_field :address %>
-  </p>
-  
-  </p>
-    <%= f.label :configuration_id, "Configuration:" %>
-    <%= f.select :configuration_id, @configuration_select %>
-  </p>
+  <%= required labelled_form_field _('Address'),
+  f.text_field(:address) %>
+
+  <%= required labelled_form_field _('Configuration'),
+  f.select(:configuration_id, @configuration_select) %>
 
   <p>
     <%= f.submit "Add" %>
