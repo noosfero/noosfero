@@ -647,80 +647,12 @@ class Article < ActiveRecord::Base
   Forum
   Event
 
-  def self.f_type_proc(klass)
-    klass.constantize.type_name
-  end
-
-  def self.f_profile_type_proc(klass)
-    klass.constantize.type_name
-  end
-
-  def f_type
-    #join common types
-    case self.class.name
-    when 'TinyMceArticle', 'TextileArticle'
-      TextArticle.name
-    else
-      self.class.name
-    end
-  end
-
-  def f_profile_type
-    self.profile.class.name
-  end
-
-  def f_published_at
-    self.published_at
-  end
-
-  def f_category
-    self.categories.collect(&:name)
-  end
-
   delegate :region, :region_id, :environment, :environment_id, :to => :profile, :allow_nil => true
   def name_sortable # give a different name for solr
     name
   end
 
-  def public
-    self.public?
-  end
-
-  def category_filter
-    categories_including_virtual_ids
-  end
-
   public
-
-  acts_as_faceted :fields => {
-      :f_type => {:label => _('Type'), :proc => proc{|klass| f_type_proc(klass)}},
-      :f_published_at => {:type => :date, :label => _('Published date'), :queries => {'[* TO NOW-1YEARS/DAY]' => _("Older than one year"),
-        '[NOW-1YEARS TO NOW/DAY]' => _("In the last year"), '[NOW-1MONTHS TO NOW/DAY]' => _("In the last month"), '[NOW-7DAYS TO NOW/DAY]' => _("In the last week"), '[NOW-1DAYS TO NOW/DAY]' => _("In the last day")},
-        :queries_order => ['[NOW-1DAYS TO NOW/DAY]', '[NOW-7DAYS TO NOW/DAY]', '[NOW-1MONTHS TO NOW/DAY]', '[NOW-1YEARS TO NOW/DAY]', '[* TO NOW-1YEARS/DAY]']},
-      :f_profile_type => {:label => _('Profile'), :proc => proc{|klass| f_profile_type_proc(klass)}},
-      :f_category => {:label => _('Categories')},
-    }, :category_query => proc { |c| "category_filter:\"#{c.id}\"" },
-    :order => [:f_type, :f_published_at, :f_profile_type, :f_category]
-
-  acts_as_searchable :fields => facets_fields_for_solr + [
-      # searched fields
-      {:name => {:type => :text, :boost => 2.0}},
-      {:slug => :text}, {:body => :text},
-      {:abstract => :text}, {:filename => :text},
-      # filtered fields
-      {:public => :boolean}, {:environment_id => :integer},
-      {:profile_id => :integer}, :language,
-      {:category_filter => :integer},
-      # ordered/query-boosted fields
-      {:name_sortable => :string}, :last_changed_by_id, :published_at, :is_image,
-      :updated_at, :created_at,
-    ], :include => [
-      {:profile => {:fields => [:name, :identifier, :address, :nickname, :region_id, :lat, :lng]}},
-      {:comments => {:fields => [:title, :body, :author_name, :author_email]}},
-      {:categories => {:fields => [:name, :path, :slug, :lat, :lng, :acronym, :abbreviation]}},
-    ], :facets => facets_option_for_solr,
-    :boost => proc { |a| 10 if a.profile && a.profile.enabled },
-    :if => proc{ |a| ! ['RssFeed'].include?(a.class.name) }
   handle_asynchronously :solr_save
 
   private
