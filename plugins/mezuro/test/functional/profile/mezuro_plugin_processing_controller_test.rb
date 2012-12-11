@@ -12,9 +12,10 @@ class MezuroPluginProcessingControllerTest < ActionController::TestCase
     @response = ActionController::TestResponse.new
     @profile = fast_create(Community)
 
-    @repository = RepositoryFixtures.repository
+    @repository_id = RepositoryFixtures.repository.id
     @processing = ProcessingFixtures.processing
-
+    @processing_hash = ProcessingFixtures.processing_hash
+    @processing_with_error_hash = ProcessingFixtures.processing_with_error_hash
 =begin
     @content = MezuroPlugin::ProjectContent.new(:profile => @profile, :name => @project.name, :repository_url => @repository_url)
     @content.expects(:send_project_to_service).returns(nil)
@@ -26,51 +27,40 @@ class MezuroPluginProcessingControllerTest < ActionController::TestCase
   end
 
   should 'render last processing state' do
-    Kalibro::Processing.expects(:request).with(:last_processing_state, :repository_id => @repository.id).returns({:process_state => @processing.state})
-    get :render_last_state, :profile => @profile.identifier, :repository_id => @repository.id
+    Kalibro::Processing.expects(:request).with(:last_processing_state, :repository_id => @repository_id).returns({:process_state => @processing.state})
+    get :render_last_state, :profile => @profile.identifier, :repository_id => @repository_id
     assert_response 200
     assert_equal @processing.state, @response.body
   end
 
-#TODO refatorar todos os testes
-=begin
-  should 'test project state with kalibro_error' do
-    Kalibro::Project.expects(:request).with("Project", :get_project, :project_name => @project.name).returns({:project => @project.to_hash.merge({:error => ThrowableFixtures.throwable_hash})})
-    get :project_state, :profile => @profile.identifier, :id => @content.id
-    assert_response 200
-    assert_equal "ERROR", @response.body
-    assert_equal @content, assigns(:content)
-  end
 
-  should 'test project error' do
-    Kalibro::Project.expects(:request).with("Project", :get_project, :project_name => @project.name).returns({:project => @project.to_hash.merge({:error => ThrowableFixtures.throwable_hash})})
-    get :project_error, :profile => @profile.identifier, :id => @content.id
+  should 'render processing with error' do
+    Kalibro::Processing.expects(:request).with(:has_ready_processing, {:repository_id => @repository_id}).returns({:exists => false})
+    Kalibro::Processing.expects(:request).with(:last_processing, :repository_id => @repository_id).returns({:processing => @processing_with_error_hash})
+    get :processing, :profile => @profile.identifier, :repository_id => @repository_id
     assert_response 200
-    assert_select('h3', 'ERROR')
-    assert_equal @content, assigns(:content)
-    assert_equal @project.name, assigns(:project).name
+    assert_equal @processing_with_error_hash[:state], assigns(:processing).state
+    #TODO How to assert from view? assert_select('h3', 'ERROR')
   end
 
   should 'test project result without date' do
-    Kalibro::Processing.expects(:request).with("Processing", :get_last_result_of, {:project_name => @project.name}).returns({:project_result => @project_result.to_hash})
-    get :project_result, :profile => @profile.identifier, :id => @content.id, :date => nil
-    assert_equal @content, assigns(:content)
-    assert_equal @project_result.project.name, assigns(:project_result).project.name
+    Kalibro::Processing.expects(:request).with(:has_ready_processing, {:repository_id => @repository_id}).returns({:exists => true})
+    Kalibro::Processing.expects(:request).with(:last_ready_processing, {:repository_id => @repository_id}).returns({:processing => @processing_hash})
+    get :processing, :profile => @profile.identifier, :repository_id => @repository_id
     assert_response 200
     assert_select('h4', 'Last Result')
   end
   
   should 'test project results from a specific date' do
-    request_body = {:project_name => @project.name, :date => @date}
-    Kalibro::Processing.expects(:request).with("Processing", :has_results_before, request_body).returns({:has_results => true})
-    Kalibro::Processing.expects(:request).with("Processing", :get_last_result_before, request_body).returns({:project_result => @project_result.to_hash})
-    get :project_result, :profile => @profile.identifier, :id => @content.id, :date => @date
-    assert_equal @content, assigns(:content)
-    assert_equal @project_result.project.name, assigns(:project_result).project.name
+    Kalibro::Processing.expects(:request).with(:has_processing_after, {:repository_id => @repository_id, :date => @processing.date}).returns({:exists => true})
+    Kalibro::Processing.expects(:request).with(:first_processing_after, :repository_id => @repository_id, :date => @processing.date).returns({:processing => @processing_hash})
+    get :processing, :profile => @profile.identifier, :repository_id => @repository_id, :date => @processing.date
     assert_response 200
     assert_select('h4', 'Last Result')
   end
 
+#TODO refatorar todos os testes
+=begin
   should 'test project tree without date' do
     Kalibro::Processing.expects(:request).with("Processing", :get_last_result_of, {:project_name => @project.name}).returns({:project_result => @project_result.to_hash})
     Kalibro::Project.expects(:request).with("Project", :get_project, :project_name => @project.name).returns({:project => @project.to_hash})

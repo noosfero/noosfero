@@ -6,7 +6,7 @@ class Kalibro::Processing < Kalibro::Model
   def self.processing_of(repository_id)
     if has_ready_processing(repository_id)
       last_ready_processing_of(repository_id)
-    else
+    else #always exists a processing, we send a requisition to kalibro to process repository
       last_processing_of(repository_id)
     end
   end
@@ -35,6 +35,10 @@ class Kalibro::Processing < Kalibro::Model
 
   def process_times
     process_time
+  end
+
+  def error=(value)
+    @error = Kalibro::Throwable.to_object value
   end
 
   private

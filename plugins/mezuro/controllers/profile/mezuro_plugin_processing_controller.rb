@@ -8,22 +8,13 @@ class MezuroPluginProcessingController < MezuroPluginProfileController
     render :text => last_state
   end
 
-  def processing_error
-    @content = profile.articles.find(params[:id])
-    @processing = @content.processing
-    if project_content_has_errors?
-      redirect_to_error_page(@content.errors[:base])
-    else
-      render :partial => 'processing_error'
-    end
-  end
-
   def processing
-    @content = profile.articles.find(params[:id])
     date = params[:date]
-    @processing = date.nil? ? @content.processing : @content.processing_with_date(date)
-    if project_content_has_errors?
-      redirect_to_error_page(@content.errors[:base])
+    repository_id = params[:repository_id].to_i
+    processing_class = Kalibro::Processing
+    @processing = date.nil? ? processing_class.processing_of(repository_id) : processing_class.processing_with_date_of(repository_id, date)
+    if @processing.state == 'ERROR'
+      render :partial => 'processing_error'
     else
       render :partial => 'processing'
     end

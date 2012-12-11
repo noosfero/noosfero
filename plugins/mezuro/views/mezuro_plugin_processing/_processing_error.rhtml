@@ -1,8 +1,8 @@
 <h3><%= _('ERROR') %></h3>
 <p>
-  <%= "State when error ocurred: #{@project.state}" %>
+  <%= "State when error ocurred: #{@processing.state}" %>
   <br/>
-  <% error = @project.kalibro_error %>
+  <% error = @processing.error %>
   <%= error.message %>
 <ul>
   <% error.stack_trace.each do |trace| %>
