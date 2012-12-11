@@ -106,7 +106,6 @@ class Category < ActiveRecord::Base
     # ordered/query-boosted fields
     {:name_sortable => :string},
   ]
-  after_save_reindex [:articles, :profiles], :with => :delayed_job
   handle_asynchronously :solr_save
 
 end

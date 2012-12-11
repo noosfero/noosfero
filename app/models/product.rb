@@ -294,6 +294,5 @@ class Product < ActiveRecord::Base
     ], :facets => facets_option_for_solr,
     :boost => proc{ |p| boost = 1; Boosts.each{ |b| boost = boost * (1 - ((1 - b[2].call(p)) * b[1])) }; boost}
   handle_asynchronously :solr_save
-  after_save_reindex [:enterprise], :with => :delayed_job
 
 end

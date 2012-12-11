@@ -963,7 +963,7 @@ private :generate_url, :url_options
       {:categories => {:fields => [:name, :path, :slug, :lat, :lng, :acronym, :abbreviation]}},
     ], :facets => facets_option_for_solr,
     :boost => proc{ |p| 10 if p.enabled }
-  after_save_reindex [:articles], :with => :delayed_job
+
   handle_asynchronously :solr_save
 
   def control_panel_settings_button

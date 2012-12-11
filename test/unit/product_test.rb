@@ -636,14 +636,6 @@ class ProductTest < ActiveSupport::TestCase
     assert_equal [in_name, in_desc], Product.find_by_contents('bananas')[:results].docs
   end
 
-  should 'reindex enterprise after saving' do
-    ent = fast_create(Enterprise)
-    cat = fast_create(ProductCategory)
-    prod = Product.create!(:name => 'something', :enterprise_id => ent.id, :product_category_id => cat.id)
-    Product.expects(:solr_batch_add).with([ent])
-    prod.save!
-  end
-
   should 'boost search results that include an image' do
     TestSolr.enable
     product_without_image = Product.create!(:name => 'product without image', :product_category => @product_category,

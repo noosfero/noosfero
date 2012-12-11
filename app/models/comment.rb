@@ -74,12 +74,6 @@ class Comment < ActiveRecord::Base
     self.find(:all, :order => 'created_at desc, id desc', :limit => limit)
   end
 
-  after_save :notify_article
-  after_destroy :notify_article
-  def notify_article
-    article.comments_updated if article.kind_of?(Article)
-  end
-
   after_create :new_follower
   def new_follower
     if source.kind_of?(Article)

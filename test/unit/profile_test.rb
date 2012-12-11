@@ -1909,13 +1909,6 @@ class ProfileTest < ActiveSupport::TestCase
     assert_equal [in_name], Person.find_by_contents('bananas')[:results].docs
   end
 
-  should 'reindex articles after saving' do
-    profile = create(Person, :name => 'something', :user_id => fast_create(User).id)
-    art = profile.articles.build(:name => 'something')
-    Profile.expects(:solr_batch_add).with(includes(art))
-    profile.save!
-  end
-
   should 'respond to redirection_after_login' do
     assert_respond_to Profile.new, :redirection_after_login
   end

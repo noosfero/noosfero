@@ -357,12 +357,6 @@ class ArticleTest < ActiveSupport::TestCase
     assert_equal true, a.display_to?(person)
   end
 
-  should 'reindex when comments are changed' do
-    a = Article.new
-    a.expects(:solr_save)
-    a.comments_updated
-  end
-
   should 'index comments title together with article' do
     TestSolr.enable
     owner = create_user('testuser').person

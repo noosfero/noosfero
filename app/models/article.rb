@@ -469,10 +469,6 @@ class Article < ActiveRecord::Base
     allow_post_content?(user) || user && allow_members_to_edit && user.is_member_of?(profile)
   end
 
-  def comments_updated
-    solr_save
-  end
-
   def accept_category?(cat)
     !cat.is_a?(ProductCategory)
   end
