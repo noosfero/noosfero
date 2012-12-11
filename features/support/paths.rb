@@ -72,9 +72,6 @@ module NavigationHelpers
     when /^(.*)'s control panel$/
       '/myprofile/' + $1
 
-    when /^the Control panel$/
-      '/myprofile/%s' % User.find_by_id(session[:user]).login
-
     when /the environment control panel/
       '/admin'
 
