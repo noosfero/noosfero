@@ -5,14 +5,15 @@ require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/repository_fixtures"
 require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/project_fixtures"
 
 #TODO refatorar todos os testes
-class MezuroPluginModuleControllerTest < ActionController::TestCase
+class MezuroPluginModuleResultControllerTest < ActionController::TestCase
 
   def setup
-    @controller = MezuroPluginModuleController.new
+    @controller = MezuroPluginModuleResultController.new
     @request = ActionController::TestRequest.new
     @response = ActionController::TestResponse.new
     @profile = fast_create(Community)
 
+=begin
     #@project_result = ProjectResultFixtures.project_result
     @module_result = ModuleResultFixtures.module_result
     @repository_url = RepositoryFixtures.repository.address
@@ -23,7 +24,7 @@ class MezuroPluginModuleControllerTest < ActionController::TestCase
     @content = MezuroPlugin::ProjectContent.new(:profile => @profile, :project_id => @project.id)
     @content.expects(:send_project_to_service).returns(nil)
     @content.save
-
+=end
   end
 
   should 'get module result' do
@@ -73,6 +74,29 @@ class MezuroPluginModuleControllerTest < ActionController::TestCase
     assert_equal @content, assigns(:content)
     assert_equal [[@module_result.grade, @module_result.date.to_s[0..9]]], assigns(:score_history)
     assert_response 200
+  end
+  
+  should 'test project tree without date' do
+    Kalibro::Processing.expects(:request).with("Processing", :get_last_result_of, {:project_name => @project.name}).returns({:project_result => @project_result.to_hash})
+    Kalibro::Project.expects(:request).with("Project", :get_project, :project_name => @project.name).returns({:project => @project.to_hash})
+  	get :project_tree, :profile => @profile.identifier, :id => @content.id, :module_name => @project.name, :date => nil
+    assert_equal @content, assigns(:content)
+    assert_equal @project.name, assigns(:project_name)
+    assert_equal @project_result.source_tree.module.name, assigns(:source_tree).module.name
+	  assert_response 200
+  	assert_select('h2', /Qt-Calculator/)
+  end
+
+  should 'test project tree with a specific date' do
+    request_body = {:project_name => @project.name, :date => @project_result.date}
+    Kalibro::Project.expects(:request).with("Project", :get_project, :project_name => @project.name).returns({:project => @project.to_hash})
+    Kalibro::Processing.expects(:request).with("Processing", :has_results_before, request_body).returns({:has_results => true})
+    Kalibro::Processing.expects(:request).with("Processing", :get_last_result_before, request_body).returns({:project_result => @project_result.to_hash})
+    get :project_tree, :profile => @profile.identifier, :id => @content.id, :module_name => @project.name, :date => @project_result.date
+    assert_equal @content, assigns(:content)
+    assert_equal @project.name, assigns(:project_name)
+    assert_equal @project_result.source_tree.module.name, assigns(:source_tree).module.name    
+	  assert_response 200
   end
 =end
 end

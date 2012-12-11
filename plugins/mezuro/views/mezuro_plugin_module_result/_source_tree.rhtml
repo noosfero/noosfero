@@ -1,0 +1,45 @@
+<% unless @content.errors[:base].nil? %>
+  <%= @content.errors[:base] %>
+<% else %>
+  <h4><%= _('Source tree') %></h4>
+  <% module_name = @source_tree.module.name %>
+  <% module_label = "#{module_name} (#{@source_tree.module.granularity})" %>
+
+  <p><h2 class="path">
+    <% if module_name != @project_name %>
+      <a href="#" class="source-tree-link" data-module-name="<%= @project_name %>">
+        <%= @project_name %>
+      </a>
+    <% end %>
+
+
+    <% split_link = @source_tree.module.ancestor_names %>
+    <% split_link.each do |link| %>
+      /<a href="#" class="source-tree-link" data-module-name="<%= link %>">
+        <%= link.split(".").last %>
+      </a>
+    <% end %>
+  </h2></p>
+    
+  <% if @source_tree.children %>
+    <table border="0" class="source-tree">
+      <% @source_tree.children.each do |child| %>
+        <% if child.module.granularity=='PACKAGE' %>
+          <tr>
+	          <td class="icon"><%= image_tag('/plugins/mezuro/images/folder.png')%></td>
+	          <td class="source-tree-text"><a href='#' class="source-tree-link" data-module-name="<%= child.module.name %>"><%= child.module.name %></a></td>
+          </tr>
+        <% else %>
+          <tr>
+	          <td class="icon"><%= image_tag('/plugins/mezuro/images/file.png') %></td>
+	          <td class="source-tree-text">
+                    <a href='#' class="source-tree-link" data-module-name="<%= child.module.name %>">
+                      <%= child.module.name %>
+                    </a>
+                  </td>
+          </tr>
+        <% end %>
+      <% end %>  
+    </table>
+  <% end %>
+<% end %>

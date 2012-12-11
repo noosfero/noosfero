@@ -34,7 +34,7 @@ class MetricResultTest < ActiveSupport::TestCase
   should 'return history of a metric with a module result id' do
     module_id = 31
     Kalibro::MetricResult.expects(:request).with(:history_of, {:metric_name => @result.configuration.metric.name, :module_result_id => module_id}).returns({:date_metric_result => [DateMetricResultFixtures.date_metric_result_hash]})
-    assert_equal DateMetricResultFixtures.date_metric_result_hash[:metric_result][:id], @result.history_of(module_id).first.metric_result.id
+    assert_equal DateMetricResultFixtures.date_metric_result_hash[:metric_result][:id], Kalibro::MetricResult.history_of(@result.configuration.metric.name, module_result_id).first.metric_result.id
   end
 
 end
