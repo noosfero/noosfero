@@ -1,4 +1,3 @@
-#TODO terminar esse controler e seus testes funcionais
 class MezuroPluginRepositoryController < MezuroPluginProfileController
 
   append_view_path File.join(File.dirname(__FILE__) + '/../../views')
