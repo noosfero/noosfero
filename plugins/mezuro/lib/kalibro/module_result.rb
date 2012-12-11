@@ -19,4 +19,8 @@ class Kalibro::ModuleResult < Kalibro::Model
     @grade = value.to_f
   end
 
+  def self.history_of(module_result_id)
+    self.request(:history_of_module, {:module_result_id => module_result_id})[:date_module_result].to_a.map {|date_module_result| Kalibro::DateModuleResult.new date_module_result}
+  end
+
 end

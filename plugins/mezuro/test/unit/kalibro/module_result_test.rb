@@ -29,4 +29,9 @@ class ModuleResultTest < ActiveSupport::TestCase
     assert @hash[:id], @module_result.children.first.id
   end
 
+  should 'return history of a module result' do
+    Kalibro::ModuleResult.expects(:request).with(:history_of_module, {:module_result_id => module_id}).returns({:date_module_result => [DateModuleResultFixtures.date_module_result_hash]})
+    assert_equal DateModuleResultFixtures.date_module_result_hash[:module_result][:id], Kalibro::ModuleResult.history_of(@module_result.id).first.module_result.id
+  end
+
 end
