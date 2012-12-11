@@ -6,7 +6,6 @@ require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/repository_fixtures"
 require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/project_content_fixtures"
 require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/configuration_fixtures"
 
-#TODO terminar os testes
 class MezuroPluginRepositoryControllerTest < ActionController::TestCase
 
   def setup
@@ -87,14 +86,36 @@ class MezuroPluginRepositoryControllerTest < ActionController::TestCase
     assert_response :redirect
   end
 
-  should 'set variables to show a repository' do #TODO Terminar esse teste
+  should 'set variables to show a repository' do
     Kalibro::Repository.expects(:repositories_of).with(@content.project_id).returns([@repository])
     Kalibro::Configuration.expects(:configuration_of).with(@repository.id).returns(@configuration)
 
+    get :show, :profile => @profile.identifier, :id => @content.id, :repository_id => @repository.id
     assert_equal @content.name, assigns(:project_name)
     assert_equal @repository, assigns(:repository)
-#   @configuration_name = Kalibro::Configuration.find(@repository.configuration_id).name
-#   @processing = processing(@repository.id)
+    assert_equal @configuration.name, assigns(:configuration_name)
+    assert_equal @content.profile.identifier, assigns(:data_profile)
+    assert_equal @content.id, assigns(:data_content)
   end
 
+  should 'destroy a repository' do
+    @repository.expects(:destroy)    
+    Kalibro::Repository.expects(:repositories_of).with(@content.project_id).returns([@repository])
+
+    get :destroy, :profile => @profile.identifier, :id => @content.id, :repository_id => @repository.id
+
+    assert @repository.errors.empty?
+    assert_response :redirect
+  end
+
+  should 'not destroy a repository' do
+    @repository.errors = [Exception.new]
+    @repository.expects(:destroy)    
+    Kalibro::Repository.expects(:repositories_of).with(@content.project_id).returns([@repository])
+
+    get :destroy, :profile => @profile.identifier, :id => @content.id, :repository_id => @repository.id
+
+    assert !@repository.errors.empty?
+    assert_response :redirect
+  end
 end
