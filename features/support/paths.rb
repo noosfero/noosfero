@@ -37,7 +37,7 @@ module NavigationHelpers
       "/myprofile/#{$2}/profile_design/edit/#{block.id}"
 
     when /^(.*)'s homepage$/
-      '/%s' % Profile.find_by_name($1).identifier
+      '/' + $1
 
     when /^(.*)'s blog$/
       '/%s/blog' % Profile.find_by_name($1).identifier
@@ -71,9 +71,6 @@ module NavigationHelpers
 
     when /^(.*)'s control panel$/
       '/myprofile/' + $1
-
-    when /^the Control panel$/
-      '/myprofile/%s' % User.find_by_id(session[:user]).login
 
     when /the environment control panel/
       '/admin'
