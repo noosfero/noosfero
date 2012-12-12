@@ -38,6 +38,20 @@ class Article
     solr_save
   end
 
+  def add_category_with_solr_save(c, reload=false)
+    add_category_without_solr_save(c, reload)
+    if !new_record?
+      self.solr_save
+    end
+  end
+  alias_method_chain :add_category, :solr_save
+
+  def create_pending_categorizations_with_solr_save
+    create_pending_categorizations_without_solr_save
+    self.solr_save
+  end
+  alias_method_chain :create_pending_categorizations, :solr_save
+
   private
 
   def self.solr_plugin_f_type_proc(klass)
@@ -81,4 +95,19 @@ class Article
   def solr_plugin_name_sortable
     name
   end
+
+  # FIXME: workaround for development env.
+  # Subclasses aren't (re)loaded, and acts_as_solr
+  # depends on subclasses method to search
+  # see http://stackoverflow.com/questions/4138957/activerecordsubclassnotfound-error-when-using-sti-in-rails/4139245
+  UploadedFile
+  TextArticle
+  TinyMceArticle
+  TextileArticle
+  Folder
+  EnterpriseHomepage
+  Gallery
+  Blog
+  Forum
+  Event
 end

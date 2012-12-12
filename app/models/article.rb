@@ -142,7 +142,6 @@ class Article < ActiveRecord::Base
     else
       ArticleCategorization.add_category_to_article(c, self)
       self.categories(reload)
-      self.solr_save
     end
   end
 
@@ -160,7 +159,6 @@ class Article < ActiveRecord::Base
       ArticleCategorization.add_category_to_article(item, self)
     end
     self.categories(true)
-    self.solr_save
     pending_categorizations.clear
   end
 
@@ -629,23 +627,6 @@ class Article < ActiveRecord::Base
     img = Hpricot(self.lead.to_s).search('img[@src]').first || Hpricot(self.body.to_s).search('img').first
     img.nil? ? '' : img.attributes['src']
   end
-
-  private
-
-  # FIXME: workaround for development env.
-  # Subclasses aren't (re)loaded, and acts_as_solr
-  # depends on subclasses method to search
-  # see http://stackoverflow.com/questions/4138957/activerecordsubclassnotfound-error-when-using-sti-in-rails/4139245
-  UploadedFile
-  TextArticle
-  TinyMceArticle
-  TextileArticle
-  Folder
-  EnterpriseHomepage
-  Gallery
-  Blog
-  Forum
-  Event
 
   delegate :region, :region_id, :environment, :environment_id, :to => :profile, :allow_nil => true
 

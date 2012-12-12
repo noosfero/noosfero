@@ -246,7 +246,6 @@ class Profile < ActiveRecord::Base
     else
       ProfileCategorization.add_category_to_profile(c, self)
       self.categories(true)
-      self.solr_save
     end
     self.categories(reload)
   end
