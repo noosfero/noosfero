@@ -685,20 +685,12 @@ Then /^I should not see ([^\"]*)'s profile image$/ do |name|
   page.should have_no_xpath("//img[@alt=\"#{name}\"]")
 end
 
-Then /^I should see ([^\"]*)'s content image$/ do |name|
-  response.should have_selector("img[alt=\"#{name}\"]")
-end
-
-Then /^I should not see ([^\"]*)'s content image$/ do |name|
-  response.should_not have_selector("img[alt=\"#{name}\"]")
-end
-
 Then /^I should see ([^\"]*)'s community image$/ do |name|
-  response.should have_selector("img[alt=\"#{name}\"]")
+  page.should have_xpath("//img[@alt=\"#{name}\"]")
 end
 
 Then /^I should not see ([^\"]*)'s community image$/ do |name|
-  response.should_not have_selector("img[alt=\"#{name}\"]")
+  page.should have_no_xpath("//img[@alt=\"#{name}\"]")
 end
 
 Given /^the article "([^\"]*)" is updated by "([^\"]*)"$/ do |article, person|
