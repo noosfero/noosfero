@@ -7,10 +7,21 @@ class Kalibro::ModuleResult < Kalibro::Model
   end
 
   def children
-    hash_array = self.class.request(:children_of, {:module_result_id => self.id})[:module_result].to_a
-    hash_array.map { |module_result| self.class.new module_result }
+    response = self.class.request(:children_of, {:module_result_id => self.id})[:module_result]
+    response = [] if response.nil?
+    response = [response] if response.is_a?(Hash) 
+    response.map {|module_result| Kalibro::ModuleResult.new module_result}
   end
   
+  def parents
+    if parent_id.nil?
+      []
+    else
+      parent = self.class.find(parent_id)
+      parent.parents << parent
+    end
+  end
+
   def module=(value)
     @module = Kalibro::Module.to_object value
   end

@@ -1,6 +1,7 @@
 require "test_helper"
 
 require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/module_result_fixtures"
+require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/date_module_result_fixtures"
 
 class ModuleResultTest < ActiveSupport::TestCase
 
@@ -27,6 +28,15 @@ class ModuleResultTest < ActiveSupport::TestCase
     response = {:module_result => [@hash]}
     Kalibro::ModuleResult.expects(:request).with(:children_of, {:module_result_id => @module_result.id}).returns(response)
     assert @hash[:id], @module_result.children.first.id
+  end
+
+  should 'return parents of a module result' do
+    parent_module_result = ModuleResultFixtures.parent_module_result_hash
+    response = {:module_result => parent_module_result}
+    Kalibro::ModuleResult.expects(:request).with(:get_module_result, {:module_result_id => @module_result.parent_id}).returns(response)
+    parents = @module_result.parents
+    assert parent_module_result[:module][:name], parents.first.module.name 
+    assert parent_module_result[:module][:name], parents.last.module.name 
   end
 
   should 'return history of a module result' do

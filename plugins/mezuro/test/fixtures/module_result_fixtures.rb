@@ -23,4 +23,22 @@ class ModuleResultFixtures
     }
   end
 
+  def self.parent_module_result_hash
+    {
+      :id => 31,
+      :module =>  {
+        :name => 'Qt-Calculator Parent',
+        :granularity => 'APPLICATION'
+      },
+      :grade => 10.0,
+      :attributes! =>
+      {
+        :module =>
+        {
+          "xmlns:xsi"=>"http://www.w3.org/2001/XMLSchema-instance",
+          "xsi:type"=>"kalibro:moduleXml"
+        }
+      }
+    }
+  end
 end

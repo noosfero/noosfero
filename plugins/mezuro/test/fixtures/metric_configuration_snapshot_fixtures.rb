@@ -18,7 +18,10 @@ class MetricConfigurationSnapshotFixtures
       :attributes! => {
         :metric => {
           'xmlns:xsi'=> 'http://www.w3.org/2001/XMLSchema-instance',
-          'xsi:type' => 'kalibro:metricXml'  }
+          'xsi:type' => 'kalibro:metricXml'  },
+        :range => {
+          'xmlns:xsi'=> 'http://www.w3.org/2001/XMLSchema-instance',
+          'xsi:type' => 'kalibro:rangeSnapshotXml'  }
       }
     }
   end
@@ -38,7 +41,10 @@ class MetricConfigurationSnapshotFixtures
       :attributes! => {
         :metric => {
           'xmlns:xsi'=> 'http://www.w3.org/2001/XMLSchema-instance',
-          'xsi:type' => 'kalibro:metricXml'  }
+          'xsi:type' => 'kalibro:metricXml'  },
+        :range => {
+          'xmlns:xsi'=> 'http://www.w3.org/2001/XMLSchema-instance',
+          'xsi:type' => 'kalibro:rangeSnapshotXml'  }
       }
     }
   end
