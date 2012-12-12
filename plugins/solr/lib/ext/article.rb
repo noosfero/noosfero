@@ -1,9 +1,8 @@
 require_dependency 'article'
 
 class Article
-  def solr_plugin_comments_updated
-    solr_save
-  end
+
+  handle_asynchronously :solr_save
 
   acts_as_faceted :fields => {
       :solr_plugin_f_type => {:label => _('Type'), :proc => proc{|klass| solr_plugin_f_type_proc(klass)}},
@@ -34,6 +33,10 @@ class Article
     ], :facets => facets_option_for_solr,
     :boost => proc { |a| 10 if a.profile && a.profile.enabled },
     :if => proc{ |a| ! ['RssFeed'].include?(a.class.name) }
+
+  def solr_plugin_comments_updated
+    solr_save
+  end
 
   private
 

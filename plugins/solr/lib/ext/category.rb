@@ -2,6 +2,7 @@ require_dependency 'category'
 
 class Category
   after_save_reindex [:articles, :profiles], :with => :delayed_job
+  handle_asynchronously :solr_save
 
   acts_as_searchable :fields => [
     # searched fields

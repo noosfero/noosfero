@@ -2,6 +2,7 @@ require_dependency 'profile'
 
 class Profile
   after_save_reindex [:articles], :with => :delayed_job
+  handle_asynchronously :solr_save
 
   acts_as_faceted :fields => {
       :solr_plugin_f_enabled => {:label => _('Situation'), :type_if => proc { |klass| klass.kind_of?(Enterprise) },

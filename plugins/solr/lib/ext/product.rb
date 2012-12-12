@@ -2,6 +2,7 @@ require_dependency 'product'
 
 class Product
   after_save_reindex [:enterprise], :with => :delayed_job
+  handle_asynchronously :solr_save
 
   acts_as_faceted :fields => {
       :solr_plugin_f_category => {:label => _('Related products')},

@@ -648,8 +648,6 @@ class Article < ActiveRecord::Base
   Event
 
   delegate :region, :region_id, :environment, :environment_id, :to => :profile, :allow_nil => true
-  public
-  handle_asynchronously :solr_save
 
   private
 

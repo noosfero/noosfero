@@ -874,8 +874,6 @@ private :generate_url, :url_options
     self.active_fields
   end
 
-  handle_asynchronously :solr_save
-
   def control_panel_settings_button
     {:title => _('Profile Info and settings'), :icon => 'edit-profile'}
   end

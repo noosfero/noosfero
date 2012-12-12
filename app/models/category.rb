@@ -90,6 +90,4 @@ class Category < ActiveRecord::Base
     self.children.find(:all, :conditions => {:display_in_menu => true}).empty?
   end
 
-  handle_asynchronously :solr_save
-
 end

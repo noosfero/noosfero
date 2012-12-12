@@ -212,6 +212,5 @@ class Product < ActiveRecord::Base
   end
 
   delegate :enabled, :region, :region_id, :environment, :environment_id, :to => :enterprise
-  handle_asynchronously :solr_save
 
 end
