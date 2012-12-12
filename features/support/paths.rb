@@ -46,7 +46,7 @@ module NavigationHelpers
       '/myprofile/%s/cms/new?type=%s' % [Profile.find_by_name($1).identifier,$2]
 
     when /^(.*)'s sitemap/
-      '/profile/%s/sitemap' % Profile.find_by_name($1).identifier
+      '/profile/%s/sitemap' % $1
 
     when /^(.*)'s profile$/
       '/profile/' + $1
@@ -82,7 +82,7 @@ module NavigationHelpers
       '/search/%s' % $1
 
     when /^(.+)'s cms/
-      '/myprofile/%s/cms' % Profile.find_by_name($1).identifier
+      '/myprofile/%s/cms' % $1
 
     when /^"(.+)" edit page/
       article = Article.find_by_name($1)
