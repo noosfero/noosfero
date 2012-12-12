@@ -1,4 +1,3 @@
-#TODO terminar esse controler e seus testes funcionais
 class MezuroPluginRepositoryController < MezuroPluginProfileController
 
   append_view_path File.join(File.dirname(__FILE__) + '/../../views')
@@ -55,18 +54,18 @@ class MezuroPluginRepositoryController < MezuroPluginProfileController
     end
   end
 
-  def show #TODO verificar data_content e data_profile
+  def show 
     project_content = profile.articles.find(params[:id])
     @project_name = project_content.name
-    @repository = project_content.repositories.select{ |repository| repository.id == params[:repository_id].to_s }.first
+    @repository = project_content.repositories.select{ |repository| repository.id.to_s == params[:repository_id] }.first
     @configuration_name = Kalibro::Configuration.configuration_of(@repository.id).name
     @data_profile = project_content.profile.identifier
     @data_content = project_content.id
   end
 
-  def destroy #TODO verificar se está correto
+  def destroy
     project_content = profile.articles.find(params[:id])
-    repository = project_content.repositories.select{ |repository| repository.id == params[:repository_id].to_s }.first
+    repository = project_content.repositories.select{ |repository| repository.id.to_s == params[:repository_id] }.first
     repository.destroy
     if( repository.errors.empty? )
       redirect_to "/#{profile.identifier}/#{project_content.name.downcase.gsub(/\s/, '-')}"

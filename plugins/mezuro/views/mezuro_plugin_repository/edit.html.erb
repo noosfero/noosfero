@@ -4,39 +4,29 @@
   <%= hidden_field_tag :id, @project_content.id %>
 
   <%= f.hidden_field :id%>
-  <p>
-    <%= f.label :name, "Name:" %>
-    <%= f.text_field :name %>
-  </p>
-  <p>
-    <%= f.label :description, "Description:" %>
-    <%= f.text_field :description %>
-  </p>
+  <%= required labelled_form_field _('Name:'), f.text_field(:name) %> 
 
-  <p>
-    <%= required labelled_form_field _('License'),
-    f.select(:license, MezuroPlugin::Helpers::ContentViewerHelper.license_options) %><br/>
-  </p>
+  <div class="formfieldline">
+    <%= f.label :description, "Description:", :class => 'formlabel' %>
+    <div class="formfield type-text">  
+      <%= f.text_field :description %>
+    </div>
+  </div>
 
-  <p>
-    <%= f.label :process_period, "Process Period:" %>
-    <%= f.select(:process_period, MezuroPlugin::Helpers::ContentViewerHelper.periodicity_options, :selected => @repository.process_period.to_i) %>
-  </p>
+  <%= required labelled_form_field _('License'),
+  f.select(:license, MezuroPlugin::Helpers::ContentViewerHelper.license_options, :selected => @repository.license) %>
 
-  <p>
-    <%= f.label :type, "Type:" %>
-    <%= f.select :type, @repository_types%>
-  </p>
+  <%= required labelled_form_field _('Process Period'),
+  f.select(:process_period, MezuroPlugin::Helpers::ContentViewerHelper.periodicity_options, :selected => @repository.process_period.to_i) %>
 
-  <p>
-    <%= f.label :address, "Address:" %>
-    <%= f.text_field :address%>
-  </p>
+  <%= required labelled_form_field _('Type'),
+  f.select(:type, @repository_types, :selected => @repository.type) %>
 
-  <p>
-    <%= f.label :configuration_id, "Configuration:" %>
-    <%= f.select :configuration_id, @configuration_select, :selected => @repository.configuration_id.to_i %>
-  </p>
+  <%= required labelled_form_field _('Address'),
+  f.text_field(:address) %>
+
+  <%= required labelled_form_field _('Configuration'),
+  f.select(:configuration_id, @configuration_select, :selected => @repository.configuration_id.to_i) %>
 
   <p>
     <%= f.submit "Add" %>
