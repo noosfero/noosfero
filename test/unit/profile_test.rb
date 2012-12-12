@@ -97,14 +97,6 @@ class ProfileTest < ActiveSupport::TestCase
     assert pe.memberships.include?(pr)
   end
 
-  def test_find_by_contents
-    TestSolr.enable
-    p = create(Profile, :name => 'wanted')
-
-    assert Profile.find_by_contents('wanted')[:results].include?(p)
-    assert ! Profile.find_by_contents('not_wanted')[:results].include?(p)
-  end
-
   should 'remove pages when removing profile' do
     profile = fast_create(Profile)
     first = fast_create(Article, :profile_id => profile.id)
@@ -187,20 +179,6 @@ class ProfileTest < ActiveSupport::TestCase
 
     other_list = profile.top_level_articles(true)
     assert_not_equal list.object_id, other_list.object_id
-  end
-
-  # This problem should be solved; talk to Bráulio if it fails
-  should 'be able to find profiles by their names' do
-    TestSolr.enable
-    small = create(Profile, :name => 'A small profile for testing')
-    big = create(Profile, :name => 'A big profile for testing')
-
-    assert Profile.find_by_contents('small')[:results].include?(small)
-    assert Profile.find_by_contents('big')[:results].include?(big)
-
-    both = Profile.find_by_contents('profile testing')[:results]
-    assert both.include?(small)
-    assert both.include?(big)
   end
 
   should 'provide a shortcut for picking a profile by its identifier' do
@@ -438,13 +416,6 @@ class ProfileTest < ActiveSupport::TestCase
     assert article.advertise?
   end
 
-  should 'search with latitude and longitude' do
-    TestSolr.enable
-    e = fast_create(Enterprise, {:lat => 45, :lng => 45}, :search => true)
-
-    assert_includes Enterprise.find_by_contents('', {}, {:radius => 2, :latitude => 45, :longitude => 45})[:results].docs, e    
-  end
-
   should 'have a public profile by default' do
     assert_equal true, Profile.new.public_profile
   end
@@ -496,19 +467,6 @@ class ProfileTest < ActiveSupport::TestCase
     p.update_attribute('public_profile', false)
     admin = Person[create_admin_user(p.environment)]
     assert p.display_info_to?(admin)
-  end
-
-  should 'index profile identifier for searching' do
-    TestSolr.enable
-    Profile.destroy_all
-    p = create(Profile, :identifier => 'lalala')
-    assert_includes Profile.find_by_contents('lalala')[:results], p
-  end
-
-  should 'index profile name for searching' do
-    TestSolr.enable
-    p = create(Profile, :name => 'Interesting Profile')
-    assert_includes Profile.find_by_contents('interesting')[:results], p
   end
 
   should 'enabled by default on creation' do
@@ -1689,31 +1647,6 @@ class ProfileTest < ActiveSupport::TestCase
     community.add_member(person)
 
     assert_equal 1, community.members_count
-  end
-
-  should 'index by schema name when database is postgresql' do
-    TestSolr.enable
-    uses_postgresql 'schema_one'
-    p1 = Profile.create!(:name => 'some thing', :identifier => 'some-thing')
-    assert_equal [p1], Profile.find_by_contents('thing')[:results].docs
-    uses_postgresql 'schema_two'
-    p2 = Profile.create!(:name => 'another thing', :identifier => 'another-thing')
-    assert_not_includes Profile.find_by_contents('thing')[:results], p1
-    assert_includes Profile.find_by_contents('thing')[:results], p2
-    uses_postgresql 'schema_one'
-    assert_includes Profile.find_by_contents('thing')[:results], p1
-    assert_not_includes Profile.find_by_contents('thing')[:results], p2
-    uses_sqlite
-  end
-
-  should 'not index by schema name when database is not postgresql' do
-    TestSolr.enable
-    uses_sqlite
-    p1 = Profile.create!(:name => 'some thing', :identifier => 'some-thing')
-    assert_equal [p1], Profile.find_by_contents('thing')[:results].docs
-    p2 = Profile.create!(:name => 'another thing', :identifier => 'another-thing')
-    assert_includes Profile.find_by_contents('thing')[:results], p1
-    assert_includes Profile.find_by_contents('thing')[:results], p2
   end
 
   should 'know if url is the profile homepage' do

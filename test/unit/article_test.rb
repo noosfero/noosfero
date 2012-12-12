@@ -357,24 +357,6 @@ class ArticleTest < ActiveSupport::TestCase
     assert_equal true, a.display_to?(person)
   end
 
-  should 'index comments title together with article' do
-    TestSolr.enable
-    owner = create_user('testuser').person
-    art = fast_create(TinyMceArticle, :profile_id => owner.id, :name => 'ytest')
-    c1 = Comment.create(:title => 'a nice comment', :body => 'anything', :author => owner, :source => art ); c1.save!
-
-    assert_includes Article.find_by_contents('nice')[:results], art
-  end
-
-  should 'index comments body together with article' do
-    TestSolr.enable
-    owner = create_user('testuser').person
-    art = fast_create(TinyMceArticle, :profile_id => owner.id, :name => 'ytest')
-    c1 = Comment.create(:title => 'test comment', :body => 'anything', :author => owner, :source => art); c1.save!
-
-    assert_includes Article.find_by_contents('anything')[:results], art
-  end
-
   should 'cache children count' do
     owner = create_user('testuser').person
     art = owner.articles.build(:name => 'ytest'); art.save!
@@ -1432,31 +1414,6 @@ class ArticleTest < ActiveSupport::TestCase
     folder = fast_create(Forum)
     child = fast_create(UploadedFile, :parent_id => folder.id)
     assert !child.accept_uploads?
-  end
-
-  should 'index by schema name when database is postgresql' do
-    TestSolr.enable
-    uses_postgresql 'schema_one'
-    art1 = Article.create!(:name => 'some thing', :profile_id => @profile.id)
-    assert_equal [art1], Article.find_by_contents('thing')[:results].docs
-    uses_postgresql 'schema_two'
-    art2 = Article.create!(:name => 'another thing', :profile_id => @profile.id)
-    assert_not_includes Article.find_by_contents('thing')[:results], art1
-    assert_includes Article.find_by_contents('thing')[:results], art2
-    uses_postgresql 'schema_one'
-    assert_includes Article.find_by_contents('thing')[:results], art1
-    assert_not_includes Article.find_by_contents('thing')[:results], art2
-    uses_sqlite
-  end
-
-  should 'not index by schema name when database is not postgresql' do
-    TestSolr.enable
-    uses_sqlite
-    art1 = Article.create!(:name => 'some thing', :profile_id => @profile.id)
-    assert_equal [art1], Article.find_by_contents('thing')[:results].docs
-    art2 = Article.create!(:name => 'another thing', :profile_id => @profile.id)
-    assert_includes Article.find_by_contents('thing')[:results], art1
-    assert_includes Article.find_by_contents('thing')[:results], art2
   end
 
   should 'get images paths in article body' do

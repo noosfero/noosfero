@@ -441,14 +441,6 @@ class EnvironmentTest < ActiveSupport::TestCase
     assert_equal 'this enterprise was disabled', env.message_for_disabled_enterprise
   end
 
-  should 'find by contents from articles' do
-    TestSolr.enable
-    environment = fast_create(Environment)
-    assert_nothing_raised do
-      environment.articles.find_by_contents('')[:results]
-    end
-  end
-
   should 'provide custom header' do
     assert_equal 'my header', Environment.new(:custom_header => 'my header').custom_header
   end
@@ -543,17 +535,6 @@ class EnvironmentTest < ActiveSupport::TestCase
 
   should 'have a default layout template' do
     assert_equal 'default', Environment.new.layout_template
-  end
-
-  should 'return more than 10 enterprises by contents' do
-    TestSolr.enable
-    env = Environment.default
-    Enterprise.destroy_all
-    ('1'..'20').each do |n|
-      Enterprise.create!(:name => 'test ' + n, :identifier => 'test_' + n)
-    end
-
-    assert_equal 20, env.enterprises.find_by_contents('test')[:results].total_entries
   end
 
   should 'set replace_enterprise_template_when_enable on environment' do

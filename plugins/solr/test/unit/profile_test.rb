@@ -85,4 +85,80 @@ class ProfileTest < ActiveSupport::TestCase
 
     assert_includes ExtraDataForIndex.find_by_contents('sample')[:results], profile
   end
+
+  should 'find_by_contents' do
+    TestSolr.enable
+    p = create(Profile, :name => 'wanted')
+
+    assert Profile.find_by_contents('wanted')[:results].include?(p)
+    assert ! Profile.find_by_contents('not_wanted')[:results].include?(p)
+  end
+
+  # This problem should be solved; talk to Bráulio if it fails
+  should 'be able to find profiles by their names' do
+    TestSolr.enable
+    small = create(Profile, :name => 'A small profile for testing')
+    big = create(Profile, :name => 'A big profile for testing')
+
+    assert Profile.find_by_contents('small')[:results].include?(small)
+    assert Profile.find_by_contents('big')[:results].include?(big)
+
+    both = Profile.find_by_contents('profile testing')[:results]
+    assert both.include?(small)
+    assert both.include?(big)
+  end
+
+  should 'search with latitude and longitude' do
+    TestSolr.enable
+    e = fast_create(Enterprise, {:lat => 45, :lng => 45}, :search => true)
+
+    assert_includes Enterprise.find_by_contents('', {}, {:radius => 2, :latitude => 45, :longitude => 45})[:results].docs, e    
+  end
+
+  should 'index profile identifier for searching' do
+    TestSolr.enable
+    Profile.destroy_all
+    p = create(Profile, :identifier => 'lalala')
+    assert_includes Profile.find_by_contents('lalala')[:results], p
+  end
+
+  should 'index profile name for searching' do
+    TestSolr.enable
+    p = create(Profile, :name => 'Interesting Profile')
+    assert_includes Profile.find_by_contents('interesting')[:results], p
+  end
+
+  should 'index comments title together with article' do
+    TestSolr.enable
+    owner = create_user('testuser').person
+    art = fast_create(TinyMceArticle, :profile_id => owner.id, :name => 'ytest')
+    c1 = Comment.create(:title => 'a nice comment', :body => 'anything', :author => owner, :source => art ); c1.save!
+
+    assert_includes Article.find_by_contents('nice')[:results], art
+  end
+
+  should 'index by schema name when database is postgresql' do
+    TestSolr.enable
+    uses_postgresql 'schema_one'
+    p1 = Profile.create!(:name => 'some thing', :identifier => 'some-thing')
+    assert_equal [p1], Profile.find_by_contents('thing')[:results].docs
+    uses_postgresql 'schema_two'
+    p2 = Profile.create!(:name => 'another thing', :identifier => 'another-thing')
+    assert_not_includes Profile.find_by_contents('thing')[:results], p1
+    assert_includes Profile.find_by_contents('thing')[:results], p2
+    uses_postgresql 'schema_one'
+    assert_includes Profile.find_by_contents('thing')[:results], p1
+    assert_not_includes Profile.find_by_contents('thing')[:results], p2
+    uses_sqlite
+  end
+
+  should 'not index by schema name when database is not postgresql' do
+    TestSolr.enable
+    uses_sqlite
+    p1 = Profile.create!(:name => 'some thing', :identifier => 'some-thing')
+    assert_equal [p1], Profile.find_by_contents('thing')[:results].docs
+    p2 = Profile.create!(:name => 'another thing', :identifier => 'another-thing')
+    assert_includes Profile.find_by_contents('thing')[:results], p1
+    assert_includes Profile.find_by_contents('thing')[:results], p2
+  end
 end

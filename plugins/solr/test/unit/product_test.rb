@@ -189,5 +189,43 @@ class ProductTest < ActiveSupport::TestCase
 
     assert_equal [img_and_qual, image_only, qual_only, product], Product.find_by_contents('product')[:results].docs
   end
+
+  should 'be indexed by category full name' do
+    TestSolr.enable
+    parent_cat = fast_create(ProductCategory, :name => 'Parent')
+    prod_cat = fast_create(ProductCategory, :name => 'Category1', :parent_id => parent_cat.id)
+    prod_cat2 = fast_create(ProductCategory, :name => 'Category2')
+    p = Product.create(:name => 'a test', :product_category => prod_cat, :enterprise_id => @profile.id)
+    p2 = Product.create(:name => 'another test', :product_category => prod_cat2, :enterprise_id => @profile.id)
+
+    r = Product.find_by_contents('Parent')[:results].docs
+    assert_includes r, p
+    assert_not_includes r, p2
+  end
+
+  should 'index by schema name when database is postgresql' do
+    TestSolr.enable
+    uses_postgresql 'schema_one'
+    p1 = Product.create!(:name => 'some thing', :product_category => @product_category, :enterprise_id => @profile.id)
+    assert_equal [p1], Product.find_by_contents('thing')[:results].docs
+    uses_postgresql 'schema_two'
+    p2 = Product.create!(:name => 'another thing', :product_category => @product_category, :enterprise_id => @profile.id)
+    assert_not_includes Product.find_by_contents('thing')[:results], p1
+    assert_includes Product.find_by_contents('thing')[:results], p2
+    uses_postgresql 'schema_one'
+    assert_includes Product.find_by_contents('thing')[:results], p1
+    assert_not_includes Product.find_by_contents('thing')[:results], p2
+    uses_sqlite
+  end
+
+  should 'not index by schema name when database is not postgresql' do
+    TestSolr.enable
+    uses_sqlite
+    p1 = Product.create!(:name => 'some thing', :product_category => @product_category, :enterprise_id => @profile.id)
+    assert_equal [p1], Product.find_by_contents('thing')[:results].docs
+    p2 = Product.create!(:name => 'another thing', :product_category => @product_category, :enterprise_id => @profile.id)
+    assert_includes Product.find_by_contents('thing')[:results], p1
+    assert_includes Product.find_by_contents('thing')[:results], p2
+  end
 end
 

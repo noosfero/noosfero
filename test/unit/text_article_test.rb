@@ -13,13 +13,6 @@ class TextArticleTest < ActiveSupport::TestCase
     article = fast_create(TextileArticle, :name => 'textile article test', :profile_id => person.id)
     assert_includes TextArticle.find(:all), article
   end
-  
-  should 'found TextileArticle by TextArticle indexes' do
-    TestSolr.enable
-    person = create_user('testuser').person
-    article = TextileArticle.create!(:name => 'found article test', :profile => person)
-    assert_equal TextileArticle.find_by_contents('found')[:results].docs, TextArticle.find_by_contents('found')[:results].docs
-  end
 
   should 'remove HTML from name' do
     person = create_user('testuser').person

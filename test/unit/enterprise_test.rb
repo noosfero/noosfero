@@ -85,35 +85,6 @@ class EnterpriseTest < ActiveSupport::TestCase
     assert !e.boxes[2].blocks.empty?, 'person must have blocks in area 3'
   end
 
-  should 'be found in search for its product categories' do
-    TestSolr.enable
-    ent1 = fast_create(Enterprise, :name => 'test1', :identifier => 'test1')
-    prod_cat = fast_create(ProductCategory, :name => 'pctest', :environment_id => Environment.default.id)
-    prod = ent1.products.create!(:name => 'teste', :product_category => prod_cat)
-
-    ent2 = fast_create(Enterprise, :name => 'test2', :identifier => 'test2')
-
-    result = Enterprise.find_by_contents(prod_cat.name)[:results]
-
-    assert_includes result, ent1
-    assert_not_includes result, ent2
-  end
-
-  should 'be found in search for its product categories hierarchy' do
-    TestSolr.enable
-    ent1 = fast_create(Enterprise, :name => 'test1', :identifier => 'test1')
-    prod_cat = fast_create(ProductCategory, :name => 'pctest', :environment_id => Environment.default.id)
-    prod_child = fast_create(ProductCategory, :name => 'pchild', :environment_id => Environment.default.id, :parent_id => prod_cat.id)
-    prod = ent1.products.create!(:name => 'teste', :product_category => prod_child)
-
-    ent2 = fast_create(Enterprise, :name => 'test2', :identifier => 'test2')
-
-    result = Enterprise.find_by_contents(prod_cat.name)[:results]
-
-    assert_includes result, ent1
-    assert_not_includes result, ent2
-  end
-
   should 'allow to add new members if has no members' do
     enterprise = fast_create(Enterprise)
 
