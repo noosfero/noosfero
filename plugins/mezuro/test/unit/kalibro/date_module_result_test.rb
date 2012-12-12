@@ -5,7 +5,7 @@ require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/date_module_result_fixtures"
 class DateModuleResultTest < ActiveSupport::TestCase
 
   def setup
-    @hash = DateModule.date_module_result_hash
+    @hash = DateModuleResultFixtures.date_module_result_hash
     @date_module_result = DateModuleResultFixtures.date_module_result
   end
 

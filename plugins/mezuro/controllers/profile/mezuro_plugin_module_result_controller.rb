@@ -1,4 +1,3 @@
-#TODO refatorar todo o controller e seus testes funcionais
 class MezuroPluginModuleResultController < MezuroPluginProfileController
 
   append_view_path File.join(File.dirname(__FILE__) + '/../../views')
@@ -9,7 +8,8 @@ class MezuroPluginModuleResultController < MezuroPluginProfileController
   end
  
   def metric_results
-    @metric_results = Kalibro::MetricResult.metric_results_of(params[:module_result_id].to_i)
+    @module_result_id = params[:module_result_id].to_i
+    @metric_results = Kalibro::MetricResult.metric_results_of(@module_result_id)
     render :partial => 'metric_results'
   end
  

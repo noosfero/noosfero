@@ -20,7 +20,10 @@ class Kalibro::ModuleResult < Kalibro::Model
   end
 
   def self.history_of(module_result_id)
-    self.request(:history_of_module, {:module_result_id => module_result_id})[:date_module_result].to_a.map {|date_module_result| Kalibro::DateModuleResult.new date_module_result}
+    response = self.request(:history_of_module, {:module_result_id => module_result_id})[:date_module_result]
+    response = [] if response.nil?
+    response = [response] if response.is_a?(Hash) 
+    response.map {|date_module_result| Kalibro::DateModuleResult.new date_module_result}
   end
 
 end
