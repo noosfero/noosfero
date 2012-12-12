@@ -4,13 +4,8 @@ class MezuroPluginModuleResultController < MezuroPluginProfileController
 
   def module_result
     @module_result = Kalibro::ModuleResult.find(params[:module_result_id].to_i)
+    @metric_results = Kalibro::MetricResult.metric_results_of(@module_result.id)
     render :partial => 'module_result'
-  end
- 
-  def metric_results
-    @module_result_id = params[:module_result_id].to_i
-    @metric_results = Kalibro::MetricResult.metric_results_of(@module_result_id)
-    render :partial => 'metric_results'
   end
  
   def metric_result_history

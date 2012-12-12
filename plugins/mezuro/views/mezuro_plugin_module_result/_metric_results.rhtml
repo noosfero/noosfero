@@ -1,0 +1,36 @@
+<thead>
+  <tr>
+    <th style="width: 74%">Metric</th>
+    <th>Value</th>
+    <th>Weight</th>
+    <th>Threshold</th>
+  </tr>
+</thead>
+<tbody>
+  <% @metric_results.each do |metric_result|  %>
+    <% metric_configuration_snapshot = metric_result.metric_configuration_snapshot%>
+    <% range_snapshot = metric_configuration_snapshot.range_snapshot %>
+    <% formatted_name = MezuroPlugin::Helpers::ContentViewerHelper.format_name(metric_configuration_snapshot) %>
+    <% if !range_snapshot.nil? %>
+      <tr>
+        <td style="width: 74%"><a href="#" show-metric-history="<%= formatted_name %>" data-module-id="<%= @module_result_id %>"><%= metric_configuration_snapshot.metric.name %></a></td>
+        <td><%= MezuroPlugin::Helpers::ContentViewerHelper.format_grade(metric_result.value) %></td>
+        <td><%= metric_configuration_snapshot.weight %></td>
+        <td style="background-color: #<%= range_snapshot.color %>">
+          <span title="<%= range_snapshot.comments %>" >
+            <%= range_snapshot.label %>
+          </span>
+        </td>
+      </tr>	  
+      <tr class="<%= formatted_name %>" style="display: none;">
+        <td colspan="3">
+          <div id='historical-<%= formatted_name %>'>
+          </div>
+        </td>
+        <td align="right">
+          <%= range_snapshot.comments.nil? ? '' : range_snapshot.comments %>
+        </td> 
+      </tr>
+    <% end %>
+  <% end %>
+</tbody>

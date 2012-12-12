@@ -10,4 +10,8 @@ class Kalibro::DateModuleResult < Kalibro::Model
     @module_result = Kalibro::ModuleResult.to_object value
   end
   
+  def result
+    @module_result.grade
+  end
+  
 end

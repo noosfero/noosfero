@@ -26,8 +26,8 @@ class MezuroPlugin::Helpers::ContentViewerHelper
     values = []
     labels = []
     score_history.each do |score_data|
-      values << score_data.first
-      labels << score_data.last
+      values << score_data.result
+      labels << score_data.date
     end
     labels = discretize_array labels
     Gchart.line(

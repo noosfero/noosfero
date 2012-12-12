@@ -22,18 +22,11 @@ class MezuroPluginModuleResultControllerTest < ActionController::TestCase
   should 'find module result on kalibro' do
     Kalibro::ModuleResult.expects(:request).with(:get_module_result, { :module_result_id => @module_result_hash[:id] }).
         returns({:module_result => @module_result_hash})
-    get :module_result, :profile => @profile.identifier, :module_result_id => @module_result_hash[:id]
-    assert_equal @module_result_hash[:grade], assigns(:module_result).grade
-    assert_response 200
-    #TODO assert_select('h5', 'Metric results for: Qt-Calculator (APPLICATION)')
-  end
-
-  should 'get metric_results' do
     Kalibro::MetricResult.expects(:request).with(:metric_results_of, { :module_result_id => @module_result_hash[:id] }).
         returns({:metric_result => @metric_result_hash})
-    get :metric_results, :profile => @profile.identifier, :module_result_id => @module_result_hash[:id]
+    get :module_result, :profile => @profile.identifier, :module_result_id => @module_result_hash[:id]
+    assert_equal @module_result_hash[:grade], assigns(:module_result).grade
     assert_equal @metric_result_hash[:value], assigns(:metric_results).first.value
-    assert_equal @module_result_hash[:id], assigns(:module_result_id)
     assert_response 200
     #TODO assert_select('h5', 'Metric results for: Qt-Calculator (APPLICATION)')
   end
@@ -43,7 +36,7 @@ class MezuroPluginModuleResultControllerTest < ActionController::TestCase
     Kalibro::MetricResult.expects(:request).with(:history_of, { :metric_name => metric_name, :module_result_id => @module_result_hash[:id] }).
         returns({:date_metric_result => @date_metric_result_hash})
     get :metric_result_history, :profile => @profile.identifier, :module_result_id => @module_result_hash[:id], :metric_name => metric_name
-    assert_equal @date_metric_result_hash[:date], assigns(:date_metric_results).first.date
+    assert_equal DateTime.parse(@date_metric_result_hash[:date]), assigns(:history).first.date
     assert_response 200
     #TODO assert_select
   end
@@ -52,7 +45,7 @@ class MezuroPluginModuleResultControllerTest < ActionController::TestCase
     Kalibro::ModuleResult.expects(:request).with(:history_of_module, { :module_result_id => @module_result_hash[:id] }).
         returns({:date_module_result => @date_module_result_hash})
     get :module_result_history, :profile => @profile.identifier, :module_result_id => @module_result_hash[:id]
-    assert_equal @date_module_result_hash[:date], assigns(:date_module_results).first.date
+    assert_equal DateTime.parse(@date_module_result_hash[:date]), assigns(:history).first.date
     assert_response 200
     #TODO assert_select
   end

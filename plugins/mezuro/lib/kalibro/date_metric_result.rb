@@ -9,5 +9,8 @@ class Kalibro::DateMetricResult < Kalibro::Model
   def metric_result=(value)
     @metric_result = Kalibro::MetricResult.to_object value
   end
-  
+
+  def result
+    @metric_result.value
+  end
 end
