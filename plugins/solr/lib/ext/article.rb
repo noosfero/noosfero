@@ -25,7 +25,7 @@ class Article
       {:profile_id => :integer}, :language,
       {:solr_plugin_category_filter => :integer},
       # ordered/query-boosted fields
-      {:name_sortable => :string}, :last_changed_by_id, :published_at, :is_image,
+      {:solr_plugin_name_sortable => :string}, :last_changed_by_id, :published_at, :is_image,
       :updated_at, :created_at,
     ], :include => [
       {:profile => {:fields => [:name, :identifier, :address, :nickname, :region_id, :lat, :lng]}},
@@ -73,5 +73,9 @@ class Article
 
   def solr_plugin_category_filter
     categories_including_virtual_ids
+  end
+
+  def solr_plugin_name_sortable
+    name
   end
 end

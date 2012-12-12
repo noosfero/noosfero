@@ -211,21 +211,7 @@ class Product < ActiveRecord::Base
         end
   end
 
-  private
-
   delegate :enabled, :region, :region_id, :environment, :environment_id, :to => :enterprise
-
-  alias_method :name_sortable, :name
-  def name_sortable # give a different name for solr
-    name
-  end
-
-  def price_sortable
-    (price.nil? or price.zero?) ? nil : price
-  end
-
-  public
-
   handle_asynchronously :solr_save
 
 end

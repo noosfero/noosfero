@@ -20,7 +20,7 @@ class Profile
       {:solr_plugin_public => :boolean}, {:environment_id => :integer},
       {:solr_plugin_category_filter => :integer},
       # ordered/query-boosted fields
-      {:name_sortable => :string}, {:user_id => :integer},
+      {:solr_plugin_name_sortable => :string}, {:user_id => :integer},
       :enabled, :active, :validated, :public_profile,
       {:lat => :float}, {:lng => :float},
       :updated_at, :created_at,
@@ -93,5 +93,9 @@ class Profile
 
   def solr_plugin_category_filter
     categories_including_virtual_ids
+  end
+
+  def solr_plugin_name_sortable
+    name
   end
 end

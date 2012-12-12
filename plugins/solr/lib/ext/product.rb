@@ -30,7 +30,7 @@ class Product
       {:solr_plugin_public => :boolean}, {:environment_id => :integer},
       {:enabled => :boolean}, {:solr_plugin_category_filter => :integer},
       # ordered/query-boosted fields
-      {:price_sortable => :decimal}, {:name_sortable => :string},
+      {:solr_plugin_price_sortable => :decimal}, {:solr_plugin_name_sortable => :string},
       {:lat => :float}, {:lng => :float},
       :updated_at, :created_at,
     ], :include => [
@@ -81,5 +81,13 @@ class Product
 
   def solr_plugin_public
     self.public?
+  end
+
+  def solr_plugin_name_sortable # give a different name for solr
+    name
+  end
+
+  def solr_plugin_price_sortable
+    (price.nil? or price.zero?) ? nil : price
   end
 end

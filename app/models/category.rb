@@ -90,11 +90,6 @@ class Category < ActiveRecord::Base
     self.children.find(:all, :conditions => {:display_in_menu => true}).empty?
   end
 
-  private
-  def name_sortable # give a different name for solr
-    name
-  end
-  public
   handle_asynchronously :solr_save
 
 end

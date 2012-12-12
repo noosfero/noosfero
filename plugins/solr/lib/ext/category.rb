@@ -11,6 +11,12 @@ class Category
     # filtered fields
     :parent_id,
     # ordered/query-boosted fields
-    {:name_sortable => :string},
+    {:solr_plugin_name_sortable => :string},
   ]
+
+  private
+
+  def solr_plugin_name_sortable
+    name
+  end
 end

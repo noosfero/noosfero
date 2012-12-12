@@ -874,14 +874,6 @@ private :generate_url, :url_options
     self.active_fields
   end
 
-  private
-
-  def name_sortable # give a different name for solr
-    name
-  end
-
-  public
-
   handle_asynchronously :solr_save
 
   def control_panel_settings_button

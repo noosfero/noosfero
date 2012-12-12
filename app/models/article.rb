@@ -648,10 +648,6 @@ class Article < ActiveRecord::Base
   Event
 
   delegate :region, :region_id, :environment, :environment_id, :to => :profile, :allow_nil => true
-  def name_sortable # give a different name for solr
-    name
-  end
-
   public
   handle_asynchronously :solr_save
 
