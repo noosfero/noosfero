@@ -674,11 +674,11 @@ Then /^I should not see ([^\"]*)'s product image$/ do |product_name|
 end
 
 Then /^I should see ([^\"]*)'s profile image$/ do |name|
-  response.should have_selector("img[alt=\"#{name}\"]")
+  page.should have_xpath("//img[@alt=\"#{name}\"]")
 end
 
 Then /^I should not see ([^\"]*)'s profile image$/ do |name|
-  response.should_not have_selector("img[alt=\"#{name}\"]")
+  page.should have_no_xpath("//img[@alt=\"#{name}\"]")
 end
 
 Then /^I should see ([^\"]*)'s content image$/ do |name|
