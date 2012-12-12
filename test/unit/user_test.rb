@@ -53,6 +53,8 @@ class UserTest < ActiveSupport::TestCase
 
   def test_should_authenticate_user
     assert_equal users(:johndoe), User.authenticate('johndoe', 'test')
+    assert_equal users(:johndoe), User.authenticate('johndoe@localhost.localdomain', 'test')
+    assert_equal nil, User.authenticate('wrongemail@localhost', 'test')
   end
 
   def test_should_authenticate_user_of_nondefault_environment
