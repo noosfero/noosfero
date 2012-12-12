@@ -55,4 +55,34 @@ class ProfileTest < ActiveSupport::TestCase
     in_name = create(Person, :name => 'bananas in the name!', :user_id => fast_create(User).id)
     assert_equal [in_name], Person.find_by_contents('bananas')[:results].docs
   end
+
+  should 'be able to add extra data for index' do
+    klass = Class.new(Profile)
+    klass.any_instance.expects(:random_method)
+    klass.solr_plugin_extra_data_for_index :random_method
+
+    klass.new.solr_plugin_extra_data_for_index
+  end
+
+  should 'be able to add a block as extra data for index' do
+    klass = Class.new(Profile)
+    result = Object.new
+    klass.solr_plugin_extra_data_for_index do |obj|
+      result
+    end
+
+    assert_includes klass.new.solr_plugin_extra_data_for_index, result
+  end
+
+  should 'actually index by results of solr_plugin_extra_data_for_index' do
+    TestSolr.enable
+    class ExtraDataForIndex < Profile
+      solr_plugin_extra_data_for_index do |obj|
+        'sample indexed text'
+      end
+    end
+    profile = ExtraDataForIndex.create!(:name => 'testprofile', :identifier => 'testprofile')
+
+    assert_includes ExtraDataForIndex.find_by_contents('sample')[:results], profile
+  end
 end

@@ -127,18 +127,6 @@ class Profile < ActiveRecord::Base
     scrap.nil? ? Scrap.all_scraps(self) : Scrap.all_scraps(self).find(scrap)
   end
 
-  class_inheritable_accessor :extra_index_methods
-  self.extra_index_methods = []
-
-  def extra_data_for_index
-    self.class.extra_index_methods.map { |meth| meth.to_proc.call(self) }.flatten
-  end
-
-  def self.extra_data_for_index(sym = nil, &block)
-    self.extra_index_methods.push(sym) if sym
-    self.extra_index_methods.push(block) if block_given?
-  end
-
   acts_as_having_settings :field => :data
 
   settings_items :redirect_l10n, :type => :boolean, :default => false

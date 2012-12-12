@@ -498,34 +498,6 @@ class ProfileTest < ActiveSupport::TestCase
     assert p.display_info_to?(admin)
   end
 
-  should 'be able to add extra data for index' do
-    klass = Class.new(Profile)
-    klass.any_instance.expects(:random_method)
-    klass.extra_data_for_index :random_method
-
-    klass.new.extra_data_for_index
-  end
-
-  should 'be able to add a block as extra data for index' do
-    klass = Class.new(Profile)
-    result = Object.new
-    klass.extra_data_for_index do |obj|
-      result
-    end
-
-    assert_includes klass.new.extra_data_for_index, result
-  end
-
-  # TestingExtraDataForIndex is a subclass of profile that adds a block as
-  # content to be added to the index. The block returns "sample indexed text"
-  # see test/mocks/test/testing_extra_data_for_index.rb
-  should 'actually index by results of extra_data_for_index' do
-    TestSolr.enable
-    profile = TestingExtraDataForIndex.create!(:name => 'testprofile', :identifier => 'testprofile')
-
-    assert_includes TestingExtraDataForIndex.find_by_contents('sample')[:results], profile
-  end
-
   should 'index profile identifier for searching' do
     TestSolr.enable
     Profile.destroy_all

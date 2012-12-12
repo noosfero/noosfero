@@ -12,7 +12,7 @@ class Profile
     }, :category_query => proc { |c| "solr_plugin_category_filter:#{c.id}" },
     :order => [:solr_plugin_f_region, :solr_plugin_f_categories, :solr_plugin_f_enabled]
 
-  acts_as_searchable :fields => facets_fields_for_solr + [:extra_data_for_index,
+  acts_as_searchable :fields => facets_fields_for_solr + [:solr_plugin_extra_data_for_index,
       # searched fields
       {:name => {:type => :text, :boost => 2.0}},
       {:identifier => :text}, {:nickname => :text},
@@ -30,6 +30,18 @@ class Profile
       {:categories => {:fields => [:name, :path, :slug, :lat, :lng, :acronym, :abbreviation]}},
     ], :facets => facets_option_for_solr,
     :boost => proc{ |p| 10 if p.enabled }
+
+  class_inheritable_accessor :solr_plugin_extra_index_methods
+  self.solr_plugin_extra_index_methods = []
+
+  def solr_plugin_extra_data_for_index
+    self.class.solr_plugin_extra_index_methods.map { |meth| meth.to_proc.call(self) }.flatten
+  end
+
+  def self.solr_plugin_extra_data_for_index(sym = nil, &block)
+    self.solr_plugin_extra_index_methods.push(sym) if sym
+    self.solr_plugin_extra_index_methods.push(block) if block_given?
+  end
 
   private
 
