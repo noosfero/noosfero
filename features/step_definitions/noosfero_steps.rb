@@ -422,6 +422,10 @@ Then /^The page title should contain "(.*)"$/ do |text|
   end
 end
 
+Then /^The page should not contain "(.*)"$/ do |selector|
+  page.should have_no_css("#{selector}")
+end
+
 Given /^the mailbox is empty$/ do
   ActionMailer::Base.deliveries = []
 end
@@ -647,20 +651,26 @@ end
 
 When /^I search ([^\"]*) for "([^\"]*)"$/ do |asset, query|
   When %{I go to the search #{asset} page}
-  And %{I fill in "query" with "#{query}"}
+  And %{I fill in "search-input" with "#{query}"}
   And %{I press "Search"}
 end
 
 Then /^I should see ([^\"]*)'s product image$/ do |product_name|
   p = Product.find_by_name product_name
-  path = url_for(p.enterprise.public_profile_url.merge(:controller => 'manage_products', :action => 'show', :id => p, :only_path => true))
-  response.should have_selector("div[class~=\"zoomable-image\"] a[href=\"http://#{path}\"]")
+  path = url_for(p.enterprise.public_profile_url.merge(:controller => 'manage_products', :action => 'show', :id => p))
+
+  with_scope('.zoomable-image') do
+    page.should have_xpath("a[@href=\"#{path}\"][@class='search-image-pic']")
+  end
 end
 
 Then /^I should not see ([^\"]*)'s product image$/ do |product_name|
   p = Product.find_by_name product_name
-  path = url_for(p.enterprise.public_profile_url.merge(:controller => 'manage_products', :action => 'show', :id => p, :only_path => true))
-  response.should_not have_selector("div[class~=\"zoomable-image\"] a[href=\"http://#{path}\"]")
+  path = url_for(p.enterprise.public_profile_url.merge(:controller => 'manage_products', :action => 'show', :id => p))
+
+  with_scope('.zoomable-image') do
+    page.should have_no_xpath("a[@href=\"#{path}\"][@class='search-image-pic']")
+  end
 end
 
 Then /^I should see ([^\"]*)'s profile image$/ do |name|
@@ -737,4 +747,10 @@ Given /^the profile (.*) is configured to (.*) after login$/ do |profile, option
   profile = Profile.find_by_identifier(profile)
   profile.redirection_after_login = redirection
   profile.save
+end
+
+Given /^there are no pending jobs$/ do
+  silence_stream(STDOUT) do
+    Delayed::Worker.new.work_off
+  end
 end
