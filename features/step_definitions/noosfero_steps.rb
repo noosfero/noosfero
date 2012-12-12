@@ -422,6 +422,10 @@ Then /^The page title should contain "(.*)"$/ do |text|
   end
 end
 
+Then /^The page should contain "(.*)"$/ do |selector|
+  page.should have_css("#{selector}")
+end
+
 Then /^The page should not contain "(.*)"$/ do |selector|
   page.should have_no_css("#{selector}")
 end
