@@ -9,15 +9,13 @@ Feature: export users
 
   Scenario: Export users as XML
     Given I am logged in as admin
-    When I follow "Administration"
-    And I follow "Users"
+    When I go to /admin/users
     And I follow "[XML]"
     Then I should see "ultraje"
 
   Scenario: Export users as CSV
     Given I am logged in as admin
-    When I follow "Administration"
-    And I follow "Users"
+    When I go to /admin/users
     And I follow "[CSV]"
     Then I should see "name;email"
     And I should see "ultraje"
