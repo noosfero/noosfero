@@ -7,7 +7,7 @@ class Kalibro::ModuleResult < Kalibro::Model
   end
 
   def children
-    response = self.class.request(:children_of, {:module_result_id => self.id})[:module_result]
+    response = self.class.request(:children_of, {:module_result_id => id})[:module_result]
     response = [] if response.nil?
     response = [response] if response.is_a?(Hash) 
     response.map {|module_result| Kalibro::ModuleResult.new module_result}

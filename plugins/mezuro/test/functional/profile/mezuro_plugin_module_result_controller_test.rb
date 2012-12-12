@@ -20,10 +20,15 @@ class MezuroPluginModuleResultControllerTest < ActionController::TestCase
   end
 
   should 'find module result on kalibro' do
+    parent_module_result = ModuleResultFixtures.parent_module_result_hash
     Kalibro::ModuleResult.expects(:request).with(:get_module_result, { :module_result_id => @module_result_hash[:id] }).
         returns({:module_result => @module_result_hash})
     Kalibro::MetricResult.expects(:request).with(:metric_results_of, { :module_result_id => @module_result_hash[:id] }).
         returns({:metric_result => @metric_result_hash})
+    Kalibro::ModuleResult.expects(:request).with(:get_module_result, { :module_result_id => @module_result_hash[:parent_id] }).
+        returns({:module_result => parent_module_result})
+    Kalibro::ModuleResult.expects(:request).with(:children_of, {:module_result_id => @module_result_hash[:id]}).
+        returns({:module_result => nil})
     get :module_result, :profile => @profile.identifier, :module_result_id => @module_result_hash[:id]
     assert_equal @module_result_hash[:grade], assigns(:module_result).grade
     assert_equal @metric_result_hash[:value], assigns(:metric_results).first.value

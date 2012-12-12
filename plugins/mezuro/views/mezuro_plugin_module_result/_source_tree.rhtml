@@ -1,11 +1,10 @@
 <h4><%= _('Source tree') %></h4>
-<% module_name = @module_result.module.name %>
-<% module_label = "#{module_name} (#{@module_result.module.granularity})" %>
+<% module_name = module_result.module.name %>
+<% module_label = "#{module_name} (#{module_result.module.granularity})" %>
 
 <p>
   <h2 class="path">
-    <% parents = @module_result.parents %>
-    <% parents.each do |parent| %>
+    <% module_result.parents.each do |parent| %>
       /<a href="#" class="source-tree-link" data-module-id="<%= parent.id %>">
         <%= parent.module.name %>
       </a>
@@ -14,7 +13,7 @@
 </p>
   
 <table border="0" class="source-tree">
-  <% @module_result.children.each do |child| %>
+  <% module_result.children.each do |child| %>
     <% if child.module.granularity=='PACKAGE' %>
       <tr>
         <td class="icon"><%= image_tag('/plugins/mezuro/images/folder.png')%></td>
