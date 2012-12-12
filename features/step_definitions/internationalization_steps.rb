@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 def language_to_code(name)
   {
     'Brazilian Portuguese' => 'pt-br',
@@ -35,7 +36,7 @@ Given /^a user accessed in (.*) before$/ do |lang|
 end
 
 Given /^my browser prefers (.*)$/ do |lang|
-  header 'Accept-Language', language_to_code(lang)
+  page.driver.header 'Accept-Language', language_to_code(lang)
 end
 
 Then /^the site should be in (.*)$/ do |lang|
