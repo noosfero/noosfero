@@ -23,7 +23,7 @@ Feature: gallery_navigation
   @selenium
   Scenario: view next image when follow next link
     Given I am on /marciopunk/my-gallery/other-pic.jpg?view=true
-    When I follow "Next »" and wait
+    When I follow "Next »"
     Then I should see "rails.png" within ".title"
 
   Scenario: not link to next when in last image
@@ -38,7 +38,7 @@ Feature: gallery_navigation
   @selenium
   Scenario: view previous image when follow previous link
     Given I am on /marciopunk/my-gallery/rails.png?view=true
-    When I follow "« Previous" and wait
+    When I follow "« Previous"
     Then I should see "other-pic.jpg" within ".title"
 
   Scenario: not link to previous when in first image
@@ -71,8 +71,8 @@ Feature: gallery_navigation
   @selenium
   Scenario: image title in window title
     Given I am logged in as "marciopunk"
-    When I visit "/marciopunk/other-gallery/rails.png?view=true" and wait
-    And I follow "Edit" and wait
+    When I go to /marciopunk/other-gallery/rails.png?view=true
+    And I follow "Edit"
     And I fill in "Title" with "Rails is cool"
-    And I press "Save" and wait
-    Then The page title should contain "Rails is cool"
+    And I press "Save"
+    Then I should see "Rails is cool" within "title"
