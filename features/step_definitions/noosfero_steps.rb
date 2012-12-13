@@ -443,14 +443,6 @@ Given /^the following environment configuration$/ do |table|
   env.save
 end
 
-Then /^I should be logged in as "(.+)"$/ do |login|
-  User.find(session[:user]).login.should == login
-end
-
-Then /^I should not be logged in$/ do
-  session[:user].nil?
-end
-
 Given /^the profile "(.+)" has no blocks$/ do |profile|
   profile = Profile[profile]
   profile.boxes.map do |box|
