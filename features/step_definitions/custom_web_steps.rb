@@ -12,6 +12,11 @@ Then /^I should not see "([^"]*)" link$/ do |text|
   page.should have_no_css('a', :text => text)
 end
 
+When /^I should see "([^\"]+)" linking to "([^\"]+)"$/ do |text, href|
+  page.should have_selector("a:contains('#{text}')")
+  page.should have_selector("a[href='#{href}']")
+end
+
 When /^I reload and wait for the page$/ do
   raise "Why why need this? Remove!"
   visit page.driver.browser.current_url
