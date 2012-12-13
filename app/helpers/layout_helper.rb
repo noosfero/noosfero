@@ -1,7 +1,15 @@
 module LayoutHelper
 
   def noosfero_javascript
-    render :file =>  'layouts/_javascript'
+    plugins_javascripts = @plugins.map { |plugin| plugin.js_files.map { |js| plugin.class.public_path(js) } }.flatten
+
+    output = ''
+    output += render :file =>  'layouts/_javascript'
+    output += javascript_tag 'render_all_jquery_ui_widgets()'
+    unless plugins_javascripts.empty?
+      output += javascript_include_tag plugins_javascripts, :cache => "cache/plugins-#{Digest::MD5.hexdigest plugins_javascripts.to_s}"
+    end
+    output
   end
 
   def noosfero_stylesheets

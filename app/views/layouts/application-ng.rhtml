@@ -12,11 +12,6 @@
 
     <%# Add custom tags/styles/etc via content_for %>
     <%= yield :head %>
-    <%= javascript_tag('render_all_jquery_ui_widgets()') %>
-    <%
-      plugins_javascripts = @plugins.map { |plugin| plugin.js_files.map { |js| plugin.class.public_path(js) } }.flatten
-    %>
-    <%= javascript_include_tag(plugins_javascripts, :cache => 'cache/plugins-' + Digest::MD5.hexdigest(plugins_javascripts.to_s)) unless plugins_javascripts.empty? %>
     <%=
       @plugins.dispatch(:head_ending).collect do |content|
         content.respond_to?(:call) ? content.call : content
