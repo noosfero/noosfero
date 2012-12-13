@@ -8,15 +8,7 @@
     <meta name="description" content="<%= @environment.name %>" />
     <link rel="shortcut icon" href="<%= image_path(theme_favicon) %>" type="image/x-icon" />
     <%= noosfero_javascript %>
-    <%= stylesheet_link_tag noosfero_stylesheets, :cache => 'cache' %>
-    <%= stylesheet_link_tag template_stylesheet_path %>
-    <%= stylesheet_link_tag icon_theme_stylesheet_path %>
-    <%= stylesheet_link_tag jquery_ui_theme_stylesheet_path %>
-    <%
-      plugins_stylesheets = @plugins.select(&:stylesheet?).map { |plugin| plugin.class.public_path('style.css') }
-    %>
-    <%= stylesheet_link_tag(plugins_stylesheets, :cache => 'cache/plugins-' + Digest::MD5.hexdigest(plugins_stylesheets.to_s)) unless plugins_stylesheets.empty? %>
-    <%= stylesheet_link_tag theme_stylesheet_path %>
+    <%= noosfero_stylesheets %>
 
     <%# Add custom tags/styles/etc via content_for %>
     <%= yield :head %>
