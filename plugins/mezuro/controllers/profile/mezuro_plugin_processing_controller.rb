@@ -2,20 +2,28 @@ class MezuroPluginProcessingController < MezuroPluginProfileController
 
   append_view_path File.join(File.dirname(__FILE__) + '/../../views')
 
-  def render_last_state
-    last_state = Kalibro::Processing.last_processing_state_of(params[:repository_id].to_i)
-    render :text => last_state
+  def state
+    processing = processing_for_date(params[:repository_id].to_i, params[:date])
+    render :text => processing.state
   end
 
   def processing
-    date = params[:date]
-    repository_id = params[:repository_id].to_i
-    processing_class = Kalibro::Processing
-    @processing = date.nil? ? processing_class.processing_of(repository_id) : processing_class.processing_with_date_of(repository_id, date)
+    @processing = processing_for_date(params[:repository_id].to_i, params[:date])
     if @processing.state == 'ERROR'
       render :partial => 'processing_error'
     else
       render :partial => 'processing'
+    end
+  end
+
+  private
+
+  def processing_for_date(repository_id, date = nil)
+    processing_class = Kalibro::Processing
+    if date.nil?
+      processing_class.processing_of(repository_id)
+    else
+      processing_class.processing_with_date_of(repository_id, date)
     end
   end
 
