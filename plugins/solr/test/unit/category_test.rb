@@ -40,4 +40,10 @@ class CategoryTest < ActiveSupport::TestCase
     c_name = Category.create!(:name => "science fiction", :environment_id => environment.id)
     assert_equal [c_name, c_abbr], Category.find_by_contents("science")[:results].docs
   end
+
+  should 'solr save' do
+    c = environment.categories.build(:name => 'my category');
+    c.expects(:solr_save)
+    c.save!
+  end
 end

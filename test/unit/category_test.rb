@@ -513,10 +513,4 @@ class CategoryTest < ActiveSupport::TestCase
     assert p.categories.reload.empty?
   end
 
-  should 'solr save' do
-    c = @env.categories.build(:name => 'my category');
-    c.expects(:solr_save)
-    c.save!
-  end
-
 end

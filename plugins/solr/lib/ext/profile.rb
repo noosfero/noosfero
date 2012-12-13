@@ -41,6 +41,7 @@ class Profile
   end
 
   def self.solr_plugin_extra_data_for_index(sym = nil, &block)
+    self.solr_plugin_extra_index_methods ||= []
     self.solr_plugin_extra_index_methods.push(sym) if sym
     self.solr_plugin_extra_index_methods.push(block) if block_given?
   end
