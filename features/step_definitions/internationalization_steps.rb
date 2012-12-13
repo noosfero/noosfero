@@ -40,7 +40,7 @@ Given /^my browser prefers (.*)$/ do |lang|
 end
 
 Then /^the site should be in (.*)$/ do |lang|
-  response.should have_selector("html[lang=#{language_to_code(lang)}]")
-  response.body.should match(/<strong>#{native_name(lang)}<\/strong>/)
+  page.should have_selector("html[lang=#{language_to_code(lang)}]")
+  page.body.should match(/<strong>#{native_name(lang)}<\/strong>/)
 end
 
