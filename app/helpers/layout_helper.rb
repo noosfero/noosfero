@@ -1,5 +1,13 @@
 module LayoutHelper
 
+  def body_classes
+    # Identify the current controller and action for the CSS:
+    " controller-#{@controller.controller_name}" +
+    " action-#{@controller.controller_name}-#{@controller.action_name}" +
+    " template-#{profile.nil? ? "default" : profile.layout_template}" +
+    (!profile.nil? && profile.is_on_homepage?(request.path,@page) ? " profile-homepage" : "")
+  end
+
   def noosfero_javascript
     plugins_javascripts = @plugins.map { |plugin| plugin.js_files.map { |js| plugin.class.public_path(js) } }.flatten
 

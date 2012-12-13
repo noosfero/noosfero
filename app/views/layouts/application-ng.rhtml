@@ -18,15 +18,9 @@
       end.join("\n")
     %>
   </head>
-  <body class="<%=
-    # Identify the current controller and action for the CSS:
-    " controller-"+ @controller.controller_name() +
-    " action-"+ @controller.controller_name() +"-"+ @controller.action_name() +
-    " template-"+ ( profile.nil? ? "default" : profile.layout_template ) +
-    (!profile.nil? && profile.is_on_homepage?(request.path,@page) ? " profile-homepage" : "")
-    %>" >
-
+  <body class="<%= body_classes %>">
     <a href="#content" id="link-go-content"><span><%= _("Go to the content") %></span></a>
+
     <%=
       @plugins.dispatch(:body_beginning).collect do |content|
         content.respond_to?(:call) ? content.call : content
