@@ -2,7 +2,6 @@ require_dependency 'profile'
 
 class Profile
   after_save_reindex [:articles], :with => :delayed_job
-  handle_asynchronously :solr_save
 
   acts_as_faceted :fields => {
       :solr_plugin_f_enabled => {:label => _('Situation'), :type_if => proc { |klass| klass.kind_of?(Enterprise) },
@@ -31,6 +30,8 @@ class Profile
       {:categories => {:fields => [:name, :path, :slug, :lat, :lng, :acronym, :abbreviation]}},
     ], :facets => facets_option_for_solr,
     :boost => proc{ |p| 10 if p.enabled }
+
+  handle_asynchronously :solr_save
 
   class_inheritable_accessor :solr_plugin_extra_index_methods
   self.solr_plugin_extra_index_methods = []

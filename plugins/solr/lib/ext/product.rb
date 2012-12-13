@@ -2,7 +2,6 @@ require_dependency 'product'
 
 class Product
   after_save_reindex [:enterprise], :with => :delayed_job
-  handle_asynchronously :solr_save
 
   acts_as_faceted :fields => {
       :solr_plugin_f_category => {:label => _('Related products')},
@@ -42,6 +41,8 @@ class Product
       {:certifiers => {:fields => [:name]}},
     ], :facets => facets_option_for_solr,
     :boost => proc{ |p| boost = 1; SolrPlugin::Boosts.each{ |b| boost = boost * (1 - ((1 - b[2].call(p)) * b[1])) }; boost}
+
+  handle_asynchronously :solr_save
 
   private
 

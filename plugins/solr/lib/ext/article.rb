@@ -2,8 +2,6 @@ require_dependency 'article'
 
 class Article
 
-  handle_asynchronously :solr_save
-
   acts_as_faceted :fields => {
       :solr_plugin_f_type => {:label => _('Type'), :proc => proc{|klass| solr_plugin_f_type_proc(klass)}},
       :solr_plugin_f_published_at => {:type => :date, :label => _('Published date'), :queries => {'[* TO NOW-1YEARS/DAY]' => _("Older than one year"),
@@ -33,6 +31,8 @@ class Article
     ], :facets => facets_option_for_solr,
     :boost => proc { |a| 10 if a.profile && a.profile.enabled },
     :if => proc{ |a| ! ['RssFeed'].include?(a.class.name) }
+
+  handle_asynchronously :solr_save
 
   def solr_plugin_comments_updated
     solr_save
