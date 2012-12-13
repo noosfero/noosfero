@@ -1,4 +1,3 @@
-@mezuro
 Feature: Create project
   As a mezuro user
   I want to create a Mezuro project
@@ -15,40 +14,28 @@ Feature: Create project
     And "Joao Silva" is admin of "My Community"
 
   Scenario: I see Mezuro project's input form
-    Given I am on My Community's control panel
-    When I follow "Mezuro Project"
+    Given I am on mycommunity's control panel
+    When I follow "Mezuro project"
     Then I should see "Title"
-    And I should see "License"
-    And I should see "Repository type"
-    And I should see "GIT"
-    And I should see "REMOTE_ZIP"
-    And I should see "REMOTE_TARBALL"
-    And I should see "SUBVERSION"
-    And I should see "Repository url"
-    And I should see "Configuration"
-    And I should see "Kalibro for Java"
+    And I should see "Description"
 
   Scenario: I create a Mezuro project with valid attributes
-    Given I am on My Community's control panel
+    Given I am on mycommunity's control panel
     When I create a Mezuro project with the following data
       | Title           | Sample Project      |
-      | License         | GNU General Public License version 2.0 (GPL-2.0)                |
-      | Repository type | SUBVERSION          |
-      | Repository url  | https://qt-calculator.svn.sourceforge.net/svnroot/qt-calculator |
-      | Configuration   | Kalibro for Java    |
+      | Description     | Sample Description  |
     Then I should see "Sample Project"
-    And I should see "GNU General Public License version 2.0 (GPL-2.0)"
-    And I should see "SUBVERSION"
-    And I should see "https://qt-calculator.svn.sourceforge.net/svnroot/qt-calculator"
-    And I should see "Kalibro for Java"
-   
-  Scenario: I can't create a Mezuro project with invalid attributes
-    Given I am on My Community's control panel
-    When I create a Mezuro project with the following data
-      | Title           |                     |
-      | License         | GNU General Public License version 2.0 (GPL-2.0)                |
-      | Repository type | SUBVERSION          |
-      | Repository url  |                     |
-      | Configuration   | Kalibro for Java    |
-   Then I should see "The highlighted fields are mandatory."
-   And I should see "Repository URL is mandatory"
+    And I should see "Sample Description"
+    And I should see "Add Repository"
+
+	@selenium
+	Scenario: I delete a Mezuro project
+		Given the following Mezuro project
+      | name               | description         | owner    |
+      | Sample Project     | Sample Description  | joaosilva |
+		And I am on article "Sample Project"
+		And I should be on /joaosilva/sample-project
+		When I follow "Delete"
+		And I confirm the "Are you sure that you want to remove the item "Sample Project"?" dialog
+		Then I go to /joaosilva/sample-project
+		And I should see "There is no such page: /joaosilva/sample-project"

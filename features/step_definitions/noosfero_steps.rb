@@ -761,3 +761,9 @@ Given /^there are no pending jobs$/ do
     Delayed::Worker.new.work_off
   end
 end
+
+When /^I confirm the "(.*)" dialog$/ do |confirmation|
+  a = page.driver.browser.switch_to.alert
+  assert_equal confirmation, a.text
+  a.accept
+end
