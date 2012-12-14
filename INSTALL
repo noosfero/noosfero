@@ -1,13 +1,33 @@
 = Noosfero installation instructions from source for production environments
 
-Noosfero is written in Ruby with the "Rails framework":http://www.rubyonrails.org,
-so the process of setting it up is pretty similar to other Rails applications.
+The instructions below can be used for setting up a Noosfero production
+environment from the Noosfero sources.
 
-Below we have the instructions for installing Noosfero dependencies and setting
-up a production environment. If you have problems with the setup, please feel
-free to ask questions in the development mailing list.
+Before you start installing Noosfero manually, see the information about the
+Noosfero Debian package at http://noosfero.org/Development/DebianPackage. Using
+the Debian packages on a Debian stable system is the recommended method for
+installing production environments.
+
+If you want to setup a development environment instead of a production one,
+stop reading this file right now and read the file HACKING instead.
+
+For a complete installation guide, please see the following web page:
+http://noosfero.org/Development/HowToInstall
+
+If you have problems with the setup, please feel free to ask questions in the
+development mailing list.
 
 == Requirements
+
+DISCLAIMER: this installation procedure is tested with Debian stable, which is
+currently the only recommended operating system for production usage. It is
+possible that you can install it on other systems, and if you do so, please
+report it on one of the Noosfero mailing lists, and please send a patch
+updating these instructions.
+
+Noosfero is written in Ruby with the "Rails
+framework":http://www.rubyonrails.org, so the process of setting it up is
+pretty similar to other Rails applications.
 
 You need to install some packages Noosfero depends on.  On Debian GNU/Linux or
 Debian-based systems, all of these packages are available through the Debian
@@ -38,20 +58,8 @@ If you manage to install Noosfero successfully on other systems than Debian,
 please feel free to contact the Noosfero development mailing with the
 instructions for doing so, and we'll include it here.
 
-=== Setting up a production environment
-
-DISCLAIMER: this installation procedure is tested with Debian stable, which is
-currently the only recommended operating system for production usage. It is
-possible that you can install it on other systems, and if you do so, please
-report it on one of the Noosfero mailing lists, and please send a patch
-updating these instructions.
-
 As root user
 ============
-
-NOTE: these instructions are for seting up a *production* environment. If you
-are going to do Noosfero development, you don't need to do these steps. Stop
-here and see the HACKING file instead.
 
 Install memcached. On Debian:
 
@@ -204,7 +212,7 @@ Run Solr:
 
 $ rake solr:start
 
-Now we have to create some initial data. To create your default environment
+Now we must create some initial data. To create your default environment
 (the first one), run the command below:
 
 $ RAILS_ENV=production ./script/runner 'Environment.create!(:name => "My environment", :is_default => true)'
