@@ -5,9 +5,8 @@ recommended. See http://www.varnish-cache.org/ for more information on Varnish.
 
 Varnish can be set up to use with Noosfero with the following steps:
 
-1) setup Noosfero with apache according to the INSTALL file. If you used
-the Debian package to install noosfero, you don't need to do anything
-about this.
+1) setup Noosfero with apache according to the INSTALL file. If you used the
+Debian package to install noosfero, you don't need to do anything about this.
 
 2) install Varnish
 
@@ -24,7 +23,8 @@ Install the RPAF apache module (or skip this step if not using apache):
   * change 'NameVirtualHost *:80' to 'NameVirtualHost *:8080'
   * change 'Listen 80' to 'Listen 127.0.0.1:8080'
 
-3b) Edit /etc/apache2/sites-enabled/*, and change '<VirtualHost *:80>' to '<VirtualHost *:8080>'
+3b) Edit /etc/apache2/sites-enabled/*, and change '<VirtualHost *:80>' to
+'<VirtualHost *:8080>'
 
 3c) Restart apache
 
