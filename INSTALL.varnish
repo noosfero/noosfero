@@ -33,8 +33,9 @@ Install the RPAF apache module (or skip this step if not using apache):
 4) Varnish configuration
 
 4a) Edit /etc/default/varnish
+
+   * change the line that says "START=no" to say "START=yes"
    * change '-a :6081' to '-a :80'
-   * change from "no" to "yes" in the line that contains "START=no"
 
 4b) Edit /etc/varnish/default.vcl and add the following lines at the end:
 
