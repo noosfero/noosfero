@@ -1,4 +1,4 @@
-= Noosfero installation instructions
+= Noosfero installation instructions from source for production environments
 
 Noosfero is written in Ruby with the "Rails framework":http://www.rubyonrails.org,
 so the process of setting it up is pretty similar to other Rails applications.
