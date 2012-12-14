@@ -5,7 +5,9 @@ recommended. See http://www.varnish-cache.org/ for more information on Varnish.
 
 Varnish can be set up to use with Noosfero with the following steps:
 
-1) setup Noosfero with apache according to the INSTALL file.
+1) setup Noosfero with apache according to the INSTALL file. If you used
+the Debian package to install noosfero, you don't need to do anything
+about this.
 
 2) install Varnish
 
@@ -19,8 +21,8 @@ Install the RPAF apache module (or skip this step if not using apache):
 
 3a) Edit /etc/apache2/ports.conf, and:
 
-  * change 'Listen 80' to 'Listen 127.0.0.1:8080'
   * change 'NameVirtualHost *:80' to 'NameVirtualHost *:8080'
+  * change 'Listen 80' to 'Listen 127.0.0.1:8080'
 
 3b) Edit /etc/apache2/sites-enabled/*, and change '<VirtualHost *:80>' to '<VirtualHost *:8080>'
 
@@ -34,15 +36,7 @@ Install the RPAF apache module (or skip this step if not using apache):
    * change '-a :6081' to '-a :80'
    * change from "no" to "yes" in the line that contains "START=no"
 
-4b) Restart Varnish
-
-  # invoke-rc.d varnish restart
-
-5) Configure varnish to fit noosfero
-(assuming Noosfero is installed in /usr/share/noosfero)
-
-Add the following lines to the end of your /etc/varnish/default.vcl
-file:
+4b) Edit /etc/varnish/default.vcl and add the following lines at the end:
 
   include "/etc/noosfero/varnish-noosfero.vcl";
   include "/etc/noosfero/varnish-accept-language.vcl";
@@ -50,13 +44,13 @@ file:
 On manual installations, change "/etc/noosfero/*" to
 "{Rails.root}/etc/noosfero/*"
 
-6) Restart Varnish
+4c) Restart Varnish
 
   # invoke-rc.d varnish restart
 
-7) Enable varnish logging:
+5) Enable varnish logging:
 
-7a) Edit /etc/default/varnishncsa and uncomment the line that contains:
+5a) Edit /etc/default/varnishncsa and uncomment the line that contains:
 
 VARNISHNCSA_ENABLED=1
 
@@ -64,11 +58,9 @@ The varnish log will be written to /var/log/varnish/varnishncsa.log in an
 apache-compatible format. You should change your statistics generation software
 (e.g. awstats) to use that instead of apache logs.
 
-7b) Restart Varnish Logging service
+5b) Restart Varnish Logging service
 
   # invoke-rc.d varnishncsa restart
 
 Thanks to Cosimo Streppone for varnish-accept-language. See
 http://github.com/cosimo/varnish-accept-language for more information.
-
- -- Antonio Terceiro <terceiro@colivre.coop.br>  Sat, 04 Sep 2010 17:29:27 -0300
