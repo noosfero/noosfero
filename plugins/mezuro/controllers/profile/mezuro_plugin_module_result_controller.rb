@@ -7,7 +7,7 @@ class MezuroPluginModuleResultController < MezuroPluginProfileController
     @metric_results = Kalibro::MetricResult.metric_results_of(@module_result.id)
     render :partial => 'module_result'
   end
- 
+
   def metric_result_history
     @history = Kalibro::MetricResult.history_of(params[:metric_name], params[:module_result_id].to_i)
     render :partial => 'score_history'
