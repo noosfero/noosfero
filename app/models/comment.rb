@@ -224,6 +224,7 @@ class Comment < ActiveRecord::Base
   def spam!
     self.spam = true
     self.save!
+    SpammerLogger.log(ip_address, self)
     Delayed::Job.enqueue(CommentHandler.new(self.id, :marked_as_spam))
     self
   end
