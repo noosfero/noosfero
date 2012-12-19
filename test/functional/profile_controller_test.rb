@@ -1141,6 +1141,7 @@ class ProfileControllerTest < ActionController::TestCase
   should "view more activities paginated" do
     login_as(profile.identifier)
     article = TinyMceArticle.create!(:profile => profile, :name => 'An Article about Free Software')
+    ActionTracker::Record.destroy_all
     40.times{ ActionTracker::Record.create!(:user_id => profile.id, :user_type => 'Profile', :verb => 'create_article', :target_id => article.id, :target_type => 'Article', :params => {'name' => article.name, 'url' => article.url, 'lead' => article.lead, 'first_image' => article.first_image})}
     assert_equal 40, profile.tracked_actions.count
     assert_equal 40, profile.activities.count
