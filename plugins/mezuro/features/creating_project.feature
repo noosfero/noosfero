@@ -29,7 +29,17 @@ Feature: Create project
     And I should see "Add Repository"
 
 	@selenium
-	Scenario: I delete a Mezuro project
+	Scenario: I edit a Mezuro project
+    Given I am on mycommunity's control panel
+    When I create a Mezuro project with the following data
+      | Title           | Sample Project      |
+      | Description     | Sample Description  |
+		And I am on article "Sample Project"
+		And I should be on /mycommunity/sample-project
+		When I follow "Edit"
+		
+	@selenium
+	Scenario: I delete a Mezuro project that belongs to me
 		Given the following Mezuro project
       | name               | description         | owner    |
       | Sample Project     | Sample Description  | joaosilva |
@@ -39,3 +49,16 @@ Feature: Create project
 		And I confirm the "Are you sure that you want to remove the item "Sample Project"?" dialog
 		Then I go to /joaosilva/sample-project
 		And I should see "There is no such page: /joaosilva/sample-project"
+		
+  @selenium
+	Scenario: I cannot delete a Mezuro project that doesn't belong to me
+		Given the following Mezuro project
+      | name               | description         | owner    |
+      | Sample Project     | Sample Description  | joaosilva |
+		And I am on article "Sample Project"
+		And I should be on /joaosilva/sample-project
+		When I follow "Delete"
+		And I confirm the "Are you sure that you want to remove the item "Sample Project"?" dialog
+		Then I go to /joaosilva/sample-project
+		And I should see "There is no such page: /joaosilva/sample-project"
+		
