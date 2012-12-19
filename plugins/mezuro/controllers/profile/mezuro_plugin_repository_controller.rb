@@ -21,6 +21,7 @@ class MezuroPluginRepositoryController < MezuroPluginProfileController
     repository.save(project_content.project_id)
     
     if( repository.errors.empty? )
+      repository.process
       redirect_to "/#{profile.identifier}/#{project_content.name.downcase.gsub(/\s/, '-')}"
     else
       redirect_to_error_page repository.errors[0].message
