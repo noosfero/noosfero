@@ -1,6 +1,6 @@
 <%= required_fields_message %>
 
-<%= required labelled_form_field(_('Title'), text_field(:article, 'name', :size => '64')) %>
+<%= required labelled_form_field(_('Title'), text_field(:article, 'name', :size => '64', :maxlength => 150)) %>
 
 <%= render :partial => 'general_fields' %>
 <%= render :partial => 'translatable' %>
