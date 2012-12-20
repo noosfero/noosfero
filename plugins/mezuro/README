@@ -19,6 +19,10 @@ $ gem install --no-ri --no-rdoc wasabi -v 2.0.0
 $ gem install --no-ri --no-rdoc savon -v 0.9.7
 $ gem install --no-ri --no-rdoc googlecharts
 
+$ gem uninstall rack
+$ gem install --no-ri --no-rdoc rack -v 1.0.1
+
+
 Enable Mezuro Plugin
 --------------------
 
