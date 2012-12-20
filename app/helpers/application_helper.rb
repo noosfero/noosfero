@@ -1284,7 +1284,7 @@ module ApplicationHelper
       (user.already_reported?(profile) ?
         content_tag('a', text, :class => klass + ' disabled comment-footer comment-footer-link', :title => already_reported_message) :
         link_to(text, url, :class => klass + ' comment-footer comment-footer-link', :title => report_profile_message)
-      ) + content_tag('span', ' | ', :class => 'comment-footer comment-footer-hide')
+      ) + content_tag('span', ' ', :class => 'comment-footer comment-footer-hide')
     end
   end
 
