@@ -647,6 +647,7 @@ li.search-product-item hr {
   font-weight: bold;
   font-size: 130%;
   line-height: 35px;
+  float: left;
 }
 .search-results-header.search-no-results {
   border-bottom: 0px;
@@ -665,6 +666,9 @@ li.search-product-item hr {
   color: #ff0000
 }
 
+#search-display-filter {
+  margin-top: 20px;
+}
 
 /* Search field and button */
 

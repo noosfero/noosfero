@@ -1,0 +1,16 @@
+<%= search_page_title( @titles[@asset], @category ) %>
+
+<%= render :partial => 'results_header' %>
+
+<%= display_results(@asset) %>
+<% if params[:display] != 'map' %>
+  <%= pagination_links @results[@asset] %>
+<% end %>
+
+<div style="clear: both"></div>
+
+<% if @asset == :product %>
+  <% javascript_tag do %>
+    jQuery('.search-product-price-details').altBeautify();
+  <% end %>
+<% end %>

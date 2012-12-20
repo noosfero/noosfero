@@ -8,6 +8,7 @@ class SearchController < PublicController
   before_filter :load_category
   before_filter :load_search_assets
   before_filter :load_query
+  before_filter :load_search_engine
 
   # Backwards compatibility with old URLs
   def redirect_asset_param
@@ -18,7 +19,7 @@ class SearchController < PublicController
   no_design_blocks
 
   def facets_browse
-    @asset = params[:asset]
+    @asset = params[:asset].to_sym
     @asset_class = asset_class(@asset)
 
     @facets_only = true
@@ -31,11 +32,12 @@ class SearchController < PublicController
   end
 
   def articles
-    if !@empty_query
-      full_text_search ['public:true']
+    if @search_engine && !@empty_query
+      full_text_search
     else
       @results[@asset] = @environment.articles.public.send(@filter).paginate(paginate_options)
     end
+    render :template => 'search/search_page'
   end
 
   def contents
@@ -43,49 +45,51 @@ class SearchController < PublicController
   end
 
   def people
-    if !@empty_query
-      full_text_search ['public:true']
+    if @search_engine && !@empty_query
+      full_text_search
     else
       @results[@asset] = visible_profiles(Person).send(@filter).paginate(paginate_options)
     end
+    render :template => 'search/search_page'
   end
 
   def products
-    public_filters = ['public:true', 'enabled:true']
-    if !@empty_query
-      full_text_search public_filters
+    if @search_engine && !@empty_query
+      full_text_search
     else
-      @one_page = true
       @geosearch = logged_in? && current_user.person.lat && current_user.person.lng
 
       extra_limit = LIST_SEARCH_LIMIT*5
       sql_options = {:limit => LIST_SEARCH_LIMIT, :order => 'random()'}
       if @geosearch
-        full_text_search public_filters, :sql_options => sql_options, :extra_limit => extra_limit,
+        full_text_search :sql_options => sql_options, :extra_limit => extra_limit,
           :alternate_query => "{!boost b=recip(geodist(),#{"%e" % (1.to_f/DistBoost)},1,1)}",
           :radius => DistFilt, :latitude => current_user.person.lat, :longitude => current_user.person.lng
       else
-        full_text_search public_filters, :sql_options => sql_options, :extra_limit => extra_limit,
+        full_text_search :sql_options => sql_options, :extra_limit => extra_limit,
           :boost_functions => ['recip(ms(NOW/HOUR,updated_at),1.3e-10,1,1)']
       end
     end
+    render :template => 'search/search_page'
   end
 
   def enterprises
-    if !@empty_query
-      full_text_search ['public:true']
+    if @search_engine && !@empty_query
+      full_text_search
     else
       @filter_title = _('Enterprises from network')
       @results[@asset] = visible_profiles(Enterprise, [{:products => :product_category}]).paginate(paginate_options)
     end
+    render :template => 'search/search_page'
   end
 
   def communities
-    if !@empty_query
-      full_text_search ['public:true']
+    if @search_engine && !@empty_query
+      full_text_search
     else
       @results[@asset] = visible_profiles(Community).send(@filter).paginate(paginate_options)
     end
+    render :template => 'search/search_page'
   end
 
   def events
@@ -104,7 +108,7 @@ class SearchController < PublicController
         environment.events.by_day(@selected_day)
     end
 
-    if !@empty_query
+    if @search_engine && !@empty_query
       full_text_search
     else
       @results[@asset] = date_range ? environment.events.by_range(date_range) : environment.events
@@ -189,6 +193,7 @@ class SearchController < PublicController
   def load_query
     @asset = params[:action].to_sym
     @order ||= [@asset]
+    params[:display] ||= 'list'
     @results ||= {}
     @filter = filter
     @filter_title = filter_description(@asset, @filter)
@@ -209,6 +214,10 @@ class SearchController < PublicController
         @category_id = @category.id
       end
     end
+  end
+
+  def load_search_engine
+    @search_engine = @plugins.first_plugin(:search_engine?)
   end
 
   FILTERS = %w(
@@ -260,9 +269,7 @@ class SearchController < PublicController
     if map_search?
       MAP_SEARCH_LIMIT
     elsif !multiple_search?
-      if [:people, :communities].include? @asset
-        BLOCKS_SEARCH_LIMIT
-      elsif @asset == :enterprises and @empty_query
+      if [:people, :communities, :enterprises].include? @asset
         BLOCKS_SEARCH_LIMIT
       else
         LIST_SEARCH_LIMIT
@@ -273,41 +280,12 @@ class SearchController < PublicController
   end
 
   def paginate_options(page = params[:page])
-    page = 1 if multiple_search? or params[:display] == 'map'
+    page = 1 if multiple_search? or @display == 'map'
     { :per_page => limit, :page => page }
   end
 
-  def full_text_search(filters = [], options = {})
-    paginate_options = paginate_options(params[:page])
-    asset_class = asset_class(@asset)
-    solr_options = options
-    pg_options = paginate_options(params[:page])
-
-    if !multiple_search?
-      if !@results_only and asset_class.respond_to? :facets
-        solr_options.merge! asset_class.facets_find_options(params[:facet])
-        solr_options[:all_facets] = true
-      end
-      solr_options[:filter_queries] ||= []
-      solr_options[:filter_queries] += filters
-      solr_options[:filter_queries] << "environment_id:#{environment.id}"
-      solr_options[:filter_queries] << asset_class.facet_category_query.call(@category) if @category
-
-      solr_options[:boost_functions] ||= []
-      params[:order_by] = nil if params[:order_by] == 'none'
-      if params[:order_by]
-        order = SortOptions[@asset][params[:order_by].to_sym]
-        raise "Unknown order by" if order.nil?
-        order[:solr_opts].each do |opt, value|
-          solr_options[opt] = value.is_a?(Proc) ? instance_eval(&value) : value
-        end
-      end
-    end
-
-    ret = asset_class.find_by_contents(@query, paginate_options, solr_options)
-    @results[@asset] = ret[:results]
-    @facets = ret[:facets]
-    @all_facets = ret[:all_facets]
+  def full_text_search(options = {})
+    @results[@asset] = @plugins.first(:full_text_search, @asset, @query, @category, paginate_options(params[:page]))
   end
 
   private

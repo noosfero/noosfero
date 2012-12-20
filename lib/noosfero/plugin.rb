@@ -351,6 +351,17 @@ class Noosfero::Plugin
     nil
   end
 
+  # -> Specifies plugin that works as a search engine
+  # returns = true/false
+  def search_engine?
+    false
+  end
+
+  # -> Realizes a full text search
+  # returns = whatever the plugin needs to render the view
+  def full_text_search(asset, query, category, paginate_options)
+  end
+
   def method_missing(method, *args, &block)
     # This is a generic hotspot for all controllers on Noosfero.
     # If any plugin wants to define filters to run on any controller, the name of
