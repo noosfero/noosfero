@@ -678,12 +678,18 @@ li.search-product-item hr {
 }
 
 #public-profile-search .formfield {
-  float: left;
-  width: 80%;
+  width: 85%;
 }
+
+#public-profile-search .formfield,
 #public-profile-search .submit {
-  float: right;
+  display: inline-block;
 }
+
+#public-profile-search .submit {
+  margin-bottom: 3px;
+}
+
 #public-profile-search .search-field div {
   clear: both;
 }
