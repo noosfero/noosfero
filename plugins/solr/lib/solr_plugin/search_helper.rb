@@ -1,5 +1,9 @@
 class SolrPlugin < Noosfero::Plugin
 
+  LIST_SEARCH_LIMIT = 20
+  DistFilt = 200
+  DistBoost = 50
+
   SortOptions = {
     :products => ActiveSupport::OrderedHash[ :none, {:label => _('Relevance')},
       :more_recent, {:label => _('More recent'), :solr_opts => {:sort => 'updated_at desc, score desc'}},
@@ -54,6 +58,10 @@ class SolrPlugin < Noosfero::Plugin
       context.params[:action] == 'index'
     end
 
+    def empty_query?(query, category)
+      category.nil? && query.blank?
+    end
+
     def solr_options(asset, category)
       asset_class = asset_class(asset)
       solr_options = {}
@@ -78,6 +86,21 @@ class SolrPlugin < Noosfero::Plugin
         end
       end
       solr_options
+    end
+
+    def products_options(person)
+      geosearch = person && person.lat && person.lng
+
+      extra_limit = LIST_SEARCH_LIMIT*5
+      sql_options = {:limit => LIST_SEARCH_LIMIT, :order => 'random()'}
+      if geosearch
+        {:sql_options => sql_options, :extra_limit => extra_limit,
+          :alternate_query => "{!boost b=recip(geodist(),#{"%e" % (1.to_f/DistBoost)},1,1)}",
+          :radius => DistFilt, :latitude => person.lat, :longitude => person.lng}
+      else
+        { :sql_options => sql_options, :extra_limit => extra_limit,
+          :boost_functions => ['recip(ms(NOW/HOUR,updated_at),1.3e-10,1,1)']}
+      end
     end
   end
 end

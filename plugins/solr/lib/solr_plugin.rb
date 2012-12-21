@@ -19,6 +19,7 @@ class SolrPlugin < Noosfero::Plugin
   def full_text_search(asset, query, category, paginate_options)
     asset_class = asset_class(asset)
     solr_options = solr_options(asset, category)
+    solr_options.merge!(products_options(context.send(:user))) if asset == :products && empty_query?(query, category)
     asset_class.find_by_contents(query, paginate_options, solr_options)
   end
 

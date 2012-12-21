@@ -2,12 +2,6 @@ require 'hpricot'
 
 class Article < ActiveRecord::Base
 
-  # use for internationalizable human type names in search facets
-  # reimplement on subclasses
-  def self.type_name
-    _('Content')
-  end
-
   track_actions :create_article, :after_create, :keep_params => [:name, :url, :lead, :first_image], :if => Proc.new { |a| a.is_trackable? && !a.image? }
 
   # xss_terminate plugin can't sanitize array fields

@@ -1,8 +1,0 @@
-<% results = @asset_class.map_facet_results(@facet, params[:facet], @facets, @all_facets) %>
-
-<% array = [] %>
-<% @asset_class.facet_result_sort(@facet, results, :alphabetically).each do |id, label, count| %>
-  <% array << {:id => id, :name => facet_link_html(@facet, params.merge(:controller => 'search', :action => @asset), id, label, count)} %>
-<% end %>
-
-<%= facet_javascript('facet-input-'+@facet[:id].to_s, @facet, array) %>

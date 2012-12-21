@@ -3,12 +3,6 @@
 # which by default is the one returned by Environment:default.
 class Profile < ActiveRecord::Base
 
-  # use for internationalizable human type names in search facets
-  # reimplement on subclasses
-  def self.type_name
-    _('Profile')
-  end
-
   module Roles
     def self.admin(env_id)
       find_role('admin', env_id)

@@ -109,5 +109,14 @@ class SolrPlugin < Noosfero::Plugin
           (count > 0 ? content_tag('span', " (#{count})", :class => 'facet-result-count') : ''),
         :class => 'facet-menu-item' + (selected ? ' facet-result-link-selected' : '')
     end
+
+    def facet_javascript(input_id, facet, array)
+      array = [] if array.nil?
+      hintText = _('Type in an option')
+      text_field_tag('facet['+input_id+']', '', :id => input_id) +
+        javascript_tag("jQuery.TokenList(jQuery('##{input_id}'), #{array.to_json},
+          {searchDelay: 0, permanentDropdown: true, theme: 'facet', dontAdd: true, preventDuplicates: true,
+          #{jquery_token_input_messages_json(hintText)}});")
+    end
   end
 end

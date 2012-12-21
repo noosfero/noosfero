@@ -4,7 +4,7 @@ class SearchController < PublicController
   include SearchHelper
   include ActionView::Helpers::NumberHelper
 
-  before_filter :redirect_asset_param, :except => [:facets_browse, :assets]
+  before_filter :redirect_asset_param, :except => :assets
   before_filter :load_category
   before_filter :load_search_assets
   before_filter :load_query
@@ -17,19 +17,6 @@ class SearchController < PublicController
   end
 
   no_design_blocks
-
-  def facets_browse
-    @asset = params[:asset].to_sym
-    @asset_class = asset_class(@asset)
-
-    @facets_only = true
-    send(@asset)
-
-    @facet = @asset_class.map_facets_for(environment).find { |facet| facet[:id] == params[:facet_id] }
-    raise 'Facet not found' if @facet.nil?
-
-    render :layout => false
-  end
 
   def articles
     if @search_engine && !@empty_query
@@ -54,21 +41,10 @@ class SearchController < PublicController
   end
 
   def products
-    if @search_engine && !@empty_query
+    if @search_engine
       full_text_search
     else
-      @geosearch = logged_in? && current_user.person.lat && current_user.person.lng
-
-      extra_limit = LIST_SEARCH_LIMIT*5
-      sql_options = {:limit => LIST_SEARCH_LIMIT, :order => 'random()'}
-      if @geosearch
-        full_text_search :sql_options => sql_options, :extra_limit => extra_limit,
-          :alternate_query => "{!boost b=recip(geodist(),#{"%e" % (1.to_f/DistBoost)},1,1)}",
-          :radius => DistFilt, :latitude => current_user.person.lat, :longitude => current_user.person.lng
-      else
-        full_text_search :sql_options => sql_options, :extra_limit => extra_limit,
-          :boost_functions => ['recip(ms(NOW/HOUR,updated_at),1.3e-10,1,1)']
-      end
+      @results[@asset] = @environment.products.send(@filter).paginate(paginate_options)
     end
     render :template => 'search/search_page'
   end
@@ -120,50 +96,10 @@ class SearchController < PublicController
     @next_calendar = populate_calendar(date + 1.month, events)
   end
 
-  def index
-    @results = {}
-    @order = []
-    @names = {}
-    @results_only = true
-
-    @enabled_searches.select { |key,description| @searching[key] }.each do |key, description|
-      load_query
-      @asset = key
-      send(key)
-      @order << key
-      @names[key] = getterm(description)
-    end
-    @asset = nil
-    @facets = {}
-
-    render :action => @results.keys.first if @results.keys.size == 1
-  end
-
   # keep old URLs workings
   def assets
     params[:action] = params[:asset].is_a?(Array) ? :index : params.delete(:asset)
     redirect_to params
-  end
-
-  # view the summary of one category
-  def category_index
-    @results = {}
-    @order = []
-    @names = {}
-    limit = MULTIPLE_SEARCH_LIMIT
-    [
-      [ :people, _('People'), :recent_people ],
-      [ :enterprises, _('Enterprises'), :recent_enterprises ],
-      [ :products, _('Products'), :recent_products ],
-      [ :events, _('Upcoming events'), :upcoming_events ],
-      [ :communities, _('Communities'), :recent_communities ],
-      [ :articles, _('Contents'), :recent_articles ]
-    ].each do |asset, name, filter|
-      @order << asset
-      @results[asset] = @category.send(filter, limit)
-      raise "No total_entries for: #{asset}" unless @results[asset].respond_to?(:total_entries)
-      @names[asset] = name
-    end
   end
 
   def tags
@@ -260,7 +196,7 @@ class SearchController < PublicController
     @titles = {}
     @enabled_searches.each do |key, name|
       @titles[key] = _(name)
-      @searching[key] = params[:action] == 'index' || params[:action] == key.to_s
+      @searching[key] = params[:action] == key.to_s
     end
     @names = @titles if @names.nil?
   end

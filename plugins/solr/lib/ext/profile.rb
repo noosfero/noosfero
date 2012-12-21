@@ -1,6 +1,13 @@
 require_dependency 'profile'
 
 class Profile
+
+  # use for internationalizable human type names in search facets
+  # reimplement on subclasses
+  def self.type_name
+    _('Profile')
+  end
+
   after_save_reindex [:articles], :with => :delayed_job
 
   acts_as_faceted :fields => {
@@ -57,7 +64,7 @@ class Profile
   private
 
   def self.solr_plugin_f_categories_label_proc(environment)
-    ids = environment.top_level_category_as_facet_ids
+    ids = environment.solr_plugin_top_level_category_as_facet_ids
     r = Category.find(ids)
     map = {}
     ids.map{ |id| map[id.to_s] = r.detect{|c| c.id == id}.name }

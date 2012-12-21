@@ -2,6 +2,12 @@ require_dependency 'article'
 
 class Article
 
+  # use for internationalizable human type names in search facets
+  # reimplement on subclasses
+  def self.type_name
+    _('Content')
+  end
+
   acts_as_faceted :fields => {
       :solr_plugin_f_type => {:label => _('Type'), :proc => proc{|klass| solr_plugin_f_type_proc(klass)}},
       :solr_plugin_f_published_at => {:type => :date, :label => _('Published date'), :queries => {'[* TO NOW-1YEARS/DAY]' => _("Older than one year"),

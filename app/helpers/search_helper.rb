@@ -4,8 +4,6 @@ module SearchHelper
   LIST_SEARCH_LIMIT = 20
   BLOCKS_SEARCH_LIMIT = 24
   MULTIPLE_SEARCH_LIMIT = 8
-  DistFilt = 200
-  DistBoost = 50
 
   Searches = ActiveSupport::OrderedHash[
     :articles, _('Contents'),
@@ -16,37 +14,11 @@ module SearchHelper
     :events, _('Events'),
   ]
 
-  SortOptions = {
-    :products => ActiveSupport::OrderedHash[ :none, {:label => _('Relevance')},
-      :more_recent, {:label => _('More recent'), :solr_opts => {:sort => 'updated_at desc, score desc'}},
-      :name, {:label => _('Name'), :solr_opts => {:sort => 'solr_plugin_name_sortable asc'}},
-      :closest, {:label => _('Closest to me'), :if => proc{ logged_in? && (profile=current_user.person).lat && profile.lng },
-        :solr_opts => {:sort => "geodist() asc",
-          :latitude => proc{ current_user.person.lat }, :longitude => proc{ current_user.person.lng }}},
-    ],
-    :events => ActiveSupport::OrderedHash[ :none, {:label => _('Relevance')},
-      :name, {:label => _('Name'), :solr_opts => {:sort => 'solr_plugin_name_sortable asc'}},
-    ],
-    :articles => ActiveSupport::OrderedHash[ :none, {:label => _('Relevance')},
-      :name, {:label => _('Name'), :solr_opts => {:sort => 'solr_plugin_name_sortable asc'}},
-      :more_recent, {:label => _('More recent'), :solr_opts => {:sort => 'updated_at desc, score desc'}},
-    ],
-    :enterprises => ActiveSupport::OrderedHash[ :none, {:label => _('Relevance')},
-      :name, {:label => _('Name'), :solr_opts => {:sort => 'solr_plugin_name_sortable asc'}},
-    ],
-    :people => ActiveSupport::OrderedHash[ :none, {:label => _('Relevance')},
-      :name, {:label => _('Name'), :solr_opts => {:sort => 'solr_plugin_name_sortable asc'}},
-    ],
-    :communities => ActiveSupport::OrderedHash[ :none, {:label => _('Relevance')},
-      :name, {:label => _('Name'), :solr_opts => {:sort => 'solr_plugin_name_sortable asc'}},
-    ],
-  }
-
   # FIXME remove it after search_controler refactored
   include EventsHelper
 
   def multiple_search?
-    ['index', 'category_index'].include?(params[:action]) or @results.size > 1
+    @results.size > 1
   end
 
   def map_search?
@@ -93,23 +65,6 @@ module SearchHelper
     else
       nil
     end
-  end
-
-  def facet_javascript(input_id, facet, array)
-    array = [] if array.nil?
-    hintText = _('Type in an option')
-    text_field_tag('facet['+input_id+']', '', :id => input_id) +
-      javascript_tag("jQuery.TokenList(jQuery('##{input_id}'), #{array.to_json},
-        {searchDelay: 0, permanentDropdown: true, theme: 'facet', dontAdd: true, preventDuplicates: true,
-        #{jquery_token_input_messages_json(hintText)}});")
-  end
-
-  def asset_class(asset)
-    asset.to_s.singularize.camelize.constantize
-  end
-
-  def asset_table(asset)
-    asset_class(asset).table_name
   end
 
   def display_filter(asset, display, float = 'right')
