@@ -1,0 +1,19 @@
+#spaminator-report-table {
+  text-align: center;
+  float: right;
+  width: 50%;
+}
+
+.action-spaminator_plugin_admin-reports #spaminator-report-table {
+  width: 100%;
+}
+
+#spaminator-config-fields {
+  float: left;
+  width: 50%;
+}
+
+#spaminator-reports-see-all {
+  border-bottom: none;
+  background-color: #f0f0f0;
+}

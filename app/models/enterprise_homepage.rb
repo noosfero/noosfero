@@ -5,7 +5,7 @@ class EnterpriseHomepage < Article
   end
 
   def self.short_description
-    __('Enterprise homepage.')
+    __('Enterprise homepage')
   end
 
   def self.description

@@ -112,7 +112,7 @@ function showModuleResult(content){
 function callAction(action, params, callback){
   var profile = projectContentData('profile');
   var content = projectContentData('content');
-  var endpoint = '/profile/' + profile + '/plugins/mezuro/' + action + '/' + content;
+  var endpoint = '/profile/' + profile + '/plugin/mezuro/' + action + '/' + content;
   jQuery.get(endpoint, params, callback);
 }
 

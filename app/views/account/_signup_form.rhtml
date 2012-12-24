@@ -1,4 +1,6 @@
-<%= error_messages_for :user, :person %>
+<% @profile_data = @person %>
+
+<%= error_messages_for :user, :person, :header_message => _('The account could not be created') %>
 
 <% labelled_form_for :user, @user, :html => { :multipart => true, :id => 'signup-form' } do |f| %>
 
@@ -6,14 +8,17 @@
 
 <div id='signup-form-header'>
 
-  <span id="signup-domain"><%= environment.default_hostname %>/</span>
-  <div id='signup-login'>
-    <div id='signup-login-field'>
-      <%= required f.text_field(:login, :onchange => 'this.value = convToValidLogin(this.value);', :rel => s_('signup|Login')) %>
-      <div id='url-check'><p>&nbsp;</p></div>
+  <div id='signup-formfield-group'>
+    <%= label(:user, :login, _('Username'), {:class => 'formlabel'}) %>
+    <span id="signup-domain"><%= environment.default_hostname %>/</span>
+    <div id='signup-login'>
+      <div id='signup-login-field' class='formfield'>
+        <%= required text_field(:user, :login, :id => 'user_login', :onchange => 'this.value = convToValidLogin(this.value);') %>
+        <div id='url-check'><p>&nbsp;</p></div>
+      </div>
+      <%= content_tag(:small, _('Choose your login name carefully! It will be your network access and you will not be able to change it later.'), :id => 'signup-balloon') %>
+      <br style="clear: both;" />
     </div>
-    <%= content_tag(:small, _('Choose your login name carefully! It will be your network access and you will not be able to change it later.'), :id => 'signup-balloon') %>
-    <br style="clear: both;" />
   </div>
   <%= observe_field 'user_login',
         :url => { :action => 'check_url' },
@@ -26,20 +31,19 @@
 
   <div id='signup-password'>
     <%= required f.password_field(:password, :id => 'user_pw') %>
-    <%= f.text_field(:password_clear, :value => _('password')) %>
     <%= content_tag(:small,_('Choose a password that you can remember easily. It must have at least 4 characters.'), :id => 'password-balloon') %>
     <div id='fake-check'><p>&nbsp;</p></div>
   </div>
 
   <div id='signup-password-confirmation'>
     <%= required f.password_field(:password_confirmation) %>
-    <%= f.text_field(:password_confirmation_clear, :value => _('password confirmation')) %>
+    <%= content_tag(:small,_('We need to be sure that you filled in your password correctly. Confirm you password.'), :id => 'password-confirmation-balloon') %>
     <div id='password-check'><p>&nbsp;</p></div>
   </div>
 
   <div id='signup-email'>
-    <%= required f.text_field(:email, :rel => _('e-Mail')) %>
-    <%= content_tag(:small,_('This e-mail address will be used to contact you.')) %>
+    <%= required f.text_field(:email) %>
+    <%= content_tag(:small,_('This e-mail address will be used to contact you.'), :id => 'email-balloon') %>
     <div id='email-check'><p>&nbsp;</p></div>
   </div>
   <%= observe_field "user_email",
@@ -62,20 +66,22 @@
                       }"
   %>
 
-  <%= label :profile_data, :name %>
-  <%= required text_field(:profile_data, :name, :rel => _('Full name')) %>
+  <div id='signup-name'>
+    <%= labelled_form_field(_('Full name'), text_field(:profile_data, :name)) %>
+    <%= content_tag(:small,_('Tell us your name, it will be used to identify yourself.'), :id => 'name-balloon') %>
+  </div>
 
 </div>
 
 <div id="signup-form-profile">
-
-  <%= template_options(Person, 'profile_data') %>
 
   <% labelled_fields_for :profile_data, @person do |f| %>
     <%= render :partial => 'profile_editor/person_form', :locals => {:f => f} %>
   <% end %>
 
   <%= @plugins.dispatch(:signup_extra_contents).collect { |content| instance_eval(&content) }.join("") %>
+
+  <%= template_options(Person, 'profile_data') %>
 
   <% unless @terms_of_use.blank? %>
     <div id='terms-of-use-box' class='formfieldline'>
@@ -99,70 +105,59 @@
 
 <script type="text/javascript">
 jQuery(function($) {
+
+  $('#signup-form #user_login').css('width', 335 - $('#signup-domain').outerWidth());
+
   $('#signup-form input[type=text], #signup-form textarea').each(function() {
-    if ($(this).attr('rel')) var default_value = $(this).attr('rel').toLowerCase();
-    if ($(this).val() == '') $(this).val(default_value);
-    $(this).bind('focus', function() {
-      if ($(this).val() == default_value) $(this).val('');
-    });
     $(this).bind('blur', function() {
       if ($(this).val() == '') {
-        $(this).val(default_value);
         $(this).removeClass('filled-in');
       }
       else $(this).addClass('filled-in');
     });
   });
 
-  $('#signup-form').bind('submit', function() {
-    $('#signup-form input[type=text], #signup-form textarea').each(function() {
-      if ($(this).attr('rel')) var default_value = $(this).attr('rel').toLowerCase();
-      if ($(this).val() == default_value) $(this).val('');
-    });
-    return true;
-  });
-
-  $('#user_password_clear, #user_password_confirmation_clear').show();
-  $('#user_password_clear, #user_password_confirmation_clear').unbind();
-  $('#user_pw, #user_password_confirmation').hide();
-  $('#user_password_clear').focus(function() {
-    $(this).hide();
-    $('#user_pw').show();
-    $('#user_pw').focus();
-  });
   $('#user_pw').focus(function() {
     $('#password-balloon').fadeIn('slow');
   });
-  $('#user_pw').blur(function() {
-    if ($(this).val() == '') {
-      $('#user_password_clear').show();
-      $(this).hide();
-    }
-  });
-  $('#user_password_confirmation_clear').focus(function() {
-    $(this).hide();
-    $('#user_password_confirmation').show();
-    $('#user_password_confirmation').focus();
+  $('#user_password_confirmation').focus(function() {
+    $('#password-confirmation-balloon').fadeIn('slow');
   });
   $('#user_password_confirmation, #user_pw').blur(function() {
-    if ($('#user_password_confirmation').val() == '') {
-      $('#user_password_confirmation_clear').show();
-      $('#user_password_confirmation').hide();
-    } else if ($('#user_password_confirmation').val() == $('#user_pw').val()) {
-      $('#user_password_confirmation').addClass('validated').removeClass('invalid');
-      $('#user_pw').removeClass('invalid_input').addClass('valid_input');
-      $('#password-check').html("<p>&nbsp;</p>");
-    } else if ($('#user_password_confirmation').val() != $('#user_pw').val()) {
-      $('#user_password_confirmation').removeClass('validated').addClass('invalid');
-      $('#user_pw').addClass('invalid_input').removeClass('valid_input');
-      $('#password-check').html("<p><span class='invalid'><%= _('Passwords don\'t match') %></span></p>");
+    if ($('#user_password_confirmation').val() != '') {
+      if ($('#user_password_confirmation').val() == $('#user_pw').val()) {
+        $('#user_password_confirmation').addClass('validated').removeClass('invalid');
+        $('#user_pw').removeClass('invalid_input').addClass('valid_input');
+        $('#password-check').html("<p>&nbsp;</p>");
+      } else if ($('#user_password_confirmation').val() != $('#user_pw').val()) {
+        $('#user_password_confirmation').removeClass('validated').addClass('invalid');
+        $('#user_pw').addClass('invalid_input').removeClass('valid_input');
+        $('#password-check').html("<p><span class='invalid'><%= _('Passwords don\'t match') %></span></p>");
+      }
     }
     $('#password-balloon').fadeOut('slow');
+    $('#password-confirmation-balloon').fadeOut('slow');
   });
   $('#user_login').focus(function() {
     $('#signup-balloon').fadeIn('slow');
   });
   $('#user_login').blur(function() { $('#signup-balloon').fadeOut('slow'); });
   $('#signup-form').validate({ rules: { 'user[email]': { email: true } }, messages: { 'user[email]' : '' } });
+  $('#user_email').focus(function() {
+    $('#email-balloon').fadeIn('slow');
+  });
+  $('#user_email').blur(function() {
+    $('#email-balloon').fadeOut('slow');
+  });
+  $('#profile_data_name').focus(function() {
+    $('#name-balloon').fadeIn('slow');
+  });
+  $('#profile_data_name').blur(function() {
+    $('#name-balloon').fadeOut('slow');
+    if ($(this).val() == '') {
+      $(this).removeClass('validated');
+    }
+    else $(this).addClass('validated');
+  });
 });
 </script>

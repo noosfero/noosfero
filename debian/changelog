@@ -1,8 +1,20 @@
+noosfero (0.39.0) unstable; urgency=low
+
+  * Features version release
+
+ -- Daniela Soares Feitosa <daniela@colivre.coop.br>  Fri, 07 Dec 2012 09:53:42 -0200
+
 noosfero (0.39.0~1) UNRELEASED; urgency=low
 
   * Pre-release to test the antispam mechanism.
 
  -- Antonio Terceiro <terceiro@debian.org>  Thu, 30 Aug 2012 14:55:10 -0300
+
+noosfero (0.38.3) unstable; urgency=low
+
+  * Bugfixes release
+
+ -- Daniela Soares Feitosa <daniela@colivre.coop.br>  Wed, 07 Nov 2012 20:25:51 -0200
 
 noosfero (0.38.2) unstable; urgency=low
 

@@ -5,23 +5,53 @@ recommended. See http://www.varnish-cache.org/ for more information on Varnish.
 
 Varnish can be set up to use with Noosfero with the following steps:
 
-1) setup Noosfero with apache according to the INSTALL file.
+1) setup Noosfero with apache according to the INSTALL file. If you used the
+Debian package to install noosfero, you don't need to do anything about this.
 
 2) install Varnish
 
   # apt-get install varnish
 
-Noosfero was tested with Varnish 2.x. If you are using a Debian Lenny (and you
-should, unless Debian already released Squeeze by now), make sure you install
-varnish from the lenny-backports suite.
-
 Install the RPAF apache module (or skip this step if not using apache):
 
   # apt-get install libapache2-mod-rpaf
 
-3) Enable varnish logging:
+3) Change Apache to listen on port 8080 instead of 80
 
-3a) Edit /etc/default/varnishncsa and uncomment the line that contains:
+3a) Edit /etc/apache2/ports.conf, and:
+
+  * change 'NameVirtualHost *:80' to 'NameVirtualHost *:8080'
+  * change 'Listen 80' to 'Listen 127.0.0.1:8080'
+
+3b) Edit /etc/apache2/sites-enabled/*, and change '<VirtualHost *:80>' to
+'<VirtualHost *:8080>'
+
+3c) Restart apache
+
+  # invoke-rc.d apache2 restart
+
+4) Varnish configuration
+
+4a) Edit /etc/default/varnish
+
+   * change the line that says "START=no" to say "START=yes"
+   * change '-a :6081' to '-a :80'
+
+4b) Edit /etc/varnish/default.vcl and add the following lines at the end:
+
+  include "/etc/noosfero/varnish-noosfero.vcl";
+  include "/etc/noosfero/varnish-accept-language.vcl";
+
+On manual installations, change "/etc/noosfero/*" to
+"{Rails.root}/etc/noosfero/*"
+
+4c) Restart Varnish
+
+  # invoke-rc.d varnish restart
+
+5) Enable varnish logging:
+
+5a) Edit /etc/default/varnishncsa and uncomment the line that contains:
 
 VARNISHNCSA_ENABLED=1
 
@@ -29,51 +59,9 @@ The varnish log will be written to /var/log/varnish/varnishncsa.log in an
 apache-compatible format. You should change your statistics generation software
 (e.g. awstats) to use that instead of apache logs.
 
-3b) Restart Varnish Logging service
+5b) Restart Varnish Logging service
 
-  # invoke-rc.d varnishncsa start
-
-4) Change Apache to listen on port 8080 instead of 80
-
-4a) Edit /etc/apache2/ports.conf, and:
-
-  * change 'Listen 80' to 'Listen 127.0.0.1:8080'
-  * change 'NameVirtualHost *:80' to 'NameVirtualHost *:8080'
-
-4b) Edit /etc/apache2/sites-enabled/*, and change '<VirtualHost *:80>' to '<VirtualHost *:8080>'
-
-4c) Restart apache
-
-  # invoke-rc.d apache2 restart
-
-5) Change Varnish to listen on port 80
-
-5a) Edit /etc/default/varnish and change '-a :6081' to '-a :80'
-
-5b) Restart Varnish
-
-  # invoke-rc.d varnish restart
-
-6) Configure varnish to fit noosfero
-(assuming Noosfero is installed in /var/lib/noosfero)
-
-6a) Configure noosfero to do specific routines to varnish
-
-Add the following line to your /etc/varnish/default.vcl file:
-
-  include "/var/lib/noosfero/etc/noosfero/varnish-noosfero.vcl";
-
-6b) Configure varnish to store separate caches for each language
-
-Add the following line to your /etc/varnish/default.vcl file:
-
-  include "/var/lib/noosfero/etc/noosfero/varnish-accept-language.vcl";
-
-7) Restart Varnish
-
-  # invoke-rc.d varnish restart
+  # invoke-rc.d varnishncsa restart
 
 Thanks to Cosimo Streppone for varnish-accept-language. See
 http://github.com/cosimo/varnish-accept-language for more information.
-
- -- Antonio Terceiro <terceiro@colivre.coop.br>  Sat, 04 Sep 2010 17:29:27 -0300

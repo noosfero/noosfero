@@ -1,0 +1,34 @@
+<h1><%= _('Spaminator reports')%></h1>
+
+<table id="spaminator-report-table">
+  <tr>
+    <th rowspan='2'><%= _('Date') %></th>
+    <th colspan='3'><%= _('Spams on comments') %></th>
+    <th colspan='3'><%= _('Spammers')%></th>
+  </tr>
+  <tr>
+    <th><%= _('On content') %></th>
+    <th><%= _('From spammers') %></th>
+    <th><%= _('Total') %></th>
+    <th><%= _('With spam comments')%></th>
+    <th><%= _('With no network')%></th>
+    <th><%= _('Total')%></th>
+  </tr>
+  <% @reports.each do |report| %>
+    <tr>
+      <td><%= report.created_at.strftime("%Y-%m-%d") %></td>
+      <td title='<%= _('Content of comments checked as spam / number of comments verified') %>'><%= "#{report.spams_by_content} / #{report.processed_comments}" %></td>
+      <td title='<%= _('Comments from spammers / number of comments verified') %>'><%= "#{report.spams_by_no_network} / #{report.processed_comments}" %></td>
+      <td title='<%= _('Spam comments / total number of comments') %>'><%= "#{report.spams} / #{report.total_comments}" %></td>
+      <td title='<%= _('People with more than 2 spam comments / number of people verified') %>'><%= "#{report.spammers_by_comments} / #{report.processed_people}" %></td>
+      <td title='<%= _('People who signed up more than one month ago, have no network / number of comments verified') %>'><%= "#{report.spammers_by_no_network} / #{report.processed_people}" %></td>
+      <td title='<%= _('Spammers / total number of people') %>'><%= "#{report.spammers} / #{report.total_people}" %></td>
+    </tr>
+  <% end %>
+</table>
+
+<br style='clear: both'/>
+
+<% button_bar do %>
+  <%= button(:back, _('Back'), :action => 'index') %>
+<% end %>
