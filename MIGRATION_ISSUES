@@ -14,8 +14,16 @@
 
 * On Rails 3 it is no more possible to add allowed tags to avoid scape. The html_safe initializer is an option.
 
-* controller_paths are no more supported on Rails 3
-
 * error when call sqlite_extensiosn
 
 * error related to action_tracker
+
+* check FIXME's in script/quick-start
+
+* check FIXME's in Gemfile
+
+* rewrite config/routes.rb
+
+* rewrite conditional routing. See FIXME in lib/route_if.rb and re-implement using the Rails 3 mechanism - http://guides.rubyonrails.org/routing.html#advanced-constraints
+
+* check FIXME's in config/environment.rb
