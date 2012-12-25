@@ -13,9 +13,7 @@ Build-Depends:
  openjdk-6-jre,
  ruby-will-paginate,
  tango-icon-theme,
- rcov,
- libxml2-dev,
- libxslt1-dev
+ rcov
 Standards-Version: 3.8.4
 Homepage: http://noosfero.org/
 Vcs-Git: git://git.colivre.coop.br/noosfero.git
