@@ -81,7 +81,7 @@ run rake db:schema:load
 run rake db:data:minimal
 run rake db:test:prepare
 
-# compile translations depends on ruby-gettext-rails, please see debian/control
+# FIXME compile translations depends on ruby-gettext-rails, please see debian/control
 # run rake noosfero:translations:compile
 
 # create needed directory
