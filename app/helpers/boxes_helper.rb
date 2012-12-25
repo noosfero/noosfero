@@ -1,12 +1,12 @@
 module BoxesHelper
 
   def insert_boxes(content)
-    if @controller.send(:boxes_editor?) && @controller.send(:uses_design_blocks?)
-      content + display_boxes_editor(@controller.boxes_holder)
+    if controller.send(:boxes_editor?) && @controller.send(:uses_design_blocks?)
+      content + display_boxes_editor(controller.boxes_holder)
     else
-      maybe_display_custom_element(@controller.boxes_holder, :custom_header_expanded, :id => 'profile-header') +
-      if @controller.send(:uses_design_blocks?)
-        display_boxes(@controller.boxes_holder, content)
+      maybe_display_custom_element(controller.boxes_holder, :custom_header_expanded, :id => 'profile-header') +
+      if controller.send(:uses_design_blocks?)
+        display_boxes(controller.boxes_holder, content)
       else
         content_tag('div',
           content_tag('div',
@@ -16,7 +16,7 @@ module BoxesHelper
           :class => 'no-boxes'
         )
       end +
-      maybe_display_custom_element(@controller.boxes_holder, :custom_footer_expanded, :id => 'profile-footer')
+      maybe_display_custom_element(controller.boxes_holder, :custom_footer_expanded, :id => 'profile-footer')
     end
   end
 
@@ -99,7 +99,7 @@ module BoxesHelper
     unless block.visible?
       options[:title] = _("This block is invisible. Your visitors will not see it.")
     end
-    @controller.send(:content_editor?) || @plugins.each do |plugin|
+    controller.send(:content_editor?) || @plugins.each do |plugin|
       result = plugin.parse_content(result)
     end
     box_decorator.block_target(block.box, block) +
@@ -220,7 +220,7 @@ module BoxesHelper
   end
 
   def current_blocks
-    @controller.boxes_holder.boxes.map(&:blocks).inject([]){|ac, a| ac + a}
+    controller.boxes_holder.boxes.map(&:blocks).inject([]){|ac, a| ac + a}
   end
 
   # DEPRECATED. Do not use this.

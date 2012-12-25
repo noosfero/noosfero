@@ -163,7 +163,7 @@ module ApplicationHelper
   # should be a current profile (i.e. while viewing some profile's pages, or the
   # profile info, etc), because if there is no profile an exception is thrown.
   def profile
-    @controller.send(:profile)
+    controller.send(:profile)
   end
 
   def category_color
@@ -290,7 +290,7 @@ module ApplicationHelper
   def partial_for_class(klass, suffix=nil)
     raise ArgumentError, 'No partial for object. Is there a partial for any class in the inheritance hierarchy?' if klass.nil?
     name = klass.name.underscore
-    @controller.view_paths.each do |view_path|
+    controller.view_paths.each do |view_path|
       partial = partial_for_class_in_view_path(klass, view_path, suffix)
       return partial if partial
     end
@@ -310,7 +310,7 @@ module ApplicationHelper
   end
 
   def user
-    @controller.send(:user)
+    controller.send(:user)
   end
 
   # DEPRECATED. Do not use this.
@@ -433,7 +433,7 @@ module ApplicationHelper
   end
 
   def is_testing_theme
-    !@controller.session[:theme].nil?
+    !controller.session[:theme].nil?
   end
 
   def theme_owner
@@ -939,7 +939,7 @@ module ApplicationHelper
     (@topic ? @topic.title + ' - ' : '') +
     (@section ? @section.title + ' - ' : '') +
     (@toc ? _('Online Manual') + ' - ' : '') +
-    (@controller.controller_name == 'chat' ? _('Chat') + ' - ' : '') +
+    (controller.controller_name == 'chat' ? _('Chat') + ' - ' : '') +
     environment.name +
     (@category ? " - #{@category.full_name}" : '')
   end
@@ -963,7 +963,7 @@ module ApplicationHelper
 
   # DEPRECATED. Do not use this·
   def import_controller_stylesheets(options = {})
-    stylesheet_import( "controller_"+ @controller.controller_name(), options )
+    stylesheet_import( "controller_"+ controller.controller_name(), options )
   end
 
   def pngfix_stylesheet_path
@@ -1125,7 +1125,7 @@ module ApplicationHelper
   def render_environment_features(folder)
     result = ''
     environment.enabled_features.keys.each do |feature|
-      file = File.join(@controller.view_paths.last, 'shared', folder.to_s, "#{feature}.rhtml")
+      file = File.join(controller.view_paths.last, 'shared', folder.to_s, "#{feature}.rhtml")
       if File.exists?(file)
         result << render(:file => file, :use_full_path => false)
       end
