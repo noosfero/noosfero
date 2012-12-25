@@ -101,7 +101,7 @@ module ProfileEditorHelper
   end
 
   def country_helper
-    @country_helper ||= CountriesHelper.instance
+    @country_helper ||= CountriesHelper::Object.instance
   end
 
   def select_country(title, object, method, html_options = {}, options = {})

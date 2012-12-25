@@ -5,8 +5,8 @@ class ExternalFeed < ActiveRecord::Base
   validates_presence_of :address, :if => lambda {|efeed| efeed.enabled}
   validates_uniqueness_of :blog_id
 
-  named_scope :enabled, :conditions => { :enabled => true }
-  named_scope :expired, lambda {
+  scope :enabled, :conditions => { :enabled => true }
+  scope :expired, lambda {
     { :conditions => ['(fetched_at is NULL) OR (fetched_at < ?)', Time.now - FeedUpdater.update_interval] }
   }
 

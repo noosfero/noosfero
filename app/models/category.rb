@@ -9,7 +9,7 @@ class Category < ActiveRecord::Base
   validates_uniqueness_of :display_color, :scope => :environment_id, :if => (lambda { |cat| ! cat.display_color.nil? }), :message => N_('%{fn} was already assigned to another category.').fix_i18n
 
   # Finds all top level categories for a given environment. 
-  named_scope :top_level_for, lambda { |environment|
+  scope :top_level_for, lambda { |environment|
     {:conditions => ['parent_id is null and environment_id = ?', environment.id ]}
   }
 
@@ -31,7 +31,7 @@ class Category < ActiveRecord::Base
 
   acts_as_having_image
 
-  named_scope :from_types, lambda { |types|
+  scope :from_types, lambda { |types|
     types.select{ |t| t.blank? }.empty? ?
       { :conditions => { :type => types } } :
       { :conditions => [ "type IN (?) OR type IS NULL", types.reject{ |t| t.blank? } ] }

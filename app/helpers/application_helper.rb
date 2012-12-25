@@ -1,3 +1,5 @@
+# encoding: UTF-8
+
 require 'redcloth'
 
 # Methods added to this helper will be available to all templates in the
@@ -365,10 +367,10 @@ module ApplicationHelper
           # utility for developers: set the theme to 'random' in development mode and
           # you will get a different theme every request. This is interesting for
           # testing
-          if ENV['RAILS_ENV'] == 'development' && environment.theme == 'random'
+          if Rails.env == 'development' && environment.theme == 'random'
             @random_theme ||= Dir.glob('public/designs/themes/*').map { |f| File.basename(f) }.rand
             @random_theme
-          elsif ENV['RAILS_ENV'] == 'development' && params[:theme] && File.exists?(File.join(Rails.root, 'public/designs/themes', params[:theme]))
+          elsif Rails.env == 'development' && params[:theme] && File.exists?(File.join(Rails.root, 'public/designs/themes', params[:theme]))
             params[:theme]
           else
             if profile && !profile.theme.nil?

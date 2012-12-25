@@ -1,3 +1,5 @@
+require 'short_filename'
+
 module FolderHelper
 
   include ShortFilename

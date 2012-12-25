@@ -9,7 +9,7 @@ class Input < ActiveRecord::Base
 
   belongs_to :unit
 
-  named_scope :relevant_to_price, :conditions => { :relevant_to_price => true }
+  scope :relevant_to_price, :conditions => { :relevant_to_price => true }
 
   include FloatHelper
 

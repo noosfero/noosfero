@@ -67,11 +67,11 @@ class Article < ActiveRecord::Base
 
   xss_terminate :only => [ :name ], :on => 'validation', :with => 'white_list'
 
-  named_scope :in_category, lambda { |category|
+  scope :in_category, lambda { |category|
     {:include => 'categories_including_virtual', :conditions => { 'categories.id' => category.id }}
   }
 
-  named_scope :by_range, lambda { |range| {
+  scope :by_range, lambda { |range| {
     :conditions => [
       'published_at BETWEEN :start_date AND :end_date', { :start_date => range.first, :end_date => range.last }
     ]
@@ -187,16 +187,16 @@ class Article < ActiveRecord::Base
 
   # retrieves all articles belonging to the given +profile+ that are not
   # sub-articles of any other article.
-  named_scope :top_level_for, lambda { |profile|
+  scope :top_level_for, lambda { |profile|
     {:conditions => [ 'parent_id is null and profile_id = ?', profile.id ]}
   }
 
-  named_scope :join_profile, :joins => [:profile]
+  scope :join_profile, :joins => [:profile]
 
-  named_scope :public,
+  scope :public,
     :conditions => [ "advertise = ? AND published = ? AND profiles.visible = ? AND profiles.public_profile = ?", true, true, true, true ]
 
-  named_scope :more_recent,
+  scope :more_recent,
     :conditions => [ "advertise = ? AND published = ? AND profiles.visible = ? AND profiles.public_profile = ? AND
       ((articles.type != ?) OR articles.type is NULL)",
       true, true, true, true, 'RssFeed'
@@ -209,8 +209,8 @@ class Article < ActiveRecord::Base
     paginate(:order => 'comments_count DESC', :page => 1, :per_page => limit)
   end
 
-  named_scope :more_popular, :order => 'hits DESC'
-  named_scope :relevant_as_recent, :conditions => ["(articles.type != 'UploadedFile' and articles.type != 'RssFeed' and articles.type != 'Blog') OR articles.type is NULL"]
+  scope :more_popular, :order => 'hits DESC'
+  scope :relevant_as_recent, :conditions => ["(articles.type != 'UploadedFile' and articles.type != 'RssFeed' and articles.type != 'Blog') OR articles.type is NULL"]
 
   def self.recent(limit = nil, extra_conditions = {}, pagination = true)
     result = scoped({:conditions => extra_conditions}).
@@ -331,7 +331,7 @@ class Article < ActiveRecord::Base
     false
   end
 
-  named_scope :native_translations, :conditions => { :translation_of_id => nil }
+  scope :native_translations, :conditions => { :translation_of_id => nil }
 
   def translatable?
     false
@@ -409,16 +409,16 @@ class Article < ActiveRecord::Base
     ['TextArticle', 'TextileArticle', 'TinyMceArticle']
   end
 
-  named_scope :published, :conditions => { :published => true }
-  named_scope :folders, :conditions => { :type => folder_types}
-  named_scope :no_folders, :conditions => ['type NOT IN (?)', folder_types]
-  named_scope :galleries, :conditions => { :type => 'Gallery' }
-  named_scope :images, :conditions => { :is_image => true }
-  named_scope :text_articles, :conditions => [ 'articles.type IN (?)', text_article_types ]
+  scope :published, :conditions => { :published => true }
+  scope :folders, :conditions => { :type => folder_types}
+  scope :no_folders, :conditions => ['type NOT IN (?)', folder_types]
+  scope :galleries, :conditions => { :type => 'Gallery' }
+  scope :images, :conditions => { :is_image => true }
+  scope :text_articles, :conditions => [ 'articles.type IN (?)', text_article_types ]
 
-  named_scope :more_comments, :order => "comments_count DESC"
-  named_scope :more_views, :order => "hits DESC"
-  named_scope :more_recent, :order => "created_at DESC"
+  scope :more_comments, :order => "comments_count DESC"
+  scope :more_views, :order => "hits DESC"
+  scope :more_recent, :order => "created_at DESC"
 
   def self.display_filter(user, profile)
     return {:conditions => ['published = ?', true]} if !user

@@ -14,7 +14,7 @@ class Region < Category
     validators.count > 0
   end
 
-  named_scope :with_validators, :group => 'id',
+  scope :with_validators, :group => 'id',
     :joins => 'INNER JOIN region_validators on (region_validators.region_id = categories.id)'
   
 end

@@ -1,6 +1,11 @@
-class CountriesHelper
+# encoding: UTF-8
 
-  include Singleton
+module CountriesHelper
+
+  class Object
+    include ::CountriesHelper
+    include Singleton
+  end
 
   # a dump of iso_3166.xml from Debian source package iso-codes
   COUNTRIES = [

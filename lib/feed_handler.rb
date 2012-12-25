@@ -36,7 +36,7 @@ class FeedHandler
       content = ""
       block = lambda { |s| content = s.read }
       content =
-        if RAILS_ENV == 'test' && File.exists?(address)
+        if Rails.env == 'test' && File.exists?(address)
           File.read(address)
         else
           if !valid_url?(address)

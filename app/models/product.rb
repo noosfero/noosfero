@@ -21,7 +21,7 @@ class Product < ActiveRecord::Base
   validates_numericality_of :price, :allow_nil => true
   validates_numericality_of :discount, :allow_nil => true
 
-  named_scope :more_recent, :order => "created_at DESC"
+  scope :more_recent, :order => "created_at DESC"
 
   after_update :save_image
 
@@ -40,7 +40,11 @@ class Product < ActiveRecord::Base
   include FloatHelper
 
   include WhiteListFilter
-  filter_iframes :description, :whitelist => lambda { enterprise && enterprise.environment && enterprise.environment.trusted_sites_for_iframe }
+  filter_iframes :description
+
+  def iframe_whitelist
+    enterprise && enterprise.environment && enterprise.environment.trusted_sites_for_iframe
+  end
 
   def name
     self[:name].blank? ? category_name : self[:name]

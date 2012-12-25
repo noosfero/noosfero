@@ -22,7 +22,7 @@ class Person < Profile
     super
   end
 
-  named_scope :members_of, lambda { |resources|
+  scope :members_of, lambda { |resources|
     resources = [resources] if !resources.kind_of?(Array)
     conditions = resources.map {|resource| "role_assignments.resource_type = '#{resource.class.base_class.name}' AND role_assignments.resource_id = #{resource.id || -1}"}.join(' OR ')
     { :select => 'DISTINCT profiles.*', :joins => :role_assignments, :conditions => [conditions] }
@@ -44,7 +44,7 @@ class Person < Profile
   has_many :friendships, :dependent => :destroy
   has_many :friends, :class_name => 'Person', :through => :friendships
 
-  named_scope :online, lambda { { :include => :user, :conditions => ["users.chat_status != '' AND users.chat_status_at >= ?", DateTime.now - User.expires_chat_status_every.minutes] } }
+  scope :online, lambda { { :include => :user, :conditions => ["users.chat_status != '' AND users.chat_status_at >= ?", DateTime.now - User.expires_chat_status_every.minutes] } }
 
   has_many :requested_tasks, :class_name => 'Task', :foreign_key => :requestor_id, :dependent => :destroy
 
@@ -54,21 +54,21 @@ class Person < Profile
 
   has_many :scraps_sent, :class_name => 'Scrap', :foreign_key => :sender_id, :dependent => :destroy
 
-  named_scope :more_popular,
+  scope :more_popular,
       :select => "#{Profile.qualified_column_names}, count(friend_id) as total",
       :group => Profile.qualified_column_names,
       :joins => "LEFT OUTER JOIN friendships on profiles.id = friendships.person_id",
       :order => "total DESC"
 
-  named_scope :more_active,
+  scope :more_active,
     :select => "#{Profile.qualified_column_names}, count(action_tracker.id) as total",
     :joins => "LEFT OUTER JOIN action_tracker ON profiles.id = action_tracker.user_id",
     :group => Profile.qualified_column_names,
     :order => 'total DESC',
     :conditions => ['action_tracker.created_at >= ? OR action_tracker.id IS NULL', ActionTracker::Record::RECENT_DELAY.days.ago]
 
-  named_scope :abusers, :joins => :abuse_complaints, :conditions => ['tasks.status = 3'], :select => 'DISTINCT profiles.*'
-  named_scope :non_abusers, :joins => "LEFT JOIN tasks ON profiles.id = tasks.requestor_id AND tasks.type='AbuseComplaint'", :conditions => ["tasks.status != 3 OR tasks.id is NULL"], :select => "DISTINCT profiles.*"
+  scope :abusers, :joins => :abuse_complaints, :conditions => ['tasks.status = 3'], :select => 'DISTINCT profiles.*'
+  scope :non_abusers, :joins => "LEFT JOIN tasks ON profiles.id = tasks.requestor_id AND tasks.type='AbuseComplaint'", :conditions => ["tasks.status != 3 OR tasks.id is NULL"], :select => "DISTINCT profiles.*"
 
   after_destroy do |person|
     Friendship.find(:all, :conditions => { :friend_id => person.id}).each { |friendship| friendship.destroy }

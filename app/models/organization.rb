@@ -21,13 +21,13 @@ class Organization < Profile
 
   has_many :mailings, :class_name => 'OrganizationMailing', :foreign_key => :source_id, :as => 'source'
 
-  named_scope :more_popular,
+  scope :more_popular,
     :select => "#{Profile.qualified_column_names}, count(resource_id) as total",
     :group => Profile.qualified_column_names,
     :joins => "LEFT OUTER JOIN role_assignments ON profiles.id = role_assignments.resource_id",
     :order => "total DESC"
 
-  named_scope :more_active,
+  scope :more_active,
     :select => "#{Profile.qualified_column_names}, count(action_tracker.id) as total",
     :joins => "LEFT OUTER JOIN action_tracker ON profiles.id = action_tracker.target_id",
     :group => Profile.qualified_column_names,

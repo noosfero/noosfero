@@ -15,7 +15,10 @@ class Folder < Article
   xss_terminate :only => [ :body ], :with => 'white_list', :on => 'validation'
 
   include WhiteListFilter
-  filter_iframes :body, :whitelist => lambda { profile && profile.environment && profile.environment.trusted_sites_for_iframe }
+  filter_iframes :body
+  def iframe_whitelist
+    profile && profile.environment && profile.environment.trusted_sites_for_iframe
+  end
 
   def self.short_description
     _('Folder')

@@ -1,3 +1,5 @@
+require 'short_filename'
+
 # Article type that handles uploaded files.
 #
 # Limitation: only file metadata are versioned. Only the latest version

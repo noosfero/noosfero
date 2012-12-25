@@ -37,7 +37,7 @@ class ChangePassword < Task
     end
   end
 
-  before_validation_on_create do |change_password|
+  before_validation(:on => :create) do |change_password|
     change_password.requestor = Person.find_by_identifier_and_environment_id(change_password.login, change_password.environment_id)
   end
 

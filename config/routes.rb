@@ -1,6 +1,6 @@
 require 'noosfero'
 
-ActionController::Routing::Routes.draw do |map|
+Noosfero::Application.routes.draw do
   # The priority is based upon order of creation: first created -> highest priority.
   
   # Sample of regular route:
@@ -15,11 +15,15 @@ ActionController::Routing::Routes.draw do |map|
   ## Public controllers
   ######################################################
 
-  map.connect 'test/:controller/:action/:id'  , :controller => /.*test.*/
+  match 'test/:controller(/:action(/:id))'  , :controller => /.*test.*/
  
   # -- just remember to delete public/index.html.
   # You can have the root of your site routed by hooking up ''
-  map.root :controller => "home", :conditions => { :if => lambda { |env| !Domain.hosting_profile_at(env[:host]) } }
+  root :to => 'home#index'
+
+  # FIXME adapt the rest of the routes below
+end
+__END__
   map.connect '', :controller => "home", :conditions => { :if => lambda { |env| !Domain.hosting_profile_at(env[:host]) } }
   map.home 'site/:action', :controller => 'home'
 

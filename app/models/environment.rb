@@ -3,6 +3,8 @@
 # domains.
 class Environment < ActiveRecord::Base
 
+  attr_accessible :name, :is_default
+
   has_many :users
 
   self.partial_updates = false
@@ -586,7 +588,10 @@ class Environment < ActiveRecord::Base
   validates_numericality_of :reports_lower_bound, :allow_nil => false, :only_integer => true, :greater_than_or_equal_to => 0
 
   include WhiteListFilter
-  filter_iframes :message_for_disabled_enterprise, :whitelist => lambda { trusted_sites_for_iframe }
+  filter_iframes :message_for_disabled_enterprise
+  def iframe_whitelist
+    trusted_sites_for_iframe
+  end
 
   # #################################################
   # Business logic in general

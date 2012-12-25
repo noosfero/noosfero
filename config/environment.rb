@@ -7,34 +7,7 @@ require File.expand_path('../application', __FILE__)
 
 # extra directories for controllers organization 
 extra_controller_dirs = %w[
-  app/controllers/my_profile
-  app/controllers/admin
-  app/controllers/system
-  app/controllers/public
 ].map {|item| File.join(Rails.root, item) }
-
-def noosfero_session_secret
-  require 'fileutils'
-  target_dir = File.join(File.dirname(__FILE__), '/../tmp')
-  FileUtils.mkdir_p(target_dir)
-  file = File.join(target_dir, 'session.secret')
-  if !File.exists?(file)
-    secret = (1..128).map { %w[0 1 2 3 4 5 6 7 8 9 a b c d e f][rand(16)] }.join('')
-    File.open(file, 'w') do |f|
-      f.puts secret
-    end
-  end
-  File.read(file).strip
-end
-
-#FIXME controller_paths are no more supported on Rails 3
-#extra_controller_dirs.each do |item|
-#  $LOAD_PATH << item
-#  config.controller_paths << item
-#end
-#extra_controller_dirs.each do |item|
-#  (ActiveSupport.const_defined?('Dependencies') ? ActiveSupport::Dependencies : ::Dependencies).load_paths << item
-#end
 
 # Add new inflection rules using the following format 
 # (all these examples are active by default):
@@ -65,4 +38,4 @@ if !['test', 'cucumber'].include?(ENV['RAILS_ENV'])
   end
 end
 
-Rails3::Application.initialize!
+Noosfero::Application.initialize!

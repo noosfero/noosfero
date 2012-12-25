@@ -32,7 +32,6 @@ Depends:
 # ruby-gettext-rails,
  ruby-sqlite3,
  ruby-pg,
- ruby-mysql,
  ruby-rmagick,
  ruby-redcloth,
  ruby-will-paginate (>= 2.3.12-1~),

@@ -14,7 +14,7 @@ class Block < ActiveRecord::Base
 
   acts_as_having_settings
 
-  named_scope :enabled, :conditions => { :enabled => true }
+  scope :enabled, :conditions => { :enabled => true }
 
   # Determines whether a given block must be visible. Optionally a
   # <tt>context</tt> must be specified. <tt>context</tt> must be a hash, and

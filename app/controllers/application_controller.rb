@@ -1,5 +1,7 @@
+require 'noosfero/multi_tenancy'
+
 class ApplicationController < ActionController::Base
-  protec_from_forgery
+  protect_from_forgery
 
   before_filter :setup_multitenancy
   before_filter :detect_stuff_by_domain
@@ -12,11 +14,9 @@ class ApplicationController < ActionController::Base
     theme_option(:layout) || 'application'
   end
 
-  filter_parameter_logging :password
-
   def log_processing
     super
-    return unless ENV['RAILS_ENV'] == 'production'
+    return unless Rails.env == 'production'
     if logger && logger.info?
       logger.info("  HTTP Referer: #{request.referer}")
       logger.info("  User Agent: #{request.user_agent}")
@@ -94,7 +94,10 @@ class ApplicationController < ActionController::Base
       @environment = Environment.default
       if @environment.nil? && Rails.env.development?
         # This should only happen in development ...
-        @environment = Environment.create!(:name => "Noosfero", :is_default => true)
+        @environment = Environment.new
+        @environment.name = "Noosfero"
+        @environment.is_default = true
+        @environment.save!
       end
     else
       @environment = @domain.environment

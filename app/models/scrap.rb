@@ -7,9 +7,9 @@ class Scrap < ActiveRecord::Base
   has_many :replies, :class_name => 'Scrap', :foreign_key => 'scrap_id', :dependent => :destroy
   belongs_to :root, :class_name => 'Scrap', :foreign_key => 'scrap_id'
 
-  named_scope :all_scraps, lambda {|profile| {:conditions => ["receiver_id = ? OR sender_id = ?", profile, profile], :limit => 30}}
+  scope :all_scraps, lambda {|profile| {:conditions => ["receiver_id = ? OR sender_id = ?", profile, profile], :limit => 30}}
 
-  named_scope :not_replies, :conditions => {:scrap_id => nil}
+  scope :not_replies, :conditions => {:scrap_id => nil}
 
   track_actions :leave_scrap, :after_create, :keep_params => ['sender.name', 'content', 'receiver.name', 'receiver.url'], :if => Proc.new{|s| s.receiver != s.sender}, :custom_target => :action_tracker_target 
 

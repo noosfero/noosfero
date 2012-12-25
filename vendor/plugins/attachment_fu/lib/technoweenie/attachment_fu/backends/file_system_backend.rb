@@ -1,4 +1,3 @@
-require 'ftools'
 module Technoweenie # :nodoc:
   module AttachmentFu # :nodoc:
     module Backends

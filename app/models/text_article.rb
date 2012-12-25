@@ -1,3 +1,5 @@
+require 'noosfero/translatable_content'
+
 # a base class for all text article types.  
 class TextArticle < Article
 

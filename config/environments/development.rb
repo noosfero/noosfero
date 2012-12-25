@@ -1,4 +1,4 @@
-Rails3::Application.configure do
+Noosfero::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
   # In the development environment your application's code is reloaded on
@@ -10,7 +10,6 @@ Rails3::Application.configure do
   config.whiny_nils = true
 
   # Show full error reports and disable caching
-  config.action_controller.consider_all_requests_local = true
   config.action_controller.perform_caching             = false
 
   # Don't care if the mailer can't send

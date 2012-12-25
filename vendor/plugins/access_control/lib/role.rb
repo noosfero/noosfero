@@ -6,7 +6,7 @@ class Role < ActiveRecord::Base
   validates_presence_of :name
   validates_uniqueness_of :name, :scope => :environment_id
   validates_uniqueness_of :key, :if => lambda { |role| !role.key.blank? }, :scope => :environment_id
-  before_validation_on_create :create_key
+  before_validation :create_key, :on => :create
 
   def initialize(*args)
     super(*args)

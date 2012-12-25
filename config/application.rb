@@ -9,21 +9,8 @@ if defined?(Bundler)
   # Bundler.require(:default, :assets, Rails.env)
 end
 
-module Rails3
+module Noosfero
   class Application < Rails::Application
-    def noosfero_session_secret
-        require 'fileutils'
-        target_dir = File.join(File.dirname(__FILE__), '/../tmp')
-        FileUtils.mkdir_p(target_dir)
-        file = File.join(target_dir, 'session.secret')
-        if !File.exists?(file)
-          secret = (1..128).map { %w[0 1 2 3 4 5 6 7 8 9 a b c d e f][rand(16)] }.join('')
-          File.open(file, 'w') do |f|
-            f.puts secret
-          end
-        end
-        File.read(file).strip
-    end
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
@@ -87,13 +74,30 @@ module Rails3
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
 
+    def noosfero_session_secret
+      require 'fileutils'
+      target_dir = File.join(File.dirname(__FILE__), '../tmp')
+      FileUtils.mkdir_p(target_dir)
+      file = File.join(target_dir, 'session.secret')
+      if !File.exists?(file)
+        secret = (1..128).map { %w[0 1 2 3 4 5 6 7 8 9 a b c d e f][rand(16)] }.join('')
+        File.open(file, 'w') do |f|
+          f.puts secret
+        end
+      end
+      File.read(file).strip
+    end
+
     # Your secret key for verifying cookie session data integrity.
     # If you change this key, all old sessions will become invalid!
     # Make sure the secret is at least 30 characters and all random, 
     # no regular words or you'll be exposed to dictionary attacks.
+    config.secret_token = noosfero_session_secret
     config.action_dispatch.session = {
       :key    => '_noosfero_session',
-      :secret => noosfero_session_secret()
     }
+
+    config.autoload_paths += Dir["#{config.root}/app/controllers/**/"]
+
   end
 end

@@ -25,11 +25,6 @@ class Module
   
 end
 
-class Class
-  yaml_as "tag:ruby.yaml.org,2002:class"
-  remove_method :to_yaml # use Module's to_yaml
-end
-
 class Struct
   def self.yaml_tag_read_class(name)
     # Constantize the object so that ActiveSupport can attempt

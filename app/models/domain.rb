@@ -1,5 +1,7 @@
 class Domain < ActiveRecord::Base
 
+  attr_accessible :name
+
   # relationships
   ###############
 

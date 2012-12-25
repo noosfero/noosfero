@@ -1,3 +1,5 @@
+# encoding: UTF-8
+
 module ManageProductsHelper
 
   def remote_function_to_update_categories_selection(container_id, options = {})
