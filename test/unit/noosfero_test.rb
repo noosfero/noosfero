@@ -30,15 +30,6 @@ class NoosferoTest < ActiveSupport::TestCase
     assert_match /^#{Noosfero.identifier_format}$/, 'with.dot'
   end
 
-  should 'delegate terminology' do
-    Noosfero.terminology.expects(:get).with('lalala').returns('lelele')
-    assert_equal 'lelele', Noosfero.term('lalala')
-  end
-
-  should 'use default terminology by default' do
-    assert_equal 'lalalalala', Noosfero.term('lalalalala')
-  end
-
   should 'provide url options to identify development environment' do
     ENV.expects(:[]).with('RAILS_ENV').returns('development')
     Noosfero.expects(:development_url_options).returns({ :port => 9999 })
@@ -54,19 +45,6 @@ class NoosferoTest < ActiveSupport::TestCase
       assert_equal 'pt', FastGettext.locale
     end
     assert_equal 'en', FastGettext.locale
-  end
-
-  should 'use terminology with ngettext' do
-   Noosfero.stubs(:terminology).returns(UnifreireTerminology.instance)
-
-   Noosfero.with_locale('en') do
-     assert_equal 'One institution', n__('One enterprise', '%{num} enterprises', 1)
-   end
-
-   Noosfero.with_locale('pt') do
-     stubs(:ngettext).with('One institution', '%{num} institutions', 1).returns('Uma instituição')
-     assert_equal 'Uma instituição', n__('One enterprise', '%{num} enterprises', 1)
-   end
   end
 
   should "use default hostname of default environment as hostname of Noosfero instance" do

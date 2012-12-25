@@ -56,8 +56,6 @@ class ApplicationController < ActionController::Base
 
   attr_reader :environment
 
-  before_filter :load_terminology
-
   # declares that the given <tt>actions</tt> cannot be accessed by other HTTP
   # method besides POST.
   def self.post_only(actions, redirect = { :action => 'index'})
@@ -125,13 +123,6 @@ class ApplicationController < ActionController::Base
         self.class.send(:define_method, plugin.class.name.underscore + '_' + plugin_filter[:method_name], plugin_filter[:block])
       end
     end
-  end
-
-  def load_terminology
-    # cache terminology for performance
-    @@terminology_cache ||= {}
-    @@terminology_cache[environment.id] ||= environment.terminology
-    Noosfero.terminology = @@terminology_cache[environment.id]
   end
 
   def render_not_found(path = nil)

@@ -382,22 +382,6 @@ class Environment < ActiveRecord::Base
     self.settings[:organization_approval_method] = actual_value
   end
 
-  def terminology
-    if self.settings[:terminology]
-      self.settings[:terminology].constantize.instance
-    else
-      Noosfero.terminology
-    end
-  end
-
-  def terminology=(value)
-    if value
-      self.settings[:terminology] = value.class.name
-    else
-      self.settings[:terminology] = nil
-    end
-  end
-
   def custom_person_fields
     self.settings[:custom_person_fields].nil? ? {} : self.settings[:custom_person_fields]
   end

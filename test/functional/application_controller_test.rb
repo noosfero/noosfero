@@ -238,17 +238,6 @@ class ApplicationControllerTest < ActionController::TestCase
     assert_no_tag :tag => 'div', :attributes => { :id => 'theme-test-panel' }
   end
 
-  should 'load terminology from environment' do
-    term = Zen3Terminology.instance
-    env = Environment.default
-    Environment.stubs(:default).returns(env)
-    env.stubs(:terminology).returns(term)
-    env.stubs(:id).returns(-9999)
-
-    get :index
-    assert_equal Noosfero.terminology, term
-  end
-
   should 'not display categories menu if categories feature disabled' do
     Environment.any_instance.stubs(:enabled?).with(anything).returns(true)
     c1 = Environment.default.categories.create!(:name => 'Category 1', :display_color => 1, :parent => nil, :display_in_menu => true )
