@@ -2,6 +2,8 @@ require 'hpricot'
 
 class Article < ActiveRecord::Base
 
+  attr_accessible :name, :body, :abstract, :profile
+
   # use for internationalizable human type names in search facets
   # reimplement on subclasses
   def self.type_name
@@ -142,7 +144,6 @@ class Article < ActiveRecord::Base
     else
       ArticleCategorization.add_category_to_article(c, self)
       self.categories(reload)
-      self.solr_save
     end
   end
 
@@ -160,7 +161,6 @@ class Article < ActiveRecord::Base
       ArticleCategorization.add_category_to_article(item, self)
     end
     self.categories(true)
-    self.solr_save
     pending_categorizations.clear
   end
 
@@ -238,7 +238,6 @@ class Article < ActiveRecord::Base
     body || ''
   end
 
-  include ApplicationHelper
   def reported_version(options = {})
     article = self
     search_path = File.join(Rails.root, 'app', 'views', 'shared', 'reported_versions')
@@ -469,10 +468,6 @@ class Article < ActiveRecord::Base
     allow_post_content?(user) || user && allow_members_to_edit && user.is_member_of?(profile)
   end
 
-  def comments_updated
-    solr_save
-  end
-
   def accept_category?(cat)
     !cat.is_a?(ProductCategory)
   end
@@ -636,21 +631,6 @@ class Article < ActiveRecord::Base
 
   private
 
-  # FIXME: workaround for development env.
-  # Subclasses aren't (re)loaded, and acts_as_solr
-  # depends on subclasses method to search
-  # see http://stackoverflow.com/questions/4138957/activerecordsubclassnotfound-error-when-using-sti-in-rails/4139245
-  UploadedFile
-  TextArticle
-  TinyMceArticle
-  TextileArticle
-  Folder
-  EnterpriseHomepage
-  Gallery
-  Blog
-  Forum
-  Event
-
   def self.f_type_proc(klass)
     klass.constantize.type_name
   end
@@ -682,9 +662,6 @@ class Article < ActiveRecord::Base
   end
 
   delegate :region, :region_id, :environment, :environment_id, :to => :profile, :allow_nil => true
-  def name_sortable # give a different name for solr
-    name
-  end
 
   def public
     self.public?
@@ -693,39 +670,6 @@ class Article < ActiveRecord::Base
   def category_filter
     categories_including_virtual_ids
   end
-
-  public
-
-  acts_as_faceted :fields => {
-      :f_type => {:label => _('Type'), :proc => proc{|klass| f_type_proc(klass)}},
-      :f_published_at => {:type => :date, :label => _('Published date'), :queries => {'[* TO NOW-1YEARS/DAY]' => _("Older than one year"),
-        '[NOW-1YEARS TO NOW/DAY]' => _("In the last year"), '[NOW-1MONTHS TO NOW/DAY]' => _("In the last month"), '[NOW-7DAYS TO NOW/DAY]' => _("In the last week"), '[NOW-1DAYS TO NOW/DAY]' => _("In the last day")},
-        :queries_order => ['[NOW-1DAYS TO NOW/DAY]', '[NOW-7DAYS TO NOW/DAY]', '[NOW-1MONTHS TO NOW/DAY]', '[NOW-1YEARS TO NOW/DAY]', '[* TO NOW-1YEARS/DAY]']},
-      :f_profile_type => {:label => _('Profile'), :proc => proc{|klass| f_profile_type_proc(klass)}},
-      :f_category => {:label => _('Categories')},
-    }, :category_query => proc { |c| "category_filter:\"#{c.id}\"" },
-    :order => [:f_type, :f_published_at, :f_profile_type, :f_category]
-
-  acts_as_searchable :fields => facets_fields_for_solr + [
-      # searched fields
-      {:name => {:type => :text, :boost => 2.0}},
-      {:slug => :text}, {:body => :text},
-      {:abstract => :text}, {:filename => :text},
-      # filtered fields
-      {:public => :boolean}, {:environment_id => :integer},
-      {:profile_id => :integer}, :language,
-      {:category_filter => :integer},
-      # ordered/query-boosted fields
-      {:name_sortable => :string}, :last_changed_by_id, :published_at, :is_image,
-      :updated_at, :created_at,
-    ], :include => [
-      {:profile => {:fields => [:name, :identifier, :address, :nickname, :region_id, :lat, :lng]}},
-      {:comments => {:fields => [:title, :body, :author_name, :author_email]}},
-      {:categories => {:fields => [:name, :path, :slug, :lat, :lng, :acronym, :abbreviation]}},
-    ], :facets => facets_option_for_solr,
-    :boost => proc { |a| 10 if a.profile && a.profile.enabled },
-    :if => proc{ |a| ! ['RssFeed'].include?(a.class.name) }
-  handle_asynchronously :solr_save
 
   private
 

@@ -3,6 +3,8 @@
 # which by default is the one returned by Environment:default.
 class Profile < ActiveRecord::Base
 
+  attr_accessible :name, :identifier
+
   # use for internationalizable human type names in search facets
   # reimplement on subclasses
   def self.type_name
@@ -116,11 +118,6 @@ class Profile < ActiveRecord::Base
   belongs_to :template, :class_name => 'Profile', :foreign_key => 'template_id'
 
   has_many :comments_received, :class_name => 'Comment', :through => :articles, :source => :comments
-
-  # FIXME ugly workaround
-  def self.human_attribute_name(attrib)
-      _(self.superclass.human_attribute_name(attrib))
-  end
 
   def scraps(scrap=nil)
     scrap = scrap.is_a?(Scrap) ? scrap.id : scrap
@@ -258,7 +255,6 @@ class Profile < ActiveRecord::Base
     else
       ProfileCategorization.add_category_to_profile(c, self)
       self.categories(true)
-      self.solr_save
     end
     self.categories(reload)
   end
@@ -927,46 +923,14 @@ private :generate_url, :url_options
     self.enabled
   end
 
-  def name_sortable # give a different name for solr
-    name
-  end
   def public
     self.public?
   end
   def category_filter
     categories_including_virtual_ids
   end
+
   public
-
-  acts_as_faceted :fields => {
-      :f_enabled => {:label => _('Situation'), :type_if => proc { |klass| klass.kind_of?(Enterprise) },
-        :proc => proc { |id| f_enabled_proc(id) }},
-      :f_region => {:label => _('City'), :proc => proc { |id| f_region_proc(id) }},
-      :f_categories => {:multi => true, :proc => proc {|facet, id| f_categories_proc(facet, id)},
-        :label => proc { |env| f_categories_label_proc(env) }, :label_abbrev => proc{ |env| f_categories_label_abbrev_proc(env) }},
-    }, :category_query => proc { |c| "category_filter:#{c.id}" },
-    :order => [:f_region, :f_categories, :f_enabled]
-
-  acts_as_searchable :fields => facets_fields_for_solr + [:extra_data_for_index,
-      # searched fields
-      {:name => {:type => :text, :boost => 2.0}},
-      {:identifier => :text}, {:nickname => :text},
-      # filtered fields
-      {:public => :boolean}, {:environment_id => :integer},
-      {:category_filter => :integer},
-      # ordered/query-boosted fields
-      {:name_sortable => :string}, {:user_id => :integer},
-      :enabled, :active, :validated, :public_profile,
-      {:lat => :float}, {:lng => :float},
-      :updated_at, :created_at,
-    ],
-    :include => [
-      {:region => {:fields => [:name, :path, :slug, :lat, :lng]}},
-      {:categories => {:fields => [:name, :path, :slug, :lat, :lng, :acronym, :abbreviation]}},
-    ], :facets => facets_option_for_solr,
-    :boost => proc{ |p| 10 if p.enabled }
-  after_save_reindex [:articles], :with => :delayed_job
-  handle_asynchronously :solr_save
 
   def control_panel_settings_button
     {:title => _('Profile Info and settings'), :icon => 'edit-profile'}

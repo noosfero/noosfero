@@ -63,7 +63,7 @@ class RssFeed < Article
     'text/xml'
   end
 
-  include ActionController::UrlWriter
+  include Rails.application.routes.url_helpers
   def fetch_articles
     if parent && parent.has_posts?
       language = self.language.blank? ? {} : { :language => self.language }

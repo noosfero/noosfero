@@ -8,20 +8,6 @@ class Person < Profile
   acts_as_trackable :after_add => Proc.new {|p,t| notify_activity(t)}
   acts_as_accessor
 
-  @@human_names = {}
-
-  def self.human_names
-    @@human_names
-  end
-
-  # FIXME ugly workaround
-  def self.human_attribute_name(attrib)
-    human_names.each do |key, human_text|
-      return human_text if attrib.to_sym == key.to_sym
-    end
-    super
-  end
-
   scope :members_of, lambda { |resources|
     resources = [resources] if !resources.kind_of?(Array)
     conditions = resources.map {|resource| "role_assignments.resource_type = '#{resource.class.base_class.name}' AND role_assignments.resource_id = #{resource.id || -1}"}.join(' OR ')

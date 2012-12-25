@@ -2,7 +2,7 @@ class TagsBlock < Block
 
   include TagsHelper
   include BlockHelper
-  include ActionController::UrlWriter
+  include Rails.application.routes.url_helpers
 
   settings_items :limit, :type => :integer, :default => 12
 

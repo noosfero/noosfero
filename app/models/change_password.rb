@@ -80,7 +80,7 @@ class ChangePassword < Task
     _('Your password was changed successfully.')
   end
 
-  include ActionController::UrlWriter
+  include Rails.application.routes.url_helpers
   def task_created_message
     hostname = self.requestor.environment.default_hostname
     code = self.code

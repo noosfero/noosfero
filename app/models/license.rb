@@ -1,4 +1,7 @@
 class License < ActiveRecord::Base
+
+  attr_accessible :name, :url
+
   belongs_to :environment
   has_many :content, :class_name => 'Article', :foreign_key => 'license_id'
 

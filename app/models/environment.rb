@@ -764,18 +764,49 @@ class Environment < ActiveRecord::Base
   after_create :create_templates
 
   def create_templates
-    pre = self.name.to_slug + '_'
-    ent_id = Enterprise.create!(:name => 'Enterprise template', :identifier => pre + 'enterprise_template', :environment => self, :visible => false, :is_template => true).id
-    inactive_enterprise_tmpl = Enterprise.create!(:name => 'Inactive Enterprise template', :identifier => pre + 'inactive_enterprise_template', :environment => self, :visible => false, :is_template => true)
-    com_id = Community.create!(:name => 'Community template', :identifier => pre + 'community_template', :environment => self, :visible => false, :is_template => true).id
+    prefix = self.name.to_slug + '_'
+
+    enterprise_template = Enterprise.new(
+      :name => 'Enterprise template',
+      :identifier => prefix + 'enterprise_template'
+    )
+
+    inactive_enterprise_template = Enterprise.new(
+      :name => 'Inactive Enterprise template',
+      :identifier => prefix + 'inactive_enterprise_template'
+    )
+
+    community_template = Community.new(
+      :name => 'Community template',
+      :identifier => prefix + 'community_template'
+    )
+
+    [
+      enterprise_template,
+      inactive_enterprise_template,
+      community_template
+    ].each do |profile|
+      profile.is_template = true
+      profile.visible = false
+      profile.environment = self
+      profile.save!
+    end
+
     pass = Digest::MD5.hexdigest rand.to_s
-    user = User.create!(:login => (pre + 'person_template'), :email => (pre + 'template@template.noo'), :password => pass, :password_confirmation => pass, :environment => self).person
-    user.update_attributes(:visible => false, :name => "Person template", :is_template => true)
-    usr_id = user.id
-    self.settings[:enterprise_template_id] = ent_id
-    self.inactive_enterprise_template = inactive_enterprise_tmpl
-    self.settings[:community_template_id] = com_id
-    self.settings[:person_template_id] = usr_id
+    user = User.new(:login => (prefix + 'person_template'), :email => (prefix + 'template@template.noo'), :password => pass, :password_confirmation => pass)
+    user.environment = self
+    user.save!
+
+    person_template = user.person
+    person_template.name = "Person template"
+    person_template.is_template = true
+    person_template.visible = false
+    person_template.save!
+
+    self.enterprise_template = enterprise_template
+    self.inactive_enterprise_template = inactive_enterprise_template
+    self.community_template = community_template
+    self.person_template = person_template
     self.save!
   end
 
@@ -788,14 +819,20 @@ class Environment < ActiveRecord::Base
 
   after_create :create_default_licenses
   def create_default_licenses
-    License.create!(:name => 'CC (by)', :url => 'http://creativecommons.org/licenses/by/3.0/legalcode', :environment => self)
-    License.create!(:name => 'CC (by-nd)', :url => 'http://creativecommons.org/licenses/by-nd/3.0/legalcode', :environment => self)
-    License.create!(:name => 'CC (by-sa)', :url => 'http://creativecommons.org/licenses/by-sa/3.0/legalcode', :environment => self)
-    License.create!(:name => 'CC (by-nc)', :url => 'http://creativecommons.org/licenses/by-nc/3.0/legalcode', :environment => self)
-    License.create!(:name => 'CC (by-nc-nd)', :url => 'http://creativecommons.org/licenses/by-nc-nd/3.0/legalcode', :environment => self)
-    License.create!(:name => 'CC (by-nc-sa)', :url => 'http://creativecommons.org/licenses/by-nc-sa/3.0/legalcode', :environment => self)
-    License.create!(:name => 'Free Art', :url => 'http://artlibre.org/licence/lal/en', :environment => self)
-    License.create!(:name => 'GNU FDL', :url => 'http://www.gnu.org/licenses/fdl-1.3.txt', :environment => self)
+    [
+      { :name => 'CC (by)', :url => 'http://creativecommons.org/licenses/by/3.0/legalcode'},
+      { :name => 'CC (by-nd)', :url => 'http://creativecommons.org/licenses/by-nd/3.0/legalcode'},
+      { :name => 'CC (by-sa)', :url => 'http://creativecommons.org/licenses/by-sa/3.0/legalcode'},
+      { :name => 'CC (by-nc)', :url => 'http://creativecommons.org/licenses/by-nc/3.0/legalcode'},
+      { :name => 'CC (by-nc-nd)', :url => 'http://creativecommons.org/licenses/by-nc-nd/3.0/legalcode'},
+      { :name => 'CC (by-nc-sa)', :url => 'http://creativecommons.org/licenses/by-nc-sa/3.0/legalcode'},
+      { :name => 'Free Art', :url => 'http://artlibre.org/licence/lal/en'},
+      { :name => 'GNU FDL', :url => 'http://www.gnu.org/licenses/fdl-1.3.txt'},
+    ].each do |data|
+      license = License.new(data)
+      license.environment = self
+      license.save!
+    end
   end
 
   def highlighted_products_with_image(options = {})

@@ -27,3 +27,5 @@
 * rewrite conditional routing. See FIXME in lib/route_if.rb and re-implement using the Rails 3 mechanism - http://guides.rubyonrails.org/routing.html#advanced-constraints
 
 * check FIXME's in config/environment.rb
+
+* xss_terminate sucks. We should replace it with the builtin mechanism in Rails 3

@@ -23,7 +23,7 @@ class OrganizationMailing < Mailing
     _('Sent by community %s.') % source.name
   end
 
-  include ActionController::UrlWriter
+  include Rails.application.routes.url_helpers
   def url
     url_for(source.url)
   end

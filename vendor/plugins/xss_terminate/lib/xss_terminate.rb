@@ -57,12 +57,14 @@ module XssTerminate
           end
 
         else
-          self.send("#{field}=", sanitizer.sanitize(self.send("#{field}")))
+          value = self.send("#{field}")
+          return unless value
+          self.send("#{field}=", sanitizer.sanitize(value))
 
           if with == :full
-            self.send("#{field}=", CGI.escapeHTML(self.send("#{field}")))
+            self.send("#{field}=", CGI.escapeHTML(value))
           elsif with == :white_list
-            self.send("#{field}=", CGI.escapeHTML(self.send("#{field}"))) if !wellformed_html_code?(self.send("#{field}"))
+            self.send("#{field}=", CGI.escapeHTML(value)) if !wellformed_html_code?(value)
           end
 
         end

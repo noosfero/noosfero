@@ -22,6 +22,9 @@ module Delayed
       # Contains the work object as a YAML field.
       class Job < ::ActiveRecord::Base
         include Delayed::Backend::Base
+
+        attr_accessible :payload_object, :priority, :run_at
+
         set_table_name :delayed_jobs
         
         before_save :set_default_run_at

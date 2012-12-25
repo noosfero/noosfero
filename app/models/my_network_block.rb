@@ -1,6 +1,6 @@
 class MyNetworkBlock < Block
 
-  include ActionController::UrlWriter
+  include Rails.application.routes.url_helpers
 
   def self.description
     _('My network')

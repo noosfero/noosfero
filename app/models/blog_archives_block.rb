@@ -2,7 +2,7 @@ class BlogArchivesBlock < Block
 
   include ActionView::Helpers::TagHelper
   include ActionView::Helpers::UrlHelper
-  include ActionController::UrlWriter
+  include Rails.application.routes.url_helpers
   include ActionView::Helpers::AssetTagHelper
   include DatesHelper
 

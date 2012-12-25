@@ -24,6 +24,4 @@ class Certifier < ActiveRecord::Base
     self.name.downcase.transliterate <=> b.name.downcase.transliterate
   end
 
-  after_save_reindex [:products], :with => :delayed_job
-
 end

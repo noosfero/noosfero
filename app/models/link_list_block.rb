@@ -1,5 +1,7 @@
 class LinkListBlock < Block
 
+  attr_accessible :links
+
   ICONS = [
     ['no-icon', _('(No icon)')],
     ['edit', N_('Edit')],

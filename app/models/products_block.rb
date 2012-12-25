@@ -2,7 +2,7 @@ class ProductsBlock < Block
 
   include ActionView::Helpers::TagHelper
   include ActionView::Helpers::UrlHelper
-  include ActionController::UrlWriter
+  include Rails.application.routes.url_helpers
 
   def self.description
     _('Products')
