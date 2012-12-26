@@ -1,5 +1,5 @@
 class Kalibro::RangeSnapshot < Kalibro::Model
 
-  attr_accessor :end, :label, :grade, :color, :comments
+  attr_accessor :beginning, :end, :label, :grade, :color, :comments
 
 end

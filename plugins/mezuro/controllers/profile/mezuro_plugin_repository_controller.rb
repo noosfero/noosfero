@@ -21,7 +21,8 @@ class MezuroPluginRepositoryController < MezuroPluginProfileController
     repository.save(project_content.project_id)
     
     if( repository.errors.empty? )
-      redirect_to "/#{profile.identifier}/#{project_content.name.downcase.gsub(/\s/, '-')}"
+      repository.process
+      redirect_to "/profile/#{profile.identifier}/plugin/mezuro/repository/show/#{project_content.id}?repository_id=#{repository.id}"
     else
       redirect_to_error_page repository.errors[0].message
     end
@@ -46,9 +47,9 @@ class MezuroPluginRepositoryController < MezuroPluginProfileController
     
     repository = Kalibro::Repository.new( params[:repository] )
     repository.save(project_content.project_id)
-    
+
     if( repository.errors.empty? )
-      redirect_to "/#{profile.identifier}/#{project_content.name.downcase.gsub(/\s/, '-')}"
+      redirect_to "/profile/#{profile.identifier}/plugin/mezuro/repository/show/#{project_content.id}?repository_id=#{repository.id}"
     else
       redirect_to_error_page repository.errors[0].message
     end

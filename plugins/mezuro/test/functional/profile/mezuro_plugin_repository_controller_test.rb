@@ -40,6 +40,7 @@ class MezuroPluginRepositoryControllerTest < ActionController::TestCase
   should 'create a repository' do
     Kalibro::Repository.expects(:new).returns(@repository)
     @repository.expects(:save).with(@content.project_id).returns(true)
+    @repository.expects(:process)
     get :create, :profile => @profile.identifier, :id => @content.id, :repository => @repository_hash
     assert @repository.errors.empty?
     assert_response :redirect
