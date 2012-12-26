@@ -29,3 +29,5 @@
 * check FIXME's in config/environment.rb
 
 * xss_terminate sucks. We should replace it with the builtin mechanism in Rails 3
+
+* instance_eval on Ruby 1.9 yields self, so lambdas that are passed to instance_eval and do not accept exactly 1 argument will blow up. See http://www.ruby-forum.com/topic/213313 ... search for instance_eval and fix where necessary.
