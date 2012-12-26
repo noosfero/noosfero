@@ -16,7 +16,7 @@ class UsersController < AdminController
       end
       format.csv do
         @users = User.find(:all, :conditions => {:environment_id => environment.id}, :include => [:person])
-        render :template => "users/index_csv.rhtml", :content_type => 'text/csv', :layout => false
+        render :template => "users/index_csv.html.erb", :content_type => 'text/csv', :layout => false
       end
     end
   end
