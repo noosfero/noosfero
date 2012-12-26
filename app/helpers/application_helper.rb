@@ -387,10 +387,14 @@ module ApplicationHelper
   end
 
   def theme_include(template)
-    file = (Rails.root + '/public' + theme_path + '/' + template  + '.html.erb')
-    if File.exists?(file)
-      return render :file => file, :use_full_path => false
+    # XXX Since we cannot control what people are doing in external themes, we
+    # will keep looking for the deprecated .rhtml extension here.
+    ['.rhtml', '.html.erb'].each do |ext|
+      file = File.join(Rails.root, 'public', theme_path, template + ext)
+      if File.exists?(file)
+        return render :file => file, :use_full_path => false
       end
+    end
     nil
   end
 
