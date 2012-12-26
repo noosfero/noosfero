@@ -5,6 +5,9 @@ gem 'cucumber'
 gem 'rspec'
 # gem 'rspec-rails', '1.2.9' # FIXME package this
 
+# FIXME list here all actual dependencies (i.e. the ones in debian/control),
+# with their GEM names (not the Debian package names)
+
 gem 'rails'
 
 def program(name)
