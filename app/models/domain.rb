@@ -1,3 +1,5 @@
+require 'noosfero/multi_tenancy'
+
 class Domain < ActiveRecord::Base
 
   attr_accessible :name

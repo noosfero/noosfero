@@ -16,11 +16,11 @@ class CommunitiesBlock < ProfileListBlock
     owner = self.owner
     case owner
     when Profile
-      lambda do
+      lambda do |context|
         link_to s_('communities|View all'), :profile => owner.identifier, :controller => 'profile', :action => 'communities'
       end
     when Environment
-      lambda do
+      lambda do |context|
         link_to s_('communities|View all'), :controller => 'search', :action => 'communities'
       end
     else

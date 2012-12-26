@@ -267,7 +267,7 @@ module CountriesHelper
   end
 
   def countries
-    self.class.countries.map {|item| [gettext(item[0]), item[1] ]}.sort_by { |entry| entry.first.transliterate }
+    CountriesHelper.countries.map {|item| [gettext(item[0]), item[1] ]}.sort_by { |entry| entry.first.transliterate }
   end
 
   def lookup(code)

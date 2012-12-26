@@ -826,8 +826,8 @@ module ApplicationHelper
   end
 
   def labelled_form_for(name, object = nil, options = {}, &proc)
-    object ||= instance_variable_get("@#{name}")
-    form_for(name, object, { :builder => NoosferoFormBuilder }.merge(options), &proc)
+    # FIXME remove the =object= argument and adapt the calling code
+    form_for(name, { :builder => NoosferoFormBuilder }.merge(options), &proc)
   end
 
   def optional_field(profile, name, field_html = nil, only_required = false, &block)
@@ -1408,5 +1408,29 @@ module ApplicationHelper
   def expirable_comment_link(content, action, text, url, options = {})
     options[:class] = "comment-footer comment-footer-link comment-footer-hide"
     expirable_content_reference content, action, text, url, options
+  end
+
+  def error_messages_for(*args)
+    options = args.pop if args.last.is_a?(Hash)
+    errors = []
+    args.each do |name|
+      object = instance_variable_get("@#{name}")
+      object.errors.full_messages.each do |msg|
+        errors << msg
+      end
+    end
+    return '' if errors.empty?
+
+    content_tag(:div, :class => 'errorExplanation', :id => 'errorExplanation') do
+      content_tag(:h2, _('Errors while saving')) +
+      content_tag(:ul) do
+        errors.map { |err| content_tag(:li, err) }
+      end
+    end
+  end
+
+  # FIXME
+  def observe_field(*args)
+    ''
   end
 end

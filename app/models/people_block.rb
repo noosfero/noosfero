@@ -17,7 +17,7 @@ class PeopleBlock < ProfileListBlock
   end
 
   def footer
-    lambda do
+    lambda do |context|
       link_to _('View all'), :controller => 'search', :action => 'people'
     end
   end

@@ -1,8 +1,8 @@
 require 'noosfero'
+require 'environment_domain_constraint'
 
 Noosfero::Application.routes.draw do
   # The priority is based upon order of creation: first created -> highest priority.
-  
   # Sample of regular route:
   # map.connect 'products/:id', :controller => 'catalog', :action => 'view'
   # Keep in mind you can assign values other than :controller and :action
@@ -16,47 +16,45 @@ Noosfero::Application.routes.draw do
   ######################################################
 
   match 'test/:controller(/:action(/:id))'  , :controller => /.*test.*/
- 
+
   # -- just remember to delete public/index.html.
   # You can have the root of your site routed by hooking up ''
-  root :to => 'home#index'
+  root :to => 'home#index', :constraints => EnvironmentDomainConstraint.new
 
-  # FIXME adapt the rest of the routes below
-end
-__END__
-  map.connect '', :controller => "home", :conditions => { :if => lambda { |env| !Domain.hosting_profile_at(env[:host]) } }
-  map.home 'site/:action', :controller => 'home'
+  match 'site(/:action)', :controller => 'home'
 
-  map.connect 'images/*stuff', :controller => 'not_found', :action => 'nothing'
-  map.connect 'stylesheets/*stuff', :controller => 'not_found', :action => 'nothing'
-  map.connect 'designs/*stuff', :controller => 'not_found', :action => 'nothing'
-  map.connect 'articles/*stuff', :controller => 'not_found', :action => 'nothing'
-  map.connect 'javascripts/*stuff', :controller => 'not_found', :action => 'nothing'
-  map.connect 'thumbnails/*stuff', :controller => 'not_found', :action => 'nothing'
-  map.connect 'user_themes/*stuff', :controller => 'not_found', :action => 'nothing'
+  match 'images/*stuff' => 'not_found#nothing'
+  match 'stylesheets/*stuff' => 'not_found#nothing'
+  match 'designs/*stuff' => 'not_found#nothing'
+  match 'articles/*stuff' => 'not_found#nothing'
+  match 'javascripts/*stuff' => 'not_found#nothing'
+  match 'thumbnails/*stuff' => 'not_found#nothing'
+  match 'user_themes/*stuff' => 'not_found#nothing'
 
   # online documentation
-  map.doc         'doc', :controller => 'doc', :action => 'index'
-  map.doc_section 'doc/:section', :controller => 'doc', :action => 'section'
-  map.doc_topic   'doc/:section/:topic', :controller => 'doc', :action => 'topic'
-  
+  match 'doc' => 'doc#index', :as => :doc
+  match 'doc/:section' => 'doc#section', :as => :doc_section
+  match 'doc/:section/:topic' => 'doc#topic', :as => :doc_topic
+
   # user account controller
-  map.connect 'account/new_password/:code', :controller => 'account', :action => 'new_password'
-  map.connect 'account/:action', :controller => 'account'
+  match 'account/new_password/:code' => 'account#new_password', :controller => 'account', :action => 'new_password'
+  match 'account/:action', :controller => 'account'
 
   # enterprise registration
-  map.connect 'enterprise_registration/:action', :controller => 'enterprise_registration'
+  match 'enterprise_registration/:action', :controller => 'enterprise_registration'
 
   # tags
-  map.tag 'tag', :controller => 'search', :action => 'tags'
-  map.tag 'tag/:tag', :controller => 'search', :action => 'tag', :tag => /.*/
-  
+  match 'tag', :controller => 'search', :action => 'tags'
+  match 'tag/:tag', :controller => 'search', :action => 'tag', :tag => /.*/
+
   # categories index
-  map.category 'cat/*category_path', :controller => 'search', :action => 'category_index'
-  map.assets 'assets/:asset/*category_path', :controller => 'search', :action => 'assets'
+  match 'cat/*category_path' => 'search#category_index', :as => :category
+  match 'assets/:asset(/*category_path)' => 'search#assets', :as => :assets
   # search
-  map.connect 'search/:action/*category_path', :controller => 'search'
- 
+  match 'search/:action(/*category_path)', :controller => 'search'
+
+end # FIXME remove this line and the following and finish rewriting the routes
+__END__
   # events
   map.events 'profile/:profile/events_by_day', :controller => 'events', :action => 'events_by_day', :profile => /#{Noosfero.identifier_format}/
   map.events 'profile/:profile/events/:year/:month/:day', :controller => 'events', :action => 'events', :year => /\d*/, :month => /\d*/, :day => /\d*/, :profile => /#{Noosfero.identifier_format}/

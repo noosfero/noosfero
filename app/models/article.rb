@@ -219,13 +219,6 @@ class Article < ActiveRecord::Base
       limit(limit).
       order(['articles.published_at desc', 'articles.id desc'])
 
-    if !( scoped_methods && scoped_methods.last &&
-        scoped_methods.last[:find] &&
-        scoped_methods.last[:find][:joins] &&
-        scoped_methods.last[:find][:joins].index('profiles') )
-      result = result.includes(:profile)
-    end
-
     pagination ? result.paginate({:page => 1, :per_page => limit}) : result
   end
 
