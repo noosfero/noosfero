@@ -1,6 +1,6 @@
 <div class="common-profile-list-block">
 
-<h1><%= __("%s's friends") % profile.name %></h1>
+<h1><%= _("%s's friends") % profile.name %></h1>
 
 <% cache_timeout(profile.friends_cache_key(params), 4.hours) do %>
 <ul class='profile-list'>

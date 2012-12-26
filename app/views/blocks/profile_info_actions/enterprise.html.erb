@@ -1,7 +1,7 @@
 <ul>
   <%if logged_in? %>
     <%if !user.favorite_enterprises.include?(profile) %>
-      <li><%= link_to content_tag('span', _('Add as favorite')), { :profile => user.identifier, :controller => 'favorite_enterprises', :action => 'add', :id => profile.id }, :class => 'button with-text icon-add', :title => __('Add enterprise as favorite') %></li>
+      <li><%= link_to content_tag('span', _('Add as favorite')), { :profile => user.identifier, :controller => 'favorite_enterprises', :action => 'add', :id => profile.id }, :class => 'button with-text icon-add', :title => _('Add enterprise as favorite') %></li>
     <% end %>
   <% end %>
   <% if profile.enable_contact? %>

@@ -1,12 +1,12 @@
 <div id="manage_friends">
 
-<h1><%= __("%s's friends") % profile.name %></h1>
+<h1><%= _("%s's friends") % profile.name %></h1>
 
 <% cache_timeout(profile.manage_friends_cache_key(params), 4.hours) do %>
   <% if @friends.empty? %>
     <p>
       <em>
-        <%= __('You have no friends yet.') %>
+        <%= _('You have no friends yet.') %>
         <%= link_to _('Do you want to see other people in this environment?'), :controller => 'search', :action => 'assets', :asset => 'people' %>
       </em>
     </p>

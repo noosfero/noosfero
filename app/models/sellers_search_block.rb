@@ -1,11 +1,11 @@
 class SellersSearchBlock < Block
 
   def self.description
-    __('Search for enterprises and products')
+    _('Search for enterprises and products')
   end
 
   def self.short_description
-    __('Products/Enterprises search')
+    _('Products/Enterprises search')
   end
 
   def default_title

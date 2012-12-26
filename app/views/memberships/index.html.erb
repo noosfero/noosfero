@@ -3,8 +3,8 @@
 <h1><%= _('Manage my groups') %></h1>
 
 <% button_bar do %>
-  <%= button(:add, __('Create a new community'), :controller => 'memberships', :action => 'new_community') %>
-  <%= button :add, __('Register a new enterprise'), :controller => 'enterprise_registration' if environment.enabled?('enterprise_registration') %>
+  <%= button(:add, _('Create a new community'), :controller => 'memberships', :action => 'new_community') %>
+  <%= button :add, _('Register a new enterprise'), :controller => 'enterprise_registration' if environment.enabled?('enterprise_registration') %>
   <%= button :back, _('Go back'), :controller => 'profile_editor' %>
 <% end %>
 

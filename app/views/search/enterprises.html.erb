@@ -3,7 +3,7 @@
 <div id="search-column-left">
   <% if logged_in? && environment.enabled?('enterprise_registration') %>
     <% button_bar do %>
-      <%= button(:add, __('New enterprise'), {:controller => 'enterprise_registration'}) %>
+      <%= button(:add, _('New enterprise'), {:controller => 'enterprise_registration'}) %>
     <% end %>
   <% end %>
 

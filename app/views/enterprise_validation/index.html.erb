@@ -1,11 +1,11 @@
-<h1><%= __('Enterprise validations') %></h1>
+<h1><%= _('Enterprise validations') %></h1>
 
 <% button_bar do %>
   <%= button(:edit, _('Edit validation info'), { :action => 'edit_validation_info' }) %>
   <%= button(:back, _('Go Back'), { :controller => 'profile_editor' }) %>
 <% end %>
 
-<h2><%= __("Pending enterprise validations") %></h2>
+<h2><%= _("Pending enterprise validations") %></h2>
 
 <% for pending in @pending_validations %>
   <h3><%= pending.name %></h3>
@@ -27,7 +27,7 @@
   <%= link_to _("See details/approve/reject"), :action => 'details', :id => pending.code %>
 <% end %>
 
-<h2><%= __('Processed enterprise validations') %></h2>
+<h2><%= _('Processed enterprise validations') %></h2>
 
-<p><%= link_to __("See the list of processed enterprise validations"), :action => 'list_processed' %></p>
+<p><%= link_to _("See the list of processed enterprise validations"), :action => 'list_processed' %></p>
 

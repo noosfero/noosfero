@@ -1,11 +1,11 @@
 class FriendsBlock < ProfileListBlock
 
   def self.description
-    __('Friends')
+    _('Friends')
   end
 
   def default_title
-    n__('{#} friend', '{#} friends', profile_count)
+    n_('{#} friend', '{#} friends', profile_count)
   end
 
   def help

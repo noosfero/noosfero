@@ -5,7 +5,7 @@ class FansBlock < ProfileListBlock
   end
 
   def default_title
-    n__('{#} fan', '{#} fans', profile_count)
+    n_('{#} fan', '{#} fans', profile_count)
   end
 
   def help

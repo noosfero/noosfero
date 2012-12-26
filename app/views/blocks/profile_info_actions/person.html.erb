@@ -3,7 +3,7 @@
 
     <% if !user.already_request_friendship?(profile) and !user.is_a_friend?(profile) %>
       <li>
-      <%= button(:add, content_tag('span', __('Add friend')), profile.add_url, :class => 'add-friend', :title => _("Add friend"), :style => 'position: relative;') %>
+      <%= button(:add, content_tag('span', _('Add friend')), profile.add_url, :class => 'add-friend', :title => _("Add friend"), :style => 'position: relative;') %>
       </li>
     <% end %>
 

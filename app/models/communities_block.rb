@@ -1,15 +1,15 @@
 class CommunitiesBlock < ProfileListBlock
 
   def self.description
-    __('Communities')
+    _('Communities')
   end
 
   def default_title
-    n__('{#} community', '{#} communities', profile_count)
+    n_('{#} community', '{#} communities', profile_count)
   end
 
   def help
-    __('This block displays the communities in which the user is a member.')
+    _('This block displays the communities in which the user is a member.')
   end
 
   def footer

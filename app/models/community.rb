@@ -84,7 +84,7 @@ class Community < Organization
   end
 
   def control_panel_settings_button
-    {:title => __('Community Info and settings'), :icon => 'edit-profile-group'}
+    {:title => _('Community Info and settings'), :icon => 'edit-profile-group'}
   end
 
   def activities

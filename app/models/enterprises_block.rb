@@ -1,15 +1,15 @@
 class EnterprisesBlock < ProfileListBlock
 
   def default_title
-    n__('{#} enterprise', '{#} enterprises', profile_count)
+    n_('{#} enterprise', '{#} enterprises', profile_count)
   end
 
   def help
-    __('This block displays the enterprises where this user works.')
+    _('This block displays the enterprises where this user works.')
   end
 
   def self.description
-    __('Enterprises')
+    _('Enterprises')
   end
 
   def footer

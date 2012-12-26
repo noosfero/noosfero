@@ -20,7 +20,7 @@
 
     <% if !environment.enabled?('disable_asset_enterprises') && !profile.enterprises.empty? %>
       <tr>
-        <th colspan='2'><%= __('Enterprises') %></th>
+        <th colspan='2'><%= _('Enterprises') %></th>
       </tr>
       <% profile.enterprises.includes(:environment,:domains, :preferred_domain).each do |item| %>
         <tr>
@@ -34,11 +34,11 @@
       <th colspan='2'><%= _('Network')%></th>
     </tr>
     <tr>
-      <td><%= __('Friends') + ':' %></td>
+      <td><%= _('Friends') + ':' %></td>
       <td><%= link_to  profile.friends.count, { :controller => 'profile', :action => 'friends' } %></td>
     </tr>
     <tr>
-      <td><%= __('Communities') + ':' %></td>
+      <td><%= _('Communities') + ':' %></td>
       <td><%= link_to profile.communities.count, :controller => "profile", :action => 'communities' %></td>
     </tr>
 

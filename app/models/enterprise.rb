@@ -163,7 +163,7 @@ class Enterprise < Organization
   alias_method_chain :template, :inactive_enterprise
 
   def control_panel_settings_button
-    {:title => __('Enterprise Info and settings'), :icon => 'edit-profile-enterprise'}
+    {:title => _('Enterprise Info and settings'), :icon => 'edit-profile-enterprise'}
   end
 
   settings_items :enable_contact_us, :type => :boolean, :default => true
@@ -173,7 +173,7 @@ class Enterprise < Organization
   end
 
   def control_panel_settings_button
-    {:title => __('Enterprise Info and settings'), :icon => 'edit-profile-enterprise'}
+    {:title => _('Enterprise Info and settings'), :icon => 'edit-profile-enterprise'}
   end
 
   def create_product?

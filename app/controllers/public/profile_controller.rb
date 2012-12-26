@@ -167,7 +167,7 @@ class ProfileController < PublicController
       session[:notice] = _("You have unblocked %s successfully. ") % profile.name
       redirect_to :controller => 'profile', :action => 'index'
     else
-      message = __('You are not allowed to unblock enterprises in this environment.')
+      message = _('You are not allowed to unblock enterprises in this environment.')
       render_access_denied(message)
     end
   end

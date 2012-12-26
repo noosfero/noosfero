@@ -1,11 +1,11 @@
 class DisabledEnterpriseMessageBlock < Block
 
   def self.description
-    __('"Disabled enterprise" message')
+    _('"Disabled enterprise" message')
   end
 
   def help
-    __('Shows a message for disabled enterprises.')
+    _('Shows a message for disabled enterprises.')
   end
 
   def default_title
