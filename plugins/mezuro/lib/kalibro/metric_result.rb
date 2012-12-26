@@ -30,7 +30,7 @@ class Kalibro::MetricResult < Kalibro::Model
   end
 
   def self.history_of(metric_name, module_result_id)
-    response = self.request(:history_of, {:metric_name => metric_name, :module_result_id => module_result_id})[:date_metric_result]
+    response = self.request(:history_of_metric, {:metric_name => metric_name, :module_result_id => module_result_id})[:date_metric_result]
     response = [] if response.nil?
     response = [response] if response.is_a?(Hash) 
     response.map {|date_metric_result| Kalibro::DateMetricResult.new date_metric_result}

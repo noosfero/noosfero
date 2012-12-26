@@ -26,7 +26,7 @@ function display_metric_history() {
 
 //TODO review for project history
 function display_grade_history() {
-  var module_name = jQuery(this).attr('data-module-id');
+  var module_result_id = jQuery(this).attr('data-module-id');
   toggle_mezuro("#historical-grade");
   callAction('module_result', 'module_result_history', {module_result_id: module_result_id}, show_grades);
   return false;
