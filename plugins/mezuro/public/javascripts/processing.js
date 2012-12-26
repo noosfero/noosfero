@@ -49,7 +49,7 @@ function toggle_mezuro(element){
 
 //TODO Waiting for ModuleResultController refactoring
 function reloadModule(){
-  var module_result_id = jQuery(this).attr('module_result_id');
+  var module_result_id = jQuery(this).attr('data-module-id');
   showLoadingProcess(false);
   processingTree = true;
 //  callAction('module_result', 'project_tree', {results_root_id: results_root_id }, showProjectTree);
