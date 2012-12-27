@@ -7,10 +7,10 @@ class ShoppingCartPluginProfileController < ProfileController
   before_filter :login_required, :only => []
 
   def add
-    session[:cart] = { :enterprise_id => profile.id, :items => {} } if session[:cart].nil?
+    self.cart = { :enterprise_id => profile.id, :items => {} } if self.cart.nil?
     if validate_same_enterprise && product = validate_enterprise_has_product(params[:id])
-      session[:cart][:items][product.id] = 0 if session[:cart][:items][product.id].nil?
-      session[:cart][:items][product.id] += 1
+      self.cart[:items][product.id] = 0 if self.cart[:items][product.id].nil?
+      self.cart[:items][product.id] += 1
       render :text => {
         :ok => true,
         :error => {:code => 0},
@@ -20,7 +20,7 @@ class ShoppingCartPluginProfileController < ProfileController
           :price => get_price(product, profile.environment),
           :description => product.description,
           :picture => product.default_image(:minor),
-          :quantity => session[:cart][:items][product.id]
+          :quantity => self.cart[:items][product.id]
         }]
       }.to_json
     end
@@ -29,8 +29,8 @@ class ShoppingCartPluginProfileController < ProfileController
   def remove
     id = params[:id].to_i
     if validate_cart_presence && validate_cart_has_product(id)
-      session[:cart][:items].delete(id)
-      session[:cart] = nil if session[:cart][:items].empty?
+      self.cart[:items].delete(id)
+      self.cart = nil if self.cart[:items].empty?
       render :text => {
         :ok => true,
         :error => {:code => 0},
@@ -41,7 +41,7 @@ class ShoppingCartPluginProfileController < ProfileController
 
   def list
     if validate_cart_presence
-      products = session[:cart][:items].collect do |id, quantity|
+      products = self.cart[:items].collect do |id, quantity|
         product = Product.find(id)
         { :id => product.id,
           :name => product.name,
@@ -54,7 +54,7 @@ class ShoppingCartPluginProfileController < ProfileController
       render :text => {
         :ok => true,
         :error => {:code => 0},
-        :enterprise => Enterprise.find(session[:cart][:enterprise_id]).identifier,
+        :enterprise => Enterprise.find(self.cart[:enterprise_id]).identifier,
         :products => products
       }.to_json
     end
@@ -65,7 +65,7 @@ class ShoppingCartPluginProfileController < ProfileController
     id = params[:id].to_i
     if validate_cart_presence && validate_cart_has_product(id) && validate_item_quantity(quantity)
       product = Product.find(id)
-      session[:cart][:items][product.id] = quantity
+      self.cart[:items][product.id] = quantity
       render :text => {
         :ok => true,
         :error => {:code => 0},
@@ -76,7 +76,7 @@ class ShoppingCartPluginProfileController < ProfileController
   end
 
   def clean
-    session[:cart] = nil
+    self.cart = nil
     render :text => {
       :ok => true,
       :error => {:code => 0}
@@ -89,10 +89,10 @@ class ShoppingCartPluginProfileController < ProfileController
   end
 
   def send_request
-      register_order(params[:customer], session[:cart][:items])
+      register_order(params[:customer], self.cart[:items])
     begin
-      ShoppingCartPlugin::Mailer.deliver_customer_notification(params[:customer], profile, session[:cart][:items])
-      ShoppingCartPlugin::Mailer.deliver_supplier_notification(params[:customer], profile, session[:cart][:items])
+      ShoppingCartPlugin::Mailer.deliver_customer_notification(params[:customer], profile, self.cart[:items])
+      ShoppingCartPlugin::Mailer.deliver_supplier_notification(params[:customer], profile, self.cart[:items])
       render :text => {
         :ok => true,
         :message => _('Request sent successfully. Check your email.'),
@@ -110,12 +110,12 @@ class ShoppingCartPluginProfileController < ProfileController
   end
 
   def visibility
-    render :text => session[:cart].has_key?(:visibility) ? session[:cart][:visibility].to_json : true.to_json
+    render :text => self.cart.has_key?(:visibility) ? self.cart[:visibility].to_json : true.to_json
   end
 
   def show
     begin
-      session[:cart][:visibility] = true
+      self.cart[:visibility] = true
       render :text => {
         :ok => true,
         :message => _('Basket displayed.'),
@@ -134,7 +134,7 @@ class ShoppingCartPluginProfileController < ProfileController
 
   def hide
     begin
-      session[:cart][:visibility] = false
+      self.cart[:visibility] = false
       render :text => {
         :ok => true,
         :message => _('Basket hidden.'),
@@ -154,7 +154,7 @@ class ShoppingCartPluginProfileController < ProfileController
   private
 
   def validate_same_enterprise
-    if profile.id != session[:cart][:enterprise_id]
+    if profile.id != self.cart[:enterprise_id]
       render :text => {
         :ok => false,
         :error => {
@@ -168,7 +168,7 @@ class ShoppingCartPluginProfileController < ProfileController
   end
 
   def validate_cart_presence
-    if session[:cart].nil?
+    if self.cart.nil?
       render :text => {
         :ok => false,
         :error => {
@@ -198,7 +198,7 @@ class ShoppingCartPluginProfileController < ProfileController
   end
 
   def validate_cart_has_product(id)
-    if !session[:cart][:items].has_key?(id)
+    if !self.cart[:items].has_key?(id)
       render :text => {
         :ok => false,
         :error => {
@@ -244,5 +244,15 @@ class ShoppingCartPluginProfileController < ProfileController
       :customer_city => params[:customer][:city],
       :customer_zip_code => params[:customer][:zip_code]
     )
+  end
+
+  protected
+
+  def cart
+    session[:cart]
+  end
+
+  def cart=(data)
+    session[:cart] = data
   end
 end
