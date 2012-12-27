@@ -4,7 +4,7 @@ class ChangePassword < Task
 
   def self.human_attribute_name(attrib)
     case attrib.to_sym
-    when :login:
+    when :login
       _('Username')
     when :email
       _('e-mail')

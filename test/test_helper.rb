@@ -1,12 +1,13 @@
 ENV["RAILS_ENV"] = "test"
 
 require File.expand_path(File.dirname(__FILE__) + "/../config/environment")
-require 'test_help'
+require 'rails/test_help'
 require 'mocha'
 require 'tidy'
 require 'hpricot'
 
 require 'noosfero/test'
+require 'authenticated_test_helper'
 require File.dirname(__FILE__) + '/factories'
 require File.dirname(__FILE__) + '/noosfero_doc_test'
 require File.dirname(__FILE__) + '/action_tracker_test_helper'
@@ -44,21 +45,13 @@ class ActiveSupport::TestCase
   # Add more helper methods to be used by all tests here...
 
   # for fixture_file_upload
-  include ActionController::TestProcess
+  include ActionDispatch::TestProcess
 
   include Noosfero::Factory
 
   include AuthenticatedTestHelper
 
   fixtures :environments, :roles
-
-  def setup
-    TestSolr.disable
-  end
-
-  def teardown
-    TestSolr.disable
-  end
 
   def self.all_fixtures
     Dir.glob(File.join(Rails.root, 'test', 'fixtures', '*.yml')).each do |item|

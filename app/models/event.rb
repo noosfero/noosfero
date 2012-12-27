@@ -1,3 +1,5 @@
+require 'noosfero/translatable_content'
+
 class Event < Article
 
   def self.type_name

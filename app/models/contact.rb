@@ -1,13 +1,22 @@
-class Contact < ActiveRecord::Base #WithoutTable
-  tableless :columns => [
-    [:name, :string],
-    [:subject, :string],
-    [:message, :string],
-    [:email, :string],
-    [:state, :string],
-    [:city, :string],
-    [:receive_a_copy, :boolean]
-  ]
+class Contact
+
+  include ActiveModel::Validations
+
+  def initialize(attributes = nil)
+    if attributes
+      attributes.each do |attr,value|
+        self.send("#{attr}=", value)
+      end
+    end
+  end
+
+  attr_accessor :name
+  attr_accessor :subject
+  attr_accessor :message
+  attr_accessor :email
+  attr_accessor :state
+  attr_accessor :city
+  attr_accessor :receive_a_copy
   attr_accessor :dest
   attr_accessor :sender
 

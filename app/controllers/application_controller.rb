@@ -59,7 +59,11 @@ class ApplicationController < ActionController::Base
   # declares that the given <tt>actions</tt> cannot be accessed by other HTTP
   # method besides POST.
   def self.post_only(actions, redirect = { :action => 'index'})
-    verify :method => :post, :only => actions, :redirect_to => redirect
+    before_filter(:only => actions) do |controller|
+      if !controller.request.post?
+        controller.redirect_to redirect
+      end
+    end
   end
 
   helper_method :current_person, :current_person
