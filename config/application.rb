@@ -14,6 +14,8 @@ if defined?(Bundler)
   # Bundler.require(:default, :assets, Rails.env)
 end
 
+require 'noosfero/plugin'
+
 module Noosfero
   class Application < Rails::Application
 
@@ -39,9 +41,8 @@ module Noosfero
       makemo
     ]
     if $PROGRAM_NAME =~ /rake$/ && (ignore_rake_commands.include?(ARGV.first))
-      $NOOSFERO_LOAD_PLUGINS = false
+      Noosfero::Plugin.should_load = false
     else
-      $NOOSFERO_LOAD_PLUGINS = true
       config.active_record.observers = :article_sweeper, :role_assignment_sweeper, :friendship_sweeper, :category_sweeper, :block_sweeper
     end
 
@@ -103,6 +104,8 @@ module Noosfero
     }
 
     config.autoload_paths += Dir["#{config.root}/app/controllers/**/"]
+
+    Noosfero::Plugin.setup(config)
 
   end
 end

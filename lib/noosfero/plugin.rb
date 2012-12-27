@@ -1,5 +1,4 @@
 require 'noosfero'
-include ActionView::Helpers::AssetTagHelper
 
 class Noosfero::Plugin
 
@@ -7,47 +6,73 @@ class Noosfero::Plugin
 
   class << self
 
-    def klass(dir)
-      (dir.to_s.camelize + 'Plugin').constantize # load the plugin
+    attr_writer :should_load
+
+    def should_load
+      @should_load.nil? && true || @boot
     end
 
-    def init_system
-      enabled_plugins = Dir.glob(File.join(Rails.root, 'config', 'plugins', '*'))
-      if Rails.env.test? && !enabled_plugins.include?(File.join(Rails.root, 'config', 'plugins', 'foo'))
-        enabled_plugins << File.join(Rails.root, 'plugins', 'foo')
+    def initialize!
+      return if !should_load
+      enabled.each do |plugin_dir|
+        plugin_name = File.basename(plugin_dir)
+        load_plugin(plugin_name)
       end
-      enabled_plugins.select do |entry|
-        File.directory?(entry)
-      end.each do |dir|
-        plugin_name = File.basename(dir)
+    end
 
-        plugin_dependencies_ok = true
-        plugin_dependencies_file = File.join(dir, 'dependencies.rb')
-        if File.exists?(plugin_dependencies_file)
-          begin
-            require plugin_dependencies_file
-          rescue LoadError => ex
-            plugin_dependencies_ok = false
-            $stderr.puts "W: Noosfero plugin #{plugin_name} failed to load (#{ex})"
-          end
-        end
+    def setup(config)
+      return if !should_load
+      enabled.each do |dir|
+        setup_plugin(dir, config)
+      end
+    end
 
-        if plugin_dependencies_ok
-          Rails.configuration.controller_paths << File.join(dir, 'controllers')
-          ActiveSupport::Dependencies.load_paths << File.join(dir, 'controllers')
-          controllers_folders = %w[public profile myprofile admin]
-          controllers_folders.each do |folder|
-            Rails.configuration.controller_paths << File.join(dir, 'controllers', folder)
-            ActiveSupport::Dependencies.load_paths << File.join(dir, 'controllers', folder)
-          end
-          [ ActiveSupport::Dependencies.load_paths, $:].each do |path|
-            path << File.join(dir, 'models')
-            path << File.join(dir, 'lib')
-          end
+    def setup_plugin(dir, config)
+      plugin_name = File.basename(dir)
 
-          klass(plugin_name)
+      plugin_dependencies_ok = true
+      plugin_dependencies_file = File.join(dir, 'dependencies.rb')
+      if File.exists?(plugin_dependencies_file)
+        begin
+          require plugin_dependencies_file
+        rescue LoadError => ex
+          plugin_dependencies_ok = false
+          $stderr.puts "W: Noosfero plugin #{plugin_name}: failed to load dependencies (#{ex})"
         end
       end
+
+      if plugin_dependencies_ok
+        %w[
+            controllers
+            controllers/public
+            controllers/profile
+            controllers/myprofile
+            controllers/admin
+        ].each do |folder|
+          config.autoload_paths << File.join(dir, folder)
+        end
+        [ config.autoload_paths, $:].each do |path|
+          path << File.join(dir, 'models')
+          path << File.join(dir, 'lib')
+        end
+      end
+    end
+
+    def load_plugin(dir)
+      (dir.to_s.camelize + 'Plugin').constantize
+    end
+
+    def enabled
+      @enabled ||=
+        begin
+          plugins = Dir.glob(File.join(Rails.root, 'config', 'plugins', '*'))
+          if Rails.env.test? && !plugins.include?(File.join(Rails.root, 'config', 'plugins', 'foo'))
+            plugins << File.join(Rails.root, 'plugins', 'foo')
+          end
+          plugins.select do |entry|
+            File.directory?(entry)
+          end
+        end
     end
 
     def all
@@ -390,3 +415,9 @@ class Noosfero::Plugin
   end
 
 end
+
+require 'noosfero/plugin/hot_spot'
+require 'noosfero/plugin/manager'
+require 'noosfero/plugin/active_record'
+require 'noosfero/plugin/mailer_base'
+require 'noosfero/plugin/settings'
