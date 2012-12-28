@@ -309,7 +309,20 @@ function Cart(config) {
   }
 
   $(function(){
-    $('.cart-add-item').button({ icons: { primary: 'ui-icon-cart'} })
+
+    var profile = 'foo'; // FIXME
+    $.ajax({
+      url: "/profile/" + profile + "/plugin/shopping_cart/get",
+      dataType: 'json',
+      success: function(data) {
+        new Cart(data);
+        $('.cart-add-item').button({ icons: { primary: 'ui-icon-cart'} })
+      },
+      cache: false,
+      error: function(ajax, status, errorThrown) {
+        alert('Error getting shopping cart - HTTP '+status+': '+errorThrown);
+      }
+    });
   });
 
 })(jQuery);

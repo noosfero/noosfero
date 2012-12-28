@@ -15,22 +15,3 @@
     </a>
   </div>
 </div>
-
-<script type="text/javascript">
-//<![CDATA[
-  jQuery(function($) {
-    var profile = 'foo'; // FIXME
-    $.ajax({
-      url: "/profile/" + profile + "/plugin/shopping_cart/get",
-      dataType: 'json',
-      success: function(data) {
-        new Cart(data);
-      },
-      cache: false,
-      error: function(ajax, status, errorThrown) {
-        alert('Error getting shopping cart - HTTP '+status+': '+errorThrown);
-      }
-    });
-  });
-//]]>
-</script>
