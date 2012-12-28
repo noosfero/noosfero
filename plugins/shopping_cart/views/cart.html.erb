@@ -18,6 +18,19 @@
 
 <script type="text/javascript">
 //<![CDATA[
-  new Cart({hasProducts:<%= !locals[:cart].nil? ? "true, enterprise:'#{Enterprise.find(locals[:cart][:enterprise_id]).identifier}'" : "false" %>});
+  jQuery(function($) {
+    var profile = 'foo'; // FIXME
+    $.ajax({
+      url: "/profile/" + profile + "/plugin/shopping_cart/get",
+      dataType: 'json',
+      success: function(data) {
+        new Cart(data);
+      },
+      cache: false,
+      error: function(ajax, status, errorThrown) {
+        alert('Error getting shopping cart - HTTP '+status+': '+errorThrown);
+      }
+    });
+  });
 //]]>
 </script>

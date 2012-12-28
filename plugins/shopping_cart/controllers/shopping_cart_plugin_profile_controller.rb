@@ -1,3 +1,5 @@
+require 'base64'
+
 include ShoppingCartPlugin::CartHelper
 
 class ShoppingCartPluginProfileController < ProfileController
@@ -5,6 +7,12 @@ class ShoppingCartPluginProfileController < ProfileController
   before_filter :login_required, :only => []
 
   before_filter :login_required, :only => []
+
+  def get
+    has_products = !cart.nil? && (cart[:items].keys.size > 0) || false
+    config = { 'enterprise' => profile.identifier, 'hasProducts' => has_products }
+    render :text => config.to_json
+  end
 
   def add
     self.cart = { :enterprise_id => profile.id, :items => {} } if self.cart.nil?
@@ -85,6 +93,7 @@ class ShoppingCartPluginProfileController < ProfileController
 
   def buy
     @environment = profile.environment
+    @cart = cart
     render :layout => false
   end
 
@@ -249,10 +258,31 @@ class ShoppingCartPluginProfileController < ProfileController
   protected
 
   def cart
-    session[:cart]
+    @cart ||=
+      begin
+        cookies[cookie_key] && YAML.load(Base64.decode64(cookies[cookie_key])) || nil
+      end
+    @cart
   end
 
   def cart=(data)
-    session[:cart] = data
+    @cart = data
   end
+
+  after_filter :save_cookie
+  def save_cookie
+    if @cart.nil? && cookies[cookie_key]
+      cookies.delete(cookie_key)
+    else
+      cookies[cookie_key] = {
+        :value => Base64.encode64(@cart.to_yaml),
+        :path => "/profile/#{profile.identifier}/plugin/shopping_cart"
+      }
+    end
+  end
+
+  def cookie_key
+    :_noosfero_session_shopping_cart
+  end
+
 end

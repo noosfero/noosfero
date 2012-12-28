@@ -38,6 +38,8 @@ module NoosferoHttpCaching
     def call(env)
       status, headers, body = @app.call(env)
       if headers['X-Noosfero-Auth'] == 'false'
+        # FIXME do not do this if there is any plugin cookie set (e.g.
+        # _noosfero_session_shopping_cart)
         headers.delete('Set-Cookie')
       end
       headers.delete('X-Noosfero-Auth')

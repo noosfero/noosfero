@@ -35,7 +35,7 @@ class ShoppingCartPlugin < Noosfero::Plugin
   end
 
   def body_beginning
-    expanded_template('cart.html.erb',{:cart => context.session[:cart]})
+    expanded_template('cart.html.erb')
   end
 
   def control_panel_buttons

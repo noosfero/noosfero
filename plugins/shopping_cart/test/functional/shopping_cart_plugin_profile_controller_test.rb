@@ -48,7 +48,7 @@ class ShoppingCartPluginProfileControllerTest < ActionController::TestCase
   end
 
   should 'not try to remove a product if there is no cart' do
-    instantiate_session
+    instantiate_cart
     assert !cart?
 
     assert_nothing_raised { get :remove, :profile => enterprise.identifier, :id => 9999 }
@@ -76,7 +76,7 @@ class ShoppingCartPluginProfileControllerTest < ActionController::TestCase
   end
 
   should 'not try to list the cart if there is no cart' do
-    instantiate_session
+    instantiate_cart
     assert !cart?
 
     assert_nothing_raised { get :list, :profile => enterprise.identifier }
@@ -100,7 +100,7 @@ class ShoppingCartPluginProfileControllerTest < ActionController::TestCase
   end
 
   should 'not try to update quantity the quantity of a product if there is no cart' do
-    instantiate_session
+    instantiate_cart
     assert !cart?
 
     assert_nothing_raised { get :update_quantity, :profile => enterprise.identifier, :id => 9999, :quantity => 3 }
@@ -139,7 +139,7 @@ class ShoppingCartPluginProfileControllerTest < ActionController::TestCase
   end
 
   should 'not crash if there is no cart' do
-    instantiate_session
+    instantiate_cart
     assert !cart?
     assert_nothing_raised {  get :clean, :profile => enterprise.identifier }
   end
@@ -147,7 +147,7 @@ class ShoppingCartPluginProfileControllerTest < ActionController::TestCase
   should 'register order on send request' do
     product1 = fast_create(Product, :enterprise_id => enterprise.id, :price => 1.99)
     product2 = fast_create(Product, :enterprise_id => enterprise.id, :price => 2.23)
-    @controller.stubs(:session).returns({:cart => {:items => {product1.id => 1, product2.id => 2}}})
+    @controller.stubs(:cart).returns({:items => {product1.id => 1, product2.id => 2}})
     assert_difference ShoppingCartPlugin::PurchaseOrder, :count, 1 do
       post :send_request,
         :customer => {:name => "Manuel", :email => "manuel@ceu.com"},
@@ -165,7 +165,7 @@ class ShoppingCartPluginProfileControllerTest < ActionController::TestCase
 
   should 'register order on send request and not crash if product is not defined' do
     product1 = fast_create(Product, :enterprise_id => enterprise.id)
-    @controller.stubs(:session).returns({:cart => {:items => {product1.id => 1}}})
+    @controller.stubs(:cart).returns({:items => {product1.id => 1}})
     assert_difference ShoppingCartPlugin::PurchaseOrder, :count, 1 do
       post :send_request,
         :customer => {:name => "Manuel", :email => "manuel@ceu.com"},
@@ -184,15 +184,15 @@ class ShoppingCartPluginProfileControllerTest < ActionController::TestCase
   end
 
   def cart?
-    !session[:cart].nil?
+    @controller.send(:cart).nil?
   end
 
   def product_in_cart?(product)
-    session[:cart][:items].has_key?(product.id)
+    @controller.send(:cart)[:items].has_key?(product.id)
   end
 
   def product_quantity(product)
-    session[:cart][:items][product.id]
+    @controller.send(:cart)[:items][product.id]
   end
 
   def response_ok?
@@ -205,7 +205,7 @@ class ShoppingCartPluginProfileControllerTest < ActionController::TestCase
 
   # temporary hack...if I don't do this the session stays as an Array instead
   # of a TestSession
-  def instantiate_session
+  def instantiate_cart
     get :add, :profile => enterprise.identifier, :id => product.id
     get :remove, :profile => enterprise.identifier, :id => product.id
   end
