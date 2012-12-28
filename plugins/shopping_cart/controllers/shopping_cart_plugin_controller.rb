@@ -1,6 +1,6 @@
 require 'base64'
 
-class ShoppingCartPluginController < ProfileController
+class ShoppingCartPluginController < PublicController
 
   include ShoppingCartPlugin::CartHelper
 
