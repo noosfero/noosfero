@@ -290,7 +290,7 @@ class ShoppingCartPluginController < PublicController
   end
 
   def cookie_key
-    :_noosfero_session_shopping_cart
+    :_noosfero_plugin_shopping_cart
   end
 
 end
