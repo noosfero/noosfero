@@ -11,12 +11,13 @@ class ShoppingCartPlugin < Noosfero::Plugin
     _("A shopping basket feature for enterprises")
   end
 
-  def add_to_cart_button(item, enterprise = context.profile)
+  def add_to_cart_button(item)
+    enterprise = item.enterprise
     if enterprise.shopping_cart && item.available
        lambda {
          link_to(_('Add to basket'), "add:#{item.name}",
            :class => 'cart-add-item',
-           :onclick => "Cart.addItem('#{enterprise.identifier}', #{item.id}, this); return false"
+           :onclick => "Cart.addItem(#{item.id}, this); return false"
          )
        }
     end

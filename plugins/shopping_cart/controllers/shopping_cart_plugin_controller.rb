@@ -3,6 +3,7 @@ require 'base64'
 class ShoppingCartPluginController < PublicController
 
   include ShoppingCartPlugin::CartHelper
+  helper ShoppingCartPlugin::CartHelper
 
   append_view_path File.join(File.dirname(__FILE__) + '/../views')
   before_filter :login_required, :only => []
@@ -10,14 +11,19 @@ class ShoppingCartPluginController < PublicController
   before_filter :login_required, :only => []
 
   def get
-    has_products = !cart.nil? && (cart[:items].keys.size > 0) || false
-    config = { 'enterprise' => profile.identifier, 'hasProducts' => has_products }
+    config =
+      if cart.nil?
+        { 'enterprise_id' => nil, 'hasProducts' => false }
+      else
+        { 'enterprise_id' => cart[:enterprise_id], 'hasProducts' => (cart[:items].keys.size > 0) }
+      end
     render :text => config.to_json
   end
 
   def add
-    self.cart = { :enterprise_id => profile.id, :items => {} } if self.cart.nil?
-    if validate_same_enterprise && product = validate_enterprise_has_product(params[:id])
+    product = find_product(params[:id])
+    if product && enterprise = validate_same_enterprise(product)
+      self.cart = { :enterprise_id => enterprise.id, :items => {} } if self.cart.nil?
       self.cart[:items][product.id] = 0 if self.cart[:items][product.id].nil?
       self.cart[:items][product.id] += 1
       render :text => {
@@ -26,7 +32,7 @@ class ShoppingCartPluginController < PublicController
         :products => [{
           :id => product.id,
           :name => product.name,
-          :price => get_price(product, profile.environment),
+          :price => get_price(product, enterprise.environment),
           :description => product.description,
           :picture => product.default_image(:minor),
           :quantity => self.cart[:items][product.id]
@@ -54,7 +60,7 @@ class ShoppingCartPluginController < PublicController
         product = Product.find(id)
         { :id => product.id,
           :name => product.name,
-          :price => get_price(product, profile.environment),
+          :price => get_price(product, product.enterprise.environment),
           :description => product.description,
           :picture => product.default_image(:minor),
           :quantity => quantity
@@ -63,7 +69,6 @@ class ShoppingCartPluginController < PublicController
       render :text => {
         :ok => true,
         :error => {:code => 0},
-        :enterprise => Enterprise.find(self.cart[:enterprise_id]).identifier,
         :products => products
       }.to_json
     end
@@ -93,16 +98,17 @@ class ShoppingCartPluginController < PublicController
   end
 
   def buy
-    @environment = profile.environment
     @cart = cart
+    @enterprise = environment.enterprises.find(cart[:enterprise_id])
     render :layout => false
   end
 
   def send_request
-      register_order(params[:customer], self.cart[:items])
+    register_order(params[:customer], self.cart[:items])
     begin
-      ShoppingCartPlugin::Mailer.deliver_customer_notification(params[:customer], profile, self.cart[:items])
-      ShoppingCartPlugin::Mailer.deliver_supplier_notification(params[:customer], profile, self.cart[:items])
+      enterprise = Enterprise.find(cart[:enterprise_id])
+      ShoppingCartPlugin::Mailer.deliver_customer_notification(params[:customer], enterprise, self.cart[:items])
+      ShoppingCartPlugin::Mailer.deliver_supplier_notification(params[:customer], enterprise, self.cart[:items])
       render :text => {
         :ok => true,
         :message => _('Request sent successfully. Check your email.'),
@@ -163,8 +169,8 @@ class ShoppingCartPluginController < PublicController
 
   private
 
-  def validate_same_enterprise
-    if profile.id != self.cart[:enterprise_id]
+  def validate_same_enterprise(product)
+    if self.cart && self.cart[:enterprise_id] && product.enterprise_id != self.cart[:enterprise_id]
       render :text => {
         :ok => false,
         :error => {
@@ -172,9 +178,9 @@ class ShoppingCartPluginController < PublicController
         :message => _("Can't join items from different enterprises.")
       }
       }.to_json
-      return false
+      return nil
     end
-    true
+    product.enterprise
   end
 
   def validate_cart_presence
@@ -191,10 +197,11 @@ class ShoppingCartPluginController < PublicController
     true
   end
 
-  def validate_enterprise_has_product(id)
+  def find_product(id)
     begin
-      product = profile.products.find(id)
-    rescue
+      $stderr.puts '*********** ' + id.inspect
+      product = Product.find(id)
+    rescue ActiveRecord::RecordNotFound
       render :text => {
         :ok => false,
         :error => {
@@ -243,7 +250,7 @@ class ShoppingCartPluginController < PublicController
       new_items[id] = {:quantity => quantity, :price => price, :name => product.name}
     end
     ShoppingCartPlugin::PurchaseOrder.create!(
-      :seller => profile,
+      :seller => Enterprise.find(cart[:enterprise_id]),
       :customer => user,
       :status => ShoppingCartPlugin::PurchaseOrder::Status::OPENED,
       :products_list => new_items,
@@ -277,7 +284,7 @@ class ShoppingCartPluginController < PublicController
     else
       cookies[cookie_key] = {
         :value => Base64.encode64(@cart.to_yaml),
-        :path => "/profile/#{profile.identifier}/plugin/shopping_cart"
+        :path => "/plugin/shopping_cart"
       }
     end
   end
