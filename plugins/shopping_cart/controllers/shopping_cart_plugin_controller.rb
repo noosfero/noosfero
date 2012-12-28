@@ -1,8 +1,9 @@
 require 'base64'
 
-include ShoppingCartPlugin::CartHelper
+class ShoppingCartPluginController < ProfileController
 
-class ShoppingCartPluginProfileController < ProfileController
+  include ShoppingCartPlugin::CartHelper
+
   append_view_path File.join(File.dirname(__FILE__) + '/../views')
   before_filter :login_required, :only => []
 

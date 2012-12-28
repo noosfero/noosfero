@@ -2,12 +2,12 @@ require File.dirname(__FILE__) + '/../../../../test/test_helper'
 require File.dirname(__FILE__) + '/../../controllers/shopping_cart_plugin_profile_controller'
 
 # Re-raise errors caught by the controller.
-class ShoppingCartPluginProfileController; def rescue_action(e) raise e end; end
+class ShoppingCartPluginController; def rescue_action(e) raise e end; end
 
-class ShoppingCartPluginProfileControllerTest < ActionController::TestCase
+class ShoppingCartPluginControllerTest < ActionController::TestCase
 
   def setup
-    @controller = ShoppingCartPluginProfileController.new
+    @controller = ShoppingCartPluginController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
     @enterprise = fast_create(Enterprise)
