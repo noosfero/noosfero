@@ -278,7 +278,7 @@ class ShoppingCartPluginController < PublicController
 
   after_filter :save_cookie
   def save_cookie
-    if @cart.nil? && cookies[cookie_key]
+    if @cart.nil?
       cookies.delete(cookie_key)
     else
       cookies[cookie_key] = {
