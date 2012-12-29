@@ -16,9 +16,10 @@ class ShoppingCartPluginControllerTest < ActionController::TestCase
   attr_reader :enterprise
   attr_reader :product
 
-  should 'return no cookie for an empty cart' do
+  should 'force cookie expiration with explicit path for an empty cart' do
     get :get
-    assert_nil @response.cookies[:_noosfero_plugin_shopping_cart]
+    last_year = 1.year.ago.year
+    assert @response.headers['Set-Cookie'].any? { |c| c =~ /_noosfero_plugin_shopping_cart=; path=\/plugin\/shopping_cart; expires=.*-#{last_year}/}
   end
 
   should 'add a new product to cart' do
@@ -178,6 +179,13 @@ class ShoppingCartPluginControllerTest < ActionController::TestCase
     order = ShoppingCartPlugin::PurchaseOrder.last
 
     assert_equal 0, order.products_list[product1.id][:price]
+  end
+
+  should 'clean the cart after placing the order' do
+    product1 = fast_create(Product, :enterprise_id => enterprise.id)
+    post :add, :id => product1.id
+    post :send_request, :customer => { :name => "Manuel", :email => "manuel@ceu.com" }
+    assert !cart?, "cart expected to be empty!"
   end
 
   private

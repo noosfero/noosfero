@@ -109,6 +109,7 @@ class ShoppingCartPluginController < PublicController
       enterprise = Enterprise.find(cart[:enterprise_id])
       ShoppingCartPlugin::Mailer.deliver_customer_notification(params[:customer], enterprise, self.cart[:items])
       ShoppingCartPlugin::Mailer.deliver_supplier_notification(params[:customer], enterprise, self.cart[:items])
+      self.cart = nil
       render :text => {
         :ok => true,
         :message => _('Request sent successfully. Check your email.'),
@@ -279,7 +280,11 @@ class ShoppingCartPluginController < PublicController
   after_filter :save_cookie
   def save_cookie
     if @cart.nil?
-      cookies.delete(cookie_key)
+      cookies[cookie_key] = {
+        :value => '',
+        :path => '/plugin/shopping_cart',
+        :expires => 1.year.ago,
+      }
     else
       cookies[cookie_key] = {
         :value => Base64.encode64(@cart.to_yaml),
