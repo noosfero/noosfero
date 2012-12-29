@@ -199,7 +199,6 @@ class ShoppingCartPluginController < PublicController
 
   def find_product(id)
     begin
-      $stderr.puts '*********** ' + id.inspect
       product = Product.find(id)
     rescue ActiveRecord::RecordNotFound
       render :text => {
