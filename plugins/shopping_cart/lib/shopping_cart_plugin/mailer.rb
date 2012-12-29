@@ -12,7 +12,8 @@ class ShoppingCartPlugin::Mailer < Noosfero::Plugin::MailerBase
     body :customer => customer,
          :supplier => supplier,
          :items => items,
-         :environment => supplier.environment
+         :environment => supplier.environment,
+         :helper => self
   end
 
   def supplier_notification(customer, supplier, items)
@@ -25,6 +26,8 @@ class ShoppingCartPlugin::Mailer < Noosfero::Plugin::MailerBase
     body :customer => customer,
          :supplier => supplier,
          :items => items,
-         :environment => supplier.environment
+         :environment => supplier.environment,
+         :helper => self
+
   end
 end

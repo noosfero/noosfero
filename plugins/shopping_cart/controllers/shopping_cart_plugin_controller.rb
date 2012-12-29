@@ -114,7 +114,7 @@ class ShoppingCartPluginController < PublicController
         :message => _('Request sent successfully. Check your email.'),
         :error => {:code => 0}
       }.to_json
-    rescue Exception => exception
+    rescue ActiveRecord::ActiveRecordError
       render :text => {
         :ok => false,
         :error => {
