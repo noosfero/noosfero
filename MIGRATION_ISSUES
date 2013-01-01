@@ -22,7 +22,7 @@
 
 * check FIXME's in Gemfile
 
-* Finish rewriting config/routes.rb (look for __END__)
+* Check the FIXME in config/routes.rb
 
 * rewrite conditional routing. See FIXME in lib/route_if.rb and re-implement using the Rails 3 mechanism - http://guides.rubyonrails.org/routing.html#advanced-constraints
 

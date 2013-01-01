@@ -53,67 +53,65 @@ Noosfero::Application.routes.draw do
   # search
   match 'search/:action(/*category_path)', :controller => 'search'
 
-end # FIXME remove this line and the following and finish rewriting the routes
-__END__
   # events
-  map.events 'profile/:profile/events_by_day', :controller => 'events', :action => 'events_by_day', :profile => /#{Noosfero.identifier_format}/
-  map.events 'profile/:profile/events/:year/:month/:day', :controller => 'events', :action => 'events', :year => /\d*/, :month => /\d*/, :day => /\d*/, :profile => /#{Noosfero.identifier_format}/
-  map.events 'profile/:profile/events/:year/:month', :controller => 'events', :action => 'events', :year => /\d*/, :month => /\d*/, :profile => /#{Noosfero.identifier_format}/
-  map.events 'profile/:profile/events', :controller => 'events', :action => 'events', :profile => /#{Noosfero.identifier_format}/
+  match 'profile/:profile/events_by_day', :controller => 'events', :action => 'events_by_day', :profile => /#{Noosfero.identifier_format}/
+  match 'profile/:profile/events/:year/:month/:day', :controller => 'events', :action => 'events', :year => /\d*/, :month => /\d*/, :day => /\d*/, :profile => /#{Noosfero.identifier_format}/
+  match 'profile/:profile/events/:year/:month', :controller => 'events', :action => 'events', :year => /\d*/, :month => /\d*/, :profile => /#{Noosfero.identifier_format}/
+  match 'profile/:profile/events', :controller => 'events', :action => 'events', :profile => /#{Noosfero.identifier_format}/
 
   # catalog
-  map.catalog 'catalog/:profile', :controller => 'catalog', :action => 'index', :profile => /#{Noosfero.identifier_format}/
+  match 'catalog/:profile', :controller => 'catalog', :action => 'index', :profile => /#{Noosfero.identifier_format}/
 
   # invite
-  map.invite 'profile/:profile/invite/friends', :controller => 'invite', :action => 'select_address_book', :profile => /#{Noosfero.identifier_format}/
-  map.invite 'profile/:profile/invite/:action', :controller => 'invite', :profile => /#{Noosfero.identifier_format}/
+  match 'profile/:profile/invite/friends', :controller => 'invite', :action => 'select_address_book', :profile => /#{Noosfero.identifier_format}/
+  match 'profile/:profile/invite/:action', :controller => 'invite', :profile => /#{Noosfero.identifier_format}/
 
   # feeds per tag
-  map.tag_feed 'profile/:profile/tags/:id/feed', :controller => 'profile', :action =>'tag_feed', :id => /.+/, :profile => /#{Noosfero.identifier_format}/
+  match 'profile/:profile/tags/:id/feed', :controller => 'profile', :action =>'tag_feed', :id => /.+/, :profile => /#{Noosfero.identifier_format}/
 
   # profile tags
-  map.tag 'profile/:profile/tags/:id', :controller => 'profile', :action => 'content_tagged', :id => /.+/, :profile => /#{Noosfero.identifier_format}/
-  map.tag 'profile/:profile/tags', :controller => 'profile', :action => 'tags', :profile => /#{Noosfero.identifier_format}/
+  match 'profile/:profile/tags/:id', :controller => 'profile', :action => 'content_tagged', :id => /.+/, :profile => /#{Noosfero.identifier_format}/
+  match 'profile/:profile/tags', :controller => 'profile', :action => 'tags', :profile => /#{Noosfero.identifier_format}/
 
   # profile search
-  map.profile_search 'profile/:profile/search', :controller => 'profile_search', :action => 'index', :profile => /#{Noosfero.identifier_format}/
+  match 'profile/:profile/search', :controller => 'profile_search', :action => 'index', :profile => /#{Noosfero.identifier_format}/
 
   # public profile information
-  map.profile 'profile/:profile/:action/:id', :controller => 'profile', :action => 'index', :id => /[^\/]*/, :profile => /#{Noosfero.identifier_format}/
+  match 'profile/:profile/:action/:id', :controller => 'profile', :action => 'index', :id => /[^\/]*/, :profile => /#{Noosfero.identifier_format}/
 
   # contact
-  map.contact 'contact/:profile/:action/:id', :controller => 'contact', :action => 'index', :id => /.*/, :profile => /#{Noosfero.identifier_format}/
+  match 'contact/:profile/:action/:id', :controller => 'contact', :action => 'index', :id => /.*/, :profile => /#{Noosfero.identifier_format}/
 
   # map balloon
-  map.contact 'map_balloon/:action/:id', :controller => 'map_balloon', :id => /.*/
+  match 'map_balloon/:action/:id', :controller => 'map_balloon', :id => /.*/
 
   # chat
-  map.chat 'chat/:action/:id', :controller => 'chat'
-  map.chat 'chat/:action', :controller => 'chat'
+  match 'chat/:action/:id', :controller => 'chat'
+  match 'chat/:action', :controller => 'chat'
 
   ######################################################
   ## Controllers that are profile-specific (for profile admins )
   ######################################################
   # profile customization - "My profile"
-  map.myprofile 'myprofile/:profile', :controller => 'profile_editor', :action => 'index', :profile => /#{Noosfero.identifier_format}/
-  map.myprofile 'myprofile/:profile/:controller/:action/:id', :controller => Noosfero.pattern_for_controllers_in_directory('my_profile'), :profile => /#{Noosfero.identifier_format}/
+  match 'myprofile/:profile', :controller => 'profile_editor', :action => 'index', :profile => /#{Noosfero.identifier_format}/
+  match 'myprofile/:profile/:controller/:action/:id', :controller => Noosfero.pattern_for_controllers_in_directory('my_profile'), :profile => /#{Noosfero.identifier_format}/
 
 
   ######################################################
   ## Controllers that are used by environment admin
   ######################################################
   # administrative tasks for a environment
-  map.admin 'admin', :controller => 'admin_panel'
-  map.admin 'admin/:controller/:action.:format/:id', :controller => Noosfero.pattern_for_controllers_in_directory('admin')
-  map.admin 'admin/:controller/:action/:id', :controller => Noosfero.pattern_for_controllers_in_directory('admin')
+  match 'admin', :controller => 'admin_panel'
+  match 'admin/:controller/:action.:format/:id', :controller => Noosfero.pattern_for_controllers_in_directory('admin')
+  match 'admin/:controller/:action/:id', :controller => Noosfero.pattern_for_controllers_in_directory('admin')
 
 
   ######################################################
   ## Controllers that are used by system admin
   ######################################################
   # administrative tasks for a environment
-  map.system 'system', :controller => 'system'
-  map.system 'system/:controller/:action/:id', :controller => Noosfero.pattern_for_controllers_in_directory('system')
+  match 'system', :controller => 'system'
+  match 'system/:controller/:action/:id', :controller => Noosfero.pattern_for_controllers_in_directory('system')
 
   ######################################################
   # plugin routes
@@ -122,15 +120,16 @@ __END__
   eval(IO.read(plugins_routes), binding, plugins_routes)
 
   # cache stuff - hack
-  map.cache 'public/:action/:id', :controller => 'public'
+  match 'public/:action/:id', :controller => 'public'
 
-  map.connect ':profile/edit_comment/:id/*page', :controller => 'content_viewer', :action => 'edit_comment', :profile => /#{Noosfero.identifier_format}/
+  match ':profile/edit_comment/:id/*page', :controller => 'content_viewer', :action => 'edit_comment', :profile => /#{Noosfero.identifier_format}/
 
   # match requests for profiles that don't have a custom domain
-  map.homepage ':profile/*page', :controller => 'content_viewer', :action => 'view_page', :profile => /#{Noosfero.identifier_format}/, :conditions => { :if => lambda { |env| !Domain.hosting_profile_at(env[:host]) } }
+  #FIXME probably this route is wrong
+  match ':profile/*page', :controller => 'content_viewer', :action => 'view_page', :profile => /#{Noosfero.identifier_format}/, :conditions => { :if => lambda { |env| !Domain.hosting_profile_at(env[:host]) } }
 
 
   # match requests for content in domains hosted for profiles
-  map.connect '*page', :controller => 'content_viewer', :action => 'view_page'
+  match '*page', :controller => 'content_viewer', :action => 'view_page'
 
 end

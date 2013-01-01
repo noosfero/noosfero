@@ -15,12 +15,12 @@ Dir.glob(File.join(Rails.root, plugins_root, '*', 'controllers')) do |controller
   controllers_by_folder.each do |folder, controllers|
     controllers.each do |controller|
       controller_name = controller.gsub("#{plugin_name}_plugin_",'')
-      map.connect "#{prefixes_by_folder[folder]}/#{plugin_name}/#{controller_name}/:action/:id", :controller => controller
+      match "#{prefixes_by_folder[folder]}/#{plugin_name}/#{controller_name}/:action/:id", :controller => controller
     end
   end
 
-  map.connect 'plugin/' + plugin_name + '/:action/:id', :controller => plugin_name + '_plugin'
-  map.connect 'profile/:profile/plugin/' + plugin_name + '/:action/:id', :controller => plugin_name + '_plugin_profile'
-  map.connect 'myprofile/:profile/plugin/' + plugin_name + '/:action/:id', :controller => plugin_name + '_plugin_myprofile'
-  map.connect 'admin/plugin/' + plugin_name + '/:action/:id', :controller => plugin_name + '_plugin_admin'
+  match 'plugin/' + plugin_name + '/:action/:id', :controller => plugin_name + '_plugin'
+  match 'profile/:profile/plugin/' + plugin_name + '/:action/:id', :controller => plugin_name + '_plugin_profile'
+  match 'myprofile/:profile/plugin/' + plugin_name + '/:action/:id', :controller => plugin_name + '_plugin_myprofile'
+  match 'admin/plugin/' + plugin_name + '/:action/:id', :controller => plugin_name + '_plugin_admin'
 end
