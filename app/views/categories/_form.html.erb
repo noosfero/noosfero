@@ -1,6 +1,6 @@
 <%= error_messages_for 'category' %>
 
-<% labelled_form_for 'category', @category, :html => { :multipart => true} do |f| %>
+<%= labelled_form_for 'category', @category, :html => { :multipart => true} do |f| %>
 
   <%= required_fields_message %>
 

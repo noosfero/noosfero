@@ -2,7 +2,7 @@
   <%= render_dialog_error_messages 'product' %>
 <% end %>
 
-<% remote_form_for(@product,
+<%= remote_form_for(@product,
                    :loading => "small_loading('product-info-form')",
                    :update => 'product-info',
                    :url => {:controller => 'manage_products', :action => 'edit', :id => @product, :field => 'info'},

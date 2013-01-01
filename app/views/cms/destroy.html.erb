@@ -2,7 +2,7 @@
 
 <%= error_messages_for 'article' %>
 
-<% labelled_form_for 'article', @article, :url => { :action => 'destroy' }, :method => 'post' do |f| %>
+<%= labelled_form_for 'article', @article, :url => { :action => 'destroy' }, :method => 'post' do |f| %>
 
   <strong>
     <% if @article.folder? %>

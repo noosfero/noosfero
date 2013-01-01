@@ -8,7 +8,7 @@
 
 <%= error_messages_for 'contact' %>
 
-<% labelled_form_for :contact, @contact do |f| %>
+<%= labelled_form_for :contact, @contact do |f| %>
   <%= hidden_field_tag(:confirm, 'false') %>
 
   <%= required_fields_message %>

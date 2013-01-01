@@ -2,7 +2,7 @@
 
 <%= render :file => 'shared/tiny_mce' %>
 
-<% labelled_form_for :environment, @environment, :url => {:action => 'site_info'} do |f| %>
+<%= labelled_form_for :environment, @environment, :url => {:action => 'site_info'} do |f| %>
 
   <%= f.text_area :message_for_disabled_enterprise, :cols => 40, :style => 'width: 90%' %>
 

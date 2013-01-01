@@ -1,6 +1,6 @@
 <h3> <%= _('Changing role of %s') % @member.name %> </h3>
 
-<% labelled_form_for :member, @member, :url => {:action => 'update_roles'} do |f| %>
+<%= labelled_form_for :member, @member, :url => {:action => 'update_roles'} do |f| %>
   
   <%= _('Roles:') %> <br>
   <% @roles.each do |r| %>

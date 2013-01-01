@@ -2,7 +2,7 @@
 
 <%= error_messages_for :form %>
 
-<% form_for :form, @form do |f| %>
+<%= form_for :form, @form do |f| %>
   <%= required labelled_form_field _('Name'), f.text_field(:name) %>
   <%= labelled_form_field(_('Period'), (
     date_range_field('form[begining]', 'form[ending]', @form.begining, @form.ending, 

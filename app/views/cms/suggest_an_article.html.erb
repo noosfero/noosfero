@@ -4,7 +4,7 @@
 
 <%= render :file => 'shared/tiny_mce' %>
 
-<% labelled_form_for 'task', @task do |f| %>
+<%= labelled_form_for 'task', @task do |f| %>
 
   <%= required labelled_form_field(_('Title'), text_field(:task, 'article_name', :size => 50)) %>
 

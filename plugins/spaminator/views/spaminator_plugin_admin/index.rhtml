@@ -1,6 +1,6 @@
 <h1><%= _('Spaminator settings')%></h1>
 
-<% form_for(:settings) do |f| %>
+<%= form_for(:settings) do |f| %>
 
   <div id="spaminator-config-fields">
     <%= labelled_form_field _('Period (days) for scanning spammers'), f.text_field(:period, :size => 4) %>

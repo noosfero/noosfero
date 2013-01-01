@@ -1,4 +1,4 @@
-<% remote_form_for(@product,
+<%= remote_form_for(@product,
                    :loading => "small_loading('product-name-form')",
                    :update => 'product-name',
                    :url => {:controller => 'manage_products', :action => 'edit', :id => @product, :field => 'name'},

@@ -3,7 +3,7 @@
   <%= flash[:error] %>
 </div>
 
-<% form_for :profile_data, :url => {:action => 'edit_location'}, :html => {:id => 'location-form'} do |f| %>
+<%= form_for :profile_data, :url => {:action => 'edit_location'}, :html => {:id => 'location-form'} do |f| %>
 
   <div id='location-fields'>
     <%= select_country _('Country'), 'profile_data', 'country', {:class => 'type-select'} %>

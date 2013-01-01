@@ -1,6 +1,6 @@
 <h1><%= _('AntiSpam settings')%></h1>
 
-<% form_for(:settings) do |f| %>
+<%= form_for(:settings) do |f| %>
 
   <%= labelled_form_field _('Host'), f.text_field(:host) %>
 

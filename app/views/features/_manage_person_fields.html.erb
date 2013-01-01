@@ -1,6 +1,6 @@
 <h2><%= _('Manage person fields') %></h2>
 
-<% labelled_form_for(:environment, @environment, :url => {:action => 'manage_person_fields'}) do |f| %>
+<%= labelled_form_for(:environment, @environment, :url => {:action => 'manage_person_fields'}) do |f| %>
 
 <table id='person_fields_conf'>
   <tr>

@@ -1,6 +1,6 @@
 <%= _('Changing role of %s') % @admin.name %>
 
-<% labelled_form_for :member, @admin, :url => {:action => 'update_roles'} do |f| %>
+<%= labelled_form_for :member, @admin, :url => {:action => 'update_roles'} do |f| %>
   
   <%= _('Roles:') %> <br>
   <% @roles.each do |r| %>

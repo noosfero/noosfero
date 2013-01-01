@@ -8,7 +8,7 @@
 Check all the features you want to enable for your environment, uncheck all the ones you don\'t want, and use the <em>"Save changes" button</em> to confirm your changes.') %>
 </p>
 
-<% labelled_form_for(:environment, @environment, :url => {:action => 'update'}) do |f| %>
+<%= labelled_form_for(:environment, @environment, :url => {:action => 'update'}) do |f| %>
 
 <table>
   <tr>
