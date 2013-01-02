@@ -16,7 +16,7 @@
       <%= submit_button(:send, _('Send buy request')) %>
     </div>
   <% end %>
-  <%= items_table(session[:cart][:items], profile) %>
+  <%= items_table(@cart[:items], @enterprise) %>
   <%= link_to '', '#', :onclick => "Cart.colorbox_close(this);", :class => 'cart-box-close icon-cancel' %>
 </div>
 
