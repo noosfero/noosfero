@@ -38,7 +38,7 @@ Noosfero::Application.routes.draw do
 
   # user account controller
   match 'account/new_password/:code' => 'account#new_password', :controller => 'account', :action => 'new_password'
-  match 'account/:action', :controller => 'account'
+  match 'account(/:action)', :controller => 'account'
 
   # enterprise registration
   match 'enterprise_registration/:action', :controller => 'enterprise_registration'
