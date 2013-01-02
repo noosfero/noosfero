@@ -143,7 +143,7 @@ class RoutingTest < ActionController::IntegrationTest
   end
 
   def test_content_view_with_dash
-    assert_routing('/ze-withdash', :controller => 'content_viewer', :action => 'view_page', :profile => 'ze-withdash', :page => [])
+    assert_routing('/ze-withdash', :controller => 'content_viewer', :action => 'view_page', :profile => 'ze-withdash')
   end
 
   def test_content_view_with_underscore
