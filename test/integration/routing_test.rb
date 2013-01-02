@@ -160,35 +160,35 @@ class RoutingTest < ActionController::IntegrationTest
 
   def test_hosted_domain_routing
     user = create_user('testuser').person
-    domain = Domain.create!(:name => 'example.com', :owner => user)
+    domain = Domain.new(:name => 'example.com').tap { |d| d.owner = user; d.save! }
 
-    ActionController::TestRequest.any_instance.expects(:host).returns('www.example.com')
+    ActionDispatch::Request.any_instance.stubs(:host).returns('www.example.com')
 
-    assert_routing('/work/free-software', :controller => 'content_viewer', :action =>  'view_page', :page => [ 'work', 'free-software'] )
+    assert_routing('/work/free-software', :controller => 'content_viewer', :action =>  'view_page', :page => 'work/free-software' )
   end
 
   def test_root_of_hosted_domain
     user = create_user('testuser').person
-    domain = Domain.create!(:name => 'example.com', :owner => user)
+    domain = Domain.new(:name => 'example.com').tap { |d| d.owner = user; d.save! }
 
-    ActionController::TestRequest.any_instance.expects(:host).returns('www.example.com')
+    ActionDispatch::Request.any_instance.stubs(:host).returns('www.example.com')
 
     assert_routing('', :controller => 'content_viewer', :action =>  'view_page', :page => [])
   end
 
   def test_profile_under_hosted_domain
     community = Community.create!(:identifier => 'testcomm', :name => "test community")
-    domain = Domain.create!(:name => 'example.com', :owner => community)
+    domain = Domain.new(:name => 'example.com').tap { |d| d.owner = community; d.save! }
 
-    ActionController::TestRequest.any_instance.expects(:host).returns('www.example.com')
+    ActionDispatch::Request.any_instance.stubs(:host).returns('www.example.com')
 
     assert_routing('/profile/testcomm/refuse_for_now', :controller => 'profile', :action =>  'refuse_for_now', :profile => 'testcomm')
   end
 
   def test_must_not_route_as_profile_hosted_domain_for_domains_registered_for_environments
     environment = Environment.default
-    domain = Domain.create!(:name => 'example.com', :owner => environment)
-    ActionController::TestRequest.any_instance.expects(:host).returns('www.example.com')
+    domain = Domain.new(:name => 'example.com').tap { |d| d.owner = environment; d.save! }
+    ActionDispatch::Request.any_instance.stubs(:host).returns('www.example.com')
 
     assert_routing('/', :controller => 'home', :action =>  'index')
   end

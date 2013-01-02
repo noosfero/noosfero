@@ -125,8 +125,7 @@ Noosfero::Application.routes.draw do
   match ':profile/edit_comment/:id/*page', :controller => 'content_viewer', :action => 'edit_comment', :profile => /#{Noosfero.identifier_format}/
 
   # match requests for profiles that don't have a custom domain
-  #FIXME probably this route is wrong
-  match ':profile/*page', :controller => 'content_viewer', :action => 'view_page', :profile => /#{Noosfero.identifier_format}/, :conditions => { :if => lambda { |env| !Domain.hosting_profile_at(env[:host]) } }
+  match ':profile(/*page)', :controller => 'content_viewer', :action => 'view_page', :profile => /#{Noosfero.identifier_format}/, :constraints => EnvironmentDomainConstraint.new
 
 
   # match requests for content in domains hosted for profiles
