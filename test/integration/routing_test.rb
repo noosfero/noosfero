@@ -173,7 +173,7 @@ class RoutingTest < ActionController::IntegrationTest
 
     ActionDispatch::Request.any_instance.stubs(:host).returns('www.example.com')
 
-    assert_routing('', :controller => 'content_viewer', :action =>  'view_page', :page => [])
+    assert_routing('', :controller => 'content_viewer', :action =>  'view_page')
   end
 
   def test_profile_under_hosted_domain
