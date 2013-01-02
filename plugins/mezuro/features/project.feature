@@ -1,7 +1,7 @@
 @mezuro
-Feature: Create project
+Feature: Project
   As a mezuro user
-  I want to create a Mezuro project
+  I want to create, edit and remove a Mezuro project
 
   Background:
     Given the following users
