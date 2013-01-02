@@ -38,7 +38,7 @@ class MezuroPluginModuleResultControllerTest < ActionController::TestCase
 
   should 'get metric result history' do
     metric_name = @metric_result_hash[:configuration][:metric][:name]
-    Kalibro::MetricResult.expects(:request).with(:history_of, { :metric_name => metric_name, :module_result_id => @module_result_hash[:id] }).
+    Kalibro::MetricResult.expects(:request).with(:history_of_metric, { :metric_name => metric_name, :module_result_id => @module_result_hash[:id] }).
         returns({:date_metric_result => @date_metric_result_hash})
     get :metric_result_history, :profile => @profile.identifier, :module_result_id => @module_result_hash[:id], :metric_name => metric_name
     assert_equal DateTime.parse(@date_metric_result_hash[:date]), assigns(:history).first.date
