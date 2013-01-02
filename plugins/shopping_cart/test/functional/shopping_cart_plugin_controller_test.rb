@@ -18,8 +18,7 @@ class ShoppingCartPluginControllerTest < ActionController::TestCase
 
   should 'force cookie expiration with explicit path for an empty cart' do
     get :get
-    last_year = 1.year.ago.year
-    assert @response.headers['Set-Cookie'].any? { |c| c =~ /_noosfero_plugin_shopping_cart=; path=\/plugin\/shopping_cart; expires=.*-#{last_year}/}
+    assert @response.headers['Set-Cookie'].any? { |c| c =~ /_noosfero_plugin_shopping_cart=; path=\/plugin\/shopping_cart; expires=.*-1970/}
   end
 
   should 'add a new product to cart' do
