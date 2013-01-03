@@ -11,11 +11,24 @@ class Kalibro::MetricConfigurationSnapshot < Kalibro::Model
   end
 
   def range=(value)
-    @range = Kalibro::RangeSnapshot.to_object value
+    value.to_a
+    @range = []
+
+    value.each do |range_snapshot|
+      @range << Kalibro::RangeSnapshot.to_object(range_snapshot)
+    end
+
   end
 
   def range_snapshot
     range
+  end
+
+  def to_hash
+    hash = super
+    hash[:attributes!][:range] = {'xmlns:xsi'=> 'http://www.w3.org/2001/XMLSchema-instance',
+                    'xsi:type' => 'kalibro:rangeSnapshotXml'  }
+    hash
   end
 
 end
