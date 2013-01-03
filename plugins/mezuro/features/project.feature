@@ -29,12 +29,14 @@ Feature: Project
     And I should see "Sample Description"
     And I should see "Add Repository"
 
-	@selenium
+	@selenium @current
 	Scenario: I edit a Mezuro project
-    Given I am on mycommunity's control panel
-    When I create a Mezuro project with the following data
-      | Title           | Sample Project      |
-      | Description     | Sample Description  |
+		When I have a Mezuro project with the following data
+      | name        | Sample Project     |
+      | description | Sample Description |
+      | owner       | joaosilva          |
+# Next step should work, but profile for "Sample Description" article is wrong (should be "my-community" but is "joaosilva"). 
+# Something in the previous step is not right.
 		And I am on article "Sample Project"
 		And I should be on /mycommunity/sample-project
 		When I follow "Edit"

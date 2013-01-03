@@ -33,16 +33,15 @@ Then /^I should see "([^\"]*)" inside an alert$/ do |message|
 	selenium.chooseOkOnNextConfirmation();
 end
 
-Given /^the following Mezuro project$/ do |table|
-  table.hashes.map{|item| item.dup}.each do |item|
-    owner_identifier = item.delete("owner")
-    parent = item.delete("parent")
-    owner = Profile[owner_identifier]
-    item.merge!(:profile => owner)
-    result = MezuroPlugin::ProjectContent.new(item)
-    if !parent.blank?
-      result.parent = Article.find_by_name(parent)
+When /^I have a Mezuro project with the following data$/ do |fields|
+  item = {}
+  fields.rows_hash.each do |name, value|
+    if(name=="owner")
+      item.merge!(:profile=>Profile[value])
+    else
+      item.merge!(name => value)
     end
-    result.save!
   end
+  result = MezuroPlugin::ProjectContent.new(item)
+  result.save!
 end
