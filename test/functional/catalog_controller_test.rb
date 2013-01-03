@@ -213,4 +213,15 @@ class CatalogControllerTest < ActionController::TestCase
     assert_no_tag :tag => 'div', :attributes => {:id => 'breadcrumb'}, :descendant => {:tag => 'a', :attributes => {:href => /level=#{pc3.id}/}}
   end
 
+  should 'add product status on the class css' do
+    category = ProductCategory.create!(:name => "Cateogry", :environment => @enterprise.environment)
+    p1 = fast_create(Product, :product_category_id => category.id, :enterprise_id => @enterprise.id, :highlighted => true)
+    p2 = fast_create(Product, :product_category_id => category.id, :enterprise_id => @enterprise.id, :available => false)
+
+    get :index, :profile => @enterprise.identifier
+
+    assert_tag :tag => 'li', :attributes => {:id => "product-#{p1.id}", :class => /highlighted/}
+    assert_tag :tag => 'li', :attributes => {:id => "product-#{p2.id}", :class => /not-available/}
+  end
+
 end

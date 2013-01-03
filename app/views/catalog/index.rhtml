@@ -27,7 +27,7 @@
     <% status << 'not-available' if !product.available %>
     <% status << 'highlighted' if product.highlighted %>
 
-    <li class="product <%= status.join(' ') %>">
+    <li id="product-<%= product.id %>" class="product <%= status.join(' ') %>">
       <ul>
         <li class="product-image-link">
           <% if product.highlighted? %>
