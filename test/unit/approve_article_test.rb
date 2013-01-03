@@ -422,4 +422,12 @@ class ApproveArticleTest < ActiveSupport::TestCase
     assert_nil new_article.last_changed_by_id
   end
 
+  should 'not crash if target has its own domain' do
+    article = fast_create(Article)
+    profile.domains << Domain.create(:name => 'example.org')
+    assert_nothing_raised do
+      ApproveArticle.create!(:article => article, :target => profile, :requestor => community)
+    end
+  end
+
 end
