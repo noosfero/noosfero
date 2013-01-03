@@ -13,6 +13,7 @@ class ProjectTest < ActiveSupport::TestCase
   should 'initialize new project from hash' do
     project = Kalibro::Project.new @hash
     assert_equal @hash[:name], project.name
+    assert_equal @hash[:id].to_i, project.id
   end
 
   should 'convert project to hash' do
@@ -36,15 +37,16 @@ class ProjectTest < ActiveSupport::TestCase
     assert_raise(Kalibro::Errors::RecordNotFound){Kalibro::Project.find(@project.id)}
   end
 
-  should 'get project of a repository' do
-    repository_id = 31
-    Kalibro::Project.expects(:request).with(:project_of, {:repository_id => repository_id}).returns({:project => @hash})
-    assert_equal @hash[:name], Kalibro::Project.project_of(repository_id).name
+  should 'get all projects when there is only one project' do
+    Kalibro::Project.expects(:request).with(:all_projects).returns({:project => @hash})
+    assert_equal @hash[:name], Kalibro::Project.all.first.name
   end
 
-  should 'get all project' do
-    Kalibro::Project.expects(:request).with(:all_projects).returns({:project => [@hash]})
-    assert_equal @hash[:name], Kalibro::Project.all.first.name
+  should 'get all projects when there are many projects' do
+    Kalibro::Project.expects(:request).with(:all_projects).returns({:project => [@hash, @hash]})
+    projects = Kalibro::Project.all
+    assert_equal @hash[:name], projects.first.name
+    assert_equal @hash[:name], projects.last.name
   end
 
   should 'return empty when there are no projects' do

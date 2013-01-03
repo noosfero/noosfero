@@ -1,4 +1,3 @@
-#TODO arrumar esse modelo e seus testes de unidade
 class Kalibro::Processing < Kalibro::Model
 
   attr_accessor :id, :date, :state, :error, :process_time, :results_root_id
@@ -12,6 +11,7 @@ class Kalibro::Processing < Kalibro::Model
   end
 
   def self.processing_with_date_of(repository_id, date)
+    date = date.is_a?(String) ? DateTime.parse(date) : date
     if has_processing_after(repository_id, date)
       first_processing_after(repository_id, date)
     elsif has_processing_before(repository_id, date)
@@ -19,6 +19,10 @@ class Kalibro::Processing < Kalibro::Model
     else
       last_processing_of(repository_id)        
     end
+  end
+
+  def id=(value)
+    @id = value.to_i
   end
 
   def date=(value)
@@ -39,6 +43,10 @@ class Kalibro::Processing < Kalibro::Model
 
   def error=(value)
     @error = Kalibro::Throwable.to_object value
+  end
+
+  def results_root_id=(value)
+    @results_root_id = value.to_i
   end
 
   private

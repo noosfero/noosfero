@@ -7,6 +7,7 @@ class Kalibro::Model
     @errors = []
   end
 
+
   def to_hash(options={})
     hash = Hash.new
     excepts = options[:except].nil? ? [] : options[:except]
@@ -15,7 +16,7 @@ class Kalibro::Model
       if(!excepts.include?(field))
         field_value = send(field)
         if !field_value.nil?
-          hash[field] = convert_to_hash(field_value)
+            hash[field] = convert_to_hash(field_value)
           if field_value.is_a?(Kalibro::Model)
             hash = {:attributes! => {}}.merge(hash)
             hash[:attributes!][field.to_sym] = {
@@ -91,7 +92,7 @@ class Kalibro::Model
     return self.class.date_with_milliseconds(value) if value.is_a?(DateTime)
     return 'INF' if value.is_a?(Float) and value.infinite? == 1
     return '-INF' if value.is_a?(Float) and value.infinite? == -1
-    value
+    value.to_s
   end
 
   def xml_instance_class_name(object)

@@ -7,13 +7,5 @@
 <%= error_messages_for 'project_content' %>
 
 <%= hidden_field_tag 'project_content[profile_id]', profile.id %>
-<%= hidden_field_tag 'id', @article.id %>
 <%= hidden_field_tag 'project_id', @article.project_id %>
-
-<%= required_fields_message %>
-
-<%= required f.text_field(:name) %>
-
-<%= f.text_field :description %><br/>
-
-# partial rendered in app/views/cms/edit.rhtml
+<%= render :partial => "cms/mezuro_plugin/mezuro_content_form", :locals => {:f => f} %>

@@ -31,77 +31,61 @@ class MezuroPluginRepositoryControllerTest < ActionController::TestCase
 
     get :new, :profile => @profile.identifier, :id => @content.id
 
-    assert_equal @content, assigns(:project_content)
+    assert_equal @content.id, assigns(:project_content).id
     assert_equal @repository_types, assigns(:repository_types)
     assert_equal @all_configurations.first.name, assigns(:configuration_select).first.first
     assert_equal @all_configurations.first.id, assigns(:configuration_select).first.last
+    assert_response :success
   end
 
-  should 'create a repository' do
+  should 'save a repository' do
     Kalibro::Repository.expects(:new).returns(@repository)
     @repository.expects(:save).with(@content.project_id).returns(true)
-    get :create, :profile => @profile.identifier, :id => @content.id, :repository => @repository_hash
+    @repository.expects(:process)
+    get :save, :profile => @profile.identifier, :id => @content.id, :repository => @repository_hash
     assert @repository.errors.empty?
     assert_response :redirect
   end
 
-  should 'not create a repository' do
+  should 'not save a repository' do
     @repository.errors = [Exception.new]
     Kalibro::Repository.expects(:new).returns(@repository)
     @repository.expects(:save).with(@content.project_id).returns(false)
-    get :create, :profile => @profile.identifier, :id => @content.id, :repository => @repository_hash
+    get :save, :profile => @profile.identifier, :id => @content.id, :repository => @repository_hash
     assert !@repository.errors.empty?
     assert_response :redirect
   end
 
   should 'set variables to edit a repository' do
-    articles = mock
     Kalibro::Repository.expects(:repository_types).returns(@repository_types)
     Kalibro::Configuration.expects(:all).returns(@all_configurations)
     Kalibro::Repository.expects(:repositories_of).with(@content.project_id).returns([@repository])
 
     get :edit, :profile => @profile.identifier, :id => @content.id, :repository_id => @repository.id
 
-    assert_equal @content, assigns(:project_content)
+    assert_equal @content.id, assigns(:project_content).id
     assert_equal @repository_types, assigns(:repository_types)
     assert_equal @all_configurations.first.name, assigns(:configuration_select).first.first
     assert_equal @all_configurations.first.id, assigns(:configuration_select).first.last
     assert_equal @repository, assigns(:repository)
-  end
-
-  should 'update a repository' do
-    Kalibro::Repository.expects(:new).returns(@repository)
-    @repository.expects(:save).with(@content.project_id).returns(true)
-    get :update, :profile => @profile.identifier, :id => @content.id, :repository => @repository_hash
-    assert @repository.errors.empty?
-    assert_response :redirect
-  end
-
-  should 'not update a repository' do
-    @repository.errors = [Exception.new]
-    Kalibro::Repository.expects(:new).returns(@repository)
-    @repository.expects(:save).with(@content.project_id).returns(false)
-    get :update, :profile => @profile.identifier, :id => @content.id, :repository => @repository_hash
-    assert !@repository.errors.empty?
-    assert_response :redirect
+    assert_response :success
   end
 
   should 'set variables to show a repository' do
     Kalibro::Repository.expects(:repositories_of).with(@content.project_id).returns([@repository])
-    Kalibro::Configuration.expects(:configuration_of).with(@repository.id).returns(@configuration)
+    Kalibro::Configuration.expects(:find).with(@repository.configuration_id).returns(@configuration)
 
     get :show, :profile => @profile.identifier, :id => @content.id, :repository_id => @repository.id
-    assert_equal @content.name, assigns(:project_name)
+
+    assert_equal @content.id, assigns(:project_content).id
     assert_equal @repository, assigns(:repository)
     assert_equal @configuration.name, assigns(:configuration_name)
-    assert_equal @content.profile.identifier, assigns(:data_profile)
-    assert_equal @content.id, assigns(:data_content)
+    assert_response :success
   end
 
   should 'destroy a repository' do
+    Kalibro::Repository.expects(:new).with(:id => @repository.id.to_s).returns(@repository)
     @repository.expects(:destroy)    
-    Kalibro::Repository.expects(:repositories_of).with(@content.project_id).returns([@repository])
-
     get :destroy, :profile => @profile.identifier, :id => @content.id, :repository_id => @repository.id
 
     assert @repository.errors.empty?
@@ -110,12 +94,11 @@ class MezuroPluginRepositoryControllerTest < ActionController::TestCase
 
   should 'not destroy a repository' do
     @repository.errors = [Exception.new]
+    Kalibro::Repository.expects(:new).with(:id => @repository.id.to_s).returns(@repository)
     @repository.expects(:destroy)    
-    Kalibro::Repository.expects(:repositories_of).with(@content.project_id).returns([@repository])
-
     get :destroy, :profile => @profile.identifier, :id => @content.id, :repository_id => @repository.id
 
-    assert !@repository.errors.empty?
+    #TODO verify if it is redirected to the right page
     assert_response :redirect
   end
 end

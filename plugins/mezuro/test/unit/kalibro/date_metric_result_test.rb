@@ -10,7 +10,7 @@ class DateMetricResultTest < ActiveSupport::TestCase
   end
 
   should 'create date_metric_result from hash' do
-    assert_equal @hash[:metric_result][:id], Kalibro::DateMetricResult.new(@hash).metric_result.id
+    assert_equal @hash[:metric_result][:id].to_i, Kalibro::DateMetricResult.new(@hash).metric_result.id
   end
 
   should 'convert date_metric_result to hash' do

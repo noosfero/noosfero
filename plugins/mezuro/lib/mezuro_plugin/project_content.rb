@@ -3,6 +3,9 @@ class MezuroPlugin::ProjectContent < Article
 
   settings_items :project_id
 
+  before_save :send_project_to_service
+  after_destroy :destroy_project_from_service
+
   def self.short_description
     'Mezuro project'
   end
@@ -54,9 +57,6 @@ class MezuroPlugin::ProjectContent < Article
     @repositories = @repositories.map { |element| to_repository(element) }
   end
 
-  before_save :send_project_to_service
-  after_destroy :destroy_project_from_service
-
   private
   
   def self.to_repository value
@@ -83,9 +83,9 @@ class MezuroPlugin::ProjectContent < Article
 
   def create_kalibro_project
    Kalibro::Project.create(
-      :id => project_id,
       :name => name,
-      :description => description
+      :description => description,
+      :id => self.project_id
     )
   end
 

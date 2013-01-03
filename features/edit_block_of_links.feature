@@ -12,7 +12,7 @@ Feature: edit_block_of_links
       | eddievedder | LinkListBlock |
     And I am logged in as "eddievedder"
 
-  @selenium
+  @selenium-fixme
   Scenario: show the icon selector
     Given I follow "Edit sideboxes"
     And I follow "Edit" within ".link-list-block"

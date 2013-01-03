@@ -11,7 +11,10 @@ class MetricConfigurationTest < ActiveSupport::TestCase
   end
 
   should 'create metric configuration from hash' do
-    assert_equal @native_metric_configuration_hash[:code], Kalibro::MetricConfiguration.new(@native_metric_configuration_hash).code
+    metric_configuration = Kalibro::MetricConfiguration.new(@native_metric_configuration_hash)
+    assert_equal @native_metric_configuration_hash[:code], metric_configuration.code
+    assert_equal @native_metric_configuration_hash[:id].to_i, metric_configuration.id
+    assert_equal @native_metric_configuration_hash[:reading_group_id].to_i, metric_configuration.reading_group_id
   end
 
   should 'convert metric configuration to hash' do

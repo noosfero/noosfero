@@ -19,9 +19,16 @@ class MezuroPluginProcessingControllerTest < ActionController::TestCase
   end
 
   should 'render last processing state' do
-    Kalibro::Processing.expects(:request).with(:last_processing_state, :repository_id => @repository_id).returns({:process_state => @processing.state})
-    get :render_last_state, :profile => @profile.identifier, :repository_id => @repository_id
-    assert_response 200
+    Kalibro::Processing.expects(:processing_of).with(@repository_id).returns(@processing)
+    get :state, :profile => @profile.identifier, :repository_id => @repository_id
+    assert_response :success
+    assert_equal @processing.state, @response.body
+  end
+
+  should 'render a processing state in a specific date' do
+    Kalibro::Processing.expects(:processing_with_date_of).with(@repository_id, @processing.date).returns(@processing)
+    get :state, :profile => @profile.identifier, :repository_id => @repository_id, :date => @processing.date
+    assert_response :success
     assert_equal @processing.state, @response.body
   end
 
@@ -29,7 +36,7 @@ class MezuroPluginProcessingControllerTest < ActionController::TestCase
     Kalibro::Processing.expects(:request).with(:has_ready_processing, {:repository_id => @repository_id}).returns({:exists => false})
     Kalibro::Processing.expects(:request).with(:last_processing, :repository_id => @repository_id).returns({:processing => @processing_with_error_hash})
     get :processing, :profile => @profile.identifier, :repository_id => @repository_id
-    assert_response 200
+    assert_response :success
     assert_equal @processing_with_error_hash[:state], assigns(:processing).state
     #TODO How to assert from view? assert_select('h3', 'ERROR')
   end
@@ -38,7 +45,7 @@ class MezuroPluginProcessingControllerTest < ActionController::TestCase
     Kalibro::Processing.expects(:request).with(:has_ready_processing, {:repository_id => @repository_id}).returns({:exists => true})
     Kalibro::Processing.expects(:request).with(:last_ready_processing, {:repository_id => @repository_id}).returns({:processing => @processing_hash})
     get :processing, :profile => @profile.identifier, :repository_id => @repository_id
-    assert_response 200
+    assert_response :success
     assert_select('h4', 'Last Result')
   end
   
@@ -46,7 +53,7 @@ class MezuroPluginProcessingControllerTest < ActionController::TestCase
     Kalibro::Processing.expects(:request).with(:has_processing_after, {:repository_id => @repository_id, :date => @processing.date}).returns({:exists => true})
     Kalibro::Processing.expects(:request).with(:first_processing_after, :repository_id => @repository_id, :date => @processing.date).returns({:processing => @processing_hash})
     get :processing, :profile => @profile.identifier, :repository_id => @repository_id, :date => @processing.date
-    assert_response 200
+    assert_response :success
     assert_select('h4', 'Last Result')
   end
 

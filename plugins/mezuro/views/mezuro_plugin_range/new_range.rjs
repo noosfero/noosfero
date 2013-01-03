@@ -1,3 +1,0 @@
-page.replace_html 'range_form', :partial => "new_range"
-page.visual_effect :slide_down, "range_form"
-

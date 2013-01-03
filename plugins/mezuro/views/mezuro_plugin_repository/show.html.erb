@@ -1,5 +1,5 @@
 <script src="/plugins/mezuro/javascripts/processing.js" type="text/javascript"></script>
-<h3><%= @project_name %></h3>
+<h2><%= link_to("#{@project_content.name} Project", @project_content.view_url) %></h2>
 
 <table>
   <tr>
@@ -14,7 +14,7 @@
     <td><%= _('License') %></td>
     <td><%= @repository.license %></td>
   </tr>
-  <tr> 
+  <tr>
     <td><%= _('Process Period') %></td>
     <td><%= MezuroPlugin::Helpers::ContentViewerHelper.periodicity_option(@repository.process_period.to_i) %></td>
   </tr>
@@ -34,12 +34,12 @@
     <td><%= _('Status')%></td>
     <td>
       <div id="processing-state" style="color:DarkGoldenRod">Retrieving</div>
-      <div id="msg-time"></div> 
+      <div id="msg-time"></div>
     </td>
   </tr>
 </table>
 <br />
 
-<div id="processing" data-profile="<%= @data_profile %>" data-content="<%= @data_content %>"
+<div id="processing" data-profile="<%= @project_content.profile.identifier %>" data-content="<%= @project_content.id %>"
      data-repository-id="<%= @repository.id %>"></div>
 <div id="module-result"></div>

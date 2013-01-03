@@ -1,0 +1,31 @@
+<% person = user.nil? ? Person.new : user %>
+<div id='cart-request-box'>
+  <% form_for(:customer, person, :url => {:action => 'send_request'},
+              :html => {:onsubmit => "return Cart.send_request(this)", :id => 'cart-request-form' }) do |f| %>
+    <div id="cart-form-main">
+      <%= labelled_form_field('* ' + _("Name"), f.text_field(:name, :class => 'required') ) %>
+      <%= labelled_form_field('* ' +  _("Email"), f.text_field(:email, :class => 'required email') ) %>
+      <%= labelled_form_field('* ' +  _("Contact phone"), f.text_field(:contact_phone, :class => 'required') ) %>
+      <%= labelled_form_field(_('Delivery option'), select_tag(:delivery_option, options_for_select(select_delivery_options(@settings.delivery_options, environment)), 'data-profile-identifier' => @enterprise.identifier)) unless !@settings.delivery || (@settings.free_delivery_price && get_total(@cart[:items]) >= @settings.free_delivery_price) %>
+      <%= labelled_form_field(_('Payment'), select_tag('customer[payment]', options_for_select([[_("Money"), :money],[_('Check'), :check]]))) %>
+      <%= labelled_form_field(_('Change'), text_field_tag('customer[change]')) %>
+    </div>
+    <% if @settings.delivery %>
+      <fieldset><legend><%=_('Delivery Address')%></legend>
+        <%= labelled_form_field(_('Address (street and number)'), f.text_field(:address)) %>
+        <%= labelled_form_field(_('Address reference'), f.text_field(:address_reference)) %>
+        <%= labelled_form_field(_('District'), f.text_field(:district)) %>
+        <%= labelled_form_field( _("City"), f.text_field(:city)) %>
+        <%= labelled_form_field(_('ZIP code'), f.text_field(:zip_code)) %>
+      </fieldset>
+    <% end %>
+    <div id="cart-form-actions">
+      <%= submit_button(:send, _('Send buy request')) %>
+    </div>
+  <% end %>
+  <% delivery_option = @settings.delivery_options.first && @settings.delivery_options.first.first %>
+  <%= items_table(@cart[:items], @enterprise, delivery_option) %>
+  <%= link_to '', '#', :onclick => "Cart.colorbox_close(this);", :class => 'cart-box-close icon-cancel' %>
+</div>
+
+<%= javascript_include_tag '../plugins/shopping_cart/buy' %>

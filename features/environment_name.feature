@@ -3,6 +3,7 @@ Feature: setting environment name
   I want to change the name of the environment
   So that it appears in the window's title bar
 
+  @selenium-fixme
   Scenario: setting environment name through administration panel
     Given I am logged in as admin
     When I follow "Administration"

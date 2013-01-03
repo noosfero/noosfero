@@ -1,35 +1,7 @@
-<h2><%= @project_content.name %> Project</h2>
+<script src="/plugins/mezuro/javascripts/validations.js" type="text/javascript"></script>
 
-<% form_for :repository, :url => {:action =>"update", :controller => "mezuro_plugin_repository"},  :method => :get do |f| %>
-  <%= hidden_field_tag :id, @project_content.id %>
-
-  <%= f.hidden_field :id%>
-  <%= required labelled_form_field _('Name:'), f.text_field(:name) %> 
-
-  <div class="formfieldline">
-    <%= f.label :description, "Description:", :class => 'formlabel' %>
-    <div class="formfield type-text">  
-      <%= f.text_field :description %>
-    </div>
-  </div>
-
-  <%= required labelled_form_field _('License'),
-  f.select(:license, MezuroPlugin::Helpers::ContentViewerHelper.license_options, :selected => @repository.license) %>
-
-  <%= required labelled_form_field _('Process Period'),
-  f.select(:process_period, MezuroPlugin::Helpers::ContentViewerHelper.periodicity_options, :selected => @repository.process_period.to_i) %>
-
-  <%= required labelled_form_field _('Type'),
-  f.select(:type, @repository_types, :selected => @repository.type) %>
-
-  <%= required labelled_form_field _('Address'),
-  f.text_field(:address) %>
-
-  <%= required labelled_form_field _('Configuration'),
-  f.select(:configuration_id, @configuration_select, :selected => @repository.configuration_id.to_i) %>
-
-  <p>
-    <%= f.submit "Add" %>
-  </p>
-
+<h2><%= link_to("#{@project_content.name} Project", @project_content.view_url) %></h2>
+<% form_for :repository, :url => {:action =>"save", :controller => "mezuro_plugin_repository"},  :method => :get do |f| %>
+  <%= f.hidden_field :id %>
+  <%= render :partial => "form", :locals => {:f => f} %>
 <% end %>

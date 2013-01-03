@@ -11,6 +11,8 @@ class ReadingTest < ActiveSupport::TestCase
 
   should 'create reading from hash' do
     assert_equal @hash[:label], Kalibro::Reading.new(@hash).label
+    assert_equal @hash[:id].to_i, Kalibro::Reading.new(@hash).id
+    assert_equal @hash[:grade].to_f, Kalibro::Reading.new(@hash).grade
   end
   
   should 'convert reading to hash' do
@@ -37,13 +39,13 @@ class ReadingTest < ActiveSupport::TestCase
 
   should 'return true when reading is saved successfully' do
     id_from_kalibro = 1
-    Kalibro::Reading.expects(:request).with(:save_reading, {:reading => @created_reading.to_hash}).returns(:reading_id => id_from_kalibro)
+    Kalibro::Reading.expects(:request).with(:save_reading, {:group_id => @created_reading.group_id, :reading => @created_reading.to_hash}).returns(:reading_id => id_from_kalibro)
     assert @created_reading.save
     assert_equal id_from_kalibro, @created_reading.id
   end
 
   should 'return false when reading is not saved successfully' do
-    Kalibro::Reading.expects(:request).with(:save_reading, {:reading => @created_reading.to_hash}).raises(Exception.new)
+    Kalibro::Reading.expects(:request).with(:save_reading, {:group_id => @created_reading.group_id, :reading => @created_reading.to_hash}).raises(Exception.new)
     assert !(@created_reading.save)
     assert_nil @created_reading.id
   end

@@ -11,8 +11,7 @@ class ThrowableFixtures
       :target_string => 'Target String',
       :message => 'Throwable message from ThrowableTest',
       :stack_trace_element => [
-        StackTraceElementFixtures.stack_trace_element_hash('my method 1', 42),
-        StackTraceElementFixtures.stack_trace_element_hash('my method 2', 84)
+        StackTraceElementFixtures.stack_trace_element_hash, StackTraceElementFixtures.stack_trace_element_hash
       ]
     }
   end

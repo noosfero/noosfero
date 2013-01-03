@@ -21,4 +21,13 @@ class DateMetricResultFixtures
     }
   end
 
+  def self.score_history
+    result = []
+    result << date_metric_result
+    newer_date_metric_result = date_metric_result
+    newer_date_metric_result.date = '2011-10-25T18:26:43.151+00:00'
+    newer_date_metric_result.metric_result.value = 5.0
+    result << newer_date_metric_result    
+  end
+
 end

@@ -67,6 +67,9 @@ class Person < Profile
     :order => 'total DESC',
     :conditions => ['action_tracker.created_at >= ? OR action_tracker.id IS NULL', ActionTracker::Record::RECENT_DELAY.days.ago]
 
+  named_scope :abusers, :joins => :abuse_complaints, :conditions => ['tasks.status = 3'], :select => 'DISTINCT profiles.*'
+  named_scope :non_abusers, :joins => "LEFT JOIN tasks ON profiles.id = tasks.requestor_id AND tasks.type='AbuseComplaint'", :conditions => ["tasks.status != 3 OR tasks.id is NULL"], :select => "DISTINCT profiles.*"
+
   after_destroy do |person|
     Friendship.find(:all, :conditions => { :friend_id => person.id}).each { |friendship| friendship.destroy }
   end
@@ -144,6 +147,9 @@ class Person < Profile
   contact_phone
   contact_information
   description
+  image
+  district
+  address_reference
   ]
 
   validates_multiparameter_assignments
@@ -198,8 +204,8 @@ class Person < Profile
   N_('Education'); N_('Custom education'); N_('Custom area of study');
   settings_items :formation, :custom_formation, :custom_area_of_study
 
-  N_('Contact information'); N_('City'); N_('State'); N_('Country'); N_('Sex'); N_('Zip code')
-  settings_items :photo, :contact_information, :sex, :city, :state, :country, :zip_code
+  N_('Contact information'); N_('City'); N_('State'); N_('Country'); N_('Sex'); N_('Zip code'); N_('District'); N_('Address reference')
+  settings_items :photo, :contact_information, :sex, :city, :state, :country, :zip_code, :district, :address_reference
 
   extend SetProfileRegionFromCityState::ClassMethods
   set_profile_region_from_city_state
@@ -438,6 +444,10 @@ class Person < Profile
     abuse_report.abuse_complaint = profile.opened_abuse_complaint
     abuse_report.reporter = self
     abuse_report.save!
+  end
+
+  def abuser?
+    AbuseComplaint.finished.where(:requestor_id => self).count > 0
   end
 
   def control_panel_settings_button

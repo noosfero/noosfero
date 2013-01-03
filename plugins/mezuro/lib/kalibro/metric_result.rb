@@ -2,8 +2,19 @@ class Kalibro::MetricResult < Kalibro::Model
 
   attr_accessor :id, :configuration, :value, :error
 
-  def value=(value)
-    @value = value.to_f
+  def initialize(attributes={})
+    value = attributes[:value]
+    @value = (value == "NaN") ? attributes[:aggregated_value].to_f : value.to_f
+    attributes.each do |field, value|
+      if field!= :value and field!= :aggregated_value and self.class.is_valid?(field)
+        send("#{field}=", value)
+      end
+    end
+    @errors = []
+  end
+
+  def id=(value)
+    @id = value.to_i
   end
 
   def configuration=(value)
@@ -30,7 +41,7 @@ class Kalibro::MetricResult < Kalibro::Model
   end
 
   def self.history_of(metric_name, module_result_id)
-    response = self.request(:history_of, {:metric_name => metric_name, :module_result_id => module_result_id})[:date_metric_result]
+    response = self.request(:history_of_metric, {:metric_name => metric_name, :module_result_id => module_result_id})[:date_metric_result]
     response = [] if response.nil?
     response = [response] if response.is_a?(Hash) 
     response.map {|date_metric_result| Kalibro::DateMetricResult.new date_metric_result}

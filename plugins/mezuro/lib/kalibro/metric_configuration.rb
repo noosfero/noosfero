@@ -2,6 +2,14 @@ class Kalibro::MetricConfiguration < Kalibro::Model
 
   attr_accessor :id, :code, :metric, :base_tool_name, :weight, :aggregation_form, :reading_group_id, :configuration_id
 
+  def id=(value)
+    @id = value.to_i
+  end
+  
+  def reading_group_id=(value)
+    @reading_group_id = value.to_i
+  end
+
   def metric=(value)
     @metric = Kalibro::Metric.to_object(value)
   end
@@ -20,8 +28,10 @@ class Kalibro::MetricConfiguration < Kalibro::Model
   end
 
   def self.metric_configurations_of(configuration_id)
-    hash = request(:metric_configurations_of, {:configuration_id => configuration_id})
-    hash[:metric_configuration].to_a.map { |metric_configuration| new metric_configuration }
+    response = request(:metric_configurations_of, {:configuration_id => configuration_id})[:metric_configuration]
+    response = [] if response.nil?
+    response = [response] if response.is_a?(Hash) 
+    response.map { |metric_configuration| new metric_configuration }
   end
 
   private

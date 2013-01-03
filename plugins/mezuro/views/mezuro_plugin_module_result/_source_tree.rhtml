@@ -1,14 +1,15 @@
 <h4><%= _('Source tree') %></h4>
-<% module_name = module_result.module.name %>
+<% helper = MezuroPlugin::Helpers::ModuleResultHelper %>
+<% module_name = helper.module_name(module_result.module.name) %>
 <% module_label = "#{module_name} (#{module_result.module.granularity})" %>
 
 <p>
   <h2 class="path">
     <% module_result.parents.each do |parent| %>
       /<a href="#" class="source-tree-link" data-module-id="<%= parent.id %>">
-        <%= parent.module.name %>
+        <%= helper.module_name parent.module.name %>
       </a>
-    <% end %>
+    <% end %>/ <%= helper.module_name module_name %>
   </h2>
 </p>
   
@@ -17,14 +18,14 @@
     <% if child.module.granularity=='PACKAGE' %>
       <tr>
         <td class="icon"><%= image_tag('/plugins/mezuro/images/folder.png')%></td>
-        <td class="source-tree-text"><a href='#' class="source-tree-link" data-module-id="<%= child.id %>"><%= child.module.name %></a></td>
+        <td class="source-tree-text"><a href='#' class="source-tree-link" data-module-id="<%= child.id %>"><%= helper.module_name child.module.name %></a></td>
       </tr>
     <% else %>
       <tr>
         <td class="icon"><%= image_tag('/plugins/mezuro/images/file.png') %></td>
         <td class="source-tree-text">
           <a href='#' class="source-tree-link" data-module-id="<%= child.id %>">
-            <%= child.module.name %>
+            <%= helper.module_name child.module.name %>
           </a>
         </td>
       </tr>

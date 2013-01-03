@@ -14,7 +14,7 @@ Feature: private profiles
 
   Scenario: joining a private community
     Given I am logged in as "joao"
-    When I go to Safernet's homepage
+    When I go to safernet's homepage
     Then I should see "members only"
     When I follow "Join"
     And "joao" is accepted on community "Safernet"

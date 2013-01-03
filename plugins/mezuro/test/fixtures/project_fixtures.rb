@@ -12,7 +12,7 @@ class ProjectFixtures
 
   def self.project_hash
     {
-      :id => 42,
+      :id => "42",
       :name => 'Qt-Calculator',
       :description => 'Calculator for Qt'
     }

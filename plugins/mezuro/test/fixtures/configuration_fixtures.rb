@@ -8,29 +8,21 @@ class ConfigurationFixtures
 
   def self.created_configuration
     Kalibro::Configuration.new({
-      :name => 'Sample Configuration',
+      :name => 'Created Sample Configuration',
       :description => 'Kalibro configuration for Java projects.'
     })
   end
 
   def self.configuration_hash
     {
-      :id => 42,
+      :id => "42",
       :name => 'Sample Configuration',
       :description => 'Kalibro configuration for Java projects.'
     }
   end
   
-  def self.configuration_content(clone_configuration)
-    MezuroPlugin::ConfigurationContent.new({
-      :name => 'Sample Configuration',
-      :description => 'Kalibro configuration for Java projects.',
-      :configuration_to_clone_name => clone_configuration
-    })
+  def self.all
+    [configuration]
   end
-
-def self.all
-  [configuration]
-end
 
 end

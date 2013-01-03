@@ -563,6 +563,14 @@ class CommentTest < ActiveSupport::TestCase
     assert_equal Environment.default, comment.environment
   end
 
+  should 'log spammer ip after marking comment as spam' do
+    comment = create_comment(:ip_address => '192.168.0.1')
+    comment.spam!
+    log = File.open('log/test_spammers.log')
+    assert_match "Comment-id: #{comment.id} IP: 192.168.0.1", log.read
+    SpammerLogger.clean_log
+  end
+
   private
 
   def create_comment(args = {})

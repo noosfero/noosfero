@@ -7,7 +7,7 @@ class MezuroPlugin::Helpers::ContentViewerHelper
   end
 
   def self.periodicity_options
-    [["Not Periodically", 0], ["1 day", 1], ["2 days", 2], ["Weekly", 7], ["Biweeky", 15], ["Monthly", 30]]
+    [["Not Periodically", 0], ["1 day", 1], ["2 days", 2], ["Weekly", 7], ["Biweekly", 15], ["Monthly", 30]]
   end
 
   def self.periodicity_option(periodicity)
@@ -17,9 +17,7 @@ class MezuroPlugin::Helpers::ContentViewerHelper
   def self.license_options
    options = YAML.load_file("#{RAILS_ROOT}/plugins/mezuro/licenses.yml")
    options = options.split(";")
-   formated_options = []
-   options.each { |option| formated_options << [option, option] }
-   formated_options
+   options
   end
 
   def self.generate_chart(score_history)
@@ -43,9 +41,22 @@ class MezuroPlugin::Helpers::ContentViewerHelper
                 )
   end
 
-
   def self.format_name(metric_configuration_snapshot)
     metric_configuration_snapshot.metric.name.delete("() ")
+  end
+  
+  def self.format_time(miliseconds)
+    seconds = miliseconds/1000
+    MezuroPluginModuleResultController.helpers.distance_of_time_in_words(0, seconds, include_seconds = true)
+  end
+
+  def self.aggregation_options
+    [["Average","AVERAGE"], ["Median", "MEDIAN"], ["Maximum", "MAXIMUM"], ["Minimum", "MINIMUM"],
+      ["Count", "COUNT"], ["Standard Deviation", "STANDARD_DEVIATION"]]
+  end
+
+  def self.scope_options
+    [["Software", "SOFTWARE"], ["Package", "PACKAGE"], ["Class", "CLASS"], ["Method", "METHOD"]]
   end
 
   private

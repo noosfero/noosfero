@@ -9,17 +9,17 @@ class ProcessingFixtures
  
   def self.processing_hash
     {
-      :id => 31,
+      :id => "31",
       :date => '2011-10-20T18:26:43.151+00:00',
       :state => 'READY',
       :process_time => [ProcessTimeFixtures.process_time_hash],
-      :results_root_id => 13
+      :results_root_id => "13"
     }
   end
 
   def self.processing_with_error_hash
     {
-      :id => 31,
+      :id => "31",
       :date => '2011-10-20T18:26:43.151+00:00',
       :state => 'ERROR',
       :process_time => [ProcessTimeFixtures.process_time_hash],

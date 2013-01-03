@@ -32,6 +32,8 @@ debian/solr.yml                   etc/noosfero
 debian/thin.yml                   etc/noosfero
 etc/logrotate.d/noosfero          etc/logrotate.d
 debian/noosfero.yml               etc/noosfero
+etc/noosfero/varnish-accept-language.vcl  etc/noosfero
+etc/noosfero/varnish-noosfero.vcl         etc/noosfero
 
 locale                            usr/share/noosfero
 doc/noosfero                      usr/share/noosfero/doc

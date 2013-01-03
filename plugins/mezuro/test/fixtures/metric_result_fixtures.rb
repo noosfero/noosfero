@@ -13,7 +13,7 @@ class MetricResultFixtures
 
   def self.metric_result_with_error_hash
     {
-      :id => 41,
+      :id => "41",
       :configuration => MetricConfigurationSnapshotFixtures.metric_configuration_snapshot_hash,
       :error => ThrowableFixtures.throwable_hash
     }
@@ -21,9 +21,9 @@ class MetricResultFixtures
 
   def self.native_metric_result_hash
     {
-      :id => 42,
+      :id => "42",
       :configuration => MetricConfigurationSnapshotFixtures.metric_configuration_snapshot_hash,
-      :value => 0.0,
+      :value => "0.0",
       :attributes! =>
       {
         :configuration =>
@@ -37,9 +37,9 @@ class MetricResultFixtures
 
   def self.compound_metric_result_hash
     {
-      :id => 43,
+      :id => "43",
       :configuration => MetricConfigurationSnapshotFixtures.compound_metric_configuration_snapshot_hash,
-      :value => 1.0,
+      :value => "1.0",
       :attributes! =>
       {
         :configuration =>

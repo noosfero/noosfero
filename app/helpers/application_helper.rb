@@ -1284,7 +1284,7 @@ module ApplicationHelper
       (user.already_reported?(profile) ?
         content_tag('a', text, :class => klass + ' disabled comment-footer comment-footer-link', :title => already_reported_message) :
         link_to(text, url, :class => klass + ' comment-footer comment-footer-link', :title => report_profile_message)
-      ) + content_tag('span', ' | ', :class => 'comment-footer comment-footer-hide')
+      ) + content_tag('span', ' ', :class => 'comment-footer comment-footer-hide')
     end
   end
 
@@ -1337,11 +1337,12 @@ module ApplicationHelper
     counter = 0
     radios = klass.templates.map do |template|
       counter += 1
-      content_tag('li', labelled_radio_button(template.name, "#{field_name}[template_id]", template.id, counter==1))
+      content_tag('li', labelled_radio_button(link_to(template.name, template.url, :target => '_blank'), "#{field_name}[template_id]", template.id, counter==1))
     end.join("\n")
 
-    content_tag('div', content_tag('span', _('Template:')) +
-      content_tag('ul', radios, :style => 'list-style: none; padding-left: 0; margin-top: 0.5em;'),
+    content_tag('div', content_tag('label', _('Profile organization'), :for => 'template-options', :class => 'formlabel') +
+      content_tag('p', _('Your profile will be created according to the selected template. Click on the options to view them.'), :style => 'margin: 5px 15px;padding: 0px 10px;') +
+      content_tag('ul', radios, :style => 'list-style: none; padding-left: 20px; margin-top: 0.5em;'),
       :id => 'template-options',
       :style => 'margin-top: 1em'
     )
@@ -1410,4 +1411,16 @@ module ApplicationHelper
     options[:class] = "comment-footer comment-footer-link comment-footer-hide"
     expirable_content_reference content, action, text, url, options
   end
+
+  def private_profile_partial_parameters
+    if profile.person?
+      @action = :add_friend
+      @message = _("The content here is available to %s's friends only.") % profile.short_name
+    else
+      @action = :join
+      @message = _('The contents in this community is available to members only.')
+    end
+    @no_design_blocks = true
+  end
+
 end

@@ -1,99 +1,54 @@
 = Noosfero instructions for developers
 
-This document provides useful information to those who want to help with
-Noosfero development.
+== A work about your the development platform
 
-== Requirements for development
+These instructions are tested and known to work on Debian stable, which is the
+system that the Noosfero core developers use to work on Noosfero.
 
-First, install all requirements listed in INSTALL. Note that you do not need to
-follow all the steps described there, you only need to install the packages
-listed in the "Requirements" section.
+If you want to use another OS, read "Instructions for other systems" below.
 
-After installing the requirements listed in INSTALL, you need to install some
-packages be able to run Noosfero tests. On Debian GNU/Linux and Debian-based
-systems, you install them with the following command:
+== Instructions for Debian stable
 
- # apt-get install libtidy-ruby libhpricot-ruby libmocha-ruby imagemagick po4a xvfb libxml2-dev libxslt-dev
+Download the source code:
 
-On other systems, they may or may not be available through your regular package
-management system. Below are the links to their homepages.
+  $ git clone git://gitorious.org/noosfero/noosfero.git
+  $ cd noosfero
 
-* Mocha: http://mocha.rubyforge.org/
-* Tidy: http://tidy.sourceforge.net/
-* Hpricot: http://github.com/whymirror/hpricot
-* Imagemagick: http://wwwimagemagick.org/
-* po4a: http://po4a.alioth.debian.org/
-* xvfb: http://packages.debian.org/lenny/xvfb
-* Libxml2: http://xmlsoft.org/
-* Libxslt: http://xmlsoft.org/xslt
+Run the quick start script:
 
-== Boostraping a development/test environment
+  $ ./script/quick-start
 
-You can copy and paste the commands below into a terminal (please review the
-commands and make sure you understand what you are doing):
+Now you can execute the development server with:
 
- # checkout the code from repository
- git clone git://gitorious.org/noosfero/noosfero.git
- # enter the directory
- cd noosfero
- # copy a sample config file
- cp config/database.yml.sqlite3 config/database.yml
- # create tmp directory if it doesn't exist
- mkdir tmp
- # start Solr
- rake solr:start
- # create the development database
- rake db:schema:load
- # run pending migrations
- rake db:migrate
- # compile translations:
- rake makemo
- # create some test data:
- ./script/sample-data
- # install latest requirements for running tests
- RAILS_ENV=cucumber rake gems:install
- RAILS_ENV=test rake gems:install
- # run the automated test suite to make sure your environment is sane:
- rake test
+  $ ./script/development
 
-You should now be ready to go. Issue the following command to start the Rails
-development server:
+You will be able to access Noosfero at http://localhost:3000/
 
- ./script/server
+If you want to use a different port than 3000, pass `-p <PORT>` to
+./script/development
 
-The server will be available at http://localhost:3000/ . If you want to use
-another port than 3000, you can use the -p option of ./script/server:
+== Instructions for other systems
 
- ./script/server -p 9999
+On other OS, you have 2 options:
 
-The above command makes the server available at http://localhost:9999/
+1) using a chroot or a VM with Debian stable (easier)
 
-The sample-data data scripts creates two administrator users with login "ze" and
-password "test" and login "adminuser" and password "admin".
+Use a chroot (http://wiki.debian.org/Schroot) or a Virtual Machine (e.g. with
+VirtualBox) with a Debian stable system and follow the instructions above for
+Debian stable.
 
-Note that some operations, like generating image thumbnails, sending e-mails,
-etc, are done in background in the context of a service independent from the
-Rails application server. To have those tasks performed in a development
-environment, you must run the delayed_job server like this:
+2) Installing dependencies on other OS (harder)
 
- ./script/delayed_job run
+If you want to setup a development environment in another OS, you can create a
+file under script/install-dependencies/, called <OS>-<CODENAME>.sh, which
+installed the dependencies for your system. With this script in place,
+./script/quick-start will call it at the point of installing the required
+packages for Noosfero development.
 
-This will block your terminal. To stop the delayed_job server, hit Control-C.
+You can check script/install-dependencies/debian-squeeze.sh to have an idea of
+what kind of stuff that script has to do. 
 
-== Enabling exceptions notification
-
-By default, exception notifications are disabled in development environment. If
-you want to enable it then you need to change some files:
-
-1) Add in config/environments/development.rb:
-   config.action_controller.consider_all_requests_local = false
-
-2) Add in app/controller/application.rb:
-   local_addresses.clear
-
-3) Add in config/noosfero.yml at development section:
-   exception_recipients: [admin@example.com]
-
-== Releasing and building Debian package
-
-See RELEASING file.
+If you write such script for your own OS, *please* share it with us at the
+development mailing list so that we can include it in the official repository.
+This way other people using the same OS will have to put less effort to develop
+Noosfero.

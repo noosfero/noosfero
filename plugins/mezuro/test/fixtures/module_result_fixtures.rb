@@ -8,10 +8,10 @@ class ModuleResultFixtures
 
   def self.module_result_hash
     {
-      :id => 42,
+      :id => "42",
       :module => ModuleFixtures.module_hash,
-      :grade => 10.0,
-      :parent_id => 31,
+      :grade => "10.0",
+      :parent_id => "31",
       :attributes! =>
       {
         :module =>
@@ -25,12 +25,12 @@ class ModuleResultFixtures
 
   def self.parent_module_result_hash
     {
-      :id => 31,
+      :id => "31",
       :module =>  {
         :name => 'Qt-Calculator Parent',
         :granularity => 'APPLICATION'
       },
-      :grade => 10.0,
+      :grade => "10.0",
       :attributes! =>
       {
         :module =>

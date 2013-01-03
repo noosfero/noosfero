@@ -28,6 +28,7 @@ Feature: internationalization
     When I follow "Português"
     Then the site should be in Portuguese
 
+  @fixme
   Scenario: language set by previous users
     Given a user accessed in English before
     And my browser prefers Portuguese
