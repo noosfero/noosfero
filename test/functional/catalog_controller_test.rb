@@ -176,4 +176,41 @@ class CatalogControllerTest < ActionController::TestCase
     assert_tag :tag => 'img', :attributes => { :class => 'star', :src => /star.png/ }
   end
 
+  should 'display categories and sub-categories link' do
+    pc1 = ProductCategory.create!(:name => "PC1", :environment => @enterprise.environment)
+    pc2 = ProductCategory.create!(:name => "PC2", :environment => @enterprise.environment, :parent_id => pc1.id)
+    pc3 = ProductCategory.create!(:name => "PC3", :environment => @enterprise.environment, :parent_id => pc1.id)
+    pc4 = ProductCategory.create!(:name => "PC4", :environment => @enterprise.environment, :parent_id => pc2.id)
+    p1 = fast_create(Product, :product_category_id => pc1.id, :enterprise_id => @enterprise.id)
+    p2 = fast_create(Product, :product_category_id => pc2.id, :enterprise_id => @enterprise.id)
+    p3 = fast_create(Product, :product_category_id => pc3.id, :enterprise_id => @enterprise.id)
+    p4 = fast_create(Product, :product_category_id => pc4.id, :enterprise_id => @enterprise.id)
+
+    get :index, :profile => @enterprise.identifier
+
+    assert_tag :tag => 'a', :attributes => {:href => /level=#{pc1.id}/}
+    assert_tag :tag => 'a', :attributes => {:href => /level=#{pc2.id}/}
+    assert_tag :tag => 'a', :attributes => {:href => /level=#{pc3.id}/}
+    assert_no_tag :tag => 'a', :attributes => {:href => /level=#{pc4.id}/}
+  end
+
+
+  should 'display categories on breadcrumb' do
+    pc1 = ProductCategory.create!(:name => "PC1", :environment => @enterprise.environment)
+    pc2 = ProductCategory.create!(:name => "PC2", :environment => @enterprise.environment, :parent_id => pc1.id)
+    pc3 = ProductCategory.create!(:name => "PC3", :environment => @enterprise.environment, :parent_id => pc1.id)
+    pc4 = ProductCategory.create!(:name => "PC4", :environment => @enterprise.environment, :parent_id => pc2.id)
+    p1 = fast_create(Product, :product_category_id => pc1.id, :enterprise_id => @enterprise.id)
+    p2 = fast_create(Product, :product_category_id => pc2.id, :enterprise_id => @enterprise.id)
+    p3 = fast_create(Product, :product_category_id => pc3.id, :enterprise_id => @enterprise.id)
+    p4 = fast_create(Product, :product_category_id => pc4.id, :enterprise_id => @enterprise.id)
+
+    get :index, :profile => @enterprise.identifier, :level => pc4.id
+
+    assert_tag :tag => 'div', :attributes => {:id => 'breadcrumb'}, :descendant => {:tag => 'a', :attributes => {:href => /level=#{pc1.id}/}}
+    assert_tag :tag => 'div', :attributes => {:id => 'breadcrumb'}, :descendant => {:tag => 'a', :attributes => {:href => /level=#{pc2.id}/}}
+    assert_tag :tag => 'div', :attributes => {:id => 'breadcrumb'}, :descendant => {:tag => 'strong', :content => pc4.name}
+    assert_no_tag :tag => 'div', :attributes => {:id => 'breadcrumb'}, :descendant => {:tag => 'a', :attributes => {:href => /level=#{pc3.id}/}}
+  end
+
 end
