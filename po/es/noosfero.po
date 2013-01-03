@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.39.1\n"
 "POT-Creation-Date: 2013-01-03 20:39-0000\n"
-"PO-Revision-Date: 2010-04-30 20:14-0300\n"
+"PO-Revision-Date: 2013-01-03 18:39-0300\n"
 "Last-Translator: Luis David Aguilar Carlos <ludwig9003@gmail.com>,Freddy "
 "Martín Hernández Facio <fmhf14@gmail.com>, Pedro Alonzo Ramírez Tovar <pedro."
 "alonzo709@gmail.com>\n"
@@ -3018,7 +3018,7 @@ msgstr "Información y configuración de Perfil"
 msgid "{#} community"
 msgid_plural "{#} communities"
 msgstr[0] "Una comunidad"
-msgstr[1] "%{num} comunidades"
+msgstr[1] "{#} comunidades"
 
 #: app/models/communities_block.rb:12
 msgid "This block displays the communities in which the user is a member."
@@ -3924,7 +3924,7 @@ msgstr "Cantidad utilizada por %s de este producto o servicio"
 #: app/helpers/manage_products_helper.rb:276
 msgid "1 %{singular_unit}"
 msgid_plural "%{num} %{plural_unit}"
-msgstr[0] "1 %{singular_unit"
+msgstr[0] "1 %{singular_unit}"
 msgstr[1] "%{num} %{plural_unit}"
 
 #: app/helpers/manage_products_helper.rb:281
@@ -4232,7 +4232,7 @@ msgstr "Sin comentarios aun"
 msgid "One comment"
 msgid_plural "<span class=\"comment-count\">%{comments}</span> comments"
 msgstr[0] "Un comentario"
-msgstr[1] "%{comments} comentarios"
+msgstr[1] "<span class=\"comment-count\">%{comments}</span> comentarios"
 
 #: app/helpers/content_viewer_helper.rb:29
 msgid ", by %s"
