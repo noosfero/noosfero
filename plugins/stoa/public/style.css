@@ -38,6 +38,11 @@
   top: -75px;
 }
 
+#signup-form .formfield.checking {
+  border-color: transparent;
+  background-image: none;
+}
+
 #usp-id-invalid,
 #usp-id-checking {
   display: none;

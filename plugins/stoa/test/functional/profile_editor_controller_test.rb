@@ -27,12 +27,12 @@ class StoaPluginProfileEditorControllerTest < ActionController::TestCase
     assert_tag_in_string @response.body, :tag => 'input', :attributes => { :id => 'usp_id_field' }
   end
 
-  should 'not show usp_id field if person already filled it' do
+  should 'show usp_id field as disabled if person already filled it' do
     person.usp_id = 12345
     person.save
     get :edit, :profile => person.identifier
-    assert_no_tag_in_string @response.body, :tag => 'label', :content => /USP number/,  :attributes => { :for => 'usp_id_field' }
-    assert_no_tag_in_string @response.body, :tag => 'input', :attributes => { :id => 'usp_id_field' }
+    assert_tag_in_string @response.body, :tag => 'label', :content => /USP number/,  :attributes => { :for => 'usp_id_field' }
+    assert_tag_in_string @response.body, :tag => 'input', :attributes => { :id => 'usp_id_field', :disabled => 'disabled' }
   end
 
   should 'not display field if profile is an organization' do

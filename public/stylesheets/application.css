@@ -1570,6 +1570,10 @@ a.button.disabled, input.disabled {
 }
 .block iframe {
   border: none;
+}
+
+.block iframe,
+.block embed {
   max-width: 100%;
 }
 .block-title.empty {

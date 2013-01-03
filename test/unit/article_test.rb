@@ -30,6 +30,16 @@ class ArticleTest < ActiveSupport::TestCase
     assert !a.errors.invalid?(:name)
   end
 
+  should 'limit length of names' do
+    a = Article.new(:name => 'a'*151)
+    a.valid?
+    assert a.errors.invalid?(:name)
+
+    a.name = 'a'*150
+    a.valid?
+    assert !a.errors.invalid?(:name)
+  end
+
   should 'require value for slug and path if name is filled' do
     a = Article.new(:name => 'test article')
     a.slug = nil

@@ -296,6 +296,13 @@ class CmsControllerTest < ActionController::TestCase
     assert_not_nil profile.articles.find_by_path('test.txt')
   end
 
+  should 'not crash when parent_id is blank' do
+    assert_nothing_raised do
+      post :upload_files, :profile => profile.identifier, :parent_id => '', :uploaded_files => [fixture_file_upload('/files/test.txt', 'text/plain'), '' ]
+    end
+    assert_not_nil profile.articles.find_by_path('test.txt')
+  end
+
   should 'redirect to cms after uploading files' do
     post :upload_files, :profile => profile.identifier, :uploaded_files => [fixture_file_upload('/files/test.txt', 'text/plain')]
     assert_redirected_to :action => 'index'

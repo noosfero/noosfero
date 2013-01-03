@@ -4,6 +4,7 @@ $("#usp_id_field").observe_field(1, function(){
   var me=this;
   $('#usp-id-invalid').hide();
   $(this).addClass('checking').removeClass('validated');
+  $(this.parentNode).addClass('checking');
   $('#usp-id-checking').show();
   $.getJSON('/plugin/stoa/check_usp_id?usp_id='+me.value,
     function(data){
@@ -26,18 +27,22 @@ $("#usp_id_field").observe_field(1, function(){
             }
             $('#signup-form .submit').attr('disabled', false);
             $(me).removeClass('checking').addClass('validated');
+            $(me.parentNode).removeClass('checking');
           });
       }
       else {
         $(me).removeClass('checking');
+        $(me.parentNode).removeClass('checking');
         if(me.value) {
           $('#signup-form .submit').attr('disabled', true);
           $(me).addClass('invalid');
+          $('#profile-data #usp_id_field').parent().addClass('fieldWithErrors')
           $('#usp-id-invalid').show();
         }
         else {
           $('#signup-form .submit').attr('disabled', false);
           $(me).removeClass('invalid');
+          $('#profile-data #usp_id_field').parent().removeClass('fieldWithErrors')
           $(me).removeClass('validated');
         }
         $('#signup-birth-date').hide();

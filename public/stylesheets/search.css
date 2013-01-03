@@ -669,51 +669,37 @@ li.search-product-item hr {
 /* Search field and button */
 
 .search-field input {
-  vertical-align: middle;
-}
-.search-field .formfield {
-  height: 34px;
-  display: inline-block;
-}
-.box-1 .search-field .formfield input {
-  height: 25px;
-  width: 530px;
-}
-.box-2 .search-field .formfield input,
-.box-3 .search-field .formfield input {
-  width: 165px;
-}
-#public-profile-search .search-field .formfield input {
-  height: 25px;
-  width: 395px;
+  vertical-align: bottom;
 }
 
-.search-field .formfield {
-  height: 34px;
-  display: inline-block;
-}
-#content #public-profile-search form .search-field input.button.submit {
-  width: 75px;
+.search-field .formfield,
+.search-field .formfield input {
+  width: 100%;
 }
 
-form .search-field input:hover.button.submit {
-  background-color:#444;
+#public-profile-search .formfield {
+  width: 85%;
 }
+
+#public-profile-search .formfield,
+#public-profile-search .submit {
+  display: inline-block;
+}
+
+#public-profile-search .submit {
+  margin-bottom: 3px;
+}
+
+#public-profile-search .search-field div {
+  clear: both;
+}
+
 .search-hint {
   clear: both;
   padding: 10px 0 10px 10px;
   border-bottom: 1px solid #555;
   font-size: 0.9em;
 }
-#content form .search-field input:hover.button.submit {
-  background-color:#444;
-}
-
-#content form .search-field input.button.submit {
-  height: 30px;
-  max-height:none;
-}
-
 
 .facet-any-result-found {
   font-size: 75%;
