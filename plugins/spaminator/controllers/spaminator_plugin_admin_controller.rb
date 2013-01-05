@@ -34,7 +34,7 @@ class SpaminatorPluginAdminController < AdminController
       settings.scanning = true
       settings.save!
       remove_scheduled_scan
-      Delayed::Job.enqueue(SpaminatorPlugin::ScanJob.new(environment))
+      Delayed::Job.enqueue(SpaminatorPlugin::ScanJob.new(environment.id))
     end
     redirect_to :action => 'index'
   end

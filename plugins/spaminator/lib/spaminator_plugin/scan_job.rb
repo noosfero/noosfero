@@ -6,7 +6,11 @@ class SpaminatorPlugin::ScanJob < Struct.new(:environment_id)
       settings.scanning = true
       settings.save!
 
-      SpaminatorPlugin::Spaminator.run(environment)
+      begin
+        SpaminatorPlugin::Spaminator.run(environment)
+      rescue Exception => exception
+        SpaminatorPlugin::Spaminator.log("Spaminator failed with the following error: \n ==> #{exception}\n#{exception.backtrace.join("\n")}")
+      end
 
       settings.scanning = false
       SpaminatorPlugin.schedule_scan(environment) if settings.deployed
