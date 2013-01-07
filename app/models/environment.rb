@@ -234,7 +234,8 @@ class Environment < ActiveRecord::Base
   end
 
   settings_items :activation_blocked_text, :type => String
-  settings_items :message_for_disabled_enterprise, :type => String
+  settings_items :message_for_disabled_enterprise, :type => String,
+                 :default => _('This enterprise needs to be enabled.')
   settings_items :location, :type => String
   settings_items :layout_template, :type => String, :default => 'default'
   settings_items :homepage, :type => String
