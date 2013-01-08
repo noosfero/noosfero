@@ -17,4 +17,8 @@ class ProcessTimeTest < ActiveSupport::TestCase
     assert_equal @hash, @process_time.to_hash
   end
 
+  should 'get time as an integer' do
+    assert_equal 1.class, @process_time.time.class
+  end
+
 end

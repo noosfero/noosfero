@@ -9,7 +9,7 @@ class ReadingGroupFixtures
   end
 
   def self.reading_group_hash
-    {:id => 42, :name => "Reading Group Test", :description => "Reading group in the fixtures"}
+    {:id => "42", :name => "Reading Group Test", :description => "Reading group in the fixtures"}
   end
 
 end

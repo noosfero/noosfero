@@ -26,6 +26,7 @@ class Kalibro::MetricConfigurationSnapshot < Kalibro::Model
 
   def to_hash
     hash = super
+    puts hash
     hash[:attributes!][:range] = {'xmlns:xsi'=> 'http://www.w3.org/2001/XMLSchema-instance',
                     'xsi:type' => 'kalibro:rangeSnapshotXml'  }
     hash

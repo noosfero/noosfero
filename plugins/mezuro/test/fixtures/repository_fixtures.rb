@@ -12,12 +12,12 @@ class RepositoryFixtures
       :process_period => "1",
       :type => 'SUBVERSION',
       :address => 'https://qt-calculator.svn.sourceforge.net/svnroot/qt-calculator',
-      :configuration_id => 31
+      :configuration_id => "31"
     })
   end
 
   def self.repository_hash
-    {:id => 42, :name => "test repository", :description => "test description", :license => "GPL", :process_period => "1", :type => 'SUBVERSION', :address => 'https://qt-calculator.svn.sourceforge.net/svnroot/qt-calculator', :configuration_id => 31}
+    {:id => "42", :name => "test repository", :description => "test description", :license => "GPL", :process_period => "1", :type => 'SUBVERSION', :address => "https://qt-calculator.svn.sourceforge.net/svnroot/qt-calculator", :configuration_id => "31"}
   end
 
   def self.types

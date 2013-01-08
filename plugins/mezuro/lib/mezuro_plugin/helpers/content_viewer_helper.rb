@@ -47,6 +47,11 @@ class MezuroPlugin::Helpers::ContentViewerHelper
   def self.format_name(metric_configuration_snapshot)
     metric_configuration_snapshot.metric.name.delete("() ")
   end
+  
+  def self.format_time(time)
+    time.class
+    #MezuroPluginModuleResultController.helpers.distance_of_time_in_words(0, time/1000, include_seconds = true)
+  end
 
   private
 

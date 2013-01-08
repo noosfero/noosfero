@@ -8,9 +8,10 @@
     <td><%= @processing.date %></td>
   </tr>
   <% @processing.process_time.each do |process_time| %>
+    <%= process_time.inspect %>
     <tr>
       <td><%= _(process_time.state + ' time') %></td>
-      <td><%= process_time.time %></td>
+      <td><%= MezuroPlugin::Helpers::ContentViewerHelper.format_time(process_time.time) %></td>
     </tr>
   <% end %>
   <tr>
