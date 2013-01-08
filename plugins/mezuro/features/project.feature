@@ -29,17 +29,19 @@ Feature: Project
     And I should see "Sample Description"
     And I should see "Add Repository"
 
-	@selenium @current
+	@selenium 
 	Scenario: I edit a Mezuro project
 		When I have a Mezuro project with the following data
       | name        | Sample Project     |
       | description | Sample Description |
-      | owner       | joaosilva          |
-# Next step should work, but profile for "Sample Description" article is wrong (should be "my-community" but is "joaosilva"). 
-# Something in the previous step is not right.
+      | community   | mycommunity        |
 		And I am on article "Sample Project"
 		And I should be on /mycommunity/sample-project
+		Then I should see "Sample Project"
+    And I should see "Sample Description"
+    And I should see "Add Repository"
 		When I follow "Edit"
+    # Not complete
 		
 	@selenium
 	Scenario: I delete a Mezuro project that belongs to me

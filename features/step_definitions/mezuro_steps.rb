@@ -36,7 +36,7 @@ end
 When /^I have a Mezuro project with the following data$/ do |fields|
   item = {}
   fields.rows_hash.each do |name, value|
-    if(name=="owner")
+    if(name=="community")
       item.merge!(:profile=>Profile[value])
     else
       item.merge!(name => value)
@@ -45,3 +45,4 @@ When /^I have a Mezuro project with the following data$/ do |fields|
   result = MezuroPlugin::ProjectContent.new(item)
   result.save!
 end
+
