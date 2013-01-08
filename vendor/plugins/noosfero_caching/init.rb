@@ -39,6 +39,7 @@ module NoosferoHttpCaching
       status, headers, body = @app.call(env)
       if headers['X-Noosfero-Auth'] == 'false'
         headers['Set-Cookie'] = remove_unwanted_cookies(headers['Set-Cookie'])
+        headers.delete('Set-Cookie') if headers['Set-Cookie'].blank?
       end
       headers.delete('X-Noosfero-Auth')
       [status, headers, body]
