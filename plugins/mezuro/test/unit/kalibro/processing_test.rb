@@ -1,7 +1,6 @@
 require "test_helper"
 
 require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/processing_fixtures"
-#TODO arrumar os testes de unidade
 class ProcessingTest < ActiveSupport::TestCase
 
   def setup
@@ -11,12 +10,12 @@ class ProcessingTest < ActiveSupport::TestCase
     @repository_id = 31
   end
 
-  should 'create project result from hash' do
+  should 'create processing from hash' do
     assert_equal @hash[:results_root_id], Kalibro::Processing.new(@hash).results_root_id
     assert_equal @hash[:process_time].first[:state], Kalibro::Processing.new(@hash).process_times.first.state
   end
 
-  should 'convert project result to hash' do
+  should 'convert processing to hash' do
     assert_equal @hash, @processing.to_hash
   end
 
@@ -94,56 +93,4 @@ class ProcessingTest < ActiveSupport::TestCase
     assert_equal @processing.id, Kalibro::Processing.last_processing_before(@repository_id, @processing.date).id
   end
   
-=begin
-  should 'get processing of a repository' do
-    Kalibro::Processing.expects(:has_ready_processing).with(@repository.id).returns(true)
-    Kalibro::Processing.expects(:last_ready_processing_of).with(@repository.id).returns(@processing)
-    assert_equal @processing, @project_content.processing(@repository.id)
-  end
-  
-  should 'get not ready processing of a repository' do
-    Kalibro::Processing.expects(:has_ready_processing).with(@repository.id).returns(false)
-    Kalibro::Processing.expects(:last_processing_of).with(@repository.id).returns(@processing)
-    assert_equal @processing, @project_content.processing(@repository.id)
-  end
-  
-  should 'get processing of a repository after date' do
-    Kalibro::Processing.expects(:has_processing_after).with(@repository.id, @date).returns(true)
-    Kalibro::Processing.expects(:first_processing_after).with(@repository.id, @date).returns(@processing)
-    assert_equal @processing, @project_content.processing_with_date(@repository.id, @date)
-  end
-  
-  should 'get processing of a repository before date' do
-    Kalibro::Processing.expects(:has_processing_after).with(@repository.id, @date).returns(false)
-    Kalibro::Processing.expects(:has_processing_before).with(@repository.id, @date).returns(true)
-    Kalibro::Processing.expects(:last_processing_before).with(@repository.id, @date).returns(@processing)
-    assert_equal @processing, @project_content.processing_with_date(@repository.id, @date)
-  end
-
-  should 'get module result' do
-    @project_content.expects(:processing).with(@repository.id).returns(@processing)
-    Kalibro::ModuleResult.expects(:find).with(@processing.results_root_id).returns(@module_result)
-    assert_equal @module_result, @project_content.module_result(@repository.id)
-
-  end
-  
-  should 'get module result with date' do
-    @project_content.expects(:processing_with_date).with(@repository.id,@date.to_s).returns(@processing)
-    Kalibro::ModuleResult.expects(:find).with(@processing.results_root_id).returns(@module_result)
-    assert_equal @module_result, @project_content.module_result(@repository.id, @date.to_s)
-  end
-
-  should 'get result history' do
-    Kalibro::MetricResult.expects(:history_of).with(@module_result.id).returns([@date_metric_result])
-    assert_equal [@date_metric_result], @project_content.result_history(@module_result.id)
-  end
-
-  should 'add error to base when the module_result does not exist' do
-    Kalibro::MetricResult.expects(:history_of).with(@module_result.id).raises(Kalibro::Errors::RecordNotFound)
-    assert_nil @project_content.errors[:base]
-    @project_content.result_history(@module_result.id)
-    assert_not_nil @project_content.errors[:base]
-  end
-=end
-
 end
