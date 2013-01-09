@@ -5,10 +5,9 @@
 <table>
   <tr>
     <td><%= _('Date') %></td>
-    <td><%= @processing.date %></td>
+    <td><%= @processing.date.inspect %></td>
   </tr>
   <% @processing.process_time.each do |process_time| %>
-    <%= process_time.inspect %>
     <tr>
       <td><%= _(process_time.state + ' time') %></td>
       <td><%= MezuroPlugin::Helpers::ContentViewerHelper.format_time(process_time.time) %></td>

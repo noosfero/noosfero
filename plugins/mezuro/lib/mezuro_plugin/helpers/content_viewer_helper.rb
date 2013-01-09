@@ -49,8 +49,8 @@ class MezuroPlugin::Helpers::ContentViewerHelper
   end
   
   def self.format_time(time)
-    time.class
-    #MezuroPluginModuleResultController.helpers.distance_of_time_in_words(0, time/1000, include_seconds = true)
+    time /= 1000 # transform miliseconds to seconds
+    MezuroPluginModuleResultController.helpers.distance_of_time_in_words(0, time, include_seconds = true)
   end
 
   private
