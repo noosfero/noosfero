@@ -2,8 +2,15 @@ class Kalibro::MetricResult < Kalibro::Model
 
   attr_accessor :id, :configuration, :value, :error
 
-  def value=(value)
-    @value = value.to_f
+  def initialize(attributes={})
+    value = attributes[:value]
+    value == "NaN" ? @value = attributes[:agreggated_value] : @value = value.to_f
+    attributes.each do |field, value|
+      if field!="value" and field!="agreggated_value" and self.class.is_valid?(field)
+        send("#{field}=", value)
+      end
+    end
+    @errors = []
   end
 
   def configuration=(value)
