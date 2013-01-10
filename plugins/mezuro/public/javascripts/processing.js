@@ -17,9 +17,10 @@ function showProcessing() {
 //TODO review for project history
 function display_metric_history() {
   var module_result_id = jQuery(this).attr('data-module-id');
-  var metric_name = jQuery(this).attr('show-metric-history');
-  toggle_mezuro("." + metric_name);
-  metricName = metric_name;
+  var formatted_name = jQuery(this).attr('show-metric-history');
+  var metric_name = jQuery(this).attr('data-metric-name');
+  toggle_mezuro("." + formatted_name);
+  metricName = formatted_name;
   callAction('module_result', 'metric_result_history', {metric_name: metric_name, module_result_id: module_result_id}, show_metrics);
   return false;
 }

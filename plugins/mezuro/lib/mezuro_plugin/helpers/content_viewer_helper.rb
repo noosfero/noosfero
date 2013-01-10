@@ -43,7 +43,6 @@ class MezuroPlugin::Helpers::ContentViewerHelper
                 )
   end
 
-
   def self.format_name(metric_configuration_snapshot)
     metric_configuration_snapshot.metric.name.delete("() ")
   end

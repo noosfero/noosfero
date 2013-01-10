@@ -12,6 +12,7 @@ class Kalibro::Processing < Kalibro::Model
   end
 
   def self.processing_with_date_of(repository_id, date)
+    date = date.is_a?(String) ? DateTime.parse(date) : date
     if has_processing_after(repository_id, date)
       first_processing_after(repository_id, date)
     elsif has_processing_before(repository_id, date)

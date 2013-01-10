@@ -25,7 +25,7 @@
   jQuery(document).ready(function($) {
     $("#datepicker").datepicker({
 	  								onSelect: function(dateText, inst) {
-	  									reloadProjectWithDate(dateText) } });
+	  									reloadProcessingWithDate(dateText) } });
     $("#datepicker").toggle();
     var date = jQuery("#current_processing_date").attr('data-date').substr(0,10);
   $("#datepicker").datepicker( "setDate" , date );
