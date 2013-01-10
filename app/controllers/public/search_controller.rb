@@ -27,7 +27,7 @@ class SearchController < PublicController
     @enabled_searches.select { |key,description| @searching[key] }.each do |key, description|
       load_query
       @asset = key
-      send(:get_results, key)
+      send(key)
       @order << key
       @names[key] = getterm(description)
     end
@@ -43,7 +43,6 @@ class SearchController < PublicController
     else
       @results[@asset] = @environment.articles.public.send(@filter).paginate(paginate_options)
     end
-    render :template => 'search/search_page'
   end
 
   def contents
@@ -56,7 +55,6 @@ class SearchController < PublicController
     else
       @results[@asset] = visible_profiles(Person).send(@filter).paginate(paginate_options)
     end
-    render :template => 'search/search_page'
   end
 
   def products
@@ -65,7 +63,6 @@ class SearchController < PublicController
     else
       @results[@asset] = @environment.products.send(@filter).paginate(paginate_options)
     end
-    render :template => 'search/search_page'
   end
 
   def enterprises
@@ -75,7 +72,6 @@ class SearchController < PublicController
       @filter_title = _('Enterprises from network')
       @results[@asset] = visible_profiles(Enterprise, [{:products => :product_category}]).paginate(paginate_options)
     end
-    render :template => 'search/search_page'
   end
 
   def communities
@@ -84,7 +80,6 @@ class SearchController < PublicController
     else
       @results[@asset] = visible_profiles(Community).send(@filter).paginate(paginate_options)
     end
-    render :template => 'search/search_page'
   end
 
   def events
