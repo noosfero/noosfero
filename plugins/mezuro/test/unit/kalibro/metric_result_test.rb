@@ -18,6 +18,14 @@ class MetricResultTest < ActiveSupport::TestCase
     assert_equal @native_hash[:value].to_f, metric_result.value
   end
 
+  should 'create metric result with aggregated value from hash' do
+    hash = @native_hash
+    hash[:aggregated_value] = "2.0"
+    hash[:value] = "NaN"
+    metric_result = Kalibro::MetricResult.new(hash)
+    assert_equal @native_hash[:aggregated_value].to_f, metric_result.value
+  end
+
   should 'convert metric result to hash' do
     assert_equal @native_hash, @result.to_hash
   end

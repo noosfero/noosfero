@@ -4,9 +4,9 @@ class Kalibro::MetricResult < Kalibro::Model
 
   def initialize(attributes={})
     value = attributes[:value]
-    value == "NaN" ? @value = attributes[:agreggated_value] : @value = value.to_f
+    @value = (value == "NaN") ? attributes[:aggregated_value].to_f : value.to_f
     attributes.each do |field, value|
-      if field!="value" and field!="agreggated_value" and self.class.is_valid?(field)
+      if field!= :value and field!= :aggregated_value and self.class.is_valid?(field)
         send("#{field}=", value)
       end
     end
@@ -23,10 +23,6 @@ class Kalibro::MetricResult < Kalibro::Model
 
   def metric_configuration_snapshot
     configuration
-  end
-
-  def value=(value)
-    @value = value.to_f
   end
 
   def error=(value)

@@ -18,7 +18,7 @@
         <td><%= MezuroPlugin::Helpers::ContentViewerHelper.format_grade(metric_result.value) %></td>
         <td><%= metric_configuration_snapshot.weight %></td>
       <% range_snapshots.each do |range_snapshot| %>
-        <% if range_snapshot.beginning.to_f <= metric_result.value and range_snapshot.end.to_f > metric_result.value %>
+        <% if range_snapshot.beginning <= metric_result.value and range_snapshot.end > metric_result.value %>
         <td style="background-color: #<%= range_snapshot.color %>">
           <span title="<%= range_snapshot.comments %>" >
             <%= range_snapshot.label %>
