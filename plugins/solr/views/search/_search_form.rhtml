@@ -1,0 +1,37 @@
+<div class='search-form'>
+
+  <% form_tag( { :controller => 'search', :action => @asset ? @asset : 'index', :asset => nil, :category_path => ( @category ? @category.explode_path : [] ) },
+                 :method => 'get', :class => 'search_form' ) do %>
+
+    <%= hidden_field_tag :display, params[:display] %>
+
+    <% params_uri = CGI::unescape(request.request_uri) %>
+    <% if params_uri.index('?') %>
+      <% params_uri[(params_uri.index('?')+1)..-1].to_s.split("&").each do |part| %>
+        <% if part.start_with? "facet" %>
+          <% name_value = part.split("=") %>
+          <%= hidden_field_tag name_value[0], name_value[1] %>
+        <% end %>
+      <% end %>
+    <% end %>
+
+    <div class="search-field">
+      <span class="formfield">
+        <%= text_field_tag 'query', @query, :id => 'search-input', :size => 50 %>
+        <%= javascript_tag "jQuery('#search-input').attr('title', \"#{hint}\").hint()" if defined?(hint) %>
+      </span>
+
+      <%= submit_button(:search, _('Search')) %>
+    </div>
+
+  <% end %>
+
+  <% if @empty_query %>
+    <% hint = environment.search_hints[@asset] %>
+    <% if hint and !hint.blank? %>
+      <div class="search-hint"><%= hint %></div>
+    <% end %>
+  <% end %>
+
+  <div style="clear: both"></div>
+</div>
