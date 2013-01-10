@@ -11,8 +11,10 @@ class ProcessingTest < ActiveSupport::TestCase
   end
 
   should 'create processing from hash' do
-    assert_equal @hash[:results_root_id], Kalibro::Processing.new(@hash).results_root_id
-    assert_equal @hash[:process_time].first[:state], Kalibro::Processing.new(@hash).process_times.first.state
+    processing = Kalibro::Processing.new(@hash)
+    assert_equal @hash[:results_root_id].to_i, processing.results_root_id
+    assert_equal @hash[:process_time].first[:state], processing.process_times.first.state
+    assert_equal @hash[:id].to_i, processing.id
   end
 
   should 'convert processing to hash' do

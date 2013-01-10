@@ -2,6 +2,10 @@ class Kalibro::MetricConfigurationSnapshot < Kalibro::Model
 
   attr_accessor :code, :weight, :aggregation_form, :metric, :base_tool_name, :range
 
+  def weight=(value)
+    @weight = value.to_f
+  end
+
   def metric=(value)
     if value.kind_of?(Hash)
       @metric = Kalibro::Metric.to_object(value)

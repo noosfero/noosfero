@@ -1,4 +1,3 @@
-#TODO arrumar esse modelo e seus testes de unidade
 class Kalibro::Processing < Kalibro::Model
 
   attr_accessor :id, :date, :state, :error, :process_time, :results_root_id
@@ -22,6 +21,10 @@ class Kalibro::Processing < Kalibro::Model
     end
   end
 
+  def id=(value)
+    @id = value.to_i
+  end
+
   def date=(value)
     @date = value.is_a?(String) ? DateTime.parse(value) : value
   end
@@ -40,6 +43,10 @@ class Kalibro::Processing < Kalibro::Model
 
   def error=(value)
     @error = Kalibro::Throwable.to_object value
+  end
+
+  def results_root_id=(value)
+    @results_root_id = value.to_i
   end
 
   private

@@ -13,6 +13,7 @@ class ProjectTest < ActiveSupport::TestCase
   should 'initialize new project from hash' do
     project = Kalibro::Project.new @hash
     assert_equal @hash[:name], project.name
+    assert_equal @hash[:id].to_i, project.id
   end
 
   should 'convert project to hash' do

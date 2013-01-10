@@ -13,12 +13,20 @@ class Kalibro::MetricResult < Kalibro::Model
     @errors = []
   end
 
+  def id=(value)
+    @id = value.to_i
+  end
+
   def configuration=(value)
     @configuration = Kalibro::MetricConfigurationSnapshot.to_object value
   end
 
   def metric_configuration_snapshot
     configuration
+  end
+
+  def value=(value)
+    @value = value.to_f
   end
 
   def error=(value)

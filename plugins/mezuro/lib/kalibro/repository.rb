@@ -17,6 +17,18 @@ class Kalibro::Repository < Kalibro::Model
     response.map {|repository| new repository}
   end
 
+  def id=(value)
+    @id = value.to_i
+  end
+
+  def process_period=(value)
+    @process_period = value.to_i
+  end
+
+  def configuration_id=(value)
+    @configuration_id = value.to_i
+  end
+
   def process
     self.class.request(:process_repository, {:repository_id => self.id})
   end

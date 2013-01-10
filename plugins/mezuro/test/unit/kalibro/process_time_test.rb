@@ -11,6 +11,7 @@ class ProcessTimeTest < ActiveSupport::TestCase
 
   should 'create process time from hash' do
     assert_equal @hash[:state], Kalibro::ProcessTime.new(@hash).state
+    assert_equal @hash[:time].to_i, Kalibro::ProcessTime.new(@hash).time
   end
 
   should 'convert process time to hash' do

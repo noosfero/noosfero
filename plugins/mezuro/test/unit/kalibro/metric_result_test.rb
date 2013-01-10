@@ -12,7 +12,10 @@ class MetricResultTest < ActiveSupport::TestCase
   end
 
   should 'create metric result from hash' do
-    assert_equal @native_hash[:configuration][:code], Kalibro::MetricResult.new(@native_hash).configuration.code
+    metric_result = Kalibro::MetricResult.new(@native_hash)
+    assert_equal @native_hash[:configuration][:code], metric_result.configuration.code
+    assert_equal @native_hash[:id].to_i, metric_result.id
+    assert_equal @native_hash[:value].to_f, metric_result.value
   end
 
   should 'convert metric result to hash' do
@@ -28,13 +31,13 @@ class MetricResultTest < ActiveSupport::TestCase
   should 'return metric results of a module result' do
     id = 31
     Kalibro::MetricResult.expects(:request).with(:metric_results_of, {:module_result_id => id}).returns(:metric_result => [@native_hash, @compound_hash])
-    assert_equal @native_hash[:id], Kalibro::MetricResult.metric_results_of(id).first.id
+    assert_equal @native_hash[:id].to_i, Kalibro::MetricResult.metric_results_of(id).first.id
   end
 
   should 'return history of a metric with a module result id' do
     module_result_id = 31
     Kalibro::MetricResult.expects(:request).with(:history_of_metric, {:metric_name => @result.configuration.metric.name, :module_result_id => module_result_id}).returns({:date_metric_result => DateMetricResultFixtures.date_metric_result_hash})
-    assert_equal DateMetricResultFixtures.date_metric_result_hash[:metric_result][:id], Kalibro::MetricResult.history_of(@result.configuration.metric.name, module_result_id).first.metric_result.id
+    assert_equal DateMetricResultFixtures.date_metric_result_hash[:metric_result][:id].to_i, Kalibro::MetricResult.history_of(@result.configuration.metric.name, module_result_id).first.metric_result.id
   end
 
 end

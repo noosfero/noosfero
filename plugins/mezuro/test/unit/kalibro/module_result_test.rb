@@ -11,7 +11,10 @@ class ModuleResultTest < ActiveSupport::TestCase
   end
 
   should 'create module result' do
-    assert_equal @hash[:id] , Kalibro::ModuleResult.new(@hash).id
+    module_result = Kalibro::ModuleResult.new(@hash)
+    assert_equal @hash[:id].to_i , module_result.id
+    assert_equal @hash[:grade].to_f , module_result.grade
+    assert_equal @hash[:parent_id].to_i , module_result.parent_id
   end
   
   should 'convert module result to hash' do
@@ -41,7 +44,7 @@ class ModuleResultTest < ActiveSupport::TestCase
 
   should 'return history of a module result' do
     Kalibro::ModuleResult.expects(:request).with(:history_of_module, {:module_result_id => @module_result.id}).returns({:date_module_result => [DateModuleResultFixtures.date_module_result_hash]})
-    assert_equal DateModuleResultFixtures.date_module_result_hash[:module_result][:id], Kalibro::ModuleResult.history_of(@module_result.id).first.module_result.id
+    assert_equal DateModuleResultFixtures.date_module_result_hash[:module_result][:id].to_i, Kalibro::ModuleResult.history_of(@module_result.id).first.module_result.id
   end
 
 end

@@ -11,7 +11,11 @@ class RepositoryTest < ActiveSupport::TestCase
   end
 
   should 'new repository from hash' do
-    assert_equal @repository.type, Kalibro::Repository.new(@hash).type
+    repository = Kalibro::Repository.new(@hash)
+    assert_equal @hash[:type], repository.type
+    assert_equal @hash[:id].to_i, repository.id
+    assert_equal @hash[:process_period].to_i, repository.process_period
+    assert_equal @hash[:configuration_id].to_i, repository.configuration_id
   end
 
   should 'convert repository to hash' do

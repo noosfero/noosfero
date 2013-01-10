@@ -13,7 +13,7 @@ class MetricConfigurationSnapshotTest < ActiveSupport::TestCase
 
   should 'create and convert metric configuration snapshot from hash' do
     assert_equal @hash[:code], Kalibro::MetricConfigurationSnapshot.new(@hash).code
-    assert_equal @hash, @metric_configuration_snapshot.to_hash
+    assert_equal @hash[:weight].to_f, @metric_configuration_snapshot.weight
   end
 
   should 'create and convert metric configuration snapshot from hash with 2 elements' do

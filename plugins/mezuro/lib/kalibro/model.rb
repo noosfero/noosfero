@@ -7,6 +7,7 @@ class Kalibro::Model
     @errors = []
   end
 
+
   def to_hash(options={})
     hash = Hash.new
     excepts = options[:except].nil? ? [] : options[:except]
