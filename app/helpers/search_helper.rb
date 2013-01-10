@@ -18,7 +18,7 @@ module SearchHelper
   include EventsHelper
 
   def multiple_search?
-    @results.size > 1
+    ['index', 'category_index'].include?(params[:action]) or @results.size > 1
   end
 
   def map_search?

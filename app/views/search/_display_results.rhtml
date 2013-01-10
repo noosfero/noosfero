@@ -4,7 +4,7 @@
 
     <div class="search-results-<%= name %> search-results-box <%= "search-results-empty" if results.blank? %>">
       <% if !results.blank? %>
-        <% partial = partial_for_class(results.first.class.class_name.constantize) %>
+        <% partial = partial_for_class(name.to_s.singularize.camelize.constantize) %>
 
         <% if multiple_search? %>
           <h3><%= @names[name] %></h3>

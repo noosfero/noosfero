@@ -1,5 +1,9 @@
 class SolrPlugin < Noosfero::Plugin
   module ResultsHelper
+    def asset_class(asset)
+      asset.to_s.singularize.camelize.constantize
+    end
+
     def set_results_variables
       if @results[@asset].kind_of?(Hash)
         ret = @results[@asset]

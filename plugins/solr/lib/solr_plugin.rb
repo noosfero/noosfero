@@ -20,7 +20,12 @@ class SolrPlugin < Noosfero::Plugin
     asset_class = asset_class(asset)
     solr_options = solr_options(asset, category)
     solr_options.merge!(products_options(context.send(:user))) if asset == :products && empty_query?(query, category)
-    asset_class.find_by_contents(query, paginate_options, solr_options)
+    search = asset_class.find_by_contents(query, paginate_options, solr_options)
+    if context.params[:action] == 'index'
+      return search[:results]
+    else
+      return search
+    end
   end
 
 end

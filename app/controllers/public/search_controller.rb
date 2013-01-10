@@ -18,6 +18,25 @@ class SearchController < PublicController
 
   no_design_blocks
 
+  def index
+    @results = {}
+    @order = []
+    @names = {}
+    @results_only = true
+
+    @enabled_searches.select { |key,description| @searching[key] }.each do |key, description|
+      load_query
+      @asset = key
+      send(:get_results, key)
+      @order << key
+      @names[key] = getterm(description)
+    end
+    @asset = nil
+
+    render :action => @results.keys.first if @results.keys.size == 1
+  end
+
+
   def articles
     if @search_engine && !@empty_query
       full_text_search
@@ -127,7 +146,7 @@ class SearchController < PublicController
   protected
 
   def load_query
-    @asset = params[:action].to_sym
+    @asset = (params[:asset] || params[:action]).to_sym
     @order ||= [@asset]
     params[:display] ||= 'list'
     @results ||= {}
@@ -196,7 +215,7 @@ class SearchController < PublicController
     @titles = {}
     @enabled_searches.each do |key, name|
       @titles[key] = _(name)
-      @searching[key] = params[:action] == key.to_s
+      @searching[key] = params[:action] == 'index' || params[:action] == key.to_s
     end
     @names = @titles if @names.nil?
   end
