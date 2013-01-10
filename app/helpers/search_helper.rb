@@ -27,7 +27,7 @@ module SearchHelper
 
   def search_page_title(title, category = nil)
     title = "<h1>" + title
-    title += '<small>' + category.name + '</small>' if category
+    title += ' - <small>' + category.name + '</small>' if category
     title + "</h1>"
   end
 
@@ -42,7 +42,7 @@ module SearchHelper
     [:enterprises, :products].include?(asset)
   end
 
-  def display_results(asset)
+  def display_results(asset = nil)
     if map_capable?(asset) and map_search?
       partial = 'google_maps'
       klass = 'map'

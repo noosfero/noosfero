@@ -36,6 +36,26 @@ class SearchController < PublicController
     render :action => @results.keys.first if @results.keys.size == 1
   end
 
+  # view the summary of one category
+  def category_index
+    @results = {}
+    @order = []
+    @names = {}
+    limit = MULTIPLE_SEARCH_LIMIT
+    [
+      [ :people, _('People'), :recent_people ],
+      [ :enterprises, _('Enterprises'), :recent_enterprises ],
+      [ :products, _('Products'), :recent_products ],
+      [ :events, _('Upcoming events'), :upcoming_events ],
+      [ :communities, _('Communities'), :recent_communities ],
+      [ :articles, _('Contents'), :recent_articles ]
+    ].each do |asset, name, filter|
+      @order << asset
+      @results[asset] = @category.send(filter, limit)
+      raise "No total_entries for: #{asset}" unless @results[asset].respond_to?(:total_entries)
+      @names[asset] = name
+    end
+  end
 
   def articles
     if @search_engine && !@empty_query
