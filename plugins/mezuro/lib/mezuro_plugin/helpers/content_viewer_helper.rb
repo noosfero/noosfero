@@ -7,7 +7,7 @@ class MezuroPlugin::Helpers::ContentViewerHelper
   end
 
   def self.periodicity_options
-    [["Not Periodically", 0], ["1 day", 1], ["2 days", 2], ["Weekly", 7], ["Biweeky", 15], ["Monthly", 30]]
+    [["Not Periodically", 0], ["1 day", 1], ["2 days", 2], ["Weekly", 7], ["Biweekly", 15], ["Monthly", 30]]
   end
 
   def self.periodicity_option(periodicity)
@@ -47,9 +47,9 @@ class MezuroPlugin::Helpers::ContentViewerHelper
     metric_configuration_snapshot.metric.name.delete("() ")
   end
   
-  def self.format_time(time)
-    time /= 1000 # transform miliseconds to seconds
-    MezuroPluginModuleResultController.helpers.distance_of_time_in_words(0, time, include_seconds = true)
+  def self.format_time(miliseconds)
+    seconds = miliseconds/1000
+    MezuroPluginModuleResultController.helpers.distance_of_time_in_words(0, seconds, include_seconds = true)
   end
 
   private
