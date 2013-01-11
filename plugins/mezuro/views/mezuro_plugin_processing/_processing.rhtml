@@ -28,7 +28,7 @@
 	  									reloadProcessingWithDate(dateText) } });
     $("#datepicker").toggle();
     var date = jQuery("#current_processing_date").attr('data-date').substr(0,10);
-  $("#datepicker").datepicker( "setDate" , date );
+    $("#datepicker").datepicker( "setDate" , date.substr(5,2)+"/"+date.substr(8,2)+"/"+date.substr(0,4));
 
   });
 </script>
