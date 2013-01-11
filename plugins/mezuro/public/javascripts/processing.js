@@ -2,9 +2,9 @@ var processingTree = false;
 var metricName;
 jQuery(function (){
   jQuery('.source-tree-link').live("click", reloadModule);
-  jQuery('[show-metric-history]').live("click", display_metric_history); //TODO review for project history
-  jQuery('[show-grade-history]').live("click", display_grade_history); //TODO review for project history
-  jQuery('#project_date_submit').live("click", reloadProcessingWithDate); //TODO review for project history
+  jQuery('[show-metric-history]').live("click", display_metric_history);
+  jQuery('[show-grade-history]').live("click", display_grade_history);
+  jQuery('#project_date_submit').live("click", reloadProcessingWithDate);
   showLoadingProcess(true);
   showProcessing();
 });
@@ -14,7 +14,6 @@ function showProcessing() {
   callAction('processing', 'state', {repository_id: repository_id}, showProcessingFor);
 }
 
-//TODO review for project history
 function display_metric_history() {
   var module_result_id = jQuery(this).attr('data-module-id');
   var formatted_name = jQuery(this).attr('show-metric-history');
@@ -25,7 +24,6 @@ function display_metric_history() {
   return false;
 }
 
-//TODO review for project history
 function display_grade_history() {
   var module_result_id = jQuery(this).attr('data-module-id');
   toggle_mezuro("#historical-grade");
@@ -33,12 +31,10 @@ function display_grade_history() {
   return false;
 }
 
-//TODO review for project history
 function show_metrics(content) {
   jQuery('#historical-' + metricName).html(content);
 }
 
-//TODO review for project history
 function show_grades(content) {
   jQuery('#historical-grade').html(content);
 }
@@ -48,31 +44,27 @@ function toggle_mezuro(element){
   return false;
 }
 
-//TODO Waiting for ModuleResultController refactoring
 function reloadModule(){
   var module_result_id = jQuery(this).attr('data-module-id');
   showLoadingProcess(false);
   processingTree = true;
-//  callAction('module_result', 'project_tree', {results_root_id: results_root_id }, showProjectTree);
   callAction('module_result', 'module_result', {module_result_id: module_result_id}, showModuleResult);
   return false;
 }
 
-//TODO review for project history
 function reloadProcessingWithDate(date){
 	reloadProcessing(date + "T00:00:00+00:00");
   return false;
 }
 
-//TODO review for project history
 function reloadProcessing(date){
   repository_id = processingData('repository-id');
   showLoadingProcess(true);
 
   callAction('processing', 'processing', {date: date, repository_id: repository_id}, function(content){
                                                                             showReadyProcessing(content);
-                                                                            var module_result_id = jQuery("#module_result_root_id").attr('module_result_root_id'); //TODO Waiting for ModuleResultController refactoring
-                                                                            callAction('module_result', 'module_result', {module_result_id: module_result_id}, showModuleResult); //TODO Waiting for ModuleResultController refactoring
+                                                                            var module_result_id = jQuery("#module_result_root_id").attr('module_result_root_id');
+                                                                            callAction('module_result', 'module_result', {module_result_id: module_result_id}, showModuleResult);
                                                                          }
             );
 }
@@ -88,8 +80,8 @@ function showProcessingFor(state){
     jQuery('#processing-state').html('<div style="color:Green">READY</div>');
     callAction('processing', 'processing', {repository_id: repository_id}, function(content){
                                                                               showReadyProcessing(content);
-                                                                              var module_result_id = jQuery("#module_result_root_id").attr('module_result_root_id'); //TODO Waiting for ModuleResultController refactoring
-                                                                              callAction('module_result', 'module_result', {module_result_id: module_result_id}, showModuleResult); //TODO Waiting for ModuleResultController refactoring
+                                                                              var module_result_id = jQuery("#module_result_root_id").attr('module_result_root_id');
+                                                                              callAction('module_result', 'module_result', {module_result_id: module_result_id}, showModuleResult);
                                                                            }
               );
   }
@@ -112,18 +104,8 @@ function showReadyProcessing(content) {
   jQuery('#processing').html(content);
 }
 
-//function showProjectTree(content){
-//  processingTree = false;
-//  jQuery('#project-tree').html(content);
-//	return false;
-//}
-
-//TODO Waiting for ModuleResultController refactoring
 function showModuleResult(content){
-//  if (processingTree != true){
     jQuery('#module-result').html(content);
-//  }
-//  return false;
 }
 
 function callAction(controller, action, params, callback){
