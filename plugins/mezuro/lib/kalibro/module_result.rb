@@ -22,12 +22,20 @@ class Kalibro::ModuleResult < Kalibro::Model
     end
   end
 
+  def id=(value)
+    @id = value.to_i
+  end
+
   def module=(value)
     @module = Kalibro::Module.to_object value
   end
 
   def grade=(value)
     @grade = value.to_f
+  end
+
+  def parent_id=(value)
+    @parent_id = value.to_i
   end
 
   def self.history_of(module_result_id)

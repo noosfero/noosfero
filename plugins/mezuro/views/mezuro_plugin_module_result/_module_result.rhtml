@@ -1,5 +1,5 @@
-<% render :partial => "source_tree", :locals => {:module_result => @module_result} %>
-<h5><%= _('Metric results for: #{@module_result.module.name} (#{@module_result.module.granularity}) ') %> </h5>
+<%= render :partial => "source_tree", :locals => {:module_result => @module_result} %>
+<h5><%= _"Metric results for: #{@module_result.module.name} (#{@module_result.module.granularity})" %> </h5>
 
 <hr/>
 <div class="zoomable-image">

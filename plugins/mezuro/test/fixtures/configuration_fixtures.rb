@@ -15,7 +15,7 @@ class ConfigurationFixtures
 
   def self.configuration_hash
     {
-      :id => 42,
+      :id => "42",
       :name => 'Sample Configuration',
       :description => 'Kalibro configuration for Java projects.'
     }

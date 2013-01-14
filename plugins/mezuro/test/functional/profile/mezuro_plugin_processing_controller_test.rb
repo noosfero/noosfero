@@ -19,8 +19,15 @@ class MezuroPluginProcessingControllerTest < ActionController::TestCase
   end
 
   should 'render last processing state' do
-    Kalibro::Processing.expects(:request).with(:last_processing_state, :repository_id => @repository_id).returns({:process_state => @processing.state})
-    get :render_last_state, :profile => @profile.identifier, :repository_id => @repository_id
+    Kalibro::Processing.expects(:processing_of).with(@repository_id).returns(@processing)
+    get :state, :profile => @profile.identifier, :repository_id => @repository_id
+    assert_response 200
+    assert_equal @processing.state, @response.body
+  end
+
+  should 'render a processing state in a specific date' do
+    Kalibro::Processing.expects(:processing_with_date_of).with(@repository_id, @processing.date).returns(@processing)
+    get :state, :profile => @profile.identifier, :repository_id => @repository_id, :date => @processing.date
     assert_response 200
     assert_equal @processing.state, @response.body
   end

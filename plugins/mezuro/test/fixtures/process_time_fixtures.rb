@@ -5,7 +5,7 @@ class ProcessTimeFixtures
   end
 
   def self.process_time_hash
-    {:state => "Ready", :time => 1}
+    {:state => "Ready", :time => "1"}
   end
 
 end

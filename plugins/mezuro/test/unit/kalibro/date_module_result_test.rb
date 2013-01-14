@@ -10,7 +10,7 @@ class DateModuleResultTest < ActiveSupport::TestCase
   end
 
   should 'create date_module_result from hash' do
-    assert_equal @hash[:module_result][:id], Kalibro::DateModuleResult.new(@hash).module_result.id
+    assert_equal @hash[:module_result][:id].to_i, Kalibro::DateModuleResult.new(@hash).module_result.id
   end
 
   should 'convert date_module_result to hash' do

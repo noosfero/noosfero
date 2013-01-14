@@ -11,7 +11,11 @@ class RepositoryTest < ActiveSupport::TestCase
   end
 
   should 'new repository from hash' do
-    assert_equal @repository.type, Kalibro::Repository.new(@hash).type
+    repository = Kalibro::Repository.new(@hash)
+    assert_equal @hash[:type], repository.type
+    assert_equal @hash[:id].to_i, repository.id
+    assert_equal @hash[:process_period].to_i, repository.process_period
+    assert_equal @hash[:configuration_id].to_i, repository.configuration_id
   end
 
   should 'convert repository to hash' do
@@ -40,7 +44,6 @@ class RepositoryTest < ActiveSupport::TestCase
     id_from_kalibro = 1
     project_id = 56
     Kalibro::Repository.expects(:request).with(:save_repository, {:repository => @created_repository.to_hash, :project_id => project_id}).returns(:repository_id => id_from_kalibro)
-    Kalibro::Repository.expects(:request).with(:process_repository, :repository_id => id_from_kalibro).returns(:repository_id => id_from_kalibro)
     assert @created_repository.save(project_id)
     assert_equal id_from_kalibro, @created_repository.id
   end
@@ -59,7 +62,7 @@ class RepositoryTest < ActiveSupport::TestCase
 
   should 'process repository' do
     Kalibro::Repository.expects(:request).with(:process_repository, {:repository_id => @repository.id});
-    @repository.process_repository
+    @repository.process
   end
 
   should 'cancel processing of a repository' do
