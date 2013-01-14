@@ -4,15 +4,19 @@ class MezuroPluginProcessingController < MezuroPluginProfileController
 
   def state
     processing = processing_for_date(params[:repository_id].to_i, params[:date])
-    render :text => processing.state
+    if processing.error.nil?
+      render :text => processing.state
+    else
+      render :text => 'ERROR'
+    end
   end
 
   def processing
     @processing = processing_for_date(params[:repository_id].to_i, params[:date])
-    if @processing.state == 'ERROR'
-      render :partial => 'processing_error'
-    else
+    if @processing.error.nil?
       render :partial => 'processing'
+    else
+      render :partial => 'processing_error'
     end
   end
 

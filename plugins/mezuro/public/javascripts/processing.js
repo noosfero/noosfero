@@ -72,8 +72,9 @@ function reloadProcessing(date){
 function showProcessingFor(state){
   repository_id = processingData('repository-id');
   if (state == 'ERROR') {
-    jQuery('#project-state').html('<div style="color:Red">ERROR</div>');
+    jQuery('#processing-state').html('<div style="color:Red">ERROR</div>');
     callAction('processing', 'processing', {repository_id: repository_id}, showReadyProcessing);
+    showModuleResult('');
   }
   else if (state == 'READY') {
     jQuery('#msg-time').html('');

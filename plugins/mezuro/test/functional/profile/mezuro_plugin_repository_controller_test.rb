@@ -77,6 +77,7 @@ class MezuroPluginRepositoryControllerTest < ActionController::TestCase
   should 'update a repository' do
     Kalibro::Repository.expects(:new).returns(@repository)
     @repository.expects(:save).with(@content.project_id).returns(true)
+    Kalibro::Repository.expects(:request).with(:process_repository, {:repository_id => @repository.id})
     get :update, :profile => @profile.identifier, :id => @content.id, :repository => @repository_hash
     assert @repository.errors.empty?
     assert_response :redirect

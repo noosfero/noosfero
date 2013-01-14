@@ -55,6 +55,7 @@ class MezuroPluginRepositoryController < MezuroPluginProfileController
     repository.save(project_content.project_id)
 
     if( repository.errors.empty? )
+      repository.process
       redirect_to "/profile/#{profile.identifier}/plugin/mezuro/repository/show/#{project_content.id}?repository_id=#{repository.id}"
     else
       redirect_to_error_page repository.errors[0].message
