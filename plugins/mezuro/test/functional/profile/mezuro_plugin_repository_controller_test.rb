@@ -31,8 +31,10 @@ class MezuroPluginRepositoryControllerTest < ActionController::TestCase
 
     get :new, :profile => @profile.identifier, :id => @content.id
 
-    assert_equal @content, assigns(:project_content)
+    assert_equal @content.id, assigns(:project_content_id)
+    assert_equal @content.name, assigns(:project_name)
     assert_equal @repository_types, assigns(:repository_types)
+    assert_equal @content.profile.identifier, assigns(:data_profile)
     assert_equal @all_configurations.first.name, assigns(:configuration_select).first.first
     assert_equal @all_configurations.first.id, assigns(:configuration_select).first.last
   end
@@ -63,8 +65,10 @@ class MezuroPluginRepositoryControllerTest < ActionController::TestCase
 
     get :edit, :profile => @profile.identifier, :id => @content.id, :repository_id => @repository.id
 
-    assert_equal @content, assigns(:project_content)
+    assert_equal @content.id, assigns(:project_content_id)
+    assert_equal @content.name, assigns(:project_name)
     assert_equal @repository_types, assigns(:repository_types)
+    assert_equal @content.profile.identifier, assigns(:data_profile)
     assert_equal @all_configurations.first.name, assigns(:configuration_select).first.first
     assert_equal @all_configurations.first.id, assigns(:configuration_select).first.last
     assert_equal @repository, assigns(:repository)
@@ -92,6 +96,7 @@ class MezuroPluginRepositoryControllerTest < ActionController::TestCase
     Kalibro::Configuration.expects(:configuration_of).with(@repository.id).returns(@configuration)
 
     get :show, :profile => @profile.identifier, :id => @content.id, :repository_id => @repository.id
+
     assert_equal @content.name, assigns(:project_name)
     assert_equal @repository, assigns(:repository)
     assert_equal @configuration.name, assigns(:configuration_name)

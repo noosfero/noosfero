@@ -1,7 +1,7 @@
-<h2><%= @project_content.name %> Project</h2>
+<h3> <%= link_to( @project_name, homepage_url(@data_profile, @project_name.downcase.gsub(/[^0-9A-Za-z]/, '')) ) %></h3>
 
 <% form_for :repository, :url => {:action =>"update", :controller => "mezuro_plugin_repository"},  :method => :get do |f| %>
-  <%= hidden_field_tag :id, @project_content.id %>
+  <%= hidden_field_tag :id, @project_content_id %>
 
   <%= f.hidden_field :id%>
   <%= required labelled_form_field _('Name:'), f.text_field(:name) %> 
