@@ -3,7 +3,13 @@ class StoaPluginController < PublicController
 
   def authenticate
     if request.ssl? && request.post?
-      user = User.authenticate(params[:login], params[:password], environment)
+      if params[:login].blank?
+        person = Person.find_by_usp_id(params[:usp_id])
+        login = person ? person.user.login : nil
+      else
+        login = params[:login]
+      end
+      user = User.authenticate(login, params[:password], environment)
       if user
         result = {
           :username => user.login,

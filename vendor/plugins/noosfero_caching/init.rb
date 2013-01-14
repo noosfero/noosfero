@@ -38,11 +38,24 @@ module NoosferoHttpCaching
     def call(env)
       status, headers, body = @app.call(env)
       if headers['X-Noosfero-Auth'] == 'false'
-        headers.delete('Set-Cookie')
+        headers['Set-Cookie'] = remove_unwanted_cookies(headers['Set-Cookie'])
+        headers.delete('Set-Cookie') if headers['Set-Cookie'].blank?
       end
       headers.delete('X-Noosfero-Auth')
       [status, headers, body]
     end
+
+    protected
+
+    # filter off all cookies except for plugin-provided ones that are
+    # path-specific (i.e path != "/").
+    def remove_unwanted_cookies(cookie_list)
+      return nil if cookie_list.nil?
+      cookie_list.select do |c|
+        c =~ /^_noosfero_plugin_\w+=/ && c =~ /path=\/\w+/
+      end
+    end
+
   end
 
 end

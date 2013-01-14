@@ -15,8 +15,10 @@ Feature: manage enterprises
   Scenario: seeing my enterprises on menu
     Given I am logged in as "joaosilva"
     Then I should see "My enterprises" link
-    When I follow "My enterprises" and wait
-    Then I should see "Tangerine Dream" linking to "/myprofile/tangerine-dream"
+    When I follow "My enterprises"
+    And I follow "Tangerine Dream"
+    Then I should be on tangerine-dream's control panel
+
 
   @selenium
   Scenario: not show enterprises on menu to a user without enterprises

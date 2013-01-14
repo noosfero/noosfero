@@ -65,6 +65,22 @@ class LanguageHelperTest < ActiveSupport::TestCase
     assert result.blank?
   end
 
+  should 'get noosfero locales if environment is not defined' do
+    self.expects(:language).returns('en')
+    Noosfero.expects(:locales).returns({ 'en' => 'English', 'pt_BR' => 'Português Brasileiro' }).at_least_once
+    result = self.language_chooser
+    assert_match /Português Brasileiro/, result
+    assert_match /English/, result
+  end
+
+  should 'get noosfero locales if environment is not defined and has options' do
+    self.expects(:language).returns('en')
+    Noosfero.expects(:locales).returns({ 'en' => 'English', 'pt_BR' => 'Português Brasileiro' }).at_least_once
+    result = self.language_chooser(nil, :separator=>"<span class=\"language-separator\"/>")
+    assert_match /Português Brasileiro/, result
+    assert_match /English/, result
+  end
+
   protected
   include NoosferoTestHelper
   include ActionView::Helpers::FormOptionsHelper

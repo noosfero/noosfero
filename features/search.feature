@@ -9,7 +9,7 @@ Feature: search
 
   Scenario: show empty results in all enabled assets
     Given I go to the search page
-    And I fill in "query" with "Anything"
+    And I fill in "search-input" with "Anything"
     And I press "Search"
     Then I should see "People" within ".search-results-people"
     And I should see "None" within ".search-results-people"
@@ -30,7 +30,7 @@ Feature: search
       | joaosilva  | Joao Silva  |
       | josearaujo | Jose Araujo |
     When I go to the search page
-    And I fill in "query" with "Silva"
+    And I fill in "search-input" with "Silva"
     And I press "Search"
     Then I should see "Joao Silva" within ".common-profile-list-block"
     And I should not see "Jose Araujo"
@@ -51,7 +51,7 @@ Feature: search
       | joaosilva | article #8 |
       | joaosilva | article #9 |
     When I go to the search page
-    And I fill in "query" with "article"
+    And I fill in "search-input" with "article"
     And I press "Search"
     Then I should see "article #8" within ".search-results-articles"
     And I should not see "article #9" within ".search-results-articles"
@@ -65,7 +65,7 @@ Feature: search
       | boring-community | Boring community | semterrinha |
       | fancy-community  | Fancy community  | agrotox |
     And I go to the search page
-    And I fill in "query" with "fancy"
+    And I fill in "search-input" with "fancy"
     And I press "Search"
     Then I should see "Fancy community" within ".common-profile-list-block"
     And I should not see "Boring community"
@@ -76,7 +76,7 @@ Feature: search
       | shop1 | Shoes shop |
       | shop2 | Fruits shop |
     And I go to the search page
-    And I fill in "query" with "shoes"
+    And I fill in "search-input" with "shoes"
     And I press "Search"
     Then I should see "Shoes shop" within ".common-profile-list-block"
     And I should not see "Fruits shop"
@@ -90,7 +90,7 @@ Feature: search
       | joaosilva | bees and butterflies | this is an article about bees and butterflies |
       | joaosilva | whales and dolphins | this is an article about whales and dolphins |
     When I go to the search page
-    And I fill in "query" with "whales"
+    And I fill in "search-input" with "whales"
     And I press "Search"
     Then I should see "whales and dolphins" within "div.search-results-articles"
     And I should not see "bees and butterflies"
@@ -107,7 +107,7 @@ Feature: search
       | colivre-ent | development | social networks consultancy |
       | colivre-ent | development | wikis consultancy           |
     When I go to the search page
-    And I fill in "query" with "wikis"
+    And I fill in "search-input" with "wikis"
     And I press "Search"
     Then I should see "wikis consultancy" within "div.search-results-products"
     And I should not see "social networks consultancy"
@@ -121,7 +121,7 @@ Feature: search
       | nice-people | Group meeting | 2009-10-01 |
       | nice-people | John Doe's birthday | 2009-09-01 |
     When I go to the search page
-    And I fill in "query" with "birthday"
+    And I fill in "search-input" with "birthday"
     And I press "Search"
     Then I should see "John Doe's birthday" within "div.search-results-events"
     And I should not see "Group meeting"
@@ -140,7 +140,7 @@ Feature: search
       | owner       | name              | category    |
       | colivre_dev | Noosfero platform | Development |
     When I go to the search page
-    And I fill in "query" with "noosfero"
+    And I fill in "search-input" with "noosfero"
     And I press "Search"
     Then I should see "Colivre - Noosfero dev." within "div.search-results-enterprises"
     And I should see "Noosfero users" within "div.search-results-communities"

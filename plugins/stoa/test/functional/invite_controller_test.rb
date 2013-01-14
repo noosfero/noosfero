@@ -36,5 +36,17 @@ class InviteControllerTest < ActionController::TestCase
     assert_response 200
   end
 
+  should 'alow invitation even in organizations' do
+    person_with_usp_id = User.create!(:login => 'user-with', :email => 'user-with@example.com', :password => 'test', :password_confirmation => 'test', :person_data => {:usp_id => 12345678}).person
+    organization = fast_create(Organization)
+    organization.add_admin(person_with_usp_id)
+
+    login_as(person_with_usp_id.identifier)
+    get :select_address_book, :profile => organization.identifier
+    assert_response 200
+    get :select_friends, :profile => organization.identifier, :contact_list => ContactList.create.id
+    assert_response 200
+  end
+
 end
 

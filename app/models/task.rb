@@ -267,7 +267,10 @@ class Task < ActiveRecord::Base
   end
 
   named_scope :pending, :conditions => { :status =>  Task::Status::ACTIVE }
-  named_scope :finished, :conditions => { :status =>  [Task::Status::CANCELLED, Task::Status::FINISHED] }
+  named_scope :hidden, :conditions => { :status =>  Task::Status::HIDDEN }
+  named_scope :finished, :conditions => { :status =>  Task::Status::FINISHED }
+  named_scope :canceled, :conditions => { :status =>  Task::Status::CANCELLED }
+  named_scope :closed, :conditions => { :status =>  [Task::Status::CANCELLED, Task::Status::FINISHED] }
   named_scope :opened, :conditions => { :status =>  [Task::Status::ACTIVE, Task::Status::HIDDEN] }
   named_scope :of, lambda { |type| conditions = type ? "type LIKE '#{type}'" : "1=1"; {:conditions =>  [conditions]} }
   named_scope :order_by, lambda { |attribute, ord| {:order => "#{attribute} #{ord}"} }

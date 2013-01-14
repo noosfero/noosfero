@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  </head>
+  <body>
+    <h4><%= _('Hi %s!') % @person.name %></h4>
+
+    <p>
+      <%= _('Due to the recent increase in the number of spams on %s, we decided to deactivate all inactive users on the network. It just happens that you are one of them! But there is no need to worry. Your account is completely preserved and if you want to reactivate it you just need to click on the following link and recover your password (since it was changed to a huge scramble of random characters):') % @environment.name %>
+    </p>
+    <p>
+      <%= @url %>
+    </p>
+    <p>
+      <%= _("We are sorry that this procedure might bother you a lot, but it's necessary for the healthy of our network.") %>
+      <%= _("We hope to see you back soon!") %>
+    </p>
+
+    <p>
+      --<br/>
+      <%=_('Best Regards,')%><br/>
+      <%= @environment.name %>
+    </p>
+  </body>
+</html>

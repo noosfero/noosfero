@@ -7,7 +7,7 @@ Feature: language redirection
       | login  | name         |
       | manuel | Manuel Silva |
     And the following articles
-      | owner  | name       | body            | lang | translation_of |
+      | owner  | name       | body            | language | translation_of |
       | manuel | Meu Artigo | isso é um teste | pt   | nil            |
       | manuel | My Article | this is a test  | en   | Meu Artigo     |
 
@@ -26,9 +26,9 @@ Feature: language redirection
     # Testing the web UI
     Given I am logged in as "manuel"
     And my browser prefers English
-    And I go to manuel's profile editor
+    And I go to /myprofile/manuel/profile_editor/edit
     And I check "Automaticaly redirect the visitor to the article translated to his/her language"
-    And I press "save"
+    And I press "Save"
     When I go to /manuel/meu-artigo
     Then the site should be in English
 

@@ -772,4 +772,40 @@ class ProductTest < ActiveSupport::TestCase
     assert_equal [prod3, prod2, prod1], Product.more_recent
   end
 
+  should 'return products from a category' do
+    pc1 = ProductCategory.create!(:name => 'PC1', :environment => Environment.default)
+    pc2 = ProductCategory.create!(:name => 'PC2', :environment => Environment.default)
+    pc3 = ProductCategory.create!(:name => 'PC3', :environment => Environment.default, :parent => pc1)
+    p1 = fast_create(Product, :product_category_id => pc1)
+    p2 = fast_create(Product, :product_category_id => pc1)
+    p3 = fast_create(Product, :product_category_id => pc2)
+    p4 = fast_create(Product, :product_category_id => pc3)
+
+    products = Product.from_category(pc1)
+
+    assert_includes products, p1
+    assert_includes products, p2
+    assert_not_includes products, p3
+    assert_includes products, p4
+  end
+
+  should 'not crash if nil is passed to from_category' do
+    assert_nothing_raised do
+      Product.from_category(nil)
+    end
+  end
+
+  should 'return from_category scope untouched if passed nil' do
+    enterprise = fast_create(Enterprise)
+    p1 = fast_create(Product, :enterprise_id => enterprise.id)
+    p2 = fast_create(Product, :enterprise_id => enterprise.id)
+    p3 = fast_create(Product, :enterprise_id => enterprise.id)
+
+    products = enterprise.products.from_category(nil)
+
+    assert_includes products, p1
+    assert_includes products, p2
+    assert_includes products, p3
+  end
+
 end

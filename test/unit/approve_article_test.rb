@@ -210,22 +210,21 @@ class ApproveArticleTest < ActiveSupport::TestCase
   end
 
   should 'use author from original article on published' do
-    article.stubs(:last_changed_by_id).returns(profile)
-
+    article.class.any_instance.stubs(:author).returns(profile)
     a = ApproveArticle.create!(:name => 'test name', :article => article, :target => community, :requestor => profile)
     a.finish
 
     assert_equal profile, article.class.last.author
   end
 
-
-  should 'use owning profile as author when there is no referenced article' do
+  should 'use original article author even if article is destroyed' do
+    article.class.any_instance.stubs(:author).returns(profile)
     a = ApproveArticle.create!(:article => article, :target => community, :requestor => profile)
     a.finish
 
     article.destroy
 
-    assert_equal community, article.class.last.author
+    assert_equal profile, article.class.last.author
   end
 
   should 'the published article have parent if defined' do
@@ -413,6 +412,22 @@ class ApproveArticleTest < ActiveSupport::TestCase
   should 'show the name of the article in the reject message' do
     task = ApproveArticle.new(:name => 'My Article')
     assert_match /My Article/, task.task_cancelled_message
+  end
+
+  should 'not save 4 on the new article\'s last_changed_by_ud after approval if author is nil' do
+    article = fast_create(Article)
+    task = ApproveArticle.create!(:article => article, :target => community, :requestor => profile)
+    task.finish
+    new_article = Article.last
+    assert_nil new_article.last_changed_by_id
+  end
+
+  should 'not crash if target has its own domain' do
+    article = fast_create(Article)
+    profile.domains << Domain.create(:name => 'example.org')
+    assert_nothing_raised do
+      ApproveArticle.create!(:article => article, :target => profile, :requestor => community)
+    end
   end
 
 end

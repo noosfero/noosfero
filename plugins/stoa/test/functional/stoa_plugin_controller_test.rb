@@ -90,6 +90,23 @@ class StoaPluginControllerTest < ActionController::TestCase
     assert !json_response['exists']
   end
 
+  should 'authenticate with usp_id' do
+    @request.stubs(:ssl?).returns(true)
+    post :authenticate, :usp_id => user.person.usp_id.to_s, :password => '123456'
+
+    assert_nil json_response['error']
+    assert_equal user.login, json_response['username']
+  end
+
+  should 'not crash if usp_id is invalid' do
+    @request.stubs(:ssl?).returns(true)
+    assert_nothing_raised do
+      post :authenticate, :usp_id => 12321123, :password => '123456'
+    end
+    assert_not_nil json_response['error']
+    assert_match /user/,json_response['error']
+  end
+
   private
 
   def json_response

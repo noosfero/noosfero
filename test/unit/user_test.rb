@@ -53,6 +53,8 @@ class UserTest < ActiveSupport::TestCase
 
   def test_should_authenticate_user
     assert_equal users(:johndoe), User.authenticate('johndoe', 'test')
+    assert_equal users(:johndoe), User.authenticate('johndoe@localhost.localdomain', 'test')
+    assert_equal nil, User.authenticate('wrongemail@localhost', 'test')
   end
 
   def test_should_authenticate_user_of_nondefault_environment
@@ -615,6 +617,19 @@ class UserTest < ActiveSupport::TestCase
     assert_no_difference(ActionMailer::Base.deliveries, :size) do
       user.activate
     end
+  end
+
+  should 'create person with name equal to user name if a user name is defined' do
+    user = User.new( :login => 'quire', :email => 'quire@example.com', :password => 'quire', :password_confirmation => 'quire' )
+    user.name = "Some name"
+    user.save
+    assert_equal 'Some name', user.person.name
+  end
+
+  should 'create person with name equal to user login if no user name is defined' do
+    user = User.new( :login => 'quire', :email => 'quire@example.com', :password => 'quire', :password_confirmation => 'quire' )
+    user.save
+    assert_equal 'quire', user.person.name
   end
 
   protected

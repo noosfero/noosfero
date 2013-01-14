@@ -13,7 +13,15 @@
 .controller-profile_editor a.control-panel-invite-friends {background-image: url(/plugins/stoa/images/control-panel/invite-friends.png)}
 .controller-profile_editor .msie6 a.control-panel-invite-friends {background-image: url(/plugins/stoa/images/control-panel/invite-friends.gif)}
 
-#signup-form small#usp-id-balloon {
+#signup-form #signup-usp-id,
+#signup-form #signup-birth-date,
+#signup-form #signup-cpf {
+  position: relative;
+}
+
+#signup-form small#usp-id-balloon,
+#signup-form small#usp-birth-date-balloon,
+#signup-form small#usp-cpf-balloon {
   display: none;
   width: 142px;
   height: 69px;
@@ -23,11 +31,35 @@
   padding: 5px 10px 45px 10px;
   margin: 0;
   line-height: 1.5em;
-  background: transparent url(/images/orange-balloon.png) bottom center no-repeat;
+  background: transparent url(/images/gray-balloon.png) bottom center no-repeat;
   position: absolute;
   z-index: 2;
-  right: 20px;
-  bottom: 110px;
+  right: -150px;
+  top: -75px;
+}
+
+#signup-form .formfield.checking {
+  border-color: transparent;
+  background-image: none;
+}
+
+#usp-id-invalid,
+#usp-id-checking {
+  display: none;
+  margin: 0px;
+  margin: -2px 16px -5px 13px;
+  text-align: right;
+  clear: both;
+  font-size: 11px;
+  text-transform: lowercase;
+}
+
+#usp-id-invalid{
+  color: #7f0000;
+}
+
+#usp-id-checking {
+  color: #4A4A4A;
 }
 
 .controller-profile_editor input.checking {
@@ -36,4 +68,17 @@
 
 .controller-profile_editor div.checking {
   background: transparent url(/images/loading-small.gif) 153px center no-repeat;
+}
+
+.login-box #main_user_login,
+.login-box .formlabel[for=main_user_login],
+.login-box #user_login,
+.login-box .formlabel[for=user_login],
+.login-box #user_password,
+.login-box .formlabel[for=user_password] {
+  display:none;
+}
+
+#stoa-login-fields{
+  margin-top: -10px;
 }

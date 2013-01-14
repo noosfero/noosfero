@@ -32,3 +32,17 @@ Then /^I should see "([^\"]*)" inside an alert$/ do |message|
 	selenium.get_alert.should eql(message)
 	selenium.chooseOkOnNextConfirmation();
 end
+
+When /^I have a Mezuro project with the following data$/ do |fields|
+  item = {}
+  fields.rows_hash.each do |name, value|
+    if(name=="community")
+      item.merge!(:profile=>Profile[value])
+    else
+      item.merge!(name => value)
+    end
+  end
+  result = MezuroPlugin::ProjectContent.new(item)
+  result.save!
+end
+
