@@ -463,6 +463,10 @@ class Profile < ActiveRecord::Base
     { :profile => identifier, :controller => 'profile_editor', :action => 'index' }
   end
 
+  def tasks_url
+    { :profile => identifier, :controller => 'tasks', :action => 'index', :host => default_hostname }
+  end
+
   def leave_url(reload = false)
     { :profile => identifier, :controller => 'profile', :action => 'leave', :reload => reload }
   end

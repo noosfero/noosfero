@@ -18,17 +18,6 @@ class DisabledEnterpriseMessageBlockTest < ActiveSupport::TestCase
     instance_eval(&block.content)
   end
 
-  should 'display nothing if environment has no message' do
-    e = fast_create(Environment)
-    block = DisabledEnterpriseMessageBlock.new
-    p = Profile.new
-    block.expects(:owner).returns(p)
-    p.expects(:environment).returns(e)
-
-    expects(:render).with(:file => 'blocks/disabled_enterprise_message', :locals => { :message => ''})
-    instance_eval(&block.content)
-  end
-
   should 'not be editable' do
     assert !DisabledEnterpriseMessageBlock.new.editable?
   end

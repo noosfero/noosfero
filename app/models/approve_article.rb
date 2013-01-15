@@ -48,7 +48,7 @@ class ApproveArticle < Task
   end
 
   def perform
-    article.copy!(:name => name, :abstract => abstract, :body => body, :profile => target, :reference_article => article, :parent => article_parent, :highlighted => highlighted, :source => article.source, :last_changed_by_id => article.author.id)
+    article.copy!(:name => name, :abstract => abstract, :body => body, :profile => target, :reference_article => article, :parent => article_parent, :highlighted => highlighted, :source => article.source, :last_changed_by_id => article.author_id)
   end
 
   def title

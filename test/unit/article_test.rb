@@ -1822,4 +1822,15 @@ class ArticleTest < ActiveSupport::TestCase
     assert_equal author_name, article.author_name
   end
 
+  should "author_id return the author id of the article's author" do
+    author = fast_create(Person)
+    article = Article.create!(:name => 'Test', :profile => profile, :last_changed_by => author)
+    assert_equal author.id, article.author_id
+  end
+
+  should "author_id return nil if there is no article's author" do
+    article = Article.create!(:name => 'Test', :profile => profile, :last_changed_by => nil)
+    assert_nil article.author_id
+  end
+
 end
