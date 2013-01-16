@@ -2,8 +2,15 @@ class Kalibro::ReadingGroup < Kalibro::Model
 
   attr_accessor :id, :name, :description
 
+  def id=(value)
+    @id = value.to_i
+  end
+
   def self.all
-    request(:all_reading_groups)[:reading_group].to_a.map { |reading_group| new reading_group }
+    response = request(:all_reading_groups)[:reading_group]
+    response = [] if response.nil?
+    response = [response] if response.is_a?(Hash) 
+    response.map { |reading_group| new reading_group }
   end
   
   def self.reading_group_of( metric_configuration_id )

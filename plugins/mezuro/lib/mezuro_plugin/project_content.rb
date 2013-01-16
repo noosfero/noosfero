@@ -84,7 +84,8 @@ class MezuroPlugin::ProjectContent < Article
   def create_kalibro_project
    Kalibro::Project.create(
       :name => name,
-      :description => description
+      :description => description,
+      :id => self.project_id
     )
   end
 

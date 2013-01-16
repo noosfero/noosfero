@@ -32,11 +32,21 @@ class ReadingGroupTest < ActiveSupport::TestCase
     assert_equal @hash[:name], Kalibro::ReadingGroup.find(@hash[:id]).name
   end
 
-  
-
-  should 'get all reading groups' do
-    Kalibro::ReadingGroup.expects(:request).with(:all_reading_groups).returns({:reading_group => [@hash]})
+  should 'get all reading groups when there is only one reading group' do
+    Kalibro::ReadingGroup.expects(:request).with(:all_reading_groups).returns({:reading_group => @hash})
     assert_equal @hash[:name], Kalibro::ReadingGroup.all.first.name
+  end
+  
+  should 'get all reading groups when there are many reading groups' do
+    Kalibro::ReadingGroup.expects(:request).with(:all_reading_groups).returns({:reading_group => [@hash, @hash]})
+    reading_groups = Kalibro::ReadingGroup.all
+    assert_equal @hash[:name], reading_groups.first.name
+    assert_equal @hash[:name], reading_groups.last.name
+  end
+
+  should 'return empty when there are no reading groups' do
+    Kalibro::ReadingGroup.expects(:request).with(:all_reading_groups).returns({:reading_group => nil})
+    assert_equal [], Kalibro::ReadingGroup.all
   end
   
   should 'get reading group of a metric configuration' do

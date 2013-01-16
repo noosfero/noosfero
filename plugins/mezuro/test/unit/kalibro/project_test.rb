@@ -43,9 +43,16 @@ class ProjectTest < ActiveSupport::TestCase
     assert_equal @hash[:name], Kalibro::Project.project_of(repository_id).name
   end
 
-  should 'get all project' do
-    Kalibro::Project.expects(:request).with(:all_projects).returns({:project => [@hash]})
+  should 'get all projects when there is only one project' do
+    Kalibro::Project.expects(:request).with(:all_projects).returns({:project => @hash})
     assert_equal @hash[:name], Kalibro::Project.all.first.name
+  end
+
+  should 'get all projects when there are many projects' do
+    Kalibro::Project.expects(:request).with(:all_projects).returns({:project => [@hash, @hash]})
+    projects = Kalibro::Project.all
+    assert_equal @hash[:name], projects.first.name
+    assert_equal @hash[:name], projects.last.name
   end
 
   should 'return empty when there are no projects' do
