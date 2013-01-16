@@ -1,0 +1,20 @@
+<h1> <%= _(MezuroPlugin::ReadingGroupContent.short_description) %> </h1>
+
+<%
+  reading_group = @article.title.nil? ? nil : @article.reading_group
+%>
+
+<%= error_messages_for 'reading_group_content' %>
+
+<%= hidden_field_tag 'reading_group_content[profile_id]', profile.id %>
+<%= hidden_field_tag 'id', @article.id %>
+<%= hidden_field_tag 'reading_group_id', reading_group.id %>
+
+<%= required_fields_message %>
+
+<%= required f.text_field(:name) %>
+
+<%= f.text_field :description %><br/>
+
+<!-- partial rendered in app/views/cms/edit.rhtml -->
+<!-- After submit, the action cms/new is called -->
