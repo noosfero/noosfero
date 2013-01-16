@@ -23,16 +23,13 @@
   <table>
   <% @page.readings.each do |reading| %>
     <tr>
-      <td><%= link_to reading.name, :controller => "mezuro_plugin_reading", 
-  																			:profile => @page.profile.identifier, 
-  																			:action => "show", 
-  																			:id => @page.id,
-  																			:reading_id => reading.id %></td>
-  		<td ><%= link_to _('Edit'), {:controller => "mezuro_plugin_reading", 
+      <td><%= link_to reading.label, :controller => "mezuro_plugin_reading", 
   																			:profile => @page.profile.identifier, 
   																			:action => "edit", 
   																			:id => @page.id,
-  																			:reading_id => reading.id}, :class=>"button with-text icon-edit" %></td>
+  																			:reading_id => reading.id %></td>
+  		<td><%= reading.grade %></td>
+  		<td><%= reading.color %></td>
   		<td ><%= link_to _('Remove'), {:controller => "mezuro_plugin_reading", 
   																			:profile => @page.profile.identifier, 
   																			:action => "destroy", 
