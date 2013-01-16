@@ -3,17 +3,36 @@ require_dependency 'shopping_cart_plugin/ext/person'
 
 class ShoppingCartPlugin < Noosfero::Plugin
 
-  def self.plugin_name
+  class << self
+    def plugin_name
     "Shopping Basket"
-  end
+    end
 
-  def self.plugin_description
-    _("A shopping basket feature for enterprises")
+    def plugin_description
+      _("A shopping basket feature for enterprises")
+    end
+
+    def enabled_default_setting
+      true
+    end
+
+    def delivery_default_setting
+      false
+    end
+
+    def delivery_price_default_setting
+      0
+    end
+
+    def delivery_options_default_setting
+      {}
+    end
   end
 
   def add_to_cart_button(item)
     enterprise = item.enterprise
-    if enterprise.shopping_cart && item.available
+    settings = Noosfero::Plugin::Settings.new(enterprise, ShoppingCartPlugin)
+    if settings.enabled && item.available
        lambda {
          link_to(_('Add to basket'), "add:#{item.name}",
            :class => 'cart-add-item',
@@ -40,11 +59,12 @@ class ShoppingCartPlugin < Noosfero::Plugin
   end
 
   def control_panel_buttons
+    settings = Noosfero::Plugin::Settings.new(context.profile, ShoppingCartPlugin)
     buttons = []
     if context.profile.enterprise?
       buttons << { :title => _('Shopping basket'), :icon => 'shopping-cart-icon', :url => {:controller => 'shopping_cart_plugin_myprofile', :action => 'edit'} }
     end
-    if context.profile.enterprise? && context.profile.shopping_cart
+    if context.profile.enterprise? && settings.enabled
       buttons << { :title => _('Purchase reports'), :icon => 'shopping-cart-purchase-report', :url => {:controller => 'shopping_cart_plugin_myprofile', :action => 'reports'} }
     end
 
