@@ -1,4 +1,4 @@
-<% extra_content = @plugins.dispatch(:asset_product_extras, product, product.enterprise).collect { |content| instance_eval(&content) } %>
+<% extra_content = @plugins.dispatch(:asset_product_extras, product).collect { |content| instance_eval(&content) } %>
 <% extra_properties = @plugins.dispatch(:asset_product_properties, product)%>
 
 <li class="search-product-item">
