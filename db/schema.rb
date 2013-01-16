@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121008185303) do
+ActiveRecord::Schema.define(:version => 20130111232201) do
 
   create_table "abuse_reports", :force => true do |t|
     t.integer  "reporter_id"
@@ -88,6 +88,8 @@ ActiveRecord::Schema.define(:version => 20121008185303) do
     t.integer  "license_id"
   end
 
+  add_index "article_versions", ["article_id"], :name => "index_article_versions_on_article_id"
+
   create_table "articles", :force => true do |t|
     t.string   "name"
     t.string   "slug"
@@ -129,6 +131,10 @@ ActiveRecord::Schema.define(:version => 20121008185303) do
     t.integer  "license_id"
   end
 
+  add_index "articles", ["name"], :name => "index_articles_on_name"
+  add_index "articles", ["parent_id"], :name => "index_articles_on_parent_id"
+  add_index "articles", ["profile_id"], :name => "index_articles_on_profile_id"
+  add_index "articles", ["slug"], :name => "index_articles_on_slug"
   add_index "articles", ["translation_of_id"], :name => "index_articles_on_translation_of_id"
 
   create_table "articles_categories", :id => false, :force => true do |t|
@@ -217,6 +223,8 @@ ActiveRecord::Schema.define(:version => 20121008185303) do
     t.string   "referrer"
   end
 
+  add_index "comments", ["source_id", "spam"], :name => "index_comments_on_source_id_and_spam"
+
   create_table "contact_lists", :force => true do |t|
     t.text     "list"
     t.string   "error_fetching"
@@ -280,6 +288,7 @@ ActiveRecord::Schema.define(:version => 20121008185303) do
     t.integer  "update_errors", :default => 0
   end
 
+  add_index "external_feeds", ["blog_id"], :name => "index_external_feeds_on_blog_id"
   add_index "external_feeds", ["enabled"], :name => "index_external_feeds_on_enabled"
   add_index "external_feeds", ["fetched_at"], :name => "index_external_feeds_on_fetched_at"
 
@@ -294,6 +303,10 @@ ActiveRecord::Schema.define(:version => 20121008185303) do
     t.datetime "created_at"
     t.string   "group"
   end
+
+  add_index "friendships", ["friend_id"], :name => "index_friendships_on_friend_id"
+  add_index "friendships", ["person_id", "friend_id"], :name => "index_friendships_on_person_id_and_friend_id"
+  add_index "friendships", ["person_id"], :name => "index_friendships_on_person_id"
 
   create_table "images", :force => true do |t|
     t.integer "parent_id"
@@ -446,6 +459,7 @@ ActiveRecord::Schema.define(:version => 20121008185303) do
   end
 
   add_index "profiles", ["environment_id"], :name => "index_profiles_on_environment_id"
+  add_index "profiles", ["identifier"], :name => "index_profiles_on_identifier"
   add_index "profiles", ["region_id"], :name => "index_profiles_on_region_id"
 
   create_table "qualifier_certifiers", :force => true do |t|

@@ -1,9 +1,8 @@
 sub vcl_recv {
   if (req.request == "GET" || req.request == "HEAD") {
     if (req.http.Cookie) {
-      # We only care about the "_noosfero_session.*" cookie, used for
-      # authentication.
-      if (req.http.Cookie !~ "_noosfero_session.*" ) {
+      # We only care about the "_noosfero_.*" cookies, used by Noosfero
+      if (req.http.Cookie !~ "_noosfero_.*" ) {
         # strip all cookies
         unset req.http.Cookie;
       }

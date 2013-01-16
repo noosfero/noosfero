@@ -31,7 +31,7 @@ class User < ActiveRecord::Base
   after_create do |user|
     user.person ||= Person.new
     user.person.attributes = user.person_data.merge(:identifier => user.login, :user => user, :environment_id => user.environment_id)
-    user.person.name ||= user.login
+    user.person.name ||= user.name
     user.person.visible = false unless user.activated?
     user.person.save!
     if user.environment.enabled?('skip_new_user_email_confirmation')
