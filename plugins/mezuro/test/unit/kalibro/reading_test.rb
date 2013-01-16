@@ -11,6 +11,8 @@ class ReadingTest < ActiveSupport::TestCase
 
   should 'create reading from hash' do
     assert_equal @hash[:label], Kalibro::Reading.new(@hash).label
+    assert_equal @hash[:id].to_i, Kalibro::Reading.new(@hash).id
+    assert_equal @hash[:grade].to_f, Kalibro::Reading.new(@hash).grade
   end
   
   should 'convert reading to hash' do
