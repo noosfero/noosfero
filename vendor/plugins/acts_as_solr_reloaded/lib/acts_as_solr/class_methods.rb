@@ -235,11 +235,15 @@ module ActsAsSolr #:nodoc:
             iteration_start = Time.now
 
             iteration_items, iteration_add_batch = queue.pop(true)
-            if options[:delayed_job]
-              delay.solr_add iteration_add_batch
-            else
-              solr_add iteration_add_batch
-              solr_commit
+            begin
+              if options[:delayed_job]
+                delay.solr_add iteration_add_batch
+              else
+                solr_add iteration_add_batch
+                solr_commit
+              end
+            rescue Exception => exception
+              logger.error(exception.to_s)
             end
 
             last_id = iteration_items.last.id
