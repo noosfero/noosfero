@@ -29,7 +29,7 @@
   																			:id => @page.id,
   																			:reading_id => reading.id %></td>
   		<td><%= reading.grade %></td>
-  		<td><%= reading.color %></td>
+  		<td bgcolor="#<%= reading.color %>"></td>
   		<td ><%= link_to _('Remove'), {:controller => "mezuro_plugin_reading", 
   																			:profile => @page.profile.identifier, 
   																			:action => "destroy", 
