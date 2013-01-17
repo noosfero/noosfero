@@ -274,10 +274,14 @@ class ShoppingCartPluginController < PublicController
       :customer => user,
       :status => ShoppingCartPlugin::PurchaseOrder::Status::OPENED,
       :products_list => new_items,
+      :customer_delivery_option => params[:delivery_option],
+      :customer_payment => params[:customer][:payment],
+      :customer_change => params[:customer][:change],
       :customer_name => params[:customer][:name],
       :customer_email => params[:customer][:email],
       :customer_contact_phone => params[:customer][:contact_phone],
       :customer_address => params[:customer][:address],
+      :customer_district => params[:customer][:district],
       :customer_city => params[:customer][:city],
       :customer_zip_code => params[:customer][:zip_code]
     )
