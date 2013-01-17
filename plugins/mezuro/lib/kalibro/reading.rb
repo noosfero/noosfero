@@ -7,7 +7,10 @@ class Kalibro::Reading < Kalibro::Model
   end
 
   def self.readings_of( group_id )
-    request(:readings_of, {:group_id => group_id})[:reading].to_a.map { |reading| new reading }
+    response = request(:readings_of, {:group_id => group_id})[:reading]
+    response = [] if response.nil?
+    response = [response] if response.is_a?(Hash) 
+    response.map { |reading| new reading }
   end
   
   def self.reading_of( range_id )

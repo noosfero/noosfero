@@ -8,7 +8,7 @@
 
 <%= hidden_field_tag 'reading_group_content[profile_id]', profile.id %>
 <%= hidden_field_tag 'id', @article.id %>
-<%= hidden_field_tag 'reading_group_id', reading_group.id %>
+<%= hidden_field_tag 'reading_group_id', (reading_group.id unless reading_group.nil?) %>
 
 <%= required_fields_message %>
 
