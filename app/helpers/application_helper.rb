@@ -1411,4 +1411,16 @@ module ApplicationHelper
     options[:class] = "comment-footer comment-footer-link comment-footer-hide"
     expirable_content_reference content, action, text, url, options
   end
+
+  def private_profile_partial_parameters
+    if profile.person?
+      @action = :add_friend
+      @message = _("The content here is available to %s's friends only.") % profile.short_name
+    else
+      @action = :join
+      @message = _('The contents in this community is available to members only.')
+    end
+    @no_design_blocks = true
+  end
+
 end

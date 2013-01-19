@@ -1,20 +1,5 @@
 class SpaminatorPlugin::ScanJob < Struct.new(:environment_id)
   def perform
-    fork do
-      environment = Environment.find(environment_id)
-      settings = Noosfero::Plugin::Settings.new(environment, SpaminatorPlugin)
-      settings.scanning = true
-      settings.save!
-
-      begin
-        SpaminatorPlugin::Spaminator.run(environment)
-      rescue Exception => exception
-        SpaminatorPlugin::Spaminator.log("Spaminator failed with the following error: \n ==> #{exception}\n#{exception.backtrace.join("\n")}")
-      end
-
-      settings.scanning = false
-      SpaminatorPlugin.schedule_scan(environment) if settings.deployed
-      settings.save!
-    end
+    fork {system("ruby #{File.join(SpaminatorPlugin.root_path, 'script', 'scan')} #{environment_id}") }
   end
 end

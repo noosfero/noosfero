@@ -227,13 +227,13 @@ class SearchControllerTest < ActionController::TestCase
 
   should 'include extra content supplied by plugins on product asset' do
     class Plugin1 < Noosfero::Plugin
-      def asset_product_extras(product, enterprise)
+      def asset_product_extras(product)
         lambda {"<span id='plugin1'>This is Plugin1 speaking!</span>"}
       end
     end
 
     class Plugin2 < Noosfero::Plugin
-      def asset_product_extras(product, enterprise)
+      def asset_product_extras(product)
         lambda {"<span id='plugin2'>This is Plugin2 speaking!</span>"}
       end
     end
