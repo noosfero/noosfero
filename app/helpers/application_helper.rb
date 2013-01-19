@@ -1411,7 +1411,7 @@ module ApplicationHelper
     options[:class] = "comment-footer comment-footer-link comment-footer-hide"
     expirable_content_reference content, action, text, url, options
   end
-  
+
   def private_profile_partial_parameters
     if profile.person?
       @action = :add_friend
