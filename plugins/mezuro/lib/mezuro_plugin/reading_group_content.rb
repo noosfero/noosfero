@@ -3,6 +3,9 @@ class MezuroPlugin::ReadingGroupContent < Article
 
   settings_items :reading_group_id
 
+  before_save :send_reading_group_to_service
+  after_destroy :destroy_reading_group_from_service
+
   def self.short_description
     'Mezuro reading group'
   end
@@ -53,9 +56,6 @@ class MezuroPlugin::ReadingGroupContent < Article
     @readings = value.kind_of?(Array) ? value : [value]
     @readings = @readings.map { |element| to_reading(element) }
   end
-
-  before_save :send_reading_group_to_service
-  after_destroy :destroy_reading_group_from_service
 
   private
   

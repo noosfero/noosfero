@@ -3,6 +3,9 @@ class MezuroPlugin::ProjectContent < Article
 
   settings_items :project_id
 
+  before_save :send_project_to_service
+  after_destroy :destroy_project_from_service
+
   def self.short_description
     'Mezuro project'
   end
@@ -53,9 +56,6 @@ class MezuroPlugin::ProjectContent < Article
     @repositories = value.kind_of?(Array) ? value : [value]
     @repositories = @repositories.map { |element| to_repository(element) }
   end
-
-  before_save :send_project_to_service
-  after_destroy :destroy_project_from_service
 
   private
   

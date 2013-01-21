@@ -1,9 +1,8 @@
 <% @configuration_content = @page
 @kalibro_configuration = @page.kalibro_configuration %>
 <% owner = (not user.nil?) && user.id == @profile.id %>
-
 <% unless @page.errors[:base].nil? %>
-  <% if @page.errors[:base] =~ /There is no configuration named/ %>
+  <% if @page.errors[:base] =~ /Kalibro::Errors::RecordNotFound/ %>
     <h3>Warning:</h3>
     <p>This Configuration doesn't exist on the Web Service.</p>
     <% if owner %>
@@ -39,27 +38,27 @@
         <td><h5>Metric Name</h5></td>
         <td><h5>Collector Name</h5></td>
         <td><h5>Metric Code</h5></td>
+        <td><h5>Weight</h5></td>
+        <td><h5>Aggregation Form</h5></td>
         <td/>
     </tr>
-    <% @kalibro_configuration.metric_configurations.each do |metric_configuration| %>
+    <% @configuration_content.metric_configurations.each do |metric_configuration| %>
       <tr class="metric">
-        <% if metric_configuration.metric.instance_of? Kalibro::NativeMetric %>
         <td><%= link_to metric_configuration.metric.name, :controller => "mezuro_plugin_metric_configuration", :action => "edit_metric_configuration", 
-          						  :metric_name => metric_configuration.metric.name, :id => @configuration_content.id, 
+          						  :metric_configuration_id => metric_configuration.id, :id => @configuration_content.id, 
           						  :profile => @page.profile.identifier %></td>
-          <td>
-            <%= metric_configuration.metric.origin %>
-          </td>
-          <td><%= metric_configuration.code %></td>
-        <% else %>
-          <td><%= link_to metric_configuration.metric.name, :controller => "mezuro_plugin_metric_configuration", 
-          						  :action => "edit_compound_metric_configuration", :metric_name => metric_configuration.metric.name, 
-          						  :id => @configuration_content.id, :profile => @page.profile.identifier %></td>
+        <% if metric_configuration.metric.compound %>
           <td>
             Compound Metric
           </td>
-          <td><%= metric_configuration.code %></td>
+        <% else %>
+          <td>
+            <%= metric_configuration.metric.origin %>
+          </td>
         <% end %>
+        <td><%= metric_configuration.code %></td>
+        <td><%= metric_configuration.weight %></td>
+        <td><%= metric_configuration.aggreafation_form %></td>
         <% if owner %>
           <td><%= link_to "Remove", :controller => "mezuro_plugin_metric_configuration", :action => "remove_metric_configuration", 
         						  :metric_name => metric_configuration.metric.name, :id => @configuration_content.id, 
