@@ -38,15 +38,17 @@ class ReadingTest < ActiveSupport::TestCase
   end
 
   should 'return true when reading is saved successfully' do
+    reading_group_id = 31
     id_from_kalibro = 1
-    Kalibro::Reading.expects(:request).with(:save_reading, {:reading => @created_reading.to_hash}).returns(:reading_id => id_from_kalibro)
-    assert @created_reading.save
+    Kalibro::Reading.expects(:request).with(:save_reading, {:group_id => reading_group_id, :reading => @created_reading.to_hash}).returns(:reading_id => id_from_kalibro)
+    assert @created_reading.save reading_group_id
     assert_equal id_from_kalibro, @created_reading.id
   end
 
   should 'return false when reading is not saved successfully' do
-    Kalibro::Reading.expects(:request).with(:save_reading, {:reading => @created_reading.to_hash}).raises(Exception.new)
-    assert !(@created_reading.save)
+    reading_group_id = 31
+    Kalibro::Reading.expects(:request).with(:save_reading, {:group_id => reading_group_id, :reading => @created_reading.to_hash}).raises(Exception.new)
+    assert !(@created_reading.save reading_group_id)
     assert_nil @created_reading.id
   end
 
