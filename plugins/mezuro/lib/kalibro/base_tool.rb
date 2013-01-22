@@ -2,10 +2,6 @@ class Kalibro::BaseTool < Kalibro::Model
 
   attr_accessor :name, :description, :collector_class_name, :supported_metric
 
-  def self.all_names
-    request(:all_base_tool_names)[:base_tool_name].to_a
-  end
-
   def self.find_by_name(base_tool_name)
     new request(:get_base_tool, {:base_tool_name => base_tool_name})[:base_tool]
   end
@@ -13,7 +9,11 @@ class Kalibro::BaseTool < Kalibro::Model
   def self.all
     basetools = all_names
     basetools.map{ |name| find_by_name(name) }
-  end 
+  end
+
+  def self.all_names
+    request(:all_base_tool_names)[:base_tool_name].to_a
+  end
 
   def supported_metric=(value)
     @supported_metric = Kalibro::Metric.to_objects_array value
