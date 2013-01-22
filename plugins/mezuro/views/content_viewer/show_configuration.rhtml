@@ -58,7 +58,7 @@
         <% end %>
         <td><%= metric_configuration.code %></td>
         <td><%= metric_configuration.weight %></td>
-        <td><%= metric_configuration.aggreafation_form %></td>
+        <td><%= metric_configuration.aggregation_form %></td>
         <% if owner %>
           <td><%= link_to "Remove", :controller => "mezuro_plugin_metric_configuration", :action => "remove_metric_configuration", 
         						  :metric_name => metric_configuration.metric.name, :id => @configuration_content.id, 

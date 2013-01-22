@@ -121,7 +121,26 @@ class MezuroPlugin::ConfigurationContent < Article
   end
 
   def clone_configuration
-    #por enquanto não clona
+    metric_configurations_to_clone ||= Kalibro::MetricConfiguration.metric_configurations_of(configuration_to_clone_id)
+    clone_metric_configurations metric_configurations_to_clone
+  end
+
+  def clone_metric_configurations metric_configurations_to_clone
+    metric_configurations_to_clone.each do |metric_configuration|
+      clonned_metric_configuration_id = metric_configuration.id
+      metric_configuration.id = nil
+      metric_configuration.configuration_id = self.configuration_id
+      metric_configuration.save
+      clone_ranges clonned_metric_configuration_id, metric_configuration.id
+    end
+  end
+
+  def clone_ranges clonned_metric_configuration_id, new_metric_configuration_id
+    Kalibro::Range.ranges_of(clonned_metric_configuration_id).each do |range|
+      range.id = nil
+      range.save new_metric_configuration_id
+    end
   end
 
 end
+
