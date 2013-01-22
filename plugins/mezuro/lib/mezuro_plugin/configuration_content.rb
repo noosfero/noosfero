@@ -26,6 +26,7 @@ class MezuroPlugin::ConfigurationContent < Article
       @configuration ||= Kalibro::Configuration.find(self.configuration_id)
     rescue Exception => exception 
       errors.add_to_base(exception.message)
+      @configuration = nil
     end
     @configuration
   end
@@ -58,7 +59,19 @@ class MezuroPlugin::ConfigurationContent < Article
     end
     @description
   end
-  
+
+  def configuration_to_clone_name
+    begin
+      @configuration_to_clone_name
+    rescue Exception => exception
+      nil
+    end
+  end
+
+  def configuration_to_clone_name=(value)
+    @configuration_to_clone_name = (value == "None") ? nil : value
+  end
+
   def metric_configurations
     begin
       @metric_configurations ||= Kalibro::MetricConfiguration.metric_configurations_of(configuration_id)
@@ -90,30 +103,25 @@ class MezuroPlugin::ConfigurationContent < Article
 
   def send_configuration_to_service
     attributes = {:id => configuration_id, :name => name, :description => description}
-#    if cloning_configuration?
-#      attributes[:metric_configuration] = configuration_to_clone.metric_configurations_hash
-#    end
     created_configuration = Kalibro::Configuration.create attributes
     self.configuration_id = created_configuration.id
+    clone_configuration if cloning_configuration?
   end
 
   def remove_configuration_from_service
-    puts "aqui tem #{@configuration.inspect}"
     kalibro_configuration.destroy unless kalibro_configuration.nil?
   end
 
-=begin
-  def configuration_to_clone
-    @configuration_to_clone ||= find_configuration_to_clone
-  end
-  
-  def find_configuration_to_clone
-    (configuration_to_clone_name == "None") ? nil : Kalibro::Configuration.find_by_name(configuration_to_clone_name)
+  def configuration_to_clone_id
+    (configuration_to_clone_name.nil?) ? nil : configuration_names_and_ids.index(configuration_to_clone_name)
   end
   
   def cloning_configuration?
-    configuration_to_clone.present?
+    configuration_to_clone_id.present?
   end
-=end
+
+  def clone_configuration
+    #por enquanto não clona
+  end
 
 end

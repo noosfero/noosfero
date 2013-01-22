@@ -7,24 +7,17 @@
 
 <%= error_messages_for 'kalibro_configuration' %>
 
-<%= hidden_field_tag 'kalibro_configuration[profile_id]', profile.id %>
-<%= hidden_field_tag 'id', @article.id %>
 
-<% # selected = (kalibro_configuration.nil? ? "None" : @article.configuration_to_clone_name)
- %>
+<%= hidden_field_tag 'configuration_content[profile_id]', profile.id %>
+<%= hidden_field_tag 'id', @article.id %>
+<%= hidden_field_tag 'configuration_id', @article.configuration_id %>
 
 <%= required_fields_message %>
 
-<% 
-=begin
-required labelled_form_field _('Clone Configuration'),
-if !kalibro_configuration.nil? && !@article.id.nil?
-  f.select(:configuration_to_clone_name, kalibro_configuration_names, {:selected => selected}, :disabled => 'true')
-else
-  f.select(:configuration_to_clone_name, kalibro_configuration_names, {:selected => selected})
-end 
-=end
-%>
+<%= if kalibro_configuration.nil?
+  required labelled_form_field _('Clone Configuration'),
+  f.select(:configuration_to_clone_name, kalibro_configuration_names)
+end %>
 <br/>
 
 <%= required f.text_field(:name) %>
