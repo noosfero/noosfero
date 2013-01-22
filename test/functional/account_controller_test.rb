@@ -880,6 +880,18 @@ class AccountControllerTest < ActionController::TestCase
     assert_tag :tag => 'strong', :content => 'Plugin2 text'
   end
 
+  should 'include honeypot in the signup form' do
+    get :signup
+    assert_tag :tag => /input|textarea/, :attributes => {:id => 'honeypot'}
+  end
+
+  should 'not sign in if the honeypot field is filled' do
+    Person.any_instance.stubs(:required_fields).returns(['organization'])
+    assert_no_difference User, :count do
+      post :signup, :user => { :login => 'testuser', :password => '123456', :password_confirmation => '123456', :email => 'testuser@example.com' }, :profile_data => { :organization => 'example.com' }, :honeypot => 'something'
+    end
+    assert @response.body.blank?
+  end
 
   protected
     def new_user(options = {}, extra_options ={})

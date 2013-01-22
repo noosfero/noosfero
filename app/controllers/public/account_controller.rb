@@ -4,6 +4,7 @@ class AccountController < ApplicationController
 
   before_filter :login_required, :only => [:activation_question, :accept_terms, :activate_enterprise]
   before_filter :redirect_if_logged_in, :only => [:login, :signup]
+  before_filter :protect_from_bots, :only => :signup
 
   # say something nice, you goof!  something sweet.
   def index
