@@ -8,7 +8,7 @@ class ConfigurationFixtures
 
   def self.created_configuration
     Kalibro::Configuration.new({
-      :name => 'Sample Configuration',
+      :name => 'Created Sample Configuration',
       :description => 'Kalibro configuration for Java projects.'
     })
   end

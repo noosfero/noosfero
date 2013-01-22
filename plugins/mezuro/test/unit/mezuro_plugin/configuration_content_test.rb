@@ -2,6 +2,8 @@ require "test_helper"
 
 require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/configuration_fixtures"
 require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/configuration_content_fixtures"
+require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/metric_configuration_fixtures"
+require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/range_fixtures"
 
 class ConfigurationContentTest < ActiveSupport::TestCase
 
@@ -12,6 +14,9 @@ class ConfigurationContentTest < ActiveSupport::TestCase
     @content_hash = ConfigurationContentFixtures.configuration_content_hash
     @configuration_hash = {:name => @content_hash[:name], :description => @content_hash[:description], :id => @content_hash[:configuration_id]}
     @created_content = ConfigurationContentFixtures.created_configuration_content
+
+    @metric_configuration = MetricConfigurationFixtures.amloc_metric_configuration
+    @range = RangeFixtures.range
   end
 
   should 'be an article' do
@@ -38,13 +43,13 @@ class ConfigurationContentTest < ActiveSupport::TestCase
 
   should 'get configuration from service' do
     Kalibro::Configuration.expects(:find).with(@content.configuration_id).returns(@configuration)
-    assert_equal @configuration, @content.configuration
+    assert_equal @configuration, @content.kalibro_configuration
   end
 
   should 'send configuration to service after saving' do
     @content.expects :send_configuration_to_service
     @content.stubs(:solr_save)
-    @content.run_callbacks :after_save
+    @content.run_callbacks :before_save
   end
 
   should 'create new configuration' do
@@ -53,15 +58,17 @@ class ConfigurationContentTest < ActiveSupport::TestCase
     assert_equal @configuration.id, @created_content.configuration_id
   end
 
-=begin
   should 'clone configuration' do
-    @content.configuration_to_clone_name = 'clone name'
-    Kalibro::Configuration.expects(:create).with(:name => @content.configuration_id, :description => @content.description, :metric_configuration => @configuration.metric_configurations_hash)
-    Kalibro::Configuration.expects(:find).with(@content.configuration_id).returns(nil)
-    Kalibro::Configuration.expects(:find).with('clone name').returns(@configuration)
+    clone_name = @configuration.name
+    @content.configuration_to_clone_name = clone_name
+    Kalibro::Configuration.expects(:create).with(:id => @content.configuration_id, :name => @content.name, :description => @content.description).returns(@configuration)
+    Kalibro::Configuration.expects(:all).returns([@configuration])
+    Kalibro::MetricConfiguration.expects(:metric_configurations_of).with(@configuration.id).returns([@metric_configuration])
+    Kalibro::MetricConfiguration.expects(:request).returns(:metric_configuration_id => @metric_configuration.id)
+    Kalibro::Range.expects(:ranges_of).with(@metric_configuration.id).returns([@range])
+    @range.expects(:save).with(@metric_configuration.id).returns(true)
     @content.send :send_configuration_to_service
   end
-=end
 
   should 'edit configuration' do
     Kalibro::Configuration.expects(:new).with(@configuration_hash).returns(@configuration)

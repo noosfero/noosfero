@@ -101,6 +101,10 @@ class MezuroPlugin::ConfigurationContent < Article
     end
   end
 
+  def remove_configuration_from_service
+    kalibro_configuration.destroy unless kalibro_configuration.nil?
+  end
+
   def send_configuration_to_service
     attributes = {:id => configuration_id, :name => name, :description => description}
     created_configuration = Kalibro::Configuration.create attributes
@@ -108,16 +112,13 @@ class MezuroPlugin::ConfigurationContent < Article
     clone_configuration if cloning_configuration?
   end
 
-  def remove_configuration_from_service
-    kalibro_configuration.destroy unless kalibro_configuration.nil?
-  end
-
   def configuration_to_clone_id
-    (configuration_to_clone_name.nil?) ? nil : configuration_names_and_ids.index(configuration_to_clone_name)
+    @configuration_to_clone_id ||= (configuration_to_clone_name.nil?) ? nil : configuration_names_and_ids.index(configuration_to_clone_name)
+    @configuration_to_clone_id
   end
   
   def cloning_configuration?
-    configuration_to_clone_id.present?
+    !configuration_to_clone_id.nil?
   end
 
   def clone_configuration
