@@ -71,10 +71,6 @@ class AccountController < ApplicationController
     @block_bot = !!session[:may_be_a_bot]
     @invitation_code = params[:invitation_code]
     begin
-      if params[:user]
-        params[:user].delete(:password_confirmation_clear)
-        params[:user].delete(:password_clear)
-      end
       @user = User.new(params[:user])
       @user.terms_of_use = environment.terms_of_use
       @user.environment = environment

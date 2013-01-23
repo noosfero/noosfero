@@ -730,12 +730,6 @@ class AccountControllerTest < ActionController::TestCase
     assert_template 'signup'
   end
 
-  should 'remove useless user data on signup' do
-    assert_nothing_raised do
-      new_user :password_clear => 'nothing', :password_confirmation_clear => 'nothing'
-    end
-  end
-
   should 'login after signup when no e-mail confirmation is required' do
     e = Environment.default
     e.enable('skip_new_user_email_confirmation')
