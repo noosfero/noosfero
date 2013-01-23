@@ -59,10 +59,9 @@ class ConfigurationContentTest < ActiveSupport::TestCase
   end
 
   should 'clone configuration' do
-    clone_name = @configuration.name
-    @content.configuration_to_clone_name = clone_name
+    clone_id = @configuration.id
+    @content.configuration_to_clone_id = clone_id
     Kalibro::Configuration.expects(:create).with(:id => @content.configuration_id, :name => @content.name, :description => @content.description).returns(@configuration)
-    Kalibro::Configuration.expects(:all).returns([@configuration])
     Kalibro::MetricConfiguration.expects(:metric_configurations_of).with(@configuration.id).returns([@metric_configuration])
     Kalibro::MetricConfiguration.expects(:request).returns(:metric_configuration_id => @metric_configuration.id)
     Kalibro::Range.expects(:ranges_of).with(@metric_configuration.id).returns([@range])
