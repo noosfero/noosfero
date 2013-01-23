@@ -56,8 +56,8 @@ class AccountController < ApplicationController
   end
 
   def signup_time
-    set_signup_time_for_now
-    render :text => {:ok=>true}.to_json
+    key = set_signup_start_time_for_now
+    render :text => { :ok=>true, :key=>key }.to_json
   end
 
   # action to register an user to the application
@@ -83,12 +83,12 @@ class AccountController < ApplicationController
       @person.environment = @user.environment
       if request.post?
         if may_be_a_bot
-          set_signup_time_for_now
+          set_signup_start_time_for_now
           @block_bot = true
           session[:may_be_a_bot] = true
         else
           if session[:may_be_a_bot]
-            return false unless verify_recaptcha :model=>@user, :message=>_('bota o recaptcha manuel!')
+            return false unless verify_recaptcha :model=>@user, :message=>_('Captcha (the human test)')
           end
           @user.signup!
           owner_role = Role.find_by_name('owner')
@@ -112,6 +112,7 @@ class AccountController < ApplicationController
       @person.errors.delete(:user_id)
       render :action => 'signup'
     end
+    clear_signup_start_time
   end
 
   # action to perform logout from the application
@@ -287,13 +288,33 @@ class AccountController < ApplicationController
     @cannot_redirect = true
   end
 
-  def set_signup_time_for_now
-    session[:signup_time] = Time.now
+  def set_signup_start_time_for_now
+    key = 'signup_start_time_' + rand.to_s.split('.')[1]
+    Rails.cache.write key, Time.now
+    key
+  end
+
+  def get_signup_start_time
+    Rails.cache.read params[:signup_time_key]
+  end
+
+  def clear_signup_start_time
+    Rails.cache.delete params[:signup_time_key]
   end
 
   def may_be_a_bot
-    return true if session[:signup_time].nil?
-    session[:signup_time] > ( Time.now - 15.seconds )
+    # No minimum signup delay, no bot test.
+    return false if environment.min_signup_delay == 0
+
+    # answering captcha, may be human!
+    return false if params[:recaptcha_response_field]
+
+    # never set signup_time, hi wget!
+    signup_start_time = get_signup_start_time
+    return true if signup_start_time.nil?
+
+    # so fast, so bot.
+    signup_start_time > ( Time.now - environment.min_signup_delay.seconds )
   end
 
   def check_answer

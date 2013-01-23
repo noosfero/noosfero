@@ -1,10 +1,7 @@
-<script type="text/javascript">
-  jQuery.post("<%= url_for :controller=>'account', :action=>'signup_time' %>");
-</script>
-
 <% if @block_bot %>
-  <div class="bot-notice">
-    <%=_('<strong>How Fast!</strong> Looks like you are a bot.')%>
+  <div id="bot-notice">
+    <strong><%=_('How Fast!')%></strong>
+    <p><%=_('Looks like you are a robot. Please, prove that you are human.')%></p>
   </div>
 <% end %>
 
@@ -13,6 +10,18 @@
 <%= error_messages_for :user, :person, :header_message => _('The account could not be created') %>
 
 <% labelled_form_for :user, @user, :html => { :multipart => true, :id => 'signup-form' } do |f| %>
+
+<input type="hidden" id="signup_time_key" name="signup_time_key" />
+<script type="text/javascript">
+  jQuery.ajax({
+    type: "POST",
+    url: "<%= url_for :controller=>'account', :action=>'signup_time' %>",
+    dataType: 'json',
+    success: function(data) {
+      if (data.ok) jQuery('#signup_time_key').val(data.key);
+    }
+  });
+</script>
 
 <%= hidden_field_tag :invitation_code, @invitation_code %>
 

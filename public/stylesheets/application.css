@@ -5636,6 +5636,16 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 img {
 
 /* Signup interface {{{ */
 
+#bot-notice {
+  border: 3px solid #000;
+  background: #FE0;
+  padding: 5px 10px;
+  font-size: 150%;
+}
+#bot-notice p {
+  margin: 0px;
+}
+
 #url-check {
   margin: 0 0 -5px 0;
   width: 100%;

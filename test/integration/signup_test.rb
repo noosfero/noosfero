@@ -7,8 +7,40 @@ class SignupTest < ActionController::IntegrationTest
     ActionController::Integration::Session.any_instance.stubs(:https?).returns(true)
   end
 
+  # helper
+  def registering_with_bot_test(min_signup_delay, sleep_secs)
+    env = Environment.default
+    env.min_signup_delay = min_signup_delay
+    env.save!
+    get '/account/signup'
+    assert_response :success
+    get '/account/signup_time'
+    assert_response :success
+    data = ActiveSupport::JSON.decode response.body
+    sleep sleep_secs
+    post '/account/signup', :user => { :login => 'someone', :password => 'test', :password_confirmation => 'test', :email => 'someone@example.com' }, :signup_time_key => data['key']
+    assert_response :success
+  end
+
+  def test_signup_form_submition_must_be_blocked_for_fast_bots
+    count = User.count
+    registering_with_bot_test 5, 1
+    assert_template 'signup'
+    assert_equal count, User.count
+    assert_match /you are a robot/, response.body
+  end
+
+  def test_signup_form_submition_must_not_block_after_min_signup_delay
+    count = User.count
+    registering_with_bot_test 1, 2
+    assert_equal count+1, User.count
+  end
+
   def test_should_require_acceptance_of_terms_for_signup
-    Environment.default.update_attributes(:terms_of_use => 'You agree to not be annoying.')
+    env = Environment.default
+    env.update_attributes(:terms_of_use => 'You agree to not be annoying.')
+    env.min_signup_delay = 0
+    env.save!
 
     count = User.count
     mail_count = ActionMailer::Base.deliveries.count
