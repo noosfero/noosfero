@@ -1,3 +1,13 @@
+<script type="text/javascript">
+  jQuery.post("<%= url_for :controller=>'account', :action=>'signup_time' %>");
+</script>
+
+<% if @block_bot %>
+  <div class="bot-notice">
+    <%=_('<strong>How Fast!</strong> Looks like you are a bot.')%>
+  </div>
+<% end %>
+
 <% @profile_data = @person %>
 
 <%= error_messages_for :user, :person, :header_message => _('The account could not be created') %>
@@ -96,6 +106,8 @@
     <%= hidden_field_tag :new_user, true %>
   <% end %>
 </div>
+
+<%= recaptcha_tags :ajax => true, :display => {:theme => 'clean'} if @block_bot %>
 
 <p style="text-align: center">
   <%= submit_button('save', _('Create my account')) %>

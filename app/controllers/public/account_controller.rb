@@ -55,6 +55,11 @@ class AccountController < ApplicationController
     render :action => 'login', :layout => false
   end
 
+  def signup_time
+    set_signup_time_for_now
+    render :text => {:ok=>true}.to_json
+  end
+
   # action to register an user to the application
   def signup
     if @plugins.dispatch(:allow_user_registration).include?(false)
@@ -62,6 +67,7 @@ class AccountController < ApplicationController
       session[:notice] = _("This environment doesn't allow user registration.")
     end
 
+    @block_bot = !!session[:may_be_a_bot]
     @invitation_code = params[:invitation_code]
     begin
       if params[:user]
@@ -76,19 +82,28 @@ class AccountController < ApplicationController
       @person = Person.new(params[:profile_data])
       @person.environment = @user.environment
       if request.post?
-        @user.signup!
-        owner_role = Role.find_by_name('owner')
-        @user.person.affiliate(@user.person, [owner_role]) if owner_role
-        invitation = Task.find_by_code(@invitation_code)
-        if invitation
-          invitation.update_attributes!({:friend => @user.person})
-          invitation.finish
-        end
-        if @user.activated?
-          self.current_user = @user
-          redirect_to '/'
+        if may_be_a_bot
+          set_signup_time_for_now
+          @block_bot = true
+          session[:may_be_a_bot] = true
         else
-          @register_pending = true
+          if session[:may_be_a_bot]
+            return false unless verify_recaptcha :model=>@user, :message=>_('bota o recaptcha manuel!')
+          end
+          @user.signup!
+          owner_role = Role.find_by_name('owner')
+          @user.person.affiliate(@user.person, [owner_role]) if owner_role
+          invitation = Task.find_by_code(@invitation_code)
+          if invitation
+            invitation.update_attributes!({:friend => @user.person})
+            invitation.finish
+          end
+          if @user.activated?
+            self.current_user = @user
+            redirect_to '/'
+          else
+            @register_pending = true
+          end
         end
       end
     rescue ActiveRecord::RecordInvalid
@@ -271,7 +286,16 @@ class AccountController < ApplicationController
   def no_redirect
     @cannot_redirect = true
   end
-  
+
+  def set_signup_time_for_now
+    session[:signup_time] = Time.now
+  end
+
+  def may_be_a_bot
+    return true if session[:signup_time].nil?
+    session[:signup_time] > ( Time.now - 15.seconds )
+  end
+
   def check_answer
     unless answer_correct
       @enterprise.block
