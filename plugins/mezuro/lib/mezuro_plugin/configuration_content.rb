@@ -43,7 +43,6 @@ class MezuroPlugin::ConfigurationContent < Article
     rescue Exception => exception
       errors.add_to_base(exception.message)
     end
-    all_names_and_ids[-1] = "None"
     all_names_and_ids
   end
 
