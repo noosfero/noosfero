@@ -7,11 +7,27 @@ class MezuroPluginMetricConfigurationController < MezuroPluginMyprofileControlle
     @base_tools = Kalibro::BaseTool.all
   end
 
-  def new_metric_configuration
+  def new_native
     @configuration_content = profile.articles.find(params[:id])
-    @metric = Kalibro::BaseTool.find_by_name(params[:base_tool]).metric params[:metric_name]
+    @base_tool_name = params[:base_tool_name]
+    @metric = Kalibro::BaseTool.find_by_name(@base_tool_name).metric params[:metric_name]
+    @reading_group_names_and_ids = reading_group_names_and_ids
   end
-
+    
+  def create_native
+    metric_configuration = Kalibro::MetricConfiguration.new(params[:metric_configuration])
+    metric_configuration.save
+    
+    if metric_configuration_has_errors? metric_configuration
+      redirect_to_error_page metric_configuration.errors[0].message
+    else
+      id = params[:id]
+      metric_name = params[:metric_configuration][:metric][:name]
+      redirect_to "/myprofile/#{profile.identifier}/plugin/mezuro/metric_configuration/edit_native?id=#{id}&metric_name=#{metric_name.gsub(/\s/, '+')}"
+    end
+  end
+  
+=begin
   def new_compound_metric_configuration
     @configuration_content = profile.articles.find(params[:id])
     @metric_configurations = @configuration_content.metric_configurations
@@ -33,17 +49,6 @@ class MezuroPluginMetricConfigurationController < MezuroPluginMyprofileControlle
     @metric = @metric_configuration.metric
   end
 
-  def create_metric_configuration
-    id = params[:id]
-    metric_name = params[:metric_configuration][:metric][:name]
-    metric_configuration = Kalibro::MetricConfiguration.new(params[:metric_configuration])
-    metric_configuration.save
-    if metric_configuration_has_errors? metric_configuration
-      redirect_to_error_page metric_configuration.errors[0].message
-    else
-      redirect_to "/myprofile/#{profile.identifier}/plugin/mezuro/metric_configuration/edit_metric_configuration?id=#{id}&metric_name=#{metric_name.gsub(/\s/, '+')}"
-    end
-  end
 
   def create_compound_metric_configuration
     id = params[:id]
@@ -92,11 +97,20 @@ class MezuroPluginMetricConfigurationController < MezuroPluginMyprofileControlle
       redirect_to "/#{profile.identifier}/#{configuration_content.slug}"
     end
   end
+=end 
   
   private
+  
+  def reading_group_names_and_ids
+    array = Kalibro::ReadingGroup.all.map { |reading_group| [reading_group.name, reading_group.id] }
+    array.sort { |x,y| x.first.downcase <=> y.first.downcase }
+  end
+  
+  def metric_configuration_has_errors? metric_configuration
+    not metric_configuration.errors.empty?
+  end
   
   def configuration_content_has_errors?
     not @configuration_content.errors[:base].nil?
   end
-  
 end

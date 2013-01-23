@@ -10,8 +10,8 @@
 
   <div id="<%=base_tool.name%>" style="display:none">
     <% base_tool.supported_metrics.each do |metric| %>
-      &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<%= link_to metric.name, :controller => "mezuro_plugin_metric_configuration", :action => "new_metric_configuration",
-      				:metric_name => metric.name, :base_tool => base_tool.name, :id => @configuration_content.id %>
+      &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<%= link_to metric.name, :controller => "mezuro_plugin_metric_configuration", :action => "new_native",
+      				:metric_name => metric.name, :base_tool_name => base_tool.name, :id => @configuration_content.id %>
       <hr size="1" width="93%"/>
     <% end %>
   </div>

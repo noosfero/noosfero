@@ -13,7 +13,7 @@ class MetricFixtures
   end
 
   def self.total_cof_hash
-    {:name => 'Total Coupling Factor', :compound => "false", :scope => 'APPLICATION', :origin => 'Analizo', :language => ['JAVA']}
+    {:name => 'Total Coupling Factor', :compound => "false", :scope => 'APPLICATION', :language => ['JAVA']}
   end
 
   def self.amloc
@@ -21,7 +21,7 @@ class MetricFixtures
   end
 
   def self.amloc_hash
-    {:name => 'Average Method LOC', :compound => "false", :scope => 'CLASS', :origin => 'Analizo', :language => ['JAVA']}
+    {:name => 'Average Method LOC', :compound => "false", :scope => 'CLASS', :language => ['JAVA']}
   end
 
 end

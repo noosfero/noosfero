@@ -4,6 +4,7 @@ require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/base_tool_fixtures"
 require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/metric_fixtures"
 require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/metric_configuration_fixtures"
 require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/configuration_fixtures"
+require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/reading_group_fixtures"
 
 class MezuroPluginMetricConfigurationControllerTest < ActionController::TestCase
 
@@ -26,8 +27,11 @@ class MezuroPluginMetricConfigurationControllerTest < ActionController::TestCase
     @base_tool = BaseToolFixtures.base_tool
     @base_tool_hash = BaseToolFixtures.base_tool_hash
     
-=begin
     @metric = MetricFixtures.amloc
+
+    @reading_group = ReadingGroupFixtures.reading_group
+
+=begin
     @metric_configuration = MetricConfigurationFixtures.amloc_metric_configuration
     @metric_configuration_hash = MetricConfigurationFixtures.amloc_metric_configuration_hash
     @compound_metric_configuration = MetricConfigurationFixtures.sc_metric_configuration
@@ -49,16 +53,25 @@ class MezuroPluginMetricConfigurationControllerTest < ActionController::TestCase
     assert_response 200
   end
 
-=begin
-  should 'test new metric configuration' do
-    Kalibro::BaseTool.expects(:request).with("BaseTool", :get_base_tool, {:base_tool_name => @base_tool.name}).returns({:base_tool => @base_tool_hash})
-    get :new_metric_configuration, :profile => @profile.identifier, :id => @content.id, :base_tool => @base_tool.name, :metric_name => @metric.name
+  should 'test new native metric configuration' do
+    Kalibro::BaseTool.expects(:find_by_name).with(@base_tool.name).returns(@base_tool)
+    Kalibro::ReadingGroup.expects(:all).returns([@reading_group])
+    get :new_native, :profile => @profile.identifier, :id => @content.id, :base_tool_name => @base_tool.name, :metric_name => @metric.name
     assert_equal @content, assigns(:configuration_content)
     assert_equal @metric.name, assigns(:metric).name
+    assert_equal @base_tool.name, assigns(:base_tool_name)
+    assert_equal [[@reading_group.name,@reading_group.id]], assigns(:reading_group_names_and_ids)
     assert_response 200
   end
   
+  should 'test create native metric configuration' do
+    Kalibro::MetricConfiguration.expects(:new).with(@metric_configuration_hash).returns(@created_metric_configuration)
+    @created_metric_configuration.expects(:save).returns(true)
+    get :create_native, :profile => @profile.identifier, :id => @content.id, :metric_configuration => @native_hash
+    assert_response 200
+  end
   
+=begin
   should 'test new compound metric configuration' do
     Kalibro::Configuration.expects(:request).with("Configuration", :get_configuration, {
       :configuration_name => @content.name}).returns({:configuration => @configuration_hash})
@@ -95,16 +108,6 @@ class MezuroPluginMetricConfigurationControllerTest < ActionController::TestCase
     assert_response 200
   end
   
-  should 'test create native metric configuration' do
-    Kalibro::MetricConfiguration.expects(:request).with("MetricConfiguration", :save_metric_configuration, {
-        :metric_configuration => @metric_configuration.to_hash,
-        :configuration_name => @metric_configuration.configuration_name})
-    get :create_metric_configuration,
-        :profile => @profile.identifier,
-        :id => @content.id,
-        :metric_configuration => @native_hash
-    assert_response 302
-  end
   
   should 'test compound metric creation' do
     Kalibro::MetricConfiguration.expects(:request).with("MetricConfiguration", :save_metric_configuration, {

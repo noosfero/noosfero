@@ -55,4 +55,9 @@ class ContentViewerHelperTest < ActiveSupport::TestCase
     assert_equal 'AverageMethodLOC', @helper.format_name(metric_configuration_snapshot)
   end
 
+  should 'create aggregation options array' do
+    assert_equal [["Average","AVERAGE"], ["Median", "MEDIAN"], ["Maximum", "MAXIMUM"], ["Minimum", "MINIMUM"], 
+    ["Count", "COUNT"], ["Standard Deviation", "STANDARD_DEVIATION"]], @helper.aggregation_options
+  end
+
 end

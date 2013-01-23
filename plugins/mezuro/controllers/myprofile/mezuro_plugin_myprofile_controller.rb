@@ -18,11 +18,7 @@ class MezuroPluginMyprofileController < ProfileController #MyprofileController?
     redirect_to "/myprofile/#{profile.identifier}/plugin/mezuro/error_page?message=#{message}"
   end
 
-  def metric_configuration_has_errors? metric_configuration
-    not metric_configuration.errors.empty?
-  end
-
-  def process_error_message message
+  def process_error_message message #FIXME
     if message =~ /bla/
       message
     else

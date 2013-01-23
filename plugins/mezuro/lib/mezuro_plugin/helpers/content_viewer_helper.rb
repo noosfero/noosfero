@@ -52,6 +52,11 @@ class MezuroPlugin::Helpers::ContentViewerHelper
     MezuroPluginModuleResultController.helpers.distance_of_time_in_words(0, seconds, include_seconds = true)
   end
 
+  def self.aggregation_options
+    [["Average","AVERAGE"], ["Median", "MEDIAN"], ["Maximum", "MAXIMUM"], ["Minimum", "MINIMUM"],
+      ["Count", "COUNT"], ["Standard Deviation", "STANDARD_DEVIATION"]]
+  end
+
   private
 
   def self.discretize_array(array)

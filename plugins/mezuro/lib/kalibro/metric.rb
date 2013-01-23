@@ -1,6 +1,6 @@
 class Kalibro::Metric < Kalibro::Model
   
-  attr_accessor :name, :compound, :scope, :description, :script, :origin, :language
+  attr_accessor :name, :compound, :scope, :description, :script, :language
 
   def languages
     @language
