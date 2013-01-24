@@ -18,7 +18,7 @@ class MetricConfigurationFixtures
     Kalibro::MetricConfiguration.new({
         :code => 'amloc',
         :metric => MetricFixtures.amloc_hash,
-        :base_tool_name => MetricFixtures.amloc_hash[:origin],
+        :base_tool_name => "Analizo",
         :weight => "1.0",
         :aggregation_form => 'AVERAGE',
         :reading_group_id => "31",
@@ -31,7 +31,7 @@ class MetricConfigurationFixtures
       :id => "42",
       :code => 'amloc',
       :metric => MetricFixtures.amloc_hash,
-      :base_tool_name => MetricFixtures.amloc_hash[:origin],
+      :base_tool_name => "Analizo",
       :weight => "1.0",
       :aggregation_form => 'AVERAGE',
       :reading_group_id => "31",

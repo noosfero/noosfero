@@ -44,7 +44,7 @@
     </tr>
     <% @configuration_content.metric_configurations.each do |metric_configuration| %>
       <tr class="metric">
-        <td><%= link_to metric_configuration.metric.name, :controller => "mezuro_plugin_metric_configuration", :action => "edit_metric_configuration", 
+        <td><%= link_to metric_configuration.metric.name, :controller => "mezuro_plugin_metric_configuration", :action => "edit_native", 
           						  :metric_configuration_id => metric_configuration.id, :id => @configuration_content.id, 
           						  :profile => @page.profile.identifier %></td>
         <% if metric_configuration.metric.compound %>

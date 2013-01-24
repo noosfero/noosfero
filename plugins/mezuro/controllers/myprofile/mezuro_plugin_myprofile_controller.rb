@@ -2,10 +2,10 @@ class MezuroPluginMyprofileController < ProfileController #MyprofileController?
 
   append_view_path File.join(File.dirname(__FILE__) + '/../../views')
 
-  rescue_from Exception do |exception|
-    @message = process_error_message exception.message
-    render :partial => "error_page"
-  end
+#  rescue_from Exception do |exception|
+#    @message = process_error_message exception.message
+#    render :partial => "error_page"
+#  end
 
   def error_page
     @message = params[:message]

@@ -1,11 +1,7 @@
-<script src="/plugins/mezuro/javascripts/validations.js" type="text/javascript"></script>
-
-<h2><%= @configuration_content.name %> Configuration</h2>
-<!-- TODO This form should be a partial similar to _native_metric_configuration_form.rhtml -->
-<% form_for :metric_configuration, :url => {:action =>"create_native", :controller => "mezuro_plugin_metric_configuration"},  :method => :get do |f| %>
-
+<% form_for :metric_configuration, :url => {:action =>"update_native", :controller => "mezuro_plugin_metric_configuration"}, :method => :get do |f| %>
   <%= hidden_field_tag :id, @configuration_content.id %>
   <%= f.hidden_field :configuration_id, :value => @configuration_content.configuration_id %>
+  <%= f.hidden_field :id, :value => @metric_configuration.id %>
 
   <%= labelled_form_field _('Collector Name:'), f.text_field(:base_tool_name, :value => @base_tool_name, :readonly => true) %>
 
@@ -17,20 +13,18 @@
     <%= labelled_form_field _('Metric Name:'), m.text_field(:name, :value => @metric.name, :readonly => true) %>
     <%= labelled_form_field _('Description:'), m.text_field(:description, :value => @metric.description, :readonly => true) %>
   <% end %>
-
+  
   <%= required labelled_form_field _('Code:'), f.text_field(:code) %>
 
   <%= required labelled_form_field _('Aggregation Form:'),
   f.select(:aggregation_form, MezuroPlugin::Helpers::ContentViewerHelper.aggregation_options) %>
 
   <%= required labelled_form_field _('Weight:'), f.text_field(:weight) %>
-
+  
   <%= required labelled_form_field _('Reading Group:'),
   f.select(:reading_group_id, @reading_group_names_and_ids) %>
-
+  
   <p>
     <%= f.submit "Save" %>
   </p>
-
 <% end %>
-
