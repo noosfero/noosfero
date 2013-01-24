@@ -10,6 +10,7 @@
   <%= labelled_form_field _('Collector Name:'), f.text_field(:base_tool_name, :value => @base_tool_name, :readonly => true) %>
 
   <% f.fields_for :metric do |m| %>
+    <%= m.hidden_field :compound, :value => "false" %>
     <% @metric.language.each do |language| %>
       <%= m.hidden_field :language, :multiple => true, :value => language %>
     <% end %>

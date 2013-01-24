@@ -1,0 +1,26 @@
+<h2><%= @configuration_content.name %> Configuration</h2>
+
+<% form_for :metric_configuration, :url => {:action =>"create_compound", :controller => "mezuro_plugin_metric_configuration"}, :method => :get do |f| %>
+  <%= hidden_field_tag :id, @configuration_content.id %>
+  <%= f.hidden_field :configuration_id, :value => @configuration_content.configuration_id %>
+
+  <% f.fields_for :metric do |m| %>
+    <%= m.hidden_field :compound, :value => "true" %>
+    <%= required labelled_form_field _('Metric Name:'), m.text_field(:name) %>
+    <%= labelled_form_field _('Description:'), m.text_field(:description) %>
+    <%= required labelled_form_field _('Script:'), m.text_area(:script, :rows => 5) %>
+    <%= required labelled_form_field _('Scope:'), m.select(:scope, MezuroPlugin::Helpers::ContentViewerHelper.scope_options) %>
+  <% end %>
+
+  <%= required labelled_form_field _('Code:'), f.text_field(:code) %>
+  <%= required labelled_form_field _('Aggregation Form:'), f.select(:aggregation_form, MezuroPlugin::Helpers::ContentViewerHelper.aggregation_options) %>
+  <%= required labelled_form_field _('Weight:'), f.text_field(:weight) %>
+  <%= required labelled_form_field _('Reading Group:'),
+  f.select(:reading_group_id, @reading_group_names_and_ids) %>
+  
+  <p> <%= f.submit "Add" %> </p>
+<% end %>
+
+<%= render :partial => "metric_codes", :locals => {:metric_configurations => @metric_configurations} %>
+
+
