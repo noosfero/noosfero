@@ -9,9 +9,11 @@ class MezuroPluginRangeController < MezuroPluginMyprofileController
   end
 
   def edit_range
-    @range = Kalibro::Range.new(params[:range])
     @content_id = params[:id]
     @metric_configuration_id = params[:metric_configuration_id]
+    ranges = Kalibro::Range.ranges_of params[:metric_configuration_id]
+    @range = (ranges.select { |range| range.id == params[:range_id].to_i }).first
+    @reading_labels_and_ids = reading_labels_and_ids
   end
 
   def create_range
@@ -35,11 +37,12 @@ class MezuroPluginRangeController < MezuroPluginMyprofileController
   def remove_range
     configuration_content_id = params[:id]
     metric_configuration_id = params[:metric_configuration_id]
-    Kalibro::Range.new(params[:range]).destroy
-    if metric_configuration.metric.compound
-      redirect_to "/myprofile/#{profile.identifier}/plugin/mezuro/metric_configuration/edit_compound_metric_configuration?id=#{configuration_content_id}&metric_configuration_id=#{metric_configuration_id}"
+    compound = params[:compound]
+    Kalibro::Range.new({:id => params[:range_id]}).destroy
+    if compound
+      redirect_to "/myprofile/#{profile.identifier}/plugin/mezuro/metric_configuration/edit_compound?id=#{configuration_content_id}&metric_configuration_id=#{metric_configuration_id}"
     else
-      redirect_to "/myprofile/#{profile.identifier}/plugin/mezuro/metric_configuration/edit_native_metric_configuration?id=#{configuration_content_id}&metric_configuration_id=#{metric_configuration_id}"
+      redirect_to "/myprofile/#{profile.identifier}/plugin/mezuro/metric_configuration/edit_native?id=#{configuration_content_id}&metric_configuration_id=#{metric_configuration_id}"
     end
   end
 

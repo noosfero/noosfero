@@ -13,9 +13,9 @@
   </td>
   <td bgcolor="#<%= range.color %>"></td>
   <% if (not user.nil?) && user.id == @profile.id %>
-  <td><%= link_to_remote "Edit", :url => {:action =>"edit_range", :controller => "mezuro_plugin_range", :id => params[:id], :metric_configuration_id => params[:metric_configuration_id], :range_id => range.id} %>
+  <td><%= link_to_remote "Edit", :url => {:action =>"edit_range", :controller => "mezuro_plugin_range", :id => params[:id], :metric_configuration_id => params[:metric_configuration_id], :range_id => range.id, :reading_group_id => reading_group_id} %>
   </td>
-    <td><%= link_to "Remove", :action =>"remove_range", :controller => "mezuro_plugin_range", :id => params[:id], :metric_configuration_id => params[:metric_configuration_id], :range_id => range.id %>
+    <td><%= link_to "Remove", :action =>"remove_range", :controller => "mezuro_plugin_range", :id => params[:id], :metric_configuration_id => params[:metric_configuration_id], :range_id => range.id, :compound => compound %>
     </td>
   <% else %>
     <td></td>

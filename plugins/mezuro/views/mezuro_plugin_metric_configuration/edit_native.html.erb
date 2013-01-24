@@ -36,7 +36,7 @@
   </tr>
   <% @ranges.each do |range| %>
       <%= render :partial => "mezuro_plugin_range/range", :locals => {:range => range, :id => @configuration_content.id, 
-          :metric_configuration_id => @metric_configuration.id} %>
+          :metric_configuration_id => @metric_configuration.id, :reading_group_id => @metric_configuration.reading_group_id, :compound => @metric_configuration.metric.compound} %>
   <% end %>
 </table>
 
