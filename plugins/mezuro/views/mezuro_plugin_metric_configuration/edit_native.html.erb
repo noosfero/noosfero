@@ -34,20 +34,15 @@
     <td></td>    
     <td></td>
   </tr>
-  <%# if (@metric_configuration.ranges!=nil) 
-  #  @metric_configuration.ranges.each do |range| 
-  %>
-      <%= #render :partial => "mezuro_plugin_range/range", :locals => {:range => range, :id => @configuration_content.id, 
-         # :metric_name => @metric.name} 
-         %>
-    <% #end
- # end 
- %>
+  <% @ranges.each do |range| %>
+      <%= render :partial => "mezuro_plugin_range/range", :locals => {:range => range, :id => @configuration_content.id, 
+          :metric_configuration_id => @metric_configuration.id} %>
+  <% end %>
 </table>
 
 <br/>
 <% if owner %>
-  <%= link_to_remote "New Range", :url => {:action =>"new_range", :controller => "mezuro_plugin_range", :id => @configuration_content.id, :metric_name => @metric_configuration.id} %>
+  <%= link_to_remote "New Range", :url => {:action =>"new_range", :controller => "mezuro_plugin_range", :id => @configuration_content.id, :metric_configuration_id => @metric_configuration.id} %>
 <% end %>
 <div id="range_form" style="display:none"></div>
 

@@ -30,16 +30,23 @@ class Kalibro::Range < Kalibro::Model
     end
   end
 
-  def grade=(value)
-    @grade = value.to_f
+  def label
+    reading.label
   end
 
-	def mezuro_color
-		@color.nil? ? "e4ca2d" : @color.gsub(/^ff/, "")
-	end
-	
+  def grade
+    reading.grade
+  end
+
+  def color
+    reading.color
+  end
+
 	def self.ranges_of( metric_configuration_id )
-    request(:ranges_of, {:metric_configuration_id => metric_configuration_id} )[:range].to_a.map { |range| new range }
+    response = request(:ranges_of, {:metric_configuration_id => metric_configuration_id} )[:range]
+    response = [] if response.nil?
+    response = [response] if response.is_a?(Hash) 
+    response.map { |range| new range }
   end
   
   def save( metric_configuration_id )
@@ -52,4 +59,12 @@ class Kalibro::Range < Kalibro::Model
 	  end
   end
 
+  private
+  
+  def reading
+    @reading ||= Kalibro::Reading.find(reading_id)
+    @reading
+  end
+
 end
+

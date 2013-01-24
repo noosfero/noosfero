@@ -1,15 +1,9 @@
 <%= hidden_field_tag :id, @content_id %>
-<%= hidden_field_tag :metric_name, @metric_name %>
+<%= hidden_field_tag :metric_configuration_id, @metric_configuration_id %>
+
+<%= f.hidden_field :id %>
 
 <table>
-  <tr>
-    <td>
-      <%= f.label :label, "(*) Label:" %>
-    </td>
-    <td>
-      <%= f.text_field :label %>
-    </td>
-  </tr>
   <tr>
     <td>
       <%= f.label :beginning, "(*) Beginning:" %>
@@ -32,14 +26,6 @@
     </td>
     <td>
       <%= f.text_field :grade %>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <%= f.label :color, "(*) Color:" %>
-    </td>
-    <td>
-      <%= colorpicker_field(:range, :color, :value => @range.mezuro_color) %>Click in the field to change Color
     </td>
   </tr>
   <tr>

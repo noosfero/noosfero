@@ -33,6 +33,7 @@ class MezuroPluginMetricConfigurationController < MezuroPluginMyprofileControlle
     @metric_configuration = find_metric_configuration(metric_configurations, params[:metric_configuration_id].to_i)
     @metric = @metric_configuration.metric
     @reading_group_names_and_ids = reading_group_names_and_ids
+    @ranges = Kalibro::Range.ranges_of(@metric_configuration.id)
   end
 =begin
   def new_compound_metric_configuration
