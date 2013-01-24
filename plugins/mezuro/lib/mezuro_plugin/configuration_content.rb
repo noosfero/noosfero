@@ -32,18 +32,15 @@ class MezuroPlugin::ConfigurationContent < Article
   end
 
   def configuration_names_and_ids
-    all_names_and_ids = {}
     begin
       all_configurations = Kalibro::Configuration.all
-      if(!all_configurations.empty?)
-        all_configurations.each do |configuration| 
-            all_names_and_ids[configuration.id] = configuration.name
-        end
-      end
+      all_names_and_ids = all_configurations.map { |configuration| [configuration.name, configuration.id] }
+      [["None", -1]] + (all_names_and_ids.sort { |x,y| x.first.downcase <=> y.first.downcase })
     rescue Exception => exception
       errors.add_to_base(exception.message)
+      [["None", -1]]
     end
-    all_names_and_ids
+    
   end
 
   def description=(value)
@@ -59,16 +56,16 @@ class MezuroPlugin::ConfigurationContent < Article
     @description
   end
 
-  def configuration_to_clone_name
+  def configuration_to_clone_id
     begin
-      @configuration_to_clone_name
+      @configuration_to_clone_id
     rescue Exception => exception
       nil
     end
   end
 
-  def configuration_to_clone_name=(value)
-    @configuration_to_clone_name = (value == "None") ? nil : value
+  def configuration_to_clone_id=(value)
+    @configuration_to_clone_id = (value == -1) ? nil : value
   end
 
   def metric_configurations
@@ -93,7 +90,7 @@ class MezuroPlugin::ConfigurationContent < Article
   end
 
   def validate_configuration_name
-    existing = configuration_names_and_ids.values.map { |a| a.downcase}
+    existing = configuration_names_and_ids.map { |a| a.first.downcase}
 
     if existing.include?(name.downcase)
       errors.add_to_base("Configuration name already exists in Kalibro")
@@ -111,11 +108,6 @@ class MezuroPlugin::ConfigurationContent < Article
     clone_configuration if cloning_configuration?
   end
 
-  def configuration_to_clone_id
-    @configuration_to_clone_id ||= (configuration_to_clone_name.nil?) ? nil : configuration_names_and_ids.index(configuration_to_clone_name)
-    @configuration_to_clone_id
-  end
-  
   def cloning_configuration?
     !configuration_to_clone_id.nil?
   end
