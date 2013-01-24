@@ -5,6 +5,7 @@ class MezuroPluginRangeController < MezuroPluginMyprofileController
   def new_range
     @content_id = params[:id]
     @metric_configuration_id = params[:metric_configuration_id]
+    @reading_labels_and_ids = reading_labels_and_ids
   end
 
   def edit_range
@@ -40,6 +41,13 @@ class MezuroPluginRangeController < MezuroPluginMyprofileController
     else
       redirect_to "/myprofile/#{profile.identifier}/plugin/mezuro/metric_configuration/edit_native_metric_configuration?id=#{configuration_content_id}&metric_configuration_id=#{metric_configuration_id}"
     end
+  end
+
+  private
+
+  def reading_labels_and_ids
+    array = Kalibro::Reading.readings_of(params[:reading_group_id]).map { |reading| [reading.label, reading.id] }
+    array.sort { |x,y| x.first.downcase <=> y.first.downcase }
   end
 
 end

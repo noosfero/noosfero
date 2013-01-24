@@ -2,6 +2,10 @@ class Kalibro::Range < Kalibro::Model
   
   attr_accessor :id, :beginning, :end, :reading_id, :comments
 
+  def id=(value)
+    @id = value.to_i
+  end
+
   def beginning=(value)
     @beginning = value.to_f
     @beginning = -1.0/0.0 if value == "-INF"

@@ -40,18 +40,15 @@ function IsNotInfinite(value){
 }
 
 function validate_new_range_configuration(event){    
-    var label = jQuery("#range_label").val();
     var beginning = jQuery("#range_beginning").val();
     var end = jQuery("#range_end").val();
-    var color = jQuery("#range_color").val();
-    var grade = jQuery("#range_grade").val();
 
-    if (is_null(label) || is_null(beginning) || is_null(end) || is_null(color) || is_null(grade))
+    if (is_null(beginning) || is_null(end))
     {
         alert("Please fill all fields marked with (*).");
         return false;
     }
-    if ( (IsNotNumeric(beginning) && IsNotInfinite(beginning)) || (IsNotNumeric(end) && IsNotInfinite(end)) || IsNotNumeric(grade))
+    if ( (IsNotNumeric(beginning) && IsNotInfinite(beginning)) || (IsNotNumeric(end) && IsNotInfinite(end)))
     {
         alert("Beginning, End and Grade must be numeric values.");
         return false;

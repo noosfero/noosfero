@@ -3,13 +3,15 @@
 
 <%= f.hidden_field :id %>
 
+  <%= required labelled_form_field _('Label'),
+  f.select(:reading_id, @reading_labels_and_ids) %><br/>
 <table>
   <tr>
     <td>
       <%= f.label :beginning, "(*) Beginning:" %>
     </td>
     <td>
-      <%= f.text_field :beginning, :id => "range_beginning" %>&nbsp;<%= link_to('-&#8734', 'javascript:void(0)', :onClick => "jQuery( '#range_beginning' ).val('-INF');") %>
+      <%= required f.text_field :beginning, :id => "range_beginning" %>&nbsp;<%= link_to('-&#8734', 'javascript:void(0)', :onClick => "jQuery( '#range_beginning' ).val('-INF');") %>
     </td>
   </tr>
   <tr>
@@ -17,24 +19,17 @@
       <%= f.label :end, "(*) End:" %>
     </td>
     <td>
-      <%= f.text_field(:end, :id => "range_end") %>&nbsp;<%= link_to('+&#8734', 'javascript:void(0)', :onClick => "jQuery( '#range_end' ).val('+INF');") %>
+      <%= required f.text_field(:end, :id => "range_end") %>&nbsp;<%= link_to('+&#8734', 'javascript:void(0)', :onClick => "jQuery( '#range_end' ).val('+INF');") %>
     </td>
   </tr>
   <tr>
     <td>
-      <%= f.label :grade, "(*) Grade:" %>
+      <%= f.label :comments, "(*) Comments:" %>
     </td>
     <td>
-      <%= f.text_field :grade %>
-    </td>
-  </tr>
-  <tr>
-    <td>
-      <%= f.label :comments, "Comments:" %>
-    </td>
-    <td>
-      <%= f.text_area :comments, :rows => 3 %>
+      <%= required f.text_area :comments, :rows => 3 %>
     </td>
   </tr>
 </table>
+<br/>
 <%= f.submit "Save Range" %>
