@@ -19,6 +19,7 @@ class AccountControllerTest < ActionController::TestCase
     @controller = AccountController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
+    disable_signup_bot_check
   end
 
   def test_local_files_reference
@@ -566,6 +567,7 @@ class AccountControllerTest < ActionController::TestCase
     template.boxes[0].blocks << Block.new
     template.save!
     env = fast_create(Environment, :name => 'test_env')
+    disable_signup_bot_check(env)
     env.settings[:person_template_id] = template.id
     env.save!
 
@@ -882,26 +884,31 @@ class AccountControllerTest < ActionController::TestCase
 
 
   protected
-    def new_user(options = {}, extra_options ={})
-      data = {:profile_data => person_data}
-      if extra_options[:profile_data]
-         data[:profile_data].merge! extra_options.delete(:profile_data)
-      end
-      data.merge! extra_options
-
-       post :signup, { :user => { :login => 'quire',
-                                 :email => 'quire@example.com',
-                                 :password => 'quire',
-                                 :password_confirmation => 'quire'
-                              }.merge(options)
-                    }.merge(data)
+  def new_user(options = {}, extra_options ={})
+    data = {:profile_data => person_data}
+    if extra_options[:profile_data]
+      data[:profile_data].merge! extra_options.delete(:profile_data)
     end
+    data.merge! extra_options
 
-    def auth_token(token)
-      CGI::Cookie.new('name' => 'auth_token', 'value' => token)
-    end
+    post :signup, { :user => { :login => 'quire',
+      :email => 'quire@example.com',
+      :password => 'quire',
+      :password_confirmation => 'quire'
+    }.merge(options)
+    }.merge(data)
+  end
 
-    def cookie_for(user)
-      auth_token users(user).remember_token
-    end
+  def auth_token(token)
+    CGI::Cookie.new('name' => 'auth_token', 'value' => token)
+  end
+
+  def cookie_for(user)
+    auth_token users(user).remember_token
+  end
+
+  def disable_signup_bot_check(environment = Environment.default)
+    environment.min_signup_delay = 0
+    environment.save!
+  end
 end
