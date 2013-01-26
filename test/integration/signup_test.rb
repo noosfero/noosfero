@@ -12,7 +12,7 @@ class SignupTest < ActionController::IntegrationTest
       registering_with_bot_test 5, 1
     end
     assert_template 'signup'
-    assert_match /you are a robot/, response.body
+    assert_match /robot/, response.body
   end
 
   def test_signup_form_submission_must_not_block_after_min_signup_delay
