@@ -9,7 +9,7 @@
 
 <%= error_messages_for :user, :person, :header_message => _('The account could not be created') %>
 
-<% labelled_form_for :user, @user, :html => { :multipart => true, :id => 'signup-form' } do |f| %>
+<% labelled_form_for :user, @user, :html => { :multipart => true, :id => 'signup-form', :honeypot => true } do |f| %>
 
 <input type="hidden" id="signup_time_key" name="signup_time_key" />
 <script type="text/javascript">
