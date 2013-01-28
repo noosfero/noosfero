@@ -15,8 +15,7 @@ class MezuroPluginMetricConfigurationController < MezuroPluginMyprofileControlle
   end
 
   def create_native
-    metric_configuration = Kalibro::MetricConfiguration.new(params[:metric_configuration])
-    metric_configuration.save
+    metric_configuration = Kalibro::MetricConfiguration.create(params[:metric_configuration])
 
     if metric_configuration_has_errors? metric_configuration
       redirect_to_error_page metric_configuration.errors[0].message

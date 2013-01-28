@@ -5,6 +5,8 @@ require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/metric_fixtures"
 require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/metric_configuration_fixtures"
 require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/configuration_fixtures"
 require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/reading_group_fixtures"
+require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/range_fixtures"
+require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/reading_fixtures"
 
 class MezuroPluginMetricConfigurationControllerTest < ActionController::TestCase
 
@@ -30,6 +32,8 @@ class MezuroPluginMetricConfigurationControllerTest < ActionController::TestCase
     @metric = MetricFixtures.amloc
 
     @reading_group = ReadingGroupFixtures.reading_group
+    @range = RangeFixtures.range
+    @reading = ReadingFixtures.reading
 
     @metric_configuration = MetricConfigurationFixtures.amloc_metric_configuration
     @metric_configuration_hash = MetricConfigurationFixtures.amloc_metric_configuration_hash
@@ -41,8 +45,8 @@ class MezuroPluginMetricConfigurationControllerTest < ActionController::TestCase
     
     @native_hash = @metric_configuration.to_hash.merge({:configuration_name => @metric_configuration.configuration_name})
     @native_hash.delete :attributes!    
-    @compound_hash = @compound_metric_configuration.to_hash.merge({:configuration_name => @compound_metric_configuration.configuration_name})
     @compound_hash.delete :attributes!
+    @compound_hash = @compound_metric_configuration.to_hash.merge({:configuration_name => @compound_metric_configuration.configuration_name})
 =end
   end
   
@@ -51,7 +55,7 @@ class MezuroPluginMetricConfigurationControllerTest < ActionController::TestCase
     get :choose_metric, :profile => @profile.identifier, :id => @configuration_content.id
     assert_equal @configuration_content, assigns(:configuration_content)
     assert_equal [@base_tool], assigns(:base_tools)
-    assert_response 200
+    assert_response :success
   end
 
   should 'initialize native' do
@@ -62,40 +66,37 @@ class MezuroPluginMetricConfigurationControllerTest < ActionController::TestCase
     assert_equal @metric.name, assigns(:metric).name
     assert_equal @base_tool.name, assigns(:base_tool_name)
     assert_equal [[@reading_group.name,@reading_group.id]], assigns(:reading_group_names_and_ids)
-    assert_response 200
+    assert_response :success
   end
   
   should 'create native' do
-    #Kalibro::MetricConfiguration.expects(:new).returns(@created_metric_configuration) #FIXME need .with(some_hash).
-    #@created_metric_configuration.expects(:save).returns(true)
-=begin
-    #TODO ARRUMAR ESTE TESTE!!!
-    Kalibro::MetricConfiguration.expects(:request).with(:save_metric_configuration, {:metric_configuration => @metric_configuration.to_hash, :configuration_id => @configuration_content.configuration_id}).returns(@metric_configuration.id)
+    Kalibro::MetricConfiguration.expects(:create).returns(@created_metric_configuration) #FIXME need .with(some_hash), should it mock the request?.
     get :create_native, :profile => @profile.identifier, :id => @configuration_content.id, :metric_configuration => @metric_configuration_hash
-    assert_response 200
-=end
+    assert_response :redirect
   end
   
   should 'edit native' do
     Kalibro::MetricConfiguration.expects(:metric_configurations_of).with(@configuration.id).returns([@metric_configuration])
     Kalibro::ReadingGroup.expects(:all).returns([@reading_group])
+    Kalibro::Range.expects(:ranges_of).with(@metric_configuration.id).returns([@range])
+    Kalibro::Reading.expects(:find).with(@range.reading_id).returns(@reading)    
     get :edit_native, :profile => @profile.identifier, :id => @configuration_content.id, :metric_configuration_id => @metric_configuration.id
     assert_equal @configuration_content, assigns(:configuration_content)
     assert_equal @metric_configuration.code, assigns(:metric_configuration).code
     assert_equal @metric_configuration.metric.name, assigns(:metric).name
     assert_equal [[@reading_group.name,@reading_group.id]], assigns(:reading_group_names_and_ids)
-    assert_response 200
+    assert_equal [@range], assigns(:ranges)
+    assert_response :success
   end
   
   should 'initialize compound' do
     Kalibro::ReadingGroup.expects(:all).returns([@reading_group])
+    Kalibro::MetricConfiguration.expects(:metric_configurations_of).with(@configuration_content.configuration_id).returns([@compound_metric_configuration])
     get :new_compound, :profile => @profile.identifier, :id => @configuration_content.id
     assert_equal @configuration_content, assigns(:configuration_content)
-    #FIXME mock is not working. configuration_id is not being set.
-    #MezuroPlugin::ConfigurationContent.expects(:metric_configurations).returns([@compound_metric_configuration])
-    #assert_equal @compound_metric_configuration.code, assigns(:metric_configurations).first.code
+    assert_equal @compound_metric_configuration.code, assigns(:metric_configurations).first.code
     assert_equal [[@reading_group.name,@reading_group.id]], assigns(:reading_group_names_and_ids)
-    assert_response 200
+    assert_response :success
   end
 
   should 'create compound' do
