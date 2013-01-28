@@ -57,6 +57,10 @@ class MezuroPlugin::Helpers::ContentViewerHelper
       ["Count", "COUNT"], ["Standard Deviation", "STANDARD_DEVIATION"]]
   end
 
+  def self.scope_options
+    [["Class", "CLASS"]]
+  end
+
   private
 
   def self.discretize_array(array)

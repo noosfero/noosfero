@@ -60,4 +60,8 @@ class ContentViewerHelperTest < ActiveSupport::TestCase
     ["Count", "COUNT"], ["Standard Deviation", "STANDARD_DEVIATION"]], @helper.aggregation_options
   end
 
+  should 'create scope options' do
+    assert_equal [["Class", "CLASS"]], @helper.scope_options
+  end
+
 end

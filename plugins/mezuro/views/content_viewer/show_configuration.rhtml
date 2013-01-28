@@ -44,7 +44,13 @@
     </tr>
     <% @configuration_content.metric_configurations.each do |metric_configuration| %>
       <tr class="metric">
-        <td><%= link_to metric_configuration.metric.name, :controller => "mezuro_plugin_metric_configuration", :action => "edit_native", 
+        <% if metric_configuration.metric.compound
+             edit_action = "edit_compound"
+           else
+             edit_action = "edit_native"
+           end
+        %>
+        <td><%= link_to metric_configuration.metric.name, :controller => "mezuro_plugin_metric_configuration", :action => edit_action, 
           						  :metric_configuration_id => metric_configuration.id, :id => @configuration_content.id, 
           						  :profile => @page.profile.identifier %></td>
         <% if metric_configuration.metric.compound %>
@@ -60,8 +66,8 @@
         <td><%= metric_configuration.weight %></td>
         <td><%= metric_configuration.aggregation_form %></td>
         <% if owner %>
-          <td><%= link_to "Remove", :controller => "mezuro_plugin_metric_configuration", :action => "remove_metric_configuration", 
-        						  :metric_name => metric_configuration.metric.name, :id => @configuration_content.id, 
+          <td><%= link_to "Remove", :controller => "mezuro_plugin_metric_configuration", :action => "remove", 
+        						  :metric_configuration_id => metric_configuration.id, :id => @configuration_content.id, 
         						  :profile => @page.profile.identifier %></td>
         <% end %>
       </tr>
