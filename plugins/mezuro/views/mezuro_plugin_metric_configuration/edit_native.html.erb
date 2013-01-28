@@ -42,7 +42,7 @@
 
 <br/>
 <% if owner %>
-  <%= link_to_remote "New Range", :url => {:action =>"new_range", :controller => "mezuro_plugin_range", :id => @configuration_content.id, :metric_configuration_id => @metric_configuration.id, :reading_group_id => @metric_configuration.reading_group_id} %>
+  <%= link_to_remote "New Range", :url => {:action =>"new", :controller => "mezuro_plugin_range", :id => @configuration_content.id, :metric_configuration_id => @metric_configuration.id, :reading_group_id => @metric_configuration.reading_group_id} %>
 <% end %>
-<div id="range_form" style="display:none"></div>
+<div id="form" style="display:none"></div>
 
