@@ -14,7 +14,6 @@ class MezuroPluginRangeController < MezuroPluginMyprofileController
     ranges = Kalibro::Range.ranges_of params[:metric_configuration_id].to_i
     @range = (ranges.select { |range| range.id == params[:range_id].to_i }).first
     @reading_labels_and_ids = reading_labels_and_ids
-    @selected_reading_label = @range.label
   end
 
   def create

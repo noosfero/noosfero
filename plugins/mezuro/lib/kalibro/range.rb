@@ -34,6 +34,10 @@ class Kalibro::Range < Kalibro::Model
     end
   end
 
+  def reading_id=(value)
+    @reading_id = value.to_i
+  end
+
   def label
     reading.label
   end

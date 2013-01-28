@@ -57,7 +57,7 @@ class MezuroPluginRangeControllerTest < ActionController::TestCase
         :metric_configuration_id => @metric_configuration.id,
         :range => @created_range.to_hash}).returns(:range_id => @range.id)
     Kalibro::Reading.expects(:find).with(@created_range.reading_id).returns(@reading)
-    get :create, :range => @created_range_hash, :metric_configuration_id => @metric_configuration.id
+    get :create, :profile => @profile.identifier, :range => @created_range_hash, :metric_configuration_id => @metric_configuration.id
     assert_equal @range.id, assigns(:range).id
     assert_response 200
   end
@@ -66,8 +66,7 @@ class MezuroPluginRangeControllerTest < ActionController::TestCase
     Kalibro::Range.expects(:request).with(:save_range, {
         :metric_configuration_id => @metric_configuration.id,
         :range => @range.to_hash}).returns(:range_id => @range.id)
-    Kalibro::Reading.expects(:find).with(@range.reading_id).returns(@reading)
-    get :update, :range => @range_hash, :metric_configuration_id => @metric_configuration.id
+    get :update, :profile => @profile.identifier, :range => @range_hash, :metric_configuration_id => @metric_configuration.id
     assert_equal @range.id, assigns(:range).id
     assert_response 200
   end
@@ -75,7 +74,7 @@ class MezuroPluginRangeControllerTest < ActionController::TestCase
   should 'test remove range in native metric configuration' do
     Kalibro::Range.expects(:new).with({:id => @range.id}).returns(@range)
     @range.expects(:destroy).with().returns()
-    get :remove, :id => @content.id, :metric_configuration_id => @metric_configuration.id, :range_id => @range.id, :compound => false
+    get :remove, :profile => @profile.identifier, :id => @content.id, :metric_configuration_id => @metric_configuration.id, :range_id => @range.id, :compound => false
      assert_response 302
   end
 end

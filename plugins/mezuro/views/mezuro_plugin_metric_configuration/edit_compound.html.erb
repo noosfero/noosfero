@@ -50,20 +50,14 @@
       Color
     </td>       
   </tr>
-  <% 
-  #if (@metric_configuration.ranges!=nil) 
-  #  @metric_configuration.ranges.each do |range| 
-  %>
-      <%= #render :partial => "mezuro_plugin_range/range", :locals => {:range => range, :id => @configuration_content.id, 
-          #:metric_name => @metric_configuration.metric.name} 
-  %>
-   <% #end
-  #end 
-  %>
+  <% @ranges.each do |range| %>
+      <%= render :partial => "mezuro_plugin_range/range", :locals => {:range => range, :id => @configuration_content.id, 
+          :metric_configuration_id => @metric_configuration.id, :reading_group_id => @metric_configuration.reading_group_id, :compound => @metric_configuration.metric.compound} %>
+  <% end %>
 </table>
 
 <br/>
-<%= link_to_remote "New Range", :url => {:action =>"new_range", :controller => "mezuro_plugin_range", :id => @configuration_content.id, :metric_name => @metric.name} %>
-<div id="range_form" style="display:none"></div>
-<br/>
-<%= render :partial => "metric_codes", :locals => {:metric_configurations => @metric_configurations} %>
+<% if owner %>
+  <%= link_to_remote "New Range", :url => {:action =>"new", :controller => "mezuro_plugin_range", :id => @configuration_content.id, :metric_configuration_id => @metric_configuration.id, :reading_group_id => @metric_configuration.reading_group_id} %>
+<% end %>
+<div id="form" style="display:none"></div>
