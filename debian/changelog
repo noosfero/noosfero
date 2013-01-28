@@ -1,3 +1,9 @@
+noosfero (0.41.0) unstable; urgency=low
+
+  * Features version with anti spam-bot measures
+
+ -- Rodrigo Souto <rodrigo@colivre.coop.br>  Mon, 28 Jan 2013 10:20:21 +0000
+
 noosfero (0.40.0) unstable; urgency=low
 
   * Features version release 
