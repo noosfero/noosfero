@@ -15,13 +15,13 @@ class MezuroPluginMetricConfigurationController < MezuroPluginMyprofileControlle
   end
 
   def create_native
+    configuration_content = profile.articles.find(params[:id])
     metric_configuration = Kalibro::MetricConfiguration.create(params[:metric_configuration])
 
     if metric_configuration_has_errors? metric_configuration
       redirect_to_error_page metric_configuration.errors[0].message
     else
-      id = params[:id]
-      redirect_to "/myprofile/#{profile.identifier}/plugin/mezuro/metric_configuration/edit_native?id=#{id}&metric_configuration_id=#{metric_configuration.id}"
+      redirect_to(metric_configuration_url(configuration_content)) 
     end
   end
 
@@ -42,7 +42,7 @@ class MezuroPluginMetricConfigurationController < MezuroPluginMyprofileControlle
     if metric_configuration_has_errors? metric_configuration
       redirect_to_error_page metric_configuration.errors[0].message
     else
-      redirect_to "/#{profile.identifier}/#{@configuration_content.slug}"
+      redirect_to @configuration_content.view_url
     end
   end
 
@@ -54,7 +54,7 @@ class MezuroPluginMetricConfigurationController < MezuroPluginMyprofileControlle
     if metric_configuration_has_errors? metric_configuration
       redirect_to_error_page metric_configuration.errors[0].message
     else
-      redirect_to "/#{profile.identifier}/#{configuration_content.slug}"
+      redirect_to configuration_content.view_url
     end
   end
   
@@ -68,13 +68,13 @@ class MezuroPluginMetricConfigurationController < MezuroPluginMyprofileControlle
   end
 
   def create_compound
+    configuration_content = profile.articles.find(params[:id])
     metric_configuration = Kalibro::MetricConfiguration.create(params[:metric_configuration])
 
     if metric_configuration_has_errors? metric_configuration
       redirect_to_error_page metric_configuration.errors[0].message
     else
-      id = params[:id]
-      redirect_to "/myprofile/#{profile.identifier}/plugin/mezuro/metric_configuration/edit_compound?id=#{id}&metric_configuration_id=#{metric_configuration.id}"
+      redirect_to(metric_configuration_url(configuration_content))
     end
   end
 
@@ -105,4 +105,14 @@ class MezuroPluginMetricConfigurationController < MezuroPluginMyprofileControlle
   def configuration_content_has_errors?
     not @configuration_content.errors[:base].nil?
   end
+
+  def metric_configuration_url configuration_content
+    url = configuration_content.view_url
+    url[:controller] = controller_name
+    url[:id] = configuration_content.id
+    url[:metric_configuration_id] = params[:metric_configuration][:id].to_i
+    url[:action] = (params[:metric_configuration][:metric][:compound] ? "edit_compound" : "edit_native")
+    url
+  end
 end
+

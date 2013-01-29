@@ -103,6 +103,7 @@ class MezuroPluginRepositoryControllerTest < ActionController::TestCase
     assert_equal @configuration.name, assigns(:configuration_name)
     assert_equal @content.profile.identifier, assigns(:data_profile)
     assert_equal @content.id, assigns(:data_content)
+    assert_response :success
   end
 
   should 'destroy a repository' do

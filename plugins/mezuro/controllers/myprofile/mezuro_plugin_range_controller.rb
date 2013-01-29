@@ -6,6 +6,8 @@ class MezuroPluginRangeController < MezuroPluginMyprofileController
     @content_id = params[:id].to_i
     @metric_configuration_id = params[:metric_configuration_id].to_i
     @reading_labels_and_ids = reading_labels_and_ids
+    @reading_group_id = params[:reading_group_id].to_i
+    @compound = params[:compound]
   end
 
   def edit
@@ -18,6 +20,8 @@ class MezuroPluginRangeController < MezuroPluginMyprofileController
 
   def create
     metric_configuration_id = params[:metric_configuration_id].to_i
+    @reading_group_id = params[:reading_group_id].to_i
+    @compound = params[:compound]
     @range = Kalibro::Range.new params[:range]
     @range.save metric_configuration_id
     if !@range.errors.empty?
@@ -35,18 +39,22 @@ class MezuroPluginRangeController < MezuroPluginMyprofileController
   end
 
   def remove
-    configuration_content_id = params[:id].to_i
-    metric_configuration_id = params[:metric_configuration_id].to_i
-    compound = params[:compound]
+    configuration_content = profile.articles.find(params[:id])
+
     Kalibro::Range.new({:id => params[:range_id].to_i}).destroy
-    if compound
-      redirect_to "/myprofile/#{profile.identifier}/plugin/mezuro/metric_configuration/edit_compound?id=#{configuration_content_id}&metric_configuration_id=#{metric_configuration_id}"
-    else
-      redirect_to "/myprofile/#{profile.identifier}/plugin/mezuro/metric_configuration/edit_native?id=#{configuration_content_id}&metric_configuration_id=#{metric_configuration_id}"
-    end
+    redirect_to(metric_configuration_url(configuration_content))
   end
 
   private
+
+  def metric_configuration_url configuration_content
+    url = configuration_content.view_url
+    url[:controller] = "mezuro_plugin_metric_configuration"
+    url[:id] = configuration_content.id
+    url[:metric_configuration_id] = params[:metric_configuration_id].to_i
+    url[:action] = (params[:compound] ? "edit_compound" : "edit_native")
+    url
+  end
 
   def reading_labels_and_ids
     array = Kalibro::Reading.readings_of(params[:reading_group_id].to_i).map { |reading| [reading.label, reading.id] }

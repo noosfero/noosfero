@@ -25,7 +25,7 @@ class MezuroPluginRepositoryController < MezuroPluginProfileController
     
     if( repository.errors.empty? )
       repository.process
-      redirect_to "/profile/#{profile.identifier}/plugin/mezuro/repository/show/#{project_content.id}?repository_id=#{repository.id}"
+      redirect_to(repository_url(project_content))
     else
       redirect_to_error_page repository.errors[0].message
     end
@@ -56,7 +56,7 @@ class MezuroPluginRepositoryController < MezuroPluginProfileController
 
     if( repository.errors.empty? )
       repository.process
-      redirect_to "/profile/#{profile.identifier}/plugin/mezuro/repository/show/#{project_content.id}?repository_id=#{repository.id}"
+      redirect_to(repository_url(project_content))
     else
       redirect_to_error_page repository.errors[0].message
     end
@@ -76,10 +76,19 @@ class MezuroPluginRepositoryController < MezuroPluginProfileController
     repository = project_content.repositories.select{ |repository| repository.id.to_s == params[:repository_id] }.first
     repository.destroy
     if( repository.errors.empty? )
-      redirect_to "/#{profile.identifier}/#{project_content.name.downcase.gsub(/\s/, '-')}"
+      redirect_to project_content.view_url
     else
       redirect_to_error_page repository.errors[0].message
     end
+  end
+  
+  def repository_url project_content
+    url = project_content.view_url
+    url[:controller] = controller_name
+    url[:id] = project_content.id
+    url[:repository_id] = params[:repository_id].to_i
+    url[:action] = "show"
+    url
   end
   
 end

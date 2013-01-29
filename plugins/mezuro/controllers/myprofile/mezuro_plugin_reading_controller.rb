@@ -11,11 +11,10 @@ class MezuroPluginReadingController < MezuroPluginMyprofileController
   
   def create
     reading_group_content = profile.articles.find(params[:id])
-
     reading = Kalibro::Reading.new params[:reading]
 
     if( reading.save(reading_group_content.reading_group_id) )
-      redirect_to "/#{profile.identifier}/#{reading_group_content.name.downcase.gsub(/\s/, '-').gsub(/[^0-9A-Za-z\-]/, '')}"
+      redirect_to reading_group_content.view_url
     else
       redirect_to_error_page reading.errors[0].message
     end
@@ -35,7 +34,7 @@ class MezuroPluginReadingController < MezuroPluginMyprofileController
     reading = Kalibro::Reading.new params[:reading]
 
     if( reading.save(reading_group_content.reading_group_id) )
-      redirect_to "/profile/#{profile.identifier}/plugin/mezuro/reading/show/#{reading_group_content.id}?reading_id=#{reading.id}"
+      redirect_to reading_group_content.view_url
     else
       redirect_to_error_page reading.errors[0].message
     end
@@ -46,7 +45,7 @@ class MezuroPluginReadingController < MezuroPluginMyprofileController
     reading = Kalibro::Reading.find params[:reading_id]
     reading.destroy
     if( reading.errors.empty? )
-      redirect_to "/#{profile.identifier}/#{reading_group_content.name.downcase.gsub(/\s/, '-')}"
+      redirect_to reading_group_content.view_url
     else
       redirect_to_error_page reading.errors[0].message
     end

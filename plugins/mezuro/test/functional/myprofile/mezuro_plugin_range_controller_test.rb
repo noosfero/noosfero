@@ -34,11 +34,13 @@ class MezuroPluginRangeControllerTest < ActionController::TestCase
 
   should 'set correct attributes to create a new range' do
     Kalibro::Reading.expects(:readings_of).with(@metric_configuration.reading_group_id).returns([@reading])
-    get :new, :profile => @profile.identifier, :id => @content.id, :metric_configuration_id => @metric_configuration.id, :reading_group_id => @metric_configuration.reading_group_id
+    get :new, :profile => @profile.identifier, :id => @content.id, :metric_configuration_id => @metric_configuration.id, :reading_group_id => @metric_configuration.reading_group_id, :compound => @metric_configuration.metric.compound
     assert_equal @content.id, assigns(:content_id)
     assert_equal @metric_configuration.id, assigns(:metric_configuration_id)
     assert_equal [[@reading.label,@reading.id]], assigns(:reading_labels_and_ids)
-    assert_response 200
+    assert_equal @metric_configuration.reading_group_id, assigns(:reading_group_id)
+    assert_equal @metric_configuration.metric.compound, assigns(:compound)
+    assert_response :success
   end
 
   should 'set correct attributes to edit a range' do
@@ -49,7 +51,7 @@ class MezuroPluginRangeControllerTest < ActionController::TestCase
     assert_equal @metric_configuration.id, assigns(:metric_configuration_id)
     assert_equal [[@reading.label,@reading.id]], assigns(:reading_labels_and_ids)
     assert_equal @range, assigns(:range)
-    assert_response 200
+    assert_response :success
   end
 
   should 'test create instance range' do
@@ -57,9 +59,11 @@ class MezuroPluginRangeControllerTest < ActionController::TestCase
         :metric_configuration_id => @metric_configuration.id,
         :range => @created_range.to_hash}).returns(:range_id => @range.id)
     Kalibro::Reading.expects(:find).with(@created_range.reading_id).returns(@reading)
-    get :create, :profile => @profile.identifier, :range => @created_range_hash, :metric_configuration_id => @metric_configuration.id
+    get :create, :profile => @profile.identifier, :range => @created_range_hash, :metric_configuration_id => @metric_configuration.id, :reading_group_id => @metric_configuration.reading_group_id, :compound => @metric_configuration.metric.compound
     assert_equal @range.id, assigns(:range).id
-    assert_response 200
+    assert_equal @metric_configuration.reading_group_id, assigns(:reading_group_id)
+    assert_equal @metric_configuration.metric.compound, assigns(:compound)
+    assert_response :success
   end
 
   should 'test update range' do
@@ -68,13 +72,13 @@ class MezuroPluginRangeControllerTest < ActionController::TestCase
         :range => @range.to_hash}).returns(:range_id => @range.id)
     get :update, :profile => @profile.identifier, :range => @range_hash, :metric_configuration_id => @metric_configuration.id
     assert_equal @range.id, assigns(:range).id
-    assert_response 200
+    assert_response :success
   end
 
   should 'test remove range in native metric configuration' do
     Kalibro::Range.expects(:new).with({:id => @range.id}).returns(@range)
     @range.expects(:destroy).with().returns()
     get :remove, :profile => @profile.identifier, :id => @content.id, :metric_configuration_id => @metric_configuration.id, :range_id => @range.id, :compound => false
-     assert_response 302
+     assert_response :redirect
   end
 end

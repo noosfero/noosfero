@@ -117,14 +117,14 @@ class MezuroPluginMetricConfigurationControllerTest < ActionController::TestCase
     @native_metric_configuration.expects(:update_attributes).returns(true) #FIXME need .with(some_hash), should it mock the request?.
     get :update, :profile => @profile.identifier, :id => @configuration_content.id, :metric_configuration => @native_metric_configuration_hash
     assert_equal @configuration_content, assigns(:configuration_content)
-    assert_response 302
+    assert_response :redirect
   end
 
   should 'remove' do
     Kalibro::MetricConfiguration.expects(:new).with({:id => @native_metric_configuration.id}).returns(@native_metric_configuration)
     @native_metric_configuration.expects(:destroy).returns()
     get :remove, :profile => @profile.identifier, :id => @configuration_content.id, :metric_configuration_id => @native_metric_configuration.id
-    assert_response 302
+    assert_response :redirect
   end
 
 end

@@ -32,7 +32,7 @@ class MezuroPluginModuleResultControllerTest < ActionController::TestCase
     get :module_result, :profile => @profile.identifier, :module_result_id => @module_result_hash[:id]
     assert_equal @module_result_hash[:grade].to_f, assigns(:module_result).grade
     assert_equal @metric_result_hash[:value].to_f, assigns(:metric_results).first.value
-    assert_response 200
+    assert_response :success
     #TODO assert_select('h5', 'Metric results for: Qt-Calculator (APPLICATION)')
   end
 
@@ -42,7 +42,7 @@ class MezuroPluginModuleResultControllerTest < ActionController::TestCase
         returns({:date_metric_result => @date_metric_result_hash})
     get :metric_result_history, :profile => @profile.identifier, :module_result_id => @module_result_hash[:id], :metric_name => metric_name
     assert_equal DateTime.parse(@date_metric_result_hash[:date]), assigns(:history).first.date
-    assert_response 200
+    assert_response :success
     #TODO assert_select
   end
 
@@ -51,7 +51,7 @@ class MezuroPluginModuleResultControllerTest < ActionController::TestCase
         returns({:date_module_result => @date_module_result_hash})
     get :module_result_history, :profile => @profile.identifier, :module_result_id => @module_result_hash[:id]
     assert_equal DateTime.parse(@date_module_result_hash[:date]), assigns(:history).first.date
-    assert_response 200
+    assert_response :success
     #TODO assert_select
   end
   
