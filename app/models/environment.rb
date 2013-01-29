@@ -233,8 +233,10 @@ class Environment < ActiveRecord::Base
     settings[:message_for_member_invitation] || InviteMember.mail_template
   end
 
+  settings_items :min_signup_delay, :type => Integer, :default => 3 #seconds
   settings_items :activation_blocked_text, :type => String
-  settings_items :message_for_disabled_enterprise, :type => String
+  settings_items :message_for_disabled_enterprise, :type => String,
+                 :default => _('This enterprise needs to be enabled.')
   settings_items :location, :type => String
   settings_items :layout_template, :type => String, :default => 'default'
   settings_items :homepage, :type => String

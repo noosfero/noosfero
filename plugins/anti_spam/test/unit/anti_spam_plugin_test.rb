@@ -7,7 +7,7 @@ class AntiSpamPluginTest < ActiveSupport::TestCase
     article = fast_create(TextileArticle, :profile_id => profile.id)
     @comment = fast_create(Comment, :source_id => article.id, :source_type => 'Article')
 
-    @settings = AntiSpamPlugin::Settings.new(@comment.environment)
+    @settings = Noosfero::Plugin::Settings.new(@comment.environment, AntiSpamPlugin)
     @settings.api_key = 'b8b80ddb8084062d0c9119c945ce3bc3'
     @settings.save!
 

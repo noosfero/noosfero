@@ -13,46 +13,42 @@ class ShoppingCartPluginMyprofileControllerTest < ActionController::TestCase
   attr_reader :enterprise
 
   should 'be able to enable shopping cart' do
-    enterprise.shopping_cart = false
-    enterprise.save
-    post :edit, :profile => enterprise.identifier, :profile_attr => {:shopping_cart => '1'}
-    enterprise.reload
+    settings.enabled = false
+    settings.save!
+    post :edit, :profile => enterprise.identifier, :settings => {:enabled => '1'}
 
-    assert enterprise.shopping_cart
+    assert settings.enabled
   end
 
   should 'be able to disable shopping cart' do
-    enterprise.shopping_cart = true
-    enterprise.save
-    post :edit, :profile => enterprise.identifier, :profile_attr => {:shopping_cart => '0'}
-    enterprise.reload
+    settings.enabled = true
+    settings.save!
+    post :edit, :profile => enterprise.identifier, :settings => {:enabled => '0'}
 
-    assert !enterprise.shopping_cart
+    assert !settings.enabled
   end
 
   should 'be able to enable shopping cart delivery' do
-    enterprise.shopping_cart_delivery = false
-    enterprise.save
-    post :edit, :profile => enterprise.identifier, :profile_attr => {:shopping_cart_delivery => '1'}
-    enterprise.reload
+    settings.delivery = false
+    settings.save!
+    post :edit, :profile => enterprise.identifier, :settings => {:delivery => '1'}
 
-    assert enterprise.shopping_cart_delivery
+    assert settings.delivery
   end
 
   should 'be able to disable shopping cart delivery' do
-    enterprise.shopping_cart_delivery = true
-    enterprise.save
-    post :edit, :profile => enterprise.identifier, :profile_attr => {:shopping_cart_delivery => '0'}
-    enterprise.reload
+    settings.delivery = true
+    settings.save!
+    post :edit, :profile => enterprise.identifier, :settings => {:delivery => '0'}
 
-    assert !enterprise.shopping_cart_delivery
+    assert !settings.delivery
   end
 
   should 'be able to choose the delivery price' do
     price = 4.35
-    post :edit, :profile => enterprise.identifier, :profile_attr => {:shopping_cart_delivery_price => price}
-    enterprise.reload
-    assert enterprise.shopping_cart_delivery_price == price
+    post :edit, :profile => enterprise.identifier, :settings => {:delivery_price => price}
+
+    assert settings.delivery_price == price
   end
 
   should 'filter the reports correctly' do
@@ -111,5 +107,12 @@ class ShoppingCartPluginMyprofileControllerTest < ActionController::TestCase
       :order_status => ShoppingCartPlugin::PurchaseOrder::Status::CONFIRMED
     po.reload
     assert_equal ShoppingCartPlugin::PurchaseOrder::Status::CONFIRMED, po.status
+  end
+
+  private
+
+  def settings
+    @enterprise.reload
+    Noosfero::Plugin::Settings.new(@enterprise, ShoppingCartPlugin)
   end
 end

@@ -1,0 +1,3 @@
+<%= render :partial => 'folder', :locals => {:f => f} %>
+
+<%= labelled_check_box(_('Publish submissions'), 'article[publish_submissions]', true, @article.publish_submissions) %>

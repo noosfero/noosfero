@@ -84,21 +84,8 @@ class TaskMailerTest < ActiveSupport::TestCase
   end
 
   should 'be able to send a "target notification" message' do
-    task = Task.new
+    task = Task.new(:target => fast_create(Person))
     task.expects(:target_notification_description).returns('the task')
-
-    target = mock()
-    target.expects(:notification_emails).returns(['target@example.com'])
-    target.expects(:name).returns('Target')
-    target.expects(:url).returns({:host => 'my.domain.com', :profile => 'testprofile'})
-
-    environment = mock()
-    environment.expects(:contact_email).returns('sender@example.com')
-    environment.expects(:default_hostname).returns('example.com')
-    environment.expects(:name).returns('example').at_least_once
-
-    task.expects(:target).returns(target).at_least_once
-    task.expects(:environment).returns(environment).at_least_once
 
     TaskMailer.deliver_target_notification(task, 'the message')
     assert !ActionMailer::Base.deliveries.empty?

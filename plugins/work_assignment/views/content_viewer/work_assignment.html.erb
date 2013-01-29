@@ -1,0 +1,10 @@
+<% extend WorkAssignmentPlugin::Helper %>
+
+<% unless @page.body.blank? %>
+  <div><%= @page.body %></div>
+  <hr/>
+<% end %>
+
+<%= display_submissions(@page, user) %>
+
+<%= javascript_include_tag '../plugins/work_assignment/show_versions' %>

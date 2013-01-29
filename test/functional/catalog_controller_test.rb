@@ -109,4 +109,119 @@ class CatalogControllerTest < ActionController::TestCase
     assert_tag :tag => 'span', :content => 'This is Plugin2 speaking!', :attributes => {:id => 'plugin2'}
   end
 
+  should 'get categories of the right level' do
+    pc1 = ProductCategory.create!(:name => "PC1", :environment => @enterprise.environment)
+    pc2 = ProductCategory.create!(:name => "PC2", :environment => @enterprise.environment, :parent_id => pc1.id)
+    pc3 = ProductCategory.create!(:name => "PC3", :environment => @enterprise.environment, :parent_id => pc1.id)
+    pc4 = ProductCategory.create!(:name => "PC4", :environment => @enterprise.environment, :parent_id => pc2.id)
+    p1 = fast_create(Product, :product_category_id => pc1.id, :enterprise_id => @enterprise.id)
+    p2 = fast_create(Product, :product_category_id => pc2.id, :enterprise_id => @enterprise.id)
+    p3 = fast_create(Product, :product_category_id => pc3.id, :enterprise_id => @enterprise.id)
+    p4 = fast_create(Product, :product_category_id => pc4.id, :enterprise_id => @enterprise.id)
+
+    get :index, :profile => @enterprise.identifier, :level => pc1.id
+
+    assert_not_includes assigns(:categories), pc1
+    assert_includes assigns(:categories), pc2
+    assert_includes assigns(:categories), pc3
+    assert_not_includes assigns(:categories), pc4
+  end
+
+  should 'filter products based on level selected' do
+    pc1 = ProductCategory.create!(:name => "PC1", :environment => @enterprise.environment)
+    pc2 = ProductCategory.create!(:name => "PC2", :environment => @enterprise.environment, :parent_id => pc1.id)
+    pc3 = ProductCategory.create!(:name => "PC3", :environment => @enterprise.environment, :parent_id => pc1.id)
+    pc4 = ProductCategory.create!(:name => "PC4", :environment => @enterprise.environment, :parent_id => pc2.id)
+    p1 = fast_create(Product, :product_category_id => pc1.id, :enterprise_id => @enterprise.id)
+    p2 = fast_create(Product, :product_category_id => pc2.id, :enterprise_id => @enterprise.id)
+    p3 = fast_create(Product, :product_category_id => pc3.id, :enterprise_id => @enterprise.id)
+    p4 = fast_create(Product, :product_category_id => pc4.id, :enterprise_id => @enterprise.id)
+
+    get :index, :profile => @enterprise.identifier, :level => pc2.id
+
+    assert_not_includes assigns(:products), p1
+    assert_includes assigns(:products), p2
+    assert_not_includes assigns(:products), p3
+    assert_includes assigns(:products), p4
+  end
+
+  should 'get products ordered by availability, highlighted and then name' do
+    p1 = fast_create(Product, :enterprise_id => @enterprise.id, :name => 'Zebra', :available => true, :highlighted => true)
+    p2 = fast_create(Product, :enterprise_id => @enterprise.id, :name => 'Car', :available => true)
+    p3 = fast_create(Product, :enterprise_id => @enterprise.id, :name => 'Panda', :available => true)
+    p4 = fast_create(Product, :enterprise_id => @enterprise.id, :name => 'Pen', :available => false, :highlighted => true)
+    p5 = fast_create(Product, :enterprise_id => @enterprise.id, :name => 'Ball', :available => false)
+    p6 = fast_create(Product, :enterprise_id => @enterprise.id, :name => 'Medal', :available => false)
+
+    get :index, :profile => @enterprise.identifier
+
+    assert_equal [p1,p2,p3,p4,p5,p6], assigns(:products)
+  end
+
+  should 'add highlighted CSS class around a highlighted product' do
+    prod = @enterprise.products.create!(:name => 'Highlighted Product', :product_category => @product_category, :highlighted => true)
+    get :index, :profile => @enterprise.identifier
+    assert_tag :tag => 'li', :attributes => { :class => 'product highlighted' }, :content => /Highlighted Product/
+  end
+
+  should 'do not add highlighted CSS class around an ordinary product' do
+    prod = @enterprise.products.create!(:name => 'Ordinary Product', :product_category => @product_category, :highlighted => false)
+    get :index, :profile => @enterprise.identifier
+    assert_no_tag :tag => 'li', :attributes => { :class => 'product highlighted' }, :content => /Ordinary Product/
+  end
+
+  should 'display star image in highlighted product' do
+    prod = @enterprise.products.create!(:name => 'The Eyes Are The Light', :product_category => @product_category, :highlighted => true)
+    get :index, :profile => @enterprise.identifier
+    assert_tag :tag => 'img', :attributes => { :class => 'star', :src => /star.png/ }
+  end
+
+  should 'display categories and sub-categories link' do
+    pc1 = ProductCategory.create!(:name => "PC1", :environment => @enterprise.environment)
+    pc2 = ProductCategory.create!(:name => "PC2", :environment => @enterprise.environment, :parent_id => pc1.id)
+    pc3 = ProductCategory.create!(:name => "PC3", :environment => @enterprise.environment, :parent_id => pc1.id)
+    pc4 = ProductCategory.create!(:name => "PC4", :environment => @enterprise.environment, :parent_id => pc2.id)
+    p1 = fast_create(Product, :product_category_id => pc1.id, :enterprise_id => @enterprise.id)
+    p2 = fast_create(Product, :product_category_id => pc2.id, :enterprise_id => @enterprise.id)
+    p3 = fast_create(Product, :product_category_id => pc3.id, :enterprise_id => @enterprise.id)
+    p4 = fast_create(Product, :product_category_id => pc4.id, :enterprise_id => @enterprise.id)
+
+    get :index, :profile => @enterprise.identifier
+
+    assert_tag :tag => 'a', :attributes => {:href => /level=#{pc1.id}/}
+    assert_tag :tag => 'a', :attributes => {:href => /level=#{pc2.id}/}
+    assert_tag :tag => 'a', :attributes => {:href => /level=#{pc3.id}/}
+    assert_no_tag :tag => 'a', :attributes => {:href => /level=#{pc4.id}/}
+  end
+
+
+  should 'display categories on breadcrumb' do
+    pc1 = ProductCategory.create!(:name => "PC1", :environment => @enterprise.environment)
+    pc2 = ProductCategory.create!(:name => "PC2", :environment => @enterprise.environment, :parent_id => pc1.id)
+    pc3 = ProductCategory.create!(:name => "PC3", :environment => @enterprise.environment, :parent_id => pc1.id)
+    pc4 = ProductCategory.create!(:name => "PC4", :environment => @enterprise.environment, :parent_id => pc2.id)
+    p1 = fast_create(Product, :product_category_id => pc1.id, :enterprise_id => @enterprise.id)
+    p2 = fast_create(Product, :product_category_id => pc2.id, :enterprise_id => @enterprise.id)
+    p3 = fast_create(Product, :product_category_id => pc3.id, :enterprise_id => @enterprise.id)
+    p4 = fast_create(Product, :product_category_id => pc4.id, :enterprise_id => @enterprise.id)
+
+    get :index, :profile => @enterprise.identifier, :level => pc4.id
+
+    assert_tag :tag => 'div', :attributes => {:id => 'breadcrumb'}, :descendant => {:tag => 'a', :attributes => {:href => /level=#{pc1.id}/}}
+    assert_tag :tag => 'div', :attributes => {:id => 'breadcrumb'}, :descendant => {:tag => 'a', :attributes => {:href => /level=#{pc2.id}/}}
+    assert_tag :tag => 'div', :attributes => {:id => 'breadcrumb'}, :descendant => {:tag => 'strong', :content => pc4.name}
+    assert_no_tag :tag => 'div', :attributes => {:id => 'breadcrumb'}, :descendant => {:tag => 'a', :attributes => {:href => /level=#{pc3.id}/}}
+  end
+
+  should 'add product status on the class css' do
+    category = ProductCategory.create!(:name => "Cateogry", :environment => @enterprise.environment)
+    p1 = fast_create(Product, :product_category_id => category.id, :enterprise_id => @enterprise.id, :highlighted => true)
+    p2 = fast_create(Product, :product_category_id => category.id, :enterprise_id => @enterprise.id, :available => false)
+
+    get :index, :profile => @enterprise.identifier
+
+    assert_tag :tag => 'li', :attributes => {:id => "product-#{p1.id}", :class => /highlighted/}
+    assert_tag :tag => 'li', :attributes => {:id => "product-#{p2.id}", :class => /not-available/}
+  end
+
 end

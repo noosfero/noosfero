@@ -4,9 +4,12 @@ class ShoppingCartPluginMyprofileController < MyProfileController
   append_view_path File.join(File.dirname(__FILE__) + '/../views')
 
   def edit
+    params[:settings] = treat_cart_options(params[:settings])
+
+    @settings = Noosfero::Plugin::Settings.new(profile, ShoppingCartPlugin, params[:settings])
     if request.post?
       begin
-        profile.update_attributes!(params[:profile_attr])
+        @settings.save!
         session[:notice] = _('Option updated successfully.')
       rescue Exception => exception
         session[:notice] = _('Option wasn\'t updated successfully.')
@@ -45,5 +48,26 @@ class ShoppingCartPluginMyprofileController < MyProfileController
     order.status = params[:order_status].to_i
     order.save!
     redirect_to :action => 'reports', :from => params[:context_from], :to => params[:context_to], :filter_status => params[:context_status]
+  end
+
+  private
+
+  def treat_cart_options(settings)
+    return if settings.blank?
+    settings[:enabled] = settings[:enabled] == '1'
+    settings[:delivery] = settings[:delivery] == '1'
+    settings[:free_delivery_price] = settings[:free_delivery_price].blank? ? nil : settings[:free_delivery_price].to_d
+    settings[:delivery_options] = treat_delivery_options(settings[:delivery_options])
+    settings
+  end
+
+  def treat_delivery_options(params)
+    result = {}
+    params[:options].size.times do |counter|
+      if params[:options][counter].present? && params[:prices][counter].present?
+        result[params[:options][counter]] = params[:prices][counter]
+      end
+    end
+    result
   end
 end

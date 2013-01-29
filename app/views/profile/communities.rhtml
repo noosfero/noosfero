@@ -5,7 +5,7 @@
 <% cache_timeout(profile.communities_cache_key(params), 4.hour) do %>
   <ul class='profile-list'>
   <% @communities.each do |community| %>
-    <li><%= profile_image_link(community)%></li>
+    <%= profile_image_link(community)%>
   <% end %>
   </ul>
 

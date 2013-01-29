@@ -1,10 +1,13 @@
 class CatalogController < PublicController
   needs_profile
+  no_design_blocks
 
   before_filter :check_enterprise_and_environment
 
   def index
-    @products = @profile.products.paginate(:order => 'name asc', :per_page => 9, :page => params[:page])
+    @category = params[:level] ? ProductCategory.find(params[:level]) : nil
+    @products = @profile.products.from_category(@category).paginate(:order => 'available desc, highlighted desc, name asc', :per_page => 9, :page => params[:page])
+    @categories = ProductCategory.on_level(params[:level])
   end
 
   protected
