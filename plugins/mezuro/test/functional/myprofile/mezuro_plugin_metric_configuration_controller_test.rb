@@ -25,31 +25,23 @@ class MezuroPluginMetricConfigurationControllerTest < ActionController::TestCase
     @configuration_content.expects(:validate_configuration_name).returns(true)
     @configuration_content.stubs(:solr_save)
     @configuration_content.save
-    
+
     @base_tool = BaseToolFixtures.base_tool
     @base_tool_hash = BaseToolFixtures.base_tool_hash
-    
+
     @metric = MetricFixtures.amloc
 
     @reading_group = ReadingGroupFixtures.reading_group
     @range = RangeFixtures.range
     @reading = ReadingFixtures.reading
 
-    @metric_configuration = MetricConfigurationFixtures.amloc_metric_configuration
-    @metric_configuration_hash = MetricConfigurationFixtures.amloc_metric_configuration_hash
+    @native_metric_configuration = MetricConfigurationFixtures.amloc_metric_configuration
+    @native_metric_configuration_hash = MetricConfigurationFixtures.amloc_metric_configuration_hash
     @created_metric_configuration = MetricConfigurationFixtures.created_metric_configuration
     @compound_metric_configuration = MetricConfigurationFixtures.sc_metric_configuration
-=begin
     @compound_metric_configuration_hash = MetricConfigurationFixtures.sc_metric_configuration_hash
-    
-    
-    @native_hash = @metric_configuration.to_hash.merge({:configuration_name => @metric_configuration.configuration_name})
-    @native_hash.delete :attributes!    
-    @compound_hash.delete :attributes!
-    @compound_hash = @compound_metric_configuration.to_hash.merge({:configuration_name => @compound_metric_configuration.configuration_name})
-=end
   end
-  
+
   should 'choose metric' do
     Kalibro::BaseTool.expects(:all).returns([@base_tool])
     get :choose_metric, :profile => @profile.identifier, :id => @configuration_content.id
@@ -68,27 +60,27 @@ class MezuroPluginMetricConfigurationControllerTest < ActionController::TestCase
     assert_equal [[@reading_group.name,@reading_group.id]], assigns(:reading_group_names_and_ids)
     assert_response :success
   end
-  
+
   should 'create native' do
-    Kalibro::MetricConfiguration.expects(:create).returns(@created_metric_configuration) #FIXME need .with(some_hash), should it mock the request?.
-    get :create_native, :profile => @profile.identifier, :id => @configuration_content.id, :metric_configuration => @metric_configuration_hash
+    Kalibro::MetricConfiguration.expects(:create).returns(@native_metric_configuration) #FIXME need .with(some_hash), should it mock the request?.
+    get :create_native, :profile => @profile.identifier, :id => @configuration_content.id, :metric_configuration => @native_metric_configuration_hash
     assert_response :redirect
   end
-  
+
   should 'edit native' do
-    Kalibro::MetricConfiguration.expects(:metric_configurations_of).with(@configuration.id).returns([@metric_configuration])
+    Kalibro::MetricConfiguration.expects(:metric_configurations_of).with(@configuration.id).returns([@native_metric_configuration])
     Kalibro::ReadingGroup.expects(:all).returns([@reading_group])
-    Kalibro::Range.expects(:ranges_of).with(@metric_configuration.id).returns([@range])
+    Kalibro::Range.expects(:ranges_of).with(@native_metric_configuration.id).returns([@range])
     Kalibro::Reading.expects(:find).with(@range.reading_id).returns(@reading)    
-    get :edit_native, :profile => @profile.identifier, :id => @configuration_content.id, :metric_configuration_id => @metric_configuration.id
+    get :edit_native, :profile => @profile.identifier, :id => @configuration_content.id, :metric_configuration_id => @native_metric_configuration.id
     assert_equal @configuration_content, assigns(:configuration_content)
-    assert_equal @metric_configuration.code, assigns(:metric_configuration).code
-    assert_equal @metric_configuration.metric.name, assigns(:metric).name
+    assert_equal @native_metric_configuration.code, assigns(:metric_configuration).code
+    assert_equal @native_metric_configuration.metric.name, assigns(:metric).name
     assert_equal [[@reading_group.name,@reading_group.id]], assigns(:reading_group_names_and_ids)
     assert_equal [@range], assigns(:ranges)
     assert_response :success
   end
-  
+
   should 'initialize compound' do
     Kalibro::ReadingGroup.expects(:all).returns([@reading_group])
     Kalibro::MetricConfiguration.expects(:metric_configurations_of).with(@configuration_content.configuration_id).returns([@compound_metric_configuration])
@@ -100,55 +92,39 @@ class MezuroPluginMetricConfigurationControllerTest < ActionController::TestCase
   end
 
   should 'create compound' do
-=begin TODO ARRUMAR ESTE TESTE!!!
-    Kalibro::MetricConfiguration.expects(:request).with("MetricConfiguration", :save_metric_configuration, {
-      :metric_configuration => @compound_metric_configuration.to_hash,
-      :configuration_name => @compound_metric_configuration.configuration_name})
-    get :create_compound_metric_configuration, :profile => @profile.identifier, :id => @configuration_content.id, 
-      :metric_configuration => @compound_hash
-    assert_response 302
-=end
+    Kalibro::MetricConfiguration.expects(:create).returns(@compound_metric_configuration) #FIXME need .with(some_hash), should it mock the request?.
+    get :create_compound, :profile => @profile.identifier, :id => @configuration_content.id, :metric_configuration => @compound_metric_configuration_hash
+    assert_response :redirect
   end
 
   should 'edit compound' do
-=begin TODO ARRUMAR ESTE TESTE!!!
-    Kalibro::MetricConfiguration.expects(:request).with("MetricConfiguration", :get_metric_configuration, {
-      :configuration_name => @configuration_content.name,
-      :metric_name => @compound_metric_configuration.metric.name}).returns({:metric_configuration => @compound_metric_configuration_hash})
-    Kalibro::Configuration.expects(:request).with("Configuration", :get_configuration, {:configuration_name => @configuration_content.name}).returns({:configuration => @configuration_hash})
-    get :edit_compound_metric_configuration,
-        :profile => @profile.identifier,
-        :id => @configuration_content.id,
-        :metric_name => @compound_metric_configuration.metric.name
+    Kalibro::MetricConfiguration.expects(:metric_configurations_of).with(@configuration.id).returns([@compound_metric_configuration])
+    Kalibro::ReadingGroup.expects(:all).returns([@reading_group])
+    Kalibro::Range.expects(:ranges_of).with(@compound_metric_configuration.id).returns([@range])
+    Kalibro::Reading.expects(:find).with(@range.reading_id).returns(@reading)    
+    get :edit_compound, :profile => @profile.identifier, :id => @configuration_content.id, :metric_configuration_id => @compound_metric_configuration.id
     assert_equal @configuration_content, assigns(:configuration_content)
     assert_equal @compound_metric_configuration.code, assigns(:metric_configuration).code
     assert_equal @compound_metric_configuration.metric.name, assigns(:metric).name
-    assert_equal @configuration.metric_configuration[0].code, assigns(:metric_configurations)[0].code
-    assert_response 200
-=end
+    assert_equal [@compound_metric_configuration], assigns(:metric_configurations)
+    assert_equal [[@reading_group.name,@reading_group.id]], assigns(:reading_group_names_and_ids)
+    assert_equal [@range], assigns(:ranges)
+    assert_response :success
   end
-  
+
   should 'update' do
-=begin TODO ARRUMAR ESTE TESTE!!!
-    Kalibro::MetricConfiguration.expects(:request).with("MetricConfiguration", :get_metric_configuration, {
-      :configuration_name => @configuration_content.name,
-      :metric_name => @metric_configuration.metric.name}).returns({:metric_configuration => @metric_configuration_hash})
-    Kalibro::MetricConfiguration.expects(:request).with("MetricConfiguration", :save_metric_configuration, {
-        :metric_configuration => @metric_configuration.to_hash,
-        :configuration_name => @metric_configuration.configuration_name})
-    get :update_metric_configuration, :profile => @profile.identifier, :id => @configuration_content.id, 
-      :metric_configuration => @native_hash
+    Kalibro::MetricConfiguration.expects(:metric_configurations_of).with(@configuration_content.configuration_id).returns([@native_metric_configuration])
+    @native_metric_configuration.expects(:update_attributes).returns(true) #FIXME need .with(some_hash), should it mock the request?.
+    get :update, :profile => @profile.identifier, :id => @configuration_content.id, :metric_configuration => @native_metric_configuration_hash
     assert_equal @configuration_content, assigns(:configuration_content)
-    assert_response 302
-=end
-  end
-  
-  should 'remove' do
-    Kalibro::MetricConfiguration.expects(:metric_configurations_of).with(@configuration.id).returns([@metric_configuration])
-    @metric_configuration.expects(:destroy).returns()
-    get :remove, :profile => @profile.identifier, :id => @configuration_content.id, :metric_configuration_id => @metric_configuration.id
     assert_response 302
   end
 
+  should 'remove' do
+    Kalibro::MetricConfiguration.expects(:new).with({:id => @native_metric_configuration.id}).returns(@native_metric_configuration)
+    @native_metric_configuration.expects(:destroy).returns()
+    get :remove, :profile => @profile.identifier, :id => @configuration_content.id, :metric_configuration_id => @native_metric_configuration.id
+    assert_response 302
+  end
 
 end

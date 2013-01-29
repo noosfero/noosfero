@@ -1,9 +1,9 @@
 <% form_for :metric_configuration, :url => {:action =>"update", :controller => "mezuro_plugin_metric_configuration"}, :method => :get do |f| %>
   <%= hidden_field_tag :id, @configuration_content.id %>
   <%= f.hidden_field :configuration_id, :value => @configuration_content.configuration_id %>
-  <%= f.hidden_field :id, :value => @metric_configuration.id %>
+  <%= f.hidden_field :id %>
 
-  <%= labelled_form_field _('Collector Name:'), f.text_field(:base_tool_name, :value => @base_tool_name, :readonly => true) %>
+  <%= labelled_form_field _('Collector Name:'), f.text_field(:base_tool_name, :readonly => true) %>
 
   <% f.fields_for :metric do |m| %>
     <%= m.hidden_field :compound, :value => "false" %>
@@ -18,13 +18,12 @@
   <%= required labelled_form_field _('Code:'), f.text_field(:code) %>
 
   <%= required labelled_form_field _('Aggregation Form:'),
-  f.select(:aggregation_form, MezuroPlugin::Helpers::ContentViewerHelper.aggregation_options,
-      :selected => @metric_configuration.aggregation_form ) %>
+  f.select(:aggregation_form, MezuroPlugin::Helpers::ContentViewerHelper.aggregation_options) %>
 
   <%= required labelled_form_field _('Weight:'), f.text_field(:weight) %>
   
   <%= required labelled_form_field _('Reading Group:'),
-  f.select(:reading_group_id, @reading_group_names_and_ids, :selected => @metric_configuration.reading_group_id.to_i) %>
+  f.select(:reading_group_id, @reading_group_names_and_ids) %>
   
   <p>
     <%= f.submit "Save" %>
