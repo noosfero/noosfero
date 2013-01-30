@@ -1,4 +1,5 @@
 <% @reading_group = @page.reading_group %>
+<!-- #TODO add owner verification to remove or edit reading group -->
 <% unless @page.errors[:base].nil? %>
   <% if @page.errors[:base] == "Kalibro::Errors::RecordNotFound" %>
     <h3>Warning:</h3>

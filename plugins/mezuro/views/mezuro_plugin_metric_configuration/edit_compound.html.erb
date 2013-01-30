@@ -7,57 +7,8 @@
 <% owner = (not user.nil?) && user.id == @profile.id %>
 
 <% form_for :metric_configuration, :url => {:action =>"update", :controller => "mezuro_plugin_metric_configuration"}, :method => :get do |f| %>
-  <%= hidden_field_tag :id, @configuration_content.id %>
-  <%= f.hidden_field :configuration_id, :value => @configuration_content.configuration_id %>
   <%= f.hidden_field :id %>
-  
-  <% f.fields_for :metric do |m| %>
-    <%= m.hidden_field :compound, :value => "true" %>
-    <%= required labelled_form_field _('Metric Name:'), m.text_field(:name, :value => @metric.name) %>
-    <%= labelled_form_field _('Description:'), m.text_field(:description, :value => @metric.description) %>
-    <%= required labelled_form_field _('Script:'), m.text_area(:script, :rows => 5, :value => @metric.script) %>
-    <%= required labelled_form_field _('Scope:'), 
-          m.select(:scope, MezuroPlugin::Helpers::ContentViewerHelper.scope_options, :selected => @metric.scope) %>
-  <% end %>
-  
-  <%= required labelled_form_field _('Code:'), f.text_field(:code) %>
-  <%= required labelled_form_field _('Aggregation Form:'),
-      f.select(:aggregation_form, MezuroPlugin::Helpers::ContentViewerHelper.aggregation_options) %>
-  <%= required labelled_form_field _('Weight:'), f.text_field(:weight) %>
-  <%= required labelled_form_field _('Reading Group:'), f.select(:reading_group_id, @reading_group_names_and_ids) %>
-  
-  <p><%= f.submit "Save" %></p>
-  
+  <%= render :partial => "compound_metric_configuration_form", :locals => {:f => f} %>
 <% end %>
 
-<h5> Ranges </h5><br/>
-
-<table id="ranges">
-  <tr>
-    <td>
-      Label
-    </td>
-    <td>
-      Beginning
-    </td>
-    <td>
-      End
-    </td>
-    <td>
-      Grade
-    </td>
-    <td>
-      Color
-    </td>       
-  </tr>
-  <% @ranges.each do |range| %>
-      <%= render :partial => "mezuro_plugin_range/range", :locals => {:range => range, :id => @configuration_content.id, 
-          :metric_configuration_id => @metric_configuration.id, :reading_group_id => @metric_configuration.reading_group_id, :compound => @metric_configuration.metric.compound} %>
-  <% end %>
-</table>
-
-<br/>
-<% if owner %>
-  <%= link_to_remote "New Range", :url => {:action =>"new", :controller => "mezuro_plugin_range", :id => @configuration_content.id, :metric_configuration_id => @metric_configuration.id, :reading_group_id => @metric_configuration.reading_group_id} %>
-<% end %>
-<div id="form" style="display:none"></div>
+<%= render :partial => "mezuro_plugin_range/ranges", :locals => {:owner => owner} %>

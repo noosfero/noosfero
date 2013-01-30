@@ -9,18 +9,11 @@
 
 
 <%= hidden_field_tag 'configuration_content[profile_id]', profile.id %>
-<%= hidden_field_tag 'id', @article.id %>
 <%= hidden_field_tag 'configuration_id', @article.configuration_id %>
+<%= render :partial => "cms/mezuro_plugin/mezuro_content_form", :locals => {:f => f} %>
 
-<%= required_fields_message %>
-
-<%= required f.text_field(:name) %>
-
-<%= f.text_field :description %><br/>
-
+<br/>
 <%= if kalibro_configuration.nil?
   required labelled_form_field _('Clone Configuration'),
   f.select(:configuration_to_clone_id, configuration_names_and_ids)
 end %>
-<br/>
-

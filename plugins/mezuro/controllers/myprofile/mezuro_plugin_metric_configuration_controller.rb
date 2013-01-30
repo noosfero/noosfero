@@ -9,9 +9,9 @@ class MezuroPluginMetricConfigurationController < MezuroPluginMyprofileControlle
 
   def new_native
     @configuration_content = profile.articles.find(params[:id])
-    @base_tool_name = params[:base_tool_name]
-    @metric = Kalibro::BaseTool.find_by_name(@base_tool_name).metric params[:metric_name]
     @reading_group_names_and_ids = reading_group_names_and_ids
+    @metric = Kalibro::BaseTool.find_by_name(params[:base_tool_name]).metric params[:metric_name]
+    @metric_configuration = Kalibro::MetricConfiguration.new :base_tool_name => params[:base_tool_name], :metric => @metric
   end
 
   def edit_native
@@ -22,6 +22,8 @@ class MezuroPluginMetricConfigurationController < MezuroPluginMyprofileControlle
     @configuration_content = profile.articles.find(params[:id])
     @metric_configurations = @configuration_content.metric_configurations
     @reading_group_names_and_ids = reading_group_names_and_ids
+    metric = Kalibro::Metric.new :compound => true
+    @metric_configuration = Kalibro::MetricConfiguration.new :metric => metric
     if configuration_content_has_errors?
       redirect_to_error_page @configuration_content.errors[:base]
     end
@@ -34,11 +36,11 @@ class MezuroPluginMetricConfigurationController < MezuroPluginMyprofileControlle
   def create
     configuration_content = profile.articles.find(params[:id])
     metric_configuration = Kalibro::MetricConfiguration.create(params[:metric_configuration])
-
+    
     if metric_configuration_has_errors? metric_configuration
       redirect_to_error_page metric_configuration.errors[0].message
     else
-      redirect_to(metric_configuration_url(configuration_content))
+      redirect_to(metric_configuration_url(configuration_content, metric_configuration.id))
     end
   end
 
@@ -85,12 +87,12 @@ class MezuroPluginMetricConfigurationController < MezuroPluginMyprofileControlle
     not @configuration_content.errors[:base].nil?
   end
 
-  def metric_configuration_url configuration_content
+  def metric_configuration_url(configuration_content, metric_configuration_id)
     url = configuration_content.view_url
     url[:controller] = controller_name
     url[:id] = configuration_content.id
-    url[:metric_configuration_id] = params[:metric_configuration][:id].to_i
-    url[:action] = (params[:metric_configuration][:metric][:compound] ? "edit_compound" : "edit_native")
+    url[:metric_configuration_id] = metric_configuration_id
+    url[:action] = (params[:metric_configuration][:metric][:compound] == "true" ? "edit_compound" : "edit_native")
     url
   end
 
@@ -104,3 +106,4 @@ class MezuroPluginMetricConfigurationController < MezuroPluginMyprofileControlle
   end
 
 end
+

@@ -56,7 +56,7 @@ class MezuroPluginMetricConfigurationControllerTest < ActionController::TestCase
     get :new_native, :profile => @profile.identifier, :id => @configuration_content.id, :base_tool_name => @base_tool.name, :metric_name => @metric.name
     assert_equal @configuration_content, assigns(:configuration_content)
     assert_equal @metric.name, assigns(:metric).name
-    assert_equal @base_tool.name, assigns(:base_tool_name)
+    assert_equal @base_tool.name, assigns(:metric_configuration).base_tool_name
     assert_equal [[@reading_group.name,@reading_group.id]], assigns(:reading_group_names_and_ids)
     assert_response :success
   end

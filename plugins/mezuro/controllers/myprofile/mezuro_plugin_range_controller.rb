@@ -40,8 +40,7 @@ class MezuroPluginRangeController < MezuroPluginMyprofileController
   end
 
   def reading_labels_and_ids
-    array = Kalibro::Reading.readings_of(params[:reading_group_id].to_i).map { |reading| [reading.label, reading.id] }
-    array.sort { |x,y| x.first.downcase <=> y.first.downcase }
+    Kalibro::Reading.readings_of(params[:reading_group_id].to_i).map { |reading| [reading.label, reading.id] }
   end
 
   def save_range

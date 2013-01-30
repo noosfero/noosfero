@@ -1,31 +1,26 @@
-<% form_for :metric_configuration, :url => {:action =>"update", :controller => "mezuro_plugin_metric_configuration"}, :method => :get do |f| %>
-  <%= hidden_field_tag :id, @configuration_content.id %>
-  <%= f.hidden_field :configuration_id, :value => @configuration_content.configuration_id %>
-  <%= f.hidden_field :id %>
+<%= hidden_field_tag :id, @configuration_content.id %>
+<%= f.hidden_field :configuration_id, :value => @configuration_content.configuration_id %>
 
-  <%= labelled_form_field _('Collector Name:'), f.text_field(:base_tool_name, :readonly => true) %>
+<%= labelled_form_field _('Collector Name:'), f.text_field(:base_tool_name, :readonly => true) %>
 
-  <% f.fields_for :metric do |m| %>
-    <%= m.hidden_field :compound, :value => "false" %>
-    <% @metric.language.each do |language| %>
-      <%= m.hidden_field :language, :multiple => true, :value => language %>
-    <% end %>
-    <%= m.hidden_field "scope", :value => @metric.scope %>
-    <%= labelled_form_field _('Metric Name:'), m.text_field(:name, :value => @metric.name, :readonly => true) %>
-    <%= labelled_form_field _('Description:'), m.text_field(:description, :value => @metric.description, :readonly => true) %>
+<% f.fields_for :metric do |m| %>
+  <%= m.hidden_field :compound, :value => "false" %>
+  <% @metric_configuration.metric.language.each do |language| %>
+    <%= m.hidden_field :language, :multiple => true, :value => language %>
   <% end %>
-  
-  <%= required labelled_form_field _('Code:'), f.text_field(:code) %>
-
-  <%= required labelled_form_field _('Aggregation Form:'),
-  f.select(:aggregation_form, MezuroPlugin::Helpers::ContentViewerHelper.aggregation_options) %>
-
-  <%= required labelled_form_field _('Weight:'), f.text_field(:weight) %>
-  
-  <%= required labelled_form_field _('Reading Group:'),
-  f.select(:reading_group_id, @reading_group_names_and_ids) %>
-  
-  <p>
-    <%= f.submit "Save" %>
-  </p>
+  <%= m.hidden_field "scope", :value => @metric.scope %>
+  <%= required labelled_form_field _('Metric Name:'), m.text_field(:name, :readonly => true, :value => @metric.name) %>
+  <%= labelled_form_field _('Description:'), m.text_field(:description, :readonly => true, :value => @metric.description) %>
 <% end %>
+
+<%= required labelled_form_field _('Code:'), f.text_field(:code) %>
+
+<%= required labelled_form_field _('Aggregation Form:'),
+f.select(:aggregation_form, MezuroPlugin::Helpers::ContentViewerHelper.aggregation_options) %>
+
+<%= required labelled_form_field _('Weight:'), f.text_field(:weight) %>
+
+<%= required labelled_form_field _('Reading Group:'),
+f.select(:reading_group_id, @reading_group_names_and_ids) %>
+
+<p><%= f.submit "Save" %></p>

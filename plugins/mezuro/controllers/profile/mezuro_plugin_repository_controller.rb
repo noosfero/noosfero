@@ -19,7 +19,7 @@ class MezuroPluginRepositoryController < MezuroPluginProfileController
 
     if( repository.errors.empty? )
       repository.process
-      redirect_to(repository_url(project_content))
+      redirect_to(repository_url(project_content, repository.id))
     else
       redirect_to_error_page repository.errors[0].message
     end
@@ -27,13 +27,13 @@ class MezuroPluginRepositoryController < MezuroPluginProfileController
 
   def show 
     @project_content = profile.articles.find(params[:id])
-    @repository = @project_content.repositories.select{ |repository| repository.id.to_s == params[:repository_id] }.first
+    @repository = @project_content.repositories.select{ |repository| repository.id == params[:repository_id].to_i }.first
     @configuration_name = Kalibro::Configuration.configuration_of(@repository.id).name
   end
 
   def destroy
     project_content = profile.articles.find(params[:id])
-    repository = project_content.repositories.select{ |repository| repository.id.to_s == params[:repository_id] }.first
+    repository = Kalibro::Repository.new :id => params[:repository_id] 
     repository.destroy
     if( repository.errors.empty? )
       redirect_to project_content.view_url
@@ -44,11 +44,11 @@ class MezuroPluginRepositoryController < MezuroPluginProfileController
 
   private
   
-  def repository_url project_content
+  def repository_url(project_content, repository_id)
     url = project_content.view_url
     url[:controller] = controller_name
     url[:id] = project_content.id
-    url[:repository_id] = params[:repository_id].to_i
+    url[:repository_id] = repository_id
     url[:action] = "show"
     url
   end

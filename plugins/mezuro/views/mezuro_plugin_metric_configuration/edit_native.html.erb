@@ -7,42 +7,12 @@
 <% owner = (not user.nil?) && user.id == @profile.id %>
 
 <% if owner %>
-  <%=  render :partial => "native_metric_configuration_form" %>
-<% else %>
-  <%=  render :partial => "metric_configuration_view" %>
-<% end %>
-
-<h5> Ranges </h5><br/>
-
-<table id="ranges">
-  <tr>
-    <td>
-      Label
-    </td>
-    <td>
-      Beginning
-    </td>
-    <td>
-      End
-    </td>
-    <td>
-      Grade
-    </td>
-    <td>
-      Color
-    </td>   
-    <td></td>    
-    <td></td>
-  </tr>
-  <% @ranges.each do |range| %>
-      <%= render :partial => "mezuro_plugin_range/range", :locals => {:range => range, :id => @configuration_content.id, 
-          :metric_configuration_id => @metric_configuration.id, :reading_group_id => @metric_configuration.reading_group_id, :compound => @metric_configuration.metric.compound} %>
+  <% form_for :metric_configuration, :url => {:action =>"update", :controller => "mezuro_plugin_metric_configuration"}, :method => :get do |f| %>
+    <%= f.hidden_field :id %>
+    <%= render :partial => "native_metric_configuration_form", :locals => {:f => f} %>
   <% end %>
-</table>
-
-<br/>
-<% if owner %>
-  <%= link_to_remote "New Range", :url => {:action =>"new", :controller => "mezuro_plugin_range", :id => @configuration_content.id, :metric_configuration_id => @metric_configuration.id, :reading_group_id => @metric_configuration.reading_group_id, :compound => @metric_configuration.metric.compound} %>
+<% else %>
+  <%=  render :partial => "native_metric_configuration_view" %>
 <% end %>
-<div id="form" style="display:none"></div>
 
+<%= render :partial => "mezuro_plugin_range/ranges", :locals => {:owner => owner} %>

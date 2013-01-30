@@ -84,9 +84,8 @@ class MezuroPluginRepositoryControllerTest < ActionController::TestCase
   end
 
   should 'destroy a repository' do
+    Kalibro::Repository.expects(:new).with(:id => @repository.id.to_s).returns(@repository)
     @repository.expects(:destroy)    
-    Kalibro::Repository.expects(:repositories_of).with(@content.project_id).returns([@repository])
-
     get :destroy, :profile => @profile.identifier, :id => @content.id, :repository_id => @repository.id
 
     assert @repository.errors.empty?
@@ -95,12 +94,11 @@ class MezuroPluginRepositoryControllerTest < ActionController::TestCase
 
   should 'not destroy a repository' do
     @repository.errors = [Exception.new]
+    Kalibro::Repository.expects(:new).with(:id => @repository.id.to_s).returns(@repository)
     @repository.expects(:destroy)    
-    Kalibro::Repository.expects(:repositories_of).with(@content.project_id).returns([@repository])
-
     get :destroy, :profile => @profile.identifier, :id => @content.id, :repository_id => @repository.id
 
-    assert !@repository.errors.empty?
+    #TODO verify if it is redirected to the right page
     assert_response :redirect
   end
 end

@@ -1,5 +1,6 @@
 <% @configuration_content = @page
 @kalibro_configuration = @page.kalibro_configuration %>
+<!-- #TODO check owner verification to remove or edit metric configuration -->
 <% owner = (not user.nil?) && user.id == @profile.id %>
 <% unless @page.errors[:base].nil? %>
   <% if @page.errors[:base] =~ /Kalibro::Errors::RecordNotFound/ %>

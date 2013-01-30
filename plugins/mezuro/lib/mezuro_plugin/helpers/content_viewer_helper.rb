@@ -17,9 +17,7 @@ class MezuroPlugin::Helpers::ContentViewerHelper
   def self.license_options
    options = YAML.load_file("#{RAILS_ROOT}/plugins/mezuro/licenses.yml")
    options = options.split(";")
-   formated_options = []
-   options.each { |option| formated_options << [option, option] }
-   formated_options
+   options
   end
 
   def self.generate_chart(score_history)

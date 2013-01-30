@@ -1,5 +1,6 @@
 <% @project = @page.project %>
 <% unless @page.errors[:base].nil? %>
+<!-- #TODO add owner verification to remove or edit repository -->
   <% if @page.errors[:base] == "Kalibro::Errors::RecordNotFound" %>
     <h3>Warning:</h3>
     <p>This project doesn't exist on the Web Service. Do you want to <%= link_to 'delete', :action => 'destroy', :controller => 'cms', :profile => @page.profile.identifier, :id => @page.id %> or <%= link_to 'save it again', :action => 'edit', :controller => 'cms', :profile => @page.profile.identifier, :id => @page.id %>?</p>

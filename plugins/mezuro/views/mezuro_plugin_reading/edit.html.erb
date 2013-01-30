@@ -3,19 +3,6 @@
 <h2><%= link_to("#{@reading_group_content.name} Reading Group", @reading_group_content.view_url) %></h2>
 
 <% form_for :reading, :url => {:action =>"save", :controller => "mezuro_plugin_reading"},  :method => :get do |f| %>
-  <%= hidden_field_tag :id, @reading_group_content.id %>
-  
   <%= f.hidden_field :id %>
-  <%= required labelled_form_field _('label:'), f.text_field(:label) %> 
-
-  <%= required labelled_form_field _('grade:'),
-  f.text_field(:grade) %>
-  
-  <%= required labelled_form_field _('color:'),
-  colorpicker_field(:reading, :color) %>Click in the field to change Color
-  
-  <p>
-    <%= f.submit "Add" %>
-  </p>
-
+  <%= render :partial => "form", :locals => {:f => f} %>
 <% end %>
