@@ -31,12 +31,11 @@ class MezuroPluginRepositoryControllerTest < ActionController::TestCase
 
     get :new, :profile => @profile.identifier, :id => @content.id
 
-    assert_equal @content.id, assigns(:project_content_id)
-    assert_equal @content.name, assigns(:project_name)
+    assert_equal @content.id, assigns(:project_content).id
     assert_equal @repository_types, assigns(:repository_types)
-    assert_equal @content.profile.identifier, assigns(:data_profile)
     assert_equal @all_configurations.first.name, assigns(:configuration_select).first.first
     assert_equal @all_configurations.first.id, assigns(:configuration_select).first.last
+    assert_response :success
   end
 
   should 'create a repository' do
@@ -58,20 +57,18 @@ class MezuroPluginRepositoryControllerTest < ActionController::TestCase
   end
 
   should 'set variables to edit a repository' do
-    articles = mock
     Kalibro::Repository.expects(:repository_types).returns(@repository_types)
     Kalibro::Configuration.expects(:all).returns(@all_configurations)
     Kalibro::Repository.expects(:repositories_of).with(@content.project_id).returns([@repository])
 
     get :edit, :profile => @profile.identifier, :id => @content.id, :repository_id => @repository.id
 
-    assert_equal @content.id, assigns(:project_content_id)
-    assert_equal @content.name, assigns(:project_name)
+    assert_equal @content.id, assigns(:project_content).id
     assert_equal @repository_types, assigns(:repository_types)
-    assert_equal @content.profile.identifier, assigns(:data_profile)
     assert_equal @all_configurations.first.name, assigns(:configuration_select).first.first
     assert_equal @all_configurations.first.id, assigns(:configuration_select).first.last
     assert_equal @repository, assigns(:repository)
+    assert_response :success
   end
 
   should 'update a repository' do
@@ -98,11 +95,9 @@ class MezuroPluginRepositoryControllerTest < ActionController::TestCase
 
     get :show, :profile => @profile.identifier, :id => @content.id, :repository_id => @repository.id
 
-    assert_equal @content.name, assigns(:project_name)
+    assert_equal @content.id, assigns(:project_content).id
     assert_equal @repository, assigns(:repository)
     assert_equal @configuration.name, assigns(:configuration_name)
-    assert_equal @content.profile.identifier, assigns(:data_profile)
-    assert_equal @content.id, assigns(:data_content)
     assert_response :success
   end
 

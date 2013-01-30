@@ -1,5 +1,5 @@
 <script src="/plugins/mezuro/javascripts/processing.js" type="text/javascript"></script>
-<h3> <%= link_to( @project_name, homepage_url(@data_profile, @project_name.downcase.gsub(/[^0-9A-Za-z]/, '')) ) %></h3>
+<h2><%= link_to("#{@project_content.name} Project", @project_content.view_url) %></h2>
 
 <table>
   <tr>
@@ -40,6 +40,6 @@
 </table>
 <br />
 
-<div id="processing" data-profile="<%= @data_profile %>" data-content="<%= @data_content %>"
+<div id="processing" data-profile="<%= @project_content.profile.identifier %>" data-content="<%= @project_content.id %>"
      data-repository-id="<%= @repository.id %>"></div>
 <div id="module-result"></div>

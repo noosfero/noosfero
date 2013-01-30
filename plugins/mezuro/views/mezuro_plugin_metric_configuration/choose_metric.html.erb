@@ -1,4 +1,4 @@
-<h2><%= @configuration_content.name%> Configuration</h2>
+<h2><%= link_to("#{@configuration_content.name} Configuration", @configuration_content.view_url) %></h2>
 
 <%= link_to "New Compound Metric", :controller => "mezuro_plugin_metric_configuration", :action => "new_compound",
 								   :id => @configuration_content.id %>

@@ -1,16 +1,11 @@
-<h3> <%= link_to( @project_name, homepage_url(@data_profile, @project_name.downcase.gsub(/[^0-9A-Za-z]/, '')) ) %></h3>
+<h2><%= link_to("#{@project_content.name} Project", @project_content.view_url) %></h2>
 
 <% form_for :repository, :url => {:action =>"create", :controller => "mezuro_plugin_repository"},  :method => :get do |f| %>
-  <%= hidden_field_tag :id, @project_content_id %>
+  <%= hidden_field_tag :id, @project_content.id %>
   
   <%= required labelled_form_field _('Name:'), f.text_field(:name) %> 
 
-  <div class="formfieldline">
-    <%= f.label :description, "Description:", :class => 'formlabel' %>
-    <div class="formfield type-text">  
-      <%= f.text_field :description %>
-    </div>
-  </div>
+  <%= labelled_form_field _('Description'), f.text_field(:description) %>
   
   <%= required labelled_form_field _('License'),
   f.select(:license, MezuroPlugin::Helpers::ContentViewerHelper.license_options) %>
@@ -27,8 +22,6 @@
   <%= required labelled_form_field _('Configuration'),
   f.select(:configuration_id, @configuration_select) %>
 
-  <p>
-    <%= f.submit "Add" %>
-  </p>
+  <p> <%= f.submit "Add" %> </p>
 
 <% end %>

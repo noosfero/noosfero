@@ -3,10 +3,7 @@ class MezuroPluginRepositoryController < MezuroPluginProfileController
   append_view_path File.join(File.dirname(__FILE__) + '/../../views')
   
   def new
-    project_content = profile.articles.find(params[:id])
-    @project_name = project_content.name
-    @data_profile = project_content.profile.identifier
-    @project_content_id = project_content.id
+    @project_content = profile.articles.find(params[:id])
 
     @repository_types = Kalibro::Repository.repository_types
     
@@ -32,11 +29,7 @@ class MezuroPluginRepositoryController < MezuroPluginProfileController
   end
 
   def edit
-    project_content = profile.articles.find(params[:id])
-    @project_name = project_content.name
-    @data_profile = project_content.profile.identifier
-    @project_content_id = project_content.id
-
+    @project_content = profile.articles.find(params[:id])
     @repository_types = Kalibro::Repository.repository_types
     
     configurations = Kalibro::Configuration.all
@@ -45,7 +38,7 @@ class MezuroPluginRepositoryController < MezuroPluginProfileController
       [configuration.name,configuration.id] 
     end
 
-    @repository = project_content.repositories.select{ |repository| repository.id.to_s == params[:repository_id] }.first
+    @repository = @project_content.repositories.select{ |repository| repository.id.to_s == params[:repository_id] }.first
   end
 
   def update
@@ -63,12 +56,9 @@ class MezuroPluginRepositoryController < MezuroPluginProfileController
   end
 
   def show 
-    project_content = profile.articles.find(params[:id])
-    @project_name = project_content.name
-    @repository = project_content.repositories.select{ |repository| repository.id.to_s == params[:repository_id] }.first
+    @project_content = profile.articles.find(params[:id])
+    @repository = @project_content.repositories.select{ |repository| repository.id.to_s == params[:repository_id] }.first
     @configuration_name = Kalibro::Configuration.configuration_of(@repository.id).name
-    @data_profile = project_content.profile.identifier
-    @data_content = project_content.id
   end
 
   def destroy

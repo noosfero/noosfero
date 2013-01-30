@@ -3,10 +3,7 @@ class MezuroPluginReadingController < MezuroPluginMyprofileController
   append_view_path File.join(File.dirname(__FILE__) + '/../../views')
   
   def new
-    reading_group_content = profile.articles.find(params[:id])
-    @reading_group_name = reading_group_content.name
-    @data_profile = reading_group_content.profile.identifier
-    @reading_group_content_id = reading_group_content.id
+    @reading_group_content = profile.articles.find(params[:id])
   end
   
   def create
@@ -21,11 +18,7 @@ class MezuroPluginReadingController < MezuroPluginMyprofileController
   end
 
   def edit
-    reading_group_content = profile.articles.find(params[:id])
-    @reading_group_name = reading_group_content.name
-    @data_profile = reading_group_content.profile.identifier
-    @reading_group_content_id = reading_group_content.id
-
+    @reading_group_content = profile.articles.find(params[:id])
     @reading = Kalibro::Reading.find params[:reading_id]
   end
 
