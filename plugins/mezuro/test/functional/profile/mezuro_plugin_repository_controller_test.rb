@@ -38,20 +38,20 @@ class MezuroPluginRepositoryControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  should 'create a repository' do
+  should 'save a repository' do
     Kalibro::Repository.expects(:new).returns(@repository)
     @repository.expects(:save).with(@content.project_id).returns(true)
     @repository.expects(:process)
-    get :create, :profile => @profile.identifier, :id => @content.id, :repository => @repository_hash
+    get :save, :profile => @profile.identifier, :id => @content.id, :repository => @repository_hash
     assert @repository.errors.empty?
     assert_response :redirect
   end
 
-  should 'not create a repository' do
+  should 'not save a repository' do
     @repository.errors = [Exception.new]
     Kalibro::Repository.expects(:new).returns(@repository)
     @repository.expects(:save).with(@content.project_id).returns(false)
-    get :create, :profile => @profile.identifier, :id => @content.id, :repository => @repository_hash
+    get :save, :profile => @profile.identifier, :id => @content.id, :repository => @repository_hash
     assert !@repository.errors.empty?
     assert_response :redirect
   end
@@ -69,24 +69,6 @@ class MezuroPluginRepositoryControllerTest < ActionController::TestCase
     assert_equal @all_configurations.first.id, assigns(:configuration_select).first.last
     assert_equal @repository, assigns(:repository)
     assert_response :success
-  end
-
-  should 'update a repository' do
-    Kalibro::Repository.expects(:new).returns(@repository)
-    @repository.expects(:save).with(@content.project_id).returns(true)
-    Kalibro::Repository.expects(:request).with(:process_repository, {:repository_id => @repository.id})
-    get :update, :profile => @profile.identifier, :id => @content.id, :repository => @repository_hash
-    assert @repository.errors.empty?
-    assert_response :redirect
-  end
-
-  should 'not update a repository' do
-    @repository.errors = [Exception.new]
-    Kalibro::Repository.expects(:new).returns(@repository)
-    @repository.expects(:save).with(@content.project_id).returns(false)
-    get :update, :profile => @profile.identifier, :id => @content.id, :repository => @repository_hash
-    assert !@repository.errors.empty?
-    assert_response :redirect
   end
 
   should 'set variables to show a repository' do

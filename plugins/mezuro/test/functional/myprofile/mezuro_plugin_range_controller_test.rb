@@ -12,7 +12,7 @@ class MezuroPluginRangeControllerTest < ActionController::TestCase
     @controller = MezuroPluginRangeController.new
     @request = ActionController::TestRequest.new
     @response = ActionController::TestResponse.new
-    @profile = fast_create(Community)
+    @profile = fast_create(Profile)
 
     @metric_configuration = MetricConfigurationFixtures.amloc_metric_configuration
     @metric_configuration_hash = MetricConfigurationFixtures.amloc_metric_configuration_hash

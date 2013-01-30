@@ -1,6 +1,6 @@
 <h2><%= link_to("#{@configuration_content.name} Configuration", @configuration_content.view_url) %></h2>
 
-<% form_for :metric_configuration, :url => {:action =>"create_compound", :controller => "mezuro_plugin_metric_configuration"}, :method => :get do |f| %>
+<% form_for :metric_configuration, :url => {:action =>"create", :controller => "mezuro_plugin_metric_configuration"}, :method => :get do |f| %>
   <%= hidden_field_tag :id, @configuration_content.id %>
   <%= f.hidden_field :configuration_id, :value => @configuration_content.configuration_id %>
 

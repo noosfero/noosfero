@@ -14,24 +14,32 @@ class MezuroPluginMetricConfigurationController < MezuroPluginMyprofileControlle
     @reading_group_names_and_ids = reading_group_names_and_ids
   end
 
-  def create_native
+  def edit_native
+    params_to_edit_view
+  end
+
+  def new_compound
+    @configuration_content = profile.articles.find(params[:id])
+    @metric_configurations = @configuration_content.metric_configurations
+    @reading_group_names_and_ids = reading_group_names_and_ids
+    if configuration_content_has_errors?
+      redirect_to_error_page @configuration_content.errors[:base]
+    end
+  end
+
+  def edit_compound    
+    params_to_edit_view
+  end
+
+  def create
     configuration_content = profile.articles.find(params[:id])
     metric_configuration = Kalibro::MetricConfiguration.create(params[:metric_configuration])
 
     if metric_configuration_has_errors? metric_configuration
       redirect_to_error_page metric_configuration.errors[0].message
     else
-      redirect_to(metric_configuration_url(configuration_content)) 
+      redirect_to(metric_configuration_url(configuration_content))
     end
-  end
-
-  def edit_native
-    @configuration_content = profile.articles.find(params[:id])
-    metric_configurations = @configuration_content.metric_configurations
-    @metric_configuration = find_metric_configuration(metric_configurations, params[:metric_configuration_id].to_i)
-    @metric = @metric_configuration.metric
-    @reading_group_names_and_ids = reading_group_names_and_ids
-    @ranges = Kalibro::Range.ranges_of(@metric_configuration.id)
   end
 
   def update
@@ -57,51 +65,22 @@ class MezuroPluginMetricConfigurationController < MezuroPluginMyprofileControlle
       redirect_to configuration_content.view_url
     end
   end
-  
-  def new_compound
-    @configuration_content = profile.articles.find(params[:id])
-    @metric_configurations = @configuration_content.metric_configurations
-    @reading_group_names_and_ids = reading_group_names_and_ids
-    if configuration_content_has_errors?
-      redirect_to_error_page @configuration_content.errors[:base]
-    end
-  end
-
-  def create_compound
-    configuration_content = profile.articles.find(params[:id])
-    metric_configuration = Kalibro::MetricConfiguration.create(params[:metric_configuration])
-
-    if metric_configuration_has_errors? metric_configuration
-      redirect_to_error_page metric_configuration.errors[0].message
-    else
-      redirect_to(metric_configuration_url(configuration_content))
-    end
-  end
-
-  def edit_compound    
-    @configuration_content = profile.articles.find(params[:id])
-    @metric_configurations = @configuration_content.metric_configurations
-    @metric_configuration = find_metric_configuration(@metric_configurations, params[:metric_configuration_id].to_i)
-    @metric = @metric_configuration.metric
-    @reading_group_names_and_ids = reading_group_names_and_ids
-    @ranges = Kalibro::Range.ranges_of(@metric_configuration.id)
-  end
 
   private
-  
+
   def find_metric_configuration (metric_configurations, metric_configuration_id)
     metric_configurations.select {|metric_configuration| metric_configuration.id == metric_configuration_id }.first
   end
-  
+
   def reading_group_names_and_ids
     array = Kalibro::ReadingGroup.all.map { |reading_group| [reading_group.name, reading_group.id] }
     array.sort { |x,y| x.first.downcase <=> y.first.downcase }
   end
-  
+
   def metric_configuration_has_errors? metric_configuration
     not metric_configuration.errors.empty?
   end
-  
+
   def configuration_content_has_errors?
     not @configuration_content.errors[:base].nil?
   end
@@ -114,5 +93,14 @@ class MezuroPluginMetricConfigurationController < MezuroPluginMyprofileControlle
     url[:action] = (params[:metric_configuration][:metric][:compound] ? "edit_compound" : "edit_native")
     url
   end
-end
 
+  def params_to_edit_view
+    @configuration_content = profile.articles.find(params[:id])
+    @metric_configurations = @configuration_content.metric_configurations
+    @metric_configuration = find_metric_configuration(@metric_configurations, params[:metric_configuration_id].to_i)
+    @metric = @metric_configuration.metric
+    @reading_group_names_and_ids = reading_group_names_and_ids
+    @ranges = Kalibro::Range.ranges_of(@metric_configuration.id)
+  end
+
+end

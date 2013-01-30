@@ -1,49 +1,19 @@
 class MezuroPluginRepositoryController < MezuroPluginProfileController
 
   append_view_path File.join(File.dirname(__FILE__) + '/../../views')
-  
+
   def new
-    @project_content = profile.articles.find(params[:id])
-
-    @repository_types = Kalibro::Repository.repository_types
-    
-    configurations = Kalibro::Configuration.all
-    configurations = [] if (configurations.nil?)
-    @configuration_select = configurations.map do |configuration|
-      [configuration.name,configuration.id] 
-    end
-  end
-  
-  def create
-    project_content = profile.articles.find(params[:id])
-
-    repository = Kalibro::Repository.new( params[:repository] )
-    repository.save(project_content.project_id)
-    
-    if( repository.errors.empty? )
-      repository.process
-      redirect_to(repository_url(project_content))
-    else
-      redirect_to_error_page repository.errors[0].message
-    end
+    params_repository_form
   end
 
   def edit
-    @project_content = profile.articles.find(params[:id])
-    @repository_types = Kalibro::Repository.repository_types
-    
-    configurations = Kalibro::Configuration.all
-    configurations = [] if (configurations.nil?)
-    @configuration_select = configurations.map do |configuration|
-      [configuration.name,configuration.id] 
-    end
-
+    params_repository_form
     @repository = @project_content.repositories.select{ |repository| repository.id.to_s == params[:repository_id] }.first
   end
 
-  def update
+  def save
     project_content = profile.articles.find(params[:id])
-    
+
     repository = Kalibro::Repository.new( params[:repository] )
     repository.save(project_content.project_id)
 
@@ -71,6 +41,8 @@ class MezuroPluginRepositoryController < MezuroPluginProfileController
       redirect_to_error_page repository.errors[0].message
     end
   end
+
+  private
   
   def repository_url project_content
     url = project_content.view_url
@@ -80,5 +52,16 @@ class MezuroPluginRepositoryController < MezuroPluginProfileController
     url[:action] = "show"
     url
   end
-  
+
+  def params_repository_form
+    @project_content = profile.articles.find(params[:id])
+    @repository_types = Kalibro::Repository.repository_types
+    
+    configurations = Kalibro::Configuration.all
+    configurations = [] if (configurations.nil?)
+    @configuration_select = configurations.map do |configuration|
+      [configuration.name,configuration.id] 
+    end
+  end
+
 end

@@ -2,7 +2,7 @@
 <script src="/javascripts/colorpicker-noosfero.js" type="text/javascript"></script>
 <h2><%= link_to("#{@reading_group_content.name} Reading Group", @reading_group_content.view_url) %></h2>
 
-<% form_for :reading, :url => {:action =>"create", :controller => "mezuro_plugin_reading"},  :method => :get do |f| %>
+<% form_for :reading, :url => {:action =>"save", :controller => "mezuro_plugin_reading"},  :method => :get do |f| %>
   <%= hidden_field_tag :id, @reading_group_content.id %>
   
   <%= required labelled_form_field _('label:'), f.text_field(:label) %> 

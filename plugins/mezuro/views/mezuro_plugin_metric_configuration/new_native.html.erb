@@ -2,7 +2,7 @@
 
 <h2><%= link_to("#{@configuration_content.name} Configuration", @configuration_content.view_url) %></h2>
 <!-- TODO This form should be a partial similar to _native_metric_configuration_form.rhtml -->
-<% form_for :metric_configuration, :url => {:action =>"create_native", :controller => "mezuro_plugin_metric_configuration"},  :method => :get do |f| %>
+<% form_for :metric_configuration, :url => {:action =>"create", :controller => "mezuro_plugin_metric_configuration"},  :method => :get do |f| %>
 
   <%= hidden_field_tag :id, @configuration_content.id %>
   <%= f.hidden_field :configuration_id, :value => @configuration_content.configuration_id %>

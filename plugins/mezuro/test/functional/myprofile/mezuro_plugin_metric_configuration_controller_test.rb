@@ -14,7 +14,7 @@ class MezuroPluginMetricConfigurationControllerTest < ActionController::TestCase
     @controller = MezuroPluginMetricConfigurationController.new
     @request = ActionController::TestRequest.new
     @response = ActionController::TestResponse.new
-    @profile = fast_create(Community) #FIXME Should be a person, not a community
+    @profile = fast_create(Profile)
 
     @configuration = ConfigurationFixtures.configuration
     @created_configuration = ConfigurationFixtures.created_configuration
@@ -61,12 +61,6 @@ class MezuroPluginMetricConfigurationControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  should 'create native' do
-    Kalibro::MetricConfiguration.expects(:create).returns(@native_metric_configuration) #FIXME need .with(some_hash), should it mock the request?.
-    get :create_native, :profile => @profile.identifier, :id => @configuration_content.id, :metric_configuration => @native_metric_configuration_hash
-    assert_response :redirect
-  end
-
   should 'edit native' do
     Kalibro::MetricConfiguration.expects(:metric_configurations_of).with(@configuration.id).returns([@native_metric_configuration])
     Kalibro::ReadingGroup.expects(:all).returns([@reading_group])
@@ -91,12 +85,6 @@ class MezuroPluginMetricConfigurationControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  should 'create compound' do
-    Kalibro::MetricConfiguration.expects(:create).returns(@compound_metric_configuration) #FIXME need .with(some_hash), should it mock the request?.
-    get :create_compound, :profile => @profile.identifier, :id => @configuration_content.id, :metric_configuration => @compound_metric_configuration_hash
-    assert_response :redirect
-  end
-
   should 'edit compound' do
     Kalibro::MetricConfiguration.expects(:metric_configurations_of).with(@configuration.id).returns([@compound_metric_configuration])
     Kalibro::ReadingGroup.expects(:all).returns([@reading_group])
@@ -110,6 +98,12 @@ class MezuroPluginMetricConfigurationControllerTest < ActionController::TestCase
     assert_equal [[@reading_group.name,@reading_group.id]], assigns(:reading_group_names_and_ids)
     assert_equal [@range], assigns(:ranges)
     assert_response :success
+  end
+
+  should 'create' do
+    Kalibro::MetricConfiguration.expects(:create).returns(@compound_metric_configuration) #FIXME need .with(some_hash), should it mock the request?.
+    get :create, :profile => @profile.identifier, :id => @configuration_content.id, :metric_configuration => @compound_metric_configuration_hash
+    assert_response :redirect
   end
 
   should 'update' do

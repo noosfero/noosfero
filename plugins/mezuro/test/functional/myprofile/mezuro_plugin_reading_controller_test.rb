@@ -9,7 +9,7 @@ class MezuroPluginReadingControllerTest < ActionController::TestCase
     @controller = MezuroPluginReadingController.new
     @request = ActionController::TestRequest.new
     @response = ActionController::TestResponse.new
-    @profile = fast_create(Community)
+    @profile = fast_create(Profile)
 
     @reading = ReadingFixtures.reading
     @created_reading = ReadingFixtures.created_reading
@@ -29,7 +29,7 @@ class MezuroPluginReadingControllerTest < ActionController::TestCase
   should 'create a reading' do
     Kalibro::Reading.expects(:new).with(@reading_hash.to_s).returns(@created_reading)
     @created_reading.expects(:save).with(@content.reading_group_id).returns(true)
-    get :create, :profile => @profile.identifier, :id => @content.id, :reading => @reading_hash
+    get :save, :profile => @profile.identifier, :id => @content.id, :reading => @reading_hash
     assert @created_reading.errors.empty?
     assert_response :redirect
   end
@@ -38,7 +38,7 @@ class MezuroPluginReadingControllerTest < ActionController::TestCase
     @created_reading.errors = [Exception.new]
     Kalibro::Reading.expects(:new).with(@reading_hash.to_s).returns(@created_reading)
     @created_reading.expects(:save).with(@content.reading_group_id).returns(false)
-    get :create, :profile => @profile.identifier, :id => @content.id, :reading => @reading_hash
+    get :save, :profile => @profile.identifier, :id => @content.id, :reading => @reading_hash
     assert !@created_reading.errors.empty?
     assert_response :redirect
   end
@@ -49,22 +49,6 @@ class MezuroPluginReadingControllerTest < ActionController::TestCase
     assert_equal @content.id, assigns(:reading_group_content).id
     assert_equal @reading, assigns(:reading)
     assert_response :success
-  end
-
-  should 'update a reading' do
-    Kalibro::Reading.expects(:new).with(@reading_hash.to_s).returns(@reading)
-    @reading.expects(:save).with(@content.reading_group_id).returns(true)
-    get :update, :profile => @profile.identifier, :id => @content.id, :reading => @reading_hash
-    assert @reading.errors.empty?
-    assert_response :redirect
-  end
-
-  should 'put an Exception in reading when an error occurs in update action' do
-    @reading.errors = [Exception.new]
-    Kalibro::Reading.expects(:new).with(@reading_hash.to_s).returns(@reading)
-    @reading.expects(:save).with(@content.reading_group_id).returns(false)
-    get :update, :profile => @profile.identifier, :id => @content.id, :reading => @reading_hash
-    assert_response :redirect
   end
 
   should 'destroy a reading' do

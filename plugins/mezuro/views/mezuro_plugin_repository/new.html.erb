@@ -1,6 +1,6 @@
 <h2><%= link_to("#{@project_content.name} Project", @project_content.view_url) %></h2>
 
-<% form_for :repository, :url => {:action =>"create", :controller => "mezuro_plugin_repository"},  :method => :get do |f| %>
+<% form_for :repository, :url => {:action =>"save", :controller => "mezuro_plugin_repository"},  :method => :get do |f| %>
   <%= hidden_field_tag :id, @project_content.id %>
   
   <%= required labelled_form_field _('Name:'), f.text_field(:name) %> 
