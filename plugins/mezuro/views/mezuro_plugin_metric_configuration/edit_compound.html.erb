@@ -12,3 +12,5 @@
 <% end %>
 
 <%= render :partial => "mezuro_plugin_range/ranges", :locals => {:owner => owner} %>
+<hr>
+<%= render :partial => "metric_codes", :locals => {:metric_configurations => @metric_configurations} %>
