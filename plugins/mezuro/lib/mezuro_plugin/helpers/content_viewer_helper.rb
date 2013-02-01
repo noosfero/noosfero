@@ -56,7 +56,7 @@ class MezuroPlugin::Helpers::ContentViewerHelper
   end
 
   def self.scope_options
-    [["Class", "CLASS"]]
+    [["Software", "SOFTWARE"], ["Package", "PACKAGE"], ["Class", "CLASS"], ["Method", "METHOD"]]
   end
 
   private

@@ -30,9 +30,7 @@ class ContentViewerHelperTest < ActiveSupport::TestCase
   should 'create the license options array' do
    options = YAML.load_file("#{RAILS_ROOT}/plugins/mezuro/licenses.yml")
    options = options.split(";")
-   formated_options = []
-   options.each { |option| formated_options << [option, option] }
-   assert_equal formated_options, @helper.license_options
+   assert_equal options, @helper.license_options
   end
   
   should 'generate chart from metric result history' do
@@ -61,7 +59,7 @@ class ContentViewerHelperTest < ActiveSupport::TestCase
   end
 
   should 'create scope options' do
-    assert_equal [["Class", "CLASS"]], @helper.scope_options
+    assert_equal [["Software", "SOFTWARE"], ["Package", "PACKAGE"], ["Class", "CLASS"], ["Method", "METHOD"]], @helper.scope_options
   end
 
 end
