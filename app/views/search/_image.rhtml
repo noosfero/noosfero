@@ -28,8 +28,9 @@
     <div class="search-gallery-items">
       <% r = image.children.find(:all, :order => :updated_at, :conditions => ['type = ?', 'UploadedFile']).last(3) %>
       <% if r.length > 0 %>
-        <% r.each do |i| %>
-          <%= link_to '', i.view_url, :class => "search-image-pic", :style => 'background-image: url(%s)'% i.public_filename(:thumb) %>
+        <% r.each_index do |i| img = r[i] %>
+          <%= link_to '', img.view_url, :class => "search-image-pic pic-num#{i+1}",
+                                        :style => 'background-image: url(%s)'% img.public_filename(:thumb) %>
         <% end %>
       <% else %>
         <div class="search-no-image"><span><%= _('No image') %></span></div>
