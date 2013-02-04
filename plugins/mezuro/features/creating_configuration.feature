@@ -1,4 +1,3 @@
-@mezuro
 Feature: Create configuration 
   As a mezuro user
   I want to create a Mezuro configuration

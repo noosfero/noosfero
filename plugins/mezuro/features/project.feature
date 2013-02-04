@@ -1,4 +1,3 @@
-@mezuro
 Feature: Project
   As a mezuro user
   I want to create, edit and remove a Mezuro project
@@ -43,27 +42,27 @@ Feature: Project
 		When I follow "Edit"
     # Not complete
 		
-	@selenium
-	Scenario: I delete a Mezuro project that belongs to me
-		Given the following Mezuro project
-      | name               | description         | owner    |
-      | Sample Project     | Sample Description  | joaosilva |
-		And I am on article "Sample Project"
-		And I should be on /joaosilva/sample-project
-		When I follow "Delete"
-		And I confirm the "Are you sure that you want to remove the item "Sample Project"?" dialog
-		Then I go to /joaosilva/sample-project
-		And I should see "There is no such page: /joaosilva/sample-project"
-		
-  @selenium
-	Scenario: I cannot delete a Mezuro project that doesn't belong to me
-		Given the following Mezuro project
-      | name               | description         | owner    |
-      | Sample Project     | Sample Description  | joaosilva |
-		And I am on article "Sample Project"
-		And I should be on /joaosilva/sample-project
-		When I follow "Delete"
-		And I confirm the "Are you sure that you want to remove the item "Sample Project"?" dialog
-		Then I go to /joaosilva/sample-project
-		And I should see "There is no such page: /joaosilva/sample-project"
+#	@selenium
+#	Scenario: I delete a Mezuro project that belongs to me
+#		Given the following Mezuro project
+#      | name               | description         | owner    |
+#      | Sample Project     | Sample Description  | joaosilva |
+#		And I am on article "Sample Project"
+#		And I should be on /joaosilva/sample-project
+#		When I follow "Delete"
+#		And I confirm the "Are you sure that you want to remove the item "Sample Project"?" dialog
+#		Then I go to /joaosilva/sample-project
+#		And I should see "There is no such page: /joaosilva/sample-project"
+#		
+#  @selenium
+#	Scenario: I cannot delete a Mezuro project that doesn't belong to me
+#		Given the following Mezuro project
+#      | name               | description         | owner    |
+#      | Sample Project     | Sample Description  | joaosilva |
+#		And I am on article "Sample Project"
+#		And I should be on /joaosilva/sample-project
+#		When I follow "Delete"
+#		And I confirm the "Are you sure that you want to remove the item "Sample Project"?" dialog
+#		Then I go to /joaosilva/sample-project
+#		And I should see "There is no such page: /joaosilva/sample-project"
 		
