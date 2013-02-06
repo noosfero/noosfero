@@ -30,13 +30,17 @@ module ActsAsFileSystem
   module ClassMethods
 
     def build_ancestry(parent_id = nil, ancestry = '')
-      self.base_class.all(:conditions => {:parent_id => parent_id}).each do |node|
-        node.ancestry = ancestry
-        node.save :run_callbacks => false
+      ActiveRecord::Base.transaction do
+        self.base_class.all(:conditions => {:parent_id => parent_id}).each do |node|
+          node.ancestry = ancestry
+          node.save :run_callbacks => false
 
-        build_ancestry node.id, (ancestry.empty? ? "#{node.formatted_ancestry_id}" :
-                                 "#{ancestry}#{node.ancestry_sep}#{node.formatted_ancestry_id}")
+          build_ancestry node.id, (ancestry.empty? ? "#{node.formatted_ancestry_id}" :
+                                   "#{ancestry}#{node.ancestry_sep}#{node.formatted_ancestry_id}")
+        end
       end
+
+      #raise "Couldn't reach and set ancestry on every record" if self.base_class.count(:conditions => ['ancestry is null']) != 0
     end
 
   end
@@ -129,10 +133,18 @@ module ActsAsFileSystem
     end
 
     def top_ancestor
-      self.hierarchy.first
+      if has_ancestry? and !ancestry.nil?
+        self.class.base_class.find_by_id self.top_ancestor_id
+      else
+        self.hierarchy.first
+      end
     end
     def top_ancestor_id
-      self.ancestor_ids.first
+      if has_ancestry? and !ancestry.nil?
+        self.ancestor_ids.first
+      else
+        self.hierarchy.first.id
+      end
     end
 
     # returns the full hierarchy from the top-level item to this one. For
