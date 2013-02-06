@@ -657,6 +657,38 @@ class ApplicationHelperTest < ActiveSupport::TestCase
     assert_not_nil add_zoom_to_images
   end
 
+  should 'content_id_to_str return the content id as string' do
+    article = fast_create(Article, :name => 'my article')
+    response = content_id_to_str(article)
+    assert_equal String, response.class
+    assert !response.empty?
+  end
+
+  should 'content_id_to_str return empty string when receiving nil' do
+    assert_equal '', content_id_to_str(nil)
+  end
+
+  should 'select gallery as default folder for image upload' do
+    profile = create_user('testuser').person
+    folder  = fast_create(Folder,  :profile_id => profile.id)
+    gallery = fast_create(Gallery, :profile_id => profile.id)
+    blog    = fast_create(Blog,    :profile_id => profile.id)
+    assert_equal gallery, default_folder_for_image_upload(profile)
+  end
+
+  should 'select generic folder as default folder for image upload when no gallery' do
+    profile = create_user('testuser').person
+    folder  = fast_create(Folder,  :profile_id => profile.id)
+    blog    = fast_create(Blog,    :profile_id => profile.id)
+    assert_equal folder, default_folder_for_image_upload(profile)
+  end
+
+  should 'return nil as default folder for image upload when no gallery or generic folder' do
+    profile = create_user('testuser').person
+    blog    = fast_create(Blog,    :profile_id => profile.id)
+    assert_nil default_folder_for_image_upload(profile)
+  end
+
   protected
   include NoosferoTestHelper
 
