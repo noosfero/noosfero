@@ -30,17 +30,17 @@ Feature: Project
 
 	@selenium 
 	Scenario: I edit a Mezuro project
-		When I have a Mezuro project with the following data
+		Given I have a Mezuro project with the following data
       | name        | Sample Project     |
       | description | Sample Description |
       | community   | mycommunity        |
 		And I am on article "Sample Project"
 		And I should be on /mycommunity/sample-project
-		Then I should see "Sample Project"
-    And I should see "Sample Description"
-    And I should see "Add Repository"
 		When I follow "Edit"
-    # Not complete
+    Then I should see "Sample Project" in the "article_name" input
+    And I should see "Sample Description" in the "article_description" input
+    And I should see "Save" button
+
 		
 #	@selenium
 #	Scenario: I delete a Mezuro project that belongs to me

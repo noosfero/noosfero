@@ -33,6 +33,14 @@ Then /^I should see "([^\"]*)" inside an alert$/ do |message|
 	selenium.chooseOkOnNextConfirmation();
 end
 
+Then /^I should see "([^"]*)" in the "([^"]*)" input$/ do |content, labeltext|
+    find_field("#{labeltext}").value.should == content
+end
+
+Then /^I should see "([^"]*)" in the "([^"]*)" button$/ do |content, button_class|
+    find_button("#{button_class}").value.should == content
+end
+
 When /^I have a Mezuro project with the following data$/ do |fields|
   item = {}
   fields.rows_hash.each do |name, value|
