@@ -28,8 +28,26 @@ Feature: Project
     And I should see "Sample Description"
     And I should see "Add Repository"
 
-	@selenium 
-	Scenario: I edit a Mezuro project
+  Scenario: I try to create a Mezuro project without title
+    Given I am on mycommunity's control panel
+    And I follow "Mezuro project"
+    And the field "article_name" is empty
+    When I press "Save" 
+    Then I should see "Title can't be blank"
+
+  Scenario: I try to create a Mezuro project with title already in use
+    Given I have a Mezuro project with the following data
+      | name        | Sample Project     |
+      | description | Sample Description |
+      | community   | mycommunity        | 
+    And I am on mycommunity's control panel
+    When I create a Mezuro project with the following data
+      | Title           | Sample Project      |
+      | Description     | Sample Description  |
+    Then I should see "Slug The title (article name) is already being used by another article, please use another title."
+
+  @selenium  
+	Scenario: I see a Mezuro project edit form
 		Given I have a Mezuro project with the following data
       | name        | Sample Project     |
       | description | Sample Description |
@@ -41,7 +59,36 @@ Feature: Project
     And I should see "Sample Description" in the "article_description" input
     And I should see "Save" button
 
+  @selenium
+  Scenario: I edit a Mezuro project with valid attributes
+    Given I have a Mezuro project with the following data
+      | name        | Sample Project     |
+      | description | Sample Description |
+      | community   | mycommunity        |
+    And I am on article "Sample Project"    
+    And I should be on /mycommunity/sample-project
+		And I follow "Edit"
+    When I update this Mezuro project with the following data
+      | Title       | Another Project    |
+      | Description | Another Description|
+    And I press "Save"
+    Then I should see "Another Project"
+    And I should see "Another Description"
+    And I should see "Add Repository"
 		
+  @selenium
+  Scenario: I try to edit a Mezuro project leaving empty its title
+    Given I have a Mezuro project with the following data
+      | name        | Sample Project     |
+      | description | Sample Description |
+      | community   | mycommunity        |
+    And I am on article "Sample Project"    
+    And I should be on /mycommunity/sample-project
+		And I follow "Edit"
+    When I erase the "article_name" field
+    And I press "Save"
+    Then I should see "Title can't be blank"
+
 #	@selenium
 #	Scenario: I delete a Mezuro project that belongs to me
 #		Given the following Mezuro project
