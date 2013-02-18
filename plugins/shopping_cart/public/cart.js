@@ -65,7 +65,7 @@ function Cart(config) {
        ).appendTo(li);
       var input = $("input", li)[0];
       input.lastValue = input.value;
-      input.itemId = item.id;
+      input.productId = item.id;
       input.ajustSize = function() {
         var len = this.value.toString().length;
         if(len > 2) len--;
@@ -73,7 +73,7 @@ function Cart(config) {
       };
       input.ajustSize();
       input.onchange = function() {
-        me.updateQuantity(this, this.itemId, this.value);
+        me.updateQuantity(this, this.productId, this.value);
       };
 //      document.location.href = "#"+liId;
 //      document.location.href = "#"+this.cartElem.id;
