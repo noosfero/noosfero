@@ -89,27 +89,50 @@ Feature: Project
     And I press "Save"
     Then I should see "Title can't be blank"
 
-#	@selenium
-#	Scenario: I delete a Mezuro project that belongs to me
-#		Given the following Mezuro project
-#      | name               | description         | owner    |
-#      | Sample Project     | Sample Description  | joaosilva |
-#		And I am on article "Sample Project"
-#		And I should be on /joaosilva/sample-project
-#		When I follow "Delete"
-#		And I confirm the "Are you sure that you want to remove the item "Sample Project"?" dialog
-#		Then I go to /joaosilva/sample-project
-#		And I should see "There is no such page: /joaosilva/sample-project"
-#		
-#  @selenium
-#	Scenario: I cannot delete a Mezuro project that doesn't belong to me
-#		Given the following Mezuro project
-#      | name               | description         | owner    |
-#      | Sample Project     | Sample Description  | joaosilva |
-#		And I am on article "Sample Project"
-#		And I should be on /joaosilva/sample-project
-#		When I follow "Delete"
-#		And I confirm the "Are you sure that you want to remove the item "Sample Project"?" dialog
-#		Then I go to /joaosilva/sample-project
-#		And I should see "There is no such page: /joaosilva/sample-project"
+  @selenium
+  Scenario: I try to edit a Mezuro project with title of an existing Mezuro Project
+    Given I have a Mezuro project with the following data
+      | name        | Sample Project     |
+      | description | Sample Description |
+      | community   | mycommunity        |
+    And I have a Mezuro project with the following data
+      | name        | Another Project     |
+      | description | Another Description |
+      | community   | mycommunity         |
+    And I am on article "Sample Project"    
+    And I should be on /mycommunity/sample-project
+		And I follow "Edit"
+    When I update this Mezuro project with the following data
+      | Title       | Another Project    |
+      | Description | Another Description|
+    And I press "Save"
+    Then I should see "Slug The title (article name) is already being used by another article, please use another title."
+
+	@selenium
+	Scenario: I delete a Mezuro project that belongs to me
+		Given I have a Mezuro project with the following data
+      | name        | Sample Project     |
+      | description | Sample Description |
+      | community   | mycommunity        |
+		And I am on article "Sample Project"
+		And I should be on /mycommunity/sample-project
+		When I follow "Delete"
+		And I confirm the "Are you sure that you want to remove the item "Sample Project"?" dialog
+		Then I go to /mycommunity/sample-project
+		And I should see "There is no such page: /mycommunity/sample-project"
+		
+  @selenium
+	Scenario: I cannot edit or delete a Mezuro project that doesn't belong to me
+		Given I have a Mezuro project with the following data
+      | name        | Sample Project     |
+      | description | Sample Description |
+      | community   | mycommunity        |
+    Given the following users
+      | login     | name       |
+      | adminuser | Admin      |
+    And I am logged in as "adminuser"
+		And I am on article "Sample Project"
+		And I should be on /mycommunity/sample-project
+		And I should not see "Delete"
+		And I should not see "Edit"
 		
