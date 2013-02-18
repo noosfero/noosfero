@@ -12,7 +12,10 @@ class SpaminatorPlugin::Spaminator
       puts Benchmark.measure { run(environment) }
     end
 
-    def initialize_logger(logpath)
+    def initialize_logger(environment)
+      logdir = File.join(RAILS_ROOT, 'log', SpaminatorPlugin.name.underscore)
+      File.makedirs(logdir) if !File.exist?(logdir)
+      logpath = File.join(logdir, "#{environment.name.to_slug}_#{ENV['RAILS_ENV']}_#{Time.now.strftime("%F_%T")}.log")
       @logger = Logger.new(logpath)
     end
 
@@ -28,8 +31,7 @@ class SpaminatorPlugin::Spaminator
     @report = SpaminatorPlugin::Report.new(:environment => environment, 
                                            :total_people => Person.count,
                                            :total_comments => Comment.count)
-    logpath = File.join(SpaminatorPlugin.root_path, 'log', "#{environment.name.to_slug}_#{ENV['RAILS_ENV']}_#{Time.now.strftime("%F_%T")}.log")
-    self.class.initialize_logger(logpath)
+    self.class.initialize_logger(environment)
   end
 
   def run
