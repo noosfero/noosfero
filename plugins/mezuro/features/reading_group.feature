@@ -10,13 +10,13 @@ Feature: Reading Group
     And "Mezuro" plugin is enabled
 
   Scenario: I see Mezuro reading group's input form
+    Given I am on joaosilva's control panel
     When I follow "Mezuro reading group"
     Then I should see "Title"
     And I should see "Description"
 
-  @selenium
   Scenario: I create a Mezuro reading group with valid attributes
-     Given I am on joaosilva's control panel
+    Given I am on joaosilva's control panel
     When I create a Mezuro reading group with the following data
       | Title           | Sample Reading Group |
       | Description     | Sample Description   |
