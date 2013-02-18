@@ -1,4 +1,4 @@
-When /^I create a Mezuro (project|configuration) with the following data$/ do |type, fields|
+When /^I create a Mezuro (project|configuration|reading group) with the following data$/ do |type, fields|
   click_link ("Mezuro " + type)
 
   fields.rows_hash.each do |name, value|
