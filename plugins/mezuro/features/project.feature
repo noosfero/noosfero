@@ -13,7 +13,7 @@ Feature: Project
       | mycommunity | My Community |
     And "Joao Silva" is admin of "My Community"
 
-  Scenario: I see Mezuro project's input form
+  Scenario: I see the Mezuro project input form
     Given I am on mycommunity's control panel
     When I follow "Mezuro project"
     Then I should see "Title"
