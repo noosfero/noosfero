@@ -91,7 +91,7 @@
 
   <% if @page.accept_comments? || @comments_count > 0 %>
     <h3 <%= 'class="no-comments-yet"' if @comments_count == 0 %>>
-      <%= number_of_comments(@page) %>
+      <%= display_number_of_comments(@comments_count) %>
     </h3>
   <% end %>
 

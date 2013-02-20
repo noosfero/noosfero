@@ -16,6 +16,10 @@ class Environment < ActiveRecord::Base
     filename
   end
 
+  class << self
+    attr_accessor :macros
+  end
+
   PERMISSIONS['Environment'] = {
     'view_environment_admin_panel' => N_('View environment admin panel'),
     'edit_environment_features' => N_('Edit environment features'),

@@ -571,6 +571,21 @@ class CommentTest < ActiveSupport::TestCase
     SpammerLogger.clean_log
   end
 
+  should 'count a thread of comments' do
+    Comment.delete_all
+    comments = []
+    comments.push(create_comment)
+    c1 = create_comment
+    comments.push(c1)
+    create_comment(:reply_of_id => c1.id)
+    create_comment(:reply_of_id => c1.id)
+    c2 = create_comment
+    comments.push(c2)
+    create_comment(:reply_of_id => c2.id)
+   
+    assert_equal 6, Comment.count_thread(comments)
+  end
+
   private
 
   def create_comment(args = {})

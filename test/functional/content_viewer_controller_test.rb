@@ -1229,4 +1229,118 @@ class ContentViewerControllerTest < ActionController::TestCase
     assert_equal 1, assigns(:comments_count)
   end
 
+  should 'add extra content on comment form from plugins' do
+    class Plugin1 < Noosfero::Plugin
+      def comment_form_extra_contents(args)
+        lambda {
+          hidden_field_tag('comment[some_field_id]', 1)
+         }
+      end
+    end
+    class Plugin2 < Noosfero::Plugin
+      def comment_form_extra_contents(args)
+        lambda {
+          hidden_field_tag('comment[another_field_id]', 1)
+         }
+      end
+    end
+
+    Environment.default.enable_plugin(Plugin1.name)
+    Environment.default.enable_plugin(Plugin2.name)
+
+    page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
+
+    get :view_page, :profile => profile.identifier, :page => [ 'myarticle' ]
+
+    assert_tag :tag => 'input', :attributes => {:name => 'comment[some_field_id]', :type => 'hidden'}
+    assert_tag :tag => 'input', :attributes => {:name => 'comment[another_field_id]', :type => 'hidden'}
+  end
+
+  should 'collect comments as plugin definition' do
+    class Plugin1 < Noosfero::Plugin
+      def load_comments(page)
+        [page.comments.find(4)]
+      end
+    end
+    Environment.default.enable_plugin(Plugin1.name)
+    Comment.delete_all
+    page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
+    page.comments.build(:author => profile, :title => 'hi', :body => 'hello 1' ).save!
+    page.comments.build(:author => profile, :title => 'hi', :body => 'hello 2' ).save!
+    page.comments.build(:author => profile, :title => 'hi', :body => 'hello 3' ).save!
+    c = page.comments.build(:author => profile, :title => 'hi', :body => 'hello 4' )
+    c.save!
+
+
+    get :view_page, :profile => profile.identifier, :page => [ 'myarticle' ]
+
+    assert_equal [c],  assigns(:comments)
+  end
+
+  should 'not be a problem if loaded comments of plugins not be an array' do
+    class Plugin1 < Noosfero::Plugin
+      def load_comments(page)
+        page.comments.find(4)
+      end
+    end
+    Environment.default.enable_plugin(Plugin1.name)
+    Comment.delete_all
+    page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
+    page.comments.build(:author => profile, :title => 'hi', :body => 'hello 1' ).save!
+    page.comments.build(:author => profile, :title => 'hi', :body => 'hello 2' ).save!
+    page.comments.build(:author => profile, :title => 'hi', :body => 'hello 3' ).save!
+    c = page.comments.build(:author => profile, :title => 'hi', :body => 'hello 4' )
+    c.save!
+
+
+    get :view_page, :profile => profile.identifier, :page => [ 'myarticle' ]
+
+    assert_equal [c],  assigns(:comments)
+  end
+
+
+  should 'take in consideration only the first plugin comments definition' do
+    class Plugin1 < Noosfero::Plugin
+      def load_comments(page)
+        page.comments.first
+      end
+    end
+    class Plugin2 < Noosfero::Plugin
+      def load_comments(page)
+        page.comments.last
+      end
+    end
+    Environment.default.enable_plugin(Plugin1.name)
+    Environment.default.enable_plugin(Plugin2.name)
+
+    page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
+    c1 = page.comments.build(:author => profile, :title => 'hi', :body => 'hello 1' )
+    c1.save!
+    page.comments.build(:author => profile, :title => 'hi', :body => 'hello 2' ).save!
+    page.comments.build(:author => profile, :title => 'hi', :body => 'hello 3' ).save!
+    c2 = page.comments.build(:author => profile, :title => 'hi', :body => 'hello 4' )
+    c2.save!
+
+    get :view_page, :profile => profile.identifier, :page => [ 'myarticle' ]
+
+    assert_equal [c1],  assigns(:comments)
+  end
+
+  should 'empty array of comments collected by plugin make the comments variable be an empty array' do
+    class Plugin1 < Noosfero::Plugin
+      def load_comments(page)
+        []
+      end
+    end
+    Environment.default.enable_plugin(Plugin1.name)
+
+    page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
+    page.comments.build(:author => profile, :title => 'hi', :body => 'hello 1' ).save!
+    page.comments.build(:author => profile, :title => 'hi', :body => 'hello 2' ).save!
+
+
+    get :view_page, :profile => profile.identifier, :page => [ 'myarticle' ]
+
+    assert_equal [],  assigns(:comments)
+  end
 end

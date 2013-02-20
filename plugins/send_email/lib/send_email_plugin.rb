@@ -12,12 +12,14 @@ class SendEmailPlugin < Noosfero::Plugin
     true
   end
 
-  def parse_content(raw_content)
+  def parse_content(args)
+    raw_content = args[:html]
     if context.profile
       raw_content.gsub(/\{sendemail\}/, "/profile/#{context.profile.identifier}/plugins/send_email/deliver")
     else
       raw_content.gsub(/\{sendemail\}/, '/plugin/send_email/deliver')
     end
+    args.clone.merge({:html => raw_content})
   end
 
 end

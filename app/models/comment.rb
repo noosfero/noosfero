@@ -157,6 +157,14 @@ class Comment < ActiveRecord::Base
     @replies = comments_list
   end
 
+  def self.count_thread(comments)
+    count = comments.length
+    comments.each do |c|
+      count+=count_thread(c.replies)
+    end
+    count
+  end
+
   def self.as_thread
     result = {}
     root = []

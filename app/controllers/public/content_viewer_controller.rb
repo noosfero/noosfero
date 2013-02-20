@@ -98,10 +98,13 @@ class ContentViewerController < ApplicationController
         session[:notice] = _("Notification of new comments to '%s' was successfully canceled") % params[:email]
       end
     end
+   
+    @comments = @plugins.dispatch_first(:load_comments, @page)
+    @comments ||= @page.comments.without_spam.as_thread
+    @comments = [@comments] unless @comments.is_a?(Array)
 
-    comments = @page.comments.without_spam
-    @comments = comments.as_thread
-    @comments_count = comments.count
+    @comments_count = Comment.count_thread(@comments)
+
     if params[:slideshow]
       render :action => 'slideshow', :layout => 'slideshow'
     end

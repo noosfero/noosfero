@@ -89,6 +89,8 @@ function check_captcha(button, confirm_action) {
   <%= required labelled_form_field(_('Enter your comment'), f.text_area(:body, :rows => 5)) %>
   <%= f.hidden_field(:reply_of_id) %>
 
+  <%= @plugins.dispatch(:comment_form_extra_contents, local_assigns).collect { |content| instance_eval(&content) }.join("") %>
+
   <% button_bar do %>
       <%= submit_button('add', _('Post comment'), :onclick => "if(check_captcha(this)) { save_comment(this) } else { check_captcha(this, save_comment)};return false;") %>
       <%= button_to_function :cancel, _('Cancel'), "jQuery.colorbox.close();f=jQuery(this).parents('.post_comment_box'); f.removeClass('opened'); f.addClass('closed'); return false" %>

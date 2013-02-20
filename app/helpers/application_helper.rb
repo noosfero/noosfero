@@ -988,10 +988,7 @@ module ApplicationHelper
     options.merge!(:page => params[:npage])
     content = article.to_html(options)
     content = content.kind_of?(Proc) ? self.instance_eval(&content) : content
-    @plugins && @plugins.each do |plugin|
-      content = plugin.parse_content(content)
-    end
-    content
+    filter_html(content, article)
   end
 
   def colorpicker_field(object_name, method, options = {})
@@ -1423,6 +1420,38 @@ module ApplicationHelper
       @message = _('The contents in this community is available to members only.')
     end
     @no_design_blocks = true
+  end
+
+  def filter_html(html, source)
+    if @plugins
+      html = convert_macro(html, source)
+    end
+    html
+  end
+
+  def convert_macro(html, source)
+    doc = Hpricot(html)
+    while element = doc.search('.macro').first
+      macro_name = element['data-macro']
+      method_name = "macro_#{macro_name}"
+      attrs = collect_macro_attributes(element)
+      plugin_instance = Environment.macros[environment.id][method_name]
+      if plugin_instance
+        result = plugin_instance.send(method_name, attrs, element.inner_html, source)
+        element.inner_html = result.kind_of?(Proc) ? self.instance_eval(&result) : result
+        element['class'] = "parsed-macro #{macro_name}"
+      else
+        element.inner_html = _("Unsupported macro %s!") % macro_name
+        element['class'] = "failed-macro #{macro_name}"
+      end
+      attrs.each {|key, value| element.remove_attribute("data-macro-#{key}")}
+    end
+    doc.html
+  end
+
+  def collect_macro_attributes(element)
+    element.attributes.to_hash.select {|key, value| key[0..10] == 'data-macro-'}.
+                       inject({}){|result, a| result.merge({a[0][11..-1] => a[1]})}.with_indifferent_access
   end
 
 end
