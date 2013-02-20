@@ -8,6 +8,12 @@
 
 <%= render :partial => 'confirm_unfollow' %>
 
+<script type="text/javascript">
+    window.ONE_COMMENT = "<%= _('One comment') %>";
+    window.COMMENT_PLURAL = "<%= _('comments') %>";
+    window.NO_COMMENT_YET = "<%= _('No comments yet') %>";
+</script>
+
 <div id="article-toolbar"></div>
 
 <script type="text/javascript">
@@ -94,11 +100,11 @@
   <% end %>
 
   <ul class="article-comments-list">
-    <%= render :partial => 'comment', :collection => @comments %>
+    <%= render :partial => 'comment/comment', :collection => @comments %>
   </ul>
 
   <% if @page.accept_comments? %>
-    <div id="page-comment-form"><%= render :partial => 'comment_form', :locals => {:url => url_for(@page.view_url.merge({:only_path => true})), :display_link => true, :cancel_triggers_hide => true}%></div>
+    <div id='page-comment-form' class='page-comment-form'><%= render :partial => 'comment/comment_form', :locals =>{:comment => Comment.new, :url => {:controller => :comment, :action => :create}, :display_link => true, :cancel_triggers_hide => true}%></div>
   <% end %>
 </div><!-- end class="comments" -->
 

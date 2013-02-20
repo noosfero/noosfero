@@ -30,6 +30,10 @@
         content.respond_to?(:call) ? content.call : content
       end.join("\n")
     %>
+
+    <script type='text/javascript'>
+      DEFAULT_LOADING_MESSAGE = <%="'#{ _('loading...') }'" %>;
+    </script>
   </head>
   <body class="<%=
     # Identify the current controller and action for the CSS:

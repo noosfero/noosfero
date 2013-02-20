@@ -1403,12 +1403,14 @@ module ApplicationHelper
   end
 
   def expirable_button(content, action, text, url, options = {})
-    options[:class] = "button with-text icon-#{action.to_s}"
+    #FIXME Leandro see if it's needed the options class parameter
+    options[:class] = "button with-text icon-#{action.to_s}" + (options[:class].nil? ? '' : " " + options[:class])
     expirable_content_reference content, action, text, url, options
   end
 
   def expirable_comment_link(content, action, text, url, options = {})
-    options[:class] = "comment-footer comment-footer-link comment-footer-hide"
+    #FIXME Leandro see if it's needed the options class parameter
+    options[:class] = "comment-footer comment-footer-link comment-footer-hide" + (options[:class].nil? ? '' : " " + options[:class])
     expirable_content_reference content, action, text, url, options
   end
 

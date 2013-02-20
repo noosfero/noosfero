@@ -678,6 +678,30 @@ class ArticleTest < ActiveSupport::TestCase
     assert a.notify_comments?
   end
 
+  should 'has moderate comments false by default' do
+    a = Article.create!(:name => 'my article', :body => 'my text', :profile_id => profile.id)
+    a.reload
+    assert a.moderate_comments == false
+  end
+
+  should 'save a article with moderate comments as true' do
+    a = Article.create!(:name => 'my article', :body => 'my text', :profile_id => profile.id, :moderate_comments => true)
+    a.reload
+    assert a.moderate_comments
+  end
+
+  should 'moderate_comments? return true if moderate_comments variable is true' do
+    a = Article.new
+    a.moderate_comments= true
+    assert a.moderate_comments?
+  end
+
+  should 'moderate_comments? return false if moderate_comments variable is false' do
+    a = Article.new
+    a.moderate_comments= false
+    assert !a.moderate_comments?
+  end
+
   should 'hold hits count' do
     a = fast_create(Article, :name => 'Test article', :profile_id => profile.id)
     a.hits = 10

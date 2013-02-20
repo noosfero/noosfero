@@ -528,11 +528,15 @@ code input {
   background: transparent url(../images/loading-small-dark.gif) no-repeat 10% center;
 }
 #overlay_loading {
-  z-index: 100;
-  cursor: progress;
+  z-index: 10000;
+  top: 0;
+  left: 0;
+  position: fixed;
+  width: 100%;
+  height: 100%;
 }
 #overlay_loading_modal {
-  z-index: 101;
+  z-index: 10001;
   width: 160px;
   height: 120px;
   border: 1px solid #000;
@@ -998,6 +1002,9 @@ code input {
 
 .comments {
 }
+span.comment-count.hide{
+  display: none;
+}
 #content .no-comments-yet {
   text-align: center;
   font-size: 80%;
@@ -1018,7 +1025,7 @@ code input {
   margin-bottom: 10px;
   padding: 4px;
 }
-#article .article-comment h4 {
+#article .article-comment .comment-details h4 {
   font-size: 13px;
   margin: 0px;
   display: inline;
@@ -1288,6 +1295,10 @@ a.comment-picture {
   border: 1px solid #888;
   cursor: pointer;
 }
+.post_comment_box.opened h4 {
+  border: none;
+  cursor: default;
+}
 .post_comment_box.opened {
   border: 1px solid #888;
   background: #eee;
@@ -1338,6 +1349,11 @@ a.comment-picture {
 .post_comment_box.comment_reply #comment_title {
   width: 100%;
 }
+
+#page-comment-form-template {
+  display:none;
+}
+
 #page-comment-form .post_comment_box {
   text-align: left;
   padding-left: 0;

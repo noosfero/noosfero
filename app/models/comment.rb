@@ -28,7 +28,14 @@ class Comment < ActiveRecord::Base
 
   xss_terminate :only => [ :body, :title, :name ], :on => 'validation'
 
-  delegate :environment, :to => :source
+  #FIXME make this test
+  def comment_root
+    if(self.reply_of.present?)
+      self.reply_of.comment_root
+    else
+      self
+    end
+  end
 
   def action_tracker_target
     self.article.profile

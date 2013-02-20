@@ -2,6 +2,8 @@ require 'hpricot'
 
 class Article < ActiveRecord::Base
 
+include ActionController::UrlWriter
+
   # use for internationalizable human type names in search facets
   # reimplement on subclasses
   def self.type_name
@@ -42,6 +44,7 @@ class Article < ActiveRecord::Base
   settings_items :display_hits, :type => :boolean, :default => true
   settings_items :author_name, :type => :string, :default => ""
   settings_items :allow_members_to_edit, :type => :boolean, :default => false
+  settings_items :moderate_comments, :type => :boolean, :default => false
   settings_items :followers, :type => Array, :default => []
 
   belongs_to :reference_article, :class_name => "Article", :foreign_key => 'reference_article_id'
@@ -309,6 +312,14 @@ class Article < ActiveRecord::Base
     @view_url ||= image? ? url.merge(:view => true) : url
   end
 
+  def comment_url_structure(comment, action = :edit)
+    if comment.new_record?
+      profile.url.merge(:page => path.split("/"), :controller => :comment, :action => :create)
+    else
+      profile.url.merge(:page => path.split("/"), :controller => :comment, :action => action || :edit, :id => comment.id)
+    end
+  end
+
   def allow_children?
     true
   end
@@ -469,6 +480,10 @@ class Article < ActiveRecord::Base
 
   def allow_edit?(user)
     allow_post_content?(user) || user && allow_members_to_edit && user.is_member_of?(profile)
+  end
+
+  def moderate_comments?
+    moderate_comments == true
   end
 
   def comments_updated
