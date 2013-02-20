@@ -8,12 +8,6 @@ function validate_code(code){
   return true;
 }
 
-function validate_new_repository() {
-  if (allRequiredFieldsAreFilled()))
-    return addressAndTypeMatch();
-  return false;
-}
-
 function allRequiredFieldsAreFilled() {
   var name = jQuery('#repository_name').val();
   var address = jQuery('#repository_address').val();
@@ -23,6 +17,13 @@ function allRequiredFieldsAreFilled() {
     return false;
   }
   return true;   
+}
+
+function validate_new_repository() {
+  if (allRequiredFieldsAreFilled()) {
+    return addressAndTypeMatch();
+  }
+  return false;
 }
 
 function addressAndTypeMatch() {
@@ -41,50 +42,57 @@ function addressAndTypeMatch() {
 }
 
 function matchBazaar(address) {
-  if (address.match(/bzr/))
+  if (address.match(/bzr/)) {
     return true;
+  }
   alert("Address does not match type BAZAAR chosen.");
   return false;
 }
 
 function matchCVS(address) {
-  if (address.match(/cvs/))
+  if (address.match(/cvs/)) {
     return true;
+  }
   alert("Address does not match type CVS chosen.");
   return false;
 }
 
 function matchGIT(address) {
-  if (address.match(/^(http(s)?:\/\/git(hub)?\.|git:\/\/git(hub\.com|orious\.org)\/|git@git(hub\.com|orious\.org):).+.git$/))
+  if (address.match(/^(http(s)?:\/\/git(hub)?\.|git:\/\/git(hub\.com|orious\.org)\/|git@git(hub\.com|orious\.org):).+.git$/)) {
     return true;
+  }
   alert("Address does not match type GIT chosen.");
   return false;
 }
 
 function matchMercurial(address) {
-  if (address.match(/^(http(s)?|ssh):\/\/.*hg/))
+  if (address.match(/^(http(s)?|ssh):\/\/.*hg/)) {
     return true;
+  }
   alert("Address does not match type MERCURIAL chosen.");
   return false;
 }
 
 function matchRemoteTarball(address) {
-  if (address.match(/\.tar(\..+)*$/))
+  if (address.match(/\.tar(\..+)*$/)) {
     return true;
+  }
   alert("Address does not match type REMOTE_TARBALL chosen.");
   return false;
 }
 
 function matchRemoteZIP(address) {
-  if (address.match(/\.zip$/))
+  if (address.match(/\.zip$/)) {
     return true;
+  }
   alert("Address does not match type REMOTE_ZIP chosen.");
   return false;
 }
 
 function matchSubversion(address) {
-  if (address.match(/^http(s)?:\/\/.+\/svn.+$/))
+  if (address.match(/^http(s)?:\/\/.+\/svn.+$/)) {
     return true;
+  }
   alert("Address does not match type SUBVERSION chosen.");
   return false;
 }
