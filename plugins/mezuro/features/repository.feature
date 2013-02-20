@@ -30,17 +30,19 @@ Feature: Repository
     And I should see "Configuration"
     And I should see "Add" button
 
+  @selenium
   Scenario: I want to add a repository with no name
     Given I follow "Add Repository"
-    When I fill in the following
-      | Name            | |
-      | Description     | My Description                                                  |
-      | License         | ISC License (ISC)                                               |
-      | Process Period  | Not Periodically                                                |
-      | Type            | SUBVERSION                                                      |
-      | Address         | https://qt-calculator.svn.sourceforge.net/svnroot/qt-calculator |
-      | Configuration   | Kalibro for Java                                                |
+    When I fill the fields with the following data
+      | repository_name               | |
+      | repository_description        | My Description                                                  |
+      | repository_license            | ISC License (ISC)                                               |
+      | repository_process_period     | Not Periodically                                                |
+      | repository_type               | SUBVERSION                                                      |
+      | repository_address            | https://qt-calculator.svn.sourceforge.net/svnroot/qt-calculator |
+      | repository_configuration_id   | 1                                                               |
     And I press "Add"
+    Then I should see "Please fill all fields marked with (*)." inside an alert
   
-  Scenario: I want to add a repository with valid attributes
+  #Scenario: I want to add a repository with valid attributes
         

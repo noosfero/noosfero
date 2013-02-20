@@ -26,8 +26,9 @@ Then /^the field "([^"]*)" is empty$/ do |field_name|
 end
 
 Then /^I should see "([^\"]*)" inside an alert$/ do |message|
-	selenium.get_alert.should eql(message)
-	selenium.chooseOkOnNextConfirmation();
+	alert = page.driver.browser.switch_to.alert
+  assert_equal message, alert.text
+  alert.accept
 end
 
 Then /^I should see "([^"]*)" in the "([^"]*)" input$/ do |content, labeltext|
@@ -62,4 +63,10 @@ end
 
 When /^I erase the "([^"]*)" field$/ do |field_name|
   find_field(field_name).set ""
+end
+
+When /^I fill the fields with the following data$/ do |fields|
+  fields.rows_hash.each do |name, value|
+    find_field(name.to_s).set value
+  end
 end
