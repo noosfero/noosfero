@@ -6,7 +6,7 @@ class Noosfero::Plugin::Manager
   def initialize(environment, context)
     @environment = environment
     @context = context
-    Environment.macros = {environment.id => {}}
+    Environment.macros = {environment.id => {}} unless environment.nil?
   end
 
   delegate :each, :to => :enabled_plugins
