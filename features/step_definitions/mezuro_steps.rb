@@ -43,7 +43,7 @@ Then /^I should not see "([^"]*)" button$/ do |button_name|
   find_button(button_name).should be_nil
 end
 
-When /^I have a Mezuro (project|reading group) with the following data$/ do |type,fields|
+When /^I have a Mezuro (project|reading group|configuration) with the following data$/ do |type,fields|
   item = {}
   fields.rows_hash.each do |name, value|
     if(name=="user" or name=="community")
@@ -52,20 +52,14 @@ When /^I have a Mezuro (project|reading group) with the following data$/ do |typ
       item.merge!(name => value)
     end
   end
-  if(type=="project")
+  if (type == "project")
     result = MezuroPlugin::ProjectContent.new(item)
-  elsif(type=="reading group")
+  elsif (type == "reading group")
     result = MezuroPlugin::ReadingGroupContent.new(item)
+  elsif (type == "configuration")
+    result = MezuroPlugin::ConfigurationContent.new(item)
   end
   result.save!
-end
-
-When /^I have a configuration with the following data$/ do |fields|
-  attributes = {}
-  fields.rows_hash.each do |name, value|
-    attributes.merge!(name => value)
-  end
-  Kalibro::Configuration.create(attributes)
 end
 
 When /^I erase the "([^"]*)" field$/ do |field_name|
