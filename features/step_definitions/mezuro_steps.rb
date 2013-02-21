@@ -60,17 +60,26 @@ When /^I have a Mezuro (project|reading group) with the following data$/ do |typ
   result.save!
 end
 
-When /^I update this Mezuro (project|reading group) with the following data$/ do |type, fields|
-  find_field("article_name").set fields.rows_hash[:Title] 
-  find_field("article_description").set fields.rows_hash[:Description] 
+When /^I have a configuration with the following data$/ do |fields|
+  attributes = {}
+  fields.rows_hash.each do |name, value|
+    attributes.merge!(name => value)
+  end
+  Kalibro::Configuration.create(attributes)
 end
 
 When /^I erase the "([^"]*)" field$/ do |field_name|
   find_field(field_name).set ""
 end
 
-When /^I fill the fields with the following data$/ do |fields|
-  fields.rows_hash.each do |name, value|
-    find_field(name.to_s).set value
+When /^I fill the fields with the new following data$/ do |fields|
+  fields.rows_hash.each do |key, value|
+    name = key.to_s
+    element = find_field(name)
+    if element.tag_name.to_s == "select"
+      select(value, :from => name)
+    else
+      element.set value
+    end
   end
 end

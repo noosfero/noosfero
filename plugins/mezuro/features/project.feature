@@ -68,9 +68,9 @@ Feature: Project
     And I am on article "Sample Project"    
     And I should be on /mycommunity/sample-project
 		And I follow "Edit"
-    When I update this Mezuro project with the following data
-      | Title       | Another Project    |
-      | Description | Another Description|
+    When I fill the fields with the new following data
+      | article_name        | Another Project    |
+      | article_description | Another Description|
     And I press "Save"
     Then I should see "Another Project"
     And I should see "Another Description"
@@ -102,9 +102,9 @@ Feature: Project
     And I am on article "Sample Project"    
     And I should be on /mycommunity/sample-project
 		And I follow "Edit"
-    When I update this Mezuro project with the following data
-      | Title       | Another Project    |
-      | Description | Another Description|
+    When I fill the fields with the new following data
+      | article_name        | Another Project    |
+      | article_description | Another Description|
     And I press "Save"
     Then I should see "Slug The title (article name) is already being used by another article, please use another title."
 
@@ -129,9 +129,9 @@ Feature: Project
       | community   | mycommunity        |
     And the following users
       | login     | name       |
-      | adminuser | Admin      |
-    And I am logged in as "adminuser"
+      | user      | User       |
 		When I am on article "Sample Project"
+    And I am logged in as "user"
 		And I should be on /mycommunity/sample-project
 		Then I should not see "Delete"
 		And I should not see "Edit"
