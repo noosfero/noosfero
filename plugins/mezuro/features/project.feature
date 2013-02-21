@@ -127,12 +127,12 @@ Feature: Project
       | name        | Sample Project     |
       | description | Sample Description |
       | community   | mycommunity        |
-    Given the following users
+    And the following users
       | login     | name       |
       | adminuser | Admin      |
     And I am logged in as "adminuser"
-		And I am on article "Sample Project"
+		When I am on article "Sample Project"
 		And I should be on /mycommunity/sample-project
-		And I should not see "Delete"
+		Then I should not see "Delete"
 		And I should not see "Edit"
 		
