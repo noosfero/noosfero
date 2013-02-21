@@ -43,20 +43,24 @@ Then /^I should not see "([^"]*)" button$/ do |button_name|
   find_button(button_name).should be_nil
 end
 
-When /^I have a Mezuro project with the following data$/ do |fields|
+When /^I have a Mezuro (project|reading group) with the following data$/ do |type,fields|
   item = {}
   fields.rows_hash.each do |name, value|
-    if(name=="community" or name=="user")
+    if(name=="user" or name=="community")
       item.merge!(:profile=>Profile[value])
     else
       item.merge!(name => value)
     end
   end
-  result = MezuroPlugin::ProjectContent.new(item)
+  if(type=="project")
+    result = MezuroPlugin::ProjectContent.new(item)
+  elsif(type=="reading group")
+    result = MezuroPlugin::ReadingGroupContent.new(item)
+  end
   result.save!
 end
 
-When /^I update this Mezuro project with the following data$/ do |fields|
+When /^I update this Mezuro (project|reading group) with the following data$/ do |type, fields|
   find_field("article_name").set fields.rows_hash[:Title] 
   find_field("article_description").set fields.rows_hash[:Description] 
 end

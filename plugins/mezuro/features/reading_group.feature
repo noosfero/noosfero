@@ -24,3 +24,112 @@ Feature: Reading Group
     And I should see "Sample Description"
     And I should see "Readings"
     And I should see "Add Reading"
+    
+  Scenario: I try to create a Mezuro reading group without title
+    Given I am on joaosilva's control panel
+    And I follow "Mezuro reading group"
+    And the field "article_name" is empty
+    When I press "Save" 
+    Then I should see "Title can't be blank"
+
+  Scenario: I try to create a Mezuro reading group with title already in use
+    Given I have a Mezuro reading group with the following data
+      | name        | Sample Reading group |
+      | description | Sample Description   |
+      | user        | joaosilva            | 
+    And I am on joaosilva's control panel
+    When I create a Mezuro reading group with the following data
+      | Title           | Sample Reading Group |
+      | Description     | Sample Description   |
+    Then I should see "Slug The title (article name) is already being used by another article, please use another title."
+
+@selenium   
+	Scenario: I see a Mezuro reading group edit form
+		Given I have a Mezuro reading group with the following data
+      | name        | Sample Reading group |
+      | description | Sample Description   |
+      | user        | joaosilva            |
+		And I am on article "Sample Reading group"
+		And I should be on /joaosilva/sample-reading-group
+		When I follow "Edit"
+    Then I should see "Sample Reading group" in the "article_name" input
+    And I should see "Sample Description" in the "article_description" input
+    And I should see "Save" button
+    
+@selenium
+  Scenario: I edit a Mezuro reading group with valid attributes
+    Given I have a Mezuro reading group with the following data
+      | name        | Sample Reading group |
+      | description | Sample Description   |
+      | user        | joaosilva            |
+    And I am on article "Sample Reading group"    
+		And I should be on /joaosilva/sample-reading-group
+		And I follow "Edit"
+    When I update this Mezuro reading group with the following data
+      | Title       | Another Reading group |
+      | Description | Another Description   |
+    And I press "Save"
+    Then I should see "Another Reading group"
+    And I should see "Another Description"
+    And I should see "Add Reading"
+
+@selenium
+  Scenario: I try to edit a Mezuro reading group leaving empty its title
+    Given I have a Mezuro reading group with the following data
+      | name        | Sample Reading group |
+      | description | Sample Description   |
+      | user        | joaosilva            |
+    And I am on article "Sample Reading group"    
+		And I should be on /joaosilva/sample-reading-group
+		And I follow "Edit"
+    When I erase the "article_name" field
+    And I press "Save"
+    Then I should see "Title can't be blank"
+
+@selenium
+  Scenario: I try to edit a Mezuro reading group with title of an existing Mezuro Reading group
+    Given I have a Mezuro reading group with the following data
+      | name        | Sample Reading group |
+      | description | Sample Description   |
+      | user        | joaosilva            |
+    And I have a Mezuro reading group with the following data
+      | name        | Another Reading group |
+      | description | Another Description   |
+      | user        | joaosilva             |
+    And I am on article "Sample Reading group"    
+		And I should be on /joaosilva/sample-reading-group
+		And I follow "Edit"
+    When I update this Mezuro reading group with the following data
+      | Title       | Another Reading group |
+      | Description | Another Description   |
+    And I press "Save"
+    Then I should see "Slug The title (article name) is already being used by another article, please use another title."
+
+@selenium
+	Scenario: I delete a Mezuro reading group that belongs to me
+		Given I have a Mezuro reading group with the following data
+      | name        | Sample Reading group |
+      | description | Sample Description   |
+      | user        | joaosilva            |
+		And I am on article "Sample Reading group"
+		And I should be on /joaosilva/sample-reading-group
+		When I follow "Delete"
+		And I confirm the "Are you sure that you want to remove the item "Sample Reading group"?" dialog
+		Then I go to /joaosilva/sample-reading-group
+		And I should see "There is no such page: /joaosilva/sample-reading-group"
+		
+@selenium
+	Scenario: I cannot edit or delete a Mezuro reading group that doesn't belong to me
+		Given I have a Mezuro reading group with the following data
+      | name        | Sample Reading group |
+      | description | Sample Description   |
+      | user        | joaosilva            |
+    And the following users
+      | login     | name       |
+      | adminuser | Admin      |
+    And I am logged in as "adminuser"
+		When I am on article "Sample Reading group"
+		And I should be on /joaosilva/sample-reading-group
+		Then I should not see "Delete"
+		And I should not see "Edit"
+
