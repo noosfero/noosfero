@@ -130,8 +130,8 @@ Feature: Project
     And the following users
       | login     | name       |
       | user      | User       |
-		When I am on article "Sample Project"
     And I am logged in as "user"
+		When I am on article "Sample Project"
 		And I should be on /mycommunity/sample-project
 		Then I should not see "Delete"
 		And I should not see "Edit"
