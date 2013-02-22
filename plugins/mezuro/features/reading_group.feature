@@ -65,9 +65,9 @@ Feature: Reading Group
     And I am on article "Sample Reading group"    
 		And I should be on /joaosilva/sample-reading-group
 		And I follow "Edit"
-    When I update this Mezuro reading group with the following data
-      | Title       | Another Reading group |
-      | Description | Another Description   |
+		When I fill the fields with the new following data
+      | article_name        | Another Reading group |
+      | article_description | Another Description   |
     And I press "Save"
     Then I should see "Another Reading group"
     And I should see "Another Description"
@@ -99,9 +99,9 @@ Feature: Reading Group
     And I am on article "Sample Reading group"    
 		And I should be on /joaosilva/sample-reading-group
 		And I follow "Edit"
-    When I update this Mezuro reading group with the following data
-      | Title       | Another Reading group |
-      | Description | Another Description   |
+		When I fill the fields with the new following data
+      | article_name        | Another Reading group |
+      | article_description | Another Description   |
     And I press "Save"
     Then I should see "Slug The title (article name) is already being used by another article, please use another title."
 

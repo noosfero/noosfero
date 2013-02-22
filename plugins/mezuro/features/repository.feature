@@ -16,6 +16,10 @@ Feature: Repository
       | name        | Sample Project      |
       | description | Sample Description  |
       | community   | mycommunity         |
+    And I have a Mezuro configuration with the following data
+      | name        | Sample Configuration|
+      | description | Sample Description  |
+      | user        | joaosilva           |
     And I am on article "Sample Project"    
     And I should be on /mycommunity/sample-project
     
@@ -31,10 +35,6 @@ Feature: Repository
     And I should see "Add" button
 
   Scenario: I want to add a repository with no name
-    And I have a Mezuro configuration with the following data
-      | name        | Sample Configuration|
-      | description | Sample Description  |
-      | user        | joaosilva           |
     Given I follow "Add Repository"
     When I fill the fields with the new following data
       | repository_name               |                                                                 |
