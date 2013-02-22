@@ -36,8 +36,10 @@ class CommentGroupMacroPlugin < Noosfero::Plugin
   end
 
   def comment_form_extra_contents(args)
+    comment = args[:comment]
+    group_id = comment.group_id || args[:group_id]
     lambda {
-      hidden_field_tag('comment[group_id]', args[:group_id]) if args.has_key?(:group_id)
+      hidden_field_tag('comment[group_id]', group_id) if group_id
     }
   end
 
