@@ -299,6 +299,13 @@ Given /^I am logged in as "(.+)"$/ do |username|
    Then %{I should be on #{username}'s control panel}
 end
 
+Given /^"([^"]*)" is environment admin$/ do |person|
+  user = Profile.find_by_name(person)
+  e = Environment.default
+
+  e.add_admin(user)
+end
+
 Given /^I am logged in as admin$/ do
   visit('/account/logout')
   user = User.create!(:login => 'admin_user', :password => '123456', :password_confirmation => '123456', :email => 'admin_user@example.com')
@@ -414,12 +421,8 @@ Given /^enterprise "([^\"]*)" is disabled$/ do |enterprise_name|
   enterprise.save
 end
 
-Then /^The page title should contain "(.*)"$/ do |text|
-  if response.class.to_s == 'Webrat::SeleniumResponse'
-    response.selenium.text('css=title').should include(text)
-  else
-    response.should have_selector("title:contains('#{text}')")
-  end
+Then /^the page title should be "(.*)"$/ do |text|
+  Then %{I should see "#{text}" within "title"}
 end
 
 Then /^The page should contain "(.*)"$/ do |selector|

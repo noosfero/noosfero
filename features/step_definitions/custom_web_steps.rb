@@ -13,8 +13,7 @@ Then /^I should not see "([^"]*)" link$/ do |text|
 end
 
 When /^I should see "([^\"]+)" linking to "([^\"]+)"$/ do |text, href|
-  page.should have_selector("a:contains('#{text}')")
-  page.should have_selector("a[href='#{href}']")
+  page.should have_xpath("//a", :href => /#{href}/)
 end
 
 When /^I reload and wait for the page$/ do
