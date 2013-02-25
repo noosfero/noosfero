@@ -15,12 +15,12 @@ class SpaminatorPlugin::Spaminator
     def initialize_logger(environment)
       logdir = File.join(RAILS_ROOT, 'log', SpaminatorPlugin.name.underscore)
       File.makedirs(logdir) if !File.exist?(logdir)
-      logpath = File.join(logdir, "#{environment.name.to_slug}_#{ENV['RAILS_ENV']}_#{Time.now.strftime("%F_%T")}.log")
+      logpath = File.join(logdir, "#{environment.name.to_slug}_#{ENV['RAILS_ENV']}_#{Time.now.strftime('%F_%T')}.log")
       @logger = Logger.new(logpath)
     end
 
     def log(message)
-      @logger << "[#{Time.now.strftime("%F %T %z")}] #{message}\n"
+      @logger << "[#{Time.now.strftime('%F %T %z')}] #{message}\n"
     end
   end
 
