@@ -23,7 +23,7 @@ Feature: Reading
     And I should see "Color"
     And I should see "Save" button
 
-  @kalibro_restart @current
+  @selenium @kalibro_restart
   Scenario: I want to add a reading with no name
     When I follow "Add Reading"
     When I fill the fields with the new following data
