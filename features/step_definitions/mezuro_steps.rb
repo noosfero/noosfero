@@ -13,7 +13,7 @@ When /^I create a Mezuro configuration with the following data$/ do |fields|
   click_link ("Mezuro configuration")
 
   fields.rows_hash.each do |name, value|
-    if name != "Clone"      
+    if name != "Clone"
       When %{I fill in "#{name}" with "#{value}"}
     end
   end
@@ -93,4 +93,16 @@ When /^I fill the fields with the new following data$/ do |fields|
       element.set value
     end
   end
+end
+
+When /^I have a Mezuro metric configuration with previous created configuration and reading group/ do
+   Kalibro::MetricConfiguration.create({
+         :code => 'amloc1',
+         :metric => {:name => 'Total Coupling Factor', :compound => "false", :scope => 'SOFTWARE', :language => ['JAVA']},
+         :base_tool_name => "Analizo",
+         :weight => "1.0",
+         :aggregation_form => 'AVERAGE',
+         :reading_group_id => Kalibro::ReadingGroup.all.last.id,
+         :configuration_id => Kalibro::Configuration.all.last.id
+     })
 end

@@ -1,3 +1,4 @@
+@kalibro_restart
 Feature: Repository
   As a Mezuro user
   I want to create, edit, remove and process a repository
@@ -20,9 +21,13 @@ Feature: Repository
       | name        | Sample Configuration|
       | description | Sample Description  |
       | user        | joaosilva           |
-    And I am on article "Sample Project"    
-    And I should be on /mycommunity/sample-project
-    
+    And I have a Mezuro reading group with the following data
+      | name        | Sample Reading group |
+      | description | Sample Description   |
+      | user        | joaosilva            |
+    And I have a Mezuro metric configuration with previous created configuration and reading group
+    And I am on article "Sample Project"
+
   Scenario: I want to see the Mezuro repository input form
     When I follow "Add Repository"
     Then I should see "Name"
@@ -34,6 +39,7 @@ Feature: Repository
     And I should see "Configuration"
     And I should see "Add" button
 
+  @selenium
   Scenario: I want to add a repository with no name
     Given I follow "Add Repository"
     When I fill the fields with the new following data
@@ -46,7 +52,8 @@ Feature: Repository
       | repository_configuration_id   | Sample Configuration                                            |
     And I press "Add"
     Then I should see "Please fill all fields marked with (*)." inside an alert
-  
+
+  @selenium
   Scenario: I want to add a repository with no address
     Given I follow "Add Repository"
     When I fill the fields with the new following data
@@ -60,6 +67,7 @@ Feature: Repository
     And I press "Add"
     Then I should see "Please fill all fields marked with (*)." inside an alert
 
+  @selenium
   Scenario: I want to add a repository with a invalid address for git repository
     Given I follow "Add Repository"
     When I fill the fields with the new following data
@@ -74,4 +82,4 @@ Feature: Repository
     Then I should see "Address does not match type GIT chosen." inside an alert
 
   #Scenario: I want to add a repository with valid attributes
-        
+
