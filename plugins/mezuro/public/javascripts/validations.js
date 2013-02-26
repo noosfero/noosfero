@@ -2,6 +2,7 @@ jQuery(function (){
   jQuery('#range_submit').live("click", validate_new_range_configuration);
   jQuery('#metric_configuration_submit').live("click", validate_metric_configuration);
   jQuery('#repository_submit').live("click", validate_new_repository);
+  jQuery('#reading_submit').live("click", validate_new_reading);
 });
 
 function validate_code(code){
@@ -17,6 +18,17 @@ function allRequiredFieldsAreFilled() {
     return false;
   }
   return true;   
+}
+
+function validate_new_reading() {
+  var name = jQuery('#reading_label').val();
+  var grade = jQuery('#reading_grade').val();
+  var color = jQuery('#reading_color').val();
+  if (is_null(name) || is_null(grade) || is_null(color)){
+    alert("Please fill all fields marked with (*).");
+    return false;
+  }
+  return true;
 }
 
 function validate_new_repository() {
