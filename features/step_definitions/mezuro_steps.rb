@@ -1,11 +1,24 @@
-When /^I create a Mezuro (project|configuration|reading group) with the following data$/ do |type, fields|
+When /^I create a Mezuro (project|reading group) with the following data$/ do |type, fields|
   click_link ("Mezuro " + type)
 
   fields.rows_hash.each do |name, value|
     When %{I fill in "#{name}" with "#{value}"}
   end
 
-  click_button "Save" # Does not work without selenium?
+  click_button "Save"
+  Article.find_by_name(fields.rows_hash[:Title])
+end
+
+When /^I create a Mezuro configuration with the following data$/ do |fields|
+  click_link ("Mezuro configuration")
+
+  fields.rows_hash.each do |name, value|
+    if name != "Clone"      
+      When %{I fill in "#{name}" with "#{value}"}
+    end
+  end
+
+  click_button "Save"
   Article.find_by_name(fields.rows_hash[:Title])
 end
 
