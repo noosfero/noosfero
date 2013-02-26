@@ -4,6 +4,12 @@ Then /^"([^"]*)" should not be visible within "([^"]*)"$/ do |text, selector|
   end
 end
 
+Then /^"([^"]*)" should be visible within "([^"]*)"$/ do |text, selector|
+  if page.has_content?(text)
+    page.should have_css(selector, :text => text, :visible => false)
+  end
+end
+
 Then /^I should see "([^"]*)" link$/ do |text|
   page.should have_css('a', :text => text)
 end
@@ -14,6 +20,16 @@ end
 
 When /^I should see "([^\"]+)" linking to "([^\"]+)"$/ do |text, href|
   page.should have_xpath("//a", :href => /#{href}/)
+end
+
+Then /^the "([^"]*)" button should be disabled$/ do |selector|
+  field = find(selector)
+  field['disabled'].should be_true
+end
+
+Then /^the "([^"]*)" button should be enabled$/ do |selector|
+  field = find(selector)
+  field['disabled'].should_not be_true
 end
 
 When /^I reload and wait for the page$/ do

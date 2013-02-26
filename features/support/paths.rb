@@ -89,7 +89,7 @@ module NavigationHelpers
       '/myprofile/%s/profile_members' % Profile.find_by_name($1).identifier
 
     when /^(.+)'s new product page/
-      '/myprofile/%s/manage_products/new' % Profile.find_by_name($1).identifier
+      '/myprofile/%s/manage_products/new' % $1
 
     when /^(.+)'s page of product (.*)$/
       enterprise = Profile.find_by_name($1)
@@ -97,7 +97,7 @@ module NavigationHelpers
       '/myprofile/%s/manage_products/show/%s' % [enterprise.identifier, product.id]
 
     when /^(.*)'s products page$/
-      '/catalog/%s' % Profile.find_by_name($1).identifier
+      '/catalog/%s' % $1
 
     when /^chat$/
       '/chat'

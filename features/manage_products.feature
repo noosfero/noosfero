@@ -13,7 +13,7 @@ Feature: manage products
 
   Scenario: display "create new product" button
     Given I am logged in as "joaosilva"
-    And I am on Rede Moinho's control panel
+    And I am on redemoinho's control panel
     When I follow "Manage Products and Services"
     Then I should see "New product or service"
 
@@ -34,7 +34,7 @@ Feature: manage products
       | redemoinho | bicycle  | Bike I | bicycle 9  |
       | redemoinho | bicycle  | Bike J | bicycle 10 |
       | redemoinho | bicycle  | Bike K | bicycle 11 |
-    When I go to /catalog/redemoinho
+    When I go to redemoinho's products page
     Then I should see "Bike A" within "#product-list"
     And I should see "Bike B" within "#product-list"
     And I should see "Bike C" within "#product-list"
@@ -52,13 +52,13 @@ Feature: manage products
 
   Scenario: listing products and services
     Given I am logged in as "joaosilva"
-    And I am on Rede Moinho's control panel
+    And I am on redemoinho's control panel
     And I follow "Manage Products and Services"
     Then I should see "Listing products and services"
 
   Scenario: see button to back in categories hierarchy
     Given I am logged in as "joaosilva"
-    And I am on Rede Moinho's control panel
+    And I am on redemoinho's control panel
     And I follow "Manage Products and Services"
     When I follow "New product or service"
     Then I should see "Back to the product listing" link
@@ -69,9 +69,7 @@ Feature: manage products
       | Products |
       | Services |
     Given I am logged in as "joaosilva"
-    And I am on Rede Moinho's control panel
-    And I follow "Manage Products and Services"
-    When I follow "New product or service"
+    And I go to redemoinho's new product page
     Then I should see "Products"
     And I should see "Service"
 
@@ -85,10 +83,8 @@ Feature: manage products
       | Computers level1 | products-level0 |
       | DVDs level1 | products-level0 |
     Given I am logged in as "joaosilva"
-    And I am on Rede Moinho's control panel
-    And I follow "Manage Products and Services"
-    When I follow "New product or service"
-    And I select "Products level0 »" and wait for jquery
+    And I go to redemoinho's new product page
+    And I select "Products level0 »" from "category_id" within "#categories_container_level0"
     Then I should see "Computers level1"
     And I should see "DVDs level1"
 
@@ -103,12 +99,12 @@ Feature: manage products
       | Computers level1 | products-level0 |
       | Software development level1 | services-level0 |
     Given I am logged in as "joaosilva"
-    And I am on Rede Moinho's control panel
-    And I follow "Manage Products and Services"
-    When I follow "New product or service"
-    And I select "Products level0 »" and wait for jquery
-    And I select "Computers level1" and wait for jquery
-    And I select "Services level0 »" and wait for jquery
+    And I go to redemoinho's new product page
+    And I should not see /Computers level/
+    And I select "Products level0 »" from "category_id" within "#categories_container_wrapper"
+    And I should see /Computers level/
+    And I should not see /Software develop/
+    And I select "Services level0 »" from "category_id" within "#categories_container_wrapper"
     Then I should see /Software develop/
     And I should not see /Computers level/
 
@@ -121,11 +117,9 @@ Feature: manage products
       | name | parent |
       | Computers | products |
     Given I am logged in as "joaosilva"
-    And I am on Rede Moinho's control panel
-    And I follow "Manage Products and Services"
-    When I follow "New product or service"
-    And I select "Products »" and wait for jquery
-    And I select "Computers" and wait for jquery
+    And I go to redemoinho's new product page
+    And I select "Products »" from "category_id" within "#categories_container_level0"
+    And I select "Computers" from "category_id" within "#categories_container_level1"
     Then I should see "Products → Computers"
 
   @selenium
@@ -137,11 +131,9 @@ Feature: manage products
       | name | parent |
       | Category Level 1 | toplevel-product-categories |
     Given I am logged in as "joaosilva"
-    And I am on Rede Moinho's control panel
-    And I follow "Manage Products and Services"
-    When I follow "New product or service"
-    And I select "Toplevel Product Categories »" and wait for jquery
-    And I select "Category Level 1" and wait for jquery
+    And I go to redemoinho's new product page
+    And I select "Toplevel Product Categories »" from "category_id" within "#categories_container_level0"
+    And I select "Category Level 1" from "category_id" within "#categories_container_level1"
     Then I should see "Toplevel Product Categories" link
     And I should not see "Category Level 1" link
 
@@ -151,8 +143,8 @@ Feature: manage products
       | name |
       | Only for test |
     And I am logged in as "joaosilva"
-    When I go to /myprofile/redemoinho/manage_products/new
-    Then the "#save_and_continue" button should not be enabled
+    When I go to redemoinho's new product page
+    Then the "#save_and_continue" button should be disabled
 
   @selenium
   Scenario: enable save button when select one category
@@ -160,11 +152,9 @@ Feature: manage products
     And the following product_category
       | name |
       | Browsers (accept categories) |
-    And I am on Rede Moinho's control panel
-    And I follow "Manage Products and Services"
-    When I follow "New product or service"
-    And I select "Browsers (accept categories)" and wait for jquery
-    Then the "Save and continue" button should be enabled
+    When I go to redemoinho's new product page
+    And I select "Browsers (accept categories)" from "category_id" within "#categories_container_wrapper"
+    Then the "#save_and_continue" button should be enabled
 
   @selenium
   Scenario: dont enable save button when select category with not accept products
@@ -172,11 +162,9 @@ Feature: manage products
       | name | accept_products |
       | Browsers | false |
     Given I am logged in as "joaosilva"
-    And I am on Rede Moinho's control panel
-    And I follow "Manage Products and Services"
-    When I follow "New product or service"
-    And I select "Browsers" and wait for jquery
-    Then the "#save_and_continue" button should not be enabled
+    When I go to redemoinho's new product page
+    And I select "Browsers" from "category_id" within "#categories_container_wrapper"
+    Then the "#save_and_continue" button should be disabled
 
   @selenium
   Scenario: save product
@@ -184,31 +172,13 @@ Feature: manage products
       | name |
       | Bicycle |
     Given I am logged in as "joaosilva"
-    And I am on Rede Moinho's control panel
-    And I follow "Manage Products and Services"
-    When I follow "New product or service"
-    And I select "Bicycle" and wait for jquery
+    When I go to redemoinho's new product page
+    And I select "Bicycle" from "category_id" within "#categories_container_wrapper"
     And I press "Save and continue"
-    Then I should see "Bicycle"
+    When I go to redemoinho's products page
+    And I follow "Bicycle" within "#product-list"
+    Then I should see "Bicycle" within "#show_product"
     And I should see "Change category"
-
-  @selenium
-  Scenario: stay on the same place after error on save
-    Given the following product_category
-      | name |
-      | Bicycle |
-    Given I am logged in as "joaosilva"
-    And I am on Rede Moinho's control panel
-    And I follow "Manage Products and Services"
-    And I follow "New product or service"
-    And I select "Bicycle" and wait for jquery
-    And I press "Save and continue"
-    When I follow "Back"
-    And I follow "New product or service"
-    And I select "Bicycle" and wait for jquery
-    And I press "Save and continue"
-    Then I should be on Rede Moinho's new product page
-    And I should see "Bicycle"
 
   Scenario: a user with permission can see edit links
     Given the following product_category
@@ -331,10 +301,11 @@ Feature: manage products
     And I am logged in as "joaosilva"
     When I go to Rede Moinho's page of product Generic pc
     And I follow "Change category"
-    And I select "Eletronics »" and wait for jquery
-    Then I select "DVDs" and wait for jquery
+    And I select "Eletronics »" from "category_id" within "#categories_container_level0"
+    Then I select "DVDs" from "category_id" within "#categories_container_level1"
     And I press "Save and continue"
-    Then I should see "Eletronics → DVDs"
+    When I go to Rede Moinho's page of product Generic pc
+    Then I should see "Eletronics → DVDs" within ".hierarchy-category"
 
   @selenium
   Scenario: cancel edition of a product category
@@ -424,7 +395,9 @@ Feature: manage products
     And I follow "Change category"
     And I press "Save and continue"
     Then I should not see "Product category can't be blank"
-    And I should be on Rede Moinho's page of product Generic pc
+    When I go to Rede Moinho's page of product Generic pc
+    Then I should see "Eletronics → Computers" within ".hierarchy-category"
+
     And I should see "Generic pc"
 
   @selenium
@@ -450,7 +423,7 @@ Feature: manage products
     And I am logged in as "joaosilva"
     When I go to Rede Moinho's page of product Generic pc
     And I follow "Change category"
-    Then the select for category "Netbook from Venus" should be visible
+    Then "Netbook from Venus" should be visible within "#categories_container_wrapper"
 
   @selenium
   Scenario: Truncate long category name in selection of category
@@ -462,7 +435,7 @@ Feature: manage products
       | name | parent |
       | Netbook Quantum | Super Quantum Computers with teraflops |
     And I am logged in as "joaosilva"
-    When I go to Rede Moinho's new product page
+    When I go to redemoinho's new product page
     Then I should see "Nanonote nanotech with long lo..."
     And I should see "Super Quantum Computers with t... »"
 
@@ -481,7 +454,7 @@ Feature: manage products
     When I go to Rede Moinho's page of product Bike
     And I follow "Edit name and unit"
     And I fill in "Red bicycle" for "product_name"
-    And I select "Kilo"
+    And I select "Kilo" from "product_unit_id" within "#product-name-form"
     And I press "Save"
     Then I should see "Red bicycle - kilo"
 
@@ -519,12 +492,14 @@ Feature: manage products
     When I go to Rede Moinho's page of product Bike
     And I follow "Add price and other basic information"
     And I follow "Add new qualifier"
-    And I select "Organic" and wait for jquery
+    And I select "Organic" from "selected_qualifier" within "#product-qualifiers-list"
     And I press "Save"
+    And I go to Rede Moinho's page of product Bike
     Then I should see "Organic (Self declared)"
     When I follow "Edit basic information"
     And I follow "Delete qualifier"
     And I press "Save"
+    And I go to Rede Moinho's page of product Bike
     Then I should not see "Organic (Self declared)"
 
   @selenium
