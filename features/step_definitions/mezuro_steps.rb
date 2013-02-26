@@ -52,6 +52,10 @@ Then /^I should see "([^"]*)" button$/ do |button_name|
   find_button(button_name).should_not be_nil
 end
 
+Then /^I should see "([^"]*)" in a link$/ do |link_name|
+  find_link(link_name).should_not be_nil
+end
+
 Then /^I should not see "([^"]*)" button$/ do |button_name|
   find_button(button_name).should be_nil
 end
