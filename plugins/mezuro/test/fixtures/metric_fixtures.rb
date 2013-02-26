@@ -13,7 +13,7 @@ class MetricFixtures
   end
 
   def self.total_cof_hash
-    {:name => 'Total Coupling Factor', :compound => "false", :scope => 'APPLICATION', :language => ['JAVA']}
+    {:name => 'Total Coupling Factor', :compound => "false", :scope => 'SOFTWARE', :language => ['JAVA']}
   end
 
   def self.amloc
