@@ -48,7 +48,7 @@ Feature: Repository
       | repository_license            | ISC License (ISC)                                               |
       | repository_process_period     | Not Periodically                                                |
       | repository_type               | SUBVERSION                                                      |
-      | repository_address            | https://qt-calculator.svn.sourceforge.net/svnroot/qt-calculator |
+      | repository_address            | https://project.svn.sourceforge.net/svnroot/project             |
       | repository_configuration_id   | Sample Configuration                                            |
     And I press "Add"
     Then I should see "Please fill all fields marked with (*)." inside an alert
@@ -68,7 +68,7 @@ Feature: Repository
     Then I should see "Please fill all fields marked with (*)." inside an alert
 
   @selenium
-  Scenario: I want to add a repository with a invalid address for git repository
+  Scenario: I want to add a repository with a invalid address
     Given I follow "Add Repository"
     When I fill the fields with the new following data
       | repository_name               | My Name                                                         |
@@ -81,5 +81,25 @@ Feature: Repository
     And I press "Add"
     Then I should see "Address does not match type GIT chosen." inside an alert
 
-  #Scenario: I want to add a repository with valid attributes
+  @selenium
+  Scenario: I want to add a repository with valid attributes
+    Given I follow "Add Repository"
+    When I fill the fields with the new following data
+      | repository_name               | My Name                                                         |
+      | repository_description        | My Description                                                  |
+      | repository_license            | ISC License (ISC)                                               |
+      | repository_process_period     | Not Periodically                                                |
+      | repository_type               | GIT                                                             |
+      | repository_address            | https://github.com/user/project.git                             |
+      | repository_configuration_id   | Sample Configuration                                            |
+    And I press "Add"
+    Then I should see "My Name"
+    And I should see "My Description"
+    And I should see "ISC License (ISC)"
+    And I should see "Not Periodically"
+    And I should see "GIT"
+    And I should see "https://github.com/user/project.git"
+    And I should see "Sample Configuration"
 
+    #Scenario: I want to see the repository edit form
+    #  Given I have a repository with the following data
