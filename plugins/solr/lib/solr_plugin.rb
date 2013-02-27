@@ -12,10 +12,6 @@ class SolrPlugin < Noosfero::Plugin
     _("Uses Solr as search engine.")
   end
 
-  def search_engine?
-    true
-  end
-
   def find_by_contents(klass, query, paginate_options={}, options={})
     category = options.delete(:category)
     solr_options = solr_options(class_asset(klass), category)

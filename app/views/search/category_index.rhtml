@@ -5,7 +5,7 @@
   <% end %>
 
   <%= search_page_title(_('Search Results'), @category) %>
-  <%= render :partial => 'search_form', :locals => { :hint => '' } if @search_engine %>
+  <%= render :partial => 'search_form', :locals => { :hint => '' } %>
   <%= category_context(@category, params) %>
   <%= display_results %>
 

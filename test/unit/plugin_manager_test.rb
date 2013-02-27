@@ -140,15 +140,5 @@ class PluginManagerTest < ActiveSupport::TestCase
     assert_equal Plugin2, manager.first_plugin(:random_event)
   end
 
-  should 'use default value defined on the base plugin class when no plugin enabled for the first method' do
-    class Noosfero::Plugin
-      def random_event
-        1
-      end
-    end
-
-    assert_equal 1, manager.first(:random_event)
-  end
-
 end
 

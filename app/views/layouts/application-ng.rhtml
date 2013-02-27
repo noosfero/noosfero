@@ -69,13 +69,11 @@
               <% end %>
 
           </span>
-          <% if @plugins.first(:search_engine?) %>
-            <form action="/search" class="search_form" method="get" class="clean">
-              <input name="query" size="15" title="<%=_('Search...')%>" onfocus="this.form.className='focused';" onblur="this.form.className=''" />
-              <div><%=_('Press <strong>Enter</strong> to send the search query.')%></div>
-              <%= javascript_tag 'jQuery("#user form input").hint();' %>
-            </form>
-          <% end %>
+          <form action="/search" class="search_form" method="get" class="clean">
+            <input name="query" size="15" title="<%=_('Search...')%>" onfocus="this.form.className='focused';" onblur="this.form.className=''" />
+            <div><%=_('Press <strong>Enter</strong> to send the search query.')%></div>
+            <%= javascript_tag 'jQuery("#user form input").hint();' %>
+          </form>
         </div><!-- end id="user" -->
 
         <h1 id="site-title">

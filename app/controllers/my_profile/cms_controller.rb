@@ -270,8 +270,7 @@ class CmsController < MyProfileController
 
   def search
     query = params[:q]
-    results = profile.files.published.find_by_contents(query)[:results]
-   # results = @plugins.first(:find_by_contents, profile.files.published, query)[:results]
+    results = find_by_contents(profile.files.published, query)[:results]
     render :text => article_list_to_json(results), :content_type => 'application/json'
   end
 

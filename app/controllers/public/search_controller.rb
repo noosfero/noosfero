@@ -8,7 +8,6 @@ class SearchController < PublicController
   before_filter :load_category
   before_filter :load_search_assets
   before_filter :load_query
-  before_filter :load_search_engine
 
   # Backwards compatibility with old URLs
   def redirect_asset_param
@@ -58,7 +57,7 @@ class SearchController < PublicController
   end
 
   def articles
-    if @search_engine && !@empty_query
+    if !@empty_query
       full_text_search
     else
       @searches[@asset] = {}
@@ -71,7 +70,7 @@ class SearchController < PublicController
   end
 
   def people
-    if @search_engine && !@empty_query
+    if !@empty_query
       full_text_search
     else
       @searches[@asset] = {}
@@ -80,7 +79,7 @@ class SearchController < PublicController
   end
 
   def products
-    if @search_engine
+    if !@empty_query
       full_text_search
     else
       @searches[@asset] = {}
@@ -89,7 +88,7 @@ class SearchController < PublicController
   end
 
   def enterprises
-    if @search_engine && !@empty_query
+    if !@empty_query
       full_text_search
     else
       @filter_title = _('Enterprises from network')
@@ -99,7 +98,7 @@ class SearchController < PublicController
   end
 
   def communities
-    if @search_engine && !@empty_query
+    if !@empty_query
       full_text_search
     else
       @searches[@asset] = {}
@@ -123,7 +122,7 @@ class SearchController < PublicController
         environment.events.by_day(@selected_day)
     end
 
-    if @search_engine && !@empty_query
+    if !@empty_query
       full_text_search
     else
       @searches[@asset] = {}
@@ -192,10 +191,6 @@ class SearchController < PublicController
     end
   end
 
-  def load_search_engine
-    @search_engine = @plugins.first_plugin(:search_engine?)
-  end
-
   FILTERS = %w(
     more_recent
     more_active
@@ -261,7 +256,7 @@ class SearchController < PublicController
   end
 
   def full_text_search
-    @searches[@asset] = @plugins.first(:find_by_contents, asset_class(@asset), @query, paginate_options(params[:page]), {:category => @category})
+    @searches[@asset] = find_by_contents(asset_class(@asset), @query, paginate_options(params[:page]), {:category => @category})
   end
 
   private
