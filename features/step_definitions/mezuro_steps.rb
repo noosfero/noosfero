@@ -56,11 +56,20 @@ Then /^I should see "([^"]*)" in a link$/ do |link_name|
   find_link(link_name).should_not be_nil
 end
 
+Then /^I should see "([^"]*)" in the "([^"]*)" select$/ do |content, labeltext|
+    find_field(labeltext).value.strip.should == content #strip because have empty spaces around some options
+end
+
+Then /^I shoud see "([^"]*)" in the process period select field$/ do |content|
+  selected = MezuroPlugin::Helpers::ContentViewerHelper.periodicity_options.select { |option| option.first == content }.first
+  assert_equal selected.last, find_field("repository_process_period").value.to_i
+end
+
 Then /^I should not see "([^"]*)" button$/ do |button_name|
   find_button(button_name).should be_nil
 end
 
-When /^I have a Mezuro (project|reading group|configuration) with the following data$/ do |type,fields|
+When /^I have a Mezuro (project|reading group|configuration|repository) with the following data$/ do |type,fields|
   item = {}
   fields.rows_hash.each do |name, value|
     if(name=="user" or name=="community")
@@ -76,7 +85,16 @@ When /^I have a Mezuro (project|reading group|configuration) with the following 
   elsif (type == "configuration")
     result = MezuroPlugin::ConfigurationContent.new(item)
   end
-  result.save!
+
+  if (type == "repository")
+    puts Kalibro::Configuration.all.last.id
+    puts Kalibro::Project.all.last.id
+    item.merge(:configuration_id => Kalibro::Configuration.all.last.id)
+    result = Kalibro::Repository.new(item)
+    raise (result.save Kalibro::Project.all.last.id).inspect
+  else
+    result.save!
+   end
 end
 
 When /^I erase the "([^"]*)" field$/ do |field_name|
