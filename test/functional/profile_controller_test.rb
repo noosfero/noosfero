@@ -234,7 +234,7 @@ class ProfileControllerTest < ActionController::TestCase
     login_as(@profile.identifier)
     ent = fast_create(Enterprise, :name => 'my test enterprise', :identifier => 'my-test-enterprise', :enabled => false)
     get :index, :profile => ent.identifier
-    assert_tag :tag => 'div', :attributes => { :id => 'profile-disabled' }, :content => Environment.default.message_for_disabled_enterprise
+    assert_tag :tag => 'div', :attributes => { :id => 'profile-disabled' }, :content => /#{Environment.default.message_for_disabled_enterprise}/
   end
 
   should 'not show message for disabled enterprise to non-enterprises' do
@@ -1141,6 +1141,7 @@ class ProfileControllerTest < ActionController::TestCase
   should "view more activities paginated" do
     login_as(profile.identifier)
     article = TinyMceArticle.create!(:profile => profile, :name => 'An Article about Free Software')
+    ActionTracker::Record.destroy_all
     40.times{ ActionTracker::Record.create!(:user_id => profile.id, :user_type => 'Profile', :verb => 'create_article', :target_id => article.id, :target_type => 'Article', :params => {'name' => article.name, 'url' => article.url, 'lead' => article.lead, 'first_image' => article.first_image})}
     assert_equal 40, profile.tracked_actions.count
     assert_equal 40, profile.activities.count

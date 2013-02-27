@@ -617,6 +617,19 @@ class UserTest < ActiveSupport::TestCase
     end
   end
 
+  should 'create person with name equal to user name if a user name is defined' do
+    user = User.new( :login => 'quire', :email => 'quire@example.com', :password => 'quire', :password_confirmation => 'quire' )
+    user.name = "Some name"
+    user.save
+    assert_equal 'Some name', user.person.name
+  end
+
+  should 'create person with name equal to user login if no user name is defined' do
+    user = User.new( :login => 'quire', :email => 'quire@example.com', :password => 'quire', :password_confirmation => 'quire' )
+    user.save
+    assert_equal 'quire', user.person.name
+  end
+
   protected
     def new_user(options = {})
       user = User.new({ :login => 'quire', :email => 'quire@example.com', :password => 'quire', :password_confirmation => 'quire' }.merge(options))

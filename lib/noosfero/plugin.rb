@@ -161,7 +161,7 @@ class Noosfero::Plugin
 
   # -> Adds content to products on asset list
   # returns = lambda block that creates html code
-  def asset_product_extras(product, enterprise)
+  def asset_product_extras(product)
     nil
   end
 

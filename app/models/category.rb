@@ -13,6 +13,16 @@ class Category < ActiveRecord::Base
     {:conditions => ['parent_id is null and environment_id = ?', environment.id ]}
   }
 
+  named_scope :on_level, lambda { |parent| {:conditions => {:parent_id => parent}} }
+
+  named_scope :sub_categories, lambda { |category|
+    {:conditions => ['categories.path LIKE ? AND categories.id != ?', "%#{category.slug}%", category.id]}
+  }
+
+  named_scope :sub_tree, lambda { |category|
+    {:conditions => ['categories.path LIKE ?', "%#{category.slug}%"]}
+  }
+
   acts_as_filesystem
 
   has_many :article_categorizations, :dependent => :destroy

@@ -1284,7 +1284,7 @@ module ApplicationHelper
       (user.already_reported?(profile) ?
         content_tag('a', text, :class => klass + ' disabled comment-footer comment-footer-link', :title => already_reported_message) :
         link_to(text, url, :class => klass + ' comment-footer comment-footer-link', :title => report_profile_message)
-      ) + content_tag('span', ' | ', :class => 'comment-footer comment-footer-hide')
+      ) + content_tag('span', ' ', :class => 'comment-footer comment-footer-hide')
     end
   end
 
@@ -1411,4 +1411,16 @@ module ApplicationHelper
     options[:class] = "comment-footer comment-footer-link comment-footer-hide"
     expirable_content_reference content, action, text, url, options
   end
+
+  def private_profile_partial_parameters
+    if profile.person?
+      @action = :add_friend
+      @message = _("The content here is available to %s's friends only.") % profile.short_name
+    else
+      @action = :join
+      @message = _('The contents in this community is available to members only.')
+    end
+    @no_design_blocks = true
+  end
+
 end

@@ -17,6 +17,8 @@ class Article < ActiveRecord::Base
   validates_presence_of :profile_id, :name
   validates_presence_of :slug, :path, :if => lambda { |article| !article.name.blank? }
 
+  validates_length_of :name, :maximum => 150
+
   validates_uniqueness_of :slug, :scope => ['profile_id', 'parent_id'], :message => N_('The title (article name) is already being used by another article, please use another title.'), :if => lambda { |article| !article.slug.blank? }
 
   belongs_to :last_changed_by, :class_name => 'Person', :foreign_key => 'last_changed_by_id'
@@ -546,6 +548,10 @@ class Article < ActiveRecord::Base
 
   def author_url
     author ? author.url : nil
+  end
+
+  def author_id
+    author ? author.id : nil
   end
 
   alias :active_record_cache_key :cache_key

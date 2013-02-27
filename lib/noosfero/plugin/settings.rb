@@ -1,7 +1,7 @@
 class Noosfero::Plugin::Settings
 
-  def initialize(environment, plugin, attributes = nil)
-    @environment = environment
+  def initialize(base, plugin, attributes = nil)
+    @base = base
     @plugin = plugin
     attributes ||= {}
     attributes.each do |k,v|
@@ -10,7 +10,7 @@ class Noosfero::Plugin::Settings
   end
 
   def settings
-    @environment.settings["#{@plugin.public_name}_plugin".to_sym] ||= {}
+    @base.settings["#{@plugin.public_name}_plugin".to_sym] ||= {}
   end
 
   def method_missing(method, *args, &block)
@@ -38,7 +38,7 @@ class Noosfero::Plugin::Settings
   end
 
   def save!
-    @environment.save!
+    @base.save!
   end
 
 end

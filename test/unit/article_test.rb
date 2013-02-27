@@ -30,6 +30,16 @@ class ArticleTest < ActiveSupport::TestCase
     assert !a.errors.invalid?(:name)
   end
 
+  should 'limit length of names' do
+    a = Article.new(:name => 'a'*151)
+    a.valid?
+    assert a.errors.invalid?(:name)
+
+    a.name = 'a'*150
+    a.valid?
+    assert !a.errors.invalid?(:name)
+  end
+
   should 'require value for slug and path if name is filled' do
     a = Article.new(:name => 'test article')
     a.slug = nil
@@ -1691,6 +1701,17 @@ class ArticleTest < ActiveSupport::TestCase
     author.destroy
     article.reload
     assert_equal author_name, article.author_name
+  end
+
+  should "author_id return the author id of the article's author" do
+    author = fast_create(Person)
+    article = Article.create!(:name => 'Test', :profile => profile, :last_changed_by => author)
+    assert_equal author.id, article.author_id
+  end
+
+  should "author_id return nil if there is no article's author" do
+    article = Article.create!(:name => 'Test', :profile => profile, :last_changed_by => nil)
+    assert_nil article.author_id
   end
 
 end

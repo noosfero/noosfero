@@ -1,13 +1,33 @@
-= Noosfero installation instructions
+= Noosfero installation instructions from source for production environments
 
-Noosfero is written in Ruby with the "Rails framework":http://www.rubyonrails.org,
-so the process of setting it up is pretty similar to other Rails applications.
+The instructions below can be used for setting up a Noosfero production
+environment from the Noosfero sources.
 
-Below we have the instructions for installing Noosfero dependencies and setting
-up a production environment. If you have problems with the setup, please feel
-free to ask questions in the development mailing list.
+Before you start installing Noosfero manually, see the information about the
+Noosfero Debian package at http://noosfero.org/Development/DebianPackage. Using
+the Debian packages on a Debian stable system is the recommended method for
+installing production environments.
+
+If you want to setup a development environment instead of a production one,
+stop reading this file right now and read the file HACKING instead.
+
+For a complete installation guide, please see the following web page:
+http://noosfero.org/Development/HowToInstall
+
+If you have problems with the setup, please feel free to ask questions in the
+development mailing list.
 
 == Requirements
+
+DISCLAIMER: this installation procedure is tested with Debian stable, which is
+currently the only recommended operating system for production usage. It is
+possible that you can install it on other systems, and if you do so, please
+report it on one of the Noosfero mailing lists, and please send a patch
+updating these instructions.
+
+Noosfero is written in Ruby with the "Rails
+framework":http://www.rubyonrails.org, so the process of setting it up is
+pretty similar to other Rails applications.
 
 You need to install some packages Noosfero depends on.  On Debian GNU/Linux or
 Debian-based systems, all of these packages are available through the Debian
@@ -38,20 +58,8 @@ If you manage to install Noosfero successfully on other systems than Debian,
 please feel free to contact the Noosfero development mailing with the
 instructions for doing so, and we'll include it here.
 
-=== Setting up a production environment
-
-DISCLAIMER: this installation procedure is tested with Debian stable, which is
-currently the only recommended operating system for production usage. It is
-possible that you can install it on other systems, and if you do so, please
-report it on one of the Noosfero mailing lists, and please send a patch
-updating these instructions.
-
 As root user
 ============
-
-NOTE: these instructions are for seting up a *production* environment. If you
-are going to do Noosfero development, you don't need to do these steps. Stop
-here and see the HACKING file instead.
 
 Install memcached. On Debian:
 
@@ -96,11 +104,11 @@ $ git checkout -b stable origin/stable
 downloading tarball
 -------------------
 
-Note: replace 0.35.0 below from the latest stable version.
+Note: replace 0.39.0 below from the latest stable version.
 
-$ wget http://noosfero.org/pub/Development/NoosferoVersion00x35x00/noosfero-0.35.0.tar.gz
-$ tar -zxvf noosfero-0.35.0.tar.gz
-$ ln -s noosfero-0.35.0 current
+$ wget http://noosfero.org/pub/Development/NoosferoVersion00x39x00/noosfero-0.39.0.tar.gz
+$ tar -zxvf noosfero-0.39.0.tar.gz
+$ ln -s noosfero-0.39.0 current
 $ cd current
 
 Copy config/solr.yml.dist to config/solr.yml. You will
@@ -147,48 +155,7 @@ Restart postgresql:
 
 Noosfero needs a functional e-mail setup to work: the local mail system should
 be able to deliver e-mail to the internet, either directly or through an
-external SMTP server.
-
-If you know mail systems well, you just need to make sure thet the local MTA,
-listening on localhost:25, is able to deliver e-mails to the internet. Any mail
-server will do it.
-
-If you are not a mail specialist, we suggest that you use the Postfix mail
-server, since it is easy to configure and very reliable. Just follow the
-instructions below.
-
-To install Postfix:
-
-# apt-get install postfix
-
-During the installation process, you will be asked a few questions. Your answer
-to them will vary in 2 cases:
-
-Case 1: you can send e-mails directly to the internet. This will be the case
-for most commercial private servers. Your answers should be:
-
-  General type of mail configuration: Internet site
-  System mail name: the name of your domain, e.g. "mysocialnetwork.com"
-
-Case 2: you cannot, or don't want to, send e-mail directly to the internet.
-This happens for example if your server is not allowed to make outbound
-connections on port 25, or if you want to concentrate all your outbound mail
-through a single SMTP server. Your answers in this case should be:
-
-  General type of mail configuration: Internet with smarthost
-  System mail name: the name of your domain, e.g. "mysocialnetwork.com"
-  SMTP relay host: smtp.yourprovider.com
-
-Note that smtp.yourprovider.com must allow your server to deliver e-mails
-through it. You should probably ask your servive provider about this.
-
-There is another possibility: if you are installing on a shared server, and
-don't have permission to configure the local MTA, you can instruct Noosfero to
-send e-mails directly through an external server. Please note that this should
-be your last option, since contacting an external SMTP server directly may slow
-down your Noosfero application server. To configure Noosfero to send e-mails
-through an external SMTP server, follow the instructions on
-http://noosfero.org/Development/SMTPMailSending
+external SMTP server. Please check the documentation at the INSTALL.email file.
 
 As noosfero user
 ================
@@ -220,19 +187,6 @@ $ ./script/dbconsole production
 If it connects to your database, then everything is fine. If you got an error
 message, then you have to check your database configuration.
 
-Installing gem rack
-===================
-
-This gem is required if you want to run Mezuro plugin.
-
-Install RubyGem Rack 1.0.1.
-Others versions may not be compatible with Noosfero:
-
-# gem install rack -v 1.0.1
-
-As noosfero user
-================
-
 Create the database structure:
 
 $ RAILS_ENV=production rake db:schema:load
@@ -245,7 +199,7 @@ Run Solr:
 
 $ rake solr:start
 
-Now we have to create some initial data. To create your default environment
+Now we must create some initial data. To create your default environment
 (the first one), run the command below:
 
 $ RAILS_ENV=production ./script/runner 'Environment.create!(:name => "My environment", :is_default => true)'
@@ -261,10 +215,10 @@ $ RAILS_ENV=production ./script/runner "Environment.default.domains << Domain.ne
 
 Add at least one user as admin of environment:
 
-$ RAILS_ENV=production ./script/runner "User.create(:login => 'adminuser', :email => 'admin@example.com', :password => 'admin', :password_confirmation => 'admin', :environment => Environment.default)"
+$ RAILS_ENV=production ./script/runner "User.create(:login => 'adminuser', :email => 'admin@example.com', :password => 'admin', :password_confirmation => 'admin', :environment => Environment.default, :activated_at => Time.new)"
 
 (replace "adminuser", "admin@example.com", "admin" with the login, email
-and password of your environment admin)
+and password of your environment administrator)
 
 To start the Noosfero application servers:
 
@@ -274,23 +228,6 @@ At this point you have a functional Noosfero installation running, the only
 thing left is to configure your webserver as a reverse proxy to pass requests
 to them.
 
-Enabling exception notifications
-================================
-
-This is an optional step. You will need it only if you want to receive e-mail
-notifications when some exception occurs on Noosfero.
-
-First, install this version of the gem.
-Others versions may not be compatible with Noosfero:
-
-# gem install exception_notification -v 1.0.20090728
-
-You can configure the e-mails that will receive the notifications.
-Change the file config/noosfero.yml as the following example, replacing the
-e-mails by real ones:
-
-  production:
-    exception_recipients: [admin@example.com, you@example.com]
 
 ==================
 Apache instalation
@@ -383,6 +320,26 @@ to your site configuration):
 Now restart your apache server (as root):
 
 # invoke-rc.d apache2 restart
+
+
+Enabling exception notifications
+================================
+
+This is an optional step. You will need it only if you want to receive e-mail
+notifications when some exception occurs on Noosfero.
+
+First, install this version of the gem.
+Others versions may not be compatible with Noosfero:
+
+# gem install exception_notification -v 1.0.20090728
+
+You can configure the e-mails that will receive the notifications.
+Change the file config/noosfero.yml as the following example, replacing the
+e-mails by real ones:
+
+  production:
+    exception_recipients: [admin@example.com, you@example.com]
+
 
 ============
 Maintainance
