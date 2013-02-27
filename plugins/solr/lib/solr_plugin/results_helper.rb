@@ -5,12 +5,8 @@ class SolrPlugin < Noosfero::Plugin
     end
 
     def set_results_variables
-      if @results[@asset].kind_of?(Hash)
-        ret = @results[@asset]
-        @results[@asset] = ret[:results]
-        @facets = ret[:facets]
-        @all_facets = ret[:all_facets]
-      end
+      @facets = @searches[@asset][:facets]
+      @all_facets = @searches[@asset][:all_facets]
     end
 
     def order_by(asset)

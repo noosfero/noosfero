@@ -19,7 +19,7 @@ class SearchController < PublicController
   no_design_blocks
 
   def index
-    @results = {}
+    @searches = {}
     @order = []
     @names = {}
     @results_only = true
@@ -33,12 +33,12 @@ class SearchController < PublicController
     end
     @asset = nil
 
-    render :action => @results.keys.first if @results.keys.size == 1
+    render :action => @searches.keys.first if @searches.keys.size == 1
   end
 
   # view the summary of one category
   def category_index
-    @results = {}
+    @searches = {}
     @order = []
     @names = {}
     limit = MULTIPLE_SEARCH_LIMIT
@@ -51,8 +51,8 @@ class SearchController < PublicController
       [ :articles, _('Contents'), :recent_articles ]
     ].each do |asset, name, filter|
       @order << asset
-      @results[asset] = @category.send(filter, limit)
-      raise "No total_entries for: #{asset}" unless @results[asset].respond_to?(:total_entries)
+      @searches[asset] = @category.send(filter, limit)
+      raise "No total_entries for: #{asset}" unless @searches[asset][:results].respond_to?(:total_entries)
       @names[asset] = name
     end
   end
@@ -61,7 +61,8 @@ class SearchController < PublicController
     if @search_engine && !@empty_query
       full_text_search
     else
-      @results[@asset] = @environment.articles.public.send(@filter).paginate(paginate_options)
+      @searches[@asset] = {}
+      @searches[@asset][:results] = @environment.articles.public.send(@filter).paginate(paginate_options)
     end
   end
 
@@ -73,7 +74,8 @@ class SearchController < PublicController
     if @search_engine && !@empty_query
       full_text_search
     else
-      @results[@asset] = visible_profiles(Person).send(@filter).paginate(paginate_options)
+      @searches[@asset] = {}
+      @searches[@asset][:results] = visible_profiles(Person).send(@filter).paginate(paginate_options)
     end
   end
 
@@ -81,7 +83,8 @@ class SearchController < PublicController
     if @search_engine
       full_text_search
     else
-      @results[@asset] = @environment.products.send(@filter).paginate(paginate_options)
+      @searches[@asset] = {}
+      @searches[@asset][:results] = @environment.products.send(@filter).paginate(paginate_options)
     end
   end
 
@@ -90,7 +93,8 @@ class SearchController < PublicController
       full_text_search
     else
       @filter_title = _('Enterprises from network')
-      @results[@asset] = visible_profiles(Enterprise, [{:products => :product_category}]).paginate(paginate_options)
+      @searches[@asset] = {}
+      @searches[@asset][:results] = visible_profiles(Enterprise, [{:products => :product_category}]).paginate(paginate_options)
     end
   end
 
@@ -98,7 +102,8 @@ class SearchController < PublicController
     if @search_engine && !@empty_query
       full_text_search
     else
-      @results[@asset] = visible_profiles(Community).send(@filter).paginate(paginate_options)
+      @searches[@asset] = {}
+      @searches[@asset][:results] = visible_profiles(Community).send(@filter).paginate(paginate_options)
     end
   end
 
@@ -121,10 +126,11 @@ class SearchController < PublicController
     if @search_engine && !@empty_query
       full_text_search
     else
-      @results[@asset] = date_range ? environment.events.by_range(date_range) : environment.events
+      @searches[@asset] = {}
+      @searches[@asset][:results] = date_range ? environment.events.by_range(date_range) : environment.events
     end
 
-    events = @results[@asset]
+    events = @searches[@asset][:results]
     @calendar = populate_calendar(date, events)
     @previous_calendar = populate_calendar(date - 1.month, events)
     @next_calendar = populate_calendar(date + 1.month, events)
@@ -147,7 +153,7 @@ class SearchController < PublicController
     @tag = params[:tag]
     @tag_cache_key = "tag_#{CGI.escape(@tag.to_s)}_env_#{environment.id.to_s}_page_#{params[:npage]}"
     if is_cache_expired?(@tag_cache_key)
-      @results[@asset] = environment.articles.find_tagged_with(@tag).paginate(paginate_options)
+      @searches[@asset] = environment.articles.find_tagged_with(@tag).paginate(paginate_options)
     end
   end
 
@@ -164,7 +170,7 @@ class SearchController < PublicController
     @asset = (params[:asset] || params[:action]).to_sym
     @order ||= [@asset]
     params[:display] ||= 'list'
-    @results ||= {}
+    @searches ||= {}
     @filter = filter
     @filter_title = filter_description(@asset, @filter)
 
@@ -254,8 +260,8 @@ class SearchController < PublicController
     { :per_page => limit, :page => page }
   end
 
-  def full_text_search(options = {})
-    @results[@asset] = @plugins.first(:full_text_search, @asset, @query, @category, paginate_options(params[:page]))
+  def full_text_search
+    @searches[@asset] = @plugins.first(:find_by_contents, asset_class(@asset), @query, paginate_options(params[:page]), {:category => @category})
   end
 
   private

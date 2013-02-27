@@ -4,10 +4,12 @@ class Region < Category
 
   require_dependency 'enterprise' # enterprises can also be validators
 
+  include Noosfero::Plugin::HotSpot
+
   # searches for organizations that could become validators for this region.
   # <tt>search</tt> is passed as is to find_by_contents on Organization.
   def search_possible_validators(search)
-    Organization.find_by_contents(search)[:results].docs.reject {|item| self.validator_ids.include?(item.id) }
+    plugins.find_by_contents(Organization, search)[:results].docs.reject {|item| self.validator_ids.include?(item.id) }
   end
 
   def has_validator?

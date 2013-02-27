@@ -16,16 +16,12 @@ class SolrPlugin < Noosfero::Plugin
     true
   end
 
-  def full_text_search(asset, query, category, paginate_options)
-    asset_class = asset_class(asset)
-    solr_options = solr_options(asset, category)
-    solr_options.merge!(products_options(context.send(:user))) if asset == :products && empty_query?(query, category)
-    search = asset_class.find_by_contents(query, paginate_options, solr_options)
-    if context.params[:action] == 'index'
-      return search[:results]
-    else
-      return search
-    end
+  def find_by_contents(klass, query, paginate_options={}, options={})
+    category = options.delete(:category)
+    solr_options = solr_options(class_asset(klass), category)
+    user = context.respond_to?(:user) ? context.send(:user) : nil
+    solr_options.merge!(products_options(user)) if klass == Product && empty_query?(query, category)
+    klass.find_by_contents(query, paginate_options, solr_options.merge(options))
   end
 
 end

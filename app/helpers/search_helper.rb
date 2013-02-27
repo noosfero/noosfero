@@ -18,11 +18,15 @@ module SearchHelper
   include EventsHelper
 
   def multiple_search?
-    ['index', 'category_index'].include?(params[:action]) or @results.size > 1
+    ['index', 'category_index'].include?(params[:action]) or @searches.size > 1
   end
 
   def map_search?
     !multiple_search? and params[:display] == 'map'
+  end
+
+  def asset_class(asset)
+    asset.to_s.singularize.camelize.constantize
   end
 
   def search_page_title(title, category = nil)

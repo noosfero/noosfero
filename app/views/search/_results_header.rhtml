@@ -1,4 +1,4 @@
-<div class="search-results-header <%= "search-no-results" if @results[@asset].nil? or @results[@asset].length == 0 %>">
+<div class="search-results-header <%= "search-no-results" if @searches[@asset].nil? or @searches[@asset].length == 0 %>">
   <div id='search-filter-title'><%= @filter_title if @filter_title %></div>
   <%= display_filter(@asset, params[:display]) if map_capable?(@asset) %>
   <div style="clear: both"></div>

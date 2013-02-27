@@ -34,6 +34,10 @@ class SolrPlugin < Noosfero::Plugin
     def asset_class(asset)
       asset.to_s.singularize.camelize.constantize
     end
+
+    def class_asset(klass)
+      klass.name.underscore.pluralize.to_sym
+    end
   
     def asset_table(asset)
       asset_class(asset).table_name

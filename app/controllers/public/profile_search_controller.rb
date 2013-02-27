@@ -11,7 +11,7 @@ class ProfileSearchController < PublicController
       if params[:where] == 'environment'
         redirect_to :controller => 'search', :query => @q
       else
-        @results = profile.articles.published.find_by_contents(@q, {:per_page => 10, :page => params[:page]})[:results]
+        @results = @plugins.first(:find_by_contents, profile.articles.published, @q, {:per_page => 10, :page => params[:page]})[:results]
       end
     end
   end

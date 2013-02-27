@@ -357,9 +357,12 @@ class Noosfero::Plugin
     false
   end
 
-  # -> Realizes a full text search
-  # returns = whatever the plugin needs to render the view
-  def full_text_search(asset, query, category, paginate_options)
+  # -> Finds objects by their contents
+  # returns = {:results => [a, b, c, ...], ...}
+  # P.S.: The plugin might add other informations on the return hash for its
+  # own use in specific views
+  def find_by_contents(klass, query, paginate_options={}, options={})
+    {:results => []}
   end
 
   def method_missing(method, *args, &block)

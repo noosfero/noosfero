@@ -39,7 +39,7 @@ class Noosfero::Plugin::Manager
       result = plugin.send(event, *args)
       break if result.present?
     end
-    result
+    result || Noosfero::Plugin.new.send(event, *args)
   end
 
   def first_plugin(event, *args)
