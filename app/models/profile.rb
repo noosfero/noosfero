@@ -3,6 +3,12 @@
 # which by default is the one returned by Environment:default.
 class Profile < ActiveRecord::Base
 
+  SEARCHABLE_FIELDS = {
+    :name => 10,
+    :identifier => 5,
+    :nickname => 2,
+  }
+
   module Roles
     def self.admin(env_id)
       find_role('admin', env_id)

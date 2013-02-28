@@ -1,5 +1,12 @@
 class Category < ActiveRecord::Base
 
+  SEARCHABLE_FIELDS = {
+    :name => 10,
+    :acronym => 5,
+    :abbreviation => 5,
+    :slug => 1,
+  }
+
   validates_exclusion_of :slug, :in => [ 'index' ], :message => N_('%{fn} cannot be like that.').fix_i18n
   validates_presence_of :name, :environment_id
   validates_uniqueness_of :slug,:scope => [ :environment_id, :parent_id ], :message => N_('%{fn} is already being used by another category.').fix_i18n

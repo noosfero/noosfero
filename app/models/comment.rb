@@ -1,5 +1,11 @@
 class Comment < ActiveRecord::Base
 
+  SEARCHABLE_FIELDS = {
+    :title => 10,
+    :name => 4,
+    :body => 2,
+  }
+
   validates_presence_of :body
 
   belongs_to :source, :counter_cache => true, :polymorphic => true

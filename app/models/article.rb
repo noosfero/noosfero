@@ -2,6 +2,14 @@ require 'hpricot'
 
 class Article < ActiveRecord::Base
 
+  SEARCHABLE_FIELDS = {
+    :name => 10,
+    :abstract => 3,
+    :body => 2,
+    :slug => 1,
+    :filename => 1,
+  }
+
   track_actions :create_article, :after_create, :keep_params => [:name, :url, :lead, :first_image], :if => Proc.new { |a| a.is_trackable? && !a.image? }
 
   # xss_terminate plugin can't sanitize array fields

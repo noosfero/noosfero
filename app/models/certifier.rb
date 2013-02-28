@@ -1,5 +1,11 @@
 class Certifier < ActiveRecord::Base
 
+  SEARCHABLE_FIELDS = {
+    :name => 10,
+    :description => 3,
+    :link => 1,
+  }
+
   belongs_to :environment
 
   has_many :qualifier_certifiers, :dependent => :destroy

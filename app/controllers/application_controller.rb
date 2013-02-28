@@ -154,8 +154,8 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def find_by_contents(klass, query, paginate_options{}, options={})
-    @plugins.first(:find_by_contents, klass, query, paginate_options, options) ||
+  def find_by_contents(klass, query, paginate_options={}, options={})
+    @plugins.first(:find_by_contents, klass, query, paginate_options, options)# ||
     # Failback search using like
   end
 
