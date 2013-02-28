@@ -5,7 +5,7 @@ module SearchHelper
   BLOCKS_SEARCH_LIMIT = 24
   MULTIPLE_SEARCH_LIMIT = 8
 
-  Searches = ActiveSupport::OrderedHash[
+  SEARCHES = ActiveSupport::OrderedHash[
     :articles, _('Contents'),
     :enterprises, _('Enterprises'),
     :people, _('People'),
@@ -22,7 +22,7 @@ module SearchHelper
   end
 
   def map_search?
-    !multiple_search? and params[:display] == 'map'
+    !multiple_search? && params[:display] == 'map'
   end
 
   def asset_class(asset)
@@ -84,6 +84,24 @@ module SearchHelper
         :style => "float: #{float}"
       )
     end
+  end
+
+  def filter_title(asset, filter)
+    {
+      'articles_more_recent' => _('More recent contents from network'),
+      'articles_more_popular' => _('More viewed contents from network'),
+      'articles_more_comments' => _('Most commented contents from network'),
+      'people_more_recent' => _('More recent people from network'),
+      'people_more_active' => _('More active people from network'),
+      'people_more_popular' => _('More popular people from network'),
+      'communities_more_recent' => _('More recent communities from network'),
+      'communities_more_active' => _('More active communities from network'),
+      'communities_more_popular' => _('More popular communities from network'),
+      'enterprises_more_recent' => _('More recent enterprises from network'),
+      'enterprises_more_active' => _('More active enterprises from network'),
+      'enterprises_more_popular' => _('More popular enterprises from network'),
+      'products_more_recent' => _('Highlights'),
+    }[asset.to_s + '_' + filter].to_s
   end
 
 end

@@ -8,6 +8,7 @@ class SearchController < PublicController
   before_filter :load_category
   before_filter :load_search_assets
   before_filter :load_query
+  before_filter :load_filter
 
   # Backwards compatibility with old URLs
   def redirect_asset_param
@@ -145,8 +146,6 @@ class SearchController < PublicController
     @order ||= [@asset]
     params[:display] ||= 'list'
     @searches ||= {}
-    @filter = filter
-    @filter_title = filter_description(@asset, @filter)
 
     @query = params[:query] || ''
     @empty_query = @category.nil? && @query.blank?
@@ -166,42 +165,13 @@ class SearchController < PublicController
     end
   end
 
-  FILTERS = %w(
-    more_recent
-    more_active
-    more_popular
-    more_comments
-  )
-  def filter
-    if FILTERS.include?(params[:filter])
-      params[:filter]
-    else
-      'more_recent'
-    end
-  end
-
-  def filter_description(asset, filter)
-    {
-      'articles_more_recent' => _('More recent contents from network'),
-      'articles_more_popular' => _('More viewed contents from network'),
-      'articles_more_comments' => _('Most commented contents from network'),
-      'people_more_recent' => _('More recent people from network'),
-      'people_more_active' => _('More active people from network'),
-      'people_more_popular' => _('More popular people from network'),
-      'communities_more_recent' => _('More recent communities from network'),
-      'communities_more_active' => _('More active communities from network'),
-      'communities_more_popular' => _('More popular communities from network'),
-      'products_more_recent' => _('Highlights'),
-    }[asset.to_s + '_' + filter]
-  end
-
   def load_search_assets
-    if Searches.keys.include?(params[:action].to_sym) and environment.enabled?("disable_asset_#{params[:action]}")
+    if SEARCHES.keys.include?(params[:action].to_sym) && environment.enabled?("disable_asset_#{params[:action]}")
       render_not_found
       return
     end
 
-    @enabled_searches = Searches.select {|key, name| environment.disabled?("disable_asset_#{params[:action]}") }
+    @enabled_searches = SEARCHES.select {|key, name| environment.disabled?("disable_asset_#{params[:action]}") }
     @searching = {}
     @titles = {}
     @enabled_searches.each do |key, name|
@@ -209,6 +179,14 @@ class SearchController < PublicController
       @searching[key] = params[:action] == 'index' || params[:action] == key.to_s
     end
     @names = @titles if @names.nil?
+  end
+
+  def load_filter
+    @filter = 'more_recent'
+    if SEARCHES.keys.include?(@asset.to_sym)
+      available_filters = asset_class(@asset)::SEARCH_FILTERS
+      @filter = params[:filter] if available_filters.include?(params[:filter])
+    end
   end
 
   def limit
@@ -226,7 +204,7 @@ class SearchController < PublicController
   end
 
   def paginate_options(page = params[:page])
-    page = 1 if multiple_search? or @display == 'map'
+    page = 1 if multiple_search? || params[:display] == 'map'
     { :per_page => limit, :page => page }
   end
 

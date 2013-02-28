@@ -1480,8 +1480,8 @@ class ArticleTest < ActiveSupport::TestCase
     assert_respond_to Article, :more_comments
   end
 
-  should 'respond to more views' do
-    assert_respond_to Article, :more_views
+  should 'respond to more popular' do
+    assert_respond_to Article, :more_popular
   end
 
   should "return the more recent label" do
@@ -1510,19 +1510,19 @@ class ArticleTest < ActiveSupport::TestCase
   should "return no views if profile has 0 views" do
     a = Article.new
     assert_equal 0, a.hits
-    assert_equal "no views", a.more_views_label
+    assert_equal "no views", a.more_popular_label
   end
 
   should "return 1 view on label if the content has 1 view" do
     a = Article.new(:hits => 1)
     assert_equal 1, a.hits
-    assert_equal "one view", a.more_views_label
+    assert_equal "one view", a.more_popular_label
   end
 
   should "return number of views on label if the content has more than one view" do
     a = Article.new(:hits => 4)
     assert_equal 4, a.hits
-    assert_equal "4 views", a.more_views_label
+    assert_equal "4 views", a.more_popular_label
   end
 
   should 'return only text articles' do

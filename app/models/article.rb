@@ -10,6 +10,12 @@ class Article < ActiveRecord::Base
     :filename => 1,
   }
 
+  SEARCH_FILTERS = %w[
+    more_recent
+    more_popular
+    more_comments
+  ]
+
   track_actions :create_article, :after_create, :keep_params => [:name, :url, :lead, :first_image], :if => Proc.new { |a| a.is_trackable? && !a.image? }
 
   # xss_terminate plugin can't sanitize array fields
@@ -198,20 +204,12 @@ class Article < ActiveRecord::Base
   named_scope :public,
     :conditions => [ "advertise = ? AND published = ? AND profiles.visible = ? AND profiles.public_profile = ?", true, true, true, true ]
 
-  named_scope :more_recent,
-    :conditions => [ "advertise = ? AND published = ? AND profiles.visible = ? AND profiles.public_profile = ? AND
-      ((articles.type != ?) OR articles.type is NULL)",
-      true, true, true, true, 'RssFeed'
-    ],
-    :order => 'articles.published_at desc, articles.id desc'
-
   # retrives the most commented articles, sorted by the comment count (largest
   # first)
   def self.most_commented(limit)
     paginate(:order => 'comments_count DESC', :page => 1, :per_page => limit)
   end
 
-  named_scope :more_popular, :order => 'hits DESC'
   named_scope :relevant_as_recent, :conditions => ["(articles.type != 'UploadedFile' and articles.type != 'RssFeed' and articles.type != 'Blog') OR articles.type is NULL"]
 
   def self.recent(limit = nil, extra_conditions = {}, pagination = true)
@@ -418,8 +416,8 @@ class Article < ActiveRecord::Base
   named_scope :images, :conditions => { :is_image => true }
   named_scope :text_articles, :conditions => [ 'articles.type IN (?)', text_article_types ]
 
+  named_scope :more_popular, :order => 'hits DESC'
   named_scope :more_comments, :order => "comments_count DESC"
-  named_scope :more_views, :order => "hits DESC"
   named_scope :more_recent, :order => "created_at DESC"
 
   def self.display_filter(user, profile)
@@ -608,7 +606,7 @@ class Article < ActiveRecord::Base
 
   end
 
-  def more_views_label
+  def more_popular_label
     amount = self.hits
     {
       0 => _('no views'),

@@ -5,6 +5,10 @@ class Product < ActiveRecord::Base
     :description => 1,
   }
 
+  SEARCH_FILTERS = %w[
+    more_recent
+  ]
+
   belongs_to :enterprise
   has_one :region, :through => :enterprise
   validates_presence_of :enterprise

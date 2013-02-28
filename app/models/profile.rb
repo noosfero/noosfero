@@ -9,6 +9,10 @@ class Profile < ActiveRecord::Base
     :nickname => 2,
   }
 
+  SEARCH_FILTERS = %w[
+    more_recent
+  ]
+
   module Roles
     def self.admin(env_id)
       find_role('admin', env_id)
