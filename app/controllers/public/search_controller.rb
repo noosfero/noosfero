@@ -57,12 +57,8 @@ class SearchController < PublicController
   end
 
   def articles
-    if !@empty_query
-      full_text_search
-    else
-      @searches[@asset] = {}
-      @searches[@asset][:results] = @environment.articles.public.send(@filter).paginate(paginate_options)
-    end
+    @scope = @environment.articles.public
+    full_text_search
   end
 
   def contents
@@ -70,40 +66,23 @@ class SearchController < PublicController
   end
 
   def people
-    if !@empty_query
-      full_text_search
-    else
-      @searches[@asset] = {}
-      @searches[@asset][:results] = visible_profiles(Person).send(@filter).paginate(paginate_options)
-    end
+    @scope = visible_profiles(Person)
+    full_text_search
   end
 
   def products
-    if !@empty_query
-      full_text_search
-    else
-      @searches[@asset] = {}
-      @searches[@asset][:results] = @environment.products.send(@filter).paginate(paginate_options)
-    end
+    @scope = @environment.products
+    full_text_search
   end
 
   def enterprises
-    if !@empty_query
-      full_text_search
-    else
-      @filter_title = _('Enterprises from network')
-      @searches[@asset] = {}
-      @searches[@asset][:results] = visible_profiles(Enterprise, [{:products => :product_category}]).paginate(paginate_options)
-    end
+    @scope = visible_profiles(Enterprise, [{:products => :product_category}])
+    full_text_search
   end
 
   def communities
-    if !@empty_query
-      full_text_search
-    else
-      @searches[@asset] = {}
-      @searches[@asset][:results] = visible_profiles(Community).send(@filter).paginate(paginate_options)
-    end
+    @scope = visible_profiles(Community)
+    full_text_search
   end
 
   def events
@@ -122,12 +101,8 @@ class SearchController < PublicController
         environment.events.by_day(@selected_day)
     end
 
-    if !@empty_query
-      full_text_search
-    else
-      @searches[@asset] = {}
-      @searches[@asset][:results] = date_range ? environment.events.by_range(date_range) : environment.events
-    end
+    @scope = date_range ? environment.events.by_range(date_range) : environment.events
+    full_text_search
 
     events = @searches[@asset][:results]
     @calendar = populate_calendar(date, events)
@@ -256,7 +231,7 @@ class SearchController < PublicController
   end
 
   def full_text_search
-    @searches[@asset] = find_by_contents(asset_class(@asset), @query, paginate_options(params[:page]), {:category => @category})
+    @searches[@asset] = find_by_contents(@scope, @query, paginate_options, {:category => @category, :filter => @filter})
   end
 
   private
