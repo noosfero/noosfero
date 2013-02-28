@@ -90,7 +90,7 @@ class SearchController < PublicController
     month = (params[:month] ? params[:month].to_i : Date.today.month)
     day = (params[:day] ? params[:day].to_i : Date.today.day)
     date = build_date(params[:year], params[:month], params[:day])
-    date_range = (date - 1.month)..(date + 1.month).at_end_of_month
+    date_range = (date - 1.month).at_beginning_of_month..(date + 1.month).at_end_of_month
 
     @selected_day = nil
     @events_of_the_day = []
