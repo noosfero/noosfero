@@ -5,7 +5,8 @@
 <% else %>
   <div class="search-enterprise-item">
     <div class="search-enterprise-item-column-left">
-      <%= profile_image_link profile, :portrait, 'div' %>
+      <%= profile_image_link profile, :portrait, 'div',
+        @filter == 'more_recent' ? profile.send(@filter + '_label') + show_date(profile.created_at) : profile.send(@filter + '_label') %>
     </div>
     <div class="search-enterprise-item-column-right">
       <%= link_to_homepage(profile.name, profile.identifier, :class => "search-result-title") %>

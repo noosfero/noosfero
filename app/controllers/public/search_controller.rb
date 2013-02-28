@@ -144,7 +144,7 @@ class SearchController < PublicController
   def load_query
     @asset = (params[:asset] || params[:action]).to_sym
     @order ||= [@asset]
-    params[:display] ||= 'list'
+    params[:display] ||= 'items'
     @searches ||= {}
 
     @query = params[:query] || ''

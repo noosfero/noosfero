@@ -42,12 +42,21 @@ module SearchHelper
       :align => 'center', :class => 'search-category-context') if category
   end
 
-  def map_capable?(asset)
+  def display_map?(asset)
+    [:enterprises, :products].include?(asset)
+  end
+
+  def display_items?(asset)
+    puts "\n\n" + asset.inspect + "\n\n"
+    ![:products, :events].include?(asset)
+  end
+
+  def display_full?(asset)
     [:enterprises, :products].include?(asset)
   end
 
   def display_results(asset = nil)
-    if map_capable?(asset) and map_search?
+    if display_map?(asset) and map_search?
       partial = 'google_maps'
       klass = 'map'
     else
@@ -71,15 +80,13 @@ module SearchHelper
     end
   end
 
-  def display_filter(asset, display, float = 'right')
-    if map_capable?(asset)
-      list_link = display == 'list' ? _('List') : link_to(_('List'), params.merge(:display => 'list'))
-      map_link = display == 'map' ? _('Map') : link_to(_('Map'), params.merge(:display => 'map'))
+  def display_selector(asset, display, float = 'right')
+    if [display_map?(asset), display_items?(asset), display_full?(asset)].select {|option| option}.count > 1
+      items_link = display_items?(asset) ? (display == 'items' ? _('Items') : link_to(_('Items'), params.merge(:display => 'items'))) : nil
+      map_link = display_map?(asset) ? (display == 'map' ? _('Map') : link_to(_('Map'), params.merge(:display => 'map'))) : nil
+      full_link = display_full?(asset) ? (display == 'full' ? _('Full') : link_to(_('Full'), params.merge(:display => 'full'))) : nil
       content_tag('div', 
-        content_tag('strong', _('Display')) + ': ' +
-        list_link +
-        ' | ' +
-        map_link,
+        content_tag('strong', _('Display')) + ': ' + [items_link, map_link, full_link].compact.join(' | '),
         :id => 'search-display-filter',
         :style => "float: #{float}"
       )
