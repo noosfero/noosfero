@@ -81,7 +81,7 @@ Feature: Repository
     And I press "Add"
     Then I should see "Address does not match type GIT chosen." inside an alert
 
-  @selenium
+  @selenium-teste
   Scenario: I want to add a repository with valid attributes
     Given I follow "Add Repository"
     When I fill the fields with the new following data
@@ -100,9 +100,10 @@ Feature: Repository
     And I should see "GIT"
     And I should see "https://github.com/user/project.git"
     And I should see "Sample Configuration"
+    And I should see "Status"
 
   #FIXME: create the step given I have repository...    
-  @selenium
+  @selenium-teste
   Scenario: I want to see the repository edit form
     Given I follow "Add Repository"
     And I fill the fields with the new following data
@@ -122,11 +123,11 @@ Feature: Repository
     And I should see "Not Periodically" in the process period select field
     And I should see "GIT" in the "repository_type" select
     And I should see "https://github.com/user/project.git" in the "repository_address" input
-    And I should see "Sample Configuration" in the "repository_configuration_id" select
+    And I should see "Sample Configuration" in the repository configuration select field
 
   #FIXME: create the step given I have repository...    
   @selenium
-  Scenario: I want to see the repository edit form
+  Scenario: I edit a Mezuro project with valid attributes
     Given I follow "Add Repository"
     And I fill the fields with the new following data
       | repository_name               | My Name                                                         |
@@ -139,14 +140,23 @@ Feature: Repository
     And I press "Add"
     And I am on article "Sample Project"
     When I follow "Edit"
-    Then I should see "My Name" in the "repository_name" input      
-    And I should see "My Description" in the "repository_description" input
-    And I should see "ISC License (ISC)" in the "repository_license" select
-    And I should see "Not Periodically" in the process period select field
-    And I should see "GIT" in the "repository_type" select
-    And I should see "https://github.com/user/project.git" in the "repository_address" input
-    And I should see "2" in the "repository_configuration_id" select
-
+    And I fill the fields with the new following data
+      | repository_name               | Another Name                                                    |
+      | repository_description        | Another Description                                             |
+      | repository_license            | Apple Public Source License (APSL-2.0)                          |
+      | repository_process_period     | Weekly                                                          |
+      | repository_type               | SUBVERSION                                                      |
+      | repository_address            | https://project.svn.sourceforge.net/svnroot/project             |
+      | repository_configuration_id   | Sample Configuration                                            |
+    And I press "Add"
+    Then I should see "Another Name"      
+    And I should see "Another Description"
+    And I should see "Apple Public Source License (APSL-2.0)"
+    And I should see "Weekly"
+    And I should see "SUBVERSION"
+    And I should see "https://project.svn.sourceforge.net/svnroot/project"
+    And I should see "Sample Configuration"
+    
   #FIXME: create the step given I have repository...  
   @selenium
   Scenario: I try to edit a Mezuro project leaving empty its title
@@ -184,4 +194,59 @@ Feature: Repository
     When I erase the "repository_address" field
     And I press "Add"
     Then I should see "Please fill all fields marked with (*)." inside an alert
+
+  #FIXME: create the step given I have repository...    
+  @selenium
+  Scenario: I try to edit a repository with an existing repository name
+    Given I follow "Add Repository"
+    And I fill the fields with the new following data
+      | repository_name               | My Name                                                         |
+      | repository_description        | My Description                                                  |
+      | repository_license            | ISC License (ISC)                                               |
+      | repository_process_period     | Not Periodically                                                |
+      | repository_type               | GIT                                                             |
+      | repository_address            | https://github.com/user/project.git                             |
+      | repository_configuration_id   | Sample Configuration                                            |
+    And I press "Add"
+    And I am on article "Sample Project"
+    And I follow "Add Repository"
+    And I fill the fields with the new following data
+      | repository_name               | Another Name                                                    |
+      | repository_description        | Another Description                                             |
+      | repository_license            | Apple Public Source License (APSL-2.0)                          |
+      | repository_process_period     | Weekly                                                          |
+      | repository_type               | SUBVERSION                                                      |
+      | repository_address            | https://project.svn.sourceforge.net/svnroot/project             |
+      | repository_configuration_id   | Sample Configuration                                            |
+    And I press "Add"
+    And I am on article "Sample Project"
+    When I follow the edit link for "My Name" repository
+    And I fill the fields with the new following data
+      | repository_name               | Another Name                                                    |
+      | repository_description        | Another Description                                             |
+      | repository_license            | Apple Public Source License (APSL-2.0)                          |
+      | repository_process_period     | Weekly                                                          |
+      | repository_type               | SUBVERSION                                                      |
+      | repository_address            | https://project.svn.sourceforge.net/svnroot/project             |
+      | repository_configuration_id   | Sample Configuration                                            |
+    And I press "Add"
+    #Then I should see "Slug The title (article name) is already being used by another article, please use another title."
+    #FIXME fix this validation
+
+  #FIXME: Need to define permissions?
+  @selenium
+	Scenario: I delete a Mezuro repository
+		Given I follow "Add Repository"
+    And I fill the fields with the new following data
+      | repository_name               | My Name                                                         |
+      | repository_description        | My Description                                                  |
+      | repository_license            | ISC License (ISC)                                               |
+      | repository_process_period     | Not Periodically                                                |
+      | repository_type               | GIT                                                             |
+      | repository_address            | https://github.com/user/project.git                             |
+      | repository_configuration_id   | Sample Configuration                                            |
+    And I press "Add"
+    And I am on article "Sample Project"
+		When I follow the remove link for "My Name" repository
+		And I should not see "My Name"
     

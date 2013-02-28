@@ -60,9 +60,14 @@ Then /^I should see "([^"]*)" in the "([^"]*)" select$/ do |content, labeltext|
     find_field(labeltext).value.strip.should == content #strip because have empty spaces around some options
 end
 
-Then /^I shoud see "([^"]*)" in the process period select field$/ do |content|
+Then /^I should see "([^"]*)" in the process period select field$/ do |content|
   selected = MezuroPlugin::Helpers::ContentViewerHelper.periodicity_options.select { |option| option.first == content }.first
   assert_equal selected.last, find_field("repository_process_period").value.to_i
+end
+
+Then /^I should see "([^"]*)" in the repository configuration select field$/ do |content|
+  selected = Kalibro::Configuration.all.select { |option| option.name == content }.first
+  assert_equal selected.id, find_field("repository_configuration_id").value.to_i
 end
 
 Then /^I should not see "([^"]*)" button$/ do |button_name|
@@ -91,7 +96,7 @@ When /^I have a Mezuro (project|reading group|configuration|repository) with the
     puts Kalibro::Project.all.last.id
     item.merge(:configuration_id => Kalibro::Configuration.all.last.id)
     result = Kalibro::Repository.new(item)
-    raise (result.save Kalibro::Project.all.last.id).inspect
+    result.save Kalibro::Project.all.last.id
   else
     result.save!
    end
@@ -113,8 +118,8 @@ When /^I fill the fields with the new following data$/ do |fields|
   end
 end
 
-When /^I have a Mezuro metric configuration with previous created configuration and reading group/ do
-   Kalibro::MetricConfiguration.create({
+When /^I have a Mezuro metric configuration with previous created configuration and reading group$/ do
+  Kalibro::MetricConfiguration.create({
          :code => 'amloc1',
          :metric => {:name => 'Total Coupling Factor', :compound => "false", :scope => 'SOFTWARE', :language => ['JAVA']},
          :base_tool_name => "Analizo",
@@ -122,5 +127,14 @@ When /^I have a Mezuro metric configuration with previous created configuration 
          :aggregation_form => 'AVERAGE',
          :reading_group_id => Kalibro::ReadingGroup.all.last.id,
          :configuration_id => Kalibro::Configuration.all.last.id
-     })
+  })
+end
+
+When /^I follow the (edit|remove) link for "([^"]*)" repository$/ do |action,repository_name|
+  project_id = Kalibro::Project.all.last.id
+  repositories = Kalibro::Repository.repositories_of project_id
+  repository_id = repositories.select {|option| option.name == repository_name}.first.id
+  elements = all('a', :text => action.capitalize)
+  action_link = elements.select {|element| (/repository_id=#{repository_id}/ =~ element[:href])  }.first
+  action_link.click
 end
