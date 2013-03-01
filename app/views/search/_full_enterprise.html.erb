@@ -1,8 +1,5 @@
+<% profile = item %>
 <li class="search-profile-item">
-<% if @empty_query || multiple_search? || !profile.enterprise?  %>
-  <%= profile_image_link profile, :portrait, 'div',
-    @filter == 'more_recent' ? profile.send(@filter + '_label') + show_date(profile.created_at) : profile.send(@filter + '_label') %>
-<% else %>
   <div class="search-enterprise-item">
     <div class="search-enterprise-item-column-left">
       <%= profile_image_link profile, :portrait, 'div',
@@ -39,5 +36,4 @@
 
     <hr class="clearfix" />
   </div>
-<% end %>
 </li>

@@ -1,3 +1,4 @@
+<% product = item %>
 <% extra_content = @plugins.dispatch(:asset_product_extras, product).collect { |content| instance_eval(&content) } %>
 <% extra_properties = @plugins.dispatch(:asset_product_properties, product)%>
 

@@ -14,11 +14,20 @@ module SearchHelper
     :events, _('Events'),
   ]
 
+  DEFAULT_DISPLAY = {
+    :articles => 'full',
+    :communities => 'compact',
+    :enterprises => 'full',
+    :events => 'full',
+    :people => 'compact',
+    :products => 'full',
+  }
+
   # FIXME remove it after search_controler refactored
   include EventsHelper
 
   def multiple_search?
-    ['index', 'category_index'].include?(params[:action]) or @searches.size > 1
+    ['index', 'category_index'].include?(params[:action]) || @searches.size > 1
   end
 
   def map_search?
@@ -46,13 +55,12 @@ module SearchHelper
     [:enterprises, :products].include?(asset)
   end
 
-  def display_items?(asset)
-    puts "\n\n" + asset.inspect + "\n\n"
-    ![:products, :events].include?(asset)
+  def display_compact?(asset)
+    [:communities, :enterprises, :people].include?(asset)
   end
 
   def display_full?(asset)
-    [:enterprises, :products].include?(asset)
+    [:articles, :enterprises, :events, :products].include?(asset)
   end
 
   def display_results(asset = nil)
@@ -81,12 +89,12 @@ module SearchHelper
   end
 
   def display_selector(asset, display, float = 'right')
-    if [display_map?(asset), display_items?(asset), display_full?(asset)].select {|option| option}.count > 1
-      items_link = display_items?(asset) ? (display == 'items' ? _('Items') : link_to(_('Items'), params.merge(:display => 'items'))) : nil
+    if [display_map?(asset), display_compact?(asset), display_full?(asset)].select {|option| option}.count > 1
+      compact_link = display_compact?(asset) ? (display == 'compact' ? _('Compact') : link_to(_('Compact'), params.merge(:display => 'compact'))) : nil
       map_link = display_map?(asset) ? (display == 'map' ? _('Map') : link_to(_('Map'), params.merge(:display => 'map'))) : nil
       full_link = display_full?(asset) ? (display == 'full' ? _('Full') : link_to(_('Full'), params.merge(:display => 'full'))) : nil
       content_tag('div', 
-        content_tag('strong', _('Display')) + ': ' + [items_link, map_link, full_link].compact.join(' | '),
+        content_tag('strong', _('Display')) + ': ' + [compact_link, map_link, full_link].compact.join(' | '),
         :id => 'search-display-filter',
         :style => "float: #{float}"
       )
