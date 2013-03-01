@@ -20,7 +20,8 @@ class EnterpriseHomepage < Article
     enterprise_homepage = self
     lambda do
       extend EnterpriseHomepageHelper
-      @products = profile.products.paginate(:order => 'id asc', :per_page => 9, :page => 1)
+      extend CatalogHelper
+      catalog_load_index :page => 1, :show_categories => false
       render :partial => 'content_viewer/enterprise_homepage', :object => enterprise_homepage
     end
   end
