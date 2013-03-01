@@ -23,6 +23,13 @@ module SearchHelper
     :products => 'full',
   }
 
+  FILTER_TRANSLATION = {
+    'more_popular' => _('More popular'),
+    'more_active' => _('More active'),
+    'more_recent' => _('More recent'),
+    'more_comments' => _('More comments')
+  }
+
   # FIXME remove it after search_controler refactored
   include EventsHelper
 
@@ -95,8 +102,20 @@ module SearchHelper
       full_link = display_full?(asset) ? (display == 'full' ? _('Full') : link_to(_('Full'), params.merge(:display => 'full'))) : nil
       content_tag('div', 
         content_tag('strong', _('Display')) + ': ' + [compact_link, map_link, full_link].compact.join(' | '),
-        :id => 'search-display-filter',
-        :style => "float: #{float}"
+        :class => 'search-customize-options'
+      )
+    end
+  end
+
+  def filter_selector(asset, filter, float = 'right')
+    klass = asset_class(asset)
+    if klass::SEARCH_FILTERS.count > 1
+      options = options_for_select(klass::SEARCH_FILTERS.map {|f| [FILTER_TRANSLATION[f], f]}, filter)
+      onchange = "document.location.href = document.location.search.replace(/filter=[^&]*|$/,'&filter='+this.value)"
+      select_field = select_tag(:filter, options, :onchange => onchange)
+      content_tag('div',
+        content_tag('strong', _('Filter')) + ': ' + select_field,
+        :class => "search-customize-options"
       )
     end
   end

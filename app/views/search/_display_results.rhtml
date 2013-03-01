@@ -10,7 +10,6 @@
           <% if search[:results].total_entries > SearchController::MULTIPLE_SEARCH_LIMIT %>
             <%= link_to(_('see all (%d)') % search[:results].total_entries, params.merge(:action => name), :class => 'see-more' ) %>
           <% end %>
-          <% params[:display] = 'compact' %>
         <% end %>
 
         <div class="search-results-innerbox search-results-type-<%= name.to_s %> <%= 'common-profile-list-block' if [:enterprises, :people, :communities].include?(name) %>">

@@ -6,6 +6,18 @@
   position: relative; /* to the text appear on MSIE 6 */
   width: 100%;
 }
+
+.controller-search .search-field .formfield {
+  width: 805px;
+  display: inline-block;
+}
+
+.controller-search #content form input.button.submit {
+  display: inline-block;
+  height: 25px;
+  max-height: 25px;
+  width: 87px;
+}
 .controller-search .current-cat-path {
   padding-left: 25px;
 }
@@ -642,6 +654,7 @@ li.search-product-item hr {
   padding: 6px 0px 0px 0px;
   margin:0 0 5px 0;
   border-bottom: 2px dotted #999;
+  text-align: right;
 }
 #search-filter-title {
   font-weight: bold;
@@ -666,8 +679,10 @@ li.search-product-item hr {
   color: #ff0000
 }
 
-#search-display-filter {
-  margin-top: 20px;
+.search-customize-options {
+  display: inline-block;
+  margin-left: 8px;
+  margin-top: 10px;
 }
 
 /* Search field and button */
