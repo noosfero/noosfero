@@ -1535,10 +1535,10 @@ a.button.disabled, input.disabled {
  * style for blocks 
  ***********************************************************/
 
-  #content .communities-block .profile-image {
-    float: none;
-    padding-left: 0px;
-    max-width: none;
+#content .communities-block .profile-image {
+  float: none;
+  padding-left: 0px;
+  max-width: none;
 }
 #content .communities-block .vcard .profile_link {
   text-align: center;
@@ -1591,30 +1591,30 @@ a.button.disabled, input.disabled {
 .invisible-block a.icon-button {
   position: relative;
 }
-/***********************************************************
- * the handles to where you can drag the blocks
- ***********************************************************/
+/************************************************
+ * the handles to where you can drag the blocks *
+ ************************************************/
 
-  .block-target {
-    margin: 5px;
-    height: 2px;
-    height: 15px;
-    border: 1px dashed #e0e0e0;
+.block-target {
+  margin: 5px;
+  height: 2px;
+  height: 15px;
+  border: 1px dashed #e0e0e0;
 }
 .block-target-hover {
   background: #ffd;
   border: 1px solid red;
   height: 30px;
 }
-/***********************************************************
- * put borders around boxes and blocks when organizing boxes
- ***********************************************************/
+/*************************************************************
+ * put borders around boxes and blocks when organizing boxes *
+ *************************************************************/
 
-  #box-organizer div.box {
-    border: 1px solid #ccc;
-    background-color: white;
-    background-repeat: no-repeat;
-    background-position: top right;
+#box-organizer div.box {
+  border: 1px solid #ccc;
+  background-color: white;
+  background-repeat: no-repeat;
+  background-position: top right;
 }
 #box-organizer div.box-1 {
   background-image: url(../images/blocks/1.png);
@@ -1648,6 +1648,24 @@ a.button.disabled, input.disabled {
   margin-top: 1em;
   text-align: center;
 }
+
+/****************************************
+ * Block options editor floating window *
+ ****************************************/
+
+#cboxLoadedContent {
+  background: #FFF;
+  box-shadow: 0 0 15px #888 inset;
+  border-radius: 5px;
+  border: 1px solid #777;
+  border-left: none;
+  border-right: none;
+}
+
+.block-config-options {
+  padding: 0px 30px;
+}
+
 /* ==> blocks/tags-block.css <<= */ 
 
 .tags-block {
@@ -5627,12 +5645,6 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 img {
 }
 
 /* Captcha */
-
-/* Colorbox */
-
-#cboxClose {
-  display: none !important;
-}
 
 /* Signup interface {{{ */
 

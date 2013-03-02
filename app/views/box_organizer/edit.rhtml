@@ -1,5 +1,5 @@
-<div style='width: 500px;'>
-  <h2><%= _('Editing block') %></h2>
+<div class="block-config-options <%= @block.class.name %>-options">
+  <h2 class="title"><%= _('Editing block') %></h2>
 
   <% form_tag(:action => 'save', :id => @block.id) do %>
 
