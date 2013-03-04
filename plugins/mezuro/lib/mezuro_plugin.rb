@@ -28,7 +28,7 @@ class MezuroPlugin < Noosfero::Plugin
       {:title => _('Mezuro project'), :url => {:controller =>  'cms', :action => 'new', :profile => context.profile.identifier, :type => 'MezuroPlugin::ProjectContent'}, :icon => 'mezuro' }
     else
       [{:title => _('Mezuro configuration'), :url => {:controller =>  'cms', :action => 'new', :profile => context.profile.identifier, :type => 'MezuroPlugin::ConfigurationContent'}, :icon => 'mezuro' },
-      {:title => _('Mezuro Reading Group'), :url => {:controller =>  'cms', :action => 'new', :profile => context.profile.identifier, :type => 'MezuroPlugin::ReadingGroupContent'}, :icon => 'mezuro' }]
+      {:title => _('Mezuro reading group'), :url => {:controller =>  'cms', :action => 'new', :profile => context.profile.identifier, :type => 'MezuroPlugin::ReadingGroupContent'}, :icon => 'mezuro' }]
     end
   end
 
