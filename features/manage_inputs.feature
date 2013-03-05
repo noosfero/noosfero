@@ -215,7 +215,7 @@ Feature: manage inputs
     Then I should see "Rock"
     And I should not see "Add the inputs or raw material used by this product"
     When I follow "Remove"
-    And I confirm
+    And I confirm the browser dialog
     Then I should see "Add the inputs or raw material used by this product"
 
   @selenium

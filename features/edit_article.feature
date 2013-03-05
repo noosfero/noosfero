@@ -90,7 +90,7 @@ Feature: edit article
   Scenario: cancel button back to article when edit
     Given I am on joaosilva's sitemap
     When I follow "Save the whales"
-    And I follow "Edit"
+    And I follow "Edit" within "#article-actions"
     And I follow "Cancel"
     Then I should be on /joaosilva/save-the-whales
 

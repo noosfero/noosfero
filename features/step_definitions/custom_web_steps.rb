@@ -41,6 +41,6 @@ When /^I leave the "([^\"]+)" field$/ do |selector|
   page.execute_script "jQuery('#{selector}').trigger('blur')"
 end
 
-When /^I confirm$/ do
+When /^I confirm the browser dialog$/ do
   page.driver.browser.switch_to.alert.accept
 end

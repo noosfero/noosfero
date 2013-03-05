@@ -22,7 +22,7 @@ Feature: approve article
   @selenium-fixme
   Scenario: edit an article before approval
     Given I am logged in as "mariasilva"
-    And I am on Maria Silva's homepage
+    And I am on mariasilva's homepage
     When I follow "Spread"
     And I check "Sample Community"
     And I press "Spread this"
@@ -32,14 +32,14 @@ Feature: approve article
     And I fill in "Text" with "This is an article edited"
     And I choose "Accept"
     And I press "Apply!"
-    And I go to Sample Community's sitemap
+    And I go to sample-community's sitemap
     And I follow "Sample Article"
     Then I should see "This is an article edited"
 
   @selenium
   Scenario: reject an article with explanation
     Given I am logged in as "mariasilva"
-    And I go to Maria Silva's cms
+    And I go to mariasilva's cms
     And I follow "Sample Article"
     And I follow "Spread"
     And I check "Sample Community"
@@ -50,10 +50,10 @@ Feature: approve article
     And I choose "Reject"
     And I fill in "Rejection explanation" with "This is not an appropriate article for this community."
     And I press "Apply!"
-    When I go to Sample Community's sitemap
+    When I go to sample-community's sitemap
     Then I should not see "Sample Article"
 
-  @selenium-fixme
+  @selenium
   Scenario: reject an article that was removed
     Given I am logged in as "mariasilva"
     And I follow "Dub Wars"
@@ -61,7 +61,7 @@ Feature: approve article
     And I check "Sample Community"
     And I press "Spread this"
     And I follow "Delete"
-    And I press "Yes, I want."
+    And I confirm the browser dialog
     When I am logged in as "joaosilva"
     And I go to sample-community's control panel
     And I follow "Process requests"

@@ -72,7 +72,8 @@ Feature: gallery_navigation
   Scenario: image title in window title
     Given I am logged in as "marciopunk"
     When I go to /marciopunk/other-gallery/rails.png?view=true
+    And the page title should be "rails.png"
     And I follow "Edit"
     And I fill in "Title" with "Rails is cool"
     And I press "Save"
-    Then I should see "Rails is cool" within "title"
+    Then the page title should be "Rails is cool"

@@ -92,13 +92,13 @@ Feature: chat
     And I am logged in as "tame"
     And I follow "Open chat"
     When I select window "noosfero_chat"
-    Then the "#chat-online" should not be visible
-    And the "#chat-busy" should not be visible
-    And the "#chat-disconnect" should not be visible
+    Then "Online" should not be visible within "#user-status"
+    And "Busy" should not be visible within "#user-status"
+    And "Sign out of chat" should not be visible within "#user-status"
     When I follow "Offline"
-    Then the "#chat-connect" should be visible
-    And the "#chat-busy" should be visible
-    And the "#chat-disconnect" should be visible
+    Then "Online" should be visible within "#user-status"
+    And "Busy" should be visible within "#user-status"
+    And "Sign out of chat" should be visible within "#user-status"
 
   @selenium
   Scenario: link to open chatroom of a community

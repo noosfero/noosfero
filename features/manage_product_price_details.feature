@@ -105,6 +105,7 @@ Feature: manage product price details
      And I select "Taxes" from "price_details__production_cost_id" within "#display-product-price-details"
      And I fill in "$" with "20.00"
      And I press "Save"
+     And I should be on Rede Moinho's page of product Abbey Road
      Then I should see "Inputs" within ".price-detail-name"
      And I should see "60.0" within ".price-detail-price"
 
@@ -142,7 +143,7 @@ Feature: manage product price details
     And I follow "Describe here the cost of production"
     And I should see "Taxes" within "#manage-product-details-form"
     When I follow "Remove" within "#manage-product-details-form"
-    And I confirm
+    And I confirm the browser dialog
     And I press "Save"
     And I follow "Describe here the cost of production"
     Then I should not see "Taxes" within "#manage-product-details-form"

@@ -20,6 +20,8 @@ Before('@ignore-hidden-elements') do
   Capybara.ignore_hidden_elements = true
 end
 
+Capybara.default_wait_time = 30
+
 After do
   DatabaseCleaner.clean
 end
