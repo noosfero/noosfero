@@ -752,7 +752,9 @@ function save_comment(button) {
 
     } else if(data.render_target == 'form') {
       //Comment with errors
-      $(button).parents('.page-comment-form').html(data.html);
+      var page_comment_form = $(button).parents('.page-comment-form');
+      $.scrollTo(page_comment_form);
+      page_comment_form.html(data.html);
 
     } else if($('#' + data.render_target).size() > 0) {
       //Comment of reply
@@ -768,6 +770,7 @@ function save_comment(button) {
       });
 
       form.find('.errorExplanation').remove();
+      $.colorbox.close();
 
     }
 
@@ -784,7 +787,6 @@ function save_comment(button) {
        display_notice(data.msg);
     }
 
-    $.colorbox.close();
     close_loading();
     post_comment_box.removeClass('opened');
     post_comment_box.addClass('closed');

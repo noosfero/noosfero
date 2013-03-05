@@ -154,7 +154,7 @@ class CommentController < ApplicationController
          render :json => {
            :ok => false,
            :render_target => 'form',
-           :html => render_to_string(:partial => 'comment_form', :object => @comment, :locals => {:comment => @comment, :display_link => false, :edition_mode => true})
+           :html => render_to_string(:partial => 'comment_form', :object => @comment, :locals => {:comment => @comment, :display_link => false, :edition_mode => true, :show_form => true})
          }
        end
      end
