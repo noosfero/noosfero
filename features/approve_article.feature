@@ -19,7 +19,7 @@ Feature: approve article
     And "Maria Silva" is a member of "Sample Community"
     And "Joao Silva" is admin of "Sample Community"
 
-  @selenium @fixme
+  @selenium-fixme
   Scenario: edit an article before approval
     Given I am logged in as "mariasilva"
     And I am on Maria Silva's homepage
@@ -53,7 +53,7 @@ Feature: approve article
     When I go to Sample Community's sitemap
     Then I should not see "Sample Article"
 
-  @selenium @fixme
+  @selenium-fixme
   Scenario: reject an article that was removed
     Given I am logged in as "mariasilva"
     And I follow "Dub Wars"

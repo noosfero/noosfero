@@ -15,7 +15,7 @@ Feature: send emails to environment members users
     When I go to /admin/users/send_mail
     Then I should see "Access denied"
 
-  @selenium @fixme
+  @selenium-fixme
   Scenario: Send e-mail to members
     Given I am logged in as admin
     When I follow "Administration"
@@ -26,7 +26,7 @@ Feature: send emails to environment members users
     When I press "Send"
     Then I should be on /admin/users
 
-  @selenium @fixme
+  @selenium-fixme
   Scenario: Not send e-mail to members if subject is blank
     Given I am logged in as admin
     When I follow "Administration"

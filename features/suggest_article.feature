@@ -22,7 +22,7 @@ Feature: suggest article
     And I should see "suggested the publication of the article"
     Then I should see "Highlight this article" within ".task_box"
 
-  @selenium @fixme
+  @selenium-fixme
   Scenario: an article is suggested and the admin approve it
     Given I am on Sample Community's blog
     And I follow "Suggest an article"

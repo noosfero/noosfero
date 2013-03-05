@@ -15,7 +15,7 @@ Feature: browse
       | comunity-silva | Community Silva |
       | comunity-neto | Community Neto |
 
-  @selenium @fixme
+  @selenium-fixme
   Scenario: Show people browse menu
     Given I should not see "More Recent"
     And I should not see "More Active"
@@ -25,7 +25,7 @@ Feature: browse
     And I should see "More Active"
     And I should see "More Popular"
 
-  @selenium @fixme
+  @selenium-fixme
   Scenario: People browse menu should add logged information
     Given I am logged in as "joaosilva"
     And I should not see "More Recent"
@@ -51,7 +51,7 @@ Feature: browse
     And I should not see "Community Silva"
     And I should not see "Community Neto"
 
-  @selenium @fixme
+  @selenium-fixme
   Scenario: Communities browse menu should add logged information
     Given I am logged in as "joaosilva"
     When I go to /joaosilva
@@ -67,7 +67,7 @@ Feature: browse
     And I should see "My communities"
     And I should see "New community"
 
-  @selenium @fixme
+  @selenium-fixme
   Scenario: Show communities browse menu
     Given I should not see "More Recent"
     And I should not see "More Active"
@@ -88,7 +88,7 @@ Feature: browse
     And I should not see "Paulo Neto"
     And I should not see "Community Silva"
 
-  @selenium @fixme
+  @selenium-fixme
   Scenario: Show contents browse menu
     Given I should not see "More Comments"
     And I should not see "More Views"

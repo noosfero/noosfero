@@ -46,13 +46,13 @@ Feature: domain for profile
     And I follow "joaosilva"
     Then the page title should be "Joao Silva"
 
-  @selenium @fixme
+  @selenium-fixme
   Scenario: access community by domain
     Given I go to the search communities page
     When I follow "Sample Community" within ".search-profile-item"
     Then the page title should be "Sample Community"
 
-  @selenium @fixme
+  @selenium-fixme
   Scenario: Go to profile homepage after clicking on home button on not found page
     Given I am on sample-community's homepage
     When I go to /something-that-does-not-exist

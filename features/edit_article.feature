@@ -94,7 +94,7 @@ Feature: edit article
     And I follow "Cancel"
     Then I should be on /joaosilva/save-the-whales
 
-  @selenium @fixme
+  @selenium-fixme
   Scenario: create an article inside a folder
     Given I am on joaosilva's control panel
     When I follow "Manage Content"
@@ -110,7 +110,7 @@ Feature: edit article
     Then I should see "My Article"
     And I should be on /joaosilva/my-folder/my-article
 
-  @selenium @fixme
+  @selenium-fixme
   Scenario: cancel button back to folder after giving up creating
     Given I am on joaosilva's control panel
     When I follow "Manage Content"
@@ -160,7 +160,7 @@ Feature: edit article
     Then I should be on /joaosilva/mi-neuvo-articulo
     And I should see "Translations"
 
-  @selenium @fixme
+  @selenium-fixme
   Scenario: not add a translation without a language
     Given the following articles
       | owner     | name               | language |

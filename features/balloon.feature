@@ -24,7 +24,7 @@ Feature: balloon
     When I go to the homepage
     Then I should not see "Friends"
 
-  @selenium @fixme
+  @selenium-fixme
   Scenario: I should see balloon when clicked on people block trigger
     Given the following blocks
       | owner       | type        |
@@ -34,7 +34,7 @@ Feature: balloon
     And I follow "Profile links"
     Then I should see "Friends"
 
-  @selenium @fixme
+  @selenium-fixme
   Scenario: I should see balloon when clicked on community block trigger
     Given feature "show_balloon_with_profile_links_when_clicked" is enabled on environment
     When I go to /search/communities
@@ -53,7 +53,7 @@ Feature: balloon
     When I go to /assets/communities
     Then I should not see "Members"
 
-  @selenium @fixme
+  @selenium-fixme
   Scenario: I should see balloon when clicked on page trigger
     Given feature "show_balloon_with_profile_links_when_clicked" is enabled on environment
     When I go to /assets/communities

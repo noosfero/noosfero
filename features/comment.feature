@@ -24,7 +24,7 @@ Feature: comment
     When I press "Post comment"
     Then I should not see "Hey ho, let's go"
 
-  @selenium @fixme
+  @selenium-fixme
   Scenario: post a comment while not authenticated
     Given I am on /booking/article-to-comment
     And I fill in "Name" with "Joey Ramone"
@@ -34,7 +34,7 @@ Feature: comment
     When I press "Post comment"
     Then I should see "Hey ho, let's go"
 
-  @selenium @fixme
+  @selenium-fixme
   Scenario: post comment while authenticated
     Given I am logged in as "booking"
     And I am on /booking/article-to-comment
@@ -43,7 +43,7 @@ Feature: comment
     When I press "Post comment"
     Then I should see "Hey ho, let's go"
 
-  @selenium @fixme
+  @selenium-fixme
   Scenario: redirect to right place after comment a picture
     Given the following files
       | owner   | file      | mime      |
@@ -55,7 +55,7 @@ Feature: comment
     When I press "Post comment"
     Then I should be exactly on /booking/rails.png?view=true
 
-  @selenium @fixme
+  @selenium-fixme
   Scenario: show error messages when make a blank comment
     Given I am logged in as "booking"
     And I am on /booking/article-to-comment
@@ -63,7 +63,7 @@ Feature: comment
     Then I should see "Title can't be blank"
     And I should see "Body can't be blank"
 
-  @selenium @fixme
+  @selenium-fixme
   Scenario: disable post comment button
     Given I am on /booking/article-to-comment
     And I fill in "Name" with "Joey Ramone"
@@ -74,7 +74,7 @@ Feature: comment
     Then the "value.Post comment" button should not be enabled
     And I should see "Hey ho, let's go"
 
-  @selenium @fixme
+  @selenium-fixme
   Scenario: render comment form and go to bottom
     Given I am on /booking/article-with-comment
     When I follow "Post a comment" within ".post-comment-button"
@@ -82,7 +82,7 @@ Feature: comment
     And I should be exactly on /booking/article-with-comment
     And I should be moved to anchor "comment_form"
 
-  @selenium @fixme
+  @selenium-fixme
   Scenario: keep comments field filled while trying to do a comment
     Given I am on /booking/article-with-comment
     And I fill in "Name" with "Joey Ramone"

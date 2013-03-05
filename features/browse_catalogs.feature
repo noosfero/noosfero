@@ -132,7 +132,7 @@ Feature: browse catalogs
     And I should not see "qualifiers"
     And I should not see "price composition"
 
-  @selenium @fixme
+  @selenium-fixme
   Scenario: display description button when needed (but not the description)
     Given the following products
       | owner      | category | name     | price | description                                           |
@@ -146,7 +146,7 @@ Feature: browse catalogs
     And I should see "A small description" within "#product-description"
     And "A small description for a product that doesn't exist" should not be visible within "product-description"
 
-  @selenium @fixme
+  @selenium-fixme
   Scenario: display description when button is clicked
     Given the following products
       | owner      | category | name     | price | description                                           |
@@ -157,7 +157,7 @@ Feature: browse catalogs
     Then I should see "A small description" within "#product-description"
     And "A small description for a product that doesn't exist" should not be visible within "product-description"
 
-  @selenium @fixme
+  @selenium-fixme
   Scenario: hide description
     Given the following products
       | owner      | category | name     | price | description                                           |
@@ -198,7 +198,7 @@ Feature: browse catalogs
     And I should see "Organic" within "span.search-product-qualifier"
     And I should not see "price composition"
 
-  @selenium @fixme
+  @selenium-fixme
   Scenario: not display price composition button if price is not described
     Given the following product
       | owner      | category | name     | price |
@@ -212,7 +212,7 @@ Feature: browse catalogs
     And I should see "10.00" within "span.product-price"
     And the "#product-price-composition-button" should not be visible
 
-  @selenium @fixme
+  @selenium-fixme
   Scenario: display price composition button (but not inputs)
     Given the following product
       | owner      | category | name     | price |
@@ -229,7 +229,7 @@ Feature: browse catalogs
     And I should see "food" within "#product-price-composition"
     And I should see "10.00" within "#product-price-composition"
 
-  @selenium @fixme
+  @selenium-fixme
   Scenario: display price composition when button is clicked
     Given the following product
       | owner      | category | name     | price |
@@ -244,7 +244,7 @@ Feature: browse catalogs
     And I should see "food" within "#product-price-composition"
     And I should see "10.88" within "#product-price-composition"
 
-  @selenium @fixme
+  @selenium-fixme
   Scenario: display inputs and raw materials button when not completely filled
     Given the following product
       | owner      | category | name     | price |
@@ -260,7 +260,7 @@ Feature: browse catalogs
     Then the "#inputs-button" should be visible
     And I should see "inputs and raw materials" within "#inputs-button"
 
-  @selenium @fixme
+  @selenium-fixme
   Scenario: display inputs and raw materials button
     Given the following product
       | owner      | category | name     | price |
@@ -280,7 +280,7 @@ Feature: browse catalogs
     And the "#inputs-description" should not be visible
     And I should see "7.0 Liter of food" within "#inputs-description"
 
-  @selenium @fixme
+  @selenium-fixme
   Scenario: display inputs and raw materials description
     Given the following product
       | owner      | category | name     | price |
@@ -297,7 +297,7 @@ Feature: browse catalogs
     Then the "#inputs-description" should be visible
     And I should see "7.0 Liter of food" within "#inputs-description"
 
-  @selenium @fixme
+  @selenium-fixme
   Scenario: hide inputs and raw materials
     Given the following product
       | owner      | category | name     | price |

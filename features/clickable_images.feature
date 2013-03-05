@@ -32,7 +32,7 @@ Feature: clickable images
     When I go to /booking/not-set
     Then "Zoom in" should not be visible within "a#zoomify-image"
 
-  @selenium @fixme
+  @selenium-fixme
   Scenario: copy style from image
     Given the following article with image
       | owner   | name       | image     | style        | dimensions |
@@ -40,7 +40,7 @@ Feature: clickable images
     When I go to /booking/with-style
     Then "zoomable-image" should be right aligned
 
-  @selenium @fixme
+  @selenium-fixme
   Scenario: zoom image
     Given the following article with image
       | owner   | name | image     | dimensions |

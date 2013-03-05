@@ -90,7 +90,7 @@ Feature: manage inputs
     And I follow "Inputs and raw material"
     Then I should see "Edit" within ".input-item"
 
-  @selenium @fixme
+  @selenium-fixme
   Scenario: Order inputs by position
     Given the following product_categories
       | name  |
@@ -237,7 +237,7 @@ Feature: manage inputs
     Then I should see "Add the inputs or raw material used by this product"
     And "Add some description to your product" should not be visible within "#show_product"
 
-  @selenium @fixme
+  @selenium-fixme
   Scenario: Order input list
     Given the following product_category
       | name  |

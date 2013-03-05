@@ -213,7 +213,7 @@ Feature: events
     And I am on josesilva's Event creation
     Then I should see "Lead"
 
-  @selenium @fixme
+  @selenium-fixme
   Scenario: events lead should be shown on blogs with short format
     Given I am logged in as "josesilva"
     And I am on josesilva's control panel
