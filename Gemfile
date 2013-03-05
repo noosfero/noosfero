@@ -9,6 +9,7 @@ group :test do
 end
 
 group :cucumber do
+  gem 'rake', '0.8.7'
   gem 'cucumber-rails', '0.3.2'
   gem 'capybara', '1.1.1'
   gem 'cucumber', '1.1.0'

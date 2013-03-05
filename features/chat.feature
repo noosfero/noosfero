@@ -17,8 +17,7 @@ Feature: chat
   Scenario: provide link to open chat
     Given feature "xmpp_chat" is enabled on environment
     And I am logged in as "tame"
-    And I wait
-    Then I should see "Open chat" within "a#openchat"
+    Then I should see "Open chat" within "#user"
 
   @selenium
   Scenario: provide the chat online users content
@@ -38,11 +37,11 @@ Feature: chat
 
   Scenario: not provide link to chat when environment not support that
     Given I am logged in as "tame"
-    Then I should not see "Open chat" within "a#openchat"
+    Then I should not see "Open chat" within "#user"
 
   Scenario: not provide link to chat when the user is logged out
     Given I am on tame's homepage
-    Then I should not see "Open chat" within "a#openchat"
+    Then I should not see "Open chat" within "#user"
 
   @selenium
   Scenario: not provide the chat online users list when environment not support that

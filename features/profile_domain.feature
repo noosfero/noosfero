@@ -44,7 +44,8 @@ Feature: domain for profile
     Given I am logged in as "joaosilva"
     When I go to the homepage
     And I follow "joaosilva"
-    Then the page title should be "Joao Silva"
+    Then I should be on joaosilva's profile
+    And the page title should be "Joao Silva"
 
   @selenium-fixme
   Scenario: access community by domain
@@ -64,7 +65,8 @@ Feature: domain for profile
     Given I am on the homepage
     When I go to /something-that-does-not-exist
     And I follow "Go to the home page"
-    Then the page title should be "Colivre.net"
+    Then I should be on the homepage
+    And the page title should be "Colivre.net"
 
   @selenium
   Scenario: Compose link to administration with environment domain

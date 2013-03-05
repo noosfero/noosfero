@@ -76,4 +76,5 @@ Feature: gallery_navigation
     And I follow "Edit"
     And I fill in "Title" with "Rails is cool"
     And I press "Save"
+    When I go to /marciopunk/other-gallery/rails.png?view=true
     Then the page title should be "Rails is cool"

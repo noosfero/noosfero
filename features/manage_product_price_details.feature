@@ -105,7 +105,7 @@ Feature: manage product price details
      And I select "Taxes" from "price_details__production_cost_id" within "#display-product-price-details"
      And I fill in "$" with "20.00"
      And I press "Save"
-     And I should be on Rede Moinho's page of product Abbey Road
+     And I go to Rede Moinho's page of product Abbey Road
      Then I should see "Inputs" within ".price-detail-name"
      And I should see "60.0" within ".price-detail-price"
 
