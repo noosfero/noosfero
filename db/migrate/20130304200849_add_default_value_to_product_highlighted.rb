@@ -1,7 +1,7 @@
 class AddDefaultValueToProductHighlighted < ActiveRecord::Migration
   def self.up
     change_column :products, :highlighted, :boolean, :default => false
-    execute('UPDATE products SET highlighted="f" WHERE highlighted IS NULL;')
+    execute('UPDATE products SET highlighted=(0>1) WHERE highlighted IS NULL;')
   end
 
   def self.down
