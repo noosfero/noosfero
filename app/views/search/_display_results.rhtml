@@ -12,7 +12,7 @@
           <% end %>
         <% end %>
 
-        <div class="search-results-innerbox search-results-type-<%= name.to_s %> <%= 'common-profile-list-block' if [:enterprises, :people, :communities].include?(name) %>">
+        <div class="search-results-innerbox search-results-type-<%= name.to_s.singularize %> <%= 'common-profile-list-block' if [:enterprises, :people, :communities].include?(name) %>">
           <ul>
           <% search[:results].each do |hit| %>
             <% partial = partial_for_class(hit.class, params[:display]) %>
