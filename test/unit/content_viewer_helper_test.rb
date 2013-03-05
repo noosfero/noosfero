@@ -18,8 +18,15 @@ class ContentViewerHelperTest < ActiveSupport::TestCase
     result = article_title(post)
     assert_tag_in_string result, :tag => 'span', :content => show_date(post.published_at)
   end
+  
+  should 'display published-at for forum posts' do
+    forum = fast_create(Forum, :name => 'Forum test', :profile_id => profile.id)
+    post = TextileArticle.create!(:name => 'post test', :profile => profile, :parent => forum)
+    result = article_title(post)
+    assert_tag_in_string result, :tag => 'span', :content => show_date(post.published_at)
+  end
 
-  should 'not display published-at for non-blog posts' do
+  should 'not display published-at for non-blog and non-forum posts' do
     article = TextileArticle.create!(:name => 'article for test', :profile => profile)
     result = article_title(article)
     assert_no_match /<span class="date">#{show_date(article.published_at)}<\/span><span class="author">, by .*#{profile.identifier}/, result

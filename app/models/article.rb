@@ -291,6 +291,10 @@ class Article < ActiveRecord::Base
   def belongs_to_blog?
     self.parent and self.parent.blog?
   end
+  
+  def belongs_to_forum?
+    self.parent and self.parent.forum?
+  end
 
   def info_from_last_update
     last_comment = comments.last
