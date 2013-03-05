@@ -15,7 +15,9 @@
         <div class="search-results-innerbox search-results-type-<%= name.to_s %> <%= 'common-profile-list-block' if [:enterprises, :people, :communities].include?(name) %>">
           <ul>
           <% search[:results].each do |hit| %>
-            <%= render :partial => partial_for_class(hit.class, params[:display]), :locals => {:item => hit} %>
+            <% partial = partial_for_class(hit.class, params[:display]) %>
+            <% variable_name = partial.gsub("#{params[:display]}_", '').to_sym %>
+            <%= render :partial => partial, :locals => {variable_name => hit} %>
           <% end %>
           </ul>
         </div>
