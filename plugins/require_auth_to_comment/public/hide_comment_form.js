@@ -4,7 +4,7 @@
       $('.post-comment-button').livequery(function() {
         $(this).show();
       });
-      $('#page-comment-form').livequery(function() {
+      $('.page-comment-form').livequery(function() {
         $(this).show();
       });
       $('.comment-footer').livequery(function() {
