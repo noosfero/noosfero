@@ -98,6 +98,12 @@ class ApplicationController < ActionController::Base
     else
       @environment = @domain.environment
       @profile = @domain.profile
+
+      # Check if the requested profile belongs to another domain
+      if @profile and !params[:profile].blank? and params[:profile] != @profile.identifier
+        @profile = @environment.profiles.find_by_identifier params[:profile]
+        redirect_to params.merge(:host => @profile.default_hostname)
+      end
     end
   end
 
