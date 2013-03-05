@@ -6,8 +6,6 @@ class ProfileSearchController; def rescue_action(e) raise e end; end
 
 class ProfileSearchControllerTest < ActionController::TestCase
   def setup
-    super
-    TestSolr.enable
     @controller = ProfileSearchController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
@@ -30,7 +28,7 @@ class ProfileSearchControllerTest < ActionController::TestCase
   should 'search for articles' do
     article = TextileArticle.create(:name => 'My article', :body => 'Article to test profile search', :profile => person)
 
-    get 'index', :profile => person.identifier, :q => 'article profile'
+    get 'index', :profile => person.identifier, :q => 'article to test'
     assert_includes assigns(:results), article
   end
 
@@ -61,7 +59,7 @@ class ProfileSearchControllerTest < ActionController::TestCase
 
     get 'index', :profile => person.identifier, :q => 'Article'
 
-    assert_equal 10, assigns('results').docs.size
+    assert_equal 10, assigns('results').size
     assert_tag :tag => 'a', :attributes => { :href => "/profile/#{person.identifier}/search?page=2&amp;q=Article", :rel => 'next' }
   end
 
@@ -69,7 +67,7 @@ class ProfileSearchControllerTest < ActionController::TestCase
     article1 = TextileArticle.create(:name => 'Article 1', :abstract => 'Abstract to test', :body => 'Article to test profile search', :profile => person)
     article2 = TextileArticle.create(:name => 'Article 2', :body => 'Another article to test profile search', :profile => person)
 
-    get 'index', :profile => person.identifier, :q => 'article profile'
+    get 'index', :profile => person.identifier, :q => 'article to test'
 
     assert_tag :tag => 'li', :descendant => { :tag => 'a', :content => article1.abstract, :attributes => { :class => /article-details/ }}
     assert_no_tag :tag => 'li', :descendant => { :tag => 'a', :content => article1.body, :attributes => { :class => /article-details/ }}
@@ -90,7 +88,7 @@ class ProfileSearchControllerTest < ActionController::TestCase
     article1 = TextileArticle.create(:name => 'Article 1', :body => 'Article to test profile search', :profile => person, :published => false)
     article2 = TextileArticle.create(:name => 'Article 2', :body => 'Another article to test profile search', :profile => person)
 
-    get 'index', :profile => person.identifier, :q => 'article profile'
+    get 'index', :profile => person.identifier, :q => 'article to test'
 
     assert_no_tag :tag => 'li', :descendant => { :tag => 'a', :content => article1.body, :attributes => { :class => /article-details/ }}
 
@@ -101,7 +99,7 @@ class ProfileSearchControllerTest < ActionController::TestCase
     article1 = TextileArticle.create(:name => 'Article 1', :body => 'Article to test profile search', :body => 'Article to test profile search', :profile => person)
     article2 = TextileArticle.create(:name => 'Article 2', :body => 'Another article to test profile search', :profile => person)
 
-    get 'index', :profile => person.identifier, :q => 'article profile'
+    get 'index', :profile => person.identifier, :q => 'article to test'
 
     assert_tag :tag => 'div', :attributes => { :class => 'results-found-message' }, :content => /2 results found/
   end

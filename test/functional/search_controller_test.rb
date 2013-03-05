@@ -7,8 +7,6 @@ class SearchController; def rescue_action(e) raise e end; end
 class SearchControllerTest < ActionController::TestCase
 
   def setup
-    super
-    TestSolr.enable
     @controller = SearchController.new
     @request    = ActionController::TestRequest.new
     @request.stubs(:ssl?).returns(false)
@@ -60,7 +58,7 @@ class SearchControllerTest < ActionController::TestCase
 
   should 'search only in specified types of content' do
     get :articles, :query => 'something not important'
-    assert_equal [:articles], assigns(:results).keys
+    assert_equal [:articles], assigns(:searches).keys
   end
 
   should 'render success in search' do
@@ -72,8 +70,8 @@ class SearchControllerTest < ActionController::TestCase
     person = fast_create(Person)
     art = create_article_with_optional_category('an article to be found', person)
 
-    get 'articles', :query => 'article found'
-    assert_includes assigns(:results)[:articles], art
+    get 'articles', :query => 'article to be found'
+    assert_includes assigns(:searches)[:articles][:results], art
   end
 
 #  should 'get facets with articles search results' do
@@ -86,11 +84,11 @@ class SearchControllerTest < ActionController::TestCase
 #		art.save!
 #
 #    get 'articles', :query => 'article found'
-#		assert !assigns(:results)[:articles].facets.blank?
-#		assert assigns(:results)[:articles].facets['facet_fields']['f_type_facet'][0][0] == 'Article'
-#		assert assigns(:results)[:articles].facets['facet_fields']['f_profile_type_facet'][0][0] == 'Person'
-#		assert assigns(:results)[:articles].facets['facet_fields']['f_category_facet'][0][0] == 'cat1'
-#		assert assigns(:results)[:articles].facets['facet_fields']['f_category_facet'][1][0] == 'cat2'
+#		assert !assigns(:searches)[:articles].facets.blank?
+#		assert assigns(:searches)[:articles].facets['facet_fields']['f_type_facet'][0][0] == 'Article'
+#		assert assigns(:searches)[:articles].facets['facet_fields']['f_profile_type_facet'][0][0] == 'Person'
+#		assert assigns(:searches)[:articles].facets['facet_fields']['f_category_facet'][0][0] == 'cat1'
+#		assert assigns(:searches)[:articles].facets['facet_fields']['f_category_facet'][1][0] == 'cat2'
 #  end
 
 	should 'redirect contents to articles' do
@@ -99,7 +97,7 @@ class SearchControllerTest < ActionController::TestCase
 
     get 'contents', :query => 'article found'
 		# full description to avoid deprecation warning
-    assert_redirected_to :controller => :search, :action => :articles, :query => 'article found', :display => 'list'
+    assert_redirected_to :controller => :search, :action => :articles, :query => 'article found'
 	end
 
   # 'assets' outside any category
@@ -111,30 +109,30 @@ class SearchControllerTest < ActionController::TestCase
 
     get :articles
 
-    assert_includes assigns(:results)[:articles], art1
-    assert_includes assigns(:results)[:articles], art2
+    assert_includes assigns(:searches)[:articles][:results], art1
+    assert_includes assigns(:searches)[:articles][:results], art2
   end
 
-#  should 'find enterprises' do
-#    ent = create_profile_with_optional_category(Enterprise, 'teste')
-#    get :enterprises, :query => 'teste'
-#    assert_includes assigns(:results)[:enterprises], ent
-#		assert !assigns(:results)[:enterprises].facets.nil?
-#  end
+  should 'find enterprises' do
+    ent = create_profile_with_optional_category(Enterprise, 'teste')
+    get :enterprises, :query => 'teste'
+    assert_includes assigns(:searches)[:enterprises][:results], ent
+#		assert !assigns(:searches)[:enterprises].facets.nil?
+  end
 
   should 'list enterprises in general' do
     ent1 = create_profile_with_optional_category(Enterprise, 'teste 1')
     ent2 = create_profile_with_optional_category(Enterprise, 'teste 2')
 
     get :enterprises
-    assert_includes assigns(:results)[:enterprises], ent1
-    assert_includes assigns(:results)[:enterprises], ent2
+    assert_includes assigns(:searches)[:enterprises][:results], ent1
+    assert_includes assigns(:searches)[:enterprises][:results], ent2
   end
 
   should 'search for people' do
     p1 = create_user('people_1').person; p1.name = 'a beautiful person'; p1.save!
     get :people, :query => 'beautiful'
-    assert_includes assigns(:results)[:people], p1
+    assert_includes assigns(:searches)[:people][:results], p1
   end
 
 #  should 'get facets with people search results' do
@@ -148,10 +146,10 @@ class SearchControllerTest < ActionController::TestCase
 #
 #    get 'people', :query => 'Hildebrando'
 #
-#    assert !assigns(:results)[:people].facets.blank?
-#    assert assigns(:results)[:people].facets['facet_fields']['f_region_facet'][0][0] == city.id.to_s
+#    assert !assigns(:searches)[:people].facets.blank?
+#    assert assigns(:searches)[:people].facets['facet_fields']['f_region_facet'][0][0] == city.id.to_s
 #
-#    categories_facet = assigns(:results)[:people].facets['facet_fields']['f_categories_facet']
+#    categories_facet = assigns(:searches)[:people].facets['facet_fields']['f_categories_facet']
 #    assert_equal 2, categories_facet.count
 #    assert_equivalent [cat1.id.to_s, cat2.id.to_s], [categories_facet[0][0], categories_facet[1][0]]
 #  end
@@ -165,15 +163,15 @@ class SearchControllerTest < ActionController::TestCase
 
     get :people
 
-    assert_equivalent [p2,p1], assigns(:results)[:people]
+    assert_equivalent [p2,p1], assigns(:searches)[:people][:results]
   end
 
-#  should 'find communities' do
-#    c1 = create_profile_with_optional_category(Community, 'a beautiful community')
-#    get :communities, :query => 'beautiful'
-#    assert_includes assigns(:results)[:communities], c1
-#		assert !assigns(:results)[:communities].facets.nil?
-#  end
+  should 'find communities' do
+    c1 = create_profile_with_optional_category(Community, 'a beautiful community')
+    get :communities, :query => 'beautiful'
+    assert_includes assigns(:searches)[:communities][:results], c1
+#		assert !assigns(:searches)[:communities].facets.nil?
+  end
 
   # 'assets' menu outside any category
   should 'list communities in general' do
@@ -181,14 +179,14 @@ class SearchControllerTest < ActionController::TestCase
     c2 = create_profile_with_optional_category(Community, 'another beautiful community')
 
     get :communities
-    assert_equivalent [c2, c1], assigns(:results)[:communities]
+    assert_equivalent [c2, c1], assigns(:searches)[:communities][:results]
   end
 
   should 'search for products' do
     ent = create_profile_with_optional_category(Enterprise, 'teste')
     prod = ent.products.create!(:name => 'a beautiful product', :product_category => @product_category)
     get :products, :query => 'beautiful'
-    assert_includes assigns(:results)[:products], prod
+    assert_includes assigns(:searches)[:products][:results], prod
   end
 
 #  should 'get facets with products search results' do
@@ -203,11 +201,11 @@ class SearchControllerTest < ActionController::TestCase
 #		prod.save!
 #
 #    get 'products', :query => 'Sound'
-#		assert !assigns(:results)[:products].facets.blank?
-#		assert assigns(:results)[:products].facets['facet_fields']['f_category_facet'][0][0] == @product_category.name
-#		assert assigns(:results)[:products].facets['facet_fields']['f_region_facet'][0][0] == city.id.to_s
-#		assert assigns(:results)[:products].facets['facet_fields']['f_qualifier_facet'][0][0] == "#{qualifier1.id} 0"
-#		assert assigns(:results)[:products].facets['facet_fields']['f_qualifier_facet'][1][0] == "#{qualifier2.id} 0"
+#		assert !assigns(:searches)[:products].facets.blank?
+#		assert assigns(:searches)[:products].facets['facet_fields']['f_category_facet'][0][0] == @product_category.name
+#		assert assigns(:searches)[:products].facets['facet_fields']['f_region_facet'][0][0] == city.id.to_s
+#		assert assigns(:searches)[:products].facets['facet_fields']['f_qualifier_facet'][0][0] == "#{qualifier1.id} 0"
+#		assert assigns(:searches)[:products].facets['facet_fields']['f_qualifier_facet'][1][0] == "#{qualifier2.id} 0"
 #  end
 
   # 'assets' menu outside any category
@@ -221,7 +219,7 @@ class SearchControllerTest < ActionController::TestCase
 #    prod2 = ent2.products.create!(:name => 'another beautiful product', :product_category => @product_category)
 #
 #    get :products
-#    assert_equivalent [prod2, prod1], assigns(:results)[:products].docs
+#    assert_equivalent [prod2, prod1], assigns(:searches)[:products].docs
 #		assert_match 'Highlights', @response.body
 #  end
 
@@ -284,7 +282,7 @@ class SearchControllerTest < ActionController::TestCase
 
     get :enterprises, :page => '2'
 
-    assert_equal 1, assigns(:results)[:enterprises].size
+    assert_equal 1, assigns(:searches)[:enterprises][:results].size
   end
 
   should 'display a given category' do
@@ -326,7 +324,7 @@ class SearchControllerTest < ActionController::TestCase
 
     get :category_index, :category_path => ['parent-category'], :query => 'test_profile'
 
-    assert_includes assigns(:results)[:people], p
+    assert_includes assigns(:searches)[:people][:results], p
   end
 
 #  should 'find enterprise by product category' do
@@ -338,10 +336,10 @@ class SearchControllerTest < ActionController::TestCase
 #
 #    get :index, :query => prod_cat.name
 #
-#    assert_includes assigns('results')[:enterprises], ent1
-#    assert_not_includes assigns('results')[:enterprises], ent2
+#    assert_includes assigns(:searches)[:enterprises][:results], ent1
+#    assert_not_includes assigns(:searches)[:enterprises][:results], ent2
 #  end
-#
+
 #  should 'show only results in general search' do
 #    ent1 = create_profile_with_optional_category(Enterprise, 'test1')
 #    prod_cat = ProductCategory.create!(:name => 'pctest', :environment => Environment.default)
@@ -352,8 +350,8 @@ class SearchControllerTest < ActionController::TestCase
 #    get :index, :query => prod_cat.name
 #
 #		assert assigns(:facets).blank?
-#		assert_nil assigns(:results)[:enterprises].facets
-#		assert_nil assigns(:results)[:products].facets
+#		assert_nil assigns(:searches)[:enterprises].facets
+#		assert_nil assigns(:searches)[:products].facets
 #	end
 
   should 'render specific action when only one asset is enabled' do
@@ -370,23 +368,23 @@ class SearchControllerTest < ActionController::TestCase
     get :index, :query => 'something'
 	end
 
-#  should 'search all enabled assets in general search' do
-#    ent1 = create_profile_with_optional_category(Enterprise, 'test enterprise')
-#    prod_cat = ProductCategory.create!(:name => 'pctest', :environment => Environment.default)
-#    prod = ent1.products.create!(:name => 'test product', :product_category => prod_cat)
-#		art = Article.create!(:name => 'test article', :profile_id => fast_create(Person).id)
-#		per = Person.create!(:name => 'test person', :identifier => 'test-person', :user_id => fast_create(User).id)
-#		com = Community.create!(:name => 'test community')
-#		eve = Event.create!(:name => 'test event', :profile_id => fast_create(Person).id)
-#
-#    get :index, :query => 'test'
-#
-#    [:articles, :enterprises, :people, :communities, :products, :events].select do |key, name|
-#			!@controller.environment.enabled?('disable_asset_' + key.to_s)
-#		end.each do |asset|
-#			assert !assigns(:results)[asset].docs.empty?
-#		end
-#	end
+  should 'search all enabled assets in general search' do
+    ent1 = create_profile_with_optional_category(Enterprise, 'test enterprise')
+    prod_cat = ProductCategory.create!(:name => 'pctest', :environment => Environment.default)
+    prod = ent1.products.create!(:name => 'test product', :product_category => prod_cat)
+		art = Article.create!(:name => 'test article', :profile_id => fast_create(Person).id)
+		per = Person.create!(:name => 'test person', :identifier => 'test-person', :user_id => fast_create(User).id)
+		com = Community.create!(:name => 'test community')
+		eve = Event.create!(:name => 'test event', :profile_id => fast_create(Person).id)
+
+    get :index, :query => 'test'
+
+    [:articles, :enterprises, :people, :communities, :products, :events].select do |key, name|
+			!@controller.environment.enabled?('disable_asset_' + key.to_s)
+		end.each do |asset|
+			assert !assigns(:searches)[asset][:results].empty?
+		end
+	end
 
   should 'display category image while in directory' do
     parent = Category.create!(:name => 'category1', :environment => Environment.default)
@@ -399,15 +397,15 @@ class SearchControllerTest < ActionController::TestCase
     assert_tag :tag => 'img', :attributes => { :src => /rails_thumb\.png/ }
   end
 
-#  should 'search for events' do
-#    person = create_user('teste').person
-#    ev = create_event(person, :name => 'an event to be found')
-#
-#    get :events, :query => 'event found'
-#
-#    assert_includes assigns(:results)[:events], ev
-#		assert !assigns(:results)[:events].facets.nil?
-#  end
+  should 'search for events' do
+    person = create_user('teste').person
+    event = create_event(person, :name => 'an event to be found')
+
+    get :events, :query => 'event to be found'
+
+    assert_includes assigns(:searches)[:events][:results], event
+#		assert !assigns(:searches)[:events].facets.nil?
+  end
 
   should 'return events of the day' do
     person = create_user('someone').person
@@ -452,8 +450,8 @@ class SearchControllerTest < ActionController::TestCase
 
     get :events
 
-    assert_not_includes assigns(:results)[:events], ev1
-    assert_includes assigns(:results)[:events], ev2 
+    assert_not_includes assigns(:searches)[:events][:results], ev1
+    assert_includes assigns(:searches)[:events][:results], ev2 
   end
 
   should 'list events for a given month' do
@@ -464,7 +462,7 @@ class SearchControllerTest < ActionController::TestCase
 
     get :events, :year => '2008', :month => '1'
 
-    assert_equal [ 'upcoming event 1' ], assigns(:results)[:events].map(&:name)
+    assert_equal [ 'upcoming event 1' ], assigns(:searches)[:events][:results].map(&:name)
   end
 
   %w[ people enterprises articles events communities products ].each do |asset|
@@ -482,7 +480,7 @@ class SearchControllerTest < ActionController::TestCase
 
     get :products, :product_category => prod_cat.id
 
-    assert_includes assigns(:results)[:products], p
+    assert_includes assigns(:searches)[:products][:results], p
   end
 
 	# Testing random sequences always have a small chance of failing
@@ -494,16 +492,16 @@ class SearchControllerTest < ActionController::TestCase
 #		end	
 #
 #		get :products
-#		result1 = assigns(:results)[:products].docs.map(&:id)
+#		result1 = assigns(:searches)[:products][:results].map(&:id)
 #
 #		(1..10).each do |n|
 #  		get :products
 #		end
-#		result2 = assigns(:results)[:products].docs.map(&:id)
+#		result2 = assigns(:searches)[:products][:results].map(&:id)
 #
 #		assert_not_equal result1, result2
 #	end
-#
+
 #	should 'remove far products by geolocalization empty logged search' do
 #    user = create_user('a_logged_user')
 #    # trigger geosearch
@@ -523,7 +521,7 @@ class SearchControllerTest < ActionController::TestCase
 #    prod4 = Product.create!(:name => 'produto 4', :enterprise_id => ent4.id, :product_category_id => cat.id)
 #
 #		get :products
-#		assert_equivalent [prod1, prod3, prod2], assigns(:results)[:products].docs
+#		assert_equivalent [prod1, prod3, prod2], assigns(:searches)[:products].docs
 #	end
 
   should 'display properly in conjuntion with a category' do
@@ -536,7 +534,7 @@ class SearchControllerTest < ActionController::TestCase
 
     get :products, :category_path => cat.path.split('/'), :product_category => prod_cat1.id
 
-    assert_includes assigns(:results)[:products], product
+    assert_includes assigns(:searches)[:products][:results], product
   end
 
   should 'provide calendar for events' do
@@ -555,9 +553,9 @@ class SearchControllerTest < ActionController::TestCase
     person = create_user('teste').person
     art = TextileArticle.create!(:name => 'an text_article article to be found', :profile => person)
 
-    get 'articles', :query => 'article found'
+    get 'articles', :query => 'article to be found'
 
-    assert_includes assigns(:results)[:articles], art
+    assert_includes assigns(:searches)[:articles][:results], art
   end
 
   should 'show link to article asset in the see all foot link of the articles block in the category page' do
@@ -583,7 +581,7 @@ class SearchControllerTest < ActionController::TestCase
 
     get :index, :query => 'test'
 
-    assert_equal 20, assigns(:results)[:enterprises].total_entries
+    assert_equal 20, assigns(:searches)[:enterprises][:results].total_entries
   end
 
   should 'find products when enterprises has own hostname' do
@@ -591,7 +589,7 @@ class SearchControllerTest < ActionController::TestCase
     ent.domains << Domain.new(:name => 'testent.com'); ent.save!
     prod = ent.products.create!(:name => 'a beautiful product', :product_category => @product_category)
     get 'products', :query => 'beautiful'
-    assert_includes assigns(:results)[:products], prod
+    assert_includes assigns(:searches)[:products][:results], prod
   end
 
   should 'add script tag for google maps if searching products' do
@@ -657,7 +655,7 @@ class SearchControllerTest < ActionController::TestCase
 
     get :people
     assert_equal SearchController::BLOCKS_SEARCH_LIMIT+3, Person.count
-    assert_equal SearchController::BLOCKS_SEARCH_LIMIT, assigns(:results)[:people].count
+    assert_equal SearchController::BLOCKS_SEARCH_LIMIT, assigns(:searches)[:people][:results].count
     assert_tag :a, '', :attributes => {:class => 'next_page'}
   end
 
@@ -667,7 +665,7 @@ class SearchControllerTest < ActionController::TestCase
     c3 = create(Community, :name => 'Testing community 3')
 
     get :communities
-    assert_equal [c3,c2,c1] , assigns(:results)[:communities]
+    assert_equal [c3,c2,c1] , assigns(:searches)[:communities][:results]
   end
 
   should "paginate search of communities in groups of #{SearchController::BLOCKS_SEARCH_LIMIT}" do
@@ -677,7 +675,7 @@ class SearchControllerTest < ActionController::TestCase
 
     get :communities
     assert_equal SearchController::BLOCKS_SEARCH_LIMIT+3, Community.count
-    assert_equal SearchController::BLOCKS_SEARCH_LIMIT, assigns(:results)[:communities].count
+    assert_equal SearchController::BLOCKS_SEARCH_LIMIT, assigns(:searches)[:communities][:results].count
     assert_tag :a, '', :attributes => {:class => 'next_page'}
   end
 
@@ -691,21 +689,21 @@ class SearchControllerTest < ActionController::TestCase
     fast_create(ActionTracker::Record, :target_id => c2, :user_type => 'Profile', :user_id => person, :created_at => Time.now)
     fast_create(ActionTracker::Record, :target_id => c2, :user_type => 'Profile', :user_id => person, :created_at => Time.now)
     get :communities, :filter => 'more_active'
-    assert_equal [c2,c1,c3] , assigns(:results)[:communities]
+    assert_equal [c2,c1,c3] , assigns(:searches)[:communities][:results]
   end
 
   should "only include visible people in more_recent filter" do
     # assuming that all filters behave the same!
     p1 = fast_create(Person, :visible => false)
     get :people, :filter => 'more_recent'
-    assert_not_includes assigns(:results), p1
+    assert_not_includes assigns(:searches)[:people][:results], p1
   end
 
   should "only include visible communities in more_recent filter" do
     # assuming that all filters behave the same!
     p1 = fast_create(Community, :visible => false)
     get :communities, :filter => 'more_recent'
-    assert_not_includes assigns(:results), p1
+    assert_not_includes assigns(:searches)[:communities][:results], p1
   end
 
 #	should 'browse facets when query is not empty' do
@@ -729,17 +727,17 @@ class SearchControllerTest < ActionController::TestCase
 
 	should 'keep old urls working' do
 		get :assets, :asset => 'articles'
-    assert_redirected_to :controller => :search, :action => :articles, :display => 'list'
+    assert_redirected_to :controller => :search, :action => :articles
 		get :assets, :asset => 'people'
-    assert_redirected_to :controller => :search, :action => :people, :display => 'list'
+    assert_redirected_to :controller => :search, :action => :people
 		get :assets, :asset => 'communities'
-    assert_redirected_to :controller => :search, :action => :communities, :display => 'list'
+    assert_redirected_to :controller => :search, :action => :communities
 		get :assets, :asset => 'products'
-    assert_redirected_to :controller => :search, :action => :products, :display => 'list'
+    assert_redirected_to :controller => :search, :action => :products
 		get :assets, :asset => 'enterprises'
-    assert_redirected_to :controller => :search, :action => :enterprises, :display => 'list'
+    assert_redirected_to :controller => :search, :action => :enterprises
 		get :assets, :asset => 'events'
-    assert_redirected_to :controller => :search, :action => :events, :display => 'list'
+    assert_redirected_to :controller => :search, :action => :events
 	end
 
 	should 'show tag cloud' do
@@ -765,25 +763,25 @@ class SearchControllerTest < ActionController::TestCase
 		
 		get :tag, :tag => 'two'
 
-    assert_equal [a, a2], assigns(:results)[:tag]
+    assert_equal [a, a2], assigns(:searches)[:tag][:results]
 
 		get :tag, :tag => 'one'
 
-    assert_equal [a], assigns(:results)[:tag]
+    assert_equal [a], assigns(:searches)[:tag][:results]
   end
 
-#  should 'not show assets from other environments' do
-#    other_env = Environment.create!(:name => 'Another environment')
-#		p1 = Person.create!(:name => 'Hildebrando', :identifier => 'hild', :user_id => fast_create(User).id, :environment_id => other_env.id)
-#		p2 = Person.create!(:name => 'Adamastor', :identifier => 'adam', :user_id => fast_create(User).id)
-#    art1 = Article.create!(:name => 'my article', :profile_id => p1.id)
-#    art2 = Article.create!(:name => 'my article', :profile_id => p2.id)
-#    
-#    get :articles, :query => 'my article'
-#
-#    assert_equal [art2], assigns(:results)[:articles].docs  
-#  end
-#
+  should 'not show assets from other environments' do
+    other_env = Environment.create!(:name => 'Another environment')
+		p1 = Person.create!(:name => 'Hildebrando', :identifier => 'hild', :user_id => fast_create(User).id, :environment_id => other_env.id)
+		p2 = Person.create!(:name => 'Adamastor', :identifier => 'adam', :user_id => fast_create(User).id)
+    art1 = Article.create!(:name => 'my article', :profile_id => p1.id)
+    art2 = Article.create!(:name => 'my article', :profile_id => p2.id)
+    
+    get :articles, :query => 'my article'
+
+    assert_equal [art2], assigns(:searches)[:articles][:results]
+  end
+
 #  should 'order product results by more recent when requested' do
 #		ent = fast_create(Enterprise)
 #    prod1 = Product.create!(:name => 'product 1', :enterprise_id => ent.id, :product_category_id => @product_category.id)
@@ -799,7 +797,7 @@ class SearchControllerTest < ActionController::TestCase
 #
 #    get :products, :query => 'product', :order_by => :more_recent 
 #
-#    assert_equal [prod2, prod1, prod3], assigns(:results)[:products].docs  
+#    assert_equal [prod2, prod1, prod3], assigns(:searches)[:products].docs  
 #  end
 #
 #  should 'only list products from enabled enterprises' do
@@ -810,7 +808,8 @@ class SearchControllerTest < ActionController::TestCase
 #
 #    get :products, :query => 'product'
 #
-#    assert_equal [prod1], assigns(:results)[:products].docs  
+#    assert_includes assigns(:searches)[:products][:results], prod1
+#    assert_not_includes assigns(:searches)[:products][:results], prod2
 #  end
 #
 #  should 'order product results by name when requested' do
@@ -825,7 +824,7 @@ class SearchControllerTest < ActionController::TestCase
 #
 #    get :products, :query => 'product', :order_by => :name
 #
-#    assert_equal [prod3, prod2, prod1], assigns(:results)[:products].docs  
+#    assert_equal [prod3, prod2, prod1], assigns(:searches)[:products].docs  
 #  end
 #
 #	should 'order product results by closest when requested' do
@@ -845,7 +844,7 @@ class SearchControllerTest < ActionController::TestCase
 #    prod3 = Product.create!(:name => 'product 3', :enterprise_id => ent3.id, :product_category_id => cat.id)
 #
 #		get :products, :query => 'product', :order_by => :closest
-#		assert_equal [prod2, prod1, prod3], assigns(:results)[:products].docs
+#		assert_equal [prod2, prod1, prod3], assigns(:searches)[:products].docs
 #	end
 #
 #  
@@ -856,7 +855,7 @@ class SearchControllerTest < ActionController::TestCase
 #
 #    get :events, :query => 'party', :order_by => :name
 #
-#    assert_equal [ev2, ev1], assigns(:results)[:events].docs
+#    assert_equal [ev2, ev1], assigns(:searches)[:events].docs
 #  end
 #
 #  should 'order articles by name when requested' do
@@ -866,7 +865,7 @@ class SearchControllerTest < ActionController::TestCase
 #    
 #    get :articles, :query => 'review', :order_by => :name
 #
-#    assert_equal [art2, art3, art1], assigns(:results)[:articles].docs
+#    assert_equal [art2, art3, art1], assigns(:searches)[:articles].docs
 #  end
 
   should 'order articles by more recent' do
@@ -877,7 +876,7 @@ class SearchControllerTest < ActionController::TestCase
     
     get :articles, :filter => :more_recent
 
-    assert_equal [art2, art1, art3], assigns(:results)[:articles]
+    assert_equal [art2, art1, art3], assigns(:searches)[:articles][:results]
   end
   
 #  should 'order enterprise results by name when requested' do
@@ -887,7 +886,7 @@ class SearchControllerTest < ActionController::TestCase
 #    
 #    get :enterprises, :query => 'Company', :order_by => :name
 #
-#    assert_equal [ent2, ent1, ent3], assigns(:results)[:enterprises].docs
+#    assert_equal [ent2, ent1, ent3], assigns(:searches)[:enterprises].docs
 #  end
 #
 #  should 'order people results by name when requested' do
@@ -897,7 +896,7 @@ class SearchControllerTest < ActionController::TestCase
 #
 #    get :people, :query => 'Silva', :order_by => :name
 #    
-#    assert_equal [person3, person1, person2], assigns(:results)[:people].docs 
+#    assert_equal [person3, person1, person2], assigns(:searches)[:people].docs 
 #  end
 #
 #  should 'order community results by name when requested' do
@@ -907,7 +906,7 @@ class SearchControllerTest < ActionController::TestCase
 #
 #    get :communities, :query => 'Group', :order_by => :name
 #
-#    assert_equal [com3, com2, com1], assigns(:results)[:communities].docs
+#    assert_equal [com3, com2, com1], assigns(:searches)[:communities].docs
 #  end
 #
 #  should 'raise error when requested to order by unknown filter' do

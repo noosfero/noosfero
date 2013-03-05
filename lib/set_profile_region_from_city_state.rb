@@ -27,14 +27,14 @@ module SetProfileRegionFromCityState
       if @change_region
         self.region = nil
         state = search_region(State, self.state)
-        region = search_region(City.where(:parent_id => state.id), self.city) if state
+        self.region = search_region(City.where(:parent_id => state.id), self.city) if state
       end
     end
 
     private
 
     def search_region(scope, query)
-      return [] if !query
+      return nil if !query
       query = query.downcase.strip
       scope.where(['lower(name)=? OR lower(abbreviation)=? OR lower(acronym)=?', query, query, query]).first
     end

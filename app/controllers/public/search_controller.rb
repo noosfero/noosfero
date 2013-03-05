@@ -51,7 +51,7 @@ class SearchController < PublicController
       [ :articles, _('Contents'), :recent_articles ]
     ].each do |asset, name, filter|
       @order << asset
-      @searches[asset] = @category.send(filter, limit)
+      @searches[asset]= {:results => @category.send(filter, limit)}
       raise "No total_entries for: #{asset}" unless @searches[asset][:results].respond_to?(:total_entries)
       @names[asset] = name
     end
@@ -128,7 +128,7 @@ class SearchController < PublicController
     @tag = params[:tag]
     @tag_cache_key = "tag_#{CGI.escape(@tag.to_s)}_env_#{environment.id.to_s}_page_#{params[:npage]}"
     if is_cache_expired?(@tag_cache_key)
-      @searches[@asset] = environment.articles.find_tagged_with(@tag).paginate(paginate_options)
+      @searches[@asset] = {:results => environment.articles.find_tagged_with(@tag).paginate(paginate_options)}
     end
   end
 
@@ -144,7 +144,6 @@ class SearchController < PublicController
   def load_query
     @asset = (params[:asset] || params[:action]).to_sym
     @order ||= [@asset]
-    params[:display] ||= DEFAULT_DISPLAY[@asset]
     @searches ||= {}
 
     @query = params[:query] || ''
@@ -190,7 +189,7 @@ class SearchController < PublicController
   end
 
   def limit
-    if map_search?
+    if map_search?(@searches)
       MAP_SEARCH_LIMIT
     elsif !multiple_search?
       if [:people, :communities, :enterprises].include? @asset
@@ -204,7 +203,7 @@ class SearchController < PublicController
   end
 
   def paginate_options(page = params[:page])
-    page = 1 if multiple_search? || params[:display] == 'map'
+    page = 1 if multiple_search?(@searches) || params[:display] == 'map'
     { :per_page => limit, :page => page }
   end
 

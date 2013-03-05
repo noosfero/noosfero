@@ -14,10 +14,12 @@ module SearchHelper
     :events, _('Events'),
   ]
 
+  VALID_DISPLAYS = %w[full compatct map]
+
   DEFAULT_DISPLAY = {
     :articles => 'full',
     :communities => 'compact',
-    :enterprises => 'full',
+    :enterprises => 'compact',
     :events => 'full',
     :people => 'compact',
     :products => 'full',
@@ -33,12 +35,12 @@ module SearchHelper
   # FIXME remove it after search_controler refactored
   include EventsHelper
 
-  def multiple_search?
-    ['index', 'category_index'].include?(params[:action]) || @searches.size > 1
+  def multiple_search?(searches=nil)
+    ['index', 'category_index'].include?(params[:action]) || (searches && searches.size > 1)
   end
 
-  def map_search?
-    !multiple_search? && params[:display] == 'map'
+  def map_search?(searches=nil)
+    !multiple_search?(searches) && params[:display] == 'map'
   end
 
   def asset_class(asset)
@@ -70,8 +72,8 @@ module SearchHelper
     [:articles, :enterprises, :events, :products].include?(asset)
   end
 
-  def display_results(asset = nil)
-    if display_map?(asset) and map_search?
+  def display_results(searches=nil, asset=nil)
+    if display_map?(asset) && map_search?(searches)
       partial = 'google_maps'
       klass = 'map'
     else
@@ -80,6 +82,14 @@ module SearchHelper
     end
 
     content_tag('div', render(:partial => partial), :class => "map-or-list-search-results #{klass}")
+  end
+
+  def display_filter(asset, display)
+    if VALID_DISPLAYS.include?(display) && send("display_#{display}?", asset)
+      display
+    else
+      DEFAULT_DISPLAY[asset]
+    end
   end
 
   def city_with_state(city)

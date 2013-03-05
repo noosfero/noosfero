@@ -5,18 +5,20 @@
     <div class="search-results-<%= name %> search-results-box <%= "search-results-empty" if search[:results].blank? %>">
       <% if !search[:results].blank? %>
 
-        <% if multiple_search? %>
+        <% if multiple_search?(@searches) %>
           <h3><%= @names[name] %></h3>
           <% if search[:results].total_entries > SearchController::MULTIPLE_SEARCH_LIMIT %>
             <%= link_to(_('see all (%d)') % search[:results].total_entries, params.merge(:action => name), :class => 'see-more' ) %>
           <% end %>
         <% end %>
 
+        <% display = display_filter(name, params[:display]) %>
+
         <div class="search-results-innerbox search-results-type-<%= name.to_s.singularize %> <%= 'common-profile-list-block' if [:enterprises, :people, :communities].include?(name) %>">
           <ul>
           <% search[:results].each do |hit| %>
-            <% partial = partial_for_class(hit.class, params[:display]) %>
-            <% variable_name = partial.gsub("#{params[:display]}_", '').to_sym %>
+            <% partial = partial_for_class(hit.class, display) %>
+            <% variable_name = partial.gsub("#{display}_", '').to_sym %>
             <%= render :partial => partial, :locals => {variable_name => hit} %>
           <% end %>
           </ul>

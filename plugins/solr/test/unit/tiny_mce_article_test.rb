@@ -15,4 +15,9 @@ class TinyMceArticleTest < ActiveSupport::TestCase
     assert_includes TinyMceArticle.find_by_contents('article')[:results], tma
     assert_includes Article.find_by_contents('article')[:results], tma
   end
+
+  should 'define type facet' do
+	  a = TinyMceArticle.new
+		assert_equal TextArticle.type_name, TinyMceArticle.send(:f_type_proc, a.send(:f_type))
+  end
 end
