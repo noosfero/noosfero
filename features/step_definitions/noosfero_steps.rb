@@ -602,7 +602,9 @@ Given /^the following enterprise homepages?$/ do |table|
 end
 
 And /^I want to add "([^\"]*)" as cost$/ do |string|
-  selenium.answer_on_next_prompt(string)
+  prompt = page.driver.browser.switch_to.alert
+  prompt.send_keys(string)
+  prompt.accept
 end
 
 Given /^([^\s]+) (enabled|disabled) translation redirection in (?:his|her) profile$/ do
