@@ -25,14 +25,18 @@ module SetProfileRegionFromCityState
 
     def region_from_city_and_state
       if @change_region
-        s = plugins.first(:find_by_contents, State, self.state)[:results].first
-        if s
-          c = plugins.first(:find_by_contents, City, self.city, {}, {:filter_queries => ["parent_id:#{s.id}"]})[:results].first
-          self.region = c
-        else
-          self.region = nil
-        end
+        self.region = nil
+        state = search_region(State, self.state)
+        region = search_region(City.where(:parent_id => state.id), self.city) if state
       end
+    end
+
+    private
+
+    def search_region(scope, query)
+      return [] if !query
+      query = query.downcase.strip
+      scope.where(['lower(name)=? OR lower(abbreviation)=? OR lower(acronym)=?', query, query, query]).first
     end
 
   end
