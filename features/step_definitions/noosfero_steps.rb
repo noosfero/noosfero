@@ -1,7 +1,3 @@
-def selenium_driver?
-  self.class.to_s == 'Webrat::SeleniumSession'
-end
-
 Given /^the following users?$/ do |table|
   # table is a Cucumber::Ast::Table
   table.hashes.each do |item|
@@ -289,17 +285,25 @@ Given /^the following price details?$/ do |table|
 end
 
 Given /^I am logged in as "(.+)"$/ do |username|
-  visit('/account/logout')
-  visit('/account/login')
-  fill_in("Username", :with => username)
-  fill_in("Password", :with => '123456')
-  click_button("Log in")
-  # FIXME selenium do not wait page load sometimes
-  if selenium_driver?
-    selenium.wait_for_page
-  end
-  Then "I should be logged in as \"#{username}\""
-  @current_user = username
+  Given %{I go to logout page}
+    And %{I go to login page}
+    And %{I fill in "Username" with "#{username}"}
+    And %{I fill in "Password" with "123456"}
+   When %{I press "Log in"}
+    # FIXME:
+    # deveria apenas verificar que esta no myprofile do usuario
+    # nao conseguir fazer funcionar sem essa reduntancia no capybara
+    # acho que e algum problema com o http_referer
+    # olhar account_controller#store_location
+    And %{I go to #{username}'s control panel}
+   Then %{I should be on #{username}'s control panel}
+end
+
+Given /^"([^"]*)" is environment admin$/ do |person|
+  user = Profile.find_by_name(person)
+  e = Environment.default
+
+  e.add_admin(user)
 end
 
 Given /^I am logged in as admin$/ do
@@ -312,10 +316,6 @@ Given /^I am logged in as admin$/ do
   fill_in("Username", :with => user.login)
   fill_in("Password", :with => '123456')
   click_button("Log in")
-  # FIXME selenium do not wait page load sometimes
-  if selenium_driver?
-    selenium.wait_for_page
-  end
 end
 
 Given /^I am not logged in$/ do
@@ -421,12 +421,16 @@ Given /^enterprise "([^\"]*)" is disabled$/ do |enterprise_name|
   enterprise.save
 end
 
-Then /^The page title should contain "(.*)"$/ do |text|
-  if response.class.to_s == 'Webrat::SeleniumResponse'
-    response.selenium.text('css=title').should include(text)
-  else
-    response.should have_selector("title:contains('#{text}')")
-  end
+Then /^the page title should be "(.*)"$/ do |text|
+  Then %{I should see "#{text}" within "title"}
+end
+
+Then /^The page should contain "(.*)"$/ do |selector|
+  page.should have_css("#{selector}")
+end
+
+Then /^The page should not contain "(.*)"$/ do |selector|
+  page.should have_no_css("#{selector}")
 end
 
 Given /^the mailbox is empty$/ do
@@ -458,12 +462,14 @@ Given /^the following environment configuration$/ do |table|
   env.save
 end
 
-Then /^I should be logged in as "(.+)"$/ do |login|
-  User.find(session[:user]).login.should == login
+Then /^I should be logged in as "(.+)"$/ do |username|
+   When %{I go to #{username}'s control panel}
+   Then %{I should be on #{username}'s control panel}
 end
 
-Then /^I should not be logged in$/ do
-  session[:user].nil?
+Then /^I should not be logged in as "(.+)"$/ do |username|
+   When %{I go to #{username}'s control panel}
+   Then %{I should be on login page}
 end
 
 Given /^the profile "(.+)" has no blocks$/ do |profile|
@@ -585,11 +591,6 @@ Then /^I should be taken to "([^\"]*)" product page$/ do |product_name|
   end
 end
 
-When /^I reload and wait for the page$/ do
-  response.selenium.refresh
-  selenium.wait_for_page
-end
-
 Given /^the following enterprise homepages?$/ do |table|
   # table is a Cucumber::Ast::Table
   table.hashes.each do |item|
@@ -601,7 +602,9 @@ Given /^the following enterprise homepages?$/ do |table|
 end
 
 And /^I want to add "([^\"]*)" as cost$/ do |string|
-  selenium.answer_on_next_prompt(string)
+  prompt = page.driver.browser.switch_to.alert
+  prompt.send_keys(string)
+  prompt.accept
 end
 
 Given /^([^\s]+) (enabled|disabled) translation redirection in (?:his|her) profile$/ do
@@ -657,44 +660,42 @@ end
 
 When /^I search ([^\"]*) for "([^\"]*)"$/ do |asset, query|
   When %{I go to the search #{asset} page}
-  And %{I fill in "query" with "#{query}"}
+  And %{I fill in "search-input" with "#{query}"}
   And %{I press "Search"}
 end
 
 Then /^I should see ([^\"]*)'s product image$/ do |product_name|
   p = Product.find_by_name product_name
-  path = url_for(p.enterprise.public_profile_url.merge(:controller => 'manage_products', :action => 'show', :id => p, :only_path => true))
-  response.should have_selector("div[class~=\"zoomable-image\"] a[href=\"http://#{path}\"]")
+  path = url_for(p.enterprise.public_profile_url.merge(:controller => 'manage_products', :action => 'show', :id => p))
+
+  with_scope('.zoomable-image') do
+    page.should have_xpath("a[@href=\"#{path}\"][@class='search-image-pic']")
+  end
 end
 
 Then /^I should not see ([^\"]*)'s product image$/ do |product_name|
   p = Product.find_by_name product_name
-  path = url_for(p.enterprise.public_profile_url.merge(:controller => 'manage_products', :action => 'show', :id => p, :only_path => true))
-  response.should_not have_selector("div[class~=\"zoomable-image\"] a[href=\"http://#{path}\"]")
+  path = url_for(p.enterprise.public_profile_url.merge(:controller => 'manage_products', :action => 'show', :id => p))
+
+  with_scope('.zoomable-image') do
+    page.should have_no_xpath("a[@href=\"#{path}\"][@class='search-image-pic']")
+  end
 end
 
 Then /^I should see ([^\"]*)'s profile image$/ do |name|
-  response.should have_selector("img[alt=\"#{name}\"]")
+  page.should have_xpath("//img[@alt=\"#{name}\"]")
 end
 
 Then /^I should not see ([^\"]*)'s profile image$/ do |name|
-  response.should_not have_selector("img[alt=\"#{name}\"]")
-end
-
-Then /^I should see ([^\"]*)'s content image$/ do |name|
-  response.should have_selector("img[alt=\"#{name}\"]")
-end
-
-Then /^I should not see ([^\"]*)'s content image$/ do |name|
-  response.should_not have_selector("img[alt=\"#{name}\"]")
+  page.should have_no_xpath("//img[@alt=\"#{name}\"]")
 end
 
 Then /^I should see ([^\"]*)'s community image$/ do |name|
-  response.should have_selector("img[alt=\"#{name}\"]")
+  page.should have_xpath("//img[@alt=\"#{name}\"]")
 end
 
 Then /^I should not see ([^\"]*)'s community image$/ do |name|
-  response.should_not have_selector("img[alt=\"#{name}\"]")
+  page.should have_no_xpath("//img[@alt=\"#{name}\"]")
 end
 
 Given /^the article "([^\"]*)" is updated by "([^\"]*)"$/ do |article, person|
@@ -747,4 +748,10 @@ Given /^the profile (.*) is configured to (.*) after login$/ do |profile, option
   profile = Profile.find_by_identifier(profile)
   profile.redirection_after_login = redirection
   profile.save
+end
+
+Given /^there are no pending jobs$/ do
+  silence_stream(STDOUT) do
+    Delayed::Worker.new.work_off
+  end
 end
