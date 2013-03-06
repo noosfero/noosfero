@@ -14,17 +14,6 @@ module SearchHelper
     :events, _('Events'),
   ]
 
-  VALID_DISPLAYS = %w[full compatct map]
-
-  DEFAULT_DISPLAY = {
-    :articles => 'full',
-    :communities => 'compact',
-    :enterprises => 'compact',
-    :events => 'full',
-    :people => 'compact',
-    :products => 'full',
-  }
-
   FILTER_TRANSLATION = {
     'more_popular' => _('More popular'),
     'more_active' => _('More active'),
@@ -60,20 +49,12 @@ module SearchHelper
       :align => 'center', :class => 'search-category-context') if category
   end
 
-  def display_map?(asset)
-    [:enterprises, :products].include?(asset)
-  end
-
-  def display_compact?(asset)
-    [:communities, :enterprises, :people].include?(asset)
-  end
-
-  def display_full?(asset)
-    [:articles, :enterprises, :events, :products].include?(asset)
+  def display?(asset, mode)
+    defined?(asset_class(asset)::SEARCH_DISPLAYS) && asset_class(asset)::SEARCH_DISPLAYS.include?(mode.to_s)
   end
 
   def display_results(searches=nil, asset=nil)
-    if display_map?(asset) && map_search?(searches)
+    if display?(asset, :map) && map_search?(searches)
       partial = 'google_maps'
       klass = 'map'
     else
@@ -84,11 +65,12 @@ module SearchHelper
     content_tag('div', render(:partial => partial), :class => "map-or-list-search-results #{klass}")
   end
 
-  def display_filter(asset, display)
-    if VALID_DISPLAYS.include?(display) && send("display_#{display}?", asset)
+  def display_filter(item, display)
+    asset = item.class.name.downcase.pluralize.to_sym
+    if display?(asset, display)
       display
     else
-      DEFAULT_DISPLAY[asset]
+      item.default_search_display
     end
   end
 
@@ -106,10 +88,10 @@ module SearchHelper
   end
 
   def display_selector(asset, display, float = 'right')
-    if [display_map?(asset), display_compact?(asset), display_full?(asset)].select {|option| option}.count > 1
-      compact_link = display_compact?(asset) ? (display == 'compact' ? _('Compact') : link_to(_('Compact'), params.merge(:display => 'compact'))) : nil
-      map_link = display_map?(asset) ? (display == 'map' ? _('Map') : link_to(_('Map'), params.merge(:display => 'map'))) : nil
-      full_link = display_full?(asset) ? (display == 'full' ? _('Full') : link_to(_('Full'), params.merge(:display => 'full'))) : nil
+    if [display?(asset, :map), display?(asset, :compact), display?(asset, :full)].select {|option| option}.count > 1
+      compact_link = display?(asset, :compact) ? (display == 'compact' ? _('Compact') : link_to(_('Compact'), params.merge(:display => 'compact'))) : nil
+      map_link = display?(asset, :map) ? (display == 'map' ? _('Map') : link_to(_('Map'), params.merge(:display => 'map'))) : nil
+      full_link = display?(asset, :full) ? (display == 'full' ? _('Full') : link_to(_('Full'), params.merge(:display => 'full'))) : nil
       content_tag('div', 
         content_tag('strong', _('Display')) + ': ' + [compact_link, map_link, full_link].compact.join(' | '),
         :class => 'search-customize-options'

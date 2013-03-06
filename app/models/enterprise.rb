@@ -2,6 +2,8 @@
 # only enterprises can offer products and services.
 class Enterprise < Organization
 
+  SEARCH_DISPLAYS += %w[map full]
+
   def self.type_name
     _('Enterprise')
   end

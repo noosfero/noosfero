@@ -355,17 +355,22 @@ class SearchControllerTest < ActionController::TestCase
 #	end
 
   should 'render specific action when only one asset is enabled' do
-		# initialize @controller.environment
-		get :index
-
+    environment = Environment.default
 		# article is not disabled
     [:enterprises, :people, :communities, :products, :events].select do |key, name|
-			@controller.environment.enable('disable_asset_' + key.to_s)
+			environment.enable('disable_asset_' + key.to_s)
 		end
-
-		@controller.expects(:articles)
+    environment.save!
+    @controller.stubs(:environment).returns(environment)
 
     get :index, :query => 'something'
+
+    assert assigns(:searches).has_key?(:articles)
+    assert !assigns(:searches).has_key?(:enterprises)
+    assert !assigns(:searches).has_key?(:people)
+    assert !assigns(:searches).has_key?(:communities)
+    assert !assigns(:searches).has_key?(:products)
+    assert !assigns(:searches).has_key?(:events)
 	end
 
   should 'search all enabled assets in general search' do
@@ -399,7 +404,7 @@ class SearchControllerTest < ActionController::TestCase
 
   should 'search for events' do
     person = create_user('teste').person
-    event = create_event(person, :name => 'an event to be found')
+    event = create_event(person, :name => 'an event to be found', :start_date => Date.today)
 
     get :events, :query => 'event to be found'
 

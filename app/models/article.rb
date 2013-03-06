@@ -16,6 +16,12 @@ class Article < ActiveRecord::Base
     more_comments
   ]
 
+  SEARCH_DISPLAYS = %w[full]
+
+  def default_search_display
+    'full'
+  end
+
   track_actions :create_article, :after_create, :keep_params => [:name, :url, :lead, :first_image], :if => Proc.new { |a| a.is_trackable? && !a.image? }
 
   # xss_terminate plugin can't sanitize array fields

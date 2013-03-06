@@ -9,6 +9,12 @@ class Product < ActiveRecord::Base
     more_recent
   ]
 
+  SEARCH_DISPLAYS = %w[map full]
+
+  def default_search_display
+    'full'
+  end
+
   belongs_to :enterprise
   has_one :region, :through => :enterprise
   validates_presence_of :enterprise

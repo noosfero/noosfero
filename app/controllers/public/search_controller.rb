@@ -33,7 +33,10 @@ class SearchController < PublicController
     end
     @asset = nil
 
-    render :action => @searches.keys.first if @searches.keys.size == 1
+    if @searches.keys.size == 1
+      @asset = @searches.keys.first
+      render :action => @asset
+    end
   end
 
   # view the summary of one category
@@ -170,7 +173,7 @@ class SearchController < PublicController
       return
     end
 
-    @enabled_searches = SEARCHES.select {|key, name| environment.disabled?("disable_asset_#{params[:action]}") }
+    @enabled_searches = SEARCHES.select {|key, name| environment.disabled?("disable_asset_#{key}") }
     @searching = {}
     @titles = {}
     @enabled_searches.each do |key, name|

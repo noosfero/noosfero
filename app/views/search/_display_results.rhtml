@@ -12,11 +12,11 @@
           <% end %>
         <% end %>
 
-        <% display = display_filter(name, params[:display]) %>
 
         <div class="search-results-innerbox search-results-type-<%= name.to_s.singularize %> <%= 'common-profile-list-block' if [:enterprises, :people, :communities].include?(name) %>">
           <ul>
           <% search[:results].each do |hit| %>
+            <% display = display_filter(hit, params[:display]) %>
             <% partial = partial_for_class(hit.class, display) %>
             <% variable_name = partial.gsub("#{display}_", '').to_sym %>
             <%= render :partial => partial, :locals => {variable_name => hit} %>

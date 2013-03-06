@@ -13,6 +13,12 @@ class Profile < ActiveRecord::Base
     more_recent
   ]
 
+  SEARCH_DISPLAYS = %w[compact]
+
+  def default_search_display
+    'compact'
+  end
+
   module Roles
     def self.admin(env_id)
       find_role('admin', env_id)
