@@ -2,7 +2,7 @@
   <div class="comment_group_<%= group_id %>" style="float: left">
     <div style="float: left">
     <%= link_to_remote(image_tag("/plugins/comment_group_macro/images/comments.gif"),
-        :url => { :controller => 'comment_group_macro_plugin_profile', :action => 'view_comments', :group_id => group_id, :article_id => article_id},
+        :url => { :profile => profile_identifier, :controller => 'comment_group_macro_plugin_profile', :action => 'view_comments', :group_id => group_id, :article_id => article_id},
         :loaded => visual_effect(:highlight, "comments_list_group_#{group_id}"),
         :method => :post,
         :condition => "!groupVisible(#{group_id})",
