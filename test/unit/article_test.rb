@@ -1371,6 +1371,7 @@ class ArticleTest < ActiveSupport::TestCase
     a = profile.articles.create!(:name => 'a test article', :last_changed_by => author)
     assert_equal author.name, a.author_name
     author.destroy
+    a.reload
     a.author_name = 'some name'
     assert_equal 'some name', a.author_name
   end
