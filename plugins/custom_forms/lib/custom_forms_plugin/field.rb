@@ -4,7 +4,7 @@ class CustomFormsPlugin::Field < ActiveRecord::Base
   validates_presence_of :form, :name
   validates_uniqueness_of :slug, :scope => :form_id
 
-  belongs_to :form, :class_name => 'CustomFormsPlugin::Form', :dependent => :destroy
+  belongs_to :form, :class_name => 'CustomFormsPlugin::Form'
   has_many :answers, :class_name => 'CustomFormsPlugin::Answer'
 
   serialize :choices, Hash
