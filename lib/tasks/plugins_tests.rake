@@ -31,7 +31,7 @@ def run_cucumber(name, profile, files_glob)
   if files.empty?
     puts "I: no tests to run #{name}"
   else
-    sh 'xvfb-run', 'ruby', '-S', 'cucumber', '--profile', profile, '--format', ENV['CUCUMBER_FORMAT'] || 'progress' , *files
+    sh 'xvfb-run', 'ruby', '-S', 'cucumber', '--profile', profile.to_s, '--format', ENV['CUCUMBER_FORMAT'] || 'progress' , *files
   end
 end
 
@@ -81,8 +81,8 @@ namespace :test do
         plugin_test_task :units, plugin, "plugins/#{plugin}/test/unit/**/*.rb"
         plugin_test_task :functionals, plugin, "plugins/#{plugin}/test/functional/**/*.rb"
         plugin_test_task :integration, plugin, "plugins/#{plugin}/test/integration/**/*.rb"
-        plugin_cucumber_task :cucumber, plugin, "plugins/#{plugin}/features/**/*.feature"
-        plugin_selenium_task :selenium, plugin, "plugins/#{plugin}/features/**/*.feature"
+        plugin_cucumber_task :cucumber, plugin, "plugins/#{plugin}/test/features/**/*.feature"
+        plugin_selenium_task :selenium, plugin, "plugins/#{plugin}/test/features/**/*.feature"
       end
 
       test_sequence_task(plugin, plugin, "#{plugin}:units", "#{plugin}:functionals", "#{plugin}:integration", "#{plugin}:cucumber", "#{plugin}:selenium")
@@ -95,11 +95,11 @@ namespace :test do
     end
 
     task :cucumber => 'db:test:plugins:prepare' do |t|
-      run_cucumber t.name, :default, "plugins/{#{enabled_plugins.join(',')}}/features/**/*.features"
+      run_cucumber t.name, :default, "plugins/{#{enabled_plugins.join(',')}}/test/features/**/*.features"
     end
 
     task :selenium => 'db:test:plugins:prepare' do |t|
-      run_cucumber t.name, :selenium, "plugins/{#{enabled_plugins.join(',')}}/features/**/*.features"
+      run_cucumber t.name, :selenium, "plugins/{#{enabled_plugins.join(',')}}/test/features/**/*.features"
     end
 
     task :temp_enable_all_plugins do
