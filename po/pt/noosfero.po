@@ -5497,7 +5497,7 @@ msgstr "Produto destacado"
 #: app/views/catalog/index.rhtml:42 app/views/search/_image.rhtml:35
 #: app/views/search/_image.rhtml:47
 msgid "No image"
-msgstr "Nenhum imagem"
+msgstr "Nenhuma imagem"
 
 #: app/views/catalog/index.rhtml:52
 msgid "from "
