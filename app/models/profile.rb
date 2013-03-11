@@ -15,7 +15,7 @@ class Profile < ActiveRecord::Base
 
   SEARCH_DISPLAYS = %w[compact]
 
-  def default_search_display
+  def self.default_search_display
     'compact'
   end
 

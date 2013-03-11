@@ -4,8 +4,7 @@
     <div id="category-image"><%= image_tag(@category.image.public_filename(:thumb), :id => 'category-image') if @category.image %></div>
   <% end %>
 
-  <%= search_page_title(_('Search Results'), @category) %>
-  <%= render :partial => 'search_form', :locals => { :hint => '' } %>
+  <h1><%= _("Category Index") %></h1>
   <%= category_context(@category, params) %>
   <%= display_results @searches %>
 

@@ -18,7 +18,7 @@ class Article < ActiveRecord::Base
 
   SEARCH_DISPLAYS = %w[full]
 
-  def default_search_display
+  def self.default_search_display
     'full'
   end
 

@@ -70,7 +70,7 @@ module SearchHelper
     if display?(asset, display)
       display
     else
-      item.default_search_display
+      item.class.default_search_display
     end
   end
 
@@ -88,6 +88,7 @@ module SearchHelper
   end
 
   def display_selector(asset, display, float = 'right')
+    display ||= asset_class(asset).default_search_display
     if [display?(asset, :map), display?(asset, :compact), display?(asset, :full)].select {|option| option}.count > 1
       compact_link = display?(asset, :compact) ? (display == 'compact' ? _('Compact') : link_to(_('Compact'), params.merge(:display => 'compact'))) : nil
       map_link = display?(asset, :map) ? (display == 'map' ? _('Map') : link_to(_('Map'), params.merge(:display => 'map'))) : nil

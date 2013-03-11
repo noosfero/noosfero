@@ -23,7 +23,7 @@
 
         <% if facet_count > less_options_limit %>
           <%= link_to_function _("Options"),
-            "facet_options_toggle('#{facet[:id].to_s}', '#{url_for(params.merge(:action => 'facets_browse', :facet_id => facet[:id], :asset => @asset, :escape => false))}'); " + 
+            "facet_options_toggle('#{facet[:id].to_s}', '#{url_for(params.merge(:controller => 'solr_plugin_controller' :action => 'facets_browse', :facet_id => facet[:id], :asset => @asset, :escape => false))}'); " +
             "jQuery(this).toggleClass('facet-less-options')", :class => "facet-options-toggle" %>
           <br />
         <% end %>
