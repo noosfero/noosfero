@@ -103,7 +103,8 @@ module SearchHelper
     klass = asset_class(asset)
     if klass::SEARCH_FILTERS.count > 1
       options = options_for_select(klass::SEARCH_FILTERS.map {|f| [FILTER_TRANSLATION[f], f]}, filter)
-      onchange = "document.location.href = document.location.search.replace(/filter=[^&]*|$/,'&filter='+this.value)"
+      url_params = url_for(params.merge(:filter => 'FILTER'))
+      onchange = "document.location.href = '#{url_params}'.replace('FILTER', this.value)"
       select_field = select_tag(:filter, options, :onchange => onchange)
       content_tag('div',
         content_tag('strong', _('Filter')) + ': ' + select_field,
