@@ -26,9 +26,9 @@ Feature: Repository
       | description | Sample Description   |
       | user        | joaosilva            |
     And I have a Mezuro metric configuration with previous created configuration and reading group
-    And I am on article "Sample Project"
 
   Scenario: I want to see the Mezuro repository input form
+    Given I am on article "Sample Project"
     When I follow "Add Repository"
     Then I should see "Name"
     And I should see "Description"
@@ -41,7 +41,8 @@ Feature: Repository
 
   @selenium
   Scenario: I try to add a repository with no name
-    Given I follow "Add Repository"
+    Given I am on article "Sample Project"
+    And I follow "Add Repository"
     When I fill the fields with the new following data
       | repository_name               |                                                                 |
       | repository_description        | My Description                                                  |
@@ -55,7 +56,8 @@ Feature: Repository
 
   @selenium
   Scenario: I try to add a repository with no address
-    Given I follow "Add Repository"
+    Given I am on article "Sample Project"
+    And I follow "Add Repository"
     When I fill the fields with the new following data
       | repository_name               | My Name                                                         |
       | repository_description        | My Description                                                  |
@@ -69,7 +71,8 @@ Feature: Repository
 
   @selenium
   Scenario: I try to add a repository with a invalid address
-    Given I follow "Add Repository"
+    Given I am on article "Sample Project"
+    And I follow "Add Repository"
     When I fill the fields with the new following data
       | repository_name               | My Name                                                         |
       | repository_description        | My Description                                                  |
@@ -83,7 +86,8 @@ Feature: Repository
 
   @selenium
   Scenario: I want to add a repository with valid attributes
-    Given I follow "Add Repository"
+    Given I am on article "Sample Project"
+    And I follow "Add Repository"
     When I fill the fields with the new following data
       | repository_name               | My Name                                                         |
       | repository_description        | My Description                                                  |
@@ -102,19 +106,17 @@ Feature: Repository
     And I should see "Sample Configuration"
     And I should see "Status"
 
-  #FIXME: create the step given I have repository...    
+  #FIXME: Check the new rule "I have a Mezuro repository"    
   @selenium
   Scenario: I want to see the repository edit form
-    Given I follow "Add Repository"
-    And I fill the fields with the new following data
-      | repository_name               | My Name                                                         |
-      | repository_description        | My Description                                                  |
-      | repository_license            | ISC License (ISC)                                               |
-      | repository_process_period     | Not Periodically                                                |
-      | repository_type               | GIT                                                             |
-      | repository_address            | https://github.com/user/project.git                             |
-      | repository_configuration_id   | Sample Configuration                                            |
-    And I press "Add"
+    Given I have a Mezuro repository with the following data
+      | name               | My Name                                                         |
+      | description        | My Description                                                  |
+      | license            | ISC License (ISC)                                               |
+      | process_period     | Not Periodically                                                |
+      | type               | GIT                                                             |
+      | address            | https://github.com/user/project.git                             |
+      | configuration_id   | Sample Configuration                                            |
     And I am on article "Sample Project"
     When I follow "Edit"
     Then I should see "My Name" in the "repository_name" input      
@@ -125,9 +127,9 @@ Feature: Repository
     And I should see "https://github.com/user/project.git" in the "repository_address" input
     And I should see "Sample Configuration" in the repository configuration select field
 
-  #FIXME: create the step given I have repository...    
+  #FIXME: Check the new rule "I have a Mezuro repository"    
   @selenium
-  Scenario: I edit a Mezuro project with valid attributes
+  Scenario: I edit a Mezuro repository with valid attributes
     Given I follow "Add Repository"
     And I fill the fields with the new following data
       | repository_name               | My Name                                                         |
@@ -157,9 +159,9 @@ Feature: Repository
     And I should see "https://project.svn.sourceforge.net/svnroot/project"
     And I should see "Sample Configuration"
     
-  #FIXME: create the step given I have repository...  
+  #FIXME: Check the new rule "I have a Mezuro repository"    
   @selenium
-  Scenario: I try to edit a Mezuro project leaving empty its title
+  Scenario: I try to edit a Mezuro repository leaving empty its title
     Given I follow "Add Repository"
     And I fill the fields with the new following data
       | repository_name               | My Name                                                         |
@@ -176,9 +178,9 @@ Feature: Repository
     And I press "Add"
     Then I should see "Please fill all fields marked with (*)." inside an alert
 
-  #FIXME: create the step given I have repository...  
+  #FIXME: Check the new rule "I have a Mezuro repository"    
   @selenium
-  Scenario: I try to edit a Mezuro project leaving empty its address
+  Scenario: I try to edit a Mezuro repository leaving empty its address
     Given I follow "Add Repository"
     And I fill the fields with the new following data
       | repository_name               | My Name                                                         |
@@ -195,7 +197,7 @@ Feature: Repository
     And I press "Add"
     Then I should see "Please fill all fields marked with (*)." inside an alert
 
-  #FIXME: create the step given I have repository...    
+  #FIXME: Check the new rule "I have a Mezuro repository"    
   @selenium
   Scenario: I try to edit a repository with an existing repository name
     Given I follow "Add Repository"
@@ -248,5 +250,4 @@ Feature: Repository
     And I press "Add"
     And I am on article "Sample Project"
 		When I follow the remove link for "My Name" repository
-		And I should not see "My Name"
-    
+		Then I should not see "My Name"

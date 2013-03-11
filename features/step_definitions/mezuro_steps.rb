@@ -74,7 +74,7 @@ Then /^I should not see "([^"]*)" button$/ do |button_name|
   find_button(button_name).should be_nil
 end
 
-When /^I have a Mezuro (project|reading group|configuration|repository) with the following data$/ do |type,fields|
+When /^I have a Mezuro (project|reading group|configuration) with the following data$/ do |type, fields|
   item = {}
   fields.rows_hash.each do |name, value|
     if(name=="user" or name=="community")
@@ -91,15 +91,26 @@ When /^I have a Mezuro (project|reading group|configuration|repository) with the
     result = MezuroPlugin::ConfigurationContent.new(item)
   end
 
+  result.save!
+end
+
+When /^I have a Mezuro (reading|repository) with the following data$/ do |type, fields|
+  item = {}
+  fields.rows_hash.each do |name, value|
+    if(name=="user" or name=="community")
+      item.merge!(:profile=>Profile[value])
+    else
+      item.merge!(name => value)
+    end
+  end
   if (type == "repository")
-    puts Kalibro::Configuration.all.last.id
-    puts Kalibro::Project.all.last.id
-    item.merge(:configuration_id => Kalibro::Configuration.all.last.id)
-    result = Kalibro::Repository.new(item)
-    result.save Kalibro::Project.all.last.id
-  else
-    result.save!
-   end
+    item.merge!(:configuration_id => Kalibro::Configuration.all.last.id)
+    item.merge!(:project_id => Kalibro::Project.all.last.id)
+    Kalibro::Repository.create(item)
+  elsif (type == "reading")
+    item.merge!(:group_id => Kalibro::ReadingGroup.all.last.id)
+    Kalibro::Reading.create(item)
+  end
 end
 
 When /^I erase the "([^"]*)" field$/ do |field_name|
@@ -110,7 +121,7 @@ When /^I fill the fields with the new following data$/ do |fields|
   fields.rows_hash.each do |key, value|
     name = key.to_s
     element = find_field(name)
-    if element.tag_name.to_s == "select"
+    if (element.tag_name.to_s == "select")
       select(value, :from => name)
     else
       element.set value
@@ -130,11 +141,28 @@ When /^I have a Mezuro metric configuration with previous created configuration 
   })
 end
 
-When /^I follow the (edit|remove) link for "([^"]*)" repository$/ do |action,repository_name|
-  project_id = Kalibro::Project.all.last.id
-  repositories = Kalibro::Repository.repositories_of project_id
-  repository_id = repositories.select {|option| option.name == repository_name}.first.id
+When /^I follow the (edit|remove) link for "([^"]*)" (repository|reading)$/ do |action, name, type|
+  if (type == "repository")
+    project_id = Kalibro::Project.all.last.id
+    repositories = Kalibro::Repository.repositories_of project_id
+    id = repositories.select {|option| option.name == name}.first.id
+  elsif (type == "reading")
+    reading_group_id = Kalibro::ReadingGroup.all.last.id
+    readings = Kalibro::Reading.readings_of reading_group_id 
+    id = readings.select {|option| option.label == name}.first.id
+    if (action == "edit")
+      action = name
+    end
+  end
+  
   elements = all('a', :text => action.capitalize)
-  action_link = elements.select {|element| (/repository_id=#{repository_id}/ =~ element[:href])  }.first
+  link = type + "_id"
+  action_link = elements.select {|element| (/#{link}=#{id}/ =~ element[:href])  }.first
   action_link.click
+end
+
+Then /^I should see the "([^"]*)" color$/ do |color_name|
+  elements = all('td', :text => "")
+  found = elements.select { |element| color_name == element[:bgcolor]}.first
+  assert_not_nil found
 end
