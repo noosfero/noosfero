@@ -4314,6 +4314,35 @@ h1#agenda-title {
   text-align: center;
   overflow: hidden;
 }
+
+.block-config-options.HighlightsBlock-options .image-data-line select {
+  width: 150px;
+}
+
+.block-config-options.HighlightsBlock-options td {
+  text-align: center;
+}
+
+.block-config-options.HighlightsBlock-options .image-data-line td {
+  padding-top: 7px;
+}
+
+.block-config-options.HighlightsBlock-options .image-title {
+  white-space: nowrap;
+  border-bottom: 1px solid #CCC;
+}
+.block-config-options.HighlightsBlock-options .image-title:last-child {
+  border: none;
+}
+
+.block-config-options.HighlightsBlock-options .image-title td {
+  padding-bottom: 7px;
+}
+
+.block-config-options.HighlightsBlock-options .image-title span {
+  padding-right: 5px;
+}
+
 /* Featured Products stuff */
 
 .featured-product-items {
