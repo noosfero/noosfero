@@ -73,7 +73,7 @@ class MezuroPluginRepositoryControllerTest < ActionController::TestCase
 
   should 'set variables to show a repository' do
     Kalibro::Repository.expects(:repositories_of).with(@content.project_id).returns([@repository])
-    Kalibro::Configuration.expects(:configuration_of).with(@repository.id).returns(@configuration)
+    Kalibro::Configuration.expects(:find).with(@repository.configuration_id).returns(@configuration)
 
     get :show, :profile => @profile.identifier, :id => @content.id, :repository_id => @repository.id
 

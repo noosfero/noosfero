@@ -10,7 +10,7 @@ class MezuroPluginReadingController < MezuroPluginMyprofileController
     reading_group_content = profile.articles.find(params[:id])
     reading = Kalibro::Reading.new params[:reading]
 
-    if( reading.save(reading_group_content.reading_group_id) )
+    if( reading.save )
       redirect_to reading_group_content.view_url
     else
       redirect_to_error_page reading.errors[0].message

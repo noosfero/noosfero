@@ -4,6 +4,6 @@
 
 <h2><%= link_to("#{@reading_group_content.name} Reading Group", @reading_group_content.view_url) %></h2>
 
-<% form_for :reading, :url => {:action =>"save", :controller => "mezuro_plugin_reading"},  :method => :get do |f| %>
+<% form_for :reading, :url => {:action =>"save", :controller => "mezuro_plugin_reading"}, :method => :get do |f| %>
   <%= render :partial => "form", :locals => {:f => f} %>
 <% end %>

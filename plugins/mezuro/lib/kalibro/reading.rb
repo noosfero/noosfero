@@ -1,6 +1,6 @@
 class Kalibro::Reading < Kalibro::Model
 
-  attr_accessor :id, :label, :grade, :color
+  attr_accessor :id, :label, :grade, :color, :group_id
 
   def self.find(id)
     new request(:get_reading, {:reading_id => id})[:reading]
@@ -25,14 +25,10 @@ class Kalibro::Reading < Kalibro::Model
     @grade = value.to_f
   end
 
-  def save(reading_group_id)
-    begin
-      self.id = self.class.request(:save_reading, {:reading => self.to_hash, :group_id => reading_group_id})[:reading_id]
-      true
-	  rescue Exception => exception
-	    add_error exception
-	    false
-    end
+  private
+
+  def save_params
+    {:reading => self.to_hash, :group_id => group_id}
   end
 
 end

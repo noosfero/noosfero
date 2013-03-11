@@ -1,6 +1,6 @@
 class Kalibro::ModuleResult < Kalibro::Model
 
-  attr_accessor :id, :module, :grade, :parent_id
+  attr_accessor :id, :module, :grade, :parent_id, :height
   
   def self.find(id)
     new request(:get_module_result, { :module_result_id => id })[:module_result]
