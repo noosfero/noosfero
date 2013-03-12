@@ -760,6 +760,7 @@ function save_comment(button) {
       //Comment of reply
       $('#'+ data.render_target).replaceWith(data.html);
       $('#' + data.render_target).effect("highlight", {}, 3000);
+      $.colorbox.close();
 
     } else {
       //New comment of article
