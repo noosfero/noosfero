@@ -1,8 +1,4 @@
-<% 
-   # TODO This view was created to remove the solr dependencies from
-   # noosfero views. All  code here might not be working as they're
-   # supposed to. Everything must be reviewed!
-%>
+<% extend SolrPlugin::ResultsHelper %>
 
 <% results = @asset_class.map_facet_results(@facet, params[:facet], @facets, @all_facets) %>
 

@@ -1,0 +1,14 @@
+.controller-search #search-column-right .search-field .formfield {
+  width: 594px;
+  display: inline-block;
+}
+
+#search-column-right .search-customize-options {
+  float: left;
+  margin-top: 23px;
+  margin-left: 0;
+}
+
+#search-column-right .search-results-box .vcard {
+  margin: 4.5px 8px;
+}

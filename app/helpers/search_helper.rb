@@ -65,12 +65,11 @@ module SearchHelper
     content_tag('div', render(:partial => partial), :class => "map-or-list-search-results #{klass}")
   end
 
-  def display_filter(item, display)
-    asset = item.class.name.downcase.pluralize.to_sym
+  def display_filter(asset, display)
     if display?(asset, display)
       display
     else
-      item.class.default_search_display
+      asset_class(asset).default_search_display
     end
   end
 

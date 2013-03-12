@@ -6,16 +6,6 @@
     <%= hidden_field_tag :display, params[:display] %>
     <%= hidden_field_tag :filter, params[:filter] %>
 
-    <% params_uri = CGI::unescape(request.request_uri) %>
-    <% if params_uri.index('?') %>
-      <% params_uri[(params_uri.index('?')+1)..-1].to_s.split("&").each do |part| %>
-        <% if part.start_with? "facet" %>
-          <% name_value = part.split("=") %>
-          <%= hidden_field_tag name_value[0], name_value[1] %>
-        <% end %>
-      <% end %>
-    <% end %>
-
     <div class="search-field">
       <span class="formfield">
         <%= text_field_tag 'query', @query, :id => 'search-input', :size => 50 %>
@@ -24,6 +14,8 @@
 
       <%= submit_button(:search, _('Search')) %>
     </div>
+
+    <%= render :partial => 'search_form_extra_fields' %>
 
   <% end %>
 

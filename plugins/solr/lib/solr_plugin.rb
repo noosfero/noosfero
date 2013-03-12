@@ -12,8 +12,13 @@ class SolrPlugin < Noosfero::Plugin
     _("Uses Solr as search engine.")
   end
 
+  def stylesheet?
+    true
+  end
+
   def find_by_contents(klass, query, paginate_options={}, options={})
     category = options.delete(:category)
+    filter = options.delete(:filter)
     solr_options = solr_options(class_asset(klass), category)
     user = context.respond_to?(:user) ? context.send(:user) : nil
     solr_options.merge!(products_options(user)) if klass == Product && empty_query?(query, category)

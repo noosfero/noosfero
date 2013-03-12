@@ -4,7 +4,7 @@ class SolrPlugin < Noosfero::Plugin
       asset.to_s.singularize.camelize.constantize
     end
 
-    def set_results_variables
+    def set_facets_variables
       @facets = @searches[@asset][:facets]
       @all_facets = @searches[@asset][:all_facets]
     end

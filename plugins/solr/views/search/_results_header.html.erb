@@ -14,9 +14,9 @@
       <%= order_by(@asset) if params[:display] != 'map' %>
     </div>
   <% else %>
-    <div id='search-filter-title'><%= @filter_title if @filter_title %></div>
+    <div id='search-filter-title'><%= filter_title(@asset, @filter) %></div>
   <% end %>
-  <% float = !@empty_query && params[:display] == 'list' ? 'left' : 'right' %>
-  <%= display_filter(@asset, params[:display], float) if map_capable?(@asset) %>
+  <%= display_selector(@asset, params[:display]) %>
+  <%= filter_selector(@asset, @filter) if @empty_query && params[:display] != 'map' %>
   <div style="clear: both"></div>
 </div>

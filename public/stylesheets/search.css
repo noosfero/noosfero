@@ -14,9 +14,10 @@
 
 .controller-search #content form input.button.submit {
   display: inline-block;
-  height: 25px;
-  max-height: 25px;
+  height: 27px;
+  max-height: 27px;
   width: 87px;
+  margin-bottom: 1px;
 }
 .controller-search .current-cat-path {
   padding-left: 25px;
