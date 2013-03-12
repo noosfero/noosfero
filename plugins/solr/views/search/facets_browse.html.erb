@@ -1,4 +1,4 @@
-<% extend SolrPlugin::ResultsHelper %>
+<% extend SolrPlugin::SearchHelper %>
 
 <% results = @asset_class.map_facet_results(@facet, params[:facet], @facets, @all_facets) %>
 

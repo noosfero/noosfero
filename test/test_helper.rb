@@ -17,7 +17,6 @@ require 'noosfero/test'
 require File.dirname(__FILE__) + '/factories'
 require File.dirname(__FILE__) + '/noosfero_doc_test'
 require File.dirname(__FILE__) + '/action_tracker_test_helper'
-require File.expand_path(File.dirname(__FILE__) + "/test_solr_helper.rb")
 
 FileUtils.rm_rf(File.join(RAILS_ROOT, 'index', 'test'))
 

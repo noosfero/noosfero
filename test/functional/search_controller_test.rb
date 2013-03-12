@@ -7,6 +7,7 @@ class SearchController; def rescue_action(e) raise e end; end
 class SearchControllerTest < ActionController::TestCase
 
   def setup
+    TestSolr.enable
     @controller = SearchController.new
     @request    = ActionController::TestRequest.new
     @request.stubs(:ssl?).returns(false)
@@ -33,6 +34,8 @@ class SearchControllerTest < ActionController::TestCase
     user.stubs(:email).returns('some@test.com')
     user.stubs(:save!).returns(true)
     Person.any_instance.stubs(:user).returns(user)
+
+    env.enable_plugin(SolrPlugin)
   end
 
   def create_article_with_optional_category(name, profile, category = nil)

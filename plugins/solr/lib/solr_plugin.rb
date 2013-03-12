@@ -1,8 +1,12 @@
+class SolrPlugin < Noosfero::Plugin; end;
+
 require_dependency 'solr_plugin/search_helper'
 
 class SolrPlugin < Noosfero::Plugin
 
   include SolrPlugin::SearchHelper
+
+  delegate :params, :current_user, :to => :context
 
   def self.plugin_name
     "Solr"

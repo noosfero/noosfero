@@ -3,7 +3,7 @@ require_dependency 'search_controller'
 module SolrPlugin::FacetsBrowse
   def self.included(base)
     base.send :include, InstanceMethods
-    base.send :include, SolrPlugin::ResultsHelper
+    base.send :include, SolrPlugin::SearchHelper
   end
 
   module InstanceMethods

@@ -2,7 +2,7 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class SearchHelperTest < ActiveSupport::TestCase
 
-  include SearchHelper
+  include SolrPlugin::SearchHelper
 
   should 'display facets menu' do
     expects(:asset_class).with('asset')
