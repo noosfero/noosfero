@@ -43,4 +43,8 @@ class CommentGroupMacroPlugin < Noosfero::Plugin
     }
   end
 
+  def js_files
+    'comment_group_macro.js'
+  end
+
 end

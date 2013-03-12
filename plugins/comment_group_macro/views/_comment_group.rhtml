@@ -6,7 +6,7 @@
         :loaded => visual_effect(:highlight, "comments_list_group_#{group_id}"),
         :method => :post,
         :condition => "!groupVisible(#{group_id})",
-        :complete => "jQuery('div.comment-group-loading-#{group_id}').removeClass('comment-button-loading')")%>
+        :complete => "loadCompleted(#{group_id})")%>
     </div>
     <!-- FIXME: css file -->
     <div id="comments_group_count_<%= group_id %>" style="float: right; vertical-align: middle; padding-left: 3px; padding-right: 5px; color: #5AC1FC"><span id="comment-count-<%= group_id %>" class='comment-count'><%= count %></span></div>
@@ -33,9 +33,17 @@
       return jQuery('div.comments_list_toggle_group_'+group).is(':visible');
     }
 
+    function loadCompleted(group) {
+      jQuery('div.comment-group-loading-'+group).removeClass('comment-button-loading')
+      if(comment_group_anchor) {
+        jQuery.scrollTo(jQuery(comment_group_anchor));
+        comment_group_anchor = null;
+      }
+    }
+
     (function($) {
       var button = $('div.comment_group_<%= group_id %> a');
-      button.click(function() {
+      button.live('click', function() {
         var div = $('div.comments_list_toggle_group_<%= group_id %>')
         if(!div.is(':visible')) 
           $('div.comment-group-loading-<%= group_id %>').addClass('comment-button-loading');

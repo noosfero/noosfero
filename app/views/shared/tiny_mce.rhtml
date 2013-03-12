@@ -11,10 +11,8 @@
   <% else %>
     first_line = "print,separator,copy,paste,separator,undo,redo,separator,search,replace,separator,forecolor,fontsizeselect,formatselect"
     second_line = "bold,italic,underline,strikethrough,separator,bullist,numlist,separator,justifyleft,justifycenter,justifyright,justifyfull,separator,link,unlink,image,table,separator,cleanup,code,macros"
-    <% Environment.macros[environment.id].each do |macro_name, plugin_instance| %>
-      <% if macro_configuration(macro_name)[:icon_path] %>
-        second_line += ',<%=macro_name %>'
-      <% end %>
+    <% macros_with_buttons.each do |macro_name, plugin_instance| %>
+      second_line += ',<%=macro_name %>'
     <% end %>
   <% end %>
 
