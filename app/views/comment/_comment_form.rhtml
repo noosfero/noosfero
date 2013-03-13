@@ -1,8 +1,8 @@
-<div class="page-comment-form">
+<% edition_mode = (defined? edition_mode) ? edition_mode : false %>
+<div class="<%= edition_mode ? '' : 'page-comment-form' %>">
 
 <% focus_on = logged_in? ? 'title' : 'name' %>
 
-<% edition_mode = (defined? edition_mode) ? edition_mode : false %>
 <div class="post_comment_box <%= ((defined? show_form) && show_form) ? 'opened' : 'closed' %>">
 
 <% if display_link %>
