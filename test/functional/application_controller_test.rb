@@ -152,12 +152,12 @@ class ApplicationControllerTest < ActionController::TestCase
 
     class UsesBlocksTestController < ApplicationController
     end
-    assert UsesBlocksTestController.new.uses_design_blocks?
+    assert UsesBlocksTestController.new.send(:uses_design_blocks?)
 
     class DoesNotUsesBlocksTestController < ApplicationController
       no_design_blocks
     end
-    assert !DoesNotUsesBlocksTestController.new.uses_design_blocks?
+    assert !DoesNotUsesBlocksTestController.new.send(:uses_design_blocks?)
   end
 
   should 'generate blocks' do
@@ -460,6 +460,26 @@ class ApplicationControllerTest < ActionController::TestCase
     get :index, :lang => 'bli'
     assert_no_tag :tag => 'script', :attributes => {:src => /messages_bli/}
     assert_no_tag :tag => 'script', :attributes => {:src => /methods_bli/}
+  end
+
+  should 'set access-control-allow-origin and method if configured' do
+    e = Environment.default
+    e.access_control_allow_origin = ['http://allowed']
+    e.save!
+
+    @request.env["Origin"] = "http://allowed"
+    get :index
+    assert_response :success
+
+    @request.env["Origin"] = "http://other"
+    get :index
+    assert_response :success
+
+    @request.env["Origin"] = "http://other"
+    e.restrict_to_access_control_origins = true
+    e.save!
+    get :index
+    assert_response :forbidden
   end
 
   if ActiveRecord::Base.connection.adapter_name == 'PostgreSQL'

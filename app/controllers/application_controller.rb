@@ -3,6 +3,22 @@ class ApplicationController < ActionController::Base
   before_filter :setup_multitenancy
   before_filter :detect_stuff_by_domain
   before_filter :init_noosfero_plugins
+  before_filter :allow_cross_domain_access
+
+  protected
+
+  def allow_cross_domain_access
+    origin = request.headers['Origin']
+    return if origin.blank?
+    if environment.access_control_allow_origin.include? origin
+      response.headers["Access-Control-Allow-Origin"] = origin
+      unless environment.access_control_allow_methods.blank?
+        response.headers["Access-Control-Allow-Methods"] = environment.access_control_allow_methods
+      end
+    elsif environment.restrict_to_access_control_origins
+      render_access_denied _('Origin not in allowed.')
+    end
+  end
 
   include ApplicationHelper
   layout :get_layout
@@ -79,11 +95,10 @@ class ApplicationController < ActionController::Base
     false
   end
 
-
   def user
     current_user.person if logged_in?
   end
-  
+
   alias :current_person :user
 
   # TODO: move this logic somewhere else (Domain class?)
