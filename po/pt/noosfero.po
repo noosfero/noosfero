@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.39.3\n"
 "POT-Creation-Date: 2013-01-19 21:42-0000\n"
-"PO-Revision-Date: 2013-01-19 21:55+0000\n"
+"PO-Revision-Date: 2013-03-13 17:47-0300\n"
 "Last-Translator: Rodrigo Souto <rodrigo@colivre.coop.br>\n"
 "Language-Team: LANGUAGE TEAM <E-MAIL@ADDRESS or HOME PAGE>\n"
 "Language: \n"
@@ -9205,7 +9205,7 @@ msgstr "<span class='login'>%s</span>"
 
 #: app/views/layouts/application-ng.rhtml:68
 msgid "<span class='or'>or</span> <span class='signup'>%s</span>"
-msgstr "<span class='or'>or</span> <span class='signup'>%s</span>"
+msgstr "<span class='or'>ou</span> <span class='signup'>%s</span>"
 
 #: app/views/layouts/application-ng.rhtml:68
 msgid "Sign up"
