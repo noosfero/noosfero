@@ -59,14 +59,6 @@ class ActiveSupport::TestCase
 
   fixtures :environments, :roles
 
-  def setup
-    TestSolr.disable
-  end
-
-  def teardown
-    TestSolr.disable
-  end
-
   def self.all_fixtures
     Dir.glob(File.join(RAILS_ROOT, 'test', 'fixtures', '*.yml')).each do |item|
       fixtures File.basename(item).sub(/\.yml$/, '').to_s

@@ -84,12 +84,6 @@ class Comment < ActiveRecord::Base
     self.article.profile.notification_emails - [self.author_email || self.email]
   end
 
-  after_save :notify_article
-  after_destroy :notify_article
-  def notify_article
-    article.comments_updated if article.kind_of?(Article)
-  end
-
   after_create :new_follower
   def new_follower
     if source.kind_of?(Article)

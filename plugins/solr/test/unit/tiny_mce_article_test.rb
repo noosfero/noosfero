@@ -1,4 +1,5 @@
 require 'test_helper'
+require File.dirname(__FILE__) + '/../test_solr_helper'
 
 class TinyMceArticleTest < ActiveSupport::TestCase
   def setup
@@ -18,6 +19,6 @@ class TinyMceArticleTest < ActiveSupport::TestCase
 
   should 'define type facet' do
 	  a = TinyMceArticle.new
-		assert_equal TextArticle.type_name, TinyMceArticle.send(:f_type_proc, a.send(:f_type))
+		assert_equal TextArticle.type_name, TinyMceArticle.send(:solr_plugin_f_type_proc, a.send(:solr_plugin_f_type))
   end
 end

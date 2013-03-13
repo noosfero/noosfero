@@ -1,4 +1,5 @@
 require 'test_helper'
+require File.dirname(__FILE__) + '/../test_solr_helper'
 
 class CategoryTest < ActiveSupport::TestCase
   def setup

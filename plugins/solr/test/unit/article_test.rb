@@ -1,4 +1,5 @@
 require 'test_helper'
+require File.dirname(__FILE__) + '/../test_solr_helper'
 
 class ArticleTest < ActiveSupport::TestCase
   def setup
@@ -83,7 +84,7 @@ class ArticleTest < ActiveSupport::TestCase
     TestSolr.enable
     owner = create_user('testuser').person
     art = fast_create(TinyMceArticle, :profile_id => owner.id, :name => 'ytest')
-    c1 = Comment.create(:title => 'test comment', :body => 'anything', :author => owner, :source => art); c1.save!
+    c1 = Comment.create!(:title => 'test comment', :body => 'anything', :author => owner, :source => art)
 
     assert_includes Article.find_by_contents('anything')[:results], art
   end
