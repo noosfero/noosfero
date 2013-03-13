@@ -66,6 +66,7 @@ module SearchHelper
   end
 
   def display_filter(asset, display)
+    asset = :articles if asset == :tag
     if display?(asset, display)
       display
     else

@@ -1,12 +1,5 @@
 ENV["RAILS_ENV"] = "test"
 
-# Start/stop Solr
-if not $test_helper_loaded
-	abort unless system 'rake -s solr:start'
-  at_exit { system 'rake -s solr:stop' }
-  $test_helper_loaded = true
-end
-
 require File.expand_path(File.dirname(__FILE__) + "/../config/environment")
 require 'test_help'
 require 'mocha'
