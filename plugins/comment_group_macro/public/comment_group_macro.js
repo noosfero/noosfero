@@ -19,3 +19,21 @@ jQuery(document).ready(function($) {
     }
   });
 }); 
+
+function toggleGroup(group) {
+  var div = jQuery('div.comments_list_toggle_group_'+group);
+  var visible = div.is(':visible');
+  if(!visible) 
+    jQuery('div.comment-group-loading-'+group).addClass('comment-button-loading');
+
+  div.toggle('fast');
+  return visible;
+}
+
+function loadCompleted(group) {
+  jQuery('div.comment-group-loading-'+group).removeClass('comment-button-loading')
+  if(comment_group_anchor) {
+    jQuery.scrollTo(jQuery(comment_group_anchor));
+    comment_group_anchor = null;
+  }
+}
