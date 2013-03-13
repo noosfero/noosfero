@@ -355,7 +355,7 @@ class Noosfero::Plugin
   # returns = {:results => [a, b, c, ...], ...}
   # P.S.: The plugin might add other informations on the return hash for its
   # own use in specific views
-  def find_by_contents(klass, query, paginate_options={}, options={})
+  def find_by_contents(asset, klass, query, paginate_options={}, options={})
   end
 
   def method_missing(method, *args, &block)

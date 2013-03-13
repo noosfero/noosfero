@@ -1,5 +1,5 @@
 require 'test_helper'
-require 'test_solr_helper'
+require File.dirname(__FILE__) + '/../test_solr_helper'
 require File.dirname(__FILE__) + '/../../lib/ext/facets_browse'
 
 # Re-raise errors caught by the controller.
@@ -108,7 +108,7 @@ class SearchControllerTest < ActionController::TestCase
     prod2 = ent2.products.create!(:name => 'another beautiful product', :product_category => @product_category)
 
     get :products
-    assert_equivalent [prod2, prod1], assigns(:searches)[:products][:results]
+    assert_equivalent [prod2, prod1], assigns(:searches)[:products][:results].docs
 		assert_match 'Highlights', @response.body
   end
 
@@ -156,45 +156,45 @@ class SearchControllerTest < ActionController::TestCase
 	end
 
 	# Testing random sequences always have a small chance of failing
-#	should 'randomize product display in empty search' do
-#    prod_cat = ProductCategory.create!(:name => 'prod cat test', :environment => Environment.default)
-#    ent = create_profile_with_optional_category(Enterprise, 'test enterprise')
-#		(1..SearchController::LIST_SEARCH_LIMIT+5).each do |n|
-#    	fast_create(Product, {:name => "produto #{n}", :enterprise_id => ent.id, :product_category_id => prod_cat.id}, :search => true)
-#		end	
-#
-#		get :products
-#		result1 = assigns(:searches)[:products][:results].map(&:id)
-#
-#		(1..10).each do |n|
-#  		get :products
-#		end
-#		result2 = assigns(:searches)[:products][:results].map(&:id)
-#
-#		assert_not_equal result1, result2
-#	end
-#
-#	should 'remove far products by geolocalization empty logged search' do
-#    user = create_user('a_logged_user')
-#    # trigger geosearch
-#		user.person.lat = '1.0'
-#		user.person.lng = '1.0'
-#		SearchController.any_instance.stubs(:logged_in?).returns(true)
-#		SearchController.any_instance.stubs(:current_user).returns(user)
-#	
-#		cat = fast_create(ProductCategory)
-#		ent1 = Enterprise.create!(:name => 'ent1', :identifier => 'ent1', :lat => '1.3', :lng => '1.3')
-#    prod1 = Product.create!(:name => 'produto 1', :enterprise_id => ent1.id, :product_category_id => cat.id)
-#		ent2 = Enterprise.create!(:name => 'ent2', :identifier => 'ent2', :lat => '2.0', :lng => '2.0')
-#    prod2 = Product.create!(:name => 'produto 2', :enterprise_id => ent2.id, :product_category_id => cat.id)
-#		ent3 = Enterprise.create!(:name => 'ent3', :identifier => 'ent3', :lat => '1.6', :lng => '1.6')
-#    prod3 = Product.create!(:name => 'produto 3', :enterprise_id => ent3.id, :product_category_id => cat.id)
-#		ent4 = Enterprise.create!(:name => 'ent4', :identifier => 'ent4', :lat => '10', :lng => '10')
-#    prod4 = Product.create!(:name => 'produto 4', :enterprise_id => ent4.id, :product_category_id => cat.id)
-#
-#		get :products
-#		assert_equivalent [prod1, prod3, prod2], assigns(:searches)[:products][:results]
-#	end
+	should 'randomize product display in empty search' do
+    prod_cat = ProductCategory.create!(:name => 'prod cat test', :environment => Environment.default)
+    ent = create_profile_with_optional_category(Enterprise, 'test enterprise')
+    (1..SearchController::LIST_SEARCH_LIMIT+5).each do |n|
+      fast_create(Product, {:name => "produto #{n}", :enterprise_id => ent.id, :product_category_id => prod_cat.id}, :search => true)
+    end
+
+    get :products
+    result1 = assigns(:searches)[:products][:results].map(&:id)
+
+    (1..10).each do |n|
+      get :products
+    end
+    result2 = assigns(:searches)[:products][:results].map(&:id)
+
+    assert_not_equal result1, result2
+	end
+
+	should 'remove far products by geolocalization empty logged search' do
+    user = create_user('a_logged_user')
+    # trigger geosearch
+    user.person.lat = '1.0'
+    user.person.lng = '1.0'
+    SearchController.any_instance.stubs(:logged_in?).returns(true)
+    SearchController.any_instance.stubs(:current_user).returns(user)
+
+    cat = fast_create(ProductCategory)
+    ent1 = Enterprise.create!(:name => 'ent1', :identifier => 'ent1', :lat => '1.3', :lng => '1.3')
+    prod1 = Product.create!(:name => 'produto 1', :enterprise_id => ent1.id, :product_category_id => cat.id)
+    ent2 = Enterprise.create!(:name => 'ent2', :identifier => 'ent2', :lat => '2.0', :lng => '2.0')
+    prod2 = Product.create!(:name => 'produto 2', :enterprise_id => ent2.id, :product_category_id => cat.id)
+    ent3 = Enterprise.create!(:name => 'ent3', :identifier => 'ent3', :lat => '1.6', :lng => '1.6')
+    prod3 = Product.create!(:name => 'produto 3', :enterprise_id => ent3.id, :product_category_id => cat.id)
+    ent4 = Enterprise.create!(:name => 'ent4', :identifier => 'ent4', :lat => '10', :lng => '10')
+    prod4 = Product.create!(:name => 'produto 4', :enterprise_id => ent4.id, :product_category_id => cat.id)
+
+    get :products
+    assert_equivalent [prod1, prod3, prod2], assigns(:searches)[:products][:results].docs
+	end
 
 	should 'browse facets when query is not empty' do
 		get :articles, :query => 'something'

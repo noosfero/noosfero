@@ -154,20 +154,21 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def find_by_contents(scope, query, paginate_options={:page => 1}, options={})
+  def find_by_contents(asset, scope, query, paginate_options={:page => 1}, options={})
     scope = scope.send(options[:filter]) if options[:filter]
-    return {:results => scope.paginate(paginate_options)} if query.blank?
 
-    @plugins.first(:find_by_contents, scope, query, paginate_options, options) ||
-    fallback_find_by_contents(scope, query, paginate_options, options)
+    @plugins.first(:find_by_contents, asset, scope, query, paginate_options, options) ||
+    fallback_find_by_contents(asset, scope, query, paginate_options, options)
   end
 
   private
 
-  def fallback_find_by_contents(scope, query, paginate_options, options)
-    fields = scope.base_class::SEARCHABLE_FIELDS.keys.map(&:to_s) & scope.base_class.column_names
+  def fallback_find_by_contents(asset, scope, query, paginate_options, options)
+    return {:results => scope.paginate(paginate_options)} if query.blank?
+    klass = asset.to_s.singularize.camelize.constantize
+    fields = klass::SEARCHABLE_FIELDS.keys.map(&:to_s) & klass.column_names
     conditions = fields.map do |field|
-      "lower(#{scope.base_class.table_name}.#{field}) LIKE \"%#{query.downcase.strip}%\""
+      "lower(#{klass.table_name}.#{field}) LIKE \"%#{query.downcase.strip}%\""
     end.join(' OR ')
     {:results => scope.where(conditions).paginate(paginate_options)}
   end

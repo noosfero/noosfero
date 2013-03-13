@@ -211,7 +211,7 @@ class SearchController < PublicController
   end
 
   def full_text_search
-    @searches[@asset] = find_by_contents(@scope, @query, paginate_options, {:category => @category, :filter => @filter})
+    @searches[@asset] = find_by_contents(@asset, @scope, @query, paginate_options, {:category => @category, :filter => @filter})
   end
 
   private

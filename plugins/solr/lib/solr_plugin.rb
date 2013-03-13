@@ -20,11 +20,15 @@ class SolrPlugin < Noosfero::Plugin
     true
   end
 
-  def find_by_contents(klass, query, paginate_options={}, options={})
+  def find_by_contents(asset, scope, query, paginate_options={}, options={})
+    klass = asset_class(asset)
     category = options.delete(:category)
     filter = options.delete(:filter)
+
+    return if empty_query?(query, category) && klass != Product
+
     solr_options = solr_options(class_asset(klass), category)
-    user = context.respond_to?(:user) ? context.send(:user) : nil
+    user = context.send(:logged_in?) ? context.send(:user) : nil
     solr_options.merge!(products_options(user)) if klass == Product && empty_query?(query, category)
     klass.find_by_contents(query, paginate_options, solr_options.merge(options))
   end

@@ -45,15 +45,11 @@ module SolrPlugin::SearchHelper
   def asset_table(asset)
     asset_class(asset).table_name
   end
-#
-#  def multiple_search?
-#    ['index', 'category_index'].include?(context.params[:action])
-#  end
 
   def filters(asset)
     case asset
     when :products
-      ['solr_plugin_public:true']
+      ['solr_plugin_public:true', 'enabled:true']
     when :events
       []
     else
@@ -67,6 +63,24 @@ module SolrPlugin::SearchHelper
 
   def empty_query?(query, category)
     category.nil? && query.blank?
+  end
+
+  def products_options(person)
+    geosearch = person && person.lat && person.lng
+
+    extra_limit = LIST_SEARCH_LIMIT*5
+    sql_options = {:limit => LIST_SEARCH_LIMIT, :order => 'random()'}
+    options =   {:sql_options => sql_options, :extra_limit => extra_limit}
+
+    if geosearch
+      options.merge({
+        :alternate_query => "{!boost b=recip(geodist(),#{"%e" % (1.to_f/DistBoost)},1,1)}",
+        :radius => DistFilt,
+        :latitude => person.lat,
+        :longitude => person.lng })
+    else
+      options.merge({:boost_functions => ['recip(ms(NOW/HOUR,updated_at),1.3e-10,1,1)']})
+    end
   end
 
   def solr_options(asset, category)
@@ -93,21 +107,6 @@ module SolrPlugin::SearchHelper
       end
     end
     solr_options
-  end
-
-  def products_options(person)
-    geosearch = person && person.lat && person.lng
-
-    extra_limit = LIST_SEARCH_LIMIT*5
-    sql_options = {:limit => LIST_SEARCH_LIMIT, :order => 'random()'}
-    if geosearch
-      {:sql_options => sql_options, :extra_limit => extra_limit,
-        :alternate_query => "{!boost b=recip(geodist(),#{"%e" % (1.to_f/DistBoost)},1,1)}",
-      :radius => DistFilt, :latitude => person.lat, :longitude => person.lng}
-    else
-      { :sql_options => sql_options, :extra_limit => extra_limit,
-        :boost_functions => ['recip(ms(NOW/HOUR,updated_at),1.3e-10,1,1)']}
-    end
   end
 
   def asset_class(asset)

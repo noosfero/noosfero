@@ -46,5 +46,14 @@ class TestSolr
 
 end
 
+class ActiveSupport::TestCase
+  def fast_create_with_solr(name, attrs = {}, options = {})
+    obj = fast_create_without_solr(name, attrs, options)
+    obj.solr_save if options[:search]
+    obj
+  end
+  alias_method_chain :fast_create, :solr
+end
+
 # disable solr actions by default
 TestSolr.disable
