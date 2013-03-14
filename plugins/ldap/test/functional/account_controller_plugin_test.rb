@@ -22,6 +22,11 @@ class AccountControllerPluginTest < ActionController::TestCase
     assert_nil session[:user]
   end
 
+  should 'diplay not logged message if the user is not a local user or a ldap user' do
+    post :login, :user => {:login => 'someuser', :password => 'somepass'}
+    assert_equal 'Incorrect username or password', session[:notice]
+  end
+
   should 'authenticate user if its a local user but is not a ldap user' do
     user = create_user('testuser', :email => 'testuser@example.com', :password => 'test', :password_confirmation => 'test')
     user.activate

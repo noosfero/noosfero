@@ -51,7 +51,10 @@ class LdapPlugin < Noosfero::Plugin
         rescue
           #User not saved
         end
+      else
+        user = nil
       end
+     
     else
 
       return nil if !user.activated?
@@ -60,6 +63,7 @@ class LdapPlugin < Noosfero::Plugin
         # user si defined as nil if ldap authentication failed
         user = nil if ldap.authenticate(login, password).nil?
       rescue Net::LDAP::LdapError => e
+        user = nil
         puts "LDAP is not configured correctly"
       end
     end 
