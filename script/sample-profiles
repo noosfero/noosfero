@@ -55,8 +55,12 @@ for name in NAMES
       user.person.lat = place[:lat] + (rand/100)-0.005
       user.person.lng = place[:lng] + (rand/100)-0.005
       user.person.save!
-      categories.rand.people << user.person
-      categories.rand.people << user.person
+      if categories.present?
+        2.times do
+          category = categories.rand
+          category.people << user.person unless category.people.include?(user.person)
+        end
+      end
     end
   end
 end
@@ -89,12 +93,8 @@ guest = User.new({
   :password_confirmation => 'test',
   :environment => $environment,
 })
-save guest do
-  5.times do
-    communities.rand.add_admin(guest.person)
-    communities.rand.add_member(guest.person)
-  end
-end
+save guest
+
 done
 
 print "Activating users: "
@@ -131,11 +131,23 @@ for verb in VERBS
     save community do
       communities << community
       rand(10).times do
-        community.add_member(people.rand)
+        person = people.rand
+        community.add_member(person) unless community.members.include?(person)
       end
-      categories.rand.communities << community
-      categories.rand.communities << community
+      if categories.present?
+        2.times do
+          category = categories.rand
+          category.communities << community unless category.communities.include?(community)
+        end
+      end
     end
   end
 end
+
+5.times do
+  community = communities.rand
+  community.add_member(guest.person) unless community.members.include?(guest.person)
+  community.add_admin(guest.person) unless community.admins.include?(guest.person)
+end
+
 done
