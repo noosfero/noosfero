@@ -177,6 +177,91 @@ class ProfileDesignControllerTest < ActionController::TestCase
     end
   end
 
+  should 'a block plugin with center position add new blocks only in this position' do
+    class CustomBlock1 < Block; end;
+    class CustomBlock2 < Block; end;
+    class CustomBlock3 < Block; end;
+    class CustomBlock4 < Block; end;
+    class CustomBlock5 < Block; end;
+    class CustomBlock6 < Block; end;
+    class CustomBlock7 < Block; end;
+    class CustomBlock8 < Block; end;
+    class CustomBlock9 < Block; end;
+
+    class TestBlockPlugin < Noosfero::Plugin
+      def self.extra_blocks
+        {
+          CustomBlock1 => {:type => Person, :position => [1]},
+          CustomBlock2 => {:type => Enterprise, :position => 1},
+          CustomBlock3 => {:type => Community, :position => '1'},
+          CustomBlock4 => {:type => Person, :position => [2]},
+          CustomBlock5 => {:type => Enterprise, :position => 2},
+          CustomBlock6 => {:type => Community, :position => '2'},
+          CustomBlock7 => {:type => Person, :position => [3]},
+          CustomBlock8 => {:type => Enterprise, :position => 3},
+          CustomBlock9 => {:type => Community, :position => '3'},
+        }
+      end
+    end
+     
+    Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([TestBlockPlugin.new])
+    get :add_block, :profile => 'designtestuser'
+    assert_response :success
+
+    assert @controller.instance_variable_get('@center_block_types').include?(CustomBlock1)
+    assert @controller.instance_variable_get('@center_block_types').include?(CustomBlock2)
+    assert @controller.instance_variable_get('@center_block_types').include?(CustomBlock3)
+    assert !@controller.instance_variable_get('@center_block_types').include?(CustomBlock4)
+    assert !@controller.instance_variable_get('@center_block_types').include?(CustomBlock5)
+    assert !@controller.instance_variable_get('@center_block_types').include?(CustomBlock6)
+    assert !@controller.instance_variable_get('@center_block_types').include?(CustomBlock7)
+    assert !@controller.instance_variable_get('@center_block_types').include?(CustomBlock8)
+    assert !@controller.instance_variable_get('@center_block_types').include?(CustomBlock9)
+  end
+
+  should 'a block plugin with side position add new blocks only in this position' do
+    class CustomBlock1 < Block; end;
+    class CustomBlock2 < Block; end;
+    class CustomBlock3 < Block; end;
+    class CustomBlock4 < Block; end;
+    class CustomBlock5 < Block; end;
+    class CustomBlock6 < Block; end;
+    class CustomBlock7 < Block; end;
+    class CustomBlock8 < Block; end;
+    class CustomBlock9 < Block; end;
+
+    class TestBlockPlugin < Noosfero::Plugin
+      def self.extra_blocks
+        {
+          CustomBlock1 => {:type => Person, :position => [1]},
+          CustomBlock2 => {:type => Enterprise, :position => 1},
+          CustomBlock3 => {:type => Community, :position => '1'},
+          CustomBlock4 => {:type => Person, :position => [2]},
+          CustomBlock5 => {:type => Enterprise, :position => 2},
+          CustomBlock6 => {:type => Community, :position => '2'},
+          CustomBlock7 => {:type => Person, :position => [3]},
+          CustomBlock8 => {:type => Enterprise, :position => 3},
+          CustomBlock9 => {:type => Community, :position => '3'},
+        }
+      end
+    end
+     
+    Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([TestBlockPlugin.new])
+    get :add_block, :profile => 'designtestuser'
+    assert_response :success
+
+    assert !@controller.instance_variable_get('@side_block_types').include?(CustomBlock1)
+    assert !@controller.instance_variable_get('@side_block_types').include?(CustomBlock2)
+    assert !@controller.instance_variable_get('@side_block_types').include?(CustomBlock3)
+    assert @controller.instance_variable_get('@side_block_types').include?(CustomBlock4)
+    assert @controller.instance_variable_get('@side_block_types').include?(CustomBlock5)
+    assert @controller.instance_variable_get('@side_block_types').include?(CustomBlock6)
+    assert @controller.instance_variable_get('@side_block_types').include?(CustomBlock7)
+    assert @controller.instance_variable_get('@side_block_types').include?(CustomBlock8)
+    assert @controller.instance_variable_get('@side_block_types').include?(CustomBlock9)
+  end
+
+
   ######################################################
   # END - tests for BoxOrganizerController features 
   ######################################################
@@ -349,6 +434,7 @@ class ProfileDesignControllerTest < ActionController::TestCase
     profile = mock
     profile.stubs(:has_members?).returns(false)
     profile.stubs(:person?).returns(true)
+    profile.stubs(:community?).returns(true)
     profile.stubs(:enterprise?).returns(false)
     profile.stubs(:has_blog?).returns(false)
     profile.stubs(:is_admin?).with(anything).returns(false)
@@ -357,6 +443,7 @@ class ProfileDesignControllerTest < ActionController::TestCase
     environment.stubs(:enabled?).returns(false)
     @controller.stubs(:profile).returns(profile)
     @controller.stubs(:user).returns(profile)
+    Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([])
     assert_equal PERSON_BLOCKS, @controller.available_blocks
   end
 
@@ -364,6 +451,7 @@ class ProfileDesignControllerTest < ActionController::TestCase
     profile = mock
     profile.stubs(:has_members?).returns(true)
     profile.stubs(:person?).returns(true)
+    profile.stubs(:community?).returns(true)
     profile.stubs(:enterprise?).returns(false)
     profile.stubs(:has_blog?).returns(false)
     profile.stubs(:is_admin?).with(anything).returns(false)
@@ -372,6 +460,7 @@ class ProfileDesignControllerTest < ActionController::TestCase
     environment.stubs(:enabled?).returns(false)
     @controller.stubs(:profile).returns(profile)
     @controller.stubs(:user).returns(profile)
+    Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([])
     assert_equal [], @controller.available_blocks - PERSON_BLOCKS_WITH_MEMBERS
   end
 
@@ -379,6 +468,7 @@ class ProfileDesignControllerTest < ActionController::TestCase
     profile = mock
     profile.stubs(:has_members?).returns(false)
     profile.stubs(:person?).returns(true)
+    profile.stubs(:community?).returns(true)
     profile.stubs(:enterprise?).returns(false)
     profile.stubs(:has_blog?).returns(true)
     profile.stubs(:is_admin?).with(anything).returns(false)
@@ -387,6 +477,7 @@ class ProfileDesignControllerTest < ActionController::TestCase
     environment.stubs(:enabled?).returns(false)
     @controller.stubs(:profile).returns(profile)
     @controller.stubs(:user).returns(profile)
+    Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([])
     assert_equal [], @controller.available_blocks - PERSON_BLOCKS_WITH_BLOG
   end
 
@@ -394,6 +485,7 @@ class ProfileDesignControllerTest < ActionController::TestCase
     profile = mock
     profile.stubs(:has_members?).returns(false)
     profile.stubs(:person?).returns(false)
+    profile.stubs(:community?).returns(true)
     profile.stubs(:enterprise?).returns(true)
     profile.stubs(:has_blog?).returns(false)
     profile.stubs(:is_admin?).with(anything).returns(false)
@@ -402,6 +494,7 @@ class ProfileDesignControllerTest < ActionController::TestCase
     environment.stubs(:enabled?).returns(true)
     @controller.stubs(:profile).returns(profile)
     @controller.stubs(:user).returns(profile)
+    Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([])
     assert_equal [], @controller.available_blocks - ENTERPRISE_BLOCKS
   end
 
@@ -409,6 +502,7 @@ class ProfileDesignControllerTest < ActionController::TestCase
     profile = mock
     profile.stubs(:has_members?).returns(false)
     profile.stubs(:person?).returns(false)
+    profile.stubs(:community?).returns(true)
     profile.stubs(:enterprise?).returns(true)
     profile.stubs(:has_blog?).returns(false)
     profile.stubs(:is_admin?).with(anything).returns(false)
@@ -417,6 +511,7 @@ class ProfileDesignControllerTest < ActionController::TestCase
     environment.stubs(:enabled?).returns(false)
     @controller.stubs(:profile).returns(profile)
     @controller.stubs(:user).returns(profile)
+    Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([])
     assert_equal [], @controller.available_blocks - ENTERPRISE_BLOCKS_WITH_PRODUCTS_ENABLE
   end
 
@@ -439,6 +534,146 @@ class ProfileDesignControllerTest < ActionController::TestCase
     ArticleBlock.any_instance.stubs(:article).returns(selected_article)
     get :edit, :profile => 'designtestuser', :id => @b1.id
     assert_tag :tag => 'option', :attributes => {:value => selected_article.id, :selected => 'selected'}
+  end
+
+  should 'the block plugin add a new block' do
+    profile = mock
+    profile.stubs(:has_members?).returns(false)
+    profile.stubs(:person?).returns(true)
+    profile.stubs(:community?).returns(true)
+    profile.stubs(:enterprise?).returns(false)
+    profile.stubs(:has_blog?).returns(false)
+    profile.stubs(:is_admin?).with(anything).returns(false)
+    environment = mock
+    profile.stubs(:environment).returns(environment)
+    environment.stubs(:enabled?).returns(false)
+    @controller.stubs(:profile).returns(profile)
+    @controller.stubs(:user).returns(profile)
+
+    class CustomBlock1 < Block; end;
+
+    class TestBlockPlugin < Noosfero::Plugin
+      def self.extra_blocks
+        {
+          CustomBlock1 => {},
+        }
+      end
+    end
+     
+    Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([TestBlockPlugin.new])
+    assert @controller.available_blocks.include?(CustomBlock1)
+  end
+
+  should 'a person block plugin add new blocks for person profile' do
+    profile = mock
+    profile.stubs(:has_members?).returns(false)
+    profile.stubs(:person?).returns(true)
+    profile.stubs(:community?).returns(false)
+    profile.stubs(:enterprise?).returns(false)
+    profile.stubs(:has_blog?).returns(false)
+    profile.stubs(:is_admin?).with(anything).returns(false)
+    environment = mock
+    profile.stubs(:environment).returns(environment)
+    environment.stubs(:enabled?).returns(false)
+    @controller.stubs(:profile).returns(profile)
+    @controller.stubs(:user).returns(profile)
+
+    class CustomBlock1 < Block; end;
+
+    class TestBlockPlugin < Noosfero::Plugin
+      def self.extra_blocks
+        {
+          CustomBlock1 => {:type => Person},
+        }
+      end
+    end
+     
+    Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([TestBlockPlugin.new])
+    assert @controller.available_blocks.include?(CustomBlock1)
+  end
+
+  should 'a community block plugin add new blocks for community profile' do
+    profile = mock
+    profile.stubs(:has_members?).returns(false)
+    profile.stubs(:person?).returns(false)
+    profile.stubs(:community?).returns(true)
+    profile.stubs(:enterprise?).returns(false)
+    profile.stubs(:has_blog?).returns(false)
+    profile.stubs(:is_admin?).with(anything).returns(false)
+    environment = mock
+    profile.stubs(:environment).returns(environment)
+    environment.stubs(:enabled?).returns(false)
+    @controller.stubs(:profile).returns(profile)
+    @controller.stubs(:user).returns(profile)
+
+    class CustomBlock1 < Block; end;
+
+    class TestBlockPlugin < Noosfero::Plugin
+      def self.extra_blocks
+        {
+          CustomBlock1 => {:type => Community},
+        }
+      end
+    end
+     
+    Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([TestBlockPlugin.new])
+    assert @controller.available_blocks.include?(CustomBlock1)
+  end
+
+  should 'a enterprise block plugin add new blocks for enterprise profile' do
+    profile = mock
+    profile.stubs(:has_members?).returns(false)
+    profile.stubs(:person?).returns(false)
+    profile.stubs(:community?).returns(false)
+    profile.stubs(:enterprise?).returns(true)
+    profile.stubs(:has_blog?).returns(false)
+    profile.stubs(:is_admin?).with(anything).returns(false)
+    environment = mock
+    profile.stubs(:environment).returns(environment)
+    environment.stubs(:enabled?).returns(false)
+    @controller.stubs(:profile).returns(profile)
+    @controller.stubs(:user).returns(profile)
+
+    class CustomBlock1 < Block; end;
+
+    class TestBlockPlugin < Noosfero::Plugin
+      def self.extra_blocks
+        {
+          CustomBlock1 => {:type => Enterprise},
+        }
+      end
+    end
+     
+    Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([TestBlockPlugin.new])
+    assert @controller.available_blocks.include?(CustomBlock1)
+  end
+
+  should 'an environment block plugin not add new blocks for enterprise, person or community profiles' do
+    profile = mock
+    profile.stubs(:has_members?).returns(false)
+    profile.stubs(:person?).returns(true)
+    profile.stubs(:community?).returns(true)
+    profile.stubs(:enterprise?).returns(true)
+    profile.stubs(:has_blog?).returns(false)
+    profile.stubs(:is_admin?).with(anything).returns(false)
+    environment = mock
+    profile.stubs(:environment).returns(environment)
+    environment.stubs(:enabled?).returns(false)
+    @controller.stubs(:profile).returns(profile)
+    @controller.stubs(:user).returns(profile)
+
+    class CustomBlock1 < Block; end;
+
+    class TestBlockPlugin < Noosfero::Plugin
+      def self.extra_blocks
+        {
+          CustomBlock1 => {:type => Environment},
+        }
+      end
+    end
+     
+    Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([TestBlockPlugin.new])
+    assert !@controller.available_blocks.include?(CustomBlock1)
   end
 
 end
