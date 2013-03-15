@@ -136,14 +136,4 @@ class HomeControllerTest < ActionController::TestCase
     assert_no_tag :tag => 'a', :attributes => {:href => '/account/signup'}
   end
 
-  should "not display search field if there is no search engine on" do
-    Noosfero::Plugin::Manager.any_instance.stubs(:first).with(:search_engine?).returns(false)
-    get :index
-    assert_no_tag :tag => 'input', :attributes => {:name => 'query'}
-
-    Noosfero::Plugin::Manager.any_instance.stubs(:first).with(:search_engine?).returns(true)
-    get :index
-    assert_tag :tag => 'input', :attributes => {:name => 'query'}
-  end
-
 end
