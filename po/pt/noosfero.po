@@ -2256,7 +2256,7 @@ msgstr "Empreendimentos são desabilitados quando criados"
 
 #: app/models/environment.rb:121
 msgid "Enterprises are validated when created"
-msgstr "Empreendimentos são validadod quando criados"
+msgstr "Empreendimentos são validadodos quando criados"
 
 #: app/models/environment.rb:122
 msgid "Show a balloon with profile links when a profile image is clicked"
