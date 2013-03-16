@@ -2509,6 +2509,7 @@ div#activation_enterprise label, div#activation_enterprise input, div#activation
   -webkit-border-radius: 10px 0px 0px 10px;
   border-radius: 10px 0px 0px 10px;
   width: 202px;
+  position: relative;
 }
 #product-list .expand-box > span {
   padding-left: 20px;
@@ -2539,17 +2540,22 @@ div#activation_enterprise label, div#activation_enterprise input, div#activation
 #product-list li.product .expand-box > span {
   text-transform: uppercase;
 }
-#product-list li.product .expand-box > div {
+#product-list li.product .expand-box .float-box {
   display: none;
   position: absolute;
+  left: -220px;
+  top: -11px;
   z-index: 10;
+}
+#product-list li.product .expand-box.open .float-box {
+  display: block;
 }
 #product-list li.product .expand-box .content {
   font-size: 11px;
   padding: 6px 5px;
   overflow: auto;
   max-height: 200px;
-  width: 160px;
+  width: 200px;
   border-radius: 5px;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
@@ -2784,7 +2790,7 @@ div#activation_enterprise label, div#activation_enterprise input, div#activation
   position: relative;
   clear: left;
 }
-#product-description, #product-details, #product-info, .input-item {
+#product-details, #product-info, .input-item {
   overflow: hidden;
 }
 #product-info {
