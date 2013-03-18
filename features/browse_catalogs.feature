@@ -18,7 +18,7 @@ Feature: browse catalogs
 
   Scenario: display titles
     Then I should see "Associação de Artesanato de Bonito"
-    And I should see "Products/Services" within "#product-list"
+    And I should see "Products/Services"
 
   Scenario: display the simplest possible product
     Given the following products

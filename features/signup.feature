@@ -3,6 +3,7 @@ Feature: signup
   I want to sign up to the site
   So I can have fun using its features
 
+@selenium
   Scenario: successfull registration
     Given I am on the homepage
     When I follow "Login"
@@ -13,6 +14,7 @@ Feature: signup
       | Password              | secret                |
       | Password confirmation | secret                |
       | Full name             | José da Silva         |
+    And wait for the captcha signup time
     And I press "Create my account"
     Then I should not be logged in
     And I should receive an e-mail on josesilva@example.com
@@ -36,6 +38,7 @@ Feature: signup
     And I go to signup page
     Then I should be on Joao Silva's control panel
 
+  @selenium
   Scenario: user cannot register without a name
     Given I am on the homepage
     And I follow "Login"
@@ -44,6 +47,7 @@ Feature: signup
     And I fill in "Username" with "josesilva"
     And I fill in "Password" with "secret"
     And I fill in "Password confirmation" with "secret"
+    And wait for the captcha signup time
     And I press "Create my account"
     Then I should see "Name can't be blank"
 
