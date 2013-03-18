@@ -49,4 +49,14 @@ class ArticleBlock < Block
     self.box.owner.kind_of?(Environment) ? self.box.owner.portal_community.articles : self.box.owner.articles
   end
 
+  def posts_per_page
+    self.settings[:posts_per_page] or 1
+  end
+
+  def posts_per_page= value
+    value = value.to_i
+    self.settings[:posts_per_page] = value if value > 0
+  end
+
+  settings_items :visualization_format, :type => :string, :default => 'short'
 end

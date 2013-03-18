@@ -18,7 +18,8 @@ module BlogHelper
     pagination = will_paginate(articles, {
       :param_name => 'npage',
       :previous_label => _('&laquo; Newer posts'),
-      :next_label => _('Older posts &raquo;')
+      :next_label => _('Older posts &raquo;'),
+      :params => {:action=>"view_page", :page=>articles.first.parent.path.split('/'), :controller=>"content_viewer"}
     })
     content = []
     artic_len = articles.length
