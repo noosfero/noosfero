@@ -28,7 +28,7 @@
   <br/>
 
   <% if owner %>
-    <%= link_to "#{image_tag ('/plugins/mezuro/images/plus.png')}Add Metric", :controller => "mezuro_plugin_metric_configuration", 
+    <%= link_to "#{image_tag('/plugins/mezuro/images/plus.png')}Add Metric", :controller => "mezuro_plugin_metric_configuration", 
   																			:profile => @page.profile.identifier, 
   																			:action => "choose_metric", 
   																			:id => @configuration_content.id %><br/>

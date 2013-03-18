@@ -1,16 +1,5 @@
 #!/bin/bash
 
-DATABASE="kalibro_tests"
-USER="kalibro"
-PASSWORD="kalibro"
-MYSQL_PARAMS="$DATABASE -u $USER -p$PASSWORD"
-TABLES=($(mysql $MYSQL_PARAMS -e "show tables"))
-LENGTH=${#TABLES}
+DATABASE="kalibro_test"
 
-i=1
-while [ $i -le $LENGTH ]
-  do  if [ ${#TABLES[$i]} -ne 0 ]
-        then  mysql $MYSQL_PARAMS -e "SET FOREIGN_KEY_CHECKS = 0; delete from $DATABASE.${TABLES[$i]}; SET FOREIGN_KEY_CHECKS = 1;"
-      fi
-      i=$(($i+1))
-done
+sudo su postgres -c "export PGPASSWORD=\"kalibro\" && psql -q -t -d $DATABASE -c \"SELECT 'DELETE FROM ' || n.nspname || '.' || c.relname || ' CASCADE;' FROM pg_catalog.pg_class AS c LEFT JOIN pg_catalog.pg_namespace AS n ON n.oid = c.relnamespace WHERE relkind = 'r' AND n.nspname NOT IN ('pg_catalog', 'pg_toast') AND pg_catalog.pg_table_is_visible(c.oid)\" | sed '/sequences/d' > /tmp/query && psql -q -d $DATABASE -f /tmp/query && rm /tmp/query"
