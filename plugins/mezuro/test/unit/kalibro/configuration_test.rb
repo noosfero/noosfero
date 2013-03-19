@@ -23,7 +23,7 @@ class ConfigurationTest < ActiveSupport::TestCase
     assert Kalibro::Configuration.exists?(@configuration.id)
   end
 
-  should 'find configuration' do
+  should 'find a configuration' do
     Kalibro::Configuration.expects(:request).with(:configuration_exists, {:configuration_id => @configuration.id}).returns({:exists => true})
     Kalibro::Configuration.expects(:request).with(:get_configuration, {:configuration_id => @configuration.id}).returns(:configuration => @hash)
     assert_equal @hash[:name], Kalibro::Configuration.find(@configuration.id).name
@@ -34,13 +34,7 @@ class ConfigurationTest < ActiveSupport::TestCase
     assert_raise(Kalibro::Errors::RecordNotFound){Kalibro::Configuration.find(@configuration.id)}
   end
 
-  should 'get configuration of a repository' do
-    repository_id = 31
-    Kalibro::Configuration.expects(:request).with(:configuration_of, {:repository_id => repository_id}).returns({:configuration => @hash})
-    assert_equal @hash[:name], Kalibro::Configuration.configuration_of(repository_id).name
-  end
-
-  should 'get all configuration' do
+  should 'get all configurations' do
     Kalibro::Configuration.expects(:request).with(:all_configurations).returns({:configuration => [@hash]})
     assert_equal @hash[:name], Kalibro::Configuration.all.first.name
   end

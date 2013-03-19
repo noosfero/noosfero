@@ -6,10 +6,6 @@ class Kalibro::Configuration < Kalibro::Model
     @id = value.to_i
   end
 
-  def self.configuration_of(repository_id)
-    new request(:configuration_of, {:repository_id => repository_id})[:configuration]
-  end
-
   def self.all
     response = request(:all_configurations)[:configuration]
     response = [] if response.nil?

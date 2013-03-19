@@ -12,9 +12,4 @@ class Kalibro::Project < Kalibro::Model
     response = [response] if response.is_a?(Hash) 
     response.map {|project| new project}
   end
-
-  def self.project_of(repository_id)
-    new request(:project_of, :repository_id => repository_id)[:project]
-  end
-
 end

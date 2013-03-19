@@ -37,12 +37,6 @@ class ProjectTest < ActiveSupport::TestCase
     assert_raise(Kalibro::Errors::RecordNotFound){Kalibro::Project.find(@project.id)}
   end
 
-  should 'get project of a repository' do
-    repository_id = 31
-    Kalibro::Project.expects(:request).with(:project_of, {:repository_id => repository_id}).returns({:project => @hash})
-    assert_equal @hash[:name], Kalibro::Project.project_of(repository_id).name
-  end
-
   should 'get all projects when there is only one project' do
     Kalibro::Project.expects(:request).with(:all_projects).returns({:project => @hash})
     assert_equal @hash[:name], Kalibro::Project.all.first.name

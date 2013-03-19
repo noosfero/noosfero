@@ -28,12 +28,6 @@ class RepositoryTest < ActiveSupport::TestCase
     assert_equal types, Kalibro::Repository.repository_types
   end
 
-  should 'get repository of a precessing' do
-    id = 31
-    Kalibro::Repository.expects(:request).with(:repository_of, {:processing_id => id}).returns({:repository => @hash})
-    assert_equal @hash[:name], Kalibro::Repository.repository_of(id).name
-  end
-
   should 'get repositories of a project' do
     project_id = 31
     Kalibro::Repository.expects(:request).with(:repositories_of, {:project_id => project_id}).returns({:repository => [@hash]})
@@ -42,16 +36,14 @@ class RepositoryTest < ActiveSupport::TestCase
 
   should 'return true when repository is saved successfully' do
     id_from_kalibro = 1
-    project_id = 56
-    Kalibro::Repository.expects(:request).with(:save_repository, {:repository => @created_repository.to_hash, :project_id => project_id}).returns(:repository_id => id_from_kalibro)
-    assert @created_repository.save(project_id)
+    Kalibro::Repository.expects(:request).with(:save_repository, {:repository => @created_repository.to_hash, :project_id => @created_repository.project_id}).returns(:repository_id => id_from_kalibro)
+    assert @created_repository.save
     assert_equal id_from_kalibro, @created_repository.id
   end
 
   should 'return false when repository is not saved successfully' do
-    project_id = 56
-    Kalibro::Repository.expects(:request).with(:save_repository, {:repository => @created_repository.to_hash, :project_id => project_id}).raises(Exception.new)
-    assert !(@created_repository.save(project_id))
+    Kalibro::Repository.expects(:request).with(:save_repository, {:repository => @created_repository.to_hash, :project_id => @created_repository.project_id}).raises(Exception.new)
+    assert !(@created_repository.save)
     assert_nil @created_repository.id
   end
 

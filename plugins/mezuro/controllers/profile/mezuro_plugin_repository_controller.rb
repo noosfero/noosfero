@@ -8,16 +8,14 @@ class MezuroPluginRepositoryController < MezuroPluginProfileController
 
   def edit
     params_repository_form
-    @repository = @project_content.repositories.select{ |repository| repository.id.to_s == params[:repository_id] }.first
+    @repository = @project_content.repositories.select{ |repository| repository.id == params[:repository_id].to_i }.first
   end
 
   def save
     project_content = profile.articles.find(params[:id])
-
     repository = Kalibro::Repository.new( params[:repository] )
-    repository.save(project_content.project_id)
 
-    if( repository.errors.empty? )
+    if( repository.save )
       repository.process
       redirect_to(repository_url(project_content, repository.id))
     else
@@ -28,7 +26,7 @@ class MezuroPluginRepositoryController < MezuroPluginProfileController
   def show 
     @project_content = profile.articles.find(params[:id])
     @repository = @project_content.repositories.select{ |repository| repository.id == params[:repository_id].to_i }.first
-    @configuration_name = Kalibro::Configuration.configuration_of(@repository.id).name
+    @configuration_name = Kalibro::Configuration.find(@repository.configuration_id).name
   end
 
   def destroy

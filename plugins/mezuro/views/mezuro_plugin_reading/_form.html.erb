@@ -1,4 +1,5 @@
 <%= hidden_field_tag :id, @reading_group_content.id %>
+<%= f.hidden_field(:group_id, :value => @reading_group_content.reading_group_id) %>
 
 <%= required labelled_form_field _('Label:'), f.text_field(:label) %>
 

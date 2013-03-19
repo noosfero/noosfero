@@ -14,7 +14,7 @@ KALIBRO_HOME='/usr/share/tomcat6/.kalibro'
 echo "-->  Creating tests directory"
 sudo mkdir $KALIBRO_HOME/tests
 echo "-->  Copying test settings"
-sudo cp $KALIBRO_HOME/kalibro_tests.settings $KALIBRO_HOME/tests/kalibro.settings
+sudo cp $KALIBRO_HOME/kalibro_test.settings $KALIBRO_HOME/tests/kalibro.settings
 echo "-->  Changing owner of tests directory to tomcat6"
 sudo chown -R tomcat6:tomcat6 $KALIBRO_HOME/tests
 
