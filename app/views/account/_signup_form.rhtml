@@ -32,7 +32,8 @@
     <span id="signup-domain"><%= environment.default_hostname %>/</span>
     <div id='signup-login'>
       <div id='signup-login-field' class='formfield'>
-        <%= required text_field(:user, :login, :id => 'user_login', :onchange => 'this.value = convToValidLogin(this.value);') %>
+        <%= required text_field(:user, :login, :id => 'user_login',
+                                :onchange => 'this.value = convToValidUsername(this.value);') %>
         <div id='url-check'><p>&nbsp;</p></div>
       </div>
       <%= content_tag(:small, _('Choose your login name carefully! It will be your network access and you will not be able to change it later.'), :id => 'signup-balloon') %>

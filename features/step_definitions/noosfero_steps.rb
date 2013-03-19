@@ -538,6 +538,7 @@ end
 
 Then /^I should receive an e-mail on (.*)$/ do |address|
   last_mail = ActionMailer::Base.deliveries.last
+  last_mail.nil?.should be_false
   last_mail['to'].to_s.should == address
 end
 
@@ -747,4 +748,9 @@ Given /^the profile (.*) is configured to (.*) after login$/ do |profile, option
   profile = Profile.find_by_identifier(profile)
   profile.redirection_after_login = redirection
   profile.save
+end
+
+When /^wait for the captcha signup time$/ do
+  environment = Environment.default
+  sleep environment.min_signup_delay + 1
 end

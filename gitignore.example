@@ -11,6 +11,7 @@ config/mongrel_cluster.yml
 config/solr.yml
 config/plugins
 config/thin.yml
+config/local.rb
 index
 locale
 log

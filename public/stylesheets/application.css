@@ -2715,6 +2715,11 @@ div#activation_enterprise label, div#activation_enterprise input, div#activation
   padding: 0;
 }
 
+#catalog-categories-notice {
+  color: #555753;
+  padding-bottom: 0.5em;
+}
+
 /* * * Show Product * * * * * * * * * * * * */
 
 .controller-catalog #show_product .product-pic {
