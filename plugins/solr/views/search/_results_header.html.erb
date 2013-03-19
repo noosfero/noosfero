@@ -9,14 +9,14 @@
       <% end %>
     </div>
 
-    <div class="search-results-header-facets-order-by">
-      <%= facets_unselect_menu(@asset) %>
-      <%= order_by(@asset) if params[:display] != 'map' %>
-    </div>
+    <%= facets_unselect_menu(@asset) %>
   <% else %>
     <div id='search-filter-title'><%= filter_title(@asset, @filter) %></div>
   <% end %>
-  <%= display_selector(@asset, params[:display]) %>
-  <%= filter_selector(@asset, @filter) if @empty_query && params[:display] != 'map' %>
+  <div id="search-actions">
+    <%= order_by(@asset) if params[:display] != 'map' && !@empty_query %>
+    <%= display_selector(@asset, params[:display]) %>
+    <%= filter_selector(@asset, @filter) if @empty_query && params[:display] != 'map' %>
+  </div>
   <div style="clear: both"></div>
 </div>

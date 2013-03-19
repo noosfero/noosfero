@@ -4,11 +4,18 @@
 }
 
 #search-column-right .search-customize-options {
-  float: left;
-  margin-top: 23px;
-  margin-left: 0;
+  position: absolute;
+  margin: 0;
+  padding: 5px 0;
+  bottom: 0;
+  left: 0;
 }
 
 #search-column-right .search-results-box .vcard {
   margin: 4.5px 8px;
+}
+
+#search-column-right #search-actions {
+  position: relative;
+  height: 45px;
 }
