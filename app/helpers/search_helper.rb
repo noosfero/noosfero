@@ -88,6 +88,7 @@ module SearchHelper
   end
 
   def display_selector(asset, display, float = 'right')
+    display = nil if display.blank?
     display ||= asset_class(asset).default_search_display
     if [display?(asset, :map), display?(asset, :compact), display?(asset, :full)].select {|option| option}.count > 1
       compact_link = display?(asset, :compact) ? (display == 'compact' ? _('Compact') : link_to(_('Compact'), params.merge(:display => 'compact'))) : nil
