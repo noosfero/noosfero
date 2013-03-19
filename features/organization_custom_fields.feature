@@ -9,7 +9,7 @@ Feature: organization custom fields
       | joaosilva | Joao Silva |
     And I am logged in as "joaosilva"
     And feature "enterprise_registration" is enabled on environment
-    And I go to the Control panel
+    And I go to joaosilva's control panel
 
   Scenario Outline: organization active fields are not displayed on creation
     Given the following <organization> fields are active fields
@@ -35,7 +35,7 @@ Feature: organization custom fields
       | name          | identifier    |
       | Organization  | organization  |
     And "Joao Silva" is admin of "Organization"
-    And I am on Organization's control panel
+    And I am on organization's control panel
     And I follow <information>
     Then I should see "Display name"
     Then I should see "Contact email"
@@ -70,7 +70,7 @@ Feature: organization custom fields
       | name          | identifier    | display_name | contact_email | city |
       | Organization  |  organization | organization | bla@bleee.com | city |
     And "Joao Silva" is admin of "Organization"
-    And I am on Organization's control panel
+    And I am on organization's control panel
     And I follow <information>
     And I fill in the following:
       | Display name  | |

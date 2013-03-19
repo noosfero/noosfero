@@ -24,6 +24,8 @@ class AccountControllerTest < ActionController::TestCase
     ActiveRecord::Base.establish_connection(:test)
     StoaPlugin::UspUser.create!(:codpes => 12345678, :cpf => Digest::MD5.hexdigest(SALT+'12345678'), :birth_date => '1970-01-30')
     Environment.default.enable_plugin(StoaPlugin.name)
+    @user = create_user('joao-stoa', {:password => 'pass', :password_confirmation => 'pass'},:usp_id=>'87654321')
+    @user.activate
   end
 
   def teardown
@@ -45,6 +47,23 @@ class AccountControllerTest < ActionController::TestCase
   should 'inlude invitation_code param in the person\'s attributes' do
     get :signup, :invitation_code => 12345678
     assert assigns(:person).invitation_code == '12345678'
+  end
+
+  should 'authenticate with usp id' do
+    post :login, :usp_id_login => '87654321', :password => 'pass'
+    assert session[:user]
+    assert_equal @user.login, assigns(:current_user).login
+  end
+
+  should 'not authenticate with wrong password' do
+    post :login, :usp_id_login => '87654321', :password => 'pass123'
+    assert_nil session[:user]
+  end
+
+  should 'authenticate with username' do
+    post :login, :usp_id_login => 'joao-stoa', :password => 'pass'
+    assert session[:user]
+    assert_equal @user.login, assigns(:current_user).login
   end
 
 end

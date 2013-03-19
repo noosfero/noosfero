@@ -1,37 +1,21 @@
 class Kalibro::MetricConfiguration < Kalibro::Model
 
-  NATIVE_TYPE='native'
-  COMPOUND_TYPE='compound'
+  attr_accessor :id, :code, :metric, :base_tool_name, :weight, :aggregation_form, :reading_group_id, :configuration_id
+
+  def id=(value)
+    @id = value.to_i
+  end
   
-  attr_accessor :metric, :code, :weight, :aggregation_form, :range, :configuration_name
+  def reading_group_id=(value)
+    @reading_group_id = value.to_i
+  end
 
   def metric=(value)
-    if value.kind_of?(Hash)
-      @metric = native?(value) ? Kalibro::NativeMetric.to_object(value) : Kalibro::CompoundMetric.to_object(value) 
-    else
-      @metric = value
-    end
+    @metric = Kalibro::Metric.to_object(value)
   end
 
   def weight=(value)
     @weight = value.to_f
-  end
-
-  def range=(value)
-    @range = Kalibro::Range.to_objects_array value
-  end
-
-  def add_range(new_range)
-    @range = [] if @range.nil?
-    @range << new_range
-  end
-
-  def ranges
-    @range
-  end
-
-  def ranges=(ranges)
-    @range = ranges
   end
 
   def update_attributes(attributes={})
@@ -39,38 +23,21 @@ class Kalibro::MetricConfiguration < Kalibro::Model
     save
   end
 
-  def self.find_by_configuration_name_and_metric_name(configuration_name, metric_name)
-    metric_configuration = new request("MetricConfiguration", :get_metric_configuration, {
-        :configuration_name => configuration_name,
-        :metric_name => metric_name
-      })[:metric_configuration]
-    metric_configuration.configuration_name = configuration_name
-    metric_configuration
+  def to_hash
+    super :except => [:configuration_id]
   end
 
-  def destroy
-    begin
-      self.class.request("MetricConfiguration", :remove_metric_configuration, {
-        :configuration_name => configuration_name,
-        :metric_name=> metric.name
-      })
-    rescue Exception => exception
-      add_error exception
-    end
-  end
-  
-  def to_hash
-    super :except => [:configuration_name]
+  def self.metric_configurations_of(configuration_id)
+    response = request(:metric_configurations_of, {:configuration_id => configuration_id})[:metric_configuration]
+    response = [] if response.nil?
+    response = [response] if response.is_a?(Hash) 
+    response.map { |metric_configuration| new metric_configuration }
   end
 
   private
   
-  def native?(value)
-    value.has_key?(:origin) ? true : false
-  end
-  
   def save_params
-    {:metric_configuration => to_hash, :configuration_name => configuration_name}
+    {:metric_configuration => self.to_hash, :configuration_id => self.configuration_id}
   end
   
 end

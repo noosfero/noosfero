@@ -1106,8 +1106,7 @@ a.comment-picture {
 }
 #article .article-comments-list, #article .article-comments-list ul, #article .article-comments-list li {
   padding: 0;
-  margin: 0;
-  margin-bottom: 10px;
+  margin: 25px 0 10px 0;
   list-style: none;
 }
 .article-comment .button-bar {
@@ -1273,20 +1272,24 @@ a.comment-picture {
   background: transparent url(../images/loading-small.gif) no-repeat left center;
 }
 
+
 .post_comment_box {
   text-align: center;
   padding: 0px 15px 5px 15px;
-  margin: 10px auto;
 }
-.post-comment-button a, .post_comment_box h4 {
+
+#comments_list a.display-comment-form {
   padding: 1px 20px;
   margin: 0px;
   background: #eee;
-}
-.post-comment-button a, .post_comment_box.closed h4 {
-  display: inline;
   border: 1px solid #888;
-  cursor: pointer;
+  text-decoration: none;
+  color: black;
+  font-size: 14px;
+  font-weight: bold;
+  -moz-border-radius: 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px;
 }
 .post_comment_box.opened {
   border: 1px solid #888;
@@ -1510,7 +1513,14 @@ a.disabled{
   -webkit-filter: grayscale(1); /* Google Chrome & Safari 6+ */
   cursor: default;
 }
-input.disabled {
+
+#content a.button.disabled:hover {
+  border: 1px solid #AAA;
+  background-color: #EEE;
+  color: #555;
+  cursor: default;
+}
+a.button.disabled, input.disabled {
   opacity: 0.5;
   filter-opacity: 50%;
 }
@@ -1563,6 +1573,11 @@ input.disabled {
 }
 .block iframe {
   border: none;
+}
+
+.block iframe,
+.block embed {
+  max-width: 100%;
 }
 .block-title.empty {
   display: none;
@@ -2289,6 +2304,9 @@ div#activation_enterprise label, div#activation_enterprise input, div#activation
   background: none;
   border: none;
 }
+.formfield.type-select select {
+  max-width: 100%;
+}
 .submitline {
   text-align: center;
 }
@@ -2437,7 +2455,7 @@ div#activation_enterprise label, div#activation_enterprise input, div#activation
   width: 50%;
 }
 
-.description {
+.controller-admin_panel .description {
   background-color: #E6E6E6;
   border: 1px solid #CCC;
   padding: 5px;
@@ -2665,6 +2683,68 @@ div#activation_enterprise label, div#activation_enterprise input, div#activation
 }
 .msie #product-list h3 {
   margin-top: -15px;
+}
+
+.l-sidebar-left-bar ul,
+.l-sidebar-right-bar ul {
+  list-style-type: none;
+  margin-left: 0;
+  padding: 1em 1em 0.5em 1em;
+}
+
+.l-sidebar-left-bar ul ul,
+.l-sidebar-right-bar ul ul {
+  padding-top: 0;
+}
+
+.l-sidebar-left-bar ul{
+  background-color: #eeeeec;
+  border-radius: 5px;
+}
+
+.l-sidebar-left-bar a,
+.l-sidebar-right-bar a {
+  text-decoration: none;
+}
+
+.l-sidebar-left-bar a:hover,
+.l-sidebar-right-bar a:hover {
+  text-decoration: underline;
+}
+
+.l-sidebar-left-bar li,
+.l-sidebar-right-bar li {
+  margin: 0;
+  padding: 0;
+}
+
+#catalog-categories-notice {
+  color: #555753;
+  padding-bottom: 0.5em;
+}
+
+#catalog-categories-homepage-link {
+  background-color: #d3d7cf;
+  font-weight: bold;
+  height: 28px;
+  text-align: center;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+
+#catalog-categories-homepage-link:hover {
+  background-color: #babdb6;
+}
+
+
+#catalog-categories-homepage-link a{
+  display: inline-block;
+  height: 100%;
+  width: 100%;
+  line-height: 28px;
+  text-decoration: none;
+  color: #2e3436;
 }
 /* * * Show Product * * * * * * * * * * * * */
 
@@ -5596,7 +5676,7 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 img {
 #email-check,
 #fake-check,
 #password-check {
-  margin: -2px 171px -5px 0;
+  margin: -2px 16px -5px 13px;
   text-align: right;
   clear: both;
 }
@@ -5612,7 +5692,7 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 img {
 }
 
 .unavailable {
-  color: #FFA000;
+  color: #7f0000;
 }
 
 .checking {
@@ -5628,76 +5708,52 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 img {
   clear: both;
 }
 
-.action-account-signup #main-content-wrapper-8 {
-  background: #ECECEC;
+#signup-form {
+  color: #4A4A4A;
 }
 
-@font-face {
-  font-family: droidserif;
-  src: url('/fonts/DroidSerif-Regular.eot'); /* EOT file for IE */
-  src: local("DroidSerif-Regular"), url('/fonts/DroidSerif-Regular.ttf');
-}
-
-.action-account-signup #content .no-boxes h1 {
-  font-variant: normal;
-  border-bottom: 0;
-  color: #666666;
-  font-family: droidserif, serif;
-  font-weight: lighter;
-  text-align: center;
-  margin-top: 35px;
-  margin-left: 12px;
-}
-
-#signup-form label,
-#signup-form small,
-#signup-form #user_password,
-#signup-form #user_password_confirmation {
+#signup-form small {
    display: none;
 }
 
 #signup-form #signup-form-header {
-  background: #E3E3E3;
-  padding: 22px 0;
   -moz-border-radius: 8px;
   border-radius: 8px;
   -webkit-border-radius: 8px;
-  margin: 60px auto 20px;
+  margin: 60px auto 5px;
   position: relative;
-  width: 563px;
 }
 
 #signup-form input.invalid_input {
-  border: 2px solid #FFA000;
+  border: 2px solid #7f0000;
   background: #FFF;
   padding: 5px 30px 8px 5px;
 }
 
 #signup-form input.valid_input {
-  border: 2px solid #88BD00;
+  border: 2px solid #005000;
   background: #FFF;
   padding: 5px 30px 8px 5px;
 }
 
 #signup-form select,
 #signup-form textarea,
-#signup-form #profile_data_name,
 #signup-form input {
-  background: transparent url(/images/field-bg.png) left top no-repeat;
   padding: 7px 30px 10px 7px;
-  height: 24px;
+  height: 20px;
   width: 335px;
   color: #6d786e;
-  font-size: 20px;
-  font-family: droidserif, serif;
-  margin: 9px 14px 0;
-  border: 0;
+  font-size: 18px;
+  margin: 1px 14px 5px;
 }
 
-#signup-form #user_password,
-#signup-form #user_password_confirmation,
+#signup-form #profile_data_login {
+  margin: 3px 0px 0px 5px;
+}
+
 #signup-form .filled-in,
 #signup-form .invalid,
+#signup-form input.validated,
 #signup-form .checking {
   border-width: 2px;
   border-style: solid;
@@ -5737,44 +5793,26 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 img {
 
 #signup-form input[type=radio] {
   height: auto;
-  margin: 0;
-  margin-left: 3px;
+  margin: 0px 5px 0px 3px;
+  width: auto;
 }
 
 #signup-form .fieldgroup {
   margin: 5px 10px;
-
 }
 
-
-#signup-form #template-options a,
-#signup-form #template-options label,
-#signup-form #template-options span {
-  color: #6D786E;
-  font-size: 20px;
-  font-family: droidserif;
+#signup-form #template-options li label {
+  font-size: 18px;
 }
 
-#signup-form #template-options span {
-  color: #4A4A4A;
+#signup-form #template-options li a {
+  color: #555753
 }
-
-#signup-form #template-options label {
-  display: inline;
-  margin-left: 8px;
-}
-
-#signup-form #template-options input {
-  width: auto;
-}
-
 
 #signup-form label[for=profile_data_sex_female],
 #signup-form label[for=profile_data_sex_male] {
   color: #6d786e;
   font-size: 20px;
-  font-family: droidserif;
-  text-transform: lowercase;
   display: inline;
   margin-left: 8px;
 }
@@ -5790,12 +5828,8 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 img {
   display: block;
 }
 
-#signup-form #profile_data_name {
-  padding-left: 10px;
-}
-
 #signup-form .invalid {
-  border-color: #FFA000;
+  border-color: #7f0000;
   background-image: url(/images/passwords_nomatch.png);
 }
 
@@ -5803,7 +5837,7 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 img {
   border: none;
   padding: 0px;
   background: transparent;
-  color: #FFA000;
+  color: #7f0000;
 }
 
 #signup-form .checking {
@@ -5819,41 +5853,32 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 img {
 }
 
 #signup-form .validated {
-  border-color: #88BD00;
+  border-color: #005000;
   background-image: url(/images/passwords_match.png);
 }
 
 #signup-form span.validated {
   background: transparent;
-  color: #88BD00;
+  color: #005000;
 }
 
 #signup-domain {
   float: left;
   display: inline-block;
   vertical-align: middle;
-  background: #EAEAEA;
-  border-right: 2px solid #FFFFFF;
-  border-top: 2px solid #FFFFFF;
-  border-left: 2px solid #CFCFCF;
-  border-bottom: 2px solid #CFCFCF;
-  line-height: 37px;
+  background: #EEE;
+  border: 1px solid #CFCFCF;
+  line-height: 35px;
   padding: 0px 7px;
   color: #4A4A4A;
   font-size: 20px;
-  font-family: droidserif;
   text-transform: lowercase;
   margin-left: 14px;
 }
 
 #signup-form #signup-form-header #user_login {
   margin: 0;
-  width: 200px;
   padding-right: 30px;
-}
-
-#url-check {
-  width: 239px;
 }
 
 #signup-login-field {
@@ -5862,12 +5887,17 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 img {
 
 #signup-form #signup-password,
 #signup-form #signup-password-confirmation,
+#signup-form #signup-email,
+#signup-form #signup-name,
 #signup-form #signup-login {
   position: relative;
 }
 
 #signup-form small#signup-balloon,
-#signup-form small#password-balloon {
+#signup-form small#password-balloon,
+#signup-form small#password-confirmation-balloon,
+#signup-form small#email-balloon,
+#signup-form small#name-balloon {
   display: none;
   width: 142px;
   height: 69px;
@@ -5877,21 +5907,29 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 img {
   padding: 5px 10px 45px 10px;
   margin: 0;
   line-height: 1.5em;
-  background: transparent url(/images/orange-balloon.png) bottom center no-repeat;
+  background: transparent url(/images/gray-balloon.png) bottom center no-repeat;
   position: absolute;
   z-index: 2;
-  right: -40px;
-  top: -100px;
+  right: -150px;
+}
+
+#signup-form small#signup-balloon {
+  top: -110px;
+}
+
+#signup-form small#password-balloon,
+#signup-form small#password-confirmation-balloon,
+#signup-form small#email-balloon,
+#signup-form small#name-balloon {
+  top: -80px;
 }
 
 #signup-form .required-field label,
 #signup-form .formlabel {
-  color: #b4b9b5;
+  color: #4A4A4A;
   font-size: 20px;
-  text-transform: lowercase;
   font-weight: normal;
   margin-left: 15px;
-  font-family: droidserif;
 }
 
 #signup-form .required-field label::after {
@@ -5930,12 +5968,11 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 img {
 #content #signup-form .submit {
   border: 0;
   padding: 8px 36px 12px;
-  background: transparent url(/images/orange-bg.png) left center repeat-x;
+  background: transparent url(/images/gray-bg.png) left center repeat-x;
   font-size: 17px;
-  font-family: droidserif;
-  color: #FFFFD5;
+  color: #FFF;
   text-align: center;
-  text-shadow: #d45500 0 -1px 0;
+  text-shadow: #424242 0 -1px 0;
   border-radius: 7px;
   -moz-border-radius: 7px;
   -webkit-border-radius: 7px;
@@ -5944,12 +5981,13 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 img {
 }
 
 .action-account-signup .no-boxes {
-  margin-left: 128px;
-  margin-right: 128px;
+  margin-left: 0px;
+  margin-right: 0px;
 }
 
-#signup-form-profile {
-  margin: 30px 0 0 40px;
+.action-account-signup .no-boxes form {
+  margin-left: 247px;
+  margin-right: 247px;
 }
 
 .select-birth-date {
@@ -5982,7 +6020,6 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 img {
 }
 
 #thanks-for-signing h4 {
-  font-family: droidserif, serif;
   color: #6D786E;
   font-size: 20px;
 }
@@ -6098,6 +6135,35 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 img {
      line-height: 1.5;
 }
 
+/* Sidebar Layout */
+
+.l-sidebar-left-bar {
+  float: left;
+  width: 20%;
+}
+
+.l-sidebar-left-content {
+  float: right;
+  width: 78%;
+}
+
+.l-sidebar-right-bar {
+  float: right;
+  width: 20%;
+}
+
+.l-sidebar-right-content {
+  float: left;
+  width: 78%;
+}
+
+/* Breadcrumb */
+
+#breadcrumb {
+  font-size: 16px;
+  margin: 15px 0;
+}
+
 .controller-profile_editor #profile-data {
   display: table;
   width: auto;
@@ -6145,4 +6211,11 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 img {
 #profile_change_picture_title span {
   width: 100px;
   text-align: center;
+}
+
+#product-list .highlighted img.star {
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  z-index: 10;
 }

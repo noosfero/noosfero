@@ -17,7 +17,7 @@ Feature: chat
   Scenario: provide link to open chat
     Given feature "xmpp_chat" is enabled on environment
     And I am logged in as "tame"
-    Then I should see "Open chat" link
+    Then I should see "Open chat" within "#user"
 
   @selenium
   Scenario: provide the chat online users content
@@ -30,18 +30,18 @@ Feature: chat
     Given the profile "tame" has no blocks
     And feature "xmpp_chat" is enabled on environment
     And I am logged in as "tame"
-    And I go to Tame's profile
-    When I click "#chat-online-users-title"
+    And I go to tame's profile
+    When I follow "chat-online-users-title"
     Then I should see "Maria Silva"
     And I should see "Jose Silva"
 
   Scenario: not provide link to chat when environment not support that
     Given I am logged in as "tame"
-    Then I should not see "Open chat" link
+    Then I should not see "Open chat" within "#user"
 
   Scenario: not provide link to chat when the user is logged out
-    Given I am on Tame's homepage
-    Then I should not see "Open chat" link
+    Given I am on tame's homepage
+    Then I should not see "Open chat" within "#user"
 
   @selenium
   Scenario: not provide the chat online users list when environment not support that
@@ -71,8 +71,8 @@ Feature: chat
     Given the profile "tame" has no blocks
     And feature "xmpp_chat" is enabled on environment
     And I am logged in as "tame"
-    And I go to Tame's profile
-    When I click "#chat-online-users-title"
+    And I go to tame's profile
+    When I follow "chat-online-users-title"
     And I follow "Maria Silva"
     And I select window "noosfero_chat"
     Then I should see "Chat - Colivre.net - Friends online (0)"
@@ -83,7 +83,7 @@ Feature: chat
     And I am logged in as "tame"
     When I follow "Open chat"
     And I select window "noosfero_chat"
-    Then I should see "Offline" link
+    Then I should see "Offline" within "a"
 
   @selenium
   Scenario: view options to change my chat status through menu
@@ -91,13 +91,13 @@ Feature: chat
     And I am logged in as "tame"
     And I follow "Open chat"
     When I select window "noosfero_chat"
-    Then the "#chat-online" should not be visible
-    And the "#chat-busy" should not be visible
-    And the "#chat-disconnect" should not be visible
+    Then "Online" should not be visible within "#user-status"
+    And "Busy" should not be visible within "#user-status"
+    And "Sign out of chat" should not be visible within "#user-status"
     When I follow "Offline"
-    Then the "#chat-connect" should be visible
-    And the "#chat-busy" should be visible
-    And the "#chat-disconnect" should be visible
+    Then "Online" should be visible within "#user-status"
+    And "Busy" should be visible within "#user-status"
+    And "Sign out of chat" should be visible within "#user-status"
 
   @selenium
   Scenario: link to open chatroom of a community
@@ -107,8 +107,8 @@ Feature: chat
     And "Tame" is a member of "Autoramas"
     And feature "xmpp_chat" is enabled on environment
     And I am logged in as "tame"
-    When I go to Autoramas's profile
-    Then I should see "Enter chat room" link
+    When I go to autoramas's profile
+    Then I should see "Enter chat room"
 
   @selenium
   Scenario: not see link to open chatroom of a community if not a member
@@ -117,8 +117,8 @@ Feature: chat
       | autoramas | Autoramas |
     And feature "xmpp_chat" is enabled on environment
     And I am logged in as "tame"
-    When I go to Autoramas's profile
-    Then I should not see "Enter chat room" link
+    When I go to autoramas's profile
+    Then I should not see "Enter chat room" within "a"
 
   @selenium
   Scenario: not see link to open chatroom of a community if xmpp_chat disabled
@@ -127,8 +127,8 @@ Feature: chat
       | autoramas | Autoramas |
     And "Tame" is a member of "Autoramas"
     And I am logged in as "tame"
-    When I go to Autoramas's profile
-    Then I should not see "Enter chat room" link
+    When I go to autoramas's profile
+    Then I should not see "Enter chat room" within "a"
 
   @selenium
   Scenario: open chatroom of a community in a new window
@@ -138,7 +138,7 @@ Feature: chat
       | autoramas | Autoramas |
     And "Tame" is a member of "Autoramas"
     And I am logged in as "tame"
-    When I go to Autoramas's profile
+    When I go to autoramas's profile
     And I follow "Enter chat room"
     And I select window "noosfero_chat"
     Then I should see "Chat - Colivre.net - Friends online (0)"

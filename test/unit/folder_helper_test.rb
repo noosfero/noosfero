@@ -33,7 +33,7 @@ class FolderHelperTest < ActiveSupport::TestCase
 
   should 'display icon for type of article' do
     Article.expects(:icon_name).returns('article')
-    assert_match /icon-newarticle/, icon_for_new_article('Article')
+    assert_match /icon-newarticle/, icon_for_new_article(Article)
   end
 
   should 'list all the folder\'s children to the owner' do

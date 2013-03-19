@@ -233,8 +233,10 @@ class Environment < ActiveRecord::Base
     settings[:message_for_member_invitation] || InviteMember.mail_template
   end
 
+  settings_items :min_signup_delay, :type => Integer, :default => 3 #seconds
   settings_items :activation_blocked_text, :type => String
-  settings_items :message_for_disabled_enterprise, :type => String
+  settings_items :message_for_disabled_enterprise, :type => String,
+                 :default => _('This enterprise needs to be enabled.')
   settings_items :location, :type => String
   settings_items :layout_template, :type => String, :default => 'default'
   settings_items :homepage, :type => String
@@ -616,12 +618,10 @@ class Environment < ActiveRecord::Base
   end
 
   def top_url
-    protocol = 'http'
-    result = "#{protocol}://#{default_hostname}"
-    if Noosfero.url_options.has_key?(:port)
-      result << ':' << Noosfero.url_options[:port].to_s
-    end
-    result
+    url = 'http://'
+    url << (Noosfero.url_options.key?(:host) ? Noosfero.url_options[:host] : default_hostname)
+    url << ':' << Noosfero.url_options[:port].to_s if Noosfero.url_options.key?(:port)
+    url
   end
 
   def to_s

@@ -1,6 +1,7 @@
 require "test_helper"
 
 require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/module_result_fixtures"
+require "#{RAILS_ROOT}/plugins/mezuro/test/fixtures/date_module_result_fixtures"
 
 class ModuleResultTest < ActiveSupport::TestCase
 
@@ -8,8 +9,12 @@ class ModuleResultTest < ActiveSupport::TestCase
     @hash = ModuleResultFixtures.module_result_hash
     @module_result = ModuleResultFixtures.module_result
   end
+
   should 'create module result' do
-    assert_equal @module_result.date.to_s , Kalibro::ModuleResult.new(@hash).date.to_s
+    module_result = Kalibro::ModuleResult.new(@hash)
+    assert_equal @hash[:id].to_i , module_result.id
+    assert_equal @hash[:grade].to_f , module_result.grade
+    assert_equal @hash[:parent_id].to_i , module_result.parent_id
   end
   
   should 'convert module result to hash' do
@@ -17,22 +22,29 @@ class ModuleResultTest < ActiveSupport::TestCase
   end
 
   should 'find module result' do
-    date = DateTime.parse(@module_result.date.to_s)
-    name = @module_result.module.name
-    request_body = {:project_name => name, :module_name => name, :date => '2011-10-20T18:26:43.0+00:00'}
     response = {:module_result => @hash}
-    Kalibro::ModuleResult.expects(:request).with('ModuleResult',:get_module_result, request_body).returns(response)
-    assert_equal @module_result.grade, Kalibro::ModuleResult.find_by_project_name_and_module_name_and_date(name, name, date).grade
+    Kalibro::ModuleResult.expects(:request).with(:get_module_result, {:module_result_id => @module_result.id}).returns(response)
+    assert_equal @module_result.grade, Kalibro::ModuleResult.find(@module_result.id).grade
   end
   
-  should 'find all module results' do
-    name = @module_result.module.name
-    request_body = {:project_name => name, :module_name => name}
-    response = {:module_result => @hash}
-    Kalibro::ModuleResult.expects(:request).with('ModuleResult',:get_result_history, request_body).returns(response)
-    response_array = Kalibro::ModuleResult.all_by_project_name_and_module_name(name, name)
-    assert_equal [@module_result].class, response_array.class
-    assert_equal @module_result.grade, response_array[0].grade
+  should 'return children of a module result' do
+    response = {:module_result => [@hash]}
+    Kalibro::ModuleResult.expects(:request).with(:children_of, {:module_result_id => @module_result.id}).returns(response)
+    assert @hash[:id], @module_result.children.first.id
+  end
+
+  should 'return parents of a module result' do
+    parent_module_result = ModuleResultFixtures.parent_module_result_hash
+    response = {:module_result => parent_module_result}
+    Kalibro::ModuleResult.expects(:request).with(:get_module_result, {:module_result_id => @module_result.parent_id}).returns(response)
+    parents = @module_result.parents
+    assert parent_module_result[:module][:name], parents.first.module.name 
+    assert parent_module_result[:module][:name], parents.last.module.name 
+  end
+
+  should 'return history of a module result' do
+    Kalibro::ModuleResult.expects(:request).with(:history_of_module, {:module_result_id => @module_result.id}).returns({:date_module_result => [DateModuleResultFixtures.date_module_result_hash]})
+    assert_equal DateModuleResultFixtures.date_module_result_hash[:module_result][:id].to_i, Kalibro::ModuleResult.history_of(@module_result.id).first.module_result.id
   end
 
 end

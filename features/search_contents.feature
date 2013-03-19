@@ -26,7 +26,7 @@ Feature: search contents
     Then I should see "whales and dolphins" within ".search-text-article-item"
     And I should see "whales and dolphins" within ".only-one-result-box"
     And I should not see "bees and butterflies"
-    And I should see content inside ".icon-content-textile-article"
+    And The page should contain ".icon-content-textile-article"
     When I follow "whales and dolphins"
     Then I should be on article "whales and dolphins"
 
@@ -155,19 +155,19 @@ Feature: search contents
 
   Scenario: link to author on search results
     When I go to the search articles page
-    And I fill in "query" with "whales"
+    And I fill in "search-input" with "whales"
     And I press "Search"
     Then I should see "Author" within ".search-article-author"
     Then I should see "Joao Silva" within ".search-article-author-name"
     When I follow "Joao Silva"
-    Then I should be on Joao Silva's profile
+    Then I should be on joaosilva's profile
 
   Scenario: show clean description excerpt on search results
     Given the following articles
       | owner     | name        | body |
       | joaosilva | Herreninsel | The island    <b>Herreninsel</b>,    with an area of 238 hectares, is the biggest of the three main islands of the Chiemsee, a lake in the state of Bavaria, Germany. Together with the islands of Fraueninsel and Krautinsel it forms the municipality of Chiemsee. |
     When I go to the search articles page
-    And I fill in "query" with "island"
+    And I fill in "search-input" with "island"
     And I press "Search"
     Then I should see "Description" within ".search-article-description"
     And I should see "The island Herreninsel, with" within ".search-article-description"
@@ -178,7 +178,7 @@ Feature: search contents
       | owner     | name        | body |
       | joaosilva | Herreninsel |      |
     When I go to the search articles page
-    And I fill in "query" with "Herreninsel"
+    And I fill in "search-input" with "Herreninsel"
     And I press "Search"
     Then I should see "None" within ".search-article-description"
 
@@ -188,7 +188,7 @@ Feature: search contents
       | bees and butterflies | Hymenoptera |
       | bees and butterflies | Lepidoptera |
     When I go to the search articles page
-    And I fill in "query" with "bees"
+    And I fill in "search-input" with "bees"
     And I press "Search"
     Then I should see "Tags" within ".search-article-tags"
     And I should see "Hymenoptera" within ".search-article-tags"
@@ -198,7 +198,7 @@ Feature: search contents
 
   Scenario: show empty tags in search results
     When I go to the search articles page
-    And I fill in "query" with "dolphins"
+    And I fill in "search-input" with "dolphins"
     And I press "Search"
     Then I should see "None" within ".search-article-tags"
 
@@ -210,14 +210,14 @@ Feature: search contents
       | owner     | name           | body                       | category       |
       | joaosilva | Sergei Sorokin | Retired ice hockey player  | soviet |
     When I go to the search articles page
-    And I fill in "query" with "hockey"
+    And I fill in "search-input" with "hockey"
     And I press "Search"
     Then I should see "Categories" within ".search-article-categories"
     And I should see "Soviet" within ".search-article-category"
 
   Scenario: show empty categories on search results
     When I go to the search articles page
-    And I fill in "query" with "whales"
+    And I fill in "search-input" with "whales"
     And I press "Search"
     Then I should see "whales and dolphins"
     And I should see "None" within ".search-article-categories-container"
@@ -243,7 +243,7 @@ Feature: search contents
       | owner     | name           | body                    | category       |
       | joaosilva | using noosfero | noosfero is a great CMS | software-livre |
     When I go to the search articles page
-    And I fill in "query" with "Software"
+    And I fill in "search-input" with "Software"
     And I press "Search"
     Then I should see "using noosfero" within "#search-results"
     And I should not see "bees and butterflies"
@@ -255,7 +255,7 @@ Feature: search contents
       | joaosilva | JSilva blog |
     When I search contents for "JSilva"
     Then I should see "JSilva blog" within ".search-result-title"
-    And I should see content inside ".icon-content-blog"
+    And The page should contain ".icon-content-blog"
 
   Scenario: show and link last posts on blog search results
     Given the following blogs
@@ -286,7 +286,7 @@ Feature: search contents
 
   Scenario: see default facets when searching
     When I go to the search articles page
-    And I fill in "query" with "bees"
+    And I fill in "search-input" with "bees"
     And I press "Search"
     Then I should see "Type" within "#facets-menu"
     And I should see "Published date" within "#facets-menu"
@@ -295,7 +295,7 @@ Feature: search contents
 
   Scenario: find enterprises without exact query
     When I go to the search articles page
-    And I fill in "query" with "article bees"
+    And I fill in "search-input" with "article bees"
     And I press "Search"
     Then I should see "bees and butterflies" within "#search-results"
 
@@ -309,7 +309,7 @@ Feature: search contents
       | joaosilva | noosfero and debian | this is an article about noosfero and debian | software-livre |
       | joaosilva | facebook and 1984 | this is an article about facebook and 1984 | big-brother |
     When I go to the search articles page
-    And I fill in "query" with "this is an article"
+    And I fill in "search-input" with "this is an article"
     And I press "Search"
     #  Then show me the page
     And I follow "Software Livre" within "#facets-menu"
@@ -329,10 +329,10 @@ Feature: search contents
       | joaosilva | facebook and 1984 | this is an article about facebook and 1984 | big-brother |
       | joaosilva | facebook defense | facebook is not so bad | software-livre |
     When I go to the search articles page
-    And I fill in "query" with "this is an article"
+    And I fill in "search-input" with "this is an article"
     And I press "Search"
     And I follow "Software Livre" within "#facets-menu"
-    And I fill in "query" with "facebook"
+    And I fill in "search-input" with "facebook"
     And I press "Search"
     Then I should see "facebook defense" within "#search-results"
     And I should not see "1984"

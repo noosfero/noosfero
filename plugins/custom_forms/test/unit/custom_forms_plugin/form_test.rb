@@ -169,4 +169,15 @@ class CustomFormsPlugin::FormTest < ActiveSupport::TestCase
     assert_includes scope, f2
     assert_not_includes scope, f3
   end
+
+  should 'destroy fields after removing a form' do
+    form = CustomFormsPlugin::Form.create!(:name => 'Free Software', :profile => fast_create(Profile))
+    license_field = CustomFormsPlugin::Field.create!(:name => 'License', :form => form)
+    url_field = CustomFormsPlugin::Field.create!(:name => 'URL', :form => form)
+
+    assert_difference CustomFormsPlugin::Field, :count, -2 do
+      form.destroy
+    end
+  end
+
 end
