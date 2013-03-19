@@ -1,1 +1,5 @@
-puts "\nI: \e[33mAfter enabling solr you might want to run: $rake solr:reindex\e[0m\n\n"
+puts "\n"
+puts "I: \e[33mTo reindex your contents run: $ rake solr:reindex\e[0m"
+puts "I: \e[33mIf you want to run solr server on this machine you can download it running: $ rake solr:download\e[0m"
+puts "I: \e[33mMake sure your solr server is running!\e[0m"
+puts "\n"
