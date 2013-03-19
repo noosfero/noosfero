@@ -1,4 +1,3 @@
-@mezuro
 Feature: Remove a metric configuration from a configuration 
   As a mezuro user
   I want to remove metric configurations from a configuration

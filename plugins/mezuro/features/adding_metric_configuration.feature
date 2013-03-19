@@ -1,4 +1,3 @@
-@mezuro
 Feature: Add metric configuration to a configuration 
   As a mezuro user
   I want to add metric configurations to a Kalibro configuration
