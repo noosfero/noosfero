@@ -4,7 +4,7 @@ class CreateIndexesForSearch < ActiveRecord::Migration
     klasses = searchables.map {|searchable| searchable.camelize.constantize }
     klasses.each do |klass|
       klass::SEARCHABLE_FIELDS.keys.each do |field|
-        execute "create index pg_search_plugin_#{klass.name.singularize.downcase}_#{field} on #{klass.table_name} using gin(to_tsvector('simple', #{field}))"
+        execute "create index pg_search_plugin_#{klass.name.singularize.downcase}_#{field} on #{klass.table_name} using gin(to_tsvector('simple', \"#{klass.table_name}\".#{field}))"
       end
     end
   end
