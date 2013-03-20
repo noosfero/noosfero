@@ -217,3 +217,7 @@ end
 Then /^show me the page$/ do
   save_and_open_page
 end
+
+Then /^display "([^\"]*)"$/ do |element|
+  evaluate_script("document.getElementById('#{element}').style.display = 'inline';")
+end
