@@ -165,12 +165,7 @@ class ApplicationController < ActionController::Base
 
   def fallback_find_by_contents(asset, scope, query, paginate_options, options)
     return {:results => scope.paginate(paginate_options)} if query.blank?
-    klass = asset.to_s.singularize.camelize.constantize
-    fields = klass::SEARCHABLE_FIELDS.keys.map(&:to_s) & klass.column_names
-    conditions = fields.map do |field|
-      "lower(#{klass.table_name}.#{field}) LIKE \"%#{query.downcase.strip}%\""
-    end.join(' OR ')
-    {:results => scope.where(conditions).paginate(paginate_options)}
+    {:results => scope.like_search(conditions).paginate(paginate_options)}
   end
 
 end

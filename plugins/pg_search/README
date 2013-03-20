@@ -1,0 +1,51 @@
+== Future
+
+If in the future you're considering to make use of weight and ranking on
+the search, you might use the pg_search lib:
+
+https://github.com/Casecommons/pg_search/tree/0.2-stable
+
+Here is how it would be done:
+
+== lib/pg_search_plugin.rb
+
+searchables = %w[ article comment qualifier national_region certifier profile license scrap category ]
+searchables.each { |searchable| require_dependency searchable }
+klasses = searchables.map {|searchable| searchable.camelize.constantize }
+
+klass.class_eval do
+  include PgSearch
+  pg_search_scope :pg_search_plugin_search,
+                  :against => klass::SEARCHABLE_FIELDS.keys,
+                  :using => { :tsearch => {:prefix => true, :tsvector_column => 'pg_search_plugin_tsv' } }
+end
+
+==
+
+You also would want to add the adequate indexes to the this searches. Here is
+an example with the profiles table:
+
+== db/migrate/000_create_indexes_for_profile_search.rb
+
+class CreateTsvIndexesForProfile < ActiveRecord::Migration
+  def self.up
+    execute "ALTER TABLE profiles ADD COLUMN pg_search_plugin_tsv tsvector"
+    fields = Profile::SEARCHABLE_FIELDS.map {|field, weight| "to_tsvector('simple', coalesce(\"profiles\".\"#{field}\", ''))"}.join(' || ')
+    execute <<-QUERY
+    UPDATE profiles SET pg_search_plugin_tsv = (#{fields});
+    QUERY
+
+    triggers = "pg_search_plugin_tsv, 'pg_catalog.simple', "
+    triggers += Profile::SEARCHABLE_FIELDS.keys.join(', ')
+    execute "CREATE TRIGGER pg_search_plugin_profiles_tsvectorupdate BEFORE INSERT OR UPDATE
+             ON profiles FOR EACH ROW EXECUTE PROCEDURE
+             tsvector_update_trigger(#{triggers});"
+  end
+
+  def self.down
+    execute "drop trigger pg_search_plugin_profiles_tsvectorupdate on profiles"
+    execute "alter table profiles drop column pg_search_plugin_tsv"
+  end
+end
+
+==

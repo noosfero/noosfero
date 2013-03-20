@@ -13,4 +13,17 @@ class ActiveRecord::Base
     key.join('/')
   end
 
+  def self.like_search(query)
+    if defined?(self::SEARCHABLE_FIELDS)
+      fields = self::SEARCHABLE_FIELDS.keys.map(&:to_s) & column_names
+      query = query.downcase.strip
+      conditions = fields.map do |field|
+        "lower(#{table_name}.#{field}) LIKE '%#{query}%'"
+      end.join(' OR ')
+      where(conditions)
+    else
+      raise "No searchable fields defined for #{self.name}"
+    end
+  end
+
 end
