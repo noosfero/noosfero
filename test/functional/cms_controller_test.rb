@@ -6,6 +6,8 @@ class CmsController; def rescue_action(e) raise e end; end
 
 class CmsControllerTest < ActionController::TestCase
 
+  include NoosferoTestHelper
+
   fixtures :environments
 
   def setup
@@ -199,11 +201,27 @@ class CmsControllerTest < ActionController::TestCase
   should 'be able to remove article' do
     a = profile.articles.build(:name => 'my-article')
     a.save!
-
     assert_difference Article, :count, -1 do
+      @request.env['HTTP_REFERER'] = url_for :controller => 'cms', :profile => profile.identifier, :action => 'index'
       post :destroy, :profile => profile.identifier, :id => a.id
       assert_redirected_to :controller => 'cms', :profile => profile.identifier, :action => 'index'
     end
+  end
+
+  should 'redirect to cms after remove article from content management' do
+    a = profile.articles.build(:name => 'my-article')
+    a.save!
+    @request.env['HTTP_REFERER'] = url_for :controller => 'cms', :profile => profile.identifier, :action => 'index'
+    post :destroy, :profile => profile.identifier, :id => a.id
+    assert_redirected_to :controller => 'cms', :profile => profile.identifier, :action => 'index'
+  end
+
+  should 'redirect to blog after remove article from content viewer' do
+    a = profile.articles.build(:name => 'my-article')
+    a.save!
+    @request.env['HTTP_REFERER'] = url_for :controller => 'content_viewer', :action => 'view_page'
+    post :destroy, :profile => profile.identifier, :id => a.id
+    assert_redirected_to :controller => 'content_viewer', :action => 'view_page'
   end
 
   should 'be able to acess Rss feed creation page' do
@@ -888,6 +906,7 @@ class CmsControllerTest < ActionController::TestCase
 
   should 'offer confirmation to remove article' do
     a = profile.articles.create!(:name => 'my-article')
+    @request.env['HTTP_REFERER'] = url_for :controller => 'cms', :profile => profile.identifier, :action => 'index'
     post :destroy, :profile => profile.identifier, :id => a.id
     assert_response :redirect
   end
