@@ -15,43 +15,31 @@ Feature: send emails to environment members users
     When I go to /admin/users/send_mail
     Then I should see "Access denied"
 
-  @selenium-fixme
   Scenario: Send e-mail to members
     Given I am logged in as admin
-    When I follow "Administration"
-    And I follow "Users"
-    And I follow "Send e-mail to users"
+    And I go to /admin/users/send_mail
     And I fill in "Subject" with "Hello, user!"
     And I fill in "Body" with "We have some news"
     When I press "Send"
     Then I should be on /admin/users
 
-  @selenium-fixme
   Scenario: Not send e-mail to members if subject is blank
     Given I am logged in as admin
-    When I follow "Administration"
-    And I follow "Users"
-    And I follow "Send e-mail to users"
+    And I go to /admin/users/send_mail
     And I fill in "Body" with "We have some news"
     When I press "Send"
     Then I should be on /admin/users/send_mail
 
-  @selenium
   Scenario: Not send e-mail to members if body is blank
     Given I am logged in as admin
-    When I follow "Administration"
-    And I follow "Users"
-    And I follow "Send e-mail to users"
+    And I go to /admin/users/send_mail
     And I fill in "Subject" with "Hello, user!"
     When I press "Send"
     Then I should be on /admin/users/send_mail
 
-  @selenium
   Scenario: Cancel creation of mailing
     Given I am logged in as admin
-    When I follow "Administration"
-    And I follow "Users"
-    And I follow "Send e-mail to users"
+    And I go to /admin/users/send_mail
     Then I should be on /admin/users/send_mail
     When I follow "Cancel e-mail"
     Then I should be on /admin/users
