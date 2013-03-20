@@ -21,7 +21,7 @@ function Cart(config) {
       },
       cache: false,
       error: function(ajax, status, errorThrown) {
-        alert('Visibility - HTTP '+status+': '+errorThrown);
+        log.error('Visibility - HTTP '+status, errorThrown);
       }
     });
     $(".cart-buy", this.cartElem).colorbox({ href: '/plugin/shopping_cart/buy' });
@@ -36,12 +36,12 @@ function Cart(config) {
       url: '/plugin/shopping_cart/list',
       dataType: 'json',
       success: function(data, ststus, ajax){
-        if ( !data.ok ) alert(data.error.message);
+        if ( !data.ok ) log.error(data.error);
         else me.addToList(data, true);
       },
       cache: false,
       error: function(ajax, status, errorThrown) {
-        alert('List cart items - HTTP '+status+': '+errorThrown);
+        log.error('List cart items - HTTP '+status, errorThrown);
       }
     });
   }
@@ -49,6 +49,7 @@ function Cart(config) {
   Cart.prototype.addToList = function(data, clear) {
     if( clear ) this.itemsBox.empty();
     var me = this;
+    this.productsLength = data.products.length;
     for( var item,i=0; item=data.products[i]; i++ ) {
       this.items[item.id] = { price:item.price, quantity:item.quantity };
       this.updateTotal();
@@ -75,9 +76,7 @@ function Cart(config) {
       input.onchange = function() {
         me.updateQuantity(this, this.productId, this.value);
       };
-//      document.location.href = "#"+liId;
-//      document.location.href = "#"+this.cartElem.id;
-//      history.go(-2);
+      // TODO: Scroll to newest item
       var liBg = li.css("background-color");
       li[0].style.backgroundColor = "#FF0";
       li.animate({ backgroundColor: liBg }, 1000);
@@ -103,7 +102,7 @@ function Cart(config) {
       dataType: 'json',
       success: function(data, status, ajax){
         if ( !data.ok ) {
-          alert(data.error.message);
+          log.error(data.error);
           input.value = input.lastValue;
         }
         else {
@@ -114,7 +113,7 @@ function Cart(config) {
       },
       cache: false,
       error: function(ajax, status, errorThrown) {
-        alert('Add item - HTTP '+status+': '+errorThrown);
+        log.error('Add item - HTTP '+status, errorThrown);
         input.value = input.lastValue;
       },
       complete: function(){
@@ -132,7 +131,14 @@ function Cart(config) {
   }
 
   Cart.addItem = function(itemId, link) {
+    if ( this.productsLength > 100 ) {
+      // This limit protect the user from losing data on cookie limit.
+      // This is NOT limiting to 100 products, is limiting to 100 kinds of products.
+      alert(shoppingCartPluginL10n.maxNumberOfItens);
+      return false;
+    }
     link.intervalId = setInterval(function() {
+      $(link).addClass('loading');
       steps = ['w', 'n', 'e', 's'];
       if( !link.step || link.step==3 ) link.step = 0;
       link.step++;
@@ -140,6 +146,7 @@ function Cart(config) {
     }, 100);
     var stopBtLoading = function() {
       clearInterval(link.intervalId);
+      $(link).removeClass('loading');
       $(link).button({ icons: { primary: 'ui-icon-cart'}, disable: false });
     };
     this.instance.addItem(itemId, stopBtLoading);
@@ -151,12 +158,12 @@ function Cart(config) {
       url: '/plugin/shopping_cart/add/'+ itemId,
       dataType: 'json',
       success: function(data, status, ajax){
-        if ( !data.ok ) alert(data.error.message);
+        if ( !data.ok ) log.error('Shopping cart data failure', data.error);
         else me.addToList(data);
       },
       cache: false,
       error: function(ajax, status, errorThrown) {
-        alert('Add item - HTTP '+status+': '+errorThrown);
+        log.error('Add item - HTTP '+status, errorThrown);
       },
       complete: callback
     });
@@ -174,12 +181,12 @@ function Cart(config) {
       url: '/plugin/shopping_cart/remove/'+ itemId,
       dataType: 'json',
       success: function(data, status, ajax){
-        if ( !data.ok ) alert(data.error.message);
+        if ( !data.ok ) log.error(data.error);
         else me.removeFromList(data.product_id);
       },
       cache: false,
       error: function(ajax, status, errorThrown) {
-        alert('Remove item - HTTP '+status+': '+errorThrown);
+        log.error('Remove item - HTTP '+status, errorThrown);
       }
     });
   }
@@ -197,7 +204,7 @@ function Cart(config) {
       dataType: 'json',
       cache: false,
       error: function(ajax, status, errorThrown) {
-        alert('Show - HTTP '+status+': '+errorThrown);
+        log.error('Show - HTTP '+status, errorThrown);
       }
     });
     this.visible = true;
@@ -212,7 +219,7 @@ function Cart(config) {
       dataType: 'json',
       cache: false,
       error: function(ajax, status, errorThrown) {
-        alert('Hide - HTTP '+status+': '+errorThrown);
+        log.error('Hide - HTTP '+status, errorThrown);
       }
     });
     this.visible = false;
@@ -248,7 +255,7 @@ function Cart(config) {
       url: '/plugin/shopping_cart/clean',
       dataType: 'json',
       success: function(data, status, ajax){
-        if ( !data.ok ) alert(data.error.message);
+        if ( !data.ok ) log.error(data.error);
         else{
           me.items = {};
           $(me.cartElem).slideUp(500, function() {
@@ -261,7 +268,7 @@ function Cart(config) {
       },
       cache: false,
       error: function(ajax, status, errorThrown) {
-        alert('Remove item - HTTP '+status+': '+errorThrown);
+        log.error('Remove item - HTTP '+status, errorThrown);
       }
     });
   }
@@ -288,7 +295,7 @@ function Cart(config) {
       },
       cache: false,
       error: function(ajax, status, errorThrown) {
-        alert('Send request - HTTP '+status+': '+errorThrown);
+        log.error('Send request - HTTP '+status, errorThrown);
       },
       complete: function() {
         $.colorbox.close();
@@ -311,7 +318,10 @@ function Cart(config) {
       },
       cache: false,
       error: function(ajax, status, errorThrown) {
-        alert('Error getting shopping cart - HTTP '+status+': '+errorThrown);
+        log.error('Error getting shopping cart - HTTP '+status, errorThrown);
+        if ( confirm(shoppingCartPluginL10n.getProblemConfirmReload) ) {
+          document.location.reload();
+        }
       }
     });
   });

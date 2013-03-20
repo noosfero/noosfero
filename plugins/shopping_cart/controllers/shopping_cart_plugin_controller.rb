@@ -57,14 +57,24 @@ class ShoppingCartPluginController < PublicController
   def list
     if validate_cart_presence
       products = self.cart[:items].collect do |id, quantity|
-        product = Product.find(id)
-        { :id => product.id,
-          :name => product.name,
-          :price => get_price(product, product.enterprise.environment),
-          :description => product.description,
-          :picture => product.default_image(:minor),
-          :quantity => quantity
-        }
+        product = Product.find_by_id(id)
+        if product
+          { :id => product.id,
+            :name => product.name,
+            :price => get_price(product, product.enterprise.environment),
+            :description => product.description,
+            :picture => product.default_image(:minor),
+            :quantity => quantity
+          }
+        else
+          { :id => id,
+            :name => _('Undefined product'),
+            :price => 0,
+            :description => _('Wrong product id'),
+            :picture => '',
+            :quantity => quantity
+          }
+        end
       end
       render :text => {
         :ok => true,
