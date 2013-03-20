@@ -618,12 +618,10 @@ class Environment < ActiveRecord::Base
   end
 
   def top_url
-    protocol = 'http'
-    result = "#{protocol}://#{default_hostname}"
-    if Noosfero.url_options.has_key?(:port)
-      result << ':' << Noosfero.url_options[:port].to_s
-    end
-    result
+    url = 'http://'
+    url << (Noosfero.url_options.key?(:host) ? Noosfero.url_options[:host] : default_hostname)
+    url << ':' << Noosfero.url_options[:port].to_s if Noosfero.url_options.key?(:port)
+    url
   end
 
   def to_s
