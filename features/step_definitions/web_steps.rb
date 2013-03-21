@@ -114,6 +114,15 @@ Then /^(?:|I )should see "([^"]*)"(?: within "([^"]*)")?$/ do |text, selector|
   end
 end
 
+
+Then /^(?:|I )should see "([^"]*)" within any "([^"]*)"?$/ do |text, selector|
+  if page.respond_to? :should
+    page.should have_css(selector, :content => text)
+  else
+    assert page.has_css?(selector, :content => text)
+  end
+end
+
 Then /^(?:|I )should see \/([^\/]*)\/(?: within "([^"]*)")?$/ do |regexp, selector|
   regexp = Regexp.new(regexp)
   with_scope(selector) do

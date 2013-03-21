@@ -39,28 +39,33 @@ Feature: domain for profile
     And I follow "Control panel" within "div#user"
     Then I should see "Joao Silva" within "span.control-panel-title"
 
+  # Looking for page title is problematic on selenium since it considers the
+  # title to be invibible. Checkout some information about this:
+  #   * https://github.com/jnicklas/capybara/issues/863
+  #   * https://github.com/jnicklas/capybara/pull/953
   @selenium
   Scenario: access user page
     Given I am logged in as "joaosilva"
     When I go to the homepage
     And I follow "joaosilva"
     Then I should be on joaosilva's profile
-    And the page title should be "Joao Silva"
+    And I should see "Joao Silva" within any "h1"
+    #And the page title should be "Joao Silva"
 
-  @selenium-fixme
   Scenario: access community by domain
     Given I go to the search communities page
     When I follow "Sample Community" within ".search-profile-item"
     Then the page title should be "Sample Community"
 
-  @selenium-fixme
+  # This test is not working because the community domain isn't at all different
+  # from the environment (localhost / 127.0.0.1)
+  @fixme
   Scenario: Go to profile homepage after clicking on home button on not found page
     Given I am on sample-community's homepage
     When I go to /something-that-does-not-exist
     And I follow "Go to the home page"
     Then the page title should be "Sample Community - Colivre.net"
 
-  @selenium
   Scenario: Go to environment homepage after clicking on home button on not found page
     Given I am on the homepage
     When I go to /something-that-does-not-exist
