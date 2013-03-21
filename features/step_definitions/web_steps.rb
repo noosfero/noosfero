@@ -228,5 +228,8 @@ Then /^show me the page$/ do
 end
 
 Then /^display "([^\"]*)"$/ do |element|
-  evaluate_script("document.getElementById('#{element}').style.display = 'inline';")
+  # Need this " && false " work-around because this version of selenium doesn't
+  # have the execute_script method which does not returns the script. Checout:
+  #   * https://github.com/jnicklas/capybara/issues/76
+  evaluate_script("jQuery('#{element}').show() && false;")
 end

@@ -17,28 +17,24 @@ Feature: balloon
 
   @selenium
   Scenario: I should not see trigger by default
-    Given the following blocks
-      | owner       | type        |
-      | environment | PeopleBlock |
-    And feature "show_balloon_with_profile_links_when_clicked" is enabled on environment
-    When I go to the homepage
+    Given feature "show_balloon_with_profile_links_when_clicked" is enabled on environment
+    When I go to /search/people
     Then I should not see "Friends"
 
-  @selenium-fixme
+  @selenium
   Scenario: I should see balloon when clicked on people block trigger
-    Given the following blocks
-      | owner       | type        |
-      | environment | PeopleBlock |
-    And feature "show_balloon_with_profile_links_when_clicked" is enabled on environment
-    When I go to the homepage
-    And I follow "Profile links"
+    Given feature "show_balloon_with_profile_links_when_clicked" is enabled on environment
+    And I go to /search/people
+    And display ".person-trigger"
+    When I follow "Profile links"
     Then I should see "Friends"
 
-  @selenium-fixme
+  @selenium
   Scenario: I should see balloon when clicked on community block trigger
     Given feature "show_balloon_with_profile_links_when_clicked" is enabled on environment
-    When I go to /search/communities
-    And I follow "Profile links"
+    And I go to /search/communities
+    And display ".community-trigger"
+    When I follow "Profile links"
     Then I should see "Members"
 
   @selenium
@@ -53,10 +49,11 @@ Feature: balloon
     When I go to /assets/communities
     Then I should not see "Members"
 
-  @selenium-fixme
+  @selenium
   Scenario: I should see balloon when clicked on page trigger
     Given feature "show_balloon_with_profile_links_when_clicked" is enabled on environment
-    When I go to /assets/communities
-    And I follow "Profile links"
+    And I go to /assets/communities
+    And display ".community-trigger"
+    When I follow "Profile links"
     Then I should see "Members"
     And I should see "Agenda"
