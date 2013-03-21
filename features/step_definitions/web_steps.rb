@@ -210,6 +210,16 @@ Then /^(?:|I )should be on (.+)$/ do |page_name|
   end
 end
 
+Then /^(?:|I )should be exactly on (.+)$/ do |page_name|
+  uri = URI.parse(current_url)
+  path_with_params = "#{uri.path}?#{uri.query}"
+  if path_with_params.respond_to? :should
+    path_with_params.should == path_to(page_name)
+  else
+    assert_equal path_to(page_name), path_with_params
+  end
+end
+
 Then /^(?:|I )should have the following query string:$/ do |expected_pairs|
   query = URI.parse(current_url).query
   actual_params = query ? CGI.parse(query) : {}

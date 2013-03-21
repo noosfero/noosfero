@@ -14,19 +14,23 @@ Feature: comment
       | article              | author  | title | body         |
       | article with comment | booking | hi    | how are you? |
       | article with comment | booking | hello | i am fine    |
+    And feature "captcha_for_logged_users" is disabled on environment
+    And I am logged in as "booking"
 
   Scenario: not post a comment without javascript
     Given I am on /booking/article-to-comment
-    And I fill in "Name" with "Joey Ramone"
-    And I fill in "e-mail" with "joey@ramones.com"
+    And I follow "Post a comment"
     And I fill in "Title" with "Hey ho, let's go!"
     And I fill in "Enter your comment" with "Hey ho, let's go!"
     When I press "Post comment"
     Then I should not see "Hey ho, let's go"
 
+  # This test requires some way to overcome the captcha with unauthenticated
+  # user.
   @selenium-fixme
   Scenario: post a comment while not authenticated
     Given I am on /booking/article-to-comment
+    And I follow "Post a comment"
     And I fill in "Name" with "Joey Ramone"
     And I fill in "e-mail" with "joey@ramones.com"
     And I fill in "Title" with "Hey ho, let's go!"
@@ -34,58 +38,57 @@ Feature: comment
     When I press "Post comment"
     Then I should see "Hey ho, let's go"
 
-  @selenium-fixme
+  @selenium
   Scenario: post comment while authenticated
-    Given I am logged in as "booking"
-    And I am on /booking/article-to-comment
+    Given I am on /booking/article-to-comment
+    And I follow "Post a comment"
     And I fill in "Title" with "Hey ho, let's go!"
     And I fill in "Enter your comment" with "Hey ho, let's go!"
     When I press "Post comment"
     Then I should see "Hey ho, let's go"
 
-  @selenium-fixme
+  @selenium
   Scenario: redirect to right place after comment a picture
     Given the following files
       | owner   | file      | mime      |
       | booking | rails.png | image/png |
-    Given I am logged in as "booking"
     And I am on /booking/rails.png?view=true
+    And I follow "Post a comment"
     And I fill in "Title" with "Hey ho, let's go!"
     And I fill in "Enter your comment" with "Hey ho, let's go!"
     When I press "Post comment"
     Then I should be exactly on /booking/rails.png?view=true
 
-  @selenium-fixme
+  @selenium
   Scenario: show error messages when make a blank comment
-    Given I am logged in as "booking"
-    And I am on /booking/article-to-comment
+    Given I am on /booking/article-to-comment
+    And I follow "Post a comment"
     When I press "Post comment"
-    Then I should see "Title can't be blank"
-    And I should see "Body can't be blank"
+    Then I should see "Body can't be blank"
 
   @selenium-fixme
   Scenario: disable post comment button
     Given I am on /booking/article-to-comment
-    And I fill in "Name" with "Joey Ramone"
-    And I fill in "e-mail" with "joey@ramones.com"
+    And I follow "Post a comment"
     And I fill in "Title" with "Hey ho, let's go!"
     And I fill in "Enter your comment" with "Hey ho, let's go!"
     When I press "Post comment"
-    Then the "value.Post comment" button should not be enabled
-    And I should see "Hey ho, let's go"
+# Implement these steps...
+#    Then "Post comment" button should not be enabled
+#    And I should see "Hey ho, let's go"
 
-  @selenium-fixme
+  @selenium
   Scenario: render comment form and go to bottom
     Given I am on /booking/article-with-comment
-    When I follow "Post a comment" within ".post-comment-button"
-    Then I should see "Enter your comment" within "div#page-comment-form div.post_comment_box.opened"
-    And I should be exactly on /booking/article-with-comment
-    And I should be moved to anchor "comment_form"
+    When I follow "Post a comment"
+    Then I should see "Enter your comment"
+    And I should be on /booking/article-with-comment
 
-  @selenium-fixme
+  @selenium
   Scenario: keep comments field filled while trying to do a comment
     Given I am on /booking/article-with-comment
-    And I fill in "Name" with "Joey Ramone"
+    And I follow "Post a comment"
+    And I fill in "Title" with "Joey Ramone"
     When I press "Post comment"
-    Then the "Name" field should contain "Joey Ramone"
-    And I should see "errors prohibited"
+    Then the "Title" field should contain "Joey Ramone"
+    And I should see "Body can't be blank"
