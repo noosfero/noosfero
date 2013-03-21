@@ -7,7 +7,7 @@ Feature: language redirection
       | login  | name         |
       | manuel | Manuel Silva |
     And the following articles
-      | owner  | name       | body            | lang | translation_of |
+      | owner  | name       | body            | language | translation_of |
       | manuel | Meu Artigo | isso é um teste | pt   | nil            |
       | manuel | My Article | this is a test  | en   | Meu Artigo     |
 

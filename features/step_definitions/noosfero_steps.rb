@@ -114,7 +114,7 @@ Given /^the following (articles|events|blogs|folders|forums|galleries|uploaded f
     parent = item.delete("parent")
     owner = Profile[owner_identifier]
     home = item.delete("homepage")
-    language = item.delete("lang")
+    language = item.delete("language")
     category = item.delete("category")
     filename = item.delete("filename")
     translation_of_id = nil
@@ -129,24 +129,24 @@ Given /^the following (articles|events|blogs|folders|forums|galleries|uploaded f
       :profile => owner,
       :language => language,
       :translation_of_id => translation_of_id)
-      if !filename.blank?
-        item.merge!(:uploaded_data => fixture_file_upload("/files/#{filename}", 'binary/octet-stream'))
+    if !filename.blank?
+      item.merge!(:uploaded_data => fixture_file_upload("/files/#{filename}", 'binary/octet-stream'))
+    end
+    result = klass.new(item)
+    if !parent.blank?
+      result.parent = Article.find_by_name(parent)
+    end
+    if category
+      cat = Category.find_by_slug category
+      if cat
+        result.add_category(cat)
       end
-      result = klass.new(item)
-      if !parent.blank?
-        result.parent = Article.find_by_name(parent)
-      end
-      if category
-        cat = Category.find_by_slug category
-        if cat
-          result.add_category(cat)
-        end
-      end
-      result.save!
-      if home == 'true'
-        owner.home_page = result
-        owner.save!
-      end
+    end
+    result.save!
+    if home == 'true'
+      owner.home_page = result
+      owner.save!
+    end
   end
 end
 
