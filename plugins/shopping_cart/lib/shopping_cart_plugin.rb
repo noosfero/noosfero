@@ -12,10 +12,6 @@ class ShoppingCartPlugin < Noosfero::Plugin
       _("A shopping basket feature for enterprises")
     end
 
-    def enabled_default_setting
-      true
-    end
-
     def delivery_default_setting
       false
     end
