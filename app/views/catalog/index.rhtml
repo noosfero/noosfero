@@ -7,6 +7,7 @@
 
 <div class='l-sidebar-left-bar'>
   <ul>
+    <%= content_tag('li', link_to(_('Enterprise homepage'), profile.public_profile_url), :id => 'catalog-categories-homepage-link') %>
     <% if @categories.present? %>
       <% @categories.each do |category| %>
         <%= category_link(category) %>

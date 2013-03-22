@@ -2720,6 +2720,29 @@ div#activation_enterprise label, div#activation_enterprise input, div#activation
   padding-bottom: 0.5em;
 }
 
+#catalog-categories-homepage-link {
+  background-color: #d3d7cf;
+  font-weight: bold;
+  height: 28px;
+  text-align: center;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+
+#catalog-categories-homepage-link:hover {
+  background-color: #babdb6;
+}
+
+
+#catalog-categories-homepage-link a{
+  display: inline-block;
+  height: 100%;
+  width: 100%;
+  line-height: 28px;
+  text-decoration: none;
+  color: #2e3436;
+}
 /* * * Show Product * * * * * * * * * * * * */
 
 .controller-catalog #show_product .product-pic {
