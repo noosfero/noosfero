@@ -89,7 +89,7 @@ body, th, td, input {
   color: #555753;
 }
 
-#controlpanel, #logout, #openchat, #manage-enterprises {
+#controlpanel, #logout, #openchat, .manage-groups {
   margin-left: 25px;
 }
 
