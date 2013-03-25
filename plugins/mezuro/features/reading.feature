@@ -58,7 +58,7 @@ Feature: Reading
     Then I should see "Please fill all fields marked with (*)." inside an alert
 
   @selenium
-  Scenario: I want to add a reading with no color
+  Scenario: I want to add a reading
     Given I am on article "Sample Reading Group"
     When I follow "Add Reading"
     And I fill the fields with the new following data
@@ -83,3 +83,105 @@ Feature: Reading
     And I should see "2.0" in the "reading_grade" input
     And I should see "34afe2" in the "reading_color" input
     And I should see "Save" button
+
+  @selenium
+  Scenario: I want to edit a reading leaving empty its title
+    Given I have a Mezuro reading with the following data
+      | label | Simple  |
+      | grade | 2.0     |
+      | color | 34afe2  |
+    And I am on article "Sample Reading Group"
+    When I follow the edit link for "Simple" reading
+    And I erase the "reading_label" field
+    And I press "Save"
+    Then I should see "Please fill all fields marked with (*)." inside an alert
+
+  @selenium
+  Scenario: I want to edit a reading leaving empty its grade
+    Given I have a Mezuro reading with the following data
+      | label | Simple  |
+      | grade | 2.0     |
+      | color | 34afe2  |
+    And I am on article "Sample Reading Group"
+    When I follow the edit link for "Simple" reading
+    And I erase the "reading_grade" field
+    And I press "Save"
+    Then I should see "Please fill all fields marked with (*)." inside an alert
+
+  @selenium
+  Scenario: I want to edit a reading leaving empty its color
+    Given I have a Mezuro reading with the following data
+      | label | Simple  |
+      | grade | 2.0     |
+      | color | 34afe2  |
+    And I am on article "Sample Reading Group"
+    When I follow the edit link for "Simple" reading
+    And I erase the "reading_color" field
+    And I press "Save"
+    Then I should see "Please fill all fields marked with (*)." inside an alert
+
+  @selenium
+  Scenario: I try to edit a reading with a label which already exists
+    Given I have a Mezuro reading with the following data
+      | label | Simple  |
+      | grade | 2.0     |
+      | color | 34afe2  |
+    And I have a Mezuro reading with the following data
+      | label | Complex |
+      | grade | 5.0     |
+      | color | 13deb2  |
+    And I am on article "Sample Reading Group"
+    When I follow the edit link for "Simple" reading
+    And I fill the fields with the new following data
+      | reading_label | Complex |
+      | reading_grade | 2.0     |
+      | reading_color | 34afe2  |
+    And I press "Save"
+    Then I should see "This label already exists! Please, choose another one." inside an alert
+
+  @selenium
+  Scenario: I try to edit a reading with a grade which already exists
+    Given I have a Mezuro reading with the following data
+      | label | Terrible |
+      | grade | 0.0      |
+      | color | 4feda4   |
+    And I have a Mezuro reading with the following data
+      | label | Perfect  |
+      | grade | 10.0     |
+      | color | de41b2   |
+    And I am on article "Sample Reading Group"
+    When I follow the edit link for "Terrible" reading
+    And I fill the fields with the new following data
+      | reading_label | Terrible |
+      | reading_grade | 10.0     |
+      | reading_color | 4feda4   |
+    And I press "Save"
+    Then I should see "This grade already exists! Please, choose another one." inside an alert
+
+  @selenium
+  Scenario: I want to edit a reading with valid attributes
+    Given I have a Mezuro reading with the following data
+      | label | Awful    |
+      | grade | 2.5      |
+      | color | babaca   |
+    And I am on article "Sample Reading Group"
+    When I follow the edit link for "Awful" reading
+    And I fill the fields with the new following data
+      | reading_label | Awesome  |
+      | reading_grade | 10.0     |
+      | reading_color | fa40fa   |
+    And I press "Save"
+    Then I should see "Awesome"
+    And I should see "10.0"
+    And I should see the "#fa40fa" color
+
+  @selenium
+  Scenario: I want to remove a reading
+    Given I have a Mezuro reading with the following data
+      | label | Unbelievable  |
+      | grade | 9001.0        |
+      | color | f0f0ca        |
+    And I am on article "Sample Reading Group"
+    When I follow the remove link for "Unbelievable" reading
+    Then I should not see "Unbelievable"
+    And I should not see "9001.0"
