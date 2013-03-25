@@ -307,6 +307,11 @@ function Cart(config) {
     $.colorbox.close();
   }
 
+  $(window).bind('beforeunload', function(){
+    log('Page unload.');
+    Cart.unloadingPage = true;
+  });
+
   $(function(){
 
     $.ajax({
@@ -318,10 +323,18 @@ function Cart(config) {
       },
       cache: false,
       error: function(ajax, status, errorThrown) {
-        log.error('Error getting shopping cart - HTTP '+status, errorThrown);
-        if ( confirm(shoppingCartPluginL10n.getProblemConfirmReload) ) {
-          document.location.reload();
-        }
+        // Give some time to register page unload.
+        setTimeout(function() {
+          // page unload is not our problem.
+          if (Cart.unloadingPage) {
+            log('Page unload before cart load.');
+          } else {
+            log.error('Error getting shopping cart - HTTP '+status, errorThrown);
+            if ( confirm(shoppingCartPluginL10n.getProblemConfirmReload) ) {
+              document.location.reload();
+            }
+          }
+        }, 100);
       }
     });
   });
