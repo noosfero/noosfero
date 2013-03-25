@@ -16,16 +16,40 @@ Feature: Configuration
     And I should see "Description"
     And I should see "Clone Configuration"
 
-  #TODO: Create step for Mezuro configuration with clone.
   @selenium @kalibro_restart
   Scenario: I create a Mezuro configuration with valid attributes without cloning
     Given I am on joaosilva's control panel
-    When I create a Mezuro configuration with the following data
-      | Title           | Sample Configuration |
-      | Description     | Sample Description   |
-      | Clone           | None                 |
+    And I follow "Mezuro configuration"
+    When I fill the fields with the new following data
+      | article_name                      | Sample Configuration |
+      | article_description               | Sample Description   |
+      | article_configuration_to_clone_id | None                 |
+    And I press "Save"
     Then I should see "Sample Configuration"
     And I should see "Sample Description"
+    And I should see "Add Metric"
+
+  @selenium @kalibro_restart
+  Scenario: I create a Mezuro configuration with valid attributes with cloning
+    Given I have a Mezuro configuration with the following data
+      | name        | Sample Configuration|
+      | description | Sample Description  |
+      | user        | joaosilva           |
+    And I have a Mezuro reading group with the following data
+      | name        | Sample Reading group |
+      | description | Sample Description   |
+      | user        | joaosilva            |
+    And I have a Mezuro metric configuration with previous created configuration and reading group
+    And I am on joaosilva's control panel
+    And I follow "Mezuro configuration"
+    When I fill the fields with the new following data
+      | article_name                      | Another Configuration |
+      | article_description               | Another Description   |
+      | article_configuration_to_clone_id | Sample Configuration  |
+    And I press "Save"
+    Then I should see "Another Configuration"
+    And I should see "Another Description"
+    And I should see "Total Coupling Factor"
     And I should see "Add Metric"
 
   Scenario: I try to create a Mezuro configuration without title
