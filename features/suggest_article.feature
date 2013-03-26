@@ -17,15 +17,15 @@ Feature: suggest article
       | target           | article_name        | article_body                    | name | email            |
       | sample-community | A suggested article | this is an article about whales | jose | jose@example.org |
     When I am logged in as "joaosilva"
-    And I go to Sample Community's control panel
+    And I go to sample-community's control panel
     And I follow "Process requests"
     And I should see "suggested the publication of the article"
     Then I should see "Highlight this article" within ".task_box"
 
-  @selenium
+  @selenium-fixme
   Scenario: an article is suggested and the admin approve it
     Given I am on Sample Community's blog
-    And I follow "Suggest an article" and wait
+    And I follow "Suggest an article"
     And I fill in "Title" with "Suggestion"
     And I fill in "Your name" with "Some Guy"
     And I fill in "Email" with "someguy@somewhere.com"

@@ -17,7 +17,7 @@ Feature: accept member
   Scenario: approve a task to accept a member as admin in a closed community
     Given "Marie Curie" asked to join "My Community"
     And I am logged in as "mario"
-    And I go to My Community's control panel
+    And I go to mycommunity's control panel
     And I follow "Process requests"
     And I should see "Marie Curie wants to be a member"
     When I choose "Accept"
@@ -28,7 +28,7 @@ Feature: accept member
   Scenario: approve a task to accept a member as member in a closed community
     Given "Marie Curie" asked to join "My Community"
     And I am logged in as "mario"
-    And I go to My Community's control panel
+    And I go to mycommunity's control panel
     And I follow "Process requests"
     And I should see "Marie Curie wants to be a member"
     When I choose "Accept"
@@ -39,7 +39,7 @@ Feature: accept member
   Scenario: approve a task to accept a member as moderator in a closed community
     Given "Marie Curie" asked to join "My Community"
     And I am logged in as "mario"
-    And I go to My Community's control panel
+    And I go to mycommunity's control panel
     And I follow "Process requests"
     And I should see "Marie Curie wants to be a member"
     When I choose "Accept"

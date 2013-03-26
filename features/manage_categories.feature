@@ -26,7 +26,6 @@ Feature: manage categories
   Scenario: load subcategories only after following parent
     Then I should not see "Beans"
     And I should not see "Potatoes"
-    When I follow "Show" and wait for jquery
-    #    Then show me the page
-
-
+    When I follow "Show"
+    Then I should see "Beans"
+    And I should see "Potatoes"

@@ -23,7 +23,7 @@ Feature: featured_products_block
       | redemoinho | automobile  | Moto | Very long description of and auto-mobile moto to be truncated | true |
     And I am logged in as "eddievedder"
 
-  @selenium
+  @selenium-fixme
   Scenario: select a product to be featured
     And I follow "Manage my groups"
     And I follow "Control panel of this group"
@@ -35,7 +35,7 @@ Feature: featured_products_block
     And I should not see "float_to_currency"
     And I should not see "product_path"
 
-  @selenium
+  @selenium-fixme
   Scenario: display block with long description
     Given I follow "Manage my groups"
     And I follow "Control panel of this group"
