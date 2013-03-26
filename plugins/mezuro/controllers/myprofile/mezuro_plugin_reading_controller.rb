@@ -4,6 +4,10 @@ class MezuroPluginReadingController < MezuroPluginMyprofileController
 
   def new
     @reading_group_content = profile.articles.find(params[:id])
+    
+    readings = Kalibro::Reading.readings_of @reading_group_content.reading_group_id
+    @parser="|*|"
+    @labels_and_grades = readings.map {|reading| "#{reading.label}#{@parser}#{reading.grade}#{@parser}"}
   end
 
   def save
@@ -20,6 +24,15 @@ class MezuroPluginReadingController < MezuroPluginMyprofileController
   def edit
     @reading_group_content = profile.articles.find(params[:id])
     @reading = Kalibro::Reading.find params[:reading_id]
+    
+    readings = Kalibro::Reading.readings_of @reading_group_content.reading_group_id
+    readings = readings.select {|reading| (reading.id != @reading.id)}
+    @parser="|*|"
+    @labels_and_grades = readings.map do |reading| 
+      if(reading.id != @reading.id) 
+        "#{reading.label}#{@parser}#{reading.grade}#{@parser}" 
+      end
+    end
   end
 
   def destroy
@@ -32,5 +45,4 @@ class MezuroPluginReadingController < MezuroPluginMyprofileController
       redirect_to_error_page reading.errors[0].message
     end
   end
-
 end

@@ -8,4 +8,6 @@
 <%= required labelled_form_field _('Color:'),
 colorpicker_field(:reading, :color) %>Click in the field to change Color
 
+<div id="labels_and_grades" data-list="<%= @labels_and_grades %>" data-parser="<%= @parser %>"/>
+
 <p><%= f.submit "Save" %></p>

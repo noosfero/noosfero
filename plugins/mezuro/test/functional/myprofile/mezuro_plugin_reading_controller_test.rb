@@ -21,7 +21,11 @@ class MezuroPluginReadingControllerTest < ActionController::TestCase
   end
 
   should 'set variables to create a new reading' do
+    parser = "|*|"    
+    Kalibro::Reading.expects(:readings_of).with(@content.reading_group_id).returns([@reading])
     get :new, :profile => @profile.identifier, :id => @content.id
+    assert_equal parser, assigns(:parser)
+    assert_equal ["#{@reading.label}#{parser}#{@reading.grade}#{parser}"], assigns(:labels_and_grades)
     assert_equal @content.id, assigns(:reading_group_content).id
     assert_response :success
   end
@@ -44,10 +48,16 @@ class MezuroPluginReadingControllerTest < ActionController::TestCase
   end
 
   should 'set variables to edit a reading' do
+    parser = "|*|"    
+    another_reading = ReadingFixtures.reading
+    another_reading.id = 10
+    Kalibro::Reading.expects(:readings_of).with(@content.reading_group_id).returns([@reading, another_reading])
     Kalibro::Reading.expects(:find).with(@reading.id.to_s).returns(@reading)
     get :edit, :profile => @profile.identifier, :id => @content.id, :reading_id => @reading.id
     assert_equal @content.id, assigns(:reading_group_content).id
     assert_equal @reading, assigns(:reading)
+    assert_equal parser, assigns(:parser)
+    assert_equal ["#{another_reading.label}#{parser}#{another_reading.grade}#{parser}"], assigns(:labels_and_grades)
     assert_response :success
   end
 

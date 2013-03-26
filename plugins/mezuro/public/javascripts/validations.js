@@ -24,10 +24,30 @@ function validate_new_reading() {
   var name = jQuery('#reading_label').val();
   var grade = jQuery('#reading_grade').val();
   var color = jQuery('#reading_color').val();
+
   if (is_null(name) || is_null(grade) || is_null(color)){
     alert("Please fill all fields marked with (*).");
     return false;
   }
+
+  var parser = jQuery('#labels_and_grades').attr('data-parser');
+  var labels_and_grades = jQuery('#labels_and_grades').attr('data-list').split(parser);
+  for (var id = 0; id < labels_and_grades.length; id = id + 2) {
+    if (labels_and_grades[id] == name) {
+      alert("This label already exists! Please, choose another one.");
+      return false;
+    } 
+    
+    if (labels_and_grades[id+1] == grade || labels_and_grades[id+1] == grade + ".0") {
+      alert("This grade already exists! Please, choose another one.");
+      return false;
+    }
+  }
+
+  if (!color.match(/^[a-fA-F0-9]{6}$/)) {
+      alert("This is not a valid color.");
+      return false;
+  } 
   return true;
 }
 
