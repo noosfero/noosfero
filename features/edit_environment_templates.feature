@@ -5,7 +5,7 @@ Feature: edit environment templates
   Background:
     Given that the default environment have all profile templates
     And I am logged in as admin
-    And I follow "Administration"
+    And I am on the environment control panel
 
   @selenium
   Scenario: See links to edit all templates
