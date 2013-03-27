@@ -58,7 +58,48 @@ Feature: Reading
     Then I should see "Please fill all fields marked with (*)." inside an alert
 
   @selenium
-  Scenario: I want to add a reading
+  Scenario: I try to add a reading with an invalid color
+    Given I am on article "Sample Reading Group"
+    When I follow "Add Reading"
+    And I fill the fields with the new following data
+      | reading_label | Fantastic |
+      | reading_grade | 4.0       |
+      | reading_color | 1D10T4    |
+    And I press "Save"
+    Then I should see "This is not a valid color." inside an alert
+
+  @selenium
+  Scenario: I try to add a reading with a label which already exists
+	Given I have a Mezuro reading with the following data
+      | label | Simple  |
+      | grade | 2.0     |
+      | color | 34afe2  |
+    And I am on article "Sample Reading Group"
+    When I follow "Add Reading"
+    And I fill the fields with the new following data
+      | reading_label | Simple	  |
+      | reading_grade | 4.0       |
+      | reading_color | 1f0fa0    |
+    And I press "Save"
+    Then I should see "This label already exists! Please, choose another one." inside an alert
+
+  @selenium
+  Scenario: I try to add a reading with a grade which already exists
+	Given I have a Mezuro reading with the following data
+      | label | Extraordinary  |
+      | grade | 10.0		   |
+      | color | b4bad0		   |
+    And I am on article "Sample Reading Group"
+    When I follow "Add Reading"
+    And I fill the fields with the new following data
+      | reading_label | Super	  |
+      | reading_grade | 10.0      |
+      | reading_color | f0f000    |
+    And I press "Save"
+    Then I should see "This grade already exists! Please, choose another one." inside an alert
+
+  @selenium
+  Scenario: I want to add a reading with valid attributes
     Given I am on article "Sample Reading Group"
     When I follow "Add Reading"
     And I fill the fields with the new following data
@@ -85,7 +126,7 @@ Feature: Reading
     And I should see "Save" button
 
   @selenium
-  Scenario: I want to edit a reading leaving empty its title
+  Scenario: I try to edit a reading leaving empty its title
     Given I have a Mezuro reading with the following data
       | label | Simple  |
       | grade | 2.0     |
@@ -97,7 +138,7 @@ Feature: Reading
     Then I should see "Please fill all fields marked with (*)." inside an alert
 
   @selenium
-  Scenario: I want to edit a reading leaving empty its grade
+  Scenario: I try to edit a reading leaving empty its grade
     Given I have a Mezuro reading with the following data
       | label | Simple  |
       | grade | 2.0     |
@@ -109,7 +150,7 @@ Feature: Reading
     Then I should see "Please fill all fields marked with (*)." inside an alert
 
   @selenium
-  Scenario: I want to edit a reading leaving empty its color
+  Scenario: I try to edit a reading leaving empty its color
     Given I have a Mezuro reading with the following data
       | label | Simple  |
       | grade | 2.0     |
@@ -119,6 +160,21 @@ Feature: Reading
     And I erase the "reading_color" field
     And I press "Save"
     Then I should see "Please fill all fields marked with (*)." inside an alert
+
+	@selenium
+  Scenario: I try to edit a reading with an invalid color
+		Given I have a Mezuro reading with the following data
+      | label | Worthless  |
+      | grade | 1.0 		   |
+      | color | e5cad4  	 |
+    And I am on article "Sample Reading Group"
+    When I follow the edit link for "Worthless" reading
+    And I fill the fields with the new following data
+      | reading_label | Worthless 	|
+      | reading_grade | 1.0       	|
+      | reading_color | bu5aoooooo  |
+    And I press "Save"
+    Then I should see "This is not a valid color." inside an alert
 
   @selenium
   Scenario: I try to edit a reading with a label which already exists
