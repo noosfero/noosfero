@@ -37,25 +37,25 @@ module NavigationHelpers
       "/myprofile/#{$2}/profile_design/edit/#{block.id}"
 
     when /^(.*)'s homepage$/
-      '/' + $1
+      '/' + profile_identifier($1)
 
     when /^(.*)'s blog$/
-      '/%s/blog' % Profile.find_by_name($1).identifier
+      '/%s/blog' % profile_identifier($1)
 
     when /^(.*)'s (.+) creation$/
-      '/myprofile/%s/cms/new?type=%s' % [Profile.find_by_name($1).identifier,$2]
+      '/myprofile/%s/cms/new?type=%s' % [profile_identifier($1),$2]
 
     when /^(.*)'s sitemap/
-      '/profile/%s/sitemap' % $1
+      '/profile/%s/sitemap' % profile_identifier($1)
 
     when /^(.*)'s profile$/
-      '/profile/' + $1
+      '/profile/' + profile_identifier($1)
 
     when /^(.*)'s join page/
-      '/profile/%s/join' % Profile.find_by_name($1).identifier
+      '/profile/%s/join' % profile_identifier($1)
 
     when /^(.*)'s leave page/
-      '/profile/%s/leave' % Profile.find_by_name($1).identifier
+      '/profile/%s/leave' % profile_identifier($1)
 
     when /^login page$/
       '/account/login'
@@ -67,7 +67,7 @@ module NavigationHelpers
       '/account/signup'
 
     when /^(.*)'s control panel$/
-      '/myprofile/' + $1
+      '/myprofile/' + profile_identifier($1)
 
     when /the environment control panel/
       '/admin'
@@ -79,7 +79,7 @@ module NavigationHelpers
       '/search/%s' % $1
 
     when /^(.+)'s cms/
-      '/myprofile/%s/cms' % $1
+      '/myprofile/%s/cms' % profile_identifier($1)
 
     when /^"(.+)" edit page/
       article = Article.find_by_name($1)
@@ -89,10 +89,10 @@ module NavigationHelpers
       '/myprofile/%s/profile_members' % Profile.find_by_name($1).identifier
 
     when /^(.+)'s new product page/
-      '/myprofile/%s/manage_products/new' % $1
+      '/myprofile/%s/manage_products/new' % profile_identifier($1)
 
     when /^(.+)'s page of product (.*)$/
-      enterprise = Profile.find_by_name($1)
+      enterprise = profile_identifier($1)
       product = enterprise.products.find_by_name($2)
       '/myprofile/%s/manage_products/show/%s' % [enterprise.identifier, product.id]
 
@@ -109,7 +109,7 @@ module NavigationHelpers
       '/account/user_data'
 
     when /^(.+)'s members page/
-      '/profile/%s/members' % Profile.find_by_name($1).identifier
+      '/profile/%s/members' % profile_identifier($1)
 
     else
       begin
@@ -121,6 +121,11 @@ module NavigationHelpers
           "Now, go and add a mapping in #{__FILE__}"
       end
     end
+  end
+
+  def profile_identifier(field)
+    profile = Profile.find_by_name(field) || Profile.find_by_identifier(field)
+    profile.identifier
   end
 end
 
