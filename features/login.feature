@@ -8,17 +8,20 @@ Feature: login
       | login | name |
       | joaosilva | Joao Silva |
 
+  @selenium
   Scenario: login from portal homepage
     Given feature "allow_change_of_redirection_after_login" is disabled on environment
     And I am not logged in
     And I go to the homepage
+    And I follow "Login"
     And I fill in the following:
-      | Username | joaosilva |
+      | Username / Email | joaosilva |
       | Password | 123456 |
     When I press "Log in"
     Then I should be on the homepage
     And I should be logged in as "joaosilva"
 
+  @selenium
   Scenario: login from some profile page
     Given feature "allow_change_of_redirection_after_login" is disabled on environment
     And I am not logged in
@@ -31,7 +34,7 @@ Feature: login
     And I go to mariasilva's homepage
     And I follow "Login"
     And I fill in the following:
-      | Username | joaosilva |
+      | Username / Email | joaosilva |
       | Password | 123456 |
     When I press "Log in"
     Then I should be on mariasilva's homepage
@@ -42,7 +45,7 @@ Feature: login
     And I go to joaosilva's control panel
     And I should be on login page
     And I fill in the following:
-      | Username | joaosilva |
+      | Username / Email | joaosilva |
       | Password | 123456 |
     When I press "Log in"
     Then I should be on joaosilva's control panel
@@ -52,6 +55,7 @@ Feature: login
     And I go to login page
     Then I should be on joaosilva's control panel
 
+  @selenium
   Scenario: stay on the same page after login if this is the environment default
     Given feature "allow_change_of_redirection_after_login" is enabled on environment
     And I am not logged in
@@ -65,11 +69,12 @@ Feature: login
     And I go to mariasilva's homepage
     And I follow "Login"
     And I fill in the following:
-      | Username | joaosilva |
+      | Username / Email | joaosilva |
       | Password | 123456 |
     When I press "Log in"
     Then I should be on mariasilva's homepage
 
+  @selenium
   Scenario: go to site homepage if this is the environment default
     Given feature "allow_change_of_redirection_after_login" is enabled on environment
     And I am not logged in
@@ -77,11 +82,12 @@ Feature: login
     And I go to joaosilva's homepage
     And I follow "Login"
     And I fill in the following:
-      | Username | joaosilva |
+      | Username / Email | joaosilva |
       | Password | 123456 |
     When I press "Log in"
     Then I should be on the homepage
 
+  @selenium
   Scenario: go to user profile after login if this is the environment default
     Given feature "allow_change_of_redirection_after_login" is enabled on environment
     And I am not logged in
@@ -89,11 +95,12 @@ Feature: login
     And I go to the homepage
     And I follow "Login"
     And I fill in the following:
-      | Username | joaosilva |
+      | Username / Email | joaosilva |
       | Password | 123456 |
     When I press "Log in"
     Then I should be on joaosilva's profile
 
+  @selenium
   Scenario: go to profile homepage after login if this is the environment default
     Given the following articles
       | owner     | name           | body               | homepage |
@@ -104,11 +111,12 @@ Feature: login
     And I go to the homepage
     And I follow "Login"
     And I fill in the following:
-      | Username | joaosilva |
+      | Username / Email | joaosilva |
       | Password | 123456 |
     When I press "Log in"
     Then I should be on joaosilva's homepage
 
+  @selenium
   Scenario: go to profile control panel after login if this is the environment default
     Given feature "allow_change_of_redirection_after_login" is enabled on environment
     And I am not logged in
@@ -116,11 +124,12 @@ Feature: login
     And I go to the homepage
     And I follow "Login"
     And I fill in the following:
-      | Username | joaosilva |
+      | Username / Email | joaosilva |
       | Password | 123456 |
     When I press "Log in"
     Then I should be on joaosilva's control panel
 
+  @selenium
   Scenario: stay on the same page after login if this is the profile default
     Given feature "allow_change_of_redirection_after_login" is enabled on environment
     And I am not logged in
@@ -135,11 +144,12 @@ Feature: login
     And I go to mariasilva's homepage
     And I follow "Login"
     And I fill in the following:
-      | Username | joaosilva |
+      | Username / Email | joaosilva |
       | Password | 123456 |
     When I press "Log in"
     Then I should be on mariasilva's homepage
 
+  @selenium
   Scenario: go to site homepage if this is the profile default
     Given feature "allow_change_of_redirection_after_login" is enabled on environment
     And I am not logged in
@@ -148,11 +158,12 @@ Feature: login
     And I go to joaosilva's homepage
     And I follow "Login"
     And I fill in the following:
-      | Username | joaosilva |
+      | Username / Email | joaosilva |
       | Password | 123456 |
     When I press "Log in"
     Then I should be on the homepage
 
+  @selenium
   Scenario: go to user profile after login if this is the profile default
     Given feature "allow_change_of_redirection_after_login" is enabled on environment
     And I am not logged in
@@ -161,11 +172,12 @@ Feature: login
     And I go to the homepage
     And I follow "Login"
     And I fill in the following:
-      | Username | joaosilva |
+      | Username / Email | joaosilva |
       | Password | 123456 |
     When I press "Log in"
     Then I should be on joaosilva's profile
 
+  @selenium
   Scenario: go to profile homepage after login if this is the profile default
     Given the following articles
       | owner     | name           | body               | homepage |
@@ -177,11 +189,12 @@ Feature: login
     And I go to the homepage
     And I follow "Login"
     And I fill in the following:
-      | Username | joaosilva |
+      | Username / Email | joaosilva |
       | Password | 123456 |
     When I press "Log in"
     Then I should be on joaosilva's homepage
 
+  @selenium
   Scenario: go to profile control panel after login if this is the profile default
     Given feature "allow_change_of_redirection_after_login" is enabled on environment
     And I am not logged in
@@ -190,7 +203,7 @@ Feature: login
     And I go to the homepage
     And I follow "Login"
     And I fill in the following:
-      | Username | joaosilva |
+      | Username / Email | joaosilva |
       | Password | 123456 |
     When I press "Log in"
     Then I should be on joaosilva's control panel
