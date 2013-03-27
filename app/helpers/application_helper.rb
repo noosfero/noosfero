@@ -1132,7 +1132,8 @@ module ApplicationHelper
   end
 
   def manage_enterprises
-    if user && !user.enterprises.empty?
+    return if not user
+    if !user.enterprises.empty?
       enterprises_link = user.enterprises.map do |enterprise|
         link_to(content_tag('strong', [_('<span>Manage</span> %s') % enterprise.short_name(25)]), @environment.top_url + "/myprofile/#{enterprise.identifier}", :class => "icon-menu-"+enterprise.class.identification.underscore, :title => [_('Manage %s') % enterprise.short_name])
       end
