@@ -1666,6 +1666,18 @@ a.button.disabled, input.disabled {
   padding: 0px 30px;
 }
 
+#add-block-dialog {
+  display: inline-block;
+  padding: 0px 5px 0px 20px;
+}
+
+#add-block-dialog .block-types {
+  column-count: 2;
+  -ms-column-count: 2;
+  -moz-column-count: 2;
+  -webkit-column-count: 2;
+}
+
 /* ==> blocks/tags-block.css <<= */ 
 
 .tags-block {
