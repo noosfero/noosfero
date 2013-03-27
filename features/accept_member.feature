@@ -14,6 +14,7 @@ Feature: accept member
     And the community "My Community" is closed
     And "Mario Souto" is admin of "My Community"
 
+  @selenium
   Scenario: approve a task to accept a member as admin in a closed community
     Given "Marie Curie" asked to join "My Community"
     And I am logged in as "mario"
@@ -25,6 +26,7 @@ Feature: accept member
     And I press "Apply!"
     Then "Marie Curie" should be admin of "My Community"
 
+  @selenium
   Scenario: approve a task to accept a member as member in a closed community
     Given "Marie Curie" asked to join "My Community"
     And I am logged in as "mario"
@@ -36,6 +38,7 @@ Feature: accept member
     And I press "Apply!"
     Then "Marie Curie" should be a member of "My Community"
 
+  @selenium
   Scenario: approve a task to accept a member as moderator in a closed community
     Given "Marie Curie" asked to join "My Community"
     And I am logged in as "mario"
