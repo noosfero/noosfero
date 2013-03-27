@@ -51,7 +51,7 @@ Feature: comment
     Given I am on /booking/article-to-comment
     When I follow "Reply" within ".comment-balloon"
     And I follow "Cancel" within ".comment-balloon"
-    Then I should see "Enter your comment" within "div.comment_reply.closed"
+    Then I should not see "Enter your comment" within "div.comment_reply.closed"
 
   @selenium-fixme
   Scenario: not render same reply form twice

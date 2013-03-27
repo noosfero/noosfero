@@ -92,7 +92,7 @@ module NavigationHelpers
       '/myprofile/%s/manage_products/new' % profile_identifier($1)
 
     when /^(.+)'s page of product (.*)$/
-      enterprise = profile_identifier($1)
+      enterprise = Profile.find_by_name($1)
       product = enterprise.products.find_by_name($2)
       '/myprofile/%s/manage_products/show/%s' % [enterprise.identifier, product.id]
 

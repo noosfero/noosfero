@@ -131,7 +131,7 @@ Feature: manage product price details
     And I follow "New cost"
     And I select "Other cost" from "price_details__production_cost_id" within "#display-product-price-details"
     And I want to add "Energy" as cost
-    Then I should see "Energy" within "#new-cost-fields"
+    Then I should see "Energy" within "#display-product-price-details"
 
   @selenium
   Scenario: remove price detail
