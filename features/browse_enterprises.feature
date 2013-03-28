@@ -24,7 +24,7 @@ Scenario: show profile links button
   And I should not see "Members"
   And I should not see "Agenda"
 
-@selenium
+@selenium-fixme
 Scenario: show profile links when clicked
   Given I am on /assets/enterprises
   When I follow "Profile links"
@@ -32,7 +32,7 @@ Scenario: show profile links when clicked
   And I should see "Members" within "ul.menu-submenu-list"
   And I should see "Agenda" within "ul.menu-submenu-list"
 
-@selenium
+@selenium-fixme
 Scenario: go to catalog when click on products link
   Given I am on /assets/enterprises
   When I follow "Profile links"

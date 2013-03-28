@@ -14,8 +14,8 @@ In order to ask questions and solve problems
 
   @selenium
   Scenario: without states
-    Given I am on Sample Community's homepage
-    When I follow "Send an e-mail" and wait
+    Given I am on sample-community's homepage
+    When I follow "Send an e-mail"
     Then I should not see "City and state"
 
   @selenium
@@ -23,7 +23,6 @@ In order to ask questions and solve problems
     Given the following states
       | name  |
       | Bahia |
-    And I am on Sample Community's homepage
-    When I follow "Send an e-mail" and wait
+    And I am on sample-community's homepage
+    When I follow "Send an e-mail"
     Then I should see "City and state"
-    

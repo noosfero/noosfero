@@ -14,6 +14,7 @@ Feature: search enterprises
       | Temáticas |
 
   Scenario: show recent enterprises on index
+    Given there are no pending jobs
     When I go to the search enterprises page
     Then I should see "Shoes shop" within "#search-results"
     And I should see Shoes shop's profile image
@@ -26,7 +27,7 @@ Feature: search enterprises
 
   Scenario: simple search for enterprise
     When I go to the search enterprises page
-    And I fill in "query" with "shoes"
+    And I fill in "search-input" with "shoes"
     And I press "Search"
     Then I should see "Shoes shop" within ".only-one-result-box"
     And I should see Shoes shop's profile image
@@ -36,7 +37,7 @@ Feature: search enterprises
   Scenario: link to enterprise homepage on search results
     Given I search enterprises for "shoes"
     When I follow "Shoes shop"
-    Then I should be on Shoes shop's profile
+    Then I should be on shop1's profile
 
   Scenario: show clean enterprise homepage on search results
     Given the following articles
@@ -56,13 +57,13 @@ Feature: search enterprises
 
   Scenario: see default facets when searching
     When I go to the search enterprises page
-    And I fill in "query" with "shoes"
+    And I fill in "search-input" with "shoes"
     And I press "Search"
     Then I should see "City" within "#facets-menu"
 
   Scenario: see category facets when searching
     When I go to the search enterprises page
-    And I fill in "query" with "shoes"
+    And I fill in "search-input" with "shoes"
     And I press "Search"
     Then I should see "Temáticas" within "#facets-menu"
 
@@ -74,7 +75,7 @@ Feature: search enterprises
       | identifier | name          | region           |
       | art-pp     | Artesanato PP | Pres. Prudente |
     When I go to the search enterprises page
-    And I fill in "query" with "Artesanato"
+    And I fill in "search-input" with "Artesanato"
     And I press "Search"
     Then I should see "Pres. Prudente" within "#facet-menu-f_region"
     And I should see ", SP" within "#facet-menu-f_region"
@@ -89,7 +90,7 @@ Feature: search enterprises
       | identifier | name          | region         |
       | art-pp     | Artesanato PP | Pres. Prudente |
     When I go to the search enterprises page
-    And I fill in "query" with "Prudente"
+    And I fill in "search-input" with "Prudente"
     And I press "Search"
     Then I should see "Artesanato PP" within "#search-results"
 
@@ -101,7 +102,7 @@ Feature: search enterprises
       | identifier | name     | category       |
       | noosfero   | Noosfero | software-livre |
     When I go to the search enterprises page
-    And I fill in "query" with "software"
+    And I fill in "search-input" with "software"
     And I press "Search"
     Then I should see "Noosfero" within "#search-results"
     And I should see "Software Livre" within ".search-enterprise-category"
@@ -123,7 +124,7 @@ Feature: search enterprises
       | identifier | name                            |
       | noosfero   | Noosfero Developers Association |
     When I go to the search enterprises page
-    And I fill in "query" with "Noosfero Association"
+    And I fill in "search-input" with "Noosfero Association"
     And I press "Search"
     Then I should see "Noosfero Developers Association" within "#search-results"
 
@@ -136,7 +137,7 @@ Feature: search enterprises
       | noosfero   | Noosfero Developers | software-livre |
       | facebook   | Facebook Developers |                |
     When I go to the search enterprises page
-    And I fill in "query" with "Developers"
+    And I fill in "search-input" with "Developers"
     And I press "Search"
     And I follow "Software Livre" within "#facets-menu"
     Then I should see "Noosfero Developers" within "#search-results"
@@ -155,10 +156,10 @@ Feature: search enterprises
       | rails-dev  | Rails Developers    |                |
       | rails-usr  | Rails Users         | software-livre |
     When I go to the search enterprises page
-    And I fill in "query" with "Developers"
+    And I fill in "search-input" with "Developers"
     And I press "Search"
     And I follow "Software Livre" within "#facets-menu"
-    And I fill in "query" with "Rails"
+    And I fill in "search-input" with "Rails"
     And I press "Search"
     Then I should see "Rails Users" within "#search-results"
     And I should not see "Rails Developers"

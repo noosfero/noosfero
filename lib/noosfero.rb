@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 require 'fast_gettext'
 
 module Noosfero
@@ -78,13 +79,14 @@ module Noosfero
   end
 
   def self.url_options
-    if ENV['RAILS_ENV'] == 'development'
+    case ENV['RAILS_ENV']
+    when 'development'
       development_url_options
-    elsif ENV['RAILS_ENV'] == 'cucumber'
-      Webrat.configuration.mode == :rails ? { :host => '' } : { :port => Webrat.configuration.application_port }
-    else
-      {}
-    end
+    when 'cucumber'
+      if Capybara.current_driver == :selenium
+        { :host => Capybara.current_session.driver.rack_server.host, :port => Capybara.current_session.driver.rack_server.port }
+      end
+    end || { }
   end
 
   def self.development_url_options
