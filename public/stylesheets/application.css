@@ -1663,7 +1663,7 @@ a.button.disabled, input.disabled {
 }
 
 .block-config-options {
-  padding: 0px 30px;
+  padding: 0px 10px 0px 30px;
 }
 
 #add-block-dialog {
@@ -4331,6 +4331,10 @@ h1#agenda-title {
   width: 100%;
   text-align: center;
   overflow: hidden;
+}
+
+.block-config-options.HighlightsBlock-options {
+  min-width: 450px;
 }
 
 .block-config-options.HighlightsBlock-options .image-data-line select {
