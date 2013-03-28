@@ -104,7 +104,7 @@ When /^I have a Mezuro (reading|repository) with the following data$/ do |type, 
     end
   end
   if (type == "repository")
-    item.merge!(:configuration_id => Kalibro::Configuration.all.last.id)
+    item["configuration_id"] = Kalibro::Configuration.all.select {|configuration| configuration.name == item["configuration_id"] }.first.id
     item.merge!(:project_id => Kalibro::Project.all.last.id)
     Kalibro::Repository.create(item)
   elsif (type == "reading")
