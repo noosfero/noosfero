@@ -47,18 +47,6 @@ module BlogHelper
     article_title(article, :no_comments => no_comments) + html
   end
 
-  def display_short_format(article)
-    html = content_tag('div',
-             article.lead +
-             content_tag('div',
-               link_to_comments(article) +
-               link_to( _('Read more'), article.url),
-               :class => 'read-more'),
-             :class => 'short-post'
-           )
-    html
-  end
-
   def display_full_format(article)
     html = article_to_html(article)
     html = content_tag('p', html) if ! html.include?('</p>')
