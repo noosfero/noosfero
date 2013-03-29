@@ -12,7 +12,11 @@ class ArticleBlock < Block
     block = self
     lambda do
       block_title(block.title) +
-      (block.article ? article_to_html(block.article, :gallery_view=>false, :inside_block=>block) : _('Article not selected yet.'))
+      (block.article ? article_to_html(block.article,
+          :gallery_view => false,
+          :inside_block => block,               # For Blogs and folders
+          :format => block.visualization_format # For Articles and contents
+        ) : _('Article not selected yet.'))
     end
   end
 
