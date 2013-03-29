@@ -2,6 +2,7 @@ module ContentViewerHelper
 
   include BlogHelper
   include ForumHelper
+  include ActionView::Helpers::TagHelper
 
   def number_of_comments(article)
     n = article.comments.without_spam.count
@@ -36,7 +37,7 @@ module ContentViewerHelper
 
   def link_to_comments(article, args = {})
     return '' unless article.accept_comments?
-    link_to(number_of_comments(article), article.url.merge(:anchor => 'comments_list') )
+    link_to_article number_of_comments(article), article, 'comments_list'
   end
 
   def article_translations(article)

@@ -236,8 +236,13 @@ class Article < ActiveRecord::Base
   # The implementation in this class just provides the +body+ attribute as the
   # HTML.  Other article types can override this method to provide customized
   # views of themselves.
+  # (To override short format representation, override the lead method)
   def to_html(options = {})
-    body || ''
+    if options[:format] == 'short'
+      display_short_format(self)
+    else
+      body || ''
+    end
   end
 
   include ApplicationHelper
