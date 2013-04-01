@@ -493,23 +493,24 @@ module ApplicationHelper
 
   def profile_cat_icons( profile )
     if profile.class == Enterprise
-      icons =
-        profile.product_categories.map{ |c| c.size > 1 ? c[1] : nil }.
-          compact.uniq.map{ |c|
-            cat_name = c.gsub( /[-_\s,.;'"]+/, '_' )
-            cat_icon = "/images/icons-cat/#{cat_name}.png"
-            if ! File.exists? RAILS_ROOT.to_s() + '/public/' + cat_icon
-              cat_icon = '/images/icons-cat/undefined.png'
-            end
-            content_tag 'span',
-                        content_tag( 'span', c ),
-                        :title => c,
-                        :class => 'product-cat-icon cat_icon_' + cat_name,
-                        :style => "background-image:url(#{cat_icon})"
-          }.join "\n"
-      content_tag 'div',
-                  content_tag( 'span', _('Principal Product Categories'), :class => 'header' ) +"\n"+ icons,
-                  :class => 'product-category-icons'
+      icons = profile.product_categories.map{ |c| c.size > 1 ? c[1] : nil }.
+        compact.uniq.map do |c|
+          cat_name = c.gsub( /[-_\s,.;'"]+/, '_' )
+          cat_icon = "/images/icons-cat/#{cat_name}.png"
+          if ! File.exists? RAILS_ROOT.to_s() + '/public/' + cat_icon
+            cat_icon = '/images/icons-cat/undefined.png'
+          end
+          content_tag('span',
+            content_tag( 'span', c ),
+            :title => c,
+            :class => 'product-cat-icon cat_icon_' + cat_name,
+            :style => "background-image:url(#{cat_icon})"
+          )
+        end.join("\n").html_safe
+        content_tag('div',
+          content_tag( 'span', _('Principal Product Categories'), :class => 'header' ) +"\n"+ icons,
+          :class => 'product-category-icons'
+        )
     else
       ''
     end
@@ -633,10 +634,10 @@ module ApplicationHelper
       # FIXME
       ([toplevel] + toplevel.children_for_menu).each do |cat|
         if cat.top_level?
-          result << '<div class="categorie_box">'
+          result << '<div class="categorie_box">'.html_safe
           result << icon_button( :down, _('open'), '#', :onclick => 'open_close_cat(this); return false' )
           result << content_tag('h5', toplevel.name)
-          result << '<div style="display:none"><ul class="categories">'
+          result << '<div style="display:none"><ul class="categories">'.html_safe
         else
           checkbox_id = "#{object_name}_#{cat.full_name.downcase.gsub(/\s+|\//, '_')}"
           result << content_tag('li', labelled_check_box(
@@ -647,7 +648,7 @@ module ApplicationHelper
                     :class => ( object.category_ids.include?(cat.id) ? 'cat_checked' : '' ) ) + "\n"
         end
       end
-      result << '</ul></div></div>'
+      result << '</ul></div></div>'.html_safe
     end
 
     content_tag('div', result)
@@ -787,10 +788,10 @@ module ApplicationHelper
             :class => 'lineitem' + (line_item+=1).to_s() ) +"\n"
         if line_item == line_size
           line_item = 0
-          html += "<br />\n"
+          html += "<br />\n".html_safe
         end
       }
-      html += "<br />\n"  if line_size == 0 || ( values.size % line_size ) > 0
+      html += "<br />\n".html_safe if line_size == 0 || ( values.size % line_size ) > 0
       column = object.class.columns_hash[method.to_s]
       text =
         ( column ?
@@ -977,7 +978,7 @@ module ApplicationHelper
   end
 
   def link_to_email(email)
-    javascript_tag('var array = ' + email.split('@').to_json + '; document.write("<a href=\'mailto:" + array.join("@") + "\'>" + array.join("@") +  "</a>")')
+    javascript_tag('var array = ' + email.split('@').to_json + '; document.write("<a href=\'mailto:" + array.join("@") + "\'>" + array.join("@") +  "</a>")'.html_safe)
   end
 
   def stylesheet(*args)
@@ -987,7 +988,7 @@ module ApplicationHelper
   def article_to_html(article, options = {})
     options.merge!(:page => params[:npage])
     content = article.to_html(options)
-    content = content.kind_of?(Proc) ? self.instance_eval(&content) : content
+    content = content.kind_of?(Proc) ? self.instance_eval(&content).html_safe : content.html_safe
     @plugins && @plugins.each do |plugin|
       content = plugin.parse_content(content)
     end
@@ -1003,7 +1004,7 @@ module ApplicationHelper
   end
 
   def ui_icon(icon_class, extra_class = '')
-    "<span class='ui-icon #{icon_class} #{extra_class}' style='float:left; margin-right:7px;'></span>"
+    "<span class='ui-icon #{icon_class} #{extra_class}' style='float:left; margin-right:7px;'></span>".html_safe
   end
 
   def ui_button(label, url, html_options = {})
@@ -1035,13 +1036,13 @@ module ApplicationHelper
   end
 
   def collapsed_item_icon
-    "<span class='ui-icon ui-icon-circlesmall-plus' style='float:left;'></span>"
+    "<span class='ui-icon ui-icon-circlesmall-plus' style='float:left;'></span>".html_safe
   end
   def expanded_item_icon
-    "<span class='ui-icon ui-icon-circlesmall-minus' style='float:left;'></span>"
+    "<span class='ui-icon ui-icon-circlesmall-minus' style='float:left;'></span>".html_safe
   end
   def leaf_item_icon
-    "<span class='ui-icon ui-icon-arrow-1-e' style='float:left;'></span>"
+    "<span class='ui-icon ui-icon-arrow-1-e' style='float:left;'></span>".html_safe
   end
 
   def display_category_menu(block, categories, root = true)
@@ -1300,9 +1301,7 @@ module ApplicationHelper
     titles = tabs.inject(''){ |result, tab| result << content_tag(:li, link_to(tab[:title], '#'+tab[:id]), :class => 'tab') }
     contents = tabs.inject(''){ |result, tab| result << content_tag(:div, tab[:content], :id => tab[:id]) }
 
-    content_tag :div, :class => 'ui-tabs' do
-      content_tag(:ul, titles) + contents
-    end
+    content_tag(:div, content_tag(:ul, titles) + raw(contents), :class => 'ui-tabs')
   end
 
   def jquery_token_input_messages_json(hintText = _('Type in an keyword'), noResultsText = _('No results'), searchingText = _('Searching...'))
