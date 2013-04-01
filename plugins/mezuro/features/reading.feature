@@ -120,9 +120,9 @@ Feature: Reading
       | color | 34afe2  |
     And I am on article "Sample Reading Group"
     When I follow the edit link for "Simple" reading
-    Then I should see "Simple" in the "reading_label" input
-    And I should see "2.0" in the "reading_grade" input
-    And I should see "34afe2" in the "reading_color" input
+    Then I should see "Simple" in the "reading_label"
+    And I should see "2.0" in the "reading_grade"
+    And I should see "34afe2" in the "reading_color"
     And I should see "Save" button
 
   @selenium

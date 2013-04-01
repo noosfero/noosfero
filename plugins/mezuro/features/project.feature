@@ -56,8 +56,8 @@ Feature: Project
       | community   | mycommunity        |
 		And I am on article "Sample Project"
 		When I follow "Edit"
-    Then I should see "Sample Project" in the "article_name" input
-    And I should see "Sample Description" in the "article_description" input
+    Then I should see "Sample Project" in the "article_name"
+    And I should see "Sample Description" in the "article_description"
     And I should see "Save" button
 
   @selenium @kalibro_restart

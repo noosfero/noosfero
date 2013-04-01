@@ -16,7 +16,7 @@ class MezuroPlugin::Helpers::ContentViewerHelper
 
   def self.license_options
    options = YAML.load_file("#{RAILS_ROOT}/plugins/mezuro/licenses.yml")
-   options = options.split(";")
+   options = options.split("; ")
    options
   end
 

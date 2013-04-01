@@ -44,7 +44,7 @@ Then /^I should see "([^\"]*)" inside an alert$/ do |message|
   alert.accept
 end
 
-Then /^I should see "([^"]*)" in the "([^"]*)" input$/ do |content, labeltext|
+Then /^I should see "([^"]*)" in the "([^"]*)"$/ do |content, labeltext|
     find_field(labeltext).value.should == content
 end
 
@@ -54,10 +54,6 @@ end
 
 Then /^I should see "([^"]*)" in a link$/ do |link_name|
   find_link(link_name).should_not be_nil
-end
-
-Then /^I should see "([^"]*)" in the "([^"]*)" select$/ do |content, labeltext|
-    find_field(labeltext).value.strip.should == content #strip because have empty spaces around some options
 end
 
 Then /^I should see "([^"]*)" in the process period select field$/ do |content|
