@@ -35,13 +35,13 @@ Feature: HTTP caching
     Then the response should be valid for 90 minutes
 
   Scenario: profile pages, default configuaration
-    When I go to João Silva's homepage
+    When I go to joao's homepage
     Then the response should be valid for 15 minutes
 
   Scenario: profile pages, custom configuration
     Given the following environment configuration
       | profile_cache_in_minutes | 90 |
-    When I go to João Silva's homepage
+    When I go to joao's homepage
     Then the response should be valid for 90 minutes
 
   Scenario: account controller should not be cached at all
@@ -50,7 +50,7 @@ Feature: HTTP caching
 
   Scenario: profile administration
     Given I am logged in as "joao"
-    When I go to João Silva's control panel
+    When I go to joao's control panel
     Then there must be no cache at all
 
   Scenario: environment administration

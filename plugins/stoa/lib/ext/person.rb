@@ -11,7 +11,7 @@ class Person
 
   def usp_id_or_invitation
     if usp_id.blank? && !is_template && (invitation_code.blank? || !invitation_task)
-      errors.add(:usp_id, "can't register without usp_id or a valid invitation code")
+      errors.add(:usp_id, _("is being used by another user or is not valid"))
     end
   end
 

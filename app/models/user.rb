@@ -15,7 +15,7 @@ class User < ActiveRecord::Base
   # FIXME ugly workaround
   def self.human_attribute_name(attrib)
     case attrib.to_sym
-      when :login:  return _('Username')
+      when :login:  return [_('Username'), _('Email')].join(' / ')
       when :email:  return _('e-Mail')
       else _(self.superclass.human_attribute_name(attrib))
     end
@@ -31,7 +31,7 @@ class User < ActiveRecord::Base
   after_create do |user|
     user.person ||= Person.new
     user.person.attributes = user.person_data.merge(:identifier => user.login, :user => user, :environment_id => user.environment_id)
-    user.person.name ||= user.login
+    user.person.name ||= user.name
     user.person.visible = false unless user.activated?
     user.person.save!
     if user.environment.enabled?('skip_new_user_email_confirmation')
@@ -116,10 +116,11 @@ class User < ActiveRecord::Base
 
   validates_inclusion_of :terms_accepted, :in => [ '1' ], :if => lambda { |u| ! u.terms_of_use.blank? }, :message => N_('%{fn} must be checked in order to signup.').fix_i18n
 
-  # Authenticates a user by their login name and unencrypted password.  Returns the user or nil.
+  # Authenticates a user by their login name or email and unencrypted password.  Returns the user or nil.
   def self.authenticate(login, password, environment = nil)
     environment ||= Environment.default
-    u = first :conditions => ['login = ? AND environment_id = ? AND activated_at IS NOT NULL', login, environment.id] # need to get the salt
+    u = self.first :conditions => ['(login = ? OR email = ?) AND environment_id = ? AND activated_at IS NOT NULL',
+                                   login, login, environment.id] # need to get the salt
     u && u.authenticated?(password) ? u : nil
   end
 

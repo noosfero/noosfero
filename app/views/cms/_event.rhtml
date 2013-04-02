@@ -3,7 +3,7 @@
 <%# TODO add Textile help here %>
 <%= render :file => 'shared/tiny_mce' %>
 
-<%= required f.text_field('name', :size => '64') %>
+<%= required f.text_field('name', :size => '64', :maxlength => 150) %>
 
 <%= render :partial => 'general_fields' %>
 <%= render :partial => 'translatable' %>

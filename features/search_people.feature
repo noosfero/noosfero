@@ -17,7 +17,7 @@ Feature: search people
 
   Scenario: simple search for person
     When I go to the search people page
-    And I fill in "query" with "Silva"
+    And I fill in "search-input" with "Silva"
     And I press "Search"
     Then I should see "Joao Silva" within "#search-results"
     And I should see "Joao Silva" within ".only-one-result-box"
@@ -32,7 +32,7 @@ Feature: search people
       | name      |
       | Temáticas |
     When I go to the search people page
-    And I fill in "query" with "joao"
+    And I fill in "search-input" with "joao"
     And I press "Search"
     Then I should see "Temáticas" within "#facets-menu"
 
@@ -44,7 +44,7 @@ Feature: search people
       | login | name           | category       |
       | linus | Linus Torvalds | software-livre |
     When I go to the search people page
-    And I fill in "query" with "software livre"
+    And I fill in "search-input" with "software livre"
     And I press "Search"
     Then I should see "Linus Torvalds" within "#search-results"
     And I should not see "Joao Silva"
@@ -55,7 +55,7 @@ Feature: search people
       | login  | name                             |
       | jsilva | Joao Adalberto de Oliveira Silva |
     When I go to the search people page
-    And I fill in "query" with "Adalberto Silva"
+    And I fill in "search-input" with "Adalberto Silva"
     And I press "Search"
     Then I should see "Joao Adalberto de Oliveira Silva" within "#search-results"
 
@@ -71,7 +71,7 @@ Feature: search people
       | linus | Linus Torvalds | software-livre |
       | other | Other Linus    |                |
     When I go to the search people page
-    And I fill in "query" with "Linus"
+    And I fill in "search-input" with "Linus"
     And I press "Search"
     And I follow "Software Livre" within "#facets-menu"
     Then I should see "Linus Torvalds" within "#search-results"
@@ -93,10 +93,10 @@ Feature: search people
       | rilin | Richard Linus    |                |
       | stall | Richard Stallman | software-livre |
     When I go to the search people page
-    And I fill in "query" with "Linus"
+    And I fill in "search-input" with "Linus"
     And I press "Search"
     And I follow "Software Livre" within "#facets-menu"
-    And I fill in "query" with "Richard"
+    And I fill in "search-input" with "Richard"
     And I press "Search"
     Then I should see "Richard Stallman" within "#search-results"
     And I should not see "Richard Linus"

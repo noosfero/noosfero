@@ -30,6 +30,16 @@ class ArticleTest < ActiveSupport::TestCase
     assert !a.errors.invalid?(:name)
   end
 
+  should 'limit length of names' do
+    a = Article.new(:name => 'a'*151)
+    a.valid?
+    assert a.errors.invalid?(:name)
+
+    a.name = 'a'*150
+    a.valid?
+    assert !a.errors.invalid?(:name)
+  end
+
   should 'require value for slug and path if name is filled' do
     a = Article.new(:name => 'test article')
     a.slug = nil
@@ -708,14 +718,6 @@ class ArticleTest < ActiveSupport::TestCase
     assert_equal a.url, a.view_url
   end
 
-  should 'know its author' do
-    assert_equal profile, Article.new(:last_changed_by => profile).author
-  end
-
-  should 'use owning profile as author when we dont know who did the last change' do
-    assert_equal profile, Article.new(:last_changed_by => nil, :profile => profile).author
-  end
-
   should 'have published_at' do
     assert_respond_to Article.new, :published_at
   end
@@ -791,15 +793,7 @@ class ArticleTest < ActiveSupport::TestCase
     assert_match(/-owner/, a.cache_key({}, c))
   end
 
-  should 'have a creator method' do
-    c = fast_create(Community)
-    a = c.articles.create!(:name => 'a test article', :last_changed_by => profile)
-    p = create_user('other_user').person
-    a.update_attributes(:body => 'some content', :last_changed_by => p); a.save!
-    assert_equal profile, a.creator
-  end
-
-  should 'allow creator to edit if is publisher' do
+  should 'allow author to edit if is publisher' do
     c = fast_create(Community)
     p = create_user_with_permission('test_user', 'publish_content', c)
     a = c.articles.create!(:name => 'a test article', :last_changed_by => p)
@@ -1372,19 +1366,19 @@ class ArticleTest < ActiveSupport::TestCase
     assert Article.method_defined?('author_name')
   end
 
-  should "the author_name returns the name od the article's author" do
-    author = mock()
-    author.expects(:name).returns('author name')
-    a = Article.new
-    a.expects(:author).returns(author)
-    assert_equal 'author name', a.author_name
+  should "the author_name returns the name of the article's author" do
+    author = fast_create(Person)
+    a = profile.articles.create!(:name => 'a test article', :last_changed_by => author)
+    assert_equal author.name, a.author_name
+    author.destroy
+    a.reload
     a.author_name = 'some name'
     assert_equal 'some name', a.author_name
   end
 
   should 'retrieve latest info from topic when has no comments' do
     forum = fast_create(Forum, :name => 'Forum test', :profile_id => profile.id)
-    post = fast_create(TextileArticle, :name => 'First post', :profile_id => profile.id, :parent_id => forum.id, :updated_at => Time.now)
+    post = fast_create(TextileArticle, :name => 'First post', :profile_id => profile.id, :parent_id => forum.id, :updated_at => Time.now, :last_changed_by_id => profile.id)
     assert_equal post.updated_at, post.info_from_last_update[:date]
     assert_equal profile.name, post.info_from_last_update[:author_name]
     assert_equal profile.url, post.info_from_last_update[:author_url]
@@ -1816,6 +1810,28 @@ class ArticleTest < ActiveSupport::TestCase
     a1.valid?
 
     assert a1.errors.invalid?(:parent_id)
+  end
+
+  should 'set author_name before creating article if there is an author' do
+    author = fast_create(Person)
+    article = Article.create!(:name => 'Test', :profile => profile, :last_changed_by => author)
+    assert_equal author.name, article.author_name
+
+    author_name = author.name
+    author.destroy
+    article.reload
+    assert_equal author_name, article.author_name
+  end
+
+  should "author_id return the author id of the article's author" do
+    author = fast_create(Person)
+    article = Article.create!(:name => 'Test', :profile => profile, :last_changed_by => author)
+    assert_equal author.id, article.author_id
+  end
+
+  should "author_id return nil if there is no article's author" do
+    article = Article.create!(:name => 'Test', :profile => profile, :last_changed_by => nil)
+    assert_nil article.author_id
   end
 
 end

@@ -130,7 +130,7 @@ class Noosfero::Plugin
   end
 
   # -> Adds plugin-specific content types to CMS
-  # returns  = { content type class }
+  # returns  = [ContentClass1, ContentClass2, ...]
   def content_types
     nil
   end
@@ -161,7 +161,7 @@ class Noosfero::Plugin
 
   # -> Adds content to products on asset list
   # returns = lambda block that creates html code
-  def asset_product_extras(product, enterprise)
+  def asset_product_extras(product)
     nil
   end
 
@@ -384,7 +384,9 @@ class Noosfero::Plugin
   private
 
   def content_actions
-    %w[edit delete spread locale suggest home]
+    #FIXME 'new' and 'upload' only works for content_remove. It should work for
+    #content_expire too.
+    %w[edit delete spread locale suggest home new upload]
   end
 
 end

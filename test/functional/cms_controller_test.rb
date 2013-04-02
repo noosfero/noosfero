@@ -296,6 +296,13 @@ class CmsControllerTest < ActionController::TestCase
     assert_not_nil profile.articles.find_by_path('test.txt')
   end
 
+  should 'not crash when parent_id is blank' do
+    assert_nothing_raised do
+      post :upload_files, :profile => profile.identifier, :parent_id => '', :uploaded_files => [fixture_file_upload('/files/test.txt', 'text/plain'), '' ]
+    end
+    assert_not_nil profile.articles.find_by_path('test.txt')
+  end
+
   should 'redirect to cms after uploading files' do
     post :upload_files, :profile => profile.identifier, :uploaded_files => [fixture_file_upload('/files/test.txt', 'text/plain')]
     assert_redirected_to :action => 'index'
@@ -1581,6 +1588,28 @@ class CmsControllerTest < ActionController::TestCase
     article.reload
 
     assert_equal f2, article.parent
+  end
+
+  should 'set author when creating article' do
+    login_as(profile.identifier)
+
+    post :new, :type => 'TinyMceArticle', :profile => profile.identifier, :article => { :name => 'Sample Article', :body => 'content ...' }
+
+    a = profile.articles.find_by_path('sample-article')
+    assert_not_nil a
+    assert_equal profile, a.author
+  end
+
+  should 'not allow user upload files if he can not create on the parent folder' do
+    c = Community.create!(:name => 'test_comm', :identifier => 'test_comm')
+    u = create_user('test_user')
+    a = c.articles.create!(:name => 'test_article')
+    a.stubs(:allow_create?).with(u).returns(true)
+    login_as :test_user
+
+    get :upload_files, :profile => c.identifier, :parent_id => a.id
+    assert_response :forbidden
+    assert_template 'access_denied.rhtml'
   end
 
   protected
