@@ -15,7 +15,7 @@ Feature: unblock button
   Scenario: the environment administrator unblocks a blocked enterprise
     Given I am logged in as admin
     And enterprise "Sample Enterprise" is blocked
-    And I am on Sample Enterprise's homepage
+    And I am on sample-enterprise's homepage
     When I follow "Unblock"
     Then I should not see "Unblock"
 
@@ -25,10 +25,10 @@ Feature: unblock button
       | joaosilva | Joao Silva |
     And I am logged in as "joaosilva"
     And enterprise "Sample Enterprise" is blocked
-    When I am on Sample Enterprise's homepage
+    When I am on sample-enterprise's homepage
     Then I should not see "Unblock"
 
   Scenario: a not blocked enterprise should not show "Unblock" button
     Given I am logged in as admin
-    When I am on Sample Enterprise's homepage
+    When I am on sample-enterprise's homepage
     Then I should not see "Unblock"

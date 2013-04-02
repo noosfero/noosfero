@@ -335,6 +335,43 @@ class TaskTest < ActiveSupport::TestCase
     assert_equal [t4,t3,t2,t1], Task.order_by('status', 'asc')
   end
 
+  should 'retrieve tasks by status' do
+    pending = fast_create(Task, :status => Task::Status::ACTIVE)
+    hidden = fast_create(Task, :status => Task::Status::HIDDEN)
+    finished = fast_create(Task, :status => Task::Status::FINISHED)
+    canceled = fast_create(Task, :status => Task::Status::CANCELLED)
+
+    assert_includes Task.pending, pending
+    assert_not_includes Task.pending, hidden
+    assert_not_includes Task.pending, finished
+    assert_not_includes Task.pending, canceled
+
+    assert_not_includes Task.hidden, pending
+    assert_includes Task.hidden, hidden
+    assert_not_includes Task.hidden, finished
+    assert_not_includes Task.hidden, canceled
+
+    assert_not_includes Task.finished, pending
+    assert_not_includes Task.finished, hidden
+    assert_includes Task.finished, finished
+    assert_not_includes Task.finished, canceled
+
+    assert_not_includes Task.canceled, pending
+    assert_not_includes Task.canceled, hidden
+    assert_not_includes Task.canceled, finished
+    assert_includes Task.canceled, canceled
+
+    assert_includes Task.opened, pending
+    assert_includes Task.opened, hidden
+    assert_not_includes Task.opened, finished
+    assert_not_includes Task.opened, canceled
+
+    assert_not_includes Task.closed, pending
+    assert_not_includes Task.closed, hidden
+    assert_includes Task.closed, finished
+    assert_includes Task.closed, canceled
+  end
+
   protected
 
   def sample_user

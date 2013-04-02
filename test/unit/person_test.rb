@@ -64,7 +64,7 @@ class PersonTest < ActiveSupport::TestCase
 
   should "have person info fields" do
     p = Person.new(:environment => Environment.default)
-    [ :name, :photo, :contact_information, :birth_date, :sex, :address, :city, :state, :country, :zip_code, :image ].each do |i|
+    [ :name, :photo, :contact_information, :birth_date, :sex, :address, :city, :state, :country, :zip_code, :image, :district, :address_reference ].each do |i|
       assert_respond_to p, i
     end
   end
@@ -1284,4 +1284,51 @@ class PersonTest < ActiveSupport::TestCase
     p.stubs(:fields_privacy).returns({ 'sex' => 'public', 'birth_date' => 'private' })
     assert_equal ['sex'], p.public_fields
   end
+
+  should 'define abuser?' do
+    abuser = create_user('abuser').person
+    AbuseComplaint.create!(:reported => abuser).finish
+    person = create_user('person').person
+
+    assert abuser.abuser?
+    assert !person.abuser?
+  end
+
+  should 'be able to retrieve abusers and non abusers' do
+    abuser1 = create_user('abuser1').person
+    AbuseComplaint.create!(:reported => abuser1).finish
+    abuser2 = create_user('abuser2').person
+    AbuseComplaint.create!(:reported => abuser2).finish
+    person = create_user('person').person
+
+    abusers = Person.abusers
+
+    assert_equal ActiveRecord::NamedScope::Scope, abusers.class
+    assert_includes abusers, abuser1
+    assert_includes abusers, abuser2
+    assert_not_includes abusers, person
+
+    non_abusers = Person.non_abusers
+
+    assert_equal ActiveRecord::NamedScope::Scope, non_abusers.class
+    assert_not_includes non_abusers, abuser1
+    assert_not_includes non_abusers, abuser2
+    assert_includes non_abusers, person
+  end
+
+  should 'not return canceled complaints as abusers' do
+    abuser = create_user('abuser1').person
+    AbuseComplaint.create!(:reported => abuser).finish
+    not_abuser = create_user('abuser2').person
+    AbuseComplaint.create!(:reported => not_abuser).cancel
+
+    abusers = Person.abusers
+    assert_includes abusers, abuser
+    assert_not_includes abusers, not_abuser
+
+    non_abusers = Person.non_abusers
+    assert_not_includes non_abusers, abuser
+    assert_includes non_abusers, not_abuser
+  end
+
 end

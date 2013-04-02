@@ -60,5 +60,16 @@ class CustomFormsPlugin::FieldTest < ActiveSupport::TestCase
     assert_equal 2, field.choices['Second']
     assert_equal 3, field.choices['Third']
   end
+
+  should 'not destroy form after removing a field' do
+    form = CustomFormsPlugin::Form.create!(:name => 'Free Software', :profile => fast_create(Profile))
+    license_field = CustomFormsPlugin::Field.create!(:name => 'License', :form => form)
+    url_field = CustomFormsPlugin::Field.create!(:name => 'URL', :form => form)
+
+    assert_no_difference CustomFormsPlugin::Form, :count do
+      url_field.destroy
+    end
+    assert_equal form.fields, [license_field]
+  end
 end
 

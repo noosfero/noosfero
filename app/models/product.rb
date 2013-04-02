@@ -23,6 +23,10 @@ class Product < ActiveRecord::Base
 
   named_scope :more_recent, :order => "created_at DESC"
 
+  named_scope :from_category, lambda { |category|
+    {:joins => :product_category, :conditions => ['categories.path LIKE ?', "%#{category.slug}%"]} if category
+  }
+
   after_update :save_image
 
   def lat

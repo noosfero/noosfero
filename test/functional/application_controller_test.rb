@@ -217,6 +217,12 @@ class ApplicationControllerTest < ActionController::TestCase
     assert_no_tag :tag => 'div', :attributes => { :id => 'user_box' }, :descendant => { :tag => 'a', :attributes => { :href => 'http://web.mail/' } }
   end
 
+  should 'display search form with id' do
+    @controller.stubs(:get_layout).returns('application-ng')
+    get :index
+    assert_tag :tag => 'form', :attributes => { :class => 'search_form clean', :id => 'top-search' }
+  end
+
   should 'display theme test panel when testing theme' do
     @request.session[:theme] = 'my-test-theme'
     theme = mock

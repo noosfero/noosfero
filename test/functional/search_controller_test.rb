@@ -227,13 +227,13 @@ class SearchControllerTest < ActionController::TestCase
 
   should 'include extra content supplied by plugins on product asset' do
     class Plugin1 < Noosfero::Plugin
-      def asset_product_extras(product, enterprise)
+      def asset_product_extras(product)
         lambda {"<span id='plugin1'>This is Plugin1 speaking!</span>"}
       end
     end
 
     class Plugin2 < Noosfero::Plugin
-      def asset_product_extras(product, enterprise)
+      def asset_product_extras(product)
         lambda {"<span id='plugin2'>This is Plugin2 speaking!</span>"}
       end
     end
@@ -924,6 +924,20 @@ class SearchControllerTest < ActionController::TestCase
     assert_raise RuntimeError do
       get :communities, :query => 'Group', :order_by => :something
     end
+  end
+
+  should 'add highlighted CSS class around a highlighted product' do
+    enterprise = fast_create(Enterprise)
+    product = Product.create!(:name => 'Enter Sandman', :enterprise_id => enterprise.id, :product_category_id => @product_category.id, :highlighted => true)
+    get :products
+    assert_tag :tag => 'li', :attributes => { :class => 'search-product-item highlighted' }, :content => /Enter Sandman/
+  end
+
+  should 'do not add highlighted CSS class around an ordinary product' do
+    enterprise = fast_create(Enterprise)
+    product = Product.create!(:name => 'Holier Than Thou', :enterprise_id => enterprise.id, :product_category_id => @product_category.id, :highlighted => false)
+    get :products
+    assert_no_tag :tag => 'li', :attributes => { :class => 'search-product-item highlighted' }, :content => /Holier Than Thou/
   end
 
   ##################################################################

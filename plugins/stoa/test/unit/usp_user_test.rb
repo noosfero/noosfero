@@ -43,5 +43,9 @@ class StoaPlugin::UspUserTest < ActiveSupport::TestCase
     assert  StoaPlugin::UspUser.exists?('0000123456')
     assert  StoaPlugin::UspUser.matches?(123456, :cpf, '00012345678')
   end
+
+  should 'return false if field is nil' do
+    assert  !StoaPlugin::UspUser.matches?(123456, nil, '00012345678')
+  end
 end
 

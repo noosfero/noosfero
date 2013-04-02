@@ -13,19 +13,20 @@ module LanguageHelper
 
   alias :calendar_date_select_language :tinymce_language
 
-  def language_chooser(environment, options = {})
-    return if environment.locales.size < 2
+  def language_chooser(environment=nil, options = {})
+    locales = environment.nil? ? Noosfero.locales : environment.locales
+    return if locales.size < 2
     current = language
     separator = options[:separator] || ' &mdash; '
 
     if options[:element] == 'dropdown'
       select_tag('lang', 
-        options_for_select(environment.locales.map{|code,name| [name, code]}, current),
+        options_for_select(locales.map{|code,name| [name, code]}, current),
         :onchange => "document.location.href= #{url_for(params.merge(:lang => 'LANGUAGE')).inspect}.replace(/LANGUAGE/, this.value) ;",
         :help => _('The language you choose here is the language used for options, buttons, etc. It does not affect the language of the content created by other users.')
       )
     else
-      languages = environment.locales.map do |code,name|
+      languages = locales.map do |code,name|
         if code == current
           content_tag('strong', name)
         else

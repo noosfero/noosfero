@@ -12,8 +12,8 @@ Feature: edit profile
       | birth_date |
     When I go to joao's control panel
     And I follow "Edit Profile"
-    And I select "November"
-    And I select "15"
+    And I select "November" from "profile_data_birth_date_2i"
+    And I select "15" from "profile_data_birth_date_3i"
     And I press "Save"
     Then I should see "Birth date is invalid"
     And I should not see "Birth date can't be blank"
@@ -24,8 +24,8 @@ Feature: edit profile
       | birth_date |
     When I go to joao's control panel
     And I follow "Edit Profile"
-    And I select "November"
-    And I select "15"
+    And I select "November" from "profile_data_birth_date_2i"
+    And I select "15" from "profile_data_birth_date_3i"
     And I press "Save"
     Then I should see "Birth date is invalid"
     And I should not see "Birth date can't be blank"
@@ -36,9 +36,9 @@ Feature: edit profile
       | birth_date |
     When I go to joao's control panel
     And I follow "Edit Profile"
-    And I select "November"
-    And I select "15"
-    And I select "1980"
+    And I select "November" from "profile_data_birth_date_2i"
+    And I select "15" from "profile_data_birth_date_3i"
+    And I select "1980" from "profile_data_birth_date_1i"
     And I press "Save"
     Then I should not see "Birth date is invalid"
     And I should not see "Birth date is mandatory"
@@ -49,9 +49,9 @@ Feature: edit profile
       | birth_date |
     When I go to joao's control panel
     And I follow "Edit Profile"
-    And I select "November"
-    And I select "15"
-    And I select "1980"
+    And I select "November" from "profile_data_birth_date_2i"
+    And I select "15" from "profile_data_birth_date_3i"
+    And I select "1980" from "profile_data_birth_date_1i"
     And I press "Save"
     Then I should not see "Birth date is invalid"
     And I should not see "Birth date is mandatory"
@@ -62,11 +62,11 @@ Feature: edit profile
       | identifier | name | owner |
       | o-rappa | O Rappa | joao  |
     And feature "enable_organization_url_change" is enabled on environment
-    When I go to O Rappa's control panel
-    And I follow "Community Info and settings" and wait
-    Then the "#identifier-change-confirmation" should not be visible
+    When I go to o-rappa's control panel
+    And I follow "Community Info and settings"
+    And I should not see "identifier-change-confirmation"
     When I fill in "Address" with "banda-o-rappa"
-    Then the "#identifier-change-confirmation" should be visible
+    And I should see "identifier-change-confirmation"
 
   @selenium
   Scenario: Confirm url change
@@ -74,12 +74,12 @@ Feature: edit profile
       | identifier | name | owner |
       | o-rappa | O Rappa | joao  |
     And feature "enable_organization_url_change" is enabled on environment
-    When I go to O Rappa's control panel
-    And I follow "Community Info and settings" and wait
+    When I go to o-rappa's control panel
+    And I follow "Community Info and settings"
     When I fill in "Address" with "banda-o-rappa"
-    Then the "#identifier-change-confirmation" should be visible
+    Then I should see "identifier-change-confirmation"
     When I follow "Yes"
-    Then the "#identifier-change-confirmation" should not be visible
+    Then "identifier-change-confirmation" should not be visible within "profile-identifier-formitem"
 
   @selenium
   Scenario: Cancel url change
@@ -87,9 +87,9 @@ Feature: edit profile
       | identifier | name | owner |
       | o-rappa | O Rappa | joao  |
     And feature "enable_organization_url_change" is enabled on environment
-    When I go to O Rappa's control panel
-    And I follow "Community Info and settings" and wait
+    When I go to o-rappa's control panel
+    And I follow "Community Info and settings"
     When I fill in "Address" with "banda-o-rappa"
-    Then the "#identifier-change-confirmation" should be visible
+    Then I should see "identifier-change-confirmation"
     When I follow "No"
-    Then the "#identifier-change-confirmation" should not be visible
+    Then "identifier-change-confirmation" should not be visible within "profile-identifier-formitem"

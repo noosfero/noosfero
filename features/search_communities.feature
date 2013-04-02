@@ -28,7 +28,7 @@ Feature: search communities
 
   Scenario: simple search for community
     When I go to the search communities page
-    And I fill in "query" with "noosfero"
+    And I fill in "search-input" with "noosfero"
     And I press "Search"
     Then I should see "Noosfero Community" within "#search-results"
     And I should see "Noosfero Community" within ".only-one-result-box"
@@ -42,7 +42,7 @@ Feature: search communities
       | identifier | name               | category       |
       | noos-comm  | Noosfero Community | software-livre |
     When I go to the search communities page
-    And I fill in "query" with "software livre"
+    And I fill in "search-input" with "software livre"
     And I press "Search"
     Then I should see "Noosfero" within "#search-results"
 
@@ -57,7 +57,7 @@ Feature: search communities
       | identifier | name            | category       |
       | linux      | Linux Community | software-livre |
     When I go to the search communities page
-    And I fill in "query" with "Linux"
+    And I fill in "search-input" with "Linux"
     And I press "Search"
     Then I should see "Temáticas" within "#facets-menu"
 
@@ -66,7 +66,7 @@ Feature: search communities
       | identifier | name                       |
       | luwac      | Linux Users Without a Clue |
     When I go to the search communities page
-    And I fill in "query" with "Linux Clue"
+    And I fill in "search-input" with "Linux Clue"
     And I press "Search"
     Then I should see "Linux Users Without a Clue" within "#search-results"
 
@@ -83,7 +83,7 @@ Feature: search communities
       | noos-dev   | Noosfero Developers | software-livre |
       | facebook   | Facebook Developers | big-brother    |
     When I go to the search communities page
-    And I fill in "query" with "Developers"
+    And I fill in "search-input" with "Developers"
     And I press "Search"
     And I follow "Software Livre" within "#facets-menu"
     Then I should see "Noosfero Developers" within "#search-results"
@@ -106,10 +106,10 @@ Feature: search communities
       | rails-dev  | Rails Developers    | other-category |
       | rails-usr  | Rails Users         | software-livre |
     When I go to the search communities page
-    And I fill in "query" with "Developers"
+    And I fill in "search-input" with "Developers"
     And I press "Search"
     And I follow "Software Livre" within "#facets-menu"
-    And I fill in "query" with "Rails"
+    And I fill in "search-input" with "Rails"
     And I press "Search"
     Then I should see "Rails Users" within "#search-results"
     And I should not see "Rails Developers"

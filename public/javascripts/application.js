@@ -29,7 +29,14 @@ function focus_first_field() {
 
 /* * * Convert a string to a valid login name * * */
 function convToValidLogin( str ) {
-  return convToValidIdentifier(str, '')
+  if (str.indexOf('@') == -1)
+    return convToValidUsername(str);
+  else
+    return convToValidEmail(str);
+}
+
+function convToValidUsername( str ) {
+  return convToValidIdentifier(str, '');
 }
 
 /* * * Convert a string to a valid login name * * */
@@ -44,6 +51,18 @@ function convToValidIdentifier( str, sep ) {
             .replace( /ñ/g,       "n" )
             .replace( /ç/g,       "c" )
             .replace( /[^-_a-z0-9.]+/g, sep )
+}
+
+function convToValidEmail( str ) {
+  return str.toLowerCase()
+            .replace( /á|à|ã|â/g, "a" )
+            .replace( /é|ê/g,     "e" )
+            .replace( /í/g,       "i" )
+            .replace( /ó|ô|õ|ö/g, "o" )
+            .replace( /ú|ũ|ü/g,   "u" )
+            .replace( /ñ/g,       "n" )
+            .replace( /ç/g,       "c" )
+            .replace( /[^@a-z0-9!#$%&'*+-/=?^_`{|}~.]+/g, '' )
 }
 
 function updateUrlField(name_field, id) {

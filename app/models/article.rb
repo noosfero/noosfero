@@ -13,9 +13,17 @@ class Article < ActiveRecord::Base
   # xss_terminate plugin can't sanitize array fields
   before_save :sanitize_tag_list
 
+  before_create do |article|
+    if article.last_changed_by_id
+      article.author_name = Person.find(article.last_changed_by_id).name
+    end
+  end
+
   belongs_to :profile
   validates_presence_of :profile_id, :name
   validates_presence_of :slug, :path, :if => lambda { |article| !article.name.blank? }
+
+  validates_length_of :name, :maximum => 150
 
   validates_uniqueness_of :slug, :scope => ['profile_id', 'parent_id'], :message => N_('The title (article name) is already being used by another article, please use another title.'), :if => lambda { |article| !article.slug.blank? }
 
@@ -289,7 +297,7 @@ class Article < ActiveRecord::Base
     if last_comment
       {:date => last_comment.created_at, :author_name => last_comment.author_name, :author_url => last_comment.author_url}
     else
-      {:date => updated_at, :author_name => author.name, :author_url => author.url}
+      {:date => updated_at, :author_name => author_name, :author_url => author_url}
     end
   end
 
@@ -441,7 +449,7 @@ class Article < ActiveRecord::Base
   end
 
   def allow_post_content?(user = nil)
-    user && (user.has_permission?('post_content', profile) || allow_publish_content?(user) && (user == self.creator))
+    user && (user.has_permission?('post_content', profile) || allow_publish_content?(user) && (user == author))
   end
 
   def allow_publish_content?(user = nil)
@@ -496,7 +504,6 @@ class Article < ActiveRecord::Base
     :slug,
     :updated_at,
     :created_at,
-    :last_changed_by_id,
     :version,
     :lock_version,
     :type,
@@ -539,15 +546,24 @@ class Article < ActiveRecord::Base
   end
 
   def author
-    if reference_article
-      reference_article.author
+    if versions.empty?
+      last_changed_by
     else
-      last_changed_by || profile
+      author_id = versions.first.last_changed_by_id
+      Person.exists?(author_id) ? Person.find(author_id) : nil
     end
   end
 
   def author_name
-    setting[:author_name].blank? ? author.name : setting[:author_name]
+    author ? author.name : (setting[:author_name] || _('Unknown'))
+  end
+
+  def author_url
+    author ? author.url : nil
+  end
+
+  def author_id
+    author ? author.id : nil
   end
 
   alias :active_record_cache_key :cache_key
@@ -570,11 +586,6 @@ class Article < ActiveRecord::Base
 
   def short_lead
     truncate sanitize_html(self.lead), :length => 170, :omission => '...'
-  end
-
-  def creator
-    creator_id = versions[0][:last_changed_by_id]
-    creator_id && Profile.find(creator_id)
   end
 
   def notifiable?

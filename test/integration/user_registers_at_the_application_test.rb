@@ -19,6 +19,9 @@ class UserRegistersAtTheApplicationTest < ActionController::IntegrationTest
   end
 
   def test_trying_an_existing_login_name
+    env = Environment.default
+    env.min_signup_delay = 0
+    env.save!
 
     assert User.find_by_login('ze') # just to make sure that 'ze' already exists
 
