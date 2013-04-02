@@ -29,7 +29,7 @@ class ContentViewerHelperTest < ActiveSupport::TestCase
 
   should 'create the license options array' do
    options = YAML.load_file("#{RAILS_ROOT}/plugins/mezuro/licenses.yml")
-   options = options.split(";")
+   options = options.split("; ")
    assert_equal options, @helper.license_options
   end
   
