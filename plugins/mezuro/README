@@ -23,6 +23,13 @@ $ gem uninstall rack
 $ gem install --no-ri --no-rdoc rack -v 1.0.1
 
 
+*with RVM*
+
+if you want to use RVM (Ruby Version Manager) environment, just run:
+
+$ plugins/mezuro/script/install/install-rvm.sh
+
+
 Enable Mezuro Plugin
 --------------------
 
@@ -64,6 +71,8 @@ $ cp licence.yml.example licence.yml
 
 Apply Mezuro Theme
 ---------------------
+
+(Our RVM install script already do that)
 
 If you want, you can use the Mezuro default theme:
 
