@@ -1,0 +1,8 @@
+<div id="manage-communities" class="manage-groups">
+  <a href="#" id="manage-communities-link" class="simplemenu-trigger" title="<%= _('Manage communities') %>"><i class="icon-menu-community"></i><strong><%= ui_icon('ui-icon-triangle-1-s') + _('My communities') %></strong></a>
+  <ul class="simplemenu-submenu">
+    <% communities_link.each do |link| %>
+      <li class="simplemenu-item"><%= link %></li>
+    <% end %>
+  </ul>
+</div>
