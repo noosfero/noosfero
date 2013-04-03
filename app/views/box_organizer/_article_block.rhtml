@@ -6,8 +6,8 @@
 <% else %>
   <%
     articles = @block.available_articles.select {|a| !a.folder? || a.blog? }
-    firstText = articles[articles.find_index{|a| a.kind_of?TextArticle}||-1]
-    selected = @block.article || firstText
+    first_text = articles[articles.find_index{|a| a.kind_of? TextArticle}||-1]
+    selected = @block.article || first_text
   %>
   <%= select_tag(
     'block[article_id]',
