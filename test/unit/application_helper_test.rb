@@ -657,6 +657,43 @@ class ApplicationHelperTest < ActiveSupport::TestCase
     assert_not_nil add_zoom_to_images
   end
 
+  should 'link to article' do
+    c = fast_create(Community)
+    a = fast_create(TinyMceArticle, :profile_id => c.id)
+    assert_equal(
+      "<a href=\"/#{c.identifier}/#{a.slug}\">x</a>",
+      link_to_article('x', a) )
+  end
+
+  should 'link to article, with anchor' do
+    c = fast_create(Community)
+    a = fast_create(TinyMceArticle, :profile_id => c.id)
+    assert_equal(
+      "<a href=\"/#{c.identifier}/#{a.slug}#place\">x</a>",
+      link_to_article('x', a, 'place') )
+  end
+
+  should 'link to article, in a blog' do
+    c = fast_create(Community)
+    b = fast_create(Blog, :profile_id => c.id)
+    a = fast_create(TinyMceArticle, :profile_id => c.id, :parent_id => b.id)
+    a.save! # needed to link to the parent blog
+    assert_equal(
+      "<a href=\"/#{c.identifier}/#{b.slug}/#{a.slug}\">x</a>",
+      link_to_article('x', a) )
+  end
+
+  should 'link to article, in a profile with domain' do
+    c = fast_create(Community)
+    c.domains << Domain.new(:name=>'domain.xyz')
+    b = fast_create(Blog, :profile_id => c.id)
+    a = fast_create(TinyMceArticle, :profile_id => c.id, :parent_id => b.id)
+    a.save!
+    assert_equal(
+      "<a href=\"http://domain.xyz/#{b.slug}/#{a.slug}\">x</a>",
+      link_to_article('x', a) )
+  end
+
   protected
   include NoosferoTestHelper
 

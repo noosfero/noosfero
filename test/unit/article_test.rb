@@ -97,6 +97,21 @@ class ArticleTest < ActiveSupport::TestCase
     assert_equal '', a.to_html
   end
 
+  should 'provide short html version' do
+    a = fast_create(Article, :body => 'full body', :abstract => 'lead')
+    a.stubs(:url).returns({:x=>'none'})
+    a.stubs(:link_to).returns('<link>')
+    def a.content_tag (tag, content, c=nil)
+      "<#{tag}>#{content}</#{tag}>"
+    end
+    assert_match /<div>lead.*/, a.to_html(:format=>'short')
+  end
+
+  should 'provide full html version' do
+    a = fast_create(Article, :body => 'full body', :abstract => 'lead')
+    assert_equal 'full body', a.to_html(:format=>'full body')
+  end
+
   should 'provide first paragraph of HTML version' do
     profile = create_user('testinguser').person
     a = fast_create(Article, :name => 'my article', :profile_id => profile.id)
