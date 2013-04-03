@@ -34,6 +34,8 @@ module ApplicationHelper
 
   include ContentViewerHelper
 
+  include LayoutHelper
+
   def locale
     (@page && !@page.language.blank?) ? @page.language : FastGettext.locale
   end
@@ -354,10 +356,6 @@ module ApplicationHelper
     else
       '/designs/themes/' + current_theme
     end
-  end
-
-  def theme_stylesheet_path
-    theme_path + '/style.css'
   end
 
   def current_theme
@@ -877,14 +875,6 @@ module ApplicationHelper
     content_tag('div', labelled_check_box(_('Public'), 'profile_data[fields_privacy]['+name+']', 'public', profile.public_fields.include?(name)), :class => 'field-privacy-selector')
   end
 
-  def template_stylesheet_path
-    if profile.nil?
-      "/designs/templates/#{environment.layout_template}/stylesheets/style.css"
-    else
-      "/designs/templates/#{profile.layout_template}/stylesheets/style.css"
-    end
-  end
-
   def login_url
     options = Noosfero.url_options.merge({ :controller => 'account', :action => 'login' })
     url_for(options)
@@ -923,18 +913,6 @@ module ApplicationHelper
     end
   end
 
-  def icon_theme_stylesheet_path
-    icon_themes = []
-    theme_icon_themes = theme_option(:icon_theme) || []
-    for icon_theme in theme_icon_themes do
-      theme_path = "/designs/icons/#{icon_theme}/style.css"
-      if File.exists?(File.join(RAILS_ROOT, 'public', theme_path))
-        icon_themes << theme_path
-      end
-    end
-    icon_themes
-  end
-
   def page_title
     (@page ? @page.title + ' - ' : '') +
     (profile ? profile.short_name + ' - ' : '') +
@@ -946,38 +924,9 @@ module ApplicationHelper
     (@category ? " - #{@category.full_name}" : '')
   end
 
-  def noosfero_javascript
-    render :file =>  'layouts/_javascript'
-  end
-
-  def noosfero_stylesheets
-    [
-      'application',
-      'search',
-      'thickbox',
-      'lightbox',
-      'colorpicker',
-      'colorbox',
-      pngfix_stylesheet_path,
-    ] +
-    tokeninput_stylesheets
-  end
-
   # DEPRECATED. Do not use this·
   def import_controller_stylesheets(options = {})
     stylesheet_import( "controller_"+ @controller.controller_name(), options )
-  end
-
-  def pngfix_stylesheet_path
-    'iepngfix/iepngfix.css'
-  end
-
-  def tokeninput_stylesheets
-    ['token-input', 'token-input-facebook', 'token-input-mac', 'token-input-facet']
-  end
-
-  def noosfero_layout_features
-    render :file => 'shared/noosfero_layout_features'
   end
 
   def link_to_email(email)
@@ -1050,10 +999,6 @@ module ApplicationHelper
 
   def jquery_theme
     theme_option(:jquery_theme) || 'smoothness_mod'
-  end
-
-  def jquery_ui_theme_stylesheet_path
-    'jquery.ui/' + jquery_theme + '/jquery-ui-1.8.2.custom'
   end
 
   def ui_error(message)
