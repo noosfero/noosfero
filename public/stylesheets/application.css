@@ -3786,9 +3786,6 @@ h1#agenda-title {
 .controller-profile .private-profile-message, .controller-profile .private-profile-description {
   margin: 5px 0px 5px 160px;
 }
-.controller-profile_design .article-block-edition select, .controller-environment_design .article-block-edition select {
-  width: 100%;
-}
 .controller-profile_design .article-block-edition option, .controller-environment_design .article-block-edition option {
   width: 470px;
   overflow-x: hidden;
