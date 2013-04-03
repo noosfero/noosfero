@@ -1,6 +1,6 @@
 require "#{File.dirname(__FILE__)}/../test_helper"
 
-class BlocksIntegrationTest < ActionController::IntegrationTest
+class BlocksTest < ActionController::IntegrationTest
   def blog_on_article_block_bootstrap
     profile = fast_create(Profile)
     blog = fast_create(Blog, :name => 'Blog', :profile_id => profile.id)
