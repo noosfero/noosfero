@@ -144,13 +144,13 @@ When /^I follow the (edit|remove) link for "([^"]*)" (repository|reading)$/ do |
     id = repositories.select {|option| option.name == name}.first.id
   elsif (type == "reading")
     reading_group_id = Kalibro::ReadingGroup.all.last.id
-    readings = Kalibro::Reading.readings_of reading_group_id 
+    readings = Kalibro::Reading.readings_of reading_group_id
     id = readings.select {|option| option.label == name}.first.id
     if (action == "edit")
       action = name
     end
   end
-  
+
   elements = all('a', :text => action.capitalize)
   link = type + "_id"
   action_link = elements.select {|element| (/#{link}=#{id}/ =~ element[:href])  }.first

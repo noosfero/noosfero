@@ -17,6 +17,14 @@ def plugin_name(plugin)
   "#{plugin} plugin"
 end
 
+def plugin_enabled?(plugin)
+  File.exist?(File.join('config', 'plugins', plugin))
+end
+
+def plugin_disabled_warning(plugin)
+  puts "E: you should enable #{plugin} plugin before running it's tests!"
+end
+
 def run_tests(name, files_glob)
   files = Dir.glob(files_glob)
   if files.empty?
@@ -38,21 +46,33 @@ end
 def plugin_test_task(name, plugin, files_glob)
   desc "Run #{name} tests for #{plugin_name(plugin)}"
   task name => 'db:test:plugins:prepare' do |t|
-    run_tests t.name, files_glob
+    if plugin_enabled?(plugin)
+      run_tests t.name, files_glob
+    else
+      plugin_disabled_warning(plugin)
+    end
   end
 end
 
 def plugin_cucumber_task(name, plugin, files_glob)
   desc "Run #{name} tests for #{plugin_name(plugin)}"
   task name => 'db:test:plugins:prepare' do |t|
-    run_cucumber t.name, :default, files_glob
+    if plugin_enabled?(plugin)
+      run_cucumber t.name, plugin, files_glob
+    else
+      plugin_disabled_warning(plugin)
+    end
   end
 end
 
 def plugin_selenium_task(name, plugin, files_glob)
   desc "Run #{name} tests for #{plugin_name(plugin)}"
   task name => 'db:test:plugins:prepare' do |t|
-    run_cucumber t.name, :selenium, files_glob
+    if plugin_enabled?(plugin)
+      run_cucumber t.name, "#{plugin}_selenium", files_glob
+    else
+      plugin_disabled_warning(plugin)
+    end
   end
 end
 
@@ -81,8 +101,8 @@ namespace :test do
         plugin_test_task :units, plugin, "plugins/#{plugin}/test/unit/**/*.rb"
         plugin_test_task :functionals, plugin, "plugins/#{plugin}/test/functional/**/*.rb"
         plugin_test_task :integration, plugin, "plugins/#{plugin}/test/integration/**/*.rb"
-        plugin_cucumber_task :cucumber, plugin, "plugins/#{plugin}/test/features/**/*.feature"
-        plugin_selenium_task :selenium, plugin, "plugins/#{plugin}/test/features/**/*.feature"
+        plugin_cucumber_task :cucumber, plugin, "plugins/#{plugin}/features/**/*.feature"
+        plugin_selenium_task :selenium, plugin, "plugins/#{plugin}/features/**/*.feature"
       end
 
       test_sequence_task(plugin, plugin, "#{plugin}:units", "#{plugin}:functionals", "#{plugin}:integration", "#{plugin}:cucumber", "#{plugin}:selenium")
