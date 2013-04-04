@@ -275,7 +275,7 @@ module FormsHelper
     if find_options.empty?
       folders = profile.folders
     else
-      folders = profile.folders.find :all, find_options
+      folders = profile.folders.where(find_options)
     end
     result = labelled_form_field(
       label_text,
