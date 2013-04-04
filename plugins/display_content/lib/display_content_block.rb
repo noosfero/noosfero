@@ -18,6 +18,7 @@ class DisplayContentBlock < Block
     self.holder.articles.find(params.keys).map do |article|
       if article.folder?
         articles = articles + article.children
+        parent_articles << article.id
       else
         articles<< article
       end
@@ -27,9 +28,11 @@ class DisplayContentBlock < Block
     self.nodes = articles.map{|a| a.id if a.is_a?(TextArticle) }.compact
   end
 
+  VALID_CONTENT = ['RawHTMLArticle', 'TextArticle', 'TextileArticle', 'TinyMceArticle', 'Folder', 'Blog', 'Forum']
+
   def articles_of_parent(parent = nil)
     return [] if self.holder.nil?
-    holder.articles.find(:all, :conditions => {:parent_id => parent.nil? ? nil : parent}) 
+    holder.articles.find(:all, :conditions => {:type => VALID_CONTENT, :parent_id => (parent.nil? ? nil : parent)}) 
   end
 
   include ActionController::UrlWriter

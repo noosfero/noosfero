@@ -1,6 +1,9 @@
 require File.dirname(__FILE__) + '/../test_helper'
 class DisplayContentBlockTest < ActiveSupport::TestCase
 
+  INVALID_KIND_OF_ARTICLE = [EnterpriseHomepage, Event, RssFeed, UploadedFile, Gallery]
+  VALID_KIND_OF_ARTICLE = [RawHTMLArticle, TextArticle, TextileArticle, TinyMceArticle, Folder, Blog, Forum]
+
   should 'describe itself' do
     assert_not_equal Block.description, DisplayContentBlock.description
   end
@@ -376,6 +379,57 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
     assert_equal [], block.parent_nodes - [f1.id, f2.id, f3.id, f4.id, f5.id]
   end
 
+  should "save the folder in parent_nodes variable if it was checked" do
+    profile = create_user('testuser').person
+    Article.delete_all
+    f1 = fast_create(Folder, :name => 'test folder 1', :profile_id => profile.id)
+    a1 = fast_create(TextileArticle, :name => 'test article 1', :profile_id => profile.id, :parent_id => f1.id)
+    a2 = fast_create(TextileArticle, :name => 'test article 4', :profile_id => profile.id, :parent_id => f1.id)
+
+    checked_articles= {f1.id => 1}
+
+    block = DisplayContentBlock.new
+    block.stubs(:holder).returns(profile)
+    block.checked_nodes= checked_articles
+
+    assert_equal [], [f1.id] - block.parent_nodes
+    assert_equal [], block.parent_nodes - [f1.id]
+  end
+
+  should "save the blog in parent_nodes variable if it was checked" do
+    profile = create_user('testuser').person
+    Article.delete_all
+    b1 = fast_create(Blog, :name => 'test folder 1', :profile_id => profile.id)
+    a1 = fast_create(TextileArticle, :name => 'test article 1', :profile_id => profile.id, :parent_id => b1.id)
+    a2 = fast_create(TextileArticle, :name => 'test article 4', :profile_id => profile.id, :parent_id => b1.id)
+
+    checked_articles= {b1.id => 1}
+
+    block = DisplayContentBlock.new
+    block.stubs(:holder).returns(profile)
+    block.checked_nodes= checked_articles
+
+    assert_equal [], [b1.id] - block.parent_nodes
+    assert_equal [], block.parent_nodes - [b1.id]
+  end
+
+  should "save the forum in parent_nodes variable if it was checked" do
+    profile = create_user('testuser').person
+    Article.delete_all
+    f1 = fast_create(Forum, :name => 'test folder 1', :profile_id => profile.id)
+    a1 = fast_create(TextileArticle, :name => 'test article 1', :profile_id => profile.id, :parent_id => f1.id)
+    a2 = fast_create(TextileArticle, :name => 'test article 4', :profile_id => profile.id, :parent_id => f1.id)
+
+    checked_articles= {f1.id => 1}
+
+    block = DisplayContentBlock.new
+    block.stubs(:holder).returns(profile)
+    block.checked_nodes= checked_articles
+
+    assert_equal [], [f1.id] - block.parent_nodes
+    assert_equal [], block.parent_nodes - [f1.id]
+  end
+
   should "return all root articles from profile" do
     profile = create_user('testuser').person
     Article.delete_all
@@ -452,6 +506,41 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
     box.stubs(:owner).returns(environment)
 
     assert_equal [], block.articles_of_parent()
+  end
+
+  INVALID_KIND_OF_ARTICLE.map do |invalid_article|
+
+    define_method "test_should_not_return_#{invalid_article.name}_articles_in_articles_of_parent_method" do
+      profile = create_user('testuser').person
+      Article.delete_all
+      a1 = fast_create(invalid_article, :name => 'test article 1', :profile_id => profile.id)
+      a2 = fast_create(VALID_KIND_OF_ARTICLE.first, :name => 'test article 2', :profile_id => profile.id)
+ 
+      block = DisplayContentBlock.new
+      box = mock()
+      box.stubs(:owner).returns(profile)
+      block.stubs(:box).returns(box)
+      assert_equal [], [a2] - block.articles_of_parent
+      assert_equal [], block.articles_of_parent - [a2]
+    end
+  
+  end
+
+  VALID_KIND_OF_ARTICLE.map do |valid_article|
+
+    define_method "test_should_return_#{valid_article.name}_articles_in_articles_of_parent_method" do
+      profile = create_user('testuser').person
+      Article.delete_all
+      a1 = fast_create(valid_article, :name => 'test article 1', :profile_id => profile.id)
+      a2 = fast_create(INVALID_KIND_OF_ARTICLE.first, :name => 'test article 2', :profile_id => profile.id)
+ 
+      block = DisplayContentBlock.new
+      box = mock()
+      box.stubs(:owner).returns(profile)
+      block.stubs(:box).returns(box)
+      assert_equal [a1], block.articles_of_parent
+    end
+  
   end
 
   should 'list links for all articles title defined in nodes' do
