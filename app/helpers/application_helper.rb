@@ -951,7 +951,7 @@ module ApplicationHelper
   # This method was created to work around to inexplicable
   # chain of problems when display_short_format was called
   # from Article model for an ArticleBlock.
-  def link_to_article(text, article, anchor=nil)
+  def reference_to_article(text, article, anchor=nil)
     if article.profile.domains.empty?
       href = "/#{article.url[:profile]}/"
     else
@@ -969,7 +969,7 @@ module ApplicationHelper
              article.lead +
              content_tag('div',
                (options[:comments_link] ? link_to_comments(article) : '') +
-               (options[:read_more_link] ? link_to_article( _('Read more'), article) : ''),
+               (options[:read_more_link] ? reference_to_article( _('Read more'), article) : ''),
                :class => 'read-more'
              ),
              :class => 'short-post'
