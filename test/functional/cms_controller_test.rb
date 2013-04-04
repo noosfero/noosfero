@@ -1624,10 +1624,16 @@ class CmsControllerTest < ActionController::TestCase
     assert_template 'edit'
     assert_tag :tag => 'select', :attributes => { :name => "parent_id" },
                :descendant => { :tag => "option",
+                 :attributes => { :value => folder.id.to_s }}
+    assert_tag :tag => 'select', :attributes => { :name => "parent_id" },
+               :descendant => { :tag => "option",
                  :attributes => { :selected => 'selected', :value => gallery.id.to_s }}
     assert_no_tag :tag => 'select', :attributes => { :name => "parent_id" },
                   :descendant => { :tag => "option",
                     :attributes => { :value => blog.id.to_s }}
+    assert_no_tag :tag => 'select', :attributes => { :name => "parent_id" },
+                  :descendant => { :tag => "option",
+                    :attributes => { :value => article.id.to_s }}
   end
 
   protected
