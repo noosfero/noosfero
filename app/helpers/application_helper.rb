@@ -1402,4 +1402,14 @@ module ApplicationHelper
     @no_design_blocks = true
   end
 
+  def default_folder_for_image_upload(profile)
+    default_folder = profile.folders.find_by_type('Gallery')
+    default_folder = profile.folders.find_by_type('Folder') if default_folder.nil?
+    default_folder
+  end
+
+  def content_id_to_str(content)
+    content.nil? ? '' : content.id.to_s
+  end
+
 end
