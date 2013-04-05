@@ -2998,11 +2998,17 @@ table.cms-articles a.icon, table.cms-articles a.icon-parent-folder {
 table.cms-articles .icon:hover {
   background-color: transparent;
 }
-#article_types {
+
+.select-article-type {
+  padding: 5px 20px;
+  width: 455px;
+}
+
+.article-types {
   padding-left: 5px;
   margin-top: 20px;
 }
-#article_types li {
+.article-types li {
   list-style: none;
   float: left;
   width: 180px;
@@ -3016,18 +3022,18 @@ table.cms-articles .icon:hover {
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
 }
-#article_types .description {
+.article-types .description {
   color: #888a85;
   font-size: smaller;
 }
-#article_types .icon-newrss-feed, #content .icon-rss-feed {
+.article-types .icon-newrss-feed, #content .icon-rss-feed {
   background-image: url(../images/icons-mime/rss-feed-16.png);
 }
-#article_types a {
+.article-types a {
   text-decoration: none;
   color: black;
 }
-#article_types li.mouseover {
+.article-types li.mouseover {
   background-color: #eeeeec;
 }
 .controller-cms #article-subitems-hide.hide-button {
