@@ -7,7 +7,7 @@
       <a href="cart:clean" onclick="Cart.clean(this); return false" class="cart-clean"><%=_('Clean basket')%></a>
       <ul class="cart-items"></ul>
       <div class="cart-total"><%=_('Total:')%> <b></b></div>
-      <a href="/plugin/shopping_cart/buy" class="cart-buy"><%=_('Shopping checkout')%></a>
+      <a href="/plugin/shopping_cart/buy" class="cart-buy colorbox"><%=_('Shopping checkout')%></a>
     </div>
     <a href="#" onclick="Cart.toggle(this); return false" class="cart-toggle">
       <span class="str-show"><%=_('Show basket')%></span>
@@ -15,3 +15,15 @@
     </a>
   </div>
 </div>
+<script>
+  shoppingCartPluginL10n = {
+    getProblemConfirmReload: <%= (
+      _('Ups... I had a problem to load the basket list.') +
+      "\n" +
+      _('Did you want to reload this page?')
+    ).to_json %>,
+    maxNumberOfItens: <%= (
+      _('Sorry, you can\'t have more then 100 kinds of items on this basket.')
+    ).to_json %>
+  }
+</script>

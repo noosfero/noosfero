@@ -918,6 +918,41 @@ function facet_options_toggle(id, url) {
   });
 }
 
+if ( !console ) console = {};
+if ( !console.log ) console.log = function(){};
+
+// Two ways to call it:
+// log(mixin1[, mixin2[, ...]]);
+// log('<type>', mixin1[, mixin2[, ...]]);
+// Where <type> may be: log, info warn, or error
+window.log = function log() {
+  var type = arguments[0];
+  var argsClone = jQuery.merge([], arguments); // cloning the read-only arguments array.
+  if ( ['info', 'warn', 'error'].indexOf(type) == -1 ) {
+    type = 'log';
+  } else {
+    argsClone.shift();
+  }
+  var method = type;
+  if ( !console[method] ) method = 'log';
+  console[method].apply( console, jQuery.merge([(new Date).toISOString()], argsClone) );
+}
+
+// Call log.info(mixin1[, mixin2[, ...]]);
+log.info = function() {
+  window.log.apply(window, jQuery.merge(['info'], arguments));
+}
+
+// Call log.warn(mixin1[, mixin2[, ...]]);
+log.warn = function() {
+  window.log.apply(window, jQuery.merge(['warn'], arguments));
+}
+
+// Call log.error(mixin1[, mixin2[, ...]]);
+log.error = function() {
+  window.log.apply(window, jQuery.merge(['error'], arguments));
+}
+
 jQuery(function($) {
   $('.colorbox').live('click', function() {
     $.fn.colorbox({
