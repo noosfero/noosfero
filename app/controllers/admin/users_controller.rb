@@ -1,3 +1,5 @@
+require 'csv'
+
 class UsersController < AdminController
 
   protect 'manage_environment_users', :environment
