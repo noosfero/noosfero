@@ -21,5 +21,44 @@ module CommentHelper
     end
     title
   end
+  
+  #FIXME make this test
+  def comment_actions(comment)
+    links = links_for_comment_actions(comment)
+    content_tag(:li, link_to(content_tag(:span, _('Contents menu')), '#', :onclick => "toggleSubmenu(this,'',#{links.to_json}); return false", :class => 'menu-submenu-trigger'), :class=> 'vcard') unless links.empty?
+  end
+
+  private
+
+  def links_for_comment_actions(comment)
+    [link_for_report_abuse(comment), link_for_spam(comment), link_for_edit(comment), link_for_remove(comment)].compact
+  end
+
+  def link_for_report_abuse(comment)
+    if comment.author
+      report_abuse_link = report_abuse(comment.author, :comment_link, comment)
+      {:link => report_abuse_link} if report_abuse_link
+    end
+  end
+
+  def link_for_spam(comment)
+    if comment.spam?
+      {:link => link_to_function(_('Mark as NOT SPAM'), 'remove_comment(this, %s); return false;' % url_for(:profile => profile.identifier, :mark_comment_as_ham => comment.id).to_json, :class => 'comment-footer comment-footer-link comment-footer-hide')}
+    elsif (logged_in? && (user == profile || user.has_permission?(:moderate_comments, profile)))
+      {:link => link_to_function(_('Mark as SPAM'), 'remove_comment(this, %s, %s); return false;' % [url_for(:profile => profile.identifier, :controller => 'comment', :action => :mark_as_spam, :id => comment.id).to_json, _('Are you sure you want to mark this comment as SPAM?').to_json], :class => 'comment-footer comment-footer-link comment-footer-hide')}
+    end
+  end
+
+  def link_for_edit(comment)
+    if comment.author && comment.author == user 
+      {:link => expirable_comment_link(comment, :edit, _('Edit'), url_for(:profile => profile.identifier, :controller => :comment, :action => :edit, :id => comment.id),:class => 'colorbox')}
+    end
+  end
+
+  def link_for_remove(comment)
+    if logged_in? && (user == profile || user == comment.author || user.has_permission?(:moderate_comments, profile))
+      {:link => link_to_function(_('Remove'), 'remove_comment(this, %s, %s); return false ;' % [url_for(:profile => profile.identifier, :controller => 'comment', :action => :destroy, :id => comment.id).to_json, _('Are you sure you want to remove this comment and all its replies?').to_json], :class => 'comment-footer comment-footer-link comment-footer-hide remove-children')}
+    end
+  end
 
 end

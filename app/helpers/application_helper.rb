@@ -30,6 +30,8 @@ module ApplicationHelper
 
   include AccountHelper
 
+  include CommentHelper
+
   def locale
     (@page && !@page.language.blank?) ? @page.language : FastGettext.locale
   end
