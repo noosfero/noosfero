@@ -559,13 +559,14 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
     assert_match /.*<a.*>#{a2.title}<\/a>/, block.content
   end
 
-  should 'list links for all articles lead defined in nodes' do
+  should 'list content for all articles lead defined in nodes' do
     profile = create_user('testuser').person
     Article.delete_all
     a1 = fast_create(TextArticle, :name => 'test article 1', :profile_id => profile.id, :abstract => 'abstract article 1')
     a2 = fast_create(TextArticle, :name => 'test article 2', :profile_id => profile.id, :abstract => 'abstract article 2')
 
     block = DisplayContentBlock.new
+    block.chosen_attributes = ['abstract']
     block.nodes = [a1.id, a2.id]
     box = mock()
     block.stubs(:box).returns(box)
@@ -610,6 +611,65 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
     params = {:block_id => block.id}
     params[:controller] = "display_content_plugin_admin"
     assert_equal params, block.url_params
+  end
+
+  should 'show title if defined by user' do
+    profile = create_user('testuser').person
+    a = fast_create(TextArticle, :name => 'test article 1', :profile_id => profile.id)
+
+    block = DisplayContentBlock.new
+    block.nodes = [a.id]
+    block.chosen_attributes = ['title']
+    box = mock()
+    block.stubs(:box).returns(box)
+    box.stubs(:owner).returns(profile)
+   
+    assert_match /.*<a.*>#{a.title}<\/a>/, block.content
+  end
+
+  should 'show abstract if defined by user' do
+    profile = create_user('testuser').person
+    a = fast_create(TextArticle, :name => 'test article 1', :profile_id => profile.id, :abstract => 'some abstract')
+
+    block = DisplayContentBlock.new
+    block.nodes = [a.id]
+    block.chosen_attributes = ['abstract']
+    box = mock()
+    block.stubs(:box).returns(box)
+    box.stubs(:owner).returns(profile)
+   
+    assert_match /#{a.abstract}/, block.content
+  end
+
+  should 'show body if defined by user' do
+    profile = create_user('testuser').person
+    a = fast_create(TextArticle, :name => 'test article 1', :profile_id => profile.id, :body => 'some body')
+
+    block = DisplayContentBlock.new
+    block.nodes = [a.id]
+    block.chosen_attributes = ['body']
+    box = mock()
+    block.stubs(:box).returns(box)
+    box.stubs(:owner).returns(profile)
+   
+    assert_match /#{a.body}/, block.content
+  end
+
+  should 'display_attribute be true for title by default' do
+    profile = create_user('testuser').person
+
+    block = DisplayContentBlock.new
+   
+    assert block.display_attribute?('title')
+  end
+
+  should 'display_attribute be true if the attribute was chosen' do
+    profile = create_user('testuser').person
+
+    block = DisplayContentBlock.new
+    block.chosen_attributes = ['body']
+   
+    assert block.display_attribute?('body')
   end
 
 end

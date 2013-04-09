@@ -2,6 +2,7 @@ class DisplayContentBlock < Block
 
   settings_items :nodes, :type => Array, :default => []
   settings_items :parent_nodes, :type => Array, :default => []
+  settings_items :chosen_attributes, :type => Array, :default => ['title']
 
   def self.description
     _('Display your contents')
@@ -41,8 +42,9 @@ class DisplayContentBlock < Block
     block_title(title) +
     content_tag('ul', docs.map {|item|  
       content_tag('li', 
-        link_to(h(item.title), item.url) + "<br/>" +
-        content_tag('div', item.abstract ,:class => 'lead')
+        (display_attribute?('title') ? content_tag('div', link_to(h(item.title), item.url), :class => 'title') : '') +
+        (display_attribute?('abstract') ? content_tag('div', item.abstract ,:class => 'lead') : '') +
+        (display_attribute?('body') ? content_tag('div', item.body ,:class => 'body') : '')
       )
     }.join("\n"))
 
@@ -57,6 +59,10 @@ class DisplayContentBlock < Block
       params.merge!( :controller => "display_content_plugin_admin")
     end
     params
+  end
+
+  def display_attribute?(attr)
+    chosen_attributes.include?(attr) 
   end
 
   protected

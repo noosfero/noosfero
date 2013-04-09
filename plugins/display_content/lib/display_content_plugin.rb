@@ -20,6 +20,11 @@ class DisplayContentPlugin < Noosfero::Plugin
     false
   end
 
+  #FIXME make this test
+  def stylesheet?
+    true
+  end
+
   def js_files
     ['/javascripts/jstree/_lib/jquery-1.8.3.js', '/javascripts/jstree/jquery.jstree.js']
   end

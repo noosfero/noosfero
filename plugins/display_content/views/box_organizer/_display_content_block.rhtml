@@ -1,3 +1,13 @@
+<div id="display_content_plugin">
+
+<h3> <%= _('Choose which attributes should be displayed:') %> </h3>
+<ul class='display_attributes'>
+  <li>  <%= _('Title: ')%> <%= check_box_tag "block[chosen_attributes][]", 'title', @block.display_attribute?('title') %> </li>
+  <li>  <%= _('Abstract: ')%> <%= check_box_tag "block[chosen_attributes][]", 'abstract', @block.display_attribute?('abstract') %> </li>
+  <li>  <%= _('Body: ')%> <%= check_box_tag "block[chosen_attributes][]", 'body', @block.display_attribute?('body') %> </li>
+</ul>
+
+<h3> <%= _('Choose which content should be displayed:') %> </h3>
 <div id="display_content">
 </div>
 
@@ -22,3 +32,4 @@ jQuery_1_8_3("#display_content").jstree({
 });
 
 </script>
+</div>
