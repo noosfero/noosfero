@@ -955,11 +955,18 @@ log.error = function() {
 
 jQuery(function($) {
   $('.colorbox').live('click', function() {
-    $.fn.colorbox({
-      href:$(this).attr('href'),
-      maxWidth: '600',
-      maxHeight: '550',
-      open:true
+    $.colorbox({
+      href:       $(this).attr('href'),
+      maxWidth:   $(window).width()-50,
+      height:     $(window).height()-50,
+      open:       true,
+      fixed:      true,
+      close:      'Cancel',
+      onComplete: function(bt) {
+        var opt = {}, maxH = $(window).height()-50;
+        if ($('#cboxLoadedContent *:first').height() > maxH) opt.height = maxH;
+        $.colorbox.resize(opt);
+      }
     });
     return false;
   });
