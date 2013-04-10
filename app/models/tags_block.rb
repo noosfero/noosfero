@@ -30,11 +30,11 @@ class TagsBlock < Block
     end
 
     block_title(title) +
-    "\n<div class='tag_cloud'>\n"+
+    "\n<div class='tag_cloud'>\n".html_safe+
     tag_cloud( tags, :id,
                owner.public_profile_url.merge(:controller => 'profile', :action => 'tags'),
                :max_size => 16, :min_size => 9 ) +
-    "\n</div><!-- end class='tag_cloud' -->\n";
+    "\n</div><!-- end class='tag_cloud' -->\n".html_safe
   end
 
   def footer
