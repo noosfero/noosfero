@@ -5194,6 +5194,9 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 img {
 #leave_scrap textarea {
   overflow: hidden;
 }
+#leave_scrap .loading textarea {
+  background: url('/images/loading-small.gif') 50% 50% no-repeat;
+}
 .profile-send-reply {
   color: #aaa;
 }
