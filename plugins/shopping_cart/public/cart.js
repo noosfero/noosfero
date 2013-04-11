@@ -76,6 +76,7 @@ function Cart(config) {
   }
 
   Cart.prototype.updateQuantity = function(input, itemId, quantity) {
+    if(this.disabled) return alert(shoppingCartPluginL10n.waitLastRequest);
     quantity = parseInt(quantity);
     input.disabled = true;
     var originalBg = input.style.backgroundImage;
@@ -116,6 +117,7 @@ function Cart(config) {
   }
 
   Cart.addItem = function(itemId, link) {
+    if(this.instance.disabled) return alert(shoppingCartPluginL10n.waitLastRequest);
     if ( this.productsLength > 100 ) {
       // This limit protect the user from losing data on cookie limit.
       // This is NOT limiting to 100 products, is limiting to 100 kinds of products.
@@ -155,8 +157,8 @@ function Cart(config) {
   }
 
   Cart.removeItem = function(itemId) {
-    var message = this.instance.cartElem.getAttribute('data-l10nRemoveItem');
-    if( confirm(message) ) this.instance.removeItem(itemId);
+    if(this.instance.disabled) return alert(shoppingCartPluginL10n.waitLastRequest);
+    if( confirm(shoppingCartPluginL10n.removeItem) ) this.instance.removeItem(itemId);
   }
 
   Cart.prototype.removeItem = function(itemId) {
@@ -235,8 +237,8 @@ function Cart(config) {
   }
 
   Cart.clean = function(link) {
-    var message = this.instance.cartElem.getAttribute('data-l10nCleanCart');
-    if( confirm(message) ) link.parentNode.parentNode.parentNode.cartObj.clean();
+    if(this.instance.disabled) return alert(shoppingCartPluginL10n.waitLastRequest);
+    if( confirm(shoppingCartPluginL10n.cleanCart) ) link.parentNode.parentNode.parentNode.cartObj.clean();
   }
 
   Cart.prototype.clean = function() {
