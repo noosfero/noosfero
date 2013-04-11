@@ -224,6 +224,12 @@ class AccountControllerTest < ActionController::TestCase
     assert_template 'password_recovery_sent'
   end
 
+  should 'use redirect_to parameter on successful login' do
+    url = 'http://kernel.org'
+    post :login, :return_to => url, :user => {:login => 'ze', :password => 'test'}
+    assert_redirected_to url
+  end
+
   should 'provide interface for entering new password' do
     change = ChangePassword.new
     ChangePassword.expects(:find_by_code).with('osidufgiashfkjsadfhkj99999').returns(change)
