@@ -31,7 +31,16 @@ module CommentHelper
   private
 
   def links_for_comment_actions(comment)
-    [link_for_report_abuse(comment), link_for_spam(comment), link_for_edit(comment), link_for_remove(comment)].compact
+    actions = []
+    
+    @plugins.dispatch(:comment_actions, comment).each do |action|
+      actions << action
+    end
+    
+    actions << link_for_report_abuse(comment)
+    actions << link_for_spam(comment) 
+    actions << link_for_edit(comment)
+    actions << link_for_remove(comment)
   end
 
   def link_for_report_abuse(comment)
