@@ -1330,7 +1330,7 @@ module ApplicationHelper
   end
 
   def template_options(klass, field_name)
-    templates = klass.templates(environment.id)
+    templates = klass.templates(environment)
     return '' if templates.count == 0
     return hidden_field_tag("#{field_name}[template_id]", templates.first.id) if templates.count == 1
 
