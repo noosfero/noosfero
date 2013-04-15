@@ -1330,11 +1330,12 @@ module ApplicationHelper
   end
 
   def template_options(klass, field_name)
-    return '' if klass.templates.count == 0
-    return hidden_field_tag("#{field_name}[template_id]", klass.templates.first.id) if klass.templates.count == 1
+    templates = klass.templates(environment.id)
+    return '' if templates.count == 0
+    return hidden_field_tag("#{field_name}[template_id]", templates.first.id) if templates.count == 1
 
     counter = 0
-    radios = klass.templates.map do |template|
+    radios = templates.map do |template|
       counter += 1
       content_tag('li', labelled_radio_button(link_to(template.name, template.url, :target => '_blank'), "#{field_name}[template_id]", template.id, counter==1))
     end.join("\n")
