@@ -110,9 +110,9 @@ function hideOthersIconSelector(current_div) {
 }
 
 function loading(element_id, message) {
-   $(element_id).addClassName('loading');
+   jQuery(element_id).addClass('loading');
    if (message) {
-      $(element_id).update(message);
+      jQuery(element_id).html(message);
    }
 }
 function small_loading(element_id, message) {
@@ -122,9 +122,9 @@ function small_loading(element_id, message) {
    }
 }
 function loading_done(element_id) {
-   $(element_id).removeClassName('loading');
-   $(element_id).removeClassName('small-loading');
-   $(element_id).removeClassName('small-loading-dark');
+   jQuery(element_id).removeClass('loading');
+   jQuery(element_id).removeClass('small-loading');
+   jQuery(element_id).removeClass('small-loading-dark');
 }
 function open_loading(message) {
    jQuery('body').append("<div id='overlay_loading' class='ui-widget-overlay' style='display: none'/><div id='overlay_loading_modal' style='display: none'><p>"+message+"</p><img src='/images/loading-dark.gif'/></div>");
