@@ -1082,7 +1082,7 @@ end
     textile     = fast_create(TextileArticle, :profile_id => @profile.id, :path => 'textile', :language => 'en')
     translation = fast_create(TextileArticle, :profile_id => @profile.id, :path => 'translation', :language => 'es', :translation_of_id => textile)
     xhr :get, :view_page, :profile => @profile.identifier, :page => textile.explode_path, :toolbar => true
-    assert_tag :a, :attributes => { :class => /article-translations-menu/, :onclick => /toggleSubmenu/ }
+    assert_tag :a, :attributes => { :class => /article-translations-menu/, :onmouseover => /toggleSubmenu/ }
   end
 
   should 'not be redirected if already in translation' do
