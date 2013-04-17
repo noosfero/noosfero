@@ -1,4 +1,4 @@
-source :rubygems
+source "https://rubygems.org"
 
 gem 'exception_notification', '1.0.20090728'
 gem 'system_timer'
