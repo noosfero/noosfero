@@ -64,11 +64,8 @@ class EnvironmentDesignControllerTest < ActionController::TestCase
     e.boxes.first.blocks << l
     community = mock()
     Environment.any_instance.stubs(:portal_community).returns(community)
-    article = mock()
+    article = fast_create(Article)
     community.stubs(:articles).returns([article])
-    article.expects(:folder?).returns(false)
-    article.expects(:path).returns('some_path')
-    article.expects(:id).returns(1)
     get :edit, :id => l.id
     assert_tag :tag => 'select', :attributes => { :name => 'block[article_id]' }
   end

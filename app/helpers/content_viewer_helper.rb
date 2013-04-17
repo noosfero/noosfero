@@ -2,7 +2,6 @@ module ContentViewerHelper
 
   include BlogHelper
   include ForumHelper
-  include ActionView::Helpers::TagHelper
 
   def number_of_comments(article)
     n = article.comments.without_spam.count

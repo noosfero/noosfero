@@ -2,6 +2,9 @@ require 'hpricot'
 
 class Article < ActiveRecord::Base
 
+  #FIXME This is necessary because html is being generated on the model...
+  include ActionView::Helpers::TagHelper
+
   # use for internationalizable human type names in search facets
   # reimplement on subclasses
   def self.type_name
