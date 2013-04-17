@@ -35,9 +35,9 @@ class TagsBlock < Block
     tagname_option = is_env ? :tag : :id
 
     block_title(title) +
-    "\n<div class='tag_cloud'>\n"+
+    "\n<div class='tag_cloud'>\n".html_safe+
     tag_cloud( tags, tagname_option, url, :max_size => 16, :min_size => 9 ) +
-    "\n</div><!-- end class='tag_cloud' -->\n";
+    "\n</div><!-- end class='tag_cloud' -->\n".html_safe
   end
 
   def footer

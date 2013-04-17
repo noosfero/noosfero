@@ -154,6 +154,22 @@ class MembershipsControllerTest < ActionController::TestCase
     assert_equal 1, assigns(:community).boxes[0].blocks.size
   end
 
+  should 'display only templates of the current environment' do
+    env2 = fast_create(Environment)
+
+    template1 = fast_create(Community, :name => 'template1', :environment_id => Environment.default.id, :is_template => true)
+    template2 = fast_create(Community, :name => 'template2', :environment_id => Environment.default.id, :is_template => true)
+    template3 = fast_create(Community, :name => 'template3', :environment_id => env2.id, :is_template => true)
+
+    get :new_community, :profile => profile.identifier
+
+    assert_select '#template-options' do |elements|
+      assert_match /template1/, elements[0].to_s
+      assert_match /template2/, elements[0].to_s
+      assert_no_match /template3/, elements[0].to_s
+    end
+  end
+
   should 'display only required fields when register new community' do
     env = Environment.default
     env.custom_community_fields = {

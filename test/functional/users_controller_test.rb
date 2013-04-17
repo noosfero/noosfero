@@ -42,6 +42,7 @@ class UsersControllerTest < ActionController::TestCase
 
     get :index, :format => 'csv'
     assert_equal 'text/csv', @response.content_type
+    assert_equal 'name;email', @response.body.split("\n")[0]
   end
 
 end

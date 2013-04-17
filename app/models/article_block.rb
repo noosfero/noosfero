@@ -16,7 +16,7 @@ class ArticleBlock < Block
           :gallery_view => false,
           :inside_block => block,               # For Blogs and folders
           :format => block.visualization_format # For Articles and contents
-        ) : _('Article not selected yet.'))
+        ).html_safe : _('Article not selected yet.'))
     end
   end
 
