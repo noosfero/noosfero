@@ -1,9 +1,9 @@
 <% base_requires = '-r features/support -r features/step_definitions' %>
-<% default_options = "color --format progress --strict --tags ~@selenium --tags ~@selenium-fixme --tags ~@fixme --exclude features/support/selenium.rb #{base_requires}" %>
+<% default_options = "--color --format progress --strict --tags ~@selenium --tags ~@selenium-fixme --tags ~@fixme --exclude features/support/selenium.rb #{base_requires}" %>
 <% selenium_options = "--strict --tags @selenium #{base_requires}" %>
 
 default: <%= default_options %>
-selenium: <% selenium_options %>
+selenium: <%= selenium_options %>
 
 <% enabled_plugins = Dir.glob(File.join('config', 'plugins', '*')).map{|path| plugin = File.basename(path); plugin if File.exist?(File.join('features', 'plugins', plugin)) }.compact %>
 
