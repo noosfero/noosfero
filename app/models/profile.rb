@@ -68,7 +68,7 @@ class Profile < ActiveRecord::Base
   #FIXME: these will work only if the subclass is already loaded
   named_scope :enterprises, lambda { {:conditions => (Enterprise.send(:subclasses).map(&:name) << 'Enterprise').map { |klass| "profiles.type = '#{klass}'"}.join(" OR ")} }
   named_scope :communities, lambda { {:conditions => (Community.send(:subclasses).map(&:name) << 'Community').map { |klass| "profiles.type = '#{klass}'"}.join(" OR ")} }
-  named_scope :templates, :conditions => {:is_template => true}
+  named_scope :templates, lambda { |environment| { :conditions => {:is_template => true, :environment_id => environment.id} } }
 
   def members
     scopes = plugins.dispatch_scopes(:organization_members, self)

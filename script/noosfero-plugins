@@ -88,7 +88,9 @@ _enable(){
     if [ "$dependencies_ok" = true ]; then
       ln -s "$source" "$target"
       plugins_public_dir="$NOOSFERO_DIR/public/plugins"
+      plugins_features_dir="$NOOSFERO_DIR/features/plugins"
       test -d "$target/public/" && ln -s "$target/public" "$plugins_public_dir/$plugin"
+      test -d "$target/features" && ln -s "$target/features" "$plugins_features_dir/$plugin"
       _say "$plugin enabled"
       needs_migrate=true
     else
@@ -101,9 +103,11 @@ _disable(){
   plugin="$1"
   target="$enabled_plugins_dir/$plugin"
   plugins_public_dir="$NOOSFERO_DIR/public/plugins"
+  plugins_features_dir="$NOOSFERO_DIR/features/plugins"
   if [ -h "$target" ]; then
     rm "$target"
     test -h "$plugins_public_dir/$plugin" && rm "$plugins_public_dir/$plugin"
+    test -h "$plugins_features_dir/$plugin" && rm "$plugins_features_dir/$plugin"
     _say "$plugin disabled"
   else
     _say "$plugin already disabled"

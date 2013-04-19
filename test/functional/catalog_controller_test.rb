@@ -224,4 +224,21 @@ class CatalogControllerTest < ActionController::TestCase
     assert_tag :tag => 'li', :attributes => {:id => "product-#{p2.id}", :class => /not-available/}
   end
 
+  should 'sort categories by name' do
+    environment = @enterprise.environment
+    environment.categories.destroy_all
+    pc1 = ProductCategory.create!(:name => "Drinks", :environment => environment)
+    pc2 = ProductCategory.create!(:name => "Bananas", :environment => environment)
+    pc3 = ProductCategory.create!(:name => "Sodas", :environment => environment)
+    pc4 = ProductCategory.create!(:name => "Pies", :environment => environment)
+    p1 = fast_create(Product, :product_category_id => pc1.id, :enterprise_id => @enterprise.id)
+    p2 = fast_create(Product, :product_category_id => pc2.id, :enterprise_id => @enterprise.id)
+    p3 = fast_create(Product, :product_category_id => pc3.id, :enterprise_id => @enterprise.id)
+    p4 = fast_create(Product, :product_category_id => pc4.id, :enterprise_id => @enterprise.id)
+
+    get :index, :profile => @enterprise.identifier
+
+    assert_equal [pc2, pc1, pc4, pc3], assigns(:categories)
+  end
+
 end

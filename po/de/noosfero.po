@@ -6,8 +6,8 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: noosfero 0.39.1\n"
-"POT-Creation-Date: 2013-01-03 20:39-0000\n"
+"Project-Id-Version: noosfero 0.39.3\n"
+"POT-Creation-Date: 2013-01-19 21:42-0000\n"
 "PO-Revision-Date: 2012-03-27 19:47-0300\n"
 "Last-Translator: Josef Spillner <josef.spillner@tu-dresden.de>\n"
 "Language-Team: German <de@li.org>\n"
@@ -25,35 +25,39 @@ msgstr "Ihre Einladung wurde versandt."
 msgid "Please enter a valid email address."
 msgstr "Bitte geben Sie eine gültige E-Mail-Adresse ein."
 
-#: app/controllers/public/content_viewer_controller.rb:38
-msgid ""
-"You are not allowed to view this content. You can contact the owner of this "
-"profile to request access then."
+#: app/controllers/public/content_viewer_controller.rb:35
+#, fuzzy
+msgid "You are not allowed to view this content."
+msgstr "Es ist Ihnen nicht erlaubt, diese Seite anzusehen."
+
+#: app/controllers/public/content_viewer_controller.rb:36
+#, fuzzy
+msgid "You can contact the owner of this profile to request access then."
 msgstr ""
 "Es ist Ihnen nicht erlaubt diesen Inhalt anzusehen. Sie können den Besitzer "
 "dieses Profils kontaktieren und um Erlaubnis fragen."
 
-#: app/controllers/public/content_viewer_controller.rb:114
+#: app/controllers/public/content_viewer_controller.rb:116
 #, fuzzy
 msgid "Notification of new comments to '%s' was successfully canceled"
 msgstr "Benachrichtigung erfolgreich entfernt."
 
-#: app/controllers/public/content_viewer_controller.rb:135
+#: app/controllers/public/content_viewer_controller.rb:137
 #, fuzzy
 msgid "Comment succesfully updated"
 msgstr "Kommentar erfolgreich gelöscht"
 
-#: app/controllers/public/content_viewer_controller.rb:138
+#: app/controllers/public/content_viewer_controller.rb:140
 #, fuzzy
 msgid "Comment could not be updated"
 msgstr "%s konnte nicht hochgeladen werden"
 
-#: app/controllers/public/content_viewer_controller.rb:143
+#: app/controllers/public/content_viewer_controller.rb:145
 #, fuzzy
 msgid "Could not find the comment in the article"
 msgstr "Kann E-Mail nicht erstellen"
 
-#: app/controllers/public/content_viewer_controller.rb:157
+#: app/controllers/public/content_viewer_controller.rb:159
 #: app/controllers/my_profile/cms_controller.rb:264
 msgid "Please type the words correctly"
 msgstr "Bitte geben Sie die Wörter korrekt ein"
@@ -66,7 +70,6 @@ msgstr "Unternehmensprofil"
 #: app/controllers/public/search_controller.rb:151
 #: app/models/people_block.rb:4 app/helpers/application_helper.rb:1097
 #: app/helpers/assets_helper.rb:8 app/helpers/search_helper.rb:13
-#: plugins/solr/controllers/public/solr_plugin_public_controller.rb:34
 msgid "People"
 msgstr "Nutzer"
 
@@ -74,7 +77,6 @@ msgstr "Nutzer"
 #: app/models/enterprises_block.rb:12 app/helpers/assets_helper.rb:10
 #: app/helpers/search_helper.rb:12 app/views/search/_sellers_form.rhtml:7
 #: app/views/profile/_person_profile.rhtml:23
-#: plugins/solr/controllers/public/solr_plugin_public_controller.rb:35
 #: plugins/bsc/views/bsc_plugin_myprofile/_contract_form.html.erb:13
 #: plugins/bsc/views/bsc_plugin_myprofile/view_contract.html.erb:18
 msgid "Enterprises"
@@ -84,13 +86,11 @@ msgstr "Unternehmen"
 #: app/models/products_block.rb:8 app/models/products_block.rb:12
 #: app/models/enterprise.rb:130 app/helpers/application_helper.rb:539
 #: app/helpers/assets_helper.rb:9 app/views/search/_sellers_form.rhtml:8
-#: plugins/solr/controllers/public/solr_plugin_public_controller.rb:36
 #: plugins/bsc/views/bsc_plugin_myprofile/_contract_form.html.erb:22
 msgid "Products"
 msgstr "Produkte"
 
 #: app/controllers/public/search_controller.rb:154
-#: plugins/solr/controllers/public/solr_plugin_public_controller.rb:37
 msgid "Upcoming events"
 msgstr "Anstehende Ereignisse"
 
@@ -98,13 +98,11 @@ msgstr "Anstehende Ereignisse"
 #: app/models/communities_block.rb:4 app/helpers/application_helper.rb:524
 #: app/helpers/application_helper.rb:1113 app/helpers/assets_helper.rb:11
 #: app/helpers/search_helper.rb:14 app/views/profile/_person_profile.rhtml:41
-#: plugins/solr/controllers/public/solr_plugin_public_controller.rb:38
 msgid "Communities"
 msgstr "Communities"
 
 #: app/controllers/public/search_controller.rb:156
 #: app/helpers/application_helper.rb:1081 app/helpers/search_helper.rb:11
-#: plugins/solr/controllers/public/solr_plugin_public_controller.rb:39
 msgid "Contents"
 msgstr "Inhalte"
 
@@ -259,15 +257,7 @@ msgstr "Die E-Mail werden versandt"
 msgid "Could not create the e-mail"
 msgstr "Kann E-Mail nicht erstellen"
 
-#: app/controllers/public/profile_controller.rb:373
-msgid "The content here is available to %s's friends only."
-msgstr "Dieser Inhalt ist nur für %s's Freunde verfügbar."
-
 #: app/controllers/public/profile_controller.rb:376
-msgid "The contents in this community is available to members only."
-msgstr "Der Inhalt dieser Communitiy ist nur für Mitglieder verfügbar."
-
-#: app/controllers/public/profile_controller.rb:383
 msgid ""
 "This profile is inaccessible. You don't have the permission to view the "
 "content here."
@@ -275,7 +265,7 @@ msgstr ""
 "Dieses Profil ist nicht aufrufbar. Sie haben keine Berechtigungen, um es "
 "sich ansehen zu können."
 
-#: app/controllers/public/profile_controller.rb:383
+#: app/controllers/public/profile_controller.rb:376
 msgid "Oops ... you cannot go ahead here"
 msgstr "Oops.. Sie können hier leider nicht weitergehen"
 
@@ -531,7 +521,7 @@ msgstr "Das Vorprodukt wurde nicht gefunden"
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/_form.html.erb:23
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/_edit_select.html.erb:6
 #: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/_orders_list.html.erb:35
-#: plugins/shopping_cart/views/shopping_cart_plugin_profile/buy.html.erb:6
+#: plugins/shopping_cart/views/shopping_cart_plugin/buy.html.erb:6
 msgid "Name"
 msgstr "Name"
 
@@ -770,7 +760,7 @@ msgstr "noosfero::plugin::activerecord"
 msgid "profile"
 msgstr "Profile"
 
-#: app/models/product.rb:- app/models/article.rb:702 app/models/mailing.rb:-
+#: app/models/product.rb:- app/models/article.rb:706 app/models/mailing.rb:-
 #: app/views/cms/view.rhtml:25
 #: app/views/shared/reported_versions/_article.html.erb:3
 #: app/views/shared/reported_versions/_comment.html.erb:3
@@ -810,15 +800,15 @@ msgstr "Aktiv"
 #: app/views/box_organizer/_link_list_block.rhtml:4
 #: plugins/bsc/views/bsc_plugin_myprofile/create_enterprise.html.erb:12
 #: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/_orders_list.html.erb:35
-#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:21
-#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:19
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:25
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:23
 msgid "Address"
 msgstr "Adresse"
 
 #: app/models/product.rb:- app/models/create_enterprise.rb:6
 #: app/views/profile_editor/_person_form.rhtml:13
 #: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/_orders_list.html.erb:35
-#: plugins/shopping_cart/views/shopping_cart_plugin_profile/buy.html.erb:8
+#: plugins/shopping_cart/views/shopping_cart_plugin/buy.html.erb:8
 msgid "Contact phone"
 msgstr "Kontakt-Telefonnummer"
 
@@ -868,7 +858,7 @@ msgstr "Persönlicher Fußbereich (footer)"
 msgid "Theme"
 msgstr "Thema"
 
-#: app/models/product.rb:- app/models/profile.rb:715
+#: app/models/product.rb:- app/models/profile.rb:723
 msgid "Public profile"
 msgstr "öffentliches Profil"
 
@@ -977,7 +967,7 @@ msgid "Abstract"
 msgstr "Zusammenfassung"
 
 #: app/models/product.rb:- app/models/action_tracker_notification.rb:-
-#: app/models/article.rb:706 app/models/person.rb:263 app/models/profile.rb:9
+#: app/models/article.rb:710 app/models/person.rb:266 app/models/profile.rb:9
 #: app/models/profile_categorization.rb:- app/views/profile/index.rhtml:28
 #: app/views/profile/index.rhtml:33
 msgid "Profile"
@@ -1166,7 +1156,7 @@ msgstr "Ereignis"
 msgid "environment"
 msgstr "Umgebung"
 
-#: app/models/product.rb:- app/models/organization.rb:99
+#: app/models/product.rb:- app/models/organization.rb:101
 #: app/views/admin_panel/_site_info.rhtml:2
 msgid "Contact email"
 msgstr "Kontakt-E-Mail"
@@ -1232,12 +1222,13 @@ msgstr "Produktkategorie"
 
 #: app/models/product.rb:- app/models/price_detail.rb:-
 #: app/views/manage_products/index.rhtml:6
-#: plugins/shopping_cart/lib/shopping_cart_plugin/cart_helper.rb:37
+#: plugins/shopping_cart/lib/shopping_cart_plugin/cart_helper.rb:55
+#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/edit.html.erb:11
 msgid "Price"
 msgstr "Preis"
 
 #: app/models/product.rb:- app/models/certifier.rb:-
-#: app/models/organization.rb:99 app/views/search/_product.rhtml:52
+#: app/models/organization.rb:101 app/views/search/_product.rhtml:52
 #: app/views/search/_article_description.rhtml:4
 #: app/views/profile_editor/_person_form.rhtml:10
 #: app/views/cms/_uploaded_file.rhtml:5
@@ -1307,7 +1298,7 @@ msgstr "Autor"
 #: app/views/cms/suggest_an_article.rhtml:17
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:18
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:16
-#: plugins/shopping_cart/views/shopping_cart_plugin_profile/buy.html.erb:7
+#: plugins/shopping_cart/views/shopping_cart_plugin/buy.html.erb:7
 msgid "Email"
 msgstr "E-Mail"
 
@@ -1408,7 +1399,7 @@ msgid "Accept products"
 msgstr "Produkte akzeptieren"
 
 #: app/models/product.rb:- app/models/create_enterprise.rb:8
-#: app/models/organization.rb:99
+#: app/models/organization.rb:101
 #: app/views/enterprise_validation/_details.rhtml:19
 msgid "Acronym"
 msgstr "Abkürzung"
@@ -1434,53 +1425,53 @@ msgstr "Position"
 msgid "Fetched at"
 msgstr "Abgeholt um"
 
-#: app/models/product.rb:76 app/helpers/display_helper.rb:34
-#: app/helpers/display_helper.rb:43
+#: app/models/product.rb:80 app/helpers/display_helper.rb:42
+#: app/helpers/display_helper.rb:51
 msgid "Uncategorized product"
 msgstr "Produkt ohne Kategorie"
 
-#: app/models/product.rb:206
+#: app/models/product.rb:210
 msgid "0%"
 msgstr ""
 
-#: app/models/product.rb:207
+#: app/models/product.rb:211
 msgid "25%"
 msgstr ""
 
-#: app/models/product.rb:208
+#: app/models/product.rb:212
 msgid "50%"
 msgstr ""
 
-#: app/models/product.rb:209
+#: app/models/product.rb:213
 msgid "75%"
 msgstr ""
 
-#: app/models/product.rb:210
+#: app/models/product.rb:214
 msgid "100%"
 msgstr ""
 
-#: app/models/product.rb:234
+#: app/models/product.rb:238
 #, fuzzy
 msgid " cert. "
 msgstr "Zertifizierung. "
 
-#: app/models/product.rb:259
+#: app/models/product.rb:263
 #, fuzzy
 msgid "Related products"
 msgstr "Produkte bewerten"
 
-#: app/models/product.rb:260 app/models/contact.rb:- app/models/person.rb:204
-#: app/models/profile.rb:942 app/models/enterprise.rb:23
+#: app/models/product.rb:264 app/models/contact.rb:- app/models/person.rb:207
+#: app/models/profile.rb:950 app/models/enterprise.rb:23
 #: app/views/maps/edit_location.rhtml:11 app/views/search/_product.rhtml:59
 #: app/views/search/_profile.rhtml:21
 #: app/views/profile_editor/_person_form.rhtml:21
 #: plugins/bsc/views/bsc_plugin_myprofile/view_contract.html.erb:10
 #: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/_orders_list.html.erb:35
-#: plugins/shopping_cart/views/shopping_cart_plugin_profile/buy.html.erb:12
+#: plugins/shopping_cart/views/shopping_cart_plugin/buy.html.erb:18
 msgid "City"
 msgstr "Ort"
 
-#: app/models/product.rb:261 app/views/search/_product.rhtml:65
+#: app/models/product.rb:265 app/views/search/_product.rhtml:65
 #, fuzzy
 msgid "Qualifiers"
 msgstr "Kennzeichner"
@@ -1547,7 +1538,7 @@ msgstr "Neu"
 #: plugins/custom_forms/views/custom_forms_plugin_profile/show.html.erb:16
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/_form.html.erb:52
 #: plugins/tolerance_time/views/tolerance_time_plugin_myprofile/index.html.erb:21
-#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/edit.html.erb:10
+#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/edit.html.erb:42
 #: plugins/sub_organizations/views/sub_organizations_plugin_myprofile/index.html.erb:25
 msgid "Save"
 msgstr "Speichern"
@@ -1643,7 +1634,6 @@ msgstr "Rot erhöhen"
 #: app/views/search/_search_form.rhtml:24
 #: app/views/cms/_text_editor_sidebar.rhtml:36 app/views/home/index.rhtml:61
 #: app/views/profile_members/_add_admins.rhtml:5
-#: plugins/solr/views/search/_search_form.rhtml:24
 msgid "Search"
 msgstr "Suche"
 
@@ -1862,7 +1852,7 @@ msgstr "Betreff"
 msgid "Message"
 msgstr "Nachricht"
 
-#: app/models/contact.rb:- app/models/person.rb:204
+#: app/models/contact.rb:- app/models/person.rb:207
 #: app/models/enterprise.rb:23 app/views/maps/edit_location.rhtml:10
 #: app/views/profile_editor/_person_form.rhtml:20
 #: plugins/bsc/lib/bsc_plugin/contract.rb:46
@@ -1895,11 +1885,11 @@ msgstr "(gelöschte Nutzer)"
 msgid "(unauthenticated user)"
 msgstr "(nicht angemeldeter Nutzer)"
 
-#: app/models/comment.rb:179
+#: app/models/comment.rb:183
 msgid "[%s] you got a new comment!"
 msgstr "[%s] Sie haben einen neuen Kommentar erhalten!"
 
-#: app/models/comment.rb:194
+#: app/models/comment.rb:198
 #, fuzzy
 msgid "[%s] %s commented on a content of %s"
 msgstr "Meistkommentierte Inhalte"
@@ -2000,7 +1990,7 @@ msgstr ""
 msgid "cyclical reference is not allowed."
 msgstr ""
 
-#: app/models/article.rb:170 app/models/organization.rb:99
+#: app/models/article.rb:170 app/models/organization.rb:101
 msgid "Tag list"
 msgstr "Tag Liste"
 
@@ -2029,61 +2019,61 @@ msgstr "Für den ursprünglichen Artikel muss eine Sprache ausgewählt werden"
 msgid "Unknown"
 msgstr ""
 
-#: app/models/article.rb:605
+#: app/models/article.rb:609
 msgid "no comments"
 msgstr "Keine Kommentare"
 
-#: app/models/article.rb:606
+#: app/models/article.rb:610
 msgid "one comment"
 msgstr "Ein Kommentar"
 
-#: app/models/article.rb:607
+#: app/models/article.rb:611
 msgid "%s comments"
 msgstr "%s Kommentare"
 
-#: app/models/article.rb:614
+#: app/models/article.rb:618
 msgid "no views"
 msgstr "Keine Abrufe"
 
-#: app/models/article.rb:615
+#: app/models/article.rb:619
 msgid "one view"
 msgstr "ein Abruf"
 
-#: app/models/article.rb:616
+#: app/models/article.rb:620
 msgid "%s views"
 msgstr "%s Abrufe"
 
-#: app/models/article.rb:621
+#: app/models/article.rb:625
 msgid "Created at: "
 msgstr "Erstellt am: "
 
-#: app/models/article.rb:703
+#: app/models/article.rb:707
 #, fuzzy
 msgid "Published date"
 msgstr "Veröffentlicht am"
 
-#: app/models/article.rb:703
+#: app/models/article.rb:707
 msgid "Older than one year"
 msgstr ""
 
-#: app/models/article.rb:704
+#: app/models/article.rb:708
 #, fuzzy
 msgid "In the last year"
 msgstr "In der Galerie"
 
-#: app/models/article.rb:704
+#: app/models/article.rb:708
 msgid "In the last month"
 msgstr ""
 
-#: app/models/article.rb:704
+#: app/models/article.rb:708
 msgid "In the last week"
 msgstr ""
 
-#: app/models/article.rb:704
+#: app/models/article.rb:708
 msgid "In the last day"
 msgstr ""
 
-#: app/models/article.rb:707 app/helpers/application_helper.rb:614
+#: app/models/article.rb:711 app/helpers/application_helper.rb:614
 #: app/views/search/_article_categories.rhtml:2
 #: app/views/categories/index.rhtml:1 app/views/admin_panel/index.rhtml:41
 #: app/views/content_viewer/view_page.rhtml:77
@@ -2375,16 +2365,21 @@ msgstr ""
 msgid "Redirects the user to his control panel."
 msgstr "Zurück zum Kontrollfeld"
 
-#: app/models/environment.rb:579
+#: app/models/environment.rb:238
+#, fuzzy
+msgid "This enterprise needs to be enabled."
+msgstr "Ihr Unternehmen wurde geblockt"
+
+#: app/models/environment.rb:580
 msgid "Only one Virtual Community can be the default one"
 msgstr "Nur eine virtuelle Community kann als Standard gewählt werden"
 
-#: app/models/environment.rb:842
+#: app/models/environment.rb:843
 #, fuzzy
 msgid "is not available."
 msgstr "Produkt ist nicht verfügbar"
 
-#: app/models/environment.rb:850
+#: app/models/environment.rb:851
 msgid "have unsupported languages."
 msgstr ""
 
@@ -2622,9 +2617,9 @@ msgstr "Externe Inhalte"
 msgid "Feed title"
 msgstr "Titel"
 
-#: app/models/external_feed.rb:- app/models/person.rb:266
-#: app/models/person.rb:277 app/models/organization.rb:121
-#: app/models/organization.rb:132 app/models/blog.rb:13 app/models/blog.rb:17
+#: app/models/external_feed.rb:- app/models/person.rb:269
+#: app/models/person.rb:280 app/models/organization.rb:123
+#: app/models/organization.rb:134 app/models/blog.rb:13 app/models/blog.rb:17
 #: app/models/enterprise.rb:129 app/models/enterprise.rb:145
 msgid "Blog"
 msgstr "Blog"
@@ -2739,8 +2734,8 @@ msgstr "Validierungsmethoden"
 msgid "Restrictions"
 msgstr "Beschränkungen"
 
-#: app/models/validation_info.rb:- app/models/person.rb:195
-#: app/views/profile_editor/_person_form.rhtml:60
+#: app/models/validation_info.rb:- app/models/person.rb:198
+#: app/views/profile_editor/_person_form.rhtml:62
 msgid "Organization"
 msgstr "Organisation"
 
@@ -2776,108 +2771,125 @@ msgstr "Schule"
 msgid "family"
 msgstr "Familie"
 
-#: app/models/person.rb:195 app/views/profile_editor/_person_form.rhtml:14
+#: app/models/person.rb:198 app/views/profile_editor/_person_form.rhtml:14
 msgid "Cell phone"
 msgstr "Mobiltelefon"
 
-#: app/models/person.rb:195 app/views/profile_editor/_person_form.rhtml:15
+#: app/models/person.rb:198 app/views/profile_editor/_person_form.rhtml:15
 msgid "Comercial phone"
 msgstr "geschäftliches Telefon"
 
-#: app/models/person.rb:195 app/views/profile_editor/_person_form.rhtml:18
+#: app/models/person.rb:198 app/views/profile_editor/_person_form.rhtml:18
 msgid "Nationality"
 msgstr "Nationalität"
 
-#: app/models/person.rb:195 app/views/profile_editor/_person_form.rhtml:27
+#: app/models/person.rb:198 app/views/profile_editor/_person_form.rhtml:29
 msgid "Schooling"
 msgstr "Ausbildung"
 
-#: app/models/person.rb:195 app/views/profile_editor/_person_form.rhtml:52
+#: app/models/person.rb:198 app/views/profile_editor/_person_form.rhtml:54
 msgid "Area of study"
 msgstr "Studienrichtung"
 
-#: app/models/person.rb:195 app/views/profile_editor/_person_form.rhtml:59
+#: app/models/person.rb:198 app/views/profile_editor/_person_form.rhtml:61
 msgid "Professional activity"
 msgstr "Berufliche Aktivitäten"
 
-#: app/models/person.rb:195 app/models/enterprise.rb:23
-#: app/views/profile_editor/_person_form.rhtml:61
+#: app/models/person.rb:198 app/models/enterprise.rb:23
+#: app/views/profile_editor/_person_form.rhtml:63
 msgid "Organization website"
 msgstr "Webseite der Organisation"
 
-#: app/models/person.rb:198
+#: app/models/person.rb:201
 msgid "Schooling status"
 msgstr "Schulabschluss"
 
-#: app/models/person.rb:201 app/helpers/profile_editor_helper.rb:26
-#: app/views/profile_editor/_person_form.rhtml:45
+#: app/models/person.rb:204 app/helpers/profile_editor_helper.rb:26
+#: app/views/profile_editor/_person_form.rhtml:47
 msgid "Education"
 msgstr "Bildung"
 
-#: app/models/person.rb:201
+#: app/models/person.rb:204
 msgid "Custom education"
 msgstr "Spezielle Ausbildung"
 
-#: app/models/person.rb:201 app/views/profile_editor/_person_form.rhtml:55
+#: app/models/person.rb:204 app/views/profile_editor/_person_form.rhtml:57
 msgid "Custom area of study"
 msgstr "Spezielles Ausbildungsgebiet"
 
-#: app/models/person.rb:204 app/views/profile_editor/_person_form.rhtml:12
+#: app/models/person.rb:207 app/views/profile_editor/_person_form.rhtml:12
 msgid "Contact information"
 msgstr "Kontaktinformationen"
 
-#: app/models/person.rb:204 app/models/enterprise.rb:23
+#: app/models/person.rb:207 app/models/enterprise.rb:23
 #: app/views/maps/edit_location.rhtml:9
-#: app/views/shared/_organization_custom_fields.rhtml:16
+#: app/views/shared/_organization_custom_fields.rhtml:18
 #: app/views/profile_editor/_person_form.rhtml:19
 #: plugins/bsc/views/shared/_fields.html.erb:65
 msgid "Country"
 msgstr "Land"
 
-#: app/models/person.rb:204
+#: app/models/person.rb:207
 msgid "Sex"
 msgstr "Geschlecht"
 
-#: app/models/person.rb:204
+#: app/models/person.rb:207
 #: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/_orders_list.html.erb:35
 msgid "Zip code"
 msgstr "Postleitzahl"
 
-#: app/models/person.rb:235
+#: app/models/person.rb:207 app/models/organization.rb:101
+#: app/views/shared/_organization_custom_fields.rhtml:14
+#: app/views/profile_editor/_person_form.rhtml:25
+#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/_orders_list.html.erb:35
+#: plugins/shopping_cart/views/shopping_cart_plugin/buy.html.erb:17
+#, fuzzy
+msgid "District"
+msgstr "Beschränkungen"
+
+#: app/models/person.rb:207 app/models/organization.rb:101
+#: app/views/shared/_organization_custom_fields.rhtml:13
+#: app/views/profile_editor/_person_form.rhtml:24
+#: plugins/shopping_cart/views/shopping_cart_plugin/buy.html.erb:16
+#, fuzzy
+msgid "Address reference"
+msgstr "Adresse: "
+
+#: app/models/person.rb:238
 msgid "%{fn} is already used by other user"
 msgstr "%{fn} wird bereits von einem anderen Nutzer benutzt"
 
-#: app/models/person.rb:264 app/models/organization.rb:120
+#: app/models/person.rb:267 app/models/organization.rb:122
 msgid "Image gallery"
 msgstr "Bildergalerie"
 
-#: app/models/person.rb:265 app/models/organization.rb:119
+#: app/models/person.rb:268 app/models/organization.rb:121
 #: app/helpers/application_helper.rb:532 app/helpers/application_helper.rb:541
 msgid "Agenda"
 msgstr "Agenda"
 
-#: app/models/person.rb:278 app/models/gallery.rb:4 app/models/gallery.rb:8
-#: app/models/organization.rb:133 app/views/search/_uploaded_file.rhtml:14
+#: app/models/person.rb:281 app/models/gallery.rb:4 app/models/gallery.rb:8
+#: app/models/organization.rb:135 app/views/search/_uploaded_file.rhtml:14
 msgid "Gallery"
 msgstr "Galerie"
 
-#: app/models/person.rb:390
+#: app/models/person.rb:393
 msgid "none"
 msgstr "keine"
 
-#: app/models/person.rb:391
+#: app/models/person.rb:394
 msgid "one friend"
 msgstr "Ein Freund"
 
-#: app/models/person.rb:392
+#: app/models/person.rb:395
 msgid "%s friends"
 msgstr "%s Freunde"
 
-#: app/models/person.rb:427
+#: app/models/person.rb:430
 msgid "You just left %s."
 msgstr "Sie haben soeben %s verlassen."
 
-#: app/models/person.rb:451 app/models/profile.rb:868
+#: app/models/person.rb:454 app/models/profile.rb:876
 msgid "Edit Profile"
 msgstr "Profil ändern"
 
@@ -2966,67 +2978,67 @@ msgstr "Mitglieder einladen"
 msgid "Send e-Mail to members"
 msgstr "Sende E-Mail an Mitglieder"
 
-#: app/models/profile.rb:301
+#: app/models/profile.rb:305
 #, fuzzy
 msgid "is not a template."
 msgstr "Nutze diese Vorlage"
 
-#: app/models/profile.rb:613
+#: app/models/profile.rb:621
 msgid "%s can't have members"
 msgstr "%s kann keine Mitglieder haben"
 
-#: app/models/profile.rb:634
+#: app/models/profile.rb:642
 msgid "%s can't has moderators"
 msgstr "%s kann keine Moderatoren haben"
 
-#: app/models/profile.rb:715
+#: app/models/profile.rb:723
 msgid "Private profile"
 msgstr "persönliches Profil"
 
-#: app/models/profile.rb:812
+#: app/models/profile.rb:820
 msgid "Since: "
 msgstr "Seit: "
 
-#: app/models/profile.rb:827
+#: app/models/profile.rb:835
 msgid "no activity"
 msgstr "keine Aktivität"
 
-#: app/models/profile.rb:828
+#: app/models/profile.rb:836
 msgid "one activity"
 msgstr "eine Aktivität"
 
-#: app/models/profile.rb:829
+#: app/models/profile.rb:837
 msgid "%s activities"
 msgstr "%s Aktivitäten"
 
-#: app/models/profile.rb:835
+#: app/models/profile.rb:843
 msgid "no members"
 msgstr "keine Mitglieder"
 
-#: app/models/profile.rb:836
+#: app/models/profile.rb:844
 msgid "one member"
 msgstr "Ein Mitglied"
 
-#: app/models/profile.rb:837
+#: app/models/profile.rb:845
 msgid "%s members"
 msgstr "%s Mitglieder"
 
-#: app/models/profile.rb:922
+#: app/models/profile.rb:930
 #, fuzzy
 msgid "facets|Enabled"
 msgstr "Aktiviert"
 
-#: app/models/profile.rb:922
+#: app/models/profile.rb:930
 #, fuzzy
 msgid "facets|Not enabled"
 msgstr "%s war nicht aktiviert."
 
-#: app/models/profile.rb:940
+#: app/models/profile.rb:948
 #, fuzzy
 msgid "Situation"
 msgstr "Einladung"
 
-#: app/models/profile.rb:970
+#: app/models/profile.rb:978
 msgid "Profile Info and settings"
 msgstr "Profilinformationen und Einstellungen"
 
@@ -3066,7 +3078,7 @@ msgstr "Kennzeichner"
 msgid "Certifier"
 msgstr "Bestätigender"
 
-#: app/models/unit.rb:- app/views/catalog/index.rhtml:37
+#: app/models/unit.rb:- app/views/catalog/index.rhtml:59
 msgid "unit"
 msgstr "Einheit"
 
@@ -3494,23 +3506,23 @@ msgstr "Kategorie Profile"
 msgid "profilecategorization"
 msgstr "Profile kategorisieren"
 
-#: app/models/create_enterprise.rb:7 app/models/organization.rb:99
+#: app/models/create_enterprise.rb:7 app/models/organization.rb:101
 msgid "Contact person"
 msgstr "Kontaktperson"
 
-#: app/models/create_enterprise.rb:9 app/models/organization.rb:99
+#: app/models/create_enterprise.rb:9 app/models/organization.rb:101
 msgid "Foundation year"
 msgstr "Gründungsjahr"
 
-#: app/models/create_enterprise.rb:10 app/models/organization.rb:99
+#: app/models/create_enterprise.rb:10 app/models/organization.rb:101
 msgid "Legal form"
 msgstr "Rechtsform"
 
-#: app/models/create_enterprise.rb:11 app/models/organization.rb:99
+#: app/models/create_enterprise.rb:11 app/models/organization.rb:101
 msgid "Economic activity"
 msgstr "Tätigkeitsfeld"
 
-#: app/models/create_enterprise.rb:12 app/models/organization.rb:99
+#: app/models/create_enterprise.rb:12 app/models/organization.rb:101
 msgid "Management information"
 msgstr "Verwaltungsinformationen"
 
@@ -3643,15 +3655,15 @@ msgstr "% {requestor} lädt Sie ein, der Community %{community} beizutreten."
 msgid "<user> is inviting you to join \"<community>\" on <environment>."
 msgstr "<user> lädt Sie ein, \"<community>\" auf  <environment> zu nutzen."
 
-#: app/models/organization.rb:99
+#: app/models/organization.rb:101
 msgid "Display name"
 msgstr "Namen anzeigen"
 
-#: app/models/organization.rb:117
+#: app/models/organization.rb:119
 msgid "Community's profile"
 msgstr "Communities Profil"
 
-#: app/models/organization.rb:118
+#: app/models/organization.rb:120
 msgid "Invite Friends"
 msgstr "Freunde einladen"
 
@@ -3753,9 +3765,9 @@ msgid "Activities short description"
 msgstr "Kurzbeschreibung der Aktivitäten"
 
 #: app/models/enterprise.rb:23 app/views/maps/edit_location.rhtml:12
-#: app/views/shared/_organization_custom_fields.rhtml:13
+#: app/views/shared/_organization_custom_fields.rhtml:15
 #: app/views/profile_editor/_person_form.rhtml:22
-#: plugins/shopping_cart/views/shopping_cart_plugin_profile/buy.html.erb:13
+#: plugins/shopping_cart/views/shopping_cart_plugin/buy.html.erb:19
 msgid "ZIP code"
 msgstr "Postleitzahl"
 
@@ -4389,11 +4401,11 @@ msgstr "Belegt"
 msgid "Sign out of chat"
 msgstr "Chat beenden"
 
-#: app/helpers/display_helper.rb:4 app/helpers/display_helper.rb:12
+#: app/helpers/display_helper.rb:4 app/helpers/display_helper.rb:20
 msgid "No product"
 msgstr "Kein Produkt"
 
-#: app/helpers/display_helper.rb:59
+#: app/helpers/display_helper.rb:67
 msgid "Are you sure you want to visit this web site?"
 msgstr "Sind Sie sicher, dass Sie diese Web-Site besuchen möchten?"
 
@@ -4688,7 +4700,7 @@ msgstr "%{distance} Tage"
 msgid "Source: %s"
 msgstr "Quelle: %s"
 
-#: app/helpers/application_helper.rb:1252 app/views/catalog/index.rhtml:17
+#: app/helpers/application_helper.rb:1252 app/views/catalog/index.rhtml:39
 #: app/views/search/_image.rhtml:43 app/views/cms/_text_editor_sidebar.rhtml:3
 #: app/views/manage_products/_display_image.rhtml:6
 msgid "Zoom in"
@@ -4742,6 +4754,14 @@ msgstr ""
 #: plugins/bsc/lib/bsc_plugin/bsc_helper.rb:7
 msgid "Type in a search term"
 msgstr "Geben Sie einen Suchbegriff an"
+
+#: app/helpers/application_helper.rb:1418
+msgid "The content here is available to %s's friends only."
+msgstr "Dieser Inhalt ist nur für %s's Freunde verfügbar."
+
+#: app/helpers/application_helper.rb:1421
+msgid "The contents in this community is available to members only."
+msgstr "Der Inhalt dieser Communitiy ist nur für Mitglieder verfügbar."
 
 #: app/helpers/events_helper.rb:4
 msgid "Select a day on the left to display it's events here"
@@ -4900,6 +4920,11 @@ msgstr "Veröffentlichen"
 #: app/views/content_viewer/_article_toolbar.rhtml:12
 msgid "Delete"
 msgstr "Löschen"
+
+#: app/helpers/catalog_helper.rb:7
+#, fuzzy
+msgid "Start"
+msgstr "Startdatum"
 
 #: app/helpers/blog_helper.rb:10
 msgid "New post"
@@ -5601,49 +5626,59 @@ msgstr ""
 msgid "I want to receive a copy of the message in my e-mail."
 msgstr "Ich möchte eine Kopie der Nachricht in meiner E-Mail."
 
-#: app/views/catalog/index.rhtml:5 app/views/blocks/profile_info.rhtml:21
+#: app/views/catalog/index.rhtml:4 app/views/blocks/profile_info.rhtml:21
 #: app/views/profile/_organization_profile.rhtml:26
 msgid "Products/Services"
 msgstr "Produkte/Dienste"
 
-#: app/views/catalog/index.rhtml:20 app/views/search/_image.rhtml:35
+#: app/views/catalog/index.rhtml:16
+#, fuzzy
+msgid "There are no sub-categories for %s"
+msgstr "Es gibt keine Kategorie."
+
+#: app/views/catalog/index.rhtml:34
+#, fuzzy
+msgid "Highlighted product"
+msgstr "Markiere dieses Produkt"
+
+#: app/views/catalog/index.rhtml:42 app/views/search/_image.rhtml:35
 #: app/views/search/_image.rhtml:47
 msgid "No image"
 msgstr "Kein Bild"
 
-#: app/views/catalog/index.rhtml:30
+#: app/views/catalog/index.rhtml:52
 msgid "from "
 msgstr "von "
 
-#: app/views/catalog/index.rhtml:31
+#: app/views/catalog/index.rhtml:53
 msgid "by "
 msgstr "von "
 
-#: app/views/catalog/index.rhtml:37
+#: app/views/catalog/index.rhtml:59
 msgid " / "
 msgstr " / "
 
-#: app/views/catalog/index.rhtml:45
+#: app/views/catalog/index.rhtml:67
 msgid "description"
 msgstr "Beschreibung"
 
-#: app/views/catalog/index.rhtml:55
+#: app/views/catalog/index.rhtml:77
 msgid "price composition"
 msgstr "Preiszusammensetzung"
 
-#: app/views/catalog/index.rhtml:78
+#: app/views/catalog/index.rhtml:100
 msgid "inputs and raw materials"
 msgstr "Vorprodukte/-dienste oder Rohstoffe"
 
-#: app/views/catalog/index.rhtml:84
+#: app/views/catalog/index.rhtml:106
 msgid "%{amount_used} %{unit} of"
 msgstr "{amount_used} %{unit} von"
 
-#: app/views/catalog/index.rhtml:95
+#: app/views/catalog/index.rhtml:117
 msgid "qualifiers"
 msgstr "Kennzeichner"
 
-#: app/views/catalog/index.rhtml:103
+#: app/views/catalog/index.rhtml:125
 msgid "product unavailable"
 msgstr "Produkt ist nicht verfügbar"
 
@@ -5733,7 +5768,7 @@ msgstr "Verwalte %s"
 #: app/views/profile_editor/edit.rhtml:64 app/views/cms/view.rhtml:9
 #: app/views/tasks/index.rhtml:37 app/views/tasks/index.rhtml:62
 #: app/views/box_organizer/index.rhtml:5
-#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/edit.html.erb:11
+#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/edit.html.erb:43
 msgid "Back to control panel"
 msgstr "Zurück zum Kontrollpanel"
 
@@ -5904,7 +5939,7 @@ msgstr "Ort"
 #: app/views/maps/edit_location.rhtml:13
 #: app/views/shared/_organization_custom_fields.rhtml:12
 #: app/views/profile_editor/_person_form.rhtml:23
-#: plugins/shopping_cart/views/shopping_cart_plugin_profile/buy.html.erb:11
+#: plugins/shopping_cart/views/shopping_cart_plugin/buy.html.erb:15
 msgid "Address (street and number)"
 msgstr "Adresse (Straße und Nummer)"
 
@@ -6357,22 +6392,18 @@ msgid "Supplier"
 msgstr "Zulieferer"
 
 #: app/views/search/index.rhtml:7 app/views/search/category_index.rhtml:7
-#: plugins/solr/views/solr_plugin_public/index.rhtml:7
 msgid "Search Results"
 msgstr "Suchresultate"
 
 #: app/views/search/index.rhtml:14 app/views/search/category_index.rhtml:14
-#: plugins/solr/views/solr_plugin_public/index.rhtml:14
 msgid "Sub-categories"
 msgstr "Sub-Kategorien"
 
 #: app/views/search/index.rhtml:16 app/views/search/category_index.rhtml:16
-#: plugins/solr/views/solr_plugin_public/index.rhtml:16
 msgid "No sub-categories"
 msgstr "Keine Sub-Kategorien"
 
 #: app/views/search/_facets_unselect_menu.rhtml:3
-#: plugins/solr/views/search/_facets_unselect_menu.rhtml:3
 #, fuzzy
 msgid "Applied filters"
 msgstr "Dateien hochladen"
@@ -7342,7 +7373,7 @@ msgstr ""
 msgid "Home phone"
 msgstr "Private Telefonnummer"
 
-#: app/views/profile_editor/_person_form.rhtml:48
+#: app/views/profile_editor/_person_form.rhtml:50
 msgid "Custom formation"
 msgstr "Angepasste Formatierung"
 
@@ -10216,7 +10247,7 @@ msgid "[%s] Bsc management transferred to you."
 msgstr "[%s] Die Verwaltung von Bsc wurde Ihnen übertragen."
 
 #: plugins/bsc/lib/bsc_plugin/contract.rb:33
-#: plugins/shopping_cart/lib/shopping_cart_plugin/purchase_order.rb:34
+#: plugins/shopping_cart/lib/shopping_cart_plugin/purchase_order.rb:38
 msgid "Opened"
 msgstr "Geöffnet"
 
@@ -10475,94 +10506,105 @@ msgstr ""
 msgid "The tolerance time for editing this content is over."
 msgstr ""
 
-#: plugins/shopping_cart/controllers/shopping_cart_plugin_myprofile_controller.rb:10
+#: plugins/shopping_cart/controllers/shopping_cart_plugin_myprofile_controller.rb:13
 msgid "Option updated successfully."
 msgstr "Optionen erfolgreich aktualisiert."
 
-#: plugins/shopping_cart/controllers/shopping_cart_plugin_myprofile_controller.rb:12
+#: plugins/shopping_cart/controllers/shopping_cart_plugin_myprofile_controller.rb:15
 msgid "Option wasn't updated successfully."
 msgstr "Optionen konnte nicht erfolgreich aktualisiert werden."
 
-#: plugins/shopping_cart/controllers/shopping_cart_plugin_profile_controller.rb:98
+#: plugins/shopping_cart/controllers/shopping_cart_plugin_controller.rb:116
 msgid "Request sent successfully. Check your email."
 msgstr ""
 "Die Antwort wurde erfolgreich gesendet. Prüfen Sie Ihren E-Mail-Eingang."
 
-#: plugins/shopping_cart/controllers/shopping_cart_plugin_profile_controller.rb:121
+#: plugins/shopping_cart/controllers/shopping_cart_plugin_controller.rb:139
 msgid "Basket displayed."
 msgstr "Einkaufskorb angezeigt."
 
-#: plugins/shopping_cart/controllers/shopping_cart_plugin_profile_controller.rb:140
+#: plugins/shopping_cart/controllers/shopping_cart_plugin_controller.rb:158
 msgid "Basket hidden."
 msgstr "Einkaufskorb versteckt."
 
-#: plugins/shopping_cart/controllers/shopping_cart_plugin_profile_controller.rb:162
+#: plugins/shopping_cart/controllers/shopping_cart_plugin_controller.rb:186
+#, fuzzy
+msgid "Delivery option updated."
+msgstr "Preis der Auslieferung:"
+
+#: plugins/shopping_cart/controllers/shopping_cart_plugin_controller.rb:199
 msgid "Can't join items from different enterprises."
 msgstr ""
 "Dinge aus unterschiedlichen Firmen können nicht zusammengeführt werden."
 
-#: plugins/shopping_cart/controllers/shopping_cart_plugin_profile_controller.rb:176
+#: plugins/shopping_cart/controllers/shopping_cart_plugin_controller.rb:213
 msgid "There is no basket."
 msgstr "Es gibt keinen Einkaufskorb."
 
-#: plugins/shopping_cart/controllers/shopping_cart_plugin_profile_controller.rb:192
+#: plugins/shopping_cart/controllers/shopping_cart_plugin_controller.rb:229
 msgid "This enterprise doesn't have this product."
 msgstr "Dieses Unternehmen besitzt das gewählte Produkt nicht."
 
-#: plugins/shopping_cart/controllers/shopping_cart_plugin_profile_controller.rb:206
+#: plugins/shopping_cart/controllers/shopping_cart_plugin_controller.rb:243
 msgid "The basket doesn't have this product."
 msgstr "Der Einkaufskorb beinhaltet das gewählte Produkt nicht."
 
-#: plugins/shopping_cart/controllers/shopping_cart_plugin_profile_controller.rb:220
+#: plugins/shopping_cart/controllers/shopping_cart_plugin_controller.rb:257
 msgid "Invalid quantity."
 msgstr "Ungültige Menge."
 
-#: plugins/shopping_cart/lib/shopping_cart_plugin.rb:11
+#: plugins/shopping_cart/lib/shopping_cart_plugin.rb:12
 msgid "A shopping basket feature for enterprises"
 msgstr "Ein Einkaufskorb für Unternehmen"
 
-#: plugins/shopping_cart/lib/shopping_cart_plugin.rb:17
+#: plugins/shopping_cart/lib/shopping_cart_plugin.rb:37
 msgid "Add to basket"
 msgstr "Zum Einkaufskorb hinzufügen"
 
-#: plugins/shopping_cart/lib/shopping_cart_plugin.rb:44
+#: plugins/shopping_cart/lib/shopping_cart_plugin.rb:65
 msgid "Shopping basket"
 msgstr "Einkaufskorb"
 
-#: plugins/shopping_cart/lib/shopping_cart_plugin.rb:47
+#: plugins/shopping_cart/lib/shopping_cart_plugin.rb:68
 msgid "Purchase reports"
 msgstr "Kaufbelege"
 
-#: plugins/shopping_cart/lib/shopping_cart_plugin/mailer.rb:8
+#: plugins/shopping_cart/lib/shopping_cart_plugin/mailer.rb:10
 msgid "[%s] Your buy request was performed successfully."
 msgstr "[%s] Ihr beabsichtigter Kauf wurde erfolgreich durchgeführt."
 
-#: plugins/shopping_cart/lib/shopping_cart_plugin/mailer.rb:21
+#: plugins/shopping_cart/lib/shopping_cart_plugin/mailer.rb:25
 msgid "[%s] You have a new buy request from %s."
 msgstr "[%s] Sie haben eine neue Kaufanfrage von %s."
 
-#: plugins/shopping_cart/lib/shopping_cart_plugin/cart_helper.rb:22
+#: plugins/shopping_cart/lib/shopping_cart_plugin/cart_helper.rb:41
+#, fuzzy
+msgid "Free delivery"
+msgstr "Auslieferung"
+
+#: plugins/shopping_cart/lib/shopping_cart_plugin/cart_helper.rb:43
+#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/edit.html.erb:7
 msgid "Delivery"
 msgstr "Auslieferung"
 
-#: plugins/shopping_cart/lib/shopping_cart_plugin/cart_helper.rb:35
+#: plugins/shopping_cart/lib/shopping_cart_plugin/cart_helper.rb:53
 msgid "Item name"
 msgstr "Name der Sache"
 
-#: plugins/shopping_cart/lib/shopping_cart_plugin/cart_helper.rb:52
+#: plugins/shopping_cart/lib/shopping_cart_plugin/cart_helper.rb:76
 #: plugins/shopping_cart/views/cart.html.erb:9
 msgid "Total:"
 msgstr "Gesamt:"
 
-#: plugins/shopping_cart/lib/shopping_cart_plugin/purchase_order.rb:34
+#: plugins/shopping_cart/lib/shopping_cart_plugin/purchase_order.rb:38
 msgid "Canceled"
 msgstr "Abgebrochen"
 
-#: plugins/shopping_cart/lib/shopping_cart_plugin/purchase_order.rb:34
+#: plugins/shopping_cart/lib/shopping_cart_plugin/purchase_order.rb:38
 msgid "Confirmed"
 msgstr "Bestätigt"
 
-#: plugins/shopping_cart/lib/shopping_cart_plugin/purchase_order.rb:34
+#: plugins/shopping_cart/lib/shopping_cart_plugin/purchase_order.rb:38
 msgid "Shipped"
 msgstr "Ausgeliefert"
 
@@ -11430,6 +11472,27 @@ msgstr "Wert des Einkaufs"
 msgid "E-mail"
 msgstr "E-Mail"
 
+#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/_orders_list.html.erb:35
+#: plugins/shopping_cart/views/shopping_cart_plugin/buy.html.erb:9
+#, fuzzy
+msgid "Delivery option"
+msgstr "Preis der Auslieferung:"
+
+#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/_orders_list.html.erb:35
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:20
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:18
+#: plugins/shopping_cart/views/shopping_cart_plugin/buy.html.erb:10
+msgid "Payment"
+msgstr ""
+
+#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/_orders_list.html.erb:35
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:22
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:20
+#: plugins/shopping_cart/views/shopping_cart_plugin/buy.html.erb:11
+#, fuzzy
+msgid "Change"
+msgstr "Bild ändern"
+
 #: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/edit.html.erb:1
 msgid "Basket options"
 msgstr "Optionen zum Einkaufskorb"
@@ -11438,9 +11501,29 @@ msgstr "Optionen zum Einkaufskorb"
 msgid "Delivery?"
 msgstr "Auslieferung?"
 
-#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/edit.html.erb:6
-msgid "Delivery price:"
+#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/edit.html.erb:10
+msgid "Option"
+msgstr "Option"
+
+#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/edit.html.erb:18
+#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/edit.html.erb:24
+#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/edit.html.erb:32
+#, fuzzy
+msgid "Remove option"
+msgstr "Mehr Optionen"
+
+#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/edit.html.erb:27
+msgid "ADD NEW OPTION"
+msgstr ""
+
+#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/edit.html.erb:36
+#, fuzzy
+msgid "Free delivery price:"
 msgstr "Preis der Auslieferung:"
+
+#: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/edit.html.erb:37
+msgid "Empty stands for no free delivery price."
+msgstr ""
 
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:10
 msgid "This is a notification e-mail about your buy request on %s."
@@ -11469,16 +11552,29 @@ msgstr "Bitte prüfen Sie untenstehende Informationen auf Korrektheit:"
 msgid "Phone number"
 msgstr "Telefonnummer"
 
-#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:37
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:20
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:18
+#: plugins/shopping_cart/views/shopping_cart_plugin/buy.html.erb:10
+msgid "Money"
+msgstr ""
+
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:20
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:18
+#: plugins/shopping_cart/views/shopping_cart_plugin/buy.html.erb:10
+#, fuzzy
+msgid "Check"
+msgstr "alles auswählen"
+
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:47
 msgid "Here are the products you bought:"
 msgstr "Hier sind die von Ihnen gekauften Produkte:"
 
-#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:42
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:51
 msgid "Thanks for buying with us!"
 msgstr "Vielen Dank für Ihren Einkauf bei uns!"
 
-#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:45
-#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:42
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:54
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:51
 msgid "A service of %s."
 msgstr "Eine Dienstleistung von %s."
 
@@ -11490,25 +11586,25 @@ msgstr "Das ist eine Anfrage von %s."
 msgid "Below follows the customer informations:"
 msgstr "Nachfolgend die Informationen über den Kunden:"
 
-#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:35
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:45
 msgid "And here are the items bought by this customer:"
 msgstr "Dies sind die durch den Kunden eingekauften Dinge:"
 
-#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:40
+#: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:49
 msgid "If there are any problems with this email contact the admin of %s."
 msgstr ""
 "Falls es Probleme mit dieser E-Mail gibt, wenden Sie sich bitte an den "
 "Administrator von %s."
 
-#: plugins/shopping_cart/views/shopping_cart_plugin_profile/buy.html.erb:10
+#: plugins/shopping_cart/views/shopping_cart_plugin/buy.html.erb:14
 msgid "Delivery Address"
 msgstr "Auslieferungsadresse"
 
-#: plugins/shopping_cart/views/shopping_cart_plugin_profile/buy.html.erb:16
+#: plugins/shopping_cart/views/shopping_cart_plugin/buy.html.erb:23
 msgid "Send buy request"
 msgstr "Kaufanfrage senden"
 
-#: plugins/shopping_cart/views/shopping_cart_plugin_profile/send_request.html.erb:1
+#: plugins/shopping_cart/views/shopping_cart_plugin/send_request.html.erb:1
 msgid "Request sent successfully check your email."
 msgstr "Anfrage erfolgreich zu Ihrer E-Mail-Adresse gesendet."
 
@@ -11660,9 +11756,6 @@ msgstr ""
 #~ msgid "Remove this comment and all its replies"
 #~ msgstr "Kommentar und alle Antworten entfernen"
 
-#~ msgid "Option"
-#~ msgstr "Option"
-
 #~ msgid "What's new"
 #~ msgstr "Was ist neu"
 
@@ -11793,9 +11886,6 @@ msgstr ""
 
 #~ msgid "product categorization"
 #~ msgstr "Produktkategorien"
-
-#~ msgid "There is no categories."
-#~ msgstr "Es gibt keine Kategorie."
 
 #~ msgid "Listing sellers of %s witin %s km from %s %s"
 #~ msgstr "Zeige Anbieter von %s im Umkreis von %km von %s %s"

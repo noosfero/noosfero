@@ -32,8 +32,8 @@ Feature: manage inputs
     And I follow "Inputs"
     Then I should not see "Add new input or raw material"
     And I follow "Add the inputs or raw material used by this product"
-    And I select "Music »" and wait for jquery
-    And I select "Rock" and wait for jquery
+    And I select "Music »" from "category_id" within "#categories_container_level0"
+    And I select "Rock" from "category_id" within "#categories_container_level1"
     And I press "Save and continue"
     Then I should see "Rock"
 
@@ -47,8 +47,8 @@ Feature: manage inputs
     And I follow "Inputs"
     And I should not see "Add the inputs or raw material used by this product"
     And I follow "Add new input or raw material"
-    And I select "Music »" and wait for jquery
-    And I select "Rock" and wait for jquery
+    And I select "Music »" from "category_id" within "#categories_container_level0"
+    And I select "Rock" from "category_id" within "#categories_container_level1"
     And I press "Save and continue"
     Then I should see "Rock"
 
@@ -57,8 +57,8 @@ Feature: manage inputs
     Given I am logged in as "joaosilva"
     When I go to Rede Moinho's page of product Abbey Road
     And I follow "Inputs"
-    And I follow "Add the inputs or raw material used by this product" and wait until "#input-category-form" is present
-    And I click "css=a.cancel-add-input"
+    And I follow "Add the inputs or raw material used by this product"
+    And I follow "Cancel" within "#categories_selection_actionbar"
     Then I should see "Abbey Road"
     And I should see "Add the inputs or raw material used by this product"
 
@@ -90,7 +90,7 @@ Feature: manage inputs
     And I follow "Inputs and raw material"
     Then I should see "Edit" within ".input-item"
 
-  @selenium
+  @selenium-fixme
   Scenario: Order inputs by position
     Given the following product_categories
       | name  |
@@ -131,7 +131,7 @@ Feature: manage inputs
     And I follow "Inputs"
     And I follow "Click here to add price and the amount used"
     And I should not see "Price by Meter ($)"
-    When I select "Meter"
+    When I select "Meter" from "input_unit_id" within ".edit_input"
     Then I should see "Price by Meter ($)"
 
   @selenium
@@ -145,7 +145,7 @@ Feature: manage inputs
     And I follow "Click here to add price and the amount used"
     And I fill in "Amount used" with "2.5"
     And I fill in "Price" with "11.50"
-    And I select "Meter"
+    And I select "Meter" from "input_unit_id" within ".edit_input"
     And I press "Save"
     Then I should see "2.5"
     And I should see "Meter"
@@ -162,14 +162,14 @@ Feature: manage inputs
     And I follow "Click here to add price and the amount used"
     And I fill in "Amount used" with "2.5"
     And I fill in "Price" with "11.50"
-    And I select "Meter"
+    And I select "Meter" from "input_unit_id" within ".edit_input"
     And I press "Save"
     Then I should see "2.5"
     And I should see "Meter"
     When I follow "Edit" within ".input-details"
     And I fill in "Amount used" with "3.0"
     And I fill in "Price" with "23.31"
-    And I select "Litre"
+    And I select "Litre" from "input_unit_id" within ".edit_input"
     And I press "Save"
     Then I should see "3"
     And I should see "Litre"
@@ -182,12 +182,12 @@ Feature: manage inputs
     And I am logged in as "joaosilva"
     When I go to Rede Moinho's page of product Abbey Road
     And I follow "Inputs"
-    And I follow "Click here to add price and the amount used" and wait until ".input-details-form" is present
+    And I follow "Click here to add price and the amount used"
     Then I should see "Cancel"
     And I should see "Amount used"
     And I should see "Price"
     And I should see "This input or raw material inpact on the final price of the product?"
-    When I click "css=a.cancel-edit-input"
+    When I follow "Cancel" within ".edit_input"
     Then I should see "Click here to add price and the amount used"
 
   @selenium
@@ -199,7 +199,7 @@ Feature: manage inputs
     When I go to Rede Moinho's page of product Abbey Road
     And I follow "Inputs"
     And I follow "Edit" within ".input-details"
-    And I follow "Cancel"
+    And I follow "Cancel" within ".edit_input"
     And I follow "Edit" within ".input-details"
     Then I should see "Amount used"
     And I should see "Price by Meter"
@@ -215,7 +215,7 @@ Feature: manage inputs
     Then I should see "Rock"
     And I should not see "Add the inputs or raw material used by this product"
     When I follow "Remove"
-    And I confirm
+    And I confirm the browser dialog
     Then I should see "Add the inputs or raw material used by this product"
 
   @selenium
@@ -226,18 +226,18 @@ Feature: manage inputs
       | redemoinho | Music    | Manu Chao    |
     And I am logged in as "joaosilva"
     When I go to Rede Moinho's page of product Depeche Mode
-    Then the content "Add some description to your product" should be visible
-    And the content "Add the inputs or raw material used by this product" should not be visible
+    Then I should see "Add some description to your product"
+    And "Add the inputs or raw material used by this product" should not be visible within "#show_product"
     When I follow "Inputs and raw material"
-    Then the content "Add the inputs or raw material used by this product" should be visible
-    And the content "Add some description to your product" should not be visible
+    Then I should see "Add the inputs or raw material used by this product"
+    And "Add some description to your product" should not be visible within "#show_product"
     When I go to Rede Moinho's page of product Manu Chao
-    Then the content "Add some description to your product" should be visible
+    Then I should see "Add some description to your product"
     When I go to Rede Moinho's page of product Depeche Mode
-    Then the content "Add the inputs or raw material used by this product" should be visible
-    And the content "Add some description to your product" should not be visible
+    Then I should see "Add the inputs or raw material used by this product"
+    And "Add some description to your product" should not be visible within "#show_product"
 
-  @selenium
+  @selenium-fixme
   Scenario: Order input list
     Given the following product_category
       | name  |

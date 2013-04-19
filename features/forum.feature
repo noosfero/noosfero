@@ -10,18 +10,18 @@ Feature: forum
     And "joaosilva" has no articles
     And I am logged in as "joaosilva"
 
-  @selenium
+  @selenium @ignore-hidden-elements
   Scenario: create a forum
-    Given I am on Joao Silva's control panel
+    Given I am on joaosilva's control panel
     And I follow "Manage Content"
     And I follow "New content"
-    When I follow "Forum" and wait
+    When I follow "Forum"
     And I fill in "Title" with "My Forum"
-    And I press "Save" and wait
+    And I press "Save"
     Then I should see "Configure forum"
 
   Scenario: redirect to forum after create forum from cms
-    Given I go to the Control panel
+    Given I go to joaosilva's control panel
     And I follow "Manage Content"
     And I follow "New content"
     When I follow "Forum"
@@ -30,13 +30,13 @@ Feature: forum
     Then I should be on /joaosilva/forum-from-cms
 
   Scenario: create multiple forums
-    Given I go to the Control panel
+    Given I go to joaosilva's control panel
     And I follow "Manage Content"
     And I follow "New content"
     And I follow "Forum"
     And I fill in "Title" with "Forum One"
     And I press "Save"
-    Then I go to the Control panel
+    Then I go to joaosilva's control panel
     And I follow "Manage Content"
     And I follow "New content"
     And I follow "Forum"
@@ -46,7 +46,7 @@ Feature: forum
     And I should be on /joaosilva/forum-two
 
   Scenario: cancel button back to cms
-    Given I go to the Control panel
+    Given I go to joaosilva's control panel
     And I follow "Manage Content"
     And I follow "New content"
     And I follow "Forum"
@@ -54,7 +54,7 @@ Feature: forum
     Then I should be on /myprofile/joaosilva/cms
 
   Scenario: cancel button back to myprofile
-    Given I go to the Control panel
+    Given I go to joaosilva's control panel
     And I follow "Manage Content"
     And I follow "New content"
     And I follow "Forum"
@@ -66,8 +66,8 @@ Feature: forum
     Given the following forums
        | owner     | name      |
        | joaosilva | Forum One |
-    And I visit "/joaosilva/forum-one" and wait
-    When I follow "Configure forum" and wait
+    And I go to /joaosilva/forum-one
+    When I follow "Configure forum"
     Then I should be on edit "Forum One" by joaosilva
 
   Scenario: last topic update by unautenticated user should not link
@@ -94,4 +94,4 @@ Feature: forum
        | article | author | title | body |
        | Post one | joaosilva | Hi all | Hi all |
    When I go to /joaosilva/forum
-   Then I should see "Joao" linking to "http:///joaosilva"
+   Then I should see "Joao" linking to "http://localhost/joaosilva"

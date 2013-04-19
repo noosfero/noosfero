@@ -7,13 +7,16 @@
 
 <div class='l-sidebar-left-bar'>
   <ul>
-    <% if @categories.size > 0 %>
+    <%= content_tag('li', link_to(_('Enterprise homepage'), profile.public_profile_url), :id => 'catalog-categories-homepage-link') %>
+    <% if @categories.present? %>
       <% @categories.each do |category| %>
         <%= category_link(category) %>
         <%= category_sub_links(category) %>
       <% end %>
+    <% elsif @category.present? %>
+      <%= content_tag('li', _('There are no sub-categories for %s') % @category.name, :id => 'catalog-categories-notice') %>
     <% else %>
-      <%= content_tag('li', _('There are no sub-categories for %s') % @category.name, :style => 'color: #555753; padding-bottom: 0.5em;') %>
+      <%= content_tag('li', _('There are no categories available.'), :id => 'catalog-categories-notice') %>
     <% end %>
   </ul>
 </div>

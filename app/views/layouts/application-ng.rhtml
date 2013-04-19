@@ -8,38 +8,19 @@
     <meta name="description" content="<%= @environment.name %>" />
     <link rel="shortcut icon" href="<%= image_path(theme_favicon) %>" type="image/x-icon" />
     <%= noosfero_javascript %>
-    <%= stylesheet_link_tag noosfero_stylesheets, :cache => 'cache' %>
-    <%= stylesheet_link_tag template_stylesheet_path %>
-    <%= stylesheet_link_tag icon_theme_stylesheet_path %>
-    <%= stylesheet_link_tag jquery_ui_theme_stylesheet_path %>
-    <%
-      plugins_stylesheets = @plugins.select(&:stylesheet?).map { |plugin| plugin.class.public_path('style.css') }
-    %>
-    <%= stylesheet_link_tag(plugins_stylesheets, :cache => 'cache/plugins-' + Digest::MD5.hexdigest(plugins_stylesheets.to_s)) unless plugins_stylesheets.empty? %>
-    <%= stylesheet_link_tag theme_stylesheet_path %>
+    <%= noosfero_stylesheets %>
 
     <%# Add custom tags/styles/etc via content_for %>
     <%= yield :head %>
-    <%= javascript_tag('render_all_jquery_ui_widgets()') %>
-    <%
-      plugins_javascripts = @plugins.map { |plugin| plugin.js_files.map { |js| plugin.class.public_path(js) } }.flatten
-    %>
-    <%= javascript_include_tag(plugins_javascripts, :cache => 'cache/plugins-' + Digest::MD5.hexdigest(plugins_javascripts.to_s)) unless plugins_javascripts.empty? %>
     <%=
       @plugins.dispatch(:head_ending).collect do |content|
         content.respond_to?(:call) ? content.call : content
       end.join("\n")
     %>
   </head>
-  <body class="<%=
-    # Identify the current controller and action for the CSS:
-    " controller-"+ @controller.controller_name() +
-    " action-"+ @controller.controller_name() +"-"+ @controller.action_name() +
-    " template-"+ ( profile.nil? ? "default" : profile.layout_template ) +
-    (!profile.nil? && profile.is_on_homepage?(request.path,@page) ? " profile-homepage" : "")
-    %>" >
-
+  <body class="<%= body_classes %>">
     <a href="#content" id="link-go-content"><span><%= _("Go to the content") %></span></a>
+
     <%=
       @plugins.dispatch(:body_beginning).collect do |content|
         content.respond_to?(:call) ? content.call : content
@@ -51,30 +32,7 @@
         <%= theme_header %>
       </div>
       <div id="wrap-2">
-        <div id="user">
-          <span class='logged-in' style='display: none;'>
-            <%= usermenu_logged_in %>
-          </span>
-          <span class='not-logged-in' style='display: none'>
-
-              <%= _("<span class='login'>%s</span>") % thickbox_inline_popup_link('<i class="icon-menu-login"></i><strong>' + _('Login') + '</strong>', login_url, 'inlineLoginBox', :id => 'link_login') %>
-              <%= @plugins.dispatch(:alternative_authentication_link).collect { |content| instance_eval(&content) }.join("") %>
-
-              <div id='inlineLoginBox' style='display: none;'>
-                <%= render :file => 'account/login', :locals => { :is_thickbox => true } %>
-              </div>
-
-              <% unless @plugins.dispatch(:allow_user_registration).include?(false) %>
-              <%= _("<span class='or'>or</span> <span class='signup'>%s</span>") % link_to('<strong>' + _('Sign up') + '</strong>', :controller => 'account', :action => 'signup')%>
-              <% end %>
-
-          </span>
-          <form action="/search" class="search_form" method="get" class="clean">
-            <input name="query" size="15" title="<%=_('Search...')%>" onfocus="this.form.className='focused';" onblur="this.form.className=''" />
-            <div><%=_('Press <strong>Enter</strong> to send the search query.')%></div>
-            <%= javascript_tag 'jQuery("#user form input").hint();' %>
-          </form>
-        </div><!-- end id="user" -->
+        <%= render :partial => 'layouts/user' %>
 
         <h1 id="site-title">
           <%= theme_site_title %>

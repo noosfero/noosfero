@@ -1444,9 +1444,9 @@ class ProfileTest < ActiveSupport::TestCase
     t2 = fast_create(Profile, :is_template => true)
     profile = fast_create(Profile)
 
-    assert_includes Profile.templates, t1
-    assert_includes Profile.templates, t2
-    assert_not_includes Profile.templates, profile
+    assert_includes Profile.templates(Environment.default), t1
+    assert_includes Profile.templates(Environment.default), t2
+    assert_not_includes Profile.templates(Environment.default), profile
   end
 
   should 'provide URL to leave' do

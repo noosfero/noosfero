@@ -2,50 +2,10 @@
 
 <%
   @project = @article.title.nil? ? nil : @article.project
-  begin
-    @repository_types = Kalibro::Repository.repository_types.sort
-    @configuration_names = Kalibro::Configuration.all_names.sort
-  rescue Exception => exception
-    @article.errors.add_to_base(exception.message)
-    @repository_types = []
-    @configuration_names = []
-  end
 %>
 
 <%= error_messages_for 'project_content' %>
 
 <%= hidden_field_tag 'project_content[profile_id]', profile.id %>
-<%= hidden_field_tag 'id', @article.id %>
-
-<%= required_fields_message %>
-<% if !@project.nil? && !@article.id.nil? %>
-  <%= required f.text_field(:name, :disabled => 'true') %>
-<% else %>
-  <%= required f.text_field(:name) %>
-<% end %>
-
-<% selected = (@project.nil? ? "" : @project.license) %>
-<%= required labelled_form_field _('License'),
-  f.select(:project_license, MezuroPlugin::Helpers::ContentViewerHelper.create_license_options ,{:selected => selected}) %><br/>
-
-<%= f.text_field :description %><br/>
-
-<% @selected = (@project.nil? ? @repository_types : @project.repository.type) %>
-<%= required labelled_form_field _('Repository type'),
-  f.select(:repository_type, @repository_types, {:selected => @selected}) %><br/>
-
-<%= required f.text_field(:repository_url) %><br/>
-
-<% @selected = (@project.nil? ? @configuration_names[0] : @project.configuration_name) %>
-
-<% if !@project.nil? && !@article.id.nil? %>
-  <%= required labelled_form_field _('Configuration'),
-    f.select(:configuration_name, @configuration_names, {:selected => @selected}, :disabled => 'true') %>
-<% else %>
-  <%= required labelled_form_field _('Configuration'),
-    f.select(:configuration_name, @configuration_names, {:selected => @selected}) %><br/>
-<% end %>
-
-<% selected = (@project.nil? ? 0 : @project.process_period.to_i) %>
-<%= required labelled_form_field _('Periodic Avaliation'),
-  f.select(:periodicity_in_days, MezuroPlugin::Helpers::ContentViewerHelper.create_periodicity_options ,{:selected => selected}) %><br/>
+<%= hidden_field_tag 'project_id', @article.project_id %>
+<%= render :partial => "cms/mezuro_plugin/mezuro_content_form", :locals => {:f => f} %>

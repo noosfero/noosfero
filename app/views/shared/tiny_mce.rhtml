@@ -20,7 +20,7 @@ tinyMCE.init({
         editor_selector : "mceEditor",
         theme : "advanced",
         relative_urls : false,
-        remove_script_host : true,
+        remove_script_host : false,
         document_base_url : <%= environment.top_url.to_json %>,
         plugins: myplugins,
         theme_advanced_toolbar_location : "top",

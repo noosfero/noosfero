@@ -6,7 +6,7 @@ class EnvironmentDesignController; def rescue_action(e) raise e end; end
 
 class EnvironmentDesignControllerTest < ActionController::TestCase
 
-  ALL_BLOCKS = [ArticleBlock, LoginBlock, EnvironmentStatisticsBlock, RecentDocumentsBlock, EnterprisesBlock, CommunitiesBlock, PeopleBlock, SellersSearchBlock, LinkListBlock, FeedReaderBlock, SlideshowBlock, HighlightsBlock, FeaturedProductsBlock, CategoriesBlock, RawHTMLBlock ]
+  ALL_BLOCKS = [ArticleBlock, LoginBlock, EnvironmentStatisticsBlock, RecentDocumentsBlock, EnterprisesBlock, CommunitiesBlock, PeopleBlock, SellersSearchBlock, LinkListBlock, FeedReaderBlock, SlideshowBlock, HighlightsBlock, FeaturedProductsBlock, CategoriesBlock, RawHTMLBlock, TagsBlock ]
 
   def setup
     @controller = EnvironmentDesignController.new
@@ -64,11 +64,8 @@ class EnvironmentDesignControllerTest < ActionController::TestCase
     e.boxes.first.blocks << l
     community = mock()
     Environment.any_instance.stubs(:portal_community).returns(community)
-    article = mock()
+    article = fast_create(Article)
     community.stubs(:articles).returns([article])
-    article.expects(:folder?).returns(false)
-    article.expects(:path).returns('some_path')
-    article.expects(:id).returns(1)
     get :edit, :id => l.id
     assert_tag :tag => 'select', :attributes => { :name => 'block[article_id]' }
   end
@@ -173,6 +170,16 @@ class EnvironmentDesignControllerTest < ActionController::TestCase
     e.boxes.first.blocks << b
     get :edit, :id => b.id
     assert_tag :tag => 'input', :attributes => { :id => 'block_address' }
+  end
+
+  should 'be able to edit TagsBlock' do
+    login_as(create_admin_user(Environment.default))
+    b = TagsBlock.create!
+    e = Environment.default
+    e.boxes.create!
+    e.boxes.first.blocks << b
+    get :edit, :id => b.id
+    assert_tag :tag => 'input', :attributes => { :id => 'block_title' }
   end
 
   should 'create back link to environment control panel' do

@@ -22,7 +22,7 @@ Feature: clickable images
       | owner   | name | image     | dimensions |
       | booking | real | rails.png | 50x64      |
     When I go to /booking/real
-    Then I should not see "Zoom in"
+    Then "Zoom in" should not be visible within "a#zoomify-image"
 
   @selenium
   Scenario: not show link if image does not have dimensions set
@@ -30,9 +30,9 @@ Feature: clickable images
       | owner   | name    | image     |
       | booking | not set | rails.png |
     When I go to /booking/not-set
-    Then I should not see "Zoom in"
+    Then "Zoom in" should not be visible within "a#zoomify-image"
 
-  @selenium
+  @selenium-fixme
   Scenario: copy style from image
     Given the following article with image
       | owner   | name       | image     | style        | dimensions |
@@ -40,11 +40,11 @@ Feature: clickable images
     When I go to /booking/with-style
     Then "zoomable-image" should be right aligned
 
-  @selenium
+  @selenium-fixme
   Scenario: zoom image
     Given the following article with image
       | owner   | name | image     | dimensions |
       | booking | zoom | rails.png | 25x32      |
     When I go to /booking/zoom
-    And I follow "Zoom in"
-    Then the "#fancybox-wrap" should be visible
+    And I follow "Zoom in" within "a#zoomify-image"
+    Then I should see "fancybox-wrap"
