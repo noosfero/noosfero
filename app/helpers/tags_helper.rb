@@ -68,7 +68,7 @@ module TagsHelper
           :title => n_( 'one item', '%d items', count ) % count
       end
 
-    end.join("\n")
+    end.join("\n").html_safe
   end
 
 end
