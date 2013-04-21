@@ -32,7 +32,6 @@ class ProfileMembersController < MyProfileController
 
   def last_admin
     @roles = [Profile::Roles.admin(environment.id)]
-    @pre_population = [].to_json
   end
 
   def add_role

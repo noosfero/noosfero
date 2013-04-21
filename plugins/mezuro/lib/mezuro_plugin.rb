@@ -15,7 +15,21 @@ class MezuroPlugin < Noosfero::Plugin
   end
 
   def content_types
-    [MezuroPlugin::ConfigurationContent, MezuroPlugin::ProjectContent]
+    if context.profile.is_a?(Community)
+      MezuroPlugin::ProjectContent
+    else
+      [MezuroPlugin::ConfigurationContent,
+      MezuroPlugin::ReadingGroupContent]
+    end
+  end
+
+  def control_panel_buttons
+    if context.profile.is_a?(Community)
+      {:title => _('Mezuro project'), :url => {:controller =>  'cms', :action => 'new', :profile => context.profile.identifier, :type => 'MezuroPlugin::ProjectContent'}, :icon => 'mezuro' }
+    else
+      [{:title => _('Mezuro configuration'), :url => {:controller =>  'cms', :action => 'new', :profile => context.profile.identifier, :type => 'MezuroPlugin::ConfigurationContent'}, :icon => 'mezuro' },
+      {:title => _('Mezuro reading group'), :url => {:controller =>  'cms', :action => 'new', :profile => context.profile.identifier, :type => 'MezuroPlugin::ReadingGroupContent'}, :icon => 'mezuro' }]
+    end
   end
 
   def stylesheet?

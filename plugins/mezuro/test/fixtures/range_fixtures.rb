@@ -1,21 +1,19 @@
 class RangeFixtures
 
-  Infinity = 1.0/0.0
-
-  def self.range_excellent
-    Kalibro::Range.new range_excellent_hash
+  def self.range
+    Kalibro::Range.new range_hash
   end
 
-  def self.range_bad
-    Kalibro::Range.new range_bad_hash
+  def self.created_range
+    Kalibro::Range.new created_range_hash
+  end
+  
+  def self.created_range_hash
+    {:beginning => "19.5", :end => "INF", :reading_id => "1", :comments => "Test range 1"}
   end
 
-  def self.range_excellent_hash
-    {:beginning => 0.0, :end => 7.0, :label => 'Excellent', :grade => 10.0, :color => 'ff00ff00'}
-  end
-
-  def self.range_bad_hash
-    {:beginning => 19.5, :end => "INF", :label => 'Bad',:grade => 0.0, :color => 'ffff0000'}
+  def self.range_hash
+    {:id => "1", :beginning => "19.5", :end => "INF", :reading_id => "1", :comments => "Test range 1"}
   end
 
 end

@@ -9,7 +9,12 @@
     <div id='media-upload-form'>
       <% form_tag({ :action => 'media_upload' }, :multipart => true) do %>
         <div class='formfield'>
-          <%= select_profile_folder(_('Choose folder to upload files:'), :parent_id, profile) %>
+          <% default_folder = content_id_to_str default_folder_for_image_upload(profile) %>
+          <%= select_profile_folder(
+                _('Choose folder to upload files:'),
+                :parent_id, profile, default_folder, {}, {},
+                'type="Folder" or type="Gallery"'
+          ) %>
         </div>
         <p><%= file_field_tag('file1') %></p>
         <p><%= file_field_tag('file2') %></p>

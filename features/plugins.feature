@@ -23,36 +23,36 @@ Feature: plugins
 
   Scenario: a user must see the plugin\'s button in the control panel if the plugin is enabled
     Given plugin TestPlugin is enabled on environment
-    And I go to Joao Silva's control panel
+    And I go to joaosilva's control panel
     Then I should see "Test plugin button"
 
   Scenario: a user must see the plugin\'s tab in in the profile if the plugin is enabled
     Given plugin TestPlugin is enabled on environment
-    And I am on Joao Silva's profile
+    And I am on joaosilva's profile
     Then I should see "Test plugin tab"
 
   Scenario: a user must not see the plugin\'s button in the control panel if the plugin is disabled
     Given plugin TestPlugin is disabled on environment
-    And I go to Joao Silva's control panel
+    And I go to joaosilva's control panel
     Then I should not see "Test plugin button"
 
   Scenario: a user must not see the plugin\'s tab in in the profile if the plugin is disabled
     Given plugin TestPlugin is disabled on environment
-    And I am on Joao Silva's profile
+    And I am on joaosilva's profile
     Then I should not see "Test plugin tab"
 
   Scenario: an admin should be able to deactivate a plugin
     Given plugin TestPlugin is enabled on environment
     And I am logged in as admin
-    When I go to the Control panel
+    When I go to admin_user's control panel
     Then I should see "Test plugin button"
-    When I go to the profile
+    When I go to admin_user's profile
     Then I should see "Test plugin tab"
     And I go to the environment control panel
     And I follow "Plugins"
     And I uncheck "Test plugin"
     And I press "Save changes"
-    When I go to the Control panel
+    When I go to admin_user's control panel
     Then I should not see "Test plugin button"
-    When I go to the profile
+    When I go to admin_user's profile
     Then I should not see "Test plugin tab"

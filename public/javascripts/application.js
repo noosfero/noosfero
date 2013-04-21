@@ -29,7 +29,14 @@ function focus_first_field() {
 
 /* * * Convert a string to a valid login name * * */
 function convToValidLogin( str ) {
-  return convToValidIdentifier(str, '')
+  if (str.indexOf('@') == -1)
+    return convToValidUsername(str);
+  else
+    return convToValidEmail(str);
+}
+
+function convToValidUsername( str ) {
+  return convToValidIdentifier(str, '');
 }
 
 /* * * Convert a string to a valid login name * * */
@@ -44,6 +51,18 @@ function convToValidIdentifier( str, sep ) {
             .replace( /ñ/g,       "n" )
             .replace( /ç/g,       "c" )
             .replace( /[^-_a-z0-9.]+/g, sep )
+}
+
+function convToValidEmail( str ) {
+  return str.toLowerCase()
+            .replace( /á|à|ã|â/g, "a" )
+            .replace( /é|ê/g,     "e" )
+            .replace( /í/g,       "i" )
+            .replace( /ó|ô|õ|ö/g, "o" )
+            .replace( /ú|ũ|ü/g,   "u" )
+            .replace( /ñ/g,       "n" )
+            .replace( /ç/g,       "c" )
+            .replace( /[^@a-z0-9!#$%&'*+-/=?^_`{|}~.]+/g, '' )
 }
 
 function updateUrlField(name_field, id) {
@@ -110,9 +129,9 @@ function hideOthersIconSelector(current_div) {
 }
 
 function loading(element_id, message) {
-   $(element_id).addClassName('loading');
+   jQuery(element_id).addClass('loading');
    if (message) {
-      $(element_id).update(message);
+      jQuery(element_id).html(message);
    }
 }
 function small_loading(element_id, message) {
@@ -122,9 +141,9 @@ function small_loading(element_id, message) {
    }
 }
 function loading_done(element_id) {
-   $(element_id).removeClassName('loading');
-   $(element_id).removeClassName('small-loading');
-   $(element_id).removeClassName('small-loading-dark');
+   jQuery(element_id).removeClass('loading');
+   jQuery(element_id).removeClass('small-loading');
+   jQuery(element_id).removeClass('small-loading-dark');
 }
 function open_loading(message) {
    jQuery('body').append("<div id='overlay_loading' class='ui-widget-overlay' style='display: none'/><div id='overlay_loading_modal' style='display: none'><p>"+message+"</p><img src='/images/loading-dark.gif'/></div>");
@@ -918,13 +937,55 @@ function facet_options_toggle(id, url) {
   });
 }
 
+if ( !console ) console = {};
+if ( !console.log ) console.log = function(){};
+
+// Two ways to call it:
+// log(mixin1[, mixin2[, ...]]);
+// log('<type>', mixin1[, mixin2[, ...]]);
+// Where <type> may be: log, info warn, or error
+window.log = function log() {
+  var type = arguments[0];
+  var argsClone = jQuery.merge([], arguments); // cloning the read-only arguments array.
+  if ( ['info', 'warn', 'error'].indexOf(type) == -1 ) {
+    type = 'log';
+  } else {
+    argsClone.shift();
+  }
+  var method = type;
+  if ( !console[method] ) method = 'log';
+  console[method].apply( console, jQuery.merge([(new Date).toISOString()], argsClone) );
+}
+
+// Call log.info(mixin1[, mixin2[, ...]]);
+log.info = function() {
+  window.log.apply(window, jQuery.merge(['info'], arguments));
+}
+
+// Call log.warn(mixin1[, mixin2[, ...]]);
+log.warn = function() {
+  window.log.apply(window, jQuery.merge(['warn'], arguments));
+}
+
+// Call log.error(mixin1[, mixin2[, ...]]);
+log.error = function() {
+  window.log.apply(window, jQuery.merge(['error'], arguments));
+}
+
 jQuery(function($) {
   $('.colorbox').live('click', function() {
-    $.fn.colorbox({
-      href:$(this).attr('href'),
-      maxWidth: '600',
-      maxHeight: '550',
-      open:true
+    $.colorbox({
+      href:       $(this).attr('href'),
+      maxWidth:   $(window).width()-50,
+      height:     $(window).height()-50,
+      open:       true,
+      fixed:      true,
+      close:      'Cancel',
+      onComplete: function(bt) {
+        var opt = {}, maxH = $(window).height()-50;
+        if ($('#cboxLoadedContent *:first').height() > maxH) opt.height = maxH;
+        $.colorbox.resize(opt);
+      }
     });
     return false;
   });

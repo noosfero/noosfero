@@ -1,3 +1,27 @@
+noosfero (0.41.2) unstable; urgency=low
+
+  * Bugfixes release 
+
+ -- Rodrigo Souto <rodrigo@colivre.coop.br>  Wed, 17 Apr 2013 16:22:53 -0300
+
+noosfero (0.41.1) unstable; urgency=low
+
+  * Bugfixes release
+
+ -- Rodrigo Souto <rodrigo@colivre.coop.br>  Fri, 08 Mar 2013 11:33:11 -0300
+
+noosfero (0.41.0) unstable; urgency=low
+
+  * Features version with anti spam-bot measures
+
+ -- Rodrigo Souto <rodrigo@colivre.coop.br>  Mon, 28 Jan 2013 10:20:21 +0000
+
+noosfero (0.40.0) unstable; urgency=low
+
+  * Features version release 
+
+ -- Rodrigo Souto <rodrigo@colivre.coop.br>  Sat, 19 Jan 2013 21:58:06 +0000
+
 noosfero (0.39.3) unstable; urgency=low
 
   * Bugfixes release

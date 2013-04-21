@@ -4,6 +4,7 @@ class AccountController < ApplicationController
 
   before_filter :login_required, :only => [:activation_question, :accept_terms, :activate_enterprise]
   before_filter :redirect_if_logged_in, :only => [:login, :signup]
+  before_filter :protect_from_bots, :only => :signup
 
   # say something nice, you goof!  something sweet.
   def index
@@ -55,6 +56,11 @@ class AccountController < ApplicationController
     render :action => 'login', :layout => false
   end
 
+  def signup_time
+    key = set_signup_start_time_for_now
+    render :text => { :ok=>true, :key=>key }.to_json
+  end
+
   # action to register an user to the application
   def signup
     if @plugins.dispatch(:allow_user_registration).include?(false)
@@ -62,12 +68,9 @@ class AccountController < ApplicationController
       session[:notice] = _("This environment doesn't allow user registration.")
     end
 
+    @block_bot = !!session[:may_be_a_bot]
     @invitation_code = params[:invitation_code]
     begin
-      if params[:user]
-        params[:user].delete(:password_confirmation_clear)
-        params[:user].delete(:password_clear)
-      end
       @user = User.new(params[:user])
       @user.terms_of_use = environment.terms_of_use
       @user.environment = environment
@@ -76,19 +79,28 @@ class AccountController < ApplicationController
       @person = Person.new(params[:profile_data])
       @person.environment = @user.environment
       if request.post?
-        @user.signup!
-        owner_role = Role.find_by_name('owner')
-        @user.person.affiliate(@user.person, [owner_role]) if owner_role
-        invitation = Task.find_by_code(@invitation_code)
-        if invitation
-          invitation.update_attributes!({:friend => @user.person})
-          invitation.finish
-        end
-        if @user.activated?
-          self.current_user = @user
-          redirect_to '/'
+        if may_be_a_bot
+          set_signup_start_time_for_now
+          @block_bot = true
+          session[:may_be_a_bot] = true
         else
-          @register_pending = true
+          if session[:may_be_a_bot]
+            return false unless verify_recaptcha :model=>@user, :message=>_('Captcha (the human test)')
+          end
+          @user.signup!
+          owner_role = Role.find_by_name('owner')
+          @user.person.affiliate(@user.person, [owner_role]) if owner_role
+          invitation = Task.find_by_code(@invitation_code)
+          if invitation
+            invitation.update_attributes!({:friend => @user.person})
+            invitation.finish
+          end
+          if @user.activated?
+            self.current_user = @user
+            redirect_to '/'
+          else
+            @register_pending = true
+          end
         end
       end
     rescue ActiveRecord::RecordInvalid
@@ -97,6 +109,7 @@ class AccountController < ApplicationController
       @person.errors.delete(:user_id)
       render :action => 'signup'
     end
+    clear_signup_start_time
   end
 
   # action to perform logout from the application
@@ -271,7 +284,36 @@ class AccountController < ApplicationController
   def no_redirect
     @cannot_redirect = true
   end
-  
+
+  def set_signup_start_time_for_now
+    key = 'signup_start_time_' + rand.to_s.split('.')[1]
+    Rails.cache.write key, Time.now
+    key
+  end
+
+  def get_signup_start_time
+    Rails.cache.read params[:signup_time_key]
+  end
+
+  def clear_signup_start_time
+    Rails.cache.delete params[:signup_time_key] if params[:signup_time_key]
+  end
+
+  def may_be_a_bot
+    # No minimum signup delay, no bot test.
+    return false if environment.min_signup_delay == 0
+
+    # answering captcha, may be human!
+    return false if params[:recaptcha_response_field]
+
+    # never set signup_time, hi wget!
+    signup_start_time = get_signup_start_time
+    return true if signup_start_time.nil?
+
+    # so fast, so bot.
+    signup_start_time > ( Time.now - environment.min_signup_delay.seconds )
+  end
+
   def check_answer
     unless answer_correct
       @enterprise.block

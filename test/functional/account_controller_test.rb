@@ -19,6 +19,7 @@ class AccountControllerTest < ActionController::TestCase
     @controller = AccountController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
+    disable_signup_bot_check
   end
 
   def test_local_files_reference
@@ -566,6 +567,7 @@ class AccountControllerTest < ActionController::TestCase
     template.boxes[0].blocks << Block.new
     template.save!
     env = fast_create(Environment, :name => 'test_env')
+    disable_signup_bot_check(env)
     env.settings[:person_template_id] = template.id
     env.save!
 
@@ -575,6 +577,21 @@ class AccountControllerTest < ActionController::TestCase
 
     assert_equal 1, assigns(:user).person.boxes.size
     assert_equal 1, assigns(:user).person.boxes[0].blocks.size
+  end
+
+  should 'display only templates of the current environment' do
+    env2 = fast_create(Environment)
+
+    template1 = fast_create(Person, :name => 'template1', :environment_id => Environment.default.id, :is_template => true)
+    template2 = fast_create(Person, :name => 'template2', :environment_id => Environment.default.id, :is_template => true)
+    template3 = fast_create(Person, :name => 'template3', :environment_id => env2.id, :is_template => true)
+
+    get :signup
+    assert_select '#template-options' do |elements|
+      assert_match /template1/, elements[0].to_s
+      assert_match /template2/, elements[0].to_s
+      assert_no_match /template3/, elements[0].to_s
+    end
   end
 
   should 'render person partial' do
@@ -728,12 +745,6 @@ class AccountControllerTest < ActionController::TestCase
     assert_template 'signup'
   end
 
-  should 'remove useless user data on signup' do
-    assert_nothing_raised do
-      new_user :password_clear => 'nothing', :password_confirmation_clear => 'nothing'
-    end
-  end
-
   should 'login after signup when no e-mail confirmation is required' do
     e = Environment.default
     e.enable('skip_new_user_email_confirmation')
@@ -880,28 +891,45 @@ class AccountControllerTest < ActionController::TestCase
     assert_tag :tag => 'strong', :content => 'Plugin2 text'
   end
 
+  should 'include honeypot in the signup form' do
+    get :signup
+    assert_tag :tag => /input|textarea/, :attributes => {:id => 'honeypot'}
+  end
+
+  should 'not sign in if the honeypot field is filled' do
+    Person.any_instance.stubs(:required_fields).returns(['organization'])
+    assert_no_difference User, :count do
+      post :signup, :user => { :login => 'testuser', :password => '123456', :password_confirmation => '123456', :email => 'testuser@example.com' }, :profile_data => { :organization => 'example.com' }, :honeypot => 'something'
+    end
+    assert @response.body.blank?
+  end
 
   protected
-    def new_user(options = {}, extra_options ={})
-      data = {:profile_data => person_data}
-      if extra_options[:profile_data]
-         data[:profile_data].merge! extra_options.delete(:profile_data)
-      end
-      data.merge! extra_options
-
-       post :signup, { :user => { :login => 'quire',
-                                 :email => 'quire@example.com',
-                                 :password => 'quire',
-                                 :password_confirmation => 'quire'
-                              }.merge(options)
-                    }.merge(data)
+  def new_user(options = {}, extra_options ={})
+    data = {:profile_data => person_data}
+    if extra_options[:profile_data]
+      data[:profile_data].merge! extra_options.delete(:profile_data)
     end
+    data.merge! extra_options
 
-    def auth_token(token)
-      CGI::Cookie.new('name' => 'auth_token', 'value' => token)
-    end
+    post :signup, { :user => { :login => 'quire',
+      :email => 'quire@example.com',
+      :password => 'quire',
+      :password_confirmation => 'quire'
+    }.merge(options)
+    }.merge(data)
+  end
 
-    def cookie_for(user)
-      auth_token users(user).remember_token
-    end
+  def auth_token(token)
+    CGI::Cookie.new('name' => 'auth_token', 'value' => token)
+  end
+
+  def cookie_for(user)
+    auth_token users(user).remember_token
+  end
+
+  def disable_signup_bot_check(environment = Environment.default)
+    environment.min_signup_delay = 0
+    environment.save!
+  end
 end

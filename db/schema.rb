@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130111232201) do
+ActiveRecord::Schema.define(:version => 20130304200849) do
 
   create_table "abuse_reports", :force => true do |t|
     t.integer  "reporter_id"
@@ -415,7 +415,7 @@ ActiveRecord::Schema.define(:version => 20130111232201) do
     t.datetime "updated_at"
     t.decimal  "discount"
     t.boolean  "available",           :default => true
-    t.boolean  "highlighted"
+    t.boolean  "highlighted",         :default => false
     t.integer  "unit_id"
     t.integer  "image_id"
   end

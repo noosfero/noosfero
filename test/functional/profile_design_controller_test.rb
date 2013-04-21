@@ -192,14 +192,14 @@ class ProfileDesignControllerTest < ActionController::TestCase
       def self.extra_blocks
         {
           CustomBlock1 => {:type => Person, :position => [1]},
-          CustomBlock2 => {:type => Enterprise, :position => 1},
-          CustomBlock3 => {:type => Community, :position => '1'},
+          CustomBlock2 => {:type => Person, :position => 1},
+          CustomBlock3 => {:type => Person, :position => '1'},
           CustomBlock4 => {:type => Person, :position => [2]},
-          CustomBlock5 => {:type => Enterprise, :position => 2},
-          CustomBlock6 => {:type => Community, :position => '2'},
+          CustomBlock5 => {:type => Person, :position => 2},
+          CustomBlock6 => {:type => Person, :position => '2'},
           CustomBlock7 => {:type => Person, :position => [3]},
-          CustomBlock8 => {:type => Enterprise, :position => 3},
-          CustomBlock9 => {:type => Community, :position => '3'},
+          CustomBlock8 => {:type => Person, :position => 3},
+          CustomBlock9 => {:type => Person, :position => '3'},
         }
       end
     end
@@ -234,14 +234,14 @@ class ProfileDesignControllerTest < ActionController::TestCase
       def self.extra_blocks
         {
           CustomBlock1 => {:type => Person, :position => [1]},
-          CustomBlock2 => {:type => Enterprise, :position => 1},
-          CustomBlock3 => {:type => Community, :position => '1'},
+          CustomBlock2 => {:type => Person, :position => 1},
+          CustomBlock3 => {:type => Person, :position => '1'},
           CustomBlock4 => {:type => Person, :position => [2]},
-          CustomBlock5 => {:type => Enterprise, :position => 2},
-          CustomBlock6 => {:type => Community, :position => '2'},
+          CustomBlock5 => {:type => Person, :position => 2},
+          CustomBlock6 => {:type => Person, :position => '2'},
           CustomBlock7 => {:type => Person, :position => [3]},
-          CustomBlock8 => {:type => Enterprise, :position => 3},
-          CustomBlock9 => {:type => Community, :position => '3'},
+          CustomBlock8 => {:type => Person, :position => 3},
+          CustomBlock9 => {:type => Person, :position => '3'},
         }
       end
     end
@@ -261,6 +261,44 @@ class ProfileDesignControllerTest < ActionController::TestCase
     assert @controller.instance_variable_get('@side_block_types').include?(CustomBlock9)
   end
 
+  should 'a block plugin cannot be listed for unspecified types' do
+    class CustomBlock1 < Block; end;
+    class CustomBlock2 < Block; end;
+    class CustomBlock3 < Block; end;
+    class CustomBlock4 < Block; end;
+    class CustomBlock5 < Block; end;
+    class CustomBlock6 < Block; end;
+    class CustomBlock7 < Block; end;
+    class CustomBlock8 < Block; end;
+
+    class TestBlockPlugin < Noosfero::Plugin
+      def self.extra_blocks
+        {
+          CustomBlock1 => {:type => Person, :position => 1},
+          CustomBlock2 => {:type => Community, :position => 1},
+          CustomBlock3 => {:type => Enterprise, :position => 1},
+          CustomBlock4 => {:type => Environment, :position => 1},
+          CustomBlock5 => {:type => Person, :position => 2},
+          CustomBlock6 => {:type => Community, :position => 3},
+          CustomBlock7 => {:type => Enterprise, :position => 2},
+          CustomBlock8 => {:type => Environment, :position => 3},
+        }
+      end
+    end
+     
+    Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([TestBlockPlugin.new])
+    get :add_block, :profile => 'designtestuser'
+    assert_response :success
+
+    assert @controller.instance_variable_get('@center_block_types').include?(CustomBlock1)
+    assert !@controller.instance_variable_get('@center_block_types').include?(CustomBlock2)
+    assert !@controller.instance_variable_get('@center_block_types').include?(CustomBlock3)
+    assert !@controller.instance_variable_get('@center_block_types').include?(CustomBlock4)
+    assert @controller.instance_variable_get('@side_block_types').include?(CustomBlock5)
+    assert !@controller.instance_variable_get('@side_block_types').include?(CustomBlock6)
+    assert !@controller.instance_variable_get('@side_block_types').include?(CustomBlock7)
+    assert !@controller.instance_variable_get('@side_block_types').include?(CustomBlock8)
+  end
 
   ######################################################
   # END - tests for BoxOrganizerController features 
