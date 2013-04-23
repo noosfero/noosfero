@@ -1,12 +1,12 @@
 require File.dirname(__FILE__) + '/../../../test/test_helper'
 
-def load_ldap_config 
+def load_ldap_config
   begin
     YAML.load_file(File.dirname(__FILE__) + '/../fixtures/ldap.yml')
   rescue Errno::ENOENT => e
     # There is no config file
     return nil
-  end 
+  end
 end
 
 def ldap_configured?

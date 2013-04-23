@@ -9,7 +9,7 @@ class AccountControllerPluginTest < ActionController::TestCase
     @controller = AccountController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
-    
+
     @environment = Environment.default
     @environment.enabled_plugins = ['LdapPlugin']
     @ldap_config = load_ldap_config
@@ -51,14 +51,14 @@ class AccountControllerPluginTest < ActionController::TestCase
       assert session[:user]
       assert_equal count, User.count
     end
-  
+
     should 'login and create a new noosfero user if ldap authentication works properly' do
       count = User.count
       post :login, :user => @ldap_config['user']
       assert session[:user]
       assert_equal count + 1, User.count
     end
-  
+
     should 'login on ldap if required fields are defined' do
       count = User.count
       @environment.custom_person_fields = {"contact_phone"=>{"required"=>"true", "signup"=>"false", "active"=>"true"}}
@@ -66,14 +66,14 @@ class AccountControllerPluginTest < ActionController::TestCase
       post :login, :user => @ldap_config['user'], :profile_data => {:contact_phone => '11111111'}
       assert session[:user]
     end
-  
+
     should 'not login on ldap if required fields are not defined' do
       @environment.custom_person_fields = {"contact_phone"=>{"required"=>"true", "signup"=>"false", "active"=>"true"}}
       @environment.save
       post :login, :user => @ldap_config['user']
       assert_nil session[:user]
     end
-  
+
     should 'authenticate user if its not a local user but is a ldap user' do
       post :login, :user => @ldap_config['user']
       assert session[:user]

@@ -175,6 +175,6 @@ class LdapAuthenticationTest < ActiveSupport::TestCase
   else
     puts LDAP_SERVER_ERROR_MESSAGE
   end
-  
+
 
 end

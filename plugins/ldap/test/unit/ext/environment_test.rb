@@ -166,7 +166,7 @@ class EnvironmentTest < ActiveSupport::TestCase
   should 'validates presence of host' do
     @enviroment.ldap_plugin= {:port => 3000}
     @enviroment.valid?
-   
+
     assert @enviroment.errors.invalid?(:ldap_plugin_host)
 
     @enviroment.ldap_plugin_host= "http://somehost.com"

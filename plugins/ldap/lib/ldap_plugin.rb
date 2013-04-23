@@ -34,7 +34,7 @@ class LdapPlugin < Noosfero::Plugin
       rescue Net::LDAP::LdapError => e
         puts "LDAP is not configured correctly"
       end
-      
+
       if attrs
         user.login = login
         user.email = attrs[:mail]
@@ -54,19 +54,19 @@ class LdapPlugin < Noosfero::Plugin
       else
         user = nil
       end
-     
+
     else
 
       return nil if !user.activated?
 
       begin
-        # user si defined as nil if ldap authentication failed
+        # user is defined as nil if ldap authentication failed
         user = nil if ldap.authenticate(login, password).nil?
       rescue Net::LDAP::LdapError => e
         user = nil
         puts "LDAP is not configured correctly"
       end
-    end 
+    end
 
     user
   end
@@ -77,7 +77,7 @@ class LdapPlugin < Noosfero::Plugin
       @profile_data = @person
       labelled_fields_for :profile_data, @person do |f|
         render :partial => 'profile_editor/person_form', :locals => {:f => f}
-      end 
+      end
     end
   end
 
