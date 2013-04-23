@@ -10,7 +10,7 @@ INSTALL
 Dependences
 -----------
 
-See the Noosfero install file. After install Noosfero, install Mezuro dependences:
+See the Noosfero install file. After install Noosfero, install LDAP dependences:
 
 $ gem install net-ldap -v 0.3.1
 
@@ -38,7 +38,7 @@ Get the LDAP (Noosfero with LDAP Plugin) development repository:
 
 $ git clone https://gitorious.org/+noosfero/noosfero/ldap
 
-Running Mezuro tests
+Running LDAP tests
 --------------------
 
 Configure the ldap server creating the file 'plugins/ldap/fixtures/ldap.yml'.
