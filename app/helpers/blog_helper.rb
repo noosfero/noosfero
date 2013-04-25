@@ -31,7 +31,7 @@ module BlogHelper
       css_add << position + '-inner'
       content << content_tag('div',
                              content_tag('div',
-                                         display_post(art, format) + '<br style="clear:both"/>',
+                                         display_post(art, format).html_safe + '<br style="clear:both"/>'.html_safe,
                                          :class => 'blog-post ' + css_add.join(' '),
                                          :id => "post-#{art.id}"), :class => position
                             )
