@@ -11,6 +11,15 @@ class ExternalFeed < ActiveRecord::Base
   }
 
   def add_item(title, link, date, content)
+    doc = Hpricot(content)
+    doc.search('*').each do |p|
+      if p.instance_of? Hpricot::Elem
+        p.remove_attribute 'style'
+        p.remove_attribute 'class'
+      end
+    end
+    content = doc.to_s
+
     article = TinyMceArticle.new(:name => title, :profile => blog.profile, :body => content, :published_at => date, :source => link, :profile => blog.profile, :parent => blog)
     unless blog.children.exists?(:slug => article.slug)
       article.save!
