@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.39.3\n"
 "POT-Creation-Date: 2013-01-19 21:42-0000\n"
-"PO-Revision-Date: 2013-01-19 21:55+0000\n"
+"PO-Revision-Date: 2013-03-13 17:47-0300\n"
 "Last-Translator: Rodrigo Souto <rodrigo@colivre.coop.br>\n"
 "Language-Team: LANGUAGE TEAM <E-MAIL@ADDRESS or HOME PAGE>\n"
 "Language: \n"
@@ -9205,7 +9205,7 @@ msgstr "<span class='login'>%s</span>"
 
 #: app/views/layouts/application-ng.rhtml:68
 msgid "<span class='or'>or</span> <span class='signup'>%s</span>"
-msgstr "<span class='or'>or</span> <span class='signup'>%s</span>"
+msgstr "<span class='or'>ou</span> <span class='signup'>%s</span>"
 
 #: app/views/layouts/application-ng.rhtml:68
 msgid "Sign up"
@@ -11086,6 +11086,10 @@ msgstr "Tempo de tolerância para edição de comentários"
 msgid "Empty means unlimited and zero means right away."
 msgstr "Vazio significa ilimitado e zero significa imediatamente."
 
+#: plugins/shopping_cart/views/shopping_cart_plugin/buy.html.erb:11
+msgid "shopping_cart|Change"
+msgstr "Troco"
+
 #: plugins/shopping_cart/views/cart.html.erb:2
 msgid "Are you sure you want to remove this item?"
 msgstr "Tem certeza de que quer excluir este ítem?"
@@ -11163,7 +11167,6 @@ msgstr "Pagamento"
 #: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/_orders_list.html.erb:35
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:22
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:20
-#: plugins/shopping_cart/views/shopping_cart_plugin/buy.html.erb:11
 #, fuzzy
 msgid "Change"
 msgstr "Mudar imagem"

@@ -6,24 +6,26 @@ class MezuroPlugin::Helpers::ContentViewerHelper
     sprintf("%.2f", grade.to_f)
   end
 
-  def self.create_periodicity_options
-   [["Not Periodically", 0], ["1 day", 1], ["2 days", 2], ["Weekly", 7], ["Biweeky", 15], ["Monthly", 30]]
+  def self.periodicity_options
+    [["Not Periodically", 0], ["1 day", 1], ["2 days", 2], ["Weekly", 7], ["Biweekly", 15], ["Monthly", 30]]
   end
 
-  def self.create_license_options
-   options = YAML.load_file("#{RAILS_ROOT}/plugins/mezuro/licenses.yaml")
-   options = options.split(";")
-   formated_options = []
-   options.each { |option| formated_options << [option, option] }
-   formated_options
+  def self.periodicity_option(periodicity)
+    periodicity_options.select {|x| x.last == periodicity}.first.first
+  end
+
+  def self.license_options
+   options = YAML.load_file("#{RAILS_ROOT}/plugins/mezuro/licenses.yml")
+   options = options.split("; ")
+   options
   end
 
   def self.generate_chart(score_history)
     values = []
     labels = []
     score_history.each do |score_data|
-      values << score_data.first
-      labels << score_data.last
+      values << score_data.result
+      labels << score_data.date
     end
     labels = discretize_array labels
     Gchart.line(
@@ -39,20 +41,22 @@ class MezuroPlugin::Helpers::ContentViewerHelper
                 )
   end
 
-  def self.get_periodicity_option(index)
-    options = [["Not Periodically", 0], ["1 day", 1], ["2 days", 2], ["Weekly", 7], ["Biweeky", 15], ["Monthly", 30]]
-    selected_option = options.find { |option| option.last == index.to_i }
-    selected_option.first
+  def self.format_name(metric_configuration_snapshot)
+    metric_configuration_snapshot.metric.name.delete("() ")
+  end
+  
+  def self.format_time(miliseconds)
+    seconds = miliseconds/1000
+    MezuroPluginModuleResultController.helpers.distance_of_time_in_words(0, seconds, include_seconds = true)
   end
 
-  def self.format_name(metric_result)
-    metric_result.metric.name.delete("() ")
+  def self.aggregation_options
+    [["Average","AVERAGE"], ["Median", "MEDIAN"], ["Maximum", "MAXIMUM"], ["Minimum", "MINIMUM"],
+      ["Count", "COUNT"], ["Standard Deviation", "STANDARD_DEVIATION"]]
   end
 
-  def self.get_license_option(selected)
-    options = YAML.load_file("#{RAILS_ROOT}/plugins/mezuro/licenses.yaml")
-    options.split(";")
-    selected_option = options.find { |license| license == selected }
+  def self.scope_options
+    [["Software", "SOFTWARE"], ["Package", "PACKAGE"], ["Class", "CLASS"], ["Method", "METHOD"]]
   end
 
   private

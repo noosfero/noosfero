@@ -30,3 +30,8 @@ a:link,active,visited .ancestor{
 	font-style: underline;
 	display: inline;
 }
+
+.controller-profile_editor a.control-panel-mezuro,
+  .controller-profile_editor .msie6 a.control-panel-mezuro {
+  background-image: url(/plugins/mezuro/icons/mezuro.png)
+}

@@ -9345,11 +9345,9 @@ msgid "<span class='login'>%s</span>"
 msgstr "<span class='welcome'>Bienvenido,</span> %s"
 
 #: app/views/layouts/application-ng.rhtml:68
-#, fuzzy
 msgid "<span class='or'>or</span> <span class='signup'>%s</span>"
 msgstr ""
-"<span class='login'>%s</span> <span class='or'>or</span> <span "
-"class='signup'>%s</span>"
+"<span class='or'>o</span> <span class='signup'>%s</span>"
 
 #: app/views/layouts/application-ng.rhtml:68
 msgid "Sign up"

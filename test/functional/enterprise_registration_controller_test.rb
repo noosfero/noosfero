@@ -203,4 +203,21 @@ class EnterpriseRegistrationControllerTest < ActionController::TestCase
     assert_tag :tag => 'input', :attributes => {:id => 'create_enterprise_plugin1', :type => 'hidden', :value => 'Plugin 1'}
     assert_tag :tag => 'input', :attributes => {:id => 'create_enterprise_plugin2', :type => 'hidden', :value => 'Plugin 2'}
   end
+
+  should 'display only templates of the current environment' do
+    env2 = fast_create(Environment)
+
+    template1 = fast_create(Enterprise, :name => 'template1', :environment_id => Environment.default.id, :is_template => true)
+    template2 = fast_create(Enterprise, :name => 'template2', :environment_id => Environment.default.id, :is_template => true)
+    template3 = fast_create(Enterprise, :name => 'template3', :environment_id => env2.id, :is_template => true)
+
+    get :index
+
+    assert_select '#template-options' do |elements|
+      assert_match /template1/, elements[0].to_s
+      assert_match /template2/, elements[0].to_s
+      assert_no_match /template3/, elements[0].to_s
+    end
+  end
+
 end

@@ -579,6 +579,21 @@ class AccountControllerTest < ActionController::TestCase
     assert_equal 1, assigns(:user).person.boxes[0].blocks.size
   end
 
+  should 'display only templates of the current environment' do
+    env2 = fast_create(Environment)
+
+    template1 = fast_create(Person, :name => 'template1', :environment_id => Environment.default.id, :is_template => true)
+    template2 = fast_create(Person, :name => 'template2', :environment_id => Environment.default.id, :is_template => true)
+    template3 = fast_create(Person, :name => 'template3', :environment_id => env2.id, :is_template => true)
+
+    get :signup
+    assert_select '#template-options' do |elements|
+      assert_match /template1/, elements[0].to_s
+      assert_match /template2/, elements[0].to_s
+      assert_no_match /template3/, elements[0].to_s
+    end
+  end
+
   should 'render person partial' do
     Environment.any_instance.expects(:signup_person_fields).returns(['contact_phone']).at_least_once
     get :signup

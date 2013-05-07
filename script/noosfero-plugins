@@ -94,7 +94,9 @@ _enable(){
     if [ "$dependencies_ok" = true ]; then
       ln -s "$source" "$target"
       plugins_public_dir="$NOOSFERO_DIR/public/plugins"
+      plugins_features_dir="$NOOSFERO_DIR/features/plugins"
       test -d "$target/public/" && ln -s "$target/public" "$plugins_public_dir/$plugin"
+      test -d "$target/features" && ln -s "$target/features" "$plugins_features_dir/$plugin"
       _say "$plugin enabled"
       run "$source/after_enable.rb"
       needs_migrate=true
@@ -109,10 +111,12 @@ _disable(){
   source="$available_plugins_dir/$plugin"
   target="$enabled_plugins_dir/$plugin"
   plugins_public_dir="$NOOSFERO_DIR/public/plugins"
+  plugins_features_dir="$NOOSFERO_DIR/features/plugins"
   run "$source/before_disable.rb"
   if [ -h "$target" ]; then
     rm "$target"
     test -h "$plugins_public_dir/$plugin" && rm "$plugins_public_dir/$plugin"
+    test -h "$plugins_features_dir/$plugin" && rm "$plugins_features_dir/$plugin"
     _say "$plugin disabled"
     run "$source/after_disable.rb"
   else

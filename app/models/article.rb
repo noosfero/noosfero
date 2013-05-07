@@ -22,6 +22,15 @@ class Article < ActiveRecord::Base
     'full'
   end
 
+  #FIXME This is necessary because html is being generated on the model...
+  include ActionView::Helpers::TagHelper
+
+  # use for internationalizable human type names in search facets
+  # reimplement on subclasses
+  def self.type_name
+    _('Content')
+  end
+
   track_actions :create_article, :after_create, :keep_params => [:name, :url, :lead, :first_image], :if => Proc.new { |a| a.is_trackable? && !a.image? }
 
   # xss_terminate plugin can't sanitize array fields
@@ -240,8 +249,13 @@ class Article < ActiveRecord::Base
   # The implementation in this class just provides the +body+ attribute as the
   # HTML.  Other article types can override this method to provide customized
   # views of themselves.
+  # (To override short format representation, override the lead method)
   def to_html(options = {})
-    body || ''
+    if options[:format] == 'short'
+      display_short_format(self)
+    else
+      body || ''
+    end
   end
 
   include ApplicationHelper

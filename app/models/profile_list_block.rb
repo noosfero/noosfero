@@ -49,13 +49,12 @@ class ProfileListBlock < Block
                send(:profile_image_link, item, :minor )
              }.join("\n  ")
       if list.empty?
-        list = '<div class="common-profile-list-block-none">'+ _('None') +'</div>'
+        list = content_tag 'div', _('None'), :class => 'common-profile-list-block-none'
       else
         list = content_tag 'ul', nl +'  '+ list + nl
       end
       block_title(title) + nl +
-      '<div class="common-profile-list-block">' +
-      nl + list + nl + '<br style="clear:both" /></div>'
+      content_tag('div', nl + list + nl + content_tag('br', '', :style => 'clear:both'))
     end
   end
 
