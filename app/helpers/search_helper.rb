@@ -95,7 +95,7 @@ module SearchHelper
       map_link = display?(asset, :map) ? (display == 'map' ? _('Map') : link_to(_('Map'), params.merge(:display => 'map'))) : nil
       full_link = display?(asset, :full) ? (display == 'full' ? _('Full') : link_to(_('Full'), params.merge(:display => 'full'))) : nil
       content_tag('div', 
-        content_tag('strong', _('Display')) + ': ' + [compact_link, map_link, full_link].compact.join(' | '),
+        content_tag('strong', _('Display')) + ': ' + [compact_link, map_link, full_link].compact.join(' | ').html_safe,
         :class => 'search-customize-options'
       )
     end
