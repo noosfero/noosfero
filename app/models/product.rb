@@ -188,7 +188,7 @@ class Product < ActiveRecord::Base
 
   def price_described?
     return false if price.blank? or price == 0
-    (price - total_production_cost).zero?
+    (price - total_production_cost.to_f).zero?
   end
 
   def update_price_details(price_details)
