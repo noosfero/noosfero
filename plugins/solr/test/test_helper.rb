@@ -1,10 +1,12 @@
-# Start/stop Solr
-# FIXME Not working properly...
+# Solr start/stop
 if not $test_helper_loaded
+  ENV["RAILS_ENV"] = "test"
 	abort unless system 'rake -s solr:start'
-#  at_exit { system 'rake -s solr:stop' }
+  at_exit { system 'rake -s solr:stop' }
   $test_helper_loaded = true
 end
+
+require 'test_helper'
 
 class ActsAsSolr::Post
   class << self

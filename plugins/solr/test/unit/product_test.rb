@@ -1,5 +1,4 @@
-require 'test_helper'
-require File.dirname(__FILE__) + '/../test_solr_helper'
+require "#{File.dirname(__FILE__)}/../test_helper"
 
 class ProductTest < ActiveSupport::TestCase
   def setup

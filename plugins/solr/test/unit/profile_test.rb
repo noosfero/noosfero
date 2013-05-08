@@ -1,5 +1,4 @@
-require 'test_helper'
-require File.dirname(__FILE__) + '/../test_solr_helper'
+require "#{File.dirname(__FILE__)}/../test_helper"
 
 class ProfileTest < ActiveSupport::TestCase
   def setup
@@ -113,7 +112,7 @@ class ProfileTest < ActiveSupport::TestCase
     TestSolr.enable
     e = fast_create(Enterprise, {:lat => 45, :lng => 45}, :search => true)
 
-    assert_includes Enterprise.find_by_contents('', {}, {:radius => 2, :latitude => 45, :longitude => 45})[:results].docs, e    
+    assert_includes Enterprise.find_by_contents('', {}, {:radius => 2, :latitude => 45, :longitude => 45})[:results].docs, e
   end
 
   should 'index profile identifier for searching' do

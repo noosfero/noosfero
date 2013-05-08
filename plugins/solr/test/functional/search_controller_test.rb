@@ -1,5 +1,4 @@
-require 'test_helper'
-require File.dirname(__FILE__) + '/../test_solr_helper'
+require "#{File.dirname(__FILE__)}/../test_helper"
 require File.dirname(__FILE__) + '/../../lib/ext/facets_browse'
 
 # Re-raise errors caught by the controller.
@@ -228,9 +227,9 @@ class SearchControllerTest < ActionController::TestCase
     prod2.update_attribute :updated_at, Time.now
     Product.record_timestamps = true
 
-    get :products, :query => 'product', :order_by => :more_recent 
+    get :products, :query => 'product', :order_by => :more_recent
 
-    assert_equal [prod2, prod1, prod3], assigns(:searches)[:products][:results].docs  
+    assert_equal [prod2, prod1, prod3], assigns(:searches)[:products][:results].docs
   end
 
   should 'only list products from enabled enterprises' do
@@ -257,7 +256,7 @@ class SearchControllerTest < ActionController::TestCase
 
     get :products, :query => 'product', :order_by => :name
 
-    assert_equal [prod3, prod2, prod1], assigns(:searches)[:products][:results].docs  
+    assert_equal [prod3, prod2, prod1], assigns(:searches)[:products][:results].docs
   end
 
 	should 'order product results by closest when requested' do
@@ -267,7 +266,7 @@ class SearchControllerTest < ActionController::TestCase
     # trigger geosearch
 		SearchController.any_instance.stubs(:logged_in?).returns(true)
 		SearchController.any_instance.stubs(:current_user).returns(user)
-	
+
 		cat = fast_create(ProductCategory)
 		ent1 = Enterprise.create!(:name => 'ent1', :identifier => 'ent1', :lat => '-5.0', :lng => '-5.0')
     prod1 = Product.create!(:name => 'product 1', :enterprise_id => ent1.id, :product_category_id => cat.id)
@@ -280,7 +279,7 @@ class SearchControllerTest < ActionController::TestCase
 		assert_equal [prod2, prod1, prod3], assigns(:searches)[:products][:results].docs
 	end
 
-  
+
   should 'order events by name when requested' do
     person = create_user('someone').person
     ev1 = create_event(person, :name => 'party B', :category_ids => [@category.id],	:start_date => Date.today - 1.day)
@@ -295,7 +294,7 @@ class SearchControllerTest < ActionController::TestCase
 		art1 = Article.create!(:name => 'review C', :profile_id => fast_create(Person).id)
 		art2 = Article.create!(:name => 'review A', :profile_id => fast_create(Person).id)
 		art3 = Article.create!(:name => 'review B', :profile_id => fast_create(Person).id)
-    
+
     get :articles, :query => 'review', :order_by => :name
 
     assert_equal [art2, art3, art1], assigns(:searches)[:articles][:results].docs
@@ -305,7 +304,7 @@ class SearchControllerTest < ActionController::TestCase
 		ent1 = Enterprise.create!(:name => 'Company B', :identifier => 'com_b')
 		ent2 = Enterprise.create!(:name => 'Company A', :identifier => 'com_a')
 		ent3 = Enterprise.create!(:name => 'Company C', :identifier => 'com_c')
-    
+
     get :enterprises, :query => 'Company', :order_by => :name
 
     assert_equal [ent2, ent1, ent3], assigns(:searches)[:enterprises][:results].docs
@@ -317,8 +316,8 @@ class SearchControllerTest < ActionController::TestCase
 		person3 = Person.create!(:name => 'Ausêncio Silva', :identifier => 'ause', :user_id => fast_create(User).id)
 
     get :people, :query => 'Silva', :order_by => :name
-    
-    assert_equal [person3, person1, person2], assigns(:searches)[:people][:results].docs 
+
+    assert_equal [person3, person1, person2], assigns(:searches)[:people][:results].docs
   end
 
   should 'order community results by name when requested' do

@@ -1,5 +1,4 @@
-require 'test_helper'
-require File.dirname(__FILE__) + '/../test_solr_helper'
+require "#{File.dirname(__FILE__)}/../test_helper"
 
 class TextArticleTest < ActiveSupport::TestCase
   def setup
@@ -8,7 +7,7 @@ class TextArticleTest < ActiveSupport::TestCase
   end
 
   attr_accessor :environment
-  
+
   should 'found TextileArticle by TextArticle indexes' do
     TestSolr.enable
     person = create_user('testuser').person
