@@ -1,4 +1,5 @@
 require_dependency 'enterprise'
+require_dependency "#{File.dirname(__FILE__)}/profile"
 
 class Enterprise
   after_save_reindex [:products], :with => :delayed_job
