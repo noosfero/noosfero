@@ -187,8 +187,6 @@ EOF
     mkdir "#{target}/tmp"
     ln_s '../../../vendor/rails', "#{target}/vendor/rails"
     cp "#{target}/config/database.yml.sqlite3", "#{target}/config/database.yml"
-    # solr inclusion
-    Dir.chdir(target) { sh "rake solr:download" }
 
     sh "cd #{target} && dpkg-buildpackage -us -uc -b"
   end
