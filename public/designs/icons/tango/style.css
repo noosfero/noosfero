@@ -80,7 +80,7 @@
 .icon-application-postscript { background-image: url(Tango/16x16/mimetypes/gnome-mime-application-postscript.png) }
 .icon-application-pdf   { background-image: url(Tango/16x16/mimetypes/gnome-mime-application-pdf.png) }
 .icon-application-ogg   { background-image: url(Tango/16x16/mimetypes/gnome-mime-application-ogg.png) }
-.icon-video-mpeg   { background-image: url(Tango/16x16/mimetypes/video-x-generic.png) }
+.icon-video, .icon-video-mpeg   { background-image: url(Tango/16x16/mimetypes/video-x-generic.png) }
 .icon-application-vnd-oasis-opendocument-text  { background-image: url(Tango/16x16/mimetypes/gnome-mime-application-vnd.oasis.opendocument.text.png) }
 .icon-application-vnd-oasis-opendocument-spreadsheet  { background-image: url(Tango/16x16/mimetypes/gnome-mime-application-vnd.oasis.opendocument.spreadsheet.png) }
 .icon-application-vnd-oasis-opendocument-presentation  { background-image: url(Tango/16x16/mimetypes/gnome-mime-application-vnd.oasis.opendocument.presentation.png) }

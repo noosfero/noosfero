@@ -133,8 +133,12 @@ class Article < ActiveRecord::Base
     end
   end
 
+  def css_class_list
+    [self.class.name.underscore.dasherize]
+  end
+
   def css_class_name
-    self.class.name.underscore.dasherize
+    [css_class_list].flatten.compact.join(' ')
   end
 
   def pending_categorizations
@@ -314,7 +318,7 @@ class Article < ActiveRecord::Base
   end
 
   def view_url
-    @view_url ||= image? ? url.merge(:view => true) : url
+    @view_url ||= is_a?(UploadedFile) ? url.merge(:view => true) : url
   end
 
   def allow_children?
