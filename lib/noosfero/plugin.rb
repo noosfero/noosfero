@@ -277,6 +277,18 @@ class Noosfero::Plugin
   def comment_marked_as_ham(comment)
   end
 
+  # Adds extra actions for comments
+  #
+  # example:
+  #
+  #   def comment_actions(comment)
+  #     [{:link => link_to_function(...)}]
+  #   end
+  #
+  def comment_actions(comment)
+    nil
+  end
+
   # -> Adds fields to the signup form
   # returns = lambda block that creates html code
   def signup_extra_contents

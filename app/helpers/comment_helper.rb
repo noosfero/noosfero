@@ -22,7 +22,6 @@ module CommentHelper
     title
   end
   
-  #FIXME make this test
   def comment_actions(comment)
     links = links_for_comment_actions(comment)
     content_tag(:li, link_to(content_tag(:span, _('Contents menu')), '#', :onclick => "toggleSubmenu(this,'',#{links.to_json}); return false", :class => 'menu-submenu-trigger'), :class=> 'vcard') unless links.empty?
@@ -31,16 +30,8 @@ module CommentHelper
   private
 
   def links_for_comment_actions(comment)
-    actions = []
-    
-    @plugins.dispatch(:comment_actions, comment).each do |action|
-      actions << action
-    end
-    
-    actions << link_for_report_abuse(comment)
-    actions << link_for_spam(comment) 
-    actions << link_for_edit(comment)
-    actions << link_for_remove(comment)
+    actions = [link_for_report_abuse(comment), link_for_spam(comment), link_for_edit(comment), link_for_remove(comment)]
+    actions += @plugins.dispatch(:comment_actions, comment)
   end
 
   def link_for_report_abuse(comment)
