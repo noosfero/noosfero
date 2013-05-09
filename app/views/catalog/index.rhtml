@@ -68,20 +68,20 @@
 
         <% if product.description %>
           <li class="product-description expand-box">
-            <span id="product-description-button"><%= _('description') %></span>
-            <div>
+            <span class="product-description-button"><%= _('description') %></span>
+            <div class="float-box">
               <div class="arrow"></div>
-              <div class="content" id="product-description"><%= txt2html(product.description || '') %></div>
+              <div class="content"><%= product.description %></div>
             </div>
           </li>
         <% end %>
 
         <% if product.price_described? %>
           <li class="product-price-composition expand-box">
-            <span id="product-price-composition-button"><%= _('price composition') %></span>
-            <div>
+            <span class="product-price-composition-button"><%= _('price composition') %></span>
+            <div class="float-box">
               <div class="arrow"></div>
-              <div class="content" id="product-price-composition">
+              <div class="content">
                 <% product.inputs.relevant_to_price.each do |i| %>
                   <div class="search-product-input-dots-to-price">
                     <div class="search-product-input-name"><%= i.product_category.name %></div>
@@ -102,9 +102,9 @@
         <% if product.inputs.count > 0 %>
           <li class="product-inputs expand-box">
             <span id="inputs-button"><%= _('inputs and raw materials') %></span>
-            <div>
+            <div class="float-box">
               <div class="arrow"></div>
-              <div class="content" id="inputs-description">
+              <div class="content">
                 <% product.inputs.each do |i| %>
                   <div>
                     <%= _('%{amount_used} %{unit} of') % {:amount_used => i.amount_used, :unit => i.unit.singular} + ' ' if i.has_all_price_details? %>

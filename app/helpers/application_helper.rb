@@ -266,7 +266,10 @@ module ApplicationHelper
   end
 
   def button_bar(options = {}, &block)
-    concat(content_tag('div', capture(&block) + tag('br', :style => 'clear: left;'), { :class => 'button-bar' }.merge(options)))
+    options[:class].nil? ?
+      options[:class]='button-bar' :
+      options[:class]+=' button-bar'
+    concat(content_tag('div', capture(&block) + tag('br', :style => 'clear: left;'), options))
   end
 
   VIEW_EXTENSIONS = %w[.rhtml .html.erb]

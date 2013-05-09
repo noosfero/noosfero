@@ -1538,10 +1538,10 @@ a.button.disabled, input.disabled {
  * style for blocks 
  ***********************************************************/
 
-  #content .communities-block .profile-image {
-    float: none;
-    padding-left: 0px;
-    max-width: none;
+#content .communities-block .profile-image {
+  float: none;
+  padding-left: 0px;
+  max-width: none;
 }
 #content .communities-block .vcard .profile_link {
   text-align: center;
@@ -1594,30 +1594,30 @@ a.button.disabled, input.disabled {
 .invisible-block a.icon-button {
   position: relative;
 }
-/***********************************************************
- * the handles to where you can drag the blocks
- ***********************************************************/
+/************************************************
+ * the handles to where you can drag the blocks *
+ ************************************************/
 
-  .block-target {
-    margin: 5px;
-    height: 2px;
-    height: 15px;
-    border: 1px dashed #e0e0e0;
+.block-target {
+  margin: 5px;
+  height: 2px;
+  height: 15px;
+  border: 1px dashed #e0e0e0;
 }
 .block-target-hover {
   background: #ffd;
   border: 1px solid red;
   height: 30px;
 }
-/***********************************************************
- * put borders around boxes and blocks when organizing boxes
- ***********************************************************/
+/*************************************************************
+ * put borders around boxes and blocks when organizing boxes *
+ *************************************************************/
 
-  #box-organizer div.box {
-    border: 1px solid #ccc;
-    background-color: white;
-    background-repeat: no-repeat;
-    background-position: top right;
+#box-organizer div.box {
+  border: 1px solid #ccc;
+  background-color: white;
+  background-repeat: no-repeat;
+  background-position: top right;
 }
 #box-organizer div.box-1 {
   background-image: url(../images/blocks/1.png);
@@ -1651,6 +1651,36 @@ a.button.disabled, input.disabled {
   margin-top: 1em;
   text-align: center;
 }
+
+/****************************************
+ * Block options editor floating window *
+ ****************************************/
+
+#cboxLoadedContent {
+  background: #FFF;
+  box-shadow: 0 0 15px #888 inset;
+  border-radius: 5px;
+  border: 1px solid #777;
+  border-left: none;
+  border-right: none;
+}
+
+.block-config-options {
+  padding: 0px 10px 0px 30px;
+}
+
+#add-block-dialog {
+  display: inline-block;
+  padding: 0px 5px 0px 20px;
+}
+
+#add-block-dialog .block-types {
+  column-count: 2;
+  -ms-column-count: 2;
+  -moz-column-count: 2;
+  -webkit-column-count: 2;
+}
+
 /* ==> blocks/tags-block.css <<= */ 
 
 .tags-block {
@@ -2494,6 +2524,7 @@ div#activation_enterprise label, div#activation_enterprise input, div#activation
   -webkit-border-radius: 10px 0px 0px 10px;
   border-radius: 10px 0px 0px 10px;
   width: 202px;
+  position: relative;
 }
 #product-list .expand-box > span {
   padding-left: 20px;
@@ -2524,17 +2555,22 @@ div#activation_enterprise label, div#activation_enterprise input, div#activation
 #product-list li.product .expand-box > span {
   text-transform: uppercase;
 }
-#product-list li.product .expand-box > div {
+#product-list li.product .expand-box .float-box {
   display: none;
   position: absolute;
+  left: -220px;
+  top: -11px;
   z-index: 10;
+}
+#product-list li.product .expand-box.open .float-box {
+  display: block;
 }
 #product-list li.product .expand-box .content {
   font-size: 11px;
   padding: 6px 5px;
   overflow: auto;
   max-height: 200px;
-  width: 160px;
+  width: 200px;
   border-radius: 5px;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
@@ -2797,7 +2833,7 @@ div#activation_enterprise label, div#activation_enterprise input, div#activation
   position: relative;
   clear: left;
 }
-#product-description, #product-details, #product-info, .input-item {
+#product-details, #product-info, .input-item {
   overflow: hidden;
 }
 #product-info {
@@ -2993,11 +3029,17 @@ table.cms-articles a.icon, table.cms-articles a.icon-parent-folder {
 table.cms-articles .icon:hover {
   background-color: transparent;
 }
-#article_types {
+
+.select-article-type {
+  padding: 5px 20px;
+  width: 455px;
+}
+
+.article-types {
   padding-left: 5px;
   margin-top: 20px;
 }
-#article_types li {
+.article-types li {
   list-style: none;
   float: left;
   width: 180px;
@@ -3011,18 +3053,18 @@ table.cms-articles .icon:hover {
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
 }
-#article_types .description {
+.article-types .description {
   color: #888a85;
   font-size: smaller;
 }
-#article_types .icon-newrss-feed, #content .icon-rss-feed {
+.article-types .icon-newrss-feed, #content .icon-rss-feed {
   background-image: url(../images/icons-mime/rss-feed-16.png);
 }
-#article_types a {
+.article-types a {
   text-decoration: none;
   color: black;
 }
-#article_types li.mouseover {
+.article-types li.mouseover {
   background-color: #eeeeec;
 }
 .controller-cms #article-subitems-hide.hide-button {
@@ -4324,6 +4366,39 @@ h1#agenda-title {
   text-align: center;
   overflow: hidden;
 }
+
+.block-config-options.HighlightsBlock-options {
+  min-width: 450px;
+}
+
+.block-config-options.HighlightsBlock-options .image-data-line select {
+  width: 150px;
+}
+
+.block-config-options.HighlightsBlock-options td {
+  text-align: center;
+}
+
+.block-config-options.HighlightsBlock-options .image-data-line td {
+  padding-top: 7px;
+}
+
+.block-config-options.HighlightsBlock-options .image-title {
+  white-space: nowrap;
+  border-bottom: 1px solid #CCC;
+}
+.block-config-options.HighlightsBlock-options .image-title:last-child {
+  border: none;
+}
+
+.block-config-options.HighlightsBlock-options .image-title td {
+  padding-bottom: 7px;
+}
+
+.block-config-options.HighlightsBlock-options .image-title span {
+  padding-right: 5px;
+}
+
 /* Featured Products stuff */
 
 .featured-product-items {
@@ -5658,12 +5733,6 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 img {
 }
 
 /* Captcha */
-
-/* Colorbox */
-
-#cboxClose {
-  display: none !important;
-}
 
 /* Signup interface {{{ */
 

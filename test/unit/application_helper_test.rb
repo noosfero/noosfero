@@ -727,7 +727,37 @@ class ApplicationHelperTest < ActiveSupport::TestCase
     assert_nil default_folder_for_image_upload(profile)
   end
 
+  should 'envelop a html with button-bar div' do
+    result = button_bar { '<b>foo</b>' }
+    assert_equal '<div class="button-bar"><b>foo</b>'+
+                 '<br style=\'clear: left;\' /></div>', result
+  end
+
+  should 'add more classes to button-bar envelope' do
+    result = button_bar :class=>'test' do
+      '<b>foo</b>'
+    end
+    assert_equal '<div class="test button-bar"><b>foo</b>'+
+                 '<br style=\'clear: left;\' /></div>', result
+  end
+
+  should 'add more attributes to button-bar envelope' do
+    result = button_bar :id=>'bt1' do
+      '<b>foo</b>'
+    end
+    assert_equal '<div class="button-bar" id="bt1"><b>foo</b>'+
+                 '<br style=\'clear: left;\' /></div>', result
+  end
+
   protected
   include NoosferoTestHelper
+
+  def capture
+    yield
+  end
+
+  def concat(str)
+    str
+  end
 
 end
