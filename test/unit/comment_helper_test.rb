@@ -37,6 +37,15 @@ class CommentHelperTest < ActiveSupport::TestCase
     links = links_for_comment_actions(comment)
     assert_includes links, plugin_action
   end
+
+  should 'include lambda actions of plugins in menu' do
+    comment = Comment.new
+    plugin_action = lambda{[{:link => 'plugin_action'}, {:link => 'plugin_action2'}]}
+    @plugins.stubs(:dispatch).returns([plugin_action])
+    links = links_for_comment_actions(comment)
+    assert_includes links, {:link => 'plugin_action'}
+    assert_includes links, {:link => 'plugin_action2'}
+  end
   
   should 'return link for report abuse action when comment has a author' do
     comment = Comment.new

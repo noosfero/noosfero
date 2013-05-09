@@ -31,7 +31,10 @@ module CommentHelper
 
   def links_for_comment_actions(comment)
     actions = [link_for_report_abuse(comment), link_for_spam(comment), link_for_edit(comment), link_for_remove(comment)]
-    actions += @plugins.dispatch(:comment_actions, comment)
+    @plugins.dispatch(:comment_actions, comment).collect do |action|
+      actions << (action.kind_of?(Proc) ? self.instance_eval(&action) : action)
+    end
+    actions.flatten
   end
 
   def link_for_report_abuse(comment)

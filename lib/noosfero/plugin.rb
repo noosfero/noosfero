@@ -278,7 +278,7 @@ class Noosfero::Plugin
   end
 
   # Adds extra actions for comments
-  #
+  # returns = list of hashes or lambda block that creates a list of hashes
   # example:
   #
   #   def comment_actions(comment)
