@@ -1681,6 +1681,20 @@ a.button.disabled, input.disabled {
   -webkit-column-count: 2;
 }
 
+#add-block-dialog .block-types input{
+  vertical-align: middle;
+}
+
+#add-block-dialog .block-types label{
+  display: inline-block;
+  vertical-align: middle;
+  width: 140px;
+}
+
+#add-block-dialog .block-type{
+  margin: 3px 0;
+}
+
 /* ==> blocks/tags-block.css <<= */ 
 
 .tags-block {

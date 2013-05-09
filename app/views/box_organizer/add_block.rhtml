@@ -24,7 +24,7 @@
 
     <div id="center-block-types" class="block-types">
       <% @center_block_types.each do |block| %>
-        <div>
+        <div class='block-type'>
           <%= labelled_radio_button(block.description, :type, block.name) %>
         </div>
       <% end %>
@@ -32,7 +32,7 @@
 
     <div id="side-block-types" class="block-types" style="display:none">
       <% @side_block_types.each do |block| %>
-        <div>
+        <div class='block-type'>
           <%= labelled_radio_button(block.description, :type, block.name) %>
         </div>
       <% end %>
