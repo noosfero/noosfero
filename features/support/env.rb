@@ -5,8 +5,6 @@
 # files.
 
 ENV["RAILS_ENV"] ||= "cucumber"
-abort unless system 'rake -s solr:start'
-at_exit { system 'rake -s solr:stop' }
 
 require File.expand_path(File.dirname(__FILE__) + '/../../config/environment')
 
