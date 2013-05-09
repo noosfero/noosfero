@@ -27,6 +27,17 @@ class Noosfero::Plugin::Manager
     map { |plugin| plugin.send(event, *args) }.compact
   end
 
+  # return first implementation of a specific hotspot
+  def first_impl(event, *args)
+    default = Noosfero::Plugin.new.send(event, *args)
+    impl = default
+    each do |plugin|
+      impl = plugin.send(event, *args)
+      break if impl != default
+    end
+    impl
+  end
+
   alias :dispatch_scopes :dispatch_without_flatten
 
   def enabled_plugins
