@@ -4,7 +4,7 @@ module ActsAsSolr
       def config
         return @config if @config
         @config = {}
-        YAML::load_file("#{Rails.root}/config/solr.yml")[Rails.env].each{ |k,v| @config[k.to_sym] = v }
+        YAML::load_file("#{Rails.root}/plugins/solr/config/solr.yml")[Rails.env].each{ |k,v| @config[k.to_sym] = v }
         @config
       end
 
