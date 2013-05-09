@@ -1,5 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
-require 'acts_as_faceted'
+require "#{File.dirname(__FILE__)}../../lib/acts_as_faceted"
+
 
 class TestModel < ActiveRecord::Base
   def self.f_type_proc(klass)
