@@ -523,4 +523,12 @@ class EnterpriseTest < ActiveSupport::TestCase
     assert_not_includes enterprise.activities.map { |a| a.klass.constantize.find(a.id) }, article.activity
   end
 
+  should 'provide URL to catalog area' do
+    environment = create_environment('mycolivre.net')
+    enterprise = build(Enterprise, :identifier => 'testprofile', :environment_id => create_environment('mycolivre.net').id)
+
+    assert_equal({:profile => enterprise.identifier, :controller => 'catalog'}, enterprise.catalog_url)
+  end
+
+
 end

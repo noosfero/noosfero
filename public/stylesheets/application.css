@@ -2723,7 +2723,7 @@ div#activation_enterprise label, div#activation_enterprise input, div#activation
   padding-bottom: 0.5em;
 }
 
-#catalog-categories-homepage-link {
+.l-sidebar-left-bar .catalog-categories-link {
   background-color: #d3d7cf;
   font-weight: bold;
   height: 28px;
@@ -2733,12 +2733,12 @@ div#activation_enterprise label, div#activation_enterprise input, div#activation
 }
 
 
-#catalog-categories-homepage-link:hover {
+.l-sidebar-left-bar .catalog-categories-link:hover {
   background-color: #babdb6;
 }
 
 
-#catalog-categories-homepage-link a{
+.l-sidebar-left-bar .catalog-categories-link a{
   display: inline-block;
   height: 100%;
   width: 100%;
