@@ -16,7 +16,6 @@ class MezuroPluginReadingControllerTest < ActionController::TestCase
     @reading_hash = ReadingFixtures.hash
     @content = MezuroPlugin::ReadingGroupContent.new(:profile => @profile, :name => name)
     @content.expects(:send_reading_group_to_service).returns(nil)
-    @content.stubs(:solr_save)
     @content.save
   end
 

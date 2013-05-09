@@ -21,7 +21,6 @@ class MezuroPluginRepositoryControllerTest < ActionController::TestCase
     @repository_hash = RepositoryFixtures.hash
     @content = MezuroPlugin::ProjectContent.new(:profile => @profile, :name => name)
     @content.expects(:send_project_to_service).returns(nil)
-    @content.stubs(:solr_save)
     @content.save
   end
 

@@ -21,7 +21,6 @@ class MezuroPluginRangeControllerTest < ActionController::TestCase
     @content = MezuroPlugin::ConfigurationContent.new(:profile => @profile, :name => @configuration.name, :configuration_id => 42)
     @content.expects(:send_configuration_to_service).returns(nil)
     @content.expects(:validate_configuration_name).returns(true)
-    @content.stubs(:solr_save)
     @content.save
 
     @created_range = RangeFixtures.created_range
