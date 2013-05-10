@@ -12,7 +12,7 @@ Feature: send_email_plugin
       | owner | name | body |
       | joaosilva | sample-article | URL path to {sendemail} action |
     When I go to /joaosilva/sample-article
-    Then I should see "URL path to /profile/joaosilva/plugins/send_email/deliver action"
+    Then I should see "URL path to /profile/joaosilva/plugin/send_email/deliver action"
 
   Scenario: expand macro in block content
     Given plugin SendEmailPlugin is enabled on environment
@@ -20,7 +20,7 @@ Feature: send_email_plugin
       | owner     | type         | html |
       | joaosilva | RawHTMLBlock | URL path to {sendemail} action |
     When I go to Joao Silva's homepage
-    Then I should see "URL path to /profile/joaosilva/plugins/send_email/deliver action"
+    Then I should see "URL path to /profile/joaosilva/plugin/send_email/deliver action"
 
   Scenario: as admin I can configure plugin
     Given I am logged in as admin
