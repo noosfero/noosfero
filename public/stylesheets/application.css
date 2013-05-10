@@ -6300,5 +6300,5 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 img {
   position: absolute;
   top: 2px;
   right: 2px;
-  z-index: 10;
+  z-index: 1;
 }
