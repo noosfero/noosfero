@@ -34,7 +34,7 @@ module CommentHelper
     @plugins.dispatch(:comment_actions, comment).collect do |action|
       actions << (action.kind_of?(Proc) ? self.instance_eval(&action) : action)
     end
-    actions.flatten
+    actions.flatten.compact
   end
 
   def link_for_report_abuse(comment)

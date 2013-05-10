@@ -29,6 +29,16 @@ class CommentHelperTest < ActiveSupport::TestCase
     menu = comment_actions(comment)
     assert !menu
   end
+  
+  should 'do not show menu if it has nil actions only' do
+    comment = Comment.new
+    self.stubs(:link_for_report_abuse).returns(nil)
+    self.stubs(:link_for_spam).returns(nil)
+    self.stubs(:link_for_edit).returns(nil)
+    self.stubs(:link_for_remove).returns(nil)
+    menu = comment_actions(comment)
+    assert !menu
+  end
 
   should 'include actions of plugins in menu' do
     comment = Comment.new
