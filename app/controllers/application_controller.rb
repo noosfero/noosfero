@@ -1,9 +1,5 @@
 class ApplicationController < ActionController::Base
 
-  # Preload FilePresenters to allow `FilePresenter.for()` to work
-  FilePresenter::Generic
-  FilePresenter::Image
-
   before_filter :setup_multitenancy
   before_filter :detect_stuff_by_domain
   before_filter :init_noosfero_plugins

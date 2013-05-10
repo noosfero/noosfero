@@ -8,6 +8,10 @@ class FilePresenter::Image < FilePresenter
   end
 
   def icon_name
-    article.public_filename :icon
+    public_filename :icon
+  end
+
+  def short_description
+    _('Image (%s)') % content_type.split('/')[1].upcase
   end
 end

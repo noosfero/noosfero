@@ -22,6 +22,15 @@ class FilePresenter
     @file
   end
 
+  def id
+    @file.id
+  end
+
+  def reload
+    @file.reload
+    self
+  end
+
   # This method must be overridden in subclasses.
   #
   # If the class accepts the file, return a number that represents the
@@ -31,6 +40,10 @@ class FilePresenter
   # If the class does not accept the file, return false.
   def self.accepts?(f)
     nil
+  end
+
+  def short_description
+    _("File (%s)") % content_type
   end
 
   # Define the css classes to style the page fragment with the file related
@@ -88,3 +101,7 @@ class FilePresenter
   end
 
 end
+
+# Preload FilePresenters to allow `FilePresenter.for()` to work
+FilePresenter::Generic
+FilePresenter::Image

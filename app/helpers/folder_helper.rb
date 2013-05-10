@@ -41,7 +41,10 @@ module FolderHelper
   end
 
   def icon_for_article(article)
-    icon = article.icon_name || article.class.icon_name(article)
+    article = FilePresenter.for article
+    icon = article.respond_to?(:icon_name) ?
+             article.icon_name :
+             article.class.icon_name(article)
     if (icon =~ /\//)
       icon
     else

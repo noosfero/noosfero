@@ -26,6 +26,7 @@ class FolderHelperTest < ActiveSupport::TestCase
   should 'display icon for images' do
     profile = fast_create(Profile)
     file = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :profile => profile)
+    file = FilePresenter.for file
     process_delayed_job_queue
 
     assert_match /rails_icon\.png/, icon_for_article(file.reload)

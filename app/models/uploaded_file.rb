@@ -60,13 +60,19 @@ class UploadedFile < Article
 
   postgresql_attachment_fu
 
+  # Use this method only to get the generic icon for this kind of content.
+  # If you want the specific icon for a file type or the iconified version
+  # of an image, use FilePresenter.for(uploaded_file).icon_name
   def self.icon_name(article = nil)
-    warn = ('='*80) + "\n" +
-           'The method `UploadedFile.icon_name(obj)` is deprecated. ' +
-           'You must to encapsulate UploadedFile with `FilePresenter.for()`.' +
-           "\n" + ('='*80)
-    Rails.logger.warn warn if Rails.logger
-    puts warn
+    unless article.nil?
+      warn = ('='*80) + "\n" +
+             'The method `UploadedFile.icon_name(obj)` is deprecated. ' +
+             'You must to encapsulate UploadedFile with `FilePresenter.for()`.' +
+             "\n" + ('='*80)
+      raise NoMethodError, warn if ENV['RAILS_ENV'] == 'test'
+      Rails.logger.warn warn if Rails.logger
+      puts warn if ENV['RAILS_ENV'] == 'development'
+    end
     'upload-file'
   end
 
@@ -94,11 +100,12 @@ class UploadedFile < Article
 
   def to_html(options = {})
     warn = ('='*80) + "\n" +
-           'The method `UploadedFile::to_html()` is deprecated. ' +
+           'The method `UploadedFile#to_html()` is deprecated. ' +
            'You must to encapsulate UploadedFile with `FilePresenter.for()`.' +
            "\n" + ('='*80)
+    raise NoMethodError, warn if ENV['RAILS_ENV'] == 'test'
     Rails.logger.warn warn if Rails.logger
-    puts warn
+    puts warn if ENV['RAILS_ENV'] == 'development'
     article = self
     if image?
       lambda do
