@@ -399,6 +399,19 @@ class UserTest < ActiveSupport::TestCase
     assert_equal 15, User.expires_chat_status_every
   end
 
+  should "return status of chat on environment in data_hash" do
+    person = create_user('coldplay').person
+    env = person.environment
+    env.enable('xmpp_chat')
+    env.save
+    assert_equal true, person.user.data_hash['chat_enabled']
+
+    env.disable('xmpp_chat')
+    env.save
+    person.reload
+    assert_equal false, person.user.data_hash['chat_enabled']
+  end
+
   should 'respond name with related person name' do
     user = create_user('testuser')
     user.person.name = 'Test User'
