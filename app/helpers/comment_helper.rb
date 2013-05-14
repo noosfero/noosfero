@@ -23,8 +23,9 @@ module CommentHelper
   end
   
   def comment_actions(comment)
+    url = url_for(:profile => profile.identifier, :controller => :comment, :action => :check_actions, :id => comment.id)
     links = links_for_comment_actions(comment)
-    content_tag(:li, link_to(content_tag(:span, _('Contents menu')), '#', :onclick => "toggleSubmenu(this,'',#{links.to_json}); return false", :class => 'menu-submenu-trigger'), :class=> 'vcard') unless links.empty?
+    content_tag(:li, link_to(content_tag(:span, _('Contents menu')), '#', :onclick => "toggleSubmenu(this,'',#{links.to_json}); return false", :class => 'menu-submenu-trigger comment-trigger', :url => url), :class=> 'vcard') unless links.empty?
   end
 
   private

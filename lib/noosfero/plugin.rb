@@ -289,6 +289,18 @@ class Noosfero::Plugin
     nil
   end
 
+  # This method is called when the user click on comment actions menu.
+  # returns = list or lambda block that return ids of enabled menu items for comments
+  # example:
+  #
+  #   def check_comment_actions(comment)
+  #     ['#action1', '#action2']
+  #   end
+  #
+  def check_comment_actions(comment)
+    []
+  end
+
   # -> Adds fields to the signup form
   # returns = lambda block that creates html code
   def signup_extra_contents
