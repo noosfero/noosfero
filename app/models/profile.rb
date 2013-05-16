@@ -211,7 +211,7 @@ class Profile < ActiveRecord::Base
   has_many :profile_categorizations_including_virtual, :class_name => 'ProfileCategorization'
   has_many :categories_including_virtual, :through => :profile_categorizations_including_virtual, :source => :category
 
-  has_many :abuse_complaints, :foreign_key => 'requestor_id'
+  has_many :abuse_complaints, :foreign_key => 'requestor_id', :dependent => :destroy
 
   def top_level_categorization
     ret = {}
