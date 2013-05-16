@@ -1,6 +1,6 @@
 class DestroyInconsistentAbuseComplaints < ActiveRecord::Migration
   def self.up
-    AbuseComplaint.all.each do |ac|
+    AbuseComplaint.find_each do |ac|
       if ac.reported.nil?
         ac.destroy
       end
