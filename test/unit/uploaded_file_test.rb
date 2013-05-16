@@ -8,9 +8,6 @@ class UploadedFileTest < ActiveSupport::TestCase
   attr_reader :profile
 
   should 'return a default icon for uploaded files' do
-    ENV.stubs('[]').with('RAILS_ENV').returns('other')
-    Rails.logger.expects(:warn) # warn about deprecatede usage of UploadedFile.icon_name
-    stubs(:puts)
     assert_equal 'upload-file', UploadedFile.icon_name
   end
 

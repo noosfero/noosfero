@@ -4,6 +4,7 @@ class FilePresenter::Image < FilePresenter
   end
 
   def self.accepts?(f)
+    return nil unless f.respond_to? :image?
     f.image? ? 10 : nil
   end
 

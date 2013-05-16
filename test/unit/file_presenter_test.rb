@@ -40,4 +40,22 @@ class FilePresenterTest < ActiveSupport::TestCase
     assert_equal '/path/to/file.xyz', p.icon_name
   end
 
+  should 'not crach when accepts? method receives a pure article' do
+    assert_nothing_raised do
+      FilePresenter.for Article.new
+    end
+  end
+
+  should 'not crach when accepts? method receives a non-sense object' do
+    assert_nothing_raised do
+      FilePresenter.for nil
+    end
+    assert_nothing_raised do
+      FilePresenter.for({:key => 'value'})
+    end
+    assert_nothing_raised do
+      FilePresenter.for 'a string'
+    end
+  end
+
 end

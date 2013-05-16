@@ -4,7 +4,7 @@ class FilePresenter::Video < FilePresenter
   end
 
   def self.accepts?(f)
-    return nil if f.content_type.nil?
+    return nil if !f.respond_to?(:content_type) || f.content_type.nil?
     ( f.content_type[0..4] == 'video' ) ? 10 : nil
   end
 
