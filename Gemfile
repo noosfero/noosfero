@@ -1,13 +1,20 @@
-source :rubygems
-gem 'cucumber', '0.4.0'
-gem 'webrat', '0.5.1'
-gem 'rspec', '1.2.9'
-gem 'rspec-rails', '1.2.9'
-gem 'Selenium', '>= 1.1.14'
-gem 'selenium-client', '>= 1.2.17'
-gem 'database_cleaner'
+source "https://rubygems.org"
+
 gem 'exception_notification', '1.0.20090728'
 gem 'system_timer'
+
+group :test do
+  gem 'rspec', '1.2.9'
+  gem 'rspec-rails', '1.2.9'
+end
+
+group :cucumber do
+  gem 'rake', '0.8.7'
+  gem 'cucumber-rails', '0.3.2'
+  gem 'capybara', '1.1.1'
+  gem 'cucumber', '1.1.0'
+  gem 'database_cleaner'
+end
 
 def program(name)
   unless system("which #{name} > /dev/null")

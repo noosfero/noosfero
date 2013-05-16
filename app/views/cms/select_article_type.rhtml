@@ -1,6 +1,8 @@
+<div class="select-article-type">
+
 <h2> <%= _('Choose the type of content:') %> </h2>
 
-<ul id="article_types">
+<ul class="article-types">
   <% for type in @article_types %>
     <% action = type[:class].name == 'UploadedFile' ? {:action => 'upload_files'} : {:action => 'new', :type => type[:class].name} %>
     <% content_tag('a', :href => url_for(action.merge(:parent_id => @parent_id, :back_to => @back_to))) do %>
@@ -14,3 +16,5 @@
 <br style="clear:both" />
 
 <%= colorbox_close_button(_('Cancel')) %>
+
+</div>

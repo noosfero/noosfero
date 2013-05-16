@@ -31,6 +31,7 @@ To prepare a release of noosfero, you must follow the steps below:
   sha1 of the package (with sha1sum and paste the SHA1 hash as comment in the
   attachment form)
 * Download the attached and verify the MD5 hash
+* Push the new version tag (with git push --tags)
 * Update an eventual demonstration version that you run.
 * Write an announcement e-mail to the relevant mailing lists pointing to the
   release notes, and maybe to the demonstration version.

@@ -36,7 +36,7 @@ module ContentViewerHelper
 
   def link_to_comments(article, args = {})
     return '' unless article.accept_comments?
-    link_to(number_of_comments(article), article.url.merge(:anchor => 'comments_list') )
+    reference_to_article number_of_comments(article), article, 'comments_list'
   end
 
   def article_translations(article)

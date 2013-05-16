@@ -18,8 +18,9 @@ module BlogHelper
     pagination = will_paginate(articles, {
       :param_name => 'npage',
       :previous_label => _('&laquo; Newer posts'),
-      :next_label => _('Older posts &raquo;')
-    })
+      :next_label => _('Older posts &raquo;'),
+      :params => {:action=>"view_page", :page=>articles.first.parent.path.split('/'), :controller=>"content_viewer"}
+    }) if articles.present?
     content = []
     artic_len = articles.length
     articles.each_with_index{ |art,i|
@@ -44,18 +45,6 @@ module BlogHelper
     html = send("display_#{format}_format", article)
 
     article_title(article, :no_comments => no_comments) + html
-  end
-
-  def display_short_format(article)
-    html = content_tag('div',
-             article.lead +
-             content_tag('div',
-               link_to_comments(article) +
-               link_to( _('Read more'), article.url),
-               :class => 'read-more'),
-             :class => 'short-post'
-           )
-    html
   end
 
   def display_full_format(article)

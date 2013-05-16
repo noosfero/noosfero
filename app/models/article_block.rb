@@ -12,7 +12,11 @@ class ArticleBlock < Block
     block = self
     lambda do
       block_title(block.title) +
-      (block.article ? article_to_html(block.article, :gallery_view => false).html_safe : _('Article not selected yet.'))
+      (block.article ? article_to_html(block.article,
+          :gallery_view => false,
+          :inside_block => block,               # For Blogs and folders
+          :format => block.visualization_format # For Articles and contents
+        ).html_safe : _('Article not selected yet.'))
     end
   end
 
@@ -49,4 +53,14 @@ class ArticleBlock < Block
     self.box.owner.kind_of?(Environment) ? self.box.owner.portal_community.articles : self.box.owner.articles
   end
 
+  def posts_per_page
+    self.settings[:posts_per_page] or 1
+  end
+
+  def posts_per_page= value
+    value = value.to_i
+    self.settings[:posts_per_page] = value if value > 0
+  end
+
+  settings_items :visualization_format, :type => :string, :default => 'short'
 end

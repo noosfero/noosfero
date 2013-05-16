@@ -1612,6 +1612,30 @@ class CmsControllerTest < ActionController::TestCase
     assert_template 'access_denied.rhtml'
   end
 
+  should 'filter profile folders to select' do
+    env = Environment.default
+    env.enable 'media_panel'
+    env.save!
+    folder  = fast_create(Folder,  :name=>'a', :profile_id => profile.id)
+    gallery = fast_create(Gallery, :name=>'b', :profile_id => profile.id)
+    blog    = fast_create(Blog,    :name=>'c', :profile_id => profile.id)
+    article = fast_create(TinyMceArticle,      :profile_id => profile.id)
+    get :edit, :profile => profile.identifier, :id => article.id
+    assert_template 'edit'
+    assert_tag :tag => 'select', :attributes => { :name => "parent_id" },
+               :descendant => { :tag => "option",
+                 :attributes => { :value => folder.id.to_s }}
+    assert_tag :tag => 'select', :attributes => { :name => "parent_id" },
+               :descendant => { :tag => "option",
+                 :attributes => { :selected => 'selected', :value => gallery.id.to_s }}
+    assert_no_tag :tag => 'select', :attributes => { :name => "parent_id" },
+                  :descendant => { :tag => "option",
+                    :attributes => { :value => blog.id.to_s }}
+    assert_no_tag :tag => 'select', :attributes => { :name => "parent_id" },
+                  :descendant => { :tag => "option",
+                    :attributes => { :value => article.id.to_s }}
+  end
+
   protected
 
   # FIXME this is to avoid adding an extra dependency for a proper JSON parser.

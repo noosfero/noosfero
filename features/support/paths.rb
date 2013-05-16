@@ -3,13 +3,19 @@ module NavigationHelpers
   #
   #   When /^I go to (.+)$/ do |page_name|
   #
-  # step definition in webrat_steps.rb
+  # step definition in web_steps.rb
   #
   def path_to(page_name)
     case page_name
 
     when /the homepage/
       '/'
+
+    # Add more mappings here.
+    # Here is an example that pulls values out of the Regexp:
+    #
+    #   when /^(.*)'s profile page$/i
+    #     user_profile_path(User.find_by_login($1))
 
     when /^\//
       page_name
@@ -31,43 +37,37 @@ module NavigationHelpers
       "/myprofile/#{$2}/profile_design/edit/#{block.id}"
 
     when /^(.*)'s homepage$/
-      '/%s' % Profile.find_by_name($1).identifier
+      '/' + profile_identifier($1)
 
     when /^(.*)'s blog$/
-      '/%s/blog' % Profile.find_by_name($1).identifier
+      '/%s/blog' % profile_identifier($1)
 
     when /^(.*)'s (.+) creation$/
-      '/myprofile/%s/cms/new?type=%s' % [Profile.find_by_name($1).identifier,$2]
+      '/myprofile/%s/cms/new?type=%s' % [profile_identifier($1),$2]
 
     when /^(.*)'s sitemap/
-      '/profile/%s/sitemap' % Profile.find_by_name($1).identifier
+      '/profile/%s/sitemap' % profile_identifier($1)
 
     when /^(.*)'s profile$/
-      '/profile/%s' % Profile.find_by_name($1).identifier
-
-    when /^the profile$/
-      '/profile/%s' % User.find_by_id(session[:user]).login
+      '/profile/' + profile_identifier($1)
 
     when /^(.*)'s join page/
-      '/profile/%s/join' % Profile.find_by_name($1).identifier
+      '/profile/%s/join' % profile_identifier($1)
 
     when /^(.*)'s leave page/
-      '/profile/%s/leave' % Profile.find_by_name($1).identifier
-
-    when /^(.*)'s profile editor$/
-      "myprofile/manuel/profile_editor/edit"
+      '/profile/%s/leave' % profile_identifier($1)
 
     when /^login page$/
       '/account/login'
+
+    when /^logout page$/
+      '/account/logout'
 
     when /^signup page$/
       '/account/signup'
 
     when /^(.*)'s control panel$/
-      '/myprofile/%s' % Profile.find_by_name($1).identifier
-
-    when /^the Control panel$/
-      '/myprofile/%s' % User.find_by_id(session[:user]).login
+      '/myprofile/' + profile_identifier($1)
 
     when /the environment control panel/
       '/admin'
@@ -79,7 +79,7 @@ module NavigationHelpers
       '/search/%s' % $1
 
     when /^(.+)'s cms/
-      '/myprofile/%s/cms' % Profile.find_by_name($1).identifier
+      '/myprofile/%s/cms' % profile_identifier($1)
 
     when /^"(.+)" edit page/
       article = Article.find_by_name($1)
@@ -89,7 +89,7 @@ module NavigationHelpers
       '/myprofile/%s/profile_members' % Profile.find_by_name($1).identifier
 
     when /^(.+)'s new product page/
-      '/myprofile/%s/manage_products/new' % Profile.find_by_name($1).identifier
+      '/myprofile/%s/manage_products/new' % profile_identifier($1)
 
     when /^(.+)'s page of product (.*)$/
       enterprise = Profile.find_by_name($1)
@@ -97,7 +97,7 @@ module NavigationHelpers
       '/myprofile/%s/manage_products/show/%s' % [enterprise.identifier, product.id]
 
     when /^(.*)'s products page$/
-      '/catalog/%s' % Profile.find_by_name($1).identifier
+      '/catalog/%s' % $1
 
     when /^chat$/
       '/chat'
@@ -109,18 +109,23 @@ module NavigationHelpers
       '/account/user_data'
 
     when /^(.+)'s members page/
-      '/profile/%s/members' % Profile.find_by_name($1).identifier
-
-    # Add more mappings here.
-    # Here is a more fancy example:
-    #
-    #   when /^(.*)'s profile page$/i
-    #     user_profile_path(User.find_by_login($1))
+      '/profile/%s/members' % profile_identifier($1)
 
     else
-      raise "Can't find mapping from \"#{page_name}\" to a path.\n" +
-        "Now, go and add a mapping in #{__FILE__}"
+      begin
+        page_name =~ /the (.*) page/
+        path_components = $1.split(/\s+/)
+        self.send(path_components.push('path').join('_').to_sym)
+      rescue Object => e
+        raise "Can't find mapping from \"#{page_name}\" to a path.\n" +
+          "Now, go and add a mapping in #{__FILE__}"
+      end
     end
+  end
+
+  def profile_identifier(field)
+    profile = Profile.find_by_name(field) || Profile.find_by_identifier(field)
+    profile.identifier
   end
 end
 

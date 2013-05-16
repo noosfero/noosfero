@@ -104,16 +104,28 @@ class Event < Article
         }
       }
 
+      # TODO: some good soul, please clean this ugly hack:
       if self.body
         html.div('_____XXXX_DESCRIPTION_GOES_HERE_XXXX_____', :class => 'event-description') 
       end
     }
 
     if self.body
-      result.sub!('_____XXXX_DESCRIPTION_GOES_HERE_XXXX_____', self.body)
+      if options[:format] == 'short'
+        result.sub!('_____XXXX_DESCRIPTION_GOES_HERE_XXXX_____', display_short_format(self))
+      else
+        result.sub!('_____XXXX_DESCRIPTION_GOES_HERE_XXXX_____', self.body)
+      end
     end
 
     result
+  end
+
+  def lead
+    content_tag('div',
+      show_period(start_date, end_date),
+      :class => 'event-dates'
+    ) + super
   end
 
   def event?
