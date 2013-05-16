@@ -10,6 +10,6 @@ class ActiveRecord::Base
   end
 
   def self.pg_search_plugin_fields
-    self::SEARCHABLE_FIELDS.keys.map(&:to_s).sort.map {|f| "coalesce(\"#{table_name}\".#{f}, '')"}.join(" || ' ' || ")
+    self::SEARCHABLE_FIELDS.keys.map(&:to_s).sort.map {|f| "coalesce(#{table_name}.#{f}, '')"}.join(" || ' ' || ")
   end
 end
