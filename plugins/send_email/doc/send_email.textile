@@ -14,7 +14,7 @@ h3. Form action
 
 You should use {sendemail} macro as form action, it will be expanded as:
 
-* */profile/&lt;identifier&gt;/plugins/send_email/deliver* in profile context
+* */profile/&lt;identifier&gt;/plugin/send_email/deliver* in profile context
 * */plugin/send_email/deliver* in environment context
 
 h3. 'Subject' field
@@ -39,6 +39,17 @@ h3. extra fields
 
 Each other params in HTML form will compose message body in a format "key: value"
 
+h3. Example
+
+<pre>
+<form action='{sendemail}' method='post'>
+   To: <input type='text' name='to'/>
+   Subject: <input type='text' name='subject'/>
+   Message: <input type='text' name='message'/>
+   <input type='submit'/>
+</form>
+</pre>
+
 h2. Options
 
 h3. Using ajax
@@ -49,10 +60,10 @@ Example:
 
 <pre>
 <form action='{sendemail}' id='ajax-form'>
-   <input type='text' name='to'/>
-   <input type='text' name='subject'/>
-   <input type='text' name='message'/>
-   <input type='subject'/>
+   To: <input type='text' name='to'/>
+   Subject: <input type='text' name='subject'/>
+   Message: <input type='text' name='message'/>
+   <input type='submit'/>
 </form>
 </pre>
 
