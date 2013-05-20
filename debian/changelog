@@ -1,3 +1,9 @@
+noosfero (0.42.2~rc20130520122156) squeeze-test; urgency=low
+
+  * Brand new 0.42.1
+
+ -- Rodrigo Souto <rodrigo@ravioli>  Mon, 20 May 2013 12:22:04 -0300
+
 noosfero (0.42.1) unstable; urgency=low
 
   * Bugfixes release
