@@ -90,7 +90,7 @@ _enable(){
       plugins_public_dir="$NOOSFERO_DIR/public/plugins"
       plugins_features_dir="$NOOSFERO_DIR/features/plugins"
       test -d "$target/public/" && ln -s "$target/public" "$plugins_public_dir/$plugin"
-      test -d "$target/features" && ln -s "$target/features" "$plugins_features_dir/$plugin"
+      test -d "$NOOSFERO_DIR/features" && test -d "$target/features" && ln -s "$target/features" "$plugins_features_dir/$plugin"
       _say "$plugin enabled"
       needs_migrate=true
     else
