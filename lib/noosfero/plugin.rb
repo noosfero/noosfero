@@ -16,38 +16,52 @@ class Noosfero::Plugin
       if Rails.env.test? && !enabled_plugins.include?(File.join(Rails.root, 'config', 'plugins', 'foo'))
         enabled_plugins << File.join(Rails.root, 'plugins', 'foo')
       end
+
       enabled_plugins.select do |entry|
         File.directory?(entry)
       end.each do |dir|
-        plugin_name = File.basename(dir)
+        load_plugin dir
+      end
+    end
 
-        plugin_dependencies_ok = true
-        plugin_dependencies_file = File.join(dir, 'dependencies.rb')
-        if File.exists?(plugin_dependencies_file)
-          begin
-            require plugin_dependencies_file
-          rescue LoadError => ex
-            plugin_dependencies_ok = false
-            $stderr.puts "W: Noosfero plugin #{plugin_name} failed to load (#{ex})"
-          end
-        end
+    def load_plugin dir
+      plugin_name = File.basename(dir)
 
-        if plugin_dependencies_ok
-          Rails.configuration.controller_paths << File.join(dir, 'controllers')
-          ActiveSupport::Dependencies.load_paths << File.join(dir, 'controllers')
-          controllers_folders = %w[public profile myprofile admin]
-          controllers_folders.each do |folder|
-            Rails.configuration.controller_paths << File.join(dir, 'controllers', folder)
-            ActiveSupport::Dependencies.load_paths << File.join(dir, 'controllers', folder)
-          end
-          [ ActiveSupport::Dependencies.load_paths, $:].each do |path|
-            path << File.join(dir, 'models')
-            path << File.join(dir, 'lib')
-          end
-
-          klass(plugin_name)
+      plugin_dependencies_ok = true
+      plugin_dependencies_file = File.join(dir, 'dependencies.rb')
+      if File.exists?(plugin_dependencies_file)
+        begin
+          require plugin_dependencies_file
+        rescue LoadError => ex
+          plugin_dependencies_ok = false
+          $stderr.puts "W: Noosfero plugin #{plugin_name} failed to load (#{ex})"
         end
       end
+
+      return unless plugin_dependencies_ok
+
+      # add load paths
+      Rails.configuration.controller_paths << File.join(dir, 'controllers')
+      ActiveSupport::Dependencies.load_paths << File.join(dir, 'controllers')
+      controllers_folders = %w[public profile myprofile admin]
+      controllers_folders.each do |folder|
+        Rails.configuration.controller_paths << File.join(dir, 'controllers', folder)
+        ActiveSupport::Dependencies.load_paths << File.join(dir, 'controllers', folder)
+      end
+      [ ActiveSupport::Dependencies.load_paths, $:].each do |path|
+        path << File.join(dir, 'models')
+        path << File.join(dir, 'lib')
+      end
+
+      # load vendor/plugins
+      Dir.glob(File.join(dir, '/vendor/plugins/*')).each do |vendor_plugin|
+        [ ActiveSupport::Dependencies.load_paths, $:].each{ |path| path << "#{vendor_plugin}/lib" }
+        init = "#{vendor_plugin}/init.rb"
+        require init.gsub(/.rb$/, '') if File.file? init
+      end
+
+      # load class
+      klass(plugin_name)
     end
 
     def all
@@ -378,6 +392,13 @@ class Noosfero::Plugin
   # returns = lambda block that creates html code
   def login_extra_contents
     nil
+  end
+
+  # -> Finds objects by their contents
+  # returns = {:results => [a, b, c, ...], ...}
+  # P.S.: The plugin might add other informations on the return hash for its
+  # own use in specific views
+  def find_by_contents(asset, scope, query, paginate_options={}, options={})
   end
 
   # -> Adds additional blocks to profiles and environments.

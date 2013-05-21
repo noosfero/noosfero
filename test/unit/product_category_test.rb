@@ -36,12 +36,4 @@ class ProductCategoryTest < ActiveSupport::TestCase
     assert_equal [c11], ProductCategory.menu_categories(c1, nil)
   end
 
-  should 'reindex products after save' do
-    product = mock
-    ProductCategory.any_instance.stubs(:products).returns([product])
-    ProductCategory.expects(:solr_batch_add).with(includes(product))
-    pc = fast_create(ProductCategory)
-    pc.save!
-  end
-
 end

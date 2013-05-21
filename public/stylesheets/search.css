@@ -6,6 +6,19 @@
   position: relative; /* to the text appear on MSIE 6 */
   width: 100%;
 }
+
+.controller-search .search-field .formfield {
+  width: 805px;
+  display: inline-block;
+}
+
+.controller-search #content form input.button.submit {
+  display: inline-block;
+  height: 27px;
+  max-height: 27px;
+  width: 87px;
+  margin-bottom: 1px;
+}
 .controller-search .current-cat-path {
   padding-left: 25px;
 }
@@ -453,15 +466,14 @@ li.search-product-item {
   position: relative;
 }
 .facets-applied {
-  float: left;
   padding: 5px 0px 0px 0px;
-  width: 80%;
 }
 .facets-applied-label {
   display: block;
   font-size: 1em;
   font-style: italic;
   padding: 0 0 5px 0;
+  text-align: left;
 }
 .facet-selected {
   display: block;
@@ -642,11 +654,13 @@ li.search-product-item hr {
   padding: 6px 0px 0px 0px;
   margin:0 0 5px 0;
   border-bottom: 2px dotted #999;
+  text-align: right;
 }
 #search-filter-title {
   font-weight: bold;
   font-size: 130%;
   line-height: 35px;
+  float: left;
 }
 .search-results-header.search-no-results {
   border-bottom: 0px;
@@ -665,6 +679,11 @@ li.search-product-item hr {
   color: #ff0000
 }
 
+.search-customize-options {
+  display: inline-block;
+  margin-left: 8px;
+  margin-top: 20px;
+}
 
 /* Search field and button */
 

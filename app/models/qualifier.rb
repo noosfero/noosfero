@@ -1,5 +1,9 @@
 class Qualifier < ActiveRecord::Base
 
+  SEARCHABLE_FIELDS = {
+    :name => 1,
+  }
+
   belongs_to :environment
 
   has_many :qualifier_certifiers, :dependent => :destroy
@@ -14,7 +18,5 @@ class Qualifier < ActiveRecord::Base
   def <=>(b)
     self.name.downcase.transliterate <=> b.name.downcase.transliterate
   end
-
-  after_save_reindex [:products], :with => :delayed_job
 
 end

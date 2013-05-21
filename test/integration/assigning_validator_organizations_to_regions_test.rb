@@ -3,7 +3,6 @@ require "#{File.dirname(__FILE__)}/../test_helper"
 class AssigningValidatorOrganizationsToRegionsTest < ActionController::IntegrationTest
 
   should 'be able to properly assign organizations as validators to regions' do
-    TestSolr.enable
     env = Environment.default
 
     Organization.destroy_all

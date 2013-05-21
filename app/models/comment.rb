@@ -1,5 +1,11 @@
 class Comment < ActiveRecord::Base
 
+  SEARCHABLE_FIELDS = {
+    :title => 10,
+    :name => 4,
+    :body => 2,
+  }
+
   validates_presence_of :body
 
   belongs_to :source, :counter_cache => true, :polymorphic => true
@@ -76,12 +82,6 @@ class Comment < ActiveRecord::Base
 
   def notification_emails
     self.article.profile.notification_emails - [self.author_email || self.email]
-  end
-
-  after_save :notify_article
-  after_destroy :notify_article
-  def notify_article
-    article.comments_updated if article.kind_of?(Article)
   end
 
   after_create :new_follower

@@ -48,7 +48,6 @@ class ConfigurationContentTest < ActiveSupport::TestCase
 
   should 'send configuration to service after saving' do
     @content.expects :send_configuration_to_service
-    @content.stubs(:solr_save)
     @content.run_callbacks :before_save
   end
 

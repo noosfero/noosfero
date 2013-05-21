@@ -100,7 +100,6 @@ cd mezuro
 git checkout mezuro-dev
 rvm use ruby-1.8.7-p302@mezuro
 cp config/database.yml.sqlite3 config/database.yml
-cp config/solr.yml.dist config/solr.yml
 cp plugins/mezuro/service.yml.example plugins/mezuro/service.yml
 cp plugins/mezuro/licenses.yml.example plugins/mezuro/licenses.yml
 mkdir tmp
@@ -116,5 +115,4 @@ ln -s mezuro-theme/ default
 cd ../../../
 
 #Prepare Mezuro for running functional and unit tests
-rake solr:download
 rake db:test:prepare

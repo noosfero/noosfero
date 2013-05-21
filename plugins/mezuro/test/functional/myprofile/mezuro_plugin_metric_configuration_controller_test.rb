@@ -23,7 +23,6 @@ class MezuroPluginMetricConfigurationControllerTest < ActionController::TestCase
     @configuration_content = MezuroPlugin::ConfigurationContent.new(:profile => @profile, :name => @configuration.name, :configuration_id => 42)
     @configuration_content.expects(:send_configuration_to_service).returns(nil)
     @configuration_content.expects(:validate_configuration_name).returns(true)
-    @configuration_content.stubs(:solr_save)
     @configuration_content.save
 
     @base_tool = BaseToolFixtures.base_tool

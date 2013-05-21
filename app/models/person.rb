@@ -1,6 +1,11 @@
 # A person is the profile of an user holding all relationships with the rest of the system
 class Person < Profile
 
+  SEARCH_FILTERS += %w[
+    more_popular
+    more_active
+  ]
+
   def self.type_name
     _('Person')
   end

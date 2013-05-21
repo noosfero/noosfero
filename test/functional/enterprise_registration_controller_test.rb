@@ -41,7 +41,7 @@ class EnterpriseRegistrationControllerTest < ActionController::TestCase
     env = Environment.default
     env.organization_approval_method = :admin
     env.save
-    region = fast_create(Region, {}, :search => true)
+    region = fast_create(Region, {})
 
     data = { :name => 'My new enterprise', :identifier => 'mynew', :region => region }
     create_enterprise = CreateEnterprise.new(data)
@@ -54,7 +54,7 @@ class EnterpriseRegistrationControllerTest < ActionController::TestCase
     env = Environment.default
     env.organization_approval_method = :none
     env.save
-    region = fast_create(Region, {}, :search => true)
+    region = fast_create(Region, {})
 
     data = { :name => 'My new enterprise', :identifier => 'mynew', :region => region }
     create_enterprise = CreateEnterprise.new(data)

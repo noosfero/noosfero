@@ -8,7 +8,6 @@ It is a direct extraction from Shopify where the job table is responsible for a 
 * image resizing
 * http downloads
 * updating smart collections
-* updating solr, our search server, after product changes
 * batch imports 
 * spam checks 
 

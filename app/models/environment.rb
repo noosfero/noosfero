@@ -268,8 +268,6 @@ class Environment < ActiveRecord::Base
 
   settings_items :search_hints, :type => Hash, :default => {}
 
-  settings_items :top_level_category_as_facet_ids, :type => Array, :default => []
-
   def news_amount_by_folder=(amount)
     settings[:news_amount_by_folder] = amount.to_i
   end

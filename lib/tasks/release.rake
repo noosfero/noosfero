@@ -1,11 +1,21 @@
 namespace :noosfero do
 
+  def pendencies_on_authors
+    sh "git status | grep 'AUTHORS'" do |ok, res| 
+      return {:ok => ok, :res => res}
+    end
+  end
+
+  def pendencies_on_repo
+    sh "git status | grep 'nothing.*commit'" do |ok, res| 
+      return {:ok => ok, :res => res}
+    end
+  end
+
   desc 'checks if there are uncommitted changes in the repo'
   task :check_repo do
-    sh "git status | grep 'nothing.*commit'" do |ok, res|
-      if !ok
-        raise "******** There are uncommited changes in the repository, cannot continue"
-      end
+    if !pendencies_on_repo[:ok]
+      raise "******** There are uncommited changes in the repository, cannot continue"
     end
   end
 
@@ -85,6 +95,80 @@ EOF
       rm_f 'AUTHORS'
       raise e
     end
+    if pendencies_on_authors[:res]
+      puts 'The AUTHORS file was updated!'
+      sh 'git diff AUTHORS'
+      if confirm('Do you want to commit this changes to the author file')
+        default_message = 'Updating AUTHORS file'
+        message = ask("Commit message [#{default_message}]:")
+        message = message.present? ? message : default_message
+        sh 'git add AUTHORS'
+        sh "git commit -m '#{message}'"
+      end
+    end
+  end
+
+  def ask(message)
+    print message
+    STDIN.gets.chomp
+  end
+
+  def confirm(message, default=true)
+    choice_message = default ? ' [Y/n]? ' : ' [y/N]? '
+    choice = nil
+    while choice.nil?
+      answer = ask(message + choice_message)
+      if answer.blank?
+        choice = default
+      elsif ['y', 'yes'].include?(answer.downcase)
+        choice = true
+      elsif ['n', 'no'].include?(answer.downcase)
+        choice = false
+      end
+    end
+    choice
+  end
+
+  desc 'sets the new version on apropriate files'
+  task :set_version, :release_kind do |t, args|
+    next if File.exist?("tmp/pending-release")
+    release_kind = args[:release_kind] || 'stable'
+
+    if release_kind == 'test'
+      version_question = "Release candidate of which version: "
+      distribution = 'squeeze-test'
+    else
+      version_question = "Version that is being released: "
+      distribution = 'unstable'
+    end
+
+    version_name = new_version = ask(version_question)
+
+    if release_kind == 'test'
+      timestamp = Time.now.strftime('%Y%m%d%H%M%S')
+      version_name += "~rc#{timestamp}"
+    end
+    release_message = ask("Release message: ")
+
+    sh 'git checkout debian/changelog lib/noosfero.rb'
+    sh "sed -i \"s/VERSION = '[^']*'/VERSION = '#{version_name}'/\" lib/noosfero.rb"
+    sh "dch --newversion #{version_name} --distribution #{distribution} --force-distribution '#{release_message}'"
+
+    puts
+    if confirm("Commit version bump to #{version_name} on #{distribution} distribution")
+      sh 'git add debian/changelog lib/noosfero.rb'
+      sh "git commit -m 'Bumping version #{version_name}'"
+      sh "touch tmp/pending-release"
+    else
+      sh 'git checkout debian/changelog lib/noosfero.rb'
+      abort 'Version update not confirmed. Reverting changes and exiting...'
+    end
+  end
+
+  desc "uploads the packages to the repository"
+  task :upload_packages, :release_kind do |t, args|
+    release_kind = args[:release_kind] || 'stable'
+    sh "dput --unchecked #{release_kind} #{Dir['pkg/*.changes'].first}"
   end
 
   def ask(message)
@@ -179,8 +263,6 @@ EOF
     mkdir "#{target}/tmp"
     ln_s '../../../vendor/rails', "#{target}/vendor/rails"
     cp "#{target}/config/database.yml.sqlite3", "#{target}/config/database.yml"
-    # solr inclusion
-    Dir.chdir(target) { sh "rake solr:download" }
 
     sh "cd #{target} && dpkg-buildpackage -us -uc -b"
   end

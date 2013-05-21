@@ -175,27 +175,6 @@ class CommentTest < ActiveSupport::TestCase
     assert c.errors.invalid?(:email)
   end
 
-  should 'notify article to reindex after saving' do
-    owner = create_user('testuser').person
-    article = owner.articles.create!(:name => 'test', :body => '...')
-
-    article.expects(:comments_updated)
-
-    c1 = article.comments.new(:title => "A comment", :body => '...', :author => owner)
-    c1.stubs(:article).returns(article)
-    c1.save!
-  end
-
-  should 'notify article to reindex after being removed' do
-    owner = create_user('testuser').person
-    article = owner.articles.create!(:name => 'test', :body => '...')
-    c1 = article.comments.create!(:title => "A comment", :body => '...', :author => owner)
-
-    c1.stubs(:article).returns(article)
-    article.expects(:comments_updated)
-    c1.destroy
-  end
-
   should 'generate links to comments on images with view set to true' do
     owner = create_user('testuser').person
     image = UploadedFile.create!(:profile => owner, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))

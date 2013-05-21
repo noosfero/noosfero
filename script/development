@@ -5,13 +5,11 @@ export RAILS_ENV=development
 stop() {
   ./script/delayed_job stop
   ./script/feed-updater stop
-  rake -s solr:stop
   exit
 }
 
 start() {
   ./script/feed-updater start
-  rake -s solr:start
   ./script/delayed_job start
   trap stop INT TERM
   ./script/server $@

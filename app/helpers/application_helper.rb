@@ -274,9 +274,9 @@ module ApplicationHelper
 
   VIEW_EXTENSIONS = %w[.rhtml .html.erb]
 
-  def partial_for_class_in_view_path(klass, view_path, suffix = nil)
+  def partial_for_class_in_view_path(klass, view_path, prefix = nil, suffix = nil)
     return nil if klass.nil?
-    name = [klass.name.underscore, suffix].compact.map(&:to_s).join('_')
+    name = [prefix, klass.name.underscore, suffix].compact.map(&:to_s).join('_')
 
     search_name = String.new(name)
     if search_name.include?("/")
@@ -291,14 +291,14 @@ module ApplicationHelper
       return name if File.exists?(File.join(path))
     end
 
-    partial_for_class_in_view_path(klass.superclass, view_path, suffix)
+    partial_for_class_in_view_path(klass.superclass, view_path, prefix, suffix)
   end
 
-  def partial_for_class(klass, suffix=nil)
+  def partial_for_class(klass, prefix=nil, suffix=nil)
     raise ArgumentError, 'No partial for object. Is there a partial for any class in the inheritance hierarchy?' if klass.nil?
     name = klass.name.underscore
     @controller.view_paths.each do |view_path|
-      partial = partial_for_class_in_view_path(klass, view_path, suffix)
+      partial = partial_for_class_in_view_path(klass, view_path, prefix, suffix)
       return partial if partial
     end
 
