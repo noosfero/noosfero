@@ -4,8 +4,7 @@ Feature: search
   In order to find stuff
 
   Background:
-    Given the search index is empty
-    And feature "disable_asset_products" is disabled on environment
+    Given feature "disable_asset_products" is disabled on environment
 
   Scenario: show empty results in all enabled assets
     Given I go to the search page
