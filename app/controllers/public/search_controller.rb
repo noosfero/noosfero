@@ -105,7 +105,7 @@ class SearchController < PublicController
         environment.events.by_day(@selected_day)
     end
 
-    @scope = date_range && params[:action] == :events ? environment.events.by_range(date_range) : environment.events
+    @scope = date_range && params[:action] == 'events' ? environment.events.by_range(date_range) : environment.events
     full_text_search
 
     events = @searches[@asset][:results]
