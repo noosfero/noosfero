@@ -1,13 +1,13 @@
 namespace :noosfero do
 
   def pendencies_on_authors
-    sh "git status | grep 'AUTHORS'" do |ok, res| 
+    sh "git status | grep -v 'AUTHORS' > /dev/null" do |ok, res| 
       return {:ok => ok, :res => res}
     end
   end
 
   def pendencies_on_repo
-    sh "git status | grep 'nothing.*commit'" do |ok, res| 
+    sh "git status | grep 'nothing.*commit' > /dev/null" do |ok, res| 
       return {:ok => ok, :res => res}
     end
   end
@@ -78,33 +78,20 @@ EOF
         output.puts `git log --pretty=format:'%aN <%aE>' | sort | uniq`
         output.puts AUTHORS_FOOTER
       end
-      sh "git status | grep 'AUTHORS' > /dev/null" do |ok, res|
-        if ok
-          puts "\nThere are changes in the AUTHORS file:"
-          sh 'git diff AUTHORS'
-          if confirm('Do you want to commit these changes?')
-            sh 'git add AUTHORS'
-            sh 'git commit -m "Updating authors file"'
-          else
-            sh 'git checkout AUTHORS'
-            abort 'There are new authors to be commited. Reverting changes and exiting...'
-          end
+      if !pendencies_on_authors[:ok]
+        puts "\nThere are changes in the AUTHORS file:"
+        sh 'git diff AUTHORS'
+        if confirm('Do you want to commit these changes?')
+          sh 'git add AUTHORS'
+          sh 'git commit -m "Updating authors file"'
+        else
+          sh 'git checkout AUTHORS'
+          abort 'There are new authors to be commited. Reverting changes and exiting...'
         end
       end
     rescue Exception => e
       rm_f 'AUTHORS'
       raise e
-    end
-    if pendencies_on_authors[:res]
-      puts 'The AUTHORS file was updated!'
-      sh 'git diff AUTHORS'
-      if confirm('Do you want to commit this changes to the author file')
-        default_message = 'Updating AUTHORS file'
-        message = ask("Commit message [#{default_message}]:")
-        message = message.present? ? message : default_message
-        sh 'git add AUTHORS'
-        sh "git commit -m '#{message}'"
-      end
     end
   end
 
