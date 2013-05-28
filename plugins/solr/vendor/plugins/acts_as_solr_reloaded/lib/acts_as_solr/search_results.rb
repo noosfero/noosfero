@@ -69,7 +69,7 @@ module ActsAsSolr #:nodoc:
     def highlights
       @solr_data[:highlights]
     end
-    
+
     # Returns a suggested query
     def suggest
       Hash[@solr_data[:spellcheck]['suggestions']]['collation']
@@ -87,7 +87,7 @@ module ActsAsSolr #:nodoc:
 
     # Returns the current page
     def current_page
-      per_page.zero? ? 0 : (@solr_data[:start].to_i / per_page) + 1
+      per_page.zero? ? 1 : (@solr_data[:start].to_i / per_page) + 1
     end
 
     def blank?

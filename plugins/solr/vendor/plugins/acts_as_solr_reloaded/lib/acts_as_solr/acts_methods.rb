@@ -168,7 +168,7 @@ module ActsAsSolr #:nodoc:
     # taggable: Default false. When true, indexes tags with field name tag. Tags are taken from taggings.tag
     #
     # spatial: Default false. When true, indexes model.local.latitude and model.local.longitude as coordinates.
-    # 
+    #
     def acts_as_solr(options={}, solr_options={}, &deferred_solr_configuration)
 
       $solr_indexed_models << self
@@ -262,7 +262,7 @@ module ActsAsSolr #:nodoc:
     def process_solr_options(options={}, solr_options={})
       self.configuration = {
         :fields => nil,
-        :format => :objects,
+        :results_format => :objects,
         :additional_fields => nil,
         :dynamic_attributes => false,
         :exclude_fields => [],
@@ -366,7 +366,7 @@ module ActsAsSolr #:nodoc:
         :facet
       elsif column = columns_hash[field.to_s]
         column_type = format_column_type(column.type)
-        
+
         case column_type
           when :string then :string
           when :datetime then :date
@@ -377,7 +377,7 @@ module ActsAsSolr #:nodoc:
         :text
       end
     end
-    
+
     def format_column_type(type)
       if type.class.eql? Symbol
         type

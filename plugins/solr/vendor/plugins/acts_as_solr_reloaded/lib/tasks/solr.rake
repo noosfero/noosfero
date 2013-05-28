@@ -2,10 +2,10 @@ namespace :solr do
 
   APACHE_MIRROR = ENV['APACHE_MIRROR'] || "http://ftp.unicamp.br/pub/apache"
   SOLR_VERSION = '3.6.2'
-  SOLR_FILENAME = "apache-solr-#{SOLR_VERSION}.tgz" 
+  SOLR_FILENAME = "apache-solr-#{SOLR_VERSION}.tgz"
   SOLR_MD5SUM = 'e9c51f51265b070062a9d8ed50b84647'
-  SOLR_URL = "#{APACHE_MIRROR}/lucene/solr/#{SOLR_VERSION}/#{SOLR_FILENAME}" 
-  SOLR_DIR = "apache-solr-#{SOLR_VERSION}" 
+  SOLR_URL = "#{APACHE_MIRROR}/lucene/solr/#{SOLR_VERSION}/#{SOLR_FILENAME}"
+  SOLR_DIR = "apache-solr-#{SOLR_VERSION}"
 
   # change path if it is on testing environment
   PLUGIN_ROOT = File.expand_path("#{File.dirname(__FILE__)}/../..")
@@ -71,7 +71,7 @@ namespace :solr do
     # test if there is a solr already running
     begin
       n = Net::HTTP.new('127.0.0.1', SOLR_PORT)
-      n.request_head('/').value 
+      n.request_head('/').value
 
     rescue Net::HTTPServerException #responding
       puts "Port #{SOLR_PORT} in use" and return
@@ -90,7 +90,7 @@ namespace :solr do
           pid = fork do
             Process.setpgrp
             STDERR.close
-            exec cmd 
+            exec cmd
           end
         end
 
@@ -99,14 +99,14 @@ namespace :solr do
       end
     end
   end
-  
+
   desc 'Stops Solr. Specify the environment by using: RAILS_ENV=your_env. Defaults to development if none.'
   task :stop do
     require File.expand_path("#{File.dirname(__FILE__)}/../../config/solr_environment")
 
     if File.exists?(SOLR_PID_FILE)
       killed = false
-      File.open(SOLR_PID_FILE, "r") do |f| 
+      File.open(SOLR_PID_FILE, "r") do |f|
         pid = f.readline
         begin
           Process.kill('TERM', -pid.to_i)
@@ -125,10 +125,10 @@ namespace :solr do
 
   desc 'Restart Solr. Specify the environment by using: RAILS_ENV=your_env. Defaults to development if none.'
   task :restart do
-    Rake::Task["solr:stop"].invoke 
-    Rake::Task["solr:start"].invoke 
+    Rake::Task["solr:stop"].invoke
+    Rake::Task["solr:start"].invoke
   end
-  
+
   desc 'Remove Solr index'
   task :destroy_index => :environment do
     require File.expand_path("#{File.dirname(__FILE__)}/../../config/solr_environment")
@@ -139,7 +139,7 @@ namespace :solr do
       puts "Index files removed under " + ENV['RAILS_ENV'] + " environment"
     end
   end
-  
+
   # this task is by Henrik Nyh
   # http://henrik.nyh.se/2007/06/rake-task-to-reindex-models-for-acts_as_solr
   desc %{Reindexes data for all acts_as_solr models. Clears index first to get rid of orphaned records and optimizes index afterwards. RAILS_ENV=your_env to set environment. ONLY=book,person,magazine to only reindex those models; EXCEPT=book,magazine to exclude those models. START_SERVER=true to solr:start before and solr:stop after. BATCH=123 to post/commit in batches of that size: default is 300. CLEAR=false to not clear the index first; OPTIMIZE=false to not optimize the index afterwards.}
@@ -162,9 +162,9 @@ namespace :solr do
 
     if start_server
       puts "Starting Solr server..."
-      Rake::Task["solr:start"].invoke 
+      Rake::Task["solr:start"].invoke
     end
-    
+
     # Disable optimize and commit
     module ActsAsSolr::CommonMethods
       def blank() end
@@ -172,7 +172,7 @@ namespace :solr do
       alias_method :solr_optimize, :blank
       alias_method :solr_commit, :blank
     end
-    
+
     models = $solr_indexed_models unless models.count > 0
     models.each do |model|
       if clear_first
@@ -180,12 +180,12 @@ namespace :solr do
         ActsAsSolr::Post.execute(Solr::Request::Delete.new(:query => "#{model.solr_configuration[:type_field]}:#{Solr::Util.query_parser_escape(model.name)}"))
         ActsAsSolr::Post.execute(Solr::Request::Commit.new)
       end
-      
+
       puts "Rebuilding index for #{model}..."
       model.rebuild_solr_index batch_size, :offset => offset, :threads => threads, :delayed_job => delayed_job
       puts "Commiting changes..."
       ActsAsSolr::Post.execute(Solr::Request::Commit.new)
-    end 
+    end
 
     if $solr_indexed_models.empty?
       puts "There were no models to reindex."
@@ -195,7 +195,7 @@ namespace :solr do
     end
 
   end
-  
+
   def env_to_bool(env, default)
     env = ENV[env] || ''
     case env

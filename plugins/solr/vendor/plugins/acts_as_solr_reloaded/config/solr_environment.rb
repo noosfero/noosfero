@@ -31,7 +31,7 @@ unless defined? SOLR_PID_FILE
 end
 
 unless defined? SOLR_PORT
-  config = YAML::load_file(RAILS_ROOT+'/plugins/solr/config/solr.yml')
+  config = YAML::load_file(RAILS_ROOT+'/config/solr.yml')
   raise("No solr environment defined for RAILS_ENV = #{ENV['RAILS_ENV'].inspect}") unless config[ENV['RAILS_ENV']]
 
   SOLR_HOST = ENV['HOST'] || URI.parse(config[ENV['RAILS_ENV']]['url']).host

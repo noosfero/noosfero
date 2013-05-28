@@ -9,6 +9,7 @@ module ActsAsSolr #:nodoc:
         :scores, :operator, :latitude, :longitude, :radius, :relevance, :highlight,
         :offset, :per_page, :limit, :page,]
       query_options = {}
+      options[:results_format] ||= :objects
 
       return if query.nil?
       raise "Query should be a string" unless query.is_a?(String)
@@ -136,55 +137,57 @@ module ActsAsSolr #:nodoc:
         :docs => [],
         :total => 0
       }
+      return SearchResults.new(results) if solr_data.nil?
+      options[:results_format] ||= :objects
 
-      configuration = {
-        :format => :objects
-      }
-      results.update(:spellcheck => solr_data.data['spellcheck']) unless solr_data.nil?
-      results.update(:facets => {'facet_fields' => []}) if options[:facets]
-      unless solr_data.nil? or solr_data.header['params'].nil?
+      results.update(:spellcheck => solr_data.data['spellcheck'])
+
+      if solr_data.header['params']
         header = solr_data.header
         results.update :rows => header['params']['rows']
         results.update :start => header['params']['start']
       end
-      return SearchResults.new(results) if (solr_data.nil? || solr_data.total_hits == 0)
 
-      configuration.update(options) if options.is_a?(Hash)
+      results.update(:facets => {'facet_fields' => []}) if options[:facets]
+      return SearchResults.new(results) if solr_data.total_hits == 0
+
+      results.update(:facets => solr_data.data['facet_counts']) if options[:facets]
 
       ids = solr_data.hits.collect {|doc| doc["#{solr_configuration[:primary_key_field]}"]}.flatten
+      result = find_objects(ids, options)
+      results.update(:docs => result)
 
-      result = find_objects(ids, options, configuration)
-
-      add_scores(result, solr_data) if configuration[:format] == :objects && options[:scores]
+      add_scores(result, solr_data) if options[:results_format] == :objects and options[:scores]
 
       highlighted = {}
       solr_data.highlighting.map do |x,y|
         e={}
         y1=y.map{|x1,y1| e[x1.gsub(/_[^_]*/,"")]=y1} unless y.nil?
         highlighted[x.gsub(/[^:]*:/,"").to_i]=e
-        end unless solr_data.highlighting.nil?
+      end unless solr_data.highlighting.nil?
+      results.update(:highlights => highlighted)
 
-      results.update(:facets => solr_data.data['facet_counts']) if options[:facets]
-      results.update({:docs => result, :total => solr_data.total_hits, :max_score => solr_data.max_score, :query_time => solr_data.data['responseHeader']['QTime']})
-      results.update({:highlights=>highlighted})
+      results.update(:total => solr_data.total_hits, :max_score => solr_data.max_score,
+                     :query_time => solr_data.data['responseHeader']['QTime'])
+
       SearchResults.new(results)
     end
 
 
-    def find_objects(ids, options, configuration)
-      result = if configuration[:lazy] && configuration[:format] != :ids
-        ids.collect {|id| ActsAsSolr::LazyDocument.new(id, self)}
-      elsif configuration[:format] == :objects
+    def find_objects(ids, options)
+      if options[:lazy] && options[:results_format] == :objects
+        ids.collect{ |id| ActsAsSolr::LazyDocument.new(id, self) }
+      elsif options[:results_format] == :objects
         find_options = options[:sql_options] || {}
         find_options[:conditions] = self.send :merge_conditions, {self.primary_key => ids}, (find_options[:conditions] || [])
         result = self.all(find_options) || []
         result = reorder(result, ids) unless find_options[:order]
         result
+      elsif options[:results_format] == :none
+        []
       else
         ids
       end
-
-      result
     end
 
     # Reorders the instances keeping the order returned from Solr
