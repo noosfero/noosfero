@@ -244,7 +244,7 @@ module FormsHelper
         yearSuffix: #{datepicker_options[:year_suffix].to_json}
       })
     </script>
-    "
+    ".html_safe
     result
   end
 
