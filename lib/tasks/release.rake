@@ -154,7 +154,7 @@ EOF
     sh "sed -i \"s/VERSION = '[^']*'/VERSION = '#{version_name}'/\" lib/noosfero.rb"
     sh "dch --newversion #{version_name} --distribution #{distribution} --force-distribution '#{release_message}'"
 
-    puts
+    sh 'git diff debian/changelog lib/noosfero.rb'
     if confirm("Commit version bump to #{version_name} on #{distribution} distribution")
       sh 'git add debian/changelog lib/noosfero.rb'
       sh "git commit -m 'Bumping version #{version_name}'"
