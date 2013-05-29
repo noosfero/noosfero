@@ -1,3 +1,9 @@
+noosfero (0.43.0~rc20130529144649) squeeze-test; urgency=low
+
+  * RC of 0.43.0 with solr as a plugin
+
+ -- Rodrigo Souto <rodrigo@ravioli>  Wed, 29 May 2013 14:46:59 -0300
+
 noosfero (0.42.1) unstable; urgency=low
 
   * Bugfixes release
