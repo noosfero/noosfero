@@ -1,0 +1,21 @@
+#!/usr/bin/ruby
+
+require 'yaml'
+
+DBCONFIG = ARGV.first || '/etc/database/database.yml'
+
+$dbconfig = {}
+
+checks = [
+  lambda { File.exists?(DBCONFIG) },
+  lambda { $dbconfig = YAML.load_file(DBCONFIG) },
+  lambda { $dbconfig['production'] },
+  lambda { $dbconfig['production']['adapter'] },
+  lambda { $dbconfig['production']['database'] },
+]
+
+if checks.all?(&:call)
+  exit 0
+else
+  exit 1
+end
