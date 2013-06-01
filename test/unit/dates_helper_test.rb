@@ -10,18 +10,38 @@ class DatesHelperTest < ActiveSupport::TestCase
   end
 
   should 'display date with translation' do
-    expects(:_).with('%{month} %{day}, %{year}').returns('%{day} de %{month} de %{year}')
+    expects(:_).with('%{month_name} %{day}, %{year}').returns('%{day} de %{month_name} de %{year}')
     expects(:_).with('January').returns('Janeiro')
     assert_equal '11 de Janeiro de 2008', show_date(Date.new(2008, 1, 11))
   end
 
   should 'generate period with two dates' do
     date1 = mock
+    date1.stubs(:year).returns('A')
     expects(:show_date).with(date1, anything).returns('XXX')
     date2 = mock
+    date2.stubs(:year).returns('B')
     expects(:show_date).with(date2, anything).returns('YYY')
     expects(:_).with('from %{date1} to %{date2}').returns('from %{date1} to %{date2}')
     assert_equal 'from XXX to YYY', show_period(date1, date2)
+  end
+
+  should 'generate period with in two diferent years' do
+    date1 = Date.new(1920, 1, 2)
+    date2 = Date.new(1992, 4, 6)
+    assert_equal 'from January 2, 1920 to April 6, 1992', show_period(date1, date2)
+  end
+
+  should 'generate period with in two diferent months of the same year' do
+    date1 = Date.new(2013, 2, 1)
+    date2 = Date.new(2013, 3, 1)
+    assert_equal 'from February 1 to March 1, 2013', show_period(date1, date2)
+  end
+
+  should 'generate period with in two days of the same month' do
+    date1 = Date.new(2013, 3, 27)
+    date2 = Date.new(2013, 3, 28)
+    assert_equal 'from March 27 to 28, 2013', show_period(date1, date2)
   end
 
   should 'generate period with two equal dates' do

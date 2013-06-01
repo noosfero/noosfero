@@ -7,7 +7,6 @@ class ShoppingCartPluginTest < ActiveSupport::TestCase
     @context = mock()
     @profile = mock()
     @profile.stubs(:identifier).returns('random-user')
-    @context.stubs(:profile).returns(@profile)
     @shopping_cart.context = @context
     @shopping_cart.stubs(:profile).returns(@profile)
   end
@@ -23,7 +22,14 @@ class ShoppingCartPluginTest < ActiveSupport::TestCase
     product = fast_create(Product, :available => false)
     enterprise = mock()
     enterprise.stubs(:shopping_cart).returns(true)
+    product.stubs(:enterprise).returns(enterprise)
 
-    assert_nil shopping_cart.add_to_cart_button(product, enterprise)
+    assert_nil shopping_cart.add_to_cart_button(product)
+  end
+
+  should 'be disabled by default on the enterprise' do
+    enterprise = fast_create(Enterprise)
+    settings = Noosfero::Plugin::Settings.new(enterprise, ShoppingCartPlugin)
+    assert !settings.enabled
   end
 end

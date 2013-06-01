@@ -23,7 +23,7 @@ class SendEmailPluginTest < ActiveSupport::TestCase
 
   should 'expand macro in parse_content event on profile context' do
     @plugin.context.stubs(:profile).returns(fast_create(Community))
-    assert_match /profile\/#{@plugin.context.profile.identifier}\/plugins\/send_email\/deliver/, @plugin.parse_content("expand this macro {sendemail}")
+    assert_match /profile\/#{@plugin.context.profile.identifier}\/plugin\/send_email\/deliver/, @plugin.parse_content("expand this macro {sendemail}")
   end
 
 end

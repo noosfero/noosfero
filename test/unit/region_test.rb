@@ -16,32 +16,6 @@ class RegionTest < ActiveSupport::TestCase
     end
   end
 
-  should 'be able to search for possible validators by name' do
-    TestSolr.enable
-    env = fast_create(Environment)
-    region = fast_create(Region, :environment_id => env.id, :name => 'My Region')
-    org1 = Organization.create!(:name => 'Organization 1', :identifier => 'org1', :environment_id => env.id)
-    org2 = Organization.create!(:name => 'Organization 2', :identifier => 'org2', :environment_id => env.id)
-
-    possible = region.search_possible_validators('organization')
-    assert possible.include?(org2)
-    assert_includes possible, org2
-    assert_includes possible, org1
-  end
-
-  should 'return search results without validators that are already associated to the current region' do
-    TestSolr.enable
-    env = fast_create(Environment)
-    region = fast_create(Region, :environment_id => env.id, :name => 'My Region')
-    org1 = fast_create(Organization, {:name => 'Organization 1', :identifier => 'org1', :environment_id => env.id}, :search => true)
-    org2 = fast_create(Organization, {:name => 'Organization 2', :identifier => 'org2', :environment_id => env.id}, :search => true)
-    region.validators << org1
-
-    possible = region.search_possible_validators('organization')
-    assert_includes possible, org2
-    assert_not_includes possible, org1
-  end
-
   should 'has validator' do
     env = fast_create(Environment)
     region = fast_create(Region, :environment_id => env.id, :name => 'My Region')

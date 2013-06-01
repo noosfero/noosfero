@@ -23,11 +23,13 @@ module DatesHelper
   end
 
   # formats a date for displaying.
-  def show_date(date, use_numbers = false)
+  def show_date(date, use_numbers = false, year=true)
     if date && use_numbers
-      _('%{month}/%{day}/%{year}') % { :day => date.day, :month => date.month, :year => date.year }
+      date_format = year ? _('%{month}/%{day}/%{year}') : _('%{month}/%{day}')
+      date_format % { :day => date.day, :month => date.month, :year => date.year }
     elsif date
-      _('%{month} %{day}, %{year}') % { :day => date.day, :month => month_name(date.month), :year => date.year }
+      date_format = year ? _('%{month_name} %{day}, %{year}') : _('%{month_name} %{day}')
+      date_format % { :day => date.day, :month_name => month_name(date.month), :year => date.year }
     else
       ''
     end
@@ -46,7 +48,27 @@ module DatesHelper
     if (date1 == date2) || (date2.nil?)
       show_date(date1, use_numbers)
     else
-      _('from %{date1} to %{date2}') % {:date1 => show_date(date1, use_numbers), :date2 => show_date(date2, use_numbers)}
+      if date1.year == date2.year
+        if date1.month == date2.month
+          _('from %{month} %{day1} to %{day2}, %{year}') % {
+            :day1 => date1.day,
+            :day2 => date2.day,
+            :month => use_numbers ? date1.month : month_name(date1.month),
+            :year => date1.year
+          }
+        else
+          _('from %{date1} to %{date2}, %{year}') % {
+            :date1 => show_date(date1, use_numbers, false),
+            :date2 => show_date(date2, use_numbers, false),
+            :year => date1.year
+          }
+        end
+      else
+        _('from %{date1} to %{date2}') % {
+          :date1 => show_date(date1, use_numbers),
+          :date2 => show_date(date2, use_numbers)
+        }
+      end
     end
   end
 

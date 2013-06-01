@@ -25,21 +25,23 @@ class ContentViewerController < ApplicationController
           return
         end
       end
-
-      # page not found, give error
-      if @page.nil?
-        render_not_found(@path)
-        return
-      end
     end
 
-    if !@page.display_to?(user)
-      if profile.display_info_to?(user) || !profile.visible?
-        message = _('You are not allowed to view this content. You can contact the owner of this profile to request access then.')
+    if !@page.nil? && !@page.display_to?(user)
+      if !profile.public?
+        private_profile_partial_parameters
+        render :template => 'profile/_private_profile.rhtml', :status => 403
+      else #if !profile.visible?
+        message = _('You are not allowed to view this content.')
+        message += ' ' + _('You can contact the owner of this profile to request access then.')
         render_access_denied(message)
-      elsif !profile.public?
-        redirect_to :controller => 'profile', :action => 'index', :profile => profile.identifier
       end
+      return
+    end
+
+    # page not found, give error
+    if @page.nil?
+      render_not_found(@path)
       return
     end
 

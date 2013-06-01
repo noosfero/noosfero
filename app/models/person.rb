@@ -1,6 +1,11 @@
 # A person is the profile of an user holding all relationships with the rest of the system
 class Person < Profile
 
+  SEARCH_FILTERS += %w[
+    more_popular
+    more_active
+  ]
+
   def self.type_name
     _('Person')
   end
@@ -133,6 +138,9 @@ class Person < Profile
   contact_phone
   contact_information
   description
+  image
+  district
+  address_reference
   ]
 
   validates_multiparameter_assignments
@@ -187,8 +195,8 @@ class Person < Profile
   N_('Education'); N_('Custom education'); N_('Custom area of study');
   settings_items :formation, :custom_formation, :custom_area_of_study
 
-  N_('Contact information'); N_('City'); N_('State'); N_('Country'); N_('Sex'); N_('Zip code')
-  settings_items :photo, :contact_information, :sex, :city, :state, :country, :zip_code
+  N_('Contact information'); N_('City'); N_('State'); N_('Country'); N_('Sex'); N_('Zip code'); N_('District'); N_('Address reference')
+  settings_items :photo, :contact_information, :sex, :city, :state, :country, :zip_code, :district, :address_reference
 
   extend SetProfileRegionFromCityState::ClassMethods
   set_profile_region_from_city_state

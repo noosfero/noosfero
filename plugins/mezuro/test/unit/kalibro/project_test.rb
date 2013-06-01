@@ -7,76 +7,69 @@ class ProjectTest < ActiveSupport::TestCase
   def setup
     @hash = ProjectFixtures.project_hash
     @project = ProjectFixtures.project
-    @project_content = ProjectFixtures.project_content
-  end
-
-  should 'get all project names' do
-    response_hash = {:project_name => [@project.name]}
-    Kalibro::Project.expects(:request).with("Project", :get_project_names).returns(response_hash)
-    assert_equal response_hash[:project_name], Kalibro::Project.all_names
-  end
-
-  should 'find project by name' do
-    request_body = {:project_name => @project.name}
-    response_hash = {:project => @hash}
-    Kalibro::Project.expects(:new).with(@hash).returns(@project)
-    Kalibro::Project.expects(:request).with("Project", :get_project, request_body).returns(response_hash)
-    assert_equal @project, Kalibro::Project.find_by_name(@project.name)
-  end
-
-  should 'raise error when project doesnt exist' do
-    request_body = {:project_name => @project.name}
-    Kalibro::Project.expects(:request).with("Project", :get_project, request_body).raises(Exception.new("(S:Server) There is no project named " + @project.name))
-    assert_raise Exception do Kalibro::Project.find_by_name(@project.name) end
-  end
-
-  should 'return true when project is saved successfully' do
-    Kalibro::Project.expects(:request).with("Project", :save_project, {:project => @project.to_hash})
-    assert @project.save
-  end
-
-  should 'return false when project is not saved successfully' do
-    Kalibro::Project.expects(:request).with("Project", :save_project, {:project => @project.to_hash}).raises(Exception.new)
-    assert !(@project.save)
-  end
-
-  should 'remove existent project from service' do
-    Kalibro::Project.expects(:request).with("Project", :remove_project, {:project_name => @project.name})
-    @project.destroy
+    @created_project = ProjectFixtures.created_project
   end
   
   should 'initialize new project from hash' do
     project = Kalibro::Project.new @hash
-    assert_equal @project.name, project.name
-    assert_equal @project.repository.type, project.repository.type
+    assert_equal @hash[:name], project.name
+    assert_equal @hash[:id].to_i, project.id
   end
 
   should 'convert project to hash' do
     hash = @project.to_hash
-    assert_equal @hash[:name], hash[:name]
-    assert_equal @hash[:configuration_name], hash[:configuration_name]
-    assert_equal @hash[:repository], hash[:repository]
-    assert_equal @hash[:state], hash[:state]
-  end
-  
-  should 'process project without days' do
-    Kalibro::Project.expects(:request).with('Kalibro', :process_project, {:project_name => @project.name})
-    @project.process_project
+    assert_equal @project.name, hash[:name]
   end
 
-  should 'process project with days' do
-    Kalibro::Project.expects(:request).with('Kalibro', :process_periodically, {:project_name => @project.name, :period_in_days => "1"})
-    @project.process_project "1"
+  should 'answer if project exists in kalibro' do
+    Kalibro::Project.expects(:request).with(:project_exists, {:project_id => @project.id}).returns({:exists => true})
+    assert Kalibro::Project.exists?(@project.id)
   end
 
-  should 'process period' do
-    Kalibro::Project.expects(:request).with('Kalibro', :get_process_period,  {:project_name => @project.name}).returns({:period => "1"})
-    assert_equal "1", @project.process_period
+  should 'find project' do
+    Kalibro::Project.expects(:request).with(:project_exists, {:project_id => @project.id}).returns({:exists => true})
+    Kalibro::Project.expects(:request).with(:get_project, {:project_id => @project.id}).returns(:project => @hash)
+    assert_equal @hash[:name], Kalibro::Project.find(@project.id).name
   end
-  
-  should 'cancel periodic process' do
-    Kalibro::Project.expects(:request).with("Kalibro", :cancel_periodic_process, {:project_name => @project.name})
-    @project.cancel_periodic_process
+
+  should 'raise RecordNotFound exception when project doesnt exist' do
+    Kalibro::Project.expects(:request).with(:project_exists, {:project_id => @project.id}).returns({:exists => false})
+    assert_raise(Kalibro::Errors::RecordNotFound){Kalibro::Project.find(@project.id)}
+  end
+
+  should 'get all projects when there is only one project' do
+    Kalibro::Project.expects(:request).with(:all_projects).returns({:project => @hash})
+    assert_equal @hash[:name], Kalibro::Project.all.first.name
+  end
+
+  should 'get all projects when there are many projects' do
+    Kalibro::Project.expects(:request).with(:all_projects).returns({:project => [@hash, @hash]})
+    projects = Kalibro::Project.all
+    assert_equal @hash[:name], projects.first.name
+    assert_equal @hash[:name], projects.last.name
+  end
+
+  should 'return empty when there are no projects' do
+    Kalibro::Project.expects(:request).with(:all_projects).returns({:project => nil})
+    assert_equal [], Kalibro::Project.all
+  end
+
+  should 'return true when project is saved successfully' do
+    id_from_kalibro = 1
+    Kalibro::Project.expects(:request).with(:save_project, {:project => @created_project.to_hash}).returns(:project_id => id_from_kalibro)
+    assert @created_project.save
+    assert_equal id_from_kalibro, @created_project.id
+  end
+
+  should 'return false when project is not saved successfully' do
+    Kalibro::Project.expects(:request).with(:save_project, {:project => @created_project.to_hash}).raises(Exception.new)
+    assert !(@created_project.save)
+    assert_nil @created_project.id
+  end
+
+  should 'remove existent project from service' do
+    Kalibro::Project.expects(:request).with(:delete_project, {:project_id => @project.id})
+    @project.destroy
   end
 
 end

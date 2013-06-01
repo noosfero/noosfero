@@ -18,16 +18,15 @@ class Noosfero::Plugin
         plugin_name = File.basename(plugin_dir)
         load_plugin(plugin_name)
       end
-    end
 
-    def setup(config)
-      return if !should_load
-      enabled.each do |dir|
-        setup_plugin(dir, config)
+      enabled_plugins.select do |entry|
+        File.directory?(entry)
+      end.each do |dir|
+        load_plugin dir
       end
     end
 
-    def setup_plugin(dir, config)
+    def load_plugin dir
       plugin_name = File.basename(dir)
 
       plugin_dependencies_ok = true
@@ -37,42 +36,34 @@ class Noosfero::Plugin
           require plugin_dependencies_file
         rescue LoadError => ex
           plugin_dependencies_ok = false
-          $stderr.puts "W: Noosfero plugin #{plugin_name}: failed to load dependencies (#{ex})"
+          $stderr.puts "W: Noosfero plugin #{plugin_name} failed to load (#{ex})"
         end
       end
 
-      if plugin_dependencies_ok
-        %w[
-            controllers
-            controllers/public
-            controllers/profile
-            controllers/myprofile
-            controllers/admin
-        ].each do |folder|
-          config.autoload_paths << File.join(dir, folder)
-        end
-        [ config.autoload_paths, $:].each do |path|
-          path << File.join(dir, 'models')
-          path << File.join(dir, 'lib')
-        end
+      return unless plugin_dependencies_ok
+
+      # add load paths
+      Rails.configuration.controller_paths << File.join(dir, 'controllers')
+      ActiveSupport::Dependencies.load_paths << File.join(dir, 'controllers')
+      controllers_folders = %w[public profile myprofile admin]
+      controllers_folders.each do |folder|
+        Rails.configuration.controller_paths << File.join(dir, 'controllers', folder)
+        ActiveSupport::Dependencies.load_paths << File.join(dir, 'controllers', folder)
       end
-    end
+      [ ActiveSupport::Dependencies.load_paths, $:].each do |path|
+        path << File.join(dir, 'models')
+        path << File.join(dir, 'lib')
+      end
 
-    def load_plugin(dir)
-      (dir.to_s.camelize + 'Plugin').constantize
-    end
+      # load vendor/plugins
+      Dir.glob(File.join(dir, '/vendor/plugins/*')).each do |vendor_plugin|
+        [ ActiveSupport::Dependencies.load_paths, $:].each{ |path| path << "#{vendor_plugin}/lib" }
+        init = "#{vendor_plugin}/init.rb"
+        require init.gsub(/.rb$/, '') if File.file? init
+      end
 
-    def enabled
-      @enabled ||=
-        begin
-          plugins = Dir.glob(File.join(Rails.root, 'config', 'plugins', '*'))
-          if Rails.env.test? && !plugins.include?(File.join(Rails.root, 'config', 'plugins', 'foo'))
-            plugins << File.join(Rails.root, 'plugins', 'foo')
-          end
-          plugins.select do |entry|
-            File.directory?(entry)
-          end
-        end
+      # load class
+      klass(plugin_name)
     end
 
     def all
@@ -120,6 +111,35 @@ class Noosfero::Plugin
   def expanded_template(file_path, locals = {})
     views_path = "#{Rails.root}/plugins/#{self.class.public_name}/views"
     ERB.new(File.read("#{views_path}/#{file_path}")).result(binding)
+  end
+
+  def extra_blocks(params = {})
+    return [] if self.class.extra_blocks.nil?
+    blocks = self.class.extra_blocks.map do |block, options|
+      type = options[:type]
+      type = type.is_a?(Array) ? type : [type].compact
+      type = type.map do |x|
+        x.is_a?(String) ? x.capitalize.constantize : x
+      end
+      raise "This is not a valid type" if !type.empty? && ![Person, Community, Enterprise, Environment].detect{|m| type.include?(m)}
+
+      position = options[:position]
+      position = position.is_a?(Array) ? position : [position].compact
+      position = position.map{|p| p.to_i}
+      raise "This is not a valid position" if !position.empty? && ![1,2,3].detect{|m| position.include?(m)}
+
+      if !type.empty? && (params[:type] != :all)
+        block = type.include?(params[:type]) ? block : nil
+      end
+
+      if !position.empty? && !params[:position].nil?
+        block = position.detect{ |p| [params[:position]].flatten.include?(p)} ? block : nil
+      end
+
+      block
+    end
+    blocks.compact!
+    blocks || []
   end
 
   # Here the developer may specify the events to which the plugins can
@@ -186,7 +206,7 @@ class Noosfero::Plugin
 
   # -> Adds content to products on asset list
   # returns = lambda block that creates html code
-  def asset_product_extras(product, enterprise)
+  def asset_product_extras(product)
     nil
   end
 
@@ -374,6 +394,67 @@ class Noosfero::Plugin
   # returns = lambda block that creates html code
   def login_extra_contents
     nil
+  end
+
+  # -> Finds objects by their contents
+  # returns = {:results => [a, b, c, ...], ...}
+  # P.S.: The plugin might add other informations on the return hash for its
+  # own use in specific views
+  def find_by_contents(asset, scope, query, paginate_options={}, options={})
+  end
+
+  # -> Adds additional blocks to profiles and environments.
+  # Your plugin must implements a class method called 'extra_blocks'
+  # that returns a hash with the following syntax.
+  #    {
+  #      'block_name' =>
+  #        {
+  #          :type => 'for which holder the block will be available',
+  #          :position => 'where the block could be displayed'
+  #        }
+  #    }
+  #
+  # Where:
+  #
+  #   - block_name: Name of the new block added to the blocks list
+  #   - type: Might have some of the values
+  #      - 'environment' or Environment: If the block is available only for Environment models
+  #      - 'community' or Community: If the block is available only for Community models
+  #      - 'enterprise' or Enterprise: If the block is available only for Enterprise models
+  #      - 'person' or Person: If the block is available only for Person models
+  #      - nil: If no type parameter is passed the block will be available for all types
+  #   - position: Is the layout position of the block. It should be:
+  #      - '1' or 1: Area 1 of layout
+  #      - '2' or 2: Area 2 of layout
+  #      - '3' or 3: Area 3 of layout
+  #      - nil: If no position parameter is passed the block will be available for all positions
+  #
+  #      OBS: Area 1 is where stay the main content of layout. Areas 2 and 3 are the sides of layout.
+  #
+  # examples:
+  #
+  #   def self.extra_blocks(params)
+  #     {
+  #       #Display 'CustomBlock1' only for 'Person' on position '1'
+  #       CustomBlock1 => {:type => 'person', :position => '1' },
+  #
+  #       #Display 'CustomBlock2' only for 'Community' on position '2'
+  #       CustomBlock2 => {:type => Community, :position => '2' },
+  #
+  #       #Display 'CustomBlock3' only for 'Enterprise' on position '3'
+  #       CustomBlock3 => {:type => 'enterprise', :position => 3 },
+  #
+  #       #Display 'CustomBlock2' for 'Environment' and 'Person' on positions '1' and '3'
+  #       CustomBlock4 => {:type => ['environment', Person], :position => ['1','3'] },
+  #
+  #       #Display 'CustomBlock5' for all types and all positions
+  #       CustomBlock5 => {},
+  #     }
+  #   end
+  #
+  #   OBS: The default value is a empty hash.
+  def self.extra_blocks
+    {}
   end
 
   def method_missing(method, *args, &block)

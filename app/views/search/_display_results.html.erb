@@ -1,24 +1,26 @@
 <div id="search-results" class="<%= !multiple_search? ? 'only-one-result-box' : 'multiple-results-boxes' %>">
   <% @order.each do |name| %>
-    <% results = @results[name] %>
-    <% empty = results.nil? || results.empty? %>
+    <% search = @searches[name] %>
 
-    <div class="search-results-<%= name %> search-results-box <%= "search-results-empty" if empty %>">
-      <% if not empty %>
-        <% partial = partial_for_class(results.first.class.class_name.constantize) %>
+    <div class="search-results-<%= name %> search-results-box <%= "search-results-empty" if search[:results].blank? %>">
+      <% if !search[:results].blank? %>
 
-        <% if multiple_search? %>
+        <% if multiple_search?(@searches) %>
           <h3><%= @names[name] %></h3>
-          <% if results.total_entries > SearchController::MULTIPLE_SEARCH_LIMIT %>
-            <%= link_to(_('see all (%d)') % results.total_entries, params.merge(:action => name), :class => 'see-more' ) %>
+          <% if search[:results].total_entries > SearchController::MULTIPLE_SEARCH_LIMIT %>
+            <%= link_to(_('see all (%d)') % search[:results].total_entries, params.merge(:action => name), :class => 'see-more' ) %>
           <% end %>
         <% end %>
 
-        <div class="search-results-innerbox search-results-type-<%= partial %> <%= 'common-profile-list-block' if partial == 'profile' %>">
+        <% display = display_filter(name, params[:display]) %>
+
+        <div class="search-results-innerbox search-results-type-<%= name.to_s.singularize %> <%= 'common-profile-list-block' if [:enterprises, :people, :communities].include?(name) %>">
           <ul>
-          <% results.each do |hit| %>
-            <%= render :partial => partial_for_class(hit.class), :object => hit %>
-          <% end %>
+            <% search[:results].each do |hit| %>
+              <% partial = partial_for_class(hit.class, display) %>
+              <% variable_name = partial.gsub("#{display}_", '').to_sym %>
+              <%= render :partial => partial, :locals => {variable_name => hit} %>
+            <% end %>
           </ul>
         </div>
       <% else %>

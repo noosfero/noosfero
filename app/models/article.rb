@@ -4,6 +4,29 @@ class Article < ActiveRecord::Base
 
   attr_accessible :name, :body, :abstract, :profile
 
+  SEARCHABLE_FIELDS = {
+    :name => 10,
+    :abstract => 3,
+    :body => 2,
+    :slug => 1,
+    :filename => 1,
+  }
+
+  SEARCH_FILTERS = %w[
+    more_recent
+    more_popular
+    more_comments
+  ]
+
+  SEARCH_DISPLAYS = %w[full]
+
+  def self.default_search_display
+    'full'
+  end
+
+  #FIXME This is necessary because html is being generated on the model...
+  include ActionView::Helpers::TagHelper
+
   # use for internationalizable human type names in search facets
   # reimplement on subclasses
   def self.type_name
@@ -24,6 +47,8 @@ class Article < ActiveRecord::Base
   belongs_to :profile
   validates_presence_of :profile_id, :name
   validates_presence_of :slug, :path, :if => lambda { |article| !article.name.blank? }
+
+  validates_length_of :name, :maximum => 150
 
   validates_uniqueness_of :slug, :scope => ['profile_id', 'parent_id'], :message => N_('The title (article name) is already being used by another article, please use another title.'), :if => lambda { |article| !article.slug.blank? }
 
@@ -227,8 +252,13 @@ class Article < ActiveRecord::Base
   # The implementation in this class just provides the +body+ attribute as the
   # HTML.  Other article types can override this method to provide customized
   # views of themselves.
+  # (To override short format representation, override the lead method)
   def to_html(options = {})
-    body || ''
+    if options[:format] == 'short'
+      display_short_format(self)
+    else
+      body || ''
+    end
   end
 
   def reported_version(options = {})
@@ -408,8 +438,8 @@ class Article < ActiveRecord::Base
   scope :images, :conditions => { :is_image => true }
   scope :text_articles, :conditions => [ 'articles.type IN (?)', text_article_types ]
 
+  scope :more_popular, :order => 'hits DESC'
   scope :more_comments, :order => "comments_count DESC"
-  scope :more_views, :order => "hits DESC"
   scope :more_recent, :order => "created_at DESC"
 
   def self.display_filter(user, profile)
@@ -548,6 +578,10 @@ class Article < ActiveRecord::Base
     author ? author.url : nil
   end
 
+  def author_id
+    author ? author.id : nil
+  end
+
   alias :active_record_cache_key :cache_key
   def cache_key(params = {}, the_profile = nil, language = 'en')
     active_record_cache_key+'-'+language +
@@ -594,7 +628,7 @@ class Article < ActiveRecord::Base
 
   end
 
-  def more_views_label
+  def more_popular_label
     amount = self.hits
     {
       0 => _('no views'),
@@ -663,6 +697,8 @@ class Article < ActiveRecord::Base
   def category_filter
     categories_including_virtual_ids
   end
+
+  delegate :region, :region_id, :environment, :environment_id, :to => :profile, :allow_nil => true
 
   private
 

@@ -33,7 +33,7 @@ You need to install some packages Noosfero depends on.  On Debian GNU/Linux or
 Debian-based systems, all of these packages are available through the Debian
 archive. You can install them with the following command:
 
- # apt-get install ruby rake po4a libgettext-ruby-util libgettext-ruby1.8 libsqlite3-ruby rcov librmagick-ruby libredcloth-ruby libwill-paginate-ruby iso-codes libfeedparser-ruby openjdk-6-jre libdaemons-ruby thin tango-icon-theme libhpricot-ruby
+ # apt-get install ruby rake po4a libgettext-ruby-util libgettext-ruby1.8 libsqlite3-ruby rcov librmagick-ruby libredcloth-ruby libwill-paginate-ruby iso-codes libfeedparser-ruby libdaemons-ruby thin tango-icon-theme libhpricot-ruby
 
 On other systems, they may or may not be available through your regular package
 management system. Below are the links to their homepages.
@@ -43,7 +43,6 @@ management system. Below are the links to their homepages.
 * po4a: http://po4a.alioth.debian.org/
 * Ruby-sqlite3: http://rubyforge.org/projects/sqlite-ruby
 * rcov: http://eigenclass.org/hiki/rcov
-* Solr: http://lucene.apache.org/solr
 * RMagick: http://rmagick.rubyforge.org/
 * RedCloth: http://redcloth.org/
 * will_paginate: http://github.com/mislav/will_paginate/wikis
@@ -104,15 +103,12 @@ $ git checkout -b stable origin/stable
 downloading tarball
 -------------------
 
-Note: replace 0.35.0 below from the latest stable version.
+Note: replace 0.39.0 below from the latest stable version.
 
-$ wget http://noosfero.org/pub/Development/NoosferoVersion00x35x00/noosfero-0.35.0.tar.gz
-$ tar -zxvf noosfero-0.35.0.tar.gz
-$ ln -s noosfero-0.35.0 current
+$ wget http://noosfero.org/pub/Development/NoosferoVersion00x39x00/noosfero-0.39.0.tar.gz
+$ tar -zxvf noosfero-0.39.0.tar.gz
+$ ln -s noosfero-0.39.0 current
 $ cd current
-
-Copy config/solr.yml.dist to config/solr.yml. You will
-probably not need to customize this configuration, but have a look at it.
 
 Create the thin configuration file:
 
@@ -187,19 +183,6 @@ $ ./script/dbconsole production
 If it connects to your database, then everything is fine. If you got an error
 message, then you have to check your database configuration.
 
-Installing gem rack
-===================
-
-This gem is required if you want to run Mezuro plugin.
-
-Install RubyGem Rack 1.0.1.
-Others versions may not be compatible with Noosfero:
-
-# gem install rack -v 1.0.1
-
-As noosfero user
-================
-
 Create the database structure:
 
 $ RAILS_ENV=production rake db:schema:load
@@ -207,10 +190,6 @@ $ RAILS_ENV=production rake db:schema:load
 Compile the translations:
 
 $ RAILS_ENV=production rake noosfero:translations:compile
-
-Run Solr:
-
-$ rake solr:start
 
 Now we must create some initial data. To create your default environment
 (the first one), run the command below:
@@ -228,10 +207,10 @@ $ RAILS_ENV=production ./script/runner "Environment.default.domains << Domain.ne
 
 Add at least one user as admin of environment:
 
-$ RAILS_ENV=production ./script/runner "User.create(:login => 'adminuser', :email => 'admin@example.com', :password => 'admin', :password_confirmation => 'admin', :environment => Environment.default)"
+$ RAILS_ENV=production ./script/runner "User.create(:login => 'adminuser', :email => 'admin@example.com', :password => 'admin', :password_confirmation => 'admin', :environment => Environment.default, :activated_at => Time.new)"
 
 (replace "adminuser", "admin@example.com", "admin" with the login, email
-and password of your environment admin)
+and password of your environment administrator)
 
 To start the Noosfero application servers:
 
@@ -241,23 +220,6 @@ At this point you have a functional Noosfero installation running, the only
 thing left is to configure your webserver as a reverse proxy to pass requests
 to them.
 
-Enabling exception notifications
-================================
-
-This is an optional step. You will need it only if you want to receive e-mail
-notifications when some exception occurs on Noosfero.
-
-First, install this version of the gem.
-Others versions may not be compatible with Noosfero:
-
-# gem install exception_notification -v 1.0.20090728
-
-You can configure the e-mails that will receive the notifications.
-Change the file config/noosfero.yml as the following example, replacing the
-e-mails by real ones:
-
-  production:
-    exception_recipients: [admin@example.com, you@example.com]
 
 ==================
 Apache instalation
@@ -350,6 +312,26 @@ to your site configuration):
 Now restart your apache server (as root):
 
 # invoke-rc.d apache2 restart
+
+
+Enabling exception notifications
+================================
+
+This is an optional step. You will need it only if you want to receive e-mail
+notifications when some exception occurs on Noosfero.
+
+First, install this version of the gem.
+Others versions may not be compatible with Noosfero:
+
+# gem install exception_notification -v 1.0.20090728
+
+You can configure the e-mails that will receive the notifications.
+Change the file config/noosfero.yml as the following example, replacing the
+e-mails by real ones:
+
+  production:
+    exception_recipients: [admin@example.com, you@example.com]
+
 
 ============
 Maintainance

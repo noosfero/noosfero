@@ -11,6 +11,22 @@ class Profile < ActiveRecord::Base
     _('Profile')
   end
 
+  SEARCHABLE_FIELDS = {
+    :name => 10,
+    :identifier => 5,
+    :nickname => 2,
+  }
+
+  SEARCH_FILTERS = %w[
+    more_recent
+  ]
+
+  SEARCH_DISPLAYS = %w[compact]
+
+  def self.default_search_display
+    'compact'
+  end
+
   module Roles
     def self.admin(env_id)
       find_role('admin', env_id)
@@ -70,7 +86,7 @@ class Profile < ActiveRecord::Base
   #FIXME: these will work only if the subclass is already loaded
   scope :enterprises, lambda { {:conditions => (Enterprise.send(:subclasses).map(&:name) << 'Enterprise').map { |klass| "profiles.type = '#{klass}'"}.join(" OR ")} }
   scope :communities, lambda { {:conditions => (Community.send(:subclasses).map(&:name) << 'Community').map { |klass| "profiles.type = '#{klass}'"}.join(" OR ")} }
-  scope :templates, :conditions => {:is_template => true}
+  scope :templates, lambda { |environment| { :conditions => {:is_template => true, :environment_id => environment.id} } }
 
   def members
     scopes = plugins.dispatch_scopes(:organization_members, self)
@@ -124,19 +140,11 @@ class Profile < ActiveRecord::Base
     scrap.nil? ? Scrap.all_scraps(self) : Scrap.all_scraps(self).find(scrap)
   end
 
-  class_attribute :extra_index_methods
-  self.extra_index_methods = []
-
-  def extra_data_for_index
-    self.class.extra_index_methods.map { |meth| meth.to_proc.call(self) }.flatten
-  end
-
-  def self.extra_data_for_index(sym = nil, &block)
-    self.extra_index_methods.push(sym) if sym
-    self.extra_index_methods.push(block) if block_given?
-  end
-
   acts_as_having_settings :field => :data
+
+  def settings
+    data
+  end
 
   settings_items :redirect_l10n, :type => :boolean, :default => false
   settings_items :public_content, :type => :boolean, :default => true
@@ -204,7 +212,7 @@ class Profile < ActiveRecord::Base
   has_many :profile_categorizations_including_virtual, :class_name => 'ProfileCategorization'
   has_many :categories_including_virtual, :through => :profile_categorizations_including_virtual, :source => :category
 
-  has_many :abuse_complaints, :foreign_key => 'requestor_id'
+  has_many :abuse_complaints, :foreign_key => 'requestor_id', :dependent => :destroy
 
   def top_level_categorization
     ret = {}
@@ -226,7 +234,7 @@ class Profile < ActiveRecord::Base
     if myregion
       myregion.hierarchy.reverse.first(2).map(&:name).join(separator)
     else
-      %w[address city state country_name zip_code ].map {|item| (self.respond_to?(item) && !self.send(item).blank?) ? self.send(item) : nil }.compact.join(separator)
+      %w[address district city state country_name zip_code ].map {|item| (self.respond_to?(item) && !self.send(item).blank?) ? self.send(item) : nil }.compact.join(separator)
     end
   end
 
@@ -461,6 +469,10 @@ class Profile < ActiveRecord::Base
     { :profile => identifier, :controller => 'profile_editor', :action => 'index' }
   end
 
+  def tasks_url
+    { :profile => identifier, :controller => 'tasks', :action => 'index', :host => default_hostname }
+  end
+
   def leave_url(reload = false)
     { :profile => identifier, :controller => 'profile', :action => 'leave', :reload => reload }
   end
@@ -692,7 +704,7 @@ private :generate_url, :url_options
   def custom_footer_expanded
     footer = custom_footer
     if footer
-      %w[contact_person contact_email contact_phone location address economic_activity city state country zip_code].each do |att|
+      %w[contact_person contact_email contact_phone location address district address_reference economic_activity city state country zip_code].each do |att|
         if self.respond_to?(att) && footer.match(/\{[^{]*#{att}\}/)
           if !self.send(att).nil? && !self.send(att).blank?
             footer = footer.gsub(/\{([^{]*)#{att}\}/, '\1' + self.send(att))
@@ -883,54 +895,6 @@ private :generate_url, :url_options
   def public_fields
     self.active_fields
   end
-
-  private
-  def self.f_categories_label_proc(environment)
-    ids = environment.top_level_category_as_facet_ids
-    r = Category.find(ids)
-    map = {}
-    ids.map{ |id| map[id.to_s] = r.detect{|c| c.id == id}.name }
-    map
-  end
-  def self.f_categories_proc(facet, id)
-    id = id.to_i
-    return if id.zero?
-    c = Category.find(id)
-    c.name if c.top_ancestor.id == facet[:label_id].to_i or facet[:label_id] == 0
-  end
-  def f_categories
-    category_ids - [region_id]
-  end
-
-  def f_region
-    self.region_id
-  end
-  def self.f_region_proc(id)
-    c = Region.find(id)
-    s = c.parent
-    if c and c.kind_of?(City) and s and s.kind_of?(State) and s.acronym
-      [c.name, ', ' + s.acronym]
-    else
-      c.name
-    end
-  end
-
-  def self.f_enabled_proc(enabled)
-    enabled = enabled == "true" ? true : false
-    enabled ? s_('facets|Enabled') : s_('facets|Not enabled')
-  end
-  def f_enabled
-    self.enabled
-  end
-
-  def public
-    self.public?
-  end
-  def category_filter
-    categories_including_virtual_ids
-  end
-
-  public
 
   def control_panel_settings_button
     {:title => _('Profile Info and settings'), :icon => 'edit-profile'}

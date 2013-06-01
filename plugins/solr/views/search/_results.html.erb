@@ -1,0 +1,7 @@
+<%= render :partial => 'search_form', :locals => { :hint => _("Type words about the %s you're looking for") % @asset.to_s.singularize } %>
+<%= render :partial => 'results_header' %>
+
+<%= display_results(@searches, @asset) %>
+<% if params[:display] != 'map' %>
+  <%= pagination_links @searches[@asset][:results] %>
+<% end %>

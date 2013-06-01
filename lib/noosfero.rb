@@ -4,7 +4,7 @@ require 'fast_gettext'
 
 module Noosfero
   PROJECT = 'noosfero'
-  VERSION = '0.39.0'
+  VERSION = '0.43.0~rc20130529152434'
 
   def self.pattern_for_controllers_in_directory(dir)
     disjunction = controllers_in_directory(dir).join('|')
@@ -80,13 +80,14 @@ module Noosfero
   end
 
   def self.url_options
-    if Rails.env == 'development'
+    case Rails.env
+    when 'development'
       development_url_options
-    elsif Rails.env == 'cucumber'
-      Webrat.configuration.mode == :rails ? { :host => '' } : { :port => Webrat.configuration.application_port }
-    else
-      {}
-    end
+    when 'cucumber'
+      if Capybara.current_driver == :selenium
+        { :host => Capybara.current_session.driver.rack_server.host, :port => Capybara.current_session.driver.rack_server.port }
+      end
+    end || { }
   end
 
   def self.development_url_options

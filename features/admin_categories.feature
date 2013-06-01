@@ -16,22 +16,22 @@ Feature: manage categories
   @selenium
   Scenario: admin user could access new category
     Given I follow "Administration"
-    When I follow "Manage Categories"
-    And I follow "New category" and wait
+    When I follow "Categories"
+    And I follow "New category"
     Then I should be on /admin/categories/new
 
   @selenium
   Scenario: admin user could create a category
-    Given I visit "/admin/categories/new" and wait
-    When I fill in "Name" with "Category 1"
-    And I press "Save"
-    Then I should see "Categories"
-    And I should see "Category 1"
+    Given I go to /admin/categories/new
+      And I fill in "Name" with "Category 1"
+     When I press "Save"
+     Then I should see "Categories"
+      And I should see "Category 1"
 
   @selenium
   Scenario: admin user could see all the category tree
     Given I follow "Administration"
-    And I follow "Manage Categories"
+    And I follow "Categories"
     When I follow "Show"
     Then I should see "Vegetarian"
     And I should see "Steak"
@@ -39,13 +39,13 @@ Feature: manage categories
   @selenium
   Scenario: admin user could hide the category tree
     Given I follow "Administration"
-    And I follow "Manage Categories"
-    When I follow "Show"
+    And I follow "Categories"
+    When I follow "Show" and wait while it hides
     Then I should see "Vegetarian"
     And I should see "Steak"
-    When I follow "Hide" and sleep 1 second
-    Then I should not see "Vegetarian"
-    And I should not see "Steak"
+    When I follow "Hide" and wait while it hides
+    Then "Vegetarian" should not be visible within "div"
+    And "Steak" should not be visible within "div"
 
   @selenium
   Scenario: the show link is available just for categories with category tree
@@ -54,7 +54,7 @@ Feature: manage categories
       | Steak   | Pig      | true            |
     And I am on the homepage
     When I follow "Administration"
-    And I follow "Manage Categories"
+    And I follow "Categories"
     Then I should see "Food Show"
     When I follow "Show"
     Then I should see "Vegetarian"

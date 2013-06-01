@@ -184,7 +184,7 @@ Feature: events
     And "josesilva" is a member of "Sample Community"
     And I go to josesilva's control panel
     And I follow "Manage Content"
-    And I follow "Another Conference" and wait
+    And I follow "Another Conference"
     And I follow "Spread"
     And I check "Sample Community"
     And I press "Spread this"
@@ -213,15 +213,15 @@ Feature: events
     And I am on josesilva's Event creation
     Then I should see "Lead"
 
-  @selenium
+  @selenium-fixme
   Scenario: events lead should be shown on blogs with short format
     Given I am logged in as "josesilva"
     And I am on josesilva's control panel
-    And I follow "Configure blog" and wait
+    And I follow "Configure blog"
     And I select "First paragraph" from "How to display posts:"
     And I press "Save"
     And I follow "New post"
-    And I follow "A calendar event" and wait
+    And I follow "A calendar event"
     And I fill in "Title" with "Leaded event"
     And I type "This is the abstract." in TinyMCE field "article_abstract"
     And I type "This is the real text." in TinyMCE field "article_body"

@@ -1,0 +1,22 @@
+<div class="search-results-header <%= "search-no-results" if @searches[@asset][:results].nil? or @searches[@asset][:results].length == 0 %>">
+  <% if !@empty_query %>
+    <div class="search-results-header-information">
+      <% if @searches[@asset][:results].total_entries > 0 %>
+        <%= label_total_found(@asset, @searches[@asset][:results].total_entries) %>
+        <% if params[:display] != 'map' %>
+          <span class="current-page"><%= _("Showing page %s of %s") % [@searches[@asset][:results].current_page, @searches[@asset][:results].total_pages] %></span>
+        <% end %>
+      <% end %>
+    </div>
+
+    <%= facets_unselect_menu(@asset) %>
+  <% else %>
+    <div id='search-filter-title'><%= filter_title(@asset, @filter) %></div>
+  <% end %>
+  <div id="search-actions">
+    <%= order_by(@asset) if params[:display] != 'map' && !@empty_query %>
+    <%= display_selector(@asset, params[:display]) %>
+    <%= filter_selector(@asset, @filter) if @empty_query && params[:display] != 'map' %>
+  </div>
+  <div style="clear: both"></div>
+</div>

@@ -11,6 +11,17 @@ class SpaminatorPlugin::Spaminator
     def benchmark(environment)
       puts Benchmark.measure { run(environment) }
     end
+
+    def initialize_logger(environment)
+      logdir = File.join(RAILS_ROOT, 'log', SpaminatorPlugin.name.underscore)
+      File.makedirs(logdir) if !File.exist?(logdir)
+      logpath = File.join(logdir, "#{environment.name.to_slug}_#{ENV['RAILS_ENV']}_#{Time.now.strftime('%F_%T')}.log")
+      @logger = Logger.new(logpath)
+    end
+
+    def log(message)
+      @logger << "[#{Time.now.strftime('%F %T %z')}] #{message}\n"
+    end
   end
 
 
@@ -20,9 +31,11 @@ class SpaminatorPlugin::Spaminator
     @report = SpaminatorPlugin::Report.new(:environment => environment, 
                                            :total_people => Person.count,
                                            :total_comments => Comment.count)
+    self.class.initialize_logger(environment)
   end
 
   def run
+    self.class.log("Starting Spaminator scan")
     start_time = Time.now
 
     process_all_comments
@@ -37,6 +50,7 @@ class SpaminatorPlugin::Spaminator
     finish_report
     @settings.last_run = start_time
     @settings.save!
+    self.class.log("Finishing Spaminator scan successfully")
   end
 
   # TODO considering run everything always
@@ -53,6 +67,7 @@ class SpaminatorPlugin::Spaminator
   end
 
   def process_all_comments
+    self.class.log("Starting to process all comments")
     comments = comments_to_process
     total = comments.count
     pbar = ProgressBar.new("☢ Comments", total)
@@ -66,9 +81,11 @@ class SpaminatorPlugin::Spaminator
     end
     @report.processed_comments = total
     pbar.finish
+    self.class.log("All comments processed")
   end
 
   def process_all_people
+    self.class.log("Starting to process all people")
     people = people_to_process
     total = people.count
     pbar = ProgressBar.new("☢ People", total)
@@ -79,9 +96,11 @@ class SpaminatorPlugin::Spaminator
     end
     @report.processed_people = total
     pbar.finish
+    self.class.log("All people processed")
   end
 
   def process_comment(comment)
+    self.class.log("Processing Comment[#{comment.id.to_s}]")
     comment = Comment.find(comment.id)
     comment.check_for_spam
     @report.spams_by_content += 1 if comment.spam
@@ -97,6 +116,7 @@ class SpaminatorPlugin::Spaminator
     # person is author of more than 2 comments marked as spam
     #   → mark as spammer
     #
+    self.class.log("Processing Person[#{person.id.to_s}] by comments")
     begin
       number_of_spam_comments = Comment.spam.where(:author_id => person.id).count
       if number_of_spam_comments > 2
@@ -115,6 +135,7 @@ class SpaminatorPlugin::Spaminator
     #   → disable the profile
     #   ? mark their comments as spam
     #
+    self.class.log("Processing Person[#{person.id.to_s}] by network")
     if person.created_at < (Time.now - 1.month) &&
        person.friends.count == 0 &&
        person.communities.count <= 1
@@ -151,6 +172,7 @@ class SpaminatorPlugin::Spaminator
   end
 
   def register_fail(kind, failed)
+    self.class.log("Failed #{kind.to_s.camelize}[#{failed.id.to_s}]")
     @report[:failed][kind.to_sym] << failed.id
   end
 end

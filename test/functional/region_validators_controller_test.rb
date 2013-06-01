@@ -46,7 +46,6 @@ class RegionValidatorsControllerTest < ActionController::TestCase
   end
 
   should 'search possible validators by name' do
-    TestSolr.enable
     environment = fast_create(Environment, :name => "my environment")
     give_permission('ze', 'manage_environment_validators', environment)    
     region = Region.new(:name => 'my region')

@@ -50,13 +50,13 @@
   <% fields_for "tasks[#{task.id}][task]", task do |f| %>
     <% if task.accept_details %>
       <div id="on-accept-information-<%=task.id%>" style="display: none">
-        <%= render :partial => partial_for_class(task.class, :accept_details), :locals => {:task => task, :f => f} %>
+        <%= render :partial => partial_for_class(task.class, nil, :accept_details), :locals => {:task => task, :f => f} %>
       </div>
     <% end %>
 
     <% if task.reject_details %>
       <div id="on-reject-information-<%=task.id%>" style="display: none">
-        <%= render :partial => partial_for_class(task.class, :reject_details), :locals => {:task => task, :f => f} %>
+        <%= render :partial => partial_for_class(task.class, nil, :reject_details), :locals => {:task => task, :f => f} %>
       </div>
     <% end %>
   <% end %>

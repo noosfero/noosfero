@@ -51,9 +51,9 @@ Feature: manage product price details
     And I follow "Price composition"
     And I follow "Describe here the cost of production"
     And I follow "New cost"
-    And I select "Taxes"
+    And I select "Taxes" from "price_details__production_cost_id" within "#display-product-price-details"
     And I fill in "$" with "5.00"
-    And I leave the ".price-details-price" field
+    And I leave the "#price_details__price" field
     And I press "Save"
     Then I should not see "Save"
     And I should see "Describe here the cost of production"
@@ -67,15 +67,15 @@ Feature: manage product price details
     And I follow "Price composition"
     And I follow "Describe here the cost of production"
     And I follow "New cost"
-    And I select "Taxes"
+    And I select "Taxes" from "price_details__production_cost_id" within "#display-product-price-details"
     And I fill in "$" with "20.00"
     And I leave the ".price-details-price" field
     And I press "Save"
     Then I should not see "Save"
     And I should see "Taxes" within "#display-price-details"
     When I follow "Describe here the cost of production"
-    And I select "Energy"
-    And I leave the ".price-details-price" field
+    And I select "Energy" from "price_details__production_cost_id" within "#display-product-price-details"
+    And I leave the "#price_details__price" field
     And I press "Save"
     And I should not see "Taxes" within "#display-price-details"
     And I should see "Energy" within "#display-price-details"
@@ -102,9 +102,10 @@ Feature: manage product price details
      And I follow "Price composition"
      And I follow "Describe here the cost of production"
      And I follow "New cost"
-     And I select "Taxes"
+     And I select "Taxes" from "price_details__production_cost_id" within "#display-product-price-details"
      And I fill in "$" with "20.00"
      And I press "Save"
+     And I go to Rede Moinho's page of product Abbey Road
      Then I should see "Inputs" within ".price-detail-name"
      And I should see "60.0" within ".price-detail-price"
 
@@ -114,10 +115,10 @@ Feature: manage product price details
     And I follow "Price composition"
     And I follow "Describe here the cost of production"
     And I follow "New cost"
+    And I select "Other cost" from "price_details__production_cost_id" within "#display-product-price-details"
     And I want to add "Energy" as cost
-    And I select "Other cost"
     And I fill in "$" with "10.00"
-    And I leave the ".price-details-price" field
+    And I leave the "#price_details__price" field
     And I press "Save"
     When I follow "Describe here the cost of production"
     Then I should see "Energy" within ".production-cost-selection"
@@ -127,9 +128,10 @@ Feature: manage product price details
     Given I go to Rede Moinho's page of product Abbey Road
     And I follow "Price composition"
     And I follow "Describe here the cost of production"
+    And I follow "New cost"
+    And I select "Other cost" from "price_details__production_cost_id" within "#display-product-price-details"
     And I want to add "Energy" as cost
-    And I select "Other cost"
-    Then I should see "Energy" within "#new-cost-fields"
+    Then I should see "Energy" within "#display-product-price-details"
 
   @selenium
   Scenario: remove price detail
@@ -141,7 +143,7 @@ Feature: manage product price details
     And I follow "Describe here the cost of production"
     And I should see "Taxes" within "#manage-product-details-form"
     When I follow "Remove" within "#manage-product-details-form"
-    And I confirm
+    And I confirm the browser dialog
     And I press "Save"
     And I follow "Describe here the cost of production"
     Then I should not see "Taxes" within "#manage-product-details-form"
@@ -160,7 +162,7 @@ Feature: manage product price details
     Then I should see "$ 60.00 of $ 80.00" within "#progressbar-text"
     And I follow "New cost"
     And I fill in "$" with "10.00"
-    And I leave the ".price-details-price" field
+    And I leave the "#price_details__price" field
     Then I should see "$ 70.00 of $ 80.00" within "#progressbar-text"
 
   @selenium

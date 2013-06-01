@@ -1,5 +1,9 @@
 class Qualifier < ActiveRecord::Base
 
+  SEARCHABLE_FIELDS = {
+    :name => 1,
+  }
+
   belongs_to :environment
 
   has_many :qualifier_certifiers, :dependent => :destroy

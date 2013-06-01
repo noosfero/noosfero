@@ -28,7 +28,6 @@ clear_cache() {
 do_start() {
   rake db:migrate SCHEMA=/dev/null
   clear_cache
-  rake -s solr:start
   environments_loop start
   ruby -S thin -C config/thin.yml start
 }
@@ -44,8 +43,6 @@ do_stop() {
 
   environments_loop stop ||
     stop_via_pid_file tmp/pids/delayed_job.pid tmp/pids/delayed_job.*.pid tmp/pids/feed-updater.*.pid
-
-  rake -s solr:stop || stop_via_pid_file tmp/pids/solr.*.pid
 }
 
 stop_via_pid_file() {

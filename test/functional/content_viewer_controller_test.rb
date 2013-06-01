@@ -1082,7 +1082,7 @@ end
     textile     = fast_create(TextileArticle, :profile_id => @profile.id, :path => 'textile', :language => 'en')
     translation = fast_create(TextileArticle, :profile_id => @profile.id, :path => 'translation', :language => 'es', :translation_of_id => textile)
     xhr :get, :view_page, :profile => @profile.identifier, :page => textile.explode_path, :toolbar => true
-    assert_tag :a, :attributes => { :class => /article-translations-menu/, :onclick => /toggleSubmenu/ }
+    assert_tag :a, :attributes => { :class => /article-translations-menu/, :onmouseover => /toggleSubmenu/ }
   end
 
   should 'not be redirected if already in translation' do
@@ -1281,7 +1281,7 @@ end
     comment = article.comments.build(:author => profile, :title => 'hi', :body => 'hello')
     comment.save!
     get :view_page, :profile => 'testuser', :page => [ 'test' ]
-    assert_no_tag :tag => 'p', :attributes => { :class => 'post-comment-button' }
+    assert_no_tag :tag => 'a', :attributes => { :id => 'top-post-comment-button' }
   end
 
   should 'not show a post comment button on top if there are no comments' do
@@ -1289,7 +1289,7 @@ end
     article = profile.articles.build(:name => 'test')
     article.save!
     get :view_page, :profile => 'testuser', :page => [ 'test' ]
-    assert_no_tag :tag => 'p', :attributes => { :class => 'post-comment-button' }
+    assert_no_tag :tag => 'a', :attributes => { :id => 'top-post-comment-button' }
   end
 
   should 'show a post comment button on top if there are at least two comments' do
@@ -1301,7 +1301,7 @@ end
     comment2 = article.comments.build(:author => profile, :title => 'hi', :body => 'hello', :reply_of_id => comment1.id)
     comment2.save!
     get :view_page, :profile => 'testuser', :page => [ 'test' ]
-    assert_tag :tag => 'p', :attributes => { :class => 'post-comment-button' }
+    assert_tag :tag => 'a', :attributes => { :id => 'top-post-comment-button' }
   end
 
   should 'store number of comments' do

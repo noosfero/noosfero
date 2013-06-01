@@ -1,5 +1,12 @@
 class Category < ActiveRecord::Base
 
+  SEARCHABLE_FIELDS = {
+    :name => 10,
+    :acronym => 5,
+    :abbreviation => 5,
+    :slug => 1,
+  }
+
   validates_exclusion_of :slug, :in => [ 'index' ], :message => N_('%{fn} cannot be like that.').fix_i18n
   validates_presence_of :name, :environment_id
   validates_uniqueness_of :slug,:scope => [ :environment_id, :parent_id ], :message => N_('%{fn} is already being used by another category.').fix_i18n
@@ -11,6 +18,16 @@ class Category < ActiveRecord::Base
   # Finds all top level categories for a given environment. 
   scope :top_level_for, lambda { |environment|
     {:conditions => ['parent_id is null and environment_id = ?', environment.id ]}
+  }
+
+  named_scope :on_level, lambda { |parent| {:conditions => {:parent_id => parent}} }
+
+  named_scope :sub_categories, lambda { |category|
+    {:conditions => ['categories.path LIKE ? AND categories.id != ?', "%#{category.slug}%", category.id]}
+  }
+
+  named_scope :sub_tree, lambda { |category|
+    {:conditions => ['categories.path LIKE ?', "%#{category.slug}%"]}
   }
 
   acts_as_filesystem

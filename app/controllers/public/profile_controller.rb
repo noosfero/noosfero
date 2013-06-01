@@ -368,14 +368,7 @@ class ProfileController < PublicController
   end
 
   def private_profile
-    if profile.person?
-      @action = :add_friend
-      @message = _("The content here is available to %s's friends only.") % profile.short_name
-    else
-      @action = :join
-      @message = _('The contents in this community is available to members only.')
-    end
-    @no_design_blocks = true
+    private_profile_partial_parameters
   end
 
   def invisible_profile

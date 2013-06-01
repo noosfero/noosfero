@@ -1,0 +1,9 @@
+<% params_uri = CGI::unescape(request.request_uri) %>
+<% if params_uri.index('?') %>
+  <% params_uri[(params_uri.index('?')+1)..-1].to_s.split("&").each do |part| %>
+    <% if part.start_with? "facet" %>
+      <% name_value = part.split("=") %>
+      <%= hidden_field_tag name_value[0], name_value[1] %>
+    <% end %>
+  <% end %>
+<% end %>

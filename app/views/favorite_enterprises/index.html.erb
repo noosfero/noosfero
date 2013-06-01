@@ -5,7 +5,7 @@
 <ul class="profile-list">
 <% @favorite_enterprises.each do |enterprise| %>
   <li>
-    <%= link_to_profile profile_image(enterprise) + '<br/>' + enterprise.name,
+    <%= link_to_profile profile_image(enterprise) + '<br/>'.html_safe + enterprise.name,
                         enterprise.identifier, :class => 'profile-link' %>
     <%# profile_image_link enterprise, :portrait, 'div' %>
     <div class="controll">

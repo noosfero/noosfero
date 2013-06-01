@@ -7,10 +7,10 @@ Feature: create content on cms
       | login     | name       |
       | joaosilva | Joao Silva |
     And I am logged in as "joaosilva"
-    And I am on Joao Silva's cms
+    And I am on joaosilva's cms
 
   Scenario: open page to select type of content
-    Given I follow "New Content"
+    Given I follow "New content"
     Then I should see "Choose the type of content"
 
   Scenario: list all content types
@@ -27,7 +27,7 @@ Feature: create content on cms
     When I follow "Folder"
     And I fill in "Title" with "My Folder"
     And I press "Save"
-    And I go to Joao Silva's cms
+    And I go to joaosilva's cms
     Then I should see "My Folder"
 
   Scenario: create a tiny_mce article
@@ -35,7 +35,7 @@ Feature: create content on cms
     When I follow "Text article with visual editor"
     And I fill in "Title" with "My tiny_mce article"
     And I press "Save"
-    And I go to Joao Silva's cms
+    And I go to joaosilva's cms
     Then I should see "My tiny_mce article"
 
   Scenario: create a textile article
@@ -43,7 +43,7 @@ Feature: create content on cms
     When I follow "Text article with Textile markup"
     And I fill in "Title" with "My textile article"
     And I press "Save"
-    And I go to Joao Silva's cms
+    And I go to joaosilva's cms
     Then I should see "My textile article"
 
   Scenario: create a Blog
@@ -51,7 +51,7 @@ Feature: create content on cms
     When I follow "Blog"
     And I fill in "Title" with "My blog"
     And I press "Save"
-    And I go to Joao Silva's cms
+    And I go to joaosilva's cms
     Then I should see "My blog"
 
   Scenario: create an event
@@ -59,7 +59,7 @@ Feature: create content on cms
     When I follow "Event"
     And I fill in "Title" with "My event"
     And I press "Save"
-    And I go to Joao Silva's cms
+    And I go to joaosilva's cms
     Then I should see "My event"
 
   Scenario: redirect to upload files if choose UploadedFile

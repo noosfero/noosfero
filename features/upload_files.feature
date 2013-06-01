@@ -16,7 +16,7 @@ Feature: upload files
     And the following galleries
       | owner | name |
       | sample-community | Gallery test |
-    And I go to Sample Community's profile
+    And I go to sample-community's profile
     And I follow "0 pictures"
     And I should see "Upload files"
 
@@ -28,7 +28,7 @@ Feature: upload files
     And the following galleries
       | owner | name |
       | sample-enterprise | Gallery test |
-    And I go to Sample Enterprise's profile
+    And I go to sample-enterprise's profile
     And I follow "0 pictures"
     And I should see "Upload files"
 

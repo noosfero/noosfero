@@ -513,43 +513,62 @@ class CategoryTest < ActiveSupport::TestCase
     assert p.categories.reload.empty?
   end
 
-  should 'act as searchable' do
-    TestSolr.enable
-    parent = fast_create(Category, :name => 'books')
-    c = Category.create!(:name => "science fiction", :acronym => "sf", :abbreviation => "sci-fi",
-                         :environment_id => Environment.default.id, :parent_id => parent.id)
+  should 'return categories of a level' do
+    c1 = fast_create(Category)
+    c2 = fast_create(Category)
+    c3 = fast_create(Category, :parent_id => c1)
+    c4 = fast_create(Category, :parent_id => c1)
+    c5 = fast_create(Category, :parent_id => c2)
+    c6 = fast_create(Category, :parent_id => c3)
 
-    # fields
-    assert_includes Category.find_by_contents('fiction')[:results].docs, c
-    assert_includes Category.find_by_contents('sf')[:results].docs, c
-    assert_includes Category.find_by_contents('sci-fi')[:results].docs, c
-    # filters
-    assert_includes Category.find_by_contents('science', {}, {
-      :filter_queries => ["parent_id:#{parent.id}"]})[:results].docs, c
+    assert_includes Category.on_level(nil), c1
+    assert_includes Category.on_level(nil), c2
+    assert_includes Category.on_level(c1), c3
+    assert_includes Category.on_level(c1), c4
+    assert_includes Category.on_level(c2), c5
+    assert_includes Category.on_level(c3), c6
   end
 
-  should 'boost name matches' do
-    TestSolr.enable
-    c_abbr = Category.create!(:name => "something else", :abbreviation => "science", :environment_id => Environment.default.id)
-    c_name = Category.create!(:name => "science fiction", :environment_id => Environment.default.id)
-    assert_equal [c_name, c_abbr], Category.find_by_contents("science")[:results].docs
+  should 'on level named_scope must be able to receive parent or parent_id' do
+    parent = fast_create(Category)
+    category = fast_create(Category, :parent_id => parent)
+
+    assert_includes Category.on_level(parent), category
+    assert_includes Category.on_level(parent.id), category
   end
 
-  should 'solr save' do
-    c = @env.categories.build(:name => 'my category');
-    c.expects(:solr_save)
-    c.save!
+  should 'list category sub-categories' do
+    c1 = Category.create!(:name => 'Category 1', :environment => Environment.default)
+    c2 = Category.create!(:name => 'Category 2', :environment => Environment.default)
+    c3 = Category.create!(:name => 'Category 3', :environment => Environment.default, :parent_id => c1)
+    c4 = Category.create!(:name => 'Category 4', :environment => Environment.default, :parent_id => c1)
+    c5 = Category.create!(:name => 'Category 5', :environment => Environment.default, :parent_id => c3)
+
+    sub_categories = Category.sub_categories(c1)
+
+    assert ActiveRecord::NamedScope::Scope, sub_categories.class
+    assert_not_includes sub_categories, c1
+    assert_not_includes sub_categories, c2
+    assert_includes sub_categories, c3
+    assert_includes sub_categories, c4
+    assert_includes sub_categories, c5
   end
 
-  should 'reindex articles after saving' do
-    cat = Category.create!(:name => 'category 1', :environment_id => Environment.default.id)
-    art = Article.create!(:name => 'something', :profile_id => fast_create(Person).id)
-    art.add_category cat
-    cat.reload
+  should 'list category sub-tree' do
+    c1 = Category.create!(:name => 'Category 1', :environment => Environment.default)
+    c2 = Category.create!(:name => 'Category 2', :environment => Environment.default)
+    c3 = Category.create!(:name => 'Category 3', :environment => Environment.default, :parent_id => c1)
+    c4 = Category.create!(:name => 'Category 4', :environment => Environment.default, :parent_id => c1)
+    c5 = Category.create!(:name => 'Category 5', :environment => Environment.default, :parent_id => c3)
 
-    solr_doc = art.to_solr_doc
-    Article.any_instance.expects(:to_solr_doc).returns(solr_doc)
-    cat.save!
+    sub_tree = Category.sub_tree(c1)
+
+    assert ActiveRecord::NamedScope::Scope, sub_tree.class
+    assert_includes sub_tree, c1
+    assert_not_includes sub_tree, c2
+    assert_includes sub_tree, c3
+    assert_includes sub_tree, c4
+    assert_includes sub_tree, c5
   end
 
 end

@@ -1,63 +1,48 @@
 class Kalibro::ModuleResult < Kalibro::Model
 
-  attr_accessor :module, :date, :grade, :metric_result, :compound_metric_with_error
+  attr_accessor :id, :module, :grade, :parent_id, :height
   
-  def self.find_by_project_name_and_module_name_and_date(project_name, module_name, date)
-    new request(
-    'ModuleResult',
-    :get_module_result,
-      {
-        :project_name => project_name, 
-        :module_name => module_name,
-        :date => date_with_milliseconds(date)
-      })[:module_result]
-  end
-  
-  def self.all_by_project_name_and_module_name(project_name, module_name)
-    response = request(
-    'ModuleResult',
-    :get_result_history,
-      {
-        :project_name => project_name, 
-        :module_name => module_name
-      })[:module_result]
-    Kalibro::ModuleResult.to_objects_array(response)
-  end
-  
-  def module=(value)
-    @module = Kalibro::Module.to_object value
+  def self.find(id)
+    new request(:get_module_result, { :module_result_id => id })[:module_result]
   end
 
-  def date=(value)
-    @date = value.is_a?(String) ? DateTime.parse(value) : value
+  def children
+    response = self.class.request(:children_of, {:module_result_id => id})[:module_result]
+    response = [] if response.nil?
+    response = [response] if response.is_a?(Hash) 
+    response.map {|module_result| Kalibro::ModuleResult.new module_result}
+  end
+  
+  def parents
+    if parent_id.nil?
+      []
+    else
+      parent = self.class.find(parent_id)
+      parent.parents << parent
+    end
+  end
+
+  def id=(value)
+    @id = value.to_i
+  end
+
+  def module=(value)
+    @module = Kalibro::Module.to_object value
   end
 
   def grade=(value)
     @grade = value.to_f
   end
 
-  def metric_result=(value)
-    @metric_result = Kalibro::MetricResult.to_objects_array value
-  end
-  
-  def metric_results
-    @metric_result
-  end
-  
-  def metric_results=(metric_results)
-    @metric_result = metric_results
+  def parent_id=(value)
+    @parent_id = value.to_i
   end
 
-  def compound_metric_with_error=(value)
-    @compound_metric_with_error = Kalibro::CompoundMetricWithError.to_objects_array value
-  end
-
-  def compound_metrics_with_error
-    @compound_metric_with_error
-  end
-
-  def compound_metrics_with_error=(compound_metrics_with_error)
-    @compound_metric_with_error = compound_metrics_with_error
+  def self.history_of(module_result_id)
+    response = self.request(:history_of_module, {:module_result_id => module_result_id})[:date_module_result]
+    response = [] if response.nil?
+    response = [response] if response.is_a?(Hash) 
+    response.map {|date_module_result| Kalibro::DateModuleResult.new date_module_result}
   end
 
 end

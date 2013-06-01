@@ -1,0 +1,7 @@
+#display_content_plugin ul {
+  list-style: none;
+}
+
+#display_content_plugin .display_attributes li{
+  display: inline;
+}

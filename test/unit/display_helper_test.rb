@@ -44,4 +44,14 @@ class DisplayHelperTest < ActiveSupport::TestCase
     assert_equal 'go to <a href="http://www.noosfero.org" onclick="return confirm(\'Are you sure you want to visit this web site?\')" rel="nofolow" target="_blank">www.&#x200B;noos&#x200B;fero&#x200B;.org</a> yeah!', html
   end
 
+  should 'return path to file under theme dir if theme has that file' do
+    stubs(:theme_path).returns('/designs/themes/noosfero')
+    assert_equal '/designs/themes/noosfero/images/rails.png', themed_path('/images/rails.png')
+  end
+
+  should 'return path to file under public dir if theme hasnt that file' do
+    stubs(:theme_path).returns('/designs/themes/noosfero')
+    assert_equal '/images/invalid-file.png', themed_path('/images/invalid-file.png')
+  end
+
 end

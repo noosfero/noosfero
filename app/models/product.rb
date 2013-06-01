@@ -1,5 +1,20 @@
 class Product < ActiveRecord::Base
 
+  SEARCHABLE_FIELDS = {
+    :name => 10,
+    :description => 1,
+  }
+
+  SEARCH_FILTERS = %w[
+    more_recent
+  ]
+
+  SEARCH_DISPLAYS = %w[map full]
+
+  def self.default_search_display
+    'full'
+  end
+
   belongs_to :enterprise
   has_one :region, :through => :enterprise
   validates_presence_of :enterprise
@@ -22,6 +37,10 @@ class Product < ActiveRecord::Base
   validates_numericality_of :discount, :allow_nil => true
 
   scope :more_recent, :order => "created_at DESC"
+
+  named_scope :from_category, lambda { |category|
+    {:joins => :product_category, :conditions => ['categories.path LIKE ?', "%#{category.slug}%"]} if category
+  }
 
   after_update :save_image
 
@@ -173,7 +192,7 @@ class Product < ActiveRecord::Base
 
   def price_described?
     return false if price.blank? or price == 0
-    (price - total_production_cost).zero?
+    (price - total_production_cost.to_f).zero?
   end
 
   def update_price_details(price_details)
@@ -215,45 +234,6 @@ class Product < ActiveRecord::Base
         end
   end
 
-  private
-  def f_category
-    self.product_category.name
-  end
-  def f_region
-    self.enterprise.region.id if self.enterprise.region
-  end
-  def self.f_region_proc(id)
-    c = Region.find(id)
-    s = c.parent
-    if c and c.kind_of?(City) and s and s.kind_of?(State) and s.acronym
-      [c.name, ', ' + s.acronym]
-    else
-      c.name
-    end
-  end
-  def self.f_qualifier_proc(ids)
-    array = ids.split
-    qualifier = Qualifier.find_by_id array[0]
-    certifier = Certifier.find_by_id array[1]
-    certifier ? [qualifier.name, _(' cert. ') + certifier.name] : qualifier.name
-  end
-  def f_qualifier
-    product_qualifiers.map do |pq|
-      "#{pq.qualifier_id} #{pq.certifier_id}"
-    end
-  end
-
-  alias_method :name_sortable, :name
   delegate :enabled, :region, :region_id, :environment, :environment_id, :to => :enterprise
-
-  def public
-    self.public?
-  end
-  def price_sortable
-    (price.nil? or price.zero?) ? nil : price
-  end
-  def category_filter
-    enterprise.categories_including_virtual_ids << product_category_id
-  end
 
 end

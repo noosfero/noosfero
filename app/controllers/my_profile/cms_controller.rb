@@ -18,7 +18,7 @@ class CmsController < MyProfileController
 
   protect_if :only => :upload_files do |c, user, profile|
     article_id = c.params[:parent_id]
-    (article_id && profile.articles.find(article_id).allow_create?(user)) ||
+    (!article_id.blank? && profile.articles.find(article_id).allow_create?(user)) ||
     (user && (user.has_permission?('post_content', profile) || user.has_permission?('publish_content', profile)))
   end
 
@@ -270,7 +270,7 @@ class CmsController < MyProfileController
 
   def search
     query = params[:q]
-    results = profile.files.published.find_by_contents(query)[:results]
+    results = find_by_contents(:uploaded_files, profile.files.published, query)[:results]
     render :text => article_list_to_json(results), :content_type => 'application/json'
   end
 

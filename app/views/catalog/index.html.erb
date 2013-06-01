@@ -1,16 +1,42 @@
 <% extra_content = [] %>
 <% extra_content_list = [] %>
 
-<ul id="product-list">
-  <li><h1><%= _('Products/Services') %></h1></li>
+<h1><%= _('Products/Services') %></h1>
 
+<%= breadcrumb(@category) if params[:level] %>
+
+<div class='l-sidebar-left-bar'>
+  <ul>
+    <%= content_tag('li', link_to(_('Homepage'), profile.url), :class => 'catalog-categories-link') %>
+    <%= content_tag('li', link_to(_('Catalog start'), profile.catalog_url), :class => 'catalog-categories-link') %>
+    <% if @categories.present? %>
+      <% @categories.each do |category| %>
+        <%= category_link(category) %>
+        <%= category_sub_links(category) %>
+      <% end %>
+    <% elsif @category.present? %>
+      <%= content_tag('li', _('There are no sub-categories for %s') % @category.name, :id => 'catalog-categories-notice') %>
+    <% else %>
+      <%= content_tag('li', _('There are no categories available.'), :id => 'catalog-categories-notice') %>
+    <% end %>
+  </ul>
+</div>
+
+<ul id="product-list" class="l-sidebar-left-content">
   <% @products.each do |product| %>
     <% extra_content = @plugins.dispatch(:catalog_item_extras, product).collect { |content| instance_eval(&content) } %>
     <% extra_content_list = @plugins.dispatch(:catalog_list_item_extras, product).collect { |content| instance_eval(&content) } %>
 
-    <li class="product <%= "not-available" unless product.available %>">
+    <% status = [] %>
+    <% status << 'not-available' if !product.available %>
+    <% status << 'highlighted' if product.highlighted %>
+
+    <li id="product-<%= product.id %>" class="product <%= status.join(' ') %>">
       <ul>
         <li class="product-image-link">
+          <% if product.highlighted? %>
+            <%= link_to image_tag(themed_path('/images/star.png'), :class => 'star', :alt => _('Highlighted product')), product_path(product) %>
+          <% end %>
           <% if product.image %>
             <div class="zoomable-image">
               <%= link_to_product product, :class => 'product-big', :style => "background-image: url(#{product.default_image(:big)})" %>
@@ -42,20 +68,20 @@
 
         <% if product.description %>
           <li class="product-description expand-box">
-            <span id="product-description-button"><%= _('description') %></span>
-            <div>
+            <span class="product-description-button"><%= _('description') %></span>
+            <div class="float-box">
               <div class="arrow"></div>
-              <div class="content" id="product-description"><%= txt2html(product.description || '') %></div>
+              <div class="content"><%= product.description %></div>
             </div>
           </li>
         <% end %>
 
         <% if product.price_described? %>
           <li class="product-price-composition expand-box">
-            <span id="product-price-composition-button"><%= _('price composition') %></span>
-            <div>
+            <span class="product-price-composition-button"><%= _('price composition') %></span>
+            <div class="float-box">
               <div class="arrow"></div>
-              <div class="content" id="product-price-composition">
+              <div class="content">
                 <% product.inputs.relevant_to_price.each do |i| %>
                   <div class="search-product-input-dots-to-price">
                     <div class="search-product-input-name"><%= i.product_category.name %></div>
@@ -76,9 +102,9 @@
         <% if product.inputs.count > 0 %>
           <li class="product-inputs expand-box">
             <span id="inputs-button"><%= _('inputs and raw materials') %></span>
-            <div>
+            <div class="float-box">
               <div class="arrow"></div>
-              <div class="content" id="inputs-description">
+              <div class="content">
                 <% product.inputs.each do |i| %>
                   <div>
                     <%= _('%{amount_used} %{unit} of') % {:amount_used => i.amount_used, :unit => i.unit.singular} + ' ' if i.has_all_price_details? %>
