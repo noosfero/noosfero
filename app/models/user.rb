@@ -18,8 +18,10 @@ class User < ActiveRecord::Base
   # FIXME ugly workaround
   def self.human_attribute_name(attrib)
     case attrib.to_sym
-      when :login:  return [_('Username'), _('Email')].join(' / ')
-      when :email:  return _('e-Mail')
+      when :login
+        return [_('Username'), _('Email')].join(' / ')
+      when :email
+        return _('e-Mail')
       else _(self.superclass.human_attribute_name(attrib))
     end
   end
