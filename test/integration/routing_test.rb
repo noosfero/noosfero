@@ -1,4 +1,4 @@
-require "#{File.dirname(__FILE__)}/../test_helper"
+require File.expand_path('../../test_helper', __FILE__)
 
 class RoutingTest < ActionController::IntegrationTest
 
@@ -74,14 +74,14 @@ class RoutingTest < ActionController::IntegrationTest
   def test_content_viewer
 
     # profile root:
-    assert_routing('/ze', :controller => 'content_viewer', :action => 'view_page', :profile => 'ze', :page => [])
+    assert_routing('/ze', :controller => 'content_viewer', :action => 'view_page', :profile => 'ze')
 
     # some non-root page
-    assert_routing('/ze/work/2007', :controller => 'content_viewer', :action => 'view_page', :profile => 'ze', :page => ['work', "2007"])
+    assert_routing('/ze/work/2007', :controller => 'content_viewer', :action => 'view_page', :profile => 'ze', :page => 'work/2007')
   end
 
   def test_category_browser
-    assert_routing('/cat/products/eletronics', :controller => 'search', :action => 'category_index', :category_path => [ 'products', 'eletronics'])
+    assert_routing('/cat/products/eletronics', :controller => 'search', :action => 'category_index', :category_path => 'products/eletronics')
   end
 
   #FIXME remove this if design_blocks is not going to be used; or uncomment otherwise;
@@ -127,19 +127,19 @@ class RoutingTest < ActionController::IntegrationTest
   end
 
   def test_search_routing
-    assert_routing('/search', :controller => 'search', :action => 'index', :category_path => [])
+    assert_routing('/search', :controller => 'search', :action => 'index')
   end
 
   def test_search_filter_routing
-    assert_routing('/search/filter/a/b', :controller => 'search', :action => 'filter', :category_path => ['a','b'])
+    assert_routing('/search/filter/a/b', :controller => 'search', :action => 'filter', :category_path => 'a/b')
   end
 
   def test_assets_routing
-    assert_routing('/assets/my-asset/a/b/c', :controller => 'search', :action => 'assets', :asset => 'my-asset', :category_path => ['a', 'b', 'c'])
+    assert_routing('/assets/my-asset/a/b/c', :controller => 'search', :action => 'assets', :asset => 'my-asset', :category_path => 'a/b/c')
   end
 
   def test_content_view_with_dot
-    assert_routing('/ze.withdot', :controller => 'content_viewer', :action => 'view_page', :profile => 'ze.withdot', :page => [])
+    assert_routing('/ze.withdot', :controller => 'content_viewer', :action => 'view_page', :profile => 'ze.withdot')
   end
 
   def test_content_view_with_dash
@@ -147,11 +147,11 @@ class RoutingTest < ActionController::IntegrationTest
   end
 
   def test_content_view_with_underscore
-    assert_routing('/ze_with_underscore', :controller => 'content_viewer', :action => 'view_page', :profile => 'ze_with_underscore', :page => [])
+    assert_routing('/ze_with_underscore', :controller => 'content_viewer', :action => 'view_page', :profile => 'ze_with_underscore')
   end
 
   def test_content_view_with_tilde_routing
-    assert_routing('/ze~withtilde', :controller => 'content_viewer', :action => 'view_page', :profile => 'ze~withtilde', :page => [])
+    assert_routing('/ze~withtilde', :controller => 'content_viewer', :action => 'view_page', :profile => 'ze~withtilde')
   end
 
   def test_catalog_routing
@@ -229,31 +229,31 @@ class RoutingTest < ActionController::IntegrationTest
   end
 
   def test_not_found_images_on_nothing
-    assert_recognizes({:controller => 'not_found', :action => 'nothing', :stuff => ['aksdhf']}, '/images/aksdhf')
+    assert_recognizes({:controller => 'not_found', :action => 'nothing', :stuff => 'aksdhf'}, '/images/aksdhf')
   end
 
   def test_not_found_stylesheets_on_nothing
-    assert_recognizes({:controller => 'not_found', :action => 'nothing', :stuff => ['aksdhf']}, '/stylesheets/aksdhf')
+    assert_recognizes({:controller => 'not_found', :action => 'nothing', :stuff => 'aksdhf'}, '/stylesheets/aksdhf')
   end
 
   def test_not_found_designs_on_nothing
-    assert_recognizes({:controller => 'not_found', :action => 'nothing', :stuff => ['aksdhf']}, '/designs/aksdhf')
+    assert_recognizes({:controller => 'not_found', :action => 'nothing', :stuff => 'aksdhf'}, '/designs/aksdhf')
   end
 
   def test_not_found_articles_on_nothing
-    assert_recognizes({:controller => 'not_found', :action => 'nothing', :stuff => ['aksdhf']}, '/articles/aksdhf')
+    assert_recognizes({:controller => 'not_found', :action => 'nothing', :stuff => 'aksdhf'}, '/articles/aksdhf')
   end
 
   def test_not_found_javascripts_on_nothing
-    assert_recognizes({:controller => 'not_found', :action => 'nothing', :stuff => ['aksdhf']}, '/javascripts/aksdhf')
+    assert_recognizes({:controller => 'not_found', :action => 'nothing', :stuff => 'aksdhf'}, '/javascripts/aksdhf')
   end
 
   def test_not_found_thumbnails_on_nothing
-    assert_recognizes({:controller => 'not_found', :action => 'nothing', :stuff => ['aksdhf']}, '/thumbnails/aksdhf')
+    assert_recognizes({:controller => 'not_found', :action => 'nothing', :stuff => 'aksdhf'}, '/thumbnails/aksdhf')
   end
 
   def test_not_found_user_themes_on_nothing
-    assert_recognizes({:controller => 'not_found', :action => 'nothing', :stuff => ['aksdhf']}, '/user_themes/aksdhf')
+    assert_recognizes({:controller => 'not_found', :action => 'nothing', :stuff => 'aksdhf'}, '/user_themes/aksdhf')
   end
 
 end

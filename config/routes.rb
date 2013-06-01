@@ -23,13 +23,13 @@ Noosfero::Application.routes.draw do
 
   match 'site(/:action)', :controller => 'home'
 
-  match 'images/*stuff' => 'not_found#nothing'
-  match 'stylesheets/*stuff' => 'not_found#nothing'
-  match 'designs/*stuff' => 'not_found#nothing'
-  match 'articles/*stuff' => 'not_found#nothing'
-  match 'javascripts/*stuff' => 'not_found#nothing'
-  match 'thumbnails/*stuff' => 'not_found#nothing'
-  match 'user_themes/*stuff' => 'not_found#nothing'
+  match 'images(/*stuff)' => 'not_found#nothing'
+  match 'stylesheets(/*stuff)' => 'not_found#nothing'
+  match 'designs(/*stuff)' => 'not_found#nothing'
+  match 'articles(/*stuff)' => 'not_found#nothing'
+  match 'javascripts(/*stuff)' => 'not_found#nothing'
+  match 'thumbnails(/*stuff)' => 'not_found#nothing'
+  match 'user_themes(/*stuff)' => 'not_found#nothing'
 
   # online documentation
   match 'doc' => 'doc#index', :as => :doc
@@ -41,7 +41,7 @@ Noosfero::Application.routes.draw do
   match 'account(/:action)', :controller => 'account'
 
   # enterprise registration
-  match 'enterprise_registration/:action', :controller => 'enterprise_registration'
+  match 'enterprise_registration(/:action)', :controller => 'enterprise_registration'
 
   # tags
   match 'tag', :controller => 'search', :action => 'tags'
@@ -51,7 +51,7 @@ Noosfero::Application.routes.draw do
   match 'cat/*category_path' => 'search#category_index', :as => :category
   match 'assets/:asset(/*category_path)' => 'search#assets', :as => :assets
   # search
-  match 'search/:action(/*category_path)', :controller => 'search'
+  match 'search(/:action(/*category_path))', :controller => 'search'
 
   # events
   match 'profile/:profile/events_by_day', :controller => 'events', :action => 'events_by_day', :profile => /#{Noosfero.identifier_format}/
@@ -77,33 +77,32 @@ Noosfero::Application.routes.draw do
   match 'profile/:profile/search', :controller => 'profile_search', :action => 'index', :profile => /#{Noosfero.identifier_format}/
 
   # public profile information
-  match 'profile/:profile/:action/:id', :controller => 'profile', :action => 'index', :id => /[^\/]*/, :profile => /#{Noosfero.identifier_format}/
+  match 'profile/:profile(/:action(/:id))', :controller => 'profile', :action => 'index', :id => /[^\/]*/, :profile => /#{Noosfero.identifier_format}/
 
   # contact
-  match 'contact/:profile/:action/:id', :controller => 'contact', :action => 'index', :id => /.*/, :profile => /#{Noosfero.identifier_format}/
+  match 'contact/:profile/:action(/:id)', :controller => 'contact', :action => 'index', :id => /.*/, :profile => /#{Noosfero.identifier_format}/
 
   # map balloon
   match 'map_balloon/:action/:id', :controller => 'map_balloon', :id => /.*/
 
   # chat
-  match 'chat/:action/:id', :controller => 'chat'
-  match 'chat/:action', :controller => 'chat'
+  match 'chat(/:action(/:id))', :controller => 'chat'
 
   ######################################################
   ## Controllers that are profile-specific (for profile admins )
   ######################################################
   # profile customization - "My profile"
   match 'myprofile/:profile', :controller => 'profile_editor', :action => 'index', :profile => /#{Noosfero.identifier_format}/
-  match 'myprofile/:profile/:controller/:action/:id', :controller => Noosfero.pattern_for_controllers_in_directory('my_profile'), :profile => /#{Noosfero.identifier_format}/
+  match 'myprofile/:profile/:controller(/:action(/:id))', :controller => Noosfero.pattern_for_controllers_in_directory('my_profile'), :profile => /#{Noosfero.identifier_format}/
 
 
   ######################################################
   ## Controllers that are used by environment admin
   ######################################################
   # administrative tasks for a environment
-  match 'admin', :controller => 'admin_panel'
-  match 'admin/:controller/:action.:format/:id', :controller => Noosfero.pattern_for_controllers_in_directory('admin')
-  match 'admin/:controller/:action/:id', :controller => Noosfero.pattern_for_controllers_in_directory('admin')
+  match 'admin', :controller => 'admin_panel', :action => :index
+  match 'admin/:controller(/:action((.:format)/:id))', :controller => Noosfero.pattern_for_controllers_in_directory('admin')
+  match 'admin/:controller(/:action(/:id))', :controller => Noosfero.pattern_for_controllers_in_directory('admin')
 
 
   ######################################################
@@ -111,7 +110,7 @@ Noosfero::Application.routes.draw do
   ######################################################
   # administrative tasks for a environment
   match 'system', :controller => 'system'
-  match 'system/:controller/:action/:id', :controller => Noosfero.pattern_for_controllers_in_directory('system')
+  match 'system/:controller(/:action(/:id))', :controller => Noosfero.pattern_for_controllers_in_directory('system')
 
   ######################################################
   # plugin routes
