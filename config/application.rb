@@ -14,10 +14,10 @@ if defined?(Bundler)
   # Bundler.require(:default, :assets, Rails.env)
 end
 
-require 'noosfero/plugin'
-
 module Noosfero
   class Application < Rails::Application
+
+    require 'noosfero/plugin'
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
