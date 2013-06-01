@@ -8,7 +8,7 @@ class PriceDetail < ActiveRecord::Base
   validates_uniqueness_of :production_cost_id, :scope => :product_id
 
   def name
-    production_cost.nil? ? _('other costs') : production_cost.name
+    production_cost.nil? ? _('Other costs') : production_cost.name
   end
 
   def price

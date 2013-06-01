@@ -559,7 +559,7 @@ class ProfileEditorControllerTest < ActionController::TestCase
 
   should 'not list the manage products button if the environment disabled it' do
     env = Environment.default
-    env.enable('disable_products_for_enterprises')
+    env.disable('products_for_enterprises')
     env.save!
     ent = fast_create(Enterprise)
 
