@@ -1,7 +1,7 @@
 module BoxesHelper
 
   def insert_boxes(content)
-    if controller.send(:boxes_editor?) && @controller.send(:uses_design_blocks?)
+    if controller.send(:boxes_editor?) && controller.send(:uses_design_blocks?)
       content + display_boxes_editor(controller.boxes_holder)
     else
       maybe_display_custom_element(controller.boxes_holder, :custom_header_expanded, :id => 'profile-header') +
