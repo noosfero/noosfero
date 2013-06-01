@@ -18,15 +18,16 @@ class Noosfero::Plugin
         plugin_name = File.basename(plugin_dir)
         load_plugin(plugin_name)
       end
+    end
 
-      enabled_plugins.select do |entry|
-        File.directory?(entry)
-      end.each do |dir|
-        load_plugin dir
+    def setup(config)
+      return if !should_load
+      enabled.each do |dir|
+        setup_plugin(dir, config)
       end
     end
 
-    def load_plugin dir
+    def setup_plugin(dir, config)
       plugin_name = File.basename(dir)
 
       plugin_dependencies_ok = true
@@ -40,30 +41,38 @@ class Noosfero::Plugin
         end
       end
 
-      return unless plugin_dependencies_ok
-
-      # add load paths
-      Rails.configuration.controller_paths << File.join(dir, 'controllers')
-      ActiveSupport::Dependencies.load_paths << File.join(dir, 'controllers')
-      controllers_folders = %w[public profile myprofile admin]
-      controllers_folders.each do |folder|
-        Rails.configuration.controller_paths << File.join(dir, 'controllers', folder)
-        ActiveSupport::Dependencies.load_paths << File.join(dir, 'controllers', folder)
+      if plugin_dependencies_ok
+        %w[
+            controllers
+            controllers/public
+            controllers/profile
+            controllers/myprofile
+            controllers/admin
+        ].each do |folder|
+          config.autoload_paths << File.join(dir, folder)
+        end
+        [ config.autoload_paths, $:].each do |path|
+          path << File.join(dir, 'models')
+          path << File.join(dir, 'lib')
+        end
       end
-      [ ActiveSupport::Dependencies.load_paths, $:].each do |path|
-        path << File.join(dir, 'models')
-        path << File.join(dir, 'lib')
-      end
+    end
 
-      # load vendor/plugins
-      Dir.glob(File.join(dir, '/vendor/plugins/*')).each do |vendor_plugin|
-        [ ActiveSupport::Dependencies.load_paths, $:].each{ |path| path << "#{vendor_plugin}/lib" }
-        init = "#{vendor_plugin}/init.rb"
-        require init.gsub(/.rb$/, '') if File.file? init
-      end
+    def load_plugin(dir)
+      (dir.to_s.camelize + 'Plugin').constantize
+    end
 
-      # load class
-      klass(plugin_name)
+    def enabled
+      @enabled ||=
+        begin
+          plugins = Dir.glob(File.join(Rails.root, 'config', 'plugins', '*'))
+          if Rails.env.test? && !plugins.include?(File.join(Rails.root, 'config', 'plugins', 'foo'))
+            plugins << File.join(Rails.root, 'plugins', 'foo')
+          end
+          plugins.select do |entry|
+            File.directory?(entry)
+          end
+        end
     end
 
     def all
