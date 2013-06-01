@@ -11,6 +11,9 @@ end
 $gems = []
 def source(s)
 end
+def group(g)
+  yield
+end
 def gem(n, v = nil)
   $gems << n
 end
