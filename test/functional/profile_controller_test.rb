@@ -9,7 +9,7 @@ class ProfileControllerTest < ActionController::TestCase
     @controller = ProfileController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
-
+    Environment.default.enable('products_for_enterprises')
     @profile = create_user('testuser').person
   end
   attr_reader :profile
@@ -263,8 +263,7 @@ class ProfileControllerTest < ActionController::TestCase
 
   should 'not display "Products" link for enterprise if environment do not let' do
     env = Environment.default
-    env.enable('disable_products_for_enterprises')
-    env.save!
+    env.disable('products_for_enterprises')
     ent = fast_create(Enterprise, :name => 'my test enterprise', :identifier => 'my-test-enterprise', :enabled => false, :environment_id => env.id)
 
     get :index, :profile => 'my-test-enterprise'

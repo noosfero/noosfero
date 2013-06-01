@@ -134,7 +134,7 @@ class Enterprise < Organization
       [ProfileImageBlock.new, LinkListBlock.new(:links => links)],
       []
     ]
-    if !environment.enabled?('disable_products_for_enterprises')
+    if environment.enabled?('products_for_enterprises')
       blocks[2].unshift ProductsBlock.new
     end
     blocks

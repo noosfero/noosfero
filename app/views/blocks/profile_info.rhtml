@@ -17,7 +17,7 @@
 <ul class="profile-info-data" id="profile-info-data-<%= block.id %>">
   <li><%= link_to __('Homepage'), block.owner.url, :class => 'url' %></li>
   <li><%= link_to _('View profile'), block.owner.public_profile_url %></li>
-  <% if block.owner.enterprise? && !block.owner.environment.enabled?('disable_products_for_enterprises') %>
+  <% if block.owner.enterprise? && block.owner.environment.enabled?('products_for_enterprises') %>
     <li><%= link_to(_('Products/Services'), :controller => 'catalog', :profile => block.owner.identifier) %></li>
   <% end %>
   <li id="profile-admin-url-<%= block.id %>"></li>
