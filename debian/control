@@ -28,6 +28,7 @@ Depends:
  rake,
 # This package depends on rails that conflicts with rails3
 # ruby-gettext-rails,
+ ruby-fast-gettext,
  ruby-sqlite3,
  ruby-pg,
  ruby-rmagick,

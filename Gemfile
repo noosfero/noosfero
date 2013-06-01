@@ -1,5 +1,6 @@
 source "https://rubygems.org"
 gem 'rails'
+gem 'fast_gettext'
 
 # TODO needs a rebuild diff-lcs wrt wheezy
 
