@@ -589,7 +589,7 @@ class Article < ActiveRecord::Base
   end
 
   def lead
-    abstract.blank? ? first_paragraph : abstract
+    abstract.blank? ? first_paragraph.html_safe : abstract.html_safe
   end
 
   def short_lead
