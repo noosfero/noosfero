@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130429214630) do
+ActiveRecord::Schema.define(:version => 20130605135210) do
 
   create_table "abuse_reports", :force => true do |t|
     t.integer  "reporter_id"
@@ -119,7 +119,7 @@ ActiveRecord::Schema.define(:version => 20130429214630) do
     t.text     "setting"
     t.boolean  "notify_comments",      :default => true
     t.integer  "hits",                 :default => 0
-    t.date     "published_at"
+    t.datetime "published_at"
     t.string   "source"
     t.boolean  "highlighted",          :default => false
     t.string   "external_link"
@@ -171,6 +171,36 @@ ActiveRecord::Schema.define(:version => 20130429214630) do
 
   add_index "boxes", ["owner_id", "owner_type"], :name => "index_boxes_on_owner_type_and_owner_id"
 
+  create_table "bsc_plugin_contracts", :force => true do |t|
+    t.string   "client_name"
+    t.integer  "client_type"
+    t.integer  "business_type"
+    t.string   "state"
+    t.string   "city"
+    t.integer  "status",              :default => 0
+    t.integer  "number_of_producers", :default => 0
+    t.datetime "supply_start"
+    t.datetime "supply_end"
+    t.text     "annotations"
+    t.integer  "bsc_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "bsc_plugin_contracts_enterprises", :id => false, :force => true do |t|
+    t.integer "contract_id"
+    t.integer "enterprise_id"
+  end
+
+  create_table "bsc_plugin_sales", :force => true do |t|
+    t.integer  "product_id",  :null => false
+    t.integer  "contract_id", :null => false
+    t.integer  "quantity",    :null => false
+    t.decimal  "price"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "categories", :force => true do |t|
     t.string  "name"
     t.string  "slug"
@@ -221,6 +251,7 @@ ActiveRecord::Schema.define(:version => 20130429214630) do
     t.string   "source_type"
     t.string   "user_agent"
     t.string   "referrer"
+    t.integer  "group_id"
   end
 
   add_index "comments", ["source_id", "spam"], :name => "index_comments_on_source_id_and_spam"
@@ -229,6 +260,49 @@ ActiveRecord::Schema.define(:version => 20130429214630) do
     t.text     "list"
     t.string   "error_fetching"
     t.boolean  "fetched",        :default => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "custom_forms_plugin_answers", :force => true do |t|
+    t.text    "value"
+    t.integer "field_id"
+    t.integer "submission_id"
+  end
+
+  create_table "custom_forms_plugin_fields", :force => true do |t|
+    t.string  "name"
+    t.string  "slug"
+    t.string  "type"
+    t.string  "default_value"
+    t.string  "choices"
+    t.float   "minimum"
+    t.float   "maximum"
+    t.integer "form_id"
+    t.boolean "mandatory",     :default => false
+    t.boolean "multiple"
+    t.boolean "list"
+  end
+
+  create_table "custom_forms_plugin_forms", :force => true do |t|
+    t.string   "name"
+    t.string   "slug"
+    t.text     "description"
+    t.integer  "profile_id"
+    t.datetime "begining"
+    t.datetime "ending"
+    t.boolean  "report_submissions", :default => false
+    t.boolean  "on_membership",      :default => false
+    t.string   "access"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "custom_forms_plugin_submissions", :force => true do |t|
+    t.string   "author_name"
+    t.string   "author_email"
+    t.integer  "profile_id"
+    t.integer  "form_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -264,11 +338,11 @@ ActiveRecord::Schema.define(:version => 20130429214630) do
     t.text     "design_data"
     t.text     "custom_header"
     t.text     "custom_footer"
-    t.string   "theme",                        :default => "default", :null => false
+    t.string   "theme",                        :default => "default",           :null => false
     t.text     "terms_of_use_acceptance_text"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "reports_lower_bound",          :default => 0,         :null => false
+    t.integer  "reports_lower_bound",          :default => 0,                   :null => false
     t.string   "redirection_after_login",      :default => "keep_on_same_page"
     t.text     "signup_welcome_text"
     t.string   "languages"
@@ -295,6 +369,10 @@ ActiveRecord::Schema.define(:version => 20130429214630) do
   create_table "favorite_enteprises_people", :id => false, :force => true do |t|
     t.integer "person_id"
     t.integer "enterprise_id"
+  end
+
+  create_table "foo_plugin_bars", :force => true do |t|
+    t.string "name"
   end
 
   create_table "friendships", :force => true do |t|
@@ -428,7 +506,7 @@ ActiveRecord::Schema.define(:version => 20130429214630) do
     t.string   "type"
     t.string   "identifier"
     t.integer  "environment_id"
-    t.boolean  "active",                             :default => true
+    t.boolean  "active",                                :default => true
     t.string   "address"
     t.string   "contact_phone"
     t.integer  "home_page_id"
@@ -439,21 +517,21 @@ ActiveRecord::Schema.define(:version => 20130429214630) do
     t.float    "lat"
     t.float    "lng"
     t.integer  "geocode_precision"
-    t.boolean  "enabled",                            :default => true
-    t.string   "nickname",             :limit => 16
+    t.boolean  "enabled",                               :default => true
+    t.string   "nickname",                :limit => 16
     t.text     "custom_header"
     t.text     "custom_footer"
     t.string   "theme"
-    t.boolean  "public_profile",                     :default => true
+    t.boolean  "public_profile",                        :default => true
     t.date     "birth_date"
     t.integer  "preferred_domain_id"
     t.datetime "updated_at"
-    t.boolean  "visible",                            :default => true
+    t.boolean  "visible",                               :default => true
     t.integer  "image_id"
-    t.boolean  "validated",                          :default => true
+    t.boolean  "validated",                             :default => true
     t.string   "cnpj"
     t.string   "national_region_code"
-    t.boolean  "is_template",                        :default => false
+    t.boolean  "is_template",                           :default => false
     t.integer  "template_id"
     t.string   "redirection_after_login"
   end
@@ -519,6 +597,45 @@ ActiveRecord::Schema.define(:version => 20130429214630) do
     t.datetime "updated_at"
   end
 
+  create_table "shopping_cart_plugin_purchase_orders", :force => true do |t|
+    t.integer  "customer_id"
+    t.integer  "seller_id"
+    t.text     "data"
+    t.integer  "status"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "spaminator_plugin_reports", :force => true do |t|
+    t.integer  "spams_by_content",       :default => 0
+    t.integer  "spams_by_no_network",    :default => 0
+    t.integer  "spammers_by_comments",   :default => 0
+    t.integer  "spammers_by_no_network", :default => 0
+    t.integer  "total_people",           :default => 0
+    t.integer  "total_comments",         :default => 0
+    t.integer  "processed_comments",     :default => 0
+    t.integer  "processed_people",       :default => 0
+    t.integer  "environment_id"
+    t.text     "failed"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "sub_organizations_plugin_approve_paternity_relations", :force => true do |t|
+    t.integer "task_id"
+    t.integer "parent_id"
+    t.string  "parent_type"
+    t.integer "child_id"
+    t.string  "child_type"
+  end
+
+  create_table "sub_organizations_plugin_relations", :force => true do |t|
+    t.integer "parent_id"
+    t.string  "parent_type"
+    t.integer "child_id"
+    t.string  "child_type"
+  end
+
   create_table "taggings", :force => true do |t|
     t.integer  "tag_id"
     t.integer  "taggable_id"
@@ -556,6 +673,19 @@ ActiveRecord::Schema.define(:version => 20130429214630) do
     t.integer "width"
     t.integer "parent_id"
     t.string  "thumbnail"
+  end
+
+  create_table "tolerance_time_plugin_publications", :force => true do |t|
+    t.integer  "target_id"
+    t.string   "target_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "tolerance_time_plugin_tolerances", :force => true do |t|
+    t.integer "profile_id"
+    t.integer "content_tolerance"
+    t.integer "comment_tolerance"
   end
 
   create_table "units", :force => true do |t|
