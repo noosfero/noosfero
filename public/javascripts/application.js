@@ -486,7 +486,9 @@ jQuery(function($) {
       // logged in
       loggedInDataCallBack(data);
       addManageEnterprisesToOldStyleMenu(data);
-      chatOnlineUsersDataCallBack(data);
+      if (data.chat_enabled) {
+        setInterval(function(){ $.getJSON('/account/user_data', chatOnlineUsersDataCallBack)}, 10000);
+      }
     } else {
       // not logged in
       $('#user .not-logged-in, .login-block .not-logged-user').fadeIn();
@@ -538,7 +540,7 @@ jQuery(function($) {
       return;
     }
     var content = '';
-    $('#chat-online-users').html($('#chat-online-users').html().replace(/%{amount}/g, data['amount_of_friends']));
+    $('#chat-online-users .amount_of_friends').html(data['amount_of_friends']);
     $('#chat-online-users').fadeIn();
     for (var user in data['friends_list']) {
       var name = "<span class='friend_name'>%{name}</span>";

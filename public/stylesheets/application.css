@@ -4884,6 +4884,11 @@ h1#agenda-title {
 #chat-window .history .message h5, #chat-window .history .message p {
   margin: 0;
 }
+#chat-window .history .message p {
+  max-width: 100%;
+  overflow: auto;
+}
+
 #chat-window .history .message .avatar {
   position: absolute;
   left: 0;
