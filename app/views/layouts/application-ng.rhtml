@@ -57,8 +57,6 @@
     </div><!-- end id="theme-footer" -->
     <%= noosfero_layout_features %>
     <%= theme_javascript_ng %>
-    <% if NOOSFERO_CONF['addthis_enabled'] %>
-      <script src="http://s7.addthis.com/js/152/addthis_widget.js"></script>
-    <% end %>
+    <%= addthis_javascript %>
   </body>
 </html>
