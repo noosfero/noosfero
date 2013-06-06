@@ -335,7 +335,7 @@ class UserTest < ActiveSupport::TestCase
     Person.any_instance.stubs(:is_admin?).returns(true)
     Person.any_instance.stubs(:created_at).returns(DateTime.parse('16-08-2010'))
     expected_hash = {
-      'login' => 'x_and_y', 'is_admin' => true, 'since_month' => 8, 'since_year' => 2010, 'email_domain' => nil, 'amount_of_friends' => 0,
+      'login' => 'x_and_y', 'is_admin' => true, 'since_month' => 8, 'chat_enabled' => false, 'since_year' => 2010, 'email_domain' => nil, 'amount_of_friends' => 0,
       'friends_list' => {}, 'enterprises' => [],
     }
     assert_equal expected_hash, person.user.data_hash
