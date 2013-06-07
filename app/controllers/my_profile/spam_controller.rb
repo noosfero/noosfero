@@ -14,8 +14,14 @@ class SpamController < MyProfileController
         if params[:remove_comment]
           profile.comments_received.find(params[:remove_comment]).destroy
         end
+        if params[:remove_task]
+          Task.to(profile).find_by_id(params[:remove_task]).destroy
+        end
         if params[:mark_comment_as_ham]
           profile.comments_received.find(params[:mark_comment_as_ham]).ham!
+        end
+        if params[:mark_task_as_ham] && (t = Task.to(profile).find_by_id(params[:mark_task_as_ham]))
+          t.ham!
         end
         if request.xhr?
           json_response(true)
@@ -28,7 +34,8 @@ class SpamController < MyProfileController
       return
     end
 
-    @spam = profile.comments_received.spam.paginate({:page => params[:page]})
+    @comment_spam = profile.comments_received.spam.paginate({:page => params[:comments_page]})
+    @task_spam = Task.to(profile).spam.paginate({:page => params[:tasks_page]})
   end
 
   protected

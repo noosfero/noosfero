@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130711213046) do
+ActiveRecord::Schema.define(:version => 20131011164400) do
 
   create_table "abuse_reports", :force => true do |t|
     t.integer  "reporter_id"
@@ -229,6 +229,50 @@ ActiveRecord::Schema.define(:version => 20130711213046) do
     t.text     "list"
     t.string   "error_fetching"
     t.boolean  "fetched",        :default => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "custom_forms_plugin_answers", :force => true do |t|
+    t.text    "value"
+    t.integer "field_id"
+    t.integer "submission_id"
+  end
+
+  create_table "custom_forms_plugin_fields", :force => true do |t|
+    t.string  "name"
+    t.string  "slug"
+    t.string  "type"
+    t.string  "default_value"
+    t.string  "choices"
+    t.float   "minimum"
+    t.float   "maximum"
+    t.integer "form_id"
+    t.boolean "mandatory",     :default => false
+    t.boolean "multiple"
+    t.boolean "list"
+    t.integer "position",      :default => 0
+  end
+
+  create_table "custom_forms_plugin_forms", :force => true do |t|
+    t.string   "name"
+    t.string   "slug"
+    t.text     "description"
+    t.integer  "profile_id"
+    t.datetime "begining"
+    t.datetime "ending"
+    t.boolean  "report_submissions", :default => false
+    t.boolean  "on_membership",      :default => false
+    t.string   "access"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "custom_forms_plugin_submissions", :force => true do |t|
+    t.string   "author_name"
+    t.string   "author_email"
+    t.integer  "profile_id"
+    t.integer  "form_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -547,7 +591,10 @@ ActiveRecord::Schema.define(:version => 20130711213046) do
     t.datetime "created_at"
     t.string   "target_type"
     t.integer  "image_id"
+    t.boolean  "spam",                       :default => false
   end
+
+  add_index "tasks", ["spam"], :name => "index_tasks_on_spam"
 
   create_table "thumbnails", :force => true do |t|
     t.integer "size"
