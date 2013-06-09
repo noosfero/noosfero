@@ -1,3 +1,5 @@
+require 'mailing_job'
+
 class Mailing < ActiveRecord::Base
 
   validates_presence_of :source_id, :subject, :body
