@@ -209,6 +209,12 @@ class ActiveSupport::TestCase
     Noosfero::MultiTenancy.stubs(:on?).returns(false)
   end
 
+  def unsafe(string)
+    ret = ActiveSupport::SafeBuffer.new(string)
+    ret.instance_eval { @html_safe = false }
+    ret
+  end
+
 end
 
 module NoosferoTestHelper
