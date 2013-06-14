@@ -1,0 +1,12 @@
+<%= link_to _('Catalog start'), profile.catalog_url, :class=>'catalog-home-link' %>
+<% if categories.present? %>
+<ul class="catalog-categories-list">
+  <% categories.each do |category| %>
+    <%= category_with_sub_list(category) %>
+  <% end %>
+</ul>
+<% elsif @category.present? %>
+  <div class="catalog-categories-notice"><%= _('There are no sub-categories for %s') % @category.name %></div>
+<% else %>
+  <div class="catalog-categories-notice"><%= _('There are no categories available.') %></div>
+<% end %>

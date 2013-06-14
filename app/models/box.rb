@@ -61,6 +61,7 @@ class Box < ActiveRecord::Base
       MyNetworkBlock,
       PeopleBlock,
       ProductsBlock,
+      ProductCategoriesBlock,
       ProfileImageBlock,
       ProfileInfoBlock,
       ProfileSearchBlock,

@@ -1,6 +1,5 @@
 class CatalogController < PublicController
   needs_profile
-  no_design_blocks
 
   before_filter :check_enterprise_and_environment
 
