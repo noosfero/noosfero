@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class BlogHelperTest < ActiveSupport::TestCase
+class BlockHelperTest < ActiveSupport::TestCase
 
   include BlockHelper
   include ActionView::Helpers::TagHelper

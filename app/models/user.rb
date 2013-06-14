@@ -294,7 +294,8 @@ class User < ActiveRecord::Base
       'email_domain' => self.enable_email ? self.email_domain : nil,
       'friends_list' => friends_list,
       'enterprises' => enterprises,
-      'amount_of_friends' => friends_list.count
+      'amount_of_friends' => friends_list.count,
+      'chat_enabled' => person.environment.enabled?('xmpp_chat')
     }
   end
 

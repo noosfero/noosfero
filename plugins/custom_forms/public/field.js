@@ -8,7 +8,6 @@ jQuery('.icon-edit').live('click', function() {
       id = jQuery(elem).attr('field_id');
       type = jQuery('#fields_'+id+'_type').val().split('_')[0];
       selector = '#edit-'+type+'-'+id
-      jQuery(selector).show();
       return selector
     }
   });
