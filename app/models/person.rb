@@ -491,6 +491,17 @@ class Person < Profile
     gravatar_profile_image_url(self.email, :size=>20, :d => gravatar_default)
   end
 
+  settings_items :last_notification, :type => DateTime
+  settings_items :notification_time, :type => :integer, :default => 0
+
+  def notifier
+    @notifier ||= PersonNotifier.new(self)
+  end
+
+  after_update do |person|
+    person.notifier.reschedule_next_notification_mail
+  end
+
   protected
 
   def followed_by?(profile)

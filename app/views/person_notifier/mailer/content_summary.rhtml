@@ -1,0 +1,18 @@
+<h3><%= _("%s's network activity") % @profile.name %></h3>
+<br/>
+<div>
+<% @notifications.each do |activity| %>
+  <div style="border-left:none;border-right:none;border-top:1px solid #ccc;border-bottom:none;padding:10px;width:600px">
+    <%= render :partial => activity.verb, :locals => { :activity => activity } rescue "cannot render notification for #{activity.verb}" %>
+  </div>
+<% end %>
+</div>
+
+<div style="color:#444444;font-size:11px;">
+<p><%= _("Greetings,") %></p>
+<br/>
+<p>--</p>
+<p><%= _('%s team.') % @environment %></p>
+<p><%= url_for @url %></p>
+</div>
+<br/>

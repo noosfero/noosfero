@@ -1413,4 +1413,10 @@ class PersonTest < ActiveSupport::TestCase
     person.reload
     assert_equal person.activities, []
   end
+
+  should 'person notifier be PersonNotifier class' do
+    p =  Person.new
+    assert p.notifier.kind_of?(PersonNotifier)
+  end
+
 end
