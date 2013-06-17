@@ -1,11 +1,13 @@
 <% extra_content = [] %>
 <% extra_content_list = [] %>
 
+<div id="product-catalog">
+
 <h1><%= _('Products/Services') %></h1>
 
 <%= breadcrumb(@category) if params[:level] %>
 
-<ul id="product-list" class="l-sidebar-left-content">
+<ul id="product-list">
   <% @products.each do |product| %>
     <% extra_content = @plugins.dispatch(:catalog_item_extras, product).collect { |content| instance_eval(&content) } %>
     <% extra_content_list = @plugins.dispatch(:catalog_list_item_extras, product).collect { |content| instance_eval(&content) } %>
@@ -113,10 +115,11 @@
       </ul>
     </li>
   <% end %>
-</ul>
+</ul><!-- end id="product-list" -->
 
 <%= pagination_links @products, :params => {:controller => :catalog, :action => :index, :profile => profile.identifier} %>
 
 <%= add_zoom_to_images %>
 
 <br style="clear:both"/>
+</div><!-- end id="product-catalog" -->
