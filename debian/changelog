@@ -1,3 +1,9 @@
+noosfero (0.43.0) unstable; urgency=low
+
+  * Solr search converted to a plugin
+
+ -- Rodrigo Souto <rodrigo@ravioli>  Tue, 18 Jun 2013 11:14:56 -0300
+
 noosfero (0.43.0~rc20130529152434) squeeze-test; urgency=low
 
   * RC of 0.43.0 with solr as a plugin
