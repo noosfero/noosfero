@@ -1346,10 +1346,7 @@ module ApplicationHelper
     options[:on_ready] ||= 'null'
 
     result = text_field_tag(name, nil, text_field_options.merge(html_options.merge({:id => element_id})))
-    result +=
-    "
-    <script type='text/javascript'>
-      jQuery('##{element_id}')
+    result += javascript_tag("jQuery('##{element_id}')
       .tokenInput('#{url_for(search_action)}', {
         minChars: #{options[:min_chars].to_json},
         prePopulate: #{options[:pre_populate].to_json},
@@ -1365,16 +1362,15 @@ module ApplicationHelper
         onAdd: #{options[:on_add]},
         onDelete: #{options[:on_delete]},
         onReady: #{options[:on_ready]},
-      })
-    "
-    result += options[:focus] ? ".focus();" : ";"
+      });
+    ")
+    result += javascript_tag("jQuery('##{element_id}').focus();") if options[:focus]
     if options[:avoid_enter]
-      result += "jQuery('#token-input-#{element_id}')
+      result += javascript_tag("jQuery('#token-input-#{element_id}')
                     .live('keydown', function(event){
                     if(event.keyCode == '13') return false;
-                  });"
+                    });")
     end
-    result += "</script>"
     result
   end
 
