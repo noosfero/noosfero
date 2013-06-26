@@ -681,7 +681,8 @@ class Environment < ActiveRecord::Base
   end
 
   def community_template
-    Community.find_by_id settings[:community_template_id]
+    template = Community.find_by_id settings[:community_template_id]
+    template if template && template.is_template
   end
 
   def community_template=(value)
@@ -689,7 +690,8 @@ class Environment < ActiveRecord::Base
   end
 
   def person_template
-    Person.find_by_id settings[:person_template_id]
+    template = Person.find_by_id settings[:person_template_id]
+    template if template && template.is_template
   end
 
   def person_template=(value)
@@ -697,7 +699,8 @@ class Environment < ActiveRecord::Base
   end
 
   def enterprise_template
-    Enterprise.find_by_id settings[:enterprise_template_id]
+    template = Enterprise.find_by_id settings[:enterprise_template_id]
+    template if template && template.is_template
   end
 
   def enterprise_template=(value)
@@ -705,7 +708,8 @@ class Environment < ActiveRecord::Base
   end
 
   def inactive_enterprise_template
-    Enterprise.find_by_id settings[:inactive_enterprise_template_id]
+    template = Enterprise.find_by_id settings[:inactive_enterprise_template_id]
+    template if template && template.is_template
   end
 
   def inactive_enterprise_template=(value)
