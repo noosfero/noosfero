@@ -2,6 +2,11 @@
 <% extra_content_list = [] %>
 
 <div id="product-catalog">
+<% if !user.nil? && ( user.is_admin?(profile.environment) || user.is_admin?(profile) ) %>
+  <div class="product-catalog-ctrl">
+    <%= button :product, _('Manage Products/Services'), :controller => 'manage_products' %>
+  </div>
+<% end %>
 
 <h1><%= _('Products/Services') %></h1>
 

@@ -2513,6 +2513,10 @@ div#activation_enterprise label, div#activation_enterprise input, div#activation
   text-align: center;
 }
 
+.product-catalog-ctrl {
+  float: right;
+}
+
 #product-list {
   display: inline-block;
   text-align: left;
