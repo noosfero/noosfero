@@ -132,8 +132,11 @@ class Enterprise < Organization
     ]
     blocks = [
       [MainBlock.new],
-      [ProfileImageBlock.new, LinkListBlock.new(:links => links)],
-      []
+      [ ProfileImageBlock.new,
+        LinkListBlock.new(:links => links),
+        ProductCategoriesBlock.new
+      ],
+      [LocationBlock.new]
     ]
     if !environment.enabled?('disable_products_for_enterprises')
       blocks[2].unshift ProductsBlock.new
