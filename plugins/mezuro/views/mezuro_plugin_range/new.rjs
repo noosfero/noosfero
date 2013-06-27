@@ -1,0 +1,3 @@
+page.replace_html 'form', :partial => "new"
+page.visual_effect :slide_down, "form"
+

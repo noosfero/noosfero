@@ -13,11 +13,11 @@
 
 <% @roles.each do |role| %>
   <% search_url = url_for(:action => 'search_user', :profile => profile.identifier, :role => role.id) %>
-  <% @pre_population ||= profile.members_by_role_to_json(role) %>
+  <% pre_population = params[:action] == 'last_admin' ? [].to_json : profile.members_by_role_to_json(role) %>
   <script type="text/javascript">
     jQuery(<%= ('#search_' + role.key).to_json %>)
     .tokenInput("<%= search_url %>", {
-      prePopulate: <%= @pre_population %>,
+      prePopulate: <%= pre_population %>,
       hintText: <%= _('Type in a search term for users').to_json %>,
       noResultsText: <%= _('No results').to_json %>,
       searchingText: <%= _('Searching...').to_json %>,

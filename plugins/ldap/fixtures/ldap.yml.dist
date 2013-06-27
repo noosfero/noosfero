@@ -1,0 +1,15 @@
+server:
+  host: "127.0.0.1"
+  port: 389
+  account: "uid=ldap_user,,ou=person,dc=noosfero,dc=org"
+  account_password: "ldap_pass"
+  base_dn: "dc=noosfero,dc=org"
+  attr_login: "uid"
+  attr_fullname: "cn"
+  attr_mail: "mail"
+  onthefly_register: true
+  filter: ""
+  tls: false
+user:
+  login: 'valid_ldap_login'
+  password: 'valid_ldap_password'

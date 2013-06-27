@@ -11,6 +11,4 @@ class ProductCategory < Category
     top_category ? top_category.children : top_level_for(env).select{|c|c.kind_of?(ProductCategory)}
   end
 
-  after_save_reindex [:products], :with => :delayed_job
-
 end

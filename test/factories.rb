@@ -21,9 +21,6 @@ module Noosfero::Factory
         obj.add_category(category)
       end
     end
-    if options[:search]
-      obj.solr_save
-    end
     obj
   end
 

@@ -28,3 +28,6 @@
 .edit-information {
   display: none;
 }
+#colorbox .edit-information {
+  display: block;
+}

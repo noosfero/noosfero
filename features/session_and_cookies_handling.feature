@@ -4,6 +4,7 @@ Feature: session and cookies handling
   I want Noosfero to manage well it usage of sessions and cookies
   So that we can use HTTP caching effectively
 
+  @fixme
   Scenario: home page, logged in
     Given the following users
       | login     |
@@ -16,10 +17,12 @@ Feature: session and cookies handling
     When I go to the homepage
     Then there must be no cookies
 
+  @fixme
   Scenario: user_data, not logged in
     When I make a AJAX request to the user data path
     Then there must be no cookies
 
+  @fixme
   Scenario: user_data, logged in
     Given I am logged in as admin
     When I make a AJAX request to the user data path

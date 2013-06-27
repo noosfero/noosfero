@@ -23,11 +23,35 @@ class Noosfero::Plugin::Manager
     dispatch_without_flatten(event, *args).flatten
   end
 
+  def dispatch_plugins(event, *args)
+    map { |plugin| plugin.class if plugin.send(event, *args) }.compact.flatten
+  end
+
   def dispatch_without_flatten(event, *args)
     map { |plugin| plugin.send(event, *args) }.compact
   end
 
   alias :dispatch_scopes :dispatch_without_flatten
+
+  def first(event, *args)
+    result = nil
+    each do |plugin|
+      result = plugin.send(event, *args)
+      break if result.present?
+    end
+    result
+  end
+
+  def first_plugin(event, *args)
+    result = nil
+    each do |plugin|
+      if plugin.send(event, *args)
+        result = plugin.class
+        break
+      end
+    end
+    result
+  end
 
   def enabled_plugins
     @enabled_plugins ||= (Noosfero::Plugin.all & environment.enabled_plugins).map do |plugin|

@@ -2,11 +2,6 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class SetProfileRegionFromCityStateTest < ActiveSupport::TestCase
 
-  def setup
-    super
-    TestSolr.enable
-  end
-
   should 'set city and state from names' do
     s = State.create!(:name => 'Sao Paulo', :acronym => 'SP', :environment_id => Environment.default.id)
     c = City.create!(:name => 'Pindamonhangaba', :parent_id => s.id, :environment_id => Environment.default.id)

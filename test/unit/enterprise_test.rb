@@ -85,35 +85,6 @@ class EnterpriseTest < ActiveSupport::TestCase
     assert !e.boxes[2].blocks.empty?, 'person must have blocks in area 3'
   end
 
-  should 'be found in search for its product categories' do
-    TestSolr.enable
-    ent1 = fast_create(Enterprise, :name => 'test1', :identifier => 'test1')
-    prod_cat = fast_create(ProductCategory, :name => 'pctest', :environment_id => Environment.default.id)
-    prod = ent1.products.create!(:name => 'teste', :product_category => prod_cat)
-
-    ent2 = fast_create(Enterprise, :name => 'test2', :identifier => 'test2')
-
-    result = Enterprise.find_by_contents(prod_cat.name)[:results]
-
-    assert_includes result, ent1
-    assert_not_includes result, ent2
-  end
-
-  should 'be found in search for its product categories hierarchy' do
-    TestSolr.enable
-    ent1 = fast_create(Enterprise, :name => 'test1', :identifier => 'test1')
-    prod_cat = fast_create(ProductCategory, :name => 'pctest', :environment_id => Environment.default.id)
-    prod_child = fast_create(ProductCategory, :name => 'pchild', :environment_id => Environment.default.id, :parent_id => prod_cat.id)
-    prod = ent1.products.create!(:name => 'teste', :product_category => prod_child)
-
-    ent2 = fast_create(Enterprise, :name => 'test2', :identifier => 'test2')
-
-    result = Enterprise.find_by_contents(prod_cat.name)[:results]
-
-    assert_includes result, ent1
-    assert_not_includes result, ent2
-  end
-
   should 'allow to add new members if has no members' do
     enterprise = fast_create(Enterprise)
 
@@ -443,13 +414,6 @@ class EnterpriseTest < ActiveSupport::TestCase
     assert_equal product.inputs, enterprise.inputs
   end
 
-  should 'reindex when products are changed' do
-    enterprise = fast_create(Enterprise)
-    product = fast_create(Product, :enterprise_id => enterprise.id, :product_category_id => @product_category.id)
-    Product.expects(:solr_batch_add_association).with(product, :enterprise)
-    product.update_attribute :name, "novo nome"
-  end
-
   should "the followed_by? be true only to members" do
     e = fast_create(Enterprise)
     e.stubs(:closed?).returns(false)
@@ -478,17 +442,6 @@ class EnterpriseTest < ActiveSupport::TestCase
   should 'have production cost' do
     e = fast_create(Enterprise)
     assert_respond_to e, :production_costs
-  end
-
-  should 'reindex products with full category name after save' do
-    product = mock
-    products = mock
-    product.expects(:category_full_name)
-    products.stubs(:includes).returns([product])
-    Enterprise.any_instance.stubs(:products).returns(products)
-    Enterprise.expects(:solr_batch_add).with([products])
-    ent = fast_create(Enterprise)
-    ent.save!
   end
 
   should 'return scraps as activities' do
@@ -522,5 +475,13 @@ class EnterpriseTest < ActiveSupport::TestCase
 
     assert_not_includes enterprise.activities.map { |a| a.klass.constantize.find(a.id) }, article.activity
   end
+
+  should 'provide URL to catalog area' do
+    environment = create_environment('mycolivre.net')
+    enterprise = build(Enterprise, :identifier => 'testprofile', :environment_id => create_environment('mycolivre.net').id)
+
+    assert_equal({:profile => enterprise.identifier, :controller => 'catalog'}, enterprise.catalog_url)
+  end
+
 
 end

@@ -7,7 +7,7 @@
   <%= search_page_title(_('Search Results'), @category) %>
   <%= render :partial => 'search_form', :locals => { :hint => '' } %>
   <%= category_context(@category, params) %>
-  <%= display_results %>
+  <%= display_results(@searches, @asset) %>
 
   <div id="category-childs">
     <% if @category %>

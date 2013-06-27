@@ -7,7 +7,7 @@ class CatalogController < PublicController
   def index
     @category = params[:level] ? ProductCategory.find(params[:level]) : nil
     @products = @profile.products.from_category(@category).paginate(:order => 'available desc, highlighted desc, name asc', :per_page => 9, :page => params[:page])
-    @categories = ProductCategory.on_level(params[:level])
+    @categories = ProductCategory.on_level(params[:level]).order(:name)
   end
 
   protected

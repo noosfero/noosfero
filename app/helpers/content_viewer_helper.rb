@@ -39,7 +39,7 @@ module ContentViewerHelper
 
   def link_to_comments(article, args = {})
     return '' unless article.accept_comments?
-    link_to(number_of_comments(article), article.url.merge(:anchor => 'comments_list') )
+    reference_to_article number_of_comments(article), article, 'comments_list'
   end
 
   def article_translations(article)
@@ -48,7 +48,7 @@ module ContentViewerHelper
         { article.environment.locales[translation.language] => { :href => url_for(translation.url) } }
       end
       content_tag(:div, link_to(_('Translations'), '#',
-                                :onclick => "toggleSubmenu(this, '#{_('Translations')}', #{links.to_json}); return false",
+                                :onmouseover => "toggleSubmenu(this, '#{_('Translations')}', #{links.to_json}); return false",
                                 :class => 'article-translations-menu simplemenu-trigger up'),
                   :class => 'article-translations')
     end

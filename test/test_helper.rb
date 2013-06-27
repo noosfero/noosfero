@@ -1,12 +1,5 @@
 ENV["RAILS_ENV"] = "test"
 
-# Start/stop Solr
-if not $test_helper_loaded
-	abort unless system 'rake -s solr:start'
-  at_exit { system 'rake -s solr:stop' }
-  $test_helper_loaded = true
-end
-
 require File.expand_path(File.dirname(__FILE__) + "/../config/environment")
 require 'test_help'
 require 'mocha'
@@ -17,7 +10,6 @@ require 'noosfero/test'
 require File.dirname(__FILE__) + '/factories'
 require File.dirname(__FILE__) + '/noosfero_doc_test'
 require File.dirname(__FILE__) + '/action_tracker_test_helper'
-require File.expand_path(File.dirname(__FILE__) + "/test_solr_helper.rb")
 
 FileUtils.rm_rf(File.join(RAILS_ROOT, 'index', 'test'))
 
@@ -59,14 +51,6 @@ class ActiveSupport::TestCase
   include AuthenticatedTestHelper
 
   fixtures :environments, :roles
-
-  def setup
-    TestSolr.disable
-  end
-
-  def teardown
-    TestSolr.disable
-  end
 
   def self.all_fixtures
     Dir.glob(File.join(RAILS_ROOT, 'test', 'fixtures', '*.yml')).each do |item|

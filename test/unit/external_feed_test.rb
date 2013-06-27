@@ -152,4 +152,18 @@ class ExternalFeedTest < ActiveSupport::TestCase
     assert_equal 35, external_feed.fetched_at.min
   end
 
+  should 'strip content of style and class attributes' do
+    blog = create_blog
+    e = build(:external_feed, :blog => blog)
+    e.add_item('Article title', 'http://orig.link.invalid', Time.now, '<p style="color: red">Html content 1.</p>')
+    e.add_item('Article title 2', 'http://orig.link.invalid', Time.now, '<p class="myclass">Html content 2.</p>')
+    e.add_item('Article title 3', 'http://orig.link.invalid', Time.now, '<img src="noosfero.png" />')
+
+    dd = []
+    Article.where(['parent_id = ?', blog.id]).all.each do |a|
+      dd << a.body.to_s.strip.gsub(/\s+/, ' ')
+    end
+    assert_equal '<img src="noosfero.png" /><p>Html content 1.</p><p>Html content 2.</p>', dd.sort.join
+  end
+
 end

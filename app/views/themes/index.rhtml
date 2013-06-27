@@ -11,17 +11,17 @@
         base_content = image_tag(
           "/designs/templates/#{template.id}/thumbnail.png",
           :alt => _('The "%s" template')) +
-        '<div class="opt-info">' +
+        '<div class="opt-info">'.html_safe +
         content_tag('strong', template.id, :class => 'name') +
-        ' <br/> '
+        ' <br/> '.html_safe
 
         if @current_template == template.id  # selected
           content_tag( 'div',
-            base_content + content_tag('big', _('(current)') ) +'</div>',
+            base_content + content_tag('big', _('(current)') ) +'</div>'.html_safe,
             :class => 'template-opt list-opt selected')
         else  # Not selected
           link_to(
-            base_content +'</div>',
+            base_content +'</div>'.html_safe,
             { :action => 'set_layout_template', :id => template.id },
             :class => 'template-opt list-opt')
         end
@@ -48,17 +48,17 @@
         base_content = image_tag(
           "/designs/themes/#{theme.id}/preview.png",
           :alt => (_('The "%s" theme.') % theme.name)) +
-        '<div class="opt-info">' +
+        '<div class="opt-info">'.html_safe +
         content_tag('strong', theme.name, :class => 'name') +
-        ' <br/> '
+        ' <br/> '.html_safe
 
         if theme.id == @current_theme  # selected
           content_tag( 'div',
-            base_content + content_tag('big', _('(current)') ) +'</div>',
+            base_content + content_tag('big', _('(current)') ) +'</div>'.html_safe,
             :class => 'theme-opt list-opt selected')
         else  # Not selected
           link_to(
-            base_content + '</div>',
+            base_content + '</div>'.html_safe,
             { :action => 'set', :id => theme.id },
             :class => 'theme-opt list-opt')
         end

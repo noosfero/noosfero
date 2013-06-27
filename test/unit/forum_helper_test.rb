@@ -48,8 +48,8 @@ class ForumHelperTest < ActiveSupport::TestCase
   should 'return last comment date if it has comments' do
     some_post = TextileArticle.create!(:name => 'First post', :profile => profile, :parent => forum, :published => true)
     a1, a2 = create_user('a1').person, create_user('a2').person
-    some_post.comments << Comment.new(:title => 'test', :body => 'test', :author => a1)
-    some_post.comments << Comment.new(:title => 'test', :body => 'test', :author => a2)
+    some_post.comments << Comment.new(:title => 'test', :body => 'test', :author => a1, :created_at => Time.now - 1.day)
+    some_post.comments << Comment.new(:title => 'test', :body => 'test', :author => a2, :created_at => Time.now)
     c = Comment.last
     assert_equal 2, some_post.comments.count
     out = last_topic_update(some_post)

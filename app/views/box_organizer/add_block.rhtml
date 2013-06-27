@@ -1,35 +1,41 @@
-<div style='height:350px'>
+<div id="add-block-dialog">
   <% form_tag do %>
 
     <p><%= _('In what area do you want to put your new block?') %></p>
 
+    <div id="box-position">
     <% @boxes.each do |box| %>
-      <%= labelled_radio_button(_("Area %d") % box.position, :box_id, box.id, box.central?, { :class => 'box-position', 'data-position' => box.position })  %>
+      <% name = box.central? ? _('Main area') : _('Area %d') % box.position %>
+      <%= labelled_radio_button(name, :box_id, box.id, box.central?, { 'data-position' => box.position }) %>
     <% end %>
+    </div>
 
     <script type="text/javascript">
-      (function ($) {
-        $(document).ready(function () {
-          $(".box-position").live('change', function () {
-            if ($(this).attr('data-position') == '1') {
-              $('#center-block-types').show();
-              $('#side-block-types').hide();
-            } else {
-              $('#center-block-types').hide();
-              $('#side-block-types').show();
-            };
-          });
-      })})(jQuery);
+      jQuery('#box-position input').bind('change',
+        function () {
+          showCenter = jQuery(this).attr('data-position') == '1';
+          jQuery('#center-block-types').toggle(showCenter);
+          jQuery('#side-block-types').toggle(!showCenter);
+        }
+      );
     </script>
 
     <p><%= _('Select the type of block you want to add to your page.') %></p>
 
-    <div id='center-block-types'>
-      <%= render :partial => 'block_types', :locals => { :block_types => @center_block_types } %>
+    <div id="center-block-types" class="block-types">
+      <% @center_block_types.each do |block| %>
+        <div class='block-type'>
+          <%= labelled_radio_button(block.description, :type, block.name) %>
+        </div>
+      <% end %>
     </div>
 
-    <div id='side-block-types' style='display:none'>
-      <%= render :partial => 'block_types', :locals => { :block_types => @side_block_types } %>
+    <div id="side-block-types" class="block-types" style="display:none">
+      <% @side_block_types.each do |block| %>
+        <div class='block-type'>
+          <%= labelled_radio_button(block.description, :type, block.name) %>
+        </div>
+      <% end %>
     </div>
 
     <br style='clear: both'/>
