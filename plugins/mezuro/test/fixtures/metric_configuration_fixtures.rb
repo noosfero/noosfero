@@ -1,47 +1,58 @@
-require File.dirname(__FILE__) + '/compound_metric_fixtures'
-require File.dirname(__FILE__) + '/native_metric_fixtures'
-require File.dirname(__FILE__) + '/range_fixtures'
+require File.dirname(__FILE__) + '/metric_fixtures'
 
 class MetricConfigurationFixtures
 
   def self.amloc_metric_configuration
     amloc = Kalibro::MetricConfiguration.new amloc_metric_configuration_hash
-    amloc.configuration_name = "Sample Configuration"
-    amloc
-  end
-
-  def self.metric_configuration_without_ranges
-    amloc = Kalibro::MetricConfiguration.new 
-      {
-        :metric => NativeMetricFixtures.amloc_hash,
-        :code => 'amloc',
-        :weight => 1.0,
-        :aggregation_form => 'AVERAGE'
-      }
-    amloc.configuration_name = "Sample Configuration"
+    amloc.configuration_id = "13"
     amloc
   end
 
   def self.sc_metric_configuration
     sc = Kalibro::MetricConfiguration.new sc_metric_configuration_hash
-    sc.configuration_name = "Sample Configuration"
+    sc.configuration_id = "13"
     sc
+  end
+  
+  def self.created_metric_configuration
+    Kalibro::MetricConfiguration.new({
+        :code => 'amloc',
+        :metric => MetricFixtures.amloc_hash,
+        :base_tool_name => "Analizo",
+        :weight => "1.0",
+        :aggregation_form => 'AVERAGE',
+        :reading_group_id => "31",
+        :configuration_id => "13"
+      })
   end
 
   def self.amloc_metric_configuration_hash
-    {:metric => NativeMetricFixtures.amloc_hash, :code => 'amloc', :weight => 1.0,
+    {
+      :id => "42",
+      :code => 'amloc',
+      :metric => MetricFixtures.amloc_hash,
+      :base_tool_name => "Analizo",
+      :weight => "1.0",
       :aggregation_form => 'AVERAGE',
-      :range => [RangeFixtures.range_excellent_hash, RangeFixtures.range_bad_hash],
+      :reading_group_id => "31",
       :attributes! => {:metric => {
           'xmlns:xsi'=> 'http://www.w3.org/2001/XMLSchema-instance',
-          'xsi:type' => 'kalibro:nativeMetricXml'  }}}
+          'xsi:type' => 'kalibro:metricXml'  }}
+    }
   end
 
   def self.sc_metric_configuration_hash
-    {:metric => CompoundMetricFixtures.compound_metric_hash, :code => 'sc', :weight => 1.0, :aggregation_form => 'AVERAGE',
+    {
+      :id => "42",
+      :code => 'sc',
+      :metric => MetricFixtures.compound_metric_hash,
+      :weight => "1.0",
+      :aggregation_form => 'AVERAGE',
+      :reading_group_id => "31",
       :attributes! => {:metric => {
           'xmlns:xsi'=> 'http://www.w3.org/2001/XMLSchema-instance',
-          'xsi:type' => 'kalibro:compoundMetricXml'  }}}
+          'xsi:type' => 'kalibro:metricXml'  }}
+    }
   end
     
 end

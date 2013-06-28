@@ -1,4 +1,10 @@
 class License < ActiveRecord::Base
+
+  SEARCHABLE_FIELDS = {
+    :name => 10,
+    :url => 5,
+  }
+
   belongs_to :environment
   has_many :content, :class_name => 'Article', :foreign_key => 'license_id'
 

@@ -32,6 +32,12 @@ module ApplicationHelper
 
   include CommentHelper
 
+  include BlogHelper
+
+  include ContentViewerHelper
+
+  include LayoutHelper
+
   def locale
     (@page && !@page.language.blank?) ? @page.language : FastGettext.locale
   end
@@ -262,14 +268,17 @@ module ApplicationHelper
   end
 
   def button_bar(options = {}, &block)
-    concat(content_tag('div', capture(&block) + tag('br', :style => 'clear: left;'), { :class => 'button-bar' }.merge(options)))
+    options[:class].nil? ?
+      options[:class]='button-bar' :
+      options[:class]+=' button-bar'
+    concat(content_tag('div', capture(&block) + tag('br', :style => 'clear: left;'), options))
   end
 
   VIEW_EXTENSIONS = %w[.rhtml .html.erb]
 
-  def partial_for_class_in_view_path(klass, view_path, suffix = nil)
+  def partial_for_class_in_view_path(klass, view_path, prefix = nil, suffix = nil)
     return nil if klass.nil?
-    name = [klass.name.underscore, suffix].compact.map(&:to_s).join('_')
+    name = [prefix, klass.name.underscore, suffix].compact.map(&:to_s).join('_')
 
     search_name = String.new(name)
     if search_name.include?("/")
@@ -284,14 +293,14 @@ module ApplicationHelper
       return name if File.exists?(File.join(path))
     end
 
-    partial_for_class_in_view_path(klass.superclass, view_path, suffix)
+    partial_for_class_in_view_path(klass.superclass, view_path, prefix, suffix)
   end
 
-  def partial_for_class(klass, suffix=nil)
+  def partial_for_class(klass, prefix=nil, suffix=nil)
     raise ArgumentError, 'No partial for object. Is there a partial for any class in the inheritance hierarchy?' if klass.nil?
     name = klass.name.underscore
     @controller.view_paths.each do |view_path|
-      partial = partial_for_class_in_view_path(klass, view_path, suffix)
+      partial = partial_for_class_in_view_path(klass, view_path, prefix, suffix)
       return partial if partial
     end
 
@@ -352,10 +361,6 @@ module ApplicationHelper
     else
       '/designs/themes/' + current_theme
     end
-  end
-
-  def theme_stylesheet_path
-    theme_path + '/style.css'
   end
 
   def current_theme
@@ -495,23 +500,24 @@ module ApplicationHelper
 
   def profile_cat_icons( profile )
     if profile.class == Enterprise
-      icons =
-        profile.product_categories.map{ |c| c.size > 1 ? c[1] : nil }.
-          compact.uniq.map{ |c|
-            cat_name = c.gsub( /[-_\s,.;'"]+/, '_' )
-            cat_icon = "/images/icons-cat/#{cat_name}.png"
-            if ! File.exists? RAILS_ROOT.to_s() + '/public/' + cat_icon
-              cat_icon = '/images/icons-cat/undefined.png'
-            end
-            content_tag 'span',
-                        content_tag( 'span', c ),
-                        :title => c,
-                        :class => 'product-cat-icon cat_icon_' + cat_name,
-                        :style => "background-image:url(#{cat_icon})"
-          }.join "\n"
-      content_tag 'div',
-                  content_tag( 'span', _('Principal Product Categories'), :class => 'header' ) +"\n"+ icons,
-                  :class => 'product-category-icons'
+      icons = profile.product_categories.map{ |c| c.size > 1 ? c[1] : nil }.
+        compact.uniq.map do |c|
+          cat_name = c.gsub( /[-_\s,.;'"]+/, '_' )
+          cat_icon = "/images/icons-cat/#{cat_name}.png"
+          if ! File.exists? RAILS_ROOT.to_s() + '/public/' + cat_icon
+            cat_icon = '/images/icons-cat/undefined.png'
+          end
+          content_tag('span',
+            content_tag( 'span', c ),
+            :title => c,
+            :class => 'product-cat-icon cat_icon_' + cat_name,
+            :style => "background-image:url(#{cat_icon})"
+          )
+        end.join("\n").html_safe
+        content_tag('div',
+          content_tag( 'span', _('Principal Product Categories'), :class => 'header' ) +"\n"+ icons,
+          :class => 'product-category-icons'
+        )
     else
       ''
     end
@@ -635,10 +641,10 @@ module ApplicationHelper
       # FIXME
       ([toplevel] + toplevel.children_for_menu).each do |cat|
         if cat.top_level?
-          result << '<div class="categorie_box">'
+          result << '<div class="categorie_box">'.html_safe
           result << icon_button( :down, _('open'), '#', :onclick => 'open_close_cat(this); return false' )
           result << content_tag('h5', toplevel.name)
-          result << '<div style="display:none"><ul class="categories">'
+          result << '<div style="display:none"><ul class="categories">'.html_safe
         else
           checkbox_id = "#{object_name}_#{cat.full_name.downcase.gsub(/\s+|\//, '_')}"
           result << content_tag('li', labelled_check_box(
@@ -649,7 +655,7 @@ module ApplicationHelper
                     :class => ( object.category_ids.include?(cat.id) ? 'cat_checked' : '' ) ) + "\n"
         end
       end
-      result << '</ul></div></div>'
+      result << '</ul></div></div>'.html_safe
     end
 
     content_tag('div', result)
@@ -789,10 +795,10 @@ module ApplicationHelper
             :class => 'lineitem' + (line_item+=1).to_s() ) +"\n"
         if line_item == line_size
           line_item = 0
-          html += "<br />\n"
+          html += "<br />\n".html_safe
         end
       }
-      html += "<br />\n"  if line_size == 0 || ( values.size % line_size ) > 0
+      html += "<br />\n".html_safe if line_size == 0 || ( values.size % line_size ) > 0
       column = object.class.columns_hash[method.to_s]
       text =
         ( column ?
@@ -875,14 +881,6 @@ module ApplicationHelper
     content_tag('div', labelled_check_box(_('Public'), 'profile_data[fields_privacy]['+name+']', 'public', profile.public_fields.include?(name)), :class => 'field-privacy-selector')
   end
 
-  def template_stylesheet_path
-    if profile.nil?
-      "/designs/templates/#{environment.layout_template}/stylesheets/style.css"
-    else
-      "/designs/templates/#{profile.layout_template}/stylesheets/style.css"
-    end
-  end
-
   def login_url
     options = Noosfero.url_options.merge({ :controller => 'account', :action => 'login' })
     url_for(options)
@@ -921,18 +919,6 @@ module ApplicationHelper
     end
   end
 
-  def icon_theme_stylesheet_path
-    icon_themes = []
-    theme_icon_themes = theme_option(:icon_theme) || []
-    for icon_theme in theme_icon_themes do
-      theme_path = "/designs/icons/#{icon_theme}/style.css"
-      if File.exists?(File.join(RAILS_ROOT, 'public', theme_path))
-        icon_themes << theme_path
-      end
-    end
-    icon_themes
-  end
-
   def page_title
     (@page ? @page.title + ' - ' : '') +
     (profile ? profile.short_name + ' - ' : '') +
@@ -944,42 +930,13 @@ module ApplicationHelper
     (@category ? " - #{@category.full_name}" : '')
   end
 
-  def noosfero_javascript
-    render :file =>  'layouts/_javascript'
-  end
-
-  def noosfero_stylesheets
-    [
-      'application',
-      'search',
-      'thickbox',
-      'lightbox',
-      'colorpicker',
-      'colorbox',
-      pngfix_stylesheet_path,
-    ] +
-    tokeninput_stylesheets
-  end
-
   # DEPRECATED. Do not use this·
   def import_controller_stylesheets(options = {})
     stylesheet_import( "controller_"+ @controller.controller_name(), options )
   end
 
-  def pngfix_stylesheet_path
-    'iepngfix/iepngfix.css'
-  end
-
-  def tokeninput_stylesheets
-    ['token-input', 'token-input-facebook', 'token-input-mac', 'token-input-facet']
-  end
-
-  def noosfero_layout_features
-    render :file => 'shared/noosfero_layout_features'
-  end
-
   def link_to_email(email)
-    javascript_tag('var array = ' + email.split('@').to_json + '; document.write("<a href=\'mailto:" + array.join("@") + "\'>" + array.join("@") +  "</a>")')
+    javascript_tag('var array = ' + email.split('@').to_json + '; document.write("<a href=\'mailto:" + array.join("@") + "\'>" + array.join("@") +  "</a>")'.html_safe)
   end
 
   def stylesheet(*args)
@@ -989,11 +946,41 @@ module ApplicationHelper
   def article_to_html(article, options = {})
     options.merge!(:page => params[:npage])
     content = article.to_html(options)
-    content = content.kind_of?(Proc) ? self.instance_eval(&content) : content
+    content = content.kind_of?(Proc) ? self.instance_eval(&content).html_safe : content.html_safe
     @plugins && @plugins.each do |plugin|
       content = plugin.parse_content(content)
     end
     content
+  end
+
+  # Please, use link_to by default!
+  # This method was created to work around to inexplicable
+  # chain of problems when display_short_format was called
+  # from Article model for an ArticleBlock.
+  def reference_to_article(text, article, anchor=nil)
+    if article.profile.domains.empty?
+      href = "/#{article.url[:profile]}/"
+    else
+      href = "http://#{article.profile.domains.first.name}/"
+    end
+    href += article.url[:page].join('/')
+    href += '#' + anchor if anchor
+    content_tag('a', text, :href => href)
+  end
+
+  def display_short_format(article, options={})
+    options[:comments_link] ||= true
+    options[:read_more_link] ||= true
+    html = content_tag('div',
+             article.lead +
+             content_tag('div',
+               (options[:comments_link] ? link_to_comments(article) : '') +
+               (options[:read_more_link] ? reference_to_article( _('Read more'), article) : ''),
+               :class => 'read-more'
+             ),
+             :class => 'short-post'
+           )
+    html
   end
 
   def colorpicker_field(object_name, method, options = {})
@@ -1005,7 +992,7 @@ module ApplicationHelper
   end
 
   def ui_icon(icon_class, extra_class = '')
-    "<span class='ui-icon #{icon_class} #{extra_class}' style='float:left; margin-right:7px;'></span>"
+    "<span class='ui-icon #{icon_class} #{extra_class}' style='float:left; margin-right:7px;'></span>".html_safe
   end
 
   def ui_button(label, url, html_options = {})
@@ -1018,10 +1005,6 @@ module ApplicationHelper
 
   def jquery_theme
     theme_option(:jquery_theme) || 'smoothness_mod'
-  end
-
-  def jquery_ui_theme_stylesheet_path
-    'jquery.ui/' + jquery_theme + '/jquery-ui-1.8.2.custom'
   end
 
   def ui_error(message)
@@ -1037,13 +1020,13 @@ module ApplicationHelper
   end
 
   def collapsed_item_icon
-    "<span class='ui-icon ui-icon-circlesmall-plus' style='float:left;'></span>"
+    "<span class='ui-icon ui-icon-circlesmall-plus' style='float:left;'></span>".html_safe
   end
   def expanded_item_icon
-    "<span class='ui-icon ui-icon-circlesmall-minus' style='float:left;'></span>"
+    "<span class='ui-icon ui-icon-circlesmall-minus' style='float:left;'></span>".html_safe
   end
   def leaf_item_icon
-    "<span class='ui-icon ui-icon-arrow-1-e' style='float:left;'></span>"
+    "<span class='ui-icon ui-icon-arrow-1-e' style='float:left;'></span>".html_safe
   end
 
   def display_category_menu(block, categories, root = true)
@@ -1302,9 +1285,7 @@ module ApplicationHelper
     titles = tabs.inject(''){ |result, tab| result << content_tag(:li, link_to(tab[:title], '#'+tab[:id]), :class => 'tab') }
     contents = tabs.inject(''){ |result, tab| result << content_tag(:div, tab[:content], :id => tab[:id]) }
 
-    content_tag :div, :class => 'ui-tabs' do
-      content_tag(:ul, titles) + contents
-    end
+    content_tag(:div, content_tag(:ul, titles) + raw(contents), :class => 'ui-tabs')
   end
 
   def jquery_token_input_messages_json(hintText = _('Type in an keyword'), noResultsText = _('No results'), searchingText = _('Searching...'))
@@ -1333,11 +1314,12 @@ module ApplicationHelper
   end
 
   def template_options(klass, field_name)
-    return '' if klass.templates.count == 0
-    return hidden_field_tag("#{field_name}[template_id]", klass.templates.first.id) if klass.templates.count == 1
+    templates = klass.templates(environment)
+    return '' if templates.count == 0
+    return hidden_field_tag("#{field_name}[template_id]", templates.first.id) if templates.count == 1
 
     counter = 0
-    radios = klass.templates.map do |template|
+    radios = templates.map do |template|
       counter += 1
       content_tag('li', labelled_radio_button(link_to(template.name, template.url, :target => '_blank'), "#{field_name}[template_id]", template.id, counter==1))
     end.join("\n")
@@ -1425,6 +1407,16 @@ module ApplicationHelper
       @message = _('The contents in this community is available to members only.')
     end
     @no_design_blocks = true
+  end
+
+  def default_folder_for_image_upload(profile)
+    default_folder = profile.folders.find_by_type('Gallery')
+    default_folder = profile.folders.find_by_type('Folder') if default_folder.nil?
+    default_folder
+  end
+
+  def content_id_to_str(content)
+    content.nil? ? '' : content.id.to_s
   end
 
 end

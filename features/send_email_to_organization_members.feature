@@ -33,7 +33,7 @@ Feature: send emails to organization members
     And I go to Sample Community's members management
     And I follow "Send e-mail to members"
     And I fill in "Subject" with "Hello, member!"
-    And I fill in "body" with "We have some news"
+    And I fill in "Body" with "We have some news"
     When I press "Send"
     Then I should be on Sample Community's members management
 
@@ -41,7 +41,7 @@ Feature: send emails to organization members
     Given I am logged in as "joaosilva"
     And I go to Sample Community's members management
     And I follow "Send e-mail to members"
-    And I fill in "body" with "We have some news"
+    And I fill in "Body" with "We have some news"
     When I press "Send"
     Then I should be on /profile/sample-community/send_mail
 
@@ -68,19 +68,19 @@ Feature: send emails to organization members
   Scenario: Show button "Send e-Mail to members" of community to an moderator
     Given I am logged in as "jose"
     When I go to Sample Community's members page
-    Then I should see "Send e-mail to members" link
+    Then I should see "Send e-mail to members"
 
   Scenario: Not show button "Send e-Mail to members" if user has no right permission
     Given I am logged in as "manoel"
     When I go to Sample Community's members page
-    Then I should not see "Send e-mail to members" link
+    Then I should not see "Send e-mail to members"
 
   Scenario: Redirect back to profile members page after send mail
     Given I am logged in as "jose"
     When I go to Sample Community's members page
     And I follow "Send e-mail to members"
     And I fill in "Subject" with "Hello, member!"
-    And I fill in "body" with "We have some news"
+    And I fill in "Body" with "We have some news"
     When I press "Send"
     Then I should be on Sample Community's members page
 

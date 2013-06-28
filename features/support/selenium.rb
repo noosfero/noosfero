@@ -1,27 +1,29 @@
-Webrat.configure do |config|
-  config.mode = :selenium
-  config.application_environment = :cucumber
-  config.selenium_browser_startup_timeout = 30000
-end
-
-Cucumber::Rails::World.use_transactional_fixtures = false
-
 require 'database_cleaner'
 require 'database_cleaner/cucumber'
 
+Cucumber::Rails::World.use_transactional_fixtures = false
+
+Capybara.default_driver = :selenium
+Capybara.register_driver :selenium do |app|
+  Capybara::Selenium::Driver.new(app, :browser => :firefox)
+end
+
+# FIXME: 'DELETE FROM ...' is being ran 3x - see cucumber.log
 DatabaseCleaner.clean_with :truncation
 DatabaseCleaner.strategy = :truncation
 
 Before do
-  Fixtures.reset_cache
-  fixtures_folder = File.join(RAILS_ROOT, 'test', 'fixtures')
-  fixtures = ['environments', 'roles']
-  Fixtures.create_fixtures(fixtures_folder, fixtures)
-  ENV['LANG'] = 'C'
   DatabaseCleaner.start
 end
 
+Before('@ignore-hidden-elements') do
+  Capybara.ignore_hidden_elements = true
+end
+
+Capybara.default_wait_time = 30
+
 After do
-  sleep 2
   DatabaseCleaner.clean
 end
+
+World(Capybara)

@@ -1,10 +1,9 @@
-<script src="/plugins/mezuro/javascripts/project_content.js" type="text/javascript"></script>
-
 <% @project = @page.project %>
 <% unless @page.errors[:base].nil? %>
-  <% if @page.errors[:base] =~ /There is no project named/ %>
+<!-- #TODO add owner verification to remove or edit repository -->
+  <% if @page.errors[:base] == "Kalibro::Errors::RecordNotFound" %>
     <h3>Warning:</h3>
-    <p>This project doesn't exist on the Web Service. Do you want to <a href="/myprofile/<%= @page.profile.name %>/cms/destroy/<%= @page.id%>">delete</a> or <a href="/myprofile/<%= @page.profile.name %>/cms/edit/<%= @page.id%>">save it again</a>?</p>
+    <p>This project doesn't exist on the Web Service. Do you want to <%= link_to 'delete', :action => 'destroy', :controller => 'cms', :profile => @page.profile.identifier, :id => @page.id %> or <%= link_to 'save it again', :action => 'edit', :controller => 'cms', :profile => @page.profile.identifier, :id => @page.id %>?</p>
   <% else %>
     <%= @page.errors[:base] %>
   <% end %>
@@ -16,44 +15,38 @@
       <td><%= @project.name %></td>
     </tr>
     <tr>
-      <td><%= _('License') %></td>
-      <td><%= @project.license %></td>
-    </tr>
-    <tr>
       <td><%= _('Description') %></td>
       <td><%= @project.description %></td>
     </tr>
-    <tr>
-      <td><%= _('Repository type') %></td>
-      <td><%= @project.repository.type %></td>
-    </tr>
-    <tr>
-      <td><%= _('Repository address') %></td>
-      <td><%= @project.repository.address %></td>
-    </tr>
-    <tr>
-      <td><%= _('Configuration') %></td>
-      <td><%= @project.configuration_name %></td>
-    </tr>
-    <tr> 
-      <td><%= _('Periodicity') %></td>
-      <td><%= MezuroPlugin::Helpers::ContentViewerHelper.get_periodicity_option(@page.periodicity_in_days) %></td>
-    </tr>
-    <tr>
-      <td><%= _('Status')%></td>
-      <td>
-        <div id="project-state"><%= @project.state %></div>
-        <div id="msg-time"></div> 
-      </td>
-    </tr>
   </table>
+  <br/>
+  <h5><%= _('Repositories') %></h5>
+  <table>
+  <% @page.repositories.each do |repository| %>
+    <tr>
+      <td><%= link_to repository.name, :controller => "mezuro_plugin_repository", 
+  																			:profile => @page.profile.identifier, 
+  																			:action => "show", 
+  																			:id => @page.id,
+  																			:repository_id => repository.id %></td>
+  		<td ><%= link_to _('Edit'), {:controller => "mezuro_plugin_repository", 
+  																			:profile => @page.profile.identifier, 
+  																			:action => "edit", 
+  																			:id => @page.id,
+  																			:repository_id => repository.id}, :class=>"button with-text icon-edit" %></td>
+  		<td ><%= link_to _('Remove'), {:controller => "mezuro_plugin_repository", 
+  																			:profile => @page.profile.identifier, 
+  																			:action => "destroy", 
+  																			:id => @page.id,
+  																			:repository_id => repository.id}, :class=>"button with-text icon-delete" %></td>
+  	</tr>
+  <% end %>
+  </table>
+  
+  <br>
+  <%= link_to "#{image_tag('/plugins/mezuro/images/plus.png')}Add Repository", :controller => "mezuro_plugin_repository", 
+  																			:profile => @page.profile.identifier, 
+  																			:action => "new", 
+  																			:id => @page.id %><br/>
 
-  <br />
-
-  <div id="project-result" data-profile="<%= @page.profile.identifier %>" data-content="<%= @page.id %>"
-       data-project-name="<%= @project.name %>">
-  </div>
-  <div id="project-tree"></div>
-  <div id="module-result">
-  </div>
 <% end %>

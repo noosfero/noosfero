@@ -21,13 +21,6 @@ class TinyMceArticleTest < ActiveSupport::TestCase
     assert_kind_of String, TinyMceArticle.short_description
   end
 
-  should 'be found when searching for articles by query' do
-    TestSolr.enable
-    tma = TinyMceArticle.create!(:name => 'test tinymce article', :body => '---', :profile => profile)
-    assert_includes TinyMceArticle.find_by_contents('article')[:results], tma
-    assert_includes Article.find_by_contents('article')[:results], tma
-  end
-
   should 'not sanitize target attribute' do
     article = TinyMceArticle.create!(:name => 'open link in new window', :body => "open <a href='www.invalid.com' target='_blank'>link</a> in new window", :profile => profile)
     assert_tag_in_string article.body, :tag => 'a', :attributes => {:target => '_blank'}
@@ -229,11 +222,6 @@ end
 
   should 'tiny mce editor is enabled' do
     assert TinyMceArticle.new.tiny_mce?
-  end
-
-  should 'define type facet' do
-	  a = TinyMceArticle.new
-		assert_equal TextArticle.type_name, TinyMceArticle.send(:f_type_proc, a.send(:f_type))
   end
 
 end

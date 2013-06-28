@@ -13,9 +13,15 @@ class ShoppingCartPluginController < PublicController
   def get
     config =
       if cart.nil?
-        { 'enterprise_id' => nil, 'hasProducts' => false }
+        { :enterprise_id => nil,
+          :has_products => false,
+          :visible => false,
+          :products => []}
       else
-        { 'enterprise_id' => cart[:enterprise_id], 'hasProducts' => (cart[:items].keys.size > 0) }
+        { :enterprise_id => cart[:enterprise_id],
+          :has_products => (cart[:items].keys.size > 0),
+          :visible => visible?,
+          :products => products}
       end
     render :text => config.to_json
   end
@@ -56,16 +62,6 @@ class ShoppingCartPluginController < PublicController
 
   def list
     if validate_cart_presence
-      products = self.cart[:items].collect do |id, quantity|
-        product = Product.find(id)
-        { :id => product.id,
-          :name => product.name,
-          :price => get_price(product, product.enterprise.environment),
-          :description => product.description,
-          :picture => product.default_image(:minor),
-          :quantity => quantity
-        }
-      end
       render :text => {
         :ok => true,
         :error => {:code => 0},
@@ -128,7 +124,7 @@ class ShoppingCartPluginController < PublicController
   end
 
   def visibility
-    render :text => self.cart.has_key?(:visibility) ? self.cart[:visibility].to_json : true.to_json
+    render :text => visible?.to_json
   end
 
   def show
@@ -315,6 +311,33 @@ class ShoppingCartPluginController < PublicController
 
   def cookie_key
     :_noosfero_plugin_shopping_cart
+  end
+
+  def visible?
+    !self.cart.has_key?(:visibility) || self.cart[:visibility]
+  end
+
+  def products
+    self.cart[:items].collect do |id, quantity|
+      product = Product.find_by_id(id)
+      if product
+        { :id => product.id,
+          :name => product.name,
+          :price => get_price(product, product.enterprise.environment),
+          :description => product.description,
+          :picture => product.default_image(:minor),
+          :quantity => quantity
+        }
+      else
+        { :id => id,
+          :name => _('Undefined product'),
+          :price => 0,
+          :description => _('Wrong product id'),
+          :picture => '',
+          :quantity => quantity
+        }
+      end
+    end
   end
 
 end

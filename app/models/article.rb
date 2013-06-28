@@ -2,7 +2,28 @@ require 'hpricot'
 
 class Article < ActiveRecord::Base
 
-include ActionController::UrlWriter
+  SEARCHABLE_FIELDS = {
+    :name => 10,
+    :abstract => 3,
+    :body => 2,
+    :slug => 1,
+    :filename => 1,
+  }
+
+  SEARCH_FILTERS = %w[
+    more_recent
+    more_popular
+    more_comments
+  ]
+
+  SEARCH_DISPLAYS = %w[full]
+
+  def self.default_search_display
+    'full'
+  end
+
+  #FIXME This is necessary because html is being generated on the model...
+  include ActionView::Helpers::TagHelper
 
   # use for internationalizable human type names in search facets
   # reimplement on subclasses
@@ -147,7 +168,6 @@ include ActionController::UrlWriter
     else
       ArticleCategorization.add_category_to_article(c, self)
       self.categories(reload)
-      self.solr_save
     end
   end
 
@@ -165,7 +185,6 @@ include ActionController::UrlWriter
       ArticleCategorization.add_category_to_article(item, self)
     end
     self.categories(true)
-    self.solr_save
     pending_categorizations.clear
   end
 
@@ -201,20 +220,12 @@ include ActionController::UrlWriter
   named_scope :public,
     :conditions => [ "advertise = ? AND published = ? AND profiles.visible = ? AND profiles.public_profile = ?", true, true, true, true ]
 
-  named_scope :more_recent,
-    :conditions => [ "advertise = ? AND published = ? AND profiles.visible = ? AND profiles.public_profile = ? AND
-      ((articles.type != ?) OR articles.type is NULL)",
-      true, true, true, true, 'RssFeed'
-    ],
-    :order => 'articles.published_at desc, articles.id desc'
-
   # retrives the most commented articles, sorted by the comment count (largest
   # first)
   def self.most_commented(limit)
     paginate(:order => 'comments_count DESC', :page => 1, :per_page => limit)
   end
 
-  named_scope :more_popular, :order => 'hits DESC'
   named_scope :relevant_as_recent, :conditions => ["(articles.type != 'UploadedFile' and articles.type != 'RssFeed' and articles.type != 'Blog') OR articles.type is NULL"]
 
   def self.recent(limit = nil, extra_conditions = {}, pagination = true)
@@ -239,8 +250,13 @@ include ActionController::UrlWriter
   # The implementation in this class just provides the +body+ attribute as the
   # HTML.  Other article types can override this method to provide customized
   # views of themselves.
+  # (To override short format representation, override the lead method)
   def to_html(options = {})
-    body || ''
+    if options[:format] == 'short'
+      display_short_format(self)
+    else
+      body || ''
+    end
   end
 
   include ApplicationHelper
@@ -429,8 +445,8 @@ include ActionController::UrlWriter
   named_scope :images, :conditions => { :is_image => true }
   named_scope :text_articles, :conditions => [ 'articles.type IN (?)', text_article_types ]
 
+  named_scope :more_popular, :order => 'hits DESC'
   named_scope :more_comments, :order => "comments_count DESC"
-  named_scope :more_views, :order => "hits DESC"
   named_scope :more_recent, :order => "created_at DESC"
 
   def self.display_filter(user, profile)
@@ -596,7 +612,7 @@ include ActionController::UrlWriter
   end
 
   def lead
-    abstract.blank? ? first_paragraph : abstract
+    abstract.blank? ? first_paragraph.html_safe : abstract.html_safe
   end
 
   def short_lead
@@ -627,7 +643,7 @@ include ActionController::UrlWriter
 
   end
 
-  def more_views_label
+  def more_popular_label
     amount = self.hits
     {
       0 => _('no views'),
@@ -655,98 +671,7 @@ include ActionController::UrlWriter
     img.nil? ? '' : img.attributes['src']
   end
 
-  private
-
-  # FIXME: workaround for development env.
-  # Subclasses aren't (re)loaded, and acts_as_solr
-  # depends on subclasses method to search
-  # see http://stackoverflow.com/questions/4138957/activerecordsubclassnotfound-error-when-using-sti-in-rails/4139245
-  UploadedFile
-  TextArticle
-  TinyMceArticle
-  TextileArticle
-  Folder
-  EnterpriseHomepage
-  Gallery
-  Blog
-  Forum
-  Event
-
-  def self.f_type_proc(klass)
-    klass.constantize.type_name
-  end
-
-  def self.f_profile_type_proc(klass)
-    klass.constantize.type_name
-  end
-
-  def f_type
-    #join common types
-    case self.class.name
-    when 'TinyMceArticle', 'TextileArticle'
-      TextArticle.name
-    else
-      self.class.name
-    end
-  end
-
-  def f_profile_type
-    self.profile.class.name
-  end
-
-  def f_published_at
-    self.published_at
-  end
-
-  def f_category
-    self.categories.collect(&:name)
-  end
-
   delegate :region, :region_id, :environment, :environment_id, :to => :profile, :allow_nil => true
-  def name_sortable # give a different name for solr
-    name
-  end
-
-  def public
-    self.public?
-  end
-
-  def category_filter
-    categories_including_virtual_ids
-  end
-
-  public
-
-  acts_as_faceted :fields => {
-      :f_type => {:label => _('Type'), :proc => proc{|klass| f_type_proc(klass)}},
-      :f_published_at => {:type => :date, :label => _('Published date'), :queries => {'[* TO NOW-1YEARS/DAY]' => _("Older than one year"),
-        '[NOW-1YEARS TO NOW/DAY]' => _("In the last year"), '[NOW-1MONTHS TO NOW/DAY]' => _("In the last month"), '[NOW-7DAYS TO NOW/DAY]' => _("In the last week"), '[NOW-1DAYS TO NOW/DAY]' => _("In the last day")},
-        :queries_order => ['[NOW-1DAYS TO NOW/DAY]', '[NOW-7DAYS TO NOW/DAY]', '[NOW-1MONTHS TO NOW/DAY]', '[NOW-1YEARS TO NOW/DAY]', '[* TO NOW-1YEARS/DAY]']},
-      :f_profile_type => {:label => _('Profile'), :proc => proc{|klass| f_profile_type_proc(klass)}},
-      :f_category => {:label => _('Categories')},
-    }, :category_query => proc { |c| "category_filter:\"#{c.id}\"" },
-    :order => [:f_type, :f_published_at, :f_profile_type, :f_category]
-
-  acts_as_searchable :fields => facets_fields_for_solr + [
-      # searched fields
-      {:name => {:type => :text, :boost => 2.0}},
-      {:slug => :text}, {:body => :text},
-      {:abstract => :text}, {:filename => :text},
-      # filtered fields
-      {:public => :boolean}, {:environment_id => :integer},
-      {:profile_id => :integer}, :language,
-      {:category_filter => :integer},
-      # ordered/query-boosted fields
-      {:name_sortable => :string}, :last_changed_by_id, :published_at, :is_image,
-      :updated_at, :created_at,
-    ], :include => [
-      {:profile => {:fields => [:name, :identifier, :address, :nickname, :region_id, :lat, :lng]}},
-      {:comments => {:fields => [:title, :body, :author_name, :author_email]}},
-      {:categories => {:fields => [:name, :path, :slug, :lat, :lng, :acronym, :abbreviation]}},
-    ], :facets => facets_option_for_solr,
-    :boost => proc { |a| 10 if a.profile && a.profile.enabled },
-    :if => proc{ |a| ! ['RssFeed'].include?(a.class.name) }
-  handle_asynchronously :solr_save
 
   private
 

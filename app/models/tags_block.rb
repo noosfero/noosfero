@@ -20,7 +20,8 @@ class TagsBlock < Block
   end
 
   def content(args={})
-    tags = owner.article_tags
+    is_env = owner.class == Environment
+    tags = is_env ? owner.tag_counts : owner.article_tags
     return '' if tags.empty?
 
     if limit
@@ -29,18 +30,28 @@ class TagsBlock < Block
       tags_tmp.map{ |k,v| tags[k] = v }
     end
 
+    url = is_env ? {:host=>owner.default_hostname, :controller=>'search', :action => 'tag'} :
+          owner.public_profile_url.merge(:controller => 'profile', :action => 'tags')
+    tagname_option = is_env ? :tag : :id
+
     block_title(title) +
-    "\n<div class='tag_cloud'>\n"+
-    tag_cloud( tags, :id,
-               owner.public_profile_url.merge(:controller => 'profile', :action => 'tags'),
-               :max_size => 16, :min_size => 9 ) +
-    "\n</div><!-- end class='tag_cloud' -->\n";
+    "\n<div class='tag_cloud'>\n".html_safe+
+    tag_cloud( tags, tagname_option, url, :max_size => 16, :min_size => 9 ) +
+    "\n</div><!-- end class='tag_cloud' -->\n".html_safe
   end
 
   def footer
-    owner_id = owner.identifier
-    lambda do
-      link_to s_('tags|View all'), :profile => owner_id, :controller => 'profile', :action => 'tags'
+    if owner.class == Environment
+      lambda do
+        link_to s_('tags|View all'),
+          :controller => 'search', :action => 'tags'
+      end
+    else
+      owner_id = owner.identifier
+      lambda do
+        link_to s_('tags|View all'),
+          :profile => owner_id, :controller => 'profile', :action => 'tags'
+      end
     end
   end
 

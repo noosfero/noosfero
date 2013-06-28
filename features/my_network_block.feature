@@ -20,11 +20,11 @@ Feature: my_network_block
       | identifier              | name                   | owner     | public_profile |
       | other-public-community  | Other Public Community | joaosilva | true           |
       | private-community       | Private Community      | joaosilva | false          |
-    And I am on Joao Silva's homepage
+    And I am on joaosilva's homepage
     And I should see "2 communities"
-    When I go to Public Community's homepage
+    When I go to public-community's homepage
     And I follow "Join"
-    And I go to Joao Silva's homepage
+    And I go to joaosilva's homepage
     Then I should see "3 communities"
 
   @selenium
@@ -34,11 +34,11 @@ Feature: my_network_block
       | identifier            | name                  | owner     | visible |
       | visible-community     | Visible Community     | joaosilva | true    |
       | not-visible-community | Not Visible Community | joaosilva | false   |
-    And I am on Joao Silva's homepage
+    And I am on joaosilva's homepage
     And I should see "One community"
-    When I go to Public Community's homepage
+    When I go to public-community's homepage
     And I follow "Join"
-    And I go to Joao Silva's homepage
+    And I go to joaosilva's homepage
     Then I should see "2 communities"
 
   Scenario: display how many public/private friends I have
@@ -48,10 +48,10 @@ Feature: my_network_block
       | josesilva  | Jose Silva  | false          |
     And "joaosilva" is friend of "mariasilva"
     And I am logged in as "joaosilva"
-    And I am on Joao Silva's homepage
+    And I am on joaosilva's homepage
     Then I should see "1 friend"
     And "joaosilva" is friend of "josesilva"
-    When I go to Joao Silva's homepage
+    When I go to joaosilva's homepage
     Then I should see "2 friends"
 
   Scenario: not display how many invisible friends I have
@@ -62,8 +62,8 @@ Feature: my_network_block
     And "josesilva" is invisible
     And "joaosilva" is friend of "mariasilva"
     And I am logged in as "joaosilva"
-    When I go to Joao Silva's homepage
+    When I go to joaosilva's homepage
     Then I should see "1 friend"
     And "joaosilva" is friend of "josesilva"
-    When I go to Joao Silva's homepage
+    When I go to joaosilva's homepage
     Then I should see "1 friend"

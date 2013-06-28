@@ -6,15 +6,13 @@ To configure XMPP/BOSH in Noosfero you need:
 * SystemTimer - http://ph7spot.com/musings/system-timer
 * Pidgin data files - http://www.pidgin.im/
 
-If you use Debian Lenny:
+If you use Debian Wheezy:
 
-# apt-get install librestclient-ruby (from backports)
-# apt-get install pidgin-data
-# apt-get install ruby1.8-dev
+# apt-get install librestclient-ruby pidgin-data ruby1.8-dev
 # gem install SystemTimer
 
-Take a look at util/chat directory to see samples of config file to configure a
-XMPP/BOSH server with ejabberd, postgresql and apache2.
+The samples of config file to configure a XMPP/BOSH server with
+ejabberd, postgresql and apache2 can be found at util/chat directory.
 
 == XMPP/Chat Server Setup
 
@@ -22,8 +20,7 @@ This is a step-by-step guide to get a XMPP service working, in a Debian system.
 
 1. Install the required packages
 
-# apt-get -t lenny-backports install ejabberd
-# apt-get install odbc-postgresql
+# apt-get install ejabberd odbc-postgresql
 
 2. Ejabberd configuration
 
@@ -108,7 +105,7 @@ Unused modules can be disabled, for example:
  * web_admin
  * mod_pubsub
  * mod_irc
- * mod_offine
+ * mod_offline
  * mod_admin_extra
  * mod_register
 
@@ -132,7 +129,7 @@ This will create a new schema inside the noosfero database, called 'ejabberd'.
 
 Note 'noosfero' user should have permission to create Postgresql schemas. Also,
 there should be at least one domain with 'is_default = true' in 'domains'
-table, otherwise people couldn't see your friends online.
+table, otherwise people won't be able to see their friends online.
 
 
 4. ODBC configuration
@@ -168,9 +165,12 @@ Debug       = 0
 CommLog     = 1
 UsageCount  = 3
 
- * testing all:
+ 4.1 testing all:
 
-# isql 'PostgreSQLEjabberdNoosfero' DBUSER
+# isql 'PostgreSQLEjabberdNoosfero'
+
+If the configuration was done right, the message "Connected!"
+will be displayed.
 
 
 5. Enabling kernel polling and SMP in /etc/default/ejabberd

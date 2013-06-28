@@ -1,3 +1,39 @@
+noosfero (0.43.0) unstable; urgency=low
+
+  * Solr search converted to a plugin
+
+ -- Rodrigo Souto <rodrigo@ravioli>  Tue, 18 Jun 2013 11:14:56 -0300
+
+noosfero (0.43.0~rc20130529152434) squeeze-test; urgency=low
+
+  * RC of 0.43.0 with solr as a plugin
+
+ -- Rodrigo Souto <rodrigo@ravioli>  Wed, 29 May 2013 15:24:43 -0300
+
+noosfero (0.42.1) unstable; urgency=low
+
+  * Bugfixes release
+
+ -- Rodrigo Souto <rodrigo@ravioli>  Mon, 20 May 2013 10:52:40 -0300
+
+noosfero (0.42.0) unstable; urgency=low
+
+  * Bumping to version 0.42.0
+
+ -- Rodrigo Souto <rodrigo@ravioli>  Mon, 13 May 2013 13:50:43 -0300
+
+noosfero (0.41.2) unstable; urgency=low
+
+  * Bugfixes release 
+
+ -- Rodrigo Souto <rodrigo@colivre.coop.br>  Wed, 17 Apr 2013 16:22:53 -0300
+
+noosfero (0.41.1) unstable; urgency=low
+
+  * Bugfixes release
+
+ -- Rodrigo Souto <rodrigo@colivre.coop.br>  Fri, 08 Mar 2013 11:33:11 -0300
+
 noosfero (0.41.0) unstable; urgency=low
 
   * Features version with anti spam-bot measures

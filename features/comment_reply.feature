@@ -25,7 +25,7 @@ Feature: comment
     Then I should not see "Enter your comment" within "div.comment-balloon"
     And I should see "Reply" within "div.comment-balloon"
 
-  @selenium
+  @selenium-fixme
   Scenario: show error messages when make a blank comment reply
     Given I am logged in as "booking"
     And I go to /booking/article-to-comment
@@ -51,9 +51,9 @@ Feature: comment
     Given I am on /booking/article-to-comment
     When I follow "Reply" within ".comment-balloon"
     And I follow "Cancel" within ".comment-balloon"
-    Then I should see "Enter your comment" within "div.comment_reply.closed"
+    Then I should not see "Enter your comment" within "div.comment_reply.closed"
 
-  @selenium
+  @selenium-fixme
   Scenario: not render same reply form twice
     Given I am on /booking/article-to-comment
     When I follow "Reply" within ".comment-balloon"
@@ -62,7 +62,7 @@ Feature: comment
     Then there should be 1 "comment_form" within "comment_reply"
     And I should see "Enter your comment" within "div.comment_reply.opened"
 
-  @selenium
+  @selenium-fixme
   Scenario: reply a comment
     Given I go to /booking/another-article
     And I follow "Reply" within ".comment-balloon"
@@ -74,7 +74,7 @@ Feature: comment
     Then I should see "Hey ho, let's go" within "ul.comment-replies"
     And there should be 1 "comment-replies" within "article-comment"
 
-  @selenium
+  @selenium-fixme
   Scenario: redirect to right place after reply a picture comment
     Given the following files
       | owner   | file      | mime      |

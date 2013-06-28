@@ -1,0 +1,53 @@
+<div class="search-image-container">
+
+  <% if image.is_a? UploadedFile and image.filename %>
+    <% extension = image.extension %>
+    <% if ['jpg', 'jpeg', 'gif', 'png', 'tiff', 'svg'].include? extension %>
+      <%= link_to '', image.view_url, :class => "search-image-pic", :style => 'background-image: url(%s)'% image.public_filename(:thumb) %>
+      <% if image.width && image.height %>
+        <% javascript_tag do %>
+          image = jQuery('script').last().parent().find('.search-image-pic');
+          des_width = parseInt(image.css('width'));
+          des_height = parseInt(image.css('height'));
+
+          width = <%= image.width %>;
+          height = <%= image.height %>;
+          scale_factor = width > height ? des_width/width : des_height/height;
+
+          image.css({'width' : scale_factor*width +'px', 'height' : scale_factor*height+'px'});
+        <% end %>
+      <% end %>
+    <% elsif ['pdf'].include? extension %>
+      <%= link_to '', image.view_url, :class => 'search-image-pic icon-application-pdf' %>
+    <% elsif ['doc', 'docx', 'odt', 'rtf', 'txt', 'html', 'htm'].include? extension %>
+      <%= link_to '', image.view_url, :class => 'search-image-pic icon-application-vnd-oasis-opendocument-text' %>
+    <% elsif ['xls', 'xlsx', 'ods', 'csv', 'tsv', 'tab'].include? extension %>
+      <%= link_to '', image.view_url, :class => 'search-image-pic icon-application-vnd-oasis-opendocument-spreadsheet' %>
+    <% end %>
+  <% elsif image.is_a? Gallery %>
+    <div class="search-gallery-items">
+      <% r = image.children.find(:all, :order => :updated_at, :conditions => ['type = ?', 'UploadedFile']).last(3) %>
+      <% if r.length > 0 %>
+        <% r.each_index do |i| img = r[i] %>
+          <%= link_to '', img.view_url, :class => "search-image-pic pic-num#{i+1}",
+                                        :style => 'background-image: url(%s)'% img.public_filename(:thumb) %>
+        <% end %>
+      <% else %>
+        <div class="search-no-image"><span><%= _('No image') %></span></div>
+      <% end %>
+    </div>
+  <% elsif image.is_a? Product %>
+    <% if image.image %>
+    <div class="zoomable-image">
+      <%= link_to '', product_path(image), :class => "search-image-pic",
+          :style => 'background-image: url(%s)'% image.default_image(:thumb) %>
+      <%= link_to content_tag(:span, _('Zoom in')), image.image.public_filename,
+          :class => 'zoomify-image' %>
+    </div>
+    <% else %>
+      <div class="search-no-image"><span><%= _('No image') %></span></div>
+    <% end %>
+  <% else %>
+    <div class="search-content-type-icon icon-content-<%=image.class.to_s.underscore.dasherize%>"></div>
+  <% end %>
+</div>

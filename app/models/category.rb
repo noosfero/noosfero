@@ -1,5 +1,12 @@
 class Category < ActiveRecord::Base
 
+  SEARCHABLE_FIELDS = {
+    :name => 10,
+    :acronym => 5,
+    :abbreviation => 5,
+    :slug => 1,
+  }
+
   validates_exclusion_of :slug, :in => [ 'index' ], :message => N_('%{fn} cannot be like that.').fix_i18n
   validates_presence_of :name, :environment_id
   validates_uniqueness_of :slug,:scope => [ :environment_id, :parent_id ], :message => N_('%{fn} is already being used by another category.').fix_i18n
@@ -99,24 +106,5 @@ class Category < ActiveRecord::Base
     return false if self.display_in_menu == false
     self.children.find(:all, :conditions => {:display_in_menu => true}).empty?
   end
-
-  private
-  def name_sortable # give a different name for solr
-    name
-  end
-  public
-
-  acts_as_searchable :fields => [
-    # searched fields
-    {:name => {:type => :text, :boost => 2.0}},
-    {:path => :text}, {:slug => :text},
-    {:abbreviation => :text}, {:acronym => :text},
-    # filtered fields
-    :parent_id,
-    # ordered/query-boosted fields
-    {:name_sortable => :string},
-  ]
-  after_save_reindex [:articles, :profiles], :with => :delayed_job
-  handle_asynchronously :solr_save
 
 end

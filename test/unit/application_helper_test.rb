@@ -243,6 +243,7 @@ class ApplicationHelperTest < ActiveSupport::TestCase
   end
 
   should 'not display templates options when there is no template' do
+    self.stubs(:environment).returns(Environment.default)
     [Person, Community, Enterprise].each do |klass|
       assert_equal '', template_options(klass, 'profile_data')
     end
@@ -657,7 +658,106 @@ class ApplicationHelperTest < ActiveSupport::TestCase
     assert_not_nil add_zoom_to_images
   end
 
+  should 'reference to article' do
+    c = fast_create(Community)
+    a = fast_create(TinyMceArticle, :profile_id => c.id)
+    assert_equal(
+      "<a href=\"/#{c.identifier}/#{a.slug}\">x</a>",
+      reference_to_article('x', a) )
+  end
+
+  should 'reference to article, with anchor' do
+    c = fast_create(Community)
+    a = fast_create(TinyMceArticle, :profile_id => c.id)
+    assert_equal(
+      "<a href=\"/#{c.identifier}/#{a.slug}#place\">x</a>",
+      reference_to_article('x', a, 'place') )
+  end
+
+  should 'reference to article, in a blog' do
+    c = fast_create(Community)
+    b = fast_create(Blog, :profile_id => c.id)
+    a = fast_create(TinyMceArticle, :profile_id => c.id, :parent_id => b.id)
+    a.save! # needed to link to the parent blog
+    assert_equal(
+      "<a href=\"/#{c.identifier}/#{b.slug}/#{a.slug}\">x</a>",
+      reference_to_article('x', a) )
+  end
+
+  should 'reference to article, in a profile with domain' do
+    c = fast_create(Community)
+    c.domains << Domain.new(:name=>'domain.xyz')
+    b = fast_create(Blog, :profile_id => c.id)
+    a = fast_create(TinyMceArticle, :profile_id => c.id, :parent_id => b.id)
+    a.save!
+    assert_equal(
+      "<a href=\"http://domain.xyz/#{b.slug}/#{a.slug}\">x</a>",
+      reference_to_article('x', a) )
+  end
+
+  should 'content_id_to_str return the content id as string' do
+    article = fast_create(Article, :name => 'my article')
+    response = content_id_to_str(article)
+    assert_equal String, response.class
+    assert !response.empty?
+  end
+
+  should 'content_id_to_str return empty string when receiving nil' do
+    assert_equal '', content_id_to_str(nil)
+  end
+
+  should 'select gallery as default folder for image upload' do
+    profile = create_user('testuser').person
+    folder  = fast_create(Folder,  :profile_id => profile.id)
+    gallery = fast_create(Gallery, :profile_id => profile.id)
+    blog    = fast_create(Blog,    :profile_id => profile.id)
+    assert_equal gallery, default_folder_for_image_upload(profile)
+  end
+
+  should 'select generic folder as default folder for image upload when no gallery' do
+    profile = create_user('testuser').person
+    folder  = fast_create(Folder,  :profile_id => profile.id)
+    blog    = fast_create(Blog,    :profile_id => profile.id)
+    assert_equal folder, default_folder_for_image_upload(profile)
+  end
+
+  should 'return nil as default folder for image upload when no gallery or generic folder' do
+    profile = create_user('testuser').person
+    blog    = fast_create(Blog,    :profile_id => profile.id)
+    assert_nil default_folder_for_image_upload(profile)
+  end
+
+  should 'envelop a html with button-bar div' do
+    result = button_bar { '<b>foo</b>' }
+    assert_equal '<div class="button-bar"><b>foo</b>'+
+                 '<br style=\'clear: left;\' /></div>', result
+  end
+
+  should 'add more classes to button-bar envelope' do
+    result = button_bar :class=>'test' do
+      '<b>foo</b>'
+    end
+    assert_equal '<div class="test button-bar"><b>foo</b>'+
+                 '<br style=\'clear: left;\' /></div>', result
+  end
+
+  should 'add more attributes to button-bar envelope' do
+    result = button_bar :id=>'bt1' do
+      '<b>foo</b>'
+    end
+    assert_equal '<div class="button-bar" id="bt1"><b>foo</b>'+
+                 '<br style=\'clear: left;\' /></div>', result
+  end
+
   protected
   include NoosferoTestHelper
+
+  def capture
+    yield
+  end
+
+  def concat(str)
+    str
+  end
 
 end

@@ -1,4 +1,7 @@
 class Scrap < ActiveRecord::Base
+  SEARCHABLE_FIELDS = {
+    :content => 1,
+  }
   validates_presence_of :content
   validates_presence_of :sender_id, :receiver_id
 
