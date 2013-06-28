@@ -95,7 +95,7 @@
   <% end %>
 
   <% if @page.accept_comments? && @comments_count > 1 %>
-    <%= link_to(_('Post a comment'), '#', :class => 'display-comment-form', :id => 'top-post-comment-button') %>
+    <%= link_to(_('Post a comment'), '#', :class => 'display-comment-form', :id => 'top-post-comment-button', :onclick => "jQuery('#page-comment-form .display-comment-form').first().click();") %>
   <% end %>
 
   <ul class="article-comments-list">
