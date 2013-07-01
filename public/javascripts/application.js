@@ -718,14 +718,15 @@ function add_comment_reply_form(button, comment_id) {
     f = comments_div.find('.comment_form').first().clone();
     f.find('.errorExplanation').remove();
     f.append('<input type="hidden" name="comment[reply_of_id]" value="' + comment_id + '" />');
-    container.append(f);
+    container.append('<div class="page-comment-form"></div>');
+    container.find('.page-comment-form').append(f);
   }
   if (container.hasClass('closed')) {
     container.removeClass('closed');
     container.addClass('opened');
     container.find('.comment_form input[type=text]:visible:first').focus();
   }
-  container.addClass('page-comment-form');
+  jQuery('.display-comment-form').hide();
   return f;
 }
 
