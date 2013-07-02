@@ -115,7 +115,7 @@ class InputTest < ActiveSupport::TestCase
   should 'display amount used' do
     ent = fast_create(Enterprise, :name => 'test ent 1', :identifier => 'test_ent1')
     product_category = fast_create(ProductCategory, :name => 'Products')
-    product = fast_create(Product, :enterprise_id => ent.id, :product_category_id => product_category.id)
+    product = fast_create(Product, :profile_id => ent.id, :product_category_id => product_category.id)
 
     input = Input.new(:product => product)
     input.amount_used = 10.45
@@ -134,7 +134,7 @@ class InputTest < ActiveSupport::TestCase
   should 'display only integer value if decimal value is 00' do
     ent = fast_create(Enterprise, :name => 'test ent 1', :identifier => 'test_ent1')
     product_category = fast_create(ProductCategory, :name => 'Products')
-    product = fast_create(Product, :enterprise_id => ent.id, :product_category_id => product_category.id)
+    product = fast_create(Product, :profile_id => ent.id, :product_category_id => product_category.id)
 
     input = Input.new(:product => product)
     input.amount_used = 10.00
@@ -144,7 +144,7 @@ class InputTest < ActiveSupport::TestCase
   should 'display formatted value' do
     ent = fast_create(Enterprise, :name => 'test ent 1', :identifier => 'test_ent1')
     product_category = fast_create(ProductCategory, :name => 'Products')
-    product = fast_create(Product, :enterprise_id => ent.id, :product_category_id => product_category.id)
+    product = fast_create(Product, :profile_id => ent.id, :product_category_id => product_category.id)
 
     input = Input.new(:product => product)
     input.price_per_unit = 1.45

@@ -70,7 +70,7 @@ class PriceDetailTest < ActiveSupport::TestCase
 
   should 'format values to float with 2 decimals' do
     enterprise = fast_create(Enterprise)
-    product = fast_create(Product, :enterprise_id => enterprise.id)
+    product = fast_create(Product, :profile_id => enterprise.id)
     cost = fast_create(ProductionCost, :owner_id => Environment.default.id, :owner_type => 'environment')
 
     price_detail = product.price_details.create(:production_cost_id => cost.id, :price => 10)

@@ -15,7 +15,8 @@ class Product < ActiveRecord::Base
     'full'
   end
 
-  belongs_to :enterprise
+  belongs_to :enterprise, :foreign_key => :profile_id, :class_name => 'Profile'
+  belongs_to :profile
   has_one :region, :through => :enterprise
   validates_presence_of :enterprise
 
@@ -29,7 +30,9 @@ class Product < ActiveRecord::Base
   has_many :qualifiers, :through => :product_qualifiers
   has_many :certifiers, :through => :product_qualifiers
 
-  validates_uniqueness_of :name, :scope => :enterprise_id, :allow_nil => true
+  acts_as_having_settings :field => :data
+
+  validates_uniqueness_of :name, :scope => :profile_id, :allow_nil => true
   validates_presence_of :product_category_id
   validates_associated :product_category
 

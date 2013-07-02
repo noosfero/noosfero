@@ -20,11 +20,11 @@ class ManageProductsControllerTest < ActionController::TestCase
   def test_local_files_reference
     assert_local_files_reference :get, :index, :profile => @enterprise.identifier
   end
-  
+
   def test_valid_xhtml
     assert_valid_xhtml
   end
-  
+
   should "not have permission" do
     u = create_user('user_test')
     login_as :user_test
@@ -44,7 +44,7 @@ class ManageProductsControllerTest < ActionController::TestCase
     assert_response :success
     assert assigns(:product)
     assert_template 'new'
-    assert_tag :tag => 'form', :attributes => { :action => /new/ } 
+    assert_tag :tag => 'form', :attributes => { :action => /new/ }
   end
 
   should "create new product" do
@@ -65,7 +65,7 @@ class ManageProductsControllerTest < ActionController::TestCase
   end
 
   should "get edit name form" do
-    product = fast_create(Product, :name => 'test product', :enterprise_id => @enterprise.id, :product_category_id => @product_category.id)
+    product = fast_create(Product, :name => 'test product', :profile_id => @enterprise.id, :product_category_id => @product_category.id)
     get 'edit', :profile => @enterprise.identifier, :id => product.id, :field => 'name'
     assert_response :success
     assert assigns(:product)
@@ -73,7 +73,7 @@ class ManageProductsControllerTest < ActionController::TestCase
   end
 
   should "get edit info form" do
-    product = fast_create(Product, :name => 'test product', :enterprise_id => @enterprise.id, :product_category_id => @product_category.id)
+    product = fast_create(Product, :name => 'test product', :profile_id => @enterprise.id, :product_category_id => @product_category.id)
     get 'edit', :profile => @enterprise.identifier, :id => product.id, :field => 'info'
     assert_response :success
     assert assigns(:product)
@@ -81,7 +81,7 @@ class ManageProductsControllerTest < ActionController::TestCase
   end
 
   should "get edit image form" do
-    product = fast_create(Product, :name => 'test product', :enterprise_id => @enterprise.id, :product_category_id => @product_category.id)
+    product = fast_create(Product, :name => 'test product', :profile_id => @enterprise.id, :product_category_id => @product_category.id)
     get 'edit', :profile => @enterprise.identifier, :id => product.id, :field => 'image'
     assert_response :success
     assert assigns(:product)
@@ -89,7 +89,7 @@ class ManageProductsControllerTest < ActionController::TestCase
   end
 
   should "edit product name" do
-    product = fast_create(Product, :name => 'test product', :enterprise_id => @enterprise.id, :product_category_id => @product_category.id)
+    product = fast_create(Product, :name => 'test product', :profile_id => @enterprise.id, :product_category_id => @product_category.id)
     post :edit, :profile => @enterprise.identifier, :product => {:name => 'new test product'}, :id => product.id, :field => 'name'
     assert_response :success
     assert assigns(:product)
@@ -98,7 +98,7 @@ class ManageProductsControllerTest < ActionController::TestCase
   end
 
   should "edit product description" do
-    product = fast_create(Product, :name => 'test product', :enterprise_id => @enterprise.id, :product_category_id => @product_category.id, :description => 'My product is very good')
+    product = fast_create(Product, :name => 'test product', :profile_id => @enterprise.id, :product_category_id => @product_category.id, :description => 'My product is very good')
     post :edit, :profile => @enterprise.identifier, :product => {:description => 'A very good product!'}, :id => product.id, :field => 'info'
     assert_response :success
     assert assigns(:product)
@@ -107,7 +107,7 @@ class ManageProductsControllerTest < ActionController::TestCase
   end
 
   should "edit product image" do
-    product = fast_create(Product, :name => 'test product', :enterprise_id => @enterprise.id, :product_category_id => @product_category.id)
+    product = fast_create(Product, :name => 'test product', :profile_id => @enterprise.id, :product_category_id => @product_category.id)
     post :edit, :profile => @enterprise.identifier, :product => { :image_builder => { :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png') } }, :id => product.id, :field => 'image'
     assert_response :success
     assert assigns(:product)
@@ -116,32 +116,32 @@ class ManageProductsControllerTest < ActionController::TestCase
   end
 
   should "not edit to invalid parameters" do
-    product = fast_create(Product, :enterprise_id => @enterprise.id, :product_category_id => @product_category.id)
+    product = fast_create(Product, :profile_id => @enterprise.id, :product_category_id => @product_category.id)
     post 'edit_category', :profile => @enterprise.identifier, :selected_category_id => nil, :id => product.id
     assert_response :success
     assert_template 'shared/_dialog_error_messages'
   end
 
   should "not crash if product has no category" do
-    product = fast_create(Product, :enterprise_id => @enterprise.id)
+    product = fast_create(Product, :profile_id => @enterprise.id)
     assert_nothing_raised do
       post 'edit_category', :profile => @enterprise.identifier, :id => product.id
     end
   end
 
   should "destroy product" do
-    product = fast_create(Product, :name => 'test product', :enterprise_id => @enterprise.id, :product_category_id => @product_category.id)
+    product = fast_create(Product, :name => 'test product', :profile_id => @enterprise.id, :product_category_id => @product_category.id)
     assert_difference Product, :count, -1 do
       post 'destroy', :profile => @enterprise.identifier, :id => product.id
       assert_response :redirect
       assert_redirected_to :action => 'index'
       assert assigns(:product)
       assert ! Product.find_by_name('test product')
-    end    
+    end
   end
 
   should "fail to destroy product" do
-    product = fast_create(Product, :name => 'test product', :enterprise_id => @enterprise.id, :product_category_id => @product_category.id)
+    product = fast_create(Product, :name => 'test product', :profile_id => @enterprise.id, :product_category_id => @product_category.id)
     Product.any_instance.stubs(:destroy).returns(false)
     assert_no_difference Product, :count do
       post 'destroy', :profile => @enterprise.identifier, :id => product.id
@@ -184,11 +184,11 @@ class ManageProductsControllerTest < ActionController::TestCase
   end
 
   should 'filter html with white list from description of product' do
-    product = fast_create(Product, :enterprise_id => @enterprise.id, :product_category_id => @product_category.id)
+    product = fast_create(Product, :profile_id => @enterprise.id, :product_category_id => @product_category.id)
     post 'edit', :profile => @enterprise.identifier, :id => product.id, :field => 'info', :product => { :name => 'name', :description => "<b id='html_descr'>descr bold</b>" }
     assert_equal "<b>descr bold</b>", assigns(:product).description
   end
-  
+
   should 'not let users in if environment do not let' do
     env = Environment.default
     env.enable('disable_products_for_enterprises')
@@ -279,14 +279,14 @@ class ManageProductsControllerTest < ActionController::TestCase
   end
 
   should 'not show product price when showing product if not informed' do
-    product = fast_create(Product, :name => 'test product', :enterprise_id => @enterprise.id, :product_category_id => @product_category.id)
+    product = fast_create(Product, :name => 'test product', :profile_id => @enterprise.id, :product_category_id => @product_category.id)
     get :show, :id => product.id, :profile => @enterprise.identifier
 
     assert_no_tag :tag => 'span', :attributes => { :class => 'product_price' }, :content => /Price:/
   end
 
   should 'show product price when showing product if unit was informed' do
-    product = fast_create(Product, :name => 'test product', :price => 50.00, :unit_id => fast_create(Unit).id, :enterprise_id => @enterprise.id, :product_category_id => @product_category.id)
+    product = fast_create(Product, :name => 'test product', :price => 50.00, :unit_id => fast_create(Unit).id, :profile_id => @enterprise.id, :product_category_id => @product_category.id)
     get :show, :id => product.id, :profile => @enterprise.identifier
 
     assert_tag :tag => 'span', :attributes => { :class => 'field-name' }, :content => /Price:/
@@ -294,7 +294,7 @@ class ManageProductsControllerTest < ActionController::TestCase
   end
 
   should 'show product price when showing product if discount was informed' do
-    product = fast_create(Product, :name => 'test product', :price => 50.00, :unit_id => fast_create(Unit).id, :discount => 3.50, :enterprise_id => @enterprise.id, :product_category_id => @product_category.id)
+    product = fast_create(Product, :name => 'test product', :price => 50.00, :unit_id => fast_create(Unit).id, :discount => 3.50, :profile_id => @enterprise.id, :product_category_id => @product_category.id)
     get :show, :id => product.id, :profile => @enterprise.identifier
 
     assert_tag :tag => 'span', :attributes => { :class => 'field-name' }, :content => /List price:/
@@ -304,7 +304,7 @@ class ManageProductsControllerTest < ActionController::TestCase
   end
 
   should 'show product price when showing product if unit not informed' do
-    product = fast_create(Product, :name => 'test product', :price => 50.00, :enterprise_id => @enterprise.id, :product_category_id => @product_category.id)
+    product = fast_create(Product, :name => 'test product', :price => 50.00, :profile_id => @enterprise.id, :product_category_id => @product_category.id)
     get :show, :id => product.id, :profile => @enterprise.identifier
 
     assert_tag :tag => 'span', :attributes => { :class => 'field-name' }, :content => /Price:/
@@ -312,7 +312,7 @@ class ManageProductsControllerTest < ActionController::TestCase
   end
 
   should 'display button to add input when product has no input' do
-    product = fast_create(Product, :name => 'test product', :enterprise_id => @enterprise.id, :product_category_id => @product_category.id)
+    product = fast_create(Product, :name => 'test product', :profile_id => @enterprise.id, :product_category_id => @product_category.id)
     get :show, :id => product.id, :profile => @enterprise.identifier
 
     assert_tag :tag => 'div', :attributes => { :id => 'display-add-input-button'},
@@ -320,13 +320,13 @@ class ManageProductsControllerTest < ActionController::TestCase
   end
 
   should 'has instance of input list when showing product' do
-    product = fast_create(Product, :enterprise_id => @enterprise.id, :product_category_id => @product_category.id)
+    product = fast_create(Product, :profile_id => @enterprise.id, :product_category_id => @product_category.id)
     get :show, :id => product.id, :profile => @enterprise.identifier
     assert_equal [], assigns(:inputs)
   end
 
   should 'remove input of a product' do
-    product = fast_create(Product, :enterprise_id => @enterprise.id, :product_category_id => @product_category.id)
+    product = fast_create(Product, :profile_id => @enterprise.id, :product_category_id => @product_category.id)
     input = fast_create(Input, :product_id => product.id, :product_category_id => @product_category.id)
     assert_equal [input], product.inputs
 
@@ -336,7 +336,7 @@ class ManageProductsControllerTest < ActionController::TestCase
   end
 
   should 'save inputs order' do
-    product = fast_create(Product, :enterprise_id => @enterprise.id)
+    product = fast_create(Product, :profile_id => @enterprise.id)
     first = Input.create!(:product => product, :product_category => fast_create(ProductCategory))
     second = Input.create!(:product => product, :product_category => fast_create(ProductCategory))
     third = Input.create!(:product => product, :product_category => fast_create(ProductCategory))
@@ -357,7 +357,7 @@ class ManageProductsControllerTest < ActionController::TestCase
   should 'not list all the products of enterprise' do
     @enterprise.products = []
     1.upto(12) do |n|
-      fast_create(Product, :name => "test product_#{n}", :enterprise_id => @enterprise.id, :product_category_id => @product_category.id)
+      fast_create(Product, :name => "test product_#{n}", :profile_id => @enterprise.id, :product_category_id => @product_category.id)
     end
     get :index, :profile => @enterprise.identifier
     assert_equal 10, assigns(:products).count
@@ -366,7 +366,7 @@ class ManageProductsControllerTest < ActionController::TestCase
   should 'paginate the manage products list of enterprise' do
     @enterprise.products = []
     1.upto(12) do |n|
-      fast_create(Product, :name => "test product_#{n}", :enterprise_id => @enterprise.id, :product_category_id => @product_category.id)
+      fast_create(Product, :name => "test product_#{n}", :profile_id => @enterprise.id, :product_category_id => @product_category.id)
     end
     get :index, :profile => @enterprise.identifier
     assert_tag :tag => 'a', :attributes => { :rel => 'next', :href => "/myprofile/#{@enterprise.identifier}/manage_products?page=2" }
@@ -376,7 +376,7 @@ class ManageProductsControllerTest < ActionController::TestCase
   end
 
   should 'display tabs even if description and inputs are empty and user is allowed' do
-    product = fast_create(Product, :name => 'test product', :enterprise_id => @enterprise.id, :product_category_id => @product_category.id)
+    product = fast_create(Product, :name => 'test product', :profile_id => @enterprise.id, :product_category_id => @product_category.id)
     get :show, :id => product.id, :profile => @enterprise.identifier
 
     assert_tag :tag => 'div', :attributes => { :id => "product-#{product.id}-tabs" }
@@ -387,7 +387,7 @@ class ManageProductsControllerTest < ActionController::TestCase
 
     login_as 'foo'
 
-    product = fast_create(Product, :name => 'test product', :enterprise_id => @enterprise.id, :product_category_id => @product_category.id)
+    product = fast_create(Product, :name => 'test product', :profile_id => @enterprise.id, :product_category_id => @product_category.id)
     get :show, :id => product.id, :profile => @enterprise.identifier
 
     assert_no_tag :tag => 'div', :attributes => { :id => "product-#{product.id}-tabs" }
@@ -396,7 +396,7 @@ class ManageProductsControllerTest < ActionController::TestCase
   should 'not display tabs if description and inputs are empty and user is not logged in' do
     logout
 
-    product = fast_create(Product, :name => 'test product', :enterprise_id => @enterprise.id, :product_category_id => @product_category.id)
+    product = fast_create(Product, :name => 'test product', :profile_id => @enterprise.id, :product_category_id => @product_category.id)
     get :show, :id => product.id, :profile => @enterprise.identifier
 
     assert_no_tag :tag => 'div', :attributes => { :id => "product-#{product.id}-tabs" }
@@ -406,7 +406,7 @@ class ManageProductsControllerTest < ActionController::TestCase
     create_user('foo')
 
     login_as 'foo'
-    product = fast_create(Product, :description => 'This product is very good', :enterprise_id => @enterprise.id, :product_category_id => @product_category.id)
+    product = fast_create(Product, :description => 'This product is very good', :profile_id => @enterprise.id, :product_category_id => @product_category.id)
     get :show, :id => product.id, :profile => @enterprise.identifier
     assert_tag :tag => 'div', :attributes => { :id => "product-#{product.id}-tabs" }, :descendant => {:tag => 'a', :attributes => {:href => '#product-description'}, :content => 'Description'}
     assert_no_tag :tag => 'div', :attributes => { :id => "product-#{product.id}-tabs" }, :descendant => {:tag => 'a', :attributes => {:href => '#inputs'}, :content => 'Inputs and raw material'}
@@ -416,7 +416,7 @@ class ManageProductsControllerTest < ActionController::TestCase
     create_user 'foo'
 
     login_as 'foo'
-    product = fast_create(Product, :enterprise_id => @enterprise.id, :product_category_id => @product_category.id)
+    product = fast_create(Product, :profile_id => @enterprise.id, :product_category_id => @product_category.id)
     input = fast_create(Input, :product_id => product.id, :product_category_id => @product_category.id)
 
     get :show, :id => product.id, :profile => @enterprise.identifier
@@ -428,7 +428,7 @@ class ManageProductsControllerTest < ActionController::TestCase
     create_user('foo')
 
     login_as 'foo'
-    product = fast_create(Product, :description => 'This product is very good', :enterprise_id => @enterprise.id, :product_category_id => @product_category.id)
+    product = fast_create(Product, :description => 'This product is very good', :profile_id => @enterprise.id, :product_category_id => @product_category.id)
     input = fast_create(Input, :product_id => product.id, :product_category_id => @product_category.id)
 
     get :show, :id => product.id, :profile => @enterprise.identifier
@@ -448,7 +448,7 @@ class ManageProductsControllerTest < ActionController::TestCase
       end
     end
 
-    product = fast_create(Product, :enterprise_id => @enterprise.id)
+    product = fast_create(Product, :profile_id => @enterprise.id)
 
     Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([TestProductInfoExtras1Plugin.new, TestProductInfoExtras2Plugin.new])
 
@@ -470,7 +470,7 @@ class ManageProductsControllerTest < ActionController::TestCase
   end
 
   should 'remove price detail of a product' do
-    product = fast_create(Product, :enterprise_id => @enterprise.id, :product_category_id => @product_category.id)
+    product = fast_create(Product, :profile_id => @enterprise.id, :product_category_id => @product_category.id)
     cost = fast_create(ProductionCost, :owner_id => Environment.default.id, :owner_type => 'Environment')
     detail = product.price_details.create(:production_cost_id => cost.id, :price => 10)
 

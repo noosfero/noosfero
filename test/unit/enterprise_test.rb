@@ -393,13 +393,13 @@ class EnterpriseTest < ActiveSupport::TestCase
     p1 = e1.products.create!(:name => 'test_prod1', :product_category_id => @product_category.id)
     products = []
     3.times {|n|
-      products.push(Product.create!(:name => "product #{n}", :enterprise_id => e1.id,
+      products.push(Product.create!(:name => "product #{n}", :profile_id => e1.id,
         :highlighted => true, :product_category_id => @product_category.id,
         :image_builder => { :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png') }
       ))
     }
-    Product.create!(:name => "product 4", :enterprise_id => e1.id, :product_category_id => @product_category.id, :highlighted => true)
-    Product.create!(:name => "product 5", :enterprise_id => e1.id, :product_category_id => @product_category.id, :image_builder => {
+    Product.create!(:name => "product 4", :profile_id => e1.id, :product_category_id => @product_category.id, :highlighted => true)
+    Product.create!(:name => "product 5", :profile_id => e1.id, :product_category_id => @product_category.id, :image_builder => {
       :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')
     })
     assert_equal products, e1.highlighted_products_with_image
@@ -407,7 +407,7 @@ class EnterpriseTest < ActiveSupport::TestCase
 
   should 'has many inputs through products' do
     enterprise = fast_create(Enterprise)
-    product = fast_create(Product, :enterprise_id => enterprise.id, :product_category_id => @product_category.id)
+    product = fast_create(Product, :profile_id => enterprise.id, :product_category_id => @product_category.id)
     product.inputs << Input.new(:product_category => @product_category)
     product.inputs << Input.new(:product_category => @product_category)
 

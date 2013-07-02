@@ -792,7 +792,7 @@ class Environment < ActiveRecord::Base
   end
 
   def highlighted_products_with_image(options = {})
-    Product.find(:all, {:conditions => {:highlighted => true, :enterprise_id => self.enterprises.find(:all, :select => :id) }, :joins => :image}.merge(options))
+    Product.find(:all, {:conditions => {:highlighted => true, :profile_id => self.enterprises.find(:all, :select => :id) }, :joins => :image}.merge(options))
   end
 
   settings_items :home_cache_in_minutes, :type => :integer, :default => 5
