@@ -138,4 +138,14 @@ class Block < ActiveRecord::Base
     4.hours
   end
 
+  def duplicate
+    duplicated_block = self.clone
+    duplicated_block.enabled = false
+    duplicated_block.created_at = nil
+    duplicated_block.updated_at = nil
+    duplicated_block.save!
+    duplicated_block.insert_at(self.position + 1)
+    duplicated_block
+  end
+
 end

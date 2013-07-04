@@ -2,6 +2,8 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class BlockTest < ActiveSupport::TestCase
 
+  DUPLICATABLE_FIELDS = [:settings, :title, :box_id, :type]
+
   should 'describe itself' do
     assert_kind_of String, Block.description
   end
@@ -150,10 +152,49 @@ class BlockTest < ActiveSupport::TestCase
 
   should 'delegate environment to box' do
     box = fast_create(Box, :owner_id => fast_create(Profile).id)
-    block = Block.new(:box => box)
+    block = Block.new(:bo => box)
     box.stubs(:environment).returns(Environment.default)
 
     assert_equal box.environment, block.environment
   end
+
+  should 'create a clone block' do
+    block = fast_create(Block, :title => 'test 1', :position => 1)
+    assert_difference Block, :count, 1 do
+      block.duplicate
+    end
+  end
+
+  should 'clone and keep some fields' do
+    box = fast_create(Box, :owner_id => fast_create(Profile).id)
+    block = TagsBlock.create!(:title => 'test 1', :box_id => box.id, :settings => {:test => 'test'})
+    duplicated = block.duplicate
+    DUPLICATABLE_FIELDS.each do |f| 
+      assert_equal duplicated.send(f), block.send(f)
+    end
+  end
+
+  should 'clone block and set fields' do
+    box = fast_create(Box, :owner_id => fast_create(Profile).id)
+    block = TagsBlock.create!(:title => 'test 1', :box_id => box.id, :settings => {:test => 'test'}, :position => 1)
+    block2 = TagsBlock.create!(:title => 'test 2', :box_id => box.id, :settings => {:test => 'test'}, :position => 2)
+    duplicated = block.duplicate
+    block2.reload
+    block.reload
+    assert_equal false, duplicated.enabled
+    assert_equal 1, block.position
+    assert_equal 2, duplicated.position
+    assert_equal 3, block2.position
+  end
+
+  should 'not clone date creation and update attributes' do
+     box = fast_create(Box, :owner_id => fast_create(Profile).id)
+    block = TagsBlock.create!(:title => 'test 1', :box_id => box.id, :settings => {:test => 'test'}, :position => 1)
+    duplicated = block.duplicate
+
+      assert_not_equal block.created_at, duplicated.created_at
+      assert_not_equal block.updated_at, duplicated.updated_at
+  end
+
 
 end
