@@ -339,6 +339,30 @@ class Noosfero::Plugin
   def comment_marked_as_ham(comment)
   end
 
+  # Adds extra actions for comments
+  # returns = list of hashes or lambda block that creates a list of hashes
+  # example:
+  #
+  #   def comment_actions(comment)
+  #     [{:link => link_to_function(...)}]
+  #   end
+  #
+  def comment_actions(comment)
+    nil
+  end
+
+  # This method is called when the user click on comment actions menu.
+  # returns = list or lambda block that return ids of enabled menu items for comments
+  # example:
+  #
+  #   def check_comment_actions(comment)
+  #     ['#action1', '#action2']
+  #   end
+  #
+  def check_comment_actions(comment)
+    []
+  end
+
   # -> Adds fields to the signup form
   # returns = lambda block that creates html code
   def signup_extra_contents
