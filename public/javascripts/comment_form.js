@@ -44,7 +44,6 @@ function save_comment(button) {
         this.value = '';
       });
       page_comment_form.find('.errorExplanation').remove();
-      show_display_comment_button();
     } else if(data.render_target == 'form') {
       //Comment with errors
       $.scrollTo(page_comment_form);
@@ -55,7 +54,6 @@ function save_comment(button) {
       $('#'+ data.render_target).replaceWith(data.html);
       $('#' + data.render_target).effect("highlight", {}, 3000);
       $.colorbox.close();
-      show_display_comment_button();
     } else {
       //New comment of article
       comment_div.find('.article-comments-list').append(data.html);
@@ -66,7 +64,6 @@ function save_comment(button) {
 
       page_comment_form.find('.errorExplanation').remove();
       $.colorbox.close();
-      show_display_comment_button();
     }
 
     comment_div.find('.comment-count').add('#article-header .comment-count').each(function() {
@@ -81,14 +78,15 @@ function save_comment(button) {
     if(data.msg != null) {
        display_notice(data.msg);
     }
-
     close_loading();
     toggleBox($button.closest('.post_comment_box'));
+    show_display_comment_button();
     $button.removeClass('comment-button-loading');
     $button.enable();
   }, 'json');
 }
 
 function show_display_comment_button() {
+  if(jQuery('.post_comment_box.opened').length==0)
     jQuery('.display-comment-form').show();
 }
