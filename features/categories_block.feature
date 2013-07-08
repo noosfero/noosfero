@@ -25,7 +25,7 @@ Feature: categories_block
       | environment | CategoriesBlock |
     And I am logged in as admin
 
-  @selenium
+  @selenium @ignore-hidden-elements
   Scenario: List just product categories
     Given I go to /admin/environment_design
     And I follow "Edit" within ".categories-block"
@@ -33,11 +33,11 @@ Feature: categories_block
     When I press "Save"
     Then I should see "Food"
     And I should see "Book"
-    And I should not see "Vegetarian"
-    And I should not see "Steak"
-    And I should not see "Fiction"
+    And "Vegetarian" should not be visible within "span#category-name"
+    And "Steak" should not be visible within "span#category-name"
+    And "Fiction" should not be visible within "span#category-name"
 
-  @selenium
+  @selenium @ignore-hidden-elements
   Scenario: Show submenu if it exists
     Given I go to /admin/environment_design
     And I follow "Edit" within ".categories-block"
@@ -45,40 +45,39 @@ Feature: categories_block
     And I press "Save"
     Then I should see "Food"
     And I should see "Book"
-    And I should not see "Vegetarian"
-    And I should not see "Steak"
-    And I should not see "Literature"
-    When I click ".category-link-expand category-root"
+    And "Vegetarian" should not be visible within "span#category-name"
+    And "Steak" should not be visible within "span#category-name"
+    And "Literature" should not be visible within "span#category-name"
+    When I follow "block_2_category_2"
     Then I should see "Literature"
-    When I click ".category-link-expand category-root"
+    When I follow "block_2_category_1"
     Then I should see "Vegetarian"
     And I should see "Steak"
     And I should not see "Fiction"
 
-  @selenium
+  @selenium @ignore-hidden-elements
   Scenario: Show only one submenu per time
     Given I go to /admin/environment_design
     And I follow "Edit" within ".categories-block"
     And I check "Product"
     And I press "Save"
     Then I should see "Book"
-    And I should not see "Literature"
-    When I click ".category-link-expand category-root"
+    And "Literature" should not be visible within "span#category-name"
+    When I follow "block_2_category_2"
     Then I should see "Literature"
 
-  @selenium
+  @selenium @ignore-hidden-elements
   Scenario: List just general categories
     Given I go to /admin/environment_design
     And I follow "Edit" within ".categories-block"
-    And I check "Generic Category"
+    And I check "Generic category"
     When I press "Save"
     Then I should see "Wood"
 
-  @selenium
+  @selenium @ignore-hidden-elements
   Scenario: List just regions
     Given I go to /admin/environment_design
     And I follow "Edit" within ".categories-block"
     And I check "Region"
     When I press "Save"
     Then I should see "Bahia"
-

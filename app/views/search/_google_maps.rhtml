@@ -13,8 +13,8 @@
 <script type='text/javascript'>
   mapLoad(<%= GoogleMaps.initial_zoom.to_json %>);
 
-  <% @results.each do |name,results| %>
-    <% results.each do |item| %>
+  <% @searches.each do |name,search| %>
+    <% search[:results].each do |item| %>
       <% if item.lat && item.lng %>
         mapPutMarker(<%= item.lat.to_json %>, <%= item.lng.to_json %>, <%= item.name.to_json %>, '<%= icon %>',
           '<%= url_for(:controller => :map_balloon, :action => name.to_s.singularize, :id => item.id) %>');

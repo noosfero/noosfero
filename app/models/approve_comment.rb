@@ -43,7 +43,7 @@ class ApproveComment < Task
 
   def information
     if article
-      {:message => _('%{requestor} commented on the the article: %{linked_subject}.')  % {:requestor => requestor_name} }
+      {:message => _('%{requestor} commented on the the article: %{linked_subject}.')  % {:requestor => requestor_name, :linked_subject => linked_subject} }
     else
       {:message => _("The article was removed.")}
     end

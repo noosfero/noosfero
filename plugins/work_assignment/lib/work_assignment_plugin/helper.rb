@@ -7,8 +7,8 @@ module WorkAssignmentPlugin::Helper
         content_tag('th', _('Submission date')) +
         content_tag('th', _('Versions'), :style => 'text-align: center') +
         content_tag('th', '')
-      ) +
-      work_assignment.children.map {|author_folder| display_author_folder(author_folder, user)}.join("\n")
+      ).html_safe +
+      work_assignment.children.map {|author_folder| display_author_folder(author_folder, user)}.join("\n").html_safe
     )
   end
 
@@ -19,8 +19,8 @@ module WorkAssignmentPlugin::Helper
       content_tag('td', time_format(author_folder.children.last.created_at)) +
       content_tag('td', author_folder.children.count, :style => 'text-align: center') +
       content_tag('td', content_tag('button', _('View all versions'), :class => 'view-author-versions', 'data-folder-id' => author_folder.id))
-    ) +
-    author_folder.children.map {|submission| display_submission(submission, user)}.join("\n")
+    ).html_safe +
+    author_folder.children.map {|submission| display_submission(submission, user)}.join("\n").html_safe
   end
 
   def display_submission(submission, user)

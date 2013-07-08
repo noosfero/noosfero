@@ -4,8 +4,7 @@ Feature: search inside a profile
   In order to find stuff from a profile
 
   Background:
-    Given the search index is empty
-    And the following users
+    Given the following users
       | login     | name       |
       | joaosilva | Joao Silva |
     And the following articles
@@ -14,7 +13,7 @@ Feature: search inside a profile
       | joaosilva | whales and dolphins  | this is an article about whales and dolphins  |
 
   Scenario: search on profile
-    Given I go to Joao Silva's profile
+    Given I go to joaosilva's profile
     And I fill in "q" with "bees"
     And I press "Search"
     Then I should see "bees and butterflies" within ".main-block"
@@ -25,7 +24,7 @@ Feature: search inside a profile
       | owner     | name                | start_date |
       | joaosilva | Group meeting       | 2009-10-01 |
       | joaosilva | John Doe's birthday | 2009-09-01 |
-    When I go to Joao Silva's profile
+    When I go to joaosilva's profile
     And I fill in "q" with "birthday"
     And I press "Search"
     Then I should see "John Doe's birthday" within ".main-block"
@@ -35,7 +34,7 @@ Feature: search inside a profile
     Given the following blocks
       | owner     | type                |
       | joaosilva | ProfileSearchBlock  |
-    When I go to Joao Silva's profile
+    When I go to joaosilva's profile
     And I fill in "q" with "bees" within ".profile-search-block"
     And I press "Search"
     Then I should see "bees and butterflies" within ".main-block"
@@ -45,14 +44,14 @@ Feature: search inside a profile
       | owner     | name                | body                      | published |
       | joaosilva | published article   | this is a public article  | true      |
       | joaosilva | unpublished article | this is a private article | false     |
-    And I go to Joao Silva's profile
+    And I go to joaosilva's profile
     And I fill in "q" with "article"
     And I press "Search"
     Then I should see "public article" within ".main-block"
     And I should not see "private article" within ".main-block"
 
   Scenario: search on environment
-    Given I go to Joao Silva's profile
+    Given I go to joaosilva's profile
     And I fill in "q" with "bees"
     And I choose "General"
     And I press "Search"

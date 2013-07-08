@@ -29,10 +29,8 @@ module TagsHelper
   # (pt_BR only).
   def tag_cloud(tags, tagname_option, url, options = {})
 
-    return content_tag('em', _('No tags yet.')) +
-           ' <a href="' + _('http://en.wikipedia.org/wiki/Tag_%28metadata%29') +
-           '" target="wptags"><span>(' +
-           _('What are tags?') + ')</span></a>' if tags.empty?
+    return content_tag('em', _('No tags yet.') + ' ') +
+      link_to(content_tag(:span, _('What are tags?')),_('http://en.wikipedia.org/wiki/Tag_%28metadata%29')) if tags.empty?
 
     max_size = options[:max_size] || Cloud::MAX_SIZE
     min_size = options[:min_size] || Cloud::MIN_SIZE
@@ -68,7 +66,7 @@ module TagsHelper
           :title => n_( 'one item', '%d items', count ) % count
       end
 
-    end.join("\n")
+    end.join("\n").html_safe
   end
 
 end

@@ -58,14 +58,6 @@ class CertifierTest < ActiveSupport::TestCase
     assert_equal [first, last], Certifier.all.sort
   end
 
-  should 'reindex products after saving' do
-    product = mock
-    Certifier.any_instance.stubs(:products).returns([product])
-    Certifier.expects(:solr_batch_add).with(includes(product))
-    cert = fast_create(Certifier)
-    cert.save!
-  end
-
   should 'set qualifier as self-certified when destroyed' do
     pq = mock
     Certifier.any_instance.stubs(:product_qualifiers).returns([pq])

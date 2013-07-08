@@ -56,20 +56,6 @@ class EventTest < ActiveSupport::TestCase
     assert_kind_of Date, e.end_date
   end
 
-  should 'be indexed by title' do
-    TestSolr.enable
-    profile = create_user('testuser').person
-    e = Event.create!(:name => 'my surprisingly nice event', :start_date => Date.new(2008, 06, 06), :profile => profile)
-    assert_includes Event.find_by_contents('surprisingly')[:results], e
-  end
-
-  should 'be indexed by body' do
-    TestSolr.enable
-    profile = create_user('testuser').person
-    e = Event.create!(:name => 'bli', :start_date => Date.new(2008, 06, 06), :profile => profile, :body => 'my surprisingly long description about my freaking nice event')
-    assert_includes Event.find_by_contents('surprisingly')[:results], e
-  end
-
   should 'use its own icon' do
     assert_equal 'event', Event.icon_name
   end
@@ -246,6 +232,14 @@ class EventTest < ActiveSupport::TestCase
 
     assert_equal "<h1> Description </h1>", event.body
     assert_equal "<strong> Address <strong>", event.address
+  end
+
+  should 'not filter & on link field' do
+    event = Event.new
+    event.link = 'myevent.com/?param1=value&param2=value2'
+    event.valid?
+
+    assert_equal "http://myevent.com/?param1=value&param2=value2", event.link
   end
 
   should 'escape malformed html tags' do

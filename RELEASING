@@ -19,11 +19,12 @@ To prepare a release of noosfero, you must follow the steps below:
 
 * Finish all requirements and bugs assigned to the to-be-released version
 * Make sure all tests pass
-* Change the version in lib/noosfero.rb and debian/changelog to the
-  to-be-released version (e.g. 0.2.0, 0.3.1)
 * Write release notes at the version's wiki topic
-* Generate packages with <tt>rake noosfero:release</tt>. Your tarball and deb
-  pkg will be under the pkg/ directory. This task will create a git tag too.
+* Generate packages with <tt>rake noosfero:release[(stable|test)]</tt>. This task will:
+  * Update the version in lib/noosfero.rb and debian/changelog.
+  * Create the tarbal and the deb pkg under pkg/ directory.
+  * Create a git tag and push it.
+  * Upload the pkg to the configured repository (if configured) on ~/.dput.cf.
 * Test that the tarball and deb package are ok
 * Go to the version's wiki topic and edit it to reflect the new reality
 * Edit the topic WebPreferences and update DEBIAN_REPOSITORY_TOPICS setting

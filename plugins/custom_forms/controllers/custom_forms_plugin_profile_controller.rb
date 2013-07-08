@@ -27,6 +27,7 @@ class CustomFormsPluginProfileController < ProfileController
           failed_answers.each do |answer|
             @submission.errors.add(answer.field.name.to_sym, answer.errors[answer.field.slug.to_sym])
           end
+          raise 'Submission failed: answers not valid'
         end
         session[:notice] = _('Submission saved')
         redirect_to :action => 'show'

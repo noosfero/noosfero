@@ -97,6 +97,16 @@ class ArticleTest < ActiveSupport::TestCase
     assert_equal '', a.to_html
   end
 
+  should 'provide short html version' do
+    a = fast_create(Article, :body => 'full body', :abstract => 'lead', :profile_id => profile.id)
+    assert_match /lead/, a.to_html(:format=>'short')
+  end
+
+  should 'provide full html version' do
+    a = fast_create(Article, :body => 'full body', :abstract => 'lead')
+    assert_equal 'full body', a.to_html(:format=>'full body')
+  end
+
   should 'provide first paragraph of HTML version' do
     profile = create_user('testinguser').person
     a = fast_create(Article, :name => 'my article', :profile_id => profile.id)
@@ -365,30 +375,6 @@ class ArticleTest < ActiveSupport::TestCase
     # ... can see his own articles
     a = person.articles.create!(:name => 'test article')
     assert_equal true, a.display_to?(person)
-  end
-
-  should 'reindex when comments are changed' do
-    a = Article.new
-    a.expects(:solr_save)
-    a.comments_updated
-  end
-
-  should 'index comments title together with article' do
-    TestSolr.enable
-    owner = create_user('testuser').person
-    art = fast_create(TinyMceArticle, :profile_id => owner.id, :name => 'ytest')
-    c1 = Comment.create(:title => 'a nice comment', :body => 'anything', :author => owner, :source => art ); c1.save!
-
-    assert_includes Article.find_by_contents('nice')[:results], art
-  end
-
-  should 'index comments body together with article' do
-    TestSolr.enable
-    owner = create_user('testuser').person
-    art = fast_create(TinyMceArticle, :profile_id => owner.id, :name => 'ytest')
-    c1 = Comment.create(:title => 'test comment', :body => 'anything', :author => owner, :source => art); c1.save!
-
-    assert_includes Article.find_by_contents('anything')[:results], art
   end
 
   should 'cache children count' do
@@ -1395,6 +1381,7 @@ class ArticleTest < ActiveSupport::TestCase
     a = profile.articles.create!(:name => 'a test article', :last_changed_by => author)
     assert_equal author.name, a.author_name
     author.destroy
+    a.reload
     a.author_name = 'some name'
     assert_equal 'some name', a.author_name
   end
@@ -1474,31 +1461,6 @@ class ArticleTest < ActiveSupport::TestCase
     assert !child.accept_uploads?
   end
 
-  should 'index by schema name when database is postgresql' do
-    TestSolr.enable
-    uses_postgresql 'schema_one'
-    art1 = Article.create!(:name => 'some thing', :profile_id => @profile.id)
-    assert_equal [art1], Article.find_by_contents('thing')[:results].docs
-    uses_postgresql 'schema_two'
-    art2 = Article.create!(:name => 'another thing', :profile_id => @profile.id)
-    assert_not_includes Article.find_by_contents('thing')[:results], art1
-    assert_includes Article.find_by_contents('thing')[:results], art2
-    uses_postgresql 'schema_one'
-    assert_includes Article.find_by_contents('thing')[:results], art1
-    assert_not_includes Article.find_by_contents('thing')[:results], art2
-    uses_sqlite
-  end
-
-  should 'not index by schema name when database is not postgresql' do
-    TestSolr.enable
-    uses_sqlite
-    art1 = Article.create!(:name => 'some thing', :profile_id => @profile.id)
-    assert_equal [art1], Article.find_by_contents('thing')[:results].docs
-    art2 = Article.create!(:name => 'another thing', :profile_id => @profile.id)
-    assert_includes Article.find_by_contents('thing')[:results], art1
-    assert_includes Article.find_by_contents('thing')[:results], art2
-  end
-
   should 'get images paths in article body' do
     Environment.any_instance.stubs(:default_hostname).returns('noosfero.org')
     a = TinyMceArticle.new :profile => @profile
@@ -1553,8 +1515,8 @@ class ArticleTest < ActiveSupport::TestCase
     assert_respond_to Article, :more_comments
   end
 
-  should 'respond to more views' do
-    assert_respond_to Article, :more_views
+  should 'respond to more popular' do
+    assert_respond_to Article, :more_popular
   end
 
   should "return the more recent label" do
@@ -1583,19 +1545,19 @@ class ArticleTest < ActiveSupport::TestCase
   should "return no views if profile has 0 views" do
     a = Article.new
     assert_equal 0, a.hits
-    assert_equal "no views", a.more_views_label
+    assert_equal "no views", a.more_popular_label
   end
 
   should "return 1 view on label if the content has 1 view" do
     a = Article.new(:hits => 1)
     assert_equal 1, a.hits
-    assert_equal "one view", a.more_views_label
+    assert_equal "one view", a.more_popular_label
   end
 
   should "return number of views on label if the content has more than one view" do
     a = Article.new(:hits => 4)
     assert_equal 4, a.hits
-    assert_equal "4 views", a.more_views_label
+    assert_equal "4 views", a.more_popular_label
   end
 
   should 'return only text articles' do
@@ -1626,76 +1588,6 @@ class ArticleTest < ActiveSupport::TestCase
     article = fast_create(Article, :profile_id => profile.id)
     article.environment
     article.environment_id
-  end
-
-  should 'act as faceted' do
-    person = fast_create(Person)
-    cat = Category.create!(:name => 'hardcore', :environment_id => Environment.default.id)
-    a = Article.create!(:name => 'black flag review', :profile_id => person.id)
-    a.add_category(cat, true)
-    a.save!
-    assert_equal Article.type_name, Article.facet_by_id(:f_type)[:proc].call(a.send(:f_type))
-    assert_equal Person.type_name, Article.facet_by_id(:f_profile_type)[:proc].call(a.send(:f_profile_type))
-    assert_equal a.published_at, a.send(:f_published_at)
-    assert_equal ['hardcore'], a.send(:f_category)
-    assert_equal "category_filter:\"#{cat.id}\"", Article.facet_category_query.call(cat)
-  end
-
-  should 'act as searchable' do
-    TestSolr.enable
-    person = fast_create(Person, :name => "Hiro", :address => 'U-Stor-It @ Inglewood, California',
-                         :nickname => 'Protagonist')
-    person2 = fast_create(Person, :name => "Raven")
-    category = fast_create(Category, :name => "science fiction", :acronym => "sf", :abbreviation => "sci-fi")
-    a = Article.create!(:name => 'a searchable article about bananas', :profile_id => person.id,
-                        :body => 'the body talks about mosquitos', :abstract => 'and the abstract is about beer',
-                        :filename => 'not_a_virus.exe')
-    a.add_category(category)
-    c = a.comments.build(:title => 'snow crash', :author => person2, :body => 'wanna try some?')
-    c.save!
-
-    # fields
-    assert_includes Article.find_by_contents('bananas')[:results].docs, a
-    assert_includes Article.find_by_contents('mosquitos')[:results].docs, a
-    assert_includes Article.find_by_contents('beer')[:results].docs, a
-    assert_includes Article.find_by_contents('not_a_virus.exe')[:results].docs, a
-    # filters
-    assert_includes Article.find_by_contents('bananas', {}, {:filter_queries => ["public:true"]})[:results].docs, a
-    assert_not_includes Article.find_by_contents('bananas', {}, {:filter_queries => ["public:false"]})[:results].docs, a
-    assert_includes Article.find_by_contents('bananas', {}, {:filter_queries => ["environment_id:\"#{Environment.default.id}\""]})[:results].docs, a
-    assert_includes Article.find_by_contents('bananas', {}, {:filter_queries => ["profile_id:\"#{person.id}\""]})[:results].docs, a
-    # includes
-    assert_includes Article.find_by_contents('Hiro')[:results].docs, a
-    assert_includes Article.find_by_contents("person-#{person.id}")[:results].docs, a
-    assert_includes Article.find_by_contents("California")[:results].docs, a
-    assert_includes Article.find_by_contents("Protagonist")[:results].docs, a
-# FIXME: After merging with AI1826, searching on comments is not working
-#    assert_includes Article.find_by_contents("snow")[:results].docs, a
-#    assert_includes Article.find_by_contents("try some")[:results].docs, a
-#    assert_includes Article.find_by_contents("Raven")[:results].docs, a
-#
-# FIXME: After merging with AI1826, searching on categories is not working
-#    assert_includes Article.find_by_contents("science")[:results].docs, a
-#    assert_includes Article.find_by_contents(category.slug)[:results].docs, a
-#    assert_includes Article.find_by_contents("sf")[:results].docs, a
-#    assert_includes Article.find_by_contents("sci-fi")[:results].docs, a
-  end
-
-  should 'boost name matches' do
-    TestSolr.enable
-    person = fast_create(Person)
-    in_body = Article.create!(:name => 'something', :profile_id => person.id, :body => 'bananas in the body!')
-    in_name = Article.create!(:name => 'bananas in the name!', :profile_id => person.id)
-    assert_equal [in_name, in_body], Article.find_by_contents('bananas')[:results].docs
-  end
-
-  should 'boost if profile is enabled' do
-    TestSolr.enable
-    person2 = fast_create(Person, :enabled => false)
-    art_profile_disabled = Article.create!(:name => 'profile disabled', :profile_id => person2.id)
-    person1 = fast_create(Person, :enabled => true)
-    art_profile_enabled = Article.create!(:name => 'profile enabled', :profile_id => person1.id)
-    assert_equal [art_profile_enabled, art_profile_disabled], Article.find_by_contents('profile')[:results].docs
   end
 
   should 'remove all categorizations when destroyed' do

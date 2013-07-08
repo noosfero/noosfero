@@ -35,4 +35,16 @@ class AbuseComplaintTest < ActiveSupport::TestCase
     t = AbuseComplaint.create
     assert_equal Task::Status::HIDDEN, t.status
   end
+
+  should 'be destroyed with reported' do
+    reported = fast_create(Profile)
+    reported_id = reported.id
+    abuse_complaint = AbuseComplaint.create!(:reported => reported)
+
+    assert AbuseComplaint.find_by_requestor_id(reported_id), "AbuseComplaint was not created!"
+
+    reported.destroy
+
+    assert !AbuseComplaint.find_by_requestor_id(reported_id), "AbuseComplaint still exist!"
+  end
 end

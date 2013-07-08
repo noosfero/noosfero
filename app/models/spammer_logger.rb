@@ -5,10 +5,10 @@ class SpammerLogger < Logger
   def self.log(spammer_ip, object=nil)
     if object
       if object.kind_of?(Comment)
-        @logger << "[#{Time.now.strftime("%F %T %z")}] Comment-id: #{object.id} IP: #{spammer_ip}\n"
+        @logger << "[#{Time.now.strftime('%F %T %z')}] Comment-id: #{object.id} IP: #{spammer_ip}\n"
       end
     else
-        @logger << "[#{Time.now.strftime("%F %T %z")}] IP: #{spammer_ip}\n"
+        @logger << "[#{Time.now.strftime('%F %T %z')}] IP: #{spammer_ip}\n"
     end
   end
 

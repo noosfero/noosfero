@@ -53,6 +53,8 @@ class UserTest < ActiveSupport::TestCase
 
   def test_should_authenticate_user
     assert_equal users(:johndoe), User.authenticate('johndoe', 'test')
+    assert_equal users(:johndoe), User.authenticate('johndoe@localhost.localdomain', 'test')
+    assert_equal nil, User.authenticate('wrongemail@localhost', 'test')
   end
 
   def test_should_authenticate_user_of_nondefault_environment
@@ -333,7 +335,7 @@ class UserTest < ActiveSupport::TestCase
     Person.any_instance.stubs(:is_admin?).returns(true)
     Person.any_instance.stubs(:created_at).returns(DateTime.parse('16-08-2010'))
     expected_hash = {
-      'login' => 'x_and_y', 'is_admin' => true, 'since_month' => 8, 'since_year' => 2010, 'email_domain' => nil, 'amount_of_friends' => 0,
+      'login' => 'x_and_y', 'is_admin' => true, 'since_month' => 8, 'chat_enabled' => false, 'since_year' => 2010, 'email_domain' => nil, 'amount_of_friends' => 0,
       'friends_list' => {}, 'enterprises' => [],
     }
     assert_equal expected_hash, person.user.data_hash
@@ -395,6 +397,19 @@ class UserTest < ActiveSupport::TestCase
 
   should 'update chat status every 15 minutes' do
     assert_equal 15, User.expires_chat_status_every
+  end
+
+  should "return status of chat on environment in data_hash" do
+    person = create_user('coldplay').person
+    env = person.environment
+    env.enable('xmpp_chat')
+    env.save
+    assert_equal true, person.user.data_hash['chat_enabled']
+
+    env.disable('xmpp_chat')
+    env.save
+    person.reload
+    assert_equal false, person.user.data_hash['chat_enabled']
   end
 
   should 'respond name with related person name' do

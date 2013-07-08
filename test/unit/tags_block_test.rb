@@ -22,9 +22,22 @@ class TagsBlockTest < ActiveSupport::TestCase
   end
 
   should 'generate links to tags' do
-    assert_match /profile\/testinguser\/tags\/first-tag/, block.content
+    assert_match /profile\/testinguser\/tags\/first-tag/,  block.content
     assert_match /profile\/testinguser\/tags\/second-tag/, block.content
-    assert_match /profile\/testinguser\/tags\/third-tag/, block.content
+    assert_match /profile\/testinguser\/tags\/third-tag/,  block.content
+  end
+
+  should 'generate links to tags on a environment page' do
+    @otheruser = create_user('othertestinguser').person
+    @otheruser.articles.build(:name => 'article A', :tag_list => 'other-tag').save!
+    @otheruser.articles.build(:name => 'article B', :tag_list => 'other-tag, second-tag').save!
+    box = Box.create!(:owner => Environment.default)
+    @block = TagsBlock.create!(:box => box)
+
+    assert_match /\/tag\/first-tag" [^>]+"3 items"/,  block.content
+    assert_match /\/tag\/second-tag" [^>]+"3 items"/, block.content
+    assert_match /\/tag\/third-tag" [^>]+"one item"/, block.content
+    assert_match /\/tag\/other-tag" [^>]+"2 items"/,  block.content
   end
 
   should 'return (none) when no tags to display' do

@@ -21,7 +21,7 @@ module CatalogHelper
 
   def category_sub_links(category)
     sub_categories = []
-    category.children.each do |sub_category|
+    category.children.order(:name).each do |sub_category|
       sub_categories << category_link(sub_category, true)
     end
     content_tag('ul', sub_categories) if sub_categories.size > 1

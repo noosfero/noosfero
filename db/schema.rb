@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130117132943) do
+ActiveRecord::Schema.define(:version => 20130606110602) do
 
   create_table "abuse_reports", :force => true do |t|
     t.integer  "reporter_id"
@@ -76,7 +76,7 @@ ActiveRecord::Schema.define(:version => 20130117132943) do
     t.text     "setting"
     t.boolean  "notify_comments",      :default => false
     t.integer  "hits",                 :default => 0
-    t.date     "published_at"
+    t.datetime "published_at"
     t.string   "source"
     t.boolean  "highlighted",          :default => false
     t.string   "external_link"
@@ -119,7 +119,7 @@ ActiveRecord::Schema.define(:version => 20130117132943) do
     t.text     "setting"
     t.boolean  "notify_comments",      :default => true
     t.integer  "hits",                 :default => 0
-    t.date     "published_at"
+    t.datetime "published_at"
     t.string   "source"
     t.boolean  "highlighted",          :default => false
     t.string   "external_link"
@@ -415,7 +415,7 @@ ActiveRecord::Schema.define(:version => 20130117132943) do
     t.datetime "updated_at"
     t.decimal  "discount"
     t.boolean  "available",           :default => true
-    t.boolean  "highlighted"
+    t.boolean  "highlighted",         :default => false
     t.integer  "unit_id"
     t.integer  "image_id"
   end

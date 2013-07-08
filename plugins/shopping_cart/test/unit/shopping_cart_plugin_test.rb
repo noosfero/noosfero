@@ -26,4 +26,10 @@ class ShoppingCartPluginTest < ActiveSupport::TestCase
 
     assert_nil shopping_cart.add_to_cart_button(product)
   end
+
+  should 'be disabled by default on the enterprise' do
+    enterprise = fast_create(Enterprise)
+    settings = Noosfero::Plugin::Settings.new(enterprise, ShoppingCartPlugin)
+    assert !settings.enabled
+  end
 end

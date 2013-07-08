@@ -1,3 +1,5 @@
+require 'csv'
+
 class UsersController < AdminController
 
   protect 'manage_environment_users', :environment
@@ -15,8 +17,16 @@ class UsersController < AdminController
           :disposition => "attachment; filename=users.xml"
       end
       format.csv do
-        @users = User.find(:all, :conditions => {:environment_id => environment.id}, :include => [:person])
-        render :template => "users/index_csv.rhtml", :content_type => 'text/csv', :layout => false
+        # using a direct connection with the dbms to optimize
+        command = User.send(:sanitize_sql, ["SELECT profiles.name, users.email FROM profiles
+                                             INNER JOIN users ON profiles.user_id=users.id
+                                             WHERE profiles.environment_id = ?", environment.id])
+        users = User.connection.execute(command)
+        csv_content = "name;email\n"
+        users.each { |u|
+          CSV.generate_row([u['name'], u['email']], 2, csv_content, fs=';')
+        }
+        render :text => csv_content, :content_type => 'text/csv', :layout => false
       end
     end
   end

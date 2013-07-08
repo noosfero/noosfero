@@ -15,7 +15,7 @@ class SendEmailPlugin < Noosfero::Plugin
   def parse_content(args)
     raw_content = args[:html]
     if context.profile
-      raw_content.gsub(/\{sendemail\}/, "/profile/#{context.profile.identifier}/plugins/send_email/deliver")
+      raw_content.gsub(/\{sendemail\}/, "/profile/#{context.profile.identifier}/plugin/send_email/deliver")
     else
       raw_content.gsub(/\{sendemail\}/, '/plugin/send_email/deliver')
     end

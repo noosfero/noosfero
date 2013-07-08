@@ -7,13 +7,17 @@
 
 <div class='l-sidebar-left-bar'>
   <ul>
-    <% if @categories.size > 0 %>
+    <%= content_tag('li', link_to(_('Homepage'), profile.url), :class => 'catalog-categories-link') %>
+    <%= content_tag('li', link_to(_('Catalog start'), profile.catalog_url), :class => 'catalog-categories-link') %>
+    <% if @categories.present? %>
       <% @categories.each do |category| %>
         <%= category_link(category) %>
         <%= category_sub_links(category) %>
       <% end %>
+    <% elsif @category.present? %>
+      <%= content_tag('li', _('There are no sub-categories for %s') % @category.name, :id => 'catalog-categories-notice') %>
     <% else %>
-      <%= content_tag('li', _('There are no sub-categories for %s') % @category.name, :style => 'color: #555753; padding-bottom: 0.5em;') %>
+      <%= content_tag('li', _('There are no categories available.'), :id => 'catalog-categories-notice') %>
     <% end %>
   </ul>
 </div>
@@ -64,20 +68,20 @@
 
         <% if product.description %>
           <li class="product-description expand-box">
-            <span id="product-description-button"><%= _('description') %></span>
-            <div>
+            <span class="product-description-button"><%= _('description') %></span>
+            <div class="float-box">
               <div class="arrow"></div>
-              <div class="content" id="product-description"><%= txt2html(product.description || '') %></div>
+              <div class="content"><%= product.description %></div>
             </div>
           </li>
         <% end %>
 
         <% if product.price_described? %>
           <li class="product-price-composition expand-box">
-            <span id="product-price-composition-button"><%= _('price composition') %></span>
-            <div>
+            <span class="product-price-composition-button"><%= _('price composition') %></span>
+            <div class="float-box">
               <div class="arrow"></div>
-              <div class="content" id="product-price-composition">
+              <div class="content">
                 <% product.inputs.relevant_to_price.each do |i| %>
                   <div class="search-product-input-dots-to-price">
                     <div class="search-product-input-name"><%= i.product_category.name %></div>
@@ -98,9 +102,9 @@
         <% if product.inputs.count > 0 %>
           <li class="product-inputs expand-box">
             <span id="inputs-button"><%= _('inputs and raw materials') %></span>
-            <div>
+            <div class="float-box">
               <div class="arrow"></div>
-              <div class="content" id="inputs-description">
+              <div class="content">
                 <% product.inputs.each do |i| %>
                   <div>
                     <%= _('%{amount_used} %{unit} of') % {:amount_used => i.amount_used, :unit => i.unit.singular} + ' ' if i.has_all_price_details? %>

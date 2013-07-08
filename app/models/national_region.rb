@@ -1,5 +1,10 @@
 class NationalRegion < ActiveRecord::Base
 
+  SEARCHABLE_FIELDS = {
+    :name => 1,
+    :national_region_code => 1,
+  }
+
   def self.search_city(city_name, like = false, state = nil)
 
     operator = "="

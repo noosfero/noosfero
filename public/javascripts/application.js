@@ -29,7 +29,14 @@ function focus_first_field() {
 
 /* * * Convert a string to a valid login name * * */
 function convToValidLogin( str ) {
-  return convToValidIdentifier(str, '')
+  if (str.indexOf('@') == -1)
+    return convToValidUsername(str);
+  else
+    return convToValidEmail(str);
+}
+
+function convToValidUsername( str ) {
+  return convToValidIdentifier(str, '');
 }
 
 /* * * Convert a string to a valid login name * * */
@@ -44,6 +51,18 @@ function convToValidIdentifier( str, sep ) {
             .replace( /ñ/g,       "n" )
             .replace( /ç/g,       "c" )
             .replace( /[^-_a-z0-9.]+/g, sep )
+}
+
+function convToValidEmail( str ) {
+  return str.toLowerCase()
+            .replace( /á|à|ã|â/g, "a" )
+            .replace( /é|ê/g,     "e" )
+            .replace( /í/g,       "i" )
+            .replace( /ó|ô|õ|ö/g, "o" )
+            .replace( /ú|ũ|ü/g,   "u" )
+            .replace( /ñ/g,       "n" )
+            .replace( /ç/g,       "c" )
+            .replace( /[^@a-z0-9!#$%&'*+-/=?^_`{|}~.]+/g, '' )
 }
 
 function updateUrlField(name_field, id) {
@@ -131,9 +150,9 @@ function hideOthersIconSelector(current_div) {
 }
 
 function loading(element_id, message) {
-   $(element_id).addClassName('loading');
+   jQuery(element_id).addClass('loading');
    if (message) {
-      $(element_id).update(message);
+      jQuery(element_id).html(message);
    }
 }
 function small_loading(element_id, message) {
@@ -143,9 +162,9 @@ function small_loading(element_id, message) {
    }
 }
 function loading_done(element_id) {
-   $(element_id).removeClassName('loading');
-   $(element_id).removeClassName('small-loading');
-   $(element_id).removeClassName('small-loading-dark');
+   jQuery(element_id).removeClass('loading');
+   jQuery(element_id).removeClass('small-loading');
+   jQuery(element_id).removeClass('small-loading-dark');
 }
 function open_loading(message) {
    jQuery('body').prepend("<div id='overlay_loading' class='ui-widget-overlay' style='display: none'/><div id='overlay_loading_modal' style='display: none'><p>"+message+"</p><img src='/images/loading-dark.gif'/></div>");
@@ -489,7 +508,9 @@ jQuery(function($) {
       // logged in
       loggedInDataCallBack(data);
       addManageEnterprisesToOldStyleMenu(data);
-      chatOnlineUsersDataCallBack(data);
+      if (data.chat_enabled) {
+        setInterval(function(){ $.getJSON('/account/user_data', chatOnlineUsersDataCallBack)}, 10000);
+      }
     } else {
       // not logged in
       $('#user .not-logged-in, .login-block .not-logged-user').fadeIn();
@@ -541,7 +562,7 @@ jQuery(function($) {
       return;
     }
     var content = '';
-    $('#chat-online-users').html($('#chat-online-users').html().replace(/%{amount}/g, data['amount_of_friends']));
+    $('#chat-online-users .amount_of_friends').html(data['amount_of_friends']);
     $('#chat-online-users').fadeIn();
     for (var user in data['friends_list']) {
       var name = "<span class='friend_name'>%{name}</span>";
@@ -697,14 +718,15 @@ function add_comment_reply_form(button, comment_id) {
     f = comments_div.find('.comment_form').first().clone();
     f.find('.errorExplanation').remove();
     f.append('<input type="hidden" name="comment[reply_of_id]" value="' + comment_id + '" />');
-    container.append(f);
+    container.append('<div class="page-comment-form"></div>');
+    container.find('.page-comment-form').append(f);
   }
   if (container.hasClass('closed')) {
     container.removeClass('closed');
     container.addClass('opened');
     container.find('.comment_form input[type=text]:visible:first').focus();
   }
-  container.addClass('page-comment-form');
+  jQuery('.display-comment-form').hide();
   return f;
 }
 
@@ -731,69 +753,6 @@ function update_comment_count(element, new_count) {
     write_out.html(content);
   }
 
-}
-
-function save_comment(button) {
-  var $ = jQuery;
-  open_loading(DEFAULT_LOADING_MESSAGE);
-  var $button = $(button);
-  var form = $(button).parents("form");
-  var post_comment_box = $(button).parents('.post_comment_box');
-  var comment_div = $button.parents('.comments');
-  $button.addClass('comment-button-loading');
-  $.post(form.attr("action"), form.serialize(), function(data) {
-
-    if(data.render_target == null) {
-      //Comment for approval
-      form.find("input[type='text']").add('textarea').each(function() {
-        this.value = '';
-      });
-      form.find('.errorExplanation').remove();
-
-    } else if(data.render_target == 'form') {
-      //Comment with errors
-      var page_comment_form = $(button).parents('.page-comment-form');
-      $.scrollTo(page_comment_form);
-      page_comment_form.html(data.html);
-
-    } else if($('#' + data.render_target).size() > 0) {
-      //Comment of reply
-      $('#'+ data.render_target).replaceWith(data.html);
-      $('#' + data.render_target).effect("highlight", {}, 3000);
-      $.colorbox.close();
-
-    } else {
-      //New comment of article
-      comment_div.find('.article-comments-list').append(data.html);
-
-      form.find("input[type='text']").add('textarea').each(function() {
-        this.value = '';
-      });
-
-      form.find('.errorExplanation').remove();
-      $.colorbox.close();
-
-    }
-
-    comment_div.find('.comment-count').add('#article-header .comment-count').each(function() {
-      var count = parseInt($(this).html());
-      update_comment_count($(this), count + 1);
-    });
-
-    if(jQuery('#recaptcha_response_field').val()){
-      Recaptcha.reload();
-    }
-
-    if(data.msg != null) {
-       display_notice(data.msg);
-    }
-
-    close_loading();
-    post_comment_box.removeClass('opened');
-    post_comment_box.addClass('closed');
-    $button.removeClass('comment-button-loading');
-    $button.enable();
-  }, 'json');
 }
 
 function remove_comment(button, url, msg) {
@@ -1041,13 +1000,55 @@ function facet_options_toggle(id, url) {
   });
 }
 
+if ( !console ) console = {};
+if ( !console.log ) console.log = function(){};
+
+// Two ways to call it:
+// log(mixin1[, mixin2[, ...]]);
+// log('<type>', mixin1[, mixin2[, ...]]);
+// Where <type> may be: log, info warn, or error
+window.log = function log() {
+  var type = arguments[0];
+  var argsClone = jQuery.merge([], arguments); // cloning the read-only arguments array.
+  if ( ['info', 'warn', 'error'].indexOf(type) == -1 ) {
+    type = 'log';
+  } else {
+    argsClone.shift();
+  }
+  var method = type;
+  if ( !console[method] ) method = 'log';
+  console[method].apply( console, jQuery.merge([(new Date).toISOString()], argsClone) );
+}
+
+// Call log.info(mixin1[, mixin2[, ...]]);
+log.info = function() {
+  window.log.apply(window, jQuery.merge(['info'], arguments));
+}
+
+// Call log.warn(mixin1[, mixin2[, ...]]);
+log.warn = function() {
+  window.log.apply(window, jQuery.merge(['warn'], arguments));
+}
+
+// Call log.error(mixin1[, mixin2[, ...]]);
+log.error = function() {
+  window.log.apply(window, jQuery.merge(['error'], arguments));
+}
+
 jQuery(function($) {
   $('.colorbox').live('click', function() {
-    $.fn.colorbox({
-      href:$(this).attr('href'),
-      maxWidth: '600',
-      maxHeight: '550',
-      open:true
+    $.colorbox({
+      href:       $(this).attr('href'),
+      maxWidth:   $(window).width()-50,
+      height:     $(window).height()-50,
+      open:       true,
+      fixed:      true,
+      close:      'Cancel',
+      onComplete: function(bt) {
+        var opt = {}, maxH = $(window).height()-50;
+        if ($('#cboxLoadedContent *:first').height() > maxH) opt.height = maxH;
+        $.colorbox.resize(opt);
+      }
     });
     return false;
   });
