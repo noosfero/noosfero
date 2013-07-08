@@ -100,4 +100,24 @@ jQuery(function($) {
         clicked.parent().find(".send-an-email").fadeOut();
     })
   })
+
+  $(".comment-trigger").live('click', function(){
+    clicked = $(this);
+    url = clicked.attr("url");
+    $.get(url, function(data){
+      ids = [];
+      if(data && data.ids) {
+        for(var i=0; i<data.ids.length; i++) {
+          clicked.parent().find(data.ids[i]).fadeIn();
+          ids.push(data.ids[i]);
+        }
+      }
+      clicked.parent().find('.comment-action-extra').each(function() {
+        if($.inArray('#'+$(this).attr('id'), ids))
+          $(this).fadeOut();
+      });
+    })
+    return false;
+  })
+
 });

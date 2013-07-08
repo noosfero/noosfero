@@ -30,6 +30,8 @@ module ApplicationHelper
 
   include AccountHelper
 
+  include CommentHelper
+
   include BlogHelper
 
   include ContentViewerHelper

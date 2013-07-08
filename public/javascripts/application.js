@@ -314,11 +314,17 @@ function toggleSubmenu(trigger, title, link_list) {
   content.append('<h4>' + title + '</h4>');
   jQuery.each(link_list, function(index, link_hash) {
     for (label in link_hash) {
-      options = "";
-      jQuery.each(link_hash[label], function(option, value){
-        options += option +'="'+ value + '" ';
-      })
-      list.append('<li><a '+ options +'>' + label + '</a></li>');
+      if(link_hash[label]!=null) {
+        if(label=='link' && jQuery.type(link_hash[label])=="string") {
+          list.append('<li>' + link_hash[label] + '</li>');
+        } else {
+          options = "";
+          jQuery.each(link_hash[label], function(option, value){
+            options += option +'="'+ value + '" ';
+          })
+          list.append('<li><a '+ options +'>' + label + '</a></li>');
+        }
+      }
     }
   });
   content.append(list);
@@ -342,9 +348,9 @@ function hideAllSubmenus() {
 // Hide visible ballons when clicked outside them
 jQuery(document).ready(function() {
   jQuery('body').live('click', function() { hideAllSubmenus(); });
-  jQuery('.menu-submenu-trigger').click(function(e) { e.stopPropagation(); });
-  jQuery('.simplemenu-trigger').click(function(e) { e.stopPropagation(); });
-  jQuery('#chat-online-users').click(function(e) { e.stopPropagation(); });
+  jQuery('.menu-submenu-trigger').live('click', function(e) { e.stopPropagation(); });
+  jQuery('.simplemenu-trigger').live('click', function(e) { e.stopPropagation(); });
+  jQuery('#chat-online-users').live('click', function(e) { e.stopPropagation(); });
 });
 
 function input_javascript_ordering_stuff() {
@@ -710,8 +716,8 @@ jQuery(function($) {
 });
 
 function add_comment_reply_form(button, comment_id) {
-  var container = jQuery(button).parents('.comment_reply');
-
+  //var container = jQuery(button).parents('.comment_reply');
+  var container = jQuery('#comment_reply_to_'+comment_id);
   var f = container.find('.comment_form');
   if (f.length == 0) {
     comments_div = jQuery(button).parents('.comments');

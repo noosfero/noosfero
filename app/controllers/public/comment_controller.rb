@@ -160,6 +160,15 @@ class CommentController < ApplicationController
      end
    end
   end
+  
+  #FIXME make this test
+  def check_actions
+    comment = profile.comments_received.find(params[:id])
+    ids = @plugins.dispatch(:check_comment_actions, comment).collect do |action|
+      action.kind_of?(Proc) ? self.instance_eval(&action) : action
+    end.flatten.compact
+    render :json => {:ids => ids}
+  end
 
   protected
 

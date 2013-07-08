@@ -501,12 +501,26 @@ class CommentControllerTest < ActionController::TestCase
     assert_equal 'Comment edited', Comment.find(comment.id).body
   end
 
-   should 'not crash on update comment if comment does not exist' do
+  should 'not crash on update comment if comment does not exist' do
     login_as profile.identifier
     page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
 
     xhr :post, :update, :id => 1000, :profile => profile.identifier, :comment => { :body => 'Comment edited' }
     assert_response 404
+  end
+
+  should 'returns ids of menu items that has to be displayed' do
+    class TestActionPlugin < Noosfero::Plugin
+      def check_comment_actions(c)
+        ['action1', 'action2']
+      end
+    end
+    Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([TestActionPlugin.new])
+    login_as profile.identifier
+    page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
+    comment = fast_create(Comment, :body => 'Original comment', :source_id => page.id, :source_type => 'Article')
+    xhr :post, :check_actions, :profile => profile.identifier, :id => comment.id
+    assert_match /\{\"ids\":\[\"action1\",\"action2\"\]\}/, @response.body
   end
 
 end

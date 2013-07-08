@@ -31,6 +31,21 @@
   <% comment_balloon do %>
 
     <div class="comment-details">
+      <div class="comment-header">
+        <ul>
+          <div class="comment-actions">
+            <%= comment_actions(comment) %>
+          </div>
+        </ul>
+      <% unless comment.spam? %>
+        <%= link_to_function '',
+          "var f = add_comment_reply_form(this, %s); f.find('comment_title, textarea').val(''); return false" % comment.id,
+          :class => 'comment-footer comment-footer-link comment-footer-hide comment-actions-reply button',
+          :id => 'comment-reply-to-' + comment.id.to_s
+        %>
+      <% end %>
+      </div>
+
       <div class="comment-created-at">
         <%= show_time(comment.created_at) %>
       </div>
@@ -41,7 +56,7 @@
       </div>
     </div>
 
-    <div class="comment_reply post_comment_box closed">
+    <div class="comment_reply post_comment_box closed" id="comment_reply_to_<%= comment.id %>">
       <% if @comment && @comment.errors.any? && @comment.reply_of_id.to_i == comment.id %>
         <%= error_messages_for :comment %>
         <script type="text/javascript">
@@ -50,36 +65,6 @@
             add_comment_reply_form('#comment-reply-to-<%= comment.id %>', <%= comment.id %>);
           });
         </script>
-      <% end %>
-      <%= report_abuse(comment.author, :comment_link, comment) if comment.author %>
-
-      <% if comment.spam? %>
-        &nbsp;
-        <%= link_to_function(_('Mark as NOT SPAM'), 'remove_comment(this, %s); return false;' % url_for(:profile => profile.identifier, :mark_comment_as_ham => comment.id).to_json, :class => 'comment-footer comment-footer-link comment-footer-hide')  %>
-      <% else %>
-        <% if (logged_in? && (user == profile || user.has_permission?(:moderate_comments, profile))) %>
-          &nbsp;
-          <%= link_to_function(_('Mark as SPAM'), 'remove_comment(this, %s, %s); return false;' % [url_for(:profile => profile.identifier, :controller => 'comment', :action => :mark_as_spam, :id => comment.id).to_json, _('Are you sure you want to mark this comment as SPAM?').to_json], :class => 'comment-footer comment-footer-link comment-footer-hide')  %>
-        <% end %>
-      <% end %>
-
-      <% if comment.author && comment.author == user %>
-        &nbsp;
-        <%= expirable_comment_link comment, :edit, _('Edit'), url_for(:profile => profile.identifier, :controller => :comment, :action => :edit, :id => comment.id),:class => 'colorbox' %>
-      <% end %>
-
-      <% if logged_in? && (user == profile || user == comment.author || user.has_permission?(:moderate_comments, profile)) %>
-        &nbsp;
-        <%= link_to_function(_('Remove'), 'remove_comment(this, %s, %s); return false ;' % [url_for(:profile => profile.identifier, :controller => 'comment', :action => :destroy, :id => comment.id).to_json, _('Are you sure you want to remove this comment and all its replies?').to_json], :class => 'comment-footer comment-footer-link comment-footer-hide remove-children') %>
-      <% end %>
-
-      <% unless comment.spam? %>
-        &nbsp;
-        <%= link_to_function _('Reply'),
-          "var f = add_comment_reply_form(this, %s); f.find('comment_title, textarea').val(''); return false" % comment.id,
-          :class => 'comment-footer comment-footer-link comment-footer-hide',
-          :id => 'comment-reply-to-' + comment.id.to_s
-        %>
       <% end %>
     </div>
 

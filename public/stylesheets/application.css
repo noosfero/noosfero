@@ -1802,13 +1802,32 @@ a.button.disabled, input.disabled {
 #content .profile-list-block ul {
   width: 200px;
 }
-#content .common-profile-list-block li {
-  margin: 0px;
+#content .comment-header .comment-actions-reply {
+  float: right;
+  background-image: url(/designs/icons/tango/Tango/16x16/actions/go-jump.png);
+  height: 12px;
+}
+#content .comment-header ul {
+  float: right;
+  margin: 1px 0px 14px 0px;
+}
+#content .comment-actions .menu-submenu-header, #content .comment-actions .menu-submenu-footer, #content .comment-actions .menu-submenu h4 {
+  display: none;
+}
+#content .comment-actions .menu-submenu ul {
+  border: 1px solid #888a85;
+  background-color: #efefef;
+  padding-right: 2px;
+  height: auto;
+  display: block;
+}
+#content .common-profile-list-block li, #content .comment-actions li {
+  margin: 0px !important;
   padding: 0px;
   list-style: none;
   position: relative;
 }
-.common-profile-list-block .vcard a {
+.common-profile-list-block .vcard a, .comment-actions .vcard a {
   display: block;
   height: 112px;
   max-height: 112px;
@@ -1819,7 +1838,7 @@ a.button.disabled, input.disabled {
   text-align: center;
   overflow: hidden;
   font-size: 11px;
-  text-decoration: none;
+  text-decoration: none !important;
   color: #000;
   position: relative;
   cursor: pointer; /* work arround bug for MSIE */
@@ -4575,11 +4594,17 @@ h1#agenda-title {
 }
 /* Profile balloon */
 
-.common-profile-list-block .vcard {
+.common-profile-list-block .vcard, .comment-actions .vcard {
   position: relative !important;
   float: left;
 }
-.common-profile-list-block .vcard .menu-submenu-trigger, .menu-submenu-trigger {
+#content .comment-actions .vcard {
+  padding-right: 20px;
+}
+#content .comment-actions .vcard .menu-submenu-trigger {
+  display: block;
+}
+.common-profile-list-block .vcard .menu-submenu-trigger, .menu-submenu-trigger, .comment-actions .vcard .menu-submenu-trigger {
   display: none;
   width: 16px;
   height: 16px;
@@ -4593,7 +4618,7 @@ h1#agenda-title {
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
 }
-.common-profile-list-block .vcard .menu-submenu-trigger:hover, .menu-submenu-trigger:hover {
+.common-profile-list-block .vcard .menu-submenu-trigger:hover, .menu-submenu-trigger:hover, .comment-actions .vcard .menu-submenu-trigger:hover {
   background: #fff url(/images/top-arrow.png) center center no-repeat;
   border: 1px solid #ccc;
 }
@@ -4611,6 +4636,10 @@ h1#agenda-title {
   width: 150px;
   padding: 0;
   text-align: left;
+}
+.comment-details .menu-submenu {
+  bottom: 0px;
+  right: -134px;
 }
 .box-2 .menu-submenu, .box-3 .menu-submenu {
   bottom: 78px;
@@ -4646,7 +4675,7 @@ h1#agenda-title {
 .msie7 #search-results .menu-submenu-trigger {
   width: 20px !important;
 }
-.common-profile-list-block .vcard .menu-submenu a {
+.common-profile-list-block .vcard .menu-submenu a, .comment-actions .vcard .menu-submenu a {
   float: none;
   display: block;
   height: auto;
