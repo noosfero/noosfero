@@ -90,6 +90,5 @@ function save_comment(button) {
 }
 
 function show_display_comment_button() {
-  if(jQuery('.post_comment_box.opened').length==0)
     jQuery('.display-comment-form').show();
 }
