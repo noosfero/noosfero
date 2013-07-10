@@ -1,6 +1,7 @@
 class Blog < Folder
 
   acts_as_having_posts
+  include PostsLimit
 
   #FIXME This should be used until there is a migration to fix all blogs that
   # already have folders inside them

@@ -56,7 +56,7 @@
 
 <%= labelled_form_field(_('How to display posts:'), f.select(:visualization_format, [ [ _('Full post'), 'full'], [ _('First paragraph'), 'short'] ])) %>
 
-<%= labelled_form_field(_('Posts per page:'), f.select(:posts_per_page, [5, 10, 20, 50, 100])) %>
+<%= labelled_form_field(_('Posts per page:'), f.select(:posts_per_page, Blog.posts_per_page_options)) %>
 
 <%= labelled_check_box(_("List only translated posts"), 'article[display_posts_in_current_language]', '1', @article.display_posts_in_current_language?) %>
 

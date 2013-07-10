@@ -1,6 +1,7 @@
 class Forum < Folder
 
   acts_as_having_posts :order => 'updated_at DESC'
+  include PostsLimit
 
   def self.type_name
     _('Forum')
