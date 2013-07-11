@@ -202,9 +202,7 @@ class CmsControllerTest < ActionController::TestCase
     a = profile.articles.build(:name => 'my-article')
     a.save!
     assert_difference Article, :count, -1 do
-      @request.env['HTTP_REFERER'] = url_for :controller => 'cms', :profile => profile.identifier, :action => 'index'
       post :destroy, :profile => profile.identifier, :id => a.id
-      assert_redirected_to :controller => 'cms', :profile => profile.identifier, :action => 'index'
     end
   end
 
@@ -901,13 +899,6 @@ class CmsControllerTest < ActionController::TestCase
     Article.stubs(:short_description).returns('bli')
     get :view, :profile => profile.identifier, :id => a
     assert_tag :tag => 'a', :content => 'New content'
-  end
-
-  should 'offer confirmation to remove article' do
-    a = profile.articles.create!(:name => 'my-article')
-    @request.env['HTTP_REFERER'] = url_for :controller => 'cms', :profile => profile.identifier, :action => 'index'
-    post :destroy, :profile => profile.identifier, :id => a.id
-    assert_response :redirect
   end
 
   should 'display notify comments option' do
