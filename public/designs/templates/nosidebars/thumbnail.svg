@@ -14,12 +14,12 @@
    height="64px"
    id="svg2383"
    sodipodi:version="0.32"
-   inkscape:version="0.48.2 r9819"
+   inkscape:version="0.48.3.1 r9886"
    sodipodi:docname="thumbnail.svg"
    inkscape:output_extension="org.inkscape.output.svg.inkscape"
    inkscape:export-filename="thumbnail.png"
-   inkscape:export-xdpi="95.625"
-   inkscape:export-ydpi="95.625"
+   inkscape:export-xdpi="90"
+   inkscape:export-ydpi="90"
    version="1.1">
   <defs
      id="defs2385">
@@ -81,16 +81,18 @@
        y1="60.5"
        x2="3.5"
        y2="3.5"
-       gradientUnits="userSpaceOnUse" />
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(2,0)" />
     <linearGradient
        inkscape:collect="always"
        xlink:href="#linearGradient3263"
        id="linearGradient3253"
-       x1="42.5"
+       x1="49.5"
        y1="60.5"
-       x2="19.5"
+       x2="9.5"
        y2="3.5"
-       gradientUnits="userSpaceOnUse" />
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="translate(2,0)" />
     <linearGradient
        inkscape:collect="always"
        xlink:href="#linearGradient3257"
@@ -108,17 +110,17 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="7.1705047"
-     inkscape:cx="49.216988"
-     inkscape:cy="30.950918"
+     inkscape:zoom="8.46875"
+     inkscape:cx="32"
+     inkscape:cy="36.723247"
      inkscape:current-layer="layer1"
      showgrid="true"
      inkscape:document-units="px"
      inkscape:grid-bbox="true"
-     inkscape:window-width="1360"
-     inkscape:window-height="714"
+     inkscape:window-width="1278"
+     inkscape:window-height="740"
      inkscape:window-x="0"
-     inkscape:window-y="0"
+     inkscape:window-y="27"
      objecttolerance="10"
      gridtolerance="10"
      guidetolerance="10"
@@ -132,7 +134,9 @@
        originy="0.5px"
        empcolor="#0000ff"
        empopacity="0.1254902"
-       dotted="true" />
+       dotted="true"
+       empspacing="5"
+       snapvisiblegridlinesonly="true" />
   </sodipodi:namedview>
   <metadata
      id="metadata2388">
@@ -151,22 +155,33 @@
      inkscape:label="Layer 1"
      inkscape:groupmode="layer">
     <rect
-       y="1.5"
-       x="15.5"
+       rx="2"
+       ry="2"
+       style="opacity:0.4;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;filter:url(#filter3241);enable-background:accumulate"
+       id="rect3188"
+       width="57"
        height="59"
-       width="31"
+       x="4.5"
+       y="2.5" />
+    <rect
+       y="1.5"
+       x="3.5"
+       height="59"
+       width="57"
        id="rect3156"
-       style="opacity:1;fill:url(#linearGradient3253);fill-opacity:1;fill-rule:nonzero;stroke:#204a87;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
-       ry="2" />
+       style="fill:url(#linearGradient3253);fill-opacity:1;fill-rule:nonzero;stroke:#204a87;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       ry="2"
+       rx="2" />
     <rect
        y="2.5"
-       x="16.5"
+       x="4.5"
        height="57"
-       width="29"
+       width="55"
        id="rect3162"
-       style="opacity:0.6;fill:none;fill-opacity:1;fill-rule:nonzero;stroke:#ffffff;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
+       style="opacity:0.6;fill:none;stroke:#ffffff;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0;marker:none;visibility:visible;display:inline;overflow:visible;enable-background:accumulate"
        ry="1"
        inkscape:export-xdpi="90"
-       inkscape:export-ydpi="90" />
+       inkscape:export-ydpi="90"
+       rx="1" />
   </g>
 </svg>
