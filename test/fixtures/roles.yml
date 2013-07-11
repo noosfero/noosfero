@@ -30,6 +30,7 @@ four:
    - edit_environment_design
    - manage_environment_categories
    - manage_environment_roles
+   - manage_environment_trusted_sites
    - manage_environment_validators
    - moderate_comments
    - perform_task
@@ -85,6 +86,7 @@ environment_administrator:
    - edit_environment_design
    - manage_environment_categories
    - manage_environment_roles
+   - manage_environment_trusted_sites
    - manage_environment_validators
    - moderate_comments
    - manage_environment_users

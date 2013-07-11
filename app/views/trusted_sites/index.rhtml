@@ -1,0 +1,28 @@
+<h1><%= _('Manage trusted sites') %></h1>
+
+<p>
+<%=  _('Here you can manage the list of trusted sites of your environment. A trusted site is a site that you consider safe enough to incorporate their content through <em>iframes</em>.') %>
+</p>
+
+<table>
+  <tr>
+    <th><%= _('Site') %></th>
+    <th><%= _('Actions') %></th>
+  </tr>
+  <% @sites.each do |site| %>
+    <tr>
+      <td>
+        <%= link_to site, :action => 'show', :site => site %>
+      </td>
+      <td style='white-space: nowrap;'>
+        <%= button_without_text :edit, _('Edit'), :action => 'edit', :site => site %>
+        <%= button_without_text :remove,  _('Remove'), {:action => :destroy, :site => site}, :method => :delete, :confirm => _('Are you sure you want to remove this site from the list of trusted sites?') %>
+      </td>
+    </tr>
+  <% end %>
+</table>
+
+<% button_bar do %>
+  <%= button :add, _('Add a trusted site'), :action => 'new' %>
+  <%= button :back, _('Back to admin panel'), :controller => 'admin_panel' %>
+<% end %>
