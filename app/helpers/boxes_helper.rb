@@ -5,7 +5,7 @@ module BoxesHelper
       content + display_boxes_editor(@controller.boxes_holder)
     else
       maybe_display_custom_element(@controller.boxes_holder, :custom_header_expanded, :id => 'profile-header') +
-      if @controller.send(:uses_design_blocks?)
+      if @controller.send(:uses_design_blocks?) and @controller.boxes_holder.boxes_limit > 0
         display_boxes(@controller.boxes_holder, content)
       else
         content_tag('div',
