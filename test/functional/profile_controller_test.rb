@@ -1254,6 +1254,18 @@ class ProfileControllerTest < ActionController::TestCase
     end
   end
 
+  should 'not ask admin for captcha to register abuse' do
+    reported = fast_create(Profile)
+    login_as(profile.identifier)
+    environment = Environment.default
+    environment.add_admin(profile)
+    @controller.expects(:verify_recaptcha).never
+
+    assert_difference AbuseReport, :count, 1 do
+      post :register_report, :profile => reported.identifier, :abuse_report => {:reason => 'some reason'}
+    end
+  end
+
   should 'display activities and scraps together' do
     another_person = fast_create(Person)
     Scrap.create!(defaults_for_scrap(:sender => another_person, :receiver => profile, :content => 'A scrap'))
