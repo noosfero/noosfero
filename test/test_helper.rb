@@ -256,9 +256,11 @@ module NoosferoTestHelper
   def will_paginate(arg1, arg2)
   end
 
-  def url_for(args = {})
-    args
+  def url_for *args
+    url = ActionController::UrlRewriter.new(@request, nil)
+    url.rewrite *args
   end
+
   def javascript_tag(any)
     ''
   end

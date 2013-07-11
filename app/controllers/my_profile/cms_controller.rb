@@ -182,7 +182,14 @@ class CmsController < MyProfileController
     if request.post?
       @article.destroy
       session[:notice] = _("\"#{@article.name}\" was removed.")
-      redirect_to :action => (@article.parent ? 'view' : 'index'), :id => @article.parent
+      referer = ActionController::Routing::Routes.recognize_path URI.parse(request.referer).path rescue nil
+      if referer and referer[:controller] == 'cms'
+        redirect_to referer
+      elsif @article.parent
+        redirect_to @article.parent.url
+      else
+        redirect_to profile.url
+      end
     end
   end
 
