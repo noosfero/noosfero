@@ -19,7 +19,10 @@
     <%= labelled_form_field _('City and state'), location_fields %>
   <% end %>
   <%= required f.text_field(:subject) %>
-  <%= required f.text_area(:message, :rows => 10, :cols => 60) %>
+
+  <%= render :file => 'shared/tiny_mce' %>
+  <%= required f.text_area(:message, :class => 'mceEditor') %>
+
   <%= labelled_form_field check_box(:contact, :receive_a_copy) + _('I want to receive a copy of the message in my e-mail.'), '' %>
 
   <%= submit_button(:send, _('Send'), :onclick => "$('confirm').value = 'true'") %>
