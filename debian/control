@@ -12,7 +12,6 @@ Build-Depends:
  rake,
  rails (>= 2.3.5-1~),
  rails-ruby1.8 (>= 2.3.5-1~),
- openjdk-6-jre,
  libwill-paginate-ruby,
  tango-icon-theme,
  rcov
