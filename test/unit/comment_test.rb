@@ -635,6 +635,41 @@ class CommentTest < ActiveSupport::TestCase
     assert comment.can_be_destroyed_by?(user)
   end
 
+  should 'not be able to mark comment as spam without user' do
+    comment = Comment.new
+
+    assert !comment.can_be_marked_as_spam_by?(nil)
+  end
+
+  should 'not be able to mark comment as spam' do
+    user = Person.new
+    profile = Profile.new
+    article = Article.new(:profile => profile)
+    comment = Comment.new(:article => article)
+    user.expects(:has_permission?).with(:moderate_comments, profile).returns(false)
+
+    assert !comment.can_be_marked_as_spam_by?(user)
+  end
+
+  should 'be able to mark comment as spam if is the profile' do
+    user = Person.new
+    article = Article.new(:profile => user)
+    comment = Comment.new(:article => article)
+
+    assert comment.can_be_marked_as_spam_by?(user)
+  end
+
+  should 'be able to mark comment as spam if can moderate_comments on the profile' do
+    user = Person.new
+    profile = Profile.new
+    article = Article.new(:profile => profile)
+    comment = Comment.new(:article => article)
+
+    user.expects(:has_permission?).with(:moderate_comments, profile).returns(true)
+
+    assert comment.can_be_marked_as_spam_by?(user)
+  end
+
   private
 
   def create_comment(args = {})

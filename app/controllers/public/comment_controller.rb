@@ -96,9 +96,7 @@ class CommentController < ApplicationController
 
   def mark_as_spam
     comment = profile.comments_received.find(params[:id])
-    could_mark_as_spam = (user == comment.profile || user.has_permission?(:moderate_comments, comment.profile))
-
-    if logged_in? && could_mark_as_spam
+    if comment.can_be_marked_as_spam_by?(user)
       comment.spam!
       render :text => {'ok' => true}.to_json, :content_type => 'application/json'
     else
