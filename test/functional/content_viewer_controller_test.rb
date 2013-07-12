@@ -1014,8 +1014,7 @@ class ContentViewerControllerTest < ActionController::TestCase
     profile = create_user('testuser').person
     article = profile.articles.build(:name => 'test')
     article.save!
-    comment = article.comments.build(:author => profile, :title => 'a comment', :body => 'lalala')
-    comment.save!
+    comment = Comment.create!(:author => profile, :title => 'a comment', :body => 'lalala', :article => article)
     login_as 'testuser'
     get :view_page, :profile => 'testuser', :page => [ 'test' ]
     assert_tag :tag => 'a', :attributes => { :class => /comment-actions-reply/ }
