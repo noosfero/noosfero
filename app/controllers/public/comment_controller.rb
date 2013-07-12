@@ -48,7 +48,7 @@ class CommentController < ApplicationController
     if !@comment.valid? || (not pass_without_comment_captcha? and not verify_recaptcha(:model => @comment, :message => _('Please type the words correctly')))
       respond_to do |format|
         format.js do
-          render :json => { 
+          render :json => {
              :render_target => 'form',
              :html => render_to_string(:partial => 'comment_form', :object => @comment, :locals => {:comment => @comment, :display_link => true, :show_form => true})
           }
@@ -150,7 +150,6 @@ class CommentController < ApplicationController
    end
   end
   
-  #FIXME make this test
   def check_actions
     comment = profile.comments_received.find(params[:id])
     ids = @plugins.dispatch(:check_comment_actions, comment).collect do |action|
