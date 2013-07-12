@@ -62,7 +62,7 @@ module CommentHelper
   end
 
   def link_for_remove(comment)
-    if logged_in? && (user == profile || user == comment.author || user.has_permission?(:moderate_comments, profile))
+    if comment.can_be_destroyed_by?(user)
       {:link => link_to_function(_('Remove'), 'remove_comment(this, %s, %s); return false ;' % [url_for(:profile => profile.identifier, :controller => 'comment', :action => :destroy, :id => comment.id).to_json, _('Are you sure you want to remove this comment and all its replies?').to_json], :class => 'comment-footer comment-footer-link comment-footer-hide remove-children')}
     end
   end

@@ -117,6 +117,20 @@ class CommentHelperTest < ActiveSupport::TestCase
     assert link
   end
 
+  should 'do not return link for remove comment' do
+    comment = Comment.new
+    comment.stubs(:can_be_destroyed_by?).with(user).returns(false)
+    link = link_for_remove(comment)
+    assert_nil link
+  end
+
+  should 'return link for remove comment' do
+    comment = Comment.new
+    comment.stubs(:can_be_destroyed_by?).with(user).returns(true)
+    link = link_for_remove(comment)
+    assert link
+  end
+
   def link_to_function(content, url, options = {})
     link_to(content, url, options)
   end
