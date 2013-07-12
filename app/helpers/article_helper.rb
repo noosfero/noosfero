@@ -35,7 +35,13 @@ module ArticleHelper
         'div',
         check_box(:article, :notify_comments) +
         content_tag('label', _('I want to receive a notification of each comment written by e-mail'), :for => 'article_notify_comments') +
-        observe_field(:article_accept_comments, :function => "$('article_notify_comments').disabled = ! $('article_accept_comments').checked") 
+        observe_field(:article_accept_comments, :function => "$('article_notify_comments').disabled = ! $('article_accept_comments').checked;$('article_moderate_comments').disabled = ! $('article_accept_comments').checked") 
+      ) +
+
+      content_tag(
+        'div',
+        check_box(:article, :moderate_comments) +
+        content_tag('label', _('I want to approve comments on this article'), :for => 'article_moderate_comments')
       ) +
 
       (article.can_display_hits? ?
