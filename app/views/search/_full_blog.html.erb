@@ -7,12 +7,12 @@
     <tr class="search-blog-items">
       <td class="search-field-label"><%= _("Last posts") %></td>
 
-      <% r = blog.children.find(:all, :order => :updated_at, :conditions => ['type != ?', 'RssFeed']).last(3) %>
-      <td class="<%= "search-field-none" if r.empty? %>">
-        <% r.each do |a| %>
-          <%= link_to a.title, a.view_url, :class => 'search-blog-sample-item '+icon_for_article(a) %>
+      <% last_posts = blog.last_posts %>
+      <td class="<%= "search-field-none" if last_posts.empty? %>">
+        <% last_posts.each do |post| %>
+          <%= link_to post.title, post.view_url, :class => 'search-blog-sample-item '+icon_for_article(post) %>
         <% end %>
-        <%= _('None') if r.empty? %>
+        <%= _('None') if last_posts.empty? %>
       </td>
     </tr>
 
