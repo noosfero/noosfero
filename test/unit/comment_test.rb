@@ -670,6 +670,26 @@ class CommentTest < ActiveSupport::TestCase
     assert comment.can_be_marked_as_spam_by?(user)
   end
 
+  should 'not be able to update comment without user' do
+    comment = Comment.new
+
+    assert !comment.can_be_updated_by?(nil)
+  end
+
+  should 'not be able to update comment' do
+    user = Person.new
+    comment = Comment.new
+
+    assert !comment.can_be_updated_by?(user)
+  end
+
+  should 'be able to update comment if is the author' do
+    user = Person.new
+    comment = Comment.new(:author => user)
+
+    assert comment.can_be_updated_by?(user)
+  end
+
   private
 
   def create_comment(args = {})

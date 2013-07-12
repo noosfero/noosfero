@@ -269,4 +269,8 @@ class Comment < ActiveRecord::Base
     user == profile || user.has_permission?(:moderate_comments, profile)
   end
 
+  def can_be_updated_by?(user)
+    user.present? && user == author
+  end
+
 end
