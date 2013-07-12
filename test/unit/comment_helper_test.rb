@@ -18,7 +18,8 @@ class CommentHelperTest < ActiveSupport::TestCase
   attr_reader :user, :profile
 
   should 'show menu if it has links for actions' do
-    comment = Comment.new
+    article = Article.new(:profile => profile)
+    comment = Comment.new(:article => article)
     menu = comment_actions(comment)
     assert menu
   end
@@ -41,7 +42,8 @@ class CommentHelperTest < ActiveSupport::TestCase
   end
 
   should 'include actions of plugins in menu' do
-    comment = Comment.new
+    article = Article.new(:profile => profile)
+    comment = Comment.new(:article => article)
     plugin_action = {:link => 'plugin_action'}
     @plugins.stubs(:dispatch).returns([plugin_action])
     links = links_for_comment_actions(comment)
@@ -49,7 +51,8 @@ class CommentHelperTest < ActiveSupport::TestCase
   end
 
   should 'include lambda actions of plugins in menu' do
-    comment = Comment.new
+    article = Article.new(:profile => profile)
+    comment = Comment.new(:article => article)
     plugin_action = lambda{[{:link => 'plugin_action'}, {:link => 'plugin_action2'}]}
     @plugins.stubs(:dispatch).returns([plugin_action])
     links = links_for_comment_actions(comment)
@@ -72,15 +75,32 @@ class CommentHelperTest < ActiveSupport::TestCase
 
   should 'return link for mark comment as spam' do
     comment = Comment.new
+    comment.stubs(:can_be_marked_as_spam_by?).with(user).returns(true)
     link = link_for_spam(comment)
     assert_match /Mark as SPAM/, link[:link]
+  end
+
+  should 'not return link for mark comment as spam if user does not have the permissions' do
+    comment = Comment.new
+    comment.stubs(:can_be_marked_as_spam_by?).with(user).returns(false)
+    link = link_for_spam(comment)
+    assert_nil link
   end
 
   should 'return link for mark comment as not spam' do
     comment = Comment.new
     comment.spam = true
+    comment.stubs(:can_be_marked_as_spam_by?).with(user).returns(true)
     link = link_for_spam(comment)
     assert_match /Mark as NOT SPAM/, link[:link]
+  end
+
+  should 'not return link for mark comment as not spam if user does not have the permissions' do
+    comment = Comment.new
+    comment.spam = true
+    comment.stubs(:can_be_marked_as_spam_by?).with(user).returns(false)
+    link = link_for_spam(comment)
+    assert_nil link
   end
 
   should 'do not return link for edit comment' do

@@ -1,8 +1,8 @@
 module CommentHelper
 
   def article_title(article, args = {})
+    title = article.title
     title = article.display_title if article.kind_of?(UploadedFile) && article.image?
-    title = article.title if title.blank?
     title = content_tag('h1', h(title), :class => 'title')
     if article.belongs_to_blog?
       unless args[:no_link]
@@ -21,7 +21,7 @@ module CommentHelper
     end
     title
   end
-  
+
   def comment_actions(comment)
     url = url_for(:profile => profile.identifier, :controller => :comment, :action => :check_actions, :id => comment.id)
     links = links_for_comment_actions(comment)
@@ -46,10 +46,12 @@ module CommentHelper
   end
 
   def link_for_spam(comment)
-    if comment.spam?
-      {:link => link_to_function(_('Mark as NOT SPAM'), 'remove_comment(this, %s); return false;' % url_for(:profile => profile.identifier, :mark_comment_as_ham => comment.id).to_json, :class => 'comment-footer comment-footer-link comment-footer-hide')}
-    elsif (logged_in? && (user == profile || user.has_permission?(:moderate_comments, profile)))
-      {:link => link_to_function(_('Mark as SPAM'), 'remove_comment(this, %s, %s); return false;' % [url_for(:profile => profile.identifier, :controller => 'comment', :action => :mark_as_spam, :id => comment.id).to_json, _('Are you sure you want to mark this comment as SPAM?').to_json], :class => 'comment-footer comment-footer-link comment-footer-hide')}
+    if comment.can_be_marked_as_spam_by?(user)
+      if comment.spam?
+        {:link => link_to_function(_('Mark as NOT SPAM'), 'remove_comment(this, %s); return false;' % url_for(:profile => profile.identifier, :mark_comment_as_ham => comment.id).to_json, :class => 'comment-footer comment-footer-link comment-footer-hide')}
+      else
+        {:link => link_to_function(_('Mark as SPAM'), 'remove_comment(this, %s, %s); return false;' % [url_for(:profile => profile.identifier, :controller => 'comment', :action => :mark_as_spam, :id => comment.id).to_json, _('Are you sure you want to mark this comment as SPAM?').to_json], :class => 'comment-footer comment-footer-link comment-footer-hide')}
+      end
     end
   end
 
