@@ -105,13 +105,14 @@ class CommentHelperTest < ActiveSupport::TestCase
 
   should 'do not return link for edit comment' do
     comment = Comment.new
+    comment.stubs(:can_be_updated_by?).with(user).returns(false)
     link = link_for_edit(comment)
-    assert !link
+    assert_nil link
   end
 
   should 'return link for edit comment' do
     comment = Comment.new
-    comment.author = user
+    comment.stubs(:can_be_updated_by?).with(user).returns(true)
     link = link_for_edit(comment)
     assert link
   end
