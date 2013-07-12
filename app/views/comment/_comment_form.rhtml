@@ -48,7 +48,6 @@ function check_captcha(button, confirm_action) {
 
 <% if @comment && @comment.errors.any? %>
   <%= error_messages_for :comment %>
-  <script type="text/javascript">jQuery(function() { document.location.href = '#page-comment-form'; });</script>
 <% end %>
 
 <div class="post_comment_box <%= ((defined? show_form) && show_form) ? 'opened' : 'closed' %>">
