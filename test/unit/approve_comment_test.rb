@@ -144,8 +144,6 @@ class ApproveCommentTest < ActiveSupport::TestCase
   end
 
   should 'default decision be skip if there is an article associated to task' do
-#    a = ApproveComment.create!(:name => 'test name', :target => @community, :comment_attributes => @comment.attributes.to_json, :requestor => @profile)
-#FIXME see if article= method will survive
     a = ApproveComment.new(:comment_attributes => @comment.attributes.to_json)
     assert 'skip', a.default_decision
   end

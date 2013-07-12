@@ -1,13 +1,12 @@
 class ApproveComment < Task
   validates_presence_of :target_id
 
-   settings_items :comment_attributes, :closing_statment
+  settings_items :comment_attributes, :closing_statment
 
-   validates_presence_of :comment_attributes
+  validates_presence_of :comment_attributes
 
   def comment
-     @comment ||= Comment.new(JSON.parse(self.comment_attributes)) unless self.comment_attributes.nil?
-     @comment
+    @comment ||= Comment.new(JSON.parse(self.comment_attributes)) unless self.comment_attributes.nil?
   end
 
   def requestor_name
@@ -22,7 +21,6 @@ class ApproveComment < Task
     article ? article.name : _("Article removed.")
   end
 
-
   def perform
     comment.save!
   end
@@ -33,8 +31,8 @@ class ApproveComment < Task
 
   def icon
     result = {:type => :defined_image, :src => '/images/icons-app/article-minor.png'}
-    result.merge({:url => article.url}) if article
-    return result
+    result.merge!({:url => article.url}) if article
+    result
   end
 
   def linked_subject
