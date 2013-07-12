@@ -2,6 +2,8 @@ class CommentController < ApplicationController
 
   needs_profile
 
+  before_filter :can_update?, :only => [:edit, :update]
+
   def create
     begin
       @page = profile.articles.find(params[:id])
@@ -106,26 +108,10 @@ class CommentController < ApplicationController
   end
 
   def edit
-    begin
-      @comment = profile.comments_received.find(params[:id])
-      raise ActiveRecord::RecordNotFound unless @comment.can_be_updated_by?(user) # Not reveal that the comment exists
-    rescue ActiveRecord::RecordNotFound
-      render_not_found
-      return
-    end
-
     render :partial => "comment_form", :locals => {:comment => @comment, :display_link => params[:reply_of_id].present?, :edition_mode => true, :show_form => true}
   end
 
   def update
-    begin
-      @comment = profile.comments_received.find(params[:id])
-      raise ActiveRecord::RecordNotFound unless @comment.can_be_updated_by?(user) # Not reveal that the comment exists
-    rescue ActiveRecord::RecordNotFound
-      render_not_found
-      return
-    end
-
     if @comment.update_attributes(params[:comment])
       respond_to do |format|
         format.js do
@@ -149,7 +135,7 @@ class CommentController < ApplicationController
      end
    end
   end
-  
+
   def check_actions
     comment = profile.comments_received.find(params[:id])
     ids = @plugins.dispatch(:check_comment_actions, comment).collect do |action|
@@ -164,5 +150,15 @@ class CommentController < ApplicationController
     logged_in? && !environment.enabled?('captcha_for_logged_users')
   end
   helper_method :pass_without_comment_captcha?
+
+  def can_update?
+    begin
+      @comment = profile.comments_received.find(params[:id])
+      raise ActiveRecord::RecordNotFound unless @comment.can_be_updated_by?(user) # Not reveal that the comment exists
+    rescue ActiveRecord::RecordNotFound
+      render_not_found
+      return
+    end
+  end
 
 end
