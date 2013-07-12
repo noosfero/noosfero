@@ -34,13 +34,8 @@ class Comment < ActiveRecord::Base
 
   xss_terminate :only => [ :body, :title, :name ], :on => 'validation'
 
-  #FIXME make this test
   def comment_root
-    if(self.reply_of.present?)
-      self.reply_of.comment_root
-    else
-      self
-    end
+    (reply_of && reply_of.comment_root) || self
   end
 
   def action_tracker_target

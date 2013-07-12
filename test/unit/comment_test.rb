@@ -690,6 +690,16 @@ class CommentTest < ActiveSupport::TestCase
     assert comment.can_be_updated_by?(user)
   end
 
+  should 'get comment root' do
+    c1 = Comment.new
+    c2 = Comment.new(:reply_of => c1)
+    c3 = Comment.new(:reply_of => c2)
+
+    assert_equal c1, c3.comment_root
+    assert_equal c1, c2.comment_root
+    assert_equal c1, c1.comment_root
+  end
+
   private
 
   def create_comment(args = {})
