@@ -550,6 +550,49 @@ class CommentTest < ActiveSupport::TestCase
     SpammerLogger.clean_log
   end
 
+  should 'not need moderation if article is not moderated' do
+    article = Article.new
+    comment = Comment.new(:article => article)
+
+    assert !comment.need_moderation?
+  end
+
+  should 'not need moderation if the comment author is the article author' do
+    author = Person.new
+    article = Article.new
+
+    article.stubs(:author).returns(author)
+    article.moderate_comments = true
+
+    comment = Comment.new(:article => article)
+    comment.stubs(:author).returns(author)
+
+    assert !comment.need_moderation?
+  end
+
+  should 'need moderation if article is moderated and the comment has no author' do
+    article = Article.new
+    article.stubs(:moderate_comments?).returns(true)
+
+    comment = Comment.new(:article => article)
+
+    assert comment.need_moderation?
+  end
+
+  should 'need moderation if article is moderated and the comment author is different from article author' do
+    article_author = Person.new
+    comment_author = Person.new
+
+    article = Article.new
+    article.stubs(:author).returns(article_author)
+    article.stubs(:moderate_comments?).returns(true)
+
+    comment = Comment.new(:article => article)
+    comment.stubs(:author).returns(comment_author)
+
+    assert comment.need_moderation?
+  end
+
   private
 
   def create_comment(args = {})

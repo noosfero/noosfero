@@ -57,7 +57,7 @@ class CommentController < ApplicationController
       return
     end
 
-    if @comment.article.moderate_comments? && !(@comment.author && @comment.author_id == @comment.article.author_id)
+    if @comment.need_moderation?
       @comment.created_at = Time.now
       ApproveComment.create!(:requestor => @comment.author, :target => profile, :comment_attributes => @comment.attributes.to_json)
 

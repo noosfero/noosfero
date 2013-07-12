@@ -255,4 +255,8 @@ class Comment < ActiveRecord::Base
     plugins.dispatch(:comment_marked_as_ham, self)
   end
 
+  def need_moderation?
+    article.moderate_comments? && (author.nil? || article.author != author)
+  end
+
 end
