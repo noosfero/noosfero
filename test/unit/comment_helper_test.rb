@@ -23,14 +23,14 @@ class CommentHelperTest < ActiveSupport::TestCase
     menu = comment_actions(comment)
     assert menu
   end
-  
+
   should 'do not show menu if it has no actions' do
     comment = Comment.new
     self.stubs(:links_for_comment_actions).returns([])
     menu = comment_actions(comment)
     assert !menu
   end
-  
+
   should 'do not show menu if it has nil actions only' do
     comment = Comment.new
     self.stubs(:link_for_report_abuse).returns(nil)
@@ -59,14 +59,14 @@ class CommentHelperTest < ActiveSupport::TestCase
     assert_includes links, {:link => 'plugin_action'}
     assert_includes links, {:link => 'plugin_action2'}
   end
-  
+
   should 'return link for report abuse action when comment has a author' do
     comment = Comment.new
     comment.author = user
     link = link_for_report_abuse(comment)
     assert link
   end
-  
+
   should 'do not return link for report abuse action when comment has no author' do
     comment = Comment.new
     link = link_for_report_abuse(comment)

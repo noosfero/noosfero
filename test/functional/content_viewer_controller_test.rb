@@ -83,34 +83,6 @@ class ContentViewerControllerTest < ActionController::TestCase
     assert_equal feed.data, @response.body
   end
 
-#FIXME Leandro The link to remove comment changes. Fix this test
-#  should 'display remove comment button' do
-#    profile = create_user('testuser').person
-#    article = profile.articles.build(:name => 'test')
-#    article.save!
-#    comment = article.comments.build(:author => profile, :title => 'a comment', :body => 'lalala')
-#    comment.save!
-#
-#    login_as 'testuser'
-#    get :view_page, :profile => 'testuser', :page => [ 'test' ]
-#    assert_tag :tag => 'a', :attributes => { :onclick => %r(/testuser/test\?remove_comment=#{comment.id}.quot) }
-#  end
-
-#FIXME Leandro The link to remove comment changes. Fix this test
-#  should 'display remove comment button with param view when image' do
-#    profile = create_user('testuser').person
-#
-#    image = UploadedFile.create!(:profile => profile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
-#    image.save!
-#
-#    comment = image.comments.build(:author => profile, :title => 'a comment', :body => 'lalala')
-#    comment.save!
-#
-#    login_as 'testuser'
-#    get :view_page, :profile => 'testuser', :page => [ image.filename ], :view => true
-#    assert_tag :tag => 'a', :attributes => { :onclick => %r(/testuser/#{image.filename}\?remove_comment=#{comment.id}.*amp;view=true.quot) }
-#  end
-
   should "display current article's tags" do
     page = profile.articles.create!(:name => 'myarticle', :body => 'test article', :tag_list => 'tag1, tag2')
 
@@ -209,18 +181,17 @@ class ContentViewerControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-#FIXME Leandro make this test woks
-#  should 'load the correct profile when using hosted domain' do
-#    profile = create_user('mytestuser').person
-#    profile.domains << Domain.create!(:name => 'micojones.net')
-#    profile.save!
-#
-#    ActionController::TestRequest.any_instance.expects(:host).returns('www.micojones.net').at_least_once
-#
-#    get :view_page, :page => []
-#
-#    assert_equal profile, assigns(:profile)
-#  end
+  should 'load the correct profile when using hosted domain' do
+    profile = create_user('mytestuser').person
+    profile.domains << Domain.create!(:name => 'micojones.net')
+    profile.save!
+
+    ActionController::TestRequest.any_instance.expects(:host).returns('www.micojones.net').at_least_once
+
+    get :view_page, :page => []
+
+    assert_equal profile, assigns(:profile)
+  end
 
   should 'give link to edit the article for owner' do
     login_as('testinguser')
@@ -1081,20 +1052,6 @@ class ContentViewerControllerTest < ActionController::TestCase
     get :view_page, :profile => 'testuser', :page => [ 'test' ]
     assert_no_tag :tag => 'ul', :attributes => { :class => 'comment-replies' }
   end
-
-#FIXME Leandro make this test woks
-#  should 'show reply error' do
-#    profile = create_user('testuser').person
-#    article = profile.articles.build(:name => 'test')
-#    article.save!
-#    comment = article.comments.build(:author => profile, :title => 'root', :body => 'root')
-#    comment.save!
-#    login_as 'testuser'
-#    post :view_page, :profile => profile.identifier, :page => ['test'], :comment => { :title => '', :body => '', :reply_of_id => comment.id }, :confirm => 'true'
-#    assert_tag :tag => 'div', :attributes => { :class => /comment_reply/ }, :descendant => {:tag => 'div', :attributes => {:class => 'errorExplanation'} }
-#    assert_no_tag :tag => 'div', :attributes => { :id => 'page-comment-form' }, :descendant => {:tag => 'div', :attributes => {:class => 'errorExplanation'} }
-#    assert_tag :tag => 'div', :attributes => { :id => 'page-comment-form' }, :descendant => { :tag => 'div', :attributes => { :class => /post_comment_box closed/ } }
-#  end
 
   should 'add an zero width space every 4 caracters of comment urls' do
     url = 'www.an.url.to.be.splited.com'
