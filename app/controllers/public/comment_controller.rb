@@ -34,7 +34,7 @@ class CommentController < ApplicationController
     @comment.ip_address = request.remote_ip
     @comment.user_agent = request.user_agent
     @comment.referrer = request.referrer
-    plugins_filter_comment(@comment)
+    @plugins.dispatch(:filter_comment, @comment)
 
     if @comment.rejected?
       respond_to do |format|
@@ -171,12 +171,6 @@ class CommentController < ApplicationController
   end
 
   protected
-
-  def plugins_filter_comment(comment)
-    @plugins.each do |plugin|
-      plugin.filter_comment(comment)
-    end
-  end
 
   def pass_without_comment_captcha?
     logged_in? && !environment.enabled?('captcha_for_logged_users')
