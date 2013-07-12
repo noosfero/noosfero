@@ -477,7 +477,7 @@ class CommentControllerTest < ActionController::TestCase
   should 'edit comment from a page' do
     login_as profile.identifier
     page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
-    comment = fast_create(Comment, :body => 'Original comment', :source_id => page.id, :source_type => 'Article')
+    comment = fast_create(Comment, :body => 'Original comment', :source_id => page.id, :source_type => 'Article', :author_id => profile.id)
 
     get :edit, :id => comment.id, :profile => profile.identifier, :comment => { :body => 'Comment edited' }
     assert_tag :tag => 'textarea', :attributes => {:id => 'comment_body'}, :content => 'Original comment'
@@ -488,6 +488,24 @@ class CommentControllerTest < ActionController::TestCase
     page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
 
     get :edit, :id => 1000, :profile => profile.identifier, :comment => { :body => 'Comment edited' }
+    assert_response 404
+  end
+
+  should 'not be able to edit comment not logged' do
+    page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
+    comment = fast_create(Comment, :body => 'Original comment', :source_id => page.id, :source_type => 'Article')
+
+    get :edit, :id => comment.id, :profile => profile.identifier, :comment => { :body => 'Comment edited' }
+    assert_response 404
+  end
+
+  should 'not be able to edit comment if does not have the permission to' do
+    user = create_user('any_guy').person
+    login_as user.identifier
+    page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
+    comment = fast_create(Comment, :body => 'Original comment', :source_id => page.id, :source_type => 'Article')
+
+    get :edit, :id => comment.id, :profile => profile.identifier, :comment => { :body => 'Comment edited' }
     assert_response 404
   end
 
@@ -506,6 +524,24 @@ class CommentControllerTest < ActionController::TestCase
     page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
 
     xhr :post, :update, :id => 1000, :profile => profile.identifier, :comment => { :body => 'Comment edited' }
+    assert_response 404
+  end
+
+  should 'not be able to update comment not logged' do
+    page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
+    comment = fast_create(Comment, :body => 'Original comment', :source_id => page.id, :source_type => 'Article')
+
+    xhr :post, :update, :id => comment.id, :profile => profile.identifier, :comment => { :body => 'Comment edited' }
+    assert_response 404
+  end
+
+  should 'not be able to update comment if does not have the permission to' do
+    user = create_user('any_guy').person
+    login_as user.identifier
+    page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
+    comment = fast_create(Comment, :body => 'Original comment', :source_id => page.id, :source_type => 'Article')
+
+    xhr :post, :update, :id => comment.id, :profile => profile.identifier, :comment => { :body => 'Comment edited' }
     assert_response 404
   end
 

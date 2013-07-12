@@ -108,11 +108,8 @@ class CommentController < ApplicationController
   def edit
     begin
       @comment = profile.comments_received.find(params[:id])
+      raise ActiveRecord::RecordNotFound unless @comment.can_be_updated_by?(user) # Not reveal that the comment exists
     rescue ActiveRecord::RecordNotFound
-      @comment = nil
-    end
-
-    if @comment.nil?
       render_not_found
       return
     end
@@ -123,11 +120,8 @@ class CommentController < ApplicationController
   def update
     begin
       @comment = profile.comments_received.find(params[:id])
+      raise ActiveRecord::RecordNotFound unless @comment.can_be_updated_by?(user) # Not reveal that the comment exists
     rescue ActiveRecord::RecordNotFound
-      @comment = nil
-    end
-
-    if @comment.nil? or user != @comment.author
       render_not_found
       return
     end
