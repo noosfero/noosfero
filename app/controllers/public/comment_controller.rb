@@ -86,8 +86,7 @@ class CommentController < ApplicationController
   def destroy
     comment = profile.comments_received.find(params[:id])
 
-    could_remove = (user == comment.author || user == comment.profile || user.has_permission?(:moderate_comments, comment.profile))
-    if comment && could_remove && comment.destroy
+    if comment && comment.can_be_destroyed_by?(user) && comment.destroy
       render :text => {'ok' => true}.to_json, :content_type => 'application/json'
     else
       session[:notice] = _("The comment was not removed.")

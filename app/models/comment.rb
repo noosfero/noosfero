@@ -259,4 +259,9 @@ class Comment < ActiveRecord::Base
     article.moderate_comments? && (author.nil? || article.author != author)
   end
 
+  def can_be_destroyed_by?(user)
+    return if user.nil?
+    user == author || user == profile || user.has_permission?(:moderate_comments, profile)
+  end
+
 end
