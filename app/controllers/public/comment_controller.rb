@@ -117,9 +117,7 @@ class CommentController < ApplicationController
       return
     end
 
-    display_link = params[:reply_of_id].present? && !params[:reply_of_id].empty?
-
-    render :partial => "comment_form", :locals => {:comment => @comment, :display_link => display_link, :edition_mode => true, :show_form => true}
+    render :partial => "comment_form", :locals => {:comment => @comment, :display_link => params[:reply_of_id].present?, :edition_mode => true, :show_form => true}
   end
 
   def update
