@@ -209,17 +209,17 @@ class CmsControllerTest < ActionController::TestCase
   should 'redirect to cms after remove article from content management' do
     a = profile.articles.build(:name => 'my-article')
     a.save!
-    @request.env['HTTP_REFERER'] = url_for :controller => 'cms', :profile => profile.identifier, :action => 'index'
+    @request.env['HTTP_REFERER'] = 'http://test.host/myprofile/testinguser/cms'
     post :destroy, :profile => profile.identifier, :id => a.id
-    assert_redirected_to :controller => 'cms', :profile => profile.identifier, :action => 'index'
+    assert_redirected_to :controller => 'cms', :action => 'index', :profile => profile.identifier
   end
 
   should 'redirect to blog after remove article from content viewer' do
     a = profile.articles.build(:name => 'my-article')
     a.save!
-    @request.env['HTTP_REFERER'] = url_for :controller => 'content_viewer', :action => 'view_page'
+    @request.env['HTTP_REFERER'] = 'http://colivre.net/testinguser'
     post :destroy, :profile => profile.identifier, :id => a.id
-    assert_redirected_to :controller => 'content_viewer', :action => 'view_page'
+    assert_redirected_to :controller => 'content_viewer', :action => 'view_page', :profile => profile.identifier, :page => [], :host => profile.environment.default_hostname
   end
 
   should 'be able to acess Rss feed creation page' do
