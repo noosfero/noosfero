@@ -24,7 +24,7 @@ class Noosfero::Plugin::Manager
     dispatch_without_flatten(event, *args).flatten
   end
 
-  def dispatch_plugins(event, *args)
+  def fetch_plugins(event, *args)
     map { |plugin| plugin.class if plugin.send(event, *args) }.compact.flatten
   end
 
@@ -32,18 +32,9 @@ class Noosfero::Plugin::Manager
     map { |plugin| plugin.send(event, *args) }.compact
   end
 
-  def dispatch_first(event, *args)
-    value = nil
-    map do |plugin| 
-      value = plugin.send(event, *args) 
-      break if value
-    end
-    value
-  end
-
   alias :dispatch_scopes :dispatch_without_flatten
 
-  def first(event, *args)
+  def dispatch_first(event, *args)
     result = nil
     each do |plugin|
       result = plugin.send(event, *args)
@@ -52,7 +43,7 @@ class Noosfero::Plugin::Manager
     result
   end
 
-  def first_plugin(event, *args)
+  def fetch_first_plugin(event, *args)
     result = nil
     each do |plugin|
       if plugin.send(event, *args)

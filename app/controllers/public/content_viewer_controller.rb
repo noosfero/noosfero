@@ -98,7 +98,7 @@ class ContentViewerController < ApplicationController
         session[:notice] = _("Notification of new comments to '%s' was successfully canceled") % params[:email]
       end
     end
-   
+
     @comments = @plugins.dispatch_first(:load_comments, @page)
     @comments ||= @page.comments.without_spam.as_thread
     @comments = [@comments] unless @comments.is_a?(Array)

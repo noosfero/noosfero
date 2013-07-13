@@ -135,7 +135,7 @@ class PluginManagerTest < ActiveSupport::TestCase
     environment.enable_plugin(Plugin2.name)
     environment.enable_plugin(Plugin3.name)
 
-    results = manager.dispatch_plugins(:random_event)
+    results = manager.fetch_plugins(:random_event)
 
     assert_includes results, Plugin2
     assert_includes results, Plugin3
@@ -165,35 +165,7 @@ class PluginManagerTest < ActiveSupport::TestCase
 
     Plugin3.any_instance.expects(:random_event).never
 
-    assert_equal Plugin2, manager.first_plugin(:random_event)
-  end
-
-  should 'dispatch_first method returns the first plugin response if there is many plugins to responde the event and the first one respond nil' do
-
-    class Plugin1 < Noosfero::Plugin
-      def random_event
-        nil
-      end
-    end
-
-    class Plugin2 < Noosfero::Plugin
-      def random_event
-        'Plugin 2 action.'
-      end
-    end
-
-    class Plugin3 < Noosfero::Plugin
-      def random_event
-        'Plugin 3 action.'
-      end
-    end
-
-    environment.stubs(:enabled_plugins).returns([Plugin1.to_s, Plugin2.to_s, Plugin3.to_s])
-
-    p2 = Plugin2.new
-
-    assert_equal p2.random_event, plugins.dispatch_first(:random_event)
+    assert_equal Plugin2, manager.fetch_first_plugin(:random_event)
   end
 
 end
-
