@@ -1016,7 +1016,7 @@ hr.pre-posts, hr.sep-posts {
 
 .post_comment_box.opened {
   border: none;
-  background: #FFF;
+  background: transparent;
 }
 
 
