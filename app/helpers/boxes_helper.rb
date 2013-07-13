@@ -99,8 +99,8 @@ module BoxesHelper
     unless block.visible?
       options[:title] = _("This block is invisible. Your visitors will not see it.")
     end
-    @controller.send(:content_editor?) || @plugins.each do |plugin|
-      result = plugin.parse_content(result)
+    if @controller.send(:content_editor?)
+      result = filter_html(result, block)
     end
     box_decorator.block_target(block.box, block) +
       content_tag('div',

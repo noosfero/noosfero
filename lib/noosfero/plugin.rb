@@ -5,6 +5,13 @@ class Noosfero::Plugin
 
   attr_accessor :context
 
+  def initialize(context=nil)
+    self.context = context
+    macro_methods.each do |method|
+      Environment.macros[context.environment.id][method] = self unless context.nil?
+    end
+  end
+
   class << self
 
     def klass(dir)
@@ -242,8 +249,8 @@ class Noosfero::Plugin
 
   # -> Parse and possibly make changes of content (article, block, etc) during HTML rendering
   # returns = content as string after parser and changes
-  def parse_content(raw_content)
-    raw_content
+  def parse_content(args)
+    args
   end
 
   # -> Adds links to the admin panel
@@ -277,6 +284,18 @@ class Noosfero::Plugin
   #   end
   #
   def filter_comment(comment)
+  end
+
+  # Define custom logic to load the article comments.
+  #
+  # Example:
+  #
+  #   def load_comments(article)
+  #     article.comments.find(:all, :conditions => ['spam IS NULL OR spam = ?', false])
+  #   end
+  #
+  def load_comments(article)
+    nil
   end
 
   # This method is called by the CommentHandler background job before sending
@@ -355,7 +374,7 @@ class Noosfero::Plugin
   def profile_info_extra_contents
     nil
   end
-
+  
   # -> Removes the invite friend button from the friends controller
   # returns = boolean
   def remove_invite_friends_button
@@ -416,6 +435,18 @@ class Noosfero::Plugin
   # returns = lambda block that creates html code
   def login_extra_contents
     nil
+  end
+  
+  # -> Adds adicional content to comment form
+  # returns = lambda block that creates html code
+  def comment_form_extra_contents(args)
+    nil
+  end
+
+  # -> Register macro methods in environment
+  # returns  = ['method1', 'method2', ...]
+  def macro_methods
+    []
   end
 
   # -> Finds objects by their contents
@@ -503,6 +534,11 @@ class Noosfero::Plugin
     # -> Expire the action button from the content
     # returns = string with reason of expiration
     elsif method.to_s =~ /^content_expire_(#{content_actions.join('|')})$/
+      nil
+    # -> Answers to a specific macro
+    # expects: params, inner_html, content 
+    # returns = html_code
+    elsif method.to_s =~ /^macro_(.+)$/
       nil
     else
       super

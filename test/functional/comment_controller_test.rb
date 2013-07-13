@@ -146,14 +146,6 @@ class CommentControllerTest < ActionController::TestCase
     assert_equal page, assigns(:comment).article
   end
 
-  should 'show comment form opened on error' do
-    login_as profile.identifier
-    page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
-    xhr :post, :create, :profile => @profile.identifier, :id => page.id, :comment => { :title => '', :body => '' }, :confirm => 'true'
-    response = JSON.parse @response.body
-    assert_match /<div class=\"post_comment_box opened\"/, response["html"]
-  end
-
   should 'show validation error when body comment is missing' do
     login_as @profile.identifier
     page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
@@ -392,7 +384,7 @@ class CommentControllerTest < ActionController::TestCase
     page = profile.articles.create(:name => 'myarticle', :body => 'the body of the text', :created_at => yesterday, :updated_at => yesterday)
     Article.record_timestamps = true
 
-    login_as('ze')
+    login_as @profile.identifier
     xhr :post, :create, :profile => profile.identifier, :id => page.id, :comment => { :title => 'crap!', :body => 'I think that this article is crap' }, :confirm => 'true'
     assert_not_equal yesterday, page.reload.updated_at
   end

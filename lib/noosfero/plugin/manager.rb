@@ -6,6 +6,7 @@ class Noosfero::Plugin::Manager
   def initialize(environment, context)
     @environment = environment
     @context = context
+    Environment.macros = {environment.id => {}} unless environment.nil?
   end
 
   delegate :each, :to => :enabled_plugins
@@ -29,6 +30,15 @@ class Noosfero::Plugin::Manager
 
   def dispatch_without_flatten(event, *args)
     map { |plugin| plugin.send(event, *args) }.compact
+  end
+
+  def dispatch_first(event, *args)
+    value = nil
+    map do |plugin| 
+      value = plugin.send(event, *args) 
+      break if value
+    end
+    value
   end
 
   alias :dispatch_scopes :dispatch_without_flatten
@@ -55,9 +65,7 @@ class Noosfero::Plugin::Manager
 
   def enabled_plugins
     @enabled_plugins ||= (Noosfero::Plugin.all & environment.enabled_plugins).map do |plugin|
-      p = plugin.constantize.new
-      p.context = context
-      p
+      plugin.constantize.new(context)
     end
   end
 
