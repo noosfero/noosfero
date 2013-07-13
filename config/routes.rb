@@ -76,6 +76,9 @@ ActionController::Routing::Routes.draw do |map|
   # profile search
   map.profile_search 'profile/:profile/search', :controller => 'profile_search', :action => 'index', :profile => /#{Noosfero.identifier_format}/
 
+  # comments
+  map.comment 'profile/:profile/comment/:action/:id', :controller => 'comment', :profile => /#{Noosfero.identifier_format}/
+
   # public profile information
   map.profile 'profile/:profile/:action/:id', :controller => 'profile', :action => 'index', :id => /[^\/]*/, :profile => /#{Noosfero.identifier_format}/
 
@@ -122,7 +125,6 @@ ActionController::Routing::Routes.draw do |map|
   # cache stuff - hack
   map.cache 'public/:action/:id', :controller => 'public'
 
-  map.connect ':profile/edit_comment/:id/*page', :controller => 'content_viewer', :action => 'edit_comment', :profile => /#{Noosfero.identifier_format}/
 
   # match requests for profiles that don't have a custom domain
   map.homepage ':profile/*page', :controller => 'content_viewer', :action => 'view_page', :profile => /#{Noosfero.identifier_format}/, :conditions => { :if => lambda { |env| !Domain.hosting_profile_at(env[:host]) } }

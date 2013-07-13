@@ -27,7 +27,7 @@ class RequireAuthToCommentPlugin < Noosfero::Plugin
   end
 
   def js_files
-    ['hide_comment_form.js']
+    ['hide_comment_form.js', 'jquery.livequery.min.js']
   end
 
   def body_beginning

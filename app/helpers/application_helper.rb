@@ -30,6 +30,8 @@ module ApplicationHelper
 
   include AccountHelper
 
+  include CommentHelper
+
   include BlogHelper
 
   include ContentViewerHelper
@@ -1385,12 +1387,12 @@ module ApplicationHelper
   end
 
   def expirable_button(content, action, text, url, options = {})
-    options[:class] = "button with-text icon-#{action.to_s}"
+    options[:class] = ["button with-text icon-#{action.to_s}", options[:class]].compact.join(' ')
     expirable_content_reference content, action, text, url, options
   end
 
   def expirable_comment_link(content, action, text, url, options = {})
-    options[:class] = "comment-footer comment-footer-link comment-footer-hide"
+    options[:class] = ["comment-footer comment-footer-link comment-footer-hide", options[:class]].compact.join(' ')
     expirable_content_reference content, action, text, url, options
   end
 

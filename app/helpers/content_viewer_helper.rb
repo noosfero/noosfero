@@ -5,11 +5,9 @@ module ContentViewerHelper
 
   def number_of_comments(article)
     n = article.comments.without_spam.count
-    if n == 0
-     _('No comments yet')
-    else
-     n_('One comment', '<span class="comment-count">%{comments}</span> comments', n) % { :comments => n }
-    end
+    base_str = "<span class='comment-count hide'>#{n}</span>"
+    amount_str = n == 0 ? _('no comments yet') : (n == 1 ? _('One comment') : _('%s comments') % n)
+    base_str + "<span class='comment-count-write-out'>#{amount_str}</span>"
   end
 
   def article_title(article, args = {})

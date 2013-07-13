@@ -34,7 +34,9 @@ class Comment < ActiveRecord::Base
 
   xss_terminate :only => [ :body, :title, :name ], :on => 'validation'
 
-  delegate :environment, :to => :source
+  def comment_root
+    (reply_of && reply_of.comment_root) || self
+  end
 
   def action_tracker_target
     self.article.profile
@@ -246,6 +248,24 @@ class Comment < ActiveRecord::Base
 
   def marked_as_ham
     plugins.dispatch(:comment_marked_as_ham, self)
+  end
+
+  def need_moderation?
+    article.moderate_comments? && (author.nil? || article.author != author)
+  end
+
+  def can_be_destroyed_by?(user)
+    return if user.nil?
+    user == author || user == profile || user.has_permission?(:moderate_comments, profile)
+  end
+
+  def can_be_marked_as_spam_by?(user)
+    return if user.nil?
+    user == profile || user.has_permission?(:moderate_comments, profile)
+  end
+
+  def can_be_updated_by?(user)
+    user.present? && user == author
   end
 
 end
