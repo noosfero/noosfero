@@ -10,7 +10,7 @@ class ApproveComment < Task
   end
 
   def requestor_name
-    requestor ? requestor.name : _('Anonymous')
+    requestor ? requestor.name : (comment.name || _('Anonymous'))
   end
 
   def article
@@ -41,7 +41,12 @@ class ApproveComment < Task
 
   def information
     if article
-      {:message => _('%{requestor} commented on the the article: %{linked_subject}.')  % {:requestor => requestor_name, :linked_subject => linked_subject} }
+      if requestor
+        {:message => _('%{requestor} commented on the the article: %{linked_subject}.')}
+      else
+        { :message => _('%{requestor} commented on the the article: %{linked_subject}.'),
+          :variables => {:requestor => requestor_name} }
+      end
     else
       {:message => _("The article was removed.")}
     end
