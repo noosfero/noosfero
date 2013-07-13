@@ -286,7 +286,7 @@ class SearchControllerTest < ActionController::TestCase
     get :index, :query => 'test'
 
     [:articles, :enterprises, :people, :communities, :products, :events].select do |key, name|
-			!@controller.environment.enabled?('disable_asset_' + key.to_s)
+			!assigns(:environment).enabled?('disable_asset_' + key.to_s)
 		end.each do |asset|
 			assert !assigns(:searches)[asset][:results].empty?
 		end

@@ -130,7 +130,7 @@ class ApproveCommentTest < ActiveSupport::TestCase
   should 'display anonymous name if the requestor is nil' do
     a = ApproveComment.create!(:target => @community, :comment_attributes => @comment.attributes.to_json, :requestor => nil)
 
-    assert_match /nonymous/, a.information[:message]
+    assert_match /nonymous/, a.information[:variables][:requestor]
   end
 
   should 'accept_details be true' do
@@ -211,6 +211,7 @@ class ApproveCommentTest < ActiveSupport::TestCase
 
   should 'requestor name be Anonymous if there is no requestor' do
     a = fast_create(ApproveComment, :target_id => community)
+    a.comment_attributes = @comment.attributes.to_json
     assert_equal 'Anonymous', a.requestor_name
   end
 
