@@ -55,6 +55,7 @@ class Noosfero::Plugin::Macro
     content
   end
 
+  # This is the method the macros should override
   def parse(attrs, inner_html, source)
     raise
   end
