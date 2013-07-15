@@ -1,13 +1,13 @@
 require File.dirname(__FILE__) + '/../../../../test/test_helper'
-require File.dirname(__FILE__) + '/../../controllers/profile/comment_group_macro_plugin_profile_controller'
+require File.dirname(__FILE__) + '/../../controllers/profile/comment_group_plugin_profile_controller'
 
 # Re-raise errors caught by the controller.
-class CommentGroupMacroPluginProfileController; def rescue_action(e) raise e end; end
+class CommentGroupPluginProfileController; def rescue_action(e) raise e end; end
 
-class CommentGroupMacroPluginProfileControllerTest < ActionController::TestCase
+class CommentGroupPluginProfileControllerTest < ActionController::TestCase
 
   def setup
-    @controller = CommentGroupMacroPluginProfileController.new
+    @controller = CommentGroupPluginProfileController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
 

@@ -1,4 +1,4 @@
-class CommentGroupMacroPluginPublicController < PublicController
+class CommentGroupPluginPublicController < PublicController
   append_view_path File.join(File.dirname(__FILE__) + '/../views')
 
   def comment_group

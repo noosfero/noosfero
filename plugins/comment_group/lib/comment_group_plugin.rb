@@ -1,10 +1,10 @@
-require_dependency 'comment_group_macro_plugin/ext/article'
-require_dependency 'comment_group_macro_plugin/ext/comment'
+require_dependency 'comment_group_plugin/ext/article'
+require_dependency 'comment_group_plugin/ext/comment'
 
 #FIXME See a better way to generalize this parameter.
 ActionView::Base.sanitized_allowed_attributes += ['data-macro', 'data-macro-group_id']
 
-class CommentGroupMacroPlugin < Noosfero::Plugin
+class CommentGroupPlugin < Noosfero::Plugin
 
   def self.plugin_name
     "Comment Group"

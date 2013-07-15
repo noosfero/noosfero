@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../../../../test/test_helper'
 
-class CommentGroupMacroPluginTest < ActiveSupport::TestCase
+class CommentGroupPluginTest < ActiveSupport::TestCase
 
   include Noosfero::Plugin::HotSpot
 
@@ -16,7 +16,7 @@ class CommentGroupMacroPluginTest < ActiveSupport::TestCase
     macros = Environment.macros[environment.id]
     context = mock()
     context.stubs(:environment).returns(environment)
-    plugin = CommentGroupMacroPlugin.new(context)
+    plugin = CommentGroupPlugin.new(context)
     assert_equal ['macro_display_comments'], macros.keys
   end
 
@@ -26,7 +26,7 @@ class CommentGroupMacroPluginTest < ActiveSupport::TestCase
     c2 = fast_create(Comment, :source_id => article.id)
     c3 = fast_create(Comment, :source_id => article.id)
 
-    plugin = CommentGroupMacroPlugin.new
+    plugin = CommentGroupPlugin.new
     assert_equal [], [c2, c3] - plugin.load_comments(article)
     assert_equal [], plugin.load_comments(article) - [c2, c3]
   end
@@ -37,7 +37,7 @@ class CommentGroupMacroPluginTest < ActiveSupport::TestCase
     c2 = fast_create(Comment, :source_id => article.id)
     c3 = fast_create(Comment, :source_id => article.id, :spam => true)
 
-    plugin = CommentGroupMacroPlugin.new
+    plugin = CommentGroupPlugin.new
     assert_equal [], [c2] - plugin.load_comments(article)
     assert_equal [], plugin.load_comments(article) - [c2]
   end
@@ -48,33 +48,33 @@ class CommentGroupMacroPluginTest < ActiveSupport::TestCase
     c2 = fast_create(Comment, :source_id => article.id)
     c3 = fast_create(Comment, :source_id => article.id, :reply_of_id => c2.id)
 
-    plugin = CommentGroupMacroPlugin.new
+    plugin = CommentGroupPlugin.new
     assert_equal [], [c2] - plugin.load_comments(article)
     assert_equal [], plugin.load_comments(article) - [c2]
   end
 
   should 'params of macro display comments configuration be an empty array' do
-    plugin = CommentGroupMacroPlugin.new
+    plugin = CommentGroupPlugin.new
     assert_equal [], plugin.config_macro_display_comments[:params]
   end
 
   should 'skip_dialog of macro display comments configuration be true' do
-    plugin = CommentGroupMacroPlugin.new
+    plugin = CommentGroupPlugin.new
     assert plugin.config_macro_display_comments[:skip_dialog]
   end
 
   should 'generator of macro display comments configuration be the makeCommentable function' do
-    plugin = CommentGroupMacroPlugin.new
+    plugin = CommentGroupPlugin.new
     assert_equal 'makeCommentable();', plugin.config_macro_display_comments[:generator]
   end
  
   should 'js_files of macro display comments configuration return comment_group.js' do
-    plugin = CommentGroupMacroPlugin.new
+    plugin = CommentGroupPlugin.new
     assert_equal 'comment_group.js', plugin.config_macro_display_comments[:js_files]
   end
   
   should 'css_files of macro display comments configuration return comment_group.css' do
-    plugin = CommentGroupMacroPlugin.new
+    plugin = CommentGroupPlugin.new
     assert_equal 'comment_group.css', plugin.config_macro_display_comments[:css_files]
   end
  
