@@ -3,8 +3,20 @@ class Noosfero::Plugin::Macro
   attr_accessor :context
 
   class << self
+    # Options
+    #
+    # [:icon_path]  Determines the path to icon to be used in the button on
+    #               tinymce
+    # [:title]      Former name of the macro
+    # [:skip_dialog]  Skip configuration dialog on tinymce
+    # [:js_files]     Javascripts that should be included on tinymce
+    # [:css_files     Css files that should be included on tinymce
+    # [:generator]    Javascript code that will be loaded when the macro button
+    #                 is clicked on tinymce
+    # [:params]       Hash of macro fields that the user might configure
+    #
     def configuration
-      #    {:generator => ''}
+      {}
     end
 
     def plugin
