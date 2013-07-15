@@ -7,9 +7,6 @@ class Noosfero::Plugin
 
   def initialize(context=nil)
     self.context = context
-    macro_methods.each do |method|
-      Environment.macros[context.environment.id][method] = self unless context.nil?
-    end
   end
 
   class << self
@@ -145,6 +142,12 @@ class Noosfero::Plugin
     end
     blocks.compact!
     blocks || []
+  end
+
+  def macros
+    self.class.constants.map do |constant_name|
+      self.class.const_get(constant_name)
+    end.select {|klass| klass <= Noosfero::Plugin::Macro}
   end
 
   # Here the developer may specify the events to which the plugins can
@@ -441,12 +444,6 @@ class Noosfero::Plugin
   # returns = lambda block that creates html code
   def comment_form_extra_contents(args)
     nil
-  end
-
-  # -> Register macro methods in environment
-  # returns  = ['method1', 'method2', ...]
-  def macro_methods
-    []
   end
 
   # -> Finds objects by their contents

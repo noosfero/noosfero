@@ -168,4 +168,30 @@ class PluginManagerTest < ActiveSupport::TestCase
     assert_equal Plugin2, manager.fetch_first_plugin(:random_event)
   end
 
+  should 'parse macro' do
+    class Plugin1 < Noosfero::Plugin
+      def macros
+        [Macro1, Macro2]
+      end
+    end
+
+    class Plugin1::Macro1 < Noosfero::Plugin::Macro
+      def convert(macro, source)
+        macro.gsub('%{name}', 'Macro1')
+      end
+    end
+
+    class Plugin1::Macro2 < Noosfero::Plugin::Macro
+      def convert(macro, source)
+        macro.gsub('%{name}', 'Macro2')
+      end
+    end
+
+    environment.enable_plugin(Plugin1)
+    macro = 'My name is %{name}!'
+
+    assert_equal 'My name is Macro1!', manager.parse_macro(Plugin1::Macro1.name.underscore, macro)
+    assert_equal 'My name is Macro2!', manager.parse_macro(Plugin1::Macro2.name.underscore, macro)
+  end
+
 end

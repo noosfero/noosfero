@@ -1413,27 +1413,15 @@ module ApplicationHelper
 
   def convert_macro(html, source)
     doc = Hpricot(html)
-    while element = doc.search('.macro').first
-      macro_name = element['data-macro']
-      method_name = "macro_#{macro_name}"
-      attrs = collect_macro_attributes(element)
-      plugin_instance = Environment.macros[environment.id][method_name]
-      if plugin_instance
-        result = plugin_instance.send(method_name, attrs, element.inner_html, source)
-        element.inner_html = result.kind_of?(Proc) ? self.instance_eval(&result) : result
-        element['class'] = "parsed-macro #{macro_name}"
-      else
-        element.inner_html = _("Unsupported macro %s!") % macro_name
-        element['class'] = "failed-macro #{macro_name}"
-      end
-      attrs.each {|key, value| element.remove_attribute("data-macro-#{key}")}
+    #TODO This way is more efficient but do not support macro inside of
+    #     macro. You must parse them from the inside-out in order to enable
+    #     that.
+    doc.search('.macro').each do |macro|
+      macro_name = macro['data-macro']
+      result = @plugins.parse_macro(macro_name, macro, source)
+      macro.inner_html = result.kind_of?(Proc) ? self.instance_eval(&result) : result
     end
     doc.html
-  end
-
-  def collect_macro_attributes(element)
-    element.attributes.to_hash.select {|key, value| key[0..10] == 'data-macro-'}.
-                       inject({}){|result, a| result.merge({a[0][11..-1] => a[1]})}.with_indifferent_access
   end
 
   def default_folder_for_image_upload(profile)

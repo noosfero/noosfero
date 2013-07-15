@@ -11,8 +11,8 @@
   <% else %>
     first_line = "print,separator,copy,paste,separator,undo,redo,separator,search,replace,separator,forecolor,fontsizeselect,formatselect"
     second_line = "bold,italic,underline,strikethrough,separator,bullist,numlist,separator,justifyleft,justifycenter,justifyright,justifyfull,separator,link,unlink,image,table,separator,cleanup,code,macros"
-    <% macros_with_buttons.each do |macro_name, plugin_instance| %>
-      second_line += ',<%=macro_name %>'
+    <% macros_with_buttons.each do |macro| %>
+      second_line += ',<%=macro.name.underscore %>'
     <% end %>
   <% end %>
 
@@ -32,11 +32,11 @@ tinymce.create('tinymce.plugins.MacrosPlugin', {
              icons : false
            });
   
-           <% macros_in_menu.each do |macro_name, plugin_instance| %>
+           <% macros_in_menu.each do |macro| %>
              c.onRenderMenu.add(function(c, m) {
                m.add({
-                 title: <%= macro_title(macro_name).to_json %>,
-                 onclick: <%= generate_macro_config_dialog(macro_name) %>
+                 title: <%= macro_title(macro).to_json %>,
+                 onclick: <%= generate_macro_config_dialog(macro) %>
                });
              });
            <% end %>
@@ -75,11 +75,11 @@ tinyMCE.init({
   language: <%= tinymce_language.inspect %>,
   entity_encoding: 'raw',
   setup : function(ed) {
-    <% macros_with_buttons.each do |macro_name, plugin_instance| %>
-           ed.addButton('<%= macro_name %>', {
-               title: <%= macro_title(macro_name).to_json %>,
-               onclick: <%= generate_macro_config_dialog(macro_name) %>,
-               image : '<%= macro_configuration(macro_name)[:icon_path]%>'
+    <% macros_with_buttons.each do |macro| %>
+           ed.addButton('<%= macro.name.underscore %>', {
+               title: <%= macro_title(macro).to_json %>,
+               onclick: <%= generate_macro_config_dialog(macro) %>,
+               image : '<%= macro.configuration[:icon_path]%>'
              });
     <% end %>
   }

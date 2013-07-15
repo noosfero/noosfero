@@ -661,35 +661,38 @@ class ApplicationHelperTest < ActiveSupport::TestCase
 
   should 'parse macros' do
     class Plugin1 < Noosfero::Plugin
-      def macro_test1(params, inner_html, source)
-        'Test1'
-      end
-      def macro_test2(params, inner_html, source)
-        'Test2'
-      end
+    end
 
-      def macro_methods
-        ['macro_test1', 'macro_test2']
+    class Plugin1::Macro1 < Noosfero::Plugin::Macro
+      def parse(params, inner_html, source)
+        'Test1'
       end
     end
 
-    @environment = Environment.default
-    Environment.macros = {@environment.id => {}}
-    context = mock()
-    context.stubs(:environment).returns(@environment)
-    Plugin1.new(context)
-    html = '
-      <div class="macro nonEdit" data-macro="test1" data-macro-param="123"></div>
-      <div class="macro nonEdit" data-macro="test2"></div>
-      <div class="macro nonEdit" data-macro="unexistent" data-macro-param="987"></div>
-    '
+    class Plugin1::Macro2 < Noosfero::Plugin::Macro
+      def parse(params, inner_html, source)
+        'Test2'
+      end
+    end
+
+    environment = Environment.default
+    environment.enable_plugin(Plugin1)
+    @plugins = Noosfero::Plugin::Manager.new(environment, self)
+    macro1_name = Plugin1::Macro1.name.underscore
+    macro2_name = Plugin1::Macro2.name.underscore
+
+    html = "
+      <div class='macro nonEdit' data-macro='#{macro1_name}' data-macro-param='123'></div>
+      <div class='macro nonEdit' data-macro='#{macro2_name}'></div>
+      <div class='macro nonEdit' data-macro='unexistent' data-macro-param='987'></div>
+    "
     parsed_html = convert_macro(html, mock())
     parsed_divs = Hpricot(parsed_html).search('div')
-    expected_divs = Hpricot('
-      <div data-macro="test1" class="parsed-macro test1">Test1</div>
-      <div data-macro="test2" class="parsed-macro test2">Test2</div>
-      <div data-macro="unexistent" class="failed-macro unexistent">Unsupported macro unexistent!</div>
-    ').search('div')
+    expected_divs = Hpricot("
+      <div data-macro='#{macro1_name}' class='parsed-macro #{macro1_name}'>Test1</div>
+      <div data-macro='#{macro2_name}' class='parsed-macro #{macro2_name}'>Test2</div>
+      <div data-macro='unexistent' class='failed-macro unexistent'>Unsupported macro unexistent!</div>
+    ").search('div')
 
     # comparing div attributes between parsed and expected html 
     parsed_divs.each_with_index do |div, i|

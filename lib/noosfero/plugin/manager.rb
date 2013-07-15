@@ -6,7 +6,6 @@ class Noosfero::Plugin::Manager
   def initialize(environment, context)
     @environment = environment
     @context = context
-    Environment.macros = {environment.id => {}} unless environment.nil?
   end
 
   delegate :each, :to => :enabled_plugins
@@ -54,10 +53,21 @@ class Noosfero::Plugin::Manager
     result
   end
 
+  def parse_macro(macro_name, macro, source = nil)
+    macro_instance = enabled_macros[macro_name] || enabled_macros['default']
+    macro_instance.convert(macro, source)
+  end
+
   def enabled_plugins
     @enabled_plugins ||= (Noosfero::Plugin.all & environment.enabled_plugins).map do |plugin|
       plugin.constantize.new(context)
     end
+  end
+
+  def enabled_macros
+    @enabled_macros ||= dispatch(:macros).inject({}) do |memo, macro|
+      memo.merge!(macro.name.underscore => macro.new(context))
+    end.merge('default' => Noosfero::Plugin::Macro.new(context))
   end
 
   def [](name)
