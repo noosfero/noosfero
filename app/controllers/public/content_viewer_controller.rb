@@ -99,9 +99,7 @@ class ContentViewerController < ApplicationController
       end
     end
 
-    comments = @page.comments.without_spam
-    @comments = comments.as_thread
-    @comments_count = comments.count
+    @comments = @page.comments.without_spam.without_reply.paginate(:per_page => per_page, :page => params[:comment_page] )
     if params[:slideshow]
       render :action => 'slideshow', :layout => 'slideshow'
     end

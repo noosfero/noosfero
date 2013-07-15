@@ -285,21 +285,6 @@ class CommentTest < ActiveSupport::TestCase
     assert_equal [c1,c3], c.reload.children
   end
 
-  should "return comments as a thread" do
-    a = fast_create(Article)
-    c0 = fast_create(Comment, :source_id => a.id)
-    c1 = fast_create(Comment, :reply_of_id => c0.id, :source_id => a.id)
-    c2 = fast_create(Comment, :reply_of_id => c1.id, :source_id => a.id)
-    c3 = fast_create(Comment, :reply_of_id => c0.id, :source_id => a.id)
-    c4 = fast_create(Comment, :source_id => a.id)
-    result = a.comments.as_thread
-    assert_equal c0.id, result[0].id
-    assert_equal [c1.id, c3.id], result[0].replies.map(&:id)
-    assert_equal [c2.id], result[0].replies[0].replies.map(&:id)
-    assert_equal c4.id, result[1].id
-    assert result[1].replies.empty?
-  end
-
   should "return activities comments as a thread" do
     person = fast_create(Person)
     a = TextileArticle.create!(:profile => person, :name => 'My article', :body => 'Article body')
@@ -515,15 +500,6 @@ class CommentTest < ActiveSupport::TestCase
     assert_equal c, SpamNotification.marked_as_ham
   end
 
-  should 'ignore spam when constructing threads' do
-    original = create_comment
-    response = create_comment(:reply_of_id => original.id)
-    original.spam!
-
-    assert_equivalent [response], Comment.without_spam.as_thread
-  end
-
-
   should 'store User-Agent' do
     c = Comment.new(:user_agent => 'foo')
     assert_equal 'foo', c.user_agent
@@ -698,6 +674,15 @@ class CommentTest < ActiveSupport::TestCase
     assert_equal c1, c3.comment_root
     assert_equal c1, c2.comment_root
     assert_equal c1, c1.comment_root
+  end
+
+  should 'be able to select non-reply comments' do
+    c1 = fast_create(Comment)
+    c2 = fast_create(Comment, :reply_of_id => c1.id)
+    c3 = fast_create(Comment, :reply_of_id => c2.id)
+    c4 = fast_create(Comment)
+
+    assert_equivalent [c1,c4], Comment.without_reply
   end
 
   private

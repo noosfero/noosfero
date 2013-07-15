@@ -1084,13 +1084,13 @@ class ContentViewerControllerTest < ActionController::TestCase
     article.save!
     comment1 = article.comments.build(:author => profile, :title => 'hi', :body => 'hello')
     comment1.save!
-    comment2 = article.comments.build(:author => profile, :title => 'hi', :body => 'hello', :reply_of_id => comment1.id)
+    comment2 = article.comments.build(:author => profile, :title => 'hi', :body => 'hello')
     comment2.save!
     get :view_page, :profile => 'testuser', :page => [ 'test' ]
     assert_tag :tag => 'a', :attributes => { :id => 'top-post-comment-button' }
   end
 
-  should 'store number of comments' do
+  should 'not show a post comment button on top if there are one comment and one reply' do
     profile = create_user('testuser').person
     article = profile.articles.build(:name => 'test')
     article.save!
@@ -1099,7 +1099,7 @@ class ContentViewerControllerTest < ActionController::TestCase
     comment2 = article.comments.build(:author => profile, :title => 'hi', :body => 'hello', :reply_of_id => comment1.id)
     comment2.save!
     get :view_page, :profile => 'testuser', :page => [ 'test' ]
-    assert_equal 2, assigns(:comments_count)
+    assert_no_tag :tag => 'a', :attributes => { :id => 'top-post-comment-button' }
   end
 
   should 'suggest article link displayed into article-actions div' do
@@ -1178,11 +1178,22 @@ class ContentViewerControllerTest < ActionController::TestCase
 
   should 'not display comments marked as spam' do
     article = fast_create(Article, :profile_id => profile.id)
-    ham = fast_create(Comment, :source_id => article.id, :source_type => 'Article')
-    spam = fast_create(Comment, :source_id => article.id, :source_type => 'Article', :spam => true)
+    ham = fast_create(Comment, :source_id => article.id, :source_type => 'Article', :title => 'some content')
+    spam = fast_create(Comment, :source_id => article.id, :source_type => 'Article', :spam => true, :title => 'this is a spam')
 
     get 'view_page', :profile => profile.identifier, :page => article.path.split('/')
-    assert_equal 1, assigns(:comments_count)
+    assert_no_tag :tag => 'h4', :content => /spam/
   end
+
+  should 'display pagination links of comments' do
+    article = fast_create(Article, :profile_id => profile.id)
+    for n in 1..15
+      article.comments.create!(:author => profile, :title => "some title #{n}", :body => 'some body #{n}')
+    end
+    assert_equal 15, article.comments.count
+
+    get 'view_page', :profile => profile.identifier, :page => article.path.split('/')
+    assert_tag :tag => 'a', :attributes => { :href => "/#{profile.identifier}/#{article.path}?comment_page=2", :rel => 'next' }
+  end 
 
 end
