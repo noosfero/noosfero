@@ -190,8 +190,8 @@ class PluginManagerTest < ActiveSupport::TestCase
     environment.enable_plugin(Plugin1)
     macro = 'My name is %{name}!'
 
-    assert_equal 'My name is Macro1!', manager.parse_macro(Plugin1::Macro1.name.underscore, macro)
-    assert_equal 'My name is Macro2!', manager.parse_macro(Plugin1::Macro2.name.underscore, macro)
+    assert_equal 'My name is Macro1!', manager.parse_macro(Plugin1::Macro1.identifier, macro)
+    assert_equal 'My name is Macro2!', manager.parse_macro(Plugin1::Macro2.identifier, macro)
   end
 
 end

@@ -2,12 +2,18 @@ class Noosfero::Plugin::Macro
 
   attr_accessor :context
 
-  def self.configuration
-#    {:generator => ''}
-  end
+  class << self
+    def configuration
+      #    {:generator => ''}
+    end
 
-  def self.plugin
-    name.split('::')[0...-1].join('::').constantize
+    def plugin
+      name.split('::')[0...-1].join('::').constantize
+    end
+
+    def identifier
+      name.underscore
+    end
   end
 
   def initialize(context=nil)

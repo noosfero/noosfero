@@ -678,8 +678,8 @@ class ApplicationHelperTest < ActiveSupport::TestCase
     environment = Environment.default
     environment.enable_plugin(Plugin1)
     @plugins = Noosfero::Plugin::Manager.new(environment, self)
-    macro1_name = Plugin1::Macro1.name.underscore
-    macro2_name = Plugin1::Macro2.name.underscore
+    macro1_name = Plugin1::Macro1.identifier
+    macro2_name = Plugin1::Macro2.identifier
 
     html = "
       <div class='macro nonEdit' data-macro='#{macro1_name}' data-macro-param='123'></div>

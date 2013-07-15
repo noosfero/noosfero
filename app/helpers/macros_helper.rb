@@ -67,13 +67,12 @@ module MacrosHelper
 
   def macro_default_generator(macro)
     code = "var params = {};"
-    macro_name = macro.name.undescore
     configuration = macro_configuration(macro)
     configuration[:params].map do |field|
       code += "params.#{field[:name]} = jQuery('*[name=#{field[:name]}]', dialog).val();"
     end
     code + "
-      var html = jQuery('<div class=\"macro mceNonEditable\" data-macro=\"#{macro_name}\">'+#{macro_title(macro).to_json}+'</div>')[0];
+      var html = jQuery('<div class=\"macro mceNonEditable\" data-macro=\"#{macro.identifier}\">'+#{macro_title(macro).to_json}+'</div>')[0];
       for(key in params) html.setAttribute('data-macro-'+key,params[key]);
       return html.outerHTML;
     "

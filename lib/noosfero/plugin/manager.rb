@@ -66,7 +66,7 @@ class Noosfero::Plugin::Manager
 
   def enabled_macros
     @enabled_macros ||= dispatch(:macros).inject({}) do |memo, macro|
-      memo.merge!(macro.name.underscore => macro.new(context))
+      memo.merge!(macro.identifier => macro.new(context))
     end.merge('default' => Noosfero::Plugin::Macro.new(context))
   end
 
