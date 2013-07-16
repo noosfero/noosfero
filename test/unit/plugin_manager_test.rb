@@ -194,4 +194,67 @@ class PluginManagerTest < ActiveSupport::TestCase
     assert_equal 'My name is Macro2!', manager.parse_macro(Plugin1::Macro2.identifier, macro)
   end
 
+  should 'dispatch event in a pipeline sequence' do
+    class Plugin1 < Noosfero::Plugin
+      def transform(v1, v2)
+        v = 2
+        [v1 * v, v2 * v]
+      end
+    end
+
+    class Plugin2 < Noosfero::Plugin
+      def transform(v1, v2)
+        v = 5
+        [v1 * v, v2 * v]
+      end
+    end
+
+    environment.enable_plugin(Plugin1)
+    environment.enable_plugin(Plugin2)
+
+    assert_equal [10, 20], manager.pipeline(:transform, 1, 2)
+  end
+
+  should 'be able to pipeline with single arguments' do
+    class Plugin1 < Noosfero::Plugin
+      def transform(value)
+        value * 2
+      end
+    end
+
+    class Plugin2 < Noosfero::Plugin
+      def transform(value)
+        value * 5
+      end
+    end
+
+    environment.enable_plugin(Plugin1)
+    environment.enable_plugin(Plugin2)
+
+    assert_equal 10, manager.pipeline(:transform, 1)
+  end
+
+  should 'raise if pipeline is broken' do
+    class Plugin1 < Noosfero::Plugin
+      def transform(v1, v2)
+        v = 2
+        [v1 * v, v2 * v]
+      end
+    end
+
+    class Plugin2 < Noosfero::Plugin
+      def transform(v1, v2)
+        v = 5
+        [v1 * v, v2 * v, 666]
+      end
+    end
+
+    environment.enable_plugin(Plugin1)
+    environment.enable_plugin(Plugin2)
+
+    assert_raise ArgumentError do
+      manager.pipeline(:transform, 1, 2)
+    end
+  end
+
 end

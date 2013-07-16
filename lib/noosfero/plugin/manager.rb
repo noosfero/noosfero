@@ -53,6 +53,17 @@ class Noosfero::Plugin::Manager
     result
   end
 
+
+  def pipeline(event, *args)
+    each do |plugin|
+      result = plugin.send(event, *args)
+      result = result.kind_of?(Array) ? result : [result]
+      raise ArgumentError, "Pipeline broken by #{plugin.class.name} on #{event} with #{result.length} arguments instead of #{args.length}." if result.length != args.length
+      args = result
+    end
+    args.length < 2 ? args.first : args
+  end
+
   def parse_macro(macro_name, macro, source = nil)
     macro_instance = enabled_macros[macro_name] || default_macro
     macro_instance.convert(macro, source)

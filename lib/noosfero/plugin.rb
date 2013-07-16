@@ -252,8 +252,8 @@ class Noosfero::Plugin
 
   # -> Parse and possibly make changes of content (article, block, etc) during HTML rendering
   # returns = content as string after parser and changes
-  def parse_content(args)
-    args
+  def parse_content(html, source)
+    [html, source]
   end
 
   # -> Adds links to the admin panel
