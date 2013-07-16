@@ -16,7 +16,7 @@ function makeCommentable() {
   //text = start.parent().children();
   text = jQuery('#article_body_ifr').contents().find('*');
   selection = text.slice(text.index(start), text.index(end)+1);
-  
+
   hasTag = false;
   selection.each(function(key, value) {
     commentTag = jQuery(value).closest('.article_comments');

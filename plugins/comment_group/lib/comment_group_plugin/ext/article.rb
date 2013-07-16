@@ -2,13 +2,13 @@ require_dependency 'article'
 
 class Article
 
-  #FIXME make this test 
+  #FIXME make this test
   has_many :group_comments, :class_name => 'Comment', :foreign_key => 'source_id', :dependent => :destroy, :order => 'created_at asc', :conditions => [ 'group_id IS NOT NULL']
 
-  #FIXME make this test 
+  #FIXME make this test
   validate :not_empty_group_comments_removed
 
-  #FIXME make this test 
+  #FIXME make this test
   def not_empty_group_comments_removed
     if body
       groups_with_comments = group_comments.collect {|comment| comment.group_id}.uniq

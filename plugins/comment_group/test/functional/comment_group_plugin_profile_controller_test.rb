@@ -25,7 +25,7 @@ class CommentGroupPluginProfileControllerTest < ActionController::TestCase
     assert_match /comments_list_group_0/, @response.body
     assert_match /\"comment-count-0\", \"1\"/, @response.body
   end
-  
+
   should 'do not show global comments' do
     comment = fast_create(Comment, :source_id => article, :author_id => profile, :title => 'global comment', :body => 'global', :group_id => nil)
     comment = fast_create(Comment, :source_id => article, :author_id => profile, :title => 'a comment', :body => 'lalala', :group_id => 0)
@@ -34,5 +34,5 @@ class CommentGroupPluginProfileControllerTest < ActionController::TestCase
     assert_match /comments_list_group_0/, @response.body
     assert_match /\"comment-count-0\", \"1\"/, @response.body
   end
-  
+
 end

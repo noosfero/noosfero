@@ -377,7 +377,7 @@ class Noosfero::Plugin
   def profile_info_extra_contents
     nil
   end
-  
+
   # -> Removes the invite friend button from the friends controller
   # returns = boolean
   def remove_invite_friends_button
@@ -439,7 +439,7 @@ class Noosfero::Plugin
   def login_extra_contents
     nil
   end
-  
+
   # -> Adds adicional content to comment form
   # returns = lambda block that creates html code
   def comment_form_extra_contents(args)

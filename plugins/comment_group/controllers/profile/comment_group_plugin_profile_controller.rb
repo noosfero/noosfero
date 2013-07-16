@@ -4,7 +4,7 @@ class CommentGroupPluginProfileController < ProfileController
   def view_comments
     article_id = params[:article_id]
     group_id = params[:group_id]
-    
+
     article = profile.articles.find(article_id)
     comments = article.group_comments.without_spam.in_group(group_id)
     render :update do |page|

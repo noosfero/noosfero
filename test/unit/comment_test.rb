@@ -711,7 +711,7 @@ class CommentTest < ActiveSupport::TestCase
     c2 = create_comment
     comments.push(c2)
     create_comment(:reply_of_id => c2.id)
-   
+
     assert_equal 6, Comment.count_thread(comments)
   end
 

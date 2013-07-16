@@ -694,7 +694,7 @@ class ApplicationHelperTest < ActiveSupport::TestCase
       <div data-macro='unexistent' class='failed-macro unexistent'>Unsupported macro unexistent!</div>
     ").search('div')
 
-    # comparing div attributes between parsed and expected html 
+    # comparing div attributes between parsed and expected html
     parsed_divs.each_with_index do |div, i|
       assert_equal expected_divs[i].attributes.to_hash, div.attributes.to_hash
       assert_equal expected_divs[i].inner_text, div.inner_text

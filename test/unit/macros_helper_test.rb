@@ -104,7 +104,7 @@ class MacrosHelperTest < ActiveSupport::TestCase
 
     assert_equal "<script src=\"#{Plugin1.public_path('macro.js')}\" type=\"text/javascript\"></script>", include_macro_js_files
   end
-  
+
   should 'get macro css files' do
     class Plugin1::Macro < Noosfero::Plugin::Macro
       def self.configuration
@@ -118,7 +118,7 @@ class MacrosHelperTest < ActiveSupport::TestCase
 
     assert_equal Plugin1.public_path('macro.css'), macro_css_files
   end
-  
+
   should 'get macro specific generator' do
     class Plugin1::Macro < Noosfero::Plugin::Macro
       def self.configuration

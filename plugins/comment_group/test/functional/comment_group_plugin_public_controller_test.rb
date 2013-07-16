@@ -20,14 +20,14 @@ class CommentGroupPluginPublicControllerTest < ActionController::TestCase
 
   should 'be able to return group_id for a comment' do
     comment = fast_create(Comment, :source_id => article, :author_id => profile, :title => 'a comment', :body => 'lalala', :group_id => 0)
-    xhr :get, :comment_group, :id => comment.id 
+    xhr :get, :comment_group, :id => comment.id
     assert_match /\{\"group_id\":0\}/, @response.body
   end
-  
+
   should 'return group_id=null for a global comment' do
     comment = fast_create(Comment, :source_id => article, :author_id => profile, :title => 'a comment', :body => 'lalala' )
-    xhr :get, :comment_group, :id => comment.id 
+    xhr :get, :comment_group, :id => comment.id
     assert_match /\{\"group_id\":null\}/, @response.body
   end
-  
+
 end

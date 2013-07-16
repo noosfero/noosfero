@@ -7,7 +7,7 @@ class CommentGroupPluginTest < ActiveSupport::TestCase
   def setup
     @environment = Environment.default
   end
- 
+
   attr_reader :environment
 
   should 'load_comments returns all the comments wihout group of an article passed as parameter' do
@@ -20,7 +20,7 @@ class CommentGroupPluginTest < ActiveSupport::TestCase
     assert_equal [], [c2, c3] - plugin.load_comments(article)
     assert_equal [], plugin.load_comments(article) - [c2, c3]
   end
- 
+
   should 'load_comments not returns spam comments' do
     article = fast_create(Article)
     c1 = fast_create(Comment, :source_id => article.id, :group_id => 1)
@@ -31,7 +31,7 @@ class CommentGroupPluginTest < ActiveSupport::TestCase
     assert_equal [], [c2] - plugin.load_comments(article)
     assert_equal [], plugin.load_comments(article) - [c2]
   end
- 
+
   should 'load_comments returns only root comments of article' do
     article = fast_create(Article)
     c1 = fast_create(Comment, :source_id => article.id, :group_id => 1)
@@ -42,5 +42,5 @@ class CommentGroupPluginTest < ActiveSupport::TestCase
     assert_equal [], [c2] - plugin.load_comments(article)
     assert_equal [], plugin.load_comments(article) - [c2]
   end
- 
+
 end

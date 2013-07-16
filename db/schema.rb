@@ -131,6 +131,7 @@ ActiveRecord::Schema.define(:version => 20130606110602) do
     t.integer  "license_id"
   end
 
+  add_index "articles", ["name"], :name => "index_articles_on_name"
   add_index "articles", ["parent_id"], :name => "index_articles_on_parent_id"
   add_index "articles", ["profile_id"], :name => "index_articles_on_profile_id"
   add_index "articles", ["slug"], :name => "index_articles_on_slug"
