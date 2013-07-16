@@ -287,8 +287,8 @@ end
 Given /^I am logged in as "(.+)"$/ do |username|
   Given %{I go to logout page}
     And %{I go to login page}
-    And %{I fill in "Username" with "#{username}"}
-    And %{I fill in "Password" with "123456"}
+    And %{I fill in "main_user_login" with "#{username}"}
+    And %{I fill in "user_password" with "123456"}
    When %{I press "Log in"}
     # FIXME:
     # deveria apenas verificar que esta no myprofile do usuario
