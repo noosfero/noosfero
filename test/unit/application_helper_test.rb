@@ -3,7 +3,6 @@ require File.dirname(__FILE__) + '/../test_helper'
 class ApplicationHelperTest < ActiveSupport::TestCase
 
   include ApplicationHelper
-  include Noosfero::Plugin::HotSpot
 
   def setup
     self.stubs(:session).returns({})

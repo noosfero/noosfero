@@ -53,7 +53,6 @@ class Noosfero::Plugin::Manager
     result
   end
 
-
   def pipeline(event, *args)
     each do |plugin|
       result = plugin.send(event, *args)
