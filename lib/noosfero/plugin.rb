@@ -532,11 +532,6 @@ class Noosfero::Plugin
     # returns = string with reason of expiration
     elsif method.to_s =~ /^content_expire_(#{content_actions.join('|')})$/
       nil
-    # -> Answers to a specific macro
-    # expects: params, inner_html, content 
-    # returns = html_code
-    elsif method.to_s =~ /^macro_(.+)$/
-      nil
     else
       super
     end
