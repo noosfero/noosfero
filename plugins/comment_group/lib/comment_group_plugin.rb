@@ -28,3 +28,5 @@ class CommentGroupPlugin < Noosfero::Plugin
   end
 
 end
+
+require_dependency 'comment_group_plugin/macros/allow_comment'

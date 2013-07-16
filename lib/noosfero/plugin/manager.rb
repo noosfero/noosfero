@@ -54,7 +54,7 @@ class Noosfero::Plugin::Manager
   end
 
   def parse_macro(macro_name, macro, source = nil)
-    macro_instance = enabled_macros[macro_name] || enabled_macros['default']
+    macro_instance = enabled_macros[macro_name] || default_macro
     macro_instance.convert(macro, source)
   end
 
@@ -64,10 +64,14 @@ class Noosfero::Plugin::Manager
     end
   end
 
+  def default_macro
+    @default_macro ||= Noosfero::Plugin::Macro.new(context)
+  end
+
   def enabled_macros
     @enabled_macros ||= dispatch(:macros).inject({}) do |memo, macro|
       memo.merge!(macro.identifier => macro.new(context))
-    end.merge('default' => Noosfero::Plugin::Macro.new(context))
+    end
   end
 
   def [](name)

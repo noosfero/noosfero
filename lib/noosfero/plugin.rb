@@ -147,7 +147,7 @@ class Noosfero::Plugin
   def macros
     self.class.constants.map do |constant_name|
       self.class.const_get(constant_name)
-    end.select {|klass| klass <= Noosfero::Plugin::Macro}
+    end.select {|klass| klass < Noosfero::Plugin::Macro}
   end
 
   # Here the developer may specify the events to which the plugins can

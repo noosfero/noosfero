@@ -6,13 +6,12 @@ module MacrosHelper
 
   def macros_with_buttons
     @plugins.dispatch(:macros).reject{ |macro| !macro.configuration[:icon_path] }
-
   end
 
   def macro_title(macro)
     macro.configuration[:title] || macro.name.humanize
   end
-  
+
   def generate_macro_config_dialog(macro)
     if macro.configuration[:skip_dialog]
       "function(){#{macro_generator(macro)}}"
@@ -55,7 +54,7 @@ module MacrosHelper
   end
 
   protected
-  
+
   def macro_generator(macro)
     if macro.configuration[:generator]
       macro.configuration[:generator]

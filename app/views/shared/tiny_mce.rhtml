@@ -31,7 +31,7 @@ tinymce.create('tinymce.plugins.MacrosPlugin', {
              image : '/designs/icons/tango/Tango/16x16/emblems/emblem-system.png',
              icons : false
            });
-  
+
            <% macros_in_menu.each do |macro| %>
              c.onRenderMenu.add(function(c, m) {
                m.add({
@@ -40,7 +40,7 @@ tinymce.create('tinymce.plugins.MacrosPlugin', {
                });
              });
            <% end %>
-  
+
            // Return the new menu button instance
            return c;
          <% end %>

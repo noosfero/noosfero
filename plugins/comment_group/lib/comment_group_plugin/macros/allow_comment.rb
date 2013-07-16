@@ -17,6 +17,6 @@ class CommentGroupPlugin::AllowComment < Noosfero::Plugin::Macro
     article = source
     count = article.group_comments.without_spam.in_group(group_id).count
 
-    lambda {render :partial => 'plugins/comment_group_macro/views/comment_group.rhtml', :locals => {:group_id => group_id, :article_id => article.id, :inner_html => inner_html, :count => count, :profile_identifier => article.profile.identifier }}
+    lambda {render :partial => 'plugins/comment_group/views/comment_group.rhtml', :locals => {:group_id => group_id, :article_id => article.id, :inner_html => inner_html, :count => count, :profile_identifier => article.profile.identifier }}
   end
 end
