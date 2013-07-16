@@ -99,9 +99,9 @@ class ContentViewerController < ApplicationController
       end
     end
 
-    @comments = @page.comments.without_spam.without_reply
-    @comments = @plugins.filter(:unavailable_comments, @comments)
+    @comments = @page.comments.without_spam
     @comments_count = @comments.count
+    @comments = @plugins.filter(:unavailable_comments, @comments.without_reply)
     @comments = @comments.paginate(:per_page => per_page, :page => params[:comment_page] )
 
     if params[:slideshow]
