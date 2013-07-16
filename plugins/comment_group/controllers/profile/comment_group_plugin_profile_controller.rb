@@ -8,7 +8,7 @@ class CommentGroupPluginProfileController < ProfileController
     article = profile.articles.find(article_id)
     comments = article.group_comments.without_spam.in_group(group_id)
     render :update do |page|
-      page.replace_html "comments_list_group_#{group_id}", :partial => 'comment/comment.rhtml', :collection => comments.as_thread
+      page.replace_html "comments_list_group_#{group_id}", :partial => 'comment/comment.rhtml', :collection => comments
       page.replace_html "comment-count-#{group_id}", comments.count
     end
   end
