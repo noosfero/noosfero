@@ -257,4 +257,23 @@ class PluginManagerTest < ActiveSupport::TestCase
     end
   end
 
+  should 'filter a property' do
+    class Plugin1 < Noosfero::Plugin
+      def invalid_numbers(numbers)
+        numbers.reject {|n| n%2==0}
+      end
+    end
+
+    class Plugin2 < Noosfero::Plugin
+      def invalid_numbers(numbers)
+        numbers.reject {|n| n<=5}
+      end
+    end
+
+    environment.enable_plugin(Plugin1)
+    environment.enable_plugin(Plugin2)
+
+    assert_equal [7,9], manager.filter(:invalid_numbers, [1,2,3,4,5,6,7,8,9,10])
+  end
+
 end

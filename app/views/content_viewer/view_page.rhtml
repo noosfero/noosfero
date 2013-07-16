@@ -94,12 +94,13 @@
     </h3>
   <% end %>
 
-  <% if @page.accept_comments? && @comments_count > 1 %>
+  <% if @page.accept_comments? && @comments.count > 1 %>
     <%= link_to(_('Post a comment'), '#', :class => 'display-comment-form', :id => 'top-post-comment-button', :onclick => "jQuery('#page-comment-form .display-comment-form').first().click();") %>
   <% end %>
 
   <ul class="article-comments-list">
     <%= render :partial => 'comment/comment', :collection => @comments %>
+    <%= pagination_links @comments, :param_name => 'comment_page' %>
   </ul>
 
   <% if @page.accept_comments? %>

@@ -99,11 +99,10 @@ class ContentViewerController < ApplicationController
       end
     end
 
-    @comments = @plugins.dispatch_first(:load_comments, @page)
-    @comments ||= @page.comments.without_spam.as_thread
-    @comments = [@comments] unless @comments.is_a?(Array)
-
-    @comments_count = Comment.count_thread(@comments)
+    @comments = @page.comments.without_spam.without_reply
+    @comments = @plugins.filter(:unavailable_comments, @comments)
+    @comments_count = @comments.count
+    @comments = @comments.paginate(:per_page => per_page, :page => params[:comment_page] )
 
     if params[:slideshow]
       render :action => 'slideshow', :layout => 'slideshow'

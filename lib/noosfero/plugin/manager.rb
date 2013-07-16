@@ -63,6 +63,10 @@ class Noosfero::Plugin::Manager
     args.length < 2 ? args.first : args
   end
 
+  def filter(property, data)
+    inject(data) {|data, plugin| data = plugin.send(property, data)}
+  end
+
   def parse_macro(macro_name, macro, source = nil)
     macro_instance = enabled_macros[macro_name] || default_macro
     macro_instance.convert(macro, source)

@@ -1084,13 +1084,13 @@ class ContentViewerControllerTest < ActionController::TestCase
     article.save!
     comment1 = article.comments.build(:author => profile, :title => 'hi', :body => 'hello')
     comment1.save!
-    comment2 = article.comments.build(:author => profile, :title => 'hi', :body => 'hello', :reply_of_id => comment1.id)
+    comment2 = article.comments.build(:author => profile, :title => 'hi', :body => 'hello')
     comment2.save!
     get :view_page, :profile => 'testuser', :page => [ 'test' ]
     assert_tag :tag => 'a', :attributes => { :id => 'top-post-comment-button' }
   end
 
-  should 'store number of comments' do
+  should 'not show a post comment button on top if there are one comment and one reply' do
     profile = create_user('testuser').person
     article = profile.articles.build(:name => 'test')
     article.save!
@@ -1099,7 +1099,7 @@ class ContentViewerControllerTest < ActionController::TestCase
     comment2 = article.comments.build(:author => profile, :title => 'hi', :body => 'hello', :reply_of_id => comment1.id)
     comment2.save!
     get :view_page, :profile => 'testuser', :page => [ 'test' ]
-    assert_equal 2, assigns(:comments_count)
+    assert_no_tag :tag => 'a', :attributes => { :id => 'top-post-comment-button' }
   end
 
   should 'suggest article link displayed into article-actions div' do
@@ -1178,11 +1178,11 @@ class ContentViewerControllerTest < ActionController::TestCase
 
   should 'not display comments marked as spam' do
     article = fast_create(Article, :profile_id => profile.id)
-    ham = fast_create(Comment, :source_id => article.id, :source_type => 'Article')
-    spam = fast_create(Comment, :source_id => article.id, :source_type => 'Article', :spam => true)
+    ham = fast_create(Comment, :source_id => article.id, :source_type => 'Article', :title => 'some content')
+    spam = fast_create(Comment, :source_id => article.id, :source_type => 'Article', :spam => true, :title => 'this is a spam')
 
     get 'view_page', :profile => profile.identifier, :page => article.path.split('/')
-    assert_equal 1, assigns(:comments_count)
+    assert_no_tag :tag => 'h4', :content => /spam/
   end
 
   should 'add extra content on comment form from plugins' do
@@ -1212,91 +1212,43 @@ class ContentViewerControllerTest < ActionController::TestCase
     assert_tag :tag => 'input', :attributes => {:name => 'comment[another_field_id]', :type => 'hidden'}
   end
 
-  should 'collect comments as plugin definition' do
+  should 'filter comments with scope defined by the plugins' do
     class Plugin1 < Noosfero::Plugin
-      def load_comments(page)
-        [page.comments.find(4)]
+      def unavailable_comments(scope)
+        scope.where(:user_agent => 'Jack')
       end
     end
-    Environment.default.enable_plugin(Plugin1.name)
-    Comment.delete_all
-    page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
-    page.comments.build(:author => profile, :title => 'hi', :body => 'hello 1' ).save!
-    page.comments.build(:author => profile, :title => 'hi', :body => 'hello 2' ).save!
-    page.comments.build(:author => profile, :title => 'hi', :body => 'hello 3' ).save!
-    c = page.comments.build(:author => profile, :title => 'hi', :body => 'hello 4' )
-    c.save!
 
-
-    get :view_page, :profile => profile.identifier, :page => [ 'myarticle' ]
-
-    assert_equal [c],  assigns(:comments)
-  end
-
-  should 'not be a problem if loaded comments of plugins not be an array' do
-    class Plugin1 < Noosfero::Plugin
-      def load_comments(page)
-        page.comments.find(4)
-      end
-    end
-    Environment.default.enable_plugin(Plugin1.name)
-    Comment.delete_all
-    page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
-    page.comments.build(:author => profile, :title => 'hi', :body => 'hello 1' ).save!
-    page.comments.build(:author => profile, :title => 'hi', :body => 'hello 2' ).save!
-    page.comments.build(:author => profile, :title => 'hi', :body => 'hello 3' ).save!
-    c = page.comments.build(:author => profile, :title => 'hi', :body => 'hello 4' )
-    c.save!
-
-
-    get :view_page, :profile => profile.identifier, :page => [ 'myarticle' ]
-
-    assert_equal [c],  assigns(:comments)
-  end
-
-
-  should 'take in consideration only the first plugin comments definition' do
-    class Plugin1 < Noosfero::Plugin
-      def load_comments(page)
-        page.comments.first
-      end
-    end
     class Plugin2 < Noosfero::Plugin
-      def load_comments(page)
-        page.comments.last
+      def unavailable_comments(scope)
+        scope.where(:referrer => 'kernel.org')
       end
     end
-    Environment.default.enable_plugin(Plugin1.name)
-    Environment.default.enable_plugin(Plugin2.name)
 
-    page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
-    c1 = page.comments.build(:author => profile, :title => 'hi', :body => 'hello 1' )
-    c1.save!
-    page.comments.build(:author => profile, :title => 'hi', :body => 'hello 2' ).save!
-    page.comments.build(:author => profile, :title => 'hi', :body => 'hello 3' ).save!
-    c2 = page.comments.build(:author => profile, :title => 'hi', :body => 'hello 4' )
-    c2.save!
+    Environment.default.enable_plugin(Plugin1)
+    Environment.default.enable_plugin(Plugin2)
+    profile = fast_create(Profile)
+    article = fast_create(Article, :profile_id => profile.id)
+    c1 = fast_create(Comment, :source_id => article.id, :user_agent => 'Jack', :referrer => 'kernel.org')
+    c2 = fast_create(Comment, :source_id => article.id, :user_agent => 'Rose', :referrer => 'kernel.org')
+    c3 = fast_create(Comment, :source_id => article.id, :user_agent => 'Jack', :referrer => 'google.com')
 
-    get :view_page, :profile => profile.identifier, :page => [ 'myarticle' ]
+    get :view_page, :profile => profile.identifier, :page => [ article.path ]
 
-    assert_equal [c1],  assigns(:comments)
+    assert_includes assigns(:comments), c1
+    assert_not_includes assigns(:comments), c2
+    assert_not_includes assigns(:comments), c3
   end
 
-  should 'empty array of comments collected by plugin make the comments variable be an empty array' do
-    class Plugin1 < Noosfero::Plugin
-      def load_comments(page)
-        []
-      end
+  should 'display pagination links of comments' do
+    article = fast_create(Article, :profile_id => profile.id)
+    for n in 1..15
+      article.comments.create!(:author => profile, :title => "some title #{n}", :body => 'some body #{n}')
     end
-    Environment.default.enable_plugin(Plugin1.name)
+    assert_equal 15, article.comments.count
 
-    page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
-    page.comments.build(:author => profile, :title => 'hi', :body => 'hello 1' ).save!
-    page.comments.build(:author => profile, :title => 'hi', :body => 'hello 2' ).save!
+    get 'view_page', :profile => profile.identifier, :page => article.path.split('/')
+    assert_tag :tag => 'a', :attributes => { :href => "/#{profile.identifier}/#{article.path}?comment_page=2", :rel => 'next' }
+  end 
 
-
-    get :view_page, :profile => profile.identifier, :page => [ 'myarticle' ]
-
-    assert_equal [],  assigns(:comments)
-  end
 end

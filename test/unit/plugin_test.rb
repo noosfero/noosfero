@@ -28,30 +28,23 @@ class PluginTest < ActiveSupport::TestCase
     assert_equal({:controller => 'plugin_test/plugin1_admin', :action => 'index'}, Plugin1.admin_url)
   end
 
-  should 'load_comments return nil by default' do
-
-    class Plugin1 < Noosfero::Plugin; end;
-
-    environment.stubs(:enabled_plugins).returns([Plugin1.to_s])
-
-    profile = fast_create(Profile, :name => 'test profile', :identifier => 'test_profile')
-    a = fast_create(Article, :name => 'my article', :profile_id => profile.id)
-    assert_nil plugins.dispatch_first(:load_comments, a)
-  end
-
-  should 'load_comments return the value defined by plugin' do
-
+  should 'filter comments with scope defined by plugin' do
     class Plugin1 < Noosfero::Plugin
-      def load_comments(page)
-        'some value'
+      def filter_comments(scope)
+        scope.without_spam
       end
     end
 
-    environment.stubs(:enabled_plugins).returns([Plugin1.to_s])
+    article = fast_create(Article)
+    c1 = fast_create(Comment, :source_id => article.id, :group_id => 1)
+    c2 = fast_create(Comment, :source_id => article.id)
+    c3 = fast_create(Comment, :source_id => article.id, :spam => true)
 
-    profile = fast_create(Profile, :name => 'test profile', :identifier => 'test_profile')
-    a = fast_create(Article, :name => 'my article', :profile_id => profile.id)
-    assert_equal 'some value', plugins.dispatch_first(:load_comments, a)
+    plugin = Plugin1.new
+    comments = plugin.filter_comments(article.comments)
+    assert_includes comments, c1
+    assert_includes comments, c2
+    assert_not_includes comments, c3
   end
 
   should 'returns empty hash for class method extra_blocks by default if no blocks are defined on plugin' do

@@ -11,8 +11,8 @@ class CommentGroupPlugin < Noosfero::Plugin
     _("A plugin that display comment groups.")
   end
 
-  def load_comments(article)
-    article.comments.without_spam.without_group.as_thread
+  def unavailable_comments(scope)
+    scope.without_group
   end
 
   def comment_form_extra_contents(args)

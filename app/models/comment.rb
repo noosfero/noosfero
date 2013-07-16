@@ -17,6 +17,7 @@ class Comment < ActiveRecord::Base
   belongs_to :reply_of, :class_name => 'Comment', :foreign_key => 'reply_of_id'
 
   named_scope :without_spam, :conditions => ['spam IS NULL OR spam = ?', false]
+  named_scope :without_reply, :conditions => ['reply_of_id IS NULL']
   named_scope :spam, :conditions => ['spam = ?', true]
 
   # unauthenticated authors:
@@ -150,29 +151,6 @@ class Comment < ActiveRecord::Base
 
   def replies=(comments_list)
     @replies = comments_list
-  end
-
-  def self.count_thread(comments)
-    count = comments.length
-    comments.each do |c|
-      count+=count_thread(c.replies)
-    end
-    count
-  end
-
-  def self.as_thread
-    result = {}
-    root = []
-    order(:id).each do |c|
-      c.replies = []
-      result[c.id] ||= c
-      if result[c.reply_of_id]
-        result[c.reply_of_id].replies << c
-      else
-        root << c
-      end
-    end
-    root
   end
 
   include ApplicationHelper

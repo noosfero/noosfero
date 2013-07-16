@@ -289,16 +289,16 @@ class Noosfero::Plugin
   def filter_comment(comment)
   end
 
-  # Define custom logic to load the article comments.
+  # Define custom logic to filter loaded comments.
   #
   # Example:
   #
-  #   def load_comments(article)
-  #     article.comments.find(:all, :conditions => ['spam IS NULL OR spam = ?', false])
+  #   def unavailable_comments(scope)
+  #     scope.without_spams
   #   end
   #
-  def load_comments(article)
-    nil
+  def unavailable_comments(scope)
+    scope
   end
 
   # This method is called by the CommentHandler background job before sending
