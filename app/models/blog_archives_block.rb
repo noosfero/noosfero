@@ -21,18 +21,22 @@ class BlogArchivesBlock < Block
   end
 
   def visible_posts(person)
-    blog.posts.native_translations.select {|post| post.display_to?(person)}
+    #FIXME Performance issues with display_to. Must convert it to a scope.
+    # Checkout this page for further information: http://noosfero.org/Development/ActionItem2705
+    blog.posts.published.native_translations #.select {|post| post.display_to?(person)}
   end
 
   def content(args={})
     owner_blog = self.blog
     return nil unless owner_blog
     results = ''
-    visible_posts(args[:person]).group_by {|i| i.published_at.year }.sort_by { |year,count| -year }.each do |year, results_by_year|
-      results << content_tag('li', content_tag('strong', "#{year} (#{results_by_year.size})"))
+    posts = visible_posts(args[:person])
+    posts.count(:all, :group => 'EXTRACT(YEAR FROM published_at)').sort_by {|year, count| -year.to_i}.each do |year, count|
+      results << content_tag('li', content_tag('strong', "#{year} (#{count})"))
       results << "<ul class='#{year}-archive'>"
-      results_by_year.group_by{|i| [ ('%02d' % i.published_at.month()), gettext(MONTHS[i.published_at.month() - 1])]}.sort.reverse.each do |month, results_by_month|
-        results << content_tag('li', link_to("#{month[1]} (#{results_by_month.size})", owner_blog.url.merge(:year => year, :month => month[0])))
+      posts.count(:all, :conditions => ['EXTRACT(YEAR FROM published_at)=?', year], :group => 'EXTRACT(MONTH FROM published_at)').sort_by {|month, count| -month.to_i}.each do |month, count|
+        month_name = gettext(MONTHS[month.to_i - 1])
+        results << content_tag('li', link_to("#{month_name} (#{count})", owner_blog.url.merge(:year => year, :month => month)))
       end
       results << "</ul>"
     end

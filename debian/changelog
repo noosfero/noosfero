@@ -1,3 +1,9 @@
+noosfero (0.43.1) unstable; urgency=low
+
+  * Bugfix release
+
+ -- Rodrigo Souto <rodrigo@colivre.coop.br>  Wed, 17 Jul 2013 01:20:46 -0300
+
 noosfero (0.43.0) unstable; urgency=low
 
   * Solr search converted to a plugin

@@ -71,5 +71,15 @@ class CustomFormsPlugin::FieldTest < ActiveSupport::TestCase
     end
     assert_equal form.fields, [license_field]
   end
+
+  should 'give positions by creation order' do
+    form = CustomFormsPlugin::Form.create!(:name => 'Free Software', :profile => fast_create(Profile))
+    field_0 = CustomFormsPlugin::Field.create!(:name => 'License', :form => form)
+    field_1 = CustomFormsPlugin::Field.create!(:name => 'URL', :form => form)
+    field_2 = CustomFormsPlugin::Field.create!(:name => 'Wiki', :form => form)
+    assert_equal 0, field_0.position
+    assert_equal 1, field_1.position
+    assert_equal 2, field_2.position
+  end
 end
 
