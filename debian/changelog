@@ -1,3 +1,9 @@
+noosfero (0.45.0~rc20130717024842) squeeze-test; urgency=low
+
+  * Brand new 0.44.0
+
+ -- Rodrigo Souto <rodrigo@colivre.coop.br>  Wed, 17 Jul 2013 02:48:52 -0300
+
 noosfero (0.44.0) unstable; urgency=low
 
   * New features release
