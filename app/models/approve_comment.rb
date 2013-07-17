@@ -6,7 +6,7 @@ class ApproveComment < Task
   validates_presence_of :comment_attributes
 
   def comment
-    @comment ||= Comment.new(JSON.parse(self.comment_attributes)) unless self.comment_attributes.nil?
+    @comment ||= Comment.new(ActiveSupport::JSON.decode(self.comment_attributes)) unless self.comment_attributes.nil?
   end
 
   def requestor_name
