@@ -12,5 +12,11 @@ class CustomFormsPlugin::Field < ActiveRecord::Base
   before_validation do |field|
     field.slug = field.name.to_slug if field.name.present?
   end
+
+  before_create do |field|
+    if field.form.fields.exists?
+      field.position = field.form.fields.order('position').last.position + 1
+    end
+  end
 end
 

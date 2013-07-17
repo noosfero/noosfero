@@ -70,7 +70,8 @@ class CustomFormsPluginMyprofileController < MyProfileController
   private
 
   def new_fields(params)
-    result = params[:fields].map {|id, hash| hash.has_key?(:real_id) ? nil : hash}.compact
+    keys = params[:fields].keys.sort{|a, b| a.to_i <=> b.to_i}
+    result = keys.map { |id| (hash = params[:fields][id]).has_key?(:real_id) ? nil : hash}.compact
     result.delete_if {|field| field[:name].blank?}
     result
   end
