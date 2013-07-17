@@ -99,6 +99,7 @@ jQuery(function($) {
      },
 
      render_body_message: function(body) {
+        body = body.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\r?\n/g, '<br>');
         body = $().emoticon(body);
         body = linkify(body, {
            callback: function(text, href) {
