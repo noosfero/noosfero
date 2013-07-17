@@ -1,3 +1,9 @@
+noosfero (0.44.1) unstable; urgency=low
+
+  * Emergencial bugfix release
+
+ -- Rodrigo Souto <rodrigo@ravioli>  Wed, 17 Jul 2013 03:45:15 -0300
+
 noosfero (0.44.0) unstable; urgency=low
 
   * New features release
