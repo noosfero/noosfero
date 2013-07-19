@@ -4,7 +4,7 @@ class RequireAuthToCommentPlugin < Noosfero::Plugin
 
   include ActionView::Helpers::TagHelper
   include ActionView::Helpers::FormTagHelper
-  include ApplicationHelper
+  include FormsHelper
 
   def self.plugin_name
     "RequireAuthToCommentPlugin"
