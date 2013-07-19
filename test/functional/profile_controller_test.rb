@@ -1218,6 +1218,23 @@ class ProfileControllerTest < ActionController::TestCase
     end
   end
 
+  should 'check different profile from the domain profile' do
+    default = Environment.default
+    default.domains.create!(:name => 'environment.com')
+    profile = create_user('another_user').person
+    domain_profile = create_user('domain_user').person
+    domain_profile.domains.create!(:name => 'profiledomain.com')
+
+    @request.expects(:host).returns('profiledomain.com').at_least_once
+    get :index, :profile => profile.identifier
+    assert_response :redirect
+    assert_redirected_to @request.params.merge(:host => profile.default_hostname)
+
+    @request.expects(:host).returns(profile.default_hostname).at_least_once
+    get :index, :profile => profile.identifier
+    assert_response :success
+  end
+
   should 'redirect to profile domain if it has one' do
     community = fast_create(Community, :name => 'community with domain')
     community.domains << Domain.new(:name => 'community.example.net')
@@ -1231,6 +1248,18 @@ class ProfileControllerTest < ActionController::TestCase
     reported = fast_create(Profile)
     login_as(profile.identifier)
     @controller.stubs(:verify_recaptcha).returns(true)
+
+    assert_difference AbuseReport, :count, 1 do
+      post :register_report, :profile => reported.identifier, :abuse_report => {:reason => 'some reason'}
+    end
+  end
+
+  should 'not ask admin for captcha to register abuse' do
+    reported = fast_create(Profile)
+    login_as(profile.identifier)
+    environment = Environment.default
+    environment.add_admin(profile)
+    @controller.expects(:verify_recaptcha).never
 
     assert_difference AbuseReport, :count, 1 do
       post :register_report, :profile => reported.identifier, :abuse_report => {:reason => 'some reason'}

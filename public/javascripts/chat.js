@@ -99,6 +99,7 @@ jQuery(function($) {
      },
 
      render_body_message: function(body) {
+        body = body.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\r?\n/g, '<br>');
         body = $().emoticon(body);
         body = linkify(body, {
            callback: function(text, href) {
@@ -253,7 +254,7 @@ jQuery(function($) {
                  result.show = 'away';
               }
            }
-           if ($(stanza).find('x[xmlns='+ Strophe.NS.MUC_USER +']').length > 0) {
+           if ($(stanza).find('x[xmlns="'+ Strophe.NS.MUC_USER +'"]').length > 0) {
               result.is_from_room = true;
               result.from_user = $(stanza).find('x item').attr('jid');
               if ($(stanza).find('x item').attr('affiliation') == 'owner') {
@@ -351,7 +352,7 @@ jQuery(function($) {
      },
 
      on_muc_support: function(iq) {
-        if ($(iq).find('identity[category=conference]').length > 0 && $(iq).find('feature[var='+ Strophe.NS.MUC +']').length > 0) {
+        if ($(iq).find('identity[category=conference]').length > 0 && $(iq).find('feature[var="'+ Strophe.NS.MUC +'"]').length > 0) {
            var name = $(iq).find('identity[category=conference]').attr('name');
            log('muc support found with identity '+ name);
            Jabber.muc_supported = true;

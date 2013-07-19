@@ -6,6 +6,8 @@ class CmsController; def rescue_action(e) raise e end; end
 
 class CmsControllerTest < ActionController::TestCase
 
+  include NoosferoTestHelper
+
   fixtures :environments
 
   def setup
@@ -199,11 +201,25 @@ class CmsControllerTest < ActionController::TestCase
   should 'be able to remove article' do
     a = profile.articles.build(:name => 'my-article')
     a.save!
-
     assert_difference Article, :count, -1 do
       post :destroy, :profile => profile.identifier, :id => a.id
-      assert_redirected_to :controller => 'cms', :profile => profile.identifier, :action => 'index'
     end
+  end
+
+  should 'redirect to cms after remove article from content management' do
+    a = profile.articles.build(:name => 'my-article')
+    a.save!
+    @request.env['HTTP_REFERER'] = 'http://test.host/myprofile/testinguser/cms'
+    post :destroy, :profile => profile.identifier, :id => a.id
+    assert_redirected_to :controller => 'cms', :action => 'index', :profile => profile.identifier
+  end
+
+  should 'redirect to blog after remove article from content viewer' do
+    a = profile.articles.build(:name => 'my-article')
+    a.save!
+    @request.env['HTTP_REFERER'] = 'http://colivre.net/testinguser'
+    post :destroy, :profile => profile.identifier, :id => a.id
+    assert_redirected_to :controller => 'content_viewer', :action => 'view_page', :profile => profile.identifier, :page => [], :host => profile.environment.default_hostname
   end
 
   should 'be able to acess Rss feed creation page' do
@@ -883,12 +899,6 @@ class CmsControllerTest < ActionController::TestCase
     Article.stubs(:short_description).returns('bli')
     get :view, :profile => profile.identifier, :id => a
     assert_tag :tag => 'a', :content => 'New content'
-  end
-
-  should 'offer confirmation to remove article' do
-    a = profile.articles.create!(:name => 'my-article')
-    post :destroy, :profile => profile.identifier, :id => a.id
-    assert_response :redirect
   end
 
   should 'display notify comments option' do

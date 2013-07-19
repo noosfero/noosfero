@@ -285,21 +285,6 @@ class CommentTest < ActiveSupport::TestCase
     assert_equal [c1,c3], c.reload.children
   end
 
-  should "return comments as a thread" do
-    a = fast_create(Article)
-    c0 = fast_create(Comment, :source_id => a.id)
-    c1 = fast_create(Comment, :reply_of_id => c0.id, :source_id => a.id)
-    c2 = fast_create(Comment, :reply_of_id => c1.id, :source_id => a.id)
-    c3 = fast_create(Comment, :reply_of_id => c0.id, :source_id => a.id)
-    c4 = fast_create(Comment, :source_id => a.id)
-    result = a.comments.as_thread
-    assert_equal c0.id, result[0].id
-    assert_equal [c1.id, c3.id], result[0].replies.map(&:id)
-    assert_equal [c2.id], result[0].replies[0].replies.map(&:id)
-    assert_equal c4.id, result[1].id
-    assert result[1].replies.empty?
-  end
-
   should "return activities comments as a thread" do
     person = fast_create(Person)
     a = TextileArticle.create!(:profile => person, :name => 'My article', :body => 'Article body')
@@ -515,15 +500,6 @@ class CommentTest < ActiveSupport::TestCase
     assert_equal c, SpamNotification.marked_as_ham
   end
 
-  should 'ignore spam when constructing threads' do
-    original = create_comment
-    response = create_comment(:reply_of_id => original.id)
-    original.spam!
-
-    assert_equivalent [response], Comment.without_spam.as_thread
-  end
-
-
   should 'store User-Agent' do
     c = Comment.new(:user_agent => 'foo')
     assert_equal 'foo', c.user_agent
@@ -548,6 +524,165 @@ class CommentTest < ActiveSupport::TestCase
     log = File.open('log/test_spammers.log')
     assert_match "Comment-id: #{comment.id} IP: 192.168.0.1", log.read
     SpammerLogger.clean_log
+  end
+
+  should 'not need moderation if article is not moderated' do
+    article = Article.new
+    comment = Comment.new(:article => article)
+
+    assert !comment.need_moderation?
+  end
+
+  should 'not need moderation if the comment author is the article author' do
+    author = Person.new
+    article = Article.new
+
+    article.stubs(:author).returns(author)
+    article.moderate_comments = true
+
+    comment = Comment.new(:article => article)
+    comment.stubs(:author).returns(author)
+
+    assert !comment.need_moderation?
+  end
+
+  should 'need moderation if article is moderated and the comment has no author' do
+    article = Article.new
+    article.stubs(:moderate_comments?).returns(true)
+
+    comment = Comment.new(:article => article)
+
+    assert comment.need_moderation?
+  end
+
+  should 'need moderation if article is moderated and the comment author is different from article author' do
+    article_author = Person.new
+    comment_author = Person.new
+
+    article = Article.new
+    article.stubs(:author).returns(article_author)
+    article.stubs(:moderate_comments?).returns(true)
+
+    comment = Comment.new(:article => article)
+    comment.stubs(:author).returns(comment_author)
+
+    assert comment.need_moderation?
+  end
+
+  should 'not be able to destroy comment without user' do
+    comment = Comment.new
+
+    assert !comment.can_be_destroyed_by?(nil)
+  end
+
+  should 'not be able to destroy comment' do
+    user = Person.new
+    profile = Profile.new
+    article = Article.new(:profile => profile)
+    comment = Comment.new(:article => article)
+    user.expects(:has_permission?).with(:moderate_comments, profile).returns(false)
+
+    assert !comment.can_be_destroyed_by?(user)
+  end
+
+  should 'be able to destroy comment if is the author' do
+    user = Person.new
+    comment = Comment.new(:author => user)
+
+    assert comment.can_be_destroyed_by?(user)
+  end
+
+  should 'be able to destroy comment if is the profile' do
+    user = Person.new
+    article = Article.new(:profile => user)
+    comment = Comment.new(:article => article)
+
+    assert comment.can_be_destroyed_by?(user)
+  end
+
+  should 'be able to destroy comment if can moderate_comments on the profile' do
+    user = Person.new
+    profile = Profile.new
+    article = Article.new(:profile => profile)
+    comment = Comment.new(:article => article)
+
+    user.expects(:has_permission?).with(:moderate_comments, profile).returns(true)
+
+    assert comment.can_be_destroyed_by?(user)
+  end
+
+  should 'not be able to mark comment as spam without user' do
+    comment = Comment.new
+
+    assert !comment.can_be_marked_as_spam_by?(nil)
+  end
+
+  should 'not be able to mark comment as spam' do
+    user = Person.new
+    profile = Profile.new
+    article = Article.new(:profile => profile)
+    comment = Comment.new(:article => article)
+    user.expects(:has_permission?).with(:moderate_comments, profile).returns(false)
+
+    assert !comment.can_be_marked_as_spam_by?(user)
+  end
+
+  should 'be able to mark comment as spam if is the profile' do
+    user = Person.new
+    article = Article.new(:profile => user)
+    comment = Comment.new(:article => article)
+
+    assert comment.can_be_marked_as_spam_by?(user)
+  end
+
+  should 'be able to mark comment as spam if can moderate_comments on the profile' do
+    user = Person.new
+    profile = Profile.new
+    article = Article.new(:profile => profile)
+    comment = Comment.new(:article => article)
+
+    user.expects(:has_permission?).with(:moderate_comments, profile).returns(true)
+
+    assert comment.can_be_marked_as_spam_by?(user)
+  end
+
+  should 'not be able to update comment without user' do
+    comment = Comment.new
+
+    assert !comment.can_be_updated_by?(nil)
+  end
+
+  should 'not be able to update comment' do
+    user = Person.new
+    comment = Comment.new
+
+    assert !comment.can_be_updated_by?(user)
+  end
+
+  should 'be able to update comment if is the author' do
+    user = Person.new
+    comment = Comment.new(:author => user)
+
+    assert comment.can_be_updated_by?(user)
+  end
+
+  should 'get comment root' do
+    c1 = Comment.new
+    c2 = Comment.new(:reply_of => c1)
+    c3 = Comment.new(:reply_of => c2)
+
+    assert_equal c1, c3.comment_root
+    assert_equal c1, c2.comment_root
+    assert_equal c1, c1.comment_root
+  end
+
+  should 'be able to select non-reply comments' do
+    c1 = fast_create(Comment)
+    c2 = fast_create(Comment, :reply_of_id => c1.id)
+    c3 = fast_create(Comment, :reply_of_id => c2.id)
+    c4 = fast_create(Comment)
+
+    assert_equivalent [c1,c4], Comment.without_reply
   end
 
   private

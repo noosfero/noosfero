@@ -15,15 +15,9 @@ Feature: comment
       | article to comment | booking | root comment | this comment is not a reply |
       | another article    | booking | some comment | this is my very own comment |
 
-  Scenario: not post a comment without javascript
-    Given I am on /booking/article-to-comment
-    When I follow "Reply" within ".comment-balloon"
-    Then I should not see "Enter your comment" within "div.comment-balloon"
-
   Scenario: not show any reply form by default
     When I go to /booking/article-to-comment
     Then I should not see "Enter your comment" within "div.comment-balloon"
-    And I should see "Reply" within "div.comment-balloon"
 
   @selenium-fixme
   Scenario: show error messages when make a blank comment reply
@@ -35,18 +29,13 @@ Feature: comment
     And I should see "Body can't be blank" within "div.comment_reply"
 
   @selenium
-  Scenario: not show any reply form by default
-    When I go to /booking/article-to-comment
-    Then I should not see "Enter your comment" within "div.comment-balloon"
-    And I should see "Reply" within "div.comment-balloon"
-
-  @selenium
   Scenario: render reply form
     Given I am on /booking/article-to-comment
     When I follow "Reply" within ".comment-balloon"
     Then I should see "Enter your comment" within "div.comment_reply.opened"
 
-  @selenium
+  # The text is hidden but the detector gets it anyway
+  @selenium-fixme
   Scenario: cancel comment reply
     Given I am on /booking/article-to-comment
     When I follow "Reply" within ".comment-balloon"

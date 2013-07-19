@@ -1,3 +1,21 @@
+noosfero (0.44.0) unstable; urgency=low
+
+  * New features release
+
+ -- Rodrigo Souto <rodrigo@colivre.coop.br>  Wed, 17 Jul 2013 02:19:44 -0300
+
+noosfero (0.43.1) unstable; urgency=low
+
+  * Bugfix release
+
+ -- Rodrigo Souto <rodrigo@colivre.coop.br>  Wed, 17 Jul 2013 01:20:46 -0300
+
+noosfero (0.43.0) unstable; urgency=low
+
+  * Solr search converted to a plugin
+
+ -- Rodrigo Souto <rodrigo@ravioli>  Tue, 18 Jun 2013 11:14:56 -0300
+
 noosfero (0.43.0~rc20130529152434) squeeze-test; urgency=low
 
   * RC of 0.43.0 with solr as a plugin

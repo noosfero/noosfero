@@ -7,6 +7,8 @@ class PluginTest < ActiveSupport::TestCase
   end
   attr_reader :environment
 
+  include Noosfero::Plugin::HotSpot
+
   should 'keep the list of all loaded subclasses' do
     class Plugin1 < Noosfero::Plugin
     end
@@ -24,6 +26,25 @@ class PluginTest < ActiveSupport::TestCase
     File.stubs(:exists?).with(anything).returns(true)
 
     assert_equal({:controller => 'plugin_test/plugin1_admin', :action => 'index'}, Plugin1.admin_url)
+  end
+
+  should 'filter comments with scope defined by plugin' do
+    class Plugin1 < Noosfero::Plugin
+      def filter_comments(scope)
+        scope.without_spam
+      end
+    end
+
+    article = fast_create(Article)
+    c1 = fast_create(Comment, :source_id => article.id, :group_id => 1)
+    c2 = fast_create(Comment, :source_id => article.id)
+    c3 = fast_create(Comment, :source_id => article.id, :spam => true)
+
+    plugin = Plugin1.new
+    comments = plugin.filter_comments(article.comments)
+    assert_includes comments, c1
+    assert_includes comments, c2
+    assert_not_includes comments, c3
   end
 
   should 'returns empty hash for class method extra_blocks by default if no blocks are defined on plugin' do
@@ -493,9 +514,5 @@ class PluginTest < ActiveSupport::TestCase
       p.extra_blocks
     end
   end
-
-
-
-
 
 end

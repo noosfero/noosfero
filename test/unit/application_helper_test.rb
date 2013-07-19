@@ -659,6 +659,48 @@ class ApplicationHelperTest < ActiveSupport::TestCase
     assert_not_nil add_zoom_to_images
   end
 
+  should 'parse macros' do
+    class Plugin1 < Noosfero::Plugin
+    end
+
+    class Plugin1::Macro1 < Noosfero::Plugin::Macro
+      def parse(params, inner_html, source)
+        'Test1'
+      end
+    end
+
+    class Plugin1::Macro2 < Noosfero::Plugin::Macro
+      def parse(params, inner_html, source)
+        'Test2'
+      end
+    end
+
+    environment = Environment.default
+    environment.enable_plugin(Plugin1)
+    @plugins = Noosfero::Plugin::Manager.new(environment, self)
+    macro1_name = Plugin1::Macro1.identifier
+    macro2_name = Plugin1::Macro2.identifier
+
+    html = "
+      <div class='macro nonEdit' data-macro='#{macro1_name}' data-macro-param='123'></div>
+      <div class='macro nonEdit' data-macro='#{macro2_name}'></div>
+      <div class='macro nonEdit' data-macro='unexistent' data-macro-param='987'></div>
+    "
+    parsed_html = convert_macro(html, mock())
+    parsed_divs = Hpricot(parsed_html).search('div')
+    expected_divs = Hpricot("
+      <div data-macro='#{macro1_name}' class='parsed-macro #{macro1_name}'>Test1</div>
+      <div data-macro='#{macro2_name}' class='parsed-macro #{macro2_name}'>Test2</div>
+      <div data-macro='unexistent' class='failed-macro unexistent'>Unsupported macro unexistent!</div>
+    ").search('div')
+
+    # comparing div attributes between parsed and expected html
+    parsed_divs.each_with_index do |div, i|
+      assert_equal expected_divs[i].attributes.to_hash, div.attributes.to_hash
+      assert_equal expected_divs[i].inner_text, div.inner_text
+    end
+  end
+
   should 'reference to article' do
     c = fast_create(Community)
     a = fast_create(TinyMceArticle, :profile_id => c.id)

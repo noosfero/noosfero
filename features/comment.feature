@@ -17,14 +17,6 @@ Feature: comment
     And feature "captcha_for_logged_users" is disabled on environment
     And I am logged in as "booking"
 
-  Scenario: not post a comment without javascript
-    Given I am on /booking/article-to-comment
-    And I follow "Post a comment"
-    And I fill in "Title" with "Hey ho, let's go!"
-    And I fill in "Enter your comment" with "Hey ho, let's go!"
-    When I press "Post comment"
-    Then I should not see "Hey ho, let's go"
-
   # This test requires some way to overcome the captcha with unauthenticated
   # user.
   @selenium-fixme
@@ -79,14 +71,14 @@ Feature: comment
 
   @selenium
   Scenario: render comment form and go to bottom
-    Given I am on /booking/article-with-comment
+    Given I am on /booking/article-to-comment
     When I follow "Post a comment"
     Then I should see "Enter your comment"
-    And I should be on /booking/article-with-comment
+    And I should be on /booking/article-to-comment
 
   @selenium
   Scenario: keep comments field filled while trying to do a comment
-    Given I am on /booking/article-with-comment
+    Given I am on /booking/article-to-comment
     And I follow "Post a comment"
     And I fill in "Title" with "Joey Ramone"
     When I press "Post comment"

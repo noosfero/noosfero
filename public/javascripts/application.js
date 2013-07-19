@@ -79,6 +79,27 @@ function updateUrlField(name_field, id) {
    }
 }
 
+
+
+jQuery.fn.centerInForm = function () {
+  var $ = jQuery;
+  var form = $(this).parent('form');
+  this.css("position", "absolute");
+  this.css("top", (form.height() - this.height())/ 2 + form.scrollTop() + "px");
+  this.css("left", (form.width() - this.width()) / 2 + form.scrollLeft() + "px");
+  this.css("width", form.width() + "px");
+  this.css("height", form.height() + "px");
+  return this;
+}
+
+jQuery.fn.center = function () {
+  var $ = jQuery;
+  this.css("position", "absolute");
+  this.css("top", ($(window).height() - this.height())/ 2 + $(window).scrollTop() + "px");
+  this.css("left", ($(window).width() - this.width()) / 2 + $(window).scrollLeft() + "px");
+  return this;
+}
+
 function show_warning(field, message) {
    new Effect.Highlight(field, {duration:3});
    $(message).show();
@@ -146,8 +167,9 @@ function loading_done(element_id) {
    jQuery(element_id).removeClass('small-loading-dark');
 }
 function open_loading(message) {
-   jQuery('body').append("<div id='overlay_loading' class='ui-widget-overlay' style='display: none'/><div id='overlay_loading_modal' style='display: none'><p>"+message+"</p><img src='/images/loading-dark.gif'/></div>");
+   jQuery('body').prepend("<div id='overlay_loading' class='ui-widget-overlay' style='display: none'/><div id='overlay_loading_modal' style='display: none'><p>"+message+"</p><img src='/images/loading-dark.gif'/></div>");
    jQuery('#overlay_loading').show();
+   jQuery('#overlay_loading_modal').center();
    jQuery('#overlay_loading_modal').fadeIn('slow');
 }
 function close_loading() {
@@ -292,11 +314,17 @@ function toggleSubmenu(trigger, title, link_list) {
   content.append('<h4>' + title + '</h4>');
   jQuery.each(link_list, function(index, link_hash) {
     for (label in link_hash) {
-      options = "";
-      jQuery.each(link_hash[label], function(option, value){
-        options += option +'="'+ value + '" ';
-      })
-      list.append('<li><a '+ options +'>' + label + '</a></li>');
+      if(link_hash[label]!=null) {
+        if(label=='link' && jQuery.type(link_hash[label])=="string") {
+          list.append('<li>' + link_hash[label] + '</li>');
+        } else {
+          options = "";
+          jQuery.each(link_hash[label], function(option, value){
+            options += option +'="'+ value + '" ';
+          })
+          list.append('<li><a '+ options +'>' + label + '</a></li>');
+        }
+      }
     }
   });
   content.append(list);
@@ -320,9 +348,9 @@ function hideAllSubmenus() {
 // Hide visible ballons when clicked outside them
 jQuery(document).ready(function() {
   jQuery('body').live('click', function() { hideAllSubmenus(); });
-  jQuery('.menu-submenu-trigger').click(function(e) { e.stopPropagation(); });
-  jQuery('.simplemenu-trigger').click(function(e) { e.stopPropagation(); });
-  jQuery('#chat-online-users').click(function(e) { e.stopPropagation(); });
+  jQuery('.menu-submenu-trigger').live('click', function(e) { e.stopPropagation(); });
+  jQuery('.simplemenu-trigger').live('click', function(e) { e.stopPropagation(); });
+  jQuery('#chat-online-users').live('click', function(e) { e.stopPropagation(); });
 });
 
 function input_javascript_ordering_stuff() {
@@ -486,7 +514,9 @@ jQuery(function($) {
       // logged in
       loggedInDataCallBack(data);
       addManageEnterprisesToOldStyleMenu(data);
-      chatOnlineUsersDataCallBack(data);
+      if (data.chat_enabled) {
+        setInterval(function(){ $.getJSON('/account/user_data', chatOnlineUsersDataCallBack)}, 10000);
+      }
     } else {
       // not logged in
       $('#user .not-logged-in, .login-block .not-logged-user').fadeIn();
@@ -538,7 +568,7 @@ jQuery(function($) {
       return;
     }
     var content = '';
-    $('#chat-online-users').html($('#chat-online-users').html().replace(/%{amount}/g, data['amount_of_friends']));
+    $('#chat-online-users .amount_of_friends').html(data['amount_of_friends']);
     $('#chat-online-users').fadeIn();
     for (var user in data['friends_list']) {
       var name = "<span class='friend_name'>%{name}</span>";
@@ -686,20 +716,49 @@ jQuery(function($) {
 });
 
 function add_comment_reply_form(button, comment_id) {
-  var container = jQuery(button).parents('.comment_reply');
+  //var container = jQuery(button).parents('.comment_reply');
+  var container = jQuery('#comment_reply_to_'+comment_id);
   var f = container.find('.comment_form');
   if (f.length == 0) {
-    f = jQuery('#page-comment-form .comment_form').clone();
-    f.find('.fieldWithErrors').map(function() { jQuery(this).replaceWith(jQuery(this).contents()); });
-    f.prepend('<input type="hidden" name="comment[reply_of_id]" value="' + comment_id + '" />');
-    container.append(f);
+    comments_div = jQuery(button).parents('.comments');
+    f = comments_div.find('.comment_form').first().clone();
+    f.find('.errorExplanation').remove();
+    f.append('<input type="hidden" name="comment[reply_of_id]" value="' + comment_id + '" />');
+    container.append('<div class="page-comment-form"></div>');
+    container.find('.page-comment-form').append(f);
   }
   if (container.hasClass('closed')) {
     container.removeClass('closed');
     container.addClass('opened');
     container.find('.comment_form input[type=text]:visible:first').focus();
   }
+  jQuery('.display-comment-form').hide();
   return f;
+}
+
+function update_comment_count(element, new_count) {
+  var $ = jQuery;
+  var content = '';
+  var parent_element = element.parent();
+
+  write_out = parent_element.find('.comment-count-write-out');
+
+  element.html(new_count);
+
+  if(new_count == 0) {
+    content = NO_COMMENT_YET;
+    parent_element.addClass("no-comments-yet");
+  } else if(new_count == 1) {
+    parent_element.removeClass("no-comments-yet");
+    content = ONE_COMMENT;
+  } else {
+    content = new_count + ' ' + COMMENT_PLURAL;
+  }
+
+  if(write_out){
+    write_out.html(content);
+  }
+
 }
 
 function remove_comment(button, url, msg) {
@@ -714,17 +773,27 @@ function remove_comment(button, url, msg) {
     if (data.ok) {
       var $comment = $button.closest('.article-comment');
       var $replies = $comment.find('.comment-replies .article-comment');
-      $comment.slideUp();
+
+      var $comments_div = $button.closest('.comments');
+
       var comments_removed = 1;
-      if ($button.hasClass('remove-children')) {
-        comments_removed = 1 + $replies.size();
-      } else {
-        $replies.appendTo('.article-comments-list');
-      }
-      $('.comment-count').each(function() {
-        var count = parseInt($(this).html());
-        $(this).html(count - comments_removed);
+      $comment.slideUp(400, function() {
+        if ($button.hasClass('remove-children')) {
+          comments_removed = 1 + $replies.size();
+        } else {
+          $replies.appendTo('.article-comments-list');
+        }
+
+        $comments_div.find('.comment-count').add('#article-header .comment-count').each(function() {
+          var count = parseInt($(this).html());
+          update_comment_count($(this), count - comments_removed);
+        });
+        $(this).remove();
       });
+
+    }else{
+      $button.removeClass('comment-button-loading');
+      return;
     }
   });
 }

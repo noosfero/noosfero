@@ -1,6 +1,7 @@
 class Blog < Folder
 
   acts_as_having_posts
+  include PostsLimit
 
   #FIXME This should be used until there is a migration to fix all blogs that
   # already have folders inside them
@@ -79,6 +80,10 @@ class Blog < Folder
 
   def empty?
     posts.empty?
+  end
+
+  def last_posts(limit=3)
+    posts.where("type != 'RssFeed'").order(:updated_at).limit(limit)
   end
 
 end

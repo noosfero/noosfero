@@ -266,6 +266,7 @@ module NoosferoTestHelper
   def url_for(args = {})
     args
   end
+
   def javascript_tag(any)
     ''
   end

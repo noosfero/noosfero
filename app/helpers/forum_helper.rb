@@ -29,9 +29,9 @@ module ForumHelper
       css_add << 'not-published' if !art.published?
       css_add << position
       content << content_tag('tr',
-                             content_tag('td', link_to(art.title, art.url)) +
-                             content_tag('td', link_to(art.comments.count, art.url.merge(:anchor => 'comments_list'))) +
-                             content_tag('td', last_topic_update(art)),
+                             content_tag('td', link_to(art.title, art.url), :class => "forum-post-title") +
+                             content_tag('td', link_to(art.comments.count, art.url.merge(:anchor => 'comments_list')), :class => "forum-post-answers") +
+                             content_tag('td', last_topic_update(art), :class => "forum-post-last-answer"),
                              :class => 'forum-post ' + css_add.join(' '),
                              :id => "post-#{art.id}"
                             )

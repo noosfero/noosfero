@@ -84,5 +84,11 @@ module LayoutHelper
     theme_path + '/style.css'
   end
 
+  def addthis_javascript
+    if NOOSFERO_CONF['addthis_enabled']
+      '<script src="http://s7.addthis.com/js/152/addthis_widget.js"></script>'
+    end
+  end
+
 end
 

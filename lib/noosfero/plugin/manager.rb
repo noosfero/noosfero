@@ -23,7 +23,7 @@ class Noosfero::Plugin::Manager
     dispatch_without_flatten(event, *args).flatten
   end
 
-  def dispatch_plugins(event, *args)
+  def fetch_plugins(event, *args)
     map { |plugin| plugin.class if plugin.send(event, *args) }.compact.flatten
   end
 
@@ -33,7 +33,7 @@ class Noosfero::Plugin::Manager
 
   alias :dispatch_scopes :dispatch_without_flatten
 
-  def first(event, *args)
+  def dispatch_first(event, *args)
     result = nil
     each do |plugin|
       result = plugin.send(event, *args)
@@ -42,7 +42,7 @@ class Noosfero::Plugin::Manager
     result
   end
 
-  def first_plugin(event, *args)
+  def fetch_first_plugin(event, *args)
     result = nil
     each do |plugin|
       if plugin.send(event, *args)
@@ -53,11 +53,38 @@ class Noosfero::Plugin::Manager
     result
   end
 
+  def pipeline(event, *args)
+    each do |plugin|
+      result = plugin.send(event, *args)
+      result = result.kind_of?(Array) ? result : [result]
+      raise ArgumentError, "Pipeline broken by #{plugin.class.name} on #{event} with #{result.length} arguments instead of #{args.length}." if result.length != args.length
+      args = result
+    end
+    args.length < 2 ? args.first : args
+  end
+
+  def filter(property, data)
+    inject(data) {|data, plugin| data = plugin.send(property, data)}
+  end
+
+  def parse_macro(macro_name, macro, source = nil)
+    macro_instance = enabled_macros[macro_name] || default_macro
+    macro_instance.convert(macro, source)
+  end
+
   def enabled_plugins
     @enabled_plugins ||= (Noosfero::Plugin.all & environment.enabled_plugins).map do |plugin|
-      p = plugin.constantize.new
-      p.context = context
-      p
+      plugin.constantize.new(context)
+    end
+  end
+
+  def default_macro
+    @default_macro ||= Noosfero::Plugin::Macro.new(context)
+  end
+
+  def enabled_macros
+    @enabled_macros ||= dispatch(:macros).inject({}) do |memo, macro|
+      memo.merge!(macro.identifier => macro.new(context))
     end
   end
 

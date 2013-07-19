@@ -40,7 +40,7 @@ class CustomFormsPluginMyprofileControllerTest < ActionController::TestCase
   should 'create a form' do
     format = '%Y-%m-%d %H:%M'
     begining = Time.now.strftime(format)
-    ending = (Time.now + 1.day).strftime('%Y-%m-%d %H:%M')
+    ending = (Time.now + 1.day).strftime(format)
     assert_difference CustomFormsPlugin::Form, :count, 1 do
       post :create, :profile => profile.identifier,
         :form => {
@@ -90,12 +90,42 @@ class CustomFormsPluginMyprofileControllerTest < ActionController::TestCase
     assert f2.kind_of?(CustomFormsPlugin::SelectField)
   end
 
+  should 'create fields in the order they are sent' do
+    format = '%Y-%m-%d %H:%M'
+    num_fields = 10
+    begining = Time.now.strftime(format)
+    ending = (Time.now + 1.day).strftime(format)
+    fields = {}
+    num_fields.times do |i|
+      fields[i.to_s] = {
+        :name => i.to_s,
+        :default_value => '',
+        :type => 'text_field'
+      }
+    end
+    assert_difference CustomFormsPlugin::Form, :count, 1 do
+      post :create, :profile => profile.identifier,
+        :form => {
+        :name => 'My Form',
+        :access => 'logged',
+        :begining => begining,
+        :ending => ending,
+        :description => 'Cool form'},
+        :fields => fields
+    end
+    form = CustomFormsPlugin::Form.find_by_name('My Form')
+    assert_equal num_fields, form.fields.count
+    form.fields.find_each do |f|
+      assert_equal f.position, f.name.to_i
+    end
+  end
+
   should 'edit a form' do
     form = CustomFormsPlugin::Form.create!(:profile => profile, :name => 'Free Software')
     field = CustomFormsPlugin::TextField.create!(:form => form, :name => 'License')
     format = '%Y-%m-%d %H:%M'
     begining = Time.now.strftime(format)
-    ending = (Time.now + 1.day).strftime('%Y-%m-%d %H:%M')
+    ending = (Time.now + 1.day).strftime(format)
 
     post :edit, :profile => profile.identifier, :id => form.id,
       :form => {:name => 'My Form', :access => 'logged', :begining => begining, :ending => ending, :description => 'Cool form'},

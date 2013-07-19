@@ -17,6 +17,7 @@ class Comment < ActiveRecord::Base
   belongs_to :reply_of, :class_name => 'Comment', :foreign_key => 'reply_of_id'
 
   scope :without_spam, :conditions => ['spam IS NULL OR spam = ?', false]
+  scope :without_reply, :conditions => ['reply_of_id IS NULL']
   scope :spam, :conditions => ['spam = ?', true]
 
   # unauthenticated authors:
@@ -34,7 +35,9 @@ class Comment < ActiveRecord::Base
 
   xss_terminate :only => [ :body, :title, :name ], :on => 'validation'
 
-  delegate :environment, :to => :source
+  def comment_root
+    (reply_of && reply_of.comment_root) || self
+  end
 
   def action_tracker_target
     self.article.profile
@@ -150,21 +153,6 @@ class Comment < ActiveRecord::Base
     @replies = comments_list
   end
 
-  def self.as_thread
-    result = {}
-    root = []
-    order(:id).each do |c|
-      c.replies = []
-      result[c.id] ||= c
-      if result[c.reply_of_id]
-        result[c.reply_of_id].replies << c
-      else
-        root << c
-      end
-    end
-    root
-  end
-
   include ApplicationHelper
   def reported_version(options = {})
     comment = self
@@ -246,6 +234,24 @@ class Comment < ActiveRecord::Base
 
   def marked_as_ham
     plugins.dispatch(:comment_marked_as_ham, self)
+  end
+
+  def need_moderation?
+    article.moderate_comments? && (author.nil? || article.author != author)
+  end
+
+  def can_be_destroyed_by?(user)
+    return if user.nil?
+    user == author || user == profile || user.has_permission?(:moderate_comments, profile)
+  end
+
+  def can_be_marked_as_spam_by?(user)
+    return if user.nil?
+    user == profile || user.has_permission?(:moderate_comments, profile)
+  end
+
+  def can_be_updated_by?(user)
+    user.present? && user == author
   end
 
 end

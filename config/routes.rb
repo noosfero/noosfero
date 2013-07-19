@@ -76,6 +76,9 @@ Noosfero::Application.routes.draw do
   # profile search
   match 'profile/:profile/search', :controller => 'profile_search', :action => 'index', :profile => /#{Noosfero.identifier_format}/
 
+  # comments
+  map.comment 'profile/:profile/comment/:action/:id', :controller => 'comment', :profile => /#{Noosfero.identifier_format}/
+
   # public profile information
   match 'profile/:profile(/:action(/:id))', :controller => 'profile', :action => 'index', :id => /[^\/]*/, :profile => /#{Noosfero.identifier_format}/
 
@@ -120,8 +123,6 @@ Noosfero::Application.routes.draw do
 
   # cache stuff - hack
   match 'public/:action/:id', :controller => 'public'
-
-  match ':profile/edit_comment/:id/*page', :controller => 'content_viewer', :action => 'edit_comment', :profile => /#{Noosfero.identifier_format}/
 
   # match requests for profiles that don't have a custom domain
   match ':profile(/*page)', :controller => 'content_viewer', :action => 'view_page', :profile => /#{Noosfero.identifier_format}/, :constraints => EnvironmentDomainConstraint.new

@@ -83,149 +83,6 @@ class ContentViewerControllerTest < ActionController::TestCase
     assert_equal feed.data, @response.body
   end
 
-  should 'display remove comment button' do
-    profile = create_user('testuser').person
-    article = profile.articles.build(:name => 'test')
-    article.save!
-    comment = article.comments.build(:author => profile, :title => 'a comment', :body => 'lalala')
-    comment.save!
-
-    login_as 'testuser'
-    get :view_page, :profile => 'testuser', :page => [ 'test' ]
-    assert_tag :tag => 'a', :attributes => { :onclick => %r(/testuser/test\?remove_comment=#{comment.id}.quot) }
-  end
-
-  should 'display remove comment button with param view when image' do
-    profile = create_user('testuser').person
-
-    image = UploadedFile.create!(:profile => profile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
-    image.save!
-
-    comment = image.comments.build(:author => profile, :title => 'a comment', :body => 'lalala')
-    comment.save!
-
-    login_as 'testuser'
-    get :view_page, :profile => 'testuser', :page => [ image.filename ], :view => true
-    assert_tag :tag => 'a', :attributes => { :onclick => %r(/testuser/#{image.filename}\?remove_comment=#{comment.id}.*amp;view=true.quot) }
-end
-
-
-  should 'not add unneeded params for remove comment button' do
-    profile = create_user('testuser').person
-    article = profile.articles.build(:name => 'test')
-    article.save!
-    comment = article.comments.build(:author => profile, :title => 'a comment', :body => 'lalala')
-    comment.save!
-
-    login_as 'testuser'
-    get :view_page, :profile => 'testuser', :page => [ 'test' ], :random_param => 'bli'
-    assert_tag :tag => 'a', :attributes => { :onclick => %r(/testuser/test\?remove_comment=#{comment.id.to_s}.quot) }
-  end
-
-  should 'be able to remove comment' do
-    profile = create_user('testuser').person
-    article = profile.articles.build(:name => 'test')
-    article.save!
-    comment = article.comments.build(:author => profile, :title => 'a comment', :body => 'lalala')
-    comment.save!
-
-    login_as 'testuser'
-    assert_difference Comment, :count, -1 do
-      post :view_page, :profile => profile.identifier, :page => [ 'test' ], :remove_comment => comment.id
-      assert_redirected_to :controller => 'content_viewer', :profile => 'testuser', :action => 'view_page', :page => [ 'test' ]
-    end
-  end
-
-  should "not be able to remove other people's comments if not moderator or admin" do
-    create_user('normaluser')
-    profile = create_user('testuser').person
-    article = profile.articles.build(:name => 'test')
-    article.save!
-
-    commenter = create_user('otheruser').person
-    comment = article.comments.build(:author => commenter, :title => 'a comment', :body => 'lalala')
-    comment.save!
-
-    login_as 'normaluser' # normaluser cannot remove other people's comments
-    assert_no_difference Comment, :count do
-      post :view_page, :profile => profile.identifier, :page => [ 'test' ], :remove_comment => comment.id
-      assert_response :redirect
-    end
-  end
-
-  should 'be able to remove comments on their articles' do
-    profile = create_user('testuser').person
-    article = profile.articles.build(:name => 'test')
-    article.save!
-
-    commenter = create_user('otheruser').person
-    comment = article.comments.build(:author => commenter, :title => 'a comment', :body => 'lalala')
-    comment.save!
-
-    login_as 'testuser' # testuser must be able to remove comments in his articles
-    assert_difference Comment, :count, -1 do
-      post :view_page, :profile => profile.identifier, :page => [ 'test' ], :remove_comment => comment.id
-      assert_response :redirect
-    end
-  end
-
-  should 'be able to remove comments of their images' do
-    profile = create_user('testuser').person
-
-    image = UploadedFile.create!(:profile => profile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
-    image.save!
-
-    commenter = create_user('otheruser').person
-    comment = image.comments.build(:author => commenter, :title => 'a comment', :body => 'lalala')
-    comment.save!
-
-    login_as 'testuser' # testuser must be able to remove comments in his articles
-    assert_difference Comment, :count, -1 do
-      post :view_page, :profile => profile.identifier, :page => [ image.filename ], :remove_comment => comment.id, :view => true
-
-      assert_response :redirect
-      assert_redirected_to :controller => 'content_viewer', :action => 'view_page', :profile => profile.identifier, :page => image.explode_path, :view => true
-    end
-  end
-
-  should 'be able to remove comments if is moderator' do
-    commenter = create_user('commenter_user').person
-    community = Community.create!(:name => 'Community test', :identifier => 'community-test')
-    article = community.articles.create!(:name => 'test')
-    comment = article.comments.create!(:author => commenter, :title => 'a comment', :body => 'lalala')
-    community.add_moderator(profile)
-    login_as profile.identifier
-    assert_difference Comment, :count, -1 do
-      post :view_page, :profile => community.identifier, :page => [ 'test' ], :remove_comment => comment.id
-      assert_response :redirect
-    end
-  end
-
-  should 'filter html content from body' do
-    login_as @profile.identifier
-    page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
-    post :view_page, :profile => @profile.identifier, :page => [ 'myarticle' ],
-      :comment => { :title => 'html comment', :body => "this is a <strong id='html_test_comment'>html comment</strong>" }
-    assert_no_tag :tag => 'strong', :attributes => { :id => 'html_test_comment' }
-  end
-
-  should 'filter html content from title' do
-    login_as @profile.identifier
-    page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
-    post :view_page, :profile => @profile.identifier, :page => [ 'myarticle' ],
-      :comment => { :title => "html <strong id='html_test_comment'>comment</strong>", :body => "this is a comment" }
-    assert_no_tag :tag => 'strong', :attributes => { :id => 'html_test_comment' }
-  end
-
-  should "point to article's url in comment form" do
-    page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
-    Article.any_instance.stubs(:url).returns({:host => 'www.mysite.com', :controller => 'content_viewer', :action => 'view_page', :profile => 'person', :page => ['article']})
-
-    get :view_page, :profile => profile.identifier, :page => [ 'myarticle' ]
-
-    assert_tag :tag => 'form', :attributes => { :class => /^comment_form/, :action => '/person/article' }
-  end
-
   should "display current article's tags" do
     page = profile.articles.create!(:name => 'myarticle', :body => 'test article', :tag_list => 'tag1, tag2')
 
@@ -427,14 +284,6 @@ end
     get :view_page, :profile => 'test_profile', :page => [ 'my-intranet' ]
 
     assert_template 'view_page'
-  end
-
-  should 'not be able to post comment if article do not accept it' do
-    page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text', :accept_comments => false)
-
-    assert_no_difference Comment, :count do
-      post :view_page, :profile => profile.identifier, :page => [ 'myarticle' ], :comment => { :title => 'crap!', :body => 'I think that this article is crap', :name => 'Anonymous coward', :email => 'coward@anonymous.com' }
-    end
   end
 
   should 'list comments if article has them, even if new comments are not allowed' do
@@ -719,15 +568,6 @@ end
     assert_tag :tag => 'a', :content => 'Upload files', :attributes => {:href => /parent_id=#{folder.id}/}
   end
 
-  should 'post comment in a image' do
-    login_as(profile.identifier)
-    image = UploadedFile.create!(:profile => profile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
-    comment_count = image.comments.count
-    post :view_page, :profile => profile.identifier, :page => image.explode_path, :view => true
-    assert_equal comment_count, image.reload.comments.count
-    assert_template 'view_page'
-  end
-
   should 'render slideshow template' do
     f = Folder.create!(:name => 'gallery', :profile => profile)
     get :view_page, :profile => profile.identifier, :page => f.explode_path, :slideshow => true
@@ -869,17 +709,6 @@ end
     assert_tag :tag => 'a', :content => 'New article'
   end
 
-  should 'touch article after adding a comment' do
-    yesterday = Time.now.yesterday
-    Article.record_timestamps = false
-    page = profile.articles.create(:name => 'myarticle', :body => 'the body of the text', :created_at => yesterday, :updated_at => yesterday)
-    Article.record_timestamps = true
-
-    login_as('ze')
-    post :view_page, :profile => profile.identifier, :page => [ 'myarticle' ], :comment => { :title => 'crap!', :body => 'I think that this article is crap' }
-    assert_not_equal yesterday, assigns(:page).updated_at
-  end
-
   should 'display message if user was removed' do
     article = profile.articles.create(:name => 'comment test')
     to_be_removed = create_user('removed_user').person
@@ -889,13 +718,6 @@ end
     get :view_page, :profile => profile.identifier, :page => article.explode_path
 
     assert_tag :tag => 'span', :content => '(removed user)', :attributes => {:class => 'comment-user-status icon-user-removed'}
-  end
-
-  should 'show comment form opened on error' do
-    login_as @profile.identifier
-    page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
-    post :view_page, :profile => @profile.identifier, :page => [ 'myarticle' ], :comment => { :title => '', :body => '' }, :confirm => 'true'
-    assert_tag :tag => 'div', :attributes => { :class => 'post_comment_box opened' }
   end
 
   should 'show only first paragraph of blog posts if visualization_format is short' do
@@ -1188,22 +1010,14 @@ end
     assert_equal [es_article], assigns(:posts)
   end
 
-  should 'be redirect after posting a comment' do
-    login_as @profile.identifier
-    page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
-    post :view_page, :profile => @profile.identifier, :page => [ 'myarticle' ], :comment => { :title => 'title', :body => 'body' }, :confirm => 'true'
-    assert_redirected_to :controller => 'content_viewer', :action => 'view_page', :profile => @profile.identifier, :page => page.explode_path
-  end
-
   should 'display reply to comment button if authenticated' do
     profile = create_user('testuser').person
     article = profile.articles.build(:name => 'test')
     article.save!
-    comment = article.comments.build(:author => profile, :title => 'a comment', :body => 'lalala')
-    comment.save!
+    comment = Comment.create!(:author => profile, :title => 'a comment', :body => 'lalala', :article => article)
     login_as 'testuser'
     get :view_page, :profile => 'testuser', :page => [ 'test' ]
-    assert_tag :tag => 'a', :attributes => { :class => /comment-footer-link/ }, :content => 'Reply'
+    assert_tag :tag => 'a', :attributes => { :class => /comment-actions-reply/ }
   end
 
   should 'display reply to comment button if not authenticated' do
@@ -1213,7 +1027,7 @@ end
     comment = article.comments.build(:author => profile, :title => 'a comment', :body => 'lalala')
     comment.save!
     get :view_page, :profile => 'testuser', :page => [ 'test' ]
-    assert_tag :tag => 'a', :attributes => { :class => /comment-footer-link/ }, :content => 'Reply'
+    assert_tag :tag => 'a', :attributes => { :class => /comment-actions-reply/ }
   end
 
   should 'display replies if comment has replies' do
@@ -1236,34 +1050,6 @@ end
     comment.save!
     get :view_page, :profile => 'testuser', :page => [ 'test' ]
     assert_no_tag :tag => 'ul', :attributes => { :class => 'comment-replies' }
-  end
-
-  should 'show reply error' do
-    profile = create_user('testuser').person
-    article = profile.articles.build(:name => 'test')
-    article.save!
-    comment = article.comments.build(:author => profile, :title => 'root', :body => 'root')
-    comment.save!
-    login_as 'testuser'
-    post :view_page, :profile => profile.identifier, :page => ['test'], :comment => { :title => '', :body => '', :reply_of_id => comment.id }, :confirm => 'true'
-    assert_tag :tag => 'div', :attributes => { :class => /comment_reply/ }, :descendant => {:tag => 'div', :attributes => {:class => 'errorExplanation'} }
-    assert_no_tag :tag => 'div', :attributes => { :id => 'page-comment-form' }, :descendant => {:tag => 'div', :attributes => {:class => 'errorExplanation'} }
-    assert_tag :tag => 'div', :attributes => { :id => 'page-comment-form' }, :descendant => { :tag => 'div', :attributes => { :class => /post_comment_box closed/ } }
-  end
-
-  should 'show comment error' do
-    profile = create_user('testuser').person
-    article = profile.articles.build(:name => 'test')
-    article.save!
-    comment1 = article.comments.build(:author => profile, :title => 'root', :body => 'root')
-    comment1.save!
-    comment2 = article.comments.build(:author => profile, :title => 'root', :body => 'root', :reply_of_id => comment1.id)
-    comment2.save!
-    login_as 'testuser'
-    post :view_page, :profile => profile.identifier, :page => ['test'], :comment => { :title => '', :body => '' }, :confirm => 'true'
-    assert_no_tag :tag => 'div', :attributes => { :class => /comment_reply/ }, :descendant => {:tag => 'div', :attributes => {:class => 'errorExplanation'} }
-    assert_tag :tag => 'div', :attributes => { :id => 'page-comment-form' }, :descendant => {:tag => 'div', :attributes => {:class => 'errorExplanation'} }
-    assert_tag :tag => 'div', :attributes => { :id => 'page-comment-form' }, :descendant => { :tag => 'div', :attributes => { :class => /post_comment_box opened/ } }
   end
 
   should 'add an zero width space every 4 caracters of comment urls' do
@@ -1298,13 +1084,13 @@ end
     article.save!
     comment1 = article.comments.build(:author => profile, :title => 'hi', :body => 'hello')
     comment1.save!
-    comment2 = article.comments.build(:author => profile, :title => 'hi', :body => 'hello', :reply_of_id => comment1.id)
+    comment2 = article.comments.build(:author => profile, :title => 'hi', :body => 'hello')
     comment2.save!
     get :view_page, :profile => 'testuser', :page => [ 'test' ]
     assert_tag :tag => 'a', :attributes => { :id => 'top-post-comment-button' }
   end
 
-  should 'store number of comments' do
+  should 'not show a post comment button on top if there are one comment and one reply' do
     profile = create_user('testuser').person
     article = profile.articles.build(:name => 'test')
     article.save!
@@ -1313,7 +1099,7 @@ end
     comment2 = article.comments.build(:author => profile, :title => 'hi', :body => 'hello', :reply_of_id => comment1.id)
     comment2.save!
     get :view_page, :profile => 'testuser', :page => [ 'test' ]
-    assert_equal 2, assigns(:comments_count)
+    assert_no_tag :tag => 'a', :attributes => { :id => 'top-post-comment-button' }
   end
 
   should 'suggest article link displayed into article-actions div' do
@@ -1344,60 +1130,6 @@ end
     blog = fast_create(Blog, :profile_id => profile.id, :path => 'blog')
     get :view_page, :profile => profile.identifier, :page => ['blog']
     assert_no_tag :tag => 'body', :attributes => { :class => /profile-homepage/ }
-  end
-
-  should 'ask for captcha if user not logged' do
-    article = profile.articles.build(:name => 'test')
-    article.save!
-
-    @controller.stubs(:verify_recaptcha).returns(false)
-    post :view_page, :profile => profile.identifier, :page => ['test'], :comment => {:body => "Some comment...", :author => profile}, :confirm => 'true'
-    assert_not_nil assigns(:comment)
-
-    @controller.stubs(:verify_recaptcha).returns(true)
-    post :view_page, :profile => profile.identifier, :page => ['test'], :comment => {:body => "Some comment...", :author => profile}, :confirm => 'true'
-    assert_nil assigns(:comment)
-  end
-
-  should 'ask for captcha if environment defines even with logged user' do
-    article = profile.articles.build(:name => 'test')
-    article.save!
-    login_as('testinguser')
-    @controller.stubs(:verify_recaptcha).returns(false)
-
-    post :view_page, :profile => profile.identifier, :page => ['test'], :comment => {:body => "Some comment...", :author => profile}, :confirm => 'true'
-    assert_nil assigns(:comment)
-
-    environment.enable('captcha_for_logged_users')
-    environment.save!
-
-    post :view_page, :profile => profile.identifier, :page => ['test'], :comment => {:body => "Some comment...", :author => profile}, :confirm => 'true'
-    assert_not_nil assigns(:comment)
-  end
-
-  should 'store IP address, user agent and referrer for comments' do
-    page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
-    @request.stubs(:remote_ip).returns('33.44.55.66')
-    @request.stubs(:referrer).returns('http://example.com')
-    @request.stubs(:user_agent).returns('MyBrowser')
-    post :view_page, :profile => profile.identifier, :page => [ 'myarticle' ], :comment => { :title => 'title', :body => 'body', :name => "Spammer", :email => 'damn@spammer.com' }, :confirm => 'true'
-    comment = Comment.last
-    assert_equal '33.44.55.66', comment.ip_address
-    assert_equal 'MyBrowser', comment.user_agent
-    assert_equal 'http://example.com', comment.referrer
-  end
-
-  should 'not save a comment if a plugin rejects it' do
-    class TestFilterPlugin < Noosfero::Plugin
-      def filter_comment(c)
-        c.reject!
-      end
-    end
-    Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([TestFilterPlugin.new])
-    page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
-    assert_no_difference Comment, :count do
-      post :view_page, :profile => profile.identifier, :page => [ 'myarticle' ], :comment => { :title => 'title', :body => 'body', :name => "Spammer", :email => 'damn@spammer.com' }, :confirm => 'true'
-    end
   end
 
   should 'not display article actions button if any plugins says so' do
@@ -1446,60 +1178,77 @@ end
 
   should 'not display comments marked as spam' do
     article = fast_create(Article, :profile_id => profile.id)
-    ham = fast_create(Comment, :source_id => article.id, :source_type => 'Article')
-    spam = fast_create(Comment, :source_id => article.id, :source_type => 'Article', :spam => true)
+    ham = fast_create(Comment, :source_id => article.id, :source_type => 'Article', :title => 'some content')
+    spam = fast_create(Comment, :source_id => article.id, :source_type => 'Article', :spam => true, :title => 'this is a spam')
 
     get 'view_page', :profile => profile.identifier, :page => article.path.split('/')
-    assert_equal 1, assigns(:comments_count)
+    assert_no_tag :tag => 'h4', :content => /spam/
   end
 
-  should 'be able to mark comments as spam' do
-    login_as profile.identifier
+  should 'add extra content on comment form from plugins' do
+    class Plugin1 < Noosfero::Plugin
+      def comment_form_extra_contents(args)
+        lambda {
+          hidden_field_tag('comment[some_field_id]', 1)
+         }
+      end
+    end
+    class Plugin2 < Noosfero::Plugin
+      def comment_form_extra_contents(args)
+        lambda {
+          hidden_field_tag('comment[another_field_id]', 1)
+         }
+      end
+    end
+
+    Environment.default.enable_plugin(Plugin1.name)
+    Environment.default.enable_plugin(Plugin2.name)
+
+    page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
+
+    get :view_page, :profile => profile.identifier, :page => [ 'myarticle' ]
+
+    assert_tag :tag => 'input', :attributes => {:name => 'comment[some_field_id]', :type => 'hidden'}
+    assert_tag :tag => 'input', :attributes => {:name => 'comment[another_field_id]', :type => 'hidden'}
+  end
+
+  should 'filter comments with scope defined by the plugins' do
+    class Plugin1 < Noosfero::Plugin
+      def unavailable_comments(scope)
+        scope.where(:user_agent => 'Jack')
+      end
+    end
+
+    class Plugin2 < Noosfero::Plugin
+      def unavailable_comments(scope)
+        scope.where(:referrer => 'kernel.org')
+      end
+    end
+
+    Environment.default.enable_plugin(Plugin1)
+    Environment.default.enable_plugin(Plugin2)
+    profile = fast_create(Profile)
     article = fast_create(Article, :profile_id => profile.id)
-    spam = fast_create(Comment, :name => 'foo', :email => 'foo@example.com', :source_id => article.id, :source_type => 'Article')
+    c1 = fast_create(Comment, :source_id => article.id, :user_agent => 'Jack', :referrer => 'kernel.org')
+    c2 = fast_create(Comment, :source_id => article.id, :user_agent => 'Rose', :referrer => 'kernel.org')
+    c3 = fast_create(Comment, :source_id => article.id, :user_agent => 'Jack', :referrer => 'google.com')
 
-    post 'view_page', :profile => profile.identifier, :page => article.path.split('/'), :mark_comment_as_spam => spam.id
+    get :view_page, :profile => profile.identifier, :page => [ article.path ]
 
-    spam.reload
-    assert spam.spam?
+    assert_includes assigns(:comments), c1
+    assert_not_includes assigns(:comments), c2
+    assert_not_includes assigns(:comments), c3
   end
 
-  should 'be able to edit a comment' do
-    login_as profile.identifier
-    page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text', :accept_comments => false)
-    comment = fast_create(Comment, :body => 'Original comment', :author_id => profile.id, :source_id => page.id, :source_type => 'Article')
+  should 'display pagination links of comments' do
+    article = fast_create(Article, :profile_id => profile.id)
+    for n in 1..15
+      article.comments.create!(:author => profile, :title => "some title #{n}", :body => 'some body #{n}')
+    end
+    assert_equal 15, article.comments.count
 
-    post :edit_comment, :id => comment.id, :profile => profile.identifier, :page => [ 'myarticle' ], :comment => { :body => 'Comment edited' }
-    assert_equal 'Comment edited', Comment.find(comment.id).body
-  end
-
-  should 'edit comment from a page' do
-    login_as profile.identifier
-    page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
-    comment = fast_create(Comment, :body => 'Original comment', :author_id => profile.id, :source_id => page.id, :source_type => 'Article')
-
-    get :edit_comment, :id => comment.id, :profile => profile.identifier, :page => [ 'myarticle' ], :comment => { :body => 'Comment edited' }
-    assert_tag :tag => 'h1', :content => 'Edit comment'
-  end
-
-  should 'not edit comment from other page' do
-    login_as profile.identifier
-    page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
-    comment = fast_create(Comment, :body => 'Original comment', :author_id => profile.id, :source_id => page.id, :source_type => 'Article')
-
-    other_page = profile.articles.create!(:name => 'my other article', :body => 'the body of the text')
-    comment_on_other_page = fast_create(Comment, :body => 'Comment on other article', :author_id => profile.id, :source_id => other_page.id, :source_type => 'Article')
-
-    get :edit_comment, :id => comment_on_other_page.id, :profile => profile.identifier, :page => [ 'myarticle' ], :comment => { :body => 'Comment edited' }
-    assert_redirected_to page.url
-  end
-
-  should 'not crash on edit comment if comment does not exist' do
-    login_as profile.identifier
-    page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
-
-    get :edit_comment, :id => 1000, :profile => profile.identifier, :page => [ 'myarticle' ], :comment => { :body => 'Comment edited' }
-    assert_response 404
-  end
+    get 'view_page', :profile => profile.identifier, :page => article.path.split('/')
+    assert_tag :tag => 'a', :attributes => { :href => "/#{profile.identifier}/#{article.path}?comment_page=2", :rel => 'next' }
+  end 
 
 end

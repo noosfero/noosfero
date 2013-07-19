@@ -103,14 +103,17 @@ module CustomFormsPlugin::Helper
 
   def build_answers(submission, form)
     answers = []
-    submission.each do |slug, value|
-      field = form.fields.select {|field| field.slug==slug}.first
-      if value.kind_of?(String)
-        final_value = value
-      elsif value.kind_of?(Array)
-        final_value = value.join(',')
-      elsif value.kind_of?(Hash)
-        final_value = value.map {|option, present| present == '1' ? option : nil}.compact.join(',')
+    form.fields.each do |field|
+      final_value = ''
+      if submission.has_key?(field.slug)
+        value = submission[field.slug]
+        if value.kind_of?(String)
+          final_value = value
+        elsif value.kind_of?(Array)
+          final_value = value.join(',')
+        elsif value.kind_of?(Hash)
+          final_value = value.map {|option, present| present == '1' ? option : nil}.compact.join(',')
+        end
       end
       answers << CustomFormsPlugin::Answer.new(:field => field, :value => final_value)
     end

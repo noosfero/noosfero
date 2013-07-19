@@ -15,6 +15,10 @@ class LayoutTemplate
     @id = id
   end
 
+  def name
+    @config['name']
+  end
+
   def title
     @config['title']
   end

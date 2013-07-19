@@ -234,6 +234,14 @@ class EventTest < ActiveSupport::TestCase
     assert_equal "<strong> Address <strong>", event.address
   end
 
+  should 'not filter & on link field' do
+    event = Event.new
+    event.link = 'myevent.com/?param1=value&param2=value2'
+    event.valid?
+
+    assert_equal "http://myevent.com/?param1=value&param2=value2", event.link
+  end
+
   should 'escape malformed html tags' do
     event = Event.new
     event.body = "<h1<< Description >>/h1>"

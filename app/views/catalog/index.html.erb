@@ -3,26 +3,28 @@
 
 <h1><%= _('Products/Services') %></h1>
 
-<%= breadcrumb(@category) if params[:level] %>
+<% if @categories %>
+  <%= breadcrumb(@category) if params[:level] %>
 
-<div class='l-sidebar-left-bar'>
-  <ul>
-    <%= content_tag('li', link_to(_('Homepage'), profile.url), :class => 'catalog-categories-link') %>
-    <%= content_tag('li', link_to(_('Catalog start'), profile.catalog_url), :class => 'catalog-categories-link') %>
-    <% if @categories.present? %>
-      <% @categories.each do |category| %>
-        <%= category_link(category) %>
-        <%= category_sub_links(category) %>
+  <div class='l-sidebar-left-bar'>
+    <ul>
+      <%= content_tag('li', link_to(_('Homepage'), profile.url), :class => 'catalog-categories-link') %>
+      <%= content_tag('li', link_to(_('Catalog start'), profile.catalog_url), :class => 'catalog-categories-link') %>
+      <% if @categories.present? %>
+        <% @categories.each do |category| %>
+          <%= category_link(category) %>
+          <%= category_sub_links(category) %>
+        <% end %>
+      <% elsif @category.present? %>
+        <%= content_tag('li', _('There are no sub-categories for %s') % @category.name, :id => 'catalog-categories-notice') %>
+      <% else %>
+        <%= content_tag('li', _('There are no categories available.'), :id => 'catalog-categories-notice') %>
       <% end %>
-    <% elsif @category.present? %>
-      <%= content_tag('li', _('There are no sub-categories for %s') % @category.name, :id => 'catalog-categories-notice') %>
-    <% else %>
-      <%= content_tag('li', _('There are no categories available.'), :id => 'catalog-categories-notice') %>
-    <% end %>
-  </ul>
-</div>
+    </ul>
+  </div>
+<% end %>
 
-<ul id="product-list" class="l-sidebar-left-content">
+<ul id="product-list" class="<%="l-sidebar-left-content" if @categories %>">
   <% @products.each do |product| %>
     <% extra_content = @plugins.dispatch(:catalog_item_extras, product).collect { |content| instance_eval(&content) } %>
     <% extra_content_list = @plugins.dispatch(:catalog_list_item_extras, product).collect { |content| instance_eval(&content) } %>

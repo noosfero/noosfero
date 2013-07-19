@@ -8,6 +8,12 @@
 
 <%= render :partial => 'confirm_unfollow' %>
 
+<script type="text/javascript">
+    window.ONE_COMMENT = "<%= _('One comment') %>";
+    window.COMMENT_PLURAL = "<%= _('comments') %>";
+    window.NO_COMMENT_YET = "<%= _('No comments yet') %>";
+</script>
+
 <div id="article-toolbar"></div>
 
 <script type="text/javascript">
@@ -60,7 +66,6 @@
   addthis_options = '<%= escape_javascript( NOOSFERO_CONF['addthis_options'] ) %>';
 </script>
 <a href="http://www.addthis.com/bookmark.php" id="bt_addThis" target="_blank" onmouseover="return addthis_open(this, '', '[URL]')" onmouseout="addthis_close()" onclick="return addthis_sendto()"><%= addthis_image_tag %></a>
-<script type="text/javascript" src="http://s7.addthis.com/js/152/addthis_widget.js"></script>
 </div>
 <% end %>
 
@@ -85,20 +90,21 @@
 
   <% if @page.accept_comments? || @comments_count > 0 %>
     <h3 <%= 'class="no-comments-yet"' if @comments_count == 0 %>>
-      <%= number_of_comments(@page) %>
+      <%= display_number_of_comments(@comments_count) %>
     </h3>
   <% end %>
 
-  <% if @page.accept_comments? && @comments_count > 1 %>
-    <%= link_to(_('Post a comment'), '#', :class => 'display-comment-form', :id => 'top-post-comment-button') %>
+  <% if @page.accept_comments? && @comments.count > 1 %>
+    <%= link_to(_('Post a comment'), '#', :class => 'display-comment-form', :id => 'top-post-comment-button', :onclick => "jQuery('#page-comment-form .display-comment-form').first().click();") %>
   <% end %>
 
   <ul class="article-comments-list">
-    <%= render :partial => 'comment', :collection => @comments %>
+    <%= render :partial => 'comment/comment', :collection => @comments %>
+    <%= pagination_links @comments, :param_name => 'comment_page' %>
   </ul>
 
   <% if @page.accept_comments? %>
-    <div id="page-comment-form"><%= render :partial => 'comment_form', :locals => {:url => url_for(@page.view_url.merge({:only_path => true})), :display_link => true, :cancel_triggers_hide => true}%></div>
+    <div id='page-comment-form' class='page-comment-form'><%= render :partial => 'comment/comment_form', :locals =>{:comment => Comment.new, :url => {:controller => :comment, :action => :create}, :display_link => true, :cancel_triggers_hide => true}%></div>
   <% end %>
 </div><!-- end class="comments" -->
 

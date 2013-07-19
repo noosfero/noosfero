@@ -32,6 +32,8 @@ module ApplicationHelper
 
   include AccountHelper
 
+  include CommentHelper
+
   include BlogHelper
 
   include ContentViewerHelper
@@ -956,10 +958,7 @@ module ApplicationHelper
     options.merge!(:page => params[:npage])
     content = article.to_html(options)
     content = content.kind_of?(Proc) ? self.instance_eval(&content).html_safe : content.html_safe
-    @plugins && @plugins.each do |plugin|
-      content = plugin.parse_content(content)
-    end
-    content
+    filter_html(content, article)
   end
 
   # Please, use link_to by default!
@@ -1357,10 +1356,7 @@ module ApplicationHelper
     options[:on_ready] ||= 'null'
 
     result = text_field_tag(name, nil, text_field_options.merge(html_options.merge({:id => element_id})))
-    result +=
-    "
-    <script type='text/javascript'>
-      jQuery('##{element_id}')
+    result += javascript_tag("jQuery('##{element_id}')
       .tokenInput('#{url_for(search_action)}', {
         minChars: #{options[:min_chars].to_json},
         prePopulate: #{options[:pre_populate].to_json},
@@ -1376,16 +1372,15 @@ module ApplicationHelper
         onAdd: #{options[:on_add]},
         onDelete: #{options[:on_delete]},
         onReady: #{options[:on_ready]},
-      })
-    "
-    result += options[:focus] ? ".focus();" : ";"
+      });
+    ")
+    result += javascript_tag("jQuery('##{element_id}').focus();") if options[:focus]
     if options[:avoid_enter]
-      result += "jQuery('#token-input-#{element_id}')
+      result += javascript_tag("jQuery('#token-input-#{element_id}')
                     .live('keydown', function(event){
                     if(event.keyCode == '13') return false;
-                  });"
+                    });")
     end
-    result += "</script>"
     result
   end
 
@@ -1396,12 +1391,12 @@ module ApplicationHelper
   end
 
   def expirable_button(content, action, text, url, options = {})
-    options[:class] = "button with-text icon-#{action.to_s}"
+    options[:class] = ["button with-text icon-#{action.to_s}", options[:class]].compact.join(' ')
     expirable_content_reference content, action, text, url, options
   end
 
   def expirable_comment_link(content, action, text, url, options = {})
-    options[:class] = "comment-footer comment-footer-link comment-footer-hide"
+    options[:class] = ["comment-footer comment-footer-link comment-footer-hide", options[:class]].compact.join(' ')
     expirable_content_reference content, action, text, url, options
   end
 
@@ -1438,6 +1433,29 @@ module ApplicationHelper
       @message = _('The contents in this community is available to members only.')
     end
     @no_design_blocks = true
+  end
+
+  def filter_html(html, source)
+    if @plugins
+      html = convert_macro(html, source)
+      #TODO This parse should be done through the macro infra, but since there
+      #     are old things that do not support it we are keeping this hot spot.
+      html = @plugins.pipeline(:parse_content, html, source).first
+    end
+    html
+  end
+
+  def convert_macro(html, source)
+    doc = Hpricot(html)
+    #TODO This way is more efficient but do not support macro inside of
+    #     macro. You must parse them from the inside-out in order to enable
+    #     that.
+    doc.search('.macro').each do |macro|
+      macro_name = macro['data-macro']
+      result = @plugins.parse_macro(macro_name, macro, source)
+      macro.inner_html = result.kind_of?(Proc) ? self.instance_eval(&result) : result
+    end
+    doc.html
   end
 
   def default_folder_for_image_upload(profile)

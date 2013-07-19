@@ -26,7 +26,8 @@ class AccountController < ApplicationController
 
   # action to perform login to the application
   def login
-    store_location(request.referer) unless session[:return_to]
+    store_location(request.referer) unless params[:return_to] or session[:return_to]
+
     return unless request.post?
 
     self.current_user = plugins_alternative_authentication
@@ -125,7 +126,7 @@ class AccountController < ApplicationController
   def change_password
     if request.post?
       @user = current_user
-      begin 
+      begin
         @user.change_password!(params[:current_password],
                                params[:new_password],
                                params[:new_password_confirmation])
@@ -218,7 +219,7 @@ class AccountController < ApplicationController
     @question = @enterprise.question
     return unless check_answer
     return unless check_acceptance_of_terms
-    
+
     activation = load_enterprise_activation
     if activation && user
       activation.requestor = user
@@ -355,7 +356,9 @@ class AccountController < ApplicationController
   end
 
   def go_to_initial_page
-    if environment.enabled?('allow_change_of_redirection_after_login')
+    if params[:return_to]
+      redirect_to params[:return_to]
+    elsif environment.enabled?('allow_change_of_redirection_after_login')
       case user.preferred_login_redirection
         when 'keep_on_same_page'
           redirect_back_or_default(user.admin_url)

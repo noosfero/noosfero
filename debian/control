@@ -10,7 +10,6 @@ Build-Depends:
  ruby-sqlite3,
  rake,
  rails3 (>= 3.2.6-1~),
- openjdk-6-jre,
  ruby-will-paginate,
  tango-icon-theme,
  rcov

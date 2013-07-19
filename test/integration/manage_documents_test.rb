@@ -88,7 +88,7 @@ class ManageDocumentsTest < ActionController::IntegrationTest
 
     assert_response :redirect
     follow_redirect!
-    assert_equal "/myprofile/myuser/cms", path
+    assert_equal "/myuser", path
   
     # the article was actually deleted
     assert_raise ActiveRecord::RecordNotFound do

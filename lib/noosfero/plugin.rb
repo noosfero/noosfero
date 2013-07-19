@@ -4,6 +4,10 @@ class Noosfero::Plugin
 
   attr_accessor :context
 
+  def initialize(context=nil)
+    self.context = context
+  end
+
   class << self
 
     attr_writer :should_load
@@ -151,6 +155,12 @@ class Noosfero::Plugin
     blocks || []
   end
 
+  def macros
+    self.class.constants.map do |constant_name|
+      self.class.const_get(constant_name)
+    end.select {|klass| klass < Noosfero::Plugin::Macro}
+  end
+
   # Here the developer may specify the events to which the plugins can
   # register and must return true or false. The default value must be false.
 
@@ -253,8 +263,8 @@ class Noosfero::Plugin
 
   # -> Parse and possibly make changes of content (article, block, etc) during HTML rendering
   # returns = content as string after parser and changes
-  def parse_content(raw_content)
-    raw_content
+  def parse_content(html, source)
+    [html, source]
   end
 
   # -> Adds links to the admin panel
@@ -288,6 +298,18 @@ class Noosfero::Plugin
   #   end
   #
   def filter_comment(comment)
+  end
+
+  # Define custom logic to filter loaded comments.
+  #
+  # Example:
+  #
+  #   def unavailable_comments(scope)
+  #     scope.without_spams
+  #   end
+  #
+  def unavailable_comments(scope)
+    scope
   end
 
   # This method is called by the CommentHandler background job before sending
@@ -329,6 +351,30 @@ class Noosfero::Plugin
   #   end
   #
   def comment_marked_as_ham(comment)
+  end
+
+  # Adds extra actions for comments
+  # returns = list of hashes or lambda block that creates a list of hashes
+  # example:
+  #
+  #   def comment_actions(comment)
+  #     [{:link => link_to_function(...)}]
+  #   end
+  #
+  def comment_actions(comment)
+    nil
+  end
+
+  # This method is called when the user click on comment actions menu.
+  # returns = list or lambda block that return ids of enabled menu items for comments
+  # example:
+  #
+  #   def check_comment_actions(comment)
+  #     ['#action1', '#action2']
+  #   end
+  #
+  def check_comment_actions(comment)
+    []
   end
 
   # -> Adds fields to the signup form
@@ -402,6 +448,12 @@ class Noosfero::Plugin
   # -> Adds fields to the login form
   # returns = lambda block that creates html code
   def login_extra_contents
+    nil
+  end
+
+  # -> Adds adicional content to comment form
+  # returns = lambda block that creates html code
+  def comment_form_extra_contents(args)
     nil
   end
 
