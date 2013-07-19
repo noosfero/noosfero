@@ -15,8 +15,11 @@ class ProfileImageBlock < Block
   def content(args={})
     block = self
     s = show_name
-    lambda do
-      render :file => 'blocks/profile_image', :locals => { :block => block, :show_name => s}
+    lambda do |object|
+      render(
+        :file => 'blocks/profile_image',
+        :locals => { :block => block, :show_name => s }
+      )
     end
   end
 
