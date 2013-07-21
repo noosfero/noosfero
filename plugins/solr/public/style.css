@@ -1,6 +1,6 @@
 .controller-search #search-column-right .search-field .formfield {
   width: 594px;
-  display: inline-block;
+  display: inline;
 }
 
 #search-column-right .search-customize-options {
