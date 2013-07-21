@@ -1,8 +1,12 @@
 <li class="search-blog article-item">
-  <%= link_to blog.title, blog.view_url, :class => 'search-result-title' %>
+  <div>
+    <%= link_to blog.title, blog.view_url, :class => 'search-result-title' %>
+  </div>
+
   <div class="search-content-first-column">
     <%= render :partial => 'image', :object => blog %>
   </div>
+
   <table class="noborder search-content-second-column">
     <tr class="search-blog-items">
       <td class="search-field-label"><%= _("Last posts") %></td>
