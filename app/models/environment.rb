@@ -273,7 +273,7 @@ class Environment < ActiveRecord::Base
   settings_items :restrict_to_access_control_origins, :default => false
   # Set this according to http://www.w3.org/TR/cors/. Headers are set at every response
   # For multiple domains acts as suggested in http://stackoverflow.com/questions/1653308/access-control-allow-origin-multiple-origin-domains
-  settings_items :access_control_allow_origin, :type => Array
+  settings_items :access_control_allow_origin, :type => Array, :default => []
   settings_items :access_control_allow_methods, :type => String
 
   def news_amount_by_folder=(amount)
