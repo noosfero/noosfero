@@ -1,5 +1,7 @@
 class Block < ActiveRecord::Base
 
+  attr_accessible :title
+
   # to be able to generate HTML
   include ActionView::Helpers::UrlHelper
   include ActionView::Helpers::TagHelper
