@@ -1,5 +1,7 @@
 class Qualifier < ActiveRecord::Base
 
+  attr_accessible :name
+
   SEARCHABLE_FIELDS = {
     :name => 1,
   }

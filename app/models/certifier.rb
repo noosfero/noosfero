@@ -1,5 +1,7 @@
 class Certifier < ActiveRecord::Base
 
+  attr_accessible :name
+
   SEARCHABLE_FIELDS = {
     :name => 10,
     :description => 3,
