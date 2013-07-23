@@ -104,7 +104,7 @@ class Comment < ActiveRecord::Base
   end
 
   delegate :environment, :to => :profile
-  delegate :profile, :to => :source
+  delegate :profile, :to => :source, :allow_nil => true
 
   include Noosfero::Plugin::HotSpot
 
