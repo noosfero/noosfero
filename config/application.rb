@@ -25,6 +25,9 @@ module Noosfero
 
     # Custom directories with classes and modules you want to be autoloadable.
     config.autoload_paths += %W( #{Rails.root}/app/sweepers )
+    config.autoload_paths += Dir["#{config.root}/lib/**/"]
+    config.autoload_paths += Dir["#{config.root}/app/controllers/**/"]
+
 
     # Only load the plugins named here, in the order given (default is alphabetical).
     # :all can be used as a placeholder for all plugins not explicitly named.
@@ -102,8 +105,6 @@ module Noosfero
     config.action_dispatch.session = {
       :key    => '_noosfero_session',
     }
-
-    config.autoload_paths += Dir["#{config.root}/app/controllers/**/"]
 
     Noosfero::Plugin.setup(config)
 
