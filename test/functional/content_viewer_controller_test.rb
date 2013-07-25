@@ -1256,4 +1256,19 @@ class ContentViewerControllerTest < ActionController::TestCase
     assert_tag :tag => 'a', :attributes => { :href => "/#{profile.identifier}/#{article.path}?comment_page=2", :rel => 'next' }
   end 
 
+  should 'not escape acceptable HTML in list of blog posts' do
+    login_as('testinguser')
+    blog = Blog.create!(:name => 'A blog test', :profile => profile)
+    blog.posts << TinyMceArticle.create!(
+      :name => 'Post',
+      :profile => profile,
+      :parent => blog,
+      :published => true,
+      :body => "<p>This is a <strong>bold</strong> statement right there!</p>"
+    )
+
+    get :view_page, :profile => profile.identifier, :page => [blog.path]
+    assert_tag :tag => 'strong', :content => /bold/
+  end
+
 end
