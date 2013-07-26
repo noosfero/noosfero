@@ -3,6 +3,8 @@ class ProductCategory < Category
   has_many :products
   has_many :inputs
 
+  attr_accessible :name, :parent
+
   def all_products
     Product.find(:all, :conditions => { :product_category_id => (all_children << self).map(&:id) })
   end
