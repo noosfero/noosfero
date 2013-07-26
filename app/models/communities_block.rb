@@ -1,5 +1,7 @@
 class CommunitiesBlock < ProfileListBlock
 
+  attr_accessible :accessor_id, :accessor_type, :role_id, :resource_id, :resource_type
+
   def self.description
     _('Communities')
   end
