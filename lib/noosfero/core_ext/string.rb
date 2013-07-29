@@ -79,7 +79,7 @@ class String
   end
 
   def to_slug
-    transliterate.downcase.gsub(/[^\w~\s:;+=_."'`-]/, '').gsub(/[\s:;+=_"'`-]+/, '-').gsub(/-$/, '').gsub(/^-/, '').to_s
+    transliterate.downcase.gsub(/[^[[:word:]]~\s:;+=_."'`-]/, '').gsub(/[\s:;+=_"'`-]+/, '-').gsub(/-$/, '').gsub(/^-/, '').to_s
   end
 
   def fix_i18n
