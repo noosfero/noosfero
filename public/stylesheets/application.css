@@ -6089,6 +6089,7 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 img {
 #terms-of-use-box input[type=checkbox] {
   border: 1px solid #FFA514;
   background: #FFF;
+  width: auto;
 }
 
 #signup-form #terms-of-use-box label {
