@@ -1,5 +1,7 @@
 class Unit < ActiveRecord::Base
 
+  attr_accessible :name, :singular, :plural
+
   validates_presence_of :singular
   validates_presence_of :plural
 
