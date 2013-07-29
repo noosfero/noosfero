@@ -79,11 +79,17 @@ class ContentViewerController < ApplicationController
         @page.posts
       end
 
-      if @page.blog? && @page.display_posts_in_current_language?
-        posts = posts.native_translations.all(Article.display_filter(user, profile)).map{ |p| p.get_translation_to(FastGettext.locale) }.compact
-      end
+      #FIXME Need to run this before the pagination because this version of
+      #      will_paginate returns a will_paginate collection instead of a
+      #      relation.
+      blog_with_translation = @page.blog? && @page.display_posts_in_current_language?
+      posts = posts.native_translations if blog_with_translation
 
       @posts = posts.paginate({ :page => params[:npage], :per_page => @page.posts_per_page }.merge(Article.display_filter(user, profile)))
+
+      if blog_with_translation
+        @posts.replace @posts.map{ |p| p.get_translation_to(FastGettext.locale) }.compact
+      end
     end
 
     if @page.folder? && @page.gallery?
