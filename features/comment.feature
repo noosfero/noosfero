@@ -91,3 +91,9 @@ Feature: comment
     And I follow "Post a comment"
     When I press "Post comment"
     And I should see "2 comments"
+
+  @selenium
+  Scenario: hide post a comment button when clicked
+    Given I am on /booking/article-to-comment
+    And I follow "Post a comment"
+    Then "Post a comment" should not be visible within "#article"
