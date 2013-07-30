@@ -42,9 +42,9 @@ class ApproveComment < Task
   def information
     if article
       if requestor
-        {:message => _('%{requestor} commented on the the article: %{linked_subject}.')}
+        {:message => _('%{requestor} commented on the article: %{linked_subject}.')}
       else
-        { :message => _('%{requestor} commented on the the article: %{linked_subject}.'),
+        { :message => _('%{requestor} commented on the article: %{linked_subject}.'),
           :variables => {:requestor => requestor_name} }
       end
     else
