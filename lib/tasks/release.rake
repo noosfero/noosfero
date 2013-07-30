@@ -81,7 +81,7 @@ EOF
       if !pendencies_on_authors[:ok]
         puts "\nThere are changes in the AUTHORS file:"
         sh 'git diff AUTHORS'
-        if confirm('Do you want to commit these changes?')
+        if confirm('Do you want to commit these changes')
           sh 'git add AUTHORS'
           sh 'git commit -m "Updating authors file"'
         else
@@ -95,16 +95,19 @@ EOF
     end
   end
 
-  def ask(message)
-    print message
-    STDIN.gets.chomp
+  def ask(message, default = nil, default_message = nil, symbol = ':')
+    default_choice = default ? " [#{default_message || default}]#{symbol} " : "#{symbol} "
+    print message + default_choice
+    answer = STDIN.gets.chomp
+    answer.blank? && default.present? ? default : answer
   end
 
   def confirm(message, default=true)
-    choice_message = default ? ' [Y/n]? ' : ' [y/N]? '
+    default_message = default ? 'Y/n' : 'y/N'
+    default_value = default ? 'y' : 'n'
     choice = nil
     while choice.nil?
-      answer = ask(message + choice_message)
+      answer = ask(message, default_value, default_message, '?')
       if answer.blank?
         choice = default
       elsif ['y', 'yes'].include?(answer.downcase)
@@ -122,10 +125,10 @@ EOF
     release_kind = args[:release_kind] || 'stable'
 
     if release_kind == 'test'
-      version_question = "Release candidate of which version: "
+      version_question = "Release candidate of which version"
       distribution = 'squeeze-test'
     else
-      version_question = "Version that is being released: "
+      version_question = "Version that is being released"
       distribution = 'unstable'
     end
 
@@ -135,7 +138,7 @@ EOF
       timestamp = Time.now.strftime('%Y%m%d%H%M%S')
       version_name += "~rc#{timestamp}"
     end
-    release_message = ask("Release message: ")
+    release_message = ask("Release message")
 
     sh 'git checkout debian/changelog lib/noosfero.rb'
     sh "sed -i \"s/VERSION = '[^']*'/VERSION = '#{version_name}'/\" lib/noosfero.rb"
@@ -158,27 +161,6 @@ EOF
     sh "dput --unchecked #{release_kind} #{Dir['pkg/*.changes'].first}"
   end
 
-  def ask(message)
-    print message
-    STDIN.gets.chomp
-  end
-
-  def confirm(message, default=true)
-    choice_message = default ? ' [Y/n]? ' : ' [y/N]? '
-    choice = nil
-    while choice.nil?
-      answer = ask(message + choice_message)
-      if answer.blank?
-        choice = default
-      elsif ['y', 'yes'].include?(answer.downcase)
-        choice = true
-      elsif ['n', 'no'].include?(answer.downcase)
-        choice = false
-      end
-    end
-    choice
-  end
-
   desc 'sets the new version on apropriate files'
   task :set_version, :release_kind do |t, args|
     next if File.exist?("tmp/pending-release")
@@ -198,7 +180,7 @@ EOF
       timestamp = Time.now.strftime('%Y%m%d%H%M%S')
       version_name += "~rc#{timestamp}"
     end
-    release_message = ask("Release message: ")
+    release_message = ask("Release message")
 
     sh 'git checkout debian/changelog lib/noosfero.rb'
     sh "sed -i \"s/VERSION = '[^']*'/VERSION = '#{version_name}'/\" lib/noosfero.rb"
@@ -226,20 +208,35 @@ EOF
     release_kind = args[:release_kind] || 'stable'
 
     Rake::Task['noosfero:set_version'].invoke(release_kind)
+    puts "==> Checking tags..."
     Rake::Task['noosfero:check_tag'].invoke
+    puts "==> Checking debian package version..."
     Rake::Task['noosfero:check_debian_package'].invoke
+    puts "==> Checking translations..."
     Rake::Task['noosfero:error-pages:translate'].invoke
+    puts "==> Updating authors..."
     Rake::Task['noosfero:authors'].invoke
+    puts "==> Checking repository..."
     Rake::Task['noosfero:check_repo'].invoke
+    puts "==> Preparing debian packages..."
     Rake::Task['noosfero:debian_packages'].invoke
-    Rake::Task['noosfero:upload_packages'].invoke(release_kind)
+    if confirm('Do you want to upload the packages')
+      puts "==> Uploading debian packages..."
+      Rake::Task['noosfero:upload_packages'].invoke(release_kind)
+    end
 
     sh "git tag #{version.gsub('~','-')}"
     push_tags = confirm('Push new version tag')
-    sh 'git push --tags' if push_tags
+    if push_tags
+      repository = ask('Repository name', 'origin')
+      puts "==> Uploading tags..."
+      sh "git push #{repository} #{version.gsub('~','-')}"
+    end
+
     sh "rm tmp/pending-release" if Dir["tmp/pending-release"].first.present?
     puts "I: please upload the tarball and Debian packages to the website!"
     puts "I: please push the tag for version #{version} that was just created!" if !push_tags
+    puts "I: notify the community about this sparkling new version!"
   end
 
   desc 'Build Debian packages'
