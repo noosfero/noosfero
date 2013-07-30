@@ -1,14 +1,33 @@
 namespace :noosfero do
 
   def pendencies_on_authors
-    sh "git status | grep -v 'AUTHORS' > /dev/null" do |ok, res| 
-      return {:ok => ok, :res => res}
+    sh "git status | grep 'AUTHORS' > /dev/null" do |ok, res| 
+      return {:ok => !ok, :res => res}
     end
   end
 
   def pendencies_on_repo
     sh "git status | grep 'nothing.*commit' > /dev/null" do |ok, res| 
       return {:ok => ok, :res => res}
+    end
+  end
+
+  def pendencies_on_public_errors
+    sh "git status | grep -e '500.html' -e '503.html' > /dev/null" do |ok, res| 
+      return {:ok => !ok, :res => res}
+    end
+  end
+
+  def commit_changes(files, commit_message)
+    files = files.join(' ')
+    puts "\nThere are changes in the following files:"
+    sh "git diff #{files}"
+    if confirm('Do you want to commit these changes')
+      sh "git add #{files}"
+      sh "git commit -m '#{commit_message}'"
+    else
+      sh "git checkout #{files}"
+      abort 'There are changes to be commited. Reverting changes and exiting...'
     end
   end
 
@@ -78,17 +97,7 @@ EOF
         output.puts `git log --pretty=format:'%aN <%aE>' | sort | uniq`
         output.puts AUTHORS_FOOTER
       end
-      if !pendencies_on_authors[:ok]
-        puts "\nThere are changes in the AUTHORS file:"
-        sh 'git diff AUTHORS'
-        if confirm('Do you want to commit these changes')
-          sh 'git add AUTHORS'
-          sh 'git commit -m "Updating authors file"'
-        else
-          sh 'git checkout AUTHORS'
-          abort 'There are new authors to be commited. Reverting changes and exiting...'
-        end
-      end
+      commit_changes(['AUTHORS'], 'Updating AUTHORS file') if !pendencies_on_authors[:ok]
     rescue Exception => e
       rm_f 'AUTHORS'
       raise e
@@ -208,16 +217,25 @@ EOF
     release_kind = args[:release_kind] || 'stable'
 
     Rake::Task['noosfero:set_version'].invoke(release_kind)
+
     puts "==> Checking tags..."
     Rake::Task['noosfero:check_tag'].invoke
+
     puts "==> Checking debian package version..."
     Rake::Task['noosfero:check_debian_package'].invoke
+
     puts "==> Checking translations..."
     Rake::Task['noosfero:error-pages:translate'].invoke
+    if !pendencies_on_public_errors[:ok]
+      commit_changes(['public/500.html', 'public/503.html'], 'Updating public error pages')
+    end
+
     puts "==> Updating authors..."
     Rake::Task['noosfero:authors'].invoke
+
     puts "==> Checking repository..."
     Rake::Task['noosfero:check_repo'].invoke
+
     puts "==> Preparing debian packages..."
     Rake::Task['noosfero:debian_packages'].invoke
     if confirm('Do you want to upload the packages')
@@ -234,6 +252,7 @@ EOF
     end
 
     sh "rm tmp/pending-release" if Dir["tmp/pending-release"].first.present?
+
     puts "I: please upload the tarball and Debian packages to the website!"
     puts "I: please push the tag for version #{version} that was just created!" if !push_tags
     puts "I: notify the community about this sparkling new version!"
