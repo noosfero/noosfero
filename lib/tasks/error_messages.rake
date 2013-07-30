@@ -16,6 +16,6 @@ end
 namespace :noosfero do
   namespace 'error-pages' do
     desc 'Translates Noosfero error pages'
-    task :translate => targets
+    task :translate => [:environment] + targets
   end
 end
