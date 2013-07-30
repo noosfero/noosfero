@@ -12,8 +12,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.44.2\n"
-"POT-Creation-Date: 2013-07-30 11:58-0300\n"
-"PO-Revision-Date: 2013-07-30 12:49-0300\n"
+"POT-Creation-Date: 2013-07-30 12:51-0300\n"
+"PO-Revision-Date: 2013-07-30 12:53-0300\n"
 "Last-Translator: Rodrigo Souto <rodrigo@colivre.coop.br>\n"
 "Language-Team: LANGUAGE TEAM <E-MAIL@ADDRESS or HOME PAGE>\n"
 "Language: \n"
@@ -102,7 +102,6 @@ msgstr "Por favor digite as palavras corretamente"
 #: app/controllers/public/comment_controller.rb:68
 msgid "Your comment is waiting for approval."
 msgstr "Seu comentário está esperando aprovação."
-
 
 #: app/controllers/public/comment_controller.rb:82
 msgid "Comment successfully created."
@@ -3719,7 +3718,8 @@ msgstr "%{requestor} queria comentar o artigo mas ele foi removido."
 msgid ""
 "You need to login on %{system} in order to approve or reject this comment."
 msgstr ""
-"Você precisa entrar no %{system} para poder aprovar ou rejeitar este comentário."
+"Você precisa entrar no %{system} para poder aprovar ou rejeitar este "
+"comentário."
 
 #: app/models/approve_comment.rb:90
 msgid ""
@@ -3728,8 +3728,8 @@ msgid ""
 "\n"
 "%{comment} "
 msgstr ""
-"Seu comentário no artigo \"%{article}\" foi aprovado. Aqui está o "
-"comentário enviado pelo administrador que aprovou seu artigo:\n"
+"Seu comentário no artigo \"%{article}\" foi aprovado. Aqui está o comentário "
+"enviado pelo administrador que aprovou seu artigo:\n"
 "\n"
 "%{comment} "
 
@@ -5778,8 +5778,8 @@ msgid ""
 "site is a site that you consider safe enough to incorporate their content "
 "through <em>iframes</em>."
 msgstr ""
-"Aqui você pode gerenciar a lista de sites confiáveis do seu ambiente. "
-"Um site confiável é um site que você considera seguro para incorporar seus "
+"Aqui você pode gerenciar a lista de sites confiáveis do seu ambiente. Um "
+"site confiável é um site que você considera seguro para incorporar seus "
 "conteúdos através de <em>iframes</em>."
 
 #: app/views/trusted_sites/index.rhtml:9
@@ -10755,8 +10755,8 @@ msgid ""
 "A plugin that adds a block where you could choose any of your content and "
 "display it."
 msgstr ""
-"Um plugin que adiciona blocos onde você pode escolher qualuer um dos "
-"seus conteúdos e mostrá-lo."
+"Um plugin que adiciona blocos onde você pode escolher qualuer um dos seus "
+"conteúdos e mostrá-lo."
 
 #: plugins/require_auth_to_comment/lib/require_auth_to_comment_plugin.rb:14
 msgid "Requires users to authenticate in order to post comments."
@@ -11662,8 +11662,9 @@ msgstr "Pagamento"
 #: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/_orders_list.html.erb:35
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:22
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:20
-msgid "Change"
-msgstr "Mudar"
+#: plugins/shopping_cart/views/shopping_cart_plugin/buy.html.erb:11
+msgid "shopping_cart|Change"
+msgstr "Troco"
 
 #: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/edit.html.erb:1
 msgid "Basket options"
@@ -11729,9 +11730,8 @@ msgstr "Dinheiro"
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:20
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:18
 #: plugins/shopping_cart/views/shopping_cart_plugin/buy.html.erb:10
-#, fuzzy
-msgid "Check"
-msgstr "Marcar todos"
+msgid "shopping_cart|Check"
+msgstr "Cheque"
 
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:47
 msgid "Here are the products you bought:"
@@ -11762,10 +11762,6 @@ msgstr "E aqui estão os itens pedidos por esse consumidor:"
 msgid "If there are any problems with this email contact the admin of %s."
 msgstr ""
 "Se houver algum problema com esse email contacte o administrador de %s."
-
-#: plugins/shopping_cart/views/shopping_cart_plugin/buy.html.erb:11
-msgid "shopping_cart|Change"
-msgstr "Troco"
 
 #: plugins/shopping_cart/views/shopping_cart_plugin/buy.html.erb:14
 msgid "Delivery Address"
@@ -11854,6 +11850,13 @@ msgstr "Digite um termo de pesquisa para um grupo"
 #: plugins/work_assignment/views/cms/work_assignment_plugin/_work_assignment.html.erb:3
 msgid "Publish submissions"
 msgstr "Publicar submissões"
+
+#~ msgid "Change"
+#~ msgstr "Mudar"
+
+#, fuzzy
+#~ msgid "Check"
+#~ msgstr "Marcar todos"
 
 #~ msgid "Comment succesfully updated"
 #~ msgstr "Comentário atualizado com sucesso"

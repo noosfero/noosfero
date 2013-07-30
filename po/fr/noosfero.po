@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.44.2\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-30 11:58-0300\n"
+"POT-Creation-Date: 2013-07-30 12:51-0300\n"
 "PO-Revision-Date: 2009-12-04 18:46-0300\n"
 "Last-Translator: Jean-Claude Bulliard <jcb@bulliard-consulting.com>\n"
 "Language-Team: American English <kde-i18n-doc@kde.org>\n"
@@ -3989,7 +3989,7 @@ msgstr "Articles les plus commentés"
 
 #: app/models/approve_comment.rb:45 app/models/approve_comment.rb:47
 #, fuzzy
-msgid "%{requestor} commented on the the article: %{linked_subject}."
+msgid "%{requestor} commented on the article: %{linked_subject}."
 msgstr ""
 "%{author} veut publier l'article «%{article}» sur le groupe %{community}"
 
@@ -12562,9 +12562,10 @@ msgstr ""
 #: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/_orders_list.html.erb:35
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:22
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:20
+#: plugins/shopping_cart/views/shopping_cart_plugin/buy.html.erb:11
 #, fuzzy
-msgid "Change"
-msgstr "Modifier l'image"
+msgid "shopping_cart|Change"
+msgstr "Statut de formation"
 
 #: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/edit.html.erb:1
 #, fuzzy
@@ -12635,8 +12636,8 @@ msgstr ""
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:18
 #: plugins/shopping_cart/views/shopping_cart_plugin/buy.html.erb:10
 #, fuzzy
-msgid "Check"
-msgstr "Tout cocher"
+msgid "shopping_cart|Check"
+msgstr "Statut de formation"
 
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:47
 msgid "Here are the products you bought:"
@@ -12668,11 +12669,6 @@ msgstr ""
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:49
 msgid "If there are any problems with this email contact the admin of %s."
 msgstr ""
-
-#: plugins/shopping_cart/views/shopping_cart_plugin/buy.html.erb:11
-#, fuzzy
-msgid "shopping_cart|Change"
-msgstr "Statut de formation"
 
 #: plugins/shopping_cart/views/shopping_cart_plugin/buy.html.erb:14
 #, fuzzy
@@ -12772,6 +12768,14 @@ msgstr "Désactiver la recherche d'entreprises"
 #, fuzzy
 msgid "Publish submissions"
 msgstr "Permissions"
+
+#, fuzzy
+#~ msgid "Change"
+#~ msgstr "Modifier l'image"
+
+#, fuzzy
+#~ msgid "Check"
+#~ msgstr "Tout cocher"
 
 #, fuzzy
 #~ msgid "Comment succesfully updated"

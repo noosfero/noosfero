@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.44.2\n"
-"POT-Creation-Date: 2013-07-30 11:58-0300\n"
+"POT-Creation-Date: 2013-07-30 12:51-0300\n"
 "PO-Revision-Date: 2013-03-07 20:14+0100\n"
 "Last-Translator: Josef Spillner <josef.spillner@tu-dresden.de>\n"
 "Language-Team: German <de@li.org>\n"
@@ -3731,7 +3731,7 @@ msgstr "Meist kommentierte Artikel"
 
 #: app/models/approve_comment.rb:45 app/models/approve_comment.rb:47
 #, fuzzy
-msgid "%{requestor} commented on the the article: %{linked_subject}."
+msgid "%{requestor} commented on the article: %{linked_subject}."
 msgstr "%{requestor}möchte den Artikel %{linked_subject} veröffentlichen."
 
 #: app/models/approve_comment.rb:77
@@ -11827,8 +11827,10 @@ msgstr "Bezahlung"
 #: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/_orders_list.html.erb:35
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:22
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:20
-msgid "Change"
-msgstr "Ändern"
+#: plugins/shopping_cart/views/shopping_cart_plugin/buy.html.erb:11
+#, fuzzy
+msgid "shopping_cart|Change"
+msgstr "Einkaufskorb"
 
 #: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/edit.html.erb:1
 msgid "Basket options"
@@ -11896,8 +11898,9 @@ msgstr "Honig"
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:20
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:18
 #: plugins/shopping_cart/views/shopping_cart_plugin/buy.html.erb:10
-msgid "Check"
-msgstr "Überprüfung"
+#, fuzzy
+msgid "shopping_cart|Check"
+msgstr "Einkaufskorb"
 
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:47
 msgid "Here are the products you bought:"
@@ -11929,11 +11932,6 @@ msgid "If there are any problems with this email contact the admin of %s."
 msgstr ""
 "Falls es Probleme mit dieser E-Mail gibt, wenden Sie sich bitte an den "
 "Administrator von %s."
-
-#: plugins/shopping_cart/views/shopping_cart_plugin/buy.html.erb:11
-#, fuzzy
-msgid "shopping_cart|Change"
-msgstr "Einkaufskorb"
 
 #: plugins/shopping_cart/views/shopping_cart_plugin/buy.html.erb:14
 msgid "Delivery Address"
@@ -12030,6 +12028,12 @@ msgstr "Geben Sie einen Suchbegriff für eine Gruppe ein"
 #: plugins/work_assignment/views/cms/work_assignment_plugin/_work_assignment.html.erb:3
 msgid "Publish submissions"
 msgstr "Beiträge veröffentlichen"
+
+#~ msgid "Change"
+#~ msgstr "Ändern"
+
+#~ msgid "Check"
+#~ msgstr "Überprüfung"
 
 #~ msgid "Comment succesfully updated"
 #~ msgstr "Kommentar erfolgreich aktualisiert"

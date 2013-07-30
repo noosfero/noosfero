@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.44.2\n"
-"POT-Creation-Date: 2013-07-30 11:58-0300\n"
+"POT-Creation-Date: 2013-07-30 12:51-0300\n"
 "PO-Revision-Date: 2013-01-03 18:39-0300\n"
 "Last-Translator: Luis David Aguilar Carlos <ludwig9003@gmail.com>,Freddy "
 "Martín Hernández Facio <fmhf14@gmail.com>, Pedro Alonzo Ramírez Tovar <pedro."
@@ -3774,7 +3774,7 @@ msgstr "Artículos más comentados"
 
 #: app/models/approve_comment.rb:45 app/models/approve_comment.rb:47
 #, fuzzy
-msgid "%{requestor} commented on the the article: %{linked_subject}."
+msgid "%{requestor} commented on the article: %{linked_subject}."
 msgstr "%{requestor} quiere publicar el artículo: %{linked_subject}."
 
 #: app/models/approve_comment.rb:77
@@ -11958,9 +11958,10 @@ msgstr ""
 #: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/_orders_list.html.erb:35
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:22
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:20
+#: plugins/shopping_cart/views/shopping_cart_plugin/buy.html.erb:11
 #, fuzzy
-msgid "Change"
-msgstr "Cambiar imagen"
+msgid "shopping_cart|Change"
+msgstr "Nivel educativo"
 
 #: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/edit.html.erb:1
 msgid "Basket options"
@@ -12031,8 +12032,8 @@ msgstr ""
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:18
 #: plugins/shopping_cart/views/shopping_cart_plugin/buy.html.erb:10
 #, fuzzy
-msgid "Check"
-msgstr "Marcar todos"
+msgid "shopping_cart|Check"
+msgstr "Nivel educativo"
 
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:47
 msgid "Here are the products you bought:"
@@ -12064,11 +12065,6 @@ msgid "If there are any problems with this email contact the admin of %s."
 msgstr ""
 "Si hay algún problema con este correo electrónico ponte en contacto con el "
 "administrador de %s. "
-
-#: plugins/shopping_cart/views/shopping_cart_plugin/buy.html.erb:11
-#, fuzzy
-msgid "shopping_cart|Change"
-msgstr "Nivel educativo"
 
 #: plugins/shopping_cart/views/shopping_cart_plugin/buy.html.erb:14
 msgid "Delivery Address"
@@ -12168,6 +12164,14 @@ msgstr "Ingresa un término de búsqueda para el producto"
 #, fuzzy
 msgid "Publish submissions"
 msgstr "Publicar mutimedia"
+
+#, fuzzy
+#~ msgid "Change"
+#~ msgstr "Cambiar imagen"
+
+#, fuzzy
+#~ msgid "Check"
+#~ msgstr "Marcar todos"
 
 #, fuzzy
 #~ msgid "Comment succesfully updated"

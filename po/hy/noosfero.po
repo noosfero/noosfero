@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.44.2\n"
-"POT-Creation-Date: 2013-07-30 11:58-0300\n"
+"POT-Creation-Date: 2013-07-30 12:51-0300\n"
 "PO-Revision-Date: 2009-10-26 16:20-0300\n"
 "Last-Translator: Anahit Minassian <anahit.minassian@cooperation.net>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3905,7 +3905,7 @@ msgstr "Ամենից հաճախ մեկնաբանվող հոդվածները"
 
 #: app/models/approve_comment.rb:45 app/models/approve_comment.rb:47
 #, fuzzy
-msgid "%{requestor} commented on the the article: %{linked_subject}."
+msgid "%{requestor} commented on the article: %{linked_subject}."
 msgstr "%s-ը ցանկանում է %s-ի անդամ դառնալ:"
 
 #: app/models/approve_comment.rb:77
@@ -12256,9 +12256,10 @@ msgstr ""
 #: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/_orders_list.html.erb:35
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:22
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:20
+#: plugins/shopping_cart/views/shopping_cart_plugin/buy.html.erb:11
 #, fuzzy
-msgid "Change"
-msgstr "Փոխել նկարը"
+msgid "shopping_cart|Change"
+msgstr "Վերացնել անհատական էջը"
 
 #: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/edit.html.erb:1
 #, fuzzy
@@ -12327,8 +12328,9 @@ msgstr ""
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:20
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:18
 #: plugins/shopping_cart/views/shopping_cart_plugin/buy.html.erb:10
-msgid "Check"
-msgstr ""
+#, fuzzy
+msgid "shopping_cart|Check"
+msgstr "Վերացնել անհատական էջը"
 
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:47
 msgid "Here are the products you bought:"
@@ -12359,11 +12361,6 @@ msgstr ""
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:49
 msgid "If there are any problems with this email contact the admin of %s."
 msgstr ""
-
-#: plugins/shopping_cart/views/shopping_cart_plugin/buy.html.erb:11
-#, fuzzy
-msgid "shopping_cart|Change"
-msgstr "Վերացնել անհատական էջը"
 
 #: plugins/shopping_cart/views/shopping_cart_plugin/buy.html.erb:14
 #, fuzzy
@@ -12462,6 +12459,10 @@ msgstr "Դիզակտիվացնել ձեռնարկությունների որոն
 #, fuzzy
 msgid "Publish submissions"
 msgstr "Թույլտվություններ"
+
+#, fuzzy
+#~ msgid "Change"
+#~ msgstr "Փոխել նկարը"
 
 #, fuzzy
 #~ msgid "Comment succesfully updated"

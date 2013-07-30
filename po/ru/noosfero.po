@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.44.2\n"
-"POT-Creation-Date: 2013-07-30 11:58-0300\n"
+"POT-Creation-Date: 2013-07-30 12:51-0300\n"
 "PO-Revision-Date: 2010-10-26 09:57-0300\n"
 "Last-Translator: Anton <anton.c@live.com>\n"
 "Language-Team: German <de@li.org>\n"
@@ -3835,7 +3835,7 @@ msgstr "Наиболее комментируемые статьи"
 
 #: app/models/approve_comment.rb:45 app/models/approve_comment.rb:47
 #, fuzzy
-msgid "%{requestor} commented on the the article: %{linked_subject}."
+msgid "%{requestor} commented on the article: %{linked_subject}."
 msgstr "%{author} хочет опубликовать \"%{article}\" на %{community} "
 
 #: app/models/approve_comment.rb:77
@@ -12081,9 +12081,10 @@ msgstr ""
 #: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/_orders_list.html.erb:35
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:22
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:20
+#: plugins/shopping_cart/views/shopping_cart_plugin/buy.html.erb:11
 #, fuzzy
-msgid "Change"
-msgstr "Сменить изобрежение"
+msgid "shopping_cart|Change"
+msgstr "Учебный статус"
 
 #: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/edit.html.erb:1
 #, fuzzy
@@ -12153,8 +12154,8 @@ msgstr ""
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:18
 #: plugins/shopping_cart/views/shopping_cart_plugin/buy.html.erb:10
 #, fuzzy
-msgid "Check"
-msgstr "Выбрать все"
+msgid "shopping_cart|Check"
+msgstr "Учебный статус"
 
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:47
 msgid "Here are the products you bought:"
@@ -12186,11 +12187,6 @@ msgstr ""
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:49
 msgid "If there are any problems with this email contact the admin of %s."
 msgstr ""
-
-#: plugins/shopping_cart/views/shopping_cart_plugin/buy.html.erb:11
-#, fuzzy
-msgid "shopping_cart|Change"
-msgstr "Учебный статус"
 
 #: plugins/shopping_cart/views/shopping_cart_plugin/buy.html.erb:14
 #, fuzzy
@@ -12290,6 +12286,14 @@ msgstr "Отключить поиск по компаниям"
 #, fuzzy
 msgid "Publish submissions"
 msgstr "Разрешения"
+
+#, fuzzy
+#~ msgid "Change"
+#~ msgstr "Сменить изобрежение"
+
+#, fuzzy
+#~ msgid "Check"
+#~ msgstr "Выбрать все"
 
 #, fuzzy
 #~ msgid "Comment succesfully updated"

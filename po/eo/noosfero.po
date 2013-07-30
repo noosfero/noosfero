@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.44.2\n"
-"POT-Creation-Date: 2013-07-30 11:58-0300\n"
+"POT-Creation-Date: 2013-07-30 12:51-0300\n"
 "PO-Revision-Date: 2011-03-30 20:52-0300\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -3604,7 +3604,7 @@ msgid "New comment to article"
 msgstr ""
 
 #: app/models/approve_comment.rb:45 app/models/approve_comment.rb:47
-msgid "%{requestor} commented on the the article: %{linked_subject}."
+msgid "%{requestor} commented on the article: %{linked_subject}."
 msgstr ""
 
 #: app/models/approve_comment.rb:77
@@ -11307,7 +11307,8 @@ msgstr ""
 #: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/_orders_list.html.erb:35
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:22
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:20
-msgid "Change"
+#: plugins/shopping_cart/views/shopping_cart_plugin/buy.html.erb:11
+msgid "shopping_cart|Change"
 msgstr ""
 
 #: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/edit.html.erb:1
@@ -11372,7 +11373,7 @@ msgstr ""
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:20
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:18
 #: plugins/shopping_cart/views/shopping_cart_plugin/buy.html.erb:10
-msgid "Check"
+msgid "shopping_cart|Check"
 msgstr ""
 
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:47
@@ -11402,10 +11403,6 @@ msgstr ""
 
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:49
 msgid "If there are any problems with this email contact the admin of %s."
-msgstr ""
-
-#: plugins/shopping_cart/views/shopping_cart_plugin/buy.html.erb:11
-msgid "shopping_cart|Change"
 msgstr ""
 
 #: plugins/shopping_cart/views/shopping_cart_plugin/buy.html.erb:14
