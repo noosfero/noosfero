@@ -165,21 +165,6 @@ class ArticleTest < ActiveSupport::TestCase
     end
   end
 
-  should 'search for recent documents' do
-    other_profile = create_user('otherpropfile').person
-
-    first = fast_create(TextArticle, :profile_id => profile.id, :name => 'first')
-    second = fast_create(TextArticle, :profile_id => profile.id, :name => 'second')
-    third = fast_create(TextArticle, :profile_id => profile.id, :name => 'third')
-    fourth = fast_create(TextArticle, :profile_id => profile.id, :name => 'fourth')
-    fifth = fast_create(TextArticle, :profile_id => profile.id, :name => 'fifth')
-
-    other_first = other_profile.articles.build(:name => 'first'); other_first.save!
-
-    assert_equal [other_first, fifth, fourth], Article.recent(3)
-    assert_equal [other_first, fifth, fourth, third, second, first], Article.recent(6)
-  end
-
   should 'not show private documents as recent' do
     p = create_user('usr1').person
     Article.destroy_all
