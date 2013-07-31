@@ -44,7 +44,7 @@ class ProfileListBlock < Block
     profiles = self.profile_list
     title = self.view_title
     nl = "\n"
-    lambda do |context|
+    proc do |context|
       count=0
       list = profiles.map {|item|
                count+=1

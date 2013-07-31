@@ -1,8 +1,11 @@
 class FeedReaderBlock < Block
 
+  attr_accessible :address, :update_errors
+
   def initialize(attributes = nil)
     data = attributes || {}
-    super({ :enabled => !data[:address].blank? }.merge(data))
+    super(data)
+    self.enabled= !data[:address].blank?
   end
 
   include DatesHelper
