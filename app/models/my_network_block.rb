@@ -1,7 +1,5 @@
 class MyNetworkBlock < Block
 
-  include Rails.application.routes.url_helpers
-  
   attr_accessible :display, :box
 
   def self.description
