@@ -1,6 +1,6 @@
 class LinkListBlock < Block
 
-  attr_accessible :links
+  attr_accessible :links, :display
 
   ICONS = [
     ['no-icon', _('(No icon)')],
@@ -52,7 +52,7 @@ class LinkListBlock < Block
   def content(args={})
     block_title(title) +
     content_tag('ul',
-      links.select{|i| !i[:name].blank? and !i[:address].blank?}.map{|i| content_tag('li', link_html(i))}
+      links.select{|i| !i[:name].blank? and !i[:address].blank?}.map{|i| content_tag('li', link_html(i))}.join(',')
     )
   end
 
