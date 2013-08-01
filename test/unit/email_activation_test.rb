@@ -12,14 +12,14 @@ class EmailActivationTest < ActiveSupport::TestCase
     task = EmailActivation.new
     task.valid?
 
-    assert task.errors.invalid?(:requestor_id)
+    assert task.errors[:requestor_id].any?
   end
 
   should 'require a target (environment)' do
     task = EmailActivation.new
     task.valid?
 
-    assert task.errors.invalid?(:target_id)
+    assert task.errors[:target_id].any?
   end
 
   should 'enable user email when finish' do
