@@ -2,7 +2,7 @@ require 'hpricot'
 
 class Article < ActiveRecord::Base
 
-  attr_accessible :name, :body, :abstract, :profile
+  attr_accessible :name, :body, :abstract, :profile, :tag_list
 
   SEARCHABLE_FIELDS = {
     :name => 10,

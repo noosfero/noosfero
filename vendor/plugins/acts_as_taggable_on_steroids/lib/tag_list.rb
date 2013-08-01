@@ -52,7 +52,7 @@ class TagList
     end
     
     def parse(string)
-      returning [] do |names|
+      [].tap do |names|
         string = string.to_s.dup
         
         # Parse the quoted tags
