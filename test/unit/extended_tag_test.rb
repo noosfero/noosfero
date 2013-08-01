@@ -19,15 +19,15 @@ class UserTest < ActiveSupport::TestCase
 
   def test_parent_candidates
     tag1 = Tag.create(:name => 'parent_tag')
-    tag2 = Tag.create(:name => 'child_tag', :parent => tag1)
+    tag2 = Tag.create(:name => 'child_tag', :parent_id => tag1.id)
     assert ( not tag1.parent_candidates.include?(tag2) )
     assert tag2.parent_candidates.include?(tag1)
   end
 
   def test_descendents
     tag1 = Tag.create(:name => 'parent_tag')
-    tag2 = Tag.create(:name => 'child_tag', :parent => tag1)
-    tag3 = Tag.create(:name => 'grand_tag', :parent => tag2)
+    tag2 = Tag.create(:name => 'child_tag', :parent_id => tag1.id)
+    tag3 = Tag.create(:name => 'grand_tag', :parent_id => tag2.id)
     assert (not tag2.descendents.include?(tag1))
     assert (not tag1.descendents.include?(tag1))
     assert tag1.descendents.include?(tag2)

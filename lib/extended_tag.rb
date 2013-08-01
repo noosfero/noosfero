@@ -1,4 +1,9 @@
 class Tag
+
+  attr_accessible :name, :parent_id, :pending
+
+  has_many :children, :class_name => 'Tag', :foreign_key => 'parent_id', :dependent => :destroy
+
   
   @@original_find = self.method(:find) 
   # Rename the find method to find_with_pendings that includes all tags in the search regardless if its pending or not 
