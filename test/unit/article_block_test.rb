@@ -34,7 +34,9 @@ class ArticleBlockTest < ActiveSupport::TestCase
   should 'not crash when referenced article is removed' do
     person = create_user('testuser').person
     a = person.articles.create!(:name => 'test')
-    block = ArticleBlock.create(:article => a)
+    block = ArticleBlock.create.tap do |b|
+      b.article = a
+    end
     person.boxes.first.blocks << block
     block.save!
 
@@ -58,7 +60,9 @@ class ArticleBlockTest < ActiveSupport::TestCase
     person.articles.delete_all
     assert_equal [], person.articles
     a = person.articles.create!(:name => 'test')
-    block = ArticleBlock.create(:article => a)
+    block = ArticleBlock.create.tap do |b|
+      b.article = a
+    end
     person.boxes.first.blocks << block
     block.save!
     
