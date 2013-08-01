@@ -157,6 +157,8 @@ class Person < Profile
   birth_date
   cell_phone
   comercial_phone
+  jabber_id
+  personal_website
   schooling
   professional_activity
   organization

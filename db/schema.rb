@@ -468,6 +468,8 @@ ActiveRecord::Schema.define(:version => 20140108132730) do
     t.boolean  "is_template",                           :default => false
     t.integer  "template_id"
     t.string   "redirection_after_login"
+    t.string   "personal_website"
+    t.string   "jabber_id"
   end
 
   add_index "profiles", ["environment_id"], :name => "index_profiles_on_environment_id"
