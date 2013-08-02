@@ -1,4 +1,7 @@
 class Scrap < ActiveRecord::Base
+
+  attr_accessible :content, :sender_id, :receiver_id, :scrap_id
+
   SEARCHABLE_FIELDS = {
     :content => 1,
   }
