@@ -21,16 +21,18 @@ class EnterpriseActivationTest < ActiveSupport::TestCase
   should 'require an enterprise' do
     t = EnterpriseActivation.new
     t.valid?
-    assert t.errors.invalid?(:enterprise_id), "enterprise must be required"
+    assert t.errors[:enterprise_id].any?, "enterprise must be required"
 
     ent = Enterprise.create!(:name => 'my enterprise', :identifier => 'myent')
     t.enterprise = ent
     t.valid?
-    assert !t.errors.invalid?(:enterprise_id), "must validate after enterprise is set"
+    assert !t.errors[:enterprise_id].any?, "must validate after enterprise is set"
   end
 
   should 'activate enterprise when finished' do
-    ent = Enterprise.create!(:name => 'my enterprise', :identifier => 'myent', :enabled => false)
+    ent = Enterprise.create!(:name => 'my enterprise', :identifier => 'myent').tap do |e|
+      e.enabled = false
+    end
     t = EnterpriseActivation.create!(:enterprise => ent)
     t.requestor = profiles(:ze)
 
@@ -41,7 +43,9 @@ class EnterpriseActivationTest < ActiveSupport::TestCase
   end
 
   should 'require requestor to finish' do
-    ent = Enterprise.create!(:name => 'my enterprise', :identifier => 'myent', :enabled => false)
+    ent = Enterprise.create!(:name => 'my enterprise', :identifier => 'myent').tap do |e| 
+      e.enabled = false
+    end
     t = EnterpriseActivation.create!(:enterprise => ent)
 
     assert_raise EnterpriseActivation::RequestorRequired do
@@ -50,7 +54,9 @@ class EnterpriseActivationTest < ActiveSupport::TestCase
   end
 
   should 'put requestor as enterprise owner when finishing' do
-    ent = Enterprise.create!(:name => 'my enterprise', :identifier => 'myent', :enabled => false)
+    ent = Enterprise.create!(:name => 'my enterprise', :identifier => 'myent').tap do |e|
+      e.enabled = false
+    end
     t = EnterpriseActivation.create!(:enterprise => ent)
 
     person = profiles(:ze)
