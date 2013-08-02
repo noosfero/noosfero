@@ -31,7 +31,7 @@ class NoosferoTest < ActiveSupport::TestCase
   end
 
   should 'provide url options to identify development environment' do
-    ENV.expects(:[]).with('RAILS_ENV').returns('development')
+    Rails.expects('env').returns('development')
     Noosfero.expects(:development_url_options).returns({ :port => 9999 })
     assert_equal({:port => 9999}, Noosfero.url_options)
   end
@@ -48,7 +48,9 @@ class NoosferoTest < ActiveSupport::TestCase
   end
 
   should "use default hostname of default environment as hostname of Noosfero instance" do
-    Environment.default.domains << Domain.new(:name => 'thisisdefaulthostname.com', :is_default => true)
+    Environment.default.domains << Domain.new(:name => 'thisisdefaulthostname.com').tap do |d| 
+      d.is_default = true
+    end
     assert_equal 'thisisdefaulthostname.com', Noosfero.default_hostname
   end
 
