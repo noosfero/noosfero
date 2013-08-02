@@ -13,8 +13,10 @@ class ProfileCategorizationTest < ActiveSupport::TestCase
   end
 
   should 'create instances for the entire hierarchy' do
-    c1 = Category.create!(:name => 'c1', :environment => Environment.default)
-    c2 = c1.children.create!(:name => 'c2', :environment => Environment.default)
+    c1 = Environment.default.categories.create!(:name => 'c1')
+    c2 = Environment.default.categories.create!(:name => 'c2').tap do |c|
+      c.parent_id = c1.id
+    end
 
     p = create_user('testuser').person
 
@@ -26,9 +28,13 @@ class ProfileCategorizationTest < ActiveSupport::TestCase
   end
 
   should 'not duplicate entry for category that is parent of two others' do
-    c1 = Category.create!(:name => 'c1', :environment => Environment.default)
-    c2 = c1.children.create!(:name => 'c2', :environment => Environment.default)
-    c3 = c1.children.create!(:name => 'c3', :environment => Environment.default)
+    c1 = Environment.default.categories.create!(:name => 'c1')
+    c2 = Environment.default.categories.create!(:name => 'c2').tap do |c|
+      c.parent_id = c1.id
+    end
+    c3 = Environment.default.categories.create!(:name => 'c3').tap do |c|
+      c.parent_id = c1.id
+    end
 
     p = create_user('testuser').person
 
@@ -39,9 +45,13 @@ class ProfileCategorizationTest < ActiveSupport::TestCase
   end
 
   should 'remove all instances for a given profile' do
-    c1 = Category.create!(:name => 'c1', :environment => Environment.default)
-    c2 = c1.children.create!(:name => 'c2', :environment => Environment.default)
-    c3 = c1.children.create!(:name => 'c3', :environment => Environment.default)
+    c1 = Environment.default.categories.create!(:name => 'c1')
+    c2 = Environment.default.categories.create!(:name => 'c2').tap do |c|
+      c.parent_id = c1.id
+    end
+    c3 = Environment.default.categories.create!(:name => 'c3').tap do |c|
+      c.parent_id = c1.id
+    end
 
     p = create_user('testuser').person
 
@@ -55,7 +65,7 @@ class ProfileCategorizationTest < ActiveSupport::TestCase
 
   [ Region, State, City ].each do |klass|
     should "be able to remove #{klass.name} from profile" do
-      region = klass.create!(:name => 'my region', :environment => Environment.default)
+      region = Environment.default.send(klass.name.underscore.pluralize).create!(:name => 'my region')
       p = create_user('testuser').person
       p.region = region
       p.save!

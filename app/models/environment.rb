@@ -183,6 +183,8 @@ class Environment < ActiveRecord::Base
 
   has_many :product_categories, :conditions => { :type => 'ProductCategory'}
   has_many :regions
+  has_many :states
+  has_many :cities
 
   has_many :roles
 
