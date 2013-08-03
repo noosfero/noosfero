@@ -13,6 +13,10 @@ class ProfileHelperTest < ActiveSupport::TestCase
   end
   attr_reader :profile, :helper
 
+  def controller
+    @controller ||= ProfileController.new
+  end
+
   should 'not display field if field is not active and not forced' do
     profile.expects(:active_fields).returns([])
     assert_equal '', display_field('Title', profile, 'field')
