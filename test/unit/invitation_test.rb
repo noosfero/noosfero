@@ -4,11 +4,11 @@ class InvitationTest < ActiveSupport::TestCase
 
   should 'expand message' do
     invitation = Invitation.new(
-      :person => Person.new(:name => 'Sadam', :environment => Environment.new(:name => 'AnarquiaOi')),
+      :person => create_user('sadam', {}, :name => 'Sadam').person,
       :friend_name => 'Fernandinho',
       :message => 'Hi <friend>, <user> is inviting you to <environment>!'
     )
-    assert_equal 'Hi Fernandinho, Sadam is inviting you to AnarquiaOi!', invitation.expanded_message
+    assert_equal 'Hi Fernandinho, Sadam is inviting you to %s!' % Environment.default.name, invitation.expanded_message
   end
 
   should 'require subclasses implement mail_template method' do
