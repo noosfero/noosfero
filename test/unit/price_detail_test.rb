@@ -39,7 +39,7 @@ class PriceDetailTest < ActiveSupport::TestCase
     p = PriceDetail.new
     p.valid?
 
-    assert p.errors.invalid?(:product_id)
+    assert p.errors[:product_id].any?
   end
 
   should 'have production cost' do
@@ -54,7 +54,7 @@ class PriceDetailTest < ActiveSupport::TestCase
     p = PriceDetail.new
     p.valid?
 
-    assert p.errors.invalid?(:production_cost)
+    assert p.errors[:production_cost].any?
   end
 
   should 'th production cost be unique on scope of product' do
@@ -65,7 +65,7 @@ class PriceDetailTest < ActiveSupport::TestCase
     detail2 = product.price_details.build(:production_cost_id => cost.id, :price => 10)
 
     detail2.valid?
-    assert detail2.errors.invalid?(:production_cost_id)
+    assert detail2.errors[:production_cost_id].any?
   end
 
   should 'format values to float with 2 decimals' do
@@ -82,7 +82,7 @@ class PriceDetailTest < ActiveSupport::TestCase
     product = fast_create(Product)
     cost = fast_create(ProductionCost, :name => 'Energy',:owner_id => Environment.default.id, :owner_type => 'environment')
 
-    detail = product.price_details.create(:production_cost => cost, :price => 10)
+    detail = product.price_details.create(:production_cost_id => cost.id, :price => 10)
 
     assert_equal 'Energy', detail.name
   end
