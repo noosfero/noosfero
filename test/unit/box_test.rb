@@ -11,7 +11,7 @@ class BoxTest < ActiveSupport::TestCase
   end
 
   should 'list allowed blocks for center box' do
-    blocks = Box.new(:position => 1).acceptable_blocks
+    blocks = Box.new.tap { |b| b.position = 1 }.acceptable_blocks
 
     assert !blocks.include?('block')
     assert !blocks.include?('disabled-enterprise-message-block')
@@ -48,7 +48,7 @@ class BoxTest < ActiveSupport::TestCase
   end
 
   should 'list allowed blocks for box at position 2' do
-    blocks = Box.new(:position => 2).acceptable_blocks
+    blocks = Box.new.tap { |b| b.position = 2 }.acceptable_blocks
 
     assert !blocks.include?('main-block')
     assert !blocks.include?('block')
