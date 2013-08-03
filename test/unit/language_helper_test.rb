@@ -5,6 +5,14 @@ class LanguageHelperTest < ActiveSupport::TestCase
 
   include LanguageHelper
 
+  def link_to(name, url, options = {})
+    name
+  end
+
+  def url_for(url)
+    ''
+  end
+
   should 'return current language' do
     expects(:locale).returns('pt')
     assert_equal 'pt', language
