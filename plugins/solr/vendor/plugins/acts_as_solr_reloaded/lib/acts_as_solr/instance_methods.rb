@@ -1,5 +1,5 @@
 module ActsAsSolr #:nodoc:
-  
+
   module InstanceMethods
 
     # Solr id is <class.name>:<id> to be unique across all models
@@ -10,7 +10,7 @@ module ActsAsSolr #:nodoc:
     # saves to the Solr index
     def solr_save
       return true if indexing_disabled?
-      if evaluate_condition(:if, self) 
+      if evaluate_condition(:if, self)
         debug "solr_save: #{self.class.name} : #{record_id(self)}"
         solr_add to_solr_doc
         solr_commit if configuration[:auto_commit]
@@ -38,9 +38,9 @@ module ActsAsSolr #:nodoc:
       debug "to_solr_doc: creating doc for class: #{self.class.name}, id: #{record_id(self)}"
       doc = Solr::Document.new
       doc.boost = validate_boost(configuration[:boost]) if configuration[:boost]
-      
+
       doc << {:id => solr_id,
-              solr_configuration[:type_field] => self.class.name,
+              solr_configuration[:type_field] => Solr::Util.query_parser_escape(self.class.name),
               solr_configuration[:primary_key_field] => record_id(self).to_s}
 
       # iterate through the fields and add them to the document,
@@ -50,7 +50,7 @@ module ActsAsSolr #:nodoc:
         field_boost = options[:boost] || solr_configuration[:default_boost]
         field_type = get_solr_field_type(options[:type])
         solr_name = options[:as] || field_name
-        
+
         value = self.send("#{field_name}_for_solr") rescue nil
         next if value.nil?
 
@@ -63,18 +63,18 @@ module ActsAsSolr #:nodoc:
         field.boost = processed_boost
         doc << field
       end
-      
+
       add_dynamic_attributes(doc)
       add_includes(doc)
       add_tags(doc)
       add_space(doc)
-      
+
       debug doc.to_json
       doc
     end
 
     private
-    
+
     def debug(text)
       logger.debug text rescue nil
     end
@@ -85,14 +85,14 @@ module ActsAsSolr #:nodoc:
         doc << Solr::Field.new(:name => "lng_f", :value => local.longitude)
       end
     end
-    
+
     def add_tags(doc)
       taggings.each do |tagging|
         doc << Solr::Field.new(:name => "tag_facet", :value => tagging.tag.name)
         doc << Solr::Field.new(:name => "tag_t", :value => tagging.tag.name)
       end if configuration[:taggable]
     end
-    
+
     def add_dynamic_attributes(doc)
       dynamic_attributes.each do |attribute|
         value = ERB::Util.html_escape(attribute.value)
@@ -130,7 +130,7 @@ module ActsAsSolr #:nodoc:
         end
       end
     end
-    
+
     def include_value(record, options)
       if options[:using].is_a? Proc
         options[:using].call(record)
@@ -159,14 +159,14 @@ module ActsAsSolr #:nodoc:
           self.send(boost)
         end
       end
-      
+
       boost_value || solr_configuration[:default_boost]
     end
-    
+
     def condition_block?(condition)
       condition.respond_to?("call") && (condition.arity == 1 || condition.arity == -1)
     end
-    
+
     def evaluate_condition(which_condition, field)
       condition = configuration[which_condition]
       case condition
