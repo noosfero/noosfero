@@ -34,10 +34,6 @@ module SolrPlugin::SearchHelper
     ],
   }
 
-#  def asset_class(asset)
-#    asset.to_s.singularize.camelize.constantize
-#  end
-
   def class_asset(klass)
     klass.name.underscore.pluralize.to_sym
   end
@@ -111,6 +107,8 @@ module SolrPlugin::SearchHelper
 
   def asset_class(asset)
     asset.to_s.singularize.camelize.constantize
+  rescue
+    asset.to_s.singularize.camelize.gsub('Plugin', 'Plugin::').constantize
   end
 
   def set_facets_variables
