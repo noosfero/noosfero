@@ -3,7 +3,7 @@ require File.dirname(__FILE__) + '/../test_helper'
 class PersonTest < ActiveSupport::TestCase
   fixtures :profiles, :users, :environments
 
-  def test_person_must_come_form_the_cration_of_an_user
+  def test_person_must_come_from_the_creation_of_an_user
     p = Person.new(:environment => Environment.default, :name => 'John', :identifier => 'john')
     assert !p.valid?
     p.user =  create_user('john', :email => 'john@doe.org', :password => 'dhoe', :password_confirmation => 'dhoe')
