@@ -112,6 +112,16 @@ class CmsHelperTest < ActiveSupport::TestCase
     result = display_delete_button(article)
   end
 
+	should 'display shortened name correctly' do
+		name = "Notícias do ENSOL - Encontro de Software Livre do Vale do Açu/RN"
+    profile = fast_create(Profile)
+	  content = fast_create(Article, :name => name, :profile_id => profile.id)
+		link = link_to_article(content)
+
+		assert_match /#{name[0..26] + '...'}/, link
+	end
+
+
   def link_to(text, *args); puts text; puts args.inspect; text; end
 
 end
