@@ -3158,6 +3158,10 @@ table.cms-articles .icon:hover {
   max-width: 100%;
 }
 
+.controller-cms .button-bar .icon-delete {
+  float: right;
+}
+
 /************* external blog options *****************/
 
 .controller-cms #fetch-external-feed {

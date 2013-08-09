@@ -38,12 +38,18 @@
 
   <% button_bar do %>
     <%= submit_button :save, _('Save') %>
+
     <% if @back_to %>
       <%= button :cancel, _('Cancel'), @back_to %>
     <% elsif @parent_id || @article.parent %>
       <%= button :cancel, _('Cancel'), :action => 'view', :id => @parent_id || @article.parent %>
     <% else %>
       <%= button :cancel, _('Cancel'), :action => 'index' %>
+    <% end %>
+
+    <% unless @article.new_record? %>
+      <%= button :delete, _('Delete'), {:controller => :cms, :action => :destroy, :id => @article},
+        :method => :post, :confirm => delete_article_message(@article) %>
     <% end %>
   <% end %>
 <% end %>
