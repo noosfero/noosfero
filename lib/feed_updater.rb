@@ -19,6 +19,18 @@ end
 # stops the process.
 class FeedUpdater
 
+  class ExceptionNotification < ActionMailer::Base
+    def mail error
+      environment = Environment.default
+
+      recipients NOOSFERO_CONF['exception_recipients']
+      from       environment.contact_email
+      reply_to   environment.contact_email
+      subject    "[#{environment.name}] Feed-updater: #{error.message}"
+      body       render(:text => error.backtrace.join("\n"))
+    end
+  end
+
   # indicates how much time one feed will be left without updates
   # (ActiveSupport::Duration). Default: <tt>4.hours</tt>
   cattr_accessor :update_interval
@@ -79,6 +91,8 @@ class FeedUpdater
         feed_handler.process(container)
       end
     end
+  rescue Exception => e
+    FeedUpdater::ExceptionNotification.deliver_mail e if NOOSFERO_CONF['exception_recipients'].present?
   end
 end
 
