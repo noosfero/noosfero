@@ -1,7 +1,7 @@
 <% if profile.lat %>
   <%= block_title block.title %>
   <div class='the-localization-map'>
-    <img src="http://maps.google.com/maps/api/staticmap?center=<%=profile.lat%>,<%=profile.lng%>&zoom=<%=block.zoom%>&size=190x250&maptype=<%=block.map_type%>&markers=<%=profile.lat%>,<%=profile.lng%>&sensor=false"/>
+    <img src="https://maps.google.com/maps/api/staticmap?center=<%=profile.lat%>,<%=profile.lng%>&zoom=<%=block.zoom%>&size=190x250&maptype=<%=block.map_type%>&markers=<%=profile.lat%>,<%=profile.lng%>&sensor=false"/>
   </div>
 </div>
 <% else %>
