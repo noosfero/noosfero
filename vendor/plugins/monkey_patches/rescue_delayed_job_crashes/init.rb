@@ -41,7 +41,6 @@ Delayed::Worker.module_eval do
       end
     end
 
-    job = Delayed::Job.new
     run(job) if job
   rescue => e
     handle_failed_job(job, e)
