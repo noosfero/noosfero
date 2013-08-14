@@ -167,7 +167,6 @@ module Delayed
       job.last_error = error.message + "\n" + error.backtrace.join("\n")
       say "#{job.name} failed with #{error.class.name}: #{error.message} - #{job.attempts} failed attempts", Logger::ERROR
       reschedule(job)
-    rescue => e # don't crash here
     end
 
     # Run the next job we can get an exclusive lock on.
@@ -187,8 +186,6 @@ module Delayed
       end
 
       run(job) if job
-    rescue => e
-      handle_failed_job(job, e)
     end
   end
 end
