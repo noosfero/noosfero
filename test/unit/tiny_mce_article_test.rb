@@ -224,4 +224,16 @@ end
     assert TinyMceArticle.new.tiny_mce?
   end
 
+  should 'not sanitize html5 audio tag on body' do
+    article = TinyMceArticle.create!(:name => 'html5 audio', :body => "Audio: <audio controls='controls'><source src='http://example.ogg' type='audio/ogg' />Audio not playing?.</audio>", :profile => profile)
+    assert_tag_in_string article.body, :tag => 'audio', :attributes => {:controls => 'controls'}
+    assert_tag_in_string article.body, :tag => 'source', :attributes => {:src => 'http://example.ogg', :type => 'audio/ogg'}
+  end
+
+  should 'not sanitize html5 video tag on body' do
+    article = TinyMceArticle.create!(:name => 'html5 video', :body => "Video: <video controls='controls' autoplay='autoplay'><source src='http://example.ogv' type='video/ogg' />Video not playing?</video>", :profile => profile)
+    assert_tag_in_string article.body, :tag => 'video', :attributes => {:controls => 'controls', :autoplay => 'autoplay'}
+    assert_tag_in_string article.body, :tag => 'source', :attributes => {:src => 'http://example.ogv', :type => 'video/ogg'}
+  end
+
 end

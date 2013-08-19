@@ -70,7 +70,7 @@ tinyMCE.init({
   paste_insert_word_content_callback : "convertWord",
   paste_use_dialog: false,
   apply_source_formatting : true,
-  extended_valid_elements : "applet[style|archive|codebase|code|height|width],comment,iframe[src|style|allowtransparency|frameborder|width|height|scrolling],embed[title|src|type|height|width]",
+  extended_valid_elements : "applet[style|archive|codebase|code|height|width],comment,iframe[src|style|allowtransparency|frameborder|width|height|scrolling],embed[title|src|type|height|width],audio[controls|autoplay],video[controls|autoplay],source[src|type]",
   content_css: '/stylesheets/tinymce.css,<%= macro_css_files %>',
   language: <%= tinymce_language.inspect %>,
   entity_encoding: 'raw',
