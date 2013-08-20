@@ -44,7 +44,7 @@ Given /^the following (community|communities|enterprises?|organizations?)$/ do |
     end
     if category && !category.blank?
       cat = Category.find_by_slug category
-      organization.categories << cat
+      ProfileCategorization.add_category_to_profile(cat, organization)
     end
     if img_name
       img = Image.create!(:uploaded_data => fixture_file_upload('/files/'+img_name+'.png', 'image/png'))
