@@ -488,6 +488,7 @@ class CategoryTest < ActiveSupport::TestCase
   end
 
   should 'paginate upcoming events' do
+    Event.destroy_all
     category = Category.create!(:name => 'category1', :environment_id => Environment.default.id)
     profile = fast_create(Profile)
     event1 = Event.create!(:name => 'event1', :profile => profile, :start_date => Time.now)
