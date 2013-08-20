@@ -4,6 +4,7 @@ class RecentDocumentsBlockTest < ActiveSupport::TestCase
 
   def setup
     @profile = create_user('testinguser').person
+    @profile.articles.destroy_all
     ['first', 'second', 'third', 'fourth', 'fifth'].each do |name|
       @profile.articles << TextArticle.create(:name => name)
     end
@@ -24,7 +25,7 @@ class RecentDocumentsBlockTest < ActiveSupport::TestCase
 
   should 'output list with links to recent documents' do
     output = block.content
-    
+
     assert_match /href=.*\/testinguser\/first/, output
     assert_match /href=.*\/testinguser\/second/, output
     assert_match /href=.*\/testinguser\/third/, output
