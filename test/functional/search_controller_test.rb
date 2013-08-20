@@ -425,7 +425,7 @@ class SearchControllerTest < ActionController::TestCase
   should 'show link to article asset in the see all foot link of the articles block in the category page' do
 	(1..SearchController::MULTIPLE_SEARCH_LIMIT+1).each do |i|
 	  a = create_user("test#{i}").person.articles.create!(:name => "article #{i} to be found")
-      a.categories << @category
+      ArticleCategorization.add_category_to_article(@category, a)
     end
 
     get :category_index, :category_path => [ 'my-category' ]
