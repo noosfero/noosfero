@@ -819,7 +819,8 @@ class PersonTest < ActiveSupport::TestCase
   end
 
   should "the tracked action be notified to person friends and herself" do
-    p1 = Person.first
+    Person.destroy_all
+    p1 = fast_create(Person)
     p2 = fast_create(Person)
     p3 = fast_create(Person)
     p4 = fast_create(Person)
@@ -829,14 +830,14 @@ class PersonTest < ActiveSupport::TestCase
     assert !p1.is_a_friend?(p3)
     p1.add_friend(p4)
     assert p1.is_a_friend?(p4)
-    
-    action_tracker = fast_create(ActionTracker::Record)
+
+    action_tracker = fast_create(ActionTracker::Record, :user_id => p1.id)
     ActionTrackerNotification.delete_all
-    count = ActionTrackerNotification.count
     Delayed::Job.destroy_all
-    Person.notify_activity(action_tracker)
-    process_delayed_job_queue 
-    assert_equal count + 3, ActionTrackerNotification.count
+    assert_difference ActionTrackerNotification, :count, 3 do
+      Person.notify_activity(action_tracker)
+      process_delayed_job_queue
+    end
     ActionTrackerNotification.all.map{|a|a.profile}.map do |profile|
       [p1,p2,p4].include?(profile)
     end
@@ -862,7 +863,7 @@ class PersonTest < ActiveSupport::TestCase
   end
 
   should "the tracked action notify friends with one delayed job process" do
-    p1 = Person.first
+    p1 = fast_create(Person)
     p2 = fast_create(Person)
     p3 = fast_create(Person)
     p4 = fast_create(Person)
@@ -873,7 +874,7 @@ class PersonTest < ActiveSupport::TestCase
     p1.add_friend(p4)
     assert p1.is_a_friend?(p4)
     
-    action_tracker = fast_create(ActionTracker::Record)
+    action_tracker = fast_create(ActionTracker::Record, :user_id => p1.id)
 
     Delayed::Job.delete_all
     assert_difference(Delayed::Job, :count, 1) do
@@ -885,8 +886,9 @@ class PersonTest < ActiveSupport::TestCase
   end
 
   should "the community tracked action be notified to the author and to community members" do
-    p1 = Person.first
+    Person.destroy_all
     community = fast_create(Community)
+    p1 = fast_create(Person)
     p2 = fast_create(Person)
     p3 = fast_create(Person)
 
@@ -896,7 +898,7 @@ class PersonTest < ActiveSupport::TestCase
     assert p3.is_member_of?(community)
     assert !p2.is_member_of?(community)
     process_delayed_job_queue
-    
+
     action_tracker = fast_create(ActionTracker::Record, :verb => 'create_article')
     action_tracker.target = community
     action_tracker.save!
@@ -1222,6 +1224,7 @@ class PersonTest < ActiveSupport::TestCase
   end
 
   should 'return tracked_actions and scraps as activities' do
+    ActionTracker::Record.destroy_all
     person = fast_create(Person)
     another_person = fast_create(Person)
 
@@ -1233,6 +1236,7 @@ class PersonTest < ActiveSupport::TestCase
   end
 
   should 'not return tracked_actions and scraps from others as activities' do
+    ActionTracker::Record.destroy_all
     person = fast_create(Person)
     another_person = fast_create(Person)
 
