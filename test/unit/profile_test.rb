@@ -517,7 +517,7 @@ class ProfileTest < ActiveSupport::TestCase
 
   should 'be able to create a profile with categories' do
     pcat = create(Category)
-    c1 = create(Category, :parent_id => pcat)
+    c1 = create(Category, :parent_id => pcat.id)
     c2 = create(Category)
 
     profile = create(Profile, :category_ids => [c1.id, c2.id])
@@ -713,8 +713,8 @@ class ProfileTest < ActiveSupport::TestCase
     c3 = fast_create(Category, :parent_id => c1.id)
     profile = fast_create(Profile)
     profile.category_ids = [c2,c3,c3].map(&:id)
-    assert_equal [c2, c3], profile.categories(true)
-    assert_equal [c2, c1, c3], profile.categories_including_virtual(true)
+    assert_equivalent [c2, c3], profile.categories(true)
+    assert_equivalent [c1, c2, c3], profile.categories_including_virtual(true)
   end
 
   should 'not return nil members when a member is removed from system' do
