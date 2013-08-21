@@ -221,7 +221,6 @@ ActiveRecord::Schema.define(:version => 20130711213046) do
     t.string   "source_type"
     t.string   "user_agent"
     t.string   "referrer"
-    t.integer  "group_id"
   end
 
   add_index "comments", ["source_id", "spam"], :name => "index_comments_on_source_id_and_spam"
