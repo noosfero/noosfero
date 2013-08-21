@@ -182,7 +182,7 @@ class TaskTest < ActiveSupport::TestCase
     t2.finish
     t3 = Task.create!
 
-    assert_equal [t1,t3], Task.pending
+    assert_equivalent [t1,t3], Task.pending
   end
 
   should 'be able to list finished tasks' do
