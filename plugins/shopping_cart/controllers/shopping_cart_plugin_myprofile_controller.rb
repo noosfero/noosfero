@@ -63,6 +63,7 @@ class ShoppingCartPluginMyprofileController < MyProfileController
 
   def treat_delivery_options(params)
     result = {}
+    return result if params.nil? || params[:delivery_options].nil?
     params[:options].size.times do |counter|
       if params[:options][counter].present? && params[:prices][counter].present?
         result[params[:options][counter]] = params[:prices][counter]
