@@ -1379,6 +1379,16 @@ class ProfileTest < ActiveSupport::TestCase
     assert_not_includes Profile.templates(Environment.default), profile
   end
 
+  should 'not crash on a profile update with a destroyed template' do
+    template = fast_create(Profile, :is_template => true)
+    profile = fast_create(Profile, :template_id => template.id)
+    template.destroy
+
+    assert_nothing_raised do
+      Profile.find(profile.id).save!
+    end
+  end
+
   should 'provide URL to leave' do
     profile = build(Profile, :identifier => 'testprofile')
     assert_equal({ :profile => 'testprofile', :controller => 'profile', :action => 'leave', :reload => false}, profile.leave_url)

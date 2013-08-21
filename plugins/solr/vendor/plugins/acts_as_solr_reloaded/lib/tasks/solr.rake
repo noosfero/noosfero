@@ -1,6 +1,6 @@
 namespace :solr do
 
-  APACHE_MIRROR = ENV['APACHE_MIRROR'] || "http://ftp.unicamp.br/pub/apache"
+  APACHE_MIRROR = ENV['APACHE_MIRROR'] || "https://archive.apache.org/dist"
   SOLR_VERSION = '3.6.2'
   SOLR_FILENAME = "apache-solr-#{SOLR_VERSION}.tgz"
   SOLR_MD5SUM = 'e9c51f51265b070062a9d8ed50b84647'
@@ -177,7 +177,7 @@ namespace :solr do
     models.each do |model|
       if clear_first
         puts "Clearing index for #{model}..."
-        ActsAsSolr::Post.execute(Solr::Request::Delete.new(:query => "#{model.solr_configuration[:type_field]}:#{Solr::Util.query_parser_escape(model.name)}"))
+        ActsAsSolr::Post.execute(Solr::Request::Delete.new(:query => "#{model.solr_configuration[:type_field]}:#{model.name.gsub ':', "\\:"}"))
         ActsAsSolr::Post.execute(Solr::Request::Commit.new)
       end
 
