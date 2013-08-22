@@ -350,7 +350,7 @@ class CategoryTest < ActiveSupport::TestCase
     p1.add_category c
     p2 = create_user('testuser_2').person
     p2.add_category c
-    assert_equal [p1, p2], c.people
+    assert_equivalent [p1, p2], c.people
   end
 
   should 'have communities' do
@@ -359,7 +359,7 @@ class CategoryTest < ActiveSupport::TestCase
     c1.add_category c
     c2 = fast_create(Community, :name => 'testcommunity_2')
     c2.add_category c
-    assert_equal [c1, c2], c.communities
+    assert_equivalent [c1, c2], c.communities
   end
 
   should 'have products through enteprises' do
