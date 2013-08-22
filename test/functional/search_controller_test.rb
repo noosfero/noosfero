@@ -608,11 +608,11 @@ class SearchControllerTest < ActionController::TestCase
 		
 		get :tag, :tag => 'two'
 
-    assert_equal [a, a2], assigns(:searches)[:tag][:results]
+    assert_equivalent [a, a2], assigns(:searches)[:tag][:results]
 
 		get :tag, :tag => 'one'
 
-    assert_equal [a], assigns(:searches)[:tag][:results]
+    assert_equivalent [a], assigns(:searches)[:tag][:results]
   end
 
   should 'not show assets from other environments' do
