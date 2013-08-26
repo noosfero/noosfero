@@ -932,6 +932,11 @@ class CmsControllerTest < ActionController::TestCase
     assert_tag :tag => 'a', :content => 'Cancel', :attributes => { :href => /\/myprofile\/#{profile.identifier}/ }
   end
 
+  should 'have only one mandatory field in the blog creation form' do
+    get :new, :profile => profile.identifier, :type => Blog.name
+    assert_select '.required-field .formfieldline', 1
+  end
+
   should 'create icon upload file in folder' do
     f = Gallery.create!(:name => 'test_folder', :profile => profile)
     post :new, :profile => profile.identifier,
