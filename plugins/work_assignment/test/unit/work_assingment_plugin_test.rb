@@ -43,6 +43,7 @@ class WorkAssignmentPluginTest < ActiveSupport::TestCase
     assert WorkAssignmentPlugin.can_download_submission?(moderator, submission)
   end
 
+
   private
 
   def create_submission(author=nil)
