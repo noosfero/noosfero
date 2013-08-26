@@ -1228,6 +1228,7 @@ class PersonTest < ActiveSupport::TestCase
     person = fast_create(Person)
     another_person = fast_create(Person)
 
+    UserStampSweeper.any_instance.stubs(:current_user).returns(another_person)
     scrap = Scrap.create!(defaults_for_scrap(:sender => another_person, :receiver => person, :content => 'A scrap'))
     UserStampSweeper.any_instance.expects(:current_user).returns(person).at_least_once
     article = TinyMceArticle.create!(:profile => person, :name => 'An article about free software')
@@ -1243,6 +1244,7 @@ class PersonTest < ActiveSupport::TestCase
     person_scrap = Scrap.create!(defaults_for_scrap(:sender => person, :receiver => person, :content => 'A scrap from person'))
     another_person_scrap = Scrap.create!(defaults_for_scrap(:sender => another_person, :receiver => another_person, :content => 'A scrap from another person'))
 
+    UserStampSweeper.any_instance.stubs(:current_user).returns(another_person)
     TinyMceArticle.create!(:profile => another_person, :name => 'An article about free software from another person')
     another_person_activity = ActionTracker::Record.last
 
