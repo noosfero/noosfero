@@ -43,6 +43,7 @@ Depends:
  thin,
  tango-icon-theme,
  libhpricot-ruby,
+ libnokogiri-ruby,
  memcached,
  debconf,
  dbconfig-common,

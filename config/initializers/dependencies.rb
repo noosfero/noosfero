@@ -8,3 +8,4 @@ require 'route_if'
 
 # third-party libraries
 require 'will_paginate'
+require 'nokogiri'
