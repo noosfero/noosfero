@@ -600,8 +600,13 @@ class CmsControllerTest < ActionController::TestCase
     article = profile.articles.create!(:name => 'test', :published => false)
 
     get :edit, :profile => profile.identifier, :id => article.id
-    assert_tag :tag => 'input', :attributes => { :type => 'radio', :name => 'article[published]', :id => 'article_published_true' }
-    assert_tag :tag => 'input', :attributes => { :type => 'radio', :name => 'article[published]', :id => 'article_published_false', :checked => 'checked' }
+    assert_select 'input#article_published_true[name=?][type="radio"]', 'article[published]'
+    assert_select 'input#article_published_false[name=?][type="radio"]', 'article[published]' do |elements|
+      assert elements.length > 0
+      elements.each do |element|
+        assert element["checked"]
+      end
+    end
   end
 
   should 'be able to add image with alignment' do
@@ -800,13 +805,23 @@ class CmsControllerTest < ActionController::TestCase
   should 'display posts per page input with default value on edit blog' do
     n = Blog.new.posts_per_page.to_s
     get :new, :profile => profile.identifier, :type => 'Blog'
-    assert_tag :tag => 'select', :attributes => { :name => 'article[posts_per_page]' }, :child => { :tag => 'option', :attributes => {:value => n, :selected => 'selected'} }
+    assert_select 'select[name=?] option[value=?]', 'article[posts_per_page]', n do |elements|
+      assert elements.length > 0
+      elements.each do |element|
+        assert element["selected"]
+      end
+    end
   end
 
   should 'display options for blog visualization with default value on edit blog' do
     format = Blog.new.visualization_format
     get :new, :profile => profile.identifier, :type => 'Blog'
-    assert_tag :tag => 'select', :attributes => { :name => 'article[visualization_format]' }, :child => { :tag => 'option', :attributes => {:value => 'full', :selected => 'selected'} }
+    assert_select 'select[name=?] option[value=full]', 'article[visualization_format]' do |elements|
+      assert elements.length > 0
+      elements.each do |element|
+        assert element["selected"]
+      end
+    end
   end
 
   should 'not offer to create special article types' do
@@ -1028,7 +1043,12 @@ class CmsControllerTest < ActionController::TestCase
     profile.articles << Blog.new(:name => 'test blog', :profile => profile)
     profile.blog.create_external_feed(:address => 'address', :enabled => true)
     get :edit, :profile => profile.identifier, :id => profile.blog.id
-    assert_tag :tag => 'input', :attributes => { :name => 'article[external_feed_builder][enabled]', :checked => 'checked' }
+    assert_select 'input[type=checkbox][name=?]',  'article[external_feed_builder][enabled]' do |elements|
+      elements.length > 0
+      elements.each do |element|
+        assert element["checked"]
+      end
+    end
   end
 
   should "display 'Fetch posts from an external feed' unchecked if blog has disabled external feed" do
@@ -1046,7 +1066,12 @@ class CmsControllerTest < ActionController::TestCase
 
   should 'only_once option marked by default' do
     get :new, :profile => profile.identifier, :type => 'Blog'
-    assert_tag :tag => 'input', :attributes => { :name => 'article[external_feed_builder][only_once]', :checked => 'checked', :value => 'true' }
+    assert_select 'input[name=?][value="true"]', 'article[external_feed_builder][only_once]' do |elements|
+      assert elements.length > 0
+      elements.each do |element|
+        assert element['checked']
+      end
+    end
   end
 
   should 'display media listing when it is TinyMceArticle and enabled on environment' do
@@ -1202,7 +1227,12 @@ class CmsControllerTest < ActionController::TestCase
   should 'display posts per page input with default value on edit forum' do
     n = Forum.new.posts_per_page.to_s
     get :new, :profile => profile.identifier, :type => 'Forum'
-    assert_tag :tag => 'select', :attributes => { :name => 'article[posts_per_page]' }, :child => { :tag => 'option', :attributes => {:value => n, :selected => 'selected'} }
+    assert_select 'select[name=?] option[value=?]', 'article[posts_per_page]', n do |elements|
+      assert elements.length > 0
+      elements.each do |element|
+        assert element['selected']
+      end
+    end
   end
 
   should 'offer to edit a forum' do
@@ -1370,7 +1400,12 @@ class CmsControllerTest < ActionController::TestCase
   should 'display display posts in current language input checked when editing blog' do
     profile.articles << Blog.new(:name => 'Blog for test', :profile => profile, :display_posts_in_current_language => true)
     get :edit, :profile => profile.identifier, :id => profile.blog.id
-    assert_tag :tag => 'input', :attributes => { :type => 'checkbox', :name => 'article[display_posts_in_current_language]', :checked => 'checked' }
+    assert_select 'input[type=checkbox][name=?]', 'article[display_posts_in_current_language]' do |elements|
+      assert elements.length > 0
+      elements.each do |element|
+        assert element["checked"]
+      end
+    end
   end
 
   should 'display display posts in current language input not checked on new blog' do
@@ -1395,7 +1430,12 @@ class CmsControllerTest < ActionController::TestCase
   should 'be checked display posts in current language checkbox' do
     profile.articles << Blog.new(:name => 'Blog for test', :profile => profile, :display_posts_in_current_language => true)
     get :edit, :profile => profile.identifier, :id => profile.blog.id
-    assert_tag :tag => 'input', :attributes => { :type => 'checkbox', :name => 'article[display_posts_in_current_language]', :checked => 'checked' }
+    assert_select 'input[type=checkbox][name=?]', 'article[display_posts_in_current_language]' do |elements|
+      assert elements.length > 0
+      elements.each do |element|
+        assert element["checked"]
+      end
+    end
   end
 
   should 'be unchecked display posts in current language checkbox' do
