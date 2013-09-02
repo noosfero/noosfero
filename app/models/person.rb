@@ -471,8 +471,9 @@ class Person < Profile
     Scrap.find_by_sql("SELECT id, updated_at, '#{Scrap.to_s}' AS klass FROM #{Scrap.table_name} WHERE scraps.receiver_id = #{self.id} AND scraps.scrap_id IS NULL UNION SELECT id, updated_at, '#{ActionTracker::Record.to_s}' AS klass FROM #{ActionTracker::Record.table_name} WHERE action_tracker.user_id = #{self.id} and action_tracker.verb != 'leave_scrap_to_self' and action_tracker.verb != 'add_member_in_community' ORDER BY updated_at DESC")
   end
 
+  # by default, all fields are private
   def public_fields
-    self.fields_privacy.nil? ? self.active_fields : self.fields_privacy.reject{ |k, v| v != 'public' }.keys.map(&:to_s)
+    self.fields_privacy.nil? ? [] : self.fields_privacy.reject{ |k, v| v != 'public' }.keys.map(&:to_s)
   end
 
   protected
