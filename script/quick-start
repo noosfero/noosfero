@@ -67,7 +67,10 @@ else
 fi
 
 # create the database with sample data
-run cp config/database.yml.sqlite3 config/database.yml
+run cp config/database.yml.pgsql config/database.yml
+sudo -u postgres createuser $USER --no-superuser --createdb --no-createrole
+sed -ri "s/username: noosfero/username: $USER/"
+sudo -u postgres createdb noosfero_development -O $USER
 run rake db:schema:load
 run rake db:data:minimal
 run rake db:test:prepare
