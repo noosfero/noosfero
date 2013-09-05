@@ -6,7 +6,8 @@ sudo apt-get -y install iceweasel || sudo apt-get -y install firefox
 # needed for development
 run sudo apt-get -y install ruby-tidy ruby-mocha imagemagick po4a xvfb libxml2-dev libxslt1-dev
 
-sudo apt-get -y install bundler
+sudo apt-get -y install bundler apt-file
+sudo apt-file update
 
 run ./script/debundler
 
