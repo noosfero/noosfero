@@ -95,7 +95,7 @@ class CommentNotifierTest < ActiveSupport::TestCase
   private
 
   def create_comment_and_notify(args)
-    Comment.create!(args)
+    create(Comment, args)
     process_delayed_job_queue
   end
 
