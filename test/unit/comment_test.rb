@@ -59,7 +59,7 @@ class CommentTest < ActiveSupport::TestCase
     c1.author = create_user('someperson').person
     c1.name = 'my name'
     c1.valid?
-    assert c1.errors.invalid?(:name)
+    assert c1.errors[:name.to_s].present?
     assert_no_match /\{fn\}/, c1.errors.on(:name)
   end
 
@@ -172,7 +172,7 @@ class CommentTest < ActiveSupport::TestCase
   should 'not accept invalid email' do
     c = Comment.new(:name => 'My Name', :email => 'my@invalid')
     c.valid?
-    assert c.errors.invalid?(:email)
+    assert c.errors[:email.to_s].present?
   end
 
   should 'generate links to comments on images with view set to true' do
@@ -197,8 +197,8 @@ class CommentTest < ActiveSupport::TestCase
     comment = article.comments.new(:title => '<h1 title </h1>', :body => '<h1 body </h1>', :name => '<h1 name </h1>', :email => 'cracker@test.org')
     comment.valid?
 
-    assert comment.errors.invalid?(:name)
-    assert comment.errors.invalid?(:body)
+    assert comment.errors[:name.to_s].present?
+    assert comment.errors[:body.to_s].present?
   end
 
   should 'escape malformed html tags' do

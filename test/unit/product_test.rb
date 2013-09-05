@@ -205,7 +205,7 @@ class ProductTest < ActiveSupport::TestCase
   should 'not save without category' do
     product = Product.new(:name => 'A product without category')
     product.valid?
-    assert product.errors.invalid?(:product_category_id)
+    assert product.errors[:product_category_id.to_s].present?
   end
 
   should 'not save with a invalid category' do

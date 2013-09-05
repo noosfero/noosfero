@@ -117,11 +117,11 @@ class CommunityTest < ActiveSupport::TestCase
     e.expects(:required_community_fields).returns(['contact_phone']).at_least_once
     community = Community.new(:name => 'My community', :environment => e)
     assert ! community.valid?
-    assert community.errors.invalid?(:contact_phone)
+    assert community.errors[:contact_phone.to_s].present?
 
     community.contact_phone = '99999'
     community.valid?
-    assert ! community.errors.invalid?(:contact_phone)
+    assert ! community.errors[:contact_phone.to_s].present?
   end
 
   should 'return newest text articles as news' do

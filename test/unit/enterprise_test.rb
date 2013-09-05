@@ -12,27 +12,27 @@ class EnterpriseTest < ActiveSupport::TestCase
   def test_identifier_validation
     p = Enterprise.new
     p.valid?
-    assert p.errors.invalid?(:identifier)
+    assert p.errors[:identifier.to_s].present?
 
     p.identifier = 'with space'
     p.valid?
-    assert p.errors.invalid?(:identifier)
+    assert p.errors[:identifier.to_s].present?
 
     p.identifier = 'áéíóú'
     p.valid?
-    assert p.errors.invalid?(:identifier)
+    assert p.errors[:identifier.to_s].present?
 
     p.identifier = 'rightformat2007'
     p.valid?
-    assert ! p.errors.invalid?(:identifier)
+    assert ! p.errors[:identifier.to_s].present?
 
     p.identifier = 'rightformat'
     p.valid?
-    assert ! p.errors.invalid?(:identifier)
+    assert ! p.errors[:identifier.to_s].present?
 
     p.identifier = 'right_format'
     p.valid?
-    assert ! p.errors.invalid?(:identifier)
+    assert ! p.errors[:identifier.to_s].present?
   end
 
   def test_has_domains
@@ -300,11 +300,11 @@ class EnterpriseTest < ActiveSupport::TestCase
     e.expects(:required_enterprise_fields).returns(['contact_phone']).at_least_once
     enterprise = Enterprise.new(:environment => e)
     assert ! enterprise.valid?
-    assert enterprise.errors.invalid?(:contact_phone)
+    assert enterprise.errors[:contact_phone.to_s].present?
 
     enterprise.contact_phone = '99999'
     enterprise.valid?
-    assert ! enterprise.errors.invalid?(:contact_phone)
+    assert ! enterprise.errors[:contact_phone.to_s].present?
   end
 
   should 'enable contact' do

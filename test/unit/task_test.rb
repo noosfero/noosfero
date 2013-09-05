@@ -115,7 +115,7 @@ class TaskTest < ActiveSupport::TestCase
     task2 = Task.new(:code => task1.code)
 
     assert !task2.valid?
-    assert task2.errors.invalid?(:code)
+    assert task2.errors[:code.to_s].present?
   end
 
   should 'generate a code with chars from a-z and 0-9' do

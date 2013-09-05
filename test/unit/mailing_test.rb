@@ -23,31 +23,31 @@ class MailingTest < ActiveSupport::TestCase
   should 'require source_id' do
     mailing = Mailing.new
     mailing.valid?
-    assert mailing.errors.invalid?(:source_id)
+    assert mailing.errors[:source_id.to_s].present?
 
     mailing.source_id = Environment.default.id
     mailing.valid?
-    assert !mailing.errors.invalid?(:source_id)
+    assert !mailing.errors[:source_id.to_s].present?
   end
 
   should 'require subject' do
     mailing = Mailing.new
     mailing.valid?
-    assert mailing.errors.invalid?(:subject)
+    assert mailing.errors[:subject.to_s].present?
 
     mailing.subject = 'Hello :)'
     mailing.valid?
-    assert !mailing.errors.invalid?(:subject)
+    assert !mailing.errors[:subject.to_s].present?
   end
 
   should 'require body' do
     mailing = Mailing.new
     mailing.valid?
-    assert mailing.errors.invalid?(:body)
+    assert mailing.errors[:body.to_s].present?
 
     mailing.body = 'We have some news!'
     mailing.valid?
-    assert !mailing.errors.invalid?(:body)
+    assert !mailing.errors[:body.to_s].present?
   end
 
   should 'return source' do

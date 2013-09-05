@@ -13,31 +13,31 @@ class ArticleTest < ActiveSupport::TestCase
   should 'have and require an associated profile' do
     a = Article.new
     a.valid?
-    assert a.errors.invalid?(:profile_id)
+    assert a.errors[:profile_id.to_s].present?
 
     a.profile = profile
     a.valid?
-    assert !a.errors.invalid?(:profile_id)
+    assert !a.errors[:profile_id.to_s].present?
   end
 
   should 'require value for name' do
     a = Article.new
     a.valid?
-    assert a.errors.invalid?(:name)
+    assert a.errors[:name.to_s].present?
 
     a.name = 'my article'
     a.valid?
-    assert !a.errors.invalid?(:name)
+    assert !a.errors[:name.to_s].present?
   end
 
   should 'limit length of names' do
     a = Article.new(:name => 'a'*151)
     a.valid?
-    assert a.errors.invalid?(:name)
+    assert a.errors[:name.to_s].present?
 
     a.name = 'a'*150
     a.valid?
-    assert !a.errors.invalid?(:name)
+    assert !a.errors[:name.to_s].present?
   end
 
   should 'require value for slug and path if name is filled' do
@@ -45,15 +45,15 @@ class ArticleTest < ActiveSupport::TestCase
     a.slug = nil
     a.path = nil
     a.valid?
-    assert a.errors.invalid?(:slug)
-    assert a.errors.invalid?(:path)
+    assert a.errors[:slug.to_s].present?
+    assert a.errors[:path.to_s].present?
   end
 
   should 'not require value for slug and path if name is blank' do
     a = Article.new
     a.valid?
-    assert !a.errors.invalid?(:slug)
-    assert !a.errors.invalid?(:path)
+    assert !a.errors[:slug.to_s].present?
+    assert !a.errors[:path.to_s].present?
   end
 
   should 'act as versioned' do
@@ -136,20 +136,20 @@ class ArticleTest < ActiveSupport::TestCase
     # cannot add another top level article with same slug
     a2 = profile.articles.build(:name => 'test')
     a2.valid?
-    assert a2.errors.invalid?(:slug)
+    assert a2.errors[:slug.to_s].present?
 
     # now create a child of a1
     a3 = profile.articles.build(:name => 'test')
     a3.parent = a1
     a3.valid?
-    assert !a3.errors.invalid?(:slug)
+    assert !a3.errors[:slug.to_s].present?
     a3.save!
 
     # cannot add another child of a1 with same slug
     a4 = profile.articles.build(:name => 'test')
     a4.parent = a1
     a4.valid?
-    assert a4.errors.invalid?(:slug)
+    assert a4.errors[:slug.to_s].present?
   end
 
   should 'record who did the last change' do
@@ -1218,19 +1218,19 @@ class ArticleTest < ActiveSupport::TestCase
     a = build(Article, :profile_id => fast_create(Profile).id)
     a.language = '12'
     a.valid?
-    assert a.errors.invalid?(:language)
+    assert a.errors[:language.to_s].present?
     a.language = 'en'
     a.valid?
-    assert !a.errors.invalid?(:language)
+    assert !a.errors[:language.to_s].present?
   end
 
   should 'language can be blank' do
     a = build(Article)
     a.valid?
-    assert !a.errors.invalid?(:language)
+    assert !a.errors[:language.to_s].present?
     a.language = ''
     a.valid?
-    assert !a.errors.invalid?(:language)
+    assert !a.errors[:language.to_s].present?
   end
 
   should 'article is not translatable' do
@@ -1261,10 +1261,10 @@ class ArticleTest < ActiveSupport::TestCase
     a.language = 'en'
     a.translation_of = native_article
     a.valid?
-    assert a.errors.invalid?(:language)
+    assert a.errors[:language.to_s].present?
     a.language = 'es'
     a.valid?
-    assert !a.errors.invalid?(:language)
+    assert !a.errors[:language.to_s].present?
   end
 
   should 'verify if native translation is already in use' do
@@ -1273,10 +1273,10 @@ class ArticleTest < ActiveSupport::TestCase
     a.language = 'pt'
     a.translation_of = native_article
     a.valid?
-    assert a.errors.invalid?(:language)
+    assert a.errors[:language.to_s].present?
     a.language = 'es'
     a.valid?
-    assert !a.errors.invalid?(:language)
+    assert !a.errors[:language.to_s].present?
   end
 
   should 'translation have a language' do
@@ -1284,10 +1284,10 @@ class ArticleTest < ActiveSupport::TestCase
     a = build(Article, :profile_id => fast_create(Profile).id)
     a.translation_of = native_article
     a.valid?
-    assert a.errors.invalid?(:language)
+    assert a.errors[:language.to_s].present?
     a.language = 'en'
     a.valid?
-    assert !a.errors.invalid?(:language)
+    assert !a.errors[:language.to_s].present?
   end
 
   should 'native translation have a language' do
@@ -1714,7 +1714,7 @@ class ArticleTest < ActiveSupport::TestCase
     article.parent = article
     article.valid?
 
-    assert article.errors.invalid?(:parent_id)
+    assert article.errors[:parent_id.to_s].present?
   end
 
   should 'not allow cyclical paternity' do
@@ -1724,7 +1724,7 @@ class ArticleTest < ActiveSupport::TestCase
     a1.parent = a3
     a1.valid?
 
-    assert a1.errors.invalid?(:parent_id)
+    assert a1.errors[:parent_id.to_s].present?
   end
 
   should 'set author_name before creating article if there is an author' do

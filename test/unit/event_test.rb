@@ -44,10 +44,10 @@ class EventTest < ActiveSupport::TestCase
     e = Event.new
     e.start_date = nil
     e.valid?
-    assert e.errors.invalid?(:start_date)
+    assert e.errors[:start_date.to_s].present?
     e.start_date = Date.today
     e.valid?
-    assert !e.errors.invalid?(:start_date)
+    assert !e.errors[:start_date.to_s].present?
   end
 
   should 'have a end date' do
@@ -63,11 +63,11 @@ class EventTest < ActiveSupport::TestCase
   should 'not allow end date before start date' do
     e = Event.new(:start_date => Date.new(2008, 01, 01), :end_date => Date.new(2007,01,01))
     e.valid?
-    assert e.errors.invalid?(:start_date)
+    assert e.errors[:start_date.to_s].present?
 
     e.end_date = Date.new(2008,01,05)
     e.valid?
-    assert !e.errors.invalid?(:start_date)
+    assert !e.errors[:start_date.to_s].present?
   end
 
   should 'find by range of dates' do

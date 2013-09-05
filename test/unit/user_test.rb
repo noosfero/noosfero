@@ -90,27 +90,27 @@ class UserTest < ActiveSupport::TestCase
   def test_login_validation
     u = User.new
     u.valid?
-    assert u.errors.invalid?(:login)
+    assert u.errors[:login.to_s].present?
 
     u.login = 'with space'
     u.valid?
-    assert u.errors.invalid?(:login)
+    assert u.errors[:login.to_s].present?
 
     u.login = 'áéíóú'
     u.valid?
-    assert u.errors.invalid?(:login)
+    assert u.errors[:login.to_s].present?
 
     u.login = 'rightformat2007'
     u.valid?
-    assert ! u.errors.invalid?(:login)
+    assert ! u.errors[:login.to_s].present?
 
     u.login = 'rightformat'
     u.valid?
-    assert ! u.errors.invalid?(:login)
+    assert ! u.errors[:login.to_s].present?
 
     u.login = 'right_format'
     u.valid?
-    assert ! u.errors.invalid?(:login)
+    assert ! u.errors[:login.to_s].present?
   end
 
   def test_should_change_password

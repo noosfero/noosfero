@@ -4,35 +4,35 @@ class ScrapTest < ActiveSupport::TestCase
   should "have the content" do
     s = Scrap.new
     s.valid?
-    assert s.errors.invalid?(:content)
+    assert s.errors[:content.to_s].present?
 
     s.content = ''
     s.valid?
-    assert s.errors.invalid?(:content)
+    assert s.errors[:content.to_s].present?
 
     s.content = 'some content'
     s.valid?
-    assert !s.errors.invalid?(:content)
+    assert !s.errors[:content.to_s].present?
   end
 
   should "have the sender" do
     s = Scrap.new
     s.valid?
-    assert s.errors.invalid?(:sender_id)
+    assert s.errors[:sender_id.to_s].present?
 
     s.sender_id = 1
     s.valid?
-    assert !s.errors.invalid?(:sender_id)
+    assert !s.errors[:sender_id.to_s].present?
   end
 
   should "have the receiver" do
     s = Scrap.new
     s.valid?
-    assert s.errors.invalid?(:receiver_id)
+    assert s.errors[:receiver_id.to_s].present?
 
     s.receiver_id = 1
     s.valid?
-    assert !s.errors.invalid?(:receiver_id)
+    assert !s.errors[:receiver_id.to_s].present?
   end
 
   should "be associated to Person as sender" do

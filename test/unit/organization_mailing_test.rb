@@ -18,11 +18,11 @@ class OrganizationMailingTest < ActiveSupport::TestCase
   should 'require source_id' do
     mailing = OrganizationMailing.new
     mailing.valid?
-    assert mailing.errors.invalid?(:source_id)
+    assert mailing.errors[:source_id.to_s].present?
 
     mailing.source_id = community.id
     mailing.valid?
-    assert !mailing.errors.invalid?(:source_id)
+    assert !mailing.errors[:source_id.to_s].present?
   end
 
   should 'return community name' do

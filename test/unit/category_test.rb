@@ -11,14 +11,14 @@ class CategoryTest < ActiveSupport::TestCase
     c = Category.new
     c.organization = @env
     c.save
-    assert c.errors.invalid?(:name)
+    assert c.errors[:name.to_s].present?
   end
 
   def test_mandatory_field_name
     c = Category.new
     c.name = 'product category for testing'
     assert !c.valid?
-    assert c.errors.invalid?(:environment_id)
+    assert c.errors[:environment_id.to_s].present?
   end
 
   def test_relationship_with_environment
@@ -136,7 +136,7 @@ class CategoryTest < ActiveSupport::TestCase
     c2 = Category.new(:name => 'Test: Category', :environment_id => @env.id)
 
     assert !c2.valid?
-    assert c2.errors.invalid?(:slug)
+    assert c2.errors[:slug.to_s].present?
   end
 
   should 'be able to duplicated slug in different scope' do
@@ -170,13 +170,13 @@ class CategoryTest < ActiveSupport::TestCase
 
     c.display_color = 10
     c.valid?
-    assert c.errors.invalid?(:display_color)
+    assert c.errors[:display_color.to_s].present?
 
     valid = %w[ 1 2 3 4 ].map { |item| item.to_i }
     valid.each do |item|
       c.display_color = item
       c.valid?
-      assert !c.errors.invalid?(:display_color)
+      assert !c.errors[:display_color.to_s].present?
     end
 
   end
@@ -187,11 +187,11 @@ class CategoryTest < ActiveSupport::TestCase
     c = Category.new(:name => 'lalala', :environment_id => @env.id)
     c.display_color = 1
     assert !c.valid?
-    assert c.errors.invalid?(:display_color)
+    assert c.errors[:display_color.to_s].present?
 
     c.display_color = 2
     c.valid?
-    assert !c.errors.invalid?(:display_color)
+    assert !c.errors[:display_color.to_s].present?
 
   end
 

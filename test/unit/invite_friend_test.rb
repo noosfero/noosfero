@@ -27,54 +27,54 @@ class InviteFriendTest < ActiveSupport::TestCase
     task = InviteFriend.new
     task.valid?
 
-    ok('must not validate with empty requestor') { task.errors.invalid?(:requestor_id) }
+    ok('must not validate with empty requestor') { task.errors[:requestor_id.to_s].present? }
 
     task.requestor = create_user('testuser2').person
     task.valid?
-    ok('must validate when requestor is given') { !task.errors.invalid?(:requestor_id)}
+    ok('must validate when requestor is given') { !task.errors[:requestor_id.to_s].present?}
   end
 
   should 'require friend email if no target given (person being invited)' do
     task = InviteFriend.new
     task.valid?
 
-    ok('must not validate with empty target email') { task.errors.invalid?(:friend_email) }
+    ok('must not validate with empty target email') { task.errors[:friend_email.to_s].present? }
 
     task.friend_email = 'test@test.com'
     task.valid?
-    ok('must validate when target email is given') { !task.errors.invalid?(:friend_email)}
+    ok('must validate when target email is given') { !task.errors[:friend_email.to_s].present?}
   end
 
   should 'dont require friend email if target given (person being invited)' do
     task = InviteFriend.new(:target => create_user('testuser2').person)
     task.valid?
 
-    ok('must validate with empty target email') { !task.errors.invalid?(:friend_email) }
+    ok('must validate with empty target email') { !task.errors[:friend_email.to_s].present? }
   end
 
   should 'require target (person being invited) if no friend email given' do
     task = InviteFriend.new
     task.valid?
 
-    ok('must not validate with no target') { task.errors.invalid?(:target_id) }
+    ok('must not validate with no target') { task.errors[:target_id.to_s].present? }
 
     task.target =  create_user('testuser2').person
     task.valid?
-    ok('must validate when target is given') { !task.errors.invalid?(:target_id)}
+    ok('must validate when target is given') { !task.errors[:target_id.to_s].present?}
   end
 
   should 'dont require target (person being invited) if friend email given' do
     task = InviteFriend.new(:friend_email => "test@test.com")
     task.valid?
 
-    ok('must validate with no target') { !task.errors.invalid?(:target_id) }
+    ok('must validate with no target') { !task.errors[:target_id.to_s].present? }
   end
 
   should 'dont require message if target given (person being invited)' do
     task = InviteFriend.new(:target => create_user('testuser2').person)
     task.valid?
 
-    ok('must validate with no target') { !task.errors.invalid?(:message) }
+    ok('must validate with no target') { !task.errors[:message.to_s].present? }
   end
 
   should 'not send e-mails to requestor' do

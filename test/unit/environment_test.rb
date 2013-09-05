@@ -12,7 +12,7 @@ class EnvironmentTest < ActiveSupport::TestCase
     vc2 = Environment.new(:name => 'Another Test Community')
     vc2.is_default = true
     assert !vc2.valid?
-    assert vc2.errors.invalid?(:is_default)
+    assert vc2.errors[:is_default.to_s].present?
 
     assert_equal vc, Environment.default
   end
@@ -56,10 +56,10 @@ class EnvironmentTest < ActiveSupport::TestCase
   def test_name_is_mandatory
     v = Environment.new
     v.valid?
-    assert v.errors.invalid?(:name)
+    assert v.errors[:name.to_s].present?
     v.name = 'blablabla'
     v.valid?
-    assert !v.errors.invalid?(:name)
+    assert !v.errors[:name.to_s].present?
   end
 
   def test_terms_of_use
@@ -181,11 +181,11 @@ class EnvironmentTest < ActiveSupport::TestCase
 
     env.contact_email = 'test'
     env.valid?
-    assert env.errors.invalid?(:contact_email)
+    assert env.errors[:contact_email.to_s].present?
 
     env.contact_email = 'test@example.com'
     env.valid?
-    assert !env.errors.invalid?(:contact_email)
+    assert !env.errors[:contact_email.to_s].present?
   end
 
   should 'provide a default hostname' do
@@ -1155,19 +1155,19 @@ class EnvironmentTest < ActiveSupport::TestCase
 
     environment.reports_lower_bound = nil
     environment.valid?
-    assert environment.errors.invalid?(:reports_lower_bound)
+    assert environment.errors[:reports_lower_bound.to_s].present?
 
     environment.reports_lower_bound = -3
     environment.valid?
-    assert environment.errors.invalid?(:reports_lower_bound)
+    assert environment.errors[:reports_lower_bound.to_s].present?
 
     environment.reports_lower_bound = 1.5
     environment.valid?
-    assert environment.errors.invalid?(:reports_lower_bound)
+    assert environment.errors[:reports_lower_bound.to_s].present?
 
     environment.reports_lower_bound = 5
     environment.valid?
-    assert !environment.errors.invalid?(:reports_lower_bound)
+    assert !environment.errors[:reports_lower_bound.to_s].present?
   end
 
   should 'be able to enable or disable a plugin with the class or class name' do
@@ -1214,12 +1214,12 @@ class EnvironmentTest < ActiveSupport::TestCase
     environment = fast_create(Environment)
     environment.redirection_after_login = 'invalid_option'
     environment.save
-    assert environment.errors.invalid?(:redirection_after_login)
+    assert environment.errors[:redirection_after_login.to_s].present?
 
     Environment.login_redirection_options.keys.each do |redirection|
       environment.redirection_after_login = redirection
       environment.save
-      assert !environment.errors.invalid?(:redirection_after_login)
+      assert !environment.errors[:redirection_after_login.to_s].present?
     end
   end
 
@@ -1306,11 +1306,11 @@ class EnvironmentTest < ActiveSupport::TestCase
     environment.stubs(:available_locales).returns(['en'])
     environment.default_language = 'pt'
     environment.valid?
-    assert environment.errors.invalid?(:default_language)
+    assert environment.errors[:default_language.to_s].present?
 
     environment.default_language = 'en'
     environment.valid?
-    assert !environment.errors.invalid?(:default_language)
+    assert !environment.errors[:default_language.to_s].present?
   end
 
   should 'define default locale or use the config default locale' do
@@ -1329,11 +1329,11 @@ class EnvironmentTest < ActiveSupport::TestCase
 
     environment.languages = ['zz']
     environment.valid?
-    assert environment.errors.invalid?(:languages)
+    assert environment.errors[:languages.to_s].present?
 
     environment.languages = ['en']
     environment.valid?
-    assert !environment.errors.invalid?(:languages)
+    assert !environment.errors[:languages.to_s].present?
   end
 
   should 'define locales or use the config locales' do

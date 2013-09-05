@@ -7,11 +7,11 @@ class InputTest < ActiveSupport::TestCase
 
     input = Input.new
     input.valid?
-    assert input.errors.invalid?(:product_category)
+    assert input.errors[:product_category.to_s].present?
 
     input.product_category = product_category
     input.valid?
-    assert !input.errors.invalid?(:product_category)
+    assert !input.errors[:product_category.to_s].present?
   end
 
   should 'require product' do
@@ -20,11 +20,11 @@ class InputTest < ActiveSupport::TestCase
 
     input = Input.new
     input.valid?
-    assert input.errors.invalid?(:product)
+    assert input.errors[:product.to_s].present?
 
     input.product = product
     input.valid?
-    assert !input.errors.invalid?(:product)
+    assert !input.errors[:product.to_s].present?
   end
 
   should 'store inputs ordered by position' do

@@ -15,7 +15,7 @@ class RssFeedTest < ActiveSupport::TestCase
       :search => 'parent_and_children',
     }
     feed.valid?
-    assert !feed.errors.invalid?('body')
+    assert !feed.errors['body'.to_s].present?
   end
 
   should 'alias body as "settings"' do
@@ -160,25 +160,25 @@ class RssFeedTest < ActiveSupport::TestCase
     feed = RssFeed.new
     feed.limit = 'text'
     feed.valid?
-    assert feed.errors.invalid?(:limit)
+    assert feed.errors[:limit.to_s].present?
     feed.limit = 10
     feed.valid?
-    assert !feed.errors.invalid?(:limit)
+    assert !feed.errors[:limit.to_s].present?
   end
 
   should 'allow only parent_and_children and all as include setting' do
     feed = RssFeed.new
     feed.include = :something_else
     feed.valid?
-    assert feed.errors.invalid?(:include)
+    assert feed.errors[:include.to_s].present?
 
     feed.include = 'parent_and_children'
     feed.valid?
-    assert !feed.errors.invalid?(:include)
+    assert !feed.errors[:include.to_s].present?
 
     feed.include = 'all'
     feed.valid?
-    assert !feed.errors.invalid?(:include)
+    assert !feed.errors[:include.to_s].present?
   end
 
   should 'provide proper short description' do

@@ -17,7 +17,7 @@ class ChangePasswordTest < ActiveSupport::TestCase
     data.email = 'example@example.com'
     data.environment_id = Environment.default.id
     data.valid?
-    assert data.errors.invalid?(:login)
+    assert data.errors[:login.to_s].present?
   end
 
   should 'require a valid username' do
@@ -27,7 +27,7 @@ class ChangePasswordTest < ActiveSupport::TestCase
     data = ChangePassword.new
     data.login = 'testuser'
     data.valid?
-    assert !data.errors.invalid?(:login)
+    assert !data.errors[:login.to_s].present?
   end
 
   should 'refuse incorrect e-mail address' do
@@ -40,8 +40,8 @@ class ChangePasswordTest < ActiveSupport::TestCase
     data.environment_id = Environment.default.id
 
     data.valid?
-    assert !data.errors.invalid?(:login)
-    assert data.errors.invalid?(:email)
+    assert !data.errors[:login.to_s].present?
+    assert data.errors[:email.to_s].present?
   end
 
   should 'require the correct e-mail address' do
@@ -54,8 +54,8 @@ class ChangePasswordTest < ActiveSupport::TestCase
     data.environment_id = Environment.default.id
 
     data.valid?
-    assert !data.errors.invalid?(:login)
-    assert !data.errors.invalid?(:email)
+    assert !data.errors[:login.to_s].present?
+    assert !data.errors[:email.to_s].present?
   end
 
   should 'require correct passsword confirmation' do
@@ -71,7 +71,7 @@ class ChangePasswordTest < ActiveSupport::TestCase
     change.password = 'right'
     change.password_confirmation = 'wrong'
     assert !change.valid?
-    assert change.errors.invalid?(:password)
+    assert change.errors[:password.to_s].present?
 
 
     change.password_confirmation = 'right'

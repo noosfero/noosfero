@@ -95,16 +95,16 @@ class ActiveSupport::TestCase
   def assert_mandatory(object, attribute, test_value = 'some random string')
     object.send("#{attribute}=", nil)
     object.valid?
-    assert object.errors.invalid?(attribute), "Attribute \"#{attribute.to_s}\" expected to be mandatory."
+    assert object.errors[attribute.to_s].present?, "Attribute \"#{attribute.to_s}\" expected to be mandatory."
     object.send("#{attribute}=", test_value)
     object.valid?
-    assert !object.errors.invalid?(attribute), "Attribute \"#{attribute.to_s}\" expected to accept value #{test_value.inspect}"
+    assert !object.errors[attribute.to_s].present?, "Attribute \"#{attribute.to_s}\" expected to accept value #{test_value.inspect}"
   end
 
   def assert_optional(object, attribute)
     object.send("#{attribute}=", nil)
     object.valid?
-    assert !object.errors.invalid?(attribute)
+    assert !object.errors[attribute.to_s].present?
   end
 
   def assert_subclass(parent, child)

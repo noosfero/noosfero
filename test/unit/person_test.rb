@@ -60,7 +60,7 @@ class PersonTest < ActiveSupport::TestCase
     p2 = Person.new(:environment => Environment.default)
     p2.user = u
     assert !p2.valid?
-    assert p2.errors.invalid?(:user_id)
+    assert p2.errors[:user_id.to_s].present?
   end
 
   should "have person info fields" do
@@ -133,7 +133,7 @@ class PersonTest < ActiveSupport::TestCase
     other = create_user('seconduser', :email => 'other@domain.com').person
     other.email = 'user@domain.com'
     other.valid?
-    assert other.errors.invalid?(:email)
+    assert other.errors[:email.to_s].present?
     assert_no_match /\{fn\}/, other.errors.on(:email)
   end
 
@@ -144,7 +144,7 @@ class PersonTest < ActiveSupport::TestCase
     other = create_user('user', :email => 'other@example.com', :environment => other_env).person
     other.email = 'user@example.com'
     other.valid?
-    assert !other.errors.invalid?(:email)
+    assert !other.errors[:email.to_s].present?
   end
 
   should 'be an admin if have permission of environment administration' do
@@ -318,7 +318,7 @@ class PersonTest < ActiveSupport::TestCase
   should 'required name' do
     person = Person.new(:environment => Environment.default)
     assert !person.valid?
-    assert person.errors.invalid?(:name)
+    assert person.errors[:name.to_s].present?
   end
 
   should 'already request friendship' do
@@ -463,11 +463,11 @@ class PersonTest < ActiveSupport::TestCase
     e.expects(:required_person_fields).returns(['cell_phone']).at_least_once
     person = Person.new(:environment => e)
     assert ! person.valid?
-    assert person.errors.invalid?(:cell_phone)
+    assert person.errors[:cell_phone.to_s].present?
 
     person.cell_phone = '99999'
     person.valid?
-    assert ! person.errors.invalid?(:cell_phone)
+    assert ! person.errors[:cell_phone.to_s].present?
   end
 
   should 'require custom_area_of_study if area_of_study is others' do
@@ -476,11 +476,11 @@ class PersonTest < ActiveSupport::TestCase
   
     person = Person.new(:environment => e, :area_of_study => 'Others')
     assert !person.valid?
-    assert person.errors.invalid?(:custom_area_of_study)
+    assert person.errors[:custom_area_of_study.to_s].present?
 
     person.custom_area_of_study = 'Customized area of study'
     person.valid?
-    assert ! person.errors.invalid?(:custom_area_of_study)
+    assert ! person.errors[:custom_area_of_study.to_s].present?
   end
 
   should 'not require custom_area_of_study if area_of_study is not others' do
@@ -489,7 +489,7 @@ class PersonTest < ActiveSupport::TestCase
 
     person = Person.new(:environment => e, :area_of_study => 'Agrometeorology')
     person.valid?
-    assert ! person.errors.invalid?(:custom_area_of_study)
+    assert ! person.errors[:custom_area_of_study.to_s].present?
   end
 
   should 'require custom_formation if formation is others' do
@@ -498,11 +498,11 @@ class PersonTest < ActiveSupport::TestCase
 
     person = Person.new(:environment => e, :formation => 'Others')
     assert !person.valid?
-    assert person.errors.invalid?(:custom_formation)
+    assert person.errors[:custom_formation.to_s].present?
 
     person.custom_formation = 'Customized formation'
     person.valid?
-    assert ! person.errors.invalid?(:custom_formation)
+    assert ! person.errors[:custom_formation.to_s].present?
   end
 
   should 'not require custom_formation if formation is not others' do
@@ -511,7 +511,7 @@ class PersonTest < ActiveSupport::TestCase
  
     person = Person.new(:environment => e, :formation => 'Agrometeorology')
     assert !person.valid?
-    assert ! person.errors.invalid?(:custom_formation)
+    assert ! person.errors[:custom_formation.to_s].present?
   end
 
   should 'identify when person is a friend' do
@@ -1175,7 +1175,7 @@ class PersonTest < ActiveSupport::TestCase
   should 'not accept an empty year on birth date' do
     p = Person.new({"birth_date(2i)"=>"11", "birth_date(3i)"=>"15", "birth_date(1i)"=>""})
     p.valid?
-    assert p.errors.invalid?(:birth_date)
+    assert p.errors[:birth_date.to_s].present?
   end
 
   should 'associate report with the correct complaint' do

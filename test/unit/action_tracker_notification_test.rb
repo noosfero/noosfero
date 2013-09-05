@@ -5,21 +5,21 @@ class ActionTrackerNotificationTest < ActiveSupport::TestCase
   should "have the profile" do
     a = ActionTrackerNotification.new
     a.valid?
-    assert a.errors.invalid?(:profile_id)
+    assert a.errors[:profile_id.to_s].present?
 
     a.profile_id= 1
     a.valid?
-    assert !a.errors.invalid?(:profile_id)
+    assert !a.errors[:profile_id.to_s].present?
   end
 
   should "have the action tracker" do
     a = ActionTrackerNotification.new
     a.valid?
-    assert a.errors.invalid?(:action_tracker_id)
+    assert a.errors[:action_tracker_id.to_s].present?
 
     a.action_tracker_id= 1
     a.valid?
-    assert !a.errors.invalid?(:action_tracker_id)
+    assert !a.errors[:action_tracker_id.to_s].present?
   end
 
   should "be associated to Person" do
@@ -54,11 +54,11 @@ class ActionTrackerNotificationTest < ActiveSupport::TestCase
 
     atn = ActionTrackerNotification.new(:action_tracker_id => 1, :profile_id => 1)
     atn.valid?
-    assert atn.errors.invalid?(:action_tracker_id)
+    assert atn.errors[:action_tracker_id.to_s].present?
 
     atn.profile_id = 2
     atn.valid?
-    assert !atn.errors.invalid?(:action_tracker_id)
+    assert !atn.errors[:action_tracker_id.to_s].present?
   end
 
   should "the action_tracker_id be unique on scope of profile when created by ActionTracker::Record association" do

@@ -164,15 +164,15 @@ class BlogTest < ActiveSupport::TestCase
     blog = Blog.new(:name => 'blog')
     blog.visualization_format = 'wrong_format'
     blog.valid?
-    assert blog.errors.invalid?(:visualization_format)
+    assert blog.errors[:visualization_format.to_s].present?
 
     blog.visualization_format = 'short'
     blog.valid?
-    assert !blog.errors.invalid?(:visualization_format)
+    assert !blog.errors[:visualization_format.to_s].present?
 
     blog.visualization_format = 'full'
     blog.valid?
-    assert !blog.errors.invalid?(:visualization_format)
+    assert !blog.errors[:visualization_format.to_s].present?
   end
 
   should 'have posts' do

@@ -91,11 +91,11 @@ class ApproveCommentTest < ActiveSupport::TestCase
     task = ApproveComment.new
     task.valid?
 
-    ok('must not validate with empty target') { task.errors.invalid?(:target_id) }
+    ok('must not validate with empty target') { task.errors[:target_id.to_s].present? }
 
     task.target = Person.new
     task.valid?
-    ok('must validate when target is given') { task.errors.invalid?(:target_id)}
+    ok('must validate when target is given') { task.errors[:target_id.to_s].present?}
   end
 
   should 'send e-mails' do

@@ -26,35 +26,35 @@ class InviteMemberTest < ActiveSupport::TestCase
     task = InviteMember.new
     task.valid?
 
-    ok('community is required') { task.errors.invalid?(:community_id) }
+    ok('community is required') { task.errors[:community_id.to_s].present? }
   end
 
   should 'require friend email if no target given (person being invited)' do
     task = InviteMember.new
     task.valid?
 
-    ok('friend_email is required') { task.errors.invalid?(:friend_email) }
+    ok('friend_email is required') { task.errors[:friend_email.to_s].present? }
   end
 
   should 'dont require friend email if target given (person being invited)' do
     task = InviteMember.new(:target => create_user('testuser2').person)
     task.valid?
 
-    ok('friend_email isnt required') { !task.errors.invalid?(:friend_email) }
+    ok('friend_email isnt required') { !task.errors[:friend_email.to_s].present? }
   end
 
   should 'require target (person being invited) if no friend email given' do
     task = InviteMember.new
     task.valid?
 
-    ok('target is required') { task.errors.invalid?(:target_id) }
+    ok('target is required') { task.errors[:target_id.to_s].present? }
   end
 
   should 'dont require target (person being invited) if friend email given' do
     task = InviteMember.new(:friend_email => "test@test.com")
     task.valid?
 
-    ok('target isn required') { !task.errors.invalid?(:target_id) }
+    ok('target isn required') { !task.errors[:target_id.to_s].present? }
   end
 
   should 'not send e-mails to requestor' do

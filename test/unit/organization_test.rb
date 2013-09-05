@@ -80,20 +80,20 @@ class OrganizationTest < ActiveSupport::TestCase
   should 'validate contact_email if filled' do
     org = Organization.new
     org.valid?
-    assert !org.errors.invalid?(:contact_email)
+    assert !org.errors[:contact_email.to_s].present?
 
     org.contact_email = ''
     org.valid?
-    assert !org.errors.invalid?(:contact_email)
+    assert !org.errors[:contact_email.to_s].present?
 
 
     org.contact_email = 'invalid-email'
     org.valid?
-    assert org.errors.invalid?(:contact_email)
+    assert org.errors[:contact_email.to_s].present?
 
     org.contact_email = 'someone@somedomain.com'
     org.valid?
-    assert !org.errors.invalid?(:contact_email)
+    assert !org.errors[:contact_email.to_s].present?
   end
 
   should 'list contact_email plus admin emails as "notification emails"' do
@@ -183,15 +183,15 @@ class OrganizationTest < ActiveSupport::TestCase
     org = Organization.new
     org.foundation_year = 'xxxx'
     org.valid?
-    assert org.errors.invalid?(:foundation_year)
+    assert org.errors[:foundation_year.to_s].present?
 
     org.foundation_year = 20.07
     org.valid?
-    assert org.errors.invalid?(:foundation_year)
+    assert org.errors[:foundation_year.to_s].present?
     
     org.foundation_year = 2007
     org.valid?
-    assert ! org.errors.invalid?(:foundation_year)
+    assert ! org.errors[:foundation_year.to_s].present?
   end
 
   should 'has closed' do
@@ -393,11 +393,11 @@ class OrganizationTest < ActiveSupport::TestCase
   should 'validates format of cnpj' do
     organization = Organization.new(:cnpj => '239-234.234')
     organization.valid?
-    assert organization.errors.invalid?(:cnpj)
+    assert organization.errors[:cnpj.to_s].present?
 
     organization.cnpj = '94.132.024/0001-48'
     organization.valid?
-    assert !organization.errors.invalid?(:cnpj)
+    assert !organization.errors[:cnpj.to_s].present?
   end
 
   should 'return members by role in a json format' do

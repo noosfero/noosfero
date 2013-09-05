@@ -7,31 +7,31 @@ class ProfileTest < ActiveSupport::TestCase
   def test_identifier_validation
     p = Profile.new
     p.valid?
-    assert p.errors.invalid?(:identifier)
+    assert p.errors[:identifier.to_s].present?
 
     p.identifier = 'with space'
     p.valid?
-    assert p.errors.invalid?(:identifier)
+    assert p.errors[:identifier.to_s].present?
 
     p.identifier = 'áéíóú'
     p.valid?
-    assert p.errors.invalid?(:identifier)
+    assert p.errors[:identifier.to_s].present?
 
     p.identifier = 'rightformat2007'
     p.valid?
-    assert ! p.errors.invalid?(:identifier)
+    assert ! p.errors[:identifier.to_s].present?
 
     p.identifier = 'rightformat'
     p.valid?
-    assert ! p.errors.invalid?(:identifier)
+    assert ! p.errors[:identifier.to_s].present?
 
     p.identifier = 'right_format'
     p.valid?
-    assert ! p.errors.invalid?(:identifier)
+    assert ! p.errors[:identifier.to_s].present?
 
     p.identifier = 'identifier-with-dashes'
     p.valid?
-    assert ! p.errors.invalid?(:identifier), 'Profile should accept identifier with dashes'
+    assert ! p.errors[:identifier.to_s].present?, 'Profile should accept identifier with dashes'
   end
 
   def test_has_domains
@@ -81,10 +81,10 @@ class ProfileTest < ActiveSupport::TestCase
   def test_name_should_be_mandatory
     p = Profile.new
     p.valid?
-    assert p.errors.invalid?(:name)
+    assert p.errors[:name.to_s].present?
     p.name = 'a very unprobable name'
     p.valid?
-    assert !p.errors.invalid?(:name)
+    assert !p.errors[:name.to_s].present?
   end
 
   def test_can_have_affiliated_people
@@ -1348,12 +1348,12 @@ class ProfileTest < ActiveSupport::TestCase
     template = fast_create(Profile)
     profile = Profile.new(:template => template)
     !profile.valid?
-    assert profile.errors.invalid?(:template)
+    assert profile.errors[:template.to_s].present?
 
     template.is_template = true
     template.save!
     profile.valid?
-    assert !profile.errors.invalid?(:template)
+    assert !profile.errors[:template.to_s].present?
   end
 
   should 'be able to have a template' do
@@ -1491,7 +1491,7 @@ class ProfileTest < ActiveSupport::TestCase
     profile = Profile.new
     profile.description = long_description
     profile.valid?
-    assert profile.errors.invalid?(:description)
+    assert profile.errors[:description.to_s].present?
   end
 
   should 'sanitize name before validation' do
@@ -1499,7 +1499,7 @@ class ProfileTest < ActiveSupport::TestCase
     profile.name = "<h1 Bla </h1>"
     profile.valid?
 
-    assert profile.errors.invalid?(:name)
+    assert profile.errors[:name.to_s].present?
   end
 
   should 'filter fields with white_list filter' do
@@ -1778,7 +1778,7 @@ class ProfileTest < ActiveSupport::TestCase
   def assert_invalid_identifier(id)
     profile = Profile.new(:identifier => id)
     assert !profile.valid?
-    assert profile.errors.invalid?(:identifier)
+    assert profile.errors[:identifier.to_s].present?
   end
 
   should 'respond to redirection_after_login' do
@@ -1801,12 +1801,12 @@ class ProfileTest < ActiveSupport::TestCase
     profile = fast_create(Profile)
     profile.redirection_after_login = 'invalid_option'
     profile.save
-    assert profile.errors.invalid?(:redirection_after_login)
+    assert profile.errors[:redirection_after_login.to_s].present?
 
     Environment.login_redirection_options.keys.each do |redirection|
       profile.redirection_after_login = redirection
       profile.save
-      assert !profile.errors.invalid?(:redirection_after_login)
+      assert !profile.errors[:redirection_after_login.to_s].present?
     end
   end
 
