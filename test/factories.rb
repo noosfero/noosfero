@@ -37,8 +37,10 @@ module Noosfero::Factory
 
   def build(name, attrs = {})
     data = defaults_for(name).merge(attrs)
-    name.to_s.camelize.constantize.new(data)
-  end
+    object = name.to_s.camelize.constantize.new
+    data.each { |attribute, value| object.send(attribute.to_s+'=', value) }
+    object
+ end
 
   def defaults_for(name)
     send('defaults_for_' + name.to_s.underscore)
