@@ -45,8 +45,8 @@ class EmailActivationTest < ActiveSupport::TestCase
     task = EmailActivation.new(:requestor => ze.person, :target => Environment.default)
     assert task.save!
 
-    anothertask = EmailActivation.new(:requestor => ze.person, :target => Environment.default)
-    assert !anothertask.save
+    another_task = EmailActivation.new(:requestor => ze.person, :target => Environment.default)
+    assert !another_task.save, "Should not be able to save another task"
   end
 
   should 'deliver activation email notification' do
@@ -54,7 +54,7 @@ class EmailActivationTest < ActiveSupport::TestCase
 
     task = EmailActivation.new(:requestor => user.person, :target => Environment.default)
 
-    email = User::Mailer.deliver_activation_email_notify(user)
+    email = User::Mailer.activation_email_notify(user).deliver
     assert_match(/Welcome to #{task.requestor.environment.name} mail!/, email.subject)
   end
 
