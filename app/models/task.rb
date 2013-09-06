@@ -57,8 +57,7 @@ class Task < ActiveRecord::Base
   after_create do |task|
     unless task.status == Task::Status::HIDDEN
       begin
-        # FIXME
-        # task.send(:send_notification, :created)
+        task.send(:send_notification, :created)
       rescue NotImplementedError => ex
         Rails.logger.info ex.to_s
       end
@@ -66,8 +65,7 @@ class Task < ActiveRecord::Base
       begin
         target_msg = task.target_notification_message
         if target_msg && task.target && !task.target.notification_emails.empty?
-          # FIXME
-          # TaskMailer.deliver_target_notification(task, target_msg)
+          TaskMailer.target_notification(task, target_msg).deliver
         end
       rescue NotImplementedError => ex
         Rails.logger.info ex.to_s
@@ -222,8 +220,7 @@ class Task < ActiveRecord::Base
     self.status = Task::Status::ACTIVE
     save!
     begin
-      # FIXME
-      # self.send(:send_notification, :activated)
+      self.send(:send_notification, :activated)
     rescue NotImplementedError => ex
       Rails.logger.info ex.to_s
     end
@@ -231,8 +228,7 @@ class Task < ActiveRecord::Base
     begin
       target_msg = target_notification_message
        if target_msg && self.target && !self.target.notification_emails.empty?
-         # FIXME
-         # TaskMailer.deliver_target_notification(self, target_msg)
+         TaskMailer.target_notification(self, target_msg).deliver
        end
     rescue NotImplementedError => ex
       Rails.logger.info ex.to_s
@@ -265,8 +261,7 @@ class Task < ActiveRecord::Base
   def send_notification(action)
     if sends_email?
       if self.requestor
-        # FIXME
-        # TaskMailer.send("deliver_task_#{action}", self)
+         TaskMailer.generic_message("task_#{action}", self)
       end
     end
   end
