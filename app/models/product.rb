@@ -32,7 +32,8 @@ class Product < ActiveRecord::Base
 
   acts_as_having_settings :field => :data
 
-  validates_uniqueness_of :name, :scope => :profile_id, :allow_nil => true
+  validates_uniqueness_of :name, :scope => :profile_id, :allow_nil => true, :if => :validate_uniqueness_of_column_name?
+
   validates_presence_of :product_category_id
   validates_associated :product_category
 
@@ -234,5 +235,11 @@ class Product < ActiveRecord::Base
   end
 
   delegate :enabled, :region, :region_id, :environment, :environment_id, :to => :enterprise
+
+  protected
+
+  def validate_uniqueness_of_column_name?
+    true
+  end
 
 end
