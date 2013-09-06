@@ -38,7 +38,7 @@ class Mailing < ActiveRecord::Base
   def deliver
     each_recipient do |recipient|
       begin
-        Mailing::Sender.deliver_mail(self, recipient.email)
+        Mailing::Sender.notification(self, recipient.email).deliver
         self.mailing_sents.create(:person => recipient)
       rescue Exception
         # FIXME should not discard errors silently. An idea is to collect all
@@ -49,15 +49,17 @@ class Mailing < ActiveRecord::Base
   end
 
   class Sender < ActionMailer::Base
-    def mail(mailing, recipient)
-      content_type 'text/html'
-      recipients recipient
-      from mailing.generate_from
-      reply_to mailing.person.email
-      subject mailing.generate_subject
-      body :message => mailing.body,
-        :signature_message => mailing.signature_message,
-        :url => mailing.url
+    def notification(mailing, recipient)
+      @message = mailing.body
+      @signature_message = mailing.signature_message
+      @url = mailing.url
+      mail(
+        :content_type => 'text/html',
+        :recipients => recipient,
+        :from => mailing.generate_from,
+        :reply_to => mailing.person.email,
+        :subject => mailing.generate_subject
+      )
     end
   end
 end
