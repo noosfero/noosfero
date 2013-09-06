@@ -14,7 +14,7 @@ class PendingTaskNotifierTest < ActiveSupport::TestCase
   should 'be able to deliver notification' do
     env = Environment.default
     p = create_user('maelcum').person
-    response = PendingTaskNotifier.deliver_notification(p)
+    response = PendingTaskNotifier.notification(p).deliver
     assert_equal "[#{env.name}] Pending tasks", response.subject
     assert_equal p.email, response.to[0]
   end
@@ -25,8 +25,8 @@ class PendingTaskNotifierTest < ActiveSupport::TestCase
     c.add_admin(p)
     c.tasks << Task.new(:requestor => p)
 
-    response = PendingTaskNotifier.deliver_notification(p)
-    assert_match /sent you a task/, response.body
+    response = PendingTaskNotifier.notification(p).deliver
+    assert_match /sent you a task/, response.body.to_s
   end
 
   private
