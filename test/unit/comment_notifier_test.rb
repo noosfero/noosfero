@@ -28,14 +28,14 @@ class CommentNotifierTest < ActiveSupport::TestCase
   should 'display author name in delivered mail' do
     create_comment_and_notify(:author => @author, :title => 'test comment', :body => 'you suck!', :source => @article)
     sent = ActionMailer::Base.deliveries.first
-    assert_match /#{@author.name}/, sent.body
+    assert_match /#{@author.name}/, sent.body.to_s
   end
 
   should 'display unauthenticated author name and email in delivered mail' do
     create_comment_and_notify(:name => 'flatline', :email => 'flatline@invalid.com', :title => 'test comment', :body => 'you suck!', :source => @article )
     sent = ActionMailer::Base.deliveries.first
-    assert_match /flatline/, sent.body
-    assert_match /flatline@invalid.com/, sent.body
+    assert_match /flatline/, sent.body.to_s
+    assert_match /flatline@invalid.com/, sent.body.to_s
   end
 
   should 'not deliver mail if notify comments is false' do
@@ -48,13 +48,13 @@ class CommentNotifierTest < ActiveSupport::TestCase
   should 'include comment title in the e-mail' do
     create_comment_and_notify(:author => @author, :title => 'comment title', :body => 'comment body', :source => @article)
     sent = ActionMailer::Base.deliveries.first
-    assert_match /comment title/, sent.body
+    assert_match /comment title/, sent.body.to_s
   end
 
   should 'include comment text in the e-mail' do
     create_comment_and_notify(:author => @author, :title => 'comment title', :body => 'comment body', :source => @article)
     sent = ActionMailer::Base.deliveries.first
-    assert_match /comment body/, sent.body
+    assert_match /comment body/, sent.body.to_s
   end
 
   should 'not deliver mail if has no notification emails' do
