@@ -5,7 +5,7 @@ class OrganizationMailing < Mailing
   end
 
   def recipients(offset=0, limit=100)
-   source.members.all(:order => :id, :offset => offset, :limit => limit, :joins => "LEFT OUTER JOIN mailing_sents m ON (m.mailing_id = #{id} AND m.person_id = profiles.id)", :conditions => { "m.person_id" => nil })
+    source.members.all(:order => :id, :offset => offset, :limit => limit, :joins => "LEFT OUTER JOIN mailing_sents m ON (m.mailing_id = #{id} AND m.person_id = profiles.id)", :conditions => { "m.person_id" => nil })
   end
 
   def each_recipient
@@ -13,7 +13,7 @@ class OrganizationMailing < Mailing
     limit = 50
     while !(people = recipients(offset, limit)).empty?
       people.each do |person|
-          yield person
+        yield person
       end
       offset = offset + limit
     end
