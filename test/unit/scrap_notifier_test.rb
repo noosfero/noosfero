@@ -34,19 +34,19 @@ class ScrapNotifierTest < ActiveSupport::TestCase
   should 'display sender name in delivered mail' do
     Scrap.create!(:sender_id => @sender.id, :receiver_id => @receiver.id, :content => 'Hi man!')
     sent = ActionMailer::Base.deliveries.first
-    assert_match /user_scrap_sender_test/, sent.body
+    assert_match /user_scrap_sender_test/, sent.body.to_s
   end
 
   should 'display scrap content in delivered mail' do
     Scrap.create!(:sender_id => @sender.id, :receiver_id => @receiver.id, :content => 'Hi man!')
     sent = ActionMailer::Base.deliveries.first
-    assert_match /Hi man!/, sent.body
+    assert_match /Hi man!/, sent.body.to_s
   end
 
   should 'display receiver wall link in delivered mail' do
     Scrap.create!(:sender_id => @sender.id, :receiver_id => @receiver.id, :content => 'Hi man!')
     sent = ActionMailer::Base.deliveries.first
-    assert_match /\/profile\/user_scrap_receiver_test#profile-wall/, sent.body
+    assert_match /\/profile\/user_scrap_receiver_test#profile-wall/, sent.body.to_s
   end
 
   should 'not deliver mail if notify receiver and sender are the same person' do
