@@ -55,7 +55,7 @@ class Mailing < ActiveRecord::Base
       @url = mailing.url
       mail(
         :content_type => 'text/html',
-        :recipients => recipient,
+        :to => recipient,
         :from => mailing.generate_from,
         :reply_to => mailing.person.email,
         :subject => mailing.generate_subject
