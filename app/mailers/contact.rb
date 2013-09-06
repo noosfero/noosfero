@@ -50,7 +50,7 @@ class Contact
       }
 
       if contact.sender
-        options.merge!(headers: {'X-Noosfero-Sender' => contact.sender.identifier})
+        options.merge!('X-Noosfero-Sender' => contact.sender.identifier)
       end
 
       if contact.receive_a_copy
