@@ -1,39 +1,44 @@
 class TaskMailer < ActionMailer::Base
 
-  def method_missing(name, *args)
-    task = args.shift
-    if task.kind_of?(Task) && task.respond_to?("#{name}_message")
-      send_message(task, task.send("#{name}_message"), *args)
-    else
-      super
-    end
-  end
-
   def target_notification(task, message)
-    msg = extract_message(message)
-
-    recipients task.target.notification_emails
-
+    @message = extract_message(message)
+    @target = task.target.name
+    @environment = task.environment.name
+    @url = generate_environment_url(task, :controller => 'home')
     url_for_tasks_list = task.target.kind_of?(Environment) ? '' : url_for(task.target.tasks_url)
+    @tasks_url = url_for_tasks_list
 
-    from self.class.generate_from(task)
-    subject '[%s] %s' % [task.environment.name, task.target_notification_description]
-    body :target => task.target.name,
-      :message => msg,
-      :environment => task.environment.name,
-      :url => generate_environment_url(task, :controller => 'home'),
-      :tasks_url => url_for_tasks_list
+    mail(
+      to: task.target.notification_emails,
+      from: self.class.generate_from(task),
+      subject: "[%s] %s" % [task.environment.name, task.target_notification_description]
+    )
   end
 
   def invitation_notification(task)
     msg = task.expanded_message
-    msg = msg.gsub /<url>/, generate_environment_url(task, :controller => 'account', :action => 'signup', :invitation_code => task.code)
+    @message = msg.gsub /<url>/, generate_environment_url(task, :controller => 'account', :action => 'signup', :invitation_code => task.code)
 
-    recipients task.friend_email
+    mail(
+      to: task.friend_email,
+      from: self.class.generate_from(task),
+      subject: '[%s] %s' % [ task.requestor.environment.name, task.target_notification_description ]
+    )
+  end
 
-    from self.class.generate_from(task)
-    subject '[%s] %s' % [ task.requestor.environment.name, task.target_notification_description ]
-    body :message => msg
+  def generic_message(name, task)
+    return if !task.respond_to?("#{name}_message")
+
+    @message = extract_message(task.send("#{name}_message"))
+    @requestor = task.requestor.name
+    @environment = task.requestor.environment.name
+    @url = url_for(:host => task.requestor.environment.default_hostname, :controller => 'home')
+
+    mail(
+      to: task.requestor.notification_emails,
+      from: self.class.generate_from(task),
+      subject: '[%s] %s' % [task.requestor.environment.name, task.target_notification_description]
+    )
   end
 
   protected
@@ -44,19 +49,6 @@ class TaskMailer < ActionMailer::Base
     else
       message.to_s
     end
-  end
-
-  def send_message(task, message)
-
-    text = extract_message(message)
-
-    recipients task.requestor.notification_emails
-    from self.class.generate_from(task)
-    subject '[%s] %s' % [task.requestor.environment.name, task.target_notification_description]
-    body :requestor => task.requestor.name,
-      :message => text,
-      :environment => task.requestor.environment.name,
-      :url => url_for(:host => task.requestor.environment.default_hostname, :controller => 'home')
   end
 
   def self.generate_from(task)
