@@ -62,48 +62,6 @@ class User < ActiveRecord::Base
     self.person.preferred_domain && self.person.preferred_domain.name || self.environment.default_hostname(true)
   end
 
-  class Mailer < ActionMailer::Base
-
-    # FIXME use new ActionMailer API here
-    def activation_email_notify(user)
-      user_email = "#{user.login}@#{user.email_domain}"
-      recipients user_email
-      from "#{user.environment.name} <#{user.environment.contact_email}>"
-      subject _("[%{environment}] Welcome to %{environment} mail!") % { :environment => user.environment.name }
-      body :name => user.name,
-        :email => user_email,
-        :webmail => MailConf.webmail_url(user.login, user.email_domain),
-        :environment => user.environment.name,
-        :url => url_for(:host => user.environment.default_hostname, :controller => 'home')
-    end
-
-    def activation_code(user)
-      @recipient = user.name,
-      @activation_code = user.activation_code
-      @environment = user.environment.name
-      @url = user.environment.top_url
-
-      mail(
-        :from => "#{user.environment.name} <#{user.environment.contact_email}>",
-        :to => user.email,
-        :subject => _("[%s] Activate your account") % [user.environment.name],
-      )
-    end
-
-    # FIXME use new ActionMailer API here
-    def signup_welcome_email(user)
-      email_body = user.environment.signup_welcome_text_body.gsub('{user_name}', user.name)
-      email_subject = user.environment.signup_welcome_text_subject
-
-      content_type 'text/html'
-      recipients user.email
-
-      from "#{user.environment.name} <#{user.environment.contact_email}>"
-      subject email_subject.blank? ? _("Welcome to environment %s") % [user.environment.name] : email_subject
-      body email_body
-    end
-  end
-
   def signup!
     User.transaction do
       self.save!
