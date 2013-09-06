@@ -112,8 +112,7 @@ class User < ActiveRecord::Base
       false
     else
       if environment.enabled?('send_welcome_email_to_new_users') && environment.has_signup_welcome_text?
-        # FIXME use new ActionMailer API here
-        User::Mailer.delay.deliver_signup_welcome_email(self)
+        User::Mailer.delay.signup_welcome_email(self).deliver
       end
       true
     end
