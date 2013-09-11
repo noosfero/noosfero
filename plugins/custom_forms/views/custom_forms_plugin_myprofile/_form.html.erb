@@ -1,4 +1,5 @@
 <% self.extend(CustomFormsPlugin::Helper) %>
+<%= render :file => 'shared/tiny_mce', :locals => {:mode => 'simple'} %>
 
 <%= error_messages_for :form %>
 
@@ -15,7 +16,7 @@
   <% if profile.organization? %>
     <%= labelled_form_field _('Triggered on membership'), f.check_box(:on_membership) %>
   <% end %>
-  <%= labelled_form_field _('Description'), f.text_area(:description, :style => 'width: 100%') %>
+  <%= labelled_form_field _('Description'), f.text_area(:description, :style => 'width: 100%', :class => 'mceEditor') %>
 
   <h2><%= _('Fields') %></h2>
   <table class="action-table" id='fields-table'>
