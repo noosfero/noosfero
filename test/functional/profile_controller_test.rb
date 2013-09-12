@@ -1550,4 +1550,24 @@ class ProfileControllerTest < ActionController::TestCase
     assert_tag :tag => 'td', :content => 'e-Mail:'
   end
 
+  should 'show enterprises field if enterprises are enabled on environment' do
+    person = fast_create(Person)
+    environment = person.environment
+    environment.disable('disable_asset_enterprises')
+    environment.save!
+
+    get :index, :profile => person.identifier
+    assert_tag :tag => 'tr', :attributes => { :id => "person-profile-network-enterprises" }
+  end
+
+  should 'not show enterprises field if enterprises are disabled on environment' do
+    person = fast_create(Person)
+    environment = person.environment
+    environment.enable('disable_asset_enterprises')
+    environment.save!
+
+    get :index, :profile => person.identifier
+    assert_no_tag :tag => 'tr', :attributes => { :id => "person-profile-network-enterprises" }
+  end
+
 end
