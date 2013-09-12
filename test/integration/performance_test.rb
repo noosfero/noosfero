@@ -52,28 +52,6 @@ class PerformanceTest < ActionController::IntegrationTest
     a2 = (time2.total - time1.total)/50.0
     assert a1 > a2*FACTOR, "#{a1} should be larger than #{a2} by at least a factor of #{FACTOR}"
   end
-
-  should 'not have a linear increase in time to save enterprise due to amount of products' do
-    $DISABLE_DELAYED_JOB_TEST_ENV_RUN = true
-    enterprise0 = Enterprise.create!(:name => 'Enterprise 0', :identifier => 'enterprise0')
-    enterprise1 = Enterprise.create!(:name => 'Enterprise 1', :identifier => 'enterprise1')
-    enterprise2 = Enterprise.create!(:name => 'Enterprise 2', :identifier => 'enterprise2')
-
-    create_products(enterprise1,25)
-    create_products(enterprise2,50)
-
-    enterprise0.reload
-    enterprise1.reload
-    enterprise2.reload
-
-    time0 = (Benchmark.measure { 10.times { enterprise0.save! } }).total
-    time1 = (Benchmark.measure { 10.times { enterprise1.save! } }).total
-    time2 = (Benchmark.measure { 10.times { enterprise2.save! } }).total
-
-    assert (time1 - time0) < time0*0.5
-    assert (time2 - time0) < time0*0.5
-  end
-
   protected
 
   def create_profile(name)
@@ -88,14 +66,6 @@ class PerformanceTest < ActionController::IntegrationTest
     n.times do |i|
       postnumber += 1
       TinyMceArticle.create!(:profile => profile, :parent => blog, :name => "post number #{postnumber}")
-    end
-  end
-
-  def create_products(enterprise,n)
-    number = Product.all.count
-    pc = ProductCategory.create!(:name => "Any Category #{n}", :environment => Environment.default)
-    n.times do |i|
-      Product.create!(:enterprise => enterprise, :product_category => pc, :name => "Product #{i+number+1}")
     end
   end
 
