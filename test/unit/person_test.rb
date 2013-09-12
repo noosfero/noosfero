@@ -55,7 +55,7 @@ class PersonTest < ActiveSupport::TestCase
 
     p1 = u.person
     assert_equal u, p1.user
-    
+
     p2 = Person.new(:environment => Environment.default)
     p2.user = u
     assert !p2.valid?
@@ -202,7 +202,7 @@ class PersonTest < ActiveSupport::TestCase
   should 'have friends' do
     p1 = create_user('testuser1').person
     p2 = create_user('testuser2').person
-    
+
     p1.add_friend(p2)
 
     p1.friends.reload
@@ -237,7 +237,7 @@ class PersonTest < ActiveSupport::TestCase
     p2 = create_user('testuser2').person
     p3 = create_user('testuser3').person
     p4 = create_user('testuser4').person
-   
+
     p1.add_friend(p2, 'group1')
     p1.add_friend(p3, 'group2')
     p1.add_friend(p4, 'group1')
@@ -248,7 +248,7 @@ class PersonTest < ActiveSupport::TestCase
   should 'not suggest duplicated friend groups' do
     p1 = create_user('testuser1').person
     p2 = create_user('testuser2').person
-   
+
     p1.add_friend(p2, 'friends')
 
     assert_equal p1.suggested_friend_groups, p1.suggested_friend_groups.uniq
@@ -307,7 +307,7 @@ class PersonTest < ActiveSupport::TestCase
     assert_equal 'my contact', person.contact_information
   end
 
-  should 'provide desired info fields' do 
+  should 'provide desired info fields' do
     p = Person.new(:environment => Environment.default)
     assert p.respond_to?(:photo)
     assert p.respond_to?(:address)
@@ -472,7 +472,7 @@ class PersonTest < ActiveSupport::TestCase
   should 'require custom_area_of_study if area_of_study is others' do
     e = Environment.default
     e.expects(:required_person_fields).returns(['area_of_study', 'custom_area_of_study']).at_least_once
-  
+
     person = Person.new(:environment => e, :area_of_study => 'Others')
     assert !person.valid?
     assert person.errors.invalid?(:custom_area_of_study)
@@ -507,7 +507,7 @@ class PersonTest < ActiveSupport::TestCase
   should 'not require custom_formation if formation is not others' do
     e = Environment.default
     e.expects(:required_person_fields).returns(['formation']).at_least_once
- 
+
     person = Person.new(:environment => e, :formation => 'Agrometeorology')
     assert !person.valid?
     assert ! person.errors.invalid?(:custom_formation)
@@ -854,7 +854,7 @@ class PersonTest < ActiveSupport::TestCase
     assert !p1.is_a_friend?(p3)
     p1.add_friend(p4)
     assert p1.is_a_friend?(p4)
-    
+
     action_tracker = fast_create(ActionTracker::Record)
 
     assert_difference(Delayed::Job, :count, 1) do
@@ -873,7 +873,7 @@ class PersonTest < ActiveSupport::TestCase
     assert !p1.is_a_friend?(p3)
     p1.add_friend(p4)
     assert p1.is_a_friend?(p4)
-    
+
     action_tracker = fast_create(ActionTracker::Record, :user_id => p1.id)
 
     Delayed::Job.delete_all
@@ -926,7 +926,7 @@ class PersonTest < ActiveSupport::TestCase
     community.add_member(p4)
     assert p4.is_member_of?(community)
     assert !p2.is_member_of?(community)
-      
+
     action_tracker = fast_create(ActionTracker::Record)
     article = mock()
     action_tracker.stubs(:target).returns(article)
@@ -1277,12 +1277,10 @@ class PersonTest < ActiveSupport::TestCase
     assert person.has_permission?('bli', Profile.new)
   end
 
-  should 'active fields are public if fields privacy is nil' do
+  should 'active fields are private if fields privacy is nil' do
     p = fast_create(Person)
     p.expects(:fields_privacy).returns(nil)
-    f = %w(sex birth_date)
-    p.expects(:active_fields).returns(f)
-    assert_equal f, p.public_fields
+    assert_equal [], p.public_fields
   end
 
   should 'return public fields' do
