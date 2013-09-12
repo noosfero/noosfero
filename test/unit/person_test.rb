@@ -1050,8 +1050,8 @@ class PersonTest < ActiveSupport::TestCase
     person_1.add_friend(person_2)
     person_1.add_friend(person_3)
     person_1.add_friend(person_4)
-    assert_equal [person_2, person_3, person_4], person_1.friends
-    assert_equal [person_2, person_4], person_1.friends.online
+    assert_equivalent [person_2, person_3, person_4], person_1.friends
+    assert_equivalent [person_2, person_4], person_1.friends.online
   end
 
   should 'compose bare jabber id by login plus default hostname' do
