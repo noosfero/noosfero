@@ -1414,7 +1414,9 @@ a.comment-picture {
   display: inline;
 }
 #content #boxes .box-1 .article-block img,
-#content #article .article-body img {
+#content #article .article-body img,
+#content #article .article-body video,
+#content #article .article-body audio {
   max-width: 100%;
   height: auto;
 }
