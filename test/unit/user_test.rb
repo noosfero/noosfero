@@ -296,7 +296,8 @@ class UserTest < ActiveSupport::TestCase
   end
 
   should 'be able to use [] operator to find users by login' do
-    assert_equal users(:ze), User['ze']
+    user = fast_create(User)
+    assert_equal user, User[user.login]
   end
 
   should 'user has presence status to know when online or offline' do
