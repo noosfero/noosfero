@@ -41,7 +41,7 @@
   <% end %>
 
   <% @articles.each do |article| %>
-    <tr>
+    <tr title="<%= article.title%>" >
       <td>
         <%= link_to_article(article) %>
       </td>
