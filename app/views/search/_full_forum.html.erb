@@ -1,8 +1,12 @@
 <li class="search-forum-item article-item">
-  <%= link_to forum.title, forum.view_url, :class => 'search-result-title' %>
+  <div>
+    <%= link_to forum.title, forum.view_url, :class => 'search-result-title' %>
+  </div>
+
   <div class="search-content-first-column">
     <%= render :partial => 'image', :object => forum %>
   </div>
+
   <table class="noborder search-content-second-column">
     <tr class="search-forum-items">
       <td class="search-field-label"><%= _("Last topics") %></td>

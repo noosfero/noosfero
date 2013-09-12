@@ -1,8 +1,12 @@
 <li class="search-folder-item article-item">
-  <%= link_to folder.title, folder.view_url, :class => 'search-result-title' %>
+  <div>
+    <%= link_to folder.title, folder.view_url, :class => 'search-result-title' %>
+  </div>
+
   <div class="search-content-first-column">
     <%= render :partial => 'image', :object => folder %>
   </div>
+
   <table class="noborder search-content-second-column">
     <tr class="search-folder-items">
       <td class="search-field-label"><%= _("Last items") %></td>
