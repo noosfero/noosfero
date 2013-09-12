@@ -15,8 +15,12 @@ class CustomFormsPlugin::Field < ActiveRecord::Base
 
   before_create do |field|
     if field.form.fields.exists?
-      field.position = field.form.fields.order('position').last.position + 1
+      field.position = field.form.fields.order(:position).last.position + 1
     end
+  end
+
+  def position
+    self[:position] || 0
   end
 end
 
