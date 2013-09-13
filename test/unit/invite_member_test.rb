@@ -88,10 +88,10 @@ class InviteMemberTest < ActiveSupport::TestCase
   should 'not invite yourself' do
     p = create_user('testuser1').person
 
-    task1 = InviteMember.new(:person => p, :friend => p, :message => 'click here: <url>')
+    task1 = build(InviteMember, :person => p, :friend => p, :message => 'click here: <url>')
     assert !task1.save
 
-    task2 = InviteMember.new(:person => p, :friend_name => 'Myself', :friend_email => p.user.email, :message => 'click here: <url>')
+    task2 = build(InviteMember, :person => p, :friend_name => 'Myself', :friend_email => p.user.email, :message => 'click here: <url>')
     assert !task2.save
   end
 
@@ -99,7 +99,7 @@ class InviteMemberTest < ActiveSupport::TestCase
     p = create_user('testuser1').person
     community = fast_create(Community)
 
-    task = InviteMember.create!(:person => p, :friend_email => 'test@test.com', :message => '<url>', :community_id => community.id)
+    task = create(InviteMember, :person => p, :friend_email => 'test@test.com', :message => '<url>', :community_id => community.id)
 
     assert_match(/#{task.requestor.name} invited you to join #{community.name}/, task.target_notification_description)
   end
@@ -108,9 +108,9 @@ class InviteMemberTest < ActiveSupport::TestCase
     person = create_user('testuser1').person
     community = fast_create(Community)
 
-    task = InviteMember.create!(:person => person, :friend_email => 'test@test.com', :message => '<url>', :community_id => community.id)
+    task = create(InviteMember, :person => person, :friend_email => 'test@test.com', :message => '<url>', :community_id => community.id)
 
-    email = TaskMailer.deliver_invitation_notification(task)
+    email = TaskMailer.invitation_notification(task).deliver
 
     assert_match(/#{task.requestor.name} invited you to join #{community.name}/, email.subject)
   end

@@ -145,7 +145,7 @@ class SuggestArticleTest < ActiveSupport::TestCase
   should 'deliver target notification message' do
     task = build(SuggestArticle, :target => @profile, :article_name => 'suggested article', :name => 'johndoe', :email => 'johndoe@example.com')
 
-    email = TaskMailer.deliver_target_notification(task, task.target_notification_message)
+    email = TaskMailer.target_notification(task, task.target_notification_message).deliver
 
     assert_match(/#{task.name}.*suggested the publication of the article: #{task.subject}/, email.subject)
   end
