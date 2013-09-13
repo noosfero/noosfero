@@ -31,3 +31,27 @@
 #colorbox .edit-information {
   display: block;
 }
+
+.field-box {
+  margin: 10px 0;
+}
+
+.field-box > div {
+  overflow: hide;
+}
+
+.field-box .button {
+  margin-left: 15px;
+}
+
+.field-box .addition-buttons .button {
+  margin: 0px;
+}
+
+.field-select-type {
+  margin: 10px 0;
+}
+
+.field-text-default {
+  margin-top: 10px;
+}

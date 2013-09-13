@@ -7,7 +7,7 @@ class CustomFormsPlugin::Answer < Noosfero::Plugin::ActiveRecord
 
   def value_mandatory
     if field.mandatory && value.blank?
-      errors.add(field.slug.to_sym, _("is mandatory.").fix_i18n)
+      errors.add(:value, _("is mandatory.").fix_i18n)
     end
   end
 end

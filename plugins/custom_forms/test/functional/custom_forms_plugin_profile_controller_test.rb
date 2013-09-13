@@ -23,7 +23,7 @@ class CustomFormsPluginProfileControllerTest < ActionController::TestCase
     field2 = CustomFormsPlugin::TextField.create(:name => 'License', :form => form)
 
     assert_difference CustomFormsPlugin::Submission, :count, 1 do
-      post :show, :profile => profile.identifier, :id => form.id, :submission => {field1.name.to_slug => 'Noosfero', field2.name.to_slug => 'GPL'}
+      post :show, :profile => profile.identifier, :id => form.id, :submission => {field1.id.to_s => 'Noosfero', field2.id.to_s => 'GPL'}
     end
     assert !session[:notice].include?('not saved')
     assert_redirected_to :action => 'show'

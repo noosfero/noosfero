@@ -1,7 +1,9 @@
 class CustomFormsPlugin::Form < Noosfero::Plugin::ActiveRecord
   belongs_to :profile
 
-  has_many :fields, :class_name => 'CustomFormsPlugin::Field', :dependent => :destroy, :order => 'position'
+  has_many :fields, :class_name => 'CustomFormsPlugin::Field', :dependent => :destroy
+  accepts_nested_attributes_for :fields, :allow_destroy => true
+
   has_many :submissions, :class_name => 'CustomFormsPlugin::Submission'
 
   serialize :access

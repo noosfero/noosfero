@@ -48,21 +48,22 @@ class CustomFormsPluginMyprofileControllerTest < ActionController::TestCase
           :access => 'logged',
           :begining => begining,
           :ending => ending,
-          :description => 'Cool form'},
-        :fields => {
-          1 => {
-            :name => 'Name',
-            :default_value => 'Jack',
-            :type => 'text_field'
-          },
-          2 => {
-            :name => 'Color',
-            :list => '1',
-            :type => 'select_field',
-            :choices => {
-              1 => {:name => 'Red', :value => 'red'},
-              2 => {:name => 'Blue', :value => 'blue'},
-              3 => {:name => 'Black', :value => 'black'}
+          :description => 'Cool form',
+          :fields_attributes => {
+            1 => {
+              :name => 'Name',
+              :default_value => 'Jack',
+              :type => 'CustomFormsPlugin::TextField'
+            },
+            2 => {
+              :name => 'Color',
+              :select_field_type => 'radio',
+              :type => 'CustomFormsPlugin::SelectField',
+              :alternatives_attributes => {
+                1 => {:label => 'Red'},
+                2 => {:label => 'Blue'},
+                3 => {:label => 'Black'}
+              }
             }
           }
         }
@@ -83,10 +84,8 @@ class CustomFormsPluginMyprofileControllerTest < ActionController::TestCase
     assert f1.kind_of?(CustomFormsPlugin::TextField)
 
     assert_equal 'Color', f2.name
-    assert_equal 'red', f2.choices['Red']
-    assert_equal 'blue', f2.choices['Blue']
-    assert_equal 'black', f2.choices['Black']
-    assert f2.list
+    assert_equal f2.alternatives.map(&:label).sort, ['Red', 'Blue', 'Black'].sort
+    assert_equal f2.select_field_type, 'radio'
     assert f2.kind_of?(CustomFormsPlugin::SelectField)
   end
 
@@ -100,7 +99,7 @@ class CustomFormsPluginMyprofileControllerTest < ActionController::TestCase
       fields[i.to_s] = {
         :name => i.to_s,
         :default_value => '',
-        :type => 'text_field'
+        :type => 'CustomFormsPlugin::TextField'
       }
     end
     assert_difference CustomFormsPlugin::Form, :count, 1 do
@@ -110,29 +109,35 @@ class CustomFormsPluginMyprofileControllerTest < ActionController::TestCase
         :access => 'logged',
         :begining => begining,
         :ending => ending,
-        :description => 'Cool form'},
-        :fields => fields
+        :description => 'Cool form',
+        :fields_attributes => fields
+      }
     end
     form = CustomFormsPlugin::Form.find_by_name('My Form')
     assert_equal num_fields, form.fields.count
+    lst = -1
     form.fields.find_each do |f|
-      assert_equal f.position, f.name.to_i
+      assert f.name.to_i > lst
+      lst = f.name.to_i
     end
   end
 
   should 'edit a form' do
     form = CustomFormsPlugin::Form.create!(:profile => profile, :name => 'Free Software')
-    field = CustomFormsPlugin::TextField.create!(:form => form, :name => 'License')
     format = '%Y-%m-%d %H:%M'
     begining = Time.now.strftime(format)
     ending = (Time.now + 1.day).strftime(format)
 
-    post :edit, :profile => profile.identifier, :id => form.id,
-      :form => {:name => 'My Form', :access => 'logged', :begining => begining, :ending => ending, :description => 'Cool form'},
-      :fields => {1 => {:real_id => field.id.to_s, :name => 'Source'}}
+    assert_equal form.fields.length, 0
+
+    post :update, :profile => profile.identifier, :id => form.id,
+      :form => {:name => 'My Form', :access => 'logged', :begining => begining, :ending => ending, :description => 'Cool form',
+        :fields_attributes => {1 => {:name => 'Source'}}}
 
     form.reload
-    field.reload
+    assert_equal form.fields.length, 1
+
+    field = form.fields.last
 
     assert_equal 'logged', form.access
     assert_equal begining, form.begining.strftime(format)

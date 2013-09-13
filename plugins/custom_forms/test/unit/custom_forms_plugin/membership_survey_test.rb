@@ -16,7 +16,7 @@ class CustomFormsPlugin::MembershipSurveyTest < ActiveSupport::TestCase
     person = fast_create(Person)
     form = CustomFormsPlugin::Form.create!(:name => 'Simple Form', :profile => profile)
     field = CustomFormsPlugin::Field.create!(:name => 'Name', :form => form)
-    task = CustomFormsPlugin::MembershipSurvey.create!(:form_id => form.id, :submission => {'name' => 'Jack'}, :target => person, :requestor => profile)
+    task = CustomFormsPlugin::MembershipSurvey.create!(:form_id => form.id, :submission => {field.id.to_s => 'Jack'}, :target => person, :requestor => profile)
 
     assert_difference CustomFormsPlugin::Submission, :count, 1 do
       task.finish

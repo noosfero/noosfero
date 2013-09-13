@@ -27,11 +27,11 @@ class CustomFormsPlugin::AnswerTest < ActiveSupport::TestCase
     field = CustomFormsPlugin::Field.create!(:name => 'License', :form => form, :mandatory => true)
     answer = CustomFormsPlugin::Answer.new(:field => field)
     answer.valid?
-    assert answer.errors.invalid?(field.slug.to_sym)
+    assert answer.errors.invalid?(:value)
 
     answer.value = "GPL"
     answer.valid?
-    assert !answer.errors.invalid?(field.slug.to_sym)
+    assert !answer.errors.invalid?(:value)
   end
 
 end
