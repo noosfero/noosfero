@@ -518,13 +518,21 @@ class Article < ActiveRecord::Base
   def copy(options = {})
     attrs = attributes.reject! { |key, value| ATTRIBUTES_NOT_COPIED.include?(key.to_sym) }
     attrs.merge!(options)
-    self.class.create(attrs)
+    object = self.class.new
+    attrs.each do |key, value|
+      object.send(key.to_s+'=', value)
+    end
+    object.save
   end
 
   def copy!(options = {})
     attrs = attributes.reject! { |key, value| ATTRIBUTES_NOT_COPIED.include?(key.to_sym) }
     attrs.merge!(options)
-    self.class.create!(attrs)
+    object = self.class.new
+    attrs.each do |key, value|
+      object.send(key.to_s+'=', value)
+    end
+    object.save!
   end
 
   ATTRIBUTES_NOT_COPIED = [
