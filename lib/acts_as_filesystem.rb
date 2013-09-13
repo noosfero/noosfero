@@ -17,12 +17,15 @@ module ActsAsFileSystem
       # a filesystem is a tree
       acts_as_tree :counter_cache => :children_count
 
-      include InstanceMethods
       extend ClassMethods
+      include InstanceMethods
+      if self.has_path?
+        after_update :update_children_path
+        before_create :set_path
+        include InstanceMethods::PathMethods
+      end
 
-      before_create :set_path
       before_save :set_ancestry
-      after_update :update_children_path
     end
 
   end
@@ -43,25 +46,13 @@ module ActsAsFileSystem
       #raise "Couldn't reach and set ancestry on every record" if self.base_class.count(:conditions => ['ancestry is null']) != 0
     end
 
+    def has_path?
+      (['name', 'slug', 'path'] - self.column_names).blank?
+    end
+
   end
 
   module InstanceMethods
-
-    # used to know when to trigger batch renaming
-    attr_accessor :recalculate_path
-
-    # calculates the full path to this record using parent's path.
-    def calculate_path
-      self.hierarchy.map{ |obj| obj.slug }.join('/')
-    end
-    def set_path
-      if self.path == self.slug && !self.top_level?
-        self.path = self.calculate_path
-      end
-    end
-    def explode_path
-      path.split(/\//)
-    end
 
     def ancestry_column
       'ancestry'
@@ -93,17 +84,6 @@ module ActsAsFileSystem
       if self.ancestry.nil? or (new_record? or parent_id_changed?) or recalculate_path
         self.ancestry = self.hierarchy(true)[0...-1].map{ |p| p.formatted_ancestry_id }.join(ancestry_sep)
       end
-    end
-
-    def update_children_path
-      if self.recalculate_path
-        self.children.each do |child|
-          child.path = child.calculate_path
-          child.recalculate_path = true
-          child.save!
-        end
-      end
-      self.recalculate_path = false
     end
 
     # calculates the level of the record in the records hierarchy. Top-level
@@ -196,51 +176,84 @@ module ActsAsFileSystem
       res
     end
 
-    # calculates the full name of a record by accessing the name of all its
-    # ancestors.
-    #
-    # If you have this record hierarchy:
-    #   Record "A"
-    #     Record "B"
-    #       Record "C"
-    #
-    # Then Record "C" will have "A/B/C" as its full name.
-    def full_name(sep = '/')
-      self.hierarchy.map {|item| item.name || '?' }.join(sep)
-    end
+    #####
+    # Path methods
+    # These methods are used when _path_, _name_ and _slug_ attributes exist
+    # and should be calculated based on the tree
+    #####
+    module PathMethods
+      # used to know when to trigger batch renaming
+      attr_accessor :recalculate_path
 
-    # gets the name without leading parents. Useful when dividing records
-    # in top-level groups and full names must not include the top-level
-    # record which is already a emphasized label
-    def full_name_without_leading(count, sep = '/')
-      parts = self.full_name(sep).split(sep)
-      count.times { parts.shift }
-      parts.join(sep)
-    end
-
-    def set_name(value)
-      if self.name != value
-        self.recalculate_path = true
+      # calculates the full path to this record using parent's path.
+      def calculate_path
+        self.hierarchy.map{ |obj| obj.slug }.join('/')
       end
-      self[:name] = value
-    end
+      def set_path
+        if self.path == self.slug && !self.top_level?
+          self.path = self.calculate_path
+        end
+      end
+      def explode_path
+        path.split(/\//)
+      end
 
-    # sets the name of the record. Also sets #slug accordingly.
-    def name=(value)
-      self.set_name(value)
-      unless self.name.blank?
-        self.slug = self.name.to_slug
+      def update_children_path
+        if self.recalculate_path
+          self.children.each do |child|
+            child.path = child.calculate_path
+            child.recalculate_path = true
+            child.save!
+          end
+        end
+        self.recalculate_path = false
+      end
+
+      # calculates the full name of a record by accessing the name of all its
+      # ancestors.
+      #
+      # If you have this record hierarchy:
+      #   Record "A"
+      #     Record "B"
+      #       Record "C"
+      #
+      # Then Record "C" will have "A/B/C" as its full name.
+      def full_name(sep = '/')
+        self.hierarchy.map {|item| item.name || '?' }.join(sep)
+      end
+
+      # gets the name without leading parents. Useful when dividing records
+      # in top-level groups and full names must not include the top-level
+      # record which is already a emphasized label
+      def full_name_without_leading(count, sep = '/')
+        parts = self.full_name(sep).split(sep)
+        count.times { parts.shift }
+        parts.join(sep)
+      end
+
+      def set_name(value)
+        if self.name != value
+          self.recalculate_path = true
+        end
+        self[:name] = value
+      end
+
+      # sets the name of the record. Also sets #slug accordingly.
+      def name=(value)
+        self.set_name(value)
+        unless self.name.blank?
+          self.slug = self.name.to_slug
+        end
+      end
+
+      # sets the slug of the record. Also sets the path with the new slug value.
+      def slug=(value)
+        self[:slug] = value
+        unless self.slug.blank?
+          self.path = self.calculate_path
+        end
       end
     end
-
-    # sets the slug of the record. Also sets the path with the new slug value.
-    def slug=(value)
-      self[:slug] = value
-      unless self.slug.blank?
-        self.path = self.calculate_path
-      end
-    end
-
   end
 end
 
