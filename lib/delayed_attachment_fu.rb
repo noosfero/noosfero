@@ -20,7 +20,7 @@ module DelayedAttachmentFu
       save_to_storage
       @temp_paths.clear
       @saved_attachment = nil
-      callback :after_attachment_saved
+      run_callbacks :after_attachment_saved
     end
 
     def create_thumbnails
