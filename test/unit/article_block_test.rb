@@ -109,7 +109,7 @@ class ArticleBlockTest < ActiveSupport::TestCase
   should 'display image if article is an image' do
     profile = create_user('testuser').person
     block = ArticleBlock.new
-    image = UploadedFile.create!(:profile => profile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
+    image = create(UploadedFile, :profile => profile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
 
     block.article = image
     block.save!
@@ -123,7 +123,7 @@ class ArticleBlockTest < ActiveSupport::TestCase
     profile = create_user('testuser').person
     block = ArticleBlock.new
     gallery = fast_create(Gallery, :profile_id => profile.id)
-    image = UploadedFile.create!(:profile => profile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :parent => gallery)
+    image = create(UploadedFile, :profile => profile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :parent => gallery)
     block.article = image
     block.save!
 
@@ -135,7 +135,7 @@ class ArticleBlockTest < ActiveSupport::TestCase
   should 'display link to archive if article is an archive' do
     profile = create_user('testuser').person
     block = ArticleBlock.new
-    file = UploadedFile.create!(:profile => profile, :uploaded_data => fixture_file_upload('/files/test.txt', 'text/plain'))
+    file = create(UploadedFile, :profile => profile, :uploaded_data => fixture_file_upload('/files/test.txt', 'text/plain'))
 
     block.article = file
     block.save!
