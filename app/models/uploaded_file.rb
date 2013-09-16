@@ -95,7 +95,7 @@ class UploadedFile < Article
   def to_html(options = {})
     article = self
     if image?
-      lambda do
+      proc do
         if article.gallery? && options[:gallery_view]
           images = article.parent.images
           current_index = images.index(article)
@@ -124,7 +124,7 @@ class UploadedFile < Article
 
       end
     else
-      lambda do
+      proc do
         content_tag('ul', content_tag('li', link_to(article.name, article.url, :class => article.css_class_name))) +
           content_tag('p', article.abstract, :class => 'uploaded-file-description')
       end
