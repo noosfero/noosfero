@@ -33,7 +33,8 @@ module DelayedAttachmentFu
         self.class.attachment_options[:thumbnails].each do |suffix, size|
           self.create_or_update_thumbnail(self.full_filename, suffix, size)
         end
-        self.update_attributes!(:thumbnails_processed => true)
+        self.thumbnails_processed = true
+        self.save!
       end
     end
 
