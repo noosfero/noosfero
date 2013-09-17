@@ -115,7 +115,7 @@ class AddMemberTest < ActiveSupport::TestCase
   should 'deliver target notification message' do
     task = AddMember.new(:person => person, :organization => community)
 
-    email = TaskMailer.deliver_target_notification(task, task.target_notification_message)
+    email = TaskMailer.target_notification(task, task.target_notification_message).deliver
     assert_match(/#{task.requestor.name} wants to be a member of this community/, email.subject)
   end
 
