@@ -28,7 +28,9 @@ module ActsAsHavingPosts
   def feed=(attrs)
     if attrs
       if self.feed
-        self.feed.update_attributes(attrs)
+        attrs.each do |key, value|
+          self.feed.send(key.to_s+'=', value)
+        end
       else
         self.feed_attrs = attrs
       end
