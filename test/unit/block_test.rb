@@ -63,15 +63,15 @@ class BlockTest < ActiveSupport::TestCase
   end
 
   should 'not display when set to hidden' do
-    assert_equal false, Block.new(:display => 'never').visible?
-    assert_equal false, Block.new(:display => 'never').visible?(:article => Article.new)
+    assert_equal false, build(Block, :display => 'never').visible?
+    assert_equal false, build(Block, :display => 'never').visible?(:article => Article.new)
   end
 
   should 'be able to be displayed only in the homepage' do
     profile = Profile.new
     home_page = Article.new
     profile.home_page = home_page
-    block = Block.new(:display => 'home_page_only')
+    block = build(Block, :display => 'home_page_only')
     block.stubs(:owner).returns(profile)
 
     assert_equal true, block.visible?(:article => home_page)
@@ -79,7 +79,7 @@ class BlockTest < ActiveSupport::TestCase
   end
 
   should 'be able to be displayed only in the homepage (index) of the environment' do
-    block = Block.new(:display => 'home_page_only')
+    block = build(Block, :display => 'home_page_only')
 
     assert_equal true, block.visible?(:article => nil, :request_path => '/')
     assert_equal false, block.visible?(:article => nil)
@@ -89,7 +89,7 @@ class BlockTest < ActiveSupport::TestCase
     profile = Profile.new
     home_page = Article.new
     profile.home_page = home_page
-    block = Block.new(:display => 'except_home_page')
+    block = build(Block, :display => 'except_home_page')
     block.stubs(:owner).returns(profile)
 
     assert_equal false, block.visible?(:article => home_page)
@@ -97,8 +97,8 @@ class BlockTest < ActiveSupport::TestCase
   end
 
   should 'be able to be displayed everywhere except on profile index' do
-    profile = Profile.new(:identifier => 'testinguser')
-    block = Block.new(:display => 'except_home_page')
+    profile = build(Profile, :identifier => 'testinguser')
+    block = build(Block, :display => 'except_home_page')
     block.stubs(:owner).returns(profile)
 
     assert_equal false, block.visible?(:article => nil, :request_path => '/testinguser')
@@ -132,7 +132,7 @@ class BlockTest < ActiveSupport::TestCase
 
   should 'be able to be displayed in all languages' do
     profile = Profile.new
-    block = Block.new(:language => 'all')
+    block = build(Block, :language => 'all')
     block.stubs(:owner).returns(profile)
 
     assert_equal true, block.visible?(:locale => 'pt')
@@ -141,7 +141,7 @@ class BlockTest < ActiveSupport::TestCase
 
   should 'be able to be displayed only in the selected language' do
     profile = Profile.new
-    block = Block.new(:language => 'pt')
+    block = build(Block, :language => 'pt')
     block.stubs(:owner).returns(profile)
 
     assert_equal true, block.visible?(:locale => 'pt')
@@ -150,7 +150,7 @@ class BlockTest < ActiveSupport::TestCase
 
   should 'delegate environment to box' do
     box = fast_create(Box, :owner_id => fast_create(Profile).id)
-    block = Block.new(:box => box)
+    block = build(Block, :box => box)
     box.stubs(:environment).returns(Environment.default)
 
     assert_equal box.environment, block.environment
