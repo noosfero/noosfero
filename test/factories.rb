@@ -278,7 +278,7 @@ module Noosfero::Factory
   # FeedReaderBlock
   ###############################################
   def defaults_for_feed_reader_block
-    { :address => Rails.root + '/test/fixtures/files/feed.xml' }
+    { :address => File.join(Rails.root, 'test/fixtures/files/feed.xml') }
   end
 
   ###############################################
