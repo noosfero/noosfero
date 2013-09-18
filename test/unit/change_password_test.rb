@@ -144,8 +144,9 @@ class ChangePasswordTest < ActiveSupport::TestCase
     person = fast_create(Person, :identifier => 'testuser')
 
     task = ChangePassword.create(:login => 'testuser', :email => 'test@example.com', :environment_id => Environment.default.id)
+    task.requestor.stubs(:notification_emails).returns(['random@example.org'])
 
-    email = TaskMailer.deliver_task_created(task)
+    email = task.send(:send_notification, :created).deliver
     assert_match(/#{task.requestor.name} wants to change its password/, email.subject)
   end
 

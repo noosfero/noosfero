@@ -86,7 +86,7 @@ class ChangePassword < Task
     code = self.code
     url = url_for(:host => hostname, :controller => 'account', :action => 'new_password', :code => code)
 
-    lambda do
+    proc do
       _("In order to change your password, please visit the following address:\n\n%s") % url 
     end
   end
