@@ -133,7 +133,7 @@ class InviteFriendTest < ActiveSupport::TestCase
 
     task = InviteFriend.create!(:person => person, :friend_email => 'test@test.com', :message => '<url>')
 
-    email = TaskMailer.deliver_invitation_notification(task)
+    email = TaskMailer.invitation_notification(task).deliver
 
     assert_match(/#{task.requestor.name} wants to be your friend./, email.subject)
   end
