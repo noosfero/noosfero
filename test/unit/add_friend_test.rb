@@ -95,11 +95,11 @@ class AddFriendTest < ActiveSupport::TestCase
 
     task.group_for_person = big_word
     task.valid?
-    assert task.errors[:group_for_person]
+    assert task.errors[:group_for_person].present?
 
     task.group_for_person = 'short name'
     task.valid?
-    assert !task.errors[:group_for_person]
+    assert !task.errors[:group_for_person].present?
   end
 
   should 'limit "group for friend" number of characters' do
@@ -109,11 +109,11 @@ class AddFriendTest < ActiveSupport::TestCase
 
     task.group_for_friend = big_word
     task.valid?
-    assert task.errors[:group_for_friend]
+    assert task.errors[:group_for_friend].present?
 
     task.group_for_friend = 'short name'
     task.valid?
-    assert !task.errors[:group_for_friend]
+    assert !task.errors[:group_for_friend].present?
   end
 
   should 'have target notification message if is organization and not moderated' do
@@ -131,7 +131,7 @@ class AddFriendTest < ActiveSupport::TestCase
   should 'deliver target notification message' do
     task = AddFriend.new(:person => person1, :friend => person2)
 
-    email = TaskMailer.deliver_target_notification(task, task.target_notification_message)
+    email = TaskMailer.target_notification(task, task.target_notification_message).deliver
     assert_match(/#{task.requestor.name} wants to be your friend/, email.subject)
   end
 
