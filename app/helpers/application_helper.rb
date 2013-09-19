@@ -1113,25 +1113,24 @@ module ApplicationHelper
     result
   end
 
+  def manage_link(list, kind)
+    if list.present?
+      link = list.map do |element|
+        link_to(content_tag('strong', [_('<span>Manage</span> %s') % element.short_name(25)]), @environment.top_url + "/myprofile/#{element.identifier}", :class => "icon-menu-"+element.class.identification.underscore, :title => [_('Manage %s') % element.short_name])
+      end
+      render :partial => "shared/manage_link", :locals => {:link => link, :kind => kind.to_s}
+    end
+  end
+
   def manage_enterprises
     return if not user
-    if !user.enterprises.empty?
-      enterprises_link = user.enterprises.map do |enterprise|
-        link_to(content_tag('strong', [_('<span>Manage</span> %s') % enterprise.short_name(25)]), @environment.top_url + "/myprofile/#{enterprise.identifier}", :class => "icon-menu-"+enterprise.class.identification.underscore, :title => [_('Manage %s') % enterprise.short_name])
-      end
-      render :partial => 'shared/manage_enterprises', :locals => {:enterprises_link => enterprises_link}
-    end
+    manage_link(user.enterprises, :enterprises)
   end
 
   def manage_communities
     return if not user
     administered_communities = user.communities.select {|c| c.admins.include? user}
-    if !administered_communities.empty?
-      communities_link = administered_communities.map do |community|
-        link_to(content_tag('strong', [_('<span>Manage</span> %s') % community.short_name(25)]), @environment.top_url + "/myprofile/#{community.identifier}", :class => "icon-menu-"+community.class.identification.underscore, :title => [_('Manage %s') % community.short_name])
-      end
-      render :partial => 'shared/manage_communities', :locals => {:communities_link => communities_link}
-    end
+    manage_link(administered_communities, :communities)
   end
 
   def usermenu_logged_in
