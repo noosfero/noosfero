@@ -60,12 +60,20 @@ class UploadedFile < Article
 
   postgresql_attachment_fu
 
+  # Use this method only to get the generic icon for this kind of content.
+  # If you want the specific icon for a file type or the iconified version
+  # of an image, use FilePresenter.for(uploaded_file).icon_name
   def self.icon_name(article = nil)
-    if article
-      article.image? ? article.public_filename(:icon) : (article.mime_type ? article.mime_type.gsub(/[\/+.]/, '-') : 'upload-file')
-    else
-      'upload-file'
+    unless article.nil?
+      warn = ('='*80) + "\n" +
+             'The method `UploadedFile.icon_name(obj)` is deprecated. ' +
+             'You must to encapsulate UploadedFile with `FilePresenter.for()`.' +
+             "\n" + ('='*80)
+      raise NoMethodError, warn if ENV['RAILS_ENV'] == 'test'
+      Rails.logger.warn warn if Rails.logger
+      puts warn if ENV['RAILS_ENV'] == 'development'
     end
+    'upload-file'
   end
 
   def mime_type
@@ -91,40 +99,27 @@ class UploadedFile < Article
   end
 
   def to_html(options = {})
+    warn = ('='*80) + "\n" +
+           'The method `UploadedFile#to_html()` is deprecated. ' +
+           'You must to encapsulate UploadedFile with `FilePresenter.for()`.' +
+           "\n" + ('='*80)
+    raise NoMethodError, warn if ENV['RAILS_ENV'] == 'test'
+    Rails.logger.warn warn if Rails.logger
+    puts warn if ENV['RAILS_ENV'] == 'development'
     article = self
     if image?
       lambda do
-        if article.gallery? && options[:gallery_view]
-          images = article.parent.images
-          current_index = images.index(article)
-          total_of_images = images.count
-
-          link_to_previous = if current_index >= 1
-            link_to(_('&laquo; Previous'), images[current_index - 1].view_url, :class => 'left')
-          else
-            content_tag('span', _('&laquo; Previous'), :class => 'left')
-          end
-
-          link_to_next = if current_index < total_of_images - 1
-            link_to(_('Next &raquo;'), images[current_index + 1].view_url, :class => 'right')
-          else
-            content_tag('span', _('Next &raquo;'), :class => 'right')
-          end
-
-          content_tag(
-            'div',
-            link_to_previous + (content_tag('span', _('image %d of %d'), :class => 'total-of-images') % [current_index + 1, total_of_images]).html_safe + link_to_next,
-            :class => 'gallery-navigation'
-          )
-        end.to_s +
-        image_tag(article.public_filename(:display), :class => article.css_class_name, :style => 'max-width: 100%') +
-          content_tag('p', article.abstract, :class => 'uploaded-file-description')
-
+        image_tag(article.public_filename(:display),
+                  :class => article.css_class_name,
+                  :style => 'max-width: 100%') +
+        content_tag('div', article.abstract, :class => 'uploaded-file-description')
       end
     else
       lambda do
-        content_tag('ul', content_tag('li', link_to(article.name, article.url, :class => article.css_class_name))) +
-          content_tag('p', article.abstract, :class => 'uploaded-file-description')
+        content_tag('div',
+                    link_to(article.name, article.url),
+                    :class => article.css_class_name) +
+        content_tag('div', article.abstract, :class => 'uploaded-file-description')
       end
     end
   end

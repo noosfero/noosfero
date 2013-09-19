@@ -1584,6 +1584,7 @@ a.button.disabled, input.disabled {
 .map {
   clear: both;
 }
+
 /***********************************************************
  * style for blocks 
  ***********************************************************/
@@ -3440,26 +3441,7 @@ div#article-parent {
 .article-body-uploaded-file {
   text-align: center;
 }
-/************* uploaded file *****************/
 
-#article .gallery-navigation {
-  padding: 10px 0;
-}
-#article .gallery-navigation .left {
-  margin-right: 10px;
-}
-#article .gallery-navigation .right {
-  margin-left: 10px;
-}
-#article .gallery-navigation .total-of-images {
-  font-weight: bold;
-}
-#article .uploaded-file-description {
-  background: #f6f6f6;
-  border-top: 1px solid #ccc;
-  border-bottom: 1px solid #ccc;
-  padding: 1em;
-}
 /* ==> public/stylesheets/controller_events.css <== */
 #agenda {
   position: relative;

@@ -940,8 +940,8 @@ class CmsControllerTest < ActionController::TestCase
                :article => {:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')}
 
     process_delayed_job_queue
-    file = profile.articles.find_by_name('rails.png')
-    assert File.exists?(file.class.icon_name(file))
+    file = FilePresenter.for profile.articles.find_by_name('rails.png')
+    assert File.exists?(file.icon_name)
     file.destroy
   end
 
@@ -951,8 +951,8 @@ class CmsControllerTest < ActionController::TestCase
                :article => {:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')}
 
     process_delayed_job_queue
-    file = profile.articles.find_by_name('rails.png')
-    assert File.exists?(file.class.icon_name(file))
+    file = FilePresenter.for profile.articles.find_by_name('rails.png')
+    assert File.exists?(file.icon_name)
     file.destroy
   end
 
