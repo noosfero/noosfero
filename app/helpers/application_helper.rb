@@ -1114,11 +1114,23 @@ module ApplicationHelper
   end
 
   def manage_enterprises
-    if user && !user.enterprises.empty?
+    return if not user
+    if !user.enterprises.empty?
       enterprises_link = user.enterprises.map do |enterprise|
         link_to(content_tag('strong', [_('<span>Manage</span> %s') % enterprise.short_name(25)]), @environment.top_url + "/myprofile/#{enterprise.identifier}", :class => "icon-menu-"+enterprise.class.identification.underscore, :title => [_('Manage %s') % enterprise.short_name])
       end
       render :partial => 'shared/manage_enterprises', :locals => {:enterprises_link => enterprises_link}
+    end
+  end
+
+  def manage_communities
+    return if not user
+    administered_communities = user.communities.select {|c| c.admins.include? user}
+    if !administered_communities.empty?
+      communities_link = administered_communities.map do |community|
+        link_to(content_tag('strong', [_('<span>Manage</span> %s') % community.short_name(25)]), @environment.top_url + "/myprofile/#{community.identifier}", :class => "icon-menu-"+community.class.identification.underscore, :title => [_('Manage %s') % community.short_name])
+      end
+      render :partial => 'shared/manage_communities', :locals => {:communities_link => communities_link}
     end
   end
 
@@ -1133,6 +1145,7 @@ module ApplicationHelper
     render_environment_features(:usermenu) +
     link_to('<i class="icon-menu-admin"></i><strong>' + _('Administration') + '</strong>', @environment.top_url + '/admin', :id => "controlpanel", :title => _("Configure the environment"), :class => 'admin-link', :style => 'display: none') +
     manage_enterprises.to_s +
+    manage_communities.to_s +
     link_to('<i class="icon-menu-ctrl-panel"></i><strong>' + _('Control panel') + '</strong>', @environment.top_url + '/myprofile/{login}', :id => "controlpanel", :title => _("Configure your personal account and content")) +
     pending_tasks_count +
     link_to('<i class="icon-menu-logout"></i><strong>' + _('Logout') + '</strong>', { :controller => 'account', :action => 'logout'} , :id => "logout", :title => _("Leave the system"))
