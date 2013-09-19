@@ -152,7 +152,7 @@ class Noosfero::Plugin
 
   # Here the developer may specify the events to which the plugins can
   # register and must return true or false. The default value must be false.
-  # Must also explicitly defined its returning variables.
+  # Must also explicitly define its returning variables.
 
   # -> If true, noosfero will include plugin_dir/public/style.css into
   # application
@@ -172,7 +172,7 @@ class Noosfero::Plugin
   # -> Customize profile block design and behavior
   # (overwrites profile_image_link function)
   # returns = lambda block that creates html code.
-  def profile_image_link profile
+  def profile_image_link(profile, size, tag, extra_info)
     nil
   end
 
