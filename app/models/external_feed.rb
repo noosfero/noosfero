@@ -20,7 +20,14 @@ class ExternalFeed < ActiveRecord::Base
     end
     content = doc.to_s
 
-    article = TinyMceArticle.new(:name => title, :profile => blog.profile, :body => content, :published_at => date, :source => link, :profile => blog.profile, :parent => blog)
+    article = TinyMceArticle.new
+    article.name = title
+    article.profile = blog.profile
+    article.body = content 
+    article.published_at = date 
+    article.source = link 
+    article.profile = blog.profile 
+    article.parent = blog
     unless blog.children.exists?(:slug => article.slug)
       article.save!
       article.delay.create_activity

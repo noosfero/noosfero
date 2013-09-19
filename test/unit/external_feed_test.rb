@@ -58,13 +58,13 @@ class ExternalFeedTest < ActiveSupport::TestCase
   end
 
   should 'require address if enabled' do
-    e = ExternalFeed.new(:enabled => true)
+    e = build(ExternalFeed, :enabled => true)
     assert !e.valid?
     assert e.errors[:address]
   end
 
   should 'not require address if disabled' do
-    e = ExternalFeed.new(:enabled => false, :address => nil)
+    e = build(ExternalFeed, :enabled => false, :address => nil)
     e.valid?
     assert !e.errors[:address]
   end
@@ -132,7 +132,7 @@ class ExternalFeedTest < ActiveSupport::TestCase
   end
 
   should 'have an update errors counter' do
-    assert_equal 3, ExternalFeed.new(:update_errors => 3).update_errors
+    assert_equal 3, build(ExternalFeed, :update_errors => 3).update_errors
   end
 
   should 'have 0 update errors by default' do
