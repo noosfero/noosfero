@@ -961,14 +961,6 @@ module ApplicationHelper
     html
   end
 
-  def colorpicker_field(object_name, method, options = {})
-    text_field(object_name, method, options.merge(:class => 'colorpicker_field'))
-  end
-
-  def colorpicker_field_tag(name, value = nil, options = {})
-    text_field_tag(name, value, options.merge(:class => 'colorpicker_field'))
-  end
-
   def ui_icon(icon_class, extra_class = '')
     "<span class='ui-icon #{icon_class} #{extra_class}' style='float:left; margin-right:7px;'></span>".html_safe
   end
