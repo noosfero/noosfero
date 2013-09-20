@@ -35,6 +35,18 @@ module DatesHelper
     end
   end
 
+  def show_date_month(date, use_numbers = false, year=true)
+    if date && use_numbers
+      date_format = year ? _('%{month}/%{year}') : _('%{month}/%{day}')
+      date_format % { :month => date.month, :year => date.year }
+    elsif date
+      date_format = year ? _('%{month_name}, %{year}') : _('%{month_name}')
+      date_format % { :month_name => month_name(date.month), :year => date.year }
+    else
+      ''
+    end
+  end
+
   # formats a datetime for displaying. 
   def show_time(time)
     if time
@@ -98,7 +110,11 @@ module DatesHelper
     elsif opts[:previous]
       date = date << 1
     end
-    _('%{month} %{year}') % { :year => date.year, :month => month_name(date.month.to_i) }
+    if opts[:only_month]
+      _('%{month}') % {:month => month_name(date.month.to_i) }
+    else
+      _('%{month} %{year}') % { :year => date.year, :month => month_name(date.month.to_i) }
+    end
   end
 
   def build_date(year, month, day = 1)
@@ -123,7 +139,7 @@ module DatesHelper
     previous_month_date = date - 1.month
 
     label ||= show_month(previous_month_date.year, previous_month_date.month)
-    link_to label, :year => previous_month_date.year, :month => previous_month_date.month
+    link_to label, {:year => previous_month_date.year, :month => previous_month_date.month}, {:class => 'button icon-back with-text'}
   end
 
   def link_to_next_month(year, month, label = nil)
@@ -131,7 +147,7 @@ module DatesHelper
     next_month_date = date + 1.month
 
     label ||= show_month(next_month_date.year, next_month_date.month)
-    link_to label, :year => next_month_date.year, :month => next_month_date.month
+    link_to label, {:year => next_month_date.year, :month => next_month_date.month}, {:class => 'button icon-next with-text'}
   end
 
   def pick_date(object, method, options = {}, html_options = {})

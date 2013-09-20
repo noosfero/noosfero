@@ -108,40 +108,7 @@ class DatesHelperTest < ActiveSupport::TestCase
     assert_equal 'September 2009', show_month(2009, 10, :previous => true)
   end
 
-  should 'provide link to previous month' do
-    expects(:link_to).with('January 2008', { :year => 2008, :month => 1})
-    link_to_previous_month('2008', '2')
-  end
-
-  should 'support last year in link to previous month' do
-    expects(:link_to).with('December 2007', { :year => 2007, :month => 12})
-    link_to_previous_month('2008', '1')
-  end
-
-  should 'provide link to next month' do
-    expects(:link_to).with('March 2008', { :year => 2008, :month => 3})
-    link_to_next_month('2008', '2')
-  end
-
-  should 'support next year in link to next month' do
-    expects(:link_to).with('January 2009', { :year => 2009, :month => 1})
-    link_to_next_month('2008', '12')
-  end
-
-  should 'get current date when year and month are not informed for next month' do
-    Date.stubs(:today).returns(Date.new(2008,1,1))
-    expects(:link_to).with('February 2008', { :year => 2008, :month => 2})
-    link_to_next_month(nil, nil)
-  end
-
-  should 'get current date when year and month are not informed for previous month' do
-    Date.stubs(:today).returns(Date.new(2008,1,1))
-    expects(:link_to).with('December 2007', { :year => 2007, :month => 12})
-    link_to_previous_month(nil, nil)
-  end
-
   should 'provide an intertionalized date selector pass month names' do
-
     expects(:gettext).with('January').returns('January')
     expects(:gettext).with('February').returns('February')
     expects(:gettext).with('March').returns('March')
@@ -154,7 +121,6 @@ class DatesHelperTest < ActiveSupport::TestCase
     expects(:gettext).with('October').returns('October')
     expects(:gettext).with('November').returns('November')
     expects(:gettext).with('December').returns('December')
-
     expects(:language).returns('en')
 
     expects(:date_select).with(:object, :method, { :include_blank => true, :order => [:month, :day, :year], :use_month_names => ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']}).returns("KKKKKKKK")

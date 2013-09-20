@@ -216,9 +216,7 @@ th {
   font-weight: bold;
   border-bottom: 2px solid black;
 }
-td {
-  border-bottom: 1px solid #e0e0e0;
-}
+
 tr:hover td {
   background-color: #f0f0f0;
 }
@@ -301,24 +299,29 @@ div.pending-tasks {
 }
 /* sitemap and agenda */
 
+
 .agenda-item a.icon, .sitemap-item a.icon {
-  background-repeat: no-repeat;
-  padding-left: 20px;
+  background-image: none;
+  line-height: 150%;
 }
 .agenda-item .icon:hover, .sitemap-item .icon:hover {
   background-color: transparent;
+  text-decoration: underline;
 }
-.sitemap-item a:link, .agenda-item a:link, .sitemap-item a:visited, .agenda-item a:visited {
+.agenda-item a, a:visited{
+ font-weight: bold;
+ color: black;
+}
+
+.sitemap-item a:link, .agenda-item a:link, .sitemap-item a:visited, .agenda-item a:visited, .agenda a:hover {
   border: none;
   text-decoration: none;
 }
+
 .sitemap-item img, .agenda-item img {
   border: none;
 }
-.sitemap-item a:hover, .agenda-item a:hover {
-  color: red;
-  text-decoration: underline;
-}
+
 .last-update {
   font-size: 12px;
 }
@@ -382,7 +385,7 @@ div.pending-tasks {
   font-size: 11px;
 }
 #category-ajax-selector .select-subcategory-link:hover {
-  background-color: #FFA;
+  background-color: black;
 }
 #category-ajax-selector .button {
   display: block;
@@ -3507,18 +3510,19 @@ div#article-parent {
   width: 50%;
 }
 #agenda td, #agenda th {
-  padding: 0px;
+  padding: 15px;
+  padding-right: 0px;
 }
 #agenda .agenda-calendar .previous-month td, #agenda .agenda-calendar .previous-month th, #agenda .agenda-calendar .next-month td, #agenda .agenda-calendar .next-month th {
-  font-size: 10px;
-  color: gray;
+  font-size: 12px;
+  color: black;
 }
 #agenda .agenda-calendar .current-month td {
 }
 #agenda .agenda-calendar .calendar-day {
 }
 #agenda .agenda-calendar .calendar-day-out {
-  color: gray;
+  color: black;
 }
 #agenda .agenda-calendar .calendar-day-out span {
   display: none;
@@ -3535,7 +3539,7 @@ div#article-parent {
 }
 #agenda .agenda-calendar .current-month {
   height: 250px;
-  border-bottom: 1px solid #BFC2BC;
+  border-bottom: 1px solid black;
 }
 #agenda .agenda-calendar .previous-month, #agenda .agenda-calendar .next-month {
   float: left;
@@ -3572,14 +3576,15 @@ div#article-parent {
   width: 45%;
   top: 0px;
   height: 100%;
-  border-left: 1px solid #BFC2BC;
   padding-left: 20px;
 }
 #agenda #events-of-the-day #agenda-items {
   display: block;
   overflow: auto;
   overflow-x: hidden;
-  height: 90%;
+  height: 80%;
+  background: white;
+  border: none;
 }
 #agenda-toolbar {
   float: right;
@@ -3588,6 +3593,11 @@ div#article-parent {
 }
 h1#agenda-title {
   position: relative;
+}
+#agenda .agenda-calendar .button.icon-next.with-text {
+  background-position: right;
+  padding-left: 3px;
+  padding-right: 20px;
 }
 #agenda-toolbar a.button {
   border: none;
