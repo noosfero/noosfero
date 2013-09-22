@@ -1588,7 +1588,7 @@ a.button.disabled, input.disabled {
 }
 
 /***********************************************************
- * style for blocks 
+ * style for blocks
  ***********************************************************/
 
 #content .communities-block .profile-image {
@@ -1652,23 +1652,21 @@ a.button.disabled, input.disabled {
  ************************************************/
 
 .block-target {
-  margin: 5px;
-  height: 2px;
-  height: 15px;
-  border: 1px dashed #e0e0e0;
+  padding: 2px;
+  background: #ffd;
+  margin-bottom: 5px;
 }
 .block-target-hover {
   background: #ffd;
-  border: 1px solid red;
+  border: 1px solid #000;
   height: 30px;
+  box-shadow: 0 0 15px #888 inset;
 }
 /*************************************************************
  * put borders around boxes and blocks when organizing boxes *
  *************************************************************/
 
 #box-organizer div.box {
-  border: 1px solid #ccc;
-  background-color: white;
   background-repeat: no-repeat;
   background-position: top right;
 }
@@ -1681,28 +1679,72 @@ a.button.disabled, input.disabled {
 #box-organizer div.box-3 {
   background-image: url(../images/blocks/3.png);
 }
-#box-organizer div.box-1 .block {
-  outline: 2px dashed green;
+#box-organizer .block {
+  cursor: move;
 }
+#box-organizer .block:hover {
+    box-shadow: 0px 0px 0px 2px #FFF,
+                0px 0px 0px 2px #FFF,
+                0px 0px 10px rgba(0, 0, 0, 0.6);
+    outline: none;
+}
+#box-organizer .block {
+  cursor: move;
+  position: relative;
+  min-height: 20px;
+}
+
+#box-organizer .block .button-bar {
+  cursor: move;
+  position: absolute;
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.3);
+  top: -40px;
+  padding-bottom: 40px;
+  display: none;
+}
+
+#box-organizer .block:focus .button-bar,
+#box-organizer .block:hover .button-bar {
+  display: block;
+}
+
 .msie #box-organizer div.box-1 .block {
   border: 2px dashed green;
-}
-#box-organizer div.box-2 .block {
-  outline: 2px dashed red;
 }
 .msie #box-organizer div.box-1 .block {
   border: 2px dashed red;
 }
-#box-organizer div.box-3 .block {
-  outline: 2px dashed blue;
-}
 .msie #box-organizer div.box-1 .block {
   border: 2px dashed blue;
 }
-.block-footer-content {
-  clear: both;
-  margin-top: 1em;
+/************************************************************
+ * custom interation blocks on drag n drop                  *
+ ***********************************************************/
+#box-organizer .main-block {
+  font-size: 24px;
   text-align: center;
+  box-shadow: none;
+  outline: none;
+  display: block;
+  height: 150px;
+  line-height: 120px;
+}
+#box-organizer .main-block:hover {
+    border: 0px;
+    border-style: none;
+    box-shadow: none;
+    outline: none;
+}
+#box-organizer .article-block,
+#box-organizer .recent-documents-block {
+  overflow: visible !important;
+}
+
+#box-organizer .blog-post {
+  margin: auto;
 }
 
 /****************************************
@@ -1750,7 +1792,7 @@ a.button.disabled, input.disabled {
   margin: 3px 0;
 }
 
-/* ==> blocks/tags-block.css <<= */ 
+/* ==> blocks/tags-block.css <<= */
 
 .tags-block {
 }
@@ -1761,7 +1803,7 @@ a.button.disabled, input.disabled {
 .tags-block .tag_cloud a:hover {
   color: red;
 }
-/* ==> blocks/my-network-block.css <<= */ 
+/* ==> blocks/my-network-block.css <<= */
 
 #content .my-network-block {
   padding: 10px 0px 10px 10px;
@@ -1769,7 +1811,7 @@ a.button.disabled, input.disabled {
 .my-network-block a {
   text-decoration: none;
 }
-/* ==> blocks/link-list-block.css <<= */ 
+/* ==> blocks/link-list-block.css <<= */
 
 #edit-link-list-block table {
   width: 100%;
@@ -1828,8 +1870,7 @@ a.button.disabled, input.disabled {
   border: 1px solid black;
   background-color: #555;
 }
-/* ==> blocks/profile-list-block.css <<= */ 
-
+/* ==> blocks/profile-list-block.css <<= */
 
 #content .profile-list-block h3 {
   text-align: center;
@@ -1968,7 +2009,7 @@ a.button.disabled, input.disabled {
   opacity: 0.5;
   filter: alpha(opacity=50);
 }
-/* ==> blocks/recent-documents-block.css <<= */ 
+/* ==> blocks/recent-documents-block.css <<= */
 
 #content .recent-documents-block {
   padding: 10px 0px 10px 10px;
