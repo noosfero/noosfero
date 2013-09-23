@@ -3171,6 +3171,14 @@ table.cms-articles .icon:hover {
   background: #eeeeec;
   border: 1px solid #d3d7cf;
 }
+
+.controller-cms .article-mime {
+  max-width: 90px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .controller-cms .article-controls {
   white-space: nowrap;
 }

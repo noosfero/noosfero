@@ -42,10 +42,10 @@
 
   <% @articles.each do |article| article = FilePresenter.for article %>
     <tr>
-      <td>
+      <td class="article-name">
         <%= link_to_article(article) %>
       </td>
-      <td>
+      <td class="article-mime">
         <%= article.respond_to?(:short_description) ?
                       article.short_description :
                       article.class.short_description %>
