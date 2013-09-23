@@ -99,9 +99,9 @@ class FilePresenter
   def method_missing(m, *args)
     @file.send(m, *args)
   end
-
 end
 
 # Preload FilePresenters to allow `FilePresenter.for()` to work
-FilePresenter::Generic
-FilePresenter::Image
+Dir.glob(File.join('app', 'presenters', '*.rb')) do |file|
+  load file
+end
