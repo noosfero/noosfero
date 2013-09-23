@@ -17,6 +17,9 @@ class Product < ActiveRecord::Base
 
   belongs_to :enterprise, :foreign_key => :profile_id, :class_name => 'Profile'
   belongs_to :profile
+  alias_method :enterprise=, :profile=
+  alias_method :enterprise, :profile
+
   has_one :region, :through => :enterprise
   validates_presence_of :enterprise
 
