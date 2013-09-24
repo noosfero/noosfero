@@ -90,7 +90,7 @@ class FeedHandlerTest < ActiveSupport::TestCase
   [:external_feed, :feed_reader_block].each do |container_class|
 
     should "reset the errors count after a successfull run (#{container_class})" do
-      container = create(container_class, :update_errors => 1, :address => File.join(Rails.root, 'test/fixtures/files/feed.xml'))
+      container = create(container_class, :update_errors => 1, :address => Rails.root.join('test/fixtures/files/feed.xml'))
       handler.expects(:actually_process_container).with(container)
       handler.process(container)
       assert_equal 0, container.update_errors

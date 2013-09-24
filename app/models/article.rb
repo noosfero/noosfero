@@ -262,7 +262,7 @@ class Article < ActiveRecord::Base
 
   def reported_version(options = {})
     article = self
-    search_path = File.join(Rails.root, 'app', 'views', 'shared', 'reported_versions')
+    search_path = Rails.root.join('app', 'views', 'shared', 'reported_versions')
     partial_path = File.join('shared', 'reported_versions', partial_for_class_in_view_path(article.class, search_path))
     lambda { render_to_string(:partial => partial_path, :locals => {:article => article}) }
   end

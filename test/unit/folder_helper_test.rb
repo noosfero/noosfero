@@ -126,7 +126,7 @@ class FolderHelperTest < ActionView::TestCase
 
   private
   def render(template, the_binding)
-    ERB.new(File.read(File.join(Rails.root, 'app/views', template + '.html.erb'))).result(the_binding)
+    ERB.new(File.read(Rails.root.join('app/views', template + '.html.erb'))).result(the_binding)
   end
 
 end

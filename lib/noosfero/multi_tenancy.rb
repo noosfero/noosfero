@@ -25,7 +25,7 @@ module Noosfero
     private
 
     def self.load_map
-      db_file = File.join(Rails.root, 'config', 'database.yml')
+      db_file = Rails.root.join('config', 'database.yml')
       db_config = YAML.load_file(db_file)
       map = { }
       db_config.each do |env, attr|
@@ -36,7 +36,7 @@ module Noosfero
     end
 
     def self.is_hosted_environment?
-      db_file = File.join(Rails.root, 'config', 'database.yml')
+      db_file = Rails.root.join('config', 'database.yml')
       db_config = YAML.load_file(db_file)
       db_config.select{ |env, attr| Rails.env.to_s.match(/_#{env}$/) }.any?
     end

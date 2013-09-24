@@ -264,7 +264,7 @@ module Noosfero::Factory
   # ExternalFeed
   ###############################################
   def defaults_for_external_feed
-    { :address => Rails.root + '/test/fixtures/files/feed.xml', :blog_id => factory_num_seq }
+    { :address => Rails.root.join('test', 'fixtures', 'files', 'feed.xml'), :blog_id => factory_num_seq }
   end
 
   def create_external_feed(attrs = {})
@@ -278,7 +278,7 @@ module Noosfero::Factory
   # FeedReaderBlock
   ###############################################
   def defaults_for_feed_reader_block
-    { :address => File.join(Rails.root, 'test/fixtures/files/feed.xml') }
+    { :address => Rails.root.join('test/fixtures/files/feed.xml') }
   end
 
   ###############################################

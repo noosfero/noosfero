@@ -1,5 +1,5 @@
 class SpammerLogger < Logger
-  @logpath = File.join(Rails.root, 'log', "#{ENV['RAILS_ENV']}_spammers.log")
+  @logpath = Rails.root.join('log', "#{ENV['RAILS_ENV']}_spammers.log")
   @logger = new(@logpath)
 
   def self.log(spammer_ip, object=nil)

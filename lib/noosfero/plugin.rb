@@ -69,9 +69,9 @@ class Noosfero::Plugin
     def enabled
       @enabled ||=
         begin
-          plugins = Dir.glob(File.join(Rails.root, 'config', 'plugins', '*'))
-          if Rails.env.test? && !plugins.include?(File.join(Rails.root, 'config', 'plugins', 'foo'))
-            plugins << File.join(Rails.root, 'plugins', 'foo')
+          plugins = Dir.glob(Rails.root.join('config', 'plugins', '*'))
+          if Rails.env.test? && !plugins.include?(Rails.root.join('config', 'plugins', 'foo'))
+            plugins << Rails.root.join('plugins', 'foo')
           end
           plugins.select do |entry|
             File.directory?(entry)
@@ -96,7 +96,7 @@ class Noosfero::Plugin
     end
 
     def root_path
-      File.join(Rails.root, 'plugins', public_name)
+      Rails.root.join('plugins', public_name)
     end
 
     def view_path
@@ -122,7 +122,7 @@ class Noosfero::Plugin
   end
 
   def expanded_template(file_path, locals = {})
-    views_path = "#{Rails.root}/plugins/#{self.class.public_name}/views"
+    views_path = Rails.root.join('plugins', "#{self.class.public_name}", 'views')
     ERB.new(File.read("#{views_path}/#{file_path}")).result(binding)
   end
 

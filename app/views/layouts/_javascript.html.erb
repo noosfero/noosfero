@@ -8,6 +8,6 @@
 <% language = FastGettext.locale %>
 <% %w{messages methods}.each do |type| %>
   <% require_path = File.join('jquery-validation', 'localization', type+'_'+language) %>
-  <% full_path = File.join(Rails.root, 'public', 'javascripts', require_path+'.js')%>
+  <% full_path = Rails.root.join('public', 'javascripts', require_path+'.js')%>
   <%= javascript_include_tag require_path if File.exists?(full_path) %>
 <% end %>

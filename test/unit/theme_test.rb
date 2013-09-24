@@ -2,7 +2,7 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class ThemeTest < ActiveSupport::TestCase
 
-  TMP_THEMES_DIR = Rails.root + '/test/tmp/themes'
+  TMP_THEMES_DIR = Rails.root.join('test', 'tmp', 'themes')
 
   def setup
     Theme.stubs(:user_themes_dir).returns(TMP_THEMES_DIR)
@@ -13,11 +13,11 @@ class ThemeTest < ActiveSupport::TestCase
   end
 
   should 'list system themes' do
-    Dir.expects(:glob).with(Rails.root + '/public/designs/themes/*').returns(
+    Dir.expects(:glob).with(Rails.root.join('public', 'designs', 'themes', '*')).returns(
       [
-        Rails.root + '/public/designs/themes/themeone',
-        Rails.root + '/public/designs/themes/themetwo',
-        Rails.root + '/public/designs/themes/themethree'
+        Rails.root.join('public', 'designs', 'themes', 'themeone'),
+        Rails.root.join('public', 'designs', 'themes', 'themetwo'),
+        Rails.root.join('public', 'designs', 'themes', 'themethree')
     ])
 
     assert_equal ['themeone', 'themetwo', 'themethree'], Theme.system_themes.map(&:id)

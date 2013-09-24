@@ -10,11 +10,11 @@ class Theme
     end
 
     def user_themes_dir
-      File.join(Rails.root, 'public', 'user_themes')
+      Rails.root.join('public', 'user_themes')
     end
 
     def system_themes_dir
-      File.join(Rails.root, 'public', 'designs', 'themes')
+      Rails.root.join('public', 'designs', 'themes')
     end
 
     def create(id, attributes = {})

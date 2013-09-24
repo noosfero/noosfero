@@ -84,7 +84,7 @@ class ImageTest < ActiveSupport::TestCase
 
   should 'have a loading image to each size of thumbnails' do
     Image.attachment_options[:thumbnails].each do |suffix, size|
-      image = File.join(Rails.root, "public/images/icons-app/image-loading-#{suffix}.png")
+      image = Rails.root.join("public/images/icons-app/image-loading-#{suffix}.png")
       assert File.exists?(image), "#{image} should exist."
     end
   end

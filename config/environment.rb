@@ -7,7 +7,7 @@ require File.expand_path('../application', __FILE__)
 
 # extra directories for controllers organization 
 extra_controller_dirs = %w[
-].map {|item| File.join(Rails.root, item) }
+].map {|item| Rails.root.join(item) }
 
 # Add new inflection rules using the following format 
 # (all these examples are active by default):
@@ -32,7 +32,7 @@ require 'noosfero'
 
 # load a local configuration if present, but not under test environment.
 if !['test', 'cucumber'].include?(ENV['RAILS_ENV'])
-  localconfigfile = File.join(Rails.root, 'config', 'local.rb')
+  localconfigfile = Rails.root.join('config', 'local.rb')
   if File.exists?(localconfigfile)
     require localconfigfile
   end

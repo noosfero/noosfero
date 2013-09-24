@@ -223,7 +223,7 @@ class UploadedFileTest < ActiveSupport::TestCase
 
   should 'have a loading image to each size of thumbnails' do
     UploadedFile.attachment_options[:thumbnails].each do |suffix, size|
-      image = Rails.root + '/public/images/icons-app/image-loading-%s.png' % suffix
+      image = Rails.root.join('public', 'images', 'icons-app', "image-loading-#{suffix}.png")
       assert File.exists?(image)
     end
   end
@@ -231,10 +231,10 @@ class UploadedFileTest < ActiveSupport::TestCase
   should 'return a thumbnail for images' do
     f = UploadedFile.new
     f.expects(:image?).returns(true)
-    f.expects(:full_filename).with(:display).returns(File.join(Rails.root, 'public', 'images', '0000', '0005', 'x.png'))
+    f.expects(:full_filename).with(:display).returns(Rails.root.join('public', 'images', '0000', '0005', 'x.png'))
     assert_equal '/images/0000/0005/x.png', f.thumbnail_path
     f = UploadedFile.new
-    f.stubs(:full_filename).with(:display).returns(File.join(Rails.root, 'public', 'images', '0000', '0005', 'x.png'))
+    f.stubs(:full_filename).with(:display).returns(Rails.root.join('public', 'images', '0000', '0005', 'x.png'))
     f.expects(:image?).returns(false)
     assert_nil f.thumbnail_path
   end

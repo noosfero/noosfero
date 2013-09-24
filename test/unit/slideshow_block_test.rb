@@ -75,7 +75,7 @@ class SlideshowBlockTest < ActiveSupport::TestCase
   should 'decide correct public filename for image' do
     image = mock
     image.expects(:public_filename).with('slideshow').returns('/bli/slideshow.png')
-    File.expects(:exists?).with("#{Rails.root}/public/bli/slideshow.png").returns(true)
+    File.expects(:exists?).with(Rails.root.join('public', 'bli', 'slideshow.png')).returns(true)
 
     assert_equal '/bli/slideshow.png', build(SlideshowBlock, :image_size => 'slideshow').public_filename_for(image)
   end
@@ -83,7 +83,7 @@ class SlideshowBlockTest < ActiveSupport::TestCase
   should 'display the default slideshow image if thumbnails were not processed' do
     image = mock
     image.expects(:public_filename).with('slideshow').returns('/images/icons-app/image-loading-slideshow.png')
-    File.expects(:exists?).with("#{Rails.root}/public/images/icons-app/image-loading-slideshow.png").returns(true)
+    File.expects(:exists?).with(Rails.root.join('public', 'images', 'icons-app', 'image-loading-slideshow.png')).returns(true)
 
     assert_equal '/images/icons-app/image-loading-slideshow.png', build(SlideshowBlock, :image_size => 'slideshow').public_filename_for(image)
   end
@@ -94,11 +94,11 @@ class SlideshowBlockTest < ActiveSupport::TestCase
     image = mock
     # "slideshow" size does not exist
     image.expects(:public_filename).with('slideshow').returns('/bli/slideshow.png')
-    File.expects(:exists?).with("#{Rails.root}/public/bli/slideshow.png").returns(false) # <<<<<
+    File.expects(:exists?).with(Rails.root.join('public', 'bli', 'slideshow.png')).returns(false) # <<<<<
 
     # thumb size does exist
     image.expects(:public_filename).with('thumb').returns('/bli/thumb.png')
-    File.expects(:exists?).with("#{Rails.root}/public/bli/thumb.png").returns(true) # <<<<<
+    File.expects(:exists?).with(Rails.root.join('public', 'bli', 'thumb.png')).returns(true) # <<<<<
 
     assert_equal '/bli/thumb.png', block.public_filename_for(image)
   end

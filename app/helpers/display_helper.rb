@@ -9,7 +9,7 @@ module DisplayHelper
   end
 
   def themed_path(file)
-    if File.exists?(File.join(Rails.root, 'public', theme_path, file))
+    if File.exists?(Rails.root.join('public', theme_path, file))
       File.join(theme_path, file)
     else
       file

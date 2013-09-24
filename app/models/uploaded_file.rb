@@ -31,7 +31,7 @@ class UploadedFile < Article
   end
 
   def thumbnail_path
-    self.image? ? self.full_filename(:display).gsub(File.join(Rails.root, 'public'), '') : nil
+    self.image? ? self.full_filename(:display).gsub(Rails.root.join('public'), '') : nil
   end
 
   def display_title

@@ -214,7 +214,7 @@ class CommentTest < ActiveSupport::TestCase
 
   should 'use an existing image for deleted comments' do
     image = Comment.new.removed_user_image
-    assert File.exists?(File.join(Rails.root, 'public', image)), "#{image} does not exist."
+    assert File.exists?(Rails.root.join('public', image)), "#{image} does not exist."
   end
 
   should 'have the action_tracker_target defined' do

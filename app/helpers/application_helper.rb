@@ -310,7 +310,7 @@ module ApplicationHelper
     raise ArgumentError, 'No profile actions view for this class.' if klass.nil?
 
     name = klass.name.underscore
-    return "blocks/profile_info_actions/" + name + '.html.erb' if File.exists?(File.join(Rails.root, 'app', 'views', 'blocks', 'profile_info_actions', name + '.html.erb'))
+    return "blocks/profile_info_actions/" + name + '.html.erb' if File.exists?(Rails.root.join('app', 'views', 'blocks', 'profile_info_actions', name + '.html.erb'))
 
     view_for_profile_actions(klass.superclass)
   end
@@ -328,7 +328,7 @@ module ApplicationHelper
       "\n" +
       sources.flatten.map do |source|
         filename = filename_for_stylesheet(source.to_s, themed_source)
-        if File.exists?(File.join(Rails.root, 'public', filename))
+        if File.exists?(Rails.root.join('public', filename))
           "@import url(#{filename});\n"
         else
           "/* Not included: url(#{filename}) */\n"
@@ -372,7 +372,7 @@ module ApplicationHelper
           if Rails.env == 'development' && environment.theme == 'random'
             @random_theme ||= Dir.glob('public/designs/themes/*').map { |f| File.basename(f) }.rand
             @random_theme
-          elsif Rails.env == 'development' && params[:theme] && File.exists?(File.join(Rails.root, 'public/designs/themes', params[:theme]))
+          elsif Rails.env == 'development' && params[:theme] && File.exists?(Rails.root.join('public/designs/themes', params[:theme]))
             params[:theme]
           else
             if profile && !profile.theme.nil?
@@ -398,7 +398,7 @@ module ApplicationHelper
     # XXX Since we cannot control what people are doing in external themes, we
     # will keep looking for the deprecated .rhtml extension here.
     ['.rhtml', '.html.erb'].each do |ext|
-      file = File.join(Rails.root, 'public', theme_path, template + ext)
+      file = Rails.root.join('public', theme_path, template + ext)
       if File.exists?(file)
         return render :file => file, :use_full_path => false
       end
@@ -408,7 +408,7 @@ module ApplicationHelper
 
   def theme_favicon
     return '/designs/themes/' + current_theme + '/favicon.ico' if profile.nil? || profile.theme.nil?
-    if File.exists?(File.join(Rails.root, 'public', theme_path, 'favicon.ico'))
+    if File.exists?(Rails.root.join('public', theme_path, 'favicon.ico'))
       '/designs/themes/' + profile.theme + '/favicon.ico'
     else
       favicon = profile.articles.find_by_path('favicon.ico')
@@ -478,7 +478,7 @@ module ApplicationHelper
   end
 
   def default_or_themed_icon(icon)
-    if File.exists?(File.join(Rails.root, 'public', theme_path, icon))
+    if File.exists?(Rails.root.join('public', theme_path, icon))
       theme_path + icon
     else
       icon
@@ -503,7 +503,7 @@ module ApplicationHelper
         compact.uniq.map do |c|
           cat_name = c.gsub( /[-_\s,.;'"]+/, '_' )
           cat_icon = "/images/icons-cat/#{cat_name}.png"
-          if ! File.exists? RAILS_ROOT.to_s() + '/public/' + cat_icon
+          if ! File.exists?(Rails.root.join('public', cat_icon))
             cat_icon = '/images/icons-cat/undefined.png'
           end
           content_tag('span',
@@ -711,7 +711,7 @@ module ApplicationHelper
 
   def theme_javascript_ng
     script = File.join(theme_path, 'theme.js')
-    if File.exists?(File.join(Rails.root, 'public', script))
+    if File.exists?(Rails.root.join('public', script))
       javascript_include_tag script
     else
       nil
@@ -923,7 +923,7 @@ module ApplicationHelper
     theme_icon_themes = theme_option(:icon_theme) || []
     for icon_theme in theme_icon_themes do
       theme_path = "/designs/icons/#{icon_theme}/style.css"
-      if File.exists?(File.join(Rails.root, 'public', theme_path))
+      if File.exists?(Rails.root.join('public', theme_path))
         icon_themes << theme_path
       end
     end
@@ -1116,7 +1116,7 @@ module ApplicationHelper
   def render_environment_features(folder)
     result = ''
     environment.enabled_features.keys.each do |feature|
-      file = File.join(Rails.root, 'app/views/shared', folder.to_s, "#{feature}.html.erb")
+      file = Rails.root.join('app/views/shared', folder.to_s, "#{feature}.html.erb")
       if File.exists?(file)
         result << render(:file => file, :use_full_path => false)
       end

@@ -20,7 +20,7 @@ class SlideshowBlock < Block
 
   def check_filename(image, size)
     filename = image.public_filename(size)
-    if File.exists?(File.join(Rails.root, 'public', filename))
+    if File.exists?(Rails.root.join('public', filename))
       filename
     else
       nil
