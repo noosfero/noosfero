@@ -13,7 +13,7 @@ class ThemeTest < ActiveSupport::TestCase
   end
 
   should 'list system themes' do
-    Dir.expects(:glob).with(Rails.root.join('public', 'designs', 'themes', '*')).returns(
+    Dir.expects(:glob).with(Rails.root.join('public', 'designs', 'themes', '*').to_s).returns(
       [
         Rails.root.join('public', 'designs', 'themes', 'themeone'),
         Rails.root.join('public', 'designs', 'themes', 'themetwo'),
@@ -55,14 +55,14 @@ class ThemeTest < ActiveSupport::TestCase
   should 'be able to add new CSS file to theme' do
     t = Theme.create('mytheme')
     t.add_css('common.css')
-    assert_equal '', File.read(TMP_THEMES_DIR + '/mytheme/stylesheets/common.css')
+    assert_equal '', File.read(TMP_THEMES_DIR.join('mytheme', 'stylesheets', 'common.css'))
   end
 
   should 'be able to update CSS file' do
     t = Theme.create('mytheme')
     t.add_css('common.css')
     t.update_css('common.css', '/* only a comment */')
-    assert_equal '/* only a comment */', File.read(TMP_THEMES_DIR + '/mytheme/stylesheets/common.css')
+    assert_equal '/* only a comment */', File.read(TMP_THEMES_DIR.join('mytheme', 'stylesheets', 'common.css'))
   end
 
   should 'be able to get content of CSS file' do
@@ -144,7 +144,7 @@ class ThemeTest < ActiveSupport::TestCase
     theme = Theme.create('mytheme')
     theme.add_image('test.png', 'FAKE IMAGE DATA')
 
-    assert_equal 'FAKE IMAGE DATA', File.read(TMP_THEMES_DIR + '/mytheme/images/test.png')
+    assert_equal 'FAKE IMAGE DATA', File.read(TMP_THEMES_DIR.join('mytheme', 'images', 'test.png'))
   end
 
   should 'list images' do
@@ -173,8 +173,8 @@ class ThemeTest < ActiveSupport::TestCase
   should 'not list non theme files or dirs inside themes dir' do
     Theme.stubs(:system_themes_dir).returns(TMP_THEMES_DIR)
     Dir.mkdir(TMP_THEMES_DIR)
-    Dir.mkdir(TMP_THEMES_DIR+'/empty-dir')
-    File.new(TMP_THEMES_DIR+'/my-logo.png', File::CREAT)
+    Dir.mkdir(TMP_THEMES_DIR.join('empty-dir'))
+    File.new(TMP_THEMES_DIR.join('my-logo.png'), File::CREAT)
     assert Theme.approved_themes(Environment.default).empty?
   end
 
