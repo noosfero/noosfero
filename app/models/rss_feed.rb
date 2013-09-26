@@ -1,6 +1,6 @@
 class RssFeed < Article
 
-  attr_accessible :limit, :enabled
+  attr_accessible :limit, :enabled, :language
 
   def self.type_name
     _('RssFeed')
