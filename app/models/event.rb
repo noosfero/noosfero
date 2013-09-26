@@ -1,6 +1,9 @@
 require 'noosfero/translatable_content'
+require 'builder'
 
 class Event < Article
+
+  attr_accessible :start_date, :end_date, :link
 
   def self.type_name
     _('Event')
@@ -88,7 +91,7 @@ class Event < Article
   def to_html(options = {})
 
     result = ''
-    html = Builder::XmlMarkup.new(:target => result)
+    html = ::Builder::XmlMarkup.new(:target => result)
 
     html.div(:class => 'event-info' ) {
 
