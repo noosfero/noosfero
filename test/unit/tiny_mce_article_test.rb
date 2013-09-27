@@ -142,7 +142,6 @@ class TinyMceArticleTest < ActiveSupport::TestCase
   should 'not update activity on update of an article' do
     ActionTracker::Record.delete_all
     profile = fast_create(Profile)
-    ActionTracker::Record.stubs(:current_user_from_model).returns(fast_create(Person))
     article = create(TinyMceArticle, :profile_id => profile.id)
     time = article.activity.updated_at
     Time.stubs(:now).returns(time + 1.day)
@@ -186,7 +185,6 @@ end
   should "the tracker action target be defined as the article on articles'creation in profile" do
     ActionTracker::Record.delete_all
     person = Person.first
-    ActionTracker::Record.stubs(:current_user_from_model).returns(fast_create(Person))
     article = create TinyMceArticle, :name => 'test', :profile_id => person.id
     assert_equal article, ActionTracker::Record.last.target
   end

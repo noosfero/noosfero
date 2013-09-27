@@ -215,7 +215,7 @@ class ScrapTest < ActiveSupport::TestCase
     s = fast_create(Scrap, :updated_at => DateTime.parse('2010-01-01'))
     assert_equal DateTime.parse('2010-01-01'), s.updated_at.strftime('%Y-%m-%d')
     DateTime.stubs(:now).returns(DateTime.parse('2010-09-07'))
-    s1 = Scrap.create(defaults_for_scrap(:scrap_id => s.id))
+    s1 = create(Scrap, defaults_for_scrap(:scrap_id => s.id))
     s.reload
     assert_not_equal DateTime.parse('2010-01-01'), s.updated_at.strftime('%Y-%m-%d')
   end
@@ -230,20 +230,20 @@ class ScrapTest < ActiveSupport::TestCase
 
   should 'strip all html tags' do
     s, r = fast_create(Person), fast_create(Person)
-    s = Scrap.new :sender => s, :receiver => r, :content => "<p>Test <b>Rails</b></p>"
+    s = build Scrap, :sender => s, :receiver => r, :content => "<p>Test <b>Rails</b></p>"
     assert_equal "Test Rails", s.strip_all_html_tags
   end
 
   should 'strip html before save' do
     s, r = fast_create(Person), fast_create(Person)
-    s = Scrap.new :sender => s, :receiver => r, :content => "<p>Test <b>Rails</b></p>"
+    s = build Scrap, :sender => s, :receiver => r, :content => "<p>Test <b>Rails</b></p>"
     s.save!
     assert_equal "Test Rails", s.reload.content
   end
 
   should 'strip html before validate' do
     s, r = fast_create(Person), fast_create(Person)
-    s = Scrap.new :sender => s, :receiver => r, :content => "<p><b></b></p>"
+    s = build Scrap, :sender => s, :receiver => r, :content => "<p><b></b></p>"
     assert !s.valid?
     s.content = "<p>Test</p>"
     assert s.valid?
@@ -260,15 +260,15 @@ class ScrapTest < ActiveSupport::TestCase
 
   should 'scrap wall url be the root scrap receiver url if it is a reply' do
     p1, p2 = fast_create(Person), fast_create(Person)
-    r = Scrap.create! :sender => p1, :receiver => p2, :content => "Hello!"
-    s = Scrap.new :sender => p2, :receiver => p1, :content => "Hi!"
+    r = create Scrap, :sender => p1, :receiver => p2, :content => "Hello!"
+    s = build Scrap, :sender => p2, :receiver => p1, :content => "Hi!"
     r.replies << s; s.reload
     assert_equal s.scrap_wall_url, s.root.receiver.wall_url
   end
 
   should 'scrap wall url be the scrap receiver url if it is not a reply' do
     p1, p2 = fast_create(Person), fast_create(Person)
-    s = Scrap.create! :sender => p1, :receiver => p2, :content => "Hello!"
+    s = create Scrap, :sender => p1, :receiver => p2, :content => "Hello!"
     assert_equal s.scrap_wall_url, s.receiver.wall_url
   end
 
