@@ -232,11 +232,11 @@ class CreateEnterpriseTest < ActiveSupport::TestCase
     request.stubs(:environment).returns(Environment.default)
     request.identifier = 'testid'
     request.valid?
-    assert !request.errors[:identifier.to_s].present?
+    assert request.errors[:identifier].blank?
 
     Organization.create!(:name => 'test', :identifier => 'testid')
     request.valid?
-    assert request.errors[:identifier.to_s].present?
+    assert request.errors[:identifier].present?
   end
 
   should 'require the same fields as an enterprise does' do
@@ -247,11 +247,11 @@ class CreateEnterpriseTest < ActiveSupport::TestCase
 
     environment.stubs(:required_enterprise_fields).returns([])
     request.valid?
-    assert_nil request.errors[:contact_person], 'should not require contact_person unless Enterprise requires it'
+    assert request.errors[:contact_person].blank?, 'should not require contact_person unless Enterprise requires it'
 
     environment.stubs(:required_enterprise_fields).returns(['contact_person'])
     request.valid?
-    assert_not_nil request.errors[:contact_person], 'should require contact_person when Enterprise requires it'
+    assert request.errors[:contact_person].present?, 'should require contact_person when Enterprise requires it'
   end
 
   should 'has permission to validate enterprise' do
