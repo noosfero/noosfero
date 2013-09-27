@@ -36,13 +36,6 @@
   </div>
 <% end %>
 
-<% if !@page.tags.empty? %>
-  <div id="article-tags">
-    <%= _("This article's tags:") %>
-    <%= @page.tags.map { |t| link_to(t, :controller => 'profile', :profile => @profile.identifier, :action => 'tags', :id => t.name ) }.join("\n") %>
-  </div>
-<% end %>
-
 <% if @page.parent && !@page.parent.path.blank? %>
 <div id="article-parent">
   <%= button(:back, _('Go back to %s') % @page.parent.short_title, @page.parent.url) %>
@@ -82,6 +75,13 @@
   <h4><%= _('Categories') %></h4>
     <%= @page.categories.map {|item| link_to_category(item, false) }.join(", ") %>
 </div>
+<% end %>
+
+<% if !@page.tags.empty? %>
+  <div id="article-tags">
+    <%= _("This article's tags:") %>
+    <%= @page.tags.map { |t| link_to(t, :controller => 'profile', :profile => @profile.identifier, :action => 'tags', :id => t.name ) }.join("\n") %>
+  </div>
 <% end %>
 
 <%= display_source_info(@page) %>
