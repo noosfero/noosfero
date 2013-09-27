@@ -288,6 +288,7 @@ class User < ActiveRecord::Base
     end
     {
       'login' => self.login,
+      'avatar' => person.profile_custom_icon,
       'is_admin' => self.person.is_admin?,
       'since_month' => self.person.created_at.month,
       'since_year' => self.person.created_at.year,
