@@ -1,15 +1,15 @@
 <h3 class="block-title">
-	<span><%=block.title%></span>
+  <span><%=block.title%></span>
 </h3>
 <div class="video-block-data">
   <% if block.is_youtube? %>
-  <%= render :partial => 'iframe_video_block', :locals => { :url => block.format_embed_video_url_for_youtube, :width => block.width, :height => block.height }%>
+    <%= render :partial => 'iframe_video_block', :locals => { :url => block.format_embed_video_url_for_youtube, :width => block.width, :height => block.height }%>
   <% elsif block.is_vimeo? %>
-  <%= render :partial => 'iframe_video_block', :locals => { :url => block.format_embed_video_url_for_vimeo, :width => block.width, :height => block.height }%>
-  <% elsif block.is_file? %>
-  <%= render :partial => 'html5_video_block', :locals => { :url => block.url, :width => block.width, :height => block.height }%>
+    <%= render :partial => 'iframe_video_block', :locals => { :url => block.format_embed_video_url_for_vimeo, :width => block.width, :height => block.height }%>
+  <% elsif block.is_video_file? %>
+    <%= render :partial => 'html5_video_block', :locals => { :url => block.url, :width => block.width, :height => block.height }%>
   <% else %>
-  <%= "<span class='alert-block'> Cadastre uma nova URL (Vimeo, Youtube)</span>" %>
+    <%= "<span class='alert-block'> Cadastre uma nova URL (Vimeo, Youtube)</span>" %>
   <% end %>
 
 </div>
