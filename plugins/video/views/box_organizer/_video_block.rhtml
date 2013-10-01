@@ -1,0 +1,11 @@
+<label for="url" class="formlabel"> Video URL: </label>
+
+<div class="formfield type-text">
+	<%= text_field_tag 'block[url]', @block.url, :class => 'video-url', :maxlength => 255 %>
+</div>
+<div class="formfield type-text">
+	<label for="width" class="formlabel"> Width: </label>
+	<%= text_field_tag 'block[width]', @block.width, :size => 7, :class => 'video-width', :maxlength => 5 %>
+	<label for="height" class="formlabel"> Height: </label>
+	<%= text_field_tag 'block[height]', @block.height, :size => 7, :class => 'video-height', :maxlength => 5 %>
+</div>
