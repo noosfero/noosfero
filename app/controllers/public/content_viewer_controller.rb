@@ -7,6 +7,7 @@ class ContentViewerController < ApplicationController
 
   def view_page
     path = params[:page].join('/')
+    version = params[:rev]
 
     if path.blank?
       @page = profile.home_page
@@ -21,6 +22,10 @@ class ContentViewerController < ApplicationController
         if page_from_old_path
           redirect_to profile.url.merge(:page => page_from_old_path.explode_path)
           return
+        end
+      else
+        if version
+          @page = @page.versions.find_by_version version
         end
       end
     end

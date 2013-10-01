@@ -85,6 +85,10 @@
 </div>
 <% end %>
 
+<div id="article-versions">
+  <%= @page.versions.map {|v| link_to("r#{v.version}", @page.url.merge(:rev => v.version))} %>
+</div>
+
 <%= display_source_info(@page) %>
 
 <div class="comments" id="comments_list">

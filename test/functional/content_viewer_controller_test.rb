@@ -369,6 +369,26 @@ class ContentViewerControllerTest < ActionController::TestCase
     assert_redirected_to :host => p.default_hostname, :controller => 'content_viewer', :action => 'view_page', :profile => p.identifier, :page => a2.explode_path
   end
 
+  should "display current article's versions" do
+    page = profile.articles.create!(:name => 'myarticle', :body => 'test article')
+    page.body = 'test article edited'; page.save
+
+    get :view_page, :profile => profile.identifier, :page => [ 'myarticle' ]
+    assert_tag :tag => 'div', :attributes => { :id => 'article-versions' }, :descendant => {
+      :tag => 'a',
+      :attributes => { :href => "http://#{profile.environment.default_hostname}/#{profile.identifier}/#{page.path}?rev=1" }
+    }
+  end
+
+  should "fetch correct article version" do
+    page = profile.articles.create!(:name => 'myarticle', :body => 'test article')
+    page.body = 'test article edited'; page.save
+
+    get :view_page, :profile => profile.identifier, :page => [ 'myarticle' ], :rev => 1
+
+    assert_equal 1, assigns(:page).version
+  end
+
   should 'not return an article of a different user' do
     p1 = create_user('test_user').person
     a = p1.articles.create!(:name => 'old-name')

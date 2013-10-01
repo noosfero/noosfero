@@ -687,6 +687,14 @@ Given /^the article "([^\"]*)" is updated by "([^\"]*)"$/ do |article, person|
   a.save!
 end
 
+Given /^the article "([^\"]*)" is updated with$/ do |article, table|
+  a = Article.find_by_name article
+
+  row = table.hashes.first
+    
+  a.update_attributes(row)
+end
+
 Given /^the cache is turned (on|off)$/ do |state|
   ActionController::Base.perform_caching = (state == 'on')
 end
