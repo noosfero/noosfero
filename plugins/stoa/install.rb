@@ -1,6 +1,3 @@
-#FIXME one functional test is failing
-raise "Not ready yet..."
-
 require 'fileutils'
 
 config_path = File.join('plugins', 'stoa', 'config.yml')
