@@ -70,17 +70,17 @@ class SpaminatorPlugin::Spaminator
     self.class.log("Starting to process all comments")
     comments = comments_to_process
     total = comments.count
-    pbar = ProgressBar.new("☢ Comments", total)
+    pbar = ProgressBar.new("☢ Comments", total) if Rails.env.development?
     comments.each do |comment|
       begin
         process_comment(comment)
       rescue
         register_fail(:comments, comment)
       end
-      pbar.inc
+      pbar.inc if Rails.env.development?
     end
     @report.processed_comments = total
-    pbar.finish
+    pbar.finish if Rails.env.development?
     self.class.log("All comments processed")
   end
 
@@ -88,14 +88,14 @@ class SpaminatorPlugin::Spaminator
     self.class.log("Starting to process all people")
     people = people_to_process
     total = people.count
-    pbar = ProgressBar.new("☢ People", total)
+    pbar = ProgressBar.new("☢ People", total) if Rails.env.development?
     people.find_each do |person|
       process_person_by_comments(person)
       process_person_by_no_network(person)
-      pbar.inc
+      pbar.inc if Rails.env.development?
     end
     @report.processed_people = total
-    pbar.finish
+    pbar.finish if Rails.env.development?
     self.class.log("All people processed")
   end
 
