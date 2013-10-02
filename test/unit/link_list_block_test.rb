@@ -23,7 +23,6 @@ class LinkListBlockTest < ActiveSupport::TestCase
 
   should 'list links' do
     l = LinkListBlock.new(:links => [{:name => 'products', :address => '/cat/products'}])
-    l.expects(:links).returns([{:name => 'products', :address => '/cat/products'}])
     assert_match /products/, l.content
   end
 
