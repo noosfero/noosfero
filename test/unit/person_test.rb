@@ -1337,21 +1337,22 @@ class PersonTest < ActiveSupport::TestCase
 
   should 'not list leave_scrap_to_self in activities' do
     person = fast_create(Person)
-    at = fast_create(ActionTracker::Record, :user_type => 'Person', :user_id => person.id, :verb => 'leave_scrap_to_self')
-    assert_not_includes person.activities, at
+    at = ActionTracker::Record.create!(:user => person, :verb => 'leave_scrap_to_self')
+    person.reload
+    assert_equal person.activities, []
   end
 
   should 'not list add_member_in_community in activities' do
     person = fast_create(Person)
-    at = fast_create(ActionTracker::Record, :user_type => 'Person', :user_id => person.id, :verb => 'add_member_in_community')
-    assert_not_includes person.activities, at
+    at = ActionTracker::Record.create!(:user => person, :verb => 'add_member_in_community')
+    person.reload
+    assert_equal person.activities, []
   end
 
   should 'not list reply_scrap_on_self in activities' do
     person = fast_create(Person)
     at = ActionTracker::Record.create!(:user => person, :verb => 'reply_scrap_on_self')
     person.reload
-    pp person.activities
-    assert_not_includes person.activities, at
+    assert_equal person.activities, []
   end
 end
