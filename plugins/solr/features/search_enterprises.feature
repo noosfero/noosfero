@@ -36,10 +36,10 @@ Feature: search enterprises
     When I go to the search enterprises page
     And I fill in "search-input" with "Artesanato"
     And I press "Search"
-    Then I should see "Pres. Prudente" within "#facet-menu-f_region"
-    And I should see ", SP" within "#facet-menu-f_region"
-    And I should see "City" within ".search-enterprise-region-label"
-    And I should see "Pres. Prudente, SP" within ".search-enterprise-region-name"
+    Then I should see "Pres. Prudente" within "#facet-menu-solr_plugin_f_region"
+    And I should see ", SP" within "#facet-menu-solr_plugin_f_region"
+    And I should see "City" within ".facet-menu-label"
+    And I should see "Pres. Prudente, SP" within ".facet-menu-item"
 
   Scenario: find enterprise by region
     Given the following cities
