@@ -1,5 +1,3 @@
-require 'ext/active_record'
-
 class PgSearchPlugin < Noosfero::Plugin
 
   def self.plugin_name

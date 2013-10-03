@@ -1,5 +1,3 @@
-require_dependency 'ext/uploaded_file'
-
 class WorkAssignmentPlugin < Noosfero::Plugin
 
   def self.plugin_name

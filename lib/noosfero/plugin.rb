@@ -64,6 +64,9 @@ class Noosfero::Plugin
         require init.gsub(/.rb$/, '') if File.file? init
       end
 
+      # load extensions
+      Dir[File.join(dir, 'lib', 'ext', '*.rb')].each {|file| require_dependency file }
+
       # load class
       klass(plugin_name)
     end
