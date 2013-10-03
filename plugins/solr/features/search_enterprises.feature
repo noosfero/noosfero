@@ -5,6 +5,7 @@ Feature: search enterprises
 
   Background:
     Given the search index is empty
+    And plugin Solr is enabled on environment
     And the following enterprises
       | identifier | name        | img |
       | shop1      | Shoes shop  | shoes |
@@ -12,6 +13,7 @@ Feature: search enterprises
     And the following categories as facets
       | name      |
       | Temáticas |
+
   Scenario: see default facets when searching
     When I go to the search enterprises page
     And I fill in "search-input" with "shoes"

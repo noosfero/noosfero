@@ -5,6 +5,7 @@ Feature: search products
 
   Background:
     Given the search index is empty
+    And plugin Solr is enabled on environment
     And feature "disable_asset_products" is disabled on environment
     And the following enterprises
       | identifier  | name    |

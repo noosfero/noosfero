@@ -5,6 +5,7 @@ Feature: search communities
 
   Background:
     Given the following category
+    And plugin Solr is enabled on environment
       | name           |
       | social network |
     And the following community

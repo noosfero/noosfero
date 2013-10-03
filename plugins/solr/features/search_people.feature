@@ -5,6 +5,7 @@ Feature: search people
 
   Background:
     Given the search index is empty
+    And plugin Solr is enabled on environment
     And the following users
       | login      | name        |
       | joaosilva  | Joao Silva  |

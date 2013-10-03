@@ -22,27 +22,27 @@ Feature: plugins
       | profile_tabs          | lambda { {:title => 'Test plugin tab', :id => 'test_plugin', :content => lambda {'Test plugin random content'} } } |
 
   Scenario: a user must see the plugin\'s button in the control panel if the plugin is enabled
-    Given plugin TestPlugin is enabled on environment
+    Given plugin Test is enabled on environment
     And I go to joaosilva's control panel
     Then I should see "Test plugin button"
 
   Scenario: a user must see the plugin\'s tab in in the profile if the plugin is enabled
-    Given plugin TestPlugin is enabled on environment
+    Given plugin Test is enabled on environment
     And I am on joaosilva's profile
     Then I should see "Test plugin tab"
 
   Scenario: a user must not see the plugin\'s button in the control panel if the plugin is disabled
-    Given plugin TestPlugin is disabled on environment
+    Given plugin Test is disabled on environment
     And I go to joaosilva's control panel
     Then I should not see "Test plugin button"
 
   Scenario: a user must not see the plugin\'s tab in in the profile if the plugin is disabled
-    Given plugin TestPlugin is disabled on environment
+    Given plugin Test is disabled on environment
     And I am on joaosilva's profile
     Then I should not see "Test plugin tab"
 
   Scenario: an admin should be able to deactivate a plugin
-    Given plugin TestPlugin is enabled on environment
+    Given plugin Test is enabled on environment
     And I am logged in as admin
     When I go to admin_user's control panel
     Then I should see "Test plugin button"
