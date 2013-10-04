@@ -18,4 +18,4 @@ Feature: sitemap
   Scenario: view the CMS
     Given I am logged in as "joaosilva"
     When I am on /myprofile/joaosilva/cms
-    Then I should see "AGENDA_CULTURA_-_FEST(...).txt"
+    Then I should see "AGENDA_CULTURA_-_FESTA_DE_VAQUEIROS_PONTO_DE_SERRA_(...).txt"
