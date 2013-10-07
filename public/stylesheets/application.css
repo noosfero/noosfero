@@ -1738,6 +1738,8 @@ a.button.disabled, input.disabled {
     box-shadow: none;
     outline: none;
 }
+/* FIX Error show option buttons on blocks */
+#box-organizer .feed-reader-block,
 #box-organizer .article-block,
 #box-organizer .recent-documents-block {
   overflow: visible !important;
