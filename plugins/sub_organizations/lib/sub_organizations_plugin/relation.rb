@@ -33,11 +33,11 @@ class SubOrganizationsPlugin::Relation < Noosfero::Plugin::ActiveRecord
       ActiveRecord::NamedScope::Scope.new(Organization, options)
     end
 
-    def parents(child)
+    def parents(*children)
       options = {
         :select => "profiles.*",
         :joins => "inner join sub_organizations_plugin_relations as relations on profiles.id=relations.parent_id",
-        :conditions => ["relations.child_id = ?", child.id]
+        :conditions => ["relations.child_id in (?)", children.map(&:id)]
       }
       ActiveRecord::NamedScope::Scope.new(Organization, options)
     end

@@ -1,3 +1,19 @@
 #content .token-input-list {
   margin-bottom: 30px;
 }
+
+.related-organizations-button-bar {
+  padding-top: 40px;
+  clear: both;
+}
+
+.related-organizations-block .block-footer-content a {
+  position: absolute;
+  top: 2px;
+  right: 0px;
+  font-size: 11px;
+  color: #000;
+  text-decoration: none;
+  padding-right: 15px;
+  background: url(images/arrow-right-p.png) 100% 50% no-repeat;
+}
