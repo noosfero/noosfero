@@ -1448,7 +1448,9 @@ a.comment-picture {
   display: inline;
 }
 #content #boxes .box-1 .article-block img,
-#content #article .article-body img {
+#content #article .article-body img,
+#content #article .article-body video,
+#content #article .article-body audio {
   max-width: 100%;
   height: auto;
 }
@@ -3099,21 +3101,55 @@ div#activation_enterprise label, div#activation_enterprise input, div#activation
 
 /* ==> public/stylesheets/controller_cms.css <== */
 
+table.cms-articles {
+  table-layout: fixed;
+  width: 100%;
+}
+
+table.cms-articles td:first-child,
+table.cms-articles th:first-child {
+  width: 50%;
+}
+
+table.cms-articles td:nth-child(2) {
+  font-size: 10px;
+}
+
+table.cms-articles td:last-child,
+table.cms-articles th:last-child {
+  width: 121px;
+}
 
 table.cms-articles img {
   width: 16px;
   height: 16px;
 }
+
 table.cms-articles a.icon {
   display: block;
   border: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
+
 table.cms-articles a.icon, table.cms-articles a.icon-parent-folder {
   padding: 0px 0px 3px 20px;
   background-repeat: no-repeat;
 }
 table.cms-articles .icon:hover {
   background-color: transparent;
+}
+
+#content table.cms-articles .button:hover,
+#content table.cms-articles .button {
+  margin: 0;
+  float: left;
+  border-right: none;
+}
+
+#content table.cms-articles .button:last-child {
+  border-right: 1px solid #ccc;
 }
 
 .select-article-type {

@@ -40,7 +40,7 @@ class StoaPluginController < PublicController
 
   def check_cpf
     begin
-      render :text => { :exists => !StoaPlugin::UspUser.find_by_codpes(params[:usp_id]).cpf.blank? }.to_json
+      render :text => { :exists => StoaPlugin::UspUser.find_by_codpes(params[:usp_id]).cpf.present? }.to_json
     rescue Exception => exception
       render :text => { :exists => false, :error => {:message => exception.to_s, :backtrace => exception.backtrace} }.to_json
     end

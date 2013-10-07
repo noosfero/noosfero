@@ -55,7 +55,7 @@ class PersonTest < ActiveSupport::TestCase
 
     p1 = u.person
     assert_equal u, p1.user
-    
+
     p2 = Person.new(:environment => Environment.default)
     p2.user = u
     assert !p2.valid?
@@ -202,7 +202,7 @@ class PersonTest < ActiveSupport::TestCase
   should 'have friends' do
     p1 = create_user('testuser1').person
     p2 = create_user('testuser2').person
-    
+
     p1.add_friend(p2)
 
     p1.friends.reload
@@ -237,7 +237,7 @@ class PersonTest < ActiveSupport::TestCase
     p2 = create_user('testuser2').person
     p3 = create_user('testuser3').person
     p4 = create_user('testuser4').person
-   
+
     p1.add_friend(p2, 'group1')
     p1.add_friend(p3, 'group2')
     p1.add_friend(p4, 'group1')
@@ -248,7 +248,7 @@ class PersonTest < ActiveSupport::TestCase
   should 'not suggest duplicated friend groups' do
     p1 = create_user('testuser1').person
     p2 = create_user('testuser2').person
-   
+
     p1.add_friend(p2, 'friends')
 
     assert_equal p1.suggested_friend_groups, p1.suggested_friend_groups.uniq
@@ -307,7 +307,7 @@ class PersonTest < ActiveSupport::TestCase
     assert_equal 'my contact', person.contact_information
   end
 
-  should 'provide desired info fields' do 
+  should 'provide desired info fields' do
     p = Person.new(:environment => Environment.default)
     assert p.respond_to?(:photo)
     assert p.respond_to?(:address)
@@ -472,7 +472,7 @@ class PersonTest < ActiveSupport::TestCase
   should 'require custom_area_of_study if area_of_study is others' do
     e = Environment.default
     e.expects(:required_person_fields).returns(['area_of_study', 'custom_area_of_study']).at_least_once
-  
+
     person = Person.new(:environment => e, :area_of_study => 'Others')
     assert !person.valid?
     assert person.errors.invalid?(:custom_area_of_study)
@@ -507,7 +507,7 @@ class PersonTest < ActiveSupport::TestCase
   should 'not require custom_formation if formation is not others' do
     e = Environment.default
     e.expects(:required_person_fields).returns(['formation']).at_least_once
- 
+
     person = Person.new(:environment => e, :formation => 'Agrometeorology')
     assert !person.valid?
     assert ! person.errors.invalid?(:custom_formation)
@@ -819,7 +819,8 @@ class PersonTest < ActiveSupport::TestCase
   end
 
   should "the tracked action be notified to person friends and herself" do
-    p1 = Person.first
+    Person.destroy_all
+    p1 = fast_create(Person)
     p2 = fast_create(Person)
     p3 = fast_create(Person)
     p4 = fast_create(Person)
@@ -829,14 +830,14 @@ class PersonTest < ActiveSupport::TestCase
     assert !p1.is_a_friend?(p3)
     p1.add_friend(p4)
     assert p1.is_a_friend?(p4)
-    
-    action_tracker = fast_create(ActionTracker::Record)
+
+    action_tracker = fast_create(ActionTracker::Record, :user_id => p1.id)
     ActionTrackerNotification.delete_all
-    count = ActionTrackerNotification.count
     Delayed::Job.destroy_all
-    Person.notify_activity(action_tracker)
-    process_delayed_job_queue 
-    assert_equal count + 3, ActionTrackerNotification.count
+    assert_difference ActionTrackerNotification, :count, 3 do
+      Person.notify_activity(action_tracker)
+      process_delayed_job_queue
+    end
     ActionTrackerNotification.all.map{|a|a.profile}.map do |profile|
       [p1,p2,p4].include?(profile)
     end
@@ -853,7 +854,7 @@ class PersonTest < ActiveSupport::TestCase
     assert !p1.is_a_friend?(p3)
     p1.add_friend(p4)
     assert p1.is_a_friend?(p4)
-    
+
     action_tracker = fast_create(ActionTracker::Record)
 
     assert_difference(Delayed::Job, :count, 1) do
@@ -862,7 +863,7 @@ class PersonTest < ActiveSupport::TestCase
   end
 
   should "the tracked action notify friends with one delayed job process" do
-    p1 = Person.first
+    p1 = fast_create(Person)
     p2 = fast_create(Person)
     p3 = fast_create(Person)
     p4 = fast_create(Person)
@@ -872,8 +873,8 @@ class PersonTest < ActiveSupport::TestCase
     assert !p1.is_a_friend?(p3)
     p1.add_friend(p4)
     assert p1.is_a_friend?(p4)
-    
-    action_tracker = fast_create(ActionTracker::Record)
+
+    action_tracker = fast_create(ActionTracker::Record, :user_id => p1.id)
 
     Delayed::Job.delete_all
     assert_difference(Delayed::Job, :count, 1) do
@@ -885,8 +886,9 @@ class PersonTest < ActiveSupport::TestCase
   end
 
   should "the community tracked action be notified to the author and to community members" do
-    p1 = Person.first
+    Person.destroy_all
     community = fast_create(Community)
+    p1 = fast_create(Person)
     p2 = fast_create(Person)
     p3 = fast_create(Person)
 
@@ -896,7 +898,7 @@ class PersonTest < ActiveSupport::TestCase
     assert p3.is_member_of?(community)
     assert !p2.is_member_of?(community)
     process_delayed_job_queue
-    
+
     action_tracker = fast_create(ActionTracker::Record, :verb => 'create_article')
     action_tracker.target = community
     action_tracker.save!
@@ -924,7 +926,7 @@ class PersonTest < ActiveSupport::TestCase
     community.add_member(p4)
     assert p4.is_member_of?(community)
     assert !p2.is_member_of?(community)
-      
+
     action_tracker = fast_create(ActionTracker::Record)
     article = mock()
     action_tracker.stubs(:target).returns(article)
@@ -1048,8 +1050,8 @@ class PersonTest < ActiveSupport::TestCase
     person_1.add_friend(person_2)
     person_1.add_friend(person_3)
     person_1.add_friend(person_4)
-    assert_equal [person_2, person_3, person_4], person_1.friends
-    assert_equal [person_2, person_4], person_1.friends.online
+    assert_equivalent [person_2, person_3, person_4], person_1.friends
+    assert_equivalent [person_2, person_4], person_1.friends.online
   end
 
   should 'compose bare jabber id by login plus default hostname' do
@@ -1222,9 +1224,11 @@ class PersonTest < ActiveSupport::TestCase
   end
 
   should 'return tracked_actions and scraps as activities' do
+    ActionTracker::Record.destroy_all
     person = fast_create(Person)
     another_person = fast_create(Person)
 
+    UserStampSweeper.any_instance.stubs(:current_user).returns(another_person)
     scrap = Scrap.create!(defaults_for_scrap(:sender => another_person, :receiver => person, :content => 'A scrap'))
     UserStampSweeper.any_instance.expects(:current_user).returns(person).at_least_once
     article = TinyMceArticle.create!(:profile => person, :name => 'An article about free software')
@@ -1233,12 +1237,14 @@ class PersonTest < ActiveSupport::TestCase
   end
 
   should 'not return tracked_actions and scraps from others as activities' do
+    ActionTracker::Record.destroy_all
     person = fast_create(Person)
     another_person = fast_create(Person)
 
     person_scrap = Scrap.create!(defaults_for_scrap(:sender => person, :receiver => person, :content => 'A scrap from person'))
     another_person_scrap = Scrap.create!(defaults_for_scrap(:sender => another_person, :receiver => another_person, :content => 'A scrap from another person'))
 
+    UserStampSweeper.any_instance.stubs(:current_user).returns(another_person)
     TinyMceArticle.create!(:profile => another_person, :name => 'An article about free software from another person')
     another_person_activity = ActionTracker::Record.last
 
@@ -1271,12 +1277,10 @@ class PersonTest < ActiveSupport::TestCase
     assert person.has_permission?('bli', Profile.new)
   end
 
-  should 'active fields are public if fields privacy is nil' do
+  should 'active fields are private if fields privacy is nil' do
     p = fast_create(Person)
     p.expects(:fields_privacy).returns(nil)
-    f = %w(sex birth_date)
-    p.expects(:active_fields).returns(f)
-    assert_equal f, p.public_fields
+    assert_equal [], p.public_fields
   end
 
   should 'return public fields' do

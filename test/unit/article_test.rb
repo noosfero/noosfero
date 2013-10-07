@@ -165,21 +165,6 @@ class ArticleTest < ActiveSupport::TestCase
     end
   end
 
-  should 'search for recent documents' do
-    other_profile = create_user('otherpropfile').person
-
-    first = fast_create(TextArticle, :profile_id => profile.id, :name => 'first')
-    second = fast_create(TextArticle, :profile_id => profile.id, :name => 'second')
-    third = fast_create(TextArticle, :profile_id => profile.id, :name => 'third')
-    fourth = fast_create(TextArticle, :profile_id => profile.id, :name => 'fourth')
-    fifth = fast_create(TextArticle, :profile_id => profile.id, :name => 'fifth')
-
-    other_first = other_profile.articles.build(:name => 'first'); other_first.save!
-
-    assert_equal [other_first, fifth, fourth], Article.recent(3)
-    assert_equal [other_first, fifth, fourth, third, second, first], Article.recent(6)
-  end
-
   should 'not show private documents as recent' do
     p = create_user('usr1').person
     Article.destroy_all
@@ -342,16 +327,15 @@ class ArticleTest < ActiveSupport::TestCase
 
   should 'list most commented articles' do
     Article.delete_all
-    (1..4).each do |n|
-      create(TextileArticle, :name => "art #{n}", :profile_id => profile.id)
-    end
-    first_article = profile.articles.first
-    2.times { Comment.create(:title => 'test', :body => 'asdsad', :author => profile, :source => first_article).save! }
+    a1 = create(TextileArticle, :name => "art 1", :profile_id => profile.id)
+    a2 = create(TextileArticle, :name => "art 2", :profile_id => profile.id)
+    a3 = create(TextileArticle, :name => "art 3", :profile_id => profile.id)
 
-    last_article = profile.articles.last
-    4.times { Comment.create(:title => 'test', :body => 'asdsad', :author => profile, :source => last_article).save! }
+    2.times { Comment.create(:title => 'test', :body => 'asdsad', :author => profile, :source => a2).save! }
+    4.times { Comment.create(:title => 'test', :body => 'asdsad', :author => profile, :source => a3).save! }
+
     # should respect the order (more commented comes first)
-    assert_equal [last_article, first_article], profile.articles.most_commented(2)
+    assert_equal [a3, a2, a1], profile.articles.most_commented(3)
   end
 
   should 'identify itself as a non-folder' do
@@ -449,8 +433,15 @@ class ArticleTest < ActiveSupport::TestCase
     owner = create_user('testuser').person
     art = owner.articles.create!(:name => 'ytest')
     art.category_ids = [c2,c3,c3].map(&:id)
-    assert_equal [c2, c3], art.categories(true)
-    assert_equal [c2, c1, c3], art.categories_including_virtual(true)
+
+    categories = art.categories(true)
+    categories_including_virtual = art.categories_including_virtual(true)
+    assert_not_includes categories, c1
+    assert_includes categories, c2
+    assert_includes categories, c3
+    assert_includes categories_including_virtual, c1
+    assert_includes categories_including_virtual, c2
+    assert_includes categories_including_virtual, c3
   end
 
   should 'not accept Product category as category' do
@@ -1305,11 +1296,15 @@ class ArticleTest < ActiveSupport::TestCase
 
   should 'rotate translations when root article is destroyed' do
     native_article = fast_create(Article, :language => 'pt', :profile_id => @profile.id)
-    translation1 = fast_create(Article, :language => 'en', :translation_of_id => native_article.id, :profile_id => @profile.id)
-    translation2 = fast_create(Article, :language => 'es', :translation_of_id => native_article.id, :profile_id => @profile.id)
+    fast_create(Article, :language => 'en', :translation_of_id => native_article.id, :profile_id => @profile.id)
+    fast_create(Article, :language => 'es', :translation_of_id => native_article.id, :profile_id => @profile.id)
+
+    new_root = native_article.translations.first
+    child = (native_article.translations - [new_root]).first
     native_article.destroy
-    assert translation1.translation_of.nil?
-    assert translation1.translations.include?(translation2)
+
+    assert new_root.translation_of.nil?
+    assert new_root.translations.include?(child)
   end
 
   should 'rotate one translation when root article is destroyed' do
@@ -1569,7 +1564,7 @@ class ArticleTest < ActiveSupport::TestCase
     c4 = fast_create(RssFeed, :name => 'Testing article 4', :body => 'Article body 4', :profile_id => profile.id)
     c5 = fast_create(TextileArticle, :name => 'Testing article 5', :body => 'Article body 5', :profile_id => profile.id)
 
-    assert_equal [c1,c2,c5], Article.text_articles
+    assert_equivalent [c1,c2,c5], Article.text_articles
   end
 
   should 'delegate region info to profile' do

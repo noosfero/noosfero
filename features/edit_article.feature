@@ -64,8 +64,8 @@ Feature: edit article
     And I fill in "Tag list" with "aurium, bug"
     And I press "Save"
     And I go to /joaosilva/article-with-tags
-    Then I should see "aurium" within "#article-tags a:first"
-    And I should see "bug" within "#article-tags a:last"
+    Then I should see "aurium" within "#article-tags"
+    And I should see "bug" within "#article-tags"
 
   Scenario: redirect to the created article
     Given I am on joaosilva's control panel

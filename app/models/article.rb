@@ -57,7 +57,7 @@ class Article < ActiveRecord::Base
   has_many :article_categorizations, :conditions => [ 'articles_categories.virtual = ?', false ]
   has_many :categories, :through => :article_categorizations
 
-  has_many :article_categorizations_including_virtual, :class_name => 'ArticleCategorization', :dependent => :destroy
+  has_many :article_categorizations_including_virtual, :class_name => 'ArticleCategorization'
   has_many :categories_including_virtual, :through => :article_categorizations_including_virtual, :source => :category
 
   acts_as_having_settings :field => :setting

@@ -41,7 +41,7 @@
   <% end %>
 
   <% @articles.each do |article| article = FilePresenter.for article %>
-    <tr>
+    <tr title="<%= article.title%>" >
       <td class="article-name">
         <%= link_to_article(article) %>
       </td>

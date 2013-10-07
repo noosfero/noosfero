@@ -10,7 +10,7 @@
     <th><%= _('Actions') %></th>
   </tr>
   <% collection.each do |m| %>
-    <tr>
+    <tr title="<%= m.name %>">
       <td><%= link_to_profile m.short_name, m.identifier, :title => m.name %> </td>
       <td>
         <div class="members-buttons-cell">

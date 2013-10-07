@@ -36,7 +36,7 @@ class StoaPluginProfileEditorControllerTest < ActionController::TestCase
   end
 
   should 'not display field if profile is an organization' do
-    organization = fast_create(Organization)
+    organization = fast_create(Community)
     organization.add_admin @person
     get :edit, :profile => organization.identifier
     assert_no_tag_in_string @response.body, :tag => 'label', :content => /USP number/,  :attributes => { :for => 'usp_id_field' }
