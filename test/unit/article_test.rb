@@ -1564,7 +1564,7 @@ class ArticleTest < ActiveSupport::TestCase
     c4 = fast_create(RssFeed, :name => 'Testing article 4', :body => 'Article body 4', :profile_id => profile.id)
     c5 = fast_create(TextileArticle, :name => 'Testing article 5', :body => 'Article body 5', :profile_id => profile.id)
 
-    assert_equal [c1,c2,c5], Article.text_articles
+    assert_equivalent [c1,c2,c5], Article.text_articles
   end
 
   should 'delegate region info to profile' do
