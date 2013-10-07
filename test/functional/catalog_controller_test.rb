@@ -10,6 +10,7 @@ class CatalogControllerTest < ActionController::TestCase
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
 
+    Environment.default.enable('products_for_enterprises')
     @enterprise = fast_create(Enterprise, :name => 'My enterprise', :identifier => 'testent')
     @product_category = fast_create(ProductCategory)
   end
@@ -52,7 +53,7 @@ class CatalogControllerTest < ActionController::TestCase
 
   should 'not give access if environment do not let' do
     env = Environment.default
-    env.enable('disable_products_for_enterprises')
+    env.disable('products_for_enterprises')
     env.save!
     ent = fast_create(Enterprise, :name => 'test ent', :identifier => 'test_ent', :environment_id => env.id)
     get :index, :profile => ent.identifier

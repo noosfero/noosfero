@@ -5,6 +5,7 @@ class EnterpriseTest < ActiveSupport::TestCase
 
   def setup
     super
+    Environment.default.enable('products_for_enterprises')
     @product_category = fast_create(ProductCategory, :name => 'Products')
   end
 
@@ -80,9 +81,9 @@ class EnterpriseTest < ActiveSupport::TestCase
   should 'create default set of blocks' do
     e = Enterprise.create(:name => 'my new community', :identifier => 'mynewcommunity')
 
-    assert !e.boxes[0].blocks.empty?, 'person must have blocks in area 1'
-    assert !e.boxes[1].blocks.empty?, 'person must have blocks in area 2'
-    assert !e.boxes[2].blocks.empty?, 'person must have blocks in area 3'
+    assert !e.boxes[0].blocks.empty?, 'enterprise must have blocks in area 1'
+    assert !e.boxes[1].blocks.empty?, 'enterprise must have blocks in area 2'
+    assert !e.boxes[2].blocks.empty?, 'enterprise must have blocks in area 3'
   end
 
   should 'allow to add new members if has no members' do
@@ -242,8 +243,7 @@ class EnterpriseTest < ActiveSupport::TestCase
 
   should 'not create a products block for enterprise if environment do not let' do
     env = Environment.default
-    env.enable('disable_products_for_enterprises')
-    env.save!
+    env.disable('products_for_enterprises')
     ent = fast_create(Enterprise, :name => 'test ent', :identifier => 'test_ent')
     assert_not_includes ent.blocks.map(&:class), ProductsBlock
   end

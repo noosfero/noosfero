@@ -3038,6 +3038,10 @@ div#activation_enterprise label, div#activation_enterprise input, div#activation
   display: inline-block;
 }
 
+#manage-product-details-form .formfieldline {
+  white-space: nowrap;
+}
+
 #manage-product-details-form .formlabel,
 #manage-product-details-form .formfield {
   display: inline-block;
