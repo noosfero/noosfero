@@ -39,3 +39,6 @@ debian/*.debhelper
 debian/files
 debian/noosfero/
 debian/noosfero-apache/
+features/plugins/*
+plugins/solr/config/solr.yml
+/solr
