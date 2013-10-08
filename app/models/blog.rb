@@ -46,7 +46,9 @@ class Blog < Folder
     self.external_feed_data = efeed
   end
 
-  def validate
+  validate :prepare_external_feed
+
+  def prepare_external_feed
     unless self.external_feed_data.nil?
       if self.external_feed(true) && self.external_feed.id == self.external_feed_data[:id].to_i
         self.external_feed.attributes = self.external_feed_data

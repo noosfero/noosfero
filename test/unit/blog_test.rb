@@ -38,14 +38,14 @@ class BlogTest < ActiveSupport::TestCase
 
   should 'save feed options' do
     p = create_user('testuser').person
-    p.articles << Blog.new(:profile => p, :name => 'blog_feed_test')
+    p.articles << build(Blog, :profile => p, :name => 'blog_feed_test')
     p.blog.feed = { :limit => 7 }
     assert_equal 7, p.blog.feed.limit
   end
 
   should 'save feed options after create blog' do
     p = create_user('testuser').person
-    p.articles << Blog.new(:profile => p, :name => 'blog_feed_test', :feed => { :limit => 7 })
+    p.articles << build(Blog, :profile => p, :name => 'blog_feed_test', :feed => { :limit => 7 })
     assert_equal 7, p.blog.feed.limit
   end
 
@@ -56,7 +56,7 @@ class BlogTest < ActiveSupport::TestCase
 
   should 'update posts per page setting' do
     p = create_user('testuser').person
-    p.articles << Blog.new(:profile => p, :name => 'Blog test')
+    p.articles << build(Blog, :profile => p, :name => 'Blog test')
     blog = p.blog
     blog.posts_per_page = 7
     assert blog.save!
@@ -95,7 +95,7 @@ class BlogTest < ActiveSupport::TestCase
 
   should 'build external feed after save' do
     p = create_user('testuser').person
-    blog = Blog.new(:profile => p, :name => 'Blog test')
+    blog = build(Blog, :profile => p, :name => 'Blog test')
     blog.external_feed_builder = { :address => 'feed address' }
     blog.save!
     assert blog.external_feed.valid?
@@ -103,9 +103,9 @@ class BlogTest < ActiveSupport::TestCase
 
   should 'update external feed' do
     p = create_user('testuser').person
-    blog = Blog.new(:profile => p, :name => 'Blog test')
+    blog = build(Blog, :profile => p, :name => 'Blog test')
     blog.save
-    e = ExternalFeed.new(:address => 'feed address')
+    e = build(ExternalFeed, :address => 'feed address')
     e.blog = blog
     e.save
     blog.reload
@@ -116,14 +116,14 @@ class BlogTest < ActiveSupport::TestCase
 
   should 'invalid blog if has invalid external_feed' do
     p = create_user('testuser').person
-    blog = Blog.new(:profile => p, :name => 'Blog test', :external_feed_builder => {:enabled => true})
+    blog = build(Blog, :profile => p, :name => 'Blog test', :external_feed_builder => {:enabled => true})
     blog.save
     assert ! blog.valid?
   end
 
   should 'remove external feed when removing blog' do
     p = create_user('testuser').person
-    blog = Blog.create!(:name => 'Blog test', :profile => p, :external_feed_builder => {:enabled => true, :address => "http://bli.org/feed"})
+    blog = create(Blog, :name => 'Blog test', :profile => p, :external_feed_builder => {:enabled => true, :address => "http://bli.org/feed"})
     assert blog.external_feed
     assert_difference ExternalFeed, :count, -1 do
       blog.destroy
@@ -134,16 +134,17 @@ class BlogTest < ActiveSupport::TestCase
     p = create_user('testuser').person
     fast_create(Blog, :name => 'Blog test', :profile_id => p.id)
     assert_nothing_raised ActiveRecord::RecordInvalid do
-      Blog.create!(:name => 'Another Blog', :profile => p)
+      create(Blog, :name => 'Another Blog', :profile => p)
     end
   end
 
   should 'not update slug from name for existing blog' do
     p = create_user('testuser').person
-    blog = Blog.create!(:name => 'Blog test', :profile => p)
-    assert_equal 'blog-test', blog.slug
-    blog.name = 'Changed name'
-    assert_not_equal 'changed-name', blog.slug
+    blog = create(Blog, :profile => p)
+    new_name = 'Changed name'
+    assert_not_equal new_name.to_slug, blog.slug
+    blog.name = new_name
+    assert_not_equal new_name.to_slug, blog.slug
   end
 
   should 'display full posts by default' do
@@ -153,7 +154,7 @@ class BlogTest < ActiveSupport::TestCase
 
   should 'update visualization_format setting' do
     p = create_user('testuser').person
-    p.articles << Blog.new(:profile => p, :name => 'Blog test')
+    p.articles << build(Blog, :profile => p, :name => 'Blog test')
     blog = p.blog
     blog.visualization_format = 'short'
     assert blog.save!
@@ -161,7 +162,7 @@ class BlogTest < ActiveSupport::TestCase
   end
 
   should 'allow only full and short as visualization_format' do
-    blog = Blog.new(:name => 'blog')
+    blog = build(Blog, :name => 'blog')
     blog.visualization_format = 'wrong_format'
     blog.valid?
     assert blog.errors[:visualization_format.to_s].present?
@@ -187,7 +188,7 @@ class BlogTest < ActiveSupport::TestCase
 
   should 'update display posts in current language setting' do
     p = create_user('testuser').person
-    p.articles << Blog.new(:profile => p, :name => 'Blog test')
+    p.articles << build(Blog, :profile => p, :name => 'Blog test')
     blog = p.blog
     blog.display_posts_in_current_language = false
     assert blog.save! && blog.reload

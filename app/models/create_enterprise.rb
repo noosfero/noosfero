@@ -36,14 +36,18 @@ class CreateEnterprise < Task
   validates_presence_of :reject_explanation, :if => (lambda { |record| record.status == Task::Status::CANCELLED } )
   xss_terminate :only => [ :acronym, :address, :contact_person, :contact_phone, :economic_activity, :legal_form, :management_information, :name ], :on => 'validation'
 
-  def validate
+  validate :validator_correct_region
+  validate :not_used_identifier
 
+  def validator_correct_region
     if self.region && self.target
       unless self.region.validators.include?(self.target) || self.target_type == "Environment"
         self.errors.add(:target, _('%{fn} is not a validator for the chosen region').fix_i18n)
       end
     end
+  end
 
+  def not_used_identifier
     if self.status != Task::Status::CANCELLED && self.identifier && Profile.exists?(:identifier => self.identifier)
       self.errors.add(:identifier, _('%{fn} is already being as identifier by another enterprise, organization or person.').fix_i18n)
     end

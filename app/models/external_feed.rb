@@ -10,6 +10,8 @@ class ExternalFeed < ActiveRecord::Base
     { :conditions => ['(fetched_at is NULL) OR (fetched_at < ?)', Time.now - FeedUpdater.update_interval] }
   }
 
+  attr_accessible :address, :enabled
+
   def add_item(title, link, date, content)
     doc = Hpricot(content)
     doc.search('*').each do |p|

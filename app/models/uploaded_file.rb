@@ -6,6 +6,8 @@ require 'short_filename'
 # of the file itself is kept. (FIXME?)
 class UploadedFile < Article
 
+  attr_accessible :uploaded_data
+
   def self.type_name
     _('File')
   end
@@ -31,7 +33,7 @@ class UploadedFile < Article
   end
 
   def thumbnail_path
-    self.image? ? self.full_filename(:display).gsub(Rails.root.join('public'), '') : nil
+    self.image? ? self.full_filename(:display).to_s.gsub(Rails.root.join('public'), '') : nil
   end
 
   def display_title

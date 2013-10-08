@@ -95,9 +95,10 @@ class ForumTest < ActiveSupport::TestCase
   should 'not update slug from name for existing forum' do
     p = create_user('testuser').person
     forum = create(Forum, :name => 'Forum test', :profile_id => p.id, :body => 'Forum')
-    assert_equal 'forum-test', forum.slug
-    forum.name = 'Changed name'
-    assert_not_equal 'changed-name', forum.slug
+    new_name = 'Changed name'
+    assert_not_equal new_name.to_slug, forum.slug
+    forum.name = new_name
+    assert_not_equal new_name.to_slug, forum.slug
   end
 
   should 'have posts' do
