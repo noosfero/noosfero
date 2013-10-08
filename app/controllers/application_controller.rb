@@ -174,8 +174,6 @@ class ApplicationController < ActionController::Base
   end
 
   def find_by_contents(asset, scope, query, paginate_options={:page => 1}, options={})
-    scope = scope.send(options[:filter]) if options[:filter]
-
     @plugins.dispatch_first(:find_by_contents, asset, scope, query, paginate_options, options) ||
     fallback_find_by_contents(asset, scope, query, paginate_options, options)
   end

@@ -214,6 +214,13 @@ class SearchController < PublicController
     @searches[@asset] = find_by_contents(@asset, @scope, @query, paginate_options, {:category => @category, :filter => @filter})
   end
 
+  def find_by_contents asset, scope, query, paginate_options={:page => 1}, options={}
+    # only apply fitlers to empty query, sorting is engine specific
+    scope = scope.send(options[:filter]) if options[:filter] and @empty_query
+
+    super asset, scope, query, paginate_options, options
+  end
+
   private
 
   def visible_profiles(klass, *extra_relations)
