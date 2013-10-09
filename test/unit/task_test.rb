@@ -86,7 +86,7 @@ class TaskTest < ActiveSupport::TestCase
 
   should 'provide a description method' do
     requestor = create_user('requestor').person
-    assert_kind_of Hash, Task.new(:requestor => requestor).information
+    assert_kind_of Hash, build(Task, :requestor => requestor).information
   end
 
   should 'notify just after the task is created' do
@@ -98,7 +98,7 @@ class TaskTest < ActiveSupport::TestCase
   end
 
   should 'not notify if the task is hidden' do
-    task = Task.new(:status => Task::Status::HIDDEN)
+    task = build(Task, :status => Task::Status::HIDDEN)
     task.requestor = sample_user
 
     TaskMailer.expects(:deliver_task_created).never
@@ -112,7 +112,7 @@ class TaskTest < ActiveSupport::TestCase
 
   should 'make sure that codes are unique' do
     task1 = Task.create!
-    task2 = Task.new(:code => task1.code)
+    task2 = build(Task, :code => task1.code)
 
     assert !task2.valid?
     assert task2.errors[:code.to_s].present?
@@ -147,8 +147,8 @@ class TaskTest < ActiveSupport::TestCase
   end
 
   should 'be able to limit the length of the generated code' do
-    assert_equal 3, Task.create(:code_length => 3).code.size
-    assert_equal 7, Task.create(:code_length => 7).code.size
+    assert_equal 3, Task.create!(:code_length => 3).code.size
+    assert_equal 7, Task.create!(:code_length => 7).code.size
   end
 
   should 'throws exception when try to send target_notification_message in Task base class' do
@@ -160,7 +160,7 @@ class TaskTest < ActiveSupport::TestCase
 
   should 'send notification to target just after task creation' do
     task = Task.new
-    target = Profile.new
+    target = fast_create(Profile)
     target.stubs(:notification_emails).returns(['adm@example.com'])
     task.target = target
     task.stubs(:target_notification_message).returns('some non nil message to be sent to target')
@@ -169,7 +169,7 @@ class TaskTest < ActiveSupport::TestCase
   end
 
   should 'not send notification to target if the task is hidden' do
-    task = Task.new(:status => Task::Status::HIDDEN)
+    task = build(Task, :status => Task::Status::HIDDEN)
     task.stubs(:target_notification_message).returns('some non nil message to be sent to target')
     TaskMailer.expects(:deliver_target_notification).never
     task.save!
@@ -203,7 +203,7 @@ class TaskTest < ActiveSupport::TestCase
   should 'be destroyed when requestor destroyed' do
     user = create_user('test_user').person
     assert_no_difference Task, :count do
-      Task.create(:requestor => user)
+      create(Task, :requestor => user)
       user.destroy
     end
   end
@@ -248,7 +248,7 @@ class TaskTest < ActiveSupport::TestCase
 
   should 'the task environment method return the target environment' do
     task = Task.new
-    target = Profile.new(:environment => Environment.new)
+    target = build(Profile, :environment => Environment.new)
     task.target = target
     assert_equal task.environment, target.environment
   end
@@ -264,13 +264,13 @@ class TaskTest < ActiveSupport::TestCase
   end
 
   should 'activate task' do
-    task = Task.new(:status => Task::Status::HIDDEN)
+    task = build(Task, :status => Task::Status::HIDDEN)
     task.activate
     assert_equal Task::Status::ACTIVE, task.status
   end
 
   should 'notify just after the task is activated' do
-    task = Task.new(:status => Task::Status::HIDDEN)
+    task = build(Task, :status => Task::Status::HIDDEN)
     task.requestor = sample_user
 
     TaskMailer.expects(:deliver_task_activated).with(task)
@@ -278,8 +278,8 @@ class TaskTest < ActiveSupport::TestCase
   end
 
   should 'send notification message to target just after task activation' do
-    task = Task.new(:status => Task::Status::HIDDEN)
-    target = Profile.new
+    task = build(Task, :status => Task::Status::HIDDEN)
+    target = fast_create(Profile)
     target.stubs(:notification_emails).returns(['target@example.com'])
     task.target = target
     task.save!
@@ -294,10 +294,10 @@ class TaskTest < ActiveSupport::TestCase
     another_person = fast_create(Person)
     environment = Environment.default
     environment.add_admin(person)
-    t1 = Task.create(:requestor => requestor, :target => person)
-    t2 = Task.create(:requestor => requestor, :target => person)
-    t3 = Task.create(:requestor => requestor, :target => environment)
-    t4 = Task.create(:requestor => requestor, :target => another_person)
+    t1 = create(Task, :requestor => requestor, :target => person)
+    t2 = create(Task, :requestor => requestor, :target => person)
+    t3 = create(Task, :requestor => requestor, :target => environment)
+    t4 = create(Task, :requestor => requestor, :target => another_person)
 
     assert_includes Task.to(person), t1
     assert_includes Task.to(person), t2
@@ -311,9 +311,9 @@ class TaskTest < ActiveSupport::TestCase
     class FeedDog < Task; end
     requestor = fast_create(Person)
     target = fast_create(Person)
-    t1 = CleanHouse.create(:requestor => requestor, :target => target)
-    t2 = CleanHouse.create(:requestor => requestor, :target => target)
-    t3 = FeedDog.create(:requestor => requestor, :target => target)
+    t1 = create(CleanHouse, :requestor => requestor, :target => target)
+    t2 = create(CleanHouse, :requestor => requestor, :target => target)
+    t3 = create(FeedDog, :requestor => requestor, :target => target)
     type = t1.type
 
     assert_includes Task.of(type), t1
@@ -375,7 +375,7 @@ class TaskTest < ActiveSupport::TestCase
   protected
 
   def sample_user
-    user = User.new(:login => 'testfindinactivetask', :password => 'test', :password_confirmation => 'test', :email => 'testfindinactivetask@localhost.localdomain')
+    user = build(User, :login => 'testfindinactivetask', :password => 'test', :password_confirmation => 'test', :email => 'testfindinactivetask@localhost.localdomain')
     user.build_person(person_data)
     user.save
     user.person
