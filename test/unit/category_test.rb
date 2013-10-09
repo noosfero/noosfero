@@ -33,61 +33,61 @@ class CategoryTest < ActiveSupport::TestCase
   end
 
   def test_category_full_name
-    cat = Category.new(:name => 'category_name')
+    cat = build(Category, :name => 'category_name')
     assert_equal 'category_name', cat.full_name
   end
 
   def test_subcategory_full_name
-    cat = Category.new(:name => 'category_name')
-    sub_cat = Category.new(:name => 'subcategory_name')
+    cat = build(Category, :name => 'category_name')
+    sub_cat = build(Category, :name => 'subcategory_name')
     sub_cat.stubs(:parent).returns(cat)
     sub_cat.parent = cat
     assert_equal 'category_name/subcategory_name', sub_cat.full_name
   end
 
   should 'cope with nil name when calculating full_name' do
-    cat = Category.new(:name => 'toplevel')
+    cat = build(Category, :name => 'toplevel')
     sub = Category.new
     sub.parent = cat
     assert_equal 'toplevel/?', sub.full_name
   end
 
   def test_category_level
-    cat = Category.new(:name => 'category_name')
+    cat = build(Category, :name => 'category_name')
     assert_equal 0, cat.level
   end
 
   def test_subegory_level
-    cat = Category.new(:name => 'category_name')
-    sub_cat = Category.new(:name => 'subcategory_name')
+    cat = build(Category, :name => 'category_name')
+    sub_cat = build(Category, :name => 'subcategory_name')
     sub_cat.stubs(:parent).returns(cat)
     sub_cat.parent = cat
     assert_equal 1, sub_cat.level
   end
 
   def test_top_level
-    cat = Category.new(:name => 'category_name')
+    cat = build(Category, :name => 'category_name')
     assert cat.top_level?
   end
 
   def test_not_top_level
-    cat = Category.new(:name => 'category_name')
-    sub_cat = Category.new(:name => 'subcategory_name')
+    cat = build(Category, :name => 'category_name')
+    sub_cat = build(Category, :name => 'subcategory_name')
     sub_cat.stubs(:parent).returns(cat)
     sub_cat.parent = cat
     assert !sub_cat.top_level?
   end
 
   def test_leaf
-    cat = Category.new(:name => 'category_name')
-    sub_cat = Category.new(:name => 'subcategory_name')
+    cat = build(Category, :name => 'category_name')
+    sub_cat = build(Category, :name => 'subcategory_name')
     cat.stubs(:children).returns([sub_cat])
     assert !cat.leaf?
   end
 
   def test_not_leaf
-    cat = Category.new(:name => 'category_name')
-    sub_cat = Category.new(:name => 'subcategory_name')
+    cat = build(Category, :name => 'category_name')
+    sub_cat = build(Category, :name => 'subcategory_name')
     cat.stubs(:children).returns([])
     assert cat.leaf?
   end
@@ -102,38 +102,35 @@ class CategoryTest < ActiveSupport::TestCase
   end
 
   def test_slug
-    c = Category.new(:name => 'Category name')
-    assert_equal 'category-name', c.slug
+    c = build(Category)
+    assert_equal c.name.to_slug, c.slug
   end
 
   def test_path_for_toplevel
-    c = Category.new(:name => 'top_level')
-    assert_equal 'top-level', c.path
+    c = build(Category)
+    assert_equal c.slug, c.path
   end
 
   def test_path_for_subcategory
-    c1 = Category.new(:name => 'parent')
+    parent = create(Category)
+    child  = create(Category, :parent => parent)
 
-    c2 = Category.new
-    c2.parent = c1
-    c2.name = 'child'
-
-    assert_equal 'parent/child', c2.path
+    assert_equal "#{parent.path}/#{child.slug}", child.path
   end
 
   def test_should_set_path_correctly_before_saving
-    c1 = Category.create!(:name => 'parent', :environment_id => @env.id)
+    parent = create(Category, :environment_id => @env.id)
 
-    c2 = Category.new(:name => 'child', :environment_id => @env.id)
-    c2.parent = c1
-    c2.save!
+    child = build(Category, :environment_id => @env.id)
+    child.parent = parent
+    child.save!
 
-    assert_equal 'parent/child', c2.path
+    assert_equal "#{parent.path}/#{child.slug}", child.path
   end
 
   def test_should_refuse_to_duplicate_slug_under_the_same_parent
-    c1 = Category.create!(:name => 'test category', :environment_id => @env.id)
-    c2 = Category.new(:name => 'Test: Category', :environment_id => @env.id)
+    c1 = create(Category, :environment_id => @env.id)
+    c2 = build(Category, :slug => c1.slug, :environment_id => @env.id)
 
     assert !c2.valid?
     assert c2.errors[:slug.to_s].present?
@@ -144,29 +141,26 @@ class CategoryTest < ActiveSupport::TestCase
     root2 = fast_create(Category, :name => 'root category 2', :environment_id => @env.id)
     child1 = fast_create(Category, :name => 'test category', :environment_id => @env.id, :parent_id => root1.id)
 
-    child2 = Category.new(:name => 'test category', :environment_id => @env.id, :parent => root2)
+    child2 = build(Category, :name => 'test category', :environment_id => @env.id, :parent => root2)
     assert child2.valid?
 
-    newroot = Category.new(:name => 'test category', :environment_id => @env.id, :parent => nil)
+    newroot = build(Category, :name => 'test category', :environment_id => @env.id, :parent => nil)
     assert newroot.valid?
   end
 
   def test_renaming_a_category_should_change_path_of_children
-    c1 = Category.create!(:name => 'parent', :environment_id => @env.id)
-    c2 = Category.create!(:name => 'child', :environment_id => @env.id, :parent_id => c1.id)
-    c3 = Category.create!(:name => 'grandchild', :environment_id => @env.id, :parent_id => c2.id)
+    parent = create(Category, :environment => @env)
+    child = create(Category, :environment => @env, :parent => parent)
+    grandchild = create(Category, :environment => @env, :parent => child)
 
-    c1.name = 'parent new name'
-    c1.save!
-
-    assert_equal 'parent-new-name', c1.path
-    assert_equal 'parent-new-name/child', Category.find(c2.id).path
-    assert_equal 'parent-new-name/child/grandchild', Category.find(c3.id).path
+    assert_equal parent.slug, parent.path
+    assert_equal "#{parent.path}/#{child.slug}", child.path
+    assert_equal "#{child.path}/#{grandchild.slug}", grandchild.path
 
   end
 
   should "limit the possibile display colors" do
-    c = Category.new(:name => 'test category', :environment_id => @env.id)
+    c = build(Category, :name => 'test category', :environment_id => @env.id)
 
     c.display_color = 10
     c.valid?
@@ -184,7 +178,7 @@ class CategoryTest < ActiveSupport::TestCase
   should 'avoid duplicated display colors' do
     c1 = fast_create(Category, :name => 'test category', :environment_id => @env.id, :display_color => 1)
 
-    c = Category.new(:name => 'lalala', :environment_id => @env.id)
+    c = build(Category, :name => 'lalala', :environment_id => @env.id)
     c.display_color = 1
     assert !c.valid?
     assert c.errors[:display_color.to_s].present?
@@ -293,12 +287,12 @@ class CategoryTest < ActiveSupport::TestCase
     a1 = person.articles.build(:name => 'art1')
     a1.add_category c
     a1.save!
-    c1 = a1.comments.build(:title => 'comm1', :body => 'khdkashd ', :author => person); c1.save!
+    c1 = create(Comment, :article => a1, :title => 'comm1', :body => 'khdkashd ', :author => person)
 
     a2 = person.articles.build(:name => 'art2')
     a2.add_category c
     a2.save!
-    c2 = a2.comments.build(:title => 'comm1', :body => 'khdkashd ', :author => person); c2.save!
+    c2 = create(Comment, :article => a2, :title => 'comm1', :body => 'khdkashd ', :author => person)
 
     assert_equal [c2, c1], c.recent_comments
   end
@@ -307,14 +301,14 @@ class CategoryTest < ActiveSupport::TestCase
     c = @env.categories.build(:name => 'my category'); c.save!
     person = create_user('testuser').person
 
-    a1 = person.articles.build(:name => 'art1', :category_ids => [c.id]); a1.save!
-    a2 = person.articles.build(:name => 'art2', :category_ids => [c.id]); a2.save!
-    a3 = person.articles.build(:name => 'art3', :category_ids => [c.id]); a3.save!
+    a1 = create(Article, :profile => person, :name => 'art1', :category_ids => [c.id])
+    a2 = create(Article, :profile => person, :name => 'art2', :category_ids => [c.id])
+    a3 = create(Article, :profile => person, :name => 'art3', :category_ids => [c.id])
 
-    Comment.create(:title => 'test', :body => 'asdsa', :author => person, :source => a1)
-    5.times { Comment.create(:title => 'test', :body => 'asdsa', :author => person, :source => a2) }
+    create(Comment, :title => 'test', :body => 'asdsa', :author => person, :source => a1)
+    5.times { create(Comment, :title => 'test', :body => 'asdsa', :author => person, :source => a2) }
 
-    10.times { Comment.create(:title => 'test', :body => 'kajsdsa', :author => person, :source => a3) }
+    10.times { create(Comment, :title => 'test', :body => 'kajsdsa', :author => person, :source => a3) }
 
     assert_equal [a3, a2], c.most_commented_articles(2)
   end
@@ -323,13 +317,13 @@ class CategoryTest < ActiveSupport::TestCase
     c = @env.categories.build(:name => 'my category'); c.save!
     person = create_user('testuser').person
 
-    a1 = person.articles.build(:name => 'art1', :category_ids => [c.id]); a1.save!
-    a2 = person.articles.build(:name => 'art2', :category_ids => [c.id]); a2.save!
-    a3 = person.articles.build(:name => 'art3', :category_ids => [c.id]); a3.save!
+    a1 = create(Article, :profile => person, :name => 'art1', :category_ids => [c.id])
+    a2 = create(Article, :profile => person, :name => 'art2', :category_ids => [c.id])
+    a3 = create(Article, :profile => person, :name => 'art3', :category_ids => [c.id])
 
-    c1 = a1.comments.build(:title => 'test', :body => 'asdsa', :author => person); c1.save!
-    c2 = a2.comments.build(:title => 'test', :body => 'asdsa', :author => person); c2.save!
-    c3 = a3.comments.build(:title => 'test', :body => 'asdsa', :author => person); c3.save!
+    c1 = create(Comment, :article => a1, :title => 'test', :body => 'asdsa', :author => person)
+    c2 = create(Comment, :article => a2, :title => 'test', :body => 'asdsa', :author => person)
+    c3 = create(Comment, :article => a3, :title => 'test', :body => 'asdsa', :author => person)
 
     assert_equivalent [c1, c2, c3], c.comments
   end
@@ -407,7 +401,7 @@ class CategoryTest < ActiveSupport::TestCase
 
   should 'have image' do
     assert_difference Category, :count do
-      c = Category.create!(:name => 'test category1', :environment => Environment.default, :image_builder => {
+      c = create(Category, :name => 'test category1', :environment => Environment.default, :image_builder => {
         :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')
       })
       assert_equal c.image(true).filename, 'rails.png'
@@ -425,11 +419,11 @@ class CategoryTest < ActiveSupport::TestCase
   end
 
   should 'cache children count' do
-    c = Category.create!(:name => 'test', :environment => Environment.default)
+    c = create(Category, :name => 'test', :environment => Environment.default)
 
     # two children catagories
-    c.children.create!(:name => 'test1', :environment => Environment.default)
-    c.children.create!(:name => 'test2', :environment => Environment.default)
+    create(Category, :parent => c, :name => 'test1', :environment => Environment.default)
+    create(Category, :parent => c, :name => 'test2', :environment => Environment.default)
 
     c.reload
 
@@ -442,9 +436,9 @@ class CategoryTest < ActiveSupport::TestCase
   end
 
   should 'get categories by type including nil' do
-    category = Category.create!(:name => 'test category', :environment => Environment.default)
-    region = Region.create!(:name => 'test region', :environment => Environment.default)
-    product = ProductCategory.create!(:name => 'test product', :environment => Environment.default)
+    category = create(Category, :name => 'test category', :environment => Environment.default)
+    region = create(Region, :name => 'test region', :environment => Environment.default)
+    product = create(ProductCategory, :name => 'test product', :environment => Environment.default)
     result = Category.from_types(['ProductCategory', '']).all
     assert_equal 2, result.size
     assert result.include?(product)
@@ -452,9 +446,9 @@ class CategoryTest < ActiveSupport::TestCase
   end
 
   should 'get categories by type and not nil' do
-    category = Category.create!(:name => 'test category', :environment => Environment.default)
-    region = Region.create!(:name => 'test region', :environment => Environment.default)
-    product = ProductCategory.create!(:name => 'test product', :environment => Environment.default)
+    category = create(Category, :name => 'test category', :environment => Environment.default)
+    region = create(Region, :name => 'test region', :environment => Environment.default)
+    product = create(ProductCategory, :name => 'test product', :environment => Environment.default)
     result = Category.from_types(['Region', 'ProductCategory']).all
     assert_equal 2, result.size
     assert result.include?(region)
@@ -488,7 +482,7 @@ class CategoryTest < ActiveSupport::TestCase
   end
 
   should 'paginate upcoming events' do
-    category = Category.create!(:name => 'category1', :environment_id => Environment.default.id)
+    category = create(Category, :name => 'category1', :environment_id => Environment.default.id)
     profile = fast_create(Profile)
     event1 = category.events.build(:name => 'event1', :start_date => Time.now, :profile => profile)	
     event2 = category.events.build(:name => 'event2', :start_date => Time.now + 1.hour, :profile => profile)	
@@ -498,15 +492,15 @@ class CategoryTest < ActiveSupport::TestCase
   end
 
   should 'remove all article categorizations when destroyed' do
-    cat = Category.create!(:name => 'category 1', :environment_id => Environment.default.id)
-    art = Article.create!(:name => 'article 1', :profile_id => fast_create(Person).id)
+    cat = create(Category, :name => 'category 1', :environment_id => Environment.default.id)
+    art = create(Article, :name => 'article 1', :profile_id => fast_create(Person).id)
     art.add_category cat
     cat.destroy
     assert art.categories.reload.empty?
   end
 
   should 'remove all profile categorizations when destroyed' do
-    cat = Category.create!(:name => 'category 1', :environment_id => Environment.default.id)
+    cat = create(Category, :name => 'category 1', :environment_id => Environment.default.id)
     p = create(Person, :user_id => fast_create(User).id)
     p.add_category cat
     cat.destroy
@@ -538,15 +532,15 @@ class CategoryTest < ActiveSupport::TestCase
   end
 
   should 'list category sub-categories' do
-    c1 = Category.create!(:name => 'Category 1', :environment => Environment.default)
-    c2 = Category.create!(:name => 'Category 2', :environment => Environment.default)
-    c3 = Category.create!(:name => 'Category 3', :environment => Environment.default, :parent_id => c1)
-    c4 = Category.create!(:name => 'Category 4', :environment => Environment.default, :parent_id => c1)
-    c5 = Category.create!(:name => 'Category 5', :environment => Environment.default, :parent_id => c3)
+    c1 = create(Category, :name => 'Category 1', :environment => Environment.default)
+    c2 = create(Category, :name => 'Category 2', :environment => Environment.default)
+    c3 = create(Category, :name => 'Category 3', :environment => Environment.default, :parent_id => c1)
+    c4 = create(Category, :name => 'Category 4', :environment => Environment.default, :parent_id => c1)
+    c5 = create(Category, :name => 'Category 5', :environment => Environment.default, :parent_id => c3)
 
     sub_categories = Category.sub_categories(c1)
 
-    assert ActiveRecord::NamedScope::Scope, sub_categories.class
+    assert_equal ActiveRecord::Relation, sub_categories.class
     assert_not_includes sub_categories, c1
     assert_not_includes sub_categories, c2
     assert_includes sub_categories, c3
@@ -555,15 +549,15 @@ class CategoryTest < ActiveSupport::TestCase
   end
 
   should 'list category sub-tree' do
-    c1 = Category.create!(:name => 'Category 1', :environment => Environment.default)
-    c2 = Category.create!(:name => 'Category 2', :environment => Environment.default)
-    c3 = Category.create!(:name => 'Category 3', :environment => Environment.default, :parent_id => c1)
-    c4 = Category.create!(:name => 'Category 4', :environment => Environment.default, :parent_id => c1)
-    c5 = Category.create!(:name => 'Category 5', :environment => Environment.default, :parent_id => c3)
+    c1 = create(Category, :name => 'Category 1', :environment => Environment.default)
+    c2 = create(Category, :name => 'Category 2', :environment => Environment.default)
+    c3 = create(Category, :name => 'Category 3', :environment => Environment.default, :parent_id => c1)
+    c4 = create(Category, :name => 'Category 4', :environment => Environment.default, :parent_id => c1)
+    c5 = create(Category, :name => 'Category 5', :environment => Environment.default, :parent_id => c3)
 
     sub_tree = Category.sub_tree(c1)
 
-    assert ActiveRecord::NamedScope::Scope, sub_tree.class
+    assert_equal ActiveRecord::Relation, sub_tree.class
     assert_includes sub_tree, c1
     assert_not_includes sub_tree, c2
     assert_includes sub_tree, c3

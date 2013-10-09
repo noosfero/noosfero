@@ -77,7 +77,7 @@ class Category < ActiveRecord::Base
   end
 
   def recent_comments(limit = 10)
-    comments.paginate(:all, :order => 'created_at DESC, comments.id DESC', :page => 1, :per_page => limit)
+    comments.paginate(:order => 'created_at DESC, comments.id DESC', :page => 1, :per_page => limit)
   end
 
   def most_commented_articles(limit = 10)
