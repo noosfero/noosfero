@@ -343,9 +343,14 @@ class Profile < ActiveRecord::Base
   def copy_blocks_from(profile)
     self.boxes.destroy_all
     profile.boxes.each do |box|
-      self.boxes << Box.new(:position => box.position)
+      new_box = Box.new
+      new_box.position = box.position
+      self.boxes << new_box
       box.blocks.each do |block|
-        self.boxes[-1].blocks << block.class.new(:title => block[:title], :settings => block.settings, :position => block.position)
+        new_block = block.class.new(:title => block[:title])
+        new_block.settings = block.settings
+        new_block.position = block.position
+        self.boxes[-1].blocks << new_block
       end
     end
   end
@@ -373,7 +378,7 @@ class Profile < ActiveRecord::Base
     self.public_profile = template.public_profile
 
     # flush
-    self.save_without_validation!
+    self.save(:validate => false)
   end
 
   def apply_type_specific_template(template)

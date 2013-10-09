@@ -310,6 +310,6 @@ class User < ActiveRecord::Base
     end
 
     def delay_activation_check
-      Delayed::Job.enqueue(UserActivationJob.new(self.id), 0, 72.hours.from_now)
+      Delayed::Job.enqueue(UserActivationJob.new(self.id), {:priority => 0, :run_at => 72.hours.from_now})
     end
 end

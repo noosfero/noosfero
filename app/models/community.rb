@@ -18,12 +18,18 @@ class Community < Organization
     community.moderated_articles = true if community.environment.enabled?('organizations_are_moderated_by_default')
   end
 
+  # Since we it's not a good idea to add the environment as accessible through
+  # mass-assignment, we set it manually here. Note that this requires that the
+  # places that call this method are safe from mass-assignment by setting the
+  # environment key themselves.
   def self.create_after_moderation(requestor, attributes = {})
+    environment = attributes.delete(:environment)
     community = Community.new(attributes)
+    community.environment = environment
     if community.environment.enabled?('admin_must_approve_new_communities')
-      CreateCommunity.create(attributes.merge(:requestor => requestor))
+      CreateCommunity.create!(attributes.merge(:requestor => requestor, :environment => environment))
     else
-      community = Community.create(attributes)
+      community.save!
       community.add_admin(requestor)
     end
     community
@@ -39,8 +45,9 @@ class Community < Organization
     super + FIELDS
   end
 
-  def validate
-    super
+  validate :presence_of_required_fieds
+
+  def presence_of_required_fieds
     self.required_fields.each do |field|
       if self.send(field).blank?
         self.errors.add_on_blank(field)

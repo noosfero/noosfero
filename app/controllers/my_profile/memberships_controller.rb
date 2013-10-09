@@ -10,7 +10,7 @@ class MembershipsController < MyProfileController
     @community = Community.new(params[:community])
     @community.environment = environment
     if request.post? && @community.valid?
-      @community = Community.create_after_moderation(user, {:environment => environment}.merge(params[:community]))
+      @community = Community.create_after_moderation(user, params[:community].merge({:environment => environment}))
       redirect_to :action => 'index'
       return
     end
