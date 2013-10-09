@@ -164,13 +164,21 @@ class Product < ActiveRecord::Base
   def qualifiers_list=(qualifiers)
     self.product_qualifiers.destroy_all
     qualifiers.each do |qualifier_id, certifier_id|
-      self.product_qualifiers.create(:qualifier_id => qualifier_id, :certifier_id => certifier_id) if qualifier_id != 'nil'
+      if qualifier_id != 'nil'
+        product_qualifier = ProductQualifier.new
+        product_qualifier.product = self
+        product_qualifier.qualifier_id = qualifier_id
+        product_qualifier.certifier_id = certifier_id
+        product_qualifier.save!
+      end
     end
   end
 
   def order_inputs!(order = [])
     order.each_with_index do |input_id, array_index|
-      self.inputs.find(input_id).update_attributes(:position => array_index + 1)
+      input = self.inputs.find(input_id)
+      input.position = array_index + 1
+      input.save!
     end
   end
 
