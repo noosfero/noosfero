@@ -98,15 +98,6 @@ class Profile < ActiveRecord::Base
     members.count
   end
 
-  class << self
-    def count_with_distinct(*args)
-      options = args.last || {}
-      count_without_distinct(:id, {:distinct => true}.merge(options))
-    end
-    alias_method_chain :count, :distinct
-  end
-
-
   def members_by_role(role)
     Person.members_of(self).all(:conditions => ['role_assignments.role_id = ?', role.id])
   end
