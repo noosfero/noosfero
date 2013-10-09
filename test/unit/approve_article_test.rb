@@ -305,6 +305,7 @@ class ApproveArticleTest < ActiveSupport::TestCase
   should "the tracker action target be defined as the article on articles'creation in profile" do
     ActionTracker::Record.delete_all
     person = fast_create(Person)
+    person.stubs(:notification_emails).returns(['target@example.org'])
 
     a = create(ApproveArticle, :article => article, :target => person, :requestor => profile)
     a.finish
