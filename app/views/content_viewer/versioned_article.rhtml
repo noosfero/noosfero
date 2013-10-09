@@ -1,0 +1,32 @@
+<div id="article" class="<%= @page.css_class_name %>">
+
+<div id="article-toolbar"><%= _("This is the revision %s of this content") % @versioned_article.version %></div>
+
+<% if @page.display_hits? || @page.license.present? %>
+  <div id='article-sub-header'>
+    <% if @versioned_article.license.present? %>
+      <div id="article-license">
+        <%= _('Licensed under %s') % (@versioned_article.license.url.present? ? link_to(@versioned_article.license.name, @versioned_article.license.url, :target => '_blank') : @versioned_article.license.name) %>
+      </div>
+    <% end %>
+  </div>
+<% end %>
+
+<% cache(@page.cache_key(params, user, language)) do %>
+  <div class="<%="article-body article-body-" + @page.css_class_name %>">
+    <% options = @page.image? ? {:gallery_view => true} : {} %>
+    <%= article_to_html(@page, options) %>
+    <br style="clear:both" />
+  </div> <!-- end class="article-body" -->
+<% end %>
+
+
+<div id="article-versions">
+  <%= #TODO Review this %>
+  <%= @page.versions.map {|v| link_to("r#{v.version}", @page.url.merge(:rev => v.version))} %>
+</div>
+
+<%= display_source_info(@versioned_article) %>
+
+</div><!-- end id="article" -->
+<%= add_zoom_to_article_images %>

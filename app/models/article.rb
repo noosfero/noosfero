@@ -631,7 +631,9 @@ class Article < ActiveRecord::Base
       (allow_post_content?(the_profile) ? "-owner" : '') +
       (params[:npage] ? "-npage-#{params[:npage]}" : '') +
       (params[:year] ? "-year-#{params[:year]}" : '') +
-      (params[:month] ? "-month-#{params[:month]}" : '')
+      (params[:month] ? "-month-#{params[:month]}" : '') +
+      (params[:rev] ? "-rev-#{params[:rev]}" : '')
+
   end
 
   def first_paragraph

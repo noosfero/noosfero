@@ -23,10 +23,6 @@ class ContentViewerController < ApplicationController
           redirect_to profile.url.merge(:page => page_from_old_path.explode_path)
           return
         end
-      else
-        if version
-          @page = @page.versions.find_by_version version
-        end
       end
     end
 
@@ -45,6 +41,12 @@ class ContentViewerController < ApplicationController
     # page not found, give error
     if @page.nil?
       render_not_found(@path)
+      return
+    end
+
+    if version
+      @versioned_article = @page.versions.find_by_version(version)
+      render :template => 'content_viewer/versioned_article.rhtml'
       return
     end
 

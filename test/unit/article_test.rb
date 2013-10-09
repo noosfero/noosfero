@@ -740,6 +740,11 @@ class ArticleTest < ActiveSupport::TestCase
     assert_match(/-year-2009-month-04/, a.cache_key(:year => '2009', :month => '04'))
   end
 
+ should 'use revision number to compose cache key' do
+    a = fast_create(Article, :name => 'Versioned article', :profile_id => profile.id)
+    assert_match(/-rev-2/,a.cache_key(:rev => 2))
+  end
+
   should 'not be highlighted by default' do
     a = Article.new
     assert !a.highlighted
