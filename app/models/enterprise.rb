@@ -53,8 +53,9 @@ class Enterprise < Organization
     super + FIELDS
   end
 
-  def validate
-    super
+  validate :presence_of_required_fieds
+
+  def presence_of_required_fieds
     self.required_fields.each do |field|
       if self.send(field).blank?
         self.errors.add_on_blank(field)
@@ -103,7 +104,7 @@ class Enterprise < Organization
     if environment.replace_enterprise_template_when_enable
       apply_template(template)
     end
-    save_without_validation!
+    save(:validate => false)
   end
 
   def question
