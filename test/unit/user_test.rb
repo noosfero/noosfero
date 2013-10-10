@@ -17,28 +17,28 @@ class UserTest < ActiveSupport::TestCase
   def test_should_require_login
     assert_no_difference User, :count do
       u = new_user(:login => nil)
-      assert u.errors.on(:login)
+      assert u.errors[:login].present?
     end
   end
 
   def test_should_require_password
     assert_no_difference User, :count do
       u = new_user(:password => nil)
-      assert u.errors.on(:password)
+      assert u.errors[:password].present?
     end
   end
 
   def test_should_require_password_confirmation
     assert_no_difference User, :count do
       u = new_user(:password_confirmation => nil)
-      assert u.errors.on(:password_confirmation)
+      assert u.errors[:password_confirmation].present?
     end
   end
 
   def test_should_require_email
     assert_no_difference User, :count do
       u = new_user(:email => nil)
-      assert u.errors.on(:email)
+      assert u.errors[:email].present?
     end
   end
 
@@ -470,15 +470,6 @@ class UserTest < ActiveSupport::TestCase
     end
   end
 
-  should 'not mass assign activated at' do
-    user = User.new :activated_at => 5.days.ago
-    assert_nil user.activated_at
-    user.attributes = { :activated_at => 5.days.ago }
-    assert_nil user.activated_at
-    user.activated_at = 5.days.ago
-    assert_not_nil user.activated_at
-  end
-
   should 'authenticate an activated user' do
     user = new_user :login => 'testuser', :password => 'test123', :password_confirmation => 'test123'
     user.activate
@@ -565,12 +556,13 @@ class UserTest < ActiveSupport::TestCase
     user = new_user :email => 'pending@activation.com'
     assert_difference(ActionMailer::Base.deliveries, :size, 1) do
       user.activate
+      process_delayed_job_queue
     end
 
     sent = ActionMailer::Base.deliveries.last
     assert_equal ['pending@activation.com'], sent.to
     assert_equal 'Welcome to this environment', sent.subject
-    assert_equal 'Thanks for signing up!', sent.body
+    assert_match /Thanks for signing up!/, sent.body.to_s
   end
 
   should 'deliver welcome e-mail after user activation if enabled on environment with default subject if not defined' do
@@ -605,7 +597,7 @@ class UserTest < ActiveSupport::TestCase
     end
 
     sent = ActionMailer::Base.deliveries.last
-    assert_equal "Thanks for signing up, #{user.name}!", sent.body
+    assert_match /Thanks for signing up, #{user.name}!/, sent.body.to_s
   end
 
   should 'not deliver welcome e-mail after user activation if enabled on environment but body not filled in' do

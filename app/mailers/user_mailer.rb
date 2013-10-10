@@ -29,11 +29,10 @@ class User::Mailer < ActionMailer::Base
 
   def signup_welcome_email(user)
     @body = user.environment.signup_welcome_text_body.gsub('{user_name}', user.name)
-
     email_subject = user.environment.signup_welcome_text_subject
     mail(
       content_type: 'text/html',
-      recipients: user.email,
+      to: user.email,
       from: "#{user.environment.name} <#{user.environment.contact_email}>",
       subject: email_subject.blank? ? _("Welcome to environment %s") % [user.environment.name] : email_subject
     )

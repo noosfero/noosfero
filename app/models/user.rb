@@ -16,7 +16,7 @@ class User < ActiveRecord::Base
   end
 
   # FIXME ugly workaround
-  def self.human_attribute_name(attrib)
+  def self.human_attribute_name(attrib, options={})
     case attrib.to_sym
       when :login
         return [_('Username'), _('Email')].join(' / ')
@@ -41,7 +41,7 @@ class User < ActiveRecord::Base
       p.identifier = user.login
       p.user = user
       p.environment = user.environment
-      p.name ||= user.login
+      p.name ||= user.name || user.login
       p.visible = false unless user.activated?
 
       user.person = p
@@ -112,7 +112,7 @@ class User < ActiveRecord::Base
       false
     else
       if environment.enabled?('send_welcome_email_to_new_users') && environment.has_signup_welcome_text?
-        User::Mailer.delay.signup_welcome_email(self).deliver
+        User::Mailer.delay.signup_welcome_email(self)
       end
       true
     end
@@ -193,13 +193,13 @@ class User < ActiveRecord::Base
   def remember_me
     self.remember_token_expires_at = 2.weeks.from_now.utc
     self.remember_token            = encrypt("#{email}--#{remember_token_expires_at}")
-    save(false)
+    save(:validate => false)
   end
 
   def forget_me
     self.remember_token_expires_at = nil
     self.remember_token            = nil
-    save(false)
+    save(:validate => false)
   end
 
   # Exception thrown when #change_password! is called with a wrong current
@@ -231,7 +231,7 @@ class User < ActiveRecord::Base
   end
 
   def name= name
-   self[:name] = name
+    self[:name] = name
   end
 
   def enable_email!
