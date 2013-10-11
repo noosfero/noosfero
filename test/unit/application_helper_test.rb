@@ -592,7 +592,7 @@ class ApplicationHelperTest < ActiveSupport::TestCase
 
   should 'include item in usermenu for environment enabled features' do
     env = Environment.new
-    env.enable('xmpp_chat')
+    env.enable('xmpp_chat', false)
     stubs(:environment).returns(env)
 
     @controller = ApplicationController.new
