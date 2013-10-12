@@ -1118,8 +1118,16 @@ module ApplicationHelper
 
   def manage_link(list, kind)
     if list.present?
+      link_to_all = nil
+      if list.count > 5
+        list = list.first(5)
+        link_to_all = link_to(content_tag('strong', _('See all')), :controller => 'memberships', :profile => current_user.login)
+      end
       link = list.map do |element|
         link_to(content_tag('strong', [_('<span>Manage</span> %s') % element.short_name(25)]), @environment.top_url + "/myprofile/#{element.identifier}", :class => "icon-menu-"+element.class.identification.underscore, :title => [_('Manage %s') % element.short_name])
+      end
+      if link_to_all
+        link << link_to_all
       end
       render :partial => "shared/manage_link", :locals => {:link => link, :kind => kind.to_s}
     end
@@ -1132,7 +1140,7 @@ module ApplicationHelper
 
   def manage_communities
     return if not user
-    administered_communities = user.communities.select {|c| c.admins.include? user}
+    administered_communities = user.communities.more_popular.select {|c| c.admins.include? user}
     manage_link(administered_communities, :communities)
   end
 
