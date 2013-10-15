@@ -1,7 +1,7 @@
 module ProfileHelper
 
   def display_field(title, profile, field, force = false)
-    if not force or not profile.may_display_field_to? field, user
+    unless force || profile.may_display_field_to?(field, user)
       return ''
     end
     value = profile.send(field)

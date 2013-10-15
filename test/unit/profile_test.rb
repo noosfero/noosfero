@@ -1833,4 +1833,59 @@ class ProfileTest < ActiveSupport::TestCase
     assert_equal f, p.fields_privacy
   end
 
+  should 'not display field if field is active but not public and user not logged in' do
+    profile = fast_create(Profile)
+    profile.stubs(:active_fields).returns(['field'])
+    profile.stubs(:public_fields).returns([])
+    assert !profile.may_display_field_to?('field', nil)
+  end
+
+  should 'not display field if field is active but not public and user is not friend' do
+    profile = fast_create(Profile)
+    profile.stubs(:active_fields).returns(['field'])
+    profile.expects(:public_fields).returns([])
+    user = mock
+    user.expects(:is_a_friend?).with(profile).returns(false)
+    assert !profile.may_display_field_to?('field', user)
+  end
+
+  should 'display field if field is active and not public but user is profile owner' do
+    user = profile = fast_create(Profile)
+    profile.stubs(:active_fields).returns(['field'])
+    profile.expects(:public_fields).returns([])
+    assert profile.may_display_field_to?('field', user)
+  end
+
+  should 'display field if field is active and not public but user is a friend' do
+    profile = fast_create(Profile)
+    profile.stubs(:active_fields).returns(['field'])
+    profile.expects(:public_fields).returns([])
+    user = mock
+    user.expects(:is_a_friend?).with(profile).returns(true)
+    assert profile.may_display_field_to?('field', user)
+  end
+
+  should 'call may_display on field name if the field is not active' do
+    user = fast_create(Person)
+    profile = fast_create(Profile)
+    profile.stubs(:active_fields).returns(['humble'])
+    profile.expects(:may_display_humble_to?).never
+    profile.expects(:may_display_bundle_to?).once
+
+    profile.may_display_field_to?('humble', user)
+    profile.may_display_field_to?('bundle', user)
+  end
+
+  # TODO Eventually we would like to specify it in a deeper granularity...
+  should 'not display location if any field is private' do
+    user = fast_create(Person)
+    profile = fast_create(Profile)
+    profile.stubs(:active_fields).returns(Profile::LOCATION_FIELDS)
+    Profile::LOCATION_FIELDS.each { |field| profile.stubs(:may_display_field_to?).with(field, user).returns(true)}
+    assert profile.may_display_location_to?(user)
+
+    profile.stubs(:may_display_field_to?).with(Profile::LOCATION_FIELDS[0], user).returns(false)
+    assert !profile.may_display_location_to?(user)
+  end
+
 end

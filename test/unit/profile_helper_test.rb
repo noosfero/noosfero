@@ -13,84 +13,48 @@ class ProfileHelperTest < ActiveSupport::TestCase
   end
   attr_reader :profile, :helper
 
-  should 'not display field if field is not active and not forced' do
-    profile.expects(:active_fields).returns([])
+  should 'display field if may display it' do
+    self.stubs(:user).returns(nil)
+    profile.expects(:may_display_field_to?).returns(true)
+    profile.expects(:field).returns('value')
+    assert_match /Title.*value/, display_field('Title', profile, 'field')
+  end
+
+  should 'not display field if may not display it and not forced' do
+    self.stubs(:user).returns(nil)
+    profile.expects(:may_display_field_to?).returns(false)
     assert_equal '', display_field('Title', profile, 'field')
   end
 
-  should 'display field if field is not active but is forced' do
-    profile.expects(:active_fields).returns([])
+  should 'display field if may not display it but is forced' do
+    self.stubs(:user).returns(nil)
+    profile.stubs(:may_display_field_to?).returns(false)
     profile.expects(:field).returns('value')
     assert_match /Title.*value/, display_field('Title', profile, 'field', true)
   end
 
-  should 'not display field if field is active but not public and not logged in' do
-    profile.stubs(:active_fields).returns(['field'])
-    profile.expects(:public_fields).returns([])
-    @controller = mock
-    @controller.stubs(:user).returns(nil)
-    assert_equal '', display_field('Title', profile, 'field')
-  end
-
-  should 'not display field if field is active but not public and user is not friend' do
-    profile.stubs(:active_fields).returns(['field'])
-    profile.expects(:public_fields).returns([])
-    user = mock
-    user.expects(:is_a_friend?).with(profile).returns(false)
-    @controller = mock
-    @controller.stubs(:user).returns(user)
-    assert_equal '', display_field('Title', profile, 'field')
-  end
-
-  should 'display field if field is active and not public but user is profile owner' do
-    profile.stubs(:active_fields).returns(['field'])
-    profile.expects(:public_fields).returns([])
-    profile.expects(:field).returns('value')
-    @controller = mock
-    @controller.stubs(:user).returns(profile)
-    assert_match /Title.*value/, display_field('Title', profile, 'field', true)
-  end
-
-  should 'display field if field is active and not public but user is a friend' do
-    profile.stubs(:active_fields).returns(['field'])
-    profile.expects(:public_fields).returns([])
-    profile.expects(:field).returns('value')
-    user = mock
-    user.expects(:is_a_friend?).with(profile).returns(true)
-    @controller = mock
-    @controller.stubs(:user).returns(user)
-    assert_match /Title.*value/, display_field('Title', profile, 'field', true)
-  end
-
-  should 'not display work info if field is active but not public and user is not friend' do
-    profile.stubs(:active_fields).returns(['organization', 'organization_website'])
-    profile.expects(:public_fields).returns([]).times(2)
-    user = mock
-    user.expects(:is_a_friend?).with(profile).returns(false).times(2)
-    @controller = mock
-    @controller.stubs(:user).returns(user)
-    assert_equal '', display_work_info(profile)
-  end
-
-  should 'display work info if field is active and not public but user is profile owner' do
-    profile.stubs(:active_fields).returns(['organization', 'organization_website'])
-    profile.expects(:public_fields).returns([]).times(2)
+  should 'display work info if at least one of the fields should be displayed' do
+    self.stubs(:user).returns(nil)
+    profile.stubs(:may_display_field_to?).with(:organization, nil).returns(true)
+    profile.stubs(:may_display_field_to?).with(:organization_website, nil).returns(false)
     profile.expects(:organization).returns('Organization Name')
-    profile.expects(:organization_website).returns('')
-    @controller = mock
-    @controller.stubs(:user).returns(profile)
+    profile.expects(:organization_website).never
     assert_match /Work.*Organization Name/, display_work_info(profile)
   end
 
-  should 'display work info if field is active and not public but user is a friend' do
-    profile.stubs(:active_fields).returns(['organization', 'organization_website'])
-    profile.expects(:public_fields).returns([]).times(2)
+  should 'not display work info if none of the fields should be displayed' do
+    self.stubs(:user).returns(nil)
+    profile.stubs(:may_display_field_to?).returns(false)
+    profile.expects(:organization).never
+    profile.expects(:organization_website).never
+    assert_equal '', display_work_info(profile)
+  end
+
+  should 'display work info if both fields should be displayed' do
+    self.stubs(:user).returns(nil)
+    profile.stubs(:may_display_field_to?).returns(true)
     profile.expects(:organization).returns('Organization Name')
     profile.expects(:organization_website).returns('')
-    user = mock
-    user.expects(:is_a_friend?).with(profile).returns(true).times(2)
-    @controller = mock
-    @controller.stubs(:user).returns(user)
     assert_match /Work.*Organization Name/, display_work_info(profile)
   end
 
