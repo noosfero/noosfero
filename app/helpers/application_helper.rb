@@ -40,6 +40,8 @@ module ApplicationHelper
 
   include LayoutHelper
 
+  VIEW_EXTENSIONS = ['.rhtml', '.html.erb']
+
   def locale
     (@page && !@page.language.blank?) ? @page.language : FastGettext.locale
   end
@@ -289,8 +291,10 @@ module ApplicationHelper
       search_name = "_" + search_name
     end
 
-    path = defined?(params) && params[:controller] ? File.join(view_path, params[:controller], search_name + '.html.erb') : File.join(view_path, search_name + '.html.erb')
-    return name if File.exists?(File.join(path))
+    VIEW_EXTENSIONS.each do |ext|
+      path = defined?(params) && params[:controller] ? File.join(view_path, params[:controller], search_name + ext) : File.join(view_path, search_name + ext)
+      return name if File.exists?(File.join(path))
+    end
 
     partial_for_class_in_view_path(klass.superclass, view_path, prefix, suffix)
   end
@@ -328,7 +332,7 @@ module ApplicationHelper
       "\n" +
       sources.flatten.map do |source|
         filename = filename_for_stylesheet(source.to_s, themed_source)
-        if File.exists?(Rails.root.join('public', filename))
+        if File.exists?(Rails.root.join('public', filename[1..-1]))
           "@import url(#{filename});\n"
         else
           "/* Not included: url(#{filename}) */\n"
@@ -369,10 +373,10 @@ module ApplicationHelper
           # utility for developers: set the theme to 'random' in development mode and
           # you will get a different theme every request. This is interesting for
           # testing
-          if Rails.env == 'development' && environment.theme == 'random'
+          if Rails.env.development? && environment.theme == 'random'
             @random_theme ||= Dir.glob('public/designs/themes/*').map { |f| File.basename(f) }.rand
             @random_theme
-          elsif Rails.env == 'development' && params[:theme] && File.exists?(Rails.root.join('public/designs/themes', params[:theme]))
+          elsif Rails.env.development? && params[:theme] && File.exists?(Rails.root.join('public/designs/themes', params[:theme]))
             params[:theme]
           else
             if profile && !profile.theme.nil?
@@ -397,8 +401,8 @@ module ApplicationHelper
   def theme_include(template)
     # XXX Since we cannot control what people are doing in external themes, we
     # will keep looking for the deprecated .rhtml extension here.
-    ['.rhtml', '.html.erb'].each do |ext|
-      file = Rails.root.join('public', theme_path, template + ext)
+    VIEW_EXTENSIONS.each do |ext|
+      file = Rails.root.join('public', theme_path[1..-1], template + ext)
       if File.exists?(file)
         return render :file => file, :use_full_path => false
       end
@@ -923,7 +927,7 @@ module ApplicationHelper
     theme_icon_themes = theme_option(:icon_theme) || []
     for icon_theme in theme_icon_themes do
       theme_path = "/designs/icons/#{icon_theme}/style.css"
-      if File.exists?(Rails.root.join('public', theme_path))
+      if File.exists?(Rails.root.join('public', theme_path[1..-1]))
         icon_themes << theme_path
       end
     end

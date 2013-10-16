@@ -1,7 +1,7 @@
 # encoding: UTF-8
 require File.dirname(__FILE__) + '/../test_helper'
 
-class ApplicationHelperTest < ActiveSupport::TestCase
+class ApplicationHelperTest < ActionView::TestCase
 
   include ApplicationHelper
 
@@ -16,26 +16,14 @@ class ApplicationHelperTest < ActiveSupport::TestCase
     @controller.stubs(:view_paths).returns([p1,p2])
 
     self.stubs(:params).returns({:controller => 'test'})
+    File.stubs(:exists?).returns(false)
 
     File.expects(:exists?).with(p1+"test/_integer.rhtml").returns(true)
-
-    File.expects(:exists?).with(p1+"test/_float.rhtml").returns(false)
-    File.expects(:exists?).with(p1+"test/_float.html.erb").returns(false)
-    File.expects(:exists?).with(p2+"test/_float.rhtml").returns(false)
-    File.expects(:exists?).with(p2+"test/_float.html.erb").returns(false)
-    File.expects(:exists?).with(p1+"test/_numeric.rhtml").returns(false)
-    File.expects(:exists?).with(p1+"test/_object.rhtml").returns(false)
-    File.expects(:exists?).with(p1+"test/_object.html.erb").returns(false)
-    File.expects(:exists?).with(p1+"test/_numeric.html.erb").returns(false)
-    File.expects(:exists?).with(p2+"test/_numeric.rhtml").returns(true)
-
-    File.expects(:exists?).with(p1+"test/_object.rhtml").returns(false)
-    File.expects(:exists?).with(p1+"test/_object.html.erb").returns(false)
-    File.expects(:exists?).with(p2+"test/_object.rhtml").returns(false)
-    File.expects(:exists?).with(p2+"test/_object.html.erb").returns(false)
-
     assert_equal 'integer', partial_for_class(Integer)
+
+    File.expects(:exists?).with(p1+"test/_numeric.html.erb").returns(true)
     assert_equal 'numeric', partial_for_class(Float)
+
     assert_raises ArgumentError do
       partial_for_class(Object)
     end
@@ -49,15 +37,14 @@ class ApplicationHelperTest < ActiveSupport::TestCase
 
     class School; class Project; end; end
 
+    File.stubs(:exists?).returns(false)
     File.expects(:exists?).with(p+"test/application_helper_test/school/_project.rhtml").returns(true)
 
     assert_equal 'test/application_helper_test/school/project', partial_for_class(School::Project)
   end
 
   should 'look for superclasses on view_for_profile actions' do
-    File.expects(:exists?).with(Rails.root.join('app', 'views', 'blocks', 'profile_info_actions', 'float.rhtml')).returns(false)
-    File.expects(:exists?).with(Rails.root.join('app', 'views', 'blocks', 'profile_info_actions', 'float.html.erb')).returns(false)
-    File.expects(:exists?).with(Rails.root.join('app', 'views', 'blocks', 'profile_info_actions', 'numeric.rhtml')).returns(false)
+    File.stubs(:exists?).returns(false)
     File.expects(:exists?).with(Rails.root.join('app', 'views', 'blocks', 'profile_info_actions', 'numeric.html.erb')).returns(true)
 
     assert_equal 'blocks/profile_info_actions/numeric.html.erb', view_for_profile_actions(Float)
@@ -70,6 +57,7 @@ class ApplicationHelperTest < ActiveSupport::TestCase
   end
 
   should 'generate link to stylesheet' do
+    File.stubs(:exists?).returns(false)
     File.expects(:exists?).with(Rails.root.join('public', 'stylesheets', 'something.css')).returns(true)
     expects(:filename_for_stylesheet).with('something', nil).returns('/stylesheets/something.css')
     assert_match '@import url(/stylesheets/something.css)', stylesheet_import('something')
@@ -231,6 +219,7 @@ class ApplicationHelperTest < ActiveSupport::TestCase
 
   should 'use environment´s template when there is no profile' do
     stubs(:profile).returns(nil)
+    self.stubs(:environment).returns(Environment.default)
     environment.expects(:layout_template).returns('sometemplate')
     assert_equal "/designs/templates/sometemplate/stylesheets/style.css", template_stylesheet_path
   end
@@ -263,21 +252,21 @@ class ApplicationHelperTest < ActiveSupport::TestCase
     stubs(:environment).returns(Environment.default)
     expects(:content_tag).with(anything, 'male').returns('MALE!!')
     expects(:content_tag).with(anything, 'MALE!!', is_a(Hash)).returns("FINAL")
-    assert_equal "FINAL", profile_sex_icon(Person.new(:sex => 'male'))
+    assert_equal "FINAL", profile_sex_icon(build(Person, :sex => 'male'))
   end
 
   should 'provide sex icon for females' do
     stubs(:environment).returns(Environment.default)
     expects(:content_tag).with(anything, 'female').returns('FEMALE!!')
     expects(:content_tag).with(anything, 'FEMALE!!', is_a(Hash)).returns("FINAL")
-    assert_equal "FINAL", profile_sex_icon(Person.new(:sex => 'female'))
+    assert_equal "FINAL", profile_sex_icon(build(Person, :sex => 'female'))
   end
 
   should 'provide undef sex icon' do
     stubs(:environment).returns(Environment.default)
     expects(:content_tag).with(anything, 'undef').returns('UNDEF!!')
     expects(:content_tag).with(anything, 'UNDEF!!', is_a(Hash)).returns("FINAL")
-    assert_equal "FINAL", profile_sex_icon(Person.new(:sex => nil))
+    assert_equal "FINAL", profile_sex_icon(build(Person, :sex => nil))
   end
 
   should 'not draw sex icon for non-person profiles' do
@@ -288,11 +277,11 @@ class ApplicationHelperTest < ActiveSupport::TestCase
     env = fast_create(Environment, :name => 'env test')
     env.expects(:enabled?).with('disable_gender_icon').returns(true)
     stubs(:environment).returns(env)
-    assert_equal '', profile_sex_icon(Person.new(:sex => 'male'))
+    assert_equal '', profile_sex_icon(build(Person, :sex => 'male'))
   end
 
   should 'display field on person signup' do
-    env = Environment.create!(:name => 'env test')
+    env = create(Environment, :name => 'env test')
     stubs(:environment).returns(env)
 
     controller = mock
@@ -305,7 +294,7 @@ class ApplicationHelperTest < ActiveSupport::TestCase
   end
 
   should 'display field on enterprise registration' do
-    env = Environment.create!(:name => 'env test')
+    env = create(Environment, :name => 'env test')
     stubs(:environment).returns(env)
 
     controller = mock
@@ -319,7 +308,7 @@ class ApplicationHelperTest < ActiveSupport::TestCase
   end
 
   should 'display field on community creation' do
-    env = Environment.create!(:name => 'env test')
+    env = create(Environment, :name => 'env test')
     stubs(:environment).returns(env)
 
     controller = mock
@@ -345,7 +334,7 @@ class ApplicationHelperTest < ActiveSupport::TestCase
   end
 
   should 'not display field on enterprise registration' do
-    env = Environment.create!(:name => 'env test')
+    env = create(Environment, :name => 'env test')
     stubs(:environment).returns(env)
 
     controller = mock
@@ -359,7 +348,7 @@ class ApplicationHelperTest < ActiveSupport::TestCase
   end
 
   should 'not display field on community creation' do
-    env = Environment.create!(:name => 'env test')
+    env = create(Environment, :name => 'env test')
     stubs(:environment).returns(env)
 
     controller = mock
@@ -482,17 +471,17 @@ class ApplicationHelperTest < ActiveSupport::TestCase
   end
 
   should 'use theme passed via param when in development mode' do
-    stubs(:environment).returns(Environment.new(:theme => 'environment-theme'))
-    ENV.stubs(:[]).with('RAILS_ENV').returns('development')
+    stubs(:environment).returns(build(Environment, :theme => 'environment-theme'))
+    Rails.env.stubs(:development?).returns(true)
     self.stubs(:params).returns({:theme => 'skyblue'})
     assert_equal 'skyblue', current_theme
   end
 
   should 'not use theme passed via param when in production mode' do
-    stubs(:environment).returns(Environment.new(:theme => 'environment-theme'))
+    stubs(:environment).returns(build(Environment, :theme => 'environment-theme'))
     ENV.stubs(:[]).with('RAILS_ENV').returns('production')
     self.stubs(:params).returns({:theme => 'skyblue'})
-    stubs(:profile).returns(Profile.new(:theme => 'profile-theme'))
+    stubs(:profile).returns(build(Profile, :theme => 'profile-theme'))
     assert_equal 'profile-theme', current_theme
   end
 
@@ -578,7 +567,7 @@ class ApplicationHelperTest < ActiveSupport::TestCase
   should 'use favicon from profile articles if the profile theme does not have' do
     stubs(:environment).returns(fast_create(Environment, :theme => 'new-theme'))
     stubs(:profile).returns(fast_create(Profile, :theme => 'profile-theme'))
-    file = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/favicon.ico', 'image/x-ico'), :profile => profile)
+    file = create(UploadedFile, :uploaded_data => fixture_file_upload('/files/favicon.ico', 'image/x-ico'), :profile => profile)
     File.expects(:exists?).with(Rails.root.join('public', theme_path, 'favicon.ico')).returns(false)
 
     assert_match /favicon.ico/, theme_favicon
@@ -600,7 +589,7 @@ class ApplicationHelperTest < ActiveSupport::TestCase
     path = Rails.root.join('app', 'views')
     @controller.stubs(:view_paths).returns([path])
 
-    file = path + '/shared/usermenu/xmpp_chat.rhtml'
+    file = path.join('shared','usermenu', 'xmpp_chat.html.erb')
     expects(:render).with(:file => file, :use_full_path => false).returns('Open chat')
 
     assert_equal 'Open chat', render_environment_features(:usermenu)
@@ -636,7 +625,7 @@ class ApplicationHelperTest < ActiveSupport::TestCase
 
   should 'show task information with the requestor' do
     person = create_user('usertest').person
-    task = Task.create(:requestor => person)
+    task = create(Task, :requestor => person)
     assert_match person.name, task_information(task)
   end
 
@@ -729,7 +718,7 @@ class ApplicationHelperTest < ActiveSupport::TestCase
 
   should 'reference to article, in a profile with domain' do
     c = fast_create(Community)
-    c.domains << Domain.new(:name=>'domain.xyz')
+    c.domains << build(Domain, :name=>'domain.xyz')
     b = fast_create(Blog, :profile_id => c.id)
     a = fast_create(TinyMceArticle, :profile_id => c.id, :parent_id => b.id)
     a.save!
@@ -788,8 +777,9 @@ class ApplicationHelperTest < ActiveSupport::TestCase
     result = button_bar :id=>'bt1' do
       '<b>foo</b>'
     end
-    assert_equal '<div class="button-bar" id="bt1"><b>foo</b>'+
-                 '<br style=\'clear: left;\' /></div>', result
+    assert_tag_in_string result, :tag =>'div', :attributes => {:class => 'button-bar', :id => 'bt1'}
+    assert_tag_in_string result, :tag =>'b', :content => 'foo', :parent => {:tag => 'div', :attributes => {:id => 'bt1'}}
+    assert_tag_in_string result, :tag =>'br', :parent => {:tag => 'div', :attributes => {:id => 'bt1'}}
   end
 
   protected
