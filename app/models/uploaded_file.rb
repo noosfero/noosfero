@@ -86,6 +86,12 @@ class UploadedFile < Article
     self.name = self.filename
   end
 
+  def download_headers
+    {
+      'Content-Disposition' => "attachment; filename=\"#{self.filename}\"",
+    }
+  end
+
   def data
     File.read(self.full_filename)
   end

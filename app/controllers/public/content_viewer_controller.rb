@@ -53,8 +53,9 @@ class ContentViewerController < ApplicationController
     # At this point the page will be showed
     @page.hit
 
-    unless @page.mime_type == 'text/html' || (@page.image? && params[:view])
+    if @page.download? params[:view]
       headers['Content-Type'] = @page.mime_type
+      headers.merge! @page.download_headers
       data = @page.data
 
       # TODO test the condition
@@ -70,7 +71,7 @@ class ContentViewerController < ApplicationController
 
     #FIXME see a better way to do this. It's not need to pass this variable anymore
     @comment = Comment.new
-    
+
     if @page.has_posts?
       posts = if params[:year] and params[:month]
         filter_date = DateTime.parse("#{params[:year]}-#{params[:month]}-01")

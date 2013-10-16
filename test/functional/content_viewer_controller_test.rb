@@ -64,7 +64,19 @@ class ContentViewerControllerTest < ActionController::TestCase
     assert_response :missing
   end
 
-  should 'produce a download-like when article is not text/html' do
+  should 'produce a download-link when article is a uploaded file' do
+    profile = create_user('someone').person
+    html = UploadedFile.create! :uploaded_data => fixture_file_upload('/files/500.html', 'text/html'), :profile => profile
+    html.save!
+
+    get :view_page, :profile => 'someone', :page => [ '500.html' ]
+
+    assert_response :success
+    assert_match /^text\/html/, @response.headers['Content-Type']
+    assert @response.headers['Content-Disposition'].present?
+  end
+
+  should 'produce a download-link when article is not text/html' do
 
     # for example, RSS feeds
     profile = create_user('someone').person
@@ -1254,7 +1266,7 @@ class ContentViewerControllerTest < ActionController::TestCase
 
     get 'view_page', :profile => profile.identifier, :page => article.path.split('/')
     assert_tag :tag => 'a', :attributes => { :href => "/#{profile.identifier}/#{article.path}?comment_page=2", :rel => 'next' }
-  end 
+  end
 
   should 'not escape acceptable HTML in list of blog posts' do
     login_as('testinguser')
