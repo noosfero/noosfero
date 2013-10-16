@@ -147,7 +147,7 @@ class Article < ActiveRecord::Base
     self.profile
   end
 
-  def self.human_attribute_name(attrib)
+  def self.human_attribute_name(attrib, options = {})
     case attrib.to_sym
     when :name
       _('Title')

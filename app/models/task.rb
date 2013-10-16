@@ -235,6 +235,29 @@ class Task < ActiveRecord::Base
     end
   end
 
+  scope :pending, :conditions => { :status =>  Task::Status::ACTIVE }
+  scope :hidden, :conditions => { :status =>  Task::Status::HIDDEN }
+  scope :finished, :conditions => { :status =>  Task::Status::FINISHED }
+  scope :canceled, :conditions => { :status =>  Task::Status::CANCELLED }
+  scope :closed, :conditions => { :status =>  [Task::Status::CANCELLED, Task::Status::FINISHED] }
+  scope :opened, :conditions => { :status =>  [Task::Status::ACTIVE, Task::Status::HIDDEN] }
+  scope :of, lambda { |type| conditions = type ? "type LIKE '#{type}'" : "1=1"; {:conditions =>  [conditions]} }
+  scope :order_by, lambda { |attribute, ord| {:order => "#{attribute} #{ord}"} }
+
+  scope :to, lambda { |profile|
+    environment_condition = nil
+    if profile.person?
+      envs_ids = Environment.find(:all).select{ |env| profile.is_admin?(env) }.map { |env| "target_id = #{env.id}"}.join(' OR ')
+      environment_condition = envs_ids.blank? ? nil : "(target_type = 'Environment' AND (#{envs_ids}))"
+    end
+    profile_condition = "(target_type = 'Profile' AND target_id = #{profile.id})"
+    { :conditions => [environment_condition, profile_condition].compact.join(' OR ') }
+  }
+
+  def opened?
+    status == Task::Status::ACTIVE || status == Task::Status::HIDDEN
+  end
+
   protected
 
   # This method must be overrided in subclasses, and its implementation must do
@@ -264,29 +287,6 @@ class Task < ActiveRecord::Base
          TaskMailer.generic_message("task_#{action}", self)
       end
     end
-  end
-
-  scope :pending, :conditions => { :status =>  Task::Status::ACTIVE }
-  scope :hidden, :conditions => { :status =>  Task::Status::HIDDEN }
-  scope :finished, :conditions => { :status =>  Task::Status::FINISHED }
-  scope :canceled, :conditions => { :status =>  Task::Status::CANCELLED }
-  scope :closed, :conditions => { :status =>  [Task::Status::CANCELLED, Task::Status::FINISHED] }
-  scope :opened, :conditions => { :status =>  [Task::Status::ACTIVE, Task::Status::HIDDEN] }
-  scope :of, lambda { |type| conditions = type ? "type LIKE '#{type}'" : "1=1"; {:conditions =>  [conditions]} }
-  scope :order_by, lambda { |attribute, ord| {:order => "#{attribute} #{ord}"} }
-
-  scope :to, lambda { |profile|
-    environment_condition = nil
-    if profile.person?
-      envs_ids = Environment.find(:all).select{ |env| profile.is_admin?(env) }.map { |env| "target_id = #{env.id}"}.join(' OR ')
-      environment_condition = envs_ids.blank? ? nil : "(target_type = 'Environment' AND (#{envs_ids}))"
-    end
-    profile_condition = "(target_type = 'Profile' AND target_id = #{profile.id})"
-    { :conditions => [environment_condition, profile_condition].compact.join(' OR ') }
-  }
-
-  def opened?
-    status == Task::Status::ACTIVE || status == Task::Status::HIDDEN
   end
 
   class << self
