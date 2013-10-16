@@ -1,19 +1,28 @@
 Delayed::Worker.module_eval do
   # based on https://groups.google.com/forum/#!topic/delayed_job/ZGMUFFppNgs
   class Delayed::Worker::ExceptionNotification < ActionMailer::Base
-    def mail error
+    def mail job, error
       environment = Environment.default
 
       recipients NOOSFERO_CONF['exception_recipients']
       from       environment.contact_email
       reply_to   environment.contact_email
-      subject    "[#{environment.name}] DelayedJob: #{error.message}"
-      body       render(:text => error.backtrace.join("\n"))
+      subject    "[#{environment.name}] DelayedJob ##{job.id}: #{error.message}"
+      body       render(:text => "
+Job:
+#{job.inspect}
+
+Handler:
+#{job.handler}
+
+Backtrace:
+#{error.backtrace.join("\n")}
+      ")
     end
   end
 
   def handle_failed_job_with_notification(job, error)
-    Delayed::Worker::ExceptionNotification.deliver_mail error if NOOSFERO_CONF['exception_recipients'].present?
+    Delayed::Worker::ExceptionNotification.deliver_mail job, error if NOOSFERO_CONF['exception_recipients'].present?
     handle_failed_job_without_notification job, error
   end
   alias_method_chain :handle_failed_job, :notification
