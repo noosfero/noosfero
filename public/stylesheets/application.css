@@ -1739,9 +1739,7 @@ a.button.disabled, input.disabled {
     outline: none;
 }
 /* FIX Error show option buttons on blocks */
-#box-organizer .feed-reader-block,
-#box-organizer .article-block,
-#box-organizer .recent-documents-block {
+#box-organizer .block {
   overflow: visible !important;
 }
 
