@@ -356,7 +356,8 @@ module ApplicationHelper
   end
 
   def theme_path
-    if session[:theme]
+    if ( respond_to?(:session) && session[:theme] ) ||
+       ( @controller && @controller.session[:theme] )
       '/user_themes/' + current_theme
     else
       '/designs/themes/' + current_theme
@@ -366,7 +367,8 @@ module ApplicationHelper
   def current_theme
     @current_theme ||=
       begin
-        if (session[:theme])
+        if ( respond_to?(:session) && session[:theme] ) ||
+           ( @controller && @controller.session[:theme] )
           session[:theme]
         else
           # utility for developers: set the theme to 'random' in development mode and
@@ -375,7 +377,7 @@ module ApplicationHelper
           if ENV['RAILS_ENV'] == 'development' && environment.theme == 'random'
             @random_theme ||= Dir.glob('public/designs/themes/*').map { |f| File.basename(f) }.rand
             @random_theme
-          elsif ENV['RAILS_ENV'] == 'development' && params[:theme] && File.exists?(File.join(Rails.root, 'public/designs/themes', params[:theme]))
+          elsif ENV['RAILS_ENV'] == 'development' && respond_to?(:params) && params[:theme] && File.exists?(File.join(Rails.root, 'public/designs/themes', params[:theme]))
             params[:theme]
           else
             if profile && !profile.theme.nil?
@@ -600,15 +602,10 @@ module ApplicationHelper
 
   def str_gravatar_url_for(email, options = {})
     default = theme_option['gravatar'] || NOOSFERO_CONF['gravatar'] || nil
-    url = 'http://www.gravatar.com/avatar.php?gravatar_id=' +
-           Digest::MD5.hexdigest(email.to_s)
-    {
+    "http://www.gravatar.com/avatar/#{Digest::MD5.hexdigest(email.to_s)}?" + {
       :only_path => false,
       :d => default
-    }.merge(options).each { |k,v|
-      url += ( '&%s=%s' % [ k,v ] )
-    }
-    url
+    }.merge(options).map{|k,v| '%s=%s' % [ k,v ] }.join('&')
   end
 
   def gravatar_profile_url(email)
