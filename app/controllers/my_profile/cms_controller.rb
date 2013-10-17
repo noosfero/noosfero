@@ -73,6 +73,7 @@ class CmsController < MyProfileController
     refuse_blocks
     record_coming
     if request.post?
+      @article.image = nil if params[:remove_image] == 'true'
       @article.last_changed_by = user
       if @article.update_attributes(params[:article])
         if !continue
