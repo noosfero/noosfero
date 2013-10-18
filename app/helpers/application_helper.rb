@@ -727,8 +727,13 @@ module ApplicationHelper
   end
 
   def rolename_for(profile, resource)
-    role = profile.role_assignments.find_by_resource_id(resource.id).role
-    content_tag('span', role.name, :style => "color: #{role_color(role, resource.environment.id)}")
+    roles = profile.role_assignments.select{ |a| a.resource_id == resource.id }.sort_by{ |s| s.role_id }.map(&:role)
+    names = ''
+    roles.each do |role|
+      names += content_tag('span', role.name, :style => "color: #{role_color(role, resource.environment.id)}")
+      names += ', '
+    end
+    names.slice 0..-3
   end
 
   def role_color(role, env_id)
