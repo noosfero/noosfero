@@ -97,6 +97,7 @@ class Environment < ActiveRecord::Base
       'disable_asset_events' => _('Disable search for events'),
       'disable_categories' => _('Disable categories'),
       'disable_header_and_footer' => _('Disable header/footer editing by users'),
+      'disable_my_communities_menu' => _('Disable My Communities menu'),
       'disable_gender_icon' => _('Disable gender icon'),
       'disable_categories_menu' => _('Disable the categories menu'),
       'disable_select_city_for_contact' => _('Disable state/city select for contact form'),
