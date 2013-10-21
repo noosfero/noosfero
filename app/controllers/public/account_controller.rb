@@ -150,6 +150,7 @@ class AccountController < ApplicationController
       session[:notice] = _("This environment doesn't allow password recovery.")
     end
     @change_password = ChangePassword.new(params[:change_password])
+    @change_password.environment_id = environment.id
 
     if request.post?
       begin

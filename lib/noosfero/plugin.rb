@@ -460,6 +460,12 @@ class Noosfero::Plugin
   def find_by_contents(asset, scope, query, paginate_options={}, options={})
   end
 
+  # -> Adds aditional fields for change_password
+  # returns = {:field1 => 'field1 name', :field2 => 'field2 name' ... }
+  def change_password_fields
+    nil
+  end
+
   # -> Adds additional blocks to profiles and environments.
   # Your plugin must implements a class method called 'extra_blocks'
   # that returns a hash with the following syntax.

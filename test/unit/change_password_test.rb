@@ -5,12 +5,12 @@ class ChangePasswordTest < ActiveSupport::TestCase
   fixtures :environments
 
   should 'validate' do
-    data = ChangePassword.new
+    data = ChangePassword.new(:environment_id => Environment.default)
     assert !data.valid?
   end
 
   should 'validate field is login or email' do
-    data = ChangePassword.new
+    data = ChangePassword.new(:environment_id => Environment.default)
     data.field = 'anything'
     data.valid?
     assert data.errors.invalid?(:field)
@@ -149,6 +149,30 @@ class ChangePasswordTest < ActiveSupport::TestCase
 
     email = TaskMailer.deliver_task_created(task)
     assert_match(/#{task.requestor.name} wants to change its password/, email.subject)
+  end
+
+  should 'allow extra fields provided by plugins' do
+    class Plugin1 < Noosfero::Plugin
+      def change_password_fields
+        {:f1 => 'F1'}
+      end
+    end
+    class Plugin2 < Noosfero::Plugin
+      def change_password_fields
+        {:f2 => 'F2', :f3 => 'F3'}
+      end
+    end
+
+    environment = Environment.default
+    environment.enable_plugin(Plugin1)
+    environment.enable_plugin(Plugin2)
+    person = create_user('testuser').person
+
+    change_password = ChangePassword.new(:environment_id => environment.id)
+
+    assert_includes change_password.fields, 'f1'
+    assert_includes change_password.fields, 'f2'
+    assert_includes change_password.fields, 'f3'
   end
 
 end

@@ -3,6 +3,8 @@ class ChangePassword < Task
   settings_items :field, :value
   attr_accessor :password, :password_confirmation, :environment_id
 
+  include Noosfero::Plugin::HotSpot
+
   def self.human_attribute_name(attrib)
     case attrib.to_sym
     when :field
@@ -18,18 +20,36 @@ class ChangePassword < Task
     end
   end
 
-  def self.fields_choice
+  def plugins_fields
+    plugins.dispatch(:change_password_fields).inject({}) { |result, fields| result.merge!(fields)}
+  end
+
+  def environment
+    (requestor.environment if requestor) || Environment.find_by_id(environment_id)
+  end
+
+  def fields
+    %w[login email] + plugins_fields.map { |field, name| field.to_s }
+  end
+
+  def fields_choice
     [
       [_('Username'), 'login'],
       [_('Email'), 'email'],
-    ]
+    ] + plugins_fields.map { |field, name| [name, field] }
   end
 
   ###################################################
   # validations for creating a ChangePassword task 
   
   validates_presence_of :field, :value, :environment_id, :on => :create, :message => _('must be filled in')
-  validates_inclusion_of :field, :in => %w[login email]
+  # TODO Only on rails3
+  # validates_inclusion_of :field, :in => lambda { |data| data.fields }
+  validates_each :field do |data, attr, value|
+    unless data.fields.include?(value)
+      data.errors.add(attr, _('is not in the list of valid fields.'))
+    end
+  end
 
   validates_each :value, :on => :create do |data,attr,value|
     unless data.field.blank? || data.value.blank?
@@ -40,7 +60,7 @@ class ChangePassword < Task
     end
   end
 
-  before_validation_on_create do |change_password|
+  before_validation do |change_password|
     user = change_password.user_find
     change_password.requestor = user.person if user
   end
@@ -56,9 +76,10 @@ class ChangePassword < Task
   def user_find
     begin
       method = "find_by_#{field}_and_environment_id"
-      user = User.send(method, value, environment_id)
+      user = nil
+      user = User.send(method, value, environment_id) if User.respond_to?(method)
+      user = Person.send(method, value, environment_id).user if user.nil? && Person.respond_to?(method)
     rescue
-      nil
     end
     user
   end
@@ -103,10 +124,6 @@ class ChangePassword < Task
     lambda do
       _("In order to change your password, please visit the following address:\n\n%s") % url 
     end
-  end
-
-  def environment
-    self.requestor.environment
   end
 
 end
