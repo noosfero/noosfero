@@ -102,13 +102,12 @@ class StoaPluginControllerTest < ActionController::TestCase
     assert response.blank?
   end
 
-  should 'not return sensitive fields that are private' do
+  should 'not return private fields' do
     @request.stubs(:ssl?).returns(true)
     Person.any_instance.stubs(:f1).returns('field1')
     Person.any_instance.stubs(:f2).returns('field2')
     Person.any_instance.stubs(:f3).returns('field3')
     StoaPluginController::FIELDS['special'] = %w[f1 f2 f3]
-    StoaPluginController::SENSITIVE = %w[f1 f2]
     person = user.person
     person.fields_privacy = {:f1 => 'private', :f2 => 'public', :f3 => 'public'}
     person.save!
@@ -120,9 +119,8 @@ class StoaPluginControllerTest < ActionController::TestCase
     assert json_response.keys.include?('f3')
   end
 
-  should 'return essential fields even if they are sensitive and private' do
+  should 'return essential fields even if they are private' do
     @request.stubs(:ssl?).returns(true)
-    StoaPluginController::SENSITIVE = %w[email]
     person = user.person
     person.fields_privacy = {:email => 'private'}
     person.save!

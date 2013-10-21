@@ -49,7 +49,6 @@ class StoaPluginController < PublicController
     return fields.reject { |field| !FIELDS['essential'].include?(field) } unless user.person.public_profile
     fields.reject do |field|
       !user.person.public_fields.include?(field) &&
-      SENSITIVE.include?(field) &&
       !FIELDS['essential'].include?(field)
     end
   end

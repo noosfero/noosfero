@@ -1,6 +1,5 @@
 module StoaPlugin::PersonFields
   HEAVY = %w[image_base64]
-  SENSITIVE = %w[]
   FILTER = %w[image]
 
   ESSENTIAL = %w[username email nusp]
