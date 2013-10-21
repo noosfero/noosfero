@@ -215,12 +215,21 @@ class AccountControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  should 'respond to forgotten password change request' do
+  should 'respond to forgotten password change request with login' do
     change = ChangePassword.new
-    ChangePassword.expects(:new).with('login' => 'test', 'email' => 'test@localhost.localdomain').returns(change)
+    ChangePassword.expects(:new).with('field' => 'login', 'value' => 'test').returns(change)
     change.expects(:save!).returns(true)
 
-    post :forgot_password, :change_password => { :login => 'test', :email => 'test@localhost.localdomain' }
+    post :forgot_password, :change_password => { :field => 'login', :value => 'test' }
+    assert_template 'password_recovery_sent'
+  end
+
+  should 'respond to forgotten password change request with email' do
+    change = ChangePassword.new
+    ChangePassword.expects(:new).with('field' => 'email', 'value' => 'test@localhost.localdomain').returns(change)
+    change.expects(:save!).returns(true)
+
+    post :forgot_password, :change_password => { :field => 'email', :value => 'test@localhost.localdomain' }
     assert_template 'password_recovery_sent'
   end
 
@@ -267,7 +276,7 @@ class AccountControllerTest < ActionController::TestCase
 
   should 'require password confirmation correctly to enter new pasword' do
     user = create_user('testuser', :email => 'testuser@example.com', :password => 'test', :password_confirmation => 'test')
-    change = ChangePassword.create!(:login => 'testuser', :email => 'testuser@example.com', :environment_id => Environment.default.id)
+    change = ChangePassword.create!(:field => 'login', :value => 'testuser', :environment_id => Environment.default.id)
 
     post :new_password, :code => change.code, :change_password => { :password => 'onepass', :password_confirmation => 'another_pass' }
     assert_response :success
@@ -853,7 +862,7 @@ class AccountControllerTest < ActionController::TestCase
     assert_response :redirect
 
     #Redirect on post action
-    post :forgot_password, :change_password => { :login => 'test', :email => 'test@localhost.localdomain' }
+    post :forgot_password, :change_password => { :field => 'login', :value => 'test' }
     assert_response :redirect
   end
 

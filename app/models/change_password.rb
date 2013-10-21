@@ -18,6 +18,13 @@ class ChangePassword < Task
     end
   end
 
+  def self.fields_choice
+    [
+      [_('Username'), 'login'],
+      [_('Email'), 'email'],
+    ]
+  end
+
   ###################################################
   # validations for creating a ChangePassword task 
   
