@@ -22,4 +22,11 @@ class StoaPlugin::PersonApi < Noosfero::FieldsDecorator
   def image_base64
     Base64.encode64(image.current_data) if image && image.current_data
   end
+
+  def tags
+    articles.tag_counts({:order => 'tags.count desc', :limit => 10}).inject({}) do |memo,tag|
+      memo[tag.name] = tag.count
+      memo
+    end
+  end
 end
