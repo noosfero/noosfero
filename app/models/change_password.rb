@@ -1,13 +1,14 @@
 class ChangePassword < Task
 
-  attr_accessor :login, :email, :password, :password_confirmation, :environment_id
+  settings_items :field, :value
+  attr_accessor :password, :password_confirmation, :environment_id
 
   def self.human_attribute_name(attrib)
     case attrib.to_sym
-    when :login:
-      _('Username')
-    when :email
-      _('e-mail')
+    when :field
+      _('Field')
+    when :value
+      _('Value')
     when :password
       _('Password')
     when :password_confirmation
@@ -20,25 +21,21 @@ class ChangePassword < Task
   ###################################################
   # validations for creating a ChangePassword task 
   
-  validates_presence_of :login, :email, :environment_id, :on => :create, :message => _('must be filled in')
+  validates_presence_of :field, :value, :environment_id, :on => :create, :message => _('must be filled in')
+  validates_inclusion_of :field, :in => %w[login email]
 
-  validates_format_of :email, :on => :create, :with => Noosfero::Constants::EMAIL_FORMAT, :if => (lambda { |obj| !obj.email.blank? })
-
-  validates_each :login, :on => :create do |data,attr,value|
-    unless data.login.blank? || data.email.blank?
-      user = User.find_by_login_and_environment_id(data.login, data.environment_id)
+  validates_each :value, :on => :create do |data,attr,value|
+    unless data.field.blank? || data.value.blank?
+      user = data.user_find
       if user.nil? 
-        data.errors.add(:login, _('is invalid or user does not exists.'))
-      else
-        if user.email != data.email
-          data.errors.add(:email, _('does not match the username you filled in'))
-        end
+        data.errors.add(:value, _('is invalid for the selected field.'))
       end
     end
   end
 
   before_validation_on_create do |change_password|
-    change_password.requestor = Person.find_by_identifier_and_environment_id(change_password.login, change_password.environment_id)
+    user = change_password.user_find
+    change_password.requestor = user.person if user
   end
 
   ###################################################
@@ -48,6 +45,16 @@ class ChangePassword < Task
   validates_presence_of :password, :on => :update, :if => lambda { |change| change.status != Task::Status::CANCELLED }
   validates_presence_of :password_confirmation, :on => :update, :if => lambda { |change| change.status != Task::Status::CANCELLED }
   validates_confirmation_of :password, :if => lambda { |change| change.status != Task::Status::CANCELLED }
+
+  def user_find
+    begin
+      method = "find_by_#{field}_and_environment_id"
+      user = User.send(method, value, environment_id)
+    rescue
+      nil
+    end
+    user
+  end
 
   def title
     _("Change password")
