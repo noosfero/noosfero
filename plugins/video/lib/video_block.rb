@@ -5,38 +5,33 @@ class VideoBlock < Block
   settings_items :height, :type => :integer, :default => 315
 
   def is_youtube?
-    url.match(/.*(youtube.com.*v=[[:alnum:]]*|youtu.be\/[[:alnum:]]*).*/) ? true : false
+    url.match(/.*(youtube.com.*v=[[:alnum:]]+|youtu.be\/[[:alnum:]]+).*/) ? true : false
   end
 
   def is_vimeo?
-    url.match(/^(http[s]?:\/\/)?(www.)?(vimeo.com|player.vimeo.com\/video)\/[[:digit:]]*/) ? true : false
+    url.match(/^(http[s]?:\/\/)?(www.)?(vimeo.com|player.vimeo.com\/video)\/[[:digit:]]+/) ? true : false
   end
 
   def is_video_file? 
     url.match(/.*(mp4|ogg|ogv|webm)$/) ? true : false
   end
 
-  #FIXME Make this test
   def format_embed_video_url_for_youtube
-    "//www.youtube-nocookie.com/embed/#{extract_youtube_id}?rel=0&wmode=transparent"
+    "//www.youtube-nocookie.com/embed/#{extract_youtube_id}?rel=0&wmode=transparent" if is_youtube?
   end
 
-  #FIXME Make this test
   def format_embed_video_url_for_vimeo
-    "//player.vimeo.com/video/#{extract_vimeo_id}"
+    "//player.vimeo.com/video/#{extract_vimeo_id}" if is_vimeo?
   end
 
-  #FIXME Make this test
   def self.description
-    _('Add Video')
+    _('Add Videos')
   end
 
-  #FIXME Make this test
   def help
-    _('This block presents a video block.')
+    _('This block presents a video from youtube, vimeo and video formats mp4, ogg, ogv and webm')
   end
 
-  #FIXME Make this test
   def content(args={})
     block = self
 
@@ -45,14 +40,8 @@ class VideoBlock < Block
     end
   end
   
-  #FIXME Make this test
-  def cacheable?
-    false
-  end
-
   private
 
-  #FIXME Make this test
   def extract_youtube_id
     return nil unless is_youtube?
     youtube_match = url.match('v=([[:alnum:]]*)')
@@ -65,4 +54,5 @@ class VideoBlock < Block
     vimeo_match = url.match('([[:digit:]]*)$')
     vimeo_match[1] unless vimeo_match.nil? 
   end
+
 end

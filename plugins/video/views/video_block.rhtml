@@ -3,13 +3,19 @@
 </h3>
 <div class="video-block-data">
   <% if block.is_youtube? %>
-    <%= render :partial => 'iframe_video_block', :locals => { :url => block.format_embed_video_url_for_youtube, :width => block.width, :height => block.height }%>
+    <div class='youtube'>
+      <%= render :partial => 'box_organizer/iframe_video_block', :locals => { :url => block.format_embed_video_url_for_youtube, :width => block.width, :height => block.height }%>
+    </div>
   <% elsif block.is_vimeo? %>
-    <%= render :partial => 'iframe_video_block', :locals => { :url => block.format_embed_video_url_for_vimeo, :width => block.width, :height => block.height }%>
+    <div class='vimeo'>
+      <%= render :partial => 'box_organizer/iframe_video_block', :locals => { :url => block.format_embed_video_url_for_vimeo, :width => block.width, :height => block.height }%>
+    </div>
   <% elsif block.is_video_file? %>
-    <%= render :partial => 'html5_video_block', :locals => { :url => block.url, :width => block.width, :height => block.height }%>
+    <div class='video'>
+      <%= render :partial => 'box_organizer/html5_video_block', :locals => { :url => block.url, :width => block.width, :height => block.height }%>
+    </div>
   <% else %>
-    <%= "<span class='alert-block'> Cadastre uma nova URL (Vimeo, Youtube)</span>" %>
+    <span class='alert-block'><%= _("Register a new url (Vimeo, Youtube, Other)") %>
   <% end %>
 
 </div>

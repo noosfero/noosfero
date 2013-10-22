@@ -1,3 +1,0 @@
-module VideoPluginController
-
-end
