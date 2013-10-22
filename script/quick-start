@@ -67,10 +67,25 @@ else
 fi
 
 # create the database with sample data
-run cp config/database.yml.pgsql config/database.yml
-sudo -u postgres createuser $USER --no-superuser --createdb --no-createrole
-sed -ri "s/username: noosfero/username: $USER/"
-sudo -u postgres createdb noosfero_development -O $USER
+if test -e config/database.yml; then
+  say 'Not updating existent database.yml.'
+  say 'If you wish to automatic reconfigure your database connection, you can delete config/database.yml and run this script again.'
+else
+  say 'Configuring Noosfero to use PostgreSQL, with your user.'
+  run cp config/database.yml.pgsql config/database.yml
+  sed -ri "s/username: noosfero/username: $USER/" config/database.yml
+  sudo -u postgres createuser $USER --no-superuser --createdb --no-createrole
+fi
+DB_USER="$(
+  grep username: config/database.yml | head -n1 | sed -r 's/.*:\s*([^ ]+).*/\1/'
+)"
+if test -n "$DB_USER"; then
+  say "DB user: $DB_USER"
+else
+  say 'It looks like your database.yml have no user defined'
+  DB_USER=$USER
+fi
+sudo -u postgres createdb noosfero_development -O $DB_USER
 run rake db:schema:load
 run rake db:data:minimal
 run rake db:test:prepare
