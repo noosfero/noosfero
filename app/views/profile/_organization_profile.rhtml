@@ -19,7 +19,7 @@
     <td><%= show_date(profile.created_at) %></td>
   </tr>
 
-  <% if profile.kind_of?(Enterprise) && !profile.environment.enabled?('disable_products_for_enterprises') %>
+  <% if profile.kind_of?(Enterprise) && profile.environment.enabled?('products_for_enterprises') %>
     <tr>
       <td></td>
       <td>

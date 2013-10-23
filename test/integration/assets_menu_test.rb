@@ -17,7 +17,8 @@ class AssetsMenuTest < ActionController::IntegrationTest
 
   should 'link to assets inside category root' do
 	(1..SearchController::MULTIPLE_SEARCH_LIMIT+1).each do |i|
-      ent = @category.enterprises.create! :identifier => "ent#{i}", :name => "enterprise#{i}"
+      enterprise = Enterprise.create! :identifier => "ent#{i}", :name => "enterprise#{i}"
+      ProfileCategorization.add_category_to_profile(@category, enterprise)
     end
     
     get '/cat/parent-category/category-a'

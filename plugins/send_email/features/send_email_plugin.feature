@@ -7,7 +7,7 @@ Feature: send_email_plugin
     And I am logged in as "joaosilva"
 
   Scenario: expand macro in article content
-    Given plugin SendEmailPlugin is enabled on environment
+    Given plugin SendEmail is enabled on environment
     And the following articles
       | owner | name | body |
       | joaosilva | sample-article | URL path to {sendemail} action |
@@ -15,7 +15,7 @@ Feature: send_email_plugin
     Then I should see "URL path to /profile/joaosilva/plugin/send_email/deliver action"
 
   Scenario: expand macro in block content
-    Given plugin SendEmailPlugin is enabled on environment
+    Given plugin SendEmail is enabled on environment
     And the following blocks
       | owner     | type         | html |
       | joaosilva | RawHTMLBlock | URL path to {sendemail} action |

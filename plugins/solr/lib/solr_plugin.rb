@@ -6,8 +6,6 @@ class SolrPlugin < Noosfero::Plugin
 
   include SolrPlugin::SearchHelper
 
-  delegate :params, :current_user, :to => :context
-
   def self.plugin_name
     "Solr"
   end
@@ -28,11 +26,16 @@ class SolrPlugin < Noosfero::Plugin
     return if empty_query?(query, category) && klass != Product
 
     solr_options = solr_options(class_asset(klass), category)
-    user = context.send(:logged_in?) ? context.send(:user) : nil
     solr_options.merge!(products_options(user)) if klass == Product && empty_query?(query, category)
     klass.find_by_contents(query, paginate_options, solr_options.merge(options))
   end
 
-end
+  def method_missing method, *args, &block
+    if self.context.respond_to? method
+      self.context.send method, *args, &block
+    else
+      super method, *args, &block
+    end
+  end
 
-Dir[File.join(SolrPlugin.root_path, 'lib', 'ext', '*.rb')].each {|file| require_dependency file }
+end

@@ -95,7 +95,6 @@ class Environment < ActiveRecord::Base
       'disable_asset_communities' => __('Disable search for communities'),
       'disable_asset_products' => _('Disable search for products'),
       'disable_asset_events' => _('Disable search for events'),
-      'disable_products_for_enterprises' => __('Disable products for enterprises'),
       'disable_categories' => _('Disable categories'),
       'disable_header_and_footer' => _('Disable header/footer editing by users'),
       'disable_gender_icon' => _('Disable gender icon'),
@@ -103,9 +102,13 @@ class Environment < ActiveRecord::Base
       'disable_select_city_for_contact' => _('Disable state/city select for contact form'),
       'disable_contact_person' => _('Disable contact for people'),
       'disable_contact_community' => _('Disable contact for groups/communities'),
-      'enterprise_registration' => __('Enterprise registration'),
 
+      'products_for_enterprises' => __('Enable products for enterprises'),
+      'enterprise_registration' => __('Enterprise registration'),
       'enterprise_activation' => __('Enable activation of enterprises'),
+      'enterprises_are_disabled_when_created' => __('Enterprises are disabled when created'),
+      'enterprises_are_validated_when_created' => __('Enterprises are validated when created'),
+
       'media_panel' => _('Media panel in WYSIWYG editor'),
       'select_preferred_domain' => _('Select preferred domains per profile'),
       'use_portal_community' => _('Use the portal as news source for front page'),
@@ -118,8 +121,6 @@ class Environment < ActiveRecord::Base
       'organizations_are_moderated_by_default' => _("Organizations have moderated publication by default"),
       'enable_organization_url_change' => _("Allow organizations to change their URL"),
       'admin_must_approve_new_communities' => _("Admin must approve creation of communities"),
-      'enterprises_are_disabled_when_created' => __('Enterprises are disabled when created'),
-      'enterprises_are_validated_when_created' => __('Enterprises are validated when created'),
       'show_balloon_with_profile_links_when_clicked' => _('Show a balloon with profile links when a profile image is clicked'),
       'xmpp_chat' => _('XMPP/Jabber based chat'),
       'show_zoom_button_on_article_images' => _('Show a zoom link on all article images'),
@@ -281,8 +282,9 @@ class Environment < ActiveRecord::Base
   end
 
   # Enables a feature identified by its name
-  def enable(feature)
+  def enable(feature, must_save=true)
     self.settings["#{feature}_enabled".to_sym] = true
+    self.save! if must_save
   end
 
   def enable_plugin(plugin)
@@ -292,8 +294,9 @@ class Environment < ActiveRecord::Base
   end
 
   # Disables a feature identified by its name
-  def disable(feature)
+  def disable(feature, must_save=true)
     self.settings["#{feature}_enabled".to_sym] = false
+    self.save! if must_save
   end
 
   def disable_plugin(plugin)
@@ -337,7 +340,7 @@ class Environment < ActiveRecord::Base
     %w(
       disable_asset_products
       disable_gender_icon
-      disable_products_for_enterprises
+      products_for_enterprises
       disable_select_city_for_contact
       enterprise_registration
       media_panel
@@ -345,7 +348,7 @@ class Environment < ActiveRecord::Base
       show_balloon_with_profile_links_when_clicked
       use_portal_community
     ).each do |feature|
-      enable(feature)
+      enable(feature, false)
     end
   end
 

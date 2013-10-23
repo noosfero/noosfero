@@ -23,6 +23,7 @@ end
 
 Given /^plugin (.+) is (enabled|disabled) on environment$/ do |plugin, status|
   e = Environment.default
+  plugin = "#{plugin}Plugin"
   if status == 'enabled'
     e.enabled_plugins += [plugin]
   else

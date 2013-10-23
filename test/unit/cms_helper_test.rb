@@ -111,9 +111,6 @@ class CmsHelperTest < ActiveSupport::TestCase
 
     result = display_delete_button(article)
   end
-
-  def link_to(text, *args); puts text; puts args.inspect; text; end
-
 end
 
 module RssFeedHelper

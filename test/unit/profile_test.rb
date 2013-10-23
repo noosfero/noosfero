@@ -517,7 +517,7 @@ class ProfileTest < ActiveSupport::TestCase
 
   should 'be able to create a profile with categories' do
     pcat = create(Category)
-    c1 = create(Category, :parent_id => pcat)
+    c1 = create(Category, :parent_id => pcat.id)
     c2 = create(Category)
 
     profile = create(Profile, :category_ids => [c1.id, c2.id])
@@ -713,8 +713,8 @@ class ProfileTest < ActiveSupport::TestCase
     c3 = fast_create(Category, :parent_id => c1.id)
     profile = fast_create(Profile)
     profile.category_ids = [c2,c3,c3].map(&:id)
-    assert_equal [c2, c3], profile.categories(true)
-    assert_equal [c2, c1, c3], profile.categories_including_virtual(true)
+    assert_equivalent [c2, c3], profile.categories(true)
+    assert_equivalent [c1, c2, c3], profile.categories_including_virtual(true)
   end
 
   should 'not return nil members when a member is removed from system' do
@@ -1831,6 +1831,61 @@ class ProfileTest < ActiveSupport::TestCase
     f = { 'sex' => 'public' }
     p.data[:fields_privacy] = f
     assert_equal f, p.fields_privacy
+  end
+
+  should 'not display field if field is active but not public and user not logged in' do
+    profile = fast_create(Profile)
+    profile.stubs(:active_fields).returns(['field'])
+    profile.stubs(:public_fields).returns([])
+    assert !profile.may_display_field_to?('field', nil)
+  end
+
+  should 'not display field if field is active but not public and user is not friend' do
+    profile = fast_create(Profile)
+    profile.stubs(:active_fields).returns(['field'])
+    profile.expects(:public_fields).returns([])
+    user = mock
+    user.expects(:is_a_friend?).with(profile).returns(false)
+    assert !profile.may_display_field_to?('field', user)
+  end
+
+  should 'display field if field is active and not public but user is profile owner' do
+    user = profile = fast_create(Profile)
+    profile.stubs(:active_fields).returns(['field'])
+    profile.expects(:public_fields).returns([])
+    assert profile.may_display_field_to?('field', user)
+  end
+
+  should 'display field if field is active and not public but user is a friend' do
+    profile = fast_create(Profile)
+    profile.stubs(:active_fields).returns(['field'])
+    profile.expects(:public_fields).returns([])
+    user = mock
+    user.expects(:is_a_friend?).with(profile).returns(true)
+    assert profile.may_display_field_to?('field', user)
+  end
+
+  should 'call may_display on field name if the field is not active' do
+    user = fast_create(Person)
+    profile = fast_create(Profile)
+    profile.stubs(:active_fields).returns(['humble'])
+    profile.expects(:may_display_humble_to?).never
+    profile.expects(:may_display_bundle_to?).once
+
+    profile.may_display_field_to?('humble', user)
+    profile.may_display_field_to?('bundle', user)
+  end
+
+  # TODO Eventually we would like to specify it in a deeper granularity...
+  should 'not display location if any field is private' do
+    user = fast_create(Person)
+    profile = fast_create(Profile)
+    profile.stubs(:active_fields).returns(Profile::LOCATION_FIELDS)
+    Profile::LOCATION_FIELDS.each { |field| profile.stubs(:may_display_field_to?).with(field, user).returns(true)}
+    assert profile.may_display_location_to?(user)
+
+    profile.stubs(:may_display_field_to?).with(Profile::LOCATION_FIELDS[0], user).returns(false)
+    assert !profile.may_display_location_to?(user)
   end
 
 end

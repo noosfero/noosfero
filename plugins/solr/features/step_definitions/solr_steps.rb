@@ -13,6 +13,6 @@ Given /^the following categories as facets$/ do |table|
     ids << cat.id
   end
   env = Environment.default
-  env.top_level_category_as_facet_ids = ids
+  env.solr_plugin_top_level_category_as_facet_ids = ids
   env.save!
 end

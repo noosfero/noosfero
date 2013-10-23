@@ -408,8 +408,10 @@ class OrganizationTest < ActiveSupport::TestCase
 
     organization.affiliate(p1, role)
     organization.affiliate(p2, role)
+    json = organization.members_by_role_to_json(role)
 
-    assert_match [{:id => p1.id, :name => p1.name}, {:id => p2.id, :name => p2.name}].to_json, organization.members_by_role_to_json(role)
+    assert_match ({:id => p1.id, :name => p1.name}).to_json, json
+    assert_match ({:id => p2.id, :name => p2.name}).to_json, json
   end
 
   should 'disable organization' do

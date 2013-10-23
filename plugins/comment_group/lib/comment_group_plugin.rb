@@ -1,6 +1,3 @@
-require_dependency 'comment_group_plugin/ext/article'
-require_dependency 'comment_group_plugin/ext/comment'
-
 class CommentGroupPlugin < Noosfero::Plugin
 
   def self.plugin_name

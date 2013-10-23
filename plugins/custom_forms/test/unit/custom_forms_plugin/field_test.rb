@@ -81,5 +81,17 @@ class CustomFormsPlugin::FieldTest < ActiveSupport::TestCase
     assert_equal 1, field_1.position
     assert_equal 2, field_2.position
   end
+
+  should 'not crash when adding new fields on a form with fields without position' do
+    form = CustomFormsPlugin::Form.create(:name => 'Free Software', :profile => fast_create(Profile))
+    field_0 = CustomFormsPlugin::Field.create(:name => 'License', :form => form)
+    field_0.position = nil
+    field_0.save
+
+    assert_nothing_raised do
+      field_1 = CustomFormsPlugin::Field.create!(:name => 'URL', :form => form)
+    end
+  end
+
 end
 

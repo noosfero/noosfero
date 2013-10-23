@@ -5,6 +5,7 @@ Feature: search contents
 
   Background:
     Given the search index is empty
+    And plugin Solr is enabled on environment
     And the following users
     Given the following users
       | login     | name       |

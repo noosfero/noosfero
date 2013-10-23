@@ -22,23 +22,15 @@ class Category < ActiveRecord::Base
 
   named_scope :on_level, lambda { |parent| {:conditions => {:parent_id => parent}} }
 
-  named_scope :sub_categories, lambda { |category|
-    {:conditions => ['categories.path LIKE ? AND categories.id != ?', "%#{category.slug}%", category.id]}
-  }
-
-  named_scope :sub_tree, lambda { |category|
-    {:conditions => ['categories.path LIKE ?', "%#{category.slug}%"]}
-  }
-
   acts_as_filesystem
 
-  has_many :article_categorizations, :dependent => :destroy
+  has_many :article_categorizations
   has_many :articles, :through => :article_categorizations
   has_many :comments, :through => :articles
 
   has_many :events, :through => :article_categorizations, :class_name => 'Event', :source => :article
 
-  has_many :profile_categorizations, :dependent => :destroy
+  has_many :profile_categorizations
   has_many :profiles, :through => :profile_categorizations, :source => :profile
   has_many :enterprises, :through => :profile_categorizations, :source => :profile, :class_name => 'Enterprise'
   has_many :people, :through => :profile_categorizations, :source => :profile, :class_name => 'Person'

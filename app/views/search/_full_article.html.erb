@@ -1,8 +1,12 @@
 <li class="search-article-item article-item">
-  <%= link_to(article.title, article.url, :class => "search-result-title") %>
+  <div>
+    <%= link_to(article.title, article.url, :class => "search-result-title") %>
+  </div>
+
   <div class="search-content-first-column">
     <%= render :partial => 'image', :object => article %>
   </div>
+
   <table class="noborder search-content-second-column">
     <%= render :partial => 'article_common', :object => article %>
   </table>

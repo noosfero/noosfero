@@ -23,13 +23,24 @@
     return false;
   });
 
-  $("#manage-product-details-form").live('submit', function(data) {
+  $('#manage-product-details-form').live('submit', function(data) {
      var form = this;
      $(form).find('.loading-area').addClass('small-loading');
      $(form).css('cursor', 'progress');
-     $.post(form.action, $(form).serialize(), function(data) {
-       $("#display-manage-price-details").html(data);
-       $("#manage-product-details-button").show();
+     var request = $.ajax(form.action, {
+       type: 'POST',
+       dataType: 'html',
+       data: $(form).serialize()
+     });
+     request.done(function(data, textStatus, jqXHR) {
+       $('#display-manage-price-details').html(data);
+       $('#manage-product-details-button').show();
+     });
+     request.fail(function(jqXHR, textStatus, errorThrown) {
+       log.error('manage_product_details', 'Request failed', errorThrown);
+       alert('manage_product_details\nRequest failed: '+ errorThrown +
+             '\n\nPlease, contact the site administrator.');
+       $('#display-manage-price-details .loading-area').hide();
      });
      if ($('#progressbar-icon').hasClass('ui-icon-check')) {
        display_notice($('#progressbar-icon').attr('data-price-described-notice'));

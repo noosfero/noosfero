@@ -1,6 +1,4 @@
-require_dependency File.dirname(__FILE__) + '/ext/environment'
 require File.dirname(__FILE__) + '/ldap_authentication.rb'
-
 
 class LdapPlugin < Noosfero::Plugin
 

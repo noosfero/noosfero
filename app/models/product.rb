@@ -191,11 +191,13 @@ class Product < ActiveRecord::Base
     (price - total_production_cost.to_f).zero?
   end
 
-  def update_price_details(price_details)
-    self.price_details.destroy_all
-    price_details.each do |price_detail|
-      self.price_details.create(price_detail)
+  def update_price_details(new_price_details)
+    price_details.destroy_all
+    new_price_details.each do |detail|
+      price_details.create(detail)
     end
+    reload # to remove temporary duplicated price_details
+    price_details
   end
 
   def price_description_percentage

@@ -9,7 +9,7 @@ class ProfileControllerTest < ActionController::TestCase
     @controller = ProfileController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
-
+    Environment.default.enable('products_for_enterprises')
     @profile = create_user('testuser').person
   end
   attr_reader :profile
@@ -263,8 +263,7 @@ class ProfileControllerTest < ActionController::TestCase
 
   should 'not display "Products" link for enterprise if environment do not let' do
     env = Environment.default
-    env.enable('disable_products_for_enterprises')
-    env.save!
+    env.disable('products_for_enterprises')
     ent = fast_create(Enterprise, :name => 'my test enterprise', :identifier => 'my-test-enterprise', :enabled => false, :environment_id => env.id)
 
     get :index, :profile => 'my-test-enterprise'
@@ -308,7 +307,7 @@ class ProfileControllerTest < ActionController::TestCase
 
   should 'not display contact us for non-enterprises' do
     @profile.boxes.first.blocks << block = ProfileInfoBlock.create!
-    get :profile_info, :profile => @profile, :block_id => block.id
+    get :profile_info, :profile => @profile.identifier, :block_id => block.id
     assert_no_match /\/contact\/#{@profile.identifier}\/new/, @response.body
   end
 
@@ -987,12 +986,12 @@ class ProfileControllerTest < ActionController::TestCase
     @controller.stubs(:current_user).returns(user)
     Person.any_instance.stubs(:follows?).returns(true)
     get :index, :profile => c.identifier
-    assert_equal [s2,s3], assigns(:activities)
+    assert_equivalent [s2,s3], assigns(:activities)
   end
 
   should 'the activities be paginated in people profiles' do
     p1 = Person.first
-    40.times{fast_create(Scrap, :sender_id => p1.id, :created_at => Time.now)}
+    40.times{fast_create(Scrap, :receiver_id => p1.id, :created_at => Time.now)}
 
     @controller.stubs(:logged_in?).returns(true)
     user = mock()
@@ -1548,6 +1547,26 @@ class ProfileControllerTest < ActionController::TestCase
     get :index, :profile => viewed.identifier
     assert_tag :tag => 'th', :content => 'Contact'
     assert_tag :tag => 'td', :content => 'e-Mail:'
+  end
+
+  should 'show enterprises field if enterprises are enabled on environment' do
+    person = fast_create(Person)
+    environment = person.environment
+    environment.disable('disable_asset_enterprises')
+    environment.save!
+
+    get :index, :profile => person.identifier
+    assert_tag :tag => 'tr', :attributes => { :id => "person-profile-network-enterprises" }
+  end
+
+  should 'not show enterprises field if enterprises are disabled on environment' do
+    person = fast_create(Person)
+    environment = person.environment
+    environment.enable('disable_asset_enterprises')
+    environment.save!
+
+    get :index, :profile => person.identifier
+    assert_no_tag :tag => 'tr', :attributes => { :id => "person-profile-network-enterprises" }
   end
 
 end

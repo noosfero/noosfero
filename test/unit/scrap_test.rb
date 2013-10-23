@@ -1,6 +1,12 @@
 require File.join(File.dirname(__FILE__), '..', 'test_helper')
 
 class ScrapTest < ActiveSupport::TestCase
+
+  def setup
+    Person.delete_all
+    Scrap.delete_all
+  end
+
   should "have the content" do
     s = Scrap.new
     s.valid?
@@ -81,7 +87,7 @@ class ScrapTest < ActiveSupport::TestCase
   end
 
   should "create the leave_scrap action tracker verb on scrap creation of one user to another" do
-    p1 = ActionTracker::Record.current_user_from_model
+    p1 = fast_create(Person)
     p2 = fast_create(Person)
     s = Scrap.new
     s.sender= p1
@@ -98,7 +104,7 @@ class ScrapTest < ActiveSupport::TestCase
   end
 
   should "create the leave_scrap action tracker verb on scrap creation of one user to community" do
-    p = Person.first
+    p = fast_create(Person)
     c = fast_create(Community)
     s = Scrap.new
     s.sender= p
@@ -116,11 +122,11 @@ class ScrapTest < ActiveSupport::TestCase
   end
 
   should "notify leave_scrap action tracker verb to friends and itself" do
-    p1 = ActionTracker::Record.current_user_from_model
+    p1 = fast_create(Person)
     p2 = fast_create(Person)
     p1.add_friend(p2)
-    ActionTrackerNotification.destroy_all
-    Delayed::Job.destroy_all
+    ActionTrackerNotification.delete_all
+    Delayed::Job.delete_all
     s = Scrap.new
     s.sender= p1
     s.receiver= p2
@@ -134,11 +140,11 @@ class ScrapTest < ActiveSupport::TestCase
   end
 
   should "notify leave_scrap action tracker verb to members of the communities and the community itself" do
-    p = Person.first
+    p = fast_create(Person)
     c = fast_create(Community)
     c.add_member(p)
-    ActionTrackerNotification.destroy_all
-    Delayed::Job.destroy_all
+    ActionTrackerNotification.delete_all
+    Delayed::Job.delete_all
     s = Scrap.new
     s.sender= p
     s.receiver= c
@@ -152,25 +158,25 @@ class ScrapTest < ActiveSupport::TestCase
   end
 
   should "create the leave_scrap_to_self action tracker verb on scrap creation of one user to itself" do
-    p1 = Person.first
+    p = fast_create(Person)
     s = Scrap.new
-    s.sender= p1
-    s.receiver= p1
+    s.sender= p
+    s.receiver= p
     s.content = 'some content'
     s.save!
     ta = ActionTracker::Record.last
     assert_equal s.content, ta.params['content']
     assert_equal s.sender.name, ta.params['sender_name']
     assert_equal 'leave_scrap_to_self', ta.verb
-    assert_equal p1, ta.user
+    assert_equal p, ta.user
   end
 
   should "notify leave_scrap_to_self action tracker verb to friends and itself" do
-    p1 = Person.first
+    p1 = fast_create(Person)
     p2 = fast_create(Person)
     p1.add_friend(p2)
-    ActionTrackerNotification.destroy_all
-    Delayed::Job.destroy_all
+    ActionTrackerNotification.delete_all
+    Delayed::Job.delete_all
     s = Scrap.new
     s.sender= p1
     s.receiver= p1
@@ -200,7 +206,6 @@ class ScrapTest < ActiveSupport::TestCase
   end
 
   should "remove the replies is the root is removed" do
-    Scrap.delete_all
     s = fast_create(Scrap)
     s1 = fast_create(Scrap, :scrap_id => s.id)
     s2 = fast_create(Scrap, :scrap_id => s.id)
@@ -211,11 +216,10 @@ class ScrapTest < ActiveSupport::TestCase
   end
 
   should "update the scrap on reply creation" do
-    Scrap.delete_all
+    person = fast_create(Person)
     s = fast_create(Scrap, :updated_at => DateTime.parse('2010-01-01'))
     assert_equal DateTime.parse('2010-01-01'), s.updated_at.strftime('%Y-%m-%d')
-    DateTime.stubs(:now).returns(DateTime.parse('2010-09-07'))
-    s1 = Scrap.create(defaults_for_scrap(:scrap_id => s.id))
+    s1 = Scrap.create!(:content => 'some content', :sender => person, :receiver => person, :scrap_id => s.id)
     s.reload
     assert_not_equal DateTime.parse('2010-01-01'), s.updated_at.strftime('%Y-%m-%d')
   end

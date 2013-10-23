@@ -10,6 +10,7 @@ class ContentViewerControllerTest < ActionController::TestCase
     @controller = ContentViewerController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
+    @profile = create_user('testinguser').person
 
     @organization = fast_create(Organization)
     @work_assignment = WorkAssignmentPlugin::WorkAssignment.create!(:name => 'Work Assignment', :profile => @organization)
@@ -19,7 +20,7 @@ class ContentViewerControllerTest < ActionController::TestCase
     @environment.save!
     login_as(:test_user)
   end
-  attr_reader :organization, :person, :work_assignment
+  attr_reader :organization, :person, :profile, :work_assignment
 
   should 'can download work_assignment' do
     random_member = fast_create(Person)
@@ -36,6 +37,13 @@ class ContentViewerControllerTest < ActionController::TestCase
 
     get :view_page, :profile => organization.identifier, :page => submission.explode_path
     assert_response :success
+  end
+
+  should "display 'Upload files' when create children of image gallery" do
+    login_as(profile.identifier)
+    f = Gallery.create!(:name => 'gallery', :profile => profile)
+    xhr :get, :view_page, :profile => profile.identifier, :page => f.explode_path, :toolbar => true
+    assert_tag :tag => 'a', :content => 'Upload files', :attributes => {:href => /parent_id=#{f.id}/}
   end
 
 end

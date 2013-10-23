@@ -54,7 +54,7 @@ module SolrPlugin::SearchHelper
   end
 
   def results_only?
-    context.params[:action] == 'index'
+    params[:action] == 'index'
   end
 
   def empty_query?(query, category)
@@ -84,18 +84,18 @@ module SolrPlugin::SearchHelper
     solr_options = {}
     if !multiple_search?
       if !results_only? and asset_class.respond_to? :facets
-        solr_options.merge! asset_class.facets_find_options(context.params[:facet])
+        solr_options.merge! asset_class.facets_find_options(params[:facet])
         solr_options[:all_facets] = true
       end
       solr_options[:filter_queries] ||= []
       solr_options[:filter_queries] += filters(asset)
-      solr_options[:filter_queries] << "environment_id:#{context.environment.id}"
+      solr_options[:filter_queries] << "environment_id:#{environment.id}"
       solr_options[:filter_queries] << asset_class.facet_category_query.call(category) if category
 
       solr_options[:boost_functions] ||= []
-      context.params[:order_by] = nil if context.params[:order_by] == 'none'
-      if context.params[:order_by]
-        order = SortOptions[asset][context.params[:order_by].to_sym]
+      params[:order_by] = nil if params[:order_by] == 'none'
+      if params[:order_by]
+        order = SortOptions[asset][params[:order_by].to_sym]
         raise "Unknown order by" if order.nil?
         order[:solr_opts].each do |opt, value|
           solr_options[opt] = value.is_a?(Proc) ? instance_eval(&value) : value
