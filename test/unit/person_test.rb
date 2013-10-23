@@ -1335,4 +1335,15 @@ class PersonTest < ActiveSupport::TestCase
     assert_includes non_abusers, not_abuser
   end
 
+  should 'be able to retrieve memberships by role person has' do
+    user = create_user('john').person
+    c1 = fast_create(Community, :name => 'a-community')
+    c2 = fast_create(Community, :name => 'other-community')
+    member_role = Role.create(:name => 'somerandomrole')
+    user.affiliate(c2, member_role)
+
+    assert_includes user.memberships_by_role(member_role), c2
+    assert_not_includes user.memberships_by_role(member_role), c1
+  end
+
 end

@@ -46,6 +46,10 @@ class Person < Profile
     Profile.memberships_of(self)
   end
 
+   def memberships_by_role(role)
+     Profile.memberships_of(self).all(:conditions => ['role_assignments.role_id = ?', role.id])
+   end
+
   has_many :friendships, :dependent => :destroy
   has_many :friends, :class_name => 'Person', :through => :friendships
 

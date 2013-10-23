@@ -98,7 +98,6 @@ class Profile < ActiveRecord::Base
     alias_method_chain :count, :distinct
   end
 
-
   def members_by_role(role)
     Person.members_of(self).all(:conditions => ['role_assignments.role_id = ?', role.id])
   end
