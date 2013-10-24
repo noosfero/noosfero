@@ -1,0 +1,11 @@
+#content .boxes .container-block .block, #content .boxes .container-block .block-target {
+  float: left;
+}
+
+#content .boxes .container-block .block-target {
+  width: 20px;
+}
+
+#content .boxes .container-block .block .icon-down, #content .boxes .container-block .block .icon-down-disabled, #content .boxes .container-block .block .icon-up, #content .boxes .container-block .block .icon-up-disabled {
+  display: none;
+}
