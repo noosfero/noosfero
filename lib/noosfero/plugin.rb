@@ -308,45 +308,16 @@ class Noosfero::Plugin
     scope
   end
 
-  # This method is called by the CommentHandler background job before sending
-  # the notification email. If the comment is marked as spam (i.e. by calling
-  # <tt>comment.spam!</tt>), then the notification email will *not* be sent.
-  #
-  # example:
-  #
-  #   def check_comment_for_spam(comment)
-  #     if anti_spam_service.is_spam?(comment)
-  #       comment.spam!
-  #     end
-  #   end
-  #
-  def check_comment_for_spam(comment)
+  # -> Allows plugins to check weather object is a spam
+  def check_for_spam(object)
   end
 
-  # This method is called when the user manually marks a comment as SPAM. A
-  # plugin implementing this method should train its spam detection mechanism
-  # by submitting this comment as a confirmed spam.
-  #
-  # example:
-  #
-  #   def comment_marked_as_spam(comment)
-  #     anti_spam_service.train_with_spam(comment)
-  #   end
-  #
-  def comment_marked_as_spam(comment)
+  # -> Allows plugins to know when an object is marked as a spam
+  def marked_as_spam(object)
   end
 
-  # This method is called when the user manually marks a comment a NOT SPAM. A
-  # plugin implementing this method should train its spam detection mechanism
-  # by submitting this coimment as a confirmed ham.
-  #
-  # example:
-  #
-  #   def comment_marked_as_ham(comment)
-  #     anti_spam_service.train_with_ham(comment)
-  #   end
-  #
-  def comment_marked_as_ham(comment)
+  # -> Allows plugins to know when an object is marked as a ham
+  def marked_as_ham(object)
   end
 
   # Adds extra actions for comments

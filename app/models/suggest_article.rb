@@ -23,10 +23,6 @@ class SuggestArticle < Task
 
   include Noosfero::Plugin::HotSpot
 
-  def check_for_spam
-    plugins.dispatch(:check_suggest_article_for_spam, self)
-  end
-
   def sender
     "#{name} (#{email})"
   end
@@ -84,13 +80,4 @@ class SuggestArticle < Task
   def after_ham!
     self.delay.marked_as_ham
   end
-
-  def marked_as_spam
-    plugins.dispatch(:suggest_article_marked_as_spam, self)
-  end
-
-  def marked_as_ham
-    plugins.dispatch(:suggest_article_marked_as_ham, self)
-  end
-
 end

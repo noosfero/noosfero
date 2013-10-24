@@ -151,8 +151,8 @@ class SuggestArticleTest < ActiveSupport::TestCase
   end
 
   class EverythingIsSpam < Noosfero::Plugin
-    def check_suggest_article_for_spam(suggest_article)
-      suggest_article.spam!
+    def check_for_spam(object)
+      object.spam!
     end
   end
 
@@ -161,7 +161,7 @@ class SuggestArticleTest < ActiveSupport::TestCase
 
     t1 = build(SuggestArticle, :target => @profile, :article_name => 'suggested article', :name => 'johndoe', :email => 'johndoe@example.com')
 
-    EverythingIsSpam.any_instance.expects(:check_suggest_article_for_spam)
+    EverythingIsSpam.any_instance.expects(:check_for_spam)
 
     t1.check_for_spam
   end
@@ -172,15 +172,15 @@ class SuggestArticleTest < ActiveSupport::TestCase
       attr_accessor :marked_as_ham
     end
 
-    def check_suggest_article_for_spam(c)
+    def check_for_spam(c)
       # do nothing
     end
 
-    def suggest_article_marked_as_spam(c)
+    def marked_as_spam(c)
       self.class.marked_as_spam = c
     end
 
-    def suggest_article_marked_as_ham(c)
+    def marked_as_ham(c)
       self.class.marked_as_ham = c
     end
   end

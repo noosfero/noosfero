@@ -106,15 +106,22 @@ class Comment < ActiveRecord::Base
 
   include Noosfero::Plugin::HotSpot
 
+  include Spammable
+
+  def after_spam!
+    SpammerLogger.log(ip_address, self)
+    Delayed::Job.enqueue(CommentHandler.new(self.id, :marked_as_spam))
+  end
+
+  def after_ham!
+    Delayed::Job.enqueue(CommentHandler.new(self.id, :marked_as_ham))
+  end
+
   def verify_and_notify
     check_for_spam
     unless spam?
       notify_by_mail
     end
-  end
-
-  def check_for_spam
-    plugins.dispatch(:check_comment_for_spam, self)
   end
 
   def notify_by_mail
@@ -201,25 +208,6 @@ class Comment < ActiveRecord::Base
 
   def reject!
     @rejected = true
-  end
-
-  include Spammable
-
-  def after_spam!
-    SpammerLogger.log(ip_address, self)
-    Delayed::Job.enqueue(CommentHandler.new(self.id, :marked_as_spam))
-  end
-
-  def after_ham!
-    Delayed::Job.enqueue(CommentHandler.new(self.id, :marked_as_ham))
-  end
-
-  def marked_as_spam
-    plugins.dispatch(:comment_marked_as_spam, self)
-  end
-
-  def marked_as_ham
-    plugins.dispatch(:comment_marked_as_ham, self)
   end
 
   def need_moderation?
