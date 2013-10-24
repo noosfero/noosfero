@@ -12,34 +12,19 @@ class AntiSpamPlugin < Noosfero::Plugin
     'api.antispam.typepad.com'
   end
 
-  def check_comment_for_spam(comment)
-    if rakismet_call AntiSpamPlugin::CommentWrapper.new(comment), comment.environment, :spam?
-      comment.spam = true
-      comment.save!
+  def check_for_spam(object)
+    if rakismet_call AntiSpamPlugin::Wrapper.wrap(object), object.environment, :spam?
+      object.spam = true
+      object.save!
     end
   end
 
-  def comment_marked_as_spam(comment)
-    rakismet_call AntiSpamPlugin::CommentWrapper.new(comment), comment.environment, :spam!
+  def marked_as_spam(object)
+    rakismet_call AntiSpamPlugin::Wrapper.wrap(object), object.environment, :spam!
   end
 
-  def comment_marked_as_ham(comment)
-    rakismet_call AntiSpamPlugin::CommentWrapper.new(comment), comment.environment, :ham!
-  end
-
-  def check_suggest_article_for_spam(suggest_article)
-    if rakismet_call AntiSpamPlugin::SuggestArticleWrapper.new(suggest_article), suggest_article.environment, :spam?
-      suggest_article.spam = true
-      suggest_article.save!
-    end
-  end
-
-  def suggest_article_marked_as_spam(suggest_article)
-    rakismet_call AntiSpamPlugin::SuggestArticleWrapper.new(suggest_article), suggest_article.environment, :spam!
-  end
-
-  def suggest_article_marked_as_ham(suggest_article)
-    rakismet_call AntiSpamPlugin::SuggestArticleWrapper.new(suggest_article), suggest_article.environment, :ham!
+  def marked_as_ham(object)
+    rakismet_call AntiSpamPlugin::Wrapper.wrap(object), object.environment, :ham!
   end
 
   protected

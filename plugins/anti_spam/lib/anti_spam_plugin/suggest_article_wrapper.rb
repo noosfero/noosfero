@@ -1,12 +1,10 @@
-class AntiSpamPlugin::SuggestArticleWrapper < Struct.new(:suggest_article)
+class AntiSpamPlugin::SuggestArticleWrapper < AntiSpamPlugin::Wrapper
+  alias_attribute :author, :name
+  alias_attribute :author_email, :email
+  alias_attribute :user_ip, :ip_address
+  alias_attribute :content, :article_body
 
-  delegate :name, :email, :article_body, :ip_address, :user_agent, :referrer, :to => :suggest_article
-
-  include Rakismet::Model
-
-  alias :author :name
-  alias :author_email :email
-  alias :user_ip :ip_address
-  alias :content :article_body
-
+  def self.wraps?(object)
+    object.kind_of?(SuggestArticle)
+  end
 end
