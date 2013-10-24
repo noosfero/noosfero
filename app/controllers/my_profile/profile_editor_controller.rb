@@ -4,7 +4,7 @@ class ProfileEditorController < MyProfileController
   protect 'destroy_profile', :profile, :only => [:destroy_profile]
 
   def index
-    @pending_tasks = Task.to(profile).pending.select{|i| user.has_permission?(i.permission, profile)}
+    @pending_tasks = Task.to(profile).pending.without_spam.select{|i| user.has_permission?(i.permission, profile)}
   end
 
   helper :profile

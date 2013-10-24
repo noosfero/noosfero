@@ -5,7 +5,7 @@ class AntiSpamPlugin < Noosfero::Plugin
   end
 
   def self.plugin_description
-    _("Checks comments against a spam checking service compatible with the Akismet API")
+    _("Tests comments and suggested articles against a spam checking service compatible with the Akismet API")
   end
 
   def self.host_default_setting
@@ -13,30 +13,44 @@ class AntiSpamPlugin < Noosfero::Plugin
   end
 
   def check_comment_for_spam(comment)
-    if rakismet_call(comment, :spam?)
+    if rakismet_call AntiSpamPlugin::CommentWrapper.new(comment), comment.environment, :spam?
       comment.spam = true
       comment.save!
     end
   end
 
   def comment_marked_as_spam(comment)
-    rakismet_call(comment, :spam!)
+    rakismet_call AntiSpamPlugin::CommentWrapper.new(comment), comment.environment, :spam!
   end
 
   def comment_marked_as_ham(comment)
-    rakismet_call(comment, :ham!)
+    rakismet_call AntiSpamPlugin::CommentWrapper.new(comment), comment.environment, :ham!
+  end
+
+  def check_suggest_article_for_spam(suggest_article)
+    if rakismet_call AntiSpamPlugin::SuggestArticleWrapper.new(suggest_article), suggest_article.environment, :spam?
+      suggest_article.spam = true
+      suggest_article.save!
+    end
+  end
+
+  def suggest_article_marked_as_spam(suggest_article)
+    rakismet_call AntiSpamPlugin::SuggestArticleWrapper.new(suggest_article), suggest_article.environment, :spam!
+  end
+
+  def suggest_article_marked_as_ham(suggest_article)
+    rakismet_call AntiSpamPlugin::SuggestArticleWrapper.new(suggest_article), suggest_article.environment, :ham!
   end
 
   protected
 
-  def rakismet_call(comment, op)
-    settings = Noosfero::Plugin::Settings.new(comment.environment, self.class)
+  def rakismet_call(submission, environment, op)
+    settings = Noosfero::Plugin::Settings.new(environment, self.class)
 
     Rakismet.host = settings.host
     Rakismet.key = settings.api_key
-    Rakismet.url = comment.environment.top_url
+    Rakismet.url = environment.top_url
 
-    submission = AntiSpamPlugin::CommentWrapper.new(comment)
     submission.send(op)
   end
 
