@@ -1,13 +1,16 @@
 module Spammable
   def self.included(recipient)
+    raise "This model should have a spam attribute!" if !recipient.new.respond_to?('spam=')
     recipient.extend(ClassMethods)
   end
 
   module ClassMethods
     def self.extended (base)
-      base.class_eval do
-        named_scope :without_spam, :conditions => ['spam IS NULL OR spam = ?', false]
-        named_scope :spam, :conditions => ['spam = ?', true]
+      if base.respond_to?(:named_scope)
+        base.class_eval do
+          named_scope :without_spam, :conditions => ['spam IS NULL OR spam = ?', false]
+          named_scope :spam, :conditions => ['spam = ?', true]
+        end
       end
     end
   end

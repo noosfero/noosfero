@@ -4,8 +4,6 @@ class AntiSpamPluginTest < ActiveSupport::TestCase
 
   class SpammableContent
     attr_accessor :spam
-    def self.named_scope(*args); end
-
     include Spammable
 
     def save!; end
