@@ -76,17 +76,13 @@ class SuggestArticle < Task
     _('You need to login on %{system} in order to approve or reject this article.') % { :system => target.environment.name }
   end
 
-  def spam!
-    super
+  def after_spam!
     SpammerLogger.log(ip_address, self)
     self.delay.marked_as_spam
-    self
   end
 
-  def ham!
-    super
+  def after_ham!
     self.delay.marked_as_ham
-    self
   end
 
   def marked_as_spam

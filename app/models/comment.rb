@@ -16,9 +16,7 @@ class Comment < ActiveRecord::Base
   has_many :children, :class_name => 'Comment', :foreign_key => 'reply_of_id', :dependent => :destroy
   belongs_to :reply_of, :class_name => 'Comment', :foreign_key => 'reply_of_id'
 
-  named_scope :without_spam, :conditions => ['spam IS NULL OR spam = ?', false]
   named_scope :without_reply, :conditions => ['reply_of_id IS NULL']
-  named_scope :spam, :conditions => ['spam = ?', true]
 
   # unauthenticated authors:
   validates_presence_of :name, :if => (lambda { |record| !record.email.blank? })
@@ -205,27 +203,15 @@ class Comment < ActiveRecord::Base
     @rejected = true
   end
 
-  def spam?
-    !spam.nil? && spam
-  end
+  include Spammable
 
-  def ham?
-    !spam.nil? && !spam
-  end
-
-  def spam!
-    self.spam = true
-    self.save!
+  def after_spam!
     SpammerLogger.log(ip_address, self)
     Delayed::Job.enqueue(CommentHandler.new(self.id, :marked_as_spam))
-    self
   end
 
-  def ham!
-    self.spam = false
-    self.save!
+  def after_ham!
     Delayed::Job.enqueue(CommentHandler.new(self.id, :marked_as_ham))
-    self
   end
 
   def marked_as_spam

@@ -2,24 +2,23 @@ require 'test_helper'
 
 class AntiSpamPluginTest < ActiveSupport::TestCase
 
-  class Spammable
+  class SpammableContent
     attr_accessor :spam
+    include Spammable
 
     def save!; end
-    def spam!; end
-    def ham!; end
-    def spam?; true; end
     def environment; Environment.default; end
   end
 
   def setup
-    @spammable = Spammable.new
+    @spammable = SpammableContent.new
     @plugin = AntiSpamPlugin.new
   end
 
   attr_accessor :spammable
 
   should 'check for spam and mark as spam if server says it is spam' do
+    spammable.expects(:spam?).returns(true)
     spammable.expects(:save!)
 
     @plugin.check_for_spam(spammable)

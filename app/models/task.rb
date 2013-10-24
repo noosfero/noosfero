@@ -235,25 +235,7 @@ class Task < ActiveRecord::Base
     end
   end
 
-  def spam?
-    !spam.nil? && spam
-  end
-
-  def ham?
-    !spam.nil? && !spam
-  end
-
-  def spam!
-    self.spam = true
-    self.save!
-    self
-  end
-
-  def ham!
-    self.spam = false
-    self.save!
-    self
-  end
+  include Spammable
 
   protected
 
@@ -294,8 +276,6 @@ class Task < ActiveRecord::Base
   named_scope :opened, :conditions => { :status =>  [Task::Status::ACTIVE, Task::Status::HIDDEN] }
   named_scope :of, lambda { |type| conditions = type ? "type LIKE '#{type}'" : "1=1"; {:conditions =>  [conditions]} }
   named_scope :order_by, lambda { |attribute, ord| {:order => "#{attribute} #{ord}"} }
-  named_scope :without_spam, :conditions => ['spam IS NULL OR spam = ?', false]
-  named_scope :spam, :conditions => ['spam = ?', true]
 
 
   named_scope :to, lambda { |profile|
