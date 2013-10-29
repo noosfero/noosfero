@@ -96,7 +96,7 @@ class ProfileControllerTest < ActionController::TestCase
   end
 
   should 'not show enterprises link to enterprise' do
-    ent = fast_create(Enterprise, :identifier => 'test_enterprise1', :name => 'Test enteprise1')
+    ent = fast_create(Enterprise, :identifier => 'test_enterprise1', :name => 'Test enterprise1')
     get :index, :profile => ent.identifier
     assert_no_tag :tag => 'a', :content => 'Enterprises', :attributes => { :href => /profile\/#{ent.identifier}\/enterprises$/ }
   end
@@ -560,7 +560,7 @@ class ProfileControllerTest < ActionController::TestCase
     assert_response 403
   end
 
-  should 'allow environment admin to unblock enteprises' do
+  should 'allow environment admin to unblock enterprises' do
     login_as(profile.identifier)
     enterprise = fast_create(Enterprise)
     enterprise.environment.add_admin(profile)
@@ -881,7 +881,7 @@ class ProfileControllerTest < ActionController::TestCase
     assert_template 'index'
   end
 
-  should 'the network activity be visible to uses not logged in on communities and enteprises' do
+  should 'the network activity be visible to uses not logged in on communities and enterprises' do
     p1= Person.first
     community = fast_create(Community)
     p2= fast_create(Person)
@@ -1547,6 +1547,63 @@ class ProfileControllerTest < ActionController::TestCase
     get :index, :profile => viewed.identifier
     assert_tag :tag => 'th', :content => 'Contact'
     assert_tag :tag => 'td', :content => 'e-Mail:'
+  end
+
+  should 'build menu to the community panel' do
+    u = create_user('other_other_ze').person
+    u2 = create_user('guy_that_will_be_admin_of_all').person # because the first member of each community is an admin
+    Environment.any_instance.stubs(:required_person_fields).returns([])
+    u.data = { :email => 'test@test.com', :fields_privacy => { } }
+    u.save!
+    c1 = Community.create!(:name => 'community_1')
+    c2 = Community.create!(:name => 'community_2')
+    c3 = Community.create!(:name => 'community_3')
+    c4 = Community.create!(:name => 'community_4')
+
+    c1.add_admin(u2)
+    c2.add_admin(u2)
+    c3.add_admin(u2)
+
+    c1.add_member(u)
+    c2.add_member(u)
+    c3.add_member(u)
+    c1.add_admin(u)
+    c2.add_admin(u)
+
+    login_as(u.identifier)
+
+    get :index
+
+    assert_tag :tag => 'div', :attributes => {:id => 'manage-communities'}
+    assert_select '#manage-communities li > a' do |links|
+      assert_equal 2, links.length
+      assert_match /community_1/, links.to_s
+      assert_match /community_2/, links.to_s
+      assert_no_match /community_3/, links.to_s
+      assert_no_match /community_4/, links.to_s
+    end
+  end
+
+  should 'build menu to the enterprise panel' do
+    u = create_user('other_other_ze').person
+    Environment.any_instance.stubs(:required_person_fields).returns([])
+    u.data = { :email => 'test@test.com', :fields_privacy => { } }
+    u.save!
+    e1 = fast_create(Enterprise, :identifier => 'test_enterprise1', :name => 'Test enterprise1')
+    e2 = fast_create(Enterprise, :identifier => 'test_enterprise2', :name => 'Test enterprise2')
+
+    e1.add_member(u)
+
+    login_as(u.identifier)
+
+    get :index
+
+    assert_tag :tag => 'div', :attributes => {:id => 'manage-enterprises'}
+    assert_select '#manage-enterprises li > a' do |links|
+      assert_equal 1, links.length
+      assert_match /Test enterprise1/, links.to_s
+      assert_no_match /Test enterprise_2/, links.to_s
+    end
   end
 
   should 'show enterprises field if enterprises are enabled on environment' do

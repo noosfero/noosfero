@@ -4,12 +4,12 @@ class TasksController < MyProfileController
   
   def index
     @filter = params[:filter_type].blank? ? nil : params[:filter_type]
-    @tasks = Task.to(profile).pending.of(@filter).order_by('created_at', 'asc').paginate(:per_page => Task.per_page, :page => params[:page])
+    @tasks = Task.to(profile).without_spam.pending.of(@filter).order_by('created_at', 'asc').paginate(:per_page => Task.per_page, :page => params[:page])
     @failed = params ? params[:failed] : {}
   end
 
   def processed
-    @tasks = Task.to(profile).closed.sort_by(&:created_at)
+    @tasks = Task.to(profile).without_spam.closed.sort_by(&:created_at)
   end
 
   VALID_DECISIONS = [ 'finish', 'cancel', 'skip' ]
@@ -57,7 +57,7 @@ class TasksController < MyProfileController
   end
 
   def list_requested
-    @tasks = Task.find_all_by_requestor_id(profile.id)
+    @tasks = Task.without_spam.find_all_by_requestor_id(profile.id)
   end
 
   def ticket_details

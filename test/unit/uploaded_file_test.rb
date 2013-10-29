@@ -7,13 +7,6 @@ class UploadedFileTest < ActiveSupport::TestCase
   end
   attr_reader :profile
 
-  should 'return a thumbnail as icon for images ' do
-    f = UploadedFile.new
-    f.expects(:image?).returns(true)
-    f.expects(:public_filename).with(:icon).returns('/path/to/file.xyz')
-    assert_equal '/path/to/file.xyz', UploadedFile.icon_name(f)
-  end
-
   should 'return a default icon for uploaded files' do
     assert_equal 'upload-file', UploadedFile.icon_name
   end
@@ -113,8 +106,11 @@ class UploadedFileTest < ActiveSupport::TestCase
     p = create_user('test_user').person
     file = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/test.txt', 'text/plain'), :profile => p)
 
+    ENV.stubs('[]').with('RAILS_ENV').returns('other')
+    Rails.logger.expects(:warn) # warn about deprecatede usage of UploadedFile#to_html
+    stubs(:puts)
     stubs(:content_tag).returns('link')
-    expects(:link_to).with(file.name, file.url, :class => file.css_class_name)
+    expects(:link_to).with(file.name, file.url)
 
     instance_eval(&file.to_html)
   end
@@ -206,13 +202,6 @@ class UploadedFileTest < ActiveSupport::TestCase
     file.destroy
   end
 
-  should 'return the default thumbnail image as icon for images ' do
-    f = UploadedFile.new
-    f.expects(:image?).returns(true)
-    f.expects(:public_filename).with(:icon).returns('/path/to/file.xyz')
-    assert_equal '/path/to/file.xyz', UploadedFile.icon_name(f)
-  end
-
   should 'store width and height after processing' do
     file = UploadedFile.create!(:profile => @profile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
     file.create_thumbnails
@@ -285,12 +274,6 @@ class UploadedFileTest < ActiveSupport::TestCase
   should 'return empty string to lead if no abstract given' do
     f = fast_create(UploadedFile, :abstract => nil)
     assert_equal '', f.lead
-  end
-
-  should 'survive when try to get icon_name from a file with mime_type nil' do
-    f = UploadedFile.new
-    f.expects(:mime_type).returns(nil)
-    assert_equal 'upload-file', UploadedFile.icon_name(f)
   end
 
   should 'upload to a folder with same name as the schema if database is postgresql' do

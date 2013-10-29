@@ -1,20 +1,28 @@
+<%= stylesheet('tasks') %>
+
 <h1><%= _('Manage SPAM') %></h1>
+
+<% no_tabs = @comment_spam.blank? && @task_spam.blank? %>
+
+<%= _('There are no spams to review.') if no_tabs %>
 
 <% button_bar do %>
   <%= button :back, _('Back to control panel'), :controller => :profile_editor %>
 <% end %>
 
 <%# FIXME should not need to replicate the article structure like this to be able to use the same formatting as the comments listing %>
-<div id='article'>
-  <div class="comments" id="comments_list">
-    <ul class="article-comments-list">
-      <%= render :partial => 'comment/comment', :collection => @spam %>
-    </ul>
-  </div>
-</div>
 
-<%= pagination_links @spam %>
+<% tabs = [] %>
+<% tabs << {:title => _('Comment Spam'), :id => 'comment-spam',
+  :content => (render :partial => 'comment_spam')} if @comment_spam.present? %>
+<% tabs << {:title => _('Task Spam'), :id => 'task-spam',
+  :content => (render :partial => 'task_spam') } if @task_spam.present? %>
+<%= render_tabs(tabs) %>
 
-<% button_bar do %>
-  <%= button :back, _('Back to control panel'), :controller => :profile_editor %>
+<% unless no_tabs %>
+  <% button_bar do %>
+    <%= button :back, _('Back to control panel'), :controller => :profile_editor %>
+  <% end %>
 <% end %>
+
+<%= javascript_include_tag 'spam' %>

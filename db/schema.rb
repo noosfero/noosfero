@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130711213046) do
+ActiveRecord::Schema.define(:version => 20131011164400) do
 
   create_table "abuse_reports", :force => true do |t|
     t.integer  "reporter_id"
@@ -547,7 +547,10 @@ ActiveRecord::Schema.define(:version => 20130711213046) do
     t.datetime "created_at"
     t.string   "target_type"
     t.integer  "image_id"
+    t.boolean  "spam",                       :default => false
   end
+
+  add_index "tasks", ["spam"], :name => "index_tasks_on_spam"
 
   create_table "thumbnails", :force => true do |t|
     t.integer "size"

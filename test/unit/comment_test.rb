@@ -447,7 +447,7 @@ class CommentTest < ActiveSupport::TestCase
   end
 
   class EverythingIsSpam < Noosfero::Plugin
-    def check_comment_for_spam(comment)
+    def check_for_spam(comment)
       comment.spam!
     end
   end
@@ -469,11 +469,11 @@ class CommentTest < ActiveSupport::TestCase
       attr_accessor :marked_as_ham
     end
 
-    def comment_marked_as_spam(c)
+    def marked_as_spam(c)
       self.class.marked_as_spam = c
     end
 
-    def comment_marked_as_ham(c)
+    def marked_as_ham(c)
       self.class.marked_as_ham = c
     end
   end

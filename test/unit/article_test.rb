@@ -1744,4 +1744,24 @@ class ArticleTest < ActiveSupport::TestCase
     assert_nil article.author_id
   end
 
+  should 'identify if belongs to forum' do
+    p = create_user('user_forum_test').person
+    forum = fast_create(Forum, :name => 'Forum test', :profile_id => p.id)
+    post = fast_create(TextileArticle, :name => 'First post', :profile_id => p.id, :parent_id => forum.id)
+    assert post.belongs_to_forum?
+  end
+
+  should 'not belongs to forum' do
+    p = create_user('user_forum_test').person
+    blog = fast_create(Blog, :name => 'Not Forum', :profile_id => p.id)
+    a = fast_create(TextileArticle, :name => 'Not forum post', :profile_id => p.id, :parent_id => blog.id)
+    assert !a.belongs_to_forum?
+  end
+
+  should 'not belongs to forum if do not have a parent' do
+    p = create_user('user_forum_test').person
+    a = fast_create(TextileArticle, :name => 'Orphan post', :profile_id => p.id)
+    assert !a.belongs_to_forum?
+  end
+
 end

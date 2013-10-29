@@ -1,0 +1,8 @@
+<video class="video-js vjs-default-skin" controls poster="video.jpg" preload="auto" data-setup="{}">
+  <source type="video/ogg" src="<%= video.public_filename %>"/>
+</video>
+
+<div class="uploaded-file-description <%= 'empty' if video.abstract.blank? %>">
+  <%= video.abstract %>
+</div>
+

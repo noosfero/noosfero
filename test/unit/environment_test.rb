@@ -35,21 +35,21 @@ class EnvironmentTest < ActiveSupport::TestCase
 
   def test_features
     v = Environment.new
-    v.enable('feature1')
+    v.enable('feature1', false)
     assert v.enabled?('feature1')
-    v.disable('feature1')
+    v.disable('feature1', false)
     assert !v.enabled?('feature1')
   end
 
   def test_enabled_features
     v = Environment.new
-    v.enabled_features = [ 'feature1', 'feature2' ]
+    v.enable('feature1', false)
+    v.enable('feature2', false)
     assert v.enabled?('feature1') && v.enabled?('feature2') && !v.enabled?('feature3')
   end
 
   def test_enabled_features_no_features_enabled
     v = Environment.new
-    v.enabled_features = nil
     assert !v.enabled?('feature1') && !v.enabled?('feature2') && !v.enabled?('feature3')
   end
 
@@ -1075,9 +1075,9 @@ class EnvironmentTest < ActiveSupport::TestCase
 
   should 'get enabled features' do
     env = Environment.new
-    env.enable('feature1')
-    env.enable('feature2')
-    env.disable('feature3')
+    env.enable('feature1', false)
+    env.enable('feature2', false)
+    env.disable('feature3', false)
 
     assert_includes env.enabled_features.keys, 'feature1'
     assert_includes env.enabled_features.keys, 'feature2'
