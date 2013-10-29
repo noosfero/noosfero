@@ -1,10 +1,9 @@
 class ContainerBlock < Block
 
-  include Noosfero::Plugin::HotSpot
-
   after_create :create_box
 
   settings_items :container_box_id, :type => Integer, :default => nil
+  settings_items :children_settings, :type => Hash, :default => {}
   
   def self.description
     _('Container')
@@ -12,6 +11,10 @@ class ContainerBlock < Block
 
   def help
     _('This block acts as a container for another blocks')
+  end
+  
+  def layout_template
+    'default'
   end
 
   def create_box
@@ -32,9 +35,8 @@ class ContainerBlock < Block
     container_box.blocks
   end
 
-  #FIXME needed?
-  def layout_template
-    'default2'
+  def child_width(child_id)
+    children_settings[child_id][:width] if children_settings[child_id]
   end
 
   #FIXME controller test

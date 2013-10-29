@@ -1,4 +1,30 @@
-<% block.blocks.each do |block| %>
-  <%= display_block(block, '') %>
+<% edit_mode = @controller.send(:boxes_editor?) && @controller.send(:uses_design_blocks?) %>
+<% box_decorator = edit_mode ? self : BoxesHelper::DontMoveBlocks %>
+
+<% box_decorator.select_blocks(block.blocks, { :article => @page, :request_path => request.path, :locale => locale }).each do |child| %>
+  <div class="container_block_child">
+    <%= display_block(child, '') %>
+  </div>
+  <style>#block-<%=child.id%> { width: <%= block.child_width(child.id) %>px; }</style>
 <% end %>
 <div class="clear"></div>
+
+<% if edit_mode %>
+  <div class="button-bar">
+    <%= link_to_remote '', :url => { :controller => @controller.boxes_holder.kind_of?(Environment) ? 'container_block_plugin_admin' : 'container_block_plugin_myprofile', :action => 'saveWidths', :id => block.id }, :with => "containerChildrenWidth(#{block.id})", :html => {:class => "button icon-save" } %>
+  </div>
+
+  <script>
+    jQuery('.container-block .container_block_child .block').resizable({handles: 'e, w'});
+
+    function containerChildrenWidth(container) {
+      widths = "";
+      jQuery('#block-'+container+' .container_block_child .block').each(function(i) { 
+        //childId = jQuery(this).attr('id').substring(6);
+        childId = jQuery(this).attr('id').match(/block-(\d+)/)[1];
+        widths+=childId+","+jQuery(this).width()+"|";
+      });
+      return "widths="+widths;
+    }
+  </script>
+<% end %>

@@ -53,4 +53,16 @@ class ContainerBlockTest < ActiveSupport::TestCase
     assert_equal [Block, Block], @block.blocks.map(&:class)
   end
 
+  should 'return child width' do
+    @block.children_settings = {1 => {:width => 10} }
+    @block.save!
+    assert_equal 10, @block.child_width(1)
+  end
+
+  should 'return nil in width if child do not exists' do
+    @block.children_settings = {2 => {:width => 10} }
+    @block.save!
+    assert_equal nil, @block.child_width(1)
+  end
+
 end
