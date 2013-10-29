@@ -215,18 +215,4 @@ class VideoBlockTest < ActiveSupport::TestCase
     instance_eval(& block.content)
   end
 
-  should 'display box_organizer/iframe_video_block partial for youtube videos' do
-    block = VideoBlock.new
-    block.url = "youtube.com/?v=XXXXX"
-    
-#    self.expects(:render).with(:partial => 'box_organizer/iframe_video_block', :locals => {
-#        :url => block.format_embed_video_url_for_youtube,
-#        :width => block.width,
-#        :height => block.height
-#    })
-c =    instance_eval(& block.content)
-puts c.inspect
-  end
-
-
 end

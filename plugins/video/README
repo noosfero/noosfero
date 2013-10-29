@@ -1,15 +1,9 @@
-README - DisplayContent (DisplayContent Plugin)
+README - Video (Video Plugin)
 ================================
 
-DisplayContent is a plugin to allow the user adds a block where you could choose any of your content for display it.
+Video is a plugin to allow the user adds a block where you could choose any url from youtube, vimeo and url's of the following file formats: mp4, ogg, ogv and webm.
 
-The DisplayContent block will be available for all layout columns of communities, peole, enterprises and environments.
-
-All the articles choosen are displayed as a list with a link for the title and the lead content.
-
-If a Blog or a Folder is choosen the block will display all articles inside the blog or the folder.
-
-Galleries are not displayed in this block.
+The Video block will be available for all layout columns of communities, peole, enterprises and environments.
 
 INSTALL
 =======
@@ -17,10 +11,10 @@ INSTALL
 Enable Plugin
 -------------
 
-Also, you need to enable DisplayContent Plugin at you Noosfero:
+Also, you need to enable Video Plugin at you Noosfero:
 
 cd <your_noosfero_dir>
-./script/noosfero-plugins enable display_content
+./script/noosfero-plugins enable video
 
 Active Plugin
 -------------
@@ -30,20 +24,10 @@ As a Noosfero administrator user, go to administrator panel:
 - Click on "Enable/disable plugins" option
 - Click on "Display Content Plugin" check-box
 
-DEVELOPMENT
-===========
-
-Noosfero uses jQuery 1.5.1 and the jsTree doesn't works fine with this jQuery version. 
-Until Noosfero upgrade its JQuery version to a newer one is necessary to load jQuery 1.8.3 inside plugin and apply some changes in jsTree to avoid jQuery conflit.
-
-Get the Display Content (Noosfero with Display Content Plugin) development repository:
-
-$ git clone https://gitorious.org/+noosfero/noosfero/display_content
-
-Running DisplayContent tests
+Running Video tests
 --------------------
 
-$ rake test:noosfero_plugins:display_content
+$ rake test:noosfero_plugins:video
 
 
 Get Involved
