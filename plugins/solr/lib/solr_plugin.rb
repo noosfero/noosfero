@@ -27,7 +27,9 @@ class SolrPlugin < Noosfero::Plugin
     category = options[:category]
     empty_query = empty_query? query, category
 
-    return unless solr_search? empty_query, klass
+    unless solr_search? empty_query, klass
+      return options[:filter] ?  {:results => scope.send(options[:filter]).paginate(paginate_options)} : nil
+    end
 
     solr_options = solr_options(class_asset(klass), category)
     solr_options[:filter_queries] ||= []

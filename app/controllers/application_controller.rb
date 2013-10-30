@@ -181,8 +181,9 @@ class ApplicationController < ActionController::Base
   private
 
   def fallback_find_by_contents(asset, scope, query, paginate_options, options)
-    return {:results => scope.paginate(paginate_options)} if query.blank?
-    {:results => scope.like_search(query).paginate(paginate_options)}
+    scope = scope.like_search(query) unless query.blank?
+    scope = scope.send(options[:filter]) unless options[:filter].blank?
+    {:results => scope.paginate(paginate_options)}
   end
 
 end
