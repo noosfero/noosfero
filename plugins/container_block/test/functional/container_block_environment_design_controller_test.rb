@@ -1,7 +1,12 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 # Re-raise errors caught by the controller.
-class EnvironmentDesignController; def rescue_action(e) raise e end; end
+class EnvironmentDesignController
+  append_view_path File.join(File.dirname(__FILE__) + '/../../views')
+  def rescue_action(e) 
+    raise e 
+  end 
+end
 
 class EnvironmentDesignControllerTest < ActionController::TestCase
 
@@ -15,8 +20,8 @@ class EnvironmentDesignControllerTest < ActionController::TestCase
     @environment.add_admin(user.person)
     login_as(user.login)
 
-    box = Box.create!(:owner => @environment)
-    @block = ContainerBlock.create!(:box => box)
+    @block = ContainerBlock.create!(:box => @environment.boxes.first)
+    @environment = Environment.find(@environment.id)
   end
 
   should 'be able to edit ContainerBlock' do
@@ -29,6 +34,24 @@ class EnvironmentDesignControllerTest < ActionController::TestCase
     post :save, :id => @block.id, :block => {:title => 'Container' }
     @block.reload
     assert_equal 'Container', @block.title
+  end
+
+  should 'display container children' do
+    c1 = RawHTMLBlock.create!(:box => @block.container_box, :html => 'child1 content')
+    get :index
+    assert_tag :div, :attributes => { :id => "block-#{c1.id}" }
+  end
+
+  should 'display hidden children of container block' do
+    c1 = RawHTMLBlock.create!(:box => @block.container_box, :html => 'child1 content', :display => 'never')
+    get :index
+    assert_tag :div, :attributes => { :id => "block-#{c1.id}", :class => 'block raw-html-block invisible-block' }
+  end
+
+  should 'display button to save widths of container children' do
+    c1 = RawHTMLBlock.create!(:box => @block.container_box, :html => 'child1 content')
+    get :index
+    assert_tag :a, :attributes => { :class => "button icon-save container_block_save" }
   end
 
 end

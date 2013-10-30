@@ -11,7 +11,7 @@
 
 <% if edit_mode %>
   <div class="button-bar">
-    <%= link_to_remote '', :url => { :controller => @controller.boxes_holder.kind_of?(Environment) ? 'container_block_plugin_admin' : 'container_block_plugin_myprofile', :action => 'saveWidths', :id => block.id }, :with => "containerChildrenWidth(#{block.id})", :html => {:class => "button icon-save" } %>
+    <%= link_to_remote '', :url => { :controller => @controller.boxes_holder.kind_of?(Environment) ? 'container_block_plugin_admin' : 'container_block_plugin_myprofile', :action => 'saveWidths', :id => block.id }, :with => "containerChildrenWidth(#{block.id})", :html => {:class => "button icon-save container_block_save" } %>
   </div>
 
   <script>

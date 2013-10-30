@@ -65,4 +65,8 @@ class ContainerBlockTest < ActiveSupport::TestCase
     assert_equal nil, @block.child_width(1)
   end
 
+  should 'return nil at layout_templat' do
+    assert_equal nil, @block.layout_template
+  end
+
 end

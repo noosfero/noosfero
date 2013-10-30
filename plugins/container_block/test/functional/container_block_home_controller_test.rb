@@ -31,4 +31,31 @@ class HomeControllerTest < ActionController::TestCase
     assert_tag :div, :attributes => { :class => 'block container-block' }
   end
 
+  should 'display container children' do
+    c1 = RawHTMLBlock.create!(:box => @block.container_box, :html => 'child1 content')
+    c2 = RawHTMLBlock.create!(:box => @block.container_box, :html => 'child2 content')
+    get :index
+    assert_tag :div, :attributes => { :id => "block-#{c1.id}" }
+    assert_tag :div, :attributes => { :id => "block-#{c2.id}" }
+  end
+
+  should 'display style tags for container children' do
+    c1 = RawHTMLBlock.create!(:box => @block.container_box, :html => 'child1 content')
+    @block.children_settings = { c1.id => {:width => "123"} }
+    @block.save!
+    get :index
+    assert_match /#block-#{c1.id} \{ width: 123px; \}/, @response.body
+  end
+
+  should 'do not display hidden children of container' do
+    c1 = RawHTMLBlock.create!(:box => @block.container_box, :html => 'child1 content', :display => 'never')
+    get :index
+    assert_no_tag :div, :attributes => { :id => "block-#{c1.id}" }
+  end
+
+  should 'do not display button to save widths of container children' do
+    get :index
+    assert_no_tag :a, :attributes => { :class => "button icon-save container_block_save" }
+  end
+
 end

@@ -8,12 +8,16 @@ class EnvironmentTest < ActiveSupport::TestCase
     @box = Box.create!(:owner => @environment)
     @block = Block.create!(:box => @box)
 
-    @container_box = Box.create!(:owner => @environment)
-    @container = ContainerBlock.create!(:box => @container_box)
+    @container = ContainerBlock.create!(:box => @box)
   end
 
   should 'return blocks as usual' do
     assert_equal [@block, @container], @environment.blocks
+  end
+
+  should 'return blocks with container children' do
+    child = Block.create!(:box => @container.container_box)
+    assert_equal [@block, @container, child], @environment.blocks
   end
 
   should 'return block with id at find method' do
@@ -21,9 +25,8 @@ class EnvironmentTest < ActiveSupport::TestCase
   end
 
   should 'return child block with id at find method' do
-    block = Block.create!(:box => @container_box)
-    @container.save!
-    assert_equal @block, @environment.blocks.find(@block.id)
+    child = Block.create!(:box => @container.container_box)
+    assert_equal child, @environment.blocks.find(child.id)
   end
 
 end

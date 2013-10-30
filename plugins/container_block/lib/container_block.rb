@@ -14,7 +14,7 @@ class ContainerBlock < Block
   end
   
   def layout_template
-    'default'
+    nil
   end
 
   def create_box
@@ -39,7 +39,6 @@ class ContainerBlock < Block
     children_settings[child_id][:width] if children_settings[child_id]
   end
 
-  #FIXME controller test
   def content(args={})
     block = self
     lambda do
