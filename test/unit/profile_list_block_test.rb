@@ -32,6 +32,7 @@ class ProfileListBlockTest < ActiveSupport::TestCase
     self.expects(:profile_image_link).with(person2, :minor).once
     self.expects(:profile_image_link).with(person3, :minor).once
 
+    self.stubs(:tag).returns('<div></div>')
     self.expects(:content_tag).returns('<div></div>').at_least_once
     self.expects(:block_title).returns('block title').at_least_once
 
