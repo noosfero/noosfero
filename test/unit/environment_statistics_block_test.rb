@@ -84,7 +84,7 @@ class EnvironmentStatisticsBlockTest < ActiveSupport::TestCase
   end
 
   should 'not display enterprises if disabled' do
-    env = Environment.new
+    env = fast_create(Environment)
     env.enable('disable_asset_enterprises')
 
     block = EnvironmentStatisticsBlock.new

@@ -591,7 +591,7 @@ class ApplicationHelperTest < ActiveSupport::TestCase
   end
 
   should 'include item in usermenu for environment enabled features' do
-    env = Environment.new
+    env = fast_create(Environment)
     env.enable('xmpp_chat')
     stubs(:environment).returns(env)
 
