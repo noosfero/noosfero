@@ -138,4 +138,8 @@ class Block < ActiveRecord::Base
     4.hours
   end
 
+  def has_macro?
+    false
+  end
+
 end

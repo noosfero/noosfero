@@ -791,6 +791,29 @@ class ApplicationHelperTest < ActiveSupport::TestCase
                  '<br style=\'clear: left;\' /></div>', result
   end
 
+  should 'not filter html if source does not have macros' do
+    class Plugin1 < Noosfero::Plugin
+    end
+
+    class Plugin1::Macro1 < Noosfero::Plugin::Macro
+      def parse(params, inner_html, source)
+        'Test1'
+      end
+    end
+
+    environment = Environment.default
+    environment.enable_plugin(Plugin1)
+    @plugins = Noosfero::Plugin::Manager.new(environment, self)
+    macro1_name = Plugin1::Macro1.identifier
+    source = mock
+    source.stubs(:has_macro?).returns(false)
+
+    html = "<div class='macro nonEdit' data-macro='#{macro1_name}' data-macro-param='123'></div>"
+    parsed_html = filter_html(html, source)
+
+    assert_no_match /Test1/, parsed_html
+  end
+
   protected
   include NoosferoTestHelper
 
