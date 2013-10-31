@@ -11,11 +11,26 @@
 
 <% if edit_mode %>
   <div class="button-bar">
-    <%= link_to_remote '', :url => { :controller => @controller.boxes_holder.kind_of?(Environment) ? 'container_block_plugin_admin' : 'container_block_plugin_myprofile', :action => 'saveWidths', :id => block.id }, :with => "containerChildrenWidth(#{block.id})", :html => {:class => "button icon-save container_block_save" } %>
+    <a href="#" onclick="toggleMoveContainerChildren(<%= block.id %>); return false;" class="button icon-resize"></a>
+    <%= link_to_remote '', :url => { :controller => @controller.boxes_holder.kind_of?(Environment) ? 'container_block_plugin_admin' : 'container_block_plugin_myprofile', :action => 'saveWidths', :id => block.id }, 
+                           :with => "containerChildrenWidth(#{block.id})", 
+                           :html => {:class => "button icon-save container_block_save", :id => "container_block_save_#{block.id}" },
+                           :loading => "",
+                           :loaded => "" %>
   </div>
 
   <script>
-    jQuery('.container-block .container_block_child .block').resizable({handles: 'e, w'});
+    function saveWidth(container) {
+    }
+
+    function toggleMoveContainerChildren(container) {
+      var containerDiv = jQuery('#block-'+container+' .container_block_child .block');
+      if(containerDiv.is('.ui-resizable')) {
+        containerDiv.resizable('destroy');
+      } else {
+        containerDiv.resizable({handles: 'e, w'});
+      }
+    }
 
     function containerChildrenWidth(container) {
       widths = "";

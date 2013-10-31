@@ -12,21 +12,20 @@
 
 #content .boxes .container-block .block .ui-resizable-handle {
   width: 10px;
-  height: 25px;
-  background-color: #ffffff;
-  border: 1px solid #000000;
+  height: 28px;
   z-index: 0;
 }
 
 #content .boxes .container-block .block .ui-resizable-e {
-  right:-5px;
-  top:0%;    
-  background-color: #AAA;
+  right: -2px;
+  background-image: url(/plugins/container_block/images/handle_e.png);
 }
 
 #content .boxes .container-block .block .ui-resizable-w {
-  left:-5px;
-  top:50%;
-  background-color: #CCC;
+  left: -2px;
+  background-image: url(/plugins/container_block/images/handle_w.png);
 }
 
+.container-block .button-bar .icon-resize { 
+  background-image: url(/designs/icons/default/Tango/16x16/actions/view-fullscreen.png);
+}
