@@ -21,7 +21,6 @@ class EnvironmentDesignControllerTest < ActionController::TestCase
     login_as(user.login)
 
     @block = ContainerBlock.create!(:box => @environment.boxes.first)
-    @environment = Environment.find(@environment.id)
   end
 
   should 'be able to edit ContainerBlock' do
