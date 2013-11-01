@@ -3,12 +3,15 @@ class Box < ActiveRecord::Base
   acts_as_list :scope => 'owner_id = #{owner_id} and owner_type = \'#{owner_type}\''
   has_many :blocks, :dependent => :destroy, :order => 'position'
 
+  include Noosfero::Plugin::HotSpot
+
   def environment
     owner ? (owner.kind_of?(Environment) ? owner : owner.environment) : nil
   end
 
   def acceptable_blocks
-    to_css_class_name central?  ? Box.acceptable_center_blocks : Box.acceptable_side_blocks
+    blocks = central?  ? Box.acceptable_center_blocks + plugins.dispatch(:extra_blocks, :position => 1) : Box.acceptable_side_blocks + plugins.dispatch(:extra_blocks, :position => [2, 3])
+    to_css_class_name(blocks)
   end
 
   def central?
