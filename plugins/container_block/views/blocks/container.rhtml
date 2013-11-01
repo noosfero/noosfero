@@ -16,7 +16,8 @@
                            :with => "containerChildrenWidth(#{block.id})", 
                            :html => {:class => "button icon-save container_block_save", :id => "container_block_save_#{block.id}" },
                            :loading => "open_loading(DEFAULT_LOADING_MESSAGE);",
-                           :loaded => "close_loading();" %>
+                           :loaded => "close_loading();",
+                           :complete => "display_notice(request.responseText);"%>
   </div>
 
   <script>
