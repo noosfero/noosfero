@@ -2,8 +2,12 @@
   float: left;
 }
 
-#content .boxes .container-block .block .icon-down, #content .boxes .container-block .block .icon-down-disabled, #content .boxes .container-block .block .icon-up, #content .boxes .container-block .block .icon-up-disabled {
-  display: none;
+#content .boxes .container-block .block .icon-down, #content .boxes .container-block .block .icon-down-disabled {
+  background-image: url(/designs/icons/default/Tango/16x16/actions/go-next.png);
+}
+
+#content .boxes .container-block .block .icon-up, #content .boxes .container-block .block .icon-up-disabled {
+  background-image: url(/designs/icons/default/Tango/16x16/actions/go-previous.png);
 }
 
 #content .boxes .container-block .block {
