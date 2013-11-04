@@ -92,10 +92,19 @@ class StoaPlugin::PersonApiTest < ActiveSupport::TestCase
     assert_nil tags['n']
   end
 
+  should 'not provide information of private articles tags' do
+    create_article_with_tags(person.id,  'free_software, noosfero, linux', {:published => false})
+    create_article_with_tags(person.id,  'free_software, linux')
+    create_article_with_tags(person.id,  'free_software')
+
+    api = StoaPlugin::PersonApi.new(person)
+    assert !api.tags.has_key?('noosfero')
+  end
+
   private
 
-  def create_article_with_tags(profile_id, tags = '')
-    article = fast_create(Article, :profile_id => profile_id)
+  def create_article_with_tags(profile_id, tags = '', options = {})
+    article = fast_create(Article, options.merge(:profile_id => profile_id))
     article.tag_list = tags
     article.save!
     article
