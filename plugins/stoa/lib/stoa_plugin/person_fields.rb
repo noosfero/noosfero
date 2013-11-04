@@ -4,7 +4,7 @@ module StoaPlugin::PersonFields
   EXTRA = %w[tags]
 
   ESSENTIAL = %w[username email nusp]
-  AVERAGE = ESSENTIAL + %w[name first_name surname address homepage]
+  AVERAGE = ESSENTIAL + %w[name first_name surname address homepage communities]
   FULL = (AVERAGE + Person.fields + HEAVY + EXTRA - FILTER).uniq
   COMPLETE = FULL - HEAVY
 

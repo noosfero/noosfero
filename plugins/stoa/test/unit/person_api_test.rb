@@ -101,6 +101,31 @@ class StoaPlugin::PersonApiTest < ActiveSupport::TestCase
     assert !api.tags.has_key?('noosfero')
   end
 
+  should 'provide communities' do
+    c1 = fast_create(Community)
+    c2 = fast_create(Community)
+    c3 = fast_create(Community)
+    c1.add_member(person)
+    c2.add_member(person)
+    communities = [{:id => c1.id, :name => c1.name}, {:id => c2.id, :name => c2.name}]
+    api = StoaPlugin::PersonApi.new(person, self)
+
+    assert_equivalent communities, api.communities
+  end
+
+  should 'not provide private communities' do
+    c1 = fast_create(Community)
+    c2 = fast_create(Community, :public_profile => false)
+    c3 = fast_create(Community, :visible => false)
+    c1.add_member(person)
+    c2.add_member(person)
+    c3.add_member(person)
+    communities = [{:id => c1.id, :name => c1.name}]
+    api = StoaPlugin::PersonApi.new(person, self)
+
+    assert_equivalent communities, api.communities
+  end
+
   private
 
   def create_article_with_tags(profile_id, tags = '', options = {})

@@ -29,4 +29,8 @@ class StoaPlugin::PersonApi < Noosfero::FieldsDecorator
       memo
     end
   end
+
+  def communities
+    object.communities.public.map {|community| {:id => community.id, :name => community.name}}
+  end
 end
