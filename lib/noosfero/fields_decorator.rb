@@ -11,6 +11,6 @@ class Noosfero::FieldsDecorator
   end
 
   def fields(field_names = {})
-    field_names.inject({}) { |result, field| result.merge!(field => self.send(field))}
+    field_names.inject({}) { |result, field| result.merge!(field => self.send(field).to_json)}
   end
 end
