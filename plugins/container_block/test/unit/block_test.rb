@@ -3,22 +3,29 @@ require File.dirname(__FILE__) + '/../test_helper'
 class BlockTest < ActiveSupport::TestCase
 
   def setup
-    @environment = Environment.new
-
-    @box = Box.new(:owner => @environment)
-    @block = Block.new(:box => @box)
-
-    @container_box = Box.new(:owner => @environment)
-    @container = ContainerBlock.new(:box => @container_box)
+    @environment = fast_create(Environment)
+    @box = Box.create!(:owner => @environment)
+    @container = ContainerBlock.create!(:box => @box)
   end
 
-  should 'return block box if block owner is not a ContainerBlock' do
-    assert_equal @box, @block.box
+  should 'return environment box if block owner is not a ContainerBlock' do
+    block = Block.create!(:box => @box)
+    assert_equal @box, block.box
   end
 
-  should 'return container box if block onwer is a ContainerBlock' do
-    @box.owner = @container
-    assert_equal @container_box, @block.box
+  should 'return container box if block owner is a ContainerBlock' do
+    block = Block.create!(:box => @container.container_box)
+    assert_equal @container.container_box, block.box
+  end
+
+  should 'return block owner if block onwer is not a ContainerBlock' do
+    block = Block.create!(:box => @box)
+    assert_equal @environment, block.owner
+  end
+
+  should 'return environment as owner if block onwer is a ContainerBlock' do
+    block = Block.create!(:box => @container.container_box)
+    assert_equal @environment, block.owner
   end
 
 end

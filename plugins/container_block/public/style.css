@@ -1,5 +1,13 @@
-#content .boxes .container-block .container_block_child {
+#content .boxes .container-block .container_block_child, .container-block .block-outer {
   float: left;
+}
+
+.container-block .block-target {
+  clear: both;
+}
+
+.container-block .block-target[id^='end-of-box-'] {
+  display: none;
 }
 
 #content .boxes .container-block .block .icon-down, #content .boxes .container-block .block .icon-down-disabled {

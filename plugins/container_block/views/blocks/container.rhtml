@@ -1,19 +1,24 @@
 <% edit_mode = @controller.send(:boxes_editor?) && @controller.send(:uses_design_blocks?) %>
 <% box_decorator = edit_mode ? self : BoxesHelper::DontMoveBlocks %>
 
-<% box_decorator.select_blocks(block.blocks, { :article => @page, :request_path => request.path, :locale => locale }).each do |child| %>
-  <div class="container_block_child" id="container_block_child_<%= block.id %>">
-    <%= display_block(child, '') %>
-  </div>
-  <style>#block-<%=child.id%> { width: <%= block.child_width(child.id) %>px; }</style>
-<% end %>
+
+<div class="box" id="box-<%= block.container_box.id %>">
+  <%= display_box_content(block.container_box, nil) %>
+  <div class="clear"></div>
+</div>
 <div class="clear"></div>
+
+<style>
+  <% box_decorator.select_blocks(block.blocks, { :article => @page, :request_path => request.path, :locale => locale }).each do |child| %>
+    #block-<%=block.id%> #block-<%=child.id%> { width: <%= block.child_width(child.id) %>px; }
+  <% end %>
+</style>
 
 <% if edit_mode %>
   <div class="button-bar">
-    <a href="#" onclick="toggleMoveContainerChildren(<%= block.id %>); return false;" class="button icon-resize"></a>
+    <a href="#" onclick="toggleMoveContainerChildren(<%= block.id %>, <%= block.container_box.id %>); return false;" class="button icon-resize"></a>
     <%= link_to_remote '', :url => { :controller => @controller.boxes_holder.kind_of?(Environment) ? 'container_block_plugin_admin' : 'container_block_plugin_myprofile', :action => 'saveWidths', :id => block.id }, 
-                           :with => "containerChildrenWidth(#{block.id})", 
+                           :with => "containerChildrenWidth(#{block.id}, #{block.container_box.id})", 
                            :html => {:class => "button icon-save container_block_save", :id => "container_block_save_#{block.id}" },
                            :loading => "open_loading(DEFAULT_LOADING_MESSAGE);",
                            :loaded => "close_loading();",
@@ -21,12 +26,19 @@
   </div>
 
   <script>
-    function toggleMoveContainerChildren(container) {
-      var containerDiv = jQuery('#block-'+container+' #container_block_child_'+container+' > .block');
-      if(containerDiv.is('.ui-resizable')) {
-        containerDiv.resizable('destroy');
+    function toggleMoveContainerChildren(container, box) {
+      var div = jQuery('#box-'+box+' > .block-outer > .block');
+      var targetDiv = jQuery('#box-'+box+' .block-outer .block-target');
+      if(div.is('.ui-resizable')) {
+        targetDiv.show();
+        div.find("a").die("click");
+        div.resizable('destroy');
       } else {
-        containerDiv.resizable({
+        targetDiv.hide();
+        div.find("a").live("click", function(e) {
+          e.preventDefault();
+        });
+        div.resizable({
           handles: 'e, w',
           containment: '#block-'+container+' .block-inner-2',
           resize: function( event, ui ) {
@@ -36,10 +48,9 @@
       }
     }
 
-    function containerChildrenWidth(container) {
+    function containerChildrenWidth(container, box) {
       widths = "";
-      jQuery('#block-'+container+' .container_block_child .block').each(function(i) { 
-        //childId = jQuery(this).attr('id').substring(6);
+      jQuery('#box-'+box+' > .block-outer > .block').each(function(i) { 
         childId = jQuery(this).attr('id').match(/block-(\d+)/)[1];
         widths+=childId+","+jQuery(this).width()+"|";
       });

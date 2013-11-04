@@ -2,14 +2,11 @@ require_dependency 'block'
 
 class Block
   
-  def box_with_container_block_plugin
-    box = box_without_container_block_plugin
-    if box && box.owner.kind_of?(ContainerBlock) 
-      box = box.owner.box
-    end
-    box
+  def owner_with_container_block_plugin
+    owner = owner_without_container_block_plugin
+    owner.kind_of?(ContainerBlock) ? owner.owner : owner
   end
 
-  alias_method_chain :box, :container_block_plugin
+  alias_method_chain :owner, :container_block_plugin
 
 end
