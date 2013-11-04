@@ -1833,4 +1833,16 @@ class ProfileTest < ActiveSupport::TestCase
     assert_equal f, p.fields_privacy
   end
 
+  should 'list only public profiles' do
+    p1 = fast_create(Profile)
+    p2 = fast_create(Profile, :visible => false)
+    p3 = fast_create(Profile, :public_profile => false)
+    p4 = fast_create(Profile, :visible => false, :public_profile => false)
+
+    assert_includes Profile.public, p1
+    assert_not_includes Profile.public, p2
+    assert_not_includes Profile.public, p3
+    assert_not_includes Profile.public, p4
+  end
+
 end
