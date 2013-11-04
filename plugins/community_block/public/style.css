@@ -38,6 +38,8 @@
 
 #content .box-1 .community-block .community-block-buttons {
   //border: 1px solid #F00;
-  text-align: right;
+  text-align: left;
+  margin-top: 3px;
+  margin-left: 22px;
 }
 
