@@ -55,7 +55,7 @@ class ChangePassword < Task
     unless data.field.blank? || data.value.blank?
       user = data.user_find
       if user.nil? 
-        data.errors.add(:value, _('is invalid for the selected field.'))
+        data.errors.add(:value, _('"%s" is not a valid %s.') % [value.to_s, human_attribute_name(data.field)])
       end
     end
   end
