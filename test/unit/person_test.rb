@@ -211,7 +211,7 @@ class PersonTest < ActiveSupport::TestCase
     p3 = create_user('testuser3').person
     p1.add_friend(p3)
 
-    assert_equal [p2,p3], p1.friends(true) # force reload
+    assert_equivalent [p2,p3], p1.friends(true) # force reload
 
   end
 
@@ -1074,8 +1074,8 @@ class PersonTest < ActiveSupport::TestCase
     person.add_friend(friend_1)
     person.add_friend(friend_2)
     person.add_friend(friend_3)
-    assert_equal [friend_1, friend_2, friend_3], person.friends
-    assert_equal [friend_1], person.friends.online
+    assert_equivalent [friend_1, friend_2, friend_3], person.friends
+    assert_equivalent [friend_1], person.friends.online
   end
 
   should 'return url to a person wall' do

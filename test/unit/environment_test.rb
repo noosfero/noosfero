@@ -34,7 +34,7 @@ class EnvironmentTest < ActiveSupport::TestCase
   end
 
   def test_features
-    v = Environment.new
+    v = fast_create(Environment)
     v.enable('feature1', false)
     assert v.enabled?('feature1')
     v.disable('feature1', false)
@@ -42,14 +42,14 @@ class EnvironmentTest < ActiveSupport::TestCase
   end
 
   def test_enabled_features
-    v = Environment.new
+    v = fast_create(Environment)
     v.enable('feature1', false)
     v.enable('feature2', false)
     assert v.enabled?('feature1') && v.enabled?('feature2') && !v.enabled?('feature3')
   end
 
   def test_enabled_features_no_features_enabled
-    v = Environment.new
+    v = fast_create(Environment)
     assert !v.enabled?('feature1') && !v.enabled?('feature2') && !v.enabled?('feature3')
   end
 
@@ -1074,7 +1074,7 @@ class EnvironmentTest < ActiveSupport::TestCase
   end
 
   should 'get enabled features' do
-    env = Environment.new
+    env = fast_create(Environment)
     env.enable('feature1', false)
     env.enable('feature2', false)
     env.disable('feature3', false)

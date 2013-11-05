@@ -681,6 +681,10 @@ class Article < ActiveRecord::Base
 
   delegate :region, :region_id, :environment, :environment_id, :to => :profile, :allow_nil => true
 
+  def has_macro?
+    true
+  end
+
   private
 
   def sanitize_tag_list

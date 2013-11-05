@@ -20,14 +20,20 @@ end
 class FeedUpdater
 
   class ExceptionNotification < ActionMailer::Base
-    def mail error
+    def mail container, error
       environment = Environment.default
 
       recipients NOOSFERO_CONF['exception_recipients']
       from       environment.contact_email
       reply_to   environment.contact_email
       subject    "[#{environment.name}] Feed-updater: #{error.message}"
-      body       render(:text => error.backtrace.join("\n"))
+      body       render(:text => "
+Container:
+#{container.inspect}
+
+Backtrace:
+#{error.backtrace.join("\n")}
+      ")
     end
   end
 
@@ -88,11 +94,13 @@ class FeedUpdater
         if !running
           break
         end
-        feed_handler.process(container)
+        begin
+          feed_handler.process(container)
+        rescue Exception => e
+          FeedUpdater::ExceptionNotification.deliver_mail container, e if NOOSFERO_CONF['exception_recipients'].present?
+        end
       end
     end
-  rescue Exception => e
-    FeedUpdater::ExceptionNotification.deliver_mail e if NOOSFERO_CONF['exception_recipients'].present?
   end
 end
 
