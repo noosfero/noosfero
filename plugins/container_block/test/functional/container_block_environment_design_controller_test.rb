@@ -53,4 +53,31 @@ class EnvironmentDesignControllerTest < ActionController::TestCase
     assert_tag :a, :attributes => { :class => "button icon-save container_block_save" }
   end
 
+  should 'move child of container block to another box' do
+    c1 = RawHTMLBlock.create!(:box => @block.container_box, :html => 'child1 content')
+    get :move_block, :id => c1.id, :target => "end-of-box-#{@environment.boxes.last.id}"
+    assert_equal @environment.boxes.last, c1.reload.box
+  end
+
+  should 'move block to inside of a container block' do
+    c1 = RawHTMLBlock.create!(:box => @block.container_box, :html => 'child1 content')
+    c2 = RawHTMLBlock.create!(:box => @environment.boxes.last, :html => 'child2 content')
+    get :move_block, :id => c2.id, :target => "before-block-#{c1.id}"
+    assert_equal @block.container_box, c2.reload.box
+  end
+
+  should 'move down a container block child' do
+    c1 = RawHTMLBlock.create!(:box => @block.container_box, :html => 'child1 content')
+    c2 = RawHTMLBlock.create!(:box => @block.container_box, :html => 'child2 content')
+    get :move_block_down, :id => c1.id
+    assert_equal [c2, c1], @block.blocks
+  end
+
+  should 'move up a container block child' do
+    c1 = RawHTMLBlock.create!(:box => @block.container_box, :html => 'child1 content')
+    c2 = RawHTMLBlock.create!(:box => @block.container_box, :html => 'child2 content')
+    get :move_block_up, :id => c2.id
+    assert_equal [c2, c1], @block.blocks
+  end
+
 end
