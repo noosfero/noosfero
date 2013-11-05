@@ -1,3 +1,5 @@
+require 'csv'
+
 class CustomFormsPluginMyprofileController < MyProfileController
   protect 'post_content', :profile
 
@@ -59,6 +61,22 @@ class CustomFormsPluginMyprofileController < MyProfileController
   def submissions
     @form = CustomFormsPlugin::Form.find(params[:id])
     @submissions = @form.submissions
+    respond_to do |format|
+      format.html
+      format.csv do
+        # CSV contains form fields, timestamp, user name and user email
+        columns = @form.fields.count + 3
+        csv_content = CSV.generate_line(['Timestamp', 'Name', 'Email'] + @form.fields.map(&:name)) + "\n"
+        @submissions.each do |s|
+          fields = [s.updated_at, s.profile.present? ? s.profile.name : s.author_name, s.profile.present? ? s.profile.email : s.author_email]
+          @form.fields.each do |f|
+            fields << s.answers.select{|a| a.field == f}.map{|answer| answer.to_s}
+          end
+          CSV.generate_row(fields, columns, csv_content)
+        end
+        send_data csv_content, :type => 'text/csv', :filename => "#{@form.name}.csv"
+      end
+    end
   end
 
   def show_submission

@@ -5,6 +5,10 @@
 <% if @form.submissions.empty? %>
   <%= _('There are no submissions for this form.') %>
 <% else %>
+  <p>
+    <%= _('Download all form responses as') %>:
+    <%= link_to '[CSV]', :format => 'csv' %>
+  </p>
   <table class="action-table">
     <tr>
       <th style='width: 50%'><%= _('Author') %></th>

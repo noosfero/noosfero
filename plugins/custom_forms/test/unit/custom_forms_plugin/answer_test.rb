@@ -34,5 +34,18 @@ class CustomFormsPlugin::AnswerTest < ActiveSupport::TestCase
     assert !answer.errors.invalid?(:value)
   end
 
+  should 'make string representation show answers' do
+    form = CustomFormsPlugin::Form.create!(:name => 'Free Software', :profile => fast_create(Profile))
+    field = CustomFormsPlugin::Field.create!(:name => 'ProjectName', :form => form)
+    answer = CustomFormsPlugin::Answer.new(:field => field, :value => 'MyProject')
+
+    field_select = CustomFormsPlugin::Field.create!(:name => 'License', :form => form)
+    alt = CustomFormsPlugin::Alternative.create!(:id => 1, :field => field_select, :label => 'GPL')
+    answer2 = CustomFormsPlugin::Answer.new(:field => field_select, :value => alt.id.to_s)
+
+    assert_equal 'MyProject', answer.to_s
+    assert_equal 'GPL', answer2.to_s
+  end
+
 end
 
