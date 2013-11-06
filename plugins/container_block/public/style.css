@@ -1,6 +1,8 @@
 #content .boxes .container-block .container_block_child, .container-block .block-outer {
   display: inline-block;
   vertical-align: top;
+  margin-left: -2px;
+  margin-right: -2px;
 }
 
 .container-block .block-target {
