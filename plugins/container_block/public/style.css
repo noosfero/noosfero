@@ -1,5 +1,6 @@
 #content .boxes .container-block .container_block_child, .container-block .block-outer {
-  float: left;
+  display: inline-block;
+  vertical-align: top;
 }
 
 .container-block .block-target {
