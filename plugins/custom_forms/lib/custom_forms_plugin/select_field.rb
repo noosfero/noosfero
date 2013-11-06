@@ -3,4 +3,6 @@ class CustomFormsPlugin::SelectField < CustomFormsPlugin::Field
 
   validates_length_of :select_field_type, :minimum => 1, :allow_nil => false
   validates_inclusion_of :select_field_type, :in => %w(radio check_box select multiple_select)
+
+  validates_length_of :alternatives, :minimum => 1
 end
