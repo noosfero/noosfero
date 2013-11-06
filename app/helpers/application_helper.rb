@@ -1250,19 +1250,11 @@ module ApplicationHelper
     already_reported_message = _('You already reported this profile.')
     report_profile_message = _('Report this profile for abusive behaviour')
 
-    if type == :button || type == :button_without_text
+    if type == :button
       if user.already_reported?(profile)
-        if type == :button
-          button(:alert, text, url, :class => klass+' disabled', :disabled => true, :title => already_reported_message)
-        elsif type == :button_without_text
-          button_without_text(:alert, text, url, :class => klass+' disabled', :disabled => true, :title => already_reported_message)
-        end
+        button(:alert, text, url, :class => klass+' disabled', :disabled => true, :title => already_reported_message)
       else
-        if type == :button
-          button(:alert, text, url, :class => klass, :title => report_profile_message)
-        elsif type == :button_without_text
-          button_without_text(:alert, text, url, :class => klass, :title => report_profile_message)
-        end
+        button(:alert, text, url, :class => klass, :title => report_profile_message)
       end
     elsif type == :link
       if user.already_reported?(profile)
