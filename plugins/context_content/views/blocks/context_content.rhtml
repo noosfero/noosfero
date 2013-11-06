@@ -1,0 +1,14 @@
+<%= block_title(block.title) %>
+
+<div class="contents">
+<% contents.each do |content| %>
+  <span class="item">
+    <a href="<%= url_for(content.view_url) %>">
+      <%= instance_eval(&block.content_image(content)) if block.show_image %>
+      <% if block.show_name %>
+        <div class="name"><%= short_filename(content.name) %></div>
+      <% end %>
+    </a>
+  </span>
+<% end %>
+</div>

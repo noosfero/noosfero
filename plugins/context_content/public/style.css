@@ -1,0 +1,38 @@
+.context-content-block .contents .item img {
+  width: 100%;
+}
+
+.context-content-block .contents .item .context-icon {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center; 
+  height: 60px;
+}
+
+.context-content-block .contents .item {
+  width: 60px;
+  display: inline-block;
+  vertical-align: top;
+  margin: 5px;
+  list-style-type: none;
+  border: 1px solid #FFF;
+  padding: 5px;
+}
+
+.context-content-block .contents .item:hover {
+  border: 1px solid #CCC;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  background: #EEE;
+  text-decoration: none;
+}
+
+.context-content-block .contents .item .name {
+  text-align: center;
+  font-size: 8pt;
+  word-wrap: break-word;
+}
+
+.context-content-block .contents .item a {
+  text-decoration: none;
+}

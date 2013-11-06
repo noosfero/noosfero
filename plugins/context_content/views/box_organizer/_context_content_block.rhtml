@@ -1,0 +1,11 @@
+<div id='edit-context-content-block'>
+  <%= labelled_form_field _('Limit of items'), text_field(:block, :limit, :size => 3) %>
+  <%= labelled_form_field check_box(:block, :show_name) + _('Show content name'), '' %>
+  <%= labelled_form_field check_box(:block, :show_image) + _('Show content image'), '' %>
+  <%= labelled_form_field check_box(:block, :show_parent_content) + _('Show parent content when children is empty'), '' %>
+  
+  <p>Display content types:</p>
+  <% @block.available_content_types.each do |type| %>
+    <%= labelled_form_field check_box(:block, 'types', {:multiple => true}, type.name, nil) + _(type.short_description), '' %>
+  <% end %>
+</div>
