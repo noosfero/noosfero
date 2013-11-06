@@ -222,7 +222,6 @@ class SuggestArticleTest < ActiveSupport::TestCase
     t.spam!
     log = File.open('log/test_spammers.log')
     assert_match "SuggestArticle-id: #{t.id} IP: 192.168.0.1", log.read
-    SpammerLogger.clean_log
   end
 
 end

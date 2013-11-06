@@ -523,7 +523,6 @@ class CommentTest < ActiveSupport::TestCase
     comment.spam!
     log = File.open('log/test_spammers.log')
     assert_match "Comment-id: #{comment.id} IP: 192.168.0.1", log.read
-    SpammerLogger.clean_log
   end
 
   should 'not need moderation if article is not moderated' do
