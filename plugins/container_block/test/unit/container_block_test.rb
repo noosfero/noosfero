@@ -69,4 +69,17 @@ class ContainerBlockTest < ActiveSupport::TestCase
     assert_equal nil, @block.layout_template
   end
 
+  should 'return children blocks that have container box as box' do
+    @block.save!
+    child = Block.create!(:box_id => @block.container_box.id)
+    assert_equal [child], @block.blocks
+  end
+
+  should 'destroy chilrend when container is removed' do
+    @block.save!
+    child = Block.create!(:box_id => @block.container_box.id)
+    @block.destroy
+    assert !Block.exists?(child.id)
+  end
+
 end
