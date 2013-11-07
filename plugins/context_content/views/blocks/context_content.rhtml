@@ -1,6 +1,3 @@
-<%= block_title(block.title) %>
-
-<div class="contents">
 <% contents.each do |content| %>
   <span class="item">
     <a href="<%= url_for(content.view_url) %>">
@@ -13,4 +10,3 @@
     </a>
   </span>
 <% end %>
-</div>

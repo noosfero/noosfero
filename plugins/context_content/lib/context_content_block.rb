@@ -37,28 +37,36 @@ class ContextContentBlock < Block
     end
   end
 
-  def contents(page)
+  def contents(page, p=1)
+    return @children unless @children.blank?
     if page
-      children = page.children.with_types(types).limit(limit)
-      (children.blank? && show_parent_content) ? contents(page.parent) : children
+      @children = page.children.with_types(types).paginate(:per_page => limit, :page => p)
+      (@children.blank? && show_parent_content) ? contents(page.parent) : @children
     else
       nil
     end
   end
 
-# FIXME
-#  def footer
-#    lambda do
-#      link_to(_('View all'), '')
-#    end
-#  end
+  def footer
+    block = self
+    lambda do
+      if @page
+        contents = block.contents(@page)
+        content_tag('div',
+          render(:partial => 'blocks/more', :locals => {:block => block, :contents => contents, :article_id => @page.id}), :id => "context_content_more_#{block.id}", :class => "more_button")
+      else
+        ''
+      end
+    end
+  end
 
   def content(args={})
     block = self
     lambda do
       contents = block.contents(@page)
       if !contents.blank?
-        render :file => 'blocks/context_content', :locals => {:block => block, :contents => contents}
+        block_title(block.title) + content_tag('div', 
+            render(:file => 'blocks/context_content', :locals => {:block => block, :contents => contents}), :class => 'contents', :id => "context_content_#{block.id}")
       else
         ''
       end
