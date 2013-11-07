@@ -4,9 +4,11 @@
 <% contents.each do |content| %>
   <span class="item">
     <a href="<%= url_for(content.view_url) %>">
-      <%= instance_eval(&block.content_image(content)) if block.show_image %>
+      <div class="image">
+        <%= instance_eval(&block.content_image(content)) if block.show_image %>
+      </div>
       <% if block.show_name %>
-        <div class="name"><%= short_filename(content.name) %></div>
+        <div class="name"><%= short_filename(content.name, 30) %></div>
       <% end %>
     </a>
   </span>
