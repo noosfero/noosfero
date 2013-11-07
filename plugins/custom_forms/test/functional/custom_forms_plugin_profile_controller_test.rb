@@ -28,4 +28,14 @@ class CustomFormsPluginProfileControllerTest < ActionController::TestCase
     assert !session[:notice].include?('not saved')
     assert_redirected_to :action => 'show'
   end
+
+  should 'disable fields if form expired' do
+    form = CustomFormsPlugin::Form.create!(:profile => profile, :name => 'Free Software', :begining => Time.now + 1.day)
+    form.fields << CustomFormsPlugin::TextField.create(:name => 'Field Name', :form => form, :default_value => "First Field")
+
+    get :show, :profile => profile.identifier, :id => form.id
+
+    assert_tag :tag => 'h2', :content => 'Sorry, you can\'t fill this form right now'
+    assert_tag :tag => 'input', :attributes => {:disabled => 'disabled'}
+  end
 end

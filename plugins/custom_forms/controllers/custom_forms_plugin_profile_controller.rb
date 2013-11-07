@@ -18,6 +18,7 @@ class CustomFormsPluginProfileController < ProfileController
     if request.post?
       begin
         raise 'Submission already present!' if user.present? && CustomFormsPlugin::Submission.find_by_form_id_and_profile_id(@form.id,user.id)
+        raise 'Form expired!' if @form.expired?
 
         # @submission.answers for some reason has the same answer twice
         failed_answers = answers.select {|answer| !answer.valid? }
