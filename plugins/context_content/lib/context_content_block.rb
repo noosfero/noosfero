@@ -50,8 +50,8 @@ class ContextContentBlock < Block
   def footer
     block = self
     lambda do
-      if @page
-        contents = block.contents(@page)
+      contents = block.contents(@page)
+      if contents
         content_tag('div',
           render(:partial => 'blocks/more', :locals => {:block => block, :contents => contents, :article_id => @page.id}), :id => "context_content_more_#{block.id}", :class => "more_button")
       else
