@@ -1,6 +1,10 @@
 module Spammable
   def self.included(recipient)
-    raise "This model (#{recipient.to_s}) should have a spam attribute!" if !recipient.new.respond_to?('spam=')
+    #TODO This line crashes the migration which includes the spam attribute to
+    #     Task...  =P
+    #     No fail-safe until someone find out how to use this without crashing
+    #     the migration process
+    #raise "This model (#{recipient.to_s}) should have a spam attribute!" if !recipient.new.respond_to?('spam=')
     recipient.extend(ClassMethods)
   end
 
