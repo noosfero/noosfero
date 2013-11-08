@@ -1,6 +1,6 @@
 module Spammable
   def self.included(recipient)
-    raise "This model should have a spam attribute!" if !recipient.new.respond_to?('spam=')
+    raise "This model (#{recipient.to_s}) should have a spam attribute!" if !recipient.new.respond_to?('spam=')
     recipient.extend(ClassMethods)
   end
 
