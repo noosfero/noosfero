@@ -67,7 +67,7 @@ class AccountControllerTest < ActionController::TestCase
   end
 
   should 'be able to recover password with usp_id' do
-    post :forgot_password, :change_password => { :field => 'usp_id', :value => '87654321' }
+    post :forgot_password, :change_password => { :value => '87654321' }
     assert_template 'password_recovery_sent'
   end
 end

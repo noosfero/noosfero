@@ -121,7 +121,7 @@ class StoaPlugin < Noosfero::Plugin
   end
 
   def change_password_fields
-    {:usp_id => _('USP Number')}
+    {:field => :usp_id, :name => _('USP Number'), :model => 'person'}
   end
 
 end

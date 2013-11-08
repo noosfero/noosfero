@@ -1,14 +1,12 @@
 class ChangePassword < Task
 
-  settings_items :field, :value
+  settings_items :value
   attr_accessor :password, :password_confirmation, :environment_id
 
   include Noosfero::Plugin::HotSpot
 
   def self.human_attribute_name(attrib)
     case attrib.to_sym
-    when :field
-      _('Field')
     when :value
       _('Value')
     when :password
@@ -20,49 +18,54 @@ class ChangePassword < Task
     end
   end
 
-  def plugins_fields
-    plugins.dispatch(:change_password_fields).inject({}) { |result, fields| result.merge!(fields)}
-  end
-
   def environment
     (requestor.environment if requestor) || Environment.find_by_id(environment_id)
   end
 
-  def fields
-    %w[login email] + plugins_fields.map { |field, name| field.to_s }
+  def plugins_options
+    plugins.dispatch(:change_password_fields)
   end
 
-  def fields_choice
-    [
-      [_('Username'), 'login'],
-      [_('Email'), 'email'],
-    ] + plugins_fields.map { |field, name| [name, field] }
+  def user_fields
+    %w[login email] + plugins_options.select {|options| options[:model].to_sym == :user }.map { |options| options[:field].to_s }
+  end
+
+  def person_fields
+    %w[] + plugins_options.select {|options| options[:model].to_sym == :person }.map { |options| options[:field].to_s }
+  end
+
+  def fields
+    user_fields + person_fields
+  end
+
+  def fields_label
+    labels = [
+      _('Username'),
+      _('Email'),
+    ] + plugins_options.map { |options| options[:name] }
+
+    last = labels.pop
+    label = labels.join(', ')
+    "#{label} #{_('or')} #{last}"
   end
 
   ###################################################
   # validations for creating a ChangePassword task 
   
-  validates_presence_of :field, :value, :environment_id, :on => :create, :message => _('must be filled in')
-  # TODO Only on rails3
-  # validates_inclusion_of :field, :in => lambda { |data| data.fields }
-  validates_each :field do |data, attr, value|
-    unless data.fields.include?(value)
-      data.errors.add(attr, _('is not in the list of valid fields.'))
-    end
-  end
+  validates_presence_of :value, :environment_id, :on => :create, :message => _('must be filled in')
 
   validates_each :value, :on => :create do |data,attr,value|
-    unless data.field.blank? || data.value.blank?
-      user = data.user_find
-      if user.nil? 
-        data.errors.add(:value, _('"%s" is not a valid %s.') % [value.to_s, human_attribute_name(data.field)])
+    unless data.value.blank?
+      users = data.find_users
+      if users.blank?
+        data.errors.add(:value, _('"%s" is not valid.') % value.to_s)
       end
     end
   end
 
   before_validation do |change_password|
-    user = change_password.user_find
-    change_password.requestor = user.person if user
+    users = change_password.find_users
+    change_password.requestor ||= users.first.person if users.present?
   end
 
   ###################################################
@@ -73,15 +76,18 @@ class ChangePassword < Task
   validates_presence_of :password_confirmation, :on => :update, :if => lambda { |change| change.status != Task::Status::CANCELLED }
   validates_confirmation_of :password, :if => lambda { |change| change.status != Task::Status::CANCELLED }
 
-  def user_find
-    begin
-      method = "find_by_#{field}_and_environment_id"
-      user = nil
-      user = User.send(method, value, environment_id) if User.respond_to?(method)
-      user = Person.send(method, value, environment_id).user if user.nil? && Person.respond_to?(method)
-    rescue
-    end
-    user
+  def build_query(fields)
+    fields.map {|field| "#{field} = '#{value}'"}.join(' OR ')
+  end
+
+  def find_users
+    results = []
+    person_query = build_query(person_fields)
+    user_query = build_query(user_fields)
+
+    results += Person.where(person_query).where(:environment_id => environment.id).map(&:user)
+    results += User.where(user_query).where(:environment_id => environment.id)
+    results
   end
 
   def title

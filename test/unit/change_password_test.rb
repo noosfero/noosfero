@@ -9,39 +9,7 @@ class ChangePasswordTest < ActiveSupport::TestCase
     assert !data.valid?
   end
 
-  should 'validate field is login or email' do
-    data = ChangePassword.new(:environment_id => Environment.default)
-    data.field = 'anything'
-    data.valid?
-    assert data.errors.invalid?(:field)
-
-    data.field = 'login'
-    data.valid?
-    assert !data.errors.invalid?(:field)
-
-    data.field = 'email'
-    data.valid?
-    assert !data.errors.invalid?(:field)
-  end
-
-  should 'refuse invalid field' do
-    User.destroy_all
-
-    data = ChangePassword.new
-    data.environment_id = Environment.default.id
-
-    data.field = 'login'
-    data.value = 'unexisting'
-    data.valid?
-    assert data.errors.invalid?(:value)
-
-    data.field = 'email'
-    data.value = 'example@example.com'
-    data.valid?
-    assert data.errors.invalid?(:value)
-  end
-
-  should 'require only a valid field-value' do
+  should 'require only a valid value' do
     User.destroy_all
     create_user('testuser', :email => 'test@example.com')
 
@@ -50,12 +18,10 @@ class ChangePasswordTest < ActiveSupport::TestCase
     assert !data.valid?
     assert data.errors.invalid?(:value)
 
-    data.field = 'login'
     data.value = 'testuser'
     data.valid?
     assert data.valid?
 
-    data.field = 'email'
     data.value = 'test@example.com'
     assert data.valid?
   end
@@ -65,7 +31,6 @@ class ChangePasswordTest < ActiveSupport::TestCase
 
     change = ChangePassword.new
     change.environment_id = Environment.default.id
-    change.field = 'login'
     change.value = 'testuser'
     change.save!
 
@@ -86,7 +51,6 @@ class ChangePasswordTest < ActiveSupport::TestCase
 
     change = ChangePassword.new
     change.environment_id = Environment.default.id
-    change.field = 'login'
     change.value = 'testuser'
     change.save!
 
@@ -105,7 +69,6 @@ class ChangePasswordTest < ActiveSupport::TestCase
 
     change = ChangePassword.new
     change.environment_id = Environment.default.id
-    change.field = 'login'
     change.value = 'testuser'
     change.save!
 
@@ -127,8 +90,8 @@ class ChangePasswordTest < ActiveSupport::TestCase
     p1 = create_user('sample-user', :password => 'test', :password_confirmation => 'test', :email => 'sample-user@test.com', :environment => e1).person
     p2 = create_user('sample-user', :password => 'test', :password_confirmation => 'test', :email => 'sample-user@test.com', :environment => e2).person
 
-    c1 = ChangePassword.create!(:field => 'login', :value => 'sample-user', :environment_id => e1.id)
-    c2 = ChangePassword.create!(:field => 'login', :value => 'sample-user', :environment_id => e2.id)
+    c1 = ChangePassword.create!(:value => 'sample-user', :environment_id => e1.id)
+    c2 = ChangePassword.create!(:value => 'sample-user', :environment_id => e2.id)
 
     assert_equal c1.requestor, p1
     assert_equal c2.requestor, p2
@@ -137,7 +100,7 @@ class ChangePasswordTest < ActiveSupport::TestCase
   should 'have target notification description' do
     person = create_user('testuser').person
 
-    change = ChangePassword.create(:field => 'login', :value => 'testuser', :environment_id => Environment.default.id)
+    change = ChangePassword.create(:value => 'testuser', :environment_id => Environment.default.id)
 
     assert_match(/#{change.requestor.name} wants to change its password/, change.target_notification_description)
   end
@@ -145,7 +108,7 @@ class ChangePasswordTest < ActiveSupport::TestCase
   should 'deliver task created message' do
     person = create_user('testuser').person
 
-    task = ChangePassword.create(:field => 'login', :value => 'testuser', :environment_id => Environment.default.id)
+    task = ChangePassword.create(:value => 'testuser', :environment_id => Environment.default.id)
 
     email = TaskMailer.deliver_task_created(task)
     assert_match(/#{task.requestor.name} wants to change its password/, email.subject)
@@ -154,12 +117,13 @@ class ChangePasswordTest < ActiveSupport::TestCase
   should 'allow extra fields provided by plugins' do
     class Plugin1 < Noosfero::Plugin
       def change_password_fields
-        {:f1 => 'F1'}
+        {:field => 'f1', :name => 'F1', :model => 'person'}
       end
     end
     class Plugin2 < Noosfero::Plugin
       def change_password_fields
-        {:f2 => 'F2', :f3 => 'F3'}
+        [{:field => 'f2', :name => 'F2', :model => 'person'},
+         {:field => 'f3', :name => 'F3', :model => 'person'}]
       end
     end
 

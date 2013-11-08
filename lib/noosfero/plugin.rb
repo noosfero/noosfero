@@ -461,7 +461,7 @@ class Noosfero::Plugin
   end
 
   # -> Adds aditional fields for change_password
-  # returns = {:field1 => 'field1 name', :field2 => 'field2 name' ... }
+  # returns = [{:field => 'field1', :name => 'field 1 name', :model => 'person'}, {...}]
   def change_password_fields
     nil
   end
