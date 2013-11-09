@@ -32,5 +32,13 @@ class CustomFormsPlugin::FieldTest < ActiveSupport::TestCase
     end
     assert_equal form.fields, [license_field]
   end
+
+  should 'sort alternatives by position' do
+    field = CustomFormsPlugin::Field.create!(:name => 'field001')
+    second = CustomFormsPlugin::Alternative.create!(:label => 'second', :field => field, :position => 2)
+    first = CustomFormsPlugin::Alternative.create!(:label => 'first', :field => field, :position => 1)
+
+    assert_equal field.alternatives, [first, second]
+  end
 end
 

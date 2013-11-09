@@ -17,9 +17,13 @@
 
 <h2><%= _('Fields') %></h2>
 
-<% f.fields_for :fields do |builder| %>
-  <%= render partial_for_class(builder.object.class), :f => builder %>
-<% end %>
+<ul class='field-list'>
+  <% f.fields_for :fields do |builder| %>
+    <li>
+      <%= render partial_for_class(builder.object.class), :f => builder %>
+    </li>
+  <% end %>
+</ul>
 
 <div class="addition-buttons">
   <%= button(:add, _('Add a new text field'), '#', :onclick => "customFormsPlugin.addFields(this, 'fields', #{html_for_field(f, :fields, CustomFormsPlugin::TextField).to_json}); return false")%>

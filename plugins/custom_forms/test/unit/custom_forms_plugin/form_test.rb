@@ -180,4 +180,12 @@ class CustomFormsPlugin::FormTest < ActiveSupport::TestCase
     end
   end
 
+  should 'sort fields by position' do
+    form = CustomFormsPlugin::Form.create!(:name => 'Free Software', :profile => fast_create(Profile))
+    license_field = CustomFormsPlugin::Field.create!(:name => 'License', :form => form, :position => 2)
+    url_field = CustomFormsPlugin::Field.create!(:name => 'URL', :form => form, :position => 0)
+
+    assert_equal form.fields, [url_field, license_field]
+  end
+
 end

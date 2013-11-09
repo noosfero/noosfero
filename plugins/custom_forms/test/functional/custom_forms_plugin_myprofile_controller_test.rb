@@ -76,8 +76,8 @@ class CustomFormsPluginMyprofileControllerTest < ActionController::TestCase
     assert_equal 'Cool form', form.description
     assert_equal 2, form.fields.count
 
-    f1 = form.fields.first
-    f2 = form.fields.last
+    f1 = form.fields[0]
+    f2 = form.fields[1]
 
     assert_equal 'Name', f1.name
     assert_equal 'Jack', f1.default_value
@@ -89,15 +89,15 @@ class CustomFormsPluginMyprofileControllerTest < ActionController::TestCase
     assert f2.kind_of?(CustomFormsPlugin::SelectField)
   end
 
-  should 'create fields in the order they are sent' do
+  should 'create fields in the order they are sent when no position defined' do
     format = '%Y-%m-%d %H:%M'
     num_fields = 10
     begining = Time.now.strftime(format)
     ending = (Time.now + 1.day).strftime(format)
     fields = {}
     num_fields.times do |i|
-      fields[i.to_s] = {
-        :name => i.to_s,
+      fields[i] = {
+        :name => (10-i).to_s,
         :default_value => '',
         :type => 'CustomFormsPlugin::TextField'
       }
@@ -115,11 +115,45 @@ class CustomFormsPluginMyprofileControllerTest < ActionController::TestCase
     end
     form = CustomFormsPlugin::Form.find_by_name('My Form')
     assert_equal num_fields, form.fields.count
-    lst = -1
-    form.fields.find_each do |f|
-      assert f.name.to_i > lst
-      lst = f.name.to_i
+    lst = 10
+    form.fields.each do |f|
+      assert f.name.to_i == lst
+      lst = lst - 1
     end
+  end
+
+  should 'create fields in any position size' do
+    format = '%Y-%m-%d %H:%M'
+    begining = Time.now.strftime(format)
+    ending = (Time.now + 1.day).strftime(format)
+    fields = {}
+    fields['0'] = {
+      :name => '0',
+      :default_value => '',
+      :type => 'CustomFormsPlugin::TextField',
+      :position => '999999999999'
+    }
+    fields['1'] = {
+      :name => '1',
+      :default_value => '',
+      :type => 'CustomFormsPlugin::TextField',
+      :position => '1'
+    }
+    assert_difference CustomFormsPlugin::Form, :count, 1 do
+      post :create, :profile => profile.identifier,
+        :form => {
+        :name => 'My Form',
+        :access => 'logged',
+        :begining => begining,
+        :ending => ending,
+        :description => 'Cool form',
+        :fields_attributes => fields
+      }
+    end
+    form = CustomFormsPlugin::Form.find_by_name('My Form')
+    assert_equal 2, form.fields.count
+    assert form.fields.first.name == "1"
+    assert form.fields.last.name == "0"
   end
 
   should 'edit a form' do

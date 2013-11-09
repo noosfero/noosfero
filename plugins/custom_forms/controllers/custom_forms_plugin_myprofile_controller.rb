@@ -19,6 +19,8 @@ class CustomFormsPluginMyprofileController < MyProfileController
     params[:form][:profile_id] = profile.id
     @form = CustomFormsPlugin::Form.new(params[:form])
 
+    normalize_positions(@form)
+
     respond_to do |format|
       if @form.save
         flash[:notice] = _("Custom form #{@form.name} was successfully created.")
@@ -35,9 +37,12 @@ class CustomFormsPluginMyprofileController < MyProfileController
 
   def update
     @form = CustomFormsPlugin::Form.find(params[:id])
+    @form.attributes = params[:form]
+
+    normalize_positions(@form)
 
     respond_to do |format|
-      if @form.update_attributes(params[:form])
+      if @form.save
         flash[:notice] = _("Custom form #{@form.name} was successfully updated.")
         format.html { redirect_to(:action=>'index') }
       else
@@ -82,6 +87,23 @@ class CustomFormsPluginMyprofileController < MyProfileController
   def show_submission
     @submission = CustomFormsPlugin::Submission.find(params[:id])
     @form = @submission.form
+  end
+
+  private
+
+  def normalize_positions(form)
+    counter = 0
+    form.fields.sort_by{ |f| f.position.to_i }.each do |field|
+      field.position = counter
+      counter += 1
+    end
+    form.fields.each do |field|
+      counter = 0
+      field.alternatives.sort_by{ |alt| alt.position.to_i }.each do |alt|
+        alt.position = counter
+        counter += 1
+      end
+    end
   end
 
 end

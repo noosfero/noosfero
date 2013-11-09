@@ -4,17 +4,13 @@
 }
 
 .action-table {
-  width: 100%; 
+  width: 100%;
   overflow: hidden;
 }
 
 .action-table th,
 .action-table td{
   text-align: center;
-}
-
-.action-table td{
-  cursor: move;
 }
 
 .action-table .actions{
@@ -54,4 +50,23 @@
 
 .field-text-default {
   margin-top: 10px;
+}
+
+.field-list {
+  list-style-type: none;
+  margin: 0px;
+  padding: 0px;
+  cursor: move;
+}
+
+.field-list label, .field-list legend {
+  cursor: move;
+}
+
+ul.field-list > li > fieldset:hover {
+  border: 2px dotted #BBB;
+}
+
+tr.addition-buttons {
+  cursor: auto;
 }

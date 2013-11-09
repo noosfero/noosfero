@@ -6,7 +6,7 @@ class CustomFormsPlugin::Field < ActiveRecord::Base
   belongs_to :form, :class_name => 'CustomFormsPlugin::Form'
   has_many :answers, :class_name => 'CustomFormsPlugin::Answer'
 
-  has_many :alternatives, :class_name => 'CustomFormsPlugin::Alternative'
+  has_many :alternatives, :order => 'position', :class_name => 'CustomFormsPlugin::Alternative'
   accepts_nested_attributes_for :alternatives, :allow_destroy => true
 
   before_validation do |field|
