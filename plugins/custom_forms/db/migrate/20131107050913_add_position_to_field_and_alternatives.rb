@@ -2,11 +2,11 @@ class AddPositionToFieldAndAlternatives < ActiveRecord::Migration
   def self.up
     change_table :custom_forms_plugin_fields do |t|
       t.integer :position, :default => 0
-    end 
+    end
 
     change_table :custom_forms_plugin_alternatives do |t|
       t.integer :position, :default => 0
-    end 
+    end
 
     CustomFormsPlugin::Field.find_each do |f|
       f.position = f.id
@@ -22,10 +22,10 @@ class AddPositionToFieldAndAlternatives < ActiveRecord::Migration
   def self.down
     change_table :custom_forms_plugin_fields do |t|
       t.remove :position
-    end 
+    end
 
     change_table :custom_forms_plugin_alternatives do |t|
       t.remove :position
-    end 
+    end
   end
 end
