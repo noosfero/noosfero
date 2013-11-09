@@ -179,5 +179,22 @@ class CustomFormsPluginMyprofileControllerTest < ActionController::TestCase
     assert_equal 'Cool form', form.description
     assert_equal 'Source', field.name
   end
+
+  should 'order submissions by name or time' do
+    form = CustomFormsPlugin::Form.create!(:profile => profile, :name => 'Free Software')
+    field = CustomFormsPlugin::TextField.create!(:name => "Title")
+    form.fields << field
+    sub1 = CustomFormsPlugin::Submission.create!(:author_name => "john", :author_email => 'john@example.com', :form => form)
+    bob = create_user('bob').person
+    sub2 = CustomFormsPlugin::Submission.create!(:profile => bob, :form => form)
+
+    get :submissions, :profile => profile.identifier, :id => form.id, :sort_by => 'time'
+    assert_not_nil assigns(:sort_by)
+    assert_select 'table.action-table', /Author\W*Time\W*john[\W\dh]*bob[\W\dh]*/
+
+    get :submissions, :profile => profile.identifier, :id => form.id, :sort_by => 'author'
+    assert_not_nil assigns(:sort_by)
+    assert_select 'table.action-table', /Author\W*Time\W*bob[\W\dh]*john[\W\dh]*/
+  end
 end
 
