@@ -73,7 +73,7 @@ class CustomFormsPluginMyprofileController < MyProfileController
         columns = @form.fields.count + 3
         csv_content = CSV.generate_line(['Timestamp', 'Name', 'Email'] + @form.fields.map(&:name)) + "\n"
         @submissions.each do |s|
-          fields = [s.updated_at, s.profile.present? ? s.profile.name : s.author_name, s.profile.present? ? s.profile.email : s.author_email]
+          fields = [s.updated_at.strftime('%Y/%m/%d %T %Z'), s.profile.present? ? s.profile.name : s.author_name, s.profile.present? ? s.profile.email : s.author_email]
           @form.fields.each do |f|
             fields << s.answers.select{|a| a.field == f}.map{|answer| answer.to_s}
           end
