@@ -180,6 +180,26 @@ class CustomFormsPluginMyprofileControllerTest < ActionController::TestCase
     assert_equal 'Source', field.name
   end
 
+  should 'export submissions as csv' do
+    form = CustomFormsPlugin::Form.create!(:profile => profile, :name => 'Free Software')
+    field = CustomFormsPlugin::TextField.create!(:name => "Title")
+    form.fields << field
+
+    answer = CustomFormsPlugin::Answer.create!(:value => 'example', :field => field)
+
+    sub1 = CustomFormsPlugin::Submission.create!(:author_name => "john", :author_email => 'john@example.com', :form => form)
+    sub1.answers << answer
+
+    bob = create_user('bob').person
+    sub2 = CustomFormsPlugin::Submission.create!(:profile => bob, :form => form)
+
+    get :submissions, :profile => profile.identifier, :id => form.id, :format => 'csv'
+    assert_equal @response.content_type, 'text/csv'
+    assert_equal @response.body.split("\n")[0], 'Timestamp,Name,Email,Title'
+    assert_equal @response.body.split("\n")[1], "#{sub1.updated_at.strftime('%Y/%m/%d %T %Z')},john,john@example.com,example"
+    assert_equal @response.body.split("\n")[2], "#{sub2.updated_at.strftime('%Y/%m/%d %T %Z')},bob,#{bob.email},\"\""
+  end
+
   should 'order submissions by name or time' do
     form = CustomFormsPlugin::Form.create!(:profile => profile, :name => 'Free Software')
     field = CustomFormsPlugin::TextField.create!(:name => "Title")
