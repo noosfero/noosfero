@@ -48,6 +48,24 @@ class ContextContentBlockTest < ActiveSupport::TestCase
     assert_equal 2, @block.contents(folder).length
   end
 
+  should 'show contents for next page' do
+    @block.limit = 2
+    folder = fast_create(Folder)
+    article1 = fast_create(TinyMceArticle, :parent_id => folder.id)
+    article2 = fast_create(TinyMceArticle, :parent_id => folder.id)
+    article3 = fast_create(TinyMceArticle, :parent_id => folder.id)
+    assert_equal [article3], @block.contents(folder, 2)
+  end
+
+  should 'show parent contents for next page' do
+    @block.limit = 2
+    folder = fast_create(Folder)
+    article1 = fast_create(TinyMceArticle, :parent_id => folder.id)
+    article2 = fast_create(TinyMceArticle, :parent_id => folder.id)
+    article3 = fast_create(TinyMceArticle, :parent_id => folder.id)
+    assert_equal [article3], @block.contents(article1, 2)
+  end
+
   should 'return parent children if page has no children' do
     folder = fast_create(Folder)
     article = fast_create(TinyMceArticle, :parent_id => folder.id)
