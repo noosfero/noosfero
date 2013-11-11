@@ -18,9 +18,10 @@ class CustomFormsPlugin::Form < Noosfero::Plugin::ActiveRecord
   end
 
   named_scope :from, lambda {|profile| {:conditions => {:profile_id => profile.id}}}
-  named_scope :on_memberships, {:conditions => {:on_membership => true}}
+  named_scope :on_memberships, {:conditions => {:on_membership => true, :for_admission => false}}
+  named_scope :for_admissions, {:conditions => {:for_admission => true}}
 =begin
-  named_scope :accessible_to lambda do |profile| 
+  named_scope :accessible_to lambda do |profile|
     #TODO should verify is profile is associated with the form owner
     profile_associated = ???
     {:conditions => ["
@@ -60,7 +61,7 @@ class CustomFormsPlugin::Form < Noosfero::Plugin::ActiveRecord
       elsif access.kind_of?(Array)
         access.each do |value|
           if !value.kind_of?(Integer) || !Profile.exists?(value)
-            errors.add(:access, _('There is no profile with the provided id.')) 
+            errors.add(:access, _('There is no profile with the provided id.'))
             break
           end
         end

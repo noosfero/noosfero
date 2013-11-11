@@ -188,4 +188,27 @@ class CustomFormsPlugin::FormTest < ActiveSupport::TestCase
     assert_equal form.fields, [url_field, license_field]
   end
 
+  should 'have a named_scope that retrieves all forms required for membership' do
+    profile = fast_create(Profile)
+    f1 = CustomFormsPlugin::Form.create!(:name => 'For admission 1', :profile => profile, :for_admission => true)
+    f2 = CustomFormsPlugin::Form.create!(:name => 'For admission 2', :profile => profile, :for_admission => true)
+    f3 = CustomFormsPlugin::Form.create!(:name => 'Not for admission', :profile => profile, :for_admission => false)
+    scope = CustomFormsPlugin::Form.from(profile).for_admissions
+
+    assert_equal ActiveRecord::NamedScope::Scope, scope.class
+    assert_includes scope, f1
+    assert_includes scope, f2
+    assert_not_includes scope, f3
+  end
+
+  should 'not include admission membership in on membership named scope' do
+    profile = fast_create(Profile)
+    f1 = CustomFormsPlugin::Form.create!(:name => 'On membership', :profile => profile, :on_membership => true)
+    f2 = CustomFormsPlugin::Form.create!(:name => 'For admission', :profile => profile, :on_membership => true, :for_admission => true)
+    scope = CustomFormsPlugin::Form.from(profile).on_memberships
+
+    assert_equal ActiveRecord::NamedScope::Scope, scope.class
+    assert_includes scope, f1
+    assert_not_includes scope, f2
+  end
 end
