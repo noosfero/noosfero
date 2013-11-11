@@ -9,7 +9,7 @@ class BreadcrumbsPlugin < Noosfero::Plugin
   end
   
   def self.extra_blocks
-    { BreadcrumbsBlock => {} }
+    { BreadcrumbsBlock => {:type => [Community, Person, Enterprise] } }
   end
 
 end
