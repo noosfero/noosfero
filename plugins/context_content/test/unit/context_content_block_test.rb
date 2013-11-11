@@ -84,8 +84,37 @@ class ContextContentBlockTest < ActiveSupport::TestCase
     assert_equal nil, @block.contents(folder)
   end
 
+  should 'return available content types with checked types first' do
+    @block.types = ['TinyMceArticle', 'Folder']
+    assert_equal [TinyMceArticle, Folder, UploadedFile, Event, TextileArticle, RawHTMLArticle, Blog, Forum, Gallery, RssFeed], @block.available_content_types
+  end
+
   should 'return available content types' do
-    assert_equal [TinyMceArticle, TextileArticle, RawHTMLArticle, Event, Folder, Blog, UploadedFile, Forum, Gallery, RssFeed], @block.available_content_types
+    @block.types = []
+    assert_equal [UploadedFile, Event, TinyMceArticle, TextileArticle, RawHTMLArticle, Folder, Blog, Forum, Gallery, RssFeed], @block.available_content_types
+  end
+
+  should 'return first 2 content types' do
+    assert_equal 2, @block.first_content_types.length
+  end
+
+  should 'return all but first 2 content types' do
+    assert_equal @block.available_content_types.length - 2, @block.more_content_types.length
+  end
+
+  should 'return 2 as default value for first_types_count' do
+    assert_equal 2, @block.first_types_count
+  end
+
+  should 'return types length if it has more than 2 selected types' do
+    @block.types = ['UploadedFile', 'Event', 'Folder']
+    assert_equal 3, @block.first_types_count
+  end
+
+  should 'return selected types at first_content_types' do
+    @block.types = ['UploadedFile', 'Event', 'Folder']
+    assert_equal [UploadedFile, Event, Folder], @block.first_content_types
+    assert_equal @block.available_content_types - [UploadedFile, Event, Folder], @block.more_content_types
   end
 
   should 'include plugin content at available content types' do
@@ -93,7 +122,8 @@ class ContextContentBlockTest < ActiveSupport::TestCase
     class SomePlugin; def content_types; SomePluginContent end end
     Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([SomePlugin.new])
 
-    assert_equal [TinyMceArticle, TextileArticle, RawHTMLArticle, Event, Folder, Blog, UploadedFile, Forum, Gallery, RssFeed, SomePluginContent], @block.available_content_types
+    @block.types = []
+    assert_equal [UploadedFile, Event, TinyMceArticle, TextileArticle, RawHTMLArticle, Folder, Blog, Forum, Gallery, RssFeed, SomePluginContent], @block.available_content_types
   end
 
   should 'display thumbnail for image content' do

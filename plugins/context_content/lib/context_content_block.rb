@@ -18,7 +18,21 @@ class ContextContentBlock < Block
   end
 
   def available_content_types
-    @available_content_types ||= [TinyMceArticle, TextileArticle, RawHTMLArticle, Event, Folder, Blog, UploadedFile, Forum, Gallery, RssFeed] + plugins.dispatch(:content_types)
+    @available_content_types ||= [UploadedFile, Event, TinyMceArticle, TextileArticle, RawHTMLArticle, Folder, Blog, Forum, Gallery, RssFeed] + plugins.dispatch(:content_types)
+    checked_types = types.map {|t| t.constantize}
+    checked_types + (@available_content_types - checked_types)
+  end
+
+  def first_content_types
+    available_content_types.first(first_types_count) 
+  end
+
+  def more_content_types
+    available_content_types.drop(first_types_count) 
+  end
+
+  def first_types_count
+    [2, types.length].max
   end
 
   def types=(new_types)
