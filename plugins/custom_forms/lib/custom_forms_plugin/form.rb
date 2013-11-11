@@ -17,6 +17,11 @@ class CustomFormsPlugin::Form < Noosfero::Plugin::ActiveRecord
     form.access = nil if form.access.blank?
   end
 
+  after_destroy do |form|
+    tasks = CustomFormsPlugin::MembershipSurvey.from(form.profile).opened.select { |t| t.form_id == form.id }
+    tasks.each {|task| task.cancel}
+  end
+
   named_scope :from, lambda {|profile| {:conditions => {:profile_id => profile.id}}}
   named_scope :on_memberships, {:conditions => {:on_membership => true, :for_admission => false}}
   named_scope :for_admissions, {:conditions => {:for_admission => true}}

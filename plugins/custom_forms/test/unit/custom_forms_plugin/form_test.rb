@@ -211,4 +211,23 @@ class CustomFormsPlugin::FormTest < ActiveSupport::TestCase
     assert_includes scope, f1
     assert_not_includes scope, f2
   end
+
+  should 'cancel survey tasks after removing a form' do
+    profile = fast_create(Profile)
+    person = fast_create(Person)
+
+    form1 = CustomFormsPlugin::Form.create!(:name => 'Free Software', :profile => profile)
+    form2 = CustomFormsPlugin::Form.create!(:name => 'Operation System', :profile => profile)
+
+    task1 = CustomFormsPlugin::MembershipSurvey.create!(:form_id => form1.id, :target => person, :requestor => profile)
+    task2 = CustomFormsPlugin::MembershipSurvey.create!(:form_id => form2.id, :target => person, :requestor => profile)
+
+    assert_includes Task.opened, task1
+    assert_includes Task.opened, task2
+    form1.destroy
+    assert_includes Task.canceled, task1
+    assert_includes Task.opened, task2
+    form2.destroy
+    assert_includes Task.canceled, task2
+  end
 end
