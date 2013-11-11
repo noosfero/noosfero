@@ -17,6 +17,8 @@ module LayoutHelper
     unless plugins_javascripts.empty?
       output += javascript_include_tag plugins_javascripts, :cache => "cache/plugins-#{Digest::MD5.hexdigest plugins_javascripts.to_s}"
     end
+    output += theme_javascript_ng.to_s
+
     output
   end
 
