@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../../../../../test/test_helper'
 
-class CustomFormsPlugin::MembershipSurveyTest < ActiveSupport::TestCase
+class CustomFormsPlugin::AdmissionSurveyTest < ActiveSupport::TestCase
   should 'add member to community on perform' do
     profile = fast_create(Community)
     person = fast_create(Person)
