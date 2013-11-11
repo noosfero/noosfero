@@ -1,6 +1,7 @@
 module FolderHelper
 
   include ShortFilename
+  include ArticleHelper
 
   def list_articles(articles, recursive = false)
     if !articles.blank?
@@ -60,19 +61,10 @@ module FolderHelper
     "icon-new icon-new%s" % klass.icon_name
   end
 
-  def custom_options_for_article(article)
+  def custom_options_for_article(article,tokenized_children)
     @article = article
-    content_tag('h4', _('Visibility')) +
-    content_tag('div',
-      content_tag('div',
-        radio_button(:article, :published, true) +
-          content_tag('label', _('Public (visible to other people)'), :for => 'article_published_true')
-           ) +
-      content_tag('div',
-        radio_button(:article, :published, false) +
-          content_tag('label', _('Private'), :for => 'article_published_false')
-       )
-     ) +
+
+    visibility_options(article,tokenized_children) +
     content_tag('div',
       hidden_field_tag('article[accept_comments]', 0)
     )

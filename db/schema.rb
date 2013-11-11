@@ -9,8 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131121162641) do
-
+ActiveRecord::Schema.define(:version => 20140108132730) do
   create_table "abuse_reports", :force => true do |t|
     t.integer  "reporter_id"
     t.integer  "abuse_complaint_id"
@@ -45,6 +44,11 @@ ActiveRecord::Schema.define(:version => 20131121162641) do
   add_index "action_tracker_notifications", ["action_tracker_id"], :name => "index_action_tracker_notifications_on_action_tracker_id"
   add_index "action_tracker_notifications", ["profile_id", "action_tracker_id"], :name => "index_action_tracker_notif_on_prof_id_act_tracker_id", :unique => true
   add_index "action_tracker_notifications", ["profile_id"], :name => "index_action_tracker_notifications_on_profile_id"
+
+  create_table "article_privacy_exceptions", :id => false, :force => true do |t|
+    t.integer "article_id"
+    t.integer "person_id"
+  end
 
   create_table "article_versions", :force => true do |t|
     t.integer  "article_id"
@@ -460,6 +464,7 @@ ActiveRecord::Schema.define(:version => 20131121162641) do
     t.boolean  "is_template",                           :default => false
     t.integer  "template_id"
     t.string   "redirection_after_login"
+    t.text     "settings"
   end
 
   add_index "profiles", ["environment_id"], :name => "index_profiles_on_environment_id"
@@ -565,6 +570,11 @@ ActiveRecord::Schema.define(:version => 20131121162641) do
   end
 
   add_index "tasks", ["spam"], :name => "index_tasks_on_spam"
+
+  create_table "terms_forum_people", :id => false, :force => true do |t|
+    t.integer "forum_id"
+    t.integer "person_id"
+  end
 
   create_table "thumbnails", :force => true do |t|
     t.integer "size"
