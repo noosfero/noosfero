@@ -23,9 +23,22 @@ class CustomFormsPlugin::MembershipSurveyTest < ActiveSupport::TestCase
     end
 
     submission = CustomFormsPlugin::Submission.last
-    assert_equal submission.answers.count, 1 
+    assert_equal submission.answers.count, 1
 
     answer = submission.answers.first
     assert_equal answer.value, 'Jack'
+  end
+
+  should 'have a named_scope that retrieves all tasks requested by profile' do
+    profile = fast_create(Profile)
+    person = fast_create(Person)
+    form = CustomFormsPlugin::Form.create!(:name => 'Simple Form', :profile => profile)
+    task1 = CustomFormsPlugin::MembershipSurvey.create!(:form_id => form.id, :target => person, :requestor => profile)
+    task2 = CustomFormsPlugin::MembershipSurvey.create!(:form_id => form.id, :target => person, :requestor => fast_create(Profile))
+    scope = CustomFormsPlugin::MembershipSurvey.from(profile)
+
+    assert_equal ActiveRecord::NamedScope::Scope, scope.class
+    assert_includes scope, task1
+    assert_not_includes scope, task2
   end
 end
