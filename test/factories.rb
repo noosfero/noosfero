@@ -468,4 +468,10 @@ module Noosfero::Factory
     { :name => 'National region ' + factory_num_seq.to_s }
   end
 
+  def defaults_for_license
+    name = "License #{rand(1000)}"
+    slug = name.to_slug
+    { :name => name, :url => "#{slug}.org", :slug => slug, :environment_id => 1}
+  end
+
 end
