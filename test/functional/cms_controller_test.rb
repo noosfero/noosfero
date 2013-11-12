@@ -1324,10 +1324,11 @@ class CmsControllerTest < ActionController::TestCase
   end
 
   should 'back to forum after config forum' do
-    profile.articles << Forum.new(:name => 'my-forum', :profile => profile)
-    post :edit, :profile => profile.identifier, :id => profile.forum.id
-
-    assert_redirected_to @profile.articles.find_by_name('my-forum').view_url
+    assert_difference Forum, :count do
+      post :new, :type => Forum.name, :profile => profile.identifier, :article => { :name => 'my-forum' }, :back_to => 'control_panel'
+    end
+      post :edit, :type => Forum.name, :profile => profile.identifier, :article => { :name => 'my forum' }, :id => profile.forum.id
+    assert_redirected_to @profile.articles.find_by_name('my forum').view_url
   end
 
   should 'back to control panel if cancel create forum' do

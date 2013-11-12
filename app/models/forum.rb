@@ -3,6 +3,10 @@ class Forum < Folder
   acts_as_having_posts :order => 'updated_at DESC'
   include PostsLimit
 
+  settings_items :terms_of_use, :type => :string, :default => ""
+  settings_items :has_terms_of_use, :type => :boolean, :default => false
+  has_and_belongs_to_many :users_with_agreement, :class_name => 'Person', :join_table => 'terms_forum_people'
+
   def self.type_name
     _('Forum')
   end
@@ -39,4 +43,19 @@ class Forum < Folder
     paragraphs = Hpricot(body).search('p')
     paragraphs.empty? ? '' : paragraphs.first.to_html
   end
+
+  def add_agreed_user(user)
+    self.users_with_agreement << user
+    self.save
+  end
+
+  def agrees_with_terms?(user)
+    return true unless self.has_terms_of_use
+    if user
+      self.users_with_agreement.find_by_id user.id
+    else
+      false
+    end
+  end
+
 end

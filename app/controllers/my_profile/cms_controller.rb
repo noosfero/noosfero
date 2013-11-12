@@ -74,6 +74,8 @@ class CmsController < MyProfileController
     record_coming
     if request.post?
       @article.image = nil if params[:remove_image] == 'true'
+      @article.users_with_agreement.clear if (@article.forum? and params[:article][:has_terms_of_use] == "0")
+      @article.users_with_agreement << user if (@article.forum? and params[:article][:has_terms_of_use] == "1" and !@article.users_with_agreement.include? user) 
       @article.last_changed_by = user
       if @article.update_attributes(params[:article])
         if !continue
@@ -130,6 +132,7 @@ class CmsController < MyProfileController
 
     continue = params[:continue]
     if request.post?
+      @article.users_with_agreement << user if (@article.forum? and params[:article][:has_terms_of_use] == "1")
       if @article.save
         if continue
           redirect_to :action => 'edit', :id => @article
@@ -387,4 +390,3 @@ class CmsController < MyProfileController
   end
 
 end
-
