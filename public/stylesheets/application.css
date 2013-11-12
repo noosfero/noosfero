@@ -4150,6 +4150,19 @@ h1#agenda-title {
   -webkit-border-radius: 5px;
 }
 
+.environment-users-results-header {
+  font-size: 0.9em;
+  padding: 6px 0px 0px 0px;
+  margin:0 0 5px 0;
+  border-bottom: 2px dotted #999;
+  text-align: right;
+}
+#environment-users-filter-title {
+  font-weight: bold;
+  font-size: 130%;
+  line-height: 35px;
+  float: left;
+}
 
 /* * * Profile search * * * * * * * */
 

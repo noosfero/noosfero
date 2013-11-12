@@ -1,8 +1,6 @@
-<% form_tag( { :controller => 'environment_users', :action => 'index' }, :method => 'get', :class => 'environment-users-search' ) do %>
   <div class="search-field">
     <span class="formfield">
       <%= text_field_tag 'q', @q, :title => _("Find users") %>
     </span>
     <%= submit_button(:search, _('Search')) %>
   </div>
-<% end %>
