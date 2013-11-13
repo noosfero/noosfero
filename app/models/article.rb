@@ -2,6 +2,8 @@ require 'hpricot'
 
 class Article < ActiveRecord::Base
 
+  acts_as_having_image
+
   SEARCHABLE_FIELDS = {
     :name => 10,
     :abstract => 3,
