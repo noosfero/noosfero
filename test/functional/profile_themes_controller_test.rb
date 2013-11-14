@@ -1,12 +1,12 @@
 require File.dirname(__FILE__) + '/../test_helper'
-require 'themes_controller'
+# require 'profile_themes_controller'
 
-class ThemesController; def rescue_action(e) raise e end; end
+class ProfileThemesController; def rescue_action(e) raise e end; end
 
-class ThemesControllerTest < ActionController::TestCase
+class ProfileThemesControllerTest < ActionController::TestCase
 
   def setup
-    @controller = ThemesController.new
+    @controller = ProfileThemesController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
 
@@ -25,7 +25,7 @@ class ThemesControllerTest < ActionController::TestCase
     FileUtils.rm_rf(TMP_THEMES_DIR)
   end
 
-  TMP_THEMES_DIR = RAILS_ROOT + '/test/tmp/themes_controller'
+  TMP_THEMES_DIR = RAILS_ROOT + '/test/tmp/profile_themes_controller'
 
   should 'display themes that can be applied' do
     env = Environment.default
@@ -39,10 +39,10 @@ class ThemesControllerTest < ActionController::TestCase
     get :index, :profile => 'testinguser'
 
     %w[ t1 t2 ].each do |item|
-      assert_tag :tag => 'a', :attributes => { :href => "/myprofile/testinguser/themes/set/#{item}" }
+      assert_tag :tag => 'a', :attributes => { :href => "/myprofile/testinguser/profile_themes/set/#{item}" }
     end
 
-    assert_no_tag :tag => 'a', :attributes => { :href => "/myprofile/testinguser/themes/set/t3" }
+    assert_no_tag :tag => 'a', :attributes => { :href => "/myprofile/testinguser/profile_themes/set/t3" }
   end
 
   should 'highlight current theme' do
@@ -57,7 +57,7 @@ class ThemesControllerTest < ActionController::TestCase
     get :index, :profile => 'testinguser'
 
     assert_tag :attributes => { :class => 'theme-opt list-opt selected' }
-    assert_no_tag :tag => 'a', :attributes => { :href => "/myprofile/testinguser/themes/set/one" }
+    assert_no_tag :tag => 'a', :attributes => { :href => "/myprofile/testinguser/profile_themes/set/one" }
   end
 
   should 'display list of my themes for edition' do
@@ -67,7 +67,7 @@ class ThemesControllerTest < ActionController::TestCase
     get :index, :profile => 'testinguser'
 
     %w[ three four ].each do |item|
-      assert_tag :tag => 'a', :attributes => { :href => "/myprofile/testinguser/themes/edit/#{item}" }
+      assert_tag :tag => 'a', :attributes => { :href => "/myprofile/testinguser/profile_themes/edit/#{item}" }
     end
   end
 
@@ -100,7 +100,7 @@ class ThemesControllerTest < ActionController::TestCase
     Theme.stubs(:system_themes).returns([Theme.new('new-theme')])
 
     get :index, :profile => 'testinguser'
-    assert_tag :tag => 'a', :attributes => { :href => "/myprofile/testinguser/themes/unset" }
+    assert_tag :tag => 'a', :attributes => { :href => "/myprofile/testinguser/profile_themes/unset" }
   end
 
   should 'point back to control panel' do
@@ -111,7 +111,7 @@ class ThemesControllerTest < ActionController::TestCase
   should 'display screen for creating new theme' do
     @request.expects(:xhr?).returns(true).at_least_once
     get :new, :profile => 'testinguser'
-    assert_tag :tag => 'form', :attributes => { :action => '/myprofile/testinguser/themes/new', :method => /post/i }, :descendant => { :tag => 'input', :attributes => { :type => 'text', :name => 'name' } }
+    assert_tag :tag => 'form', :attributes => { :action => '/myprofile/testinguser/profile_themes/new', :method => /post/i }, :descendant => { :tag => 'input', :attributes => { :type => 'text', :name => 'name' } }
   end
 
   should 'create a new theme' do
@@ -147,7 +147,7 @@ class ThemesControllerTest < ActionController::TestCase
     @request.stubs(:xhr?).returns(true)
     get :add_css, :profile => 'testinguser', :id => 'mytheme'
 
-    assert_tag :tag => 'form', :attributes => { :action => '/myprofile/testinguser/themes/add_css/mytheme', :method => /post/i}
+    assert_tag :tag => 'form', :attributes => { :action => '/myprofile/testinguser/profile_themes/add_css/mytheme', :method => /post/i}
     assert_tag :tag => 'input', :attributes => { :name => 'css', :type => 'text' }
     assert_tag :tag => 'input', :attributes => { :type => 'submit' }
   end
@@ -166,15 +166,15 @@ class ThemesControllerTest < ActionController::TestCase
     theme = Theme.create('mytheme', :owner => profile); theme.update_css('test.css', '/* sample code */')
     get :css_editor, :profile => 'testinguser', :id => 'mytheme', :css => 'test.css'
 
-    assert_tag :tag => 'form', :attributes => { :action => '/myprofile/testinguser/themes/update_css/mytheme' }, :descendant => { :tag => 'textarea', :content => '/* sample code */' }
+    assert_tag :tag => 'form', :attributes => { :action => '/myprofile/testinguser/profile_themes/update_css/mytheme' }, :descendant => { :tag => 'textarea', :content => '/* sample code */' }
   end
 
   should 'be able to save CSS code' do
     theme = Theme.create('mytheme', :owner => profile); theme.update_css('test.css', '/* sample code */')
     get :css_editor, :profile => 'testinguser', :id => 'mytheme', :css => 'test.css'
 
-    assert_tag :tag => 'form', :attributes => { :action => '/myprofile/testinguser/themes/update_css/mytheme' }, :descendant => { :tag => 'input', :attributes => { :type => 'submit' } }
-    assert_tag :tag => 'form', :attributes => { :action => '/myprofile/testinguser/themes/update_css/mytheme' }, :descendant => { :tag => 'input', :attributes => { :type => 'hidden', :name => 'css', :value => 'test.css' } }
+    assert_tag :tag => 'form', :attributes => { :action => '/myprofile/testinguser/profile_themes/update_css/mytheme' }, :descendant => { :tag => 'input', :attributes => { :type => 'submit' } }
+    assert_tag :tag => 'form', :attributes => { :action => '/myprofile/testinguser/profile_themes/update_css/mytheme' }, :descendant => { :tag => 'input', :attributes => { :type => 'hidden', :name => 'css', :value => 'test.css' } }
   end
 
   should 'update css code when saving' do
@@ -198,7 +198,7 @@ class ThemesControllerTest < ActionController::TestCase
     theme = Theme.create('mytheme', :owner => profile)
     get :edit, :profile => 'testinguser', :id => 'mytheme'
     
-    assert_tag :tag => 'a', :attributes => { :href => '/myprofile/testinguser/themes/add_image/mytheme' }
+    assert_tag :tag => 'a', :attributes => { :href => '/myprofile/testinguser/profile_themes/add_image/mytheme' }
   end
 
   should 'display the "add image" dialog' do
@@ -206,7 +206,7 @@ class ThemesControllerTest < ActionController::TestCase
     @request.stubs(:xhr?).returns(true)
 
     get :add_image, :profile => 'testinguser', :id => 'mytheme'
-    assert_tag :tag => 'form', :attributes => { :action => '/myprofile/testinguser/themes/add_image/mytheme', :method => /post/i, :enctype => 'multipart/form-data' }, :descendant => { :tag => 'input', :attributes => { :name => 'image', :type => 'file' } }
+    assert_tag :tag => 'form', :attributes => { :action => '/myprofile/testinguser/profile_themes/add_image/mytheme', :method => /post/i, :enctype => 'multipart/form-data' }, :descendant => { :tag => 'input', :attributes => { :name => 'image', :type => 'file' } }
   end
 
   should 'be able to add new image to theme' do
@@ -225,7 +225,7 @@ class ThemesControllerTest < ActionController::TestCase
     get :index, :profile => 'testinguser'
 
     %w[ one two ].each do |item|
-      assert_tag :tag => 'a', :attributes => { :href => '/myprofile/testinguser/themes/start_test/' + item }
+      assert_tag :tag => 'a', :attributes => { :href => '/myprofile/testinguser/profile_themes/start_test/' + item }
     end
   end
 
@@ -260,8 +260,8 @@ class ThemesControllerTest < ActionController::TestCase
     LayoutTemplate.expects(:all).returns([t1, t2])
 
     get :index, :profile => 'testinguser'
-    assert_tag :tag => 'a', :attributes => { :href => "/myprofile/testinguser/themes/set_layout_template/default"}
-    assert_tag :tag => 'a', :attributes => { :href => "/myprofile/testinguser/themes/set_layout_template/leftbar"}
+    assert_tag :tag => 'a', :attributes => { :href => "/myprofile/testinguser/profile_themes/set_layout_template/default"}
+    assert_tag :tag => 'a', :attributes => { :href => "/myprofile/testinguser/profile_themes/set_layout_template/leftbar"}
   end
 
   should 'highlight current template' do
@@ -273,7 +273,7 @@ class ThemesControllerTest < ActionController::TestCase
 
     get :index, :profile => 'testinguser'
     assert_tag :attributes => { :class => 'template-opt list-opt selected' }
-    assert_no_tag :tag => 'a', :attributes => { :href => "/myprofile/testinguser/themes/set_layout_template/default"}
+    assert_no_tag :tag => 'a', :attributes => { :href => "/myprofile/testinguser/profile_themes/set_layout_template/default"}
   end
 
   should 'set template' do
@@ -298,7 +298,7 @@ class ThemesControllerTest < ActionController::TestCase
     env.disable('user_themes')
     env.save!
     get :index, :profile => 'testinguser'
-    assert_no_tag :tag => 'a', :attributes => { :href => '/myprofile/testinguser/themes/new' }
+    assert_no_tag :tag => 'a', :attributes => { :href => '/myprofile/testinguser/profile_themes/new' }
   end
 
   should 'not display the "Select themes" section if there are no themes to choose from' do
