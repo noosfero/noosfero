@@ -4,36 +4,15 @@ class ChangePasswordTest < ActiveSupport::TestCase
 
   fixtures :environments
 
-  should 'validate' do
-    data = ChangePassword.new(:environment_id => Environment.default)
-    assert !data.valid?
+  def setup
+    @user = create_user('testuser', :password => 'test', :password_confirmation => 'test', :email => 'test@example.com')
+    @person = @user.person
   end
 
-  should 'require only a valid value' do
-    User.destroy_all
-    create_user('testuser', :email => 'test@example.com')
-
-    data = ChangePassword.new
-    data.environment_id = Environment.default.id
-    assert !data.valid?
-    assert data.errors.invalid?(:value)
-
-    data.value = 'testuser'
-    data.valid?
-    assert data.valid?
-
-    data.value = 'test@example.com'
-    assert data.valid?
-  end
+  attr_accessor :user, :person
 
   should 'require correct passsword confirmation' do
-    create_user('testuser', :password => 'test', :password_confirmation => 'test', :email => 'test@example.com')
-
-    change = ChangePassword.new
-    change.environment_id = Environment.default.id
-    change.value = 'testuser'
-    change.save!
-
+    change = ChangePassword.create!(:requestor => person)
     change.status = Task::Status::FINISHED
     change.password = 'right'
     change.password_confirmation = 'wrong'
@@ -46,16 +25,7 @@ class ChangePasswordTest < ActiveSupport::TestCase
   end
 
   should 'actually change password' do
-    User.destroy_all
-    person = create_user('testuser', :password => 'test', :password_confirmation => 'test', :email => 'test@example.com').person
-
-    change = ChangePassword.new
-    change.environment_id = Environment.default.id
-    change.value = 'testuser'
-    change.save!
-
-    change.expects(:requestor).returns(person).at_least_once
-
+    change = ChangePassword.create!(:requestor => person)
     change.password = 'newpass'
     change.password_confirmation = 'newpass'
     change.finish
@@ -64,14 +34,7 @@ class ChangePasswordTest < ActiveSupport::TestCase
   end
 
   should 'not require password and password confirmation when cancelling' do
-    User.destroy_all
-    person = create_user('testuser', :password => 'test', :password_confirmation => 'test', :email => 'test@example.com').person
-
-    change = ChangePassword.new
-    change.environment_id = Environment.default.id
-    change.value = 'testuser'
-    change.save!
-
+    change = ChangePassword.create!(:requestor => person)
     assert_nothing_raised do
       change.cancel
     end
@@ -90,53 +53,22 @@ class ChangePasswordTest < ActiveSupport::TestCase
     p1 = create_user('sample-user', :password => 'test', :password_confirmation => 'test', :email => 'sample-user@test.com', :environment => e1).person
     p2 = create_user('sample-user', :password => 'test', :password_confirmation => 'test', :email => 'sample-user@test.com', :environment => e2).person
 
-    c1 = ChangePassword.create!(:value => 'sample-user', :environment_id => e1.id)
-    c2 = ChangePassword.create!(:value => 'sample-user', :environment_id => e2.id)
+    c1 = ChangePassword.create!(:requestor => p1)
+    c2 = ChangePassword.create!(:requestor => p2)
 
     assert_equal c1.requestor, p1
     assert_equal c2.requestor, p2
   end
 
   should 'have target notification description' do
-    person = create_user('testuser').person
-
-    change = ChangePassword.create(:value => 'testuser', :environment_id => Environment.default.id)
-
+    change = ChangePassword.create!(:requestor => person)
     assert_match(/#{change.requestor.name} wants to change its password/, change.target_notification_description)
   end
 
   should 'deliver task created message' do
-    person = create_user('testuser').person
-
-    task = ChangePassword.create(:value => 'testuser', :environment_id => Environment.default.id)
-
+    task = ChangePassword.create!(:requestor => person)
     email = TaskMailer.deliver_task_created(task)
     assert_match(/#{task.requestor.name} wants to change its password/, email.subject)
-  end
-
-  should 'allow extra fields provided by plugins' do
-    class Plugin1 < Noosfero::Plugin
-      def change_password_fields
-        {:field => 'f1', :name => 'F1', :model => 'person'}
-      end
-    end
-    class Plugin2 < Noosfero::Plugin
-      def change_password_fields
-        [{:field => 'f2', :name => 'F2', :model => 'person'},
-         {:field => 'f3', :name => 'F3', :model => 'person'}]
-      end
-    end
-
-    environment = Environment.default
-    environment.enable_plugin(Plugin1)
-    environment.enable_plugin(Plugin2)
-    person = create_user('testuser').person
-
-    change_password = ChangePassword.new(:environment_id => environment.id)
-
-    assert_includes change_password.fields, 'f1'
-    assert_includes change_password.fields, 'f2'
-    assert_includes change_password.fields, 'f3'
   end
 
 end
