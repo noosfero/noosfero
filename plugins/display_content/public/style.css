@@ -18,24 +18,8 @@
 .block.display-content-block .title, 
 .block.display-content-block .lead,
 .block.display-content-block .body,
-.block.display-content-block .image {
+.block.display-content-block .image,
+.block.display-content-block .read_more {
   margin: 2px 0px 2px 0px;
-}
-
-.block.display-content-block .title {
-  //border: 1px solid green;
-}
-
-.block.display-content-block .lead {
-  //border: 1px solid purple;
-}
-
-.block.display-content-block .body {
-  //border: 1px solid blue;
-}
-
-.block.display-content-block .image {
-  //border: 1px solid yellow;
-  display: table;
 }
 

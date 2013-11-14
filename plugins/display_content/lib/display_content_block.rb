@@ -49,21 +49,31 @@ class DisplayContentBlock < Block
 
     block_title(title) +
     content_tag('ul', docs.map {|item|
+
+      read_more_section = ''
+
       sections.select { |section| 
         case section[:name]
           when 'title'
             content_sections += (display_section?(section) ? (content_tag('div', link_to(h(item.title), item.url), :class => 'title') ) : '') 
           when 'abstract'
             content_sections += (display_section?(section) ? (content_tag('div', item.abstract ,:class => 'lead')) : '' )
+            if display_section?(section)
+              content_sections += (display_section?(section) ? (content_tag('div', item.abstract ,:class => 'lead')) : '' )
+              read_more_section = content_tag('div', link_to(_('Read more'), item.url), :class => 'read_more') 
+            end
           when 'body'
             content_sections += (display_section?(section) ? (content_tag('div', item.body ,:class => 'body')) : '' )
           when 'image'
             image_section = image_tag item.image.public_filename if item.image
             if !image_section.blank?
-              content_sections += (display_section?(section) ? (content_tag('div', image_section ,:class => 'image')) : '' )
+              content_sections += (display_section?(section) ? (content_tag('div', link_to( image_section, item.url ) ,:class => 'image')) : '' )
             end
         end
       }
+
+      content_sections += read_more_section if !read_more_section.blank?
+
       content_tag('li', content_sections)
     }.join("\n"))
 
