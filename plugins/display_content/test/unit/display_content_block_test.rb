@@ -566,7 +566,7 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
     a2 = fast_create(TextArticle, :name => 'test article 2', :profile_id => profile.id, :abstract => 'abstract article 2')
 
     block = DisplayContentBlock.new
-    block.chosen_attributes = ['abstract']
+    block.sections = [{:name => 'Abstract', :checked => true}]
     block.nodes = [a1.id, a2.id]
     box = mock()
     block.stubs(:box).returns(box)
@@ -619,7 +619,7 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
 
     block = DisplayContentBlock.new
     block.nodes = [a.id]
-    block.chosen_attributes = ['title']
+    block.sections = [{:name => 'Title', :checked => true}]
     box = mock()
     block.stubs(:box).returns(box)
     box.stubs(:owner).returns(profile)
@@ -633,7 +633,7 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
 
     block = DisplayContentBlock.new
     block.nodes = [a.id]
-    block.chosen_attributes = ['abstract']
+    block.sections = [{:name => 'Abstract', :checked => true}]
     box = mock()
     block.stubs(:box).returns(box)
     box.stubs(:owner).returns(profile)
@@ -647,7 +647,7 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
 
     block = DisplayContentBlock.new
     block.nodes = [a.id]
-    block.chosen_attributes = ['body']
+    block.sections = [{:name => 'Body', :checked => true}]
     box = mock()
     block.stubs(:box).returns(box)
     box.stubs(:owner).returns(profile)
@@ -660,16 +660,18 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
 
     block = DisplayContentBlock.new
    
-    assert block.display_attribute?('title')
+    assert block.display_section?({:name => 'Title', :checked => true})
   end
 
   should 'display_attribute be true if the attribute was chosen' do
     profile = create_user('testuser').person
-
+    
     block = DisplayContentBlock.new
-    block.chosen_attributes = ['body']
-   
-    assert block.display_attribute?('body')
+
+    block.sections = [{:name => 'Body', :checked => true}]
+    section = block.sections.first
+
+    assert block.display_section?(section)
   end
 
 end
