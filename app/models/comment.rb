@@ -29,7 +29,7 @@ class Comment < ActiveRecord::Base
   validates_presence_of :author_id, :if => (lambda { |rec| rec.name.blank? && rec.email.blank? })
   validates_each :name do |rec,attribute,value|
     if rec.author_id && (!rec.name.blank? || !rec.email.blank?)
-      rec.errors.add(:name, _('%{fn} can only be informed for unauthenticated authors').fix_i18n)
+      rec.errors.add(:name, _('{fn} can only be informed for unauthenticated authors').fix_i18n)
     end
   end
 
