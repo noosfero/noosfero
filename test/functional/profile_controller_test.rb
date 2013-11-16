@@ -1549,16 +1549,45 @@ class ProfileControllerTest < ActionController::TestCase
     assert_tag :tag => 'td', :content => 'e-Mail:'
   end
 
-  should 'build menu to the community panel if enabled' do
+  should 'not display list of communities to manage on menu by default' do
+    user = create_user('community_admin').person
+    community = fast_create(Community)
+    community.add_admin(user)
+
+    login_as(user.identifier)
+    get :index
+    assert_no_tag :tag => 'div', :attributes => {:id => 'manage-communities'}
+  end
+
+  should 'display list of communities to manage on menu if enabled' do
+    user = create_user('community_admin').person
+    env = user.environment
+    community = fast_create(Community)
+    community.add_admin(user)
+
+    Environment.any_instance.stubs(:enabled?).returns(false)
+    Environment.any_instance.stubs(:enabled?).with('display_my_communities_on_user_menu').returns(true)
+
+    login_as(user.identifier)
+    get :index
+    assert_tag :tag => 'div', :attributes => {:id => 'manage-communities'}
+
+  end
+
+  should 'build menu to the community panel of communities the user can manage if enabled' do
     u = create_user('other_other_ze').person
     u2 = create_user('guy_that_will_be_admin_of_all').person # because the first member of each community is an admin
+
+    Environment.any_instance.stubs(:enabled?).returns(false)
+    Environment.any_instance.stubs(:enabled?).with('display_my_communities_on_user_menu').returns(true)
+
     Environment.any_instance.stubs(:required_person_fields).returns([])
     u.data = { :email => 'test@test.com', :fields_privacy => { } }
     u.save!
-    c1 = Community.create!(:name => 'community_1')
-    c2 = Community.create!(:name => 'community_2')
-    c3 = Community.create!(:name => 'community_3')
-    c4 = Community.create!(:name => 'community_4')
+    c1 = fast_create(Community, :name => 'community_1')
+    c2 = fast_create(Community, :name => 'community_2')
+    c3 = fast_create(Community, :name => 'community_3')
+    c4 = fast_create(Community, :name => 'community_4')
 
     c1.add_admin(u2)
     c2.add_admin(u2)
@@ -1582,12 +1611,6 @@ class ProfileControllerTest < ActionController::TestCase
       assert_no_match /community_3/, links.to_s
       assert_no_match /community_4/, links.to_s
     end
-
-    Environment.any_instance.stubs(:enabled?).returns(false)
-    Environment.any_instance.stubs(:enabled?).with('disable_my_communities_menu').returns(true)
-
-    get :index
-    assert_no_tag :tag => 'div', :attributes => {:id => 'manage-communities'}
   end
 
   should 'build menu to the enterprise panel' do

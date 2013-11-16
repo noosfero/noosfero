@@ -97,7 +97,6 @@ class Environment < ActiveRecord::Base
       'disable_asset_events' => _('Disable search for events'),
       'disable_categories' => _('Disable categories'),
       'disable_header_and_footer' => _('Disable header/footer editing by users'),
-      'disable_my_communities_menu' => _('Disable My Communities menu'),
       'disable_gender_icon' => _('Disable gender icon'),
       'disable_categories_menu' => _('Disable the categories menu'),
       'disable_select_city_for_contact' => _('Disable state/city select for contact form'),
@@ -128,7 +127,8 @@ class Environment < ActiveRecord::Base
       'captcha_for_logged_users' => _('Ask captcha when a logged user comments too'),
       'skip_new_user_email_confirmation' => _('Skip e-mail confirmation for new users'),
       'send_welcome_email_to_new_users' => _('Send welcome e-mail to new users'),
-      'allow_change_of_redirection_after_login' => _('Allow users to set the page to redirect after login')
+      'allow_change_of_redirection_after_login' => _('Allow users to set the page to redirect after login'),
+      'display_my_communities_on_user_menu' => _('Display on menu the list of communities the user can manage')
     }
   end
 
