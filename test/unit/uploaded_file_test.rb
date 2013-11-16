@@ -335,4 +335,26 @@ class UploadedFileTest < ActiveSupport::TestCase
     assert_equal 1, ActionTracker::Record.find_all_by_verb('upload_image').count
   end
 
+  {
+    nil       => 5.megabytes,   # default
+    '1KB'     => 1.kilobytes,
+    '2MB'     => 2.megabyte,
+    '3GB'     => 3.gigabytes,
+    '4TB'     => 4.terabytes,
+    '6 MB'    => 6.megabytes,   # allow whitespace between number and unit
+    '0.5 GB'  => 512.megabytes, # allow floating point numbers
+    '2'       => 2.megabytes,   # assume MB as unit by default
+    'INVALID' => 5.megabytes,   # use default for invalid input
+    '1ZYX'    => 5.megabytes,   # use default for invalid input
+  }.each do |input,output|
+    test 'maximum upload size: convert %s into %s' % [input, output] do
+      NOOSFERO_CONF.expects(:[]).with('max_upload_size').returns(input)
+      assert_equal output, UploadedFile.max_size
+    end
+  end
+  test 'max_size should always return an integer' do
+    NOOSFERO_CONF.expects(:[]).with('max_upload_size').returns("0.5 GB")
+    assert_instance_of Fixnum, UploadedFile.max_size
+  end
+
 end
