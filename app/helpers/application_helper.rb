@@ -1134,12 +1134,12 @@ module ApplicationHelper
   end
 
   def manage_enterprises
-    return if not user
+    return unless user
     manage_link(user.enterprises, :enterprises)
   end
 
   def manage_communities
-    return if not user
+    return unless user && !user.environment.enabled?('disable_my_communities_menu')
     administered_communities = user.communities.more_popular.select {|c| c.admins.include? user}
     manage_link(administered_communities, :communities)
   end

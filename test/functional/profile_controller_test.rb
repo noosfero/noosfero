@@ -17,11 +17,11 @@ class ProfileControllerTest < ActionController::TestCase
   def test_local_files_reference
     assert_local_files_reference
   end
-  
+
   def test_valid_xhtml
     assert_valid_xhtml
   end
-  
+
   noosfero_test :profile => 'testuser'
 
   should 'list friends' do
@@ -68,7 +68,7 @@ class ProfileControllerTest < ActionController::TestCase
     assert_template 'members'
     assert_kind_of Array, assigns(:members)
   end
-  
+
   should 'list favorite enterprises' do
     get :favorite_enterprises
 
@@ -318,7 +318,7 @@ class ProfileControllerTest < ActionController::TestCase
     get :profile_info, :profile => 'my-test-enterprise', :block_id => block.id
     assert_no_match /\/contact\/my-test-enterprise\/new/, @response.body
   end
-  
+
   should 'display contact button only if friends' do
     friend = create_user_full('friend_user').person
     friend.user.activate
@@ -1091,7 +1091,7 @@ class ProfileControllerTest < ActionController::TestCase
     login_as(profile.identifier)
     person = fast_create(Person)
     at = fast_create(ActionTracker::Record, :user_id => person.id)
-    atn = fast_create(ActionTrackerNotification, :profile_id => profile.id, :action_tracker_id => at.id) 
+    atn = fast_create(ActionTrackerNotification, :profile_id => profile.id, :action_tracker_id => at.id)
     get :index, :profile => person.identifier
     assert_no_tag :tag => 'div', :attributes => {:id => 'profile-network'}
 
@@ -1103,7 +1103,7 @@ class ProfileControllerTest < ActionController::TestCase
   should "not show the scrap button on network activity if the user is himself" do
     login_as(profile.identifier)
     at = fast_create(ActionTracker::Record, :user_id => profile.id)
-    atn = fast_create(ActionTrackerNotification, :profile_id => profile.id, :action_tracker_id => at.id) 
+    atn = fast_create(ActionTrackerNotification, :profile_id => profile.id, :action_tracker_id => at.id)
     get :index, :profile => profile.identifier
     assert_no_tag :tag => 'p', :attributes => {:class => 'profile-network-send-message'}
   end
@@ -1131,7 +1131,7 @@ class ProfileControllerTest < ActionController::TestCase
     at = fast_create(ActionTracker::Record, :user_id => profile.id)
     profile.public_profile=false
     profile.save
-    atn = fast_create(ActionTrackerNotification, :profile_id => profile.id, :action_tracker_id => at.id) 
+    atn = fast_create(ActionTrackerNotification, :profile_id => profile.id, :action_tracker_id => at.id)
     get :index, :profile => profile.identifier
     assert_equal [at], profile.tracked_actions
     assert_no_tag :tag => 'li', :attributes => {:id => "profile-activity-item-#{atn.id}"}
@@ -1276,7 +1276,7 @@ class ProfileControllerTest < ActionController::TestCase
     login_as(profile.identifier)
     get :index, :profile => profile.identifier
 
-    assert_tag :tag => 'p', :content => 'A scrap', :attributes => { :class => 'profile-activity-text'} 
+    assert_tag :tag => 'p', :content => 'A scrap', :attributes => { :class => 'profile-activity-text'}
     assert_tag :tag => 'div', :attributes => { :class => 'profile-activity-lead' }, :descendant => { :tag => 'a', :content => 'An article about free software' }
   end
 
@@ -1549,7 +1549,7 @@ class ProfileControllerTest < ActionController::TestCase
     assert_tag :tag => 'td', :content => 'e-Mail:'
   end
 
-  should 'build menu to the community panel' do
+  should 'build menu to the community panel if enabled' do
     u = create_user('other_other_ze').person
     u2 = create_user('guy_that_will_be_admin_of_all').person # because the first member of each community is an admin
     Environment.any_instance.stubs(:required_person_fields).returns([])
@@ -1582,6 +1582,12 @@ class ProfileControllerTest < ActionController::TestCase
       assert_no_match /community_3/, links.to_s
       assert_no_match /community_4/, links.to_s
     end
+
+    Environment.any_instance.stubs(:enabled?).returns(false)
+    Environment.any_instance.stubs(:enabled?).with('disable_my_communities_menu').returns(true)
+
+    get :index
+    assert_no_tag :tag => 'div', :attributes => {:id => 'manage-communities'}
   end
 
   should 'build menu to the enterprise panel' do
