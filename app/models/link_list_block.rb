@@ -33,6 +33,12 @@ class LinkListBlock < Block
     ['chat', N_('Chat')]
   ]
 
+  TARGET_OPTIONS = [
+    [N_('Same page'), '_self'],
+    [N_('New tab'), '_blank'],
+    [N_('New window'), '_new'],
+  ]
+
   settings_items :links, Array, :default => []
 
   before_save do |block|
