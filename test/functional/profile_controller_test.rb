@@ -1613,8 +1613,12 @@ class ProfileControllerTest < ActionController::TestCase
     end
   end
 
-  should 'build menu to the enterprise panel' do
+  should 'build menu to the enterprise panel if enabled' do
     u = create_user('other_other_ze').person
+
+    Environment.any_instance.stubs(:enabled?).returns(false)
+    Environment.any_instance.stubs(:enabled?).with('display_my_enterprises_on_user_menu').returns(true)
+
     Environment.any_instance.stubs(:required_person_fields).returns([])
     u.data = { :email => 'test@test.com', :fields_privacy => { } }
     u.save!
@@ -1633,6 +1637,19 @@ class ProfileControllerTest < ActionController::TestCase
       assert_match /Test enterprise1/, links.to_s
       assert_no_match /Test enterprise_2/, links.to_s
     end
+  end
+
+  should 'not build menu to the enterprise panel if not enabled' do
+    user = create_user('enterprise_admin').person
+    enterprise = fast_create(Enterprise)
+    enterprise.add_admin(user)
+
+    Environment.any_instance.stubs(:enabled?).returns(false)
+    Environment.any_instance.stubs(:enabled?).with('display_my_enterprises_on_user_menu').returns(false)
+
+    login_as(user.identifier)
+    get :index
+    assert_no_tag :tag => 'div', :attributes => {:id => 'manage-enterprises'}
   end
 
   should 'show enterprises field if enterprises are enabled on environment' do
