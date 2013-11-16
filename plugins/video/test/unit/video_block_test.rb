@@ -8,19 +8,19 @@ class VideoBlockTest < ActiveSupport::TestCase
     block.url = "http://youtube.com/?v=XXXXX"
     assert block.is_youtube?
   end
-  
+
   should "is_youtube return true when the url contains https://youtube.com" do
     block = VideoBlock.new
     block.url = "https://youtube.com/?v=XXXXX"
     assert block.is_youtube?
   end
-  
+
   should "is_youtube return true when the url contains https://www.youtube.com" do
     block = VideoBlock.new
     block.url = "https://www.youtube.com/?v=XXXXX"
     assert block.is_youtube?
   end
-  
+
   should "is_youtube return true when the url contains www.youtube.com" do
     block = VideoBlock.new
     block.url = "www.youtube.com/?v=XXXXX"
@@ -50,13 +50,13 @@ class VideoBlockTest < ActiveSupport::TestCase
     block.url = "http://www.yt.com/?v=XXXXX"
     assert !block.is_youtube?
   end
-   
+
   should "format embed video for youtube videos" do
     block = VideoBlock.new
     block.url = "youtube.com/?v=XXXXX"
     assert_match /\/\/www.youtube-nocookie.com\/embed/, block.format_embed_video_url_for_youtube
   end
-   
+
   should "format embed video return nil if is not a youtube url" do
     block = VideoBlock.new
     block.url = "http://www.yt.com/?v=XXXXX"
@@ -69,7 +69,7 @@ class VideoBlockTest < ActiveSupport::TestCase
     block.url = "youtube.com/?v=#{id}"
     assert_equal id, block.send('extract_youtube_id')
   end
-   
+
   should "extract youtube id from youtube video url's if it's a valid youtube short url" do
     block = VideoBlock.new
     id = 'oi43jre2d2'
@@ -82,33 +82,33 @@ class VideoBlockTest < ActiveSupport::TestCase
     block.url = "http://www.yt.com/?v=XXXXX"
     assert_nil block.send('extract_youtube_id')
   end
-   
+
   should "extract_youtube_id return nil if youtue url there is no id" do
     block = VideoBlock.new
     block.url = "youtube.com/"
     assert_nil block.send('extract_youtube_id')
   end
-   
+
   #### Tests for Vimeo Videos
-  
+
   should "is_vimeo return true when the url contains http://vimeo.com" do
     block = VideoBlock.new
     block.url = "http://vimeo.com/98979"
     assert block.is_vimeo?
   end
-  
+
   should "is_vimeo return true when the url contains https://vimeo.com" do
     block = VideoBlock.new
     block.url = "https://vimeo.com/989798"
     assert block.is_vimeo?
   end
-  
+
   should "is_vimeo return true when the url contains https://www.vimeo.com" do
     block = VideoBlock.new
     block.url = "https://www.vimeo.com/98987"
     assert block.is_vimeo?
   end
-  
+
   should "is_vimeo return true when the url contains www.vimeo.com" do
     block = VideoBlock.new
     block.url = "www.vimeo.com/989798"
@@ -144,7 +144,7 @@ class VideoBlockTest < ActiveSupport::TestCase
     block.url = "vimeo.com/09898"
     assert_match /\/\/player.vimeo.com\/video\/[[:digit:]]+/, block.format_embed_video_url_for_vimeo
   end
-   
+
   should "format embed video return nil if is not a vimeo url" do
     block = VideoBlock.new
     block.url = "http://www.yt.com/?v=XXXXX"
@@ -157,13 +157,13 @@ class VideoBlockTest < ActiveSupport::TestCase
     block.url = "vimeo.com/#{id}"
     assert_equal id, block.send('extract_vimeo_id')
   end
-   
+
   should "extract_vimeo_id return nil if the url it's not a valid vimeo url" do
     block = VideoBlock.new
     block.url = "http://www.yt.com/XXXXX"
     assert_nil block.send('extract_vimeo_id')
   end
-   
+
   should "extract_vimeo_id return nil if vimeo url there is no id" do
     block = VideoBlock.new
     block.url = "vimeo.com/"

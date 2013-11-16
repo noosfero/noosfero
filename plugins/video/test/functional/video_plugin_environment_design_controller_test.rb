@@ -118,7 +118,7 @@ class EnvironmentDesignControllerTest < ActionController::TestCase
     assert_tag :tag => 'div', :attributes => {:class => 'video-block-data'}, :descendant => { :tag => 'div', :attributes => {:class => 'video'} }
   end
 
-  should 'display a messagem to register a new url' do
+  should 'display a message to register a new url' do
     block.url='http://www.vmsd.com/test.pdf'
     block.save
     get :index

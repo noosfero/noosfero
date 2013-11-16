@@ -7,7 +7,7 @@ class VideoPlugin < Noosfero::Plugin
   end
 
   def self.plugin_description
-    _("A plugin that adds a block where you could add videos from youtube, vimeo and html5.")
+    _("A plugin that adds a block where you can add videos from youtube, vimeo and html5.")
   end
 
   def self.extra_blocks
