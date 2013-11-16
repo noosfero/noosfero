@@ -140,5 +140,14 @@ class CustomFormsPluginMyprofileControllerTest < ActionController::TestCase
     assert_equal 'Cool form', form.description
     assert_equal 'Source', field.name
   end
+
+  should 'render TinyMce Editor for description' do
+    form = CustomFormsPlugin::Form.create!(:profile => profile, :name => 'Free Software')
+
+    get :edit, :profile => profile.identifier, :id => form.id
+
+    assert_tag :tag => 'textarea', :attributes => { :id => 'form_description', :class => 'mceEditor' }
+  end
+
 end
 
