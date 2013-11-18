@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
 
   before_filter :setup_multitenancy
   before_filter :detect_stuff_by_domain
-  before_filter :init_noosfero_plugins
+  before_filter :init_noosfero_plugins_controller_filters
   before_filter :allow_cross_domain_access
 
   def allow_cross_domain_access
@@ -21,8 +21,12 @@ class ApplicationController < ActionController::Base
   include ApplicationHelper
   layout :get_layout
   def get_layout
-    prepend_view_path('public/' + theme_path)
-    theme_option(:layout) || 'application'
+    theme_layout = theme_option(:layout)
+    if theme_layout
+      theme_view_file('layouts/'+theme_layout) || theme_layout
+    else
+     'application'
+    end
   end
 
   filter_parameter_logging :password
@@ -121,13 +125,6 @@ class ApplicationController < ActionController::Base
   end
 
   include Noosfero::Plugin::HotSpot
-
-  def init_noosfero_plugins
-    plugins.each do |plugin|
-      prepend_view_path(plugin.class.view_path)
-    end
-    init_noosfero_plugins_controller_filters
-  end
 
   # This is a generic method that initialize any possible filter defined by a
   # plugin to the current controller being initialized.

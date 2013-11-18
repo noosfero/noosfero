@@ -399,14 +399,21 @@ module ApplicationHelper
       end
   end
 
-  def theme_include(template)
+  def theme_view_file(template)
     ['.rhtml', '.html.erb'].each do |ext|
-      file = (RAILS_ROOT + '/public' + theme_path + '/' + template  + ext)
-      if File.exists?(file)
-        return render :file => file, :use_full_path => false
-      end
+      file = (RAILS_ROOT + '/public' + theme_path + '/' + template + ext)
+      return file if File.exists?(file)
     end
     nil
+  end
+
+  def theme_include(template)
+    file = theme_view_file(template)
+    if file
+      render :file => file, :use_full_path => false
+    else
+      nil
+    end
   end
 
   def theme_favicon

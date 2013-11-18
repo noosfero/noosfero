@@ -57,6 +57,9 @@ class Noosfero::Plugin
         path << File.join(dir, 'lib')
       end
 
+      # add view path
+      ActionController::Base.view_paths.unshift(File.join(dir, 'views'))
+
       # load vendor/plugins
       Dir.glob(File.join(dir, '/vendor/plugins/*')).each do |vendor_plugin|
         [ ActiveSupport::Dependencies.load_paths, $:].each{ |path| path << "#{vendor_plugin}/lib" }
