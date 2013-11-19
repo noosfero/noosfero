@@ -143,6 +143,21 @@ class User < ActiveRecord::Base
     end
   end
 
+  # Deactivates the user in the database.
+  def deactivate
+    return false unless self.person
+    self.activated_at = nil
+    self.person.visible = false
+    begin
+      self.person.save! && self.save!
+    rescue Exception => exception
+      logger.error(exception.to_s)
+      false
+    else
+      true
+    end
+  end
+
   def activated?
     self.activation_code.nil? && !self.activated_at.nil?
   end

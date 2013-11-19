@@ -1335,4 +1335,56 @@ class PersonTest < ActiveSupport::TestCase
     assert_includes non_abusers, not_abuser
   end
 
+  should 'admins named_scope return persons who are admin users' do
+    Person.delete_all
+    e = Environment.default
+    admins = []
+    (1..5).each {|i|
+      u = create_user('user'+i.to_s)
+      e.add_admin(u.person)
+      admins << u.person    
+    }
+    (6..10).each {|i|
+      u = create_user('user'+i.to_s)
+    }
+    assert_equal admins, Person.admins 
+  end
+
+  should 'activated named_scope return persons who are activated users' do
+    Person.delete_all
+    e = Environment.default
+    activated = []
+    (1..5).each {|i|
+      u = create_user('user'+i.to_s)
+      u.activated_at = Time.now.utc
+      u.activation_code = nil
+      u.save!
+      activated << u.person    
+    }
+    (6..10).each {|i|
+      u = create_user('user'+i.to_s)
+      u.activated_at = nil
+      u.save!
+    }
+    assert_equal activated, Person.activated 
+  end
+
+  should 'deactivated named_scope return persons who are deactivated users' do
+    Person.delete_all
+    e = Environment.default
+    deactivated = []
+    (1..5).each {|i|
+      u = create_user('user'+i.to_s)
+      u.activated_at = nil
+      u.save!
+      deactivated << u.person    
+    }
+    (6..10).each {|i|
+      u = create_user('user'+i.to_s)
+      u.activated_at = Time.now.utc
+      u.activation_code = nil
+      u.save!
+    }
+    assert_equal deactivated, Person.deactivated 
+  end
 end
