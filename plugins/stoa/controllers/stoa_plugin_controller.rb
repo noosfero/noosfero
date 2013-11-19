@@ -42,15 +42,4 @@ class StoaPluginController < PublicController
     end
   end
 
-  private
-
-  def selected_fields(kind, user)
-    fields = FIELDS[kind] || FIELDS['essential']
-    return fields.reject { |field| !FIELDS['essential'].include?(field) } unless user.person.public_profile
-    fields.reject do |field|
-      !user.person.public_fields.include?(field) &&
-      !FIELDS['essential'].include?(field)
-    end
-  end
-
 end
