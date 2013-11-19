@@ -1,6 +1,8 @@
 module Noosfero::Factory
 
   def fast_create(name, attrs = {}, options = {})
+    defaults = defaults_for(name)
+    attrs[:slug] = attrs[:name].to_slug if attrs[:name].present? && attrs[:slug].blank? && defaults[:slug].present?
     data = defaults_for(name.to_s.gsub('::','')).merge(attrs)
     klass = name.to_s.camelize.constantize
     if klass.superclass != ActiveRecord::Base
@@ -36,6 +38,8 @@ module Noosfero::Factory
   end
 
   def build(name, attrs = {})
+    defaults = defaults_for(name)
+    attrs[:slug] = attrs[:name].to_slug if attrs[:name].present? && attrs[:slug].blank? && defaults[:slug].present?
     data = defaults_for(name).merge(attrs)
     object = name.to_s.camelize.constantize.new
     data.each { |attribute, value| object.send(attribute.to_s+'=', value) }
