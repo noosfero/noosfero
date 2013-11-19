@@ -31,6 +31,6 @@ class StoaPlugin::PersonApi < Noosfero::FieldsDecorator
   end
 
   def communities
-    object.communities.public.map {|community| {:id => community.id, :name => community.name}}
+    object.communities.public.map {|community| {:url => context.url_for(community.url), :name => community.name}}
   end
 end

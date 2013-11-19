@@ -107,7 +107,11 @@ class StoaPlugin::PersonApiTest < ActiveSupport::TestCase
     c3 = fast_create(Community)
     c1.add_member(person)
     c2.add_member(person)
-    communities = [{:id => c1.id, :name => c1.name}, {:id => c2.id, :name => c2.name}]
+    c1_homepage = 'c1.org'
+    c2_homepage = 'c2.org'
+    self.stubs(:url_for).with(c1.url).returns(c1_homepage)
+    self.stubs(:url_for).with(c2.url).returns(c2_homepage)
+    communities = [{:url => c1_homepage, :name => c1.name}, {:url => c2_homepage, :name => c2.name}]
     api = StoaPlugin::PersonApi.new(person, self)
 
     assert_equivalent communities, api.communities
@@ -120,7 +124,11 @@ class StoaPlugin::PersonApiTest < ActiveSupport::TestCase
     c1.add_member(person)
     c2.add_member(person)
     c3.add_member(person)
-    communities = [{:id => c1.id, :name => c1.name}]
+    c1_homepage = 'c1.org'
+    c2_homepage = 'c2.org'
+    self.stubs(:url_for).with(c1.url).returns(c1_homepage)
+    self.stubs(:url_for).with(c2.url).returns(c2_homepage)
+    communities = [{:url => c1_homepage, :name => c1.name}]
     api = StoaPlugin::PersonApi.new(person, self)
 
     assert_equivalent communities, api.communities
