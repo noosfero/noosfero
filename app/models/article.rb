@@ -523,6 +523,7 @@ class Article < ActiveRecord::Base
       object.send(key.to_s+'=', value)
     end
     object.save
+    object
   end
 
   def copy!(options = {})
@@ -533,6 +534,7 @@ class Article < ActiveRecord::Base
       object.send(key.to_s+'=', value)
     end
     object.save!
+    object
   end
 
   ATTRIBUTES_NOT_COPIED = [
