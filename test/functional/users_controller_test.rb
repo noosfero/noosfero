@@ -11,6 +11,9 @@ class UsersControllerTest < ActionController::TestCase
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
 
+    
+    Environment.delete_all
+    Environment.create(:name => 'some env', :is_default => true)
     admin_user = create_user_with_permission('adminuser', 'manage_environment_users', Environment.default)
     login_as('adminuser')
   end
