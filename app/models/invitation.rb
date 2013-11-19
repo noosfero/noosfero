@@ -35,7 +35,7 @@ class Invitation < Task
     super
     email = friend ? friend.user.email : friend_email
     if person && email && person.user.email == email
-      self.errors.add_to_base(_("You can't invite youself"))
+      self.errors.add(:base, _("You can't invite youself"))
     end
   end
 

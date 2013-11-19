@@ -396,7 +396,7 @@ class Article < ActiveRecord::Base
 
   def native_translation_must_have_language
     unless self.translation_of.nil?
-      errors.add_to_base(N_('A language must be choosen for the native article')) if self.translation_of.language.blank?
+      errors.add(:base, N_('A language must be choosen for the native article')) if self.translation_of.language.blank?
     end
   end
 
