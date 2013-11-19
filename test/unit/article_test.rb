@@ -31,7 +31,7 @@ class ArticleTest < ActiveSupport::TestCase
   end
 
   should 'limit length of names' do
-    a = Article.new(:name => 'a'*151)
+    a = build(Article, :name => 'a'*151)
     a.valid?
     assert a.errors[:name.to_s].present?
 
@@ -41,7 +41,7 @@ class ArticleTest < ActiveSupport::TestCase
   end
 
   should 'require value for slug and path if name is filled' do
-    a = Article.new(:name => 'test article')
+    a = build(Article, :name => 'test article')
     a.slug = nil
     a.path = nil
     a.valid?
@@ -57,7 +57,7 @@ class ArticleTest < ActiveSupport::TestCase
   end
 
   should 'act as versioned' do
-    a = Article.create!(:name => 'my article', :body => 'my text', :profile_id => profile.id)
+    a = create(Article, :name => 'my article', :body => 'my text', :profile_id => profile.id)
     assert_equal 1, a.versions(true).size
     a.name = 'some other name'
     a.save!
@@ -65,7 +65,7 @@ class ArticleTest < ActiveSupport::TestCase
   end
 
   should 'act as taggable' do
-    a = Article.create!(:name => 'my article', :profile_id => profile.id)
+    a = create(Article, :name => 'my article', :profile_id => profile.id)
     a.tag_list = ['one', 'two']
     tags = a.tag_list.names
     assert tags.include?('one')
@@ -73,16 +73,17 @@ class ArticleTest < ActiveSupport::TestCase
   end
 
   should 'act as filesystem' do
-    a = Article.create!(:name => 'my article', :profile_id => profile.id)
-    b = a.children.build(:name => 'child article', :profile_id => profile.id)
+    a = create(Article, :profile_id => profile.id)
+    b = create(Article, :profile_id => profile.id, :parent_id => a.id)
     b.save!
-    assert_equal 'my-article/child-article', b.path
+    assert_equal "#{a.slug}/#{b.slug}", b.path
 
     a = Article.find(a.id);
     a.name = 'another name'
     a.save!
+    b.reload
 
-    assert_equal 'another-name/child-article', Article.find(b.id).path
+    assert_equal "another-name/#{b.slug}", b.path
   end
 
   should 'provide HTML version' do
@@ -226,13 +227,14 @@ class ArticleTest < ActiveSupport::TestCase
 
     now = Time.now
 
-    first  = p.articles.build(:name => 'first',  :published => true, :created_at => now, :published_at => now);  first.save!
-    second = p.articles.build(:name => 'second', :published => true, :updated_at => now, :published_at => now + 1.second); second.save!
+    first  = create(Article, :name => 'first',  :published => true, :created_at => now, :published_at => now, :profile_id => p.id)
+    second = create(Article, :name => 'second', :published => true, :updated_at => now, :published_at => now + 1.second, :profile_id => p.id)
 
     assert_equal [ second, first ], Article.recent(2)
 
     Article.record_timestamps = false
-    first.update_attributes!(:published_at => second.published_at + 1.second)
+    first.published_at = second.published_at + 1.second
+    first.save!
     Article.record_timestamps = true
 
     assert_equal [ first, second ], Article.recent(2)
@@ -242,7 +244,7 @@ class ArticleTest < ActiveSupport::TestCase
     p = create_user('usr1').person
     Article.destroy_all
 
-    first = UploadedFile.new(:profile => p, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'));  first.save!
+    first = build(UploadedFile, :profile => p, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'));  first.save!
     second = fast_create(TextArticle, :profile_id => p.id, :name => 'second')
 
     assert_equal [ second ], Article.recent(nil)
@@ -262,7 +264,7 @@ class ArticleTest < ActiveSupport::TestCase
     p = create_user('usr1').person
     Article.destroy_all
     first = fast_create(Blog, :profile_id => p.id, :name => 'my blog', :advertise => true)
-    second = p.articles.build(:name => 'second'); second.save!
+    second = create(Article, :name => 'second', :profile_id => p.id)
 
     assert_equal [ second ], Article.recent(nil)
   end
@@ -270,8 +272,8 @@ class ArticleTest < ActiveSupport::TestCase
   should 'accept extra conditions to find recent' do
     p = create_user('usr1').person
     Article.destroy_all
-    a1 = p.articles.create!(:name => 'first')
-    a2 = p.articles.create!(:name => 'second')
+    a1 = create(Article, :name => 'first', :profile_id => p.id)
+    a2 = create(Article, :name => 'second', :profile_id => p.id)
 
     assert_equal [ a1 ], Article.recent(nil, :name => 'first')
   end
@@ -293,27 +295,24 @@ class ArticleTest < ActiveSupport::TestCase
   end
 
   should 'provide a url to itself' do
-    article = profile.articles.build(:name => 'myarticle')
-    article.save!
-
+    article = create(Article, :name => 'myarticle', :profile_id => profile.id)
     assert_equal(profile.url.merge(:page => ['myarticle']), article.url)
   end
 
   should 'provide a url to itself having a parent topic' do
-    parent = profile.articles.build(:name => 'parent');  parent.save!
-    child = profile.articles.build(:name => 'child', :parent => parent); child.save!
+    parent = create(Article, :name => 'parent', :profile_id => profile.id)
+    child = create(Article, :name => 'child', :parent => parent, :profile_id => profile.id)
 
     assert_equal(profile.url.merge(:page => [ 'parent', 'child']), child.url)
   end
 
   should 'associate with categories' do
     env = Environment.default
-    parent_cat = env.categories.build(:name => "parent category")
-    parent_cat.save!
-    c1 = env.categories.build(:name => "test category 1", :parent_id => parent_cat.id); c1.save!
-    c2 = env.categories.build(:name => "test category 2"); c2.save!
+    parent_cat = create(Category, :name => "parent category", :environment_id => env.id)
+    c1 = create(Category, :name => "test category 1", :parent_id => parent_cat.id, :environment_id => env.id)
+    c2 = create(Category, :name => "test category 2", :environment_id => env.id)
 
-    article = profile.articles.build(:name => 'withcategories')
+    article = create(Article, :name => 'withcategories', :profile_id => profile.id)
     article.save!
 
     article.add_category c1
@@ -325,8 +324,7 @@ class ArticleTest < ActiveSupport::TestCase
 
   should 'remove comments when removing article' do
     assert_no_difference Comment, :count do
-      a = profile.articles.build(:name => 'test article')
-      a.save!
+      a = create(Article, :name => 'test article', :profile_id => profile.id)
 
       assert_difference Comment, :count, 1 do
         comment = a.comments.build
@@ -346,10 +344,10 @@ class ArticleTest < ActiveSupport::TestCase
       create(TextileArticle, :name => "art #{n}", :profile_id => profile.id)
     end
     first_article = profile.articles.first
-    2.times { Comment.create(:title => 'test', :body => 'asdsad', :author => profile, :source => first_article).save! }
+    2.times { create(Comment, :title => 'test', :body => 'asdsad', :author => profile, :source => first_article).save! }
 
     last_article = profile.articles.last
-    4.times { Comment.create(:title => 'test', :body => 'asdsad', :author => profile, :source => last_article).save! }
+    4.times { create(Comment, :title => 'test', :body => 'asdsad', :author => profile, :source => last_article).save! }
     # should respect the order (more commented comes first)
     assert_equal [last_article, first_article], profile.articles.most_commented(2)
   end
@@ -370,20 +368,21 @@ class ArticleTest < ActiveSupport::TestCase
   should 'display to owner' do
     # a person with private contents ...
     person = create_user('testuser').person
-    person.update_attributes!(:public_content => false)
+    person.public_content = false
+    person.save!
 
     # ... can see his own articles
-    a = person.articles.create!(:name => 'test article')
+    a = create(Article, :name => 'test article', :profile_id => person.id)
     assert_equal true, a.display_to?(person)
   end
 
   should 'cache children count' do
     owner = create_user('testuser').person
-    art = owner.articles.build(:name => 'ytest'); art.save!
+    art = create(Article, :name => 'ytest', :profile_id => owner.id)
 
     # two children articles
-    art.children.create!(:profile => owner, :name => 'c1')
-    art.children.create!(:profile => owner, :name => 'c2')
+    create(Article, :profile => owner, :name => 'c1', :parent_id => art.id)
+    create(Article, :profile => owner, :name => 'c2', :parent_id => art.id)
 
     art.reload
 
@@ -393,12 +392,12 @@ class ArticleTest < ActiveSupport::TestCase
   end
 
   should 'categorize in the entire category hierarchy' do
-    c1 = Category.create!(:environment => Environment.default, :name => 'c1')
-    c2 = c1.children.create!(:environment => Environment.default, :name => 'c2')
-    c3 = c2.children.create!(:environment => Environment.default, :name => 'c3')
+    c1 = create(Category, :environment => Environment.default, :name => 'c1')
+    c2 = create(Category, :environment => Environment.default, :name => 'c2', :parent_id => c1.id)
+    c3 = create(Category, :environment => Environment.default, :name => 'c3', :parent_id => c2.id)
 
     owner = create_user('testuser').person
-    art = owner.articles.create!(:name => 'ytest')
+    art = create(Article, :name => 'ytest', :profile_id => owner.id)
 
     art.add_category(c3)
 
@@ -414,12 +413,12 @@ class ArticleTest < ActiveSupport::TestCase
   end
 
   should 'redefine the entire category set at once' do
-    c1 = Category.create!(:environment => Environment.default, :name => 'c1')
-    c2 = c1.children.create!(:environment => Environment.default, :name => 'c2')
-    c3 = c2.children.create!(:environment => Environment.default, :name => 'c3')
-    c4 = c1.children.create!(:environment => Environment.default, :name => 'c4')
+    c1 = create(Category, :environment => Environment.default, :name => 'c1')
+    c2 = create(Category, :environment => Environment.default, :name => 'c2', :parent_id => c1)
+    c3 = create(Category, :environment => Environment.default, :name => 'c3', :parent_id => c2)
+    c4 = create(Category, :environment => Environment.default, :name => 'c4', :parent_id => c1)
     owner = create_user('testuser').person
-    art = owner.articles.create!(:name => 'ytest')
+    art = create(Article, :name => 'ytest', :profile_id => owner.id)
 
     art.add_category(c4)
 
@@ -436,7 +435,7 @@ class ArticleTest < ActiveSupport::TestCase
     c2 = fast_create(Category, :environment_id => Environment.default.id, :name => 'c2')
 
     p = create_user('testinguser').person
-    a = p.articles.create!(:name => 'test', :category_ids => [c1.id, c2.id])
+    a = create(Article, :name => 'test', :category_ids => [c1.id, c2.id], :profile_id => p)
 
     assert_equivalent [c1, c2], a.categories(true)
     assert_includes a.categories_including_virtual(true), parent1
@@ -444,10 +443,10 @@ class ArticleTest < ActiveSupport::TestCase
 
   should 'not add a category twice to article' do
     c1 = fast_create(Category, :environment_id => Environment.default.id, :name => 'c1')
-    c2 = c1.children.create!(:environment => Environment.default, :name => 'c2', :parent_id => c1.id)
-    c3 = c1.children.create!(:environment => Environment.default, :name => 'c3', :parent_id => c1.id)
+    c2 = create(Category, :environment => Environment.default, :name => 'c2', :parent_id => c1.id)
+    c3 = create(Category, :environment => Environment.default, :name => 'c3', :parent_id => c1.id)
     owner = create_user('testuser').person
-    art = owner.articles.create!(:name => 'ytest')
+    art = create(Article, :name => 'ytest', :profile_id => owner)
     art.category_ids = [c2,c3,c3].map(&:id)
     assert_equal [c2, c3], art.categories(true)
     assert_equal [c2, c1, c3], art.categories_including_virtual(true)
@@ -538,7 +537,7 @@ class ArticleTest < ActiveSupport::TestCase
 
   should 'not allow friends of private person see the article' do
     person = create_user('test_user').person
-    article = Article.create!(:name => 'test article', :profile => person, :published => false)
+    article = create(Article, :name => 'test article', :profile => person, :published => false)
     friend = create_user('test_friend').person
     person.add_friend(friend)
     person.save!
@@ -559,7 +558,7 @@ class ArticleTest < ActiveSupport::TestCase
 
   should 'make a copy of the article as child of it' do
     person = create_user('test_user').person
-    a = person.articles.create!(:name => 'test article', :body => 'some text')
+    a = create(Article, :name => 'test article', :body => 'some text', :profile_id => person.id)
     b = a.copy(:parent => a, :profile => a.profile)
 
     assert_includes a.children, b
@@ -569,7 +568,7 @@ class ArticleTest < ActiveSupport::TestCase
   should 'make a copy of the article to other profile' do
     p1 = create_user('test_user1').person
     p2 = create_user('test_user2').person
-    a = p1.articles.create!(:name => 'test article', :body => 'some text')
+    a = create(Article, :name => 'test article', :body => 'some text', :profile_id => p1)
     b = a.copy(:parent => a, :profile => p2)
 
     p2 = Person.find(p2.id)
@@ -593,7 +592,7 @@ class ArticleTest < ActiveSupport::TestCase
 
   should 'load article under an old path' do
     p = create_user('test_user').person
-    a = p.articles.create(:name => 'old-name')
+    a = create(Article, :name => 'old-name', :profile_id => p.id)
     old_path = a.explode_path
     a.name = 'new-name'
     a.save!
@@ -605,7 +604,7 @@ class ArticleTest < ActiveSupport::TestCase
 
   should 'load new article name equal of another article old name' do
     p = create_user('test_user').person
-    a1 = p.articles.create!(:name => 'old-name')
+    a1 = create(Article, :name => 'old-name', :profile_id => p.id)
     old_path = a1.explode_path
     a1.name = 'new-name'
     a1.save!
@@ -618,11 +617,11 @@ class ArticleTest < ActiveSupport::TestCase
 
   should 'article with most recent version with the name must be loaded if no aritcle with the name' do
     p = create_user('test_user').person
-    a1 = p.articles.create!(:name => 'old-name')
+    a1 = create(Article, :name => 'old-name', :profile_id => p.id)
     old_path = a1.explode_path
     a1.name = 'new-name'
     a1.save!
-    a2 = p.articles.create!(:name => 'old-name')
+    a2 = create(Article, :name => 'old-name', :profile_id => p.id)
     a2.name = 'other-new-name'
     a2.save!
 
@@ -633,7 +632,7 @@ class ArticleTest < ActiveSupport::TestCase
 
   should 'not return an article of a different user' do
     p1 = create_user('test_user').person
-    a = p1.articles.create!(:name => 'old-name')
+    a = create(Article, :name => 'old-name', :profile_id => p1.id)
     old_path = a.explode_path
     a.name = 'new-name'
     a.save!
@@ -665,13 +664,13 @@ class ArticleTest < ActiveSupport::TestCase
   end
 
   should 'has moderate comments false by default' do
-    a = Article.create!(:name => 'my article', :body => 'my text', :profile_id => profile.id)
+    a = create(Article, :name => 'my article', :body => 'my text', :profile_id => profile.id)
     a.reload
     assert a.moderate_comments == false
   end
 
   should 'save a article with moderate comments as true' do
-    a = Article.create!(:name => 'my article', :body => 'my text', :profile_id => profile.id, :moderate_comments => true)
+    a = create(Article, :name => 'my article', :body => 'my text', :profile_id => profile.id, :moderate_comments => true)
     a.reload
     assert a.moderate_comments
   end
@@ -717,7 +716,7 @@ class ArticleTest < ActiveSupport::TestCase
   end
 
   should 'return a view url when image' do
-    image = UploadedFile.create!(:profile => profile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
+    image = create(UploadedFile, :profile => profile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
 
     assert_equal image.url.merge(:view => true), image.view_url
   end
@@ -775,7 +774,7 @@ class ArticleTest < ActiveSupport::TestCase
   end
 
   should 'ignore category with zero as id' do
-    a = profile.articles.create!(:name => 'a test article')
+    a = create(Article, :name => 'a test article', :profile_id => profile.id)
     c = fast_create(Category, :name => 'test category', :environment_id => profile.environment.id, :parent_id => 0)
     a.category_ids = ['0', c.id, nil]
     assert a.save
@@ -788,25 +787,25 @@ class ArticleTest < ActiveSupport::TestCase
   end
 
   should 'add owner on cache_key when has profile' do
-    a = profile.articles.create!(:name => 'a test article')
+    a = create(Article, :name => 'a test article', :profile_id => profile.id)
     assert_match(/-owner/, a.cache_key({}, profile))
   end
 
   should 'not add owner on cache_key when has no profile' do
-    a = profile.articles.create!(:name => 'a test article')
+    a = create(Article, :name => 'a test article', :profile_id => profile.id)
     assert_no_match(/-owner/, a.cache_key({}))
   end
 
   should 'add owner on cache_key when profile is community' do
     c = fast_create(Community)
-    a = c.articles.create!(:name => 'a test article')
+    a = create(Article, :name => 'a test article', :profile_id => c.id)
     assert_match(/-owner/, a.cache_key({}, c))
   end
 
   should 'allow author to edit if is publisher' do
     c = fast_create(Community)
     p = create_user_with_permission('test_user', 'publish_content', c)
-    a = c.articles.create!(:name => 'a test article', :last_changed_by => p)
+    a = create(Article, :name => 'a test article', :last_changed_by => p, :profile_id => c.id)
 
     assert a.allow_post_content?(p)
   end
@@ -814,13 +813,13 @@ class ArticleTest < ActiveSupport::TestCase
   should 'allow user with "Manage content" permissions to edit' do
     c = fast_create(Community)
     p = create_user_with_permission('test_user', 'post_content', c)
-    a = c.articles.create!(:name => 'a test article')
+    a = create(Article, :name => 'a test article', :profile_id => c.id)
 
     assert a.allow_post_content?(p)
   end
 
   should 'update slug from name' do
-    article = Article.create!(:name => 'A test article', :profile_id => profile.id)
+    article = create(Article, :name => 'A test article', :profile_id => profile.id)
     assert_equal 'a-test-article', article.slug
     article.name = 'Changed name'
     assert_equal 'changed-name', article.slug
@@ -828,11 +827,11 @@ class ArticleTest < ActiveSupport::TestCase
 
   should 'find articles in a specific category' do
     env = Environment.default
-    parent_category = env.categories.create!(:name => "parent category")
-    category_with_articles = env.categories.create!(:name => "Category with articles", :parent_id => parent_category.id)
-    category_without_articles = env.categories.create!(:name => "Category without articles")
+    parent_category = create(Category, :name => "parent category", :environment_id => env.id)
+    category_with_articles = create(Category, :name => "Category with articles", :parent_id => parent_category.id, :environment_id => env.id)
+    category_without_articles = create(Category, :name => "Category without articles", :environment_id => env.id)
 
-    article_in_category = profile.articles.create!(:name => 'Article in category')
+    article_in_category = create(Article, :name => 'Article in category', :profile_id => profile.id)
 
     article_in_category.add_category(category_with_articles)
 
@@ -843,33 +842,33 @@ class ArticleTest < ActiveSupport::TestCase
 
   should 'has external_link attr' do
     assert_nothing_raised NoMethodError do
-      Article.new(:external_link => 'http://some.external.link')
+      build(Article, :external_link => 'http://some.external.link')
     end
   end
 
   should 'validates format of external_link' do
-    article = Article.new(:external_link => 'http://invalid-url')
+    article = build(Article, :external_link => 'http://invalid-url')
     article.valid?
     assert_not_nil article.errors[:external_link]
   end
 
   should 'put http in external_link' do
-    article = Article.new(:external_link => 'url.without.http')
+    article = build(Article, :external_link => 'url.without.http')
     assert_equal 'http://url.without.http', article.external_link
   end
 
   should 'list only published articles' do
     profile = fast_create(Person)
 
-    published  = profile.articles.create(:name => 'Published',  :published => true)
-    unpublished = profile.articles.create(:name => 'Unpublished', :published => false)
+    published  = create(Article, :name => 'Published',  :published => true, :profile_id => profile.id)
+    unpublished = create(Article, :name => 'Unpublished', :published => false, :profile_id => profile.id)
 
     assert_equal [ published ], profile.articles.published
   end
 
   should 'sanitize tags after save article' do
     article = fast_create(Article, :slug => 'article-with-tags', :profile_id => profile.id)
-    article.tags << Tag.new(:name => "TV Web w<script type='javascript'></script>")
+    article.tags << build(Tag, :name => "TV Web w<script type='javascript'></script>")
     assert_match /[<>]/, article.tags.last.name
     article.save!
     assert_no_match /[<>]/, article.tags.last.name
@@ -877,7 +876,7 @@ class ArticleTest < ActiveSupport::TestCase
 
   should 'strip HTML from tag names after save article' do
     article = fast_create(Article, :slug => 'article-with-tags', :profile_id => profile.id)
-    article.tags << Tag.new(:name => "TV Web w<script type=...")
+    article.tags << build(Tag, :name => "TV Web w<script type=...")
     assert_match /</, article.tags.last.name
     article.save!
     assert_no_match /</, article.tags.last.name
@@ -895,7 +894,7 @@ class ArticleTest < ActiveSupport::TestCase
     person = fast_create(Person)
     community = fast_create(Community)
     article = fast_create(Article, :name => 'article name', :profile_id => person.id)
-    a = ApproveArticle.create!(:article => article, :target => community, :requestor => profile)
+    a = create(ApproveArticle, :article => article, :target => community, :requestor => profile)
     a.finish
 
     published = community.articles.find_by_name('article name')
@@ -905,7 +904,7 @@ class ArticleTest < ActiveSupport::TestCase
   end
 
   should 'remove script tags from name' do
-    a = Article.new(:name => 'hello <script>alert(1)</script>')
+    a = build(Article, :name => 'hello <script>alert(1)</script>')
     a.valid?
 
     assert_no_match(/<script>/, a.name)
@@ -926,7 +925,7 @@ class ArticleTest < ActiveSupport::TestCase
   end
 
   should 'return abstract as lead' do
-    a = Article.new(:abstract => 'lead')
+    a = build(Article, :abstract => 'lead')
     assert_equal 'lead', a.lead
   end
 
@@ -937,13 +936,13 @@ class ArticleTest < ActiveSupport::TestCase
   end
 
   should 'return first paragraph as lead with empty but non-null abstract' do
-    a = Article.new(:abstract => '')
+    a = build(Article, :abstract => '')
     a.stubs(:first_paragraph).returns('<p>first</p>')
     assert_equal '<p>first</p>', a.lead
   end
 
   should 'return blank as lead when article has no paragraphs' do
-    a = Article.new(:body => "<div>an article with content <em>but without</em> a paragraph</div>")
+    a = build(Article, :body => "<div>an article with content <em>but without</em> a paragraph</div>")
     assert_equal '', a.lead
   end
 
@@ -953,7 +952,7 @@ class ArticleTest < ActiveSupport::TestCase
   end
 
   should 'remove html from short lead' do
-    a = Article.new(:body => "<p>an article with html that should be <em>removed</em></p>")
+    a = build(Article, :body => "<p>an article with html that should be <em>removed</em></p>")
     assert_equal 'an article with html that should be removed', a.short_lead
   end
 
@@ -995,13 +994,13 @@ class ArticleTest < ActiveSupport::TestCase
 
   should 'not notify activity by default on create' do
     ActionTracker::Record.delete_all
-    Article.create! :name => 'test', :profile_id => fast_create(Profile).id, :published => true
+    create Article, :name => 'test', :profile_id => fast_create(Profile).id, :published => true
     assert_equal 0, ActionTracker::Record.count
   end
 
   should 'not notify activity by default on update' do
     ActionTracker::Record.delete_all
-    a = Article.create! :name => 'bar', :profile_id => fast_create(Profile).id, :published => true
+    a = create Article, :name => 'bar', :profile_id => fast_create(Profile).id, :published => true
     a.name = 'foo'
     a.save!
     assert_equal 0, ActionTracker::Record.count
@@ -1009,13 +1008,13 @@ class ArticleTest < ActiveSupport::TestCase
 
   should 'not notify activity by default on destroy' do
     ActionTracker::Record.delete_all
-    a = Article.create! :name => 'bar', :profile_id => fast_create(Profile).id, :published => true
+    a = create Article, :name => 'bar', :profile_id => fast_create(Profile).id, :published => true
     a.destroy
     assert_equal 0, ActionTracker::Record.count
   end
 
   should 'create activity' do
-    a = TextileArticle.create! :name => 'bar', :profile_id => fast_create(Profile).id, :published => true
+    a = create TextileArticle, :name => 'bar', :profile_id => fast_create(Profile).id, :published => true
     a.activity.destroy
     assert_nil a.activity
 
@@ -1070,7 +1069,7 @@ class ArticleTest < ActiveSupport::TestCase
     member_1 = Person.first
     community.add_member(member_1)
 
-    article = TinyMceArticle.create! :name => 'Tracked Article 1', :profile_id => community.id
+    article = create TinyMceArticle, :name => 'Tracked Article 1', :profile_id => community.id
     first_activity = article.activity
     assert_equal [first_activity], ActionTracker::Record.find_all_by_verb('create_article')
 
@@ -1080,7 +1079,7 @@ class ArticleTest < ActiveSupport::TestCase
     member_2 = fast_create(Person)
     community.add_member(member_2)
 
-    article2 = TinyMceArticle.create! :name => 'Tracked Article 2', :profile_id => community.id
+    article2 = create TinyMceArticle, :name => 'Tracked Article 2', :profile_id => community.id
     second_activity = article2.activity
     assert_equivalent [first_activity, second_activity], ActionTracker::Record.find_all_by_verb('create_article')
 
@@ -1106,14 +1105,14 @@ class ArticleTest < ActiveSupport::TestCase
     profile.add_friend(f1)
 
     UserStampSweeper.any_instance.expects(:current_user).returns(profile).at_least_once
-    article = TinyMceArticle.create! :name => 'Tracked Article 1', :profile_id => profile.id
+    article = create TinyMceArticle, :name => 'Tracked Article 1', :profile_id => profile.id
     assert_equal 1, ActionTracker::Record.find_all_by_verb('create_article').count
     process_delayed_job_queue
     assert_equal 2, ActionTrackerNotification.find_all_by_action_tracker_id(article.activity.id).count
 
     f2 = fast_create(Person)
     profile.add_friend(f2)
-    article2 = TinyMceArticle.create! :name => 'Tracked Article 2', :profile_id => profile.id
+    article2 = create TinyMceArticle, :name => 'Tracked Article 2', :profile_id => profile.id
     assert_equal 2, ActionTracker::Record.find_all_by_verb('create_article').count
     process_delayed_job_queue
     assert_equal 3, ActionTrackerNotification.find_all_by_action_tracker_id(article2.activity.id).count
@@ -1378,7 +1377,7 @@ class ArticleTest < ActiveSupport::TestCase
 
   should "the author_name returns the name of the article's author" do
     author = fast_create(Person)
-    a = profile.articles.create!(:name => 'a test article', :last_changed_by => author)
+    a = create(Article, :name => 'a test article', :last_changed_by => author, :profile_id => profile.id)
     assert_equal author.name, a.author_name
     author.destroy
     a.reload
@@ -1397,7 +1396,7 @@ class ArticleTest < ActiveSupport::TestCase
   should 'retrieve latest info from comment when has comments' do
     forum = fast_create(Forum, :name => 'Forum test', :profile_id => profile.id)
     post = fast_create(TextileArticle, :name => 'First post', :profile_id => profile.id, :parent_id => forum.id, :updated_at => Time.now)
-    post.comments << Comment.new(:name => 'Guest', :email => 'guest@example.com', :title => 'test comment', :body => 'hello!')
+    post.comments << build(Comment, :name => 'Guest', :email => 'guest@example.com', :title => 'test comment', :body => 'hello!')
     assert_equal post.comments.last.created_at, post.info_from_last_update[:date]
     assert_equal "Guest", post.info_from_last_update[:author_name]
     assert_nil post.info_from_last_update[:author_url]
@@ -1463,7 +1462,7 @@ class ArticleTest < ActiveSupport::TestCase
 
   should 'get images paths in article body' do
     Environment.any_instance.stubs(:default_hostname).returns('noosfero.org')
-    a = TinyMceArticle.new :profile => @profile
+    a = build TinyMceArticle, :profile => @profile
     a.body = 'Noosfero <img src="http://noosfero.com/test.png" /> test <img src="http://test.com/noosfero.png" />'
     assert_includes a.body_images_paths, 'http://noosfero.com/test.png'
     assert_includes a.body_images_paths, 'http://test.com/noosfero.png'
@@ -1471,7 +1470,7 @@ class ArticleTest < ActiveSupport::TestCase
 
   should 'get absolute images paths in article body' do
     Environment.any_instance.stubs(:default_hostname).returns('noosfero.org')
-    a = TinyMceArticle.new :profile => @profile
+    a = build TinyMceArticle, :profile => @profile
     a.body = 'Noosfero <img src="test.png" alt="Absolute" /> test <img src="/relative/path.png" />'
     assert_includes a.body_images_paths, 'http://noosfero.org/test.png'
     assert_includes a.body_images_paths, 'http://noosfero.org/relative/path.png'
@@ -1479,20 +1478,20 @@ class ArticleTest < ActiveSupport::TestCase
 
   should 'return empty if there are no images in article body' do
     Environment.any_instance.stubs(:default_hostname).returns('noosfero.org')
-    a = Event.new :profile => @profile
+    a = build Event, :profile => @profile
     a.body = 'Noosfero test'
     assert_equal [], a.body_images_paths
   end
 
   should 'return empty if body is nil' do
     Environment.any_instance.stubs(:default_hostname).returns('noosfero.org')
-    a = Article.new :profile => @profile
+    a = build Article, :profile => @profile
     assert_equal [], a.body_images_paths
   end
 
   should 'survive to a invalid src attribute while looking for images in body' do
-    domain = Environment.default.domains.first || Domain.new(:name => 'localhost')
-    article = Article.new(:body => "An article with invalid src in img tag <img src='path with spaces.png' />", :profile => @profile)
+    domain = Environment.default.domains.first || build(Domain, :name => 'localhost')
+    article = build(Article, :body => "An article with invalid src in img tag <img src='path with spaces.png' />", :profile => @profile)
     assert_nothing_raised URI::InvalidURIError do
       assert_equal ["http://#{profile.environment.default_hostname}/path%20with%20spaces.png"], article.body_images_paths
     end
@@ -1531,13 +1530,13 @@ class ArticleTest < ActiveSupport::TestCase
   end
 
   should "return 1 comment on label if the content has 1 comment" do
-    a = Article.new(:comments_count => 1)
+    a = build(Article, :comments_count => 1)
     assert_equal 1, a.comments_count
     assert_equal "one comment", a.more_comments_label
   end
 
   should "return number of comments on label if the content has more than one comment" do
-    a = Article.new(:comments_count => 4)
+    a = build(Article, :comments_count => 4)
     assert_equal 4, a.comments_count
     assert_equal "4 comments", a.more_comments_label
   end
@@ -1549,13 +1548,13 @@ class ArticleTest < ActiveSupport::TestCase
   end
 
   should "return 1 view on label if the content has 1 view" do
-    a = Article.new(:hits => 1)
+    a = build(Article, :hits => 1)
     assert_equal 1, a.hits
     assert_equal "one view", a.more_popular_label
   end
 
   should "return number of views on label if the content has more than one view" do
-    a = Article.new(:hits => 4)
+    a = build(Article, :hits => 4)
     assert_equal 4, a.hits
     assert_equal "4 views", a.more_popular_label
   end
@@ -1591,8 +1590,8 @@ class ArticleTest < ActiveSupport::TestCase
   end
 
   should 'remove all categorizations when destroyed' do
-    art = Article.create!(:name => 'article 1', :profile_id => fast_create(Person).id)
-    cat = Category.create!(:name => 'category 1', :environment_id => Environment.default.id)
+    art = create(Article, :name => 'article 1', :profile_id => fast_create(Person).id)
+    cat = create(Category, :name => 'category 1', :environment_id => Environment.default.id)
     art.add_category cat
     art.destroy
     assert cat.articles.reload.empty?
@@ -1600,9 +1599,9 @@ class ArticleTest < ActiveSupport::TestCase
 
   should 'show more popular articles' do
     Article.destroy_all
-    art1 = Article.create!(:name => 'article 1', :profile_id => fast_create(Person).id)
-    art2 = Article.create!(:name => 'article 2', :profile_id => fast_create(Person).id)
-    art3 = Article.create!(:name => 'article 3', :profile_id => fast_create(Person).id)
+    art1 = create(Article, :name => 'article 1', :profile_id => fast_create(Person).id)
+    art2 = create(Article, :name => 'article 2', :profile_id => fast_create(Person).id)
+    art3 = create(Article, :name => 'article 3', :profile_id => fast_create(Person).id)
 
     art1.hits = 56; art1.save!
     art3.hits = 92; art3.save!
@@ -1612,11 +1611,11 @@ class ArticleTest < ActiveSupport::TestCase
   end
 
   should 'show if article is public' do
-    art1 = Article.create!(:name => 'article 1', :profile_id => fast_create(Person).id)
-    art2 = Article.create!(:name => 'article 2', :profile_id => fast_create(Person).id, :advertise => false)
-    art3 = Article.create!(:name => 'article 3', :profile_id => fast_create(Person).id, :published => false)
-    art4 = Article.create!(:name => 'article 4', :profile_id => fast_create(Person, :visible => false).id)
-    art5 = Article.create!(:name => 'article 5', :profile_id => fast_create(Person, :public_profile => false).id)
+    art1 = create(Article, :name => 'article 1', :profile_id => fast_create(Person).id)
+    art2 = create(Article, :name => 'article 2', :profile_id => fast_create(Person).id, :advertise => false)
+    art3 = create(Article, :name => 'article 3', :profile_id => fast_create(Person).id, :published => false)
+    art4 = create(Article, :name => 'article 4', :profile_id => fast_create(Person, :visible => false).id)
+    art5 = create(Article, :name => 'article 5', :profile_id => fast_create(Person, :public_profile => false).id)
 
     articles = Article.public
     assert_includes articles, art1
@@ -1633,7 +1632,7 @@ class ArticleTest < ActiveSupport::TestCase
 
     community.add_admin(admin)
     community.add_member(member)
-    a = Article.new(:profile => community)
+    a = build(Article, :profile => community)
 
     assert_equal false, a.allow_members_to_edit
     assert_equal false, a.allow_edit?(member)
@@ -1646,7 +1645,7 @@ class ArticleTest < ActiveSupport::TestCase
 
     community.add_admin(admin)
     community.add_member(member)
-    a = Article.new(:profile => community)
+    a = build(Article, :profile => community)
 
     a.allow_members_to_edit = true
 
@@ -1681,20 +1680,20 @@ class ArticleTest < ActiveSupport::TestCase
   end
 
   should 'store first image in tracked action' do
-    a = TinyMceArticle.create! :name => 'Tracked Article', :body => '<p>Foo<img src="foo.png" />Bar</p>', :profile_id => profile.id
+    a = create TinyMceArticle, :name => 'Tracked Article', :body => '<p>Foo<img src="foo.png" />Bar</p>', :profile_id => profile.id
     assert_equal 'foo.png', ActionTracker::Record.last.get_first_image
   end
 
   should 'be able to have a license' do
-    license = License.create!(:name => 'GPLv3', :environment => Environment.default)
-    article = Article.new(:license_id => license.id)
+    license = create(License, :name => 'GPLv3', :environment => Environment.default)
+    article = build(Article, :license_id => license.id)
     assert_equal license, article.license
   end
 
   should 'update path if parent is changed' do
-    f1 = Folder.create!(:name => 'Folder 1', :profile => profile)
-    f2 = Folder.create!(:name => 'Folder 2', :profile => profile)
-    article = TinyMceArticle.create!(:name => 'Sample Article', :parent_id => f1.id, :profile => profile)
+    f1 = create(Folder, :name => 'Folder 1', :profile => profile)
+    f2 = create(Folder, :name => 'Folder 2', :profile => profile)
+    article = create(TinyMceArticle, :name => 'Sample Article', :parent_id => f1.id, :profile => profile)
     assert_equal [f1.path,article.slug].join('/'), article.path
 
     article.parent = f2
@@ -1705,12 +1704,13 @@ class ArticleTest < ActiveSupport::TestCase
     article.save!
     assert_equal article.slug, article.path
 
-    article.update_attributes({:parent_id => f2.id})
+    article.parent = f2
+    article.save!
     assert_equal [f2.path,article.slug].join('/'), article.path
   end
 
   should 'not allow parent as itself' do
-    article = Article.create!(:name => 'Sample Article', :profile => profile)
+    article = create(Article, :name => 'Sample Article', :profile => profile)
     article.parent = article
     article.valid?
 
@@ -1718,9 +1718,9 @@ class ArticleTest < ActiveSupport::TestCase
   end
 
   should 'not allow cyclical paternity' do
-    a1 = Article.create!(:name => 'Sample Article 1', :profile => profile)
-    a2 = Article.create!(:name => 'Sample Article 2', :profile => profile, :parent => a1)
-    a3 = Article.create!(:name => 'Sample Article 3', :profile => profile, :parent => a2)
+    a1 = create(Article, :name => 'Sample Article 1', :profile => profile)
+    a2 = create(Article, :name => 'Sample Article 2', :profile => profile, :parent => a1)
+    a3 = create(Article, :name => 'Sample Article 3', :profile => profile, :parent => a2)
     a1.parent = a3
     a1.valid?
 
@@ -1729,7 +1729,7 @@ class ArticleTest < ActiveSupport::TestCase
 
   should 'set author_name before creating article if there is an author' do
     author = fast_create(Person)
-    article = Article.create!(:name => 'Test', :profile => profile, :last_changed_by => author)
+    article = create(Article, :name => 'Test', :profile => profile, :last_changed_by => author)
     assert_equal author.name, article.author_name
 
     author_name = author.name
@@ -1740,12 +1740,12 @@ class ArticleTest < ActiveSupport::TestCase
 
   should "author_id return the author id of the article's author" do
     author = fast_create(Person)
-    article = Article.create!(:name => 'Test', :profile => profile, :last_changed_by => author)
+    article = create(Article, :name => 'Test', :profile => profile, :last_changed_by => author)
     assert_equal author.id, article.author_id
   end
 
   should "author_id return nil if there is no article's author" do
-    article = Article.create!(:name => 'Test', :profile => profile, :last_changed_by => nil)
+    article = create(Article, :name => 'Test', :profile => profile, :last_changed_by => nil)
     assert_nil article.author_id
   end
 
