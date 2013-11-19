@@ -19,6 +19,10 @@ class StoaPlugin::PersonApi < Noosfero::FieldsDecorator
     context.url_for(url)
   end
 
+  def birth_date
+    object.birth_date.strftime('%F')
+  end
+
   def image_base64
     Base64.encode64(image.current_data) if image && image.current_data
   end
