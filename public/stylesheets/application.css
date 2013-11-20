@@ -5681,6 +5681,13 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 img {
   padding-left: 20px;
 }
 
+.view-more-comments, .view-more-replies {
+  border-bottom: 1px solid #d2d2d2 !important;
+  border-top: 1px solid #fff;
+  margin-bottom: 0;
+  text-align: center;
+}
+
 /* Profile activity relative dimensions */
 
 #leave_scrap {
