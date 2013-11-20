@@ -63,4 +63,9 @@ class ArticleBlock < Block
   end
 
   settings_items :visualization_format, :type => :string, :default => 'short'
+  
+  def self.expire_on
+      { :profile => [:article], :environment => [:article] }
+  end
+
 end

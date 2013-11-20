@@ -59,4 +59,8 @@ class TagsBlock < Block
     15.minutes
   end
 
+  def self.expire_on
+      { :profile => [:article], :environment => [:article] }
+  end
+
 end
