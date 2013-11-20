@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../../../../test/test_helper'
+require File.dirname(__FILE__) + '/../test_helper'
 require File.dirname(__FILE__) + '/../../controllers/profile/comment_group_plugin_profile_controller'
 
 # Re-raise errors caught by the controller.
