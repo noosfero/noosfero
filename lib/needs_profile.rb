@@ -24,7 +24,7 @@ module NeedsProfile
     @profile ||= environment.profiles.find_by_identifier(params[:profile])
     if @profile
       profile_hostname = @profile.hostname
-      if profile_hostname && request.host == @environment.default_hostname
+      if profile_hostname && profile_hostname != request.host
         params.delete(:profile)
         redirect_to(Noosfero.url_options.merge(params).merge(:host => profile_hostname))
       end
