@@ -11,7 +11,6 @@ class CommentGroupPlugin::AllowComment < Noosfero::Plugin::Macro
       :css_files => 'comment_group.css' }
   end
 
-  #FIXME Make this test
   def parse(params, inner_html, source)
     group_id = params[:group_id].to_i
     article = source
