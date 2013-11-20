@@ -154,6 +154,36 @@ class CmsControllerTest < ActionController::TestCase
     assert_redirected_to profile.url
   end
 
+  should 'be able to reset home page' do
+    a = profile.articles.build(:name => 'my new home page')
+    a.save!
+
+    profile.home_page = a
+    profile.save!
+
+    post :set_home_page, :profile => profile.identifier, :id => nil
+
+    profile.reload
+    assert_equal nil, profile.home_page
+  end
+
+  should 'display default home page' do
+    profile.home_page = nil
+    profile.save!
+    get :index, :profile => profile.identifier
+    assert_tag :tag => 'div', :attributes => { :class => "cms-homepage" }, :descendant => { :tag => "span", :content => /Profile Information/ }
+  end
+
+  should 'display article as home page' do
+    a = profile.articles.build(:name => 'my new home page')
+    a.save!
+    profile.home_page = a
+    profile.save!
+    Article.stubs(:short_description).returns('short description')
+    get :index, :profile => profile.identifier
+    assert_tag :tag => 'div', :attributes => { :class => "cms-homepage" }, :descendant => { :tag => "a", :content => /my new home page/ }
+  end
+
   should 'set last_changed_by when creating article' do
     login_as(profile.identifier)
 
