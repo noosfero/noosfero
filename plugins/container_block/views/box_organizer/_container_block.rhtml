@@ -1,0 +1,14 @@
+<br/>
+<ul id="links">
+  <% @block.blocks.each do |block| %>
+    <li>
+    <%= block.class.name %>
+    </li>
+  <% end %>
+</ul>
+
+<%= link_to_function(_('New block'), nil, :class => 'button icon-add with-text') { |page|
+    page.insert_html :bottom, 'links', content_tag('li',select_tag('block[block_classes][]', 
+    options_for_select( @controller.available_blocks.each_with_index.map {|b,i| [b.name, b.name] } ))) } %>
+
+<br/><br/>
