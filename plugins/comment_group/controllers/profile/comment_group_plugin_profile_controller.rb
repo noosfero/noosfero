@@ -1,5 +1,5 @@
 class CommentGroupPluginProfileController < ProfileController
-  append_view_path File.join(File.dirname(__FILE__) + '/../views')
+  append_view_path File.join(File.dirname(__FILE__) + '/../../views')
 
   def view_comments
     @article_id = params[:article_id]
