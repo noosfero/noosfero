@@ -133,7 +133,7 @@ class Block < ActiveRecord::Base
   def cache_key(language='en')
     active_record_cache_key+'-'+language
   end
- 
+
   def timeout
     4.hours
   end
@@ -145,7 +145,7 @@ class Block < ActiveRecord::Base
   # Override in your subclasses.
   # Define which events and context should cause the block cache to expire
   # Possible events are: :article, :profile, :friendship, :category
-  # Possible contexts are: :profile, :environment  
+  # Possible contexts are: :profile, :environment
   def self.expire_on
     {
       :profile => [],

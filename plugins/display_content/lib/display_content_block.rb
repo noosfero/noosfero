@@ -86,5 +86,5 @@ class DisplayContentBlock < Block
   def self.expire_on
       { :profile => [:article], :environment => [:article] }
   end
-      
+
 end
