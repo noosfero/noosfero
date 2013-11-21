@@ -734,7 +734,7 @@ class ProfileControllerTest < ActionController::TestCase
   end
 
   should 'see the activities_items paginated' do
-    p1= Person.first
+    p1 = create_user('some').person
     ActionTracker::Record.destroy_all
     40.times{Scrap.create!(defaults_for_scrap(:sender => p1, :receiver => p1))}
     login_as(p1.identifier)
@@ -1170,6 +1170,58 @@ class ProfileControllerTest < ActionController::TestCase
     assert_redirected_to :controller => 'account', :action => 'login'
   end
 
+  should "not index display activities comments" do
+    login_as(profile.identifier)
+    article = TinyMceArticle.create!(:profile => profile, :name => 'An Article about Free Software')
+    ActionTracker::Record.destroy_all
+    activity = ActionTracker::Record.create!(:user_id => profile.id, :user_type => 'Profile', :verb => 'create_article', :target_id => article.id, :target_type => 'Article', :params => {'name' => article.name, 'url' => article.url, 'lead' => article.lead, 'first_image' => article.first_image})
+    20.times {comment = fast_create(Comment, :source_id => article, :title => 'a comment', :body => 'lalala', :created_at => Time.now)}
+    article.reload
+    get :index, :profile => profile.identifier
+    assert_tag 'ul', :attributes => {:class => 'profile-wall-activities-comments'}, :children => {:count => 0 } 
+  end
+
+  should "view more comments paginated" do
+    login_as(profile.identifier)
+    article = TinyMceArticle.create!(:profile => profile, :name => 'An Article about Free Software')
+    ActionTracker::Record.destroy_all
+    activity = ActionTracker::Record.create!(:user_id => profile.id, :user_type => 'Profile', :verb => 'create_article', :target_id => article.id, :target_type => 'Article', :params => {'name' => article.name, 'url' => article.url, 'lead' => article.lead, 'first_image' => article.first_image})
+    20.times {comment = fast_create(Comment, :source_id => article, :title => 'a comment', :body => 'lalala', :created_at => Time.now)}
+    article.reload
+    assert_equal 20, article.comments.count
+    get :more_comments, :activity => activity.id, :comment_page => 2
+    assert_response :success
+    assert_template '_comment'
+    assert_select_rjs :insert_html do
+      assert_select 'li', 5 # 5 comments per page
+    end
+  end
+
+  should "not index display scraps replies" do
+    login_as(profile.identifier)
+    Scrap.destroy_all
+    scrap = fast_create(Scrap, :sender_id => profile.id, :receiver_id => profile.id)
+    20.times {fast_create(Scrap, :sender_id => profile.id, :receiver_id => profile.id, :scrap_id => scrap.id)}
+    profile.reload
+    get :index, :profile => profile.identifier
+    assert_tag 'ul', :attributes => {:class => 'profile-wall-activities-comments scrap-replies'}, :children => {:count => 0 } 
+  end
+
+  should "view more replies paginated" do
+    login_as(profile.identifier)
+    Scrap.destroy_all
+    scrap = fast_create(Scrap, :sender_id => profile.id, :receiver_id => profile.id)
+    20.times {fast_create(Scrap, :sender_id => profile.id, :receiver_id => profile.id, :scrap_id => scrap.id)}
+    profile.reload
+    assert_equal 20, scrap.replies.count
+    get :more_replies, :activity => scrap.id, :comment_page => 2
+    assert_response :success
+    assert_template '_profile_scrap'
+    assert_select_rjs :insert_html do
+      assert_select 'li', 5 # 5 replies per page
+    end
+  end
+
   should 'render empty response for not logged in users in check_membership' do
     get :check_membership
     assert_equal '', @response.body
@@ -1329,30 +1381,6 @@ class ProfileControllerTest < ActionController::TestCase
     assert_equal count + 1, ActionTracker::Record.find(activity.id).comments_count
     assert_response :success
     assert_equal "Comment successfully added.", assigns(:message)
-  end
-
-  should 'display comment in wall if user was removed' do
-    UserStampSweeper.any_instance.stubs(:current_user).returns(profile)
-    article = TinyMceArticle.create!(:profile => profile, :name => 'An article about free software')
-    to_be_removed = create_user('removed_user').person
-    comment = Comment.create!(:author => to_be_removed, :title => 'Test Comment', :body => 'My author does not exist =(', :source_id => article.id, :source_type => 'Article')
-    to_be_removed.destroy
-
-    login_as(profile.identifier)
-    get :index, :profile => profile.identifier
-
-    assert_tag :tag => 'span', :content => '(removed user)', :attributes => {:class => 'comment-user-status comment-user-status-wall icon-user-removed'}
-  end
-
-  should 'display comment in wall from non logged users' do
-    UserStampSweeper.any_instance.stubs(:current_user).returns(profile)
-    article = TinyMceArticle.create!(:profile => profile, :name => 'An article about free software')
-    comment = Comment.create!(:name => 'outside user', :email => 'outside@localhost.localdomain', :title => 'Test Comment', :body => 'My author does not exist =(', :source_id => article.id, :source_type => 'Article')
-
-    login_as(profile.identifier)
-    get :index, :profile => profile.identifier
-
-    assert_tag :tag => 'span', :content => '(unauthenticated user)', :attributes => {:class => 'comment-user-status comment-user-status-wall icon-user-unknown'}
   end
 
   should 'add locale on mailing' do
