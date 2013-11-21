@@ -1383,30 +1383,6 @@ class ProfileControllerTest < ActionController::TestCase
     assert_equal "Comment successfully added.", assigns(:message)
   end
 
-  should 'display comment in wall if user was removed' do
-    UserStampSweeper.any_instance.stubs(:current_user).returns(profile)
-    article = TinyMceArticle.create!(:profile => profile, :name => 'An article about free software')
-    to_be_removed = create_user('removed_user').person
-    comment = Comment.create!(:author => to_be_removed, :title => 'Test Comment', :body => 'My author does not exist =(', :source_id => article.id, :source_type => 'Article')
-    to_be_removed.destroy
-
-    login_as(profile.identifier)
-    get :index, :profile => profile.identifier
-
-    assert_tag :tag => 'span', :content => '(removed user)', :attributes => {:class => 'comment-user-status comment-user-status-wall icon-user-removed'}
-  end
-
-  should 'display comment in wall from non logged users' do
-    UserStampSweeper.any_instance.stubs(:current_user).returns(profile)
-    article = TinyMceArticle.create!(:profile => profile, :name => 'An article about free software')
-    comment = Comment.create!(:name => 'outside user', :email => 'outside@localhost.localdomain', :title => 'Test Comment', :body => 'My author does not exist =(', :source_id => article.id, :source_type => 'Article')
-
-    login_as(profile.identifier)
-    get :index, :profile => profile.identifier
-
-    assert_tag :tag => 'span', :content => '(unauthenticated user)', :attributes => {:class => 'comment-user-status comment-user-status-wall icon-user-unknown'}
-  end
-
   should 'add locale on mailing' do
     community = fast_create(Community)
     create_user_with_permission('profile_moderator_user', 'send_mail_to_members', community)
