@@ -1,7 +1,7 @@
 require File.dirname(__FILE__) + '/../../test_helper'
 
 class StepHelperTest < ActiveSupport::TestCase
-  
+
   include CommunityTrackPlugin::StepHelper
 
   def setup

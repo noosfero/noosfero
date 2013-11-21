@@ -86,6 +86,8 @@ ActiveRecord::Schema.define(:version => 20131116165327) do
     t.string   "language"
     t.string   "source_name"
     t.integer  "license_id"
+    t.integer  "image_id"
+    t.integer  "position"
   end
 
   add_index "article_versions", ["article_id"], :name => "index_article_versions_on_article_id"
@@ -129,6 +131,8 @@ ActiveRecord::Schema.define(:version => 20131116165327) do
     t.string   "language"
     t.string   "source_name"
     t.integer  "license_id"
+    t.integer  "image_id"
+    t.integer  "position"
   end
 
   add_index "articles", ["name"], :name => "index_articles_on_name"

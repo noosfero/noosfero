@@ -15,7 +15,7 @@ class CommunityTrackPluginPublicController < PublicController
 
     render :update do |page|
       page.insert_html :bottom, "track_list_#{block.id}", :partial => "blocks/#{block.track_partial}", :collection => tracks, :locals => {:block => block}
-      
+
       if block.has_page?(p+1, per_page)
         page.replace_html "track_list_more_#{block.id}", :partial => 'blocks/track_list_more', :locals => {:block => block, :page => p+1, :force_same_page => params[:force_same_page], :per_page => per_page}
       else
@@ -37,8 +37,8 @@ class CommunityTrackPluginPublicController < PublicController
     if request.post?
       community_identifier = params[:community_identifier]
       if community_identifier.nil?
-        @failed = [_('Select one community to proceed')] 
-      else 
+        @failed = [_('Select one community to proceed')]
+      else
         redirect_to :controller => 'cms', :action => 'new', :type => "CommunityTrackPlugin::Track", :profile => community_identifier
       end
     end

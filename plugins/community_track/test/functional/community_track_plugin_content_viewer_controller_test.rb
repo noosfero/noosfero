@@ -2,13 +2,13 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class ContentViewerController
   append_view_path File.join(File.dirname(__FILE__) + '/../../views')
-  def rescue_action(e) 
-    raise e 
-  end 
+  def rescue_action(e)
+    raise e
+  end
 end
 
 class ContentViewerControllerTest < ActionController::TestCase
-  
+
   def setup
     @profile = fast_create(Community)
     @track = CommunityTrackPlugin::Track.create!(:abstract => 'abstract', :body => 'body', :name => 'track', :profile => @profile)

@@ -68,7 +68,7 @@ class TrackTest < ActiveSupport::TestCase
     assert_equal 3, step3.position
     assert_equal [step1, step2, step3], @track.steps
   end
-  
+
   should 'return steps with order defined by position attribute' do
     @track.children.destroy_all
     step1 = CommunityTrackPlugin::Step.create!(:parent => @track, :start_date => Date.today, :end_date => Date.today, :name => "step1", :profile => @track.profile)
@@ -85,7 +85,7 @@ class TrackTest < ActiveSupport::TestCase
 
   should 'save steps in a new order' do
     @track.children.destroy_all
-    
+
     step1 = CommunityTrackPlugin::Step.create!(:parent => @track, :start_date => Date.today, :end_date => Date.today, :name => "step1", :profile => @track.profile)
     step2 = CommunityTrackPlugin::Step.create!(:parent => @track, :start_date => Date.today, :end_date => Date.today, :name => "step2", :profile => @track.profile)
     step3 = CommunityTrackPlugin::Step.create!(:parent => @track, :start_date => Date.today, :end_date => Date.today, :name => "step3", :profile => @track.profile)

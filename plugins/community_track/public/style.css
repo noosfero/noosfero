@@ -1,4 +1,5 @@
-.icon-newcommunity-track {
+.icon-newcommunity-track,
+.icon-community-track {
   background-image: url(/plugins/community_track/icons/community-track.png)
 }
 
@@ -187,4 +188,8 @@
 
 #step .tools .item .name a:hover {
   color: #888;
+}
+
+.community-track textarea {
+  width: 100%;
 }

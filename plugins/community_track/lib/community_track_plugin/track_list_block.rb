@@ -1,7 +1,7 @@
 class CommunityTrackPlugin::TrackListBlock < Block
 
   include CommunityTrackPlugin::StepHelper
-  
+
   settings_items :limit, :type => :integer, :default => 3
   settings_items :more_another_page, :type => :boolean, :default => false
   settings_items :category_ids, :type => Array, :default => []
@@ -33,7 +33,7 @@ class CommunityTrackPlugin::TrackListBlock < Block
   def category_ids=(ids)
     settings[:category_ids] = ids.uniq.map{|item| item.to_i unless item.to_i.zero?}.compact
   end
-                       
+
   def all_tracks
     tracks = owner.articles.where(:type => 'CommunityTrackPlugin::Track')
     if !category_ids.empty?

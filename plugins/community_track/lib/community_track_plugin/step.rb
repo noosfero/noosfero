@@ -13,7 +13,7 @@ class CommunityTrackPlugin::Step < Folder
   validate :belong_to_track
   validates_presence_of :start_date, :end_date
   validate :end_date_equal_or_after_start_date
-  
+
   after_save :schedule_activation
 
   before_create do |step|
@@ -23,13 +23,13 @@ class CommunityTrackPlugin::Step < Folder
 
   before_create :set_hidden_position
   before_save :set_hidden_position
-  
+
   def set_hidden_position
     if hidden
       decrement_positions_on_lower_items
       self[:position] = 0
     elsif position == 0
-      add_to_list_bottom 
+      add_to_list_bottom
     end
   end
 
@@ -65,7 +65,7 @@ class CommunityTrackPlugin::Step < Folder
   def active?
     (start_date..end_date).include?(Date.today)
   end
-  
+
   def finished?
     Date.today > end_date
   end

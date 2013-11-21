@@ -8,7 +8,7 @@ class CommunityTrackPluginTest < ActiveSupport::TestCase
     @params = {}
     @plugin.stubs(:context).returns(self)
   end
-  
+
   attr_reader :profile, :params
 
   should 'has name' do
@@ -61,7 +61,7 @@ class CommunityTrackPluginTest < ActiveSupport::TestCase
     @params = nil
     assert_equivalent [CommunityTrackPlugin::Step, CommunityTrackPlugin::Track], @plugin.content_types
   end
-  
+
   should 'return track card as an extra block' do
     assert_includes CommunityTrackPlugin.extra_blocks, CommunityTrackPlugin::TrackListBlock
   end

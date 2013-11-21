@@ -1,5 +1,5 @@
 class CommunityTrackPlugin::Track < Folder
-  
+
   settings_items :goals, :type => :string
   settings_items :expected_results, :type => :string
 
@@ -32,7 +32,7 @@ class CommunityTrackPlugin::Track < Folder
       end
     end
   end
-  
+
   def steps_unsorted
     children.where(:type => 'CommunityTrackPlugin::Step')
   end
@@ -59,7 +59,7 @@ class CommunityTrackPlugin::Track < Folder
     category = categories.first
     category ? category.name : ''
   end
-  
+
   def to_html(options = {})
     track = self
     lambda do
