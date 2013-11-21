@@ -74,6 +74,7 @@ class ContentViewerControllerTest < ActionController::TestCase
     assert_response :success
     assert_match /^text\/html/, @response.headers['Content-Type']
     assert @response.headers['Content-Disposition'].present?
+    assert_match /attachment/, @response.headers['Content-Disposition']
   end
 
   should 'produce a download-link when article is not text/html' do
