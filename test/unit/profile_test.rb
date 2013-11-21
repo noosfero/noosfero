@@ -1888,4 +1888,11 @@ class ProfileTest < ActiveSupport::TestCase
     assert !profile.may_display_location_to?(user)
   end
 
+  should 'destroy profile if its environment is destroyed' do
+    environment = fast_create(Environment)
+    profile = fast_create(Profile, :environment_id => environment.id)
+
+    environment.destroy
+    assert_raise(ActiveRecord::RecordNotFound) {profile.reload}
+  end
 end
