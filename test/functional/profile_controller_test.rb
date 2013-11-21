@@ -734,7 +734,7 @@ class ProfileControllerTest < ActionController::TestCase
   end
 
   should 'see the activities_items paginated' do
-    p1= Person.first
+    p1 = create_user('some').person
     ActionTracker::Record.destroy_all
     40.times{Scrap.create!(defaults_for_scrap(:sender => p1, :receiver => p1))}
     login_as(p1.identifier)

@@ -211,8 +211,7 @@ class ProfileController < PublicController
   end
 
   def more_comments
-    activity_id = params[:activity].to_i
-    activity = ActionTracker::Record.find(:first, :conditions => {:id => activity_id, :user_id => @profile.id})
+    activity = ActionTracker::Record.find(:first, :conditions => {:id => params[:activity], :user_id => @profile})
     comments_count = activity.comments.count
     comment_page = (params[:comment_page] || 1).to_i
     comments_per_page = 5
@@ -232,8 +231,7 @@ class ProfileController < PublicController
   end
 
   def more_replies
-    activity_id = params[:activity].to_i
-    activity = Scrap.find(:first, :conditions => {:id => activity_id, :receiver_id => @profile.id, :scrap_id => nil})
+    activity = Scrap.find(:first, :conditions => {:id => params[:activity], :receiver_id => @profile, :scrap_id => nil})
     comments_count = activity.replies.count
     comment_page = (params[:comment_page] || 1).to_i
     comments_per_page = 5
