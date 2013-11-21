@@ -1888,4 +1888,20 @@ class ProfileTest < ActiveSupport::TestCase
     assert !profile.may_display_location_to?(user)
   end
 
+  should 'folder_types search for folders in the plugins' do
+    class Folder1 < Folder
+    end
+    
+    class Plugin1 < Noosfero::Plugin
+      def content_types
+        [Folder1]
+      end
+    end
+
+    environment = Environment.default
+    environment.enable_plugin(Plugin1)
+    plugins = Noosfero::Plugin::Manager.new(environment, self)
+    p = fast_create(Profile)
+    assert p.folder_types.include?('ProfileTest::Folder1')
+  end
 end

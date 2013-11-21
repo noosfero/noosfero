@@ -760,8 +760,20 @@ private :generate_url, :url_options
     !environment.enabled?('disable_contact_' + self.class.name.downcase)
   end
 
+  include Noosfero::Plugin::HotSpot
+  
+  def folder_types
+    types = Article.folder_types
+    plugins.dispatch(:content_types).each {|type|
+      if type < Folder
+        types << type.name
+      end
+    }
+    types
+  end
+
   def folders
-    articles.folders
+    articles.folders(self)
   end
 
   def image_galleries

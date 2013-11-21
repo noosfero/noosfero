@@ -198,7 +198,8 @@ class BlogTest < ActiveSupport::TestCase
   #FIXME This should be used until there is a migration to fix all blogs that
   # already have folders inside them
   should 'not list folders in posts' do
-    blog = fast_create(Blog)
+    p = create_user('testuser').person
+    blog =  Blog.create!(:profile => p, :name => 'Blog test')
     folder = fast_create(Folder, :parent_id => blog.id)
     article = fast_create(TextileArticle, :parent_id => blog.id)
 
@@ -212,7 +213,8 @@ class BlogTest < ActiveSupport::TestCase
   end
 
   should 'know when blog has or when has no posts' do
-    blog = fast_create(Blog)
+    p = create_user('testuser').person
+    blog =  Blog.create!(:profile => p, :name => 'Blog test')
     assert blog.empty?
     fast_create(TextileArticle, :parent_id => blog.id)
     assert ! blog.empty?
