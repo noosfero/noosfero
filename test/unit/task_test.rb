@@ -372,6 +372,55 @@ class TaskTest < ActiveSupport::TestCase
     assert_includes Task.closed, canceled
   end
 
+  should 'be ham by default' do # ham means not spam
+    assert_equal false, Task.create.spam
+  end
+
+  should 'be able to mark tasks as spam/ham/unknown' do
+    t = Task.new
+    t.spam = true
+    assert t.spam?
+    assert !t.ham?
+
+    t.spam = false
+    assert t.ham?
+    assert !t.spam?
+
+    t.spam = nil
+    assert !t.spam?
+    assert !t.ham?
+  end
+
+  should 'be able to select non-spam tasks' do
+    t1 = fast_create(Task)
+    t2 = fast_create(Task, :spam => false)
+    t3 = fast_create(Task, :spam => true)
+
+    assert_equivalent [t1,t2], Task.without_spam
+  end
+
+  should 'be able to select spam tasks' do
+    t1 = fast_create(Task)
+    t2 = fast_create(Task, :spam => false)
+    t3 = fast_create(Task, :spam => true)
+
+    assert_equivalent [t3], Task.spam
+  end
+
+  should 'be able to mark as spam' do
+    t1 = fast_create(Task)
+    t1.spam!
+    t1.reload
+    assert t1.spam?
+  end
+
+  should 'be able to mark as ham' do
+    t1 = fast_create(Task)
+    t1.ham!
+    t1.reload
+    assert t1.ham?
+  end
+
   protected
 
   def sample_user

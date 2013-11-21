@@ -19,7 +19,7 @@ Feature: manage inputs
     And the following product
       | owner      | category | name       |
       | redemoinho | rock     | Abbey Road |
-    And feature "disable_products_for_enterprises" is disabled on environment
+    And feature "products_for_enterprises" is enabled on environment
     And the following units
       | singular | plural |
       | Meter    | Meters |

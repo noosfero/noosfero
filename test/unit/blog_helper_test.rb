@@ -94,10 +94,10 @@ class BlogHelperTest < ActiveSupport::TestCase
   should 'display link to file if post is an uploaded_file' do
     file = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/test.txt', 'text/plain'), :profile => profile, :published => true, :parent => blog)
 
-    expects(:article_to_html).with(file).returns('TO HTML')
-
     result = display_post(file)
-    assert_tag_in_string result, :content => /TO HTML/
+    assert_tag_in_string result, :tag => 'a',
+                                 :attributes => { :href => file.public_filename },
+                                 :content => file.filename
   end
 
   should 'display image if post is an image' do

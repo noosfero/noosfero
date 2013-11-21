@@ -168,11 +168,11 @@ class CategoryTest < ActiveSupport::TestCase
   should "limit the possibile display colors" do
     c = Category.new(:name => 'test category', :environment_id => @env.id)
 
-    c.display_color = 10
+    c.display_color = 16
     c.valid?
     assert c.errors.invalid?(:display_color)
 
-    valid = %w[ 1 2 3 4 ].map { |item| item.to_i }
+    valid = (1..15).map { |item| item.to_i }
     valid.each do |item|
       c.display_color = item
       c.valid?

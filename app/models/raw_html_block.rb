@@ -10,4 +10,7 @@ class RawHTMLBlock < Block
     (title.blank? ? '' : block_title(title)).html_safe + html.to_s.html_safe
   end
 
+  def has_macro?
+    true
+  end
 end

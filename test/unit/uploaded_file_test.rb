@@ -7,13 +7,6 @@ class UploadedFileTest < ActiveSupport::TestCase
   end
   attr_reader :profile
 
-  should 'return a thumbnail as icon for images ' do
-    f = UploadedFile.new
-    f.expects(:image?).returns(true)
-    f.expects(:public_filename).with(:icon).returns('/path/to/file.xyz')
-    assert_equal '/path/to/file.xyz', UploadedFile.icon_name(f)
-  end
-
   should 'return a default icon for uploaded files' do
     assert_equal 'upload-file', UploadedFile.icon_name
   end
@@ -113,8 +106,11 @@ class UploadedFileTest < ActiveSupport::TestCase
     p = create_user('test_user').person
     file = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/test.txt', 'text/plain'), :profile => p)
 
+    ENV.stubs('[]').with('RAILS_ENV').returns('other')
+    Rails.logger.expects(:warn) # warn about deprecatede usage of UploadedFile#to_html
+    stubs(:puts)
     stubs(:content_tag).returns('link')
-    expects(:link_to).with(file.name, file.url, :class => file.css_class_name)
+    expects(:link_to).with(file.name, file.url)
 
     instance_eval(&file.to_html)
   end
@@ -206,13 +202,6 @@ class UploadedFileTest < ActiveSupport::TestCase
     file.destroy
   end
 
-  should 'return the default thumbnail image as icon for images ' do
-    f = UploadedFile.new
-    f.expects(:image?).returns(true)
-    f.expects(:public_filename).with(:icon).returns('/path/to/file.xyz')
-    assert_equal '/path/to/file.xyz', UploadedFile.icon_name(f)
-  end
-
   should 'store width and height after processing' do
     file = UploadedFile.create!(:profile => @profile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
     file.create_thumbnails
@@ -287,12 +276,6 @@ class UploadedFileTest < ActiveSupport::TestCase
     assert_equal '', f.lead
   end
 
-  should 'survive when try to get icon_name from a file with mime_type nil' do
-    f = UploadedFile.new
-    f.expects(:mime_type).returns(nil)
-    assert_equal 'upload-file', UploadedFile.icon_name(f)
-  end
-
   should 'upload to a folder with same name as the schema if database is postgresql' do
     uses_postgresql 'image_schema_one'
     file1 = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :profile => @profile)
@@ -350,6 +333,28 @@ class UploadedFileTest < ActiveSupport::TestCase
 
     image2 = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/other-pic.jpg', 'image/jpg'), :parent => gallery, :profile => profile)
     assert_equal 1, ActionTracker::Record.find_all_by_verb('upload_image').count
+  end
+
+  {
+    nil       => 5.megabytes,   # default
+    '1KB'     => 1.kilobytes,
+    '2MB'     => 2.megabyte,
+    '3GB'     => 3.gigabytes,
+    '4TB'     => 4.terabytes,
+    '6 MB'    => 6.megabytes,   # allow whitespace between number and unit
+    '0.5 GB'  => 512.megabytes, # allow floating point numbers
+    '2'       => 2.megabytes,   # assume MB as unit by default
+    'INVALID' => 5.megabytes,   # use default for invalid input
+    '1ZYX'    => 5.megabytes,   # use default for invalid input
+  }.each do |input,output|
+    test 'maximum upload size: convert %s into %s' % [input, output] do
+      NOOSFERO_CONF.expects(:[]).with('max_upload_size').returns(input)
+      assert_equal output, UploadedFile.max_size
+    end
+  end
+  test 'max_size should always return an integer' do
+    NOOSFERO_CONF.expects(:[]).with('max_upload_size').returns("0.5 GB")
+    assert_instance_of Fixnum, UploadedFile.max_size
   end
 
 end

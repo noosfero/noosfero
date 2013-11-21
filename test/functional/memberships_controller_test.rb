@@ -245,4 +245,17 @@ class MembershipsControllerTest < ActionController::TestCase
     assert_tag :tag => 'input', :attributes => {:id => 'community_plugin2', :type => 'hidden', :value => 'Plugin 2'}
   end
 
+  should 'redirect to back_to parameter when create a new community' do
+    back_to = '/'
+    post :new_community, :profile => profile.identifier, :community => { :name => 'My shiny new community', :description => 'This is a community devoted to anything interesting we find in the internet '}, :back_to => back_to
+    assert_response :redirect
+    assert_redirected_to back_to
+  end
+
+  should 'cancel button redirect to back_to parameter' do
+    back_to = '/'
+    get :new_community, :profile => profile.identifier, :back_to => back_to
+    assert_tag :tag => 'a', :attributes => { :class => 'button icon-cancel with-text', :href => back_to }
+  end
+
 end

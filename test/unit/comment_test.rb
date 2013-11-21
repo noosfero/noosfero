@@ -447,7 +447,7 @@ class CommentTest < ActiveSupport::TestCase
   end
 
   class EverythingIsSpam < Noosfero::Plugin
-    def check_comment_for_spam(comment)
+    def check_for_spam(comment)
       comment.spam!
     end
   end
@@ -469,11 +469,11 @@ class CommentTest < ActiveSupport::TestCase
       attr_accessor :marked_as_ham
     end
 
-    def comment_marked_as_spam(c)
+    def marked_as_spam(c)
       self.class.marked_as_spam = c
     end
 
-    def comment_marked_as_ham(c)
+    def marked_as_ham(c)
       self.class.marked_as_ham = c
     end
   end
@@ -523,7 +523,6 @@ class CommentTest < ActiveSupport::TestCase
     comment.spam!
     log = File.open('log/test_spammers.log')
     assert_match "Comment-id: #{comment.id} IP: 192.168.0.1", log.read
-    SpammerLogger.clean_log
   end
 
   should 'not need moderation if article is not moderated' do

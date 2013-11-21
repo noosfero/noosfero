@@ -235,6 +235,8 @@ class Task < ActiveRecord::Base
     end
   end
 
+  include Spammable
+
   protected
 
   # This method must be overrided in subclasses, and its implementation must do
@@ -274,6 +276,7 @@ class Task < ActiveRecord::Base
   named_scope :opened, :conditions => { :status =>  [Task::Status::ACTIVE, Task::Status::HIDDEN] }
   named_scope :of, lambda { |type| conditions = type ? "type LIKE '#{type}'" : "1=1"; {:conditions =>  [conditions]} }
   named_scope :order_by, lambda { |attribute, ord| {:order => "#{attribute} #{ord}"} }
+
 
   named_scope :to, lambda { |profile|
     environment_condition = nil

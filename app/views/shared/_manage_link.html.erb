@@ -1,0 +1,8 @@
+<div id=<%= "manage-#{kind}" %> class="manage-groups">
+  <a href="#" id=<%= "manage-#{kind}-link" %> class="simplemenu-trigger" title="<%= _('Manage %s') % kind %>"><i class=<%= "icon-menu-#{kind.singularize}" %>></i><strong><%= ui_icon('ui-icon-triangle-1-s') + _('My %s') % kind %></strong></a>
+  <ul class="simplemenu-submenu">
+    <% link.each do |link| %>
+      <li class="simplemenu-item"><%= link %></li>
+    <% end %>
+  </ul>
+</div>
