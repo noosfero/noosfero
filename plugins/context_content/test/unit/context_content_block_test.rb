@@ -164,4 +164,11 @@ class ContextContentBlockTest < ActiveSupport::TestCase
     instance_eval(&@block.footer)
   end
 
+  should 'return box owner on profile method call' do
+    profile = fast_create(Community)
+    box = Box.create(:owner_type => 'Profile', :owner_id => profile.id)
+    block = ContextContentBlock.create!(:box => box)
+    assert_equal profile, block.profile
+  end
+
 end
