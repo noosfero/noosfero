@@ -14,6 +14,13 @@ class PgSearchPluginTest < ActiveSupport::TestCase
     assert_includes search(Profile, 'water'), profile
   end
 
+  should 'locate one or more profiles' do
+    profile1 = fast_create(Profile, :identifier => 'administrator')
+    profile2 = fast_create(Profile, :identifier => 'debugger')
+    assert_includes search(Profile, 'admin deb'), profile1
+    assert_includes search(Profile, 'admin deb'), profile2
+  end
+
   # TODO This feature is available only on Postgresql 9.0
   # http://www.postgresql.org/docs/9.0/static/unaccent.html
   # should 'ignore accents' do
