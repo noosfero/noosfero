@@ -2,7 +2,7 @@ class FeaturesController < AdminController
   protect 'edit_environment_features', :environment
   
   def index
-    @features = Environment.available_features
+    @features = Environment.available_features.sort_by{|k,v|v}
   end
 
   post_only :update
