@@ -1344,6 +1344,17 @@ class ProfileControllerTest < ActionController::TestCase
     assert_tag :tag => 'span', :content => '(removed user)', :attributes => {:class => 'comment-user-status comment-user-status-wall icon-user-removed'}
   end
 
+  should 'not display spam comments in wall' do
+    UserStampSweeper.any_instance.stubs(:current_user).returns(profile)
+    article = TinyMceArticle.create!(:profile => profile, :name => 'An article about spam\'s nutritional attributes')
+    comment = Comment.create!(:author => profile, :title => 'Test Comment', :body => 'This article makes me hungry', :source_id => article.id, :source_type => 'Article')
+    comment.spam!
+    login_as(profile.identifier)
+    get :index, :profile => profile.identifier
+
+    assert !/This article makes me hungry/.match(@response.body), 'Spam comment was shown!'
+  end
+
   should 'display comment in wall from non logged users' do
     UserStampSweeper.any_instance.stubs(:current_user).returns(profile)
     article = TinyMceArticle.create!(:profile => profile, :name => 'An article about free software')

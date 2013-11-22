@@ -7,7 +7,7 @@ Rails.configuration.to_prepare do
 
     def conditions_for_comments
       type, id = (self.target_type == 'Article' ? ['Article', self.target_id] : [self.class.to_s, self.id])
-      "source_type = '#{type}' AND source_id = '#{id}'"
+      "source_type = '#{type}' AND source_id = '#{id}' AND spam IS NOT TRUE"
     end
 
     def comments_as_thread
