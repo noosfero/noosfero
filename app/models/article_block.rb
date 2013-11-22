@@ -23,7 +23,7 @@ class ArticleBlock < Block
   def article_id
     self.settings[:article_id]
   end
-  
+
   def article_id= value
     self.settings[:article_id] = value.blank? ? nil : value.to_i
   end
@@ -63,4 +63,9 @@ class ArticleBlock < Block
   end
 
   settings_items :visualization_format, :type => :string, :default => 'short'
+
+  def self.expire_on
+      { :profile => [:article], :environment => [:article] }
+  end
+
 end
