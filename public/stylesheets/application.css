@@ -5705,6 +5705,10 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 img {
   padding-left: 20px;
 }
 
+.view-more-comments, .view-more-replies {
+  text-align: center;
+}
+
 /* Profile activity relative dimensions */
 
 #leave_scrap {
