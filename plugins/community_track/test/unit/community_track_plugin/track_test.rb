@@ -110,4 +110,18 @@ class TrackTest < ActiveSupport::TestCase
     assert_equal [hidden_step], @track.hidden_steps
   end
 
+   should 'get first paragraph' do
+    @track.body = '<p>First</p><p>Second</p>'
+    assert_equal '<p>First</p>', @track.first_paragraph
+  end
+
+  should 'provide first_paragraph even if body was not given' do
+    assert_equal '', @track.first_paragraph
+  end
+
+  should 'provide first_paragraph even if body is nil' do
+    @track.body = nil
+    assert_equal '', @track.first_paragraph
+  end
+
 end
