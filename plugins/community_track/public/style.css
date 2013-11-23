@@ -193,3 +193,9 @@
 .community-track textarea {
   width: 100%;
 }
+
+.formfield input#datepicker-from-date,
+.formfield input#datepicker-to-date {
+  width: 115px;
+  background: url(/plugins/community_track/icons/calendar.png) right center no-repeat;
+}
