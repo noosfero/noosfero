@@ -206,7 +206,7 @@ class ProfileController < PublicController
   end
 
   def view_more_network_activities
-    @activities = @profile.tracked_notifications.paginate(:per_page => 10, :page => params[:page]) 
+    @activities = @profile.tracked_notifications.paginate(:per_page => 10, :page => params[:page])
     render :partial => 'profile_network_activities', :locals => {:network_activities => @activities}
   end
 
@@ -218,15 +218,15 @@ class ProfileController < PublicController
     no_more_pages = comments_count <= comment_page * comments_per_page
 
     render :update do |page|
-      page.insert_html :bottom, 'profile-wall-activities-comments-'+params[:activity], 
+      page.insert_html :bottom, 'profile-wall-activities-comments-'+params[:activity],
         :partial => 'comment', :collection => activity.comments.paginate(:per_page => comments_per_page, :page => comment_page)
-      
+
       if no_more_pages
-        page.remove 'profile-wall-activities-comments-more-'+params[:activity] 
+        page.remove 'profile-wall-activities-comments-more-'+params[:activity]
       else
-        page.replace_html 'profile-wall-activities-comments-more-'+params[:activity], 
-          :partial => 'more_comments', :locals => {:activity => activity, :comment_page => comment_page}  
-      end 
+        page.replace_html 'profile-wall-activities-comments-more-'+params[:activity],
+          :partial => 'more_comments', :locals => {:activity => activity, :comment_page => comment_page}
+      end
     end
   end
 
@@ -238,15 +238,15 @@ class ProfileController < PublicController
     no_more_pages = comments_count <= comment_page * comments_per_page
 
     render :update do |page|
-      page.insert_html :bottom, 'profile-wall-activities-comments-'+params[:activity], 
+      page.insert_html :bottom, 'profile-wall-activities-comments-'+params[:activity],
         :partial => 'profile_scrap', :collection => activity.replies.paginate(:per_page => comments_per_page, :page => comment_page), :as => :scrap
-      
+
       if no_more_pages
-        page.remove 'profile-wall-activities-comments-more-'+params[:activity] 
+        page.remove 'profile-wall-activities-comments-more-'+params[:activity]
       else
-        page.replace_html 'profile-wall-activities-comments-more-'+params[:activity], 
-          :partial => 'more_replies', :locals => {:activity => activity, :comment_page => comment_page}  
-      end 
+        page.replace_html 'profile-wall-activities-comments-more-'+params[:activity],
+          :partial => 'more_replies', :locals => {:activity => activity, :comment_page => comment_page}
+      end
     end
   end
 
@@ -434,5 +434,5 @@ class ProfileController < PublicController
   def relations_to_include
     [:image, :domains, :preferred_domain, :environment]
   end
-  
+
 end

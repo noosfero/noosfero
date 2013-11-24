@@ -3,8 +3,8 @@
 Rails.configuration.to_prepare do
   ActionTracker::Record.module_eval do
 
-    has_many :comments, :class_name => 'Comment', :foreign_key => 'source_id', :dependent => :destroy, 
-      :finder_sql => 'SELECT * FROM comments WHERE #{conditions_for_comments} ORDER BY created_at ASC', 
+    has_many :comments, :class_name => 'Comment', :foreign_key => 'source_id', :dependent => :destroy,
+      :finder_sql => 'SELECT * FROM comments WHERE #{conditions_for_comments} ORDER BY created_at ASC',
       :counter_sql => 'SELECT COUNT(*) FROM comments WHERE #{conditions_for_comments}'
 
     def conditions_for_comments
