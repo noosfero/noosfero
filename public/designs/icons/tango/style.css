@@ -1,6 +1,7 @@
 /******************SMALL ICONS********************/
 .icon-edit      { background-image: url(Tango/16x16/apps/text-editor.png) }
-.icon-home      { background-image: url(Tango/16x16/actions/go-home.png) }
+.icon-home      { background-image: url(Tango/16x16/actions/go-home.png)          }
+.icon-home-not  { background-image: url(mod/16x16/actions/go-home-not.png)          }
 .icon-new,
 .icon-suggest   { background-image: url(Tango/16x16/actions/filenew.png) }
 .icon-close     { background-image: url(Tango/16x16/actions/gtk-cancel.png) }
