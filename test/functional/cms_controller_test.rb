@@ -119,6 +119,7 @@ class CmsControllerTest < ActionController::TestCase
 
     profile.reload
     assert_equal a, profile.home_page
+    assert_match /configured/, session[:notice]
   end
 
   should 'be able to set home page even when profile description is invalid' do
@@ -165,6 +166,7 @@ class CmsControllerTest < ActionController::TestCase
 
     profile.reload
     assert_equal nil, profile.home_page
+    assert_match /reseted/, session[:notice]
   end
 
   should 'display default home page' do
