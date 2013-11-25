@@ -40,7 +40,7 @@ class Block < ActiveRecord::Base
         if context[:article]
           return context[:article] != owner.home_page
         else
-          return context[:request_path] != '/' + owner.identifier
+          return context[:request_path] != '/' + (owner.kind_of?(Profile) ? owner.identifier : '')
         end
       end
     end
@@ -151,6 +151,21 @@ class Block < ActiveRecord::Base
       :profile => [],
       :environment => []
     }
+  end
+
+  DISPLAY_OPTIONS = {
+    'always'           => __('In all pages'),
+    'home_page_only'   => __('Only in the homepage'),
+    'except_home_page' => __('In all pages, except in the homepage'),
+    'never'            => __('Don\'t display'),
+  }
+
+  def display_options
+    DISPLAY_OPTIONS.keys
+  end
+
+  def display_option_label(option)
+    DISPLAY_OPTIONS[option]
   end
 
 end
