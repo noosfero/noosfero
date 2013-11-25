@@ -4,7 +4,7 @@
 
 <% if !environment.enabled?('cant_change_homepage') && !remove_content_button(:home) %>
   <div class="cms-homepage">
-    <%= _('Profile Homepage:') %>
+    <%= _('Profile homepage:') %>
     <% if profile.home_page %>
       <%= link_to_article(profile.home_page) %>
       <%= button_without_text(:'home-not', _('Reset homepage'),  { :action => 'set_home_page', :id => nil }, :method => :post) %>

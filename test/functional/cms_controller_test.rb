@@ -109,6 +109,18 @@ class CmsControllerTest < ActionController::TestCase
     assert_no_tag :tag => 'a', :content => 'Use as homepage', :attributes => { :href => "/myprofile/#{profile.identifier}/cms/set_home_page/#{folder.id}" }
   end
 
+  should 'display the profile homepage if can change homepage' do
+    env = Environment.default; env.disable('cant_change_homepage')
+    get :index, :profile => profile.identifier
+    assert_tag :tag => 'div', :content => /Profile homepage/, :attributes => { :class => "cms-homepage"}
+  end
+
+  should 'not display the profile homepage if cannot change homepage' do
+    env = Environment.default; env.enable('cant_change_homepage')
+    get :index, :profile => profile.identifier
+    assert_no_tag :tag => 'div', :content => /Profile homepage/, :attributes => { :class => "cms-homepage"}
+  end
+
   should 'be able to set home page' do
     a = profile.articles.build(:name => 'my new home page')
     a.save!
