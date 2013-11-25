@@ -3156,6 +3156,14 @@ table.cms-articles .icon:hover {
   border-right: 1px solid #ccc;
 }
 
+.cms-homepage a.icon {
+  border: none;
+}
+
+.cms-homepage a:hover {
+  background-color: transparent;
+}
+
 .select-article-type {
   padding: 5px 20px;
   width: 455px;

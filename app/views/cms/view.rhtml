@@ -3,17 +3,17 @@
 </h1>
 
 <% if !environment.enabled?('cant_change_homepage') && !remove_content_button(:home) %>
-	<div class="cms-homepage">
-		Homepage: 
-  <% if profile.home_page %>
-  	<%= link_to_article(profile.home_page) %>
-  	<%= button_without_text(:'home-not', _('Reset homepage'),  { :action => 'set_home_page', :id => nil }, :method => :post) %>
-  <% else %>
-  	<span class="cms-homepage-default"><%= _('Profile Information') %></span>
-  <% end %>
-  	</div>
+  <div class="cms-homepage">
+    <%= _('Profile Homepage:') %>
+    <% if profile.home_page %>
+      <%= link_to_article(profile.home_page) %>
+      <%= button_without_text(:'home-not', _('Reset homepage'),  { :action => 'set_home_page', :id => nil }, :method => :post) %>
+    <% else %>
+      <span class="cms-homepage-default"><%= _('Profile Information') %></span>
+    <% end %>
+  </div>
 <% end %>
- 
+
 <% button_bar(:style => 'margin-bottom: 1em;') do %>
   <% parent_id = ((@article && @article.allow_children?) ? @article : nil) %>
 
@@ -68,11 +68,11 @@
         <%= button_without_text :eyes, _('Public view'), article.view_url %>
         <%= display_spread_button(profile, article) unless article.folder? || remove_content_button(:spread)%>
         <% if !environment.enabled?('cant_change_homepage') && !remove_content_button(:home) %>
-		<%   if profile.home_page != article %>
-          <%= expirable_button article, :home, _('Use as homepage'), { :action => 'set_home_page', :id => article.id }, :method => :post %>
-        <%   else %>
-		  <%= button_without_text(:'home-not', _('Reset homepage'),  { :action => 'set_home_page', :id => nil }, :method => :post) %>
-		<%   end%>
+          <% if profile.home_page != article %>
+            <%= expirable_button article, :home, _('Use as homepage'), { :action => 'set_home_page', :id => article.id }, :method => :post %>
+          <% else %>
+            <%= button_without_text(:'home-not', _('Reset homepage'),  { :action => 'set_home_page', :id => nil }, :method => :post) %>
+          <% end %>
         <% end %>
         <%= display_delete_button(article) if !remove_content_button(:delete) %>
       </td>

@@ -150,7 +150,7 @@ class CmsController < MyProfileController
     if article.nil?
       session[:notice] = _('Homepage reseted.')
     else
-      session[:notice] = _('"%s" configured as home page.') % article.name
+      session[:notice] = _('"%s" configured as homepage.') % article.name
     end
 
     redirect_to (request.referer || profile.url)
