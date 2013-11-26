@@ -40,13 +40,16 @@
     </tr>
   <% end %>
 
-  <% @articles.each do |article| %>
+  <% @articles.each do |article| article = FilePresenter.for article %>
     <tr title="<%= article.title%>" >
-      <td>
+      <td class="article-name">
         <%= link_to_article(article) %>
       </td>
-      <td>
-        <%= article.class.short_description %>
+      <% short_description =  article.respond_to?(:short_description) ?
+            article.short_description :
+            article.class.short_description %>
+      <td class="article-mime" title=<%= short_description.to_json %>>
+        <%= short_description %>
       </td>
       <td class="article-controls">
         <%= expirable_button article, :edit, _('Edit'), {:action => 'edit', :id => article.id} if !remove_content_button(:edit) %>

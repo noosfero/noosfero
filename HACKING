@@ -52,3 +52,12 @@ If you write such script for your own OS, *please* share it with us at the
 development mailing list so that we can include it in the official repository.
 This way other people using the same OS will have to put less effort to develop
 Noosfero.
+
+== Submitting your changes back
+
+For now please read:
+
+- Coding conventions
+  http://noosfero.org/Development/CodingConventions
+- Patch guidelines
+  http://noosfero.org/Development/PatchGuidelines

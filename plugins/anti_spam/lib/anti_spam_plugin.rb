@@ -5,38 +5,37 @@ class AntiSpamPlugin < Noosfero::Plugin
   end
 
   def self.plugin_description
-    _("Checks comments against a spam checking service compatible with the Akismet API")
+    _("Tests comments and suggested articles against a spam checking service compatible with the Akismet API")
   end
 
   def self.host_default_setting
     'api.antispam.typepad.com'
   end
 
-  def check_comment_for_spam(comment)
-    if rakismet_call(comment, :spam?)
-      comment.spam = true
-      comment.save!
+  def check_for_spam(object)
+    if rakismet_call AntiSpamPlugin::Wrapper.wrap(object), object.environment, :spam?
+      object.spam = true
+      object.save!
     end
   end
 
-  def comment_marked_as_spam(comment)
-    rakismet_call(comment, :spam!)
+  def marked_as_spam(object)
+    rakismet_call AntiSpamPlugin::Wrapper.wrap(object), object.environment, :spam!
   end
 
-  def comment_marked_as_ham(comment)
-    rakismet_call(comment, :ham!)
+  def marked_as_ham(object)
+    rakismet_call AntiSpamPlugin::Wrapper.wrap(object), object.environment, :ham!
   end
 
   protected
 
-  def rakismet_call(comment, op)
-    settings = Noosfero::Plugin::Settings.new(comment.environment, self.class)
+  def rakismet_call(submission, environment, op)
+    settings = Noosfero::Plugin::Settings.new(environment, self.class)
 
     Rakismet.host = settings.host
     Rakismet.key = settings.api_key
-    Rakismet.url = comment.environment.top_url
+    Rakismet.url = environment.top_url
 
-    submission = AntiSpamPlugin::CommentWrapper.new(comment)
     submission.send(op)
   end
 

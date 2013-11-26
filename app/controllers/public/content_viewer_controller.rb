@@ -53,7 +53,9 @@ class ContentViewerController < ApplicationController
     # At this point the page will be showed
     @page.hit
 
-    unless @page.mime_type == 'text/html' || (@page.image? && params[:view])
+    @page = FilePresenter.for @page
+
+    unless @page.mime_type == 'text/html' || params[:view]
       headers['Content-Type'] = @page.mime_type
       data = @page.data
 

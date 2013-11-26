@@ -6,7 +6,7 @@ Background:
   Given the following enterprises
     | identifier | name       |
     | shop1      | Shoes Shop |
-  And feature "disable_products_for_enterprises" is disabled on environment
+  And feature "products_for_enterprises" is enabled on environment
   And feature "show_balloon_with_profile_links_when_clicked" is enabled on environment
 
 Scenario: show all enterprises

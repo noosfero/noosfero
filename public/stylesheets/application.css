@@ -882,6 +882,40 @@ code input {
 .webkit #manage-enterprises .simplemenu-submenu {
   top: 20px;
 }
+#manage-communities {
+  display: inline-block;
+  margin-right: 5px;
+  position: relative;
+}
+#manage-communities .ui-icon {
+  position: absolute;
+  top: 0;
+  right: -20px;
+}
+#manage-communities .simplemenu-submenu {
+  text-align: left;
+  left: -20px;
+  width: 200px;
+}
+#manage-communities .simplemenu-item {
+  padding: 5px 0;
+}
+#manage-communities .simplemenu-item a {
+  background-repeat: no-repeat;
+  padding-left: 20px;
+}
+#manage-communities .simplemenu-item a span {
+  display: none;
+}
+.msie8 #manage-communities-link { /* IE8 hack */
+  border: 0px solid;
+}
+.msie8 #manage-communities .simplemenu-submenu {
+  top: 16px;
+}
+.webkit #manage-communities .simplemenu-submenu {
+  top: 20px;
+}
 #article {
   position: relative;
   text-align: justify;
@@ -1552,6 +1586,7 @@ a.button.disabled, input.disabled {
 .map {
   clear: both;
 }
+
 /***********************************************************
  * style for blocks 
  ***********************************************************/
@@ -3176,6 +3211,14 @@ table.cms-articles .icon:hover {
   background: #eeeeec;
   border: 1px solid #d3d7cf;
 }
+
+.controller-cms .article-mime {
+  max-width: 90px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .controller-cms .article-controls {
   white-space: nowrap;
 }
@@ -3446,26 +3489,7 @@ div#article-parent {
 .article-body-uploaded-file {
   text-align: center;
 }
-/************* uploaded file *****************/
 
-#article .gallery-navigation {
-  padding: 10px 0;
-}
-#article .gallery-navigation .left {
-  margin-right: 10px;
-}
-#article .gallery-navigation .right {
-  margin-left: 10px;
-}
-#article .gallery-navigation .total-of-images {
-  font-weight: bold;
-}
-#article .uploaded-file-description {
-  background: #f6f6f6;
-  border-top: 1px solid #ccc;
-  border-bottom: 1px solid #ccc;
-  padding: 1em;
-}
 /* ==> public/stylesheets/controller_events.css <== */
 #agenda {
   position: relative;

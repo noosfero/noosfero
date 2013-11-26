@@ -267,7 +267,10 @@ class CmsController < MyProfileController
     @back_to = params[:back_to] || request.referer || url_for(profile.public_profile_url)
     @task = SuggestArticle.new(params[:task])
     if request.post?
-       @task.target = profile
+      @task.target = profile
+      @task.ip_address = request.remote_ip
+      @task.user_agent = request.user_agent
+      @task.referrer = request.referrer
       if verify_recaptcha(:model => @task, :message => _('Please type the words correctly')) && @task.save
         session[:notice] = _('Thanks for your suggestion. The community administrators were notified.')
         redirect_to @back_to

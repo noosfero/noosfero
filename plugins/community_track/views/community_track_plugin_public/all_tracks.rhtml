@@ -1,0 +1,10 @@
+<h1><%= _('Tracks') %></h1>
+<div class="all_tracks">
+  <div class="track_list track_card_list" id="track_list_<%= @block.id %>">
+    <%= render :partial => "blocks/#{@block.track_partial}", :collection => @tracks, :locals => {:block => @block} %>
+  </div>
+  <br style="clear: both;"/>
+  <% if @show_more %>
+    <%= render :partial => "blocks/track_list_more", :locals => {:block => @block, :force_same_page => true, :page => 2, :per_page => @per_page} %>
+  <% end %>
+</div>

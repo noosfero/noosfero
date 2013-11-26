@@ -709,7 +709,7 @@ jQuery(function($) {
       document.location.href = this.href;
     })
   }
-  $('#manage-enterprises-link').live('click', function() {
+  $('.manage-groups > a').live('click', function() {
     toggleMenu(this);
     return false;
   });

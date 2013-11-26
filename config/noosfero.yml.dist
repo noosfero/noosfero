@@ -8,6 +8,7 @@ development:
   gravatar: wavatar
   googlemaps_initial_zoom: 4
   exception_recipients: [admin@example.com]
+  max_upload_size: 5MB
 
 test:
 

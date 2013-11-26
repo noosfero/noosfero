@@ -3,10 +3,21 @@ module CategoriesHelper
 
   COLORS = [
     [ N_('Do not display at the menu'), nil ],
-    [ N_('Orange'), 1 ],
-    [ N_('Green'), 2 ],
-    [ N_('Purple'), 3 ],
-    [ N_('Red'), 4 ],
+    [ N_('Orange'), 1],
+    [ N_('Green'), 2],
+    [ N_('Purple'), 3],
+    [ N_('Red'), 4],
+    [ N_('Dark Green'), 5],
+    [ N_('Blue Oil'), 6],
+    [ N_('Blue'), 7],
+    [ N_('Brown'), 8],
+    [ N_('Light Green'), 9],
+    [ N_('Light Blue'), 10],
+    [ N_('Dark Blue'), 11],
+    [ N_('Blue Pool'), 12],
+    [ N_('Beige'), 13],
+    [ N_('Yellow'), 14],
+    [ N_('Light Brown'), 15]
   ]
 
   TYPES = [

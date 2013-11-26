@@ -1,11 +1,9 @@
-class AntiSpamPlugin::CommentWrapper < Struct.new(:comment)
+class AntiSpamPlugin::CommentWrapper < AntiSpamPlugin::Wrapper
+  alias_attribute :author, :author_name
+  alias_attribute :user_ip, :ip_address
+  alias_attribute :content, :body
 
-  delegate :author_name, :author_email, :title, :body, :ip_address, :user_agent, :referrer, :to => :comment
-
-  include Rakismet::Model
-
-  alias :author :author_name
-  alias :user_ip :ip_address
-  alias :content :body
-
+  def self.wraps?(object)
+    object.kind_of?(Comment)
+  end
 end

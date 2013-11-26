@@ -1,0 +1,4 @@
+<% @task_spam.each do |t| %>
+  <%= render :partial => partial_for_class(t.class), :locals => { :task => t } %>
+<% end %>
+<%= pagination_links @task_spam, :param_name => :tasks_page %>

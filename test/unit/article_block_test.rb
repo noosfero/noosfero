@@ -110,9 +110,12 @@ class ArticleBlockTest < ActiveSupport::TestCase
     block.article = image
     block.save!
 
-    expects(:image_tag).with(image.public_filename(:display), :class => image.css_class_name, :style => 'max-width: 100%').returns('image')
-
-    assert_match(/image/, instance_eval(&block.content))
+    assert_tag_in_string instance_eval(&block.content),
+        :tag => 'img',
+        :attributes => {
+            :src => image.public_filename(:display),
+            :class => /file-image/
+        }
   end
 
   should 'not display gallery pages navigation in content' do
@@ -122,8 +125,6 @@ class ArticleBlockTest < ActiveSupport::TestCase
     image = UploadedFile.create!(:profile => profile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :parent => gallery)
     block.article = image
     block.save!
-
-    expects(:image_tag).with(image.public_filename(:display), :class => image.css_class_name, :style => 'max-width: 100%').returns('image')
 
     assert_no_match(/Previous/, instance_eval(&block.content))
   end

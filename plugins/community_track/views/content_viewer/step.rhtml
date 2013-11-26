@@ -1,0 +1,31 @@
+<div id="step">
+  <div class="event-info">
+    <ul class="event-data">
+      <li class="event-dates">
+        <span><%= _('When:') %></span><%= show_period(step.start_date, step.end_date) %>
+      </li>
+    </ul>
+  </div>
+  <div>
+    <%= step.body %>
+  </div>
+  <h3><%= _("Tools") %></h3>
+  <% if step.allow_create?(user) %>
+    <div class="actions">
+      <% step.enabled_tools.each do |klass, attrs| %>
+        <% content_tag('a', :href => url_for({:controller => 'cms', :action => 'new', :type => klass.name, :parent_id => @page}), :class => "button with-text icon-new icon-new#{klass.icon_name}") do %>
+            <%= _("New #{attrs[:name]}") %>
+        <% end %>
+      <% end %>
+    </div>
+  <% end %>
+  <div class="tools">
+    <% step.tools.each do |tool| %>
+      <div class="item">
+        <div class="name">
+          <%= link_to tool.name, tool.url, :class=>"button with-text icon-new icon-new#{tool.class.icon_name}" %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
