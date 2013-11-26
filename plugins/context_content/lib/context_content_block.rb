@@ -88,4 +88,8 @@ class ContextContentBlock < Block
     end
   end
 
+  def cacheable?
+    false 
+  end
+
 end

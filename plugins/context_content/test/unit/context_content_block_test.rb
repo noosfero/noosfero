@@ -171,4 +171,8 @@ class ContextContentBlockTest < ActiveSupport::TestCase
     assert_equal profile, block.profile
   end
 
+  should 'not be cacheable' do
+    assert !@block.cacheable?
+  end
+
 end
