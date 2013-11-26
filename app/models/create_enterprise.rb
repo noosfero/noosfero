@@ -40,12 +40,12 @@ class CreateEnterprise < Task
 
     if self.region && self.target
       unless self.region.validators.include?(self.target) || self.target_type == "Environment"
-        self.errors.add(:target, _('%{fn} is not a validator for the chosen region').fix_i18n)
+        self.errors.add(:target, _('{fn} is not a validator for the chosen region').fix_i18n)
       end
     end
 
     if self.status != Task::Status::CANCELLED && self.identifier && Profile.exists?(:identifier => self.identifier)
-      self.errors.add(:identifier, _('%{fn} is already being as identifier by another enterprise, organization or person.').fix_i18n)
+      self.errors.add(:identifier, _('{fn} is already being as identifier by another enterprise, organization or person.').fix_i18n)
     end
   end
 
