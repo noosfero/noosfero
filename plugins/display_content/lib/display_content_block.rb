@@ -59,7 +59,6 @@ class DisplayContentBlock < Block
           when 'Abstract'
             content_sections += (display_section?(section) ? (content_tag('div', item.abstract ,:class => 'lead')) : '' )
             if display_section?(section)
-              content_sections += (display_section?(section) ? (content_tag('div', item.abstract ,:class => 'lead')) : '' )
               read_more_section = content_tag('div', link_to(_('Read more'), item.url), :class => 'read_more') 
             end
           when 'Body'
