@@ -1,0 +1,25 @@
+<li class="step <%= status_class(step_item) %>">
+  <%= hidden_field_tag "step_ids[]", step_item.id %>
+  <div class="position"><%= step_item.hidden ? '' : step_item.position %></div>
+  <div class="actions">
+    <% if step_item.allow_edit?(user) && !remove_content_button(:edit) %>
+      <% content = content_tag('span', label_for_edit_article(step_item)) %>
+      <% url = profile.admin_url.merge({ :controller => 'cms', :action => 'edit', :id => step_item.id, :success_back_to => url_for(step_item.parent.view_url) }) %>
+      <%= expirable_button step_item, :edit, content, url %>
+    <% end %>
+  </div>
+  <div class="content">
+    <div class="date">
+      <%= show_period(step_item.start_date, step_item.end_date) %>
+    </div>
+    <div class="name"><%= link_to step_item.name, step_item.url %></div>
+    <div class="lead"><%= step_item.body %></div>
+  </div>
+  <div class="tools">
+  <% if step_item.tool %>
+    <%= link_to step_item.tool.name, step_item.tool.view_url %>
+  <% elsif step_item.allow_create?(user) && step_item.tool_class %>
+    <a href="<%= url_for({:controller => 'cms', :action => 'new', :type => step_item.tool_class, :parent_id => step_item}) %>" class="button icon-new with-text icon-new<%= step_item.tool_class.icon_name %>"><%= _('Create %s' % step_item.tool_class.short_description) %></a>
+  <% end %>
+  </div>
+</li>

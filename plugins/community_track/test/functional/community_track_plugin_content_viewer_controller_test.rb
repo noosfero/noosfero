@@ -15,7 +15,7 @@ class ContentViewerControllerTest < ActionController::TestCase
     category = fast_create(Category, :name => "education")
     @track.add_category(category)
 
-    @step = CommunityTrackPlugin::Step.create!(:name => 'step1', :body => 'body', :profile => @profile, :parent => @track, :published => false, :end_date => Date.today, :start_date => Date.today)
+    @step = CommunityTrackPlugin::Step.create!(:name => 'step1', :body => 'body', :profile => @profile, :parent => @track, :published => false, :end_date => Date.today, :start_date => Date.today, :tool_type => TinyMceArticle.name)
 
     user = create_user('testinguser')
     login_as(user.login)
@@ -27,12 +27,12 @@ class ContentViewerControllerTest < ActionController::TestCase
     assert_tag :tag => 'div', :attributes => {:id => 'track' }, :descendant => { :tag => 'div', :attributes => { :class => 'actions' } }
   end
 
-  should 'do not show actions for tracks when user has not permission for edit' do
+  should 'do not show actions for tracks when user has not permission to edit' do
     user = create_user('intruder')
     logout
     login_as(user.login)
     get :view_page, @track.url
-    assert_no_tag :tag => 'div', :attributes => {:id => 'track' }, :descendant => { :tag => 'div', :attributes => { :class => 'actions' } }
+    assert_no_tag :tag => 'div', :attributes => {:id => 'track' }, :descendant => { :tag => 'div', :attributes => { :class => 'track actions' } }
   end
 
   should 'do not show new button at article toolbar for tracks' do
@@ -64,15 +64,21 @@ class ContentViewerControllerTest < ActionController::TestCase
     assert_tag :tag => 'div', :attributes => { :class => 'tools' }, :descendant => { :tag => 'div', :attributes => { :class => 'item' } }
   end
 
-  should 'show actions for steps when user has permission for edit' do
+  should 'show actions for steps when user has permission to edit' do
     get :view_page, @step.url
     assert_tag :tag => 'div', :attributes => {:id => 'step' }, :descendant => { :tag => 'div', :attributes => { :class => 'actions' } }
   end
 
-  should 'show actions for enabled tools in step' do
+  should 'show action for tiny mce article tool in step' do
+    get :view_page, @step.url
+    assert_tag 'div', :attributes => {:class => 'actions' }, :descendant => { :tag => 'a', :attributes => { :class => 'button with-text icon-new icon-newtext-html' } }
+  end
+
+  should 'show action for forum tool in step' do
+    @step.tool_type = Forum.name
+    @step.save!
     get :view_page, @step.url
     assert_tag 'div', :attributes => {:class => 'actions' }, :descendant => { :tag => 'a', :attributes => { :class => 'button with-text icon-new icon-newforum' } }
-    assert_tag 'div', :attributes => {:class => 'actions' }, :descendant => { :tag => 'a', :attributes => { :class => 'button with-text icon-new icon-newtext-html' } }
   end
 
   should 'do not show actions for steps when user has not permission for edit' do

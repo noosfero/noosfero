@@ -9,23 +9,17 @@
   <div>
     <%= step.body %>
   </div>
-  <h3><%= _("Tools") %></h3>
-  <% if step.allow_create?(user) %>
+  <h3><%= _("Tool") %></h3>
+  <% if step.allow_create?(user) && !step.tool && step.tool_class %>
     <div class="actions">
-      <% step.enabled_tools.each do |klass, attrs| %>
-        <% content_tag('a', :href => url_for({:controller => 'cms', :action => 'new', :type => klass.name, :parent_id => @page}), :class => "button with-text icon-new icon-new#{klass.icon_name}") do %>
-            <%= _("New #{attrs[:name]}") %>
-        <% end %>
-      <% end %>
+      <a href="<%= url_for({:controller => 'cms', :action => 'new', :type => step.tool_type.constantize, :parent_id => @page}) %>" class="button with-text icon-new icon-new<%= step.tool_class.icon_name %>"><%= _('Create %s' % step.tool_class.short_description) %></a>
     </div>
   <% end %>
   <div class="tools">
-    <% step.tools.each do |tool| %>
-      <div class="item">
-        <div class="name">
-          <%= link_to tool.name, tool.url, :class=>"button with-text icon-new icon-new#{tool.class.icon_name}" %>
+    <div class="item">
+      <div class="name">
+        <%= link_to(step.tool.name, step.tool.view_url, :class=>"button with-text icon-new icon-new#{step.tool.class.icon_name}") if step.tool %>
         </div>
       </div>
-    <% end %>
   </div>
 </div>

@@ -199,3 +199,18 @@
   width: 115px;
   background: url(/plugins/community_track/icons/calendar.png) right center no-repeat;
 }
+
+.step_list .step .tools {
+  text-align: center;
+}
+
+.step_list .step .actions {
+  float: right;
+}
+
+#article .step_list .step .actions .button {
+  color: #888;
+  background-color: transparent;
+  border: 0px;
+  background-image: none;
+}
