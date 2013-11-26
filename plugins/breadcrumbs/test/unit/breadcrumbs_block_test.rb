@@ -68,4 +68,8 @@ class BreadcrumbsBlockTest < ActiveSupport::TestCase
     assert_equal '', instance_eval(&@block.content)
   end
 
+  should 'not be cacheable' do
+    assert !@block.cacheable?
+  end
+
 end

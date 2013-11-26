@@ -45,6 +45,10 @@ class BreadcrumbsBlock < Block
     end
   end
 
+  def cacheable?
+    false 
+  end
+
   protected
 
   CMS_ACTIONS = {:edit => _('Edit'), :upload_files => _('Upload Files'), :new => _('New')}
