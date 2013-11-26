@@ -1688,6 +1688,17 @@ class CmsControllerTest < ActionController::TestCase
                     :attributes => { :value => article.id.to_s }}
   end
 
+  should 'go back to specified url when saving with success' do
+    post :new, :type => 'TinyMceArticle', :profile => profile.identifier, :article => { :name => 'changed by me', :body => 'content ...' }, :success_back_to => '/'
+    assert_redirected_to '/'
+  end
+
+  should 'redirect back to specified url when edit with success' do
+    article = @profile.articles.create!(:name => 'myarticle')
+    post :edit, :profile => 'testinguser', :id => article.id, :success_back_to => '/'
+    assert_redirected_to '/'
+  end
+
   protected
 
   # FIXME this is to avoid adding an extra dependency for a proper JSON parser.

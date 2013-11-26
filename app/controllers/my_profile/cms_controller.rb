@@ -64,6 +64,7 @@ class CmsController < MyProfileController
   end
 
   def edit
+    @success_back_to = params[:success_back_to]
     @article = profile.articles.find(params[:id])
     @parent_id = params[:parent_id]
     @type = params[:type] || @article.class.to_s
@@ -77,7 +78,7 @@ class CmsController < MyProfileController
       if @article.update_attributes(params[:article])
         if !continue
           if @article.content_type.nil? || @article.image?
-            redirect_to @article.view_url
+            success_redirect
           else
             redirect_to :action => (@article.parent ? 'view' : 'index'), :id => @article.parent
           end
@@ -89,6 +90,7 @@ class CmsController < MyProfileController
   def new
     # FIXME this method should share some logic wirh edit !!!
 
+    @success_back_to = params[:success_back_to]
     # user must choose an article type first
 
     @parent = profile.articles.find(params[:parent_id]) if params && params[:parent_id]
@@ -133,7 +135,7 @@ class CmsController < MyProfileController
         if continue
           redirect_to :action => 'edit', :id => @article
         else
-          redirect_to @article.view_url
+          success_redirect
         end
         return
       end
@@ -383,6 +385,14 @@ class CmsController < MyProfileController
 
   def content_editor?
     true
+  end
+
+  def success_redirect
+    if !@success_back_to.blank?
+      redirect_to @success_back_to
+    else
+      redirect_to @article.view_url
+    end
   end
 
 end
