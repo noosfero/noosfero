@@ -44,4 +44,30 @@ module SweeperHelper
   def expire_profile_index(profile)
     expire_timeout_fragment(profile.relationships_cache_key)
   end
+
+  def expire_blocks_cache(context, causes)
+    if context.kind_of?(Profile)
+      profile = context
+      environment = profile.environment
+    else
+      environment = context
+      profile = nil
+    end
+
+    blocks_to_expire = []
+    if profile
+      profile.blocks.each {|block|
+        conditions = block.class.expire_on
+        blocks_to_expire << block unless (conditions[:profile] & causes).empty?
+      }
+    end
+    environment.blocks.each {|block|
+      conditions = block.class.expire_on
+      blocks_to_expire << block unless (conditions[:environment] & causes).empty?
+    }
+
+    blocks_to_expire.uniq!
+    BlockSweeper.expire_blocks(blocks_to_expire)
+  end
+
 end

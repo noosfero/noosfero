@@ -30,4 +30,7 @@ class RecentDocumentsBlock < Block
     end
   end
 
+  def self.expire_on
+      { :profile => [:article], :environment => [:article] }
+  end
 end

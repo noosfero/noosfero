@@ -1,0 +1,36 @@
+<% if image.gallery? && options[:gallery_view] %>
+<%
+  images = image.parent.images
+  current_index = images.index(image.encapsulated_file)
+  total_of_images = images.count
+  link_to_previous = if current_index >= 1
+   link_to(_('&laquo; Previous'), images[current_index - 1].view_url, :class => 'previous')
+  else
+    content_tag('span', _('&laquo; Previous'), :class => 'previous')
+  end
+
+  link_to_next = if current_index < total_of_images - 1
+    link_to(_('Next &raquo;'), images[current_index + 1].view_url, :class => 'next')
+  else
+    content_tag('span', _('Next &raquo;'), :class => 'next')
+  end
+%>
+
+<div class="gallery-navigation">
+  <%= link_to_previous %>
+  <span class="total-of-images">
+    <%= _('image %d of %d') % [current_index + 1, total_of_images] %>
+  </span>
+  <%= link_to_next %>
+</div>
+
+<% end %>
+
+<%# image_tag(article.public_filename(:display), :class => article.css_class_name, :style => 'max-width: 100%') %>
+
+<img src="<%=image.public_filename(:display)%>" class="<%=image.css_class_name%>">
+
+<div class="uploaded-file-description <%= 'empty' if image.abstract.blank? %>">
+  <%= image.abstract %>
+</div>
+

@@ -591,8 +591,8 @@ class ApplicationHelperTest < ActiveSupport::TestCase
   end
 
   should 'include item in usermenu for environment enabled features' do
-    env = Environment.new
-    env.enable('xmpp_chat')
+    env = fast_create(Environment)
+    env.enable('xmpp_chat', false)
     stubs(:environment).returns(env)
 
     @controller = ApplicationController.new
@@ -789,6 +789,55 @@ class ApplicationHelperTest < ActiveSupport::TestCase
     end
     assert_equal '<div class="button-bar" id="bt1"><b>foo</b>'+
                  '<br style=\'clear: left;\' /></div>', result
+  end
+
+  should 'not filter html if source does not have macros' do
+    class Plugin1 < Noosfero::Plugin
+    end
+
+    class Plugin1::Macro1 < Noosfero::Plugin::Macro
+      def parse(params, inner_html, source)
+        'Test1'
+      end
+    end
+
+    environment = Environment.default
+    environment.enable_plugin(Plugin1)
+    @plugins = Noosfero::Plugin::Manager.new(environment, self)
+    macro1_name = Plugin1::Macro1.identifier
+    source = mock
+    source.stubs(:has_macro?).returns(false)
+
+    html = "<div class='macro nonEdit' data-macro='#{macro1_name}' data-macro-param='123'></div>"
+    parsed_html = filter_html(html, source)
+
+    assert_no_match /Test1/, parsed_html
+  end
+
+  should 'not convert macro if source is nil' do
+    profile = create_user('testuser').person
+    article = fast_create(Article,  :profile_id => profile.id)
+    class Plugin1 < Noosfero::Plugin; end
+
+    environment = Environment.default
+    environment.enable_plugin(Plugin1)
+    @plugins = Noosfero::Plugin::Manager.new(environment, self)
+
+    expects(:convert_macro).never
+    filter_html(article.body, nil)
+  end
+
+  should 'not convert macro if there is no macro plugin active' do
+    profile = create_user('testuser').person
+    article = fast_create(Article,  :profile_id => profile.id)
+    class Plugin1 < Noosfero::Plugin; end
+
+    environment = Environment.default
+    environment.enable_plugin(Plugin1)
+    @plugins = Noosfero::Plugin::Manager.new(environment, self)
+
+    expects(:convert_macro).never
+    filter_html(article.body, article)
   end
 
   protected

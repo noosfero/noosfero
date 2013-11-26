@@ -1,0 +1,6 @@
+<%= block_title(block.title) %>
+
+<div class="track_list" id="track_list_<%= block.id %>">
+  <%= render :partial => "blocks/#{block.track_partial}", :collection => block.tracks, :locals => {:block => block} %>
+</div>
+<br style="clear: both;"/>

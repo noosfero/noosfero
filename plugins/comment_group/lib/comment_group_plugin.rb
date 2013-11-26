@@ -24,6 +24,11 @@ class CommentGroupPlugin < Noosfero::Plugin
     'comment_group_macro.js'
   end
 
+  def stylesheet?
+    true
+  end
+
+
 end
 
 require_dependency 'comment_group_plugin/macros/allow_comment'

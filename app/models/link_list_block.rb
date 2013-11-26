@@ -33,6 +33,12 @@ class LinkListBlock < Block
     ['chat', N_('Chat')]
   ]
 
+  TARGET_OPTIONS = [
+    [N_('Same page'), '_self'],
+    [N_('New tab'), '_blank'],
+    [N_('New window'), '_new'],
+  ]
+
   settings_items :links, Array, :default => []
 
   before_save do |block|
@@ -57,7 +63,7 @@ class LinkListBlock < Block
   def link_html(link)
     klass = 'icon-' + link[:icon] if link[:icon]
     sanitize_link(
-      link_to(link[:name], expand_address(link[:address]), :class => klass)
+      link_to(link[:name], expand_address(link[:address]), :target => link[:target], :class => klass)
     )
   end
 

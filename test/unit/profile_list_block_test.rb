@@ -2,6 +2,8 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class ProfileListBlockTest < ActiveSupport::TestCase
 
+  include ActionView::Helpers::TagHelper
+
   should 'describe itself' do
     assert_not_equal Block.description, ProfileListBlock.description
   end
@@ -32,6 +34,7 @@ class ProfileListBlockTest < ActiveSupport::TestCase
     self.expects(:profile_image_link).with(person2, :minor).once
     self.expects(:profile_image_link).with(person3, :minor).once
 
+    self.stubs(:tag).returns('<div></div>')
     self.expects(:content_tag).returns('<div></div>').at_least_once
     self.expects(:block_title).returns('block title').at_least_once
 
