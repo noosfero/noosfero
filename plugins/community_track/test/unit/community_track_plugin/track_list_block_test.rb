@@ -102,4 +102,10 @@ class TrackListBlockTest < ActiveSupport::TestCase
     assert_equal [1, 2], @block.category_ids
   end
 
+  should 'define expiration condition' do
+    condition = CommunityTrackPlugin::TrackListBlock.expire_on
+    assert !condition[:profile].empty?
+    assert !condition[:environment].empty?
+  end
+
 end
