@@ -6,7 +6,7 @@ require 'memberships_controller'
 class MembershipsController; def rescue_action(e) raise e end; end
 
 class MembershipsControllerTest < ActionController::TestCase
-  
+
   include ApplicationHelper
 
   def setup
@@ -22,7 +22,7 @@ class MembershipsControllerTest < ActionController::TestCase
   def test_local_files_reference
     assert_local_files_reference :get, :index, :profile => profile.identifier
   end
-  
+
   def test_valid_xhtml
     assert_valid_xhtml
   end
@@ -243,6 +243,25 @@ class MembershipsControllerTest < ActionController::TestCase
 
     assert_tag :tag => 'input', :attributes => {:id => 'community_plugin1', :type => 'hidden', :value => 'Plugin 1'}
     assert_tag :tag => 'input', :attributes => {:id => 'community_plugin2', :type => 'hidden', :value => 'Plugin 2'}
+  end
+
+  should 'only display control panel link to members with permission' do
+    c1 = fast_create(Community, :name => 'My own community')
+    c2 = fast_create(Community, :name => 'Not my community')
+
+    owner = fast_create(Person)
+    c2.add_admin(owner)
+
+    person = Person['testuser']
+    c1.add_admin(person)
+    c2.add_member(person)
+
+    login_as('testuser')
+    get :index, :profile => 'testuser'
+
+    assert_template 'index'
+    assert_no_tag :tag => 'a', :attributes => { :href => "/myprofile/#{c2.identifier}" }
+    assert_tag :tag => 'a', :attributes => { :href => "/myprofile/#{c1.identifier}" }
   end
 
 end

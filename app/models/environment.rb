@@ -169,7 +169,7 @@ class Environment < ActiveRecord::Base
 
   # One Environment can be reached by many domains
   has_many :domains, :as => :owner
-  has_many :profiles
+  has_many :profiles, :dependent => :destroy
 
   has_many :organizations
   has_many :enterprises
@@ -782,13 +782,6 @@ class Environment < ActiveRecord::Base
     self.settings[:community_template_id] = com_id
     self.settings[:person_template_id] = usr_id
     self.save!
-  end
-
-  after_destroy :destroy_templates
-  def destroy_templates
-    [enterprise_template, inactive_enterprise_template, community_template, person_template].compact.each do |template|
-      template.destroy
-    end
   end
 
   after_create :create_default_licenses

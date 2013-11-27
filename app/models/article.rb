@@ -192,7 +192,7 @@ class Article < ActiveRecord::Base
     pending_categorizations.clear
   end
 
-  acts_as_taggable  
+  acts_as_taggable
   N_('Tag list')
 
   acts_as_filesystem
@@ -272,7 +272,7 @@ class Article < ActiveRecord::Base
   end
 
   # returns the data of the article. Must be overriden in each subclass to
-  # provide the correct content for the article. 
+  # provide the correct content for the article.
   def data
     body
   end
@@ -366,6 +366,16 @@ class Article < ActiveRecord::Base
 
   def has_posts?
     false
+  end
+
+  def download? view = nil
+    (self.uploaded_file? and not self.image?) or
+      (self.image? and view.blank?) or
+      (not self.uploaded_file? and self.mime_type != 'text/html')
+  end
+
+  def download_headers
+    {}
   end
 
   named_scope :native_translations, :conditions => { :translation_of_id => nil }

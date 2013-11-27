@@ -4,7 +4,7 @@
   </tr>
   <%= display_field(_('Sex:'), profile, :sex) { |gender| { 'male' => _('Male'), 'female' => _('Female') }[gender] } %>
   <%= display_field(_('Date of birth:'), profile, :birth_date) { |date| show_date(date)  }%>
-  <%= display_field(_('Location:'), profile, :location, true) %>
+  <%= display_field _('Location:'), profile, :location %>
 
   <%= display_field(_('Type:'), profile, :privacy_setting, true) %>
 
