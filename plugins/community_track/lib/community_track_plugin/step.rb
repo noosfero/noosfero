@@ -7,7 +7,7 @@ class CommunityTrackPlugin::Step < Folder
   acts_as_list  :scope => :parent
 
   def belong_to_track
-    errors.add(:parent, "Step not allowed at this parent.") if !parent.kind_of?(CommunityTrackPlugin::Track)
+    errors.add(:parent, _("Step not allowed at this parent.")) unless parent.kind_of?(CommunityTrackPlugin::Track)
   end
 
   validate :belong_to_track

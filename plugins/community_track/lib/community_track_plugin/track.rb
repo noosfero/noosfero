@@ -49,8 +49,8 @@ class CommunityTrackPlugin::Track < Folder
     "community-track-plugin-track"
   end
 
-  #FIXME make this test
   def first_paragraph
+    return '' if body.blank?
     paragraphs = Hpricot(body).search('p')
     paragraphs.empty? ? '' : paragraphs.first.to_html
   end

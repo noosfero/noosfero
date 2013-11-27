@@ -1424,8 +1424,8 @@ module ApplicationHelper
   end
 
   def filter_html(html, source)
-    if @plugins && source.has_macro?
-      html = convert_macro(html, source)
+    if @plugins && source && source.has_macro?
+      html = convert_macro(html, source) unless @plugins.enabled_macros.blank?
       #TODO This parse should be done through the macro infra, but since there
       #     are old things that do not support it we are keeping this hot spot.
       html = @plugins.pipeline(:parse_content, html, source).first

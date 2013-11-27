@@ -144,10 +144,15 @@ class CmsController < MyProfileController
 
   post_only :set_home_page
   def set_home_page
-    @article = profile.articles.find(params[:id])
-    profile.home_page = @article
-    profile.save(false)
-    session[:notice] = _('"%s" configured as home page.') % @article.name
+    article = params[:id].nil? ? nil : profile.articles.find(params[:id])
+    profile.update_attribute(:home_page, article)
+
+    if article.nil?
+      session[:notice] = _('Homepage reseted.')
+    else
+      session[:notice] = _('"%s" configured as homepage.') % article.name
+    end
+
     redirect_to (request.referer || profile.url)
   end
 
