@@ -282,4 +282,10 @@ class StepTest < ActiveSupport::TestCase
     assert_not_equal article, @step.tool
   end
 
+  should 'initialize start date and end date with default values' do
+    step = CommunityTrackPlugin::Step.new
+    assert step.start_date
+    assert step.end_date
+  end
+
 end

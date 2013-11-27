@@ -25,6 +25,12 @@ class CommunityTrackPlugin::Step < Folder
   before_create :set_hidden_position
   before_save :set_hidden_position
 
+  def initialize(*args)
+    super(*args)
+    self.start_date ||= Date.today
+    self.end_date ||= Date.today + 1.day
+  end
+  
   def set_hidden_position
     if hidden
       decrement_positions_on_lower_items
