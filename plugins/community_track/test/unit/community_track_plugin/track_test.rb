@@ -39,10 +39,12 @@ class TrackTest < ActiveSupport::TestCase
     assert_equal [@step], @track.steps_unsorted
   end
 
-  should 'return category name' do
-    category = fast_create(Category, :name => 'category')
-    @track.add_category(category, true)
-    assert_equal 'category', @track.category_name
+  should 'return name of the top category' do
+    top = fast_create(Category, :name => 'top category')
+    category1 = fast_create(Category, :name => 'category1', :parent_id => top.id )
+    category2 = fast_create(Category, :name => 'category2', :parent_id => category1.id )
+    @track.add_category(category2, true)
+    assert_equal 'top category', @track.category_name
   end
 
   should 'return empty for category name if it has no category' do
