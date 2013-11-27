@@ -19,7 +19,7 @@
   <% if step_item.tool %>
     <%= link_to step_item.tool.name, step_item.tool.view_url %>
   <% elsif step_item.allow_create?(user) && step_item.tool_class %>
-    <a href="<%= url_for({:controller => 'cms', :action => 'new', :type => step_item.tool_class, :parent_id => step_item}) %>" class="button icon-new with-text icon-new<%= step_item.tool_class.icon_name %>"><%= _('Create %s' % step_item.tool_class.short_description) %></a>
+    <a href="<%= url_for({:controller => 'cms', :action => 'new', :type => step_item.tool_class, :parent_id => step_item, :success_back_to => url_for(step_item.parent.view_url)}) %>" class="button icon-new with-text icon-new<%= step_item.tool_class.icon_name %>"><%= _('Create %s' % step_item.tool_class.short_description) %></a>
   <% end %>
   </div>
 </li>
