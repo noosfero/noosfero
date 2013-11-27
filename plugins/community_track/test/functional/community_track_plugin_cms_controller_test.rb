@@ -7,7 +7,7 @@ class CmsControllerTest < ActionController::TestCase
 
   def setup
     @profile = fast_create(Community)
-    @track = CommunityTrackPlugin::Track.create!(:abstract => 'abstract', :body => 'body', :name => 'track', :profile => @profile)
+    @track = create_track('track', @profile)
     @step = CommunityTrackPlugin::Step.create!(:name => 'step1', :body => 'body', :profile => @profile, :parent => @track, :published => false, :end_date => Date.today, :start_date => Date.today)
 
     user = create_user('testinguser')

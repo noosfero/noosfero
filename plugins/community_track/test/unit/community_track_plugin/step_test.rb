@@ -4,7 +4,11 @@ class StepTest < ActiveSupport::TestCase
 
   def setup
     @profile = fast_create(Community)
-    @track = CommunityTrackPlugin::Track.create(:profile_id => @profile.id, :name => 'track')
+    @track = CommunityTrackPlugin::Track.new(:profile_id => @profile.id, :name => 'track')
+    @category = fast_create(Category)
+    @track.add_category(@category)
+    @track.save!
+
     @step = CommunityTrackPlugin::Step.new(:name => 'Step', :body => 'body', :profile => @profile, :parent => @track, :published => false, :end_date => Date.today, :start_date => Date.today)
     Delayed::Job.destroy_all
   end

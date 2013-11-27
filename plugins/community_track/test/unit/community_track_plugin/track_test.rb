@@ -3,10 +3,10 @@ require File.dirname(__FILE__) + '/../../test_helper'
 class TrackTest < ActiveSupport::TestCase
 
   def setup
-    profile = fast_create(Community)
-    @track = CommunityTrackPlugin::Track.create!(:profile => profile, :name => 'track')
-    @step = CommunityTrackPlugin::Step.create!(:parent => @track, :start_date => Date.today, :end_date => Date.today, :name => 'step', :profile => profile)
-    @tool = fast_create(Article, :parent_id => @step.id, :profile_id => profile.id)
+    @profile = fast_create(Community)
+    @track = create_track('track', @profile)
+    @step = CommunityTrackPlugin::Step.create!(:parent => @track, :start_date => Date.today, :end_date => Date.today, :name => 'step', :profile => @profile)
+    @tool = fast_create(Article, :parent_id => @step.id, :profile_id => @profile.id)
   end
 
   should 'describe yourself' do
@@ -43,6 +43,7 @@ class TrackTest < ActiveSupport::TestCase
     top = fast_create(Category, :name => 'top category')
     category1 = fast_create(Category, :name => 'category1', :parent_id => top.id )
     category2 = fast_create(Category, :name => 'category2', :parent_id => category1.id )
+    @track.categories.delete_all
     @track.add_category(category2, true)
     assert_equal 'top category', @track.category_name
   end
@@ -54,6 +55,7 @@ class TrackTest < ActiveSupport::TestCase
 
   should 'return category name of first category' do
     category = fast_create(Category, :name => 'category')
+    @track.categories.delete_all
     @track.add_category(category, true)
     category2 = fast_create(Category, :name => 'category2')
     @track.add_category(category2, true)
@@ -124,6 +126,17 @@ class TrackTest < ActiveSupport::TestCase
   should 'provide first_paragraph even if body is nil' do
     @track.body = nil
     assert_equal '', @track.first_paragraph
+  end
+
+  should 'not be able to create a track without category' do
+    track = CommunityTrackPlugin::Track.create(:profile => @profile, :name => 'track')
+    assert track.errors.invalid?(:categories)
+  end
+
+  should 'not be able to save a track without category' do
+    @track.categories.delete_all
+    @track.save
+    assert @track.errors.invalid?(:categories)
   end
 
 end

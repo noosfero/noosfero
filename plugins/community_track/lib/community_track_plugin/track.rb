@@ -3,6 +3,12 @@ class CommunityTrackPlugin::Track < Folder
   settings_items :goals, :type => :string
   settings_items :expected_results, :type => :string
 
+  validate :validate_categories
+
+  def validate_categories
+    errors.add(:categories, _('should not be blank.')) if categories.empty? && pending_categorizations.blank?
+  end
+
   def self.icon_name(article = nil)
     'community-track'
   end
