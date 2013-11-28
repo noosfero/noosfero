@@ -35,4 +35,21 @@ class StepHelperTest < ActiveSupport::TestCase
     assert !custom_options_for_article(fast_create(Article))
   end
 
+  should 'return content without link if there is no tool in a step' do
+    link = link_to_step_tool(@step) do
+      "content"
+    end
+    assert_equal 'content', link
+  end
+
+  should 'return link to step tool if there is a tool' do
+    profile = fast_create(Community)
+    tool = fast_create(Article, :profile_id => profile.id)
+    @step.stubs(:tool).returns(tool)
+    expects(:link_to).with(tool.view_url, {}).once
+    link = link_to_step_tool(@step) do
+      "content"
+    end
+  end
+
 end

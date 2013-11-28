@@ -21,7 +21,7 @@ class ContentViewerControllerTest < ActionController::TestCase
 
   should 'show actions for tracks when user has permission for edit' do
     get :view_page, @track.url
-    assert_tag :tag => 'div', :attributes => {:id => 'track' }, :descendant => { :tag => 'div', :attributes => { :class => 'actions' } }
+    assert_tag :tag => 'div', :attributes => {:id => 'track' }, :descendant => { :tag => 'div', :attributes => { :class => 'track actions' } }
   end
 
   should 'do not show actions for tracks when user has not permission to edit' do
@@ -107,7 +107,7 @@ class ContentViewerControllerTest < ActionController::TestCase
     @block = CommunityTrackPlugin::TrackListBlock.create!(:box => box)
     @profile.boxes << box
     get :view_page, @step.url
-    assert_tag :tag => 'div', :attributes => { :class => "item category_#{@track.category_name}" }, :descendant => { :tag => 'div', :attributes => { :class => 'steps' }, :descendant => { :tag => 'div', :attributes => { :class => "step #{@block.status_class(@step)}" } } }
+    assert_tag :tag => 'div', :attributes => { :class => "item category_#{@track.category_name}" }, :descendant => { :tag => 'div', :attributes => { :class => 'steps' }, :descendant => { :tag => 'span', :attributes => { :class => "step #{@block.status_class(@step)}" } } }
   end
 
   should 'render tracks in track card list block' do

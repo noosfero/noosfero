@@ -3,17 +3,17 @@
   background-image: url(/plugins/community_track/icons/community-track.png)
 }
 
-.step_active, #article .step_active a {
+.step_active, #article .step_active {
   background-color: #CCEBD6;
   color: #338533;
 }
 
-.step_waiting, #article .step_waiting a {
+.step_waiting, #article .step_waiting {
   background-color: #FFFFD1;
   color: #D17519;
 }
 
-.step_finished, #article .step_finished a {
+.step_finished, #article .step_finished {
   background-color: #D1FFFF;
   color: #00297A;
 }
@@ -24,6 +24,7 @@
 
 .step {
   font-weight: bold;
+  margin-bottom: 3px;
 }
 
 .track_list .item .step {
@@ -73,6 +74,11 @@
 .steps .step {
   margin-top: 3px;
   margin-bottom: 3px;
+  display: block;
+}
+
+.steps a {
+  text-decoration: none;
 }
 
 .track_list .item_card .track_stats {
@@ -126,11 +132,12 @@
 #track .position {
   font-size: 24px;
   font-weight: bold;
-  float: left;
   margin: 0 10px;
+  display: inline-block;
+  vertical-align: top;
 }
 
-#track .step .name, #track .step .name a {
+#track .step .name {
   font-weight: bold;
   color: #333;
 }
@@ -151,7 +158,7 @@
 
 #track .content {
   margin: 6px 0px;
-  border-bottom: 1px solid #DDDDDD;
+  display: inline-block;
 }
 
 #track .ui-state-default .content {
@@ -201,16 +208,51 @@
 }
 
 .step_list .step .tools {
-  text-align: center;
+  margin-top: 5px;
 }
 
-.step_list .step .actions {
-  float: right;
-}
-
-#article .step_list .step .actions .button {
+#article .step_list .step .tool_icon, 
+.tool_icon {
   color: #888;
   background-color: transparent;
   border: 0px;
-  background-image: none;
+  background-repeat: no-repeat;
+  line-height: 20px;
+  height: 20px;
+  padding: 3px 2px 3px 22px;
+}
+
+#article .step .tool_link {
+  cursor: pointer;
+}
+
+#article .step_active .tool_link:hover,
+.step_active:hover {
+  background-color: #B8D4C1;
+}
+
+#article .step_waiting .tool_link:hover,
+.step_waiting:hover {
+  background-color: #E6E6BC;
+}
+
+#article .step_finished .tool_link:hover,
+.step_finished:hover {
+  background-color: #BCE6E6;
+}
+
+.step_list .step .step_actions {
+  text-align: right;
+  border-top: 1px solid;
+}
+
+#article .step_list .step .step_actions .button {
+  color: #888;
+  background-color: transparent;
+  border: 0px;
+  border-right: 1px solid;
+}
+
+#article .step_list .step .step_actions .button:hover {
+  color: #444;
 }

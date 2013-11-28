@@ -21,6 +21,16 @@ module CommunityTrackPlugin::StepHelper
     nil
   end
 
+  def link_to_step_tool(step, options={})
+    if step.tool
+      link_to step.tool.view_url, options do
+        yield
+      end
+    else
+      yield
+    end
+  end
+
   protected
 
   def status_index(step)
