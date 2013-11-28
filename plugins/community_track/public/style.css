@@ -227,17 +227,17 @@
 }
 
 #article .step_active .tool_link:hover,
-.step_active:hover {
+#content .steps .step_active:hover {
   background-color: #B8D4C1;
 }
 
 #article .step_waiting .tool_link:hover,
-.step_waiting:hover {
+#content .steps .step_waiting:hover {
   background-color: #E6E6BC;
 }
 
 #article .step_finished .tool_link:hover,
-.step_finished:hover {
+#content .steps .step_finished:hover {
   background-color: #BCE6E6;
 }
 
