@@ -139,7 +139,7 @@ module DatesHelper
     previous_month_date = date - 1.month
 
     label ||= show_month(previous_month_date.year, previous_month_date.month)
-    link_to label, {:year => previous_month_date.year, :month => previous_month_date.month}, {:class => 'button icon-back with-text'}
+    button(:back, label,  {:year => previous_month_date.year, :month => previous_month_date.month})
   end
 
   def link_to_next_month(year, month, label = nil)
@@ -147,7 +147,7 @@ module DatesHelper
     next_month_date = date + 1.month
 
     label ||= show_month(next_month_date.year, next_month_date.month)
-    link_to label, {:year => next_month_date.year, :month => next_month_date.month}, {:class => 'button icon-next with-text'}
+    button(:next, label, {:year => next_month_date.year, :month => next_month_date.month})
   end
 
   def pick_date(object, method, options = {}, html_options = {})

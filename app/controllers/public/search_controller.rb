@@ -114,8 +114,6 @@ class SearchController < PublicController
 
     events = @searches[@asset][:results]
     @calendar = populate_calendar(@date, events)
-    @previous_calendar = populate_calendar(@date - 1.month, events)
-    @next_calendar = populate_calendar(@date + 1.month, events)
   end
 
   # keep old URLs workings

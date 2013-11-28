@@ -17,8 +17,6 @@ class EventsController < PublicController
     events_in_range = profile.events.by_range((@date - 1.month).at_beginning_of_month .. (@date + 1.month).at_end_of_month)
 
     @calendar = populate_calendar(@date, events_in_range)
-    @previous_calendar = populate_calendar(@date - 1.month, events_in_range)
-    @next_calendar = populate_calendar(@date + 1.month, events_in_range)
   end
 
   def events_by_day
