@@ -1,8 +1,8 @@
 class DisplayContentBlock < Block
 
   settings_items :nodes, :type => Array, :default => []
-  settings_items :parent_nodes, :type => Array, :default => []
   settings_items :chosen_attributes, :type => Array, :default => ['title']
+  settings_items :display_folder_children, :type => :boolean, :default => true
 
   def self.description
     _('Display your contents')
@@ -13,20 +13,28 @@ class DisplayContentBlock < Block
   end
 
   def checked_nodes= params
+    self.nodes = params.keys
+  end
+
+  before_save :expand_nodes
+
+  def expand_nodes
     return self.nodes if self.holder.nil?
-    articles = []
-    parent_articles = []
-    self.holder.articles.find(params.keys).map do |article|
-      if article.folder?
-        articles = articles + article.children
-        parent_articles << article.id
-      else
-        articles<< article
-      end
-      parent_articles = parent_articles + get_parent(article) unless parent_articles.include?(article.parent_id)
+
+    articles = self.holder.articles.find(nodes)
+    children = articles.map { |article| article.children }.compact.flatten
+
+    if display_folder_children
+      articles = articles - children
+    else
+      articles = (articles + children).uniq
     end
-    self.parent_nodes = parent_articles
-    self.nodes = articles.map{|a| a.id if a.is_a?(TextArticle) }.compact
+
+    self.nodes = articles.map(&:id)
+  end
+
+  def parent_nodes
+    @parent_nodes ||= self.holder.articles.find(nodes).map { |article| get_parent(article) }.compact.flatten
   end
 
   VALID_CONTENT = ['RawHTMLArticle', 'TextArticle', 'TextileArticle', 'TinyMceArticle', 'Folder', 'Blog', 'Forum']
@@ -38,14 +46,18 @@ class DisplayContentBlock < Block
 
   include ActionController::UrlWriter
   def content(args={})
-    docs = owner.articles.find(:all, :conditions => {:id => self.nodes})
+    extra_condition = display_folder_children ? 'OR articles.parent_id IN(:nodes)':''
+    docs = nodes.blank? ? [] : owner.articles.find(:all, :conditions => ["(articles.id IN(:nodes) #{extra_condition}) AND articles.type IN(:types)", {:nodes => self.nodes, :types => VALID_CONTENT}])
+
     block_title(title) +
-    content_tag('ul', docs.map {|item|  
-      content_tag('li', 
-        (display_attribute?('title') ? content_tag('div', link_to(h(item.title), item.url), :class => 'title') : '') +
-        (display_attribute?('abstract') ? content_tag('div', item.abstract ,:class => 'lead') : '') +
-        (display_attribute?('body') ? content_tag('div', item.body ,:class => 'body') : '')
-      )
+    content_tag('ul', docs.map {|item|
+      if !item.folder?
+        content_tag('li',
+          (display_attribute?('title') ? content_tag('div', link_to(h(item.title), item.url), :class => 'title') : '') +
+          (display_attribute?('abstract') ? content_tag('div', item.abstract ,:class => 'lead') : '') +
+          (display_attribute?('body') ? content_tag('div', item.body ,:class => 'body') : '')
+        )
+      end
     }.join("\n"))
 
   end
