@@ -104,17 +104,4 @@ class CommunityTrackPlugin::Step < Folder
     tools.find(:first, :conditions => {:type => tool_type })
   end
 
-  class CommunityTrackPlugin::ActivationJob < Struct.new(:step_id)
-
-    def self.find(step_id)
-      Delayed::Job.where(:handler => "--- !ruby/struct:CommunityTrackPlugin::ActivationJob \nstep_id: #{step_id}\n")
-    end
-
-    def perform
-      step = CommunityTrackPlugin::Step.find(step_id)
-      step.publish
-    end
-
-  end
-
 end
