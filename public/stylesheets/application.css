@@ -1832,6 +1832,7 @@ a.button.disabled, input.disabled {
 
 #edit-link-list-block table {
   width: 100%;
+  margin-bottom: 10px;
 }
 #edit-link-list-block table .cel-address {
   width: 220px;
