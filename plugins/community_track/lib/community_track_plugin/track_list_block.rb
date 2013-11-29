@@ -62,7 +62,7 @@ class CommunityTrackPlugin::TrackListBlock < Block
   end
 
   def self.expire_on
-    { :profile => [:article], :environment => [:article] }
+    { :profile => [:article, :category], :environment => [:article, :category] }
   end
 
 end
