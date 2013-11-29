@@ -506,7 +506,6 @@ div#notice {
 #content .people-block .block-footer-content a,
 #content .profile-list-block .block-footer-content a,
 #content .enterprises-block .block-footer-content a,
-#content .members-block .block-footer-content a,
 #content .communities-block .block-footer-content a,
 #content .friends-block .block-footer-content a {
   position: absolute;
@@ -517,6 +516,32 @@ div#notice {
   text-decoration: none;
   padding-right: 15px;
   background: url(imgs/arrow-right-p.png) 100% 50% no-repeat;
+}
+#content .members-block .block-footer-content a {
+  position: absolute;
+  top: 2px;
+  right: 0px;
+  font-size: 11px;
+  color: #000;
+  text-decoration: none;
+  padding-right: 15px;
+}
+#content .members-block .block-footer-content a.button {
+  position: relative;
+  padding-left: 10px;
+  background-color: #EEE;
+  border: 1px solid #CCC;
+  color: #555;
+}
+#content .members-block .block-footer-content a.button:hover {
+  color: #FFF;
+  background-color: #555;
+  border: 1px solid #2e3436;
+  text-decoration: none;
+}
+#content .members-block .block-footer-content a.button span {
+  margin: 0px;
+  padding: 0px 0px 0px 7px;
 }
 
 #content .profile-list-block .block-title {
