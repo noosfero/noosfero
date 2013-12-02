@@ -1287,9 +1287,7 @@ class ContentViewerControllerTest < ActionController::TestCase
   should 'display link to download of non-recognized file types on its page' do
     file = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/test.txt', 'bin/unknown'), :profile => profile)
     get :view_page, file.url.merge(:view=>:true)
-    assert_tag :tag => 'a',
-               :content => file.filename,
-               :attributes => { :href => file.public_filename }
+    assert_match /this is a sample text file/, @response.body
   end
 
 end
