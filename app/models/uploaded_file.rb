@@ -72,7 +72,7 @@ class UploadedFile < Article
     :thumbnail_class => Thumbnail,
     :max_size => self.max_size
 
-  validates_attachment :size => N_("%{fn} of uploaded file was larger than the maximum size of %{size}").sub('%{size}', self.max_size.to_humanreadable).fix_i18n
+  validates_attachment :size => N_("{fn} of uploaded file was larger than the maximum size of %{size}").sub('%{size}', self.max_size.to_humanreadable).fix_i18n
 
   delay_attachment_fu_thumbnails
 
@@ -110,6 +110,12 @@ class UploadedFile < Article
   def filename=(value)
     orig_set_filename(value)
     self.name = self.filename
+  end
+
+  def download_headers
+    {
+      'Content-Disposition' => "attachment; filename=\"#{self.filename}\"",
+    }
   end
 
   def data

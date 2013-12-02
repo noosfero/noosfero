@@ -114,7 +114,7 @@ class User < ActiveRecord::Base
   before_save :encrypt_password
   validates_format_of :email, :with => Noosfero::Constants::EMAIL_FORMAT, :if => (lambda {|user| !user.email.blank?})
 
-  validates_inclusion_of :terms_accepted, :in => [ '1' ], :if => lambda { |u| ! u.terms_of_use.blank? }, :message => N_('%{fn} must be checked in order to signup.').fix_i18n
+  validates_inclusion_of :terms_accepted, :in => [ '1' ], :if => lambda { |u| ! u.terms_of_use.blank? }, :message => N_('{fn} must be checked in order to signup.').fix_i18n
 
   # Authenticates a user by their login name or email and unencrypted password.  Returns the user or nil.
   def self.authenticate(login, password, environment = nil)

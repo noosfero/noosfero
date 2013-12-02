@@ -143,6 +143,18 @@ class ApplicationHelperTest < ActiveSupport::TestCase
     assert_tag_in_string rolename_for(member2, community), :tag => 'span', :content => 'Profile Member'
   end
 
+  should 'rolenames for a member admin' do
+    member1 = create_user('usertest1').person
+    member2 = create_user('usertest2').person
+    community = fast_create(Community, :name => 'new community', :identifier => 'new-community', :environment_id => Environment.default.id)
+    community.add_member(member1)
+    # member2 is both a admin and a member
+    community.add_member(member2)
+    community.add_admin(member2)
+    assert_tag_in_string rolename_for(member2, community), :tag => 'span', :content => 'Profile Member'
+    assert_tag_in_string rolename_for(member2, community), :tag => 'span', :content => 'Profile Administrator'
+  end
+
   should 'get theme from environment by default' do
     @environment = mock
     @environment.stubs(:theme).returns('my-environment-theme')

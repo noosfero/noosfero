@@ -94,10 +94,12 @@ class ShoppingCartPluginController < PublicController
   end
 
   def buy
-    @cart = cart
-    @enterprise = environment.enterprises.find(cart[:enterprise_id])
-    @settings = Noosfero::Plugin::Settings.new(@enterprise, ShoppingCartPlugin)
-    render :layout => false
+    if validate_cart_presence
+      @cart = cart
+      @enterprise = environment.enterprises.find(cart[:enterprise_id])
+      @settings = Noosfero::Plugin::Settings.new(@enterprise, ShoppingCartPlugin)
+      render :layout => false
+    end
   end
 
   def send_request

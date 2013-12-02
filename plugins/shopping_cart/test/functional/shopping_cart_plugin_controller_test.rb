@@ -187,6 +187,12 @@ class ShoppingCartPluginControllerTest < ActionController::TestCase
     assert !cart?, "cart expected to be empty!"
   end
 
+  should 'not allow buy without any cart' do
+    get :buy
+    assert !json_response[:ok]
+    assert_equal 2, json_response['error']['code']
+  end
+
   private
 
   def json_response
