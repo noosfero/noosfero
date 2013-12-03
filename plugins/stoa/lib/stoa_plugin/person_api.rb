@@ -20,7 +20,7 @@ class StoaPlugin::PersonApi < Noosfero::FieldsDecorator
   end
 
   def birth_date
-    object.birth_date.strftime('%F')
+    object.birth_date.present? ? object.birth_date.strftime('%F') : nil
   end
 
   def image_base64
