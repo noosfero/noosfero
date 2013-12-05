@@ -68,12 +68,12 @@ class DisplayContentBlock < Block
   protected
 
   def holder
-    return nil if self.box.nil? || self.box.owner.nil?
-    if self.box.owner.kind_of?(Environment) 
-      return nil if self.box.owner.portal_community.nil?
-      self.box.owner.portal_community
+    return nil if self.box.nil? || self.owner.nil?
+    if self.owner.kind_of?(Environment) 
+      return nil if self.owner.portal_community.nil?
+      self.owner.portal_community
     else
-      self.box.owner
+      self.owner
     end
   end
 

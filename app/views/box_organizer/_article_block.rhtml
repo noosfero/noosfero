@@ -1,5 +1,5 @@
 <div class="article-block-edition">
-<% if @block.box.owner.kind_of?(Environment) and @block.box.owner.portal_community.nil? %>
+<% if @block.owner.kind_of?(Environment) and @block.owner.portal_community.nil? %>
   <p id="no_portal_community">
   <%= _("You don't have an community defined as the portal community. Define it before use this block properly.") %>
   </p>

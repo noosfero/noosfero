@@ -49,8 +49,8 @@ class ArticleBlock < Block
   end
 
   def available_articles
-    return [] if self.box.nil? or self.box.owner.nil?
-    self.box.owner.kind_of?(Environment) ? self.box.owner.portal_community.articles : self.box.owner.articles
+    return [] if self.owner.nil?
+    self.owner.kind_of?(Environment) ? self.owner.portal_community.articles : self.owner.articles
   end
 
   def posts_per_page

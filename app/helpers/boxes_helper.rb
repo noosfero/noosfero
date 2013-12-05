@@ -102,14 +102,16 @@ module BoxesHelper
 
     result = filter_html(result, block)
 
-    box_decorator.block_target(block.box, block) +
-      content_tag('div',
-       content_tag('div',
+    content_tag('div',
+      box_decorator.block_target(block.box, block) +
+        content_tag('div',
          content_tag('div',
-           result + footer_content + box_decorator.block_edit_buttons(block),
-           :class => 'block-inner-2'),
-         :class => 'block-inner-1'),
-       options) +
+           content_tag('div',
+             result + footer_content + box_decorator.block_edit_buttons(block),
+             :class => 'block-inner-2'),
+           :class => 'block-inner-1'),
+       options),
+    :class => 'block-outer') +
     box_decorator.block_handle(block)
   end
 
