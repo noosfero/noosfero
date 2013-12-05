@@ -5,14 +5,14 @@ class ContainerBlockPluginAdminControllerTest < ActionController::TestCase
   def setup
     Environment.delete_all
     @environment = Environment.new(:name => 'testenv', :is_default => true)
-    @environment.enabled_plugins = ['ContainerBlock']
+    @environment.enabled_plugins = ['ContainerBlockPlugin::ContainerBlock']
     @environment.save!
 
     user = create_user('testinguser')
     @environment.add_admin(user.person)
     login_as(user.login)
 
-    @block = ContainerBlock.create!(:box => @environment.boxes.first)
+    @block = ContainerBlockPlugin::ContainerBlock.create!(:box => @environment.boxes.first)
     @child1 = Block.create!(:box => @block.container_box)
     @child2 = Block.create!(:box => @block.container_box)
   end

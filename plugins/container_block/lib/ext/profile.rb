@@ -2,6 +2,6 @@ require_dependency 'profile'
 
 class Profile
 
-  include ContainerBlockArray
+  include ContainerBlockPlugin::ContainerBlockArray
 
 end

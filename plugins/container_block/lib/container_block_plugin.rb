@@ -7,9 +7,9 @@ class ContainerBlockPlugin < Noosfero::Plugin
   def self.plugin_description
     _("A plugin that add a container block.")
   end
-  
+
   def self.extra_blocks
-    { ContainerBlock => {} }
+    { ContainerBlockPlugin::ContainerBlock => {} }
   end
 
   def stylesheet?

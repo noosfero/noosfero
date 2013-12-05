@@ -10,7 +10,7 @@ class ContainerBlockPluginMyprofileControllerTest < ActionController::TestCase
     @profile.add_admin(user.person)
     @box = Box.new(:owner => @profile)
 
-    @block = ContainerBlock.create!(:box => @box)
+    @block = ContainerBlockPlugin::ContainerBlock.create!(:box => @box)
     @child1 = Block.create!(:box => @block.container_box)
     @child2 = Block.create!(:box => @block.container_box)
   end

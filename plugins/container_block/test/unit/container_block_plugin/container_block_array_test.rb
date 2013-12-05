@@ -1,17 +1,17 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class ContainerBlockArrayTest < ActiveSupport::TestCase
-  
+class ContainerBlockPlugin::ContainerBlockArrayTest < ActiveSupport::TestCase
+
   attr_reader :blocks
 
-  include ContainerBlockArray
+  include ContainerBlockPlugin::ContainerBlockArray
 
   def setup
     @blocks = []
 
     @environment = fast_create(Environment)
     @container_box = Box.new(:owner => @environment)
-    @container = ContainerBlock.new(:box => @container_box)
+    @container = ContainerBlockPlugin::ContainerBlock.new(:box => @container_box)
   end
 
   should 'return blocks as usual' do

@@ -15,7 +15,7 @@ class ContainerBlockPluginTest < ActiveSupport::TestCase
   end
   
   should 'add a block' do
-    assert_equal [ContainerBlock], ContainerBlockPlugin.extra_blocks.keys
+    assert_equal [ContainerBlockPlugin::ContainerBlock], ContainerBlockPlugin.extra_blocks.keys
   end
 
   should 'has stylesheet' do

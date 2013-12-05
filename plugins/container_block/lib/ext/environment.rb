@@ -2,6 +2,6 @@ require_dependency 'environment'
 
 class Environment
   
-  include ContainerBlockArray
+  include ContainerBlockPlugin::ContainerBlockArray
 
 end

@@ -1,13 +1,13 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class ContainerBlockTest < ActiveSupport::TestCase
-  
+class ContainerBlockPlugin::ContainerBlockTest < ActiveSupport::TestCase
+
   def setup
-    @block = ContainerBlock.new
+    @block = ContainerBlockPlugin::ContainerBlock.new
   end
 
   should 'describe yourself' do
-    assert !ContainerBlock.description.blank?
+    assert !ContainerBlockPlugin::ContainerBlock.description.blank?
   end
 
   should 'has a help' do

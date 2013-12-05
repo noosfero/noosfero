@@ -13,7 +13,7 @@ class HomeControllerTest < ActionController::TestCase
   def setup
     Environment.delete_all
     @environment = Environment.new(:name => 'testenv', :is_default => true)
-    @environment.enabled_plugins = ['ContainerBlock']
+    @environment.enabled_plugins = ['ContainerBlockPlugin::ContainerBlock']
     @environment.save!
 
     user = create_user('testinguser')
@@ -21,14 +21,14 @@ class HomeControllerTest < ActionController::TestCase
     login_as(user.login)
 
     box = Box.create!(:owner => @environment)
-    @block = ContainerBlock.create!(:box => box)
+    @block = ContainerBlockPlugin::ContainerBlock.create!(:box => box)
     
     @environment.boxes = [box]
   end
 
   should 'display ContainerBlock' do
     get :index
-    assert_tag :div, :attributes => { :class => 'block container-block' }
+    assert_tag :div, :attributes => { :class => 'block container-block-plugin/container-block' }
   end
 
   should 'display container children' do

@@ -5,7 +5,7 @@ class BlockTest < ActiveSupport::TestCase
   def setup
     @environment = fast_create(Environment)
     @box = Box.create!(:owner => @environment)
-    @container = ContainerBlock.create!(:box => @box)
+    @container = ContainerBlockPlugin::ContainerBlock.create!(:box => @box)
   end
 
   should 'return environment box if block owner is not a ContainerBlock' do
