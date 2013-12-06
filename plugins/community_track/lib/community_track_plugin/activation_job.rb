@@ -6,7 +6,7 @@ class CommunityTrackPlugin::ActivationJob < Struct.new(:step_id)
 
   def perform
     step = CommunityTrackPlugin::Step.find(step_id)
-    step.publish
+    step.toggle_activation
   end
 
 end

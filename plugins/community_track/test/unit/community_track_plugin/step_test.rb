@@ -21,10 +21,10 @@ class StepTest < ActiveSupport::TestCase
     assert CommunityTrackPlugin::Step.short_description
   end
 
-  should 'set published to false on create' do
+  should 'set accept_comments to false on create' do
     today = Date.today
     step = CommunityTrackPlugin::Step.create(:name => 'Step', :body => 'body', :profile => @profile, :parent => @track, :start_date => today, :end_date => today, :published => true)
-    assert !step.published
+    assert !step.accept_comments
   end
 
   should 'do not allow step creation with a parent that is not a track' do
@@ -97,6 +97,7 @@ class StepTest < ActiveSupport::TestCase
   should 'create delayed job' do
     @step.start_date = Date.today
     @step.end_date = Date.today
+    @step.accept_comments = false
     @step.schedule_activation
     assert_equal 1, Delayed::Job.count
     assert_equal @step.start_date, Delayed::Job.first.run_at.to_date
@@ -106,6 +107,7 @@ class StepTest < ActiveSupport::TestCase
     @step.start_date = Date.today
     @step.end_date = Date.today
     @step.schedule_activation
+    assert_equal 1, Delayed::Job.count
     @step.schedule_activation
     assert_equal 1, Delayed::Job.count
   end
@@ -120,30 +122,21 @@ class StepTest < ActiveSupport::TestCase
   should 'create delayed job even if start date has passed' do
     @step.start_date = Date.today - 2.days
     @step.end_date = Date.today
+    @step.accept_comments = false
     @step.schedule_activation
     assert_equal @step.start_date, Delayed::Job.first.run_at.to_date
   end
 
-  should 'do not create delayed job if end date has passed and step is not published' do
+  should 'create delayed job if end date has passed' do
     @step.start_date = Date.today - 5.days
     @step.end_date = Date.today - 2.days
-    @step.published = false
-    @step.schedule_activation
-    assert_equal 0, Delayed::Job.count
-  end
-
-  should 'create delayed job if end date has passed and step is published' do
-    @step.start_date = Date.today - 5.days
-    @step.end_date = Date.today - 2.days
-    @step.published = true
     @step.schedule_activation
     assert_equal @step.end_date + 1.day, Delayed::Job.first.run_at.to_date
   end
 
-  should 'do not schedule delayed job if save but do not modify date fields and published status' do
+  should 'do not schedule delayed job if save but do not modify date fields' do
     @step.start_date = Date.today
     @step.end_date = Date.today
-    @step.published = false
     @step.save!
     assert_equal 1, Delayed::Job.count
     Delayed::Job.destroy_all
@@ -161,38 +154,38 @@ class StepTest < ActiveSupport::TestCase
     assert_equal 2, step2.position
   end
 
-  should 'publish step if it is active' do
+  should 'accept comments if step is active' do
     @step.start_date = Date.today
     @step.save!
-    assert !@step.published
-    @step.publish
+    assert !@step.accept_comments
+    @step.toggle_activation
     @step.reload
-    assert @step.published
+    assert @step.accept_comments
   end
 
-  should 'do not publish step if it is not active' do
+  should 'do not accept comments if step is not active' do
     @step.start_date = Date.today + 2.days
     @step.end_date = Date.today + 3.days
     @step.save!
     assert !@step.published
-    @step.publish
+    @step.toggle_activation
     @step.reload
     assert !@step.published
   end
 
-  should 'unpublish step if it is not active anymore' do
+  should 'do not accept comments if step is not active anymore' do
     @step.start_date = Date.today
     @step.save!
-    @step.publish
+    @step.toggle_activation
     @step.reload
-    assert @step.published
+    assert @step.accept_comments
 
     @step.start_date = Date.today - 2.days
     @step.end_date = Date.today - 1.day
     @step.save!
-    @step.publish
+    @step.toggle_activation
     @step.reload
-    assert !@step.published
+    assert !@step.accept_comments
   end
 
   should 'set position to zero if step is hidden' do
@@ -236,7 +229,7 @@ class StepTest < ActiveSupport::TestCase
     @step.hidden = true
     @step.save!
     assert !@step.published
-    @step.publish
+    @step.toggle_activation
     @step.reload
     assert !@step.published
   end
@@ -270,6 +263,26 @@ class StepTest < ActiveSupport::TestCase
     step = CommunityTrackPlugin::Step.new
     assert step.start_date
     assert step.end_date
+  end
+
+  should 'enable comments on children when step is activated' do
+    @step.start_date = Date.today
+    @step.save!
+    assert !@step.accept_comments
+    article = fast_create(Article, :parent_id => @step.id, :profile_id => @step.profile.id, :accept_comments => false)
+    assert !article.accept_comments
+    @step.toggle_activation
+    assert article.reload.accept_comments
+  end
+
+  should 'enable comments on children when step is active' do
+    @step.start_date = Date.today
+    @step.start_date = Date.today
+    @step.save!
+    assert !@step.accept_comments
+    @step.toggle_activation
+    article = Article.create!(:parent => @step, :profile => @step.profile, :accept_comments => false, :name => "article")
+    assert article.reload.accept_comments
   end
 
 end

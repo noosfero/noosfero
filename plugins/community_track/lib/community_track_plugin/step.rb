@@ -18,7 +18,7 @@ class CommunityTrackPlugin::Step < Folder
   after_save :schedule_activation
 
   before_create do |step|
-    step.published = false
+    step.accept_comments = false
     true
   end
 
@@ -55,7 +55,7 @@ class CommunityTrackPlugin::Step < Folder
   end
 
   def accept_comments?
-    true
+    accept_comments
   end
 
   def self.enabled_tools
@@ -82,18 +82,23 @@ class CommunityTrackPlugin::Step < Folder
   end
 
   def schedule_activation
-    return if !changes['start_date'] && !changes['end_date'] && !changes['published']
-    today = Date.today
-    if today <= end_date || published
-      schedule_date = !published ? start_date : end_date + 1.day
+    return if !changes['start_date'] && !changes['end_date']
+    if Date.today <= end_date || accept_comments
+      schedule_date = !accept_comments ? start_date : end_date + 1.day
       CommunityTrackPlugin::ActivationJob.find(id).destroy_all
       Delayed::Job.enqueue(CommunityTrackPlugin::ActivationJob.new(self.id), 0, schedule_date)
     end
   end
 
-  def publish
-    self[:published] = active? && !hidden
-    save!
+  def toggle_activation
+    accept_comments = active?
+    # set accept_comments = true on all children
+    self.class.toggle_activation(self, accept_comments)
+  end
+
+  def self.toggle_activation(article, accept_comments)
+    article.update_attribute(:accept_comments, accept_comments)
+    article.children.each {|a| toggle_activation(a, accept_comments)}
   end
 
   def tool_class

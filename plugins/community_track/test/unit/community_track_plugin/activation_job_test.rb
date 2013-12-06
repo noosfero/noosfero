@@ -15,24 +15,14 @@ class ActivationJobTest < ActiveSupport::TestCase
     assert CommunityTrackPlugin::ActivationJob.find(step_id)
   end
 
-  should 'change publish to true on perform delayed job in a active step' do
+  should 'change accept_comments to true on perform delayed job in a active step' do
     @step.start_date = Date.today
     @step.end_date = Date.today + 2.days
-    @step.published = false
+    @step.accept_comments = false
     @step.save!
     CommunityTrackPlugin::ActivationJob.new(@step.id).perform
     @step.reload
-    assert @step.published
-  end
-
-  should 'reschedule delayed job after change publish to true' do
-    @step.start_date = Date.today
-    @step.end_date = Date.today + 2.days
-    @step.published = false
-    @step.save!
-    assert_equal @step.start_date, Delayed::Job.first.run_at.to_date
-    process_delayed_job_queue
-    assert_equal @step.end_date + 1.day, Delayed::Job.first.run_at.to_date
+    assert @step.accept_comments
   end
 
 end
