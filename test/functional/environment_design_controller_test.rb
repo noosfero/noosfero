@@ -366,4 +366,16 @@ class EnvironmentDesignControllerTest < ActionController::TestCase
     assert @controller.instance_variable_get('@side_block_types').include?(CustomBlock8)
   end
 
+  should 'update categories' do
+    env = Environment.default
+    login_as(create_admin_user(env))
+    top = env.categories.create!(:display_in_menu => true, :name => 'Top-Level category')
+    c1  = env.categories.create!(:display_in_menu => true, :name => "Test category 1", :parent_id => top.id)
+    c2  = env.categories.create!(:display_in_menu => true, :name => "Test category 2", :parent_id => top.id)
+    get :update_categories, :category_id => top.id
+    assert_template 'shared/_select_categories'
+    assert_equal top, assigns(:current_category)
+    assert_equal [c1, c2], assigns(:categories)
+  end
+
 end

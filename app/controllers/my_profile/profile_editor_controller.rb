@@ -59,7 +59,7 @@ class ProfileEditorController < MyProfileController
       @current_category = Category.find(params[:category_id])
       @categories = @current_category.children
     else
-      @categories = environment.top_level_categories.select{|i| !i.children.empty?}
+      @categories = environment.top_level_categories
     end
     render :partial => 'shared/select_categories', :locals => {:object_name => 'profile_data', :multiple => true}, :layout => false
   end

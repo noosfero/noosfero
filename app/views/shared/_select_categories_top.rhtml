@@ -1,0 +1,28 @@
+<% categories_selected ||= nil %>
+<% title ||= nil %>
+
+<% extend CategoriesHelper %>
+
+<%= content_tag "h#{title_size}", title, :class => "box-title" %>
+
+<%= hidden_field_tag "#{object_name}[category_ids][]", nil %>
+
+<div id="category-ajax-selector">
+<div id="select-categories">
+    <%= render :partial => 'shared/select_categories', :locals => {:object_name => object_name, :multiple => true, :categories_selected => categories_selected }, :layout => false %>
+</div>
+
+<% unless categories_selected.nil? %>
+<hr>
+<div id="selected-categories">
+  <span class="label"><%= _('Selected categories:') %></span>
+  <% categories_selected.each do |cat| %>
+    <span id="selected-category-<%= cat.id %>">
+      <%= hidden_field_tag("#{object_name}[category_ids][]", cat.id) %>
+      <%= selected_category_link(cat) %>
+    </span>
+  <% end %>
+</div>
+<div style="clear: both;"></div>
+<% end %>
+</div>

@@ -48,4 +48,9 @@ module CategoriesHelper
     labelled_form_field(_('Type of category'), select_tag('type', options_for_select(TYPES, value)))
   end
 
+  #FIXME make this test
+  def selected_category_link(cat)
+    link_to_function(cat.full_name, nil, :id => "remove-selected-category-#{cat.id}-button", :class => 'select-subcategory-link') {|page| page["selected-category-#{cat.id}"].remove}
+  end
+
 end
