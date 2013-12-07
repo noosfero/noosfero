@@ -674,4 +674,27 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
     assert block.display_section?(section)
   end
 
+  should 'display_attribute be true for publish date by default' do
+    profile = create_user('testuser').person
+
+    block = DisplayContentBlock.new
+   
+    assert block.display_section?({:name => 'Publish date', :checked => true})
+  end
+
+  should 'show publishd date if defined by user' do
+    profile = create_user('testuser').person
+    a = fast_create(TextArticle, :name => 'test article 1', :profile_id => profile.id, :body => 'some body')
+
+    block = DisplayContentBlock.new
+    block.nodes = [a.id]
+    block.sections = [{:name => 'Publish date', :checked => true}]
+    box = mock()
+    block.stubs(:box).returns(box)
+    box.stubs(:owner).returns(profile)
+   
+    assert_match /#{a.published_at}/, block.content
+  end
+
+  
 end

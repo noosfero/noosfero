@@ -15,6 +15,7 @@
   margin: 5px;
 }
 
+.block.display-content-block .published-at,
 .block.display-content-block .title, 
 .block.display-content-block .lead,
 .block.display-content-block .body,
@@ -22,4 +23,5 @@
 .block.display-content-block .read_more {
   margin: 2px 0px 2px 0px;
 }
+
 
