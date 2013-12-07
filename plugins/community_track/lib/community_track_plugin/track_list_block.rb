@@ -34,6 +34,10 @@ class CommunityTrackPlugin::TrackListBlock < Block
     settings[:category_ids] = ids.uniq.map{|item| item.to_i unless item.to_i.zero?}.compact
   end
 
+  def categories
+    Category.find(category_ids)
+  end
+
   def all_tracks
     tracks = owner.articles.where(:type => 'CommunityTrackPlugin::Track')
     if !category_ids.empty?

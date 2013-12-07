@@ -99,4 +99,16 @@ class TrackListBlockTest < ActiveSupport::TestCase
     assert !condition[:environment].empty?
   end
 
+  should 'return track list block categories' do
+    category1 = fast_create(Category)
+    category2 = fast_create(Category)
+    @block.category_ids = [category1.id, category2.id]
+    assert_equivalent [category1, category2], @block.categories
+  end
+
+  should 'return nothing if track list block has no categories' do
+    @block.category_ids = []
+    assert_equivalent [], @block.categories
+  end
+
 end
