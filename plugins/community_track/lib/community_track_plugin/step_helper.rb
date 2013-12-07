@@ -1,7 +1,7 @@
 module CommunityTrackPlugin::StepHelper
 
   def self.status_descriptions
-    [_('Finished'), _('In progress'), _('Waiting')]
+    [_('Closed'), _('Join!'), _('Soon')]
   end
 
   def self.status_classes

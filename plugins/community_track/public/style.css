@@ -140,6 +140,7 @@
 #track .step .name {
   font-weight: bold;
   color: #333;
+  clear: both;
 }
 
 #track .step .name a:hover {
@@ -149,6 +150,7 @@
 #track .step .date {
   font-size: 12px;
   color: #AAA;
+  float: left;
 }
 
 #track .step .lead {
@@ -254,4 +256,12 @@
 
 #article .step_list .step .step_actions .button:hover {
   color: #444;
+}
+
+.step .content {
+  width: 80%;
+}
+
+.step .legend {
+  float: right;
 }

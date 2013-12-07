@@ -28,7 +28,7 @@ class StepHelperTest < ActiveSupport::TestCase
 
   should 'return a description for status' do
     @step.stubs(:waiting?).returns(true)
-    assert_equal _('Waiting'), status_description(@step)
+    assert_equal _('Soon'), status_description(@step)
   end
 
   should 'return nil at custom_options_for_article' do
