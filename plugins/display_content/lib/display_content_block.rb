@@ -23,7 +23,8 @@ class DisplayContentBlock < Block
                               {:name => _('Title'), :checked => true}, 
                               {:name => _('Abstract'), :checked => true}, 
                               {:name => _('Body'), :checked => false}, 
-                              {:name => _('Image'), :checked => false}]
+                              {:name => _('Image'), :checked => false},
+                              {:name => _('Tags'), :checked => false}]
   
   def self.description
     _('Display your contents')
@@ -65,8 +66,10 @@ class DisplayContentBlock < Block
 
     block_title(title) +
     content_tag('ul', docs.map {|item|
+      debugger
 
       read_more_section = ''
+      tags_section = ''
 
       sections.select { |section| 
         case section[:name]
@@ -86,13 +89,20 @@ class DisplayContentBlock < Block
             if !image_section.blank?
               content_sections += (display_section?(section) ? (content_tag('div', link_to( image_section, item.url ) ,:class => 'image')) : '' )
             end
+          when 'Tags'
+            if !item.tags.empty?
+              tags_section = item.tags.map { |t| 
+                content_tag('span', link_to(t, :host => item.url[:host], :port => item.url[:port], :controller => 'profile', :profile => @box.owner.identifier, :action => 'tags', :id => t.name ) )
+              }.join("")
+              content_sections += (display_section?(section) ? (content_tag('div', tags_section, :class => 'tags')) : '')
+            end
         end
       }
 
       content_sections += read_more_section if !read_more_section.blank?
 
       content_tag('li', content_sections)
-    }.join("\n"))
+    }.join(" "))
 
   end
 
@@ -110,7 +120,7 @@ class DisplayContentBlock < Block
   def display_section?(section)
     section[:checked]
   end
-
+  
   protected
 
   def holder

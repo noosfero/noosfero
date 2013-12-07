@@ -20,8 +20,19 @@
 .block.display-content-block .lead,
 .block.display-content-block .body,
 .block.display-content-block .image,
-.block.display-content-block .read_more {
+.block.display-content-block .read_more,
+.block.display-content-block .tags {
   margin: 2px 0px 2px 0px;
 }
 
+.block.display-content-block .tags span {
+  margin-right: 3px;
+}
 
+.block.display-content-block .tags a {
+  text-decoration: none;
+  -webkit-border-radius: 3px;
+  background-color: #BBB;
+  color: #FFF;
+  padding: 2px;
+}
