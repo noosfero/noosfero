@@ -39,9 +39,4 @@ class CmsControllerTest < ActionController::TestCase
     assert_equal 'changed', @step.name
   end
 
-  should 'do not be able to edit visibility of step' do
-    get :edit, :id => @step.id, :profile => @profile.identifier
-    assert_no_tag :tag => 'input', :attributes => { :name => 'article[published]' }
-  end
-
 end

@@ -31,10 +31,6 @@ class StepHelperTest < ActiveSupport::TestCase
     assert_equal _('Soon'), status_description(@step)
   end
 
-  should 'return nil at custom_options_for_article' do
-    assert !custom_options_for_article(fast_create(Article))
-  end
-
   should 'return content without link if there is no tool in a step' do
     link = link_to_step_tool(@step) do
       "content"
