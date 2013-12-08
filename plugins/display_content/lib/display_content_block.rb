@@ -66,7 +66,6 @@ class DisplayContentBlock < Block
 
     block_title(title) +
     content_tag('ul', docs.map {|item|
-      debugger
 
       read_more_section = ''
       tags_section = ''
@@ -91,9 +90,7 @@ class DisplayContentBlock < Block
             end
           when 'Tags'
             if !item.tags.empty?
-              tags_section = item.tags.map { |t| 
-                content_tag('span', link_to(t, :host => item.url[:host], :port => item.url[:port], :controller => 'profile', :profile => @box.owner.identifier, :action => 'tags', :id => t.name ) )
-              }.join("")
+              tags_section = item.tags.map { |t| content_tag('span', t.name) }.join("")
               content_sections += (display_section?(section) ? (content_tag('div', tags_section, :class => 'tags')) : '')
             end
         end
