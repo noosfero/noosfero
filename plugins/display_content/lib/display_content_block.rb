@@ -62,11 +62,10 @@ class DisplayContentBlock < Block
   def content(args={})
     docs = owner.articles.find(:all, :conditions => {:id => self.nodes})
 
-    content_sections = ''
-
     block_title(title) +
     content_tag('ul', docs.map {|item|
 
+      content_sections = ''
       read_more_section = ''
       tags_section = ''
 
