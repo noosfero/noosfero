@@ -24,7 +24,7 @@ class ContainerBlockPlugin::ContainerBlock < Block
   end
 
   def create_box
-    box = Box.create!(:owner => self)
+    box = Box.create!(:owner => owner)
     settings[:container_box_id] = box.id
     save!
   end
@@ -34,7 +34,7 @@ class ContainerBlockPlugin::ContainerBlock < Block
   end
 
   def container_box
-    Box.find(container_box_id)
+    owner.boxes.find(container_box_id)
   end
 
   def block_classes=(classes)

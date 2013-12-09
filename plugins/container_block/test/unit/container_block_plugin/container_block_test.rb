@@ -4,6 +4,7 @@ class ContainerBlockPlugin::ContainerBlockTest < ActiveSupport::TestCase
 
   def setup
     @block = ContainerBlockPlugin::ContainerBlock.new
+    @block.stubs(:owner).returns(Environment.default)
   end
 
   should 'describe yourself' do
