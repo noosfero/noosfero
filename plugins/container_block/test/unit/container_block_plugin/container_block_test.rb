@@ -1,4 +1,4 @@
-require File.dirname(__FILE__) + '/../test_helper'
+require 'test_helper'
 
 class ContainerBlockPlugin::ContainerBlockTest < ActiveSupport::TestCase
 
@@ -25,29 +25,28 @@ class ContainerBlockPlugin::ContainerBlockTest < ActiveSupport::TestCase
   end
 
   should 'create new blocks when receive block classes' do
-    Block.destroy_all
     @block.save!
-    @block.block_classes = ['Block']
-    assert_equal 2, Block.count
+    assert_difference Block, :count, 1 do
+      @block.block_classes = ['Block']
+    end
     assert_equal Block, Block.last.class
   end
 
   should 'do not create blocks when nothing is passed as block classes' do
-    Block.destroy_all
     @block.save!
-    @block.block_classes = []
-    assert_equal 1, Block.count
+    assert_no_difference Block, :count do
+      @block.block_classes = []
+    end
   end
 
   should 'do not create blocks when nil is passed as block classes' do
-    Block.destroy_all
     @block.save!
-    @block.block_classes = nil
-    assert_equal 1, Block.count
+    assert_no_difference Block, :count do
+      @block.block_classes = nil
+    end
   end
 
   should 'return a list of blocks associated with the container block' do
-    Block.destroy_all
     @block.save!
     @block.block_classes = ['Block', 'Block']
     assert_equal [Block, Block], @block.blocks.map(&:class)
@@ -65,11 +64,11 @@ class ContainerBlockPlugin::ContainerBlockTest < ActiveSupport::TestCase
     assert_equal nil, @block.child_width(1)
   end
 
-  should 'return nil at layout_templat' do
+  should 'return nil at layout_template' do
     assert_equal nil, @block.layout_template
   end
 
-  should 'return children blocks that have container box as box' do
+  should 'return children blocks that have container_box as box' do
     @block.save!
     child = Block.create!(:box_id => @block.container_box.id)
     assert_equal [child], @block.blocks
