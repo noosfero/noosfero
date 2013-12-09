@@ -81,4 +81,11 @@ class ContainerBlockPlugin::ContainerBlockTest < ActiveSupport::TestCase
     assert !Block.exists?(child.id)
   end
 
+  should 'destroy box when container is removed' do
+    @block.save!
+    assert_difference Box, :count, -1 do
+      @block.destroy
+    end
+  end
+
 end

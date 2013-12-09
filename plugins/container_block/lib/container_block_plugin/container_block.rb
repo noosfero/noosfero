@@ -2,6 +2,7 @@ class ContainerBlockPlugin::ContainerBlock < Block
 
   after_create :create_box
   after_destroy :destroy_children
+  after_destroy :destroy_box
 
   settings_items :container_box_id, :type => Integer, :default => nil
   settings_items :children_settings, :type => Hash, :default => {}
@@ -26,6 +27,10 @@ class ContainerBlockPlugin::ContainerBlock < Block
     box = Box.create!(:owner => self)
     settings[:container_box_id] = box.id
     save!
+  end
+
+  def destroy_box
+    container_box.destroy
   end
 
   def container_box

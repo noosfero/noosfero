@@ -1,5 +1,5 @@
 module ContainerBlockPluginController
-  
+
   def saveWidths
     container = boxes_holder.blocks.find(params[:id])
     pairs = params[:widths].split('|')
