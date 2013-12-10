@@ -56,7 +56,7 @@ class ContentViewerControllerTest < ActionController::TestCase
   end
 
   should 'show tools for a step' do
-    Article.create!(:profile => @profile, :name => 'article', :parent => @step)
+    TinyMceArticle.create!(:profile => @profile, :name => 'article', :parent => @step)
     get :view_page, @step.url
     assert_tag :tag => 'div', :attributes => { :class => 'tools' }, :descendant => { :tag => 'div', :attributes => { :class => 'item' } }
   end
