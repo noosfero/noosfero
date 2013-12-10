@@ -16,13 +16,10 @@ module CommunityTrackPlugin::StepHelper
     CommunityTrackPlugin::StepHelper.status_classes[status_index(step)]
   end
 
-  def link_to_step_tool(step, options={})
-    if step.tool
-      link_to step.tool.view_url, options do
-        yield
-      end
-    else
-      yield
+  def link_to_step(step, options={}, name=nil)
+    url = step.tool ? step.tool.view_url : step.view_url
+    link_to url, options do
+      block_given? ? yield : name
     end
   end
 
