@@ -157,7 +157,7 @@ class Article < ActiveRecord::Base
   end
 
   def css_class_list
-    [self.class.name.underscore.dasherize]
+    [self.class.name.to_css_class]
   end
 
   def css_class_name

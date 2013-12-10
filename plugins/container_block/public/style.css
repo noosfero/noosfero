@@ -1,46 +1,46 @@
-#content .boxes .container-block-plugin/container-block .container_block_child, .container-block-plugin/container-block .block-outer {
+#content .boxes .container-block-plugin_container-block .container_block_child, .container-block-plugin_container-block .block-outer {
   display: inline-block;
   vertical-align: top;
   margin-left: -2px;
   margin-right: -2px;
 }
 
-.container-block-plugin/container-block .block-target {
+.container-block-plugin_container-block .block-target {
   clear: both;
 }
 
-.container-block-plugin/container-block .block-target[id^='end-of-box-'] {
+.container-block-plugin_container-block .block-target[id^='end-of-box-'] {
   display: none;
 }
 
-#content .boxes .container-block-plugin/container-block .block .icon-down, #content .boxes .container-block-plugin/container-block .block .icon-down-disabled {
+#content .boxes .container-block-plugin_container-block .block .icon-down, #content .boxes .container-block-plugin_container-block .block .icon-down-disabled {
   background-image: url(/designs/icons/default/Tango/16x16/actions/go-next.png);
 }
 
-#content .boxes .container-block-plugin/container-block .block .icon-up, #content .boxes .container-block-plugin/container-block .block .icon-up-disabled {
+#content .boxes .container-block-plugin_container-block .block .icon-up, #content .boxes .container-block-plugin_container-block .block .icon-up-disabled {
   background-image: url(/designs/icons/default/Tango/16x16/actions/go-previous.png);
 }
 
-#content .boxes .container-block-plugin/container-block .block {
+#content .boxes .container-block-plugin_container-block .block {
   outline-offset: -2px;
 }
 
-#content .boxes .container-block-plugin/container-block .block .ui-resizable-handle {
+#content .boxes .container-block-plugin_container-block .block .ui-resizable-handle {
   width: 10px;
   height: 28px;
   z-index: 0;
 }
 
-#content .boxes .container-block-plugin/container-block .block .ui-resizable-e {
+#content .boxes .container-block-plugin_container-block .block .ui-resizable-e {
   right: -2px;
   background-image: url(/plugins/container_block/images/handle_e.png);
 }
 
-#content .boxes .container-block-plugin/container-block .block .ui-resizable-w {
+#content .boxes .container-block-plugin_container-block .block .ui-resizable-w {
   left: -2px;
   background-image: url(/plugins/container_block/images/handle_w.png);
 }
 
-.container-block-plugin/container-block .button-bar .icon-resize {
+.container-block-plugin_container-block .button-bar .icon-resize {
   background-image: url(/designs/icons/default/Tango/16x16/actions/view-fullscreen.png);
 }

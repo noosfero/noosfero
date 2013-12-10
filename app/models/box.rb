@@ -78,7 +78,7 @@ class Box < ActiveRecord::Base
   private
 
   def to_css_class_name(blocks)
-    blocks.map{ |block| block.to_s.underscore.tr('_', '-') }
+    blocks.map{ |block| block.class.name.to_css_class }
   end
 
 end

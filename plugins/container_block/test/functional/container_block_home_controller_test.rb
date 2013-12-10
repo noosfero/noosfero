@@ -28,7 +28,7 @@ class HomeControllerTest < ActionController::TestCase
 
   should 'display ContainerBlock' do
     get :index
-    assert_tag :div, :attributes => { :class => 'block container-block-plugin/container-block' }
+    assert_tag :div, :attributes => { :class => 'block container-block-plugin_container-block' }
   end
 
   should 'display container children' do
