@@ -232,7 +232,7 @@ module BoxesHelper
   end
 
   def block_css_class_name(block)
-    block.class.name.underscore.gsub('_', '-')
+    block.class.name.underscore.gsub('_', '-').gsub('/','_')
   end
   def block_css_classes(block)
     classes = block_css_class_name(block)

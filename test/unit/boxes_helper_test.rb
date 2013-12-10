@@ -97,8 +97,10 @@ class BoxesHelperTest < ActiveSupport::TestCase
   end
 
   should 'calculate CSS class names correctly' do
+    class NamespacedBlock < Block; end
     assert_equal 'slideshow-block', block_css_class_name(SlideshowBlock.new)
     assert_equal 'main-block', block_css_class_name(MainBlock.new)
+    assert_equal 'boxes-helper-test_namespaced-block', block_css_class_name(NamespacedBlock.new)
   end
 
   should 'add invisible CSS class name for invisible blocks' do
