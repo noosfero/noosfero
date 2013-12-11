@@ -9,10 +9,6 @@
   clear: both;
 }
 
-.container-block-plugin_container-block .block-target[id^='end-of-box-'] {
-  display: none;
-}
-
 #content .boxes .container-block-plugin_container-block .block .icon-down, #content .boxes .container-block-plugin_container-block .block .icon-down-disabled {
   background-image: url(/designs/icons/default/Tango/16x16/actions/go-next.png);
 }
