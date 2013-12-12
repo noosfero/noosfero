@@ -34,8 +34,8 @@ class EventsControllerTest < ActionController::TestCase
     next_month = Date.today + 1.month
     prev_month_name = prev_month.strftime("%B")
     next_month_name = next_month.strftime("%B")
-    assert_tag :tag =>'a', :attributes => {:href => "/profile/#{profile.identifier}/events/#{next_month.year}/#{prev_month.month}"}, :content => prev_month_name
-    assert_tag :tag =>'a', :attributes => {:href => "/profile/#{profile.identifier}/events/#{prev_month.year}/#{next_month.month}"}, :content => next_month_name
+    assert_tag :tag =>'a', :attributes => {:href => "/profile/#{profile.identifier}/events/#{prev_month.year}/#{prev_month.month}"}, :content => prev_month_name
+    assert_tag :tag =>'a', :attributes => {:href => "/profile/#{profile.identifier}/events/#{next_month.year}/#{next_month.month}"}, :content => next_month_name
   end
 
 end
