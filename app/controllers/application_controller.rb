@@ -79,7 +79,7 @@ class ApplicationController < ActionController::Base
 
   helper_method :current_person, :current_person
 
-  protected
+  # protected
 
   def setup_multitenancy
     Noosfero::MultiTenancy.setup!(request.host)

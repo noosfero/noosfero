@@ -4179,6 +4179,33 @@ h1#agenda-title {
   -webkit-border-radius:10px;
 }
 
+/* ==> public/stylesheets/controller_environment_users.css <== */
+.controller-environment_users table {
+  text-align: left;
+}
+
+#environment-users-search form {
+  padding: 10px;
+  margin-bottom: 15px;
+  background-color: #E6E6E6;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+}
+
+.environment-users-results-header {
+  font-size: 0.9em;
+  padding: 6px 0px 0px 0px;
+  margin:0 0 5px 0;
+  border-bottom: 2px dotted #999;
+  text-align: right;
+}
+#environment-users-filter-title {
+  font-weight: bold;
+  font-size: 130%;
+  line-height: 35px;
+  float: left;
+}
+
 /* * * Profile search * * * * * * * */
 
 #public-profile-search, #profile-search-results form, .profile-search-block form {

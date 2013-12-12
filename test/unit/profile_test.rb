@@ -1379,6 +1379,18 @@ class ProfileTest < ActiveSupport::TestCase
     assert_not_includes Profile.templates(Environment.default), profile
   end
 
+  should 'return a list of profiles that are not templates' do
+    p1 = fast_create(Profile, :is_template => false)
+    p2 = fast_create(Profile, :is_template => false)
+    t1 = fast_create(Profile, :is_template => true)
+    t2 = fast_create(Profile, :is_template => true)
+
+    assert_includes Profile.no_templates(Environment.default), p1
+    assert_includes Profile.no_templates(Environment.default), p2
+    assert_not_includes Profile.no_templates(Environment.default), t1
+    assert_not_includes Profile.no_templates(Environment.default), t2
+  end
+
   should 'not crash on a profile update with a destroyed template' do
     template = fast_create(Profile, :is_template => true)
     profile = fast_create(Profile, :template_id => template.id)
