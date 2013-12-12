@@ -1,4 +1,5 @@
 <% contents.each do |content| %>
+  <% content = FilePresenter.for(content) %>
   <span class="item">
     <a href="<%= url_for(content.view_url) %>">
       <div class="image">
