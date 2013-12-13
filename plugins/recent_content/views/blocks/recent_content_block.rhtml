@@ -12,7 +12,7 @@
     <% if block.mode?('title_only') %>
       <div class="recent-content-title">
         <ul>
-          <% childr"A plugin that adds a block where you can display the content of any of your blogs"en.each do |item| %>
+          <% children.each do |item| %>
             <li> <%= link_to(h(item.title), item.url)%></li>
           <% end %>
         </ul>

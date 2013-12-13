@@ -1,13 +1,13 @@
 README - RecentContent (RecentContent Plugin)
 ================================
 
-RecentContent is a plugin that provides a blog which displays the content posted inside a blog choosen by the user.
+RecentContent is a plugin that provides a blog which displays the content posted inside a blog chosen by the user.
 
 The RecentContent block will be available for all layout columns of communities, people, enterprises and environments.
 
-The articles posted from the choosen blog are displayed as a list with a link for the title and optionally the abstract/lead content.
+The articles posted from the chosen blog are displayed as a list with a link for the title and optionally the abstract/lead content.
 
-If the choosen blog has a cover image, the user can configure the block to show the same image displayed on that blog.
+If the chosen blog has a cover image, the user can configure the block to show the same image displayed on that blog.
 
 Galleries and folders are not displayed in this block.
 
