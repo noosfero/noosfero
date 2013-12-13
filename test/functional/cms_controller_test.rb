@@ -900,6 +900,15 @@ class CmsControllerTest < ActionController::TestCase
     assert_no_tag :tag => 'a', :attributes => { :href => "/myprofile/#{profile.identifier}/cms/edit/#{profile.blog.feed.id}" }
   end
 
+  should 'remove the image of an article' do
+    blog = Blog.create(:profile_id => profile.id, :name=>'testblog', :image_builder => { :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')})
+    blog.save!
+    post :edit, :profile => profile.identifier, :id => blog.id, :remove_image => 'true'
+    blog.reload
+
+    assert_nil blog.image
+  end
+
   should 'update feed options by edit blog form' do
     profile.articles << Blog.new(:name => 'Blog for test', :profile => profile)
     post :edit, :profile => profile.identifier, :id => profile.blog.id, :article => { :feed => { :limit => 7 } }

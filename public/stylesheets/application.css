@@ -932,6 +932,18 @@ code input {
 #article-actions a{
   white-space: nowrap;
 }
+
+#article-header .blog-cover {
+  overflow: hidden;
+  display: block;
+  width: 100%;
+  max-height: 170px;
+}
+
+#article-header .blog-cover img{
+  width: 100%;
+}
+
 #article-tags {
   font-size: 10px;
   text-align: right;
@@ -6441,3 +6453,4 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 img {
   right: 2px;
   z-index: 1;
 }
+
