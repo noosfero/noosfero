@@ -36,7 +36,8 @@ var jQuery = function( selector, context ) {
 
 	// A simple way to check for HTML strings or ID strings
 	// (both of which we optimize for)
-	quickExpr = /^(?:[^<]*(<[\w\W]+>)[^>]*$|#([\w\-]+)$)/,
+	//fix xss: http://ma.la/jquery_xss/ http://blog.jquery.com/2011/09/01/jquery-1-6-3-released/
+	quickExpr = /^(?:[^#<]*(<[\w\W]+>)[^>]*$|#([\w\-]*)$)/,
 
 	// Check if a string has a non-whitespace character in it
 	rnotwhite = /\S/,
