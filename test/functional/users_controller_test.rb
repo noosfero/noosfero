@@ -11,9 +11,6 @@ class UsersControllerTest < ActionController::TestCase
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
 
-    
-    Environment.delete_all
-    Environment.create(:name => 'some env', :is_default => true)
     admin_user = create_user_with_permission('adminuser', 'manage_environment_users', Environment.default)
     login_as('adminuser')
   end
@@ -26,9 +23,6 @@ class UsersControllerTest < ActionController::TestCase
   end
 
   should 'grant access with right permission' do
-    admin_user = create_user_with_permission('admin_user', 'manage_environment_users', Environment.default)
-    login_as('admin_user')
-
     get :index
     assert_response :success
   end
@@ -39,10 +33,10 @@ class UsersControllerTest < ActionController::TestCase
     deactivated.person.visible = false
     deactivated.save!
     get :index, :q => ''
-    assert_tag :tag => 'div', :attributes => { :id => /users-list/ }, :descendant => {:tag => 'a', :attributes => {:title => /adminuser/}}    
-    assert_tag :tag => 'div', :attributes => { :id => /users-list/ }, :descendant => {:tag => 'a', :attributes => {:title => /deactivated/}}    
+    assert_tag :tag => 'div', :attributes => { :id => /users-list/ }, :descendant => {:tag => 'a', :attributes => {:title => /adminuser/}}
+    assert_tag :tag => 'div', :attributes => { :id => /users-list/ }, :descendant => {:tag => 'a', :attributes => {:title => /deactivated/}}
   end
-  
+
   should 'blank search include all users' do
     (1..5).each {|i|
       u = create_user('user'+i.to_s)
@@ -51,10 +45,10 @@ class UsersControllerTest < ActionController::TestCase
     assert_tag :tag => 'div', :attributes => { :id => /users-list/ }, :descendant => {:tag => 'a', :attributes => {:title => /adminuser/}}
     (1..5).each {|i|
       u = 'user'+i.to_s
-      assert_tag :tag => 'div', :attributes => { :id => /users-list/ }, :descendant => {:tag => 'a', :attributes => {:title => u}}    
+      assert_tag :tag => 'div', :attributes => { :id => /users-list/ }, :descendant => {:tag => 'a', :attributes => {:title => u}}
     }
   end
-  
+
   should 'search not include all users' do
     (1..5).each {|i|
       u = create_user('user'+i.to_s)
@@ -63,27 +57,27 @@ class UsersControllerTest < ActionController::TestCase
     assert_tag :tag => 'div', :attributes => { :id => /users-list/ }, :descendant => {:tag => 'a', :attributes => {:title => /user5/}}
     (1..4).each {|i|
       u = 'user'+i.to_s
-      assert_no_tag :tag => 'div', :attributes => { :id => /users-list/ }, :descendant => {:tag => 'a', :attributes => {:title => u}}    
+      assert_no_tag :tag => 'div', :attributes => { :id => /users-list/ }, :descendant => {:tag => 'a', :attributes => {:title => u}}
     }
   end
-  
+
   should 'set admin role' do
-    u = create_user()
-    assert_equal false, u.person.is_admin?
-    post :set_admin_role, :id => u.person.id, :q => ''
-    u.reload
-    assert u.person.is_admin?
+    person = create_user.person
+    assert_equal false, person.is_admin?
+    post :set_admin_role, :id => person.id, :q => ''
+    person.reload
+    assert person.is_admin?
   end
 
   should 'reset admin role' do
-    u = create_user()
-    e = Environment.default
-    e.add_admin(u.person)
-    u.reload
-    assert u.person.is_admin?
-    post :reset_admin_role, :id => u.person.id, :q => ''
-    u.reload
-    assert_equal false, u.person.is_admin?
+    environment = Environment.default
+    person = create_user.person
+    environment.add_admin(person)
+    assert person.is_admin?
+
+    post :reset_admin_role, :id => person.id, :q => ''
+    person.reload
+    assert !person.is_admin?
   end
 
   should 'activate user' do
@@ -106,17 +100,11 @@ class UsersControllerTest < ActionController::TestCase
   end
 
   should 'response as XML to export users' do
-    admin_user = create_user_with_permission('admin_user', 'manage_environment_users', Environment.default)
-    login_as('admin_user')
-
     get :download, :format => 'xml'
     assert_equal 'text/xml', @response.content_type
   end
 
   should 'response as CSV to export users' do
-    admin_user = create_user_with_permission('admin_user', 'manage_environment_users', Environment.default)
-    login_as('admin_user')
-
     get :download, :format => 'csv'
     assert_equal 'text/csv', @response.content_type
     assert_equal 'name;email', @response.body.split("\n")[0]
