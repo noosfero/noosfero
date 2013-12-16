@@ -1272,6 +1272,7 @@ a.comment-picture {
 .scrap-replies {
   border: 1px solid #fff;
   padding: 0;
+  border-right: 0px;
   -moz-border-radius: 4px;
   -webkit-border-radius: 4px;
   border-radius: 4px;
@@ -5463,7 +5464,7 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 img {
 
 #profile-wall ul.profile-wall-activities-comments ul,
 #profile-network ul.profile-wall-activities-comments ul {
-  padding-left: 0px;
+  padding-left: 12px;
 }
 
 #profile-wall .profile-wall-activities-comments li,
