@@ -12,7 +12,9 @@
       <%= _('Members: %s') % group.members_count.to_s %> <br/>
       <%= _('Created at: %s') % show_date(group.created_at) unless group.enterprise? %> <br/>
       <% button_bar do %>
-        <%= button 'menu-ctrl-panel', _('Control panel of this group'), group.admin_url %>
+        <% if user.has_permission?(:edit_profile, group) %>
+          <%= button 'menu-ctrl-panel', _('Control panel of this group'), group.admin_url %>
+        <% end %>
         <%= button 'menu-logout', _('Leave community'), group.leave_url(true), :class => 'leave-community' %>
         <% if (group.community? && user.has_permission?(:destroy_profile, group)) %>
           <%= button 'delete', _('Remove'), { :controller => 'profile_editor', :action => 'destroy_profile', :profile => group.identifier } %>

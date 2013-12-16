@@ -16,9 +16,7 @@ class Comment < ActiveRecord::Base
   has_many :children, :class_name => 'Comment', :foreign_key => 'reply_of_id', :dependent => :destroy
   belongs_to :reply_of, :class_name => 'Comment', :foreign_key => 'reply_of_id'
 
-  named_scope :without_spam, :conditions => ['spam IS NULL OR spam = ?', false]
   named_scope :without_reply, :conditions => ['reply_of_id IS NULL']
-  named_scope :spam, :conditions => ['spam = ?', true]
 
   # unauthenticated authors:
   validates_presence_of :name, :if => (lambda { |record| !record.email.blank? })
@@ -29,7 +27,7 @@ class Comment < ActiveRecord::Base
   validates_presence_of :author_id, :if => (lambda { |rec| rec.name.blank? && rec.email.blank? })
   validates_each :name do |rec,attribute,value|
     if rec.author_id && (!rec.name.blank? || !rec.email.blank?)
-      rec.errors.add(:name, _('%{fn} can only be informed for unauthenticated authors').fix_i18n)
+      rec.errors.add(:name, _('{fn} can only be informed for unauthenticated authors').fix_i18n)
     end
   end
 
@@ -108,15 +106,22 @@ class Comment < ActiveRecord::Base
 
   include Noosfero::Plugin::HotSpot
 
+  include Spammable
+
+  def after_spam!
+    SpammerLogger.log(ip_address, self)
+    Delayed::Job.enqueue(CommentHandler.new(self.id, :marked_as_spam))
+  end
+
+  def after_ham!
+    Delayed::Job.enqueue(CommentHandler.new(self.id, :marked_as_ham))
+  end
+
   def verify_and_notify
     check_for_spam
     unless spam?
       notify_by_mail
     end
-  end
-
-  def check_for_spam
-    plugins.dispatch(:check_comment_for_spam, self)
   end
 
   def notify_by_mail
@@ -203,37 +208,6 @@ class Comment < ActiveRecord::Base
 
   def reject!
     @rejected = true
-  end
-
-  def spam?
-    !spam.nil? && spam
-  end
-
-  def ham?
-    !spam.nil? && !spam
-  end
-
-  def spam!
-    self.spam = true
-    self.save!
-    SpammerLogger.log(ip_address, self)
-    Delayed::Job.enqueue(CommentHandler.new(self.id, :marked_as_spam))
-    self
-  end
-
-  def ham!
-    self.spam = false
-    self.save!
-    Delayed::Job.enqueue(CommentHandler.new(self.id, :marked_as_ham))
-    self
-  end
-
-  def marked_as_spam
-    plugins.dispatch(:comment_marked_as_spam, self)
-  end
-
-  def marked_as_ham
-    plugins.dispatch(:comment_marked_as_ham, self)
   end
 
   def need_moderation?

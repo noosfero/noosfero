@@ -2,6 +2,18 @@
   <%= _('Content management') %>
 </h1>
 
+<% if !environment.enabled?('cant_change_homepage') && !remove_content_button(:home) %>
+  <div class="cms-homepage">
+    <%= _('Profile homepage:') %>
+    <% if profile.home_page %>
+      <%= link_to_article(profile.home_page) %>
+      <%= button_without_text(:'home-not', _('Reset homepage'),  { :action => 'set_home_page', :id => nil }, :method => :post) %>
+    <% else %>
+      <span class="cms-homepage-default"><%= _('Profile Information') %></span>
+    <% end %>
+  </div>
+<% end %>
+
 <% button_bar(:style => 'margin-bottom: 1em;') do %>
   <% parent_id = ((@article && @article.allow_children?) ? @article : nil) %>
 
@@ -40,20 +52,27 @@
     </tr>
   <% end %>
 
-  <% @articles.each do |article| %>
+  <% @articles.each do |article| article = FilePresenter.for article %>
     <tr title="<%= article.title%>" >
-      <td>
+      <td class="article-name">
         <%= link_to_article(article) %>
       </td>
-      <td>
-        <%= article.class.short_description %>
+      <% short_description =  article.respond_to?(:short_description) ?
+            article.short_description :
+            article.class.short_description %>
+      <td class="article-mime" title=<%= short_description.to_json %>>
+        <%= short_description %>
       </td>
       <td class="article-controls">
         <%= expirable_button article, :edit, _('Edit'), {:action => 'edit', :id => article.id} if !remove_content_button(:edit) %>
         <%= button_without_text :eyes, _('Public view'), article.view_url %>
         <%= display_spread_button(profile, article) unless article.folder? || remove_content_button(:spread)%>
         <% if !environment.enabled?('cant_change_homepage') && !remove_content_button(:home) %>
-          <%= expirable_button article, :home, _('Use as homepage'), { :action => 'set_home_page', :id => article.id }, :method => :post %>
+          <% if profile.home_page != article %>
+            <%= expirable_button article, :home, _('Use as homepage'), { :action => 'set_home_page', :id => article.id }, :method => :post %>
+          <% else %>
+            <%= button_without_text(:'home-not', _('Reset homepage'),  { :action => 'set_home_page', :id => nil }, :method => :post) %>
+          <% end %>
         <% end %>
         <%= display_delete_button(article) if !remove_content_button(:delete) %>
       </td>

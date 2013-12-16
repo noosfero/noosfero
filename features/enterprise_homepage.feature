@@ -21,6 +21,7 @@ Feature: enterprise homepage
     And the following product
       | name             | category | owner  |
       | Natural Handmade | soap     | mayhem |
+    And feature "products_for_enterprises" is enabled on environment
 
 
   Scenario: display profile info

@@ -216,9 +216,7 @@ th {
   font-weight: bold;
   border-bottom: 2px solid black;
 }
-td {
-  border-bottom: 1px solid #e0e0e0;
-}
+
 tr:hover td {
   background-color: #f0f0f0;
 }
@@ -301,24 +299,29 @@ div.pending-tasks {
 }
 /* sitemap and agenda */
 
+
 .agenda-item a.icon, .sitemap-item a.icon {
-  background-repeat: no-repeat;
-  padding-left: 20px;
+  background-image: none;
+  line-height: 150%;
 }
 .agenda-item .icon:hover, .sitemap-item .icon:hover {
   background-color: transparent;
+  text-decoration: underline;
 }
-.sitemap-item a:link, .agenda-item a:link, .sitemap-item a:visited, .agenda-item a:visited {
+.agenda-item a, a:visited{
+ font-weight: bold;
+ color: black;
+}
+
+.sitemap-item a:link, .agenda-item a:link, .sitemap-item a:visited, .agenda-item a:visited, .agenda a:hover {
   border: none;
   text-decoration: none;
 }
+
 .sitemap-item img, .agenda-item img {
   border: none;
 }
-.sitemap-item a:hover, .agenda-item a:hover {
-  color: red;
-  text-decoration: underline;
-}
+
 .last-update {
   font-size: 12px;
 }
@@ -382,7 +385,7 @@ div.pending-tasks {
   font-size: 11px;
 }
 #category-ajax-selector .select-subcategory-link:hover {
-  background-color: #FFA;
+  background-color: black;
 }
 #category-ajax-selector .button {
   display: block;
@@ -882,6 +885,40 @@ code input {
 .webkit #manage-enterprises .simplemenu-submenu {
   top: 20px;
 }
+#manage-communities {
+  display: inline-block;
+  margin-right: 5px;
+  position: relative;
+}
+#manage-communities .ui-icon {
+  position: absolute;
+  top: 0;
+  right: -20px;
+}
+#manage-communities .simplemenu-submenu {
+  text-align: left;
+  left: -20px;
+  width: 200px;
+}
+#manage-communities .simplemenu-item {
+  padding: 5px 0;
+}
+#manage-communities .simplemenu-item a {
+  background-repeat: no-repeat;
+  padding-left: 20px;
+}
+#manage-communities .simplemenu-item a span {
+  display: none;
+}
+.msie8 #manage-communities-link { /* IE8 hack */
+  border: 0px solid;
+}
+.msie8 #manage-communities .simplemenu-submenu {
+  top: 16px;
+}
+.webkit #manage-communities .simplemenu-submenu {
+  top: 20px;
+}
 #article {
   position: relative;
   text-align: justify;
@@ -895,6 +932,18 @@ code input {
 #article-actions a{
   white-space: nowrap;
 }
+
+#article-header .blog-cover {
+  overflow: hidden;
+  display: block;
+  width: 100%;
+  max-height: 170px;
+}
+
+#article-header .blog-cover img{
+  width: 100%;
+}
+
 #article-tags {
   font-size: 10px;
   text-align: right;
@@ -1552,6 +1601,7 @@ a.button.disabled, input.disabled {
 .map {
   clear: both;
 }
+
 /***********************************************************
  * style for blocks 
  ***********************************************************/
@@ -3102,7 +3152,7 @@ table.cms-articles a.icon {
   text-overflow: ellipsis;
 }
 
-table.cms-articles a.icon, table.cms-articles a.icon-parent-folder {
+table.cms-articles a.icon, table.cms-articles a.icon-parent-folder, .cms-homepage a.icon {
   padding: 0px 0px 3px 20px;
   background-repeat: no-repeat;
 }
@@ -3119,6 +3169,14 @@ table.cms-articles .icon:hover {
 
 #content table.cms-articles .button:last-child {
   border-right: 1px solid #ccc;
+}
+
+.cms-homepage a.icon {
+  border: none;
+}
+
+.cms-homepage a:hover {
+  background-color: transparent;
 }
 
 .select-article-type {
@@ -3176,6 +3234,14 @@ table.cms-articles .icon:hover {
   background: #eeeeec;
   border: 1px solid #d3d7cf;
 }
+
+.controller-cms .article-mime {
+  max-width: 90px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .controller-cms .article-controls {
   white-space: nowrap;
 }
@@ -3446,26 +3512,7 @@ div#article-parent {
 .article-body-uploaded-file {
   text-align: center;
 }
-/************* uploaded file *****************/
 
-#article .gallery-navigation {
-  padding: 10px 0;
-}
-#article .gallery-navigation .left {
-  margin-right: 10px;
-}
-#article .gallery-navigation .right {
-  margin-left: 10px;
-}
-#article .gallery-navigation .total-of-images {
-  font-weight: bold;
-}
-#article .uploaded-file-description {
-  background: #f6f6f6;
-  border-top: 1px solid #ccc;
-  border-bottom: 1px solid #ccc;
-  padding: 1em;
-}
 /* ==> public/stylesheets/controller_events.css <== */
 #agenda {
   position: relative;
@@ -3475,18 +3522,19 @@ div#article-parent {
   width: 50%;
 }
 #agenda td, #agenda th {
-  padding: 0px;
+  padding: 15px;
+  padding-right: 0px;
 }
 #agenda .agenda-calendar .previous-month td, #agenda .agenda-calendar .previous-month th, #agenda .agenda-calendar .next-month td, #agenda .agenda-calendar .next-month th {
-  font-size: 10px;
-  color: gray;
+  font-size: 12px;
+  color: black;
 }
 #agenda .agenda-calendar .current-month td {
 }
 #agenda .agenda-calendar .calendar-day {
 }
 #agenda .agenda-calendar .calendar-day-out {
-  color: gray;
+  color: black;
 }
 #agenda .agenda-calendar .calendar-day-out span {
   display: none;
@@ -3503,7 +3551,7 @@ div#article-parent {
 }
 #agenda .agenda-calendar .current-month {
   height: 250px;
-  border-bottom: 1px solid #BFC2BC;
+  border-bottom: 1px solid black;
 }
 #agenda .agenda-calendar .previous-month, #agenda .agenda-calendar .next-month {
   float: left;
@@ -3540,14 +3588,15 @@ div#article-parent {
   width: 45%;
   top: 0px;
   height: 100%;
-  border-left: 1px solid #BFC2BC;
   padding-left: 20px;
 }
 #agenda #events-of-the-day #agenda-items {
   display: block;
   overflow: auto;
   overflow-x: hidden;
-  height: 90%;
+  height: 80%;
+  background: white;
+  border: none;
 }
 #agenda-toolbar {
   float: right;
@@ -3556,6 +3605,11 @@ div#article-parent {
 }
 h1#agenda-title {
   position: relative;
+}
+#agenda .agenda-calendar .button.icon-next.with-text {
+  background-position: right;
+  padding-left: 3px;
+  padding-right: 20px;
 }
 #agenda-toolbar a.button {
   border: none;
@@ -5681,6 +5735,10 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 img {
   padding-left: 20px;
 }
 
+.view-more-comments, .view-more-replies {
+  text-align: center;
+}
+
 /* Profile activity relative dimensions */
 
 #leave_scrap {
@@ -6395,3 +6453,4 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 img {
   right: 2px;
   z-index: 1;
 }
+

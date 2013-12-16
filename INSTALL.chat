@@ -6,7 +6,7 @@ To configure XMPP/BOSH in Noosfero you need:
 * SystemTimer - http://ph7spot.com/musings/system-timer
 * Pidgin data files - http://www.pidgin.im/
 
-If you use Debian Wheezy:
+If you use Debian 6.0 (squeeze):
 
 # apt-get install librestclient-ruby pidgin-data ruby1.8-dev
 # gem install SystemTimer

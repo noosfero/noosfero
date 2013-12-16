@@ -1,0 +1,45 @@
+<% unless root.nil? %>
+  <div id="recent-content-block">
+    <% children = block.articles_of_folder(root, block.total_items)%>
+    <div class="recent-content">
+      <%= block_title(block.title.blank? ? _("Recent content") : block.title ) %>
+      <% if block.show_blog_picture and !root.image.nil? %>
+        <div class="recent-content-cover">
+          <%= image_tag(root.image.public_filename(:big)) %>
+        </div>
+      <% end %>
+    </div>
+    <% if block.mode?('title_only') %>
+      <div class="recent-content-title">
+        <ul>
+          <% children.each do |item| %>
+            <li> <%= link_to(h(item.title), item.url)%></li>
+          <% end %>
+        </ul>
+      </div>
+    <% elsif block.mode?('title_and_abstract') %>
+      <div class="recent-content-abstract">
+        <% children.each do |item| %>
+          <h2><%= link_to(item.title,item.url, :class => 'post-title')%></h2>
+          <span class="post-date"><%= show_date(item.published_at, true)%></span>
+          <div class="headline"><%=item.lead%></div>
+          <p class="highlighted-news-read-more"><%= link_to(_('Read more'), item.url) %></p>
+        <% end %>
+      </div>
+    <% else %>
+      <div class="recent-content-full">
+       <% children.each do |item| %>
+          <h2><%= link_to(item.title,item.url, :class => 'post-title')%></h2>
+          <span class="post-date"><%= show_date(item.published_at, true)%></span>
+          <div class="headline"><%=item.body%></div>
+          <p class="highlighted-news-read-more"><%= link_to(_('Read more'), item.url) %></p>
+      <% end %>
+      </div>
+    <% end %>
+    <%= link_to _('View All'), :profile => profile.identifier, :controller => 'content_viewer', :action => 'view_page', :page => block.root.path %>
+  </div>
+<% else %>
+  <span class="alert-block">
+    <%= _('This is the recent content block. Please edit it to show the content you want.') %>
+  </span>
+<% end %>

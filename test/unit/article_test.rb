@@ -1744,7 +1744,36 @@ class ArticleTest < ActiveSupport::TestCase
     assert_nil article.author_id
   end
 
-  should 'return articles with specific types' do
+  should 'identify if belongs to forum' do
+    p = create_user('user_forum_test').person
+    forum = fast_create(Forum, :name => 'Forum test', :profile_id => p.id)
+    post = fast_create(TextileArticle, :name => 'First post', :profile_id => p.id, :parent_id => forum.id)
+    assert post.belongs_to_forum?
+  end
+
+  should 'not belongs to forum' do
+    p = create_user('user_forum_test').person
+    blog = fast_create(Blog, :name => 'Not Forum', :profile_id => p.id)
+    a = fast_create(TextileArticle, :name => 'Not forum post', :profile_id => p.id, :parent_id => blog.id)
+    assert !a.belongs_to_forum?
+  end
+
+  should 'not belongs to forum if do not have a parent' do
+    p = create_user('user_forum_test').person
+    a = fast_create(TextileArticle, :name => 'Orphan post', :profile_id => p.id)
+    assert !a.belongs_to_forum?
+  end
+
+  should 'save image on create article' do
+    assert_difference Article, :count do
+      p = Article.create!(:name => 'test', :image_builder => {
+        :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')
+      }, :profile_id => @profile.id)
+      assert_equal p.image(true).filename, 'rails.png'
+    end
+  end
+
+ should 'return articles with specific types' do
     Article.delete_all
 
     c1 = fast_create(TinyMceArticle, :name => 'Testing article 1', :body => 'Article body 1', :profile_id => profile.id)

@@ -24,7 +24,8 @@ class Article
       {:slug => :text}, {:body => :text},
       {:abstract => :text}, {:filename => :text},
       # filtered fields
-      {:solr_plugin_public => :boolean}, {:environment_id => :integer},
+      {:solr_plugin_public => :boolean}, {:published => :boolean},
+      {:environment_id => :integer},
       {:profile_id => :integer}, :language,
       {:solr_plugin_category_filter => :integer},
       # ordered/query-boosted fields

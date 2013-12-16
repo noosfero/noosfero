@@ -218,4 +218,36 @@ class BlogTest < ActiveSupport::TestCase
     assert ! blog.empty?
   end
 
+  should 'set cover image' do
+    profile = fast_create(Profile)
+    blog = Blog.create(:profile_id => profile.id, :name=>'testblog', :image_builder => { :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')})
+    blog.save!
+    blog.reload
+    assert_equal blog.image(true).filename, 'rails.png'
+  end
+
+  should 'remove cover image' do
+    profile = fast_create(Profile)
+    blog = Blog.create(:profile_id => profile.id, :name=>'testblog', :image_builder => { :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')})
+    blog.save!
+    blog.reload
+
+    blog.image = nil
+    blog.save!
+    blog.reload
+    assert blog.image.nil?
+  end
+
+  should 'update cover image' do
+    profile = fast_create(Profile)
+    blog = Blog.create(:profile_id => profile.id, :name=>'testblog', :image_builder => { :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')})
+    blog.save!
+    blog.reload
+
+    blog.image = Image.create!(:uploaded_data => fixture_file_upload('/files/noosfero-network.png', 'image/png'))
+    blog.save!
+    blog.reload
+
+    assert_equal blog.image(true).filename, 'noosfero-network.png'
+  end
 end

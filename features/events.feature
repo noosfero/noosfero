@@ -12,43 +12,38 @@ Feature: events
 
   Scenario: go to next month
     Given I am on /profile/josesilva/events/2009/10
-    When I follow "next »"
+    When I follow "November"
     Then I should see "November 2009" within ".current-month"
 
   Scenario: go to next month in global agenda
     Given I am on /assets/events?year=2009&month=11
-    When I follow "next »"
+    When I follow "December"
     Then I should see "December 2009" within ".current-month"
 
   Scenario: go to previous month
     Given I am on /profile/josesilva/events/2009/10
-    When I follow "« previous"
+    When I follow "September"
     Then I should see "September 2009" within ".current-month"
 
   Scenario: go to previous month in global agenda
     Given I am on /assets/events?year=2009&month=11
-    When I follow "« previous"
+    When I follow "October"
     Then I should see "October 2009" within ".current-month"
 
   Scenario: go to next month by clicking in month name
     Given I am on /profile/josesilva/events/2009/10
-    When I follow "November 2009"
+    When I follow "November"
     Then I should see "November 2009" within ".current-month"
 
   Scenario: go to previous month by clicking in month name
     Given I am on /profile/josesilva/events/2009/10
-    When I follow "September 2009"
+    When I follow "September"
     Then I should see "September 2009" within ".current-month"
-
-  Scenario: go to specific day
-    Given I am on the homepage
-    When I am on /profile/josesilva/events/2009/01/20
-    Then I should see "Events for January 20, 2009"
 
   Scenario: go to specific day in global agenda
     Given I am on the homepage
     When I am on /assets/events?year=2009&month=11&day=12
-    Then I should see "Events for November 12, 2009"
+    Then I should see "Events for November, 2009"
 
   Scenario: list events for specific day
     Given I am on /profile/josesilva/events/2009/10
@@ -64,7 +59,7 @@ Feature: events
       | owner     | name         | start_date |
       | josesilva | WikiSym 2009 | 2009-10-25 |
     When I am on /profile/josesilva/events/2009/10/20
-    Then I should not see "WikiSym 2009"
+    Then I should see "WikiSym 2009"
 
   Scenario: list event between a range
     Given I am on /profile/josesilva/events/2009/10
@@ -96,20 +91,11 @@ Feature: events
     Then I should see "Another Conference"
     And I should see "Manuel Birthday"
 
-  Scenario: ask for a day when no inform complete date
-    When I am on /profile/josesilva/events/2009/5
-    Then I should see "Select a day on the left to display it's events here"
-
-  Scenario: ask for a day when no inform complete date in global agenda
-    When I am on /assets/events?year=2009&month=5
-    Then I should see "Select a day on the left to display it's events here"
-
+  @selenium
   Scenario: provide links to days with events
     Given I am on /profile/josesilva/events/2009/10
     Then I should see "24" link
-    When I follow "next »"
-    Then I should see "24" link
-    When I follow "next »"
+    When I follow "November"
     Then I should not see "24" link
 
   Scenario: provide links to all days between start and end date
@@ -128,7 +114,7 @@ Feature: events
   @selenium
   Scenario: show events when i follow a specific day
     Given I am on /profile/josesilva/events/2009/10
-    And I should not see "Another Conference"
+    And I should see "Another Conference"
     When I follow "24"
     Then I should see "Another Conference"
 
@@ -138,7 +124,7 @@ Feature: events
       | owner     | name              | start_date | end_date   |
       | josesilva | YAPC::Brasil 2010 | 2010-10-30 | 2010-11-01 |
     And I am on /profile/josesilva/events/2010/10
-    And I should not see "YAPC::Brasil 2010"
+    And I should see "YAPC::Brasil 2010"
     When I follow "31"
     Then I should see "YAPC::Brasil 2010"
 
@@ -149,10 +135,6 @@ Feature: events
     Given I am on /profile/josesilva/events
     When I follow "Back to josesilva"
     Then I should be on josesilva's homepage
-
-  Scenario: warn when there is no events
-    When I am on /profile/josesilva/events/2020/12/1
-    Then I should see "No events for this date"
 
   Scenario: provide button to create new event
     Given I am logged in as "josesilva"
@@ -230,3 +212,35 @@ Feature: events
     Then I should see "Leaded event"
     And I should see "This is the abstract."
     And I should not see "This is the real text."
+
+  Scenario: show range date of event
+    Given I am on /profile/josesilva/events/2009/10
+    And the following events
+      | owner     | name         | start_date | end_date   |
+      | josesilva | WikiSym 2009 | 2009-10-25 | 2009-10-27 |
+    When I am on /profile/josesilva/events/2009/10/26
+    Then I should see "October 25, 2009 to October 27, 2009"
+
+  Scenario: show place of the event
+    Given I am on /profile/josesilva/events/2009/10
+    And the following events
+      | owner     | name         | start_date | end_date   |  address      |
+      | josesilva | WikiSym 2009 | 2009-10-25 | 2009-10-27 |  Earth Planet |
+    When I am on /profile/josesilva/events/2009/10/26
+    Then I should see "Place: Earth Planet"
+
+  Scenario: show event name as link
+    Given the following events
+      | owner     | name               | start_date |
+      | josesilva | Unpublished event  | 2009-10-25 |
+    And I am logged in as "josesilva"
+    When I am on /profile/josesilva/events/2009/10/25
+    Then I should see "Unpublished event" link
+
+  Scenario: go to event page
+    Given the following events
+      | owner     | name               | start_date |
+      | josesilva | Oktoberfest  | 2009-10-25 |
+    Given I am on /profile/josesilva/events/2009/10
+    When I follow "Oktoberfest"
+    Then I should see "Oktoberfest"

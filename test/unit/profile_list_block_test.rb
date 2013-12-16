@@ -2,6 +2,8 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class ProfileListBlockTest < ActiveSupport::TestCase
 
+  include ActionView::Helpers::TagHelper
+
   should 'describe itself' do
     assert_not_equal Block.description, ProfileListBlock.description
   end

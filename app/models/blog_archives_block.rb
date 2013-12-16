@@ -45,4 +45,7 @@ class BlogArchivesBlock < Block
     content_tag('div', link_to(_('Subscribe RSS Feed'), owner_blog.feed.url), :class => 'subscribe-feed')
   end
 
+  def self.expire_on
+      { :profile => [:article], :environment => [:article] }
+  end
 end

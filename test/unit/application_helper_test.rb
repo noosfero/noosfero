@@ -143,6 +143,18 @@ class ApplicationHelperTest < ActiveSupport::TestCase
     assert_tag_in_string rolename_for(member2, community), :tag => 'span', :content => 'Profile Member'
   end
 
+  should 'rolenames for a member admin' do
+    member1 = create_user('usertest1').person
+    member2 = create_user('usertest2').person
+    community = fast_create(Community, :name => 'new community', :identifier => 'new-community', :environment_id => Environment.default.id)
+    community.add_member(member1)
+    # member2 is both a admin and a member
+    community.add_member(member2)
+    community.add_admin(member2)
+    assert_tag_in_string rolename_for(member2, community), :tag => 'span', :content => 'Profile Member'
+    assert_tag_in_string rolename_for(member2, community), :tag => 'span', :content => 'Profile Administrator'
+  end
+
   should 'get theme from environment by default' do
     @environment = mock
     @environment.stubs(:theme).returns('my-environment-theme')
@@ -592,7 +604,7 @@ class ApplicationHelperTest < ActiveSupport::TestCase
 
   should 'include item in usermenu for environment enabled features' do
     env = fast_create(Environment)
-    env.enable('xmpp_chat')
+    env.enable('xmpp_chat', false)
     stubs(:environment).returns(env)
 
     @controller = ApplicationController.new
@@ -812,6 +824,32 @@ class ApplicationHelperTest < ActiveSupport::TestCase
     parsed_html = filter_html(html, source)
 
     assert_no_match /Test1/, parsed_html
+  end
+
+  should 'not convert macro if source is nil' do
+    profile = create_user('testuser').person
+    article = fast_create(Article,  :profile_id => profile.id)
+    class Plugin1 < Noosfero::Plugin; end
+
+    environment = Environment.default
+    environment.enable_plugin(Plugin1)
+    @plugins = Noosfero::Plugin::Manager.new(environment, self)
+
+    expects(:convert_macro).never
+    filter_html(article.body, nil)
+  end
+
+  should 'not convert macro if there is no macro plugin active' do
+    profile = create_user('testuser').person
+    article = fast_create(Article,  :profile_id => profile.id)
+    class Plugin1 < Noosfero::Plugin; end
+
+    environment = Environment.default
+    environment.enable_plugin(Plugin1)
+    @plugins = Noosfero::Plugin::Manager.new(environment, self)
+
+    expects(:convert_macro).never
+    filter_html(article.body, article)
   end
 
   protected

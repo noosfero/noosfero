@@ -193,7 +193,7 @@ class Profile < ActiveRecord::Base
 
   has_many :tasks, :dependent => :destroy, :as => 'target'
 
-  has_many :events, :source => 'articles', :class_name => 'Event', :order => 'name'
+  has_many :events, :source => 'articles', :class_name => 'Event', :order => 'start_date'
 
   def find_in_all_tasks(task_id)
     begin

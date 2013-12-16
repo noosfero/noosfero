@@ -1,0 +1,35 @@
+#content .recent-content-block {
+  padding: 10px 0px 10px 10px;
+  overflow: hidden;
+}
+.recent-content-block ul {
+  margin: 0px;
+  padding: 0px 0px 0px 20px;
+}
+.recent-content-block li {
+  margin: 0px;
+  padding: 0px;
+}
+.recent-content-block a {
+  text-decoration: none;
+}
+.recent-content-block .block-footer-content {
+  font-size: 10px;
+}
+.recent-content-block .block-footer-content a:hover {
+  text-decoration: underline;
+}
+.recent-content-block li {
+  list-style-image: url('images/li-recent.gif');
+  padding: 5px 0px;
+}
+.recent-content-cover {
+  overflow: hidden;
+  display: block;
+  width: 100%;
+  max-height: 90px;
+}
+.recent-content-cover img {
+  width: 100%;
+}
+

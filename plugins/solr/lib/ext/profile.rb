@@ -28,7 +28,7 @@ class Profile
       {:solr_plugin_category_filter => :integer},
       # ordered/query-boosted fields
       {:solr_plugin_name_sortable => :string}, {:user_id => :integer},
-      :enabled, :active, :validated, :public_profile,
+      :enabled, :active, :validated, :public_profile, :visible,
       {:lat => :float}, {:lng => :float},
       :updated_at, :created_at,
     ],

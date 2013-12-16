@@ -16,13 +16,7 @@
     </div>
   </div>
 
-  <% if scrap.replies.count > 2 %>
-    <div class='view-all-comments icon-chat'>
-      <%= link_to(_("View all %s comments") % scrap.replies.count, '#') %>
-    </div>
-  <% end %>
-
-  <ul class="profile-wall-activities-comments scrap-replies" style="width: auto; <%= 'display:none;' if (scrap.replies.count > 2) %>" >
+  <ul class="profile-wall-activities-comments scrap-replies" style="width: auto;" >
     <% scrap.replies.map do |reply| %>
       <%= render :partial => 'profile_scrap', :locals => {:scrap => reply} %>
     <% end %>

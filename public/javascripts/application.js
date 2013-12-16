@@ -709,7 +709,7 @@ jQuery(function($) {
       document.location.href = this.href;
     })
   }
-  $('#manage-enterprises-link').live('click', function() {
+  $('.manage-groups > a').live('click', function() {
     toggleMenu(this);
     return false;
   });
@@ -853,6 +853,12 @@ Array.min = function(array) {
   return Math.min.apply(Math, array);
 };
 
+function hideAndGetUrl(link) {
+  link.hide();
+  url = jQuery(link).attr('href');
+  jQuery.get(url);
+}
+
 jQuery(function($){
   $('.submit-with-keypress').live('keydown', function(e) {
      field = this;
@@ -875,12 +881,21 @@ jQuery(function($){
      }
    });
 
-  $('.view-all-comments').live('click', function(e) {
-     var link = this;
-     $(link).parent().find('.profile-wall-activities-comments').show();
-     $(link).hide();
+  $('#content').delegate( '.view-all-comments a', 'click', function(e) {
+     hideAndGetUrl(this);
      return false;
+   });
+
+  $('#content').delegate('.view-more-replies a', 'click', function(e) {
+    hideAndGetUrl(this);
+    return false;
   });
+
+  $('#content').delegate('.view-more-comments a', 'click', function(e) {
+    hideAndGetUrl(this);
+    return false;
+  });
+
   $('.focus-on-comment').live('click', function(e) {
      var link = this;
      $(link).parents('.profile-activity-item').find('textarea').focus();
