@@ -232,6 +232,14 @@ class ScrapTest < ActiveSupport::TestCase
     assert_equal s, s2.root
   end
 
+  should "have the top_root defined" do
+    s = fast_create(Scrap)
+    s1 = fast_create(Scrap, :scrap_id => s.id)
+    s2 = fast_create(Scrap, :scrap_id => s1.id)
+    assert_equal s, s1.top_root
+    assert_equal s, s2.top_root
+  end
+
   should 'strip all html tags' do
     s, r = fast_create(Person), fast_create(Person)
     s = Scrap.new :sender => s, :receiver => r, :content => "<p>Test <b>Rails</b></p>"
@@ -274,6 +282,16 @@ class ScrapTest < ActiveSupport::TestCase
     p1, p2 = fast_create(Person), fast_create(Person)
     s = Scrap.create! :sender => p1, :receiver => p2, :content => "Hello!"
     assert_equal s.scrap_wall_url, s.receiver.wall_url
+  end
+
+  should 'create activity with reply_scrap_on_self when top_root scrap receiver is the same as sender' do
+    s, r = fast_create(Person), fast_create(Person)
+    root = fast_create(Scrap, :sender_id => s.id, :receiver_id => r.id)
+    assert_difference ActionTracker::Record, :count, 1 do
+      reply = Scrap.create!(:sender => r, :receiver => s, :scrap_id => root.id, :content => 'sample')
+    end
+    activity = ActionTracker::Record.last
+    assert_equal 'reply_scrap_on_self', activity.verb.to_s
   end
 
 end
