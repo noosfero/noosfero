@@ -1342,12 +1342,12 @@ class PersonTest < ActiveSupport::TestCase
     (1..5).each {|i|
       u = create_user('user'+i.to_s)
       e.add_admin(u.person)
-      admins << u.person    
+      admins << u.person
     }
     (6..10).each {|i|
       u = create_user('user'+i.to_s)
     }
-    assert_equal admins, Person.admins 
+    assert_equal admins, Person.admins
   end
 
   should 'activated named_scope return persons who are activated users' do
@@ -1356,17 +1356,14 @@ class PersonTest < ActiveSupport::TestCase
     activated = []
     (1..5).each {|i|
       u = create_user('user'+i.to_s)
-      u.activated_at = Time.now.utc
-      u.activation_code = nil
-      u.save!
-      activated << u.person    
+      u.activate
+      activated << u.person
     }
     (6..10).each {|i|
       u = create_user('user'+i.to_s)
-      u.activated_at = nil
-      u.save!
+      u.deactivate
     }
-    assert_equal activated, Person.activated 
+    assert_equal activated, Person.activated
   end
 
   should 'deactivated named_scope return persons who are deactivated users' do
@@ -1375,16 +1372,13 @@ class PersonTest < ActiveSupport::TestCase
     deactivated = []
     (1..5).each {|i|
       u = create_user('user'+i.to_s)
-      u.activated_at = nil
-      u.save!
-      deactivated << u.person    
+      u.deactivate
+      deactivated << u.person
     }
     (6..10).each {|i|
       u = create_user('user'+i.to_s)
-      u.activated_at = Time.now.utc
-      u.activation_code = nil
-      u.save!
+      u.activate
     }
-    assert_equal deactivated, Person.deactivated 
+    assert_equal deactivated, Person.deactivated
   end
 end
