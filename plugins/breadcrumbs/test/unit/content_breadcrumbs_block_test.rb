@@ -1,11 +1,11 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-class BreadcrumbsBlockTest < ActiveSupport::TestCase
+class ContentBreadcrumbsBlockTest < ActiveSupport::TestCase
 
   include NoosferoTestHelper
 
   def setup
-    @block = BreadcrumbsBlock.new
+    @block = BreadcrumbsPlugin::ContentBreadcrumbsBlock.new
     @profile = fast_create(Community)
     @folder = fast_create(Folder, :profile_id => @profile.id)
     @article = fast_create(Folder, :profile_id => @profile.id, :parent_id => @folder.id)
@@ -15,7 +15,7 @@ class BreadcrumbsBlockTest < ActiveSupport::TestCase
   attr_reader :params
 
   should 'has a description' do
-    assert_not_equal Block.description, BreadcrumbsBlock.description
+    assert_not_equal Block.description, BreadcrumbsPlugin::ContentBreadcrumbsBlock.description
   end
 
   should 'has a help' do

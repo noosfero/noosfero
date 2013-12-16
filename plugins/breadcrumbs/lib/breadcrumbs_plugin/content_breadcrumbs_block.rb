@@ -1,10 +1,10 @@
-class BreadcrumbsBlock < Block
+class BreadcrumbsPlugin::ContentBreadcrumbsBlock < Block
 
   settings_items :show_cms_action, :type => :boolean, :default => true
   settings_items :show_profile, :type => :boolean, :default => true
 
   def self.description
-    _('Breadcrumbs')
+    _('Content Breadcrumbs')
   end
 
   def help
@@ -38,7 +38,7 @@ class BreadcrumbsBlock < Block
     lambda do
       trail = block.trail(@page, @profile, params)
       if !trail.empty?
-        trail.map { |t| link_to(t[:name], t[:url], :class => 'item') }.join(content_tag('span', ' > ', :class => 'separator')) 
+        trail.map { |t| link_to(t[:name], t[:url], :class => 'item') }.join(content_tag('span', ' > ', :class => 'separator'))
       else
         ''
       end
@@ -46,7 +46,7 @@ class BreadcrumbsBlock < Block
   end
 
   def cacheable?
-    false 
+    false
   end
 
   protected

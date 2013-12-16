@@ -2,16 +2,15 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class ProfileDesignController
   append_view_path File.join(File.dirname(__FILE__) + '/../../views')
-  def rescue_action(e) 
-    raise e 
-  end 
+  def rescue_action(e)
+    raise e
+  end
 end
 
 class ProfileDesignControllerTest < ActionController::TestCase
 
   def setup
-    Environment.delete_all
-    @environment = Environment.create(:name => 'testenv', :is_default => true)
+    @environment = Environment.default
     @environment.enabled_plugins = ['BreadcrumbsPlugin']
     @environment.save!
 
@@ -19,7 +18,7 @@ class ProfileDesignControllerTest < ActionController::TestCase
     @page = fast_create(Folder, :profile_id => @profile.id)
 
     box = Box.create!(:owner => @profile)
-    @block = BreadcrumbsBlock.create!(:box => box)
+    @block = BreadcrumbsPlugin::ContentBreadcrumbsBlock.create!(:box => box)
 
     user = create_user('testinguser')
     @profile.add_admin(user.person)

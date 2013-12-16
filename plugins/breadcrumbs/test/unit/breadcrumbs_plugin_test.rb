@@ -13,9 +13,9 @@ class BreadcrumbsPluginTest < ActiveSupport::TestCase
   should 'has a description' do
     assert !BreadcrumbsPlugin.plugin_description.blank?
   end
-                            
+
   should 'add a block' do
-    assert_equal [BreadcrumbsBlock], BreadcrumbsPlugin.extra_blocks.keys
+    assert_equal [BreadcrumbsPlugin::ContentBreadcrumbsBlock], BreadcrumbsPlugin.extra_blocks.keys
   end
 
 end
