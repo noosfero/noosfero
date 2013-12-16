@@ -19,7 +19,7 @@ class ProfileDesignControllerTest < ActionController::TestCase
     @page = fast_create(Folder, :profile_id => @profile.id)
 
     box = Box.create!(:owner => @profile)
-    @block = ContextContentBlock.new(:box => box)
+    @block = ContextContentPlugin::ContextContentBlock.new(:box => box)
     @block.types = ['TinyMceArticle']
     @block.limit = 1
     @block.save!

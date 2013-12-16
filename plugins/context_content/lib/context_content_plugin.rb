@@ -9,8 +9,8 @@ class ContextContentPlugin < Noosfero::Plugin
   end
 
   def self.extra_blocks
-    { 
-      ContextContentBlock => { :type => [Person, Community, Enterprise] }
+    {
+      ContextContentPlugin::ContextContentBlock => { :type => [Person, Community, Enterprise] }
     }
   end
 

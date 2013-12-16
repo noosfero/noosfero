@@ -4,12 +4,12 @@ class ContextContentBlockTest < ActiveSupport::TestCase
 
   def setup
     Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([])
-    @block = ContextContentBlock.create!
+    @block = ContextContentPlugin::ContextContentBlock.create!
     @block.types = ['TinyMceArticle']
   end
 
   should 'describe itself' do
-    assert_not_equal Block.description, ContextContentBlock.description
+    assert_not_equal Block.description, ContextContentPlugin::ContextContentBlock.description
   end
 
   should 'has a help' do
@@ -170,7 +170,7 @@ class ContextContentBlockTest < ActiveSupport::TestCase
   should 'return box owner on profile method call' do
     profile = fast_create(Community)
     box = Box.create(:owner_type => 'Profile', :owner_id => profile.id)
-    block = ContextContentBlock.create!(:box => box)
+    block = ContextContentPlugin::ContextContentBlock.create!(:box => box)
     assert_equal profile, block.profile
   end
 
