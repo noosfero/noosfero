@@ -79,7 +79,7 @@ class ApplicationController < ActionController::Base
 
   helper_method :current_person, :current_person
 
-  # protected
+  protected
 
   def setup_multitenancy
     Noosfero::MultiTenancy.setup!(request.host)
@@ -174,7 +174,7 @@ class ApplicationController < ActionController::Base
   end
 
   def find_by_contents(asset, scope, query, paginate_options={:page => 1}, options={})
-    @plugins.dispatch_first(:find_by_contents, asset, scope, query, paginate_options, options) ||
+    plugins.dispatch_first(:find_by_contents, asset, scope, query, paginate_options, options) ||
     fallback_find_by_contents(asset, scope, query, paginate_options, options)
   end
 
