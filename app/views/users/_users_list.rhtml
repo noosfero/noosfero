@@ -5,6 +5,10 @@
 </div>
 
 <table>
+  <colgroup>
+    <col width="80%">
+    <col width="20%">
+  </colgroup>
   <tr>
     <th><%= _('Member') %></th>
     <th><%= _('Actions') %></th>
@@ -12,7 +16,7 @@
   <% @collection.each do |p| %>
     <tr title="<%= p.name %>">
       <td><%= link_to_profile p.short_name, p.identifier, :title => p.name %> </td>
-      <td>
+      <td class='actions'>
         <div class="members-buttons-cell">
           <% if p.is_admin? %>
             <%= button_without_text :'reset-admin-role', _('Reset admin role'), :action => 'reset_admin_role', :id => p, :q => @q, :filter => @filter %>

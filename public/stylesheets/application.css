@@ -4180,8 +4180,16 @@ h1#agenda-title {
 }
 
 /* ==> public/stylesheets/controller_environment_users.css <== */
-.controller-environment_users table {
-  text-align: left;
+.controller-users td.actions {
+  text-align: center;
+}
+
+.controller-users .search-field #q {
+  width: 85%;
+}
+
+.controller-users .search-field input[type='submit'] {
+  float: right;
 }
 
 #environment-users-search form {
