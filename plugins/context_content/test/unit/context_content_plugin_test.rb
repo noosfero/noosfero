@@ -1,7 +1,7 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 class ContextContentPluginTest < ActiveSupport::TestCase
-  
+
   include Noosfero::Plugin::HotSpot
 
   def setup
