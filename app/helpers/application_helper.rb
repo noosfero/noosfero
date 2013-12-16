@@ -1340,8 +1340,8 @@ module ApplicationHelper
     @plugins.dispatch("content_remove_#{action.to_s}", @page).include?(true)
   end
 
-  def template_options(klass, field_name)
-    templates = klass.templates(environment)
+  def template_options(kind, field_name)
+    templates = environment.send(kind).templates
     return '' if templates.count == 0
     return hidden_field_tag("#{field_name}[template_id]", templates.first.id) if templates.count == 1
 
