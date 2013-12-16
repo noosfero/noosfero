@@ -227,15 +227,11 @@ module BoxesHelper
 
   # DEPRECATED. Do not use this.
   def import_blocks_stylesheets(options = {})
-    @blocks_css_files ||= current_blocks.map{|b|'blocks/' + block_css_class_name(b)}.uniq
+    @blocks_css_files ||= current_blocks.map{|b|'blocks/' + block.class.name.to_css_class}.uniq
     stylesheet_import(@blocks_css_files, options)
   end
-
-  def block_css_class_name(block)
-    block.class.name.underscore.gsub('_', '-').gsub('/','_')
-  end
   def block_css_classes(block)
-    classes = block_css_class_name(block)
+    classes = block.class.name.to_css_class
     classes += ' invisible-block' if block.display == 'never'
     classes
   end
