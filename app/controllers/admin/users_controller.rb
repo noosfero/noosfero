@@ -6,28 +6,18 @@ class UsersController < AdminController
 
   include UsersHelper
 
-  def per_page
-    10
-  end
-
   def index
     @filter = params[:filter]
-    if @filter.blank? || @filter == 'all_users'
-      @filter = 'all_users'
-      scope = environment.people.no_templates(environment)
-    elsif @filter == 'admin_users'
-      scope = environment.people.no_templates(environment).admins
+    scope = environment.people.no_templates
+    if @filter == 'admin_users'
+      scope = scope.admins
     elsif @filter == 'activated_users'
-      scope = environment.people.no_templates(environment).activated
+      scope = scope.activated
     elsif @filter == 'deactivated_users'
-      scope = environment.people.no_templates(environment).deactivated
+      scope = scope.deactivated
     end
     @q = params[:q]
-    if @q.blank?
-      @collection = scope.paginate(:per_page => per_page, :page => params[:npage])
-    else
-      @collection = find_by_contents(:people, scope, @q, {:per_page => per_page, :page => params[:npage]})[:results]
-    end
+    @collection = find_by_contents(:people, scope, @q, {:per_page => per_page, :page => params[:npage]})[:results]
   end
 
   def set_admin_role
@@ -93,6 +83,12 @@ class UsersController < AdminController
         session[:notice] = _('Could not create the e-mail')
       end
     end
+  end
+
+  private
+
+  def per_page
+    10
   end
 
 end
