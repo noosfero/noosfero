@@ -12,4 +12,8 @@ class BreadcrumbsPlugin < Noosfero::Plugin
     { BreadcrumbsPlugin::ContentBreadcrumbsBlock => {:type => [Community, Person, Enterprise] } }
   end
 
+  def stylesheet?
+    true
+  end
+
 end

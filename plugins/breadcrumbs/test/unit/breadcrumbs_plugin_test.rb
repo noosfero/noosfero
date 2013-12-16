@@ -18,4 +18,8 @@ class BreadcrumbsPluginTest < ActiveSupport::TestCase
     assert_equal [BreadcrumbsPlugin::ContentBreadcrumbsBlock], BreadcrumbsPlugin.extra_blocks.keys
   end
 
+  should 'has stylesheet' do
+    assert @plugin.stylesheet?
+  end
+
 end
