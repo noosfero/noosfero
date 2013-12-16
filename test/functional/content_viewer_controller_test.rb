@@ -600,6 +600,29 @@ class ContentViewerControllerTest < ActionController::TestCase
     assert_equal 2, assigns(:images).size
   end
 
+  should 'not display private images in the slideshow for unauthorized people' do
+    owner = create_user('owner').person
+    unauthorized = create_user('unauthorized').person
+    folder = Gallery.create!(:name => 'gallery', :profile => owner)
+    image1 = UploadedFile.create!(:profile => owner, :parent => folder, :uploaded_data => fixture_file_upload('/files/other-pic.jpg', 'image/jpg'), :published => false)
+    login_as('unauthorized')
+    get :view_page, :profile => owner.identifier, :page => folder.explode_path, :slideshow => true
+    assert_response :success
+    assert_equal 0, assigns(:images).length
+  end
+
+  should 'not display private images thumbnails for unauthorized people' do
+    owner = create_user('owner').person
+    unauthorized = create_user('unauthorized').person
+    folder = Gallery.create!(:name => 'gallery', :profile => owner)
+    image1 = UploadedFile.create!(:profile => owner, :parent => folder, :uploaded_data => fixture_file_upload('/files/other-pic.jpg', 'image/jpg'), :published => false)
+    login_as('unauthorized')
+    get :view_page, :profile => owner.identifier, :page => folder.explode_path
+    assert_response :success
+    assert_select '.image-gallery-item', 0
+  end   
+  
+
   should 'display default image in the slideshow if thumbnails were not processed' do
     @controller.stubs(:per_page).returns(1)
     folder = Gallery.create!(:name => 'gallery', :profile => profile)
