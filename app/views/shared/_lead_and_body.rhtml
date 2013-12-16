@@ -6,7 +6,6 @@
 <% editor_type = defined?(tiny_mce) && tiny_mce ? 'mceEditor' : '' %>
 <% lead_id ||= 0%>
 <% f ||= false%>
-<% image_method ||= :image_builder %>
 
 <br style="clear: both;"/>
 <%= button :add, _("Lead"), '#', :class => "lead-button", :article_id => "#article-lead-"+lead_id.to_s, :style => "margin-left: 0px;" %>
