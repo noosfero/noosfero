@@ -17,15 +17,15 @@ class DisplayContentBlock < Block
 
   settings_items :nodes, :type => Array, :default => []
   settings_items :parent_nodes, :type => Array, :default => []
-  settings_items :sections, 
-                 :type => Array, 
+  settings_items :sections,
+                 :type => Array,
                  :default => [{:name => _('Publish date'), :checked => true},
-                              {:name => _('Title'), :checked => true}, 
-                              {:name => _('Abstract'), :checked => true}, 
-                              {:name => _('Body'), :checked => false}, 
+                              {:name => _('Title'), :checked => true},
+                              {:name => _('Abstract'), :checked => true},
+                              {:name => _('Body'), :checked => false},
                               {:name => _('Image'), :checked => false},
                               {:name => _('Tags'), :checked => false}]
-  
+
   def self.description
     _('Display your contents')
   end
@@ -55,7 +55,7 @@ class DisplayContentBlock < Block
 
   def articles_of_parent(parent = nil)
     return [] if self.holder.nil?
-    holder.articles.find(:all, :conditions => {:type => VALID_CONTENT, :parent_id => (parent.nil? ? nil : parent)}) 
+    holder.articles.find(:all, :conditions => {:type => VALID_CONTENT, :parent_id => (parent.nil? ? nil : parent)})
   end
 
   include ActionController::UrlWriter
@@ -69,16 +69,16 @@ class DisplayContentBlock < Block
       read_more_section = ''
       tags_section = ''
 
-      sections.select { |section| 
+      sections.select { |section|
         case section[:name]
           when 'Publish date'
-            content_sections += (display_section?(section) ? (content_tag('div', show_date(item.published_at, false), :class => 'published-at') ) : '') 
+            content_sections += (display_section?(section) ? (content_tag('div', show_date(item.published_at, false), :class => 'published-at') ) : '')
           when 'Title'
-            content_sections += (display_section?(section) ? (content_tag('div', link_to(h(item.title), item.url), :class => 'title') ) : '') 
+            content_sections += (display_section?(section) ? (content_tag('div', link_to(h(item.title), item.url), :class => 'title') ) : '')
           when 'Abstract'
             content_sections += (display_section?(section) ? (content_tag('div', item.abstract , :class => 'lead')) : '' )
             if display_section?(section)
-              read_more_section = content_tag('div', link_to(_('Read more'), item.url), :class => 'read_more') 
+              read_more_section = content_tag('div', link_to(_('Read more'), item.url), :class => 'read_more')
             end
           when 'Body'
             content_sections += (display_section?(section) ? (content_tag('div', item.body ,:class => 'body')) : '' )
@@ -116,12 +116,12 @@ class DisplayContentBlock < Block
   def display_section?(section)
     section[:checked]
   end
-  
+
   protected
 
   def holder
     return nil if self.box.nil? || self.box.owner.nil?
-    if self.box.owner.kind_of?(Environment) 
+    if self.box.owner.kind_of?(Environment)
       return nil if self.box.owner.portal_community.nil?
       self.box.owner.portal_community
     else
