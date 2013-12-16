@@ -89,7 +89,7 @@ body, th, td, input {
   color: #555753;
 }
 
-#controlpanel, #logout, #openchat, .manage-groups {
+#user .logged-in > * {
   margin-left: 25px;
 }
 
@@ -103,6 +103,14 @@ body, th, td, input {
 }
 .msie7 #user a i {
   top: 3px;
+}
+
+#user #homepage-link i {
+  width: 18px;
+  height: 18px;
+  left: -20px;
+  top: -2px;
+  background-position: 50% 50%;
 }
 
 #user form {

@@ -356,7 +356,8 @@ module ApplicationHelper
   end
 
   def theme_path
-    if session[:theme]
+    if ( respond_to?(:session) && session[:theme] ) ||
+       ( @controller && @controller.session[:theme] )
       '/user_themes/' + current_theme
     else
       '/designs/themes/' + current_theme
@@ -366,7 +367,8 @@ module ApplicationHelper
   def current_theme
     @current_theme ||=
       begin
-        if (session[:theme])
+        if ( respond_to?(:session) && session[:theme] ) ||
+           ( @controller && @controller.session[:theme] )
           session[:theme]
         else
           # utility for developers: set the theme to 'random' in development mode and
@@ -375,7 +377,7 @@ module ApplicationHelper
           if ENV['RAILS_ENV'] == 'development' && environment.theme == 'random'
             @random_theme ||= Dir.glob('public/designs/themes/*').map { |f| File.basename(f) }.rand
             @random_theme
-          elsif ENV['RAILS_ENV'] == 'development' && params[:theme] && File.exists?(File.join(Rails.root, 'public/designs/themes', params[:theme]))
+          elsif ENV['RAILS_ENV'] == 'development' && respond_to?(:params) && params[:theme] && File.exists?(File.join(Rails.root, 'public/designs/themes', params[:theme]))
             params[:theme]
           else
             if profile && !profile.theme.nil?
@@ -603,15 +605,10 @@ module ApplicationHelper
 
   def str_gravatar_url_for(email, options = {})
     default = theme_option['gravatar'] || NOOSFERO_CONF['gravatar'] || nil
-    url = 'http://www.gravatar.com/avatar.php?gravatar_id=' +
-           Digest::MD5.hexdigest(email.to_s)
-    {
+    "http://www.gravatar.com/avatar/#{Digest::MD5.hexdigest(email.to_s)}?" + {
       :only_path => false,
       :d => default
-    }.merge(options).each { |k,v|
-      url += ( '&%s=%s' % [ k,v ] )
-    }
-    url
+    }.merge(options).map{|k,v| '%s=%s' % [ k,v ] }.join('&')
   end
 
   def gravatar_profile_url(email)
@@ -940,7 +937,7 @@ module ApplicationHelper
     (@category ? " - #{@category.full_name}" : '')
   end
 
-  # DEPRECATED. Do not use this·
+  # DEPRECATED. Do not use this.
   def import_controller_stylesheets(options = {})
     stylesheet_import( "controller_"+ @controller.controller_name(), options )
   end
@@ -1158,12 +1155,12 @@ module ApplicationHelper
       pending_tasks_count = link_to(count.to_s, @environment.top_url + '/myprofile/{login}/tasks', :id => 'pending-tasks-count', :title => _("Manage your pending tasks"))
     end
 
-    (_("<span class='welcome'>Welcome,</span> %s") % link_to('<i></i><strong>{login}</strong>', @environment.top_url + '/{login}', :id => "homepage-link", :title => _('Go to your homepage'))) +
+    (_("<span class='welcome'>Welcome,</span> %s") % link_to('<i style="background-image:url({avatar})"></i><strong>{login}</strong>', @environment.top_url + '/{login}', :id => "homepage-link", :title => _('Go to your homepage'))) +
     render_environment_features(:usermenu) +
-    link_to('<i class="icon-menu-admin"></i><strong>' + _('Administration') + '</strong>', @environment.top_url + '/admin', :id => "controlpanel", :title => _("Configure the environment"), :class => 'admin-link', :style => 'display: none') +
+    link_to('<i class="icon-menu-admin"></i><strong>' + _('Administration') + '</strong>', @environment.top_url + '/admin', :title => _("Configure the environment"), :class => 'admin-link', :style => 'display: none') +
     manage_enterprises.to_s +
     manage_communities.to_s +
-    link_to('<i class="icon-menu-ctrl-panel"></i><strong>' + _('Control panel') + '</strong>', @environment.top_url + '/myprofile/{login}', :id => "controlpanel", :title => _("Configure your personal account and content")) +
+    link_to('<i class="icon-menu-ctrl-panel"></i><strong>' + _('Control panel') + '</strong>', @environment.top_url + '/myprofile/{login}', :class => 'ctrl-panel', :title => _("Configure your personal account and content")) +
     pending_tasks_count +
     link_to('<i class="icon-menu-logout"></i><strong>' + _('Logout') + '</strong>', { :controller => 'account', :action => 'logout'} , :id => "logout", :title => _("Leave the system"))
   end
