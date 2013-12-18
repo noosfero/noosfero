@@ -518,6 +518,22 @@ class UserTest < ActiveSupport::TestCase
     end
   end
 
+  should 'deactivate an user' do
+    user = new_user
+    user.activate
+    assert user.deactivate
+    assert_nil user.activated_at
+    assert !user.person.visible
+  end
+
+  should 'return if the user is deactivated' do
+    user = new_user
+    user.activate
+    assert user.activated?
+    user.deactivate
+    assert !user.activated?
+  end
+
   should 'activate right after creation when confirmation is not required' do
     e = Environment.default
     e.enable('skip_new_user_email_confirmation')

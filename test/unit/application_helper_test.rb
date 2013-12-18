@@ -256,7 +256,7 @@ class ApplicationHelperTest < ActiveSupport::TestCase
 
   should 'not display templates options when there is no template' do
     self.stubs(:environment).returns(Environment.default)
-    [Person, Community, Enterprise].each do |klass|
+    [:people, :communities, :enterprises].each do |klass|
       assert_equal '', template_options(klass, 'profile_data')
     end
   end
