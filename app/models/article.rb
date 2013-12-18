@@ -288,6 +288,11 @@ class Article < ActiveRecord::Base
     'text-html'
   end
 
+  # TODO Migrate the class method icon_name to instance methods.
+  def icon_name
+    self.class.icon_name(self)
+  end
+
   def mime_type
     'text/html'
   end
@@ -348,22 +353,6 @@ class Article < ActiveRecord::Base
 
   def allow_children?
     true
-  end
-
-  def folder?
-    false
-  end
-
-  def blog?
-    false
-  end
-
-  def forum?
-    false
-  end
-
-  def uploaded_file?
-    false
   end
 
   def has_posts?
@@ -464,6 +453,7 @@ class Article < ActiveRecord::Base
   named_scope :galleries, :conditions => { :type => 'Gallery' }
   named_scope :images, :conditions => { :is_image => true }
   named_scope :text_articles, :conditions => [ 'articles.type IN (?)', text_article_types ]
+  named_scope :with_types, lambda { |types| { :conditions => [ 'articles.type IN (?)', types ] } }
 
   named_scope :more_popular, :order => 'hits DESC'
   named_scope :more_comments, :order => "comments_count DESC"
@@ -593,6 +583,22 @@ class Article < ActiveRecord::Base
   end
 
   def tiny_mce?
+    false
+  end
+
+  def folder?
+    false
+  end
+
+  def blog?
+    false
+  end
+
+  def forum?
+    false
+  end
+
+  def uploaded_file?
     false
   end
 

@@ -1773,4 +1773,17 @@ class ArticleTest < ActiveSupport::TestCase
     end
   end
 
+ should 'return articles with specific types' do
+    Article.delete_all
+
+    c1 = fast_create(TinyMceArticle, :name => 'Testing article 1', :body => 'Article body 1', :profile_id => profile.id)
+    c2 = fast_create(TextArticle, :name => 'Testing article 2', :body => 'Article body 2', :profile_id => profile.id)
+    c3 = fast_create(Event, :name => 'Testing article 3', :body => 'Article body 3', :profile_id => profile.id)
+    c4 = fast_create(RssFeed, :name => 'Testing article 4', :body => 'Article body 4', :profile_id => profile.id)
+    c5 = fast_create(TextileArticle, :name => 'Testing article 5', :body => 'Article body 5', :profile_id => profile.id)
+
+    assert_equivalent [c1,c2], Article.with_types(['TinyMceArticle', 'TextArticle'])
+    assert_equivalent [c3], Article.with_types(['Event'])
+  end
+
 end
