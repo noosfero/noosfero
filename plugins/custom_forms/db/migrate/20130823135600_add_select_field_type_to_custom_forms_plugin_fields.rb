@@ -1,7 +1,6 @@
 class AddSelectFieldTypeToCustomFormsPluginFields < ActiveRecord::Migration
   def self.up
     change_table :custom_forms_plugin_fields do |t|
-      t.remove :position
       t.string :select_field_type
     end
 
