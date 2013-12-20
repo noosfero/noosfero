@@ -10,7 +10,7 @@ module CustomFormsPlugin::Helper
     return _('Public') if form.access.nil?
     return _('Logged users') if form.access == 'logged'
     if form.access == 'associated'
-      return _('Members') if form.profile.organization? 
+      return _('Members') if form.profile.organization?
       return _('Friends') if form.profile.person?
     end
     return _('Custom')
@@ -84,7 +84,7 @@ module CustomFormsPlugin::Helper
     case field.select_field_type
     when 'multiple_select'
       selected = answer.present? ? answer.value.split(',') : field.alternatives.select {|a| a.selected_by_default}.map{|a| a.id.to_s}
-      select_tag "submission[#{field.id}]", options_for_select(field.alternatives.map{|a| [a.label, a.id.to_s]}, selected), :multiple => true, :size => field.alternatives.size, :disabled => (answer.present? && answer.id.present?) || field.form.expired?
+      select_tag "submission[#{field.id}]", options_for_select(field.alternatives.map{|a| [a.label, a.id.to_s]}, selected), :multiple => true, :title => _('Hold down Ctrl to select options'), :size => field.alternatives.size, :disabled => (answer.present? && answer.id.present?) || field.form.expired?
     when 'check_box'
       field.alternatives.map do |alternative|
         default = answer.present? ? answer.value.split(',').include?(alternative.id.to_s) : alternative.selected_by_default

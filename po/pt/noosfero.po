@@ -10588,6 +10588,10 @@ msgstr "Obrigatório"
 msgid "Multiple"
 msgstr "Múltiplo"
 
+#: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:87
+msgid "Hold down Ctrl to select options"
+msgstr "Segure Ctrl para selecionar as opções"
+
 #: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:4
 #: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:37
 msgid "Logged users"
