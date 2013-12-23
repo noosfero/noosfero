@@ -476,6 +476,13 @@ class Person < Profile
     self.fields_privacy.nil? ? [] : self.fields_privacy.reject{ |k, v| v != 'public' }.keys.map(&:to_s)
   end
 
+  include Noosfero::Gravatar
+
+  def profile_custom_icon(gravatar_default=nil)
+    (self.image.present? && self.image.public_filename(:icon)) ||
+    gravatar_profile_image_url(self.email, :size=>20, :d => gravatar_default)
+  end
+
   protected
 
   def followed_by?(profile)

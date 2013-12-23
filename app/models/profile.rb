@@ -844,8 +844,10 @@ private :generate_url, :url_options
     }[amount] || _("%s members") % amount
   end
 
-  def profile_custom_icon
-    self.image.public_filename(:icon) unless self.image.blank?
+  include Noosfero::Gravatar
+
+  def profile_custom_icon(gravatar_default=nil)
+    image.public_filename(:icon) if image.present?
   end
 
   def jid(options = {})

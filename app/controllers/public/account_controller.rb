@@ -262,7 +262,7 @@ class AccountController < ApplicationController
   def user_data
     user_data =
       if logged_in?
-        current_user.data_hash self
+        current_user.data_hash(gravatar_default)
       else
         { }
       end

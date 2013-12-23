@@ -275,25 +275,21 @@ class User < ActiveRecord::Base
     end
   end
 
-  include ApplicationHelper
-
-  def data_hash(controller=nil)
-    @controller ||= controller
+  def data_hash(gravatar_default = nil)
     friends_list = {}
     enterprises = person.enterprises.map { |e| { 'name' => e.short_name, 'identifier' => e.identifier } }
     self.person.friends.online.map do |person|
       friends_list[person.identifier] = {
-        'avatar' => person.profile_custom_icon,
+        'avatar' => person.profile_custom_icon(gravatar_default),
         'name' => person.short_name,
         'jid' => person.full_jid,
         'status' => person.user.chat_status,
       }
     end
-    avatar = self.person.profile_custom_icon
-    avatar = str_gravatar_url_for(self.email, :size=>20) if avatar.blank?
+
     {
       'login' => self.login,
-      'avatar' => avatar,
+      'avatar' => self.person.profile_custom_icon(gravatar_default),
       'is_admin' => self.person.is_admin?,
       'since_month' => self.person.created_at.month,
       'since_year' => self.person.created_at.year,
