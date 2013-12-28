@@ -9,6 +9,8 @@ class CustomFormsPlugin::MembershipSurvey < Task
 
   def perform
     form = CustomFormsPlugin::Form.find(form_id)
+    raise 'Form expired' if form.expired?
+
     answers = build_answers(submission, form)
     s = CustomFormsPlugin::Submission.create!(:form => form, :profile => target)
     answers.map {|answer| answer.submission = s; answer.save!}
