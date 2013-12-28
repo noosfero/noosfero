@@ -84,19 +84,19 @@ module CustomFormsPlugin::Helper
     case field.select_field_type
     when 'multiple_select'
       selected = answer.present? ? answer.value.split(',') : field.alternatives.select {|a| a.selected_by_default}.map{|a| a.id.to_s}
-      select_tag "submission[#{field.id}]", options_for_select(field.alternatives.map{|a| [a.label, a.id.to_s]}, selected), :multiple => true, :title => _('Hold down Ctrl to select options'), :size => field.alternatives.size, :disabled => (answer.present? && answer.id.present?) || field.form.expired?
+      select_tag form.to_s + "[#{field.id}]", options_for_select(field.alternatives.map{|a| [a.label, a.id.to_s]}, selected), :multiple => true, :title => _('Hold down Ctrl to select options'), :size => field.alternatives.size, :disabled => (answer.present? && answer.id.present?) || field.form.expired?
     when 'check_box'
       field.alternatives.map do |alternative|
         default = answer.present? ? answer.value.split(',').include?(alternative.id.to_s) : alternative.selected_by_default
-        labelled_check_box alternative.label, "submission[#{field.id}][#{alternative.id}]", '1', default, :disabled => (answer.present? && answer.id.present?) || field.form.expired?
+        labelled_check_box alternative.label, form.to_s + "[#{field.id}][#{alternative.id}]", '1', default, :disabled => (answer.present? && answer.id.present?) || field.form.expired?
       end.join("\n")
     when 'select'
       selected = answer.present? ? answer.value.split(',') : field.alternatives.select {|a| a.selected_by_default}.map{|a| a.id.to_s}
-      select_tag "submission[#{field.id}]", options_for_select([['','']] + field.alternatives.map {|a| [a.label, a.id.to_s]}, selected), :disabled => (answer.present? && answer.id.present?) || field.form.expired?
+      select_tag form.to_s + "[#{field.id}]", options_for_select([['','']] + field.alternatives.map {|a| [a.label, a.id.to_s]}, selected), :disabled => (answer.present? && answer.id.present?) || field.form.expired?
     when 'radio'
       field.alternatives.map do |alternative|
         default = answer.present? ? answer.value == alternative.id.to_s : alternative.selected_by_default
-        labelled_radio_button alternative.label, "submission[#{field.id}]", alternative.id, default, :disabled => (answer.present? && answer.id.present?) || field.form.expired?
+        labelled_radio_button alternative.label, form.to_s + "[#{field.id}]", alternative.id, default, :disabled => (answer.present? && answer.id.present?) || field.form.expired?
       end.join("\n")
     end
   end
