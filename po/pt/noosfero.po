@@ -10635,7 +10635,7 @@ msgid "Admission survey"
 msgstr "Questionário para associação"
 
 #: plugins/custom_forms/lib/custom_forms_plugin/admission_survey.rb:13
-msgid "%{requestor} wants you to fill in some information."
+msgid "%{requestor} wants you to fill in some information before joining."
 msgstr "%{requestor} quer que você preencha algumas informações antes de se associar."
 
 #: plugins/custom_forms/lib/custom_forms_plugin/membership_survey.rb:28
@@ -10644,8 +10644,8 @@ msgstr "%{requestor} quer que você preencha algumas informações."
 
 #: plugins/custom_forms/lib/custom_forms_plugin/admission_survey.rb:17
 msgid ""
-"Before joining %{requestor}, the administrators of this organization\n
-      wants you to fill in some further information."
+"Before joining %{requestor}, the administrators of this organization\n"
+"      wants you to fill in some further information."
 msgstr ""
 "Antes de entrar em %{requestor}, os administradores dessa organização\n"
 " querem que você preencha algumas informações adicionais."
@@ -11537,12 +11537,12 @@ msgid "Add a new form"
 msgstr "Adicionar um novo formulário"
 
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/_form.html.erb:14
-msgid "Required for membership approval"
+msgid "Triggered on membership request as requirement for approval"
 msgstr "Disparado para novos integrantes como requisito de aprovação"
 
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/_form.html.erb:15
-msgid "Triggered on membership"
-msgstr "Disparado na associação de um novo integrante"
+msgid "Triggered after membership"
+msgstr "Disparado depois da aprovação de um novo integrante"
 
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/_form.html.erb:36
 msgid "Add a new field"
