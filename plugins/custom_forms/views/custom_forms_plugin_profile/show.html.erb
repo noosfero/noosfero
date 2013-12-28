@@ -1,11 +1,11 @@
 <h1><%= @form.name %></h1>
 <p><%= @form.description %></p>
 
-<% if @form.expired? %>
-  <h2><%= _('Sorry, you can\'t fill this form right now') %></h2>
-<% end %>
-
 <% if @submission.id.nil? %>
+  <% if @form.expired? %>
+    <h2><%= _('Sorry, you can\'t fill this form right now') %></h2>
+  <% end %>
+
   <%= error_messages_for :submission %>
 
   <% form_for :submission, @submission do |f| %>
@@ -17,8 +17,13 @@
     <%= render :partial => 'shared/form_submission', :locals => {:f => f} %>
 
     <% button_bar do %>
-      <%= submit_button :save, _('Save'), :cancel => {:controller => :profile, :profile => profile.identifier} %>
+      <% if @form.expired? %>
+        <%= submit_button :save, _('Save'), :disabled => '', :class => 'disabled', :cancel => {:controller => :profile, :profile => profile.identifier} %>
+      <% else %>
+        <%= submit_button :save, _('Save'), :cancel => {:controller => :profile, :profile => profile.identifier} %>
+      <% end %>
     <% end %>
+
   <% end %>
 <% else %>
   <% fields_for :submission, @submission do |f| %>
