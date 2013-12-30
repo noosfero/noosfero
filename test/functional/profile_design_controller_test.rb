@@ -300,6 +300,27 @@ class ProfileDesignControllerTest < ActionController::TestCase
     assert !@controller.instance_variable_get('@side_block_types').include?(CustomBlock8)
   end
 
+  should 'not edit main block with never option' do
+    get :edit, :profile => 'designtestuser', :id => @b4.id
+    assert_no_tag :input, :attributes => { :type => 'radio', :value => 'never'}
+  end
+
+  should 'not edit main block with home_page_only option' do
+    get :edit, :profile => 'designtestuser', :id => @b4.id
+    assert_no_tag :input, :attributes => { :type => 'radio', :value => 'home_page_only'}
+  end
+
+  should 'edit main block with always option' do
+    get :edit, :profile => 'designtestuser', :id => @b4.id
+    assert_tag :input, :attributes => { :type => 'radio', :value => 'always'}
+  end
+
+  should 'edit main block with except_home_page option' do
+    get :edit, :profile => 'designtestuser', :id => @b4.id
+    assert_tag :input, :attributes => { :type => 'radio', :value => 'except_home_page'}
+  end
+
+
   ######################################################
   # END - tests for BoxOrganizerController features
   ######################################################

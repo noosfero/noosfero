@@ -11,8 +11,8 @@ class MainBlockTest < ActiveSupport::TestCase
     ok("MainBlock must not have a content") { MainBlock.new.content.blank? }
   end
 
-  should 'not be editable' do
-    assert !MainBlock.new.editable?
+  should 'be editable' do
+    assert MainBlock.new.editable?
   end
 
 end
