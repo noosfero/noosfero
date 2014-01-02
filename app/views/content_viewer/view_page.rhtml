@@ -14,6 +14,12 @@
     window.NO_COMMENT_YET = "<%= _('No comments yet') %>";
 </script>
 
+<% if @page.parent && !@page.parent.path.blank? %>
+<div id="article-parent">
+  <%= button(:back, _('Go back to %s') % @page.parent.short_title, @page.parent.url) %>
+</div>
+<% end %>
+
 <div id="article-toolbar"></div>
 
 <script type="text/javascript">
@@ -43,11 +49,6 @@
   </div>
 <% end %>
 
-<% if @page.parent && !@page.parent.path.blank? %>
-<div id="article-parent">
-  <%= button(:back, _('Go back to %s') % @page.parent.short_title, @page.parent.url) %>
-</div>
-<% end %>
 
 <%= render :partial => 'shared/disabled_enterprise' %>
 
