@@ -7,7 +7,7 @@ class ContentViewerController < ApplicationController
 
   def view_page
     path = params[:page].join('/')
-    version = params[:rev]
+    @version = params[:rev]
 
     if path.blank?
       @page = profile.home_page
@@ -44,8 +44,8 @@ class ContentViewerController < ApplicationController
       return
     end
 
-    if version
-      @versioned_article = @page.versions.find_by_version(version)
+    if @version
+      @versioned_article = @page.versions.find_by_version(@version)
       render :template => 'content_viewer/versioned_article.rhtml'
       return
     end

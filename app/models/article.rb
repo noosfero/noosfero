@@ -604,17 +604,24 @@ class Article < ActiveRecord::Base
     false
   end
 
-  def author
-    if versions.empty?
-      last_changed_by
-    else
-      author_id = versions.first.last_changed_by_id
+  def author(version_number = nil)
+    if version_number
+      version = versions.find_by_version(version_number)
+      author_id = version.last_changed_by_id
       Person.exists?(author_id) ? Person.find(author_id) : nil
+    else
+      if versions.empty?
+        last_changed_by
+      else
+        author_id = versions.first.last_changed_by_id
+        Person.exists?(author_id) ? Person.find(author_id) : nil
+      end
     end
   end
 
-  def author_name
-    author ? author.name : (setting[:author_name] || _('Unknown'))
+  def author_name(version_number = nil)
+    person = version_number ? author(version_number) : author
+    person ? person.name : (setting[:author_name] || _('Unknown'))
   end
 
   def author_url
@@ -623,6 +630,11 @@ class Article < ActiveRecord::Base
 
   def author_id
     author ? author.id : nil
+  end
+
+  def version_license(version_number = nil)
+    return license if version_number.nil?
+    profile.environment.licenses.find_by_id(versions.find_by_version(version_number).license_id)
   end
 
   alias :active_record_cache_key :cache_key

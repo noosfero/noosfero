@@ -1,0 +1,5 @@
+<ul class='article-versions'>
+  <% @page.versions.each do |v| %>
+    <li><%= link_to("r#{v.version}", @page.url.merge(:rev => v.version)) %></li>
+  <% end %>
+<ul>
