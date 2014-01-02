@@ -1670,6 +1670,8 @@ a.button.disabled, input.disabled {
   padding: 2px;
   background: #ffd;
   margin-bottom: 5px;
+  opacity: 0.8;
+  filter: alpha(opacity=80);
 }
 .block-target-hover {
   background: #ffd;
