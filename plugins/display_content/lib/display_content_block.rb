@@ -41,7 +41,7 @@ class DisplayContentBlock < Block
 
   def articles_of_parent(parent = nil)
     return [] if self.holder.nil?
-    holder.articles.find(:all, :conditions => {:type => VALID_CONTENT, :parent_id => (parent.nil? ? nil : parent)}) 
+    holder.articles.find(:all, :conditions => {:type => VALID_CONTENT, :parent_id => (parent.nil? ? nil : parent)})
   end
 
   include ActionController::UrlWriter
@@ -74,14 +74,14 @@ class DisplayContentBlock < Block
   end
 
   def display_attribute?(attr)
-    chosen_attributes.include?(attr) 
+    chosen_attributes.include?(attr)
   end
 
   protected
 
   def holder
     return nil if self.box.nil? || self.box.owner.nil?
-    if self.box.owner.kind_of?(Environment) 
+    if self.box.owner.kind_of?(Environment)
       return nil if self.box.owner.portal_community.nil?
       self.box.owner.portal_community
     else

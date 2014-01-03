@@ -33,7 +33,7 @@ As a Noosfero administrator user, go to administrator panel:
 DEVELOPMENT
 ===========
 
-Noosfero uses jQuery 1.5.1 and the jsTree doesn't works fine with this jQuery version. 
+Noosfero uses jQuery 1.5.1 and the jsTree doesn't works fine with this jQuery version.
 Until Noosfero upgrade its JQuery version to a newer one is necessary to load jQuery 1.8.3 inside plugin and apply some changes in jsTree to avoid jQuery conflit.
 
 Get the Display Content (Noosfero with Display Content Plugin) development repository:

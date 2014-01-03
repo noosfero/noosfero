@@ -19,7 +19,7 @@ class DisplayContentPluginAdminControllerTest < ActionController::TestCase
     @environment.enabled_plugins = ['DisplayContentPlugin']
     @environment.portal_community = fast_create(Community, :name => 'my test profile', :identifier => 'mytestcommunity')
     @environment.save!
-  
+
     box = Box.new(:owner => @environment, :position => 1)
     box.save
 
