@@ -64,7 +64,7 @@ class Invitation < Task
 
       task_args = if user.nil?
         {:person => person, :friend_name => friend_name, :friend_email => friend_email, :message => message}
-      elsif !user.person.is_a_friend?(person)
+      elsif !(user.person.is_a_friend?(person) && profile.person?)
         {:person => person, :target => user.person}
       end
 

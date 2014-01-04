@@ -72,6 +72,29 @@ class InvitationTest < ActiveSupport::TestCase
     end
   end
 
+  should 'do nothing if the invited friend is already your friend' do
+    person = create_user('person').person
+    invited_friend = create_user('invited_friend').person
+
+    invited_friend.add_friend(person)
+
+    assert_no_difference InviteFriend, :count do
+      Invitation.invite( person, [invited_friend.user.email], "", person )
+    end
+  end
+
+  should 'and yet be able to invite friends to community' do
+    person = create_user('person').person
+    invited_friend = create_user('invited_friend').person
+
+    invited_friend.add_friend(person)
+    community = fast_create(Community)
+
+    assert_difference InviteMember, :count do
+      Invitation.invite( person, [invited_friend.user.email], "", community )
+    end
+  end
+
   should 'add url on message if user removed it' do
     person = create_user('testuser1').person
     friend = create_user('testuser2').person
