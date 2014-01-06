@@ -124,4 +124,8 @@ class StoaPlugin < Noosfero::Plugin
     {:field => :usp_id, :name => _('USP Number'), :model => 'person'}
   end
 
+  def search_friend_fields
+    [{:field => :usp_id, :name => _('USP Number')}]
+  end
+
 end
