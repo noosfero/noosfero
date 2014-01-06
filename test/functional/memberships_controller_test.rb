@@ -318,4 +318,20 @@ class MembershipsControllerTest < ActionController::TestCase
     assert_not_includes assigns(:roles), role2
   end
 
+  should 'only show roles related to profiles' do
+    c1 = fast_create(Community, :name => 'First community')
+    role1 = Role.create!(:name => 'profile_role', :permissions => ['edit_profile'], :environment => c1.environment)
+    role2 = Role.create!(:name => 'environment_role', :permissions => ['edit_profile'], :environment => c1.environment)
+
+    person = Person['testuser']
+    c1.add_member(person)
+    person.add_role(role2, c1.environment)
+    person.add_role(role1, c1)
+
+    login_as('testuser')
+    get :index, :profile => 'testuser'
+
+    assert_includes assigns(:roles), role1
+    assert_not_includes assigns(:roles), role2
+  end
 end

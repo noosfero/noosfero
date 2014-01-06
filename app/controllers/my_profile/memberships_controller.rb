@@ -3,7 +3,10 @@ class MembershipsController < MyProfileController
   protect 'manage_memberships', :profile
 
   def index
-    @roles = environment.roles.select{ |role| profile.role_assignments.find_by_role_id(role.id).present? }
+    @roles = environment.roles.select do |role|
+      ra = profile.role_assignments.find_by_role_id(role.id)
+      ra.present? && ra.resource_type == 'Profile'
+    end
     @filter = params[:filter_type].blank? ? nil : params[:filter_type]
     begin
       @memberships = @filter.nil? ? profile.memberships : profile.memberships_by_role(environment.roles.find(@filter))
