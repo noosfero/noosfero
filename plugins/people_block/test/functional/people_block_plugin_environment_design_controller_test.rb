@@ -12,13 +12,6 @@ class EnvironmentDesignControllerTest < ActionController::TestCase
     Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([PeopleBlockPlugin.new])
   end
 
-  #attr_accessor :environment, :block
-
-  #should 'display *block people-block* class at design blocks page' do
-    #get :index
-    #assert_tag :div, :attributes => {:class => 'block people-block'}
-  #end
-
   should 'be able to edit PeopleBlock' do
     login_as(create_admin_user(Environment.default))
     b = PeopleBlock.create!

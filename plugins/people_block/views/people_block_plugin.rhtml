@@ -18,4 +18,9 @@
       <%= text_field_tag 'block[address]', @block.address %>
     </p>
 
+    <% if @block.kind_of?(MembersBlock) %>
+      <%= labelled_form_field _('Filter by role:'), '' %>
+      <%= select_tag 'block[visible_role]', options_for_select(@block.roles.map{|r| [r.name, r.key]}.insert(0,''), @block.visible_role) %>
+    <% end %>
+
 </div>
