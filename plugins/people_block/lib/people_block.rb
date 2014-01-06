@@ -1,6 +1,6 @@
-class PeopleBlock < ProfileListBlock
+class PeopleBlock < PeopleBlockBase
 
-  def default_title
+  def self.description
     _('People')
   end
 
@@ -8,8 +8,8 @@ class PeopleBlock < ProfileListBlock
     _('Clicking a person takes you to his/her homepage')
   end
 
-  def self.description
-    _('Random people')
+  def default_title
+    _('{#} People')
   end
 
   def profiles

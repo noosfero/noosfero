@@ -9,14 +9,8 @@ class ProfileDesignController < BoxOrganizerController
 
     blocks += plugins.dispatch(:extra_blocks)
 
-    # blocks exclusive for organizations
-    if profile.has_members?
-      blocks << MembersBlock
-    end
-
     # blocks exclusive to people
     if profile.person?
-      blocks << FriendsBlock
       blocks << FavoriteEnterprisesBlock
       blocks << CommunitiesBlock
       blocks << EnterprisesBlock

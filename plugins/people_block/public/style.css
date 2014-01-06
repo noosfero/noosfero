@@ -1,0 +1,59 @@
+/*******************************************************************
+ *                           COMMON                                *
+ *******************************************************************/
+.people-block .block-footer-content a {
+  position: absolute;
+  top: 2px;
+  right: 0px;
+  font-size: 11px;
+  color: #000;
+  text-decoration: none;
+  padding-right: 15px;
+  background: url(/designs/themes/base/imgs/arrow-right-p.png) 100% 50% no-repeat;
+}
+
+.people-block .banner-span {
+  color: #000;
+  font-size: 14pt;
+  font-weight: bold;
+  background-color: #EEE;
+}
+
+
+/*******************************************************************
+ *                           MAIN BOX - 1                          *
+ *******************************************************************/
+.box-1 .people-block .banner-div {
+  line-height: 112px;
+}
+
+.box-1 .people-block .banner-span {
+  width: 204px;
+}
+
+
+/*******************************************************************
+ *                        LEFT/RIGHT BOXES                         *
+ *******************************************************************/
+.box-2 .people-block .banner-div,
+.box-3 .people-block .banner-div {
+  line-height: 78px;
+}
+
+.box-2 .people-block .banner-div a,
+.box-3 .people-block .banner-div a {
+  height: 78px;
+}
+
+.box-2 .people-block .banner-span,
+.box-3 .people-block .banner-span {
+  width: 116px;
+}
+
+.box-2 .people-block ul,
+.box-3 .people-block ul {
+  min-width: 196px;
+  width: 192px;
+  margin: 0px 0px 0px -3px;
+  padding: 0px;
+}

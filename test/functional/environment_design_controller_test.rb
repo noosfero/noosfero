@@ -6,7 +6,7 @@ class EnvironmentDesignController; def rescue_action(e) raise e end; end
 
 class EnvironmentDesignControllerTest < ActionController::TestCase
 
-  ALL_BLOCKS = [ArticleBlock, LoginBlock, EnvironmentStatisticsBlock, RecentDocumentsBlock, EnterprisesBlock, CommunitiesBlock, PeopleBlock, SellersSearchBlock, LinkListBlock, FeedReaderBlock, SlideshowBlock, HighlightsBlock, FeaturedProductsBlock, CategoriesBlock, RawHTMLBlock, TagsBlock ]
+  ALL_BLOCKS = [ArticleBlock, LoginBlock, EnvironmentStatisticsBlock, RecentDocumentsBlock, EnterprisesBlock, CommunitiesBlock, SellersSearchBlock, LinkListBlock, FeedReaderBlock, SlideshowBlock, HighlightsBlock, FeaturedProductsBlock, CategoriesBlock, RawHTMLBlock, TagsBlock ]
 
   def setup
     @controller = EnvironmentDesignController.new
@@ -96,16 +96,6 @@ class EnvironmentDesignControllerTest < ActionController::TestCase
   should 'be able to edit EnterprisesBlock' do
     login_as(create_admin_user(Environment.default))
     b = EnterprisesBlock.create!
-    e = Environment.default
-    e.boxes.create!
-    e.boxes.first.blocks << b
-    get :edit, :id => b.id
-    assert_tag :tag => 'input', :attributes => { :id => 'block_limit' }
-  end
-
-  should 'be able to edit PeopleBlock' do
-    login_as(create_admin_user(Environment.default))
-    b = PeopleBlock.create!
     e = Environment.default
     e.boxes.create!
     e.boxes.first.blocks << b
