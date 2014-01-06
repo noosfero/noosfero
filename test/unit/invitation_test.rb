@@ -120,4 +120,17 @@ class InvitationTest < ActiveSupport::TestCase
   should 'have a message with url' do
     assert_equal "\n\nTo accept invitation, please follow this link: <url>", Invitation.default_message_to_accept_invitation
   end
+
+  should 'invite friends through profile id' do
+    person = create_user('testuser1').person
+    friend = create_user('testuser2').person
+    community = fast_create(Community)
+
+    assert_difference InviteMember, :count do
+      Invitation.invite(person, [friend.id.to_s], 'hello friend <url>', community)
+    end
+    assert_difference InviteFriend, :count do
+      Invitation.invite(person, [friend.id.to_s], 'hello friend <url>', person)
+    end
+  end
 end
