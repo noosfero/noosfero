@@ -1,9 +1,15 @@
 class MembershipsController < MyProfileController
 
   protect 'manage_memberships', :profile
-  
+
   def index
-    @memberships = profile.memberships
+    @roles = environment.roles.select{ |role| profile.role_assignments.find_by_role_id(role.id).present? }
+    @filter = params[:filter_type].blank? ? nil : params[:filter_type]
+    begin
+      @memberships = @filter.nil? ? profile.memberships : profile.memberships_by_role(environment.roles.find(@filter))
+    rescue ActiveRecord::RecordNotFound
+      @memberships = []
+    end
   end
 
   def new_community
