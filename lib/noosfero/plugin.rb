@@ -437,6 +437,12 @@ class Noosfero::Plugin
     nil
   end
 
+  # -> Adds aditional fields for invite_friends search
+  # returns = [{:field => 'field1', :name => 'field 1 name'}, {...}]
+  def search_friend_fields
+    nil
+  end
+
   # -> Adds additional blocks to profiles and environments.
   # Your plugin must implements a class method called 'extra_blocks'
   # that returns a hash with the following syntax.
