@@ -1,0 +1,27 @@
+<% if profile.person? %>
+  <h1><%= _('Invite your friends') %></h1>
+<% else %>
+  <h1><%= _('Invite your friends to join %s') % profile.name %></h1>
+<% end %>
+
+<%= render :partial => 'invite/select_address_book' %>
+
+<% unless profile.person? %>
+  <h2><%= _('Invite others registered users') %></h2>
+  <p><%= _('You can also search for your friends\' profiles and invite them to join this community.') %></p>
+  <% form_tag :action => 'invite_registered_friend' do %>
+    <% search_action = url_for(:action => 'search_friend') %>
+    <%= token_input_field_tag(:q, 'search-friends', search_action,
+                              { :hint_text => _('Type in a search for your friend'),
+                                :focus => false }) %>
+
+    <%= render :partial => 'invite/personalize_invitation_mail', :locals => {:mail_template => @mail_template } %>
+
+    <% button_bar do %>
+      <%= submit_button('save', _('Invite'))%>
+      <%= button('cancel', _('Cancel'), profile.url)%>
+    <% end %>
+  <% end %>
+<% end %>
+
+<div id="loadingScreen"></div>

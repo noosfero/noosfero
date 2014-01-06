@@ -4,8 +4,9 @@ class InviteController < PublicController
   before_filter :login_required
   before_filter :check_permissions_to_invite
 
-  def select_address_book
+  def invite_friends
     @import_from = params[:import_from] || "manual"
+    @mail_template = params[:mail_template] || environment.invitation_mail_template(profile)
     if request.post?
       contact_list = ContactList.create
       Delayed::Job.enqueue GetEmailContactsJob.new(@import_from, params[:login], params[:password], contact_list.id) if @import_from != 'manual'
@@ -52,7 +53,32 @@ class InviteController < PublicController
   def cancel_fetching_emails
     contact_list = ContactList.find(params[:contact_list])
     contact_list.destroy
-    redirect_to :action => 'select_address_book'
+    redirect_to :action => 'invite_friends'
+  end
+
+  def invite_registered_friend
+    contacts_to_invite = params['q'].split(',')
+    mail_template = params[:mail_template] || environment.invitation_mail_template(profile)
+    if !contacts_to_invite.empty?
+      Delayed::Job.enqueue InvitationJob.new(current_user.person.id, contacts_to_invite, mail_template, profile.id, nil, locale)
+      session[:notice] = _('Your invitations are being sent.')
+      if profile.person?
+        redirect_to :controller => 'profile', :action => 'friends'
+      else
+        redirect_to :controller => 'profile', :action => 'members'
+      end
+      return
+    else
+      redirect_to :action => 'invite_friends'
+      session[:notice] = _('Please enter a valid profile.')
+    end
+  end
+
+  def search_friend
+    fields = %w[name identifier email]
+    values = ["%#{params['q']}%"] * fields.count
+    render :text => environment.people.find(:all, :joins => ['INNER JOIN users ON profiles.user_id=users.id'], :conditions => [fields.map {|field| "LOWER(#{field}) LIKE ?"}.join(' OR '), *values]).
+      map {|person| {:id => person.id, :name => person.name} }.to_json
   end
 
   protected
