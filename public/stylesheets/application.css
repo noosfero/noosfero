@@ -286,10 +286,10 @@ div.pending-tasks {
   border: 1px solid #BFC2BC;
   margin-bottom: 20px;
 }
-#pending-tasks-count {
+#user .logged-in #pending-tasks-count {
   padding-left: 5px;
   padding-right: 5px;
-  margin-left: 2px;
+  margin-left: 3px;
   text-decoration: none;
   background-color: #F57900;
   -moz-border-radius: 2px;
@@ -871,7 +871,10 @@ code input {
 }
 #manage-enterprises .simplemenu-item a {
   background-repeat: no-repeat;
-  padding-left: 20px;
+  background-position: 5px 50%;
+  padding: 1px 0px 0px 26px;
+  line-height: 15px;
+  display: block;
 }
 #manage-enterprises .simplemenu-item a span {
   display: none;
@@ -1287,6 +1290,7 @@ a.comment-picture {
 .scrap-replies {
   border: 1px solid #fff;
   padding: 0;
+  border-right: 0px;
   -moz-border-radius: 4px;
   -webkit-border-radius: 4px;
   border-radius: 4px;
@@ -5571,7 +5575,7 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 img {
 
 #profile-wall ul.profile-wall-activities-comments ul,
 #profile-network ul.profile-wall-activities-comments ul {
-  padding-left: 0px;
+  padding-left: 12px;
 }
 
 #profile-wall .profile-wall-activities-comments li,

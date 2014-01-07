@@ -500,4 +500,46 @@ class ApplicationControllerTest < ActionController::TestCase
     end
 
   end
+
+  should 'do not duplicate plugin filters' do
+
+    class FilterPlugin < Noosfero::Plugin
+      def test_controller_filters
+        { :type => 'before_filter',
+          :method_name => 'filter_plugin',
+          :options => {:only => 'some_method'},
+          :block => lambda {} }
+      end
+    end
+
+    Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([FilterPlugin.new])
+
+    get :index
+    get :index
+    assert_equal 1, @controller.class.filter_chain.select{|c| c.method == 'application_controller_test_filter_plugin_filter_plugin'}.count
+  end
+
+  should 'do not call plugin filter block on a environment that this plugin is not enabled' do
+
+    class OtherFilterPlugin < Noosfero::Plugin
+      def test_controller_filters
+        { :type => 'before_filter',
+          :method_name => 'filter_plugin',
+          :options => {:only => 'some_method'},
+          :block => lambda {'plugin block called'} }
+      end
+    end
+
+    environment1 = fast_create(Environment, :name => 'test environment')
+    environment1.enable_plugin(OtherFilterPlugin.name)
+    environment2 = fast_create(Environment, :name => 'other test environment')
+
+    @controller.stubs(:environment).returns(environment1)
+    get :index
+    assert_equal 'plugin block called', @controller.application_controller_test_other_filter_plugin_filter_plugin
+
+    @controller.stubs(:environment).returns(environment2)
+    assert_equal nil, @controller.application_controller_test_other_filter_plugin_filter_plugin
+  end
+
 end

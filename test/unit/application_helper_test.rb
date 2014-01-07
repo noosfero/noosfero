@@ -466,30 +466,17 @@ class ApplicationHelperTest < ActiveSupport::TestCase
     assert_match(/Community nick/, page_title)
   end
 
-  should 'generate a gravatar image url' do
-    stubs(:environment).returns(Environment.default)
-    @controller = ApplicationController.new
-
+  should 'gravatar default parameter' do
+    profile = mock
+    profile.stubs(:theme).returns('some-theme')
+    stubs(:profile).returns(profile)
     with_constants :NOOSFERO_CONF => {'gravatar' => 'crazyvatar'} do
-      url = str_gravatar_url_for( 'rms@gnu.org', :size => 50 )
-      assert_match(/^http:\/\/www\.gravatar\.com\/avatar\.php\?/, url)
-      assert_match(/(\?|&)gravatar_id=ed5214d4b49154ba0dc397a28ee90eb7(&|$)/, url)
-      assert_match(/(\?|&)d=crazyvatar(&|$)/, url)
-      assert_match(/(\?|&)size=50(&|$)/, url)
+      assert_equal gravatar_default, 'crazyvatar'
     end
     stubs(:theme_option).returns('gravatar' => 'nicevatar')
     with_constants :NOOSFERO_CONF => {'gravatar' => 'crazyvatar'} do
-      url = str_gravatar_url_for( 'rms@gnu.org', :size => 50 )
-      assert_match(/^http:\/\/www\.gravatar\.com\/avatar\.php\?/, url)
-      assert_match(/(\?|&)gravatar_id=ed5214d4b49154ba0dc397a28ee90eb7(&|$)/, url)
-      assert_match(/(\?|&)d=nicevatar(&|$)/, url)
-      assert_match(/(\?|&)size=50(&|$)/, url)
+      assert_equal gravatar_default, 'nicevatar'
     end
-  end
-
-  should 'generate a gravatar profile url' do
-    url = gravatar_profile_url( 'rms@gnu.org' )
-    assert_equal('http://www.gravatar.com/ed5214d4b49154ba0dc397a28ee90eb7', url)
   end
 
   should 'use theme passed via param when in development mode' do

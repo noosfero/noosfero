@@ -96,7 +96,7 @@ class ContentViewerController < ApplicationController
     end
 
     if @page.folder? && @page.gallery?
-      @images = @page.images
+      @images = @page.images.select{ |a| a.display_to? user }
       @images = @images.paginate(:per_page => per_page, :page => params[:npage]) unless params[:slideshow]
     end
 

@@ -336,10 +336,22 @@ class UserTest < ActiveSupport::TestCase
     Person.any_instance.stubs(:is_admin?).returns(true)
     Person.any_instance.stubs(:created_at).returns(DateTime.parse('16-08-2010'))
     expected_hash = {
-      'login' => 'x_and_y', 'is_admin' => true, 'since_month' => 8, 'chat_enabled' => false, 'since_year' => 2010, 'email_domain' => nil, 'amount_of_friends' => 0,
+      'login' => 'x_and_y', 'is_admin' => true, 'since_month' => 8,
+      'chat_enabled' => false, 'since_year' => 2010, 'avatar' =>
+      'http://www.gravatar.com/avatar/a0517761d5125820c28d87860bc7c02e?only_path=false&d=&size=20',
+        'email_domain' => nil, 'amount_of_friends' => 0,
       'friends_list' => {}, 'enterprises' => [],
     }
-    assert_equal expected_hash, person.user.data_hash
+
+    assert_equal expected_hash['login'], person.user.data_hash['login']
+    assert_equal expected_hash['is_admin'], person.user.data_hash['is_admin']
+    assert_equal expected_hash['since_month'], person.user.data_hash['since_month']
+    assert_equal expected_hash['chat_enabled'], person.user.data_hash['chat_enabled']
+    assert_equal expected_hash['since_year'], person.user.data_hash['since_year']
+    assert_equal expected_hash['avatar'], person.user.data_hash['avatar']
+    assert_equal expected_hash['email_domain'], person.user.data_hash['email_domain']
+    assert_equal expected_hash['amount_of_friends'], person.user.data_hash['amount_of_friends']
+    assert_equal expected_hash['friends_list'], person.user.data_hash['friends_list']
   end
 
   should "data_hash return the friends_list information" do
