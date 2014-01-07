@@ -1761,7 +1761,7 @@ class ProfileTest < ActiveSupport::TestCase
     env = fast_create(Environment)
     roles = %w(foo bar profile_foo profile_bar).map{ |r| Role.create!(:name => r, :environment_id => env.id, :permissions => ["some"]) }
     Role.create! :name => 'test', :environment_id => env.id + 1
-    assert_equal roles, Profile::Roles.all_roles(env.id)
+    assert_equivalent roles, Profile::Roles.all_roles(env.id)
   end
 
   should 'define method for role' do
