@@ -1,0 +1,21 @@
+<% extend CommunityTrackPlugin::TrackHelper %>
+<div class="item <%= category_class(track) %>">
+  <div class="track_content">
+    <div class="lead">
+      <h3><%= link_to track.name, track.url %></h3>
+      <div class="content">
+        <%= track.lead %>
+      </div>
+    </div>
+    <div class="steps">
+      <h3><%= _("Steps") %></h3>
+      <% track.steps.each do |step| %>
+        <div class="step <%= block.status_class(step) %>">
+          <div class="position"><%= step.position %></div>
+          <%= link_to step.name, step.url %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+<br style="clear: both;"/>

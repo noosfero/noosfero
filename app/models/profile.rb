@@ -86,7 +86,8 @@ class Profile < ActiveRecord::Base
   #FIXME: these will work only if the subclass is already loaded
   scope :enterprises, lambda { {:conditions => (Enterprise.send(:subclasses).map(&:name) << 'Enterprise').map { |klass| "profiles.type = '#{klass}'"}.join(" OR ")} }
   scope :communities, lambda { {:conditions => (Community.send(:subclasses).map(&:name) << 'Community').map { |klass| "profiles.type = '#{klass}'"}.join(" OR ")} }
-  scope :templates, lambda { |environment| { :conditions => {:is_template => true, :environment_id => environment.id} } }
+  scope :templates, {:conditions => {:is_template => true}}
+  scope :no_templates, {:conditions => {:is_template => false}}
 
   def members
     scopes = plugins.dispatch_scopes(:organization_members, self)
@@ -96,6 +97,14 @@ class Profile < ActiveRecord::Base
 
   def members_count
     members.count
+  end
+
+  class << self
+    def count_with_distinct(*args)
+      options = args.last || {}
+      count_without_distinct(:id, {:distinct => true}.merge(options))
+    end
+    alias_method_chain :count, :distinct
   end
 
   def members_by_role(role)
@@ -111,6 +120,7 @@ class Profile < ActiveRecord::Base
   end
 
   scope :visible, :conditions => { :visible => true }
+  scope :public, :conditions => { :visible => true, :public_profile => true }
   # Subclasses must override these methods
   scope :more_popular
   scope :more_active
@@ -187,7 +197,7 @@ class Profile < ActiveRecord::Base
 
   has_many :tasks, :dependent => :destroy, :as => 'target'
 
-  has_many :events, :source => 'articles', :class_name => 'Event', :order => 'name'
+  has_many :events, :source => 'articles', :class_name => 'Event', :order => 'start_date'
 
   def find_in_all_tasks(task_id)
     begin
@@ -220,12 +230,14 @@ class Profile < ActiveRecord::Base
 
   belongs_to :region
 
+  LOCATION_FIELDS = %w[address district city state country_name zip_code]
+
   def location(separator = ' - ')
     myregion = self.region
     if myregion
       myregion.hierarchy.reverse.first(2).map(&:name).join(separator)
     else
-      %w[address district city state country_name zip_code ].map {|item| (self.respond_to?(item) && !self.send(item).blank?) ? self.send(item) : nil }.compact.join(separator)
+      LOCATION_FIELDS.map {|item| (self.respond_to?(item) && !self.send(item).blank?) ? self.send(item) : nil }.compact.join(separator)
     end
   end
 
@@ -292,7 +304,7 @@ class Profile < ActiveRecord::Base
   validate :valid_template
 
   def valid_template
-    if template_id.present? and !template.is_template
+    if template_id.present? && template && !template.is_template
       errors.add(:template, _('is not a template.'))
     end
   end
@@ -843,8 +855,10 @@ private :generate_url, :url_options
     }[amount] || _("%s members") % amount
   end
 
-  def profile_custom_icon
-    self.image.public_filename(:icon) unless self.image.blank?
+  include Noosfero::Gravatar
+
+  def profile_custom_icon(gravatar_default=nil)
+    image.public_filename(:icon) if image.present?
   end
 
   def jid(options = {})
@@ -881,6 +895,21 @@ private :generate_url, :url_options
   # Override in your subclasses
   def activities
     []
+  end
+
+  def may_display_field_to? field, user = nil
+    if not self.active_fields.include? field.to_s
+      self.send "may_display_#{field}_to?", user rescue true
+    else
+      not (!self.public_fields.include? field.to_s and (!user or (user != self and !user.is_a_friend?(self))))
+    end
+  end
+
+  def may_display_location_to? user = nil
+    LOCATION_FIELDS.each do |field|
+      return false if !self.may_display_field_to? field, user
+    end
+    return true
   end
 
   # field => privacy (e.g.: "address" => "public")

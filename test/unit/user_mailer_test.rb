@@ -11,11 +11,9 @@ class UserMailerTest < ActiveSupport::TestCase
 
   end
 
-
   should 'deliver activation email notify' do
     assert_difference ActionMailer::Base.deliveries, :size do
       u = create_user('some-user')
-      u.environment = Environment.default
       User::Mailer.activation_email_notify(u).deliver
     end
   end

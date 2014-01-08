@@ -9,13 +9,13 @@ class Category < ActiveRecord::Base
     :slug => 1,
   }
 
-  validates_exclusion_of :slug, :in => [ 'index' ], :message => N_('%{fn} cannot be like that.').fix_i18n
+  validates_exclusion_of :slug, :in => [ 'index' ], :message => N_('{fn} cannot be like that.').fix_i18n
   validates_presence_of :name, :environment_id
-  validates_uniqueness_of :slug,:scope => [ :environment_id, :parent_id ], :message => N_('%{fn} is already being used by another category.').fix_i18n
+  validates_uniqueness_of :slug,:scope => [ :environment_id, :parent_id ], :message => N_('{fn} is already being used by another category.').fix_i18n
   belongs_to :environment
 
-  validates_inclusion_of :display_color, :in => [ 1, 2, 3, 4, nil ]
-  validates_uniqueness_of :display_color, :scope => :environment_id, :if => (lambda { |cat| ! cat.display_color.nil? }), :message => N_('%{fn} was already assigned to another category.').fix_i18n
+  validates_inclusion_of :display_color, :in => 1..15, :allow_nil => true
+  validates_uniqueness_of :display_color, :scope => :environment_id, :if => (lambda { |cat| ! cat.display_color.nil? }), :message => N_('{fn} was already assigned to another category.').fix_i18n
 
   # Finds all top level categories for a given environment. 
   scope :top_level_for, lambda { |environment|
@@ -24,23 +24,15 @@ class Category < ActiveRecord::Base
 
   scope :on_level, lambda { |parent| {:conditions => {:parent_id => parent}} }
 
-  scope :sub_categories, lambda { |category|
-    {:conditions => ['categories.path LIKE ? AND categories.id != ?', "%#{category.slug}%", category.id]}
-  }
-
-  scope :sub_tree, lambda { |category|
-    {:conditions => ['categories.path LIKE ?', "%#{category.slug}%"]}
-  }
-
   acts_as_filesystem
 
-  has_many :article_categorizations, :dependent => :destroy
+  has_many :article_categorizations
   has_many :articles, :through => :article_categorizations
   has_many :comments, :through => :articles
 
   has_many :events, :through => :article_categorizations, :class_name => 'Event', :source => :article
 
-  has_many :profile_categorizations, :dependent => :destroy
+  has_many :profile_categorizations
   has_many :profiles, :through => :profile_categorizations, :source => :profile
   has_many :enterprises, :through => :profile_categorizations, :source => :profile, :class_name => 'Enterprise'
   has_many :people, :through => :profile_categorizations, :source => :profile, :class_name => 'Person'

@@ -30,12 +30,30 @@ class Event < Article
 
   validates_each :start_date do |event,field,value|
     if event.end_date && event.start_date && event.start_date > event.end_date
-      event.errors.add(:start_date, _('%{fn} cannot come before end date.').fix_i18n)
+      event.errors.add(:start_date, _('{fn} cannot come before end date.').fix_i18n)
     end
   end
 
   scope :by_day, lambda { |date|
-    {:conditions => ['start_date = :date AND end_date IS NULL OR (start_date <= :date AND end_date >= :date)', {:date => date}]}
+    { :conditions => ['start_date = :date AND end_date IS NULL OR (start_date <= :date AND end_date >= :date)', {:date => date}],
+      :order => 'start_date ASC'
+    }
+  }
+
+  scope :next_events_from_month, lambda { |date|
+    date_temp = date.strftime("%Y-%m-%d")
+    { :conditions => ["start_date >= ?","#{date_temp}"],
+      :limit => 10,
+      :order => 'start_date ASC'
+    }
+  }
+
+  scope :by_month, lambda { |date|
+    date_temp = date.strftime("%Y-%m")
+    { :conditions => ["EXTRACT(YEAR FROM start_date) = ? AND EXTRACT(MONTH FROM start_date) = ?",date.year,date.month],
+      :limit => 10,
+      :order => 'start_date ASC'
+    }
   }
 
   include WhiteListFilter
@@ -112,7 +130,7 @@ class Event < Article
 
       # TODO: some good soul, please clean this ugly hack:
       if self.body
-        html.div('_____XXXX_DESCRIPTION_GOES_HERE_XXXX_____', :class => 'event-description') 
+        html.div('_____XXXX_DESCRIPTION_GOES_HERE_XXXX_____', :class => 'event-description')
       end
     }
 

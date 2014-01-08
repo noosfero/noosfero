@@ -7,8 +7,9 @@ class FeaturedProductsBlock < Block
 
   before_save do |block|
     if block.owner.kind_of?(Environment) && block.product_ids.blank?
-      seed = block.owner.products.count
-      block.product_ids = block.owner.highlighted_products_with_image(:offset => (rand(seed) % (seed - block.groups_of * 3)), :limit => block.groups_of * 3).map(&:id)
+      total = block.owner.products.count
+      offset = rand([(total - block.groups_of * 3) + 1, 1].max)
+      block.product_ids = block.owner.highlighted_products_with_image(:offset => offset, :limit => block.groups_of * 3).map(&:id)
     end
     block.groups_of = block.groups_of.to_i
   end

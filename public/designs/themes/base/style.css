@@ -89,7 +89,7 @@ body, th, td, input {
   color: #555753;
 }
 
-#controlpanel, #logout, #openchat, #manage-enterprises {
+#user .logged-in > * {
   margin-left: 25px;
 }
 
@@ -103,6 +103,14 @@ body, th, td, input {
 }
 .msie7 #user a i {
   top: 3px;
+}
+
+#user #homepage-link i {
+  width: 18px;
+  height: 18px;
+  left: -20px;
+  top: -2px;
+  background-position: 50% 50%;
 }
 
 #user form {
@@ -822,12 +830,6 @@ div#notice {
   margin-bottom: 0px;
 }
 
-X.sep {
-  background: url(imgs/blog-sep.png) 50% 50% repeat-x;
-  padding: 10px 20px;
-  margin: 10px -19px;
-}
-
 /* ==> search-results.css <== */
 
 
@@ -1019,6 +1021,46 @@ hr.pre-posts, hr.sep-posts {
   background: transparent;
 }
 
+/************* uploaded file *****************/
+
+#article .gallery-navigation {
+  padding: 10px 0;
+}
+
+#article .gallery-navigation .previous {
+  margin-right: 10px;
+}
+
+#article .gallery-navigation .next {
+  margin-left: 10px;
+}
+
+#article .gallery-navigation .total-of-images {
+  font-weight: bold;
+}
+
+#article .uploaded-file-description {
+  background: #f6f6f6;
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  padding: 1em;
+}
+#article .uploaded-file-description.empty {
+  display: none;
+}
+
+#article.file-generic .download-link {
+  display: block;
+  margin-bottom: 10px;
+}
+#article.file-generic .download-link span {
+  font-size: 150%;
+  padding-right: 5px;
+}
+#article.file-generic .download-link a {
+  font-size: 180%;
+  text-decoration: none;
+}
 
 /**************************** Comments *******************************/
 

@@ -40,6 +40,7 @@ class CmsHelperTest < ActionView::TestCase
   should 'display image and link if article is an image' do
     profile = fast_create(Profile)
     file = create(UploadedFile, :profile => profile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
+    file = FilePresenter.for file
     icon = icon_for_article(file)
     expects(:image_tag).with(icon).returns('icon')
 
@@ -105,13 +106,6 @@ class CmsHelperTest < ActionView::TestCase
 
     result = display_delete_button(article)
   end
-
-  def link_to(text, *args); puts text; puts args.inspect; text; end
-
-  def environment
-    Environment.default
-  end
-
 end
 
 module RssFeedHelper

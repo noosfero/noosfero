@@ -51,6 +51,14 @@ class ShoppingCartPluginMyprofileControllerTest < ActionController::TestCase
     assert settings.delivery_price == price
   end
 
+  should 'be able to choose delivery_options' do
+    delivery_options = {:options => ['car', 'bike'], :prices => ['20', '5']}
+    post :edit, :profile => enterprise.identifier, :settings => {:delivery_options => delivery_options}
+
+    assert_equal '20', settings.delivery_options['car']
+    assert_equal '5', settings.delivery_options['bike']
+  end
+
   should 'filter the reports correctly' do
     another_enterprise = fast_create(Enterprise)
     po1 = ShoppingCartPlugin::PurchaseOrder.create!(:seller => enterprise, :status => ShoppingCartPlugin::PurchaseOrder::Status::OPENED)

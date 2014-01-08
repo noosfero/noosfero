@@ -12,22 +12,22 @@
 
 # "Abstract" base class, only useful with subclasses that add parameters
 class Solr::Request::Select < Solr::Request::Base
-      
+
   attr_reader :query_type
-  
+
   def initialize(qt=nil, params={})
     @query_type = qt
     @select_params = params
   end
-  
+
   def response_format
     :ruby
   end
-  
+
   def handler
     'select'
   end
-  
+
   def content_type
     'application/x-www-form-urlencoded; charset=utf-8'
   end
@@ -35,7 +35,7 @@ class Solr::Request::Select < Solr::Request::Base
   def to_hash
     return {:qt => query_type, :wt => 'ruby', 'json.nl' => 'arrarr'}.merge(@select_params)
   end
-  
+
   def to_s
     raw_params = self.to_hash
 
@@ -50,5 +50,5 @@ class Solr::Request::Select < Solr::Request::Base
 
     http_params.join("&")
   end
-  
+
 end

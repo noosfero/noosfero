@@ -82,6 +82,10 @@ class String
     transliterate.downcase.gsub(/[^[[:word:]]~\s:;+=_."'`-]/, '').gsub(/[\s:;+=_"'`-]+/, '-').gsub(/-$/, '').gsub(/^-/, '').to_s
   end
 
+  def to_css_class
+    underscore.dasherize.gsub('/','_')
+  end
+
   def fix_i18n
     self.sub('{fn} ', '')
   end

@@ -9,7 +9,7 @@ Feature: manage products
     And the following enterprises
       | identifier | owner | name | enabled |
       | redemoinho | joaosilva | Rede Moinho | true |
-    And feature "disable_products_for_enterprises" is disabled on environment
+    And feature "products_for_enterprises" is enabled on environment
 
   Scenario: display "create new product" button
     Given I am logged in as "joaosilva"

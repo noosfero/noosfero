@@ -1,5 +1,9 @@
+require 'stoa_plugin/person_fields'
+
 class StoaPluginController < PublicController
   append_view_path File.join(File.dirname(__FILE__) + '/../views')
+
+  include StoaPlugin::PersonFields
 
   def authenticate
     if request.ssl? && request.post?
@@ -11,22 +15,14 @@ class StoaPluginController < PublicController
       end
       user = User.authenticate(login, params[:password], environment)
       if user
-        result = {
-          :username => user.login,
-          :email => user.email,
-          :name => user.name,
-          :nusp => user.person.usp_id,
-          :first_name => user.name.split(' ').first,
-          :surname => user.name.split(' ',2).last,
-          :address => user.person.address,
-          :homepage => url_for(user.person.url),
-        }
+        result = StoaPlugin::PersonApi.new(user.person, self).fields(selected_fields(params[:fields], user))
+        result.merge!(:ok => true)
       else
-        result = { :error => _('Incorrect user/password pair.') }
+        result = { :error => _('Incorrect user/password pair.'), :ok => false }
       end
       render :text => result.to_json
     else
-      render :text => { :error => _('Conection requires SSL certificate and post method.') }.to_json
+      render :text => { :error => _('Conection requires SSL certificate and post method.'), :ok => false }.to_json
     end
   end
 
@@ -40,7 +36,7 @@ class StoaPluginController < PublicController
 
   def check_cpf
     begin
-      render :text => { :exists => !StoaPlugin::UspUser.find_by_codpes(params[:usp_id]).cpf.blank? }.to_json
+      render :text => { :exists => StoaPlugin::UspUser.find_by_codpes(params[:usp_id]).cpf.present? }.to_json
     rescue Exception => exception
       render :text => { :exists => false, :error => {:message => exception.to_s, :backtrace => exception.backtrace} }.to_json
     end

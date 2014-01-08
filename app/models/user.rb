@@ -89,7 +89,7 @@ class User < ActiveRecord::Base
   before_save :encrypt_password
   validates_format_of :email, :with => Noosfero::Constants::EMAIL_FORMAT, :if => (lambda {|user| !user.email.blank?})
 
-  validates_inclusion_of :terms_accepted, :in => [ '1' ], :if => lambda { |u| ! u.terms_of_use.blank? }, :message => N_('%{fn} must be checked in order to signup.').fix_i18n
+  validates_inclusion_of :terms_accepted, :in => [ '1' ], :if => lambda { |u| ! u.terms_of_use.blank? }, :message => N_('{fn} must be checked in order to signup.').fix_i18n
 
   # Authenticates a user by their login name or email and unencrypted password.  Returns the user or nil.
   def self.authenticate(login, password, environment = nil)
@@ -114,6 +114,21 @@ class User < ActiveRecord::Base
       if environment.enabled?('send_welcome_email_to_new_users') && environment.has_signup_welcome_text?
         User::Mailer.delay.signup_welcome_email(self)
       end
+      true
+    end
+  end
+
+  # Deactivates the user in the database.
+  def deactivate
+    return false unless self.person
+    self.activated_at = nil
+    self.person.visible = false
+    begin
+      self.person.save! && self.save!
+    rescue Exception => exception
+      logger.error(exception.to_s)
+      false
+    else
       true
     end
   end
@@ -250,19 +265,21 @@ class User < ActiveRecord::Base
     end
   end
 
-  def data_hash
+  def data_hash(gravatar_default = nil)
     friends_list = {}
     enterprises = person.enterprises.map { |e| { 'name' => e.short_name, 'identifier' => e.identifier } }
     self.person.friends.online.map do |person|
       friends_list[person.identifier] = {
-        'avatar' => person.profile_custom_icon,
+        'avatar' => person.profile_custom_icon(gravatar_default),
         'name' => person.short_name,
         'jid' => person.full_jid,
         'status' => person.user.chat_status,
       }
     end
+
     {
       'login' => self.login,
+      'avatar' => self.person.profile_custom_icon(gravatar_default),
       'is_admin' => self.person.is_admin?,
       'since_month' => self.person.created_at.month,
       'since_year' => self.person.created_at.year,

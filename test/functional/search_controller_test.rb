@@ -321,7 +321,7 @@ class SearchControllerTest < ActionController::TestCase
     ev2 = create_event(person, :name => 'event 2', :category_ids => [@category.id],	:start_date => Date.today - 2.month)
 
     get :events, :day => ten_days_ago.day, :month => ten_days_ago.month, :year => ten_days_ago.year
-    assert_equal [ev1], assigns(:events_of_the_day)
+    assert_equal [ev1], assigns(:events)
   end
 
   should 'return events of the day with category' do
@@ -333,7 +333,7 @@ class SearchControllerTest < ActionController::TestCase
 
     get :events, :day => ten_days_ago.day, :month => ten_days_ago.month, :year => ten_days_ago.year, :category_path => @category.path.split('/')
 
-    assert_equal [ev1], assigns(:events_of_the_day)
+    assert_equal [ev1], assigns(:events)
   end
 
   should 'return events of today when no date specified' do
@@ -343,7 +343,7 @@ class SearchControllerTest < ActionController::TestCase
 
     get :events
 
-    assert_equal [ev1], assigns(:events_of_the_day)
+    assert_equal [ev1], assigns(:events)
   end
 
   should 'show events for current month by default' do
@@ -426,7 +426,7 @@ class SearchControllerTest < ActionController::TestCase
   should 'show link to article asset in the see all foot link of the articles block in the category page' do
 	(1..SearchController::MULTIPLE_SEARCH_LIMIT+1).each do |i|
 	  a = create_user("test#{i}").person.articles.create!(:name => "article #{i} to be found")
-      a.categories << @category
+      ArticleCategorization.add_category_to_article(@category, a)
     end
 
     get :category_index, :category_path => [ 'my-category' ]
@@ -609,11 +609,11 @@ class SearchControllerTest < ActionController::TestCase
 		
 		get :tag, :tag => 'two'
 
-    assert_equal [a, a2], assigns(:searches)[:tag][:results]
+    assert_equivalent [a, a2], assigns(:searches)[:tag][:results]
 
 		get :tag, :tag => 'one'
 
-    assert_equal [a], assigns(:searches)[:tag][:results]
+    assert_equivalent [a], assigns(:searches)[:tag][:results]
   end
 
   should 'not show assets from other environments' do

@@ -2,7 +2,7 @@ jQuery('.display-comment-form').unbind();
 jQuery('.display-comment-form').click(function(){
   var $button = jQuery(this);
   toggleBox($button.parents('.post_comment_box'));
-  jQuery('.display-comment-form').hide();
+  jQuery($button).hide();
   $button.closest('.page-comment-form').find('input').first().focus();
   return false;
 });
@@ -54,6 +54,7 @@ function save_comment(button) {
       $('#'+ data.render_target).replaceWith(data.html);
       $('#' + data.render_target).effect("highlight", {}, 3000);
       $.colorbox.close();
+      increment_comment_count(comment_div);
     } else {
       //New comment of article
       comment_div.find('.article-comments-list').append(data.html);
@@ -64,12 +65,8 @@ function save_comment(button) {
 
       page_comment_form.find('.errorExplanation').remove();
       $.colorbox.close();
+      increment_comment_count(comment_div);
     }
-
-    comment_div.find('.comment-count').add('#article-header .comment-count').each(function() {
-      var count = parseInt($(this).html());
-      update_comment_count($(this), count + 1);
-    });
 
     if(jQuery('#recaptcha_response_field').val()){
       Recaptcha.reload();
@@ -84,6 +81,13 @@ function save_comment(button) {
     $button.removeClass('comment-button-loading');
     $button.enable();
   }, 'json');
+}
+
+function increment_comment_count(comment_div) {
+  comment_div.find('.comment-count').add('#article-header .comment-count').each(function() {
+    var count = parseInt(jQuery(this).html());
+    update_comment_count(jQuery(this), count + 1);
+  });
 }
 
 function show_display_comment_button() {

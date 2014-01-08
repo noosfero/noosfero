@@ -4,7 +4,7 @@ class ProfileSweeper # < ActiveRecord::Observer
   include SweeperHelper
 
   def after_update(profile)
-    expire_caches(profile)
+    self.delay.expire_caches profile
   end
 
   def after_create(profile)

@@ -9,7 +9,7 @@ class ProfileControllerTest < ActionController::TestCase
     @controller = ProfileController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
-
+    Environment.default.enable('products_for_enterprises')
     @profile = create_user('testuser').person
   end
   attr_reader :profile
@@ -17,11 +17,11 @@ class ProfileControllerTest < ActionController::TestCase
   def test_local_files_reference
     assert_local_files_reference
   end
-  
+
   def test_valid_xhtml
     assert_valid_xhtml
   end
-  
+
   noosfero_test :profile => 'testuser'
 
   should 'list friends' do
@@ -68,7 +68,7 @@ class ProfileControllerTest < ActionController::TestCase
     assert_template 'members'
     assert_kind_of Array, assigns(:members)
   end
-  
+
   should 'list favorite enterprises' do
     get :favorite_enterprises
 
@@ -96,7 +96,7 @@ class ProfileControllerTest < ActionController::TestCase
   end
 
   should 'not show enterprises link to enterprise' do
-    ent = fast_create(Enterprise, :identifier => 'test_enterprise1', :name => 'Test enteprise1')
+    ent = fast_create(Enterprise, :identifier => 'test_enterprise1', :name => 'Test enterprise1')
     get :index, :profile => ent.identifier
     assert_no_tag :tag => 'a', :content => 'Enterprises', :attributes => { :href => /profile\/#{ent.identifier}\/enterprises$/ }
   end
@@ -263,8 +263,7 @@ class ProfileControllerTest < ActionController::TestCase
 
   should 'not display "Products" link for enterprise if environment do not let' do
     env = Environment.default
-    env.enable('disable_products_for_enterprises')
-    env.save!
+    env.disable('products_for_enterprises')
     ent = fast_create(Enterprise, :name => 'my test enterprise', :identifier => 'my-test-enterprise', :enabled => false, :environment_id => env.id)
 
     get :index, :profile => 'my-test-enterprise'
@@ -308,7 +307,7 @@ class ProfileControllerTest < ActionController::TestCase
 
   should 'not display contact us for non-enterprises' do
     @profile.boxes.first.blocks << block = ProfileInfoBlock.create!
-    get :profile_info, :profile => @profile, :block_id => block.id
+    get :profile_info, :profile => @profile.identifier, :block_id => block.id
     assert_no_match /\/contact\/#{@profile.identifier}\/new/, @response.body
   end
 
@@ -319,7 +318,7 @@ class ProfileControllerTest < ActionController::TestCase
     get :profile_info, :profile => 'my-test-enterprise', :block_id => block.id
     assert_no_match /\/contact\/my-test-enterprise\/new/, @response.body
   end
-  
+
   should 'display contact button only if friends' do
     friend = create_user_full('friend_user').person
     friend.user.activate
@@ -561,7 +560,7 @@ class ProfileControllerTest < ActionController::TestCase
     assert_response 403
   end
 
-  should 'allow environment admin to unblock enteprises' do
+  should 'allow environment admin to unblock enterprises' do
     login_as(profile.identifier)
     enterprise = fast_create(Enterprise)
     enterprise.environment.add_admin(profile)
@@ -735,7 +734,7 @@ class ProfileControllerTest < ActionController::TestCase
   end
 
   should 'see the activities_items paginated' do
-    p1= Person.first
+    p1 = create_user('some').person
     ActionTracker::Record.destroy_all
     40.times{Scrap.create!(defaults_for_scrap(:sender => p1, :receiver => p1))}
     login_as(p1.identifier)
@@ -882,7 +881,7 @@ class ProfileControllerTest < ActionController::TestCase
     assert_template 'index'
   end
 
-  should 'the network activity be visible to uses not logged in on communities and enteprises' do
+  should 'the network activity be visible to uses not logged in on communities and enterprises' do
     p1= Person.first
     community = fast_create(Community)
     p2= fast_create(Person)
@@ -987,12 +986,12 @@ class ProfileControllerTest < ActionController::TestCase
     @controller.stubs(:current_user).returns(user)
     Person.any_instance.stubs(:follows?).returns(true)
     get :index, :profile => c.identifier
-    assert_equal [s2,s3], assigns(:activities)
+    assert_equivalent [s2,s3], assigns(:activities)
   end
 
   should 'the activities be paginated in people profiles' do
     p1 = Person.first
-    40.times{fast_create(Scrap, :sender_id => p1.id, :created_at => Time.now)}
+    40.times{fast_create(Scrap, :receiver_id => p1.id, :created_at => Time.now)}
 
     @controller.stubs(:logged_in?).returns(true)
     user = mock()
@@ -1092,7 +1091,7 @@ class ProfileControllerTest < ActionController::TestCase
     login_as(profile.identifier)
     person = fast_create(Person)
     at = fast_create(ActionTracker::Record, :user_id => person.id)
-    atn = fast_create(ActionTrackerNotification, :profile_id => profile.id, :action_tracker_id => at.id) 
+    atn = fast_create(ActionTrackerNotification, :profile_id => profile.id, :action_tracker_id => at.id)
     get :index, :profile => person.identifier
     assert_no_tag :tag => 'div', :attributes => {:id => 'profile-network'}
 
@@ -1104,7 +1103,7 @@ class ProfileControllerTest < ActionController::TestCase
   should "not show the scrap button on network activity if the user is himself" do
     login_as(profile.identifier)
     at = fast_create(ActionTracker::Record, :user_id => profile.id)
-    atn = fast_create(ActionTrackerNotification, :profile_id => profile.id, :action_tracker_id => at.id) 
+    atn = fast_create(ActionTrackerNotification, :profile_id => profile.id, :action_tracker_id => at.id)
     get :index, :profile => profile.identifier
     assert_no_tag :tag => 'p', :attributes => {:class => 'profile-network-send-message'}
   end
@@ -1132,7 +1131,7 @@ class ProfileControllerTest < ActionController::TestCase
     at = fast_create(ActionTracker::Record, :user_id => profile.id)
     profile.public_profile=false
     profile.save
-    atn = fast_create(ActionTrackerNotification, :profile_id => profile.id, :action_tracker_id => at.id) 
+    atn = fast_create(ActionTrackerNotification, :profile_id => profile.id, :action_tracker_id => at.id)
     get :index, :profile => profile.identifier
     assert_equal [at], profile.tracked_actions
     assert_no_tag :tag => 'li', :attributes => {:id => "profile-activity-item-#{atn.id}"}
@@ -1169,6 +1168,58 @@ class ProfileControllerTest < ActionController::TestCase
   should "be logged in to access the view_more_network_activities action" do
     get :view_more_network_activities, :profile => profile.identifier
     assert_redirected_to :controller => 'account', :action => 'login'
+  end
+
+  should "not index display activities comments" do
+    login_as(profile.identifier)
+    article = TinyMceArticle.create!(:profile => profile, :name => 'An Article about Free Software')
+    ActionTracker::Record.destroy_all
+    activity = ActionTracker::Record.create!(:user_id => profile.id, :user_type => 'Profile', :verb => 'create_article', :target_id => article.id, :target_type => 'Article', :params => {'name' => article.name, 'url' => article.url, 'lead' => article.lead, 'first_image' => article.first_image})
+    20.times {comment = fast_create(Comment, :source_id => article, :title => 'a comment', :body => 'lalala', :created_at => Time.now)}
+    article.reload
+    get :index, :profile => profile.identifier
+    assert_tag 'ul', :attributes => {:class => 'profile-wall-activities-comments'}, :children => {:count => 0 } 
+  end
+
+  should "view more comments paginated" do
+    login_as(profile.identifier)
+    article = TinyMceArticle.create!(:profile => profile, :name => 'An Article about Free Software')
+    ActionTracker::Record.destroy_all
+    activity = ActionTracker::Record.create!(:user_id => profile.id, :user_type => 'Profile', :verb => 'create_article', :target_id => article.id, :target_type => 'Article', :params => {'name' => article.name, 'url' => article.url, 'lead' => article.lead, 'first_image' => article.first_image})
+    20.times {comment = fast_create(Comment, :source_id => article, :title => 'a comment', :body => 'lalala', :created_at => Time.now)}
+    article.reload
+    assert_equal 20, article.comments.count
+    get :more_comments, :activity => activity.id, :comment_page => 2
+    assert_response :success
+    assert_template '_comment'
+    assert_select_rjs :insert_html do
+      assert_select 'li', 5 # 5 comments per page
+    end
+  end
+
+  should "not index display scraps replies" do
+    login_as(profile.identifier)
+    Scrap.destroy_all
+    scrap = fast_create(Scrap, :sender_id => profile.id, :receiver_id => profile.id)
+    20.times {fast_create(Scrap, :sender_id => profile.id, :receiver_id => profile.id, :scrap_id => scrap.id)}
+    profile.reload
+    get :index, :profile => profile.identifier
+    assert_tag 'ul', :attributes => {:class => 'profile-wall-activities-comments scrap-replies'}, :children => {:count => 0 } 
+  end
+
+  should "view more replies paginated" do
+    login_as(profile.identifier)
+    Scrap.destroy_all
+    scrap = fast_create(Scrap, :sender_id => profile.id, :receiver_id => profile.id)
+    20.times {fast_create(Scrap, :sender_id => profile.id, :receiver_id => profile.id, :scrap_id => scrap.id)}
+    profile.reload
+    assert_equal 20, scrap.replies.count
+    get :more_replies, :activity => scrap.id, :comment_page => 2
+    assert_response :success
+    assert_template '_profile_scrap'
+    assert_select_rjs :insert_html do
+      assert_select 'li', 5 # 5 replies per page
+    end
   end
 
   should 'render empty response for not logged in users in check_membership' do
@@ -1277,7 +1328,7 @@ class ProfileControllerTest < ActionController::TestCase
     login_as(profile.identifier)
     get :index, :profile => profile.identifier
 
-    assert_tag :tag => 'p', :content => 'A scrap', :attributes => { :class => 'profile-activity-text'} 
+    assert_tag :tag => 'p', :content => 'A scrap', :attributes => { :class => 'profile-activity-text'}
     assert_tag :tag => 'div', :attributes => { :class => 'profile-activity-lead' }, :descendant => { :tag => 'a', :content => 'An article about free software' }
   end
 
@@ -1343,6 +1394,17 @@ class ProfileControllerTest < ActionController::TestCase
     get :index, :profile => profile.identifier
 
     assert_tag :tag => 'span', :content => '(removed user)', :attributes => {:class => 'comment-user-status comment-user-status-wall icon-user-removed'}
+  end
+
+  should 'not display spam comments in wall' do
+    UserStampSweeper.any_instance.stubs(:current_user).returns(profile)
+    article = TinyMceArticle.create!(:profile => profile, :name => 'An article about spam\'s nutritional attributes')
+    comment = Comment.create!(:author => profile, :title => 'Test Comment', :body => 'This article makes me hungry', :source_id => article.id, :source_type => 'Article')
+    comment.spam!
+    login_as(profile.identifier)
+    get :index, :profile => profile.identifier
+
+    assert !/This article makes me hungry/.match(@response.body), 'Spam comment was shown!'
   end
 
   should 'display comment in wall from non logged users' do
@@ -1548,6 +1610,129 @@ class ProfileControllerTest < ActionController::TestCase
     get :index, :profile => viewed.identifier
     assert_tag :tag => 'th', :content => 'Contact'
     assert_tag :tag => 'td', :content => 'e-Mail:'
+  end
+
+  should 'not display list of communities to manage on menu by default' do
+    user = create_user('community_admin').person
+    community = fast_create(Community)
+    community.add_admin(user)
+
+    login_as(user.identifier)
+    get :index
+    assert_no_tag :tag => 'div', :attributes => {:id => 'manage-communities'}
+  end
+
+  should 'display list of communities to manage on menu if enabled' do
+    user = create_user('community_admin').person
+    env = user.environment
+    community = fast_create(Community)
+    community.add_admin(user)
+
+    Environment.any_instance.stubs(:enabled?).returns(false)
+    Environment.any_instance.stubs(:enabled?).with(:display_my_communities_on_user_menu).returns(true)
+
+    login_as(user.identifier)
+    get :index
+    assert_tag :tag => 'div', :attributes => {:id => 'manage-communities'}
+
+  end
+
+  should 'build menu to the community panel of communities the user can manage if enabled' do
+    u = create_user('other_other_ze').person
+    u2 = create_user('guy_that_will_be_admin_of_all').person # because the first member of each community is an admin
+
+    Environment.any_instance.stubs(:enabled?).returns(false)
+    Environment.any_instance.stubs(:enabled?).with(:display_my_communities_on_user_menu).returns(true)
+
+    Environment.any_instance.stubs(:required_person_fields).returns([])
+    u.data = { :email => 'test@test.com', :fields_privacy => { } }
+    u.save!
+    c1 = fast_create(Community, :name => 'community_1')
+    c2 = fast_create(Community, :name => 'community_2')
+    c3 = fast_create(Community, :name => 'community_3')
+    c4 = fast_create(Community, :name => 'community_4')
+
+    c1.add_admin(u2)
+    c2.add_admin(u2)
+    c3.add_admin(u2)
+
+    c1.add_member(u)
+    c2.add_member(u)
+    c3.add_member(u)
+    c1.add_admin(u)
+    c2.add_admin(u)
+
+    login_as(u.identifier)
+
+    get :index
+
+    assert_tag :tag => 'div', :attributes => {:id => 'manage-communities'}
+    assert_select '#manage-communities li > a' do |links|
+      assert_equal 2, links.length
+      assert_match /community_1/, links.to_s
+      assert_match /community_2/, links.to_s
+      assert_no_match /community_3/, links.to_s
+      assert_no_match /community_4/, links.to_s
+    end
+  end
+
+  should 'build menu to the enterprise panel if enabled' do
+    u = create_user('other_other_ze').person
+
+    Environment.any_instance.stubs(:enabled?).returns(false)
+    Environment.any_instance.stubs(:enabled?).with(:display_my_enterprises_on_user_menu).returns(true)
+
+    Environment.any_instance.stubs(:required_person_fields).returns([])
+    u.data = { :email => 'test@test.com', :fields_privacy => { } }
+    u.save!
+    e1 = fast_create(Enterprise, :identifier => 'test_enterprise1', :name => 'Test enterprise1')
+    e2 = fast_create(Enterprise, :identifier => 'test_enterprise2', :name => 'Test enterprise2')
+
+    e1.add_member(u)
+
+    login_as(u.identifier)
+
+    get :index
+
+    assert_tag :tag => 'div', :attributes => {:id => 'manage-enterprises'}
+    assert_select '#manage-enterprises li > a' do |links|
+      assert_equal 1, links.length
+      assert_match /Test enterprise1/, links.to_s
+      assert_no_match /Test enterprise_2/, links.to_s
+    end
+  end
+
+  should 'not build menu to the enterprise panel if not enabled' do
+    user = create_user('enterprise_admin').person
+    enterprise = fast_create(Enterprise)
+    enterprise.add_admin(user)
+
+    Environment.any_instance.stubs(:enabled?).returns(false)
+    Environment.any_instance.stubs(:enabled?).with(:display_my_enterprises_on_user_menu).returns(false)
+
+    login_as(user.identifier)
+    get :index
+    assert_no_tag :tag => 'div', :attributes => {:id => 'manage-enterprises'}
+  end
+
+  should 'show enterprises field if enterprises are enabled on environment' do
+    person = fast_create(Person)
+    environment = person.environment
+    environment.disable('disable_asset_enterprises')
+    environment.save!
+
+    get :index, :profile => person.identifier
+    assert_tag :tag => 'tr', :attributes => { :id => "person-profile-network-enterprises" }
+  end
+
+  should 'not show enterprises field if enterprises are disabled on environment' do
+    person = fast_create(Person)
+    environment = person.environment
+    environment.enable('disable_asset_enterprises')
+    environment.save!
+
+    get :index, :profile => person.identifier
+    assert_no_tag :tag => 'tr', :attributes => { :id => "person-profile-network-enterprises" }
   end
 
 end

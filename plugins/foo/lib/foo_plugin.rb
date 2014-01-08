@@ -1,5 +1,3 @@
-require_dependency 'foo_plugin/ext/profile'
-
 class FooPlugin < Noosfero::Plugin
 
   def self.plugin_name

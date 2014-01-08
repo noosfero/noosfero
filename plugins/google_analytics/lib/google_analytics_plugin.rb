@@ -1,12 +1,9 @@
-require_dependency File.dirname(__FILE__) + '/ext/profile'
-
 class GoogleAnalyticsPlugin < Noosfero::Plugin
 
   include ActionView::Helpers::JavaScriptHelper
   include ActionView::Helpers::FormHelper
   include ActionView::Helpers::UrlHelper
   include ActionView::Helpers::TagHelper
-  include ApplicationHelper
 
   def self.plugin_name
     "Google Analytics"

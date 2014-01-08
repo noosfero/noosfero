@@ -12,7 +12,7 @@ class ArticleBlock < Block
     block = self
     proc do
       block_title(block.title) +
-      (block.article ? article_to_html(block.article,
+      (block.article ? article_to_html(FilePresenter.for(block.article),
           :gallery_view => false,
           :inside_block => block,               # For Blogs and folders
           :format => block.visualization_format # For Articles and contents
@@ -23,7 +23,7 @@ class ArticleBlock < Block
   def article_id
     self.settings[:article_id]
   end
-  
+
   def article_id= value
     self.settings[:article_id] = value.blank? ? nil : value.to_i
   end
@@ -49,8 +49,8 @@ class ArticleBlock < Block
   end
 
   def available_articles
-    return [] if self.box.nil? or self.box.owner.nil?
-    self.box.owner.kind_of?(Environment) ? self.box.owner.portal_community.articles : self.box.owner.articles
+    return [] if self.owner.nil?
+    self.owner.kind_of?(Environment) ? self.owner.portal_community.articles : self.owner.articles
   end
 
   def posts_per_page
@@ -63,4 +63,9 @@ class ArticleBlock < Block
   end
 
   settings_items :visualization_format, :type => :string, :default => 'short'
+
+  def self.expire_on
+      { :profile => [:article], :environment => [:article] }
+  end
+
 end

@@ -86,12 +86,18 @@ _enable(){
       echo "E: $plugin plugin does not exist!"
       return
     fi
-    dependencies_ok=true
-    dependencies_file="$source/dependencies.rb"
-    if ! run $dependencies_file; then
-      dependencies_ok=false
+    installation_ok=true
+    installation_file="$source/install.rb"
+    if ! run $installation_file; then
+      installation_ok=false
+    else
+      dependencies_ok=true
+      dependencies_file="$source/dependencies.rb"
+      if ! run $dependencies_file; then
+        dependencies_ok=false
+      fi
     fi
-    if [ "$dependencies_ok" = true ]; then
+    if [ "$installation_ok" = true ] && [ "$dependencies_ok" = true ]; then
       ln -s "$source" "$target"
       plugins_public_dir="$NOOSFERO_DIR/public/plugins"
       plugins_features_dir="$NOOSFERO_DIR/features/plugins"
@@ -100,7 +106,9 @@ _enable(){
       _say "$plugin enabled"
       run "$source/after_enable.rb"
       needs_migrate=true
-    else
+    elif [ "$installation_ok" = false ]; then
+      echo "W: failed to install $plugin; not enabling"
+    elif [ "$dependencies_ok" = false ]; then
       echo "W: failed to load dependencies for $plugin; not enabling"
     fi
   fi

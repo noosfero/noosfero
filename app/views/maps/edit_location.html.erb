@@ -29,5 +29,5 @@
 
 <% end %>
 
-<%= content_tag('script', '', :src => "http://maps.googleapis.com/maps/api/js?sensor=false", :type => 'text/javascript') %>
+<%= content_tag('script', '', :src => "https://maps.googleapis.com/maps/api/js?sensor=false", :type => 'text/javascript') %>
 <%= content_tag('script', '', :src => url_for(:controller => :maps, :action => :google_map), :type => 'text/javascript') %>

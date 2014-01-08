@@ -32,8 +32,7 @@ class RecentDocumentsBlock < Block
     end
   end
 
-  def docs
-    self.limit.nil? ? owner.recent_documents(nil, {}, false) : owner.recent_documents(self.limit, {}, false)
+  def self.expire_on
+      { :profile => [:article], :environment => [:article] }
   end
-
 end

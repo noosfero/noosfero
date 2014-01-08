@@ -44,7 +44,7 @@ Given /^the following (community|communities|enterprises?|organizations?)$/ do |
     end
     if category && !category.blank?
       cat = Category.find_by_slug category
-      organization.categories << cat
+      ProfileCategorization.add_category_to_profile(cat, organization)
     end
     if img_name
       img = Image.create!(:uploaded_data => fixture_file_upload('/files/'+img_name+'.png', 'image/png'))
@@ -287,8 +287,8 @@ end
 Given /^I am logged in as "(.+)"$/ do |username|
   Given %{I go to logout page}
     And %{I go to login page}
-    And %{I fill in "Username" with "#{username}"}
-    And %{I fill in "Password" with "123456"}
+    And %{I fill in "main_user_login" with "#{username}"}
+    And %{I fill in "user_password" with "123456"}
    When %{I press "Log in"}
     # FIXME:
     # deveria apenas verificar que esta no myprofile do usuario

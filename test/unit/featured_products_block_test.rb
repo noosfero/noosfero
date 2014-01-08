@@ -129,7 +129,11 @@ class FeaturedProductsBlockTest < ActiveSupport::TestCase
       })
     @environment.boxes.first.blocks<< block
 
-    assert_equal products, block.products_for_selection
+    products_for_selection = block.products_for_selection
+
+    products.each do |product|
+      assert_includes products_for_selection, product
+    end
   end
 
 end

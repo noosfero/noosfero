@@ -80,7 +80,11 @@ class ActsAsFilesystemTest < ActiveSupport::TestCase
     article2 = Article.create!(:name => 'article 2', :profile => profile, :parent => folder)
     folder.reload
 
-    assert_equal [folder, article1, article2], folder.map_traversal
+    items = folder.map_traversal
+
+    assert_includes items, folder
+    assert_includes items, article1
+    assert_includes items, article2
   end
 
   should 'allow dots in slug' do

@@ -1,5 +1,4 @@
 require_dependency 'person'
-require_dependency 'ext/person'
 
 class StoaPlugin < Noosfero::Plugin
 
@@ -119,6 +118,10 @@ class StoaPlugin < Noosfero::Plugin
 
   def remove_invite_friends_button
     true
+  end
+
+  def change_password_fields
+    {:field => :usp_id, :name => _('USP Number'), :model => 'person'}
   end
 
 end

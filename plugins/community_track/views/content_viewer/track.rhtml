@@ -1,0 +1,67 @@
+<% extend CommunityTrackPlugin::StepHelper %>
+
+<% form_tag({:controller => 'community_track_plugin_myprofile', :action => 'save_order', :track => track}) do %>
+<div id="track">
+  <div>
+    <%= track.body %>
+  </div>
+
+  <h3><%= _("Steps") %></h3>
+
+  <% if track.allow_create?(user) %>
+    <div class="actions">
+        <% content_tag('a', :href => url_for({:controller => 'cms', :action => 'new', :type => "CommunityTrackPlugin::Step", :parent_id => track.id}), :class => 'button with-text icon-add') do %>
+          <strong><%= _("New %s") % CommunityTrackPlugin::Step.short_description %></strong>
+        <% end %>
+        <a href="#" class="reorder_button button with-text icon-up" onclick="enableReorder();"><%= _('Reorder Steps') %></a>
+        <%= submit_button :save, _('Save Order'), :class => "save_button" %>
+    </div>
+    <script>
+      function enableReorder() {
+        jQuery(".reorder_button").hide();
+        jQuery(".save_button").show();
+        jQuery("#sortable li").addClass("ui-state-default");
+        jQuery("#sortable").sortable();
+        jQuery("#sortable").disableSelection();
+      }
+    </script>
+    <% end %>
+
+    <ul id="sortable" class="step_list">
+    <% track.steps.each do |step| %>
+      <li class="step">
+        <%= hidden_field_tag "step_ids[]", step.id %>
+        <div class="position"><%= step.position %></div>
+        <div class="content">
+          <div class="date">
+            <%= show_period(step.start_date, step.end_date) %>
+          </div>
+          <div class="name"><%= link_to step.name, step.url %></div>
+          <div class="lead"><%= step.body %></div>
+        </div>
+      </li>
+    <% end %>
+    </ul>
+  <% if track.allow_create?(user) && !track.hidden_steps.empty? %>
+    <div id="hidden_steps">
+      <h3><%= _('Hidden Steps') %></h3>
+      <ul class="step_list">
+      <% track.hidden_steps.each do |step| %>
+        <li class="step">
+          <%= hidden_field_tag "step_ids[]", step.id %>
+          <div class="position"></div>
+          <div class="content">
+            <div class="date">
+              <%= show_period(step.start_date, step.end_date) %>
+            </div>
+            <div class="name"><%= link_to step.name, step.url %></div>
+            <div class="lead"><%= step.body %></div>
+          </div>
+        </li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+</div>
+<% end %>
+</div>

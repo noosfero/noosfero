@@ -132,6 +132,18 @@ class ApplicationHelperTest < ActionView::TestCase
     assert_tag_in_string rolename_for(member2, community), :tag => 'span', :content => 'Profile Member'
   end
 
+  should 'rolenames for a member admin' do
+    member1 = create_user('usertest1').person
+    member2 = create_user('usertest2').person
+    community = fast_create(Community, :name => 'new community', :identifier => 'new-community', :environment_id => Environment.default.id)
+    community.add_member(member1)
+    # member2 is both a admin and a member
+    community.add_member(member2)
+    community.add_admin(member2)
+    assert_tag_in_string rolename_for(member2, community), :tag => 'span', :content => 'Profile Member'
+    assert_tag_in_string rolename_for(member2, community), :tag => 'span', :content => 'Profile Administrator'
+  end
+
   should 'get theme from environment by default' do
     @environment = mock
     @environment.stubs(:theme).returns('my-environment-theme')
@@ -234,7 +246,7 @@ class ApplicationHelperTest < ActionView::TestCase
 
   should 'not display templates options when there is no template' do
     self.stubs(:environment).returns(Environment.default)
-    [Person, Community, Enterprise].each do |klass|
+    [:people, :communities, :enterprises].each do |klass|
       assert_equal '', template_options(klass, 'profile_data')
     end
   end
@@ -444,30 +456,17 @@ class ApplicationHelperTest < ActionView::TestCase
     assert_match(/Community nick/, page_title)
   end
 
-  should 'generate a gravatar image url' do
-    stubs(:environment).returns(Environment.default)
-    @controller = ApplicationController.new
-
+  should 'gravatar default parameter' do
+    profile = mock
+    profile.stubs(:theme).returns('some-theme')
+    stubs(:profile).returns(profile)
     with_constants :NOOSFERO_CONF => {'gravatar' => 'crazyvatar'} do
-      url = str_gravatar_url_for( 'rms@gnu.org', :size => 50 )
-      assert_match(/^http:\/\/www\.gravatar\.com\/avatar\.php\?/, url)
-      assert_match(/(\?|&)gravatar_id=ed5214d4b49154ba0dc397a28ee90eb7(&|$)/, url)
-      assert_match(/(\?|&)d=crazyvatar(&|$)/, url)
-      assert_match(/(\?|&)size=50(&|$)/, url)
+      assert_equal gravatar_default, 'crazyvatar'
     end
     stubs(:theme_option).returns('gravatar' => 'nicevatar')
     with_constants :NOOSFERO_CONF => {'gravatar' => 'crazyvatar'} do
-      url = str_gravatar_url_for( 'rms@gnu.org', :size => 50 )
-      assert_match(/^http:\/\/www\.gravatar\.com\/avatar\.php\?/, url)
-      assert_match(/(\?|&)gravatar_id=ed5214d4b49154ba0dc397a28ee90eb7(&|$)/, url)
-      assert_match(/(\?|&)d=nicevatar(&|$)/, url)
-      assert_match(/(\?|&)size=50(&|$)/, url)
+      assert_equal gravatar_default, 'nicevatar'
     end
-  end
-
-  should 'generate a gravatar profile url' do
-    url = gravatar_profile_url( 'rms@gnu.org' )
-    assert_equal('http://www.gravatar.com/ed5214d4b49154ba0dc397a28ee90eb7', url)
   end
 
   should 'use theme passed via param when in development mode' do
@@ -581,8 +580,8 @@ class ApplicationHelperTest < ActionView::TestCase
   end
 
   should 'include item in usermenu for environment enabled features' do
-    env = Environment.new
-    env.enable('xmpp_chat')
+    env = fast_create(Environment)
+    env.enable('xmpp_chat', false)
     stubs(:environment).returns(env)
 
     @controller = ApplicationController.new
@@ -780,6 +779,55 @@ class ApplicationHelperTest < ActionView::TestCase
     assert_tag_in_string result, :tag =>'div', :attributes => {:class => 'button-bar', :id => 'bt1'}
     assert_tag_in_string result, :tag =>'b', :content => 'foo', :parent => {:tag => 'div', :attributes => {:id => 'bt1'}}
     assert_tag_in_string result, :tag =>'br', :parent => {:tag => 'div', :attributes => {:id => 'bt1'}}
+  end
+
+  should 'not filter html if source does not have macros' do
+    class Plugin1 < Noosfero::Plugin
+    end
+
+    class Plugin1::Macro1 < Noosfero::Plugin::Macro
+      def parse(params, inner_html, source)
+        'Test1'
+      end
+    end
+
+    environment = Environment.default
+    environment.enable_plugin(Plugin1)
+    @plugins = Noosfero::Plugin::Manager.new(environment, self)
+    macro1_name = Plugin1::Macro1.identifier
+    source = mock
+    source.stubs(:has_macro?).returns(false)
+
+    html = "<div class='macro nonEdit' data-macro='#{macro1_name}' data-macro-param='123'></div>"
+    parsed_html = filter_html(html, source)
+
+    assert_no_match /Test1/, parsed_html
+  end
+
+  should 'not convert macro if source is nil' do
+    profile = create_user('testuser').person
+    article = fast_create(Article,  :profile_id => profile.id)
+    class Plugin1 < Noosfero::Plugin; end
+
+    environment = Environment.default
+    environment.enable_plugin(Plugin1)
+    @plugins = Noosfero::Plugin::Manager.new(environment, self)
+
+    expects(:convert_macro).never
+    filter_html(article.body, nil)
+  end
+
+  should 'not convert macro if there is no macro plugin active' do
+    profile = create_user('testuser').person
+    article = fast_create(Article,  :profile_id => profile.id)
+    class Plugin1 < Noosfero::Plugin; end
+
+    environment = Environment.default
+    environment.enable_plugin(Plugin1)
+    @plugins = Noosfero::Plugin::Manager.new(environment, self)
+
+    expects(:convert_macro).never
+    filter_html(article.body, article)
   end
 
   protected

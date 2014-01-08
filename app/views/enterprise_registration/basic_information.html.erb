@@ -34,7 +34,7 @@
       <% end %>
     <% end %>
 
-    <%= template_options(Enterprise, 'create_enterprise')%>
+    <%= template_options(:enterprises, 'create_enterprise')%>
 
     <% button_bar do %>
       <%= submit_button('next', _('Next'), :cancel => {:profile => current_user.person.identifier, :action=>"enterprises", :controller=>"profile"}) %>

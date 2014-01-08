@@ -8,6 +8,19 @@
   <%= button :back, _('Go back'), :controller => 'profile_editor' %>
 <% end %>
 
-<%= render :partial => 'shared/list_groups', :locals => {:groups => @memberships} %>
+<% type_collection = [[nil, _('All')]] %>
+<% type_collection += @roles.sort_by {|role| role.id}.map{|r| ["#{r.id}", r.name]} %>
+
+<p>
+  <%= labelled_select(_('Filter')+': ', :filter_type, :first, :last, @filter,  type_collection, :onchange => 'document.location.href = "?filter_type="+this.value')%>
+</p>
+
+<% if @memberships.empty? %>
+  <p>
+    <em><%= _('No groups to list') %></em>
+  </p>
+<% else %>
+  <%= render :partial => 'shared/list_groups', :locals => {:groups => @memberships} %>
+<% end %>
 
 </div>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130924152827) do
+ActiveRecord::Schema.define(:version => 20131121162641) do
 
   create_table "abuse_reports", :force => true do |t|
     t.integer  "reporter_id"
@@ -88,6 +88,8 @@ ActiveRecord::Schema.define(:version => 20130924152827) do
     t.string   "language"
     t.string   "source_name"
     t.integer  "license_id"
+    t.integer  "image_id"
+    t.integer  "position"
   end
 
   add_index "article_versions", ["article_id"], :name => "index_article_versions_on_article_id"
@@ -131,6 +133,8 @@ ActiveRecord::Schema.define(:version => 20130924152827) do
     t.string   "language"
     t.string   "source_name"
     t.integer  "license_id"
+    t.integer  "image_id"
+    t.integer  "position"
   end
 
   add_index "articles", ["name"], :name => "index_articles_on_name"
@@ -223,7 +227,6 @@ ActiveRecord::Schema.define(:version => 20130924152827) do
     t.string   "source_type"
     t.string   "user_agent"
     t.string   "referrer"
-    t.integer  "group_id"
   end
 
   add_index "comments", ["source_id", "spam"], :name => "index_comments_on_source_id_and_spam"
@@ -521,7 +524,18 @@ ActiveRecord::Schema.define(:version => 20130924152827) do
     t.integer  "scrap_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "context_id"
   end
+
+  create_table "sessions", :force => true do |t|
+    t.string   "session_id", :null => false
+    t.text     "data"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
+  add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
 
   create_table "taggings", :force => true do |t|
     t.integer  "tag_id"
@@ -550,7 +564,10 @@ ActiveRecord::Schema.define(:version => 20130924152827) do
     t.datetime "created_at"
     t.string   "target_type"
     t.integer  "image_id"
+    t.boolean  "spam",                       :default => false
   end
+
+  add_index "tasks", ["spam"], :name => "index_tasks_on_spam"
 
   create_table "thumbnails", :force => true do |t|
     t.integer "size"

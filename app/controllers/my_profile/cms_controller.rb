@@ -73,6 +73,7 @@ class CmsController < MyProfileController
     refuse_blocks
     record_coming
     if request.post?
+      @article.image = nil if params[:remove_image] == 'true'
       @article.last_changed_by = user
       if @article.update_attributes(params[:article])
         if !continue
@@ -144,10 +145,15 @@ class CmsController < MyProfileController
 
   post_only :set_home_page
   def set_home_page
-    @article = profile.articles.find(params[:id])
-    profile.home_page = @article
-    profile.save(false)
-    session[:notice] = _('"%s" configured as home page.') % @article.name
+    article = params[:id].nil? ? nil : profile.articles.find(params[:id])
+    profile.update_attribute(:home_page, article)
+
+    if article.nil?
+      session[:notice] = _('Homepage reseted.')
+    else
+      session[:notice] = _('"%s" configured as homepage.') % article.name
+    end
+
     redirect_to (request.referer || profile.url)
   end
 
@@ -267,7 +273,10 @@ class CmsController < MyProfileController
     @back_to = params[:back_to] || request.referer || url_for(profile.public_profile_url)
     @task = SuggestArticle.new(params[:task])
     if request.post?
-       @task.target = profile
+      @task.target = profile
+      @task.ip_address = request.remote_ip
+      @task.user_agent = request.user_agent
+      @task.referrer = request.referrer
       if verify_recaptcha(:model => @task, :message => _('Please type the words correctly')) && @task.save
         session[:notice] = _('Thanks for your suggestion. The community administrators were notified.')
         redirect_to @back_to

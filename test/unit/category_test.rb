@@ -162,11 +162,11 @@ class CategoryTest < ActiveSupport::TestCase
   should "limit the possibile display colors" do
     c = build(Category, :name => 'test category', :environment_id => @env.id)
 
-    c.display_color = 10
+    c.display_color = 16
     c.valid?
     assert c.errors[:display_color.to_s].present?
 
-    valid = %w[ 1 2 3 4 ].map { |item| item.to_i }
+    valid = (1..15).map { |item| item.to_i }
     valid.each do |item|
       c.display_color = item
       c.valid?
@@ -344,7 +344,7 @@ class CategoryTest < ActiveSupport::TestCase
     p1.add_category c
     p2 = create_user('testuser_2').person
     p2.add_category c
-    assert_equal [p1, p2], c.people
+    assert_equivalent [p1, p2], c.people
   end
 
   should 'have communities' do
@@ -353,7 +353,7 @@ class CategoryTest < ActiveSupport::TestCase
     c1.add_category c
     c2 = fast_create(Community, :name => 'testcommunity_2')
     c2.add_category c
-    assert_equal [c1, c2], c.communities
+    assert_equivalent [c1, c2], c.communities
   end
 
   should 'have products through enteprises' do
@@ -482,12 +482,16 @@ class CategoryTest < ActiveSupport::TestCase
   end
 
   should 'paginate upcoming events' do
+    Event.destroy_all
     category = create(Category, :name => 'category1', :environment_id => Environment.default.id)
     profile = fast_create(Profile)
-    event1 = category.events.build(:name => 'event1', :start_date => Time.now, :profile => profile)	
-    event2 = category.events.build(:name => 'event2', :start_date => Time.now + 1.hour, :profile => profile)	
-    event3 = category.events.build(:name => 'event3', :start_date => Time.now + 1.day, :profile => profile)
-    category.save!
+    event1 = Event.create!(:name => 'event1', :profile => profile, :start_date => Time.now)
+    event2 = Event.create!(:name => 'event2', :profile => profile, :start_date => Time.now + 1.day)
+    event3 = Event.create!(:name => 'event3', :profile => profile, :start_date => Time.now + 2.days)
+    ArticleCategorization.add_category_to_article(category, event1)
+    ArticleCategorization.add_category_to_article(category, event2)
+    ArticleCategorization.add_category_to_article(category, event3)
+
     assert_equal [event1, event2], category.upcoming_events(2)
   end
 
@@ -529,40 +533,6 @@ class CategoryTest < ActiveSupport::TestCase
 
     assert_includes Category.on_level(parent), category
     assert_includes Category.on_level(parent.id), category
-  end
-
-  should 'list category sub-categories' do
-    c1 = create(Category, :name => 'Category 1', :environment => Environment.default)
-    c2 = create(Category, :name => 'Category 2', :environment => Environment.default)
-    c3 = create(Category, :name => 'Category 3', :environment => Environment.default, :parent_id => c1)
-    c4 = create(Category, :name => 'Category 4', :environment => Environment.default, :parent_id => c1)
-    c5 = create(Category, :name => 'Category 5', :environment => Environment.default, :parent_id => c3)
-
-    sub_categories = Category.sub_categories(c1)
-
-    assert_equal ActiveRecord::Relation, sub_categories.class
-    assert_not_includes sub_categories, c1
-    assert_not_includes sub_categories, c2
-    assert_includes sub_categories, c3
-    assert_includes sub_categories, c4
-    assert_includes sub_categories, c5
-  end
-
-  should 'list category sub-tree' do
-    c1 = create(Category, :name => 'Category 1', :environment => Environment.default)
-    c2 = create(Category, :name => 'Category 2', :environment => Environment.default)
-    c3 = create(Category, :name => 'Category 3', :environment => Environment.default, :parent_id => c1)
-    c4 = create(Category, :name => 'Category 4', :environment => Environment.default, :parent_id => c1)
-    c5 = create(Category, :name => 'Category 5', :environment => Environment.default, :parent_id => c3)
-
-    sub_tree = Category.sub_tree(c1)
-
-    assert_equal ActiveRecord::Relation, sub_tree.class
-    assert_includes sub_tree, c1
-    assert_not_includes sub_tree, c2
-    assert_includes sub_tree, c3
-    assert_includes sub_tree, c4
-    assert_includes sub_tree, c5
   end
 
 end

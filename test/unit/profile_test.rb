@@ -518,7 +518,7 @@ class ProfileTest < ActiveSupport::TestCase
 
   should 'be able to create a profile with categories' do
     pcat = create(Category)
-    c1 = create(Category, :parent_id => pcat)
+    c1 = create(Category, :parent_id => pcat.id)
     c2 = create(Category)
 
     profile = create(Profile, :category_ids => [c1.id, c2.id])
@@ -714,8 +714,8 @@ class ProfileTest < ActiveSupport::TestCase
     c3 = fast_create(Category, :parent_id => c1.id)
     profile = fast_create(Profile)
     profile.category_ids = [c2,c3,c3].map(&:id)
-    assert_equal [c2, c3], profile.categories(true)
-    assert_equal [c2, c1, c3], profile.categories_including_virtual(true)
+    assert_equivalent [c2, c3], profile.categories(true)
+    assert_equivalent [c1, c2, c3], profile.categories_including_virtual(true)
   end
 
   should 'not return nil members when a member is removed from system' do
@@ -1371,13 +1371,37 @@ class ProfileTest < ActiveSupport::TestCase
   end
 
   should 'return a list of templates' do
+    environment = Environment.default
     t1 = fast_create(Profile, :is_template => true)
     t2 = fast_create(Profile, :is_template => true)
     profile = fast_create(Profile)
 
-    assert_includes Profile.templates(Environment.default), t1
-    assert_includes Profile.templates(Environment.default), t2
-    assert_not_includes Profile.templates(Environment.default), profile
+    assert_includes environment.profiles.templates, t1
+    assert_includes environment.profiles.templates, t2
+    assert_not_includes environment.profiles.templates, profile
+  end
+
+  should 'return a list of profiles that are not templates' do
+    environment = Environment.default
+    p1 = fast_create(Profile, :is_template => false)
+    p2 = fast_create(Profile, :is_template => false)
+    t1 = fast_create(Profile, :is_template => true)
+    t2 = fast_create(Profile, :is_template => true)
+
+    assert_includes environment.profiles.no_templates, p1
+    assert_includes environment.profiles.no_templates, p2
+    assert_not_includes environment.profiles.no_templates, t1
+    assert_not_includes environment.profiles.no_templates, t2
+  end
+
+  should 'not crash on a profile update with a destroyed template' do
+    template = fast_create(Profile, :is_template => true)
+    profile = fast_create(Profile, :template_id => template.id)
+    template.destroy
+
+    assert_nothing_raised do
+      Profile.find(profile.id).save!
+    end
   end
 
   should 'provide URL to leave' do
@@ -1436,6 +1460,19 @@ class ProfileTest < ActiveSupport::TestCase
     assert_equal [today_event], profile.events.by_day(today)
   end
 
+  should 'list events by month' do
+    profile = fast_create(Profile)
+
+    today = Date.today
+    yesterday_event = Event.new(:name => 'Joao Birthday', :start_date => today - 1.day)
+    today_event = Event.new(:name => 'Ze Birthday', :start_date => today)
+    tomorrow_event = Event.new(:name => 'Mane Birthday', :start_date => today + 1.day)
+
+    profile.events << [yesterday_event, today_event, tomorrow_event]
+
+    assert_equal [yesterday_event, today_event, tomorrow_event], profile.events.by_month(today)
+  end
+
   should 'list events in a range' do
     profile = fast_create(Profile)
 
@@ -1465,13 +1502,13 @@ class ProfileTest < ActiveSupport::TestCase
     assert_not_includes profile.events.by_day(today), event_out_of_range
   end
 
-  should 'sort events by name' do
+  should 'sort events by date' do
     profile = fast_create(Profile)
     event1 = Event.new(:name => 'Noosfero Hackaton', :start_date => Date.today)
-    event2 = Event.new(:name => 'Debian Day', :start_date => Date.today)
-    event3 = Event.new(:name => 'Fisl 10', :start_date => Date.today)
+    event2 = Event.new(:name => 'Debian Day', :start_date => Date.today - 1)
+    event3 = Event.new(:name => 'Fisl 10', :start_date => Date.today + 1)
     profile.events << [event1, event2, event3]
-    assert_equal [event2, event3, event1], profile.events
+    assert_equal [event2, event1, event3], profile.events
   end
 
   should 'be available if identifier doesnt exist on environment' do
@@ -1822,6 +1859,81 @@ class ProfileTest < ActiveSupport::TestCase
     f = { 'sex' => 'public' }
     p.data[:fields_privacy] = f
     assert_equal f, p.fields_privacy
+  end
+
+  should 'not display field if field is active but not public and user not logged in' do
+    profile = fast_create(Profile)
+    profile.stubs(:active_fields).returns(['field'])
+    profile.stubs(:public_fields).returns([])
+    assert !profile.may_display_field_to?('field', nil)
+  end
+
+  should 'not display field if field is active but not public and user is not friend' do
+    profile = fast_create(Profile)
+    profile.stubs(:active_fields).returns(['field'])
+    profile.expects(:public_fields).returns([])
+    user = mock
+    user.expects(:is_a_friend?).with(profile).returns(false)
+    assert !profile.may_display_field_to?('field', user)
+  end
+
+  should 'display field if field is active and not public but user is profile owner' do
+    user = profile = fast_create(Profile)
+    profile.stubs(:active_fields).returns(['field'])
+    profile.expects(:public_fields).returns([])
+    assert profile.may_display_field_to?('field', user)
+  end
+
+  should 'display field if field is active and not public but user is a friend' do
+    profile = fast_create(Profile)
+    profile.stubs(:active_fields).returns(['field'])
+    profile.expects(:public_fields).returns([])
+    user = mock
+    user.expects(:is_a_friend?).with(profile).returns(true)
+    assert profile.may_display_field_to?('field', user)
+  end
+
+  should 'call may_display on field name if the field is not active' do
+    user = fast_create(Person)
+    profile = fast_create(Profile)
+    profile.stubs(:active_fields).returns(['humble'])
+    profile.expects(:may_display_humble_to?).never
+    profile.expects(:may_display_bundle_to?).once
+
+    profile.may_display_field_to?('humble', user)
+    profile.may_display_field_to?('bundle', user)
+  end
+
+  # TODO Eventually we would like to specify it in a deeper granularity...
+  should 'not display location if any field is private' do
+    user = fast_create(Person)
+    profile = fast_create(Profile)
+    profile.stubs(:active_fields).returns(Profile::LOCATION_FIELDS)
+    Profile::LOCATION_FIELDS.each { |field| profile.stubs(:may_display_field_to?).with(field, user).returns(true)}
+    assert profile.may_display_location_to?(user)
+
+    profile.stubs(:may_display_field_to?).with(Profile::LOCATION_FIELDS[0], user).returns(false)
+    assert !profile.may_display_location_to?(user)
+  end
+
+  should 'destroy profile if its environment is destroyed' do
+    environment = fast_create(Environment)
+    profile = fast_create(Profile, :environment_id => environment.id)
+
+    environment.destroy
+    assert_raise(ActiveRecord::RecordNotFound) {profile.reload}
+  end
+
+  should 'list only public profiles' do
+    p1 = fast_create(Profile)
+    p2 = fast_create(Profile, :visible => false)
+    p3 = fast_create(Profile, :public_profile => false)
+    p4 = fast_create(Profile, :visible => false, :public_profile => false)
+
+    assert_includes Profile.public, p1
+    assert_not_includes Profile.public, p2
+    assert_not_includes Profile.public, p3
+    assert_not_includes Profile.public, p4
   end
 
 end

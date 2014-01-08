@@ -258,6 +258,8 @@ class Task < ActiveRecord::Base
     status == Task::Status::ACTIVE || status == Task::Status::HIDDEN
   end
 
+  include Spammable
+
   protected
 
   # This method must be overrided in subclasses, and its implementation must do

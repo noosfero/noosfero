@@ -29,11 +29,11 @@ class LocationBlockTest < ActiveSupport::TestCase
     assert_equal '', LocationBlock.new.title
   end
 
-  should 'use google maps api v3' do
+  should 'use google maps api v3 with ssl' do
     @block.owner.lat = '-12.34'; @block.owner.save!
     content = extract_block_content(@block.content)
 
-    assert_match 'http://maps.google.com/maps/api/staticmap', content
+    assert_match 'https://maps.google.com/maps/api/staticmap', content
     assert_no_match /key=/, content
   end
 

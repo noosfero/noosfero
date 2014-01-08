@@ -150,7 +150,7 @@ class CommentControllerTest < ActionController::TestCase
     login_as @profile.identifier
     page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
     xhr :post, :create, :profile => @profile.identifier, :id => page.id, :comment => { :title => '', :body => '' }, :confirm => 'true'
-    response = JSON.parse @response.body
+    response = ActiveSupport::JSON.decode @response.body
     assert_match /errorExplanation/, response["html"]
   end
 
@@ -507,7 +507,7 @@ class CommentControllerTest < ActionController::TestCase
     comment = fast_create(Comment, :body => 'Original comment', :source_id => page.id, :source_type => 'Article', :author_id => profile)
 
     xhr :post, :update, :id => comment.id, :profile => profile.identifier, :comment => { :body => 'Comment edited' }
-    assert JSON.parse(@response.body)["ok"], "attribute ok expected to be true"
+    assert ActiveSupport::JSON.decode(@response.body)["ok"], "attribute ok expected to be true"
     assert_equal 'Comment edited', Comment.find(comment.id).body
   end
 

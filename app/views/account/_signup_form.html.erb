@@ -101,7 +101,7 @@
 
   <%= @plugins.dispatch(:signup_extra_contents).collect { |content| instance_eval(&content) }.join("") %>
 
-  <%= template_options(Person, 'profile_data') %>
+  <%= template_options(:people, 'profile_data') %>
 
   <% unless @terms_of_use.blank? %>
     <div id='terms-of-use-box' class='formfieldline'>

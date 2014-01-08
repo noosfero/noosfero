@@ -38,12 +38,34 @@ class TasksControllerTest < ActionController::TestCase
     assert_kind_of Array, assigns(:tasks)
   end
 
+  should 'list pending tasks without spam' do
+    requestor = fast_create(Person)
+    task_spam = Task.create!(:requestor => requestor, :target => profile, :spam => true)
+    task_ham = Task.create!(:requestor => requestor, :target => profile, :spam => false)
+
+    get :index
+    assert_response :success
+    assert_includes assigns(:tasks), task_ham
+    assert_not_includes assigns(:tasks), task_spam
+  end
+
   should 'list processed tasks' do
     get :processed
 
     assert_response :success
     assert_template 'processed'
     assert_kind_of Array, assigns(:tasks)
+  end
+
+  should 'list processed tasks without spam' do
+    requestor = fast_create(Person)
+    task_spam = Task.create!(:status => Task::Status::FINISHED, :requestor => requestor, :target => profile, :spam => true)
+    task_ham = Task.create!(:status => Task::Status::FINISHED, :requestor => requestor, :target => profile, :spam => false)
+
+    get :processed
+    assert_response :success
+    assert_includes assigns(:tasks), task_ham
+    assert_not_includes assigns(:tasks), task_spam
   end
 
   should 'be able to finish a task' do
@@ -138,6 +160,15 @@ class TasksControllerTest < ActionController::TestCase
     get :list_requested, :profile => profile.identifier
 
     assert_includes assigns(:tasks), task
+  end
+
+  should 'list tasks that this profile created without spam' do
+    task_spam = Ticket.create!(:name => 'test', :requestor => profile, :spam => true)
+    task_ham = Ticket.create!(:name => 'test', :requestor => profile, :spam => false)
+    get :list_requested, :profile => profile.identifier
+
+    assert_includes assigns(:tasks), task_ham
+    assert_not_includes assigns(:tasks), task_spam
   end
 
   should 'set target of ticket when creating it' do

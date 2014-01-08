@@ -8,7 +8,7 @@
     <%# unauthenticated user: display gravatar icon %>
     <%= content_tag 'span', '&nbsp;',
         :class => 'comment-picture',
-        :style => 'background-image:url(%s)' % str_gravatar_url_for( comment.email, :size => 20 )
+        :style => 'background-image:url(%s)' % gravatar_profile_image_url( comment.email, :size => 20 )
     %>
   <%- end %>
   <strong><%= link_to(comment.title, comment.url) %></strong>

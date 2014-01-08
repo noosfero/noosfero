@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class AntiSpamPluginCommentWrapperTest < ActiveSupport::TestCase
+class AntiSpamPlugin::CommentWrapperTest < ActiveSupport::TestCase
 
   def setup
     @comment = Comment.new(
@@ -13,10 +13,6 @@ class AntiSpamPluginCommentWrapperTest < ActiveSupport::TestCase
       :referrer => 'http://noosfero.org/'
     )
     @wrapper = AntiSpamPlugin::CommentWrapper.new(@comment)
-  end
-
-  should 'use Rakismet::Model' do
-    assert_includes @wrapper.class.included_modules, Rakismet::Model
   end
 
   should 'get contents' do

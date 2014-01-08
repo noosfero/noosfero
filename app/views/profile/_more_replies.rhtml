@@ -1,0 +1,3 @@
+<div class='view-more-replies'>
+  <%= link_to(_('More'), :profile => @profile.identifier, :controller => 'profile', :action => 'more_replies', :activity => activity, :comment_page => (comment_page + 1)) %>
+</div>

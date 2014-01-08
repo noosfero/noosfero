@@ -17,7 +17,7 @@ Feature: remove administrator role
   Scenario: the last administrator removes his administrator role and must choose the new administrator
     Given "Maria Souza" is a member of "Nice people"
     And I am on Nice people's members management
-    And I follow "Edit"
+    And I follow "Edit" within "tr[title='Joao Silva']"
     And I uncheck "Profile Administrator"
     When I press "Save changes"
     Then I should see "Since you are the last administrator, you must choose"

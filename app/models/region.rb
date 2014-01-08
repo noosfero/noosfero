@@ -11,9 +11,9 @@ class Region < Category
     validators.count > 0
   end
 
-  scope :with_validators, :group => 'id',
+  scope :with_validators, :select => 'DISTINCT ON (categories.id) *',
     :joins => 'INNER JOIN region_validators on (region_validators.region_id = categories.id)'
-  
+
 end
 
 require_dependency 'city'

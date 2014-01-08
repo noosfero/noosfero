@@ -1,5 +1,7 @@
 <li class="search-uploaded-file-item article-item">
-  <%= link_to uploaded_file.filename, uploaded_file.view_url, :class => 'search-result-title' %>
+  <div>
+    <%= link_to uploaded_file.filename, uploaded_file.view_url, :class => 'search-result-title' %>
+  </div>
 
   <div class="search-content-first-column">
     <%= render :partial => 'image', :object => uploaded_file %>

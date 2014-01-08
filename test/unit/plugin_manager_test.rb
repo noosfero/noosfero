@@ -61,6 +61,10 @@ class PluginManagerTest < ActiveSupport::TestCase
   end
 
   should 'dispatch_first method returns the first plugin response if there is many plugins to responde the event' do
+    class Noosfero::Plugin
+      def random_event
+      end
+    end
 
     class Plugin1 < Noosfero::Plugin
       def random_event

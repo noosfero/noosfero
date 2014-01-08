@@ -53,8 +53,11 @@ class ContentViewerController < ApplicationController
     # At this point the page will be showed
     @page.hit
 
-    unless @page.mime_type == 'text/html' || (@page.image? && params[:view])
+    @page = FilePresenter.for @page
+
+    if @page.download? params[:view]
       headers['Content-Type'] = @page.mime_type
+      headers.merge! @page.download_headers
       data = @page.data
 
       # TODO test the condition
@@ -70,7 +73,7 @@ class ContentViewerController < ApplicationController
 
     #FIXME see a better way to do this. It's not need to pass this variable anymore
     @comment = Comment.new
-    
+
     if @page.has_posts?
       posts = if params[:year] and params[:month]
         filter_date = DateTime.parse("#{params[:year]}-#{params[:month]}-01")
@@ -79,15 +82,21 @@ class ContentViewerController < ApplicationController
         @page.posts
       end
 
-      if @page.blog? && @page.display_posts_in_current_language?
-        posts = posts.native_translations.all(Article.display_filter(user, profile)).map{ |p| p.get_translation_to(FastGettext.locale) }.compact
-      end
+      #FIXME Need to run this before the pagination because this version of
+      #      will_paginate returns a will_paginate collection instead of a
+      #      relation.
+      blog_with_translation = @page.blog? && @page.display_posts_in_current_language?
+      posts = posts.native_translations if blog_with_translation
 
       @posts = posts.paginate({ :page => params[:npage], :per_page => @page.posts_per_page }.merge(Article.display_filter(user, profile)))
+
+      if blog_with_translation
+        @posts.replace @posts.map{ |p| p.get_translation_to(FastGettext.locale) }.compact
+      end
     end
 
     if @page.folder? && @page.gallery?
-      @images = @page.images
+      @images = @page.images.select{ |a| a.display_to? user }
       @images = @images.paginate(:per_page => per_page, :page => params[:npage]) unless params[:slideshow]
     end
 
@@ -100,9 +109,9 @@ class ContentViewerController < ApplicationController
     end
 
     @comments = @page.comments.without_spam
+    @comments = @plugins.filter(:unavailable_comments, @comments)
     @comments_count = @comments.count
-    @comments = @plugins.filter(:unavailable_comments, @comments.without_reply)
-    @comments = @comments.paginate(:per_page => per_page, :page => params[:comment_page] )
+    @comments = @comments.without_reply.paginate(:per_page => per_page, :page => params[:comment_page] )
 
     if params[:slideshow]
       render :action => 'slideshow', :layout => 'slideshow'

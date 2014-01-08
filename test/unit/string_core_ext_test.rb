@@ -34,4 +34,8 @@ class StringCoreExtTest < ActiveSupport::TestCase
     assert_equal 'aaaaaaAAAAAeeeeEEOOoocaaaiIIiuuyYnNcC', 'ªáàäâåÁÀÄÂÅéèëêÊËÖÔöôçäàâîÏÎïûüÿŸñÑçÇ'.transliterate
   end
 
+  should 'convert to css class' do
+    assert_equal 'spaceship-propulsion_warp-core', "SpaceshipPropulsion::WarpCore".to_css_class
+  end
+
 end

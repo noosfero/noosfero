@@ -208,7 +208,7 @@ module ActsAsSolr #:nodoc:
     # using eager loading for indexed associations.
     def rebuild_solr_index(batch_size=300, options = {}, &finder)
       finder ||= lambda do |ar, sql_options|
-        ar.all sql_options.merge!({:order => self.primary_key, :include => configuration[:solr_includes].keys})
+        ar.all sql_options.merge!({:order => self.primary_key})
       end
       start_time = Time.now
       options[:offset] ||= 0

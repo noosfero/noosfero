@@ -1,16 +1,12 @@
 <h1><%= _('Manage users') %></h1>
 
-<ul>
-  <li>
-    <%= _('Download users list') %>:
-    <%= link_to '[CSV]', :format => 'csv' %>
-    <%= link_to '[XML]', :format => 'xml' %>
-  </li>
-  <li>
-    <%= link_to _('Send e-mail to users'), :action => 'send_mail' %>
-  </li>
-</ul>
-
-<% button_bar do %>
-  <%= button :back, _('Back to admin panel'), :controller => 'admin_panel' %>
+<% form_tag( { :action => 'index' }, :method => 'get', :class => 'users-search' ) do %>
+<div id="search-users">
+  <%= render :partial => 'users_search_form' %>
+</div>
+<div id="users-list">
+  <%= render :partial => 'users_list' %>
+</div>
 <% end %>
+
+<%= render :partial => 'index_buttons' %>

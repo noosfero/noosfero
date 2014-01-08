@@ -1,5 +1,7 @@
 <li class="search-text-article-item article-item">
-  <%= link_to(text_article.title, text_article.url, :class => "search-result-title") %>
+  <div>
+    <%= link_to(text_article.title, text_article.url, :class => "search-result-title") %>
+  </div>
 
   <div class="search-content-first-column">
     <%= render :partial => 'image', :object => text_article %>

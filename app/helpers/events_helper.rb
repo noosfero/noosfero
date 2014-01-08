@@ -1,22 +1,24 @@
 module EventsHelper
 
   def list_events(date, events)
-    return content_tag('em', _("Select a day on the left to display it's events here"), :class => 'select-a-day') unless date
-    title = _('Events for %s') % show_date(date)
+    title = _('Events for %s') % show_date_month(date)
     content_tag('h2', title) +
     content_tag('div',
       (events.any? ?
         content_tag('table', events.select { |item| item.display_to?(user) }.map {|item| display_event_in_listing(item)}.join('')) :
-        content_tag('em', _('No events for this date'), :class => 'no-events')
+        content_tag('em', _('No events for this month'), :class => 'no-events')
       ), :id => 'agenda-items'
     )
   end
 
   def display_event_in_listing(article)
-    content_tag(
-      'tr',
-      content_tag('td', link_to(article.name, article.url, :class => icon_for_article(article))),
-      :class => 'agenda-item'
+
+    content_tag( 'tr',
+      content_tag('td',
+        content_tag('div', show_date(article.start_date) + ( article.end_date.nil? ?  '' : (_(" to ") + show_date(article.end_date))),:class => 'event-date' ) +
+        content_tag('div',link_to(article.name,article.url),:class => 'event-title') +
+        content_tag('div',(article.address.nil? or article.address == '')  ? '' : (_('Place: ') + article.address),:class => 'event-place')
+      )
     )
   end
 

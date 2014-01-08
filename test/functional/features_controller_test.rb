@@ -31,6 +31,13 @@ class FeaturesControllerTest < ActionController::TestCase
     end
   end
 
+  should 'list features alphabetically' do
+    uses_host 'anhetegua.net'
+    Environment.expects(:available_features).returns({"c_feature" => "Starting with C", "a_feature" => "Starting with A", "b_feature" => "Starting with B"}).at_least_once
+    get :index
+    assert_equal [['a_feature', 'Starting with A'], ['b_feature', 'Starting with B'], ['c_feature', 'Starting with C']], assigns(:features)
+  end
+
   def test_updates_enabled_features
     uses_host 'anhetegua.net'
     post :update, :environment => { :enabled_features => [ 'feature1', 'feature2' ] }

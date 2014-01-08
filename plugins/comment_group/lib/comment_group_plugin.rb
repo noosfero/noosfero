@@ -1,6 +1,3 @@
-require_dependency 'comment_group_plugin/ext/article'
-require_dependency 'comment_group_plugin/ext/comment'
-
 class CommentGroupPlugin < Noosfero::Plugin
 
   def self.plugin_name
@@ -26,6 +23,11 @@ class CommentGroupPlugin < Noosfero::Plugin
   def js_files
     'comment_group_macro.js'
   end
+
+  def stylesheet?
+    true
+  end
+
 
 end
 

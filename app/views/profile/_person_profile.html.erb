@@ -4,7 +4,7 @@
   </tr>
   <%= display_field(_('Sex:'), profile, :sex) { |gender| { 'male' => _('Male'), 'female' => _('Female') }[gender] } %>
   <%= display_field(_('Date of birth:'), profile, :birth_date) { |date| show_date(date)  }%>
-  <%= display_field(_('Location:'), profile, :location, true) %>
+  <%= display_field _('Location:'), profile, :location %>
 
   <%= display_field(_('Type:'), profile, :privacy_setting, true) %>
 
@@ -18,18 +18,6 @@
   <% cache_timeout(profile.relationships_cache_key, 4.hours) do %>
     <%= display_work_info profile %>
 
-    <% if !environment.enabled?('disable_asset_enterprises') && !profile.enterprises.empty? %>
-      <tr>
-        <th colspan='2'><%= _('Enterprises') %></th>
-      </tr>
-      <% profile.enterprises.includes(:environment,:domains, :preferred_domain).each do |item| %>
-        <tr>
-          <td></td>
-          <td><%= button 'menu-enterprise', item.name, item.url %></td>
-        </tr>
-      <% end %>
-    <% end %>
-
     <tr>
       <th colspan='2'><%= _('Network')%></th>
     </tr>
@@ -41,6 +29,12 @@
       <td><%= _('Communities') + ':' %></td>
       <td><%= link_to profile.communities.count, :controller => "profile", :action => 'communities' %></td>
     </tr>
+    <% if environment.disabled?('disable_asset_enterprises') %>
+      <tr id="person-profile-network-enterprises">
+        <td><%= __('Enterprises') + ':' %></td>
+        <td><%= link_to profile.enterprises.count, :controller => "profile", :action => 'enterprises' %></td>
+      </tr>
+    <% end %>
 
     <%= render :partial => 'common' %>
 

@@ -19,10 +19,9 @@ class ShoppingCartPluginTest < ActiveSupport::TestCase
   end
 
   should 'not add button if product unavailable' do
-    product = fast_create(Product, :available => false)
-    enterprise = mock()
+    enterprise = fast_create(:enterprise)
+    product = fast_create(Product, :available => false, :enterprise_id => enterprise.id)
     enterprise.stubs(:shopping_cart).returns(true)
-    product.stubs(:enterprise).returns(enterprise)
 
     assert_nil shopping_cart.add_to_cart_button(product)
   end

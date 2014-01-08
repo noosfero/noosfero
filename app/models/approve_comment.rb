@@ -6,7 +6,7 @@ class ApproveComment < Task
   validates_presence_of :comment_attributes
 
   def comment
-    @comment ||= Comment.new(JSON.parse(self.comment_attributes)) unless self.comment_attributes.nil?
+    @comment ||= Comment.new(ActiveSupport::JSON.decode(self.comment_attributes)) unless self.comment_attributes.nil?
   end
 
   def requestor_name
@@ -42,9 +42,9 @@ class ApproveComment < Task
   def information
     if article
       if requestor
-        {:message => _('%{requestor} commented on the the article: %{linked_subject}.')}
+        {:message => _('%{requestor} commented on the article: %{linked_subject}.')}
       else
-        { :message => _('%{requestor} commented on the the article: %{linked_subject}.'),
+        { :message => _('%{requestor} commented on the article: %{linked_subject}.'),
           :variables => {:requestor => requestor_name} }
       end
     else

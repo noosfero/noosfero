@@ -2,7 +2,7 @@
 
 require 'yaml'
 
-DBCONFIG = ARGV.first || '/etc/database/database.yml'
+DBCONFIG = ARGV.first || '/etc/noosfero/database.yml'
 
 $dbconfig = {}
 

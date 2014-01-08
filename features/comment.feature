@@ -84,3 +84,16 @@ Feature: comment
     When I press "Post comment"
     Then the "Title" field should contain "Joey Ramone"
     And I should see "Body can't be blank"
+
+  @selenium
+  Scenario: wrong comment doesn't increment comment counter
+    Given I am on /booking/article-with-comment
+    And I follow "Post a comment"
+    When I press "Post comment"
+    And I should see "2 comments"
+
+  @selenium
+  Scenario: hide post a comment button when clicked
+    Given I am on /booking/article-to-comment
+    And I follow "Post a comment"
+    Then "Post a comment" should not be visible within "#article"

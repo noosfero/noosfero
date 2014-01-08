@@ -10,6 +10,7 @@ class CatalogControllerTest < ActionController::TestCase
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
 
+    Environment.default.enable('products_for_enterprises')
     @enterprise = fast_create(Enterprise, :name => 'My enterprise', :identifier => 'testent')
     @product_category = fast_create(ProductCategory)
   end
@@ -52,7 +53,7 @@ class CatalogControllerTest < ActionController::TestCase
 
   should 'not give access if environment do not let' do
     env = Environment.default
-    env.enable('disable_products_for_enterprises')
+    env.disable('products_for_enterprises')
     env.save!
     ent = fast_create(Enterprise, :name => 'test ent', :identifier => 'test_ent', :environment_id => env.id)
     get :index, :profile => ent.identifier
@@ -232,6 +233,20 @@ class CatalogControllerTest < ActionController::TestCase
     get :index, :profile => @enterprise.identifier
 
     assert_equal [pc2, pc1, pc4, pc3], assigns(:categories)
+  end
+
+  should 'use price_detail name instead of production_cost name straight' do
+    p1 = fast_create(Product, :product_category_id => @product_category.id, :enterprise_id => @enterprise.id)
+    p2 = fast_create(Product, :product_category_id => @product_category.id, :enterprise_id => @enterprise.id)
+    Product.any_instance.stubs(:price_described?).returns(true)
+    production_cost = fast_create(ProductionCost)
+    pd1 = PriceDetail.create!(:product => p1, :production_cost => production_cost)
+    pd2 = PriceDetail.create!(:product => p2)
+
+    get :index, :profile => @enterprise.identifier
+
+    assert_tag :tag => 'div', :attributes => {:class => 'search-product-input-name'}, :content => production_cost.name
+    assert_tag :tag => 'div', :attributes => {:class => 'search-product-input-name'}, :content => 'Other costs'
   end
 
 end

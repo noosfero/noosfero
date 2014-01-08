@@ -182,7 +182,7 @@ class TaskTest < ActiveSupport::TestCase
     t2.finish
     t3 = Task.create!
 
-    assert_equal [t1,t3], Task.pending
+    assert_equivalent [t1,t3], Task.pending
   end
 
   should 'be able to list finished tasks' do
@@ -324,10 +324,10 @@ class TaskTest < ActiveSupport::TestCase
 
   should 'order tasks by some attribute correctly' do
     Task.destroy_all
-    t1 = fast_create(Task, :status => 4, :created_at => 1)
-    t2 = fast_create(Task, :status => 3, :created_at => 2)
-    t3 = fast_create(Task, :status => 2, :created_at => 3)
-    t4 = fast_create(Task, :status => 1, :created_at => 4)
+    t1 = fast_create(Task, :status => 4, :created_at => Time.now + 1.hour)
+    t2 = fast_create(Task, :status => 3, :created_at => Time.now + 2.hour)
+    t3 = fast_create(Task, :status => 2, :created_at => Time.now + 3.hour)
+    t4 = fast_create(Task, :status => 1, :created_at => Time.now + 4.hour)
 
     assert_equal [t1,t2,t3,t4], Task.order_by('created_at', 'asc')
     assert_equal [t4,t3,t2,t1], Task.order_by('created_at', 'desc')
@@ -370,6 +370,55 @@ class TaskTest < ActiveSupport::TestCase
     assert_not_includes Task.closed, hidden
     assert_includes Task.closed, finished
     assert_includes Task.closed, canceled
+  end
+
+  should 'be ham by default' do # ham means not spam
+    assert_equal false, Task.create.spam
+  end
+
+  should 'be able to mark tasks as spam/ham/unknown' do
+    t = Task.new
+    t.spam = true
+    assert t.spam?
+    assert !t.ham?
+
+    t.spam = false
+    assert t.ham?
+    assert !t.spam?
+
+    t.spam = nil
+    assert !t.spam?
+    assert !t.ham?
+  end
+
+  should 'be able to select non-spam tasks' do
+    t1 = fast_create(Task)
+    t2 = fast_create(Task, :spam => false)
+    t3 = fast_create(Task, :spam => true)
+
+    assert_equivalent [t1,t2], Task.without_spam
+  end
+
+  should 'be able to select spam tasks' do
+    t1 = fast_create(Task)
+    t2 = fast_create(Task, :spam => false)
+    t3 = fast_create(Task, :spam => true)
+
+    assert_equivalent [t3], Task.spam
+  end
+
+  should 'be able to mark as spam' do
+    t1 = fast_create(Task)
+    t1.spam!
+    t1.reload
+    assert t1.spam?
+  end
+
+  should 'be able to mark as ham' do
+    t1 = fast_create(Task)
+    t1.ham!
+    t1.reload
+    assert t1.ham?
   end
 
   protected

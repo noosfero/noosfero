@@ -38,7 +38,7 @@ class ShoppingCartPlugin::CartHelperTest < ActiveSupport::TestCase
     value = 13.7
     environment = Environment.default
 
-    assert_equal "#{environment.currency_unit} 13#{environment.currency_separator}70", float_to_currency_cart(value,environment)
+    assert_equal "#{environment.currency_unit}13#{environment.currency_separator}70", float_to_currency_cart(value,environment)
   end
 
 end

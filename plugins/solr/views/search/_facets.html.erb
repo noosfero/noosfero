@@ -1,10 +1,4 @@
-<% if logged_in? %>
-  <% button_bar do %>
-    <%# FIXME shouldn't the user create the community in the current environment instead of going to its home environment? %>
-    <%= button(:add, __('New community'), user.url.merge(:controller => 'memberships', :action => 'new_community', :profile => user.identifier)) if @asset == :communities %>
-    <%= button(:add, __('New enterprise'), {:controller => 'enterprise_registration'}) if @asset == :enterprises && environment.enabled?('enterprise_registration') %>
-  <% end %>
-<% end %>
 <% if !@empty_query %>
   <%= facets_menu(@asset, @facets) %>
 <% end %>
+

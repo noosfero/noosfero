@@ -126,6 +126,8 @@ class FeedHandlerTest < ActiveSupport::TestCase
       container.stubs(:only_once).returns(false)
       last_error = Time.now
       Time.stubs(:now).returns(last_error + FeedHandler.disabled_period + 1.second)
+      handler.expects(:actually_process_container).with(container)
+      container.expects(:finish_fetch)
       handler.process(container)
 
       assert container.enabled, 'must reenable container after <disabled_period> (%s)' % container_class

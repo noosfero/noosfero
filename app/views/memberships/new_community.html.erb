@@ -44,11 +44,13 @@
     </div>
   </div>
 
-  <%= template_options(Community, 'community')%>
+  <%= template_options(:communities, 'community')%>
+
+  <%= hidden_field_tag('back_to', @back_to) %>
 
   <% button_bar do %>
     <%= submit_button(:save, _('Create')) %>
-    <%= button(:cancel, _('Cancel'), :action => 'index') %>
+    <%= button(:cancel, _('Cancel'), @back_to ) %>
   <% end %>
 
 <% end %>

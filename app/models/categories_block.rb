@@ -35,4 +35,7 @@ class CategoriesBlock < Block
     end
   end
 
+  def self.expire_on
+      { :profile => [], :environment => [:category] }
+  end
 end

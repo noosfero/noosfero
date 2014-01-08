@@ -13,6 +13,7 @@ class ManageProductsControllerTest < ActionController::TestCase
     @enterprise = fast_create(Enterprise, :name => 'teste', :identifier => 'test_ent')
     @user = create_user_with_permission('test_user', 'manage_products', @enterprise)
     @environment = @enterprise.environment
+    @environment.enable('products_for_enterprises')
     @product_category = fast_create(ProductCategory)
     login_as :test_user
   end
@@ -191,7 +192,7 @@ class ManageProductsControllerTest < ActionController::TestCase
   
   should 'not let users in if environment do not let' do
     env = Environment.default
-    env.enable('disable_products_for_enterprises')
+    env.disable('products_for_enterprises')
     env.save!
     @enterprise.environment = env
     @enterprise.save!

@@ -5,6 +5,7 @@ class RecentDocumentsBlockTest < ActiveSupport::TestCase
   def setup
     @articles = []
     @profile = create_user('testinguser').person
+    @profile.articles.destroy_all
     ['first', 'second', 'third', 'fourth', 'fifth'].each do |name|
       article = @profile.articles.create!(:name => name)
       @articles << article
@@ -30,19 +31,14 @@ class RecentDocumentsBlockTest < ActiveSupport::TestCase
     assert_not_equal Block.new.default_title, RecentDocumentsBlock.new.default_title
   end
 
-  should 'list recent documents' do
-    assert_equivalent block.docs, articles
-  end
+  should 'output list with links to recent documents' do
+    output = block.content
 
-  should 'link to documents' do
-    articles.each do |a|
-      expects(:link_to).with(a.title, a.url)
-    end
-    stubs(:block_title).returns("")
-    stubs(:content_tag).returns("")
-    stubs(:li).returns("")
-
-    instance_eval(&block.content)
+    assert_match /href=.*\/testinguser\/first/, output
+    assert_match /href=.*\/testinguser\/second/, output
+    assert_match /href=.*\/testinguser\/third/, output
+    assert_match /href=.*\/testinguser\/fourth/, output
+    assert_match /href=.*\/testinguser\/fifth/, output
   end
 
   should 'respect the maximum number of items as configured' do

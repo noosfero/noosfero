@@ -140,4 +140,19 @@ class Block < ActiveRecord::Base
     4.hours
   end
 
+  def has_macro?
+    false
+  end
+
+  # Override in your subclasses.
+  # Define which events and context should cause the block cache to expire
+  # Possible events are: :article, :profile, :friendship, :category
+  # Possible contexts are: :profile, :environment
+  def self.expire_on
+    {
+      :profile => [],
+      :environment => []
+    }
+  end
+
 end

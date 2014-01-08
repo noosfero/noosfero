@@ -64,7 +64,20 @@ class ContentViewerControllerTest < ActionController::TestCase
     assert_response :missing
   end
 
-  should 'produce a download-like when article is not text/html' do
+  should 'produce a download-link when article is a uploaded file' do
+    profile = create_user('someone').person
+    html = UploadedFile.create! :uploaded_data => fixture_file_upload('/files/500.html', 'text/html'), :profile => profile
+    html.save!
+
+    get :view_page, :profile => 'someone', :page => [ '500.html' ]
+
+    assert_response :success
+    assert_match /^text\/html/, @response.headers['Content-Type']
+    assert @response.headers['Content-Disposition'].present?
+    assert_match /attachment/, @response.headers['Content-Disposition']
+  end
+
+  should 'produce a download-link when article is not text/html' do
 
     # for example, RSS feeds
     profile = create_user('someone').person
@@ -587,6 +600,29 @@ class ContentViewerControllerTest < ActionController::TestCase
     assert_equal 2, assigns(:images).size
   end
 
+  should 'not display private images in the slideshow for unauthorized people' do
+    owner = create_user('owner').person
+    unauthorized = create_user('unauthorized').person
+    folder = Gallery.create!(:name => 'gallery', :profile => owner)
+    image1 = UploadedFile.create!(:profile => owner, :parent => folder, :uploaded_data => fixture_file_upload('/files/other-pic.jpg', 'image/jpg'), :published => false)
+    login_as('unauthorized')
+    get :view_page, :profile => owner.identifier, :page => folder.explode_path, :slideshow => true
+    assert_response :success
+    assert_equal 0, assigns(:images).length
+  end
+
+  should 'not display private images thumbnails for unauthorized people' do
+    owner = create_user('owner').person
+    unauthorized = create_user('unauthorized').person
+    folder = Gallery.create!(:name => 'gallery', :profile => owner)
+    image1 = UploadedFile.create!(:profile => owner, :parent => folder, :uploaded_data => fixture_file_upload('/files/other-pic.jpg', 'image/jpg'), :published => false)
+    login_as('unauthorized')
+    get :view_page, :profile => owner.identifier, :page => folder.explode_path
+    assert_response :success
+    assert_select '.image-gallery-item', 0
+  end   
+  
+
   should 'display default image in the slideshow if thumbnails were not processed' do
     @controller.stubs(:per_page).returns(1)
     folder = Gallery.create!(:name => 'gallery', :profile => profile)
@@ -1014,6 +1050,7 @@ class ContentViewerControllerTest < ActionController::TestCase
     profile = create_user('testuser').person
     article = profile.articles.build(:name => 'test')
     article.save!
+    Comment.destroy_all
     comment = Comment.create!(:author => profile, :title => 'a comment', :body => 'lalala', :article => article)
     login_as 'testuser'
     get :view_page, :profile => 'testuser', :page => [ 'test' ]
@@ -1063,6 +1100,7 @@ class ContentViewerControllerTest < ActionController::TestCase
   should 'not show a post comment button on top if there is only one comment' do
     profile = create_user('testuser').person
     article = profile.articles.build(:name => 'test')
+    Comment.destroy_all
     article.save!
     comment = article.comments.build(:author => profile, :title => 'hi', :body => 'hello')
     comment.save!
@@ -1073,6 +1111,7 @@ class ContentViewerControllerTest < ActionController::TestCase
   should 'not show a post comment button on top if there are no comments' do
     profile = create_user('testuser').person
     article = profile.articles.build(:name => 'test')
+    Comment.destroy_all
     article.save!
     get :view_page, :profile => 'testuser', :page => [ 'test' ]
     assert_no_tag :tag => 'a', :attributes => { :id => 'top-post-comment-button' }
@@ -1081,6 +1120,7 @@ class ContentViewerControllerTest < ActionController::TestCase
   should 'show a post comment button on top if there are at least two comments' do
     profile = create_user('testuser').person
     article = profile.articles.build(:name => 'test')
+    Comment.destroy_all
     article.save!
     comment1 = article.comments.build(:author => profile, :title => 'hi', :body => 'hello')
     comment1.save!
@@ -1093,6 +1133,7 @@ class ContentViewerControllerTest < ActionController::TestCase
   should 'not show a post comment button on top if there are one comment and one reply' do
     profile = create_user('testuser').person
     article = profile.articles.build(:name => 'test')
+    Comment.destroy_all
     article.save!
     comment1 = article.comments.build(:author => profile, :title => 'hi', :body => 'hello')
     comment1.save!
@@ -1249,6 +1290,27 @@ class ContentViewerControllerTest < ActionController::TestCase
 
     get 'view_page', :profile => profile.identifier, :page => article.path.split('/')
     assert_tag :tag => 'a', :attributes => { :href => "/#{profile.identifier}/#{article.path}?comment_page=2", :rel => 'next' }
-  end 
+  end
+
+  should 'not escape acceptable HTML in list of blog posts' do
+    login_as('testinguser')
+    blog = Blog.create!(:name => 'A blog test', :profile => profile)
+    blog.posts << TinyMceArticle.create!(
+      :name => 'Post',
+      :profile => profile,
+      :parent => blog,
+      :published => true,
+      :body => "<p>This is a <strong>bold</strong> statement right there!</p>"
+    )
+
+    get :view_page, :profile => profile.identifier, :page => [blog.path]
+    assert_tag :tag => 'strong', :content => /bold/
+  end
+
+  should 'display link to download of non-recognized file types on its page' do
+    file = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/test.txt', 'bin/unknown'), :profile => profile)
+    get :view_page, file.url.merge(:view=>:true)
+    assert_match /this is a sample text file/, @response.body
+  end
 
 end

@@ -3,14 +3,33 @@
 namespace :noosfero do
 
   def pendencies_on_authors
-    sh "git status | grep -v 'AUTHORS' > /dev/null" do |ok, res| 
-      return {:ok => ok, :res => res}
+    sh "git status | grep 'AUTHORS' > /dev/null" do |ok, res| 
+      return {:ok => !ok, :res => res}
     end
   end
 
   def pendencies_on_repo
     sh "git status | grep 'nothing.*commit' > /dev/null" do |ok, res| 
       return {:ok => ok, :res => res}
+    end
+  end
+
+  def pendencies_on_public_errors
+    sh "git status | grep -e '500.html' -e '503.html' > /dev/null" do |ok, res| 
+      return {:ok => !ok, :res => res}
+    end
+  end
+
+  def commit_changes(files, commit_message)
+    files = files.join(' ')
+    puts "\nThere are changes in the following files:"
+    sh "git diff #{files}"
+    if confirm('Do you want to commit these changes')
+      sh "git add #{files}"
+      sh "git commit -m '#{commit_message}'"
+    else
+      sh "git checkout #{files}"
+      abort 'There are changes to be commited. Reverting changes and exiting...'
     end
   end
 
@@ -80,33 +99,26 @@ EOF
         output.puts `git log --pretty=format:'%aN <%aE>' | sort | uniq`
         output.puts AUTHORS_FOOTER
       end
-      if !pendencies_on_authors[:ok]
-        puts "\nThere are changes in the AUTHORS file:"
-        sh 'git diff AUTHORS'
-        if confirm('Do you want to commit these changes?')
-          sh 'git add AUTHORS'
-          sh 'git commit -m "Updating authors file"'
-        else
-          sh 'git checkout AUTHORS'
-          abort 'There are new authors to be commited. Reverting changes and exiting...'
-        end
-      end
+      commit_changes(['AUTHORS'], 'Updating AUTHORS file') if !pendencies_on_authors[:ok]
     rescue Exception => e
       rm_f 'AUTHORS'
       raise e
     end
   end
 
-  def ask(message)
-    print message
-    STDIN.gets.chomp
+  def ask(message, default = nil, default_message = nil, symbol = ':')
+    default_choice = default ? " [#{default_message || default}]#{symbol} " : "#{symbol} "
+    print message + default_choice
+    answer = STDIN.gets.chomp
+    answer.blank? && default.present? ? default : answer
   end
 
   def confirm(message, default=true)
-    choice_message = default ? ' [Y/n]? ' : ' [y/N]? '
+    default_message = default ? 'Y/n' : 'y/N'
+    default_value = default ? 'y' : 'n'
     choice = nil
     while choice.nil?
-      answer = ask(message + choice_message)
+      answer = ask(message, default_value, default_message, '?')
       if answer.blank?
         choice = default
       elsif ['y', 'yes'].include?(answer.downcase)
@@ -124,10 +136,10 @@ EOF
     release_kind = args[:release_kind] || 'stable'
 
     if release_kind == 'test'
-      version_question = "Release candidate of which version: "
+      version_question = "Release candidate of which version"
       distribution = 'squeeze-test'
     else
-      version_question = "Version that is being released: "
+      version_question = "Version that is being released"
       distribution = 'unstable'
     end
 
@@ -137,7 +149,7 @@ EOF
       timestamp = Time.now.strftime('%Y%m%d%H%M%S')
       version_name += "~rc#{timestamp}"
     end
-    release_message = ask("Release message: ")
+    release_message = ask("Release message")
 
     sh 'git checkout debian/changelog lib/noosfero.rb'
     sh "sed -i \"s/VERSION = '[^']*'/VERSION = '#{version_name}'/\" lib/noosfero.rb"
@@ -160,27 +172,6 @@ EOF
     sh "dput --unchecked #{release_kind} #{Dir['pkg/*.changes'].first}"
   end
 
-  def ask(message)
-    print message
-    STDIN.gets.chomp
-  end
-
-  def confirm(message, default=true)
-    choice_message = default ? ' [Y/n]? ' : ' [y/N]? '
-    choice = nil
-    while choice.nil?
-      answer = ask(message + choice_message)
-      if answer.blank?
-        choice = default
-      elsif ['y', 'yes'].include?(answer.downcase)
-        choice = true
-      elsif ['n', 'no'].include?(answer.downcase)
-        choice = false
-      end
-    end
-    choice
-  end
-
   desc 'sets the new version on apropriate files'
   task :set_version, :release_kind do |t, args|
     next if File.exist?("tmp/pending-release")
@@ -200,7 +191,7 @@ EOF
       timestamp = Time.now.strftime('%Y%m%d%H%M%S')
       version_name += "~rc#{timestamp}"
     end
-    release_message = ask("Release message: ")
+    release_message = ask("Release message")
 
     sh 'git checkout debian/changelog lib/noosfero.rb'
     sh "sed -i \"s/VERSION = '[^']*'/VERSION = '#{version_name}'/\" lib/noosfero.rb"
@@ -228,20 +219,45 @@ EOF
     release_kind = args[:release_kind] || 'stable'
 
     Rake::Task['noosfero:set_version'].invoke(release_kind)
+
+    puts "==> Checking tags..."
     Rake::Task['noosfero:check_tag'].invoke
+
+    puts "==> Checking debian package version..."
     Rake::Task['noosfero:check_debian_package'].invoke
+
+    puts "==> Checking translations..."
     Rake::Task['noosfero:error-pages:translate'].invoke
+    if !pendencies_on_public_errors[:ok]
+      commit_changes(['public/500.html', 'public/503.html'], 'Updating public error pages')
+    end
+
+    puts "==> Updating authors..."
     Rake::Task['noosfero:authors'].invoke
+
+    puts "==> Checking repository..."
     Rake::Task['noosfero:check_repo'].invoke
+
+    puts "==> Preparing debian packages..."
     Rake::Task['noosfero:debian_packages'].invoke
-    Rake::Task['noosfero:upload_packages'].invoke(release_kind)
+    if confirm('Do you want to upload the packages')
+      puts "==> Uploading debian packages..."
+      Rake::Task['noosfero:upload_packages'].invoke(release_kind)
+    end
 
     sh "git tag #{version.gsub('~','-')}"
     push_tags = confirm('Push new version tag')
-    sh 'git push --tags' if push_tags
+    if push_tags
+      repository = ask('Repository name', 'origin')
+      puts "==> Uploading tags..."
+      sh "git push #{repository} #{version.gsub('~','-')}"
+    end
+
     sh "rm tmp/pending-release" if Dir["tmp/pending-release"].first.present?
+
     puts "I: please upload the tarball and Debian packages to the website!"
     puts "I: please push the tag for version #{version} that was just created!" if !push_tags
+    puts "I: notify the community about this sparkling new version!"
   end
 
   desc 'Build Debian packages'

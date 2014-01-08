@@ -4,7 +4,8 @@ Feature: search communities
   In order to find ones that interest me
 
   Background:
-    Given the following category
+    Given plugin Solr is enabled on environment
+    And the following category
       | name           |
       | social network |
     And the following community

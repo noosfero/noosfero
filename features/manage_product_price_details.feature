@@ -19,7 +19,7 @@ Feature: manage product price details
     And the following product
       | owner      | category | name       | price |
       | redemoinho | rock     | Abbey Road | 80.0  |
-    And feature "disable_products_for_enterprises" is disabled on environment
+    And feature "products_for_enterprises" is enabled on environment
     And the following inputs
       | product    | category  | price_per_unit | amount_used |
       | Abbey Road | Rock      | 10.0           | 2           |

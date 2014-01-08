@@ -4,6 +4,8 @@ class Article < ActiveRecord::Base
 
   attr_accessible :name, :body, :abstract, :profile, :tag_list, :parent
 
+  acts_as_having_image
+
   SEARCHABLE_FIELDS = {
     :name => 10,
     :abstract => 3,
@@ -59,7 +61,7 @@ class Article < ActiveRecord::Base
   has_many :article_categorizations, :conditions => [ 'articles_categories.virtual = ?', false ]
   has_many :categories, :through => :article_categorizations
 
-  has_many :article_categorizations_including_virtual, :class_name => 'ArticleCategorization', :dependent => :destroy
+  has_many :article_categorizations_including_virtual, :class_name => 'ArticleCategorization'
   has_many :categories_including_virtual, :through => :article_categorizations_including_virtual, :source => :category
 
   acts_as_having_settings :field => :setting
@@ -156,8 +158,12 @@ class Article < ActiveRecord::Base
     end
   end
 
+  def css_class_list
+    [self.class.name.to_css_class]
+  end
+
   def css_class_name
-    self.class.name.underscore.dasherize
+    [css_class_list].flatten.compact.join(' ')
   end
 
   def pending_categorizations
@@ -190,7 +196,7 @@ class Article < ActiveRecord::Base
     pending_categorizations.clear
   end
 
-  acts_as_taggable  
+  acts_as_taggable
   N_('Tag list')
 
   acts_as_filesystem
@@ -268,7 +274,7 @@ class Article < ActiveRecord::Base
   end
 
   # returns the data of the article. Must be overriden in each subclass to
-  # provide the correct content for the article. 
+  # provide the correct content for the article.
   def data
     body
   end
@@ -280,6 +286,11 @@ class Article < ActiveRecord::Base
   # FIXME use mime_type and generate this name dinamically
   def self.icon_name(article = nil)
     'text-html'
+  end
+
+  # TODO Migrate the class method icon_name to instance methods.
+  def icon_name
+    self.class.icon_name(self)
   end
 
   def mime_type
@@ -310,6 +321,10 @@ class Article < ActiveRecord::Base
   def belongs_to_blog?
     self.parent and self.parent.blog?
   end
+  
+  def belongs_to_forum?
+    self.parent and self.parent.forum?
+  end
 
   def info_from_last_update
     last_comment = comments.last
@@ -325,7 +340,7 @@ class Article < ActiveRecord::Base
   end
 
   def view_url
-    @view_url ||= image? ? url.merge(:view => true) : url
+    @view_url ||= is_a?(UploadedFile) ? url.merge(:view => true) : url
   end
 
   def comment_url_structure(comment, action = :edit)
@@ -340,24 +355,18 @@ class Article < ActiveRecord::Base
     true
   end
 
-  def folder?
-    false
-  end
-
-  def blog?
-    false
-  end
-
-  def forum?
-    false
-  end
-
-  def uploaded_file?
-    false
-  end
-
   def has_posts?
     false
+  end
+
+  def download? view = nil
+    (self.uploaded_file? and not self.image?) or
+      (self.image? and view.blank?) or
+      (not self.uploaded_file? and self.mime_type != 'text/html')
+  end
+
+  def download_headers
+    {}
   end
 
   scope :native_translations, :conditions => { :translation_of_id => nil }
@@ -444,6 +453,7 @@ class Article < ActiveRecord::Base
   scope :galleries, :conditions => { :type => 'Gallery' }
   scope :images, :conditions => { :is_image => true }
   scope :text_articles, :conditions => [ 'articles.type IN (?)', text_article_types ]
+  scope :with_types, lambda { |types| { :conditions => [ 'articles.type IN (?)', types ] } }
 
   scope :more_popular, :order => 'hits DESC'
   scope :more_comments, :order => "comments_count DESC"
@@ -586,6 +596,22 @@ class Article < ActiveRecord::Base
     false
   end
 
+  def folder?
+    false
+  end
+
+  def blog?
+    false
+  end
+
+  def forum?
+    false
+  end
+
+  def uploaded_file?
+    false
+  end
+
   def author
     if versions.empty?
       last_changed_by
@@ -724,6 +750,10 @@ class Article < ActiveRecord::Base
   end
 
   delegate :region, :region_id, :environment, :environment_id, :to => :profile, :allow_nil => true
+
+  def has_macro?
+    true
+  end
 
   private
 

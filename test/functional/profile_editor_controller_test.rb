@@ -559,7 +559,7 @@ class ProfileEditorControllerTest < ActionController::TestCase
 
   should 'not list the manage products button if the environment disabled it' do
     env = Environment.default
-    env.enable('disable_products_for_enterprises')
+    env.disable('products_for_enterprises')
     env.save!
     ent = fast_create(Enterprise)
 
@@ -624,6 +624,7 @@ class ProfileEditorControllerTest < ActionController::TestCase
 
     profile.domains << Domain.new(:name => 'myowndomain.net')
     profile.environment.domains << Domain.new(:name => 'myenv.net')
+    ActionController::TestRequest.any_instance.stubs(:host).returns(profile.hostname)
 
     get :edit, :profile => profile.identifier
     assert_tag :tag => 'select', :attributes => { :name => 'profile_data[preferred_domain_id]' }, :descendant => { :tag => "option", :content => 'myowndomain.net' }
@@ -639,6 +640,7 @@ class ProfileEditorControllerTest < ActionController::TestCase
 
     profile.domains << Domain.new(:name => 'myowndomain.net')
     profile.environment.domains << Domain.new(:name => 'myenv.net')
+    ActionController::TestRequest.any_instance.stubs(:host).returns(profile.hostname)
 
     get :edit, :profile => profile.identifier
     assert_tag :tag => "select", :attributes => { :name => 'profile_data[preferred_domain_id]'}, :descendant => { :tag => 'option', :content => '&lt;Select domain&gt;', :attributes => { :value => '' } }
@@ -977,5 +979,14 @@ class ProfileEditorControllerTest < ActionController::TestCase
     post :edit, :profile => profile.identifier, :profile_data => {}
     assert_equal({}, person.reload.fields_privacy)
   end
+
+  should 'not redirect if the profile_hostname is the same as environment hostname' do
+    Person.any_instance.stubs(:hostname).returns('hostname.org')
+    Environment.any_instance.stubs(:default_hostname).returns('hostname.org')
+    ActionController::TestRequest.any_instance.stubs(:host).returns('hostname.org')
+    get :index, :profile => profile.identifier
+    assert_response :success
+  end
+
 
 end

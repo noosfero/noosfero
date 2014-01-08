@@ -141,22 +141,34 @@ class AccountController < ApplicationController
     end
   end
 
-  # The user requests a password change. She forgot her old password.
-  #
-  # Posts back.
+  include ForgotPasswordHelper
+  helper :forgot_password
+
   def forgot_password
     if @plugins.dispatch(:allow_password_recovery).include?(false)
       redirect_back_or_default(:controller => 'home')
       session[:notice] = _("This environment doesn't allow password recovery.")
     end
-    @change_password = ChangePassword.new(params[:change_password])
+
+    @change_password = ChangePassword.new
 
     if request.post?
       begin
-        @change_password.save!
+        requestors = fetch_requestors(params[:value])
+        raise ActiveRecord::RecordNotFound if requestors.blank? || params[:value].blank?
+
+        requestors.each do |requestor|
+          ChangePassword.create!(:requestor => requestor)
+        end
         render :action => 'password_recovery_sent'
-      rescue ActiveRecord::RecordInvalid => e
-        nil # just pass and render at the end of the action
+      rescue ActiveRecord::RecordNotFound
+        if params[:value].blank?
+          @change_password.errors.add_to_base(_('Can not recover user password with blank value.'))
+        else
+          @change_password.errors.add_to_base(_('Could not find any user with %s equal to "%s".') % [fields_label, params[:value]])
+        end
+      rescue ActiveRecord::RecordInvald
+        @change_password.errors.add_to_base(_('Could not perform password recovery for the user.'))
       end
     end
   end
@@ -262,7 +274,7 @@ class AccountController < ApplicationController
   def user_data
     user_data =
       if logged_in?
-        current_user.data_hash
+        current_user.data_hash(gravatar_default)
       else
         { }
       end

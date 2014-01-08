@@ -55,6 +55,7 @@ Noosfero::Application.routes.draw do
 
   # events
   match 'profile/:profile/events_by_day', :controller => 'events', :action => 'events_by_day', :profile => /#{Noosfero.identifier_format}/
+  match 'profile/:profile/events_by_month', :controller => 'events', :action => 'events_by_month', :profile => /#{Noosfero.identifier_format}/
   match 'profile/:profile/events/:year/:month/:day', :controller => 'events', :action => 'events', :year => /\d*/, :month => /\d*/, :day => /\d*/, :profile => /#{Noosfero.identifier_format}/
   match 'profile/:profile/events/:year/:month', :controller => 'events', :action => 'events', :year => /\d*/, :month => /\d*/, :profile => /#{Noosfero.identifier_format}/
   match 'profile/:profile/events', :controller => 'events', :action => 'events', :profile => /#{Noosfero.identifier_format}/

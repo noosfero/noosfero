@@ -1,5 +1,3 @@
-require_dependency 'ext/uploaded_file'
-
 class WorkAssignmentPlugin < Noosfero::Plugin
 
   def self.plugin_name
@@ -32,7 +30,9 @@ class WorkAssignmentPlugin < Noosfero::Plugin
   end
 
   def content_remove_upload(content)
-    !content.profile.members.include?(context.send(:user))
+    if content.kind_of?(WorkAssignmentPlugin::WorkAssignment)
+      !content.profile.members.include?(context.send(:user))
+    end
   end
 
   def content_viewer_controller_filters
