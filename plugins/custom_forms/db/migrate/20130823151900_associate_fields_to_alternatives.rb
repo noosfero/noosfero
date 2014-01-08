@@ -14,6 +14,18 @@ class AssociateFieldsToAlternatives < ActiveRecord::Migration
       end
     end
 
+    CustomFormsPlugin::Answer.find_each do |answer|
+      labels = []
+      answer.value.split(',').each do |value|
+        labels << answer.field.choices.invert[value]
+      end
+      labels.compact!
+      if labels.present?
+        answer.value = answer.field.alternatives.where('label IN (?)', labels).map(&:id).join(',')
+        answer.save!
+      end
+    end
+
     change_table :custom_forms_plugin_fields do |t|
       t.remove :choices
     end
