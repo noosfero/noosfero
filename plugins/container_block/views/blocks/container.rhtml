@@ -15,7 +15,7 @@
 </style>
 
 <% if edit_mode %>
-  <div class="button-bar">
+  <div class="container-block-button-bar button-bar">
     <a href="#" onclick="toggleMoveContainerChildren(<%= block.id %>, <%= block.container_box.id %>); return false;" class="button icon-resize" title=<%= _('Resize blocks').to_json %>></a>
     <%= link_to_remote '', :url => { :controller => @controller.boxes_holder.kind_of?(Environment) ? 'container_block_plugin_admin' : 'container_block_plugin_myprofile', :action => 'saveWidths', :id => block.id }, 
                            :with => "containerChildrenWidth(#{block.id}, #{block.container_box.id})", 
