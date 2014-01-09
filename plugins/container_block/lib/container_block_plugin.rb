@@ -16,4 +16,8 @@ class ContainerBlockPlugin < Noosfero::Plugin
     true
   end
 
+  def js_files
+    'container_block.js'
+  end
+
 end
