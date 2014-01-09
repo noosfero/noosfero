@@ -15,6 +15,10 @@ class ContainerBlockPlugin::ContainerBlock < Block
     _('This block acts as a container for another blocks')
   end
 
+  def cacheable?
+    false
+  end
+
   def layout_template
     nil
   end
