@@ -34,7 +34,7 @@ class EmailActivation < Task
 
   # :nodoc:
   def after_finish
-    User::Mailer.activation_email_notify(person.user).deliver
+    UserMailer.activation_email_notify(person.user).deliver
   end
 
   def sends_email?

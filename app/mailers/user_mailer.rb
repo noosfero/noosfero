@@ -1,4 +1,4 @@
-class User::Mailer < ActionMailer::Base
+class UserMailer < ActionMailer::Base
   def activation_email_notify(user)
     user_email = "#{user.login}@#{user.email_domain}"
     @name = user.name

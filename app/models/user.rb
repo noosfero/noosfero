@@ -112,7 +112,7 @@ class User < ActiveRecord::Base
       false
     else
       if environment.enabled?('send_welcome_email_to_new_users') && environment.has_signup_welcome_text?
-        User::Mailer.delay.signup_welcome_email(self)
+        UserMailer.delay.signup_welcome_email(self)
       end
       true
     end
@@ -323,7 +323,7 @@ class User < ActiveRecord::Base
 
     def deliver_activation_code
       return if person.is_template?
-      User::Mailer.activation_code(self).deliver unless self.activation_code.blank?
+      UserMailer.activation_code(self).deliver unless self.activation_code.blank?
     end
 
     def delay_activation_check
