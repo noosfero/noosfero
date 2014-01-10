@@ -15,11 +15,11 @@ class RecentDocumentsBlock < Block
   settings_items :limit, :type => :integer, :default => 5
 
   def content(args={})
-    docs = self.docs
+    docs = self.limit.nil? ? owner.recent_documents(nil, {}, false) : owner.recent_documents(self.limit, {}, false)
     title = self.title
     proc do
       block_title(title) +
-        content_tag('ul', docs.map {|item| content_tag('li', link_to(h(item.title), item.url))}.join("\n"))
+      content_tag('ul', docs.map {|item| content_tag('li', link_to(h(item.title), item.url))}.join("\n"))
     end
   end
 
