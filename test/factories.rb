@@ -61,8 +61,8 @@ module Noosfero::Factory
   ###### old stuff to be rearranged
   def create_admin_user(env)
     admin_user = User.find_by_login('adminuser') || create_user('adminuser', :email => 'adminuser@noosfero.org', :password => 'adminuser', :password_confirmation => 'adminuser', :environment => env)
-    admin_role = Role.find_by_name('admin_role') || Role.create!(:name => 'admin_role', :permissions => ['view_environment_admin_panel','edit_environment_features', 'edit_environment_design', 'manage_environment_categories', 'manage_environment_roles', 'manage_environment_trusted_sites', 'manage_environment_validators', 'manage_environment_users', 'manage_environment_templates', 'manage_environment_licenses'])
-    RoleAssignment.create!(:accessor => admin_user.person, :role => admin_role, :resource => env) unless admin_user.person.role_assignments.map{|ra|[ra.role, ra.accessor, ra.resource]}.include?([admin_role, admin_user, env])
+    admin_role = Role.find_by_name('admin_role') || create(Role, :name => 'admin_role', :permissions => ['view_environment_admin_panel','edit_environment_features', 'edit_environment_design', 'manage_environment_categories', 'manage_environment_roles', 'manage_environment_trusted_sites', 'manage_environment_validators', 'manage_environment_users', 'manage_environment_templates', 'manage_environment_licenses'])
+    create(RoleAssignment, :accessor => admin_user.person, :role => admin_role, :resource => env) unless admin_user.person.role_assignments.map{|ra|[ra.role, ra.accessor, ra.resource]}.include?([admin_role, admin_user, env])
     admin_user.login
   end
 
@@ -84,8 +84,8 @@ module Noosfero::Factory
       :password => name.underscore,
       :password_confirmation => name.underscore
     }.merge(options)
-    user = User.new(data)
-    user.person = Person.new(person_options)
+    user = build(User, data)
+    user.person = build(Person, person_options)
     user.save!
     user
   end
@@ -102,7 +102,7 @@ module Noosfero::Factory
 
     password = options.delete(:password)
     password_confirmation = options.delete(:password_confirmation)
-    raise Exception.new("Passwords don't match") if (password && password_confirmation && password != password_confirmation)
+    raise build(Exception, "Passwords don't match") if (password && password_confirmation && password != password_confirmation)
     crypted_password = (password || name).crypt('xy')
 
     data = {
@@ -147,7 +147,7 @@ module Noosfero::Factory
       i+=1
     end
 
-    role = Role.create!(:name => 'test_role' + i.to_s, :permissions => [permission])
+    role = create(Role, :name => 'test_role' + i.to_s, :permissions => [permission])
     assert user.add_role(role, target)
     assert user.has_permission?(permission, target)
     user
@@ -260,8 +260,8 @@ module Noosfero::Factory
   end
 
   def create_blog
-    profile = Profile.create!(:identifier => 'testuser' + factory_num_seq.to_s, :name => 'Test user')
-    Blog.create!(:name => 'blog', :profile => profile)
+    profile = create(Profile, :identifier => 'testuser' + factory_num_seq.to_s, :name => 'Test user')
+    create(Blog, :name => 'blog', :profile => profile)
   end
 
   ###############################################
