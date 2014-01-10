@@ -1194,6 +1194,10 @@ class ContentViewerControllerTest < ActionController::TestCase
     assert_not_includes Article.find(article.id).followers, follower_email
   end
 
+  should 'display differences between article versions' do
+    Article.versioning_articles('/files/test.txt','/files/test.txt')
+  end
+
   should 'not display comments marked as spam' do
     article = fast_create(Article, :profile_id => profile.id)
     ham = fast_create(Comment, :source_id => article.id, :source_type => 'Article', :title => 'some content')
