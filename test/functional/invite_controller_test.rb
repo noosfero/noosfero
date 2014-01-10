@@ -255,6 +255,20 @@ class InviteControllerTest < ActionController::TestCase
     assert_equal [{"name" => friend1.name, "id" => friend1.id}, {"name" => friend2.name, "id" => friend2.id}].to_json, @response.body
   end
 
+  should 'not include members in search friends profiles' do
+    community.add_admin(profile)
+    friend1 = create_user('willy').person
+    friend2 = create_user('william').person
+    friend1.save
+    friend2.save
+
+    community.add_member(friend2)
+
+    get :search_friend, :profile => community.identifier, :q => 'will'
+
+    assert_equal [{"name" => friend1.name, "id" => friend1.id}].to_json, @response.body
+  end
+
   should 'search friends profiles by fields provided by plugins' do
     class Plugin1 < Noosfero::Plugin
       def search_friend_fields
