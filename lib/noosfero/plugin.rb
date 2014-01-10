@@ -21,6 +21,7 @@ class Noosfero::Plugin
       enabled.each do |plugin_dir|
         plugin_name = File.basename(plugin_dir)
         load_plugin(plugin_name)
+        load_plugin_extensions(plugin_dir)
       end
     end
 
@@ -58,15 +59,12 @@ class Noosfero::Plugin
         [ config.autoload_paths, $:].each do |path|
           path << File.join(dir, 'models')
           path << File.join(dir, 'lib')
-          path << File.join(dir, 'lib', 'ext')
           # load vendor/plugins
           Dir.glob(File.join(dir, '/vendor/plugins/*')).each do |vendor_plugin|
             path << "#{vendor_plugin}/lib" 
             init = "#{vendor_plugin}/init.rb"
             require init.gsub(/.rb$/, '') if File.file? init
          end
-          # load extensions
-          #Dir[File.join(dir, 'lib', 'ext', '*.rb')].each {|file| require_dependency file }
         end
 
         # add view path
@@ -74,8 +72,12 @@ class Noosfero::Plugin
       end
     end
 
-    def load_plugin(dir)
-      (dir.to_s.camelize + 'Plugin').constantize
+    def load_plugin(plugin_name)
+      (plugin_name.to_s.camelize + 'Plugin').constantize
+    end
+
+    def load_plugin_extensions(dir)
+      Dir[File.join(dir, 'lib', 'ext', '*.rb')].each {|file| require_dependency file }
     end
 
     def enabled
