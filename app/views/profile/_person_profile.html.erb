@@ -31,7 +31,7 @@
     </tr>
     <% if environment.disabled?('disable_asset_enterprises') %>
       <tr id="person-profile-network-enterprises">
-        <td><%= __('Enterprises') + ':' %></td>
+        <td><%= _('Enterprises') + ':' %></td>
         <td><%= link_to profile.enterprises.count, :controller => "profile", :action => 'enterprises' %></td>
       </tr>
     <% end %>

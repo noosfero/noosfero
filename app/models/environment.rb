@@ -105,11 +105,11 @@ class Environment < ActiveRecord::Base
       'disable_contact_person' => _('Disable contact for people'),
       'disable_contact_community' => _('Disable contact for groups/communities'),
 
-      'products_for_enterprises' => __('Enable products for enterprises'),
-      'enterprise_registration' => __('Enterprise registration'),
-      'enterprise_activation' => __('Enable activation of enterprises'),
-      'enterprises_are_disabled_when_created' => __('Enterprises are disabled when created'),
-      'enterprises_are_validated_when_created' => __('Enterprises are validated when created'),
+      'products_for_enterprises' => _('Enable products for enterprises'),
+      'enterprise_registration' => _('Enterprise registration'),
+      'enterprise_activation' => _('Enable activation of enterprises'),
+      'enterprises_are_disabled_when_created' => _('Enterprises are disabled when created'),
+      'enterprises_are_validated_when_created' => _('Enterprises are validated when created'),
 
       'media_panel' => _('Media panel in WYSIWYG editor'),
       'select_preferred_domain' => _('Select preferred domains per profile'),
