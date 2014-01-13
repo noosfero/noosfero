@@ -54,7 +54,7 @@ class EmailActivationTest < ActiveSupport::TestCase
 
     task = EmailActivation.new(:requestor => user.person, :target => Environment.default)
 
-    email = User::Mailer.activation_email_notify(user).deliver
+    email = UserMailer.activation_email_notify(user).deliver
     assert_match(/Welcome to #{task.requestor.environment.name} mail!/, email.subject)
   end
 
