@@ -11,7 +11,7 @@ If you want to use another OS, read "Instructions for other systems" below.
 
 Download the source code:
 
-  $ git clone git://gitorious.org/noosfero/noosfero.git
+  $ git clone https://gitlab.com/noosfero/noosfero.git
   $ cd noosfero
 
 Run the quick start script:
