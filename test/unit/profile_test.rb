@@ -1300,7 +1300,6 @@ class ProfileTest < ActiveSupport::TestCase
 
   should 'list folder articles' do
     profile = fast_create(Profile)
-    Article.destroy_all
     p1 = Folder.create!(:name => 'parent1', :profile => profile)
     p2 = Blog.create!(:name => 'parent2', :profile => profile)
 
