@@ -515,7 +515,7 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
       Article.delete_all
       a1 = fast_create(invalid_article, :name => 'test article 1', :profile_id => profile.id)
       a2 = fast_create(VALID_KIND_OF_ARTICLE.first, :name => 'test article 2', :profile_id => profile.id)
- 
+
       block = DisplayContentBlock.new
       box = mock()
       box.stubs(:owner).returns(profile)
@@ -523,7 +523,7 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
       assert_equal [], [a2] - block.articles_of_parent
       assert_equal [], block.articles_of_parent - [a2]
     end
-  
+
   end
 
   VALID_KIND_OF_ARTICLE.map do |valid_article|
@@ -533,14 +533,14 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
       Article.delete_all
       a1 = fast_create(valid_article, :name => 'test article 1', :profile_id => profile.id)
       a2 = fast_create(INVALID_KIND_OF_ARTICLE.first, :name => 'test article 2', :profile_id => profile.id)
- 
+
       block = DisplayContentBlock.new
       box = mock()
       box.stubs(:owner).returns(profile)
       block.stubs(:box).returns(box)
       assert_equal [a1], block.articles_of_parent
     end
-  
+
   end
 
   should 'list links for all articles title defined in nodes' do
@@ -554,7 +554,7 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
     box = mock()
     block.stubs(:box).returns(box)
     box.stubs(:owner).returns(profile)
-   
+
     assert_match /.*<a.*>#{a1.title}<\/a>/, block.content
     assert_match /.*<a.*>#{a2.title}<\/a>/, block.content
   end
@@ -566,12 +566,12 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
     a2 = fast_create(TextArticle, :name => 'test article 2', :profile_id => profile.id, :abstract => 'abstract article 2')
 
     block = DisplayContentBlock.new
-    block.chosen_attributes = ['abstract']
+    block.sections = [{:name => 'Abstract', :checked => true}]
     block.nodes = [a1.id, a2.id]
     box = mock()
     block.stubs(:box).returns(box)
     box.stubs(:owner).returns(profile)
-   
+
     assert_match /<div class="lead">#{a1.lead}<\/div>/, block.content
     assert_match /<div class="lead">#{a2.lead}<\/div>/, block.content
   end
@@ -585,7 +585,7 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
     box = mock()
     block.stubs(:box).returns(box)
     box.stubs(:owner).returns(profile)
-   
+
     Article.delete_all
     assert_match /<ul><\/ul>/, block.content
   end
@@ -595,7 +595,7 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
     block = DisplayContentBlock.new
     block.box = profile.boxes.first
     block.save!
-   
+
     params = {:block_id => block.id}
     params[:controller] = "display_content_plugin_myprofile"
     params[:profile] = profile.identifier
@@ -607,7 +607,7 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
     block = DisplayContentBlock.new
     block.box = environment.boxes.first
     block.save!
-   
+
     params = {:block_id => block.id}
     params[:controller] = "display_content_plugin_admin"
     assert_equal params, block.url_params
@@ -619,11 +619,11 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
 
     block = DisplayContentBlock.new
     block.nodes = [a.id]
-    block.chosen_attributes = ['title']
+    block.sections = [{:name => 'Title', :checked => true}]
     box = mock()
     block.stubs(:box).returns(box)
     box.stubs(:owner).returns(profile)
-   
+
     assert_match /.*<a.*>#{a.title}<\/a>/, block.content
   end
 
@@ -633,11 +633,11 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
 
     block = DisplayContentBlock.new
     block.nodes = [a.id]
-    block.chosen_attributes = ['abstract']
+    block.sections = [{:name => 'Abstract', :checked => true}]
     box = mock()
     block.stubs(:box).returns(box)
     box.stubs(:owner).returns(profile)
-   
+
     assert_match /#{a.abstract}/, block.content
   end
 
@@ -647,11 +647,11 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
 
     block = DisplayContentBlock.new
     block.nodes = [a.id]
-    block.chosen_attributes = ['body']
+    block.sections = [{:name => 'Body', :checked => true}]
     box = mock()
     block.stubs(:box).returns(box)
     box.stubs(:owner).returns(profile)
-   
+
     assert_match /#{a.body}/, block.content
   end
 
@@ -659,17 +659,41 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
     profile = create_user('testuser').person
 
     block = DisplayContentBlock.new
-   
-    assert block.display_attribute?('title')
+
+    assert block.display_section?({:name => 'Title', :checked => true})
   end
 
   should 'display_attribute be true if the attribute was chosen' do
     profile = create_user('testuser').person
 
     block = DisplayContentBlock.new
-    block.chosen_attributes = ['body']
-   
-    assert block.display_attribute?('body')
+
+    block.sections = [{:name => 'Body', :checked => true}]
+    section = block.sections.first
+
+    assert block.display_section?(section)
+  end
+
+  should 'display_attribute be true for publish date by default' do
+    profile = create_user('testuser').person
+
+    block = DisplayContentBlock.new
+
+    assert block.display_section?({:name => 'Publish date', :checked => true})
+  end
+
+  should 'show publishd date if defined by user' do
+    profile = create_user('testuser').person
+    a = fast_create(TextArticle, :name => 'test article 1', :profile_id => profile.id, :body => 'some body')
+
+    block = DisplayContentBlock.new
+    block.nodes = [a.id]
+    block.sections = [{:name => 'Publish date', :checked => true}]
+    box = mock()
+    block.stubs(:box).returns(box)
+    box.stubs(:owner).returns(profile)
+
+    assert_match /#{a.published_at}/, block.content
   end
 
 end
