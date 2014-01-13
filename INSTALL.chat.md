@@ -1,4 +1,5 @@
-== XMPP/Chat Client Setup
+XMPP/Chat Client Setup
+======================
 
 To configure XMPP/BOSH in Noosfero you need:
 
@@ -8,96 +9,87 @@ To configure XMPP/BOSH in Noosfero you need:
 
 If you use Debian 6.0 (squeeze):
 
-# apt-get install librestclient-ruby pidgin-data ruby1.8-dev
-# gem install SystemTimer
+    # apt-get install librestclient-ruby pidgin-data ruby1.8-dev
+    # gem install SystemTimer
 
-The samples of config file to configure a XMPP/BOSH server with
-ejabberd, postgresql and apache2 can be found at util/chat directory.
+The samples of config file to configure a XMPP/BOSH server with ejabberd, postgresql and apache2 can be found at util/chat directory.
 
-== XMPP/Chat Server Setup
+XMPP/Chat Server Setup
+======================
 
 This is a step-by-step guide to get a XMPP service working, in a Debian system.
 
-1. Install the required packages
+## 1. Install the required packages
 
-# apt-get install ejabberd odbc-postgresql
+    # apt-get install ejabberd odbc-postgresql
 
-2. Ejabberd configuration
+## 2. Ejabberd configuration
 
-All the following changes must be done in config file:
+All the following changes must be done in config file: `/etc/ejabberd/ejabberd.cfg`
 
- /etc/ejabberd/ejabberd.cfg
+### 2.1. Set the default admin user
 
- 2.1. Set the default admin user
+    { acl, admin, { user, "john", "www.example.com" } }.
+    { acl, admin, { user, "bart", "www.example.com" } }.
 
-{ acl, admin, { user, "john", "www.example.com" } }.
-{ acl, admin, { user, "bart", "www.example.com" } }.
+### 2.2. Set the default host
 
- 2.2. Set the default host
+    { hosts, [ "www.example.com" ] }.
 
-{ hosts, [ "www.example.com" ] }.
+### 2.3. Http-Bind activation
 
- 2.3. Http-Bind activation
+    { 5280, ejabberd_http, [
+          http_bind,
+          web_admin
+       ]
+    }
 
-{ 5280, ejabberd_http, [
-      http_bind,
-      web_admin
-   ]
-}
+    (...)
 
-(...)
+    { modules, [
+       {mod_http_bind, []},
+       ...
+    ] }.
 
-{ modules, [
-   {mod_http_bind, []},
-   ...
-] }.
+Ejabberd creates semi-anonymous rooms by default, but Noosfero's Jabber client needs non-anonymous room, then we need to change default params of creation rooms in ejabberd to create non-anonymous rooms.
 
-Ejabberd creates semi-anonymous rooms by default, but Noosfero's Jabber client
-needs non-anonymous room, then we need to change default params of creation
-rooms in ejabberd to create non-anonymous rooms.
+In non-anonymous rooms the jabber service sends the new occupant's full JID to all occupants in the room [[1]].
 
-In non-anonymous rooms the jabber service sends the new occupant's full JID to
-all occupants in the room[1].
+Add option "`{default_room_options, [{anonymous, false}]}`" to `/etc/ejabberd/ejabberd.cfg` in mod_muc session. See below:
 
-Add option "{default_room_options, [{anonymous, false}]}" to
-/etc/ejabberd/ejabberd.cfg in mod_muc session. See below:
+    { mod_muc, [
+       %%{host, "conference.@HOST@"},
+       {access, muc},
+       {access_create, muc},
+       {access_persistent, muc},
+       {access_admin, muc_admin},
+       {max_users, 500},
+       {default_room_options, [{anonymous, false}]}
+    ]},
 
-{ mod_muc, [
-   %%{host, "conference.@HOST@"},
-   {access, muc},
-   {access_create, muc},
-   {access_persistent, muc},
-   {access_admin, muc_admin},
-   {max_users, 500},
-   {default_room_options, [{anonymous, false}]}
-]},
-
-[1] - http://xmpp.org/extensions/xep-0045.html#enter-nonanon
+[1]: http://xmpp.org/extensions/xep-0045.html#enter-nonanon
 
 
- 2.4. Authentication method
+### 2.4. Authentication method
 
 To use Postgresql through ODBC, the following modifications must be done:
 
  * Disable the default method:
-
-{auth_method, internal}.
+   `{auth_method, internal}.`
 
  * Enable autheticantion through ODBC:
-
-{auth_method, odbc}.
+   `{auth_method, odbc}.`
 
  * Set database server name
-
-{odbc_server, "DSN=PostgreSQLEjabberdNoosfero"}.
-
-
- 2.5. Increase the shaper traffic limit
-
-{ shaper, normal, { maxrate, 10000000 } }.
+   `{odbc_server, "DSN=PostgreSQLEjabberdNoosfero"}.`
 
 
- 2.6. Disable unused modules
+### 2.5. Increase the shaper traffic limit
+
+    { shaper, normal, { maxrate, 10000000 } }.
+
+
+### 2.6. Disable unused modules
 
 Unused modules can be disabled, for example:
 
@@ -110,149 +102,135 @@ Unused modules can be disabled, for example:
  * mod_register
 
 
- 2.7. Enable ODBC modules
+### 2.7. Enable ODBC modules
 
  * mod_privacy -> mod_privacy_odbc
  * mod_private -> mod_private_odbc
  * mod_roster  -> mod_roster_odbc
 
-3. Configuring Postgresql
+## 3. Configuring Postgresql
 
 Login as noosfero user, and execute:
 
-   $ psql noosfero < /path/to/noosfero/util/chat/postgresql/ejabberd.sql
+    $ psql noosfero < /path/to/noosfero/util/chat/postgresql/ejabberd.sql
 
-Where 'noosfero' may need to be replace by the name of the database used for
-Noosfero.
+Where `noosfero` may need to be replace by the name of the database used for Noosfero.
 
-This will create a new schema inside the noosfero database, called 'ejabberd'.
+This will create a new schema inside the noosfero database, called `ejabberd`.
 
-Note 'noosfero' user should have permission to create Postgresql schemas. Also,
-there should be at least one domain with 'is_default = true' in 'domains'
-table, otherwise people won't be able to see their friends online.
+Note `noosfero` user should have permission to create Postgresql schemas. Also, there should be at least one domain with `is_default = true` in `domains` table, otherwise people won't be able to see their friends online.
 
-
-4. ODBC configuration
+## 4. ODBC configuration
 
 The following files must be created:
 
- * /etc/odbc.ini
+`/etc/odbc.ini`:
 
-[PostgreSQLEjabberdNoosfero]
-Description      = PostgreSQL Noosfero ejabberd database
-Driver           = PostgreSQL Unicode
-Trace            = No
-TraceFile        = /tmp/psqlodbc.log
-Database         = noosfero
-Servername       = localhost
-UserName         = <DBUSER>
-Password         = <DBPASS>
-Port             =
-ReadOnly         = No
-RowVersioning    = No
-ShowSystemTables = No
-ShowOidColumn    = No
-FakeOidIndex     = No
-ConnSettings     = SET search_path TO ejabberd
+    [PostgreSQLEjabberdNoosfero]
+    Description      = PostgreSQL Noosfero ejabberd database
+    Driver           = PostgreSQL Unicode
+    Trace            = No
+    TraceFile        = /tmp/psqlodbc.log
+    Database         = noosfero
+    Servername       = localhost
+    UserName         = <DBUSER>
+    Password         = <DBPASS>
+    Port             =
+    ReadOnly         = No
+    RowVersioning    = No
+    ShowSystemTables = No
+    ShowOidColumn    = No
+    FakeOidIndex     = No
+    ConnSettings     = SET search_path TO ejabberd
 
- * /etc/odbcinst.ini
+`/etc/odbcinst.ini`:
 
-[PostgreSQL Unicode]
-Description = PostgreSQL ODBC driver (Unicode version)
-Driver      = /usr/lib/odbc/psqlodbcw.so
-Setup       = /usr/lib/odbc/libodbcpsqlS.so
-Debug       = 0
-CommLog     = 1
-UsageCount  = 3
+    [PostgreSQL Unicode]
+    Description = PostgreSQL ODBC driver (Unicode version)
+    Driver      = /usr/lib/odbc/psqlodbcw.so
+    Setup       = /usr/lib/odbc/libodbcpsqlS.so
+    Debug       = 0
+    CommLog     = 1
+    UsageCount  = 3
 
- 4.1 testing all:
+## 4.1 testing all:
 
-# isql 'PostgreSQLEjabberdNoosfero'
+    # isql 'PostgreSQLEjabberdNoosfero'
 
-If the configuration was done right, the message "Connected!"
-will be displayed.
-
-
-5. Enabling kernel polling and SMP in /etc/default/ejabberd
-
-POLL=true
-SMP=auto
+If the configuration was done right, the message "Connected!" will be displayed.
 
 
-6. Increase the file descriptors limit for user ejabberd
+## 5. Enabling kernel polling and SMP in `/etc/default/ejabberd`
 
- 6.1. Uncomment this line in file /etc/pam.d/su:
+    POLL=true
+    SMP=auto
 
-session required pam_limits.so
+## 6. Increase the file descriptors limit for user ejabberd
 
+### 6.1. Uncomment this line in file `/etc/pam.d/su`:
 
- 6.2. Add this lines to file /etc/security/limits.conf:
+    session required pam_limits.so
 
-ejabberd       hard    nofile  65536
-ejabberd       soft    nofile  65536
+### 6.2. Add this lines to file `/etc/security/limits.conf`:
+
+    ejabberd       hard    nofile  65536
+    ejabberd       soft    nofile  65536
 
 Now, test the configuration:
 
-# cat /proc/<EJABBERD_BEAM_PROCESS_PID>/limits
+    # cat /proc/<EJABBERD_BEAM_PROCESS_PID>/limits
 
-
-7. Apache Configuration
+## 7. Apache Configuration
 
 Apache server must be configurated as follow:
 
- * /etc/apache2/sites-enabled/noosfero
+`/etc/apache2/sites-enabled/noosfero`:
 
-RewriteEngine On
-Include /usr/share/noosfero/util/chat/apache/xmpp.conf
+    RewriteEngine On
+    Include /usr/share/noosfero/util/chat/apache/xmpp.conf
 
- * /etc/apache2/apache2.conf:
+`/etc/apache2/apache2.conf`:
 
-<IfModule mpm_worker_module>
-   StartServers          8
-   MinSpareThreads       25
-   MaxSpareThreads       75
-   ThreadLimit           128
-   ThreadsPerChild       128
-   MaxClients            2048
-   MaxRequestsPerChild   0
-</IfModule>
+    <IfModule mpm_worker_module>
+       StartServers          8
+       MinSpareThreads       25
+       MaxSpareThreads       75
+       ThreadLimit           128
+       ThreadsPerChild       128
+       MaxClients            2048
+       MaxRequestsPerChild   0
+    </IfModule>
 
 Note: module proxy_http must be enabled:
 
-# a2enmod proxy_http
+    # a2enmod proxy_http
 
-8. DNS configuration
+## 8. DNS configuration
 
-For this point, we assume you are using BIND as your DNS server. You need to
-add the following entries to the DNS zone file corresponding to the domain
-of your noosfero site:
+For this point, we assume you are using BIND as your DNS server. You need to add the following entries to the DNS zone file corresponding to the domain of your noosfero site:
 
-_xmpp-client._tcp   SRV   5 100 5222 master
-conference   CNAME master
-_xmpp-client._tcp.conference   SRV   5 100 5222 master
+    _xmpp-client._tcp   SRV   5 100 5222 master
+    conference   CNAME master
+    _xmpp-client._tcp.conference   SRV   5 100 5222 master
 
-If you are running a DNS server other than BIND, you will have to figure out
-how to create equivalente rules for your zone file. Patches to this
-documentation are welcome.
+If you are running a DNS server other than BIND, you will have to figure out how to create equivalente rules for your zone file. Patches to this documentation are welcome.
 
-9. Testing this Setup
+## 9. Testing this Setup
 
 Adjust shell limits to proceed with some benchmarks and load tests: 
 
-# ulimit −s 256
-# ulimit −n 8192
-# echo 10 > /proc/sys/net/ipv4/tcp_syn_retries
+    # ulimit −s 256
+    # ulimit −n 8192
+    # echo 10 > /proc/sys/net/ipv4/tcp_syn_retries
 
 To measure the bandwidth between server and client:
 
  * at server side:
-
-# iperf −s
+   `# iperf −s`
 
  * at client side:
-
-# iperf −c server_ip
+   `# iperf −c server_ip`
 
 For heavy load tests, clone and use this software:
 
-git clone http://git.holoscopio.com/git/metal/tester.git
+    $ git clone http://git.holoscopio.com/git/metal/tester.git

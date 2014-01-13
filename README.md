@@ -1,24 +1,24 @@
 Noosfero - a web-based social platform
 ======================================
 
-http://www.noosfero.org/
+http://www.noosfero.org
 
 Documentation
 -------------
 
 The following documentation is available:
 
-File                  Purpose
-~~~~~~~~~~~~~~~~~~~~  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-INSTALL               install instructions
-INSTALL.awstats       install instructions - access statistics service
-INSTALL.chat          install instructions - chat service
-INSTALL.email         install instructions - email service
-INSTALL.multitenancy  install instructions - multiple sites
-INSTALL.varnish       install instructions - varnish HTTP caching (recommended)
-HACKING               development instruction
-RELEASING             instructions for doing releases
-doc/noosfero/*        user documentation (available through the app itself)
+    File                     Purpose
+    -----------------------  --------------------------------------------------------
+    INSTALL.md               install instructions
+    INSTALL.awstats.md       install instructions - access statistics service
+    INSTALL.chat.md          install instructions - chat service
+    INSTALL.email.md         install instructions - email service
+    INSTALL.multitenancy.md  install instructions - multiple sites
+    INSTALL.varnish.md       install instructions - varnish HTTP caching (recommended)
+    HACKING.md               development instruction
+    RELEASING.md             instructions for doing releases
+    doc/noosfero/*           user documentation (available through the app itself)
 
 
 Authors and copyright
@@ -26,8 +26,8 @@ Authors and copyright
 
 Authorship and copyright information is available in the files listed below.
 
-File                  Purpose
-~~~~~~~~~~~~~~~~~~~~  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-AUTHORS               list of authors (updated at each release)
-COPYRIGHT             Copyright statement for the project
-COPYING               Full text of the project license
+    File                  Purpose
+    --------------------  -----------------------------------------
+    AUTHORS.md            list of authors (updated at each release)
+    COPYRIGHT             Copyright statement for the project
+    COPYING               Full text of the project license
