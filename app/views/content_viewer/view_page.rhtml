@@ -85,11 +85,14 @@
 </div>
 <% end %>
 
-<div id="article-versions">
-  <%= @page.versions.map {|v| link_to("r#{v.version}", @page.url.merge(:rev => v.version))} %>
-</div>
-
 <%= display_source_info(@page) %>
+
+<% if @page.display_versions? %>
+  <div id="article-versions">
+    <%= render :partial => 'article_versions' %>
+    <%#= button(:clock, _('See older versions'), :controller => 'content_viewer', :profile => profile.identifier, :action => 'article_versions', :page => @page.id) %>
+  </div>
+<% end %>
 
 <div class="comments" id="comments_list">
 

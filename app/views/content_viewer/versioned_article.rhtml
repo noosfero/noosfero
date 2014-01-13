@@ -1,5 +1,14 @@
 <div id="article" class="<%= @page.css_class_name %>">
 
+  <% if @page.allow_edit?(user) && !remove_content_button(:edit) %>
+    <div id="article-revert-version">
+      <% content = content_tag('span', _('Revert to this version')) %>
+      <% url = profile.admin_url.merge({ :controller => 'cms', :action => 'edit', :id => @page.id, :article => @versioned_article.attributes }) %>
+      <%= expirable_button @page, :edit, content, url %>
+    <% end %>
+
+  </div>
+
   <div id="article-header">
     <h1 class='title'><%= @versioned_article.name %></h1>
     <%= _("Version %{version} - %{author} on %{date}") % {:version => @version, :author => @page.author_name(@version), :date => show_time(@versioned_article.updated_at) } %>

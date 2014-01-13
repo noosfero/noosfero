@@ -42,7 +42,15 @@ module ArticleHelper
         'div',
         check_box(:article, :display_hits) +
         content_tag('label', _('I want this article to display the number of hits it received'), :for => 'article_display_hits')
+      ) : '') + 
+
+      (article.can_display_versions? ?
+      content_tag(
+        'div',
+        check_box(:article, :display_versions) +
+        content_tag('label', _('I want this article to display a link to older versions'), :for => 'article_display_versions')
       ) : '')
+
     )
   end
 

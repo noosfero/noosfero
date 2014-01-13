@@ -604,6 +604,16 @@ class Article < ActiveRecord::Base
     false
   end
 
+  settings_items :display_versions, :type => :boolean, :default => false
+
+  def can_display_versions?
+    false
+  end
+
+  def display_versions?
+    can_display_versions? && display_versions
+  end
+
   def author(version_number = nil)
     if version_number
       version = versions.find_by_version(version_number)

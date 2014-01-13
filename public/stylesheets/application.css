@@ -6539,3 +6539,12 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 img {
   z-index: 1;
 }
 
+ul.article-versions {
+  padding: 0px;
+}
+
+ul.article-versions li {
+  display: inline;
+  font-size: 13px;
+}
+

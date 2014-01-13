@@ -46,8 +46,10 @@ class ContentViewerController < ApplicationController
 
     if @version
       @versioned_article = @page.versions.find_by_version(@version)
-      render :template => 'content_viewer/versioned_article.rhtml'
-      return
+      unless @versioned_article == @page.versions.latest
+        render :template => 'content_viewer/versioned_article.rhtml'
+        return
+      end
     end
 
     if request.xhr? && params[:toolbar]
@@ -134,6 +136,11 @@ class ContentViewerController < ApplicationController
       render :action => 'slideshow', :layout => 'slideshow'
     end
   end
+
+#  def article_versions
+#    @page = profile.articles.find(params[:page])
+#    @versions = @page.versions
+#  end
 
   protected
 
