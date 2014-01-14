@@ -1195,7 +1195,7 @@ class ContentViewerControllerTest < ActionController::TestCase
   end
 
   should 'display differences between article versions' do
-    Article.versioning_articles('/files/test.txt','/files/test.txt')
+    ContentViewerController.versioning_articles('/files/test.txt','/files/test.txt')
   end
 
   should 'not display comments marked as spam' do

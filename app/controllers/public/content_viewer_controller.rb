@@ -120,6 +120,10 @@ class ContentViewerController < ApplicationController
     end
   end
 
+  def self.versioning_articles(article1, article2)
+    Diffy::Diff.new('article1', 'article2', :source => 'files').to_s(:html)
+  end
+
   protected
 
   def per_page
@@ -152,8 +156,6 @@ class ContentViewerController < ApplicationController
 
 end
 
-  def versioning_articles(article1, article2)
-    Diffy::Diff.new('article1', 'article2', :source => 'files').to_s(:html)
-  end
+
 
 
