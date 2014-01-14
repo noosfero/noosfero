@@ -65,13 +65,13 @@ class ActionTrackerNotificationTest < ActiveSupport::TestCase
     at = fast_create(ActionTracker::Record)
     person = fast_create(Person)
     assert_equal [], at.action_tracker_notifications
-    at.action_tracker_notifications<< ActionTrackerNotification.new(:profile => person)
+    at.action_tracker_notifications<< build(ActionTrackerNotification, :profile => person)
     at.reload
 
     assert_equal 1, at.action_tracker_notifications.count
     last_notification = at.action_tracker_notifications.first
 
-    at.action_tracker_notifications<< ActionTrackerNotification.new(:profile => person)
+    at.action_tracker_notifications<< build(ActionTrackerNotification, :profile => person)
     at.reload
     assert_equal [last_notification], at.action_tracker_notifications
   end

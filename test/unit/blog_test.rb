@@ -221,7 +221,7 @@ class BlogTest < ActiveSupport::TestCase
 
   should 'set cover image' do
     profile = fast_create(Profile)
-    blog = Blog.create(:profile_id => profile.id, :name=>'testblog', :image_builder => { :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')})
+    blog = create(Blog, :profile_id => profile.id, :name=>'testblog', :image_builder => { :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')})
     blog.save!
     blog.reload
     assert_equal blog.image(true).filename, 'rails.png'
@@ -229,7 +229,7 @@ class BlogTest < ActiveSupport::TestCase
 
   should 'remove cover image' do
     profile = fast_create(Profile)
-    blog = Blog.create(:profile_id => profile.id, :name=>'testblog', :image_builder => { :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')})
+    blog = create(Blog, :profile_id => profile.id, :name=>'testblog', :image_builder => { :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')})
     blog.save!
     blog.reload
 
@@ -241,7 +241,7 @@ class BlogTest < ActiveSupport::TestCase
 
   should 'update cover image' do
     profile = fast_create(Profile)
-    blog = Blog.create(:profile_id => profile.id, :name=>'testblog', :image_builder => { :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')})
+    blog = create(Blog, :profile_id => profile.id, :name=>'testblog', :image_builder => { :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')})
     blog.save!
     blog.reload
 

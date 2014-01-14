@@ -59,7 +59,7 @@ class BlogArchivesBlockTest < ActiveSupport::TestCase
   should 'order years' do
     blog = profile.blog
     for year in 2005..2009
-      post = TextileArticle.create!(:name => "post #{year}", :profile => profile, :parent => blog, :published_at => Date.new(year, 1, 1))
+      post = create(TextileArticle, :name => "post #{year}", :profile => profile, :parent => blog, :published_at => Date.new(year, 1, 1))
     end
     block = BlogArchivesBlock.new
     block.stubs(:owner).returns(profile)
@@ -69,7 +69,7 @@ class BlogArchivesBlockTest < ActiveSupport::TestCase
   should 'order months from later to former' do
     blog = profile.blog
     for month in 1..3
-      post = TextileArticle.create!(:name => "post #{month}", :profile => profile, :parent => blog, :published_at => Date.new(2009, month, 1))
+      post = create(TextileArticle, :name => "post #{month}", :profile => profile, :parent => blog, :published_at => Date.new(2009, month, 1))
     end
     block = BlogArchivesBlock.new
     block.stubs(:owner).returns(profile)

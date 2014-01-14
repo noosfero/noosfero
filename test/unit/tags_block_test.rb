@@ -35,8 +35,8 @@ class TagsBlockTest < ActiveSupport::TestCase
     @otheruser = create_user('othertestinguser').person
     @otheruser.articles.build(:name => 'article A', :tag_list => 'other-tag').save!
     @otheruser.articles.build(:name => 'article B', :tag_list => 'other-tag, second-tag').save!
-    box = Box.create!(:owner => Environment.default)
-    @block = TagsBlock.create!(:box => box)
+    box = create(Box, :owner => Environment.default)
+    @block = create(TagsBlock, :box => box)
 
     assert_match /\/tag\/first-tag" [^>]+"3 items"/,  block.content
     assert_match /\/tag\/second-tag" [^>]+"3 items"/, block.content

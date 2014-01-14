@@ -289,7 +289,7 @@ class ScrapTest < ActiveSupport::TestCase
     s, r = fast_create(Person), fast_create(Person)
     root = fast_create(Scrap, :sender_id => s.id, :receiver_id => r.id)
     assert_difference ActionTracker::Record, :count, 1 do
-      reply = Scrap.create!(:sender => r, :receiver => s, :scrap_id => root.id, :content => 'sample')
+      reply = create(Scrap, :sender => r, :receiver => s, :scrap_id => root.id, :content => 'sample')
     end
     activity = ActionTracker::Record.last
     assert_equal 'reply_scrap_on_self', activity.verb.to_s

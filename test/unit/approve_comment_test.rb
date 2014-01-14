@@ -9,7 +9,7 @@ class ApproveCommentTest < ActiveSupport::TestCase
     @profile = create_user('test_user', :email => "someone@anyhost.com").person
     @article = fast_create(TextileArticle, :profile_id => @profile.id, :name => 'test name', :abstract => 'Lead of article', :body => 'This is my article')
     @community = create(Community, :contact_email => "someone@anyhost.com")
-    @comment = @article.comments.build(:title => 'any comment', :body => "any text", :author => create_user('someperson').person)
+    @comment = build(Comment, :article => @article, :title => 'any comment', :body => "any text", :author => create_user('someperson').person)
   end
 
   attr_reader :profile, :article, :community

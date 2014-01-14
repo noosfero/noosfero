@@ -100,7 +100,7 @@ class BoxTest < ActiveSupport::TestCase
     end
     Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([SomePlugin.new])
 
-    blocks = Box.new(:position => 1).acceptable_blocks
+    blocks = build(Box, :position => 1).acceptable_blocks
     assert blocks.include?('plugin-block')
   end
 
@@ -115,7 +115,7 @@ class BoxTest < ActiveSupport::TestCase
     end
     Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([SomePlugin.new])
 
-    blocks = Box.new(:position => 2).acceptable_blocks
+    blocks = build(Box, :position => 2).acceptable_blocks
     assert blocks.include?('plugin-block')
   end
 

@@ -592,7 +592,7 @@ class ProfileTest < ActiveSupport::TestCase
     category2 = fast_create(Category, :parent_id => pcat.id)
     profile = create(Profile, :region => region, :category_ids => [category.id])
 
-    profile.update_attributes!(:category_ids => [category2.id])
+    profile.update_attribute(:category_ids, [category2.id])
 
     assert_includes profile.categories(true), region
     assert_includes profile.categories_including_virtual(true), pcat
@@ -605,7 +605,7 @@ class ProfileTest < ActiveSupport::TestCase
     category = fast_create(Category, :parent_id => pcat.id)
     profile = create(Profile, :region => region, :category_ids => [category.id])
 
-    profile.update_attributes!(:region => region2)
+    profile.update_attribute(:region, region2)
 
     assert_includes profile.categories(true), category
     assert_includes profile.categories_including_virtual(true), pcat
@@ -747,7 +747,7 @@ class ProfileTest < ActiveSupport::TestCase
   end
 
   should 'filter html from nickname' do
-    p = Profile.create!(:identifier => 'testprofile', :name => 'test profile', :environment => Environment.default)
+    p = create(Profile, :identifier => 'testprofile', :name => 'test profile', :environment => Environment.default)
     p.nickname = "<b>code</b>"
     p.save!
     assert_equal 'code', p.nickname
@@ -841,7 +841,7 @@ class ProfileTest < ActiveSupport::TestCase
   end
 
   should 'store theme' do
-    p = Profile.new(:theme => 'my-shiny-theme')
+    p = build(Profile, :theme => 'my-shiny-theme')
     assert_equal 'my-shiny-theme', p.theme
   end
 
@@ -1144,7 +1144,7 @@ class ProfileTest < ActiveSupport::TestCase
     env = fast_create(Environment)
 
     p1 = fast_create(Profile, :identifier => 'mytestprofile', :environment_id => env.id)
-    p2 = Profile.new(:identifier => 'mytestprofile', :environment => env)
+    p2 = build(Profile, :identifier => 'mytestprofile', :environment => env)
 
     assert !p2.valid?
     assert p2.errors.on(:identifier)
@@ -1199,14 +1199,14 @@ class ProfileTest < ActiveSupport::TestCase
   should 'enable contact for person only if its features enabled in environment' do
     env = Environment.default
     env.disable('disable_contact_person')
-    person = Person.new(:name => 'Contacted', :environment => env)
+    person = build(Person, :name => 'Contacted', :environment => env)
     assert person.enable_contact?
   end
 
   should 'enable contact for community only if its features enabled in environment' do
     env = Environment.default
     env.disable('disable_contact_person')
-    community = Community.new(:name => 'Contacted', :environment => env)
+    community = build(Community, :name => 'Contacted', :environment => env)
     assert community.enable_contact?
   end
 
@@ -1322,7 +1322,7 @@ class ProfileTest < ActiveSupport::TestCase
   end
 
   should 'profile be valid when image is empty' do
-    profile = Profile.new(:image_builder => {:uploaded_data => ""})
+    profile = build(Profile, :image_builder => {:uploaded_data => ""})
     profile.valid?
     assert_nil profile.errors[:image]
   end
@@ -1346,7 +1346,7 @@ class ProfileTest < ActiveSupport::TestCase
 
   should 'not have a profile as a template if it is not defined as a template' do
     template = fast_create(Profile)
-    profile = Profile.new(:template => template)
+    profile = build(Profile, :template => template)
     !profile.valid?
     assert profile.errors[:template.to_s].present?
 
@@ -1752,22 +1752,22 @@ class ProfileTest < ActiveSupport::TestCase
 
   should 'get organization roles' do
     env = fast_create(Environment)
-    roles = %w(foo bar profile_foo profile_bar).map{ |r| Role.create!(:name => r, :key => r, :environment_id => env.id, :permissions => ["some"]) }
-    Role.create! :name => 'test', :key => 'profile_test', :environment_id => env.id + 1
+    roles = %w(foo bar profile_foo profile_bar).map{ |r| create(Role, :name => r, :key => r, :environment_id => env.id, :permissions => ["some"]) }
+    create Role, :name => 'test', :key => 'profile_test', :environment_id => env.id + 1
     Profile::Roles.expects(:all_roles).returns(roles)
     assert_equal roles[2..3], Profile::Roles.organization_member_roles(env.id)
   end
 
   should 'get all roles' do
     env = fast_create(Environment)
-    roles = %w(foo bar profile_foo profile_bar).map{ |r| Role.create!(:name => r, :environment_id => env.id, :permissions => ["some"]) }
-    Role.create! :name => 'test', :environment_id => env.id + 1
+    roles = %w(foo bar profile_foo profile_bar).map{ |r| create(Role, :name => r, :environment_id => env.id, :permissions => ["some"]) }
+    create Role, :name => 'test', :environment_id => env.id + 1
     assert_equal roles, Profile::Roles.all_roles(env.id)
   end
 
   should 'define method for role' do
     env = fast_create(Environment)
-    r = Role.create! :name => 'Test Role', :environment_id => env.id
+    r = create Role, :name => 'Test Role', :environment_id => env.id
     assert_equal r, Profile::Roles.test_role(env.id)
     assert_raise NoMethodError do
       Profile::Roles.invalid_role(env.id)

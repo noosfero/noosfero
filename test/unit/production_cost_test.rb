@@ -32,9 +32,9 @@ class ProductionCostTest < ActiveSupport::TestCase
   end
 
   should 'not have duplicated name on same environment' do
-    cost = ProductionCost.create(:name => 'Taxes', :owner => Environment.default)
+    cost = create(ProductionCost, :name => 'Taxes', :owner => Environment.default)
 
-    invalid_cost = ProductionCost.new(:name => 'Taxes', :owner => Environment.default)
+    invalid_cost = build(ProductionCost, :name => 'Taxes', :owner => Environment.default)
     invalid_cost.valid?
 
     assert invalid_cost.errors[:name.to_s].present?
@@ -42,9 +42,9 @@ class ProductionCostTest < ActiveSupport::TestCase
 
   should 'not have duplicated name on same enterprise' do
     enterprise = fast_create(Enterprise)
-    cost = ProductionCost.create(:name => 'Taxes', :owner => enterprise)
+    cost = create(ProductionCost, :name => 'Taxes', :owner => enterprise)
 
-    invalid_cost = ProductionCost.new(:name => 'Taxes', :owner => enterprise)
+    invalid_cost = build(ProductionCost, :name => 'Taxes', :owner => enterprise)
     invalid_cost.valid?
 
     assert invalid_cost.errors[:name.to_s].present?
@@ -53,8 +53,8 @@ class ProductionCostTest < ActiveSupport::TestCase
   should 'not allow same name on enterprise if already has on environment' do
     enterprise = fast_create(Enterprise)
 
-    cost1 = ProductionCost.create(:name => 'Taxes', :owner => Environment.default)
-    cost2 = ProductionCost.new(:name => 'Taxes', :owner => enterprise)
+    cost1 = create(ProductionCost, :name => 'Taxes', :owner => Environment.default)
+    cost2 = create(ProductionCost, :name => 'Taxes', :owner => enterprise)
 
     cost2.valid?
 
@@ -65,8 +65,8 @@ class ProductionCostTest < ActiveSupport::TestCase
     enterprise = fast_create(Enterprise)
     enterprise2 = fast_create(Enterprise)
 
-    cost1 = ProductionCost.create(:name => 'Taxes', :owner => enterprise)
-    cost2 = ProductionCost.new(:name => 'Taxes', :owner => enterprise2)
+    cost1 = create(ProductionCost, :name => 'Taxes', :owner => enterprise)
+    cost2 = build(ProductionCost, :name => 'Taxes', :owner => enterprise2)
 
     cost2.valid?
 
@@ -96,7 +96,7 @@ class ProductionCostTest < ActiveSupport::TestCase
 
   should 'create a production cost on an enterprise' do
     enterprise = fast_create(Enterprise)
-    enterprise.production_costs.create(:name => 'Energy')
+    create(ProductionCost, :name => 'Energy', :owner => enterprise)
     assert_equal ['Energy'], enterprise.production_costs.map(&:name)
   end
 end
