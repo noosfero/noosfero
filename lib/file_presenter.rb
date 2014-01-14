@@ -8,8 +8,8 @@ class FilePresenter
   def self.for(f)
     return f if f.is_a? FilePresenter
     klass = FilePresenter.subclasses.sort_by {|class_name|
-      class_name.constantize.accepts?(f) || 0
-    }.last.constantize
+      class_name.accepts?(f) || 0
+    }.last
     klass.accepts?(f) ? klass.new(f) : f
   end
 
@@ -88,7 +88,7 @@ class FilePresenter
   # required `FilePresenter::Image` instance in the `image` variable.
   def to_html(options = {})
     file = self
-    lambda do
+    proc do
       render :partial => file.class.to_s.underscore,
              :locals => { :options => options },
              :object => file
