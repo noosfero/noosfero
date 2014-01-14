@@ -7,7 +7,7 @@ class CommunityBlockPlugin < Noosfero::Plugin
   end
 
   def self.plugin_description
-    "A plugin that adds a block to show community description"
+    _("A plugin that adds a block to show community description")
   end
 
   def self.extra_blocks

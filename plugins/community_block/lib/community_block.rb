@@ -1,11 +1,11 @@
 class CommunityBlock < Block
 
   def self.description
-    "Community block"
+    _("Community block")
   end
 
   def help
-    "Help for Community Description Block."
+    _("Help for Community Description Block.")
   end
 
   def content(arg={})
