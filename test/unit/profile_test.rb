@@ -1300,7 +1300,6 @@ class ProfileTest < ActiveSupport::TestCase
 
   should 'list folder articles' do
     profile = fast_create(Profile)
-    Article.destroy_all
     p1 = Folder.create!(:name => 'parent1', :profile => profile)
     p2 = Blog.create!(:name => 'parent2', :profile => profile)
 
@@ -1761,7 +1760,7 @@ class ProfileTest < ActiveSupport::TestCase
     env = fast_create(Environment)
     roles = %w(foo bar profile_foo profile_bar).map{ |r| Role.create!(:name => r, :environment_id => env.id, :permissions => ["some"]) }
     Role.create! :name => 'test', :environment_id => env.id + 1
-    assert_equal roles, Profile::Roles.all_roles(env.id)
+    assert_equivalent roles, Profile::Roles.all_roles(env.id)
   end
 
   should 'define method for role' do
