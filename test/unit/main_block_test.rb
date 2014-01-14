@@ -15,4 +15,18 @@ class MainBlockTest < ActiveSupport::TestCase
     assert MainBlock.new.editable?
   end
 
+  should 'be visible on environment' do
+    env = Environment.new
+    block = MainBlock.new
+    block.stubs(:owner).returns(env)
+    assert block.visible?
+  end
+
+  should 'not be visible on environment' do
+    env = Environment.new
+    block = MainBlock.new(:display => 'never')
+    block.stubs(:owner).returns(env)
+    assert !block.visible?
+  end
+
 end
