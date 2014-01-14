@@ -15,7 +15,7 @@
           end
 
           links.push(_('Report abuse') => {:href => url_for({:controller => 'profile', :action => 'report_abuse', :profile => profile.identifier})})
-            
+
           if !user.nil? && user.has_permission?('edit_profile', profile)
             links.push(_('Control panel') => {:href => url_for({:controller => 'profile_editor', :profile => profile.identifier})})
           end %>
@@ -27,7 +27,7 @@
             :class => 'simplemenu-trigger') %>
 
       <% end %>
-      
+
       <% if logged_in? %>
         <% if profile.members.include?(user) || profile.already_request_membership?(user) %>
             <%= link_to(

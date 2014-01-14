@@ -88,12 +88,12 @@
 #content .box-1 .community-block .community-block-button.icon-remove {
   width: 20px;
   background-image: url('/designs/icons/default/Tango/16x16/actions/remove.png');
-} 
+}
 
 #content .box-1 .community-block .community-block-button.icon-arrow {
   width: 16px;
   background-image: url('/images/top-arrow.png');
-} 
+}
 
 #content .box-1 .community-block .community-block-button:hover {
   background-color: #DDDDDD;

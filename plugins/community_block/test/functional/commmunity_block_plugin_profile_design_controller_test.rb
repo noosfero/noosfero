@@ -83,5 +83,5 @@ class ProfileControllerTest < ActionController::TestCase
     get :index, :profile => @community.identifier
     assert_no_tag :span, :attributes => {:class => 'community-block-button icon-arrow'}
   end
-  
+
 end

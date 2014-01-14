@@ -5,7 +5,7 @@ class CommunityBlockPluginTest < ActiveSupport::TestCase
   def setup
     @plugin = CommunityBlockPlugin.new
   end
-  
+
   should 'be a noosfero plugin' do
     assert_kind_of Noosfero::Plugin, @plugin
   end
@@ -29,5 +29,5 @@ class CommunityBlockPluginTest < ActiveSupport::TestCase
   should "return false for class method has_admin_url?" do
     assert  !CommunityBlockPlugin.has_admin_url?
   end
-  
+
 end

@@ -1,5 +1,5 @@
 class CommunityBlock < Block
-  
+
   def self.description
     "Community block"
   end
