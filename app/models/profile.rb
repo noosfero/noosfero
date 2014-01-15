@@ -92,7 +92,15 @@ class Profile < ActiveRecord::Base
   def members
     scopes = plugins.dispatch_scopes(:organization_members, self)
     scopes << Person.members_of(self)
-    scopes.size == 1 ? scopes.first : Person.or_scope(scopes)
+
+    clauses = scopes.map do |relation|
+      clause = relation.arel.where_clauses.map { |clause| "(#{clause})" }.join(' AND ')
+      "(#{clause})"
+    end.join(' OR ')
+
+    joins = scopes.map { |relation| relation.joins_values }.flatten.uniq
+    selects = scopes.map { |relation| relation.select_values }.flatten.uniq
+    Person.select(selects).joins(joins).where(clauses)
   end
 
   def members_count

@@ -1807,7 +1807,7 @@ class ProfileTest < ActiveSupport::TestCase
     assert_includes original_community.members, original_member
     assert_includes original_community.members, plugin1_member
     assert_includes original_community.members, plugin2_member
-    assert 3, original_community.members.count
+    assert_equal 3, original_community.members.count
   end
 
   private
