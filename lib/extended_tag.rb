@@ -1,4 +1,4 @@
-class Tag
+class ActsAsTaggableOn::Tag
 
   attr_accessible :name, :parent_id, :pending
 
@@ -25,7 +25,7 @@ class Tag
 
   # All the tags that can be a new parent for this tag, that is all but itself and its descendents to avoid loops
   def parent_candidates
-    Tag.find(:all) - descendents - [self]
+    ActsAsTaggableOn::Tag.find(:all) - descendents - [self]
   end
   
   # All tags that have this tag as its one of its ancestors

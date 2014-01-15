@@ -67,7 +67,7 @@ class ArticleTest < ActiveSupport::TestCase
   should 'act as taggable' do
     a = create(Article, :name => 'my article', :profile_id => profile.id)
     a.tag_list = ['one', 'two']
-    tags = a.tag_list.names
+    tags = a.tag_list
     assert tags.include?('one')
     assert tags.include?('two')
   end
@@ -746,7 +746,7 @@ class ArticleTest < ActiveSupport::TestCase
 
   should 'get tagged with tag' do
     a = create(Article, :name => 'Published at', :profile_id => profile.id, :tag_list => 'bli')
-    as = Article.find_tagged_with('bli')
+    as = Article.tagged_with('bli')
 
     assert_includes as, a
   end
@@ -758,7 +758,7 @@ class ArticleTest < ActiveSupport::TestCase
     user_from_other_environment = create_user('other_user', :environment => other_environment).person
     article_from_other_enviroment = create(Article, :profile => user_from_other_environment, :tag_list => 'bli')
 
-    tagged_articles_in_other_environment = other_environment.articles.find_tagged_with('bli')
+    tagged_articles_in_other_environment = other_environment.articles.tagged_with('bli')
 
     assert_includes tagged_articles_in_other_environment, article_from_other_enviroment
     assert_not_includes tagged_articles_in_other_environment, article_from_this_environment
@@ -859,16 +859,18 @@ class ArticleTest < ActiveSupport::TestCase
 
   should 'sanitize tags after save article' do
     article = fast_create(Article, :slug => 'article-with-tags', :profile_id => profile.id)
-    article.tags << build(Tag, :name => "TV Web w<script type='javascript'></script>")
-    assert_match /[<>]/, article.tags.last.name
+    tag = build(ActsAsTaggableOn::Tag, :name => "TV Web w<script type='javascript'></script>")
+    assert_match /[<>]/, tag.name
+    article.tag_list.add(tag.name)
     article.save!
     assert_no_match /[<>]/, article.tags.last.name
   end
 
   should 'strip HTML from tag names after save article' do
     article = fast_create(Article, :slug => 'article-with-tags', :profile_id => profile.id)
-    article.tags << build(Tag, :name => "TV Web w<script type=...")
-    assert_match /</, article.tags.last.name
+    tag = build(ActsAsTaggableOn::Tag, :name => "TV Web w<script type=...")
+    assert_match /</, tag.name
+    article.tag_list.add(tag.name)
     article.save!
     assert_no_match /</, article.tags.last.name
   end

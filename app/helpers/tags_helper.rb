@@ -9,7 +9,7 @@ module TagsHelper
 
   # <tt>tags</tt> must be a hash where the keys are tag names and the values
   # the count of elements tagged with the tag, as returned by
-  # Profile#find_tagged_with. If not tags were returned, just returns
+  # Profile#tagged_with. If not tags were returned, just returns
   # _('No tags yet.')
   #
   # <tagname_option> must be a symbol representing the key to be inserted in

@@ -556,8 +556,8 @@ private :generate_url, :url_options
     end
   end
 
-  def find_tagged_with(tag)
-    self.articles.find_tagged_with(tag)
+  def tagged_with(tag)
+    self.articles.tagged_with(tag)
   end
 
   # Tells whether a specified profile has members or nor.

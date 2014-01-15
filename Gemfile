@@ -1,6 +1,7 @@
 source "https://rubygems.org"
 gem 'rails'
 gem 'fast_gettext'
+gem 'acts-as-taggable-on'
 
 # TODO needs a rebuild diff-lcs wrt wheezy
 
