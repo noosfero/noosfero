@@ -261,7 +261,7 @@ class Profile < ActiveRecord::Base
   end
 
   def country_name
-    CountriesHelper.instance.lookup(country) if respond_to?(:country)
+    CountriesHelper::Object.instance.lookup(country) if respond_to?(:country)
   end
 
   def pending_categorizations
@@ -795,7 +795,9 @@ private :generate_url, :url_options
     []
   end
 
-  def validate
+  validate :image_valid
+
+  def image_valid
     unless self.image.nil?
       self.image.valid?
       self.image.errors.delete(:empty) # dont validate here if exists uploaded data

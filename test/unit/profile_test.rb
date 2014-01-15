@@ -743,7 +743,7 @@ class ProfileTest < ActiveSupport::TestCase
   should 'nickname be able to be nil' do
     p = Profile.new()
     p.valid?
-    assert_nil p.errors[:nickname]
+    assert_blank p.errors[:nickname]
   end
 
   should 'filter html from nickname' do
@@ -1147,7 +1147,7 @@ class ProfileTest < ActiveSupport::TestCase
     p2 = build(Profile, :identifier => 'mytestprofile', :environment => env)
 
     assert !p2.valid?
-    assert p2.errors.on(:identifier)
+    assert p2.errors[:identifier]
     assert_equal p1.environment, p2.environment
   end
 
@@ -1324,13 +1324,13 @@ class ProfileTest < ActiveSupport::TestCase
   should 'profile be valid when image is empty' do
     profile = build(Profile, :image_builder => {:uploaded_data => ""})
     profile.valid?
-    assert_nil profile.errors[:image]
+    assert_blank profile.errors[:image]
   end
 
   should 'profile be valid when has no image' do
     profile = Profile.new
     profile.valid?
-    assert_nil profile.errors[:image]
+    assert_blank profile.errors[:image]
   end
 
   should 'copy header and footer after create a person' do
