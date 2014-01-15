@@ -23,8 +23,8 @@ class ShoppingCartPlugin < Noosfero::Plugin
   end
 
   def add_to_cart_button(item)
-    enterprise = item.enterprise
-    settings = Noosfero::Plugin::Settings.new(enterprise, ShoppingCartPlugin)
+    profile = item.profile
+    settings = Noosfero::Plugin::Settings.new(profile, ShoppingCartPlugin)
     if settings.enabled && item.available
        lambda {
          link_to(_('Add to basket'), "add:#{item.name}",

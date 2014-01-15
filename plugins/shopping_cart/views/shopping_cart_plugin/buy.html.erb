@@ -6,7 +6,7 @@
       <%= labelled_form_field('* ' + _("Name"), f.text_field(:name, :class => 'required') ) %>
       <%= labelled_form_field('* ' +  _("Email"), f.text_field(:email, :class => 'required email') ) %>
       <%= labelled_form_field('* ' +  _("Contact phone"), f.text_field(:contact_phone, :class => 'required') ) %>
-      <%= labelled_form_field(_('Delivery option'), select_tag(:delivery_option, options_for_select(select_delivery_options(@settings.delivery_options, environment)), 'data-profile-identifier' => @enterprise.identifier)) unless !@settings.delivery || (@settings.free_delivery_price && get_total(@cart[:items]) >= @settings.free_delivery_price) %>
+      <%= labelled_form_field(_('Delivery option'), select_tag(:delivery_option, options_for_select(select_delivery_options(@settings.delivery_options, environment)), 'data-profile-identifier' => @profile.identifier)) unless !@settings.delivery || (@settings.free_delivery_price && get_total(@cart[:items]) >= @settings.free_delivery_price) %>
       <%= labelled_form_field(_('Payment'), select_tag('customer[payment]', options_for_select([[_("Money"), :money],[_('shopping_cart|Check'), :check]]))) %>
       <%= labelled_form_field(s_('shopping_cart|Change'), text_field_tag('customer[change]')) %>
     </div>
@@ -24,7 +24,7 @@
     </div>
   <% end %>
   <% delivery_option = @settings.delivery_options.first && @settings.delivery_options.first.first %>
-  <%= items_table(@cart[:items], @enterprise, delivery_option) %>
+  <%= items_table(@cart[:items], @profile, delivery_option) %>
   <%= link_to '', '#', :onclick => "Cart.colorbox_close(this);", :class => 'cart-box-close icon-cancel' %>
 </div>
 
