@@ -1698,6 +1698,16 @@ class CmsControllerTest < ActionController::TestCase
                     :attributes => { :value => article.id.to_s }}
   end
 
+  should 'remove users that agreed with forum terms after removing terms' do
+    forum = Forum.create(:name => 'Forum test', :profile_id => profile.id, :has_terms_of_use => true)
+    person = fast_create(Person)
+    forum.users_with_agreement << person
+
+    assert_difference Forum.find(forum.id).users_with_agreement, :count, -1 do
+      post :edit, :profile => profile.identifier, :id => forum.id, :article => { :has_terms_of_use => 'false' }
+    end
+  end
+
   protected
 
   # FIXME this is to avoid adding an extra dependency for a proper JSON parser.

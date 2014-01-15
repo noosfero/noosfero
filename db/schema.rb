@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131121162641) do
+ActiveRecord::Schema.define(:version => 20131128161159) do
 
   create_table "abuse_reports", :force => true do |t|
     t.integer  "reporter_id"
@@ -565,6 +565,13 @@ ActiveRecord::Schema.define(:version => 20131121162641) do
   end
 
   add_index "tasks", ["spam"], :name => "index_tasks_on_spam"
+
+  create_table "terms_forum_people", :id => false, :force => true do |t|
+    t.integer "forum_id"
+    t.integer "person_id"
+  end
+
+  add_index "terms_forum_people", ["forum_id", "person_id"], :name => "index_terms_forum_people_on_forum_id_and_person_id"
 
   create_table "thumbnails", :force => true do |t|
     t.integer "size"

@@ -7,6 +7,17 @@ class Forum < Folder
   settings_items :has_terms_of_use, :type => :boolean, :default => false
   has_and_belongs_to_many :users_with_agreement, :class_name => 'Person', :join_table => 'terms_forum_people'
 
+  before_save do |forum|
+    if forum.has_terms_of_use
+      last_editor = forum.profile.environment.people.find_by_id(forum.last_changed_by_id)
+      if last_editor && !forum.users_with_agreement.exists?(last_editor)
+        forum.users_with_agreement << last_editor
+      end
+    else
+      forum.users_with_agreement.clear
+    end
+  end
+
   def self.type_name
     _('Forum')
   end
@@ -51,11 +62,8 @@ class Forum < Folder
 
   def agrees_with_terms?(user)
     return true unless self.has_terms_of_use
-    if user
-      self.users_with_agreement.find_by_id user.id
-    else
-      false
-    end
+    return false unless user
+    self.users_with_agreement.exists? user
   end
 
 end

@@ -56,8 +56,7 @@ class ContentViewerController < ApplicationController
       end
     elsif !@page.parent.nil? && @page.parent.forum?
       unless @page.parent.agrees_with_terms?(user)
-        params[:page].pop
-        redirect_to :profile => params[:profile], :page => params[:page], :action => 'view_page'
+        redirect_to @page.parent.url
       end
     end
 

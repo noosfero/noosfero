@@ -3338,6 +3338,9 @@ table.cms-articles .icon:hover {
 div.with_media_panel .formfield input {
   width: 100%;
 }
+div.with_media_panel .formfield input[type="checkbox"] {
+  width: auto;
+}
 
 .text-editor-sidebar {
   position: absolute;
