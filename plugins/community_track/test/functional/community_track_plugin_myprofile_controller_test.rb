@@ -12,7 +12,7 @@ class CommunityTrackPluginMyprofileControllerTest < ActionController::TestCase
     @response   = ActionController::TestResponse.new
 
     @profile = fast_create(Community)
-    @track = CommunityTrackPlugin::Track.create!(:abstract => 'abstract', :body => 'body', :name => 'track', :profile => @profile)
+    @track = create_track('track', @profile)
 
     @user = create_user('testinguser')
     login_as(@user.login)

@@ -448,8 +448,8 @@ class Article < ActiveRecord::Base
   end
 
   named_scope :published, :conditions => { :published => true }
-  named_scope :folders, :conditions => { :type => folder_types}
-  named_scope :no_folders, :conditions => ['type NOT IN (?)', folder_types]
+  named_scope :folders, lambda {|profile|{:conditions => { :type => profile.folder_types} }}
+  named_scope :no_folders, lambda {|profile|{:conditions => ['type NOT IN (?)', profile.folder_types]}}
   named_scope :galleries, :conditions => { :type => 'Gallery' }
   named_scope :images, :conditions => { :is_image => true }
   named_scope :text_articles, :conditions => [ 'articles.type IN (?)', text_article_types ]

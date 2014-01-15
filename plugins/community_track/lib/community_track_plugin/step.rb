@@ -1,6 +1,7 @@
 class CommunityTrackPlugin::Step < Folder
 
   settings_items :hidden, :type => :boolean, :default => false
+  settings_items :tool_type, :type => String
 
   alias :tools :children
 
@@ -17,13 +18,19 @@ class CommunityTrackPlugin::Step < Folder
   after_save :schedule_activation
 
   before_create do |step|
-    step.published = false
+    step.accept_comments = false
     true
   end
 
   before_create :set_hidden_position
   before_save :set_hidden_position
 
+  def initialize(*args)
+    super(*args)
+    self.start_date ||= Date.today
+    self.end_date ||= Date.today + 1.day
+  end
+  
   def set_hidden_position
     if hidden
       decrement_positions_on_lower_items
@@ -48,11 +55,11 @@ class CommunityTrackPlugin::Step < Folder
   end
 
   def accept_comments?
-    false
+    accept_comments
   end
 
-  def enabled_tools
-    {TinyMceArticle => {:name => _('Article')}, Forum => {:name => _('Forum')}}
+  def self.enabled_tools
+    [TinyMceArticle, Forum]
   end
 
   def to_html(options = {})
@@ -75,31 +82,31 @@ class CommunityTrackPlugin::Step < Folder
   end
 
   def schedule_activation
-    return if !changes['start_date'] && !changes['end_date'] && !changes['published']
-    today = Date.today
-    if today <= end_date || published
-      schedule_date = !published ? start_date : end_date + 1.day
+    return if !changes['start_date'] && !changes['end_date']
+    if Date.today <= end_date || accept_comments
+      schedule_date = !accept_comments ? start_date : end_date + 1.day
       CommunityTrackPlugin::ActivationJob.find(id).destroy_all
       Delayed::Job.enqueue(CommunityTrackPlugin::ActivationJob.new(self.id), 0, schedule_date)
     end
   end
 
-  def publish
-    self[:published] = active? && !hidden
-    save!
+  def toggle_activation
+    accept_comments = active?
+    # set accept_comments = true on all children
+    self.class.toggle_activation(self, accept_comments)
   end
 
-  class CommunityTrackPlugin::ActivationJob < Struct.new(:step_id)
+  def self.toggle_activation(article, accept_comments)
+    article.update_attribute(:accept_comments, accept_comments)
+    article.children.each {|a| toggle_activation(a, accept_comments)}
+  end
 
-    def self.find(step_id)
-      Delayed::Job.where(:handler => "--- !ruby/struct:CommunityTrackPlugin::ActivationJob \nstep_id: #{step_id}\n")
-    end
+  def tool_class
+    tool_type ? tool_type.constantize : nil
+  end
 
-    def perform
-      step = CommunityTrackPlugin::Step.find(step_id)
-      step.publish
-    end
-
+  def tool
+    tools.find(:first, :conditions => {:type => tool_type })
   end
 
 end
