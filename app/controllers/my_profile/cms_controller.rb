@@ -387,4 +387,3 @@ class CmsController < MyProfileController
   end
 
 end
-

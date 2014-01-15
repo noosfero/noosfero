@@ -63,6 +63,8 @@ class Person < Profile
 
   has_many :scraps_sent, :class_name => 'Scrap', :foreign_key => :sender_id, :dependent => :destroy
 
+  has_and_belongs_to_many :acepted_forums, :class_name => 'Forum', :join_table => 'terms_forum_people'
+
   named_scope :more_popular,
       :select => "#{Profile.qualified_column_names}, count(friend_id) as total",
       :group => Profile.qualified_column_names,

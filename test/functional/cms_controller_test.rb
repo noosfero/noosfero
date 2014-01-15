@@ -1324,10 +1324,11 @@ class CmsControllerTest < ActionController::TestCase
   end
 
   should 'back to forum after config forum' do
-    profile.articles << Forum.new(:name => 'my-forum', :profile => profile)
-    post :edit, :profile => profile.identifier, :id => profile.forum.id
-
-    assert_redirected_to @profile.articles.find_by_name('my-forum').view_url
+    assert_difference Forum, :count do
+      post :new, :type => Forum.name, :profile => profile.identifier, :article => { :name => 'my-forum' }, :back_to => 'control_panel'
+    end
+      post :edit, :type => Forum.name, :profile => profile.identifier, :article => { :name => 'my forum' }, :id => profile.forum.id
+    assert_redirected_to @profile.articles.find_by_name('my forum').view_url
   end
 
   should 'back to control panel if cancel create forum' do
@@ -1695,6 +1696,16 @@ class CmsControllerTest < ActionController::TestCase
     assert_no_tag :tag => 'select', :attributes => { :name => "parent_id" },
                   :descendant => { :tag => "option",
                     :attributes => { :value => article.id.to_s }}
+  end
+
+  should 'remove users that agreed with forum terms after removing terms' do
+    forum = Forum.create(:name => 'Forum test', :profile_id => profile.id, :has_terms_of_use => true)
+    person = fast_create(Person)
+    forum.users_with_agreement << person
+
+    assert_difference Forum.find(forum.id).users_with_agreement, :count, -1 do
+      post :edit, :profile => profile.identifier, :id => forum.id, :article => { :has_terms_of_use => 'false' }
+    end
   end
 
   protected

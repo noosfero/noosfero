@@ -50,6 +50,16 @@ class ContentViewerController < ApplicationController
 
     redirect_to_translation if @page.profile.redirect_l10n
 
+    if request.post?
+      if @page.forum? && @page.has_terms_of_use && params[:terms_accepted] == "true"
+        @page.add_agreed_user(user)
+      end
+    elsif !@page.parent.nil? && @page.parent.forum?
+      unless @page.parent.agrees_with_terms?(user)
+        redirect_to @page.parent.url
+      end
+    end
+
     # At this point the page will be showed
     @page.hit
 
