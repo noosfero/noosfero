@@ -1,4 +1,5 @@
 require File.dirname(__FILE__) + '/../test_helper'
+require 'benchmark'
 
 class ArticleTest < ActiveSupport::TestCase
 
@@ -34,6 +35,22 @@ class ArticleTest < ActiveSupport::TestCase
     comment1 = fast_create(Comment, :group_id => 1, :source_id => article.id)
     article.name = article.name + 'changed'
     assert article.save
+  end
+
+  should 'improve performance checking changes in body' do
+    i = 1
+    time0 = (Benchmark.measure { 50.times {
+      i = i + 1
+      article.body = "i = #{i}"
+      assert article.save
+    }})
+    i = 1
+    time1 = (Benchmark.measure { 50.times {
+      i = i + 1
+      article.body = "i = 1"
+      assert article.save
+    }})
+    assert time0.total > time1.total
   end
 
 end
