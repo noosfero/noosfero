@@ -87,6 +87,10 @@ class Profile < ActiveRecord::Base
     scopes.size == 1 ? scopes.first : Person.or_scope(scopes)
   end
 
+  def members_by_name
+    members.order(:name)
+  end
+
   def members_count
     members.count
   end
