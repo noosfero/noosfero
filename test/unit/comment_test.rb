@@ -724,6 +724,13 @@ class CommentTest < ActiveSupport::TestCase
     assert_equal 2, comment.votes_against
   end
 
+  should 'be able to remove a voted comment' do
+    comment = create_comment
+    person = create_user('voter').person
+    person.vote(comment, 5)
+    comment.destroy
+  end
+
   private
 
   def create_comment(args = {})

@@ -16,7 +16,7 @@ module Juixe
         #     Note: Specifying a counter will add it to that model‘s list of readonly attributes using attr_readonly.
         # 
         def acts_as_voteable options={}
-          has_many :votes, :as => :voteable, :dependent => :nullify
+          has_many :votes, :as => :voteable, :dependent => :destroy
           include Juixe::Acts::Voteable::InstanceMethods
           extend  Juixe::Acts::Voteable::SingletonMethods
           if (options[:vote_counter])

@@ -1751,4 +1751,10 @@ class ArticleTest < ActiveSupport::TestCase
     assert_equal 5, article.votes_total
   end
 
+  should 'be able to remove a voted article' do
+    article = Article.create!(:name => 'Test', :profile => profile, :last_changed_by => nil)
+    profile.vote(article, 5)
+    article.destroy
+  end
+
 end
