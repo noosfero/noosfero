@@ -75,11 +75,10 @@ class CmsController < MyProfileController
     @article.article_privacy_exceptions = params[:q].split(/,/).map{|n| environment.people.find n.to_i} unless params[:q].nil?
 
     @tokenized_children = prepare_to_token_input(
-                            profile.members.map{|m|
-                              m if @article.article_privacy_exceptions.include?(m)
-                            }.compact
+                            profile.members.includes(:articles_with_access).find_all{ |m|
+                              m.articles_with_access.include?(@article)
+                            }
                           )
-
     refuse_blocks
     record_coming
     if request.post?

@@ -57,7 +57,7 @@ module ArticleHelper
         radio_button(:article, :published, false) +
           content_tag('label', _('Private'), :for => 'article_published_false', :id => "label_private")
        ) +
-      (article.profile.class == Community ? content_tag('div',
+      (article.profile.community? ? content_tag('div',
         content_tag('label', _('Fill in the search field to add the exception users to see this content'), :id => "text-input-search-exception-users") +
         token_input_field_tag(:q, 'search-article-privacy-exceptions', {:action => 'search_article_privacy_exceptions'},
           {:focus => false, :hint_text => _('Type in a search term for a user'), :pre_populate => tokenized_children})) :
