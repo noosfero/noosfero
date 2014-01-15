@@ -69,6 +69,7 @@ class Article < ActiveRecord::Base
   settings_items :allow_members_to_edit, :type => :boolean, :default => false
   settings_items :moderate_comments, :type => :boolean, :default => false
   settings_items :followers, :type => Array, :default => []
+  has_and_belongs_to_many :article_privacy_exceptions, :class_name => 'Person', :join_table => 'article_privacy_exceptions'
 
   belongs_to :reference_article, :class_name => "Article", :foreign_key => 'reference_article_id'
 
@@ -470,7 +471,8 @@ class Article < ActiveRecord::Base
 
   def display_unpublished_article_to?(user)
     user == author || allow_view_private_content?(user) || user == profile ||
-    user.is_admin?(profile.environment) || user.is_admin?(profile)
+    user.is_admin?(profile.environment) || user.is_admin?(profile) ||
+    article_privacy_exceptions.include?(user)
   end
 
   def display_to?(user = nil)
