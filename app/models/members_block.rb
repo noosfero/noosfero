@@ -15,15 +15,10 @@ class MembersBlock < ProfileListBlock
 
   def footer
     profile = self.owner
-    show_button_block = show_join_leave_button
+    s = show_join_leave_button
 
     lambda do
-      if show_button_block
-        @view_all = link_to _('View all'), :profile => profile.identifier, :controller => 'profile', :action => 'members'
-        render "blocks/profile_info_actions/join_leave_community"
-      else
-        link_to _('View all'), :profile => profile.identifier, :controller => 'profile', :action => 'members'
-      end
+      render :file => 'blocks/members', :locals => { :profile => profile, :show_join_leave_button => s}
     end
   end
 

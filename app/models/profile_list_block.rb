@@ -62,7 +62,7 @@ class ProfileListBlock < Block
     title.gsub('{#}', profile_count.to_s)
   end
 
-  # override in subclasses! See MembersBlock for exemple
+  # override in subclasses! See MembersBlock for example
   def extra_option
     {}
   end

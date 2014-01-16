@@ -1,5 +1,3 @@
-<%= @view_all unless @view_all.nil? %>
-
 <% if logged_in? %>
   <% if profile.members.include?(user) %>
     <%= button(:delete, content_tag('span', __('Leave community')), profile.leave_url,
