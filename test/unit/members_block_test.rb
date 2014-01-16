@@ -39,4 +39,3 @@ class MembersBlockTest < ActiveSupport::TestCase
   end
 
 end
-
