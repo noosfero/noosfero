@@ -1,7 +1,4 @@
-If you are not listed here, but should be, please write to the noosfero mailing
-list: http://listas.softwarelivre.org/cgi-bin/mailman/listinfo/noosfero-dev
-(this list requires subscription to post, but since you are an author of
-noosfero, that's not a problem).
+If you are not listed here, but should be, please write to the noosfero mailing list: http://listas.softwarelivre.org/cgi-bin/mailman/listinfo/noosfero-dev (this list requires subscription to post, but since you are an author of noosfero, that's not a problem).
 
 Developers
 ==========

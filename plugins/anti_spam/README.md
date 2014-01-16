@@ -1,8 +1,7 @@
 README - AntiSpam (AntiSpam Plugin)
-=======================================
+===================================
 
-Plugin that checks comments against a spam checking service compatible
-with the Akismet API.
+Plugin that checks comments against a spam checking service compatible with the Akismet API.
 
 
 Enable Plugin
@@ -10,12 +9,12 @@ Enable Plugin
 
 Also, you need to enable AntiSpam Plugin at your Noosfero:
 
-cd <your_noosfero_dir>
-./script/noosfero-plugins enable anti_spam
+    cd <your_noosfero_dir>
+    ./script/noosfero-plugins enable anti_spam
 
 
 Activate Plugin
--------------
+---------------
 
 As a Noosfero administrator user, go to administrator panel:
 
