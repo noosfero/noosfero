@@ -11629,7 +11629,7 @@ msgstr "Pré-selecionado"
 
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/custom_forms_plugin/_select_field.html.erb:25
 msgid "Add a new alternative"
-msgstr "Adcionar nova alternativa"
+msgstr "Adicionar nova alternativa"
 
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/custom_forms_plugin/_alternative.html.erb:10
 msgid "Remove alternative"
