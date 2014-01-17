@@ -31,6 +31,11 @@ class PgSearchPluginTest < ActiveSupport::TestCase
   #   assert_includes search(Profile, 'colmeia'), profile
   # end
 
+  should 'check if filter option is defined' do
+    plugin = PgSearchPlugin.new
+    assert plugin.find_by_contents('asset', Profile, 'query', {:page => 1})
+  end
+
   private
 
   def search(scope, query)
