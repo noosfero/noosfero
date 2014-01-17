@@ -1,7 +1,7 @@
 # Monkey patch to rewrite attachment_fu's logic where no image with parent can
 # be thumbnailable.
 
-Technoweenie::AttachmentFu.module_eval do
+Technoweenie::AttachmentFu::InstanceMethods.module_eval do
   def thumbnailable?
     image? && !is_thumbnail?
   end

@@ -101,7 +101,7 @@ class UploadedFileTest < ActiveSupport::TestCase
     up = build(UploadedFile, :filename => 'fake_filename.png')
     up.valid?
 
-    assert_match /#{UploadedFile.max_size.to_humanreadable}/, up.errors[:size]
+    assert_match /#{UploadedFile.max_size.to_humanreadable}/, up.errors[:size].first
   end
 
   should 'display link to download of non-image files' do
@@ -128,8 +128,7 @@ class UploadedFileTest < ActiveSupport::TestCase
     assert upload.errors[:title]
 
     upload.title = '+' * 60; upload.valid?
-    assert !upload.errors[:title]
-
+    assert_blank upload.errors[:title]
   end
 
   should 'always provide a display title' do
@@ -151,7 +150,7 @@ class UploadedFileTest < ActiveSupport::TestCase
   should 'use name as title by default but cut down the title' do
     upload = build(UploadedFile, :uploaded_data => fixture_file_upload('/files/AGENDA_CULTURA_-_FESTA_DE_VAQUEIROS_PONTO_DE_SERRA_PRETA_BAIXA.txt'))
     upload.valid?
-    assert_nil upload.errors[:title]
+    assert_blank upload.errors[:title]
   end
 
   should 'create thumbnails after processing jobs' do
