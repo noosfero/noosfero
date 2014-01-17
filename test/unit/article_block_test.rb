@@ -72,13 +72,13 @@ class ArticleBlockTest < ActiveSupport::TestCase
 
   should "take available articles with an environment as the box owner" do
     env = Environment.create!(:name => 'test env')
-    env.articles.destroy_all
+    env.profiles.each { |profile| profile.articles.destroy_all }
     assert_equal [], env.articles
     community = fast_create(Community)
     a = fast_create(TextArticle, :profile_id => community.id, :name => 'test')
     env.portal_community=community
     env.save
-    block = ArticleBlock.create(:article => a)
+    block = create(ArticleBlock, :article => a)
     env.boxes.first.blocks << block
     block.save!
     
