@@ -1195,9 +1195,23 @@ class ContentViewerControllerTest < ActionController::TestCase
   end
 
   should 'display differences between article versions' do
-    file1 = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/test.txt', 'bin/unknown'), :profile => profile)
-    file2 = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/test.txt', 'bin/unknown'), :profile => profile)
-    ContentViewerController.versioning_articles('file1','file2')
+    blog = Blog.create!(:name => 'A blog test', :profile => profile)
+    blog.posts << TinyMceArticle.create!(
+      :name => 'Post1',
+      :profile => profile,
+      :parent => blog,
+      :published => true,
+      :body => "<p>This is a <strong>bold</strong> statement right there!</p>"
+    )
+
+    blog.posts << TinyMceArticle.create!(
+      :name => 'Post2',
+      :profile => profile,
+      :parent => blog,
+      :published => true,
+      :body => "<p>That is a <strong>bold</strong> statement right there!</p>"
+    )
+    ContentViewerController.versioning_articles('Post1','Post2')
   end
 
   should 'not display comments marked as spam' do
