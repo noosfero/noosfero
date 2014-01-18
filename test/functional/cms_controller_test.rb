@@ -1719,6 +1719,23 @@ class CmsControllerTest < ActionController::TestCase
     assert_redirected_to '/'
   end
 
+  should 'edit article with content from older version' do
+    article = profile.articles.create(:name => 'first version')
+    article.name = 'second version'; article.save
+
+    get :edit, :profile => profile.identifier, :id => article.id, :version => 1
+    assert_equal 'second version', Article.find(article.id).name
+    assert_equal 'first version', assigns(:article).name
+  end
+
+  should 'save article with content from older version' do
+    article = profile.articles.create(:name => 'first version')
+    article.name = 'second version'; article.save
+
+    post :edit, :profile => profile.identifier, :id => article.id, :version => 1
+    assert_equal 'first version', Article.find(article.id).name
+  end
+
   protected
 
   # FIXME this is to avoid adding an extra dependency for a proper JSON parser.

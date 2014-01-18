@@ -7,7 +7,7 @@ class ContentViewerController < ApplicationController
 
   def view_page
     path = params[:page].join('/')
-    @version = params[:rev]
+    @version = params[:version]
 
     if path.blank?
       @page = profile.home_page

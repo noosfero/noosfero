@@ -384,7 +384,7 @@ class ContentViewerControllerTest < ActionController::TestCase
     page = profile.articles.create!(:name => 'myarticle', :body => 'test article')
     page.body = 'test article edited'; page.save
 
-    get :view_page, :profile => profile.identifier, :page => [ 'myarticle' ], :rev => 1
+    get :view_page, :profile => profile.identifier, :page => [ 'myarticle' ], :version => 1
 
     assert_equal 1, assigns(:page).version
   end

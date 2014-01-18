@@ -655,7 +655,7 @@ class Article < ActiveRecord::Base
       (params[:npage] ? "-npage-#{params[:npage]}" : '') +
       (params[:year] ? "-year-#{params[:year]}" : '') +
       (params[:month] ? "-month-#{params[:month]}" : '') +
-      (params[:rev] ? "-rev-#{params[:rev]}" : '')
+      (params[:version] ? "-version-#{params[:version]}" : '')
 
   end
 
