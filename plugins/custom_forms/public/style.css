@@ -15,6 +15,7 @@
 
 .action-table .actions{
   white-space: nowrap;
+  text-align: left;
 }
 
 .action-table .new-item{
