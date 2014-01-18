@@ -6548,3 +6548,9 @@ ul.article-versions li {
   font-size: 13px;
 }
 
+#article ul.article-versions a.link-this-page {
+  text-decoration: none;
+  opacity: 0.5;
+  filter: alpha(opacity=50);
+
+}

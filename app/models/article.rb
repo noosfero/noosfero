@@ -201,6 +201,7 @@ class Article < ActiveRecord::Base
   acts_as_filesystem
 
   acts_as_versioned
+  self.non_versioned_columns << 'setting'
 
   def comment_data
     comments.map {|item| [item.title, item.body].join(' ') }.join(' ')

@@ -1,12 +1,13 @@
 <div id="article" class="<%= @page.css_class_name %>">
 
-  <% if @page.allow_edit?(user) && !remove_content_button(:edit) %>
-    <div id="article-revert-version">
-      <% content = content_tag('span', _('Revert to this version')) %>
-      <% url = profile.admin_url.merge({ :controller => 'cms', :action => 'edit', :id => @page.id, :article => @versioned_article.attributes }) %>
-      <%= expirable_button @page, :edit, content, url %>
+  <div id="article-actions">
+    <% if @page.allow_edit?(user) && !remove_content_button(:edit) %>
+      <div id="article-revert-version">
+        <% content = content_tag('span', _('Revert to this version')) %>
+        <% url = profile.admin_url.merge({ :controller => 'cms', :action => 'edit', :id => @page.id, :version => @version }) %>
+        <%= expirable_button @page, :edit, content, url %>
+      </div>
     <% end %>
-
   </div>
 
   <div id="article-header">
