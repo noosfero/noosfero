@@ -11515,9 +11515,12 @@ msgid "Manage forms"
 msgstr "Gerenciar formulários"
 
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/index.html.erb:7
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/_form.html.erb:7
 msgid "Period"
 msgstr "Período"
+
+#: plugins/custom_forms/views/custom_forms_plugin_myprofile/_form.html.erb:7
+msgid "What is the time limit for this form to be filled?"
+msgstr "Qual o período limite em que esse formulário pode ser preenchido?"
 
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/index.html.erb:8
 msgid "Submissions"
