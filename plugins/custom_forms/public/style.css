@@ -79,3 +79,11 @@ ul.field-list > li > fieldset:hover {
 tr.addition-buttons {
   cursor: auto;
 }
+
+#ui-datepicker-div {
+  border: 1px solid #CCC;
+}
+.ui-slider-horizontal {
+  border: 1px solid #BBB;
+  border-radius: 4px;
+}
