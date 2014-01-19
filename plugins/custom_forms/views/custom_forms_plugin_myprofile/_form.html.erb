@@ -11,8 +11,11 @@
 )) %>
 <%= labelled_form_field _('Access'), f.select(:access, access_options(profile))%>
 <% if profile.organization? %>
-  <%= labelled_form_field _('Triggered on membership request as requirement for approval'), f.check_box(:for_admission) %>
-  <%= labelled_form_field _('Triggered after membership'), f.check_box(:on_membership) %>
+  <p>
+  <%= labelled_check_box _('Triggered on membership request as requirement for approval'), 'form[for_admission]', '1', @form.for_admission %>
+  <br/>
+  <%= labelled_check_box _('Triggered after membership'), 'form[on_membership]', '1', @form.on_membership %>
+  </p>
 <% end %>
 <%= labelled_form_field _('Description'), f.text_area(:description, :style => 'width: 100%') %>
 
