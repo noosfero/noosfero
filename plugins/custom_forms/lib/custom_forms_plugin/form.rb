@@ -10,6 +10,7 @@ class CustomFormsPlugin::Form < Noosfero::Plugin::ActiveRecord
 
   validates_presence_of :profile, :name
   validates_uniqueness_of :slug, :scope => :profile_id
+  validate :period_range, :if => Proc.new { |f| f.begining.present? && f.ending.present? }
   validate :access_format
 
   before_validation do |form|
@@ -74,5 +75,9 @@ class CustomFormsPlugin::Form < Noosfero::Plugin::ActiveRecord
         errors.add(:access, _('Invalid type format of access.'))
       end
     end
+  end
+
+  def period_range
+    errors.add(:base, _('The time range selected is invalid.')) if ending < begining 
   end
 end

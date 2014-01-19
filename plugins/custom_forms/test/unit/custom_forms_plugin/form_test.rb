@@ -53,6 +53,20 @@ class CustomFormsPlugin::FormTest < ActiveSupport::TestCase
     assert !form.errors.invalid?(:slug)
   end
 
+  should 'validate the difference between ending and beginning is positive' do
+    profile = fast_create(Profile)
+    form = CustomFormsPlugin::Form.new(:profile => profile, :name => 'Free Software')
+
+    form.begining = Time.now
+    form.ending = Time.now + 1.day
+    assert form.valid?
+    assert !form.errors.invalid?(:base)
+
+    form.ending = Time.now - 2.day
+    assert !form.valid?
+    assert form.errors.invalid?(:base)
+  end
+
   should 'define form expiration' do
     form = CustomFormsPlugin::Form.new
     assert !form.expired?
