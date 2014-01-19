@@ -45,6 +45,14 @@
   margin: 0px;
 }
 
+.field-box .required-field label{
+  font-weight: bold;
+  color: #c00;
+}
+.field-box .required-field label:after {
+  content: ' (*)';
+}
+
 .field-select-type {
   margin: 10px 0;
 }
