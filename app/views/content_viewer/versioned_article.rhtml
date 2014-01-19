@@ -1,12 +1,12 @@
 <div id="article" class="<%= @page.css_class_name %>">
 
   <div id="article-actions">
+    <%= button(:clock, _('All versions'), {:controller => 'content_viewer', :profile => profile.identifier, :action => 'article_versions'}, :id => 'article-versions-link') %>
+
     <% if @page.allow_edit?(user) && !remove_content_button(:edit) %>
-      <div id="article-revert-version">
-        <% content = content_tag('span', _('Revert to this version')) %>
-        <% url = profile.admin_url.merge({ :controller => 'cms', :action => 'edit', :id => @page.id, :version => @version }) %>
-        <%= expirable_button @page, :edit, content, url %>
-      </div>
+      <% content = content_tag('span', _('Revert to this version')) %>
+      <% url = profile.admin_url.merge({ :controller => 'cms', :action => 'edit', :id => @page.id, :version => @version }) %>
+      <%= expirable_button @page, :edit, content, url, :id => 'article-revert-version-link' %>
     <% end %>
   </div>
 
@@ -31,10 +31,6 @@
       <br style="clear:both" />
     </div> <!-- end class="article-body" -->
   <% end %>
-
-  <div id="article-versions">
-    <%= render :partial => 'article_versions' %>
-  </div>
 
   <%= display_source_info(@page) %>
 

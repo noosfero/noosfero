@@ -370,23 +370,32 @@ class ContentViewerControllerTest < ActionController::TestCase
   end
 
   should "display current article's versions" do
-    page = profile.articles.create!(:name => 'myarticle', :body => 'test article')
+    page = TextArticle.create!(:name => 'myarticle', :body => 'test article', :display_versions => true, :profile => profile)
     page.body = 'test article edited'; page.save
 
-    get :view_page, :profile => profile.identifier, :page => [ 'myarticle' ]
-    assert_tag :tag => 'div', :attributes => { :id => 'article-versions' }, :descendant => {
+    get :article_versions, :profile => profile.identifier, :page => [ 'myarticle' ]
+    assert_tag :tag => 'ul', :attributes => { :class => 'article-versions' }, :descendant => {
       :tag => 'a',
-      :attributes => { :href => "http://#{profile.environment.default_hostname}/#{profile.identifier}/#{page.path}?rev=1" }
+      :attributes => { :href => "http://#{profile.environment.default_hostname}/#{profile.identifier}/#{page.path}?version=1" }
     }
   end
 
   should "fetch correct article version" do
-    page = profile.articles.create!(:name => 'myarticle', :body => 'test article')
-    page.body = 'test article edited'; page.save
+    page = profile.articles.create!(:name => 'myarticle', :body => 'original article')
+    page.body = 'edited article'; page.save
 
     get :view_page, :profile => profile.identifier, :page => [ 'myarticle' ], :version => 1
 
-    assert_equal 1, assigns(:page).version
+    assert_tag :tag => 'div', :attributes => { :class => 'article-body article-body-article' }, :content => /original article/
+  end
+
+  should "display current article if version does not exist" do
+    page = profile.articles.create!(:name => 'myarticle', :body => 'original article')
+    page.body = 'edited article'; page.save
+
+    get :view_page, :profile => profile.identifier, :page => [ 'myarticle' ], :version => 'bli'
+
+    assert_tag :tag => 'div', :attributes => { :class => 'article-body article-body-article' }, :content => /edited article/
   end
 
   should 'not return an article of a different user' do

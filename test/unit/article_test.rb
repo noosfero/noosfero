@@ -742,7 +742,7 @@ class ArticleTest < ActiveSupport::TestCase
 
  should 'use revision number to compose cache key' do
     a = fast_create(Article, :name => 'Versioned article', :profile_id => profile.id)
-    assert_match(/-rev-2/,a.cache_key(:version => 2))
+    assert_match(/-version-2/,a.cache_key(:version => 2))
   end
 
   should 'not be highlighted by default' do

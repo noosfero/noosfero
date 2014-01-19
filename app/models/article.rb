@@ -618,7 +618,7 @@ class Article < ActiveRecord::Base
   def author(version_number = nil)
     if version_number
       version = versions.find_by_version(version_number)
-      author_id = version.last_changed_by_id
+      author_id = version.last_changed_by_id if version
       Person.exists?(author_id) ? Person.find(author_id) : nil
     else
       if versions.empty?

@@ -5,37 +5,67 @@ Feature: article versioning
 
   Background:
     Given the following users
-      | login | name |
+      | login     | name       |
       | joaosilva | Joao Silva |
     And "joaosilva" has no articles
     And the following articles
-      | owner | name | body |
-      | joaosilva | Sample Article | This is the first version of the article |
+      | owner     | name           | body                                     | display_versions |
+      | joaosilva | Sample Article | This is the first version of the article | true             |
     And the article "Sample Article" is updated with
-      | name | body |
+      | name           | body                                      |
       | Edited Article | This is the second version of the article |
     And I am logged in as "joaosilva"
 
-  Scenario: display only link for original version
+  @selenium
+  Scenario: enabling visualization of versions
     Given the following articles
-      | owner | name | body |
-      | joaosilva | One version article | This is the first published article |
-    And I am on joaosilva's control panel
-    And I follow "Manage Content"
-    When I follow "One version article"
-    Then I should see "r1" within "#article-versions"
-    And I should not see "r2" within "#article-versions"
+      | owner     | name        | body                       |
+      | joaosilva | New Article | Article to enable versions |
+   Given I am on article "New Article"
+    Then I should not see "All versions"
+    When I follow "Edit" within "#article-actions"
+    And I check "I want this article to display a link to older versions"
+    And I press "Save"
+    Then I should be on article "New Article"
+    And I should see "All versions"
 
-  Scenario: display links for versions
-    Given I am on joaosilva's control panel
-    And I follow "Manage Content"
-    When I follow "Edited Article"
-    Then I should see "r1" within "#article-versions"
-    And I should see "r2" within "#article-versions"
+  @selenium
+  Scenario: list versions of an article
+    Given I am on article "Edited Article"
+    When I follow "All versions"
+    Then I should be on /joaosilva/edited-article/versions
+    And I should see "Version 1" within ".article-versions"
+    And I should see "Version 2" within ".article-versions"
 
-  Scenario: display links for versions
-    Given I am on joaosilva's control panel
-    And I follow "Manage Content"
-    And I follow "Edited Article" 
-    When I follow "r2" within "#article-versions"
-    Then I should see "This is the first version of the article" within ".article-body"
+  @selenium
+  Scenario: see specific version
+    Given I go to article "Edited Article"
+    Then I should see "Edited Article" within ".title"
+    And I should see "This is the second version of the article" within ".article-body"
+    When I follow "All versions"
+    And I follow "Version 1"
+    Then I should see "Sample Article" within ".title"
+    And I should see "This is the first version of the article" within ".article-body"
+
+  @selenium
+  Scenario: revert to a specific version generates a new version
+    Given I go to article "Edited Article"
+    When I follow "All versions"
+    Then I should not see "Version 3" within ".article-versions"
+    And I follow "Version 1"
+    And I follow "Revert to this version"
+    And I press "Save"
+    Then I should see "Sample Article" within ".title"
+    When I follow "All versions"
+    Then I should see "Version 3" within ".article-versions"
+
+  Scenario: try to access versions of unexistent article
+    Given I go to /joaosilva/unexistent-article/versions
+    Then I should see "There is no such page"
+
+  Scenario: deny access to versions when disabled on article
+    Given the following articles
+      | owner     | name              | body                        | display_versions |
+      | joaosilva | Versions disabled | Versions can't be displayed | false            |
+    And I go to /joaosilva/versions-disabled/versions
+    Then I should see "Access denied"

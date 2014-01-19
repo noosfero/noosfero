@@ -87,13 +87,6 @@
 
 <%= display_source_info(@page) %>
 
-<% if @page.display_versions? %>
-  <div id="article-versions">
-    <%= render :partial => 'article_versions' %>
-    <%#= button(:clock, _('See older versions'), :controller => 'content_viewer', :profile => profile.identifier, :action => 'article_versions', :page => @page.id) %>
-  </div>
-<% end %>
-
 <div class="comments" id="comments_list">
 
   <% if @page.accept_comments? || @comments_count > 0 %>

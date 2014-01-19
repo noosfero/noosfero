@@ -7,7 +7,7 @@ class ContentViewerController < ApplicationController
 
   def view_page
     path = params[:page].join('/')
-    @version = params[:version]
+    @version = params[:version].to_i
 
     if path.blank?
       @page = profile.home_page
@@ -46,7 +46,7 @@ class ContentViewerController < ApplicationController
 
     if @version
       @versioned_article = @page.versions.find_by_version(@version)
-      unless @versioned_article == @page.versions.latest
+      if @versioned_article && @page.versions.latest.version != @versioned_article.version
         render :template => 'content_viewer/versioned_article.rhtml'
         return
       end
@@ -137,10 +137,16 @@ class ContentViewerController < ApplicationController
     end
   end
 
-#  def article_versions
-#    @page = profile.articles.find(params[:page])
-#    @versions = @page.versions
-#  end
+  def article_versions
+    path = params[:page].join('/')
+    @page = profile.articles.find_by_path(path)
+    unless @page
+      render_not_found(@page)
+      return
+    end
+    render_access_denied unless @page.display_versions?
+    @versions = @page.versions.paginate(:per_page => per_page, :page => params[:npage])
+  end
 
   protected
 
