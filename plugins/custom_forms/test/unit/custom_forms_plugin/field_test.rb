@@ -33,6 +33,14 @@ class CustomFormsPlugin::FieldTest < ActiveSupport::TestCase
     assert_equal form.fields, [license_field]
   end
 
+  should 'have alternative if type is SelectField' do
+    select = CustomFormsPlugin::Field.new(:name => 'select_field001', :type => 'CustomFormsPlugin::SelectField')
+    assert !select.save
+
+    select.alternatives << CustomFormsPlugin::Alternative.new(:label => 'option')
+    assert select.save
+  end
+
   should 'sort alternatives by position' do
     field = CustomFormsPlugin::Field.create!(:name => 'field001')
     second = CustomFormsPlugin::Alternative.create!(:label => 'second', :field => field, :position => 2)

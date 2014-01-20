@@ -8,6 +8,10 @@ class CustomFormsPlugin::Field < ActiveRecord::Base
 
   has_many :alternatives, :order => 'position', :class_name => 'CustomFormsPlugin::Alternative'
   accepts_nested_attributes_for :alternatives, :allow_destroy => true
+  #FIXME This validation should be in the subclass, but since we are using Single Table
+  # Inheritance we are instantiating a Field object with the type as a param. So the validation
+  # had to go here or rails would skip it.
+  validates_length_of :alternatives, :minimum => 1, :message => 'can\'t be empty', :if => Proc.new { |f| f.type == 'CustomFormsPlugin::SelectField' }
 
   before_validation do |field|
     field.slug = field.name.to_slug if field.name.present?
