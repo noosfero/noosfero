@@ -77,7 +77,7 @@ class ApproveCommentTest < ActiveSupport::TestCase
   end
 
   should 'create comment with the created_at atribute passed as parameter when finishing task' do
-    now = Time.now - 10
+    now = Time.now.in_time_zone - 10
     @comment.created_at = now
     approve_comment = ApproveComment.create!(:target => @community, :comment_attributes => @comment.attributes.to_json, :requestor => @profile)
     assert_difference @article.comments, :count, 1 do
