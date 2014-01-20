@@ -2,6 +2,7 @@ class TagsBlock < Block
 
   include TagsHelper
   include BlockHelper
+  include ActionView::Helpers
   include Rails.application.routes.url_helpers
 
   settings_items :limit, :type => :integer, :default => 12
@@ -31,7 +32,7 @@ class TagsBlock < Block
     end
 
     url = is_env ? {:host=>owner.default_hostname, :controller=>'search', :action => 'tag'} :
-          owner.public_profile_url.merge(:controller => 'profile', :action => 'tags')
+          owner.public_profile_url.merge(:controller => 'profile', :action => 'content_tagged')
     tagname_option = is_env ? :tag : :id
 
     block_title(title) +
