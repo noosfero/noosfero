@@ -4,15 +4,9 @@ class AddPositionToFieldAndAlternatives < ActiveRecord::Migration
       t.integer :position, :default => 0
     end
 
-    CustomFormsPlugin::Field.find_each do |f|
-      f.position = f.id
-      f.save!
-    end
+    update("UPDATE custom_forms_plugin_fields SET position=id")
+    update("UPDATE custom_forms_plugin_alternatives SET position=id")
 
-    CustomFormsPlugin::Alternative.find_each do |f|
-      f.position = f.id
-      f.save!
-    end
   end
 
   def self.down
