@@ -4,19 +4,39 @@ class SubOrganizationsPluginProfileController < ProfileController
   before_filter :organizations_only
 
   def children
-    @organizations = SubOrganizationsPlugin::Relation.children(profile)
-
+    children = SubOrganizationsPlugin::Relation.children(profile)
+    family_relation(children)
     render 'related_organizations'
   end
 
   def parents
-    @organizations = SubOrganizationsPlugin::Relation.parents(profile)
-
+    parents = SubOrganizationsPlugin::Relation.parents(profile)
+    family_relation(parents)
     render 'related_organizations'
   end
 
-
   private
+
+  def family_relation(_profile)
+    @communities = _profile.communities
+    @enterprises = _profile.enterprises
+    @full = true
+
+    if !params[:type] and !params[:display]
+      @communities = SubOrganizationsPlugin.limit(@communities)
+      @enterprises = SubOrganizationsPlugin.limit(@enterprises)
+      @full = false
+    elsif !params[:type]
+      @total = _profile
+      @total = @total.paginate(:per_page => 2, :page => params[:npage])
+      if params[:display] == 'compact'
+        @full = false
+      end
+    else
+      @communities = @communities.paginate(:per_page => 2, :page => params[:npage])
+      @enterprises = @enterprises.paginate(:per_page => 2, :page => params[:npage])
+    end
+  end
 
   def organizations_only
     render_not_found if !profile.organization?
