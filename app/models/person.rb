@@ -81,8 +81,6 @@ class Person < Profile
 
   belongs_to :user, :dependent => :delete
 
-  acts_as_voter
-
   def can_control_scrap?(scrap)
     begin
       !self.scraps(scrap).nil?

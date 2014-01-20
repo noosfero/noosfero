@@ -1744,17 +1744,4 @@ class ArticleTest < ActiveSupport::TestCase
     assert_nil article.author_id
   end
 
-  should 'vote in a article' do
-    article = Article.create!(:name => 'Test', :profile => profile, :last_changed_by => nil)
-    profile.vote(article, 5)
-    assert_equal 1, article.voters_who_voted.length
-    assert_equal 5, article.votes_total
-  end
-
-  should 'be able to remove a voted article' do
-    article = Article.create!(:name => 'Test', :profile => profile, :last_changed_by => nil)
-    profile.vote(article, 5)
-    article.destroy
-  end
-
 end
