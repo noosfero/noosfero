@@ -167,7 +167,7 @@ class ApplicationController < ActionController::Base
 
   def load_category
     unless params[:category_path].blank?
-      path = params[:category_path].join('/')
+      path = params[:category_path]
       @category = environment.categories.find_by_path(path)
       if @category.nil?
         render_not_found(path)

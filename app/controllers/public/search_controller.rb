@@ -159,7 +159,7 @@ class SearchController < PublicController
     if params[:category_path].blank?
       render_not_found if params[:action] == 'category_index'
     else
-      path = params[:category_path].join('/')
+      path = params[:category_path]
       @category = environment.categories.find_by_path(path)
       if @category.nil?
         render_not_found(path)

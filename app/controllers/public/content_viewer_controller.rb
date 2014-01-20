@@ -6,7 +6,7 @@ class ContentViewerController < ApplicationController
   helper TagsHelper
 
   def view_page
-    path = params[:page].join('/')
+    path = params[:page]
 
     if path.blank?
       @page = profile.home_page
