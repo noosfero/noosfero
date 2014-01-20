@@ -260,7 +260,7 @@ class PersonTest < ActiveSupport::TestCase
     p2 = create_user('testuser2').person
     p1.add_friend(p2, 'friends')
 
-    assert_difference Friendship, :count, -1 do
+    assert_difference 'Friendship.count', -1 do
       p1.remove_friend(p2)
     end
     assert_not_includes p1.friends(true), p2
@@ -272,7 +272,7 @@ class PersonTest < ActiveSupport::TestCase
     p1.add_friend(p2, 'friends')
     p2.add_friend(p1, 'friends')
 
-    assert_difference Friendship, :count, -2 do
+    assert_difference 'Friendship.count', -2 do
       p1.destroy
     end
     assert_not_includes p2.friends(true), p1
@@ -280,7 +280,7 @@ class PersonTest < ActiveSupport::TestCase
 
   should 'destroy use when person is destroyed' do
     person = create_user('testuser').person
-    assert_difference User, :count, -1 do
+    assert_difference 'User.count', -1 do
       person.destroy
     end
   end
@@ -374,7 +374,7 @@ class PersonTest < ActiveSupport::TestCase
   should 'destroy all task that it requested when destroyed' do
     p = create_user('test_profile').person
 
-    assert_no_difference Task, :count do
+    assert_no_difference 'Task.count' do
       create(Task, :requestor => p)
       p.destroy
     end
@@ -835,7 +835,7 @@ class PersonTest < ActiveSupport::TestCase
     action_tracker = fast_create(ActionTracker::Record, :user_id => p1.id)
     ActionTrackerNotification.delete_all
     Delayed::Job.destroy_all
-    assert_difference ActionTrackerNotification, :count, 3 do
+    assert_difference 'ActionTrackerNotification.count', 3 do
       Person.notify_activity(action_tracker)
       process_delayed_job_queue
     end
@@ -858,7 +858,7 @@ class PersonTest < ActiveSupport::TestCase
 
     action_tracker = fast_create(ActionTracker::Record)
 
-    assert_difference(Delayed::Job, :count, 1) do
+    assert_difference 'Delayed::Job.count', 1 do
       Person.notify_activity(action_tracker)
     end
   end
@@ -878,10 +878,10 @@ class PersonTest < ActiveSupport::TestCase
     action_tracker = fast_create(ActionTracker::Record, :user_id => p1.id)
 
     Delayed::Job.delete_all
-    assert_difference(Delayed::Job, :count, 1) do
+    assert_difference 'Delayed::Job.count', 1 do
       Person.notify_activity(action_tracker)
     end
-    assert_difference(ActionTrackerNotification, :count, 3) do
+    assert_difference 'ActionTrackerNotification.count', 3 do
       process_delayed_job_queue
     end
   end
@@ -904,7 +904,7 @@ class PersonTest < ActiveSupport::TestCase
     action_tracker.target = community
     action_tracker.save!
     ActionTrackerNotification.delete_all
-    assert_difference(ActionTrackerNotification, :count, 3) do
+    assert_difference 'ActionTrackerNotification.count', 3 do
       Person.notify_activity(action_tracker)
       process_delayed_job_queue
     end
@@ -937,7 +937,7 @@ class PersonTest < ActiveSupport::TestCase
     article.stubs(:profile).returns(community)
     ActionTrackerNotification.delete_all
 
-    assert_difference(Delayed::Job, :count, 1) do
+    assert_difference 'Delayed::Job.count', 1 do
       Person.notify_activity(action_tracker)
     end
     ActionTrackerNotification.all.map{|a|a.profile}.map do |profile|
@@ -1186,12 +1186,12 @@ class PersonTest < ActiveSupport::TestCase
     profile = fast_create(Profile)
 
     abuse_report1 = build(AbuseReport, :reason => 'some reason')
-    assert_difference AbuseComplaint, :count, 1 do
+    assert_difference 'AbuseComplaint.count', 1 do
       p1.register_report(abuse_report1, profile)
     end
 
     abuse_report2 = build(AbuseReport, :reason => 'some reason')
-    assert_no_difference AbuseComplaint, :count do
+    assert_no_difference 'AbuseComplaint.count' do
       p2.register_report(abuse_report2, profile)
     end
 

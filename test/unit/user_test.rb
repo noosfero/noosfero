@@ -8,35 +8,35 @@ class UserTest < ActiveSupport::TestCase
   fixtures :users, :environments
 
   def test_should_create_user
-    assert_difference User, :count do
+    assert_difference 'User.count' do
       user = new_user
       assert !user.new_record?, "#{user.errors.full_messages.to_sentence}"
     end
   end
 
   def test_should_require_login
-    assert_no_difference User, :count do
+    assert_no_difference 'User.count' do
       u = new_user(:login => nil)
       assert u.errors[:login].present?
     end
   end
 
   def test_should_require_password
-    assert_no_difference User, :count do
+    assert_no_difference 'User.count' do
       u = new_user(:password => nil)
       assert u.errors[:password].present?
     end
   end
 
   def test_should_require_password_confirmation
-    assert_no_difference User, :count do
+    assert_no_difference 'User.count' do
       u = new_user(:password_confirmation => nil)
       assert u.errors[:password_confirmation].present?
     end
   end
 
   def test_should_require_email
-    assert_no_difference User, :count do
+    assert_no_difference 'User.count' do
       u = new_user(:email => nil)
       assert u.errors[:email].present?
     end
@@ -470,7 +470,7 @@ class UserTest < ActiveSupport::TestCase
   end
 
   should 'deliver e-mail with activation code after creation' do
-    assert_difference(ActionMailer::Base.deliveries, :size, 1) do
+    assert_difference 'ActionMailer::Base.deliveries.size', 1 do
       new_user :email => 'pending@activation.com'
     end
     assert_equal 'pending@activation.com', ActionMailer::Base.deliveries.last['to'].to_s
@@ -478,7 +478,7 @@ class UserTest < ActiveSupport::TestCase
 
   should 'not try to deliver email to template users' do
     Person.any_instance.stubs(:is_template?).returns(true)
-    assert_no_difference ActionMailer::Base.deliveries, :size do
+    assert_no_difference 'ActionMailer::Base.deliveries.size' do
       new_user
     end
   end
@@ -517,7 +517,7 @@ class UserTest < ActiveSupport::TestCase
   end
 
   should 'delay activation check' do
-    assert_difference Delayed::Job, :count, 1 do
+    assert_difference 'Delayed::Job.count', 1 do
       user = new_user
     end
   end
@@ -568,7 +568,7 @@ class UserTest < ActiveSupport::TestCase
     env.save
 
     user = new_user :email => 'pending@activation.com'
-    assert_no_difference(ActionMailer::Base.deliveries, :size) do
+    assert_no_difference 'ActionMailer::Base.deliveries.size' do
       user.activate
     end
   end
@@ -583,7 +583,7 @@ class UserTest < ActiveSupport::TestCase
     env.save
 
     user = new_user :email => 'pending@activation.com'
-    assert_difference(ActionMailer::Base.deliveries, :size, 1) do
+    assert_difference 'ActionMailer::Base.deliveries.size', 1 do
       user.activate
       process_delayed_job_queue
     end
@@ -603,7 +603,7 @@ class UserTest < ActiveSupport::TestCase
     env.save
 
     user = new_user :email => 'pending@activation.com'
-    assert_difference(ActionMailer::Base.deliveries, :size, 1) do
+    assert_difference 'ActionMailer::Base.deliveries.size', 1 do
       user.activate
     end
 
@@ -621,7 +621,7 @@ class UserTest < ActiveSupport::TestCase
     env.save
 
     user = new_user :name => 'John Doe', :email => 'pending@activation.com'
-    assert_difference(ActionMailer::Base.deliveries, :size, 1) do
+    assert_difference 'ActionMailer::Base.deliveries.size', 1 do
       user.activate
     end
 
@@ -638,7 +638,7 @@ class UserTest < ActiveSupport::TestCase
     env.save
 
     user = new_user :email => 'pending@activation.com'
-    assert_no_difference(ActionMailer::Base.deliveries, :size) do
+    assert_no_difference 'ActionMailer::Base.deliveries.size' do
       user.activate
     end
   end
@@ -649,7 +649,7 @@ class UserTest < ActiveSupport::TestCase
     env.save
 
     user = new_user :email => 'pending@activation.com'
-    assert_no_difference(ActionMailer::Base.deliveries, :size) do
+    assert_no_difference 'ActionMailer::Base.deliveries.size' do
       user.activate
     end
   end

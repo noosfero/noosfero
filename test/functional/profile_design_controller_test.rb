@@ -163,7 +163,7 @@ class ProfileDesignControllerTest < ActionController::TestCase
   end
 
   def test_should_remove_block
-    assert_difference Block, :count, -1 do
+    assert_difference 'Block.count', -1 do
       post :remove, :profile => 'designtestuser', :id => @b2.id
       assert_response :redirect
       assert_redirected_to :action => 'index'
@@ -315,14 +315,14 @@ class ProfileDesignControllerTest < ActionController::TestCase
   end
 
   should 'actually add a new block' do
-    assert_difference Block, :count do
+    assert_difference 'Block.count' do
       post :add_block, :profile => 'designtestuser', :box_id => @box1.id, :type => RecentDocumentsBlock.name
       assert_redirected_to :action => 'index'
     end
   end
 
   should 'not allow to create unknown types' do
-    assert_no_difference Block, :count do
+    assert_no_difference 'Block.count' do
       assert_raise ArgumentError do
         post :add_block, :profile => 'designtestuser', :box_id => @box1.id, :type => "PleaseLetMeCrackYourSite"
       end

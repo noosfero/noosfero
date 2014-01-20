@@ -202,7 +202,7 @@ class TaskTest < ActiveSupport::TestCase
 
   should 'be destroyed when requestor destroyed' do
     user = create_user('test_user').person
-    assert_no_difference Task, :count do
+    assert_no_difference 'Task.count' do
       create(Task, :requestor => user)
       user.destroy
     end

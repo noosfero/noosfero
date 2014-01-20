@@ -145,7 +145,7 @@ class TinyMceArticleTest < ActiveSupport::TestCase
     article = create(TinyMceArticle, :profile_id => profile.id)
     time = article.activity.updated_at
     Time.stubs(:now).returns(time + 1.day)
-    assert_no_difference ActionTracker::Record, :count do
+    assert_no_difference 'ActionTracker::Record.count' do
       article.name = 'foo'
       article.save!
     end
@@ -156,7 +156,7 @@ class TinyMceArticleTest < ActiveSupport::TestCase
     ActionTracker::Record.delete_all
     a1 = create TinyMceArticle, :name => 'bar', :profile_id => fast_create(Profile).id, :published => true
     a2 = create TinyMceArticle, :name => 'another bar', :profile_id => fast_create(Profile).id, :published => true
-    assert_no_difference ActionTracker::Record, :count do
+    assert_no_difference 'ActionTracker::Record.count' do
       a1.name = 'foo';a1.save!
       a2.name = 'another foo';a2.save!
     end
@@ -166,7 +166,7 @@ class TinyMceArticleTest < ActiveSupport::TestCase
     ActionTracker::Record.delete_all
     a1 = create TinyMceArticle, :name => 'bar', :profile_id => fast_create(Profile).id, :published => true
     a2 = create TinyMceArticle, :name => 'another bar', :profile_id => fast_create(Profile).id, :published => true
-    assert_difference ActionTracker::Record, :count, -2 do
+    assert_difference 'ActionTracker::Record.count', -2 do
       a1.destroy
       a2.destroy
 end

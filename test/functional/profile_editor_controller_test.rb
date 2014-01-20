@@ -802,7 +802,7 @@ class ProfileEditorControllerTest < ActionController::TestCase
   should 'be able to destroy a person' do
     person = fast_create(Person)
 
-    assert_difference Person, :count, -1 do
+    assert_difference 'Person.count', -1 do
       post :destroy_profile, :profile => person.identifier
     end
   end
@@ -813,7 +813,7 @@ class ProfileEditorControllerTest < ActionController::TestCase
     person = create_user('foo').person
     community.add_admin(person)
 
-    assert_difference Community, :count, -1 do
+    assert_difference 'Community.count', -1 do
       post :destroy_profile, :profile => community.identifier
     end
   end
@@ -826,7 +826,7 @@ class ProfileEditorControllerTest < ActionController::TestCase
     community.add_member(person)
 
     login_as 'foo'
-    assert_difference Community, :count, 0 do
+    assert_difference 'Community.count', 0 do
       post :destroy_profile, :profile => community.identifier
     end
   end
@@ -837,7 +837,7 @@ class ProfileEditorControllerTest < ActionController::TestCase
     person = create_user('foo').person
     enterprise.add_admin(person)
 
-    assert_difference Enterprise, :count, -1 do
+    assert_difference 'Enterprise.count', -1 do
       post :destroy_profile, :profile => enterprise.identifier
     end
   end
@@ -850,7 +850,7 @@ class ProfileEditorControllerTest < ActionController::TestCase
     enterprise.add_member(person)
 
     login_as('foo')
-    assert_difference Enterprise, :count, 0 do
+    assert_difference 'Enterprise.count', 0 do
       post :destroy_profile, :profile => enterprise.identifier
     end
   end

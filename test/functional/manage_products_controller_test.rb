@@ -49,7 +49,7 @@ class ManageProductsControllerTest < ActionController::TestCase
   end
 
   should "create new product" do
-    assert_difference Product, :count do
+    assert_difference 'Product.count' do
       post 'new', :profile => @enterprise.identifier, :product => {:name => 'test product'}, :selected_category_id => @product_category.id
       assert assigns(:product)
       assert !assigns(:product).new_record?
@@ -57,7 +57,7 @@ class ManageProductsControllerTest < ActionController::TestCase
   end
 
   should "not create invalid product" do
-    assert_no_difference Product, :count do
+    assert_no_difference 'Product.count' do
       post 'new', :profile => @enterprise.identifier, :product => {:name => 'test product'}
       assert_response :success
       assert assigns(:product)
@@ -132,7 +132,7 @@ class ManageProductsControllerTest < ActionController::TestCase
 
   should "destroy product" do
     product = fast_create(Product, :name => 'test product', :enterprise_id => @enterprise.id, :product_category_id => @product_category.id)
-    assert_difference Product, :count, -1 do
+    assert_difference 'Product.count', -1 do
       post 'destroy', :profile => @enterprise.identifier, :id => product.id
       assert_response :redirect
       assert_redirected_to :action => 'index'
@@ -144,7 +144,7 @@ class ManageProductsControllerTest < ActionController::TestCase
   should "fail to destroy product" do
     product = fast_create(Product, :name => 'test product', :enterprise_id => @enterprise.id, :product_category_id => @product_category.id)
     Product.any_instance.stubs(:destroy).returns(false)
-    assert_no_difference Product, :count do
+    assert_no_difference 'Product.count' do
       post 'destroy', :profile => @enterprise.identifier, :id => product.id
       assert_response :redirect
       assert_redirected_to :controller => "manage_products", :profile => @enterprise.identifier, :action => 'show', :id => product.id
@@ -164,7 +164,7 @@ class ManageProductsControllerTest < ActionController::TestCase
   should "create new product categorized" do
     category1 = fast_create(ProductCategory, :name => 'Category 1')
     category2 = fast_create(ProductCategory, :name => 'Category 2', :parent_id => category1)
-    assert_difference Product, :count do
+    assert_difference 'Product.count' do
       post 'new', :profile => @enterprise.identifier, :product => { :name => 'test product' }, :selected_category_id => category2.id
       assert_equal category2, assigns(:product).product_category
     end
@@ -248,7 +248,7 @@ class ManageProductsControllerTest < ActionController::TestCase
   end
 
   should 'render redirect_via_javascript template after save' do
-    assert_difference Product, :count do
+    assert_difference 'Product.count' do
       post :new, :profile => @enterprise.identifier, :product => { :name => 'Invalid product' }, :selected_category_id => @product_category.id
       assert_template 'shared/_redirect_via_javascript'
     end

@@ -400,7 +400,7 @@ class CategoryTest < ActiveSupport::TestCase
   end
 
   should 'have image' do
-    assert_difference Category, :count do
+    assert_difference 'Category.count' do
       c = create(Category, :name => 'test category1', :environment => Environment.default, :image_builder => {
         :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')
       })

@@ -14,7 +14,7 @@ class CommentNotifierTest < ActiveSupport::TestCase
   end
 
   should 'deliver mail after make an article comment' do
-    assert_difference ActionMailer::Base.deliveries, :size do
+    assert_difference 'ActionMailer::Base.deliveries.size' do
       create_comment_and_notify(:author => @author, :title => 'test comment', :body => 'you suck!', :source => @article )
     end
   end
@@ -40,7 +40,7 @@ class CommentNotifierTest < ActiveSupport::TestCase
 
   should 'not deliver mail if notify comments is false' do
     @article.update_attribute(:notify_comments, false)
-    assert_no_difference ActionMailer::Base.deliveries, :size do
+    assert_no_difference 'ActionMailer::Base.deliveries.size' do
       create_comment_and_notify(:author => @author, :title => 'test comment', :body => 'you suck!', :source => @article)
     end
   end
@@ -61,7 +61,7 @@ class CommentNotifierTest < ActiveSupport::TestCase
     community = fast_create(Community)
     assert_equal [], community.notification_emails
     article = fast_create(Article, :name => 'Article test', :profile_id => community.id, :notify_comments => true)
-    assert_no_difference ActionMailer::Base.deliveries, :size do
+    assert_no_difference 'ActionMailer::Base.deliveries.size' do
       create_comment_and_notify(:author => @author, :title => 'test comment', :body => 'there is no addresses to send notification', :source => article)
     end
   end

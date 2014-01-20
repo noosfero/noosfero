@@ -170,11 +170,11 @@ class CommunityTest < ActiveSupport::TestCase
     env.enable('admin_must_approve_new_communities')
     person.stubs(:notification_emails).returns(['sample@example.org'])
 
-    assert_difference CreateCommunity, :count do
+    assert_difference 'CreateCommunity.count' do
       Community.create_after_moderation(person, {:environment => env, :name => 'Example'})
     end
 
-    assert_no_difference Community, :count do
+    assert_no_difference 'Community.count' do
       Community.create_after_moderation(person, {:environment => env, :name => 'Example'})
     end
   end
@@ -183,11 +183,11 @@ class CommunityTest < ActiveSupport::TestCase
     env = Environment.default
     env.disable('admin_must_approve_new_communities')
 
-    assert_difference Community, :count do
+    assert_difference 'Community.count' do
       Community.create_after_moderation(person, {:environment => env, :name => 'Example 1'})
     end
 
-    assert_no_difference CreateCommunity, :count do
+    assert_no_difference 'CreateCommunity.count' do
       Community.create_after_moderation(person, {:environment => env, :name => 'Example 2'})
     end
   end
@@ -197,7 +197,7 @@ class CommunityTest < ActiveSupport::TestCase
     community.closed = true
     community.save
 
-    assert_no_difference AddMember, :count do
+    assert_no_difference 'AddMember.count' do
       community.add_member(person)
     end
     assert person.is_member_of?(community)
@@ -206,7 +206,7 @@ class CommunityTest < ActiveSupport::TestCase
   should 'set as member without task if organization is not closed and has no members' do
     community = fast_create(Community)
 
-    assert_no_difference AddMember, :count do
+    assert_no_difference 'AddMember.count' do
       community.add_member(person)
     end
     assert person.is_member_of?(community)
@@ -221,11 +221,11 @@ class CommunityTest < ActiveSupport::TestCase
 
     community.stubs(:notification_emails).returns(['sample@example.org'])
 
-    assert_difference AddMember, :count do
+    assert_difference 'AddMember.count' do
       community.add_member(person)
     end
 
-    assert_no_difference AddMember, :count do
+    assert_no_difference 'AddMember.count' do
       community.add_member(person)
     end
   end
@@ -271,7 +271,7 @@ class CommunityTest < ActiveSupport::TestCase
 
     RoleAssignment.delete_all
     ActionTrackerNotification.delete_all
-    assert_difference(ActionTrackerNotification, :count, 5) do
+    assert_difference 'ActionTrackerNotification.count', 5 do
       community.add_member(p1)
       process_delayed_job_queue
       community.add_member(p3)
@@ -364,7 +364,7 @@ class CommunityTest < ActiveSupport::TestCase
     community = fast_create(Community)
 
     UserStampSweeper.any_instance.expects(:current_user).returns(person).at_least_once
-    assert_difference ActionTracker::Record, :count, 1 do
+    assert_difference 'ActionTracker::Record.count', 1 do
       article = create(TinyMceArticle, :profile => community, :name => 'An article about free software')
     end
 

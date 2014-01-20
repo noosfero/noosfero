@@ -12,7 +12,7 @@ class InviteFriendTest < ActiveSupport::TestCase
 
     task = InviteFriend.create!(:person => p1, :friend => p2)
 
-    assert_difference Friendship, :count, 2 do
+    assert_difference 'Friendship.count', 2 do
       task.finish
     end
 

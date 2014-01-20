@@ -90,7 +90,7 @@ class ProfileControllerTest < ActionController::TestCase
   should 'actually add friend' do
     login_as(@profile.identifier)
     person = fast_create(Person)
-    assert_difference AddFriend, :count do
+    assert_difference 'AddFriend.count' do
       post :add, :profile => person.identifier
     end
   end
@@ -408,7 +408,7 @@ class ProfileControllerTest < ActionController::TestCase
     community.add_member(admin)
 
     login_as profile.identifier
-    assert_difference AddMember, :count do
+    assert_difference 'AddMember.count' do
       post :join, :profile => community.identifier
     end
   end
@@ -418,7 +418,7 @@ class ProfileControllerTest < ActionController::TestCase
     community.update_attribute(:closed, true)
 
     login_as profile.identifier
-    assert_no_difference AddMember, :count do
+    assert_no_difference 'AddMember.count' do
       post :join, :profile => community.identifier
     end
   end
@@ -630,7 +630,7 @@ class ProfileControllerTest < ActionController::TestCase
     login_as(profile.identifier)
     scrap = fast_create(Scrap, :sender_id => profile.id)
     count = Scrap
-    assert_difference Scrap, :count, -1 do
+    assert_difference 'Scrap.count', -1 do
       post :remove_scrap, :profile => profile.identifier, :scrap_id => scrap.id
     end
   end
@@ -639,7 +639,7 @@ class ProfileControllerTest < ActionController::TestCase
     login_as(profile.identifier)
     scrap = fast_create(Scrap, :receiver_id => profile.id)
     count = Scrap
-    assert_difference Scrap, :count, -1 do
+    assert_difference 'Scrap.count', -1 do
       post :remove_scrap, :profile => profile.identifier, :scrap_id => scrap.id
     end
   end
@@ -649,7 +649,7 @@ class ProfileControllerTest < ActionController::TestCase
     person = fast_create(Person)
     scrap = fast_create(Scrap, :sender_id => person.id, :receiver_id => person.id)
     count = Scrap
-    assert_difference Scrap, :count, 0 do
+    assert_difference 'Scrap.count', 0 do
       post :remove_scrap, :profile => profile.identifier, :scrap_id => scrap.id
     end
   end
@@ -1023,7 +1023,7 @@ class ProfileControllerTest < ActionController::TestCase
   should "the owner of activity could remove it" do
     login_as(profile.identifier)
     at = fast_create(ActionTracker::Record, :user_id => profile.id)
-    assert_difference ActionTracker::Record, :count, -1 do
+    assert_difference 'ActionTracker::Record.count', -1 do
       post :remove_activity, :profile => profile.identifier, :activity_id => at.id
     end
   end
@@ -1034,7 +1034,7 @@ class ProfileControllerTest < ActionController::TestCase
     at = fast_create(ActionTracker::Record, :user_id => profile.id)
     atn = fast_create(ActionTrackerNotification, :profile_id => person.id, :action_tracker_id => at.id)
     count = ActionTrackerNotification
-    assert_difference ActionTrackerNotification, :count, -1 do
+    assert_difference 'ActionTrackerNotification.count', -1 do
       post :remove_activity, :profile => profile.identifier, :activity_id => at.id
     end
   end
@@ -1056,13 +1056,13 @@ class ProfileControllerTest < ActionController::TestCase
     @controller.stubs(:user).returns(user)
     @controller.stubs(:profile).returns(owner)
 
-    assert_no_difference ActionTracker::Record, :count do
+    assert_no_difference 'ActionTracker::Record.count' do
       post :remove_activity, :profile => owner.identifier, :activity_id => activity.id
     end
 
     owner.environment.add_admin(user)
 
-    assert_difference ActionTracker::Record, :count, -1 do
+    assert_difference 'ActionTracker::Record.count', -1 do
       post :remove_activity, :profile => owner.identifier, :activity_id => activity.id
     end
   end
@@ -1076,13 +1076,13 @@ class ProfileControllerTest < ActionController::TestCase
     @controller.stubs(:user).returns(user)
     @controller.stubs(:profile).returns(profile)
 
-    assert_no_difference ActionTrackerNotification, :count do
+    assert_no_difference 'ActionTrackerNotification.count' do
       post :remove_notification, :profile => profile.identifier, :activity_id => activity.id
     end
 
     profile.environment.add_admin(user)
 
-    assert_difference ActionTrackerNotification, :count, -1 do
+    assert_difference 'ActionTrackerNotification.count', -1 do
       post :remove_activity, :profile => profile.identifier, :activity_id => activity.id
     end
   end
@@ -1300,7 +1300,7 @@ class ProfileControllerTest < ActionController::TestCase
     login_as(profile.identifier)
     @controller.stubs(:verify_recaptcha).returns(true)
 
-    assert_difference AbuseReport, :count, 1 do
+    assert_difference 'AbuseReport.count', 1 do
       post :register_report, :profile => reported.identifier, :abuse_report => {:reason => 'some reason'}
     end
   end
@@ -1312,7 +1312,7 @@ class ProfileControllerTest < ActionController::TestCase
     environment.add_admin(profile)
     @controller.expects(:verify_recaptcha).never
 
-    assert_difference AbuseReport, :count, 1 do
+    assert_difference 'AbuseReport.count', 1 do
       post :register_report, :profile => reported.identifier, :abuse_report => {:reason => 'some reason'}
     end
   end
@@ -1432,7 +1432,7 @@ class ProfileControllerTest < ActionController::TestCase
     create_user_with_permission('profile_moderator_user', 'send_mail_to_members', community)
     login_as('profile_moderator_user')
     @controller.stubs(:locale).returns('pt')
-    assert_difference Delayed::Job, :count, 1 do
+    assert_difference 'Delayed::Job.count', 1 do
       post :send_mail, :profile => community.identifier, :mailing => {:subject => 'Hello', :body => 'We have some news'}
     end
   end

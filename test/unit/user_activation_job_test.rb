@@ -3,7 +3,7 @@ require File.dirname(__FILE__) + '/../test_helper'
 class NotifyActivityToProfilesJobTest < ActiveSupport::TestCase
 
   should 'create job on user creation' do
-    assert_difference Delayed::Job, :count, 1 do
+    assert_difference 'Delayed::Job.count', 1 do
       user = new_user :login => 'test1'
       assert_equal user.id, YAML.load(Delayed::Job.last.handler).user_id
     end
@@ -13,7 +13,7 @@ class NotifyActivityToProfilesJobTest < ActiveSupport::TestCase
   should 'destroy user if not activated' do
     user = new_user :login => 'test2'
     job = UserActivationJob.new(user.id)
-    assert_difference User, :count, -1 do
+    assert_difference 'User.count', -1 do
       job.perform
       process_delayed_job_queue
     end
@@ -23,7 +23,7 @@ class NotifyActivityToProfilesJobTest < ActiveSupport::TestCase
     user = new_user :login => 'test3'
     user.activate
     job = UserActivationJob.new(user.id)
-    assert_no_difference User, :count do
+    assert_no_difference 'User.count' do
       job.perform
       process_delayed_job_queue
     end

@@ -34,7 +34,7 @@ class CreateCommunityTest < ActiveSupport::TestCase
       :target => Environment.default,
     })
 
-    assert_difference Community, :count do
+    assert_difference 'Community.count' do
       task.finish
     end
 
@@ -76,7 +76,7 @@ class CreateCommunityTest < ActiveSupport::TestCase
     })
 
     assert_equal 'rails.png', task.image.filename
-    assert_difference Community, :count do
+    assert_difference 'Community.count' do
       task.finish
     end
 

@@ -71,7 +71,7 @@ class ApproveCommentTest < ActiveSupport::TestCase
 
   should 'create comment when finishing task' do
     approve_comment = ApproveComment.create!(:target => @community, :comment_attributes => @comment.attributes.to_json, :requestor => @profile)
-    assert_difference @article.comments, :count, 1 do
+    assert_difference '@article.comments.count', 1 do
       approve_comment.finish
     end
   end
@@ -80,7 +80,7 @@ class ApproveCommentTest < ActiveSupport::TestCase
     now = Time.now.in_time_zone - 10
     @comment.created_at = now
     approve_comment = ApproveComment.create!(:target => @community, :comment_attributes => @comment.attributes.to_json, :requestor => @profile)
-    assert_difference @article.comments, :count, 1 do
+    assert_difference '@article.comments.count', 1 do
       approve_comment.finish
     end
     comment = Comment.last

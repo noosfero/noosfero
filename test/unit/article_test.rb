@@ -308,10 +308,10 @@ class ArticleTest < ActiveSupport::TestCase
   end
 
   should 'remove comments when removing article' do
-    assert_no_difference Comment, :count do
+    assert_no_difference 'Comment.count' do
       a = create(Article, :name => 'test article', :profile_id => profile.id)
 
-      assert_difference Comment, :count, 1 do
+      assert_difference 'Comment.count', 1 do
         comment = a.comments.build
         comment.author = profile
         comment.title = 'test comment'
@@ -975,7 +975,7 @@ class ArticleTest < ActiveSupport::TestCase
 
   should 'destroy activity when a published article is removed' do
     a = create(TinyMceArticle, :profile_id => profile.id)
-    assert_difference ActionTracker::Record, :count, -1 do
+    assert_difference 'ActionTracker::Record.count', -1 do
       a.destroy
     end
   end
@@ -1124,7 +1124,7 @@ class ArticleTest < ActiveSupport::TestCase
     process_delayed_job_queue
     assert_equal 2, ActionTrackerNotification.find_all_by_action_tracker_id(activity.id).count
 
-    assert_difference ActionTrackerNotification, :count, -2 do
+    assert_difference 'ActionTrackerNotification.count', -2 do
       article.destroy
     end
 
@@ -1147,7 +1147,7 @@ class ArticleTest < ActiveSupport::TestCase
     process_delayed_job_queue
     assert_equal 3, ActionTrackerNotification.find_all_by_action_tracker_id(activity.id).count
 
-    assert_difference ActionTrackerNotification, :count, -3 do
+    assert_difference 'ActionTrackerNotification.count', -3 do
       article.destroy
     end
 
@@ -1767,7 +1767,7 @@ class ArticleTest < ActiveSupport::TestCase
   end
 
   should 'save image on create article' do
-    assert_difference Article, :count do
+    assert_difference 'Article.count' do
       p = create(Article, :name => 'test', :image_builder => {
         :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')
       }, :profile_id => @profile.id)

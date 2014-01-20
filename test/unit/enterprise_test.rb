@@ -66,7 +66,7 @@ class EnterpriseTest < ActiveSupport::TestCase
     create(Product, :enterprise => e, :name => 'One product', :product_category => @product_category)
     create(Product, :enterprise => e, :name => 'Another product', :product_category => @product_category)
 
-    assert_difference Product, :count, -2 do
+    assert_difference 'Product.count', -2 do
       e.destroy
     end
   end
@@ -215,7 +215,7 @@ class EnterpriseTest < ActiveSupport::TestCase
   end
 
   should 'not create activation task when enabled = true' do
-    assert_no_difference EnterpriseActivation, :count do
+    assert_no_difference 'EnterpriseActivation.count' do
       fast_create(Enterprise, :name => 'test enteprise', :identifier => 'test_ent', :enabled => true)
     end
   end

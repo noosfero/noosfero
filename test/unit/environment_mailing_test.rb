@@ -61,7 +61,7 @@ class EnvironmentMailingTest < ActiveSupport::TestCase
 
   should 'create mailing sent to each recipient after delivering mailing' do
     mailing = create_mailing(environment, :person => person_1)
-    assert_difference MailingSent, :count, 2 do
+    assert_difference 'MailingSent.count', 2 do
       process_delayed_job_queue
     end
   end

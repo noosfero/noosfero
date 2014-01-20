@@ -16,7 +16,7 @@ begin
     end
 
     should 'deliver mail notification about exceptions' do
-      assert_difference ActionMailer::Base.deliveries, :size do
+      assert_difference 'ActionMailer::Base.deliveries.size' do
         get '/account/signup'
       end
     end

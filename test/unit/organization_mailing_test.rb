@@ -74,7 +74,7 @@ class OrganizationMailingTest < ActiveSupport::TestCase
 
   should 'create mailing sent to each recipient after delivering mailing' do
     mailing = create(OrganizationMailing, :source => community, :subject => 'Hello', :body => 'We have some news', :person => person)
-    assert_difference MailingSent, :count, 2 do
+    assert_difference 'MailingSent.count', 2 do
       process_delayed_job_queue
     end
   end

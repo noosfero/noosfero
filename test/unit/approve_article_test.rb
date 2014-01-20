@@ -28,7 +28,7 @@ class ApproveArticleTest < ActiveSupport::TestCase
   should 'create an article with the same class as original when finished' do
     a = create(ApproveArticle, :article => article, :target => community, :requestor => profile)
 
-    assert_difference article.class, :count do
+    assert_difference 'article.class.count' do
       a.finish
     end
   end
@@ -74,7 +74,7 @@ class ApproveArticleTest < ActiveSupport::TestCase
   should 'handle blank names' do
     a = create(ApproveArticle, :name => '', :article => article, :target => community, :requestor => profile)
 
-    assert_difference article.class, :count do
+    assert_difference 'article.class.count' do
       a.finish
     end
   end
@@ -280,7 +280,7 @@ class ApproveArticleTest < ActiveSupport::TestCase
     a.finish
     assert_equal 2, ActionTracker::Record.count
 
-    assert_no_difference ActionTracker::Record, :count do
+    assert_no_difference 'ActionTracker::Record.count' do
       published = article1.class.last
       published.name = 'foo';published.save!
   
@@ -374,18 +374,18 @@ class ApproveArticleTest < ActiveSupport::TestCase
   should 'approve an event' do
     event = fast_create(Event, :profile_id => profile.id, :name => 'Event test', :slug => 'event-test', :abstract => 'Lead of article', :body => 'This is my event')
     task = create(ApproveArticle, :name => 'Event test', :article => event, :target => community, :requestor => profile)
-    assert_difference event.class, :count do
+    assert_difference 'event.class.count' do
       task.finish
     end
   end
 
   should 'approve same article twice changing its name' do
     task1 = create(ApproveArticle, :article => article, :target => community, :requestor => profile)
-    assert_difference article.class, :count do
+    assert_difference 'article.class.count' do
       task1.finish
     end
     task2 = create(ApproveArticle, :name => article.name + ' v2', :article => article, :target => community, :requestor => profile)
-    assert_difference article.class, :count do
+    assert_difference 'article.class.count' do
       assert_nothing_raised ActiveRecord::RecordInvalid do
          task2.finish
       end
@@ -394,11 +394,11 @@ class ApproveArticleTest < ActiveSupport::TestCase
 
   should 'not approve same article twice if not changing its name' do
     task1 = create(ApproveArticle, :article => article, :target => community, :requestor => profile)
-    assert_difference article.class, :count do
+    assert_difference 'article.class.count' do
       task1.finish
     end
     task2 = create(ApproveArticle, :article => article, :target => community, :requestor => profile)
-    assert_no_difference article.class, :count do
+    assert_no_difference 'article.class.count' do
       assert_raises ActiveRecord::RecordInvalid do
          task2.finish
       end

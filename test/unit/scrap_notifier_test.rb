@@ -13,14 +13,14 @@ class ScrapNotifierTest < ActiveSupport::TestCase
   end
 
   should 'deliver mail after leave scrap' do
-    assert_difference ActionMailer::Base.deliveries, :size do
+    assert_difference 'ActionMailer::Base.deliveries.size' do
       Scrap.create!(:sender_id => @sender.id, :receiver_id => @receiver.id, :content => 'Hi man!')
     end
   end
 
   should 'deliver mail even if it is a reply' do
     s = Scrap.create!(:sender_id => @sender.id, :receiver_id => @receiver.id, :content => 'Hi man!')
-    assert_difference ActionMailer::Base.deliveries, :size do
+    assert_difference 'ActionMailer::Base.deliveries.size' do
       s.replies << Scrap.new(:sender_id => @sender.id, :receiver_id => @receiver.id, :content => 'Hi again man!')
     end
   end
@@ -50,7 +50,7 @@ class ScrapNotifierTest < ActiveSupport::TestCase
   end
 
   should 'not deliver mail if notify receiver and sender are the same person' do
-    assert_no_difference ActionMailer::Base.deliveries, :size do
+    assert_no_difference 'ActionMailer::Base.deliveries.size' do
       Scrap.create!(:sender_id => @sender.id, :receiver_id => @sender.id, :content => 'Hi myself!')
     end
   end
@@ -59,7 +59,7 @@ class ScrapNotifierTest < ActiveSupport::TestCase
     community = fast_create(Community)
     person = fast_create(Person)
     scrap = fast_create(Scrap, :receiver_id => community.id, :sender_id => @sender.id)
-    assert_no_difference ActionMailer::Base.deliveries, :size do
+    assert_no_difference 'ActionMailer::Base.deliveries.size' do
       Scrap.create!(:sender_id => person, :receiver_id => @sender.id, :scrap_id => scrap.id, :content => 'Hi myself!')
     end
   end

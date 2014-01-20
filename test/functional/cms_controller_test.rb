@@ -80,7 +80,7 @@ class CmsControllerTest < ActionController::TestCase
   end
 
   should 'be able to save a document' do
-    assert_difference Article, :count do
+    assert_difference 'Article.count' do
       post :new, :type => 'TinyMceArticle', :profile => profile.identifier, :article => { :name => 'a test article', :body => 'the text of the article ...' }
     end
   end
@@ -245,7 +245,7 @@ class CmsControllerTest < ActionController::TestCase
   should 'be able to remove article' do
     a = profile.articles.build(:name => 'my-article')
     a.save!
-    assert_difference Article, :count, -1 do
+    assert_difference 'Article.count', -1 do
       post :destroy, :profile => profile.identifier, :id => a.id
     end
   end
@@ -276,7 +276,7 @@ class CmsControllerTest < ActionController::TestCase
 
   should 'be able to create a RSS feed' do
     login_as(profile.identifier)
-    assert_difference RssFeed, :count do
+    assert_difference 'RssFeed.count' do
       post :new, :type => RssFeed.name, :profile => profile.identifier, :article => { :name => 'new-feed', :limit => 15, :include => 'all' }
       assert_response :redirect
     end
@@ -294,7 +294,7 @@ class CmsControllerTest < ActionController::TestCase
   end
 
   should 'be able to upload a file' do
-    assert_difference UploadedFile, :count do
+    assert_difference 'UploadedFile.count' do
       post :new, :type => UploadedFile.name, :profile => profile.identifier, :article => { :uploaded_data => fixture_file_upload('/files/test.txt', 'text/plain')}
     end
     assert_not_nil profile.articles.find_by_path('test.txt')
@@ -313,13 +313,13 @@ class CmsControllerTest < ActionController::TestCase
   end
 
   should 'be able to upload an image' do
-    assert_difference UploadedFile, :count do
+    assert_difference 'UploadedFile.count' do
       post :new, :type => UploadedFile.name, :profile => profile.identifier, :article => { :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')}
     end
   end
 
    should 'be able to upload more than one file at once' do
-    assert_difference UploadedFile, :count, 2 do
+    assert_difference 'UploadedFile.count', 2 do
       post :upload_files, :profile => profile.identifier, :uploaded_files => [fixture_file_upload('/files/test.txt', 'text/plain'), fixture_file_upload('/files/rails.png', 'text/plain')]
     end
     assert_not_nil profile.articles.find_by_path('test.txt')
@@ -439,7 +439,7 @@ class CmsControllerTest < ActionController::TestCase
     article.profile = profile
     article.save!
 
-    assert_no_difference UploadedFile, :count do
+    assert_no_difference 'UploadedFile.count' do
       assert_raise ArgumentError do
         post :new, :type => UploadedFile.name, :parent_id => article.id, :profile => profile.identifier, :article => { :uploaded_data => fixture_file_upload('/files/test.txt', 'text/plain')}
       end
@@ -760,7 +760,7 @@ class CmsControllerTest < ActionController::TestCase
     c.affiliate(profile, Profile::Roles.all_roles(c.environment.id))
     article = profile.articles.create!(:name => 'something intresting', :body => 'ruby on rails')
 
-    assert_difference article.class, :count do
+    assert_difference 'article.class.count' do
       post :publish, :profile => profile.identifier, :id => article.id, :marked_groups => {c.id.to_s => {:name => 'bli', :group_id => c.id.to_s}}
       assert_equal [{'group' => c, 'name' => 'bli'}], assigns(:marked_groups)
     end
@@ -771,7 +771,7 @@ class CmsControllerTest < ActionController::TestCase
     c.affiliate(profile, Profile::Roles.all_roles(c.environment.id))
     a = Event.create!(:name => "Some event", :profile => profile, :start_date => Date.today)
 
-    assert_difference Event, :count do
+    assert_difference 'Event.count' do
       post :publish, :profile => profile.identifier, :id => a.id, :marked_groups => {c.id.to_s => {:name => 'bli', :group_id => c.id.to_s}}
     end
   end
@@ -791,7 +791,7 @@ class CmsControllerTest < ActionController::TestCase
     Environment.any_instance.stubs(:portal_community).returns(portal_community)
     article = profile.articles.create!(:name => 'something intresting', :body => 'ruby on rails')
 
-    assert_difference article.class, :count do
+    assert_difference 'article.class.count' do
       post :publish_on_portal_community, :profile => profile.identifier, :id => article.id, :name => article.name
     end
   end
@@ -801,9 +801,9 @@ class CmsControllerTest < ActionController::TestCase
     c.affiliate(profile, Profile::Roles.all_roles(c.environment.id))
     a = profile.articles.create!(:name => 'something intresting', :body => 'ruby on rails')
 
-    assert_no_difference a.class, :count do
-      assert_difference ApproveArticle, :count do
-        assert_difference c.tasks, :count do
+    assert_no_difference 'a.class.count' do
+      assert_difference 'ApproveArticle.count' do
+        assert_difference 'c.tasks.count' do
           post :publish, :profile => profile.identifier, :id => a.id, :marked_groups => {c.id.to_s => {:name => 'bli', :group_id => c.id.to_s}}
           assert_equal [{'group' => c, 'name' => 'bli'}], assigns(:marked_groups)
         end
@@ -818,9 +818,9 @@ class CmsControllerTest < ActionController::TestCase
     Environment.any_instance.stubs(:portal_community).returns(portal_community)
     article = profile.articles.create!(:name => 'something intresting', :body => 'ruby on rails')
 
-    assert_no_difference article.class, :count do
-      assert_difference ApproveArticle, :count do
-        assert_difference portal_community.tasks, :count do
+    assert_no_difference 'article.class.count' do
+      assert_difference 'ApproveArticle.count' do
+        assert_difference 'portal_community.tasks.count' do
           post :publish_on_portal_community, :profile => profile.identifier, :id => article.id, :name => article.name
         end
       end
@@ -961,7 +961,7 @@ class CmsControllerTest < ActionController::TestCase
   end
 
   should 'go to blog after create it' do
-    assert_difference Blog, :count do
+    assert_difference 'Blog.count' do
       post :new, :type => Blog.name, :profile => profile.identifier, :article => { :name => 'my-blog' }, :back_to => 'control_panel'
     end
     assert_redirected_to @profile.articles.find_by_name('my-blog').view_url
@@ -1317,7 +1317,7 @@ class CmsControllerTest < ActionController::TestCase
   end
 
   should 'go to forum after create it' do
-    assert_difference Forum, :count do
+    assert_difference 'Forum.count' do
       post :new, :type => Forum.name, :profile => profile.identifier, :article => { :name => 'my-forum' }, :back_to => 'control_panel'
     end
     assert_redirected_to @profile.articles.find_by_name('my-forum').view_url
@@ -1369,7 +1369,7 @@ class CmsControllerTest < ActionController::TestCase
   should 'create a task suggest task to a profile' do
     c = Community.create!(:name => 'test comm', :identifier => 'test_comm', :moderated_articles => true)
 
-    assert_difference SuggestArticle, :count do
+    assert_difference 'SuggestArticle.count' do
       post :suggest_an_article, :profile => c.identifier, :back_to => 'action_view', :task => {:article_name => 'some name', :article_body => 'some body', :email => 'some@localhost.com', :name => 'some name'}
     end
   end
@@ -1404,7 +1404,7 @@ class CmsControllerTest < ActionController::TestCase
 
   should 'add translation to an article' do
     textile = fast_create(TextileArticle, :profile_id => @profile.id, :path => 'textile', :language => 'ru')
-    assert_difference Article, :count do
+    assert_difference 'Article.count' do
       post :new, :profile => @profile.identifier, :type => 'TextileArticle', :article => { :name => 'english translation', :translation_of_id => textile.id, :language => 'en' }
     end
   end

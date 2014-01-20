@@ -1134,7 +1134,7 @@ class ProfileTest < ActiveSupport::TestCase
   should 'destroy tasks requested to it when destroyed' do
     p = Profile.create!(:name => 'test_profile', :identifier => 'test_profile')
 
-    assert_no_difference Task, :count do
+    assert_no_difference 'Task.count' do
       Task.create(:target => p)
       p.destroy
     end

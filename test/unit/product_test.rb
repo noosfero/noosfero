@@ -24,7 +24,7 @@ class ProductTest < ActiveSupport::TestCase
   end
 
   should 'create product' do
-    assert_difference Product, :count do
+    assert_difference 'Product.count' do
       p = build(Product, :name => 'test product1', :product_category => @product_category, :enterprise_id => @profile.id)
       assert p.save
     end
@@ -32,7 +32,7 @@ class ProductTest < ActiveSupport::TestCase
 
   should 'destroy product' do
     p = fast_create(Product, :name => 'test product2', :product_category_id => @product_category.id)
-    assert_difference Product, :count, -1 do
+    assert_difference 'Product.count', -1 do
       p.destroy
     end
   end
@@ -81,7 +81,7 @@ class ProductTest < ActiveSupport::TestCase
   end
 
   should 'save image on create product' do
-    assert_difference Product, :count do
+    assert_difference 'Product.count' do
       p = create(Product, :name => 'test product1', :product_category => @product_category, :image_builder => {
         :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')
       }, :enterprise_id => @profile.id)
@@ -270,7 +270,7 @@ class ProductTest < ActiveSupport::TestCase
     services_category = fast_create(ProductCategory, :name => 'Services')
     input2 = fast_create(Input, :product_id => product.id, :product_category_id => services_category.id)
 
-    assert_difference Input, :count, -2 do
+    assert_difference 'Input.count', -2 do
       product.destroy
     end
   end
@@ -402,7 +402,7 @@ class ProductTest < ActiveSupport::TestCase
     cost = fast_create(ProductionCost, :owner_id => Environment.default.id, :owner_type => 'Environment')
     price_detail = product.price_details.create(:production_cost_id => cost.id, :price => 10)
 
-    assert_difference PriceDetail, :count, -1 do
+    assert_difference 'PriceDetail.count', -1 do
       product.destroy
     end
   end

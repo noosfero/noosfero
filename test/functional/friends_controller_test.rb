@@ -45,7 +45,7 @@ class FriendsControllerTest < ActionController::TestCase
   should 'actually remove friend' do
     profile.add_friend(friend)
 
-    assert_difference Friendship, :count, -1 do
+    assert_difference 'Friendship.count', -1 do
       post :remove, :id => friend.id, :confirmation => '1'
       assert_redirected_to :action => 'index'
     end

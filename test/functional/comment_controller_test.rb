@@ -26,7 +26,7 @@ class CommentControllerTest < ActionController::TestCase
     comment = fast_create(Comment, :source_id => article, :title => 'a comment', :body => 'lalala')
 
     login_as 'normaluser' # normaluser cannot remove other people's comments
-    assert_no_difference Comment, :count do
+    assert_no_difference 'Comment.count' do
       post :destroy, :profile => profile.identifier, :id => comment.id
     end
   end
@@ -41,7 +41,7 @@ class CommentControllerTest < ActionController::TestCase
     comment = fast_create(Comment, :source_id => article, :author_id => commenter, :title => 'a comment', :body => 'lalala')
 
     login_as 'normaluser' # normaluser cannot remove other people's comments
-    assert_no_difference Comment, :count do
+    assert_no_difference 'Comment.count' do
       xhr :post, :destroy, :profile => profile.identifier, :id => comment.id
       assert_response :success
     end
@@ -57,7 +57,7 @@ class CommentControllerTest < ActionController::TestCase
     comment = fast_create(Comment, :source_id => article, :author_id => commenter, :title => 'a comment', :body => 'lalala')
 
     login_as 'testuser' # testuser must be able to remove comments in his articles
-    assert_difference Comment, :count, -1 do
+    assert_difference 'Comment.count', -1 do
       xhr :post, :destroy, :profile => profile.identifier, :id => comment.id
       assert_response :success
     end
@@ -74,7 +74,7 @@ class CommentControllerTest < ActionController::TestCase
     comment = fast_create(Comment, :source_id => image, :author_id => commenter, :title => 'a comment', :body => 'lalala')
 
     login_as 'testuser' # testuser must be able to remove comments in his articles
-    assert_difference Comment, :count, -1 do
+    assert_difference 'Comment.count', -1 do
       xhr :post, :destroy, :profile => profile.identifier, :id => comment.id
       assert_response :success
     end
@@ -87,7 +87,7 @@ class CommentControllerTest < ActionController::TestCase
     comment = fast_create(Comment, :source_id => article, :author_id => commenter, :title => 'a comment', :body => 'lalala')
     community.add_moderator(profile)
     login_as profile.identifier
-    assert_difference Comment, :count, -1 do
+    assert_difference 'Comment.count', -1 do
       xhr :post, :destroy, :profile => community.identifier, :id => comment.id
       assert_response :success
     end
@@ -101,7 +101,7 @@ class CommentControllerTest < ActionController::TestCase
     comment = fast_create(Comment, :source_id => article, :author_id => profile, :title => 'a comment', :body => 'lalala')
 
     login_as 'testuser'
-    assert_difference Comment, :count, -1 do
+    assert_difference 'Comment.count', -1 do
       xhr :post, :destroy, :profile => profile.identifier, :id => comment.id
       assert_response :success
     end
@@ -113,7 +113,7 @@ class CommentControllerTest < ActionController::TestCase
     other_person = create_user('otheruser').person
     other_page = other_person.articles.create!(:name => 'myarticle', :body => 'the body of the text')
 
-    assert_no_difference Comment, :count do
+    assert_no_difference 'Comment.count' do
       xhr :post, :create, :profile => profile.identifier, :id => other_page.id, :comment => { :title => 'crap!', :body => 'I think that this article is crap' }
     end
      assert_match /not found/, @response.body
@@ -122,7 +122,7 @@ class CommentControllerTest < ActionController::TestCase
   should 'not be able to post comment if article do not accept it' do
     page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text', :accept_comments => false)
 
-    assert_no_difference Comment, :count do
+    assert_no_difference 'Comment.count' do
       xhr :post, :create, :profile => profile.identifier, :id => page.id, :comment => { :title => 'crap!', :body => 'I think that this article is crap' }
     end
      assert_match /Comment not allowed in this article/, @response.body
@@ -162,7 +162,7 @@ class CommentControllerTest < ActionController::TestCase
     end
     Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([TestFilterPlugin.new])
     page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
-    assert_no_difference Comment, :count do
+    assert_no_difference 'Comment.count' do
       xhr :post, :create, :profile => profile.identifier, :id => page.id, :comment => { :title => 'title', :body => 'body', :name => "Spammer", :email => 'damn@spammer.com' }, :confirm => 'true'
     end
   end
@@ -175,7 +175,7 @@ class CommentControllerTest < ActionController::TestCase
     end
     Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([TestFilterPlugin.new])
     page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
-    assert_no_difference Comment, :count do
+    assert_no_difference 'Comment.count' do
       xhr :post, :create, :profile => profile.identifier, :id => page.id, :comment => { :title => 'title', :body => 'body', :name => "Spammer", :email => 'damn@spammer.com' }, :confirm => 'true'
     end
 
@@ -199,7 +199,7 @@ class CommentControllerTest < ActionController::TestCase
     article.save!
     login_as('testinguser')
 
-    assert_no_difference Comment, :count do
+    assert_no_difference 'Comment.count' do
       xhr :post, :create, :profile => profile.identifier, :id =>article.id, :comment => {:body => ""}, :confirm => 'true'
     end
     assert_match /post_comment_box opened/, @response.body
@@ -224,14 +224,14 @@ class CommentControllerTest < ActionController::TestCase
     login_as('testinguser')
     @controller.stubs(:verify_recaptcha).returns(false)
 
-    assert_difference Comment, :count, 1 do
+    assert_difference 'Comment.count', 1 do
       xhr :post, :create, :profile => profile.identifier, :id => article.id, :comment => {:body => "Some comment...", :author => profile}, :confirm => 'true'
     end
 
     environment.enable('captcha_for_logged_users')
     environment.save!
 
-    assert_no_difference Comment, :count do
+    assert_no_difference 'Comment.count' do
       xhr :post, :create, :profile => profile.identifier, :id =>article.id, :comment => {:body => "Some comment...", :author => profile}, :confirm => 'true'
     end
     assert_not_nil assigns(:comment)
@@ -242,12 +242,12 @@ class CommentControllerTest < ActionController::TestCase
     article.save!
 
     @controller.stubs(:verify_recaptcha).returns(false)
-    assert_no_difference Comment, :count do
+    assert_no_difference 'Comment.count' do
       xhr :post, :create, :profile => profile.identifier, :id => article.id, :comment => {:body => "Some comment...", :author => profile}, :confirm => 'true'
     end
 
     @controller.stubs(:verify_recaptcha).returns(true)
-    assert_difference Comment, :count, 1 do
+    assert_difference 'Comment.count', 1 do
       xhr :post, :create, :profile => profile.identifier, :id => article.id, :comment => {:body => "Some comment...", :author => profile}, :confirm => 'true'
     end
   end
@@ -258,7 +258,7 @@ class CommentControllerTest < ActionController::TestCase
     page = community.articles.create!(:name => 'myarticle', :moderate_comments => true)
 
     commenter = create_user('otheruser').person
-    assert_difference ApproveComment, :count, 1 do
+    assert_difference 'ApproveComment.count', 1 do
       xhr :post, :create, :profile => community.identifier, :id => page.id, :comment => {:body => 'Some comment...', :author => commenter}, :confirm => 'true'
     end
   end
@@ -269,7 +269,7 @@ class CommentControllerTest < ActionController::TestCase
     page = community.articles.create!(:name => 'myarticle', :moderate_comments => true, :last_changed_by => @profile)
     community.add_moderator(@profile)
 
-    assert_no_difference ApproveComment, :count do
+    assert_no_difference 'ApproveComment.count' do
       xhr :post, :create, :profile => profile.identifier, :id => page.id, :comment => {:body => 'Some comment...'}, :confirm => 'true'
     end
   end
@@ -279,7 +279,7 @@ class CommentControllerTest < ActionController::TestCase
     page = community.articles.create!(:name => 'myarticle', :moderate_comments => true)
 
     commenter = create_user('otheruser').person
-    assert_difference ApproveComment, :count, 1 do
+    assert_difference 'ApproveComment.count', 1 do
       xhr :post, :create, :profile => community.identifier, :id => page.id, :comment => {:body => 'Some comment...', :author => commenter}, :confirm => 'true'
     end
     task = Task.last
@@ -293,7 +293,7 @@ class CommentControllerTest < ActionController::TestCase
     page = community.articles.create!(:name => 'myarticle', :moderate_comments => true)
 
     commenter = create_user('otheruser').person
-    assert_difference ApproveComment, :count, 1 do
+    assert_difference 'ApproveComment.count', 1 do
       xhr :post, :create, :profile => community.identifier, :id => page.id, :comment => {:body => 'Some comment...', :author => commenter}, :confirm => 'true'
     end
     task = Task.last

@@ -144,7 +144,7 @@ class TasksControllerTest < ActionController::TestCase
   end
 
   should 'create a ticket' do
-    assert_difference Ticket, :count do
+    assert_difference 'Ticket.count' do
       post :new, :profile => profile.identifier, :ticket => {:name => 'test ticket'}
     end
   end
@@ -244,7 +244,7 @@ class TasksControllerTest < ActionController::TestCase
     a = ApproveArticle.create!(:article => article, :target => c, :requestor => person)
     assert_includes c.tasks, a
 
-    assert_difference article.class, :count do
+    assert_difference 'article.class.count' do
       post :close, :tasks => {a.id => {:decision => 'finish', :task => {:name => "", :highlighted => "0", :article_parent_id => c_blog2.id.to_s}}}
     end
     assert p_article = article.class.find_by_reference_article_id(article.id)

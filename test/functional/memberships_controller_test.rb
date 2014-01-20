@@ -40,7 +40,7 @@ class MembershipsControllerTest < ActionController::TestCase
   end
 
   should 'be able to create a new community' do
-    assert_difference Community, :count do
+    assert_difference 'Community.count' do
       post :new_community, :profile => profile.identifier, :community => { :name => 'My shiny new community', :description => 'This is a community devoted to anything interesting we find in the internet '}
       assert_response :redirect
       assert_redirected_to :action => 'index'

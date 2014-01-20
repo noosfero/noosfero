@@ -125,7 +125,7 @@ class BlogTest < ActiveSupport::TestCase
     p = create_user('testuser').person
     blog = create(Blog, :name => 'Blog test', :profile => p, :external_feed_builder => {:enabled => true, :address => "http://bli.org/feed"})
     assert blog.external_feed
-    assert_difference ExternalFeed, :count, -1 do
+    assert_difference 'ExternalFeed.count', -1 do
       blog.destroy
     end
   end

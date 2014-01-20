@@ -92,7 +92,7 @@ class ImageTest < ActiveSupport::TestCase
   should 'not create a background job for an image that is not thumbnailable' do
     # this test verifies whether it created background jobs also for the
     # thumbnails!
-    assert_no_difference Delayed::Job, :count do
+    assert_no_difference 'Delayed::Job.count' do
       image = build(Image, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
       image.stubs(:thumbnailable?).returns(false)
       image.save!

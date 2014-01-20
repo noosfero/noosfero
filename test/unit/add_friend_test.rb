@@ -16,7 +16,7 @@ class AddFriendTest < ActiveSupport::TestCase
 
     task = fast_create(AddFriend, :requestor_id => person1.id, :target_id => person2.id, :target_type => 'Person')
 
-    assert_difference Friendship, :count, 2 do
+    assert_difference 'Friendship.count', 2 do
       task.finish
     end
     person1.friends.reload
@@ -32,7 +32,7 @@ class AddFriendTest < ActiveSupport::TestCase
     task.group_for_friend = 'friend2'
     assert task.save
 
-    assert_difference Friendship, :count, 2 do
+    assert_difference 'Friendship.count', 2 do
       task.finish
     end
 

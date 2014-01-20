@@ -28,7 +28,7 @@ class ArticleCategorizationTest < ActiveSupport::TestCase
     p = create_user('testuser').person
     a = p.articles.create!(:name => 'test')
 
-    assert_difference ArticleCategorization, :count, 2 do
+    assert_difference 'ArticleCategorization.count(:category_id)', 2 do
       ArticleCategorization.add_category_to_article(c2, a)
     end
 
@@ -43,7 +43,7 @@ class ArticleCategorizationTest < ActiveSupport::TestCase
     p = create_user('testuser').person
     a = p.articles.create!(:name => 'test')
 
-    assert_difference ArticleCategorization, :count, 3 do
+    assert_difference 'ArticleCategorization.count(:category_id)', 3 do
       ArticleCategorization.add_category_to_article(c2, a)
       ArticleCategorization.add_category_to_article(c3, a)
     end
@@ -60,7 +60,7 @@ class ArticleCategorizationTest < ActiveSupport::TestCase
     ArticleCategorization.add_category_to_article(c2, a)
     ArticleCategorization.add_category_to_article(c3, a)
 
-    assert_difference ArticleCategorization, :count, -3 do
+    assert_difference 'ArticleCategorization.count(:category_id)', -3 do
       ArticleCategorization.remove_all_for(a)
     end
   end
@@ -72,7 +72,7 @@ class ArticleCategorizationTest < ActiveSupport::TestCase
     p = create_user('testuser').person
     a = p.articles.create!(:name => 'test')
 
-    assert_difference ArticleCategorization, :count, 2 do
+    assert_difference 'ArticleCategorization.count(:category_id)', 2 do
       ArticleCategorization.add_category_to_article(c2, a)
       ArticleCategorization.add_category_to_article(c1, a)
     end

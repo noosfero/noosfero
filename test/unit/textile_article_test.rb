@@ -41,7 +41,7 @@ class TextileArticleTest < ActiveSupport::TestCase
 
   should 'not group trackers activity of article\'s creation' do
     profile = fast_create(Profile)
-    assert_difference ActionTracker::Record, :count, 3 do
+    assert_difference 'ActionTracker::Record.count', 3 do
       create TextileArticle, :name => 'bar', :profile_id => profile.id, :published => true
       create TextileArticle, :name => 'another bar', :profile_id => profile.id, :published => true
       create TextileArticle, :name => 'another bar', :profile_id => fast_create(Profile).id, :published => true
@@ -54,7 +54,7 @@ class TextileArticleTest < ActiveSupport::TestCase
     article = create(TextileArticle, :profile_id => profile.id)
     time = article.activity.updated_at
     Time.stubs(:now).returns(time + 1.day)
-    assert_no_difference ActionTracker::Record, :count do
+    assert_no_difference 'ActionTracker::Record.count' do
       article.name = 'foo'
       article.save!
     end
@@ -65,7 +65,7 @@ class TextileArticleTest < ActiveSupport::TestCase
     ActionTracker::Record.delete_all
     a1 = create TextileArticle, :name => 'bar', :profile_id => fast_create(Profile).id, :published => true
     a2 = create TextileArticle, :name => 'another bar', :profile_id => fast_create(Profile).id, :published => true
-    assert_no_difference ActionTracker::Record, :count do
+    assert_no_difference 'ActionTracker::Record.count' do
       a1.name = 'foo';a1.save!
       a2.name = 'another foo';a2.save!
     end
@@ -74,7 +74,7 @@ class TextileArticleTest < ActiveSupport::TestCase
   should 'remove activity after destroying article' do
     ActionTracker::Record.delete_all
     a = create TextileArticle, :name => 'bar', :profile_id => fast_create(Profile).id, :published => true
-    assert_difference ActionTracker::Record, :count, -1 do
+    assert_difference 'ActionTracker::Record.count', -1 do
       a.destroy
     end
   end
@@ -84,7 +84,7 @@ class TextileArticleTest < ActiveSupport::TestCase
     a1 = create TextileArticle, :name => 'bar', :profile_id => fast_create(Profile).id, :published => true
     a2 = create TextileArticle, :name => 'another bar', :profile_id => fast_create(Profile).id, :published => true
     assert_equal 2, ActionTracker::Record.count
-    assert_difference ActionTracker::Record, :count, -2 do
+    assert_difference 'ActionTracker::Record.count', -2 do
       a1.destroy
       a2.destroy
     end

@@ -10,7 +10,7 @@ class MailingJobTest < ActiveSupport::TestCase
   attr_reader :environment
 
   should 'create delayed job' do
-    assert_difference Delayed::Job, :count, 1 do
+    assert_difference 'Delayed::Job.count', 1 do
       mailing = @environment.mailings.build(:subject => 'Hello', :body => 'We have some news')
       mailing.person = @person_1
       mailing.save!
