@@ -69,3 +69,19 @@ Feature: article versioning
       | joaosilva | Versions disabled | Versions can't be displayed | false            |
     And I go to /joaosilva/versions-disabled/versions
     Then I should see "Access denied"
+
+  Scenario: deny access to specific version when disabled on article and not logged
+    Given the article "Edited Article" is updated with
+      | display_versions |
+      | false            |
+    And I am not logged in
+    And I go to /joaosilva/edited-article?version=1
+    Then I should see "Access denied"
+
+  Scenario: deny access to specific version when disabled, private and not logged
+    Given the article "Edited Article" is updated with
+      | display_versions | published |
+      | false            | false     |
+    And I am not logged in
+    And I go to /joaosilva/edited-article?version=1
+    Then I should see "Access denied"

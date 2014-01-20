@@ -381,21 +381,21 @@ class ContentViewerControllerTest < ActionController::TestCase
   end
 
   should "fetch correct article version" do
-    page = profile.articles.create!(:name => 'myarticle', :body => 'original article')
+    page = TextArticle.create!(:name => 'myarticle', :body => 'original article', :display_versions => true, :profile => profile)
     page.body = 'edited article'; page.save
 
     get :view_page, :profile => profile.identifier, :page => [ 'myarticle' ], :version => 1
 
-    assert_tag :tag => 'div', :attributes => { :class => 'article-body article-body-article' }, :content => /original article/
+    assert_tag :tag => 'div', :attributes => { :class => /article-body/ }, :content => /original article/
   end
 
   should "display current article if version does not exist" do
-    page = profile.articles.create!(:name => 'myarticle', :body => 'original article')
+    page = TextArticle.create!(:name => 'myarticle', :body => 'original article', :display_versions => true, :profile => profile)
     page.body = 'edited article'; page.save
 
     get :view_page, :profile => profile.identifier, :page => [ 'myarticle' ], :version => 'bli'
 
-    assert_tag :tag => 'div', :attributes => { :class => 'article-body article-body-article' }, :content => /edited article/
+    assert_tag :tag => 'div', :attributes => { :class => /article-body/ }, :content => /edited article/
   end
 
   should 'not return an article of a different user' do
