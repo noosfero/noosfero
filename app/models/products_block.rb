@@ -2,6 +2,7 @@ class ProductsBlock < Block
 
   include ActionView::Helpers::TagHelper
   include ActionView::Helpers::UrlHelper
+  include ActionView::Helpers
   include Rails.application.routes.url_helpers
 
   def self.description
@@ -28,7 +29,7 @@ class ProductsBlock < Block
                  ),
           :class => 'product'
         )
-      }
+      }.join
     )
   end
 
