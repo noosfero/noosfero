@@ -33,4 +33,8 @@ class ProductCategoriesBlock < Block
     end
   end
 
+  def visible?(context=nil)
+    box.environment.enabled?('products_for_enterprises')
+  end
+
 end
