@@ -26,7 +26,7 @@ class Blog < Folder
   include ActionView::Helpers::TagHelper
   def to_html(options = {})
     me = self
-    lambda do
+    proc do
       render :file => 'content_viewer/blog_page', :locals => { :blog=>me, :inside_block=>options[:inside_block] }
     end
   end
