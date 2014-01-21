@@ -1211,7 +1211,7 @@ class ContentViewerControllerTest < ActionController::TestCase
       :published => true,
       :body => "<p>That is a <strong>bold</strong> statement right there!</p>"
     )
-    ContentViewerController.versioning_articles('Post1','Post2')
+    @controller.versioning_articles('Post1','Post2')
   end
 
   should 'not display comments marked as spam' do

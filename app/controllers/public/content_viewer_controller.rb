@@ -120,7 +120,7 @@ class ContentViewerController < ApplicationController
     end
   end
 
-  def self.versioning_articles(string1, string2)
+  def versioning_articles(string1, string2)
     Diffy::Diff.new('string1', 'string2').to_s(:html)
   end
 
