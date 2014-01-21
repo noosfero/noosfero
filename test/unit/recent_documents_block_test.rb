@@ -31,14 +31,19 @@ class RecentDocumentsBlockTest < ActiveSupport::TestCase
     assert_not_equal Block.new.default_title, RecentDocumentsBlock.new.default_title
   end
 
-  should 'output list with links to recent documents' do
-    output = block.content
+  should 'list recent documents' do
+    assert_equivalent block.docs, articles
+  end
 
-    assert_match /href=.*\/testinguser\/first/, output
-    assert_match /href=.*\/testinguser\/second/, output
-    assert_match /href=.*\/testinguser\/third/, output
-    assert_match /href=.*\/testinguser\/fourth/, output
-    assert_match /href=.*\/testinguser\/fifth/, output
+  should 'link to documents' do
+    articles.each do |a|
+      expects(:link_to).with(a.title, a.url)
+    end
+    stubs(:block_title).returns("")
+    stubs(:content_tag).returns("")
+    stubs(:li).returns("")
+
+    instance_eval(&block.content)
   end
 
   should 'respect the maximum number of items as configured' do
