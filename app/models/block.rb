@@ -170,7 +170,7 @@ class Block < ActiveRecord::Base
 
   def duplicate
     duplicated_block = self.clone
-    duplicated_block.enabled = false
+    duplicated_block.display = 'never'
     duplicated_block.created_at = nil
     duplicated_block.updated_at = nil
     duplicated_block.save!

@@ -2,7 +2,6 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class BlockTest < ActiveSupport::TestCase
 
-  DUPLICATABLE_FIELDS = [:settings, :title, :box_id, :type]
 
   should 'describe itself' do
     assert_kind_of String, Block.description
@@ -179,9 +178,10 @@ class BlockTest < ActiveSupport::TestCase
     box = fast_create(Box, :owner_id => fast_create(Profile).id)
     block = TagsBlock.create!(:title => 'test 1', :box_id => box.id, :settings => {:test => 'test'})
     duplicated = block.duplicate
-    DUPLICATABLE_FIELDS.each do |f| 
+    [:title, :box_id, :type].each do |f|
       assert_equal duplicated.send(f), block.send(f)
     end
+    assert 'test', duplicated[:settings][:test]
   end
 
   should 'clone block and set fields' do
@@ -191,7 +191,7 @@ class BlockTest < ActiveSupport::TestCase
     duplicated = block.duplicate
     block2.reload
     block.reload
-    assert_equal false, duplicated.enabled
+    assert_equal 'never', duplicated.display
     assert_equal 1, block.position
     assert_equal 2, duplicated.position
     assert_equal 3, block2.position
