@@ -55,4 +55,10 @@ class ProfileDesignController < BoxOrganizerController
     blocks
   end
 
+  def clone
+    block = Block.find(params[:id])
+    block.duplicate
+    redirect_to :action => 'index'
+  end
+
 end
