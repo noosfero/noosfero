@@ -20,7 +20,7 @@ class ProfileCategorizationTest < ActiveSupport::TestCase
 
     p = create_user('testuser').person
 
-    assert_difference 'ProfileCategorization.count', 2 do
+    assert_difference 'ProfileCategorization.count(:category_id)', 2 do
       ProfileCategorization.add_category_to_profile(c2, p)
     end
 
@@ -38,7 +38,7 @@ class ProfileCategorizationTest < ActiveSupport::TestCase
 
     p = create_user('testuser').person
 
-    assert_difference 'ProfileCategorization.count', 3 do
+    assert_difference 'ProfileCategorization.count(:category_id)', 3 do
       ProfileCategorization.add_category_to_profile(c2, p)
       ProfileCategorization.add_category_to_profile(c3, p)
     end
@@ -58,7 +58,7 @@ class ProfileCategorizationTest < ActiveSupport::TestCase
     ProfileCategorization.add_category_to_profile(c2, p)
     ProfileCategorization.add_category_to_profile(c3, p)
 
-    assert_difference 'ProfileCategorization.count', -3 do
+    assert_difference 'ProfileCategorization.count(:category_id)', -3 do
       ProfileCategorization.remove_all_for(p)
     end
   end
