@@ -2,6 +2,8 @@ source "https://rubygems.org"
 gem 'rails'
 gem 'fast_gettext'
 gem 'acts-as-taggable-on'
+gem 'prototype-rails'
+gem 'prototype_legacy_helper', '0.0.0', :git => 'http://git.github.com/rails/prototype_legacy_helper.git'
 
 # TODO needs a rebuild diff-lcs wrt wheezy
 
