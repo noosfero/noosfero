@@ -42,6 +42,8 @@ module ApplicationHelper
 
   include TokenHelper
 
+  include CatalogHelper
+
   def locale
     (@page && !@page.language.blank?) ? @page.language : FastGettext.locale
   end
