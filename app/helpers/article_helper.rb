@@ -1,5 +1,7 @@
 module ArticleHelper
 
+  include PrototypeHelper
+
   def custom_options_for_article(article)
     @article = article
     content_tag('h4', _('Visibility')) +
