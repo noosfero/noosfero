@@ -707,48 +707,6 @@ class Article < ActiveRecord::Base
     img.nil? ? '' : img.attributes['src']
   end
 
-  private
-
-  def self.f_type_proc(klass)
-    klass.constantize.type_name
-  end
-
-  def self.f_profile_type_proc(klass)
-    klass.constantize.type_name
-  end
-
-  def f_type
-    #join common types
-    case self.class.name
-    when 'TinyMceArticle', 'TextileArticle'
-      TextArticle.name
-    else
-      self.class.name
-    end
-  end
-
-  def f_profile_type
-    self.profile.class.name
-  end
-
-  def f_published_at
-    self.published_at
-  end
-
-  def f_category
-    self.categories.collect(&:name)
-  end
-
-  delegate :region, :region_id, :environment, :environment_id, :to => :profile, :allow_nil => true
-
-  def public
-    self.public?
-  end
-
-  def category_filter
-    categories_including_virtual_ids
-  end
-
   delegate :region, :region_id, :environment, :environment_id, :to => :profile, :allow_nil => true
 
   def has_macro?
