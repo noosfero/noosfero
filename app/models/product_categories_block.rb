@@ -33,8 +33,18 @@ class ProductCategoriesBlock < Block
     end
   end
 
-  def visible?(context=nil)
-    box.environment.enabled?('products_for_enterprises')
+  DISPLAY_OPTIONS['catalog_only'] = __('Only on the catalog')
+
+  def display
+    settings[:display].nil? ? 'catalog_only' : super
+  end
+
+  def display_catalog_only(context)
+    context[:params][:controller] == 'catalog'
+  end
+
+  def visible?(*args)
+    box.environment.enabled?('products_for_enterprises') ? super(*args) : false
   end
 
 end
