@@ -274,7 +274,7 @@ class CreateEnterpriseTest < ActiveSupport::TestCase
   should 'deliver target notification message' do
     task = CreateEnterprise.new(:name => 'My enterprise', :requestor => person, :target => Environment.default)
 
-    email = TaskMailer.deliver_target_notification(task, task.target_notification_message)
+    email = TaskMailer.target_notification(task, task.target_notification_message).deliver
 
     assert_match(/#{task.requestor.name} wants to create enterprise #{task.subject}/, email.subject)
   end

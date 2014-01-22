@@ -67,7 +67,7 @@ class ChangePasswordTest < ActiveSupport::TestCase
 
   should 'deliver task created message' do
     task = ChangePassword.create!(:requestor => person)
-    email = TaskMailer.deliver_task_created(task)
+    email = TaskMailer.generic_message('task_created', task)
     assert_match(/#{task.requestor.name} wants to change its password/, email.subject)
   end
 

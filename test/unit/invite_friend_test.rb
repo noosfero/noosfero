@@ -91,7 +91,9 @@ class InviteFriendTest < ActiveSupport::TestCase
   should 'send e-mails to friend if friend_email given' do
     p1 = create_user('testuser1').person
 
-    TaskMailer.expects(:deliver_invitation_notification).once
+    mailer = mock
+    mailer.expects(:deliver).at_least_once
+    TaskMailer.expects(:invitation_notification).returns(mailer).once
 
     task = InviteFriend.create!(:person => p1, :friend_email => 'test@test.com', :message => '<url>')
   end

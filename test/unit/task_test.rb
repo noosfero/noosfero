@@ -29,7 +29,7 @@ class TaskTest < ActiveSupport::TestCase
   end
 
   def test_should_call_perform_in_finish
-    TaskMailer.expects(:deliver_task_finished)
+    TaskMailer.expects(:generic_message).with('task_finished', anything)
     t = Task.create
     t.requestor = sample_user
     t.expects(:perform)
@@ -38,7 +38,7 @@ class TaskTest < ActiveSupport::TestCase
   end
 
   def test_should_have_cancelled_status_after_cancel
-    TaskMailer.expects(:deliver_task_cancelled)
+    TaskMailer.expects(:generic_message).with('task_cancelled', anything)
     t = Task.create
     t.requestor = sample_user
     t.cancel
@@ -54,7 +54,7 @@ class TaskTest < ActiveSupport::TestCase
     t = Task.create
     t.requestor = sample_user
 
-    TaskMailer.expects(:deliver_task_finished).with(t)
+    TaskMailer.expects(:generic_message).with('task_finished', t)
 
     t.finish
   end
@@ -63,7 +63,7 @@ class TaskTest < ActiveSupport::TestCase
     t = Task.create
     t.requestor = sample_user
 
-    TaskMailer.expects(:deliver_task_cancelled).with(t)
+    TaskMailer.expects(:generic_message).with('task_cancelled', t)
 
     t.cancel
   end
@@ -93,7 +93,7 @@ class TaskTest < ActiveSupport::TestCase
     task = Task.new
     task.requestor = sample_user
 
-    TaskMailer.expects(:deliver_task_created).with(task)
+    TaskMailer.expects(:generic_message).with('task_created', task)
     task.save!
   end
 
@@ -101,7 +101,7 @@ class TaskTest < ActiveSupport::TestCase
     task = build(Task, :status => Task::Status::HIDDEN)
     task.requestor = sample_user
 
-    TaskMailer.expects(:deliver_task_created).never
+    TaskMailer.expects(:generic_message).with('task_created', anything).never
     task.save!
   end
 
@@ -164,14 +164,21 @@ class TaskTest < ActiveSupport::TestCase
     target.stubs(:notification_emails).returns(['adm@example.com'])
     task.target = target
     task.stubs(:target_notification_message).returns('some non nil message to be sent to target')
-    TaskMailer.expects(:deliver_target_notification).once
+
+    mailer = mock
+    mailer.expects(:deliver).once
+    TaskMailer.expects(:target_notification).returns(mailer).once
     task.save!
   end
 
   should 'not send notification to target if the task is hidden' do
     task = build(Task, :status => Task::Status::HIDDEN)
+    target = fast_create(Profile)
+    target.stubs(:notification_emails).returns(['adm@example.com'])
+    task.target = target
     task.stubs(:target_notification_message).returns('some non nil message to be sent to target')
-    TaskMailer.expects(:deliver_target_notification).never
+
+    TaskMailer.expects(:target_notification).never
     task.save!
   end
 
@@ -227,7 +234,7 @@ class TaskTest < ActiveSupport::TestCase
   should 'not notify target if message is nil' do
     task = Task.new
     task.stubs(:target_notification_message).returns(nil)
-    TaskMailer.expects(:deliver_target_notification).never
+    TaskMailer.expects(:target_notification).never
     task.save!
   end
 
@@ -237,7 +244,7 @@ class TaskTest < ActiveSupport::TestCase
     target.stubs(:notification_emails).returns([])
     task.target = target
     task.stubs(:target_notification_message).returns('some non nil message to be sent to target')
-    TaskMailer.expects(:deliver_target_notification).never
+    TaskMailer.expects(:target_notification).never
     task.save!
   end
 
@@ -272,8 +279,9 @@ class TaskTest < ActiveSupport::TestCase
   should 'notify just after the task is activated' do
     task = build(Task, :status => Task::Status::HIDDEN)
     task.requestor = sample_user
+    task.save!
 
-    TaskMailer.expects(:deliver_task_activated).with(task)
+    TaskMailer.expects(:generic_message).with('task_activated', task)
     task.activate
   end
 
@@ -284,7 +292,10 @@ class TaskTest < ActiveSupport::TestCase
     task.target = target
     task.save!
     task.stubs(:target_notification_message).returns('some non nil message to be sent to target')
-    TaskMailer.expects(:deliver_target_notification).once
+
+    mailer = mock
+    mailer.expects(:deliver).once
+    TaskMailer.expects(:target_notification).returns(mailer).once
     task.activate
   end
 

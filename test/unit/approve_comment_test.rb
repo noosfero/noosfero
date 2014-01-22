@@ -99,7 +99,9 @@ class ApproveCommentTest < ActiveSupport::TestCase
   end
 
   should 'send e-mails' do
-    TaskMailer.expects(:deliver_target_notification).at_least_once
+    mailer = mock
+    mailer.expects(:deliver).at_least_once
+    TaskMailer.expects(:target_notification).returns(mailer).at_least_once
 
     task = ApproveComment.create!(:target => @community, :comment_attributes => @comment.attributes.to_json, :requestor => @profile)
 
@@ -115,7 +117,7 @@ class ApproveCommentTest < ActiveSupport::TestCase
   should 'deliver target notification message' do
     task = ApproveComment.new(:target => @community, :comment_attributes => @comment.attributes.to_json, :requestor => @profile)
 
-    email = TaskMailer.deliver_target_notification(task, task.target_notification_message)
+    email = TaskMailer.target_notification(task, task.target_notification_message).deliver
     assert_match(/\[#{task.environment.name}\] #{task.requestor.name} wants to comment the article: #{task.article_name}/, email.subject)
   end
 

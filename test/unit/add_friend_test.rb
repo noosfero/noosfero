@@ -64,7 +64,9 @@ class AddFriendTest < ActiveSupport::TestCase
   end
 
   should 'send e-mails' do
-    TaskMailer.expects(:deliver_target_notification).at_least_once
+    mailer = mock
+    mailer.expects(:deliver).at_least_once
+    TaskMailer.expects(:target_notification).returns(mailer).at_least_once
 
     task = AddFriend.create!(:person => person1, :friend => person2)
   end

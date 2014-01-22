@@ -56,7 +56,9 @@ class AddMemberTest < ActiveSupport::TestCase
     community.update_attribute(:closed, true)
     community.stubs(:notification_emails).returns(["adm@example.com"])
 
-    TaskMailer.expects(:deliver_target_notification).at_least_once
+    mailer = mock
+    mailer.expects(:deliver).at_least_once
+    TaskMailer.expects(:target_notification).returns(mailer).at_least_once
 
     task = AddMember.create!(:person => person, :organization => community)
   end
