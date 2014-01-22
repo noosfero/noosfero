@@ -1,5 +1,5 @@
 require_relative "../test_helper"
-require File.dirname(__FILE__) + '/../../app/helpers/boxes_helper'
+require 'boxes_helper'
 
 class BoxesHelperTest < ActionView::TestCase
 
@@ -7,6 +7,8 @@ class BoxesHelperTest < ActionView::TestCase
   include ActionView::Helpers::TagHelper
 
   def setup
+    @controller = mock
+    @controller.stubs(:custom_design).returns({})
     @controller.stubs(:boxes_editor?).returns(false)
     @controller.stubs(:uses_design_blocks?).returns(true)
   end
@@ -115,7 +117,7 @@ class BoxesHelperTest < ActionView::TestCase
     stubs(:request).returns(request)
     stubs(:user).returns(nil)
     expects(:locale).returns('en')
-    box_decorator.expects(:select_blocks).with([], {:article => nil, :request_path => '/', :locale => 'en', :params => {}, :user => nil}).returns([])
+    box_decorator.expects(:select_blocks).with(box, [], {:article => nil, :request_path => '/', :locale => 'en', :params => {}, :user => nil, :controller => @controller}).returns([])
 
     display_box_content(box, '')
   end
@@ -147,4 +149,36 @@ class BoxesHelperTest < ActionView::TestCase
 
     assert_equal true, modifiable?(b)
   end
+
+  should 'consider boxes_limit without custom_design' do
+    holder = mock
+    holder.stubs(:boxes_limit).with(nil).returns(2)
+    assert_equal 2, boxes_limit(holder)
+  end
+
+  should 'consider boxes_limit with custom_design' do
+    holder = mock
+    @controller.expects(:custom_design).returns({boxes_limit: 1})
+
+    assert_equal 1, boxes_limit(holder)
+  end
+
+  should 'insert block using custom_design' do
+    request = mock
+    request.expects(:path).returns('/')
+    request.expects(:params).returns({})
+    stubs(:request).returns(request)
+    stubs(:user).returns(nil)
+    expects(:locale).returns('en')
+
+    box = create(Box, position: 1, owner: fast_create(Profile))
+    block = ProfileImageBlock
+    block.expects(:new).with(box: box)
+
+    @controller.expects(:custom_design).returns({insert: {position: 1, block: block, box: 1}})
+
+    stubs(:display_block)
+    display_box_content(box, '')
+  end
+
 end

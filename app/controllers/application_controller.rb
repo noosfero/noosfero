@@ -59,15 +59,7 @@ class ApplicationController < ActionController::Base
   helper :document
   helper :language
 
-  def self.no_design_blocks
-    @no_design_blocks = true
-  end
-  def self.uses_design_blocks?
-    !@no_design_blocks
-  end
-  def uses_design_blocks?
-    !@no_design_blocks && self.class.uses_design_blocks?
-  end
+  include DesignHelper
 
   # Be sure to include AuthenticationSystem in Application Controller instead
   include AuthenticatedSystem

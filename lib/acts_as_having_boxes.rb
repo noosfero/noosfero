@@ -27,8 +27,9 @@ module ActsAsHavingBoxes
   end
 
   # returns 3 unless the class table has a boxes_limit column. In that case
-  # return the value of the column. 
-  def boxes_limit
+  # return the value of the column.
+  def boxes_limit layout_template = nil
+    layout_template ||= self.layout_template
     @boxes_limit ||= LayoutTemplate.find(layout_template).number_of_boxes || 3
   end
 
