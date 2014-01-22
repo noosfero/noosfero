@@ -419,7 +419,7 @@ class ArticleTest < ActiveSupport::TestCase
     c2 = fast_create(Category, :environment_id => Environment.default.id, :name => 'c2')
 
     p = create_user('testinguser').person
-    a = create(Article, :name => 'test', :category_ids => [c1.id, c2.id], :profile_id => p)
+    a = create(Article, :name => 'test', :category_ids => [c1.id, c2.id], :profile_id => p.id)
 
     assert_equivalent [c1, c2], a.categories(true)
     assert_includes a.categories_including_virtual(true), parent1
@@ -430,7 +430,7 @@ class ArticleTest < ActiveSupport::TestCase
     c2 = create(Category, :environment => Environment.default, :name => 'c2', :parent_id => c1.id)
     c3 = create(Category, :environment => Environment.default, :name => 'c3', :parent_id => c1.id)
     owner = create_user('testuser').person
-    art = create(Article, :name => 'ytest', :profile_id => owner)
+    art = create(Article, :name => 'ytest', :profile_id => owner.id)
     art.category_ids = [c2,c3,c3].map(&:id)
 
     categories = art.categories(true)
@@ -559,7 +559,7 @@ class ArticleTest < ActiveSupport::TestCase
   should 'make a copy of the article to other profile' do
     p1 = create_user('test_user1').person
     p2 = create_user('test_user2').person
-    a = create(Article, :name => 'test article', :body => 'some text', :profile_id => p1)
+    a = create(Article, :name => 'test article', :body => 'some text', :profile_id => p1.id)
     b = a.copy(:parent => a, :profile => p2)
 
     p2 = Person.find(p2.id)
