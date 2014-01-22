@@ -81,7 +81,7 @@ Noosfero::Application.routes.draw do
   match 'profile/:profile/comment/:action/:id', :controller => 'comment', :profile => /#{Noosfero.identifier_format}/
 
   # public profile information
-  match 'profile/:profile(/:action(/:id))', :controller => 'profile', :action => 'index', :id => /[^\/]*/, :profile => /#{Noosfero.identifier_format}/
+  match 'profile/:profile(/:action(/:id))', :controller => 'profile', :action => 'index', :id => /[^\/]*/, :profile => /#{Noosfero.identifier_format}/, :as => :profile
 
   # contact
   match 'contact/:profile/:action(/:id)', :controller => 'contact', :action => 'index', :id => /.*/, :profile => /#{Noosfero.identifier_format}/
