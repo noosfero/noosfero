@@ -205,4 +205,21 @@ class BlockTest < ActiveSupport::TestCase
       assert_not_equal block.created_at, duplicated.created_at
       assert_not_equal block.updated_at, duplicated.updated_at
   end
+
+  should 'support custom display options for blocks visible' do
+    class MyBlock < Block
+      def display
+        'even_context'
+      end
+
+      def display_even_context(context)
+        context % 2 == 0
+      end
+    end
+
+    block = MyBlock.new
+
+    assert block.visible?(2)
+    assert !block.visible?(3)
+  end
 end
