@@ -261,7 +261,7 @@ class ManageProductsControllerTest < ActionController::TestCase
   end
 
   should 'link back to index from product show' do
-    enterprise = Enterprise.create!(:name => 'test_enterprise_1', :identifier => 'test_enterprise_1', :environment => Environment.default)
+    enterprise = create(Enterprise, :name => 'test_enterprise_1', :identifier => 'test_enterprise_1', :environment => Environment.default)
     prod = enterprise.products.create!(:name => 'Product test', :product_category => @product_category)
     get :show, :id => prod.id, :profile => enterprise.identifier
     assert_tag({

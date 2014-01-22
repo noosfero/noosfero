@@ -51,7 +51,7 @@ class RegionValidatorsControllerTest < ActionController::TestCase
     region = Region.new(:name => 'my region')
     environment.regions << region
     assert !region.new_record?
-    org = Organization.create!(:name => "My frufru organization", :identifier => 'frufru', :environment_id => environment.id)
+    org = create(Organization, :name => "My frufru organization", :identifier => 'frufru', :environment_id => environment.id)
 
     @controller.expects(:environment).returns(environment).at_least_once
 
@@ -67,7 +67,7 @@ class RegionValidatorsControllerTest < ActionController::TestCase
     region = Region.new(:name => 'my region')
     environment.regions << region
     assert !region.new_record?
-    org = Organization.create!(:name => "My frufru organization", :identifier => 'frufru', :environment_id => environment.id)
+    org = create(Organization, :name => "My frufru organization", :identifier => 'frufru', :environment_id => environment.id)
 
     @controller.expects(:environment).returns(environment).at_least_once
 
@@ -84,7 +84,7 @@ class RegionValidatorsControllerTest < ActionController::TestCase
     region = Region.new(:name => 'my region')
     environment.regions << region
     assert !region.new_record?
-    org = Organization.create!(:name => "My frufru organization", :identifier => 'frufru', :environment_id => environment.id)
+    org = create(Organization, :name => "My frufru organization", :identifier => 'frufru', :environment_id => environment.id)
     region.validators << org
 
     @controller.expects(:environment).returns(environment).at_least_once

@@ -1,6 +1,8 @@
 # Represents any organization of the system
 class Organization < Profile
 
+  attr_accessible :moderated_articles
+
   SEARCH_FILTERS += %w[
     more_popular
     more_active

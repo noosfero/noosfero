@@ -59,8 +59,8 @@ class TasksControllerTest < ActionController::TestCase
 
   should 'list processed tasks without spam' do
     requestor = fast_create(Person)
-    task_spam = Task.create!(:status => Task::Status::FINISHED, :requestor => requestor, :target => profile, :spam => true)
-    task_ham = Task.create!(:status => Task::Status::FINISHED, :requestor => requestor, :target => profile, :spam => false)
+    task_spam = create(Task, :status => Task::Status::FINISHED, :requestor => requestor, :target => profile, :spam => true)
+    task_ham = create(Task, :status => Task::Status::FINISHED, :requestor => requestor, :target => profile, :spam => false)
 
     get :processed
     assert_response :success
@@ -197,7 +197,7 @@ class TasksControllerTest < ActionController::TestCase
     c = fast_create(Community)
     c.update_attributes(:moderated_articles => false)
     @controller.stubs(:profile).returns(c)
-    folder = c.articles.create!(:name => 'test folder', :type => 'Folder')
+    folder = create(Article, :profile => c, :name => 'test folder', :type => 'Folder')
     c.affiliate(profile, Profile::Roles.all_roles(profile.environment.id))
     article = profile.articles.create!(:name => 'something interesting', :body => 'ruby on rails')
     t = ApproveArticle.create!(:name => 'test name', :article => article, :target => c, :requestor => profile)
@@ -210,7 +210,7 @@ class TasksControllerTest < ActionController::TestCase
     c = fast_create(Community)
     c.update_attributes(:moderated_articles => false)
     @controller.stubs(:profile).returns(c)
-    folder = c.articles.create!(:name => 'test folder', :type => 'Folder')
+    folder = create(Article, :profile => c, :name => 'test folder', :type => 'Folder')
     c.affiliate(profile, Profile::Roles.all_roles(profile.environment.id))
     article = profile.articles.create!(:name => 'something interesting', :body => 'ruby on rails')
     t = ApproveArticle.create!(:article => article, :target => c, :requestor => profile)
@@ -357,10 +357,10 @@ class TasksControllerTest < ActionController::TestCase
   should 'return tasks ordered accordingly and limited by pages' do
     time = Time.now
     person = fast_create(Person)
-    t1 = Task.create!(:status => Task::Status::ACTIVE, :target => profile, :requestor => person, :created_at => time)
-    t2 = Task.create!(:status => Task::Status::ACTIVE, :target => profile, :requestor => person, :created_at => time + 1.second)
-    t3 = Task.create!(:status => Task::Status::ACTIVE, :target => profile, :requestor => person, :created_at => time + 2.seconds)
-    t4 = Task.create!(:status => Task::Status::ACTIVE, :target => profile, :requestor => person, :created_at => time + 3.seconds)
+    t1 = create(Task, :status => Task::Status::ACTIVE, :target => profile, :requestor => person, :created_at => time)
+    t2 = create(Task, :status => Task::Status::ACTIVE, :target => profile, :requestor => person, :created_at => time + 1.second)
+    t3 = create(Task, :status => Task::Status::ACTIVE, :target => profile, :requestor => person, :created_at => time + 2.seconds)
+    t4 = create(Task, :status => Task::Status::ACTIVE, :target => profile, :requestor => person, :created_at => time + 3.seconds)
 
     Task.stubs(:per_page).returns(2)
 

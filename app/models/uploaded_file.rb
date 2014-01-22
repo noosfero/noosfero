@@ -6,7 +6,7 @@ require 'short_filename'
 # of the file itself is kept. (FIXME?)
 class UploadedFile < Article
 
-  attr_accessible :uploaded_data
+  attr_accessible :uploaded_data, :title
 
   def self.type_name
     _('File')

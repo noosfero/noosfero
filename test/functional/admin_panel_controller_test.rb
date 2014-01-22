@@ -245,7 +245,7 @@ class AdminPanelControllerTest < ActionController::TestCase
     e = Environment.default
     @controller.stubs(:environment).returns(e)
     other_e = fast_create(Environment, :name => 'other environment')
-    c = Community.create!(:name => 'portal community', :environment => other_e)
+    c = create(Community, :name => 'portal community', :environment => other_e)
 
     post :set_portal_community, :portal_community_identifier => c.identifier
     e.reload

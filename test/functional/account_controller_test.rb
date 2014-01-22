@@ -102,7 +102,7 @@ class AccountControllerTest < ActionController::TestCase
 
   def test_shoud_not_save_without_acceptance_of_terms_of_use_on_signup
     assert_no_difference 'User.count' do
-      Environment.default.update_attributes(:terms_of_use => 'some terms ...')
+      Environment.default.update_attribute(:terms_of_use, 'some terms ...')
       new_user
       assert_response :success
       assert_nil assigns(:register_pending)
@@ -111,7 +111,7 @@ class AccountControllerTest < ActionController::TestCase
 
   def test_shoud_save_with_acceptance_of_terms_of_use_on_signup
     assert_difference 'User.count' do
-      Environment.default.update_attributes(:terms_of_use => 'some terms ...')
+      Environment.default.update_attribute(:terms_of_use, 'some terms ...')
       new_user(:terms_accepted => '1')
       assert_response :success
       assert_not_nil assigns(:register_pending)

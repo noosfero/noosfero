@@ -1,3 +1,3 @@
 class State < Region
-  attr_accessible :name, :acronym
+  attr_accessible :name, :acronym, :environment
 end

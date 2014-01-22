@@ -266,7 +266,7 @@ class CommentControllerTest < ActionController::TestCase
   should 'not create ApproveComment task when the comment author is the same of article author' do
     login_as @profile.identifier
     community = Community.create!(:name => 'testcomm')
-    page = community.articles.create!(:name => 'myarticle', :moderate_comments => true, :last_changed_by => @profile)
+    page = create(Article, :profile => community, :name => 'myarticle', :moderate_comments => true, :last_changed_by => @profile)
     community.add_moderator(@profile)
 
     assert_no_difference 'ApproveComment.count' do
@@ -381,7 +381,7 @@ class CommentControllerTest < ActionController::TestCase
   should 'touch article after adding a comment' do
     yesterday = Time.now.yesterday
     Article.record_timestamps = false
-    page = profile.articles.create(:name => 'myarticle', :body => 'the body of the text', :created_at => yesterday, :updated_at => yesterday)
+    page = create(Article, :profile => profile, :name => 'myarticle', :body => 'the body of the text', :created_at => yesterday, :updated_at => yesterday)
     Article.record_timestamps = true
 
     login_as @profile.identifier

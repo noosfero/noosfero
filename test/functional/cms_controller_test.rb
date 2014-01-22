@@ -284,7 +284,7 @@ class CmsControllerTest < ActionController::TestCase
 
   should 'be able to update a RSS feed' do
     login_as(profile.identifier)
-    feed = RssFeed.create!(:name => 'myfeed', :limit => 5, :include => 'all', :profile_id => profile.id)
+    feed = create(RssFeed, :name => 'myfeed', :limit => 5, :include => 'all', :profile_id => profile.id)
     post :edit, :profile => profile.identifier, :id => feed.id, :article => { :limit => 77, :include => 'parent_and_children' }
     assert_response :redirect
 
@@ -585,7 +585,7 @@ class CmsControllerTest < ActionController::TestCase
 
   should 'redirect back to article after editing article inside a folder' do
     f = Folder.new(:name => 'f'); profile.articles << f; f.save!
-    a = TextileArticle.create!(:parent => f, :name => 'article-inside-folder', :profile_id => profile.id)
+    a = create(TextileArticle, :parent => f, :name => 'article-inside-folder', :profile_id => profile.id)
 
     post :edit, :profile => profile.identifier, :id => a.id
     assert_redirected_to @profile.articles.find_by_name('article-inside-folder').url
@@ -612,7 +612,7 @@ class CmsControllerTest < ActionController::TestCase
 
   should 'point back to folder when cancelling edition of an article inside it' do
     f = Folder.new(:name => 'f'); profile.articles << f; f.save!
-    a = TextileArticle.create!(:name => 'test', :parent => f, :profile_id => profile.id)
+    a = create(TextileArticle, :name => 'test', :parent => f, :profile_id => profile.id)
     get :edit, :profile => profile.identifier, :id => a.id
 
     assert_tag :tag => 'a', :attributes => { :href => "/myprofile/#{profile.identifier}/cms/view/#{f.id}" }, :descendant => { :content => /Cancel/ }
@@ -641,7 +641,7 @@ class CmsControllerTest < ActionController::TestCase
   end
 
   should "display properly a non-published articles' status" do
-    article = profile.articles.create!(:name => 'test', :published => false)
+    article = create(Article, :profile => profile, :name => 'test', :published => false)
 
     get :edit, :profile => profile.identifier, :id => article.id
     assert_tag :tag => 'input', :attributes => { :type => 'radio', :name => 'article[published]', :id => 'article_published_true' }
@@ -734,7 +734,7 @@ class CmsControllerTest < ActionController::TestCase
   end
 
   should 'create a private article child of private folder' do
-    folder = Folder.new(:name => 'my intranet', :published => false); profile.articles << folder; folder.save!
+    folder = build(Folder, :name => 'my intranet', :published => false); profile.articles << folder; folder.save!
 
     post :new, :profile => profile.identifier, :type => 'TextileArticle', :parent_id => folder.id, :article => { :name => 'new-private-article'}
     folder.reload
@@ -901,7 +901,7 @@ class CmsControllerTest < ActionController::TestCase
   end
 
   should 'remove the image of an article' do
-    blog = Blog.create(:profile_id => profile.id, :name=>'testblog', :image_builder => { :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')})
+    blog = create(Blog, :profile_id => profile.id, :name=>'testblog', :image_builder => { :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')})
     blog.save!
     post :edit, :profile => profile.identifier, :id => blog.id, :remove_image => 'true'
     blog.reload
@@ -1194,7 +1194,7 @@ class CmsControllerTest < ActionController::TestCase
   should 'not allow user edit article if he is owner but has no publish permission' do
     c = Community.create!(:name => 'test_comm', :identifier => 'test_comm')
     u = create_user_with_permission('test_user', 'bogus_permission', c)
-    a = c.articles.create!(:name => 'test_article', :last_changed_by => u)
+    a = create(Article, :profile => c, :name => 'test_article', :last_changed_by => u)
     login_as :test_user
 
     get :edit, :profile => c.identifier, :id => a.id
@@ -1205,7 +1205,7 @@ class CmsControllerTest < ActionController::TestCase
   should 'allow user edit article if he is owner and has publish permission' do
     c = Community.create!(:name => 'test_comm', :identifier => 'test_comm')
     u = create_user_with_permission('test_user', 'publish_content', c)
-    a = c.articles.create!(:name => 'test_article', :last_changed_by => u)
+    a = create(Article, :profile => c, :name => 'test_article', :last_changed_by => u)
     login_as :test_user
     @controller.stubs(:user).returns(u)
 

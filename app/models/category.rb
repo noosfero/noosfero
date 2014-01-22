@@ -1,6 +1,6 @@
 class Category < ActiveRecord::Base
 
-  attr_accessible :name, :parent_id
+  attr_accessible :name, :parent_id, :display_color, :display_in_menu, :image_builder
 
   SEARCHABLE_FIELDS = {
     :name => 10,

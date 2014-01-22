@@ -11,7 +11,7 @@ class Product < ActiveRecord::Base
 
   SEARCH_DISPLAYS = %w[map full]
 
-  attr_accessible :name, :product_category
+  attr_accessible :name, :product_category, :highlighted, :price
 
   def self.default_search_display
     'full'

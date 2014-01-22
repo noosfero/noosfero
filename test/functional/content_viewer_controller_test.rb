@@ -122,7 +122,7 @@ class ContentViewerControllerTest < ActionController::TestCase
 
   should 'not display forbidden articles' do
     profile.articles.create!(:name => 'test')
-    profile.update_attributes!(:public_content => false)
+    profile.update_attributes!({:public_content => false}, :without_protection => true)
 
     Article.any_instance.expects(:display_to?).with(anything).returns(false)
     get :view_page, :profile => profile.identifier, :page => [ 'test' ]
@@ -131,7 +131,7 @@ class ContentViewerControllerTest < ActionController::TestCase
 
   should 'display allowed articles' do
     profile.articles.create!(:name => 'test')
-    profile.update_attributes!(:public_content => false)
+    profile.update_attributes!({:public_content => false}, :without_protection => true)
 
     Article.any_instance.expects(:display_to?).with(anything).returns(true)
     get :view_page, :profile => profile.identifier, :page => [ 'test' ]
@@ -384,7 +384,7 @@ class ContentViewerControllerTest < ActionController::TestCase
   end
 
   should 'not show a profile in an environment that is not its home environment' do
-    p = Profile.create!(:identifier => 'mytestprofile', :name => 'My test profile', :environment => Environment.default)
+    p = create(Profile, :identifier => 'mytestprofile', :name => 'My test profile', :environment => Environment.default)
 
     current = fast_create(Environment, :name => 'test environment')
     current.domains.create!(:name => 'example.com')
@@ -458,7 +458,7 @@ class ContentViewerControllerTest < ActionController::TestCase
     blog = Blog.create!(:name => "blog", :profile => profile)
     profile.articles << blog
 
-    past_post = TextileArticle.create!(:name => "past post", :profile => profile, :parent => blog, :published_at => blog.created_at - 1.year)
+    past_post = create(TextileArticle, :name => "past post", :profile => profile, :parent => blog, :published_at => blog.created_at - 1.year)
     current_post = TextileArticle.create!(:name => "current post", :profile => profile, :parent => blog)
     blog.children << past_post
     blog.children << current_post
@@ -726,7 +726,7 @@ class ContentViewerControllerTest < ActionController::TestCase
     c = Community.create!(:name => 'test_com')
     u = create_user_with_permission('test_user', 'publish_content', c)
     login_as u.identifier
-    a = c.articles.create!(:name => 'test-article', :last_changed_by => u, :published => false)
+    a = create(Article, :profile => c, :name => 'test-article', :last_changed_by => u, :published => false)
 
     get :view_page, :profile => c.identifier, :page => a.explode_path
 
@@ -738,7 +738,7 @@ class ContentViewerControllerTest < ActionController::TestCase
     c = Community.create!(:name => 'test_com')
     u = create_user_with_permission('test_user', 'publish_content', c)
     login_as u.identifier
-    a = c.articles.create!(:name => 'test-article', :last_changed_by => profile, :published => true)
+    a = create(Article, :profile => c, :name => 'test-article', :last_changed_by => profile, :published => true)
 
     xhr :get, :view_page, :profile => c.identifier, :page => a.explode_path, :toolbar => true
 
@@ -847,7 +847,7 @@ class ContentViewerControllerTest < ActionController::TestCase
     forum = Forum.create!(:name => "forum", :profile => profile)
     profile.articles << forum
 
-    past_post = TextileArticle.create!(:name => "past post", :profile => profile, :parent => forum, :published_at => forum.created_at - 1.year)
+    past_post = create(TextileArticle, :name => "past post", :profile => profile, :parent => forum, :published_at => forum.created_at - 1.year)
     current_post = TextileArticle.create!(:name => "current post", :profile => profile, :parent => forum)
     forum.children << past_post
     forum.children << current_post
@@ -1051,7 +1051,7 @@ class ContentViewerControllerTest < ActionController::TestCase
     article = profile.articles.build(:name => 'test')
     article.save!
     Comment.destroy_all
-    comment = Comment.create!(:author => profile, :title => 'a comment', :body => 'lalala', :article => article)
+    comment = article.comments.create!(:author => profile, :title => 'a comment', :body => 'lalala')
     login_as 'testuser'
     get :view_page, :profile => 'testuser', :page => [ 'test' ]
     assert_tag :tag => 'a', :attributes => { :class => /comment-actions-reply/ }

@@ -1,6 +1,8 @@
 # A person is the profile of an user holding all relationships with the rest of the system
 class Person < Profile
 
+  attr_accessible :organization
+
   SEARCH_FILTERS += %w[
     more_popular
     more_active

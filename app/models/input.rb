@@ -1,4 +1,7 @@
 class Input < ActiveRecord::Base
+
+  attr_accessible :product, :product_category
+
   belongs_to :product
   belongs_to :product_category
 

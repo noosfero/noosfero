@@ -174,8 +174,8 @@ class ApplicationControllerTest < ActionController::TestCase
 
   should 'display only some categories in menu' do
     @controller.stubs(:get_layout).returns('application')
-    c1 = Environment.default.categories.create!(:name => 'Category 1', :display_color => 1, :parent => nil, :display_in_menu => true )
-    c2 = Environment.default.categories.create!(:name => 'Category 2', :display_color => nil, :parent => c1, :display_in_menu => true )
+    c1 = Environment.default.categories.create!(:name => 'Category 1', :display_color => 1, :parent_id => nil, :display_in_menu => true )
+    c2 = Environment.default.categories.create!(:name => 'Category 2', :display_color => nil, :parent_id => c1.id, :display_in_menu => true )
     get :index
     assert_tag :tag => 'a', :content => /Category 2/
   end
@@ -247,8 +247,8 @@ class ApplicationControllerTest < ActionController::TestCase
 
   should 'not display categories menu if categories feature disabled' do
     Environment.any_instance.stubs(:enabled?).with(anything).returns(true)
-    c1 = Environment.default.categories.create!(:name => 'Category 1', :display_color => 1, :parent => nil, :display_in_menu => true )
-    c2 = Environment.default.categories.create!(:name => 'Category 2', :display_color => nil, :parent => c1, :display_in_menu => true )
+    c1 = Environment.default.categories.create!(:name => 'Category 1', :display_color => 1, :parent_id => nil, :display_in_menu => true )
+    c2 = Environment.default.categories.create!(:name => 'Category 2', :display_color => nil, :parent_id => c1.id, :display_in_menu => true )
     get :index
     assert_no_tag :tag => 'a', :content => /Category 2/
   end

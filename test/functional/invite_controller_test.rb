@@ -185,7 +185,7 @@ class InviteControllerTest < ActionController::TestCase
   end
 
   should 'return hash as invitation data if contact list was fetched' do
-    contact_list = ContactList.create(:fetched => true)
+    contact_list = create(ContactList, :fetched => true)
     get :invitation_data, :profile => profile.identifier, :contact_list => contact_list.id
     hash = {'fetched' => true, 'contact_list' => contact_list.id, 'error' => nil}
 
@@ -194,7 +194,7 @@ class InviteControllerTest < ActionController::TestCase
   end
 
   should 'render empty list of contacts' do
-    contact_list = ContactList.create(:fetched => true)
+    contact_list = create(ContactList, :fetched => true)
     get :add_contact_list, :profile => profile.identifier, :contact_list => contact_list.id
 
     assert_response :success
@@ -203,7 +203,7 @@ class InviteControllerTest < ActionController::TestCase
   end
 
   should 'render list of contacts' do
-    contact_list = ContactList.create(:fetched => true, :list => ['email1@noosfero.org', 'email2@noosfero.org'])
+    contact_list = create(ContactList, :fetched => true, :list => ['email1@noosfero.org', 'email2@noosfero.org'])
     get :add_contact_list, :profile => profile.identifier, :contact_list => contact_list.id
 
     assert_response :success

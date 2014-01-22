@@ -104,10 +104,10 @@ class CatalogControllerTest < ActionController::TestCase
   end
 
   should 'get categories of the right level' do
-    pc1 = ProductCategory.create!(:name => "PC1", :environment => @enterprise.environment)
-    pc2 = ProductCategory.create!(:name => "PC2", :environment => @enterprise.environment, :parent_id => pc1.id)
-    pc3 = ProductCategory.create!(:name => "PC3", :environment => @enterprise.environment, :parent_id => pc1.id)
-    pc4 = ProductCategory.create!(:name => "PC4", :environment => @enterprise.environment, :parent_id => pc2.id)
+    pc1 = create(ProductCategory, :name => "PC1", :environment => @enterprise.environment)
+    pc2 = create(ProductCategory, :name => "PC2", :environment => @enterprise.environment, :parent_id => pc1.id)
+    pc3 = create(ProductCategory, :name => "PC3", :environment => @enterprise.environment, :parent_id => pc1.id)
+    pc4 = create(ProductCategory, :name => "PC4", :environment => @enterprise.environment, :parent_id => pc2.id)
     p1 = fast_create(Product, :product_category_id => pc1.id, :enterprise_id => @enterprise.id)
     p2 = fast_create(Product, :product_category_id => pc2.id, :enterprise_id => @enterprise.id)
     p3 = fast_create(Product, :product_category_id => pc3.id, :enterprise_id => @enterprise.id)
@@ -122,10 +122,10 @@ class CatalogControllerTest < ActionController::TestCase
   end
 
   should 'filter products based on level selected' do
-    pc1 = ProductCategory.create!(:name => "PC1", :environment => @enterprise.environment)
-    pc2 = ProductCategory.create!(:name => "PC2", :environment => @enterprise.environment, :parent_id => pc1.id)
-    pc3 = ProductCategory.create!(:name => "PC3", :environment => @enterprise.environment, :parent_id => pc1.id)
-    pc4 = ProductCategory.create!(:name => "PC4", :environment => @enterprise.environment, :parent_id => pc2.id)
+    pc1 = create(ProductCategory, :name => "PC1", :environment => @enterprise.environment)
+    pc2 = create(ProductCategory, :name => "PC2", :environment => @enterprise.environment, :parent_id => pc1.id)
+    pc3 = create(ProductCategory, :name => "PC3", :environment => @enterprise.environment, :parent_id => pc1.id)
+    pc4 = create(ProductCategory, :name => "PC4", :environment => @enterprise.environment, :parent_id => pc2.id)
     p1 = fast_create(Product, :product_category_id => pc1.id, :enterprise_id => @enterprise.id)
     p2 = fast_create(Product, :product_category_id => pc2.id, :enterprise_id => @enterprise.id)
     p3 = fast_create(Product, :product_category_id => pc3.id, :enterprise_id => @enterprise.id)
@@ -171,10 +171,10 @@ class CatalogControllerTest < ActionController::TestCase
   end
 
   should 'display categories and sub-categories link' do
-    pc1 = ProductCategory.create!(:name => "PC1", :environment => @enterprise.environment)
-    pc2 = ProductCategory.create!(:name => "PC2", :environment => @enterprise.environment, :parent_id => pc1.id)
-    pc3 = ProductCategory.create!(:name => "PC3", :environment => @enterprise.environment, :parent_id => pc1.id)
-    pc4 = ProductCategory.create!(:name => "PC4", :environment => @enterprise.environment, :parent_id => pc2.id)
+    pc1 = create(ProductCategory, :name => "PC1", :environment => @enterprise.environment)
+    pc2 = create(ProductCategory, :name => "PC2", :environment => @enterprise.environment, :parent_id => pc1.id)
+    pc3 = create(ProductCategory, :name => "PC3", :environment => @enterprise.environment, :parent_id => pc1.id)
+    pc4 = create(ProductCategory, :name => "PC4", :environment => @enterprise.environment, :parent_id => pc2.id)
     p1 = fast_create(Product, :product_category_id => pc1.id, :enterprise_id => @enterprise.id)
     p2 = fast_create(Product, :product_category_id => pc2.id, :enterprise_id => @enterprise.id)
     p3 = fast_create(Product, :product_category_id => pc3.id, :enterprise_id => @enterprise.id)
@@ -190,10 +190,10 @@ class CatalogControllerTest < ActionController::TestCase
 
 
   should 'display categories on breadcrumb' do
-    pc1 = ProductCategory.create!(:name => "PC1", :environment => @enterprise.environment)
-    pc2 = ProductCategory.create!(:name => "PC2", :environment => @enterprise.environment, :parent_id => pc1.id)
-    pc3 = ProductCategory.create!(:name => "PC3", :environment => @enterprise.environment, :parent_id => pc1.id)
-    pc4 = ProductCategory.create!(:name => "PC4", :environment => @enterprise.environment, :parent_id => pc2.id)
+    pc1 = create(ProductCategory, :name => "PC1", :environment => @enterprise.environment)
+    pc2 = create(ProductCategory, :name => "PC2", :environment => @enterprise.environment, :parent_id => pc1.id)
+    pc3 = create(ProductCategory, :name => "PC3", :environment => @enterprise.environment, :parent_id => pc1.id)
+    pc4 = create(ProductCategory, :name => "PC4", :environment => @enterprise.environment, :parent_id => pc2.id)
     p1 = fast_create(Product, :product_category_id => pc1.id, :enterprise_id => @enterprise.id)
     p2 = fast_create(Product, :product_category_id => pc2.id, :enterprise_id => @enterprise.id)
     p3 = fast_create(Product, :product_category_id => pc3.id, :enterprise_id => @enterprise.id)
@@ -208,7 +208,7 @@ class CatalogControllerTest < ActionController::TestCase
   end
 
   should 'add product status on the class css' do
-    category = ProductCategory.create!(:name => "Cateogry", :environment => @enterprise.environment)
+    category = create(ProductCategory, :name => "Cateogry", :environment => @enterprise.environment)
     p1 = fast_create(Product, :product_category_id => category.id, :enterprise_id => @enterprise.id, :highlighted => true)
     p2 = fast_create(Product, :product_category_id => category.id, :enterprise_id => @enterprise.id, :available => false)
 
@@ -221,10 +221,10 @@ class CatalogControllerTest < ActionController::TestCase
   should 'sort categories by name' do
     environment = @enterprise.environment
     environment.categories.destroy_all
-    pc1 = ProductCategory.create!(:name => "Drinks", :environment => environment)
-    pc2 = ProductCategory.create!(:name => "Bananas", :environment => environment)
-    pc3 = ProductCategory.create!(:name => "Sodas", :environment => environment)
-    pc4 = ProductCategory.create!(:name => "Pies", :environment => environment)
+    pc1 = create(ProductCategory, :name => "Drinks", :environment => environment)
+    pc2 = create(ProductCategory, :name => "Bananas", :environment => environment)
+    pc3 = create(ProductCategory, :name => "Sodas", :environment => environment)
+    pc4 = create(ProductCategory, :name => "Pies", :environment => environment)
     p1 = fast_create(Product, :product_category_id => pc1.id, :enterprise_id => @enterprise.id)
     p2 = fast_create(Product, :product_category_id => pc2.id, :enterprise_id => @enterprise.id)
     p3 = fast_create(Product, :product_category_id => pc3.id, :enterprise_id => @enterprise.id)
@@ -240,8 +240,8 @@ class CatalogControllerTest < ActionController::TestCase
     p2 = fast_create(Product, :product_category_id => @product_category.id, :enterprise_id => @enterprise.id)
     Product.any_instance.stubs(:price_described?).returns(true)
     production_cost = fast_create(ProductionCost)
-    pd1 = PriceDetail.create!(:product => p1, :production_cost => production_cost)
-    pd2 = PriceDetail.create!(:product => p2)
+    pd1 = create(PriceDetail, :product => p1, :production_cost_id => production_cost.id)
+    pd2 = create(PriceDetail, :product => p2)
 
     get :index, :profile => @enterprise.identifier
 

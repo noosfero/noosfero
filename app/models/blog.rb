@@ -1,5 +1,7 @@
 class Blog < Folder
 
+  attr_accessible :visualization_format
+
   acts_as_having_posts
   include PostsLimit
 

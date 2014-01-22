@@ -367,7 +367,7 @@ class ProfileControllerTest < ActionController::TestCase
 
   should 'display contact button for community if its enable in environment' do
     env = Environment.default
-    community = Community.create!(:name => 'my test community', :environment => env)
+    community = create(Community, :name => 'my test community', :environment => env)
     community.boxes.first.blocks << block = ProfileInfoBlock.create!
     env.disable('disable_contact_community')
     env.save!
@@ -379,7 +379,7 @@ class ProfileControllerTest < ActionController::TestCase
 
   should 'not display contact button for community if its disable in environment' do
     env = Environment.default
-    community = Community.create!(:name => 'my test community', :environment => env)
+    community = create(Community, :name => 'my test community', :environment => env)
     community.boxes.first.blocks << block = ProfileInfoBlock.create!
     env.enable('disable_contact_community')
     env.save!
@@ -499,7 +499,7 @@ class ProfileControllerTest < ActionController::TestCase
   end
 
   should 'show number of published posts in index' do
-    profile.articles << blog = Blog.create(:name => 'Blog', :profile_id => profile.id)
+    profile.articles << blog = create(Blog, :name => 'Blog', :profile_id => profile.id)
     fast_create(TextileArticle, :name => 'Published post', :parent_id => profile.blog.id, :profile_id => profile.id)
     fast_create(TextileArticle, :name => 'Other published post', :parent_id => profile.blog.id, :profile_id => profile.id)
     fast_create(TextileArticle, :name => 'Unpublished post', :parent_id => profile.blog.id, :profile_id => profile.id, :published => false)
@@ -574,8 +574,8 @@ class ProfileControllerTest < ActionController::TestCase
   end
 
   should 'reverse the order of posts in tag feed' do
-    TextileArticle.create!(:name => 'First post', :profile => profile, :tag_list => 'tag1', :published_at => Time.now)
-    TextileArticle.create!(:name => 'Second post', :profile => profile, :tag_list => 'tag1', :published_at => Time.now + 1.day)
+    create(TextileArticle, :name => 'First post', :profile => profile, :tag_list => 'tag1', :published_at => Time.now)
+    create(TextileArticle, :name => 'Second post', :profile => profile, :tag_list => 'tag1', :published_at => Time.now + 1.day)
 
     get :tag_feed, :profile => profile.identifier, :id => 'tag1'
     assert_match(/Second.*First/, @response.body)
@@ -583,11 +583,11 @@ class ProfileControllerTest < ActionController::TestCase
 
   should 'display the most recent posts in tag feed' do
     start = Time.now - 30.days
-    first = TextileArticle.create!(:name => 'First post', :profile => profile, :tag_list => 'tag1', :published_at => start)
+    first = create(TextileArticle, :name => 'First post', :profile => profile, :tag_list => 'tag1', :published_at => start)
     20.times do |i|
-      TextileArticle.create!(:name => 'Post #' + i.to_s, :profile => profile, :tag_list => 'tag1', :published_at => start + i.days)
+      create(TextileArticle, :name => 'Post #' + i.to_s, :profile => profile, :tag_list => 'tag1', :published_at => start + i.days)
     end
-    last = TextileArticle.create!(:name => 'Last post', :profile => profile, :tag_list => 'tag1', :published_at => Time.now)
+    last = create(TextileArticle, :name => 'Last post', :profile => profile, :tag_list => 'tag1', :published_at => Time.now)
 
     get :tag_feed, :profile => profile.identifier, :id => 'tag1'
     assert_no_match(/First post/, @response.body) # First post is older than other 20 posts already
@@ -699,7 +699,7 @@ class ProfileControllerTest < ActionController::TestCase
 
   should "display a scrap sent" do
     another_person = fast_create(Person)
-    Scrap.create!(defaults_for_scrap(:sender => another_person, :receiver => profile, :content => 'A scrap'))
+    create(Scrap, defaults_for_scrap(:sender => another_person, :receiver => profile, :content => 'A scrap'))
     login_as(profile.identifier)
     get :index, :profile => profile.identifier
     assert_tag :tag => 'p', :content => 'A scrap'
@@ -707,7 +707,7 @@ class ProfileControllerTest < ActionController::TestCase
 
   should "not display a scrap sent by a removed user" do
     another_person = fast_create(Person)
-    Scrap.create!(defaults_for_scrap(:sender => another_person, :receiver => profile, :content => 'A scrap'))
+    create(Scrap, defaults_for_scrap(:sender => another_person, :receiver => profile, :content => 'A scrap'))
     login_as(profile.identifier)
     another_person.destroy
     get :index, :profile => profile.identifier
@@ -719,13 +719,13 @@ class ProfileControllerTest < ActionController::TestCase
     p2= fast_create(Person)
 
     UserStampSweeper.any_instance.stubs(:current_user).returns(p1)
-    scrap1 = Scrap.create!(defaults_for_scrap(:sender => p1, :receiver => p2))
+    scrap1 = create(Scrap, defaults_for_scrap(:sender => p1, :receiver => p2))
 
     UserStampSweeper.any_instance.stubs(:current_user).returns(p2)
-    scrap2 = Scrap.create!(defaults_for_scrap(:sender => p2, :receiver => p1))
+    scrap2 = create(Scrap, defaults_for_scrap(:sender => p2, :receiver => p1))
 
     UserStampSweeper.any_instance.stubs(:current_user).returns(p1)
-    TinyMceArticle.create!(:profile => p1, :name => 'An article about free software')
+    create(TinyMceArticle, :profile => p1, :name => 'An article about free software')
     a1 = ActionTracker::Record.last
 
     login_as(profile.identifier)
@@ -736,7 +736,7 @@ class ProfileControllerTest < ActionController::TestCase
   should 'see the activities_items paginated' do
     p1 = create_user('some').person
     ActionTracker::Record.destroy_all
-    40.times{Scrap.create!(defaults_for_scrap(:sender => p1, :receiver => p1))}
+    40.times{create(Scrap, defaults_for_scrap(:sender => p1, :receiver => p1))}
     login_as(p1.identifier)
     get :index, :profile => p1.identifier
     assert_equal 15, assigns(:activities).count
@@ -750,8 +750,8 @@ class ProfileControllerTest < ActionController::TestCase
     assert p3.is_a_friend?(profile)
     ActionTracker::Record.destroy_all
 
-    scrap1 = Scrap.create!(defaults_for_scrap(:sender => p2, :receiver => p3))
-    scrap2 = Scrap.create!(defaults_for_scrap(:sender => p2, :receiver => profile))
+    scrap1 = create(Scrap, defaults_for_scrap(:sender => p2, :receiver => p3))
+    scrap2 = create(Scrap, defaults_for_scrap(:sender => p2, :receiver => profile))
 
     UserStampSweeper.any_instance.stubs(:current_user).returns(p3)
     article1 = TinyMceArticle.create!(:profile => p3, :name => 'An article about free software')
@@ -773,13 +773,13 @@ class ProfileControllerTest < ActionController::TestCase
     p3.add_friend(p1)
     assert p3.is_a_friend?(p1)
     ActionTracker::Record.destroy_all
-    Scrap.create!(defaults_for_scrap(:sender => p1, :receiver => p1))
+    create(Scrap, defaults_for_scrap(:sender => p1, :receiver => p1))
     a1 = ActionTracker::Record.last
     UserStampSweeper.any_instance.stubs(:current_user).returns(p2)
-    Scrap.create!(defaults_for_scrap(:sender => p2, :receiver => p3))
+    create(Scrap, defaults_for_scrap(:sender => p2, :receiver => p3))
     a2 = ActionTracker::Record.last
     UserStampSweeper.any_instance.stubs(:current_user).returns(p3)
-    Scrap.create!(defaults_for_scrap(:sender => p3, :receiver => p1))
+    create(Scrap, defaults_for_scrap(:sender => p3, :receiver => p1))
     a3 = ActionTracker::Record.last
 
 
@@ -805,13 +805,13 @@ class ProfileControllerTest < ActionController::TestCase
     p3.add_friend(p1)
     assert p3.is_a_friend?(p1)
     ActionTracker::Record.destroy_all
-    Scrap.create!(defaults_for_scrap(:sender => p1, :receiver => p1))
+    create(Scrap, defaults_for_scrap(:sender => p1, :receiver => p1))
     a1 = ActionTracker::Record.last
     UserStampSweeper.any_instance.stubs(:current_user).returns(p2)
-    Scrap.create!(defaults_for_scrap(:sender => p2, :receiver => p3))
+    create(Scrap, defaults_for_scrap(:sender => p2, :receiver => p3))
     a2 = ActionTracker::Record.last
     UserStampSweeper.any_instance.stubs(:current_user).returns(p3)
-    Scrap.create!(defaults_for_scrap(:sender => p3, :receiver => p1))
+    create(Scrap, defaults_for_scrap(:sender => p3, :receiver => p1))
     a3 = ActionTracker::Record.last
 
     @controller.stubs(:logged_in?).returns(true)
@@ -854,13 +854,13 @@ class ProfileControllerTest < ActionController::TestCase
     p3.add_friend(p1)
     assert p3.is_a_friend?(p1)
     ActionTracker::Record.destroy_all
-    Scrap.create!(defaults_for_scrap(:sender => p1, :receiver => p1))
+    create(Scrap, defaults_for_scrap(:sender => p1, :receiver => p1))
     a1 = ActionTracker::Record.last
     UserStampSweeper.any_instance.stubs(:current_user).returns(p2)
-    Scrap.create!(defaults_for_scrap(:sender => p2, :receiver => p3))
+    create(Scrap, defaults_for_scrap(:sender => p2, :receiver => p3))
     a2 = ActionTracker::Record.last
     UserStampSweeper.any_instance.stubs(:current_user).returns(p3)
-    Scrap.create!(defaults_for_scrap(:sender => p3, :receiver => p1))
+    create(Scrap, defaults_for_scrap(:sender => p3, :receiver => p1))
     a3 = ActionTracker::Record.last
 
     login_as(profile.identifier)
@@ -889,10 +889,10 @@ class ProfileControllerTest < ActionController::TestCase
     community.add_member(p1)
     community.add_member(p2)
     ActionTracker::Record.destroy_all
-    Article.create! :name => 'a', :profile_id => community.id
-    Article.create! :name => 'b', :profile_id => community.id
+    create(Article, :name => 'a', :profile_id => community.id)
+    create(Article, :name => 'b', :profile_id => community.id)
     UserStampSweeper.any_instance.stubs(:current_user).returns(p2)
-    Article.create! :name => 'c', :profile_id => community.id
+    create(Article, :name => 'c', :profile_id => community.id)
     process_delayed_job_queue
 
     get :index, :profile => community.identifier
@@ -916,13 +916,13 @@ class ProfileControllerTest < ActionController::TestCase
     p3.add_friend(p1)
     assert p3.is_a_friend?(p1)
     ActionTracker::Record.destroy_all
-    Scrap.create!(defaults_for_scrap(:sender => p1, :receiver => p1))
+    create(Scrap, defaults_for_scrap(:sender => p1, :receiver => p1))
     a1 = ActionTracker::Record.last
     UserStampSweeper.any_instance.stubs(:current_user).returns(p2)
-    Scrap.create!(defaults_for_scrap(:sender => p2, :receiver => p3))
+    create(Scrap, defaults_for_scrap(:sender => p2, :receiver => p3))
     a2 = ActionTracker::Record.last
     UserStampSweeper.any_instance.stubs(:current_user).returns(p3)
-    Scrap.create!(defaults_for_scrap(:sender => p3, :receiver => p1))
+    create(Scrap, defaults_for_scrap(:sender => p3, :receiver => p1))
     a3 = ActionTracker::Record.last
 
     get :index, :profile => p1.identifier
@@ -1141,7 +1141,7 @@ class ProfileControllerTest < ActionController::TestCase
     login_as(profile.identifier)
     article = TinyMceArticle.create!(:profile => profile, :name => 'An Article about Free Software')
     ActionTracker::Record.destroy_all
-    40.times{ ActionTracker::Record.create!(:user_id => profile.id, :user_type => 'Profile', :verb => 'create_article', :target_id => article.id, :target_type => 'Article', :params => {'name' => article.name, 'url' => article.url, 'lead' => article.lead, 'first_image' => article.first_image})}
+    40.times{ create(ActionTracker::Record, :user_id => profile.id, :user_type => 'Profile', :verb => 'create_article', :target_id => article.id, :target_type => 'Article', :params => {'name' => article.name, 'url' => article.url, 'lead' => article.lead, 'first_image' => article.first_image})}
     assert_equal 40, profile.tracked_actions.count
     assert_equal 40, profile.activities.count
     get :view_more_activities, :profile => profile.identifier, :page => 2
@@ -1174,7 +1174,7 @@ class ProfileControllerTest < ActionController::TestCase
     login_as(profile.identifier)
     article = TinyMceArticle.create!(:profile => profile, :name => 'An Article about Free Software')
     ActionTracker::Record.destroy_all
-    activity = ActionTracker::Record.create!(:user_id => profile.id, :user_type => 'Profile', :verb => 'create_article', :target_id => article.id, :target_type => 'Article', :params => {'name' => article.name, 'url' => article.url, 'lead' => article.lead, 'first_image' => article.first_image})
+    activity = create(ActionTracker::Record, :user_id => profile.id, :user_type => 'Profile', :verb => 'create_article', :target_id => article.id, :target_type => 'Article', :params => {'name' => article.name, 'url' => article.url, 'lead' => article.lead, 'first_image' => article.first_image})
     20.times {comment = fast_create(Comment, :source_id => article, :title => 'a comment', :body => 'lalala', :created_at => Time.now)}
     article.reload
     get :index, :profile => profile.identifier
@@ -1185,7 +1185,7 @@ class ProfileControllerTest < ActionController::TestCase
     login_as(profile.identifier)
     article = TinyMceArticle.create!(:profile => profile, :name => 'An Article about Free Software')
     ActionTracker::Record.destroy_all
-    activity = ActionTracker::Record.create!(:user_id => profile.id, :user_type => 'Profile', :verb => 'create_article', :target_id => article.id, :target_type => 'Article', :params => {'name' => article.name, 'url' => article.url, 'lead' => article.lead, 'first_image' => article.first_image})
+    activity = create(ActionTracker::Record, :user_id => profile.id, :user_type => 'Profile', :verb => 'create_article', :target_id => article.id, :target_type => 'Article', :params => {'name' => article.name, 'url' => article.url, 'lead' => article.lead, 'first_image' => article.first_image})
     20.times {comment = fast_create(Comment, :source_id => article, :title => 'a comment', :body => 'lalala', :created_at => Time.now)}
     article.reload
     assert_equal 20, article.comments.count
@@ -1319,7 +1319,7 @@ class ProfileControllerTest < ActionController::TestCase
 
   should 'display activities and scraps together' do
     another_person = fast_create(Person)
-    Scrap.create!(defaults_for_scrap(:sender => another_person, :receiver => profile, :content => 'A scrap'))
+    create(Scrap, defaults_for_scrap(:sender => another_person, :receiver => profile, :content => 'A scrap'))
 
     UserStampSweeper.any_instance.stubs(:current_user).returns(profile)
     ActionTracker::Record.destroy_all
@@ -1334,7 +1334,7 @@ class ProfileControllerTest < ActionController::TestCase
 
   should 'have scraps and activities on activities' do
     another_person = fast_create(Person)
-    scrap = Scrap.create!(defaults_for_scrap(:sender => another_person, :receiver => profile, :content => 'A scrap'))
+    scrap = create(Scrap, defaults_for_scrap(:sender => another_person, :receiver => profile, :content => 'A scrap'))
 
     UserStampSweeper.any_instance.stubs(:current_user).returns(profile)
     ActionTracker::Record.destroy_all
@@ -1387,7 +1387,7 @@ class ProfileControllerTest < ActionController::TestCase
     UserStampSweeper.any_instance.stubs(:current_user).returns(profile)
     article = TinyMceArticle.create!(:profile => profile, :name => 'An article about free software')
     to_be_removed = create_user('removed_user').person
-    comment = Comment.create!(:author => to_be_removed, :title => 'Test Comment', :body => 'My author does not exist =(', :source_id => article.id, :source_type => 'Article')
+    comment = create(Comment, :author => to_be_removed, :title => 'Test Comment', :body => 'My author does not exist =(', :source_id => article.id, :source_type => 'Article')
     to_be_removed.destroy
 
     login_as(profile.identifier)
@@ -1399,7 +1399,7 @@ class ProfileControllerTest < ActionController::TestCase
   should 'not display spam comments in wall' do
     UserStampSweeper.any_instance.stubs(:current_user).returns(profile)
     article = TinyMceArticle.create!(:profile => profile, :name => 'An article about spam\'s nutritional attributes')
-    comment = Comment.create!(:author => profile, :title => 'Test Comment', :body => 'This article makes me hungry', :source_id => article.id, :source_type => 'Article')
+    comment = create(Comment, :author => profile, :title => 'Test Comment', :body => 'This article makes me hungry', :source_id => article.id, :source_type => 'Article')
     comment.spam!
     login_as(profile.identifier)
     get :index, :profile => profile.identifier
@@ -1410,7 +1410,7 @@ class ProfileControllerTest < ActionController::TestCase
   should 'display comment in wall from non logged users' do
     UserStampSweeper.any_instance.stubs(:current_user).returns(profile)
     article = TinyMceArticle.create!(:profile => profile, :name => 'An article about free software')
-    comment = Comment.create!(:name => 'outside user', :email => 'outside@localhost.localdomain', :title => 'Test Comment', :body => 'My author does not exist =(', :source_id => article.id, :source_type => 'Article')
+    comment = create(Comment, :name => 'outside user', :email => 'outside@localhost.localdomain', :title => 'Test Comment', :body => 'My author does not exist =(', :source_id => article.id, :source_type => 'Article')
 
     login_as(profile.identifier)
     get :index, :profile => profile.identifier

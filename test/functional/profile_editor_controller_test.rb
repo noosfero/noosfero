@@ -68,7 +68,7 @@ class ProfileEditorControllerTest < ActionController::TestCase
 
   should 'display categories to choose to associate profile' do
     cat1 = Environment.default.categories.build(:display_in_menu => true, :name => 'top category'); cat1.save!
-    cat2 = Environment.default.categories.build(:display_in_menu => true, :name => 'sub category', :parent => cat1); cat2.save!
+    cat2 = Environment.default.categories.build(:display_in_menu => true, :name => 'sub category', :parent_id => cat1.id); cat2.save!
     person = profile
     get :edit, :profile => profile.identifier
     assert_response :success
@@ -78,7 +78,7 @@ class ProfileEditorControllerTest < ActionController::TestCase
 
   should 'save categorization of profile' do
     cat1 = Environment.default.categories.build(:name => 'top category'); cat1.save!
-    cat2 = Environment.default.categories.build(:name => 'sub category', :parent => cat1); cat2.save!
+    cat2 = Environment.default.categories.build(:name => 'sub category', :parent_id => cat1.id); cat2.save!
     person = profile
     post :edit, :profile => profile.identifier, :profile_data => {:category_ids => [cat2.id]}
     assert_response :redirect
@@ -233,7 +233,7 @@ class ProfileEditorControllerTest < ActionController::TestCase
 
   should 'show categories links on edit profile' do
     cat1 = Environment.default.categories.create!(:display_in_menu => true, :name => 'top category')
-    cat2 = Environment.default.categories.create!(:display_in_menu => true, :name => 'sub category', :parent => cat1)
+    cat2 = Environment.default.categories.create!(:display_in_menu => true, :name => 'sub category', :parent_id => cat1.id)
     person = create_user('testuser').person
     get :edit, :profile => 'testuser'
     assert_tag :tag => 'input', :attributes => { :type => 'checkbox', :name => 'profile_data[category_ids][]', :value => cat2.id}

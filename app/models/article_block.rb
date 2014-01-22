@@ -1,5 +1,7 @@
 class ArticleBlock < Block
 
+  attr_accessible :article_id
+
   def self.description
     _('Display one of your contents')
   end
