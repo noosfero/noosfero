@@ -68,6 +68,9 @@ class CmsController < MyProfileController
   def edit
     @success_back_to = params[:success_back_to]
     @article = profile.articles.find(params[:id])
+    version = params[:version]
+    @article.revert_to(version) if version
+
     @parent_id = params[:parent_id]
     @type = params[:type] || @article.class.to_s
     translations if @article.translatable?

@@ -1404,4 +1404,8 @@ module ApplicationHelper
     content.nil? ? '' : content.id.to_s
   end
 
+  def display_article_versions(article, version = nil)
+    content_tag('ul', article.versions.map {|v| link_to("r#{v.version}", @page.url.merge(:version => v.version))})
+  end
+
 end
