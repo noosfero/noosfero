@@ -82,13 +82,13 @@ class CatalogControllerTest < ActionController::TestCase
   should 'include extra content supplied by plugins on catalog item extras' do
     class Plugin1 < Noosfero::Plugin
       def catalog_item_extras(product)
-        lambda {"<span id='plugin1'>This is Plugin1 speaking!</span>"}
+        proc {"<span id='plugin1'>This is Plugin1 speaking!</span>"}
       end
     end
 
     class Plugin2 < Noosfero::Plugin
       def catalog_item_extras(product)
-        lambda {"<span id='plugin2'>This is Plugin2 speaking!</span>"}
+        proc {"<span id='plugin2'>This is Plugin2 speaking!</span>"}
       end
     end
 

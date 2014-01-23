@@ -1229,14 +1229,14 @@ class ContentViewerControllerTest < ActionController::TestCase
   should 'add extra content on comment form from plugins' do
     class Plugin1 < Noosfero::Plugin
       def comment_form_extra_contents(args)
-        lambda {
+        proc {
           hidden_field_tag('comment[some_field_id]', 1)
          }
       end
     end
     class Plugin2 < Noosfero::Plugin
       def comment_form_extra_contents(args)
-        lambda {
+        proc {
           hidden_field_tag('comment[another_field_id]', 1)
          }
       end

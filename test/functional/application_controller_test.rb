@@ -516,7 +516,7 @@ class ApplicationControllerTest < ActionController::TestCase
         { :type => 'before_filter',
           :method_name => 'filter_plugin',
           :options => {:only => 'some_method'},
-          :block => lambda {'plugin block called'} }
+          :block => proc {'plugin block called'} }
       end
     end
 

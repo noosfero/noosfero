@@ -902,12 +902,12 @@ class ProfileEditorControllerTest < ActionController::TestCase
   should 'add extra content on person info from plugins' do
     class Plugin1 < Noosfero::Plugin
       def profile_info_extra_contents
-        lambda {"<strong>Plugin1 text</strong>"}
+        proc {"<strong>Plugin1 text</strong>"}
       end
     end
     class Plugin2 < Noosfero::Plugin
       def profile_info_extra_contents
-        lambda {"<strong>Plugin2 text</strong>"}
+        proc {"<strong>Plugin2 text</strong>"}
       end
     end
 
@@ -923,12 +923,12 @@ class ProfileEditorControllerTest < ActionController::TestCase
   should 'add extra content on organization info from plugins' do
     class Plugin1 < Noosfero::Plugin
       def profile_info_extra_contents
-        lambda {"<strong>Plugin1 text</strong>"}
+        proc {"<strong>Plugin1 text</strong>"}
       end
     end
     class Plugin2 < Noosfero::Plugin
       def profile_info_extra_contents
-        lambda {"<strong>Plugin2 text</strong>"}
+        proc {"<strong>Plugin2 text</strong>"}
       end
     end
 

@@ -99,12 +99,12 @@ class HomeControllerTest < ActionController::TestCase
   should 'provide a link to make the user authentication' do
     class Plugin1 < Noosfero::Plugin
       def alternative_authentication_link
-        lambda {"<a href='plugin1'>Plugin1 link</a>"}
+        proc {"<a href='plugin1'>Plugin1 link</a>"}
       end
     end
     class Plugin2 < Noosfero::Plugin
       def alternative_authentication_link
-        lambda {"<a href='plugin2'>Plugin2 link</a>"}
+        proc {"<a href='plugin2'>Plugin2 link</a>"}
       end
     end
 

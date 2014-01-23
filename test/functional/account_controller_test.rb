@@ -770,12 +770,12 @@ class AccountControllerTest < ActionController::TestCase
   should 'add extra content on signup forms from plugins' do
     class Plugin1 < Noosfero::Plugin
       def signup_extra_contents
-        lambda {"<strong>Plugin1 text</strong>"}
+        proc {"<strong>Plugin1 text</strong>"}
       end
     end
     class Plugin2 < Noosfero::Plugin
       def signup_extra_contents
-        lambda {"<strong>Plugin2 text</strong>"}
+        proc {"<strong>Plugin2 text</strong>"}
       end
     end
 
@@ -885,12 +885,12 @@ class AccountControllerTest < ActionController::TestCase
   should 'add extra content on login form from plugins' do
     class Plugin1 < Noosfero::Plugin
       def login_extra_contents
-        lambda {"<strong>Plugin1 text</strong>"}
+        proc {"<strong>Plugin1 text</strong>"}
       end
     end
     class Plugin2 < Noosfero::Plugin
       def login_extra_contents
-        lambda {"<strong>Plugin2 text</strong>"}
+        proc {"<strong>Plugin2 text</strong>"}
       end
     end
 
