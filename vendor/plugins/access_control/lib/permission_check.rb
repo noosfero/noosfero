@@ -20,7 +20,7 @@ module PermissionCheck
           target = target_method.kind_of?(Symbol) ? c.send(target_method) : target_method
           accessor = accessor_method.kind_of?(Symbol) ? c.send(accessor_method) : accessor_method
           unless accessor && accessor.has_permission?(permission.to_s, target)
-            render_access_denied(c) && false
+            c.class.render_access_denied(c) && false
           end
       end
     end
