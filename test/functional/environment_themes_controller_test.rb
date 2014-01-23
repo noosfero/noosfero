@@ -96,7 +96,8 @@ class EnvironmentThemesControllerTest < ActionController::TestCase
 
   should 'display links to set template' do
     env = Environment.default
-    env.update_attributes!(:layout_template => 'rightbar')
+    env.layout_template = 'rightbar'
+    env.save!
     t1 = LayoutTemplate.find('default')
     t2 = LayoutTemplate.find('leftbar')
     LayoutTemplate.expects(:all).returns([t1, t2])
@@ -109,6 +110,7 @@ class EnvironmentThemesControllerTest < ActionController::TestCase
   should 'highlight current template' do
     env = Environment.default
     env.update_attributes!(:layout_template => 'default')
+    env.layout_template = 'default'
 
     t1 = LayoutTemplate.find('default')
     t2 = LayoutTemplate.find('leftbar')

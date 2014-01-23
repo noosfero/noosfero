@@ -679,11 +679,13 @@ class Environment < ActiveRecord::Base
   end
 
   def update_theme(theme)
-    self.update_attribute(:theme, theme)
+    self.theme = theme
+    self.save!
   end
 
   def update_layout_template(template)
-    self.update_attribute(:layout_template, template)
+    self.layout_template = template
+    self.save!
   end
 
   before_create do |env|

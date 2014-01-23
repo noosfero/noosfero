@@ -5,7 +5,7 @@ class ThemesController < ApplicationController
   no_design_blocks
 
   # attr_reader :target
-  
+
   def target
     @target
   end

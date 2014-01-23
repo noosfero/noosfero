@@ -254,7 +254,8 @@ class ProfileThemesControllerTest < ActionController::TestCase
   end
 
   should 'display links to set template' do
-    profile.update_attributes!(:layout_template => 'rightbar')
+    profile.layout_template = 'rightbar'
+    profile.save!
     t1 = LayoutTemplate.find('default')
     t2 = LayoutTemplate.find('leftbar')
     LayoutTemplate.expects(:all).returns([t1, t2])
@@ -265,7 +266,8 @@ class ProfileThemesControllerTest < ActionController::TestCase
   end
 
   should 'highlight current template' do
-    profile.update_attributes!(:layout_template => 'default')
+    profile.layout_template = 'default'
+    profile.save!
 
     t1 = LayoutTemplate.find('default')
     t2 = LayoutTemplate.find('leftbar')
