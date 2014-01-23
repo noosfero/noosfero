@@ -4219,6 +4219,7 @@ msgstr ""
 "Seu pedido para publicar o artigo \"%{article}\" foi aprovado. Aqui está o "
 "comentário enviado pelo administrador que aprovou seu artigo:\n"
 "\n"
+"%{comment} "
 
 #: app/models/approve_article.rb:114
 msgid "Your request for publishing the article \"%{article}\" was approved."
