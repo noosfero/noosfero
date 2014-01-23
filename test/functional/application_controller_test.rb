@@ -506,7 +506,7 @@ class ApplicationControllerTest < ActionController::TestCase
 
     get :index
     get :index
-    assert_equal 1, @controller.class.filter_chain.select{|c| c.method == 'application_controller_test_filter_plugin_filter_plugin'}.count
+    assert_equal 1, @controller.class._process_action_callbacks.select{|c| c.filter == :application_controller_test_filter_plugin_filter_plugin}.count
   end
 
   should 'do not call plugin filter block on a environment that this plugin is not enabled' do

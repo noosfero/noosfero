@@ -138,11 +138,11 @@ class ApplicationController < ActionController::Base
     plugins.each do |plugin|
       filters = plugin.send(self.class.name.underscore + '_filters')
       filters = [filters] if !filters.kind_of?(Array)
-      controller_filters = self.class.filter_chain.map {|c| c.method }
+      controller_filters = self.class._process_action_callbacks.map {|c| c.filter.to_sym }
       filters.each do |plugin_filter|
-        filter_method = plugin.class.name.underscore.gsub('/','_') + '_' + plugin_filter[:method_name]
+        filter_method = (plugin.class.name.underscore.gsub('/','_') + '_' + plugin_filter[:method_name]).to_sym
         unless controller_filters.include?(filter_method)
-          self.class.send(plugin_filter[:type], filter_method, (plugin_filter[:options] || {}))
+          self.class.send(plugin_filter[:type], filter_method.to_sym, (plugin_filter[:options] || {}))
           self.class.send(:define_method, filter_method) do
             instance_eval(&plugin_filter[:block]) if environment.plugin_enabled?(plugin.class)
           end
