@@ -10,10 +10,10 @@
 
     <%= noosfero_javascript %>
     <%= theme_javascript %>
+    <%= noosfero_stylesheets %>
 
     <%=
       # Load the principal css files:
-      stylesheet_link_tag(noosfero_stylesheets, :cache => 'cache') +
       stylesheet_import( %w( common help menu article button search blocks forms login-box ),
                          :themed_source => true ) + "\n" +
       import_blocks_stylesheets(:themed_source => true) + "\n" +

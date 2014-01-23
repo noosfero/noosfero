@@ -18,7 +18,7 @@ module UsersHelper
     )
   end
 
-  def filter_title(filter)
+  def users_filter_title(filter)
     FILTER_TRANSLATION[filter]
   end
 

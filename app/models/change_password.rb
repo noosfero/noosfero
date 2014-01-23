@@ -2,7 +2,7 @@ class ChangePassword < Task
 
   attr_accessor :password, :password_confirmation
 
-  def self.human_attribute_name(attrib)
+  def self.human_attribute_name(attrib, options = {})
     case attrib.to_sym
     when :password
       _('Password')
