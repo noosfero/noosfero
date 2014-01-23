@@ -11,7 +11,7 @@ module CmsHelper
 
   def add_upload_file_field(name, locals)
     button_to_function :add, name, nil do |page|
-      page.insert_html :bottom, :uploaded_files, :partial => 'upload_file', :locals => locals, :object => UploadedFile.new
+      page.insert_html :bottom, :uploaded_files, CGI::escapeHTML(render(:partial => 'upload_file', :locals => locals, :object => UploadedFile.new))
     end
   end
 
