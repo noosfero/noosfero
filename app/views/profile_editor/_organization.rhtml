@@ -66,6 +66,7 @@
 
 <%= render :partial => 'moderation', :locals => { :profile => @profile } %>
 
-<h2><%=_('Product/Service catalog')%></h2>
-
-<%= f.text_field(:products_per_catalog_page, :size=>3) %>
+<% if profile.enterprise? && profile.environment.enabled?('products_for_enterprises') %>
+  <h2><%=_('Products/Services catalog')%></h2>
+  <%= labelled_form_field(_('Number of products/services displayed per page on catalog'), text_field(:profile_data, :products_per_catalog_page, :size => 3)) %>
+<% end %>
