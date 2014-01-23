@@ -6467,13 +6467,6 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 img {
   text-align: center;
 }
 
-#product-list .highlighted img.star {
-  position: absolute;
-  top: 2px;
-  right: 2px;
-  z-index: 1;
-}
-
 ul.article-versions li {
   font-size: 13px;
   padding: 3px 0px;
