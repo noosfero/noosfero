@@ -689,9 +689,7 @@ end
 
 Given /^the article "([^\"]*)" is updated with$/ do |article, table|
   a = Article.find_by_name article
-
   row = table.hashes.first
-    
   a.update_attributes(row)
 end
 
