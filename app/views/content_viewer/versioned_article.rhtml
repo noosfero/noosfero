@@ -15,11 +15,16 @@
     <%= _("Version %{version} - %{author} on %{date}") % {:version => @version, :author => @page.author_name(@version), :date => show_time(@versioned_article.updated_at) } %>
   </div>
 
-  <% if @page.version_license(@version).present? %>
+  <% version_license = @page.version_license(@version) %>
+  <%# This seemingly doubled verification exists because the article-sub-header
+      div must appear only if at least one content inside it will appeart.
+      Although we have only one content now, we might have others in the future.
+      So we're keeping it like that to avoid mistakes. %>
+  <% if version_license.present? %>
     <div id='article-sub-header'>
-      <% if @page.version_license(@version).present? %>
+      <% if version_license.present? %>
         <div id="article-license">
-          <%= _('Licensed under %s') % (@page.version_license(@version).url.present? ? link_to(@page.version_license(@version).name, @page.version_license(@version).url, :target => '_blank') : @page.version_license(@version).name) %>
+          <%= _('Licensed under %s') % (version_license.url.present? ? link_to(version_license.name, version_license.url, :target => '_blank') : version_license.name) %>
         </div>
       <% end %>
     </div>
