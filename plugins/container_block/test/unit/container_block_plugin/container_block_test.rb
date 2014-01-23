@@ -104,4 +104,17 @@ class ContainerBlockPlugin::ContainerBlockTest < ActiveSupport::TestCase
     assert_equal [1, 2, 3], [box1.reload.position, box2.reload.position, box3.reload.position]
   end
 
+  should 'be able to change box' do
+    @block.save!
+    @block.box = Box.new(:owner => Environment.default)
+    @block.save!
+  end
+
+  should 'not able to change box to be the same as container_box' do
+    @block.save!
+    @block.box = @block.container_box
+    @block.save
+    assert @block.errors.invalid?(:box_id)
+  end
+
 end
