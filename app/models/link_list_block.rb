@@ -58,7 +58,7 @@ class LinkListBlock < Block
   def content(args={})
     block_title(title) +
     content_tag('ul',
-      links.select{|i| !i[:name].blank? and !i[:address].blank?}.map{|i| content_tag('li', link_html(i))}.join(',')
+      links.select{|i| !i[:name].blank? and !i[:address].blank?}.map{|i| content_tag('li', link_html(i))}.join
     )
   end
 

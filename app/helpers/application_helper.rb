@@ -796,7 +796,7 @@ module ApplicationHelper
         end
       }
       html += "<br />\n".html_safe if line_size == 0 || ( values.size % line_size ) > 0
-      column = object.class.columns_hash[method.to_s]
+      column = object.class.columns_hash[method.to_s] if object
       text =
         ( column ?
           column.human_name :
@@ -1425,7 +1425,7 @@ module ApplicationHelper
       object = instance_variable_get("@#{name}")
       object.errors.full_messages.each do |msg|
         errors << msg
-      end
+      end if object
     end
     return '' if errors.empty?
 
@@ -1435,11 +1435,6 @@ module ApplicationHelper
         errors.map { |err| content_tag(:li, err) }
       end
     end
-  end
-
-  # FIXME
-  def observe_field(*args)
-    ''
   end
 
   def private_profile_partial_parameters

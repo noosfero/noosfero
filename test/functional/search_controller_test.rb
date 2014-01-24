@@ -59,7 +59,7 @@ class SearchControllerTest < ActionController::TestCase
 
   should 'search only in specified types of content' do
     get :articles, :query => 'something not important'
-    assert_equal [:articles], assigns(:searches).keys
+    assert_equal ['articles'], assigns(:searches).keys
   end
 
   should 'render success in search' do
@@ -155,13 +155,13 @@ class SearchControllerTest < ActionController::TestCase
   should 'include extra content supplied by plugins on product asset' do
     class Plugin1 < Noosfero::Plugin
       def asset_product_extras(product)
-        lambda {"<span id='plugin1'>This is Plugin1 speaking!</span>"}
+        proc {"<span id='plugin1'>This is Plugin1 speaking!</span>"}
       end
     end
 
     class Plugin2 < Noosfero::Plugin
       def asset_product_extras(product)
-        lambda {"<span id='plugin2'>This is Plugin2 speaking!</span>"}
+        proc {"<span id='plugin2'>This is Plugin2 speaking!</span>"}
       end
     end
 
@@ -182,12 +182,12 @@ class SearchControllerTest < ActionController::TestCase
   should 'include extra properties of the product supplied by plugins' do
     class Plugin1 < Noosfero::Plugin
       def asset_product_properties(product)
-        return { :name => _('Property1'), :content => lambda { link_to(product.name, '/plugin1') } }
+        return { :name => _('Property1'), :content => proc { link_to(product.name, '/plugin1') } }
       end
     end
     class Plugin2 < Noosfero::Plugin
       def asset_product_properties(product)
-        return { :name => _('Property2'), :content => lambda { link_to(product.name, '/plugin2') } }
+        return { :name => _('Property2'), :content => proc { link_to(product.name, '/plugin2') } }
       end
     end
     enterprise = fast_create(Enterprise)

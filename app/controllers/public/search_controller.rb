@@ -29,7 +29,7 @@ class SearchController < PublicController
       @asset = key
       send(key)
       @order << key
-      @names[key] = getterm(description)
+      @names[key] = _(description)
     end
     @asset = nil
 
