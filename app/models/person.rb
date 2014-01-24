@@ -43,7 +43,12 @@ class Person < Profile
   alias_method_chain :has_permission?, :plugins
 
   def memberships
-    Profile.memberships_of(self)
+    scopes = []
+    plugins_scopes = plugins.dispatch_scopes(:person_memberships, self)
+    scopes = plugins_scopes unless plugins_scopes.first.blank?
+    scopes << Profile.memberships_of(self)
+    return scopes.first if scopes.size == 1
+    ScopeTool.union *scopes
   end
 
    def memberships_by_role(role)

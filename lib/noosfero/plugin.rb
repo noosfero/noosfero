@@ -372,6 +372,13 @@ class Noosfero::Plugin
     nil
   end
 
+  # -> Extends person memberships list
+  # returns = An instance of ActiveRecord::NamedScope::Scope retrived through
+  # Person.memberships_of method.
+  def person_memberships(person)
+    nil
+  end
+
   # -> Extends person permission access
   # returns = boolean
   def has_permission?(person, permission, target)

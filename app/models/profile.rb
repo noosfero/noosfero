@@ -84,7 +84,8 @@ class Profile < ActiveRecord::Base
   def members
     scopes = plugins.dispatch_scopes(:organization_members, self)
     scopes << Person.members_of(self)
-    scopes.size == 1 ? scopes.first : Person.or_scope(scopes)
+    return scopes.first if scopes.size == 1
+    ScopeTool.union *scopes
   end
 
   def members_count
