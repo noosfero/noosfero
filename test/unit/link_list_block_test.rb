@@ -23,7 +23,6 @@ class LinkListBlockTest < ActiveSupport::TestCase
 
   should 'list links' do
     l = LinkListBlock.new(:links => [{:name => 'products', :address => '/cat/products'}])
-    l.expects(:links).returns([{:name => 'products', :address => '/cat/products'}])
     assert_match /products/, l.content
   end
 
@@ -81,6 +80,10 @@ class LinkListBlockTest < ActiveSupport::TestCase
     assert block.update_attributes!(:display => 'always')
     block.reload
     assert_equal 'always', block.display
+  end
+
+  should 'have options for links target' do
+    assert_equivalent LinkListBlock::TARGET_OPTIONS.map {|t|t[1]}, ['_self', '_blank', '_new']
   end
 
 end

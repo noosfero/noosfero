@@ -12,6 +12,7 @@ development:
   adapter: postgresql
   encoding: unicode
   database: noosfero_development
+  template: template0
   username: noosfero
   password:
 
@@ -37,6 +38,7 @@ test: &TEST
   adapter: postgresql
   encoding: unicode
   database: noosfero_test
+  template: template0
   username: noosfero
   password:
 
@@ -44,6 +46,7 @@ production:
   adapter: postgresql
   encoding: unicode
   database: noosfero_production
+  template: template0
   username: noosfero
   password:
 

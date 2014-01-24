@@ -1,3 +1,21 @@
+noosfero (0.45.2) unstable; urgency=low
+
+  * Small release with a critical bugfix
+
+ -- Rodrigo Souto <rodrigo@colivre.coop.br>  Tue, 14 Jan 2014 13:25:18 +0000
+
+noosfero (0.45.1) unstable; urgency=low
+
+  * Bugfix release
+
+ -- Rodrigo Souto <rodrigo@colivre.coop.br>  Tue, 07 Jan 2014 14:12:53 +0000
+
+noosfero (0.45.0) unstable; urgency=low
+
+  * New features release
+
+ -- Rodrigo Souto <rodrigo@colivre.coop.br>  Tue, 10 Dec 2013 16:04:33 -0300
+
 noosfero (0.45.0~rc20131202153818) squeeze-test; urgency=low
 
   * 0.45.0 RC2

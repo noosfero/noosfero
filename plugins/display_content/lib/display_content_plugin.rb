@@ -20,7 +20,6 @@ class DisplayContentPlugin < Noosfero::Plugin
     false
   end
 
-  #FIXME make this test
   def stylesheet?
     true
   end

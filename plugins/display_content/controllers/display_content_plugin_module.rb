@@ -18,10 +18,10 @@ module DisplayContentPluginController
         node[:data] = article.title
         node[:attr] = { 'node_id' => article.id, 'parent_id' => article.parent_id}
         if block.nodes.include?(article.id)
-          node[:attr].merge!('class' => 'jstree-checked') 
+          node[:attr].merge!('class' => 'jstree-checked')
         elsif block.parent_nodes.include?(article.id)
           node[:children] = get_node(block, article.children)
-          node[:attr].merge!('class' => 'jstree-undetermined') 
+          node[:attr].merge!('class' => 'jstree-undetermined')
         end
         node[:state] = 'closed' if Article.exists?(:parent_id => article.id)
         nodes.push(node)

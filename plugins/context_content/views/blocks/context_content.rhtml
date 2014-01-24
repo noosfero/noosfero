@@ -1,0 +1,13 @@
+<% contents.each do |content| %>
+  <% content = FilePresenter.for(content) %>
+  <span class="item">
+    <a href="<%= url_for(content.view_url) %>">
+      <div class="image">
+        <%= instance_eval(&block.content_image(content)) if block.show_image %>
+      </div>
+      <% if block.show_name %>
+        <div class="name"><%= short_filename(content.name, 30) %></div>
+      <% end %>
+    </a>
+  </span>
+<% end %>

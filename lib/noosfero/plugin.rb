@@ -57,6 +57,9 @@ class Noosfero::Plugin
         path << File.join(dir, 'lib')
       end
 
+      # add view path
+      ActionController::Base.view_paths.unshift(File.join(dir, 'views'))
+
       # load vendor/plugins
       Dir.glob(File.join(dir, '/vendor/plugins/*')).each do |vendor_plugin|
         [ ActiveSupport::Dependencies.load_paths, $:].each{ |path| path << "#{vendor_plugin}/lib" }
@@ -429,6 +432,12 @@ class Noosfero::Plugin
   # P.S.: The plugin might add other informations on the return hash for its
   # own use in specific views
   def find_by_contents(asset, scope, query, paginate_options={}, options={})
+  end
+
+  # -> Adds aditional fields for change_password
+  # returns = [{:field => 'field1', :name => 'field 1 name', :model => 'person'}, {...}]
+  def change_password_fields
+    nil
   end
 
   # -> Adds additional blocks to profiles and environments.

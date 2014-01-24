@@ -2,6 +2,8 @@ require 'noosfero/i18n'
 
 # ActionTracker plugin stuff
 
+@reply_scrap_description = lambda { _('sent a message to %{receiver}: <br /> "%{message}"') % { :receiver => "{{link_to(ta.get_receiver_name, ta.get_receiver_url)}}", :message => "{{auto_link_urls(ta.get_content)}}" } }
+
 ActionTrackerConfig.verbs = {
 
   :create_article => { 
@@ -49,12 +51,16 @@ ActionTrackerConfig.verbs = {
   },
 
   :leave_scrap => {
-    :description => lambda { _('sent a message to %{receiver}: <br /> "%{message}"') % { :receiver => "{{link_to(ta.get_receiver_name, ta.get_receiver_url)}}", :message => "{{auto_link_urls(ta.get_content)}}" } }
+    :description => @reply_scrap_description
   },
 
   :leave_scrap_to_self => {
     :description => lambda { _('wrote: <br /> "%{text}"') % { :text => "{{auto_link_urls(ta.get_content)}}" } }
-  }
+  },
+
+  :reply_scrap_on_self => {
+    :description => @reply_scrap_description
+  },
 }
 
 ActionTrackerConfig.current_user_method = :current_person

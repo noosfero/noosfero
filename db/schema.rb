@@ -9,7 +9,11 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(:version => 20131121162641) do
+=======
+ActiveRecord::Schema.define(:version => 20140108132730) do
+>>>>>>> danifeitosa/AI2822-fixes
 
   create_table "abuse_reports", :force => true do |t|
     t.integer  "reporter_id"
@@ -45,6 +49,11 @@ ActiveRecord::Schema.define(:version => 20131121162641) do
   add_index "action_tracker_notifications", ["action_tracker_id"], :name => "index_action_tracker_notifications_on_action_tracker_id"
   add_index "action_tracker_notifications", ["profile_id", "action_tracker_id"], :name => "index_action_tracker_notif_on_prof_id_act_tracker_id", :unique => true
   add_index "action_tracker_notifications", ["profile_id"], :name => "index_action_tracker_notifications_on_profile_id"
+
+  create_table "article_privacy_exceptions", :id => false, :force => true do |t|
+    t.integer "article_id"
+    t.integer "person_id"
+  end
 
   create_table "article_versions", :force => true do |t|
     t.integer  "article_id"
@@ -86,6 +95,8 @@ ActiveRecord::Schema.define(:version => 20131121162641) do
     t.string   "language"
     t.string   "source_name"
     t.integer  "license_id"
+    t.integer  "image_id"
+    t.integer  "position"
   end
 
   add_index "article_versions", ["article_id"], :name => "index_article_versions_on_article_id"
@@ -129,6 +140,8 @@ ActiveRecord::Schema.define(:version => 20131121162641) do
     t.string   "language"
     t.string   "source_name"
     t.integer  "license_id"
+    t.integer  "image_id"
+    t.integer  "position"
   end
 
   add_index "articles", ["name"], :name => "index_articles_on_name"
@@ -584,6 +597,7 @@ ActiveRecord::Schema.define(:version => 20131121162641) do
     t.integer  "context_id"
   end
 
+<<<<<<< HEAD
   add_index "scraps", [nil], :name => "pg_search_plugin_scrap"
 
   create_table "shopping_cart_plugin_purchase_orders", :force => true do |t|
@@ -591,10 +605,16 @@ ActiveRecord::Schema.define(:version => 20131121162641) do
     t.integer  "seller_id"
     t.text     "data"
     t.integer  "status"
+=======
+  create_table "sessions", :force => true do |t|
+    t.string   "session_id", :null => false
+    t.text     "data"
+>>>>>>> danifeitosa/AI2822-fixes
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
+<<<<<<< HEAD
   create_table "sub_organizations_plugin_approve_paternity_relations", :force => true do |t|
     t.integer "task_id"
     t.integer "parent_id"
@@ -609,6 +629,10 @@ ActiveRecord::Schema.define(:version => 20131121162641) do
     t.integer "child_id"
     t.string  "child_type"
   end
+=======
+  add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
+  add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
+>>>>>>> danifeitosa/AI2822-fixes
 
   create_table "taggings", :force => true do |t|
     t.integer  "tag_id"
@@ -641,6 +665,13 @@ ActiveRecord::Schema.define(:version => 20131121162641) do
   end
 
   add_index "tasks", ["spam"], :name => "index_tasks_on_spam"
+
+  create_table "terms_forum_people", :id => false, :force => true do |t|
+    t.integer "forum_id"
+    t.integer "person_id"
+  end
+
+  add_index "terms_forum_people", ["forum_id", "person_id"], :name => "index_terms_forum_people_on_forum_id_and_person_id"
 
   create_table "thumbnails", :force => true do |t|
     t.integer "size"

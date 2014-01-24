@@ -55,6 +55,7 @@ ActionController::Routing::Routes.draw do |map|
  
   # events
   map.events 'profile/:profile/events_by_day', :controller => 'events', :action => 'events_by_day', :profile => /#{Noosfero.identifier_format}/
+  map.events 'profile/:profile/events_by_month', :controller => 'events', :action => 'events_by_month', :profile => /#{Noosfero.identifier_format}/
   map.events 'profile/:profile/events/:year/:month/:day', :controller => 'events', :action => 'events', :year => /\d*/, :month => /\d*/, :day => /\d*/, :profile => /#{Noosfero.identifier_format}/
   map.events 'profile/:profile/events/:year/:month', :controller => 'events', :action => 'events', :year => /\d*/, :month => /\d*/, :profile => /#{Noosfero.identifier_format}/
   map.events 'profile/:profile/events', :controller => 'events', :action => 'events', :profile => /#{Noosfero.identifier_format}/
@@ -125,12 +126,14 @@ ActionController::Routing::Routes.draw do |map|
   # cache stuff - hack
   map.cache 'public/:action/:id', :controller => 'public'
 
+  map.connect ':profile/*page/versions', :controller => 'content_viewer', :action => 'article_versions', :profile => /#{Noosfero.identifier_format}/, :conditions => { :if => lambda { |env| !Domain.hosting_profile_at(env[:host]) } }
+  map.connect '*page/versions', :controller => 'content_viewer', :action => 'article_versions'
 
   # match requests for profiles that don't have a custom domain
   map.homepage ':profile/*page', :controller => 'content_viewer', :action => 'view_page', :profile => /#{Noosfero.identifier_format}/, :conditions => { :if => lambda { |env| !Domain.hosting_profile_at(env[:host]) } }
 
-
   # match requests for content in domains hosted for profiles
   map.connect '*page', :controller => 'content_viewer', :action => 'view_page'
+
 
 end

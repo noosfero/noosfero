@@ -20,7 +20,13 @@
   <div class="comment-group-loading-<%= group_id %>"/>
 
   <div class="comments_list_toggle_group_<%= group_id %>" style="display:none">
-    <div class="article-comments-list" id="comments_list_group_<%= group_id %>"></div>
-    <div id="page-comment-form-<%= group_id %>" class='post_comment_box closed'><%= render :partial => 'comment/comment_form', :locals => {:comment => Comment.new, :display_link => true, :cancel_triggers_hide => true, :group_id => group_id}%></div>
+    <div class="article-comments-list" id="comments_list_group_<%= group_id %>">
+    </div>
+    <div class ="article-comments-list-more" id="comments_list_group_<%= group_id %>_more">
+    </div>
+    <div id="page-comment-form-<%= group_id %>" class='post_comment_box closed'>
+      <%= render :partial => 'comment/comment_form', :locals => {:comment => Comment.new, :display_link => true, :cancel_triggers_hide => true, :group_id => group_id}%>
+    </div>
+
   </div>
 </div>

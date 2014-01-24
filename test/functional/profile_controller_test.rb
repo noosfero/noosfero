@@ -734,7 +734,7 @@ class ProfileControllerTest < ActionController::TestCase
   end
 
   should 'see the activities_items paginated' do
-    p1= Person.first
+    p1 = create_user('some').person
     ActionTracker::Record.destroy_all
     40.times{Scrap.create!(defaults_for_scrap(:sender => p1, :receiver => p1))}
     login_as(p1.identifier)
@@ -1170,6 +1170,58 @@ class ProfileControllerTest < ActionController::TestCase
     assert_redirected_to :controller => 'account', :action => 'login'
   end
 
+  should "not index display activities comments" do
+    login_as(profile.identifier)
+    article = TinyMceArticle.create!(:profile => profile, :name => 'An Article about Free Software')
+    ActionTracker::Record.destroy_all
+    activity = ActionTracker::Record.create!(:user_id => profile.id, :user_type => 'Profile', :verb => 'create_article', :target_id => article.id, :target_type => 'Article', :params => {'name' => article.name, 'url' => article.url, 'lead' => article.lead, 'first_image' => article.first_image})
+    20.times {comment = fast_create(Comment, :source_id => article, :title => 'a comment', :body => 'lalala', :created_at => Time.now)}
+    article.reload
+    get :index, :profile => profile.identifier
+    assert_tag 'ul', :attributes => {:class => 'profile-wall-activities-comments'}, :children => {:count => 0 } 
+  end
+
+  should "view more comments paginated" do
+    login_as(profile.identifier)
+    article = TinyMceArticle.create!(:profile => profile, :name => 'An Article about Free Software')
+    ActionTracker::Record.destroy_all
+    activity = ActionTracker::Record.create!(:user_id => profile.id, :user_type => 'Profile', :verb => 'create_article', :target_id => article.id, :target_type => 'Article', :params => {'name' => article.name, 'url' => article.url, 'lead' => article.lead, 'first_image' => article.first_image})
+    20.times {comment = fast_create(Comment, :source_id => article, :title => 'a comment', :body => 'lalala', :created_at => Time.now)}
+    article.reload
+    assert_equal 20, article.comments.count
+    get :more_comments, :activity => activity.id, :comment_page => 2
+    assert_response :success
+    assert_template '_comment'
+    assert_select_rjs :insert_html do
+      assert_select 'li', 5 # 5 comments per page
+    end
+  end
+
+  should "not index display scraps replies" do
+    login_as(profile.identifier)
+    Scrap.destroy_all
+    scrap = fast_create(Scrap, :sender_id => profile.id, :receiver_id => profile.id)
+    20.times {fast_create(Scrap, :sender_id => profile.id, :receiver_id => profile.id, :scrap_id => scrap.id)}
+    profile.reload
+    get :index, :profile => profile.identifier
+    assert_tag 'ul', :attributes => {:class => 'profile-wall-activities-comments scrap-replies'}, :children => {:count => 0 } 
+  end
+
+  should "view more replies paginated" do
+    login_as(profile.identifier)
+    Scrap.destroy_all
+    scrap = fast_create(Scrap, :sender_id => profile.id, :receiver_id => profile.id)
+    20.times {fast_create(Scrap, :sender_id => profile.id, :receiver_id => profile.id, :scrap_id => scrap.id)}
+    profile.reload
+    assert_equal 20, scrap.replies.count
+    get :more_replies, :activity => scrap.id, :comment_page => 2
+    assert_response :success
+    assert_template '_profile_scrap'
+    assert_select_rjs :insert_html do
+      assert_select 'li', 5 # 5 replies per page
+    end
+  end
+
   should 'render empty response for not logged in users in check_membership' do
     get :check_membership
     assert_equal '', @response.body
@@ -1331,17 +1383,21 @@ class ProfileControllerTest < ActionController::TestCase
     assert_equal "Comment successfully added.", assigns(:message)
   end
 
-  should 'display comment in wall if user was removed' do
+  should 'display comment in wall if user was removed after click in view all comments' do
     UserStampSweeper.any_instance.stubs(:current_user).returns(profile)
     article = TinyMceArticle.create!(:profile => profile, :name => 'An article about free software')
     to_be_removed = create_user('removed_user').person
     comment = Comment.create!(:author => to_be_removed, :title => 'Test Comment', :body => 'My author does not exist =(', :source_id => article.id, :source_type => 'Article')
     to_be_removed.destroy
 
-    login_as(profile.identifier)
-    get :index, :profile => profile.identifier
+    activity = ActionTracker::Record.last
 
-    assert_tag :tag => 'span', :content => '(removed user)', :attributes => {:class => 'comment-user-status comment-user-status-wall icon-user-removed'}
+    login_as(profile.identifier)
+    get :more_comments, :profile => profile.identifier, :activity => activity.id, :comment_page => 1, :tab_action => 'wall'
+
+    assert_select_rjs :insert_html do
+      assert_select 'span', :content => '(removed user)', :attributes => {:class => 'comment-user-status comment-user-status-wall icon-user-removed'}
+    end
   end
 
   should 'not display spam comments in wall' do
@@ -1355,7 +1411,7 @@ class ProfileControllerTest < ActionController::TestCase
     assert !/This article makes me hungry/.match(@response.body), 'Spam comment was shown!'
   end
 
-  should 'display comment in wall from non logged users' do
+  should 'display comment in wall from non logged users after click in view all comments' do
     UserStampSweeper.any_instance.stubs(:current_user).returns(profile)
     article = TinyMceArticle.create!(:profile => profile, :name => 'An article about free software')
     comment = Comment.create!(:name => 'outside user', :email => 'outside@localhost.localdomain', :title => 'Test Comment', :body => 'My author does not exist =(', :source_id => article.id, :source_type => 'Article')
@@ -1363,7 +1419,14 @@ class ProfileControllerTest < ActionController::TestCase
     login_as(profile.identifier)
     get :index, :profile => profile.identifier
 
-    assert_tag :tag => 'span', :content => '(unauthenticated user)', :attributes => {:class => 'comment-user-status comment-user-status-wall icon-user-unknown'}
+    activity = ActionTracker::Record.last
+
+    login_as(profile.identifier)
+    get :more_comments, :profile => profile.identifier, :activity => activity.id, :comment_page => 1, :tab_action => 'wall'
+
+    assert_select_rjs :insert_html do
+      assert_select 'span', :content => '(unauthenticated user)', :attributes => {:class => 'comment-user-status comment-user-status-wall icon-user-unknown'}
+    end
   end
 
   should 'add locale on mailing' do
@@ -1577,7 +1640,7 @@ class ProfileControllerTest < ActionController::TestCase
     community.add_admin(user)
 
     Environment.any_instance.stubs(:enabled?).returns(false)
-    Environment.any_instance.stubs(:enabled?).with('display_my_communities_on_user_menu').returns(true)
+    Environment.any_instance.stubs(:enabled?).with(:display_my_communities_on_user_menu).returns(true)
 
     login_as(user.identifier)
     get :index
@@ -1590,7 +1653,7 @@ class ProfileControllerTest < ActionController::TestCase
     u2 = create_user('guy_that_will_be_admin_of_all').person # because the first member of each community is an admin
 
     Environment.any_instance.stubs(:enabled?).returns(false)
-    Environment.any_instance.stubs(:enabled?).with('display_my_communities_on_user_menu').returns(true)
+    Environment.any_instance.stubs(:enabled?).with(:display_my_communities_on_user_menu).returns(true)
 
     Environment.any_instance.stubs(:required_person_fields).returns([])
     u.data = { :email => 'test@test.com', :fields_privacy => { } }
@@ -1624,8 +1687,12 @@ class ProfileControllerTest < ActionController::TestCase
     end
   end
 
-  should 'build menu to the enterprise panel' do
+  should 'build menu to the enterprise panel if enabled' do
     u = create_user('other_other_ze').person
+
+    Environment.any_instance.stubs(:enabled?).returns(false)
+    Environment.any_instance.stubs(:enabled?).with(:display_my_enterprises_on_user_menu).returns(true)
+
     Environment.any_instance.stubs(:required_person_fields).returns([])
     u.data = { :email => 'test@test.com', :fields_privacy => { } }
     u.save!
@@ -1644,6 +1711,19 @@ class ProfileControllerTest < ActionController::TestCase
       assert_match /Test enterprise1/, links.to_s
       assert_no_match /Test enterprise_2/, links.to_s
     end
+  end
+
+  should 'not build menu to the enterprise panel if not enabled' do
+    user = create_user('enterprise_admin').person
+    enterprise = fast_create(Enterprise)
+    enterprise.add_admin(user)
+
+    Environment.any_instance.stubs(:enabled?).returns(false)
+    Environment.any_instance.stubs(:enabled?).with(:display_my_enterprises_on_user_menu).returns(false)
+
+    login_as(user.identifier)
+    get :index
+    assert_no_tag :tag => 'div', :attributes => {:id => 'manage-enterprises'}
   end
 
   should 'show enterprises field if enterprises are enabled on environment' do

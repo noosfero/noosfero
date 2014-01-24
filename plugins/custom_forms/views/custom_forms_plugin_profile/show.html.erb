@@ -13,7 +13,7 @@
     <%= render :partial => 'shared/form_submission', :locals => {:f => f} %>
 
     <% button_bar do %>
-      <%= submit_button :save, _('Save'), :cancel => {:action => 'index'} %>
+      <%= submit_button :save, _('Save'), :cancel => {:controller=>:profile, :profile => profile.identifier} %>
     <% end %>
   <% end %>
 <% else %>

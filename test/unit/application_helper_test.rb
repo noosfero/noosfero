@@ -256,7 +256,7 @@ class ApplicationHelperTest < ActiveSupport::TestCase
 
   should 'not display templates options when there is no template' do
     self.stubs(:environment).returns(Environment.default)
-    [Person, Community, Enterprise].each do |klass|
+    [:people, :communities, :enterprises].each do |klass|
       assert_equal '', template_options(klass, 'profile_data')
     end
   end
@@ -466,30 +466,17 @@ class ApplicationHelperTest < ActiveSupport::TestCase
     assert_match(/Community nick/, page_title)
   end
 
-  should 'generate a gravatar image url' do
-    stubs(:environment).returns(Environment.default)
-    @controller = ApplicationController.new
-
+  should 'gravatar default parameter' do
+    profile = mock
+    profile.stubs(:theme).returns('some-theme')
+    stubs(:profile).returns(profile)
     with_constants :NOOSFERO_CONF => {'gravatar' => 'crazyvatar'} do
-      url = str_gravatar_url_for( 'rms@gnu.org', :size => 50 )
-      assert_match(/^http:\/\/www\.gravatar\.com\/avatar\.php\?/, url)
-      assert_match(/(\?|&)gravatar_id=ed5214d4b49154ba0dc397a28ee90eb7(&|$)/, url)
-      assert_match(/(\?|&)d=crazyvatar(&|$)/, url)
-      assert_match(/(\?|&)size=50(&|$)/, url)
+      assert_equal gravatar_default, 'crazyvatar'
     end
     stubs(:theme_option).returns('gravatar' => 'nicevatar')
     with_constants :NOOSFERO_CONF => {'gravatar' => 'crazyvatar'} do
-      url = str_gravatar_url_for( 'rms@gnu.org', :size => 50 )
-      assert_match(/^http:\/\/www\.gravatar\.com\/avatar\.php\?/, url)
-      assert_match(/(\?|&)gravatar_id=ed5214d4b49154ba0dc397a28ee90eb7(&|$)/, url)
-      assert_match(/(\?|&)d=nicevatar(&|$)/, url)
-      assert_match(/(\?|&)size=50(&|$)/, url)
+      assert_equal gravatar_default, 'nicevatar'
     end
-  end
-
-  should 'generate a gravatar profile url' do
-    url = gravatar_profile_url( 'rms@gnu.org' )
-    assert_equal('http://www.gravatar.com/ed5214d4b49154ba0dc397a28ee90eb7', url)
   end
 
   should 'use theme passed via param when in development mode' do
@@ -824,6 +811,32 @@ class ApplicationHelperTest < ActiveSupport::TestCase
     parsed_html = filter_html(html, source)
 
     assert_no_match /Test1/, parsed_html
+  end
+
+  should 'not convert macro if source is nil' do
+    profile = create_user('testuser').person
+    article = fast_create(Article,  :profile_id => profile.id)
+    class Plugin1 < Noosfero::Plugin; end
+
+    environment = Environment.default
+    environment.enable_plugin(Plugin1)
+    @plugins = Noosfero::Plugin::Manager.new(environment, self)
+
+    expects(:convert_macro).never
+    filter_html(article.body, nil)
+  end
+
+  should 'not convert macro if there is no macro plugin active' do
+    profile = create_user('testuser').person
+    article = fast_create(Article,  :profile_id => profile.id)
+    class Plugin1 < Noosfero::Plugin; end
+
+    environment = Environment.default
+    environment.enable_plugin(Plugin1)
+    @plugins = Noosfero::Plugin::Manager.new(environment, self)
+
+    expects(:convert_macro).never
+    filter_html(article.body, article)
   end
 
   protected

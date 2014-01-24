@@ -15,6 +15,7 @@ Feature: blog
     And I follow "Create blog"
     Then I should see "My Blog"
     When I fill in "Title" with "My Blog"
+    And I fill in "Address" with "my-blog"
     And I press "Save"
     And I go to joaosilva's control panel
     Then I should see "Configure blog"
@@ -24,6 +25,7 @@ Feature: blog
     And I follow "Create blog"
     Then I should see "My Blog"
     When I fill in "Title" with "My Blog"
+    And I fill in "Address" with "my-blog"
     And I press "Save"
     Then I should be on /joaosilva/my-blog
 
@@ -33,6 +35,7 @@ Feature: blog
     And I follow "New content"
     When I follow "Blog"
     And I fill in "Title" with "Blog from cms"
+    And I fill in "Address" with "blog-from-cms"
     And I press "Save"
     Then I should be on /joaosilva/blog-from-cms
 
@@ -42,12 +45,14 @@ Feature: blog
     And I follow "New content"
     And I follow "Blog"
     And I fill in "Title" with "Blog One"
+    And I fill in "Address" with "blog-one"
     And I press "Save"
     Then I go to joaosilva's control panel
     And I follow "Manage Content"
     And I follow "New content"
     And I follow "Blog"
     And I fill in "Title" with "Blog Two"
+    And I fill in "Address" with "blog-two"
     And I press "Save"
     Then I should not see "error"
     And I should be on /joaosilva/blog-two
@@ -109,3 +114,24 @@ Feature: blog
     And I follow "New content"
     When I follow "Blog"
     Then I should see "Tag list"
+
+  Scenario: do not display the "clear cover image" when there is no uploaded image
+    Given the following blogs
+      | owner     | name    |
+      | joaosilva | My Blog |
+    And I go to joaosilva's control panel
+    And I follow "Configure blog"
+    Then I should not see "Delete cover image"
+
+  # the step for attaching a file on the input only works with capybara 1.1.2, but it requires rails 1.9.3
+  @selenium-fixme
+  Scenario: display cover image after uploading an image as the blog cover
+    Given the following blogs
+      | owner     | name    |
+      | joaosilva | My Blog |
+    And I go to joaosilva's control panel
+    And I follow "Configure blog"
+    And I attach the file "public/images/rails.png" to "Uploaded data"
+    And I press "Save"
+    When I am on /joaosilva/my-blog
+    Then there should be a div with class "blog-cover"

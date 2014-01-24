@@ -1,0 +1,33 @@
+<% blogs = @block.parents %>
+<% if blogs.empty? %>
+  <h3><%= _('No blogs found. Please add a blog in order to configure this block.') %></h3>
+<% end %>
+<%=
+labelled_form_field(_('Choose which blog should be displayed'),
+  select_tag(
+      'block[selected_folder]',
+      options_for_select(blogs.map {|node| [node.title, node.id]}, @block.selected_folder)
+  )
+)
+%>
+<%=
+labelled_form_field(_('Choose how the content should be displayed'),
+  select_tag(
+      'block[presentation_mode]',
+      options_for_select(
+         {
+            _("Title only") => "title_only",
+            _("Title and abstract") => "title_and_abstract",
+            _("Full content") => "full_content"
+         },
+          @block.presentation_mode
+      )
+  )
+)
+%>
+<%= labelled_form_field(_('Choose how many items will be displayed'),
+      text_field_tag('block[total_items]',
+        @block.total_items, :size => 3, :maxlength => 5)
+    )
+%>
+<%= labelled_check_box _('Display blog cover image'), 'block[show_blog_picture]', true, @block.show_blog_picture %>

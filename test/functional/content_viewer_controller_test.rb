@@ -369,6 +369,35 @@ class ContentViewerControllerTest < ActionController::TestCase
     assert_redirected_to :host => p.default_hostname, :controller => 'content_viewer', :action => 'view_page', :profile => p.identifier, :page => a2.explode_path
   end
 
+  should "display current article's versions" do
+    page = TextArticle.create!(:name => 'myarticle', :body => 'test article', :display_versions => true, :profile => profile)
+    page.body = 'test article edited'; page.save
+
+    get :article_versions, :profile => profile.identifier, :page => [ 'myarticle' ]
+    assert_tag :tag => 'ul', :attributes => { :class => 'article-versions' }, :descendant => {
+      :tag => 'a',
+      :attributes => { :href => "http://#{profile.environment.default_hostname}/#{profile.identifier}/#{page.path}?version=1" }
+    }
+  end
+
+  should "fetch correct article version" do
+    page = TextArticle.create!(:name => 'myarticle', :body => 'original article', :display_versions => true, :profile => profile)
+    page.body = 'edited article'; page.save
+
+    get :view_page, :profile => profile.identifier, :page => [ 'myarticle' ], :version => 1
+
+    assert_tag :tag => 'div', :attributes => { :class => /article-body/ }, :content => /original article/
+  end
+
+  should "display current article if version does not exist" do
+    page = TextArticle.create!(:name => 'myarticle', :body => 'original article', :display_versions => true, :profile => profile)
+    page.body = 'edited article'; page.save
+
+    get :view_page, :profile => profile.identifier, :page => [ 'myarticle' ], :version => 'bli'
+
+    assert_tag :tag => 'div', :attributes => { :class => /article-body/ }, :content => /edited article/
+  end
+
   should 'not return an article of a different user' do
     p1 = create_user('test_user').person
     a = p1.articles.create!(:name => 'old-name')
@@ -599,6 +628,29 @@ class ContentViewerControllerTest < ActionController::TestCase
 
     assert_equal 2, assigns(:images).size
   end
+
+  should 'not display private images in the slideshow for unauthorized people' do
+    owner = create_user('owner').person
+    unauthorized = create_user('unauthorized').person
+    folder = Gallery.create!(:name => 'gallery', :profile => owner)
+    image1 = UploadedFile.create!(:profile => owner, :parent => folder, :uploaded_data => fixture_file_upload('/files/other-pic.jpg', 'image/jpg'), :published => false)
+    login_as('unauthorized')
+    get :view_page, :profile => owner.identifier, :page => folder.explode_path, :slideshow => true
+    assert_response :success
+    assert_equal 0, assigns(:images).length
+  end
+
+  should 'not display private images thumbnails for unauthorized people' do
+    owner = create_user('owner').person
+    unauthorized = create_user('unauthorized').person
+    folder = Gallery.create!(:name => 'gallery', :profile => owner)
+    image1 = UploadedFile.create!(:profile => owner, :parent => folder, :uploaded_data => fixture_file_upload('/files/other-pic.jpg', 'image/jpg'), :published => false)
+    login_as('unauthorized')
+    get :view_page, :profile => owner.identifier, :page => folder.explode_path
+    assert_response :success
+    assert_select '.image-gallery-item', 0
+  end   
+  
 
   should 'display default image in the slideshow if thumbnails were not processed' do
     @controller.stubs(:per_page).returns(1)
@@ -1211,7 +1263,7 @@ class ContentViewerControllerTest < ActionController::TestCase
       :published => true,
       :body => "<p>That is a <strong>bold</strong> statement right there!</p>"
     )
-    @controller.versioning_articles('Post1','Post2')
+    @controller.differences_between_article_versions('Post1','Post2')
   end
 
   should 'not display comments marked as spam' do

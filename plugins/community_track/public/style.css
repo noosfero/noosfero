@@ -1,0 +1,267 @@
+.icon-newcommunity-track,
+.icon-community-track {
+  background-image: url(/plugins/community_track/icons/community-track.png)
+}
+
+.step_active, #article .step_active {
+  background-color: #CCEBD6;
+  color: #338533;
+}
+
+.step_waiting, #article .step_waiting {
+  background-color: #FFFFD1;
+  color: #D17519;
+}
+
+.step_finished, #article .step_finished {
+  background-color: #D1FFFF;
+  color: #00297A;
+}
+
+.step_status_description {
+  float: right;
+}
+
+.step {
+  font-weight: bold;
+  margin-bottom: 3px;
+}
+
+.track_list .item .step {
+  padding: 8px 5px;
+}
+
+#article .step a {
+  text-decoration: none;
+}
+
+.track_list .item .track_content .lead {
+  float: left;
+  width: 50%;
+}
+
+.track_list .item .track_content .steps {
+  float: right;
+  width: 50%;
+}
+
+.track_list .item {
+  border-bottom: 1px solid #DDDDDD;
+}
+
+.track_stats, .track_content {
+  clear: both;
+}
+
+.track_stats .comments {
+  float: left;
+}
+
+.track_stats .hits {
+  float: right;
+}
+
+.track_list .item_card {
+  width: 155px;
+  border: 1px solid #DDDDDD;
+  float: left;
+  padding: 0px 8px;
+  margin-left: 3px;
+  margin-right: 3px;
+  margin-bottom: 8px;
+}
+
+.steps .step {
+  margin-top: 3px;
+  margin-bottom: 3px;
+  display: block;
+}
+
+.steps a {
+  text-decoration: none;
+}
+
+.track_list .item_card .track_stats {
+  border-top: 1px solid #DDDDDD;
+}
+
+.track_list .item_card a, .track_list .item_card a:hover, .track_list .item_card a:visited {
+  text-decoration: none;
+  color: #444;
+}
+
+.track_list .item_card:hover {
+  background: #EEE;
+}
+
+.track_list .title {
+  font-size: 16px;
+  font-weight: bold;
+  border-bottom: 1px solid #DDDDDD;
+  padding: 2px 0px;
+  margin-bottom: 5px;
+  min-height: 10px;
+}
+
+.track_list .image img {
+  max-width: 100%;
+  max-height: 100px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.track_list .name {
+  padding-top: 5px;
+}
+
+.track_list .item_card {
+  height: 270px;
+}
+
+.track_list .track_content {
+  height: 250px;
+}
+
+#track .step_list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+#track .position {
+  font-size: 24px;
+  font-weight: bold;
+  margin: 0 10px;
+  display: inline-block;
+  vertical-align: top;
+}
+
+#track .step .name {
+  font-weight: bold;
+  color: #333;
+  clear: both;
+}
+
+#track .step .name a:hover {
+  color: #555;
+}
+
+#track .step .date {
+  font-size: 12px;
+  color: #AAA;
+  float: left;
+}
+
+#track .step .lead {
+  margin: 0px 10px;
+  color: #555;
+}
+
+#track .content {
+  margin: 6px 0px;
+  display: inline-block;
+}
+
+#track .ui-state-default .content {
+  border-bottom: 0px;
+}
+
+.track_list .item .step .position {
+  float: left;
+  padding-right: 5px;
+}
+
+#track .actions .save_button {
+  display: none;
+}
+
+#track .actions, #step .actions {
+  margin-bottom: 20px;
+}
+
+#edit-track-list-block .categorie_box a {
+  float: left;
+}
+
+.all_tracks .more_button {
+  text-align: center;
+}
+
+#step .tools .item .name a, #step .tools .item .name a:hover {
+  border: none;
+  background-color: transparent;
+  color: #666;
+  font-weight: bold;
+}
+
+#step .tools .item .name a:hover {
+  color: #888;
+}
+
+.community-track textarea {
+  width: 100%;
+}
+
+.formfield input#datepicker-from-date,
+.formfield input#datepicker-to-date {
+  width: 115px;
+  background: url(/plugins/community_track/icons/calendar.png) right center no-repeat;
+}
+
+.step_list .step .tools {
+  margin-top: 5px;
+}
+
+#article .step_list .step .tool_icon, 
+.tool_icon {
+  color: #888;
+  background-color: transparent;
+  border: 0px;
+  background-repeat: no-repeat;
+  line-height: 20px;
+  height: 20px;
+  padding: 3px 2px 3px 22px;
+}
+
+#article .step .tool_link {
+  cursor: pointer;
+}
+
+#article .step_active .tool_link:hover,
+#content .steps .step_active:hover {
+  background-color: #B8D4C1;
+}
+
+#article .step_waiting .tool_link:hover,
+#content .steps .step_waiting:hover {
+  background-color: #E6E6BC;
+}
+
+#article .step_finished .tool_link:hover,
+#content .steps .step_finished:hover {
+  background-color: #BCE6E6;
+}
+
+.step_list .step .step_actions {
+  text-align: right;
+}
+
+#article .step_list .step .step_actions .button {
+  color: #888;
+  background-color: transparent;
+  border: 0px;
+  border-right: 1px solid;
+}
+
+#article .step_list .step .step_actions .button:hover {
+  color: #444;
+}
+
+.step .content {
+  width: 80%;
+}
+
+.step .legend {
+  float: right;
+}

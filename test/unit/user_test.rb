@@ -336,10 +336,26 @@ class UserTest < ActiveSupport::TestCase
     Person.any_instance.stubs(:is_admin?).returns(true)
     Person.any_instance.stubs(:created_at).returns(DateTime.parse('16-08-2010'))
     expected_hash = {
-      'login' => 'x_and_y', 'is_admin' => true, 'since_month' => 8, 'chat_enabled' => false, 'since_year' => 2010, 'email_domain' => nil, 'amount_of_friends' => 0,
-      'friends_list' => {}, 'enterprises' => [],
+      'login' => 'x_and_y', 'is_admin' => true, 'since_month' => 8,
+      'chat_enabled' => false, 'since_year' => 2010, 'email_domain' => nil, 
+      'amount_of_friends' => 0, 'friends_list' => {}, 'enterprises' => [],
     }
-    assert_equal expected_hash, person.user.data_hash
+
+    assert_equal expected_hash['login'], person.user.data_hash['login']
+    assert_equal expected_hash['is_admin'], person.user.data_hash['is_admin']
+    assert_equal expected_hash['since_month'], person.user.data_hash['since_month']
+    assert_equal expected_hash['chat_enabled'], person.user.data_hash['chat_enabled']
+    assert_equal expected_hash['since_year'], person.user.data_hash['since_year']
+
+    # Avatar stuff
+    assert_match 'http://www.gravatar.com/avatar/a0517761d5125820c28d87860bc7c02e', person.user.data_hash['avatar']
+    assert_match 'only_path=false', person.user.data_hash['avatar']
+    assert_match 'd=', person.user.data_hash['avatar']
+    assert_match 'size=20', person.user.data_hash['avatar']
+
+    assert_equal expected_hash['email_domain'], person.user.data_hash['email_domain']
+    assert_equal expected_hash['amount_of_friends'], person.user.data_hash['amount_of_friends']
+    assert_equal expected_hash['friends_list'], person.user.data_hash['friends_list']
   end
 
   should "data_hash return the friends_list information" do
@@ -516,6 +532,22 @@ class UserTest < ActiveSupport::TestCase
     assert_difference Delayed::Job, :count, 1 do
       user = new_user
     end
+  end
+
+  should 'deactivate an user' do
+    user = new_user
+    user.activate
+    assert user.deactivate
+    assert_nil user.activated_at
+    assert !user.person.visible
+  end
+
+  should 'return if the user is deactivated' do
+    user = new_user
+    user.activate
+    assert user.activated?
+    user.deactivate
+    assert !user.activated?
   end
 
   should 'activate right after creation when confirmation is not required' do

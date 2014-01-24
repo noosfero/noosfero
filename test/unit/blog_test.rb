@@ -198,7 +198,8 @@ class BlogTest < ActiveSupport::TestCase
   #FIXME This should be used until there is a migration to fix all blogs that
   # already have folders inside them
   should 'not list folders in posts' do
-    blog = fast_create(Blog)
+    p = create_user('testuser').person
+    blog =  Blog.create!(:profile => p, :name => 'Blog test')
     folder = fast_create(Folder, :parent_id => blog.id)
     article = fast_create(TextileArticle, :parent_id => blog.id)
 
@@ -212,10 +213,43 @@ class BlogTest < ActiveSupport::TestCase
   end
 
   should 'know when blog has or when has no posts' do
-    blog = fast_create(Blog)
+    p = create_user('testuser').person
+    blog =  Blog.create!(:profile => p, :name => 'Blog test')
     assert blog.empty?
     fast_create(TextileArticle, :parent_id => blog.id)
     assert ! blog.empty?
   end
 
+  should 'set cover image' do
+    profile = fast_create(Profile)
+    blog = Blog.create(:profile_id => profile.id, :name=>'testblog', :image_builder => { :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')})
+    blog.save!
+    blog.reload
+    assert_equal blog.image(true).filename, 'rails.png'
+  end
+
+  should 'remove cover image' do
+    profile = fast_create(Profile)
+    blog = Blog.create(:profile_id => profile.id, :name=>'testblog', :image_builder => { :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')})
+    blog.save!
+    blog.reload
+
+    blog.image = nil
+    blog.save!
+    blog.reload
+    assert blog.image.nil?
+  end
+
+  should 'update cover image' do
+    profile = fast_create(Profile)
+    blog = Blog.create(:profile_id => profile.id, :name=>'testblog', :image_builder => { :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')})
+    blog.save!
+    blog.reload
+
+    blog.image = Image.create!(:uploaded_data => fixture_file_upload('/files/noosfero-network.png', 'image/png'))
+    blog.save!
+    blog.reload
+
+    assert_equal blog.image(true).filename, 'noosfero-network.png'
+  end
 end

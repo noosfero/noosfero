@@ -19,7 +19,7 @@ class DisplayContentPluginAdminControllerTest < ActionController::TestCase
     @environment.enabled_plugins = ['DisplayContentPlugin']
     @environment.portal_community = fast_create(Community, :name => 'my test profile', :identifier => 'mytestcommunity')
     @environment.save!
-  
+
     box = Box.new(:owner => @environment, :position => 1)
     box.save
 
@@ -73,18 +73,16 @@ class DisplayContentPluginAdminControllerTest < ActionController::TestCase
 
   should 'index action returns an json with node undetermined if the node is in the parent nodes list' do
     Article.delete_all
-    article = fast_create(TextileArticle, :name => 'test article 1', :profile_id => environment.portal_community.id)
-    block.parent_nodes= [article.id]
+    f = fast_create(Folder, :name => 'test folder 1', :profile_id => environment.portal_community.id)
+    article = fast_create(TextileArticle, :name => 'test article 1', :profile_id => environment.portal_community.id, :parent_id => f.id)
+    article2 = fast_create(TextileArticle, :name => 'test article 2', :profile_id => environment.portal_community.id, :parent_id => f.id)
+    block.nodes = [article.id]
     block.save!
 
     get :index, :block_id => block.id
     json_response = ActiveSupport::JSON.decode(@response.body)
-    expected_json = {'data' => article.title}
-    expected_json['attr'] = { 'node_id' => article.id, 'parent_id' => article.parent_id}
-    expected_json['attr'].merge!({'class' => 'jstree-undetermined'})
-    expected_json['children'] = []
-
-    assert_equivalent [expected_json], json_response
+    expected_json = { 'node_id' => f.id, 'class' => 'jstree-undetermined', 'parent_id' => f.parent_id}
+    assert_equal expected_json, json_response.first['attr']
   end
 
   should 'index action returns an json with node closed if the node has article with children' do
@@ -106,7 +104,7 @@ class DisplayContentPluginAdminControllerTest < ActionController::TestCase
     f = fast_create(Folder, :name => 'test folder 1', :profile_id => environment.portal_community.id)
     a1 = fast_create(TextileArticle, :name => 'test article 1', :profile_id => environment.portal_community.id, :parent_id => f.id)
     a2 = fast_create(TextileArticle, :name => 'test article 2', :profile_id => environment.portal_community.id, :parent_id => f.id)
-    block.parent_nodes = [f.id]
+    block.checked_nodes= {a1.id => true}
     block.save!
 
     get :index, :block_id => block.id
@@ -114,7 +112,7 @@ class DisplayContentPluginAdminControllerTest < ActionController::TestCase
     expected_json = {'data' => f.title}
     expected_json['attr'] = { 'node_id' => f.id, 'parent_id' => f.parent_id}
     children = [
-      {'data' => a1.title, 'attr' => {'node_id' => a1.id, 'parent_id' => a1.parent_id}},
+      {'data' => a1.title, 'attr' => {'node_id' => a1.id, 'parent_id' => a1.parent_id, "class" => "jstree-checked"}},
       {'data' => a2.title, 'attr' => {'node_id' => a2.id, 'parent_id'=> a2.parent_id}}
     ]
     expected_json['attr'].merge!({'class' => 'jstree-undetermined'})
@@ -130,7 +128,7 @@ class DisplayContentPluginAdminControllerTest < ActionController::TestCase
     a1 = fast_create(TextileArticle, :name => 'test article 1', :profile_id => environment.portal_community.id, :parent_id => f.id)
     a2 = fast_create(TextileArticle, :name => 'test article 2', :profile_id => environment.portal_community.id, :parent_id => f.id)
     a3 = fast_create(TextileArticle, :name => 'test article 3', :profile_id => environment.portal_community.id)
-    block.parent_nodes = [f.id]
+    block.checked_nodes= {a2.id => true, a3.id => true}
     block.save!
 
     get :index, :block_id => block.id
@@ -140,7 +138,7 @@ class DisplayContentPluginAdminControllerTest < ActionController::TestCase
     value['attr'] = { 'node_id' => f.id, 'parent_id' => f.parent_id}
     children = [
      {'data' => a1.title, 'attr' => {'node_id' => a1.id, 'parent_id' => a1.parent_id}},
-     {'data' => a2.title, 'attr' => {'node_id' => a2.id, 'parent_id'=> a2.parent_id}}
+     {'data' => a2.title, 'attr' => {'node_id' => a2.id, 'parent_id'=> a2.parent_id, "class" => "jstree-checked"}}
     ]
     value['attr'].merge!({'class' => 'jstree-undetermined'})
     value['children'] = children
@@ -148,7 +146,7 @@ class DisplayContentPluginAdminControllerTest < ActionController::TestCase
     expected_json.push(value)
 
     value = {'data' => a3.title}
-    value['attr'] = { 'node_id' => a3.id, 'parent_id' => a3.parent_id}
+    value['attr'] = { 'node_id' => a3.id, 'parent_id' => a3.parent_id, "class" => "jstree-checked"}
     expected_json.push(value)
 
     assert_equivalent expected_json, json_response

@@ -9,6 +9,7 @@ class ContentViewerController < ApplicationController
 
   def view_page
     path = params[:page].join('/')
+    @version = params[:version].to_i
 
     if path.blank?
       @page = profile.home_page
@@ -27,22 +28,15 @@ class ContentViewerController < ApplicationController
       end
     end
 
-    if !@page.nil? && !@page.display_to?(user)
-      if !profile.public?
-        private_profile_partial_parameters
-        render :template => 'profile/_private_profile.rhtml', :status => 403
-      else #if !profile.visible?
-        message = _('You are not allowed to view this content.')
-        message += ' ' + _('You can contact the owner of this profile to request access then.')
-        render_access_denied(message)
-      end
-      return
-    end
+    return unless allow_access_to_page(path)
 
-    # page not found, give error
-    if @page.nil?
-      render_not_found(@path)
-      return
+    if @version > 0
+      return render_access_denied unless @page.display_versions?
+      @versioned_article = @page.versions.find_by_version(@version)
+      if @versioned_article && @page.versions.latest.version != @versioned_article.version
+        render :template => 'content_viewer/versioned_article.rhtml'
+        return
+      end
     end
 
     if request.xhr? && params[:toolbar]
@@ -51,6 +45,16 @@ class ContentViewerController < ApplicationController
     end
 
     redirect_to_translation if @page.profile.redirect_l10n
+
+    if request.post?
+      if @page.forum? && @page.has_terms_of_use && params[:terms_accepted] == "true"
+        @page.add_agreed_user(user)
+      end
+    elsif !@page.parent.nil? && @page.parent.forum?
+      unless @page.parent.agrees_with_terms?(user)
+        redirect_to @page.parent.url
+      end
+    end
 
     # At this point the page will be showed
     @page.hit
@@ -98,7 +102,7 @@ class ContentViewerController < ApplicationController
     end
 
     if @page.folder? && @page.gallery?
-      @images = @page.images
+      @images = @page.images.select{ |a| a.display_to? user }
       @images = @images.paginate(:per_page => per_page, :page => params[:npage]) unless params[:slideshow]
     end
 
@@ -120,8 +124,17 @@ class ContentViewerController < ApplicationController
     end
   end
 
-  def versioning_articles(string1, string2)
-    Diffy::Diff.new('string1', 'string2').to_s(:html)
+  def differences_between_article_versions(version1, version2)
+    Diffy::Diff.new('version1', 'version2').to_s(:html)
+  end
+
+  def article_versions
+    path = params[:page].join('/')
+    @page = profile.articles.find_by_path(path)
+    return unless allow_access_to_page(path)
+
+    render_access_denied unless @page.display_versions?
+    @versions = @page.versions.paginate(:per_page => per_page, :page => params[:npage])
   end
 
   protected
@@ -153,6 +166,24 @@ class ContentViewerController < ApplicationController
     logged_in? && !environment.enabled?('captcha_for_logged_users')
   end
   helper_method :pass_without_comment_captcha?
+
+  def allow_access_to_page(path)
+    allowed = true
+    if @page.nil? # page not found, give error
+      render_not_found(path)
+      allowed = false
+    elsif !@page.display_to?(user)
+      if !profile.public?
+        private_profile_partial_parameters
+        render :template => 'profile/_private_profile.rhtml', :status => 403
+        allowed = false
+      else #if !profile.visible?
+        render_access_denied
+        allowed = false
+      end
+    end
+    allowed
+  end
 
 end
 

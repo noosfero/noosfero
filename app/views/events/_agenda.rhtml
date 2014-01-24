@@ -3,22 +3,14 @@
     <table class='noborder current-month'>
       <caption>
         <h2><%= show_month(params[:year], params[:month]) %></h2>
-        <%= link_to_previous_month(params[:year], params[:month], '&laquo; %s' % _('previous')) %>
-        <%= link_to_next_month(params[:year], params[:month], '%s &raquo;' % _('next')) %>
+        <%= link_to_previous_month(params[:year], params[:month], show_month(params[:year], params[:month], :previous => true, :only_month => true)) %>
+        <%= link_to_next_month(params[:year], params[:month], show_month(params[:year], params[:month], :next => true, :only_month => true)) %> 
       </caption>
       <%= render :partial => 'events/month', :locals => {:calendar => @calendar, :abbreviated => true} %>
-    </table>
-    <table class='noborder previous-month'>
-      <caption><h3><%= link_to_previous_month(params[:year], params[:month], show_month(params[:year], params[:month], :previous => true)) %></h3></caption>
-      <%= render :partial => 'events/month', :locals => {:calendar => @previous_calendar, :abbreviated => true} %>
-    </table>
-    <table class='noborder next-month'>
-      <caption><h3><%= link_to_next_month(params[:year], params[:month], show_month(params[:year], params[:month], :next => true)) %></h3></caption>
-      <%= render :partial => 'events/month', :locals => {:calendar => @next_calendar, :abbreviated => true} %>
     </table>
     <br clear='both'/>
   </div>
   <div id='events-of-the-day'>
-    <%= render :partial => 'events/events_by_day' %>
+    <%= render :partial => 'events/events' %>
   </div>
 </div>
