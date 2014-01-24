@@ -28,13 +28,13 @@ class SubOrganizationsPluginProfileController < ProfileController
       @full = false
     elsif !params[:type]
       @total = _profile
-      @total = @total.paginate(:per_page => 2, :page => params[:npage])
+      @total = @total.paginate(:per_page => 12, :page => params[:npage])
       if params[:display] == 'compact'
         @full = false
       end
     else
-      @communities = @communities.paginate(:per_page => 2, :page => params[:npage])
-      @enterprises = @enterprises.paginate(:per_page => 2, :page => params[:npage])
+      @communities = @communities.paginate(:per_page => 12, :page => params[:npage])
+      @enterprises = @enterprises.paginate(:per_page => 12, :page => params[:npage])
     end
   end
 
