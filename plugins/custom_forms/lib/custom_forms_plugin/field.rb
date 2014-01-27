@@ -1,26 +1,27 @@
 class CustomFormsPlugin::Field < ActiveRecord::Base
   set_table_name :custom_forms_plugin_fields
 
-  validates_presence_of :form, :name
-  validates_uniqueness_of :slug, :scope => :form_id
+  validates_presence_of :name
 
   belongs_to :form, :class_name => 'CustomFormsPlugin::Form'
   has_many :answers, :class_name => 'CustomFormsPlugin::Answer'
 
-  serialize :choices, Hash
+  has_many :alternatives, :order => 'position', :class_name => 'CustomFormsPlugin::Alternative'
+  accepts_nested_attributes_for :alternatives, :allow_destroy => true
+  #FIXME This validation should be in the subclass, but since we are using Single Table
+  # Inheritance we are instantiating a Field object with the type as a param. So the validation
+  # had to go here or rails would skip it.
+  validates_length_of :alternatives, :minimum => 1, :message => 'can\'t be empty', :if => Proc.new { |f| f.type == 'CustomFormsPlugin::SelectField' }
 
   before_validation do |field|
     field.slug = field.name.to_slug if field.name.present?
   end
 
-  before_create do |field|
-    if field.form.fields.exists?
-      field.position = field.form.fields.order(:position).last.position + 1
-    end
+  private
+
+  def attributes_protected_by_default
+    super - [self.class.inheritance_column]
   end
 
-  def position
-    self[:position] || 0
-  end
 end
 

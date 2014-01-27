@@ -48,21 +48,22 @@ class CustomFormsPluginMyprofileControllerTest < ActionController::TestCase
           :access => 'logged',
           :begining => begining,
           :ending => ending,
-          :description => 'Cool form'},
-        :fields => {
-          1 => {
-            :name => 'Name',
-            :default_value => 'Jack',
-            :type => 'text_field'
-          },
-          2 => {
-            :name => 'Color',
-            :list => '1',
-            :type => 'select_field',
-            :choices => {
-              1 => {:name => 'Red', :value => 'red'},
-              2 => {:name => 'Blue', :value => 'blue'},
-              3 => {:name => 'Black', :value => 'black'}
+          :description => 'Cool form',
+          :fields_attributes => {
+            1 => {
+              :name => 'Name',
+              :default_value => 'Jack',
+              :type => 'CustomFormsPlugin::TextField'
+            },
+            2 => {
+              :name => 'Color',
+              :select_field_type => 'radio',
+              :type => 'CustomFormsPlugin::SelectField',
+              :alternatives_attributes => {
+                1 => {:label => 'Red'},
+                2 => {:label => 'Blue'},
+                3 => {:label => 'Black'}
+              }
             }
           }
         }
@@ -75,32 +76,30 @@ class CustomFormsPluginMyprofileControllerTest < ActionController::TestCase
     assert_equal 'Cool form', form.description
     assert_equal 2, form.fields.count
 
-    f1 = form.fields.first
-    f2 = form.fields.last
+    f1 = form.fields[0]
+    f2 = form.fields[1]
 
     assert_equal 'Name', f1.name
     assert_equal 'Jack', f1.default_value
     assert f1.kind_of?(CustomFormsPlugin::TextField)
 
     assert_equal 'Color', f2.name
-    assert_equal 'red', f2.choices['Red']
-    assert_equal 'blue', f2.choices['Blue']
-    assert_equal 'black', f2.choices['Black']
-    assert f2.list
+    assert_equal f2.alternatives.map(&:label).sort, ['Red', 'Blue', 'Black'].sort
+    assert_equal f2.select_field_type, 'radio'
     assert f2.kind_of?(CustomFormsPlugin::SelectField)
   end
 
-  should 'create fields in the order they are sent' do
+  should 'create fields in the order they are sent when no position defined' do
     format = '%Y-%m-%d %H:%M'
     num_fields = 10
     begining = Time.now.strftime(format)
     ending = (Time.now + 1.day).strftime(format)
     fields = {}
     num_fields.times do |i|
-      fields[i.to_s] = {
-        :name => i.to_s,
+      fields[i] = {
+        :name => (10-i).to_s,
         :default_value => '',
-        :type => 'text_field'
+        :type => 'CustomFormsPlugin::TextField'
       }
     end
     assert_difference CustomFormsPlugin::Form, :count, 1 do
@@ -110,29 +109,69 @@ class CustomFormsPluginMyprofileControllerTest < ActionController::TestCase
         :access => 'logged',
         :begining => begining,
         :ending => ending,
-        :description => 'Cool form'},
-        :fields => fields
+        :description => 'Cool form',
+        :fields_attributes => fields
+      }
     end
     form = CustomFormsPlugin::Form.find_by_name('My Form')
     assert_equal num_fields, form.fields.count
-    form.fields.find_each do |f|
-      assert_equal f.position, f.name.to_i
+    lst = 10
+    form.fields.each do |f|
+      assert f.name.to_i == lst
+      lst = lst - 1
     end
+  end
+
+  should 'create fields in any position size' do
+    format = '%Y-%m-%d %H:%M'
+    begining = Time.now.strftime(format)
+    ending = (Time.now + 1.day).strftime(format)
+    fields = {}
+    fields['0'] = {
+      :name => '0',
+      :default_value => '',
+      :type => 'CustomFormsPlugin::TextField',
+      :position => '999999999999'
+    }
+    fields['1'] = {
+      :name => '1',
+      :default_value => '',
+      :type => 'CustomFormsPlugin::TextField',
+      :position => '1'
+    }
+    assert_difference CustomFormsPlugin::Form, :count, 1 do
+      post :create, :profile => profile.identifier,
+        :form => {
+        :name => 'My Form',
+        :access => 'logged',
+        :begining => begining,
+        :ending => ending,
+        :description => 'Cool form',
+        :fields_attributes => fields
+      }
+    end
+    form = CustomFormsPlugin::Form.find_by_name('My Form')
+    assert_equal 2, form.fields.count
+    assert form.fields.first.name == "1"
+    assert form.fields.last.name == "0"
   end
 
   should 'edit a form' do
     form = CustomFormsPlugin::Form.create!(:profile => profile, :name => 'Free Software')
-    field = CustomFormsPlugin::TextField.create!(:form => form, :name => 'License')
     format = '%Y-%m-%d %H:%M'
     begining = Time.now.strftime(format)
     ending = (Time.now + 1.day).strftime(format)
 
-    post :edit, :profile => profile.identifier, :id => form.id,
-      :form => {:name => 'My Form', :access => 'logged', :begining => begining, :ending => ending, :description => 'Cool form'},
-      :fields => {1 => {:real_id => field.id.to_s, :name => 'Source'}}
+    assert_equal form.fields.length, 0
+
+    post :update, :profile => profile.identifier, :id => form.id,
+      :form => {:name => 'My Form', :access => 'logged', :begining => begining, :ending => ending, :description => 'Cool form',
+        :fields_attributes => {1 => {:name => 'Source'}}}
 
     form.reload
-    field.reload
+    assert_equal form.fields.length, 1
+
+    field = form.fields.last
 
     assert_equal 'logged', form.access
     assert_equal begining, form.begining.strftime(format)
@@ -149,5 +188,50 @@ class CustomFormsPluginMyprofileControllerTest < ActionController::TestCase
     assert_tag :tag => 'textarea', :attributes => { :id => 'form_description', :class => 'mceEditor' }
   end
 
-end
+  should 'export submissions as csv' do
+    form = CustomFormsPlugin::Form.create!(:profile => profile, :name => 'Free Software')
+    field = CustomFormsPlugin::TextField.create!(:name => "Title")
+    form.fields << field
 
+    answer = CustomFormsPlugin::Answer.create!(:value => 'example', :field => field)
+
+    sub1 = CustomFormsPlugin::Submission.create!(:author_name => "john", :author_email => 'john@example.com', :form => form)
+    sub1.answers << answer
+
+    bob = create_user('bob').person
+    sub2 = CustomFormsPlugin::Submission.create!(:profile => bob, :form => form)
+
+    get :submissions, :profile => profile.identifier, :id => form.id, :format => 'csv'
+    assert_equal @response.content_type, 'text/csv'
+    assert_equal @response.body.split("\n")[0], 'Timestamp,Name,Email,Title'
+    assert_equal @response.body.split("\n")[1], "#{sub1.updated_at.strftime('%Y/%m/%d %T %Z')},john,john@example.com,example"
+    assert_equal @response.body.split("\n")[2], "#{sub2.updated_at.strftime('%Y/%m/%d %T %Z')},bob,#{bob.email},\"\""
+  end
+
+  should 'order submissions by name or time' do
+    form = CustomFormsPlugin::Form.create!(:profile => profile, :name => 'Free Software')
+    field = CustomFormsPlugin::TextField.create!(:name => "Title")
+    form.fields << field
+    sub1 = CustomFormsPlugin::Submission.create!(:author_name => "john", :author_email => 'john@example.com', :form => form)
+    bob = create_user('bob').person
+    sub2 = CustomFormsPlugin::Submission.create!(:profile => bob, :form => form)
+
+    get :submissions, :profile => profile.identifier, :id => form.id, :sort_by => 'time'
+    assert_not_nil assigns(:sort_by)
+    assert_select 'table.action-table', /Author\W*Time\W*john[\W\dh]*bob[\W\dh]*/
+
+    get :submissions, :profile => profile.identifier, :id => form.id, :sort_by => 'author'
+    assert_not_nil assigns(:sort_by)
+    assert_select 'table.action-table', /Author\W*Time\W*bob[\W\dh]*john[\W\dh]*/
+  end
+
+  should 'list pending submissions for a form' do
+    person = fast_create(Person)
+    form = CustomFormsPlugin::Form.create!(:profile => profile, :name => 'Free Software', :for_admission => true)
+    task = CustomFormsPlugin::AdmissionSurvey.create!(:form_id => form.id, :target => person, :requestor => profile)
+
+    get :pending, :profile => profile.identifier, :id => form.id
+
+    assert_tag :td, :content => person.name
+  end
+end

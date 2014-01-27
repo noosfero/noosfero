@@ -1,0 +1,9 @@
+<%-# Small hack necessary for fields_for when validation fails on #new %>
+<% case f.object.type
+   when 'CustomFormsPlugin::SelectField' %>
+  <%= render partial_for_class(CustomFormsPlugin::SelectField), :f => f %>
+<% when 'CustomFormsPlugin::TextField' %>
+  <%= render partial_for_class(CustomFormsPlugin::TextField), :f => f %>
+<% else %>
+  <% raise 'This field has no valid type' %>
+<% end %>
