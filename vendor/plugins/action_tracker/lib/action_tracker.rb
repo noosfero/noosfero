@@ -124,7 +124,7 @@ module ActionTracker
 
   module ViewHelper
     def describe(ta)
-      returning "" do |result|
+      "".tap do |result|
         if ta.is_a?(ActionTracker::Record)
           result << ta.description.gsub(/\{\{(.*?)\}\}/) { eval $1 }
         else
