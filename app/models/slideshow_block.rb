@@ -38,11 +38,11 @@ class SlideshowBlock < Block
       if shuffle
         images = images.shuffle
       end
-      lambda do
+      proc do
         render :file => 'blocks/slideshow', :locals => { :block => block, :images => images }
       end
     else
-      lambda do
+      proc do
         render :file => 'blocks/slideshow', :locals => { :block => block, :images => nil }
       end
     end

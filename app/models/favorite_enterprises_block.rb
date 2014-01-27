@@ -15,7 +15,7 @@ class FavoriteEnterprisesBlock < ProfileListBlock
   def footer
     owner = self.owner
     return '' unless owner.kind_of?(Person)
-    lambda do
+    proc do
       link_to _('View all'), :profile => owner.identifier, :controller => 'profile', :action => 'favorite_enterprises'
     end
   end

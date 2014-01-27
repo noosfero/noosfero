@@ -43,13 +43,13 @@ class TagsBlock < Block
 
   def footer
     if owner.class == Environment
-      lambda do
+      proc do
         link_to s_('tags|View all'),
           :controller => 'search', :action => 'tags'
       end
     else
       owner_id = owner.identifier
-      lambda do
+      proc do
         link_to s_('tags|View all'),
           :profile => owner_id, :controller => 'profile', :action => 'tags'
       end
