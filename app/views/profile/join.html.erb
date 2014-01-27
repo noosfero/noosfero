@@ -4,7 +4,7 @@
 <%= _('Are you sure you want to join %s?') % profile.name %>
 </p>
 
-<% form_tag do %>
+<%= form_tag do %>
   <%= hidden_field_tag('back_to', @back_to) %>
   <%= hidden_field_tag(:confirmation, 1) %>
   <%= submit_button(:ok, _("Yes, I want to join.") % profile.name) %>

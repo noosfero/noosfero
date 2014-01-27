@@ -28,7 +28,7 @@
   </p>
   <em><%= _('No pending tasks for %s') % profile.name %></em>
 <% else %>
-  <% form_tag :action => 'close' do%>
+  <%= form_tag :action => 'close' do%>
     <% button_bar do %>
       <%# FiXME button(:edit, _('View my requests'), :action => 'list_requested') %>
       <%# FIXME button('menu-mail',  _('Send request'), :action => 'new') %>

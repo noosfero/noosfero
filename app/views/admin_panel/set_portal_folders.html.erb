@@ -28,7 +28,7 @@
   <%= button :up, _('Remove'), '#', { :id => 'remove' } %>
 </div>
 
-<% form_tag do %>
+<%= form_tag do %>
   <div id='portal-folders'>
     <%= labelled_form_field(_('Portal folders'), select_tag( 'folders[]', options_from_collection_for_select(@selected, :id, :name, nil), {:id => 'selected-folders', :multiple => true, :size => 6 })) %>
   </div>

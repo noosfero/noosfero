@@ -15,7 +15,7 @@
 
   <div id='terms-of-enterprise-use' class='height: 200px; overflow: auto;'><%= @terms_of_enterprise_use %></div>
 
-  <% form_tag :action => 'activate_enterprise' do %>
+  <%= form_tag :action => 'activate_enterprise' do %>
     <%= hidden_field_tag :enterprise_code, params[:enterprise_code] %>
     <%= hidden_field_tag :answer, params[:answer] %>
 

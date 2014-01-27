@@ -1,7 +1,7 @@
 <% if environment.portal_community %>
   <h1><%= _("Publish your article on portal community") %></h1>
 
-  <% form_tag do%>
+  <%= form_tag do%>
     <%= hidden_field_tag :back_to, @back_to %>
     <%= labelled_text_field _('Title') + ': ', :name, @article.name, :style => 'width: 100%' %>
 

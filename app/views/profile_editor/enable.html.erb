@@ -4,7 +4,7 @@
 <%= _('Are you sure you want to enable %s?') % @to_enable.name %>
 </p>
 
-<% form_tag do %>
+<%= form_tag do %>
   <%= hidden_field_tag(:confirmation, 1) %>
   <%= submit_button(:ok, _("Yes, I want to enable.")) %>
   <%= button(:cancel, _("No, I don't want."), :action => 'index') %>

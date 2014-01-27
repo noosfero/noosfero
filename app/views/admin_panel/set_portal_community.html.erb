@@ -1,7 +1,7 @@
 <h1> <%= _('Set Environment Portal') %></h1>
 
 <% if @portal_community.new_record? %>
-  <% form_tag do %>
+  <%= form_tag do %>
     <%= labelled_form_field(_('Portal identifier'), text_field_tag('portal_community_identifier', @portal_community.identifier, :size => 40) ) %>
 
     <% button_bar do %>

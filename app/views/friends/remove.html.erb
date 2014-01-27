@@ -14,7 +14,7 @@
 </em>
 </p>
 
-<% form_tag do %>
+<%= form_tag do %>
   <%= hidden_field_tag(:confirmation, 1) %>
 
   <%= submit_button(:ok, _("Yes") % @friend.name) %>

@@ -15,7 +15,7 @@
 <%= _('Indicate which friends you want to invite.') %>
 </p>
 
-<% form_tag do %>
+<%= form_tag do %>
   <%= hidden_field_tag(:import_from, @import_from) %>
   <%= hidden_field_tag(:contact_list, @contact_list.id) %>
 

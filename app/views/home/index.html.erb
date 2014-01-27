@@ -54,7 +54,7 @@
 
 <% if environment.enabled?('search_in_home') %>
   <div id='home-search' style='text-align: center'>
-    <% form_tag :controller => 'search', :action => 'index' do %>
+    <%= form_tag :controller => 'search', :action => 'index' do %>
 
       <div id='search-field' style='text-align: center;'>
         <%= text_field_tag('query', '', :size => 50) %>

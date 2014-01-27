@@ -1,6 +1,6 @@
 <h2> <%= _("Add a new trusted site") %> </h2>
 
-<% form_tag :action => :create do %>
+<%= form_tag :action => :create do %>
 
   <%= text_field_tag :site, @site %>
 
