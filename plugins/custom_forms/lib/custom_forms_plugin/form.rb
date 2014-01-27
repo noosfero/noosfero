@@ -43,6 +43,10 @@ class CustomFormsPlugin::Form < Noosfero::Plugin::ActiveRecord
     (begining.present? && Time.now < begining) || (ending.present? && Time.now > ending)
   end
 
+  def will_open?
+    begining.present? && Time.now < begining
+  end
+
   def accessible_to(target)
     return true if access.nil? || target == profile
     return false if target.nil?

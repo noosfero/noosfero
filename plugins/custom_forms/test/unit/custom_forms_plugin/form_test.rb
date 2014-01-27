@@ -89,6 +89,22 @@ class CustomFormsPlugin::FormTest < ActiveSupport::TestCase
     assert !form.expired?
   end
 
+  should 'define if form will still open' do
+    form = CustomFormsPlugin::Form.new
+    assert !form.will_open?
+
+    form.begining = Time.now + 1.day
+    assert form.will_open?
+
+    form.begining = Time.now - 1.day
+    assert !form.will_open?
+
+    form.begining = Time.now - 2.day
+    form.ending = Time.now - 1.day
+    assert form.expired?
+    assert !form.will_open?
+  end
+
   should 'validates format of access' do
     form = CustomFormsPlugin::Form.new
     form.valid?

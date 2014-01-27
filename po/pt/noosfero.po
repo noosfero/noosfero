@@ -11497,9 +11497,13 @@ msgstr "Nome do autor"
 msgid "Author email"
 msgstr "Email do autor"
 
-#: plugins/custom_forms/views/custom_forms_plugin_profile/show.html.erb:5
-msgid "Sorry, you can't fill this form right now"
-msgstr "Desculpe, você não pode preencher esse formulário no momento"
+#: plugins/custom_forms/views/custom_forms_plugin_profile/show.html.erb:7
+msgid "Sorry, you can't fill this form yet"
+msgstr "Desculpe, você não pode preencher esse formulário ainda"
+
+#: plugins/custom_forms/views/custom_forms_plugin_profile/show.html.erb:9
+msgid "Sorry, you can't fill this form anymore"
+msgstr "Desculpe, você não pode mais preencher esse formulário"
 
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/_empty_field.html.erb:8
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/_field.html.erb:10

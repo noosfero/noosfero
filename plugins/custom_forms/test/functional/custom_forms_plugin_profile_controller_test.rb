@@ -35,7 +35,23 @@ class CustomFormsPluginProfileControllerTest < ActionController::TestCase
 
     get :show, :profile => profile.identifier, :id => form.id
 
-    assert_tag :tag => 'h2', :content => 'Sorry, you can\'t fill this form right now'
     assert_tag :tag => 'input', :attributes => {:disabled => 'disabled'}
+  end
+
+  should 'show expired message' do
+    form = CustomFormsPlugin::Form.create!(:profile => profile, :name => 'Free Software', :begining => Time.now + 1.day)
+    form.fields << CustomFormsPlugin::TextField.create(:name => 'Field Name', :form => form, :default_value => "First Field")
+
+    get :show, :profile => profile.identifier, :id => form.id
+
+    assert_tag :tag => 'h2', :content => 'Sorry, you can\'t fill this form yet'
+
+    form.begining = Time.now - 2.days
+    form.ending = Time.now - 1.days
+    form.save
+
+    get :show, :profile => profile.identifier, :id => form.id
+
+    assert_tag :tag => 'h2', :content => 'Sorry, you can\'t fill this form anymore'
   end
 end
