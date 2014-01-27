@@ -169,7 +169,7 @@ class ContentViewerControllerTest < ActionController::TestCase
 
     get :view_page, :profile => community.identifier, :page => [ folder.path ]
 
-    assert_template 'access_denied.rhtml'
+    assert_template 'access_denied'
   end
 
   should 'show private content to profile moderators' do
@@ -250,7 +250,7 @@ class ContentViewerControllerTest < ActionController::TestCase
 
     get :view_page, :profile => 'test_profile', :page => [ 'my-intranet' ]
 
-    assert_template 'access_denied.rhtml'
+    assert_template 'access_denied'
   end
 
   should 'not give access to private articles if logged in but not member' do
@@ -260,7 +260,7 @@ class ContentViewerControllerTest < ActionController::TestCase
 
     get :view_page, :profile => 'test_profile', :page => [ 'my-intranet' ]
 
-    assert_template 'access_denied.rhtml'
+    assert_template 'access_denied'
   end
 
   should 'not give access to private articles if logged in and only member' do
@@ -272,7 +272,7 @@ class ContentViewerControllerTest < ActionController::TestCase
 
     get :view_page, :profile => 'test_profile', :page => [ 'my-intranet' ]
 
-    assert_template 'access_denied.rhtml'
+    assert_template 'access_denied'
   end
 
   should 'give access to private articles if logged in and moderator' do

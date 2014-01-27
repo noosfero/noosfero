@@ -31,7 +31,7 @@ class ManageProductsControllerTest < ActionController::TestCase
     login_as :user_test
     get 'index', :profile => @enterprise.identifier
     assert :success
-    assert_template 'access_denied.rhtml'
+    assert_template 'access_denied'
   end
 
   should "get index" do
@@ -198,7 +198,7 @@ class ManageProductsControllerTest < ActionController::TestCase
     @enterprise.save!
     get :index, :profile => @enterprise.identifier
 
-    assert_template 'not_found.rhtml'
+    assert_template 'not_found'
   end
 
   should 'show top level product categories for the user to choose' do

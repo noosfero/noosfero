@@ -91,7 +91,7 @@ class ChatControllerTest < ActionController::TestCase
     get :index
 
     assert_response 404
-    assert_template 'not_found.rhtml'
+    assert_template 'not_found'
   end
 
   should 'not update presence status from non-ajax requests' do

@@ -29,7 +29,7 @@ class ProfileMembersControllerTest < ActionController::TestCase
     get 'index', :profile => 'test_enterprise'
 
     assert_response 403
-    assert_template 'access_denied.rhtml'
+    assert_template 'access_denied'
   end
 
   should 'access index' do
