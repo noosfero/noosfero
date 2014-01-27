@@ -1,3 +1,9 @@
+noosfero (0.46.0~rc20140127220605) squeeze-test; urgency=low
+
+  * 0.46.0 RC2
+
+ -- Rodrigo Souto <rodrigo@colivre.coop.br>  Mon, 27 Jan 2014 22:06:11 +0000
+
 noosfero (0.46.0~rc20140120171635) squeeze-test; urgency=low
 
   * 0.46.0 RC1
