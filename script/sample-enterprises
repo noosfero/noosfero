@@ -1,4 +1,5 @@
 #!/usr/bin/env ruby
+# encoding: utf-8
 require File.dirname(__FILE__) + '/../config/environment'
 include Noosfero::SampleDataHelper
 
@@ -27,14 +28,13 @@ groups.each do |group|
       enterprise = Enterprise.new(
         :name => name,
         :identifier => name.to_slug,
-        :enabled => false,
         :foundation_year => (1990..2008).to_a[rand(18)],
         :lat => rand_position(:lat),
         :lng => rand_position(:lng)
       )
       save enterprise do
-        categories.rand.enterprises << enterprise
-        categories.rand.enterprises << enterprise
+        categories.sample.enterprises << enterprise
+        categories.sample.enterprises << enterprise
       end
     end
   end
@@ -48,6 +48,6 @@ end
 
 ze = Person['ze']
 # give admin rights for 'ze' in some enterprises
-$environment.enterprises.rand.add_admin(ze)
-$environment.enterprises.rand.add_admin(ze)
-$environment.enterprises.rand.add_admin(ze)
+$environment.enterprises.sample.add_admin(ze)
+$environment.enterprises.sample.add_admin(ze)
+$environment.enterprises.sample.add_admin(ze)

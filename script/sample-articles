@@ -12,15 +12,15 @@ THEMES = ['Sustainability', 'Free Software', 'Climate Change', 'Environment', 'A
 print "Creating some TinyMce articles: "
 for subject in SUBJECTS
   rand(20).times do |i|
-    profile = profiles.rand
+    profile = profiles.sample
     article = TinyMceArticle.new(
       :name => "%s #{subject}" % profile.name,
       :body => "%s #{subject}" % profile.name,
-      :tag_list => [TAGS.rand, TAGS.rand],
+      :tag_list => [TAGS.sample, TAGS.sample],
       :profile => profile
     )
     save article do
-      categories.rand.articles << article
+      categories.sample.articles << article
     end
   end
 end
@@ -29,11 +29,11 @@ done
 print "Creating some galleries: "
 for subject in SUBJECTS
   rand(20).times do |i|
-    profile = profiles.rand
+    profile = profiles.sample
     save Gallery.new(
       :name => "Gallery %s #{subject}" % profile.name,
       :body => "Gallery %s #{subject}" % profile.name,
-      :tag_list => [TAGS.rand, TAGS.rand],
+      :tag_list => [TAGS.sample, TAGS.sample],
       :profile => profile
     )
   end
@@ -45,14 +45,14 @@ for subject in EVENT_SUBJECTS
   for theme in THEMES
     event = Event.new(
       :name => subject % theme,
-      :profile => profiles.rand,
+      :profile => profiles.sample,
       :start_date => Date.today + (-30 + rand(60)).days,
-      :tag_list => [TAGS.rand, TAGS.rand]
+      :tag_list => [TAGS.sample, TAGS.sample]
     )
     save event do
-      categories.rand.events << event
-      categories.rand.events << event
-      categories.rand.events << event
+      categories.sample.events << event
+      categories.sample.events << event
+      categories.sample.events << event
     end
   end
 end

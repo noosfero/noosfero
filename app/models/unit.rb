@@ -1,6 +1,6 @@
 class Unit < ActiveRecord::Base
 
-  attr_accessible :name, :singular, :plural
+  attr_accessible :name, :singular, :plural, :environment
 
   validates_presence_of :singular
   validates_presence_of :plural
