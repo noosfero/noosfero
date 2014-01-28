@@ -1,6 +1,6 @@
 <h1><%= _('Manage users') %></h1>
 
-<% form_tag( { :action => 'index' }, :method => 'get', :class => 'users-search' ) do %>
+<%= form_tag( { :action => 'index' }, :method => 'get', :class => 'users-search' ) do %>
 <div id="search-users">
   <%= render :partial => 'users_search_form' %>
 </div>

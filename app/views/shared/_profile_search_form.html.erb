@@ -1,4 +1,4 @@
-<% form_tag( { :controller => 'profile_search', :profile => profile.identifier}, :method => 'get', :class => 'search_form' ) do %>
+<%= form_tag( { :controller => 'profile_search', :profile => profile.identifier}, :method => 'get', :class => 'search_form' ) do %>
   <div class="search-field">
     <span class="formfield">
       <%= text_field_tag 'q', @q, :title => _("Find in %s's content") % profile.short_name %>

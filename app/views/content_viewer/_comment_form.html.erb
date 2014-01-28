@@ -49,7 +49,7 @@ function submit_comment_form(button) {
   </script>
 <% end %>
 
-<% form_tag( url, { :class => 'comment_form' } ) do %>
+<%= form_tag( url, { :class => 'comment_form' } ) do %>
   <%= required_fields_message %>
 
   <% unless logged_in? %>

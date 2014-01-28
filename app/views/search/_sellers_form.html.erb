@@ -1,6 +1,6 @@
 <h3><%= title %></h3>
 
-<% form_tag({:controller => 'search', :action => 'assets'}, {:method => 'get'}) do %>
+<%= form_tag({:controller => 'search', :action => 'assets'}, {:method => 'get'}) do %>
 
   <div class="search-in-opt"><%= _('Search in:') %>
     <dir>

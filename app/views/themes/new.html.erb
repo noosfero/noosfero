@@ -1,6 +1,6 @@
 <h2><%= _('Create new theme') %></h2>
 
-<% form_tag(:action => 'new') do %>
+<%= form_tag(:action => 'new') do %>
 
   <%= labelled_form_field(_('Name of the new theme:'), text_field_tag(:name)) %>
 

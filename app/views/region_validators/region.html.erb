@@ -17,7 +17,7 @@
 <%= help _('First search organizations by their name, then use the buttons in the search result to add them as validators for this region. ') %>
 </p>
 
-<% form_tag({}, { :method => 'get' }) do %>
+<%= form_tag({}, { :method => 'get' }) do %>
   <%= text_field_tag :search, nil, :id => 'search_validator' %>
   <% button_bar do %>
     <%= submit_button('search', _('Search')) %>
