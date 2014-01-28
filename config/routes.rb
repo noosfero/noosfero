@@ -68,7 +68,7 @@ Noosfero::Application.routes.draw do
   match 'profile/:profile/invite/:action', :controller => 'invite', :profile => /#{Noosfero.identifier_format}/
 
   # feeds per tag
-  match 'profile/:profile/tags/:id/feed', :controller => 'profile', :action =>'tag_feed', :id => /.+/, :profile => /#{Noosfero.identifier_format}/
+  match 'profile/:profile/tags/:id/feed', :controller => 'profile', :action =>'tag_feed', :id => /.+/, :profile => /#{Noosfero.identifier_format}/, :as => :tag_feed
 
   # profile tags
   match 'profile/:profile/tags/:id', :controller => 'profile', :action => 'content_tagged', :id => /.+/, :profile => /#{Noosfero.identifier_format}/
