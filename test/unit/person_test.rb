@@ -1446,19 +1446,4 @@ class PersonTest < ActiveSupport::TestCase
     assert 3, original_person.memberships.count
   end
 
-  should 'respond to extra fields' do
-    user = create_user('some-user').person
-
-    assert user.respond_to?(:personal_website)
-    assert user.respond_to?(:jabber_id)
-  end
-
-  should 'return extra fields when fields method is called' do
-    extra_fields = ['jabber_id', 'personal_website']
-
-    extra_fields.each do |field|
-      assert_includes Person.fields, field
-    end
-  end
-
 end
