@@ -1391,7 +1391,7 @@ module ApplicationHelper
       result = @plugins.parse_macro(macro_name, macro, source)
       macro.content = result.kind_of?(Proc) ? self.instance_eval(&result) : result
     end
-    doc.xpath('//body/*').to_s
+    CGI.unescapeHTML(doc.xpath('//body/*').to_s)
   end
 
   def default_folder_for_image_upload(profile)
