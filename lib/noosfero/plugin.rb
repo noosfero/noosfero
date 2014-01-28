@@ -68,7 +68,9 @@ class Noosfero::Plugin
       end
 
       # load extensions
-      Dir[File.join(dir, 'lib', 'ext', '*.rb')].each {|file| require_dependency file }
+      Rails.configuration.to_prepare do
+        Dir[File.join(dir, 'lib', 'ext', '*.rb')].each {|file| require_dependency file }
+      end
 
       # load class
       klass(plugin_name)
