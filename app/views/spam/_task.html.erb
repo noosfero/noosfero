@@ -5,7 +5,7 @@
     <%= task_information(task) %>
   </div>
 
-  <%= yield %> <% # ??? %>
+  <%= yield %> <%# ??? %>
 
   <% button_bar do %>
     <%= button_to_function('new', _('Mark as NOT SPAM'), 'removeTaskBox(this, %s, "%s", "")' % [url_for(:mark_task_as_ham => task.id).to_json, "task-#{task.id}"]) %>
