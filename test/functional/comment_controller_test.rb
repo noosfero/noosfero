@@ -214,7 +214,7 @@ class CommentControllerTest < ActionController::TestCase
     environment.enable('captcha_for_logged_users')
     environment.save!
 
-    xhr :post, :create, :profile => profile.identifier, :id =>article.id, :comment => {:body => "Some comment...", :author => profile}, :confirm => 'true'
+    xhr :post, :create, :profile => profile.identifier, :id =>article.id, :comment => {:body => "Some comment..."}, :confirm => 'true'
     assert_match /post_comment_box opened/, @response.body
   end
 
@@ -225,14 +225,14 @@ class CommentControllerTest < ActionController::TestCase
     @controller.stubs(:verify_recaptcha).returns(false)
 
     assert_difference 'Comment.count', 1 do
-      xhr :post, :create, :profile => profile.identifier, :id => article.id, :comment => {:body => "Some comment...", :author => profile}, :confirm => 'true'
+      xhr :post, :create, :profile => profile.identifier, :id => article.id, :comment => {:body => "Some comment..."}, :confirm => 'true'
     end
 
     environment.enable('captcha_for_logged_users')
     environment.save!
 
     assert_no_difference 'Comment.count' do
-      xhr :post, :create, :profile => profile.identifier, :id =>article.id, :comment => {:body => "Some comment...", :author => profile}, :confirm => 'true'
+      xhr :post, :create, :profile => profile.identifier, :id =>article.id, :comment => {:body => "Some comment..."}, :confirm => 'true'
     end
     assert_not_nil assigns(:comment)
   end
@@ -242,13 +242,15 @@ class CommentControllerTest < ActionController::TestCase
     article.save!
 
     @controller.stubs(:verify_recaptcha).returns(false)
+    logout
     assert_no_difference 'Comment.count' do
-      xhr :post, :create, :profile => profile.identifier, :id => article.id, :comment => {:body => "Some comment...", :author => profile}, :confirm => 'true'
+      xhr :post, :create, :profile => profile.identifier, :id => article.id, :comment => {:body => "Some comment..."}, :confirm => 'true'
     end
 
     @controller.stubs(:verify_recaptcha).returns(true)
+    login_as profile.identifier
     assert_difference 'Comment.count', 1 do
-      xhr :post, :create, :profile => profile.identifier, :id => article.id, :comment => {:body => "Some comment...", :author => profile}, :confirm => 'true'
+      xhr :post, :create, :profile => profile.identifier, :id => article.id, :comment => {:body => "Some comment..."}, :confirm => 'true'
     end
   end
 
@@ -258,8 +260,9 @@ class CommentControllerTest < ActionController::TestCase
     page = community.articles.create!(:name => 'myarticle', :moderate_comments => true)
 
     commenter = create_user('otheruser').person
+    login_as(commenter.identifier)
     assert_difference 'ApproveComment.count', 1 do
-      xhr :post, :create, :profile => community.identifier, :id => page.id, :comment => {:body => 'Some comment...', :author => commenter}, :confirm => 'true'
+      xhr :post, :create, :profile => community.identifier, :id => page.id, :comment => {:body => 'Some comment...'}, :confirm => 'true'
     end
   end
 
@@ -279,8 +282,9 @@ class CommentControllerTest < ActionController::TestCase
     page = community.articles.create!(:name => 'myarticle', :moderate_comments => true)
 
     commenter = create_user('otheruser').person
+    login_as(commenter.identifier)
     assert_difference 'ApproveComment.count', 1 do
-      xhr :post, :create, :profile => community.identifier, :id => page.id, :comment => {:body => 'Some comment...', :author => commenter}, :confirm => 'true'
+      xhr :post, :create, :profile => community.identifier, :id => page.id, :comment => {:body => 'Some comment...'}, :confirm => 'true'
     end
     task = Task.last
     assert_equal commenter, task.requestor
@@ -293,8 +297,9 @@ class CommentControllerTest < ActionController::TestCase
     page = community.articles.create!(:name => 'myarticle', :moderate_comments => true)
 
     commenter = create_user('otheruser').person
+    login_as(commenter.identifier)
     assert_difference 'ApproveComment.count', 1 do
-      xhr :post, :create, :profile => community.identifier, :id => page.id, :comment => {:body => 'Some comment...', :author => commenter}, :confirm => 'true'
+      xhr :post, :create, :profile => community.identifier, :id => page.id, :comment => {:body => 'Some comment...'}, :confirm => 'true'
     end
     task = Task.last
     assert_equal community, task.target
@@ -472,7 +477,7 @@ class CommentControllerTest < ActionController::TestCase
     comment = fast_create(Comment, :body => 'Original comment', :source_id => page.id, :source_type => 'Article', :author_id => profile.id)
 
     get :edit, :id => comment.id, :profile => profile.identifier, :comment => { :body => 'Comment edited' }
-    assert_tag :tag => 'textarea', :attributes => {:id => 'comment_body'}, :content => 'Original comment'
+    assert_tag :tag => 'textarea', :attributes => {:id => 'comment_body'}, :content => /Original comment/
   end
 
    should 'not crash on edit comment if comment does not exist' do
