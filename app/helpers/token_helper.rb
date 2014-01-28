@@ -27,7 +27,7 @@ module TokenHelper
         hintText: #{options[:hint_text].to_json},
         noResultsText: #{options[:no_results_text].to_json},
         searchingText: #{options[:searching_text].to_json},
-        searchDelay: #{options[:serach_delay].to_json},
+        searchDelay: #{options[:search_delay].to_json},
         preventDuplicates: #{options[:prevent_duplicates].to_json},
         backspaceDeleteItem: #{options[:backspace_delete_item].to_json},
         queryParam: #{name.to_json},

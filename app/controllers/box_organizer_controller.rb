@@ -80,6 +80,18 @@ class BoxOrganizerController < ApplicationController
     render :action => 'edit', :layout => false
   end
 
+  def search_autocomplete
+    if request.xhr? and params[:query]
+      search = params[:query]
+      articles = @profile.articles.find(:all, :conditions=>"name ILIKE '%#{search}%' or path ILIKE '%#{search}%'", :limit=>20)
+      path_list = articles.map { |content| content.path }
+
+      render :json => path_list.to_json
+    else
+      redirect_to "/"
+    end
+  end
+
   def save
     @block = boxes_holder.blocks.find(params[:id])
     @block.update_attributes(params[:block])
