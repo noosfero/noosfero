@@ -145,7 +145,7 @@ class ActiveSupport::TestCase
                      patch ? patch[1] : nil
                    end.compact
       s.each do |css_ref|
-        if ! File.exists?(Rails.root.join('public', css_ref ))
+        if ! File.exists?(File.join(Rails.root, 'public', css_ref))
           flunk 'CSS reference missed on HTML: "%s"' % css_ref
         end
       end
@@ -154,7 +154,7 @@ class ActiveSupport::TestCase
     # Test image references:
     (doc/'img').each do |img|
       src = img.get_attribute( 'src' ).gsub(/\?[0-9]+$/, '')
-      if ! File.exists?(Rails.root.join('public', src))
+      if ! File.exists?(File.join(Rails.root, 'public', src))
         flunk 'Image reference missed on HTML: "%s"' % src
       end
     end

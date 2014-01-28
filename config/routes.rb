@@ -97,7 +97,7 @@ Noosfero::Application.routes.draw do
   ######################################################
   # profile customization - "My profile"
   match 'myprofile/:profile', :controller => 'profile_editor', :action => 'index', :profile => /#{Noosfero.identifier_format}/
-  match 'myprofile/:profile/:controller(/:action(/:id))', :controller => Noosfero.pattern_for_controllers_in_directory('my_profile'), :profile => /#{Noosfero.identifier_format}/
+  match 'myprofile/:profile/:controller(/:action(/:id))', :controller => Noosfero.pattern_for_controllers_in_directory('my_profile'), :profile => /#{Noosfero.identifier_format}/, :as => :myprofile
 
 
   ######################################################

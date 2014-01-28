@@ -277,7 +277,7 @@ module ApplicationHelper
     options[:class].nil? ?
       options[:class]='button-bar' :
       options[:class]+=' button-bar'
-    concat(content_tag('div', capture(&block) + tag('br', :style => 'clear: left;'), options))
+    concat(content_tag('div', capture(&block).to_s + tag('br', :style => 'clear: left;'), options))
   end
 
 

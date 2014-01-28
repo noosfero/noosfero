@@ -43,6 +43,7 @@ class User < ActiveRecord::Base
       p.environment = user.environment
       p.name ||= user.name || user.login
       p.visible = false unless user.activated?
+      p.save!
 
       user.person = p
     end
