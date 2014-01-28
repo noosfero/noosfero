@@ -158,7 +158,7 @@ class Person < Profile
   district
   zip_code
   address
-  address_reference  
+  address_reference
   cell_phone
   comercial_phone
   personal_website

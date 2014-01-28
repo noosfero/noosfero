@@ -16,16 +16,17 @@ module ProfileHelper
   end
 
   def display_contact(profile)
-    address = display_field(_('Address:'), profile, :address)
-    zip = display_field(_('ZIP code:'), profile, :zip_code)
-    phone = display_field(_('Contact phone:'), profile, :contact_phone)
-    email = display_field(_('e-Mail:'), profile, :email) { |email| link_to_email(email) }
-    personal_website = display_field(_('Personal website:'), profile, :personal_website)
-    jabber = display_field(_('Jabber:'), profile, :jabber_id)
-    if address.blank? && zip.blank? && phone.blank? && email.blank? && personal_website.blank? && jabber.blank?
+    fields = []
+    fields << display_field(_('Address:'), profile, :address).html_safe
+    fields << display_field(_('ZIP code:'), profile, :zip_code).html_safe
+    fields << display_field(_('Contact phone:'), profile, :contact_phone).html_safe
+    fields << display_field(_('e-Mail:'), profile, :email) { |email| link_to_email(email) }.html_safe
+    fields << display_field(_('Personal website:'), profile, :personal_website).html_safe
+    fields << display_field(_('Jabber:'), profile, :jabber_id).html_safe
+    if fields.reject!(&:blank?).empty?
       ''
     else
-      content_tag('tr', content_tag('th', _('Contact'), { :colspan => 2 })) + address + zip + phone + email + personal_website + jabber
+      content_tag('tr', content_tag('th', _('Contact'), { :colspan => 2 })) + fields.join.html_safe
     end
   end
 
