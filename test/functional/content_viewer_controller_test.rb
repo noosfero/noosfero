@@ -1335,6 +1335,33 @@ class ContentViewerControllerTest < ActionController::TestCase
     get :view_page, :profile => profile.identifier, :page => [blog.path]
     assert_tag :tag => 'strong', :content => /bold/
   end
+  
+  should 'add extra content on article header from plugins' do
+    class Plugin1 < Noosfero::Plugin
+      def article_header_extra_contents(args)
+        lambda {
+          content_tag('div', '', :class => 'plugin1')
+         }
+      end
+    end
+    class Plugin2 < Noosfero::Plugin
+      def article_header_extra_contents(args)
+        lambda {
+          content_tag('div', '', :class => 'plugin2')
+         }
+      end
+    end
+
+    Environment.default.enable_plugin(Plugin1.name)
+    Environment.default.enable_plugin(Plugin2.name)
+
+    page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
+
+    xhr :get, :view_page, :profile => profile.identifier, :page => [ 'myarticle' ], :toolbar => true
+
+    assert_tag :tag => 'div', :attributes => {:class => 'plugin1'}
+    assert_tag :tag => 'div', :attributes => {:class => 'plugin2'}
+  end
 
   should 'display link to download of non-recognized file types on its page' do
     file = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/test.txt', 'bin/unknown'), :profile => profile)

@@ -434,6 +434,12 @@ class Noosfero::Plugin
     nil
   end
 
+  # -> Adds adicional content to article header
+  # returns = lambda block that creates html code
+  def article_header_extra_contents(article)
+    nil
+  end
+
   # -> Finds objects by their contents
   # returns = {:results => [a, b, c, ...], ...}
   # P.S.: The plugin might add other informations on the return hash for its

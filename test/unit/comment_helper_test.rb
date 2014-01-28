@@ -21,14 +21,14 @@ class CommentHelperTest < ActiveSupport::TestCase
     article = Article.new(:profile => profile)
     comment = Comment.new(:article => article)
     menu = comment_actions(comment)
-    assert menu
+    assert_match /class=\"comment-actions\"/, menu
   end
 
   should 'do not show menu if it has no actions' do
     comment = Comment.new
     self.stubs(:links_for_comment_actions).returns([])
     menu = comment_actions(comment)
-    assert !menu
+    assert_no_match /class=\"comment-actions\"/, menu
   end
 
   should 'do not show menu if it has nil actions only' do
@@ -38,7 +38,7 @@ class CommentHelperTest < ActiveSupport::TestCase
     self.stubs(:link_for_edit).returns(nil)
     self.stubs(:link_for_remove).returns(nil)
     menu = comment_actions(comment)
-    assert !menu
+    assert_no_match /class=\"comment-actions\"/, menu
   end
 
   should 'include actions of plugins in menu' do
@@ -129,6 +129,14 @@ class CommentHelperTest < ActiveSupport::TestCase
     comment.stubs(:can_be_destroyed_by?).with(user).returns(true)
     link = link_for_remove(comment)
     assert link
+  end
+
+  should 'include actions of plugins in action bar' do
+    comment = Comment.new
+    plugin_action = {:link => 'plugin_action', :action_bar => true}
+    @plugins.stubs(:dispatch).returns([plugin_action])
+    html = comment_actions(comment)
+    assert_match /plugin_action/, Hpricot(html).search('.comments-action-bar').html
   end
 
   def link_to_function(content, url, options = {})
