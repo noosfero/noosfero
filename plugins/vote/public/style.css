@@ -13,12 +13,20 @@
   text-decoration: none;
 }
 
-#article .action .like-action-active:hover {
+#article .like-action .like-action-active:hover {
   color: #156E16;
 }
 
-#article .action .like-action-active {
+#article .like-action .like-action-active {
   color: #2A8C32;
+}
+
+#article .dislike-action .like-action-active:hover {
+  color: #A40000;
+}
+
+#article .dislike-action .like-action-active {
+  color: #CC0000;
 }
 
 #article .action .action-icon {
