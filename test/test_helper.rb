@@ -187,7 +187,8 @@ class ActiveSupport::TestCase
   private
 
   def uses_host(name)
-    @request.instance_variable_set('@host', name)
+    #@request.instance_variable_set('@host', name)
+    @request.host = name
   end
 
   def process_delayed_job_queue
