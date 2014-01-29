@@ -157,7 +157,7 @@ class EnterpriseTest < ActiveSupport::TestCase
   end
 
   should 'replace template if environment allows' do
-    template = fast_create(Enterprise, :name => 'template enteprise', :identifier => 'template_enterprise', :enabled => false)
+    template = fast_create(Enterprise, :name => 'template enteprise', :identifier => 'template_enterprise', :enabled => false, :is_template => true)
     template.boxes.destroy_all
     template.boxes << Box.new
     template.boxes[0].blocks << Block.new
@@ -178,7 +178,7 @@ class EnterpriseTest < ActiveSupport::TestCase
   end
 
   should 'not replace template if environment doesnt allow' do
-    inactive_template = fast_create(Enterprise, :name => 'inactive enteprise template', :identifier => 'inactive_enterprise_template')
+    inactive_template = fast_create(Enterprise, :name => 'inactive enteprise template', :identifier => 'inactive_enterprise_template', :is_template => true)
     inactive_template.boxes.destroy_all
     inactive_template.boxes << Box.new
     inactive_template.save!
@@ -358,7 +358,7 @@ class EnterpriseTest < ActiveSupport::TestCase
   end
 
   should 'have inactive_template when creating enterprise and feature is enabled' do
-    inactive_template = fast_create(Enterprise, :name => 'inactive enteprise template', :identifier => 'inactive_enterprise_template')
+    inactive_template = fast_create(Enterprise, :name => 'inactive enteprise template', :identifier => 'inactive_enterprise_template', :is_template => true)
     inactive_template.boxes.destroy_all
     inactive_template.boxes << Box.new
     inactive_template.save!
@@ -373,7 +373,7 @@ class EnterpriseTest < ActiveSupport::TestCase
   end
 
   should 'have active_template when creating enterprise and feature is disabled' do
-    inactive_template = fast_create(Enterprise, :name => 'inactive enteprise template', :identifier => 'inactive_enterprise_template')
+    inactive_template = fast_create(Enterprise, :name => 'inactive enteprise template', :identifier => 'inactive_enterprise_template', :is_template => true)
     inactive_template.boxes.destroy_all
     inactive_template.boxes << Box.new
     inactive_template.save!

@@ -500,15 +500,15 @@ class EnvironmentTest < ActiveSupport::TestCase
   should 'set templates' do
     e = fast_create(Environment)
 
-    comm = fast_create(Community)
+    comm = fast_create(Community, :is_template => true)
     e.community_template = comm
     assert_equal comm, e.community_template
 
-    person = fast_create(Person)
+    person = fast_create(Person, :is_template => true)
     e.person_template = person
     assert_equal person, e.person_template
 
-    enterprise = fast_create(Enterprise)
+    enterprise = fast_create(Enterprise, :is_template => true)
     e.enterprise_template = enterprise
     assert_equal enterprise, e.enterprise_template
   end
