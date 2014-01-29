@@ -1,6 +1,6 @@
 <h2><%= _('Add admins to %s') % profile.name %></h2>
 
-<% form_remote_tag :url => {:action => 'find_users', :profile => profile.identifier, :scope => 'new_admins'}, :update => 'users-list', :loading => '$("users-list").addClassName("loading")', :complete => '$("users-list").removeClassName("loading")' do %>
+<%= form_remote_tag :url => {:action => 'find_users', :profile => profile.identifier, :scope => 'new_admins'}, :update => 'users-list', :loading => '$("users-list").addClassName("loading")', :complete => '$("users-list").removeClassName("loading")' do %>
   <%= text_field_tag('query', '', :autocomplete => 'off') %>
   <%= submit_tag(_('Search')) %>
 <% end %>

@@ -2,7 +2,7 @@
   <div id='profile-wall-reply-form-<%= activity.id%>'>
     <p class='profile-wall-reply'>
       <% update_area = tab_action == 'wall' ? 'profile_activities' : 'network-activities' %>
-      <% form_remote_tag :url => {:controller => 'profile', :action => 'leave_comment_on_activity', :tab_action => tab_action}, :html => { :class => 'profile-wall-reply-form', 'data-update' => update_area } do %>
+      <%= form_remote_tag :url => {:controller => 'profile', :action => 'leave_comment_on_activity', :tab_action => tab_action}, :html => { :class => 'profile-wall-reply-form', 'data-update' => update_area } do %>
         <%= expandable_text_area :comment,
                                  :body,
                                  "reply_content_#{activity.id}",

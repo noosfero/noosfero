@@ -1172,7 +1172,7 @@ module ApplicationHelper
       text_area(object_name, method, { :id => text_area_id, :onkeyup => "limited_text_area('#{text_area_id}', #{limit})" }.merge(options)),
       content_tag(:p, content_tag(:span, limit) + ' ' + _(' characters left'), :id => text_area_id + '_left'),
       content_tag(:p, _('Limit of characters reached'), :id => text_area_id + '_limit', :style => 'display: none')
-    ], :class => 'limited-text-area')
+    ].join, :class => 'limited-text-area')
   end
 
   def expandable_text_area(object_name, method, text_area_id, options = {})
