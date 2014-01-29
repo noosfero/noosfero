@@ -47,7 +47,7 @@ class CatalogControllerTest < ActionController::TestCase
 
     assert_equal 12, @enterprise.products.count
     get :index, :profile => @enterprise.identifier
-    assert_equal 9, assigns(:products).count
+    assert_equal 9, assigns(:products).size
     assert_tag :a, :attributes => {:class => 'next_page'}
   end
 

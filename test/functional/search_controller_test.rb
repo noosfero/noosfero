@@ -520,7 +520,7 @@ class SearchControllerTest < ActionController::TestCase
 
     get :people
     assert_equal SearchController::BLOCKS_SEARCH_LIMIT+3, Person.count
-    assert_equal SearchController::BLOCKS_SEARCH_LIMIT, assigns(:searches)[:people][:results].count
+    assert_equal SearchController::BLOCKS_SEARCH_LIMIT, assigns(:searches)[:people][:results].size
     assert_tag :a, '', :attributes => {:class => 'next_page'}
   end
 
@@ -540,7 +540,7 @@ class SearchControllerTest < ActionController::TestCase
 
     get :communities
     assert_equal SearchController::BLOCKS_SEARCH_LIMIT+3, Community.count
-    assert_equal SearchController::BLOCKS_SEARCH_LIMIT, assigns(:searches)[:communities][:results].count
+    assert_equal SearchController::BLOCKS_SEARCH_LIMIT, assigns(:searches)[:communities][:results].size
     assert_tag :a, '', :attributes => {:class => 'next_page'}
   end
 

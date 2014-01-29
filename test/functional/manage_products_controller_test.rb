@@ -361,7 +361,7 @@ class ManageProductsControllerTest < ActionController::TestCase
       fast_create(Product, :name => "test product_#{n}", :enterprise_id => @enterprise.id, :product_category_id => @product_category.id)
     end
     get :index, :profile => @enterprise.identifier
-    assert_equal 10, assigns(:products).count
+    assert_equal 10, assigns(:products).size
   end
 
   should 'paginate the manage products list of enterprise' do
@@ -373,7 +373,7 @@ class ManageProductsControllerTest < ActionController::TestCase
     assert_tag :tag => 'a', :attributes => { :rel => 'next', :href => "/myprofile/#{@enterprise.identifier}/manage_products?page=2" }
 
     get :index, :profile => @enterprise.identifier, :page => 2
-    assert_equal 2, assigns(:products).count
+    assert_equal 2, assigns(:products).size
   end
 
   should 'display tabs even if description and inputs are empty and user is allowed' do

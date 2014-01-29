@@ -905,7 +905,7 @@ class ProfileControllerTest < ActionController::TestCase
     community = fast_create(Community)
     40.times{ fast_create(ActionTrackerNotification, :profile_id => community.id, :action_tracker_id => fast_create(ActionTracker::Record, :user_id => profile.id)) }
     get :index, :profile => community.identifier
-    assert_equal 15, assigns(:network_activities).count
+    assert_equal 15, assigns(:network_activities).size
   end
 
   should 'the self activity not crashes with user not logged in' do
@@ -1162,7 +1162,7 @@ class ProfileControllerTest < ActionController::TestCase
     get :view_more_network_activities, :profile => profile.identifier, :page => 2
     assert_response :success
     assert_template '_profile_network_activities'
-    assert_equal 10, assigns(:activities).count
+    assert_equal 10, assigns(:activities).size
   end
 
   should "be logged in to access the view_more_network_activities action" do
