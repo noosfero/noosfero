@@ -107,7 +107,7 @@ class Noosfero::Plugin
     end
 
     def public_path(file = '')
-      compute_public_path((public_name + '/' + file), 'plugins')
+      File.join('/plugins', public_name, file)
     end
 
     def root_path

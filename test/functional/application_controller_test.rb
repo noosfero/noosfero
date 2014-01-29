@@ -360,6 +360,9 @@ class ApplicationControllerTest < ActionController::TestCase
     environment.enable_plugin(Plugin1.name)
     environment.enable_plugin(Plugin2.name)
 
+    ActionView::Helpers::AssetTagHelper::StylesheetIncludeTag.any_instance.stubs('asset_file_path!')
+    ActionView::Helpers::AssetTagHelper::JavascriptIncludeTag.any_instance.stubs('asset_file_path!')
+
     get :index
 
     assert_tag :tag => 'link', :attributes => {:href => /#{plugin1_path}/, :type => 'text/css', :rel => 'stylesheet'}
@@ -390,6 +393,8 @@ class ApplicationControllerTest < ActionController::TestCase
     environment = Environment.default
     environment.enable_plugin(Plugin1.name)
     environment.enable_plugin(Plugin2.name)
+
+    ActionView::Helpers::AssetTagHelper::JavascriptIncludeTag.any_instance.stubs('asset_file_path!')
 
     get :index
 
