@@ -30,7 +30,7 @@ class MembershipsControllerTest < ActionController::TestCase
   should 'list current memberships' do
     get :index, :profile => profile.identifier
 
-    assert_kind_of Array, assigns(:memberships)
+    assert assigns(:memberships)
   end
 
   should 'present new community form' do

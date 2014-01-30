@@ -29,7 +29,7 @@ class ProfileControllerTest < ActionController::TestCase
 
     assert_response :success
     assert_template 'friends'
-    assert_kind_of Array, assigns(:friends)
+    assert assigns(:friends)
   end
 
   should 'point to manage friends in user is seeing his own friends' do
@@ -50,7 +50,7 @@ class ProfileControllerTest < ActionController::TestCase
 
     assert_response :success
     assert_template 'communities'
-    assert_kind_of Array, assigns(:communities)
+    assert assigns(:communities)
   end
 
   should 'list enterprises' do
@@ -58,7 +58,7 @@ class ProfileControllerTest < ActionController::TestCase
 
     assert_response :success
     assert_template 'enterprises'
-    assert_kind_of Array, assigns(:enterprises)
+    assert assigns(:enterprises)
   end
 
   should 'list members (for organizations)' do
@@ -66,7 +66,7 @@ class ProfileControllerTest < ActionController::TestCase
 
     assert_response :success
     assert_template 'members'
-    assert_kind_of Array, assigns(:members)
+    assert assigns(:members)
   end
 
   should 'list favorite enterprises' do
@@ -74,7 +74,7 @@ class ProfileControllerTest < ActionController::TestCase
 
     assert_response :success
     assert_template 'favorite_enterprises'
-    assert_kind_of Array, assigns(:favorite_enterprises)
+    assert assigns(:favorite_enterprises)
   end
 
   should 'not render any template when joining community due to Ajax request' do

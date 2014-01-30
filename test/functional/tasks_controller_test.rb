@@ -35,7 +35,7 @@ class TasksControllerTest < ActionController::TestCase
 
     assert_response :success
     assert_template 'index'
-    assert_kind_of Array, assigns(:tasks)
+    assert assigns(:tasks)
   end
 
   should 'list pending tasks without spam' do
@@ -197,7 +197,7 @@ class TasksControllerTest < ActionController::TestCase
     c = fast_create(Community)
     c.update_attributes(:moderated_articles => false)
     @controller.stubs(:profile).returns(c)
-    folder = create(Article, :profile => c, :name => 'test folder', :type => 'Folder')
+    folder = create(Folder, :profile => c, :name => 'test folder')
     c.affiliate(profile, Profile::Roles.all_roles(profile.environment.id))
     article = profile.articles.create!(:name => 'something interesting', :body => 'ruby on rails')
     t = ApproveArticle.create!(:name => 'test name', :article => article, :target => c, :requestor => profile)
@@ -275,8 +275,8 @@ class TasksControllerTest < ActionController::TestCase
     t = SuggestArticle.create!(:article_name => 'test name', :article_abstract => 'test abstract', :article_body => 'test body', :name => 'some name', :email => 'test@localhost.com', :target => c)
 
     get :index
-    assert_tag :tag => 'textarea', :content => 'test abstract', :attributes => { :name => /article_abstract/, :class => 'mceEditor' }
-    assert_tag :tag => 'textarea', :content => 'test body', :attributes => { :name => /article_body/, :class => 'mceEditor' }
+    assert_tag :tag => 'textarea', :content => /test abstract/, :attributes => { :name => /article_abstract/, :class => 'mceEditor' }
+    assert_tag :tag => 'textarea', :content => /test body/, :attributes => { :name => /article_body/, :class => 'mceEditor' }
   end
 
   should 'create TinyMceArticle article after finish approve suggested article task' do

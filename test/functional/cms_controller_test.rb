@@ -36,7 +36,7 @@ class CmsControllerTest < ActionController::TestCase
     assert_template 'view'
     assert_equal profile, assigns(:profile)
     assert_nil assigns(:article)
-    assert_kind_of Array, assigns(:articles)
+    assert assigns(:articles)
   end
 
   should 'be able to view a particular document' do
@@ -49,8 +49,6 @@ class CmsControllerTest < ActionController::TestCase
     assert_template 'view'
     assert_equal a, assigns(:article)
     assert_equal [], assigns(:articles)
-
-    assert_kind_of Array, assigns(:articles)
   end
 
   should 'be able to edit a document' do

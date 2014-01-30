@@ -30,7 +30,7 @@ class FriendsControllerTest < ActionController::TestCase
     get :index
     assert_response :success
     assert_template 'index'
-    assert_kind_of Array, assigns(:friends)
+    assert assigns(:friends)
   end
 
   should 'confirm removal of friend' do

@@ -37,7 +37,7 @@ class CatalogControllerTest < ActionController::TestCase
   
   should 'list products of enterprise' do
     get :index, :profile => @enterprise.identifier
-    assert_kind_of Array, assigns(:products)
+    assert assigns(:products)
   end
 
   should 'paginate enterprise products list' do

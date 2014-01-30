@@ -232,7 +232,7 @@ class CmsController < MyProfileController
         begin
           task.finish unless item[:group].moderated_articles?
         rescue Exception => ex
-           @failed[ex.clean_message] ? @failed[ex.clean_message] << item[:group].name : @failed[ex.clean_message] = [item[:group].name]
+           @failed[ex.message] ? @failed[ex.message] << item[:group].name : @failed[ex.message] = [item[:group].name]
         end
       end
       if @failed.blank?

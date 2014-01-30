@@ -26,7 +26,7 @@ class RegionValidatorsControllerTest < ActionController::TestCase
     get :index
     assert_response :success
     assert_template 'index'
-    assert_kind_of Array, assigns(:regions)
+    assert assigns(:regions)
   end
 
   should 'view validators for a  specific region' do
