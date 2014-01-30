@@ -28,7 +28,7 @@
     <%= task_information(task) %>
   </div>
 
-  <% fields_for "tasks[#{task.id}][task]", task do |f| %>
+  <%= fields_for "tasks[#{task.id}][task]", task do |f| %>
     <% if task.accept_details %>
       <div id="on-accept-information-<%=task.id%>" style="display: none">
         <%= render :partial => partial_for_class(task.class, nil, :accept_details), :locals => {:task => task, :f => f} %>

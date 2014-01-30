@@ -166,7 +166,7 @@ class ThemesControllerTest < ActionController::TestCase
     theme = Theme.create('mytheme', :owner => profile); theme.update_css('test.css', '/* sample code */')
     get :css_editor, :profile => 'testinguser', :id => 'mytheme', :css => 'test.css'
 
-    assert_tag :tag => 'form', :attributes => { :action => '/myprofile/testinguser/themes/update_css/mytheme' }, :descendant => { :tag => 'textarea', :content => '/* sample code */' }
+    assert_tag :tag => 'form', :attributes => { :action => '/myprofile/testinguser/themes/update_css/mytheme' }, :descendant => { :tag => 'textarea', :content => /\/\* sample code \*\// }
   end
 
   should 'be able to save CSS code' do
@@ -250,7 +250,7 @@ class ThemesControllerTest < ActionController::TestCase
 
     LayoutTemplate.expects(:all).returns(all)
     get :index, :profile => 'testinguser'
-    assert_same all, assigns(:layout_templates)
+    assert_equal all, assigns(:layout_templates)
   end
 
   should 'display links to set template' do

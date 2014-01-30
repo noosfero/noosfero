@@ -521,7 +521,7 @@ class CmsControllerTest < ActionController::TestCase
 
   should 'sanitize tags' do
     post :new, :type => 'TextileArticle', :profile => profile.identifier, :article => { :name => 'a test article', :body => 'the text of the article ...', :tag_list => 'tag1, <strong>tag2</strong>' }
-    assert_sanitized assigns(:article).tag_list.names.join(', ')
+    assert_sanitized assigns(:article).tag_list.join(', ')
   end
 
   should 'keep informed parent_id' do

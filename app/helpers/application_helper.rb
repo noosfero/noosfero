@@ -641,7 +641,7 @@ module ApplicationHelper
                       cat.full_name_without_leading(1, " &rarr; "),
                       "#{object_name}[category_ids][]", cat.id,
                       object.category_ids.include?(cat.id), :id => checkbox_id,
-                      :onchange => 'this.parentNode.className=(this.checked?"cat_checked":"")' ),
+                      :onchange => j('this.parentNode.className=(this.checked?"cat_checked":"")') ),
                     :class => ( object.category_ids.include?(cat.id) ? 'cat_checked' : '' ) ) + "\n"
         end
       end
