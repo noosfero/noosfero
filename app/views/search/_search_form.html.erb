@@ -1,6 +1,6 @@
 <div class='search-form'>
 
-  <%= form_tag( { :controller => 'search', :action => @asset ? @asset : 'index', :asset => nil, :category_path => ( @category ? @category.explode_path : [] ) },
+  <%= form_tag( { :controller => 'search', :action => @asset ? @asset : 'index', :asset => nil, :category_path => ( @category ? @category.path : nil ) },
                  :method => 'get', :class => 'search_form' ) do %>
 
     <%= hidden_field_tag :display, params[:display] %>

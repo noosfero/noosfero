@@ -13,7 +13,7 @@ class SearchControllerTest < ActionController::TestCase
     @request.stubs(:ssl?).returns(false)
     @response   = ActionController::TestResponse.new
 
-    @category = create(Category, :name => 'my category', :environment => Environment.default)
+    @category = Category.create!(:name => 'my-category', :environment => Environment.default)
 
     env = Environment.default
     domain = env.domains.first
@@ -33,6 +33,7 @@ class SearchControllerTest < ActionController::TestCase
     user.stubs(:valid?).returns(true)
     user.stubs(:email).returns('some@test.com')
     user.stubs(:save!).returns(true)
+    user.stubs(:marked_for_destruction?).returns(false)
     Person.any_instance.stubs(:user).returns(user)
   end
 
@@ -113,7 +114,9 @@ class SearchControllerTest < ActionController::TestCase
   end
 
   should 'search for people' do
-    p1 = create_user('people_1').person; p1.name = 'a beautiful person'; p1.save!
+    p1 = create_user('people_1').person;
+    p1.name = 'a beautiful person';
+    p1.save!
     get :people, :query => 'beautiful'
     assert_includes assigns(:searches)[:people][:results], p1
   end
@@ -246,8 +249,8 @@ class SearchControllerTest < ActionController::TestCase
   end
 
   should 'search in category hierachy' do
-    parent = create(Category, :name => 'Parent Category', :environment => Environment.default)
-    child  = create(Category, :name => 'Child Category', :environment => Environment.default, :parent => parent)
+    parent = Category.create!(:name => 'Parent Category', :environment => Environment.default)
+    child  = Category.create!(:name => 'Child Category', :environment => Environment.default, :parent_id => parent.id)
 
     p = create_profile_with_optional_category(Person, 'test_profile', child)
 
@@ -282,7 +285,7 @@ class SearchControllerTest < ActionController::TestCase
 		art = create(Article, :name => 'test article', :profile_id => fast_create(Person).id)
 		per = create(Person, :name => 'test person', :identifier => 'test-person', :user_id => fast_create(User).id)
 		com = Community.create!(:name => 'test community')
-		eve = Event.create!(:name => 'test event', :profile_id => fast_create(Person).id)
+		eve = create(Event, :name => 'test event', :profile_id => fast_create(Person).id)
 
     get :index, :query => 'test'
 
@@ -294,13 +297,13 @@ class SearchControllerTest < ActionController::TestCase
 	end
 
   should 'display category image while in directory' do
-    parent = create(Category, :name => 'category1', :environment => Environment.default)
-    cat = create(Category, :name => 'category2', :environment => Environment.default, :parent => parent,
+    parent = Category.create!(:name => 'category1', :environment => Environment.default)
+    cat = Category.create!(:name => 'category2', :environment => Environment.default, :parent_id => parent.id,
       :image_builder => {:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')}
     )
 
     process_delayed_job_queue
-    get :category_index, :category_path => [ 'category1', 'category2' ], :query => 'teste'
+    get :category_index, :category_path => 'category1/category2', :query => 'teste'
     assert_tag :tag => 'img', :attributes => { :src => /rails_thumb\.png/ }
   end
 
@@ -618,10 +621,10 @@ class SearchControllerTest < ActionController::TestCase
 
   should 'not show assets from other environments' do
     other_env = Environment.create!(:name => 'Another environment')
-		p1 = Person.create!(:name => 'Hildebrando', :identifier => 'hild', :user_id => fast_create(User).id, :environment_id => other_env.id)
-		p2 = Person.create!(:name => 'Adamastor', :identifier => 'adam', :user_id => fast_create(User).id)
-    art1 = Article.create!(:name => 'my article', :profile_id => p1.id)
-    art2 = Article.create!(:name => 'my article', :profile_id => p2.id)
+		p1 = create(Person, :name => 'Hildebrando', :identifier => 'hild', :user_id => fast_create(User).id, :environment_id => other_env.id)
+		p2 = create(Person, :name => 'Adamastor', :identifier => 'adam', :user_id => fast_create(User).id)
+    art1 = create(Article, :name => 'my article', :profile_id => p1.id)
+    art2 = create(Article, :name => 'my article', :profile_id => p2.id)
     
     get :articles, :query => 'my article'
 
