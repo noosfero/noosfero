@@ -124,8 +124,11 @@ class ContentViewerController < ApplicationController
     end
   end
 
-  def differences_between_article_versions(version1, version2)
-    Diffy::Diff.new('version1', 'version2').to_s(:html)
+  def versions_diff
+    path = params[:page].join('/')
+    @page = profile.articles.find_by_path(path)
+    @v1, @v2 = @page.versions.find_by_version(params[:v1]).body, @page.versions.find_by_version(params[:v2]).body
+    p params
   end
 
   def article_versions
