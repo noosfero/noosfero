@@ -216,7 +216,7 @@ class ThemesControllerTest < ActionController::TestCase
     post :add_image, :profile => 'testinguser', :id => 'mytheme', :image => fixture_file_upload('/files/rails.png', 'image/png', :binary)
     assert_redirected_to :action => "edit", :id => 'mytheme'
     assert theme.image_files.include?('rails.png')
-    assert(system('diff', Rails.root.join('test', 'fixtures', 'files','rails.png'), TMP_THEMES_DIR + '/mytheme/images/rails.png'), 'should put the correct uploaded file in the right place')
+    assert(system('diff', Rails.root.join('test', 'fixtures', 'files','rails.png').to_s, TMP_THEMES_DIR.join('mytheme/images/rails.png').to_s), 'should put the correct uploaded file in the right place')
   end
 
   should 'link to "test theme"' do

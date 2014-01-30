@@ -111,7 +111,7 @@ class Theme
 
   def add_image(filename, data)
     FileUtils.mkdir_p(images_directory)
-    File.open(image_path(filename), 'w') do |f|
+    File.open(image_path(filename), 'wb') do |f|
       f.write(data)
     end
   end
