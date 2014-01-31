@@ -843,7 +843,7 @@ class ProfileControllerTest < ActionController::TestCase
     user.stubs(:login).returns('some')
     @controller.stubs(:current_user).returns(user)
     get :index, :profile => p1.identifier
-    assert_equal 15, assigns(:network_activities).count
+    assert_equal 15, assigns(:network_activities).size
   end
 
   should 'the network activity be visible only to logged users' do

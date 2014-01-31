@@ -72,7 +72,7 @@ Noosfero::Application.routes.draw do
 
   # profile tags
   match 'profile/:profile/tags/:id', :controller => 'profile', :action => 'content_tagged', :id => /.+/, :profile => /#{Noosfero.identifier_format}/
-  match 'profile/:profile/tags', :controller => 'profile', :action => 'tags', :profile => /#{Noosfero.identifier_format}/
+  match 'profile/:profile/tags(/:id)', :controller => 'profile', :action => 'tags', :profile => /#{Noosfero.identifier_format}/
 
   # profile search
   match 'profile/:profile/search', :controller => 'profile_search', :action => 'index', :profile => /#{Noosfero.identifier_format}/
