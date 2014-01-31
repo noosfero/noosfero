@@ -37,11 +37,6 @@ class ContentViewerController < ApplicationController
       end
     end
 
-    if request.xhr? && params[:toolbar]
-      render :partial => 'article_toolbar'
-      return
-    end
-
     redirect_to_translation if @page.profile.redirect_l10n
 
     if request.post?

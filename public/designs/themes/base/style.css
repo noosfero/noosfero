@@ -605,6 +605,12 @@ div#notice {
   color: #555;
 }
 
+.profile-image-block .admin-link {
+  text-align: center;
+  font-size: 75%;
+  clear: both;
+}
+
 
 /*************************** My Network ******************************/
 
