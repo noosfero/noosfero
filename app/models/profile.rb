@@ -3,7 +3,7 @@
 # which by default is the one returned by Environment:default.
 class Profile < ActiveRecord::Base
 
-  attr_accessible :name, :identifier, :public_profile, :nickname, :custom_footer, :custom_header, :address, :zip_code, :contact_phone, :image_builder, :description, :closed, :template_id, :environment, :lat, :lng, :is_template
+  attr_accessible :name, :identifier, :public_profile, :nickname, :custom_footer, :custom_header, :address, :zip_code, :contact_phone, :image_builder, :description, :closed, :template_id, :environment, :lat, :lng, :is_template, :fields_privacy, :preferred_domain_id, :category_ids
 
   # use for internationalizable human type names in search facets
   # reimplement on subclasses
@@ -820,7 +820,7 @@ private :generate_url, :url_options
   def update_header_and_footer(header, footer)
     self.custom_header = header
     self.custom_footer = footer
-    self.save(false)
+    self.save(:validate => false)
   end
 
   def update_theme(theme)

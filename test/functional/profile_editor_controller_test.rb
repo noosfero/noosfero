@@ -99,6 +99,7 @@ class ProfileEditorControllerTest < ActionController::TestCase
     legal_form = "name <strong id='name_html_test'>with</strong> html"
     economic_activity = "name <strong id='name_html_test'>with</strong> html"
     management_information = "name <strong id='name_html_test'>with</strong> html"
+    name = "name <strong id='name_html_test'>with</strong> html"
 
     post :edit, :profile => org.identifier, :profile_data => { :name => name, :contact_person => contact, :acronym => acronym, :legal_form => legal_form, :economic_activity => economic_activity, :management_information =>  management_information}
 
@@ -491,8 +492,8 @@ class ProfileEditorControllerTest < ActionController::TestCase
     person.save!
 
     get :header_footer, :profile => profile.identifier
-    assert_tag :tag => 'textarea', :content => 'my custom header'
-    assert_tag :tag => 'textarea', :content => 'my custom footer'
+    assert_tag :tag => 'textarea', :content => /my custom header/
+    assert_tag :tag => 'textarea', :content => /my custom footer/
   end
 
   should 'render TinyMce Editor for header and footer' do

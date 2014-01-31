@@ -9,7 +9,7 @@ class TaskMailer < ActionMailer::Base
     @tasks_url = url_for_tasks_list
 
     mail(
-      to: task.target.notification_emails,
+      to: task.target.notification_emails.compact,
       from: self.class.generate_from(task),
       subject: "[%s] %s" % [task.environment.name, task.target_notification_description]
     )
