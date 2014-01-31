@@ -108,6 +108,8 @@ class Organization < Profile
   N_('Display name'); N_('Description'); N_('Contact person'); N_('Contact email'); N_('Acronym'); N_('Foundation year'); N_('Legal form'); N_('Economic activity'); N_('Management information'); N_('Tag list'); N_('District'); N_('Address reference')
   settings_items :display_name, :description, :contact_person, :contact_email, :acronym, :foundation_year, :legal_form, :economic_activity, :management_information, :district, :address_reference
 
+  settings_items :zip_code, :city, :state, :country
+
   validates_format_of :foundation_year, :with => Noosfero::Constants::INTEGER_FORMAT
   validates_format_of :contact_email, :with => Noosfero::Constants::EMAIL_FORMAT, :if => (lambda { |org| !org.contact_email.blank? })
   validates_as_cnpj :cnpj

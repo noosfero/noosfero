@@ -9,7 +9,6 @@ class Community < Organization
   N_('Language')
 
   settings_items :language
-  settings_items :zip_code, :city, :state, :country
 
   extend SetProfileRegionFromCityState::ClassMethods
   set_profile_region_from_city_state
