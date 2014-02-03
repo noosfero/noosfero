@@ -159,11 +159,9 @@ class RssFeedTest < ActiveSupport::TestCase
   should 'limit should only accept integers' do
     feed = RssFeed.new
     feed.limit = 'text'
-    feed.valid?
-    assert feed.errors[:limit.to_s].present?
+    assert_not_equal 'text', feed.limit
     feed.limit = 10
-    feed.valid?
-    assert !feed.errors[:limit.to_s].present?
+    assert_equal 10, feed.limit
   end
 
   should 'allow only parent_and_children and all as include setting' do

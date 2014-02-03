@@ -557,9 +557,9 @@ class ProductTest < ActiveSupport::TestCase
   end
 
   should 'return products from a category' do
-    pc1 = create(ProductCategory, :name => 'PC1', :environment => Environment.default)
-    pc2 = create(ProductCategory, :name => 'PC2', :environment => Environment.default)
-    pc3 = create(ProductCategory, :name => 'PC3', :environment => Environment.default, :parent => pc1)
+    pc1 = ProductCategory.create!(:name => 'PC1', :environment => Environment.default)
+    pc2 = ProductCategory.create!(:name => 'PC2', :environment => Environment.default)
+    pc3 = ProductCategory.create!(:name => 'PC3', :environment => Environment.default, :parent => pc1)
     p1 = fast_create(Product, :product_category_id => pc1)
     p2 = fast_create(Product, :product_category_id => pc1)
     p3 = fast_create(Product, :product_category_id => pc2)

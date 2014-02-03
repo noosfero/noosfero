@@ -6,7 +6,7 @@ class ThumbnailTest < ActiveSupport::TestCase
     assert_equal :file_system, Thumbnail.attachment_options[:storage]
 
     Thumbnail.attachment_options[:content_type].each do |item|
-      assert_match 'image/', item 
+      assert_match /(image|application)\/.+/, item
     end
   end
 

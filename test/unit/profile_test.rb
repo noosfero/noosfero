@@ -276,7 +276,7 @@ class ProfileTest < ActiveSupport::TestCase
   should 'list tags for profile' do
     profile = create(Profile, :tag_list => 'first-tag, second-tag')
 
-    assert_equal(['first-tag', 'second-tag'], profile.tags.map(&:name))
+    assert_equivalent(['first-tag', 'second-tag'], profile.tags.map(&:name))
   end
 
   should 'find content tagged with given tag' do

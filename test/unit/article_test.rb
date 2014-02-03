@@ -398,9 +398,9 @@ class ArticleTest < ActiveSupport::TestCase
 
   should 'redefine the entire category set at once' do
     c1 = create(Category, :environment => Environment.default, :name => 'c1')
-    c2 = create(Category, :environment => Environment.default, :name => 'c2', :parent_id => c1)
-    c3 = create(Category, :environment => Environment.default, :name => 'c3', :parent_id => c2)
-    c4 = create(Category, :environment => Environment.default, :name => 'c4', :parent_id => c1)
+    c2 = create(Category, :environment => Environment.default, :name => 'c2', :parent_id => c1.id)
+    c3 = create(Category, :environment => Environment.default, :name => 'c3', :parent_id => c2.id)
+    c4 = create(Category, :environment => Environment.default, :name => 'c4', :parent_id => c1.id)
     owner = create_user('testuser').person
     art = create(Article, :name => 'ytest', :profile_id => owner.id)
 

@@ -366,9 +366,8 @@ class CommunityTest < ActiveSupport::TestCase
     UserStampSweeper.any_instance.expects(:current_user).returns(person).at_least_once
     assert_difference 'ActionTracker::Record.count', 1 do
       article = create(TinyMceArticle, :profile => community, :name => 'An article about free software')
+      assert_equal [article.activity], community.activities.map { |a| a.klass.constantize.find(a.id) }
     end
-
-    assert_equal [article.activity], community.activities.map { |a| a.klass.constantize.find(a.id) }
   end
 
   should 'not return tracked_actions of other community as activities' do

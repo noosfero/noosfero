@@ -11,6 +11,8 @@ class Invitation < Task
 
   validates_presence_of :message, :if => Proc.new{|invite| invite.target_id.blank?}
 
+  validate :not_invite_yourself
+
   alias :person :requestor
   alias :person= :requestor=
 
@@ -31,8 +33,7 @@ class Invitation < Task
     _('Invitation')
   end
 
-  def validate
-    super
+  def not_invite_yourself
     email = friend ? friend.user.email : friend_email
     if person && email && person.user.email == email
       self.errors.add(:base, _("You can't invite youself"))
