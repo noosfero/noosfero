@@ -1,7 +1,7 @@
 # A person is the profile of an user holding all relationships with the rest of the system
 class Person < Profile
 
-  attr_accessible :organization, :contact_information, :sex
+  attr_accessible :organization, :contact_information, :sex, :birth_date
 
   SEARCH_FILTERS += %w[
     more_popular
@@ -159,9 +159,8 @@ class Person < Profile
   validates_multiparameter_assignments
 
   validates_each :birth_date do |record,attr,value|
-    if value && value.year == 1
-      record.errors.add(attr)
-    end
+    date_str = record.birth_date_before_type_cast
+    record.errors.add(attr) if value.blank? && !date_str.blank?
   end
 
   def self.fields
