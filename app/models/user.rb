@@ -113,7 +113,7 @@ class User < ActiveRecord::Base
       false
     else
       if environment.enabled?('send_welcome_email_to_new_users') && environment.has_signup_welcome_text?
-        UserMailer.delay.signup_welcome_email(self)
+        Delayed::Job.enqueue(UserMailer::Job.new(self, :signup_welcome_email))
       end
       true
     end

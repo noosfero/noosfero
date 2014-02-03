@@ -34,7 +34,14 @@ class UserMailer < ActionMailer::Base
       content_type: 'text/html',
       to: user.email,
       from: "#{user.environment.name} <#{user.environment.contact_email}>",
-      subject: email_subject.blank? ? _("Welcome to environment %s") % [user.environment.name] : email_subject
+      subject: email_subject.blank? ? _("Welcome to environment %s") % [user.environment.name] : email_subject,
+      body: @body
     )
+  end
+
+  class Job < Struct.new(:user, :method)
+    def perform
+      UserMailer.send(method, user).deliver
+    end
   end
 end

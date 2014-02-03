@@ -517,9 +517,8 @@ class UserTest < ActiveSupport::TestCase
   end
 
   should 'delay activation check' do
-    assert_difference 'Delayed::Job.count', 1 do
-      user = new_user
-    end
+    user = new_user
+    assert_match /UserActivationJob/, Delayed::Job.last.handler
   end
 
   should 'deactivate an user' do
@@ -605,6 +604,7 @@ class UserTest < ActiveSupport::TestCase
     user = new_user :email => 'pending@activation.com'
     assert_difference 'ActionMailer::Base.deliveries.size', 1 do
       user.activate
+      process_delayed_job_queue
     end
 
     sent = ActionMailer::Base.deliveries.last
@@ -623,6 +623,7 @@ class UserTest < ActiveSupport::TestCase
     user = new_user :name => 'John Doe', :email => 'pending@activation.com'
     assert_difference 'ActionMailer::Base.deliveries.size', 1 do
       user.activate
+      process_delayed_job_queue
     end
 
     sent = ActionMailer::Base.deliveries.last
