@@ -122,10 +122,10 @@ class CatalogControllerTest < ActionController::TestCase
   end
 
   should 'filter products based on level selected' do
-    pc1 = create(ProductCategory, :name => "PC1", :environment => @enterprise.environment)
-    pc2 = create(ProductCategory, :name => "PC2", :environment => @enterprise.environment, :parent_id => pc1.id)
-    pc3 = create(ProductCategory, :name => "PC3", :environment => @enterprise.environment, :parent_id => pc1.id)
-    pc4 = create(ProductCategory, :name => "PC4", :environment => @enterprise.environment, :parent_id => pc2.id)
+    pc1 = ProductCategory.create!(:name => "PC1", :environment => @enterprise.environment)
+    pc2 = ProductCategory.create!(:name => "PC2", :environment => @enterprise.environment, :parent_id => pc1.id)
+    pc3 = ProductCategory.create!(:name => "PC3", :environment => @enterprise.environment, :parent_id => pc1.id)
+    pc4 = ProductCategory.create!(:name => "PC4", :environment => @enterprise.environment, :parent_id => pc2.id)
     p1 = fast_create(Product, :product_category_id => pc1.id, :enterprise_id => @enterprise.id)
     p2 = fast_create(Product, :product_category_id => pc2.id, :enterprise_id => @enterprise.id)
     p3 = fast_create(Product, :product_category_id => pc3.id, :enterprise_id => @enterprise.id)
@@ -171,10 +171,10 @@ class CatalogControllerTest < ActionController::TestCase
   end
 
   should 'display categories and sub-categories link' do
-    pc1 = create(ProductCategory, :name => "PC1", :environment => @enterprise.environment)
-    pc2 = create(ProductCategory, :name => "PC2", :environment => @enterprise.environment, :parent_id => pc1.id)
-    pc3 = create(ProductCategory, :name => "PC3", :environment => @enterprise.environment, :parent_id => pc1.id)
-    pc4 = create(ProductCategory, :name => "PC4", :environment => @enterprise.environment, :parent_id => pc2.id)
+    pc1 = ProductCategory.create!(:name => "PC1", :environment => @enterprise.environment)
+    pc2 = ProductCategory.create!(:name => "PC2", :environment => @enterprise.environment, :parent_id => pc1.id)
+    pc3 = ProductCategory.create!(:name => "PC3", :environment => @enterprise.environment, :parent_id => pc1.id)
+    pc4 = ProductCategory.create!(:name => "PC4", :environment => @enterprise.environment, :parent_id => pc2.id)
     p1 = fast_create(Product, :product_category_id => pc1.id, :enterprise_id => @enterprise.id)
     p2 = fast_create(Product, :product_category_id => pc2.id, :enterprise_id => @enterprise.id)
     p3 = fast_create(Product, :product_category_id => pc3.id, :enterprise_id => @enterprise.id)
