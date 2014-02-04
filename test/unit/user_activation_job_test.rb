@@ -3,10 +3,10 @@ require File.dirname(__FILE__) + '/../test_helper'
 class NotifyActivityToProfilesJobTest < ActiveSupport::TestCase
 
   should 'create job on user creation' do
-    assert_difference 'Delayed::Job.count', 1 do
-      user = new_user :login => 'test1'
-      assert_equal user.id, YAML.load(Delayed::Job.last.handler).user_id
-    end
+    user = new_user :login => 'test1'
+    job = YAML.load(Delayed::Job.last.handler)
+    assert_kind_of UserActivationJob, job
+    assert_equal user.id, job.user_id
     process_delayed_job_queue
   end
 
