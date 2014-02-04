@@ -45,8 +45,7 @@ class CmsController < MyProfileController
       conditions = ['type != ?', 'RssFeed']
     end
 
-    @articles = @article.children.paginate(
-      :order => "case when type = 'Folder' then 0 when type ='Blog' then 1 else 2 end, updated_at DESC",
+    @articles = @article.children.reorder("case when type = 'Folder' then 0 when type ='Blog' then 1 else 2 end, updated_at DESC, name").paginate(
       :conditions => conditions,
       :per_page => per_page,
       :page => params[:npage]
@@ -188,7 +187,7 @@ class CmsController < MyProfileController
     if request.post?
       @article.destroy
       session[:notice] = _("\"#{@article.name}\" was removed.")
-      referer = ActionController::Routing::Routes.recognize_path URI.parse(request.referer).path rescue nil
+      referer = Rails.application.routes.recognize_path URI.parse(request.referer).path rescue nil
       if referer and referer[:controller] == 'cms'
         redirect_to referer
       elsif @article.parent

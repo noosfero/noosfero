@@ -59,7 +59,8 @@ module XssTerminate
         else
           value = self.send("#{field}")
           return unless value
-          self.send("#{field}=", sanitizer.sanitize(value))
+          value = sanitizer.sanitize(value)
+          self.send("#{field}=", value)
 
           if with == :full
             self.send("#{field}=", CGI.escapeHTML(value))

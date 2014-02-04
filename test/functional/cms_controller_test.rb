@@ -12,10 +12,6 @@ class CmsControllerTest < ActionController::TestCase
 
   def setup
     super
-    @controller = CmsController.new
-    @request    = ActionController::TestRequest.new
-    @response   = ActionController::TestResponse.new
-
     @profile = create_user_with_permission('testinguser', 'post_content')
     login_as :testinguser
   end
@@ -137,7 +133,7 @@ class CmsControllerTest < ActionController::TestCase
     a.save!
 
     profile.description = 'a' * 600
-    profile.save(false)
+    profile.save(:validate => false)
 
     assert !profile.valid?
     assert_not_equal a, profile.home_page
@@ -403,7 +399,7 @@ class CmsControllerTest < ActionController::TestCase
     get :view, :profile => profile.identifier, :id => article.id
     assert_response :success
     assert_template 'view'
-    assert_tag :tag => 'a', :attributes => { :title => 'New content', :href => "/myprofile/#{profile.identifier}/cms/new?cms=true&amp;parent_id=#{article.id}"}
+    assert_tag :tag => 'a', :attributes => { :title => 'New content', :href => "/myprofile/#{profile.identifier}/cms/new?cms=true&parent_id=#{article.id}"}
   end
 
   should 'offer to create children' do
@@ -414,7 +410,7 @@ class CmsControllerTest < ActionController::TestCase
     article.save!
 
     get :new, :profile => profile.identifier, :parent_id => article.id, :cms => true
-    assert_tag :tag => 'a', :attributes => { :href => "/myprofile/#{profile.identifier}/cms/new?parent_id=#{article.id}&amp;type=TextileArticle"}
+    assert_tag :tag => 'a', :attributes => { :href => "/myprofile/#{profile.identifier}/cms/new?parent_id=#{article.id}&type=TextileArticle"}
   end
 
   should 'not offer to create children if article does not accept them' do
@@ -559,7 +555,7 @@ class CmsControllerTest < ActionController::TestCase
     f = Folder.new(:name => 'f'); profile.articles << f; f.save!
     get :new, :profile => profile.identifier, :parent_id => f.id, :cms => true
 
-    assert_tag :tag => 'a', :attributes => { :href => "/myprofile/#{profile.identifier}/cms/new?parent_id=#{f.id}&amp;type=Folder" }
+    assert_tag :tag => 'a', :attributes => { :href => "/myprofile/#{profile.identifier}/cms/new?parent_id=#{f.id}&type=Folder" }
   end
 
   should 'redirect to article after creating top-level article' do
@@ -1512,7 +1508,7 @@ class CmsControllerTest < ActionController::TestCase
   should 'update file and be redirect to cms' do
     file = UploadedFile.create!(:profile => @profile, :uploaded_data => fixture_file_upload('files/test.txt', 'text/plain'))
     post :edit, :profile => @profile.identifier, :id => file.id, :article => { }
-    assert_redirected_to :controller => 'cms', :profile => profile.identifier, :action => 'index'
+    assert_redirected_to :controller => 'cms', :profile => profile.identifier, :action => 'index', :id => nil
   end
 
   should 'update file and be redirect to cms folder' do

@@ -88,7 +88,7 @@ class ContentViewerController < ApplicationController
       blog_with_translation = @page.blog? && @page.display_posts_in_current_language?
       posts = posts.native_translations if blog_with_translation
 
-      @posts = posts.paginate({ :page => params[:npage], :per_page => @page.posts_per_page }.merge(Article.display_filter(user, profile)))
+      @posts = posts.paginate({ :page => params[:npage], :per_page => @page.posts_per_page }.merge(Article.display_filter(user, profile))).to_a
 
       if blog_with_translation
         @posts.replace @posts.map{ |p| p.get_translation_to(FastGettext.locale) }.compact
