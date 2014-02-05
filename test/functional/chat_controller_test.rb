@@ -27,7 +27,7 @@ class ChatControllerTest < ActionController::TestCase
     get :avatar, :id => 'testuser'
 
     assert_equal 'image/png', @response.content_type
-    assert_match /PNG/, @response.body
+    assert @response.body.index('PNG')
   end
 
   should 'get avatar from community' do
@@ -37,7 +37,7 @@ class ChatControllerTest < ActionController::TestCase
     get :avatar, :id => community.identifier
 
     assert_equal 'image/png', @response.content_type
-    assert_match /PNG/, @response.body
+    assert @response.body.index('PNG')
   end
 
   should 'auto connect if last presence status is blank' do
