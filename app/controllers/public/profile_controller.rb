@@ -219,7 +219,7 @@ class ProfileController < PublicController
 
     render :update do |page|
       page.insert_html :bottom, 'profile-wall-activities-comments-'+params[:activity],
-        :partial => 'comment', :collection => activity.comments.paginate(:per_page => comments_per_page, :page => comment_page)
+        :partial => 'comment', :collection => activity.comments.flatten.paginate(:per_page => comments_per_page, :page => comment_page)
 
       if no_more_pages
         page.remove 'profile-wall-activities-comments-more-'+params[:activity]
