@@ -1,4 +1,4 @@
-# This file is auto-generated from the current state of the database. Instead of editing this file, 
+# This file is auto-generated from the current state of the database. Instead of editing this file,
 # please use the migrations feature of Active Record to incrementally modify your database, and
 # then regenerate this schema definition.
 #
@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140108132730) do
+ActiveRecord::Schema.define(:version => 20140205191914) do
 
   create_table "abuse_reports", :force => true do |t|
     t.integer  "reporter_id"
@@ -282,6 +282,7 @@ ActiveRecord::Schema.define(:version => 20140108132730) do
     t.text     "signup_welcome_text"
     t.string   "languages"
     t.string   "default_language"
+    t.string   "redirection_after_signup",        :default => "keep_on_same_page"
   end
 
   create_table "external_feeds", :force => true do |t|

@@ -145,6 +145,18 @@ class Environment < ActiveRecord::Base
   end
   validates_inclusion_of :redirection_after_login, :in => Environment.login_redirection_options.keys, :allow_nil => true
 
+  def self.signup_redirection_options
+    {
+      'keep_on_same_page' => _('Stays on the same page the user was before signup.'),
+      'site_homepage' => _('Redirects the user to the environment homepage.'),
+      'user_profile_page' => _('Redirects the user to his profile page.'),
+      'user_homepage' => _('Redirects the user to his homepage.'),
+      'user_control_panel' => _('Redirects the user to his control panel.')
+    }
+  end
+  validates_inclusion_of :redirection_after_signup, :in => Environment.signup_redirection_options.keys, :allow_nil => true
+
+
   # #################################################
   # Relationships and applied behaviour
   # #################################################
