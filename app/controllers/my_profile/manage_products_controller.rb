@@ -207,7 +207,7 @@ class ManageProductsController < ApplicationController
                       }.to_json
     else
       render :text => {:ok => false,
-                       :error_msg => _(cost.errors['name']) % {:fn => _('Name')}
+                       :error_msg => _(cost.errors['name'].join('\n')) % {:fn => _('Name')}
                       }.to_json
     end
   end
