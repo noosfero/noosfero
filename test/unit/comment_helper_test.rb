@@ -12,7 +12,7 @@ class CommentHelperTest < ActiveSupport::TestCase
     self.stubs(:logged_in?).returns(true)
     self.stubs(:report_abuse).returns('<a href="#">link</a>')
     self.stubs(:expirable_comment_link).returns('<a href="#">link</a>')
-    @plugins = []
+    @plugins = mock
     @plugins.stubs(:dispatch).returns([])
   end
 
