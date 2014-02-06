@@ -7,8 +7,8 @@ class FilePresenter
   # like a Article and have no trouble with that.
   def self.for(f)
     return f if f.is_a? FilePresenter
-    klass = FilePresenter.subclasses.sort_by {|class_name|
-      class_name.accepts?(f) || 0
+    klass = FilePresenter.subclasses.sort_by {|class_instance|
+      class_instance.accepts?(f) || 0
     }.last
     klass.accepts?(f) ? klass.new(f) : f
   end
