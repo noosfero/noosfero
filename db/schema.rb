@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131121162641) do
+ActiveRecord::Schema.define(:version => 20140115190132) do
 
   create_table "abuse_reports", :force => true do |t|
     t.integer  "reporter_id"
@@ -542,9 +542,12 @@ ActiveRecord::Schema.define(:version => 20131121162641) do
     t.integer  "taggable_id"
     t.string   "taggable_type"
     t.datetime "created_at"
+    t.integer  "tagger_id"
+    t.string   "tagger_type"
+    t.string   "context",       :limit => 128
   end
 
-  add_index "taggings", ["tag_id"], :name => "index_taggings_on_tag_id"
+  add_index "taggings", ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], :name => "taggings_idx", :unique => true
   add_index "taggings", ["taggable_id", "taggable_type"], :name => "index_taggings_on_taggable_id_and_taggable_type"
 
   create_table "tags", :force => true do |t|
@@ -552,6 +555,8 @@ ActiveRecord::Schema.define(:version => 20131121162641) do
     t.integer "parent_id"
     t.boolean "pending",   :default => false
   end
+
+  add_index "tags", ["name"], :name => "index_tags_on_name", :unique => true
 
   create_table "tasks", :force => true do |t|
     t.text     "data"
