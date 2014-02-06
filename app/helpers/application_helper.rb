@@ -589,7 +589,7 @@ module ApplicationHelper
     extra_info = extra_info.nil? ? '' : content_tag( 'span', extra_info, :class => 'extra_info' )
     links = links_for_balloon(profile)
     content_tag('div', content_tag(tag,
-                                   (environment.enabled?(:show_balloon_with_profile_links_when_clicked) ? link_to( content_tag( 'span', _('Profile links')), '#', :onclick => "toggleSubmenu(this, '#{profile.short_name}', #{links.to_json}); return false", :class => "menu-submenu-trigger #{trigger_class}", :url => url) : "") +
+                                   (environment.enabled?(:show_balloon_with_profile_links_when_clicked) ? link_to( content_tag( 'span', _('Profile links')), '#', :onclick => "toggleSubmenu(this, '#{profile.short_name}', #{j(links.to_json)}); return false", :class => "menu-submenu-trigger #{trigger_class}", :url => url) : "") +
     link_to(
       content_tag( 'span', profile_image( profile, size ), :class => 'profile-image' ) +
       content_tag( 'span', h(name), :class => ( profile.class == Person ? 'fn' : 'org' ) ) +
