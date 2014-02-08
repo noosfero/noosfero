@@ -17,7 +17,7 @@ module ColorboxHelper
   end
 
   def colorbox_close_button(text, options = {})
-    button(:close, text, '#', colorbox_options(options, :close))
+    button(:close, text, '#', colorbox_options(options, :close).merge(:rel => 'deactivate'))
   end
 
   def colorbox_button(type, label, url, options = {})

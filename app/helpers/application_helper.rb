@@ -8,8 +8,6 @@ module ApplicationHelper
 
   include PermissionNameHelper
 
-  include LightboxHelper
-
   include ColorboxHelper
 
   include BoxesHelper
@@ -649,8 +647,8 @@ module ApplicationHelper
       ' onfocus="if(this.value==\''+s+'\'){this.value=\'\'} this.form.className=\'focus-in\'"'+
       ' onblur="if(/^\s*$/.test(this.value)){this.value=\''+s+'\'} this.form.className=\'focus-out\'">'+
       '</form>'
-    else #opt == 'lightbox_link' is default
-      lightbox_link_to '<span class="icon-menu-search"></span>'+ _('Search'), {
+    else
+      colorbox_link_to '<span class="icon-menu-search"></span>'+ _('Search'), {
                        :controller => 'search',
                        :action => 'popup',
                        :category_path => (@category ? @category.explode_path : nil)},

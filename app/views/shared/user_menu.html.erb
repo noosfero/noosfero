@@ -20,7 +20,7 @@
         </li>
 
         <li>
-        <%= lightbox_link_to('<span class="icon-new"></span>' + _('New article'), '/myprofile/{login}/cms/new') %>
+        <%= colorbox_link_to '<span class="icon-new"></span>' + _('New article'), '/myprofile/{login}/cms/new' %>
         </li>
 
         <li id='manage-enterprises-link-template' style='display: none'><a href='/myprofile/{identifier}'><span class="icon-menu-enterprise"></span><%= _('Manage %s') % '{name}' %></a></li>

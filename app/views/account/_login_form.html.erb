@@ -1,12 +1,9 @@
 <%= labelled_form_for :user,
    :url => { :controller => 'account', :action => (params[:enterprise_code] ? 'activate_enterprise' : 'login') }  do |f| %>
 
-<%= f.text_field :login,
-                 :id => ( lightbox? ? 'lightbox_' : '' ) + 'user_login',
-                 :onchange => 'this.value = convToValidLogin( this.value )' %>
+<%= f.text_field :login, :id => 'user_login', :onchange => 'this.value = convToValidLogin( this.value )' %>
 
-<%= f.password_field :password,
-                     :id => ( lightbox? ? 'lightbox_' : '' ) + 'user_password' %>
+<%= f.password_field :password, :id => 'user_password' %>
 
 <% if params[:enterprise_code] %>
   <%= hidden_field_tag :enterprise_code, params[:enterprise_code] %>
@@ -16,7 +13,7 @@
 
 <% button_bar do %>
   <%= submit_button( 'login', _('Log in') )%>
-  <%= lightbox_close_button(_('Cancel')) if lightbox? %>
+  <%= colorbox_close_button _('Cancel') if request.xhr? %>
 <% end %>
 
 <% end %>

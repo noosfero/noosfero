@@ -16,7 +16,7 @@
     <% end %>
   </ul>
   <% button_bar do %>
-    <%= lightbox_button(:add, _('New CSS'), :action => 'add_css', :id => @theme.id) %>
+    <%= colorbox_button :add, _('New CSS'), :action => 'add_css', :id => @theme.id %>
   <% end %>
 </div>
 
@@ -25,10 +25,10 @@
   <ul>
     <% for image in @image_files %>
       <li><%= image_tag("/user_themes/#{@theme.id}/images/#{image}") %></li>
-    <% end %> 
+    <% end %>
   </ul>
   <% button_bar do %>
-    <%= lightbox_button(:add, _('Add image'), :action => 'add_image', :id =>  @theme.id) %>
+    <%= colorbox_button :add, _('Add image'), :action => 'add_image', :id =>  @theme.id %>
   <% end %>
 </div>
 
