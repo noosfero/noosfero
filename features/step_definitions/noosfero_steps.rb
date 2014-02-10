@@ -324,8 +324,7 @@ end
 
 Given /^feature "(.+)" is (enabled|disabled) on environment$/ do |feature, status|
   e = Environment.default
-  status.chop!
-  e.send status, feature
+  e.send status.chop, feature
   e.save
 end
 

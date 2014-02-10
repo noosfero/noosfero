@@ -5,6 +5,7 @@ gem 'acts-as-taggable-on'
 gem 'prototype-rails'
 gem 'prototype_legacy_helper', '0.0.0', :git => 'http://git.github.com/rails/prototype_legacy_helper.git'
 gem 'rails_autolink'
+gem 'pg'
 
 # TODO needs a rebuild diff-lcs wrt wheezy
 
@@ -12,16 +13,17 @@ gem 'rails_autolink'
 # with their GEM names (not the Debian package names)
 
 group :test do
-  #gem 'rspec'
-  #gem 'rspec-rails'
+  gem 'rspec'
+  gem 'rspec-rails'
 end
 
 group :cucumber do
   gem 'rake'
-  # TODO gem 'cucumber-rails'
-  # TODO gem 'capybara'
-  # gem 'cucumber'
-  # TODO gem 'database_cleaner'
+  gem 'cucumber-rails', :require => false
+  gem 'capybara'
+  gem 'cucumber'
+  gem 'database_cleaner'
+  gem 'selenium-webdriver'
 end
 
 def program(name)
