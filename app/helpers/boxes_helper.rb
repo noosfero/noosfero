@@ -241,7 +241,7 @@ module BoxesHelper
     end
 
     if block.respond_to?(:help)
-      buttons << thickbox_inline_popup_icon(:help, _('Help on this block'), {}, "help-on-box-#{block.id}") << content_tag('div', content_tag('h2', _('Help')) + content_tag('div', block.help, :style => 'margin-bottom: 1em;') + thickbox_close_button(_('Close')), :style => 'display: none;', :id => "help-on-box-#{block.id}")
+      buttons << colorbox_inline_icon(:help, _('Help on this block'), {}, "#help-on-box-#{block.id}") << content_tag('div', content_tag('h2', _('Help')) + content_tag('div', block.help, :style => 'margin-bottom: 1em;') + colorbox_close_button(_('Close')), :style => 'display: none;', :id => "help-on-box-#{block.id}")
     end
 
     if block.embedable?

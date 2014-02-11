@@ -1005,31 +1005,6 @@ log.error = function() {
   window.log.apply(window, jQuery.merge(['error'], arguments));
 }
 
-jQuery(function($) {
-  $('.colorbox').live('click', function() {
-    $.colorbox({
-      href:       $(this).attr('href'),
-      maxWidth:   $(window).width()-50,
-      height:     $(window).height()-50,
-      open:       true,
-      fixed:      true,
-      close:      'Cancel',
-      onComplete: function(bt) {
-        var opt = {}, maxH = $(window).height()-50;
-        if ($('#cboxLoadedContent *:first').height() > maxH) opt.height = maxH;
-        $.colorbox.resize(opt);
-      }
-    });
-    return false;
-  });
-
-  $('.colorbox-close').live('click', function() {
-    $.colorbox.close();
-    return false;
-  });
-
-});
-
 function showHideTermsOfUse() {
   if( jQuery("#article_has_terms_of_use").attr("checked") )
     jQuery("#text_area_terms_of_use").show();

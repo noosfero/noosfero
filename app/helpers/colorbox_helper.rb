@@ -1,5 +1,21 @@
 module ColorboxHelper
 
+  def colorbox_inline_link_to title, url, selector, options = {}
+    link_to title, url, colorbox_options(options.merge(:inline => selector))
+  end
+
+  def colorbox_inline_icon type, title, url, selector, options = {}
+    icon_button type, title, url, colorbox_options(options.merge(:inline => selector))
+  end
+
+  def colorbox_link_to title, url, options = {}
+    link_to title, url, colorbox_options(options)
+  end
+
+  def colorbox_close_link text, options = {}
+    link_to text, '#', colorbox_options(options, :close)
+  end
+
   def colorbox_close_button(text, options = {})
     button(:close, text, '#', colorbox_options(options, :close))
   end
@@ -16,10 +32,15 @@ module ColorboxHelper
   #
   # returns a new hash with colorbox class added. Keeps existing classes.
   def colorbox_options(options, type=nil)
-    the_class = 'colorbox'
-    the_class += "-#{type.to_s}" unless type.nil?
-    the_class << " #{options[:class]}" if options.has_key?(:class)
-    options.merge(:class => the_class)
+    inline_selector = options.delete :inline
+    options[:onclick] = "return colorbox_helpers.inline('#{inline_selector}')" if inline_selector
+
+    classes = if inline_selector then '' else 'colorbox' end
+    classes += "-#{type.to_s}" if type.present?
+    classes << " #{options[:class]}" if options.has_key? :class
+    options.merge!(:class => classes)
+
+    options
   end
 
 end

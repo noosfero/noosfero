@@ -3,7 +3,7 @@
 <h2><%= _('Login') %></h2>
 
 <% @user ||= User.new %>
-<% is_thickbox ||= false %>
+<% is_popin ||= false %>
 
 <%= @message %>
 
@@ -17,8 +17,8 @@
 
      <% button_bar do %>
        <%= submit_button( 'login', _('Log in') )%>
-       <% if is_thickbox %>
-         <%= thickbox_close_button(_('Cancel')) %>
+       <% if is_popin %>
+         <%= colorbox_close_button(_('Cancel')) %>
        <% end %>
      <% end %>
 

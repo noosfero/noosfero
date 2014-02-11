@@ -10,8 +10,6 @@ module ApplicationHelper
 
   include LightboxHelper
 
-  include ThickboxHelper
-
   include ColorboxHelper
 
   include BoxesHelper
