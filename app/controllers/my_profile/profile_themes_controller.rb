@@ -1,24 +1,13 @@
-class ThemesController < MyProfileController
+class ProfileThemesController < ThemesController
+
+  needs_profile
 
   protect 'edit_appearance', :profile
+
   no_design_blocks
 
-  def set
-    profile.update_theme(params[:id])
-    redirect_to :action => 'index'
-  end
-
-  def unset
-    profile.update_theme(nil)
-    redirect_to :action => 'index'
-  end
-
-  def index
-    @themes = profile.environment.themes + Theme.approved_themes(profile)
-    @current_theme = profile.theme
-
-    @layout_templates = LayoutTemplate.all
-    @current_template = profile.layout_template
+  def target
+    @target = profile
   end
 
   def new
@@ -80,11 +69,6 @@ class ThemesController < MyProfileController
 
   def stop_test
     session[:theme] = nil
-    redirect_to :action => 'index'
-  end
-
-  def set_layout_template
-    profile.update_layout_template(params[:id])
     redirect_to :action => 'index'
   end
 
