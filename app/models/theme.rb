@@ -42,14 +42,20 @@ class Theme
     end
 
     def approved_themes(owner)
-      Dir.glob(File.join(system_themes_dir, '*')).select do |item|
-        if File.exists?( File.join(item, 'theme.yml') )
-          config = YAML.load_file(File.join(item, 'theme.yml'))
-          (config['owner_type'] == owner.class.base_class.name) &&
-          (config['owner_id'] == owner.id) || config['public']
+      Dir.glob(File.join(system_themes_dir, '*')).map do |item|
+        next unless File.exists? File.join(item, 'theme.yml')
+        id = File.basename item
+        config = YAML.load_file File.join(item, 'theme.yml')
+
+        approved = config['public']
+        unless approved
+          approved = config['owner_type'] == owner.class.base_class.name || config['owner_type'] == owner.class.name
+          approved &&= config['owner_id'] == owner.id if config['owner_id'].present?
         end
-      end.map do |desc|
-        new(File.basename(desc))
+
+        [id, config] if approved
+      end.compact.map do |id, config|
+        new id, config
       end
     end
 
