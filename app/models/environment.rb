@@ -28,7 +28,8 @@ class Environment < ActiveRecord::Base
     'manage_environment_users' => N_('Manage environment users'),
     'manage_environment_templates' => N_('Manage environment templates'),
     'manage_environment_licenses' => N_('Manage environment licenses'),
-    'manage_environment_trusted_sites' => N_('Manage environment trusted sites')
+    'manage_environment_trusted_sites' => N_('Manage environment trusted sites'),
+    'edit_appearance'      => N_('Edit appearance'),
   }
 
   module Roles
@@ -664,6 +665,16 @@ class Environment < ActiveRecord::Base
     else
       settings[:themes] += values
     end
+  end
+
+  def update_theme(theme)
+    self.theme = theme
+    self.save!
+  end
+
+  def update_layout_template(template)
+    self.layout_template = template
+    self.save!
   end
 
   before_create do |env|

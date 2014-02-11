@@ -10,7 +10,7 @@ class Box < ActiveRecord::Base
   end
 
   def acceptable_blocks
-    blocks_classes = central?  ? Box.acceptable_center_blocks + plugins.dispatch(:extra_blocks, :position => 1) : Box.acceptable_side_blocks + plugins.dispatch(:extra_blocks, :position => [2, 3])
+    blocks_classes = central?  ? Box.acceptable_center_blocks + plugins.dispatch(:extra_blocks, :type => owner.class, :position => 1) : Box.acceptable_side_blocks + plugins.dispatch(:extra_blocks, :type => owner.class, :position => [2, 3])
     to_css_class_name(blocks_classes)
   end
 
