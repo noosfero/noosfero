@@ -4323,7 +4323,7 @@ h1#agenda-title {
   padding-left: 0px;
   list-style-type: none;
 }
-/* ==> public/stylesheets/controller_themes.css <== */
+/* ==> public/stylesheets/profile_controller_themes.css <== */
 
 .action-themes-index .button-bar {
   padding-top: 20px;
@@ -4397,23 +4397,23 @@ h1#agenda-title {
 #user-themes a:hover {
   text-decoration: underline;
 }
-.controller-themes .template-preview-cell {
+.controller-profile_themes .template-preview-cell {
   text-align: center;
 }
-.controller-themes .theme-preview {
+.controller-profile_themes .theme-preview {
   border: 1px solid #BBB;
 }
-.controller-themes #css-files-list h2, .controller-themes #image-files-list h2 {
+.controller-profile_themes #css-files-list h2, .controller-profile_themes #image-files-list h2 {
   margin-top: 0px;
 }
-.controller-themes #css-files-list ul, .controller-themes #image-files-list ul, .controller-themes #css-code textarea {
+.controller-profile_themes #css-files-list ul, .controller-profile_themes #image-files-list ul, .controller-profile_themes #css-code textarea {
   height: 280px;
 }
-.controller-themes #css-files-list ul, .controller-themes #image-files-list ul {
+.controller-profile_themes #css-files-list ul, .controller-profile_themes #image-files-list ul {
   overflow: auto;
 }
 /* header stuff */
-.controller-themes #theme-name input {
+.controller-profile_themes #theme-name input {
   font-size: 18px;
   border: 1px solid black;
   background: white;
@@ -4422,78 +4422,78 @@ h1#agenda-title {
 }
 /* files list */
 
-.controller-themes #css-files-list {
+.controller-profile_themes #css-files-list {
   width: 200px;
   float: left;
   margin-left: 10px;
 }
-.controller-themes #css-files-list ul {
+.controller-profile_themes #css-files-list ul {
   margin: 0px;
   padding-left: 0px;
   background: white;
   border: 1px solid #bbb;
 }
-.controller-themes #css-files-list li {
+.controller-profile_themes #css-files-list li {
   list-style: none;
   margin-bottom: 5px;
   border-bottom: 1px solid #bbb;
 }
-.controller-themes #css-files-list li a {
+.controller-profile_themes #css-files-list li a {
   display: block;
   padding: 1px 5px;
 }
-.controller-themes #css-files-list a:hover {
+.controller-profile_themes #css-files-list a:hover {
   color: red;
 }
 /* images list */
 
-.controller-themes #image-files-list {
+.controller-profile_themes #image-files-list {
   width: 200px;
   float: right;
   margin-right: 10px;
 }
-.controller-themes #image-files-list ul {
+.controller-profile_themes #image-files-list ul {
   background: white;
   border: 1px solid #bbb;
 }
-.controller-themes #image-files-list ul, .controller-themes #image-files-list li {
+.controller-profile_themes #image-files-list ul, .controller-profile_themes #image-files-list li {
   padding: 0px;
   margin: 0px;
   list-style: none;
 }
-.controller-themes #image-files-list li {
+.controller-profile_themes #image-files-list li {
   border-bottom: 1px solid #bbb;
   padding: 5px 0px;
   text-align: center;
 }
-.controller-themes #image-files-list img {
+.controller-profile_themes #image-files-list img {
   max-width: 98%;
   max-height: 40px;
 }
-.controller-themes .msie6 #image-files-list img {
+.controller-profile_themes .msie6 #image-files-list img {
   width: 50%;
   height: 40px;
 }
-.controller-themes #image-files-list li span {
+.controller-profile_themes #image-files-list li span {
   display: block;
   width: 100%;
   overflow: hidden;
 }
 /* textbox */
 
-.controller-themes #css-code {
+.controller-profile_themes #css-code {
   margin-left: 220px;
   margin-right: 220px;
 }
-.controller-themes .msie6 #css-code {
+.controller-profile_themes .msie6 #css-code {
   float: left;
   margin-left: 20px;
   margin-right: 240px;
 }
-.controller-themes #css-code textarea {
+.controller-profile_themes #css-code textarea {
   width: 100%;
 }
-.controller-themes .msie6 #css-code textarea {
+.controller-profile_themes .msie6 #css-code textarea {
   width: 500px;
 }
 /* highlights block stuff */
