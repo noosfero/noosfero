@@ -15,16 +15,14 @@
 </script>
 
 <% if @page.parent && !@page.parent.path.blank? %>
-<div id="article-parent">
-  <%= button(:back, _('Go back to %s') % @page.parent.short_title, @page.parent.url) %>
-</div>
+  <div id="article-parent">
+    <%= button(:back, _('Go back to %s') % @page.parent.short_title, @page.parent.url) %>
+  </div>
 <% end %>
 
-<div id="article-toolbar"></div>
-
-<script type="text/javascript">
-  <%= remote_function :update => "article-toolbar", :url => @page.url.merge({ :toolbar => true, :only_path => true }) %>
-</script>
+<div id="article-toolbar">
+  <%= render :partial => 'article_toolbar' %>
+</div>
 
 <% if @page.display_hits? || @page.license.present? %>
   <div id='article-sub-header'>

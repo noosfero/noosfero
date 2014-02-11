@@ -71,6 +71,7 @@ class Article < ActiveRecord::Base
   settings_items :allow_members_to_edit, :type => :boolean, :default => false
   settings_items :moderate_comments, :type => :boolean, :default => false
   settings_items :followers, :type => Array, :default => []
+  has_and_belongs_to_many :article_privacy_exceptions, :class_name => 'Person', :join_table => 'article_privacy_exceptions'
 
   belongs_to :reference_article, :class_name => "Article", :foreign_key => 'reference_article_id'
 
@@ -202,6 +203,7 @@ class Article < ActiveRecord::Base
   acts_as_filesystem
 
   acts_as_versioned
+  self.non_versioned_columns << 'setting'
 
   def comment_data
     comments.map {|item| [item.title, item.body].join(' ') }.join(' ')
@@ -448,8 +450,8 @@ class Article < ActiveRecord::Base
   end
 
   scope :published, :conditions => { :published => true }
-  scope :folders, :conditions => { :type => folder_types}
-  scope :no_folders, :conditions => ['type NOT IN (?)', folder_types]
+  scope :folders, lambda {|profile|{:conditions => { :type => profile.folder_types} }}
+  scope :no_folders, lambda {|profile|{:conditions => ['type NOT IN (?)', profile.folder_types]}}
   scope :galleries, :conditions => { :type => 'Gallery' }
   scope :images, :conditions => { :is_image => true }
   scope :text_articles, :conditions => [ 'articles.type IN (?)', text_article_types ]
@@ -470,7 +472,8 @@ class Article < ActiveRecord::Base
 
   def display_unpublished_article_to?(user)
     user == author || allow_view_private_content?(user) || user == profile ||
-    user.is_admin?(profile.environment) || user.is_admin?(profile)
+    user.is_admin?(profile.environment) || user.is_admin?(profile) ||
+    article_privacy_exceptions.include?(user)
   end
 
   def display_to?(user = nil)
@@ -612,17 +615,34 @@ class Article < ActiveRecord::Base
     false
   end
 
-  def author
-    if versions.empty?
-      last_changed_by
-    else
-      author_id = versions.first.last_changed_by_id
+  settings_items :display_versions, :type => :boolean, :default => false
+
+  def can_display_versions?
+    false
+  end
+
+  def display_versions?
+    can_display_versions? && display_versions
+  end
+
+  def author(version_number = nil)
+    if version_number
+      version = versions.find_by_version(version_number)
+      author_id = version.last_changed_by_id if version
       Person.exists?(author_id) ? Person.find(author_id) : nil
+    else
+      if versions.empty?
+        last_changed_by
+      else
+        author_id = versions.first.last_changed_by_id
+        Person.exists?(author_id) ? Person.find(author_id) : nil
+      end
     end
   end
 
-  def author_name
-    author ? author.name : (setting[:author_name] || _('Unknown'))
+  def author_name(version_number = nil)
+    person = version_number ? author(version_number) : author
+    person ? person.name : (setting[:author_name] || _('Unknown'))
   end
 
   def author_url
@@ -633,13 +653,20 @@ class Article < ActiveRecord::Base
     author ? author.id : nil
   end
 
+  def version_license(version_number = nil)
+    return license if version_number.nil?
+    profile.environment.licenses.find_by_id(versions.find_by_version(version_number).license_id)
+  end
+
   alias :active_record_cache_key :cache_key
   def cache_key(params = {}, the_profile = nil, language = 'en')
     active_record_cache_key+'-'+language +
       (allow_post_content?(the_profile) ? "-owner" : '') +
       (params[:npage] ? "-npage-#{params[:npage]}" : '') +
       (params[:year] ? "-year-#{params[:year]}" : '') +
-      (params[:month] ? "-month-#{params[:month]}" : '')
+      (params[:month] ? "-month-#{params[:month]}" : '') +
+      (params[:version] ? "-version-#{params[:version]}" : '')
+
   end
 
   def first_paragraph

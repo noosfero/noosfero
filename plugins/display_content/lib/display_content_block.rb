@@ -16,7 +16,6 @@ class DisplayContentBlock < Block
   ]
 
   settings_items :nodes, :type => Array, :default => []
-  settings_items :parent_nodes, :type => Array, :default => []
   settings_items :sections,
                  :type => Array,
                  :default => [{:name => _('Publish date'), :checked => true},
@@ -25,6 +24,7 @@ class DisplayContentBlock < Block
                               {:name => _('Body'), :checked => false},
                               {:name => _('Image'), :checked => false},
                               {:name => _('Tags'), :checked => false}]
+  settings_items :display_folder_children, :type => :boolean, :default => true
 
   def self.description
     _('Display your contents')
@@ -35,20 +35,28 @@ class DisplayContentBlock < Block
   end
 
   def checked_nodes= params
+    self.nodes = params.keys
+  end
+
+  before_save :expand_nodes
+
+  def expand_nodes
     return self.nodes if self.holder.nil?
-    articles = []
-    parent_articles = []
-    self.holder.articles.find(params.keys).map do |article|
-      if article.folder?
-        articles = articles + article.children
-        parent_articles << article.id
-      else
-        articles<< article
-      end
-      parent_articles = parent_articles + get_parent(article) unless parent_articles.include?(article.parent_id)
+
+    articles = self.holder.articles.find(nodes)
+    children = articles.map { |article| article.children }.compact.flatten
+
+    if display_folder_children
+      articles = articles - children
+    else
+      articles = (articles + children).uniq
     end
-    self.parent_nodes = parent_articles
-    self.nodes = articles.map{|a| a.id if a.is_a?(TextArticle) }.compact
+
+    self.nodes = articles.map(&:id)
+  end
+
+  def parent_nodes
+    @parent_nodes ||= self.holder.articles.find(nodes).map { |article| get_parent(article) }.compact.flatten
   end
 
   VALID_CONTENT = ['RawHTMLArticle', 'TextArticle', 'TextileArticle', 'TinyMceArticle', 'Folder', 'Blog', 'Forum']
@@ -60,17 +68,18 @@ class DisplayContentBlock < Block
 
   include ActionController::UrlWriter
   def content(args={})
-    docs = owner.articles.find(:all, :conditions => {:id => self.nodes})
+    extra_condition = display_folder_children ? 'OR articles.parent_id IN(:nodes)':''
+    docs = nodes.blank? ? [] : owner.articles.find(:all, :conditions => ["(articles.id IN(:nodes) #{extra_condition}) AND articles.type IN(:types)", {:nodes => self.nodes, :types => VALID_CONTENT}])
 
     block_title(title) +
-    content_tag('ul', docs.map {|item|
+      content_tag('ul', docs.map {|item|
+      if !item.folder?
+        content_sections = ''
+        read_more_section = ''
+        tags_section = ''
 
-      content_sections = ''
-      read_more_section = ''
-      tags_section = ''
-
-      sections.select { |section|
-        case section[:name]
+        sections.select { |section|
+          case section[:name]
           when 'Publish date'
             content_sections += (display_section?(section) ? (content_tag('div', show_date(item.published_at, false), :class => 'published-at') ) : '')
           when 'Title'
@@ -92,14 +101,14 @@ class DisplayContentBlock < Block
               tags_section = item.tags.map { |t| content_tag('span', t.name) }.join("")
               content_sections += (display_section?(section) ? (content_tag('div', tags_section, :class => 'tags')) : '')
             end
-        end
-      }
+          end
+        }
 
-      content_sections += read_more_section if !read_more_section.blank?
+        content_sections += read_more_section if !read_more_section.blank?
 
-      content_tag('li', content_sections)
+        content_tag('li', content_sections)
+      end
     }.join(" "))
-
   end
 
   def url_params
@@ -121,7 +130,7 @@ class DisplayContentBlock < Block
 
   def holder
     return nil if self.box.nil? || self.owner.nil?
-    if self.owner.kind_of?(Environment) 
+    if self.owner.kind_of?(Environment)
       return nil if self.owner.portal_community.nil?
       self.owner.portal_community
     else

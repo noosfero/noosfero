@@ -1301,7 +1301,6 @@ class ProfileTest < ActiveSupport::TestCase
 
   should 'list folder articles' do
     profile = fast_create(Profile)
-    Article.destroy_all
     p1 = Folder.create!(:name => 'parent1', :profile => profile)
     p2 = Blog.create!(:name => 'parent2', :profile => profile)
 
@@ -1762,7 +1761,7 @@ class ProfileTest < ActiveSupport::TestCase
     env = fast_create(Environment)
     roles = %w(foo bar profile_foo profile_bar).map{ |r| create(Role, :name => r, :environment_id => env.id, :permissions => ["some"]) }
     create Role, :name => 'test', :environment_id => env.id + 1
-    assert_equal roles, Profile::Roles.all_roles(env.id)
+    assert_equivalent roles, Profile::Roles.all_roles(env.id)
   end
 
   should 'define method for role' do
@@ -1936,4 +1935,20 @@ class ProfileTest < ActiveSupport::TestCase
     assert_not_includes Profile.public, p4
   end
 
+  should 'folder_types search for folders in the plugins' do
+    class Folder1 < Folder
+    end
+
+    class Plugin1 < Noosfero::Plugin
+      def content_types
+        [Folder1]
+      end
+    end
+
+    environment = Environment.default
+    environment.enable_plugin(Plugin1)
+    plugins = Noosfero::Plugin::Manager.new(environment, self)
+    p = fast_create(Profile)
+    assert p.folder_types.include?('ProfileTest::Folder1')
+  end
 end

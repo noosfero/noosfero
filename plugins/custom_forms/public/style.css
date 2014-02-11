@@ -4,7 +4,7 @@
 }
 
 .action-table {
-  width: 100%; 
+  width: 100%;
   overflow: hidden;
 }
 
@@ -13,12 +13,9 @@
   text-align: center;
 }
 
-.action-table td{
-  cursor: move;
-}
-
 .action-table .actions{
   white-space: nowrap;
+  text-align: left;
 }
 
 .action-table .new-item{
@@ -30,4 +27,63 @@
 }
 #colorbox .edit-information {
   display: block;
+}
+
+.field-box {
+  margin: 10px 0;
+}
+
+.field-box > div {
+  overflow: hide;
+}
+
+.field-box .button {
+  margin-left: 15px;
+}
+
+.field-box .addition-buttons .button {
+  margin: 0px;
+}
+
+.field-box .required-field label{
+  font-weight: bold;
+  color: #c00;
+}
+.field-box .required-field label:after {
+  content: ' (*)';
+}
+
+.field-select-type {
+  margin: 10px 0;
+}
+
+.field-text-default {
+  margin-top: 10px;
+}
+
+.field-list {
+  list-style-type: none;
+  margin: 0px;
+  padding: 0px;
+  cursor: move;
+}
+
+.field-list label, .field-list legend {
+  cursor: move;
+}
+
+ul.field-list > li > fieldset:hover {
+  border: 2px dotted #BBB;
+}
+
+tr.addition-buttons {
+  cursor: auto;
+}
+
+#ui-datepicker-div {
+  border: 1px solid #CCC;
+}
+.ui-slider-horizontal {
+  border: 1px solid #BBB;
+  border-radius: 4px;
 }

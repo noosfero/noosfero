@@ -1,4 +1,5 @@
 <%= error_messages_for 'article' %>
+<%= javascript_include_tag "article.js" %>
 
 <div class='<%= (environment.enabled?('media_panel') ? 'with_media_panel' : 'no_media_panel') %>'>
 <%= labelled_form_for 'article', @article, :html => { :multipart => true, :class => @type } do |f| %>
@@ -8,6 +9,8 @@
   <%= hidden_field_tag('parent_id', @parent_id) if @parent_id %>
 
   <%= hidden_field_tag('back_to', @back_to) %>
+
+  <%= hidden_field_tag('success_back_to', @success_back_to) %>
 
   <%= render :partial => partial_for_class(@article.class), :locals => { :f => f } %>
 
@@ -33,17 +36,23 @@
   <%= content_tag( 'small', _('Separate tags with commas') ) %>
 
   <div id='edit-article-options'>
-    <%= options_for_article(@article) %>
+    <%= options_for_article(@article, @tokenized_children) %>
   </div>
 
   <% button_bar do %>
     <%= submit_button :save, _('Save') %>
+
     <% if @back_to %>
       <%= button :cancel, _('Cancel'), @back_to %>
     <% elsif @parent_id || @article.parent %>
       <%= button :cancel, _('Cancel'), :action => 'view', :id => @parent_id || @article.parent %>
     <% else %>
       <%= button :cancel, _('Cancel'), :action => 'index' %>
+    <% end %>
+
+    <% unless @article.new_record? %>
+      <%= button :delete, _('Delete'), {:controller => :cms, :action => :destroy, :id => @article},
+        :method => :post, :confirm => delete_article_message(@article) %>
     <% end %>
   <% end %>
 <% end %>

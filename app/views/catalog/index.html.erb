@@ -1,30 +1,18 @@
 <% extra_content = [] %>
 <% extra_content_list = [] %>
 
-<h1><%= _('Products/Services') %></h1>
-
-<% if @categories %>
-  <%= breadcrumb(@category) if params[:level] %>
-
-  <div class='l-sidebar-left-bar'>
-    <ul>
-      <%= content_tag('li', link_to(_('Homepage'), profile.url), :class => 'catalog-categories-link') %>
-      <%= content_tag('li', link_to(_('Catalog start'), profile.catalog_url), :class => 'catalog-categories-link') %>
-      <% if @categories.present? %>
-        <% @categories.each do |category| %>
-          <%= category_link(category) %>
-          <%= category_sub_links(category) %>
-        <% end %>
-      <% elsif @category.present? %>
-        <%= content_tag('li', _('There are no sub-categories for %s') % @category.name, :id => 'catalog-categories-notice') %>
-      <% else %>
-        <%= content_tag('li', _('There are no categories available.'), :id => 'catalog-categories-notice') %>
-      <% end %>
-    </ul>
+<div id="product-catalog">
+<% if !user.nil? && ( user.is_admin?(profile.environment) || user.is_admin?(profile) ) %>
+  <div class="product-catalog-ctrl">
+    <%= button :product, _('Manage Products/Services'), :controller => 'manage_products' %>
   </div>
 <% end %>
 
-<ul id="product-list" class="<%="l-sidebar-left-content" if @categories %>">
+<h1><%= _('Products/Services') %></h1>
+
+<%= breadcrumb(@category) if params[:level] %>
+
+<ul id="product-list">
   <% @products.each do |product| %>
     <% extra_content = @plugins.dispatch(:catalog_item_extras, product).collect { |content| instance_eval(&content) } %>
     <% extra_content_list = @plugins.dispatch(:catalog_list_item_extras, product).collect { |content| instance_eval(&content) } %>
@@ -132,10 +120,11 @@
       </ul>
     </li>
   <% end %>
-</ul>
+</ul><!-- end id="product-list" -->
 
 <%= pagination_links @products, :params => {:controller => :catalog, :action => :index, :profile => profile.identifier} %>
 
 <%= add_zoom_to_images %>
 
 <br style="clear:both"/>
+</div><!-- end id="product-catalog" -->

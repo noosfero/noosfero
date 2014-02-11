@@ -20,6 +20,9 @@ module NavigationHelpers
     when /^\//
       page_name
 
+    when /^(.*)'s profile/
+      '/profile/' + profile_identifier($1)
+
     when /article "([^"]+)"\s*$/
       url_for(Article.find_by_name($1).url.merge({:only_path => true}))
 
@@ -110,6 +113,13 @@ module NavigationHelpers
 
     when /^(.+)'s members page/
       '/profile/%s/members' % profile_identifier($1)
+
+    when /^(.+)'s "(.+)" page from "(.*)" of "(.*)" plugin/
+      profile = $1
+      action = $2
+      plugin_name = $4.underscore
+      controller_type = $3.constantize.superclass.to_s.underscore.gsub(/_controller/, "")
+      "/#{controller_type}/#{profile}/plugin/#{plugin_name}/#{action}"
 
     else
       begin

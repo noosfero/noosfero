@@ -19,4 +19,7 @@ class TextArticle < Article
     end
   end
 
+  def can_display_versions?
+    true
+  end
 end

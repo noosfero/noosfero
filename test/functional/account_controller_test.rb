@@ -574,6 +574,7 @@ class AccountControllerTest < ActionController::TestCase
 
   should 'use the current environment for the template of user' do
     template = create_user('test_template', :email => 'test@bli.com', :password => 'pass', :password_confirmation => 'pass').person
+    template.is_template = true
     template.boxes.destroy_all
     template.boxes << Box.new
     template.boxes[0].blocks << Block.new

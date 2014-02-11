@@ -1,0 +1,27 @@
+<% self.extend CustomFormsPlugin::Helper %>
+
+<h1><%= _('Pending submissions for %s') % @form.name %></h1>
+
+<% if @pendings.empty? %>
+  <%= _('There are no pending submissions for this form.') %>
+<% else %>
+  <p>
+    <%= labelled_select(_('Sort by')+': ', :sort_by, :first, :last, @sort_by, [['time', _('Time')], ['user', _('User')]], :onchange => 'document.location.href = "?sort_by="+this.value') %>
+  </p>
+  <table class="action-table">
+    <tr>
+      <th style='width: 50%'><%= _('User') %></th>
+      <th style='width: 50%'><%= _('Time') %></th>
+    </tr>
+    <% @pendings.each do |pending| %>
+      <tr>
+        <td><%= link_to(pending[:profile].name, {:controller => :profile, :profile => pending[:profile].identifier}) %></td>
+        <td><%= time_format(pending[:time]) %></td>
+      </tr>
+    <% end %>
+  </table>
+<% end %>
+
+<% button_bar do %>
+  <%= button :back, _('Back to forms'), :action => 'index' %>
+<% end %>

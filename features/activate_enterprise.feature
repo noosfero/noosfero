@@ -86,9 +86,9 @@ Feature: activate enterprise
     Given enterprise template must be replaced after enable
     And feature "enterprise_activation" is enabled on environment
     And the following enterprises
-      | identifier | name | enabled | foundation_year |
-      | services-provider-2 | Services Provider 2 | false | 2000 |
-      | active-template | Active Template | false | 2000 |
+      | identifier          | name                | enabled | foundation_year | is_template |
+      | services-provider-2 | Services Provider 2 | false   | 2000            | false       |
+      | active-template     | Active Template     | false   | 2000            | true        |
     And "Active Template" is the active enterprise template
     And "Services Provider 2" doesnt have "Active Template" as template
     And I go to joaosilva's control panel
@@ -108,9 +108,9 @@ Feature: activate enterprise
     Given enterprise template must not be replaced after enable
     And feature "enterprise_activation" is enabled on environment
     And the following enterprises
-      | identifier | name | enabled | foundation_year |
-      | services-provider-3 | Services Provider 3 | false | 2000 |
-      | active-template | Active Template | false | 2000 |
+      | identifier          | name                | enabled | foundation_year | is_template |
+      | services-provider-3 | Services Provider 3 | false   | 2000            | false       |
+      | active-template     | Active Template     | false   | 2000            | true        |
     And "Active Template" is the active enterprise template
     And "Services Provider 3" doesnt have "Active Template" as template
     When I go to joaosilva's control panel

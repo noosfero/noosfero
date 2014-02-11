@@ -11,8 +11,22 @@ class MainBlockTest < ActiveSupport::TestCase
     ok("MainBlock must not have a content") { MainBlock.new.content.blank? }
   end
 
-  should 'not be editable' do
-    assert !MainBlock.new.editable?
+  should 'be editable' do
+    assert MainBlock.new.editable?
+  end
+
+  should 'be visible on environment' do
+    env = Environment.new
+    block = MainBlock.new
+    block.stubs(:owner).returns(env)
+    assert block.visible?
+  end
+
+  should 'not be visible on environment' do
+    env = Environment.new
+    block = MainBlock.new(:display => 'never')
+    block.stubs(:owner).returns(env)
+    assert !block.visible?
   end
 
 end

@@ -25,9 +25,14 @@ Feature: categories_block
       | environment | CategoriesBlock |
     And I am logged in as admin
 
+  # Note that this @ignore-hidden-elements only works for seeing hidden
+  # elements. It actually doesn't work for following hidden link or pressing
+  # hidden buttons. That's why it's necessary to use this display hack to show
+  # the link.
   @selenium @ignore-hidden-elements
   Scenario: List just product categories
     Given I go to /admin/environment_design
+    And display ".categories-block .button-bar"
     And I follow "Edit" within ".categories-block"
     And I check "Product"
     When I press "Save"
@@ -40,6 +45,7 @@ Feature: categories_block
   @selenium @ignore-hidden-elements
   Scenario: Show submenu if it exists
     Given I go to /admin/environment_design
+    And display ".categories-block .button-bar"
     And I follow "Edit" within ".categories-block"
     And I check "Product"
     And I press "Save"
@@ -58,6 +64,7 @@ Feature: categories_block
   @selenium @ignore-hidden-elements
   Scenario: Show only one submenu per time
     Given I go to /admin/environment_design
+    And display ".categories-block .button-bar"
     And I follow "Edit" within ".categories-block"
     And I check "Product"
     And I press "Save"
@@ -69,6 +76,7 @@ Feature: categories_block
   @selenium @ignore-hidden-elements
   Scenario: List just general categories
     Given I go to /admin/environment_design
+    And display ".categories-block .button-bar"
     And I follow "Edit" within ".categories-block"
     And I check "Generic category"
     When I press "Save"
@@ -77,6 +85,7 @@ Feature: categories_block
   @selenium @ignore-hidden-elements
   Scenario: List just regions
     Given I go to /admin/environment_design
+    And display ".categories-block .button-bar"
     And I follow "Edit" within ".categories-block"
     And I check "Region"
     When I press "Save"

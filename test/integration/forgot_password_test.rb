@@ -19,7 +19,7 @@ class ForgotPasswordTest < ActionController::IntegrationTest
     assert_response :success
     assert_tag :tag => 'form', :attributes => { :action => '/account/forgot_password', :method => 'post' }
 
-    post '/account/forgot_password', :change_password => { :field => 'login', :value => 'forgotten', :environment_id => Environment.default.id }
+    post '/account/forgot_password', :field => 'login', :value => 'forgotten', :environment_id => Environment.default.id
 
     assert_response :success
     assert_template 'password_recovery_sent'
@@ -52,7 +52,7 @@ class ForgotPasswordTest < ActionController::IntegrationTest
     assert_response :success
     assert_tag :tag => 'form', :attributes => { :action => '/account/forgot_password', :method => 'post' }
 
-    post '/account/forgot_password', :change_password => { :field => 'email', :value => 'forgotten@localhost.localdomain', :environment_id => Environment.default.id }
+    post '/account/forgot_password', :field => 'email', :value => 'forgotten@localhost.localdomain', :environment_id => Environment.default.id
 
     assert_response :success
     assert_template 'password_recovery_sent'

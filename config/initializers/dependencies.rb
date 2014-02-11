@@ -14,3 +14,4 @@ require 'white_list_filter'
 # third-party libraries
 require 'will_paginate'
 require 'will_paginate/array'
+require 'nokogiri'
