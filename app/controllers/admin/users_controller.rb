@@ -7,7 +7,7 @@ class UsersController < AdminController
   include UsersHelper
 
   def index
-    @filter = params[:filter]
+    @filter = params[:filter] || 'all_users'
     scope = environment.people.no_templates
     if @filter == 'admin_users'
       scope = scope.admins

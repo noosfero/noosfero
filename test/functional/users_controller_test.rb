@@ -117,6 +117,11 @@ class UsersControllerTest < ActionController::TestCase
     assert_order ['ana', 'bill', 'creed', 'jeremy'], assigns(:collection).map(&:name)
   end
 
+  should 'set filter to all_users by default' do
+    get :index
+    assert_equal 'all_users', assigns(:filter)
+  end
+
   should 'response as XML to export users' do
     get :download, :format => 'xml'
     assert_equal 'text/xml', @response.content_type
