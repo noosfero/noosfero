@@ -61,7 +61,7 @@ Noosfero::Application.routes.draw do
   match 'profile/:profile/events', :controller => 'events', :action => 'events', :profile => /#{Noosfero.identifier_format}/
 
   # catalog
-  match 'catalog/:profile', :controller => 'catalog', :action => 'index', :profile => /#{Noosfero.identifier_format}/
+  match 'catalog/:profile', :controller => 'catalog', :action => 'index', :profile => /#{Noosfero.identifier_format}/, :as => :catalog
 
   # invite
   match 'profile/:profile/invite/friends', :controller => 'invite', :action => 'select_address_book', :profile => /#{Noosfero.identifier_format}/

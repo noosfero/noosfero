@@ -1,6 +1,6 @@
 class Block < ActiveRecord::Base
 
-  attr_accessible :title, :display, :limit, :box_id
+  attr_accessible :title, :display, :limit, :box_id, :posts_per_page, :visualization_format, :language
 
   # to be able to generate HTML
   include ActionView::Helpers::UrlHelper

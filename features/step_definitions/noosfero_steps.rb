@@ -14,7 +14,7 @@ Given /^the following users?$/ do |table|
 end
 
 Given /^"(.+)" is (invisible|visible)$/ do |user, visibility|
-  User.find_by_login(user).person.update_attributes(:visible => (visibility == 'visible'))
+  User.find_by_login(user).person.update_attributes({:visible => (visibility == 'visible')}, :without_protection => true)
 end
 
 Given /^"(.+)" is (online|offline|busy) in chat$/ do |user, status|
@@ -30,7 +30,7 @@ Given /^the following (community|communities|enterprises?|organizations?)$/ do |
     category = row.delete("category")
     img_name = row.delete("img")
     city = row.delete("region")
-    organization = klass.create!(row)
+    organization = klass.create!(row, :without_protection => true)
     if owner
       organization.add_admin(Profile[owner])
     end
@@ -215,7 +215,7 @@ Given /^the following inputs?$/ do |table|
     unit = Unit.find_by_singular(data.delete("unit"))
     solidary = data.delete("solidary")
     input = Input.create!(data.merge(:product => product, :product_category => category, :unit => unit,
-                                     :is_from_solidarity_economy => solidary))
+                                     :is_from_solidarity_economy => solidary), :without_protection => true)
     input.update_attributes!(:position => data['position'])
   end
 end
@@ -247,13 +247,13 @@ Given /^the following (product_categories|product_category|category|categories|r
       parent = Category.find_by_slug(parent.to_slug)
       row.merge!({:parent_id => parent.id})
     end
-    category = klass.create!({:environment_id => Environment.default.id}.merge(row))
+    category = klass.create!({:environment => Environment.default}.merge(row))
   end
 end
 
 Given /^the following qualifiers$/ do |table|
   table.hashes.each do |row|
-    Qualifier.create!(row.merge(:environment_id => 1))
+    Qualifier.create!(row.merge(:environment_id => 1), :without_protection => true)
   end
 end
 
@@ -264,7 +264,7 @@ Given /^the following certifiers$/ do |table|
     if qualifiers_list
       row["qualifiers"] = qualifiers_list.split(', ').map{|i| Qualifier.find_by_name(i)}
     end
-    Certifier.create!(row.merge(:environment_id => 1))
+    Certifier.create!(row.merge(:environment_id => 1), :without_protection => true)
   end
 end
 
@@ -285,18 +285,18 @@ Given /^the following price details?$/ do |table|
 end
 
 Given /^I am logged in as "(.+)"$/ do |username|
-  Given %{I go to logout page}
-    And %{I go to login page}
-    And %{I fill in "main_user_login" with "#{username}"}
-    And %{I fill in "user_password" with "123456"}
-   When %{I press "Log in"}
+  step %{I go to logout page}
+  step %{I go to login page}
+  step %{I fill in "main_user_login" with "#{username}"}
+  step %{I fill in "user_password" with "123456"}
+  step %{I press "Log in"}
     # FIXME:
     # deveria apenas verificar que esta no myprofile do usuario
     # nao conseguir fazer funcionar sem essa reduntancia no capybara
     # acho que e algum problema com o http_referer
     # olhar account_controller#store_location
-    And %{I go to #{username}'s control panel}
-   Then %{I should be on #{username}'s control panel}
+  step %{I go to #{username}'s control panel}
+  step %{I should be on #{username}'s control panel}
 end
 
 Given /^"([^"]*)" is environment admin$/ do |person|
@@ -512,7 +512,7 @@ end
 
 Given /^the following units?$/ do |table|
   table.hashes.each do |row|
-    Unit.create!(row.merge(:environment_id => 1))
+    Unit.create!(row.merge(:environment_id => 1), :without_protection => true)
   end
 end
 
@@ -640,9 +640,9 @@ Given /^the following tags$/ do |table|
 end
 
 When /^I search ([^\"]*) for "([^\"]*)"$/ do |asset, query|
-  When %{I go to the search #{asset} page}
-  And %{I fill in "search-input" with "#{query}"}
-  And %{I press "Search"}
+  step %{I go to the search #{asset} page}
+  step %{I fill in "search-input" with "#{query}"}
+  step %{I press "Search"}
 end
 
 Then /^I should see ([^\"]*)'s product image$/ do |product_name|
