@@ -107,6 +107,16 @@ class UsersControllerTest < ActionController::TestCase
     assert_equal false, u.activated?
   end
 
+  should 'order users by name' do
+    create_user('jeremy')
+    create_user('bill')
+    create_user('ana')
+    create_user('creed')
+    get :index
+
+    assert_order ['ana', 'bill', 'creed', 'jeremy'], assigns(:collection).map(&:name)
+  end
+
   should 'response as XML to export users' do
     get :download, :format => 'xml'
     assert_equal 'text/xml', @response.content_type
