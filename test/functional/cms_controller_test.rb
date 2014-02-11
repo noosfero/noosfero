@@ -109,6 +109,18 @@ class CmsControllerTest < ActionController::TestCase
     assert_no_tag :tag => 'a', :content => 'Use as homepage', :attributes => { :href => "/myprofile/#{profile.identifier}/cms/set_home_page/#{folder.id}" }
   end
 
+  should 'display the profile homepage if can change homepage' do
+    env = Environment.default; env.disable('cant_change_homepage')
+    get :index, :profile => profile.identifier
+    assert_tag :tag => 'div', :content => /Profile homepage/, :attributes => { :class => "cms-homepage"}
+  end
+
+  should 'not display the profile homepage if cannot change homepage' do
+    env = Environment.default; env.enable('cant_change_homepage')
+    get :index, :profile => profile.identifier
+    assert_no_tag :tag => 'div', :content => /Profile homepage/, :attributes => { :class => "cms-homepage"}
+  end
+
   should 'be able to set home page' do
     a = profile.articles.build(:name => 'my new home page')
     a.save!
@@ -119,6 +131,7 @@ class CmsControllerTest < ActionController::TestCase
 
     profile.reload
     assert_equal a, profile.home_page
+    assert_match /configured/, session[:notice]
   end
 
   should 'be able to set home page even when profile description is invalid' do
@@ -152,6 +165,37 @@ class CmsControllerTest < ActionController::TestCase
 
     post :set_home_page, :profile => profile.identifier, :id => a.id
     assert_redirected_to profile.url
+  end
+
+  should 'be able to reset home page' do
+    a = profile.articles.build(:name => 'my new home page')
+    a.save!
+
+    profile.home_page = a
+    profile.save!
+
+    post :set_home_page, :profile => profile.identifier, :id => nil
+
+    profile.reload
+    assert_equal nil, profile.home_page
+    assert_match /reseted/, session[:notice]
+  end
+
+  should 'display default home page' do
+    profile.home_page = nil
+    profile.save!
+    get :index, :profile => profile.identifier
+    assert_tag :tag => 'div', :attributes => { :class => "cms-homepage" }, :descendant => { :tag => "span", :content => /Profile Information/ }
+  end
+
+  should 'display article as home page' do
+    a = profile.articles.build(:name => 'my new home page')
+    a.save!
+    profile.home_page = a
+    profile.save!
+    Article.stubs(:short_description).returns('short description')
+    get :index, :profile => profile.identifier
+    assert_tag :tag => 'div', :attributes => { :class => "cms-homepage" }, :descendant => { :tag => "a", :content => /my new home page/ }
   end
 
   should 'set last_changed_by when creating article' do
@@ -856,6 +900,15 @@ class CmsControllerTest < ActionController::TestCase
     assert_no_tag :tag => 'a', :attributes => { :href => "/myprofile/#{profile.identifier}/cms/edit/#{profile.blog.feed.id}" }
   end
 
+  should 'remove the image of an article' do
+    blog = Blog.create(:profile_id => profile.id, :name=>'testblog', :image_builder => { :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')})
+    blog.save!
+    post :edit, :profile => profile.identifier, :id => blog.id, :remove_image => 'true'
+    blog.reload
+
+    assert_nil blog.image
+  end
+
   should 'update feed options by edit blog form' do
     profile.articles << Blog.new(:name => 'Blog for test', :profile => profile)
     post :edit, :profile => profile.identifier, :id => profile.blog.id, :article => { :feed => { :limit => 7 } }
@@ -1271,10 +1324,11 @@ class CmsControllerTest < ActionController::TestCase
   end
 
   should 'back to forum after config forum' do
-    profile.articles << Forum.new(:name => 'my-forum', :profile => profile)
-    post :edit, :profile => profile.identifier, :id => profile.forum.id
-
-    assert_redirected_to @profile.articles.find_by_name('my-forum').view_url
+    assert_difference Forum, :count do
+      post :new, :type => Forum.name, :profile => profile.identifier, :article => { :name => 'my-forum' }, :back_to => 'control_panel'
+    end
+      post :edit, :type => Forum.name, :profile => profile.identifier, :article => { :name => 'my forum' }, :id => profile.forum.id
+    assert_redirected_to @profile.articles.find_by_name('my forum').view_url
   end
 
   should 'back to control panel if cancel create forum' do
@@ -1642,6 +1696,27 @@ class CmsControllerTest < ActionController::TestCase
     assert_no_tag :tag => 'select', :attributes => { :name => "parent_id" },
                   :descendant => { :tag => "option",
                     :attributes => { :value => article.id.to_s }}
+  end
+
+  should 'remove users that agreed with forum terms after removing terms' do
+    forum = Forum.create(:name => 'Forum test', :profile_id => profile.id, :has_terms_of_use => true)
+    person = fast_create(Person)
+    forum.users_with_agreement << person
+
+    assert_difference Forum.find(forum.id).users_with_agreement, :count, -1 do
+      post :edit, :profile => profile.identifier, :id => forum.id, :article => { :has_terms_of_use => 'false' }
+    end
+  end
+
+  should 'go back to specified url when saving with success' do
+    post :new, :type => 'TinyMceArticle', :profile => profile.identifier, :article => { :name => 'changed by me', :body => 'content ...' }, :success_back_to => '/'
+    assert_redirected_to '/'
+  end
+
+  should 'redirect back to specified url when edit with success' do
+    article = @profile.articles.create!(:name => 'myarticle')
+    post :edit, :profile => 'testinguser', :id => article.id, :success_back_to => '/'
+    assert_redirected_to '/'
   end
 
   protected

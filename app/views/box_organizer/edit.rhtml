@@ -1,5 +1,5 @@
 <div class="block-config-options <%= @block.class.name %>-options">
-  <h2 class="title"><%= _('Editing block') %></h2>
+  <h2 class="title"><%= _(@block.class.description) %></h2>
 
   <% form_tag(:action => 'save', :id => @block.id) do %>
 
@@ -9,17 +9,11 @@
 
     <%= labelled_form_field _('Display this block:'), '' %>
     <div style='margin-left: 10px'>
-      <%= radio_button(:block, :display, 'always') %>
-      <%= label_tag('block_display_always', _('In all pages')) %>
-      <br/>
-      <%= radio_button(:block, :display, 'home_page_only') %>
-      <%= label_tag('block_display_home_page_only', _('Only in the homepage')) %>
-      <br/>
-      <%= radio_button(:block, :display, 'except_home_page') %>
-      <%= label_tag('block_display_except_home_page', _('In all pages, except in the homepage')) %>
-      <br/>
-      <%= radio_button(:block, :display, 'never') %>
-      <%= label_tag('block_display_never', _("Don't display")) %>
+      <% @block.display_options.each do |option| %>
+        <%= radio_button(:block, :display, option) %>
+        <%= label_tag("block_display_#{option}", _(@block.display_option_label(option))) %>
+        <br/>
+      <% end %>
     </div>
 
     <%= labelled_form_field(_('Show for:'), select(:block, :language, [ [ _('all languages'), 'all']] + environment.locales.map {|key, value| [value, key]} )) %>

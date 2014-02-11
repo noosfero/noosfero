@@ -156,4 +156,13 @@ class BlockTest < ActiveSupport::TestCase
     assert_equal box.environment, block.environment
   end
 
+  should 'inform conditions for expiration on profile context' do
+    conditions = Block.expire_on
+    assert conditions[:profile].kind_of?(Array)
+  end
+
+  should 'inform conditions for expiration on environment context' do
+    conditions = Block.expire_on
+    assert conditions[:environment].kind_of?(Array)
+  end
 end

@@ -1,0 +1,54 @@
+.context-content-plugin_context-content-block .contents .item img {
+  width: 100%;
+  max-height: 60px;
+}
+
+.context-content-plugin_context-content-block .contents .item .image {
+  height: 60px;
+}
+
+.context-content-plugin_context-content-block .contents .item .context-icon {
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 100%;
+}
+
+.context-content-plugin_context-content-block .contents .item {
+  width: 60px;
+  height: 95px;
+  display: inline-block;
+  vertical-align: top;
+  margin: 5px;
+  list-style-type: none;
+  border: 1px solid #FFF;
+  padding: 5px;
+}
+
+.context-content-plugin_context-content-block .contents .item:hover {
+  border: 1px solid #CCC;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  background: #EEE;
+  text-decoration: none;
+}
+
+.context-content-plugin_context-content-block .contents .item .name {
+  text-align: center;
+  font-size: 8pt;
+  word-wrap: break-word;
+}
+
+.context-content-plugin_context-content-block .contents .item a {
+  text-decoration: none;
+}
+
+#content .context-content-plugin_context-content-block .contents .item .icon-text-html { background-image: url(/designs/icons/default/Tango/32x32/mimetypes/text-html.png) }
+#content .context-content-plugin_context-content-block .contents .item .icon-application-pdf { background-image: url(/designs/icons/default/Tango/32x32/mimetypes/gnome-mime-application-pdf.png) }
+#content .context-content-plugin_context-content-block .contents .item .icon-application-vnd-oasis-opendocument-text { background-image: url(/designs/icons/default/Tango/32x32/mimetypes/gnome-mime-application-vnd.oasis.opendocument.text.png) }
+#content .context-content-plugin_context-content-block .contents .item .icon-folder { background-image: url(/designs/icons/default/Tango/32x32/places/folder.png) }
+#content .context-content-plugin_context-content-block .contents .item .icon-text-plain { background-image: url(/designs/icons/default/Tango/32x32/mimetypes/text-x-generic.png) }
+#content .context-content-plugin_context-content-block .contents .item .icon-blog { background-image: url(/designs/icons/default/mod/32x32/apps/text-editor.png) }
+#content .context-content-plugin_context-content-block .contents .item .icon-forum { background-image: url(/designs/icons/default/Tango/32x32/apps/system-users.png) }
+#content .context-content-plugin_context-content-block .contents .item .icon-gallery { background-image: url(/designs/icons/default/Tango/32x32/mimetypes/image-x-generic.png) }
+#content .context-content-plugin_context-content-block .contents .item .icon-rss-feed { background-image: url(/images/icons-mime/rss-feed.png) }
+#content .context-content-plugin_context-content-block .contents .item .icon-event { background-image: url(/designs/icons/default/Tango/32x32/mimetypes/stock_calendar.png) }

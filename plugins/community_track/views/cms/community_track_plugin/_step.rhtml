@@ -1,0 +1,21 @@
+<%= required_fields_message %>
+
+<%= render :file => 'shared/tiny_mce' %>
+
+<div>
+  <%= required f.text_field('name', :size => '64', :maxlength => 150) %>
+  <%= labelled_form_field(_('Period'), (
+    date_range_field('article[start_date]', 'article[end_date]', @article.start_date, @article.end_date,
+                     '%Y-%m-%d',
+                     { :change_month => true, :change_year => true,
+                       :date_format => 'yy-mm-dd' },
+                     { :size => 14 })
+  )) %>
+
+  <%= labelled_form_field(_('Tool type'), select(:article, :tool_type, CommunityTrackPlugin::Step.enabled_tools.map {|t| [t.short_description, t.name]} )) %>
+  <%= hidden_field_tag('success_back_to', url_for(@article.parent.view_url)) %>
+</div>
+
+<%= labelled_form_field check_box(:article, :hidden) + _('Hidden Step'), '' %>
+
+<%= render :partial => 'shared/lead_and_body', :locals => {:tiny_mce => true, :body_label => 'Description:'} %>

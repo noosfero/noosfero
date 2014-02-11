@@ -256,7 +256,7 @@ class ApplicationHelperTest < ActiveSupport::TestCase
 
   should 'not display templates options when there is no template' do
     self.stubs(:environment).returns(Environment.default)
-    [Person, Community, Enterprise].each do |klass|
+    [:people, :communities, :enterprises].each do |klass|
       assert_equal '', template_options(klass, 'profile_data')
     end
   end
@@ -811,6 +811,32 @@ class ApplicationHelperTest < ActiveSupport::TestCase
     parsed_html = filter_html(html, source)
 
     assert_no_match /Test1/, parsed_html
+  end
+
+  should 'not convert macro if source is nil' do
+    profile = create_user('testuser').person
+    article = fast_create(Article,  :profile_id => profile.id)
+    class Plugin1 < Noosfero::Plugin; end
+
+    environment = Environment.default
+    environment.enable_plugin(Plugin1)
+    @plugins = Noosfero::Plugin::Manager.new(environment, self)
+
+    expects(:convert_macro).never
+    filter_html(article.body, nil)
+  end
+
+  should 'not convert macro if there is no macro plugin active' do
+    profile = create_user('testuser').person
+    article = fast_create(Article,  :profile_id => profile.id)
+    class Plugin1 < Noosfero::Plugin; end
+
+    environment = Environment.default
+    environment.enable_plugin(Plugin1)
+    @plugins = Noosfero::Plugin::Manager.new(environment, self)
+
+    expects(:convert_macro).never
+    filter_html(article.body, article)
   end
 
   protected

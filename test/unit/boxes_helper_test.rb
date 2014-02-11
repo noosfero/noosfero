@@ -96,11 +96,6 @@ class BoxesHelperTest < ActiveSupport::TestCase
     assert_tag_in_string insert_boxes('main content'), :tag => "div", :attributes => { :id => 'profile-footer' }, :content => 'my custom footer'
   end
 
-  should 'calculate CSS class names correctly' do
-    assert_equal 'slideshow-block', block_css_class_name(SlideshowBlock.new)
-    assert_equal 'main-block', block_css_class_name(MainBlock.new)
-  end
-
   should 'add invisible CSS class name for invisible blocks' do
     assert !block_css_classes(Block.new(:display => 'always')).split.any? { |item| item == 'invisible-block'}
     assert block_css_classes(Block.new(:display => 'never')).split.any? { |item| item == 'invisible-block'}

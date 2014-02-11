@@ -102,14 +102,16 @@ module BoxesHelper
 
     result = filter_html(result, block)
 
-    box_decorator.block_target(block.box, block) +
-      content_tag('div',
-       content_tag('div',
+    content_tag('div',
+      box_decorator.block_target(block.box, block) +
+        content_tag('div',
          content_tag('div',
-           result + footer_content + box_decorator.block_edit_buttons(block),
-           :class => 'block-inner-2'),
-         :class => 'block-inner-1'),
-       options) +
+           content_tag('div',
+             result + footer_content + box_decorator.block_edit_buttons(block),
+             :class => 'block-inner-2'),
+           :class => 'block-inner-1'),
+       options),
+    :class => 'block-outer') +
     box_decorator.block_handle(block)
   end
 
@@ -225,15 +227,11 @@ module BoxesHelper
 
   # DEPRECATED. Do not use this.
   def import_blocks_stylesheets(options = {})
-    @blocks_css_files ||= current_blocks.map{|b|'blocks/' + block_css_class_name(b)}.uniq
+    @blocks_css_files ||= current_blocks.map{|block|'blocks/' + block.class.name.to_css_class}.uniq
     stylesheet_import(@blocks_css_files, options)
   end
-
-  def block_css_class_name(block)
-    block.class.name.underscore.gsub('_', '-')
-  end
   def block_css_classes(block)
-    classes = block_css_class_name(block)
+    classes = block.class.name.to_css_class
     classes += ' invisible-block' if block.display == 'never'
     classes
   end

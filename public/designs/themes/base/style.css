@@ -516,7 +516,29 @@ div#notice {
   color: #000;
   text-decoration: none;
   padding-right: 15px;
+}
+#content .tags-block .block-footer-content a,
+#content .people-block .block-footer-content a,
+#content .profile-list-block .block-footer-content a,
+#content .enterprises-block .block-footer-content a,
+#content .communities-block .block-footer-content a,
+#content .friends-block .block-footer-content a {
   background: url(imgs/arrow-right-p.png) 100% 50% no-repeat;
+}
+
+#content .members-block .block-footer-content .join-leave-button a {
+  position: relative;
+  background-color: #EEE;
+  border: 1px solid #CCC;
+  color: #555;
+  padding-right: inherit;
+}
+
+#content .members-block .block-footer-content .join-leave-button a:hover {
+  color: #FFF;
+  background-color: #555;
+  border: 1px solid #2e3436;
+  text-decoration: none;
 }
 
 #content .profile-list-block .block-title {

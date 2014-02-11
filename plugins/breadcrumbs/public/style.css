@@ -1,0 +1,12 @@
+#content .breadcrumbs-plugin_content-breadcrumbs-block a,
+#content .breadcrumbs-plugin_content-breadcrumbs-block a:visited {
+  color: #2c67cd;
+  text-decoration: none;
+}
+#content .breadcrumbs-plugin_content-breadcrumbs-block a:hover {
+  color: black;
+}
+
+#content .breadcrumbs-plugin_content-breadcrumbs-block .separator {
+  font-size: 11px;
+}

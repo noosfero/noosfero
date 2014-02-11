@@ -245,6 +245,19 @@ class MembershipsControllerTest < ActionController::TestCase
     assert_tag :tag => 'input', :attributes => {:id => 'community_plugin2', :type => 'hidden', :value => 'Plugin 2'}
   end
 
+  should 'redirect to back_to parameter when create a new community' do
+    back_to = '/'
+    post :new_community, :profile => profile.identifier, :community => { :name => 'My shiny new community', :description => 'This is a community devoted to anything interesting we find in the internet '}, :back_to => back_to
+    assert_response :redirect
+    assert_redirected_to back_to
+  end
+
+  should 'cancel button redirect to back_to parameter' do
+    back_to = '/'
+    get :new_community, :profile => profile.identifier, :back_to => back_to
+    assert_tag :tag => 'a', :attributes => { :class => 'button icon-cancel with-text', :href => back_to }
+  end
+
   should 'only display control panel link to members with permission' do
     c1 = fast_create(Community, :name => 'My own community')
     c2 = fast_create(Community, :name => 'Not my community')
@@ -264,4 +277,61 @@ class MembershipsControllerTest < ActionController::TestCase
     assert_tag :tag => 'a', :attributes => { :href => "/myprofile/#{c1.identifier}" }
   end
 
+  should 'filter memberships by role' do
+    c1 = fast_create(Community, :name => 'First community')
+    c2 = fast_create(Community, :name => 'Second community')
+
+    role = Role.create!(:name => 'special_role', :permissions => ['edit_profile'], :environment => c2.environment)
+
+    person = Person['testuser']
+    c1.add_member(person)
+    c2.add_member(person)
+
+    person.add_role(role, c2)
+
+    login_as('testuser')
+    get :index, :profile => 'testuser'
+
+    assert_includes assigns(:memberships), c1
+    assert_includes assigns(:memberships), c2
+
+    get :index, :profile => 'testuser', :filter_type => role.id
+
+    assert_not_includes assigns(:memberships), c1
+    assert_includes assigns(:memberships), c2
+  end
+
+  should 'only show roles the user has' do
+    c1 = fast_create(Community, :name => 'First community')
+
+    role1 = Role.create!(:name => 'normal_role', :permissions => ['edit_profile'], :environment => c1.environment)
+    role2 = Role.create!(:name => 'special_role', :permissions => ['edit_profile'], :environment => c1.environment)
+
+    person = Person['testuser']
+    c1.add_member(person)
+    person.add_role(role1, c1)
+
+    login_as('testuser')
+    get :index, :profile => 'testuser'
+
+    assert_includes assigns(:roles), role1
+    assert_not_includes assigns(:roles), role2
+  end
+
+  should 'only show roles related to profiles' do
+    c1 = fast_create(Community, :name => 'First community')
+    role1 = Role.create!(:name => 'profile_role', :permissions => ['edit_profile'], :environment => c1.environment)
+    role2 = Role.create!(:name => 'environment_role', :permissions => ['edit_profile'], :environment => c1.environment)
+
+    person = Person['testuser']
+    c1.add_member(person)
+    person.add_role(role2, c1.environment)
+    person.add_role(role1, c1)
+
+    login_as('testuser')
+    get :index, :profile => 'testuser'
+
+    assert_includes assigns(:roles), role1
+    assert_not_includes assigns(:roles), role2
+  end
 end

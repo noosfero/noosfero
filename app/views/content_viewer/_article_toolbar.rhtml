@@ -52,6 +52,9 @@
 
   </div>
   <div id="article-header">
+    <% if @page.blog? and !@page.image.nil? %>
+      <div class="blog-cover"><%= image_tag(@page.image.public_filename())%></div>
+    <% end %>
     <%= link_to(image_tag('icons-mime/rss-feed.png'), @page.feed.url, :class => 'blog-feed-link') if @page.has_posts? && @page.feed %>
     <%= article_title(@page, :no_link => true) %>
     <%= article_translations(@page) %>

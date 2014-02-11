@@ -50,6 +50,7 @@ Feature: create content on cms
     Given I follow "New content"
     When I follow "Blog"
     And I fill in "Title" with "My blog"
+    And I fill in "Address" with "my-blog"
     And I press "Save"
     And I go to joaosilva's cms
     Then I should see "My blog"

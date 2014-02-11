@@ -1300,7 +1300,6 @@ class ProfileTest < ActiveSupport::TestCase
 
   should 'list folder articles' do
     profile = fast_create(Profile)
-    Article.destroy_all
     p1 = Folder.create!(:name => 'parent1', :profile => profile)
     p2 = Blog.create!(:name => 'parent2', :profile => profile)
 
@@ -1370,13 +1369,27 @@ class ProfileTest < ActiveSupport::TestCase
   end
 
   should 'return a list of templates' do
+    environment = Environment.default
     t1 = fast_create(Profile, :is_template => true)
     t2 = fast_create(Profile, :is_template => true)
     profile = fast_create(Profile)
 
-    assert_includes Profile.templates(Environment.default), t1
-    assert_includes Profile.templates(Environment.default), t2
-    assert_not_includes Profile.templates(Environment.default), profile
+    assert_includes environment.profiles.templates, t1
+    assert_includes environment.profiles.templates, t2
+    assert_not_includes environment.profiles.templates, profile
+  end
+
+  should 'return a list of profiles that are not templates' do
+    environment = Environment.default
+    p1 = fast_create(Profile, :is_template => false)
+    p2 = fast_create(Profile, :is_template => false)
+    t1 = fast_create(Profile, :is_template => true)
+    t2 = fast_create(Profile, :is_template => true)
+
+    assert_includes environment.profiles.no_templates, p1
+    assert_includes environment.profiles.no_templates, p2
+    assert_not_includes environment.profiles.no_templates, t1
+    assert_not_includes environment.profiles.no_templates, t2
   end
 
   should 'not crash on a profile update with a destroyed template' do
@@ -1445,6 +1458,19 @@ class ProfileTest < ActiveSupport::TestCase
     assert_equal [today_event], profile.events.by_day(today)
   end
 
+  should 'list events by month' do
+    profile = fast_create(Profile)
+
+    today = Date.today
+    yesterday_event = Event.new(:name => 'Joao Birthday', :start_date => today - 1.day)
+    today_event = Event.new(:name => 'Ze Birthday', :start_date => today)
+    tomorrow_event = Event.new(:name => 'Mane Birthday', :start_date => today + 1.day)
+
+    profile.events << [yesterday_event, today_event, tomorrow_event]
+
+    assert_equal [yesterday_event, today_event, tomorrow_event], profile.events.by_month(today)
+  end
+
   should 'list events in a range' do
     profile = fast_create(Profile)
 
@@ -1474,13 +1500,13 @@ class ProfileTest < ActiveSupport::TestCase
     assert_not_includes profile.events.by_day(today), event_out_of_range
   end
 
-  should 'sort events by name' do
+  should 'sort events by date' do
     profile = fast_create(Profile)
     event1 = Event.new(:name => 'Noosfero Hackaton', :start_date => Date.today)
-    event2 = Event.new(:name => 'Debian Day', :start_date => Date.today)
-    event3 = Event.new(:name => 'Fisl 10', :start_date => Date.today)
+    event2 = Event.new(:name => 'Debian Day', :start_date => Date.today - 1)
+    event3 = Event.new(:name => 'Fisl 10', :start_date => Date.today + 1)
     profile.events << [event1, event2, event3]
-    assert_equal [event2, event3, event1], profile.events
+    assert_equal [event2, event1, event3], profile.events
   end
 
   should 'be available if identifier doesnt exist on environment' do
@@ -1734,7 +1760,7 @@ class ProfileTest < ActiveSupport::TestCase
     env = fast_create(Environment)
     roles = %w(foo bar profile_foo profile_bar).map{ |r| Role.create!(:name => r, :environment_id => env.id, :permissions => ["some"]) }
     Role.create! :name => 'test', :environment_id => env.id + 1
-    assert_equal roles, Profile::Roles.all_roles(env.id)
+    assert_equivalent roles, Profile::Roles.all_roles(env.id)
   end
 
   should 'define method for role' do
@@ -1894,5 +1920,34 @@ class ProfileTest < ActiveSupport::TestCase
 
     environment.destroy
     assert_raise(ActiveRecord::RecordNotFound) {profile.reload}
+  end
+
+  should 'list only public profiles' do
+    p1 = fast_create(Profile)
+    p2 = fast_create(Profile, :visible => false)
+    p3 = fast_create(Profile, :public_profile => false)
+    p4 = fast_create(Profile, :visible => false, :public_profile => false)
+
+    assert_includes Profile.public, p1
+    assert_not_includes Profile.public, p2
+    assert_not_includes Profile.public, p3
+    assert_not_includes Profile.public, p4
+  end
+
+  should 'folder_types search for folders in the plugins' do
+    class Folder1 < Folder
+    end
+
+    class Plugin1 < Noosfero::Plugin
+      def content_types
+        [Folder1]
+      end
+    end
+
+    environment = Environment.default
+    environment.enable_plugin(Plugin1)
+    plugins = Noosfero::Plugin::Manager.new(environment, self)
+    p = fast_create(Profile)
+    assert p.folder_types.include?('ProfileTest::Folder1')
   end
 end
