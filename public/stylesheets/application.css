@@ -1,3 +1,11 @@
+/* browser fixes */
+
+img:-moz-broken {
+  -moz-force-broken-image-icon:1;
+}
+
+/* general styles */
+
 body {
   padding: 0px;
   margin: 0px;
