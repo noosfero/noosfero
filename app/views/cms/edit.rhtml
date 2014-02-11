@@ -1,5 +1,4 @@
 <%= error_messages_for 'article' %>
-<%= javascript_include_tag "article.js" %>
 
 <div class='<%= (environment.enabled?('media_panel') ? 'with_media_panel' : 'no_media_panel') %>'>
 <% labelled_form_for 'article', @article, :html => { :multipart => true, :class => @type } do |f| %>
@@ -63,3 +62,5 @@
 <% end %>
 
 <br style='clear: both'/>
+
+<%= javascript_include_tag "article.js" %>
