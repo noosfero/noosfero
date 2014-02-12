@@ -24,8 +24,14 @@ class CmsController < MyProfileController
     (user && (user.has_permission?('post_content', profile) || user.has_permission?('publish_content', profile)))
   end
 
-  protect_if :except => [:suggest_an_article, :set_home_page, :edit, :destroy, :publish, :upload_files] do |c, user, profile|
+  protect_if :except => [:suggest_an_article, :set_home_page, :edit, :destroy, :publish, :upload_files, :new] do |c, user, profile|
     user && (user.has_permission?('post_content', profile) || user.has_permission?('publish_content', profile))
+  end
+
+  protect_if :only => :new do |c, user, profile|
+    article_id = c.params[:parent_id]
+    (!article_id.blank? && profile.articles.find(article_id).forum? && profile.articles.find(article_id).allows_create_topics ) &&
+    (profile.community? && profile.members.include?(user)) || (user && (user.has_permission?('post_content', profile) || user.has_permission?('publish_content', profile)))
   end
 
   protect_if :only => [:destroy, :publish] do |c, user, profile|
