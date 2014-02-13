@@ -5989,6 +5989,7 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 img {
 
 #email-check,
 #fake-check,
+#password-rate,
 #password-check {
   margin: -2px 16px -5px 13px;
   text-align: right;
@@ -5997,8 +5998,18 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 img {
 
 #email-check p,
 #fake-check p,
+#password-rate p,
 #password-check p {
   margin: 0;
+}
+
+#password-rate {
+  font-weight:bold;
+}
+
+.hidden {
+  visibility: hidden;
+  display: none;
 }
 
 .available {
@@ -6014,6 +6025,7 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 img {
 }
 
 #email-check p,
+#password-rate p,
 #password-check p,
 #url-check p {
   margin: 0;
