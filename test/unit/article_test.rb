@@ -1697,7 +1697,7 @@ class ArticleTest < ActiveSupport::TestCase
   should 'return license from a specific version' do
     cc = License.create!(:name => 'CC (by)', :environment => Environment.default)
     gpl = License.create!(:name => 'GPLv3', :environment => Environment.default)
-    article = Article.create!(:name => 'first version', :profile => profile, :license => cc)
+    article = create(Article, :name => 'first version', :profile => profile, :license => cc)
     article.license = gpl
     article.save
     assert_equal cc, article.version_license(1)
@@ -1766,7 +1766,7 @@ class ArticleTest < ActiveSupport::TestCase
   should "return the author of a specific version" do
     author1 = fast_create(Person)
     author2 = fast_create(Person)
-    article = Article.create!(:name => 'first version', :profile => profile, :last_changed_by => author1)
+    article = create(Article, :name => 'first version', :profile => profile, :last_changed_by => author1)
     article.name = 'second version'
     article.last_changed_by = author2
     article.save
@@ -1777,7 +1777,7 @@ class ArticleTest < ActiveSupport::TestCase
   should "return the author_name of a specific version" do
     author1 = fast_create(Person)
     author2 = fast_create(Person)
-    article = Article.create!(:name => 'first version', :profile => profile, :last_changed_by => author1)
+    article = create(Article, :name => 'first version', :profile => profile, :last_changed_by => author1)
     article.name = 'second version'
     article.last_changed_by = author2
     article.save

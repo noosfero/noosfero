@@ -3,6 +3,8 @@ class Forum < Folder
   acts_as_having_posts :order => 'updated_at DESC'
   include PostsLimit
 
+  attr_accessible :has_terms_of_use
+
   settings_items :terms_of_use, :type => :string, :default => ""
   settings_items :has_terms_of_use, :type => :boolean, :default => false
   has_and_belongs_to_many :users_with_agreement, :class_name => 'Person', :join_table => 'terms_forum_people'

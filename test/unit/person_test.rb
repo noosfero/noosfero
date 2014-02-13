@@ -1444,7 +1444,7 @@ class PersonTest < ActiveSupport::TestCase
     assert_includes original_person.memberships, original_cmm
     assert_includes original_person.memberships, plugin1_cmm
     assert_includes original_person.memberships, plugin2_cmm
-    assert 3, original_person.memberships.count
+    assert_equal 3, original_person.memberships.count
   end
 
 end

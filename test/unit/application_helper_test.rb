@@ -18,7 +18,7 @@ class ApplicationHelperTest < ActionView::TestCase
     self.stubs(:params).returns({:controller => 'test'})
     File.stubs(:exists?).returns(false)
 
-    File.expects(:exists?).with(p1+"test/_integer.rhtml").returns(true)
+    File.expects(:exists?).with(p1+"test/_integer.html.erb").returns(true)
     assert_equal 'integer', partial_for_class(Integer)
 
     File.expects(:exists?).with(p1+"test/_numeric.html.erb").returns(true)
@@ -38,7 +38,7 @@ class ApplicationHelperTest < ActionView::TestCase
     class School; class Project; end; end
 
     File.stubs(:exists?).returns(false)
-    File.expects(:exists?).with(p+"test/application_helper_test/school/_project.rhtml").returns(true)
+    File.expects(:exists?).with(p+"test/application_helper_test/school/_project.html.erb").returns(true)
 
     assert_equal 'test/application_helper_test/school/project', partial_for_class(School::Project)
   end
@@ -175,7 +175,7 @@ class ApplicationHelperTest < ActionView::TestCase
 
   should 'render theme footer' do
     stubs(:theme_path).returns('/user_themes/mytheme')
-    footer_path = Rails.root.join('public', 'user_themes', 'mytheme', 'footer.rhtml')
+    footer_path = Rails.root.join('public', 'user_themes', 'mytheme', 'footer.html.erb')
 
     File.expects(:exists?).with(footer_path).returns(true)
     expects(:render).with(:file => footer_path, :use_full_path => false).returns("BLI")
@@ -185,11 +185,9 @@ class ApplicationHelperTest < ActionView::TestCase
 
   should 'ignore unexisting theme footer' do
     stubs(:theme_path).returns('/user_themes/mytheme')
-    footer_path = Rails.root.join('public', 'user_themes', 'mytheme', 'footer.rhtml')
-    alternate_footer_path = Rails.root.join('public', 'user_themes', 'mytheme', 'footer.html.erb')
+    footer_path = Rails.root.join('public', 'user_themes', 'mytheme', 'footer.html.erb')
 
     File.expects(:exists?).with(footer_path).returns(false)
-    File.expects(:exists?).with(alternate_footer_path).returns(false)
     expects(:render).with(:file => footer).never
 
     assert_nil theme_footer
@@ -197,7 +195,7 @@ class ApplicationHelperTest < ActionView::TestCase
 
   should 'render theme site title' do
     stubs(:theme_path).returns('/user_themes/mytheme')
-    site_title_path = Rails.root.join('public', 'user_themes', 'mytheme', 'site_title.rhtml')
+    site_title_path = Rails.root.join('public', 'user_themes', 'mytheme', 'site_title.html.erb')
 
     File.expects(:exists?).with(site_title_path).returns(true)
     expects(:render).with(:file => site_title_path, :use_full_path => false).returns("Site title")
@@ -207,11 +205,9 @@ class ApplicationHelperTest < ActionView::TestCase
 
   should 'ignore unexisting theme site title' do
     stubs(:theme_path).returns('/user_themes/mytheme')
-    site_title_path = Rails.root.join('public', 'user_themes', 'mytheme', 'site_title.rhtml')
-    alternate_site_title_path = Rails.root.join('public', 'user_themes', 'mytheme', 'site_title.html.erb')
+    site_title_path = Rails.root.join('public', 'user_themes', 'mytheme', 'site_title.html.erb')
 
     File.expects(:exists?).with(site_title_path).returns(false)
-    File.expects(:exists?).with(alternate_site_title_path).returns(false)
     expects(:render).with(:file => site_title_path).never
 
     assert_nil theme_site_title

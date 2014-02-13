@@ -137,7 +137,7 @@ class ForumTest < ActiveSupport::TestCase
   should 'include user that changes a forum as agreed with terms' do
     author = fast_create(Person)
     editor = fast_create(Person)
-    forum = Forum.create(:profile => author, :name => 'Forum test', :body => 'Forum test', :has_terms_of_use => true, :last_changed_by => author)
+    forum = create(Forum, :profile => author, :name => 'Forum test', :body => 'Forum test', :has_terms_of_use => true, :last_changed_by => author)
     forum.last_changed_by = editor
     forum.save
 

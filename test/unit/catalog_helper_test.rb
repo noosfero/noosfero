@@ -6,7 +6,7 @@ class CatalogHelperTest < ActiveSupport::TestCase
   include ActionView::Helpers::TextHelper
   include ActionView::Helpers::UrlHelper
   include ActionView::Helpers::TagHelper
-  include ActionController::Assertions::SelectorAssertions
+  include ActionDispatch::Assertions::SelectorAssertions
 
   def url_for(opts)
     #{:controller => 'catalog', :action => 'index', :level => category.id}

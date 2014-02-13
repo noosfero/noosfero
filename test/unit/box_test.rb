@@ -96,7 +96,7 @@ class BoxTest < ActiveSupport::TestCase
       end
     end
     class PluginBlock < Block
-      def self.name; 'plugin-block'; end
+      def self.to_s; 'plugin-block'; end
     end
     Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([SomePlugin.new])
 
@@ -111,7 +111,7 @@ class BoxTest < ActiveSupport::TestCase
       end
     end
     class PluginBlock < Block
-      def self.name; 'plugin-block'; end
+      def self.to_s; 'plugin-block'; end
     end
     Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([SomePlugin.new])
 
@@ -130,13 +130,13 @@ class BoxTest < ActiveSupport::TestCase
     end
     Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([SomePlugin.new])
 
-    blocks = Box.new(:position => 1, :owner => Person.new).acceptable_blocks
+    blocks = build(Box, :position => 1, :owner => Person.new).acceptable_blocks
     assert blocks.include?('box-test_plugin-block')
 
-    blocks = Box.new(:position => 1, :owner => Enterprise.new).acceptable_blocks
+    blocks = build(Box, :position => 1, :owner => Enterprise.new).acceptable_blocks
     assert blocks.include?('box-test_plugin-block')
 
-    blocks = Box.new(:position => 1, :owner => Community.new).acceptable_blocks
+    blocks = build(Box, :position => 1, :owner => Community.new).acceptable_blocks
     assert !blocks.include?('box-test_plugin-block')
   end
 

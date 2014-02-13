@@ -1,5 +1,5 @@
 require 'active_record'
-require_dependency 'active_record/migration'
+#require_dependency 'active_record/migration'
 
 class ActiveRecord::Migrator
   alias_method :orig_initialize, :initialize

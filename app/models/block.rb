@@ -167,10 +167,10 @@ class Block < ActiveRecord::Base
   end
 
   DISPLAY_OPTIONS = {
-    'always'           => __('In all pages'),
-    'home_page_only'   => __('Only in the homepage'),
-    'except_home_page' => __('In all pages, except in the homepage'),
-    'never'            => __('Don\'t display'),
+    'always'           => _('In all pages'),
+    'home_page_only'   => _('Only in the homepage'),
+    'except_home_page' => _('In all pages, except in the homepage'),
+    'never'            => _('Don\'t display'),
   }
 
   def display_options
@@ -182,7 +182,7 @@ class Block < ActiveRecord::Base
   end
 
   def duplicate
-    duplicated_block = self.clone
+    duplicated_block = self.dup
     duplicated_block.display = 'never'
     duplicated_block.created_at = nil
     duplicated_block.updated_at = nil

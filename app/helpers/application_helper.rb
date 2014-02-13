@@ -295,7 +295,7 @@ module ApplicationHelper
       search_name = "_" + search_name
     end
 
-    path = defined?(params) && params[:controller] ? File.join(view_path, params[:controller], search_name + 'html.erb') : File.join(view_path, search_name + 'html.erb')
+    path = defined?(params) && params[:controller] ? File.join(view_path, params[:controller], search_name + '.html.erb') : File.join(view_path, search_name + '.html.erb')
     return name if File.exists?(File.join(path))
 
     partial_for_class_in_view_path(klass.superclass, view_path, prefix, suffix)
@@ -403,7 +403,7 @@ module ApplicationHelper
   def theme_view_file(template)
     # Since we cannot control what people are doing in external themes, we
     # will keep looking for the deprecated .rhtml extension here.
-    file = Rails.root.join('public', theme_path[1..-1], template + 'html.erb')
+    file = Rails.root.join('public', theme_path[1..-1], template + '.html.erb')
     return file if File.exists?(file)
     nil
   end

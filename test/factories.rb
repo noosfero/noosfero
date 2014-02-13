@@ -42,7 +42,11 @@ module Noosfero::Factory
     attrs[:slug] = attrs[:name].to_slug if attrs[:name].present? && attrs[:slug].blank? && defaults[:slug].present?
     data = defaults_for(name).merge(attrs)
     object = name.to_s.camelize.constantize.new
-    object.assign_attributes(data, :without_protection => true)
+    if object.respond_to?(:assign_attributes)
+      object.assign_attributes(data, :without_protection => true)
+    else
+      data.each { |attribute, value| object.send(attribute.to_s+'=', value) }
+    end
     object
  end
 
