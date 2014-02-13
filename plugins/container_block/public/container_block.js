@@ -1,9 +1,6 @@
 function enableMoveContainerChildren(container, box) {
   var div = jQuery('#box-'+box+' > .block-outer > .block');
   if(!div.is('.ui-resizable')) {
-    div.find("a").live("click", function(e) {
-      e.preventDefault();
-    });
     div.resizable({
       handles: 'e, w',
       containment: '#block-'+container+' .block-inner-2',
@@ -17,7 +14,6 @@ function enableMoveContainerChildren(container, box) {
 function disableMoveContainerChildren(container, box) {
   var div = jQuery('#box-'+box+' > .block-outer > .block');
   if(div.is('.ui-resizable')) {
-    div.find("a").die("click");
     div.resizable('destroy');
   }
 }
