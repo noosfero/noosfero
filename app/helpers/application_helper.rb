@@ -1382,16 +1382,16 @@ module ApplicationHelper
   end
 
   def convert_macro(html, source)
-    doc = Nokogiri::HTML(html)
+    doc = Hpricot(html)
     #TODO This way is more efficient but do not support macro inside of
     #     macro. You must parse them from the inside-out in order to enable
     #     that.
-    doc.css('.macro').each do |macro|
+    doc.search('.macro').each do |macro|
       macro_name = macro['data-macro']
       result = @plugins.parse_macro(macro_name, macro, source)
-      macro.content = result.kind_of?(Proc) ? self.instance_eval(&result) : result
+      macro.inner_html = result.kind_of?(Proc) ? self.instance_eval(&result) : result
     end
-    CGI.unescapeHTML(doc.xpath('//body/*').to_s)
+    doc.html
   end
 
   def default_folder_for_image_upload(profile)
