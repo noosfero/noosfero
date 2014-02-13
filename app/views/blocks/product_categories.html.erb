@@ -1,0 +1,9 @@
+<%= link_to _('Catalog start'), profile.catalog_url, :class=>'catalog-home-link' %>
+<ul class="catalog-categories-list">
+  <% categories.each do |category| %>
+    <%= category_with_sub_list(category) %>
+  <% end %>
+</ul>
+<% if notice %>
+  <div class="catalog-categories-notice"><%= notice %></div>
+<% end %>

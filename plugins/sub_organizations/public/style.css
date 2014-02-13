@@ -1,3 +1,124 @@
 #content .token-input-list {
   margin-bottom: 30px;
 }
+
+.related-organizations-button-bar {
+  padding-top: 40px;
+  clear: both;
+}
+
+.related-organizations-block .block-footer-content a {
+  position: absolute;
+  top: 2px;
+  right: 0px;
+  font-size: 11px;
+  color: #000;
+  text-decoration: none;
+  padding-right: 15px;
+  background: url(images/arrow-right-p.png) 100% 50% no-repeat;
+}
+
+.clearfix {
+  clear: both;
+}
+
+.related-organizations-list-block .vcard{
+  margin-right: 10px;
+  -webkit-border-radius: 0 !important;
+  -moz-border-radius: 0!important;
+  -o-border-radius: 0!important;
+  border-radius: 0!important;
+}
+.related-organizations-item-column-right .search-result-title{
+  margin: 10px 0;
+}
+
+#main-content-wrapper-8 ul{
+  padding-left: 0;
+}
+
+.related-organizations-list-block ul li{
+  list-style: none;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  /*padding: 10px 5px;*/
+}
+
+.related-organizations-list-block ul li:hover{
+  border: 1px solid #999;
+}
+
+.related-organizations-list-block .profile_link{
+  height: auto !important;
+  max-height: none !important;
+  max-width: none !important;
+  height: 150px;
+  width: 150px;
+}
+
+.related-organizations-list-block .org {
+  display: none !important;
+}
+
+.related-organizations-item .profile-image img{
+  max-height: 150px;
+  max-width: 150px;
+}
+
+
+.menu-submenu-list>li{
+  border: 0!important;
+}
+
+.related-organizations-list-block .menu-submenu{
+  bottom: 147px;
+  right: 5px;
+}
+
+.related-organizations-region-name{
+  line-height: 2em;
+  font-weight: bold;
+}
+
+.related-organizations-description{
+  color: #333;
+}
+
+
+.related-organizations-list-block .vcard a{
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+
+.related-organizations-list-block .vcard img {
+  opacity: 1;
+  -webkit-transition: all 0.5s ease-out;
+     -moz-transition: all 0.5s ease-out;
+       -o-transition: all 0.5s ease-out;
+      -ms-transition: all 0.5s ease-out;
+          transition: all 0.5s ease-out;
+}
+
+.related-organizations-list-block .vcard img:hover {
+  opacity: 0.5;
+}
+
+.related-organizations-item-column-right {
+  float: right;
+  position: relative;
+  width: 65%;
+}
+
+.related-organizations-item-column-left {
+float: left;
+position: relative;
+width: 35%;
+}
+
+.related-organizations-block ul {
+  min-width: 196px;
+  width: 192px;
+  margin: 0px 0px 0px -3px;
+  padding: 0px;
+}

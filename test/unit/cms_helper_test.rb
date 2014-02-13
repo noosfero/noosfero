@@ -16,7 +16,7 @@ class CmsHelperTest < ActionView::TestCase
   end
 
   should 'show custom options for blog' do
-    result = options_for_article(Blog.new)
+    result = options_for_article(Blog.new(:profile => fast_create(Profile)))
     assert_tag_in_string result, :tag => 'input', :attributes => { :name => 'article[published]' , :type => "hidden", :value => "1" }
     assert_tag_in_string result, :tag => 'input', :attributes => { :name => "article[accept_comments]", :type => "hidden", :value => "0" }
   end

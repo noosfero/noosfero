@@ -42,7 +42,9 @@ module ApplicationHelper
 
   include Noosfero::Gravatar
 
-  VIEW_EXTENSIONS = ['.rhtml', '.html.erb']
+  include TokenHelper
+
+  include CatalogHelper
 
   def locale
     (@page && !@page.language.blank?) ? @page.language : FastGettext.locale
@@ -293,10 +295,8 @@ module ApplicationHelper
       search_name = "_" + search_name
     end
 
-    VIEW_EXTENSIONS.each do |ext|
-      path = defined?(params) && params[:controller] ? File.join(view_path, params[:controller], search_name + ext) : File.join(view_path, search_name + ext)
-      return name if File.exists?(File.join(path))
-    end
+    path = defined?(params) && params[:controller] ? File.join(view_path, params[:controller], search_name + 'html.erb') : File.join(view_path, search_name + 'html.erb')
+    return name if File.exists?(File.join(path))
 
     partial_for_class_in_view_path(klass.superclass, view_path, prefix, suffix)
   end
@@ -403,17 +403,16 @@ module ApplicationHelper
   def theme_view_file(template)
     # Since we cannot control what people are doing in external themes, we
     # will keep looking for the deprecated .rhtml extension here.
-    VIEW_EXTENSIONS.each do |ext|
-      file = Rails.root.join('public', theme_path[1..-1], template + ext)
-      return file if File.exists?(file)
-    end
+    file = Rails.root.join('public', theme_path[1..-1], template + 'html.erb')
+    return file if File.exists?(file)
     nil
   end
 
-  def theme_include(template)
+  def theme_include(template, options = {})
     file = theme_view_file(template)
+    options.merge!({:file => file, :use_full_path => false})
     if file
-      render :file => file, :use_full_path => false
+      render options
     else
       nil
     end
@@ -1314,10 +1313,6 @@ module ApplicationHelper
     content_tag(:div, content_tag(:ul, titles) + raw(contents), :class => 'ui-tabs')
   end
 
-  def jquery_token_input_messages_json(hintText = _('Type in an keyword'), noResultsText = _('No results'), searchingText = _('Searching...'))
-    "hintText: '#{hintText}', noResultsText: '#{noResultsText}', searchingText: '#{searchingText}'"
-  end
-
   def delete_article_message(article)
     if article.folder?
       _("Are you sure that you want to remove the folder \"#{article.name}\"? Note that all the items inside it will also be removed!")
@@ -1356,50 +1351,6 @@ module ApplicationHelper
       :id => 'template-options',
       :style => 'margin-top: 1em'
     )
-  end
-
-  def token_input_field_tag(name, element_id, search_action, options = {}, text_field_options = {}, html_options = {})
-    options[:min_chars] ||= 3
-    options[:hint_text] ||= _("Type in a search term")
-    options[:no_results_text] ||= _("No results")
-    options[:searching_text] ||= _("Searching...")
-    options[:search_delay] ||= 1000
-    options[:prevent_duplicates] ||=  true
-    options[:backspace_delete_item] ||= false
-    options[:focus] ||= false
-    options[:avoid_enter] ||= true
-    options[:on_result] ||= 'null'
-    options[:on_add] ||= 'null'
-    options[:on_delete] ||= 'null'
-    options[:on_ready] ||= 'null'
-
-    result = text_field_tag(name, nil, text_field_options.merge(html_options.merge({:id => element_id})))
-    result += javascript_tag("jQuery('##{element_id}')
-      .tokenInput('#{url_for(search_action)}', {
-        minChars: #{options[:min_chars].to_json},
-        prePopulate: #{options[:pre_populate].to_json},
-        hintText: #{options[:hint_text].to_json},
-        noResultsText: #{options[:no_results_text].to_json},
-        searchingText: #{options[:searching_text].to_json},
-        searchDelay: #{options[:serach_delay].to_json},
-        preventDuplicates: #{options[:prevent_duplicates].to_json},
-        backspaceDeleteItem: #{options[:backspace_delete_item].to_json},
-        queryParam: #{name.to_json},
-        tokenLimit: #{options[:token_limit].to_json},
-        onResult: #{options[:on_result]},
-        onAdd: #{options[:on_add]},
-        onDelete: #{options[:on_delete]},
-        onReady: #{options[:on_ready]},
-      });
-    ")
-    result += javascript_tag("jQuery('##{element_id}').focus();") if options[:focus]
-    if options[:avoid_enter]
-      result += javascript_tag("jQuery('#token-input-#{element_id}')
-                    .live('keydown', function(event){
-                    if(event.keyCode == '13') return false;
-                    });")
-    end
-    result
   end
 
   def expirable_content_reference(content, action, text, url, options = {})
@@ -1459,16 +1410,16 @@ module ApplicationHelper
   end
 
   def convert_macro(html, source)
-    doc = Hpricot(html)
+    doc = Nokogiri::HTML(html)
     #TODO This way is more efficient but do not support macro inside of
     #     macro. You must parse them from the inside-out in order to enable
     #     that.
-    doc.search('.macro').each do |macro|
+    doc.css('.macro').each do |macro|
       macro_name = macro['data-macro']
       result = @plugins.parse_macro(macro_name, macro, source)
-      macro.inner_html = result.kind_of?(Proc) ? self.instance_eval(&result) : result
+      macro.content = result.kind_of?(Proc) ? self.instance_eval(&result) : result
     end
-    doc.html
+    CGI.unescapeHTML(doc.xpath('//body/*').to_s)
   end
 
   def default_folder_for_image_upload(profile)
@@ -1479,6 +1430,10 @@ module ApplicationHelper
 
   def content_id_to_str(content)
     content.nil? ? '' : content.id.to_s
+  end
+
+  def display_article_versions(article, version = nil)
+    content_tag('ul', article.versions.map {|v| link_to("r#{v.version}", @page.url.merge(:version => v.version))})
   end
 
 end

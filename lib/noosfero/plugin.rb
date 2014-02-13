@@ -77,7 +77,9 @@ class Noosfero::Plugin
     end
 
     def load_plugin_extensions(dir)
-      Dir[File.join(dir, 'lib', 'ext', '*.rb')].each {|file| require_dependency file }
+      Rails.configuration.to_prepare do
+        Dir[File.join(dir, 'lib', 'ext', '*.rb')].each {|file| require_dependency file }
+      end
     end
 
     def enabled
@@ -392,6 +394,13 @@ class Noosfero::Plugin
     nil
   end
 
+  # -> Extends person memberships list
+  # returns = An instance of ActiveRecord::NamedScope::Scope retrived through
+  # Person.memberships_of method.
+  def person_memberships(person)
+    nil
+  end
+
   # -> Extends person permission access
   # returns = boolean
   def has_permission?(person, permission, target)
@@ -445,6 +454,31 @@ class Noosfero::Plugin
   # returns = lambda block that creates html code
   def comment_form_extra_contents(args)
     nil
+  end
+
+  # -> Adds adicional content to article header
+  # returns = lambda block that creates html code
+  def article_header_extra_contents(article)
+    nil
+  end
+
+  # -> Adds adittional content to comment visualization
+  # returns = lambda block that creates html code
+  def comment_extra_contents(args)
+    nil
+  end
+
+  # This method is called when the user clicks to send a comment.
+  # A plugin can add new content to comment form and this method can process the params sent to avoid creating field on core tables.
+  # returns = params after processed by plugins
+  # example:
+  #
+  #   def process_extra_comment_params(params)
+  #     params.delete(:extra_field)
+  #   end
+  #
+  def process_extra_comment_params(params)
+    params
   end
 
   # -> Finds objects by their contents

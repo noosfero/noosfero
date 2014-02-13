@@ -92,15 +92,21 @@ class Profile < ActiveRecord::Base
   def members
     scopes = plugins.dispatch_scopes(:organization_members, self)
     scopes << Person.members_of(self)
-
-    clauses = scopes.map do |relation|
-      clause = relation.arel.where_clauses.map { |clause| "(#{clause})" }.join(' AND ')
-      "(#{clause})"
-    end.join(' OR ')
-
-    joins = scopes.map { |relation| relation.joins_values }.flatten.uniq
-    selects = scopes.map { |relation| relation.select_values }.flatten.uniq
-    Person.select(selects).joins(joins).where(clauses)
+# FIXME Review this change after the refactoring on or_scopes, now done through the ScopeTool.
+#<<<<<<< HEAD
+#
+#    clauses = scopes.map do |relation|
+#      clause = relation.arel.where_clauses.map { |clause| "(#{clause})" }.join(' AND ')
+#      "(#{clause})"
+#    end.join(' OR ')
+#
+#    joins = scopes.map { |relation| relation.joins_values }.flatten.uniq
+#    selects = scopes.map { |relation| relation.select_values }.flatten.uniq
+#    Person.select(selects).joins(joins).where(clauses)
+#=======
+    return scopes.first if scopes.size == 1
+    ScopeTool.union *scopes
+#>>>>>>> master
   end
 
   def members_count
@@ -779,8 +785,20 @@ private :generate_url, :url_options
     !environment.enabled?('disable_contact_' + self.class.name.downcase)
   end
 
+  include Noosfero::Plugin::HotSpot
+  
+  def folder_types
+    types = Article.folder_types
+    plugins.dispatch(:content_types).each {|type|
+      if type < Folder
+        types << type.name
+      end
+    }
+    types
+  end
+
   def folders
-    articles.folders
+    articles.folders(self)
   end
 
   def image_galleries

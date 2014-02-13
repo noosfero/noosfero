@@ -32,19 +32,7 @@
 
     <div class="comment-details">
       <div class="comment-header">
-        <ul>
-          <div class="comment-actions">
-            <%= comment_actions(comment) %>
-          </div>
-        </ul>
-      <% unless comment.spam? %>
-        <%= link_to_function '',
-          "var f = add_comment_reply_form(this, %s); f.find('comment_title, textarea').val(''); return false" % comment.id,
-          :class => 'comment-footer comment-footer-link comment-footer-hide comment-actions-reply button',
-          :id => 'comment-reply-to-' + comment.id.to_s,
-          :title => _('Reply')
-        %>
-      <% end %>
+        <%= comment_actions(comment) %>
       </div>
 
       <div class="comment-created-at">
@@ -55,6 +43,7 @@
         <p/>
         <%= txt2html comment.body %>
       </div>
+      <%= @plugins.dispatch(:comment_extra_contents, local_assigns).collect { |content| instance_eval(&content) }.join("") %>
     </div>
 
     <div class="comment_reply post_comment_box closed" id="comment_reply_to_<%= comment.id %>">

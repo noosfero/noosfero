@@ -17,10 +17,12 @@
   </div>
   <div class="track_stats">
     <div class="comments">
-      <%= "#{track_card.comments_count} comments" %>
+      <span class="counter"><%= "#{track_card.comments_count}" %></span>
+      <span class="label"><%= _('comments') %></span>
     </div>
     <div class="hits">
-      <%= "#{track_card.hits} hits" %>
+      <span class="counter"><%= "#{track_card.hits}" %></span>
+      <span class="label"><%= _('hits') %></span>
     </div>
   </div>
   </a>

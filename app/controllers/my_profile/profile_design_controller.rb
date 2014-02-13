@@ -32,6 +32,7 @@ class ProfileDesignController < BoxOrganizerController
     if profile.enterprise?
       blocks << DisabledEnterpriseMessageBlock
       blocks << HighlightsBlock
+      blocks << ProductCategoriesBlock
       blocks << FeaturedProductsBlock
       blocks << FansBlock
       blocks += plugins.dispatch(:extra_blocks, :type => Enterprise)
@@ -52,6 +53,12 @@ class ProfileDesignController < BoxOrganizerController
     end
 
     blocks
+  end
+
+  def clone
+    block = Block.find(params[:id])
+    block.duplicate
+    redirect_to :action => 'index'
   end
 
 end

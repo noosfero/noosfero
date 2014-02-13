@@ -23,7 +23,7 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
     assert_equal [], block.nodes
   end
 
-  should 'not set nodes if there is no holder' do
+  should 'not expand nodes if there is no holder' do
     Article.delete_all
     a1 = fast_create(TextArticle, :name => 'test article 1', :profile_id => 1)
 
@@ -31,7 +31,9 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
     block = DisplayContentBlock.new
     block.stubs(:holder).returns(nil)
     block.checked_nodes= checked_articles
-    assert_equal [], block.nodes
+    a1.delete
+    block.save!
+    assert_equal [a1.id], block.nodes
   end
 
   should 'nodes be the article ids in hash of checked nodes' do
@@ -90,28 +92,7 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
     assert_equal [], block.nodes - [a1.id, a4.id]
   end
 
-  should "save the first children level of folders" do
-    profile = create_user('testuser').person
-    Article.delete_all
-    a1 = fast_create(TextileArticle, :name => 'test article 1', :profile_id => profile.id)
-    a2 = fast_create(TextileArticle, :name => 'test article 2', :profile_id => profile.id)
-    f1 = fast_create(Folder, :name => 'test folder 1', :profile_id => profile.id)
-    a3 = fast_create(TextileArticle, :name => 'test article 3', :profile_id => profile.id, :parent_id => f1.id)
-    f2 = fast_create(Folder, :name => 'test folder 1', :profile_id => profile.id)
-    a4 = fast_create(TextileArticle, :name => 'test article 4', :profile_id => profile.id, :parent_id => f2.id)
-    a5 = fast_create(TextileArticle, :name => 'test article 5', :profile_id => profile.id, :parent_id => f2.id)
-
-    checked_articles= {a1.id => true, a2.id => true, f1.id => false, f2.id => true}
-
-    block = DisplayContentBlock.new
-    block.stubs(:holder).returns(profile)
-    block.checked_nodes= checked_articles
-
-    assert_equal [], [a1.id, a2.id, a3.id, a4.id, a5.id] - block.nodes
-    assert_equal [], block.nodes - [a1.id, a2.id, a3.id, a4.id, a5.id]
-  end
-
-  should "not save deeper level of folder's children" do
+  should "save selected folders and articles" do
     profile = create_user('testuser').person
     Article.delete_all
     a1 = fast_create(TextileArticle, :name => 'test article 1', :profile_id => profile.id)
@@ -128,11 +109,10 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
     block.stubs(:holder).returns(profile)
     block.checked_nodes= checked_articles
 
-    assert_equal [], [a1.id, a2.id, a3.id] - block.nodes
-    assert_equal [], block.nodes - [a1.id, a2.id, a3.id]
+    assert_equivalent [a1.id, a2.id, f1.id], block.nodes
   end
 
-  should "save the first children level of blogs" do
+  should "save selected articles and blogs" do
     profile = create_user('testuser').person
     Article.delete_all
     a1 = fast_create(TextileArticle, :name => 'test article 1', :profile_id => profile.id)
@@ -149,8 +129,7 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
     block.stubs(:holder).returns(profile)
     block.checked_nodes= checked_articles
 
-    assert_equal [], [a1.id, a2.id, a3.id, a4.id, a5.id] - block.nodes
-    assert_equal [], block.nodes - [a1.id, a2.id, a3.id, a4.id, a5.id]
+    assert_equivalent [a1.id, a2.id, b1.id, b2.id], block.nodes
   end
 
   should 'TextileArticle be saved as node' do
@@ -192,7 +171,7 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
     assert_equal [], block.nodes - [a1.id]
   end
 
-  should 'Event not be saved as node' do
+  should 'Event be saved as node' do
     profile = create_user('testuser').person
     Article.delete_all
     a1 = fast_create(TextArticle, :name => 'test article 1', :profile_id => profile.id)
@@ -203,41 +182,10 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
     block = DisplayContentBlock.new
     block.stubs(:holder).returns(profile)
     block.checked_nodes= checked_articles
-    assert_equal [], [a1.id, a2.id] - block.nodes
-    assert_equal [], block.nodes - [a1.id, a2.id]
+    assert_equivalent [a1.id, a2.id, a3.id], block.nodes
   end
 
-  should 'RSS not be saved as node' do
-    profile = create_user('testuser').person
-    Article.delete_all
-    a1 = fast_create(TextArticle, :name => 'test article 1', :profile_id => profile.id)
-    a2 = fast_create(TextArticle, :name => 'test article 2', :profile_id => profile.id)
-    a3 = fast_create(RssFeed, :name => 'test article 3', :profile_id => profile.id)
-
-    checked_articles= {a1.id => true, a2.id => true, a3.id => false}
-    block = DisplayContentBlock.new
-    block.stubs(:holder).returns(profile)
-    block.checked_nodes= checked_articles
-    assert_equal [], [a1.id, a2.id] - block.nodes
-    assert_equal [], block.nodes - [a1.id, a2.id]
-  end
-
-  should 'UploadedFile not be saved as node' do
-    profile = create_user('testuser').person
-    Article.delete_all
-    a1 = fast_create(TextArticle, :name => 'test article 1', :profile_id => profile.id)
-    a2 = fast_create(TextArticle, :name => 'test article 2', :profile_id => profile.id)
-    a3 = fast_create(UploadedFile, :name => 'test article 3', :profile_id => profile.id)
-
-    checked_articles= {a1.id => true, a2.id => true, a3.id => false}
-    block = DisplayContentBlock.new
-    block.stubs(:holder).returns(profile)
-    block.checked_nodes= checked_articles
-    assert_equal [], [a1.id, a2.id] - block.nodes
-    assert_equal [], block.nodes - [a1.id, a2.id]
-  end
-
-  should 'Folder not be saved as node' do
+  should 'Folder be saved as node' do
     profile = create_user('testuser').person
     Article.delete_all
     a1 = fast_create(TextArticle, :name => 'test article 1', :profile_id => profile.id)
@@ -248,11 +196,10 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
     block = DisplayContentBlock.new
     block.stubs(:holder).returns(profile)
     block.checked_nodes= checked_articles
-    assert_equal [], [a1.id, a2.id] - block.nodes
-    assert_equal [], block.nodes - [a1.id, a2.id]
+    assert_equivalent [a1.id, a2.id, a3.id], block.nodes
   end
 
-  should 'Forum not be saved as node' do
+  should 'Forum be saved as node' do
     profile = create_user('testuser').person
     Article.delete_all
     a1 = fast_create(TextArticle, :name => 'test article 1', :profile_id => profile.id)
@@ -263,26 +210,10 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
     block = DisplayContentBlock.new
     block.stubs(:holder).returns(profile)
     block.checked_nodes= checked_articles
-    assert_equal [], [a1.id, a2.id] - block.nodes
-    assert_equal [], block.nodes - [a1.id, a2.id]
+    assert_equivalent [a1.id, a2.id, a3.id], block.nodes
   end
 
-  should 'Gallery not be saved as node' do
-    profile = create_user('testuser').person
-    Article.delete_all
-    a1 = fast_create(TextArticle, :name => 'test article 1', :profile_id => profile.id)
-    a2 = fast_create(TextArticle, :name => 'test article 2', :profile_id => profile.id)
-    a3 = fast_create(Gallery, :name => 'test article 3', :profile_id => profile.id)
-
-    checked_articles= {a1.id => true, a2.id => true, a3.id => false}
-    block = DisplayContentBlock.new
-    block.stubs(:holder).returns(profile)
-    block.checked_nodes= checked_articles
-    assert_equal [], [a1.id, a2.id] - block.nodes
-    assert_equal [], block.nodes - [a1.id, a2.id]
-  end
-
-  should 'Blog not be saved as node' do
+  should 'Blog be saved as node' do
     profile = create_user('testuser').person
     Article.delete_all
     a1 = fast_create(TextArticle, :name => 'test article 1', :profile_id => profile.id)
@@ -293,141 +224,7 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
     block = DisplayContentBlock.new
     block.stubs(:holder).returns(profile)
     block.checked_nodes= checked_articles
-    assert_equal [], [a1.id, a2.id] - block.nodes
-    assert_equal [], block.nodes - [a1.id, a2.id]
-  end
-
-  should "save the article parents in parent_nodes variable" do
-    profile = create_user('testuser').person
-    Article.delete_all
-    a1 = fast_create(TextileArticle, :name => 'test article 1', :profile_id => profile.id)
-    a2 = fast_create(TextileArticle, :name => 'test article 2', :profile_id => profile.id)
-    f1 = fast_create(Folder, :name => 'test folder 1', :profile_id => profile.id)
-    a3 = fast_create(TextileArticle, :name => 'test article 3', :profile_id => profile.id, :parent_id => f1.id)
-    f2 = fast_create(Folder, :name => 'test folder 1', :profile_id => profile.id)
-    a4 = fast_create(TextileArticle, :name => 'test article 4', :profile_id => profile.id, :parent_id => f2.id)
-
-    checked_articles= {a1.id => 1, a3.id => 1, a4.id => 1, f2.id => true}
-
-    block = DisplayContentBlock.new
-    block.stubs(:holder).returns(profile)
-    block.checked_nodes= checked_articles
-
-    assert_equal [], [f1.id, f2.id] - block.parent_nodes
-    assert_equal [], block.parent_nodes - [f1.id, f2.id]
-  end
-
-  should "save deeper level of article parents in parent_nodes variable" do
-    profile = create_user('testuser').person
-    Article.delete_all
-    a1 = fast_create(TextileArticle, :name => 'test article 1', :profile_id => profile.id)
-    f1 = fast_create(Folder, :name => 'test folder 1', :profile_id => profile.id)
-    f2 = fast_create(Folder, :name => 'test folder 1', :profile_id => profile.id, :parent_id => f1.id)
-    f3 = fast_create(Folder, :name => 'test folder 1', :profile_id => profile.id, :parent_id => f2.id)
-    a2 = fast_create(TextileArticle, :name => 'test article 4', :profile_id => profile.id, :parent_id => f3.id)
-
-    checked_articles= {a2.id => 1}
-
-    block = DisplayContentBlock.new
-    block.stubs(:holder).returns(profile)
-    block.checked_nodes= checked_articles
-
-    assert_equal [], [f1.id, f2.id, f3.id] - block.parent_nodes
-    assert_equal [], block.parent_nodes - [f1.id, f2.id, f3.id]
-  end
-
-  should "save only once time of parents if more than one children article is checked" do
-    profile = create_user('testuser').person
-    Article.delete_all
-    a1 = fast_create(TextileArticle, :name => 'test article 1', :profile_id => profile.id)
-    f1 = fast_create(Folder, :name => 'test folder 1', :profile_id => profile.id)
-    a2 = fast_create(TextileArticle, :name => 'test article 3', :profile_id => profile.id, :parent_id => f1.id)
-    f2 = fast_create(Folder, :name => 'test folder 1', :profile_id => profile.id)
-    a3 = fast_create(TextileArticle, :name => 'test article 4', :profile_id => profile.id, :parent_id => f2.id)
-    a4 = fast_create(TextileArticle, :name => 'test article 5', :profile_id => profile.id, :parent_id => f2.id)
-    a5 = fast_create(TextileArticle, :name => 'test article 2', :profile_id => profile.id, :parent_id => f2.id)
-
-    checked_articles= {a1.id => 1, a2.id => 1, a3.id => 1, a4.id => 1, a5.id => 1}
-
-    block = DisplayContentBlock.new
-    block.stubs(:holder).returns(profile)
-    block.checked_nodes= checked_articles
-
-    assert_equal [], [f1.id, f2.id] - block.parent_nodes
-    assert_equal [], block.parent_nodes - [f1.id, f2.id]
-  end
-
-  should "save only once time of parents if a deeper level of children is checked" do
-    profile = create_user('testuser').person
-    Article.delete_all
-    a1 = fast_create(TextileArticle, :name => 'test article 1', :profile_id => profile.id)
-    f1 = fast_create(Folder, :name => 'test folder 1', :profile_id => profile.id)
-    f2 = fast_create(Folder, :name => 'test folder 2', :profile_id => profile.id, :parent_id => f1.id)
-    f3 = fast_create(Folder, :name => 'test folder 2', :profile_id => profile.id, :parent_id => f2.id)
-    f4 = fast_create(Folder, :name => 'test folder 2', :profile_id => profile.id, :parent_id => f3.id)
-    f5 = fast_create(Folder, :name => 'test folder 2', :profile_id => profile.id, :parent_id => f2.id)
-    a2 = fast_create(TextileArticle, :name => 'test article 3', :profile_id => profile.id, :parent_id => f4.id)
-    a3 = fast_create(TextileArticle, :name => 'test article 4', :profile_id => profile.id, :parent_id => f5.id)
-
-    checked_articles= {a2.id => 1, a3.id => 1}
-
-    block = DisplayContentBlock.new
-    block.stubs(:holder).returns(profile)
-    block.checked_nodes= checked_articles
-
-    assert_equal [], [f1.id, f2.id, f3.id, f4.id, f5.id] - block.parent_nodes
-    assert_equal [], block.parent_nodes - [f1.id, f2.id, f3.id, f4.id, f5.id]
-  end
-
-  should "save the folder in parent_nodes variable if it was checked" do
-    profile = create_user('testuser').person
-    Article.delete_all
-    f1 = fast_create(Folder, :name => 'test folder 1', :profile_id => profile.id)
-    a1 = fast_create(TextileArticle, :name => 'test article 1', :profile_id => profile.id, :parent_id => f1.id)
-    a2 = fast_create(TextileArticle, :name => 'test article 4', :profile_id => profile.id, :parent_id => f1.id)
-
-    checked_articles= {f1.id => 1}
-
-    block = DisplayContentBlock.new
-    block.stubs(:holder).returns(profile)
-    block.checked_nodes= checked_articles
-
-    assert_equal [], [f1.id] - block.parent_nodes
-    assert_equal [], block.parent_nodes - [f1.id]
-  end
-
-  should "save the blog in parent_nodes variable if it was checked" do
-    profile = create_user('testuser').person
-    Article.delete_all
-    b1 = fast_create(Blog, :name => 'test folder 1', :profile_id => profile.id)
-    a1 = fast_create(TextileArticle, :name => 'test article 1', :profile_id => profile.id, :parent_id => b1.id)
-    a2 = fast_create(TextileArticle, :name => 'test article 4', :profile_id => profile.id, :parent_id => b1.id)
-
-    checked_articles= {b1.id => 1}
-
-    block = DisplayContentBlock.new
-    block.stubs(:holder).returns(profile)
-    block.checked_nodes= checked_articles
-
-    assert_equal [], [b1.id] - block.parent_nodes
-    assert_equal [], block.parent_nodes - [b1.id]
-  end
-
-  should "save the forum in parent_nodes variable if it was checked" do
-    profile = create_user('testuser').person
-    Article.delete_all
-    f1 = fast_create(Forum, :name => 'test folder 1', :profile_id => profile.id)
-    a1 = fast_create(TextileArticle, :name => 'test article 1', :profile_id => profile.id, :parent_id => f1.id)
-    a2 = fast_create(TextileArticle, :name => 'test article 4', :profile_id => profile.id, :parent_id => f1.id)
-
-    checked_articles= {f1.id => 1}
-
-    block = DisplayContentBlock.new
-    block.stubs(:holder).returns(profile)
-    block.checked_nodes= checked_articles
-
-    assert_equal [], [f1.id] - block.parent_nodes
-    assert_equal [], block.parent_nodes - [f1.id]
+    assert_equivalent [a1.id, a2.id, a3.id], block.nodes
   end
 
   should "return all root articles from profile" do
@@ -694,6 +491,39 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
     box.stubs(:owner).returns(profile)
 
     assert_match /#{a.published_at}/, block.content
+  end
+
+  should 'do not save children if a folder is checked' do
+    profile = create_user('testuser').person
+    Article.delete_all
+    f1 = fast_create(Folder, :name => 'test folder 1', :profile_id => profile.id)
+    a1 = fast_create(TextileArticle, :name => 'test article 1', :profile_id => profile.id, :parent_id => f1.id)
+    a2 = fast_create(TextileArticle, :name => 'test article 2', :profile_id => profile.id, :parent_id => f1.id)
+    a3 = fast_create(TextileArticle, :name => 'test article 3', :profile_id => profile.id, :parent_id => f1.id)
+
+    checked_articles= {f1.id => true, a1.id => true, a2.id => true, a3.id => false}
+    block = DisplayContentBlock.new
+    block.stubs(:holder).returns(profile)
+    block.checked_nodes= checked_articles
+    block.save!
+    assert_equivalent [f1.id], block.nodes
+  end
+
+  should 'save folder and children if display_folder_children is false' do
+    profile = create_user('testuser').person
+    Article.delete_all
+    f1 = fast_create(Folder, :name => 'test folder 1', :profile_id => profile.id)
+    a1 = fast_create(TextileArticle, :name => 'test article 1', :profile_id => profile.id, :parent_id => f1.id)
+    a2 = fast_create(TextileArticle, :name => 'test article 2', :profile_id => profile.id, :parent_id => f1.id)
+    a3 = fast_create(TextileArticle, :name => 'test article 3', :profile_id => profile.id, :parent_id => f1.id)
+
+    checked_articles= {f1.id => true, a1.id => true, a2.id => true, a3.id => false}
+    block = DisplayContentBlock.new
+    block.display_folder_children = false
+    block.stubs(:holder).returns(profile)
+    block.checked_nodes= checked_articles
+    block.save!
+    assert_equivalent [f1.id, a1.id, a2.id, a3.id], block.nodes
   end
 
 end

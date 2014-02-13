@@ -1,11 +1,10 @@
-<% elem_id = "edit-select-#{counter}" %>
-<div id=<%= elem_id %> class='edit-information'>
+<div class='edit-information edit-select'>
   <h2><%= _('Options') %></h2>
   <table class='action-table' style='width: 420px'>
     <tr>
       <th style='width: 40%'><%= _('Name') %></th>
       <th style='width: 40%'><%= _('Value') %></th>
-      <th style='width: 20%'><%= _('Actions') %></th>
+      <th style='width: 20%'><%= _('Delete') %></th>
     </tr>
     <% option_counter = 1 %>
     <% (field.choices || {}).each do |name, value| %>

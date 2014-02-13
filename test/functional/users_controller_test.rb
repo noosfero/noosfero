@@ -11,9 +11,15 @@ class UsersControllerTest < ActionController::TestCase
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
 
-    admin_user = create_user_with_permission('adminuser', 'manage_environment_users', Environment.default)
+    Environment.destroy_all
+    @environment = fast_create(Environment, :is_default => true)
+ 
+
+    admin_user = create_user_with_permission('adminuser', 'manage_environment_users', environment)
     login_as('adminuser')
   end
+
+  attr_accessor :environment
 
   should 'not access without right permission' do
     create_user('guest')
@@ -63,6 +69,7 @@ class UsersControllerTest < ActionController::TestCase
 
   should 'set admin role' do
     person = create_user.person
+    Role.create!(:name => 'Admin', :key => 'environment_administrator', :environment_id => environment.id, :permissions => ['view_environment_admin_panel'])
     assert_equal false, person.is_admin?
     post :set_admin_role, :id => person.id, :q => ''
     person.reload
@@ -70,8 +77,9 @@ class UsersControllerTest < ActionController::TestCase
   end
 
   should 'reset admin role' do
-    environment = Environment.default
     person = create_user.person
+    Role.create!(:name => 'Admin', :key => 'environment_administrator', :environment_id => environment.id, :permissions => ['view_environment_admin_panel'])
+
     environment.add_admin(person)
     assert person.is_admin?
 

@@ -4,7 +4,7 @@
 <div class='profile-activity-description profile-activity-article-<%= activity.target.class.icon_name %>'>
   <p class='profile-activity-text'>
     <%= link_to activity.user.short_name(20), activity.user.url %>
-    <%= _("on community %s") % link_to(activity.target.profile.short_name(20), activity.target.profile.url) if activity.target.profile.is_a?(Community) %>
+    <%= _("has published on community %s") % link_to(activity.target.profile.short_name(20), activity.target.profile.url) if activity.target.profile.is_a?(Community) %>
   </p>
   <div class='profile-activity-lead'>
     <div class='article-name'><%= link_to(activity.params['name'], activity.params['url']) %></div>

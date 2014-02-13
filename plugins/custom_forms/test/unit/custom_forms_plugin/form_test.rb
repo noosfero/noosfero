@@ -53,6 +53,20 @@ class CustomFormsPlugin::FormTest < ActiveSupport::TestCase
     assert !form.errors.invalid?(:slug)
   end
 
+  should 'validate the difference between ending and beginning is positive' do
+    profile = fast_create(Profile)
+    form = CustomFormsPlugin::Form.new(:profile => profile, :name => 'Free Software')
+
+    form.begining = Time.now
+    form.ending = Time.now + 1.day
+    assert form.valid?
+    assert !form.errors.invalid?(:base)
+
+    form.ending = Time.now - 2.day
+    assert !form.valid?
+    assert form.errors.invalid?(:base)
+  end
+
   should 'define form expiration' do
     form = CustomFormsPlugin::Form.new
     assert !form.expired?
@@ -73,6 +87,22 @@ class CustomFormsPlugin::FormTest < ActiveSupport::TestCase
     form.begining = Time.now - 1.day
     form.ending = Time.now + 1.day
     assert !form.expired?
+  end
+
+  should 'define if form will still open' do
+    form = CustomFormsPlugin::Form.new
+    assert !form.will_open?
+
+    form.begining = Time.now + 1.day
+    assert form.will_open?
+
+    form.begining = Time.now - 1.day
+    assert !form.will_open?
+
+    form.begining = Time.now - 2.day
+    form.ending = Time.now - 1.day
+    assert form.expired?
+    assert !form.will_open?
   end
 
   should 'validates format of access' do
@@ -180,4 +210,54 @@ class CustomFormsPlugin::FormTest < ActiveSupport::TestCase
     end
   end
 
+  should 'sort fields by position' do
+    form = CustomFormsPlugin::Form.create!(:name => 'Free Software', :profile => fast_create(Profile))
+    license_field = CustomFormsPlugin::Field.create!(:name => 'License', :form => form, :position => 2)
+    url_field = CustomFormsPlugin::Field.create!(:name => 'URL', :form => form, :position => 0)
+
+    assert_equal form.fields, [url_field, license_field]
+  end
+
+  should 'have a named_scope that retrieves all forms required for membership' do
+    profile = fast_create(Profile)
+    f1 = CustomFormsPlugin::Form.create!(:name => 'For admission 1', :profile => profile, :for_admission => true)
+    f2 = CustomFormsPlugin::Form.create!(:name => 'For admission 2', :profile => profile, :for_admission => true)
+    f3 = CustomFormsPlugin::Form.create!(:name => 'Not for admission', :profile => profile, :for_admission => false)
+    scope = CustomFormsPlugin::Form.from(profile).for_admissions
+
+    assert_equal ActiveRecord::NamedScope::Scope, scope.class
+    assert_includes scope, f1
+    assert_includes scope, f2
+    assert_not_includes scope, f3
+  end
+
+  should 'not include admission membership in on membership named scope' do
+    profile = fast_create(Profile)
+    f1 = CustomFormsPlugin::Form.create!(:name => 'On membership', :profile => profile, :on_membership => true)
+    f2 = CustomFormsPlugin::Form.create!(:name => 'For admission', :profile => profile, :on_membership => true, :for_admission => true)
+    scope = CustomFormsPlugin::Form.from(profile).on_memberships
+
+    assert_equal ActiveRecord::NamedScope::Scope, scope.class
+    assert_includes scope, f1
+    assert_not_includes scope, f2
+  end
+
+  should 'cancel survey tasks after removing a form' do
+    profile = fast_create(Profile)
+    person = fast_create(Person)
+
+    form1 = CustomFormsPlugin::Form.create!(:name => 'Free Software', :profile => profile)
+    form2 = CustomFormsPlugin::Form.create!(:name => 'Operation System', :profile => profile)
+
+    task1 = CustomFormsPlugin::MembershipSurvey.create!(:form_id => form1.id, :target => person, :requestor => profile)
+    task2 = CustomFormsPlugin::MembershipSurvey.create!(:form_id => form2.id, :target => person, :requestor => profile)
+
+    assert_includes Task.opened, task1
+    assert_includes Task.opened, task2
+    form1.destroy
+    assert_includes Task.canceled, task1
+    assert_includes Task.opened, task2
+    form2.destroy
+    assert_includes Task.canceled, task2
+  end
 end

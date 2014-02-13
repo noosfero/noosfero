@@ -2,7 +2,7 @@ class BscPlugin::Bsc < Enterprise
 
   has_many :enterprises
   has_many :enterprise_requests, :class_name => 'BscPlugin::AssociateEnterprise'
-  has_many :products, :finder_sql => 'select * from products where enterprise_id in (#{enterprises.map(&:id).join(",")})'
+  has_many :products, :finder_sql => 'select * from products where profile_id in (#{enterprises.map(&:id).join(",")})'
   has_many :contracts, :class_name => 'BscPlugin::Contract'
 
   validates_presence_of :nickname

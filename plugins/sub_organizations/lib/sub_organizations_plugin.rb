@@ -1,4 +1,14 @@
+require_dependency File.dirname(__FILE__) + '/related_organizations_block'
+
+class SubOrganizationsPlugin < Noosfero::Plugin; end;
+
+require_dependency 'sub_organizations_plugin/search_helper'
+
 class SubOrganizationsPlugin < Noosfero::Plugin
+
+  include SearchHelper
+
+  DISPLAY_LIMIT = 12
 
   def self.plugin_name
     _("Sub-groups")
@@ -23,6 +33,10 @@ class SubOrganizationsPlugin < Noosfero::Plugin
     Person.members_of(children) if children.present?
   end
 
+  def person_memberships(person)
+    SubOrganizationsPlugin::Relation.parents(*Profile.memberships_of(person))
+  end
+
   def has_permission?(person, permission, target)
     if !target.kind_of?(Environment) && target.organization?
       SubOrganizationsPlugin::Relation.parents(target).map do |parent|
@@ -39,5 +53,15 @@ class SubOrganizationsPlugin < Noosfero::Plugin
   def enterprise_registration_hidden_fields
     parent_to_be = context.params[:sub_organizations_plugin_parent_to_be]
     {'sub_organizations_plugin_parent_to_be' => parent_to_be} if parent_to_be.present?
+  end
+
+  def self.limit(organizations)
+    organizations.all(:limit => DISPLAY_LIMIT, :order => 'updated_at DESC').sort_by{ rand }
+  end
+
+  def self.extra_blocks
+    {
+      RelatedOrganizationsBlock => {:type => [Enterprise, Community], :position => ['1', '2', '3']}
+    }
   end
 end

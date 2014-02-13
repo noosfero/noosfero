@@ -38,6 +38,7 @@ Depends:
  thin,
  tango-icon-theme,
  ruby-hpricot,
+ ruby-nokogiri,
  memcached,
  debconf,
  dbconfig-common,

@@ -25,9 +25,8 @@ Feature: publish article
     And I follow "Spread"
     And I check "Sample Community"
     And I press "Spread this"
-    And I go to sample-community's sitemap
-    When I follow "Sample Article"
-    Then I should see "This is the first published article"
+    When I go to sample-community's sitemap
+    Then I should see "Sample Article"
 
   Scenario: publishing an article with a different name
     Given I am logged in as "joaosilva"

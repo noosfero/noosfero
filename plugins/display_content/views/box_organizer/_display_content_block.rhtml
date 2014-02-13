@@ -17,6 +17,10 @@
 <div id="display_content">
 </div>
 
+<div class="display_folder_children">
+  <%= labelled_form_field check_box(:block, :display_folder_children) + _('Dinamically load children of selected folders'), '' %>
+</div>
+
 <script type="text/javascript" >
 
 jQuery_1_8_3("#display_content").jstree({
