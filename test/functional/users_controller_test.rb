@@ -69,7 +69,7 @@ class UsersControllerTest < ActionController::TestCase
 
   should 'set admin role' do
     person = create_user.person
-    Role.create!(:name => 'Admin', :key => 'environment_administrator', :environment_id => environment.id, :permissions => ['view_environment_admin_panel'])
+    Role.create!(:name => 'Admin', :key => 'environment_administrator', :environment => environment, :permissions => ['view_environment_admin_panel'])
     assert_equal false, person.is_admin?
     post :set_admin_role, :id => person.id, :q => ''
     person.reload
@@ -78,7 +78,7 @@ class UsersControllerTest < ActionController::TestCase
 
   should 'reset admin role' do
     person = create_user.person
-    Role.create!(:name => 'Admin', :key => 'environment_administrator', :environment_id => environment.id, :permissions => ['view_environment_admin_panel'])
+    Role.create!(:name => 'Admin', :key => 'environment_administrator', :environment => environment, :permissions => ['view_environment_admin_panel'])
 
     environment.add_admin(person)
     assert person.is_admin?

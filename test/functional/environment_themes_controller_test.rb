@@ -91,7 +91,7 @@ class EnvironmentThemesControllerTest < ActionController::TestCase
 
     LayoutTemplate.expects(:all).returns(all)
     get :index
-    assert_same all, assigns(:layout_templates)
+    assert_equivalent all, assigns(:layout_templates)
   end
 
   should 'display links to set template' do
@@ -109,7 +109,7 @@ class EnvironmentThemesControllerTest < ActionController::TestCase
 
   should 'highlight current template' do
     env = Environment.default
-    env.update_attributes!(:layout_template => 'default')
+    env.update_attribute(:layout_template, 'default')
     env.layout_template = 'default'
 
     t1 = LayoutTemplate.find('default')

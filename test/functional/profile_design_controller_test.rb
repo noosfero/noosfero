@@ -737,8 +737,8 @@ class ProfileDesignControllerTest < ActionController::TestCase
   end
 
   should 'clone a block' do
-    block = ProfileImageBlock.create!(:box => profile.boxes.first)
-    assert_difference ProfileImageBlock, :count, 1 do
+    block = create(ProfileImageBlock, :box => profile.boxes.first)
+    assert_difference 'ProfileImageBlock.count', 1 do
       post :clone, :id => block.id, :profile => profile.identifier
       assert_response :redirect
     end

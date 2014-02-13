@@ -1339,14 +1339,14 @@ class ContentViewerControllerTest < ActionController::TestCase
   should 'add extra content on article header from plugins' do
     class Plugin1 < Noosfero::Plugin
       def article_header_extra_contents(args)
-        lambda {
+        proc {
           content_tag('div', '', :class => 'plugin1')
          }
       end
     end
     class Plugin2 < Noosfero::Plugin
       def article_header_extra_contents(args)
-        lambda {
+        proc {
           content_tag('div', '', :class => 'plugin2')
          }
       end

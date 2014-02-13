@@ -32,7 +32,7 @@ class ContentViewerController < ApplicationController
       return render_access_denied unless @page.display_versions?
       @versioned_article = @page.versions.find_by_version(@version)
       if @versioned_article && @page.versions.latest.version != @versioned_article.version
-        render :template => 'content_viewer/versioned_article.rhtml'
+        render :template => 'content_viewer/versioned_article.html.erb'
         return
       end
     end
