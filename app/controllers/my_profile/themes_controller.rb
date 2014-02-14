@@ -14,7 +14,7 @@ class ThemesController < MyProfileController
   end
 
   def index
-    @themes = profile.environment.themes + Theme.approved_themes(profile)
+    @themes = (profile.environment.themes + Theme.approved_themes(profile)).uniq_by{ |t| t.id }.sort_by{ |t| t.name }
     @current_theme = profile.theme
 
     @layout_templates = LayoutTemplate.all
