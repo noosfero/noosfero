@@ -15,7 +15,7 @@ class ProductCategoriesBlock < Block
 
   def content(args={})
     profile = owner
-    lambda do
+    proc do
       if @categories.nil? or @categories.length == 0
         categories = ProductCategory.on_level().order(:name)
         if @categories and @categories.length == 0

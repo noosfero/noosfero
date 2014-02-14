@@ -118,7 +118,7 @@ class ContentViewerController < ApplicationController
   end
 
   def article_versions
-    path = params[:page].join('/')
+    path = params[:page]
     @page = profile.articles.find_by_path(path)
     return unless allow_access_to_page(path)
 

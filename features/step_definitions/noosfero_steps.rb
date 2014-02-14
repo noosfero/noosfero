@@ -36,7 +36,7 @@ Given /^the following (community|communities|enterprises?|organizations?)$/ do |
     end
     if domain
       d = Domain.new :name => domain, :owner => organization
-      d.save(false)
+      d.save(:validate => false)
     end
     if city
       c = City.find_by_name city
@@ -79,7 +79,7 @@ Given /^the folllowing "([^\"]*)" from "([^\"]*)"$/ do |kind, plugin, table|
     end
     if domain
       d = Domain.new :name => domain, :owner => organization
-      d.save(false)
+      d.save(:validate => false)
     end
   end
 end
@@ -203,7 +203,7 @@ Given /^the following products?$/ do |table|
       qualifier = Qualifier.find_by_name(data.delete("qualifier"))
       data.merge!(:qualifiers => [qualifier])
     end
-    product = Product.create!(data)
+    product = Product.create!(data, :without_protection => true)
   end
 end
 
@@ -216,7 +216,7 @@ Given /^the following inputs?$/ do |table|
     solidary = data.delete("solidary")
     input = Input.create!(data.merge(:product => product, :product_category => category, :unit => unit,
                                      :is_from_solidarity_economy => solidary), :without_protection => true)
-    input.update_attributes!(:position => data['position'])
+    input.update_attribute(:position,  data['position'])
   end
 end
 
@@ -224,7 +224,7 @@ Given /^the following states$/ do |table|
   table.hashes.each do |item|
     data = item.dup
     if validator = Enterprise.find_by_name(data.delete("validator_name"))
-      State.create!(data.merge(:environment => Environment.default, :validators => [validator]))
+      State.create!(data.merge(:environment => Environment.default, :validators => [validator]), :without_protection => true)
     else
       r = State.create!(data.merge(:environment => Environment.default))
     end
@@ -421,7 +421,7 @@ Given /^enterprise "([^\"]*)" is disabled$/ do |enterprise_name|
 end
 
 Then /^the page title should be "(.*)"$/ do |text|
-  Then %{I should see "#{text}" within "title"}
+  step %{I should see "#{text}" within "title"}
 end
 
 Then /^The page should contain "(.*)"$/ do |selector|
@@ -534,7 +534,7 @@ end
 
 Given /^the environment domain is "([^\"]*)"$/ do |domain|
   d = Domain.new :name => domain, :owner => Environment.default
-  d.save(false)
+  d.save(:validate => false)
 end
 
 When /^([^\']*)'s account is activated$/ do |person|

@@ -1,7 +1,7 @@
 # Represents any organization of the system
 class Organization < Profile
 
-  attr_accessible :moderated_articles, :foundation_year, :contact_person, :acronym, :legal_form, :economic_activity, :management_information, :cnpj, :display_name
+  attr_accessible :moderated_articles, :foundation_year, :contact_person, :acronym, :legal_form, :economic_activity, :management_information, :cnpj, :display_name, :enable_contact_us
 
   SEARCH_FILTERS += %w[
     more_popular

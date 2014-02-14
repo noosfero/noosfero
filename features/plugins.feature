@@ -18,8 +18,8 @@ Feature: plugins
       | TestPlugin  |
     And the following events of TestPlugin
       | event                 | body                                                                                                     |
-      | control_panel_buttons | lambda { {:title => 'Test plugin button', :icon => '', :url => ''} }                                     |
-      | profile_tabs          | lambda { {:title => 'Test plugin tab', :id => 'test_plugin', :content => lambda {'Test plugin random content'} } } |
+      | control_panel_buttons | proc { {:title => 'Test plugin button', :icon => '', :url => ''} }                                     |
+      | profile_tabs          | proc { {:title => 'Test plugin tab', :id => 'test_plugin', :content => proc {'Test plugin random content'} } } |
 
   Scenario: a user must see the plugin\'s button in the control panel if the plugin is enabled
     Given plugin Test is enabled on environment
