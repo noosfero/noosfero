@@ -890,6 +890,7 @@ module ApplicationHelper
     article_helper = ActionView::Base.new
     article_helper.controller = controller
     article_helper.extend ArticleHelper
+    article_helper.extend Rails.application.routes.url_helpers
     begin
       class_name = article.class.name + 'Helper'
       klass = class_name.constantize
