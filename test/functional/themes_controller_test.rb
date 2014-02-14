@@ -318,4 +318,13 @@ class ThemesControllerTest < ActionController::TestCase
     assert_equivalent [t1, t2], assigns(:themes)
   end
 
+  should 'sort themes by name' do
+    t1 = Theme.create('bill-theme')
+    t2 = Theme.create('ana-theme')
+    Theme.stubs(:approved_themes).returns([t1,t2])
+
+    get :index, :profile => "testinguser"
+    assert_equal [t2, t1], assigns(:themes)
+  end
+
 end
