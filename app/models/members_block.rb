@@ -1,6 +1,8 @@
 class MembersBlock < ProfileListBlock
   settings_items :show_join_leave_button, :type => :boolean, :default => false
 
+  attr_accessible :show_join_leave_button
+
   def self.description
     _('Members')
   end

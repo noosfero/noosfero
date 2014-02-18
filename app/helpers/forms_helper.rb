@@ -41,6 +41,7 @@ module FormsHelper
       the_class << ' ' << html_options[:class]
     end
 
+    html_options.delete(:cancel)
     bt_submit = submit_tag(label, html_options.merge(:class => the_class))
 
     bt_submit + bt_cancel

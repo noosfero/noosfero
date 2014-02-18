@@ -7,6 +7,7 @@ class ContentViewerController < ApplicationController
 
   def view_page
     path = params[:page]
+    path = "#{path}.#{params[:format]}" if params[:format]
     @version = params[:version].to_i
 
     if path.blank?
@@ -37,7 +38,7 @@ class ContentViewerController < ApplicationController
       end
     end
 
-    redirect_to_translation if @page.profile.redirect_l10n
+    redirect_to_translation and return if @page.profile.redirect_l10n
 
     if request.post?
       if @page.forum? && @page.has_terms_of_use && params[:terms_accepted] == "true"
@@ -114,7 +115,9 @@ class ContentViewerController < ApplicationController
 
     if params[:slideshow]
       render :action => 'slideshow', :layout => 'slideshow'
+      return
     end
+    render :view_page, :formats => [:html]
   end
 
   def article_versions

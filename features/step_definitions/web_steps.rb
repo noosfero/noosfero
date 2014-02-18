@@ -39,7 +39,7 @@ end
 
 When /^(?:|I )fill in "([^"]*)" with "([^"]*)"(?: within "([^"]*)")?$/ do |field, value, selector|
   with_scope(selector) do
-    fill_in(field, :with => value)
+    fill_in(field, :with => value, :match => :prefer_exact)
   end
 end
 
@@ -88,7 +88,7 @@ end
 
 When /^(?:|I )choose "([^"]*)"(?: within "([^"]*)")?$/ do |field, selector|
   with_scope(selector) do
-    choose(field)
+    choose(field, :match => :prefer_exact)
   end
 end
 

@@ -421,7 +421,7 @@ Given /^enterprise "([^\"]*)" is disabled$/ do |enterprise_name|
 end
 
 Then /^the page title should be "(.*)"$/ do |text|
-  step %{I should see "#{text}" within "title"}
+  page.title.should == text
 end
 
 Then /^The page should contain "(.*)"$/ do |selector|
@@ -438,9 +438,9 @@ end
 
 Given /^the (.+) mail (?:is|has) (.+) (.+)$/ do |position, field, value|
   if(/^[0-9]+$/ =~ position)
-    ActionMailer::Base.deliveries[position.to_i][field] == value
+    ActionMailer::Base.deliveries[position.to_i][field].to_s == value
   else
-    ActionMailer::Base.deliveries.send(position)[field] == value
+    ActionMailer::Base.deliveries.send(position)[field].to_s == value
   end
 end
 
