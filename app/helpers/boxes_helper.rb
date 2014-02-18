@@ -219,6 +219,18 @@ module BoxesHelper
       buttons << thickbox_inline_popup_icon(:help, _('Help on this block'), {}, "help-on-box-#{block.id}") << content_tag('div', content_tag('h2', _('Help')) + content_tag('div', block.help, :style => 'margin-bottom: 1em;') + thickbox_close_button(_('Close')), :style => 'display: none;', :id => "help-on-box-#{block.id}")
     end
 
+    #if block.respond_to?(:embedable)
+    if true
+      html = content_tag('div',
+              content_tag('h2', _('Embed code')) +
+              content_tag('div', 'Below, you''ll see a field containing embed code for the block. Just copy the code and paste it into your website or blogging software.', :style => 'margin-bottom: 1em;') +
+              content_tag('textarea', '*This is the embed code for this block!*', :style => 'margin-bottom: 1em; width:100%; height:40%;') +
+              thickbox_copy_to_clipboard_button(_('Copy to clipboard')) +
+              thickbox_close_button(_('Close')), :style => 'display: none;', :id => "embed-code-box-#{block.id}")
+
+      buttons << thickbox_inline_popup_icon(:embed, _('Embed code'), {}, "embed-code-box-#{block.id}") << html
+    end
+
     content_tag('div', buttons.join("\n") + tag('br', :style => 'clear: left'), :class => 'button-bar')
   end
 
