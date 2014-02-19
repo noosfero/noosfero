@@ -3,7 +3,7 @@ Feature: signup
   I want to sign up to the site
   So I can have fun using its features
 
-@selenium
+  @selenium
   Scenario: successfull registration
     Given I am on the homepage
     When I follow "Login"
@@ -60,3 +60,84 @@ Feature: signup
     And I fill in "Name" with ""
     When I press "Save"
     Then I should see "Name can't be blank"
+
+  @selenium
+  Scenario: user should stay on same page after signup
+    Given the environment is configured to stay on the same page after signup
+    And feature "skip_new_user_email_confirmation" is enabled on environment
+    And I am on /search/people
+    When I follow "Sign up"
+    And I fill in the following within ".no-boxes":
+      | e-Mail                | josesilva@example.com |
+      | Username              | josesilva             |
+      | Password              | secret                |
+      | Password confirmation | secret                |
+      | Full name             | José da Silva         |
+    And wait for the captcha signup time
+    And I press "Create my account"
+    Then I should be on /search/people
+
+  @selenium
+  Scenario: user should go to his homepage after signup
+    Given the environment is configured to redirect to profile homepage after signup
+    And feature "skip_new_user_email_confirmation" is enabled on environment
+    And I am on /search/people
+    When I follow "Sign up"
+    And I fill in the following within ".no-boxes":
+      | e-Mail                | josesilva@example.com |
+      | Username              | josesilva             |
+      | Password              | secret                |
+      | Password confirmation | secret                |
+      | Full name             | José da Silva         |
+    And wait for the captcha signup time
+    And I press "Create my account"
+    Then I should be on josesilva's profile
+
+  @selenium
+  Scenario: user should go to his control panel after signup
+    Given the environment is configured to redirect to profile control panel after signup
+    And feature "skip_new_user_email_confirmation" is enabled on environment
+    And I am on /search/people
+    When I follow "Sign up"
+    And I fill in the following within ".no-boxes":
+      | e-Mail                | josesilva@example.com |
+      | Username              | josesilva             |
+      | Password              | secret                |
+      | Password confirmation | secret                |
+      | Full name             | José da Silva         |
+    And wait for the captcha signup time
+    And I press "Create my account"
+    Then I should be on josesilva's control panel
+
+  @selenium
+  Scenario: user should go to his profile page after signup
+    Given the environment is configured to redirect to profile page after signup
+    And feature "skip_new_user_email_confirmation" is enabled on environment
+    And I am on /search/people
+    When I follow "Sign up"
+    And I fill in the following within ".no-boxes":
+      | e-Mail                | josesilva@example.com |
+      | Username              | josesilva             |
+      | Password              | secret                |
+      | Password confirmation | secret                |
+      | Full name             | José da Silva         |
+    And wait for the captcha signup time
+    And I press "Create my account"
+    Then I should be on josesilva's profile
+
+  @selenium
+  Scenario: user should go to the environment's homepage after signup
+    Given the environment is configured to redirect to site homepage after signup
+    And feature "skip_new_user_email_confirmation" is enabled on environment
+    And I am on /search/people
+    When I follow "Sign up"
+    And I fill in the following within ".no-boxes":
+      | e-Mail                | josesilva@example.com |
+      | Username              | josesilva             |
+      | Password              | secret                |
+      | Password confirmation | secret                |
+      | Full name             | José da Silva         |
+    And wait for the captcha signup time
+    And I press "Create my account"
+    Then I should be on the homepage
+

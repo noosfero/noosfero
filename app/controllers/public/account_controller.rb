@@ -69,6 +69,8 @@ class AccountController < ApplicationController
       session[:notice] = _("This environment doesn't allow user registration.")
     end
 
+    store_location(request.referer) unless params[:return_to] or session[:return_to]
+
     @block_bot = !!session[:may_be_a_bot]
     @invitation_code = params[:invitation_code]
     begin
@@ -98,7 +100,7 @@ class AccountController < ApplicationController
           end
           if @user.activated?
             self.current_user = @user
-            redirect_to '/'
+            go_to_signup_initial_page
           else
             @register_pending = true
           end
@@ -369,6 +371,7 @@ class AccountController < ApplicationController
 
   def go_to_initial_page
     if params[:return_to]
+      #I never get here
       redirect_to params[:return_to]
     elsif environment.enabled?('allow_change_of_redirection_after_login')
       case user.preferred_login_redirection
@@ -391,6 +394,23 @@ class AccountController < ApplicationController
       else
         redirect_back_or_default(:controller => 'home')
       end
+    end
+  end
+
+  def go_to_signup_initial_page
+    case @user.environment.redirection_after_signup
+      when 'keep_on_same_page'
+        redirect_back_or_default(user.admin_url)
+      when 'site_homepage'
+        redirect_to :controller => :home
+      when 'user_profile_page'
+        redirect_to user.public_profile_url
+      when 'user_homepage'
+        redirect_to user.url
+      when 'user_control_panel'
+        redirect_to user.admin_url
+    else
+     redirect_to user.url
     end
   end
 
