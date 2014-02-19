@@ -40,15 +40,7 @@
       <br style="clear: both;" />
     </div>
   </div>
-  <%= observe_field 'user_login',
-        :url => { :action => 'check_url' },
-        :with => 'identifier',
-        :update => 'url-check',
-        :loading => "jQuery('#user_login').removeClass('#{validation_classes}').addClass('checking');
-                     jQuery('#url-check').html('<p><span class=\"checking\">#{checking_message(:url)}</span></p>');",
-        :complete => "jQuery('#user_login').removeClass('checking')"
-  %>
-
+  <%= javascript_include_tag "signup_form" %>
   <div id='signup-password'>
     <%= required f.password_field(:password, :id => 'user_pw') %>
     <%= content_tag(:small,_('Choose a password that you can remember easily. It must have at least 4 characters.'), :id => 'password-balloon') %>
@@ -182,4 +174,9 @@ jQuery(function($) {
     else $(this).addClass('validated');
   });
 });
+
+function fill_username(element){
+  jQuery('#url-check').html('<p><span class=\"checking\"><%= _('This login name is available') %></span></p>')
+  jQuery('#user_login').val(element).addClass('validated').removeClass('invalid')
+}
 </script>

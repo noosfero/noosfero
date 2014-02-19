@@ -8,7 +8,6 @@ class AccountControllerTest < ActionController::TestCase
   # Be sure to include AuthenticatedTestHelper in test/test_helper.rb instead
   # Then, you can remove it from this and the units test.
   include AuthenticatedTestHelper
-
   all_fixtures
 
   def teardown
@@ -17,8 +16,8 @@ class AccountControllerTest < ActionController::TestCase
 
   def setup
     @controller = AccountController.new
-    @request    = ActionController::TestRequest.new
-    @response   = ActionController::TestResponse.new
+    @request = ActionController::TestRequest.new
+    @response = ActionController::TestResponse.new
     disable_signup_bot_check
   end
 
@@ -34,6 +33,16 @@ class AccountControllerTest < ActionController::TestCase
     post :login, :user => {:login => 'johndoe', :password => 'test'}
     assert session[:user]
     assert_response :redirect
+  end
+
+  should 'return empty string if suggest_based_on_username argument is empty' do
+    result = @controller.suggestion_based_on_username("")
+    assert_equal(result.empty?,true)
+  end
+  
+  should 'return a list with three possible usernames suggestion' do
+    result = @controller.suggestion_based_on_username("teste")
+    assert_equal(result.uniq.size,3)
   end
 
   should 'display notice message if the login fail' do
@@ -646,18 +655,18 @@ class AccountControllerTest < ActionController::TestCase
     assert_redirected_to :controller => 'home', :action => 'index'
   end
 
-  should 'check_url is available on environment' do
+  should 'check_valid_name is available on environment' do
     env = fast_create(Environment, :name => 'Environment test')
     @controller.expects(:environment).returns(env).at_least_once
     profile = create_user('mylogin').person
-    get :check_url, :identifier => 'mylogin'
+    get :check_valid_name, :identifier => 'mylogin'
     assert_equal 'validated', assigns(:status_class)
   end
 
   should 'check if url is not available on environment' do
     @controller.expects(:environment).returns(Environment.default).at_least_once
     profile = create_user('mylogin').person
-    get :check_url, :identifier => 'mylogin'
+    get :check_valid_name, :identifier => 'mylogin'
     assert_equal 'invalid', assigns(:status_class)
   end
 
