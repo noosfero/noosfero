@@ -125,7 +125,7 @@ Noosfero::Application.routes.draw do
   # cache stuff - hack
   match 'public/:action/:id', :controller => 'public'
 
-  match ':profile/*page/versions', :controller => 'content_viewer', :action => 'article_versions', :profile => /#{Noosfero.identifier_format}/, :conditions => { :if => lambda { |env| !Domain.hosting_profile_at(env[:host]) } }
+  match ':profile/*page/versions', :controller => 'content_viewer', :action => 'article_versions', :profile => /#{Noosfero.identifier_format}/, :constraints => EnvironmentDomainConstraint.new
   match '*page/versions', :controller => 'content_viewer', :action => 'article_versions'
 
   # match requests for profiles that don't have a custom domain

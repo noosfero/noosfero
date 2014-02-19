@@ -12,7 +12,7 @@ class TinyMceLanguagesTest < ActionController::IntegrationTest
 
   def assert_exists_tinymce_language_file(file)
     filename = Rails.root.join("public", "javascripts", "tinymce", "jscripts", "tiny_mce", file)
-    assert(File.exists?(filename), filename + " must exist")
+    assert(File.exists?(filename), "#{filename} must exist")
   end
 
 

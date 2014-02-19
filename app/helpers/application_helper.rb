@@ -678,7 +678,7 @@ module ApplicationHelper
       lightbox_link_to '<span class="icon-menu-search"></span>'+ _('Search'), {
                        :controller => 'search',
                        :action => 'popup',
-                       :category_path => (@category ? @category.explode_path : []) },
+                       :category_path => (@category ? @category.explode_path : nil)},
                        :id => 'open_search'
     end
   end
@@ -1073,7 +1073,7 @@ module ApplicationHelper
       links.push(_('New content') => colorbox_options({:href => url_for({:controller => 'cms', :action => 'new', :profile => current_user.login, :cms => true})}))
     end
 
-    link_to(content_tag(:span, _('Contents'), :class => 'icon-menu-articles'), {:controller => "search", :action => 'contents', :category_path => ''}, :id => 'submenu-contents') +
+    link_to(content_tag(:span, _('Contents'), :class => 'icon-menu-articles'), {:controller => "search", :action => 'contents', :category_path => nil}, :id => 'submenu-contents') +
     link_to(content_tag(:span, _('Contents menu')), '#', :onclick => "toggleSubmenu(this,'',#{j links.to_json}); return false", :class => 'menu-submenu-trigger up', :id => 'submenu-contents-trigger')
   end
   alias :browse_contents_menu :search_contents_menu

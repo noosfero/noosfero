@@ -46,7 +46,7 @@ class BlocksTest < ActionController::IntegrationTest
     block = blog_on_article_block_bootstrap
     p = block.owner
     b = block.article
-    f = fast_create(Folder, :name => 'Folder1', :profile_id => p.id)
+    f = Folder.create!(:name => 'Folder1', :profile => p)
     b.parent = f
     b.save!
     get "/profile/#{block.owner.identifier}"

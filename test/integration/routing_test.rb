@@ -258,16 +258,14 @@ class RoutingTest < ActionController::IntegrationTest
 
   should 'have route to versions of an article' do
 
-    assert_routing('/ze/work/free-software/versions', :controller => 'content_viewer', :action => 'article_versions', :profile => 'ze', :page => ['work', "free-software"])
+    assert_routing('/ze/work/free-software/versions', :controller => 'content_viewer', :action => 'article_versions', :profile => 'ze', :page => 'work/free-software')
   end
 
   should 'have route to versions of an article if profile has domain' do
     user = create_user('testuser').person
     domain = Domain.create!(:name => 'example.com', :owner => user)
 
-    ActionController::TestRequest.any_instance.expects(:host).returns('www.example.com')
-
-    assert_routing('/work/free-software/versions', :controller => 'content_viewer', :action =>  'article_versions', :page => [ 'work', 'free-software'] )
+    assert_routing('http://www.example.com/work/free-software/versions', :controller => 'content_viewer', :action =>  'article_versions', :page => 'work/free-software')
   end
 
 
