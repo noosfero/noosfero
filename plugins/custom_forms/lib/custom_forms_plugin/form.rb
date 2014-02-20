@@ -1,13 +1,16 @@
 class CustomFormsPlugin::Form < Noosfero::Plugin::ActiveRecord
   belongs_to :profile
 
-  has_many :fields, :class_name => 'CustomFormsPlugin::Field', :dependent => :destroy, :order => 'position'
+  has_many :fields, :order => 'position', :class_name => 'CustomFormsPlugin::Field', :dependent => :destroy
+  accepts_nested_attributes_for :fields, :allow_destroy => true
+
   has_many :submissions, :class_name => 'CustomFormsPlugin::Submission'
 
   serialize :access
 
   validates_presence_of :profile, :name
   validates_uniqueness_of :slug, :scope => :profile_id
+  validate :period_range, :if => Proc.new { |f| f.begining.present? && f.ending.present? }
   validate :access_format
 
   before_validation do |form|
@@ -15,10 +18,16 @@ class CustomFormsPlugin::Form < Noosfero::Plugin::ActiveRecord
     form.access = nil if form.access.blank?
   end
 
+  after_destroy do |form|
+    tasks = CustomFormsPlugin::MembershipSurvey.from(form.profile).opened.select { |t| t.form_id == form.id }
+    tasks.each {|task| task.cancel}
+  end
+
   named_scope :from, lambda {|profile| {:conditions => {:profile_id => profile.id}}}
-  named_scope :on_memberships, {:conditions => {:on_membership => true}}
+  named_scope :on_memberships, {:conditions => {:on_membership => true, :for_admission => false}}
+  named_scope :for_admissions, {:conditions => {:for_admission => true}}
 =begin
-  named_scope :accessible_to lambda do |profile| 
+  named_scope :accessible_to lambda do |profile|
     #TODO should verify is profile is associated with the form owner
     profile_associated = ???
     {:conditions => ["
@@ -32,6 +41,10 @@ class CustomFormsPlugin::Form < Noosfero::Plugin::ActiveRecord
 
   def expired?
     (begining.present? && Time.now < begining) || (ending.present? && Time.now > ending)
+  end
+
+  def will_open?
+    begining.present? && Time.now < begining
   end
 
   def accessible_to(target)
@@ -58,7 +71,7 @@ class CustomFormsPlugin::Form < Noosfero::Plugin::ActiveRecord
       elsif access.kind_of?(Array)
         access.each do |value|
           if !value.kind_of?(Integer) || !Profile.exists?(value)
-            errors.add(:access, _('There is no profile with the provided id.')) 
+            errors.add(:access, _('There is no profile with the provided id.'))
             break
           end
         end
@@ -66,5 +79,9 @@ class CustomFormsPlugin::Form < Noosfero::Plugin::ActiveRecord
         errors.add(:access, _('Invalid type format of access.'))
       end
     end
+  end
+
+  def period_range
+    errors.add(:base, _('The time range selected is invalid.')) if ending < begining 
   end
 end

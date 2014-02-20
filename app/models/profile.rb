@@ -84,7 +84,8 @@ class Profile < ActiveRecord::Base
   def members
     scopes = plugins.dispatch_scopes(:organization_members, self)
     scopes << Person.members_of(self)
-    scopes.size == 1 ? scopes.first : Person.or_scope(scopes)
+    return scopes.first if scopes.size == 1
+    ScopeTool.union *scopes
   end
 
   def members_count
@@ -761,8 +762,20 @@ private :generate_url, :url_options
     !environment.enabled?('disable_contact_' + self.class.name.downcase)
   end
 
+  include Noosfero::Plugin::HotSpot
+  
+  def folder_types
+    types = Article.folder_types
+    plugins.dispatch(:content_types).each {|type|
+      if type < Folder
+        types << type.name
+      end
+    }
+    types
+  end
+
   def folders
-    articles.folders
+    articles.folders(self)
   end
 
   def image_galleries

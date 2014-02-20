@@ -10,7 +10,7 @@ class ProfileDesignControllerTest < ActionController::TestCase
   PERSON_BLOCKS_WITH_MEMBERS = PERSON_BLOCKS + [MembersBlock]
   PERSON_BLOCKS_WITH_BLOG = PERSON_BLOCKS + [BlogArchivesBlock]
 
-  ENTERPRISE_BLOCKS = COMMOM_BLOCKS + [DisabledEnterpriseMessageBlock, FeaturedProductsBlock, FansBlock]
+  ENTERPRISE_BLOCKS = COMMOM_BLOCKS + [DisabledEnterpriseMessageBlock, FeaturedProductsBlock, FansBlock, ProductCategoriesBlock]
   ENTERPRISE_BLOCKS_WITH_PRODUCTS_ENABLE = ENTERPRISE_BLOCKS + [ProductsBlock]
 
   attr_reader :holder
@@ -299,6 +299,27 @@ class ProfileDesignControllerTest < ActionController::TestCase
     assert !@controller.instance_variable_get('@side_block_types').include?(CustomBlock7)
     assert !@controller.instance_variable_get('@side_block_types').include?(CustomBlock8)
   end
+
+  should 'not edit main block with never option' do
+    get :edit, :profile => 'designtestuser', :id => @b4.id
+    assert_no_tag :input, :attributes => { :type => 'radio', :value => 'never'}
+  end
+
+  should 'not edit main block with home_page_only option' do
+    get :edit, :profile => 'designtestuser', :id => @b4.id
+    assert_no_tag :input, :attributes => { :type => 'radio', :value => 'home_page_only'}
+  end
+
+  should 'edit main block with always option' do
+    get :edit, :profile => 'designtestuser', :id => @b4.id
+    assert_tag :input, :attributes => { :type => 'radio', :value => 'always'}
+  end
+
+  should 'edit main block with except_home_page option' do
+    get :edit, :profile => 'designtestuser', :id => @b4.id
+    assert_tag :input, :attributes => { :type => 'radio', :value => 'except_home_page'}
+  end
+
 
   ######################################################
   # END - tests for BoxOrganizerController features
@@ -713,6 +734,14 @@ class ProfileDesignControllerTest < ActionController::TestCase
 
     Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([TestBlockPlugin.new])
     assert !@controller.available_blocks.include?(CustomBlock1)
+  end
+
+  should 'clone a block' do
+    block = ProfileImageBlock.create!(:box => profile.boxes.first)
+    assert_difference ProfileImageBlock, :count, 1 do
+      post :clone, :id => block.id, :profile => profile.identifier
+      assert_response :redirect
+    end
   end
 
 end

@@ -18,7 +18,7 @@ class WorkAssignmentPlugin < Noosfero::Plugin
   end
 
   def content_types
-    [WorkAssignmentPlugin::WorkAssignment] if context.profile.organization?
+    [WorkAssignmentPlugin::WorkAssignment] if context.respond_to?(:profile) && context.profile.organization?
   end
 
   def stylesheet?

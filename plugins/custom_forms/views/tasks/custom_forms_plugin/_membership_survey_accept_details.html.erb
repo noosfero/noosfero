@@ -3,8 +3,14 @@
 
 <h2><%= @form.name %></h2>
 <p><%= @form.description %></p>
+<% if @form.expired? %>
+  <% if @form.will_open? %>
+    <h3><%= _('Sorry, you can\'t fill this form yet') %></h3>
+  <% else %>
+    <h3><%= _('Sorry, you can\'t fill this form anymore') %></h3>
+  <% end %>
+<% end %>
 
 <% f.fields_for :submission do |fi| %>
-  <%#= fi.error_messages_for :submission %>
   <%= render :partial => 'shared/form_submission', :locals => {:f => fi} %>
 <% end %>

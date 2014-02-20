@@ -1,0 +1,104 @@
+#content .box-1 .community-block {
+  display: table;
+  width: 100%;
+}
+
+#content .box-1 .community-block .community-block-logo {
+  float: left;
+  width: 150px;
+  height: 150px;
+  padding: 5px;
+}
+
+#content .box-1 .community-block-info {
+  float: left;
+  padding: 5px;
+  width: 360px;
+  margin-left: 2px;
+}
+
+#content .box-1 .community-block .community-block-title .menu-submenu {
+  bottom: 154px;
+  right: -120px;
+}
+
+#content .box-1 .community-block .community-block-title .menu-submenu-header {
+  display: none;
+}
+
+#content .box-1 .community-block .community-block-title .menu-submenu-content {
+  border: 1px solid #888a85;
+  border-radius: 4px;
+  background-color: #efefef;
+  background-image: none;
+}
+
+#content .box-1 .community-block .community-block-title .menu-submenu-content h4 {
+  display: none;
+}
+
+#content .box-1 .community-block .community-block-title .menu-submenu-content ul {
+  list-style: none;
+}
+
+#content .box-1 .community-block .community-block-title .menu-submenu-content li {
+  padding: 7px;
+  font-size: 10px;
+}
+
+#content .box-1 .community-block .community-block-title .menu-submenu-content a {
+  color: #000;
+}
+
+#content .box-1 .community-block .community-block-title .menu-submenu-footer {
+  display: none;
+}
+
+#content .box-1 .community-block .community-block-title h1 {
+  font-variant: small-caps;
+  color: #555753;
+  text-align: left;
+  padding-left: 10px;
+  margin: 0px 0px 2px 0px;
+}
+
+#content .box-1 .community-block .community-block-button {
+  border: 1px solid #CCCCCC;
+  border-radius: 4px;
+  float: right;
+  height: 22px;
+  line-height: 22px;
+  margin-top: 1px;
+  margin-right: 1px;
+  background-color: #F4F4F4;
+  background-position: center center;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+
+#content .box-1 .community-block .community-block-button.icon-add {
+  width: 20px;
+  background-image: url('/designs/icons/default/Tango/16x16/actions/add.png');
+}
+
+#content .box-1 .community-block .community-block-button.icon-remove {
+  width: 20px;
+  background-image: url('/designs/icons/default/Tango/16x16/actions/remove.png');
+}
+
+#content .box-1 .community-block .community-block-button.icon-arrow {
+  width: 16px;
+  background-image: url('/images/top-arrow.png');
+}
+
+#content .box-1 .community-block .community-block-button:hover {
+  background-color: #DDDDDD;
+}
+
+
+#content .box-1 .community-block .community-block-description {
+  font-style: italic;
+  color: black;
+  padding: 10px;
+}
+

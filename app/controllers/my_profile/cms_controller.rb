@@ -2,6 +2,8 @@ class CmsController < MyProfileController
 
   protect 'edit_profile', :profile, :only => [:set_home_page]
 
+  include ArticleHelper
+
   def self.protect_if(*args)
     before_filter(*args) do |c|
       user, profile = c.send(:user), c.send(:profile)
@@ -64,12 +66,23 @@ class CmsController < MyProfileController
   end
 
   def edit
+    @success_back_to = params[:success_back_to]
     @article = profile.articles.find(params[:id])
+    version = params[:version]
+    @article.revert_to(version) if version
+
     @parent_id = params[:parent_id]
     @type = params[:type] || @article.class.to_s
     translations if @article.translatable?
     continue = params[:continue]
 
+    @article.article_privacy_exceptions = params[:q].split(/,/).map{|n| environment.people.find n.to_i} unless params[:q].nil?
+
+    @tokenized_children = prepare_to_token_input(
+                            profile.members.includes(:articles_with_access).find_all{ |m|
+                              m.articles_with_access.include?(@article)
+                            }
+                          )
     refuse_blocks
     record_coming
     if request.post?
@@ -78,7 +91,7 @@ class CmsController < MyProfileController
       if @article.update_attributes(params[:article])
         if !continue
           if @article.content_type.nil? || @article.image?
-            redirect_to @article.view_url
+            success_redirect
           else
             redirect_to :action => (@article.parent ? 'view' : 'index'), :id => @article.parent
           end
@@ -90,6 +103,7 @@ class CmsController < MyProfileController
   def new
     # FIXME this method should share some logic wirh edit !!!
 
+    @success_back_to = params[:success_back_to]
     # user must choose an article type first
 
     @parent = profile.articles.find(params[:parent_id]) if params && params[:parent_id]
@@ -130,11 +144,13 @@ class CmsController < MyProfileController
 
     continue = params[:continue]
     if request.post?
+      @article.article_privacy_exceptions = params[:q].split(/,/).map{|n| environment.people.find n.to_i} unless params[:q].nil?
+
       if @article.save
         if continue
           redirect_to :action => 'edit', :id => @article
         else
-          redirect_to @article.view_url
+          success_redirect
         end
         return
       end
@@ -189,7 +205,7 @@ class CmsController < MyProfileController
       @article.destroy
       session[:notice] = _("\"#{@article.name}\" was removed.")
       referer = ActionController::Routing::Routes.recognize_path URI.parse(request.referer).path rescue nil
-      if referer and referer[:controller] == 'cms'
+      if referer and referer[:controller] == 'cms' and referer[:action] != 'edit'
         redirect_to referer
       elsif @article.parent
         redirect_to @article.parent.url
@@ -290,6 +306,12 @@ class CmsController < MyProfileController
     render :text => article_list_to_json(results), :content_type => 'application/json'
   end
 
+  def search_article_privacy_exceptions
+    arg = params[:q].downcase
+    result = profile.members.find(:all, :conditions => ['LOWER(name) LIKE ?', "%#{arg}%"])
+    render :text => prepare_to_token_input(result).to_json
+  end
+
   def media_upload
     files_uploaded = []
     parent = check_parent(params[:parent_id])
@@ -386,5 +408,12 @@ class CmsController < MyProfileController
     true
   end
 
-end
+  def success_redirect
+    if !@success_back_to.blank?
+      redirect_to @success_back_to
+    else
+      redirect_to @article.view_url
+    end
+  end
 
+end

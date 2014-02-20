@@ -1383,17 +1383,21 @@ class ProfileControllerTest < ActionController::TestCase
     assert_equal "Comment successfully added.", assigns(:message)
   end
 
-  should 'display comment in wall if user was removed' do
+  should 'display comment in wall if user was removed after click in view all comments' do
     UserStampSweeper.any_instance.stubs(:current_user).returns(profile)
     article = TinyMceArticle.create!(:profile => profile, :name => 'An article about free software')
     to_be_removed = create_user('removed_user').person
     comment = Comment.create!(:author => to_be_removed, :title => 'Test Comment', :body => 'My author does not exist =(', :source_id => article.id, :source_type => 'Article')
     to_be_removed.destroy
 
-    login_as(profile.identifier)
-    get :index, :profile => profile.identifier
+    activity = ActionTracker::Record.last
 
-    assert_tag :tag => 'span', :content => '(removed user)', :attributes => {:class => 'comment-user-status comment-user-status-wall icon-user-removed'}
+    login_as(profile.identifier)
+    get :more_comments, :profile => profile.identifier, :activity => activity.id, :comment_page => 1, :tab_action => 'wall'
+
+    assert_select_rjs :insert_html do
+      assert_select 'span', :content => '(removed user)', :attributes => {:class => 'comment-user-status comment-user-status-wall icon-user-removed'}
+    end
   end
 
   should 'not display spam comments in wall' do
@@ -1407,7 +1411,7 @@ class ProfileControllerTest < ActionController::TestCase
     assert !/This article makes me hungry/.match(@response.body), 'Spam comment was shown!'
   end
 
-  should 'display comment in wall from non logged users' do
+  should 'display comment in wall from non logged users after click in view all comments' do
     UserStampSweeper.any_instance.stubs(:current_user).returns(profile)
     article = TinyMceArticle.create!(:profile => profile, :name => 'An article about free software')
     comment = Comment.create!(:name => 'outside user', :email => 'outside@localhost.localdomain', :title => 'Test Comment', :body => 'My author does not exist =(', :source_id => article.id, :source_type => 'Article')
@@ -1415,7 +1419,14 @@ class ProfileControllerTest < ActionController::TestCase
     login_as(profile.identifier)
     get :index, :profile => profile.identifier
 
-    assert_tag :tag => 'span', :content => '(unauthenticated user)', :attributes => {:class => 'comment-user-status comment-user-status-wall icon-user-unknown'}
+    activity = ActionTracker::Record.last
+
+    login_as(profile.identifier)
+    get :more_comments, :profile => profile.identifier, :activity => activity.id, :comment_page => 1, :tab_action => 'wall'
+
+    assert_select_rjs :insert_html do
+      assert_select 'span', :content => '(unauthenticated user)', :attributes => {:class => 'comment-user-status comment-user-status-wall icon-user-unknown'}
+    end
   end
 
   should 'add locale on mailing' do

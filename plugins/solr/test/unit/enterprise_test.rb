@@ -11,7 +11,7 @@ class EnterpriseTest < ActiveSupport::TestCase
 
   should 'reindex when products are changed' do
     enterprise = fast_create(Enterprise)
-    product = fast_create(Product, :enterprise_id => enterprise.id, :product_category_id => product_category.id)
+    product = fast_create(Product, :profile_id => enterprise.id, :product_category_id => product_category.id)
     Product.expects(:solr_batch_add_association).with(product, :enterprise)
     product.update_attribute :name, "novo nome"
   end

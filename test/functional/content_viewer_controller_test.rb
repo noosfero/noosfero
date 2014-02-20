@@ -369,6 +369,35 @@ class ContentViewerControllerTest < ActionController::TestCase
     assert_redirected_to :host => p.default_hostname, :controller => 'content_viewer', :action => 'view_page', :profile => p.identifier, :page => a2.explode_path
   end
 
+  should "display current article's versions" do
+    page = TextArticle.create!(:name => 'myarticle', :body => 'test article', :display_versions => true, :profile => profile)
+    page.body = 'test article edited'; page.save
+
+    get :article_versions, :profile => profile.identifier, :page => [ 'myarticle' ]
+    assert_tag :tag => 'ul', :attributes => { :class => 'article-versions' }, :descendant => {
+      :tag => 'a',
+      :attributes => { :href => "http://#{profile.environment.default_hostname}/#{profile.identifier}/#{page.path}?version=1" }
+    }
+  end
+
+  should "fetch correct article version" do
+    page = TextArticle.create!(:name => 'myarticle', :body => 'original article', :display_versions => true, :profile => profile)
+    page.body = 'edited article'; page.save
+
+    get :view_page, :profile => profile.identifier, :page => [ 'myarticle' ], :version => 1
+
+    assert_tag :tag => 'div', :attributes => { :class => /article-body/ }, :content => /original article/
+  end
+
+  should "display current article if version does not exist" do
+    page = TextArticle.create!(:name => 'myarticle', :body => 'original article', :display_versions => true, :profile => profile)
+    page.body = 'edited article'; page.save
+
+    get :view_page, :profile => profile.identifier, :page => [ 'myarticle' ], :version => 'bli'
+
+    assert_tag :tag => 'div', :attributes => { :class => /article-body/ }, :content => /edited article/
+  end
+
   should 'not return an article of a different user' do
     p1 = create_user('test_user').person
     a = p1.articles.create!(:name => 'old-name')
@@ -1305,6 +1334,33 @@ class ContentViewerControllerTest < ActionController::TestCase
 
     get :view_page, :profile => profile.identifier, :page => [blog.path]
     assert_tag :tag => 'strong', :content => /bold/
+  end
+  
+  should 'add extra content on article header from plugins' do
+    class Plugin1 < Noosfero::Plugin
+      def article_header_extra_contents(args)
+        lambda {
+          content_tag('div', '', :class => 'plugin1')
+         }
+      end
+    end
+    class Plugin2 < Noosfero::Plugin
+      def article_header_extra_contents(args)
+        lambda {
+          content_tag('div', '', :class => 'plugin2')
+         }
+      end
+    end
+
+    Environment.default.enable_plugin(Plugin1.name)
+    Environment.default.enable_plugin(Plugin2.name)
+
+    page = profile.articles.create!(:name => 'myarticle', :body => 'the body of the text')
+
+    xhr :get, :view_page, :profile => profile.identifier, :page => [ 'myarticle' ], :toolbar => true
+
+    assert_tag :tag => 'div', :attributes => {:class => 'plugin1'}
+    assert_tag :tag => 'div', :attributes => {:class => 'plugin2'}
   end
 
   should 'display link to download of non-recognized file types on its page' do

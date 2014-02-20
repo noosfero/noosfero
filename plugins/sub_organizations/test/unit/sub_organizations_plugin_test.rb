@@ -45,6 +45,35 @@ class SubOrganizationsTest < ActiveSupport::TestCase
     assert org3_members.blank?
   end
 
+  should 'include parent-organizations in persons memberships' do
+    org1 = fast_create(Organization)
+    org2 = fast_create(Organization)
+    org3 = fast_create(Organization)
+    person1 = fast_create(Person)
+    person2 = fast_create(Person)
+    org1.add_member(person2)
+    org2.add_member(person1)
+    SubOrganizationsPlugin::Relation.create!(:parent => org1, :child => org2)
+    SubOrganizationsPlugin::Relation.create!(:parent => org1, :child => org3)
+
+    person1_memberships = plugin.person_memberships(person1)
+    person2_memberships = plugin.person_memberships(person2)
+
+    assert_equal ActiveRecord::NamedScope::Scope, person1_memberships.class
+    assert_includes person1_memberships, org1
+    assert_not_includes person1_memberships, org2
+    assert_not_includes person1_memberships, org3
+    assert person2_memberships.blank?
+  end
+
+  should 'return blank for person memberships with no organization ' do
+    person1 = fast_create(Person)
+
+    person1_memberships = plugin.person_memberships(person1)
+
+    assert person1_memberships.blank?
+  end
+
   should 'grant permission that user has on parent organizations over children orgnaizations' do
     person = create_user('admin-user').person
     org1 = fast_create(Organization)

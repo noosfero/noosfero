@@ -6,7 +6,7 @@ class Blog < Folder
   #FIXME This should be used until there is a migration to fix all blogs that
   # already have folders inside them
   def posts_with_no_folders
-    posts_without_no_folders.no_folders
+    posts_without_no_folders.no_folders(profile)
   end
   alias_method_chain :posts, :no_folders
 

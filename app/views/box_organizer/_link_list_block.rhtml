@@ -23,7 +23,7 @@
       content_tag('td', text_field_tag('block[links][][name]', '', :maxlength => 20)) +
       content_tag('td', text_field_tag('block[links][][address]', nil, :class => 'link-address'), :class => 'cel-address') +
       content_tag('td', select_tag('block[links][][target]',
-options_for_select(LinkListBlock::TARGET_OPTIONS, link[:target])))
+options_for_select(LinkListBlock::TARGET_OPTIONS, '_self')))
     ) +
     javascript_tag("$('edit-link-list-block').scrollTop = $('edit-link-list-block').scrollHeight")
 end %>

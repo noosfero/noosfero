@@ -166,7 +166,7 @@ class SearchControllerTest < ActionController::TestCase
 
     enterprise = fast_create(Enterprise)
     prod_cat = fast_create(ProductCategory)
-    product = fast_create(Product, {:enterprise_id => enterprise.id, :name => "produto1", :product_category_id => prod_cat.id}, :search => true)
+    product = fast_create(Product, {:profile_id => enterprise.id, :name => "produto1", :product_category_id => prod_cat.id}, :search => true)
 
     e = Environment.default
     e.enable_plugin(Plugin1.name)
@@ -191,7 +191,7 @@ class SearchControllerTest < ActionController::TestCase
     end
     enterprise = fast_create(Enterprise)
     prod_cat = fast_create(ProductCategory)
-    product = fast_create(Product, {:enterprise_id => enterprise.id, :name => "produto1", :product_category_id => prod_cat.id}, :search => true)
+    product = fast_create(Product, {:profile_id => enterprise.id, :name => "produto1", :product_category_id => prod_cat.id}, :search => true)
 
     environment = Environment.default
     environment.enable_plugin(Plugin1.name)
@@ -348,15 +348,15 @@ class SearchControllerTest < ActionController::TestCase
   should 'show events for current month by default' do
     person = create_user('someone').person
 
-    ev1 = create_event(person, :name => 'event 1', :category_ids => [@category.id], 
+    ev1 = create_event(person, :name => 'event 1', :category_ids => [@category.id],
 			:start_date => Date.today + 2.month)
-    ev2 = create_event(person, :name => 'event 2', :category_ids => [@category.id], 
+    ev2 = create_event(person, :name => 'event 2', :category_ids => [@category.id],
 			:start_date => Date.today + 2.day)
 
     get :events
 
     assert_not_includes assigns(:searches)[:events][:results], ev1
-    assert_includes assigns(:searches)[:events][:results], ev2 
+    assert_includes assigns(:searches)[:events][:results], ev2
   end
 
   should 'list events for a given month' do
@@ -394,7 +394,7 @@ class SearchControllerTest < ActionController::TestCase
     prod_cat2 = ProductCategory.create!(:name => 'prod cat test 2', :environment => Environment.default, :parent => prod_cat1)
     ent = create_profile_with_optional_category(Enterprise, 'test ent', cat)
 
-    product = prod_cat2.products.create!(:name => 'prod test 1', :enterprise_id => ent.id)
+    product = prod_cat2.products.create!(:name => 'prod test 1', :profile_id => ent.id)
 
     get :products, :category_path => cat.path.split('/'), :product_category => prod_cat1.id
 
@@ -590,7 +590,7 @@ class SearchControllerTest < ActionController::TestCase
     a = Article.create!(:name => 'my article', :profile_id => fast_create(Person).id)
     a.tag_list = ['one', 'two']
 		a.save_tags
-		
+
 		get :tags
 
 		assert assigns(:tags)["two"] = 1
@@ -605,7 +605,7 @@ class SearchControllerTest < ActionController::TestCase
     a2.tag_list = ['two', 'three']
 		a.save_tags
     a2.save_tags
-		
+
 		get :tag, :tag => 'two'
 
     assert_equivalent [a, a2], assigns(:searches)[:tag][:results]
@@ -621,7 +621,7 @@ class SearchControllerTest < ActionController::TestCase
 		p2 = Person.create!(:name => 'Adamastor', :identifier => 'adam', :user_id => fast_create(User).id)
     art1 = Article.create!(:name => 'my article', :profile_id => p1.id)
     art2 = Article.create!(:name => 'my article', :profile_id => p2.id)
-    
+
     get :articles, :query => 'my article'
 
     assert_equal [art2], assigns(:searches)[:articles][:results]
@@ -632,22 +632,22 @@ class SearchControllerTest < ActionController::TestCase
 		art1 = Article.create!(:name => 'review C', :profile_id => fast_create(Person).id, :created_at => Time.now-1.days)
 		art2 = Article.create!(:name => 'review A', :profile_id => fast_create(Person).id, :created_at => Time.now)
 		art3 = Article.create!(:name => 'review B', :profile_id => fast_create(Person).id, :created_at => Time.now-2.days)
-    
+
     get :articles, :filter => :more_recent
 
     assert_equal [art2, art1, art3], assigns(:searches)[:articles][:results]
   end
-  
+
   should 'add highlighted CSS class around a highlighted product' do
     enterprise = fast_create(Enterprise)
-    product = Product.create!(:name => 'Enter Sandman', :enterprise_id => enterprise.id, :product_category_id => @product_category.id, :highlighted => true)
+    product = Product.create!(:name => 'Enter Sandman', :profile_id => enterprise.id, :product_category_id => @product_category.id, :highlighted => true)
     get :products
     assert_tag :tag => 'li', :attributes => { :class => 'search-product-item highlighted' }, :content => /Enter Sandman/
   end
 
   should 'do not add highlighted CSS class around an ordinary product' do
     enterprise = fast_create(Enterprise)
-    product = Product.create!(:name => 'Holier Than Thou', :enterprise_id => enterprise.id, :product_category_id => @product_category.id, :highlighted => false)
+    product = Product.create!(:name => 'Holier Than Thou', :profile_id => enterprise.id, :product_category_id => @product_category.id, :highlighted => false)
     get :products
     assert_no_tag :tag => 'li', :attributes => { :class => 'search-product-item highlighted' }, :content => /Holier Than Thou/
   end

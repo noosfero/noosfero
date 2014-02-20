@@ -25,7 +25,10 @@ module CommentHelper
   def comment_actions(comment)
     url = url_for(:profile => profile.identifier, :controller => :comment, :action => :check_actions, :id => comment.id)
     links = links_for_comment_actions(comment)
-    content_tag(:li, link_to(content_tag(:span, _('Contents menu')), '#', :onclick => "toggleSubmenu(this,'',#{links.to_json}); return false", :class => 'menu-submenu-trigger comment-trigger', :url => url), :class=> 'vcard') unless links.empty?
+    links_submenu = links.select{|link| link[:action_bar].blank?}
+    links_action_bar = links - links_submenu
+    links_submenu = links_submenu.collect {|link| link.slice(:link)}
+    render :partial => 'comment/comment_actions', :locals => {:links_submenu => links_submenu, :links_action_bar => links_action_bar, :url => url, :comment => comment}
   end
 
   private

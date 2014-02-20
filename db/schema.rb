@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131121162641) do
+ActiveRecord::Schema.define(:version => 20140108132730) do
 
   create_table "abuse_reports", :force => true do |t|
     t.integer  "reporter_id"
@@ -45,6 +45,11 @@ ActiveRecord::Schema.define(:version => 20131121162641) do
   add_index "action_tracker_notifications", ["action_tracker_id"], :name => "index_action_tracker_notifications_on_action_tracker_id"
   add_index "action_tracker_notifications", ["profile_id", "action_tracker_id"], :name => "index_action_tracker_notif_on_prof_id_act_tracker_id", :unique => true
   add_index "action_tracker_notifications", ["profile_id"], :name => "index_action_tracker_notifications_on_profile_id"
+
+  create_table "article_privacy_exceptions", :id => false, :force => true do |t|
+    t.integer "article_id"
+    t.integer "person_id"
+  end
 
   create_table "article_versions", :force => true do |t|
     t.integer  "article_id"
@@ -410,7 +415,7 @@ ActiveRecord::Schema.define(:version => 20131121162641) do
   end
 
   create_table "products", :force => true do |t|
-    t.integer  "enterprise_id"
+    t.integer  "profile_id"
     t.integer  "product_category_id"
     t.string   "name"
     t.decimal  "price"
@@ -422,10 +427,13 @@ ActiveRecord::Schema.define(:version => 20131121162641) do
     t.boolean  "highlighted",         :default => false
     t.integer  "unit_id"
     t.integer  "image_id"
+    t.string   "type"
+    t.text     "data"
+    t.boolean  "archived",            :default => false
   end
 
-  add_index "products", ["enterprise_id"], :name => "index_products_on_enterprise_id"
   add_index "products", ["product_category_id"], :name => "index_products_on_product_category_id"
+  add_index "products", ["profile_id"], :name => "index_products_on_profile_id"
 
   create_table "profiles", :force => true do |t|
     t.string   "name"
@@ -460,6 +468,8 @@ ActiveRecord::Schema.define(:version => 20131121162641) do
     t.boolean  "is_template",                           :default => false
     t.integer  "template_id"
     t.string   "redirection_after_login"
+    t.string   "personal_website"
+    t.string   "jabber_id"
   end
 
   add_index "profiles", ["environment_id"], :name => "index_profiles_on_environment_id"
@@ -566,6 +576,13 @@ ActiveRecord::Schema.define(:version => 20131121162641) do
 
   add_index "tasks", ["spam"], :name => "index_tasks_on_spam"
 
+  create_table "terms_forum_people", :id => false, :force => true do |t|
+    t.integer "forum_id"
+    t.integer "person_id"
+  end
+
+  add_index "terms_forum_people", ["forum_id", "person_id"], :name => "index_terms_forum_people_on_forum_id_and_person_id"
+
   create_table "thumbnails", :force => true do |t|
     t.integer "size"
     t.string  "content_type"
@@ -609,5 +626,18 @@ ActiveRecord::Schema.define(:version => 20131121162641) do
     t.text    "restrictions"
     t.integer "organization_id"
   end
+
+  create_table "votes", :force => true do |t|
+    t.integer  "vote",          :null => false
+    t.integer  "voteable_id",   :null => false
+    t.string   "voteable_type", :null => false
+    t.integer  "voter_id"
+    t.string   "voter_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "votes", ["voteable_id", "voteable_type"], :name => "fk_voteables"
+  add_index "votes", ["voter_id", "voter_type"], :name => "fk_voters"
 
 end

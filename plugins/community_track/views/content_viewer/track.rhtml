@@ -9,7 +9,7 @@
   <h3><%= _("Steps") %></h3>
 
   <% if track.allow_create?(user) %>
-    <div class="actions">
+    <div class="track actions">
         <% content_tag('a', :href => url_for({:controller => 'cms', :action => 'new', :type => "CommunityTrackPlugin::Step", :parent_id => track.id}), :class => 'button with-text icon-add') do %>
           <strong><%= _("New %s") % CommunityTrackPlugin::Step.short_description %></strong>
         <% end %>
@@ -28,40 +28,15 @@
     <% end %>
 
     <ul id="sortable" class="step_list">
-    <% track.steps.each do |step| %>
-      <li class="step">
-        <%= hidden_field_tag "step_ids[]", step.id %>
-        <div class="position"><%= step.position %></div>
-        <div class="content">
-          <div class="date">
-            <%= show_period(step.start_date, step.end_date) %>
-          </div>
-          <div class="name"><%= link_to step.name, step.url %></div>
-          <div class="lead"><%= step.body %></div>
-        </div>
-      </li>
-    <% end %>
+      <%= render :partial => 'step_item', :collection => track.steps %>
     </ul>
-  <% if track.allow_create?(user) && !track.hidden_steps.empty? %>
-    <div id="hidden_steps">
-      <h3><%= _('Hidden Steps') %></h3>
-      <ul class="step_list">
-      <% track.hidden_steps.each do |step| %>
-        <li class="step">
-          <%= hidden_field_tag "step_ids[]", step.id %>
-          <div class="position"></div>
-          <div class="content">
-            <div class="date">
-              <%= show_period(step.start_date, step.end_date) %>
-            </div>
-            <div class="name"><%= link_to step.name, step.url %></div>
-            <div class="lead"><%= step.body %></div>
-          </div>
-        </li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+    <% if track.allow_create?(user) && !track.hidden_steps.empty? %>
+      <div id="hidden_steps">
+        <h3><%= _('Hidden Steps') %></h3>
+        <ul class="step_list">
+          <%= render :partial => 'step_item', :collection => track.hidden_steps %>
+        </ul>
+      </div>
+    <% end %>
 </div>
 <% end %>
-</div>

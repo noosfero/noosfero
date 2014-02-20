@@ -81,7 +81,7 @@ class SearchControllerTest < ActionController::TestCase
 		state = fast_create(State, :name => 'Acre', :acronym => 'AC')
 		city = fast_create(City, :name => 'Rio Branco', :parent_id => state.id)
 		ent = fast_create(Enterprise, :region_id => city.id)
-    prod = Product.create!(:name => 'Sound System', :enterprise_id => ent.id, :product_category_id => @product_category.id)
+    prod = Product.create!(:name => 'Sound System', :profile_id => ent.id, :product_category_id => @product_category.id)
 		qualifier1 = fast_create(Qualifier)
 		qualifier2 = fast_create(Qualifier)
 		prod.qualifiers_list = [[qualifier1.id, 0], [qualifier2.id, 0]]
@@ -159,7 +159,7 @@ class SearchControllerTest < ActionController::TestCase
     prod_cat = ProductCategory.create!(:name => 'prod cat test', :environment => Environment.default)
     ent = create_profile_with_optional_category(Enterprise, 'test enterprise')
     (1..SearchController::LIST_SEARCH_LIMIT+5).each do |n|
-      fast_create(Product, {:name => "produto #{n}", :enterprise_id => ent.id, :product_category_id => prod_cat.id}, :search => true)
+      fast_create(Product, {:name => "produto #{n}", :profile_id => ent.id, :product_category_id => prod_cat.id}, :search => true)
     end
 
     get :products
@@ -183,13 +183,13 @@ class SearchControllerTest < ActionController::TestCase
 
     cat = fast_create(ProductCategory)
     ent1 = Enterprise.create!(:name => 'ent1', :identifier => 'ent1', :lat => '1.3', :lng => '1.3')
-    prod1 = Product.create!(:name => 'produto 1', :enterprise_id => ent1.id, :product_category_id => cat.id)
+    prod1 = Product.create!(:name => 'produto 1', :profile_id => ent1.id, :product_category_id => cat.id)
     ent2 = Enterprise.create!(:name => 'ent2', :identifier => 'ent2', :lat => '2.0', :lng => '2.0')
-    prod2 = Product.create!(:name => 'produto 2', :enterprise_id => ent2.id, :product_category_id => cat.id)
+    prod2 = Product.create!(:name => 'produto 2', :profile_id => ent2.id, :product_category_id => cat.id)
     ent3 = Enterprise.create!(:name => 'ent3', :identifier => 'ent3', :lat => '1.6', :lng => '1.6')
-    prod3 = Product.create!(:name => 'produto 3', :enterprise_id => ent3.id, :product_category_id => cat.id)
+    prod3 = Product.create!(:name => 'produto 3', :profile_id => ent3.id, :product_category_id => cat.id)
     ent4 = Enterprise.create!(:name => 'ent4', :identifier => 'ent4', :lat => '10', :lng => '10')
-    prod4 = Product.create!(:name => 'produto 4', :enterprise_id => ent4.id, :product_category_id => cat.id)
+    prod4 = Product.create!(:name => 'produto 4', :profile_id => ent4.id, :product_category_id => cat.id)
 
     get :products
     assert_equivalent [prod1, prod3, prod2], assigns(:searches)[:products][:results].docs
@@ -216,9 +216,9 @@ class SearchControllerTest < ActionController::TestCase
 
   should 'order product results by more recent when requested' do
 		ent = fast_create(Enterprise)
-    prod1 = Product.create!(:name => 'product 1', :enterprise_id => ent.id, :product_category_id => @product_category.id)
-    prod2 = Product.create!(:name => 'product 2', :enterprise_id => ent.id, :product_category_id => @product_category.id)
-    prod3 = Product.create!(:name => 'product 3', :enterprise_id => ent.id, :product_category_id => @product_category.id)
+    prod1 = Product.create!(:name => 'product 1', :profile_id => ent.id, :product_category_id => @product_category.id)
+    prod2 = Product.create!(:name => 'product 2', :profile_id => ent.id, :product_category_id => @product_category.id)
+    prod3 = Product.create!(:name => 'product 3', :profile_id => ent.id, :product_category_id => @product_category.id)
 
     # change others attrs will make updated_at = Time.now for all
     Product.record_timestamps = false
@@ -235,8 +235,8 @@ class SearchControllerTest < ActionController::TestCase
   should 'only list products from enabled enterprises' do
 		ent1 = fast_create(Enterprise, :enabled => true)
 		ent2 = fast_create(Enterprise, :enabled => false)
-    prod1 = Product.create!(:name => 'product 1', :enterprise_id => ent1.id, :product_category_id => @product_category.id)
-    prod2 = Product.create!(:name => 'product 2', :enterprise_id => ent2.id, :product_category_id => @product_category.id)
+    prod1 = Product.create!(:name => 'product 1', :profile_id => ent1.id, :product_category_id => @product_category.id)
+    prod2 = Product.create!(:name => 'product 2', :profile_id => ent2.id, :product_category_id => @product_category.id)
 
     get :products, :query => 'product'
 
@@ -246,9 +246,9 @@ class SearchControllerTest < ActionController::TestCase
 
   should 'order product results by name when requested' do
 		ent = fast_create(Enterprise)
-    prod1 = Product.create!(:name => 'product 1', :enterprise_id => ent.id, :product_category_id => @product_category.id)
-    prod2 = Product.create!(:name => 'product 2', :enterprise_id => ent.id, :product_category_id => @product_category.id)
-    prod3 = Product.create!(:name => 'product 3', :enterprise_id => ent.id, :product_category_id => @product_category.id)
+    prod1 = Product.create!(:name => 'product 1', :profile_id => ent.id, :product_category_id => @product_category.id)
+    prod2 = Product.create!(:name => 'product 2', :profile_id => ent.id, :product_category_id => @product_category.id)
+    prod3 = Product.create!(:name => 'product 3', :profile_id => ent.id, :product_category_id => @product_category.id)
 
     prod3.update_attribute :name, 'product A'
     prod2.update_attribute :name, 'product B'
@@ -269,11 +269,11 @@ class SearchControllerTest < ActionController::TestCase
 
 		cat = fast_create(ProductCategory)
 		ent1 = Enterprise.create!(:name => 'ent1', :identifier => 'ent1', :lat => '-5.0', :lng => '-5.0')
-    prod1 = Product.create!(:name => 'product 1', :enterprise_id => ent1.id, :product_category_id => cat.id)
+    prod1 = Product.create!(:name => 'product 1', :profile_id => ent1.id, :product_category_id => cat.id)
 		ent2 = Enterprise.create!(:name => 'ent2', :identifier => 'ent2', :lat => '2.0', :lng => '2.0')
-    prod2 = Product.create!(:name => 'product 2', :enterprise_id => ent2.id, :product_category_id => cat.id)
+    prod2 = Product.create!(:name => 'product 2', :profile_id => ent2.id, :product_category_id => cat.id)
 		ent3 = Enterprise.create!(:name => 'ent3', :identifier => 'ent3', :lat => '10.0', :lng => '10.0')
-    prod3 = Product.create!(:name => 'product 3', :enterprise_id => ent3.id, :product_category_id => cat.id)
+    prod3 = Product.create!(:name => 'product 3', :profile_id => ent3.id, :product_category_id => cat.id)
 
 		get :products, :query => 'product', :order_by => :closest
 		assert_equal [prod2, prod1, prod3], assigns(:searches)[:products][:results].docs
