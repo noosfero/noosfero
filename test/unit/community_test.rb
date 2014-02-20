@@ -293,8 +293,8 @@ class CommunityTest < ActiveSupport::TestCase
     p3 = fast_create(Person)
     community.add_member(p3)
     article = create(TextileArticle, :profile_id => community.id)
-    time = article.activity.updated_at
-    Time.stubs(:now).returns(time + 1.day)
+    time = article.activity.updated_at + 1.day
+    Time.stubs(:now).returns(time)
     create(Comment, :source_id => article.id, :title => 'some', :body => 'some', :author_id => p2.id)
     process_delayed_job_queue
     assert_equal time, article.activity.updated_at
