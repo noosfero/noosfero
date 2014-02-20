@@ -147,7 +147,7 @@ class PersonNotifierTest < ActiveSupport::TestCase
       action.stubs(:created_at).returns(DateTime.now)
       action.stubs(:target).returns(fast_create(Forum))
       action.stubs(:comments_count).returns(0)
-      action.stubs(:comments_as_thread).returns([])
+      action.stubs(:comments).returns([])
       action.stubs(:params).returns({'name' => 'home', 'url' => '/', 'lead' => ''})
       action.stubs(:get_url).returns('')
 

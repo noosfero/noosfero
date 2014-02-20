@@ -8,6 +8,6 @@
   </div>
 <% else %>
   <ul>
-    <%= render :partial => 'comment', :collection => activity.comments_as_thread %>
+    <%= render :partial => 'comment', :collection => activity.comments %>
   </ul>
 <% end %>
