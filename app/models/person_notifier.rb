@@ -26,7 +26,9 @@ class PersonNotifier
     if @person.notification_time && @person.notification_time > 0
       from = @person.last_notification || DateTime.now - @person.notification_time.hours
       notifications = @person.tracked_notifications.find(:all, :conditions => ["created_at > ?", from])
-      Mailer::deliver_content_summary(@person, notifications) unless notifications.empty?
+      Noosfero.with_locale @person.environment.default_language do
+        Mailer::deliver_content_summary(@person, notifications) unless notifications.empty?
+      end
       @person.settings[:last_notification] = DateTime.now
       @person.save!
     end
