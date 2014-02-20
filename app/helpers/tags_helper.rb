@@ -41,15 +41,11 @@ module TagsHelper
     max = tags.values.max.to_f
     min = tags.values.min.to_f
 
-    # Uses iconv to translate utf8 strings to ascii.
-    # If can't translate a character, ignore it.
-    require 'iconv'
-    utf8_to_ascii = Iconv.new("ASCII//TRANSLIT//IGNORE","UTF8")
     # Sorts first based on translated strings and then, if they are equal, based on the original form.
     # This way variant characters falls on the same level as their base characters and don't end up
     # at the end of the tag list.
     # Example: AA ÁA AB Z instead of AA AB Z ÁA
-    tags.collect{ |k,v| [utf8_to_ascii.iconv(k).downcase, [k,v]] }.sort.collect { |ascii, t| t }.map do |tag,count|
+    tags.collect{ |k,v| [ActiveSupport::Inflector.transliterate(k).downcase, [k,v]] }.sort.collect { |ascii, t| t }.map do |tag,count|
       if ( max == min )
         v = 0.5
       else
