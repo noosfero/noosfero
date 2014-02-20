@@ -304,14 +304,6 @@ class ProfileController < PublicController
     end
   end
 
-  def profile_info
-    begin
-      @block = profile.blocks.find(params[:block_id])
-    rescue
-      render :text => _('Profile information could not be loaded')
-    end
-  end
-
   def report_abuse
     @abuse_report = AbuseReport.new
     render :layout => false
