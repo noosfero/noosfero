@@ -262,7 +262,10 @@ class Article < ActiveRecord::Base
   # (To override short format representation, override the lead method)
   def to_html(options = {})
     if options[:format] == 'short'
-      display_short_format(self)
+      article = self
+      proc do
+        display_short_format(article)
+      end
     else
       body || ''
     end

@@ -100,7 +100,8 @@ class ArticleTest < ActiveSupport::TestCase
 
   should 'provide short html version' do
     a = fast_create(Article, :body => 'full body', :abstract => 'lead', :profile_id => profile.id)
-    assert_match /lead/, a.to_html(:format=>'short')
+    expects(:display_short_format).with(a).once
+    instance_eval(&a.to_html(:format=>'short'))
   end
 
   should 'provide full html version' do
