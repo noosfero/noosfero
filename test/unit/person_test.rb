@@ -1380,7 +1380,7 @@ class PersonTest < ActiveSupport::TestCase
       u = create_user('user'+i.to_s)
       u.activate
     }
-    assert_equal deactivated, Person.deactivated
+    assert_equivalent deactivated, Person.deactivated
   end
 
   should 'be able to retrieve memberships by role person has' do
