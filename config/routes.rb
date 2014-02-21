@@ -32,8 +32,7 @@ ActionController::Routing::Routes.draw do |map|
   map.connect 'user_themes/*stuff', :controller => 'not_found', :action => 'nothing'
 
   # embed controller
-  map.embed       'embed', :controller => 'embed', :action => 'index'
-  map.embed_block 'embed/:block/', :controller => 'embed', :action => 'block'
+  map.embed_block 'embed/block/:id', :controller => 'embed', :action => 'embed_block', :id => /.+/
 
   # online documentation
   map.doc         'doc', :controller => 'doc', :action => 'index'
