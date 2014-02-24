@@ -265,10 +265,6 @@ function tb_showIframe(){
 	jQuery("#TB_window").css({display:"block"});
 }
 
-function tb_copy_to_clipboard() {
-  alert('Text copied to clipboard!');
-}
-
 function tb_remove() {
  	jQuery("#TB_imageOff").unbind("click");
 	jQuery("#TB_closeWindowButton").unbind("click");

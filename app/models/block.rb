@@ -16,6 +16,10 @@ class Block < ActiveRecord::Base
 
   named_scope :enabled, :conditions => { :enabled => true }
 
+  def embed_code(url)
+    html = "<iframe src='#{url}?source=SOURCE_NAME' frameborder='0' allowfullscreen ></iframe>"
+  end
+
   # Determines whether a given block must be visible. Optionally a
   # <tt>context</tt> must be specified. <tt>context</tt> must be a hash, and
   # may contain the following keys:
