@@ -3,7 +3,7 @@
 # domains.
 class Environment < ActiveRecord::Base
 
-  attr_accessible :name, :is_default, :signup_welcome_text_subject, :signup_welcome_text_body, :terms_of_use, :message_for_disabled_enterprise, :news_amount_by_folder, :default_language, :languages, :description, :organization_approval_method, :enabled_plugins, :enabled_features
+  attr_accessible :name, :is_default, :signup_welcome_text_subject, :signup_welcome_text_body, :terms_of_use, :message_for_disabled_enterprise, :news_amount_by_folder, :default_language, :languages, :description, :organization_approval_method, :enabled_plugins, :enabled_features, :redirection_after_login
 
   has_many :users
 
