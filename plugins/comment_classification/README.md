@@ -11,3 +11,9 @@ choosing the label of the comment. Example: "Suggestion",
 "Disagreement"...
   * Status: users with permission can include a Status for a comment.
 Example: "Merged", "Unmerged"
+
+Dependency
+==========
+
+This plugin was developed to help public consulting and needs the
+CommentGroupPlugin enabled to be used.
