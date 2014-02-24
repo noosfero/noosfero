@@ -13,10 +13,10 @@
 <% end %>
 
 <% button_bar do %>
-  <%= button(:add, __('Create a new community'), :controller => 'memberships', :action => 'new_community', :profile => user.identifier, :back_to => @back_to) %>
+  <%= button(:add, _('Create a new community'), :controller => 'memberships', :action => 'new_community', :profile => user.identifier, :back_to => @back_to) %>
 <% end %>
 
-<% form_tag({:controller => 'community_track_plugin_public', :action => 'select_community', :profile => user.identifier}) do %>
+<%= form_tag({:controller => 'community_track_plugin_public', :action => 'select_community', :profile => user.identifier}) do %>
 <div class="common-profile-list-block">
   <ul>
   <% @communities.each do |community| %>

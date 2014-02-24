@@ -88,7 +88,7 @@ class ContentViewerControllerTest < ActionController::TestCase
 
   should 'render a div with block id for track list block' do
     box = fast_create(Box, :owner_id => @profile.id, :owner_type => @profile.class.name)
-    @block = CommunityTrackPlugin::TrackListBlock.create!(:box => box)
+    @block = create(CommunityTrackPlugin::TrackListBlock, :box => box)
     @profile.boxes << box
     get :view_page, @step.url
     assert_tag :tag => 'div', :attributes => { :class => 'track_list', :id => "track_list_#{@block.id}" }
@@ -96,7 +96,7 @@ class ContentViewerControllerTest < ActionController::TestCase
 
   should 'render a div with block id for track card list block' do
     box = fast_create(Box, :owner_id => @profile.id, :owner_type => @profile.class.name)
-    @block = CommunityTrackPlugin::TrackCardListBlock.create!(:box => box)
+    @block = create(CommunityTrackPlugin::TrackCardListBlock, :box => box)
     @profile.boxes << box
     get :view_page, @step.url
     assert_tag :tag => 'div', :attributes => { :class => 'track_list', :id => "track_list_#{@block.id}" }
@@ -104,7 +104,7 @@ class ContentViewerControllerTest < ActionController::TestCase
 
   should 'render tracks in track list block' do
     box = fast_create(Box, :owner_id => @profile.id, :owner_type => @profile.class.name)
-    @block = CommunityTrackPlugin::TrackListBlock.create!(:box => box)
+    @block = create(CommunityTrackPlugin::TrackListBlock, :box => box)
     @profile.boxes << box
     get :view_page, @step.url
     assert_tag :tag => 'div', :attributes => { :class => "item category_#{@track.category_name}" }, :descendant => { :tag => 'div', :attributes => { :class => 'steps' }, :descendant => { :tag => 'span', :attributes => { :class => "step #{@block.status_class(@step)}" } } }
@@ -112,7 +112,7 @@ class ContentViewerControllerTest < ActionController::TestCase
 
   should 'render tracks in track card list block' do
     box = fast_create(Box, :owner_id => @profile.id, :owner_type => @profile.class.name)
-    @block = CommunityTrackPlugin::TrackCardListBlock.create!(:box => box)
+    @block = create(CommunityTrackPlugin::TrackCardListBlock, :box => box)
     @profile.boxes << box
     get :view_page, @step.url
     assert_tag :tag => 'div', :attributes => { :class => "item_card category_#{@track.category_name}" }, :descendant => { :tag => 'div', :attributes => { :class => 'track_content' } }
@@ -121,7 +121,7 @@ class ContentViewerControllerTest < ActionController::TestCase
 
   should 'render link to display more tracks in track list block' do
     box = fast_create(Box, :owner_id => @profile.id, :owner_type => @profile.class.name)
-    @block = CommunityTrackPlugin::TrackCardListBlock.create!(:box => box)
+    @block = create(CommunityTrackPlugin::TrackCardListBlock, :box => box)
     @profile.boxes << box
 
     (@block.limit+1).times { |i| create_track("track#{i}", @profile) }
@@ -132,7 +132,7 @@ class ContentViewerControllerTest < ActionController::TestCase
 
   should 'render link to show all tracks in track list block' do
     box = fast_create(Box, :owner_id => @profile.id, :owner_type => @profile.class.name)
-    @block = CommunityTrackPlugin::TrackCardListBlock.create!(:box => box)
+    @block = create(CommunityTrackPlugin::TrackCardListBlock, :box => box)
     @profile.boxes << box
     @block.more_another_page = true
     @block.save!

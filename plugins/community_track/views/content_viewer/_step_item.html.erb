@@ -15,14 +15,14 @@
         <% if step_item.tool %>
           <%= _('Tool: ') %>
 
-          <% link_to_step(step_item, {:id => "step_link_#{step_item.id}"}) do %>
+          <%= link_to_step(step_item, {:id => "step_link_#{step_item.id}"}) do %>
             <%= step_item.tool.name %>
           <% end %>
 
         <% elsif step_item.allow_create?(user) && step_item.tool_class %>
           <a id="step_link_<%= step_item.id %>" href="<%= url_for({:controller => 'cms', :action => 'new', :type => step_item.tool_class, :parent_id => step_item, :success_back_to => url_for(step_item.parent.view_url)}) %>" class="button icon-new with-text icon-new<%= step_item.tool_class.icon_name %>"><%= _('Create %s' % step_item.tool_class.short_description) %></a>
         <% else %>
-          <% link_to_step(step_item, {:id => "step_link_#{step_item.id}"}, '') %>
+          <%= link_to_step(step_item, {:id => "step_link_#{step_item.id}"}, '') %>
         <% end %>
       </div>
     </div>
