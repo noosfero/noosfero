@@ -23,7 +23,7 @@
       <%= link_to(
             content_tag('span','',:class => 'community-block-button icon-arrow'),
             '#',
-            :onclick => "toggleSubmenu(this,'',#{links.to_json}); return false;",
+            :onclick => "toggleSubmenu(this,'',#{j links.to_json}); return false;",
             :class => 'simplemenu-trigger') %>
 
       <% end %>
