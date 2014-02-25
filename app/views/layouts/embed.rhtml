@@ -19,13 +19,19 @@
         content.respond_to?(:call) ? content.call : content
       end.join("\n")
     %>
-
-    <div id="wrap-1">
-      <div id="wrap-2">
-        <div id="content">
-          <div id="content-inner">
-            <%= yield %>
-            <br style="clear: both" />
+    <div id="embed">
+      <div id="wrap-1">
+        <div id="wrap-2">
+          <div id="content">
+            <div id="content-inner">
+              <div class="boxes" id="boxes">
+                <div class="box box-1" id="box-1">
+                  <div class="blocks">
+                    <%= yield %>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -36,22 +42,6 @@
         jQuery('a').attr('target','_blank');
       });
     </script>
-
-    <!-- Piwik -->
-    <script type="text/javascript">
-      var _paq = _paq || [];
-      _paq.push(["trackPageView"]);
-      _paq.push(["enableLinkTracking"]);
-
-      (function() {
-        var u="http://estatisticas.presidencia.gov.br/";
-        _paq.push(["setTrackerUrl", u+"piwik.php"]);
-        _paq.push(["setSiteId", "14"]);
-        var d=document, g=d.createElement("script"), s=d.getElementsByTagName("script")[0]; g.type="text/javascript";
-        g.defer=true; g.async=true; g.src="/javascripts/piwik.js"; s.parentNode.insertBefore(g,s);
-      })();
-    </script>
-    <!-- End Piwik Code -->
 
   </body>
 </html>

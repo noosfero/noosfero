@@ -1,6 +1,6 @@
 class EmbedController < ApplicationController
 
-  def embed_block
+  def index
     block = Block.find(params[:id])
     source = params[:source]
 
