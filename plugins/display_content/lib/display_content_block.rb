@@ -26,6 +26,8 @@ class DisplayContentBlock < Block
                               {:name => _('Tags'), :checked => false}]
   settings_items :display_folder_children, :type => :boolean, :default => true
 
+  attr_accessible :sections, :checked_nodes, :display_folder_children
+
   def self.description
     _('Display your contents')
   end
@@ -66,7 +68,8 @@ class DisplayContentBlock < Block
     holder.articles.find(:all, :conditions => {:type => VALID_CONTENT, :parent_id => (parent.nil? ? nil : parent)})
   end
 
-  include ActionController::UrlWriter
+  include ActionView::Helpers
+  include Rails.application.routes.url_helpers
   def content(args={})
     extra_condition = display_folder_children ? 'OR articles.parent_id IN(:nodes)':''
     docs = nodes.blank? ? [] : owner.articles.find(:all, :conditions => ["(articles.id IN(:nodes) #{extra_condition}) AND articles.type IN(:types)", {:nodes => self.nodes, :types => VALID_CONTENT}])
