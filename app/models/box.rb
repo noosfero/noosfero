@@ -3,6 +3,8 @@ class Box < ActiveRecord::Base
   acts_as_list :scope => 'owner_id = #{owner_id} and owner_type = \'#{owner_type}\''
   has_many :blocks, :dependent => :destroy, :order => 'position'
 
+  attr_accessible :owner
+
   include Noosfero::Plugin::HotSpot
 
   def environment

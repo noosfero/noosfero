@@ -7,6 +7,7 @@ class ContentViewerController < ApplicationController
 
   def view_page
     path = params[:page]
+    path = path.join('/') if path.kind_of?(Array)
     path = "#{path}.#{params[:format]}" if params[:format]
     @version = params[:version].to_i
 
