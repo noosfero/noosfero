@@ -39,4 +39,3 @@ if !['test', 'cucumber'].include?(ENV['RAILS_ENV'])
 end
 
 Noosfero::Application.initialize!
-Noosfero::Plugin.initialize!

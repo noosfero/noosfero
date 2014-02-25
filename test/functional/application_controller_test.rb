@@ -507,6 +507,7 @@ class ApplicationControllerTest < ActionController::TestCase
       end
     end
 
+    Noosfero::Plugin.load_plugin_filters(FilterPlugin)
     Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([FilterPlugin.new])
 
     get :index
@@ -525,6 +526,7 @@ class ApplicationControllerTest < ActionController::TestCase
       end
     end
 
+    Noosfero::Plugin.load_plugin_filters(OtherFilterPlugin)
     environment1 = fast_create(Environment, :name => 'test environment')
     environment1.enable_plugin(OtherFilterPlugin.name)
     environment2 = fast_create(Environment, :name => 'other test environment')

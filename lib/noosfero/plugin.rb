@@ -20,8 +20,9 @@ class Noosfero::Plugin
       return if !should_load
       enabled.each do |plugin_dir|
         plugin_name = File.basename(plugin_dir)
-        load_plugin(plugin_name)
+        plugin = load_plugin(plugin_name)
         load_plugin_extensions(plugin_dir)
+        load_plugin_filters(plugin)
       end
     end
 
@@ -74,6 +75,25 @@ class Noosfero::Plugin
 
     def load_plugin(plugin_name)
       (plugin_name.to_s.camelize + 'Plugin').constantize
+    end
+
+    # This is a generic method that initialize any possible filter defined by a
+    # plugin to a specific controller
+    def load_plugin_filters(plugin)
+      plugin_methods = plugin.instance_methods.select {|m| m.to_s.end_with?('_filters')}
+      plugin_methods.each do |plugin_method|
+        controller_class = plugin_method.to_s.gsub('_filters', '').camelize.constantize
+        filters = plugin.new.send(plugin_method)
+        filters = [filters] if !filters.kind_of?(Array)
+
+        filters.each do |plugin_filter|
+          filter_method = (plugin.name.underscore.gsub('/','_') + '_' + plugin_filter[:method_name]).to_sym
+          controller_class.send(plugin_filter[:type], filter_method, (plugin_filter[:options] || {}))
+          controller_class.send(:define_method, filter_method) do
+            instance_eval(&plugin_filter[:block]) if environment.plugin_enabled?(plugin)
+          end
+        end
+      end
     end
 
     def load_plugin_extensions(dir)

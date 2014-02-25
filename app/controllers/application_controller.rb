@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
 
   before_filter :setup_multitenancy
   before_filter :detect_stuff_by_domain
-  before_filter :init_noosfero_plugins_controller_filters
+  before_filter :init_noosfero_plugins
   before_filter :allow_cross_domain_access
 
   def allow_cross_domain_access
@@ -132,23 +132,9 @@ class ApplicationController < ActionController::Base
 
   include Noosfero::Plugin::HotSpot
 
-  # This is a generic method that initialize any possible filter defined by a
-  # plugin to the current controller being initialized.
-  def init_noosfero_plugins_controller_filters
-    plugins.each do |plugin|
-      filters = plugin.send(self.class.name.underscore + '_filters')
-      filters = [filters] if !filters.kind_of?(Array)
-      controller_filters = self.class._process_action_callbacks.map {|c| c.filter.to_sym }
-      filters.each do |plugin_filter|
-        filter_method = (plugin.class.name.underscore.gsub('/','_') + '_' + plugin_filter[:method_name]).to_sym
-        unless controller_filters.include?(filter_method)
-          self.class.send(plugin_filter[:type], filter_method.to_sym, (plugin_filter[:options] || {}))
-          self.class.send(:define_method, filter_method) do
-            instance_eval(&plugin_filter[:block]) if environment.plugin_enabled?(plugin.class)
-          end
-        end
-      end
-    end
+  # FIXME this filter just loads @plugins to children controllers and helpers
+  def init_noosfero_plugins
+    plugins
   end
 
   def render_not_found(path = nil)

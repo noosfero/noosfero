@@ -5,7 +5,7 @@ class ActiveRecord::Migrator
   alias_method :orig_initialize, :initialize
   def initialize *args
     orig_initialize *args
-    @migrations_path = "{db/migrate,config/plugins/*/db/migrate}"
+    @migrations_paths = ["db/migrate", "config/plugins/*/db/migrate"]
   end
 end
 
