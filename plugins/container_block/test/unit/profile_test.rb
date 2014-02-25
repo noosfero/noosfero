@@ -5,10 +5,10 @@ class ProfileTest < ActiveSupport::TestCase
   def setup
     @profile = fast_create(Profile)
 
-    @box = Box.create!(:owner => @profile)
-    @block = Block.create!(:box => @box)
+    @box = create(Box, :owner => @profile)
+    @block = create(Block, :box => @box)
 
-    @container = ContainerBlockPlugin::ContainerBlock.create!(:box => @box)
+    @container = create(ContainerBlockPlugin::ContainerBlock, :box => @box)
   end
 
   should 'return blocks as usual' do
@@ -16,7 +16,7 @@ class ProfileTest < ActiveSupport::TestCase
   end
 
   should 'return blocks with container children' do
-    child = Block.create!(:box => @container.container_box)
+    child = Block.create!(:box_id => @container.container_box.id)
     assert_equal [@block, @container, child], @profile.blocks
   end
 
@@ -25,7 +25,7 @@ class ProfileTest < ActiveSupport::TestCase
   end
 
   should 'return child block with id at find method' do
-    child = Block.create!(:box => @container.container_box)
+    child = Block.create!(:box_id => @container.container_box.id)
     assert_equal child, @profile.blocks.find(child.id)
   end
 

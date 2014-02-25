@@ -27,7 +27,7 @@ class ContainerBlockPlugin::ContainerBlockTest < ActiveSupport::TestCase
 
   should 'create new blocks when receive block classes' do
     @block.save!
-    assert_difference Block, :count, 1 do
+    assert_difference 'Block.count', 1 do
       @block.block_classes = ['Block']
     end
     assert_equal Block, Block.last.class
@@ -35,14 +35,14 @@ class ContainerBlockPlugin::ContainerBlockTest < ActiveSupport::TestCase
 
   should 'do not create blocks when nothing is passed as block classes' do
     @block.save!
-    assert_no_difference Block, :count do
+    assert_no_difference 'Block.count' do
       @block.block_classes = []
     end
   end
 
   should 'do not create blocks when nil is passed as block classes' do
     @block.save!
-    assert_no_difference Block, :count do
+    assert_no_difference 'Block.count' do
       @block.block_classes = nil
     end
   end
@@ -84,7 +84,7 @@ class ContainerBlockPlugin::ContainerBlockTest < ActiveSupport::TestCase
 
   should 'destroy box when container is removed' do
     @block.save!
-    assert_difference Box, :count, -1 do
+    assert_difference 'Box.count', -1 do
       @block.destroy
     end
   end
