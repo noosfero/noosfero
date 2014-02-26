@@ -33,7 +33,7 @@ class VotePlugin < Noosfero::Plugin
   def comment_actions(comment)
     like = vote_partial(comment)
     dislike = vote_partial(comment, false)
-    lambda do
+    proc do
       [{:link => instance_eval(&dislike), :action_bar => true}, {:link => instance_eval(&like), :action_bar => true}]
     end
   end
@@ -41,7 +41,7 @@ class VotePlugin < Noosfero::Plugin
   def article_header_extra_contents(article)
     like = vote_partial(article)
     dislike = vote_partial(article, false)
-    lambda do
+    proc do
       content_tag('div', instance_eval(&dislike) + instance_eval(&like), :class => 'vote-actions')
     end
   end
