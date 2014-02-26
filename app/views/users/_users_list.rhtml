@@ -28,7 +28,8 @@
           <% else %>
             <%= button_without_text :'deactivate-user', _('Deactivate user'), :action => 'deactivate', :id => p, :q => @q, :filter => @filter %>
           <% end %>
-        </div>
+          <%= button_without_text :'ban-user', _('Ban User'), :action => 'destroy_user', :id => p, :q => @q, :filter => @filter %>
+       </div>
       </td>
     </tr>
   <% end %>

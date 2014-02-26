@@ -45,6 +45,15 @@ class UsersController < AdminController
     redirect_to :action => :index, :q => params[:q], :filter => params[:filter]
   end
 
+  
+  def destroy_user()
+    person = environment.people.find(params[:id]) 	      
+    person.destroy
+    session[:notice] = _('The profile was deleted.')
+    redirect_to :action => :index, :q => params[:q], :filter => params[:filter]
+  end
+
+
   def download
     respond_to do |format|
       format.html
@@ -86,7 +95,7 @@ class UsersController < AdminController
     end
   end
 
-  private
+    private
 
   def per_page
     10
