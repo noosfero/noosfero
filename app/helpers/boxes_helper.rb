@@ -219,10 +219,8 @@ module BoxesHelper
       buttons << thickbox_inline_popup_icon(:help, _('Help on this block'), {}, "help-on-box-#{block.id}") << content_tag('div', content_tag('h2', _('Help')) + content_tag('div', block.help, :style => 'margin-bottom: 1em;') + thickbox_close_button(_('Close')), :style => 'display: none;', :id => "help-on-box-#{block.id}")
     end
 
-    #if block.respond_to?(:embedable)
-    if true
-
-      url = url_for :controller => 'embed', :action => 'embed_block', :id => block.id, :only_path => false;
+    if block.respond_to?(:embedable)
+      url = url_for :controller => 'embed', :action => 'index', :id => block.id, :only_path => false;
 
       html = content_tag('div',
               content_tag('h2', _('Embed block code')) +

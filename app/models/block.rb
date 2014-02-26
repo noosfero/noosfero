@@ -16,6 +16,10 @@ class Block < ActiveRecord::Base
 
   named_scope :enabled, :conditions => { :enabled => true }
 
+  def embedable
+    true
+  end
+
   def embed_code(url)
     html = "<iframe src='#{url}?source=SOURCE_NAME' frameborder='0' allowfullscreen ></iframe>"
   end
