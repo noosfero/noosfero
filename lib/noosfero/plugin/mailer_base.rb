@@ -1,9 +1,5 @@
 class Noosfero::Plugin::MailerBase < ActionMailer::Base
 
-  def self.inherited(child)
-    child.template_root = File.expand_path(Rails.root.join('plugins', child.plugin_name, 'views'))
-  end
-
   def self.plugin_name
     name.split('::').first.gsub(/Plugin$/, '').underscore
   end
