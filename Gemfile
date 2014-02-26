@@ -26,6 +26,12 @@ group :cucumber do
   gem 'selenium-webdriver'
 end
 
+# include plugin gemfiles
+Dir.glob(File.join('config', 'plugins', '*')).each do |plugin|
+  plugin_gemfile = File.join(plugin, 'Gemfile')
+  eval File.read(plugin_gemfile) if File.exists?(plugin_gemfile)
+end
+
 def program(name)
   unless system("which #{name} > /dev/null")
     puts "W: Program #{name} is needed, but was not found in your PATH"
