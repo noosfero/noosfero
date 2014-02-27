@@ -19,16 +19,18 @@
       <td class='actions'>
         <div class="members-buttons-cell">
           <% if p.is_admin? %>
-            <%= button_without_text :'reset-admin-role', _('Reset admin role'), :action => 'reset_admin_role', :id => p, :q => @q, :filter => @filter %>
+            <%= button_without_text :'reset-admin-role', _('Reset admin role'), {:action => 'reset_admin_role', :id => p, :q => @q}, :filter => @filter, :confirm => "delete_article_message(@article)" %>
           <% else %>
-            <%= button_without_text :'set-admin-role', _('Set admin role'), :action => 'set_admin_role', :id => p, :q => @q, :filter => @filter %>
+            <%= button_without_text :'set-admin-role', _('Set admin role'), {:action => 'set_admin_role', :id => p, :q => @q}, :filter => @filter, :confirm => "delete_article_message(@article)" %>
           <% end %>
           <% if !p.user.activated? %>
-            <%= button_without_text :'activate-user', _('Activate user'), :action => 'activate', :id => p, :q => @q, :filter => @filter %>
+            <%= button_without_text :'activate-user', _('Activate user'), {:action => 'activate', :id => p, :q => @q}, :filter => @filter, :confirm => "delete_article_message(@article)" %>
           <% else %>
-            <%= button_without_text :'deactivate-user', _('Deactivate user'), :action => 'deactivate', :id => p, :q => @q, :filter => @filter %>
+            <%= button_without_text :'deactivate-user', _('Deactivate user'), {:action => 'deactivate', :id => p, :q => @q}, :filter => @filter, :confirm => "delete_article_message(@article)" %>
           <% end %>
-          <%= button_without_text :'ban-user', _('Ban User'), :action => 'destroy_user', :id => p, :q => @q, :filter => @filter %>
+          
+          <%= button_without_text :'delete', _('Ban'), {:action => :destroy_user, :id => p, :q => @q}, :filter => @filter, :confirm => "delete_article_message(@article)" %>
+
        </div>
       </td>
     </tr>
