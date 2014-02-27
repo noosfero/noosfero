@@ -222,4 +222,14 @@ class BlockTest < ActiveSupport::TestCase
     assert block.visible?(2)
     assert !block.visible?(3)
   end
+
+  should 'be embedable by default' do
+    assert Block.new.embedable?
+  end
+
+  should 'generate embed url' do
+    b = Block.new
+    assert_equal "<iframe src='http://myblogtest.com' frameborder='0'></iframe>", b.embed_code('http://myblogtest.com')
+  end
+
 end
