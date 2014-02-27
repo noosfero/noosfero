@@ -42,17 +42,19 @@ class UsersController < AdminController
   def deactivate
     person = environment.people.find(params[:id])
     person.user.deactivate
-    puts "++"*80, person
-    puts "++"*80, person.user
-    puts "++"*80, person.user.activated?
     redirect_to :action => :index, :q => params[:q], :filter => params[:filter]
   end
 
-  
+
   def destroy_user
-    person = environment.people.find(params[:id]) 	      
-    person.destroy
-    session[:notice] = _('The profile was deleted.')
+    if request.post?
+      person = environment.people.find(params[:id])
+      if person.destroy
+        session[:notice] = _('The profile was deleted.')
+      else
+        session[:notice] = _('Could not delete profile')
+      end
+    end
     redirect_to :action => :index, :q => params[:q], :filter => params[:filter]
   end
 
@@ -98,7 +100,7 @@ class UsersController < AdminController
     end
   end
 
-    private
+  private
 
   def per_page
     10
