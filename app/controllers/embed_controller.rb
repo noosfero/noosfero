@@ -14,4 +14,5 @@ class EmbedController < ApplicationController
     rescue ActiveRecord::RecordNotFound
       render :template => 'shared/embed_not_found.rhtml', :status => 404, :layout => "embed"
   end
+
 end
