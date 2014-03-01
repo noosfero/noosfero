@@ -1700,8 +1700,7 @@ class ProfileTest < ActiveSupport::TestCase
     community.add_member(create_user('Mariana').person)
     members = community.members_by_name
 
-    assert_equal "João", members.first.name
-    assert_equal "Mariana", members.last.name
+    assert_equal ["João", "José", "Mariana"], members.map(&:name)
   end
 
   should 'order members by name alphabetically considering upper and lower cases' do
@@ -1712,8 +1711,7 @@ class ProfileTest < ActiveSupport::TestCase
     community.add_member(create_user('guest').person)
     members = community.members_by_name
 
-    assert_equal "guest", members.first.name
-    assert_equal "mariana", members.last.name
+    assert_equal ["guest", "João", "mariana"], members.map(&:name)
   end
 
   should 'know if url is the profile homepage' do
