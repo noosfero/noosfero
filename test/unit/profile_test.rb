@@ -1461,7 +1461,7 @@ class ProfileTest < ActiveSupport::TestCase
   should 'list events by month' do
     profile = fast_create(Profile)
 
-    today = Date.today
+    today = Date.new(2014, 03, 2)
     yesterday_event = Event.new(:name => 'Joao Birthday', :start_date => today - 1.day)
     today_event = Event.new(:name => 'Ze Birthday', :start_date => today)
     tomorrow_event = Event.new(:name => 'Mane Birthday', :start_date => today + 1.day)
