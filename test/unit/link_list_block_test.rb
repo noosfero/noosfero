@@ -86,4 +86,9 @@ class LinkListBlockTest < ActiveSupport::TestCase
     assert_equivalent LinkListBlock::TARGET_OPTIONS.map {|t|t[1]}, ['_self', '_blank', '_new']
   end
 
+  should 'link with title' do
+    l = LinkListBlock.new
+    assert_match /title="mytitle"/, l.link_html({:name => 'mylink', :address => '/myaddress', :title => 'mytitle'})
+  end
+
 end
