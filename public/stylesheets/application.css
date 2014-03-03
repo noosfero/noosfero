@@ -1834,8 +1834,12 @@ a.button.disabled, input.disabled {
 }
 /* ==> blocks/link-list-block.css <<= */
 
+#edit-link-list-block {
+  width: 820px;
+}
+
 #edit-link-list-block table {
-  width: 100%;
+  width: auto;
   margin-bottom: 10px;
 }
 #edit-link-list-block table .cel-address {
