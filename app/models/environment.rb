@@ -591,7 +591,7 @@ class Environment < ActiveRecord::Base
   # only one environment can be the default one
   validates_uniqueness_of :is_default, :if => (lambda do |environment| environment.is_default? end), :message => N_('Only one Virtual Community can be the default one')
 
-  validates_format_of :contact_email, :with => Noosfero::Constants::EMAIL_FORMAT, :if => (lambda { |record| ! record.contact_email.blank? })
+  validates_format_of :contact_email, :noreply_email, :with => Noosfero::Constants::EMAIL_FORMAT, :allow_blank => true
 
   xss_terminate :only => [ :message_for_disabled_enterprise ], :with => 'white_list', :on => 'validation'
 
