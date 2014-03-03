@@ -764,7 +764,7 @@ class Environment < ActiveRecord::Base
   end
 
   def notification_emails
-    [contact_email.blank? ? nil : contact_email].compact + admins.map(&:email)
+    [noreply_email.blank? ? nil : noreply_email].compact + admins.map(&:email)
   end
 
   after_create :create_templates

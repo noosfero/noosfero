@@ -44,11 +44,11 @@ class ContactTest < ActiveSupport::TestCase
     assert !c.deliver
   end
 
-  should 'use sender name and environment contact_email on from' do
+  should 'use sender name and environment noreply_email on from' do
     ent = fast_create(Enterprise, :name => 'my enterprise', :identifier => 'myent')
     c = Contact.new(:name => 'john', :email => 'john@invalid.com', :subject => 'hi', :message => 'hi, all', :dest => ent)
     email = c.deliver
-    assert_equal "#{c.name} <#{ent.environment.contact_email}>", email['from'].to_s
+    assert_equal "#{c.name} <#{ent.environment.noreply_email}>", email['from'].to_s
   end
 
   should 'add dest name on subject' do

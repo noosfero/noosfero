@@ -16,7 +16,7 @@ class ContactSenderTest < ActiveSupport::TestCase
     ent.contact_email = 'contact@invalid.com'
     c = build(Contact, :dest => ent)
     response = Contact::Sender.deliver_mail(c)
-    assert_equal Environment.default.contact_email, response.from.to_s
+    assert_equal Environment.default.noreply_email, response.from.to_s
     assert_equal "[#{ent.name}] #{c.subject}", response.subject
   end
 
@@ -27,7 +27,7 @@ class ContactSenderTest < ActiveSupport::TestCase
     response = Contact::Sender.deliver_mail(c)
     assert_includes response.to, c.dest.contact_email
   end
- 
+
   should 'deliver mail to admins of enterprise' do
     admin = create_user('admin_test').person
     ent = Enterprise.create!(:name => 'my enterprise', :identifier => 'myent', :environment => Environment.default)
