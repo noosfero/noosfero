@@ -39,7 +39,7 @@ module BoxesHelper
   end
 
   def display_boxes(holder, main_content)
-    boxes = holder.boxes.first(holder.boxes_limit)
+    boxes = holder.boxes.with_position.first(holder.boxes_limit)
     content = boxes.reverse.map { |item| display_box(item, main_content) }.join("\n")
     content = main_content if (content.blank?)
 

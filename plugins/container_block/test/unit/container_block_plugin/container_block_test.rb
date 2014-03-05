@@ -20,6 +20,11 @@ class ContainerBlockPlugin::ContainerBlockTest < ActiveSupport::TestCase
     assert @block.container_box_id
   end
 
+  should 'created box should have nil as position' do
+    @block.save!
+    assert_equal nil, @block.container_box.position
+  end
+
   should 'return created box' do
     @block.save!
     assert @block.container_box
@@ -87,6 +92,29 @@ class ContainerBlockPlugin::ContainerBlockTest < ActiveSupport::TestCase
     assert_difference Box, :count, -1 do
       @block.destroy
     end
+  end
+
+  should 'not mess up with boxes positions when destroyed' do
+    env = fast_create(Environment)
+    box1 = fast_create(Box, :owner_id => env.id, :owner_type => 'Environment', :position => 1)
+    box2 = fast_create(Box, :owner_id => env.id, :owner_type => 'Environment', :position => 2)
+    box3 = fast_create(Box, :owner_id => env.id, :owner_type => 'Environment', :position => 3)
+    block = ContainerBlockPlugin::ContainerBlock.create!(:box => box1)
+    block.destroy
+    assert_equal [1, 2, 3], [box1.reload.position, box2.reload.position, box3.reload.position]
+  end
+
+  should 'be able to change box' do
+    @block.save!
+    @block.box = Box.new(:owner => Environment.default)
+    @block.save!
+  end
+
+  should 'not able to change box to be the same as container_box' do
+    @block.save!
+    @block.box = @block.container_box
+    @block.save
+    assert @block.errors.invalid?(:box_id)
   end
 
 end

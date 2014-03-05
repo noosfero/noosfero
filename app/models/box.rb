@@ -5,6 +5,8 @@ class Box < ActiveRecord::Base
 
   include Noosfero::Plugin::HotSpot
 
+  named_scope :with_position, :conditions => ['boxes.position > 0']
+
   def environment
     owner ? (owner.kind_of?(Environment) ? owner : owner.environment) : nil
   end

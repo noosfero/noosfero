@@ -1,3 +1,9 @@
+#box-organizer .container-block-plugin_container-block > .block-inner-1 > .block-inner-2 > .button-bar {
+  height: 22px;
+  padding-bottom: 0px;
+  width: auto;
+}
+
 #content .boxes .container-block-plugin_container-block .container_block_child, .container-block-plugin_container-block .block-outer {
   display: inline-block;
   vertical-align: top;
@@ -17,14 +23,10 @@
   background-image: url(/designs/icons/default/Tango/16x16/actions/go-previous.png);
 }
 
-#content .boxes .container-block-plugin_container-block .block {
-  outline-offset: -2px;
-}
-
 #content .boxes .container-block-plugin_container-block .block .ui-resizable-handle {
   width: 10px;
   height: 28px;
-  z-index: 0;
+  z-index: 1000;
 }
 
 #content .boxes .container-block-plugin_container-block .block .ui-resizable-e {
@@ -37,6 +39,21 @@
   background-image: url(/plugins/container_block/images/handle_w.png);
 }
 
-.container-block-plugin_container-block .button-bar .icon-resize {
+.container-block-plugin_container-block .container-block-button-bar .icon-resize {
   background-image: url(/designs/icons/default/Tango/16x16/actions/view-fullscreen.png);
+}
+
+#box-organizer .block .container-block-button-bar {
+  right: 0px;
+  bottom: 0px;
+  height: auto;
+}
+
+#box-organizer .container-block-plugin_container-block:hover .block {
+  outline: 1px dashed black;
+  outline-offset: -1px;
+}
+
+.container-block-plugin_container-block .block-target {
+  background: #afd;
 }
