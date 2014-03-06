@@ -51,11 +51,11 @@ module ArticleHelper
         content_tag('label', _('I want this article to display a link to older versions'), :for => 'article_display_versions')
       ) : '') +
 
-      (article.forum? ?
+      (article.forum? && article.profile.community? ?
       content_tag(
         'div',
-        check_box(:article, :allows_create_topics) +
-        content_tag('label', _('Allow member to create topics'), :for => 'article_allows_create_topics')
+        check_box(:article, :allows_members_to_create_topics) +
+        content_tag('label', _('Allow member to create topics'), :for => 'article_allows_members_to_create_topics')
         ) : '')
     )
   end

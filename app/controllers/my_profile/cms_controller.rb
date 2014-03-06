@@ -30,8 +30,8 @@ class CmsController < MyProfileController
 
   protect_if :only => :new do |c, user, profile|
     article_id = c.params[:parent_id]
-    (!article_id.blank? && profile.articles.find(article_id).forum? && profile.articles.find(article_id).allows_create_topics ) &&
-    (profile.community? && profile.members.include?(user)) || (user && (user.has_permission?('post_content', profile) || user.has_permission?('publish_content', profile)))
+      (!article_id.blank? && (profile.articles.find(article_id).allow_create?(user) || profile.articles.find(article_id).parent.allow_create?(user))) ||
+      (user && (user.has_permission?('post_content', profile) || user.has_permission?('publish_content', profile)))
   end
 
   protect_if :only => [:destroy, :publish] do |c, user, profile|

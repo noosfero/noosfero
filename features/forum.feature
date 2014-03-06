@@ -230,7 +230,7 @@ Feature: forum
     Then I should not see "New discussion topic"
 
    @selenium
-   Scenario: community member should be able to create the discussion topic button
+   Scenario: community member should be able to create a topic with the discussion topic button
     Given the following community
       | identifier       | name             | owner     |
       | sample-community | Sample Community | joaosilva |
@@ -253,3 +253,34 @@ Feature: forum
     And I fill in "Title" with "Test"
     And I press "Save"
     Then I should see "Test"
+
+   @selenium
+   Scenario: community member should be able to create a topic on a topic page
+    Given the following community
+      | identifier       | name             | owner     |
+      | sample-community | Sample Community | joaosilva |
+    And the following forums
+      | owner            | name  |
+      | sample-community | Forum |
+    And the following users
+      | login      | name       |
+      | mariasilva | Maria Silva|
+    And "Maria Silva" is a member of "Sample Community"
+    And I am logged in as "joaosilva"
+    When I go to /sample-community/forum
+    And I follow "Configure forum"
+    And I check "Allow member to create topics"
+    And I press "Save"
+    And I am logged in as "mariasilva"
+    And I go to /sample-community/forum
+    And I follow "New discussion topic"
+    And I follow "Text article with visual editor"
+    And I fill in "Title" with "Test"
+    And I press "Save"
+    And I go to /sample-community/forum/test
+    And I follow "New discussion topic"
+    And I follow "Text article with visual editor"
+    And I fill in "Title" with "Test inside the topic page"
+    And I press "Save"
+    And I go to /sample-community/forum
+    Then I should see "Test inside the topic page"
