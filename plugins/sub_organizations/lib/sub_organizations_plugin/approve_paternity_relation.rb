@@ -5,18 +5,11 @@ class SubOrganizationsPlugin::ApprovePaternityRelation < Noosfero::Plugin::Activ
 
   validates_presence_of :task, :parent, :child
 
-  class << self
-    def parent(task)
-      find_by_task_id(task.id).parent
-    end
+  attr_accessible :task, :parent, :child
 
-    def pending_children(parent)
-      options = {
-        :select => "distinct profiles.*",
-        :joins => "inner join sub_organizations_plugin_approve_paternity_relations as relations on profiles.id=relations.child_id inner join tasks on relations.task_id=tasks.id",
-        :conditions => ["relations.parent_id = ? AND tasks.status = 1", parent.id]
-      }
-      ActiveRecord::NamedScope::Scope.new(Organization, options)
+  class << self
+    def parent_approval(task)
+      find_by_task_id(task.id).parent
     end
   end
 
