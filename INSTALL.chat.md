@@ -1,164 +1,82 @@
-XMPP/Chat Client Setup
-======================
+XMPP/Chat Setup
+===============
 
-To configure XMPP/BOSH in Noosfero you need:
+The samples of config file to configure a XMPP/BOSH server with ejabberd,
+postgresql and apache2 can be found at util/chat directory.
 
-* REST Client - http://github.com/archiloque/rest-client
-* SystemTimer - http://ph7spot.com/musings/system-timer
-* Pidgin data files - http://www.pidgin.im/
+This setup supposes that you are using Noosfero installed via Debian package
+in a production environment.
 
-If you use Debian 6.0 (squeeze):
-
-    # apt-get install librestclient-ruby pidgin-data ruby1.8-dev
-    # gem install SystemTimer
-
-The samples of config file to configure a XMPP/BOSH server with ejabberd, postgresql and apache2 can be found at util/chat directory.
-
-XMPP/Chat Server Setup
-======================
+Steps
+=====
 
 This is a step-by-step guide to get a XMPP service working, in a Debian system.
 
 ## 1. Install the required packages
 
-    # apt-get install ejabberd odbc-postgresql
+    # apt-get install ejabberd odbc-postgresql librestclient-ruby pidgin-data ruby1.8-dev
+    # gem install SystemTimer
 
 ## 2. Ejabberd configuration
 
-All the following changes must be done in config file: `/etc/ejabberd/ejabberd.cfg`
+    # cp /usr/share/noosfero/util/chat/ejabberd.cfg /etc/ejabberd/
 
-### 2.1. Set the default admin user
-
-    { acl, admin, { user, "john", "www.example.com" } }.
-    { acl, admin, { user, "bart", "www.example.com" } }.
-
-### 2.2. Set the default host
-
-    { hosts, [ "www.example.com" ] }.
-
-### 2.3. Http-Bind activation
-
-    { 5280, ejabberd_http, [
-          http_bind,
-          web_admin
-       ]
-    }
-
-    (...)
-
-    { modules, [
-       {mod_http_bind, []},
-       ...
-    ] }.
-
-Ejabberd creates semi-anonymous rooms by default, but Noosfero's Jabber client needs non-anonymous room, then we need to change default params of creation rooms in ejabberd to create non-anonymous rooms.
-
-In non-anonymous rooms the jabber service sends the new occupant's full JID to all occupants in the room [[1]].
-
-Add option "`{default_room_options, [{anonymous, false}]}`" to `/etc/ejabberd/ejabberd.cfg` in mod_muc session. See below:
-
-    { mod_muc, [
-       %%{host, "conference.@HOST@"},
-       {access, muc},
-       {access_create, muc},
-       {access_persistent, muc},
-       {access_admin, muc_admin},
-       {max_users, 500},
-       {default_room_options, [{anonymous, false}]}
-    ]},
-
-[1]: http://xmpp.org/extensions/xep-0045.html#enter-nonanon
-
-
-### 2.4. Authentication method
-
-To use Postgresql through ODBC, the following modifications must be done:
-
- * Disable the default method:
-   `{auth_method, internal}.`
-
- * Enable autheticantion through ODBC:
-   `{auth_method, odbc}.`
-
- * Set database server name
-   `{odbc_server, "DSN=PostgreSQLEjabberdNoosfero"}.`
-
-
-### 2.5. Increase the shaper traffic limit
-
-    { shaper, normal, { maxrate, 10000000 } }.
-
-
-### 2.6. Disable unused modules
-
-Unused modules can be disabled, for example:
-
- * s2s
- * web_admin
- * mod_pubsub
- * mod_irc
- * mod_offline
- * mod_admin_extra
- * mod_register
-
-
-### 2.7. Enable ODBC modules
-
- * mod_privacy -> mod_privacy_odbc
- * mod_private -> mod_private_odbc
- * mod_roster  -> mod_roster_odbc
+Edit the /etc/ejabberd/ejabberd.cfg file and set your domain on the first 2 lines.
 
 ## 3. Configuring Postgresql
 
+Give permission to noosfero user create new roles, login as
+postgres user and execute:
+
+    $ psql
+    postgres=# GRANT CREATE ON DATABASE noosfero TO noosfero;
+
+Change the postgresql authentication method to md5 instead of ident,
+add the following line to the file /etc/postgresql/8.4/main/pg_hba.conf:
+
+   # Noosfero user
+   local   noosfero    noosfero                          md5
+
+(add this line before the following line)
+
+   # "local" is for Unix domain socket connections only
+   local   all         all                               ident
+
+Restart postgresql server:
+
+    # service postgresql restart
+
 Login as noosfero user, and execute:
 
-    $ psql noosfero < /path/to/noosfero/util/chat/postgresql/ejabberd.sql
+    $ psql -U noosfero -W noosfero < /usr/share/noosfero/util/chat/postgresql/ejabberd.sql
 
-Where `noosfero` may need to be replace by the name of the database used for Noosfero.
+(see database password in the /etc/noosfero/database.yml file)
 
 This will create a new schema inside the noosfero database, called `ejabberd`.
 
-Note `noosfero` user should have permission to create Postgresql schemas. Also, there should be at least one domain with `is_default = true` in `domains` table, otherwise people won't be able to see their friends online.
+Note that there should be at least one domain with `is_default = true` in
+`domains` table, otherwise people won't be able to see their friends online.
 
 ## 4. ODBC configuration
 
-The following files must be created:
+Create the following files:
 
-`/etc/odbc.ini`:
+    # cp /usr/share/noosfero/util/chat/odbc.ini /etc/
+    # cp /usr/share/noosfero/util/chat/odbcinst.ini /etc/
 
-    [PostgreSQLEjabberdNoosfero]
-    Description      = PostgreSQL Noosfero ejabberd database
-    Driver           = PostgreSQL Unicode
-    Trace            = No
-    TraceFile        = /tmp/psqlodbc.log
-    Database         = noosfero
-    Servername       = localhost
-    UserName         = <DBUSER>
-    Password         = <DBPASS>
-    Port             =
-    ReadOnly         = No
-    RowVersioning    = No
-    ShowSystemTables = No
-    ShowOidColumn    = No
-    FakeOidIndex     = No
-    ConnSettings     = SET search_path TO ejabberd
+Edit the odbc.ini file and set the password for the database user, see
+the file /etc/noosfero/database.yml to get the password.
 
-`/etc/odbcinst.ini`:
+Adjust premissions:
 
-    [PostgreSQL Unicode]
-    Description = PostgreSQL ODBC driver (Unicode version)
-    Driver      = /usr/lib/odbc/psqlodbcw.so
-    Setup       = /usr/lib/odbc/libodbcpsqlS.so
-    Debug       = 0
-    CommLog     = 1
-    UsageCount  = 3
+    # chmod 640 /etc/odbc.ini
+    # chown ejabberd /etc/odbc.ini
 
 ## 4.1 testing all:
 
     # isql 'PostgreSQLEjabberdNoosfero'
 
 If the configuration was done right, the message "Connected!" will be displayed.
-
 
 ## 5. Enabling kernel polling and SMP in `/etc/default/ejabberd`
 
@@ -205,32 +123,45 @@ Note: module proxy_http must be enabled:
 
     # a2enmod proxy_http
 
-## 8. DNS configuration
+Restart services:
 
-For this point, we assume you are using BIND as your DNS server. You need to add the following entries to the DNS zone file corresponding to the domain of your noosfero site:
+    # service ejabberd restart
+    # service noosfero restart
+    # service apache2 restart
 
-    _xmpp-client._tcp   SRV   5 100 5222 master
-    conference   CNAME master
-    _xmpp-client._tcp.conference   SRV   5 100 5222 master
+## 8. Test Apache Configuration
 
-If you are running a DNS server other than BIND, you will have to figure out how to create equivalente rules for your zone file. Patches to this documentation are welcome.
+Open in your browser the address:
 
-## 9. Testing this Setup
+    http://<yout domain>/http-bind
 
-Adjust shell limits to proceed with some benchmarks and load tests: 
+You should see a page with a message like that:
 
-    # ulimit −s 256
-    # ulimit −n 8192
-    # echo 10 > /proc/sys/net/ipv4/tcp_syn_retries
+   ejabberd mod_http_bind
+   An implementation of XMPP over BOSH (XEP-0206)
+   This web page is only informative. To use HTTP-Bind you need a Jabber/XMPP
+   client that supports it.
 
-To measure the bandwidth between server and client:
+## 9. Test chat session
 
- * at server side:
-   `# iperf −s`
+Open Noosfero console and execute:
 
- * at client side:
-   `# iperf −c server_ip`
+>> environment = Environment.default
+>> user = Person['guest']
+>> password = user.user.crypted_password
+>> login = user.jid
+>> RubyBOSH.initialize_session(login, password, "http://#{environment.default_hostname}/http-bind", :wait => 30, :hold => 1, :window => 5
 
-For heavy load tests, clone and use this software:
+If you have luck, should see something like that:
 
-    $ git clone http://git.holoscopio.com/git/metal/tester.git
+Ruby-BOSH - SEND
+<body window="5" rid="60265" xmlns="http://jabber.org/protocol/httpbind" xmlns:xmpp="urn:xmpp:xbosh" to="vagrant-debian-squeeze.vagrantup.com" wait="30" xmpp:version="1.0" hold="1"/>
+Ruby-BOSH - SEND
+<body rid="60266" xmlns="http://jabber.org/protocol/httpbind" sid="24cdfc43646a2af1059a7060b677c2e11b26f34f" xmlns:xmpp="urn:xmpp:xbosh" xmpp:version="1.0"><auth mechanism="PLAIN" xmlns="urn:ietf:params:xml:ns:xmpp-sasl">Z3Vlc3RAdmFncmFudC1kZWJpYW4tc3F1ZWV6ZS52YWdyYW50dXAuY29tAGd1ZXN0ADEzZTFhYWVlYjRhYjZlMTA0MmRkNWI1YWY0MzM4MjA1OGJiOWZmNzk=</auth></body>
+Ruby-BOSH - SEND
+<body xmpp:restart="true" rid="60267" xmlns="http://jabber.org/protocol/httpbind" sid="24cdfc43646a2af1059a7060b677c2e11b26f34f" xmlns:xmpp="urn:xmpp:xbosh" xmpp:version="1.0"/>
+Ruby-BOSH - SEND
+<body rid="60268" xmlns="http://jabber.org/protocol/httpbind" sid="24cdfc43646a2af1059a7060b677c2e11b26f34f" xmlns:xmpp="urn:xmpp:xbosh" xmpp:version="1.0"><iq type="set" xmlns="jabber:client" id="bind_29330"><bind xmlns="urn:ietf:params:xml:ns:xmpp-bind"><resource>bosh_9631</resource></bind></iq></body>
+Ruby-BOSH - SEND
+<body rid="60269" xmlns="http://jabber.org/protocol/httpbind" sid="24cdfc43646a2af1059a7060b677c2e11b26f34f" xmlns:xmpp="urn:xmpp:xbosh" xmpp:version="1.0"><iq type="set" xmlns="jabber:client" id="sess_21557"><session xmlns="urn:ietf:params:xml:ns:xmpp-session"/></iq></body>
+=> ["guest@vagrant-debian-squeeze.vagrantup.com", "24cdfc43646a2af1059a7060b677c2e11b26f34f", 60270]
