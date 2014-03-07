@@ -301,17 +301,19 @@ class CommentTest < ActiveSupport::TestCase
     assert result[1].replies.empty?
   end
 
-  should "return activities comments when some comment on thread is spam" do
+  should "return activities comments when some comment on thread is spam and not display its replies" do
     person = fast_create(Person)
     a = TextileArticle.create!(:profile => person, :name => 'My article', :body => 'Article body')
     c0 = Comment.create(:source => a, :body => 'Root comment', :author => person)
     c1 = Comment.create(:reply_of_id => c0.id, :source => a, :body => 'c1', :author => person)
-    spam = Comment.create(:spam => true, :reply_of_id => c0.id, :source => a, :body => 'spam', :author => person)
-    c2 = Comment.create(:reply_of_id => spam.id, :source => a, :body => 'c2', :author => person)
-    result = a.activity.comments_as_thread
+    c2 = Comment.create(:source => a, :body => 'c2', :author => person)
+    spam = Comment.create(:spam => true, :reply_of_id => c2.id, :source => a, :body => 'spam', :author => person)
+    spam_reply = Comment.create(:reply_of_id => spam.id, :source => a, :body => 'spam reply', :author => person)
+    result = a.activity.comments
     assert_equal c0, result[0]
-    assert_equal [c1], result[0].replies
+    assert_equal [c1], result[0].replies.without_spam
     assert_equal c2, result[1]
+    assert_equal [], result[1].replies.without_spam
   end
 
   should 'provide author url for authenticated user' do
@@ -418,6 +420,7 @@ class CommentTest < ActiveSupport::TestCase
   end
 
   should 'be able to select non-spam comments' do
+    Comment.destroy_all
     c1 = fast_create(Comment)
     c2 = fast_create(Comment, :spam => false)
     c3 = fast_create(Comment, :spam => true)
@@ -689,6 +692,7 @@ class CommentTest < ActiveSupport::TestCase
   end
 
   should 'be able to select non-reply comments' do
+    Comment.destroy_all
     c1 = fast_create(Comment)
     c2 = fast_create(Comment, :reply_of_id => c1.id)
     c3 = fast_create(Comment, :reply_of_id => c2.id)
