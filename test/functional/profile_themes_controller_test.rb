@@ -310,4 +310,23 @@ class ProfileThemesControllerTest < ActionController::TestCase
     assert_no_tag :content => "Select theme"
   end
 
+  should 'not duplicate themes that are included by the user and by the environment' do
+    t1 = Theme.create('theme1')
+    t2 = Theme.create('theme2')
+    Environment.any_instance.stubs('themes').returns([t1,t2])
+    Theme.stubs(:approved_themes).returns([t2])
+
+    get :index, :profile => "testinguser"
+    assert_equivalent [t1, t2], assigns(:themes)
+  end
+
+  should 'sort themes by name' do
+    t1 = Theme.create('bill-theme')
+    t2 = Theme.create('ana-theme')
+    Theme.stubs(:approved_themes).returns([t1,t2])
+
+    get :index, :profile => "testinguser"
+    assert_equal [t2, t1], assigns(:themes)
+  end
+
 end

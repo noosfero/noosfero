@@ -1,4 +1,4 @@
-<% collection = @collection == :profile_admins ? profile.admins : profile.members %>
+<% collection = @collection == :profile_admins ? profile.admins : profile.members_by_name %>
 <% title = @title ? @title : _('Current members') %>
 <% remove_action = @remove_action ? @remove_action : {:action => 'unassociate'} %>
 

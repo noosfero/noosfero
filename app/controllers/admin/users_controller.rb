@@ -7,7 +7,7 @@ class UsersController < AdminController
   include UsersHelper
 
   def index
-    @filter = params[:filter]
+    @filter = params[:filter] || 'all_users'
     scope = environment.people.no_templates
     if @filter == 'admin_users'
       scope = scope.admins
@@ -16,6 +16,7 @@ class UsersController < AdminController
     elsif @filter == 'deactivated_users'
       scope = scope.deactivated
     end
+    scope = scope.order('name ASC')
     @q = params[:q]
     @collection = find_by_contents(:people, scope, @q, {:per_page => per_page, :page => params[:npage]})[:results]
   end

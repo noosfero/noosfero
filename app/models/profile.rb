@@ -96,6 +96,10 @@ class Profile < ActiveRecord::Base
     ScopeTool.union *scopes
   end
 
+  def members_by_name
+    members.order(:name)
+  end
+
   def members_count
     members.count
   end

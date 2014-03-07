@@ -15,7 +15,7 @@ class MacroTest < ActiveSupport::TestCase
 
   def setup
     @macro = Plugin1::Macro.new
-    @macro_element = Nokogiri::HTML(MACRO).css('.macro').first
+    @macro_element = Hpricot(MACRO).search('.macro').first
   end
 
   attr_reader :macro, :macro_element
