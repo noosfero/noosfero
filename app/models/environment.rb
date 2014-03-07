@@ -190,7 +190,7 @@ class Environment < ActiveRecord::Base
   has_many :states
   has_many :cities
 
-  has_many :roles
+  has_many :roles, :dependent => :destroy
 
   has_many :qualifiers
   has_many :certifiers

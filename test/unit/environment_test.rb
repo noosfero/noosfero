@@ -783,6 +783,18 @@ class EnvironmentTest < ActiveSupport::TestCase
     assert role2.valid?
   end
 
+  should 'destroy roles when its environment is destroyed' do
+    e1 = fast_create(Environment)
+    role1 = Role.create!(:name => 'test_role', :environment => e1, :key => 'a_member')
+    e2 = fast_create(Environment)
+    role2 = Role.create!(:name => 'test_role', :environment => e2, :key => 'a_member')
+
+    e2.destroy
+
+    assert_nothing_raised {Role.find(role1.id)}
+    assert_raise(ActiveRecord::RecordNotFound) {Role.find(role2.id)}
+  end
+
   should 'have a help_message_to_add_enterprise attribute' do
     env = Environment.new
 
