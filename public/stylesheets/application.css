@@ -1,3 +1,11 @@
+/* browser fixes */
+
+img:-moz-broken {
+  -moz-force-broken-image-icon:1;
+}
+
+/* general styles */
+
 body {
   padding: 0px;
   margin: 0px;
@@ -1727,8 +1735,8 @@ a.button.disabled, input.disabled {
   display: none;
 }
 
-#box-organizer .block:focus .button-bar,
-#box-organizer .block:hover .button-bar {
+#box-organizer .block-outer:focus .button-bar,
+#box-organizer .block-outer:hover .button-bar {
   display: block;
 }
 

@@ -31,6 +31,13 @@ class HomeControllerTest < ActionController::TestCase
     assert_tag :div, :attributes => { :class => 'block container-block-plugin_container-block' }
   end
 
+  should 'display block title' do
+    @block.title = "Block Title"
+    @block.save!
+    get :index
+    assert_tag :div, :attributes => { :class => 'block container-block-plugin_container-block' }, :descendant => {:tag => 'h3', :attributes => { :class => "block-title"}, :content => @block.title }
+  end
+
   should 'display container children' do
     c1 = RawHTMLBlock.create!(:box => @block.container_box, :html => 'child1 content')
     c2 = RawHTMLBlock.create!(:box => @block.container_box, :html => 'child2 content')
