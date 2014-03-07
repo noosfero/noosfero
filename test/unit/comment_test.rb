@@ -307,7 +307,7 @@ class CommentTest < ActiveSupport::TestCase
     c0 = Comment.create(:source => a, :body => 'Root comment', :author => person)
     c1 = Comment.create(:reply_of_id => c0.id, :source => a, :body => 'c1', :author => person)
     c2 = Comment.create(:source => a, :body => 'c2', :author => person)
-    spam = Comment.create(:spam => true, :reply_of_id => c2.id, :source => a, :body => 'spam', :author => person)
+    spam = create(Comment, :spam => true, :reply_of_id => c2.id, :source => a, :body => 'spam', :author => person)
     spam_reply = Comment.create(:reply_of_id => spam.id, :source => a, :body => 'spam reply', :author => person)
     result = a.activity.comments
     assert_equal c0, result[0]

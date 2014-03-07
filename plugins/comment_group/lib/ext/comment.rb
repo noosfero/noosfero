@@ -9,4 +9,6 @@ class Comment
     }
   }
 
+  attr_accessible :group_id
+
 end

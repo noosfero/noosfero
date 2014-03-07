@@ -87,7 +87,7 @@ class ContentViewerControllerTest < ActionController::TestCase
   end
 
   should 'render a div with block id for track list block' do
-    box = fast_create(Box, :owner_id => @profile.id, :owner_type => @profile.class.name)
+    box = fast_create(Box, :owner_id => @profile.id, :owner_type => @profile.class.name, :position => 1)
     @block = create(CommunityTrackPlugin::TrackListBlock, :box => box)
     @profile.boxes << box
     get :view_page, @step.url
@@ -95,7 +95,7 @@ class ContentViewerControllerTest < ActionController::TestCase
   end
 
   should 'render a div with block id for track card list block' do
-    box = fast_create(Box, :owner_id => @profile.id, :owner_type => @profile.class.name)
+    box = fast_create(Box, :owner_id => @profile.id, :owner_type => @profile.class.name, :position => 1)
     @block = create(CommunityTrackPlugin::TrackCardListBlock, :box => box)
     @profile.boxes << box
     get :view_page, @step.url
@@ -103,7 +103,7 @@ class ContentViewerControllerTest < ActionController::TestCase
   end
 
   should 'render tracks in track list block' do
-    box = fast_create(Box, :owner_id => @profile.id, :owner_type => @profile.class.name)
+    box = fast_create(Box, :owner_id => @profile.id, :owner_type => @profile.class.name, :position => 1)
     @block = create(CommunityTrackPlugin::TrackListBlock, :box => box)
     @profile.boxes << box
     get :view_page, @step.url
@@ -111,7 +111,7 @@ class ContentViewerControllerTest < ActionController::TestCase
   end
 
   should 'render tracks in track card list block' do
-    box = fast_create(Box, :owner_id => @profile.id, :owner_type => @profile.class.name)
+    box = fast_create(Box, :owner_id => @profile.id, :owner_type => @profile.class.name, :position => 1)
     @block = create(CommunityTrackPlugin::TrackCardListBlock, :box => box)
     @profile.boxes << box
     get :view_page, @step.url
@@ -120,7 +120,7 @@ class ContentViewerControllerTest < ActionController::TestCase
   end
 
   should 'render link to display more tracks in track list block' do
-    box = fast_create(Box, :owner_id => @profile.id, :owner_type => @profile.class.name)
+    box = fast_create(Box, :owner_id => @profile.id, :owner_type => @profile.class.name, :position => 1)
     @block = create(CommunityTrackPlugin::TrackCardListBlock, :box => box)
     @profile.boxes << box
 
@@ -131,7 +131,7 @@ class ContentViewerControllerTest < ActionController::TestCase
   end
 
   should 'render link to show all tracks in track list block' do
-    box = fast_create(Box, :owner_id => @profile.id, :owner_type => @profile.class.name)
+    box = fast_create(Box, :owner_id => @profile.id, :owner_type => @profile.class.name, :position => 1)
     @block = create(CommunityTrackPlugin::TrackCardListBlock, :box => box)
     @profile.boxes << box
     @block.more_another_page = true

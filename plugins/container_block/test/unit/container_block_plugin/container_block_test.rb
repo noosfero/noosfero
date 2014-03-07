@@ -99,7 +99,7 @@ class ContainerBlockPlugin::ContainerBlockTest < ActiveSupport::TestCase
     box1 = fast_create(Box, :owner_id => env.id, :owner_type => 'Environment', :position => 1)
     box2 = fast_create(Box, :owner_id => env.id, :owner_type => 'Environment', :position => 2)
     box3 = fast_create(Box, :owner_id => env.id, :owner_type => 'Environment', :position => 3)
-    block = ContainerBlockPlugin::ContainerBlock.create!(:box => box1)
+    block = create(ContainerBlockPlugin::ContainerBlock, :box => box1)
     block.destroy
     assert_equal [1, 2, 3], [box1.reload.position, box2.reload.position, box3.reload.position]
   end
@@ -114,7 +114,7 @@ class ContainerBlockPlugin::ContainerBlockTest < ActiveSupport::TestCase
     @block.save!
     @block.box = @block.container_box
     @block.save
-    assert @block.errors.invalid?(:box_id)
+    assert @block.errors.include?(:box_id)
   end
 
 end
