@@ -13,6 +13,8 @@ class CustomFormsPlugin::Form < Noosfero::Plugin::ActiveRecord
   validate :period_range, :if => Proc.new { |f| f.begining.present? && f.ending.present? }
   validate :access_format
 
+  attr_accessible :name, :profile, :for_admission, :access, :begining, :ending, :description, :fields_attributes, :profile_id, :on_membership
+
   before_validation do |form|
     form.slug = form.name.to_slug if form.name.present?
     form.access = nil if form.access.blank?
@@ -23,11 +25,11 @@ class CustomFormsPlugin::Form < Noosfero::Plugin::ActiveRecord
     tasks.each {|task| task.cancel}
   end
 
-  named_scope :from, lambda {|profile| {:conditions => {:profile_id => profile.id}}}
-  named_scope :on_memberships, {:conditions => {:on_membership => true, :for_admission => false}}
-  named_scope :for_admissions, {:conditions => {:for_admission => true}}
+  scope :from, lambda {|profile| {:conditions => {:profile_id => profile.id}}}
+  scope :on_memberships, {:conditions => {:on_membership => true, :for_admission => false}}
+  scope :for_admissions, {:conditions => {:for_admission => true}}
 =begin
-  named_scope :accessible_to lambda do |profile|
+  scope :accessible_to lambda do |profile|
     #TODO should verify is profile is associated with the form owner
     profile_associated = ???
     {:conditions => ["

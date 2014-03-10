@@ -12,7 +12,7 @@
   <%= f.hidden_field(:position) %>
 
   <%= f.hidden_field :_destroy, :class => 'destroy-field' %>
-  <%= button_to_function :delete, _('Remove field'), "customFormsPlugin.removeFieldBox(this, #{_('Are you sure you want to remove this field?').to_json})" %>
+  <%= button_to_function :delete, _('Remove field'), "customFormsPlugin.removeFieldBox(this, #{j _('Are you sure you want to remove this field?').to_json})" %>
   <%= yield %>
 </div>
 </fieldset>
