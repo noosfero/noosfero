@@ -13,6 +13,10 @@ class FilePresenter
     klass.accepts?(f) ? klass.new(f) : f
   end
 
+  def self.base_class
+    Article
+  end
+
   def initialize(f)
     @file = f
   end
