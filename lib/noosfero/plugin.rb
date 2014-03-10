@@ -57,6 +57,9 @@ class Noosfero::Plugin
         path << File.join(dir, 'lib')
       end
 
+      # add view path
+      ActionController::Base.view_paths.unshift(File.join(dir, 'views'))
+
       # load vendor/plugins
       Dir.glob(File.join(dir, '/vendor/plugins/*')).each do |vendor_plugin|
         [ ActiveSupport::Dependencies.load_paths, $:].each{ |path| path << "#{vendor_plugin}/lib" }
@@ -65,7 +68,9 @@ class Noosfero::Plugin
       end
 
       # load extensions
-      Dir[File.join(dir, 'lib', 'ext', '*.rb')].each {|file| require_dependency file }
+      Rails.configuration.to_prepare do
+        Dir[File.join(dir, 'lib', 'ext', '*.rb')].each {|file| require_dependency file }
+      end
 
       # load class
       klass(plugin_name)
@@ -369,6 +374,13 @@ class Noosfero::Plugin
     nil
   end
 
+  # -> Extends person memberships list
+  # returns = An instance of ActiveRecord::NamedScope::Scope retrived through
+  # Person.memberships_of method.
+  def person_memberships(person)
+    nil
+  end
+
   # -> Extends person permission access
   # returns = boolean
   def has_permission?(person, permission, target)
@@ -424,11 +436,42 @@ class Noosfero::Plugin
     nil
   end
 
+  # -> Adds adicional content to article header
+  # returns = lambda block that creates html code
+  def article_header_extra_contents(article)
+    nil
+  end
+
+  # -> Adds adittional content to comment visualization
+  # returns = lambda block that creates html code
+  def comment_extra_contents(args)
+    nil
+  end
+
+  # This method is called when the user clicks to send a comment.
+  # A plugin can add new content to comment form and this method can process the params sent to avoid creating field on core tables.
+  # returns = params after processed by plugins
+  # example:
+  #
+  #   def process_extra_comment_params(params)
+  #     params.delete(:extra_field)
+  #   end
+  #
+  def process_extra_comment_params(params)
+    params
+  end
+
   # -> Finds objects by their contents
   # returns = {:results => [a, b, c, ...], ...}
   # P.S.: The plugin might add other informations on the return hash for its
   # own use in specific views
   def find_by_contents(asset, scope, query, paginate_options={}, options={})
+  end
+
+  # -> Adds aditional fields for change_password
+  # returns = [{:field => 'field1', :name => 'field 1 name', :model => 'person'}, {...}]
+  def change_password_fields
+    nil
   end
 
   # -> Adds additional blocks to profiles and environments.

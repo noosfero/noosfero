@@ -65,3 +65,8 @@
 <%= labelled_check_box(_('Enable "contact us"'), 'profile_data[enable_contact_us]', "1", @profile.enable_contact_us) if @profile.enterprise? %>
 
 <%= render :partial => 'moderation', :locals => { :profile => @profile } %>
+
+<% if profile.enterprise? && profile.environment.enabled?('products_for_enterprises') %>
+  <h2><%=_('Products/Services catalog')%></h2>
+  <%= labelled_form_field(_('Number of products/services displayed per page on catalog'), text_field(:profile_data, :products_per_catalog_page, :size => 3)) %>
+<% end %>

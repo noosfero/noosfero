@@ -134,7 +134,7 @@ class MembershipsControllerTest < ActionController::TestCase
   end
 
   should 'use the current environment for the template of user' do
-    template = Community.create!(:identifier => 'test_template', :name => 'test@bli.com')
+    template = Community.create!(:identifier => 'test_template', :name => 'test@bli.com', :is_template => true)
     template.boxes.destroy_all
     template.boxes << Box.new
     template.boxes[0].blocks << Block.new
@@ -277,4 +277,61 @@ class MembershipsControllerTest < ActionController::TestCase
     assert_tag :tag => 'a', :attributes => { :href => "/myprofile/#{c1.identifier}" }
   end
 
+  should 'filter memberships by role' do
+    c1 = fast_create(Community, :name => 'First community')
+    c2 = fast_create(Community, :name => 'Second community')
+
+    role = Role.create!(:name => 'special_role', :permissions => ['edit_profile'], :environment => c2.environment)
+
+    person = Person['testuser']
+    c1.add_member(person)
+    c2.add_member(person)
+
+    person.add_role(role, c2)
+
+    login_as('testuser')
+    get :index, :profile => 'testuser'
+
+    assert_includes assigns(:memberships), c1
+    assert_includes assigns(:memberships), c2
+
+    get :index, :profile => 'testuser', :filter_type => role.id
+
+    assert_not_includes assigns(:memberships), c1
+    assert_includes assigns(:memberships), c2
+  end
+
+  should 'only show roles the user has' do
+    c1 = fast_create(Community, :name => 'First community')
+
+    role1 = Role.create!(:name => 'normal_role', :permissions => ['edit_profile'], :environment => c1.environment)
+    role2 = Role.create!(:name => 'special_role', :permissions => ['edit_profile'], :environment => c1.environment)
+
+    person = Person['testuser']
+    c1.add_member(person)
+    person.add_role(role1, c1)
+
+    login_as('testuser')
+    get :index, :profile => 'testuser'
+
+    assert_includes assigns(:roles), role1
+    assert_not_includes assigns(:roles), role2
+  end
+
+  should 'only show roles related to profiles' do
+    c1 = fast_create(Community, :name => 'First community')
+    role1 = Role.create!(:name => 'profile_role', :permissions => ['edit_profile'], :environment => c1.environment)
+    role2 = Role.create!(:name => 'environment_role', :permissions => ['edit_profile'], :environment => c1.environment)
+
+    person = Person['testuser']
+    c1.add_member(person)
+    person.add_role(role2, c1.environment)
+    person.add_role(role1, c1)
+
+    login_as('testuser')
+    get :index, :profile => 'testuser'
+
+    assert_includes assigns(:roles), role1
+    assert_not_includes assigns(:roles), role2
+  end
 end

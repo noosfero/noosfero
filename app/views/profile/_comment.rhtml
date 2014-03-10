@@ -16,11 +16,11 @@
   <% else %>
     <% url_image, status_class = comment.author_id ?
        [comment.removed_user_image, 'icon-user-removed'] :
-       [str_gravatar_url_for( comment.email ), 'icon-user-unknown'] %>
+       [gravatar_profile_image_url( comment.email ), 'icon-user-unknown'] %>
 
     <%= link_to(
           image_tag(url_image, :onerror=>'gravatarCommentFailback(this)',
-                   'data-gravatar'=>str_gravatar_url_for(comment.email)) +
+                   'data-gravatar'=>gravatar_profile_image_url(comment.email)) +
           content_tag('span', comment.author_name, :class => 'comment-info') +
           content_tag('span', comment.message,
                    :class => 'comment-user-status comment-user-status-wall ' + status_class),

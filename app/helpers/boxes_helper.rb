@@ -39,7 +39,7 @@ module BoxesHelper
   end
 
   def display_boxes(holder, main_content)
-    boxes = holder.boxes.first(holder.boxes_limit)
+    boxes = holder.boxes.with_position.first(holder.boxes_limit)
     content = boxes.reverse.map { |item| display_box(item, main_content) }.join("\n")
     content = main_content if (content.blank?)
 
@@ -65,7 +65,7 @@ module BoxesHelper
   end
 
   def display_box_content(box, main_content)
-    context = { :article => @page, :request_path => request.path, :locale => locale }
+    context = { :article => @page, :request_path => request.path, :locale => locale, :params => request.params }
     box_decorator.select_blocks(box.blocks.includes(:box), context).map { |item| display_block(item, main_content) }.join("\n") + box_decorator.block_target(box)
   end
 
@@ -102,14 +102,16 @@ module BoxesHelper
 
     result = filter_html(result, block)
 
-    box_decorator.block_target(block.box, block) +
-      content_tag('div',
-       content_tag('div',
+    content_tag('div',
+      box_decorator.block_target(block.box, block) +
+        content_tag('div',
          content_tag('div',
-           result + footer_content + box_decorator.block_edit_buttons(block),
-           :class => 'block-inner-2'),
-         :class => 'block-inner-1'),
-       options) +
+           content_tag('div',
+             result + footer_content + box_decorator.block_edit_buttons(block),
+             :class => 'block-inner-2'),
+           :class => 'block-inner-1'),
+       options),
+    :class => 'block-outer') +
     box_decorator.block_handle(block)
   end
 
@@ -210,6 +212,7 @@ module BoxesHelper
 
     if !block.main?
       buttons << icon_button(:delete, _('Remove block'), { :action => 'remove', :id => block.id }, { :method => 'post', :confirm => _('Are you sure you want to remove this block?')})
+      buttons << icon_button(:clone, _('Clone'), { :action => 'clone', :id => block.id }, { :method => 'post' })
     end
 
     if block.respond_to?(:help)
@@ -225,15 +228,11 @@ module BoxesHelper
 
   # DEPRECATED. Do not use this.
   def import_blocks_stylesheets(options = {})
-    @blocks_css_files ||= current_blocks.map{|b|'blocks/' + block_css_class_name(b)}.uniq
+    @blocks_css_files ||= current_blocks.map{|block|'blocks/' + block.class.name.to_css_class}.uniq
     stylesheet_import(@blocks_css_files, options)
   end
-
-  def block_css_class_name(block)
-    block.class.name.underscore.gsub('_', '-')
-  end
   def block_css_classes(block)
-    classes = block_css_class_name(block)
+    classes = block.class.name.to_css_class
     classes += ' invisible-block' if block.display == 'never'
     classes
   end

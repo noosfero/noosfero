@@ -308,9 +308,9 @@ class BscPluginMyprofileControllerTest < ActionController::TestCase
     enterprise1 = fast_create(Enterprise)
     enterprise2 = fast_create(Enterprise)
     enterprise3 = fast_create(Enterprise)
-    product1 = fast_create(Product, :enterprise_id => enterprise1.id, :name => 'Black Bycicle')
-    product2 = fast_create(Product, :enterprise_id => enterprise2.id, :name => 'Black Guitar')
-    product3 = fast_create(Product, :enterprise_id => enterprise3.id, :name => 'Black Notebook')
+    product1 = fast_create(Product, :profile_id => enterprise1.id, :name => 'Black Bycicle')
+    product2 = fast_create(Product, :profile_id => enterprise2.id, :name => 'Black Guitar')
+    product3 = fast_create(Product, :profile_id => enterprise3.id, :name => 'Black Notebook')
 
     get :search_sale_product, :profile => bsc.identifier, :enterprises => [enterprise1.id,enterprise2.id].join(','), :added_products => [product2.id].join(','),:sales => {1 => {:product_id => 'black'}}
 

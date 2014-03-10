@@ -1,0 +1,48 @@
+<%= render :partial => 'themes/select_template' %>
+<%= render :partial => 'themes/select_theme' %>
+
+<% if environment.enabled?('user_themes') %>
+  <div id="user-themes" class="list-options">
+
+  <h2><%= _('My themes') %></h2>
+
+  <% for themes in profile.themes.in_groups_of(3)  %>
+    <div class="list-group">
+      <% for theme in themes %><%=
+        if theme
+
+          selected = theme.id == @current_theme
+          sel_html = selected ?
+            content_tag('big', _('(current)') ) :
+            link_to(_('Use this theme'), :action => 'set', :id => theme.id)
+
+          content_tag( 'div',
+            image_tag(
+              '/images/icons-app/design-editor.png',
+              :alt => (_('The "%s" theme.') % theme.name)) +
+            '<div class="opt-info">' +
+              content_tag('strong', theme.name, :class => 'name') +
+              ' <br/> '+ sel_html +' <br/> ' +
+              link_to(_('Edit this theme'), :action => 'edit', :id => theme.id) +
+              ' <br/> ' +
+              link_to(_('Test this theme'), :action => 'start_test', :id => theme.id) +
+            '</div>',
+            :class => 'theme-opt list-opt' + (selected ? ' selected' : '')
+          )
+
+        end
+      %><% end %>
+    </div>
+  <% end %>
+
+  </div><!-- end id="user-themes" -->
+<% end %>
+
+<br style="clear:both" />
+
+<% button_bar do %>
+  <% if environment.enabled?('user_themes')  %>
+    <%= lightbox_button(:add, _('New theme ...'), :action => 'new') %>
+  <% end %>
+  <%= button(:back, _('Back'), :controller => 'profile_editor', :action => 'index') %>
+<% end %>

@@ -256,4 +256,19 @@ class RoutingTest < ActionController::IntegrationTest
     assert_recognizes({:controller => 'not_found', :action => 'nothing', :stuff => ['aksdhf']}, '/user_themes/aksdhf')
   end
 
+  should 'have route to versions of an article' do
+
+    assert_routing('/ze/work/free-software/versions', :controller => 'content_viewer', :action => 'article_versions', :profile => 'ze', :page => ['work', "free-software"])
+  end
+
+  should 'have route to versions of an article if profile has domain' do
+    user = create_user('testuser').person
+    domain = Domain.create!(:name => 'example.com', :owner => user)
+
+    ActionController::TestRequest.any_instance.expects(:host).returns('www.example.com')
+
+    assert_routing('/work/free-software/versions', :controller => 'content_viewer', :action =>  'article_versions', :page => [ 'work', 'free-software'] )
+  end
+
+
 end

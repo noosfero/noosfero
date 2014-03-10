@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
 
   before_filter :setup_multitenancy
   before_filter :detect_stuff_by_domain
-  before_filter :init_noosfero_plugins
+  before_filter :init_noosfero_plugins_controller_filters
   before_filter :allow_cross_domain_access
 
   def allow_cross_domain_access
@@ -21,8 +21,13 @@ class ApplicationController < ActionController::Base
   include ApplicationHelper
   layout :get_layout
   def get_layout
-    prepend_view_path('public/' + theme_path)
-    theme_option(:layout) || 'application'
+    return nil if request.format == :js
+    theme_layout = theme_option(:layout)
+    if theme_layout
+      theme_view_file('layouts/'+theme_layout) || theme_layout
+    else
+     'application'
+    end
   end
 
   filter_parameter_logging :password
@@ -122,22 +127,21 @@ class ApplicationController < ActionController::Base
 
   include Noosfero::Plugin::HotSpot
 
-  def init_noosfero_plugins
-    plugins.each do |plugin|
-      prepend_view_path(plugin.class.view_path)
-    end
-    init_noosfero_plugins_controller_filters
-  end
-
   # This is a generic method that initialize any possible filter defined by a
   # plugin to the current controller being initialized.
   def init_noosfero_plugins_controller_filters
     plugins.each do |plugin|
       filters = plugin.send(self.class.name.underscore + '_filters')
       filters = [filters] if !filters.kind_of?(Array)
+      controller_filters = self.class.filter_chain.map {|c| c.method }
       filters.each do |plugin_filter|
-        self.class.send(plugin_filter[:type], plugin.class.name.underscore + '_' + plugin_filter[:method_name], (plugin_filter[:options] || {}))
-        self.class.send(:define_method, plugin.class.name.underscore + '_' + plugin_filter[:method_name], plugin_filter[:block])
+        filter_method = plugin.class.name.underscore.gsub('/','_') + '_' + plugin_filter[:method_name]
+        unless controller_filters.include?(filter_method)
+          self.class.send(plugin_filter[:type], filter_method, (plugin_filter[:options] || {}))
+          self.class.send(:define_method, filter_method) do
+            instance_eval(&plugin_filter[:block]) if environment.plugin_enabled?(plugin.class)
+          end
+        end
       end
     end
   end
@@ -174,7 +178,7 @@ class ApplicationController < ActionController::Base
   end
 
   def find_by_contents(asset, scope, query, paginate_options={:page => 1}, options={})
-    @plugins.dispatch_first(:find_by_contents, asset, scope, query, paginate_options, options) ||
+    plugins.dispatch_first(:find_by_contents, asset, scope, query, paginate_options, options) ||
     fallback_find_by_contents(asset, scope, query, paginate_options, options)
   end
 

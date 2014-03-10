@@ -11,11 +11,8 @@ class ContentViewerControllerTest < ActionController::TestCase
 
   def setup
     @profile = fast_create(Community)
-    @track = CommunityTrackPlugin::Track.create!(:abstract => 'abstract', :body => 'body', :name => 'track', :profile => @profile)
-    category = fast_create(Category, :name => "education")
-    @track.add_category(category)
-
-    @step = CommunityTrackPlugin::Step.create!(:name => 'step1', :body => 'body', :profile => @profile, :parent => @track, :published => false, :end_date => Date.today, :start_date => Date.today)
+    @track = create_track('track', @profile)
+    @step = CommunityTrackPlugin::Step.create!(:name => 'step1', :body => 'body', :profile => @profile, :parent => @track, :published => false, :end_date => Date.today, :start_date => Date.today, :tool_type => TinyMceArticle.name)
 
     user = create_user('testinguser')
     login_as(user.login)
@@ -24,15 +21,15 @@ class ContentViewerControllerTest < ActionController::TestCase
 
   should 'show actions for tracks when user has permission for edit' do
     get :view_page, @track.url
-    assert_tag :tag => 'div', :attributes => {:id => 'track' }, :descendant => { :tag => 'div', :attributes => { :class => 'actions' } }
+    assert_tag :tag => 'div', :attributes => {:id => 'track' }, :descendant => { :tag => 'div', :attributes => { :class => 'track actions' } }
   end
 
-  should 'do not show actions for tracks when user has not permission for edit' do
+  should 'do not show actions for tracks when user has not permission to edit' do
     user = create_user('intruder')
     logout
     login_as(user.login)
     get :view_page, @track.url
-    assert_no_tag :tag => 'div', :attributes => {:id => 'track' }, :descendant => { :tag => 'div', :attributes => { :class => 'actions' } }
+    assert_no_tag :tag => 'div', :attributes => {:id => 'track' }, :descendant => { :tag => 'div', :attributes => { :class => 'track actions' } }
   end
 
   should 'do not show new button at article toolbar for tracks' do
@@ -45,7 +42,7 @@ class ContentViewerControllerTest < ActionController::TestCase
 
   should 'display steps for tracks' do
     get :view_page, @track.url
-    assert_tag :tag => 'ul', :attributes => { :id => 'sortable' }, :descendant => {:tag => 'li', :attributes => { :class => 'step' } }
+    assert_tag :tag => 'ul', :attributes => { :id => 'sortable' }, :descendant => {:tag => 'li', :attributes => { :class => 'step step_active' } }
   end
 
   should 'display hidden field with step id' do
@@ -59,20 +56,26 @@ class ContentViewerControllerTest < ActionController::TestCase
   end
 
   should 'show tools for a step' do
-    Article.create!(:profile => @profile, :name => 'article', :parent => @step)
+    TinyMceArticle.create!(:profile => @profile, :name => 'article', :parent => @step)
     get :view_page, @step.url
     assert_tag :tag => 'div', :attributes => { :class => 'tools' }, :descendant => { :tag => 'div', :attributes => { :class => 'item' } }
   end
 
-  should 'show actions for steps when user has permission for edit' do
+  should 'show actions for steps when user has permission to edit' do
     get :view_page, @step.url
     assert_tag :tag => 'div', :attributes => {:id => 'step' }, :descendant => { :tag => 'div', :attributes => { :class => 'actions' } }
   end
 
-  should 'show actions for enabled tools in step' do
+  should 'show action for tiny mce article tool in step' do
+    get :view_page, @step.url
+    assert_tag 'div', :attributes => {:class => 'actions' }, :descendant => { :tag => 'a', :attributes => { :class => 'button with-text icon-new icon-newtext-html' } }
+  end
+
+  should 'show action for forum tool in step' do
+    @step.tool_type = Forum.name
+    @step.save!
     get :view_page, @step.url
     assert_tag 'div', :attributes => {:class => 'actions' }, :descendant => { :tag => 'a', :attributes => { :class => 'button with-text icon-new icon-newforum' } }
-    assert_tag 'div', :attributes => {:class => 'actions' }, :descendant => { :tag => 'a', :attributes => { :class => 'button with-text icon-new icon-newtext-html' } }
   end
 
   should 'do not show actions for steps when user has not permission for edit' do
@@ -104,7 +107,7 @@ class ContentViewerControllerTest < ActionController::TestCase
     @block = CommunityTrackPlugin::TrackListBlock.create!(:box => box)
     @profile.boxes << box
     get :view_page, @step.url
-    assert_tag :tag => 'div', :attributes => { :class => 'item category_education' }, :descendant => { :tag => 'div', :attributes => { :class => 'steps' }, :descendant => { :tag => 'div', :attributes => { :class => "step #{@block.status_class(@step)}" } } }
+    assert_tag :tag => 'div', :attributes => { :class => "item category_#{@track.category_name}" }, :descendant => { :tag => 'div', :attributes => { :class => 'steps' }, :descendant => { :tag => 'span', :attributes => { :class => "step #{@block.status_class(@step)}" } } }
   end
 
   should 'render tracks in track card list block' do
@@ -112,8 +115,8 @@ class ContentViewerControllerTest < ActionController::TestCase
     @block = CommunityTrackPlugin::TrackCardListBlock.create!(:box => box)
     @profile.boxes << box
     get :view_page, @step.url
-    assert_tag :tag => 'div', :attributes => { :class => 'item_card category_education' }, :descendant => { :tag => 'div', :attributes => { :class => 'track_content' } }
-    assert_tag :tag => 'div', :attributes => { :class => 'item_card category_education' }, :descendant => { :tag => 'div', :attributes => { :class => 'track_stats' } }
+    assert_tag :tag => 'div', :attributes => { :class => "item_card category_#{@track.category_name}" }, :descendant => { :tag => 'div', :attributes => { :class => 'track_content' } }
+    assert_tag :tag => 'div', :attributes => { :class => "item_card category_#{@track.category_name}" }, :descendant => { :tag => 'div', :attributes => { :class => 'track_stats' } }
   end
 
   should 'render link to display more tracks in track list block' do
@@ -121,9 +124,7 @@ class ContentViewerControllerTest < ActionController::TestCase
     @block = CommunityTrackPlugin::TrackCardListBlock.create!(:box => box)
     @profile.boxes << box
 
-    (@block.limit+1).times do |i|
-      CommunityTrackPlugin::Track.create!(:abstract => 'abstract', :body => 'body', :name => "track#{i}", :profile => @profile)
-    end
+    (@block.limit+1).times { |i| create_track("track#{i}", @profile) }
 
     get :view_page, @step.url
     assert_tag :tag => 'div', :attributes => { :id => "track_list_more_#{@block.id}" }, :descendant => { :tag => 'div', :attributes => { :class => 'more' } }
@@ -136,9 +137,7 @@ class ContentViewerControllerTest < ActionController::TestCase
     @block.more_another_page = true
     @block.save!
 
-    (@block.limit+1).times do |i|
-      CommunityTrackPlugin::Track.create!(:abstract => 'abstract', :body => 'body', :name => "track#{i}", :profile => @profile)
-    end
+    (@block.limit+1).times { |i| create_track("track#{i}", @profile) }
 
     get :view_page, @step.url
     assert_tag :tag => 'div', :attributes => { :id => "track_list_more_#{@block.id}" }, :descendant => { :tag => 'div', :attributes => { :class => 'view_all' } }

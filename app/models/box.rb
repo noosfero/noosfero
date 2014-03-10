@@ -3,12 +3,17 @@ class Box < ActiveRecord::Base
   acts_as_list :scope => 'owner_id = #{owner_id} and owner_type = \'#{owner_type}\''
   has_many :blocks, :dependent => :destroy, :order => 'position'
 
+  include Noosfero::Plugin::HotSpot
+
+  named_scope :with_position, :conditions => ['boxes.position > 0']
+
   def environment
     owner ? (owner.kind_of?(Environment) ? owner : owner.environment) : nil
   end
 
   def acceptable_blocks
-    to_css_class_name central?  ? Box.acceptable_center_blocks : Box.acceptable_side_blocks
+    blocks_classes = central?  ? Box.acceptable_center_blocks + plugins.dispatch(:extra_blocks, :type => owner.class, :position => 1) : Box.acceptable_side_blocks + plugins.dispatch(:extra_blocks, :type => owner.class, :position => [2, 3])
+    to_css_class_name(blocks_classes)
   end
 
   def central?
@@ -61,6 +66,7 @@ class Box < ActiveRecord::Base
       MyNetworkBlock,
       PeopleBlock,
       ProductsBlock,
+      ProductCategoriesBlock,
       ProfileImageBlock,
       ProfileInfoBlock,
       ProfileSearchBlock,
@@ -74,8 +80,8 @@ class Box < ActiveRecord::Base
 
   private
 
-  def to_css_class_name(blocks)
-    blocks.map{ |block| block.to_s.underscore.tr('_', '-') }
+  def to_css_class_name(blocks_classes)
+    blocks_classes.map{ |block_class| block_class.name.to_css_class }
   end
 
 end

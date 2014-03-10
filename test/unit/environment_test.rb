@@ -384,13 +384,13 @@ class EnvironmentTest < ActiveSupport::TestCase
     p1 = e1.products.create!(:name => 'test_prod1', :product_category_id => category.id)
     products = []
     3.times {|n|
-      products.push(Product.create!(:name => "product #{n}", :enterprise_id => e1.id,
+      products.push(Product.create!(:name => "product #{n}", :profile_id => e1.id,
         :product_category_id => category.id, :highlighted => true,
         :image_builder => { :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png') }
       ))
     }
-    Product.create!(:name => "product 4", :enterprise_id => e1.id, :product_category_id => category.id, :highlighted => true)
-    Product.create!(:name => "product 5", :enterprise_id => e1.id, :product_category_id => category.id, :image_builder => {
+    Product.create!(:name => "product 4", :profile_id => e1.id, :product_category_id => category.id, :highlighted => true)
+    Product.create!(:name => "product 5", :profile_id => e1.id, :product_category_id => category.id, :image_builder => {
         :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')
       })
     assert_equal products, env.highlighted_products_with_image
@@ -500,15 +500,15 @@ class EnvironmentTest < ActiveSupport::TestCase
   should 'set templates' do
     e = fast_create(Environment)
 
-    comm = fast_create(Community)
+    comm = fast_create(Community, :is_template => true)
     e.community_template = comm
     assert_equal comm, e.community_template
 
-    person = fast_create(Person)
+    person = fast_create(Person, :is_template => true)
     e.person_template = person
     assert_equal person, e.person_template
 
-    enterprise = fast_create(Enterprise)
+    enterprise = fast_create(Enterprise, :is_template => true)
     e.enterprise_template = enterprise
     assert_equal enterprise, e.enterprise_template
   end
@@ -718,7 +718,7 @@ class EnvironmentTest < ActiveSupport::TestCase
     assert_equal c, e.portal_community
     e.unset_portal_community!
     e.reload
-    assert_nil e.portal_community 
+    assert_nil e.portal_community
     assert_equal [], e.portal_folders
     assert_equal 0, e.news_amount_by_folder
     assert_equal false, e.enabled?('use_portal_community')
@@ -781,6 +781,18 @@ class EnvironmentTest < ActiveSupport::TestCase
     role2 = Role.new(:name => 'test_role', :environment => e2, :key => 'a_member')
 
     assert role2.valid?
+  end
+
+  should 'destroy roles when its environment is destroyed' do
+    e1 = fast_create(Environment)
+    role1 = Role.create!(:name => 'test_role', :environment => e1, :key => 'a_member')
+    e2 = fast_create(Environment)
+    role2 = Role.create!(:name => 'test_role', :environment => e2, :key => 'a_member')
+
+    e2.destroy
+
+    assert_nothing_raised {Role.find(role1.id)}
+    assert_raise(ActiveRecord::RecordNotFound) {Role.find(role2.id)}
   end
 
   should 'have a help_message_to_add_enterprise attribute' do

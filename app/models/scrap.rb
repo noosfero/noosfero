@@ -14,9 +14,11 @@ class Scrap < ActiveRecord::Base
 
   named_scope :not_replies, :conditions => {:scrap_id => nil}
 
-  track_actions :leave_scrap, :after_create, :keep_params => ['sender.name', 'content', 'receiver.name', 'receiver.url'], :if => Proc.new{|s| s.receiver != s.sender}, :custom_target => :action_tracker_target 
+  track_actions :leave_scrap, :after_create, :keep_params => ['sender.name', 'content', 'receiver.name', 'receiver.url'], :if => Proc.new{|s| s.sender != s.receiver && s.sender != s.top_root.receiver}, :custom_target => :action_tracker_target 
 
-  track_actions :leave_scrap_to_self, :after_create, :keep_params => ['sender.name', 'content'], :if => Proc.new{|s| s.receiver == s.sender}
+  track_actions :leave_scrap_to_self, :after_create, :keep_params => ['sender.name', 'content'], :if => Proc.new{|s| s.sender == s.receiver}
+
+  track_actions :reply_scrap_on_self, :after_create, :keep_params => ['sender.name', 'content'], :if => Proc.new{|s| s.sender != s.receiver && s.sender == s.top_root.receiver}
 
   after_create do |scrap|
     scrap.root.update_attribute('updated_at', DateTime.now) unless scrap.root.nil?
@@ -24,6 +26,12 @@ class Scrap < ActiveRecord::Base
   end
 
   before_validation :strip_all_html_tags
+
+  def top_root
+    scrap = self
+    scrap = Scrap.find(scrap.scrap_id) while scrap.scrap_id
+    scrap
+  end
 
   def strip_all_html_tags
     sanitizer = HTML::WhiteListSanitizer.new

@@ -133,4 +133,44 @@ class ForumTest < ActiveSupport::TestCase
     assert_equal '', f.first_paragraph
   end
 
+  should 'include user that changes a forum as agreed with terms' do
+    author = fast_create(Person)
+    editor = fast_create(Person)
+    forum = Forum.create(:profile => author, :name => 'Forum test', :body => 'Forum test', :has_terms_of_use => true, :last_changed_by => author)
+    forum.last_changed_by = editor
+    forum.save
+
+    assert_equivalent [author, editor], forum.users_with_agreement
+  end
+
+  should 'not crash if forum has terms and last_changed does not exist' do
+    profile = fast_create(Person)
+    forum = Forum.create(:profile => profile, :name => 'Forum test', :body => 'Forum test', :has_terms_of_use => true)
+
+    assert_equal [], forum.users_with_agreement
+  end
+
+  should 'agree with terms if forum doesn\'t have terms' do
+    person = fast_create(Person)
+    forum = fast_create(Forum)
+
+    assert_equal true, forum.agrees_with_terms?(person)
+  end
+
+  should 'not agree with terms if user is logged in but did not accept it' do
+    person = fast_create(Person)
+    forum = Forum.create(:profile => person, :name => 'Forum test', :body => 'Forum test', :has_terms_of_use => true)
+
+    assert_equal false, forum.agrees_with_terms?(person)
+  end
+
+  should 'agree with terms if user is logged in and accept it' do
+    person = fast_create(Person)
+    forum = Forum.create(:profile => person, :name => 'Forum test', :body => 'Forum test', :has_terms_of_use => true)
+    forum.users_with_agreement << person
+    forum.save
+
+    assert_equal true, Forum.find(forum.id).agrees_with_terms?(person)
+  end
+
 end

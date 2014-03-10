@@ -1,0 +1,4 @@
+<% labels = CommentClassificationPlugin::Label.enabled  %>
+<% if logged_in? && user.has_permission?(:moderate_comments, profile) && !labels.empty? %>
+  <%= labelled_form_field(_('Label'), select_tag('comment_label_id', options_for_select( [[_('[Select ...]'), nil]] + labels.map{|l|[l.name,l.id]}, @comment.label.nil? ? '' : @comment.label.id)))  %>
+<% end %>

@@ -70,7 +70,7 @@ class BoxOrganizerController < ApplicationController
     else
       @center_block_types = (Box.acceptable_center_blocks & available_blocks) + plugins.dispatch(:extra_blocks, :type => boxes_holder.class, :position => 1)
       @side_block_types = (Box.acceptable_side_blocks & available_blocks) + plugins.dispatch(:extra_blocks, :type => boxes_holder.class, :position => [2,3])
-      @boxes = boxes_holder.boxes
+      @boxes = boxes_holder.boxes.with_position
       render :action => 'add_block', :layout => false
     end
   end

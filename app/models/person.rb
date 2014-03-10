@@ -43,8 +43,17 @@ class Person < Profile
   alias_method_chain :has_permission?, :plugins
 
   def memberships
-    Profile.memberships_of(self)
+    scopes = []
+    plugins_scopes = plugins.dispatch_scopes(:person_memberships, self)
+    scopes = plugins_scopes unless plugins_scopes.first.blank?
+    scopes << Profile.memberships_of(self)
+    return scopes.first if scopes.size == 1
+    ScopeTool.union *scopes
   end
+
+   def memberships_by_role(role)
+     memberships.where('role_assignments.role_id = ?', role.id)
+   end
 
   has_many :friendships, :dependent => :destroy
   has_many :friends, :class_name => 'Person', :through => :friendships
@@ -58,6 +67,9 @@ class Person < Profile
   has_many :mailings
 
   has_many :scraps_sent, :class_name => 'Scrap', :foreign_key => :sender_id, :dependent => :destroy
+
+  has_and_belongs_to_many :acepted_forums, :class_name => 'Forum', :join_table => 'terms_forum_people'
+  has_and_belongs_to_many :articles_with_access, :class_name => 'Article', :join_table => 'article_privacy_exceptions'
 
   named_scope :more_popular,
       :select => "#{Profile.qualified_column_names}, count(friend_id) as total",
@@ -74,6 +86,10 @@ class Person < Profile
 
   named_scope :abusers, :joins => :abuse_complaints, :conditions => ['tasks.status = 3'], :select => 'DISTINCT profiles.*'
   named_scope :non_abusers, :joins => "LEFT JOIN tasks ON profiles.id = tasks.requestor_id AND tasks.type='AbuseComplaint'", :conditions => ["tasks.status != 3 OR tasks.id is NULL"], :select => "DISTINCT profiles.*"
+
+  named_scope :admins, :joins => [:role_assignments => :role], :conditions => ['roles.key = ?', 'environment_administrator' ]
+  named_scope :activated, :joins => :user, :conditions => ['users.activation_code IS NULL AND users.activated_at IS NOT NULL']
+  named_scope :deactivated, :joins => :user, :conditions => ['NOT (users.activation_code IS NULL AND users.activated_at IS NOT NULL)']
 
   after_destroy do |person|
     Friendship.find(:all, :conditions => { :friend_id => person.id}).each { |friendship| friendship.destroy }
@@ -129,32 +145,34 @@ class Person < Profile
   end
 
   FIELDS = %w[
+  description
+  image
   preferred_domain
   nickname
   sex
-  address
-  zip_code
-  city
-  state
-  country
-  nationality
   birth_date
+  nationality
+  country
+  state
+  city
+  district
+  zip_code
+  address
+  address_reference
   cell_phone
   comercial_phone
+  personal_website
+  jabber_id
   schooling
+  formation
+  custom_formation
+  area_of_study
+  custom_area_of_study
   professional_activity
   organization
   organization_website
-  area_of_study
-  custom_area_of_study
-  formation
-  custom_formation
   contact_phone
   contact_information
-  description
-  image
-  district
-  address_reference
   ]
 
   validates_multiparameter_assignments
@@ -468,12 +486,19 @@ class Person < Profile
   end
 
   def activities
-    Scrap.find_by_sql("SELECT id, updated_at, '#{Scrap.to_s}' AS klass FROM #{Scrap.table_name} WHERE scraps.receiver_id = #{self.id} AND scraps.scrap_id IS NULL UNION SELECT id, updated_at, '#{ActionTracker::Record.to_s}' AS klass FROM #{ActionTracker::Record.table_name} WHERE action_tracker.user_id = #{self.id} and action_tracker.verb != 'leave_scrap_to_self' and action_tracker.verb != 'add_member_in_community' ORDER BY updated_at DESC")
+    Scrap.find_by_sql("SELECT id, updated_at, '#{Scrap.to_s}' AS klass FROM #{Scrap.table_name} WHERE scraps.receiver_id = #{self.id} AND scraps.scrap_id IS NULL UNION SELECT id, updated_at, '#{ActionTracker::Record.to_s}' AS klass FROM #{ActionTracker::Record.table_name} WHERE action_tracker.user_id = #{self.id} and action_tracker.verb != 'leave_scrap_to_self' and action_tracker.verb != 'add_member_in_community' and action_tracker.verb != 'reply_scrap_on_self' ORDER BY updated_at DESC")
   end
 
   # by default, all fields are private
   def public_fields
     self.fields_privacy.nil? ? [] : self.fields_privacy.reject{ |k, v| v != 'public' }.keys.map(&:to_s)
+  end
+
+  include Noosfero::Gravatar
+
+  def profile_custom_icon(gravatar_default=nil)
+    (self.image.present? && self.image.public_filename(:icon)) ||
+    gravatar_profile_image_url(self.email, :size=>20, :d => gravatar_default)
   end
 
   protected

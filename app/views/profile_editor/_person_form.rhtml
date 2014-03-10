@@ -13,6 +13,8 @@
 <%= optional_field(@person, 'contact_phone', labelled_form_field(_('Home phone'), text_field(:profile_data, :contact_phone, :rel => _('Contact phone')))) %>
 <%= optional_field(@person, 'cell_phone', f.text_field(:cell_phone, :rel => _('Cell phone'))) %>
 <%= optional_field(@person, 'comercial_phone', f.text_field(:comercial_phone, :rel => _('Comercial phone'))) %>
+<%= optional_field(@person, 'jabber_id', f.text_field(:jabber_id, :rel => _('Jabber'))) %>
+<%= optional_field(@person, 'personal_website', f.text_field(:personal_website, :rel => _('Personal website'))) %>
 <%= optional_field(@person, 'sex', f.radio_group(:profile_data, :sex, [ ['male',_('Male')], ['female',_('Female')] ])) %>
 <%= optional_field(@person, 'birth_date', labelled_form_field(_('Birth date'), '<div class="select-birth-date">' + pick_date(:profile_data, :birth_date, {:start_year => (Date.today.year - 100), :end_year => (Date.today.year - 5)}) + '</div>')) %>
 <%= optional_field(@person, 'nationality', f.text_field(:nationality, :rel => _('Nationality'))) %>

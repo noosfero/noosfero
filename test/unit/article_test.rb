@@ -740,6 +740,11 @@ class ArticleTest < ActiveSupport::TestCase
     assert_match(/-year-2009-month-04/, a.cache_key(:year => '2009', :month => '04'))
   end
 
+ should 'use revision number to compose cache key' do
+    a = fast_create(Article, :name => 'Versioned article', :profile_id => profile.id)
+    assert_match(/-version-2/,a.cache_key(:version => 2))
+  end
+
   should 'not be highlighted by default' do
     a = Article.new
     assert !a.highlighted
@@ -1405,30 +1410,32 @@ class ArticleTest < ActiveSupport::TestCase
   should 'return only folders' do
     not_folders = [RssFeed, TinyMceArticle, Event, TextileArticle]
     folders = [Folder, Blog, Gallery, Forum]
+    profile = fast_create(Profile)
 
     not_folders.each do |klass|
       item = fast_create(klass)
-      assert_not_includes Article.folders, item
+      assert_not_includes Article.folders(profile), item
     end
 
     folders.each do |klass|
       item = fast_create(klass)
-      assert_includes Article.folders, item
+      assert_includes Article.folders(profile), item
     end
   end
 
   should 'return no folders' do
     not_folders = [RssFeed, TinyMceArticle, Event, TextileArticle]
     folders = [Folder, Blog, Gallery, Forum]
+    profile = fast_create(Profile)
 
     not_folders.each do |klass|
       item = fast_create(klass)
-      assert_includes Article.no_folders, item
+      assert_includes Article.no_folders(profile), item
     end
 
     folders.each do |klass|
       item = fast_create(klass)
-      assert_not_includes Article.no_folders, item
+      assert_not_includes Article.no_folders(profile), item
     end
   end
 
@@ -1686,6 +1693,16 @@ class ArticleTest < ActiveSupport::TestCase
     assert_equal license, article.license
   end
 
+  should 'return license from a specific version' do
+    cc = License.create!(:name => 'CC (by)', :environment => Environment.default)
+    gpl = License.create!(:name => 'GPLv3', :environment => Environment.default)
+    article = Article.create!(:name => 'first version', :profile => profile, :license => cc)
+    article.license = gpl
+    article.save
+    assert_equal cc, article.version_license(1)
+    assert_equal gpl, article.version_license(2)
+  end
+
   should 'update path if parent is changed' do
     f1 = Folder.create!(:name => 'Folder 1', :profile => profile)
     f2 = Folder.create!(:name => 'Folder 2', :profile => profile)
@@ -1744,6 +1761,28 @@ class ArticleTest < ActiveSupport::TestCase
     assert_nil article.author_id
   end
 
+  should "return the author of a specific version" do
+    author1 = fast_create(Person)
+    author2 = fast_create(Person)
+    article = Article.create!(:name => 'first version', :profile => profile, :last_changed_by => author1)
+    article.name = 'second version'
+    article.last_changed_by = author2
+    article.save
+    assert_equal author1, article.author(1)
+    assert_equal author2, article.author(2)
+  end
+
+  should "return the author_name of a specific version" do
+    author1 = fast_create(Person)
+    author2 = fast_create(Person)
+    article = Article.create!(:name => 'first version', :profile => profile, :last_changed_by => author1)
+    article.name = 'second version'
+    article.last_changed_by = author2
+    article.save
+    assert_equal author1.name, article.author_name(1)
+    assert_equal author2.name, article.author_name(2)
+  end
+
   should 'identify if belongs to forum' do
     p = create_user('user_forum_test').person
     forum = fast_create(Forum, :name => 'Forum test', :profile_id => p.id)
@@ -1771,6 +1810,19 @@ class ArticleTest < ActiveSupport::TestCase
       }, :profile_id => @profile.id)
       assert_equal p.image(true).filename, 'rails.png'
     end
+  end
+
+ should 'return articles with specific types' do
+    Article.delete_all
+
+    c1 = fast_create(TinyMceArticle, :name => 'Testing article 1', :body => 'Article body 1', :profile_id => profile.id)
+    c2 = fast_create(TextArticle, :name => 'Testing article 2', :body => 'Article body 2', :profile_id => profile.id)
+    c3 = fast_create(Event, :name => 'Testing article 3', :body => 'Article body 3', :profile_id => profile.id)
+    c4 = fast_create(RssFeed, :name => 'Testing article 4', :body => 'Article body 4', :profile_id => profile.id)
+    c5 = fast_create(TextileArticle, :name => 'Testing article 5', :body => 'Article body 5', :profile_id => profile.id)
+
+    assert_equivalent [c1,c2], Article.with_types(['TinyMceArticle', 'TextArticle'])
+    assert_equivalent [c3], Article.with_types(['Event'])
   end
 
 end

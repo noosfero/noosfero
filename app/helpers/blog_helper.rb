@@ -1,9 +1,12 @@
 module BlogHelper
 
-  def custom_options_for_article(article)
+  include ArticleHelper
+
+  def custom_options_for_article(article,tokenized_children)
     @article = article
     hidden_field_tag('article[published]', 1) +
-    hidden_field_tag('article[accept_comments]', 0)
+    hidden_field_tag('article[accept_comments]', 0) +
+    visibility_options(article,tokenized_children)
   end
 
   def cms_label_for_new_children

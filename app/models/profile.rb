@@ -78,12 +78,18 @@ class Profile < ActiveRecord::Base
   #FIXME: these will work only if the subclass is already loaded
   named_scope :enterprises, lambda { {:conditions => (Enterprise.send(:subclasses).map(&:name) << 'Enterprise').map { |klass| "profiles.type = '#{klass}'"}.join(" OR ")} }
   named_scope :communities, lambda { {:conditions => (Community.send(:subclasses).map(&:name) << 'Community').map { |klass| "profiles.type = '#{klass}'"}.join(" OR ")} }
-  named_scope :templates, lambda { |environment| { :conditions => {:is_template => true, :environment_id => environment.id} } }
+  named_scope :templates, {:conditions => {:is_template => true}}
+  named_scope :no_templates, {:conditions => {:is_template => false}}
 
   def members
     scopes = plugins.dispatch_scopes(:organization_members, self)
     scopes << Person.members_of(self)
-    scopes.size == 1 ? scopes.first : Person.or_scope(scopes)
+    return scopes.first if scopes.size == 1
+    ScopeTool.union *scopes
+  end
+
+  def members_by_name
+    members.order(:name)
   end
 
   def members_count
@@ -98,7 +104,6 @@ class Profile < ActiveRecord::Base
     alias_method_chain :count, :distinct
   end
 
-
   def members_by_role(role)
     Person.members_of(self).all(:conditions => ['role_assignments.role_id = ?', role.id])
   end
@@ -112,6 +117,7 @@ class Profile < ActiveRecord::Base
   end
 
   named_scope :visible, :conditions => { :visible => true }
+  named_scope :public, :conditions => { :visible => true, :public_profile => true }
   # Subclasses must override these methods
   named_scope :more_popular
   named_scope :more_active
@@ -760,8 +766,20 @@ private :generate_url, :url_options
     !environment.enabled?('disable_contact_' + self.class.name.downcase)
   end
 
+  include Noosfero::Plugin::HotSpot
+  
+  def folder_types
+    types = Article.folder_types
+    plugins.dispatch(:content_types).each {|type|
+      if type < Folder
+        types << type.name
+      end
+    }
+    types
+  end
+
   def folders
-    articles.folders
+    articles.folders(self)
   end
 
   def image_galleries
@@ -844,8 +862,10 @@ private :generate_url, :url_options
     }[amount] || _("%s members") % amount
   end
 
-  def profile_custom_icon
-    self.image.public_filename(:icon) unless self.image.blank?
+  include Noosfero::Gravatar
+
+  def profile_custom_icon(gravatar_default=nil)
+    image.public_filename(:icon) if image.present?
   end
 
   def jid(options = {})

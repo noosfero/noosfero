@@ -1,0 +1,12 @@
+.controller-profile_editor .control-panel a.control-panel-comment_classification {
+  background-image: url(images/comment-classification.png);
+}
+
+#content .comment-classification-options .label-name {
+  font-style: italic;
+}
+
+#content .comment-classification-options a.button {
+  background-color: transparent;
+  border: none;
+}

@@ -1,10 +1,4 @@
 jQuery(function($) {
-  $(".lead-button").live('click', function(){
-    article_id = this.getAttribute("article_id");
-    $(this).toggleClass('icon-add').toggleClass('icon-remove');
-    $(article_id).slideToggle();
-    return false;
-  })
   $("#body-button").click(function(){
     $(this).toggleClass('icon-add').toggleClass('icon-remove');
     $('#article-body-field').slideToggle();
@@ -171,5 +165,20 @@ jQuery(function($) {
     $('#media-upload-form').show();
     return false;
   });
+
+  function show_hide_token_input() {
+    if($("#article_published_false").attr('checked'))
+      $("#text-input-search-exception-users").parent("div").css('display', 'block');
+    else
+      $("#text-input-search-exception-users").parent("div").css('display', 'none');
+  }
+
+  if( $("#token-input-search-article-privacy-exceptions").length == 1 ) {
+    show_hide_token_input();
+
+    //Hide / Show the text area
+    $("#article_published_false").click(show_hide_token_input);
+    $("#article_published_true").click(show_hide_token_input);
+  }
 
 });

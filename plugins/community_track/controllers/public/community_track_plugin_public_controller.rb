@@ -25,7 +25,7 @@ class CommunityTrackPluginPublicController < PublicController
   end
 
   def all_tracks
-    @per_page = 5 #FIXME
+    @per_page = 8 #FIXME
     @block = Block.find(params[:id])
     @tracks = @block.tracks(1, @per_page)
     @show_more = @block.has_page?(2, @per_page)

@@ -1,7 +1,7 @@
 module CommunityTrackPlugin::StepHelper
 
   def self.status_descriptions
-    [_('Finished'), _('In progress'), _('Waiting')]
+    [_('Closed'), _('Join!'), _('Soon')]
   end
 
   def self.status_classes
@@ -16,9 +16,11 @@ module CommunityTrackPlugin::StepHelper
     CommunityTrackPlugin::StepHelper.status_classes[status_index(step)]
   end
 
-  def custom_options_for_article(article)
-    #no options for step?
-    nil
+  def link_to_step(step, options={}, name=nil)
+    url = step.tool ? step.tool.view_url : step.view_url
+    link_to url, options do
+      block_given? ? yield : name
+    end
   end
 
   protected

@@ -539,7 +539,11 @@ jQuery(function($) {
         }
         $(this).attr('href', new_href);
       });
-      var html = $(this).html().replace(/{login}/g, data.login).replace('{month}', data.since_month).replace('{year}', data.since_year);
+      var html = $(this).html()
+                        .replace(/{login}/g, data.login)
+                        .replace('{avatar}', data.avatar)
+                        .replace('{month}', data.since_month)
+                        .replace('{year}', data.since_year);
       $(this).html(html).fadeIn();
       if (data.is_admin) {
         $('#user .admin-link').show();
@@ -1079,4 +1083,22 @@ jQuery(function($) {
     return false;
   });
 
+});
+
+function showHideTermsOfUse() {
+  if( jQuery("#article_has_terms_of_use").attr("checked") )
+    jQuery("#text_area_terms_of_use").show();
+  else {
+    jQuery("#text_area_terms_of_use").hide();
+    jQuery("#article_terms_of_use").val("");
+    jQuery("#article_terms_of_use_ifr").contents().find("body").html("");
+  }
+}
+
+jQuery(document).ready(function(){
+  showHideTermsOfUse();
+
+  jQuery("#article_has_terms_of_use").click(function(){
+    showHideTermsOfUse();
+  });
 });

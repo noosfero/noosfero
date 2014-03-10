@@ -243,3 +243,7 @@ Then /^display "([^\"]*)"$/ do |element|
   #   * https://github.com/jnicklas/capybara/issues/76
   evaluate_script("jQuery('#{element}').show() && false;")
 end
+
+Then /^there should be a div with class "([^"]*)"$/ do |klass|
+  should have_selector('div', :class => klass)
+end
