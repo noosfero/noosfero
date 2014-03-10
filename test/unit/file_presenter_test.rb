@@ -58,4 +58,8 @@ class FilePresenterTest < ActiveSupport::TestCase
     end
   end
 
+  should 'pass kind_of? to the encapsulated file' do
+    f = FilePresenter.for(UploadedFile.new)
+    assert f.kind_of?(UploadedFile)
+  end
 end

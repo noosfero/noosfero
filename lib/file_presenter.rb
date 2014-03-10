@@ -35,6 +35,10 @@ class FilePresenter
     self
   end
 
+  def kind_of?(klass)
+    @file.kind_of?(klass)
+  end
+
   # This method must be overridden in subclasses.
   #
   # If the class accepts the file, return a number that represents the
