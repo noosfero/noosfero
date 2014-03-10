@@ -1,6 +1,6 @@
 <%= error_messages_for :label %>
 
-<% form_for :label, @label do |f| %>
+<%= form_for :label do |f| %>
   <%= required_fields_message %>
 
   <%= required labelled_form_field(_('Name'), f.text_field(:name)) %>
