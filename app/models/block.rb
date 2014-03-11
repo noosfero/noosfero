@@ -22,11 +22,13 @@ class Block < ActiveRecord::Base
   #
   # * <tt>:article</tt>: the article being viewed currently
   # * <tt>:language</tt>: in which language the block will be displayed
+  # * <tt>:user</tt>: the logged user
   def visible?(context = nil)
     return false if display == 'never'
 
     if context
       return false if language != 'all' && language != context[:locale]
+      return false unless display_to_user?(context[:user])
 
       begin
         return self.send("display_#{display}", context)
@@ -36,6 +38,10 @@ class Block < ActiveRecord::Base
     end
 
     true
+  end
+
+  def display_to_user?(user)
+    display_user == 'all' || (user.nil? && display_user == 'not_logged') || (user && display_user == 'logged')
   end
 
   def display_always(context)
@@ -67,6 +73,14 @@ class Block < ActiveRecord::Base
   # * <tt>'except_home_page'</tt> the block is displayed only when viewing
   #   the homepage of its owner.
   settings_items :display, :type => :string, :default => 'always'
+
+
+  # The condition for displaying a block to users. It can assume the following values:
+  #
+  # * <tt>'all'</tt>: the block is always displayed
+  # * <tt>'logged'</tt>: the block is displayed to logged users only
+  # * <tt>'not_logged'</tt>: the block is displayed only to not logged users
+  settings_items :display_user, :type => :string, :default => 'all'
 
   # The block can be configured to be displayed in all languages or in just one language. It can assume any locale of the environment:
   #
@@ -177,6 +191,14 @@ class Block < ActiveRecord::Base
 
   def display_option_label(option)
     DISPLAY_OPTIONS[option]
+  end
+
+  def display_user_options
+    @display_user_options ||= {
+      'all'            => __('All users'),
+      'logged'         => __('Logged'),
+      'not_logged'     => __('Not logged'),
+    }
   end
 
   def duplicate
