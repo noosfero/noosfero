@@ -3,7 +3,6 @@
 <% categories_for_selection = @categories.select{|i| !@object.respond_to?(:accept_category?) || @object.accept_category?(i)} %>
 
 <% if !@current_category.nil? %>
-  <div class="category-helper-label"><%= _('Selected:') %></div>
   <%= hidden_field_tag "#{object_name}[#{object_name}_category_id]", @current_category.id unless multiple %>
   <%= hidden_field_tag "#{object_name}[category_ids][]", @current_category.id if multiple %>
   <%= button_to_remote_without_text(:back, _('Back'),
@@ -17,14 +16,14 @@
     categories.push(@current_category) while @current_category = @current_category.parent
   %>
   <%= categories.compact.reverse.map{|i|
-    link_to_remote(i.name, 
+    link_to_remote(i.name,
       :update => "select-categories",
       :url => { :action => 'update_categories', :category_id => i.id, :id => @object },
       :loaded => visual_effect(:highlight, "select-categories"),
       :class => 'select-current-category-link')}.join(' &rarr; ')
   %>
   <%= button_to_function_without_text(:add, _('Add'), nil, :id => 'save-category-button') do |page|
-    page.insert_html :bottom, 'selected-categories', content_tag('span', 
+    page.insert_html :bottom, 'selected-categories', content_tag('div',
       hidden_field_tag("#{object_name}[category_ids][]", categories.first.id) +
       selected_category_link(categories.first), :id => "selected-category-#{categories.first.id}")
   end if multiple %>

@@ -360,11 +360,15 @@ div.pending-tasks {
 #category-ajax-selector a {
   font-size: 12px;
 }
-#selected-categories span {
-  float: left;
+#selected-categories {
+  padding-bottom: 5px;
 }
 #selected-categories .label {
   font-weight: bold;
+  margin-bottom: 10px;
+}
+.selected-category {
+  padding: 2px 0;
 }
 #category-ajax-selector .box-title {
   position: absolute;
@@ -397,11 +401,6 @@ div.pending-tasks {
 #category-ajax-selector .button {
   top: 4px;
   right: 2px;
-}
-#category-ajax-selector .icon-add {
-  right: 25px;
-  display: block;
-  position: absolute;
 }
 #profile-header, #profile-footer {
   clear: both;
