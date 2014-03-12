@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140312151857) do
+ActiveRecord::Schema.define(:version => 20140313213142) do
 
   create_table "abuse_reports", :force => true do |t|
     t.integer  "reporter_id"
@@ -468,11 +468,17 @@ ActiveRecord::Schema.define(:version => 20140312151857) do
     t.boolean  "is_template",                           :default => false
     t.integer  "template_id"
     t.string   "redirection_after_login"
+    t.integer  "friends_count",                         :default => 0,     :null => false
+    t.integer  "members_count",                         :default => 0,     :null => false
+    t.integer  "activities_count",                      :default => 0,     :null => false
   end
 
+  add_index "profiles", ["activities_count"], :name => "index_profiles_on_activities_count"
   add_index "profiles", ["created_at"], :name => "index_profiles_on_created_at"
   add_index "profiles", ["environment_id"], :name => "index_profiles_on_environment_id"
+  add_index "profiles", ["friends_count"], :name => "index_profiles_on_friends_count"
   add_index "profiles", ["identifier"], :name => "index_profiles_on_identifier"
+  add_index "profiles", ["members_count"], :name => "index_profiles_on_members_count"
   add_index "profiles", ["region_id"], :name => "index_profiles_on_region_id"
 
   create_table "qualifier_certifiers", :force => true do |t|
