@@ -99,17 +99,6 @@ class BoxOrganizerController < ApplicationController
     end
   end
 
-  def update_categories
-    @object = params[:id] ? boxes_holder.blocks.find(params[:id]) : nil
-    if params[:category_id]
-      @current_category = Category.find(params[:category_id])
-      @categories = @current_category.children
-    else
-      @categories = environment.top_level_categories
-    end
-    render :partial => 'shared/select_categories', :locals => {:object_name => 'block', :multiple => true}, :layout => false
-  end
-
   protected :boxes_editor?
 
 end

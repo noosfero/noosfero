@@ -355,7 +355,8 @@ div.pending-tasks {
 }
 /* * * category ajax selector * * */
 #category-ajax-selector .category-helper-label {
-  font-size: 8pt; color: rgb(158, 158, 158);
+  font-size: 16px;
+  color: rgb(158, 158, 158);
   padding: 5px 0px;
 }
 #category-ajax-selector {
@@ -364,6 +365,7 @@ div.pending-tasks {
   margin: 0px 0px 0px 0px;
   position: relative;
   font-size: 10px;
+  background-color: #fcfcf9;
 }
 #category-ajax-selector a {
   font-size: 12px;
@@ -372,8 +374,9 @@ div.pending-tasks {
   padding-bottom: 5px;
 }
 #selected-categories .label {
-  font-weight: bold;
+  font-size: 16px;
   margin-bottom: 10px;
+  margin-top: 5px;
 }
 .selected-category {
   padding: 2px 0;
@@ -399,8 +402,12 @@ div.pending-tasks {
   margin: 0px 1px;
   text-decoration: none;
   white-space: nowrap;
-  font-size: 11px;
-  line-height: 18px;
+  font-size: 12px;
+  line-height: 20px;
+  border-radius: 3px;
+}
+#category-ajax-selector .selected-category .select-subcategory-link {
+  border: 0;
 }
 #category-ajax-selector .select-subcategory-link:hover,
 .select-subcategory-link:hover {
@@ -409,6 +416,11 @@ div.pending-tasks {
 #category-ajax-selector .button {
   top: 4px;
   right: 2px;
+}
+#category-ajax-selector hr {
+  border: 0;
+  border-bottom: 1px solid #EEE;
+  margin-top: 15px;
 }
 #profile-header, #profile-footer {
   clear: both;
