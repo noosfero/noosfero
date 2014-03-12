@@ -6488,3 +6488,11 @@ ul.article-versions li {
   font-size: 13px;
   padding: 3px 0px;
 }
+
+.user-filter {
+  float: right;
+}
+
+.design-menu {
+  float: left;
+}

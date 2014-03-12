@@ -744,4 +744,9 @@ class ProfileDesignControllerTest < ActionController::TestCase
     end
   end
 
+  should 'display user filter for blocks' do
+    get :index, :profile => 'designtestuser'
+    assert_tag 'div', :attributes => {:class => 'user-filter'}
+  end
+
 end

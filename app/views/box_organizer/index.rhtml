@@ -4,3 +4,11 @@
   <%= colorbox_button('add', _('Add a block'), { :action => 'add_block' }) %>
   <%= button(:back, _('Back to control panel'), :controller => (profile.nil? ? 'admin_panel': 'profile_editor')) %>
 <% end %>
+
+<% form_tag({:action => :index}) do %>
+  <div class="user-filter">
+    <span class="label"><%= _('Display blocks to:') %> </span>
+    <%= select_tag('filter[display_user]', options_from_collection_for_select(Block.new.display_user_options, :first, :last, params[:filter] ? params[:filter][:display_user] : 'all'), :onchange => "this.form.submit();") %>
+  </div>
+  <div style="clear: both"></div>
+<% end %>

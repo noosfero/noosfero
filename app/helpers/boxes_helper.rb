@@ -70,7 +70,18 @@ module BoxesHelper
   end
 
   def select_blocks(arr, context)
-    arr
+    filter = (context && context[:params] && context[:params][:filter]) || {}
+    user_filter(arr, filter)
+  end
+
+  def user_filter(arr, filter)
+    if filter[:display_user]=='not_logged'
+      arr.select { |block| block.display_to_user?(nil) }
+    elsif filter[:display_user]=='logged'
+      arr.select { |block| block.display_to_user?(user) }
+    else
+      arr
+    end
   end
 
   def display_block(block, main_content = nil)

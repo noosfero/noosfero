@@ -366,4 +366,16 @@ class EnvironmentDesignControllerTest < ActionController::TestCase
     assert @controller.instance_variable_get('@side_block_types').include?(CustomBlock8)
   end
 
+  should 'display user filter for blocks' do
+    login_as(create_admin_user(Environment.default))
+    get :index
+    assert_tag 'div', :attributes => {:class => 'user-filter'}
+  end
+
+  should 'display user filter for blocks with selected value' do
+    login_as(create_admin_user(Environment.default))
+    get :index, :filter => {:display_user => 'logged'}
+    assert_tag 'select', :attributes => {:name => 'filter[display_user]'}, :descendant => {:tag => 'option', :attributes => {:value => 'logged', :selected => true}}
+  end
+
 end
