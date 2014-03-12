@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140108132730) do
+ActiveRecord::Schema.define(:version => 20140312151857) do
 
   create_table "abuse_reports", :force => true do |t|
     t.integer  "reporter_id"
@@ -140,6 +140,9 @@ ActiveRecord::Schema.define(:version => 20140108132730) do
     t.integer  "position"
   end
 
+  add_index "articles", ["comments_count"], :name => "index_articles_on_comments_count"
+  add_index "articles", ["created_at"], :name => "index_articles_on_created_at"
+  add_index "articles", ["hits"], :name => "index_articles_on_hits"
   add_index "articles", ["name"], :name => "index_articles_on_name"
   add_index "articles", ["parent_id"], :name => "index_articles_on_parent_id"
   add_index "articles", ["profile_id"], :name => "index_articles_on_profile_id"
@@ -467,6 +470,7 @@ ActiveRecord::Schema.define(:version => 20140108132730) do
     t.string   "redirection_after_login"
   end
 
+  add_index "profiles", ["created_at"], :name => "index_profiles_on_created_at"
   add_index "profiles", ["environment_id"], :name => "index_profiles_on_environment_id"
   add_index "profiles", ["identifier"], :name => "index_profiles_on_identifier"
   add_index "profiles", ["region_id"], :name => "index_profiles_on_region_id"
