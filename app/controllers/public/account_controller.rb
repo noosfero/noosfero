@@ -79,6 +79,7 @@ class AccountController < ApplicationController
       @user.environment = environment
       @terms_of_use = environment.terms_of_use
       @user.person_data = params[:profile_data]
+      @user.return_to = session[:return_to]
       @person = Person.new(params[:profile_data])
       @person.environment = @user.environment
       if request.post?
@@ -370,6 +371,12 @@ class AccountController < ApplicationController
   end
 
   def go_to_initial_page
+    if params[:redirection]
+      session[:return_to] = @user.return_to
+      @user.return_to = nil
+      @user.save
+    end
+
     if params[:return_to]
       #I never get here
       redirect_to params[:return_to]

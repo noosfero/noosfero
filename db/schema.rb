@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140205191914) do
+ActiveRecord::Schema.define(:version => 20140312184749) do
 
   create_table "abuse_reports", :force => true do |t|
     t.integer  "reporter_id"
@@ -282,7 +282,7 @@ ActiveRecord::Schema.define(:version => 20140205191914) do
     t.text     "signup_welcome_text"
     t.string   "languages"
     t.string   "default_language"
-    t.string   "redirection_after_signup",        :default => "keep_on_same_page"
+    t.string   "redirection_after_signup",     :default => "keep_on_same_page"
   end
 
   create_table "external_feeds", :force => true do |t|
@@ -620,6 +620,7 @@ ActiveRecord::Schema.define(:version => 20140205191914) do
     t.datetime "chat_status_at"
     t.string   "activation_code",           :limit => 40
     t.datetime "activated_at"
+    t.string   "return_to"
   end
 
   create_table "validation_infos", :force => true do |t|
