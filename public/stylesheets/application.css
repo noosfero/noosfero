@@ -4214,6 +4214,11 @@ h1#agenda-title {
   display: block;
   float: left;
 }
+
+.actions .members-buttons-cell {
+  width : 100px
+}
+
 .controller-profile_members .msie6 .button-bar a {
   position: relative;
 }
@@ -6505,4 +6510,16 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 img {
 ul.article-versions li {
   font-size: 13px;
   padding: 3px 0px;
+}
+
+/* * * Admin manage fields * * */
+
+.controller-features .manage-fields-batch-actions,
+.controller-features .manage-fields-batch-actions:hover {
+  border-bottom:solid 2px #000;
+  background-color: #EEE;
+}
+
+.controller-features .manage-fields-batch-actions td {
+  font-style: italic;
 }
