@@ -4196,6 +4196,11 @@ h1#agenda-title {
   display: block;
   float: left;
 }
+
+.actions .members-buttons-cell {
+  width : 100px
+}
+
 .controller-profile_members .msie6 .button-bar a {
   position: relative;
 }
