@@ -4,7 +4,7 @@ class EmbedController < ApplicationController
     block = Block.find(params[:id])
     source = params[:source]
 
-    if !block.visible?
+    if !block.embedable? || !block.visible?
       render :template => 'shared/embed_denied.rhtml', :status => 403, :layout => "embed"
     else
       locals = {:source => source, :block => block}

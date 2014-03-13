@@ -17,7 +17,7 @@ class Block < ActiveRecord::Base
   named_scope :enabled, :conditions => { :enabled => true }
 
   def embedable?
-    true
+    false
   end
 
   def embed_code(url)
