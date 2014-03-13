@@ -17,7 +17,8 @@ Feature: check all manage fields
 
   @selenium
   Scenario: check all active person fields
-    Given I check "person_active"
+    Given I follow "Person's fields"
+    And I check "person_active"
     And I press "save_person_fields"
     When I go to admin_user's control panel
     And I follow "Edit Profile"
@@ -25,7 +26,8 @@ Feature: check all manage fields
 
   @selenium
   Scenario: check all active enterprise fields
-    Given I check "enterprise_active"
+    Given I follow "Enterprise's fields"
+    And I check "enterprise_active"
     And I press "save_enterprise_fields"
     When I go to paper-street's control panel
     And I follow "Enterprise Info and settings"
@@ -33,7 +35,8 @@ Feature: check all manage fields
 
   @selenium
   Scenario: check all active community fields
-    Given I check "community_active"
+    Given I follow "Community's fields"
+    And I check "community_active"
     And I press "save_community_fields"
     When I go to mycommunity's control panel
     And I follow "Community Info and settings"
@@ -41,7 +44,8 @@ Feature: check all manage fields
 
   @selenium
   Scenario: uncheck Check/Uncheck All active person field
-    Given I check "person_active"
+    Given I follow "Person's fields"
+    And I check "person_active"
     And I press "save_person_fields"
     And I uncheck "person_active"
     And I press "save_person_fields"
@@ -51,7 +55,8 @@ Feature: check all manage fields
 
   @selenium
   Scenario: uncheck Check/Uncheck All active community field
-    Given I check "community_active"
+    Given I follow "Community's fields"
+    And I check "community_active"
     And I press "save_community_fields"
     And I uncheck "community_active"
     And I press "save_community_fields"
@@ -61,7 +66,8 @@ Feature: check all manage fields
 
   @selenium
   Scenario: uncheck Check/Uncheck All active enterprise field
-    Given I check "enterprise_active"
+    Given I follow "Enterprise's fields"
+    And I check "enterprise_active"
     And I press "save_enterprise_fields"
     And I uncheck "enterprise_active"
     And I press "save_enterprise_fields"
