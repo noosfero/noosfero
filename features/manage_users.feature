@@ -26,7 +26,7 @@ Background:
     Then I should see "Deactivate user" within "tr[title='Paulo Santos']"
 
   @selenium
-  Scenario: ban user
+  Scenario: remove user
     When I follow "Remove" within "tr[title='Joao Silva']"
     And I confirm the "Do you want to remove this user?" dialog
     And I go to /admin/users
