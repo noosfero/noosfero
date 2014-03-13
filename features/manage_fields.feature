@@ -12,7 +12,6 @@ Feature: check all manage fields
     And the following community
       | identifier  | name         |
       | mycommunity | My Community |
-    And "Maria Silva" is admin of "My Community"
     And I am logged in as admin
     And I go to /admin/features/manage_fields
 
@@ -20,22 +19,24 @@ Feature: check all manage fields
   Scenario: check all active person fields
     Given I check "person_active"
     And I press "save_person_fields"
-    And I follow "Control panel"
-    When I follow "Edit Profile"
+    When I go to admin_user's control panel
+    And I follow "Edit Profile"
     Then I should see "Custom area of study"
 
   @selenium
   Scenario: check all active enterprise fields
     Given I check "enterprise_active"
     And I press "save_enterprise_fields"
-    When I go to /myprofile/paper-street/profile_editor/edit
+    When I go to paper-street's control panel
+    And I follow "Enterprise Info and settings"
     Then I should see "Historic and current context"
 
   @selenium
   Scenario: check all active community fields
     Given I check "community_active"
     And I press "save_community_fields"
-    When I go to /myprofile/mycommunity/profile_editor/edit
+    When I go to mycommunity's control panel
+    And I follow "Community Info and settings"
     Then I should see "Economic activity"
 
   @selenium
@@ -54,7 +55,8 @@ Feature: check all manage fields
     And I press "save_community_fields"
     And I uncheck "community_active"
     And I press "save_community_fields"
-    When I go to /myprofile/mycommunity/profile_editor/edit
+    When I go to mycommunity's control panel
+    And I follow "Community Info and settings"
     Then I should not see "Economic activity"
 
   @selenium
@@ -63,5 +65,6 @@ Feature: check all manage fields
     And I press "save_enterprise_fields"
     And I uncheck "enterprise_active"
     And I press "save_enterprise_fields"
-    When I go to /myprofile/paper-street/profile_editor/edit
+    When I go to paper-street's control panel
+    And I follow "Enterprise Info and settings"
     Then I should not see "Historic and current context"
