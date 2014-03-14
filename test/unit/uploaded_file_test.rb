@@ -119,24 +119,13 @@ class UploadedFileTest < ActiveSupport::TestCase
     assert_equal 'my title', UploadedFile.new(:title => 'my title').title
   end
 
-  should 'limit title to 140 characters' do
-    upload = UploadedFile.new
-
-    upload.title = '+' * 61; upload.valid?
-    assert upload.errors[:title]
-
-    upload.title = '+' * 60; upload.valid?
-    assert !upload.errors[:title]
-
-  end
-
   should 'always provide a display title' do
     upload = UploadedFile.new(:uploaded_data => fixture_file_upload('/files/test.txt', 'text/plain'))
-    assert_equal 'test.txt',  upload.display_title
+    assert_equal 'test.txt',  upload.title
     upload.title = 'My text file'
-    assert_equal 'My text file', upload.display_title
+    assert_equal 'My text file', upload.title
     upload.title = ''
-    assert_equal 'test.txt', upload.display_title
+    assert_equal 'test.txt', upload.title
   end
 
   should 'use name as title by default' do
