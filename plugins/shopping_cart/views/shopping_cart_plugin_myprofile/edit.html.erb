@@ -33,8 +33,8 @@
       </tr>
     </table>
 
-    <%= labelled_form_field(_('Free delivery price:'), f.text_field(:free_delivery_price)) %>
-    <%= content_tag('small', _('Empty stands for no free delivery price.')) %>
+    <%= labelled_form_field(_("Order's minimum price for free delivery:"), f.text_field(:free_delivery_price)) %>
+    <%= content_tag('small', _('Empty stands for no minimum price for free delivery.')) %>
   </fieldset>
   <br style='clear: both'/>
   <br style='clear: both'/>
