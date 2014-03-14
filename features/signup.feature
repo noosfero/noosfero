@@ -111,7 +111,7 @@ Feature: signup
 
   @selenium
   Scenario: user should go to his profile page after signup
-    Given the environment is configured to redirect to profile page after signup
+    Given the environment is configured to redirect to user profile page after signup
     And feature "skip_new_user_email_confirmation" is enabled on environment
     And I am on /search/people
     When I follow "Sign up"
@@ -145,7 +145,6 @@ Feature: signup
   Scenario: user should stay on same page after following confirmation link
     Given the environment is configured to stay on the same page after login
     And feature "skip_new_user_email_confirmation" is disabled on environment
-    And feature "allow_change_of_redirection_after_login" is enabled on environment
     And I am on /search/people
     When I follow "Sign up"
     And I fill in the following within ".no-boxes":
@@ -166,7 +165,6 @@ Feature: signup
   Scenario: user should go to his homepage after following confirmation link
     Given the environment is configured to redirect to profile homepage after login
     And feature "skip_new_user_email_confirmation" is disabled on environment
-    And feature "allow_change_of_redirection_after_login" is enabled on environment
     And I am on /search/people
     When I follow "Sign up"
     And I fill in the following within ".no-boxes":
@@ -187,7 +185,6 @@ Feature: signup
   Scenario: user should go to his control panel after following confirmation link
     Given the environment is configured to redirect to profile control panel after login
     And feature "skip_new_user_email_confirmation" is disabled on environment
-    And feature "allow_change_of_redirection_after_login" is enabled on environment
     And I am on /search/people
     When I follow "Sign up"
     And I fill in the following within ".no-boxes":
@@ -206,9 +203,8 @@ Feature: signup
 
   @selenium
   Scenario: user should go to his profile page after following confirmation link
-    Given the environment is configured to redirect to profile page after login
+    Given the environment is configured to redirect to user profile page after login
     And feature "skip_new_user_email_confirmation" is disabled on environment
-    And feature "allow_change_of_redirection_after_login" is enabled on environment
     And I am on /search/people
     When I follow "Sign up"
     And I fill in the following within ".no-boxes":
@@ -229,7 +225,6 @@ Feature: signup
   Scenario: user should go to the environment homepage after following confirmation link
     Given the environment is configured to redirect to site homepage after login
     And feature "skip_new_user_email_confirmation" is disabled on environment
-    And feature "allow_change_of_redirection_after_login" is enabled on environment
     And I am on /search/people
     When I follow "Sign up"
     And I fill in the following within ".no-boxes":

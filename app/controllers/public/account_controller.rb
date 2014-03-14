@@ -397,7 +397,20 @@ class AccountController < ApplicationController
       end
     else
       if environment == current_user.environment
-        redirect_back_or_default(user.admin_url)
+        case environment.redirection_after_login
+          when 'keep_on_same_page'
+            redirect_back_or_default(user.admin_url)
+          when 'site_homepage'
+            redirect_to :controller => :home
+          when 'user_profile_page'
+            redirect_to user.public_profile_url
+          when 'user_homepage'
+            redirect_to user.url
+          when 'user_control_panel'
+            redirect_to user.admin_url
+          else
+            redirect_back_or_default(user.admin_url)
+          end
       else
         redirect_back_or_default(:controller => 'home')
       end
