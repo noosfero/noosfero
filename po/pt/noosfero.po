@@ -7218,8 +7218,8 @@ msgstr "Funcionalidade"
 
 #: app/views/features/index.rhtml:16
 #: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/edit.html.erb:4
-msgid "Enabled?"
-msgstr "Habilitada?"
+msgid "Enable shopping basket"
+msgstr "Habilitar cesto de compras"
 
 #: app/views/features/index.rhtml:27
 msgid "Configure features"
@@ -12292,8 +12292,8 @@ msgid "Basket options"
 msgstr "Opções do cesto"
 
 #: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/edit.html.erb:5
-msgid "Delivery?"
-msgstr "Entrega?"
+msgid "Enable delivery fields on orders"
+msgstr "Ativar campos de entrega para pedidos"
 
 #: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/edit.html.erb:10
 msgid "Option"
@@ -12310,12 +12310,12 @@ msgid "ADD NEW OPTION"
 msgstr "ADCIONAR NOVA OPÇÂO"
 
 #: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/edit.html.erb:36
-msgid "Free delivery price:"
-msgstr "Preço de entrega grátis:"
+msgid "Order's minimum price for free delivery:"
+msgstr "Preço mínimo do pedido para entrega grátis:"
 
 #: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/edit.html.erb:37
-msgid "Empty stands for no free delivery price."
-msgstr "Vazio significa sem preço de frete grátis."
+msgid "Leave empty to always charge the delivery."
+msgstr "Deixe vazio para sempre cobrar a entrega."
 
 #: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/reports.html.erb:1
 msgid "Purchase Reports"
