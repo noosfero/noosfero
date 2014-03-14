@@ -280,6 +280,12 @@ class Environment < ActiveRecord::Base
   settings_items :access_control_allow_origin, :type => Array, :default => []
   settings_items :access_control_allow_methods, :type => String
 
+  settings_items :signup_welcome_screen_body, :type => String
+
+  def has_custom_welcome_screen?
+    settings[:signup_welcome_screen_body].present?
+  end
+
   def news_amount_by_folder=(amount)
     settings[:news_amount_by_folder] = amount.to_i
   end
