@@ -78,5 +78,6 @@
         if content.respond_to?(:call) then instance_exec(&content).html_safe else content.html_safe end
       end.join("\n")
     %>
+    <%= javascript_include_tag 'require_login' %>
   </body>
 </html>
