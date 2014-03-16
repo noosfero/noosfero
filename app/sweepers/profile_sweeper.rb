@@ -8,7 +8,6 @@ class ProfileSweeper # < ActiveRecord::Observer
   end
 
   def after_create(profile)
-    expire_statistics_block_cache(profile)
   end
 
 protected
@@ -27,11 +26,6 @@ protected
     end
 
     expire_blogs(profile) if profile.organization?
-  end
-
-  def expire_statistics_block_cache(profile)
-    blocks = profile.environment.blocks.select { |b| b.kind_of?(EnvironmentStatisticsBlock) }
-    BlockSweeper.expire_blocks(blocks)
   end
 
   def expire_blogs(profile)

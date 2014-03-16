@@ -161,7 +161,6 @@ class Environment < ActiveRecord::Base
 
     # "left" area
     env.boxes[1].blocks << LoginBlock.new
-    env.boxes[1].blocks << EnvironmentStatisticsBlock.new
     env.boxes[1].blocks << RecentDocumentsBlock.new
 
     # "right" area

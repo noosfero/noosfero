@@ -1,0 +1,36 @@
+<h3 class="block-title">
+  <span><%=block.title%></span>
+</h3>
+<div class="statistics-block-data">
+  <ul>
+    <% if block.is_visible?('user_counter') %>
+      <li class="users"><span class="amount"><%= block.users%> </span><span class="label"><%= _('users')%></span></li>
+    <% end %>
+    <% if block.is_visible?('enterprise_counter') && !block.environment.enabled?('disable_asset_enterprises') %>
+      <li class="enterprises"><span class="amount"><%= block.enterprises%> </span><span class="label"><%= _('enterprises')%></span></li>
+    <% end %>
+    <% if block.is_visible?('community_counter') %>
+      <li class="communities"><span class="amount"><%= block.communities%> </span><span class="label"><%= _('communities')%></span></li>
+    <% end %>
+    <% if block.is_visible?('category_counter') %>
+      <li class="categories"><span class="amount"><%= block.categories%> </span><span class="label"><%= _('categories')%></span></li>
+    <% end %>
+    <% if block.is_visible?('tag_counter') %>
+      <li class="tags"><span class="amount"><%= block.tags%> </span><span class="label"><%= _('tags')%></span></li>
+    <% end %>
+    <% if block.is_visible?('comment_counter') %>
+      <li class="comments"><span class="amount"><%= block.comments%> </span><span class="label"><%= _('comments')%></span></li>
+    <% end %>
+    <% if block.is_visible?('hit_counter') %>
+      <li class="hits"><span class="amount"><%= block.hits%> </span><span class="label"><%= _('hits')%></span></li>
+    <% end %>
+
+    <% if block.owner.kind_of?(Environment) then %>
+      <% block.templates.each do |item|  %>
+        <% if block.is_template_counter_active? item.id %>
+          <li class="<%= item.name.to_slug%>"><span class="amount"><%= block.template_counter_count(item.id)%> </span><span class="label"><%= item.name%></span></li>
+        <% end %>
+      <% end %>
+    <% end %>
+  </ul>
+</div>
