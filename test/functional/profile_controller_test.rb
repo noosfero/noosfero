@@ -176,7 +176,7 @@ class ProfileControllerTest < ActionController::TestCase
   should 'not show Leave This Community button for non-registered users' do
     community = Community.create!(:name => 'my test community')
     community.boxes.first.blocks << block = ProfileInfoBlock.create!
-    get :profile_info, :profile => community.identifier, :block_id => block.id
+    get :index, :profile => community.identifier
     assert_no_match /\/profile\/#{@profile.identifier}\/leave/, @response.body
   end
 
@@ -206,7 +206,7 @@ class ProfileControllerTest < ActionController::TestCase
     friend = create_user_full('friendtestuser').person
     friend.user.activate
     friend.boxes.first.blocks << block = ProfileInfoBlock.create!
-    get :profile_info, :profile => friend.identifier, :block_id => block.id
+    get :index, :profile => friend.identifier
     assert_match /Add friend/, @response.body
   end
 
@@ -215,7 +215,7 @@ class ProfileControllerTest < ActionController::TestCase
     friend = create_user_full('friendtestuser').person
     friend.boxes.first.blocks << block = ProfileInfoBlock.create!
     AddFriend.create!(:person => @profile, :friend => friend)
-    get :profile_info, :profile => friend.identifier, :block_id => block.id
+    get :index, :profile => friend.identifier
     assert_no_match /Add friend/, @response.body
   end
 
@@ -226,7 +226,7 @@ class ProfileControllerTest < ActionController::TestCase
     @profile.add_friend(friend)
     @profile.friends.reload
     assert @profile.is_a_friend?(friend)
-    get :profile_info, :profile => friend.identifier, :block_id => block.id
+    get :index, :profile => friend.identifier
     assert_no_match /Add friend/, @response.body
   end
 
@@ -301,13 +301,13 @@ class ProfileControllerTest < ActionController::TestCase
   should 'display contact us for enterprises' do
     ent = Enterprise.create!(:name => 'my test enterprise', :identifier => 'my-test-enterprise')
     ent.boxes.first.blocks << block = ProfileInfoBlock.create!
-    get :profile_info, :profile => 'my-test-enterprise', :block_id => block.id
+    get :index, :profile => 'my-test-enterprise'
     assert_match /\/contact\/my-test-enterprise\/new/, @response.body
   end
 
   should 'not display contact us for non-enterprises' do
     @profile.boxes.first.blocks << block = ProfileInfoBlock.create!
-    get :profile_info, :profile => @profile.identifier, :block_id => block.id
+    get :index, :profile => @profile.identifier
     assert_no_match /\/contact\/#{@profile.identifier}\/new/, @response.body
   end
 
@@ -315,7 +315,7 @@ class ProfileControllerTest < ActionController::TestCase
     ent = Enterprise.create! :name => 'my test enterprise', :identifier => 'my-test-enterprise'
     ent.boxes.first.blocks << block = ProfileInfoBlock.create!
     ent.update_attribute(:enable_contact_us, false)
-    get :profile_info, :profile => 'my-test-enterprise', :block_id => block.id
+    get :index, :profile => 'my-test-enterprise'
     assert_no_match /\/contact\/my-test-enterprise\/new/, @response.body
   end
 
@@ -328,7 +328,7 @@ class ProfileControllerTest < ActionController::TestCase
     env.disable('disable_contact_person')
     env.save!
     login_as(@profile.identifier)
-    get :profile_info, :profile => friend.identifier, :block_id => block.id
+    get :index, :profile => friend.identifier
     assert_match /\/contact\/#{friend.identifier}\/new/, @response.body
   end
 
@@ -336,7 +336,7 @@ class ProfileControllerTest < ActionController::TestCase
     nofriend = create_user_full('no_friend').person
     nofriend.boxes.first.blocks << block = ProfileInfoBlock.create!
     login_as(@profile.identifier)
-    get :profile_info, :profile => nofriend.identifier, :block_id => block.id
+    get :index, :profile => nofriend.identifier
     assert_no_match /\/contact\/#{nofriend.identifier}\/new/, @response.body
   end
 
@@ -349,7 +349,7 @@ class ProfileControllerTest < ActionController::TestCase
     env.save!
     @profile.add_friend(friend)
     login_as(@profile.identifier)
-    get :profile_info, :profile => friend.identifier, :block_id => block.id
+    get :index, :profile => friend.identifier
     assert_match /\/contact\/#{friend.identifier}\/new/, @response.body
   end
 
@@ -361,7 +361,7 @@ class ProfileControllerTest < ActionController::TestCase
     env.save!
     @profile.add_friend(friend)
     login_as(@profile.identifier)
-    get :profile_info, :profile => friend.identifier, :block_id => block.id
+    get :index, :profile => friend.identifier
     assert_no_match /\/contact\/#{friend.identifier}\/new/, @response.body
   end
 
@@ -373,7 +373,7 @@ class ProfileControllerTest < ActionController::TestCase
     env.save!
     community.add_member(@profile)
     login_as(@profile.identifier)
-    get :profile_info, :profile => community.identifier, :block_id => block.id
+    get :index, :profile => community.identifier
     assert_match /\/contact\/#{community.identifier}\/new/, @response.body
   end
 
@@ -385,7 +385,7 @@ class ProfileControllerTest < ActionController::TestCase
     env.save!
     community.add_member(@profile)
     login_as(@profile.identifier)
-    get :profile_info, :profile => community.identifier, :block_id => block.id
+    get :index, :profile => community.identifier
     assert_no_match /\/contact\/#{community.identifier}\/new/, @response.body
   end
 
