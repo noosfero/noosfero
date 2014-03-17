@@ -26,6 +26,9 @@ class Box < ActiveRecord::Base
       CategoriesBlock,
       CommunitiesBlock,
       EnterprisesBlock,
+      # TODO EnvironmentStatisticsBlock is DEPRECATED and will be removed from
+      #      the Noosfero core soon, see ActionItem3045
+      EnvironmentStatisticsBlock,
       FansBlock,
       FavoriteEnterprisesBlock,
       FeedReaderBlock,
@@ -51,6 +54,9 @@ class Box < ActiveRecord::Base
       CommunitiesBlock,
       DisabledEnterpriseMessageBlock,
       EnterprisesBlock,
+      # TODO EnvironmentStatisticsBlock is DEPRECATED and will be removed from
+      #      the Noosfero core soon, see ActionItem3045
+      EnvironmentStatisticsBlock,
       FansBlock,
       FavoriteEnterprisesBlock,
       FeaturedProductsBlock,
