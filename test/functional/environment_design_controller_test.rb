@@ -370,4 +370,13 @@ class EnvironmentDesignControllerTest < ActionController::TestCase
     assert @controller.instance_variable_get('@side_block_types').include?(CustomBlock8)
   end
 
+  should 'clone a block' do
+    login_as(create_admin_user(Environment.default))
+    block = TagsBlock.create!
+    assert_difference TagsBlock, :count, 1 do
+      post :clone_block, :id => block.id
+      assert_response :redirect
+    end
+  end
+
 end
