@@ -84,6 +84,8 @@
 
 <%= display_source_info(@page) %>
 
+<%= @plugins.dispatch(:article_extra_contents, @page).collect { |content| instance_eval(&content) }.join("") %>
+
 <div class="comments" id="comments_list">
 
   <% if @page.accept_comments? || @comments_count > 0 %>

@@ -22,6 +22,12 @@ module CommentHelper
     title
   end
 
+  def comment_extra_contents(comment)
+    @plugins.dispatch(:comment_extra_contents, comment).collect do |extra_content|
+      extra_content.kind_of?(Proc) ? self.instance_eval(&extra_content) : extra_content
+    end.join('\n')
+  end
+
   def comment_actions(comment)
     url = url_for(:profile => profile.identifier, :controller => :comment, :action => :check_actions, :id => comment.id)
     links = links_for_comment_actions(comment)
