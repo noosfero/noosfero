@@ -13,7 +13,8 @@ class BoxesHelperTest < ActiveSupport::TestCase
 
   should 'include profile-specific header' do
     holder = mock
-    holder.stubs(:boxes).returns([])
+    holder.stubs(:boxes).returns(boxes = [])
+    boxes.stubs(:with_position).returns([])
     holder.stubs(:boxes_limit).returns(0)
     holder.stubs(:custom_header_expanded).returns('my custom header')
     @controller.stubs(:boxes_holder).returns(holder)
@@ -23,7 +24,8 @@ class BoxesHelperTest < ActiveSupport::TestCase
 
   should 'include profile-specific footer' do
     holder = mock
-    holder.stubs(:boxes).returns([])
+    holder.stubs(:boxes).returns(boxes = [])
+    boxes.stubs(:with_position).returns([])
     holder.stubs(:boxes_limit).returns(0)
     holder.stubs(:custom_footer_expanded).returns('my custom footer')
     @controller.stubs(:boxes_holder).returns(holder)

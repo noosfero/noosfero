@@ -608,49 +608,18 @@ module ApplicationHelper
   end
 
   attr_reader :environment
+
   def select_categories(object_name, title=nil, title_size=4)
     return nil if environment.enabled?(:disable_categories)
     if title.nil?
       title = _('Categories')
     end
 
-    object = instance_variable_get("@#{object_name}")
+    @object = instance_variable_get("@#{object_name}")
+    @categories = environment.top_level_categories
 
-    result = content_tag 'h'+title_size.to_s(), title
-    result << javascript_tag( 'function open_close_cat( link ) {
-      var div = link.parentNode.getElementsByTagName("div")[0];
-      var end = function(){
-        if ( div.style.display == "none" ) {
-          this.link.className="button icon-button icon-down"
-        } else {
-          this.link.className="button icon-button icon-up-red"
-        }
-      }
-      Effect.toggle( div, "slide", { link:link, div:div, afterFinish:end } )
-    }')
-    environment.top_level_categories.select{|i| !i.children.empty?}.each do |toplevel|
-      next unless object.accept_category?(toplevel)
-      # FIXME
-      ([toplevel] + toplevel.children_for_menu).each do |cat|
-        if cat.top_level?
-          result << '<div class="categorie_box">'.html_safe
-          result << icon_button( :down, _('open'), '#', :onclick => 'open_close_cat(this); return false' )
-          result << content_tag('h5', toplevel.name)
-          result << '<div style="display:none"><ul class="categories">'.html_safe
-        else
-          checkbox_id = "#{object_name}_#{cat.full_name.downcase.gsub(/\s+|\//, '_')}"
-          result << content_tag('li', labelled_check_box(
-                      cat.full_name_without_leading(1, " &rarr; "),
-                      "#{object_name}[category_ids][]", cat.id,
-                      object.category_ids.include?(cat.id), :id => checkbox_id,
-                      :onchange => 'this.parentNode.className=(this.checked?"cat_checked":"")' ),
-                    :class => ( object.category_ids.include?(cat.id) ? 'cat_checked' : '' ) ) + "\n"
-        end
-      end
-      result << '</ul></div></div>'.html_safe
-    end
-
-    content_tag('div', result)
+    @current_categories = environment.top_level_categories.select{|i| !i.children.empty?}
+    render :partial => 'shared/select_categories_top', :locals => {:object_name => object_name, :title => title, :title_size => title_size, :multiple => true, :categories_selected => @object.categories }, :layout => false
   end
 
   def theme_option(opt = nil)

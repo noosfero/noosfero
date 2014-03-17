@@ -233,7 +233,7 @@ class ApplicationControllerTest < ActionController::TestCase
     get :index
 
     assert_tag :tag => 'div', :attributes => { :id => 'theme-test-panel' }, :descendant => {
-      :tag => 'a', :attributes => { :href => '/myprofile/testinguser/themes/edit/my-test-theme'}
+      :tag => 'a', :attributes => { :href => '/myprofile/testinguser/profile_themes/edit/my-test-theme'}
     }
       #{ :tag => 'a', :attributes => { :href => '/myprofile/testinguser/themes/stop_test/my-test-theme'} }
   end

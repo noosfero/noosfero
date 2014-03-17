@@ -67,7 +67,7 @@ class ProfileController < PublicController
 
   def members
     if is_cache_expired?(profile.members_cache_key(params))
-      @members = profile.members.includes(relations_to_include).paginate(:per_page => members_per_page, :page => params[:npage])
+      @members = profile.members_by_name.includes(relations_to_include).paginate(:per_page => members_per_page, :page => params[:npage])
     end
   end
 
@@ -301,14 +301,6 @@ class ProfileController < PublicController
       render :text => {'redirect' => url_for(:action => :index)}.to_json, :content_type => 'application/json'
     else
       redirect_to :action => :index
-    end
-  end
-
-  def profile_info
-    begin
-      @block = profile.blocks.find(params[:block_id])
-    rescue
-      render :text => _('Profile information could not be loaded')
     end
   end
 

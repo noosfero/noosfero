@@ -61,9 +61,12 @@ class DisplayContentBlock < Block
 
   VALID_CONTENT = ['RawHTMLArticle', 'TextArticle', 'TextileArticle', 'TinyMceArticle', 'Folder', 'Blog', 'Forum']
 
+  include Noosfero::Plugin::HotSpot
+
   def articles_of_parent(parent = nil)
     return [] if self.holder.nil?
-    holder.articles.find(:all, :conditions => {:type => VALID_CONTENT, :parent_id => (parent.nil? ? nil : parent)})
+    types = VALID_CONTENT + plugins.dispatch(:content_types).map(&:name)
+    holder.articles.find(:all, :conditions => {:type => types, :parent_id => (parent.nil? ? nil : parent)})
   end
 
   include ActionController::UrlWriter

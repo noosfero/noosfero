@@ -3,7 +3,6 @@
   <div class='the-localization-map'>
     <img src="https://maps.google.com/maps/api/staticmap?center=<%=profile.lat%>,<%=profile.lng%>&zoom=<%=block.zoom%>&size=190x250&maptype=<%=block.map_type%>&markers=<%=profile.lat%>,<%=profile.lng%>&sensor=false"/>
   </div>
-</div>
 <% else %>
   <i><%= _('This profile has no geographical position registered.') %></i>
 <% end %>

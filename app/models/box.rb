@@ -5,6 +5,8 @@ class Box < ActiveRecord::Base
 
   include Noosfero::Plugin::HotSpot
 
+  named_scope :with_position, :conditions => ['boxes.position > 0']
+
   def environment
     owner ? (owner.kind_of?(Environment) ? owner : owner.environment) : nil
   end
@@ -24,6 +26,8 @@ class Box < ActiveRecord::Base
       CategoriesBlock,
       CommunitiesBlock,
       EnterprisesBlock,
+      # TODO EnvironmentStatisticsBlock is DEPRECATED and will be removed from
+      #      the Noosfero core soon, see ActionItem3045
       EnvironmentStatisticsBlock,
       FansBlock,
       FavoriteEnterprisesBlock,
@@ -50,6 +54,8 @@ class Box < ActiveRecord::Base
       CommunitiesBlock,
       DisabledEnterpriseMessageBlock,
       EnterprisesBlock,
+      # TODO EnvironmentStatisticsBlock is DEPRECATED and will be removed from
+      #      the Noosfero core soon, see ActionItem3045
       EnvironmentStatisticsBlock,
       FansBlock,
       FavoriteEnterprisesBlock,

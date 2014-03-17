@@ -1,7 +1,10 @@
+# TODO EnvironmentStatisticsBlock is DEPRECATED and will be removed from
+#      the Noosfero core soon, see ActionItem3045
+
 class EnvironmentStatisticsBlock < Block
 
   def self.description
-    _('Environment stastistics')
+    _('Environment stastistics (DEPRECATED)')
   end
 
   def default_title

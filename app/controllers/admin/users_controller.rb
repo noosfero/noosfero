@@ -7,7 +7,7 @@ class UsersController < AdminController
   include UsersHelper
 
   def index
-    @filter = params[:filter]
+    @filter = params[:filter] || 'all_users'
     scope = environment.people.no_templates
     if @filter == 'admin_users'
       scope = scope.admins
@@ -16,6 +16,7 @@ class UsersController < AdminController
     elsif @filter == 'deactivated_users'
       scope = scope.deactivated
     end
+    scope = scope.order('name ASC')
     @q = params[:q]
     @collection = find_by_contents(:people, scope, @q, {:per_page => per_page, :page => params[:npage]})[:results]
   end
@@ -43,6 +44,20 @@ class UsersController < AdminController
     person.user.deactivate
     redirect_to :action => :index, :q => params[:q], :filter => params[:filter]
   end
+
+
+  def destroy_user
+    if request.post?
+      person = environment.people.find_by_id(params[:id])
+      if person && person.destroy
+        session[:notice] = _('The profile was deleted.')
+      else
+        session[:notice] = _('Could not remove profile')
+      end
+    end
+    redirect_to :action => :index, :q => params[:q], :filter => params[:filter]
+  end
+
 
   def download
     respond_to do |format|

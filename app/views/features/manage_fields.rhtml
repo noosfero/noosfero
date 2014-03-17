@@ -1,7 +1,15 @@
-<%= render :partial => 'manage_person_fields' %>
+<h1><%= _('Manage fields displayed for profiles') %></h1>
 
-<% if !environment.enabled?('disable_asset_enterprises') %>
-  <%= render :partial => 'manage_enterprise_fields' %>
+<% tabs = [] %>
+<% tabs << {:title => _("Person's fields"), :id => 'person-fields',
+  :content => (render :partial => 'manage_person_fields')} %>
+<% tabs << {:title => _("Community's fields"), :id => 'community-fields',
+  :content => (render :partial => 'manage_community_fields')} %>
+<% unless environment.enabled?('disable_asset_enterprises') %>
+  <% tabs << {:title => _("Enterprise's fields"), :id => 'enterprise-fields',
+  :content => (render :partial => 'manage_enterprise_fields')} %>
 <% end %>
 
-<%= render :partial => 'manage_community_fields' %>
+<%= render_tabs(tabs) %>
+
+<%= javascript_include_tag "manage-fields.js" %>
