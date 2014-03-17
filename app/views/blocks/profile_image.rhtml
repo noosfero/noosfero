@@ -1,6 +1,8 @@
 <div class="vcard">
 
-<p><%= block.title %></p>
+<% if block.title.present? %>
+  <p><%= block.title %></p>
+<% end %>
 
 <div class="profile-big-image">
   <div class="profile-big-image-inner1">
