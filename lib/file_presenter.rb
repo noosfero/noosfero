@@ -51,7 +51,12 @@ class FilePresenter
   end
 
   def short_description
-    _("File (%s)") % content_type.sub(/^application\//, '').sub(/^x-/, '').sub(/^image\//, '')
+    file_type = if content_type.present?
+      content_type.sub(/^application\//, '').sub(/^x-/, '').sub(/^image\//, '')
+    else
+      _('Unknown')
+    end
+    _("File (%s)") % file_type
   end
 
   # Define the css classes to style the page fragment with the file related

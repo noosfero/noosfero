@@ -62,4 +62,16 @@ class FilePresenterTest < ActiveSupport::TestCase
     f = FilePresenter.for(UploadedFile.new)
     assert f.kind_of?(UploadedFile)
   end
+
+  should 'not crash with uploaded_file short description without content_type' do
+    f = FilePresenter.for(UploadedFile.new)
+    assert_nothing_raised do
+      f.short_description
+    end
+  end
+
+  should 'show unknown type when file doesn\'t have a content_type' do
+    f = FilePresenter.for(UploadedFile.new)
+    assert_match /Unknown/, f.short_description
+  end
 end
