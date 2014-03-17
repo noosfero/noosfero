@@ -33,6 +33,8 @@ class BoxTest < ActiveSupport::TestCase
     assert blocks.include?('categories-block')
     assert blocks.include?('communities-block')
     assert blocks.include?('enterprises-block')
+    # TODO EnvironmentStatisticsBlock is DEPRECATED and will be removed from
+    #      the Noosfero core soon, see ActionItem3045
     assert blocks.include?('environment-statistics-block')
     assert blocks.include?('fans-block')
     assert blocks.include?('favorite-enterprises-block')
@@ -65,6 +67,8 @@ class BoxTest < ActiveSupport::TestCase
     assert blocks.include?('communities-block')
     assert blocks.include?('disabled-enterprise-message-block')
     assert blocks.include?('enterprises-block')
+    # TODO EnvironmentStatisticsBlock is DEPRECATED and will be removed from
+    #      the Noosfero core soon, see ActionItem3045
     assert blocks.include?('environment-statistics-block')
     assert blocks.include?('fans-block')
     assert blocks.include?('favorite-enterprises-block')
@@ -138,6 +142,13 @@ class BoxTest < ActiveSupport::TestCase
 
     blocks = Box.new(:position => 1, :owner => Community.new).acceptable_blocks
     assert !blocks.include?('box-test_plugin-block')
+  end
+
+  should 'list only boxes with a postion greater than zero' do
+    profile = fast_create(Profile)
+    box = fast_create(Box, :owner_id => profile.id, :owner_type => 'Profile', :position => 0)
+    box2 = fast_create(Box, :owner_id => profile.id, :owner_type => 'Profile', :position => 1)
+    assert_equal [box2], profile.boxes.with_position
   end
 
 end

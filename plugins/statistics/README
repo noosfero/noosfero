@@ -1,0 +1,54 @@
+README - Statistics (Statistics Plugin)
+================================
+
+Statistics is a plugin to allow the user adds a block where you could see statistics of it's context.
+
+The Statistics block will be available for all layout columns of communities, peole, enterprises and environments.
+
+INSTALL
+=======
+
+Enable Plugin
+-------------
+
+Also, you need to enable Statistics Plugin at you Noosfero:
+
+cd <your_noosfero_dir>
+./script/noosfero-plugins enable statistics
+
+Active Plugin
+-------------
+
+As a Noosfero administrator user, go to administrator panel:
+
+- Click on "Enable/disable plugins" option
+- Click on "Statistics Plugin" check-box
+
+Running Statistics tests
+--------------------
+
+$ rake test:noosfero_plugins:statistics
+
+
+Get Involved
+============
+
+If you found any bug and/or want to collaborate, please send an e-mail to eduardo.edington@gmail.com
+
+LICENSE
+=======
+
+Copyright (c) The Author developers.
+
+See Noosfero license.
+
+
+AUTHORS
+=======
+
+ Eduardo Tourinho Edington (eduardo.edington at gmail.com)
+
+ACKNOWLEDGMENTS
+===============
+
+The author has been supported by Serpro
