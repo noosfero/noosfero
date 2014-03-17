@@ -16,7 +16,7 @@
 
 <% if !user.nil? and user.has_permission?('edit_profile', profile) %>
   <div class='admin-link'>
-    <%= link_to _('Control panel'), :controller => 'profile_editor' %>
+    <%= link_to _('Control panel'), block.owner.admin_url %>
   </div>
 <% end %>
 
