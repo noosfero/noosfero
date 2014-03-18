@@ -55,7 +55,7 @@ module ArticleHelper
       content_tag(
         'div',
         check_box(:article, :allows_members_to_create_topics) +
-        content_tag('label', _('Allow member to create topics'), :for => 'article_allows_members_to_create_topics')
+        content_tag('label', _('Allow members to create topics'), :for => 'article_allows_members_to_create_topics')
         ) : '')
     )
   end
