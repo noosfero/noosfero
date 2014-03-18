@@ -26,7 +26,7 @@
       <%= expirable_button @page, :spread, content, url if url %>
     <% end %>
 
-    <% if !@page.gallery? && @page.allow_create?(user) %>
+    <% if !@page.gallery? && (@page.allow_create?(user) || (@page.parent && @page.parent.allow_create?(user))) %>
       <% if @page.translatable? && !@page.native_translation.language.blank? && !remove_content_button(:locale) %>
         <% content = _('Add translation') %>
         <% parent_id = (@page.folder? ? @page : (@page.parent.nil? ? nil : @page.parent)) %>
