@@ -11,7 +11,6 @@
     <meta name="twitter:card" value="summary">
     <meta name="twitter:title" content="<%= h page_title %>">
     <meta name="twitter:description" content="<%= meta_description_tag(@page) %>">
-    <meta name="twitter:image" content="<%= @page.body_images_paths.first.to_s if @page %>">
 
     <!-- Open Graph -->
     <meta property="og:type" content="<%= @page ? 'article' : 'website' %>">
@@ -23,6 +22,7 @@
     <% if @page %>
       <meta property="article:published_time" content="<%= show_date(@page.published_at) %>">
       <% @page.body_images_paths.each do |img| %>
+        <meta name="twitter:image" content="<%= img.to_s %>">
         <meta property="og:image" content="<%= img.to_s %>">
       <% end %>
     <% end %>
