@@ -302,18 +302,17 @@ class OrganizationTest < ActiveSupport::TestCase
   end
 
   should 'find more popular organizations' do
-    Organization.delete_all
     o1 = fast_create(Organization)
     o2 = fast_create(Organization)
 
     p1 = fast_create(Person)
     p2 = fast_create(Person)
     o1.add_member(p1)
-    assert_equal [o1,o2] , Organization.more_popular
+    assert_order [o1,o2] , Organization.more_popular
 
     o2.add_member(p1)
     o2.add_member(p2)
-    assert_equal [o2,o1] , Organization.more_popular
+    assert_order [o2,o1] , Organization.more_popular
   end
 
   should 'list organizations that have no members in more popular list' do
@@ -331,6 +330,7 @@ class OrganizationTest < ActiveSupport::TestCase
     person = fast_create(Person)
     organization = fast_create(Organization)
     organization.add_member(person)
+    organization.reload
 
     assert_equal "one member", organization.more_popular_label
   end
@@ -342,10 +342,12 @@ class OrganizationTest < ActiveSupport::TestCase
 
     organization.add_member(person1)
     organization.add_member(person2)
+    organization.reload
     assert_equal "2 members", organization.more_popular_label
 
     person3 = fast_create(Person)
     organization.add_member(person3)
+    organization.reload
     assert_equal "3 members", organization.more_popular_label
   end
 
@@ -433,5 +435,24 @@ class OrganizationTest < ActiveSupport::TestCase
     end
   end
 
+  should 'increase members_count on new membership' do
+    member = fast_create(Person)
+    organization = fast_create(Organization)
+    assert_difference organization, :members_count, 1 do
+      organization.add_member(member)
+      organization.reload
+    end
+  end
+
+  should 'decrease members_count on membership removal' do
+    member = fast_create(Person)
+    organization = fast_create(Organization)
+    organization.add_member(member)
+    organization.reload
+    assert_difference organization, :members_count, -1 do
+      organization.remove_member(member)
+      organization.reload
+    end
+  end
 
 end

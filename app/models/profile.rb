@@ -87,10 +87,6 @@ class Profile < ActiveRecord::Base
     scopes.size == 1 ? scopes.first : Person.or_scope(scopes)
   end
 
-  def members_count
-    members.count
-  end
-
   class << self
     def count_with_distinct(*args)
       options = args.last || {}

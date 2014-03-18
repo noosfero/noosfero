@@ -26,11 +26,7 @@ class Organization < Profile
 
   has_many :mailings, :class_name => 'OrganizationMailing', :foreign_key => :source_id, :as => 'source'
 
-  named_scope :more_popular,
-    :select => "#{Profile.qualified_column_names}, count(resource_id) as total",
-    :group => Profile.qualified_column_names,
-    :joins => "LEFT OUTER JOIN role_assignments ON profiles.id = role_assignments.resource_id",
-    :order => "total DESC"
+  named_scope :more_popular, :order => 'members_count DESC'
 
   def validation_methodology
     self.validation_info ? self.validation_info.validation_methodology : nil
