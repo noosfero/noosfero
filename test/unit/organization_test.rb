@@ -406,35 +406,6 @@ class OrganizationTest < ActiveSupport::TestCase
     assert !organization.visible
   end
 
-  should 'increase activities_count on new activity' do
-    person = fast_create(Person)
-    organization = fast_create(Organization)
-    assert_difference organization, :activities_count, 1 do
-      ActionTracker::Record.create! :verb => :leave_scrap, :user => person, :target => organization
-      organization.reload
-    end
-  end
-
-  should 'decrease activities_count on activity removal' do
-    person = fast_create(Person)
-    organization = fast_create(Organization)
-    record = ActionTracker::Record.create! :verb => :leave_scrap, :user => person, :target => organization
-    assert_difference organization, :activities_count, -1 do
-      record.destroy
-      organization.reload
-    end
-  end
-
-  should 'not decrease activities_count on activity removal after the recent delay' do
-    person = fast_create(Person)
-    organization = fast_create(Organization)
-    record = ActionTracker::Record.create! :verb => :leave_scrap, :user => person, :target => organization, :created_at => (ActionTracker::Record::RECENT_DELAY + 1).days.ago
-    assert_no_difference organization, :activities_count do
-      record.destroy
-      organization.reload
-    end
-  end
-
   should 'increase members_count on new membership' do
     member = fast_create(Person)
     organization = fast_create(Organization)

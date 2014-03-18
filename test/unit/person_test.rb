@@ -1428,33 +1428,4 @@ class PersonTest < ActiveSupport::TestCase
       person.reload
     end
   end
-
-  should 'increase activities_count on new activity' do
-    person = fast_create(Person)
-    assert_difference person, :activities_count, 1 do
-      ActionTracker::Record.create! :verb => :leave_scrap, :user => person, :target => fast_create(Profile)
-      person.reload
-    end
-  end
-
-  should 'decrease activities_count on activity removal' do
-    person = fast_create(Person)
-    record = ActionTracker::Record.create! :verb => :leave_scrap, :user => person, :target => fast_create(Profile)
-    assert_difference person, :activities_count, -1 do
-      record.destroy
-      person.reload
-    end
-  end
-
-  should 'not decrease activities_count on activity removal after the recent delay' do
-    person = fast_create(Person)
-    record = ActionTracker::Record.create! :verb => :leave_scrap, :user => person, :target => fast_create(Profile)
-    record.created_at = record.created_at - ActionTracker::Record::RECENT_DELAY.days - 1.day
-    record.save!
-    assert_no_difference person, :activities_count do
-      record.destroy
-      person.reload
-    end
-  end
-
 end

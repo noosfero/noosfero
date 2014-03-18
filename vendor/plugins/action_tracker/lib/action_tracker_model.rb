@@ -1,8 +1,5 @@
 module ActionTracker
   class Record < ActiveRecord::Base
-
-    extend CacheCounterHelper
-
     set_table_name 'action_tracker'
 
     belongs_to :user, :polymorphic => true
@@ -15,22 +12,6 @@ module ActionTracker
     validates_presence_of :verb
     validates_presence_of :user
     validate :user_existence
-
-    after_create do |record|
-      update_cache_counter(:activities_count, record.user, 1)
-      if record.target.kind_of?(Organization)
-        update_cache_counter(:activities_count, record.target, 1)
-      end
-    end
-
-    after_destroy do |record|
-      if record.created_at >= RECENT_DELAY.days.ago
-        update_cache_counter(:activities_count, record.user, -1)
-        if record.target.kind_of?(Organization)
-          update_cache_counter(:activities_count, record.target, -1)
-        end
-      end
-    end
 
     def user_existence
       errors.add(:user, "user doesn't exists") if user && !user.class.exists?(user)
