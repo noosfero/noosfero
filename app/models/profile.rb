@@ -113,10 +113,11 @@ class Profile < ActiveRecord::Base
 
   named_scope :visible, :conditions => { :visible => true }
   named_scope :public, :conditions => { :visible => true, :public_profile => true }
-  # Subclasses must override these methods
-  named_scope :more_popular
-  named_scope :more_active
 
+  # Subclasses must override this method
+  named_scope :more_popular
+
+  named_scope :more_active,  :order => 'activities_count DESC'
   named_scope :more_recent, :order => "created_at DESC"
 
   acts_as_trackable :dependent => :destroy

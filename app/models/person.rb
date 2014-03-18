@@ -68,13 +68,6 @@ class Person < Profile
 
   named_scope :more_popular, :order => 'friends_count DESC'
 
-  named_scope :more_active,
-    :select => "#{Profile.qualified_column_names}, count(action_tracker.id) as total",
-    :joins => "LEFT OUTER JOIN action_tracker ON profiles.id = action_tracker.user_id",
-    :group => Profile.qualified_column_names,
-    :order => 'total DESC',
-    :conditions => ['action_tracker.created_at >= ? OR action_tracker.id IS NULL', ActionTracker::Record::RECENT_DELAY.days.ago]
-
   named_scope :abusers, :joins => :abuse_complaints, :conditions => ['tasks.status = 3'], :select => 'DISTINCT profiles.*'
   named_scope :non_abusers, :joins => "LEFT JOIN tasks ON profiles.id = tasks.requestor_id AND tasks.type='AbuseComplaint'", :conditions => ["tasks.status != 3 OR tasks.id is NULL"], :select => "DISTINCT profiles.*"
 

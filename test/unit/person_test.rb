@@ -904,14 +904,15 @@ class PersonTest < ActiveSupport::TestCase
 
     action_tracker = fast_create(ActionTracker::Record, :verb => 'create_article')
     action_tracker.target = community
+    action_tracker.user = p4
     action_tracker.save!
     ActionTrackerNotification.delete_all
-    assert_difference(ActionTrackerNotification, :count, 3) do
+    assert_difference(ActionTrackerNotification, :count, 4) do
       Person.notify_activity(action_tracker)
       process_delayed_job_queue
     end
     ActionTrackerNotification.all.map{|a|a.profile}.map do |profile|
-      assert [community,p1,p3].include?(profile)
+      assert [community,p1,p3,p4].include?(profile)
     end
   end
 
@@ -1014,9 +1015,9 @@ class PersonTest < ActiveSupport::TestCase
 
   should 'the community specific notification created when a member joins community could not be propagated to members' do
     ActionTracker::Record.delete_all
-    p1 = create_user('test_user').person
-    p2 = create_user('test_user').person
-    p3 = create_user('test_user').person
+    p1 = create_user('p1').person
+    p2 = create_user('p2').person
+    p3 = create_user('p3').person
     c = fast_create(Community, :name => "Foo")
     c.add_member(p1)
     process_delayed_job_queue
@@ -1136,30 +1137,14 @@ class PersonTest < ActiveSupport::TestCase
     p3 = fast_create(Person)
 
     ActionTracker::Record.destroy_all
-    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => p1, :created_at => Time.now)
-    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => p2, :created_at => Time.now)
-    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => p2, :created_at => Time.now)
-    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => p3, :created_at => Time.now)
-    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => p3, :created_at => Time.now)
-    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => p3, :created_at => Time.now)
+    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => p1)
+    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => p2)
+    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => p2)
+    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => p3)
+    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => p3)
+    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => p3)
 
-    assert_equal [p3,p2,p1] , Person.more_active
-  end
-
-  should 'more active profile take in consideration only actions created only in the recent delay interval' do
-    Person.delete_all
-    ActionTracker::Record.destroy_all
-    recent_delay = ActionTracker::Record::RECENT_DELAY.days.ago
-
-    p1 = fast_create(Person)
-    p2 = fast_create(Person)
-
-    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => p1, :created_at => recent_delay)
-    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => p1, :created_at => recent_delay)
-    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => p2, :created_at => recent_delay)
-    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => p2, :created_at => recent_delay - 1.day)
-
-    assert_equal [p1,p2], Person.more_active
+    assert_order [p3,p2,p1] , Person.more_active
   end
 
   should 'list profiles that have no actions in more active list' do
@@ -1429,7 +1414,7 @@ class PersonTest < ActiveSupport::TestCase
     end
   end
 
-  should 'decrease friends_count on new friendship' do
+  should 'decrease friends_count on friendship removal' do
     person = create_user('person').person
     friend = create_user('friend').person
     person.add_friend(friend)
@@ -1443,4 +1428,33 @@ class PersonTest < ActiveSupport::TestCase
       person.reload
     end
   end
+
+  should 'increase activities_count on new activity' do
+    person = fast_create(Person)
+    assert_difference person, :activities_count, 1 do
+      ActionTracker::Record.create! :verb => :leave_scrap, :user => person, :target => fast_create(Profile)
+      person.reload
+    end
+  end
+
+  should 'decrease activities_count on activity removal' do
+    person = fast_create(Person)
+    record = ActionTracker::Record.create! :verb => :leave_scrap, :user => person, :target => fast_create(Profile)
+    assert_difference person, :activities_count, -1 do
+      record.destroy
+      person.reload
+    end
+  end
+
+  should 'not decrease activities_count on activity removal after the recent delay' do
+    person = fast_create(Person)
+    record = ActionTracker::Record.create! :verb => :leave_scrap, :user => person, :target => fast_create(Profile)
+    record.created_at = record.created_at - ActionTracker::Record::RECENT_DELAY.days - 1.day
+    record.save!
+    assert_no_difference person, :activities_count do
+      record.destroy
+      person.reload
+    end
+  end
+
 end
