@@ -55,16 +55,16 @@
     <%= required f.password_field(:password, :id => 'user_pw') %>
     <%= content_tag(:small,_('Choose a password that you can remember easily. It must have at least 4 characters.'), :id => 'password-balloon') %>
     <div id='password-rate'>
-      <p><span class="invalid hidden" style="color:red" id='result-short'>
+      <p><span class="invalid hidden" id='result-short'>
         <%=_('Short') %>
       </span></p>
-      <p><span class="invalid hidden" style="color:brown" id='result-bad'>
+      <p><span class="invalid hidden" id='result-bad'>
         <%=_('Bad') %>
       </span></p>
-      <p><span class="invalid hidden" style="color:green" id='result-good'>
+      <p><span class="invalid hidden" id='result-good'>
         <%=_('Good') %>
       </span></p>
-      <p><span class="invalid hidden" style="color:limegreen" id='result-strong'>
+      <p><span class="invalid hidden" id='result-strong'>
         <%=_('Strong') %>
       </span></p>
     </div>

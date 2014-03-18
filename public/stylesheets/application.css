@@ -6535,3 +6535,19 @@ ul.article-versions li {
 .controller-features .manage-fields-batch-actions td {
   font-style: italic;
 }
+
+#result-short {
+  color: red !important;
+}
+
+#result-bad {
+  color: #825A2C !important;
+}
+
+#result-good {
+  color: green !important;
+}
+
+#result-strong {
+  color: #32CD32 !important;
+}

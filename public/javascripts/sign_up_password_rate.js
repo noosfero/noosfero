@@ -2,6 +2,7 @@
 // Firas Kassem  phiras.wordpress.com || phiras at gmail {dot} com
 // for more information : http://phiras.wordpress.com/2007/04/08/password-strength-meter-a-jquery-plugin/
 
+var blankPass    = -1
 var shortPass   = 0
 var badPass     = 1
 var goodPass    = 2
@@ -11,6 +12,8 @@ var strongPass  = 3
 function passwordStrength(password,username)
 {
   score = 0
+
+  if(password.length == 0) return blankPass
 
   //password < 4
   if (password.length < 4 ) { return shortPass }
@@ -81,6 +84,10 @@ jQuery(document).ready(function() {
     jQuery('#user_pw').keyup(function()
     {
       var result = passwordStrength(jQuery('#user_pw').val(),jQuery('#user_login').val())
+      if(result == blankPass)
+      {
+        showRateField('#result-blank')
+      } else
       if(result == shortPass)
       {
         showRateField('#result-short')
@@ -103,6 +110,7 @@ jQuery(document).ready(function() {
 
 function showRateField(validation)
 {
+  jQuery('#result-blank').addClass('hidden')
   jQuery('#result-short').addClass('hidden')
   jQuery('#result-bad').addClass('hidden')
   jQuery('#result-good').addClass('hidden')
