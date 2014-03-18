@@ -12,7 +12,7 @@
           "/designs/templates/#{template.id}/thumbnail.png",
           :alt => _('The "%s" template')) +
         '<div class="opt-info">'.html_safe +
-        content_tag('strong', template.name, :class => 'name') +
+        content_tag('strong', template.name, :title => template.title, :class => 'name') +
         ' <br/> '.html_safe
 
         if @current_template == template.id  # selected
