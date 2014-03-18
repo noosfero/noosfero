@@ -404,13 +404,12 @@ class PersonTest < ActiveSupport::TestCase
 
   should 'not allow simple member to view group pending tasks' do
     community = fast_create(Community)
+    admin = fast_create(Person)
+    community.add_member(admin)
     member = fast_create(Person)
     community.add_member(member)
-
     community.tasks << Task.new
 
-    person = fast_create(Person)
-    community.add_member(person)
 
     assert_not_includes Person.with_pending_tasks, person
   end
@@ -1367,7 +1366,7 @@ class PersonTest < ActiveSupport::TestCase
       u = create_user('user'+i.to_s)
       u.activate
     }
-    assert_equal deactivated, Person.deactivated
+    assert_equivalent deactivated, Person.deactivated
   end
 
   should 'be able to retrieve memberships by role person has' do
