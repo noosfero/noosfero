@@ -353,18 +353,17 @@ class OrganizationTest < ActiveSupport::TestCase
 
   should 'find more active organizations' do
     person = fast_create(Person)
-    Organization.destroy_all
     p1 = fast_create(Organization)
     p2 = fast_create(Organization)
     p3 = fast_create(Organization)
 
     ActionTracker::Record.destroy_all
-    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => person, :created_at => Time.now, :target_id => p1.id)
-    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => person, :created_at => Time.now, :target_id => p2.id)
-    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => person, :created_at => Time.now, :target_id => p2.id)
-    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => person, :created_at => Time.now, :target_id => p3.id)
-    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => person, :created_at => Time.now, :target_id => p3.id)
-    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => person, :created_at => Time.now, :target_id => p3.id)
+    ActionTracker::Record.create!(:user => person, :target => p1, :verb => 'leave_scrap')
+    ActionTracker::Record.create!(:user => person, :target => p2, :verb => 'leave_scrap')
+    ActionTracker::Record.create!(:user => person, :target => p2, :verb => 'leave_scrap')
+    ActionTracker::Record.create!(:user => person, :target => p3, :verb => 'leave_scrap')
+    ActionTracker::Record.create!(:user => person, :target => p3, :verb => 'leave_scrap')
+    ActionTracker::Record.create!(:user => person, :target => p3, :verb => 'leave_scrap')
 
     assert_order [p3,p2,p1] , Organization.more_active
   end
