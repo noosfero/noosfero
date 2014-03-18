@@ -647,11 +647,14 @@ class PersonTest < ActiveSupport::TestCase
     p2 = fast_create(Person)
     p3 = fast_create(Person)
 
-    p1.add_friend(p2)
-    p2.add_friend(p1)
-    p2.add_friend(p3)
-    assert_equal p2, Person.more_popular[0]
-    assert_equal p1, Person.more_popular[1]
+    p1.friends_count = 1
+    p2.friends_count = 2
+    p3.friends_count = 3
+    p1.save!
+    p2.save!
+    p3.save!
+
+    assert_order [p3, p2, p1], Person.more_popular
   end
 
   should 'list people that have no friends in more popular list' do
@@ -1363,7 +1366,7 @@ class PersonTest < ActiveSupport::TestCase
       u = create_user('user'+i.to_s)
       u.deactivate
     }
-    assert_equal activated, Person.activated
+    assert_equivalent activated, Person.activated
   end
 
   should 'deactivated named_scope return persons who are deactivated users' do
@@ -1412,5 +1415,32 @@ class PersonTest < ActiveSupport::TestCase
     at = ActionTracker::Record.create!(:user => person, :verb => 'reply_scrap_on_self')
     person.reload
     assert_equal person.activities, []
+  end
+
+  should 'increase friends_count on new friendship' do
+    person = create_user('person').person
+    friend = create_user('friend').person
+    assert_difference person, :friends_count, 1 do
+      assert_difference friend, :friends_count, 1 do
+        person.add_friend(friend)
+        friend.reload
+      end
+      person.reload
+    end
+  end
+
+  should 'decrease friends_count on new friendship' do
+    person = create_user('person').person
+    friend = create_user('friend').person
+    person.add_friend(friend)
+    friend.reload
+    person.reload
+    assert_difference person, :friends_count, -1 do
+      assert_difference friend, :friends_count, -1 do
+        person.remove_friend(friend)
+        friend.reload
+      end
+      person.reload
+    end
   end
 end

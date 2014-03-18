@@ -66,11 +66,7 @@ class Person < Profile
   has_and_belongs_to_many :acepted_forums, :class_name => 'Forum', :join_table => 'terms_forum_people'
   has_and_belongs_to_many :articles_with_access, :class_name => 'Article', :join_table => 'article_privacy_exceptions'
 
-  named_scope :more_popular,
-      :select => "#{Profile.qualified_column_names}, count(friend_id) as total",
-      :group => Profile.qualified_column_names,
-      :joins => "LEFT OUTER JOIN friendships on profiles.id = friendships.person_id",
-      :order => "total DESC"
+  named_scope :more_popular, :order => 'friends_count DESC'
 
   named_scope :more_active,
     :select => "#{Profile.qualified_column_names}, count(action_tracker.id) as total",
