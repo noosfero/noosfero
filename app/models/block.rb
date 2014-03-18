@@ -21,7 +21,7 @@ class Block < ActiveRecord::Base
   end
 
   def embed_code(url)
-    html = "<iframe src='#{url}' frameborder='0'></iframe>"
+    html = "<iframe src='#{url}' frameborder='0' width='1024' height='768' class='embed block #{self.class.name.to_css_class}'></iframe>"
   end
 
   # Determines whether a given block must be visible. Optionally a
