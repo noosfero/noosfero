@@ -82,7 +82,7 @@ class ActsAsHavingSettingsTest < ActiveSupport::TestCase
 
   should 'setting_changed be true if a setting passed as parameter was changed' do
     obj = TestClass.new
-    obj.flag= true 
+    obj.flag = true
     assert obj.setting_changed? 'flag'
   end
 
@@ -93,24 +93,24 @@ class ActsAsHavingSettingsTest < ActiveSupport::TestCase
 
   should 'setting_changed be false if a setting passed as parameter was changed with the same value' do
     obj = TestClass.new
-    obj.flag= true 
+    obj.flag = true
     obj.save
-    obj.flag= true 
+    obj.flag = true
     assert !obj.setting_changed?('flag')
   end
 
   should 'setting_changed be false if a setting passed as parameter was not changed but another setting is changed' do
     obj = TestClass.new(:name => 'some name')
     obj.save
-    obj.name= 'antoher nme'
+    obj.name = 'antoher nme'
     assert !obj.setting_changed?('flag')
   end
 
   should 'setting_changed be true for all changed fields' do
     obj = TestClass.new(:name => 'some name', :flag => false)
     obj.save
-    obj.name= 'another nme'
-    obj.flag= true
+    obj.name = 'another nme'
+    obj.flag = true
     assert obj.setting_changed?('flag')
     assert obj.setting_changed?('name')
   end
