@@ -78,7 +78,7 @@ class PersonNotifierTest < ActiveSupport::TestCase
   should 'schedule next mail at notification time' do
     @member.notification_time = 12
     @member.notifier.schedule_next_notification_mail
-    assert_equal @member.notification_time, ((Delayed::Job.first.run_at - DateTime.now)/1.hour).round
+    assert_equal @member.notification_time, DateTime.now.hour - Delayed::Job.first.run_at.hour
   end
 
   should 'do not schedule duplicated notification mail' do
@@ -127,7 +127,7 @@ class PersonNotifierTest < ActiveSupport::TestCase
     @member.notification_time = 12
     @member.save!
     assert_equal 1, Delayed::Job.count
-    assert_equal @member.notification_time, ((Delayed::Job.first.run_at - DateTime.now)/1.hour).round
+    assert_equal @member.notification_time, DateTime.now.hour - Delayed::Job.first.run_at.hour
   end
 
   should 'display error message if fail to render a notificiation' do
