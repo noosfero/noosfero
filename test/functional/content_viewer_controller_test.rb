@@ -712,16 +712,6 @@ class ContentViewerControllerTest < ActionController::TestCase
     assert_tag :tag => 'li', :attributes => {:title => 'my img title', :class => 'image-gallery-item'}, :child => {:tag => 'span', :content => 'my img title'}
   end
 
-  should 'not allow html on title of the images' do
-    login_as(profile.identifier)
-    folder = fast_create(Gallery, :profile_id => profile.id)
-    file = UploadedFile.create!(:title => '<b>my img title</b>', :profile => profile, :parent => folder, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
-
-    get :view_page, :profile => profile.identifier, :page => folder.explode_path
-
-    assert_tag :tag => 'li', :attributes => {:title => 'my img title', :class => 'image-gallery-item'}, :child => {:tag => 'span', :content => 'my img title'}
-  end
-
   should 'allow publisher owner view private articles' do
     c = Community.create!(:name => 'test_com')
     u = create_user_with_permission('test_user', 'publish_content', c)
