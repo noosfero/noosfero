@@ -398,6 +398,16 @@ class ContentViewerControllerTest < ActionController::TestCase
     assert_tag :tag => 'div', :attributes => { :class => /article-body/ }, :content => /edited article/
   end
 
+  should 'display differences between article version' do
+    page = TextArticle.create!(:name => 'myarticle', :body => 'original article', :display_versions => true, :profile => profile)
+    page.body = 'edited article'; page.save
+
+    get :versions_diff, :profile => profile.identifier, :page => [ 'myarticle' ], :version => 1
+    
+    assert_tag :tag => 'div', :attributes => { :class => /article/ }, :content => /edited article/
+
+  end
+
   should 'not return an article of a different user' do
     p1 = create_user('test_user').person
     a = p1.articles.create!(:name => 'old-name')
@@ -1244,26 +1254,6 @@ class ContentViewerControllerTest < ActionController::TestCase
     assert_includes Article.find(article.id).followers, follower_email
     post :view_page, :profile => profile.identifier, :page => [article.name], :unfollow => 'commit', :email => follower_email
     assert_not_includes Article.find(article.id).followers, follower_email
-  end
-
-  should 'display differences between article versions' do
-    blog = Blog.create!(:name => 'A blog test', :profile => profile)
-    blog.posts << TinyMceArticle.create!(
-      :name => 'Post1',
-      :profile => profile,
-      :parent => blog,
-      :published => true,
-      :body => "<p>This is a <strong>bold</strong> statement right there!</p>"
-    )
-
-    blog.posts << TinyMceArticle.create!(
-      :name => 'Post2',
-      :profile => profile,
-      :parent => blog,
-      :published => true,
-      :body => "<p>That is a <strong>bold</strong> statement right there!</p>"
-    )
-    @controller.differences_between_article_versions('Post1','Post2')
   end
 
   should 'not display comments marked as spam' do
