@@ -12,6 +12,7 @@ class ActionTrackerExtTest < ActiveSupport::TestCase
   should 'decrease person activities_count on activity removal' do
     person = fast_create(Person)
     record = ActionTracker::Record.create! :verb => :leave_scrap, :user => person, :target => fast_create(Profile)
+    person.reload
     assert_difference person, :activities_count, -1 do
       record.destroy
       person.reload
@@ -23,6 +24,7 @@ class ActionTrackerExtTest < ActiveSupport::TestCase
     record = ActionTracker::Record.create! :verb => :leave_scrap, :user => person, :target => fast_create(Profile)
     record.created_at = record.created_at - ActionTracker::Record::RECENT_DELAY.days - 1.day
     record.save!
+    person.reload
     assert_no_difference person, :activities_count do
       record.destroy
       person.reload
@@ -42,6 +44,7 @@ class ActionTrackerExtTest < ActiveSupport::TestCase
     person = fast_create(Person)
     organization = fast_create(Organization)
     record = ActionTracker::Record.create! :verb => :leave_scrap, :user => person, :target => organization
+    organization.reload
     assert_difference organization, :activities_count, -1 do
       record.destroy
       organization.reload
@@ -52,6 +55,7 @@ class ActionTrackerExtTest < ActiveSupport::TestCase
     person = fast_create(Person)
     organization = fast_create(Organization)
     record = ActionTracker::Record.create! :verb => :leave_scrap, :user => person, :target => organization, :created_at => (ActionTracker::Record::RECENT_DELAY + 1).days.ago
+    organization.reload
     assert_no_difference organization, :activities_count do
       record.destroy
       organization.reload

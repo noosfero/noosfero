@@ -62,18 +62,21 @@ class OrganizationMailingTest < ActiveSupport::TestCase
 
   should 'deliver mailing to each member after create' do
     mailing = OrganizationMailing.create(:source => community, :subject => 'Hello', :body => 'We have some news', :person => person)
+    community.reload
     process_delayed_job_queue
     assert_equal 2, ActionMailer::Base.deliveries.count
   end
 
   should 'deliver mailing when there are many mailings created' do
     50.times { OrganizationMailing.create(:source => community, :subject => 'Hello', :body => 'We have some news', :person => person) }
+    community.reload
     process_delayed_job_queue
     assert_equal 50*community.members_count, ActionMailer::Base.deliveries.count
   end
 
   should 'create mailing sent to each recipient after delivering mailing' do
     mailing = OrganizationMailing.create(:source => community, :subject => 'Hello', :body => 'We have some news', :person => person)
+    community.reload
     assert_difference MailingSent, :count, 2 do
       process_delayed_job_queue
     end

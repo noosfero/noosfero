@@ -407,11 +407,11 @@ class PersonTest < ActiveSupport::TestCase
     admin = fast_create(Person)
     community.add_member(admin)
     member = fast_create(Person)
+    community.reload
     community.add_member(member)
     community.tasks << Task.new
 
-
-    assert_not_includes Person.with_pending_tasks, person
+    assert_not_includes Person.with_pending_tasks, member
   end
 
   should 'person has organization pending tasks' do
@@ -641,17 +641,16 @@ class PersonTest < ActiveSupport::TestCase
   end
 
   should 'find more popular people' do
+    extend CacheCounterHelper
+
     Person.delete_all
     p1 = fast_create(Person)
     p2 = fast_create(Person)
     p3 = fast_create(Person)
 
-    p1.friends_count = 1
-    p2.friends_count = 2
-    p3.friends_count = 3
-    p1.save!
-    p2.save!
-    p3.save!
+    update_cache_counter(:friends_count, p1, 1)
+    update_cache_counter(:friends_count, p2, 2)
+    update_cache_counter(:friends_count, p3, 3)
 
     assert_order [p3, p2, p1], Person.more_popular
   end
@@ -893,6 +892,7 @@ class PersonTest < ActiveSupport::TestCase
     p1 = fast_create(Person)
     p2 = fast_create(Person)
     p3 = fast_create(Person)
+    p4 = fast_create(Person)
 
     community.add_member(p1)
     assert p1.is_member_of?(community)
@@ -1136,12 +1136,12 @@ class PersonTest < ActiveSupport::TestCase
     p3 = fast_create(Person)
 
     ActionTracker::Record.destroy_all
-    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => p1)
-    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => p2)
-    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => p2)
-    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => p3)
-    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => p3)
-    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => p3)
+    ActionTracker::Record.create!(:user => p1, :verb => 'leave_scrap')
+    ActionTracker::Record.create!(:user => p2, :verb => 'leave_scrap')
+    ActionTracker::Record.create!(:user => p2, :verb => 'leave_scrap')
+    ActionTracker::Record.create!(:user => p3, :verb => 'leave_scrap')
+    ActionTracker::Record.create!(:user => p3, :verb => 'leave_scrap')
+    ActionTracker::Record.create!(:user => p3, :verb => 'leave_scrap')
 
     assert_order [p3,p2,p1] , Person.more_active
   end

@@ -20,6 +20,7 @@ class RoleAssignmentExtTest < ActiveSupport::TestCase
     organization = Organization.create!(:name => 'Organization', :identifier => 'organization')
     RoleAssignment.create!(:accessor => member, :resource => organization, :role => role1)
     RoleAssignment.create!(:accessor => member, :resource => organization, :role => role2)
+    organization.reload
     assert_difference organization, :members_count, -1 do
       organization.role_assignments.destroy_all
       organization.reload
