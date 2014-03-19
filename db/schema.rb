@@ -1,4 +1,4 @@
-# This file is auto-generated from the current state of the database. Instead of editing this file, 
+# This file is auto-generated from the current state of the database. Instead of editing this file,
 # please use the migrations feature of Active Record to incrementally modify your database, and
 # then regenerate this schema definition.
 #
@@ -285,6 +285,7 @@ ActiveRecord::Schema.define(:version => 20140314200103) do
     t.text     "signup_welcome_text"
     t.string   "languages"
     t.string   "default_language"
+    t.string   "noreply_email"
   end
 
   create_table "external_feeds", :force => true do |t|

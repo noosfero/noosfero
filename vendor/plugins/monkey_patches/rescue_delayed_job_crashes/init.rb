@@ -5,8 +5,8 @@ Delayed::Worker.module_eval do
       environment = Environment.default
 
       recipients NOOSFERO_CONF['exception_recipients']
-      from       environment.contact_email
-      reply_to   environment.contact_email
+      from       environment.noreply_email
+      reply_to   environment.noreply_email
       subject    "[#{environment.name}] DelayedJob ##{job.id}: #{error.message}"
       body       render(:text => "
 Job:
