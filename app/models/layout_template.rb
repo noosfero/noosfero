@@ -16,15 +16,15 @@ class LayoutTemplate
   end
 
   def name
-    @config['name']
+    _ @config['name']
   end
 
   def title
-    @config['title']
+    _ @config['title']
   end
 
   def description
-    @config['description']
+    _ @config['description']
   end
 
   def number_of_boxes

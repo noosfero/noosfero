@@ -2875,6 +2875,30 @@ msgstr "Artigo de texto com linguagem de marcação Textile"
 msgid "Accessible alternative for visually impaired users."
 msgstr "Alternativa acessível para usuários com deficiência visual."
 
+#: app/models/layout_template.rb
+msgid "Left Bar"
+msgstr "Uma barra à esquerda"
+
+#: app/models/layout_template.rb
+msgid "2 Left Bars"
+msgstr "Duas barras à esquerda"
+
+#: app/models/layout_template.rb
+msgid "Left and Bottom Bar"
+msgstr "Uma barra à esquerda e outra ao final"
+
+#: app/models/layout_template.rb
+msgid "Right Bar"
+msgstr "Uma barra à direita"
+
+#: app/models/layout_template.rb
+msgid "Default"
+msgstr "Padrão"
+
+#: app/models/layout_template.rb
+msgid "No Sidebars"
+msgstr "Nenhuma barra lateral"
+
 #: app/models/login_block.rb:4
 msgid "Login/logout"
 msgstr "Login/Sair"
