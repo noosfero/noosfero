@@ -31,6 +31,13 @@ class UploadedFileTest < ActiveSupport::TestCase
     assert_equal 'test.txt', file.name
   end
 
+  should 'not set filename on name if name is already set' do
+    file = UploadedFile.new
+    file.name = "Some name"
+    file.filename = 'test.txt'
+    assert_equal 'Some name', file.name
+  end
+
   should 'provide file content as data' do
     file = UploadedFile.new
     file.expects(:full_filename).returns('myfilename')

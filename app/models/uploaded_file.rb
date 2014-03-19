@@ -102,7 +102,7 @@ class UploadedFile < Article
   alias :orig_set_filename :filename=
   def filename=(value)
     orig_set_filename(value)
-    self.name = self.filename
+    self.name ||= self.filename
   end
 
   def download_headers
