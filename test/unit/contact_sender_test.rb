@@ -16,7 +16,7 @@ class ContactSenderTest < ActiveSupport::TestCase
     ent.contact_email = 'contact@invalid.com'
     c = build(Contact, :dest => ent)
     response = Contact::Sender.deliver_mail(c)
-    assert_equal Environment.default.noreply_email, response.from.to_s
+    assert_equal Environment.default.noreply_email.to_s, response.from.to_s
     assert_equal "[#{ent.name}] #{c.subject}", response.subject
   end
 

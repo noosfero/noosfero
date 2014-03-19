@@ -46,6 +46,9 @@ class ContactTest < ActiveSupport::TestCase
 
   should 'use sender name and environment noreply_email on from' do
     ent = fast_create(Enterprise, :name => 'my enterprise', :identifier => 'myent')
+    env = ent.environment
+    env.noreply_email = 'noreply@sample.org'
+    env.save!
     c = Contact.new(:name => 'john', :email => 'john@invalid.com', :subject => 'hi', :message => 'hi, all', :dest => ent)
     email = c.deliver
     assert_equal "#{c.name} <#{ent.environment.noreply_email}>", email['from'].to_s
