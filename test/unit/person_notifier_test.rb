@@ -17,8 +17,10 @@ class PersonNotifierTest < ActiveSupport::TestCase
     @member.save!
     @community = fast_create(Community)
     @community.add_member(@admin)
-    @article = fast_create(TextileArticle, :name => 'Article test', :profile_id => @community.id, :notify_comments => true)
-    Delayed::Job.destroy_all
+    @article = fast_create(TextileArticle, :name => 'Article test', :profile_id => @community.id, :notify_comments => false)
+    Delayed::Job.delete_all
+    notify
+    ActionMailer::Base.deliveries = []
   end
 
   should 'deliver mail to community members' do
@@ -36,11 +38,9 @@ class PersonNotifierTest < ActiveSupport::TestCase
   end
 
   should 'do not send mail to people not joined to community' do
-    ActionMailer::Base.deliveries = []
     Comment.create!(:author => @admin, :title => 'test comment 2', :body => 'body 2!', :source => @article)
     notify
-    sent = ActionMailer::Base.deliveries.first
-    assert !sent
+    assert ActionMailer::Base.deliveries.blank?
   end
 
   should 'display author name in delivered mail' do
@@ -63,15 +63,15 @@ class PersonNotifierTest < ActiveSupport::TestCase
   should 'update last notification date' do
     Comment.create!(:author => @admin, :title => 'test comment 2', :body => 'body 2!', :source => @article)
     @community.add_member(@member)
-    assert_equal nil, @member.last_notification
+    initial_notification = @member.last_notification
     notify
-    assert @member.last_notification
+    assert @member.last_notification > initial_notification
   end
 
   should 'reschedule after notification' do
     Comment.create!(:author => @admin, :title => 'test comment 2', :body => 'body 2!', :source => @article)
     @community.add_member(@member)
-    assert_equal nil, @member.last_notification
+    assert PersonNotifier::NotifyJob.find(@member.id).blank?
     notify
     assert PersonNotifier::NotifyJob.find(@member.id)
   end
@@ -206,7 +206,6 @@ class PersonNotifierTest < ActiveSupport::TestCase
   end
 
   def notify
-    ActionTracker::Record.all.map{|action| Person.notify_activity(action)}
     process_delayed_job_queue
     @member.notifier.notify
   end
