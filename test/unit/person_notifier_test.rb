@@ -36,6 +36,7 @@ class PersonNotifierTest < ActiveSupport::TestCase
   end
 
   should 'do not send mail to people not joined to community' do
+    ActionMailer::Base.deliveries = []
     Comment.create!(:author => @admin, :title => 'test comment 2', :body => 'body 2!', :source => @article)
     notify
     sent = ActionMailer::Base.deliveries.first
