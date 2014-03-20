@@ -1401,6 +1401,17 @@ class PersonTest < ActiveSupport::TestCase
     assert_equal person.activities, []
   end
 
+  should 'person notifier be PersonNotifier class' do
+    p =  Person.new
+    assert p.notifier.kind_of?(PersonNotifier)
+  end
+
+  should 'reschedule next notification after update' do
+    p = fast_create(Person, :user_id => fast_create(User).id)
+    PersonNotifier.any_instance.expects(:reschedule_next_notification_mail).once
+    assert p.update_attribute(:name, 'Person name changed')
+  end
+
   should 'merge memberships of plugins to original memberships' do
     class Plugin1 < Noosfero::Plugin
       def person_memberships(person)
