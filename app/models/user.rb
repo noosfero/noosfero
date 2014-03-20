@@ -54,7 +54,7 @@ class User < ActiveRecord::Base
     def activation_email_notify(user)
       user_email = "#{user.login}@#{user.email_domain}"
       recipients user_email
-      from "#{user.environment.name} <#{user.environment.contact_email}>"
+      from "#{user.environment.name} <#{user.environment.noreply_email}>"
       subject _("[%{environment}] Welcome to %{environment} mail!") % { :environment => user.environment.name }
       body :name => user.name,
         :email => user_email,
@@ -66,7 +66,7 @@ class User < ActiveRecord::Base
     def activation_code(user)
       recipients user.email
 
-      from "#{user.environment.name} <#{user.environment.contact_email}>"
+      from "#{user.environment.name} <#{user.environment.noreply_email}>"
       subject _("[%s] Activate your account") % [user.environment.name]
       body :recipient => user.name,
         :activation_code => user.activation_code,
@@ -82,7 +82,7 @@ class User < ActiveRecord::Base
       content_type 'text/html'
       recipients user.email
 
-      from "#{user.environment.name} <#{user.environment.contact_email}>"
+      from "#{user.environment.name} <#{user.environment.noreply_email}>"
       subject email_subject.blank? ? _("Welcome to environment %s") % [user.environment.name] : email_subject
       body email_body
     end

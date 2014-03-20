@@ -172,7 +172,7 @@ class Comment < ActiveRecord::Base
     def mail(comment)
       profile = comment.article.profile
       recipients comment.notification_emails
-      from "#{profile.environment.name} <#{profile.environment.contact_email}>"
+      from "#{profile.environment.name} <#{profile.environment.noreply_email}>"
       subject _("[%s] you got a new comment!") % [profile.environment.name]
       body :recipient => profile.nickname || profile.name,
         :sender => comment.author_name,
@@ -187,7 +187,7 @@ class Comment < ActiveRecord::Base
     def mail_to_followers(comment, emails)
       profile = comment.article.profile
       bcc emails
-      from "#{profile.environment.name} <#{profile.environment.contact_email}>"
+      from "#{profile.environment.name} <#{profile.environment.noreply_email}>"
       subject _("[%s] %s commented on a content of %s") % [profile.environment.name, comment.author_name, profile.short_name]
       body :recipient => profile.nickname || profile.name,
         :sender => comment.author_name,

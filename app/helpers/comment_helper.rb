@@ -2,7 +2,6 @@ module CommentHelper
 
   def article_title(article, args = {})
     title = article.title
-    title = article.display_title if article.kind_of?(UploadedFile) && article.image?
     title = content_tag('h1', h(title), :class => 'title')
     if article.belongs_to_blog?
       unless args[:no_link]

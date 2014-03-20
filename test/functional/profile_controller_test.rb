@@ -766,22 +766,27 @@ class ProfileControllerTest < ActionController::TestCase
   end
 
   should 'see all the activities in the current profile network' do
-    p1= Person.first
+    p1= fast_create(Person)
     p2= fast_create(Person)
     assert !p1.is_a_friend?(p2)
+
     p3= fast_create(Person)
     p3.add_friend(p1)
     assert p3.is_a_friend?(p1)
-    ActionTracker::Record.destroy_all
+
+    ActionTracker::Record.delete_all
+
+    UserStampSweeper.any_instance.stubs(:current_user).returns(p1)
     Scrap.create!(defaults_for_scrap(:sender => p1, :receiver => p1))
     a1 = ActionTracker::Record.last
+
     UserStampSweeper.any_instance.stubs(:current_user).returns(p2)
     Scrap.create!(defaults_for_scrap(:sender => p2, :receiver => p3))
     a2 = ActionTracker::Record.last
+
     UserStampSweeper.any_instance.stubs(:current_user).returns(p3)
     Scrap.create!(defaults_for_scrap(:sender => p3, :receiver => p1))
     a3 = ActionTracker::Record.last
-
 
     @controller.stubs(:logged_in?).returns(true)
     user = mock()
@@ -792,24 +797,29 @@ class ProfileControllerTest < ActionController::TestCase
 
     process_delayed_job_queue
     get :index, :profile => p1.identifier
-    assert_not_nil assigns(:network_activities)
-    assert_equal [], [a1,a3] - assigns(:network_activities)
-    assert_equal assigns(:network_activities) - [a1, a3], []
+
+    assert_equivalent [a1,a3].map(&:id), assigns(:network_activities).map(&:id)
   end
 
   should 'the network activity be visible only to profile followers' do
-    p1= Person.first
+    p1= fast_create(Person)
     p2= fast_create(Person)
     assert !p1.is_a_friend?(p2)
+
     p3= fast_create(Person)
     p3.add_friend(p1)
     assert p3.is_a_friend?(p1)
-    ActionTracker::Record.destroy_all
+
+    ActionTracker::Record.delete_all
+
+    UserStampSweeper.any_instance.stubs(:current_user).returns(p1)
     Scrap.create!(defaults_for_scrap(:sender => p1, :receiver => p1))
     a1 = ActionTracker::Record.last
+
     UserStampSweeper.any_instance.stubs(:current_user).returns(p2)
     Scrap.create!(defaults_for_scrap(:sender => p2, :receiver => p3))
     a2 = ActionTracker::Record.last
+
     UserStampSweeper.any_instance.stubs(:current_user).returns(p3)
     Scrap.create!(defaults_for_scrap(:sender => p3, :receiver => p1))
     a3 = ActionTracker::Record.last
@@ -819,8 +829,9 @@ class ProfileControllerTest < ActionController::TestCase
     user.stubs(:person).returns(p2)
     user.stubs(:login).returns('some')
     @controller.stubs(:current_user).returns(user)
+
     get :index, :profile => p1.identifier
-    assert_equal [], assigns(:network_activities)
+    assert assigns(:network_activities).blank?
 
     user = mock()
     user.stubs(:person).returns(p3)
@@ -828,9 +839,9 @@ class ProfileControllerTest < ActionController::TestCase
     @controller.stubs(:current_user).returns(user)
     Person.any_instance.stubs(:follows?).returns(true)
     process_delayed_job_queue
+
     get :index, :profile => p3.identifier
-    assert_equal [], [a1,a3] - assigns(:network_activities)
-    assert_equal assigns(:network_activities) - [a1, a3], []
+    assert_equivalent [a1,a3], assigns(:network_activities)
   end
 
   should 'the network activity be paginated' do
