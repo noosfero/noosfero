@@ -1220,6 +1220,27 @@ class EnvironmentTest < ActiveSupport::TestCase
     end
   end
 
+  should 'return a Hash on signup redirection options' do
+    assert_kind_of Hash, Environment.signup_redirection_options
+  end
+
+  should 'respond to redirection after signup' do
+    assert_respond_to Environment.new, :redirection_after_signup
+  end
+
+  should 'allow only environment signup redirection options' do
+    environment = fast_create(Environment)
+    environment.redirection_after_signup = 'invalid_option'
+    environment.save
+    assert environment.errors.invalid?(:redirection_after_signup)
+
+    Environment.signup_redirection_options.keys.each do |redirection|
+      environment.redirection_after_signup = redirection
+      environment.save
+      assert !environment.errors.invalid?(:redirection_after_signup)
+    end
+  end
+
   should 'respond to signup_welcome_text' do
     assert_respond_to Environment.new, :signup_welcome_text
   end

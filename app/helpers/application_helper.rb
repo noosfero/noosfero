@@ -889,12 +889,11 @@ module ApplicationHelper
 
   def page_title
     (@page ? @page.title + ' - ' : '') +
-    (profile ? profile.short_name + ' - ' : '') +
     (@topic ? @topic.title + ' - ' : '') +
     (@section ? @section.title + ' - ' : '') +
     (@toc ? _('Online Manual') + ' - ' : '') +
     (@controller.controller_name == 'chat' ? _('Chat') + ' - ' : '') +
-    environment.name +
+    (profile ? profile.short_name : environment.name) +
     (@category ? " - #{@category.full_name}" : '')
   end
 
