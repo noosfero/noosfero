@@ -1,0 +1,4 @@
+<h1><%= _('Changes on "%s"') % @page.title %></h1>
+
+<p> <%= _('Changes from %s &rarr; %s') % [show_time(@v1.updated_at), show_time(@v2.updated_at)] %> </p>
+<%= Diffy::Diff.new(@v1.body, @v2.body, :context => 1).to_s(:html) %>
