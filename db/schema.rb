@@ -438,7 +438,6 @@ ActiveRecord::Schema.define(:version => 20140314200103) do
   end
 
   add_index "products", ["created_at"], :name => "index_products_on_created_at"
-  add_index "products", ["enterprise_id"], :name => "index_products_on_enterprise_id"
   add_index "products", ["product_category_id"], :name => "index_products_on_product_category_id"
   add_index "products", ["profile_id"], :name => "index_products_on_profile_id"
 
