@@ -1,3 +1,9 @@
+noosfero (0.47.0~rc1) squeeze-test; urgency=low
+
+  * New features Release Candidate 1
+
+ -- Rodrigo Souto <rodrigo@colivre.coop.br>  Thu, 20 Mar 2014 20:26:45 +0000
+
 noosfero (0.46.2) unstable; urgency=low
 
   * Bugfix release
