@@ -144,8 +144,8 @@ EOF
     version_name = new_version = ask(version_question)
 
     if release_kind == 'test'
-      timestamp = Time.now.strftime('%Y%m%d%H%M%S')
-      version_name += "~rc#{timestamp}"
+      rc_version = ask('RC version', Time.now.strftime('%Y%m%d%H%M%S'))
+      version_name += "~rc#{rc_version}"
     end
     release_message = ask("Release message")
 
