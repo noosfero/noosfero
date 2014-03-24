@@ -5,24 +5,13 @@ class Article
   named_scope :relevant_content, :conditions => ["(articles.type != 'UploadedFile' and articles.type != 'Blog' and articles.type != 'RssFeed') OR articles.type is NULL"]
 
   def self.most_accessed(owner, limit = nil)
-    if owner.kind_of?(Environment)
-      result = Article.relevant_content.find(
-        :all,
-        :order => 'hits desc',
-        :limit => limit,
-        :conditions => ["hits > 0"]
-      )
-      result.paginate({:page => 1, :per_page => limit})
-    else
-      #Owner is a profile
-      result = Article.relevant_content.find(
-        :all,
-        :order => 'hits desc',
-        :limit => limit,
-        :conditions => ["profile_id = ? and hits > 0", owner.id]
-      )
-      result.paginate({:page => 1, :per_page => limit})
-    end
+    conditions = owner.kind_of?(Environment) ?  ["hits > 0"] : ["profile_id = ? and hits > 0", owner.id]
+    result = Article.relevant_content.find(
+      :all,
+      :order => 'hits desc',
+      :limit => limit,
+      :conditions => conditions)
+    result.paginate({:page => 1, :per_page => limit})
   end
 
   def self.most_commented_relevant_content(owner, limit)
