@@ -10,7 +10,7 @@ class RelevantContentPlugin < Noosfero::Plugin
 
   def self.extra_blocks
     {
-     RelevantContentPlugin::RelevantContentBlock => {:position => ['1','2','3'] }
+     RelevantContentPlugin::RelevantContentBlock => {}
     }
   end
 
