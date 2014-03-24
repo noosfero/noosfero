@@ -1,5 +1,5 @@
 class RelevantContentPlugin < Noosfero::Plugin
-    
+
   def self.plugin_name
       "Relevant Content Plugin"
   end
@@ -16,6 +16,6 @@ class RelevantContentPlugin < Noosfero::Plugin
 
   def stylesheet?
     true
-  end  
+  end
 
 end
