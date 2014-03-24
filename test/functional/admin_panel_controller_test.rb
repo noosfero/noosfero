@@ -73,6 +73,7 @@ class AdminPanelControllerTest < ActionController::TestCase
     assert_tag :tag => 'textarea', :attributes => { :name => 'environment[terms_of_use]'}
     assert_tag :tag => 'input', :attributes => { :name => 'environment[signup_welcome_text_subject]'}
     assert_tag :tag => 'textarea', :attributes => { :name => 'environment[signup_welcome_text_body]'}
+    assert_tag :tag => 'textarea', :attributes => { :name => 'environment[signup_welcome_screen_body]'}
   end
 
   should 'display form for editing message for disabled enterprise' do
@@ -379,6 +380,15 @@ class AdminPanelControllerTest < ActionController::TestCase
     assert_equal 'pt', environment.default_language
     assert_includes environment.languages, 'pt'
     assert_not_includes environment.languages, 'en'
+  end
+
+  should 'save body of signup welcome screen' do
+    body = "This is my welcome body"
+    post :site_info, :environment => { :signup_welcome_screen_body => body }
+    assert_redirected_to :action => 'index'
+
+    assert_equal body, Environment.default.signup_welcome_screen_body
+    assert !Environment.default.signup_welcome_screen_body.blank?
   end
 
 end
