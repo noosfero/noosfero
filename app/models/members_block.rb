@@ -36,4 +36,15 @@ class MembersBlock < ProfileListBlock
     }
   end
 
+  def cache_key(language='en', user=nil)
+    logged = ''
+    if user
+      logged += '-logged-in'
+      if user.is_member_of? self.owner
+        logged += '-member'
+      end
+    end
+    super + logged
+  end
+
 end

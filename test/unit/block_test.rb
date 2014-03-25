@@ -165,4 +165,11 @@ class BlockTest < ActiveSupport::TestCase
     conditions = Block.expire_on
     assert conditions[:environment].kind_of?(Array)
   end
+
+  should 'accept user as parameter on cache_key without change its value' do
+    person = fast_create(Person)
+    block = Block.new
+    assert_equal block.cache_key('en'), block.cache_key('en', person)
+  end
+
 end
