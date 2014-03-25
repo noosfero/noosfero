@@ -12,18 +12,18 @@ class RelevantContentPlugin::RelevantContentBlock < Block
   end
 
   settings_items :limit,                :type => :integer, :default => 5
-  settings_items :show_most_read,       :type => :integer, :default => 1
-  settings_items :show_most_commented,  :type => :integer, :default => 1
-  settings_items :show_most_liked,      :type => :integer, :default => 1
-  settings_items :show_most_disliked,   :type => :integer, :default => 0
-  settings_items :show_most_voted,      :type => :integer, :default => 1
+  settings_items :show_most_read,       :type => :boolean, :default => 1
+  settings_items :show_most_commented,  :type => :boolean, :default => 1
+  settings_items :show_most_liked,      :type => :boolean, :default => 1
+  settings_items :show_most_disliked,   :type => :boolean, :default => 0
+  settings_items :show_most_voted,      :type => :boolean, :default => 1
 
   include ActionController::UrlWriter
   def content(args={})
 
     content = block_title(title)
 
-    if self.show_most_read != 0
+    if self.show_most_read
       docs = Article.most_accessed(owner, self.limit)
       if !docs.blank?
         subcontent = ""
@@ -33,7 +33,7 @@ class RelevantContentPlugin::RelevantContentBlock < Block
       end
     end
 
-    if self.show_most_commented != 0
+    if self.show_most_commented
       docs = Article.most_commented_relevant_content(owner, self.limit)
       if !docs.blank?
         subcontent = ""
@@ -50,7 +50,7 @@ class RelevantContentPlugin::RelevantContentBlock < Block
     end
 
     if env.plugin_enabled?(VotePlugin)
-      if self.show_most_liked != 0
+      if self.show_most_liked
         docs = Article.more_positive_votes(owner, self.limit)
         if !docs.blank?
           subcontent = ""
@@ -59,7 +59,7 @@ class RelevantContentPlugin::RelevantContentBlock < Block
           content += content_tag(:div, subcontent, :class=>"block mliked") + "\n"
         end
       end
-      if self.show_most_disliked != 0
+      if self.show_most_disliked
         docs = Article.more_negative_votes(owner, self.limit)
         if !docs.blank?
           subcontent = ""
@@ -69,7 +69,7 @@ class RelevantContentPlugin::RelevantContentBlock < Block
         end
       end
 
-      if self.show_most_voted != 0
+      if self.show_most_voted
         docs = Article.most_voted(owner, self.limit)
         if !docs.blank?
           subcontent = ""
