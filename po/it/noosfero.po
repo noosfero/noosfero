@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.45.2\n"
 "POT-Creation-Date: 2014-01-17 18:26-0000\n"
-"PO-Revision-Date: 2012-06-05 10:27-0300\n"
+"PO-Revision-Date: 2014-03-25 15:39+0000\n"
 "Last-Translator: Daniela Feitosa <danielafeitosa@colivre.coop.br>\n"
 "Language-Team: LANGUAGE TEAM <LL@li.org>\n"
 "Language: \n"
@@ -111,7 +111,7 @@ msgstr ""
 #: app/views/blocks/profile_info_actions/_join_leave_community.rhtml:25
 #: app/views/profile/_private_profile.rhtml:10
 msgid "Join"
-msgstr ""
+msgstr "Accedere"
 
 #: app/helpers/application_helper.rb:554
 #: app/views/blocks/profile_info_actions/_join_leave_community.rhtml:4
@@ -754,63 +754,63 @@ msgstr ""
 #: app/helpers/dates_helper.rb:7 app/helpers/forms_helper.rb:172
 #: plugins/display_content/lib/display_content_block.rb:4
 msgid "January"
-msgstr ""
+msgstr "gennaio"
 
 #: app/helpers/dates_helper.rb:8 app/helpers/forms_helper.rb:172
 #: plugins/display_content/lib/display_content_block.rb:5
 msgid "February"
-msgstr ""
+msgstr "febbraio"
 
 #: app/helpers/dates_helper.rb:9 app/helpers/forms_helper.rb:172
 #: plugins/display_content/lib/display_content_block.rb:6
 msgid "March"
-msgstr ""
+msgstr "marzo"
 
 #: app/helpers/dates_helper.rb:10 app/helpers/forms_helper.rb:172
 #: plugins/display_content/lib/display_content_block.rb:7
 msgid "April"
-msgstr ""
+msgstr "aprile"
 
 #: app/helpers/dates_helper.rb:11 app/helpers/forms_helper.rb:172
 #: app/helpers/forms_helper.rb:173
 #: plugins/display_content/lib/display_content_block.rb:8
 msgid "May"
-msgstr ""
+msgstr "maggio"
 
 #: app/helpers/dates_helper.rb:12 app/helpers/forms_helper.rb:172
 #: plugins/display_content/lib/display_content_block.rb:9
 msgid "June"
-msgstr ""
+msgstr "giugno"
 
 #: app/helpers/dates_helper.rb:13 app/helpers/forms_helper.rb:172
 #: plugins/display_content/lib/display_content_block.rb:10
 msgid "July"
-msgstr ""
+msgstr "luglio"
 
 #: app/helpers/dates_helper.rb:14 app/helpers/forms_helper.rb:172
 #: plugins/display_content/lib/display_content_block.rb:11
 msgid "August"
-msgstr ""
+msgstr "agosto"
 
 #: app/helpers/dates_helper.rb:15 app/helpers/forms_helper.rb:172
 #: plugins/display_content/lib/display_content_block.rb:12
 msgid "September"
-msgstr ""
+msgstr "settembre"
 
 #: app/helpers/dates_helper.rb:16 app/helpers/forms_helper.rb:172
 #: plugins/display_content/lib/display_content_block.rb:13
 msgid "October"
-msgstr ""
+msgstr "ottobre"
 
 #: app/helpers/dates_helper.rb:17 app/helpers/forms_helper.rb:172
 #: plugins/display_content/lib/display_content_block.rb:14
 msgid "November"
-msgstr ""
+msgstr "novembre"
 
 #: app/helpers/dates_helper.rb:18 app/helpers/forms_helper.rb:172
 #: plugins/display_content/lib/display_content_block.rb:15
 msgid "December"
-msgstr ""
+msgstr "dicembre"
 
 #: app/helpers/dates_helper.rb:28
 #: plugins/display_content/lib/display_content_block.rb:153
@@ -825,7 +825,7 @@ msgstr ""
 #: app/helpers/dates_helper.rb:31
 #: plugins/display_content/lib/display_content_block.rb:156
 msgid "%{month_name} %{day}, %{year}"
-msgstr ""
+msgstr "%{day} %{month_name} %{year}"
 
 #: app/helpers/dates_helper.rb:31
 #: plugins/display_content/lib/display_content_block.rb:156
@@ -8018,7 +8018,7 @@ msgstr ""
 
 #: app/views/account/index_anonymous.rhtml:10
 msgid "Sign up."
-msgstr ""
+msgstr "Registro"
 
 #: app/views/account/index_anonymous.rhtml:11
 msgid ""
