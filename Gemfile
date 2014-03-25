@@ -12,6 +12,10 @@ gem 'pg'
 # FIXME list here all actual dependencies (i.e. the ones in debian/control),
 # with their GEM names (not the Debian package names)
 
+group :production do
+  gem 'dalli'
+end
+
 group :test do
   gem 'rspec'
   gem 'rspec-rails'
