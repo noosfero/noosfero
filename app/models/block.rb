@@ -130,7 +130,7 @@ class Block < ActiveRecord::Base
   end
 
   alias :active_record_cache_key :cache_key
-  def cache_key(language='en')
+  def cache_key(language='en', user=nil)
     active_record_cache_key+'-'+language
   end
 
