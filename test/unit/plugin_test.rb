@@ -496,4 +496,29 @@ class PluginTest < ActiveSupport::TestCase
     end
   end
 
+  should 'comment_actions be nil if the comment is nil' do
+    class SomePlugin < Noosfero::Plugin; end
+    plugin = SomePlugin.new
+    assert_nil plugin.comment_actions(nil)
+  end
+
+  should 'comment_actions be nil by default' do
+    class SomePlugin < Noosfero::Plugin; end
+    plugin = SomePlugin.new
+    assert_nil plugin.comment_actions(Comment.new)
+  end
+
+  should 'check_comment_actions be an empty array if the comment is nil' do
+    class SomePlugin < Noosfero::Plugin; end
+    plugin = SomePlugin.new
+    assert_equal [], plugin.check_comment_actions(nil)
+  end
+
+
+  should 'check_comment_actions be  an empty array by default' do
+    class SomePlugin < Noosfero::Plugin; end
+    plugin = SomePlugin.new
+    assert_equal [], plugin.check_comment_actions(Comment.new)
+  end
+
 end

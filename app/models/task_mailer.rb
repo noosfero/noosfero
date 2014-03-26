@@ -60,7 +60,7 @@ class TaskMailer < ActionMailer::Base
   end
 
   def self.generate_from(task)
-    "#{task.environment.name} <#{task.environment.contact_email}>"
+    "#{task.environment.name} <#{task.environment.noreply_email}>"
   end
 
   def generate_environment_url(task, url = {})

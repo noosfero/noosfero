@@ -738,6 +738,24 @@ Given /^the profile (.*) is configured to (.*) after login$/ do |profile, option
   profile.save
 end
 
+Given /^the environment is configured to (.*) after signup$/ do |option|
+  redirection = case option
+    when 'stay on the same page'
+      'keep_on_same_page'
+    when 'redirect to site homepage'
+      'site_homepage'
+    when 'redirect to user profile page'
+      'user_profile_page'
+    when 'redirect to profile homepage'
+      'user_homepage'
+    when 'redirect to profile control panel'
+      'user_control_panel'
+  end
+  environment = Environment.default
+  environment.redirection_after_signup = redirection
+  environment.save
+end
+
 When /^wait for the captcha signup time$/ do
   environment = Environment.default
   sleep environment.min_signup_delay + 1

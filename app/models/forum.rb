@@ -5,6 +5,7 @@ class Forum < Folder
 
   settings_items :terms_of_use, :type => :string, :default => ""
   settings_items :has_terms_of_use, :type => :boolean, :default => false
+  settings_items :allows_members_to_create_topics, :type => :boolean, :default => false
   has_and_belongs_to_many :users_with_agreement, :class_name => 'Person', :join_table => 'terms_forum_people'
 
   before_save do |forum|
@@ -66,4 +67,11 @@ class Forum < Folder
     self.users_with_agreement.exists? user
   end
 
+  def can_create_topic?(user, profile)
+    return profile.community? && profile.members.include?(user) && self.allows_members_to_create_topics
+  end
+
+  def allow_create?(user)
+    super || can_create_topic?(user, profile)
+  end
 end

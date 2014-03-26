@@ -99,6 +99,12 @@ class BoxOrganizerController < ApplicationController
     end
   end
 
+  def clone_block
+    block = Block.find(params[:id])
+    block.duplicate
+    redirect_to :action => 'index'
+  end
+
   protected :boxes_editor?
 
 end

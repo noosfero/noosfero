@@ -6,6 +6,8 @@ class EnvironmentDesignController; def rescue_action(e) raise e end; end
 
 class EnvironmentDesignControllerTest < ActionController::TestCase
 
+  # TODO EnvironmentStatisticsBlock is DEPRECATED and will be removed from
+  #      the Noosfero core soon, see ActionItem3045
   ALL_BLOCKS = [ArticleBlock, LoginBlock, EnvironmentStatisticsBlock, RecentDocumentsBlock, EnterprisesBlock, CommunitiesBlock, PeopleBlock, SellersSearchBlock, LinkListBlock, FeedReaderBlock, SlideshowBlock, HighlightsBlock, FeaturedProductsBlock, CategoriesBlock, RawHTMLBlock, TagsBlock ]
 
   def setup
@@ -83,6 +85,8 @@ class EnvironmentDesignControllerTest < ActionController::TestCase
     assert_tag :tag => 'p', :attributes => { :id => 'no_portal_community' }
   end
 
+  # TODO EnvironmentStatisticsBlock is DEPRECATED and will be removed from
+  #      the Noosfero core soon, see ActionItem3045
   should 'be able to edit EnvironmentStatisticsBlock' do
     login_as(create_admin_user(Environment.default))
     b = EnvironmentStatisticsBlock.create!
@@ -376,6 +380,15 @@ class EnvironmentDesignControllerTest < ActionController::TestCase
     login_as(create_admin_user(Environment.default))
     get :index, :filter => {:display_user => 'logged'}
     assert_tag 'select', :attributes => {:name => 'filter[display_user]'}, :descendant => {:tag => 'option', :attributes => {:value => 'logged', :selected => true}}
+  end
+
+  should 'clone a block' do
+    login_as(create_admin_user(Environment.default))
+    block = TagsBlock.create!
+    assert_difference TagsBlock, :count, 1 do
+      post :clone_block, :id => block.id
+      assert_response :redirect
+    end
   end
 
 end

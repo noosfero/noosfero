@@ -1,5 +1,6 @@
 <%= required labelled_form_field(_('Site name'), text_field(:environment, :name)) %>
 <%= labelled_form_field(_('Contact email'), text_field(:environment, :contact_email)) %>
+<%= labelled_form_field(_('No reply email'), text_field(:environment, :noreply_email)) %>
 <% themes_options = Theme.system_themes.map {|theme| [theme.name, theme.id] }.sort %>
 <%= labelled_form_field(_('Theme'), select(:environment, :theme, options_for_select(themes_options, environment.theme))) %>
 <%= required f.text_field(:reports_lower_bound, :size => 3) %>

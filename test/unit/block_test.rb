@@ -268,4 +268,10 @@ class BlockTest < ActiveSupport::TestCase
     assert !block.visible?({})
   end
 
+  should 'accept user as parameter on cache_key without change its value' do
+    person = fast_create(Person)
+    block = Block.new
+    assert_equal block.cache_key('en'), block.cache_key('en', person)
+  end
+
 end
