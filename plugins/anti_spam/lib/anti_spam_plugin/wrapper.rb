@@ -1,7 +1,7 @@
 class AntiSpamPlugin::Wrapper < SimpleDelegator
   include Rakismet::Model
 
-  @@wrappers = []
+  @@wrappers = [AntiSpamPlugin::CommentWrapper, AntiSpamPlugin::SuggestArticleWrapper]
 
   def self.wrap(object)
     wrapper = @@wrappers.find { |wrapper| wrapper.wraps?(object) }
@@ -12,7 +12,9 @@ class AntiSpamPlugin::Wrapper < SimpleDelegator
     false
   end
 
-  def self.inherited(child)
-    @@wrappers << child
-  end
+#  FIXME You can't take for granted that the wrappers will be loaded and, therefore,
+#  included in the @@wrappers variable.
+#  def self.inherited(child)
+#    @@wrappers << child
+#  end
 end
