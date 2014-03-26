@@ -1303,4 +1303,19 @@ class ContentViewerControllerTest < ActionController::TestCase
     assert_match /this is a sample text file/, @response.body
   end
 
+  should 'not count hit from bots' do
+    article = fast_create(Article, :profile_id => profile.id)
+    assert_no_difference article, :hits do
+      @request.env['HTTP_USER_AGENT'] = 'bot'
+      get 'view_page', :profile => profile.identifier, :page => article.path.split('/')
+      @request.env['HTTP_USER_AGENT'] = 'spider'
+      get 'view_page', :profile => profile.identifier, :page => article.path.split('/')
+      @request.env['HTTP_USER_AGENT'] = 'crawler'
+      get 'view_page', :profile => profile.identifier, :page => article.path.split('/')
+      @request.env['HTTP_USER_AGENT'] = '(http://some-crawler.com)'
+      get 'view_page', :profile => profile.identifier, :page => article.path.split('/')
+      article.reload
+    end
+  end
+
 end
