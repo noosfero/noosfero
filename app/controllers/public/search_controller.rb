@@ -99,14 +99,14 @@ class SearchController < PublicController
     @events = []
     if params[:day] || !params[:year] && !params[:month]
       @events = @category ?
-        environment.events.by_day(@date).in_category(Category.find(@category_id)) :
-        environment.events.by_day(@date)
+        environment.events.by_day(@date).in_category(Category.find(@category_id)).paginate(:per_page => per_page, :page => params[:page]) :
+        environment.events.by_day(@date).paginate(:per_page => per_page, :page => params[:page])
     end
 
     if params[:year] || params[:month]
       @events = @category ?
-        environment.events.by_month(@date).in_category(Category.find(@category_id)) :
-        environment.events.by_month(@date)
+        environment.events.by_month(@date).in_category(Category.find(@category_id)).paginate(:per_page => per_page, :page => params[:page]) :
+        environment.events.by_month(@date).paginate(:per_page => per_page, :page => params[:page])
     end
 
     @scope = date_range && params[:action] == 'events' ? environment.events.by_range(date_range) : environment.events
@@ -139,7 +139,7 @@ class SearchController < PublicController
 
   def events_by_day
     @date = build_date(params[:year], params[:month], params[:day])
-    @events = environment.events.by_day(@date)
+    @events = environment.events.by_day(@date).paginate(:per_page => per_page, :page => params[:page])
     render :partial => 'events/events'
   end
 
@@ -222,6 +222,10 @@ class SearchController < PublicController
     relations = [:image, :domains, :environment, :preferred_domain]
     relations += extra_relations
     @environment.send(klass.name.underscore.pluralize).visible.includes(relations)
+  end
+
+  def per_page
+    20
   end
 
 end

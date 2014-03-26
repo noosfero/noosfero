@@ -3578,9 +3578,10 @@ div#article-parent {
 }
 #agenda .agenda-calendar {
   width: 50%;
+  display: inline-block;
 }
 #agenda td, #agenda th {
-  padding: 15px;
+  padding: 10px;
   padding-right: 0px;
 }
 #agenda .agenda-calendar .previous-month td, #agenda .agenda-calendar .previous-month th, #agenda .agenda-calendar .next-month td, #agenda .agenda-calendar .next-month th {
@@ -3638,26 +3639,25 @@ div#article-parent {
   vertical-align: middle;
 }
 #agenda .agenda-calendar .current-month caption {
-  margin-bottom: 10px;
+  margin: 10px 0px;
 }
 #agenda #events-of-the-day {
-  position: absolute;
-  left: 50%;
   width: 45%;
-  top: 0px;
   height: 100%;
   padding-left: 20px;
+  display: inline-block;
+  vertical-align: top;
 }
 #agenda #events-of-the-day #agenda-items {
   display: block;
   overflow: auto;
   overflow-x: hidden;
-  height: 80%;
+  height: 250px;
   background: white;
   border: none;
 }
 #agenda-toolbar {
-  float: right;
+  text-align: right;
   font-variant: normal;
   font-weight: normal;
 }
@@ -3679,6 +3679,9 @@ h1#agenda-title {
   font-weight: bold;
   display: block;
   margin-top: 10px;
+}
+#agenda .pagination {
+  margin-top: 15px;
 }
 /* ==> public/stylesheets/controller_favorite_enterprises.css <== */
 
