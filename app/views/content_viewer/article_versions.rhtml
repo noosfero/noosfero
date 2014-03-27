@@ -1,3 +1,7 @@
+<% button_bar do %>
+  <%= button(:back, _('Back to the post'), {:action => 'view_page'}) %>
+<% end %>  
+
 <%= article_title(@page, :no_link => true) %>
 
 <p><%= _('This is the list of all versions of this content. Select a version to see it and then revert to it.') %>.</p>

@@ -1,3 +1,11 @@
+<% button_bar do %>
+  <%= button(:back, _('Back to the versions'), {:action => 'article_versions'}) %>
+<% end %>  
+
+<% button_bar do %>
+  <%= button(:back, _('Go to current version'), {:action => 'view_page'}) %>
+<% end %>  
+
 <div id="article" class="<%= @page.css_class_name %>">
 
   <div id="article-actions">
@@ -14,6 +22,8 @@
     <h1 class='title'><%= @versioned_article.name %></h1>
     <%= _("Version %{version} - %{author} on %{date}") % {:version => @version, :author => @page.author_name(@version), :date => show_time(@versioned_article.updated_at) } %>
   </div>
+
+<i><%= _('This is not the current version.') %>.</i>
 
   <% if @page.version_license(@version).present? %>
     <div id='article-sub-header'>
