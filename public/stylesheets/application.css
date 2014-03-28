@@ -6558,6 +6558,23 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 img {
   background: #ff9;
 }
 
+#article-versions-no-diff {
+  text-align: center;
+  font-style: italic;
+}
+
+#no-current-version {
+  text-align: center;
+  font-style: italic;
+  background: #faa;
+  padding: 3px;
+}
+
+.article-versions {
+  margin: 5px 0px;
+  text-align: right;
+}
+
 .action-content_viewer-versions_diff .diff {
   text-align: justify;
 }

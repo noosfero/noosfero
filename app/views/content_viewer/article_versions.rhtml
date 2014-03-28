@@ -1,6 +1,6 @@
-<% button_bar do %>
-  <%= button(:back, _('Back to the post'), {:action => 'view_page'}) %>
-<% end %>  
+<div class="article-versions">
+  <%= button(:back, _('Go back to post'), {:action => 'view_page'}) %>
+</div>
 
 <%= article_title(@page, :no_link => true) %>
 
