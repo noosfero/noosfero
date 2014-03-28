@@ -6512,14 +6512,6 @@ ul.article-versions li {
   padding: 3px 0px;
 }
 
-.user-filter {
-  float: right;
-}
-
-.design-menu {
-  float: left;
-}
-
 /* * * Admin manage fields * * */
 
 .controller-features .manage-fields-batch-actions,
