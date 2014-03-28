@@ -326,10 +326,13 @@ class ProfileDesignControllerTest < ActionController::TestCase
     article3 = fast_create(Article, :profile_id => @profile.id, :name => "Not an article")
 
     xhr :get, :search_autocomplete, :profile => 'designtestuser' , :query => 'Some'
+
+    json_response = ActiveSupport::JSON.decode(@response.body)
+
     assert_response :success
-    assert_equal @response.body.include?(article1.path), true
-    assert_equal @response.body.include?(article2.path), true
-    assert_equal @response.body.include?(article3.path), false
+    assert_equal json_response.include?("/{profile}/"+article1.path), true
+    assert_equal json_response.include?("/{profile}/"+article2.path), true
+    assert_equal json_response.include?("/{profile}/"+article3.path), false
   end
 
   ######################################################

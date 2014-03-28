@@ -84,7 +84,7 @@ class BoxOrganizerController < ApplicationController
     if request.xhr? and params[:query]
       search = params[:query]
       articles = @profile.articles.find(:all, :conditions=>"name ILIKE '%#{search}%' or path ILIKE '%#{search}%'", :limit=>20)
-      path_list = articles.map { |content| content.path }
+      path_list = articles.map { |content| "/{profile}/"+content.path }
 
       render :json => path_list.to_json
     else

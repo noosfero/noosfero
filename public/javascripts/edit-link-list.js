@@ -23,16 +23,7 @@ function new_link_action(){
 
   jQuery(".delete-link-list-row").click(function(){
     jQuery(this).parent().parent().remove();
-  });
-
-  jQuery(".link-address").blur(function(){
-    var value = jQuery(this).val();
-    var search = /(^$)|(^\/$)|(http|www).*|.*\{profile\}.*|.*(\.com|\.org|\.net|\.edu|\.gov|\.info|\.eu)/;
-
-    if( !search.test(value) ) {
-      value = "/{profile}/"+value;
-      jQuery(this).val(value);
-    }
+    return false;
   });
 
   jQuery(document).scrollTop(jQuery('#dropable-link-list').scrollTop());

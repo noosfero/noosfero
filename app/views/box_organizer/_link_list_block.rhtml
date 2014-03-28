@@ -25,7 +25,7 @@
             <%= select_tag('block[links][][target]', options_for_select(LinkListBlock::TARGET_OPTIONS, link[:target])) %>
           </li>
           <li>
-            <%= button_without_text("", _('Delete'), "#" , :class=>"icon-delete delete-link-list-row") %>
+            <%= button_without_text(:delete, _('Delete'), "#" , :class=>"delete-link-list-row") %>
           </li>
         </ul>
       </li>
@@ -42,7 +42,7 @@
         content_tag('li', text_field_tag('block[links][][address]', nil, :class => 'link-address')) +
         content_tag('li', select_tag('block[links][][target]',
         options_for_select(LinkListBlock::TARGET_OPTIONS, '_self'))) +
-        content_tag('li', button_without_text("", _('Delete'), "#" , :class=>"icon-delete delete-link-list-row")),
+        content_tag('li', button_without_text(:delete, _('Delete'), "#" , :class=>"delete-link-list-row")),
       :class=>"link-list-row new_link_row")
     ) +
     javascript_tag("new_link_action()")
