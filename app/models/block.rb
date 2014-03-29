@@ -185,12 +185,12 @@ class Block < ActiveRecord::Base
     'never'            => __('Don\'t display'),
   }
 
-  def display_options
+  def display_options_available
     DISPLAY_OPTIONS.keys
   end
 
-  def display_option_label(option)
-    DISPLAY_OPTIONS[option]
+  def display_options
+    DISPLAY_OPTIONS.slice(*display_options_available)
   end
 
   def display_user_options

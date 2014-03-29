@@ -173,7 +173,8 @@ class ProfileDesignControllerTest < ActionController::TestCase
   should 'have options to display blocks' do
     get :edit, :profile => 'designtestuser', :id => @b1.id
     %w[always home_page_only except_home_page never].each do |option|
-      assert_tag :input, :attributes => { :type => 'radio', :value => option}
+      assert_tag :select, :attributes => {:name => 'block[display]'},
+       :descendant => {:tag => 'option', :attributes => {:value => option}}
     end
   end
 
@@ -302,22 +303,26 @@ class ProfileDesignControllerTest < ActionController::TestCase
 
   should 'not edit main block with never option' do
     get :edit, :profile => 'designtestuser', :id => @b4.id
-    assert_no_tag :input, :attributes => { :type => 'radio', :value => 'never'}
+    assert_no_tag :select, :attributes => {:name => 'block[display]'},
+      :descendant => {:tag => 'option', :attributes => {:value => 'never'}}
   end
 
   should 'not edit main block with home_page_only option' do
     get :edit, :profile => 'designtestuser', :id => @b4.id
-    assert_no_tag :input, :attributes => { :type => 'radio', :value => 'home_page_only'}
+    assert_no_tag :select, :attributes => {:name => 'block[display]'},
+     :descendant => {:tag => 'option', :attributes => {:value => 'home_page_only'}}
   end
 
   should 'edit main block with always option' do
     get :edit, :profile => 'designtestuser', :id => @b4.id
-    assert_tag :input, :attributes => { :type => 'radio', :value => 'always'}
+    assert_tag :select, :attributes => {:name => 'block[display]'},
+     :descendant => {:tag => 'option', :attributes => {:value => 'always'}}
   end
 
   should 'edit main block with except_home_page option' do
     get :edit, :profile => 'designtestuser', :id => @b4.id
-    assert_tag :input, :attributes => { :type => 'radio', :value => 'except_home_page'}
+    assert_tag :select, :attributes => {:name=> 'block[display]'},
+     :descendant => {:tag => 'option', :attributes => {:value => 'except_home_page'}}
   end
 
 
