@@ -92,6 +92,16 @@
     </div>
   <% end %>
 
+  <% if @page.accept_comments? and @comments.count > 1 %>
+    <%= hidden_field_tag("page_url", url_for(:controller=>'content_viewer', :action=>'view_page', :profile=>profile.identifier)) %>
+    <%= javascript_include_tag "comment_order.js" %>
+    <div class="comment-order">
+      <% form_tag({:controller=>'content_viewer' , :action=>'view_page'}, {:method=>'get', :id=>"form_order"}) do %>
+        <%= select_tag 'comment_order', options_for_select({_('Oldest first')=>'oldest', _('Newest first')=>'newest'}, @comment_order) %>
+      <% end %>
+    </div>
+  <% end %>
+
   <ul class="article-comments-list">
     <%= render :partial => 'comment/comment', :collection => @comments %>
     <%= pagination_links @comments, :param_name => 'comment_page' %>
