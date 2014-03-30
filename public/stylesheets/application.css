@@ -1890,7 +1890,7 @@ a.button.disabled, input.disabled {
   margin-bottom: 5px;
   padding: 10px 1px 10px 10px;
   cursor: pointer;
-  width: 90%;
+  width: 97%;
 }
 .link-list-row:hover {
   background: #ddd url(/images/drag-and-drop.png) no-repeat;
