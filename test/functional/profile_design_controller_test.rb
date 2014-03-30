@@ -325,6 +325,20 @@ class ProfileDesignControllerTest < ActionController::TestCase
      :descendant => {:tag => 'option', :attributes => {:value => 'except_home_page'}}
   end
 
+  should 'return a list of paths related to the words used in the query search' do
+    article1 = fast_create(Article, :profile_id => @profile.id, :name => "Some thing")
+    article2 = fast_create(Article, :profile_id => @profile.id, :name => "Some article")
+    article3 = fast_create(Article, :profile_id => @profile.id, :name => "Not an article")
+
+    xhr :get, :search_autocomplete, :profile => 'designtestuser' , :query => 'Some'
+
+    json_response = ActiveSupport::JSON.decode(@response.body)
+
+    assert_response :success
+    assert_equal json_response.include?("/{profile}/"+article1.path), true
+    assert_equal json_response.include?("/{profile}/"+article2.path), true
+    assert_equal json_response.include?("/{profile}/"+article3.path), false
+  end
 
   ######################################################
   # END - tests for BoxOrganizerController features
