@@ -379,4 +379,38 @@ class EnvironmentDesignControllerTest < ActionController::TestCase
     end
   end
 
+  should 'return a list of paths from portal related to the words used in the query search' do
+    env = Environment.default
+    login_as(create_admin_user(env))
+    community = fast_create(Community, :environment_id => env)
+    env.portal_community = community
+    env.enable('use_portal_community')
+    env.save
+    @controller.stubs(:boxes_holder).returns(env)
+    article1 = fast_create(Article, :profile_id => community.id, :name => "Some thing")
+    article2 = fast_create(Article, :profile_id => community.id, :name => "Some article")
+    article3 = fast_create(Article, :profile_id => community.id, :name => "Not an article")
+
+    xhr :get, :search_autocomplete, :query => 'Some'
+
+    json_response = ActiveSupport::JSON.decode(@response.body)
+
+    assert_response :success
+    assert_equal json_response.include?("/{portal}/"+article1.path), true
+    assert_equal json_response.include?("/{portal}/"+article2.path), true
+    assert_equal json_response.include?("/{portal}/"+article3.path), false
+  end
+
+  should 'return empty if portal not configured' do
+    env = Environment.default
+    login_as(create_admin_user(env))
+
+    xhr :get, :search_autocomplete, :query => 'Some'
+
+    json_response = ActiveSupport::JSON.decode(@response.body)
+
+    assert_response :success
+    assert_equal json_response, []
+  end
+
 end
