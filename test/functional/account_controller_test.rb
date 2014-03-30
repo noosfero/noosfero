@@ -689,6 +689,7 @@ class AccountControllerTest < ActionController::TestCase
         {:test => 5}
       end
     end
+    Noosfero::Plugin.stubs(:all).returns([Plugin1.name, Plugin2.name])
 
     e = User.find_by_login('ze').environment
     e.enable_plugin(Plugin1.name)
@@ -779,6 +780,7 @@ class AccountControllerTest < ActionController::TestCase
         lambda {"<strong>Plugin2 text</strong>"}
       end
     end
+    Noosfero::Plugin.stubs(:all).returns([Plugin1.name, Plugin2.name])
 
     Environment.default.enable_plugin(Plugin1.name)
     Environment.default.enable_plugin(Plugin2.name)
@@ -795,6 +797,7 @@ class AccountControllerTest < ActionController::TestCase
         User.new(:login => 'testuser')
       end
     end
+    Noosfero::Plugin.stubs(:all).returns([Plugin1.name])
     Environment.default.enable_plugin(Plugin1.name)
 
     post :login, :user => {:login => "testuser"}
@@ -809,6 +812,7 @@ class AccountControllerTest < ActionController::TestCase
         nil
       end
     end
+    Noosfero::Plugin.stubs(:all).returns([Plugin1.name])
     Environment.default.enable_plugin(Plugin1.name)
     post :login, :user => {:login => 'johndoe', :password => 'test'}
     assert session[:user]
@@ -822,6 +826,7 @@ class AccountControllerTest < ActionController::TestCase
         false
       end
     end
+    Noosfero::Plugin.stubs(:all).returns([TestRegistrationPlugin.name])
     Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([TestRegistrationPlugin.new])
 
     post :signup, :user => { :login => 'testuser', :password => '123456', :password_confirmation => '123456', :email => 'testuser@example.com' }
@@ -840,6 +845,7 @@ class AccountControllerTest < ActionController::TestCase
         true
       end
     end
+    Noosfero::Plugin.stubs(:all).returns([Plugin1.name, Plugin2.name])
     Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([Plugin1.new, Plugin2.new])
 
     get :login
@@ -853,6 +859,7 @@ class AccountControllerTest < ActionController::TestCase
         false
       end
     end
+    Noosfero::Plugin.stubs(:all).returns([TestRegistrationPlugin.name])
     Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([TestRegistrationPlugin.new])
 
     #Redirect on get action
@@ -876,6 +883,7 @@ class AccountControllerTest < ActionController::TestCase
         true
       end
     end
+    Noosfero::Plugin.stubs(:all).returns([Plugin1.new, Plugin2.new])
     Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([Plugin1.new, Plugin2.new])
 
     get :login
@@ -894,6 +902,7 @@ class AccountControllerTest < ActionController::TestCase
         lambda {"<strong>Plugin2 text</strong>"}
       end
     end
+    Noosfero::Plugin.stubs(:all).returns([Plugin1.name, Plugin2.name])
 
     Environment.default.enable_plugin(Plugin1.name)
     Environment.default.enable_plugin(Plugin2.name)

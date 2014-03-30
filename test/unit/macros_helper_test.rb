@@ -28,6 +28,7 @@ class MacrosHelperTest < ActiveSupport::TestCase
   end
 
   def setup
+    Noosfero::Plugin.stubs(:all).returns(['MacrosHelperTest::Plugin1'])
     @environment = Environment.default
     @environment.enable_plugin(Plugin1)
     @plugins = Noosfero::Plugin::Manager.new(@environment, self)

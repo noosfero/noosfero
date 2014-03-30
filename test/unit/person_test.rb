@@ -1255,6 +1255,7 @@ class PersonTest < ActiveSupport::TestCase
         false
       end
     end
+    Noosfero::Plugin.stubs(:all).returns(['PersonTest::Plugin1', 'PersonTest::Plugin2'])
 
     e = Environment.default
     e.enable_plugin(Plugin1.name)
@@ -1424,6 +1425,7 @@ class PersonTest < ActiveSupport::TestCase
         Profile.memberships_of(Person.find_by_identifier('person2'))
       end
     end
+    Noosfero::Plugin.stubs(:all).returns(['PersonTest::Plugin1', 'PersonTest::Plugin2'])
 
     Environment.default.enable_plugin(Plugin1)
     Environment.default.enable_plugin(Plugin2)
