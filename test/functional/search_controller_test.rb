@@ -163,6 +163,7 @@ class SearchControllerTest < ActionController::TestCase
         lambda {"<span id='plugin2'>This is Plugin2 speaking!</span>"}
       end
     end
+    Noosfero::Plugin.stubs(:all).returns([Plugin1.to_s, Plugin2.to_s])
 
     enterprise = fast_create(Enterprise)
     prod_cat = fast_create(ProductCategory)
@@ -189,6 +190,7 @@ class SearchControllerTest < ActionController::TestCase
         return { :name => _('Property2'), :content => lambda { link_to(product.name, '/plugin2') } }
       end
     end
+    Noosfero::Plugin.stubs(:all).returns([Plugin1.to_s, Plugin2.to_s])
     enterprise = fast_create(Enterprise)
     prod_cat = fast_create(ProductCategory)
     product = fast_create(Product, {:profile_id => enterprise.id, :name => "produto1", :product_category_id => prod_cat.id}, :search => true)

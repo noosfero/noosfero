@@ -374,6 +374,8 @@ class ApplicationControllerTest < ActionController::TestCase
     end
     plugin2_path = '/plugin2/style.css'
 
+    Noosfero::Plugin.stubs(:all).returns([Plugin1.name, Plugin2.name])
+
     environment = Environment.default
     environment.enable_plugin(Plugin1.name)
     environment.enable_plugin(Plugin2.name)
@@ -405,6 +407,8 @@ class ApplicationControllerTest < ActionController::TestCase
     plugin2_path2 = '/plugin2/'+js2
     plugin2_path3 = '/plugin2/'+js3
 
+    Noosfero::Plugin.stubs(:all).returns([Plugin1.name, Plugin2.name])
+
     environment = Environment.default
     environment.enable_plugin(Plugin1.name)
     environment.enable_plugin(Plugin2.name)
@@ -431,6 +435,8 @@ class ApplicationControllerTest < ActionController::TestCase
       end
     end
 
+    Noosfero::Plugin.stubs(:all).returns([TestBodyBeginning1Plugin.name, TestBodyBeginning2Plugin.name])
+
     Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([TestBodyBeginning1Plugin.new, TestBodyBeginning2Plugin.new])
 
     get :index
@@ -454,6 +460,8 @@ class ApplicationControllerTest < ActionController::TestCase
         "<style>This is Plugin2 speaking!</style>"
       end
     end
+
+    Noosfero::Plugin.stubs(:all).returns([TestHeadEnding1Plugin.name, TestHeadEnding2Plugin.name])
 
     Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([TestHeadEnding1Plugin.new, TestHeadEnding2Plugin.new])
 
@@ -519,6 +527,7 @@ class ApplicationControllerTest < ActionController::TestCase
           :block => lambda {} }
       end
     end
+    Noosfero::Plugin.stubs(:all).returns([FilterPlugin.name])
 
     Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([FilterPlugin.new])
 
@@ -537,6 +546,7 @@ class ApplicationControllerTest < ActionController::TestCase
           :block => lambda {'plugin block called'} }
       end
     end
+    Noosfero::Plugin.stubs(:all).returns([OtherFilterPlugin.name])
 
     environment1 = fast_create(Environment, :name => 'test environment')
     environment1.enable_plugin(OtherFilterPlugin.name)
