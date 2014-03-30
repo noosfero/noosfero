@@ -2,7 +2,7 @@ class ProfileMembersController < MyProfileController
   protect 'manage_memberships', :profile
 
   def index
-    @members = profile.members
+    @members = profile.members_by_name
     @member_role = environment.roles.find_by_name('member')
   end
 

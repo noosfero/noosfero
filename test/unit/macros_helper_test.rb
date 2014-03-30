@@ -129,4 +129,27 @@ class MacrosHelperTest < ActiveSupport::TestCase
     assert_equal 'macro_generator', macro_generator(Plugin1::Macro)
   end
 
+  should 'get macro default generator' do
+    class Plugin1::Macro < Noosfero::Plugin::Macro
+      def self.configuration
+        { :params => [] }
+      end
+    end
+    assert_nothing_raised NoMethodError do
+      assert macro_generator(Plugin1::Macro)
+    end
+  end
+
+  should 'can use a code reference as macro generator' do
+    class Plugin1::Macro < Noosfero::Plugin::Macro
+      def self.configuration
+        { :params => [], :generator => method(:macro_generator_method) }
+      end
+      def self.macro_generator_method(macro)
+        "macro generator method return"
+      end
+    end
+    assert_equal "macro generator method return", macro_generator(Plugin1::Macro)
+  end
+
 end

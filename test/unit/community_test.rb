@@ -213,8 +213,8 @@ class CommunityTest < ActiveSupport::TestCase
     community = fast_create(Community)
     community.closed = true
     community.save
-
     community.add_member(fast_create(Person))
+    community.reload
 
     assert_difference AddMember, :count do
       community.add_member(person)

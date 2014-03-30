@@ -176,7 +176,7 @@ class ProfileControllerTest < ActionController::TestCase
   should 'not show Leave This Community button for non-registered users' do
     community = Community.create!(:name => 'my test community')
     community.boxes.first.blocks << block = ProfileInfoBlock.create!
-    get :profile_info, :profile => community.identifier, :block_id => block.id
+    get :index, :profile => community.identifier
     assert_no_match /\/profile\/#{@profile.identifier}\/leave/, @response.body
   end
 
@@ -206,7 +206,7 @@ class ProfileControllerTest < ActionController::TestCase
     friend = create_user_full('friendtestuser').person
     friend.user.activate
     friend.boxes.first.blocks << block = ProfileInfoBlock.create!
-    get :profile_info, :profile => friend.identifier, :block_id => block.id
+    get :index, :profile => friend.identifier
     assert_match /Add friend/, @response.body
   end
 
@@ -215,7 +215,7 @@ class ProfileControllerTest < ActionController::TestCase
     friend = create_user_full('friendtestuser').person
     friend.boxes.first.blocks << block = ProfileInfoBlock.create!
     AddFriend.create!(:person => @profile, :friend => friend)
-    get :profile_info, :profile => friend.identifier, :block_id => block.id
+    get :index, :profile => friend.identifier
     assert_no_match /Add friend/, @response.body
   end
 
@@ -226,7 +226,7 @@ class ProfileControllerTest < ActionController::TestCase
     @profile.add_friend(friend)
     @profile.friends.reload
     assert @profile.is_a_friend?(friend)
-    get :profile_info, :profile => friend.identifier, :block_id => block.id
+    get :index, :profile => friend.identifier
     assert_no_match /Add friend/, @response.body
   end
 
@@ -301,13 +301,13 @@ class ProfileControllerTest < ActionController::TestCase
   should 'display contact us for enterprises' do
     ent = Enterprise.create!(:name => 'my test enterprise', :identifier => 'my-test-enterprise')
     ent.boxes.first.blocks << block = ProfileInfoBlock.create!
-    get :profile_info, :profile => 'my-test-enterprise', :block_id => block.id
+    get :index, :profile => 'my-test-enterprise'
     assert_match /\/contact\/my-test-enterprise\/new/, @response.body
   end
 
   should 'not display contact us for non-enterprises' do
     @profile.boxes.first.blocks << block = ProfileInfoBlock.create!
-    get :profile_info, :profile => @profile.identifier, :block_id => block.id
+    get :index, :profile => @profile.identifier
     assert_no_match /\/contact\/#{@profile.identifier}\/new/, @response.body
   end
 
@@ -315,7 +315,7 @@ class ProfileControllerTest < ActionController::TestCase
     ent = Enterprise.create! :name => 'my test enterprise', :identifier => 'my-test-enterprise'
     ent.boxes.first.blocks << block = ProfileInfoBlock.create!
     ent.update_attribute(:enable_contact_us, false)
-    get :profile_info, :profile => 'my-test-enterprise', :block_id => block.id
+    get :index, :profile => 'my-test-enterprise'
     assert_no_match /\/contact\/my-test-enterprise\/new/, @response.body
   end
 
@@ -328,7 +328,7 @@ class ProfileControllerTest < ActionController::TestCase
     env.disable('disable_contact_person')
     env.save!
     login_as(@profile.identifier)
-    get :profile_info, :profile => friend.identifier, :block_id => block.id
+    get :index, :profile => friend.identifier
     assert_match /\/contact\/#{friend.identifier}\/new/, @response.body
   end
 
@@ -336,7 +336,7 @@ class ProfileControllerTest < ActionController::TestCase
     nofriend = create_user_full('no_friend').person
     nofriend.boxes.first.blocks << block = ProfileInfoBlock.create!
     login_as(@profile.identifier)
-    get :profile_info, :profile => nofriend.identifier, :block_id => block.id
+    get :index, :profile => nofriend.identifier
     assert_no_match /\/contact\/#{nofriend.identifier}\/new/, @response.body
   end
 
@@ -349,7 +349,7 @@ class ProfileControllerTest < ActionController::TestCase
     env.save!
     @profile.add_friend(friend)
     login_as(@profile.identifier)
-    get :profile_info, :profile => friend.identifier, :block_id => block.id
+    get :index, :profile => friend.identifier
     assert_match /\/contact\/#{friend.identifier}\/new/, @response.body
   end
 
@@ -361,7 +361,7 @@ class ProfileControllerTest < ActionController::TestCase
     env.save!
     @profile.add_friend(friend)
     login_as(@profile.identifier)
-    get :profile_info, :profile => friend.identifier, :block_id => block.id
+    get :index, :profile => friend.identifier
     assert_no_match /\/contact\/#{friend.identifier}\/new/, @response.body
   end
 
@@ -373,7 +373,7 @@ class ProfileControllerTest < ActionController::TestCase
     env.save!
     community.add_member(@profile)
     login_as(@profile.identifier)
-    get :profile_info, :profile => community.identifier, :block_id => block.id
+    get :index, :profile => community.identifier
     assert_match /\/contact\/#{community.identifier}\/new/, @response.body
   end
 
@@ -385,7 +385,7 @@ class ProfileControllerTest < ActionController::TestCase
     env.save!
     community.add_member(@profile)
     login_as(@profile.identifier)
-    get :profile_info, :profile => community.identifier, :block_id => block.id
+    get :index, :profile => community.identifier
     assert_no_match /\/contact\/#{community.identifier}\/new/, @response.body
   end
 
@@ -766,22 +766,27 @@ class ProfileControllerTest < ActionController::TestCase
   end
 
   should 'see all the activities in the current profile network' do
-    p1= Person.first
+    p1= fast_create(Person)
     p2= fast_create(Person)
     assert !p1.is_a_friend?(p2)
+
     p3= fast_create(Person)
     p3.add_friend(p1)
     assert p3.is_a_friend?(p1)
-    ActionTracker::Record.destroy_all
+
+    ActionTracker::Record.delete_all
+
+    UserStampSweeper.any_instance.stubs(:current_user).returns(p1)
     Scrap.create!(defaults_for_scrap(:sender => p1, :receiver => p1))
     a1 = ActionTracker::Record.last
+
     UserStampSweeper.any_instance.stubs(:current_user).returns(p2)
     Scrap.create!(defaults_for_scrap(:sender => p2, :receiver => p3))
     a2 = ActionTracker::Record.last
+
     UserStampSweeper.any_instance.stubs(:current_user).returns(p3)
     Scrap.create!(defaults_for_scrap(:sender => p3, :receiver => p1))
     a3 = ActionTracker::Record.last
-
 
     @controller.stubs(:logged_in?).returns(true)
     user = mock()
@@ -792,24 +797,29 @@ class ProfileControllerTest < ActionController::TestCase
 
     process_delayed_job_queue
     get :index, :profile => p1.identifier
-    assert_not_nil assigns(:network_activities)
-    assert_equal [], [a1,a3] - assigns(:network_activities)
-    assert_equal assigns(:network_activities) - [a1, a3], []
+
+    assert_equivalent [a1,a3].map(&:id), assigns(:network_activities).map(&:id)
   end
 
   should 'the network activity be visible only to profile followers' do
-    p1= Person.first
+    p1= fast_create(Person)
     p2= fast_create(Person)
     assert !p1.is_a_friend?(p2)
+
     p3= fast_create(Person)
     p3.add_friend(p1)
     assert p3.is_a_friend?(p1)
-    ActionTracker::Record.destroy_all
+
+    ActionTracker::Record.delete_all
+
+    UserStampSweeper.any_instance.stubs(:current_user).returns(p1)
     Scrap.create!(defaults_for_scrap(:sender => p1, :receiver => p1))
     a1 = ActionTracker::Record.last
+
     UserStampSweeper.any_instance.stubs(:current_user).returns(p2)
     Scrap.create!(defaults_for_scrap(:sender => p2, :receiver => p3))
     a2 = ActionTracker::Record.last
+
     UserStampSweeper.any_instance.stubs(:current_user).returns(p3)
     Scrap.create!(defaults_for_scrap(:sender => p3, :receiver => p1))
     a3 = ActionTracker::Record.last
@@ -819,8 +829,9 @@ class ProfileControllerTest < ActionController::TestCase
     user.stubs(:person).returns(p2)
     user.stubs(:login).returns('some')
     @controller.stubs(:current_user).returns(user)
+
     get :index, :profile => p1.identifier
-    assert_equal [], assigns(:network_activities)
+    assert assigns(:network_activities).blank?
 
     user = mock()
     user.stubs(:person).returns(p3)
@@ -828,9 +839,9 @@ class ProfileControllerTest < ActionController::TestCase
     @controller.stubs(:current_user).returns(user)
     Person.any_instance.stubs(:follows?).returns(true)
     process_delayed_job_queue
+
     get :index, :profile => p3.identifier
-    assert_equal [], [a1,a3] - assigns(:network_activities)
-    assert_equal assigns(:network_activities) - [a1, a3], []
+    assert_equivalent [a1,a3], assigns(:network_activities)
   end
 
   should 'the network activity be paginated' do

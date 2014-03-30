@@ -370,6 +370,14 @@ class SearchControllerTest < ActionController::TestCase
     assert_equal [ 'upcoming event 1' ], assigns(:searches)[:events][:results].map(&:name)
   end
 
+  should 'see the events paginated' do
+    30.times do |i|
+      create_event(person, :name => "Event #{i}",	:start_date => Date.today)
+    end
+    get :events
+    assert_equal 20, assigns(:events).count
+  end
+
   %w[ people enterprises articles events communities products ].each do |asset|
     should "render asset-specific template when searching for #{asset}" do
       get "#{asset}"
@@ -549,9 +557,9 @@ class SearchControllerTest < ActionController::TestCase
     c2 = create(Community, :name => 'Testing community 2')
     c3 = create(Community, :name => 'Testing community 3')
     ActionTracker::Record.delete_all
-    fast_create(ActionTracker::Record, :target_id => c1, :user_type => 'Profile', :user_id => person, :created_at => Time.now)
-    fast_create(ActionTracker::Record, :target_id => c2, :user_type => 'Profile', :user_id => person, :created_at => Time.now)
-    fast_create(ActionTracker::Record, :target_id => c2, :user_type => 'Profile', :user_id => person, :created_at => Time.now)
+    ActionTracker::Record.create!(:target => c1, :user => person, :created_at => Time.now, :verb => 'leave_scrap')
+    ActionTracker::Record.create!(:target => c2, :user => person, :created_at => Time.now, :verb => 'leave_scrap')
+    ActionTracker::Record.create!(:target => c2, :user => person, :created_at => Time.now, :verb => 'leave_scrap')
     get :communities, :filter => 'more_active'
     assert_equal [c2,c1,c3] , assigns(:searches)[:communities][:results]
   end

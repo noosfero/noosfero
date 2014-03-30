@@ -24,7 +24,7 @@ class TaskMailerTest < ActiveSupport::TestCase
     requestor.expects(:name).returns('my name')
 
     environment = mock()
-    environment.expects(:contact_email).returns('sender@example.com')
+    environment.expects(:noreply_email).returns('sender@example.com')
     environment.expects(:default_hostname).returns('example.com')
     environment.expects(:name).returns('example').at_least_once
 
@@ -47,7 +47,7 @@ class TaskMailerTest < ActiveSupport::TestCase
     requestor.expects(:name).returns('my name')
 
     environment = mock()
-    environment.expects(:contact_email).returns('sender@example.com')
+    environment.expects(:noreply_email).returns('sender@example.com')
     environment.expects(:default_hostname).returns('example.com')
     environment.expects(:name).returns('example').at_least_once
 
@@ -71,7 +71,7 @@ class TaskMailerTest < ActiveSupport::TestCase
     requestor.expects(:name).returns('my name')
 
     environment = mock()
-    environment.expects(:contact_email).returns('sender@example.com')
+    environment.expects(:noreply_email).returns('sender@example.com')
     environment.expects(:default_hostname).returns('example.com')
     environment.expects(:name).returns('example').at_least_once
 
@@ -105,7 +105,7 @@ class TaskMailerTest < ActiveSupport::TestCase
     requestor.stubs(:public_profile_url).returns('requestor_path')
 
     environment = mock()
-    environment.expects(:contact_email).returns('sender@example.com')
+    environment.expects(:noreply_email).returns('sender@example.com')
     environment.expects(:default_hostname).returns('example.com')
     environment.expects(:name).returns('example').at_least_once
 
@@ -124,11 +124,11 @@ class TaskMailerTest < ActiveSupport::TestCase
     assert !ActionMailer::Base.deliveries.empty?
   end
 
-  should 'use environment name and contact email' do
+  should 'use environment name and no-reply email' do
     task = mock
     environment = mock
     environment.expects(:name).returns('My name')
-    environment.expects(:contact_email).returns('email@example.com')
+    environment.expects(:noreply_email).returns('email@example.com')
 
     task.expects(:environment).returns(environment).at_least_once
 

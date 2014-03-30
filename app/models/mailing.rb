@@ -17,7 +17,7 @@ class Mailing < ActiveRecord::Base
   end
 
   def generate_from
-    "#{source.name} <#{source.contact_email}>"
+    "#{source.name} <#{if source.is_a? Environment then source.noreply_email else source.contact_email end}>"
   end
 
   def generate_subject

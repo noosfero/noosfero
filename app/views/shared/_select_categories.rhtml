@@ -1,46 +1,34 @@
-<div id="category-ajax-selector">
+<% extend CategoriesHelper %>
+
 <% if !@current_category.nil? %>
-  <h3 class="box-title"><%= _('Current category:') %></h3>
   <%= hidden_field_tag "#{object_name}[#{object_name}_category_id]", @current_category.id unless multiple %>
-  <%
-    categories = [@current_category]
-    categories.push(@current_category) while @current_category = @current_category.parent
-  %>
-  <%= categories.compact.reverse.map{|i|
-    link_to_remote(i.name, 
-      :update => "select-categories",
-      :url => { :action => 'update_categories', :category_id => i.id, :id => @object },
-      :loaded => visual_effect(:highlight, "select-categories"),
-      :class => 'select-current-category-link')}.join(' &rarr; ')
-  %>
-  <strong>
-  <%= button_to_function_without_text(:save, _('Save'), nil, :id => 'save-category-button') do |page|
-    page.insert_html :bottom, 'selected-categories', content_tag('li', categories.first.full_name +
-      hidden_field_tag("#{object_name}[category_ids][]", categories.first.id) +
-      button_to_function_without_text(:cancel, _('Remove'), nil, :id => "remove-selected-category-#{categories.first.id}-button") {|page| page["selected-category-#{categories.first.id}"].remove}, :id => "selected-category-#{categories.first.id}")
-  end if multiple %>
-  <%= button_to_remote_without_text(:cancel, _('Cancel'),
+  <%= hidden_field_tag "#{object_name}[category_ids][]", @current_category.id if multiple %>
+  <%= button_to_remote_without_text(:back, _('Back'),
       { :update => "select-categories",
         :url => { :action => 'update_categories', :id => @object },
         :loaded => visual_effect(:highlight, "select-categories")
       },
       :id => 'cancel-category-button') %>
-  </strong>
-<% else %>
-  <h3 class="box-title"><%= _('Select a category:') %></h3>
+  <%
+    categories = [@current_category]
+    categories.push(@current_category) while @current_category = @current_category.parent
+  %>
+  <%= categories.compact.reverse.map{|i|
+    link_to_remote(i.name,
+      :update => "select-categories",
+      :url => { :action => 'update_categories', :category_id => i.id, :id => @object },
+      :loaded => visual_effect(:highlight, "select-categories"),
+      :class => 'select-current-category-link')}.join(' &rarr; ')
+  %>
+  <%= button_to_function_without_text(:add, _('Add'), nil, :id => 'save-category-button') do |page|
+    page.insert_html :bottom, 'selected-categories', content_tag('div',
+      hidden_field_tag("#{object_name}[category_ids][]", categories.first.id) +
+      selected_category_link(categories.first), :id => "selected-category-#{categories.first.id}")
+    page.replace_html 'select-categories', :partial => 'shared/select_subcategories',
+      :locals => {:object_name => object_name, :categories => @toplevel_categories}
+  end if multiple %>
 <% end %>
 
-<% if !@categories.empty? %>
-  <h3><%= _('Categories:') %></h3>
-  <% @categories.select{|i| !@object.respond_to?(:accept_category?) || @object.accept_category?(i)}.each do |category| %>
-    <%= link_to_remote category.name,
-      { :update => "select-categories",
-        :url => { :action => "update_categories", :category_id => category.id, :id => @object},
-        :loaded => visual_effect(:highlight, "select-categories")
-      },
-      :class => 'select-subcategory-link',
-      :id => "select-category-#{category.id}-link"
-    %>
-  <% end %> &nbsp;
-<% end %>
+<div class="toplevel-categories">
+  <%= render :partial => 'shared/select_subcategories', :locals => {:object_name => object_name, :categories => @categories} %>
 </div>

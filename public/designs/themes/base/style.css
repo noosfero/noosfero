@@ -1275,6 +1275,11 @@ hr.pre-posts, hr.sep-posts {
   padding-right: 9px;
 }
 
+.comment-order {
+  float: right;
+  display: block;
+}
+
 .comment-from-owner .comment-created-at {
   color: #333;
 }

@@ -466,6 +466,22 @@ class ApplicationHelperTest < ActiveSupport::TestCase
     assert_match(/Community nick/, page_title)
   end
 
+  should 'not display environment name if is a profile' do
+    stubs(:environment).returns(Environment.default)
+    @controller = ApplicationController.new
+
+    c = fast_create(Community, :name => 'Community for tests', :nickname => 'Community nick', :identifier => 'test_comm')
+    stubs(:profile).returns(c)
+    assert_equal c.short_name, page_title
+  end
+
+  should 'display only environment if no profile and page' do
+    stubs(:environment).returns(Environment.default)
+    @controller = ApplicationController.new
+
+    assert_equal Environment.default.name, page_title
+  end
+
   should 'gravatar default parameter' do
     profile = mock
     profile.stubs(:theme).returns('some-theme')

@@ -3,7 +3,7 @@ require 'fast_gettext'
 
 module Noosfero
   PROJECT = 'noosfero'
-  VERSION = '0.45.2'
+  VERSION = '0.47.0~rc1'
 
   def self.pattern_for_controllers_in_directory(dir)
     disjunction = controllers_in_directory(dir).join('|')

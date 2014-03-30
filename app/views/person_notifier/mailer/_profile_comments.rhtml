@@ -1,0 +1,13 @@
+<% if activity.comments_count > 2 %>
+  <div style="font-size: 10px;">
+    <% if activity.params['url'].blank?  %>
+      <%= _("%s comments") % activity.comments_count %>
+    <% else %>
+      <%= link_to(_("View all %s comments") % activity.comments_count, activity.params['url']) %>
+    <% end %>
+  </div>
+<% else %>
+  <ul>
+    <%= render :partial => 'comment', :collection => activity.comments %>
+  </ul>
+<% end %>

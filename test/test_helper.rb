@@ -177,6 +177,19 @@ class ActiveSupport::TestCase
     assert !tag, "expected no tag #{options.inspect}, but tag found in #{text.inspect}"
   end
 
+  def assert_order(reference, original)
+    original.each do |value|
+      if reference.include?(value)
+        if reference.first == value
+          reference.shift
+        else
+          assert false, "'#{value.inspect}' was found before it should be on: #{original.inspect}"
+        end
+      end
+    end
+    assert reference.blank?, "The following elements are not in the collection: #{reference.inspect}"
+  end
+
   # For models that render views (blocks, articles, ...)
   def render(*args)
     view_paths = @explicit_view_paths || ActionController::Base.view_paths

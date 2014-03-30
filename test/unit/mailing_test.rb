@@ -74,7 +74,7 @@ class MailingTest < ActiveSupport::TestCase
   should 'display name and email on generate_from' do
     person = Person['user_one']
     mailing = Mailing.new(:source => environment, :person => person)
-    assert_equal "#{environment.name} <#{environment.contact_email}>", mailing.generate_from
+    assert_equal "#{environment.name} <#{environment.noreply_email}>", mailing.generate_from
   end
 
   should 'generate subject' do

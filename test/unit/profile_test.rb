@@ -1461,7 +1461,7 @@ class ProfileTest < ActiveSupport::TestCase
   should 'list events by month' do
     profile = fast_create(Profile)
 
-    today = Date.today
+    today = Date.new(2014, 03, 2)
     yesterday_event = Event.new(:name => 'Joao Birthday', :start_date => today - 1.day)
     today_event = Event.new(:name => 'Ze Birthday', :start_date => today)
     tomorrow_event = Event.new(:name => 'Mane Birthday', :start_date => today + 1.day)
@@ -1688,8 +1688,31 @@ class ProfileTest < ActiveSupport::TestCase
     person = fast_create(Person)
     community = fast_create(Community)
     community.add_member(person)
+    community.reload
 
     assert_equal 1, community.members_count
+  end
+
+  should 'order members by name alphabetically considering special characters' do
+    community = fast_create(Community)
+
+    community.add_member(create_user('José').person)
+    community.add_member(create_user('João').person)
+    community.add_member(create_user('Mariana').person)
+    members = community.members_by_name
+
+    assert_equal ["João", "José", "Mariana"], members.map(&:name)
+  end
+
+  should 'order members by name alphabetically considering upper and lower cases' do
+    community = fast_create(Community)
+
+    community.add_member(create_user('mariana').person)
+    community.add_member(create_user('João').person)
+    community.add_member(create_user('guest').person)
+    members = community.members_by_name
+
+    assert_equal ["guest", "João", "mariana"], members.map(&:name)
   end
 
   should 'know if url is the profile homepage' do
@@ -1801,11 +1824,12 @@ class ProfileTest < ActiveSupport::TestCase
     original_community.add_member(original_member)
     community1.add_member(plugin1_member)
     community2.add_member(plugin2_member)
+    original_community.reload
 
     assert_includes original_community.members, original_member
     assert_includes original_community.members, plugin1_member
     assert_includes original_community.members, plugin2_member
-    assert 3, original_community.members.count
+    assert 3, original_community.members_count
   end
 
   private

@@ -21,6 +21,7 @@ class ApplicationController < ActionController::Base
   include ApplicationHelper
   layout :get_layout
   def get_layout
+    return nil if request.format == :js
     theme_layout = theme_option(:layout)
     if theme_layout
       theme_view_file('layouts/'+theme_layout) || theme_layout

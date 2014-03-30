@@ -63,13 +63,15 @@ class LinkListBlock < Block
   def link_html(link)
     klass = 'icon-' + link[:icon] if link[:icon]
     sanitize_link(
-      link_to(link[:name], expand_address(link[:address]), :target => link[:target], :class => klass)
+      link_to(link[:name], expand_address(link[:address]), :target => link[:target], :class => klass, :title => link[:title])
     )
   end
 
   def expand_address(address)
     add = if owner.respond_to?(:identifier)
       address.gsub('{profile}', owner.identifier)
+    elsif owner.is_a?(Environment) && owner.enabled?('use_portal_community') && owner.portal_community
+      address.gsub('{portal}', owner.portal_community.identifier)
     else
       address
     end

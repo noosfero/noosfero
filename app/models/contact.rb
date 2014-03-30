@@ -26,7 +26,7 @@ class Contact < ActiveRecord::Base #WithoutTable
       content_type 'text/html'
       emails = contact.dest.notification_emails
       recipients emails
-      from "#{contact.name} <#{contact.dest.environment.contact_email}>"
+      from "#{contact.name} <#{contact.dest.environment.noreply_email}>"
       reply_to contact.email
       if contact.sender
         headers 'X-Noosfero-Sender' => contact.sender.identifier
