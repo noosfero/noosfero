@@ -6589,18 +6589,18 @@ ul.article-versions li {
   font-style: italic;
 }
 
-#result-short {
-  color: red !important;
+#signup-form #result-short {
+  color: red;
 }
 
-#result-bad {
-  color: #825A2C !important;
+#signup-form #result-bad {
+  color: #825A2C;
 }
 
-#result-good {
-  color: green !important;
+#signup-form #result-good {
+  color: #32CD32;
 }
 
-#result-strong {
-  color: #32CD32 !important;
+#signup-form #result-strong {
+  color: green;
 }
