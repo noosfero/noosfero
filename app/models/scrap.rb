@@ -14,7 +14,7 @@ class Scrap < ActiveRecord::Base
 
   named_scope :not_replies, :conditions => {:scrap_id => nil}
 
-  track_actions :leave_scrap, :after_create, :keep_params => ['sender.name', 'content', 'receiver.name', 'receiver.url'], :if => Proc.new{|s| s.sender != s.receiver && s.sender != s.top_root.receiver}, :custom_target => :action_tracker_target 
+  track_actions :leave_scrap, :after_create, :keep_params => ['sender.name', 'content', 'receiver.name', 'receiver.url'], :if => Proc.new{|s| s.sender != s.receiver && s.sender != s.top_root.receiver}, :custom_target => :action_tracker_target
 
   track_actions :leave_scrap_to_self, :after_create, :keep_params => ['sender.name', 'content'], :if => Proc.new{|s| s.sender == s.receiver}
 
@@ -59,7 +59,7 @@ class Scrap < ActiveRecord::Base
       sender, receiver = scrap.sender, scrap.receiver
       recipients receiver.email
 
-      from "#{sender.environment.name} <#{sender.environment.contact_email}>"
+      from "#{sender.environment.name} <#{sender.environment.noreply_email}>"
       subject _("[%s] You received a scrap!") % [sender.environment.name]
       body :recipient => receiver.name,
         :sender => sender.name,

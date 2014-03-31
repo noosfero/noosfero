@@ -1,6 +1,5 @@
 module ActionTracker
   class Record < ActiveRecord::Base
-
     set_table_name 'action_tracker'
 
     belongs_to :user, :polymorphic => true

@@ -46,10 +46,6 @@ class CommentClassificationPlugin < Noosfero::Plugin
     end
   end
 
- def js_files
-    'comment_classification.js'
-  end
-
   def stylesheet?
     true
   end

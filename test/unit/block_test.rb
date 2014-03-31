@@ -232,4 +232,55 @@ class BlockTest < ActiveSupport::TestCase
     assert_equal "<iframe src='http://myblogtest.com/embed/block/1' frameborder='0' width='1024' height='768' class='embed block block'></iframe>", b.embed_code('http://myblogtest.com/embed/block/1')
   end
 
+  should 'default value for display_user is all' do
+    block = Block.new
+    assert_equal 'all', block.display_user
+  end
+
+  should 'display block to not logged users for display_user = all' do
+    block = Block.new
+    assert block.display_to_user?(nil)
+  end
+
+  should 'display block to logged users for display_user = all' do
+    block = Block.new
+    assert block.display_to_user?(User.new)
+  end
+
+  should 'display block to logged users for display_user = logged' do
+    block = Block.new
+    block.display_user = 'logged'
+    assert block.display_to_user?(User.new)
+  end
+
+  should 'do not display block to logged users for display_user = not_logged' do
+    block = Block.new
+    block.display_user = 'not_logged'
+    assert !block.display_to_user?(User.new)
+  end
+
+  should 'do not display block to not logged users for display_user = logged' do
+    block = Block.new
+    block.display_user = 'logged'
+    assert !block.display_to_user?(nil)
+  end
+
+  should 'display block to not logged users for display_user = not_logged' do
+    block = Block.new
+    block.display_user = 'not_logged'
+    assert block.display_to_user?(nil)
+  end
+
+  should 'not be visible if display_to_user? is false' do
+    block = Block.new
+    block.expects(:display_to_user?).once.returns(false)
+    assert !block.visible?({})
+  end
+
+  should 'accept user as parameter on cache_key without change its value' do
+    person = fast_create(Person)
+    block = Block.new
+    assert_equal block.cache_key('en'), block.cache_key('en', person)
+  end
+
 end

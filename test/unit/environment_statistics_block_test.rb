@@ -1,3 +1,6 @@
+# TODO EnvironmentStatisticsBlock is DEPRECATED and will be removed from
+#      the Noosfero core soon, see ActionItem3045
+
 require File.dirname(__FILE__) + '/../test_helper'
 
 class EnvironmentStatisticsBlockTest < ActiveSupport::TestCase
@@ -36,7 +39,7 @@ class EnvironmentStatisticsBlockTest < ActiveSupport::TestCase
     assert_match(/2 users/, content)
     assert_match(/One community/, content)
   end
-  
+
   should 'generate statistics including private profiles' do
     env = create(Environment)
     user1 = create_user('testuser1', :environment_id => env.id)

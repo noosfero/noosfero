@@ -1,0 +1,39 @@
+h1. Variables Plugin
+
+A set of simple variables to be used in a macro context.
+
+h2. Usage
+
+* Create a HTML content using RawHTMLBlock, TinyMceArticle or other
+  article with HTML support
+* Add a HTML div tag with css class "macro" (see Example)
+* Add inner that div tag the variable desired, like {profile}
+
+h2. Usage with TinyMceArticle
+
+The Noosfero's macros add a extra button in toolbar of the editor
+to use macros in a single way, that way this plugin add a option
+called "Variables" under this option.
+
+h2. Supported variables
+
+* {profile} - will be replaced by the identifier of the profile
+* {name} - will be replaced by the name of the profile
+
+h2. Example
+
+<pre>
+<div class="macro" data-macro="variables_plugin/profile">
+  the identifier of the profile = {profile}
+  the name of the profile = {name}
+</div>
+</pre>
+
+h2. Info
+
+This plugin was inspired by the solution proposed by the Serpro in
+the merge-request #419 on the Gitorious:
+
+* https://gitorious.org/noosfero/noosfero/merge_requests/419
+
+And improved by the guys from the UnB.

@@ -55,11 +55,10 @@ class ProfileEditorController < MyProfileController
 
   def update_categories
     @object = profile
+    @categories = @toplevel_categories = environment.top_level_categories
     if params[:category_id]
       @current_category = Category.find(params[:category_id])
       @categories = @current_category.children
-    else
-      @categories = environment.top_level_categories.select{|i| !i.children.empty?}
     end
     render :partial => 'shared/select_categories', :locals => {:object_name => 'profile_data', :multiple => true}, :layout => false
   end

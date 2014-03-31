@@ -741,16 +741,6 @@ class ContentViewerControllerTest < ActionController::TestCase
     assert_tag :tag => 'li', :attributes => {:title => 'my img title', :class => 'image-gallery-item'}, :child => {:tag => 'span', :content => 'my img title'}
   end
 
-  should 'not allow html on title of the images' do
-    login_as(profile.identifier)
-    folder = fast_create(Gallery, :profile_id => profile.id)
-    file = UploadedFile.create!(:title => '<b>my img title</b>', :profile => profile, :parent => folder, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
-
-    get :view_page, :profile => profile.identifier, :page => folder.explode_path
-
-    assert_tag :tag => 'li', :attributes => {:title => 'my img title', :class => 'image-gallery-item'}, :child => {:tag => 'span', :content => 'my img title'}
-  end
-
   should 'allow publisher owner view private articles' do
     c = Community.create!(:name => 'test_com')
     u = create_user_with_permission('test_user', 'publish_content', c)
@@ -1209,6 +1199,7 @@ class ContentViewerControllerTest < ActionController::TestCase
     class Plugin2 < Noosfero::Plugin
       def content_remove_edit(content); false; end
     end
+    Noosfero::Plugin.stubs(:all).returns([Plugin1.name, Plugin2.name])
 
     environment.enable_plugin(Plugin1.name)
     environment.enable_plugin(Plugin2.name)
@@ -1225,6 +1216,7 @@ class ContentViewerControllerTest < ActionController::TestCase
     class Plugin2 < Noosfero::Plugin
       def content_expire_edit(content); nil; end
     end
+    Noosfero::Plugin.stubs(:all).returns([Plugin1.name, Plugin2.name])
 
     environment.enable_plugin(Plugin1.name)
     environment.enable_plugin(Plugin2.name)
@@ -1270,6 +1262,7 @@ class ContentViewerControllerTest < ActionController::TestCase
          }
       end
     end
+    Noosfero::Plugin.stubs(:all).returns([Plugin1.name, Plugin2.name])
 
     Environment.default.enable_plugin(Plugin1.name)
     Environment.default.enable_plugin(Plugin2.name)
@@ -1294,6 +1287,7 @@ class ContentViewerControllerTest < ActionController::TestCase
         scope.where(:referrer => 'kernel.org')
       end
     end
+    Noosfero::Plugin.stubs(:all).returns([Plugin1.name, Plugin2.name])
 
     Environment.default.enable_plugin(Plugin1)
     Environment.default.enable_plugin(Plugin2)
@@ -1351,6 +1345,7 @@ class ContentViewerControllerTest < ActionController::TestCase
          }
       end
     end
+    Noosfero::Plugin.stubs(:all).returns([Plugin1.name, Plugin2.name])
 
     Environment.default.enable_plugin(Plugin1.name)
     Environment.default.enable_plugin(Plugin2.name)
@@ -1367,6 +1362,30 @@ class ContentViewerControllerTest < ActionController::TestCase
     file = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/test.txt', 'bin/unknown'), :profile => profile)
     get :view_page, file.url.merge(:view=>:true)
     assert_match /this is a sample text file/, @response.body
+  end
+
+  should 'add meta tags with article info' do
+    a = TinyMceArticle.create(:name => 'Article to be shared', :body => 'This article should be shared with all social networks', :profile => profile)
+
+    get :view_page, :profile => profile.identifier, :page => [ a.name.to_slug ]
+
+    assert_tag :tag => 'meta', :attributes => { :name => 'twitter:title', :content => /#{a.name} - #{a.profile.name}/ }
+    assert_tag :tag => 'meta', :attributes => { :name => 'twitter:description', :content => a.body }
+    assert_no_tag :tag => 'meta', :attributes => { :name => 'twitter:image' }
+    assert_tag :tag => 'meta', :attributes => { :property => 'og:type', :content => 'article' }
+    assert_tag :tag => 'meta', :attributes => { :property => 'og:url', :content => /\/#{profile.identifier}\/#{a.name.to_slug}/ }
+    assert_tag :tag => 'meta', :attributes => { :property => 'og:title', :content => /#{a.name} - #{a.profile.name}/ }
+    assert_tag :tag => 'meta', :attributes => { :property => 'og:site_name', :content => a.profile.name }
+    assert_tag :tag => 'meta', :attributes => { :property => 'og:description', :content => a.body }
+    assert_no_tag :tag => 'meta', :attributes => { :property => 'og:image' }
+  end
+
+  should 'add meta tags with article images' do
+    a = TinyMceArticle.create(:name => 'Article to be shared with images', :body => 'This article should be shared with all social networks <img src="/images/x.png" />', :profile => profile)
+
+    get :view_page, :profile => profile.identifier, :page => [ a.name.to_slug ]
+    assert_tag :tag => 'meta', :attributes => { :name => 'twitter:image', :content => /\/images\/x.png/ }
+    assert_tag :tag => 'meta', :attributes => { :property => 'og:image', :content => /\/images\/x.png/  }
   end
 
 end

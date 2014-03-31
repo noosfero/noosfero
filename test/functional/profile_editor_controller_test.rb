@@ -73,7 +73,8 @@ class ProfileEditorControllerTest < ActionController::TestCase
     get :edit, :profile => profile.identifier
     assert_response :success
     assert_template 'edit'
-    assert_tag :tag => 'input', :attributes => {:name => 'profile_data[category_ids][]', :value => cat2.id}
+    assert_tag :tag => 'input', :attributes => {:name => 'profile_data[category_ids][]'}
+    assert_tag :tag => 'a', :attributes => { :class => 'select-subcategory-link', :id => "select-category-#{cat1.id}-link" }
   end
 
   should 'save categorization of profile' do
@@ -236,7 +237,7 @@ class ProfileEditorControllerTest < ActionController::TestCase
     cat2 = Environment.default.categories.create!(:display_in_menu => true, :name => 'sub category', :parent => cat1)
     person = create_user('testuser').person
     get :edit, :profile => 'testuser'
-    assert_tag :tag => 'input', :attributes => { :type => 'checkbox', :name => 'profile_data[category_ids][]', :value => cat2.id}
+    assert_tag :tag => 'a', :attributes => { :class => 'select-subcategory-link', :id => "select-category-#{cat1.id}-link" }
   end
 
   should 'render edit template' do
@@ -867,6 +868,7 @@ class ProfileEditorControllerTest < ActionController::TestCase
         {:title => "Plugin2 button", :icon => 'plugin2_icon', :url => 'plugin2_url'}
       end
     end
+    Noosfero::Plugin.stubs(:all).returns([TestControlPanelButtons1.to_s, TestControlPanelButtons2.to_s])
 
     Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([TestControlPanelButtons1.new, TestControlPanelButtons2.new])
 
@@ -882,6 +884,7 @@ class ProfileEditorControllerTest < ActionController::TestCase
         "<input id='field_added_by_plugin' value='value_of_field_added_by_plugin'/>"
       end
     end
+    Noosfero::Plugin.stubs(:all).returns([TestProfileEditPlugin.to_s])
 
     Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([TestProfileEditPlugin.new])
 
@@ -910,6 +913,7 @@ class ProfileEditorControllerTest < ActionController::TestCase
         lambda {"<strong>Plugin2 text</strong>"}
       end
     end
+    Noosfero::Plugin.stubs(:all).returns([Plugin1.to_s, Plugin2.to_s])
 
     Environment.default.enable_plugin(Plugin1)
     Environment.default.enable_plugin(Plugin2)
@@ -931,6 +935,7 @@ class ProfileEditorControllerTest < ActionController::TestCase
         lambda {"<strong>Plugin2 text</strong>"}
       end
     end
+    Noosfero::Plugin.stubs(:all).returns([Plugin1.to_s, Plugin2.to_s])
 
     Environment.default.enable_plugin(Plugin1)
     Environment.default.enable_plugin(Plugin2)

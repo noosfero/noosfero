@@ -91,6 +91,7 @@ class CatalogControllerTest < ActionController::TestCase
         lambda {"<span id='plugin2'>This is Plugin2 speaking!</span>"}
       end
     end
+    Noosfero::Plugin.stubs(:all).returns([Plugin1.name, Plugin2.name])
 
     product = fast_create(Product, :profile_id => @enterprise.id)
     environment = Environment.default

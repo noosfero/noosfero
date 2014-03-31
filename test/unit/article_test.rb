@@ -1630,10 +1630,10 @@ class ArticleTest < ActiveSupport::TestCase
 
   should 'not allow all community members to edit by default' do
     community = fast_create(Community)
-    admin = create_user('community-admin').person
-    member = create_user.person
-
+    admin = fast_create(Person)
+    member = fast_create(Person)
     community.add_admin(admin)
+    community.reload
     community.add_member(member)
     a = Article.new(:profile => community)
 

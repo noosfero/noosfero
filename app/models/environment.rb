@@ -145,6 +145,18 @@ class Environment < ActiveRecord::Base
   end
   validates_inclusion_of :redirection_after_login, :in => Environment.login_redirection_options.keys, :allow_nil => true
 
+  def self.signup_redirection_options
+    {
+      'keep_on_same_page' => _('Stays on the same page the user was before signup.'),
+      'site_homepage' => _('Redirects the user to the environment homepage.'),
+      'user_profile_page' => _('Redirects the user to his profile page.'),
+      'user_homepage' => _('Redirects the user to his homepage.'),
+      'user_control_panel' => _('Redirects the user to his control panel.')
+    }
+  end
+  validates_inclusion_of :redirection_after_signup, :in => Environment.signup_redirection_options.keys, :allow_nil => true
+
+
   # #################################################
   # Relationships and applied behaviour
   # #################################################
@@ -161,6 +173,8 @@ class Environment < ActiveRecord::Base
 
     # "left" area
     env.boxes[1].blocks << LoginBlock.new
+    # TODO EnvironmentStatisticsBlock is DEPRECATED and will be removed from
+    #      the Noosfero core soon, see ActionItem3045
     env.boxes[1].blocks << EnvironmentStatisticsBlock.new
     env.boxes[1].blocks << RecentDocumentsBlock.new
 
@@ -592,7 +606,7 @@ class Environment < ActiveRecord::Base
   # only one environment can be the default one
   validates_uniqueness_of :is_default, :if => (lambda do |environment| environment.is_default? end), :message => N_('Only one Virtual Community can be the default one')
 
-  validates_format_of :contact_email, :with => Noosfero::Constants::EMAIL_FORMAT, :if => (lambda { |record| ! record.contact_email.blank? })
+  validates_format_of :contact_email, :noreply_email, :with => Noosfero::Constants::EMAIL_FORMAT, :allow_blank => true
 
   xss_terminate :only => [ :message_for_disabled_enterprise ], :with => 'white_list', :on => 'validation'
 
@@ -779,7 +793,7 @@ class Environment < ActiveRecord::Base
   end
 
   def notification_emails
-    [contact_email.blank? ? nil : contact_email].compact + admins.map(&:email)
+    [noreply_email.blank? ? nil : noreply_email].compact + admins.map(&:email)
   end
 
   after_create :create_templates

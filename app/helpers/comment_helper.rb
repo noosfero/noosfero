@@ -2,7 +2,6 @@ module CommentHelper
 
   def article_title(article, args = {})
     title = article.title
-    title = article.display_title if article.kind_of?(UploadedFile) && article.image?
     title = content_tag('h1', h(title), :class => 'title')
     if article.belongs_to_blog?
       unless args[:no_link]
@@ -20,6 +19,12 @@ module CommentHelper
       )
     end
     title
+  end
+
+  def comment_extra_contents(comment)
+    @plugins.dispatch(:comment_extra_contents, comment).collect do |extra_content|
+      extra_content.kind_of?(Proc) ? self.instance_eval(&extra_content) : extra_content
+    end.join('\n')
   end
 
   def comment_actions(comment)

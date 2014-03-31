@@ -107,6 +107,7 @@ class HomeControllerTest < ActionController::TestCase
         lambda {"<a href='plugin2'>Plugin2 link</a>"}
       end
     end
+    Noosfero::Plugin.stubs(:all).returns([Plugin1.name, Plugin2.name])
 
     Environment.default.enable_plugin(Plugin1)
     Environment.default.enable_plugin(Plugin2)
@@ -129,6 +130,7 @@ class HomeControllerTest < ActionController::TestCase
         true
       end
     end
+    Noosfero::Plugin.stubs(:all).returns([Plugin1.name, Plugin2.name])
     Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([Plugin1.new, Plugin2.new])
 
     get :index
