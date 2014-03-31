@@ -58,9 +58,8 @@ class InviteController < PublicController
 
   def invite_registered_friend
     contacts_to_invite = params['q'].split(',')
-    mail_template = params[:mail_template] || environment.invitation_mail_template(profile)
     if !contacts_to_invite.empty?
-      Delayed::Job.enqueue InvitationJob.new(current_user.person.id, contacts_to_invite, mail_template, profile.id, nil, locale)
+      Delayed::Job.enqueue InvitationJob.new(current_user.person.id, contacts_to_invite, '', profile.id, nil, locale)
       session[:notice] = _('Your invitations are being sent.')
       if profile.person?
         redirect_to :controller => 'profile', :action => 'friends'

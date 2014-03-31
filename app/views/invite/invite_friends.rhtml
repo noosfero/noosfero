@@ -13,8 +13,6 @@
                               { :hint_text => _('Type in your friend\'s ') + search_friend_fields,
                                 :focus => false }) %>
 
-    <%= render :partial => 'invite/personalize_invitation_mail', :locals => {:mail_template => @mail_template } %>
-
     <% button_bar do %>
       <%= submit_button('save', _('Invite'))%>
       <%= button('cancel', _('Cancel'), profile.url)%>

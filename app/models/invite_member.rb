@@ -39,6 +39,14 @@ class InviteMember < Invitation
     _('%{requestor} invited you to join %{community}.') % {:requestor => requestor.name, :community => community.name}
   end
 
+  def target_notification_message
+    if friend
+      _('%{requestor} is inviting you to join "%{community}" on %{system}.') % { :system => target.environment.name, :requestor => requestor.name, :community => community.name }
+    else
+      super
+    end
+  end
+
   def expanded_message
     super.gsub /<community>/, community.name
   end
