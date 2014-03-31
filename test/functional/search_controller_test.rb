@@ -371,6 +371,7 @@ class SearchControllerTest < ActionController::TestCase
   end
 
   should 'see the events paginated' do
+    person = create_user('testuser').person
     30.times do |i|
       create_event(person, :name => "Event #{i}",	:start_date => Date.today)
     end
