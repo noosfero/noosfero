@@ -25,7 +25,9 @@ class TagsHelperTest < ActiveSupport::TestCase
       :id,
       { :host=>'noosfero.org', :controller=>'test', :action=>'tag' }
     )
-    assert_equal %w(A Á ÁA AB area área armário aula avião).join("\n"), result
+    result = result.split("\n")
+    assert_order ['Á', 'ÁA', 'AB', 'área', 'armário', 'aula', 'avião' ], result
+    assert_order ['A', 'AB', 'area', 'armário', 'aula', 'avião' ], result
   end
 
 end
