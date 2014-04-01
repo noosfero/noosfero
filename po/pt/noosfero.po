@@ -10473,10 +10473,6 @@ msgstr "O formulário #{@form.name} foi criado com sucesso."
 msgid "Custom form #{@form.name} was successfully updated."
 msgstr "O formulário #{@form.name} foi atualizado com sucesso."
 
-#: plugins/tolerance_time/controllers/tolerance_time_plugin_myprofile_controller.rb:10
-msgid "Tolerance updated"
-msgstr "A tolerância foi atualizada"
-
 #: plugins/sub_organizations/controllers/sub_organizations_plugin_myprofile_controller.rb:28
 msgid "Sub-organizations could not be updated"
 msgstr "As sub-organizações não puderam ser salvas"
@@ -10666,11 +10662,6 @@ msgstr "Habilita a criação de formulários."
 msgid "Manage Forms"
 msgstr "Gerenciar Formulários"
 
-#: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:4
-#: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:37
-msgid "Logged users"
-msgstr "Usuários logados"
-
 #: plugins/custom_forms/lib/custom_forms_plugin/helper.rb:9
 msgid "Custom"
 msgstr "Customizado"
@@ -10712,10 +10703,6 @@ msgstr "Formato de tipo de acesso inválido."
 #: plugins/custom_forms/lib/custom_forms_plugin/membership_survey.rb:16
 msgid "Membership survey"
 msgstr "Pesquisa na associação de novos integrantes"
-
-#: plugins/custom_forms/lib/custom_forms_plugin/membership_survey.rb:28
-msgid "%{requestor} wants you to fill in some information."
-msgstr "%{requestor} quer que você preencha algumas informações."
 
 #: plugins/custom_forms/lib/custom_forms_plugin/membership_survey.rb:40
 msgid ""
@@ -11172,10 +11159,6 @@ msgstr "Campo de texto"
 msgid "Select field"
 msgstr "Campo de seleção"
 
-#: plugins/custom_forms/lib/custom_forms_plugin/membership_survey.rb:16
-msgid "Membership survey"
-msgstr "Pesquisa na associação de novos integrantes"
-
 #: plugins/custom_forms/lib/custom_forms_plugin/admission_survey.rb:9
 msgid "Admission survey"
 msgstr "Questionário para associação"
@@ -11195,15 +11178,6 @@ msgid ""
 msgstr ""
 "Antes de entrar em %{requestor}, os administradores dessa organização\n"
 " querem que você preencha algumas informações adicionais."
-
-#: plugins/custom_forms/lib/custom_forms_plugin/membership_survey.rb:40
-msgid ""
-"After joining %{requestor}, the administrators of this organization\n"
-"      wants you to fill in some further information."
-msgstr ""
-"Após entrar em %{requestor}, os administradores dessa organização\n"
-" querem que você preencha algumas informações adicionais."
->>>>>>> custom_forms
 
 #: plugins/container_block/lib/container_block_plugin/container_block.rb:11
 msgid "Container"
@@ -12200,30 +12174,9 @@ msgstr "Desculpe, você não pode preencher esse formulário ainda"
 msgid "Sorry, you can't fill this form anymore"
 msgstr "Desculpe, você não pode mais preencher esse formulário"
 
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/_empty_field.html.erb:8
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/_field.html.erb:10
-msgid "Are you sure you want to remove this field?"
-msgstr "Tem certeza de que deseja remover este campo?"
-
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/_field.html.erb:3
-msgid "Remove field"
-msgstr "Remover campo"
-
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/index.html.erb:3
-msgid "Manage forms"
-msgstr "Gerenciar formulários"
-
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/index.html.erb:7
-msgid "Period"
-msgstr "Período"
-
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/_form.html.erb:7
 msgid "What is the time limit for this form to be filled?"
 msgstr "Qual o período limite em que esse formulário pode ser preenchido?"
-
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/index.html.erb:8
-msgid "Submissions"
-msgstr "Submissões"
 
 #: plugins/tolerance_time/views/tolerance_time_plugin_myprofile/index.html.erb:14
 msgid "Comment edition tolerance time"
@@ -12269,11 +12222,6 @@ msgstr "Adicionar novo campo de texto"
 msgid "Add a new select field"
 msgstr "Adicionar novo campo de seleção"
 
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/_option.html.erb:5
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/_empty_option.html.erb:5
-msgid "Are you sure you want to remove this option?"
-msgstr "Tem certeza de que deseja remover esta opção?"
-
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/pending.html.erb:3
 msgid "Pending submissions for %s"
 msgstr "Submissões pendentes para %s"
@@ -12281,15 +12229,6 @@ msgstr "Submissões pendentes para %s"
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/pending.html.erb:6
 msgid "There are no pending submissions for this form."
 msgstr "Não há submissões pendentes para esse formulário"
-
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/pending.html.erb:13
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/pending.html.erb:9
-msgid "User"
-msgstr "Usuário"
-
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/show_submission.html.erb:9
-msgid "Back to submissions"
-msgstr "Voltar para submissões"
 
 #: plugins/sub_organizations/views/sub_organizations_plugin_myprofile/index.html.erb:18
 msgid ""
@@ -12318,10 +12257,6 @@ msgstr ""
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/submissions.html.erb:9
 msgid "Download all form responses as"
 msgstr "Baixar todas as respostas como"
-
-#: plugins/custom_forms/views/custom_forms_plugin_myprofile/submissions.html.erb:11
-msgid "Time"
-msgstr "Tempo"
 
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/customer_notification.html.erb:12
 msgid "If you have any doubts, contact us at: %s"
@@ -12406,10 +12341,6 @@ msgstr "Remover alternativa"
 #: plugins/custom_forms/views/custom_forms_plugin_myprofile/custom_forms_plugin/_alternative.html.erb:10
 msgid "Are you sure you want to remove this alternative?"
 msgstr "Tem certeza que quer remover essa alternativa?"
-
-#: plugins/tolerance_time/views/tolerance_time_plugin_myprofile/index.html.erb:1
-msgid "Tolerance Adjustments"
-msgstr "Configurações de Tolerância"
 
 #: plugins/shopping_cart/views/shopping_cart_plugin/mailer/supplier_notification.html.erb:45
 msgid "And here are the items bought by this customer:"
