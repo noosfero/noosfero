@@ -159,10 +159,12 @@ class ContentViewerController < ApplicationController
   helper_method :pass_without_comment_captcha?
 
   def user_is_a_bot?
-    request.env["HTTP_USER_AGENT"].match(/bot/) ||
-    request.env["HTTP_USER_AGENT"].match(/spider/) ||
-    request.env["HTTP_USER_AGENT"].match(/crawler/) ||
-    request.env["HTTP_USER_AGENT"].match(/\(.*https?:\/\/.*\)/)
+    user_agent= request.env["HTTP_USER_AGENT"]
+    user_agent.blank? ||
+    user_agent.match(/bot/) ||
+    user_agent.match(/spider/) ||
+    user_agent.match(/crawler/) ||
+    user_agent.match(/\(.*https?:\/\/.*\)/)
   end
 
 end
