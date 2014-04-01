@@ -225,7 +225,7 @@ module BoxesHelper
       html = content_tag('div',
               content_tag('h2', _('Embed block code')) +
               content_tag('div', _('Below, you''ll see a field containing embed code for the block. Just copy the code and paste it into your website or blogging software.'), :style => 'margin-bottom: 1em;') +
-              content_tag('textarea', block.embed_code(url), :style => 'margin-bottom: 1em; width:100%; height:40%;') +
+              content_tag('textarea', block.embed_code(url), :style => 'margin-bottom: 1em; width:100%; height:40%;', :readonly => 'readonly') +
               thickbox_close_button(_('Close')), :style => 'display: none;', :id => "embed-code-box-#{block.id}")
 
       buttons << thickbox_inline_popup_icon(:embed, _('Embed code'), {}, "embed-code-box-#{block.id}") << html
