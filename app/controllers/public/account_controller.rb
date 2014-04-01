@@ -65,7 +65,6 @@ class AccountController < ApplicationController
     render :text => { :ok=>true, :key=>key }.to_json
   end
 
-  # action to register an user to the application
   def signup
     if @plugins.dispatch(:allow_user_registration).include?(false)
       redirect_back_or_default(:controller => 'home')
@@ -85,29 +84,40 @@ class AccountController < ApplicationController
       @user.return_to = session[:return_to]
       @person = Person.new(params[:profile_data])
       @person.environment = @user.environment
-      if request.post?
-        if may_be_a_bot
-          set_signup_start_time_for_now
-          @block_bot = true
-          session[:may_be_a_bot] = true
-        else
-          if session[:may_be_a_bot]
-            return false unless verify_recaptcha :model=>@user, :message=>_('Captcha (the human test)')
-          end
-          @user.community_to_join = session[:join]
-          @user.signup!
-          owner_role = Role.find_by_name('owner')
-          @user.person.affiliate(@user.person, [owner_role]) if owner_role
-          invitation = Task.find_by_code(@invitation_code)
-          if invitation
-            invitation.update_attributes!({:friend => @user.person})
-            invitation.finish
-          end
-          if @user.activated?
-            self.current_user = @user
-            check_join_in_community(@user)
-            go_to_signup_initial_page
+      unless @user.environment.enabled?('admin_must_approve_new_users')
+        if request.post?
+          if may_be_a_bot
+            set_signup_start_time_for_now
+            @block_bot = true
+            session[:may_be_a_bot] = true
           else
+            if session[:may_be_a_bot]
+              return false unless verify_recaptcha :model=>@user, :message=>_('Captcha (the human test)')
+            end
+            @user.community_to_join = session[:join]
+            @user.signup!
+            owner_role = Role.find_by_name('owner')
+            @user.person.affiliate(@user.person, [owner_role]) if owner_role
+            invitation = Task.find_by_code(@invitation_code)
+            if invitation
+              invitation.update_attributes!({:friend => @user.person})
+              invitation.finish
+            end
+            if @user.activated?
+              self.current_user = @user
+              go_to_signup_initial_page
+            else
+              @register_pending = true
+            end
+          end
+        end
+      else
+        @task = CreateUser.new(params[:user])
+        if request.post?
+          @task.target = @user.environment
+          @task.name = @person.name
+          if @task.save
+            session[:notice] = _('Thanks for registering. The administrators were notified.')
             @register_pending = true
           end
         end
