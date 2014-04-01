@@ -55,17 +55,6 @@ class ApplicationController < ActionController::Base
     !@no_design_blocks && self.class.uses_design_blocks?
   end
 
-  def self.no_design_theme
-    @no_design_theme
-  end
-  def self.uses_design_theme?
-    !@no_design_theme
-  end
-  def uses_design_theme
-   !@no_design_theme && self.class.uses_design_theme?
-  end
-
-
   # Be sure to include AuthenticationSystem in Application Controller instead
   include AuthenticatedSystem
   include PermissionCheck

@@ -8,7 +8,4 @@ module ThickboxHelper
   def thickbox_close_button(title)
     button_to_function(:close, title, 'tb_remove();')
   end
-  def thickbox_copy_to_clipboard_button(title)
-    button_to_function(:'copy-to-clipboard', title, 'tb_copy_to_clipboard();')
-  end
 end
