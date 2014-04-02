@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.47.0~rc1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-04-01 12:22-0000\n"
+"POT-Creation-Date: 2014-04-02 18:29-0000\n"
 "PO-Revision-Date: 2009-12-04 18:46-0300\n"
 "Last-Translator: Jean-Claude Bulliard <jcb@bulliard-consulting.com>\n"
 "Language-Team: American English <kde-i18n-doc@kde.org>\n"
@@ -2722,7 +2722,8 @@ msgstr "Personne"
 msgid "Friend"
 msgstr "Contacts"
 
-#: app/models/article_categorization.rb:- lib/zen3_terminology.rb:16
+#: app/models/article_categorization.rb:- app/models/comment.rb:-
+#: lib/zen3_terminology.rb:16
 msgid "Group"
 msgstr "Groupe"
 

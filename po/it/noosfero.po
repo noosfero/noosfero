@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.47.0~rc1\n"
-"POT-Creation-Date: 2014-04-01 12:22-0000\n"
+"POT-Creation-Date: 2014-04-02 18:29-0000\n"
 "PO-Revision-Date: 2012-06-05 10:27-0300\n"
 "Last-Translator: Daniela Feitosa <danielafeitosa@colivre.coop.br>\n"
 "Language-Team: LANGUAGE TEAM <LL@li.org>\n"
@@ -2509,7 +2509,8 @@ msgstr ""
 msgid "Friend"
 msgstr ""
 
-#: app/models/article_categorization.rb:- lib/zen3_terminology.rb:16
+#: app/models/article_categorization.rb:- app/models/comment.rb:-
+#: lib/zen3_terminology.rb:16
 msgid "Group"
 msgstr ""
 
