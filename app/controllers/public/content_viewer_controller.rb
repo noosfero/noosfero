@@ -1,3 +1,5 @@
+require 'diffy'  
+
 class ContentViewerController < ApplicationController
 
   needs_profile
@@ -117,6 +119,13 @@ class ContentViewerController < ApplicationController
     end
   end
 
+  def versions_diff
+    path = params[:page].join('/')
+    @page = profile.articles.find_by_path(path)
+    @v1, @v2 = @page.versions.find_by_version(params[:v1]), @page.versions.find_by_version(params[:v2])
+    p params
+  end
+
   def article_versions
     path = params[:page].join('/')
     @page = profile.articles.find_by_path(path)
@@ -184,3 +193,7 @@ class ContentViewerController < ApplicationController
   end
 
 end
+
+
+
+

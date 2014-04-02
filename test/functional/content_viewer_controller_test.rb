@@ -396,6 +396,17 @@ class ContentViewerControllerTest < ActionController::TestCase
     assert_tag :tag => 'div', :attributes => { :class => /article-body/ }, :content => /edited article/
   end
 
+  should "display differences between article's versions" do
+    page = TextArticle.create!(:name => 'myarticle', :body => 'original article', :display_versions => true, :profile => profile)
+    page.body = 'edited article'; page.save
+
+    get :versions_diff, :profile => profile.identifier, :page => [ 'myarticle' ], :v1 => 1, :v2 => 2;
+  
+    assert_tag :tag => 'li', :attributes => { :class => /del/ }, :content => /original article/
+    assert_tag :tag => 'li', :attributes => { :class => /ins/ }, :content => /edited article/  
+    assert_response :success
+  end
+
   should 'not return an article of a different user' do
     p1 = create_user('test_user').person
     a = p1.articles.create!(:name => 'old-name')
