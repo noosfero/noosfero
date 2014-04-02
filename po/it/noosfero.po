@@ -7,7 +7,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.47.0~rc1\n"
-"POT-Creation-Date: 2014-04-02 18:29-0000\n"
+"POT-Creation-Date: 2014-04-02 20:45-0000\n"
 "PO-Revision-Date: 2012-06-05 10:27-0300\n"
 "Last-Translator: Daniela Feitosa <danielafeitosa@colivre.coop.br>\n"
 "Language-Team: LANGUAGE TEAM <LL@li.org>\n"
@@ -746,7 +746,7 @@ msgstr ""
 msgid "One comment"
 msgstr ""
 
-#: app/helpers/content_viewer_helper.rb:8 app/models/article.rb:695
+#: app/helpers/content_viewer_helper.rb:8 app/models/article.rb:697
 #: app/views/person_notifier/mailer/_profile_comments.rhtml:4
 msgid "%s comments"
 msgstr ""
@@ -1750,7 +1750,7 @@ msgid "Rejected"
 msgstr ""
 
 #: app/helpers/profile_helper.rb:20
-#: app/helpers/enterprise_homepage_helper.rb:10 app/models/event.rb:119
+#: app/helpers/enterprise_homepage_helper.rb:10 app/models/event.rb:116
 #: app/views/cms/_event.rhtml:17
 msgid "Address:"
 msgstr ""
@@ -2229,6 +2229,26 @@ msgid "vote"
 msgstr ""
 
 #: app/models/article_categorization.rb:-
+msgid "Vote"
+msgstr ""
+
+#: app/models/article_categorization.rb:-
+msgid "Voteable"
+msgstr ""
+
+#: app/models/article_categorization.rb:-
+msgid "Voteable type"
+msgstr ""
+
+#: app/models/article_categorization.rb:-
+msgid "Voter"
+msgstr ""
+
+#: app/models/article_categorization.rb:-
+msgid "Voter type"
+msgstr ""
+
+#: app/models/article_categorization.rb:-
 msgid "delayed job"
 msgstr ""
 
@@ -2346,7 +2366,7 @@ msgstr ""
 msgid "Abstract"
 msgstr ""
 
-#: app/models/article_categorization.rb:-
+#: app/models/article_categorization.rb:- app/models/product.rb:-
 #: app/models/profile_categorization.rb:- app/models/person.rb:278
 #: app/models/action_tracker_notification.rb:-
 #: app/views/profile/index.rhtml:30 app/views/profile/index.rhtml:36
@@ -2363,7 +2383,8 @@ msgid "Version"
 msgstr ""
 
 #: app/models/article_categorization.rb:- app/models/task.rb:-
-#: app/models/profile.rb:- app/models/mailing.rb:- app/views/cms/view.rhtml:37
+#: app/models/profile.rb:- app/models/product.rb:- app/models/mailing.rb:-
+#: app/views/cms/view.rhtml:37
 #: app/views/shared/reported_versions/_comment.html.erb:3
 #: app/views/shared/reported_versions/_article.html.erb:3
 #: plugins/solr/lib/ext/article.rb:12
@@ -2712,31 +2733,31 @@ msgstr ""
 msgid "A language must be choosen for the native article"
 msgstr ""
 
-#: app/models/article.rb:635 lib/file_presenter.rb:57
+#: app/models/article.rb:635 lib/file_presenter.rb:61
 msgid "Unknown"
 msgstr ""
 
-#: app/models/article.rb:693
+#: app/models/article.rb:695
 msgid "no comments"
 msgstr ""
 
-#: app/models/article.rb:694
+#: app/models/article.rb:696
 msgid "one comment"
 msgstr ""
 
-#: app/models/article.rb:702
+#: app/models/article.rb:704
 msgid "no views"
 msgstr ""
 
-#: app/models/article.rb:703
+#: app/models/article.rb:705
 msgid "one view"
 msgstr ""
 
-#: app/models/article.rb:704
+#: app/models/article.rb:706
 msgid "%s views"
 msgstr ""
 
-#: app/models/article.rb:709
+#: app/models/article.rb:711
 msgid "Created at: "
 msgstr ""
 
@@ -3043,7 +3064,7 @@ msgstr ""
 msgid "task"
 msgstr ""
 
-#: app/models/task.rb:- app/models/profile.rb:-
+#: app/models/task.rb:- app/models/profile.rb:- app/models/product.rb:-
 msgid "Data"
 msgstr ""
 
@@ -3248,6 +3269,14 @@ msgstr ""
 msgid "Activities count"
 msgstr ""
 
+#: app/models/profile.rb:- app/views/profile_editor/_person_form.rhtml:17
+msgid "Personal website"
+msgstr ""
+
+#: app/models/profile.rb:- app/views/profile_editor/_person_form.rhtml:16
+msgid "Jabber"
+msgstr ""
+
 #: app/models/profile.rb:-
 msgid "environment"
 msgstr ""
@@ -3278,6 +3307,10 @@ msgstr ""
 
 #: app/models/profile.rb:-
 msgid "Noreply email"
+msgstr ""
+
+#: app/models/profile.rb:-
+msgid "Redirection after signup"
 msgstr ""
 
 #: app/models/profile.rb:56
@@ -3506,12 +3539,6 @@ msgstr ""
 msgid "product"
 msgstr ""
 
-#: app/models/product.rb:- app/models/enterprise.rb:8
-#: app/models/enterprise.rb:11 app/views/templates/index.html.erb:7
-#: plugins/sub_organizations/views/box_organizer/_related_organizations_block.rhtml:3
-msgid "Enterprise"
-msgstr ""
-
 #: app/models/product.rb:- app/models/input.rb:-
 msgid "Product category"
 msgstr ""
@@ -3526,6 +3553,10 @@ msgstr ""
 
 #: app/models/product.rb:- app/models/input.rb:-
 msgid "Unit"
+msgstr ""
+
+#: app/models/product.rb:-
+msgid "Archived"
 msgstr ""
 
 #: app/models/product.rb:234
@@ -4125,7 +4156,7 @@ msgid "Photos"
 msgstr ""
 
 #: app/models/link_list_block.rb:28 app/models/event.rb:4
-#: app/models/event.rb:62
+#: app/models/event.rb:59
 msgid "Event"
 msgstr ""
 
@@ -4645,16 +4676,16 @@ msgstr ""
 msgid "{fn} cannot come before end date."
 msgstr ""
 
-#: app/models/event.rb:58
+#: app/models/event.rb:55
 msgid "A calendar event."
 msgstr ""
 
-#: app/models/event.rb:111
+#: app/models/event.rb:108
 #: plugins/community_track/views/content_viewer/step.rhtml:5
 msgid "When:"
 msgstr ""
 
-#: app/models/event.rb:115
+#: app/models/event.rb:112
 msgid "URL:"
 msgstr ""
 
@@ -4736,6 +4767,10 @@ msgstr ""
 
 #: app/models/user.rb:-
 msgid "Activated at"
+msgstr ""
+
+#: app/models/user.rb:-
+msgid "Return to"
 msgstr ""
 
 #: app/models/user.rb:8
@@ -4916,6 +4951,12 @@ msgstr ""
 
 #: app/models/blog.rb:22
 msgid "A blog, inside which you can put other articles."
+msgstr ""
+
+#: app/models/enterprise.rb:8 app/models/enterprise.rb:11
+#: app/views/templates/index.html.erb:7
+#: plugins/sub_organizations/views/box_organizer/_related_organizations_block.rhtml:3
+msgid "Enterprise"
 msgstr ""
 
 #: app/models/enterprise.rb:23
@@ -5481,7 +5522,7 @@ msgstr ""
 msgid "This e-mail address is taken"
 msgstr ""
 
-#: app/controllers/public/content_viewer_controller.rb:106
+#: app/controllers/public/content_viewer_controller.rb:108
 msgid "Notification of new comments to '%s' was successfully canceled"
 msgstr ""
 
@@ -5694,7 +5735,7 @@ msgstr ""
 
 #: app/views/themes/_select_template.rhtml:20
 #: app/views/themes/_select_theme.rhtml:21
-#: app/views/content_viewer/article_versions.rhtml:9
+#: app/views/content_viewer/article_versions.rhtml:16
 #: app/views/profile_themes/index.rhtml:16
 msgid "(current)"
 msgstr ""
@@ -6136,7 +6177,7 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: app/views/content_viewer/view_page.rhtml:37
-#: app/views/content_viewer/versioned_article.rhtml:24
+#: app/views/content_viewer/versioned_article.rhtml:34
 msgid "Licensed under %s"
 msgstr ""
 
@@ -6156,14 +6197,22 @@ msgstr ""
 msgid "Back to gallery"
 msgstr ""
 
-#: app/views/content_viewer/article_versions.rhtml:3
+#: app/views/content_viewer/article_versions.rhtml:2
+msgid "Go back to latest version"
+msgstr ""
+
+#: app/views/content_viewer/article_versions.rhtml:7
 msgid ""
 "This is the list of all versions of this content. Select a version to see it "
 "and then revert to it."
 msgstr ""
 
-#: app/views/content_viewer/article_versions.rhtml:10
+#: app/views/content_viewer/article_versions.rhtml:17
 msgid "by %{author}"
+msgstr ""
+
+#: app/views/content_viewer/article_versions.rhtml:56
+msgid "Show differences between selected versions"
 msgstr ""
 
 #: app/views/content_viewer/forum_page.rhtml:11
@@ -6177,17 +6226,30 @@ msgstr ""
 msgid "Accept"
 msgstr ""
 
-#: app/views/content_viewer/versioned_article.rhtml:4
+#: app/views/content_viewer/versioned_article.rhtml:2
+#: app/views/content_viewer/versions_diff.html.erb:2
+msgid "Back to the versions"
+msgstr ""
+
+#: app/views/content_viewer/versioned_article.rhtml:8
 #: app/views/content_viewer/_article_toolbar.rhtml:52
 msgid "All versions"
 msgstr ""
 
-#: app/views/content_viewer/versioned_article.rhtml:7
+#: app/views/content_viewer/versioned_article.rhtml:11
 msgid "Revert to this version"
 msgstr ""
 
-#: app/views/content_viewer/versioned_article.rhtml:15
+#: app/views/content_viewer/versioned_article.rhtml:16
+msgid "Go to latest version"
+msgstr ""
+
+#: app/views/content_viewer/versioned_article.rhtml:20
 msgid "Version %{version} - %{author} on %{date}"
+msgstr ""
+
+#: app/views/content_viewer/versioned_article.rhtml:24
+msgid "This is not the latest version of this content."
 msgstr ""
 
 #: app/views/content_viewer/_article_toolbar.rhtml:31
@@ -6313,14 +6375,6 @@ msgstr ""
 
 #: app/views/profile_editor/_person_form.rhtml:13
 msgid "Home phone"
-msgstr ""
-
-#: app/views/profile_editor/_person_form.rhtml:16
-msgid "Jabber"
-msgstr ""
-
-#: app/views/profile_editor/_person_form.rhtml:17
-msgid "Personal website"
 msgstr ""
 
 #: app/views/profile_editor/_person_form.rhtml:25
@@ -9510,6 +9564,18 @@ msgstr ""
 msgid "Press <strong>Enter</strong> to send the search query."
 msgstr ""
 
+#: app/views/content_viewer/versions_diff.html.erb:5
+msgid "Changes on \"%s\""
+msgstr ""
+
+#: app/views/content_viewer/versions_diff.html.erb:7
+msgid "Changes from %s &rarr; %s"
+msgstr ""
+
+#: app/views/content_viewer/versions_diff.html.erb:12
+msgid "These versions range have no differences."
+msgstr ""
+
 #: app/views/profile_editor/_moderation.html.erb:1
 msgid "Moderation options"
 msgstr ""
@@ -9793,7 +9859,7 @@ msgstr ""
 msgid "Feed"
 msgstr ""
 
-#: lib/file_presenter.rb:59
+#: lib/file_presenter.rb:63
 msgid "File (%s)"
 msgstr ""
 

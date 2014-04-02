@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.47.0~rc1\n"
-"POT-Creation-Date: 2014-04-02 18:29-0000\n"
+"POT-Creation-Date: 2014-04-02 20:45-0000\n"
 "PO-Revision-Date: 2013-01-03 18:39-0300\n"
 "Last-Translator: Luis David Aguilar Carlos <ludwig9003@gmail.com>,Freddy "
 "Martín Hernández Facio <fmhf14@gmail.com>, Pedro Alonzo Ramírez Tovar <pedro."
@@ -769,7 +769,7 @@ msgstr "Sin comentarios aun"
 msgid "One comment"
 msgstr "Un comentario"
 
-#: app/helpers/content_viewer_helper.rb:8 app/models/article.rb:695
+#: app/helpers/content_viewer_helper.rb:8 app/models/article.rb:697
 #: app/views/person_notifier/mailer/_profile_comments.rhtml:4
 msgid "%s comments"
 msgstr "%s comentarios"
@@ -1818,7 +1818,7 @@ msgid "Rejected"
 msgstr "Rechazado"
 
 #: app/helpers/profile_helper.rb:20
-#: app/helpers/enterprise_homepage_helper.rb:10 app/models/event.rb:119
+#: app/helpers/enterprise_homepage_helper.rb:10 app/models/event.rb:116
 #: app/views/cms/_event.rhtml:17
 msgid "Address:"
 msgstr "Dirección:"
@@ -2324,6 +2324,28 @@ msgid "vote"
 msgstr ""
 
 #: app/models/article_categorization.rb:-
+msgid "Vote"
+msgstr ""
+
+#: app/models/article_categorization.rb:-
+msgid "Voteable"
+msgstr ""
+
+#: app/models/article_categorization.rb:-
+#, fuzzy
+msgid "Voteable type"
+msgstr "Tipo de etiquetable"
+
+#: app/models/article_categorization.rb:-
+msgid "Voter"
+msgstr ""
+
+#: app/models/article_categorization.rb:-
+#, fuzzy
+msgid "Voter type"
+msgstr "Tipo de usuario"
+
+#: app/models/article_categorization.rb:-
 msgid "delayed job"
 msgstr "trabajo atrasado"
 
@@ -2444,7 +2466,7 @@ msgstr "Cuerpo"
 msgid "Abstract"
 msgstr "Resumen"
 
-#: app/models/article_categorization.rb:-
+#: app/models/article_categorization.rb:- app/models/product.rb:-
 #: app/models/profile_categorization.rb:- app/models/person.rb:278
 #: app/models/action_tracker_notification.rb:-
 #: app/views/profile/index.rhtml:30 app/views/profile/index.rhtml:36
@@ -2461,7 +2483,8 @@ msgid "Version"
 msgstr "Versión"
 
 #: app/models/article_categorization.rb:- app/models/task.rb:-
-#: app/models/profile.rb:- app/models/mailing.rb:- app/views/cms/view.rhtml:37
+#: app/models/profile.rb:- app/models/product.rb:- app/models/mailing.rb:-
+#: app/views/cms/view.rhtml:37
 #: app/views/shared/reported_versions/_comment.html.erb:3
 #: app/views/shared/reported_versions/_article.html.erb:3
 #: plugins/solr/lib/ext/article.rb:12
@@ -2821,31 +2844,31 @@ msgstr "El lenguaje debe ser elegido"
 msgid "A language must be choosen for the native article"
 msgstr "El lenguaje puede ser elegido para el artículo nativo"
 
-#: app/models/article.rb:635 lib/file_presenter.rb:57
+#: app/models/article.rb:635 lib/file_presenter.rb:61
 msgid "Unknown"
 msgstr ""
 
-#: app/models/article.rb:693
+#: app/models/article.rb:695
 msgid "no comments"
 msgstr "sin comentarios"
 
-#: app/models/article.rb:694
+#: app/models/article.rb:696
 msgid "one comment"
 msgstr "un comentario"
 
-#: app/models/article.rb:702
+#: app/models/article.rb:704
 msgid "no views"
 msgstr "sin visitas"
 
-#: app/models/article.rb:703
+#: app/models/article.rb:705
 msgid "one view"
 msgstr "una vista"
 
-#: app/models/article.rb:704
+#: app/models/article.rb:706
 msgid "%s views"
 msgstr "%s vistas"
 
-#: app/models/article.rb:709
+#: app/models/article.rb:711
 msgid "Created at: "
 msgstr "Creado el: "
 
@@ -3179,7 +3202,7 @@ msgstr "Miniatura"
 msgid "task"
 msgstr "tarea"
 
-#: app/models/task.rb:- app/models/profile.rb:-
+#: app/models/task.rb:- app/models/profile.rb:- app/models/product.rb:-
 msgid "Data"
 msgstr "Datos"
 
@@ -3389,6 +3412,15 @@ msgstr "Miembros"
 msgid "Activities count"
 msgstr "Código de activación"
 
+#: app/models/profile.rb:- app/views/profile_editor/_person_form.rhtml:17
+#, fuzzy
+msgid "Personal website"
+msgstr "Eventos del sitio web"
+
+#: app/models/profile.rb:- app/views/profile_editor/_person_form.rhtml:16
+msgid "Jabber"
+msgstr ""
+
 # Entorno o ambiente?
 #: app/models/profile.rb:-
 msgid "environment"
@@ -3423,6 +3455,10 @@ msgstr "todos los idiomas"
 #, fuzzy
 msgid "Noreply email"
 msgstr "Nuevo correo electrónico"
+
+#: app/models/profile.rb:-
+msgid "Redirection after signup"
+msgstr ""
 
 #: app/models/profile.rb:56
 msgid "Edit profile"
@@ -3661,12 +3697,6 @@ msgstr "descripción"
 msgid "product"
 msgstr "producto"
 
-#: app/models/product.rb:- app/models/enterprise.rb:8
-#: app/models/enterprise.rb:11 app/views/templates/index.html.erb:7
-#: plugins/sub_organizations/views/box_organizer/_related_organizations_block.rhtml:3
-msgid "Enterprise"
-msgstr "Empresa"
-
 #: app/models/product.rb:- app/models/input.rb:-
 msgid "Product category"
 msgstr "Categoría de producto"
@@ -3682,6 +3712,11 @@ msgstr "Disponible"
 #: app/models/product.rb:- app/models/input.rb:-
 msgid "Unit"
 msgstr "Unidad"
+
+#: app/models/product.rb:-
+#, fuzzy
+msgid "Archived"
+msgstr "Arquitectura"
 
 #: app/models/product.rb:234
 msgid "0%"
@@ -4319,7 +4354,7 @@ msgid "Photos"
 msgstr "Fotografías"
 
 #: app/models/link_list_block.rb:28 app/models/event.rb:4
-#: app/models/event.rb:62
+#: app/models/event.rb:59
 msgid "Event"
 msgstr "Evento"
 
@@ -4868,17 +4903,17 @@ msgstr ""
 msgid "{fn} cannot come before end date."
 msgstr "%{fn} no puede venir antes de la fecha."
 
-#: app/models/event.rb:58
+#: app/models/event.rb:55
 #, fuzzy
 msgid "A calendar event."
 msgstr "Un evento de calendario"
 
-#: app/models/event.rb:111
+#: app/models/event.rb:108
 #: plugins/community_track/views/content_viewer/step.rhtml:5
 msgid "When:"
 msgstr "Cuando:"
 
-#: app/models/event.rb:115
+#: app/models/event.rb:112
 msgid "URL:"
 msgstr "URL:"
 
@@ -4963,6 +4998,10 @@ msgstr "Código de activación"
 #: app/models/user.rb:-
 msgid "Activated at"
 msgstr "Activo"
+
+#: app/models/user.rb:-
+msgid "Return to"
+msgstr ""
 
 #: app/models/user.rb:8
 msgid "Password confirmation"
@@ -5163,6 +5202,12 @@ msgstr "Actualizar errores"
 #: app/models/blog.rb:22
 msgid "A blog, inside which you can put other articles."
 msgstr "Un blog, en cual puedes poner otros artículos."
+
+#: app/models/enterprise.rb:8 app/models/enterprise.rb:11
+#: app/views/templates/index.html.erb:7
+#: plugins/sub_organizations/views/box_organizer/_related_organizations_block.rhtml:3
+msgid "Enterprise"
+msgstr "Empresa"
 
 #: app/models/enterprise.rb:23
 msgid "Historic and current context"
@@ -5773,7 +5818,7 @@ msgstr "Esta dirección de correo electrónico está disponible"
 msgid "This e-mail address is taken"
 msgstr "Esta dirección de correo electrónico está en uso"
 
-#: app/controllers/public/content_viewer_controller.rb:106
+#: app/controllers/public/content_viewer_controller.rb:108
 #, fuzzy
 msgid "Notification of new comments to '%s' was successfully canceled"
 msgstr "Notificación eliminada correctamente."
@@ -6014,7 +6059,7 @@ msgstr "La plantilla \"%s\""
 
 #: app/views/themes/_select_template.rhtml:20
 #: app/views/themes/_select_theme.rhtml:21
-#: app/views/content_viewer/article_versions.rhtml:9
+#: app/views/content_viewer/article_versions.rhtml:16
 #: app/views/profile_themes/index.rhtml:16
 msgid "(current)"
 msgstr "(actual)"
@@ -6477,7 +6522,7 @@ msgstr[0] "Visto una vez"
 msgstr[1] "Visto %{num} veces"
 
 #: app/views/content_viewer/view_page.rhtml:37
-#: app/views/content_viewer/versioned_article.rhtml:24
+#: app/views/content_viewer/versioned_article.rhtml:34
 msgid "Licensed under %s"
 msgstr ""
 
@@ -6497,16 +6542,25 @@ msgstr "Ver presentación"
 msgid "Back to gallery"
 msgstr "Regresar a la galeria"
 
-#: app/views/content_viewer/article_versions.rhtml:3
+#: app/views/content_viewer/article_versions.rhtml:2
+#, fuzzy
+msgid "Go back to latest version"
+msgstr "Regresar a %s"
+
+#: app/views/content_viewer/article_versions.rhtml:7
 msgid ""
 "This is the list of all versions of this content. Select a version to see it "
 "and then revert to it."
 msgstr ""
 
-#: app/views/content_viewer/article_versions.rhtml:10
+#: app/views/content_viewer/article_versions.rhtml:17
 #, fuzzy
 msgid "by %{author}"
 msgstr "Autor"
+
+#: app/views/content_viewer/article_versions.rhtml:56
+msgid "Show differences between selected versions"
+msgstr ""
 
 # Con dudas sobre si es la mejor traducción
 #: app/views/content_viewer/forum_page.rhtml:11
@@ -6520,19 +6574,34 @@ msgstr "(sin publicaciones)"
 msgid "Accept"
 msgstr "Aceptar"
 
-#: app/views/content_viewer/versioned_article.rhtml:4
+#: app/views/content_viewer/versioned_article.rhtml:2
+#: app/views/content_viewer/versions_diff.html.erb:2
+#, fuzzy
+msgid "Back to the versions"
+msgstr "Regresar a la lista de productos"
+
+#: app/views/content_viewer/versioned_article.rhtml:8
 #: app/views/content_viewer/_article_toolbar.rhtml:52
 #, fuzzy
 msgid "All versions"
 msgstr "Ver todos los productos"
 
-#: app/views/content_viewer/versioned_article.rhtml:7
+#: app/views/content_viewer/versioned_article.rhtml:11
 #, fuzzy
 msgid "Revert to this version"
 msgstr "No hay eventos para esta fecha"
 
-#: app/views/content_viewer/versioned_article.rhtml:15
+#: app/views/content_viewer/versioned_article.rhtml:16
+#, fuzzy
+msgid "Go to latest version"
+msgstr "No hay eventos para esta fecha"
+
+#: app/views/content_viewer/versioned_article.rhtml:20
 msgid "Version %{version} - %{author} on %{date}"
+msgstr ""
+
+#: app/views/content_viewer/versioned_article.rhtml:24
+msgid "This is not the latest version of this content."
 msgstr ""
 
 #: app/views/content_viewer/_article_toolbar.rhtml:31
@@ -6666,15 +6735,6 @@ msgstr ""
 #: app/views/profile_editor/_person_form.rhtml:13
 msgid "Home phone"
 msgstr "Teléfono de casa"
-
-#: app/views/profile_editor/_person_form.rhtml:16
-msgid "Jabber"
-msgstr ""
-
-#: app/views/profile_editor/_person_form.rhtml:17
-#, fuzzy
-msgid "Personal website"
-msgstr "Eventos del sitio web"
 
 #: app/views/profile_editor/_person_form.rhtml:25
 #: app/views/maps/edit_location.rhtml:13
@@ -10104,6 +10164,19 @@ msgstr "Registrarse"
 msgid "Press <strong>Enter</strong> to send the search query."
 msgstr "Presiona <strong>Entrar</strong> para enviar la consulta de búsqueda."
 
+#: app/views/content_viewer/versions_diff.html.erb:5
+#, fuzzy
+msgid "Changes on \"%s\""
+msgstr "Cambiando rol de %s"
+
+#: app/views/content_viewer/versions_diff.html.erb:7
+msgid "Changes from %s &rarr; %s"
+msgstr ""
+
+#: app/views/content_viewer/versions_diff.html.erb:12
+msgid "These versions range have no differences."
+msgstr ""
+
 #: app/views/profile_editor/_moderation.html.erb:1
 msgid "Moderation options"
 msgstr "Opciones de moderación"
@@ -10408,7 +10481,7 @@ msgstr "Las instituciones son deshabilitadas cuando se crean"
 msgid "Feed"
 msgstr "Contenido"
 
-#: lib/file_presenter.rb:59
+#: lib/file_presenter.rb:63
 #, fuzzy
 msgid "File (%s)"
 msgstr "Precio (%s)"
