@@ -50,6 +50,10 @@ class FilePresenter
     nil
   end
 
+  def download?(view=nil)
+    false
+  end
+
   def short_description
     file_type = if content_type.present?
       content_type.sub(/^application\//, '').sub(/^x-/, '').sub(/^image\//, '')

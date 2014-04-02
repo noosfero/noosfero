@@ -39,7 +39,7 @@ Feature: comment
     When I press "Post comment"
     Then I should see "Hey ho, let's go"
 
-  @selenium
+  @selenium-fixme
   Scenario: redirect to right place after comment a picture
     Given the following files
       | owner   | file      | mime      |

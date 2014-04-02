@@ -25,51 +25,87 @@ def plugin_disabled_warning(plugin)
   puts "E: you should enable #{plugin} plugin before running it's tests!"
 end
 
-def run_tests(name, files_glob)
-  files = Dir.glob(files_glob)
-  if files.empty?
-    puts "I: no tests to run (#{name})"
+def task2ext(task)
+  (task == :selenium || task == :cucumber) ? :feature : :rb
+end
+
+def task2profile(task, plugin)
+  if task == :cucumber
+    return plugin
+  elsif task == :selenium
+    return "#{plugin}_selenium"
   else
-    sh 'testrb', '-Itest', *files
+    return 'default'
   end
 end
 
-def run_cucumber(name, profile, files_glob)
-  files = Dir.glob(files_glob)
+def filename2plugin(filename)
+  filename.split('/')[1]
+end
+
+def task2folder(task)
+  result = case task.to_sym
+  when :units
+    :unit
+  when :functionals
+    :functional
+  when :integration
+    :integration
+  when :cucumber
+    :features
+  when :selenium
+    :features
+  end
+
+  return result
+end
+
+def run_test(name, files)
+  files = Array(files)
+  plugin = filename2plugin(files.first)
+  if name == :cucumber || name == :selenium
+    run_cucumber task2_profile(name, plugin), files
+  else
+    run_testrb files
+  end
+end
+
+def run_testrb(files)
+  sh 'testrb', '-Itest', *files
+end
+
+def run_cucumber(profile, files)
+  sh 'xvfb-run', 'ruby', '-S', 'cucumber', '--profile', profile.to_s, '--format', ENV['CUCUMBER_FORMAT'] || 'progress' , *files
+end
+
+def custom_run(name, files, run=:individually)
+  case run
+  when :all
+    run_test name, files
+  when :individually
+    files.each do |file|
+      run_test name, file
+    end
+  when :by_plugin
+  end
+end
+
+def run_tests(name, plugins, run=:individually)
+  plugins = Array(plugins)
+  glob =  "plugins/{#{plugins.join(',')}}/test/#{task2folder(name)}/**/*.#{task2ext(name)}"
+  files = Dir.glob(glob)
   if files.empty?
     puts "I: no tests to run #{name}"
   else
-    sh 'xvfb-run', 'ruby', '-S', 'cucumber', '--profile', profile.to_s, '--format', ENV['CUCUMBER_FORMAT'] || 'progress' , *files
+    custom_run(name, files, run)
   end
 end
 
-def plugin_test_task(name, plugin, files_glob)
+def plugin_test_task(name, plugin, run=:individually)
   desc "Run #{name} tests for #{plugin_name(plugin)}"
   task name => 'db:test:plugins:prepare' do |t|
     if plugin_enabled?(plugin)
-      run_tests t.name, files_glob
-    else
-      plugin_disabled_warning(plugin)
-    end
-  end
-end
-
-def plugin_cucumber_task(name, plugin, files_glob)
-  desc "Run #{name} tests for #{plugin_name(plugin)}"
-  task name => 'db:test:plugins:prepare' do |t|
-    if plugin_enabled?(plugin)
-      run_cucumber t.name, plugin, files_glob
-    else
-      plugin_disabled_warning(plugin)
-    end
-  end
-end
-
-def plugin_selenium_task(name, plugin, files_glob)
-  desc "Run #{name} tests for #{plugin_name(plugin)}"
-  task name => 'db:test:plugins:prepare' do |t|
-    if plugin_enabled?(plugin)
-      run_cucumber t.name, "#{plugin}_selenium", files_glob
+      run_tests(name, plugin, run)
     else
       plugin_disabled_warning(plugin)
     end
@@ -98,28 +134,28 @@ namespace :test do
   namespace :noosfero_plugins do
     all_plugins.each do |plugin|
       namespace plugin do
-        plugin_test_task :units, plugin, "plugins/#{plugin}/test/unit/**/*.rb"
-        plugin_test_task :functionals, plugin, "plugins/#{plugin}/test/functional/**/*.rb"
-        plugin_test_task :integration, plugin, "plugins/#{plugin}/test/integration/**/*.rb"
-        plugin_cucumber_task :cucumber, plugin, "plugins/#{plugin}/features/**/*.feature"
-        plugin_selenium_task :selenium, plugin, "plugins/#{plugin}/features/**/*.feature"
+        plugin_test_task :units, plugin
+        plugin_test_task :functionals, plugin
+        plugin_test_task :integration, plugin
+        plugin_test_task :cucumber, plugin
+        plugin_test_task :selenium, plugin
       end
 
       test_sequence_task(plugin, plugin, "#{plugin}:units", "#{plugin}:functionals", "#{plugin}:integration", "#{plugin}:cucumber", "#{plugin}:selenium")
     end
 
-    { :units => :unit , :functionals => :functional , :integration => :integration }.each do |taskname,folder|
+    [:units, :functionals, :integration].each do |taskname|
       task taskname => 'db:test:plugins:prepare' do |t|
-        run_tests t.name, "plugins/{#{enabled_plugins.join(',')}}/test/#{folder}/**/*.rb"
+        run_tests taskname, enabled_plugins
       end
     end
 
     task :cucumber => 'db:test:plugins:prepare' do |t|
-      run_cucumber t.name, :default, "plugins/{#{enabled_plugins.join(',')}}/test/features/**/*.features"
+      run_tests :cucumber, enabled_plugins
     end
 
     task :selenium => 'db:test:plugins:prepare' do |t|
-      run_cucumber t.name, :selenium, "plugins/{#{enabled_plugins.join(',')}}/test/features/**/*.features"
+      run_tests :selenium, enabled_plugins
     end
 
     task :temp_enable_all_plugins do

@@ -109,7 +109,7 @@ msgstr ""
 #: app/views/blocks/profile_info_actions/_join_leave_community.rhtml:25
 #: app/views/profile/_private_profile.rhtml:10
 msgid "Join"
-msgstr ""
+msgstr "Eniri"
 
 #: app/helpers/application_helper.rb:556
 #: app/views/blocks/profile_info_actions/_join_leave_community.rhtml:4
@@ -290,7 +290,7 @@ msgstr ""
 
 #: app/helpers/application_helper.rb:1088
 msgid "See all"
-msgstr ""
+msgstr "Vidi ĉiujn"
 
 #: app/helpers/application_helper.rb:1091
 msgid "<span>Manage</span> %s"
@@ -688,11 +688,11 @@ msgstr ""
 
 #: app/helpers/forum_helper.rb:14 app/helpers/blog_helper.rb:23
 msgid "&laquo; Newer posts"
-msgstr ""
+msgstr "&laquo; Pli freŝaj afiŝoj"
 
 #: app/helpers/forum_helper.rb:15 app/helpers/blog_helper.rb:24
 msgid "Older posts &raquo;"
-msgstr ""
+msgstr "Malpli freŝaj afiŝoj &raquo"
 
 #: app/helpers/forum_helper.rb:18
 msgid "Discussion topic"
@@ -774,63 +774,63 @@ msgstr ""
 #: app/helpers/dates_helper.rb:7 app/helpers/forms_helper.rb:172
 #: plugins/display_content/lib/display_content_block.rb:4
 msgid "January"
-msgstr ""
+msgstr "Januaro"
 
 #: app/helpers/dates_helper.rb:8 app/helpers/forms_helper.rb:172
 #: plugins/display_content/lib/display_content_block.rb:5
 msgid "February"
-msgstr ""
+msgstr "Februaro"
 
 #: app/helpers/dates_helper.rb:9 app/helpers/forms_helper.rb:172
 #: plugins/display_content/lib/display_content_block.rb:6
 msgid "March"
-msgstr ""
+msgstr "Marto"
 
 #: app/helpers/dates_helper.rb:10 app/helpers/forms_helper.rb:172
 #: plugins/display_content/lib/display_content_block.rb:7
 msgid "April"
-msgstr ""
+msgstr "Aprilo"
 
 #: app/helpers/dates_helper.rb:11 app/helpers/forms_helper.rb:172
 #: app/helpers/forms_helper.rb:173
 #: plugins/display_content/lib/display_content_block.rb:8
 msgid "May"
-msgstr ""
+msgstr "Majo"
 
 #: app/helpers/dates_helper.rb:12 app/helpers/forms_helper.rb:172
 #: plugins/display_content/lib/display_content_block.rb:9
 msgid "June"
-msgstr ""
+msgstr "Junio"
 
 #: app/helpers/dates_helper.rb:13 app/helpers/forms_helper.rb:172
 #: plugins/display_content/lib/display_content_block.rb:10
 msgid "July"
-msgstr ""
+msgstr "Julio"
 
 #: app/helpers/dates_helper.rb:14 app/helpers/forms_helper.rb:172
 #: plugins/display_content/lib/display_content_block.rb:11
 msgid "August"
-msgstr ""
+msgstr "Aŭgusto"
 
 #: app/helpers/dates_helper.rb:15 app/helpers/forms_helper.rb:172
 #: plugins/display_content/lib/display_content_block.rb:12
 msgid "September"
-msgstr ""
+msgstr "Septembro"
 
 #: app/helpers/dates_helper.rb:16 app/helpers/forms_helper.rb:172
 #: plugins/display_content/lib/display_content_block.rb:13
 msgid "October"
-msgstr ""
+msgstr "Oktobro"
 
 #: app/helpers/dates_helper.rb:17 app/helpers/forms_helper.rb:172
 #: plugins/display_content/lib/display_content_block.rb:14
 msgid "November"
-msgstr ""
+msgstr "Novembro"
 
 #: app/helpers/dates_helper.rb:18 app/helpers/forms_helper.rb:172
 #: plugins/display_content/lib/display_content_block.rb:15
 msgid "December"
-msgstr ""
+msgstr "Decembro"
 
 #: app/helpers/dates_helper.rb:28
 #: plugins/display_content/lib/display_content_block.rb:156
@@ -845,7 +845,7 @@ msgstr ""
 #: app/helpers/dates_helper.rb:31
 #: plugins/display_content/lib/display_content_block.rb:159
 msgid "%{month_name} %{day}, %{year}"
-msgstr ""
+msgstr "La %{day}-a de %{month_name} %{year}"
 
 #: app/helpers/dates_helper.rb:31
 #: plugins/display_content/lib/display_content_block.rb:159
@@ -8278,7 +8278,7 @@ msgstr ""
 
 #: app/views/account/index_anonymous.rhtml:10
 msgid "Sign up."
-msgstr ""
+msgstr "Aliĝi"
 
 #: app/views/account/index_anonymous.rhtml:11
 msgid ""

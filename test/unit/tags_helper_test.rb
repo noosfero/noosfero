@@ -20,12 +20,14 @@ class TagsHelperTest < ActiveSupport::TestCase
 
   should 'order tags alphabetically with special characters' do
     result = tag_cloud(
-      { 'aula'=>9, 'área'=>2, 'area'=>2, 'avião'=>2, 'armário'=>2,
-        'A'=>1, 'Á'=>1, 'AB'=>1, 'ÁA'=>1 },
+      { 'area'=>9, 'área'=>2, 'base'=>2, 'báse' => 3,
+        'A'=>1, 'Á'=>1, 'zebra'=>1, 'zebrá'=>1 },
       :id,
       { :host=>'noosfero.org', :controller=>'test', :action=>'tag' }
     )
-    assert_equal %w(A Á ÁA AB area área armário aula avião).join("\n"), result
+    result = result.split("\n")
+    assert_order ['Á', 'área', 'báse', 'zebrá'], result
+    assert_order ['A', 'area', 'base', 'zebra'], result
   end
 
 end
