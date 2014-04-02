@@ -27,7 +27,7 @@
     var li = input.parentNode;
     var checkedBrotherLi = jQuery('#article-versions input[name=' + sisterColumn + ']:checked').parent()[0];
     updateColumn(selectedColumn, li);
-    updateColumn(sisterColumn, checkedBrotherLi); 
+    updateColumn(sisterColumn, checkedBrotherLi);
   }
 
   function updateColumn(selectedColumn, startLi){
@@ -52,8 +52,7 @@
     penultVersion.checked = lastVersion.checked = true;
     lastVersion.onclick();
   }
-</script> 
+</script>
   <%= submit_button(:clock, _('Show differences between selected versions')) %>
 <% end %>
 <%= pagination_links @versions, :param_name => 'npage' %>
-
