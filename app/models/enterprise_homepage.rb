@@ -26,6 +26,11 @@ class EnterpriseHomepage < Article
     end
   end
 
+  # disable cache because of products
+  def cache_key params = {}, the_profile = nil, language = 'en'
+    rand
+  end
+
   def can_display_hits?
     false
   end
