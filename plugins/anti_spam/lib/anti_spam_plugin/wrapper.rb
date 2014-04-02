@@ -1,10 +1,11 @@
 class AntiSpamPlugin::Wrapper < SimpleDelegator
   include Rakismet::Model
 
-  @@wrappers = [AntiSpamPlugin::CommentWrapper, AntiSpamPlugin::SuggestArticleWrapper]
+  @@wrappers = []
+  cattr_accessor :wrappers
 
   def self.wrap(object)
-    wrapper = @@wrappers.find { |wrapper| wrapper.wraps?(object) }
+    wrapper = wrappers.find { |wrapper| wrapper.wraps?(object) }
     wrapper ? wrapper.new(object) : object
   end
 
@@ -12,9 +13,11 @@ class AntiSpamPlugin::Wrapper < SimpleDelegator
     false
   end
 
-#  FIXME You can't take for granted that the wrappers will be loaded and, therefore,
-#  included in the @@wrappers variable.
-#  def self.inherited(child)
-#    @@wrappers << child
-#  end
+  def self.inherited(child)
+    wrappers << child
+  end
+end
+
+Dir.glob(File.join(AntiSpamPlugin.root_path, 'lib', 'anti_spam_plugin', '*_wrapper.rb')) do |file|
+  load(file)
 end
