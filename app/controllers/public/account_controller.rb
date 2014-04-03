@@ -135,6 +135,9 @@ class AccountController < ApplicationController
       rescue User::IncorrectPassword => e
         session[:notice] = _('The supplied current password is incorrect.')
         render :action => 'change_password'
+      rescue ActiveRecord::RecordInvalid
+        session[:notice] = _("Passwords don't match!")
+        render :action => 'change_password'
       end
     else
       render :action => 'change_password'

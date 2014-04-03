@@ -203,6 +203,16 @@ class AccountControllerTest < ActionController::TestCase
     assert_equal users(:ze), @controller.send(:current_user)
   end
 
+  should "not change password when new password and new password confirmation don't match" do
+    login_as 'ze'
+    post :change_password, :current_password => 'test', :new_password => 'blabla', :new_password_confirmation => 'blibli'
+    assert_response :success
+    assert_template 'change_password'
+    assert !assigns(:current_user).authenticated?('blabla')
+    assert !assigns(:current_user).authenticated?('blibli')
+    assert_equal users(:ze), @controller.send(:current_user)
+  end
+
   should 'provide a "I forget my password" link at the login page' do
     get :login
     assert_tag :tag => 'a', :attributes => {
