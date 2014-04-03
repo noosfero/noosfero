@@ -17,7 +17,7 @@ class Enterprise < Organization
   has_and_belongs_to_many :fans, :class_name => 'Person', :join_table => 'favorite_enteprises_people'
 
   def product_categories
-    products.includes(:product_category).map{|p| p.category_full_name}.compact
+    ProductCategory.by_enterprise(self)
   end
 
   N_('Organization website'); N_('Historic and current context'); N_('Activities short description'); N_('City'); N_('State'); N_('Country'); N_('ZIP code')
