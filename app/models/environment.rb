@@ -348,6 +348,7 @@ class Environment < ActiveRecord::Base
       media_panel
       organizations_are_moderated_by_default
       show_balloon_with_profile_links_when_clicked
+      show_zoom_button_on_article_images
       use_portal_community
     ).each do |feature|
       enable(feature, false)
