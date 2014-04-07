@@ -220,14 +220,13 @@ module BoxesHelper
     end
 
     if block.embedable?
-      url = url_for :controller => 'embed', :action => 'index', :id => block.id, :only_path => false;
-
+      embed_code = block.embed_code
+      embed_code = instance_eval(&embed_code) if embed_code.respond_to?(:call)
       html = content_tag('div',
               content_tag('h2', _('Embed block code')) +
               content_tag('div', _('Below, you''ll see a field containing embed code for the block. Just copy the code and paste it into your website or blogging software.'), :style => 'margin-bottom: 1em;') +
-              content_tag('textarea', block.embed_code(url), :style => 'margin-bottom: 1em; width:100%; height:40%;', :readonly => 'readonly') +
+              content_tag('textarea', embed_code, :style => 'margin-bottom: 1em; width:100%; height:40%;', :readonly => 'readonly') +
               thickbox_close_button(_('Close')), :style => 'display: none;', :id => "embed-code-box-#{block.id}")
-
       buttons << thickbox_inline_popup_icon(:embed, _('Embed code'), {}, "embed-code-box-#{block.id}") << html
     end
 
