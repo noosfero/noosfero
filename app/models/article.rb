@@ -790,12 +790,6 @@ class Article < ActiveRecord::Base
     true
   end
 
-  #FIXME make this test
-  #Define which parameters will be returned in json object
-  def as_json(options = {})
-    super(:only => [:id, :name, :body, :created_at], :methods => [:title])
-  end
-
   private
 
   def sanitize_tag_list

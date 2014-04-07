@@ -1,6 +1,6 @@
 class AddPrivateTokenInfoToUsers < ActiveRecord::Migration
   def self.up
-    add_column :users, :private_token
+    add_column :users, :private_token, :string
     add_column :users, :private_token_generated_at, :datetime
   end
 
