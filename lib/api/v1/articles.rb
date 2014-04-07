@@ -2,44 +2,55 @@ module API
   module V1
     class Articles < Grape::API
 
+      before { detect_stuff_by_domain }
       before { authenticate! }
    
       resource :articles do
 
-        #FIXME See if it's possible to use pagination instead of DateTime control. see a way to use this pagination logic genericaly
+        helpers do 
+          def default_from_date
+            @article_created_at ||= Article.first.created_at
+            @article_created_at
+          end
+        end
+
+        # Collect comments from articles
+        #
+        # Parameters:
+        #   from             - date where the search will begin. If nothing is passed the default date will be the date of the first article created
+        #   oldest           - Collect the oldest comments from reference_id comment. If nothing is passed the newest comments are collected
+        #   limit            - amount of comments returned. The default value is 20
+        #
+        # Example Request:
+        #  GET /articles?from=2013-04-04-14:41:43&until=2014-04-04-14:41:43&limit=10&type=Blog
         get do
-          first_update = DateTime.parse(params[:first_update]) if params[:first_update]
-          last_update = DateTime.parse(params[:last_update]) if params[:last_update]
+          from_date = DateTime.parse(params[:from]) if params[:from]
+          until_date = DateTime.parse(params[:until]) if params[:until]
   
-          if first_update.nil?
-            begin_date = Article.first.created_at
-            end_date = last_update.nil? ? DateTime.now : last_update
+          if from_date.nil?
+            begin_period = default_from_date
+            end_period = until_date.nil? ? DateTime.now : until_date
           else
-            begin_date = first_update
-            end_date = DateTime.now
+            begin_period = from_date
+            end_period = DateTime.now
           end
   
-          limit = params[:limit].to_i
-          limit = 20 if limit == 0
           conditions = {}
           conditions[:type] = params[:content_type] if params[:content_type] #FIXME validate type
-          conditions[:created_at] = begin_date...end_date
-          present Article.find(:all, :conditions => conditions, :offset => (first_update.nil? ? 0 : 1), :limit => limit, :order => "created_at DESC"), :with => Entities::Article
+          conditions[:created_at] = begin_period...end_period
+          present environment.articles.find(:all, :conditions => conditions, :offset => (from_date.nil? ? 0 : 1), :limit => limit, :order => "created_at DESC"), :with => Entities::Article
         end
   
-        #FIXME load article with environment context 
         get ':id' do
-          present Article.find(params[:id]), :with => Entities::Article
+          present environment.articles.find(params[:id]), :with => Entities::Article
         end
 
-        #FIXME load article with environment context 
         get ':id/children' do
-          present Article.find(params[:id]).children, :with => Entities::Article
+          present environment.articles.find(params[:id]).children, :with => Entities::Article
         end
 
-        #FIXME load article with environment context 
         get ':id/children/:child_id' do
-          present Article.find(params[:id]).children.find(params[:child_id]), :with => Entities::Article
+          present environment.articles.find(params[:id]).children.find(params[:child_id]), :with => Entities::Article
         end
 
 

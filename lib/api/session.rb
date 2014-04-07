@@ -11,7 +11,6 @@ module API
     # Example Request:
     #  POST /login?login=some&password=pass
     get "/login" do
-environment = nil #FIXME load the correct environment create a method in helper
       user ||= User.authenticate(params[:login], params[:password], environment)
 
       return unauthorized! unless user
