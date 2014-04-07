@@ -65,6 +65,7 @@ class AccountController < ApplicationController
     render :text => { :ok=>true, :key=>key }.to_json
   end
 
+  # action to register an user to the application
   def signup
     if @plugins.dispatch(:allow_user_registration).include?(false)
       redirect_back_or_default(:controller => 'home')
@@ -82,10 +83,11 @@ class AccountController < ApplicationController
       @terms_of_use = environment.terms_of_use
       @user.person_data = params[:profile_data]
       @user.return_to = session[:return_to]
-      @person = Person.new(params[:profile_data])
+      @person = Person.new
       @person.environment = @user.environment
       unless @user.environment.enabled?('admin_must_approve_new_users')
         if request.post?
+          @person.update_attributes(params[:profile_data])
           if may_be_a_bot
             set_signup_start_time_for_now
             @block_bot = true
@@ -113,9 +115,10 @@ class AccountController < ApplicationController
         end
       else
         @task = CreateUser.new(params[:user])
+        @task.person_data = @user.person_data
         if request.post?
           @task.target = @user.environment
-          @task.name = @person.name
+          @task.name = @user.name
           if @task.save
             session[:notice] = _('Thanks for registering. The administrators were notified.')
             @register_pending = true

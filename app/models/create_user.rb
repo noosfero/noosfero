@@ -3,6 +3,7 @@ class CreateUser < Task
   settings_items :email, :type => String
   settings_items :name, :type => String
   settings_items :author_name, :type => String
+  settings_items :person_data, :type => String
 
   after_create :schedule_spam_checking
 
@@ -26,13 +27,15 @@ class CreateUser < Task
 
   def perform
     user = User.new
+    person = Person.new(person_data)
     author_name = user.name
     user_data = self.data.reject do |key, value|
       ! DATA_FIELDS.include?(key.to_s)
     end
-
+    person.update_attributes(@person)
     user.update_attributes(user_data)
     user.environment = self.environment
+    person.environment = user.environment
     user.save!
   end
 
