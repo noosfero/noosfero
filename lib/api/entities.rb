@@ -1,6 +1,7 @@
 module API
   module Entities
     class Article < Grape::Entity
+      root 'articles', 'article'
       expose :id, :name, :body, :created_at
 
       expose :author do |article, options|
@@ -17,6 +18,7 @@ module API
     end
 
     class Comment < Grape::Entity
+      root 'comments', 'comment'
       expose :body, :title, :created_at, :id
 
       expose :author do |comment, options|
@@ -33,6 +35,7 @@ module API
     end
 
     class User < Grape::Entity
+      root 'users', 'user'
       expose :login
     end
 
