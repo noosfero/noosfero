@@ -372,10 +372,7 @@ class ContentViewerControllerTest < ActionController::TestCase
     page.body = 'test article edited'; page.save
 
     get :article_versions, :profile => profile.identifier, :page => [ 'myarticle' ]
-    assert_tag :tag => 'ul', :attributes => { :class => 'article-versions' }, :descendant => {
-      :tag => 'a',
-      :attributes => { :href => "http://#{profile.environment.default_hostname}/#{profile.identifier}/#{page.path}?version=1" }
-    }
+    assert_select "ul#article-versions a[href=http://#{profile.environment.default_hostname}/#{profile.identifier}/#{page.path}?version=1]"
   end
 
   should "fetch correct article version" do
