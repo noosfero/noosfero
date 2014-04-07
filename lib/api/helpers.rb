@@ -13,6 +13,16 @@ module API
       @current_user = nil
     end
 
+    def environment
+      @environment
+    end
+
+    def limit
+      limit = params[:limit].to_i
+      limit = default_limit if limit <= 0
+      limit
+    end
+
 #FIXME see if its needed
 #    def paginate(relation)
 #      per_page  = params[:per_page].to_i
@@ -104,6 +114,28 @@ module API
     def render_api_error!(message, status)
       error!({'message' => message, :code => status}, status)
     end
+
+    protected
+
+    def detect_stuff_by_domain
+      @domain = Domain.find_by_name(request.host)
+      if @domain.nil?
+        @environment = Environment.default
+        if @environment.nil? && Rails.env.development?
+          # This should only happen in development ...
+          @environment = Environment.create!(:name => "Noosfero", :is_default => true)
+        end
+      else
+        @environment = @domain.environment
+      end
+    end
+
+    private
+
+    def default_limit 
+      20
+    end
+
 
   end
 end
