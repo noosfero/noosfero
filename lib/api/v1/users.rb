@@ -9,11 +9,11 @@ module API
         #FIXME make the pagination
         #FIXME put it on environment context
         get do
-          Users.all
+          present User.all, :with => Entities::User
         end
    
         get ":id" do
-          present Article.find(params[:id]).comments.find(params[:comment_id]), :with => Entities::User
+          present User.find(params[:id]), :with => Entities::User
         end
   
       end
