@@ -9,6 +9,8 @@ class ContextContentPluginProfileControllerTest < ActionController::TestCase
     @block = ContextContentPlugin::ContextContentBlock.new
     @block.types = ['TinyMceArticle']
     @block.limit = 1
+    owner = create_user('block-owner').person
+    @block.box = owner.boxes.last
     @block.save!
     @page = fast_create(Folder, :profile_id => @profile.id)
   end
