@@ -1,4 +1,5 @@
 require 'grape'
+Dir["#{Rails.root}/lib/api/*.rb"].each {|file| require file}
 
 module API
   class API < Grape::API
@@ -9,10 +10,10 @@ module API
 
     mount V1::Articles
     mount V1::Comments
+    mount V1::Users
+    mount Session
 
-#    helpers APIHelpers
-
-#    require Articles
+    helpers APIHelpers
  
   end
 end
