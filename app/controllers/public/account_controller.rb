@@ -291,6 +291,23 @@ class AccountController < ApplicationController
     render :text => user_data.to_json, :layout => false, :content_type => "application/javascript"
   end
 
+  def search_cities
+    if request.xhr? and params[:state_name] and params[:city_name]
+      render :json => MapsHelper.search_city(params[:city_name], params[:state_name])
+    else
+      render :json => [].to_json
+    end
+  end
+
+  def search_state
+    if request.xhr? and params[:state_name]
+      render :json => MapsHelper.search_state(params[:state_name])
+    else
+      render :json => [].to_json
+    end
+  end
+
+
   protected
 
   def redirect?

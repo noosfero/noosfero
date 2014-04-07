@@ -926,6 +926,30 @@ class AccountControllerTest < ActionController::TestCase
     assert @response.body.blank?
   end
 
+  should "Search for state" do
+    create_state_and_city
+
+    xhr :get, :search_state, :state_name=>"Rio Grande"
+
+    json_response = ActiveSupport::JSON.decode(@response.body)
+    label = json_response[0]['label']
+
+    assert_equal label, "Rio Grande do Sul"
+  end
+
+  should "Search for city" do
+    create_state_and_city
+
+    xhr :get, :search_cities, :state_name=>"Rio Grande do Sul", :city_name=>"Lavras"
+
+    json_response = ActiveSupport::JSON.decode(@response.body)
+    label = json_response[0]['label']
+    category =  json_response[0]['category']
+
+    assert_equal category, "Rio Grande do Sul"
+    assert_equal label, "Lavras do Sul"
+  end
+
   protected
   def new_user(options = {}, extra_options ={})
     data = {:profile_data => person_data}
@@ -953,5 +977,19 @@ class AccountControllerTest < ActionController::TestCase
   def disable_signup_bot_check(environment = Environment.default)
     environment.min_signup_delay = 0
     environment.save!
+  end
+
+  def create_state_and_city
+    city = 'Lavras do Sul'
+    state = 'Rio Grande do Sul'
+
+    parent_region = fast_create(NationalRegion, :name => state,
+                                :national_region_code => '43',
+                                :national_region_type_id => NationalRegionType::STATE)
+
+    fast_create(NationalRegion, :name =>  city,
+                                :national_region_code => '431150',
+                                :national_region_type_id => NationalRegionType::CITY,
+                                :parent_national_region_code => parent_region.national_region_code)
   end
 end
