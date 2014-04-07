@@ -1,18 +1,10 @@
 module API
   module V1
     class Articles < Grape::API
-
       before { detect_stuff_by_domain }
       before { authenticate! }
    
       resource :articles do
-
-        helpers do 
-          def default_from_date
-            @article_created_at ||= Article.first.created_at
-            @article_created_at
-          end
-        end
 
         # Collect comments from articles
         #
@@ -28,7 +20,7 @@ module API
           until_date = DateTime.parse(params[:until]) if params[:until]
   
           if from_date.nil?
-            begin_period = default_from_date
+            begin_period = Time.at(0).to_datetime
             end_period = until_date.nil? ? DateTime.now : until_date
           else
             begin_period = from_date
