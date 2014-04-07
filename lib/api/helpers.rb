@@ -13,7 +13,7 @@ module API
       @current_user = nil
     end
 
-
+#FIXME see if its needed
 #    def paginate(relation)
 #      per_page  = params[:per_page].to_i
 #      paginated = relation.page(params[:page]).per(per_page)
@@ -26,16 +26,19 @@ module API
       unauthorized! unless current_user
     end
 
+#FIXME see if its needed
 #    def authenticated_as_admin!
 #      forbidden! unless current_user.is_admin?
 #    end
 #
+#FIXME see if its needed
 #    def authorize! action, subject
 #      unless abilities.allowed?(current_user, action, subject)
 #        forbidden!
 #      end
 #    end
 #
+#FIXME see if its needed
 #    def can?(object, action, subject)
 #      abilities.allowed?(object, action, subject)
 #    end
@@ -51,6 +54,17 @@ module API
       end
     end
 
+    # Checks the occurrences of uniqueness of attributes, each attribute must be present in the params hash
+    # or a Bad Request error is invoked.
+    #
+    # Parameters:
+    #   keys (unique) - A hash consisting of keys that must be unique
+    def unique_attributes!(obj, keys)
+      keys.each do |key|
+        cant_be_saved_request!(key) if obj.send("find_by_#{key.to_s}", params[key])
+      end
+    end
+
     def attributes_for_keys(keys)
       attrs = {}
       keys.each do |key|
@@ -60,49 +74,36 @@ module API
     end
 
     # error helpers
-
     def forbidden!
       render_api_error!('403 Forbidden', 403)
     end
 
-    def bad_request!(attribute)
-      message = ["400 (Bad request)"]
-      message << "\"" + attribute.to_s + "\" not given"
-      render_api_error!(message.join(' '), 400)
+    def cant_be_saved_request!(attribute)
+      message = _("(Invalid request) #{attribute} can't be saved")
+      render_api_error!(message, 400)
     end
 
-    def not_found!(resource = nil)
-      message = ["404"]
-      message << resource if resource
-      message << "Not Found"
-      render_api_error!(message.join(' '), 404)
+    def bad_request!(attribute)
+      message = _("(Bad request) #{attribute} not given")
+      render_api_error!(message, 400)
+    end
+
+    def something_wrong!
+      message = _("Something wrong happened")
+      render_api_error!(message, 400)
     end
 
     def unauthorized!
-      render_api_error!('401 Unauthorized', 401)
+      render_api_error!(_('Unauthorized'), 401)
     end
 
     def not_allowed!
-      render_api_error!('Method Not Allowed', 405)
+      render_api_error!(_('Method Not Allowed'), 405)
     end
 
     def render_api_error!(message, status)
-      error!({'message' => message}, status)
+      error!({'message' => message, :code => status}, status)
     end
-
-#    private
-#
-#    def add_pagination_headers(paginated, per_page)
-#      request_url = request.url.split('?').first
-#
-#      links = []
-#      links << %(<#{request_url}?page=#{paginated.current_page - 1}&per_page=#{per_page}>; rel="prev") unless paginated.first_page?
-#      links << %(<#{request_url}?page=#{paginated.current_page + 1}&per_page=#{per_page}>; rel="next") unless paginated.last_page?
-#      links << %(<#{request_url}?page=1&per_page=#{per_page}>; rel="first")
-#      links << %(<#{request_url}?page=#{paginated.total_pages}&per_page=#{per_page}>; rel="last")
-#
-#      header 'Link', links.join(', ')
-#    end
 
   end
 end

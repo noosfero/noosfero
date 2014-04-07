@@ -1,12 +1,6 @@
 module API
 
-#   require 'api/validations/uniqueness'
-
-  # Users API
   class Session < Grape::API
-#params do
-#  requires :login, :uniqueness => true
-#end
 
     # Login to get token
     #
@@ -15,9 +9,8 @@ module API
     #   password (required) - user password
     #
     # Example Request:
-    #  POST /session
+    #  POST /login?login=some&password=pass
     get "/login" do
-#    post "/session" do
 environment = nil #FIXME load the correct environment create a method in helper
       user ||= User.authenticate(params[:login], params[:password], environment)
 
@@ -26,35 +19,26 @@ environment = nil #FIXME load the correct environment create a method in helper
       present user, :with => Entities::UserLogin
     end
 
-      # Create user.
-      #
-      # Parameters:
-      #   email (required)                  - Email
-      #   password (required)               - Password
-      #   name                              - Name
-      # Example Request:
-      #   POST /users
-#      post do
-      get "register" do
-        required_attributes! [:email, :login, :password]
-        attrs = attributes_for_keys [:email, :login, :password]
-        attrs[:password_confirmation] = attrs[:password]
-        user = User.new(attrs)
-begin
-        if user.save
-          present user, :with => Entities::User
-        else
-          not_found!
-        end
-rescue
-#          not_found!
-#FIXME See  why notfound is not working
-{}
-end
-#        user
+    # Create user.
+    #
+    # Parameters:
+    #   email (required)                  - Email
+    #   password (required)               - Password
+    #   login                             - login
+    # Example Request:
+    #   POST /register?email=some@mail.com&password=pas&login=some
+    post "register" do
+      required_attributes! [:email, :login, :password]
+      unique_attributes! User, [:email, :login]
+      attrs = attributes_for_keys [:email, :login, :password]
+      attrs[:password_confirmation] = attrs[:password]
+      user = User.new(attrs)
+      if user.save
+        present user, :with => Entities::User
+      else
+        something_wrong!
       end
-
-
+    end
 
   end
 end
