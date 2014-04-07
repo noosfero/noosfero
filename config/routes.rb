@@ -1,4 +1,4 @@
-require 'noosfero'
+require_dependency 'noosfero'
 
 ActionController::Routing::Routes.draw do |map|
   # The priority is based upon order of creation: first created -> highest priority.

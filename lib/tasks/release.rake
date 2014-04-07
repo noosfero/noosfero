@@ -39,7 +39,7 @@ namespace :noosfero do
   end
 
   def version
-    require 'noosfero'
+    require_dependency 'noosfero'
     Noosfero::VERSION
   end
 
