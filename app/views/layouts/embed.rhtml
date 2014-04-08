@@ -3,21 +3,10 @@
   <head>
     <title>Noosfero embed block</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-
     <%= noosfero_stylesheets %>
     <%= noosfero_javascript %>
-
-    <script type='text/javascript'>
-      DEFAULT_LOADING_MESSAGE = <%="'#{ _('loading...') }'" %>;
-    </script>
-
   </head>
   <body class="<%= h body_classes %>">
-    <%=
-      @plugins.dispatch(:body_beginning).collect do |content|
-        content.respond_to?(:call) ? content.call : content
-      end.join("\n")
-    %>
     <div id="embed">
       <div id="wrap-1">
         <div id="wrap-2">
