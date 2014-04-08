@@ -28,7 +28,7 @@ module API
         # Example Request:
         #  POST api/v1/articles/12/comments?private_toke=234298743290432&body=new comment
         post ":id/comments" do
-          present environment.articles.find(params[:id]).comments.create(:author => current_user, :body => params[:body]), :with => Entities::Comment
+          present environment.articles.find(params[:id]).comments.create(:author => current_person, :body => params[:body]), :with => Entities::Comment
         end
       end
    

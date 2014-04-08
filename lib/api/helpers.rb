@@ -9,6 +9,10 @@ module API
       @current_user
     end
 
+    def current_person
+      current_user.person unless current_user.nil?
+    end
+
     def logout
       @current_user = nil
     end
