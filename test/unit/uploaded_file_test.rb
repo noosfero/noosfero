@@ -324,13 +324,11 @@ class UploadedFileTest < ActiveSupport::TestCase
   should 'group trackers activity of image\'s upload' do
     ActionTracker::Record.delete_all
     gallery = fast_create(Gallery, :profile_id => profile.id)
-    count = ActionTracker::Record.find_all_by_verb('upload_image').count
     image1 = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :parent => gallery, :profile => profile)
-    count += 1
-    assert_equal count, ActionTracker::Record.find_all_by_verb('upload_image').count
+    assert_equal 1, ActionTracker::Record.find_all_by_verb('upload_image').count
 
     image2 = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/other-pic.jpg', 'image/jpg'), :parent => gallery, :profile => profile)
-    assert_equal count, ActionTracker::Record.find_all_by_verb('upload_image').count
+    assert_equal 1, ActionTracker::Record.find_all_by_verb('upload_image').count
   end
 
   {

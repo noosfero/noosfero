@@ -363,7 +363,7 @@ class ProfileTest < ActiveSupport::TestCase
     t2 = c.tasks.build; t2.save!; t2.finish
     t3 = c.tasks.build; t3.save!; t3.finish
 
-    assert_equal [t2, t3], c.tasks.finished
+    assert_equivalent [t2, t3], c.tasks.finished
   end
 
   should 'responds to categories' do

@@ -51,7 +51,6 @@ class FeedHandler
   end
 
   def process(container)
-    RAILS_DEFAULT_LOGGER.info("Processing %s with id = %d" % [container.class.name, container.id])
     begin
       container.class.transaction do
         if container.update_errors > FeedHandler.max_errors && container.fetched_at < (Time.now - FeedHandler.disabled_period)

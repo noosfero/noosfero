@@ -72,9 +72,7 @@ class ContentViewerControllerTest < ActionController::TestCase
     get :view_page, :profile => 'someone', :page => [ '500.html' ]
 
     assert_response :success
-    assert_match /^text\/html/, @response.headers['Content-Type']
-    assert @response.headers['Content-Disposition'].present?
-    assert_match /attachment/, @response.headers['Content-Disposition']
+    assert_match /#{html.public_filename}/, @response.body
   end
 
   should 'produce a download-link when article is not text/html' do
@@ -575,14 +573,6 @@ class ContentViewerControllerTest < ActionController::TestCase
 
     assert_response :success
     assert_template 'view_page'
-  end
-
-  should 'download data for image when not view' do
-    file = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :profile => profile)
-    get :view_page, :profile => profile.identifier, :page => file.explode_path
-
-    assert_response :success
-    assert_template nil
   end
 
   should "display 'Upload files' when create children of image gallery" do
@@ -1360,8 +1350,23 @@ class ContentViewerControllerTest < ActionController::TestCase
 
   should 'display link to download of non-recognized file types on its page' do
     file = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/test.txt', 'bin/unknown'), :profile => profile)
-    get :view_page, file.url.merge(:view=>:true)
-    assert_match /this is a sample text file/, @response.body
+    get :view_page, file.url
+    assert_match /#{file.public_filename}/, @response.body
+  end
+
+  should 'not count hit from bots' do
+    article = fast_create(Article, :profile_id => profile.id)
+    assert_no_difference article, :hits do
+      @request.env['HTTP_USER_AGENT'] = 'bot'
+      get 'view_page', :profile => profile.identifier, :page => article.path.split('/')
+      @request.env['HTTP_USER_AGENT'] = 'spider'
+      get 'view_page', :profile => profile.identifier, :page => article.path.split('/')
+      @request.env['HTTP_USER_AGENT'] = 'crawler'
+      get 'view_page', :profile => profile.identifier, :page => article.path.split('/')
+      @request.env['HTTP_USER_AGENT'] = '(http://some-crawler.com)'
+      get 'view_page', :profile => profile.identifier, :page => article.path.split('/')
+      article.reload
+    end
   end
 
   should 'add meta tags with article info' do
