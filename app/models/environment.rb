@@ -337,20 +337,22 @@ class Environment < ActiveRecord::Base
     features.delete_if{ |k, v| !self.enabled?(k) }
   end
 
+  DEFAULT_FEATURES = %w(
+    disable_asset_products
+    disable_gender_icon
+    products_for_enterprises
+    disable_select_city_for_contact
+    enterprise_registration
+    media_panel
+    organizations_are_moderated_by_default
+    show_balloon_with_profile_links_when_clicked
+    show_zoom_button_on_article_images
+    use_portal_community
+  )
+
   before_create :enable_default_features
   def enable_default_features
-    %w(
-      disable_asset_products
-      disable_gender_icon
-      products_for_enterprises
-      disable_select_city_for_contact
-      enterprise_registration
-      media_panel
-      organizations_are_moderated_by_default
-      show_balloon_with_profile_links_when_clicked
-      show_zoom_button_on_article_images
-      use_portal_community
-    ).each do |feature|
+    DEFAULT_FEATURES.each do |feature|
       enable(feature, false)
     end
   end
