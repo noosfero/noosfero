@@ -15,6 +15,9 @@ module API
         #
         # Example Request:
         #  GET /articles?from=2013-04-04-14:41:43&until=2014-04-04-14:41:43&limit=10&type=Blog
+#    desc 'Articles.', {
+#      :params => API::Entities::Article.documentation
+#    }
         get do
           from_date = DateTime.parse(params[:from]) if params[:from]
           until_date = DateTime.parse(params[:until]) if params[:until]
@@ -30,19 +33,20 @@ module API
           conditions = {}
           conditions[:type] = params[:content_type] if params[:content_type] #FIXME validate type
           conditions[:created_at] = begin_period...end_period
-          present environment.articles.find(:all, :conditions => conditions, :offset => (from_date.nil? ? 0 : 1), :limit => limit, :order => "created_at DESC"), :with => Entities::Article
+          present environment.articles.find(:all, :conditions => conditions, :offset => (from_date.nil? ? 0 : 1), :limit => limit, :order => "created_at DESC")
         end
   
+        desc "Return the article id" 
         get ':id' do
-          present environment.articles.find(params[:id]), :with => Entities::Article
+          present environment.articles.find(params[:id])
         end
 
         get ':id/children' do
-          present environment.articles.find(params[:id]).children, :with => Entities::Article
+          present environment.articles.find(params[:id]).children
         end
 
         get ':id/children/:child_id' do
-          present environment.articles.find(params[:id]).children.find(params[:child_id]), :with => Entities::Article
+          present environment.articles.find(params[:id]).children.find(params[:child_id])
         end
 
 

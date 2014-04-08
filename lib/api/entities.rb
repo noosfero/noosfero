@@ -2,7 +2,8 @@ module API
   module Entities
     class Article < Grape::Entity
       root 'articles', 'article'
-      expose :id, :name, :body, :created_at
+      expose :id, :body, :created_at
+      expose :title, :documentation => {:type => "String", :desc => "Title of the article"}
 
       expose :author do |article, options|
         {
