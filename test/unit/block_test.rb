@@ -223,13 +223,14 @@ class BlockTest < ActiveSupport::TestCase
     assert !block.visible?(3)
   end
 
-  should 'be embedable by default' do
+  should 'not be embedable by default' do
     assert !Block.new.embedable?
   end
 
   should 'generate embed code' do
     b = Block.new
-    assert_equal "<iframe src='http://myblogtest.com/embed/block/1' frameborder='0' width='1024' height='768' class='embed block block'></iframe>", b.embed_code('http://myblogtest.com/embed/block/1')
+    b.stubs(:url_for).returns('http://myblogtest.com/embed/block/1')
+    assert_equal "<iframe class=\"embed block block\" frameborder=\"0\" height=\"768\" src=\"http://myblogtest.com/embed/block/1\" width=\"1024\"></iframe>", b.embed_code.call
   end
 
   should 'default value for display_user is all' do
