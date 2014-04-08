@@ -1,18 +1,14 @@
 class EmbedController < ApplicationController
+  layout 'embed'
 
-  def index
-    block = Block.find(params[:id])
-    source = params[:source]
-
-    if !block.embedable? || !block.visible?
-      render :template => 'shared/embed_unavailable.rhtml', :status => 403, :layout => "embed"
-    else
-      locals = {:source => source, :block => block}
-      render 'embed/index', :layout => 'embed', :locals => locals
+  def block
+    @block = Block.find(params[:id])
+    @source = params[:source]
+    if !@block.embedable? || !@block.visible?
+      render :template => 'shared/embed_unavailable.rhtml', :status => 403
     end
-
     rescue ActiveRecord::RecordNotFound
-      render :template => 'shared/embed_not_found.rhtml', :status => 404, :layout => "embed"
+      render :template => 'shared/embed_not_found.rhtml', :status => 404
   end
 
 end

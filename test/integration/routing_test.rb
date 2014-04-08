@@ -271,7 +271,7 @@ class RoutingTest < ActionController::IntegrationTest
   end
 
   should 'have route to get HTML code of Blocks to embed' do
-    assert_routing('/embed/block/12345', :controller => 'embed', :action => 'index', :id => '12345')
+    assert_routing('/embed/block/12345', :controller => 'embed', :action => 'block', :id => '12345')
   end
 
 end
