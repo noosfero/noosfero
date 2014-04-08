@@ -10,7 +10,7 @@ module API
     #
     # Example Request:
     #  POST /login?login=some&password=pass
-    get "/login" do
+    post "/login" do
       user ||= User.authenticate(params[:login], params[:password], environment)
 
       return unauthorized! unless user
