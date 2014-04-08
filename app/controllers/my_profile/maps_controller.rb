@@ -31,23 +31,11 @@ class MapsController < MyProfileController
   end
 
   def search_city
-
-    term = params[:term];
-
-    regions = NationalRegion.search_city(term + "%", true).map {|r|{ :label => r.city , :category => r.state}}
-
-    render :json => regions
-
+    render :json => MapsHelper.search_city(params[:term])
   end
 
   def search_state
-
-    term = params[:term];
-
-    regions = NationalRegion.search_state(term + "%", true).map {|r|{ :label => r.state}}
-
-    render :json => regions
-
+    render :json => MapsHelper.search_state(params[:term])
   end
 
 end

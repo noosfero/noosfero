@@ -24,7 +24,7 @@ class Block < ActiveRecord::Base
     me = self
     lambda do
       content_tag('iframe', '',
-        :src => url_for(:controller => 'embed', :action => 'index', :id => me.id, :only_path => false),
+        :src => url_for(:controller => 'embed', :action => 'block', :id => me.id, :only_path => false),
         :frameborder => 0,
         :width => 1024,
         :height => 768,
