@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 require 'fast_gettext'
-
 module Noosfero
   PROJECT = 'noosfero'
   VERSION = '0.47.0~rc1'
