@@ -14,7 +14,7 @@ module API
         #   limit            - amount of comments returned. The default value is 20
         #
         # Example Request:
-        #  GET /articles?from=2013-04-04-14:41:43&until=2014-04-04-14:41:43&limit=10&type=Blog
+        #  GET /articles?from=2013-04-04-14:41:43&until=2014-04-04-14:41:43&limit=10&content_type=Hub
 #    desc 'Articles.', {
 #      :params => API::Entities::Article.documentation
 #    }
