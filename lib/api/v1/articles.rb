@@ -38,11 +38,11 @@ module API
   
         desc "Return the article id" 
         get ':id' do
-          present environment.articles.find(params[:id]), , :with => Entities::Article
+          present environment.articles.find(params[:id]), :with => Entities::Article
         end
 
         get ':id/children' do
-          present environment.articles.find(params[:id]).children.find(:all, :limit => limit), , :with => Entities::Article
+          present environment.articles.find(params[:id]).children.find(:all, :limit => limit), :with => Entities::Article
         end
 
         get ':id/children/:child_id' do
