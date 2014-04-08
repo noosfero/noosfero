@@ -33,20 +33,20 @@ module API
           conditions = {}
           conditions[:type] = params[:content_type] if params[:content_type] #FIXME validate type
           conditions[:created_at] = begin_period...end_period
-          present environment.articles.find(:all, :conditions => conditions, :offset => (from_date.nil? ? 0 : 1), :limit => limit, :order => "created_at DESC")
+          present environment.articles.find(:all, :conditions => conditions, :offset => (from_date.nil? ? 0 : 1), :limit => limit, :order => "created_at DESC"), :with => Entities::Article 
         end
   
         desc "Return the article id" 
         get ':id' do
-          present environment.articles.find(params[:id])
+          present environment.articles.find(params[:id]), , :with => Entities::Article
         end
 
         get ':id/children' do
-          present environment.articles.find(params[:id]).children
+          present environment.articles.find(params[:id]).children.find(:all, :limit => limit), , :with => Entities::Article
         end
 
         get ':id/children/:child_id' do
-          present environment.articles.find(params[:id]).children.find(params[:child_id])
+          present environment.articles.find(params[:id]).children.find(params[:child_id]), :with => Entities::Article
         end
 
 
