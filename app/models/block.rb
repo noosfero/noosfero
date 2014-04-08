@@ -16,6 +16,23 @@ class Block < ActiveRecord::Base
 
   named_scope :enabled, :conditions => { :enabled => true }
 
+  def embedable?
+    false
+  end
+
+  def embed_code
+    me = self
+    lambda do
+      content_tag('iframe', '',
+        :src => url_for(:controller => 'embed', :action => 'block', :id => me.id, :only_path => false),
+        :frameborder => 0,
+        :width => 1024,
+        :height => 768,
+        :class => "embed block #{me.class.name.to_css_class}"
+      )
+    end
+  end
+
   # Determines whether a given block must be visible. Optionally a
   # <tt>context</tt> must be specified. <tt>context</tt> must be a hash, and
   # may contain the following keys:
