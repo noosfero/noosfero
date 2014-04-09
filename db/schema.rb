@@ -484,6 +484,7 @@ ActiveRecord::Schema.define(:version => 20140605222753) do
     t.integer  "activities_count",                      :default => 0,     :null => false
     t.string   "personal_website"
     t.string   "jabber_id"
+    t.integer  "welcome_page_id"
   end
 
   add_index "profiles", ["activities_count"], :name => "index_profiles_on_activities_count"

@@ -138,6 +138,11 @@ class Profile < ActiveRecord::Base
 
   has_many :comments_received, :class_name => 'Comment', :through => :articles, :source => :comments
 
+  # Although this should be a has_one relation, there are no non-silly names for
+  # a foreign key on article to reference the template to which it is
+  # welcome_page... =P
+  belongs_to :welcome_page, :class_name => 'Article', :dependent => :destroy
+
   def scraps(scrap=nil)
     scrap = scrap.is_a?(Scrap) ? scrap.id : scrap
     scrap.nil? ? Scrap.all_scraps(self) : Scrap.all_scraps(self).find(scrap)
