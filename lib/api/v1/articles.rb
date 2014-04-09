@@ -22,18 +22,19 @@ module API
           from_date = DateTime.parse(params[:from]) if params[:from]
           until_date = DateTime.parse(params[:until]) if params[:until]
   
-          if from_date.nil?
-            begin_period = Time.at(0).to_datetime
-            end_period = until_date.nil? ? DateTime.now : until_date
-          else
-            begin_period = from_date
-            end_period = DateTime.now
-          end
   
           conditions = {}
-          conditions[:type] = params[:content_type] if params[:content_type] #FIXME validate type
-          conditions[:created_at] = begin_period...end_period
-          present environment.articles.find(:all, :conditions => conditions, :offset => (from_date.nil? ? 0 : 1), :limit => limit, :order => "created_at DESC"), :with => Entities::Article 
+          #FIXME remove this line when hub be implemented
+          params[:content_type] = 'Folder' if params[:content_type].downcase == 'hub'
+                  
+          conditions[:type] = parse_content_type(params[:content_type])
+          conditions[:created_at] = period(from_date, until_date)
+          if params[:reference_id]
+            @articles = environment.articles.send("#{params.key?(:oldest) ? 'older_than' : 'newer_than'}", params[:reference_id]).find(:all, :conditions => conditions, :limit => limit, :order => "created_at DESC")
+          else
+            @articles = environment.articles.find(:all, :conditions => conditions, :limit => limit, :order => "created_at DESC")
+          end
+          present @articles, :with => Entities::Article 
         end
   
         desc "Return the article id" 
@@ -42,7 +43,9 @@ module API
         end
 
         get ':id/children' do
-          present environment.articles.find(params[:id]).children.find(:all, :limit => limit), :with => Entities::Article
+          conditions[:type] = parse_content_type(params[:content_type])
+          conditions[:created_at] = period(from_date, until_date)
+          present environment.articles.find(params[:id]).children.find(:all, conditions, :limit => limit), :with => Entities::Article
         end
 
         get ':id/children/:child_id' do
