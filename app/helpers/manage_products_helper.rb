@@ -26,27 +26,10 @@ module ManageProductsHelper
   def hierarchy_category_navigation(current_category, options = {})
     hierarchy = []
     if current_category
-      count_chars = 0
-      unless options[:hide_current_category]
-        hierarchy << current_category.name
-        count_chars += current_category.name.length
-      end
+      hierarchy << current_category.name unless options[:hide_current_category]
       ancestors = current_category.ancestors
-      toplevel = ancestors.pop
-      if toplevel
-        count_chars += toplevel.name.length
-      end
       ancestors.each do |category|
-        if count_chars > 55
-          hierarchy << hierarchy_category_item(category, options[:make_links], '( … )')
-          break
-        else
-          hierarchy << hierarchy_category_item(category, options[:make_links])
-        end
-        count_chars += category.name.length
-      end
-      if toplevel
-        hierarchy << hierarchy_category_item(toplevel, options[:make_links])
+        hierarchy << hierarchy_category_item(category, options[:make_links])
       end
     end
     hierarchy.reverse.join(options[:separator] || ' &rarr; ')
