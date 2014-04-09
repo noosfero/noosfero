@@ -1,3 +1,9 @@
+noosfero (0.47.0~rc3) squeeze-test; urgency=low
+
+  * Memory leak fix, performance improvements and bugfixes
+
+ -- Rodrigo Souto <rodrigo@colivre.coop.br>  Wed, 09 Apr 2014 19:01:34 +0000
+
 noosfero (0.47.0~rc1) squeeze-test; urgency=low
 
   * New features Release Candidate 1
