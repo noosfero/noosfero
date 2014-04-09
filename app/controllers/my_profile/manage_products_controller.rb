@@ -48,6 +48,7 @@ class ManageProductsController < ApplicationController
   end
 
   def new
+    @no_design_blocks = true
     @category = params[:selected_category_id] ? Category.find(params[:selected_category_id]) : nil
     @product = @profile.products.build(:product_category => @category)
     @categories = ProductCategory.top_level_for(environment)
