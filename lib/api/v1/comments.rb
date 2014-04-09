@@ -17,6 +17,7 @@ module API
         #  GET /articles/12/comments?oldest&limit=10&reference_id=23
         get ":id/comments" do
           conditions = {}
+#FIXME See a way to use desc and cres
           conditions = ["id #{params.key?(:oldest) ? '<' : '>'} ?", params[:reference_id]] if params[:reference_id]
           present environment.articles.find(params[:id]).comments.find(:all, :conditions => conditions, :limit => limit), :with => Entities::Comment
         end

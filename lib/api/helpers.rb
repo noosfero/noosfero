@@ -27,6 +27,25 @@ module API
       limit
     end
 
+    def period(from_date, until_date)
+      if from_date.nil?
+        begin_period = Time.at(0).to_datetime
+        end_period = until_date.nil? ? DateTime.now : until_date
+      else
+        begin_period = from_date
+        end_period = DateTime.now
+      end
+
+      begin_period...end_period
+    end
+
+    def parse_content_type(content_type)
+      return nil if content_type.blank?
+      content_type.split(',').map do |content_type|
+        content_type.camelcase
+      end
+    end
+
 #FIXME see if its needed
 #    def paginate(relation)
 #      per_page  = params[:per_page].to_i
