@@ -1,8 +1,8 @@
 <div id='thanks-for-signing'>
+  <h1><%= _("Welcome to %s!") % environment.name %></h1>
   <% if environment.has_custom_welcome_screen? %>
     <%= environment.settings[:signup_welcome_screen_body].html_safe %>
   <% else %>
-      <h1><%= _("Welcome to %s!") % environment.name %></h1>
       <h3><%= _("Thanks for signing up, we're thrilled to have you on our social network!") %></h3>
       <p><%= _("Firstly, some tips for getting started:") %></p>
       <% if @display_confirmation_tips %>
@@ -15,5 +15,9 @@
       <p><%= _("Learn the guidelines. Read the %s for more details on how to use this social network!") % link_to(_('Documentation'), {:controller => 'doc'}, :target => '_blank') %></p>
       <p><%= _("%s your Gmail, Yahoo and Hotmail contacts!") % link_to(_('Invite and find'), {:controller => 'doc', :section => 'user', :topic => 'invite-contacts'}, :target => '_blank') %></p>
       <p><%= _("Start exploring and have fun!") %></p>
+  <% end %>
+  <% if @template_welcome_page.present? %>
+    <h1><%= _("What can I do as a %s?") % @person_template.name %></h1>
+    <%= @template_welcome_page.html_safe %>
   <% end %>
 </div>
