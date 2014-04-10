@@ -3,6 +3,9 @@ class ProfileEditorController < MyProfileController
   protect 'edit_profile', :profile, :except => [:destroy_profile]
   protect 'destroy_profile', :profile, :only => [:destroy_profile]
 
+  before_filter :access_welcome_page, :only => [:welcome_page]
+  helper_method :has_welcome_page
+
   def index
     @pending_tasks = Task.to(profile).pending.without_spam.select{|i| user.has_permission?(i.permission, profile)}
   end
@@ -76,6 +79,33 @@ class ProfileEditorController < MyProfileController
       else
         session[:notice] = _('Could not delete profile')
       end
+    end
+  end
+
+  def welcome_page
+    @welcome_page = profile.welcome_page || TinyMceArticle.new(:name => 'Welcome Page', :profile => profile)
+    if request.post?
+      begin
+        @welcome_page.update_attributes!(params[:welcome_page])
+        profile.welcome_page = @welcome_page
+        profile.save!
+        session[:notice] = _('Welcome page saved successfully.')
+        redirect_to :action => 'index'
+      rescue Exception => exception
+        session[:notice] = _('Welcome page could not be saved.')
+      end
+    end
+  end
+
+  private
+
+  def has_welcome_page
+    profile.person? && profile.is_template
+  end
+
+  def access_welcome_page
+    unless has_welcome_page
+      render_access_denied
     end
   end
 end
