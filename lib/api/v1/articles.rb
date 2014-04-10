@@ -30,11 +30,11 @@ module API
           conditions[:type] = parse_content_type(params[:content_type])
           conditions[:created_at] = period(from_date, until_date)
           if params[:reference_id]
-            @articles = environment.articles.send("#{params.key?(:oldest) ? 'older_than' : 'newer_than'}", params[:reference_id]).find(:all, :conditions => conditions, :limit => limit, :order => "created_at DESC")
+            articles = environment.articles.send("#{params.key?(:oldest) ? 'older_than' : 'newer_than'}", params[:reference_id]).find(:all, :conditions => conditions, :limit => limit, :order => "created_at DESC")
           else
-            @articles = environment.articles.find(:all, :conditions => conditions, :limit => limit, :order => "created_at DESC")
+            articles = environment.articles.find(:all, :conditions => conditions, :limit => limit, :order => "created_at DESC")
           end
-          present @articles, :with => Entities::Article 
+          present articles, :with => Entities::Article 
         end
   
         desc "Return the article id" 
@@ -43,9 +43,18 @@ module API
         end
 
         get ':id/children' do
+          from_date = DateTime.parse(params[:from]) if params[:from]
+          until_date = DateTime.parse(params[:until]) if params[:until]
+
+          conditions = {}
           conditions[:type] = parse_content_type(params[:content_type])
           conditions[:created_at] = period(from_date, until_date)
-          present environment.articles.find(params[:id]).children.find(:all, conditions, :limit => limit), :with => Entities::Article
+          if params[:reference_id]
+            articles = environment.articles.find(params[:id]).children.send("#{params.key?(:oldest) ? 'older_than' : 'newer_than'}", params[:reference_id]).find(:all, :conditions => conditions, :limit => limit, :order => "created_at DESC")
+          else
+            articles = environment.articles.find(params[:id]).children.find(:all, :conditions => conditions, :limit => limit, :order => "created_at DESC")
+          end
+          present articles, :with => Entities::Article 
         end
 
         get ':id/children/:child_id' do
