@@ -46,6 +46,19 @@ module API
       end
     end
 
+    
+    def make_conditions_with_parameter(params = {})
+      conditions = {}
+      from_date = DateTime.parse(params[:from]) if params[:from]
+      until_date = DateTime.parse(params[:until]) if params[:until]
+
+      conditions[:type] = parse_content_type(params[:content_type]) unless params[:content_type].nil?
+
+      conditions[:created_at] = period(from_date, until_date)
+
+      conditions
+    end
+
 #FIXME see if its needed
 #    def paginate(relation)
 #      per_page  = params[:per_page].to_i

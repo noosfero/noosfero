@@ -16,11 +16,9 @@ module API
         # Example Request:
         #  GET /articles/12/comments?oldest&limit=10&reference_id=23
         get ":id/comments" do
-          from_date = DateTime.parse(params[:from]) if params[:from]
-          until_date = DateTime.parse(params[:until]) if params[:until]
 
-          conditions = {}
-          conditions[:created_at] = period(from_date, until_date)
+          conditions = make_conditions_with_parameter(params)
+
           if params[:reference_id]
             comments = environment.articles.find(params[:id]).comments.send("#{params.key?(:oldest) ? 'older_than' : 'newer_than'}", params[:reference_id]).find(:all, :conditions => conditions, :limit => limit, :order => "created_at DESC")
           else

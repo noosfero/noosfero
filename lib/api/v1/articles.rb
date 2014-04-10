@@ -19,16 +19,13 @@ module API
 #      :params => API::Entities::Article.documentation
 #    }
         get do
-          from_date = DateTime.parse(params[:from]) if params[:from]
-          until_date = DateTime.parse(params[:until]) if params[:until]
   
-  
-          conditions = {}
           #FIXME remove this line when hub be implemented
-          params[:content_type] = 'Folder' if params[:content_type].downcase == 'hub'
+          params[:content_type] = 'Folder' if ((params[:content_type].nil? ? '' : params[:content_type].downcase) == 'hub')
+          params[:content_type] = 'Folder' if ((params[:content_type].nil? ? '' : params[:content_type]) == 'CommunityHubPlugin::Hub')
+  
+          conditions = make_conditions_with_parameter(params)
                   
-          conditions[:type] = parse_content_type(params[:content_type])
-          conditions[:created_at] = period(from_date, until_date)
           if params[:reference_id]
             articles = environment.articles.send("#{params.key?(:oldest) ? 'older_than' : 'newer_than'}", params[:reference_id]).find(:all, :conditions => conditions, :limit => limit, :order => "created_at DESC")
           else
@@ -46,9 +43,7 @@ module API
           from_date = DateTime.parse(params[:from]) if params[:from]
           until_date = DateTime.parse(params[:until]) if params[:until]
 
-          conditions = {}
-          conditions[:type] = parse_content_type(params[:content_type])
-          conditions[:created_at] = period(from_date, until_date)
+          conditions = make_conditions_with_parameter(params)
           if params[:reference_id]
             articles = environment.articles.find(params[:id]).children.send("#{params.key?(:oldest) ? 'older_than' : 'newer_than'}", params[:reference_id]).find(:all, :conditions => conditions, :limit => limit, :order => "created_at DESC")
           else
