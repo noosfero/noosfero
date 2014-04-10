@@ -70,10 +70,12 @@ class AccountController < ApplicationController
     if @plugins.dispatch(:allow_user_registration).include?(false)
       redirect_back_or_default(:controller => 'home')
       session[:notice] = _("This environment doesn't allow user registration.")
+      return
     end
 
     store_location(request.referer) unless params[:return_to] or session[:return_to]
 
+    # Tranforming to boolean
     @block_bot = !!session[:may_be_a_bot]
     @invitation_code = params[:invitation_code]
     begin
