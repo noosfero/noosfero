@@ -4236,6 +4236,9 @@ h1#agenda-title {
 .controller-profile_editor a.control-panel-manage-spam {
   background-image: url(../images/control-panel/mail-mark-junk.png)
 }
+.controller-profile_editor a.control-panel-welcome-page {
+  background-image: url(../images/control-panel/welcome-page.png)
+}
 /* ==> public/stylesheets/controller_profile_members.css <== */
 .controller-profile_members .no-boxes {
   margin: 30px
