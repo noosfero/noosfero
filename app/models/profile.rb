@@ -605,7 +605,7 @@ private :generate_url, :url_options
   end
 
   def copy_article_tree(article, parent=nil)
-    return if article.is_a?(RssFeed)
+    return if !copy_article?(article)
     original_article = self.articles.find_by_name(article.name)
     if original_article
       num = 2
@@ -623,6 +623,11 @@ private :generate_url, :url_options
     article.children.each do |a|
       copy_article_tree a, article_copy
     end
+  end
+
+  def copy_article?(article)
+    !article.is_a?(RssFeed) &&
+    !(is_template && article.slug=='welcome-page')
   end
 
   # Adds a person as member of this Profile.

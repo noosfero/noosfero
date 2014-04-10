@@ -1955,4 +1955,14 @@ class ProfileTest < ActiveSupport::TestCase
     p = fast_create(Profile)
     assert p.folder_types.include?('ProfileTest::Folder1')
   end
+
+  should 'not copy rss_feed' do
+    assert !fast_create(Profile).copy_article?(fast_create(RssFeed))
+  end
+
+  should 'not copy template welcome_page' do
+    template = fast_create(Person, :is_template => true)
+    welcome_page = fast_create(TinyMceArticle, :slug => 'welcome-page', :profile_id => template.id)
+    assert !template.copy_article?(welcome_page)
+  end
 end
