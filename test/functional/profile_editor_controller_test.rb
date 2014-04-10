@@ -910,6 +910,11 @@ class ProfileEditorControllerTest < ActionController::TestCase
     assert_response :forbidden
   end
 
+  should 'create welcome_page with public false by default' do
+    get :welcome_page, :profile => fast_create(Person, :is_template => true).identifier
+    assert !assigns(:welcome_page).published
+  end
+
   should 'update welcome page and redirect to index' do
     welcome_page = fast_create(TinyMceArticle, :body => 'Initial welcome page')
     person_template = create_user('person_template').person

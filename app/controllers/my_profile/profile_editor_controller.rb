@@ -83,7 +83,7 @@ class ProfileEditorController < MyProfileController
   end
 
   def welcome_page
-    @welcome_page = profile.welcome_page || TinyMceArticle.new(:name => 'Welcome Page', :profile => profile)
+    @welcome_page = profile.welcome_page || TinyMceArticle.new(:name => 'Welcome Page', :profile => profile, :published => false)
     if request.post?
       begin
         @welcome_page.update_attributes!(params[:welcome_page])
