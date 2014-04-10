@@ -33,6 +33,7 @@ module API
       attrs[:password_confirmation] = attrs[:password]
       user = User.new(attrs)
       if user.save
+        user.activate
         present user, :with => Entities::User
       else
         something_wrong!
