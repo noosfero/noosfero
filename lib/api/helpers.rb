@@ -2,6 +2,10 @@ module API
   module APIHelpers
     PRIVATE_TOKEN_PARAM = :private_token
 
+    def logger
+      API.logger
+    end
+
     def current_user
       private_token = params[PRIVATE_TOKEN_PARAM].to_s
       @current_user ||= User.find_by_private_token(private_token)
