@@ -110,7 +110,7 @@ class AccountController < ApplicationController
             check_join_in_community(@user)
             go_to_signup_initial_page
           else
-            @register_pending = true
+            redirect_to :controller => :home, :action => :welcome
           end
         end
       end
@@ -441,6 +441,8 @@ class AccountController < ApplicationController
         redirect_to user.url
       when 'user_control_panel'
         redirect_to user.admin_url
+      when 'welcome_page'
+        redirect_to :controller => :home, :action => :welcome
     else
       redirect_back_or_default(default)
     end

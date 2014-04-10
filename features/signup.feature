@@ -152,6 +152,21 @@ Feature: signup
     Then I should be on the homepage
 
   @selenium
+  Scenario: user should go to the environment's welcome page after signup
+    Given the environment is configured to redirect to welcome page after signup
+    And I am on /search/people
+    When I follow "Sign up"
+    And I fill in the following within ".no-boxes":
+      | e-Mail                | josesilva@example.com |
+      | Username              | josesilva             |
+      | Password              | secret                |
+      | Password confirmation | secret                |
+      | Full name             | José da Silva         |
+    And wait for the captcha signup time
+    And I press "Create my account"
+    Then I should be on the welcome page
+
+  @selenium
   Scenario: user should stay on same page after following confirmation link
     Given the environment is configured to stay on the same page after login
     And feature "skip_new_user_email_confirmation" is disabled on environment

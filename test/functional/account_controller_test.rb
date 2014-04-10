@@ -50,8 +50,6 @@ class AccountControllerTest < ActionController::TestCase
   def test_should_allow_signup
     assert_difference 'User.count' do
       new_user
-      assert_response :success
-      assert_not_nil assigns(:register_pending)
     end
   end
 
@@ -104,8 +102,6 @@ class AccountControllerTest < ActionController::TestCase
     assert_difference 'User.count' do
       Environment.default.update_attribute(:terms_of_use, 'some terms ...')
       new_user(:terms_accepted => '1')
-      assert_response :success
-      assert_not_nil assigns(:register_pending)
     end
   end
 
@@ -626,7 +622,6 @@ class AccountControllerTest < ActionController::TestCase
     Person.any_instance.stubs(:required_fields).returns(['organization'])
     assert_difference 'User.count' do
       post :signup, :user => { :login => 'testuser', :password => '123456', :password_confirmation => '123456', :email => 'testuser@example.com' }, :profile_data => { :organization => 'example.com' }
-      assert_response :success
     end
     assert_equal 'example.com', Person['testuser'].organization
   end
@@ -956,6 +951,14 @@ class AccountControllerTest < ActionController::TestCase
 
     assert_equal category, "Rio Grande do Sul"
     assert_equal label, "Lavras do Sul"
+  end
+
+  should 'redirect to welcome page after successful signup if environment configured as so' do
+    environment = Environment.default
+    environment.redirection_after_signup = 'welcome_page'
+    environment.save!
+    new_user
+    assert_redirected_to :controller => 'home', :action => 'welcome'
   end
 
   protected

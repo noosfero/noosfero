@@ -20,8 +20,8 @@ module NavigationHelpers
     when /^\//
       page_name
 
-    when /^(.*)'s profile/
-      '/profile/' + profile_identifier($1)
+    when /the welcome page/
+      '/site/welcome'
 
     when /article "([^"]+)"\s*$/
       url_for(Article.find_by_name($1).url.merge({:only_path => true}))

@@ -18,4 +18,9 @@ class HomeController < PublicController
     @no_design_blocks = true
   end
 
+  def welcome
+    self.class.no_design_blocks
+    @display_confirmation_tips = !user.present? && !environment.enabled?(:skip_new_user_email_confirmation)
+  end
+
 end
