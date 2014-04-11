@@ -18,25 +18,25 @@ Feature: edit environment templates
   @selenium
   Scenario: Go to control panel of person template
     Given I follow "Profile templates"
-    And I follow "Person template"
+    And I follow exact "Person template"
     Then I should be on colivre.net_person_template's control panel
 
   @selenium
   Scenario: Go to control panel of enterprise template
     Given I follow "Profile templates"
-    And I follow "Enterprise template"
+    And I follow exact "Enterprise template"
     Then I should be on colivre.net_enterprise_template's control panel
 
   @selenium
   Scenario: Go to control panel of inactive enterprise template
     Given I follow "Profile templates"
-    And I follow "Inactive Enterprise template"
+    And I follow exact "Inactive Enterprise template"
     Then I should be on colivre.net_inactive_enterprise_template's control panel
 
   @selenium
   Scenario: Go to control panel of community template
     Given I follow "Profile templates"
-    When I follow "Community template"
+    When I follow exact "Community template"
     Then I should be on colivre.net_community_template's control panel
 
   @selenium
