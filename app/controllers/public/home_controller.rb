@@ -21,8 +21,8 @@ class HomeController < PublicController
   def welcome
     self.class.no_design_blocks
     @display_confirmation_tips = !user.present? && !environment.enabled?(:skip_new_user_email_confirmation)
-    @person_template = Person.find(params[:template_id])
-    @template_welcome_page = @person_template.welcome_page && @person_template.welcome_page.published ? @person_template.welcome_page.body : nil
+    @person_template = user && user.template || params[:template_id] && Person.find(params[:template_id])
+    @template_welcome_page = @person_template && @person_template.welcome_page && @person_template.welcome_page.published ? @person_template.welcome_page.body : nil
   end
 
 end
