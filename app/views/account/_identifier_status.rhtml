@@ -1,7 +1,20 @@
 <div class='status-identifier'>
+  <% if @suggested_usernames %>
+    <% @status += '<br>' + _('Available: ') if not @suggested_usernames.empty? %>
+    <% @suggested_usernames.each do |username| %>
+      <%  @status += "<a href='#' class='suggested_usernames'>" + username + '</a> ' %>
+    <%end%>
+  <% end %>
+
+
   <p><span class='<%= @status_class %>'><%= @status %></span></p>
   <script type="text/javascript">
     jQuery('#user_login').removeClass('<%= validation_classes %>');
     jQuery('#user_login').addClass('<%= @status_class %>');
+    jQuery('.suggested_usernames').click(function(e) {
+      e.preventDefault();
+
+      fill_username(this.innerHTML);
+    });
   </script>
 </div>
