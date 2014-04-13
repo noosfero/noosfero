@@ -31,19 +31,10 @@ Feature: signup
 
   @selenium
   Scenario: show error message if username is already used
-    Given I am on the homepage
-    When I follow "Login"
-    And I follow "New user"
-    And I fill in the following within ".no-boxes":
-      | e-Mail                | josesilva@example.com |
-      | Username              | josesilva             |
-      | Password              | secret                |
-      | Password confirmation | secret                |
-      | Full name             | José da Silva         |
-    And wait for the captcha signup time
-    And I press "Create my account"
-    Then I should receive an e-mail on josesilva@example.com
-    And I go to signup page
+    Given the following users
+      | login     |
+      | josesilva |
+    When I go to signup page
     And I fill in "Username" with "josesilva"
     And I fill in "e-Mail" with "josesilva1"
     Then I should see "This login name is unavailable"

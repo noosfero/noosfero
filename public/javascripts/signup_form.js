@@ -1,6 +1,6 @@
 function verifyLoginLoad() {
   jQuery('#user_login').removeClass('available unavailable valid validated invalid checking').addClass('checking');
-  jQuery('#url-check').html('<p><span class="checking"><%= _('Checking availability of login name...') %></span></p>');
+  jQuery('#url-check').html("<p><span class='checking'><%= _('Checking availability of login name...') %></span></p>");
 }
 
 function verifyLoginAjax(value) {
