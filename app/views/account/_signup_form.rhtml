@@ -37,6 +37,7 @@
         <%= required text_field(:user, :login, :id => 'user_login',
                                 :onchange => 'this.value = convToValidUsername(this.value);') %>
         <div id='url-check'><p>&nbsp;</p></div>
+        <span id='checking-message' class='checking' style='display:none'><%= _('Checking availability of login name...') %></span>
       </div>
       <%= content_tag(:small, _('Choose your login name carefully! It will be your network access and you will not be able to change it later.'), :id => 'signup-balloon') %>
       <br style="clear: both;" />
