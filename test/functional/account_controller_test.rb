@@ -34,7 +34,7 @@ class AccountControllerTest < ActionController::TestCase
     assert session[:user]
     assert_response :redirect
   end
-  
+
   should 'display notice message if the login fail' do
     @controller.stubs(:logged_in?).returns(false)
     post :login, :user => {:login => 'quire', :password => 'quire'}

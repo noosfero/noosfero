@@ -6040,6 +6040,11 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 img {
   text-align: right;
 }
 
+#url-check .suggested_usernames,
+#url-check .suggested_usernames a {
+  color: #005000;
+}
+
 #email-check,
 #fake-check,
 #password-rate,
