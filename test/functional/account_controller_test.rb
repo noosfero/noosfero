@@ -34,17 +34,7 @@ class AccountControllerTest < ActionController::TestCase
     assert session[:user]
     assert_response :redirect
   end
-
-  should 'return empty string if suggest_based_on_username argument is empty' do
-    result = @controller.suggestion_based_on_username("")
-    assert_equal(result.empty?,true)
-  end
   
-  should 'return a list with three possible usernames suggestion' do
-    result = @controller.suggestion_based_on_username("teste")
-    assert_equal(result.uniq.size,3)
-  end
-
   should 'display notice message if the login fail' do
     @controller.stubs(:logged_in?).returns(false)
     post :login, :user => {:login => 'quire', :password => 'quire'}
@@ -668,6 +658,13 @@ class AccountControllerTest < ActionController::TestCase
     profile = create_user('mylogin').person
     get :check_valid_name, :identifier => 'mylogin'
     assert_equal 'invalid', assigns(:status_class)
+  end
+
+  should 'suggest a list with three possible usernames' do
+    profile = create_user('mylogin').person
+    get :check_valid_name, :identifier => 'mylogin'
+
+    assert_equal 3, assigns(:suggested_usernames).uniq.size
   end
 
   should 'check if e-mail is available on environment' do
