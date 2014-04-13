@@ -52,9 +52,9 @@ Feature: signup
     Given the following users
       | login | name |
       | joaosilva | joao silva |
-    Given i am logged in as "joaosilva"
-    And i go to signup page
-    Then i should be on joaosilva's control panel
+    Given I am logged in as "joaosilva"
+    And I go to signup page
+    Then I should be on joaosilva's control panel
 
   @selenium
   Scenario: user cannot register without a name
