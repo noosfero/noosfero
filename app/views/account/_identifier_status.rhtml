@@ -1,9 +1,9 @@
 <div class='status-identifier'>
   <% if @suggested_usernames %>
-    <% @status += '<br>' + _('Available: ') if not @suggested_usernames.empty? %>
+    <% @status += '<br/>' + _('Available: ') %>
     <% @suggested_usernames.each do |username| %>
-      <%  @status += "<a href='#' class='suggested_usernames'>" + username + '</a> ' %>
-    <%end%>
+      <% @status += "<a href='#' class='suggested_usernames'>" + username + '</a> ' %>
+    <% end %>
   <% end %>
 
 
