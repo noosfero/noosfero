@@ -6581,8 +6581,8 @@ msgid "Manage Members"
 msgstr "Gerenciar Integrantes"
 
 #: app/views/profile_editor/index.rhtml:48
-msgid "Manage Products and Services"
-msgstr "Gerenciar Produtos e Serviços"
+msgid "Manage Products/Services"
+msgstr "Gerenciar Produtos/Serviços"
 
 #: app/views/profile_editor/index.rhtml:52
 msgid "Enterprise Validation"

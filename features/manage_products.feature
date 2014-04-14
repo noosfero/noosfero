@@ -14,7 +14,7 @@ Feature: manage products
   Scenario: display "create new product" button
     Given I am logged in as "joaosilva"
     And I am on redemoinho's control panel
-    When I follow "Manage Products and Services"
+    When I follow "Manage Products/Services"
     Then I should see "New product or service"
 
   Scenario: paginate public listing products and services
@@ -53,13 +53,13 @@ Feature: manage products
   Scenario: listing products and services
     Given I am logged in as "joaosilva"
     And I am on redemoinho's control panel
-    And I follow "Manage Products and Services"
+    And I follow "Manage Products/Services"
     Then I should see "Listing products and services"
 
   Scenario: see button to back in categories hierarchy
     Given I am logged in as "joaosilva"
     And I am on redemoinho's control panel
-    And I follow "Manage Products and Services"
+    And I follow "Manage Products/Services"
     When I follow "New product or service"
     Then I should see "Back to the product listing" link
 
