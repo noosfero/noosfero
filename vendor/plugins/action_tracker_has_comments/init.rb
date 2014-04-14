@@ -11,5 +11,6 @@ Rails.configuration.to_prepare do
       type, id = (self.target_type == 'Article' ? ['Article', self.target_id] : [self.class.to_s, self.id])
       "source_type = '#{type}' AND source_id = '#{id}' AND spam IS NOT TRUE AND reply_of_id IS NULL"
     end
+
   end
 end

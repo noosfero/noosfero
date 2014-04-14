@@ -107,6 +107,21 @@ class UsersControllerTest < ActionController::TestCase
     assert_equal false, u.activated?
   end
 
+  should 'order users by name' do
+    create_user('jeremy')
+    create_user('bill')
+    create_user('ana')
+    create_user('creed')
+    get :index
+
+    assert_order ['ana', 'bill', 'creed', 'jeremy'], assigns(:collection).map(&:name)
+  end
+
+  should 'set filter to all_users by default' do
+    get :index
+    assert_equal 'all_users', assigns(:filter)
+  end
+
   should 'response as XML to export users' do
     get :download, :format => 'xml'
     assert_equal 'text/xml', @response.content_type
@@ -116,6 +131,22 @@ class UsersControllerTest < ActionController::TestCase
     get :download, :format => 'csv'
     assert_equal 'text/csv', @response.content_type
     assert_equal 'name;email', @response.body.split("\n")[0]
+  end
+
+  should 'be able to remove a person' do
+    person = fast_create(Person, :environment_id => environment.id)
+    assert_difference Person, :count, -1 do
+      post :destroy_user, :id => person.id
+    end
+  end
+
+  should 'not crash if user does not exist' do
+    person = fast_create(Person)
+
+    assert_no_difference Person, :count do
+      post :destroy_user, :id => 99999
+    end
+    assert_redirected_to :action => 'index'
   end
 
 end

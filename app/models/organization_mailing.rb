@@ -1,7 +1,7 @@
 class OrganizationMailing < Mailing
 
   def generate_from
-    "#{person.name} <#{source.environment.contact_email}>"
+    "#{person.name} <#{source.environment.noreply_email}>"
   end
 
   def recipients(offset=0, limit=100)

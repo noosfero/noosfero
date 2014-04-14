@@ -74,14 +74,14 @@ class SearchControllerTest < ActionController::TestCase
     assert_includes assigns(:searches)[:articles][:results], art
   end
 
-	should 'redirect contents to articles' do
+  should 'redirect contents to articles' do
     person = fast_create(Person)
     art = create_article_with_optional_category('an article to be found', person)
 
     get 'contents', :query => 'article found'
-		# full description to avoid deprecation warning
+    # full description to avoid deprecation warning
     assert_redirected_to :controller => :search, :action => :articles, :query => 'article found'
-	end
+  end
 
   # 'assets' outside any category
   should 'list articles in general' do
@@ -163,6 +163,7 @@ class SearchControllerTest < ActionController::TestCase
         lambda {"<span id='plugin2'>This is Plugin2 speaking!</span>"}
       end
     end
+    Noosfero::Plugin.stubs(:all).returns([Plugin1.to_s, Plugin2.to_s])
 
     enterprise = fast_create(Enterprise)
     prod_cat = fast_create(ProductCategory)
@@ -189,6 +190,7 @@ class SearchControllerTest < ActionController::TestCase
         return { :name => _('Property2'), :content => lambda { link_to(product.name, '/plugin2') } }
       end
     end
+    Noosfero::Plugin.stubs(:all).returns([Plugin1.to_s, Plugin2.to_s])
     enterprise = fast_create(Enterprise)
     prod_cat = fast_create(ProductCategory)
     product = fast_create(Product, {:profile_id => enterprise.id, :name => "produto1", :product_category_id => prod_cat.id}, :search => true)
@@ -257,10 +259,10 @@ class SearchControllerTest < ActionController::TestCase
 
   should 'render specific action when only one asset is enabled' do
     environment = Environment.default
-		# article is not disabled
+    # article is not disabled
     [:enterprises, :people, :communities, :products, :events].select do |key, name|
-			environment.enable('disable_asset_' + key.to_s)
-		end
+      environment.enable('disable_asset_' + key.to_s)
+    end
     environment.save!
     @controller.stubs(:environment).returns(environment)
 
@@ -272,25 +274,25 @@ class SearchControllerTest < ActionController::TestCase
     assert !assigns(:searches).has_key?(:communities)
     assert !assigns(:searches).has_key?(:products)
     assert !assigns(:searches).has_key?(:events)
-	end
+  end
 
   should 'search all enabled assets in general search' do
     ent1 = create_profile_with_optional_category(Enterprise, 'test enterprise')
     prod_cat = ProductCategory.create!(:name => 'pctest', :environment => Environment.default)
     prod = ent1.products.create!(:name => 'test product', :product_category => prod_cat)
-		art = Article.create!(:name => 'test article', :profile_id => fast_create(Person).id)
-		per = Person.create!(:name => 'test person', :identifier => 'test-person', :user_id => fast_create(User).id)
-		com = Community.create!(:name => 'test community')
-		eve = Event.create!(:name => 'test event', :profile_id => fast_create(Person).id)
+    art = Article.create!(:name => 'test article', :profile_id => fast_create(Person).id)
+    per = Person.create!(:name => 'test person', :identifier => 'test-person', :user_id => fast_create(User).id)
+    com = Community.create!(:name => 'test community')
+    eve = Event.create!(:name => 'test event', :profile_id => fast_create(Person).id)
 
     get :index, :query => 'test'
 
     [:articles, :enterprises, :people, :communities, :products, :events].select do |key, name|
-			!assigns(:environment).enabled?('disable_asset_' + key.to_s)
-		end.each do |asset|
-			assert !assigns(:searches)[asset][:results].empty?
-		end
-	end
+      !assigns(:environment).enabled?('disable_asset_' + key.to_s)
+    end.each do |asset|
+      assert !assigns(:searches)[asset][:results].empty?
+    end
+  end
 
   should 'display category image while in directory' do
     parent = Category.create!(:name => 'category1', :environment => Environment.default)
@@ -316,8 +318,8 @@ class SearchControllerTest < ActionController::TestCase
     person = create_user('someone').person
     ten_days_ago = Date.today - 10.day
 
-    ev1 = create_event(person, :name => 'event 1', :category_ids => [@category.id],	:start_date => ten_days_ago)
-    ev2 = create_event(person, :name => 'event 2', :category_ids => [@category.id],	:start_date => Date.today - 2.month)
+    ev1 = create_event(person, :name => 'event 1', :category_ids => [@category.id],  :start_date => ten_days_ago)
+    ev2 = create_event(person, :name => 'event 2', :category_ids => [@category.id],  :start_date => Date.today - 2.month)
 
     get :events, :day => ten_days_ago.day, :month => ten_days_ago.month, :year => ten_days_ago.year
     assert_equal [ev1], assigns(:events)
@@ -327,7 +329,7 @@ class SearchControllerTest < ActionController::TestCase
     person = create_user('someone').person
     ten_days_ago = Date.today - 10.day
 
-    ev1 = create_event(person, :name => 'event 1', :category_ids => [@category.id],	:start_date => ten_days_ago)
+    ev1 = create_event(person, :name => 'event 1', :category_ids => [@category.id],  :start_date => ten_days_ago)
     ev2 = create_event(person, :name => 'event 2', :start_date => ten_days_ago)
 
     get :events, :day => ten_days_ago.day, :month => ten_days_ago.month, :year => ten_days_ago.year, :category_path => @category.path.split('/')
@@ -337,8 +339,8 @@ class SearchControllerTest < ActionController::TestCase
 
   should 'return events of today when no date specified' do
     person = create_user('someone').person
-    ev1 = create_event(person, :name => 'event 1', :category_ids => [@category.id],	:start_date => Date.today)
-    ev2 = create_event(person, :name => 'event 2', :category_ids => [@category.id],	:start_date => Date.today - 2.month)
+    ev1 = create_event(person, :name => 'event 1', :category_ids => [@category.id],  :start_date => Date.today)
+    ev2 = create_event(person, :name => 'event 2', :category_ids => [@category.id],  :start_date => Date.today - 2.month)
 
     get :events
 
@@ -349,9 +351,9 @@ class SearchControllerTest < ActionController::TestCase
     person = create_user('someone').person
 
     ev1 = create_event(person, :name => 'event 1', :category_ids => [@category.id],
-			:start_date => Date.today + 2.month)
+      :start_date => Date.today + 2.month)
     ev2 = create_event(person, :name => 'event 2', :category_ids => [@category.id],
-			:start_date => Date.today + 2.day)
+      :start_date => Date.today + 2.day)
 
     get :events
 
@@ -368,6 +370,15 @@ class SearchControllerTest < ActionController::TestCase
     get :events, :year => '2008', :month => '1'
 
     assert_equal [ 'upcoming event 1' ], assigns(:searches)[:events][:results].map(&:name)
+  end
+
+  should 'see the events paginated' do
+    person = create_user('testuser').person
+    30.times do |i|
+      create_event(person, :name => "Event #{i}", :start_date => Date.today)
+    end
+    get :events
+    assert_equal 20, assigns(:events).count
   end
 
   %w[ people enterprises articles events communities products ].each do |asset|
@@ -423,8 +434,8 @@ class SearchControllerTest < ActionController::TestCase
   end
 
   should 'show link to article asset in the see all foot link of the articles block in the category page' do
-	(1..SearchController::MULTIPLE_SEARCH_LIMIT+1).each do |i|
-	  a = create_user("test#{i}").person.articles.create!(:name => "article #{i} to be found")
+    (1..SearchController::MULTIPLE_SEARCH_LIMIT+1).each do |i|
+      a = create_user("test#{i}").person.articles.create!(:name => "article #{i} to be found")
       ArticleCategorization.add_category_to_article(@category, a)
     end
 
@@ -549,9 +560,9 @@ class SearchControllerTest < ActionController::TestCase
     c2 = create(Community, :name => 'Testing community 2')
     c3 = create(Community, :name => 'Testing community 3')
     ActionTracker::Record.delete_all
-    fast_create(ActionTracker::Record, :target_id => c1, :user_type => 'Profile', :user_id => person, :created_at => Time.now)
-    fast_create(ActionTracker::Record, :target_id => c2, :user_type => 'Profile', :user_id => person, :created_at => Time.now)
-    fast_create(ActionTracker::Record, :target_id => c2, :user_type => 'Profile', :user_id => person, :created_at => Time.now)
+    ActionTracker::Record.create!(:target => c1, :user => person, :created_at => Time.now, :verb => 'leave_scrap')
+    ActionTracker::Record.create!(:target => c2, :user => person, :created_at => Time.now, :verb => 'leave_scrap')
+    ActionTracker::Record.create!(:target => c2, :user => person, :created_at => Time.now, :verb => 'leave_scrap')
     get :communities, :filter => 'more_active'
     assert_equal [c2,c1,c3] , assigns(:searches)[:communities][:results]
   end
@@ -570,55 +581,55 @@ class SearchControllerTest < ActionController::TestCase
     assert_not_includes assigns(:searches)[:communities][:results], p1
   end
 
-	should 'keep old urls working' do
-		get :assets, :asset => 'articles'
+  should 'keep old urls working' do
+    get :assets, :asset => 'articles'
     assert_redirected_to :controller => :search, :action => :articles
-		get :assets, :asset => 'people'
+    get :assets, :asset => 'people'
     assert_redirected_to :controller => :search, :action => :people
-		get :assets, :asset => 'communities'
+    get :assets, :asset => 'communities'
     assert_redirected_to :controller => :search, :action => :communities
-		get :assets, :asset => 'products'
+    get :assets, :asset => 'products'
     assert_redirected_to :controller => :search, :action => :products
-		get :assets, :asset => 'enterprises'
+    get :assets, :asset => 'enterprises'
     assert_redirected_to :controller => :search, :action => :enterprises
-		get :assets, :asset => 'events'
+    get :assets, :asset => 'events'
     assert_redirected_to :controller => :search, :action => :events
-	end
+  end
 
-	should 'show tag cloud' do
-		@controller.stubs(:is_cache_expired?).returns(true)
+  should 'show tag cloud' do
+    @controller.stubs(:is_cache_expired?).returns(true)
     a = Article.create!(:name => 'my article', :profile_id => fast_create(Person).id)
     a.tag_list = ['one', 'two']
-		a.save_tags
+    a.save_tags
 
-		get :tags
+    get :tags
 
-		assert assigns(:tags)["two"] = 1
-		assert assigns(:tags)["one"] = 1
-	end
+    assert assigns(:tags)["two"] = 1
+    assert assigns(:tags)["one"] = 1
+  end
 
   should 'show tagged content' do
-		@controller.stubs(:is_cache_expired?).returns(true)
+    @controller.stubs(:is_cache_expired?).returns(true)
     a = Article.create!(:name => 'my article', :profile_id => fast_create(Person).id)
     a2 = Article.create!(:name => 'my article 2', :profile_id => fast_create(Person).id)
     a.tag_list = ['one', 'two']
     a2.tag_list = ['two', 'three']
-		a.save_tags
+    a.save_tags
     a2.save_tags
 
-		get :tag, :tag => 'two'
+    get :tag, :tag => 'two'
 
     assert_equivalent [a, a2], assigns(:searches)[:tag][:results]
 
-		get :tag, :tag => 'one'
+    get :tag, :tag => 'one'
 
     assert_equivalent [a], assigns(:searches)[:tag][:results]
   end
 
   should 'not show assets from other environments' do
     other_env = Environment.create!(:name => 'Another environment')
-		p1 = Person.create!(:name => 'Hildebrando', :identifier => 'hild', :user_id => fast_create(User).id, :environment_id => other_env.id)
-		p2 = Person.create!(:name => 'Adamastor', :identifier => 'adam', :user_id => fast_create(User).id)
+    p1 = Person.create!(:name => 'Hildebrando', :identifier => 'hild', :user_id => fast_create(User).id, :environment_id => other_env.id)
+    p2 = Person.create!(:name => 'Adamastor', :identifier => 'adam', :user_id => fast_create(User).id)
     art1 = Article.create!(:name => 'my article', :profile_id => p1.id)
     art2 = Article.create!(:name => 'my article', :profile_id => p2.id)
 
@@ -629,9 +640,9 @@ class SearchControllerTest < ActionController::TestCase
 
   should 'order articles by more recent' do
     Article.destroy_all
-		art1 = Article.create!(:name => 'review C', :profile_id => fast_create(Person).id, :created_at => Time.now-1.days)
-		art2 = Article.create!(:name => 'review A', :profile_id => fast_create(Person).id, :created_at => Time.now)
-		art3 = Article.create!(:name => 'review B', :profile_id => fast_create(Person).id, :created_at => Time.now-2.days)
+    art1 = Article.create!(:name => 'review C', :profile_id => fast_create(Person).id, :created_at => Time.now-1.days)
+    art2 = Article.create!(:name => 'review A', :profile_id => fast_create(Person).id, :created_at => Time.now)
+    art3 = Article.create!(:name => 'review B', :profile_id => fast_create(Person).id, :created_at => Time.now-2.days)
 
     get :articles, :filter => :more_recent
 
