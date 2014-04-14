@@ -1,5 +1,5 @@
 <div id='price-composition-bar'>
-  <%= render :partial => 'price_composition_bar' %>
+  <%= render :partial => 'manage_products/price_composition_bar' %>
 </div>
 
 <% form_tag({:action => 'manage_product_details'}, :method => 'post', :id => 'manage-product-details-form') do %>
@@ -14,7 +14,7 @@
           <small><%= _('This value is composed by the total value of registered inputs') %></small>
         </td>
       </tr>
-      <%= render :partial => 'edit_price_details', :locals => {:price_details => @product.price_details} %>
+      <%= render :partial => 'manage_products/edit_price_details', :locals => {:price_details => @product.price_details} %>
     </table>
   </div>
 

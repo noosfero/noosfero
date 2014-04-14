@@ -20,7 +20,7 @@
 
 <div id='display-product-inputs'>
   <ul class='input-list'>
-    <%= render :partial => 'input', :collection => @inputs %>
+    <%= render :partial => 'manage_products/input', :collection => @inputs %>
   </ul>
   <%= edit_link(_('Order inputs'), {:action => 'order_inputs', :id => @product.id}, :class => "order-inputs", :style => 'display:none') %>
 </div>
