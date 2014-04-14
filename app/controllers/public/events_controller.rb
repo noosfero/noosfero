@@ -21,7 +21,7 @@ class EventsController < PublicController
 
   def events_by_day
     @date = build_date(params[:year], params[:month], params[:day])
-    @events = profile.events.by_day(@date)
+    @events = profile.events.by_day(@date).paginate(:per_page => per_page, :page => params[:page])
     render :partial => 'events'
   end
 
