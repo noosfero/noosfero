@@ -2815,6 +2815,14 @@ msgstr "%{requestor} quer ativar o empreendimento %{linked_subject}."
 msgid "%{requestor} wants to activate enterprise %{enterprise}."
 msgstr "%{requestor} quer ativar o empreendimento %{enterprise}."
 
+#: app/models/enterprise_activation.rb:31
+msgid "Pending activation of enterprise %{linked_subject}."
+msgstr "Ativação pendente para o empreendimento %{linked_subject}."
+
+#: app/models/enterprise_activation.rb:39
+msgid "Pending activation of enterprise %{enterprise}."
+msgstr "Ativação pendente para o empreendimento %{enterprise}."
+
 #: app/models/contact.rb:- app/views/friends/index.rhtml:33
 #: app/views/friends/index.rhtml:36
 msgid "contact"
