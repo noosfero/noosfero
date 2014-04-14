@@ -104,13 +104,9 @@ class Enterprise < Organization
     return if enabled
     # must be set first for the following to work
     self.enabled = true
-
     self.affiliate owner, Profile::Roles.all_roles(self.environment.id) if owner
-
     self.apply_template template if self.environment.replace_enterprise_template_when_enable
-
     self.activation_task.update_attribute :status, Task::Status::FINISHED rescue nil
-
     self.save_without_validation!
   end
 
