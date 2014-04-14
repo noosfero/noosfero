@@ -468,8 +468,8 @@ class CommentTest < ActiveSupport::TestCase
     end
   end
 
-
   should 'delegate spam detection to plugins' do
+    Noosfero::Plugin.stubs(:all).returns(['CommentTest::EverythingIsSpam'])
     Environment.default.enable_plugin(EverythingIsSpam)
 
     c1 = create_comment
@@ -495,6 +495,7 @@ class CommentTest < ActiveSupport::TestCase
   end
 
   should 'notify plugins of comments being marked as spam' do
+    Noosfero::Plugin.stubs(:all).returns(['CommentTest::SpamNotification'])
     Environment.default.enable_plugin(SpamNotification)
 
     c = create_comment
@@ -506,6 +507,7 @@ class CommentTest < ActiveSupport::TestCase
   end
 
   should 'notify plugins of comments being marked as ham' do
+    Noosfero::Plugin.stubs(:all).returns(['CommentTest::SpamNotification'])
     Environment.default.enable_plugin(SpamNotification)
 
     c = create_comment

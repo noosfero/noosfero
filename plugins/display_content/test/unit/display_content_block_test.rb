@@ -238,6 +238,7 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
     block.nodes= [a1.id, a2.id, a3.id]
     box = mock()
     box.stubs(:owner).returns(profile)
+    box.stubs(:environment).returns(Environment.default)
     block.stubs(:box).returns(box)
     assert_equal [], [a1, a2] - block.articles_of_parent
     assert_equal [], block.articles_of_parent - [a1, a2]
@@ -253,6 +254,7 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
     block = DisplayContentBlock.new
     box = mock()
     box.stubs(:owner).returns(profile)
+    box.stubs(:environment).returns(Environment.default)
     block.stubs(:box).returns(box)
     assert_equal [], [a3] - block.articles_of_parent(a2)
     assert_equal [], block.articles_of_parent(a2) - [a3]
@@ -270,6 +272,7 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
     box = mock()
     block.stubs(:box).returns(box)
     box.stubs(:owner).returns(environment)
+    box.stubs(:environment).returns(Environment.default)
     environment.stubs(:portal_community).returns(profile)
 
     assert_equal [], [a1, a2] - block.articles_of_parent
@@ -288,6 +291,7 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
     box = mock()
     block.stubs(:box).returns(box)
     box.stubs(:owner).returns(environment)
+    box.stubs(:environment).returns(Environment.default)
     environment.stubs(:portal_community).returns(profile)
 
     assert_equal [], [a3] - block.articles_of_parent(a2)
@@ -301,6 +305,7 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
     box = mock()
     block.stubs(:box).returns(box)
     box.stubs(:owner).returns(environment)
+    box.stubs(:environment).returns(Environment.default)
 
     assert_equal [], block.articles_of_parent()
   end
@@ -316,6 +321,7 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
       block = DisplayContentBlock.new
       box = mock()
       box.stubs(:owner).returns(profile)
+      box.stubs(:environment).returns(Environment.default)
       block.stubs(:box).returns(box)
       assert_equal [], [a2] - block.articles_of_parent
       assert_equal [], block.articles_of_parent - [a2]
@@ -334,6 +340,7 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
       block = DisplayContentBlock.new
       box = mock()
       box.stubs(:owner).returns(profile)
+      box.stubs(:environment).returns(Environment.default)
       block.stubs(:box).returns(box)
       assert_equal [a1], block.articles_of_parent
     end
@@ -524,6 +531,30 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
     block.checked_nodes= checked_articles
     block.save!
     assert_equivalent [f1.id, a1.id, a2.id, a3.id], block.nodes
+  end
+
+  should "test should return plugins articles in articles of parent method" do
+    class PluginArticle < Article; end
+
+    class Plugin1 < Noosfero::Plugin
+      def content_types
+        [PluginArticle]
+      end
+    end
+
+    profile = create_user('testuser').person
+    Article.delete_all
+    a1 = fast_create(PluginArticle, :name => 'test article 1', :profile_id => profile.id)
+
+    env = fast_create(Environment)
+    env.enable_plugin(Plugin1)
+
+    block = DisplayContentBlock.new
+    box = mock()
+    box.stubs(:owner).returns(profile)
+    box.stubs(:environment).returns(env)
+    block.stubs(:box).returns(box)
+    assert_equal [a1], block.articles_of_parent
   end
 
 end

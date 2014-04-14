@@ -47,7 +47,7 @@ class PluginsControllerTest < ActionController::TestCase
       end
     end
 
-    Noosfero::Plugin.stubs(:all).returns([Plugin1.to_s,Plugin2.to_s])
+    Noosfero::Plugin.stubs(:all).returns([Plugin1.to_s, Plugin2.to_s])
 
     get :index
 

@@ -6,6 +6,27 @@
     <!--<meta http-equiv="refresh" content="1"/>-->
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta name="description" content="<%= @environment.name %>" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" value="summary">
+    <meta name="twitter:title" content="<%= h page_title %>">
+    <meta name="twitter:description" content="<%= meta_description_tag(@page) %>">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="<%= @page ? 'article' : 'website' %>">
+    <meta property="og:url" content="<%= @page ? url_for(@page.url) : @environment.top_url %>">
+    <meta property="og:title" content="<%= h page_title %>">
+    <meta property="og:site_name" content="<%= profile ? profile.name : @environment.name %>">
+    <meta property="og:description" content="<%= @page ? truncate(strip_tags(@page.body.to_s), :length => 200) : @environment.name %>">
+
+    <% if @page %>
+      <meta property="article:published_time" content="<%= show_date(@page.published_at) %>">
+      <% @page.body_images_paths.each do |img| %>
+        <meta name="twitter:image" content="<%= img.to_s %>">
+        <meta property="og:image" content="<%= img.to_s %>">
+      <% end %>
+    <% end %>
+
     <link rel="shortcut icon" href="<%= image_path(theme_favicon) %>" type="image/x-icon" />
     <%= noosfero_javascript %>
     <%= noosfero_stylesheets %>

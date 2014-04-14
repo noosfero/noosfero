@@ -39,7 +39,7 @@ Feature: comment
     When I press "Post comment"
     Then I should see "Hey ho, let's go"
 
-  @selenium
+  @selenium-fixme
   Scenario: redirect to right place after comment a picture
     Given the following files
       | owner   | file      | mime      |
@@ -97,3 +97,41 @@ Feature: comment
     Given I am on /booking/article-to-comment
     And I follow "Post a comment"
     Then "Post a comment" should not be visible within "#article"
+
+  @selenium
+  Scenario: the newest post from a forum should be displayed first.
+    Given the following users
+      | login     | name       |
+      | joaosilva | Joao Silva |
+    And the following forums
+       | owner     | name  |
+       | joaosilva | Forum |
+    And the following articles
+       | owner     | name     | parent |
+       | joaosilva | Post one | Forum  |
+    And the following comments
+       | article  | author    | title  | body   |
+       | Post one | joaosilva | Hi all | Hi all |
+       | Post one | joaosilva | Hello  | Hello  |
+   When I go to /joaosilva/forum/post-one
+   And I select "Newest first" from "comment_order" within ".comment-order"
+   Then I should see "Hello" within ".article-comment"
+
+  @selenium
+  Scenario: the oldest post from a forum should be displayed first.
+    Given the following users
+      | login     | name       |
+      | joaosilva | Joao Silva |
+    And the following forums
+       | owner     | name  |
+       | joaosilva | Forum |
+    And the following articles
+       | owner     | name     | parent |
+       | joaosilva | Post one | Forum  |
+    And the following comments
+       | article  | author    | title  | body   |
+       | Post one | joaosilva | Hi all | Hi all |
+       | Post one | joaosilva | Hello  | Hello  |
+   When I go to /joaosilva/forum/post-one
+   And I select "Oldest first" from "comment_order" within ".comment-order"
+   Then I should see "Hi all" within ".article-comment"

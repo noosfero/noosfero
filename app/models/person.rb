@@ -71,18 +71,7 @@ class Person < Profile
   has_and_belongs_to_many :acepted_forums, :class_name => 'Forum', :join_table => 'terms_forum_people'
   has_and_belongs_to_many :articles_with_access, :class_name => 'Article', :join_table => 'article_privacy_exceptions'
 
-  named_scope :more_popular,
-      :select => "#{Profile.qualified_column_names}, count(friend_id) as total",
-      :group => Profile.qualified_column_names,
-      :joins => "LEFT OUTER JOIN friendships on profiles.id = friendships.person_id",
-      :order => "total DESC"
-
-  named_scope :more_active,
-    :select => "#{Profile.qualified_column_names}, count(action_tracker.id) as total",
-    :joins => "LEFT OUTER JOIN action_tracker ON profiles.id = action_tracker.user_id",
-    :group => Profile.qualified_column_names,
-    :order => 'total DESC',
-    :conditions => ['action_tracker.created_at >= ? OR action_tracker.id IS NULL', ActionTracker::Record::RECENT_DELAY.days.ago]
+  named_scope :more_popular, :order => 'friends_count DESC'
 
   named_scope :abusers, :joins => :abuse_complaints, :conditions => ['tasks.status = 3'], :select => 'DISTINCT profiles.*'
   named_scope :non_abusers, :joins => "LEFT JOIN tasks ON profiles.id = tasks.requestor_id AND tasks.type='AbuseComplaint'", :conditions => ["tasks.status != 3 OR tasks.id is NULL"], :select => "DISTINCT profiles.*"
@@ -499,6 +488,17 @@ class Person < Profile
   def profile_custom_icon(gravatar_default=nil)
     (self.image.present? && self.image.public_filename(:icon)) ||
     gravatar_profile_image_url(self.email, :size=>20, :d => gravatar_default)
+  end
+
+  settings_items :last_notification, :type => DateTime
+  settings_items :notification_time, :type => :integer, :default => 0
+
+  def notifier
+    @notifier ||= PersonNotifier.new(self)
+  end
+
+  after_update do |person|
+    person.notifier.reschedule_next_notification_mail
   end
 
   protected

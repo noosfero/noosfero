@@ -12,4 +12,8 @@ class CommunityTrackPlugin::TrackCardListBlock < CommunityTrackPlugin::TrackList
     'track_card'
   end
 
+  def embedable?
+    true
+  end
+
 end

@@ -466,6 +466,22 @@ class ApplicationHelperTest < ActiveSupport::TestCase
     assert_match(/Community nick/, page_title)
   end
 
+  should 'not display environment name if is a profile' do
+    stubs(:environment).returns(Environment.default)
+    @controller = ApplicationController.new
+
+    c = fast_create(Community, :name => 'Community for tests', :nickname => 'Community nick', :identifier => 'test_comm')
+    stubs(:profile).returns(c)
+    assert_equal c.short_name, page_title
+  end
+
+  should 'display only environment if no profile and page' do
+    stubs(:environment).returns(Environment.default)
+    @controller = ApplicationController.new
+
+    assert_equal Environment.default.name, page_title
+  end
+
   should 'gravatar default parameter' do
     profile = mock
     profile.stubs(:theme).returns('some-theme')
@@ -660,6 +676,7 @@ class ApplicationHelperTest < ActiveSupport::TestCase
   should 'parse macros' do
     class Plugin1 < Noosfero::Plugin
     end
+    Noosfero::Plugin.stubs(:all).returns(['ApplicationHelperTest::Plugin1'])
 
     class Plugin1::Macro1 < Noosfero::Plugin::Macro
       def parse(params, inner_html, source)

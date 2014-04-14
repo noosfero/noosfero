@@ -12,15 +12,12 @@ class UploadedFile < Article
 
   include ShortFilename
 
-  settings_items :title, :type => 'string'
-  xss_terminate :only => [ :title ]
-
-  def title_with_default
-    title_without_default || short_filename(name, 60)
+  def title
+    if self.name.present? then self.name else self.filename end
   end
-  alias_method_chain :title, :default
-
-  validates_size_of :title, :maximum => 60, :if => (lambda { |file| !file.title.blank? })
+  def title= value
+    self.name = value
+  end
 
   sanitize_filename
 
@@ -30,10 +27,6 @@ class UploadedFile < Article
 
   def thumbnail_path
     self.image? ? self.full_filename(:display).gsub(File.join(RAILS_ROOT, 'public'), '') : nil
-  end
-
-  def display_title
-    title.blank? ? name : title
   end
 
   def first_paragraph
@@ -109,7 +102,7 @@ class UploadedFile < Article
   alias :orig_set_filename :filename=
   def filename=(value)
     orig_set_filename(value)
-    self.name = self.filename
+    self.name ||= self.filename
   end
 
   def download_headers

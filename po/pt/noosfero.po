@@ -2875,6 +2875,30 @@ msgstr "Artigo de texto com linguagem de marcação Textile"
 msgid "Accessible alternative for visually impaired users."
 msgstr "Alternativa acessível para usuários com deficiência visual."
 
+#: app/models/layout_template.rb
+msgid "Left Bar"
+msgstr "Uma barra à esquerda"
+
+#: app/models/layout_template.rb
+msgid "2 Left Bars"
+msgstr "Duas barras à esquerda"
+
+#: app/models/layout_template.rb
+msgid "Left and Bottom Bar"
+msgstr "Uma barra à esquerda e outra ao final"
+
+#: app/models/layout_template.rb
+msgid "Right Bar"
+msgstr "Uma barra à direita"
+
+#: app/models/layout_template.rb
+msgid "Default"
+msgstr "Padrão"
+
+#: app/models/layout_template.rb
+msgid "No Sidebars"
+msgstr "Nenhuma barra lateral"
+
 #: app/models/login_block.rb:4
 msgid "Login/logout"
 msgstr "Login/Sair"
@@ -7219,8 +7243,8 @@ msgstr "Funcionalidade"
 
 #: app/views/features/index.rhtml:16
 #: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/edit.html.erb:4
-msgid "Enabled?"
-msgstr "Habilitada?"
+msgid "Enable shopping basket"
+msgstr "Habilitar cesto de compras"
 
 #: app/views/features/index.rhtml:27
 msgid "Configure features"
@@ -12462,8 +12486,8 @@ msgid "Basket options"
 msgstr "Opções do cesto"
 
 #: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/edit.html.erb:5
-msgid "Delivery?"
-msgstr "Entrega?"
+msgid "Enable delivery fields on orders"
+msgstr "Ativar campos de entrega para pedidos"
 
 #: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/edit.html.erb:10
 msgid "Option"
@@ -12480,12 +12504,12 @@ msgid "ADD NEW OPTION"
 msgstr "ADCIONAR NOVA OPÇÂO"
 
 #: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/edit.html.erb:36
-msgid "Free delivery price:"
-msgstr "Preço de entrega grátis:"
+msgid "Order's minimum price for free delivery:"
+msgstr "Preço mínimo do pedido para entrega grátis:"
 
 #: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/edit.html.erb:37
-msgid "Empty stands for no free delivery price."
-msgstr "Vazio significa sem preço de frete grátis."
+msgid "Leave empty to always charge the delivery."
+msgstr "Deixe vazio para sempre cobrar a entrega."
 
 #: plugins/shopping_cart/views/shopping_cart_plugin_myprofile/reports.html.erb:1
 msgid "Purchase Reports"

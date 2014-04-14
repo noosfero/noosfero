@@ -80,6 +80,22 @@ class BoxOrganizerController < ApplicationController
     render :action => 'edit', :layout => false
   end
 
+  def search_autocomplete
+    if request.xhr? and params[:query]
+      search = params[:query]
+      path_list = if boxes_holder.is_a?(Environment) && boxes_holder.enabled?('use_portal_community') && boxes_holder.portal_community
+        boxes_holder.portal_community.articles.find(:all, :conditions=>"name ILIKE '%#{search}%' or path ILIKE '%#{search}%'", :limit=>20).map { |content| "/{portal}/"+content.path }
+      elsif boxes_holder.is_a?(Profile)
+        boxes_holder.articles.find(:all, :conditions=>"name ILIKE '%#{search}%' or path ILIKE '%#{search}%'", :limit=>20).map { |content| "/{profile}/"+content.path }
+      else
+        []
+      end
+      render :json => path_list.to_json
+    else
+      redirect_to "/"
+    end
+  end
+
   def save
     @block = boxes_holder.blocks.find(params[:id])
     @block.update_attributes(params[:block])
@@ -97,6 +113,12 @@ class BoxOrganizerController < ApplicationController
     else
       session[:notice] = _('Failed to remove block')
     end
+  end
+
+  def clone_block
+    block = Block.find(params[:id])
+    block.duplicate
+    redirect_to :action => 'index'
   end
 
   protected :boxes_editor?
