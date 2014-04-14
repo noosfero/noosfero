@@ -33,14 +33,16 @@ class PersonNotifierTest < ActiveSupport::TestCase
   should 'do not send mail if do not have notifications' do
     @community.add_member(@member)
     ActionTracker::Record.delete_all
-    notify
-    assert ActionMailer::Base.deliveries.empty?
+    assert_no_difference ActionMailer::Base.deliveries, :count do
+      notify
+    end
   end
 
   should 'do not send mail to people not joined to community' do
     Comment.create!(:author => @admin, :title => 'test comment 2', :body => 'body 2!', :source => @article)
-    notify
-    assert ActionMailer::Base.deliveries.blank?
+    assert_no_difference ActionMailer::Base.deliveries, :count do
+      notify
+    end
   end
 
   should 'display author name in delivered mail' do
@@ -56,8 +58,9 @@ class PersonNotifierTest < ActiveSupport::TestCase
     ActionTracker::Record.delete_all
     comment = Comment.create!(:author => @admin, :title => 'test comment', :body => 'body!', :source => @article )
     @member.last_notification = DateTime.now + 1.day
-    notify
-    assert ActionMailer::Base.deliveries.empty?
+    assert_no_difference ActionMailer::Base.deliveries, :count do
+      notify
+    end
   end
 
   should 'update last notification date' do
@@ -85,14 +88,16 @@ class PersonNotifierTest < ActiveSupport::TestCase
   should 'do not schedule duplicated notification mail' do
     @member.notification_time = 12
     @member.notifier.schedule_next_notification_mail
-    @member.notifier.schedule_next_notification_mail
-    assert_equal 1, Delayed::Job.count
+    assert_no_difference Delayed::Job, :count do
+      @member.notifier.schedule_next_notification_mail
+    end
   end
 
   should 'do not schedule next mail if notification time is zero' do
     @member.notification_time = 0
-    @member.notifier.schedule_next_notification_mail
-    assert_equal 0, Delayed::Job.count
+    assert_no_difference Delayed::Job, :count do
+      @member.notifier.schedule_next_notification_mail
+    end
   end
 
   should 'schedule next notifications for all person with notification time greater than zero' do
@@ -108,26 +113,31 @@ class PersonNotifierTest < ActiveSupport::TestCase
 
   should 'do not create duplicated job' do
     PersonNotifier.schedule_all_next_notification_mail
-    PersonNotifier.schedule_all_next_notification_mail
-    assert_equal 1, Delayed::Job.count
+    assert_no_difference Delayed::Job, :count do
+      PersonNotifier.schedule_all_next_notification_mail
+    end
   end
 
   should 'schedule after update and set a valid notification time' do
-    @member.notification_time = 0
-    @member.save!
-    assert_equal 0, Delayed::Job.count
-    @member.notification_time = 12
-    @member.save!
-    assert_equal 1, Delayed::Job.count
+    assert_no_difference Delayed::Job, :count do
+      @member.notification_time = 0
+      @member.save!
+    end
+    assert_difference Delayed::Job, :count, 1 do
+      @member.notification_time = 12
+      @member.save!
+    end
   end
 
   should 'reschedule with changed notification time' do
-    @member.notification_time = 2
-    @member.save!
-    assert_equal 1, Delayed::Job.count
-    @member.notification_time = 12
-    @member.save!
-    assert_equal 1, Delayed::Job.count
+    assert_difference Delayed::Job, :count, 1 do
+      @member.notification_time = 2
+      @member.save!
+    end
+    assert_no_difference Delayed::Job, :count do
+      @member.notification_time = 12
+      @member.save!
+    end
     assert_equal @member.notification_time, DateTime.now.hour - Delayed::Job.first.run_at.hour
   end
 
@@ -136,7 +146,7 @@ class PersonNotifierTest < ActiveSupport::TestCase
     Comment.create!(:author => @admin, :title => 'test comment', :body => 'body!', :source => @article)
     ActionTracker::Record.any_instance.stubs(:verb).returns("some_invalid_verb")
     notify
-    sent = ActionMailer::Base.deliveries.first
+    sent = ActionMailer::Base.deliveries.last
     assert_match /cannot render notification for some_invalid_verb/, sent.body
   end
 
@@ -157,7 +167,7 @@ class PersonNotifierTest < ActiveSupport::TestCase
       Person.any_instance.stubs(:tracked_notifications).returns(notifications)
 
       notify
-      sent = ActionMailer::Base.deliveries.first
+      sent = ActionMailer::Base.deliveries.last
       assert_no_match /cannot render notification for #{verb}/, sent.body
     end
   end
@@ -177,9 +187,10 @@ class PersonNotifierTest < ActiveSupport::TestCase
   end
 
   should 'perform create NotifyJob for all users with notification_time' do
-    Delayed::Job.enqueue(PersonNotifier::NotifyAllJob.new)
-    process_delayed_job_queue
-    assert_equal 2, Delayed::Job.count
+    assert_difference Delayed::Job, :count, 2 do
+      Delayed::Job.enqueue(PersonNotifier::NotifyAllJob.new)
+      process_delayed_job_queue
+    end
   end
 
   should 'perform create NotifyJob for all users with notification_time defined greater than zero' do
