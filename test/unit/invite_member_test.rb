@@ -22,6 +22,20 @@ class InviteMemberTest < ActiveSupport::TestCase
     ok('friend is member of community') { community.members.include?(friend) }
   end
 
+  should 'cancel other invitations for same community when confirmed' do
+    friend = create_user('friend').person
+    p1 = create_user('testuser1').person
+    p2 = create_user('testuser2').person
+    community = fast_create(Community)
+
+    task = InviteMember.create!(:person => p1, :friend => friend, :community_id => community.id)
+    InviteMember.create!(:person => p2, :friend => friend, :community_id => community.id)
+
+    assert_difference friend.tasks.pending, :count, -2 do
+      task.finish
+    end
+  end
+
   should 'require community (person inviting other to be a member)' do
     task = InviteMember.new
     task.valid?
