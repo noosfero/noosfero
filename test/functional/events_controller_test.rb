@@ -46,4 +46,12 @@ class EventsControllerTest < ActionController::TestCase
     assert_equal 20, assigns(:events).count
   end
 
+  should 'show events of specific day' do
+    profile.events << Event.new(:name => 'Joao Birthday', :start_date => Date.new(2009, 10, 28))
+
+    get :events_by_day, :profile => profile.identifier, :year => 2009, :month => 10, :day => 28
+
+    assert_tag :tag => 'a', :content => /Joao Birthday/
+  end
+
 end

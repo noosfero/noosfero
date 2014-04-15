@@ -1,5 +1,7 @@
 class Community < Organization
 
+  after_destroy :check_invite_member_for_destroy
+
   def self.type_name
     _('Community')
   end
@@ -15,6 +17,10 @@ class Community < Organization
 
   before_create do |community|
     community.moderated_articles = true if community.environment.enabled?('organizations_are_moderated_by_default')
+  end
+
+  def check_invite_member_for_destroy
+      InviteMember.pending.select { |task| task.community_id == self.id }.map(&:destroy)
   end
 
   def self.create_after_moderation(requestor, attributes = {})

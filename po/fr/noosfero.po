@@ -7054,7 +7054,7 @@ msgid "Manage Members"
 msgstr "Gérer les membres"
 
 #: app/views/profile_editor/index.rhtml:48
-msgid "Manage Products and Services"
+msgid "Manage Products/Services"
 msgstr "Gérer les produits et services"
 
 #: app/views/profile_editor/index.rhtml:52

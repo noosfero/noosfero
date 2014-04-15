@@ -6406,7 +6406,7 @@ msgid "Manage Members"
 msgstr ""
 
 #: app/views/profile_editor/index.rhtml:48
-msgid "Manage Products and Services"
+msgid "Manage Products/Services"
 msgstr ""
 
 #: app/views/profile_editor/index.rhtml:52

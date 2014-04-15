@@ -5,7 +5,7 @@
     <span class='control-panel-sep'>&#150;</span>
     <span class='control-panel-subtitle'><%= _('Control Panel') %></span>
   </h1>
-  
+
 <%= render :partial => 'pending_tasks' %>
 
 <% control_panel do %>
@@ -23,7 +23,7 @@
   <%= control_panel_button(_('Edit sideboxes'), 'blocks', :controller => 'profile_design', :action => 'index') %>
 
   <%= control_panel_button(_('Edit Appearance'), 'design-editor', :controller => 'themes', :action => 'index') %>
-  
+
   <%= control_panel_button(_('Edit Header and Footer'), 'header-and-footer', :controller => 'profile_editor', :action => 'header_footer') unless profile.enterprise? && environment.enabled?('disable_header_and_footer') && !user.is_admin?(environment) %>
 
   <%= control_panel_button(_('Manage Content'), 'cms', :controller => 'cms') %>
@@ -45,7 +45,7 @@
 
   <%= control_panel_button(_('Manage Members'), 'members', :controller => 'profile_members') if profile.organization? && user.has_permission?(:manage_memberships, profile) %>
 
-  <%= control_panel_button(_('Manage Products and Services'), 'products', :controller => 'manage_products') if profile.enterprise? && environment.enabled?('products_for_enterprises') %>
+  <%= control_panel_button(_('Manage Products/Services'), 'products', :controller => 'manage_products') if profile.enterprise? && environment.enabled?('products_for_enterprises') %>
 
   <% if !environment.enabled?('disable_asset_enterprises') %>
     <% if profile.is_validation_entity? %>

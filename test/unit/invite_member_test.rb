@@ -115,5 +115,19 @@ class InviteMemberTest < ActiveSupport::TestCase
     assert_match(/#{task.requestor.name} invited you to join #{community.name}/, email.subject)
   end
 
+  should 'destroy InviteMember task when the community is destroyed' do    
+    p1 = create_user('testuser1').person
+    p2 = create_user('testuser2').person
+    p3 = create_user('testuser3').person
+    community = fast_create(Community)
+
+    t1 = InviteMember.create!(:person => p1, :friend => p2, :community_id => community.id)
+    t2 = InviteMember.create!(:person => p1, :friend => p3, :community_id => community.id)
+    community.destroy
+
+    assert_raise ActiveRecord::RecordNotFound do; t1.reload; end
+    assert_raise ActiveRecord::RecordNotFound do; t2.reload; end
+  end
+
 end
 
