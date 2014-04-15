@@ -18,6 +18,7 @@ class AccountController < ApplicationController
     if @user and @user.activate
       @message = _("Your account has been activated, now you can log in!")
       check_redirection
+      session[:join] = params[:join] unless params[:join].blank?
       render :action => 'login', :userlogin => @user.login
     else
       session[:notice] = _("It looks like you're trying to activate an account. Perhaps have already activated this account?")
@@ -36,7 +37,7 @@ class AccountController < ApplicationController
     self.current_user ||= User.authenticate(params[:user][:login], params[:user][:password], environment) if params[:user]
 
     if logged_in?
-      check_join_in_community(self.current_user)
+      join_community(self.current_user)
       if params[:remember_me] == "1"
         self.current_user.remember_me
         cookies[:auth_token] = { :value => self.current_user.remember_token , :expires => self.current_user.remember_token_expires_at }
@@ -104,7 +105,7 @@ class AccountController < ApplicationController
           end
           if @user.activated?
             self.current_user = @user
-            check_join_in_community(@user)
+            join_community(@user)
             go_to_signup_initial_page
           else
             @register_pending = true
@@ -451,6 +452,14 @@ class AccountController < ApplicationController
     unless params[:redirection].blank?
       session[:return_to] = @user.return_to
       @user.update_attributes(:return_to => nil)
+    end
+  end
+
+  def join_community(user)
+    profile_to_join = session[:join]
+    unless profile_to_join.blank?
+     environment.profiles.find_by_identifier(profile_to_join).add_member(user.person)
+     session.delete(:join)
     end
   end
 end

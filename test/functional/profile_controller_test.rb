@@ -477,25 +477,6 @@ class ProfileControllerTest < ActionController::TestCase
     assert_equal "/profile/#{community.identifier}", @request.session[:previous_location]
   end
 
-  should 'redirect to login after user not logged asks to join a community' do
-    community = Community.create!(:name => 'my test community')
-
-    get :join_not_logged, :profile => community.identifier
-
-    assert_equal community.identifier, @request.session[:join]
-    assert_redirected_to :controller => :account, :action => :login
-  end
-
-  should 'redirect to join after user logged asks to join_not_logged a community' do
-    community = Community.create!(:name => 'my test community')
-
-    login_as(profile.identifier)
-    get :join_not_logged, :profile => community.identifier
-
-    assert_equal community.identifier, @request.session[:join]
-    assert_redirected_to :controller => :profile, :action => :join
-  end
-
   should 'show number of published events in index' do
     profile.articles << Event.new(:name => 'Published event', :start_date => Date.today)
     profile.articles << Event.new(:name => 'Unpublished event', :start_date => Date.today, :published => false)
@@ -1195,7 +1176,7 @@ class ProfileControllerTest < ActionController::TestCase
     20.times {comment = fast_create(Comment, :source_id => article, :title => 'a comment', :body => 'lalala', :created_at => Time.now)}
     article.reload
     get :index, :profile => profile.identifier
-    assert_tag 'ul', :attributes => {:class => 'profile-wall-activities-comments'}, :children => {:count => 0 } 
+    assert_tag 'ul', :attributes => {:class => 'profile-wall-activities-comments'}, :children => {:count => 0 }
   end
 
   should "view more comments paginated" do
@@ -1221,7 +1202,7 @@ class ProfileControllerTest < ActionController::TestCase
     20.times {fast_create(Scrap, :sender_id => profile.id, :receiver_id => profile.id, :scrap_id => scrap.id)}
     profile.reload
     get :index, :profile => profile.identifier
-    assert_tag 'ul', :attributes => {:class => 'profile-wall-activities-comments scrap-replies'}, :children => {:count => 0 } 
+    assert_tag 'ul', :attributes => {:class => 'profile-wall-activities-comments scrap-replies'}, :children => {:count => 0 }
   end
 
   should "view more replies paginated" do
