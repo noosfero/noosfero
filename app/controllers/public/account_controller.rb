@@ -127,17 +127,13 @@ class AccountController < ApplicationController
     if request.post?
       @user = current_user
       begin
-        @user.change_password!(params[:current_password],
-                               params[:new_password],
-                               params[:new_password_confirmation])
-        session[:notice] = _('Your password has been changed successfully!')
-        redirect_to :action => 'index'
-      rescue User::IncorrectPassword => e
-        session[:notice] = _('The supplied current password is incorrect.')
-        render :action => 'change_password'
+      @user.change_password!(params[:current_password],
+                             params[:new_password],
+                             params[:new_password_confirmation])
+      session[:notice] = _('Your password has been changed successfully!')
+      redirect_to :action => 'index'
+      rescue
       end
-    else
-      render :action => 'change_password'
     end
   end
 
