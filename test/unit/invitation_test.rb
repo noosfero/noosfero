@@ -133,4 +133,24 @@ class InvitationTest < ActiveSupport::TestCase
       Invitation.invite(person, [friend.id.to_s], 'hello friend <url>', person)
     end
   end
+
+  should 'not invite friends if there is a pending invitation' do
+    person = create_user('testuser1').person
+    friend = create_user('testuser2').person
+    community = fast_create(Community)
+
+    assert_difference InviteMember, :count do
+      Invitation.invite(person, [friend.id.to_s], 'hello friend <url>', community)
+    end
+    assert_difference InviteFriend, :count do
+      Invitation.invite(person, [friend.id.to_s], 'hello friend <url>', person)
+    end
+
+    assert_no_difference InviteMember, :count do
+      Invitation.invite(person, [friend.id.to_s], 'hello friend <url>', community)
+    end
+    assert_no_difference InviteFriend, :count do
+      Invitation.invite(person, [friend.id.to_s], 'hello friend <url>', person)
+    end
+  end
 end
