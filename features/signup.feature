@@ -275,7 +275,7 @@ Feature: signup
     And I fill in "Username" with "josesilva"
     And I fill in "Password" with "secret"
     And I press "Log in"
-    Then "Joao Silva" should be a member of "Free Software"
+    Then "José da Silva" should be a member of "Free Software"
 
   @selenium
   Scenario: join community on direct signup
@@ -297,4 +297,4 @@ Feature: signup
       | Full name             | José da Silva         |
     And wait for the captcha signup time
     And I press "Create my account"
-    Then "Joao Silva" should be a member of "Free Software"
+    Then "José da Silva" should be a member of "Free Software"
