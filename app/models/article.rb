@@ -40,12 +40,6 @@ class Article < ActiveRecord::Base
   # xss_terminate plugin can't sanitize array fields
   before_save :sanitize_tag_list
 
-  before_create do |article|
-    if article.last_changed_by_id
-      article.author_name = Person.find(article.last_changed_by_id).name
-    end
-  end
-
   belongs_to :profile
   validates_presence_of :profile_id, :name
   validates_presence_of :slug, :path, :if => lambda { |article| !article.name.blank? }
@@ -55,6 +49,7 @@ class Article < ActiveRecord::Base
   validates_uniqueness_of :slug, :scope => ['profile_id', 'parent_id'], :message => N_('The title (article name) is already being used by another article, please use another title.'), :if => lambda { |article| !article.slug.blank? }
 
   belongs_to :last_changed_by, :class_name => 'Person', :foreign_key => 'last_changed_by_id'
+  belongs_to :created_by, :class_name => 'Person', :foreign_key => 'created_by_id'
 
   has_many :comments, :class_name => 'Comment', :foreign_key => 'source_id', :dependent => :destroy, :order => 'created_at asc'
 
@@ -89,6 +84,11 @@ class Article < ActiveRecord::Base
         article.parent = article.profile.blog
       end
     end
+
+    if article.created_by
+      article.author_name = article.created_by.name
+    end
+
   end
 
   after_destroy :destroy_activity
@@ -630,18 +630,20 @@ class Article < ActiveRecord::Base
 
   def author(version_number = nil)
     if version_number
-      version = versions.find_by_version(version_number)
+      version = self.versions.find_by_version(version_number)
       author_id = version.last_changed_by_id if version
-      Person.exists?(author_id) ? Person.find(author_id) : nil
     else
-      if versions.empty?
-        last_changed_by
-      else
-        author_id = versions.first.last_changed_by_id
-        Person.exists?(author_id) ? Person.find(author_id) : nil
-      end
+      author_id = self.created_by_id
     end
-  end
+
+    begin
+      @author = Person.find(author_id) if !@author || @author.id != author_id
+    rescue
+      @author = nil
+    end
+
+    @author
+   end
 
   def author_name(version_number = nil)
     person = author(version_number)
