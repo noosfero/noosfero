@@ -16,6 +16,17 @@ module API
         }
       end
 
+      expose :profile do |article, options|
+        {
+          :id => article.profile.id,
+          :name => article.profile.name,
+          :icon_url => article.profile.profile_custom_image(:icon),
+          :minor_url => article.profile.profile_custom_image(:minor),
+          :portrait_url => article.profile.profile_custom_image(:portrait),
+          :thumb_url => article.profile.profile_custom_image(:thumb),
+        }
+      end
+
     end
 
     class Comment < Grape::Entity
