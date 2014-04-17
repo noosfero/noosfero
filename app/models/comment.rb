@@ -20,6 +20,17 @@ class Comment < ActiveRecord::Base
 
   scope :without_reply, :conditions => ['reply_of_id IS NULL']
 
+  #FIXME make this test
+  named_scope :newer_than, lambda { |reference_id|
+    {:conditions => ["comments.id > #{reference_id}"]}
+  }
+
+  #FIXME make this test
+  named_scope :older_than, lambda { |reference_id|
+    {:conditions => ["comments.id < #{reference_id}"]}
+  }
+
+
   # unauthenticated authors:
   validates_presence_of :name, :if => (lambda { |record| !record.email.blank? })
   validates_presence_of :email, :if => (lambda { |record| !record.name.blank? })
