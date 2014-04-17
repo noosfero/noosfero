@@ -20,10 +20,6 @@ module API
 #    }
         get do
   
-          #FIXME remove this line when hub be implemented
-          params[:content_type] = 'Folder' if ((params[:content_type].nil? ? '' : params[:content_type].downcase) == 'hub')
-          params[:content_type] = 'Folder' if ((params[:content_type].nil? ? '' : params[:content_type]) == 'CommunityHubPlugin::Hub')
-  
           conditions = make_conditions_with_parameter(params)
                   
           if params[:reference_id]
