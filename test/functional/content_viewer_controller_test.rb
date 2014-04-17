@@ -398,9 +398,9 @@ class ContentViewerControllerTest < ActionController::TestCase
     page.body = 'edited article'; page.save
 
     get :versions_diff, :profile => profile.identifier, :page => [ 'myarticle' ], :v1 => 1, :v2 => 2;
-  
-    assert_tag :tag => 'li', :attributes => { :class => /del/ }, :content => /original article/
-    assert_tag :tag => 'li', :attributes => { :class => /ins/ }, :content => /edited article/  
+
+    assert_tag :tag => 'li', :attributes => { :class => /del/ }, :content => /original/
+    assert_tag :tag => 'li', :attributes => { :class => /ins/ }, :content => /edited/
     assert_response :success
   end
 
