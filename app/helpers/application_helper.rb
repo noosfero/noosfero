@@ -1149,6 +1149,7 @@ module ApplicationHelper
   #FIXME Use time_ago_in_words instead of this method if you're using Rails 2.2+
   def time_ago_as_sentence(from_time, include_seconds = false)
     to_time = Time.now
+    from_time = Time.parse(from_time.to_s)
     from_time = from_time.to_time if from_time.respond_to?(:to_time)
     to_time = to_time.to_time if to_time.respond_to?(:to_time)
     distance_in_minutes = (((to_time - from_time).abs)/60).round
