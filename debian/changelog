@@ -1,3 +1,9 @@
+noosfero (0.46.3) unstable; urgency=low
+
+  * Bugfixes with package installation problem fixed
+
+ -- Rodrigo Souto <rodrigo@colivre.coop.br>  Thu, 17 Apr 2014 14:31:25 +0000
+
 noosfero (0.46.2) unstable; urgency=low
 
   * Bugfix release
