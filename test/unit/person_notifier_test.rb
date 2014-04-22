@@ -25,6 +25,7 @@ class PersonNotifierTest < ActiveSupport::TestCase
 
   should 'deliver mail to community members' do
     @community.add_member(@member)
+    process_delayed_job_queue
     notify
     sent = ActionMailer::Base.deliveries.first
     assert_equal [@member.email], sent.to
@@ -48,8 +49,9 @@ class PersonNotifierTest < ActiveSupport::TestCase
   should 'display author name in delivered mail' do
     @community.add_member(@member)
     Comment.create!(:author => @admin, :title => 'test comment', :body => 'body!', :source => @article)
+    process_delayed_job_queue
     notify
-    sent = ActionMailer::Base.deliveries.first
+    sent = ActionMailer::Base.deliveries.last
     assert_match /#{@admin.name}/, sent.body
   end
 
@@ -81,8 +83,11 @@ class PersonNotifierTest < ActiveSupport::TestCase
 
   should 'schedule next mail at notification time' do
     @member.notification_time = 12
+    time = Time.now
     @member.notifier.schedule_next_notification_mail
-    assert_equal @member.notification_time, DateTime.now.hour - Delayed::Job.first.run_at.hour
+    job = Delayed::Job.where("handler like '%PersonNotifier::NotifyJob%'").last
+    assert job.run_at >= time + @member.notification_time.hours
+    assert job.run_at < time + (@member.notification_time+1).hours
   end
 
   should 'do not schedule duplicated notification mail' do
@@ -130,6 +135,7 @@ class PersonNotifierTest < ActiveSupport::TestCase
   end
 
   should 'reschedule with changed notification time' do
+    time = Time.now
     assert_difference Delayed::Job, :count, 1 do
       @member.notification_time = 2
       @member.save!
@@ -138,13 +144,17 @@ class PersonNotifierTest < ActiveSupport::TestCase
       @member.notification_time = 12
       @member.save!
     end
-    assert_equal @member.notification_time, DateTime.now.hour - Delayed::Job.first.run_at.hour
+    @member.notifier.schedule_next_notification_mail
+    job = Delayed::Job.where("handler like '%PersonNotifier::NotifyJob%'").last
+    assert job.run_at >= time + @member.notification_time.hours
+    assert job.run_at < time + (@member.notification_time+1).hours
   end
 
   should 'display error message if fail to render a notificiation' do
     @community.add_member(@member)
     Comment.create!(:author => @admin, :title => 'test comment', :body => 'body!', :source => @article)
     ActionTracker::Record.any_instance.stubs(:verb).returns("some_invalid_verb")
+    process_delayed_job_queue
     notify
     sent = ActionMailer::Base.deliveries.last
     assert_match /cannot render notification for some_invalid_verb/, sent.body
@@ -217,7 +227,6 @@ class PersonNotifierTest < ActiveSupport::TestCase
   end
 
   def notify
-    process_delayed_job_queue
     @member.notifier.notify
   end
 
