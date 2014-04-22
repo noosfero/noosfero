@@ -1,3 +1,5 @@
+[![Code Climate](https://codeclimate.com/github/Noosfero/noosfero.png)](https://codeclimate.com/github/Noosfero/noosfero)
+
 Noosfero - a web-based social platform
 ======================================
 
