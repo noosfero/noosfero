@@ -39,7 +39,7 @@ end
 desc "Update pot/po files to match new version."
 task :updatepo do
   require 'gettext_rails/tools'
-  require 'noosfero'
+  require_dependency 'noosfero'
 
   GetText::RubyParser::ID << '__'
   GetText::RubyParser::PLURAL_ID << 'n__'

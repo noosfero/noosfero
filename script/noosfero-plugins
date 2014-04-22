@@ -108,8 +108,10 @@ _enable(){
       needs_migrate=true
     elif [ "$installation_ok" = false ]; then
       echo "W: failed to install $plugin; not enabling"
+      echo
     elif [ "$dependencies_ok" = false ]; then
       echo "W: failed to load dependencies for $plugin; not enabling"
+      echo
     fi
   fi
 }
@@ -227,6 +229,7 @@ esac
 
 if [ "$needs_migrate" = 'true' ] && [ "$quiet" = 'false' ]; then
   cat <<-EOF
+
 ====================================================================
 To finish the activation of the plugins you have just enabled, you
 need to restart Noosfero.

@@ -1,4 +1,4 @@
-require 'noosfero'
+require_dependency 'noosfero'
 
 ActionController::Routing::Routes.draw do |map|
   # The priority is based upon order of creation: first created -> highest priority.
@@ -128,6 +128,9 @@ ActionController::Routing::Routes.draw do |map|
 
   map.connect ':profile/*page/versions', :controller => 'content_viewer', :action => 'article_versions', :profile => /#{Noosfero.identifier_format}/, :conditions => { :if => lambda { |env| !Domain.hosting_profile_at(env[:host]) } }
   map.connect '*page/versions', :controller => 'content_viewer', :action => 'article_versions'
+
+  map.connect ':profile/*page/versions_diff', :controller => 'content_viewer', :action => 'versions_diff', :profile => /#{Noosfero.identifier_format}/, :conditions => { :if => lambda { |env| !Domain.hosting_profile_at(env[:host]) } }
+  map.connect '*page/versions_diff', :controller => 'content_viewer', :action => 'versions_diff'
 
   # match requests for profiles that don't have a custom domain
   map.homepage ':profile/*page', :controller => 'content_viewer', :action => 'view_page', :profile => /#{Noosfero.identifier_format}/, :conditions => { :if => lambda { |env| !Domain.hosting_profile_at(env[:host]) } }

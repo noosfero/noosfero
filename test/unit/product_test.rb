@@ -89,21 +89,6 @@ class ProductTest < ActiveSupport::TestCase
     end
   end
 
-  should 'calculate category full name' do
-    cat = mock
-    cat.expects(:full_name).returns('A/B/C')
-
-    p = Product.new
-    p.stubs(:product_category).returns(cat)
-    assert_equal ['A','B','C'], p.category_full_name
-  end
-
-  should 'return a nil cateory full name when not categorized' do
-    p = Product.new
-    p.stubs(:product_category).returns(nil)
-    assert_equal nil, p.category_full_name
-  end
-
   should 'have same lat and lng of its enterprise' do
     ent = fast_create(Enterprise, :name => 'test enterprise', :identifier => 'test_enterprise', :lat => 30.0, :lng => 30.0)
     prod = ent.products.create!(:name => 'test product', :product_category => @product_category)

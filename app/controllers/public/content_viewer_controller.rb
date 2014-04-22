@@ -1,3 +1,5 @@
+require 'diffy'
+
 class ContentViewerController < ApplicationController
 
   needs_profile
@@ -50,7 +52,7 @@ class ContentViewerController < ApplicationController
     end
 
     # At this point the page will be showed
-    @page.hit
+    @page.hit unless user_is_a_bot?
 
     @page = FilePresenter.for @page
 
@@ -117,6 +119,12 @@ class ContentViewerController < ApplicationController
     end
   end
 
+  def versions_diff
+    path = params[:page].join('/')
+    @page = profile.articles.find_by_path(path)
+    @v1, @v2 = @page.versions.find_by_version(params[:v1]), @page.versions.find_by_version(params[:v2])
+  end
+
   def article_versions
     path = params[:page].join('/')
     @page = profile.articles.find_by_path(path)
@@ -174,4 +182,12 @@ class ContentViewerController < ApplicationController
     allowed
   end
 
+  def user_is_a_bot?
+    user_agent= request.env["HTTP_USER_AGENT"]
+    user_agent.blank? ||
+    user_agent.match(/bot/) ||
+    user_agent.match(/spider/) ||
+    user_agent.match(/crawler/) ||
+    user_agent.match(/\(.*https?:\/\/.*\)/)
+  end
 end

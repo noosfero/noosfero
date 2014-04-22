@@ -631,16 +631,18 @@ class Article < ActiveRecord::Base
   end
 
   def author_name(version_number = nil)
-    person = version_number ? author(version_number) : author
+    person = author(version_number)
     person ? person.name : (setting[:author_name] || _('Unknown'))
   end
 
-  def author_url
-    author ? author.url : nil
+  def author_url(version_number = nil)
+    person = author(version_number)
+    person ? person.url : nil
   end
 
-  def author_id
-    author ? author.id : nil
+  def author_id(version_number = nil)
+    person = author(version_number)
+    person ? person.id : nil
   end
 
   def version_license(version_number = nil)

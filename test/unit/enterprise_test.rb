@@ -234,12 +234,12 @@ class EnterpriseTest < ActiveSupport::TestCase
     assert enterprise.enable(person)
   end
 
-  should 'list product categories full name' do
+  should 'list product categories' do
     subcategory = fast_create(ProductCategory, :name => 'Products subcategory', :parent_id => @product_category.id)
     ent = fast_create(Enterprise, :name => 'test ent', :identifier => 'test_ent')
     p = ent.products.create!(:name => 'test prod', :product_category => subcategory)
 
-    assert_equal [p.category_full_name], ent.product_categories
+    assert_equivalent [subcategory], ent.product_categories
   end
 
   should 'not create a products block for enterprise if environment do not let' do

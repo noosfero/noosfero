@@ -182,7 +182,7 @@ Feature: forum
     And I am logged in as "joaosilva"
     When I go to /sample-community/forum
     And I follow "Configure forum"
-    And I check "Allow member to create topics"
+    And I check "Allow members to create topics"
     And I press "Save"
     And I am logged in as "mariasilva"
     And I go to /sample-community/forum
@@ -202,7 +202,7 @@ Feature: forum
     And I am logged in as "joaosilva"
     When I go to /sample-community/forum
     And I follow "Configure forum"
-    And I check "Allow member to create topics"
+    And I check "Allow members to create topics"
     And I press "Save"
     And I am logged in as "mariasilva"
     And I go to /sample-community/forum
@@ -223,7 +223,7 @@ Feature: forum
     And I am logged in as "joaosilva"
     When I go to /sample-community/forum
     And I follow "Configure forum"
-    And I uncheck "Allow member to create topics"
+    And I uncheck "Allow members to create topics"
     And I press "Save"
     And I am logged in as "mariasilva"
     And I go to /sample-community/forum
@@ -244,7 +244,7 @@ Feature: forum
     And I am logged in as "joaosilva"
     When I go to /sample-community/forum
     And I follow "Configure forum"
-    And I check "Allow member to create topics"
+    And I check "Allow members to create topics"
     And I press "Save"
     And I am logged in as "mariasilva"
     And I go to /sample-community/forum
@@ -269,7 +269,7 @@ Feature: forum
     And I am logged in as "joaosilva"
     When I go to /sample-community/forum
     And I follow "Configure forum"
-    And I check "Allow member to create topics"
+    And I check "Allow members to create topics"
     And I press "Save"
     And I am logged in as "mariasilva"
     And I go to /sample-community/forum

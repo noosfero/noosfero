@@ -1,3 +1,21 @@
+noosfero (0.47.0) unstable; urgency=low
+
+  * New features release
+
+ -- Rodrigo Souto <rodrigo@colivre.coop.br>  Tue, 22 Apr 2014 20:13:33 +0000
+
+noosfero (0.47.0~rc3) squeeze-test; urgency=low
+
+  * Memory leak fix, performance improvements and bugfixes
+
+ -- Rodrigo Souto <rodrigo@colivre.coop.br>  Wed, 09 Apr 2014 19:01:34 +0000
+
+noosfero (0.47.0~rc1) squeeze-test; urgency=low
+
+  * New features Release Candidate 1
+
+ -- Rodrigo Souto <rodrigo@colivre.coop.br>  Thu, 20 Mar 2014 20:26:45 +0000
+
 noosfero (0.46.2) unstable; urgency=low
 
   * Bugfix release

@@ -247,3 +247,9 @@ end
 Then /^there should be a div with class "([^"]*)"$/ do |klass|
   should have_selector('div', :class => klass)
 end
+
+When /^(?:|I )follow exact "([^"]*)"(?: within "([^"]*)")?$/ do |link, selector|
+  with_scope(selector) do
+    find("a", :text => /\A#{link}\z/).click
+  end
+end

@@ -120,7 +120,8 @@ Noosfero.default_locale = nil
 Tag.hierarchical = true
 
 # several local libraries
-require 'noosfero'
+
+require_dependency 'noosfero'
 require 'sqlite_extension'
 
 # load a local configuration if present, but not under test environment.

@@ -3561,9 +3561,10 @@ div#article-parent {
 }
 #agenda .agenda-calendar {
   width: 50%;
+  display: inline-block;
 }
 #agenda td, #agenda th {
-  padding: 15px;
+  padding: 10px;
   padding-right: 0px;
 }
 #agenda .agenda-calendar .previous-month td, #agenda .agenda-calendar .previous-month th, #agenda .agenda-calendar .next-month td, #agenda .agenda-calendar .next-month th {
@@ -3621,26 +3622,25 @@ div#article-parent {
   vertical-align: middle;
 }
 #agenda .agenda-calendar .current-month caption {
-  margin-bottom: 10px;
+  margin: 10px 0px;
 }
 #agenda #events-of-the-day {
-  position: absolute;
-  left: 50%;
   width: 45%;
-  top: 0px;
   height: 100%;
   padding-left: 20px;
+  display: inline-block;
+  vertical-align: top;
 }
 #agenda #events-of-the-day #agenda-items {
   display: block;
   overflow: auto;
   overflow-x: hidden;
-  height: 80%;
+  height: 250px;
   background: white;
   border: none;
 }
 #agenda-toolbar {
-  float: right;
+  text-align: right;
   font-variant: normal;
   font-weight: normal;
 }
@@ -3662,6 +3662,9 @@ h1#agenda-title {
   font-weight: bold;
   display: block;
   margin-top: 10px;
+}
+#agenda .pagination {
+  margin-top: 15px;
 }
 /* ==> public/stylesheets/controller_favorite_enterprises.css <== */
 
@@ -6507,11 +6510,6 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 img {
   text-align: center;
 }
 
-ul.article-versions li {
-  font-size: 13px;
-  padding: 3px 0px;
-}
-
 /* * * Admin manage fields * * */
 
 .controller-features .manage-fields-batch-actions,
@@ -6522,4 +6520,91 @@ ul.article-versions li {
 
 .controller-features .manage-fields-batch-actions td {
   font-style: italic;
+}
+
+/* * * Article versions * * */
+
+#article-versions {
+  margin: 0 0 15px 0;
+  padding: 0;
+}
+
+#article-versions li {
+  list-style: none;
+  margin: 0;
+  padding: 3px 0px;
+}
+
+#article-versions input:disabled {
+  opacity: 0.3;
+}
+
+#article-versions .selected {
+  background: #ff9;
+}
+
+#article-versions-no-diff {
+  text-align: center;
+  font-style: italic;
+}
+
+#no-current-version {
+  text-align: center;
+  font-style: italic;
+  background: #faa;
+  padding: 3px;
+}
+
+.article-versions {
+  margin: 5px 0px;
+  text-align: right;
+}
+
+.action-content_viewer-versions_diff .diff {
+  text-align: justify;
+}
+
+.diff ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.diff del, .diff ins {
+  display: block;
+  text-decoration: none;
+}
+
+.diff li {
+  padding: 5px 10px;
+  margin: 0;
+  line-height: 150%;
+}
+
+.diff li.ins {
+  background: #dfd;
+}
+
+.diff li.del {
+  background: #fee;
+}
+
+.diff li.ins:hover {
+  background: #8f8;
+}
+
+.diff li.del:hover {
+  background: #f99;
+}
+
+.diff strong {
+  background: rgba(255, 255, 0, 0.2);
+}
+
+.diff li.diff-comment {
+  display: none;
+}
+
+.diff li.diff-block-info {
+  background: none repeat scroll 0 0 gray;
 }

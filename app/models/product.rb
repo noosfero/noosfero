@@ -88,10 +88,6 @@ class Product < ActiveRecord::Base
     image ? image.public_filename(size) : '/images/icons-app/product-default-pic-%s.png' % size
   end
 
-  def category_full_name
-    product_category ? product_category.full_name.split('/') : nil
-  end
-
   acts_as_having_image
 
   def save_image

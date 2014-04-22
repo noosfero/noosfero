@@ -370,6 +370,15 @@ class SearchControllerTest < ActionController::TestCase
     assert_equal [ 'upcoming event 1' ], assigns(:searches)[:events][:results].map(&:name)
   end
 
+  should 'see the events paginated' do
+    person = create_user('testuser').person
+    30.times do |i|
+      create_event(person, :name => "Event #{i}",	:start_date => Date.today)
+    end
+    get :events
+    assert_equal 20, assigns(:events).count
+  end
+
   %w[ people enterprises articles events communities products ].each do |asset|
     should "render asset-specific template when searching for #{asset}" do
       get "#{asset}"

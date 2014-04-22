@@ -10,7 +10,6 @@
 # It's strongly recommended to check this file into your version control system.
 
 ActiveRecord::Schema.define(:version => 20140314200103) do
-
   create_table "abuse_reports", :force => true do |t|
     t.integer  "reporter_id"
     t.integer  "abuse_complaint_id"
@@ -285,8 +284,8 @@ ActiveRecord::Schema.define(:version => 20140314200103) do
     t.text     "signup_welcome_text"
     t.string   "languages"
     t.string   "default_language"
-    t.string   "redirection_after_signup",     :default => "keep_on_same_page"
     t.string   "noreply_email"
+    t.string   "redirection_after_signup",     :default => "keep_on_same_page"
   end
 
   create_table "external_feeds", :force => true do |t|
@@ -474,11 +473,11 @@ ActiveRecord::Schema.define(:version => 20140314200103) do
     t.boolean  "is_template",                           :default => false
     t.integer  "template_id"
     t.string   "redirection_after_login"
-    t.string   "personal_website"
-    t.string   "jabber_id"
     t.integer  "friends_count",                         :default => 0,     :null => false
     t.integer  "members_count",                         :default => 0,     :null => false
     t.integer  "activities_count",                      :default => 0,     :null => false
+    t.string   "personal_website"
+    t.string   "jabber_id"
   end
 
   add_index "profiles", ["activities_count"], :name => "index_profiles_on_activities_count"
