@@ -10,19 +10,20 @@ class Enterprise < Organization
 
   N_('Enterprise')
 
-  has_many :products, :dependent => :destroy, :order => 'name ASC'
+  has_many :products, :foreign_key => :profile_id, :dependent => :destroy, :order => 'name ASC'
   has_many :inputs, :through => :products
   has_many :production_costs, :as => :owner
 
   has_and_belongs_to_many :fans, :class_name => 'Person', :join_table => 'favorite_enteprises_people'
 
   def product_categories
-    products.includes(:product_category).map{|p| p.category_full_name}.compact
+    ProductCategory.by_enterprise(self)
   end
 
   N_('Organization website'); N_('Historic and current context'); N_('Activities short description'); N_('City'); N_('State'); N_('Country'); N_('ZIP code')
 
   settings_items :organization_website, :historic_and_current_context, :activities_short_description, :zip_code, :city, :state, :country
+  settings_items :products_per_catalog_page, :type => :integer, :default => 6
 
   extend SetProfileRegionFromCityState::ClassMethods
   set_profile_region_from_city_state
@@ -135,8 +136,11 @@ class Enterprise < Organization
     ]
     blocks = [
       [MainBlock.new],
-      [ProfileImageBlock.new, LinkListBlock.new(:links => links)],
-      []
+      [ ProfileImageBlock.new,
+        LinkListBlock.new(:links => links),
+        ProductCategoriesBlock.new
+      ],
+      [LocationBlock.new]
     ]
     if environment.enabled?('products_for_enterprises')
       blocks[2].unshift ProductsBlock.new

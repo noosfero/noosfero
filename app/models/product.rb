@@ -15,7 +15,11 @@ class Product < ActiveRecord::Base
     'full'
   end
 
-  belongs_to :enterprise
+  belongs_to :enterprise, :foreign_key => :profile_id, :class_name => 'Profile'
+  belongs_to :profile
+  alias_method :enterprise=, :profile=
+  alias_method :enterprise, :profile
+
   has_one :region, :through => :enterprise
   validates_presence_of :enterprise
 
@@ -29,7 +33,10 @@ class Product < ActiveRecord::Base
   has_many :qualifiers, :through => :product_qualifiers
   has_many :certifiers, :through => :product_qualifiers
 
-  validates_uniqueness_of :name, :scope => :enterprise_id, :allow_nil => true
+  acts_as_having_settings :field => :data
+
+  validates_uniqueness_of :name, :scope => :profile_id, :allow_nil => true, :if => :validate_uniqueness_of_column_name?
+
   validates_presence_of :product_category_id
   validates_associated :product_category
 
@@ -79,10 +86,6 @@ class Product < ActiveRecord::Base
 
   def default_image(size='thumb')
     image ? image.public_filename(size) : '/images/icons-app/product-default-pic-%s.png' % size
-  end
-
-  def category_full_name
-    product_category ? product_category.full_name.split('/') : nil
   end
 
   acts_as_having_image
@@ -233,5 +236,11 @@ class Product < ActiveRecord::Base
   end
 
   delegate :enabled, :region, :region_id, :environment, :environment_id, :to => :enterprise
+
+  protected
+
+  def validate_uniqueness_of_column_name?
+    true
+  end
 
 end

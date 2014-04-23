@@ -10,7 +10,7 @@ class ProfileDesignControllerTest < ActionController::TestCase
   PERSON_BLOCKS_WITH_MEMBERS = PERSON_BLOCKS + [MembersBlock]
   PERSON_BLOCKS_WITH_BLOG = PERSON_BLOCKS + [BlogArchivesBlock]
 
-  ENTERPRISE_BLOCKS = COMMOM_BLOCKS + [DisabledEnterpriseMessageBlock, FeaturedProductsBlock, FansBlock]
+  ENTERPRISE_BLOCKS = COMMOM_BLOCKS + [DisabledEnterpriseMessageBlock, FeaturedProductsBlock, FansBlock, ProductCategoriesBlock]
   ENTERPRISE_BLOCKS_WITH_PRODUCTS_ENABLE = ENTERPRISE_BLOCKS + [ProductsBlock]
 
   attr_reader :holder
@@ -734,6 +734,14 @@ class ProfileDesignControllerTest < ActionController::TestCase
 
     Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([TestBlockPlugin.new])
     assert !@controller.available_blocks.include?(CustomBlock1)
+  end
+
+  should 'clone a block' do
+    block = ProfileImageBlock.create!(:box => profile.boxes.first)
+    assert_difference ProfileImageBlock, :count, 1 do
+      post :clone, :id => block.id, :profile => profile.identifier
+      assert_response :redirect
+    end
   end
 
 end

@@ -3,7 +3,7 @@ require File.dirname(__FILE__) + '/../test_helper'
 class PersonTest < ActiveSupport::TestCase
   fixtures :profiles, :users, :environments
 
-  def test_person_must_come_form_the_cration_of_an_user
+  def test_person_must_come_from_the_creation_of_an_user
     p = Person.new(:environment => Environment.default, :name => 'John', :identifier => 'john')
     assert !p.valid?
     p.user =  create_user('john', :email => 'john@doe.org', :password => 'dhoe', :password_confirmation => 'dhoe')
@@ -1399,6 +1399,49 @@ class PersonTest < ActiveSupport::TestCase
     at = ActionTracker::Record.create!(:user => person, :verb => 'reply_scrap_on_self')
     person.reload
     assert_equal person.activities, []
+  end
+
+  should 'person notifier be PersonNotifier class' do
+    p =  Person.new
+    assert p.notifier.kind_of?(PersonNotifier)
+  end
+
+  should 'reschedule next notification after update' do
+    p = fast_create(Person, :user_id => fast_create(User).id)
+    PersonNotifier.any_instance.expects(:reschedule_next_notification_mail).once
+    assert p.update_attribute(:name, 'Person name changed')
+  end
+
+  should 'merge memberships of plugins to original memberships' do
+    class Plugin1 < Noosfero::Plugin
+      def person_memberships(person)
+        Profile.memberships_of(Person.find_by_identifier('person1'))
+      end
+    end
+
+    class Plugin2 < Noosfero::Plugin
+      def person_memberships(person)
+        Profile.memberships_of(Person.find_by_identifier('person2'))
+      end
+    end
+
+    Environment.default.enable_plugin(Plugin1)
+    Environment.default.enable_plugin(Plugin2)
+
+    original_person = fast_create(Person)
+    person1 = fast_create(Person, :identifier => 'person1')
+    person2 = fast_create(Person, :identifier => 'person2')
+    original_cmm = fast_create(Community)
+    plugin1_cmm = fast_create(Community)
+    plugin2_cmm = fast_create(Community)
+    original_cmm.add_member(original_person)
+    plugin1_cmm.add_member(person1)
+    plugin2_cmm.add_member(person2)
+
+    assert_includes original_person.memberships, original_cmm
+    assert_includes original_person.memberships, plugin1_cmm
+    assert_includes original_person.memberships, plugin2_cmm
+    assert 3, original_person.memberships.count
   end
 
   should 'increase friends_count on new friendship' do

@@ -1,0 +1,37 @@
+<% if !@themes.empty? %>
+<div id="theme-options" class="list-options">
+
+<h2><%= _('Select theme') %></h2>
+<%= button :home, _('Use the default theme'), { :action => 'unset'}, :method => 'post', :confirm => _('Are you sure you want to use the environment default theme?') %>
+
+<% for themes in @themes.in_groups_of(3) %>
+  <div class="list-group">
+    <% for theme in themes %><%=
+      if theme
+
+        base_content = image_tag(
+          "/designs/themes/#{theme.id}/preview.png",
+          :alt => (_('The "%s" theme.') % theme.name)) +
+        '<div class="opt-info">'.html_safe +
+        content_tag('strong', theme.name, :class => 'name') +
+        ' <br/> '.html_safe
+
+        if theme.id == @current_theme  # selected
+          content_tag( 'div',
+            base_content + content_tag('big', _('(current)') ) +'</div>'.html_safe,
+            :class => 'theme-opt list-opt selected')
+        else  # Not selected
+          link_to(
+            base_content + '</div>'.html_safe,
+            { :action => 'set', :id => theme.id },
+            :class => 'theme-opt list-opt')
+        end
+
+      end
+    %><% end %>
+  </div>
+<% end %>
+
+</div><!-- end id="theme-options" -->
+<% end %>
+

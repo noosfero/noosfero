@@ -43,7 +43,12 @@ class Person < Profile
   alias_method_chain :has_permission?, :plugins
 
   def memberships
-    Profile.memberships_of(self)
+    scopes = []
+    plugins_scopes = plugins.dispatch_scopes(:person_memberships, self)
+    scopes = plugins_scopes unless plugins_scopes.first.blank?
+    scopes << Profile.memberships_of(self)
+    return scopes.first if scopes.size == 1
+    ScopeTool.union *scopes
   end
 
    def memberships_by_role(role)
@@ -129,32 +134,34 @@ class Person < Profile
   end
 
   FIELDS = %w[
+  description
+  image
   preferred_domain
   nickname
   sex
-  address
-  zip_code
-  city
-  state
-  country
-  nationality
   birth_date
+  nationality
+  country
+  state
+  city
+  district
+  zip_code
+  address
+  address_reference
   cell_phone
   comercial_phone
+  personal_website
+  jabber_id
   schooling
+  formation
+  custom_formation
+  area_of_study
+  custom_area_of_study
   professional_activity
   organization
   organization_website
-  area_of_study
-  custom_area_of_study
-  formation
-  custom_formation
   contact_phone
   contact_information
-  description
-  image
-  district
-  address_reference
   ]
 
   validates_multiparameter_assignments
@@ -481,6 +488,17 @@ class Person < Profile
   def profile_custom_icon(gravatar_default=nil)
     (self.image.present? && self.image.public_filename(:icon)) ||
     gravatar_profile_image_url(self.email, :size=>20, :d => gravatar_default)
+  end
+
+  settings_items :last_notification, :type => DateTime
+  settings_items :notification_time, :type => :integer, :default => 0
+
+  def notifier
+    @notifier ||= PersonNotifier.new(self)
+  end
+
+  after_update do |person|
+    person.notifier.reschedule_next_notification_mail
   end
 
   protected

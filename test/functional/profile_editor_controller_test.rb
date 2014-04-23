@@ -73,7 +73,8 @@ class ProfileEditorControllerTest < ActionController::TestCase
     get :edit, :profile => profile.identifier
     assert_response :success
     assert_template 'edit'
-    assert_tag :tag => 'input', :attributes => {:name => 'profile_data[category_ids][]', :value => cat2.id}
+    assert_tag :tag => 'input', :attributes => {:name => 'profile_data[category_ids][]'}
+    assert_tag :tag => 'a', :attributes => { :class => 'select-subcategory-link', :id => "select-category-#{cat1.id}-link" }
   end
 
   should 'save categorization of profile' do
@@ -236,7 +237,7 @@ class ProfileEditorControllerTest < ActionController::TestCase
     cat2 = Environment.default.categories.create!(:display_in_menu => true, :name => 'sub category', :parent => cat1)
     person = create_user('testuser').person
     get :edit, :profile => 'testuser'
-    assert_tag :tag => 'input', :attributes => { :type => 'checkbox', :name => 'profile_data[category_ids][]', :value => cat2.id}
+    assert_tag :tag => 'a', :attributes => { :class => 'select-subcategory-link', :id => "select-category-#{cat1.id}-link" }
   end
 
   should 'render edit template' do
@@ -988,5 +989,44 @@ class ProfileEditorControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  should 'display field to choose number of products if enterprise and enabled on environment' do
+    enterprise = fast_create(Enterprise)
+    enterprise.environment.enable('products_for_enterprises')
+    get :edit, :profile => enterprise.identifier
+    assert_tag :tag => 'div', :descendant => { :tag => 'h2', :content => 'Products/Services catalog' }
+    assert_tag :tag => 'div',
+               :attributes => { :class => 'formfield type-text' },
+               :descendant => {:tag => 'input', :attributes => {:id => 'profile_data_products_per_catalog_page'} }
+  end
+
+  should 'not display field to choose number of products if enterprise but disabled on environment' do
+    enterprise = fast_create(Enterprise)
+    enterprise.environment.disable('products_for_enterprises')
+    get :edit, :profile => enterprise.identifier
+    assert_no_tag :tag => 'div', :descendant => { :tag => 'h2', :content => 'Products/Services catalog' }
+    assert_no_tag :tag => 'div',
+               :attributes => { :class => 'formfield type-text' },
+               :descendant => {:tag => 'input', :attributes => {:id => 'profile_data_products_per_catalog_page'} }
+  end
+
+  should 'not display field to choose number of products if enabled on environment but not enterprise' do
+    community = fast_create(Community)
+    community.environment.enable('products_for_enterprises')
+    get :edit, :profile => community.identifier
+    assert_no_tag :tag => 'div', :descendant => { :tag => 'h2', :content => 'Products/Services catalog' }
+    assert_no_tag :tag => 'div',
+               :attributes => { :class => 'formfield type-text' },
+               :descendant => {:tag => 'input', :attributes => {:id => 'profile_data_products_per_catalog_page'} }
+  end
+
+  should 'not display field to choose number of products if disabled on environment and not enterprise' do
+    community = fast_create(Community)
+    community.environment.disable('products_for_enterprises')
+    get :edit, :profile => community.identifier
+    assert_no_tag :tag => 'div', :descendant => { :tag => 'h2', :content => 'Products/Services catalog' }
+    assert_no_tag :tag => 'div',
+               :attributes => { :class => 'formfield type-text' },
+               :descendant => {:tag => 'input', :attributes => {:id => 'profile_data_products_per_catalog_page'} }
+  end
 
 end

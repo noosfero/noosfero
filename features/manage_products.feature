@@ -22,18 +22,18 @@ Feature: manage products
       | name |
       | Bicycle |
     And the following products
-      | owner      | category |  name  | description |
-      | redemoinho | bicycle  | Bike A | bicycle 1  |
-      | redemoinho | bicycle  | Bike B | bicycle 2  |
-      | redemoinho | bicycle  | Bike C | bicycle 3  |
-      | redemoinho | bicycle  | Bike D | bicycle 4  |
-      | redemoinho | bicycle  | Bike E | bicycle 5  |
-      | redemoinho | bicycle  | Bike F | bicycle 6  |
-      | redemoinho | bicycle  | Bike G | bicycle 7  |
-      | redemoinho | bicycle  | Bike H | bicycle 8  |
-      | redemoinho | bicycle  | Bike I | bicycle 9  |
-      | redemoinho | bicycle  | Bike J | bicycle 10 |
-      | redemoinho | bicycle  | Bike K | bicycle 11 |
+      | owner      | category | name   | description | created_at          |
+      | redemoinho | bicycle  | Bike A | bicycle 1   | 2014-04-01 01:00:00 |
+      | redemoinho | bicycle  | Bike B | bicycle 2   | 2014-04-01 02:00:00 |
+      | redemoinho | bicycle  | Bike C | bicycle 3   | 2014-04-01 03:00:00 |
+      | redemoinho | bicycle  | Bike D | bicycle 4   | 2014-04-01 04:00:00 |
+      | redemoinho | bicycle  | Bike E | bicycle 5   | 2014-04-01 05:00:00 |
+      | redemoinho | bicycle  | Bike F | bicycle 6   | 2014-04-01 06:00:00 |
+      | redemoinho | bicycle  | Bike G | bicycle 7   | 2014-04-01 07:00:00 |
+      | redemoinho | bicycle  | Bike H | bicycle 8   | 2014-04-01 08:00:00 |
+      | redemoinho | bicycle  | Bike I | bicycle 9   | 2014-04-01 09:00:00 |
+      | redemoinho | bicycle  | Bike J | bicycle 10  | 2014-04-01 10:00:00 |
+      | redemoinho | bicycle  | Bike K | bicycle 11  | 2014-04-01 11:00:00 |
     When I go to redemoinho's products page
     Then I should see "Bike A" within "#product-list"
     And I should see "Bike B" within "#product-list"
@@ -41,12 +41,15 @@ Feature: manage products
     And I should see "Bike D" within "#product-list"
     And I should see "Bike E" within "#product-list"
     And I should see "Bike F" within "#product-list"
-    And I should see "Bike G" within "#product-list"
-    And I should see "Bike H" within "#product-list"
-    And I should see "Bike I" within "#product-list"
+    And I should not see "Bike G" within "#product-list"
+    And I should not see "Bike H" within "#product-list"
+    And I should not see "Bike I" within "#product-list"
     And I should not see "Bike J" within "#product-list"
     And I should not see "Bike K" within "#product-list"
     When I follow "Next"
+    Then I should see "Bike G" within "#product-list"
+    Then I should see "Bike H" within "#product-list"
+    Then I should see "Bike I" within "#product-list"
     Then I should see "Bike J" within "#product-list"
     Then I should see "Bike K" within "#product-list"
 

@@ -23,7 +23,7 @@ Feature: comment
   Scenario: show error messages when make a blank comment reply
     Given I am logged in as "booking"
     And I go to /booking/article-to-comment
-    And I follow "Reply" within ".comment-balloon"
+    And I follow "Reply" within ".comments-action-bar"
     When I press "Post comment" within ".comment-balloon"
     Then I should see "Title can't be blank" within "div.comment_reply"
     And I should see "Body can't be blank" within "div.comment_reply"
@@ -31,30 +31,30 @@ Feature: comment
   @selenium
   Scenario: render reply form
     Given I am on /booking/article-to-comment
-    When I follow "Reply" within ".comment-balloon"
+    When I follow "Reply" within ".comments-action-bar"
     Then I should see "Enter your comment" within "div.comment_reply.opened"
 
   # The text is hidden but the detector gets it anyway
   @selenium-fixme
   Scenario: cancel comment reply
     Given I am on /booking/article-to-comment
-    When I follow "Reply" within ".comment-balloon"
-    And I follow "Cancel" within ".comment-balloon"
+    And I follow "Reply" within ".comments-action-bar"
+    When I follow "Cancel" within ".comment-balloon"
     Then I should not see "Enter your comment" within "div.comment_reply.closed"
 
   @selenium-fixme
   Scenario: not render same reply form twice
     Given I am on /booking/article-to-comment
-    When I follow "Reply" within ".comment-balloon"
+    And I follow "Reply" within ".comments-action-bar"
     And I follow "Cancel" within ".comment-balloon"
-    And I follow "Reply" within ".comment-balloon"
+    When I follow "Reply" within ".comments-action-bar"
     Then there should be 1 "comment_form" within "comment_reply"
     And I should see "Enter your comment" within "div.comment_reply.opened"
 
   @selenium-fixme
   Scenario: reply a comment
     Given I go to /booking/another-article
-    And I follow "Reply" within ".comment-balloon"
+    And I follow "Reply" within ".comments-action-bar"
     And I fill in "Name" within "comment-balloon" with "Joey"
     And I fill in "e-mail" within "comment-balloon" with "joey@ramones.com"
     And I fill in "Title" within "comment-balloon" with "Hey ho, let's go!"
@@ -73,7 +73,7 @@ Feature: comment
       | rails.png | booking | root comment | this comment is not a reply |
     Given I am logged in as "booking"
     And I go to /booking/rails.png?view=true
-    And I follow "Reply" within ".comment-balloon"
+    And I follow "Reply" within ".comments-action-bar"
     And I fill in "Title" within "comment-balloon" with "Hey ho, let's go!"
     And I fill in "Enter your comment" within "comment-balloon" with "Hey ho, let's go!"
     When I press "Post comment" within ".comment-balloon"

@@ -26,7 +26,8 @@ class Environment < ActiveRecord::Base
     'manage_environment_users' => N_('Manage environment users'),
     'manage_environment_templates' => N_('Manage environment templates'),
     'manage_environment_licenses' => N_('Manage environment licenses'),
-    'manage_environment_trusted_sites' => N_('Manage environment trusted sites')
+    'manage_environment_trusted_sites' => N_('Manage environment trusted sites'),
+    'edit_appearance'      => N_('Edit appearance'),
   }
 
   module Roles
@@ -144,6 +145,18 @@ class Environment < ActiveRecord::Base
   end
   validates_inclusion_of :redirection_after_login, :in => Environment.login_redirection_options.keys, :allow_nil => true
 
+  def self.signup_redirection_options
+    {
+      'keep_on_same_page' => _('Stays on the same page the user was before signup.'),
+      'site_homepage' => _('Redirects the user to the environment homepage.'),
+      'user_profile_page' => _('Redirects the user to his profile page.'),
+      'user_homepage' => _('Redirects the user to his homepage.'),
+      'user_control_panel' => _('Redirects the user to his control panel.')
+    }
+  end
+  validates_inclusion_of :redirection_after_signup, :in => Environment.signup_redirection_options.keys, :allow_nil => true
+
+
   # #################################################
   # Relationships and applied behaviour
   # #################################################
@@ -160,6 +173,8 @@ class Environment < ActiveRecord::Base
 
     # "left" area
     env.boxes[1].blocks << LoginBlock.new
+    # TODO EnvironmentStatisticsBlock is DEPRECATED and will be removed from
+    #      the Noosfero core soon, see ActionItem3045
     env.boxes[1].blocks << EnvironmentStatisticsBlock.new
     env.boxes[1].blocks << RecentDocumentsBlock.new
 
@@ -680,6 +695,16 @@ class Environment < ActiveRecord::Base
     end
   end
 
+  def update_theme(theme)
+    self.theme = theme
+    self.save!
+  end
+
+  def update_layout_template(template)
+    self.layout_template = template
+    self.save!
+  end
+
   before_create do |env|
     env.settings[:themes] ||= %w[
       aluminium
@@ -695,7 +720,8 @@ class Environment < ActiveRecord::Base
   end
 
   def community_template
-    Community.find_by_id settings[:community_template_id]
+    template = Community.find_by_id settings[:community_template_id]
+    template if template && template.is_template
   end
 
   def community_template=(value)
@@ -703,7 +729,8 @@ class Environment < ActiveRecord::Base
   end
 
   def person_template
-    Person.find_by_id settings[:person_template_id]
+    template = Person.find_by_id settings[:person_template_id]
+    template if template && template.is_template
   end
 
   def person_template=(value)
@@ -711,7 +738,8 @@ class Environment < ActiveRecord::Base
   end
 
   def enterprise_template
-    Enterprise.find_by_id settings[:enterprise_template_id]
+    template = Enterprise.find_by_id settings[:enterprise_template_id]
+    template if template && template.is_template
   end
 
   def enterprise_template=(value)
@@ -719,7 +747,8 @@ class Environment < ActiveRecord::Base
   end
 
   def inactive_enterprise_template
-    Enterprise.find_by_id settings[:inactive_enterprise_template_id]
+    template = Enterprise.find_by_id settings[:inactive_enterprise_template_id]
+    template if template && template.is_template
   end
 
   def inactive_enterprise_template=(value)
@@ -801,7 +830,7 @@ class Environment < ActiveRecord::Base
   end
 
   def highlighted_products_with_image(options = {})
-    Product.find(:all, {:conditions => {:highlighted => true, :enterprise_id => self.enterprises.find(:all, :select => :id) }, :joins => :image}.merge(options))
+    Product.find(:all, {:conditions => {:highlighted => true, :profile_id => self.enterprises.find(:all, :select => :id) }, :joins => :image}.merge(options))
   end
 
   settings_items :home_cache_in_minutes, :type => :integer, :default => 5

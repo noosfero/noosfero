@@ -1,0 +1,35 @@
+<h1><%= _('Editing Appearance') %></h1>
+
+<div id="template-options" class="list-options">
+
+<h2><%= _('Select template') %></h2>
+
+<% for templates in @layout_templates.in_groups_of(3) %>
+  <div class="list-group">
+    <% for template in templates %><%=
+      if template
+        base_content = image_tag(
+          "/designs/templates/#{template.id}/thumbnail.png",
+          :alt => _('The "%s" template')) +
+        '<div class="opt-info">'.html_safe +
+        content_tag('strong', template.name, :title => template.title, :class => 'name') +
+        ' <br/> '.html_safe
+
+        if @current_template == template.id  # selected
+          content_tag( 'div',
+            base_content + content_tag('big', _('(current)') ) +'</div>'.html_safe,
+            :class => 'template-opt list-opt selected')
+        else  # Not selected
+          link_to(
+            base_content +'</div>'.html_safe,
+            { :action => 'set_layout_template', :id => template.id },
+            :class => 'template-opt list-opt')
+        end
+
+      end
+    %><% end %>
+  </div>
+<% end %>
+
+</div><!-- end id="template-options" -->
+

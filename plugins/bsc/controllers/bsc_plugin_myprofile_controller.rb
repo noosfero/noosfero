@@ -199,7 +199,7 @@ class BscPluginMyprofileController < MyProfileController
     enterprises = enterprises.blank? ? -1 : enterprises
     added_products = (params[:added_products] || []).split(',')
     added_products = added_products.blank? ? -1 : added_products
-    render :text => Product.find(:all, :conditions => ["LOWER(name) LIKE ? AND enterprise_id IN (?) AND id NOT IN (?)", "%#{query}%", enterprises, added_products]).
+    render :text => Product.find(:all, :conditions => ["LOWER(name) LIKE ? AND profile_id IN (?) AND id NOT IN (?)", "%#{query}%", enterprises, added_products]).
       map {|product| { :id => product.id,
                        :name => short_text(product_display_name(product), 60),
                        :sale_id => params[:sale_id],

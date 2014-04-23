@@ -22,7 +22,7 @@
 
   <%= control_panel_button(_('Edit sideboxes'), 'blocks', :controller => 'profile_design', :action => 'index') %>
 
-  <%= control_panel_button(_('Edit Appearance'), 'design-editor', :controller => 'themes', :action => 'index') %>
+  <%= control_panel_button(_('Edit Appearance'), 'design-editor', :controller => 'profile_themes', :action => 'index') %>
 
   <%= control_panel_button(_('Edit Header and Footer'), 'header-and-footer', :controller => 'profile_editor', :action => 'header_footer') unless profile.enterprise? && environment.enabled?('disable_header_and_footer') && !user.is_admin?(environment) %>
 

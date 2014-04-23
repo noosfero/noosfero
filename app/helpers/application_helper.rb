@@ -42,6 +42,8 @@ module ApplicationHelper
 
   include TokenHelper
 
+  include CatalogHelper
+
   def locale
     (@page && !@page.language.blank?) ? @page.language : FastGettext.locale
   end
@@ -512,24 +514,25 @@ module ApplicationHelper
 
   def profile_cat_icons( profile )
     if profile.class == Enterprise
-      icons = profile.product_categories.map{ |c| c.size > 1 ? c[1] : nil }.
-        compact.uniq.map do |c|
-          cat_name = c.gsub( /[-_\s,.;'"]+/, '_' )
-          cat_icon = "/images/icons-cat/#{cat_name}.png"
-          if ! File.exists? RAILS_ROOT.to_s() + '/public/' + cat_icon
-            cat_icon = '/images/icons-cat/undefined.png'
-          end
-          content_tag('span',
-            content_tag( 'span', c ),
-            :title => c,
-            :class => 'product-cat-icon cat_icon_' + cat_name,
-            :style => "background-image:url(#{cat_icon})"
-          )
-        end.join("\n").html_safe
-        content_tag('div',
-          content_tag( 'span', _('Principal Product Categories'), :class => 'header' ) +"\n"+ icons,
-          :class => 'product-category-icons'
+      icons = profile.product_categories.unique_by_level(2).limit(3).map do |c|
+        filtered_category = c.filtered_category.blank? ? c.path.split('/').last : c.filtered_category
+        category_title = filtered_category.split(/[-_\s,.;'"]+/).map(&:capitalize).join(' ')
+        category_name = category_title.gsub(' ', '_' )
+        category_icon = "/images/icons-cat/#{category_name}.png"
+        if ! File.exists? RAILS_ROOT.to_s() + '/public/' + category_icon
+          category_icon = '/images/icons-cat/undefined.png'
+        end
+        content_tag('span',
+          content_tag( 'span', category_title ),
+          :title => category_title,
+          :class => 'product-cat-icon cat_icon_' + category_name,
+          :style => "background-image:url(#{category_icon})"
         )
+      end.join("\n").html_safe
+      content_tag('div',
+        content_tag( 'span', _('Principal Product Categories'), :class => 'header' ) +"\n"+ icons,
+        :class => 'product-category-icons'
+      )
     else
       ''
     end
@@ -606,49 +609,18 @@ module ApplicationHelper
   end
 
   attr_reader :environment
+
   def select_categories(object_name, title=nil, title_size=4)
     return nil if environment.enabled?(:disable_categories)
     if title.nil?
       title = _('Categories')
     end
 
-    object = instance_variable_get("@#{object_name}")
+    @object = instance_variable_get("@#{object_name}")
+    @categories = environment.top_level_categories
 
-    result = content_tag 'h'+title_size.to_s(), title
-    result << javascript_tag( 'function open_close_cat( link ) {
-      var div = link.parentNode.getElementsByTagName("div")[0];
-      var end = function(){
-        if ( div.style.display == "none" ) {
-          this.link.className="button icon-button icon-down"
-        } else {
-          this.link.className="button icon-button icon-up-red"
-        }
-      }
-      Effect.toggle( div, "slide", { link:link, div:div, afterFinish:end } )
-    }')
-    environment.top_level_categories.select{|i| !i.children.empty?}.each do |toplevel|
-      next unless object.accept_category?(toplevel)
-      # FIXME
-      ([toplevel] + toplevel.children_for_menu).each do |cat|
-        if cat.top_level?
-          result << '<div class="categorie_box">'.html_safe
-          result << icon_button( :down, _('open'), '#', :onclick => 'open_close_cat(this); return false' )
-          result << content_tag('h5', toplevel.name)
-          result << '<div style="display:none"><ul class="categories">'.html_safe
-        else
-          checkbox_id = "#{object_name}_#{cat.full_name.downcase.gsub(/\s+|\//, '_')}"
-          result << content_tag('li', labelled_check_box(
-                      cat.full_name_without_leading(1, " &rarr; "),
-                      "#{object_name}[category_ids][]", cat.id,
-                      object.category_ids.include?(cat.id), :id => checkbox_id,
-                      :onchange => 'this.parentNode.className=(this.checked?"cat_checked":"")' ),
-                    :class => ( object.category_ids.include?(cat.id) ? 'cat_checked' : '' ) ) + "\n"
-        end
-      end
-      result << '</ul></div></div>'.html_safe
-    end
-
-    content_tag('div', result)
+    @current_categories = environment.top_level_categories.select{|i| !i.children.empty?}
+    render :partial => 'shared/select_categories_top', :locals => {:object_name => object_name, :title => title, :title_size => title_size, :multiple => true, :categories_selected => @object.categories }, :layout => false
   end
 
   def theme_option(opt = nil)
@@ -918,12 +890,11 @@ module ApplicationHelper
 
   def page_title
     (@page ? @page.title + ' - ' : '') +
-    (profile ? profile.short_name + ' - ' : '') +
     (@topic ? @topic.title + ' - ' : '') +
     (@section ? @section.title + ' - ' : '') +
     (@toc ? _('Online Manual') + ' - ' : '') +
     (@controller.controller_name == 'chat' ? _('Chat') + ' - ' : '') +
-    environment.name +
+    (profile ? profile.short_name : environment.name) +
     (@category ? " - #{@category.full_name}" : '')
   end
 
@@ -1178,6 +1149,7 @@ module ApplicationHelper
   #FIXME Use time_ago_in_words instead of this method if you're using Rails 2.2+
   def time_ago_as_sentence(from_time, include_seconds = false)
     to_time = Time.now
+    from_time = Time.parse(from_time.to_s)
     from_time = from_time.to_time if from_time.respond_to?(:to_time)
     to_time = to_time.to_time if to_time.respond_to?(:to_time)
     distance_in_minutes = (((to_time - from_time).abs)/60).round
@@ -1400,6 +1372,10 @@ module ApplicationHelper
 
   def content_id_to_str(content)
     content.nil? ? '' : content.id.to_s
+  end
+
+  def display_article_versions(article, version = nil)
+    content_tag('ul', article.versions.map {|v| link_to("r#{v.version}", @page.url.merge(:version => v.version))})
   end
 
 end

@@ -1,4 +1,4 @@
-require 'noosfero'
+require_dependency 'noosfero'
 include ActionView::Helpers::AssetTagHelper
 
 class Noosfero::Plugin
@@ -68,7 +68,9 @@ class Noosfero::Plugin
       end
 
       # load extensions
-      Dir[File.join(dir, 'lib', 'ext', '*.rb')].each {|file| require_dependency file }
+      Rails.configuration.to_prepare do
+        Dir[File.join(dir, 'lib', 'ext', '*.rb')].each {|file| require_dependency file }
+      end
 
       # load class
       klass(plugin_name)
@@ -347,6 +349,12 @@ class Noosfero::Plugin
     []
   end
 
+  # -> Adds adicional content to article
+  # returns = lambda block that creates html code
+  def article_extra_contents(article)
+    nil
+  end
+
   # -> Adds fields to the signup form
   # returns = lambda block that creates html code
   def signup_extra_contents
@@ -369,6 +377,13 @@ class Noosfero::Plugin
   # returns = An instance of ActiveRecord::NamedScope::Scope retrieved through
   # Person.members_of method.
   def organization_members(organization)
+    nil
+  end
+
+  # -> Extends person memberships list
+  # returns = An instance of ActiveRecord::NamedScope::Scope retrived through
+  # Person.memberships_of method.
+  def person_memberships(person)
     nil
   end
 
@@ -425,6 +440,31 @@ class Noosfero::Plugin
   # returns = lambda block that creates html code
   def comment_form_extra_contents(args)
     nil
+  end
+
+  # -> Adds adicional content to article header
+  # returns = lambda block that creates html code
+  def article_header_extra_contents(article)
+    nil
+  end
+
+  # -> Adds adittional content to comment visualization
+  # returns = lambda block that creates html code
+  def comment_extra_contents(args)
+    nil
+  end
+
+  # This method is called when the user clicks to send a comment.
+  # A plugin can add new content to comment form and this method can process the params sent to avoid creating field on core tables.
+  # returns = params after processed by plugins
+  # example:
+  #
+  #   def process_extra_comment_params(params)
+  #     params.delete(:extra_field)
+  #   end
+  #
+  def process_extra_comment_params(params)
+    params
   end
 
   # -> Finds objects by their contents

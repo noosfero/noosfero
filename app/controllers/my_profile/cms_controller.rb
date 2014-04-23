@@ -24,8 +24,14 @@ class CmsController < MyProfileController
     (user && (user.has_permission?('post_content', profile) || user.has_permission?('publish_content', profile)))
   end
 
-  protect_if :except => [:suggest_an_article, :set_home_page, :edit, :destroy, :publish, :upload_files] do |c, user, profile|
+  protect_if :except => [:suggest_an_article, :set_home_page, :edit, :destroy, :publish, :upload_files, :new] do |c, user, profile|
     user && (user.has_permission?('post_content', profile) || user.has_permission?('publish_content', profile))
+  end
+
+  protect_if :only => :new do |c, user, profile|
+    article = profile.articles.find_by_id(c.params[:parent_id])
+    (!article.nil? && (article.allow_create?(user) || article.parent.allow_create?(user))) ||
+    (user && (user.has_permission?('post_content', profile) || user.has_permission?('publish_content', profile)))
   end
 
   protect_if :only => [:destroy, :publish] do |c, user, profile|
@@ -68,6 +74,9 @@ class CmsController < MyProfileController
   def edit
     @success_back_to = params[:success_back_to]
     @article = profile.articles.find(params[:id])
+    version = params[:version]
+    @article.revert_to(version) if version
+
     @parent_id = params[:parent_id]
     @type = params[:type] || @article.class.to_s
     translations if @article.translatable?
@@ -202,7 +211,7 @@ class CmsController < MyProfileController
       @article.destroy
       session[:notice] = _("\"#{@article.name}\" was removed.")
       referer = ActionController::Routing::Routes.recognize_path URI.parse(request.referer).path rescue nil
-      if referer and referer[:controller] == 'cms'
+      if referer and referer[:controller] == 'cms' and referer[:action] != 'edit'
         redirect_to referer
       elsif @article.parent
         redirect_to @article.parent.url
@@ -218,11 +227,10 @@ class CmsController < MyProfileController
 
   def update_categories
     @object = params[:id] ? @profile.articles.find(params[:id]) : Article.new
+    @categories = @toplevel_categories = environment.top_level_categories
     if params[:category_id]
       @current_category = Category.find(params[:category_id])
       @categories = @current_category.children
-    else
-      @categories = environment.top_level_categories.select{|i| !i.children.empty?}
     end
     render :partial => 'shared/select_categories', :locals => {:object_name => 'article', :multiple => true}, :layout => false
   end

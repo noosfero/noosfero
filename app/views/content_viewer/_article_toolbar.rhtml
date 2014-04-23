@@ -26,7 +26,7 @@
       <%= expirable_button @page, :spread, content, url if url %>
     <% end %>
 
-    <% if !@page.gallery? && @page.allow_create?(user) %>
+    <% if !@page.gallery? && (@page.allow_create?(user) || (@page.parent && @page.parent.allow_create?(user))) %>
       <% if @page.translatable? && !@page.native_translation.language.blank? && !remove_content_button(:locale) %>
         <% content = _('Add translation') %>
         <% parent_id = (@page.folder? ? @page : (@page.parent.nil? ? nil : @page.parent)) %>
@@ -48,6 +48,10 @@
       <%= expirable_button @page, :suggest, content, url, options %>
     <% end %>
 
+    <% if @page.display_versions? %>
+      <%= button(:clock, _('All versions'), {:controller => 'content_viewer', :profile => profile.identifier, :action => 'article_versions'}, :id => 'article-versions-link') %>
+    <% end %>
+
     <%= report_abuse(profile, :link, @page) %>
 
   </div>
@@ -56,6 +60,7 @@
       <div class="blog-cover"><%= image_tag(@page.image.public_filename())%></div>
     <% end %>
     <%= link_to(image_tag('icons-mime/rss-feed.png'), @page.feed.url, :class => 'blog-feed-link') if @page.has_posts? && @page.feed %>
+    <%= @plugins.dispatch(:article_header_extra_contents, @page).collect { |content| instance_eval(&content) }.join("") %>
     <%= article_title(@page, :no_link => true) %>
     <%= article_translations(@page) %>
   </div>

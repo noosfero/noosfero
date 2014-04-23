@@ -1,9 +1,16 @@
 module CustomFormsPlugin::Helper
+  def html_for_field(builder, association, klass)
+    new_object = klass.new
+    builder.fields_for(association, new_object, :child_index => "new_#{association}") do |f|
+      render(partial_for_class(klass), :f => f)
+    end
+  end
+
   def access_text(form)
     return _('Public') if form.access.nil?
     return _('Logged users') if form.access == 'logged'
     if form.access == 'associated'
-      return _('Members') if form.profile.organization? 
+      return _('Members') if form.profile.organization?
       return _('Friends') if form.profile.person?
     end
     return _('Custom')
@@ -48,8 +55,8 @@ module CustomFormsPlugin::Helper
 
   def type_to_label(type)
     map = {
-      'text_field' => _('Text'),
-      'select_field' => _('Select')
+      'text_field' => _('Text field'),
+      'select_field' => _('Select field')
     }
     map[type_for_options(type)]
   end
@@ -61,52 +68,61 @@ module CustomFormsPlugin::Helper
   def display_custom_field(field, submission, form)
     answer = submission.answers.select{|answer| answer.field == field}.first
     field_tag = send("display_#{type_for_options(field.class)}",field, answer, form)
-    if field.mandatory? && !radio_button?(field) && !check_box?(field) && submission.id.nil?
+    if field.mandatory? && submission.id.nil?
       required(labelled_form_field(field.name, field_tag))
-    else 
+    else
       labelled_form_field(field.name, field_tag)
     end
   end
 
+  def display_disabled?(field, answer)
+    (answer.present? && answer.id.present?) || field.form.expired?
+  end
+
   def display_text_field(field, answer, form)
     value = answer.present? ? answer.value : field.default_value
-    text_field(form, field.name.to_slug, :value => value, :disabled => answer.present?)
+    text_field(form, "#{field.id}", :value => value, :disabled => display_disabled?(field, answer))
+  end
+
+  def default_selected(field, answer)
+    answer.present? ? answer.value.split(',') : field.alternatives.select {|a| a.selected_by_default}.map{|a| a.id.to_s}
   end
 
   def display_select_field(field, answer, form)
-    if field.list && field.multiple
-      selected = answer.present? ? answer.value.split(',') : []
-      select_tag "#{form}[#{field.name.to_slug}]", options_for_select(field.choices.to_a, selected), :multiple => true, :size => field.choices.size, :disabled => answer.present?
-    elsif !field.list && field.multiple
-      field.choices.map do |name, value|
-        default = answer.present? ? answer.value.split(',').include?(value) : false
-        labelled_check_box name, "#{form}[#{field.name.to_slug}][#{value}]", '1', default, :disabled => answer.present?
+    case field.select_field_type
+    when 'select'
+      selected = default_selected(field, answer)
+      select_tag form.to_s + "[#{field.id}]", options_for_select([['','']] + field.alternatives.map {|a| [a.label, a.id.to_s]}, selected), :disabled => display_disabled?(field, answer)
+    when 'multiple_select'
+      selected = default_selected(field, answer)
+      select_tag form.to_s + "[#{field.id}]", options_for_select(field.alternatives.map{|a| [a.label, a.id.to_s]}, selected), :multiple => true, :title => _('Hold down Ctrl to select options'), :size => field.alternatives.size, :disabled => display_disabled?(field, answer)
+    when 'check_box'
+      field.alternatives.map do |alternative|
+        default = answer.present? ? answer.value.split(',').include?(alternative.id.to_s) : alternative.selected_by_default
+        labelled_check_box alternative.label, form.to_s + "[#{field.id}][#{alternative.id}]", '1', default, :disabled => display_disabled?(field, answer)
       end.join("\n")
-    elsif field.list && !field.multiple
-      selected = answer.present? ? answer.value.split(',') : []
-      select_tag "#{form}[#{field.name.to_slug}]", options_for_select([['','']] + field.choices.to_a, selected), :disabled => answer.present?
-    elsif !field.list && !field.multiple
-      field.choices.map do |name, value|
-        default = answer.present? ? answer.value == value : true
-        labelled_radio_button name, "#{form}[#{field.name.to_slug}]", value, default, :disabled => answer.present?
+    when 'radio'
+      field.alternatives.map do |alternative|
+        default = answer.present? ? answer.value == alternative.id.to_s : alternative.selected_by_default
+        labelled_radio_button alternative.label, form.to_s + "[#{field.id}]", alternative.id, default, :disabled => display_disabled?(field, answer)
       end.join("\n")
     end
   end
 
   def radio_button?(field)
-    type_for_options(field.class) == 'select_field' && !field.list && !field.multiple
+    type_for_options(field.class) == 'select_field' && field.select_field_type == 'radio'
   end
 
   def check_box?(field)
-    type_for_options(field.class) == 'select_field' && !field.list && field.multiple
+    type_for_options(field.class) == 'select_field' && field.select_field_type == 'check_box'
   end
 
   def build_answers(submission, form)
     answers = []
     form.fields.each do |field|
       final_value = ''
-      if submission.has_key?(field.slug)
-        value = submission[field.slug]
+      if submission.has_key?(field.id.to_s)
+        value = submission[field.id.to_s]
         if value.kind_of?(String)
           final_value = value
         elsif value.kind_of?(Array)

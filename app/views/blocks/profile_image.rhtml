@@ -16,11 +16,13 @@
   <p><%= h block.owner.short_name %></p>
 <% end %>
 
-<div style="text-align: center; font-size: 75%; clear: both" id="profile-admin-url-<%= block.id %>"></div>
+<% if !user.nil? and user.has_permission?('edit_profile', profile) %>
+  <div class='admin-link'>
+    <%= link_to _('Control panel'), block.owner.admin_url %>
+  </div>
+<% end %>
 
-<div class="profile-info-options" id="profile-info-options-<%= block.id %>"></div>
-
+<div class="profile-info-options">
+  <%= render :file => view_for_profile_actions(block.owner.class) %>
+</div>
 </div><!-- end class="vcard" -->
-<script type="text/javascript">
-  <%= remote_function :url => { :controller => 'profile', :profile => profile.identifier, :action => 'profile_info', :block_id => block.id } %>
-</script>

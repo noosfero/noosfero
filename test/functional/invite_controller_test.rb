@@ -7,6 +7,7 @@ class InviteControllerTest < ActionController::TestCase
     @friend = create_user('thefriend').person
     @community = fast_create(Community)
     login_as ('testuser')
+    Delayed::Job.destroy_all
   end
   attr_accessor :profile, :friend, :community
 

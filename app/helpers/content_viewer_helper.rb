@@ -51,15 +51,6 @@ module ContentViewerHelper
     end
   end
 
-  def addthis_facebook_url(article)
-    "http://www.facebook.com/sharer.php?s=100&p[title]=%{title}&p[summary]=%{summary}&p[url]=%{url}&p[images][0]=%{image}" % {
-      :title => CGI.escape(article.title),
-      :url => CGI.escape(url_for(article.url)),
-      :summary => CGI.escape(truncate(strip_tags(article.body.to_s), :length => 300)),
-      :image => CGI.escape(article.body_images_paths.first.to_s)
-    }
-  end
-
   def addthis_image_tag
     if File.exists?(File.join(Rails.root, 'public', theme_path, 'images', 'addthis.gif'))
       image_tag(File.join(theme_path, 'images', 'addthis.gif'), :border => 0, :alt => '')

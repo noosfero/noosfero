@@ -7,12 +7,12 @@ class ProductCategoryTest < ActiveSupport::TestCase
     assert_equivalent [], c0.all_products
 
     profile = fast_create(Enterprise)
-    p0 = Product.create(:name => 'product1', :product_category => c0, :enterprise_id => profile.id)
+    p0 = Product.create(:name => 'product1', :product_category => c0, :profile_id => profile.id)
     c0.reload
     assert_equivalent [p0], c0.all_products
 
     c1 = ProductCategory.create!(:name => 'cat_1', :parent => c0, :environment => Environment.default)
-    p1 = Product.create(:name => 'product2', :product_category => c1, :enterprise_id => profile.id)
+    p1 = Product.create(:name => 'product2', :product_category => c1, :profile_id => profile.id)
     c0.reload; c1.reload
     assert_equivalent [p0, p1], c0.all_products
     assert_equivalent [p1], c1.all_products
@@ -34,6 +34,31 @@ class ProductCategoryTest < ActiveSupport::TestCase
     c2 = ProductCategory.create!(:name => 'test cat 2', :environment => Environment.default)
 
     assert_equal [c11], ProductCategory.menu_categories(c1, nil)
+  end
+
+  should 'provide a scope based on the enterprise' do
+    enterprise = fast_create(Enterprise)
+    c1 = ProductCategory.create!(:name => 'test cat 1', :environment => Environment.default)
+    c2 = ProductCategory.create!(:name => 'test cat 2', :environment => Environment.default)
+    c3 = ProductCategory.create!(:name => 'test cat 3', :environment => Environment.default)
+    p1 = Product.create(:name => 'product1', :product_category => c1, :profile_id => enterprise.id)
+    p2 = Product.create(:name => 'product2', :product_category => c1, :profile_id => enterprise.id)
+    p3 = Product.create(:name => 'product3', :product_category => c2, :profile_id => enterprise.id)
+
+    scope = ProductCategory.by_enterprise(enterprise)
+
+    assert_equal ActiveRecord::NamedScope::Scope, scope.class
+    assert_equivalent [c1,c2], scope
+  end
+
+  should 'fetch unique categories by level' do
+    c1 = ProductCategory.create!(:name => 'test cat 1', :environment => Environment.default)
+    c11 = ProductCategory.create!(:name => 'test cat 11', :environment => Environment.default, :parent => c1)
+    c12 = ProductCategory.create!(:name => 'test cat 12', :environment => Environment.default, :parent => c1)
+    c111 = ProductCategory.create!(:name => 'test cat 111', :environment => Environment.default, :parent => c11)
+    c112 = ProductCategory.create!(:name => 'test cat 112', :environment => Environment.default, :parent => c11)
+
+    assert_equivalent ['', 'test-cat-11', 'test-cat-12'], ProductCategory.unique_by_level(2).map(&:filtered_category)
   end
 
 end

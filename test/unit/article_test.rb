@@ -740,6 +740,11 @@ class ArticleTest < ActiveSupport::TestCase
     assert_match(/-year-2009-month-04/, a.cache_key(:year => '2009', :month => '04'))
   end
 
+ should 'use revision number to compose cache key' do
+    a = fast_create(Article, :name => 'Versioned article', :profile_id => profile.id)
+    assert_match(/-version-2/,a.cache_key(:version => 2))
+  end
+
   should 'not be highlighted by default' do
     a = Article.new
     assert !a.highlighted
@@ -1688,6 +1693,16 @@ class ArticleTest < ActiveSupport::TestCase
     assert_equal license, article.license
   end
 
+  should 'return license from a specific version' do
+    cc = License.create!(:name => 'CC (by)', :environment => Environment.default)
+    gpl = License.create!(:name => 'GPLv3', :environment => Environment.default)
+    article = Article.create!(:name => 'first version', :profile => profile, :license => cc)
+    article.license = gpl
+    article.save
+    assert_equal cc, article.version_license(1)
+    assert_equal gpl, article.version_license(2)
+  end
+
   should 'update path if parent is changed' do
     f1 = Folder.create!(:name => 'Folder 1', :profile => profile)
     f2 = Folder.create!(:name => 'Folder 2', :profile => profile)
@@ -1744,6 +1759,28 @@ class ArticleTest < ActiveSupport::TestCase
   should "author_id return nil if there is no article's author" do
     article = Article.create!(:name => 'Test', :profile => profile, :last_changed_by => nil)
     assert_nil article.author_id
+  end
+
+  should "return the author of a specific version" do
+    author1 = fast_create(Person)
+    author2 = fast_create(Person)
+    article = Article.create!(:name => 'first version', :profile => profile, :last_changed_by => author1)
+    article.name = 'second version'
+    article.last_changed_by = author2
+    article.save
+    assert_equal author1, article.author(1)
+    assert_equal author2, article.author(2)
+  end
+
+  should "return the author_name of a specific version" do
+    author1 = fast_create(Person)
+    author2 = fast_create(Person)
+    article = Article.create!(:name => 'first version', :profile => profile, :last_changed_by => author1)
+    article.name = 'second version'
+    article.last_changed_by = author2
+    article.save
+    assert_equal author1.name, article.author_name(1)
+    assert_equal author2.name, article.author_name(2)
   end
 
   should 'identify if belongs to forum' do

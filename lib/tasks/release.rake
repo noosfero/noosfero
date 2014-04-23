@@ -39,7 +39,7 @@ namespace :noosfero do
   end
 
   def version
-    require 'noosfero'
+    require_dependency 'noosfero'
     Noosfero::VERSION
   end
 
@@ -144,8 +144,8 @@ EOF
     version_name = new_version = ask(version_question)
 
     if release_kind == 'test'
-      timestamp = Time.now.strftime('%Y%m%d%H%M%S')
-      version_name += "~rc#{timestamp}"
+      rc_version = ask('RC version', Time.now.strftime('%Y%m%d%H%M%S'))
+      version_name += "~rc#{rc_version}"
     end
     release_message = ask("Release message")
 
@@ -216,6 +216,9 @@ EOF
   task :release, :release_kind do |t, args|
     release_kind = args[:release_kind] || 'stable'
 
+    puts "==> Updating authors..."
+    Rake::Task['noosfero:authors'].invoke
+
     Rake::Task['noosfero:set_version'].invoke(release_kind)
 
     puts "==> Checking tags..."
@@ -229,9 +232,6 @@ EOF
     if !pendencies_on_public_errors[:ok]
       commit_changes(['public/500.html', 'public/503.html'], 'Updating public error pages')
     end
-
-    puts "==> Updating authors..."
-    Rake::Task['noosfero:authors'].invoke
 
     puts "==> Checking repository..."
     Rake::Task['noosfero:check_repo'].invoke

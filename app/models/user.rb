@@ -71,7 +71,8 @@ class User < ActiveRecord::Base
       body :recipient => user.name,
         :activation_code => user.activation_code,
         :environment => user.environment.name,
-        :url => user.environment.top_url
+        :url => user.environment.top_url,
+        :redirection => (true if user.return_to)
     end
 
     def signup_welcome_email(user)

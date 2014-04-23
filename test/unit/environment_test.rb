@@ -391,13 +391,13 @@ class EnvironmentTest < ActiveSupport::TestCase
     p1 = e1.products.create!(:name => 'test_prod1', :product_category_id => category.id)
     products = []
     3.times {|n|
-      products.push(Product.create!(:name => "product #{n}", :enterprise_id => e1.id,
+      products.push(Product.create!(:name => "product #{n}", :profile_id => e1.id,
         :product_category_id => category.id, :highlighted => true,
         :image_builder => { :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png') }
       ))
     }
-    Product.create!(:name => "product 4", :enterprise_id => e1.id, :product_category_id => category.id, :highlighted => true)
-    Product.create!(:name => "product 5", :enterprise_id => e1.id, :product_category_id => category.id, :image_builder => {
+    Product.create!(:name => "product 4", :profile_id => e1.id, :product_category_id => category.id, :highlighted => true)
+    Product.create!(:name => "product 5", :profile_id => e1.id, :product_category_id => category.id, :image_builder => {
         :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png')
       })
     assert_equal products, env.highlighted_products_with_image
@@ -507,15 +507,15 @@ class EnvironmentTest < ActiveSupport::TestCase
   should 'set templates' do
     e = fast_create(Environment)
 
-    comm = fast_create(Community)
+    comm = fast_create(Community, :is_template => true)
     e.community_template = comm
     assert_equal comm, e.community_template
 
-    person = fast_create(Person)
+    person = fast_create(Person, :is_template => true)
     e.person_template = person
     assert_equal person, e.person_template
 
-    enterprise = fast_create(Enterprise)
+    enterprise = fast_create(Enterprise, :is_template => true)
     e.enterprise_template = enterprise
     assert_equal enterprise, e.enterprise_template
   end
@@ -725,7 +725,7 @@ class EnvironmentTest < ActiveSupport::TestCase
     assert_equal c, e.portal_community
     e.unset_portal_community!
     e.reload
-    assert_nil e.portal_community 
+    assert_nil e.portal_community
     assert_equal [], e.portal_folders
     assert_equal 0, e.news_amount_by_folder
     assert_equal false, e.enabled?('use_portal_community')
@@ -1224,6 +1224,27 @@ class EnvironmentTest < ActiveSupport::TestCase
       environment.redirection_after_login = redirection
       environment.save
       assert !environment.errors.invalid?(:redirection_after_login)
+    end
+  end
+
+  should 'return a Hash on signup redirection options' do
+    assert_kind_of Hash, Environment.signup_redirection_options
+  end
+
+  should 'respond to redirection after signup' do
+    assert_respond_to Environment.new, :redirection_after_signup
+  end
+
+  should 'allow only environment signup redirection options' do
+    environment = fast_create(Environment)
+    environment.redirection_after_signup = 'invalid_option'
+    environment.save
+    assert environment.errors.invalid?(:redirection_after_signup)
+
+    Environment.signup_redirection_options.keys.each do |redirection|
+      environment.redirection_after_signup = redirection
+      environment.save
+      assert !environment.errors.invalid?(:redirection_after_signup)
     end
   end
 

@@ -1,5 +1,6 @@
 /******************SMALL ICONS********************/
 .icon-edit      { background-image: url(Tango/16x16/apps/text-editor.png) }
+.icon-undo      { background-image: url(Tango/16x16/actions/edit-undo.png) }
 .icon-home      { background-image: url(Tango/16x16/actions/go-home.png)          }
 .icon-home-not  { background-image: url(mod/16x16/actions/go-home-not.png)          }
 .icon-new,
@@ -99,11 +100,13 @@
 .icon-user-removed { background-image: url(Tango/16x16/actions/gtk-cancel.png) }
 .icon-user-unknown { background-image: url(Tango/16x16/status/dialog-error.png) }
 .icon-alert        { background-image: url(Tango/16x16/status/dialog-warning.png) }
+.icon-clone        { background-image: url(Tango/16x16/actions/edit-copy.png) }
 
 .icon-activate-user           { background-image: url(Tango/16x16/emblems/emblem-system.png) }
 .icon-deactivate-user         { background-image: url(Tango/16x16/emblems/emblem-unreadable.png) }
 .icon-set-admin-role          { background-image: url(mod/16x16/apps/user.png) }
 .icon-reset-admin-role        { background-image: url(/images/icons-app/person-icon.png) }
+.icon-clock                   { background-image: url(Tango/16x16/actions/appointment.png) }
 
 /******************LARGE ICONS********************/
 .image-gallery-item .folder  { background-image: url(mod/96x96/places/folder.png) }

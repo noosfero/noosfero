@@ -10,7 +10,6 @@
 # It's strongly recommended to check this file into your version control system.
 
 ActiveRecord::Schema.define(:version => 20140314200103) do
-
   create_table "abuse_reports", :force => true do |t|
     t.integer  "reporter_id"
     t.integer  "abuse_complaint_id"
@@ -286,6 +285,7 @@ ActiveRecord::Schema.define(:version => 20140314200103) do
     t.string   "languages"
     t.string   "default_language"
     t.string   "noreply_email"
+    t.string   "redirection_after_signup",     :default => "keep_on_same_page"
   end
 
   create_table "external_feeds", :force => true do |t|
@@ -419,7 +419,7 @@ ActiveRecord::Schema.define(:version => 20140314200103) do
   end
 
   create_table "products", :force => true do |t|
-    t.integer  "enterprise_id"
+    t.integer  "profile_id"
     t.integer  "product_category_id"
     t.string   "name"
     t.decimal  "price"
@@ -431,11 +431,14 @@ ActiveRecord::Schema.define(:version => 20140314200103) do
     t.boolean  "highlighted",         :default => false
     t.integer  "unit_id"
     t.integer  "image_id"
+    t.string   "type"
+    t.text     "data"
+    t.boolean  "archived",            :default => false
   end
 
   add_index "products", ["created_at"], :name => "index_products_on_created_at"
-  add_index "products", ["enterprise_id"], :name => "index_products_on_enterprise_id"
   add_index "products", ["product_category_id"], :name => "index_products_on_product_category_id"
+  add_index "products", ["profile_id"], :name => "index_products_on_profile_id"
 
   create_table "profiles", :force => true do |t|
     t.string   "name"
@@ -473,6 +476,8 @@ ActiveRecord::Schema.define(:version => 20140314200103) do
     t.integer  "friends_count",                         :default => 0,     :null => false
     t.integer  "members_count",                         :default => 0,     :null => false
     t.integer  "activities_count",                      :default => 0,     :null => false
+    t.string   "personal_website"
+    t.string   "jabber_id"
   end
 
   add_index "profiles", ["activities_count"], :name => "index_profiles_on_activities_count"
@@ -626,6 +631,7 @@ ActiveRecord::Schema.define(:version => 20140314200103) do
     t.datetime "chat_status_at"
     t.string   "activation_code",           :limit => 40
     t.datetime "activated_at"
+    t.string   "return_to"
   end
 
   create_table "validation_infos", :force => true do |t|
@@ -633,5 +639,18 @@ ActiveRecord::Schema.define(:version => 20140314200103) do
     t.text    "restrictions"
     t.integer "organization_id"
   end
+
+  create_table "votes", :force => true do |t|
+    t.integer  "vote",          :null => false
+    t.integer  "voteable_id",   :null => false
+    t.string   "voteable_type", :null => false
+    t.integer  "voter_id"
+    t.string   "voter_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "votes", ["voteable_id", "voteable_type"], :name => "fk_voteables"
+  add_index "votes", ["voter_id", "voter_type"], :name => "fk_voters"
 
 end

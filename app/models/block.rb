@@ -23,28 +23,39 @@ class Block < ActiveRecord::Base
   # * <tt>:article</tt>: the article being viewed currently
   # * <tt>:language</tt>: in which language the block will be displayed
   def visible?(context = nil)
-    if display == 'never'
-      return false
-    end
+    return false if display == 'never'
+
     if context
-      if language != 'all' && language != context[:locale]
-        return false
-      end
-      if display == 'home_page_only'
-        if context[:article]
-          return context[:article] == owner.home_page
-        else
-          return context[:request_path] == '/'
-        end
-      elsif display == 'except_home_page'
-        if context[:article]
-          return context[:article] != owner.home_page
-        else
-          return context[:request_path] != '/' + (owner.kind_of?(Profile) ? owner.identifier : '')
-        end
+      return false if language != 'all' && language != context[:locale]
+
+      begin
+        return self.send("display_#{display}", context)
+      rescue NoMethodError => exception
+        raise "Display '#{display}' is not a valid value."
       end
     end
+
     true
+  end
+
+  def display_always(context)
+    true
+  end
+
+  def display_home_page_only(context)
+    if context[:article]
+      return context[:article] == owner.home_page
+    else
+      return context[:request_path] == '/'
+    end
+  end
+
+  def display_except_home_page(context)
+    if context[:article]
+      return context[:article] != owner.home_page
+    else
+      return context[:request_path] != '/' + (owner.kind_of?(Profile) ? owner.identifier : '')
+    end
   end
 
   # The condition for displaying a block. It can assume the following values:
@@ -166,6 +177,16 @@ class Block < ActiveRecord::Base
 
   def display_option_label(option)
     DISPLAY_OPTIONS[option]
+  end
+
+  def duplicate
+    duplicated_block = self.clone
+    duplicated_block.display = 'never'
+    duplicated_block.created_at = nil
+    duplicated_block.updated_at = nil
+    duplicated_block.save!
+    duplicated_block.insert_at(self.position + 1)
+    duplicated_block
   end
 
 end

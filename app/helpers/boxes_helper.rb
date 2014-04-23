@@ -65,7 +65,7 @@ module BoxesHelper
   end
 
   def display_box_content(box, main_content)
-    context = { :article => @page, :request_path => request.path, :locale => locale }
+    context = { :article => @page, :request_path => request.path, :locale => locale, :params => request.params }
     box_decorator.select_blocks(box.blocks.includes(:box), context).map { |item| display_block(item, main_content) }.join("\n") + box_decorator.block_target(box)
   end
 
@@ -212,6 +212,7 @@ module BoxesHelper
 
     if !block.main?
       buttons << icon_button(:delete, _('Remove block'), { :action => 'remove', :id => block.id }, { :method => 'post', :confirm => _('Are you sure you want to remove this block?')})
+      buttons << icon_button(:clone, _('Clone'), { :action => 'clone', :id => block.id }, { :method => 'post' })
     end
 
     if block.respond_to?(:help)

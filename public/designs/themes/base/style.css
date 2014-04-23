@@ -605,6 +605,12 @@ div#notice {
   color: #555;
 }
 
+.profile-image-block .admin-link {
+  text-align: center;
+  font-size: 75%;
+  clear: both;
+}
+
 
 /*************************** My Network ******************************/
 
@@ -727,6 +733,110 @@ div#notice {
 .tag_cloud a small {
   opacity: 0.5;
   filter:alpha(opacity=50);
+}
+
+
+/********************* Product Categories Block **********************/
+
+.product-categories-block .catalog-home-link {
+  display: block;
+  background: rgba(0,0,0,0.08);
+  font-weight: bold;
+  text-align: center;
+  border-radius: 5px;
+  padding: 0px;
+  line-height: 200%;
+  text-decoration: none;
+  color: #000;
+}
+.product-categories-block .catalog-home-link:hover {
+  background: rgba(0,0,0,0.6);
+  color: #FFF;
+  text-decoration: none;
+}
+
+.product-categories-block .catalog-categories-list {
+  margin-top: 0.5em;
+}
+
+.product-categories-block ul {
+  list-style-type: none;
+  margin: 0px;
+  padding: 0px;
+  border-radius: 5px;
+  color: rgba(0,0,0,0.4);
+}
+
+.product-categories-block li {
+  margin: 0;
+  padding: 0;
+  white-space: nowrap;
+}
+
+.product-categories-block li li div {
+  padding: 0 0 0 1.5em;
+}
+
+.product-categories-block .catalog-categories-list a {
+  text-decoration: none;
+  font-size: 120%;
+	line-height: 150%;
+  color: #333;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: inline-block;
+	padding: 0 0.3em 0 0.5em;
+  border-radius: 5px;
+	max-width: 80%;
+	vertical-align: middle;
+}
+.product-categories-block .catalog-categories-list ul a {
+  text-decoration: none;
+  font-size: 110%;
+	line-height: 163.6%;
+}
+.product-categories-block .catalog-categories-list div:hover a:hover {
+  background: rgba(0,0,0,0.6);
+  color: #FFF;
+  text-decoration: none;
+}
+
+.product-categories-block .catalog-categories-list div:hover a,
+.product-categories-block .catalog-categories-list div:hover .count {
+  background: rgba(0,0,0,0.08);
+}
+
+.block.product-categories-block .catalog-categories-list a {
+  font-weight: bold;
+}
+
+.block.product-categories-block .catalog-categories-list ul a {
+  font-weight: normal;
+}
+
+.product-categories-block a:hover {
+  text-decoration: underline;
+}
+
+.product-categories-block .count {
+	display: inline-block;
+	vertical-align: middle;
+	margin-left: -0.2em;
+	padding: 0 0.2em;
+	line-height: 180%;
+  border-radius: 5px;
+}
+
+.block.product-categories-block .count:before {
+	content: "(";
+}
+.block.product-categories-block .count:after {
+	content: ")";
+}
+
+.catalog-categories-notice {
+  color: rgba(0,0,0,0.3);
+  padding: 0.5em 1em;
 }
 
 /********************* Environment Statistics ************************/

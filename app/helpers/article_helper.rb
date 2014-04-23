@@ -28,7 +28,7 @@ module ArticleHelper
         'div',
         check_box(:article, :notify_comments) +
         content_tag('label', _('I want to receive a notification of each comment written by e-mail'), :for => 'article_notify_comments') +
-        observe_field(:article_accept_comments, :function => "$('article_notify_comments').disabled = ! $('article_accept_comments').checked;$('article_moderate_comments').disabled = ! $('article_accept_comments').checked") 
+        observe_field(:article_accept_comments, :function => "$('article_notify_comments').disabled = ! $('article_accept_comments').checked;$('article_moderate_comments').disabled = ! $('article_accept_comments').checked")
       ) +
 
       content_tag(
@@ -42,7 +42,21 @@ module ArticleHelper
         'div',
         check_box(:article, :display_hits) +
         content_tag('label', _('I want this article to display the number of hits it received'), :for => 'article_display_hits')
-      ) : '')
+      ) : '') +
+
+      (article.can_display_versions? ?
+      content_tag(
+        'div',
+        check_box(:article, :display_versions) +
+        content_tag('label', _('I want this article to display a link to older versions'), :for => 'article_display_versions')
+      ) : '') +
+
+      (article.forum? && article.profile.community? ?
+      content_tag(
+        'div',
+        check_box(:article, :allows_members_to_create_topics) +
+        content_tag('label', _('Allow members to create topics'), :for => 'article_allows_members_to_create_topics')
+        ) : '')
     )
   end
 
