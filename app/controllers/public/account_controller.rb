@@ -17,7 +17,7 @@ class AccountController < ApplicationController
     @user = User.find_by_activation_code(params[:activation_code]) if params[:activation_code]
     if @user and @user.activate
       @message = _("Your account has been activated, now you can log in!")
-      session[:join] = params[:join] unless params[:join].blank?
+      check_redirection
       render :action => 'login', :userlogin => @user.login
     else
       session[:notice] = _("It looks like you're trying to activate an account. Perhaps have already activated this account?")
@@ -396,12 +396,6 @@ class AccountController < ApplicationController
   end
 
   def go_to_initial_page
-    if params[:redirection]
-      session[:return_to] = @user.return_to
-      @user.return_to = nil
-      @user.save
-    end
-
     if params[:return_to]
       redirect_to params[:return_to]
     elsif environment.enabled?('allow_change_of_redirection_after_login')
@@ -453,11 +447,10 @@ class AccountController < ApplicationController
     end
   end
 
-  def check_join_in_community(user)
-    profile_to_join = session[:join]
-    unless profile_to_join.blank?
-     environment.profiles.find_by_identifier(profile_to_join).add_member(user.person)
-     session.delete(:join)
+  def check_redirection
+    unless params[:redirection].blank?
+      session[:return_to] = @user.return_to
+      @user.update_attributes(:return_to => nil)
     end
   end
 end
