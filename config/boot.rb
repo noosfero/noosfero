@@ -1,5 +1,8 @@
 # Don't change this file!
 # Configure your app in config/environment.rb and config/environments/*.rb
+#FIXME-rails3 Only necessary to avoid rails <= 2.3.8 to conflict with rubygems => 1.6.0
+#             Reference: http://stackoverflow.com/questions/5176782/uninitialized-constant-activesupportdependenciesmutex-nameerror
+require 'thread'
 
 RAILS_ROOT = "#{File.dirname(__FILE__)}/.." unless defined?(RAILS_ROOT)
 
