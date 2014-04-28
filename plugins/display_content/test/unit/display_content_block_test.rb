@@ -547,7 +547,7 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
     a1 = fast_create(PluginArticle, :name => 'test article 1', :profile_id => profile.id)
 
     env = fast_create(Environment)
-    env.enable_plugin(Plugin1)
+    Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([Plugin1.new])
 
     block = DisplayContentBlock.new
     box = mock()
