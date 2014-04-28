@@ -557,4 +557,19 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
     assert_equal [a1], block.articles_of_parent
   end
 
+  should 'do not fail if a selected article was removed' do
+    profile = create_user('testuser').person
+    Article.delete_all
+    f1 = fast_create(Folder, :name => 'test folder 1', :profile_id => profile.id)
+    a1 = fast_create(TextileArticle, :name => 'test article 1', :profile_id => profile.id, :parent_id => f1.id)
+
+    checked_articles= {a1.id => true}
+
+    block = DisplayContentBlock.new
+    block.stubs(:holder).returns(profile)
+    block.checked_nodes= checked_articles
+    a1.destroy
+    assert_equal [], block.parent_nodes
+  end
+
 end
