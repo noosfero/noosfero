@@ -23,7 +23,7 @@ class InviteController < PublicController
       webmail_import_addresses = params[:webmail_import_addresses]
       contacts_to_invite = Invitation.join_contacts(manual_import_addresses, webmail_import_addresses)
       if !contacts_to_invite.empty?
-        Delayed::Job.enqueue InvitationJob.new(current_user.person.id, contacts_to_invite, params[:mail_template], profile.id, @contact_list.id, locale)
+        Delayed::Job.enqueue InvitationJob.new(user.id, contacts_to_invite, params[:mail_template], profile.id, @contact_list.id, locale)
         session[:notice] = _('Your invitations are being sent.')
         if profile.person?
           redirect_to :controller => 'profile', :action => 'friends'
@@ -59,7 +59,7 @@ class InviteController < PublicController
   def invite_registered_friend
     contacts_to_invite = params['q'].split(',')
     if !contacts_to_invite.empty?
-      Delayed::Job.enqueue InvitationJob.new(current_user.person.id, contacts_to_invite, '', profile.id, nil, locale)
+      Delayed::Job.enqueue InvitationJob.new(user.id, contacts_to_invite, '', profile.id, nil, locale)
       session[:notice] = _('Your invitations are being sent.')
       if profile.person?
         redirect_to :controller => 'profile', :action => 'friends'
@@ -87,8 +87,8 @@ class InviteController < PublicController
   protected
 
   def check_permissions_to_invite
-    if profile.person? and !current_user.person.has_permission?(:manage_friends, profile) or
-      profile.community? and !current_user.person.has_permission?(:invite_members, profile)
+    if profile.person? and !user.has_permission?(:manage_friends, profile) or
+      profile.community? and !user.has_permission?(:invite_members, profile)
       render_access_denied
     end
   end
