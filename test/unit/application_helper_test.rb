@@ -53,15 +53,6 @@ class ApplicationHelperTest < ActiveSupport::TestCase
     assert_equal 'test/application_helper_test/school/project', partial_for_class(School::Project)
   end
 
-  should 'look for superclasses on view_for_profile actions' do
-    File.expects(:exists?).with("#{RAILS_ROOT}/app/views/blocks/profile_info_actions/float.rhtml").returns(false)
-    File.expects(:exists?).with("#{RAILS_ROOT}/app/views/blocks/profile_info_actions/float.html.erb").returns(false)
-    File.expects(:exists?).with("#{RAILS_ROOT}/app/views/blocks/profile_info_actions/numeric.rhtml").returns(false)
-    File.expects(:exists?).with("#{RAILS_ROOT}/app/views/blocks/profile_info_actions/numeric.html.erb").returns(true)
-
-    assert_equal 'blocks/profile_info_actions/numeric.html.erb', view_for_profile_actions(Float)
-  end
-
   should 'give error when there is no partial for class' do
     assert_raises ArgumentError do
       partial_for_class(nil)
