@@ -58,7 +58,7 @@ class InviteController < PublicController
 
   def invite_registered_friend
     contacts_to_invite = params['q'].split(',')
-    if !contacts_to_invite.empty?
+    if !contacts_to_invite.empty? && request.post?
       Delayed::Job.enqueue InvitationJob.new(user.id, contacts_to_invite, '', profile.id, nil, locale)
       session[:notice] = _('Your invitations are being sent.')
       if profile.person?
