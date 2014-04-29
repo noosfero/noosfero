@@ -6,7 +6,7 @@ makemo_stamp = 'tmp/makemo.stamp'
 desc "Create mo-files for L10n"
 task :makemo => makemo_stamp
 file makemo_stamp => Dir.glob('po/*/noosfero.po') do
-  ruby '-rconfig/boot -e \'require "gettext"; require "gettext/utils"; GetText.create_mofiles(true, "po", "locale")\' 2>/dev/null'
+  ruby '-I. -rconfig/boot -e \'require "gettext"; require "gettext/utils"; GetText.create_mofiles(true, "po", "locale")\''
   Rake::Task['symlinkmo'].invoke
   FileUtils.mkdir_p 'tmp'
   FileUtils.touch makemo_stamp

@@ -3,11 +3,18 @@ gem 'rails'
 gem 'fast_gettext'
 gem 'acts-as-taggable-on'
 gem 'prototype-rails'
-gem 'prototype_legacy_helper', '0.0.0', :git => 'http://git.github.com/rails/prototype_legacy_helper.git'
+gem 'prototype_legacy_helper', '0.0.0', :path => 'vendor/prototype_legacy_helper'
 gem 'rails_autolink'
 gem 'pg'
-
-# TODO needs a rebuild diff-lcs wrt wheezy
+gem 'rmagick'
+gem 'RedCloth'
+gem 'will_paginate'
+gem 'ruby-feedparser'
+gem 'daemons'
+gem 'thin'
+gem 'hpricot'
+gem 'nokogiri'
+gem 'rake', :require => false
 
 # FIXME list here all actual dependencies (i.e. the ones in debian/control),
 # with their GEM names (not the Debian package names)
@@ -35,12 +42,3 @@ Dir.glob(File.join('config', 'plugins', '*')).each do |plugin|
   plugin_gemfile = File.join(plugin, 'Gemfile')
   eval File.read(plugin_gemfile) if File.exists?(plugin_gemfile)
 end
-
-def program(name)
-  unless system("which #{name} > /dev/null")
-    puts "W: Program #{name} is needed, but was not found in your PATH"
-  end
-end
-
-program 'java'
-program 'firefox'

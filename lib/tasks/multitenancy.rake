@@ -19,7 +19,7 @@ end
 namespace :db do
 
   task :migrate_other_environments => :environment do
-    envs = ActiveRecord::Base.configurations.keys.select{ |k| k.match(/_#{RAILS_ENV}$/) }
+    envs = ActiveRecord::Base.configurations.keys.select{ |k| k.match(/_#{Rails.env}$/) }
     envs.each do |e|
       puts "*** Migrating #{e}" if Rake.application.options.trace
       system "rake db:migrate RAILS_ENV=#{e}"
