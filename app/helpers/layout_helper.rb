@@ -33,7 +33,7 @@ module LayoutHelper
     plugins_stylesheets = @plugins.select(&:stylesheet?).map { |plugin| plugin.class.public_path('style.css') }
 
     output = ''
-    output += stylesheet_link_tag standard_stylesheets, :cache => 'cache'
+    output += stylesheet_link_tag standard_stylesheets, :cache => 'cache/application'
     output += stylesheet_link_tag template_stylesheet_path
     output += stylesheet_link_tag icon_theme_stylesheet_path
     output += stylesheet_link_tag jquery_ui_theme_stylesheet_path
