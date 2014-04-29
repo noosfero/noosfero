@@ -203,6 +203,10 @@ class Article < ActiveRecord::Base
   acts_as_versioned
   self.non_versioned_columns << 'setting'
 
+  def version_condition_met?
+    (['name', 'body', 'abstract', 'filename', 'start_date', 'end_date', 'image_id', 'license_id'] & changed).length > 0
+  end
+
   def comment_data
     comments.map {|item| [item.title, item.body].join(' ') }.join(' ')
   end

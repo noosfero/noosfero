@@ -1825,4 +1825,10 @@ class ArticleTest < ActiveSupport::TestCase
     assert_equivalent [c3], Article.with_types(['Event'])
   end
 
+  should 'not create version when receive a comment' do
+    a = Article.create!(:name => 'my article', :body => 'my text', :profile_id => profile.id)
+    Comment.create!(:title => 'test', :body => 'asdsad', :author => profile, :source => a)
+    assert_equal 1, a.versions.count
+  end
+
 end
