@@ -1814,29 +1814,29 @@ a.button.disabled, input.disabled {
 }
 
 #add-block-dialog {
-  display: inline-block;
   padding: 0px 5px 0px 20px;
+  max-width: 600px;
 }
 
 #add-block-dialog .block-types {
-  column-count: 2;
-  -ms-column-count: 2;
-  -moz-column-count: 2;
-  -webkit-column-count: 2;
 }
 
 #add-block-dialog .block-types input{
   vertical-align: middle;
+  display: inline-block;
 }
 
 #add-block-dialog .block-types label{
-  display: inline-block;
   vertical-align: middle;
-  width: 140px;
+  display: inline-block;
+  width: 85%;
+  padding-top: 4px;
 }
 
 #add-block-dialog .block-type{
-  margin: 3px 0;
+  margin: 3px 0px;
+  display: inline-block;
+  width: 49%;
 }
 
 /* ==> blocks/tags-block.css <<= */
