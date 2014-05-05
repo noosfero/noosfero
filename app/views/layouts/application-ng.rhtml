@@ -34,8 +34,8 @@
     <%# Add custom tags/styles/etc via content_for %>
     <%= yield :head %>
     <%=
-      @plugins.dispatch(:head_ending).collect do |content|
-        content.respond_to?(:call) ? content.call : content
+      @plugins.dispatch(:head_ending).map do |content|
+        if content.respond_to?(:call) then instance_eval(&content).html_safe else content.html_safe end
       end.join("\n")
     %>
 
@@ -47,8 +47,8 @@
     <a href="#content" id="link-go-content"><span><%= _("Go to the content") %></span></a>
 
     <%=
-      @plugins.dispatch(:body_beginning).collect do |content|
-        content.respond_to?(:call) ? content.call : content
+      @plugins.dispatch(:body_beginning).map do |content|
+        if content.respond_to?(:call) then instance_eval(&content).html_safe else content.html_safe end
       end.join("\n")
     %>
 

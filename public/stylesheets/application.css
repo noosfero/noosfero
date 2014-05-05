@@ -3771,7 +3771,6 @@ h1#agenda-title {
   -webkit-border-radius: 5px;
   background: url(/images/ccc.gif); /* image ccc.gif from http://www.wannabegirl.org/translucent */
   padding: 10px 30px 20px 30px;
-  width: 570px;
 }
 #categories_container_wrapper {
   overflow-x: scroll;

@@ -253,7 +253,10 @@ class User < ActiveRecord::Base
   #   current password.
   # * Saves the record unless it is a new one.
   def change_password!(current, new, confirmation)
-    raise IncorrectPassword unless self.authenticated?(current)
+    unless self.authenticated?(current)
+      self.errors.add(:current_password, _('does not match.'))
+      raise IncorrectPassword
+    end
     self.force_change_password!(new, confirmation)
   end
 

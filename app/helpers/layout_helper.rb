@@ -4,7 +4,7 @@ module LayoutHelper
     # Identify the current controller and action for the CSS:
     " controller-#{@controller.controller_name}" +
     " action-#{@controller.controller_name}-#{@controller.action_name}" +
-    " template-#{profile.nil? ? "default" : profile.layout_template}" +
+    " template-#{@layout_template || if profile.blank? then 'default' else profile.layout_template end}" +
     (!profile.nil? && profile.is_on_homepage?(request.path,@page) ? " profile-homepage" : "")
   end
 

@@ -102,20 +102,19 @@ class Event < Article
     html = Builder::XmlMarkup.new(:target => result)
 
     html.div(:class => 'event-info' ) {
-
       html.ul(:class => 'event-data' ) {
         html.li(:class => 'event-dates' ) {
           html.span _('When:')
           html.text! show_period(start_date, end_date)
-        }
+        } if start_date.present? || end_date.present?
         html.li {
           html.span _('URL:')
           html.a(self.link || "", 'href' => self.link || "")
-        }
+        } if self.link.present?
         html.li {
           html.span _('Address:')
           html.text! self.address || ""
-        }
+        } if self.address.present?
       }
 
       # TODO: some good soul, please clean this ugly hack:

@@ -260,4 +260,18 @@ class CustomFormsPlugin::FormTest < ActiveSupport::TestCase
     form2.destroy
     assert_includes Task.canceled, task2
   end
+
+  should 'destroy submissions after form is destroyed' do
+    form = CustomFormsPlugin::Form.create!(:profile => fast_create(Profile), :name => 'Free Software')
+    s1 = CustomFormsPlugin::Submission.create!(:form => form, :profile => fast_create(Profile))
+    s2 = CustomFormsPlugin::Submission.create!(:form => form, :profile => fast_create(Profile))
+    form.destroy
+
+    assert_raise ActiveRecord::RecordNotFound do
+      s1.reload
+    end
+    assert_raise ActiveRecord::RecordNotFound do
+      s2.reload
+    end
+  end
 end

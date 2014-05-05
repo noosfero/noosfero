@@ -418,11 +418,8 @@ class ApplicationControllerTest < ActionController::TestCase
 
   should 'include content in the beginning of body supplied by plugins regardless it is a block or html code' do
     class TestBodyBeginning1Plugin < Noosfero::Plugin
-      def plugin1_method
-        '[[plugin1]]'
-      end
       def body_beginning
-        lambda {"<span id='plugin1'>This is #{plugin1_method} speaking!</span>"}
+        lambda {"<span id='plugin1'>This is [[plugin1]] speaking!</span>"}
       end
     end
     class TestBodyBeginning2Plugin < Noosfero::Plugin
@@ -442,11 +439,8 @@ class ApplicationControllerTest < ActionController::TestCase
   should 'include content in the ending of head supplied by plugins regardless it is a block or html code' do
 
     class TestHeadEnding1Plugin < Noosfero::Plugin
-      def plugin1_method
-        '[[plugin1]]'
-      end
       def head_ending
-        lambda {"<script>alert('This is #{plugin1_method} speaking!')</script>"}
+        lambda {"<script>alert('This is [[plugin1]] speaking!')</script>"}
       end
     end
     class TestHeadEnding2Plugin < Noosfero::Plugin
