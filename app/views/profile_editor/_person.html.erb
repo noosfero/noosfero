@@ -19,3 +19,8 @@
   <%= @plugins.dispatch(:profile_info_extra_contents).collect { |content| instance_eval(&content) }.join("") %>
 
   <%= render :partial => 'person_form', :locals => {:f => f} %>
+
+  <h2><%= _('Notification options') %></h2>
+  <div>
+    <%= select_tag 'profile_data[notification_time]', options_for_select([[_('Disabled'), 0], [_('Hourly'), 1], [_('Half Day'), 12], [_('Daily'), 24]], @profile.notification_time) %>
+  </div>

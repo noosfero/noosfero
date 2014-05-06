@@ -69,6 +69,8 @@ class AccountController < ApplicationController
       session[:notice] = _("This environment doesn't allow user registration.")
     end
 
+    store_location(request.referer) unless params[:return_to] or session[:return_to]
+
     @block_bot = !!session[:may_be_a_bot]
     @invitation_code = params[:invitation_code]
     begin
@@ -77,6 +79,7 @@ class AccountController < ApplicationController
       @user.environment = environment
       @terms_of_use = environment.terms_of_use
       @user.person_data = params[:profile_data]
+      @user.return_to = session[:return_to]
       @person = Person.new(params[:profile_data])
       @person.environment = @user.environment
       if request.post?
@@ -98,7 +101,7 @@ class AccountController < ApplicationController
           end
           if @user.activated?
             self.current_user = @user
-            redirect_to '/'
+            go_to_signup_initial_page
           else
             @register_pending = true
           end
@@ -247,15 +250,19 @@ class AccountController < ApplicationController
     end
   end
 
-  def check_url
+  def check_valid_name
     @identifier = params[:identifier]
     valid = Person.is_available?(@identifier, environment)
     if valid
       @status = _('This login name is available')
       @status_class = 'validated'
-    else
+    elsif !@identifier.empty?
+      @suggested_usernames = suggestion_based_on_username(@identifier)
       @status = _('This login name is unavailable')
       @status_class = 'invalid'
+    else
+      @status_class = 'invalid'
+      @status = _('This field can\'t be blank')
     end
     render :partial => 'identifier_status'
   end
@@ -287,6 +294,23 @@ class AccountController < ApplicationController
 
     render :text => user_data.to_json, :layout => false, :content_type => "application/javascript"
   end
+
+  def search_cities
+    if request.xhr? and params[:state_name] and params[:city_name]
+      render :json => MapsHelper.search_city(params[:city_name], params[:state_name])
+    else
+      render :json => [].to_json
+    end
+  end
+
+  def search_state
+    if request.xhr? and params[:state_name]
+      render :json => MapsHelper.search_state(params[:state_name])
+    else
+      render :json => [].to_json
+    end
+  end
+
 
   protected
 
@@ -368,30 +392,27 @@ class AccountController < ApplicationController
   end
 
   def go_to_initial_page
+    if params[:redirection]
+      session[:return_to] = @user.return_to
+      @user.return_to = nil
+      @user.save
+    end
+
     if params[:return_to]
       redirect_to params[:return_to]
     elsif environment.enabled?('allow_change_of_redirection_after_login')
-      case user.preferred_login_redirection
-        when 'keep_on_same_page'
-          redirect_back_or_default(user.admin_url)
-        when 'site_homepage'
-          redirect_to :controller => :home
-        when 'user_profile_page'
-          redirect_to user.public_profile_url
-        when 'user_homepage'
-          redirect_to user.url
-        when 'user_control_panel'
-          redirect_to user.admin_url
-      else
-        redirect_back_or_default(user.admin_url)
-      end
+      check_redirection_options(user, user.preferred_login_redirection, user.admin_url)
     else
       if environment == current_user.environment
-        redirect_back_or_default(user.admin_url)
+        check_redirection_options(user, environment.redirection_after_login, user.admin_url)
       else
         redirect_back_or_default(:controller => 'home')
       end
     end
+  end
+
+  def go_to_signup_initial_page
+    check_redirection_options(user, user.environment.redirection_after_signup, user.url)
   end
 
   def redirect_if_logged_in
@@ -409,4 +430,22 @@ class AccountController < ApplicationController
     user
   end
 
+  protected
+
+  def check_redirection_options(user, condition, default)
+    case condition
+      when 'keep_on_same_page'
+        redirect_back_or_default(user.admin_url)
+      when 'site_homepage'
+        redirect_to :controller => :home
+      when 'user_profile_page'
+        redirect_to user.public_profile_url
+      when 'user_homepage'
+        redirect_to user.url
+      when 'user_control_panel'
+        redirect_to user.admin_url
+    else
+      redirect_back_or_default(default)
+    end
+  end
 end

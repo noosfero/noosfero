@@ -111,6 +111,10 @@ module NavigationHelpers
     when /the user data path/
       '/account/user_data'
 
+    when /^(.+)'s confirmation URL/
+      user = User[$1]
+      "/account/activate?activation_code=#{user.activation_code}&redirection=" + (user.return_to.nil? ? 'false' : 'true')
+
     when /^(.+)'s members page/
       '/profile/%s/members' % profile_identifier($1)
 

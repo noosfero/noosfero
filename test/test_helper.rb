@@ -184,7 +184,7 @@ class ActiveSupport::TestCase
         if reference.first == value
           reference.shift
         else
-          assert false, "'#{value}' was found before it should be on: #{original.inspect}"
+          assert false, "'#{value.inspect}' was found before it should be on: #{original.inspect}"
         end
       end
     end

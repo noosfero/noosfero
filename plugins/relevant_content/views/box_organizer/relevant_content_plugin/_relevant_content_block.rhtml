@@ -1,0 +1,8 @@
+<div id='edit-relevant-content-block'>
+  <%= labelled_form_field _('Limit of items per category'), text_field(:block, :limit, :size => 3) %>
+  <%= labelled_check_box _('Display most accessed content'), "block[show_most_read]", 1 ,@block.show_most_read %><BR>
+  <%= labelled_check_box _('Display most commented content'), "block[show_most_commented]", 1 ,@block.show_most_commented %><BR>
+  <%= labelled_check_box _('Display most liked content'), "block[show_most_liked]", 1 ,@block.show_most_liked %><BR>
+  <%= labelled_check_box _('Display most voted content'), "block[show_most_voted]", 1 ,@block.show_most_voted %><BR>
+  <%= labelled_check_box _('Display most disliked content'), "block[show_most_disliked]", 1 , @block.show_most_disliked %><BR>
+</div>

@@ -90,5 +90,8 @@ module LayoutHelper
     end
   end
 
+  def meta_description_tag(article=nil)
+    article ? truncate(strip_tags(article.body.to_s), :length => 200) : environment.name
+  end
 end
 

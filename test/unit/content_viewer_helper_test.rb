@@ -89,38 +89,6 @@ class ContentViewerHelperTest < ActionView::TestCase
     assert_no_match /feed/, result
   end
 
-  should 'generate facebook addthis url for article' do
-    Environment.any_instance.stubs(:default_hostname).returns('noosfero.org')
-    [TextileArticle, Blog, Folder, Gallery, UploadedFile, Forum, Event, TextArticle, TinyMceArticle].each do |model|
-      a = build(model, :body => 'Some text here.', :profile => profile)
-      assert_equal "http://www.facebook.com/sharer.php?s=100&p[title]=#{a.name.gsub(' ','+')}&p[summary]=Some+text+here.&p[url]=http%3A%2F%2Fnoosfero.org%2Fblog_helper_test%2F#{a.slug}&p[images][0]=", addthis_facebook_url(a)
-    end
-  end
-
-  should 'generate facebook addthis url without body' do
-    Environment.any_instance.stubs(:default_hostname).returns('noosfero.org')
-    a = build(TinyMceArticle, :body => nil, :profile => profile)
-    assert_equal "http://www.facebook.com/sharer.php?s=100&p[title]=#{a.name.gsub(' ','+')}&p[summary]=&p[url]=http%3A%2F%2Fnoosfero.org%2Fblog_helper_test%2F#{a.slug}&p[images][0]=", addthis_facebook_url(a)
-  end
-
-  should 'generate facebook addthis url without tags in body' do
-    Environment.any_instance.stubs(:default_hostname).returns('noosfero.org')
-    a = build(TinyMceArticle, :body => '<p>This <b class="bold">is</b> a test</p>', :profile => profile)
-    assert_equal "http://www.facebook.com/sharer.php?s=100&p[title]=#{a.name.gsub(' ','+')}&p[summary]=This+is+a+test&p[url]=http%3A%2F%2Fnoosfero.org%2Fblog_helper_test%2F#{a.slug}&p[images][0]=", addthis_facebook_url(a)
-  end
-
-  should 'generate facebook addthis url with truncated body' do
-    Environment.any_instance.stubs(:default_hostname).returns('noosfero.org')
-    a = build(TinyMceArticle, :body => 'test' * 76, :profile => profile)
-    assert_equal "http://www.facebook.com/sharer.php?s=100&p[title]=#{a.name.gsub(' ','+')}&p[summary]=#{'test' * 74}t...&p[url]=http%3A%2F%2Fnoosfero.org%2Fblog_helper_test%2F#{a.slug}&p[images][0]=", addthis_facebook_url(a)
-  end
-
-  should 'generate facebook addthis url for tinymce article with images' do
-    Environment.any_instance.stubs(:default_hostname).returns('noosfero.org')
-    a = build(TinyMceArticle, :body => '<p>This <b class="bold">is</b> a <img src="/images/x.png" />test</p>', :profile => profile)
-    assert_equal "http://www.facebook.com/sharer.php?s=100&p[title]=#{a.name.gsub(' ','+')}&p[summary]=This+is+a+test&p[url]=http%3A%2F%2Fnoosfero.org%2Fblog_helper_test%2F#{a.slug}&p[images][0]=http%3A%2F%2Fnoosfero.org%2Fimages%2Fx.png", addthis_facebook_url(a)
-  end
-
   should 'theme provides addthis custom icon' do
     stubs(:session).returns({:theme => 'base'})
     File.expects(:exists?).with(anything).returns(true)

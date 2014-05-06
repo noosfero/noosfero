@@ -68,6 +68,7 @@ class FriendsControllerTest < ActionController::TestCase
         false
       end
     end
+    Noosfero::Plugin.stubs(:all).returns([Plugin1.name, Plugin2.name])
 
     e = profile.environment
     e.enable_plugin(Plugin1.name)

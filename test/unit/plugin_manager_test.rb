@@ -26,6 +26,7 @@ class PluginManagerTest < ActiveSupport::TestCase
     class Plugin2 < Noosfero::Plugin; end;
     class Plugin3 < Noosfero::Plugin; end;
     class Plugin4 < Noosfero::Plugin; end;
+    Noosfero::Plugin.stubs(:all).returns(['PluginManagerTest::Plugin1', 'PluginManagerTest::Plugin2', 'PluginManagerTest::Plugin3', 'PluginManagerTest::Plugin4'])
     environment.stubs(:enabled_plugins).returns([Plugin1.to_s, Plugin2.to_s, Plugin4.to_s])
     Noosfero::Plugin.stubs(:all).returns([Plugin1.to_s, Plugin3.to_s, Plugin4.to_s])
     results = plugins.enabled_plugins.map { |instance| instance.class.to_s }
@@ -51,6 +52,7 @@ class PluginManagerTest < ActiveSupport::TestCase
         'Plugin 2 action.'
       end
     end
+    Noosfero::Plugin.stubs(:all).returns(['PluginManagerTest::Plugin1', 'PluginManagerTest::Plugin2'])
 
     environment.stubs(:enabled_plugins).returns([Plugin1.to_s, Plugin2.to_s])
 
@@ -83,6 +85,7 @@ class PluginManagerTest < ActiveSupport::TestCase
         'Plugin 3 action.'
       end
     end
+    Noosfero::Plugin.stubs(:all).returns(['PluginManagerTest::Plugin1', 'PluginManagerTest::Plugin2', 'PluginManagerTest::Plugin3'])
 
     environment.stubs(:enabled_plugins).returns([Plugin1.to_s, Plugin2.to_s, Plugin3.to_s])
     p1 = Plugin1.new
@@ -107,6 +110,7 @@ class PluginManagerTest < ActiveSupport::TestCase
         'Plugin3'
       end
     end
+    Noosfero::Plugin.stubs(:all).returns(['PluginManagerTest::Plugin1', 'PluginManagerTest::Plugin2', 'PluginManagerTest::Plugin3'])
 
     environment.enable_plugin(Plugin1.name)
     environment.enable_plugin(Plugin2.name)
@@ -134,6 +138,7 @@ class PluginManagerTest < ActiveSupport::TestCase
         true
       end
     end
+    Noosfero::Plugin.stubs(:all).returns(['PluginManagerTest::Plugin1', 'PluginManagerTest::Plugin2', 'PluginManagerTest::Plugin3'])
 
     environment.enable_plugin(Plugin1.name)
     environment.enable_plugin(Plugin2.name)
@@ -162,6 +167,7 @@ class PluginManagerTest < ActiveSupport::TestCase
         true
       end
     end
+    Noosfero::Plugin.stubs(:all).returns(['PluginManagerTest::Plugin1', 'PluginManagerTest::Plugin2', 'PluginManagerTest::Plugin3'])
 
     environment.enable_plugin(Plugin1.name)
     environment.enable_plugin(Plugin2.name)
@@ -178,6 +184,7 @@ class PluginManagerTest < ActiveSupport::TestCase
         [Macro1, Macro2]
       end
     end
+    Noosfero::Plugin.stubs(:all).returns(['PluginManagerTest::Plugin1'])
 
     class Plugin1::Macro1 < Noosfero::Plugin::Macro
       def convert(macro, source)
@@ -212,6 +219,7 @@ class PluginManagerTest < ActiveSupport::TestCase
         [v1 * v, v2 * v]
       end
     end
+    Noosfero::Plugin.stubs(:all).returns(['PluginManagerTest::Plugin1', 'PluginManagerTest::Plugin2'])
 
     environment.enable_plugin(Plugin1)
     environment.enable_plugin(Plugin2)
@@ -231,6 +239,7 @@ class PluginManagerTest < ActiveSupport::TestCase
         value * 5
       end
     end
+    Noosfero::Plugin.stubs(:all).returns(['PluginManagerTest::Plugin1', 'PluginManagerTest::Plugin2'])
 
     environment.enable_plugin(Plugin1)
     environment.enable_plugin(Plugin2)
@@ -252,6 +261,7 @@ class PluginManagerTest < ActiveSupport::TestCase
         [v1 * v, v2 * v, 666]
       end
     end
+    Noosfero::Plugin.stubs(:all).returns(['PluginManagerTest::Plugin1', 'PluginManagerTest::Plugin2'])
 
     environment.enable_plugin(Plugin1)
     environment.enable_plugin(Plugin2)
@@ -273,6 +283,7 @@ class PluginManagerTest < ActiveSupport::TestCase
         numbers.reject {|n| n<=5}
       end
     end
+    Noosfero::Plugin.stubs(:all).returns(['PluginManagerTest::Plugin1', 'PluginManagerTest::Plugin2'])
 
     environment.enable_plugin(Plugin1)
     environment.enable_plugin(Plugin2)

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: noosfero 0.45.2\n"
 "POT-Creation-Date: 2014-01-17 18:26-0000\n"
-"PO-Revision-Date: 2013-01-03 18:39-0300\n"
+"PO-Revision-Date: 2014-03-25 14:55+0000\n"
 "Last-Translator: Luis David Aguilar Carlos <ludwig9003@gmail.com>,Freddy "
 "Martín Hernández Facio <fmhf14@gmail.com>, Pedro Alonzo Ramírez Tovar <pedro."
 "alonzo709@gmail.com>\n"
@@ -292,7 +292,6 @@ msgid "Next"
 msgstr "Siguiente"
 
 #: app/helpers/application_helper.rb:1118
-#, fuzzy
 msgid "See all"
 msgstr "Ver todos"
 
@@ -690,11 +689,11 @@ msgstr "Configurar foro"
 
 #: app/helpers/forum_helper.rb:14 app/helpers/blog_helper.rb:23
 msgid "&laquo; Newer posts"
-msgstr "&laquo; Entradas recientes"
+msgstr "&laquo; Noticias más nuevas"
 
 #: app/helpers/forum_helper.rb:15 app/helpers/blog_helper.rb:24
 msgid "Older posts &raquo;"
-msgstr "Entradas antiguas &raquo;"
+msgstr "Noticias más viejas &raquo;"
 
 #: app/helpers/forum_helper.rb:18
 msgid "Discussion topic"
@@ -841,15 +840,13 @@ msgstr "%{day} de %{month} %{year}"
 
 #: app/helpers/dates_helper.rb:28 app/helpers/dates_helper.rb:40
 #: plugins/display_content/lib/display_content_block.rb:153
-#, fuzzy
 msgid "%{month}/%{day}"
-msgstr "%{day} de %{month} %{year}"
+msgstr "%{day}/%{month}"
 
 #: app/helpers/dates_helper.rb:31
 #: plugins/display_content/lib/display_content_block.rb:156
-#, fuzzy
 msgid "%{month_name} %{day}, %{year}"
-msgstr "%{day} de %{month} %{year}"
+msgstr "%{day} de %{month} de %{year}"
 
 # LAs cadenas de este tipo NO se traducen
 #: app/helpers/dates_helper.rb:31
@@ -877,21 +874,19 @@ msgstr "%{month} %{year}"
 
 #: app/helpers/dates_helper.rb:53
 msgid "%{day} %{month} %{year}, %{hour}:%{minutes}"
-msgstr "%{day} %{month} %{year}, %{hour}:%{minutes}"
+msgstr "%{day} de %{month} de %{year}, %{hour}:%{minutes}"
 
 #: app/helpers/dates_helper.rb:65
-#, fuzzy
 msgid "from %{month} %{day1} to %{day2}, %{year}"
-msgstr "%{day} de %{month} %{year}"
+msgstr "de %{day1} para %{day2} de %{month} de %{year}"
 
 #: app/helpers/dates_helper.rb:72
-#, fuzzy
 msgid "from %{date1} to %{date2}, %{year}"
-msgstr "Por %{author} el %{date}"
+msgstr "de %{date1} para %{date2} de %{year}"
 
 #: app/helpers/dates_helper.rb:79
 msgid "from %{date1} to %{date2}"
-msgstr "Por %{author} el %{date}"
+msgstr "de %{date1} para %{date2}"
 
 #: app/helpers/dates_helper.rb:89 app/helpers/forms_helper.rb:163
 msgid "Sun"

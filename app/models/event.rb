@@ -43,15 +43,12 @@ class Event < Article
   scope :next_events_from_month, lambda { |date|
     date_temp = date.strftime("%Y-%m-%d")
     { :conditions => ["start_date >= ?","#{date_temp}"],
-      :limit => 10,
       :order => 'start_date ASC'
     }
   }
 
   scope :by_month, lambda { |date|
-    date_temp = date.strftime("%Y-%m")
     { :conditions => ["EXTRACT(YEAR FROM start_date) = ? AND EXTRACT(MONTH FROM start_date) = ?",date.year,date.month],
-      :limit => 10,
       :order => 'start_date ASC'
     }
   }

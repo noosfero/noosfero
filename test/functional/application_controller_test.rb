@@ -234,7 +234,7 @@ class ApplicationControllerTest < ActionController::TestCase
     get :index
 
     assert_tag :tag => 'div', :attributes => { :id => 'theme-test-panel' }, :descendant => {
-      :tag => 'a', :attributes => { :href => '/myprofile/testinguser/themes/edit/my-test-theme'}
+      :tag => 'a', :attributes => { :href => '/myprofile/testinguser/profile_themes/edit/my-test-theme'}
     }
       #{ :tag => 'a', :attributes => { :href => '/myprofile/testinguser/themes/stop_test/my-test-theme'} }
   end
@@ -253,7 +253,7 @@ class ApplicationControllerTest < ActionController::TestCase
     assert_no_tag :tag => 'a', :content => /Category 2/
   end
 
-  should 'show name of article as title of page' do
+  should 'show name of article as title of page without environment' do
     p = create_user('test_user').person
     a = p.articles.create!(:name => 'test article')
 
@@ -261,17 +261,22 @@ class ApplicationControllerTest < ActionController::TestCase
     @controller.instance_variable_set('@page', a)
 
     get :index
-    assert_tag 'title', :content => 'test article - ' + p.name + ' - ' + p.environment.name
+    assert_tag 'title', :content => 'test article - ' + p.name
   end
 
-  should 'diplay name of profile in the title' do
+  should 'diplay name of profile in the title without environment' do
     p = create_user('test_user').person
     p.name = 'Some Test User'
     p.save!
     @controller.instance_variable_set('@profile', p)
 
     get :index, :profile => p.identifier
-    assert_tag 'title', :content => p.name + ' - ' + p.environment.name
+    assert_tag 'title', :content => p.name
+  end
+
+  should 'display environment name in title when profile and page are not defined' do
+    get :index
+    assert_tag 'title', :content => assigns(:environment).name
   end
 
   should 'display menu links for my environment when logged in other environment' do
@@ -314,7 +319,8 @@ class ApplicationControllerTest < ActionController::TestCase
   end
 
   should 'set html lang as the article language if an article is present and has a language' do
-    a = fast_create(Article, :name => 'test article', :language => 'fr')
+    p = create_user('test_user').person
+    a = fast_create(Article, :name => 'test article', :language => 'fr', :profile_id => p.id )
     @controller.instance_variable_set('@page', a)
     FastGettext.stubs(:locale).returns('es')
     get :index
@@ -328,7 +334,9 @@ class ApplicationControllerTest < ActionController::TestCase
   end
 
   should 'set html lang as locale if page has no language' do
-    a = fast_create(Article, :name => 'test article', :language => nil)
+    p = create_user('test_user').person
+    a = fast_create(Article, :name => 'test article', :language => nil, :profile_id => p.id )
+
     @controller.instance_variable_set('@page', a)
     FastGettext.stubs(:locale).returns('es')
     get :index
@@ -355,6 +363,8 @@ class ApplicationControllerTest < ActionController::TestCase
       end
     end
     plugin2_path = '/plugin2/style.css'
+
+    Noosfero::Plugin.stubs(:all).returns([Plugin1.name, Plugin2.name])
 
     environment = Environment.default
     environment.enable_plugin(Plugin1.name)
@@ -390,6 +400,8 @@ class ApplicationControllerTest < ActionController::TestCase
     plugin2_path2 = '/plugin2/'+js2
     plugin2_path3 = '/plugin2/'+js3
 
+    Noosfero::Plugin.stubs(:all).returns([Plugin1.name, Plugin2.name])
+
     environment = Environment.default
     environment.enable_plugin(Plugin1.name)
     environment.enable_plugin(Plugin2.name)
@@ -418,6 +430,8 @@ class ApplicationControllerTest < ActionController::TestCase
       end
     end
 
+    Noosfero::Plugin.stubs(:all).returns([TestBodyBeginning1Plugin.name, TestBodyBeginning2Plugin.name])
+
     Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([TestBodyBeginning1Plugin.new, TestBodyBeginning2Plugin.new])
 
     get :index
@@ -441,6 +455,8 @@ class ApplicationControllerTest < ActionController::TestCase
         "<style>This is Plugin2 speaking!</style>"
       end
     end
+
+    Noosfero::Plugin.stubs(:all).returns([TestHeadEnding1Plugin.name, TestHeadEnding2Plugin.name])
 
     Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([TestHeadEnding1Plugin.new, TestHeadEnding2Plugin.new])
 
@@ -506,6 +522,7 @@ class ApplicationControllerTest < ActionController::TestCase
           :block => lambda {} }
       end
     end
+    Noosfero::Plugin.stubs(:all).returns([FilterPlugin.name])
 
     Noosfero::Plugin.load_plugin_filters(FilterPlugin)
     Noosfero::Plugin::Manager.any_instance.stubs(:enabled_plugins).returns([FilterPlugin.new])
@@ -525,6 +542,7 @@ class ApplicationControllerTest < ActionController::TestCase
           :block => proc {'plugin block called'} }
       end
     end
+    Noosfero::Plugin.stubs(:all).returns([OtherFilterPlugin.name])
 
     Noosfero::Plugin.load_plugin_filters(OtherFilterPlugin)
     environment1 = fast_create(Environment, :name => 'test environment')
@@ -539,4 +557,18 @@ class ApplicationControllerTest < ActionController::TestCase
     assert_equal nil, @controller.application_controller_test_other_filter_plugin_filter_plugin
   end
 
+  should 'display meta tags for social media' do
+    get :index
+    assert_tag :tag => 'meta', :attributes => { :name => 'twitter:card', :value => 'summary' }
+    assert_tag :tag => 'meta', :attributes => { :name => 'twitter:title', :content => assigns(:environment).name }
+    assert_tag :tag => 'meta', :attributes => { :name => 'twitter:description', :content => assigns(:environment).name }
+    assert_no_tag :tag => 'meta', :attributes => { :name => 'twitter:image' }
+    assert_tag :tag => 'meta', :attributes => { :property => 'og:type', :content => 'website' }
+    assert_tag :tag => 'meta', :attributes => { :property => 'og:url', :content => assigns(:environment).top_url }
+    assert_tag :tag => 'meta', :attributes => { :property => 'og:title', :content => assigns(:environment).name }
+    assert_tag :tag => 'meta', :attributes => { :property => 'og:site_name', :content => assigns(:environment).name }
+    assert_tag :tag => 'meta', :attributes => { :property => 'og:description', :content => assigns(:environment).name }
+    assert_no_tag :tag => 'meta', :attributes => { :property => 'article:published_time' }
+    assert_no_tag :tag => 'meta', :attributes => { :property => 'og:image' }
+  end
 end

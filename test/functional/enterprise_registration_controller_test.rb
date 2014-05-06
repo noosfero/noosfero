@@ -193,6 +193,7 @@ class EnterpriseRegistrationControllerTest < ActionController::TestCase
         {'plugin2' => 'Plugin 2'}
       end
     end
+    Noosfero::Plugin.stubs(:all).returns([Plugin1.name, Plugin2.name])
 
     environment = Environment.default
     environment.enable_plugin(Plugin1.name)

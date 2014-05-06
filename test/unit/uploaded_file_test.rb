@@ -31,6 +31,13 @@ class UploadedFileTest < ActiveSupport::TestCase
     assert_equal 'test.txt', file.name
   end
 
+  should 'not set filename on name if name is already set' do
+    file = UploadedFile.new
+    file.name = "Some name"
+    file.filename = 'test.txt'
+    assert_equal 'Some name', file.name
+  end
+
   should 'provide file content as data' do
     file = UploadedFile.new
     file.expects(:full_filename).returns('myfilename')
@@ -121,23 +128,13 @@ class UploadedFileTest < ActiveSupport::TestCase
     assert_equal 'my title', build(UploadedFile, :title => 'my title').title
   end
 
-  should 'limit title to 140 characters' do
-    upload = UploadedFile.new
-
-    upload.title = '+' * 61; upload.valid?
-    assert upload.errors[:title]
-
-    upload.title = '+' * 60; upload.valid?
-    assert_blank upload.errors[:title]
-  end
-
   should 'always provide a display title' do
     upload = build(UploadedFile, :uploaded_data => fixture_file_upload('/files/test.txt', 'text/plain'))
-    assert_equal 'test.txt',  upload.display_title
+    assert_equal 'test.txt',  upload.title
     upload.title = 'My text file'
-    assert_equal 'My text file', upload.display_title
+    assert_equal 'My text file', upload.title
     upload.title = ''
-    assert_equal 'test.txt', upload.display_title
+    assert_equal 'test.txt', upload.title
   end
 
   should 'use name as title by default' do
@@ -327,6 +324,7 @@ class UploadedFileTest < ActiveSupport::TestCase
   end
 
   should 'group trackers activity of image\'s upload' do
+    ActionTracker::Record.delete_all
     gallery = fast_create(Gallery, :profile_id => profile.id)
 
     image1 = create(UploadedFile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :parent => gallery, :profile => profile)

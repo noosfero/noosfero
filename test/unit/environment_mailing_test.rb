@@ -50,7 +50,7 @@ class EnvironmentMailingTest < ActiveSupport::TestCase
     mailing = new_mailing(environment).tap do |m|
       m.person = person_1
     end
-    assert_equal "#{environment.name} <#{environment.contact_email}>", mailing.generate_from
+    assert_equal "#{environment.name} <#{environment.noreply_email}>", mailing.generate_from
   end
 
   should 'deliver mailing to each recipient after create' do

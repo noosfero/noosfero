@@ -31,6 +31,9 @@ Noosfero::Application.routes.draw do
   match 'thumbnails(/*stuff)' => 'not_found#nothing'
   match 'user_themes(/*stuff)' => 'not_found#nothing'
 
+  # embed controller
+  map.embed 'embed/:action/:id', :controller => 'embed', :id => /\d+/
+
   # online documentation
   match 'doc' => 'doc#index', :as => :doc
   match 'doc/:section' => 'doc#section', :as => :doc_section

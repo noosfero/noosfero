@@ -445,24 +445,23 @@ class CmsControllerTest < ActionController::TestCase
     assert_tag :tag => 'h3', :content => /max size #{UploadedFile.max_size.to_humanreadable}/
   end
 
-  should 'display link for selecting categories' do
-    # FIXME
-    assert true
-    #env = Environment.default
-    #top = env.categories.build(:display_in_menu => true, :name => 'Top-Level category'); top.save!
-    #c1  = env.categories.build(:display_in_menu => true, :name => "Test category 1", :parent_id => top.id); c1.save!
-    #c2  = env.categories.build(:display_in_menu => true, :name => "Test category 2", :parent_id => top.id); c2.save!
-    #c3  = env.categories.build(:display_in_menu => true, :name => "Test Category 3", :parent_id => top.id); c3.save!
+  should 'display link for selecting top categories' do
+    env = Environment.default
+    top = env.categories.build(:display_in_menu => true, :name => 'Top-Level category'); top.save!
+    top2 = env.categories.build(:display_in_menu => true, :name => 'Top-Level category 2'); top2.save!
+    c1  = env.categories.build(:display_in_menu => true, :name => "Test category 1", :parent_id => top.id); c1.save!
+    c2  = env.categories.build(:display_in_menu => true, :name => "Test category 2", :parent_id => top.id); c2.save!
+    c3  = env.categories.build(:display_in_menu => true, :name => "Test Category 3", :parent_id => top.id); c3.save!
 
-    #article = Article.new(:name => 'test')
-    #article.profile = profile
-    #article.save!
+    article = Article.new(:name => 'test')
+    article.profile = profile
+    article.save!
 
-    #get :edit, :profile => profile.identifier, :id => article.id
+    get :edit, :profile => profile.identifier, :id => article.id
 
-    #[c1,c2,c3].each do |item|
-    #  assert_tag :tag => 'a', :attributes => { :id => "select-category-#{item.id}-link" }
-    #end
+    [top, top2].each do |item|
+      assert_tag :tag => 'a', :attributes => { :id => "select-category-#{item.id}-link" }
+    end
   end
 
   should 'be able to associate articles with categories' do

@@ -39,6 +39,32 @@ class LinkListBlockTest < ActiveSupport::TestCase
     assert_tag_in_string l.content, :tag => 'a', :attributes => {:href => '/test_profile/address'}
   end
 
+  should 'replace {portal} with environment portal identifier' do
+    env = Environment.default
+    env.enable('use_portal_community')
+    portal = fast_create(Community, :identifier => 'portal-community', :environment_id => env.id)
+    env.portal_community = portal
+    env.save
+
+    stubs(:environment).returns(env)
+    l = LinkListBlock.new(:links => [{:name => 'categ', :address => '/{portal}/address'}])
+    l.stubs(:owner).returns(env)
+    assert_tag_in_string l.content, :tag => 'a', :attributes => {:href => '/portal-community/address'}
+  end
+
+  should 'not change address if no {portal} there' do
+    env = Environment.default
+    env.enable('use_portal_community')
+    portal = fast_create(Community, :identifier => 'portal-community', :environment_id => env.id)
+    env.portal_community = portal
+    env.save
+
+    stubs(:environment).returns(env)
+    l = LinkListBlock.new(:links => [{:name => 'categ', :address => '/address'}])
+    l.stubs(:owner).returns(env)
+    assert_tag_in_string l.content, :tag => 'a', :attributes => {:href => '/address'}
+  end
+
   should 'display options for icons' do
     l = LinkListBlock.new
     l.icons_options.each do |option|

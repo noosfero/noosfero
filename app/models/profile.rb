@@ -100,10 +100,6 @@ class Profile < ActiveRecord::Base
     members.order(:name)
   end
 
-  def members_count
-    members.count
-  end
-
   class << self
     def count_with_distinct(*args)
       options = args.last || {}
@@ -126,10 +122,11 @@ class Profile < ActiveRecord::Base
 
   scope :visible, :conditions => { :visible => true }
   scope :public, :conditions => { :visible => true, :public_profile => true }
-  # Subclasses must override these methods
-  scope :more_popular
-  scope :more_active
 
+  # Subclasses must override this method
+  scope :more_popular
+
+  scope :more_active,  :order => 'activities_count DESC'
   scope :more_recent, :order => "created_at DESC"
 
   acts_as_trackable :dependent => :destroy
@@ -626,10 +623,10 @@ private :generate_url, :url_options
   # Adds a person as member of this Profile.
   def add_member(person)
     if self.has_members?
-      if self.closed? && members_count > 0
+      if self.closed? && members.count > 0
         AddMember.create!(:person => person, :organization => self) unless self.already_request_membership?(person)
       else
-        self.affiliate(person, Profile::Roles.admin(environment.id)) if members_count == 0
+        self.affiliate(person, Profile::Roles.admin(environment.id)) if members.count == 0
         self.affiliate(person, Profile::Roles.member(environment.id))
       end
     else

@@ -101,6 +101,7 @@ class EnterpriseTest < ActiveSupport::TestCase
     enterprise = fast_create(Enterprise)
     member = fast_create(Person)
     enterprise.add_member(member)
+    enterprise.reload
 
     person = fast_create(Person)
     enterprise.stubs(:notification_emails).returns(['sample@example.org'])

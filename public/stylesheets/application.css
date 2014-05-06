@@ -354,21 +354,32 @@ div.pending-tasks {
   margin-bottom: 1px;
 }
 /* * * category ajax selector * * */
-
+#category-ajax-selector .category-helper-label {
+  font-size: 16px;
+  color: rgb(158, 158, 158);
+  padding: 5px 0px;
+}
 #category-ajax-selector {
   border: 1px solid #AAA;
-  background: #EEE;
-  padding: 15px 0px 15px 20px;
-  margin: 30px 0px 0px 0px;
+  padding: 3px 10px 10px 10px;
+  margin: 0px 0px 0px 0px;
   position: relative;
-  font-size: 18px;
+  font-size: 10px;
+  background-color: #fcfcf9;
 }
 #category-ajax-selector a {
-  font-size: 14px;
+  font-size: 12px;
 }
-#category-ajax-selector h3 {
-  margin: 10px 0px;
-  font-size: 14px;
+#selected-categories {
+  padding-bottom: 5px;
+}
+#selected-categories .label {
+  font-size: 16px;
+  margin-bottom: 10px;
+  margin-top: 5px;
+}
+.selected-category {
+  padding: 2px 0;
 }
 #category-ajax-selector .box-title {
   position: absolute;
@@ -384,25 +395,32 @@ div.pending-tasks {
 .msie6 #category-ajax-selector .box-title {
   top: -29px;
 }
-#category-ajax-selector .select-subcategory-link {
+#category-ajax-selector .select-subcategory-link,
+.select-subcategory-link {
   border: 1px solid #BBB;
   padding: 1px 3px;
   margin: 0px 1px;
   text-decoration: none;
   white-space: nowrap;
-  font-size: 11px;
+  font-size: 12px;
+  line-height: 20px;
+  border-radius: 3px;
 }
-#category-ajax-selector .select-subcategory-link:hover {
+#category-ajax-selector .selected-category .select-subcategory-link {
+  border: 0;
+}
+#category-ajax-selector .select-subcategory-link:hover,
+.select-subcategory-link:hover {
   background-color: black;
 }
 #category-ajax-selector .button {
-  display: block;
-  position: absolute;
   top: 4px;
   right: 2px;
 }
-#category-ajax-selector .icon-save {
-  right: 25px;
+#category-ajax-selector hr {
+  border: 0;
+  border-bottom: 1px solid #EEE;
+  margin-top: 15px;
 }
 #profile-header, #profile-footer {
   clear: both;
@@ -1841,20 +1859,70 @@ a.button.disabled, input.disabled {
   text-decoration: none;
 }
 /* ==> blocks/link-list-block.css <<= */
-
 #edit-link-list-block {
-  width: 820px;
+  width: 620px;
+  position: relative;
+  left: -24px;
 }
-
-#edit-link-list-block table {
-  width: auto;
-  margin-bottom: 10px;
+.link-list-header {
+  width: 98%;
+  height: 25px;
+  padding: 10px 1px 10px 10px;
+  margin-bottom: 5px;
+  cursor: pointer;
 }
-#edit-link-list-block table .cel-address {
-  width: 220px;
+.link-list-header li {
+  list-style-type: none;
+  display: inline;
+  font-weight: bold;
+  font-size: 14px;
+  text-align: center;
 }
-#edit-link-list-block table .cel-address input {
-  width: 100%;
+#dropable-link-list {
+  padding-left: 23px;
+  margin-top: -12px;
+}
+#dropable-link-list li {
+  list-style-type: none;
+}
+.link-list-row {
+  line-height: 25px;
+  margin-bottom: 5px;
+  padding: 10px 1px 10px 10px;
+  cursor: pointer;
+  width: 97%;
+}
+.link-list-row:hover {
+  background: #ddd url(/images/drag-and-drop.png) no-repeat;
+  background-position: 98% 15px;
+}
+.link-list-row li {
+  list-style-type: none;
+  display: inline;
+  margin-left: 5px;
+}
+.link-list-row li div {
+  float: left;
+  margin-top: 4px;
+}
+.link-list-row li a {
+  line-height: 27px !important;
+  padding-right: 5px;
+}
+.link-list-icon {
+  margin-left: 14px;
+}
+.link-list-name {
+  margin-left: 40px;
+}
+.link-list-address {
+  margin-left: 90px;
+}
+.link-list-target {
+  margin-left: 77px;
+}
+.new_link_row li {
+  margin-left: 7px;
 }
 #content .link-list-block {
   padding: 10px 0px 10px 10px;
@@ -3543,9 +3611,10 @@ div#article-parent {
 }
 #agenda .agenda-calendar {
   width: 50%;
+  display: inline-block;
 }
 #agenda td, #agenda th {
-  padding: 15px;
+  padding: 10px;
   padding-right: 0px;
 }
 #agenda .agenda-calendar .previous-month td, #agenda .agenda-calendar .previous-month th, #agenda .agenda-calendar .next-month td, #agenda .agenda-calendar .next-month th {
@@ -3603,26 +3672,25 @@ div#article-parent {
   vertical-align: middle;
 }
 #agenda .agenda-calendar .current-month caption {
-  margin-bottom: 10px;
+  margin: 10px 0px;
 }
 #agenda #events-of-the-day {
-  position: absolute;
-  left: 50%;
   width: 45%;
-  top: 0px;
   height: 100%;
   padding-left: 20px;
+  display: inline-block;
+  vertical-align: top;
 }
 #agenda #events-of-the-day #agenda-items {
   display: block;
   overflow: auto;
   overflow-x: hidden;
-  height: 80%;
+  height: 250px;
   background: white;
   border: none;
 }
 #agenda-toolbar {
-  float: right;
+  text-align: right;
   font-variant: normal;
   font-weight: normal;
 }
@@ -3644,6 +3712,9 @@ h1#agenda-title {
   font-weight: bold;
   display: block;
   margin-top: 10px;
+}
+#agenda .pagination {
+  margin-top: 15px;
 }
 /* ==> public/stylesheets/controller_favorite_enterprises.css <== */
 
@@ -4196,6 +4267,11 @@ h1#agenda-title {
   display: block;
   float: left;
 }
+
+.actions .members-buttons-cell {
+  width : 100px
+}
+
 .controller-profile_members .msie6 .button-bar a {
   position: relative;
 }
@@ -5964,8 +6040,14 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 img {
   text-align: right;
 }
 
+#url-check .suggested_usernames,
+#url-check .suggested_usernames a {
+  color: #005000;
+}
+
 #email-check,
 #fake-check,
+#password-rate,
 #password-check {
   margin: -2px 16px -5px 13px;
   text-align: right;
@@ -5974,8 +6056,18 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 img {
 
 #email-check p,
 #fake-check p,
+#password-rate p,
 #password-check p {
   margin: 0;
+}
+
+#password-rate {
+  font-weight:bold;
+}
+
+.hidden {
+  visibility: hidden;
+  display: none;
 }
 
 .available {
@@ -5991,6 +6083,7 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 img {
 }
 
 #email-check p,
+#password-rate p,
 #password-check p,
 #url-check p {
   margin: 0;
@@ -6487,4 +6580,32 @@ li.profile-activity-item.upload_image .activity-gallery-images-count-1 img {
 ul.article-versions li {
   font-size: 13px;
   padding: 3px 0px;
+}
+
+/* * * Admin manage fields * * */
+
+.controller-features .manage-fields-batch-actions,
+.controller-features .manage-fields-batch-actions:hover {
+  border-bottom:solid 2px #000;
+  background-color: #EEE;
+}
+
+.controller-features .manage-fields-batch-actions td {
+  font-style: italic;
+}
+
+#signup-form #result-short {
+  color: red;
+}
+
+#signup-form #result-bad {
+  color: #825A2C;
+}
+
+#signup-form #result-good {
+  color: #32CD32;
+}
+
+#signup-form #result-strong {
+  color: green;
 }

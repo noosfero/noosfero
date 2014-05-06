@@ -11,7 +11,7 @@ class PendingTaskNotifier < ActionMailer::Base
 
     mail(
       to: person.email,
-      from: "#{person.environment.name} <#{person.environment.contact_email}>",
+      from: "#{person.environment.name} <#{person.environment.noreply_email}>",
       subject: _("[%s] Pending tasks") % person.environment.name
     )
   end

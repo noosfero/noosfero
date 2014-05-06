@@ -7,6 +7,7 @@ class InviteControllerTest < ActionController::TestCase
     @friend = create_user('thefriend').person
     @community = fast_create(Community)
     login_as ('testuser')
+    Delayed::Job.destroy_all
   end
   attr_accessor :profile, :friend, :community
 
@@ -230,7 +231,8 @@ class InviteControllerTest < ActionController::TestCase
 
     contact_list = ContactList.create
     post :select_friends, :profile => profile.identifier, :manual_import_addresses => "#{friend.name} <#{friend.email}>", :import_from => "manual", :mail_template => "click: <url>", :contact_list => contact_list.id
-    assert_equal 'pt', Delayed::Job.first.payload_object.locale
+    job = Delayed::Job.where("handler LIKE '%InvitationJob%'").first
+    assert_equal 'pt', job.payload_object.locale
   end
 
   private

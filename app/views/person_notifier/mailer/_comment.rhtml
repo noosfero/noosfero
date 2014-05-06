@@ -1,0 +1,33 @@
+<% Comment %>
+<% Profile %>
+<% Person %>
+
+<table style="background: #f0f0f1;border-bottom: 1px solid #d2d2d2 !important;border-top: 1px solid #fff;margin-bottom: 0;">
+<tr>
+  <td>
+  <% if comment.author %>
+    <%= link_to profile_image(comment.author, :minor),
+        comment.author_url,
+        :class => 'comment-picture',
+        :title => comment.author_name
+    %>
+  <% end %>
+  </td>
+  <td>
+      <%= comment.author.present? ? link_to(comment.author_name, comment.author.url, :style => "font-size: 12px; color: #333; font-weight: bold; text-decoration: none;") : content_tag('strong', comment.author_name) %>
+      <% unless comment.title.blank? %>
+        <span style="font-size: 12px;"><%= comment.title %></span><br/>
+      <% end %>
+      <span style="font-size: 10px;"><%= txt2html comment.body %></span><br/>
+      <span style="font-size: 8px; color: #444444"><%= time_ago_as_sentence(comment.created_at) %></span>
+  <br style="clear: both;" />
+
+  <% unless comment.replies.blank? %>
+  <ul class="comment-replies">
+    <% comment.replies.each do |reply| %>
+      <%= render :partial => 'comment', :locals => { :comment => reply } %>
+    <% end %>
+  </ul>
+  <% end %>
+  </td>
+</table>

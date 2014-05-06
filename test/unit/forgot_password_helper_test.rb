@@ -22,6 +22,7 @@ class ForgotPasswordHelperTest < ActionView::TestCase
          {:field => 'f3', :name => 'F3', :model => 'person'}]
       end
     end
+    Noosfero::Plugin.stubs(:all).returns(['ForgotPasswordHelperTest::Plugin1', 'ForgotPasswordHelperTest::Plugin2'])
 
     environment.enable_plugin(Plugin1)
     environment.enable_plugin(Plugin2)
@@ -43,6 +44,7 @@ class ForgotPasswordHelperTest < ActionView::TestCase
          {:field => 'f3', :name => 'F3', :model => 'person'}]
       end
     end
+    Noosfero::Plugin.stubs(:all).returns(['ForgotPasswordHelperTest::Plugin1', 'ForgotPasswordHelperTest::Plugin2'])
 
     environment.enable_plugin(Plugin1)
     environment.enable_plugin(Plugin2)
@@ -64,6 +66,7 @@ class ForgotPasswordHelperTest < ActionView::TestCase
          {:field => 'f3', :name => 'F3', :model => 'user'}]
       end
     end
+    Noosfero::Plugin.stubs(:all).returns(['ForgotPasswordHelperTest::Plugin1', 'ForgotPasswordHelperTest::Plugin2'])
 
     environment.enable_plugin(Plugin1)
     environment.enable_plugin(Plugin2)
@@ -85,6 +88,7 @@ class ForgotPasswordHelperTest < ActionView::TestCase
          {:field => 'f3', :name => 'F3', :model => 'user'}]
       end
     end
+    Noosfero::Plugin.stubs(:all).returns(['ForgotPasswordHelperTest::Plugin1', 'ForgotPasswordHelperTest::Plugin2'])
 
     environment.enable_plugin(Plugin1)
     environment.enable_plugin(Plugin2)

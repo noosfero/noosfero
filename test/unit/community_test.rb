@@ -216,8 +216,8 @@ class CommunityTest < ActiveSupport::TestCase
     community = fast_create(Community)
     community.closed = true
     community.save
-
     community.add_member(fast_create(Person))
+    community.reload
 
     community.stubs(:notification_emails).returns(['sample@example.org'])
 

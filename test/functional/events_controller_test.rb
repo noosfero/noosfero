@@ -38,4 +38,20 @@ class EventsControllerTest < ActionController::TestCase
     assert_tag :tag =>'a', :attributes => {:href => "/profile/#{profile.identifier}/events/#{next_month.year}/#{next_month.month}"}, :content => next_month_name
   end
 
+  should 'see the events paginated' do
+    30.times do |i|
+      profile.events << Event.new(:name => "Lesson #{i}", :start_date => Date.today)
+    end
+    get :events, :profile => profile.identifier
+    assert_equal 20, assigns(:events).count
+  end
+
+  should 'show events of specific day' do
+    profile.events << Event.new(:name => 'Joao Birthday', :start_date => Date.new(2009, 10, 28))
+
+    get :events_by_day, :profile => profile.identifier, :year => 2009, :month => 10, :day => 28
+
+    assert_tag :tag => 'a', :content => /Joao Birthday/
+  end
+
 end

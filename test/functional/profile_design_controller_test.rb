@@ -173,7 +173,8 @@ class ProfileDesignControllerTest < ActionController::TestCase
   should 'have options to display blocks' do
     get :edit, :profile => 'designtestuser', :id => @b1.id
     %w[always home_page_only except_home_page never].each do |option|
-      assert_tag :input, :attributes => { :type => 'radio', :value => option}
+      assert_tag :select, :attributes => {:name => 'block[display]'},
+       :descendant => {:tag => 'option', :attributes => {:value => option}}
     end
   end
 
@@ -302,24 +303,42 @@ class ProfileDesignControllerTest < ActionController::TestCase
 
   should 'not edit main block with never option' do
     get :edit, :profile => 'designtestuser', :id => @b4.id
-    assert_no_tag :input, :attributes => { :type => 'radio', :value => 'never'}
+    assert_no_tag :select, :attributes => {:name => 'block[display]'},
+      :descendant => {:tag => 'option', :attributes => {:value => 'never'}}
   end
 
   should 'not edit main block with home_page_only option' do
     get :edit, :profile => 'designtestuser', :id => @b4.id
-    assert_no_tag :input, :attributes => { :type => 'radio', :value => 'home_page_only'}
+    assert_no_tag :select, :attributes => {:name => 'block[display]'},
+     :descendant => {:tag => 'option', :attributes => {:value => 'home_page_only'}}
   end
 
   should 'edit main block with always option' do
     get :edit, :profile => 'designtestuser', :id => @b4.id
-    assert_tag :input, :attributes => { :type => 'radio', :value => 'always'}
+    assert_tag :select, :attributes => {:name => 'block[display]'},
+     :descendant => {:tag => 'option', :attributes => {:value => 'always'}}
   end
 
   should 'edit main block with except_home_page option' do
     get :edit, :profile => 'designtestuser', :id => @b4.id
-    assert_tag :input, :attributes => { :type => 'radio', :value => 'except_home_page'}
+    assert_tag :select, :attributes => {:name=> 'block[display]'},
+     :descendant => {:tag => 'option', :attributes => {:value => 'except_home_page'}}
   end
 
+  should 'return a list of paths related to the words used in the query search' do
+    article1 = fast_create(Article, :profile_id => @profile.id, :name => "Some thing")
+    article2 = fast_create(Article, :profile_id => @profile.id, :name => "Some article")
+    article3 = fast_create(Article, :profile_id => @profile.id, :name => "Not an article")
+
+    xhr :get, :search_autocomplete, :profile => 'designtestuser' , :query => 'Some'
+
+    json_response = ActiveSupport::JSON.decode(@response.body)
+
+    assert_response :success
+    assert_equal json_response.include?("/{profile}/"+article1.path), true
+    assert_equal json_response.include?("/{profile}/"+article2.path), true
+    assert_equal json_response.include?("/{profile}/"+article3.path), false
+  end
 
   ######################################################
   # END - tests for BoxOrganizerController features
@@ -739,7 +758,7 @@ class ProfileDesignControllerTest < ActionController::TestCase
   should 'clone a block' do
     block = create(ProfileImageBlock, :box => profile.boxes.first)
     assert_difference 'ProfileImageBlock.count', 1 do
-      post :clone, :id => block.id, :profile => profile.identifier
+      post :clone_block, :id => block.id, :profile => profile.identifier
       assert_response :redirect
     end
   end

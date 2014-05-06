@@ -405,15 +405,14 @@ class PersonTest < ActiveSupport::TestCase
 
   should 'not allow simple member to view group pending tasks' do
     community = fast_create(Community)
+    admin = fast_create(Person)
+    community.add_member(admin)
     member = fast_create(Person)
+    community.reload
     community.add_member(member)
-
     community.tasks << Task.new
 
-    person = fast_create(Person)
-    community.add_member(person)
-
-    assert_not_includes Person.with_pending_tasks, person
+    assert_not_includes Person.with_pending_tasks, member
   end
 
   should 'person has organization pending tasks' do
@@ -643,16 +642,18 @@ class PersonTest < ActiveSupport::TestCase
   end
 
   should 'find more popular people' do
+    extend CacheCounterHelper
+
     Person.delete_all
     p1 = fast_create(Person)
     p2 = fast_create(Person)
     p3 = fast_create(Person)
 
-    p1.add_friend(p2)
-    p2.add_friend(p1)
-    p2.add_friend(p3)
-    assert_equal p2, Person.more_popular.all[0]
-    assert_equal p1, Person.more_popular.all[1]
+    update_cache_counter(:friends_count, p1, 1)
+    update_cache_counter(:friends_count, p2, 2)
+    update_cache_counter(:friends_count, p3, 3)
+
+    assert_order [p3, p2, p1], Person.more_popular
   end
 
   should 'list people that have no friends in more popular list' do
@@ -892,6 +893,7 @@ class PersonTest < ActiveSupport::TestCase
     p1 = fast_create(Person)
     p2 = fast_create(Person)
     p3 = fast_create(Person)
+    p4 = fast_create(Person)
 
     community.add_member(p1)
     assert p1.is_member_of?(community)
@@ -902,14 +904,15 @@ class PersonTest < ActiveSupport::TestCase
 
     action_tracker = fast_create(ActionTracker::Record, :verb => 'create_article')
     action_tracker.target = community
+    action_tracker.user = p4
     action_tracker.save!
     ActionTrackerNotification.delete_all
-    assert_difference 'ActionTrackerNotification.count', 3 do
+    assert_difference 'ActionTrackerNotification.count', 4 do
       Person.notify_activity(action_tracker)
       process_delayed_job_queue
     end
     ActionTrackerNotification.all.map{|a|a.profile}.map do |profile|
-      assert [community,p1,p3].include?(profile)
+      assert [community,p1,p3,p4].include?(profile)
     end
   end
 
@@ -1012,9 +1015,9 @@ class PersonTest < ActiveSupport::TestCase
 
   should 'the community specific notification created when a member joins community could not be propagated to members' do
     ActionTracker::Record.delete_all
-    p1 = create_user('test_user').person
-    p2 = create_user('test_user').person
-    p3 = create_user('test_user').person
+    p1 = create_user('p1').person
+    p2 = create_user('p2').person
+    p3 = create_user('p3').person
     c = fast_create(Community, :name => "Foo")
     c.add_member(p1)
     process_delayed_job_queue
@@ -1134,30 +1137,14 @@ class PersonTest < ActiveSupport::TestCase
     p3 = fast_create(Person)
 
     ActionTracker::Record.destroy_all
-    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => p1, :created_at => Time.now)
-    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => p2, :created_at => Time.now)
-    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => p2, :created_at => Time.now)
-    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => p3, :created_at => Time.now)
-    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => p3, :created_at => Time.now)
-    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => p3, :created_at => Time.now)
+    ActionTracker::Record.create!(:user => p1, :verb => 'leave_scrap')
+    ActionTracker::Record.create!(:user => p2, :verb => 'leave_scrap')
+    ActionTracker::Record.create!(:user => p2, :verb => 'leave_scrap')
+    ActionTracker::Record.create!(:user => p3, :verb => 'leave_scrap')
+    ActionTracker::Record.create!(:user => p3, :verb => 'leave_scrap')
+    ActionTracker::Record.create!(:user => p3, :verb => 'leave_scrap')
 
-    assert_equal [p3,p2,p1] , Person.more_active
-  end
-
-  should 'more active profile take in consideration only actions created only in the recent delay interval' do
-    Person.delete_all
-    ActionTracker::Record.destroy_all
-    recent_delay = ActionTracker::Record::RECENT_DELAY.days.ago
-
-    p1 = fast_create(Person)
-    p2 = fast_create(Person)
-
-    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => p1, :created_at => recent_delay)
-    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => p1, :created_at => recent_delay)
-    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => p2, :created_at => recent_delay)
-    fast_create(ActionTracker::Record, :user_type => 'Profile', :user_id => p2, :created_at => recent_delay - 1.day)
-
-    assert_equal [p1,p2], Person.more_active
+    assert_order [p3,p2,p1] , Person.more_active
   end
 
   should 'list profiles that have no actions in more active list' do
@@ -1269,6 +1256,7 @@ class PersonTest < ActiveSupport::TestCase
         false
       end
     end
+    Noosfero::Plugin.stubs(:all).returns(['PersonTest::Plugin1', 'PersonTest::Plugin2'])
 
     e = Environment.default
     e.enable_plugin(Plugin1.name)
@@ -1415,6 +1403,17 @@ class PersonTest < ActiveSupport::TestCase
     assert_equal person.activities, []
   end
 
+  should 'person notifier be PersonNotifier class' do
+    p =  Person.new
+    assert p.notifier.kind_of?(PersonNotifier)
+  end
+
+  should 'reschedule next notification after update' do
+    p = fast_create(Person, :user_id => fast_create(User).id)
+    PersonNotifier.any_instance.expects(:reschedule_next_notification_mail).once
+    assert p.update_attribute(:name, 'Person name changed')
+  end
+
   should 'merge memberships of plugins to original memberships' do
     class Plugin1 < Noosfero::Plugin
       def person_memberships(person)
@@ -1427,6 +1426,7 @@ class PersonTest < ActiveSupport::TestCase
         Profile.memberships_of(Person.find_by_identifier('person2'))
       end
     end
+    Noosfero::Plugin.stubs(:all).returns(['PersonTest::Plugin1', 'PersonTest::Plugin2'])
 
     Environment.default.enable_plugin(Plugin1)
     Environment.default.enable_plugin(Plugin2)
@@ -1447,4 +1447,30 @@ class PersonTest < ActiveSupport::TestCase
     assert_equal 3, original_person.memberships.count
   end
 
+  should 'increase friends_count on new friendship' do
+    person = create_user('person').person
+    friend = create_user('friend').person
+    assert_difference person, :friends_count, 1 do
+      assert_difference friend, :friends_count, 1 do
+        person.add_friend(friend)
+        friend.reload
+      end
+      person.reload
+    end
+  end
+
+  should 'decrease friends_count on friendship removal' do
+    person = create_user('person').person
+    friend = create_user('friend').person
+    person.add_friend(friend)
+    friend.reload
+    person.reload
+    assert_difference person, :friends_count, -1 do
+      assert_difference friend, :friends_count, -1 do
+        person.remove_friend(friend)
+        friend.reload
+      end
+      person.reload
+    end
+  end
 end

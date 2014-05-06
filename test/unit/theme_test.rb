@@ -191,4 +191,22 @@ class ThemeTest < ActiveSupport::TestCase
     assert ! Theme.new('test').public
   end
 
+  should 'not crash with nil or invalid owner_type' do
+    profile = fast_create(Profile)
+    Theme.stubs(:system_themes_dir).returns(TMP_THEMES_DIR)
+
+    t1 = Theme.new('t1').save
+    t1.send(:write_config)
+    t2 = Theme.new('t2', {:owner_type => nil}).save
+    t2.send(:write_config)
+    t3 = Theme.new('t3', {:owner_type => 'InvalidClass'}).save
+    t3.send(:write_config)
+
+    assert_nothing_raised do
+      themes = Theme.approved_themes(profile)
+      assert_not_includes themes, t1
+      assert_not_includes themes, t2
+      assert_not_includes themes, t3
+    end
+  end
 end

@@ -46,7 +46,7 @@ class Contact
         to: contact.dest.notification_emails,
         reply_to: contact.email,
         subject: "[#{contact.dest.short_name(30)}] " + contact.subject,
-        from: "#{contact.name} <#{contact.dest.environment.contact_email}>"
+        from: "#{contact.name} <#{contact.dest.environment.noreply_email}>"
       }
 
       if contact.sender

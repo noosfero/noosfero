@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140115190132) do
+ActiveRecord::Schema.define(:version => 20140314200103) do
 
   create_table "abuse_reports", :force => true do |t|
     t.integer  "reporter_id"
@@ -142,6 +142,9 @@ ActiveRecord::Schema.define(:version => 20140115190132) do
     t.integer  "position"
   end
 
+  add_index "articles", ["comments_count"], :name => "index_articles_on_comments_count"
+  add_index "articles", ["created_at"], :name => "index_articles_on_created_at"
+  add_index "articles", ["hits"], :name => "index_articles_on_hits"
   add_index "articles", ["name"], :name => "index_articles_on_name"
   add_index "articles", ["parent_id"], :name => "index_articles_on_parent_id"
   add_index "articles", ["profile_id"], :name => "index_articles_on_profile_id"
@@ -285,6 +288,8 @@ ActiveRecord::Schema.define(:version => 20140115190132) do
     t.text     "signup_welcome_text"
     t.string   "languages"
     t.string   "default_language"
+    t.string   "redirection_after_signup",     :default => "keep_on_same_page"
+    t.string   "noreply_email"
   end
 
   create_table "external_feeds", :force => true do |t|
@@ -435,6 +440,7 @@ ActiveRecord::Schema.define(:version => 20140115190132) do
     t.boolean  "archived",            :default => false
   end
 
+  add_index "products", ["created_at"], :name => "index_products_on_created_at"
   add_index "products", ["product_category_id"], :name => "index_products_on_product_category_id"
   add_index "products", ["profile_id"], :name => "index_products_on_profile_id"
 
@@ -473,10 +479,17 @@ ActiveRecord::Schema.define(:version => 20140115190132) do
     t.string   "redirection_after_login"
     t.string   "personal_website"
     t.string   "jabber_id"
+    t.integer  "friends_count",                         :default => 0,     :null => false
+    t.integer  "members_count",                         :default => 0,     :null => false
+    t.integer  "activities_count",                      :default => 0,     :null => false
   end
 
+  add_index "profiles", ["activities_count"], :name => "index_profiles_on_activities_count"
+  add_index "profiles", ["created_at"], :name => "index_profiles_on_created_at"
   add_index "profiles", ["environment_id"], :name => "index_profiles_on_environment_id"
+  add_index "profiles", ["friends_count"], :name => "index_profiles_on_friends_count"
   add_index "profiles", ["identifier"], :name => "index_profiles_on_identifier"
+  add_index "profiles", ["members_count"], :name => "index_profiles_on_members_count"
   add_index "profiles", ["region_id"], :name => "index_profiles_on_region_id"
 
   create_table "qualifier_certifiers", :force => true do |t|
@@ -627,6 +640,7 @@ ActiveRecord::Schema.define(:version => 20140115190132) do
     t.datetime "chat_status_at"
     t.string   "activation_code",           :limit => 40
     t.datetime "activated_at"
+    t.string   "return_to"
   end
 
   create_table "validation_infos", :force => true do |t|

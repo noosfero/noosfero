@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="<%= html_language %>" lang="<%= html_language %>">
+  <head>
+    <title>Noosfero embed block</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <%= noosfero_stylesheets %>
+    <%= noosfero_javascript %>
+  </head>
+  <body class="<%= h body_classes %>">
+    <div id="embed">
+      <div id="wrap-1">
+        <div id="wrap-2">
+          <div id="content">
+            <div id="content-inner">
+              <div class="boxes" id="boxes">
+                <div class="box box-1" id="box-1">
+                  <div class="blocks">
+                    <%= yield %>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script type="text/javascript">
+      jQuery(document).ready(function(){
+        jQuery('a').attr('target','_blank');
+      });
+    </script>
+
+  </body>
+</html>

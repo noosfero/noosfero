@@ -17,7 +17,7 @@ class Scrap < ActiveRecord::Base
 
   scope :not_replies, :conditions => {:scrap_id => nil}
 
-  track_actions :leave_scrap, :after_create, :keep_params => ['sender.name', 'content', 'receiver.name', 'receiver.url'], :if => Proc.new{|s| s.sender != s.receiver && s.sender != s.top_root.receiver}, :custom_target => :action_tracker_target 
+  track_actions :leave_scrap, :after_create, :keep_params => ['sender.name', 'content', 'receiver.name', 'receiver.url'], :if => Proc.new{|s| s.sender != s.receiver && s.sender != s.top_root.receiver}, :custom_target => :action_tracker_target
 
   track_actions :leave_scrap_to_self, :after_create, :keep_params => ['sender.name', 'content'], :if => Proc.new{|s| s.sender == s.receiver}
 
@@ -55,6 +55,23 @@ class Scrap < ActiveRecord::Base
 
   def send_notification?
     sender != receiver && (is_root? ? root.receiver.receives_scrap_notification? : receiver.receives_scrap_notification?)
+  end
+
+  class Notifier < ActionMailer::Base
+    def mail(scrap)
+      sender, receiver = scrap.sender, scrap.receiver
+      recipients receiver.email
+
+      from "#{sender.environment.name} <#{sender.environment.noreply_email}>"
+      subject _("[%s] You received a scrap!") % [sender.environment.name]
+      body :recipient => receiver.name,
+        :sender => sender.name,
+        :sender_link => sender.url,
+        :scrap_content => scrap.content,
+        :wall_url => scrap.scrap_wall_url,
+        :environment => sender.environment.name,
+        :url => sender.environment.top_url
+    end
   end
 
 end

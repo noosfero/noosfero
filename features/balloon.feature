@@ -8,6 +8,7 @@ Feature: balloon
     And the following communities
       | identifier | name      |
       | sample     | Sample    |
+    And I am logged in as "joaosilva"
 
   @selenium
   Scenario: I should not see trigger if not enabled

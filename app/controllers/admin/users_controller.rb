@@ -45,6 +45,20 @@ class UsersController < AdminController
     redirect_to :action => :index, :q => params[:q], :filter => params[:filter]
   end
 
+
+  def destroy_user
+    if request.post?
+      person = environment.people.find_by_id(params[:id])
+      if person && person.destroy
+        session[:notice] = _('The profile was deleted.')
+      else
+        session[:notice] = _('Could not remove profile')
+      end
+    end
+    redirect_to :action => :index, :q => params[:q], :filter => params[:filter]
+  end
+
+
   def download
     respond_to do |format|
       format.html

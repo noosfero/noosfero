@@ -3,7 +3,7 @@ module SendEmailPluginBaseController
     if request.post?
       @context_url = profile ? profile.url : {:host => environment.default_hostname, :controller => 'home'}
       @mail = SendEmailPlugin::Mail.new(
-        :from => environment.contact_email,
+        :from => environment.noreply_email,
         :to => params[:to],
         :message => params[:message],
         :environment => environment,

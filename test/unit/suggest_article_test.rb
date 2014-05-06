@@ -7,6 +7,7 @@ class SuggestArticleTest < ActiveSupport::TestCase
     ActionMailer::Base.perform_deliveries = true
     ActionMailer::Base.deliveries = []
     @profile = create_user('test_user').person
+    Noosfero::Plugin.stubs(:all).returns(['SuggestArticleTest::EverythingIsSpam', 'SuggestArticleTest::SpamNotification'])
   end
   attr_reader :profile
 
