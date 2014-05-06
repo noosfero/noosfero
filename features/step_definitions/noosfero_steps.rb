@@ -285,18 +285,13 @@ Given /^the following price details?$/ do |table|
 end
 
 Given /^I am logged in as "(.+)"$/ do |username|
-  step %{I go to logout page}
-  step %{I go to login page}
-  step %{I fill in "main_user_login" with "#{username}"}
-  step %{I fill in "user_password" with "123456"}
-  step %{I press "Log in"}
-    # FIXME:
-    # deveria apenas verificar que esta no myprofile do usuario
-    # nao conseguir fazer funcionar sem essa reduntancia no capybara
-    # acho que e algum problema com o http_referer
-    # olhar account_controller#store_location
-  step %{I go to #{username}'s control panel}
-  step %{I should be on #{username}'s control panel}
+  Given %{I go to logout page}
+  And %{I go to login page}
+  And %{I fill in "main_user_login" with "#{username}"}
+  And %{I fill in "user_password" with "123456"}
+  When %{I press "Log in"}
+  And %{I go to #{username}'s control panel}
+  Then %{I should be on #{username}'s control panel}
 end
 
 Given /^"([^"]*)" is environment admin$/ do |person|
@@ -640,9 +635,9 @@ Given /^the following tags$/ do |table|
 end
 
 When /^I search ([^\"]*) for "([^\"]*)"$/ do |asset, query|
-  step %{I go to the search #{asset} page}
-  step %{I fill in "search-input" with "#{query}"}
-  step %{I press "Search"}
+  When %{I go to the search #{asset} page}
+  And %{I fill in "search-input" with "#{query}"}
+  And %{I press "Search"}
 end
 
 Then /^I should see ([^\"]*)'s product image$/ do |product_name|
