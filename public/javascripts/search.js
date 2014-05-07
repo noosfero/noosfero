@@ -19,4 +19,11 @@
     })
     return false;
   });
+
+  $("input#search-input").typeWatch({
+    callback: function (value) {$('form.search_form').submit()},
+    wait: 750,
+    highlight: true,
+    captureLength: 2
+  });
 })(jQuery);
