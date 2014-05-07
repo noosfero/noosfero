@@ -4,11 +4,11 @@ class SearchController < PublicController
   include SearchHelper
   include ActionView::Helpers::NumberHelper
 
-  before_filter :redirect_asset_param, :except => :assets
-  before_filter :load_category
-  before_filter :load_search_assets
-  before_filter :load_query
-  before_filter :load_filter
+  before_filter :redirect_asset_param, :except => [:assets, :suggestions]
+  before_filter :load_category, :except => :suggestions
+  before_filter :load_search_assets, :except => :suggestions
+  before_filter :load_query, :except => :suggestions
+  before_filter :load_filter, :except => :suggestions
 
   # Backwards compatibility with old URLs
   def redirect_asset_param
@@ -141,6 +141,10 @@ class SearchController < PublicController
     @date = build_date(params[:year], params[:month], params[:day])
     @events = environment.events.by_day(@date).paginate(:per_page => per_page, :page => params[:page])
     render :partial => 'events/events'
+  end
+
+  def suggestions
+    render :text => find_suggestions(params[:term], environment, params[:asset]).to_json
   end
 
   #######################################################

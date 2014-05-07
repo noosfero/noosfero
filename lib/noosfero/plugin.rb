@@ -507,6 +507,17 @@ class Noosfero::Plugin
   def find_by_contents(asset, scope, query, paginate_options={}, options={})
   end
 
+  # -> Suggests terms based on asset and query
+  # returns = [a, b, c, ...]
+  def find_suggestions(query, context, asset, options={:limit => 5})
+    context.search_terms.
+      where(:asset => asset).
+      where("search_terms.term like ?", "#{query}%").
+      where('search_terms.score > 0').
+      order('search_terms.score DESC').
+      limit(options[:limit]).map(&:term)
+  end
+
   # -> Adds aditional fields for change_password
   # returns = [{:field => 'field1', :name => 'field 1 name', :model => 'person'}, {...}]
   def change_password_fields

@@ -8,7 +8,7 @@
 
     <div class="search-field">
       <span class="formfield">
-        <%= text_field_tag 'query', @query, :id => 'search-input', :size => 50 %>
+        <%= search_input_with_suggestions('query', @asset, @query, {:size => 50}) %>
         <%= javascript_tag "jQuery('#search-input').attr('title', \"#{hint}\").hint()" if defined?(hint) %>
       </span>
 

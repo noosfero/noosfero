@@ -169,6 +169,11 @@ class ApplicationController < ActionController::Base
     fallback_find_by_contents(asset, scope, query, paginate_options, options)
   end
 
+  def find_suggestions(asset, query, options={})
+    plugins.dispatch_first(:find_suggestions, asset, query, options) ||
+    fallback_find_suggestions(asset, query, options)
+  end
+
   private
 
   def fallback_find_by_contents(asset, scope, query, paginate_options, options)
@@ -177,4 +182,7 @@ class ApplicationController < ActionController::Base
     {:results => scope.paginate(paginate_options)}
   end
 
+  def fallback_find_suggestions(asset, query, options)
+    #TODO Implement fallback suggestions solution
+  end
 end
