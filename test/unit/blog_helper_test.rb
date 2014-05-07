@@ -101,7 +101,7 @@ class BlogHelperTest < ActionView::TestCase
   end
 
   should 'display image if post is an image' do
-    file = create(UploadedFile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :profile => profile, :published => true, :parent => blog)
+    file = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :profile => profile, :published => true, :parent => blog)
 
     self.stubs(:params).returns({:npage => nil})
 

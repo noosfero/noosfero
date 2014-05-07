@@ -129,7 +129,7 @@ class UploadedFileTest < ActiveSupport::TestCase
   end
 
   should 'always provide a display title' do
-    upload = build(UploadedFile, :uploaded_data => fixture_file_upload('/files/test.txt', 'text/plain'))
+    upload = UploadedFile.new(:uploaded_data => fixture_file_upload('/files/test.txt', 'text/plain'))
     assert_equal 'test.txt',  upload.title
     upload.title = 'My text file'
     assert_equal 'My text file', upload.title
@@ -327,10 +327,10 @@ class UploadedFileTest < ActiveSupport::TestCase
     ActionTracker::Record.delete_all
     gallery = fast_create(Gallery, :profile_id => profile.id)
 
-    image1 = create(UploadedFile, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :parent => gallery, :profile => profile)
+    image1 = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'), :parent => gallery, :profile => profile)
     assert_equal 1, ActionTracker::Record.find_all_by_verb('upload_image').count
 
-    image2 = create(UploadedFile, :uploaded_data => fixture_file_upload('/files/other-pic.jpg', 'image/jpg'), :parent => gallery, :profile => profile)
+    image2 = UploadedFile.create!(:uploaded_data => fixture_file_upload('/files/other-pic.jpg', 'image/jpg'), :parent => gallery, :profile => profile)
     assert_equal 1, ActionTracker::Record.find_all_by_verb('upload_image').count
   end
 

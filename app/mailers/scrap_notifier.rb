@@ -10,7 +10,7 @@ class Scrap::Notifier < ActionMailer::Base
     @url = sender.environment.top_url
     mail(
       to: receiver.email,
-      from: "#{sender.environment.name} <#{sender.environment.contact_email}>",
+      from: "#{sender.environment.name} <#{sender.environment.noreply_email}>",
       subject: _("[%s] You received a scrap!") % [sender.environment.name]
     )
   end

@@ -90,7 +90,7 @@ class FolderTest < ActiveSupport::TestCase
 
   should 'return published images as images' do
     person = create_user('test_user').person
-    image = create(UploadedFile, :profile => person, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
+    image = UploadedFile.create!(:profile => person, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
 
     community = fast_create(Community)
     folder = fast_create(Folder, :profile_id => community.id)

@@ -98,7 +98,7 @@ class GalleryTest < ActiveSupport::TestCase
 
   should 'return published images as images' do
     p = create_user('test_user').person
-    i = create(UploadedFile, :profile => p, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
+    i = UploadedFile.create!(:profile => p, :uploaded_data => fixture_file_upload('/files/rails.png', 'image/png'))
 
     c = fast_create(Community)
     gallery = fast_create(Gallery, :profile_id => c.id)

@@ -7,6 +7,7 @@ class ActsAsHavingSettingsTest < ActiveSupport::TestCase
     settings_items :flag, :type => :boolean
     settings_items :flag_disabled_by_default, :type => :boolean, :default => false
     settings_items :name, :type => :string, :default => N_('ENGLISH TEXT')
+    attr_accessible :flag, :name, :flag_disabled_by_default
   end
 
   should 'store settings in a hash' do

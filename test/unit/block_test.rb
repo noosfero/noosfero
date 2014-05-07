@@ -213,14 +213,14 @@ class BlockTest < ActiveSupport::TestCase
       end
 
       def display_even_context(context)
-        context % 2 == 0
+        context[:value] % 2 == 0
       end
     end
 
     block = MyBlock.new
 
-    assert block.visible?(2)
-    assert !block.visible?(3)
+    assert block.visible?({:value => 2})
+    assert !block.visible?({:value => 3})
   end
 
   should 'not be embedable by default' do

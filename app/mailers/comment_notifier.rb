@@ -13,7 +13,7 @@ class Comment::Notifier < ActionMailer::Base
 
     mail(
       to: comment.notification_emails,
-      from: "#{profile.environment.name} <#{profile.environment.contact_email}>",
+      from: "#{profile.environment.name} <#{profile.environment.noreply_email}>",
       subject: _("[%s] you got a new comment!") % [profile.environment.name]
     )
   end
@@ -33,7 +33,7 @@ class Comment::Notifier < ActionMailer::Base
 
     mail(
       bcc: emails,
-      from: "#{profile.environment.name} <#{profile.environment.contact_email}>",
+      from: "#{profile.environment.name} <#{profile.environment.noreply_email}>",
       subject: _("[%s] %s commented on a content of %s") % [profile.environment.name, comment.author_name, profile.short_name]
     )
   end

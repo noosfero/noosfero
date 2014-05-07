@@ -1450,8 +1450,8 @@ class PersonTest < ActiveSupport::TestCase
   should 'increase friends_count on new friendship' do
     person = create_user('person').person
     friend = create_user('friend').person
-    assert_difference person, :friends_count, 1 do
-      assert_difference friend, :friends_count, 1 do
+    assert_difference 'person.friends_count', 1 do
+      assert_difference 'friend.friends_count', 1 do
         person.add_friend(friend)
         friend.reload
       end
@@ -1465,8 +1465,8 @@ class PersonTest < ActiveSupport::TestCase
     person.add_friend(friend)
     friend.reload
     person.reload
-    assert_difference person, :friends_count, -1 do
-      assert_difference friend, :friends_count, -1 do
+    assert_difference 'person.friends_count', -1 do
+      assert_difference 'friend.friends_count', -1 do
         person.remove_friend(friend)
         friend.reload
       end

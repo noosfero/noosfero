@@ -1231,12 +1231,12 @@ class EnvironmentTest < ActiveSupport::TestCase
     environment = fast_create(Environment)
     environment.redirection_after_signup = 'invalid_option'
     environment.save
-    assert environment.errors.invalid?(:redirection_after_signup)
+    assert environment.errors[:redirection_after_signup.to_s].present?
 
     Environment.signup_redirection_options.keys.each do |redirection|
       environment.redirection_after_signup = redirection
       environment.save
-      assert !environment.errors.invalid?(:redirection_after_signup)
+      assert !environment.errors[:redirection_after_signup.to_s].present?
     end
   end
 

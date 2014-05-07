@@ -408,7 +408,7 @@ class OrganizationTest < ActiveSupport::TestCase
   should 'increase members_count on new membership' do
     member = fast_create(Person)
     organization = fast_create(Organization)
-    assert_difference organization, :members_count, 1 do
+    assert_difference 'organization.members_count', 1 do
       organization.add_member(member)
       organization.reload
     end
@@ -419,7 +419,7 @@ class OrganizationTest < ActiveSupport::TestCase
     organization = fast_create(Organization)
     organization.add_member(member)
     organization.reload
-    assert_difference organization, :members_count, -1 do
+    assert_difference 'organization.members_count', -1 do
       organization.remove_member(member)
       organization.reload
     end

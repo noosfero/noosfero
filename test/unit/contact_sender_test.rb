@@ -13,6 +13,7 @@ class ContactSenderTest < ActiveSupport::TestCase
 
   should 'be able to deliver mail' do
     ent = Environment.default.enterprises.new(:name => 'my enterprise', :identifier => 'myent')
+    Environment.default.update_attribute(:noreply_email, 'noreply@sample.org')
     ent.contact_email = 'contact@invalid.com'
     c = build(Contact, :dest => ent)
     response = Contact::Sender.notification(c).deliver

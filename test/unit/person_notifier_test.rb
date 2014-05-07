@@ -8,7 +8,7 @@ class PersonNotifierTest < ActiveSupport::TestCase
     ActionMailer::Base.delivery_method = :test
     ActionMailer::Base.perform_deliveries = true
     ActionMailer::Base.deliveries = []
-    Person.destroy_all
+    Person.delete_all
     @admin = create_user('adminuser').person
     @member = create_user('member').person
     @admin.notification_time = 24
@@ -26,7 +26,7 @@ class PersonNotifierTest < ActiveSupport::TestCase
   should 'deliver mail to community members' do
     @community.add_member(@member)
     notify
-    sent = ActionMailer::Base.deliveries.first
+    sent = ActionMailer::Base.deliveries.last
     assert_equal [@member.email], sent.to
   end
 
@@ -48,7 +48,7 @@ class PersonNotifierTest < ActiveSupport::TestCase
     Comment.create!(:author => @admin, :title => 'test comment', :body => 'body!', :source => @article)
     notify
     sent = ActionMailer::Base.deliveries.first
-    assert_match /#{@admin.name}/, sent.body
+    assert_match /#{@admin.name}/, sent.body.to_s
   end
 
   should 'do not include comment created before last notification' do
@@ -79,20 +79,20 @@ class PersonNotifierTest < ActiveSupport::TestCase
   should 'schedule next mail at notification time' do
     @member.notification_time = 12
     @member.notifier.schedule_next_notification_mail
-    assert_equal @member.notification_time, DateTime.now.hour - Delayed::Job.first.run_at.hour
+    assert_equal @member.notification_time, DateTime.now.hour - Delayed::Job.last.run_at.hour
   end
 
   should 'do not schedule duplicated notification mail' do
     @member.notification_time = 12
     @member.notifier.schedule_next_notification_mail
     @member.notifier.schedule_next_notification_mail
-    assert_equal 1, Delayed::Job.count
+    assert_equal 1, PersonNotifier::NotifyJob.find(@member.id).count
   end
 
   should 'do not schedule next mail if notification time is zero' do
     @member.notification_time = 0
     @member.notifier.schedule_next_notification_mail
-    assert_equal 0, Delayed::Job.count
+    assert !PersonNotifier::NotifyJob.exists?(@member.id)
   end
 
   should 'schedule next notifications for all person with notification time greater than zero' do
@@ -107,28 +107,30 @@ class PersonNotifierTest < ActiveSupport::TestCase
   end
 
   should 'do not create duplicated job' do
-    PersonNotifier.schedule_all_next_notification_mail
-    PersonNotifier.schedule_all_next_notification_mail
-    assert_equal 1, Delayed::Job.count
+    assert_difference 'Delayed::Job.count', 1 do
+      PersonNotifier.schedule_all_next_notification_mail
+      PersonNotifier.schedule_all_next_notification_mail
+    end
   end
 
   should 'schedule after update and set a valid notification time' do
     @member.notification_time = 0
     @member.save!
-    assert_equal 0, Delayed::Job.count
+    assert !PersonNotifier::NotifyJob.exists?(@member.id)
     @member.notification_time = 12
     @member.save!
-    assert_equal 1, Delayed::Job.count
+    assert PersonNotifier::NotifyJob.exists?(@member.id)
   end
 
   should 'reschedule with changed notification time' do
     @member.notification_time = 2
     @member.save!
-    assert_equal 1, Delayed::Job.count
+    assert PersonNotifier::NotifyJob.exists?(@member.id)
     @member.notification_time = 12
     @member.save!
-    assert_equal 1, Delayed::Job.count
-    assert_equal @member.notification_time, DateTime.now.hour - Delayed::Job.first.run_at.hour
+    jobs = PersonNotifier::NotifyJob.find(@member.id)
+    assert_equal 1, jobs.count
+    assert_equal @member.notification_time, DateTime.now.hour - jobs.last.run_at.hour
   end
 
   should 'display error message if fail to render a notificiation' do
@@ -137,7 +139,7 @@ class PersonNotifierTest < ActiveSupport::TestCase
     ActionTracker::Record.any_instance.stubs(:verb).returns("some_invalid_verb")
     notify
     sent = ActionMailer::Base.deliveries.first
-    assert_match /cannot render notification for some_invalid_verb/, sent.body
+    assert_match /cannot render notification for some_invalid_verb/, sent.body.to_s
   end
 
   ActionTrackerConfig.verb_names.each do |verb|
@@ -158,7 +160,7 @@ class PersonNotifierTest < ActiveSupport::TestCase
 
       notify
       sent = ActionMailer::Base.deliveries.first
-      assert_no_match /cannot render notification for #{verb}/, sent.body
+      assert_no_match /cannot render notification for #{verb}/, sent.body.to_s
     end
   end
 
@@ -193,16 +195,15 @@ class PersonNotifierTest < ActiveSupport::TestCase
     assert_equal 1, Delayed::Job.count
   end
 
-  should 'NotifyJob failed jobs create a new NotifyJob on permanent failure' do
+  should 'NotifyJob failed jobs create a new NotifyJob on failure' do
+    Delayed::Worker.max_attempts = 1
     Delayed::Job.enqueue(PersonNotifier::NotifyJob.new(@member.id))
 
     PersonNotifier.any_instance.stubs(:notify).raises('error')
 
     process_delayed_job_queue
-    jobs = Delayed::Job.all
-
-    assert 1, jobs.select{|j| j.failed?}.size
-    assert 1, jobs.select{|j| !j.failed?}.size
+    jobs = PersonNotifier::NotifyJob.find(@member.id)
+    assert !jobs.select {|j| !j.failed? && j.last_error.nil? }.empty?
   end
 
   def notify
