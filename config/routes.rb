@@ -32,7 +32,7 @@ Noosfero::Application.routes.draw do
   match 'user_themes(/*stuff)' => 'not_found#nothing'
 
   # embed controller
-  map.embed 'embed/:action/:id', :controller => 'embed', :id => /\d+/
+  match 'embed/:action/:id', :controller => 'embed', :id => /\d+/
 
   # online documentation
   match 'doc' => 'doc#index', :as => :doc
