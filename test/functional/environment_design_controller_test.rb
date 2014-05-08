@@ -373,7 +373,7 @@ class EnvironmentDesignControllerTest < ActionController::TestCase
   should 'clone a block' do
     login_as(create_admin_user(Environment.default))
     block = TagsBlock.create!
-    assert_difference TagsBlock, :count, 1 do
+    assert_difference 'TagsBlock.count', 1 do
       post :clone_block, :id => block.id
       assert_response :redirect
     end

@@ -382,7 +382,7 @@ class SearchControllerTest < ActionController::TestCase
       create_event(person, :name => "Event #{i}", :start_date => Date.today)
     end
     get :events
-    assert_equal 20, assigns(:events).count
+    assert_equal 20, assigns(:events).size
   end
 
   %w[ people enterprises articles events communities products ].each do |asset|
@@ -564,9 +564,9 @@ class SearchControllerTest < ActionController::TestCase
     c2 = create(Community, :name => 'Testing community 2')
     c3 = create(Community, :name => 'Testing community 3')
     ActionTracker::Record.delete_all
-    ActionTracker::Record.create!(:target => c1, :user => person, :created_at => Time.now, :verb => 'leave_scrap')
-    ActionTracker::Record.create!(:target => c2, :user => person, :created_at => Time.now, :verb => 'leave_scrap')
-    ActionTracker::Record.create!(:target => c2, :user => person, :created_at => Time.now, :verb => 'leave_scrap')
+    create(ActionTracker::Record, :target => c1, :user => person, :created_at => Time.now, :verb => 'leave_scrap')
+    create(ActionTracker::Record, :target => c2, :user => person, :created_at => Time.now, :verb => 'leave_scrap')
+    create(ActionTracker::Record, :target => c2, :user => person, :created_at => Time.now, :verb => 'leave_scrap')
     get :communities, :filter => 'more_active'
     assert_equal [c2,c1,c3] , assigns(:searches)[:communities][:results]
   end

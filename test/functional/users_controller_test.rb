@@ -135,7 +135,7 @@ class UsersControllerTest < ActionController::TestCase
 
   should 'be able to remove a person' do
     person = fast_create(Person, :environment_id => environment.id)
-    assert_difference Person, :count, -1 do
+    assert_difference 'Person.count', -1 do
       post :destroy_user, :id => person.id
     end
   end
@@ -143,7 +143,7 @@ class UsersControllerTest < ActionController::TestCase
   should 'not crash if user does not exist' do
     person = fast_create(Person)
 
-    assert_no_difference Person, :count do
+    assert_no_difference 'Person.count' do
       post :destroy_user, :id => 99999
     end
     assert_redirected_to :action => 'index'

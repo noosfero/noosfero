@@ -1356,7 +1356,7 @@ class ContentViewerControllerTest < ActionController::TestCase
 
   should 'not count hit from bots' do
     article = fast_create(Article, :profile_id => profile.id)
-    assert_no_difference article, :hits do
+    assert_no_difference 'article.hits' do
       @request.env['HTTP_USER_AGENT'] = 'bot'
       get 'view_page', :profile => profile.identifier, :page => article.path.split('/')
       @request.env['HTTP_USER_AGENT'] = 'spider'

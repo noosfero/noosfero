@@ -1,6 +1,6 @@
 class Block < ActiveRecord::Base
 
-  attr_accessible :title, :display, :limit, :box_id, :posts_per_page, :visualization_format, :language
+  attr_accessible :title, :display, :limit, :box_id, :posts_per_page, :visualization_format, :language, :display_user
 
   # to be able to generate HTML
   include ActionView::Helpers::UrlHelper
@@ -24,7 +24,7 @@ class Block < ActiveRecord::Base
 
   def embed_code
     me = self
-    lambda do
+    proc do
       content_tag('iframe', '',
         :src => url_for(:controller => 'embed', :action => 'block', :id => me.id, :only_path => false),
         :frameborder => 0,
@@ -214,9 +214,9 @@ class Block < ActiveRecord::Base
 
   def display_user_options
     @display_user_options ||= {
-      'all'            => __('All users'),
-      'logged'         => __('Logged'),
-      'not_logged'     => __('Not logged'),
+      'all'            => _('All users'),
+      'logged'         => _('Logged'),
+      'not_logged'     => _('Not logged'),
     }
   end
 
