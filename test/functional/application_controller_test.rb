@@ -565,4 +565,14 @@ class ApplicationControllerTest < ActionController::TestCase
     assert_no_tag :tag => 'meta', :attributes => { :property => 'article:published_time' }
     assert_no_tag :tag => 'meta', :attributes => { :property => 'og:image' }
   end
+
+  should 'register search_term occurrence on find_by_contents' do
+    controller = ApplicationController.new
+    controller.stubs(:environment).returns(Environment.default)
+    assert_difference 'SearchTermOccurrence.count', 1 do
+      controller.send(:find_by_contents, :people, Environment.default, Person, 'search_term', paginate_options={:page => 1}, options={})
+      process_delayed_job_queue
+    end
+  end
+
 end

@@ -164,11 +164,15 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def find_by_contents(asset, scope, query, paginate_options={:page => 1}, options={})
-    plugins.dispatch_first(:find_by_contents, asset, scope, query, paginate_options, options)
+  include SearchTermHelper
+
+  def find_by_contents(asset, context, scope, query, paginate_options={:page => 1}, options={})
+    search = plugins.dispatch_first(:find_by_contents, asset, scope, query, paginate_options, options)
+    register_search_term(query, scope.count, search[:results].count, context, asset)
+    search
   end
 
-  def find_suggestions(asset, query, options={})
-    plugins.dispatch_first(:find_suggestions, asset, query, options)
+  def find_suggestions(query, context, asset, options={})
+    plugins.dispatch_first(:find_suggestions, query, context, asset, options)
   end
 end
