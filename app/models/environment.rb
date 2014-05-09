@@ -10,6 +10,7 @@ class Environment < ActiveRecord::Base
   self.partial_updates = false
 
   has_many :tasks, :dependent => :destroy, :as => 'target'
+  has_many :search_terms, :as => :context
 
   IDENTIFY_SCRIPTS = /(php[0-9s]?|[sp]htm[l]?|pl|py|cgi|rb)/
 

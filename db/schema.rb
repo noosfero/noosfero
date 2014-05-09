@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140408172149) do
+ActiveRecord::Schema.define(:version => 20140507205338) do
 
   create_table "abuse_reports", :force => true do |t|
     t.integer  "reporter_id"
@@ -549,6 +549,25 @@ ActiveRecord::Schema.define(:version => 20140408172149) do
     t.datetime "updated_at"
     t.integer  "context_id"
   end
+
+  create_table "search_term_occurrences", :force => true do |t|
+    t.integer  "search_term_id"
+    t.datetime "created_at"
+    t.integer  "total",          :default => 0
+    t.integer  "indexed",        :default => 0
+  end
+
+  add_index "search_term_occurrences", ["created_at"], :name => "index_search_term_occurrences_on_created_at"
+
+  create_table "search_terms", :force => true do |t|
+    t.string  "term"
+    t.integer "context_id"
+    t.string  "context_type"
+    t.string  "asset",        :default => "all"
+    t.float   "score",        :default => 0.0
+  end
+
+  add_index "search_terms", ["term", "asset", "score"], :name => "index_search_terms_on_term_and_asset_and_score"
 
   create_table "sessions", :force => true do |t|
     t.string   "session_id", :null => false
