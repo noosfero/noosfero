@@ -48,24 +48,26 @@ class SearchTermTest < ActiveSupport::TestCase
 
   should 'calculate score' do
     search_term = SearchTerm.find_or_create('universe', Environment.default)
-    occurrence = SearchTermOccurrence.create!(:search_term => search_term, :total => 10, :indexed => 3)
-    search_term.save!
+    SearchTermOccurrence.create!(:search_term => search_term, :total => 10, :indexed => 3)
+    # Search term must happens at least two times to be considered
+    SearchTermOccurrence.create!(:search_term => search_term, :total => 10, :indexed => 3)
+    search_term.calculate_score
     assert search_term.score > 0, "Score was not calculated."
   end
 
   should 'not consider expired occurrences to calculate the score' do
     search_term = SearchTerm.find_or_create('universe', Environment.default)
     occurrence = SearchTermOccurrence.create!(:search_term => search_term, :total => 10, :indexed => 3, :created_at => DateTime.now - (SearchTermOccurrence::EXPIRATION_TIME + 1.day))
-    search_term.save!
+    search_term.calculate_score
     assert search_term.score == 0, "Considered expired occurrence to calculate the score."
   end
 
   should 'calculate search_terms scores' do
-    st1 = SearchTerm.create!(:term => 'st1')
+    st1 = SearchTerm.find_or_create('st1', Environment.default)
     SearchTermOccurrence.create!(:search_term => st1, :total => 10, :indexed => 3)
     SearchTermOccurrence.create!(:search_term => st1, :total => 20, :indexed => 8)
     SearchTermOccurrence.create!(:search_term => st1, :total => 30, :indexed => 9)
-    st2 = SearchTerm.create!(:term => 'st2')
+    st2 = SearchTerm.find_or_create('st2', Environment.default)
     SearchTermOccurrence.create!(:search_term => st2, :total => 10, :indexed => 7)
     SearchTermOccurrence.create!(:search_term => st2, :total => 20, :indexed => 16)
     SearchTermOccurrence.create!(:search_term => st2, :total => 30, :indexed => 21)

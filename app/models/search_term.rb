@@ -15,8 +15,6 @@ class SearchTerm < ActiveRecord::Base
     context.search_terms.where(:term => term, :asset => asset).first || context.search_terms.create!(:term => term, :asset=> asset)
   end
 
-  before_save :calculate_score
-
   def calculate_score
     valid_occurrences = occurrences.valid
     if valid_occurrences.present?
@@ -30,5 +28,6 @@ class SearchTerm < ActiveRecord::Base
     else
       self.score = 0
     end
+    self.save!
   end
 end
