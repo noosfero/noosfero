@@ -548,6 +548,7 @@ class DisplayContentBlockTest < ActiveSupport::TestCase
     Article.delete_all
     a1 = fast_create(PluginArticle, :name => 'test article 1', :profile_id => profile.id)
 
+    Noosfero::Plugin.stubs(:all).returns([Plugin1.name])
     env = fast_create(Environment)
     env.enable_plugin(Plugin1)
 

@@ -18,7 +18,9 @@ class RelevantContentPlugin::RelevantContentBlock < Block
   settings_items :show_most_disliked,   :type => :boolean, :default => 0
   settings_items :show_most_voted,      :type => :boolean, :default => 1
 
-  include ActionController::UrlWriter
+  include ActionView::Helpers
+  include Rails.application.routes.url_helpers
+
   def content(args={})
 
     content = block_title(title)
